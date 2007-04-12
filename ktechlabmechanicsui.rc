@@ -1,0 +1,11 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="KTechlabMechanics" version="2">
+	<MenuBar>
+	</MenuBar>
+	
+	<ToolBar name="itemEditorTB" noMerge="1">
+		<text>Item Editor</text>
+<!-- 		<Action name="null_action"/> -->
+	</ToolBar>
+</kpartgui>
+

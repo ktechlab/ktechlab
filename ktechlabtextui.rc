@@ -1,0 +1,96 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="KTechlabText" version="10">
+	<MenuBar>
+		<Menu name="file">
+			<text>&amp;File</text>
+			<!-- Why do we have both actions defined? Because Kate changed the name
+				 for KDE 3.5. Only one of them will show up in the user interface,
+				 depending on the version of KDE that the user has installed. -->
+			<Action name="file_export" group="save_merge"/>
+			<Action name="file_export_html" group="save_merge"/>
+		</Menu>
+		
+		<Menu name="tools">
+			<text>&amp;Tools</text>
+			<Separator/>
+			<Action name="tools_toggle_write_lock" group="tools_operations" />
+			<Separator group="tools_operations" />
+			<Action name="set_filetype" group="tools_operations" />
+			<Action name="set_highlight" group="tools_operations" />
+			<Action name="tools_indentation" group="tools_operations" />
+			<Action name="set_encoding" group="tools_operations" />
+			<Action name="set_eol" group="tools_operations" />
+<!-- 			<Separator group="tools_operations" /> -->
+<!-- 			<Action name="tools_spelling" group="tools_operations" /> -->
+<!-- 			<Action name="tools_spelling_from_cursor" group="tools_operations" /> -->
+<!-- 			<Action name="tools_spelling_selection" group="tools_operations" /> -->
+			<Separator group="tools_operations" />
+			<Action name="tools_indent" group="tools_operations" />
+			<Action name="tools_unindent" group="tools_operations" />
+			<Action name="tools_cleanIndent" group="tools_operations" />
+			<Action name="tools_align" group="tools_operations" />
+			<Separator group="tools_operations" />
+			<Action name="tools_comment" group="tools_operations" />
+			<Action name="tools_uncomment" group="tools_operations" />
+<!-- 			<Separator group="tools_operations" /> -->
+<!-- 			<Action name="tools_uppercase" group="tools_operations" /> -->
+<!-- 			<Action name="tools_lowercase" group="tools_operations" /> -->
+<!-- 			<Action name="tools_capitalize" group="tools_operations" /> -->
+			<Separator group="tools_operations" />
+			<Action name="tools_join_lines" group="tools_operations" />
+			<Action name="tools_apply_wordwrap" group="tools_operations" />
+			<Separator/>
+			<Action name="tools_to_microbe"/>
+			<Action name="tools_to_assembly"/>
+			<Action name="tools_to_hex"/>
+			<Action name="tools_to_pic"/>
+			<Separator/>
+			<Action name="format_asm"/>
+		</Menu>
+		
+		<Menu name="debug" group="debug_merge">
+			<text>&amp;Debug</text>
+			<Action name="debug_toggle_breakpoint"/>
+			<Separator/>
+			<Action name="debug_run"/>
+			<Action name="debug_interrupt"/>
+			<Action name="debug_stop"/>
+			<Separator/>
+			<Action name="debug_step"/>
+			<Action name="debug_step_over"/>
+			<Action name="debug_step_out"/>
+		</Menu>
+	</MenuBar>
+	
+	<!--<Menu name="ktexteditor_popup">
+		<Action name="edit_undo" group="popup_operations" />
+		<Action name="edit_redo" group="popup_operations" />
+		<Separator group="popup_operations" />
+		<Action name="edit_cut" group="popup_operations" />
+		<Action name="edit_copy" group="popup_operations" />
+		<Action name="edit_paste" group="popup_operations" />
+		<Separator group="popup_operations" />
+		<Action name="edit_select_all" group="popup_operations" />
+		<Action name="edit_deselect" group="popup_operations" />
+		<Separator group="popup_operations" />
+		<Action name="bookmarks" group="popup_operations" />
+		<Separator group="popup_operations" />
+	</Menu>-->
+	
+	<ToolBar name="toolsToolBar">
+		<text>Main Toolbar</text>
+		<Action name="incFontSizes" />
+		<Action name="decFontSizes" />
+		<Separator nomerge="1"/>
+		<Action name="program_convert"/>
+	</ToolBar>
+	
+	<ToolBar name="debugTB">
+		<text>Debugger</text>
+		<Action name="debug_run"/>
+		<Action name="debug_step"/>
+		<Action name="debug_step_over"/>
+		<Action name="debug_step_out"/>
+	</ToolBar>
+</kpartgui>
+
