@@ -1,7 +1,0 @@
-1. take the matrix class from electronics>simulation and convert it into 
-a proper LU solver class and put it here.
-
-2. Implement function generators for square, triangle, and noise 
-waveforms -- and whatever else may be useful. 
-
-
