@@ -1,0 +1,8 @@
+This directory is to contain all functionality 
+that is primarily mathematic in nature. This 
+includes, linear algebra, and waveform 
+generators. 
+
+Functionality related to physics which is more 
+specific than general math should go in the 
+physics directory. 

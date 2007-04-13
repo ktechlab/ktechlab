@@ -1,0 +1,68 @@
+<!-- kate: tab-width 2; indent-mode xml; -->
+<chapter id="faq">
+<title>FAQ</title>
+
+<qandaset>
+	<qandaentry>
+		<question>
+			<para>Configure can't find gpsim</para>
+		</question>
+		
+		<answer>
+			<para>Configure will attempt to compile several files to test for gpsim presence; testing for versions 0.21.4, 0.21.11 and 0.21.12. These files uses part of the gpsim API, that is also used by &kappname;, and was introduced in the respective gpsim versions. If it fails in compiling this program, it will display the warning to the user, and PIC simulation support will not be compiled into &kappname;. There are a number of possibly reasons for finding gpsim to fail:</para>
+			
+			<itemizedlist>
+				<listitem><para>gpsim >= 0.21.4 is not installed. &kappname; does not support gpsim-0.21.2 or gpsim-0.20.14 (or any earlier versions). Later versions may work; but this cannot be tested before they are released. The latest gpsim can be obtained from the <ulink url="http://www.dattalo.com/gnupic/gpsim.html">gpsim website</ulink>.</para></listitem>
+				<listitem><para>Gpsim is installed, but the header files could not be found. If gpsim is installed in a non-standard location, you may need to specify the location of the header files with "./configure --with-extra-includes=DIR". It is also likely you'll need to specify a library location with the configure option "--with-extra-lib" if the includes are in a non-standard location.</para></listitem>
+				<listitem><para>Gpsim is installed and the headers are somewhere where configure can find them, but there is some other glib craziness occuring.</para></listitem>
+			</itemizedlist>
+				
+			<para>Configure generates the file <computeroutput>config.log</computeroutput> which will contain details of exactly what went wrong. Searching for gpsim in this log should help you decide what's happened. As an example, here is part of the config.log file where one of the gpsim header files is missing:</para>
+			
+			<example><title>Possible config.log output where gpsim detection failed</title>
+				<programlisting>
+configure:30956: checking for gpsim 0.21.4 availability
+configure:31009: g++ -c -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include    
+-DQT_THREAD_SUPPORT -O3 -march=athlon-xp -mcpu=athlon-xp -D_REENTRANT 
+conftest.cc >&amp;5
+conftest.cc:48:35: gpsim/gpsim_interface.h: No such file or directory</programlisting>
+			</example>
+			
+			<para>If the config.log doesn't help, please contact the &kappname; developers with the relevant parts of config.log attached.</para>
+		</answer>
+	</qandaentry>
+	<qandaentry>
+		<question>
+			<para>&kappname; crashes when running a PIC program</para>
+		</question>
+		
+		<answer>
+			<para>Version 0.21.11 of gpsim contains a bug that may cause &kappname; to crash on the second running of a PIC program. This bug has since been fixed in gpsim-cvs. The &kappname; website provides a <ulink url="http://ktechlab.org/download/gpsim.php">patched version</ulink> of the stable release of gpsim that fixes this bug.</para>
+		</answer>
+	</qandaentry>
+	
+	<qandaentry>
+		<question>
+			<para>High Level Language (HLL) debugging does not work</para>
+		</question>
+		
+		<answer>
+			<para>Version 0.21.11 of gpsim contains a bug preventing HLL debugging from working. This bug has since been fixed in gpsim-cvs. The &kappname; website provides a <ulink url="http://ktechlab.org/download/gpsim.php">patched version</ulink> of the stable release of gpsim that fixes this bug.</para>
+		</answer>
+	</qandaentry>
+	
+	<qandaentry>
+		<question>
+			<para>&kappname; uses lots of CPU</para>
+		</question>
+		
+		<answer>
+			<para>There are several possible causes. Simulation of circuits that contain both reactive and nonlinear components (such as capacitors and transistors) take a lot of CPU time to simulate. You can pause and resume the simulation via the Tools menu.</para>
+			
+			<para>Drawing of the work area (in particular, redrawing lots of rapidly updating voltage bars on pins) is also CPU intensive. You can reduce the refresh rate or turn off the voltage bars via the Settings dialog. The refresh rate of the Oscilloscope can also be reduced by right clicking on its display.</para>
+
+			<para>Note that the next major release of &kappname; will be a lot faster in both displaying the work area and simulating reactive and nonlinear components.</para>
+		</answer>
+	</qandaentry>
+</qandaset>
+</chapter>

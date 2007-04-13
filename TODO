@@ -1,0 +1,49 @@
+0.4 targets:
+* Replace QCanvas with own optimized implementation.
+* "Tutorial" tool (e.g. for learning about electronic circuits and PICs) tailored to education.
+* Only use IDs for items, etc, in ItemDocumentData - otherwise they lead to too many bugs.
+* More intelligent connector routing.
+* Variable time step in Simulation.
+* Improved ItemEditor (free scaling preview buttons, moved buttons around, toolbar needs work, etc).
+* Remove insert / duplicate functionality for ViewContainers, and replace it with concept of empty panes.
+* Fix subcircuits so that they are saved in an itemdocument.
+* Fully i18n'izable (e.g. see string lists bug below, some buttons too big with non-english text, etc).
+* Full complement of basic electronic devices (e.g. mosfet, jfet).
+* Debugging support for FlowCode.
+
+New components:
+* ALU components (shifters, multipliers)
+* Displays: double-digit LCD display
+* Audio: buzzers, speakers.
+* Different types of signals (e.g. square, triangular) for current and voltage signal components.
+
+Bugs:
+* At the moment, KTechlab auto-detects a point in the circuit to use as ground, according to a set of priorities (e.g. the Ground component has the highest priority, then voltage elements, etc etc). However, some circuits do not have any point which should be considered ground, e.g. "(+9V)-------(Battery)". Suggested solution: detect a point to have as a fixed voltage, that can be anything including 0V.
+* Some string lists for item properties are not i18n-safe. Scaling {Linear, Logarithmic}; Polarity {Row Cathode, Column Cathode } / {Common Cathode, Common Anode}; Edge {Rising, Falling}; Unary Operation {Rotate Left, Rotate Right, Increment, Decremement}
+* Microbe should give "noline" where applicable in show-source (such as in delay routines).
+
+Features:
+* Bookmarks in the oscilloscope.
+* Draw an outline of the component / flowpart / etc being dragged from the list on the left to show where it will be placed. This will probably involve adding static functions to all Item subclasses that will do the drawing, and returning a pointer to the function in the LibraryItem the subclass returns.
+* Allow inserting a component into a wire, so that the wire is broken in two with the component connecting at either end.
+* Some intelligent connect tool that will connect up pins between components - e.g. if the pins are dragged over each other, or horizontaly next to each other.
+* Work area text: allow clickable URIs, rich text editor.
+* Indicate the direction of current flow in a wire when hovering the mouse over.
+* Allow editing of embedded code in the FlowCode element in a TextView, instead of a popup dialog.
+* Be able to "shake" an item to get rid of attached connectors.
+* Allow creating a flowcontainer by dragging a rectangle.
+* Templates for different file types (making use of the microcontroller selected).
+* "Show All" zoom action (zooms in / out to a level that shows everything in the work area).
+
+General TODO:
+* Finish serial and parallel port components.
+* optimize microbe some more?
+
+Polishing:
+* Make sure that when context help refers to "advanced" variables (i.e. only editable from the Item Editor tab), it makes clear how to edit them.
+* Informational message when user attempts to paste flowcode into a circuit (can't do so; must save and load into pic).
+* On program startup, use "text blobs" pointing to sidebars to explain what they do.
+* Update register info even when PIC is paused.
+* Move the "merge" button to individual property entries.
+* replace "refresh rate" slider in settings dialog with standard one.
+* flicker of bottom horizontal scrollbar when initially moving a component downwards from having no vertical scrollbar to having one.
