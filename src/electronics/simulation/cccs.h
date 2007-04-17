@@ -20,12 +20,6 @@ Branches b0 and b1 are for control and output
 @short Current Controlled Current Source
 @author David Saxton
 */
-
-/*
-Issue: Is this part a generator or a variable resistor?
-
-*/ 
-
 class CCCS : public Element
 {
 public:

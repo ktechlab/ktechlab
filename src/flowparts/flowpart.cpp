@@ -30,70 +30,79 @@
 #include <qpixmap.h>
 #include <qregexp.h>
 
-#include <cassert>
+#include <assert.h>
 #include <algorithm>
 #include <cmath>
 
 // The following arrays of numbers represent the positions of nodes in different configurations,
 // with the numbers as NodeInfo::Position.
 
-Node::node_dir diamondNodePositioning[8][3] = {
-	{Node::dir_up,	Node::dir_down,	Node::dir_right},
-	{Node::dir_up,	Node::dir_down,	Node::dir_left},
-	{Node::dir_up,	Node::dir_right,Node::dir_down},
-	{Node::dir_up,	Node::dir_right,Node::dir_left},
-	{Node::dir_left,Node::dir_right,Node::dir_down},
-	{Node::dir_left,Node::dir_right,Node::dir_up},
-	{Node::dir_left,Node::dir_down,	Node::dir_right},
-	{Node::dir_left,Node::dir_down,	Node::dir_up} };
+int diamondNodePositioning[8][3] = {
+	{270,	90,	0},
+	{270,	90,	180},
+	{270,	0,	90},
+	{270,	0,	180},
+	{180,	0,	90},
+	{180,	0,	270},
+	{180,	90,	0},
+	{180,	90,	270} };
 
-Node::node_dir inOutNodePositioning[8][2] = {
-	{Node::dir_up,Node::dir_down},
-	{Node::dir_up,Node::dir_right},
-	{Node::dir_up,Node::dir_left},
-	{Node::dir_right,Node::dir_right}, // (invalid)
-	{Node::dir_left,Node::dir_right},
-	{Node::dir_left,Node::dir_down},
-	{Node::dir_left,Node::dir_up},
-	{Node::dir_right,Node::dir_right} }; // (invalid)
+	int inOutNodePositioning[8][2] = {
+	{270,	90},
+	{270,	0},
+	{270,	180},
+	{0,		0}, // (invalid)
+	{180,	0},
+	{180,	90},
+	{180,	270},
+	{0,		0} }; // (invalid)
 
-Node::node_dir inNodePositioning[4] = {Node::dir_up,Node::dir_right,Node::dir_down,Node::dir_left};
+int inNodePositioning[4] = {270,0,90,180};
 
-Node::node_dir outNodePositioning[4] = {Node::dir_down,Node::dir_left,Node::dir_up,Node::dir_right};
+int outNodePositioning[4] = {90,180,270,0};
 
 FlowPart::FlowPart( ICNDocument *icnDocument, bool newItem, const QString &id )
 	: CNItem( icnDocument, newItem, id )
 {
-	icnDocument->registerItem(this);
-	m_pFlowCodeDocument = dynamic_cast<FlowCodeDocument*>(icnDocument);
-	assert( m_pFlowCodeDocument );
-	
 	m_flowSymbol = FlowPart::ps_other;
 	m_orientation = 0;
-	m_stdInput = 0;
-	m_stdOutput = 0;
-	m_altOutput = 0;
+	m_stdInput = 0l;
+	m_stdOutput = 0l;
+	m_altOutput = 0l;
 	
-	connect( m_pFlowCodeDocument, SIGNAL(picTypeChanged()), this, SLOT(slotUpdateFlowPartVariables()) );
-	connect( m_pFlowCodeDocument, SIGNAL(pinMappingsChanged()), this, SLOT(slotUpdateFlowPartVariables()) );
+	if ( icnDocument )
+	{
+		icnDocument->registerItem(this);
+		m_pFlowCodeDocument = dynamic_cast<FlowCodeDocument*>(icnDocument);
+		assert( m_pFlowCodeDocument );
+	
+		connect( m_pFlowCodeDocument, SIGNAL(picTypeChanged()), this, SLOT(slotUpdateFlowPartVariables()) );
+		connect( m_pFlowCodeDocument, SIGNAL(pinMappingsChanged()), this, SLOT(slotUpdateFlowPartVariables()) );
+	}
 }
+
 
 FlowPart::~FlowPart()
 {
 	// We have to check view, as if the item is deleted before the CNItem constructor
 	// is called, then there will be no view
-	if (m_pFlowCodeDocument) {
+	if (m_pFlowCodeDocument)
+	{
 		const VariantDataMap::iterator end = m_variantData.end();
-		for(VariantDataMap::iterator it = m_variantData.begin(); it != end; ++it) {
+		for ( VariantDataMap::iterator it = m_variantData.begin(); it != end; ++it )
+		{
 			Variant *v = it.data();
-			if(v) m_pFlowCodeDocument->varNameChanged( "", v->value().toString());
+			if (v)
+				m_pFlowCodeDocument->varNameChanged( "", v->value().toString() );
 		}
 	}
 }
 
+
 void FlowPart::setCaption( const QString &caption )
 {
-	if(m_flowSymbol == FlowPart::ps_other) {
+	if ( m_flowSymbol == FlowPart::ps_other )
+	{
 		m_caption = caption;
 		return;
 	}
@@ -109,20 +118,27 @@ void FlowPart::setCaption( const QString &caption )
 	switch(m_flowSymbol)
 	{
 		case FlowPart::ps_call:
+		{
 			width += 48;
 			break;
+		}
 		case FlowPart::ps_io:
 		case FlowPart::ps_round:
+		{
 			width += 32;
 			break;
+		}
 		case FlowPart::ps_decision:
+		{
 			width += 64;
 			break;
-
+		}
 		case FlowPart::ps_process:
 		default:
+		{
 			width += 32;
 			break;
+		}
 	}
 	
 	bool hasSideConnectors = m_flowSymbol == FlowPart::ps_decision;
@@ -140,17 +156,17 @@ void FlowPart::postResize()
 
 void FlowPart::createStdInput()
 {
-	m_stdInput = (FPNode*)createNode( 0, 0, Node::dir_up, "stdinput", Node::fp_in );
+	m_stdInput = (FPNode*)createNode( 0, 0, 270, "stdinput", Node::fp_in );
 	updateNodePositions();
 }
 void FlowPart::createStdOutput()
 {
-	m_stdOutput = (FPNode*)createNode( 0, 0, Node::dir_down, "stdoutput", Node::fp_out );
+	m_stdOutput = (FPNode*)createNode( 0, 0, 90, "stdoutput", Node::fp_out );
 	updateNodePositions();
 }
 void FlowPart::createAltOutput()
 {
-	m_altOutput = (FPNode*)createNode( 0, 0, Node::dir_right, "altoutput", Node::fp_out );
+	m_altOutput = (FPNode*)createNode( 0, 0, 0, "altoutput", Node::fp_out );
 	updateNodePositions();
 }
 
@@ -238,18 +254,22 @@ void FlowPart::drawShape( QPainter &p )
 	switch (m_flowSymbol)
 	{
 		case FlowPart::ps_other:
+		{	
 			CNItem::drawShape(p);
 			break;
+		}
+		
 		case FlowPart::ps_io:
 		{
 			h--;
 			double roundSize = 8;
 			double slantIndent = 5;
 			
-			const double DPR = 180./ M_PI;
+			const double pi = 3.1415926536;
+			const double DPR = 180./pi;
 // 			CNItem::drawShape(p);
 			double inner = std::atan(h/slantIndent);
-			double outer = M_PI-inner;
+			double outer = pi-inner;
 			
 			int inner16 = int(16*inner*DPR);
 			int outer16 = int(16*outer*DPR);
@@ -315,11 +335,11 @@ QString FlowPart::gotoCode( const QString& internalNodeId )
 FlowPart* FlowPart::outputPart( const QString& internalNodeId )
 {
 	Node *node = p_icnDocument->nodeWithID( nodeId(internalNodeId) );
-
+	
 	FPNode *fpnode = dynamic_cast<FPNode*>(node);
-
-	if(!fpnode || fpnode->type() == Node::fp_in) return 0;
-
+	if ( !fpnode || fpnode->type() == Node::fp_in )
+		return 0l;
+	
 	return fpnode->outputFlowPart();
 }
 
@@ -327,7 +347,7 @@ FlowPartList FlowPart::inputParts( const QString& id )
 {
 	Node *node = p_icnDocument->nodeWithID(id);
 	
-	if(FPNode *fpNode = dynamic_cast<FPNode*>(node))
+	if ( FPNode *fpNode = dynamic_cast<FPNode*>(node) )
 		return fpNode->inputFlowParts();
 	
 	return FlowPartList();
@@ -336,43 +356,47 @@ FlowPartList FlowPart::inputParts( const QString& id )
 FlowPartList FlowPart::inputParts()
 {
 	FlowPartList list;
-
-	const NodeMap::iterator nEnd = m_nodeMap.end();
-	for(NodeMap::iterator it = m_nodeMap.begin(); it != nEnd; ++it) {
+	
+	const NodeInfoMap::iterator nEnd = m_nodeMap.end();
+	for ( NodeInfoMap::iterator it = m_nodeMap.begin(); it != nEnd; ++it )
+	{
 		Node *node = p_icnDocument->nodeWithID( it.data().id );
 		FlowPartList newList;
-
-		if(FPNode *fpNode = dynamic_cast<FPNode*>(node) )
+		
+		if ( FPNode *fpNode = dynamic_cast<FPNode*>(node) )
 			newList = fpNode->inputFlowParts();
 		
 		const FlowPartList::iterator nlEnd = newList.end();
-		for(FlowPartList::iterator it = newList.begin(); it != nlEnd; ++it) {
+		for ( FlowPartList::iterator it = newList.begin(); it != nlEnd; ++it )
+		{
 			if (*it) list.append(*it);
 		}
 	}
-
+	
 	return list;
 }
 
 FlowPartList FlowPart::outputParts()
 {
 	FlowPartList list;
-
-	const NodeMap::iterator end = m_nodeMap.end();
-	for ( NodeMap::iterator it = m_nodeMap.begin(); it != end; ++it ) {
+	
+	const NodeInfoMap::iterator end = m_nodeMap.end();
+	for ( NodeInfoMap::iterator it = m_nodeMap.begin(); it != end; ++it )
+	{
 		FlowPart *part = outputPart( it.key() );
 		if (part) list.append(part);
 	}
-
+	
 	return list;
 }
 
 
 FlowPart* FlowPart::endPart( QStringList ids, FlowPartList *previousParts )
 {
-	if ( ids.empty() ) {
-		const NodeMap::iterator end = m_nodeMap.end();
-		for ( NodeMap::iterator it = m_nodeMap.begin(); it != end; ++it )
+	if ( ids.empty() )
+	{
+		const NodeInfoMap::iterator end = m_nodeMap.end();
+		for ( NodeInfoMap::iterator it = m_nodeMap.begin(); it != end; ++it )
 		{
 			ids.append( it.key() );
 		}
@@ -383,50 +407,55 @@ FlowPart* FlowPart::endPart( QStringList ids, FlowPartList *previousParts )
 	if (createdList) {
 		previousParts = new FlowPartList;
 	} else if ( previousParts->contains(this) ) {
-		return 0;
+		return 0l;
 	}
-
 	previousParts->append(this);
-
+	
 	if ( ids.empty() ) {
-		return 0;
+		return 0l;
 	}
-
 	if ( ids.size() == 1 ) {
 		return outputPart( *(ids.begin()) );
 	}
-
+	
 	typedef QValueList<FlowPartList>  ValidPartsList;
 	ValidPartsList validPartsList;
-
+	
 	const QStringList::iterator idsEnd = ids.end();
-	for(QStringList::iterator it = ids.begin(); it != idsEnd; ++it) {
+	for ( QStringList::iterator it = ids.begin(); it != idsEnd; ++it )
+	{
 		int prevLevel = level();
 		FlowPartList validParts;
 		FlowPart *part = outputPart(*it);
-
-		while (part) {
+		while (part)
+		{
 			if ( !validParts.contains(part) )
 			{
 				validParts.append(part);
+// 				if ( part->level() >= level() ) {
 				const int _l = part->level();
 				part = part->endPart( QStringList(), previousParts );
 				prevLevel = _l;
-			} else part = 0;
-
+// 				} else {
+// 					part = 0l;
+// 				}
+			}
+			else {
+				part = 0l;
+			}
 		}
-
 		if ( !validParts.empty() ) {
 			validPartsList.append(validParts);
 		}
 	}
 	
-	if (createdList) {
+	if (createdList)
+	{
 		delete previousParts;
-		previousParts = 0;
+		previousParts = 0l;
 	}
 	
-	if ( validPartsList.empty() ) return 0;
+	if ( validPartsList.empty() ) return 0l;
 	
 	FlowPartList firstList = *(validPartsList.begin());
 	const FlowPartList::iterator flEnd = firstList.end();
@@ -441,7 +470,7 @@ FlowPart* FlowPart::endPart( QStringList ids, FlowPartList *previousParts )
 		if (ok) return *it;
 	}
 	
-	return 0;
+	return 0l;
 }
 
 
@@ -450,7 +479,7 @@ void FlowPart::handleIfElse( FlowCode *code, const QString &case1Statement, cons
 {
 	if (!code) return;
 	
-	FlowPart *stop = 0;
+	FlowPart *stop = 0l;
 	FlowPart *part1 = outputPart(case1);
 	FlowPart *part2 = outputPart(case2);
 	
@@ -501,8 +530,11 @@ Variant * FlowPart::createProperty( const QString & id, Variant::Type::Value typ
 	
 	if ( type == Variant::Type::VarName )
 	{
-		if ( MicroSettings * settings = m_pFlowCodeDocument->microSettings() )
-			v->setAllowed( settings->variableNames() );
+		if ( m_pFlowCodeDocument )
+		{
+			if ( MicroSettings * settings = m_pFlowCodeDocument->microSettings() )
+				v->setAllowed( settings->variableNames() );
+		}
 		connect( property(id), SIGNAL(valueChanged(QVariant, QVariant )), this, SLOT(varNameChanged(QVariant, QVariant )) );
 	}
 	else
@@ -607,17 +639,17 @@ void FlowPart::varNameChanged( QVariant newValue, QVariant oldValue )
 }
 
 
-inline int nodeDirToPos( Node::node_dir dir )
+inline int nodeDirToPos( int dir )
 {
-	switch (dir)
+	switch ( dir )
 	{
-		case Node::dir_right:
+		case 0:
 			return 0;
-		case Node::dir_up:
+		case 270:
 			return 1;
-		case Node::dir_left:
+		case 180:
 			return 2;
-		case Node::dir_down:
+		case 90:
 			return 3;
 	}
 	return 0;
@@ -637,16 +669,16 @@ void FlowPart::updateAttachedPositioning( )
 		QRect( 0,					offsetY()+height(),	40, 16 ) };
 	
 	NodeInfo * stdOutputInfo = m_stdOutput ? &m_nodeMap["stdoutput"] : 0;
-	NodeInfo * altOutputInfo = m_altOutput ? &m_nodeMap["altoutput"] : 0;
+	NodeInfo * altOutputInfo = m_altOutput ? &m_nodeMap["altoutput"] : 0l;
 	
-	Text *outputTrueText = m_textMap.contains("output_true") ? m_textMap["output_true"] : 0;
-	Text *outputFalseText = m_textMap.contains("output_false") ? m_textMap["output_false"] : 0;
+	Text *outputTrueText = m_textMap.contains("output_true") ? m_textMap["output_true"] : 0l;
+	Text *outputFalseText = m_textMap.contains("output_false") ? m_textMap["output_false"] : 0l;
 	
 	if ( stdOutputInfo && outputTrueText )
-		outputTrueText->setOriginalRect( textPos[ nodeDirToPos( (Node::node_dir)stdOutputInfo->orientation ) ] );
+		outputTrueText->setOriginalRect( textPos[ nodeDirToPos( stdOutputInfo->orientation ) ] );
 	
 	if ( altOutputInfo && outputFalseText )
-		outputFalseText->setOriginalRect( textPos[ nodeDirToPos( (Node::node_dir)altOutputInfo->orientation ) ] );
+		outputFalseText->setOriginalRect( textPos[ nodeDirToPos( altOutputInfo->orientation ) ] );
 	
 	const TextMap::iterator textMapEnd = m_textMap.end();
 	for ( TextMap::iterator it = m_textMap.begin(); it != textMapEnd; ++it )
@@ -657,8 +689,8 @@ void FlowPart::updateAttachedPositioning( )
 	}
 	//END Rearrange text if appropriate
 	
-	const NodeMap::iterator end = m_nodeMap.end();
-	for ( NodeMap::iterator it = m_nodeMap.begin(); it != end; ++it )
+	const NodeInfoMap::iterator end = m_nodeMap.end();
+	for ( NodeInfoMap::iterator it = m_nodeMap.begin(); it != end; ++it )
 	{
 		if ( !it.data().node )
 		{
@@ -675,7 +707,7 @@ void FlowPart::updateAttachedPositioning( )
 #undef round_8
 			
 		it.data().node->move( int(nx+x()), int(ny+y()) );
-		it.data().node->setOrientation( (Node::node_dir)it.data().orientation );
+		it.data().node->setOrientation( it.data().orientation );
 	}
 }
 
@@ -704,9 +736,9 @@ void FlowPart::updateNodePositions()
 		return;
 	}
 	
-	NodeInfo * stdInputInfo = m_stdInput ? &m_nodeMap["stdinput"] : 0;
+	NodeInfo * stdInputInfo = m_stdInput ? &m_nodeMap["stdinput"] : 0l;
 	NodeInfo * stdOutputInfo = m_stdOutput ? &m_nodeMap["stdoutput"] : 0;
-	NodeInfo * altOutputInfo = m_altOutput ? &m_nodeMap["altoutput"] : 0;
+	NodeInfo * altOutputInfo = m_altOutput ? &m_nodeMap["altoutput"] : 0l;
 	
 	if ( m_stdInput && m_stdOutput && m_altOutput )
 	{
@@ -732,8 +764,8 @@ void FlowPart::updateNodePositions()
 		return;
 	}
 	
-	const NodeMap::iterator end = m_nodeMap.end();
-	for ( NodeMap::iterator it = m_nodeMap.begin(); it != end; ++it )
+	const NodeInfoMap::iterator end = m_nodeMap.end();
+	for ( NodeInfoMap::iterator it = m_nodeMap.begin(); it != end; ++it )
 	{
 		if ( !it.data().node )
 			kdError() << k_funcinfo << "Node in nodemap is null" << endl;
@@ -742,19 +774,19 @@ void FlowPart::updateNodePositions()
 		{
 			switch ( it.data().orientation )
 			{
-				case Node::dir_right:
+				case 0:
 					it.data().x = offsetX()+width()+8;
 					it.data().y = 0;
 					break;
-				case Node::dir_up:
+				case 270:
 					it.data().x = 0;
 					it.data().y = offsetY()-8;
 					break;
-				case Node::dir_left:
+				case 180:
 					it.data().x = offsetX()-8;
 					it.data().y = 0;
 					break;
-				case Node::dir_down:
+				case 90:
 					it.data().x = 0;
 					it.data().y = offsetY()+height()+8;;
 					break;

@@ -255,7 +255,7 @@ class Parser
 		 * false. Else, *ok is set to true and the literal value is returned.
 		 * @see isLiteral
 		 */
-		static int literalToInt( const QString & literal, bool * ok = 0 );
+		static int literalToInt( const QString & literal, bool * ok = 0l );
 		/**
 		 * Does the specified operation on the given numbers and returns the result.
 		 */

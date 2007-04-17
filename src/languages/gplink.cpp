@@ -16,8 +16,8 @@
 #include <kmessagebox.h>
 #include <kprocess.h>
 
-Gplink::Gplink( ProcessChain *processChain, KTechlab * parent )
-	: ExternalLanguage( processChain, parent, "Gpasm" )
+Gplink::Gplink( ProcessChain *processChain )
+	: ExternalLanguage( processChain, "Gpasm" )
 {
 	m_successfulMessage = i18n("*** Linking successful ***");
 	m_failedMessage = i18n("*** Linking failed ***");

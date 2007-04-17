@@ -22,9 +22,8 @@ class BJT;
 class ECBJT : public Component
 {
 	public:
-		ECBJT( bool isNPN, ICNDocument *icnDocument, bool newItem, const char * id = 0 );
+		ECBJT( bool isNPN, ICNDocument *icnDocument, bool newItem, const char * id = 0L );
 		~ECBJT();
-		virtual bool canFlip() const { return true; }
 	
 		static Item * constructNPN( ItemDocument * itemDocument, bool newItem, const char * id );
 		static Item * constructPNP( ItemDocument * itemDocument, bool newItem, const char * id );

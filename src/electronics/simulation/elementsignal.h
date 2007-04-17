@@ -35,16 +35,11 @@ public:
 	double advance();
 
 protected:
-
-// TODO: Implement phase angle variable so that the user can specify multiple generators
-// with precise phase offsets. 
-
 	Type m_type;
-	double m_time;  // TODO SHOULD BE DISCARDED IN FAVOR OF GLOBAL CLOCK. 
+	double m_time;
 	double m_frequency;
-	double m_delta; // TODO SHOULD BE DISCARDED IN FAVOR OF GLOBAL CLOCK. 
+	double m_delta;
 	double m_omega; // Used for sinusoidal signal
-// random moron: HUH?  
 };
 
 #endif

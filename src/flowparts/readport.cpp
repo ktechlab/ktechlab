@@ -23,7 +23,7 @@ Item* ReadPort::construct( ItemDocument *itemDocument, bool newItem, const char 
 LibraryItem* ReadPort::libraryItem()
 {
 	return new LibraryItem(
-		QString("flow/readport"),
+		"flow/readport",
 		i18n("Read from Port"),
 		i18n("I\\/O"),
 		"portread.png",
@@ -32,10 +32,9 @@ LibraryItem* ReadPort::libraryItem()
 }
 
 ReadPort::ReadPort( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowPart( icnDocument, newItem, (id) ? id : "readport" )
+	: FlowPart( icnDocument, newItem, id ? id : "readport" )
 {
 	m_name = i18n("Read from Port");
-	m_desc = i18n("Assign the value of a port to a variable.");
 	initIOSymbol();
 	createStdInput();
 	createStdOutput();
@@ -46,7 +45,7 @@ ReadPort::ReadPort( ICNDocument *icnDocument, bool newItem, const char *id )
 	property("0-port")->setValue("PORTA");
 	
 	createProperty( "1-var", Variant::Type::VarName );
-	property("1-var")->setToolbarCaption( "to" );
+	property("1-var")->setToolbarCaption( i18n( "read from port to x", "to" ) );
 	property("1-var")->setEditorCaption( i18n("Variable") );
 	property("1-var")->setValue("x");
 }

@@ -18,7 +18,7 @@
 #include <klocale.h>
 #include <qpainter.h>
 #include <cmath>
-#include <cassert>
+#include <assert.h>
 
 #include <kdebug.h>
 
@@ -31,7 +31,7 @@ Item* ECRotoSwitch::construct( ItemDocument *itemDocument, bool newItem, const c
 LibraryItem* ECRotoSwitch::libraryItem()
 {
     return new LibraryItem(
-                            QString("ec/roto_switch"),
+                            "ec/roto_switch",
                             i18n("Rotary"),
                             i18n("Switches"),
                             "rotary.png",
@@ -44,9 +44,7 @@ ECRotoSwitch::ECRotoSwitch( ICNDocument *icnDocument, bool newItem, const char *
 : Component( icnDocument, newItem, id ? id : "roto_switch" ),
 m_numPositions(0)
 {
-// 	m_name = i18n("Rotary Switch(WIP)");
 	m_name = i18n("Rotary Switch");
-    m_desc = i18n("A single-throw N-position switch");
     QPointArray pa;
     pa.makeArc( -_pinInnerRadius, -_pinInnerRadius, 2*_pinInnerRadius, 2*_pinInnerRadius , 0, 16*360 );
     setItemPoints( pa );
@@ -74,17 +72,19 @@ m_numPositions(0)
     v->setCaption("Bounce");
     v->setAdvanced(true);
     v->setValue(false);
+    
 
     v = createProperty( "bounce_period", Variant::Type::Double );
     v->setCaption("Bounce Period");
     v->setAdvanced(true);
     v->setUnit("s");
     v->setValue(5e-3);
+    
 
     v = createProperty( "cur_position", Variant::Type::Int );
     v->setHidden( true );
     v->setValue( 0 );
-
+    
     //v = createProperty( "left_momentary", Variant::Type::Bool );
     //v->setCaption(i18n("Left Momentary" ) );
     //v->setValue(false);
@@ -116,21 +116,23 @@ inline int roundTo10(int a){return ((a/10)+(a%10<5?0:1))*10;}
 void ECRotoSwitch::drawShape( QPainter &p )
 {
     initPainter(p);
-
+    
+    
     int cx = static_cast<int>(x());
     int cy =  static_cast<int>(y());
 
     const int rotorRadius = 5;
 
+    
     //draw the rotor
     p.drawEllipse(cx - rotorRadius, cy-rotorRadius, 2*rotorRadius, 2*rotorRadius);
     //and its connection
     p.drawLine(cx, cy+rotorRadius, cx, cy+_pinInnerRadius);
-
+    
     //draw the output positions
     double angleBetweenPositions = (4*M_PI/3)/(m_numPositions - 1);
     //kdDebug() << "drawShape: " << bigRadius << " " << angleBetweenPositions << endl;
-
+    
     /// \internal \brief Round to the nearest multiple of 8    
 #define round_8(a)      (((a) > 0) ? int(((a)+4)/8)*8 : int(((a)-4)/8)*8)
     for(int i = 0; i < m_numPositions ; i++)
@@ -169,7 +171,8 @@ void ECRotoSwitch::drawShape( QPainter &p )
     int rotorX = static_cast<int>(rotorRadius * cos(angle));
     int rotorY = static_cast<int>(rotorRadius * sin(angle));
     p.drawLine(cx+rotorX, cy-rotorY, cx+contactX, cy-contactY);
-
+    
+    
     deinitPainter(p);
 }
 
@@ -187,7 +190,7 @@ void ECRotoSwitch::buttonStateChanged( const QString & id, bool state )
         {
             return;
         }
-
+        
         if(m_curPosition == 0)
         {
             nextPos = m_curPosition + 1;
@@ -196,7 +199,7 @@ void ECRotoSwitch::buttonStateChanged( const QString & id, bool state )
         {
             nextPos = m_curPosition - 1;
         }
-
+        
     }
     else //press
     {
@@ -213,12 +216,12 @@ void ECRotoSwitch::buttonStateChanged( const QString & id, bool state )
     if(nextPos != m_curPosition)
     {
         SwitchPosition& nextSP = m_positions[nextPos];
-
+        
         curSP.posSwitch->setState(Switch::Open);
         nextSP.posSwitch->setState(Switch::Closed);
-
+        
         m_curPosition = nextPos;
-
+        
         property( "cur_position" )->setValue( m_curPosition );
     }
 }
@@ -244,7 +247,7 @@ void ECRotoSwitch::setUpSwitches()
         removeNode(pinName);
         removeSwitch(sp.posSwitch);
     }
-
+    
     m_numPositions = dataInt("num_positions");
     if(m_curPosition >= m_numPositions )
     {
@@ -259,7 +262,7 @@ void ECRotoSwitch::setUpSwitches()
         double angle = (7*M_PI/6) - (i * angleBetweenPositions);
         int contactX = static_cast<int>(_contactRingRadius * cos(angle));
         int contactY = static_cast<int>(_contactRingRadius * sin(angle));
-
+        
         SwitchPosition sp;
         if(angle > 3*M_PI/4)
         {
@@ -297,16 +300,16 @@ void ECRotoSwitch::setUpSwitches()
  * \param newPosition the position to switch to
  */
 void ECRotoSwitch::setActivePosition(int newPosition)
-{
+{        
     SwitchPosition& curSP = m_positions[m_curPosition];
     SwitchPosition& nextSP = m_positions[newPosition];
-
+    
     curSP.posSwitch->setState(Switch::Open);
     nextSP.posSwitch->setState(Switch::Closed);
-
+    
     m_curPosition = newPosition;
-
+    
     property( "cur_position" )->setValue( m_curPosition );
-
+    
 }
 //END class ECRotoSwitch

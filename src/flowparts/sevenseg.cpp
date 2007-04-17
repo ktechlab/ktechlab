@@ -26,7 +26,7 @@ LibraryItem* SevenSeg::libraryItem()
 	return new LibraryItem(
 		"flow/sevenseg",
 		i18n("Seven Segment"),
-		"Functions",
+		i18n("Functions"),
 		"seven_segment.png",
 		LibraryItem::lit_flowpart,
 		SevenSeg::construct
@@ -38,7 +38,6 @@ SevenSeg::SevenSeg( ICNDocument *icnDocument, bool newItem, const char *id )
 	: FlowPart( icnDocument, newItem, id ? id : "sevenseg" )
 {
 	m_name = i18n("SevenSeg");
-	m_desc = i18n("Output to a Seven Segment display.");
 	initProcessSymbol();
 	createStdInput();
 	createStdOutput();

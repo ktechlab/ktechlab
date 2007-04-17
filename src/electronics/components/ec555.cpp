@@ -27,7 +27,7 @@ Item* EC555::construct( ItemDocument *itemDocument, bool newItem, const char *id
 LibraryItem* EC555::libraryItem()
 {
 	return new LibraryItem(
-		QString::QString("ec/555"),
+		"ec/555",
 		i18n("555"),
 		i18n("Integrated Circuits"),
 		"ic1.png",
@@ -40,7 +40,6 @@ EC555::EC555( ICNDocument *icnDocument, bool newItem, const char *id )
 	: Component( icnDocument, newItem, (id) ? id : "555" )
 {
 	m_name = i18n("555");
-	m_desc = i18n("Common timer IC");
 // 	m_pins = QStringList::split( ',', "Gnd,Trg,Out,Res,CV,Th,Dis,Vcc" );
 // 	m_pins = QStringList::split( ',', "Dis,Th,Trg,Gnd,CV,Out,Res,Vcc" );
 	
@@ -106,6 +105,7 @@ EC555::EC555( ICNDocument *icnDocument, bool newItem, const char *id )
 	m_po_source->setConductance(0.);
 	m_r_discharge = createResistance( discharge, ground, 0. );
 }
+
 
 EC555::~EC555()
 {

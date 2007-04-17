@@ -36,17 +36,19 @@ class ColorCombo : public QComboBox
   	 	/**
 		 * Constructs a color combo box.
 		 */
-		ColorCombo( ColorScheme colorScheme, QWidget *parent, const char *name = 0 );
+		ColorCombo( ColorScheme colorScheme, QWidget *parent, const char *name = 0L );
 		~ColorCombo();
 
-		/**
-		 * Selects the color @p col.
-		 */
-		void setColor( const QColor & col );
 		/**
 		 * Returns the currently selected color.
 		**/
 		QColor color() const { return internalColor; }
+		
+	public slots:
+		/**
+		 * Selects the color @p col.
+		 */
+		void setColor( const QColor & col );
 
 	signals:
     	/**

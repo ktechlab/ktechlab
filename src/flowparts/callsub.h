@@ -20,7 +20,7 @@
 class CallSub : public FlowPart
 {
 public:
-	CallSub( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	CallSub( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~CallSub();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

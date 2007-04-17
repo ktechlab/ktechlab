@@ -16,10 +16,11 @@
 #include <kdebug.h>
 #include <qpainter.h>
 
-FPNode::FPNode( ICNDocument *icnDocument, Node::node_type type, node_dir dir, const QPoint &pos, QString *id )
+FPNode::FPNode( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint &pos, QString *id )
 	: Node( icnDocument, type, dir, pos, id )
 {
-	icnDocument->registerItem(this);
+	if ( icnDocument )
+		icnDocument->registerItem(this);
 }
 
 
@@ -39,11 +40,11 @@ FlowPart *FPNode::outputFlowPart() const
 		kdError() << "FpNode::outputFlowPart(): outputConnectorList() size is greater than 1"<<endl;
 	
 	else if ( m_outputConnectorList.size() < 1 )
-		return 0;
+		return 0l;
 	
 	ConnectorList::const_iterator it = m_outputConnectorList.begin();
 	if ( it == m_outputConnectorList.end() || !*it || !(*it)->endNode()  )
-		return 0;
+		return 0L;
 	
 	return (dynamic_cast<FPNode*>((*it)->endNode()))->outputFlowPart();
 }
@@ -64,7 +65,7 @@ FlowPartList FPNode::inputFlowParts() const
 		if (*it)
 		{
 			Node *startNode = (*it)->startNode();
-			FlowPart *flowPart = startNode ? dynamic_cast<FlowPart*>(startNode->parentItem()) : 0;
+			FlowPart *flowPart = startNode ? dynamic_cast<FlowPart*>(startNode->parentItem()) : 0l;
 			if (flowPart)
 				list.append(flowPart);
 		}
@@ -73,27 +74,27 @@ FlowPartList FPNode::inputFlowParts() const
 }
 
 
-inline QPointArray arrowPoints( Node::node_dir dir )
+inline QPointArray arrowPoints( int dir )
 {
 	QPointArray pa(3);
-	switch (dir)
+	switch ( dir )
 	{
-		case Node::dir_right:
+		case 0:
 			pa[0] = QPoint( 3, 0 );
 			pa[1] = QPoint( 0, 2 );
 			pa[2] = QPoint( 0, -2 );
 			break;
-		case Node::dir_left:
+		case 180:
 			pa[0] = QPoint( -3, 0 );
 			pa[1] = QPoint( 0, 2 );
 			pa[2] = QPoint( 0, -2 );
 			break;
-		case Node::dir_down:
+		case 90:
 			pa[0] = QPoint( 2, 0 );
 			pa[1] = QPoint( -2, 0 );
 			pa[2] = QPoint( 0, 3 );
 			break;
-		case Node::dir_up:
+		case 270:
 			pa[0] = QPoint( 2, 0 );
 			pa[1] = QPoint( -2, 0 );
 			pa[2] = QPoint( 0, -3 );
@@ -130,22 +131,22 @@ void FPNode::drawShape( QPainter &p )
 			QPointArray pa;
 			if ( end_0.x() < end_1.x() )
 			{
-				pa = arrowPoints( Node::dir_left );
+				pa = arrowPoints( 180 );
 				pa.translate( 4, 0 );
 			}
 			else if ( end_0.x() > end_1.x() )
 			{
-				pa = arrowPoints( Node::dir_right );
+				pa = arrowPoints( 0 );
 				pa.translate( -4, 0 );
 			}
 			else if ( end_0.y() < end_1.y() )
 			{
-				pa = arrowPoints( Node::dir_up );
+				pa = arrowPoints( 270 );
 				pa.translate( 0, 4 );
 			}
 			else if ( end_0.y() > end_1.y() )
 			{
-				pa = arrowPoints( Node::dir_down );
+				pa = arrowPoints( 90 );
 				pa.translate( 0, -4 );
 			}
 			else
@@ -158,31 +159,31 @@ void FPNode::drawShape( QPainter &p )
 		return;
 	}
 	
-	if		( m_dir == Node::dir_right )	p.drawLine( _x, _y, _x-8, _y );
-	else if ( m_dir == Node::dir_down )		p.drawLine( _x, _y, _x, _y-8 );
-	else if ( m_dir == Node::dir_left )		p.drawLine( _x, _y, _x+8, _y );
-	else if ( m_dir == Node::dir_up )		p.drawLine( _x, _y, _x, _y+8 );
+	if		( m_dir == 0 )	p.drawLine( _x, _y, _x-8, _y );
+	else if ( m_dir == 90 )		p.drawLine( _x, _y, _x, _y-8 );
+	else if ( m_dir == 180 )		p.drawLine( _x, _y, _x+8, _y );
+	else if ( m_dir == 270 )		p.drawLine( _x, _y, _x, _y+8 );
 	
 	QPointArray pa(3);	
 	
 	// Right facing arrow
-	if ( (type() == fp_out && m_dir == Node::dir_right) ||
-			 (type() == fp_in && m_dir == Node::dir_left ) )
-		pa = arrowPoints( Node::dir_right );
+	if ( (type() == fp_out && m_dir == 0) ||
+			 (type() == fp_in && m_dir == 180 ) )
+		pa = arrowPoints( 0 );
 	
 	// Left facing arrow
-	else if ( (type() == fp_out && m_dir == Node::dir_left) ||
-				  (type() == fp_in && m_dir == Node::dir_right) )
-		pa = arrowPoints( Node::dir_left );
+	else if ( (type() == fp_out && m_dir == 180) ||
+				  (type() == fp_in && m_dir == 0) )
+		pa = arrowPoints( 180 );
 	
 	// Down facing arrow
-	else if ( (type() == fp_out && m_dir == Node::dir_down) ||
-				  (type() == fp_in && m_dir == Node::dir_up) )
-		pa = arrowPoints( Node::dir_down );
+	else if ( (type() == fp_out && m_dir == 90) ||
+				  (type() == fp_in && m_dir == 270) )
+		pa = arrowPoints( 90 );
 	
 	// Up facing arrow
 	else
-		pa = arrowPoints( Node::dir_up );
+		pa = arrowPoints( 270 );
 	
 	
 	// Note: I have not tested the positioning of the arrows for all combinations.
@@ -191,17 +192,17 @@ void FPNode::drawShape( QPainter &p )
 	
 	if ( type() == fp_out )
 	{
-		if		( m_dir == Node::dir_right ) pa.translate( -5, 0 );
-		else if ( m_dir == Node::dir_down ) pa.translate( 0, -5 );
-		else if ( m_dir == Node::dir_left ) pa.translate( 5, 0 );
-		else if ( m_dir == Node::dir_up ) pa.translate( 0, 5 );
+		if		( m_dir == 0 ) pa.translate( -5, 0 );
+		else if ( m_dir == 90 ) pa.translate( 0, -5 );
+		else if ( m_dir == 180 ) pa.translate( 5, 0 );
+		else if ( m_dir == 270 ) pa.translate( 0, 5 );
 	}
 	else if ( type() == fp_in )
 	{
-		if		( m_dir == Node::dir_right );
-		else if ( m_dir == Node::dir_down );
-		else if ( m_dir == Node::dir_left ) pa.translate( 3, 0 );
-		else if ( m_dir == Node::dir_up ) pa.translate( 0, 3 );
+		if		( m_dir == 0 );
+		else if ( m_dir == 90 );
+		else if ( m_dir == 180 ) pa.translate( 3, 0 );
+		else if ( m_dir == 270 ) pa.translate( 0, 3 );
 	}
 	else return;
 	

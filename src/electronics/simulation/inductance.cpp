@@ -10,6 +10,7 @@
 
 #include "elementset.h"
 #include "inductance.h"
+#include "matrix.h"
 
 Inductance::Inductance( double inductance, double delta )
 	: Reactive(delta)
@@ -21,14 +22,17 @@ Inductance::Inductance( double inductance, double delta )
 	setMethod( Inductance::m_euler );
 }
 
+
 Inductance::~Inductance()
 {
 }
+
 
 void Inductance::setInductance( double i )
 {
 	m_inductance = i;
 }
+
 
 void Inductance::add_initial_dc()
 {
@@ -42,29 +46,26 @@ void Inductance::add_initial_dc()
 	r_eq_old = v_eq_old = 0.0;
 }
 
+
 void Inductance::updateCurrents()
 {
-	if (!b_status) return;
-
-	m_cnodeI[0] = p_cbranch[0]->i;
+	if (!b_status)
+		return;
+	m_cnodeI[0] = -p_cbranch[0]->i;
 	m_cnodeI[1] = -m_cnodeI[0];
 }
 
+
 void Inductance::add_map()
 {
-	if (!b_status) return;
+	if (!b_status)
+		return;
 	
-	if ( !p_cnode[0]->isGround ) {
-		p_A->setUse_c( p_cbranch[0]->n(), p_cnode[0]->n(), Map::et_constant, true );
-		p_A->setUse_b( p_cnode[0]->n(), p_cbranch[0]->n(), Map::et_constant, true );
-	}
-	
-	if ( !p_cnode[1]->isGround ) {
-		p_A->setUse_c( p_cbranch[0]->n(), p_cnode[1]->n(), Map::et_constant, true );
-		p_A->setUse_b( p_cnode[1]->n(), p_cbranch[0]->n(), Map::et_constant, true );
-	}
-	
-	p_A->setUse_d( p_cbranch[0]->n(), p_cbranch[0]->n(), Map::et_unstable, false );
+	setUse_c( 0, 0, Map::et_constant, true );
+	setUse_b( 0, 0, Map::et_constant, true );
+	setUse_c( 0, 1, Map::et_constant, true );
+	setUse_b( 1, 0, Map::et_constant, true );
+	setUse_d( 0, 0, Map::et_unstable, false );
 }
 
 
@@ -75,25 +76,30 @@ void Inductance::time_step()
 	double i = p_cbranch[0]->i;
 	double v_eq_new = 0.0, r_eq_new = 0.0;
 	
-	if ( m_method == Inductance::m_euler ) {
+	if ( m_method == Inductance::m_euler )
+	{
 		r_eq_new = m_inductance/m_delta;
 		v_eq_new = -i*r_eq_new;
-	} else if ( m_method == Inductance::m_trap ) {
+	}
+	else if ( m_method == Inductance::m_trap ) {
 		// TODO Implement + test trapezoidal method
 		r_eq_new = 2.0*m_inductance/m_delta;
 	}
 	
-	if ( r_eq_old != r_eq_new ) {
+	if ( r_eq_old != r_eq_new )
+	{
 		A_d( 0, 0 ) -= r_eq_new - r_eq_old;
 	}
 	
-	if ( v_eq_new != v_eq_old ) {
+	if ( v_eq_new != v_eq_old )
+	{
 		b_v( 0 ) += v_eq_new - v_eq_old;
 	}
 	
 	r_eq_old = r_eq_new;
 	v_eq_old = v_eq_new;
 }
+
 
 bool Inductance::updateStatus()
 {
@@ -102,6 +108,7 @@ bool Inductance::updateStatus()
 		b_status = false;
 	return b_status;
 }
+
 
 void Inductance::setMethod( Method m )
 {

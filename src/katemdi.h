@@ -18,12 +18,6 @@
    Boston, MA 02110-1301, USA.
 */
 
-/*
-NOTE: this is an enhanced library that has not been mainlined into KDE yet.
-Do not try to remove this file from the project untill that changes. 
-*/
-
-
 #ifndef __KATE_MDI_H__
 #define __KATE_MDI_H__
 
@@ -198,7 +192,8 @@ class Sidebar : public KMultiTabBar
 
     bool splitterVisible () const { return m_ownSplit->isVisible(); }
 
-    void restoreSession ();
+	void restoreSession ();
+	void updateMinimumSize();
 
      /**
      * restore the current session config from given object, use current group
@@ -222,6 +217,7 @@ class Sidebar : public KMultiTabBar
     void buttonPopupActivate (int id);
 
   private:
+	  
     MainWindow *m_mainWin;
 
 	KMultiTabBar::KMultiTabBarStyle m_sidebarTabStyle;
@@ -360,6 +356,8 @@ class MainWindow : public KParts::MainWindow
      * @param group config group to use
      */
     void saveSession (KConfig *config, const QString &group);
+	
+	void updateSidebarMinimumSizes();
 
   /**
    * internal data ;)

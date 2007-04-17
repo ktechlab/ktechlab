@@ -27,7 +27,7 @@ Item* ECDPDT::construct( ItemDocument *itemDocument, bool newItem, const char *i
 LibraryItem* ECDPDT::libraryItem()
 {
 	return new LibraryItem(
-		QString("ec/dpdt_toggle"),
+		"ec/dpdt_toggle",
 		i18n("DPDT"),
 		i18n("Switches"),
 		"dpdt.png",
@@ -40,7 +40,6 @@ ECDPDT::ECDPDT( ICNDocument *icnDocument, bool newItem, const char *id )
 	: Component( icnDocument, newItem, id ? id : "dpdt_toggle" )
 {
 	m_name = i18n("DPDT Toggle");
-	m_desc = i18n("Double-Pole Double-Throw switch.");
 	setSize( -16, -32, 32, 64 );
 	
 	addButton( "button", QRect( -16, 32, 32, 20 ), "", true );
@@ -133,7 +132,7 @@ Item* ECDPST::construct( ItemDocument *itemDocument, bool newItem, const char *i
 LibraryItem* ECDPST::libraryItem()
 {
 	return new LibraryItem(
-		QString("ec/dpst_toggle"),
+		"ec/dpst_toggle",
 		i18n("DPST"),
 		i18n("Switches"),
 		"dpst.png",
@@ -142,10 +141,9 @@ LibraryItem* ECDPST::libraryItem()
 }
 
 ECDPST::ECDPST( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, (id) ? id : "dpst_toggle" )
+	: Component( icnDocument, newItem, id ? id : "dpst_toggle" )
 {
 	m_name = i18n("DPST Toggle");
-	m_desc = i18n("Double-Pole Single-Throw switch.");
 	setSize( -16, -16, 32, 32 );
 	
 	addButton( "button", QRect( -16, 16, 32, 20 ), "", true );
@@ -229,7 +227,7 @@ Item* ECSPDT::construct( ItemDocument *itemDocument, bool newItem, const char *i
 LibraryItem* ECSPDT::libraryItem()
 {
 	return new LibraryItem(
-		QString("ec/spdt_toggle"),
+		"ec/spdt_toggle",
 		i18n("SPDT"),
 		i18n("Switches"),
 		"spdt.png",
@@ -239,10 +237,9 @@ LibraryItem* ECSPDT::libraryItem()
 
 
 ECSPDT::ECSPDT( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, (id) ? id : "spdt_toggle" )
+	: Component( icnDocument, newItem, id ? id : "spdt_toggle" )
 {
 	m_name = i18n("SPDT Toggle");
-	m_desc = i18n("Single-Pole Double-Throw switch.");
 	setSize( -16, -16, 32, 32 );
 	
 	addButton( "button", QRect( -16, 16, width(), 20 ), "", true );
@@ -324,7 +321,7 @@ Item* ECSPST::construct( ItemDocument *itemDocument, bool newItem, const char *i
 LibraryItem* ECSPST::libraryItem()
 {
 	return new LibraryItem(
-		QString("ec/spst_toggle"),
+		"ec/spst_toggle",
 		i18n("SPST"),
 		i18n("Switches"),
 		"spst.png",
@@ -335,10 +332,9 @@ LibraryItem* ECSPST::libraryItem()
 
 
 ECSPST::ECSPST( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, (id) ? id : "spst_toggle" )
+	: Component( icnDocument, newItem, id ? id : "spst_toggle" )
 {
 	m_name = i18n("SPST Toggle");
-	m_desc = i18n("Single-Pole Single-Throw switch.");
 	setSize( -16, -8, 32, 16 );
 	pressed = false;
 	

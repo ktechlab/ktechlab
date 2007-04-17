@@ -121,7 +121,7 @@ class PinMapView : public ICNView
 {
 	Q_OBJECT
 	public:
-		PinMapView( PinMapDocument * pinMapDocument, ViewContainer * viewContainer, uint viewAreaId, const char * name = 0 );
+		PinMapView( PinMapDocument * pinMapDocument, ViewContainer * viewContainer, uint viewAreaId, const char * name = 0l );
 		~PinMapView();
 };
 
@@ -129,10 +129,9 @@ class PinMapView : public ICNView
 class PIC_IC : public Component
 {
 	public:
-		PIC_IC( ICNDocument * icnDocument, bool newItem, const char *id = 0 );
+		PIC_IC( ICNDocument * icnDocument, bool newItem, const char *id = 0L );
 		virtual ~PIC_IC();
-	
-		virtual bool canFlip() const { return true; }
+		
 		static Item * construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem * libraryItem();
 	

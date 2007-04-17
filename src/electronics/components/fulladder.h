@@ -20,12 +20,11 @@
 class FullAdder : public CallbackClass, public Component
 {
 public:
-	FullAdder( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	FullAdder( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~FullAdder();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	virtual bool canFlip() const { return true; }
 	
 protected:
 	void inStateChanged( bool newState );

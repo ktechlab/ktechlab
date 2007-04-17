@@ -22,7 +22,7 @@ class MechanicsView : public ItemView
 {
 	Q_OBJECT
 	public:
-		MechanicsView( MechanicsDocument *mechanicsDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = 0 );
+		MechanicsView( MechanicsDocument *mechanicsDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l );
 		~MechanicsView();
 	
 	protected:

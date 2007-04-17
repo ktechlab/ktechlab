@@ -11,13 +11,13 @@
 #ifndef ECCLOCKINPUT_H
 #define ECCLOCKINPUT_H
 
-#include <list>
 #include "component.h"
-
-using namespace std;
 
 class ComponentCallback;
 class Simulator;
+
+template <typename T>
+class LinkedList;
 
 /**
 @short Boolean clock input
@@ -26,7 +26,7 @@ class Simulator;
 class ECClockInput : public Component
 {
 public:
-	ECClockInput( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	ECClockInput( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ECClockInput();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -41,7 +41,7 @@ protected:
 	virtual void drawShape( QPainter &p );
 	void dataChanged();
 	
-	uint m_time;  // TODO: Link to global clock. 
+	uint m_time;
 	uint m_high_time;
 	uint m_low_time;
 	uint m_period;
@@ -50,7 +50,7 @@ protected:
 	bool m_bSetStepCallbacks;
 	bool m_bLastStepCallbackOut;
 	Simulator * m_pSimulator;
-	list<ComponentCallback> * m_pComponentCallback[1000];
+	LinkedList<ComponentCallback> * m_pComponentCallback[1000];
 };
 
 #endif

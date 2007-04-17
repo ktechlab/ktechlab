@@ -42,10 +42,9 @@ class PICComponent : public Component
 {
 	Q_OBJECT
 	public:
-		PICComponent( ICNDocument * icnDocument, bool newItem, const char *id = 0 );
+		PICComponent( ICNDocument * icnDocument, bool newItem, const char *id = 0L );
 		~PICComponent();
 	
-		virtual bool canFlip() const { return true; }
 		static Item * construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem * libraryItem();
 	
@@ -91,6 +90,7 @@ class PICComponent : public Component
 		bool m_bLoadingProgram; ///< True between createSymbolFile being called and the file being created
 		PICComponentPinMap m_picComponentPinMap;
 		bool m_bCreatedInitialPackage; ///< Set true once the initial package is loaded; until then, will load a package from the lastPackage data
+		static QString _def_PICComponent_fileName;
 };
 
 #endif

@@ -29,7 +29,7 @@ struct SwitchPosition
 class ECRotoSwitch : public Component
 {
 public:
-    ECRotoSwitch( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+    ECRotoSwitch( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
     ~ECRotoSwitch();
     
     static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

@@ -35,10 +35,10 @@ class FlowCodeDocument : public ICNDocument
 {
 	Q_OBJECT
 	public:
-		FlowCodeDocument( const QString &caption, KTechlab *ktechlab, const char *name = 0);
+		FlowCodeDocument( const QString &caption, const char *name = 0L);
 		~FlowCodeDocument();
 	
-		virtual View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0 );
+		virtual View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l );
 
 		/**
 		 * Returns a pointer used for the MicroSettings in this FlowCode document

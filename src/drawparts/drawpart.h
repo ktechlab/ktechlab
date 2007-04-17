@@ -31,13 +31,12 @@ class DrawPart : public Item
 			da_line = 1,
 			da_arrow = 2,
 			da_rectangle = 3,
-			da_ellipse = 4
+			da_ellipse = 4,
+			da_image = 5,
 		};
 		
 		DrawPart( ItemDocument *itemDocument, bool newItem, const char *id );
 		virtual ~DrawPart();
-	
-		int rtti() const;
 
 		virtual bool canResize() const { return true; }
 		

@@ -27,7 +27,7 @@ const int botStrip = 16;
 FlowContainer::FlowContainer( ICNDocument *_icnDocument, bool newItem, const QString &id )
 	: FlowPart( _icnDocument, newItem, id )
 {
-	m_ext_in = m_int_in = m_int_out = m_ext_out = 0;
+	m_ext_in = m_int_in = m_int_out = m_ext_out = 0l;
 	b_expanded = true;
 	
 	addButton( "expandBtn", QRect( offsetX(), offsetY()+24 - 11, 22, 22 ), KGlobal::iconLoader()->loadIcon( "down", KIcon::Small ), true );
@@ -35,8 +35,8 @@ FlowContainer::FlowContainer( ICNDocument *_icnDocument, bool newItem, const QSt
 	setSize( -160, -120, 320, 240 );
 	
 	
-	m_int_in = (FPNode*)createNode( width()/2, 8+topStrip, Node::dir_down, "int_in", Node::fp_out );
-	m_int_out = (FPNode*)createNode( width()/2, height()-8-botStrip, Node::dir_up, "int_out", Node::fp_in );
+	m_int_in = (FPNode*)createNode( width()/2, 8+topStrip, 90, "int_in", Node::fp_out );
+	m_int_out = (FPNode*)createNode( width()/2, height()-8-botStrip, 270, "int_out", Node::fp_in );
 	
 	button("expandBtn")->setState(true);
 	
@@ -85,7 +85,7 @@ void FlowContainer::filterEndPartIDs( QStringList *ids )
 
 void FlowContainer::createTopContainerNode()
 {
-	m_ext_in = (FPNode*)createNode( width()/2, -8, Node::dir_up, "ext_in", Node::fp_in );
+	m_ext_in = (FPNode*)createNode( width()/2, -8, 270, "ext_in", Node::fp_in );
 	m_ext_in->setLevel( level() );
 	m_rectangularOverlay->removeTopMiddle();
 	updateAttachedPositioning();
@@ -94,7 +94,7 @@ void FlowContainer::createTopContainerNode()
 
 void FlowContainer::createBotContainerNode()
 {
-	m_ext_out = (FPNode*)createNode( width()/2, height()+8, Node::dir_down, "ext_out", Node::fp_out );
+	m_ext_out = (FPNode*)createNode( width()/2, height()+8, 90, "ext_out", Node::fp_out );
 	m_ext_out->setLevel( level() );
 	m_rectangularOverlay->removeBotMiddle();
 	updateAttachedPositioning();
@@ -196,9 +196,9 @@ void FlowContainer::updateConnectorPoints( bool add )
 	{
 		for ( int x = _x; x<=_x+w; x += 8 )
 		{
-			if ( p_icnDocument->isValidCellReference( x/8, y/8 ) )
+			if ( cells->haveCellContaing( x, y ) )
 			{
-				(*cells)[x/8][y/8].CIpenalty += mult*ICNDocument::hs_item;
+				cells->cellContaining( x, y ).CIpenalty += mult*ICNDocument::hs_item;
 			}
 		}
 	}
@@ -208,9 +208,9 @@ void FlowContainer::updateConnectorPoints( bool add )
 	{
 		for ( int x = _x; x<=_x+width(); x += 8 )
 		{
-			if ( p_icnDocument->isValidCellReference( x/8, y/8 ) )
+			if ( cells->haveCellContaing( x, y ) )
 			{
-				(*cells)[x/8][y/8].CIpenalty += mult*ICNDocument::hs_item;
+				cells->cellContaining( x, y ).CIpenalty += mult*ICNDocument::hs_item;
 			}
 		}
 	}
@@ -219,9 +219,9 @@ void FlowContainer::updateConnectorPoints( bool add )
 	int x = _x;
 	for ( int y = _y+24; y<_y+h-16; y += 8 )
 	{
-		if ( p_icnDocument->isValidCellReference( x/8, y/8 ) )
+		if ( cells->haveCellContaing( x, y ) )
 		{
-			(*cells)[x/8][y/8].CIpenalty += mult*ICNDocument::hs_item;
+			cells->cellContaining( x, y ).CIpenalty += mult*ICNDocument::hs_item;
 		}
 	}
 	
@@ -229,9 +229,9 @@ void FlowContainer::updateConnectorPoints( bool add )
 	x = _x+width();
 	for ( int y = _y+24; y<_y+h-16; y += 8 )
 	{
-		if ( p_icnDocument->isValidCellReference( x/8, y/8 ) )
+		if ( cells->haveCellContaing( x, y ) )
 		{
-			(*cells)[x/8][y/8].CIpenalty += mult*ICNDocument::hs_item;
+			cells->cellContaining( x, y ).CIpenalty += mult*ICNDocument::hs_item;
 		}
 	}
 }
@@ -307,7 +307,7 @@ void FlowContainer::setExpanded( bool expanded )
 	m_rectangularOverlay->setVisible(expanded);
 	setFullBounds(false);
 	
-	bool nodesMoved = (m_ext_out != 0);
+	bool nodesMoved = (m_ext_out != 0l);
 	if (nodesMoved)
 		p_icnDocument->requestRerouteInvalidatedConnectors();	
 	

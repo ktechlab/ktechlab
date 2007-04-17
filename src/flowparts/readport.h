@@ -20,7 +20,7 @@
 class ReadPort : public FlowPart
 {
 public:
-	ReadPort( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	ReadPort( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ReadPort();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

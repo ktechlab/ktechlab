@@ -24,25 +24,30 @@ MechanicsSimulation::MechanicsSimulation( MechanicsDocument *mechanicsDocument )
 	m_advanceTmr->start(1);
 }
 
+
 MechanicsSimulation::~MechanicsSimulation()
 {
 }
 
+
 void MechanicsSimulation::slotAdvance()
 {
-	if ( p_mechanicsDocument && p_mechanicsDocument->canvas() )
-		p_mechanicsDocument->canvas()->advance();
+// 	if ( p_mechanicsDocument && p_mechanicsDocument->canvas() )
+// 		p_mechanicsDocument->canvas()->advance();
 }
+
 
 RigidBody::RigidBody( MechanicsDocument *mechanicsDocument )
 {
 	p_mechanicsDocument = mechanicsDocument;
-	p_overallParent = 0;
+	p_overallParent = 0l;
 }
+
 
 RigidBody::~RigidBody()
 {
 }
+
 
 bool RigidBody::addMechanicsItem( MechanicsItem *item )
 {
@@ -71,31 +76,37 @@ void RigidBody::rotateBy( double dtheta )
 
 bool RigidBody::findOverallParent()
 {
-	p_overallParent = 0;
-	if( m_mechanicsItemList.isEmpty()) return false;
+	p_overallParent = 0l;
+	if ( m_mechanicsItemList.isEmpty() )
+		return false;
 	
-	m_mechanicsItemList.remove(0);
+	m_mechanicsItemList.remove(0l);
 	
 	const MechanicsItemList::iterator end = m_mechanicsItemList.end();
-	for ( MechanicsItemList::iterator it = m_mechanicsItemList.begin(); it != end; ++it ) {
+	for ( MechanicsItemList::iterator it = m_mechanicsItemList.begin(); it != end; ++it )
+	{
 		MechanicsItem *parentItem = *it;
 		MechanicsItem *parentCandidate = dynamic_cast<MechanicsItem*>((*it)->parentItem());
 		
-		while (parentCandidate) {
+		while (parentCandidate)
+		{
 			parentItem = parentCandidate;
 			parentCandidate = dynamic_cast<MechanicsItem*>(parentItem->parentItem());
 		}
 		
-		if ( !p_overallParent )	// Must be the first item to test
+		if ( !p_overallParent )
+			// Must be the first item to test
 			p_overallParent = parentItem;
 		
-		if ( p_overallParent != parentItem ) {
-			p_overallParent = 0;
+		if ( p_overallParent != parentItem )
+		{
+			p_overallParent = 0l;
 			return false;
 		}
 	}
 	return true;
 }
+
 
 void RigidBody::updateRigidBodyInfo()
 {
@@ -106,6 +117,7 @@ void RigidBody::updateRigidBodyInfo()
 	m_momentOfInertia = p_overallParent->mechanicsInfoCombined()->momentOfInertia;
 }
 
+
 Vector2D::Vector2D()
 {
 	x = 0.;
@@ -114,15 +126,14 @@ Vector2D::Vector2D()
 
 double Vector2D::length() const
 {
-	return std::sqrt(x*x + y*y);
-
-// better but not supported by build environment. =( 
-//	return std::hypot(x,y);
+	return std::sqrt( x*x + y*y );
 }
 
 RigidBodyState::RigidBodyState()
 {
 	angularMomentum = 0.;
 }
+
+
 
 #include "mechanicssimulation.moc"

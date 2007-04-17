@@ -12,7 +12,9 @@
 #define ITEMDOCUMENT_H
 
 #include <document.h>
-#include <qcanvas.h>
+#include <canvas.h>
+
+#include <qmap.h>
 #include <qptrstack.h>
 #include <qvaluevector.h>
 
@@ -33,6 +35,7 @@ class QCanvasItem;
 typedef QPtrStack<ItemDocumentData> IDDStack;
 typedef QGuardedPtr<Item> GuardedItem;
 typedef QMap< int, GuardedItem > IntItemMap;
+typedef QMap< QString, Item* > ItemMap;
 typedef QValueList<GuardedItem> ItemList;
 typedef QValueList<QPoint> QPointList;
 
@@ -43,7 +46,7 @@ class ItemDocument : public Document
 {
 	Q_OBJECT
 	public:
-		ItemDocument( const QString &caption, KTechlab *ktechlab, const char *name = 0 );
+		ItemDocument( const QString &caption, const char *name = 0 );
 		~ItemDocument();
 
 		class Z
@@ -51,34 +54,16 @@ class ItemDocument : public Document
 			public:
 				enum
 				{
-					Select			= 10000000,
-					Connector		= 20000000,
-					Item			= 30000000,
-					RaisedItem		= 40000000,
+					Select				= 10000000,
+					Connector			= 20000000,
+					Item				= 30000000,
+					RaisedItem			= 40000000,
 					ResizeHandle 		= 50000000,
-					Tip			= 60000000,
+					Tip					= 60000000,
 					ConnectorCreateLine	= 70000000,
 					
 					// How much "Z" separates items stacked on each other
-					DeltaItem		= 10000
-				};
-		};
-
-		class RTTI
-		{
-			public:
-				enum
-				{
-					None			= 1000,
-					CNItem			= 1001,
-					Node			= 1002,
-					Connector		= 1003,
-					Pin			= 1004,
-					Widget			= 1005,
-					MechanicsItem		= 1006,
-					ResizeHandle		= 1007,
-					DrawPart		= 1008,
-					ConnectorLine		= 1009
+					DeltaItem			= 10000
 				};
 		};
 		
@@ -92,10 +77,10 @@ class ItemDocument : public Document
 		{
 			public: enum type
 			{
-				ResizeCanvasToItems		= 1 << 0,
-				UpdateNodeGroups		= 1 << 1,
+				ResizeCanvasToItems				= 1 << 0,
+				UpdateNodeGroups				= 1 << 1,
 				RerouteInvalidatedConnectors	= 1 << 2,
-				UpdateZOrdering			= 1 << 3,
+				UpdateZOrdering					= 1 << 3,
 			};
 		};
 	
@@ -112,7 +97,7 @@ class ItemDocument : public Document
 		 * (such as PIC/START) have restrictions, and can only have one instance of
 		 * themselves on the canvas, and adds the operation to the undo list
 		 */
-		virtual Item* addItem( const QString &id, const QPoint &p, bool newItem ) = 0;
+		virtual Item* addItem( const QString &id, const QPoint &p, bool newItem ) = 0l;
 		/**
 		 * @returns A pointer to the canvas
 		 */
@@ -131,7 +116,7 @@ class ItemDocument : public Document
 		 * Unlists the given id as one that is used.
 		 * @see registerUID
 		 */
-		void unregisterUID( const QString & uid );
+		virtual void unregisterUID( const QString & uid );
 		/**
 		 * @return Whether or not the item is valid; i.e. is appropriate to the
 		 * document being edited, and does not have other special restrictions
@@ -210,7 +195,7 @@ class ItemDocument : public Document
 		/**
 		 * List of items in the ItemDocument
 		 */
-		ItemList itemList() const { return m_itemList; }
+		ItemList itemList() const;
 		/**
 		 * Set the given QCanvasItem (which will attempt to be casted to known
 		 * items to be deleted.
@@ -246,6 +231,10 @@ class ItemDocument : public Document
 		virtual void redo();
 		virtual void cut();
 		virtual void paste();
+		/**
+		 * Ask the canvas to be resized to the current items on the canvas.
+		 */
+		void requestCanvasResize();
 		/**
 		 * Selects everything in the view.
 		 */
@@ -319,7 +308,7 @@ class ItemDocument : public Document
 		 * Enables / disables / selects various actions depending on
 		 * what is selected or not.
 		 */
-		virtual void slotInitItemActions( Item *item = 0 );
+		virtual void slotInitItemActions();
 		/**
 		 * Process queued events (see ItemDocument::ItemDocumentEvent).
 		 */
@@ -327,13 +316,16 @@ class ItemDocument : public Document
 	
 	signals:
 		/**
-		 * Emitted when a Item is selected
+		 * Emitted when the selection changes.
 		 */
-		void itemSelected( Item *item );
-		/**
-		 * Emitted when a Item is unselected
+		void selectionChanged();
+		
+	protected slots:
+		/** 
+		 * Called after the canvas is resized to set the scrollbars of the
+		 * ItemViews to either always show or always hidden.
 		 */
-		void itemUnselected( Item *item = 0 );
+		void updateItemViewScrollbars();
 		
 	protected:
 		/**
@@ -364,15 +356,15 @@ class ItemDocument : public Document
 		void resizeCanvasToItems();
 	
 		Canvas *m_canvas;
-		KTechlab *p_ktechlab;
-		QStringList m_idList;
+// 		QStringList m_idList;
+		QMap< QString, void* > m_idList;
 		static int m_nextActionTicket;
 		uint m_nextIdNum;
 		bool m_bIsLoading;
 		QSize m_oldCanvasSize;
 		CMManager *m_cmManager;
 		ItemList m_itemDeleteList;
-		ItemList m_itemList;
+		ItemMap m_itemList;
 		IDDStack m_undoStack;
 		IDDStack m_redoStack;
 		ItemDocumentData * m_currentState;
@@ -383,6 +375,7 @@ class ItemDocument : public Document
 		IntItemMap m_zOrder;
 		KActionMenu * m_pAlignmentAction;
 		QTimer * m_pEventTimer;
+		QTimer * m_pUpdateItemViewScrollbarsTimer;
 		unsigned m_queuedEvents; // OR'ed together list of ItemDocumentEvent::type
 		
 		friend class ICNView;
@@ -398,51 +391,59 @@ class Canvas : public QCanvas
 	Q_OBJECT
 	public:
 		Canvas( ItemDocument *itemDocument, const char * name = 0 );
-
+		
 		/**
 		 * Sets a message to be displayed on the canvas for a brief period of
 		 * time. If this is called with an empty message, then any existing
 		 * message will be removed.
 		 */
 		void setMessage( const QString & message );
-		
 		virtual void update();
+		virtual void resize( const QRect & size );
+		
+	signals:
+		/** 
+		 * Emitted when the canvas rectangle-size changes.
+		 */
+		void resized( const QRect & oldSize, const QRect & newSize );
 		
 	public slots:
 		void slotSetAllChanged() { setAllChanged(); }
 	
 	protected:
-		virtual void drawBackground(QPainter & painter, const QRect & clip );
-		virtual void drawForeground(QPainter & painter, const QRect & clip );
+		virtual void drawBackground ( QPainter & painter, const QRect & clip );
+		virtual void drawForeground ( QPainter & painter, const QRect & clip );
 	
 		ItemDocument *p_itemDocument;
 		
 		QString m_message;
-		QTimer *m_pMessageTimeout;
+		QTimer * m_pMessageTimeout;
 };
 
 
 /**
 @author David Saxton
 */
-class CanvasTip : public QCanvasText
+class CanvasTip : public QCanvasRectangle
 {
-public:
-	CanvasTip(ItemDocument *itemDocument, QCanvas *qcanvas );
-	virtual ~CanvasTip();
+	public:
+		CanvasTip( ItemDocument *itemDocument, QCanvas *qcanvas );
+		virtual ~CanvasTip();
 	
-	void displayVI(ECNode *node, const QPoint &pos );
-	void displayVI(Connector *connector, const QPoint &pos );
+		void displayVI( ECNode *node, const QPoint &pos );
+		void displayVI( Connector *connector, const QPoint &pos );
 	
-protected:
-	virtual void draw(QPainter &p );
-	bool updateVI();
-	void display(const QPoint &pos );
-	QString displayText(unsigned num ) const;
+	protected:
+		virtual void draw( QPainter &p );
+		void setText( const QString & text );
+		bool updateVI();
+		void display( const QPoint &pos );
+		QString displayText( unsigned num ) const;
 	
-	QValueVector<double> m_v;
-	QValueVector<double> m_i;
-	ItemDocument *p_itemDocument;
+		QValueVector<double> m_v;
+		QValueVector<double> m_i;
+		ItemDocument *p_itemDocument;
+		QString m_text;
 };
 
 

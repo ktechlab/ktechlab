@@ -15,6 +15,7 @@
 #include "language.h"
 #include "languagemanager.h"
 #include "logview.h"
+#include "ktechlab.h"
 #include "outputmethoddlg.h"
 #include "processchain.h"
 #include "projectmanager.h"
@@ -36,20 +37,19 @@
 
 
 //BEGIN class ProcessChain
-ProcessChain::ProcessChain( ProcessOptions options, KTechlab * ktechlab, const char *name )
-	: QObject( (QObject*)ktechlab, name)
+ProcessChain::ProcessChain( ProcessOptions options, const char *name )
+	: QObject( KTechlab::self(), name)
 {
-	m_pKTechlab = ktechlab;
-	m_pFlowCode = 0;
-	m_pGpasm = 0;
-	m_pGpdasm = 0;
-	m_pGplib = 0;
-	m_pGplink = 0;
-	m_pMicrobe = 0;
-	m_pPicProgrammer = 0;
-	m_pSDCC = 0;
+	m_pFlowCode = 0l;
+	m_pGpasm = 0l;
+	m_pGpdasm = 0l;
+	m_pGplib = 0l;
+	m_pGplink = 0l;
+	m_pMicrobe = 0l;
+	m_pPicProgrammer = 0l;
+	m_pSDCC = 0l;
 	m_processOptions = options;
-
+	
 	QString target;
 	if ( ProcessOptions::ProcessPath::to( options.processPath() ) == ProcessOptions::ProcessPath::Pic )
 		target = options.m_picID;
@@ -60,17 +60,27 @@ ProcessChain::ProcessChain( ProcessOptions options, KTechlab * ktechlab, const c
 	QTimer::singleShot( 0, this, SLOT(compile()) );
 }
 
+
 ProcessChain::~ProcessChain()
 {
 	delete m_pFlowCode;
+	m_pFlowCode = 0l;
 	delete m_pGpasm;
+	m_pGpasm = 0l;
 	delete m_pGpdasm;
+	m_pGpdasm = 0l;
 	delete m_pGplib;
+	m_pGplib = 0l;
 	delete m_pGplink;
+	m_pGplink = 0l;
 	delete m_pMicrobe;
+	m_pMicrobe = 0l;
 	delete m_pPicProgrammer;
+	m_pPicProgrammer = 0l;
 	delete m_pSDCC;
+	m_pSDCC = 0l;
 }
+
 
 // void ProcessChain::compile( ProcessOptions * options )
 void ProcessChain::compile()
@@ -139,12 +149,12 @@ void ProcessChain::slotFinishedCompile(Language *language)
 	
 	ProcessOptions::ProcessPath::MediaType typeTo = ProcessOptions::ProcessPath::to( m_processOptions.processPath() );
 	
-	TextDocument * editor = 0;
+	TextDocument * editor = 0l;
 	if ( KTLConfig::reuseSameViewForOutput() )
 	{
 		editor = options.textOutputTarget();
 		if ( editor && (!editor->url().isEmpty() || editor->isModified()) )
-			editor = 0;
+			editor = 0l;
 	}
 	
 	switch (typeTo)
@@ -173,7 +183,7 @@ void ProcessChain::slotFinishedCompile(Language *language)
 					if ( !f.open( IO_ReadOnly ) )
 					{
 						editor->deleteLater();
-						editor = 0;
+						editor = 0l;
 						break;
 					}
 				
@@ -256,7 +266,7 @@ a * ProcessChain::b( ) \
 { \
 	if ( !c ) \
 	{ \
-		c = new a( this, m_pKTechlab ); \
+		c = new a( this ); \
 		connect( c, SIGNAL(processSucceeded(Language* )), this, SLOT(slotFinishedCompile(Language* )) ); \
 		connect( c, SIGNAL(processFailed(Language* )), this, SIGNAL(failed()) ); \
 	} \
@@ -276,11 +286,10 @@ LanguageFunction( SDCC, sdcc, m_pSDCC )
 
 
 //BEGIN class ProcessListChain
-ProcessListChain::ProcessListChain( ProcessOptionsList pol, KTechlab * parent, const char * name )
-	: QObject( (QObject*)parent, name )
+ProcessListChain::ProcessListChain( ProcessOptionsList pol, const char * name )
+	: QObject( KTechlab::self(), name )
 {
 	m_processOptionsList = pol;
-	m_pKTechlab = parent;
 	
 	// Start us off...
 	slotProcessChainSuccessful();

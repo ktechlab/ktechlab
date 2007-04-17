@@ -13,6 +13,7 @@
 
 #include "itemdocument.h"
 
+#include <qmap.h>
 
 class Cells;
 class CNItem;
@@ -23,6 +24,7 @@ class FlowContainer;
 class Node;
 class NodeGroup;
 
+typedef QMap< QString, Node* > NodeMap;
 typedef QValueList<QGuardedPtr<Connector> > ConnectorList;
 typedef QValueList<QGuardedPtr<Node> > NodeList;
 typedef QValueList<NodeGroup*> NodeGroupList;
@@ -35,7 +37,7 @@ class ICNDocument : public ItemDocument
 {
 Q_OBJECT
 public:
-	ICNDocument( const QString &caption, KTechlab *ktechlab, const char *name );
+	ICNDocument( const QString &caption, const char *name );
 	virtual ~ICNDocument();
 	
 	enum hit_score
@@ -45,7 +47,7 @@ public:
 		hs_item = 1000
 	};
 
-	virtual View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0 );
+	virtual View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l );
 	
 	/**
 	 * Will attempt to create an item with the given id at position p. Some item
@@ -57,7 +59,7 @@ public:
 	 * Creates a connector between two nodes, and returns a pointer to it
 	 * and adds the operation to the undo list
 	 */
-	Connector* createConnector( const QString &startNodeId, const QString &endNodeId, QPointList *pointList = 0 );
+	Connector* createConnector( const QString &startNodeId, const QString &endNodeId, QPointList *pointList = 0L );
 	/**
 	 * short for casting whatever itemWithID(id) returns
 	 */
@@ -98,14 +100,6 @@ public:
 	 */
 	Cells *cells() const { return m_cells; }
 	/**
-	 * Returns true if the cell-reference given by x and y is valid (i.e.
-	 * greater than 0, but within the m_cells boundary)
-	 */
-	inline bool isValidCellReference( const uint x, const uint y ) const
-	{
-		return ( x<m_cellsX && y<m_cellsY );
-	}
-	/**
 	 * Adds score to the cells at the given cell referece
 	 */
 	void addCPenalty( int x, int y, int score );
@@ -127,7 +121,7 @@ public:
 	virtual bool isValidItem( const QString &itemId ) = 0;
 	ConnectorList getCommonConnectors( const ItemList &list );
 	NodeList getCommonNodes( const ItemList &list );
-	const NodeList & nodeList() const { return m_nodeList; }
+	NodeList nodeList() const;
 	const ConnectorList & connectorList() const { return m_connectorList; }
 	const GuardedNodeGroupList & nodeGroupList() const { return m_nodeGroupList; }
 	virtual ItemGroup *selectList() const;
@@ -135,22 +129,22 @@ public:
 	 * Creates a connector from node1 to node2. If pointList is non-null, then the
 	 * connector will be assigned those points
 	 */
-	Connector * createConnector( Node *node1, Node *node2, QPointList *pointList = 0 );
+	Connector * createConnector( Node *node1, Node *node2, QPointList *pointList = 0L );
 	/**
 	 * Splits Connector con into two connectors at point pos2, and creates a connector from the node
 	 * to the intersection of the two new connectors. If pointList is non-null, then the new connector
 	 * from the node will be assigned those points
 	 */
-	Connector * createConnector( Node *node, Connector *con, const QPoint &pos2, QPointList *pointList = 0 );
+	Connector * createConnector( Node *node, Connector *con, const QPoint &pos2, QPointList *pointList = 0L );
 	/**
 	 * Splits con1 and con2 into two new connectors each at points pos1 and pos2, and creates a new connector
 	 * between the two points of intersection given by pos1 and pos2. If pointList is non-null, then the new
 	 * connector between the two points will be assigned those points
 	 */
-	Connector * createConnector( Connector *con1, Connector *con2, const QPoint &pos1, const QPoint &pos2, QPointList *pointList = 0 );
+	Connector * createConnector( Connector *con1, Connector *con2, const QPoint &pos1, const QPoint &pos2, QPointList *pointList = 0L );
 	/**
 	 * Returns the flowcontainer at the given position at the highest level that
-	 * is not in the current select list, or 0 if there isn't one
+	 * is not in the current select list, or 0l if there isn't one
 	 */
 	FlowContainer *flowContainer( const QPoint &pos );
 	/**
@@ -158,7 +152,7 @@ public:
 	 */
 	void setItemResizeCursor( int cornerType );
 	
-	void getTranslatable( const ItemList & itemList, ConnectorList * fixedConnectors = 0, ConnectorList * translatableConnectors = 0, NodeGroupList * translatableNodeGroups = 0 );
+	void getTranslatable( const ItemList & itemList, ConnectorList * fixedConnectors = 0l, ConnectorList * translatableConnectors = 0l, NodeGroupList * translatableNodeGroups = 0l );
 	/**
 	 * Reroutes invalidated directors. You shouldn't call this function
 	 * directly - instead use ItemDocument::requestEvent.
@@ -169,6 +163,8 @@ public:
 	 * function directly - instead use ItemDocument::requestEvent.
 	 */
 	void slotAssignNodeGroups();
+	
+	virtual void unregisterUID( const QString & uid );
 	
 public slots:
 	/**
@@ -225,8 +221,7 @@ protected:
 	friend class CanvasEditor;
 	
 	Cells *m_cells;
-	uint m_cellsX, m_cellsY;
-	NodeList m_nodeList;
+	NodeMap m_nodeList;
 	ConnectorList m_connectorList;
 	CNItemGroup *m_selectList; // Selected objects
 	GuardedNodeGroupList m_nodeGroupList;

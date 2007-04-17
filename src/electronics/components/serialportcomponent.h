@@ -22,10 +22,9 @@ class SerialPort;
 class SerialPortComponent : public CallbackClass, public Component
 {
 	public:
-		SerialPortComponent( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+		SerialPortComponent( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~SerialPortComponent();
 	
-		virtual bool canFlip() const { return true; }
 		static Item * construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem * libraryItem();
 		

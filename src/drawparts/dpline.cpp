@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2005 by David Saxton                                    *
+ *   Copyright (C) 2005,2006 by David Saxton                               *
  *   david@bluehaze.org                                                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -28,7 +28,7 @@ Item* DPLine::construct( ItemDocument *itemDocument, bool newItem, const char *i
 LibraryItem* DPLine::libraryItem()
 {
 	return new LibraryItem(
-		QString("dp/line"),
+		"dp/line",
 		i18n("Line"),
 		i18n("Other"),
 		KGlobal::iconLoader()->loadIcon( "text", KIcon::Small ),
@@ -41,7 +41,6 @@ DPLine::DPLine( ItemDocument *itemDocument, bool newItem, const char *id )
 {
 	m_pLineOverlay = new LineOverlay(this);
 	m_name = i18n("Line");
-	m_desc = i18n("Select the line to position the end points");
 	
 	createProperty( "line-color", Variant::Type::Color );
 	property("line-color")->setCaption( i18n("Line Color") );
@@ -173,38 +172,61 @@ DPArrow::DPArrow( ItemDocument *itemDocument, bool newItem, const char *id )
 	QStringList allowed = property("cap-style")->allowed();
 	allowed.remove( DrawPart::penCapStyleToName( Qt::SquareCap ) );
 	property("cap-style")->setAllowed(allowed);
+	
+	m_headAngle = 20.0;
+	Variant * v = createProperty( "HeadAngle", Variant::Type::Double );
+	v->setAdvanced( true );
+	v->setCaption( i18n("Head angle") );
+	v->setMinValue( 10.0 );
+	v->setMaxValue( 60.0 );
+	v->setUnit( QChar(0xb0) );
+	v->setValue( m_headAngle );
 }
+
 
 DPArrow::~DPArrow()
 {
 }
 
 
+void DPArrow::dataChanged()
+{
+	DPLine::dataChanged();
+	m_headAngle = dataDouble( "HeadAngle" );
+	setChanged();
+}
+
+
+inline int round_x( double x ) { return int(x+((x > 0) ? 0.5 : -0.5)); }
+
 void DPArrow::drawShape( QPainter & p )
 {
-	int x1 = int(x()+offsetX());
-	int y1 = int(y()+offsetY());
-	int x2 = x1+width();
-	int y2 = y1+height();
+	double x1 = x()+offsetX();
+	double y1 = y()+offsetY();
+	double x2 = x1+width();
+	double y2 = y1+height();
 	
-	p.drawLine( x1, y1, x2, y2 );
+	p.drawLine( int(x1), int(y1), int(x2), int(y2) );
 	
 	double dx = x2-x1;
 	double dy = y2-y1;
 	
-	if ( dx == 0. && dy == 0. ) return;
+	if ( dx == 0. && dy == 0. )
+		return;
 	
-	double arrow_angle = ( dx == 0 ? (dy>0?(M_PI/2.):(-M_PI/2.)) : std::atan(dy/dx) );
-	if ( dx < 0 ) arrow_angle += M_PI;
+	double pi = 3.14159265358979323846264;
+	double arrow_angle = ( dx == 0 ? (dy>0?(pi/2.):(-pi/2.)) : std::atan(dy/dx) );
+	if ( dx < 0 )
+		arrow_angle += pi;
 	
-	double head_angle = 0.6; // Angle of arrowhead
-	double head_length = 10.;
+	double head_angle = pi * m_headAngle / 180.0;
+	double head_length = 10.0;
 	
 	// Position of arrowhead
-	int x3 = int( x2 + head_length*std::cos( M_PI + arrow_angle - head_angle ) );
-	int y3 = int( y2 + head_length*std::sin( M_PI + arrow_angle - head_angle ) );
-	int x4 = int( x2 + head_length*std::cos( M_PI + arrow_angle + head_angle ) );
-	int y4 = int( y2 + head_length*std::sin( M_PI + arrow_angle + head_angle ) );
+	double x3 = x2 + head_length*std::cos( pi + arrow_angle - head_angle );
+	double y3 = y2 + head_length*std::sin( pi + arrow_angle - head_angle );
+	double x4 = x2 + head_length*std::cos( pi + arrow_angle + head_angle );
+	double y4 = y2 + head_length*std::sin( pi + arrow_angle + head_angle );
 	
 	// Draw arrowhead
 	QPen pen = p.pen();
@@ -212,13 +234,11 @@ void DPArrow::drawShape( QPainter & p )
 	p.setPen(pen);
 	p.setBrush(pen.color());
 	QPointArray pa(3);
-	pa[0] = QPoint( x2, y2 );
-	pa[1] = QPoint( x3, y3 );
-	pa[2] = QPoint( x4, y4 );
+	pa[0] = QPoint( round_x(x2), round_x(y2) );
+	pa[1] = QPoint( round_x(x3), round_x(y3) );
+	pa[2] = QPoint( round_x(x4), round_x(y4) );
 	p.drawPolygon(pa);
 	p.drawPolyline(pa);
-// 	p.drawLine( x2, y2, x3, y3 );
-// 	p.drawLine( x2, y2, x4, y4 );
 }
 //END class DPLine
 

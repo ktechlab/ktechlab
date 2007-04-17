@@ -23,7 +23,7 @@ Item* Sub::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 LibraryItem* Sub::libraryItem()
 {
 	return new LibraryItem(
-		QString("flow/sub"),
+		"flow/sub",
 		i18n("Subroutine"),
 		i18n("Common"),
 		"sub.png",
@@ -32,10 +32,9 @@ LibraryItem* Sub::libraryItem()
 }
 
 Sub::Sub( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowContainer( icnDocument, newItem, (id) ? id : "sub" )
+	: FlowContainer( icnDocument, newItem, id ? id : "sub" )
 {
 	m_name = i18n("Sub");
-	m_desc = i18n("Defines the starting point of a subroutine. Call this subroutine using \"Call Sub\"");
 	
 	createProperty( "sub", Variant::Type::Combo );
 	property("sub")->setCaption( i18n("Subroutine") );

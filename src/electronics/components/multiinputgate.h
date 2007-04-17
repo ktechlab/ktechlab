@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2004-2005 by David Saxton                               *
+ *   Copyright (C) 2004-2006 by David Saxton                               *
  *   david@bluehaze.org                                                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -21,27 +21,64 @@ const int maxGateInput = 256;
 */
 class MultiInputGate : public CallbackClass, public Component
 {
-public:
-	MultiInputGate( ICNDocument *icnDocument, bool newItem, const char *id, int baseWidth = -1 );
-	~MultiInputGate();
+	public:
+		/**
+		 * @param rectangularShapeText is the text displayed in the logic symbol
+		 * when drawing in rectangular mode, e.g. "&" for AND and "=1" for XOR.
+		 * @param invertedOutput true for NAND, NOR, XNOR; false for AND, OR, XOR
+		 * @param baseWidth is the width of the logic gate when drawing in
+		 * distinctive mode.
+		 * @param likeOR true for OR, NOR, XOR, XNOR (specifically, this value
+		 * used in computer the length of input pins, as OR types have a curvy
+		 * base when the shape is distinctive).
+		 */
+		MultiInputGate( ICNDocument *icnDocument, bool newItem, const char *id,
+						const QString & rectangularShapeText, bool invertedOutput,
+						int baseWidth, bool likeOR );
+		~MultiInputGate();
+		
+	protected:
+		enum LogicSymbolShape { Distinctive, Rectangular };
+		
+		virtual void updateAttachedPositioning();
+		virtual void slotUpdateConfiguration();
+		virtual void inStateChanged( bool newState ) = 0;
+		/**
+		 * This will draw the shape if the logic symbol is currently
+		 * rectangular. Distinctive shapes should be drawn in the respective
+		 * subclasses.
+		 */
+		virtual void drawShape( QPainter & p );
+		void dataChanged();
+		void updateInputs( int newNum );
+		/**
+		 * @return what the width should be according to the current logic
+		 * symbol shape.
+		 */
+		int logicSymbolShapeToWidth() const;
+		/**
+		 * Updates the display text for the logic symbol depending on its shape.
+		 */
+		void updateSymbolText();
+		
 	
-protected:
-	virtual void inStateChanged( bool newState ) = 0;
-	void dataChanged();
-	void updateInputs( int newNum );
-	
-	int m_numInputs;
-	int m_baseWidth;
-	
-	LogicIn *inLogic[maxGateInput];
-	ECNode *inNode[maxGateInput];
-	
-	LogicOut * m_pOut;
-	
-	virtual void updateAttachedPositioning();
-	
-private:
-	bool b_doneInit;
+		int m_numInputs;
+		int m_distinctiveWidth;
+		LogicIn *inLogic[maxGateInput];
+		ECNode *inNode[maxGateInput];
+		LogicOut * m_pOut;
+		LogicSymbolShape m_logicSymbolShape;
+		QString m_rectangularShapeText;
+		bool m_bInvertedOutput;
+		bool m_bLikeOR;
+		
+	private:
+		/**
+		 * Reads the logic symbol shape from KTLConfig.
+		 */
+		void updateLogicSymbolShape();
+		
+		bool m_bDoneInit;
 };
 
 
@@ -51,16 +88,17 @@ private:
 */
 class ECXnor : public MultiInputGate
 {
-public:
-	ECXnor( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
-	~ECXnor();
+	public:
+		ECXnor( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		~ECXnor();
 	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
-	
-private:
-	void inStateChanged( bool newState );
-	virtual void drawShape( QPainter &p );
+		static Item* construct( ItemDocument *itemDocument, bool newItem,
+								const char *id );
+		static LibraryItem *libraryItem();
+		
+	protected:
+		void inStateChanged( bool newState );
+		virtual void drawShape( QPainter &p );
 };
 
 
@@ -70,16 +108,17 @@ private:
 */
 class ECXor : public MultiInputGate
 {
-public:
-	ECXor( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
-	~ECXor();
+	public:
+		ECXor( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		~ECXor();
 	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+		static Item* construct( ItemDocument *itemDocument, bool newItem,
+								const char *id );
+		static LibraryItem *libraryItem();
 	
-protected:
-	void inStateChanged( bool newState );
-	virtual void drawShape( QPainter &p );
+	protected:
+		void inStateChanged( bool newState );
+		virtual void drawShape( QPainter &p );
 };
 
 
@@ -89,16 +128,17 @@ protected:
 */
 class ECOr : public MultiInputGate
 {
-public:
-	ECOr( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
-	~ECOr();
+	public:
+		ECOr( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		~ECOr();
 	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+		static Item* construct( ItemDocument *itemDocument, bool newItem,
+								const char *id );
+		static LibraryItem *libraryItem();
 	
-protected:
-	void inStateChanged( bool newState );
-	virtual void drawShape( QPainter &p );
+	protected:
+		void inStateChanged( bool newState );
+		virtual void drawShape( QPainter &p );
 };
 
 /**
@@ -107,16 +147,17 @@ protected:
 */
 class ECNor : public MultiInputGate
 {
-public:
-	ECNor( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
-	~ECNor();
+	public:
+		ECNor( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		~ECNor();
 	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+		static Item* construct( ItemDocument *itemDocument, bool newItem,
+								const char *id );
+		static LibraryItem *libraryItem();
 	
-private:
-	void inStateChanged( bool newState );
-	virtual void drawShape( QPainter &p );
+	protected:
+		void inStateChanged( bool newState );
+		virtual void drawShape( QPainter &p );
 };
 
 /**
@@ -125,16 +166,17 @@ private:
 */
 class ECNand : public MultiInputGate
 {
-public:
-	ECNand( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
-	~ECNand();
+	public:
+		ECNand( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		~ECNand();
 	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+		static Item* construct( ItemDocument *itemDocument, bool newItem,
+								const char *id );
+		static LibraryItem *libraryItem();
 	
-private:
-	void inStateChanged( bool newState );
-	virtual void drawShape( QPainter &p );
+	protected:
+		void inStateChanged( bool newState );
+		virtual void drawShape( QPainter &p );
 };
 
 /**
@@ -143,16 +185,17 @@ private:
 */
 class ECAnd : public MultiInputGate
 {
-public:
-	ECAnd( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
-	~ECAnd();
+	public:
+		ECAnd( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		~ECAnd();
 	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+		static Item* construct( ItemDocument *itemDocument, bool newItem,
+								const char *id );
+		static LibraryItem *libraryItem();
 	
-private:
-	void inStateChanged( bool newState );
-	virtual void drawShape( QPainter &p );
+	protected:
+		void inStateChanged( bool newState );
+		virtual void drawShape( QPainter &p );
 };
 
 

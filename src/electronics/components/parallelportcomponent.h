@@ -22,10 +22,9 @@ class ParallelPort;
 class ParallelPortComponent : public CallbackClass, public Component
 {
 	public:
-		ParallelPortComponent( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+		ParallelPortComponent( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~ParallelPortComponent();
 	
-		virtual bool canFlip() const { return true; }
 		static Item * construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem * libraryItem();
 		

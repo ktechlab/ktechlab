@@ -8,16 +8,23 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "port.h"
+// This section should be kept at the top to handle detection of os
+#include <qglobal.h>
+#if defined(Q_OS_DARWIN) || defined(Q_OS_MACX)
+	#define DARWIN
+#endif
 
+#include "port.h"
 #include <kdebug.h>
 
 #include <errno.h>
 #include <fcntl.h>
-#include <linux/ppdev.h>
 #include <sys/ioctl.h>
-#include <sys/io.h>
 #include <unistd.h>
+
+#ifndef DARWIN
+#include <linux/ppdev.h>
+#endif
 
 //BEGIN class Port
 Port::Port()
@@ -32,7 +39,11 @@ Port::~Port()
 
 QStringList Port::ports( unsigned probeResult )
 {
+#ifndef DARWIN
 	return SerialPort::ports(probeResult) + ParallelPort::ports(probeResult);
+#else
+	return SerialPort::ports(probeResult);
+#endif
 }
 //END class Port
 
@@ -241,9 +252,28 @@ QStringList SerialPort::ports( unsigned probeResult )
 
 
 //BEGIN class ParallelPort
+// I wasn't able to find any documentation on programming the parallel port
+// in Darwin, so I've just functionally neutered this section.  Apparently
+// parallel output is handled on a case by case basis (???) by the
+// manufacturer of whatever USB dongle is, unless they build it as a
+// Comms class device, in which case it is treated as a serial device.
+// ( Info from Garth Cummings, Apple Developer Technical Support )
+
 const int IRQ_MODE_BIT = 1 << 20; // Controls if pin 10 (Ack) causes interrupts
 const int INPUT_MODE_BIT = 1 << 21; // Controls if the data pins are input or output
 const int ALWAYS_INPUT_PINS = ParallelPort::STATUS_PINS;
+
+// No code using these values will be reached on Darwin, this is just to
+// keep the preprocessor happy.
+#ifdef DARWIN
+	#define PPRDATA		0xFACADE
+	#define PPRCONTROL	0xC001D00D
+	#define PPWDATA		0xC0EDBABE
+	#define PPWCONTROL	0xFEEDFACE
+	#define PPRSTATUS	0xBAADF00D
+	#define PPCLAIM 	0xDEADBEEF
+	#define PPRELEASE 	0xCAFE
+#endif
 
 const int IOCTL_REG_READ[3] = {
 	PPRDATA,
@@ -350,6 +380,10 @@ void ParallelPort::setControlState( uchar pins, bool state )
 //BEGIN Register-oriented operations
 uchar ParallelPort::readFromRegister( Register reg )
 {
+#ifdef DARWIN
+	return 0;
+#endif
+	
 	if ( m_file == -1 )
 		return 0;
 	
@@ -365,6 +399,10 @@ uchar ParallelPort::readFromRegister( Register reg )
 
 void ParallelPort::writeToRegister( Register reg, uchar value )
 {
+#ifdef DARWIN
+	return;
+#endif
+	
 	if ( m_file == -1 )
 		return;
 	
@@ -432,6 +470,10 @@ void ParallelPort::setControlDirection( int pins, Direction dir )
 
 Port::ProbeResult ParallelPort::probe( const QString & port )
 {
+#ifdef DARWIN
+	return Port::DoesntExist;
+#endif
+	
 	int file = open( port.ascii(), O_RDWR );
 	if ( file == -1 )
 		return Port::DoesntExist;
@@ -451,6 +493,10 @@ Port::ProbeResult ParallelPort::probe( const QString & port )
 QStringList ParallelPort::ports( unsigned probeResult )
 {
 	QStringList list;
+	
+#ifdef DARWIN
+	return list;
+#endif
 	
 	for ( unsigned i = 0; i < 8; ++i )
 	{
@@ -472,6 +518,11 @@ QStringList ParallelPort::ports( unsigned probeResult )
 
 bool ParallelPort::openPort( const QString & port )
 {
+#ifdef DARWIN
+	kdWarning() << k_funcinfo << "Parallel ports disabled on Darwin" << endl;
+	return false;
+#endif
+	
 	if ( m_file != -1 )
 	{
 		kdWarning() << k_funcinfo << "Port already open" << endl;
@@ -500,6 +551,10 @@ bool ParallelPort::openPort( const QString & port )
 
 void ParallelPort::closePort()
 {
+#ifdef DARWIN
+	return;
+#endif
+	
 	if ( m_file == -1 )
 		return;
 	

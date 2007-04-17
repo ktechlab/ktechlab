@@ -42,16 +42,17 @@ public:
 	
 	QPoint pos;
 	QPoint globalPos;
-	QCanvasItem *qcanvasItemClickedOn;
-	int itemRtti;
+	QCanvasItem * qcanvasItemClickedOn;
 	short scrollDelta;
 	Qt::Orientation scrollOrientation;
 	bool isRightClick:1;
+	bool isMiddleClick:1;
 	bool ctrlPressed:1;
 	bool shiftPressed:1;
 	bool altPressed:1;
 	
 protected:
+	void extractPos( ItemView * itemView, const QPoint & contentsMouseClick );
 	void reset();
 };
 

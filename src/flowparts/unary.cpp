@@ -23,7 +23,7 @@ Item* Unary::construct( ItemDocument *itemDocument, bool newItem, const char *id
 LibraryItem* Unary::libraryItem()
 {
 	return new LibraryItem(
-		QString("flow/unary"),
+		"flow/unary",
 		i18n("Unary"),
 		i18n("Variables"),
 		"unary.png",
@@ -32,10 +32,9 @@ LibraryItem* Unary::libraryItem()
 }
 
 Unary::Unary( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowPart( icnDocument, newItem, (id) ? id : "unary" )
+	: FlowPart( icnDocument, newItem, id ? id : "unary" )
 {
 	m_name = i18n("Unary");
-	m_desc =  i18n("A unary operation involves only one variable. Suppo operations are:<br><ul><li><b>Rotate Left</b> rotates the binary bits of the variable left (discarding the end bits).</li><li><b>Rotate Right</b> rotates the binary bits right (discarding the start bits).</li><li><b>Increment</b> increases the value of the variable by 1. A value of 255 wraps around to 0.</li><li><b>Decrement</b> decreases the value of a variable by 1. A value of 0 wraps around to 255.</li></ul>");
 	initProcessSymbol();
 	createStdInput();
 	createStdOutput();
@@ -46,7 +45,12 @@ Unary::Unary( ICNDocument *icnDocument, bool newItem, const char *id )
 	
 	createProperty( "1-op", Variant::Type::Select );
 	property("1-op")->setCaption( i18n("Operation") );
-	property("1-op")->setAllowed( QStringList::split( ',', "Rotate Left,Rotate Right,Increment,Decrement" ) );
+	QStringMap allowed;
+	allowed["Rotate Left"] = i18n("Rotate Left");
+	allowed["Rotate Right"] = i18n("Rotate Right");
+	allowed["Increment"] = i18n("Increment");
+	allowed["Decrement"] = i18n("Decrement");
+	property("1-op")->setAllowed( allowed );
 	property("1-op")->setValue("Rotate Left");
 }
 

@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>456</width>
-            <height>488</height>
+            <width>455</width>
+            <height>434</height>
         </rect>
     </property>
     <property name="caption">
@@ -33,40 +33,7 @@
                 <string></string>
             </property>
         </widget>
-        <widget class="QCheckBox" row="1" column="0" rowspan="1" colspan="2">
-            <property name="name">
-                <cstring>kcfg_ShowVoltageBars</cstring>
-            </property>
-            <property name="text">
-                <string>Show voltage bars &amp;on electronic components</string>
-            </property>
-            <property name="accel">
-                <string>Alt+O</string>
-            </property>
-        </widget>
-        <widget class="KColorButton" row="2" column="1">
-            <property name="name">
-                <cstring>kcfg_GridColor</cstring>
-            </property>
-            <property name="text">
-                <string>Grid Colour</string>
-            </property>
-            <property name="toolTip" stdset="0">
-                <string>The grid color in the work area.</string>
-            </property>
-        </widget>
-        <widget class="QCheckBox" row="2" column="0">
-            <property name="name">
-                <cstring>kcfg_ShowGrid</cstring>
-            </property>
-            <property name="text">
-                <string>Show &amp;grid:</string>
-            </property>
-            <property name="accel">
-                <string>Alt+G</string>
-            </property>
-        </widget>
-        <widget class="KIntSpinBox" row="3" column="1">
+        <widget class="KIntSpinBox" row="5" column="1">
             <property name="name">
                 <cstring>kcfg_MaxUndo</cstring>
             </property>
@@ -82,18 +49,7 @@
                 <number>100000</number>
             </property>
         </widget>
-        <widget class="QLabel" row="3" column="0">
-            <property name="name">
-                <cstring>textLabel1</cstring>
-            </property>
-            <property name="text">
-                <string>Maximum undo steps for work area:</string>
-            </property>
-            <property name="toolTip" stdset="0">
-                <string>Maximum undo steps for work area. This doesn't apply to text documents - that is configurable seperately under Configure Editor.</string>
-            </property>
-        </widget>
-        <widget class="QGroupBox" row="4" column="0" rowspan="1" colspan="2">
+        <widget class="QGroupBox" row="6" column="0" rowspan="1" colspan="2">
             <property name="name">
                 <cstring>groupBox4</cstring>
             </property>
@@ -139,7 +95,57 @@
                 </widget>
             </vbox>
         </widget>
-        <widget class="QGroupBox" row="5" column="0" rowspan="1" colspan="2">
+        <widget class="KColorButton" row="4" column="1">
+            <property name="name">
+                <cstring>kcfg_GridColor</cstring>
+            </property>
+            <property name="text">
+                <string>Grid Colour</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>The grid color in the work area.</string>
+            </property>
+        </widget>
+        <widget class="QCheckBox" row="4" column="0">
+            <property name="name">
+                <cstring>kcfg_ShowGrid</cstring>
+            </property>
+            <property name="text">
+                <string>Show &amp;grid:</string>
+            </property>
+            <property name="accel">
+                <string>Alt+G</string>
+            </property>
+        </widget>
+        <spacer row="8" column="1">
+            <property name="name">
+                <cstring>spacer3</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>20</width>
+                    <height>40</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QLabel" row="5" column="0">
+            <property name="name">
+                <cstring>textLabel1</cstring>
+            </property>
+            <property name="text">
+                <string>Maximum undo steps for work area:</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Maximum undo steps for work area. This doesn't apply to text documents - that is configurable seperately under Configure Editor.</string>
+            </property>
+        </widget>
+        <widget class="QGroupBox" row="7" column="0" rowspan="1" colspan="2">
             <property name="name">
                 <cstring>groupBox21</cstring>
             </property>
@@ -223,23 +229,39 @@
                 </widget>
             </vbox>
         </widget>
-        <spacer row="6" column="1">
+        <widget class="QCheckBox" row="1" column="0" rowspan="1" colspan="2">
             <property name="name">
-                <cstring>spacer3</cstring>
+                <cstring>kcfg_ShowVoltageBars</cstring>
             </property>
-            <property name="orientation">
-                <enum>Vertical</enum>
+            <property name="text">
+                <string>Show voltage bars &amp;on electronic components</string>
             </property>
-            <property name="sizeType">
-                <enum>Expanding</enum>
+            <property name="accel">
+                <string>Alt+O</string>
             </property>
-            <property name="sizeHint">
-                <size>
-                    <width>20</width>
-                    <height>40</height>
-                </size>
+        </widget>
+        <widget class="QCheckBox" row="2" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>kcfg_ShowVoltageColor</cstring>
             </property>
-        </spacer>
+            <property name="text">
+                <string>Color the wires to match the voltage</string>
+            </property>
+            <property name="accel">
+                <string></string>
+            </property>
+        </widget>
+        <widget class="QCheckBox" row="3" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>kcfg_AnimateWires</cstring>
+            </property>
+            <property name="text">
+                <string>Animate wires to show the current or power flow</string>
+            </property>
+            <property name="accel">
+                <string></string>
+            </property>
+        </widget>
     </grid>
 </widget>
 <connections>
@@ -263,7 +285,7 @@
 </tabstops>
 <layoutdefaults spacing="6" margin="11"/>
 <includehints>
-    <includehint>kcolorbutton.h</includehint>
     <includehint>knuminput.h</includehint>
+    <includehint>kcolorbutton.h</includehint>
 </includehints>
 </UI>

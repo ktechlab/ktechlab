@@ -21,7 +21,7 @@
 
 
 //BEGIN class DebugManager
-DebugManager * DebugManager::m_pSelf = 0;
+DebugManager * DebugManager::m_pSelf = 0l;
 static KStaticDeleter<DebugManager> staticDebugManagerDeleter;
 
 DebugManager * DebugManager::self()
@@ -68,7 +68,7 @@ void DebugManager::urlOpened( TextDocument * td )
 	if ( td->debuggerIsRunning() )
 		return;
 	
-	m_processors.remove( (GpsimProcessor*)0 );
+	m_processors.remove( (GpsimProcessor*)0l );
 	GpsimProcessorList::iterator end = m_processors.end();
 	for ( GpsimProcessorList::iterator it = m_processors.begin(); it != end; ++it )
 	{

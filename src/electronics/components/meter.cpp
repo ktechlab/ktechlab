@@ -27,12 +27,12 @@
 Meter::Meter( ICNDocument *icnDocument, bool newItem, const char *id )
 	: Component( icnDocument, newItem, id )
 {
-	m_bDynamicContent = true;
 	b_timerStarted = false;
 	m_timeSinceUpdate = 0.;
 	m_old_value  = 0.;
 	m_avgValue = 0.;
 	b_firstRun = true;
+	m_prevProp = 0.0;
 	setSize( -16, -16, 32, 32 );
 
 	p_displayText = addDisplayText( "meter", QRect( -16, 16, 32, 16 ), displayText() );
@@ -93,6 +93,13 @@ void Meter::stepNonLogic()
 	}
 }
 
+
+bool Meter::contentChanged() const
+{
+	return (m_prevProp != calcProp( m_old_value ));
+}
+
+
 void Meter::drawShape( QPainter &p )
 {
 	initPainter(p);
@@ -101,18 +108,9 @@ void Meter::drawShape( QPainter &p )
 	p.setBrush(Qt::black);
 	
 	// The proportion between 0.1mV and 10KV, on a logarithmic scale
-	double prop;
-	const double abs_value = std::abs(m_old_value);
-	if ( abs_value <= m_minValue )
-		prop = 0.;
-	else if ( abs_value >= m_maxValue )
-		prop = 1.;
-	else
-		prop = std::log10( abs_value/m_minValue ) / std::log10( m_maxValue/m_minValue );
-	if ( m_old_value>0 )
-		prop *= -1;
-	double sin_prop = 10*std::sin(prop*1.571); // 1.571 = pi/2
-	double cos_prop = 10*std::cos(prop*1.571); // 1.571 = pi/2
+	m_prevProp = calcProp( m_old_value );
+	double sin_prop = 10*std::sin(m_prevProp*1.571); // 1.571 = pi/2
+	double cos_prop = 10*std::cos(m_prevProp*1.571); // 1.571 = pi/2
 	
 	int cx = int(x()-16+(width()/2));
 	int cy = int(y()-16+(height()/2));
@@ -120,11 +118,30 @@ void Meter::drawShape( QPainter &p )
 	
 	QPointArray pa(3);
 	pa[0] = QPoint( int(cx-sin_prop), int(cy-cos_prop) ); // Arrow head
-	pa[1] = QPoint( int(cx-sin_prop + 8*std::sin(1.571*(-0.3+prop))), int(cy-cos_prop + 8*std::cos(1.571*(-0.3+prop))) );
-	pa[2] = QPoint( int(cx-sin_prop + 8*std::sin(1.571*(0.3+prop))), int(cy-cos_prop + 8*std::cos(1.571*(0.3+prop))) );
+	pa[1] = QPoint( int(cx-sin_prop + 8*std::sin(1.571*(-0.3+m_prevProp))), int(cy-cos_prop + 8*std::cos(1.571*(-0.3+m_prevProp))) );
+	pa[2] = QPoint( int(cx-sin_prop + 8*std::sin(1.571*(0.3+m_prevProp))), int(cy-cos_prop + 8*std::cos(1.571*(0.3+m_prevProp))) );
 	p.drawPolygon(pa);
 	
 	deinitPainter(p);
+}
+
+
+double Meter::calcProp( double v ) const
+{
+	double abs_value = std::abs( v );
+	
+	double prop;
+	if ( abs_value <= m_minValue )
+		prop = 0.0;
+	else if ( abs_value >= m_maxValue )
+		prop = 1.0;
+	else
+		prop = std::log10( abs_value/m_minValue ) / std::log10( m_maxValue/m_minValue );
+	
+	if ( m_old_value>0 )
+		prop *= -1;
+	
+	return prop;
 }
 
 
@@ -151,7 +168,7 @@ Item* FrequencyMeter::construct( ItemDocument *itemDocument, bool newItem, const
 LibraryItem* FrequencyMeter::libraryItem()
 {
 	return new LibraryItem(
-		QString("ec/frequencymeter"),
+		"ec/frequencymeter",
 		i18n("Frequency Meter (TODO)"),
 		i18n("Outputs"),
 		"frequencymeter.png",
@@ -160,10 +177,9 @@ LibraryItem* FrequencyMeter::libraryItem()
 }
 
 FrequencyMeter::FrequencyMeter( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Meter( icnDocument, newItem, (id) ? id : "frequencymeter" )
+	: Meter( icnDocument, newItem, id ? id : "frequencymeter" )
 {
 	m_name = i18n("Frequency Meter");
-	m_desc = i18n("Place this at the point where frequency is to be measured.");
 	m_unit = "Hz";
 	
 	m_probeNode = createPin( 0, -24, 90, "n1" );
@@ -201,10 +217,9 @@ LibraryItem* ECAmmeter::libraryItem()
 }
 
 ECAmmeter::ECAmmeter( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Meter( icnDocument, newItem, (id) ? id : "ammeter" )
+	: Meter( icnDocument, newItem, id ? id : "ammeter" )
 {
 	m_name = i18n("Ammeter");
-	m_desc = i18n("Place this in series in the circuit to measure the current flowing.");
 	setSize( -16, -16, 32, 32 );
 	m_unit = "A";
 	
@@ -234,7 +249,7 @@ Item* ECVoltMeter::construct( ItemDocument *itemDocument, bool newItem, const ch
 LibraryItem* ECVoltMeter::libraryItem()
 {
 	return new LibraryItem(
-		QString("ec/voltmeter"),
+		"ec/voltmeter",
 		i18n("Voltmeter"),
 		i18n("Outputs"),
 		"voltmeter.png",
@@ -243,10 +258,9 @@ LibraryItem* ECVoltMeter::libraryItem()
 }
 
 ECVoltMeter::ECVoltMeter( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Meter( icnDocument, newItem, (id) ? id : "voltmeter" )
+	: Meter( icnDocument, newItem, id ? id : "voltmeter" )
 {
 	m_name = i18n("Voltmeter");
-	m_desc = i18n("Place this in parallel in the circuit to meaure the voltage between two points.");
 	m_unit = "V";
 	
 	init1PinLeft(0);

@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KTechlabItemView" version="8">
+<kpartgui name="KTechlabItemView" version="9">
 	<MenuBar>
 		<Menu name="file">
 			<text>&amp;File</text>
@@ -21,8 +21,8 @@
 		</Menu>
 		
 		<Menu name="tools">
-			<Separator/>
 			<text>&amp;Tools</text>
+			<Separator/>
 			<Action name="edit_raise"/>
 			<Action name="edit_lower"/>
 		</Menu>

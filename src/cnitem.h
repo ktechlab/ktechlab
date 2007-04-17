@@ -43,7 +43,7 @@ public:
 };
 
 typedef QMap<QString, QString> StringMap;
-typedef QMap<QString, NodeInfo> NodeMap; // Internal id, node info
+typedef QMap<QString, NodeInfo> NodeInfoMap; // Internal id, node info
 typedef QValueList<QGuardedPtr<Connector> > ConnectorList;
 typedef QMap<QString, QGuardedPtr<Text> > TextMap;
 
@@ -63,10 +63,6 @@ public:
 	virtual ~CNItem();
 	
 	/**
-	 * Returns the run-time identifier for the CNItem - ItemDocument::RTTI::CNItem
-	 */
-	int rtti() const;
-	/**
 	 * Creates a node which is attached to the item. The node will be moved
 	 * about with the item, and destroyed along with the item. The position
 	 * coordinates of the node are relative to the upper left corner of the item.
@@ -78,14 +74,6 @@ public:
 	 * any nodes during the lifetime of the CNItem.
 	 */
 	bool removeNode( const QString &name );
-	/**
-	 * Sets the mouse click point when moving this item
-	 */
-	void setInitialPos( const QPoint &pos );
-	/**
-     * Snaps the component to the grid.
-     */
-	void snap( int newx = -1, int newy = -1 );
 	/**
 	 * Returns the closest node that is associated with the CNItem
 	 */
@@ -120,10 +108,10 @@ public:
 	Node *childNode( const QString &childId );
 	/**
 	 * Returns the node map used:
-	 * QMap<QString, NodeInfo> NodeMap
+	 * QMap<QString, NodeInfo> NodeInfoMap
 	 * It's probably best to cache this data
 	 */
-	NodeMap nodeMap() const { return m_nodeMap; }
+	NodeInfoMap nodeMap() const { return m_nodeMap; }
 	/**
 	 * Returns the TextMap used for canvas text
 	 */
@@ -134,6 +122,14 @@ public:
 	virtual ItemData itemData() const;
 	virtual void restoreFromItemData( const ItemData &itemData );
 	virtual void updateNodeLevels();
+	virtual void drawShape( QPainter &p );
+	
+signals:
+	/**
+	 * Emitted when the angle or flipped'ness changes. Note that CNItem doesn't
+	 * actually emit this signal - instead, Component and FlowPart classes do.
+	 */
+	void orientationChanged();
 	
 public slots:
 	/**
@@ -156,7 +152,6 @@ public slots:
 	
 protected:
 	virtual void reparented( Item *oldParent, Item *newParent );
-	virtual void drawShape( QPainter &p );
 	virtual void postResize();
 	/**
 	 * CNItem handles drawing of text associated with the CNItem.
@@ -177,10 +172,9 @@ protected:
 	 */
 	virtual void initPainter( QPainter &p );
 	
-	QPoint m_offset;
 	QGuardedPtr<ICNDocument> p_icnDocument;
 	TextMap m_textMap;
-	NodeMap m_nodeMap;
+	NodeInfoMap m_nodeMap;
 	QColor m_selectedCol;
 	QColor m_brushCol;
 	bool b_pointsAdded;

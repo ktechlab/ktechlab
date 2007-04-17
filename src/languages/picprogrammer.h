@@ -113,7 +113,7 @@ class PicProgrammerSettings
 class PicProgrammer : public ExternalLanguage
 {
 	public:
-		PicProgrammer( ProcessChain *processChain, KTechlab *parent );
+		PicProgrammer( ProcessChain *processChain );
 		~PicProgrammer();
 	
 		virtual void processInput( ProcessOptions options );

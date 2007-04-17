@@ -9,6 +9,7 @@
  ***************************************************************************/
 
 #include "elementset.h"
+#include "matrix.h"
 #include "cccs.h"
 
 CCCS::CCCS( const double gain )
@@ -40,31 +41,20 @@ void CCCS::add_map()
 {
 	if (!b_status) return;
 	
-	if ( !p_cnode[0]->isGround )
-	{
-		p_A->setUse_b( p_cnode[0]->n(), p_cbranch[0]->n(), Map::et_constant, true );
-		p_A->setUse_c( p_cbranch[0]->n(), p_cnode[0]->n(), Map::et_constant, true );
-	}
-	if ( !p_cnode[1]->isGround )
-	{
-		p_A->setUse_b( p_cnode[1]->n(), p_cbranch[0]->n(), Map::et_constant, true );
-		p_A->setUse_c( p_cbranch[0]->n(), p_cnode[1]->n(), Map::et_constant, true );
-	}
-	if ( !p_cnode[2]->isGround )
-	{
-		p_A->setUse_b( p_cnode[2]->n(), p_cbranch[1]->n(), Map::et_constant, true );
-	}
-	if ( !p_cnode[3]->isGround )
-	{
-		p_A->setUse_b( p_cnode[3]->n(), p_cbranch[1]->n(), Map::et_constant, true );
-	}
-	p_A->setUse_d( p_cbranch[1]->n(), p_cbranch[0]->n(), Map::et_stable, true );
-	p_A->setUse_d( p_cbranch[1]->n(), p_cbranch[1]->n(), Map::et_constant, true );
+	setUse_b( 0, 0, Map::et_constant, true );
+	setUse_c( 0, 0, Map::et_constant, true );
+	setUse_b( 1, 0, Map::et_constant, true );
+	setUse_c( 0, 1, Map::et_constant, true );
+	setUse_b( 2, 1, Map::et_constant, true );
+	setUse_b( 3, 1, Map::et_constant, true );
+	setUse_d( 1, 0, Map::et_stable, true );
+	setUse_d( 1, 1, Map::et_constant, true );
 }
 
 void CCCS::add_initial_dc()
 {
-	if (!b_status) return;
+	if (!b_status)
+		return;
 	
 	A_b( 0, 0 ) = 1;
 	A_c( 0, 0 ) = 1;

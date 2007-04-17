@@ -20,7 +20,7 @@
 class Unary : public FlowPart
 {
 public:
-	Unary( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	Unary( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~Unary();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

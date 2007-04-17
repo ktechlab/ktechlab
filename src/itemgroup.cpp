@@ -12,14 +12,15 @@
 #include "item.h"
 #include "itemgroup.h"
 #include "mechanicsdocument.h"
+#include "utils.h"
 
 #include <qtimer.h>
-
+#include <map>
 
 ItemGroup::ItemGroup( ItemDocument *view, const char *name )
 	: QObject( view, name )
 {
-	m_activeItem = 0;
+	m_activeItem = 0l;
 	b_itemsAreSameType = true;
 	p_view = view;
 	p_icnDocument = dynamic_cast<ICNDocument*>(p_view);
@@ -62,9 +63,9 @@ ItemList ItemGroup::items( bool excludeParentedItems ) const
 		for ( ItemList::iterator it = children.begin(); it != end; ++it )
 		{
 			if ( children.contains(*it) > 1 )
-				*it = 0;
+				*it = 0l;
 		}
-		children.remove((Item*)0);
+		children.remove((Item*)0l);
 		
 		items += children;
 		parents = children;
@@ -245,7 +246,7 @@ void ItemGroup::slotDistributeHorizontally()
 	
 	double avg_spacing = 0;
 	
-	Item * previous = 0;
+	Item * previous = 0l;
 	const DIMap::iterator rankedEnd = ranked.end();
 	for ( DIMap::iterator it = ranked.begin(); it != rankedEnd; ++it )
 	{
@@ -267,7 +268,7 @@ void ItemGroup::slotDistributeHorizontally()
 	{
 		Item * item = it->second;
 		double new_x = at - item->offsetX() + avg_spacing;
-		item->move( int(new_x/8)*8+4, item->y() );
+		item->move( snapToCanvas(new_x), item->y() );
 		at = new_x + item->width() + item->offsetX();
 	}
 	
@@ -291,7 +292,7 @@ void ItemGroup::slotDistributeVertically()
 	
 	double avg_spacing = 0;
 	
-	Item * previous = 0;
+	Item * previous = 0l;
 	const DIMap::iterator rankedEnd = ranked.end();
 	for ( DIMap::iterator it = ranked.begin(); it != rankedEnd; ++it )
 	{
@@ -313,7 +314,7 @@ void ItemGroup::slotDistributeVertically()
 	{
 		Item * item = it->second;
 		double new_y = at - item->offsetY() + avg_spacing;
-		item->move( item->x(), int(new_y/8)*8+4 );
+		item->move( item->x(), snapToCanvas(new_y) );
 		at = new_y + item->height() + item->offsetY();
 	}
 	

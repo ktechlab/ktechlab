@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2003-2005 by David Saxton                               *
+ *   Copyright (C) 2003-2006 by David Saxton                               *
  *   david@bluehaze.org                                                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -8,8 +8,8 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#ifndef CANVASTEXT_H
-#define CANVASTEXT_H
+#ifndef DPTEXT_H
+#define DPTEXT_H
 
 #include "drawpart.h"
 
@@ -19,30 +19,29 @@
 */
 class DPText : public DrawPart
 {
-public:
-	DPText( ItemDocument *itemDocument, bool newItem, const char *id = 0 );
-	~DPText();
+	public:
+		DPText( ItemDocument *itemDocument, bool newItem, const char *id = 0L );
+		~DPText();
 
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
-	static LibraryItem *libraryItemOld();
+		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
+		static LibraryItem *libraryItem();
+		static LibraryItem *libraryItemOld();
 
-	virtual void setSelected( bool yes );
+		virtual void setSelected( bool yes );
 	
-	virtual QSize minimumSize() const;
+		virtual QSize minimumSize() const;
 
-protected:
-	virtual void postResize();
+	protected:
+		virtual void postResize();
 	
-private:
-	virtual void drawShape( QPainter &p );
-	void dataChanged();
-	QString m_caption;
-	bool b_displayBackground;
-	QColor m_textColor;
-	QColor m_backgroundColor;
-	QColor m_frameColor;
-	RectangularOverlay *m_rectangularOverlay;
+	private:
+		virtual void drawShape( QPainter &p );
+		void dataChanged();
+		QString m_text;
+		bool b_displayBackground;
+		QColor m_backgroundColor;
+		QColor m_frameColor;
+		RectangularOverlay *m_rectangularOverlay;
 };
 
 #endif

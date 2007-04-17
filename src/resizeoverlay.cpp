@@ -32,7 +32,7 @@ ResizeOverlay::~ResizeOverlay()
 	for ( ResizeHandleMap::iterator it = m_resizeHandleMap.begin(); it != end; ++it )
 	{
 		if (it.data())
-			it.data()->setCanvas(0);
+			it.data()->setCanvas(0l);
 		delete (ResizeHandle*)it.data();
 	}
 	m_resizeHandleMap.clear();
@@ -92,7 +92,7 @@ ResizeHandle *ResizeOverlay::resizeHandle( int id )
 	ResizeHandleMap::iterator it = m_resizeHandleMap.find(id);
 	if ( it != m_resizeHandleMap.end() )
 		return it.data();
-	return 0;
+	return 0l;
 }
 
 
@@ -258,7 +258,7 @@ void RectangularOverlay::removeTopMiddle()
 	if (!m_tm)
 		return;
 	removeResizeHandle( m_tm->id() );
-	m_tm = 0;
+	m_tm = 0l;
 }
 
 
@@ -267,7 +267,7 @@ void RectangularOverlay::removeBotMiddle()
 	if (!m_bm)
 		return;
 	removeResizeHandle( m_bm->id() );
-	m_bm = 0;
+	m_bm = 0l;
 }
 
 
@@ -298,7 +298,7 @@ bool RectangularOverlay::isValidXPos( ResizeHandle *rh )
 {
 	Q_UNUSED(rh);
 	bool ok;
-	getSizeRect( 0, &ok, 0 );
+	getSizeRect( 0l, &ok, 0l );
 	return ok;
 }
 
@@ -307,7 +307,7 @@ bool RectangularOverlay::isValidYPos( ResizeHandle *rh )
 {
 	Q_UNUSED(rh);
 	bool ok;
-	getSizeRect( 0, 0, &ok );
+	getSizeRect( 0l, 0l, &ok );
 	return ok;
 }
 
@@ -418,11 +418,6 @@ ResizeHandle::ResizeHandle( ResizeOverlay *resizeOverlay, int id, DrawType drawT
 ResizeHandle::~ResizeHandle()
 {
 	hide();
-}
-
-int ResizeHandle::rtti() const
-{
-	return ItemDocument::RTTI::ResizeHandle;
 }
 
 void ResizeHandle::setHover( bool hover )

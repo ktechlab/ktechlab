@@ -23,9 +23,11 @@ AsmParser::AsmParser( const QString &url )
 	m_type = Absolute;
 }
 
+
 AsmParser::~AsmParser()
 {
 }
+
 
 bool AsmParser::parse( GpsimDebugger * debugger )
 {
@@ -43,7 +45,8 @@ bool AsmParser::parse( GpsimDebugger * debugger )
 			"code,.def,.dim,.direct,endw,extern,.file,global,idata,.ident,.line,.type,udata,udata_acs,udata_ovr,udata_shr" );
 	
 	unsigned inputAtLine = 0;
-	while ( !stream.atEnd() ) {
+	while ( !stream.atEnd() )
+	{
 		const QString line = stream.readLine().stripWhiteSpace();
 		if ( m_type != Relocatable )
 		{
@@ -52,8 +55,8 @@ bool AsmParser::parse( GpsimDebugger * debugger )
 			if ( nonAbsoluteOps.contains(col0) )
 				m_type = Relocatable;
 		}
-
-		if ( !m_bContainsRadix ) {
+		if ( !m_bContainsRadix )
+		{
 			if ( line.contains( QRegExp("^RADIX[\\s]*") ) || line.contains( QRegExp("^radix[\\s]*") ) )
 				m_bContainsRadix = true;
 		}
@@ -73,7 +76,8 @@ bool AsmParser::parse( GpsimDebugger * debugger )
 			}
 		}
 #ifndef NO_GPSIM
-		if ( debugger && line.startsWith(";#CSRC\t") ) {
+		if ( debugger && line.startsWith(";#CSRC\t") )
+		{
 			// Assembly file produced (by sdcc) from C, line is in format:
 			// ;#CSRC\t[file-name] [file-line]
 			// The filename can contain spaces.
@@ -110,16 +114,19 @@ bool AsmParser::parse( GpsimDebugger * debugger )
 			QStringList lineParts = QStringList::split( '\t', line );
 			if ( lineParts.size() < 2 )
 				kdWarning() << k_funcinfo << "Line is in wrong format for extracing source line and file: \""<<line<<"\""<<endl;
-			else {
+			else
+			{
 				const QString lineAndFile = lineParts[1];
 				int lineFileSplit = lineAndFile.find("; ");
 				if ( lineFileSplit == -1 )
 					kdDebug() << k_funcinfo << "Could not find file / line split in \""<<lineAndFile<<"\""<<endl;
-				else {
+				else
+				{
 					QString fileName = lineAndFile.mid( lineFileSplit + 2 );
 					QString fileLineString = lineAndFile.left( lineFileSplit );
 					
-					if ( fileName.startsWith("\"") ) {
+					if ( fileName.startsWith("\"") )
+					{
 						// Newer versions of SDCC insert " around the filename
 						fileName.remove( 0, 1 ); // First "
 						fileName.remove( fileName.length()-1, 1 ); // Last "
@@ -129,13 +136,15 @@ bool AsmParser::parse( GpsimDebugger * debugger )
 					int fileLine = fileLineString.toInt(&ok) - 1;
 					if ( ok && fileLine >= 0 )
 						debugger->associateLine( fileName, fileLine, m_url, inputAtLine );
-					else kdDebug() << k_funcinfo << "Not a valid line number: \"" << fileLineString << "\"" << endl;
+					else
+						kdDebug() << k_funcinfo << "Not a valid line number: \"" << fileLineString << "\"" << endl;
 				}
 			}
 		}
 #endif // !NO_GPSIM
 		inputAtLine++;
 	}
+	
 	return true;
 }
 

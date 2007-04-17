@@ -23,7 +23,7 @@
 #include "parser.h"
 #include "pic14.h"
 
-#include <cassert>
+#include <assert.h>
 #include <kdebug.h>
 #include <iostream>
 using namespace std;
@@ -52,7 +52,7 @@ bool LEDSegTable[][7] = {
 PIC14::PIC14( Microbe * master, Type type )
 {
 	mb = master;
-	m_pCode = 0;
+	m_pCode = 0l;
 	m_type = type;
 	
 }
@@ -277,7 +277,7 @@ bool PIC14::isValidTris( const QString & trisName ) const
 
 bool PIC14::isValidInterrupt( const QString & interruptName ) const
 {
-	if(m_type == "P16F84" || m_type =="P16C84")
+	if( m_type == P16F84 || m_type == P16C84 )
 	{
 		return ( interruptName == "change" ||
 				 interruptName == "timer" ||

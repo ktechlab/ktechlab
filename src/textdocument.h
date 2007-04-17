@@ -51,14 +51,14 @@ public:
 		ExecutionPoint     = KTextEditor::MarkInterface::markType06
 	};
 	
-	virtual View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0 );
+	virtual View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l );
 
 	/**
 	 * Attempts to construct a new TextDocument object and returns a pointer to
 	 * it if successful, or 0 if it failed.
 	 * @returns pointer to constructed object, or 0 if there was a problem
 	 */
-	static TextDocument *constructTextDocument( const QString& caption, KTechlab *parent, const char *name = 0 );
+	static TextDocument *constructTextDocument( const QString& caption, const char *name = 0L );
 	/**
 	 * @returns the guessed code type that this file is
 	 */
@@ -132,7 +132,7 @@ public:
 	virtual void print();
 	virtual void setModified( bool modified );
 	
-	Kate::View* createKateView( QWidget *parent, const char *name = 0 );
+	Kate::View* createKateView( QWidget *parent, const char *name = 0l );
 	
 	virtual void undo();
 	virtual void redo();
@@ -228,7 +228,7 @@ private slots:
 	void slotSelectionmChanged();
 
 private:
-	TextDocument( const QString& caption, KTechlab *parent, const char *name = 0 );
+	TextDocument( const QString& caption, const char *name = 0L );
 	bool m_constructorSuccessful;
 	CodeType m_guessedCodeType;
 	QPtrList<KAction> m_bookmarkActions;

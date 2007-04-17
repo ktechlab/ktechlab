@@ -129,10 +129,6 @@ public:
 		sm_rotate
 	};
 	/**
-	 * Returns the run-time identifier for the MechanicsItem
-	 */
-	int rtti() const;
-	/**
 	 * Sets the selection mode (sm_resize or sm_rotate). Note that setSelected
 	 * also needs to be called to select the item.
 	 */

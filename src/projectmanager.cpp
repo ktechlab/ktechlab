@@ -32,7 +32,7 @@
 #include <qpopupmenu.h>
 #include <qwhatsthis.h>
 
-#include <cassert>
+#include <assert.h>
 
 //BEGIN class LinkerOptions
 LinkerOptions::LinkerOptions()
@@ -179,26 +179,28 @@ void ProcessingOptions::domElementToProcessingOptions( const QDomElement & eleme
 
 
 //BEGIN class ProjectItem
-ProjectItem::ProjectItem( ProjectItem * parent, Type type, ProjectManager * projectManager, KTechlab * ktechlab )
+ProjectItem::ProjectItem( ProjectItem * parent, Type type, ProjectManager * projectManager )
 	: QObject()
 {
 	m_pParent = parent;
-	m_pILVItem = 0;
+	m_pILVItem = 0l;
 	m_pProjectManager = projectManager;
-	p_ktechlab = ktechlab;
 	m_type = type;
 }
 
+
 ProjectItem::~ProjectItem()
 {
-	m_children.remove( (ProjectItem*)0 );
+	m_children.remove( (ProjectItem*)0l );
 	ProjectItemList::iterator end = m_children.end();
 	for ( ProjectItemList::iterator it = m_children.begin(); it != end; ++it )
 		(*it)->deleteLater();
 	m_children.clear();
 	
 	delete m_pILVItem;
+	m_pILVItem = 0l;
 }
+
 
 void ProjectItem::setILVItem( ILVItem * ilvItem )
 {
@@ -209,17 +211,20 @@ void ProjectItem::setILVItem( ILVItem * ilvItem )
 	updateILVItemPixmap();
 }
 
+
 void ProjectItem::updateILVItemPixmap()
 {
-	if(!m_pILVItem) return;
+	if ( !m_pILVItem )
+		return;
 	
-	switch(type()) {
+	switch ( type() )
+	{
 		case ProjectType:
 		{
 			// ?! - We shouldn't have an ilvitem for this.
 			break;
 		}
-
+		
 		case ProgramType:
 		{
 			QPixmap pm;
@@ -277,7 +282,7 @@ void ProjectItem::updateControlChildMicroIDs()
 			break;
 	}
 	
-	m_children.remove( (ProjectItem*)0 );
+	m_children.remove( (ProjectItem*)0l );
 	ProjectItemList::iterator end = m_children.end();
 	for ( ProjectItemList::iterator it = m_children.begin(); it != end; ++it )
 		(*it)->setUseParentMicroID( control );
@@ -414,7 +419,7 @@ bool ProjectItem::build( ProcessOptionsList * pol )
 	
 	if ( outputURL().isEmpty() )
 	{
-		KMessageBox::sorry( 0, i18n("Don't know how to build \"%1\" (output url is empty).").arg(name()) );
+		KMessageBox::sorry( 0l, i18n("Don't know how to build \"%1\" (output url is empty).").arg(name()) );
 		return false;
 	}
 	
@@ -425,7 +430,7 @@ bool ProjectItem::build( ProcessOptionsList * pol )
 		ProjectItem * lib = projectInfo->findItem( projectInfo->directory() + *it );
 		if ( !lib )
 		{
-			KMessageBox::sorry( 0, i18n("Don't know how to build \"%1\" (library does not exist in project).").arg(*it) );
+			KMessageBox::sorry( 0l, i18n("Don't know how to build \"%1\" (library does not exist in project).").arg(*it) );
 			return false;
 		}
 		
@@ -435,7 +440,7 @@ bool ProjectItem::build( ProcessOptionsList * pol )
 	
 	
 	// Build all children
-	m_children.remove( (ProjectItem*)0 );
+	m_children.remove( (ProjectItem*)0l );
 	ProjectItemList::iterator cend = m_children.end();
 	for ( ProjectItemList::iterator it = m_children.begin(); it != cend; ++it )
 	{
@@ -455,7 +460,7 @@ bool ProjectItem::build( ProcessOptionsList * pol )
 	switch ( outputType() )
 	{
 		case UnknownOutput:
-			KMessageBox::sorry( 0, i18n("Don't know how to build \"%1\" (unknown output type).").arg(name()) );
+			KMessageBox::sorry( 0l, i18n("Don't know how to build \"%1\" (unknown output type).").arg(name()) );
 			return false;
 			
 		case ProgramOutput:
@@ -488,7 +493,7 @@ bool ProjectItem::build( ProcessOptionsList * pol )
 			QStringList inputFiles;
 			
 			// Link child objects
-			m_children.remove( (ProjectItem*)0 );
+			m_children.remove( (ProjectItem*)0l );
 			ProjectItemList::iterator cend = m_children.end();
 			for ( ProjectItemList::iterator it = m_children.begin(); it != cend; ++it )
 				inputFiles << (*it)->outputURL().path();
@@ -526,7 +531,7 @@ void ProjectItem::upload( ProcessOptionsList * pol )
 {
 	build( pol );
 	
-	ProgrammerDlg * dlg = new ProgrammerDlg( microID(), (QWidget*)p_ktechlab, "Programmer Dlg" );
+	ProgrammerDlg * dlg = new ProgrammerDlg( microID(), (QWidget*)KTechlab::self(), "Programmer Dlg" );
 	
 	dlg->exec();
 	if ( !dlg->isAccepted() )
@@ -606,7 +611,7 @@ ProjectItem * ProjectItem::findItem( const KURL & url )
 			return found;
 	}
 	
-	return 0;
+	return 0l;
 }
 
 
@@ -616,7 +621,7 @@ bool ProjectItem::closeOpenFiles()
 	if ( doc && !doc->fileClose() )
 		return false;
 	
-	m_children.remove( (ProjectItem*)0 );
+	m_children.remove( (ProjectItem*)0l );
 	ProjectItemList::iterator end = m_children.end();
 	for ( ProjectItemList::iterator it = m_children.begin(); it != end; ++it )
 	{
@@ -630,7 +635,7 @@ bool ProjectItem::closeOpenFiles()
 
 void ProjectItem::addFiles()
 {
-	KURL::List urls = p_ktechlab->getFileURLs();
+	KURL::List urls = KTechlab::self()->getFileURLs();
 	const KURL::List::iterator end = urls.end();
 	for ( KURL::List::iterator it = urls.begin(); it != end; ++ it)
 		addFile(*it);
@@ -662,7 +667,7 @@ void ProjectItem::addFile( const KURL & url )
 	if ( url.isEmpty() )
 		return;
 	
-	m_children.remove( (ProjectItem*)0 );
+	m_children.remove( (ProjectItem*)0l );
 	ProjectItemList::iterator end = m_children.end();
 	for ( ProjectItemList::iterator it = m_children.begin(); it != end; ++it )
 	{
@@ -670,7 +675,7 @@ void ProjectItem::addFile( const KURL & url )
 			return;
 	}
 	
-	ProjectItem * item = new ProjectItem( this, FileType, m_pProjectManager, p_ktechlab );
+	ProjectItem * item = new ProjectItem( this, FileType, m_pProjectManager );
 	item->setURL(url);
 	addChild(item);
 }
@@ -720,7 +725,7 @@ void ProjectItem::domElementToItem( const QDomElement & element, const KURL & ba
 	QString name = element.attribute( "name", QString::null );
 	KURL url( baseURL, element.attribute( "url", QString::null ) );
 	
-	ProjectItem * createdItem = new ProjectItem( this, type, m_pProjectManager, p_ktechlab );
+	ProjectItem * createdItem = new ProjectItem( this, type, m_pProjectManager );
 	createdItem->setName( name );
 	createdItem->setURL( url );
 	
@@ -755,8 +760,8 @@ void ProjectItem::domElementToItem( const QDomElement & element, const KURL & ba
 
 
 //BEGIN class ProjectInfo
-ProjectInfo::ProjectInfo( ProjectManager * projectManager, KTechlab * ktechlab )
-	: ProjectItem( 0, ProjectItem::ProjectType, projectManager, ktechlab )
+ProjectInfo::ProjectInfo( ProjectManager * projectManager )
+	: ProjectItem( 0l, ProjectItem::ProjectType, projectManager )
 {
 	m_microID = QString::null;
 }
@@ -770,11 +775,11 @@ ProjectInfo::~ ProjectInfo()
 bool ProjectInfo::open( const KURL & url )
 {
 	QString target;
-	if ( !KIO::NetAccess::download( url, target, 0 ) )
+	if ( !KIO::NetAccess::download( url, target, 0l ) )
 	{
 		// If the file could not be downloaded, for example does not
 		// exist on disk, NetAccess will tell us what error to use
-		KMessageBox::error( 0, KIO::NetAccess::lastErrorString() );
+		KMessageBox::error( 0l, KIO::NetAccess::lastErrorString() );
 		
 		return false;
 	}
@@ -782,7 +787,7 @@ bool ProjectInfo::open( const KURL & url )
 	QFile file(target);
 	if ( !file.open( IO_ReadOnly ) )
 	{
-		KMessageBox::sorry( 0, i18n("Could not open %1 for reading").arg(target) );
+		KMessageBox::sorry( 0l, i18n("Could not open %1 for reading").arg(target) );
 		return false;
 	}
 	
@@ -799,7 +804,7 @@ bool ProjectInfo::open( const KURL & url )
 	QString errorMessage;
 	if ( !doc.setContent( xml, &errorMessage ) )
 	{
-		KMessageBox::sorry( 0, i18n("Couldn't parse xml:\n%1").arg(errorMessage) );
+		KMessageBox::sorry( 0l, i18n("Couldn't parse xml:\n%1").arg(errorMessage) );
 		return false;
 	}
 	
@@ -851,7 +856,7 @@ bool ProjectInfo::save()
 // 	root.appendChild( LinkerOptions::toDomElement(doc) );
 // 	root.appendChild( ProcessingOptions::toDomElement(doc) );
 	
-	m_children.remove( (ProjectItem*)0 );
+	m_children.remove( (ProjectItem*)0l );
 	ProjectItemList::const_iterator end = m_children.end();
 	for ( ProjectItemList::const_iterator it = m_children.begin(); it != end; ++it )
 		root.appendChild( (*it)->toDomElement( doc, m_url ) );
@@ -860,7 +865,7 @@ bool ProjectInfo::save()
 	stream << doc.toString();
 	file.close();
 	
-	(static_cast<RecentFilesAction*>(p_ktechlab->action("project_open_recent")))->addURL(m_url);
+	(static_cast<RecentFilesAction*>(KTechlab::self()->action("project_open_recent")))->addURL(m_url);
 	
 	return true;
 }
@@ -881,24 +886,22 @@ bool ProjectInfo::saveAndClose()
 
 
 //BEGIN class ProjectManager
-ProjectManager * ProjectManager::m_pSelf = 0;
+ProjectManager * ProjectManager::m_pSelf = 0l;
 
-ProjectManager * ProjectManager::self( KTechlab * ktl, KateMDI::ToolView * parent )
+ProjectManager * ProjectManager::self( KateMDI::ToolView * parent )
 {
 	if ( !m_pSelf )
 	{
-		assert(ktl);
 		assert(parent);
-		m_pSelf = new ProjectManager( ktl, parent );
+		m_pSelf = new ProjectManager( parent );
 	}
 	return m_pSelf;
 }
 
 
-ProjectManager::ProjectManager( KTechlab * ktl, KateMDI::ToolView * parent )
+ProjectManager::ProjectManager( KateMDI::ToolView * parent )
 	: ItemSelector( parent, "Project Manager" ),
-	m_pCurrentProject(0),
-	p_ktechlab(ktl)
+	m_pCurrentProject(0l)
 {
 	QWhatsThis::add( this, i18n("Displays the list of files in the project.\nTo open or close a project, use the \"Project\" menu. Right click on a file to remove it from the project") );
 	
@@ -924,7 +927,7 @@ void ProjectManager::slotNewProject()
 
 	if ( newProjectDlg->accepted() )
 	{
-		m_pCurrentProject = new ProjectInfo( this, p_ktechlab );
+		m_pCurrentProject = new ProjectInfo( this );
 		m_pCurrentProject->setName( newProjectDlg->projectName() );
 		m_pCurrentProject->setURL( newProjectDlg->location() + m_pCurrentProject->name().lower() + ".ktechlab" );
 		
@@ -949,8 +952,10 @@ void ProjectManager::slotProjectOptions()
 
 void ProjectManager::slotOpenProject()
 {
-    KURL url = KFileDialog::getOpenURL(QString::null,
-	        "*.ktechlab|KTechlab Project(*.ktechlab)\n*|All Files", this, i18n("Open Location"));
+	QString filter;
+	filter = QString("*.ktechlab|%1 (*.ktechlab)\n*|%2").arg( i18n("KTechlab Project") ).arg( i18n("All Files") );
+	
+    KURL url = KFileDialog::getOpenURL(QString::null, filter, this, i18n("Open Location"));
 	
     if ( url.isEmpty() )
 		return;
@@ -967,20 +972,20 @@ void ProjectManager::slotOpenProject( const KURL & url )
 	if ( !slotCloseProject() )
 		return;
 	
-	m_pCurrentProject = new ProjectInfo( this, p_ktechlab );
+	m_pCurrentProject = new ProjectInfo( this );
 	
 	if ( !m_pCurrentProject->open(url) )
 	{
 		m_pCurrentProject->deleteLater();
-		m_pCurrentProject = 0;
+		m_pCurrentProject = 0l;
 		return;
 	}
 	
-	RecentFilesAction * rfa = static_cast<RecentFilesAction*>(p_ktechlab->action("project_open_recent"));
+	RecentFilesAction * rfa = static_cast<RecentFilesAction*>(KTechlab::self()->action("project_open_recent"));
 	rfa->addURL( m_pCurrentProject->url() );
 	
 	if ( KTLConfig::raiseItemSelectors() )
-		p_ktechlab->showToolView( p_ktechlab->toolView( toolViewIdentifier() ) );
+		KTechlab::self()->showToolView( KTechlab::self()->toolView( toolViewIdentifier() ) );
 	
 	updateActions();
 	emit projectOpened();
@@ -996,7 +1001,7 @@ bool ProjectManager::slotCloseProject()
 		return false;
 	
 	m_pCurrentProject->deleteLater();
-	m_pCurrentProject = 0;
+	m_pCurrentProject = 0l;
 	updateActions();
 	emit projectClosed();
 	return true;
@@ -1005,14 +1010,17 @@ bool ProjectManager::slotCloseProject()
 
 void ProjectManager::slotCreateSubproject()
 {
-	if ( !currentProject() ) return;
-
+	if ( !currentProject() )
+		return;
+	
 	CreateSubprojectDlg * dlg = new CreateSubprojectDlg(this);
 	dlg->exec();
-
-	if ( dlg->accepted() ) {
+	
+	if ( dlg->accepted() )
+	{
 		ProjectItem::Type type = ProjectItem::ProgramType;
-		switch ( dlg->type() ) {
+		switch ( dlg->type() )
+		{
 			case CreateSubprojectDlg::ProgramType:
 				type = ProjectItem::ProgramType;
 				break;
@@ -1022,7 +1030,7 @@ void ProjectManager::slotCreateSubproject()
 				break;
 		}
 		
-		ProjectItem * subproject = new ProjectItem( currentProject(), type, this, p_ktechlab );
+		ProjectItem * subproject = new ProjectItem( currentProject(), type, this );
 		subproject->setURL( dlg->targetFile() );
 		
 		currentProject()->addChild(subproject);
@@ -1030,9 +1038,8 @@ void ProjectManager::slotCreateSubproject()
 		
 		emit subprojectCreated();
 	}
-
+	
 	delete dlg;
-	dlg = 0;
 }
 
 
@@ -1040,14 +1047,14 @@ void ProjectManager::updateActions()
 {
 	bool projectIsOpen = m_pCurrentProject;
 	
-	p_ktechlab->action("project_create_subproject")->setEnabled( projectIsOpen );
-	p_ktechlab->action("project_export_makefile")->setEnabled( projectIsOpen );
-	p_ktechlab->action("subproject_add_existing_file")->setEnabled( projectIsOpen );
-	p_ktechlab->action("subproject_add_current_file")->setEnabled( projectIsOpen );
-// 	p_ktechlab->action("project_options")->setEnabled( projectIsOpen );
-	p_ktechlab->action("project_close")->setEnabled( projectIsOpen );
-	p_ktechlab->action("project_add_existing_file")->setEnabled( projectIsOpen );
-	p_ktechlab->action("project_add_current_file")->setEnabled( projectIsOpen );
+	KTechlab::self()->action("project_create_subproject")->setEnabled( projectIsOpen );
+	KTechlab::self()->action("project_export_makefile")->setEnabled( projectIsOpen );
+	KTechlab::self()->action("subproject_add_existing_file")->setEnabled( projectIsOpen );
+	KTechlab::self()->action("subproject_add_current_file")->setEnabled( projectIsOpen );
+// 	KTechlab::self()->action("project_options")->setEnabled( projectIsOpen );
+	KTechlab::self()->action("project_close")->setEnabled( projectIsOpen );
+	KTechlab::self()->action("project_add_existing_file")->setEnabled( projectIsOpen );
+	KTechlab::self()->action("project_add_current_file")->setEnabled( projectIsOpen );
 }
 
 
@@ -1149,7 +1156,6 @@ void ProjectManager::slotSubprojectLinkerOptions()
 	
 	// The dialog sets the options for us if it was accepted, so we don't need to do anything
 	delete dlg;
-	dlg = 0;
 }
 
 
@@ -1165,7 +1171,6 @@ void ProjectManager::slotItemProcessingOptions()
 	
 	// The dialog sets the options for us if it was accepted, so we don't need to do anything
 	delete dlg;
-	dlg = 0;
 }
 
 
@@ -1187,7 +1192,7 @@ void ProjectManager::slotContextMenuRequested( QListViewItem * item, const QPoin
 {
 	QString popupName;
 	ILVItem * ilvItem = dynamic_cast<ILVItem*>(item);
-	KAction * linkerOptionsAct = p_ktechlab->action("project_item_linker_options");
+	KAction * linkerOptionsAct = KTechlab::self()->action("project_item_linker_options");
 	linkerOptionsAct->setEnabled(false);
 	
 	if ( !m_pCurrentProject )
@@ -1238,10 +1243,10 @@ void ProjectManager::slotContextMenuRequested( QListViewItem * item, const QPoin
 	}
 	
 	bool haveFocusedDocument = DocManager::self()->getFocusedDocument();
-	p_ktechlab->action("subproject_add_current_file")->setEnabled( haveFocusedDocument );
-	p_ktechlab->action("project_add_current_file")->setEnabled( haveFocusedDocument );
+	KTechlab::self()->action("subproject_add_current_file")->setEnabled( haveFocusedDocument );
+	KTechlab::self()->action("project_add_current_file")->setEnabled( haveFocusedDocument );
 	
-	QPopupMenu *pop = static_cast<QPopupMenu*>(p_ktechlab->factory()->container( popupName, p_ktechlab ));
+	QPopupMenu *pop = static_cast<QPopupMenu*>(KTechlab::self()->factory()->container( popupName, KTechlab::self() ));
 	if (pop)
 		pop->popup(pos);
 }

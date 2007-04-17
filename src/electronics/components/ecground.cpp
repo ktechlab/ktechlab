@@ -24,7 +24,7 @@ Item* ECGround::construct( ItemDocument *itemDocument, bool newItem, const char 
 LibraryItem* ECGround::libraryItem()
 {
 	return new LibraryItem(
-		QString::QString("ec/ground"),
+		"ec/ground",
 		i18n("Ground (0V)"),
 		i18n("Sources"),
 		"ground.png",
@@ -36,7 +36,6 @@ ECGround::ECGround( ICNDocument *icnDocument, bool newItem, const char *id )
 	: Component( icnDocument, newItem, (id) ? id : "ground" )
 {
 	m_name = i18n("Ground");
-	m_desc = i18n("Ground (0V) point");
 	setSize( -8, -8, 16, 16 );
 	init1PinRight();
 	m_pPNode[0]->pin()->setGroundType( Pin::gt_always );

@@ -22,7 +22,7 @@ class Pin;
 class Wire : public QObject
 {
 	public:
-		Wire(Pin *startPin, Pin *endPin);
+		Wire( Pin * startPin, Pin * endPin );
 		~Wire();
 
 		/**
@@ -39,7 +39,7 @@ class Wire : public QObject
 		 * cases - such as this node being ground - it is not known, and so the
 		 * value returned by current() cannot be relied on.
 		 */
-		void setCurrentKnown(bool known);
+		void setCurrentKnown( bool known );
 		/**
 		 * Returns the current flowing through the connector.
 		 * This only applies for electronic connectors
@@ -50,10 +50,10 @@ class Wire : public QObject
 		 * voltages at either end.
 		 */
 		double voltage() const;
-
-		Pin *startPin() const { return m_pStartPin; }
-		Pin *endPin() const { return m_pEndPin; }
-
+		
+		Pin * startPin() const { return m_pStartPin; }
+		Pin * endPin() const { return m_pEndPin; }
+		
 	protected:
 		double m_current;
 		bool m_bCurrentIsKnown;

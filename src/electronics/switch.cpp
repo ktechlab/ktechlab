@@ -28,7 +28,7 @@ Switch::Switch( Component * parent, Pin * p1, Pin * p2, State state )
 	m_bouncePeriod_ms = 5;
 	m_bBounce = false;
 	m_bounceStart = 0;
-	m_pBounceResistance = 0;
+	m_pBounceResistance = 0l;
 	m_pP1 = p1;
 	m_pP2 = p2;
 	m_pComponent = parent;
@@ -91,7 +91,7 @@ void Switch::startBouncing()
 	
 	m_pBounceResistance = m_pComponent->createResistance( m_pP1, m_pP2, 10000 );
 	m_bounceStart = Simulator::self()->time();
-	Simulator::self()->attachSwitch(this);
+	Simulator::self()->attachSwitch( this );
 // 	kdDebug() << "m_bounceStart="<<m_bounceStart<<" m_bouncePeriod_ms="<<m_bouncePeriod_ms<<endl;
 	
 	// initialize random generator
@@ -123,9 +123,9 @@ void Switch::bounce()
 
 void Switch::stopBouncing()
 {
-	Simulator::self()->detachSwitch(this );
+	Simulator::self()->detachSwitch( this );
 	m_pComponent->removeElement( m_pBounceResistance, true );
-	m_pBounceResistance = 0;
+	m_pBounceResistance = 0l;
 	
 	bool connected = (m_state == Closed);
 	

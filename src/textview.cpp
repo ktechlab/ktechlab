@@ -93,10 +93,14 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
 	
 	m_statusBar->insertItem( "", ViewStatusBar::LineCol );
 	
-	m_view->installPopup( static_cast<QPopupMenu*>( p_ktechlab->factory()->container( "ktexteditor_popup", p_ktechlab ) ) );
-		
+	m_view->installPopup( static_cast<QPopupMenu*>( KTechlab::self()->factory()->container( "ktexteditor_popup", KTechlab::self() ) ) );
+	
+	QWidget * internalView = static_cast<QWidget*>( m_view->child( 0, "KateViewInternal" ) );
+	
 	connect( m_view, SIGNAL(cursorPositionChanged()),	this, SLOT(slotCursorPositionChanged()) );
-	connect( m_view, SIGNAL(gotFocus(Kate::View*)),		this, SLOT(setFocused()) );
+	
+	setFocusWidget( internalView );
+	connect( this, SIGNAL(focused( View* )), this, SLOT(gotFocus()) );
 	
 	m_layout->insertWidget( 0, m_view );
 	
@@ -112,7 +116,6 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
 	connect( eventFilter, SIGNAL(wordHoveredOver( const QString&, int, int )), this, SLOT(slotWordHoveredOver( const QString&, int, int )) );
 	connect( eventFilter, SIGNAL(wordUnhovered()), this, SLOT(slotWordUnhovered()) );
 	
-	QObject * internalView = m_view->child( 0, "KateViewInternal" );
 	internalView->installEventFilter( eventFilter );
 #endif
 }
@@ -120,16 +123,16 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
 
 TextView::~TextView()
 {
-	if ( p_ktechlab )
+	if ( KTechlab::self() )
 	{
 		if ( KXMLGUIFactory * f = m_view->factory() )
 			f->removeClient( m_view );
 		
-		p_ktechlab->addNoRemoveGUIClient( m_view );
+		KTechlab::self()->addNoRemoveGUIClient( m_view );
 	}
 	
 	delete m_pViewIface;
-	m_pViewIface = 0;
+	m_pViewIface = 0l;
 }
 
 
@@ -143,8 +146,8 @@ bool TextView::closeView()
 	}
 	
 	bool doClose = View::closeView();
-	if (doClose)
-		p_ktechlab->factory()->removeClient(m_view);
+	if ( doClose )
+		KTechlab::self()->factory()->removeClient(m_view);
 	return View::closeView();
 }
 
@@ -170,10 +173,8 @@ void TextView::disableActions()
 }
 
 
-void TextView::setFocused()
+void TextView::gotFocus()
 {
-	View::setFocused();
-	
 #ifndef NO_GPSIM
 	GpsimDebugger * debugger = textDocument()->debugger();
 	if ( !debugger || !debugger->gpsim() )
@@ -313,7 +314,7 @@ void TextView::slotWordHoveredOver( const QString & word, int line, int col )
 {
 #ifndef NO_GPSIM
 	// We're only interested in popping something up if we currently have a debugger running
-	GpsimProcessor * gpsim = textDocument()->debugger() ? textDocument()->debugger()->gpsim() : 0;
+	GpsimProcessor * gpsim = textDocument()->debugger() ? textDocument()->debugger()->gpsim() : 0l;
 	if ( !gpsim )
 	{
 		m_pTextViewLabel->hide();
@@ -389,6 +390,8 @@ TextViewEventFilter::TextViewEventFilter( TextView * textView )
 
 bool TextViewEventFilter::eventFilter( QObject *, QEvent * e )
 {
+// 	kdDebug() << k_funcinfo << "e->type() = " << e->type() << endl;
+	
 	if ( e->type() == QEvent::MouseMove )
 	{
 		if ( !m_pNoWordTimer->isActive() )

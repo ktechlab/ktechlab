@@ -1,0 +1,29 @@
+<!DOCTYPE KTechlab>
+<document type="circuit" >
+ <item x="68" y="28" z="1" type="ec/fixed_voltage" id="fixed_voltage" flip="0" angle="0" >
+  <data value="5" type="number" id="voltage" />
+ </item>
+ <item x="132" y="172" z="3" type="ec/ground" id="ground" flip="0" angle="270" />
+ <item x="60" y="116" z="5" type="ec/logic_input" id="logic_input" flip="0" angle="0" >
+  <data value="1" type="bool" id="useToggle" />
+  <button id="button" state="0" />
+ </item>
+ <item x="204" y="92" z="4" type="ec/logic_output" id="logic_output" flip="0" angle="0" />
+ <item x="124" y="116" z="0" type="ec/npnbjt" id="npnbjt" flip="0" angle="0" >
+  <data value="100" type="number" id="B_F" />
+  <data value="1" type="number" id="B_R" />
+  <data value="1e-16" type="number" id="I_S" />
+  <data value="1" type="number" id="N_F" />
+  <data value="1" type="number" id="N_R" />
+ </item>
+ <item x="132" y="60" z="2" type="ec/resistor" id="resistor__6" flip="0" angle="90" >
+  <data value="1000" type="number" id="resistance" />
+ </item>
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="npnbjt" route="9,14,10,14,11,14,12,14,13,14," end-node-cid="b" start-node-parent="logic_input" start-node-cid="p1" id="connector" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="fixed_voltage" route="16,4,16,3,15,3,14,3,13,3,12,3,11,3,10,3," end-node-cid="p1" start-node-parent="resistor__6" start-node-cid="n1" id="connector__10" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="npnbjt" route="16,19,16,18,16,17,16,16," end-node-cid="e" start-node-parent="ground" start-node-cid="p1" id="connector__12" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1" route="23,11,22,11,21,11,20,11,19,11,18,11,17,11,16,11," start-node-parent="logic_output" start-node-cid="n1" id="connector__14" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1" route="16,12,16,11," start-node-parent="npnbjt" start-node-cid="c" id="connector__15" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node1" end-node-parent="resistor__6" route="16,11,16,10," end-node-cid="p1" id="connector__16" end-node-is-child="1" />
+ <node x="132" y="92" id="node1" />
+</document>

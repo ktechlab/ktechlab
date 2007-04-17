@@ -22,16 +22,18 @@ class Simulator;
 
 typedef QValueList<QGuardedPtr<Pin> > PinList;
 
-typedef struct
+class LogicConfig
 {
-	float risingTrigger; // Trigger on rising edge
-	float fallingTrigger; // Trigger on falling edge
-	float output; // Output voltage
-	float highImpedance; // Output impedance when high
-	float lowImpedance; // Output impedance when low
-} LogicConfig;
+	public:
+		LogicConfig();
+		
+		float risingTrigger;	///< Trigger on rising edge
+		float fallingTrigger;	///< Trigger on falling edge
+		float output;			///< Output voltage
+		float highImpedance;	///< Output impedance when high
+		float lowImpedance;		///< Output impedance when low
+};
 
-/* What is this for? */
 class CallbackClass {};
 typedef void(CallbackClass::*CallbackPtr)( bool isHigh );
 

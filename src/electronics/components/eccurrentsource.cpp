@@ -26,7 +26,7 @@ Item* ECCurrentSource::construct( ItemDocument *itemDocument, bool newItem, cons
 LibraryItem* ECCurrentSource::libraryItem()
 {
 	return new LibraryItem(
-		QString::QString("ec/current_source"),
+		"ec/current_source",
 		i18n("Current Source"),
 		i18n("Sources"),
 		"current_source.png",
@@ -35,10 +35,9 @@ LibraryItem* ECCurrentSource::libraryItem()
 }
 
 ECCurrentSource::ECCurrentSource( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, (id) ? id : "current_source" )
+	: Component( icnDocument, newItem, id ? id : "current_source" )
 {
 	m_name = i18n("Current Source");
-	m_desc = i18n("Provides a fixed current source.");
 	setSize( -16, -8, 24, 24 );
 
 	init1PinLeft(8);

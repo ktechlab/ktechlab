@@ -24,7 +24,7 @@ Item* ECKeyPad::construct( ItemDocument *itemDocument, bool newItem, const char 
 LibraryItem* ECKeyPad::libraryItem()
 {
 	return new LibraryItem(
-		QString("ec/keypad"),
+		"ec/keypad",
 		i18n("Keypad"),
 		i18n("Switches"),
 		"keypad.png",
@@ -39,10 +39,9 @@ const QString text[4][9] =
 		{ "*","0","#","D","H","L","P","T","X" } };
              
 ECKeyPad::ECKeyPad( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, (id) ? id : "keypad" )
+	: Component( icnDocument, newItem, id ? id : "keypad" )
 {
 	m_name = i18n("Keypad");
-	m_desc = i18n("Provides a numeric array of Push-to-Make switches, with 4 rows and a configurable number of columns.");
 	
 	createProperty( "useToggles", Variant::Type::Bool );
 	property("useToggles")->setCaption( i18n("Use Toggles") );

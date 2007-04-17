@@ -61,8 +61,6 @@ class TextView : public View
 	
 		Kate::View::saveResult save() { return m_view->save(); }
 		Kate::View::saveResult saveAs() { return m_view->saveAs(); }
-		
-		virtual void setFocused();
 	
 	public slots:
 		/**
@@ -80,9 +78,10 @@ class TextView : public View
 	protected slots:
 		void slotWordHoveredOver( const QString & word, int line, int col );
 		void slotWordUnhovered();
+		void gotFocus();
 	
 	protected:
-		Kate::View *m_view;
+		Kate::View * m_view;
 #ifndef NO_GPSIM
 		VariableLabel * m_pTextViewLabel; ///< Pops up when the user hovers his mouse over a word
 #endif

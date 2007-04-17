@@ -13,9 +13,6 @@
 
 #include <qstringlist.h>
 
-
-/// TODO: Should probably be moved to languages package.
-
 /**
 @author David Saxton
  */

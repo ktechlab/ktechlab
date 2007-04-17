@@ -41,20 +41,22 @@ CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *view
 	new KAction( i18n("Create Subcircuit"), "", 0, circuitDocument, SLOT(createSubcircuit()), ac, "circuit_create_subcircuit" );
 	new KAction( i18n("Rotate Clockwise"), "rotate_cw", "]", circuitDocument, SLOT(rotateClockwise()), ac, "edit_rotate_cw" );
 	new KAction( i18n("Rotate Counter-Clockwise"), "rotate_ccw", "[", circuitDocument, SLOT(rotateCounterClockwise()), ac, "edit_rotate_ccw" );
-	new KAction( i18n("Flip"), "", 0, circuitDocument, SLOT(itemFlip()), ac, "edit_flip" );
+	new KAction( i18n("Flip Horizontally"), "", 0, circuitDocument, SLOT(flipHorizontally()), ac, "edit_flip_horizontally" );
+	new KAction( i18n("Flip Vertically"), "", 0, circuitDocument, SLOT(flipVertically()), ac, "edit_flip_vertically" );
 	//END Item Control Actions
 	
 	setXMLFile( "ktechlabcircuitui.rc", true );
 	
+	
 	QWhatsThis::add( this, i18n(
 			"Construct a circuit by dragging components from the Component selector from the left. Create the connections by dragging a wire from the component connectors.<br><br>"
-
+					
 			"The simulation is running by default, but can be paused and resumed from the Tools menu.<br><br>"
-
+					
 			"To delete a wire, select it with a select box, and hit delete.<br><br>"
-
+					
 			"To edit the attributes of a component, select it (making sure that no components of another type are also selected), and edit in the toolbar. More advanced properties can be edited using the item editor on the right.<br><br>"
-	
+					
 			"Subcircuits can be created by connecting the components with an External Connection, selecting the desired components and clicking on \"Create Subcircuit\" in the right-click menu.")
 				   );
 	
@@ -65,22 +67,32 @@ CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *view
 	slotUpdateRunningStatus( Simulator::self()->isSimulating() );
 }
 
+
 CircuitView::~CircuitView()
 {
 	delete m_pViewIface;
+	m_pViewIface = 0l;
 }
+
 
 void CircuitView::slotUpdateRunningStatus( bool isRunning )
 {
 	m_statusBar->changeItem( isRunning ? i18n("Simulation Running") : i18n("Simulation Paused"), ViewStatusBar::SimulationState );
 }
 
+
 void CircuitView::dragEnterEvent( QDragEnterEvent * e )
 {
 	ICNView::dragEnterEvent(e);
-	if ( e->isAccepted() ) return;
-
-	e->accept( e->provides("ktechlab/component") || e->provides("ktechlab/subcircuit") );
+	if ( e->isAccepted() )
+		return;
+	
+	bool acceptable = e->provides("ktechlab/component") || e->provides("ktechlab/subcircuit");
+	if ( !acceptable )
+		return;
+	
+	e->accept( true );
+	createDragItem( e );
 }
 
 #include "circuitview.moc"

@@ -1,7 +1,7 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KTechlabCircuit" version="4">
+<kpartgui name="KTechlabCircuit" version="7">
 	<MenuBar>
-		<Menu name="tools">
+		<Menu name="tools" merge="1">
 			<text>&amp;Tools</text>
 			<Separator/>
 			<Menu name="routing_mode_menu">
@@ -10,8 +10,12 @@
 				<Action name="routing_mode_manual"/>
 			</Menu>
 			<Action name="edit_mode_manual_route"/>
+			<Separator/>
 			<Action name="edit_rotate_cw"/>
 			<Action name="edit_rotate_ccw"/>
+			<Separator/>
+			<Action name="edit_flip_horizontally"/>
+			<Action name="edit_flip_vertically"/>
 		</Menu>
 	</MenuBar>
 	
@@ -21,11 +25,17 @@
 		<Action name="edit_draw"/>
 		<Action name="edit_rotate_ccw"/>
 		<Action name="edit_rotate_cw"/>
+<!-- 		<Action name="edit_flip_horizontally"/> -->
+<!-- 		<Action name="edit_flip_vertically"/> -->
 	</ToolBar>
 	
 	<ToolBar name="itemEditorTB" noMerge="1">
 		<text>Item Editor</text>
-<!-- 		<Action name="null_action"/> -->
+		<!-- 		<Action name="null_action"/> -->
 	</ToolBar>
+	
+	<Menu name="item_popup">
+		<Action name="circuit_create_subcircuit"/>
+	</Menu>
 </kpartgui>
 

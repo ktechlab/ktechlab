@@ -5,8 +5,8 @@
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either VERSION 2 of the License, or     *
- *   (at your option) any later VERSION.                                   *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
  *                                                                         *
  *   This program is distributed in the hope that it will be useful,       *
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
@@ -21,7 +21,6 @@
 
 #include "microbe.h"
 #include "pic14.h"
-#include "config.h"
 
 #include <kaboutdata.h>
 #include <kcmdlineargs.h>
@@ -35,6 +34,8 @@ using namespace std;
 static const char description[] =
     I18N_NOOP("The Microbe Compiler");
 
+static const char version[] = "0.3";
+
 static KCmdLineOptions options[] =
 {
 	{ "show-source", I18N_NOOP( "Show source code lines in assembly output"),0},
@@ -46,7 +47,8 @@ static KCmdLineOptions options[] =
 
 int main(int argc, char **argv)
 {
-	KAboutData about("microbe", I18N_NOOP("Microbe"), VERSION, description, KAboutData::License_GPL, "(C) 2004-2005, The KTechlab developers", 0, "http://ktechlab.org", "ktechlab-devel@lists.sourceforge.net" );
+	KAboutData about("microbe", I18N_NOOP("Microbe"), version, description,
+					 KAboutData::License_GPL, "(C) 2004-2005, The KTechlab developers", 0, "http://ktechlab.org", "ktechlab-devel@lists.sourceforge.net" );
 	about.addAuthor( "Daniel Clarke", 0, "daniel.jc@gmail.com" );
 	about.addAuthor( "David Saxton", 0, "david@bluehaze.org" );
     KCmdLineArgs::init(argc, argv, &about);
@@ -54,19 +56,25 @@ int main(int argc, char **argv)
 	
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 	
-	if(args->count() == 2 ) {
+	if(args->count() == 2 )
+	{
 		Microbe mb;	
 		QString s = mb.compile( args->arg(0), args->isSet("show-source"), args->isSet("optimize"));
 		QString errorReport = mb.errorReport();
 		
-		if ( !errorReport.isEmpty() ) {
+		if ( !errorReport.isEmpty() )
+		{
 			cerr << mb.errorReport();
 			return 1; // If there was an error, don't write the output to file.
-		} else {
+		}
+		
+		else
+		{
 			ofstream out(args->arg(1));
 			out << s;
 			return 0;
 		}
-	} else args->usage();
+	}
+	else args->usage();
 }
 

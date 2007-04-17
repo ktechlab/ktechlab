@@ -8,6 +8,7 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include "ecnode.h"
 #include "flipflop.h"
 #include "icndocument.h"
 #include "logic.h"
@@ -18,6 +19,34 @@
 #include <kiconloader.h>
 #include <klocale.h>
 #include <qpainter.h>
+
+
+//BEGIN class ClockedFlipFlop
+ClockedFlipFlop::ClockedFlipFlop( ICNDocument *icnDocument, bool newItem, const char * id )
+	: Component( icnDocument, newItem, id )
+{
+	createProperty( "trig", Variant::Type::Select );
+	property("trig")->setCaption( i18n("Trigger Edge") );
+	QStringMap allowed;
+	allowed["Rising"] = i18n("Rising");
+	allowed["Falling"] = i18n("Falling");
+	property("trig")->setAllowed( allowed );
+	property("trig")->setValue("Rising");
+	m_edgeTrigger = Rising;
+}
+
+
+void ClockedFlipFlop::dataChanged()
+{
+	EdgeTrigger t = (dataString("trig") == "Rising") ? Rising : Falling;
+	if ( t == m_edgeTrigger )
+		return;
+	
+	m_edgeTrigger = t;
+	initSymbolFromTrigger();
+}
+//END class ClockedFlipFlop
+
 
 
 //BEGIN class ECDFlipFlop
@@ -38,19 +67,16 @@ LibraryItem* ECDFlipFlop::libraryItem()
 }
 
 ECDFlipFlop::ECDFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, (id) ? id : "d_flipflop" )
+	: ClockedFlipFlop( icnDocument, newItem, id ? id : "d_flipflop" )
 {
 	m_name = i18n("D-Type Flip-Flop");
-	m_desc = i18n("The output state is set from the input state when the clock is pulsed.");
 	
 	setSize( -32, -24, 64, 48 );
-
 	init2PinLeft( -8, 8 );
 	init2PinRight( -8, 8 );
+	initSymbolFromTrigger();
 	
-	m_prevD[0] = m_prevD[1] = false;
-	m_whichPrevD = 0;
-	m_prevDSimTime = 0;
+	m_prevD = false;
 	m_pSimulator = Simulator::self();
 	
 	m_bPrevClock = false;
@@ -62,12 +88,9 @@ ECDFlipFlop::ECDFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id
 	setp = createLogicIn( createPin( 0, -32, 90, "set" ) );
 	rstp = createLogicIn( createPin( 0, 32, 270, "rst" ) );
 	
-	addDisplayText( "D",	QRect( -32,	-16,	20, 16 ), "D" );
-	addDisplayText( ">",	QRect( -32,	0,		20, 16 ), ">" ); 
+	// (The display text for D, >, Set, Rst is set in initSymbolFromTrigger
 	addDisplayText( "Q",	QRect( 12,	-16,	20, 16 ), "Q" );
 	addDisplayText( "Q'",	QRect( 12,	0,		20, 16 ), "Q'" );
-	addDisplayText( "Set",	QRect( -16,	-20,	32, 16 ), "Set" );
-	addDisplayText( "Rst",	QRect( -16,	4,		32, 16 ), "Rst" );
 	
 	m_pD->setCallback( this, (CallbackPtr)(&ECDFlipFlop::inputChanged) );
 	m_pClock->setCallback( this, (CallbackPtr)(&ECDFlipFlop::clockChanged) );
@@ -79,6 +102,33 @@ ECDFlipFlop::ECDFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id
 
 ECDFlipFlop::~ECDFlipFlop()
 {
+}
+
+void ECDFlipFlop::initSymbolFromTrigger()
+{
+	int offset = (m_edgeTrigger == Rising) ? 0 : 6;
+	
+	int w = 64-offset;
+	setSize( offset-32, -24, w, 48, true );
+	m_pNNode[0]->setLength( 8+offset );
+	addDisplayText( "D",	QRect( offset-28,	-16,	20, 16 ), "D", true, Qt::AlignLeft );
+	addDisplayText( ">",	QRect( offset-28,	0,		20, 16 ), ">", true, Qt::AlignLeft ); 
+	addDisplayText( "Set",	QRect( offset-28,	-20,	w-8, 16 ), "Set", true, Qt::AlignHCenter );
+	addDisplayText( "Rst",	QRect( offset-28,	4,		w-8, 16 ), "Rst", true, Qt::AlignHCenter );
+	
+	updateAttachedPositioning();
+}
+
+void ECDFlipFlop::drawShape( QPainter & p )
+{
+	Component::drawShape( p );
+	
+	if ( m_edgeTrigger == Falling )
+	{
+		initPainter( p );
+		p.drawEllipse( int(x()-32), int(y()+5), 6, 6 );
+		deinitPainter( p );
+	}
 }
 
 void ECDFlipFlop::asyncChanged(bool)
@@ -94,13 +144,14 @@ void ECDFlipFlop::asyncChanged(bool)
 
 void ECDFlipFlop::inputChanged( bool newState )
 {
-	unsigned long long simTime = m_pSimulator->time();
-	if ( (simTime == m_prevDSimTime) && (newState == m_prevD[m_whichPrevD]) )
+	if ( newState == m_prevD )
+	{
+		// Only record the time that the input state changes
 		return;
+	}
 	
-	m_prevDSimTime = simTime;
-	m_whichPrevD = 1-m_whichPrevD;
-	m_prevD[m_whichPrevD] = newState;
+	m_prevD = newState;
+	m_prevDChangeSimTime = m_pSimulator->time();
 }
 
 void ECDFlipFlop::clockChanged( bool newState )
@@ -109,17 +160,24 @@ void ECDFlipFlop::clockChanged( bool newState )
 	bool rst = rstp->isHigh();
 	
 	bool fallingEdge = m_bPrevClock && !newState;
+	bool edge = (m_edgeTrigger == Falling) ? fallingEdge : !fallingEdge;
+	
 	m_bPrevClock = newState;
 	
 	if( set || rst ) return;
 	
-	if (fallingEdge)
+	if ( edge )
 	{
-		unsigned long long simTime = m_pSimulator->time();
-		bool d = ( simTime == m_prevDSimTime ) ? m_prevD[1-m_whichPrevD] : m_prevD[m_whichPrevD];
+		// The D Flip-Flop takes the input before the edge fall/rise - not after
+		// the edge. So see if the input state last changed before now or at
+		// now to work out if we should take the current value of m_prevD, or
+		// its inverse.
 		
-		m_pQ->setHigh(d);
-		m_pQBar->setHigh(!d);
+		unsigned long long simTime = m_pSimulator->time();
+		bool d = (simTime == m_prevDChangeSimTime) ? !m_prevD : m_prevD;
+		
+		m_pQ->setHigh( d );
+		m_pQBar->setHigh( !d );
 	}
 }
 	
@@ -141,7 +199,7 @@ Item* ECJKFlipFlop::construct( ItemDocument *itemDocument, bool newItem, const c
 LibraryItem* ECJKFlipFlop::libraryItem()
 {
 	return new LibraryItem(
-		QString::QString("ec/jk_flipflop"),
+		"ec/jk_flipflop",
 		i18n("JK Flip-Flop"),
 		i18n("Integrated Circuits"),
 		"ic3.png",
@@ -150,15 +208,26 @@ LibraryItem* ECJKFlipFlop::libraryItem()
 }
 
 ECJKFlipFlop::ECJKFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, (id) ? id : "jk_flipflop" )
+	: ClockedFlipFlop( icnDocument, newItem, id ? id : "jk_flipflop" )
 {
 	m_name = i18n("JK-Type Flip-Flop");
-	m_desc = i18n("The output state is set according to J and K when the clock is pulsed.");
 	
 	setSize( -32, -32, 64, 64 );
-
 	init3PinLeft( -16, 0, 16 );
 	init2PinRight( -16, 16 );
+	initSymbolFromTrigger();
+	
+	m_bPrevClock = false;
+	
+	createProperty( "trig", Variant::Type::Select );
+	property("trig")->setCaption( i18n("Trigger Edge") );
+	QStringMap allowed;
+	allowed["Rising"] = i18n("Rising");
+	allowed["Falling"] = i18n("Falling");
+	property("trig")->setAllowed( allowed );
+	property("trig")->setValue("Rising");
+	m_edgeTrigger = Rising;
+	initSymbolFromTrigger();
 	
 	m_pJ = createLogicIn( m_pNNode[0] );
 	m_pClock = createLogicIn( m_pNNode[1] );
@@ -170,13 +239,8 @@ ECJKFlipFlop::ECJKFlipFlop( ICNDocument *icnDocument, bool newItem, const char *
 	setp = createLogicIn( createPin( 0, -40, 90, "set" ) );
 	rstp = createLogicIn( createPin( 0, 40, 270, "rst" ) );
 	
-	addDisplayText( "J",	QRect( -32,	-24,	20, 16 ), "J" );
-	addDisplayText( ">",	QRect( -32,	-8,		20, 16 ), ">" );
-	addDisplayText( "K",	QRect( -32,	8,		20, 16 ), "K" ); 
 	addDisplayText( "Q",	QRect( 12,	-24,	20, 16 ), "Q" );
 	addDisplayText( "Q'",	QRect( 12,	8,		20, 16 ), "Q'" );
-	addDisplayText( "Set",	QRect( -16,	-28,	32, 16 ), "Set" );
-	addDisplayText( "Rst",	QRect( -16,	12,		32, 16 ), "Rst" );
 		
 	m_pClock->setCallback( this, (CallbackPtr)(&ECJKFlipFlop::clockChanged) );
 	setp->setCallback( this, (CallbackPtr)(&ECJKFlipFlop::asyncChanged) );
@@ -189,8 +253,41 @@ ECJKFlipFlop::~ECJKFlipFlop()
 {
 }
 
+void ECJKFlipFlop::initSymbolFromTrigger()
+{
+	int offset = (m_edgeTrigger == Rising) ? 0 : 6;
+	
+	int w = 64-offset;
+	setSize( offset-32, -32, w, 64, true );
+	m_pNNode[0]->setLength( 8+offset );
+	m_pNNode[2]->setLength( 8+offset );
+	addDisplayText( "J",	QRect( offset-28,	-24,	20, 16 ), "J", true, Qt::AlignLeft );
+	addDisplayText( ">",	QRect( offset-28,	-8,		20, 16 ), ">", true, Qt::AlignLeft );
+	addDisplayText( "K",	QRect( offset-28,	8,		20, 16 ), "K", true, Qt::AlignLeft ); 
+	addDisplayText( "Set",	QRect( offset-28,	-28,	w-8, 16 ), "Set", true, Qt::AlignHCenter );
+	addDisplayText( "Rst",	QRect( offset-28,	12,		w-8, 16 ), "Rst", true, Qt::AlignHCenter );
+	
+	updateAttachedPositioning();
+}
+
+void ECJKFlipFlop::drawShape( QPainter & p )
+{
+	Component::drawShape( p );
+	
+	if ( m_edgeTrigger == Falling )
+	{
+		initPainter( p );
+		p.drawEllipse( int(x()-32), int(y()-3), 6, 6 );
+		deinitPainter( p );
+	}
+}
+
 void ECJKFlipFlop::clockChanged(bool newvalue) 
 {
+	bool fallingEdge = (m_bPrevClock && !newvalue);
+	bool edge = (m_edgeTrigger == Falling) ? fallingEdge : !fallingEdge;
+	m_bPrevClock = newvalue;
+	
 	bool j = m_pJ->isHigh();
 	bool k = m_pK->isHigh();
 	bool set = setp->isHigh();
@@ -199,7 +296,7 @@ void ECJKFlipFlop::clockChanged(bool newvalue)
 	if( set || rst ) return;
 	
 // a JK flip-flop change state when clock do 1->0
-	if (!newvalue && (j || k)) {
+	if ( edge && (j || k)) {
 		if ( j && k ) {
 			m_pQ->setHigh(!prev_state);
 			m_pQBar->setHigh(prev_state);
@@ -243,7 +340,7 @@ Item* ECSRFlipFlop::construct( ItemDocument *itemDocument, bool newItem, const c
 LibraryItem* ECSRFlipFlop::libraryItem()
 {
 	return new LibraryItem(
-		QString::QString("ec/sr_flipflop"),
+		"ec/sr_flipflop",
 		i18n("SR Flip-Flop"),
 		i18n("Integrated Circuits"),
 		"ic3.png",
@@ -252,10 +349,9 @@ LibraryItem* ECSRFlipFlop::libraryItem()
 }
 
 ECSRFlipFlop::ECSRFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, (id) ? id : "sr_flipflop" )
+	: Component( icnDocument, newItem, id ? id : "sr_flipflop" )
 {
 	m_name = i18n("SR Flip-Flop");
-	m_desc = i18n("The output is made high by holding <i>set</i> high, and low by holding <i>reset</i> high.");
 	
 	setSize( -24, -24, 48, 48 );
 

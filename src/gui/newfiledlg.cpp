@@ -25,7 +25,7 @@
 #include <klocale.h>
 #include <kiconloader.h>
 
-#include <qcanvas.h>
+#include <canvas.h>
 #include <qcheckbox.h>
 #include <qdir.h>
 #include <qfile.h>
@@ -47,14 +47,24 @@ NewFileDlg::NewFileDlg( QWidget *parent )
 	
 	QValueList<QIconViewItem*> items;
 	
-	items << new QIconViewItem(m_pNewFileWidget->typeIconView,"Assembly Code (.asm)", loader->loadIcon( "source", KIcon::NoGroup, KIcon::SizeHuge ) );
-	items << new QIconViewItem(m_pNewFileWidget->typeIconView,"C (.c)", loader->loadIcon( "source_c", KIcon::NoGroup, KIcon::SizeHuge ) );
-	items << new QIconViewItem(m_pNewFileWidget->typeIconView,"Circuit (.circuit)", loader->loadIcon( "ktechlab_circuit", KIcon::NoGroup, KIcon::SizeHuge ) );
+	//BEGIN insert icons
+	QString text = QString("%1 (.asm)").arg(i18n("Assembly Code"));
+	items << new QIconViewItem(m_pNewFileWidget->typeIconView, text, loader->loadIcon( "source", KIcon::NoGroup, KIcon::SizeHuge ) );
+	
+	text = "C (.c)";
+	items << new QIconViewItem(m_pNewFileWidget->typeIconView, text, loader->loadIcon( "source_c", KIcon::NoGroup, KIcon::SizeHuge ) );
+	
+	text = QString("%1 (.circuit)").arg(i18n("Circuit"));
+	items << new QIconViewItem(m_pNewFileWidget->typeIconView,text, loader->loadIcon( "ktechlab_circuit", KIcon::NoGroup, KIcon::SizeHuge ) );
+	
 	items << new QIconViewItem(m_pNewFileWidget->typeIconView,"FlowCode (.flowcode)", loader->loadIcon( "ktechlab_flowcode", KIcon::NoGroup, KIcon::SizeHuge ) );
+	
 #ifdef MECHANICS
 	items << new QIconViewItem(m_pNewFileWidget->typeIconView,"Mechanics (.mechanics)", loader->loadIcon( "exec", KIcon::NoGroup, KIcon::SizeHuge ) );
 #endif
+	
 	items << new QIconViewItem(m_pNewFileWidget->typeIconView,"Microbe (.microbe)", loader->loadIcon( "ktechlab_microbe", KIcon::NoGroup, KIcon::SizeHuge ) );
+	//END insert icons
 	
 	unsigned minWidth = 20 + m_pNewFileWidget->typeIconView->spacing() * items.size();
 	int minHeight = 0;

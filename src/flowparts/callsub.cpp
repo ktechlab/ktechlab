@@ -23,7 +23,7 @@ Item* CallSub::construct( ItemDocument *itemDocument, bool newItem, const char *
 LibraryItem* CallSub::libraryItem()
 {
 	return new LibraryItem(
-		QString("flow/callsub"),
+		"flow/callsub",
 		i18n("Sub Call"),
 		i18n("Common"),
 		"subcall.png",
@@ -32,10 +32,9 @@ LibraryItem* CallSub::libraryItem()
 }
 
 CallSub::CallSub( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowPart( icnDocument, newItem, (id) ? id : "callsub" )
+	: FlowPart( icnDocument, newItem, id ? id : "callsub" )
 {
 	m_name = i18n("Sub Call");
-	m_desc = i18n("Call a subroutine. When the subroutine returns, the code will continue execution from this point.");
 	initCallSymbol();
 	createStdInput();
 	createStdOutput();

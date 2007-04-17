@@ -8,8 +8,8 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#ifndef MICRoLIBRARY_H
-#define PICLIBRARY_H
+#ifndef MICROLIBRARY_H
+#define MICROLIBRARY_H
 
 #include "asminfo.h"
 #include "microinfo.h"

@@ -29,8 +29,8 @@ class Register;
 class RegisterMemoryAccess;
 
 typedef QMap<SourceLine, SourceLine> SourceLineMap;
-typedef QMap<int, QString> QStringMap;
 typedef QValueList<int> IntList;
+
 
 class DebugLine : public SourceLine
 {
@@ -349,11 +349,11 @@ class GpsimProcessor : public QObject
 		 * @param assembled The slot to connect the assembled signal to
 		 * @see static bool isValidProgramFile( const QString &programFile )
 		 */
-		static QString generateSymbolFile( const QString &fileName, QObject *receiver, const char *successMember, const char * failMember = 0 );
+		static QString generateSymbolFile( const QString &fileName, QObject *receiver, const char *successMember, const char * failMember = 0l );
 		/**
 		 *Compile microbe to output to the given filename
 		 */
-		static void compileMicrobe( const QString &filename, QObject *receiver, const char * successMember, const char * failMember = 0 );
+		static void compileMicrobe( const QString &filename, QObject *receiver, const char * successMember, const char * failMember = 0l );
 		//END convenience functions for PIC files
 		
 	signals:

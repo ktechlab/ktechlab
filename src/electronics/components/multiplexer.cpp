@@ -26,7 +26,7 @@ Item* Multiplexer::construct( ItemDocument *itemDocument, bool newItem, const ch
 LibraryItem* Multiplexer::libraryItem()
 {
 	return new LibraryItem(
-		QString("ec/multiplexer"),
+		"ec/multiplexer",
 		i18n("Multiplexer"),
 		i18n("Integrated Circuits"),
 		"ic1.png",
@@ -36,12 +36,11 @@ LibraryItem* Multiplexer::libraryItem()
 }
 
 Multiplexer::Multiplexer( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, (id) ? id : "multiplexer" )
+	: Component( icnDocument, newItem, id ? id : "multiplexer" )
 {
 	m_name = i18n("Multiplexer");
-	m_desc = i18n("Combines the input data stream into one single stream. The value of the input selected by the \"A\" inputs is passed to the output.");
 	
-	m_output = 0;
+	m_output = 0l;
 	
 	createProperty( "addressSize", Variant::Type::Int );
 	property("addressSize")->setCaption( i18n("Address Size") );
@@ -60,27 +59,33 @@ Multiplexer::~Multiplexer()
 {
 }
 
+
 void Multiplexer::dataChanged()
 {
-	if ( hasProperty("numInput") && dataInt("numInput") != -1 ) {
+	if ( hasProperty("numInput") && dataInt("numInput") != -1 )
+	{
 		int addressSize = int( std::ceil( std::log( (double)dataInt("numInput") ) / std::log(2.0) ) );
 		property("numInput")->setValue(-1);
-
-		if ( addressSize < 1 ) addressSize = 1;
-		else if ( addressSize > 8 ) addressSize = 8;
-
+		
+		if ( addressSize < 1 )
+			addressSize = 1;
+		else if ( addressSize > 8 )
+			addressSize = 8;
+		
 		// This function will get called again when we set the value of numInput
 		property("addressSize")->setValue(addressSize);
 		return;
 	}
-
-	if(hasProperty("numInput") ) {
+	
+	if ( hasProperty("numInput") )
+	{
 		m_variantData["numInput"]->deleteLater();
 		m_variantData.remove("numInput");
 	}
 	
 	initPins( unsigned(dataInt("addressSize")) );
 }
+
 
 void Multiplexer::inStateChanged( bool /*state*/ )
 {

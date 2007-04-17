@@ -20,7 +20,6 @@ Branches b0 and b1 are for control and output
 @short Current Controlled Voltage Source
 @author David Saxton
 */
-
 class CCVS : public Element
 {
 public:

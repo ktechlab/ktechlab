@@ -45,18 +45,6 @@ SerialPortComponent::SerialPortComponent( ICNDocument *icnDocument, bool newItem
 	: Component( icnDocument, newItem, id ? id : "serial_port" )
 {
 	m_name = i18n("Serial Port");
-	m_desc = i18n("Interface to a serial port. The pins are:<br>"
-			"<ul>"
-			"<li><b>CD</b> - Carrier Detect (control; output)</li>"
-			"<li><b>RD</b> - Received Data (data; output)</li>"
-			"<li><b>TD</b> - Transmitted Data (data; input)</li>"
-			"<li><b>DTR</b> - Data Terminal Ready (control; input)</li>"
-			"<li><b>GND</b> - Signal Ground (ground)</li>"
-			"<li><b>DSR</b> - Data Set Ready (control; input)</li>"
-			"<li><b>RTS</b> - Request to Send (control; input)</li>"
-			"<li><b>CTS</b> - Clear to Send (control; output)</li>"
-			"<li><b>RI</b> - Ring Indicator (control; output)</li>"
-			"</ul>");
 	
 	QPointArray pa( 4 );
 	pa[0] = QPoint( -32, -48 );
@@ -129,10 +117,12 @@ SerialPortComponent::SerialPortComponent( ICNDocument *icnDocument, bool newItem
 // 	v->setValue("B9600");
 }
 
+
 SerialPortComponent::~SerialPortComponent()
 {
 	delete m_pSerialPort;
 }
+
 
 void SerialPortComponent::dataChanged()
 {

@@ -11,7 +11,7 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-#include "math/qmatrix.h"
+#include "vec.h"
 
 #include <vector>
 
@@ -82,7 +82,7 @@ public:
 	 * Creates a size x size square matrix m, with all values zero,
 	 * and a right side vector x of size m+n
 	 */
-	Matrix( uint n, uint size );
+	Matrix( uint n, uint m );
 	~Matrix();
 	/**
 	 * Sets all elements to zero
@@ -93,16 +93,16 @@ public:
 	 * @param type Describes how often the value changes
 	 * @param big Set this true if the value is likely to be >= 1, else false
 	 */
-	void setUse( const uint i, const uint j, Map::e_type type, bool big );
-	void setUse_b( const uint i, const uint j, Map::e_type type, bool big )
+	void setUse( uint i, uint j, Map::e_type type, bool big );
+	void setUse_b( uint i, uint j, Map::e_type type, bool big )
 	{
 		setUse( i, j+m_n, type, big );
 	}
-	void setUse_c( const uint i, const uint j, Map::e_type type, bool big )
+	void setUse_c( uint i, uint j, Map::e_type type, bool big )
 	{
 		setUse( i+m_n, j, type, big );
 	}
-	void setUse_d( const uint i, const uint j, Map::e_type type, bool big )
+	void setUse_d( uint i, uint j, Map::e_type type, bool big )
 	{
 		setUse( i+m_n, j+m_n, type, big );
 	}
@@ -125,7 +125,7 @@ public:
 	 * Applies the right side vector (x) to the decomposed matrix,
 	 * with the solution returned in x.
 	 */
-	void fbSub( QuickVector* x );
+	void fbSub( Vector* x );
 	/**
 	 * Prints the matrix to stdout
 	 */
@@ -166,7 +166,7 @@ public:
 	 * Multiplies this matrix by the Vector rhs, and places the result
 	 * in the vector pointed to by result. Will fail if wrong size.
 	 */
-	void multiply( QuickVector *rhs, QuickVector *result );
+	void multiply( Vector *rhs, Vector *result );
 	/**
 	 * Sets the values of this matrix to that of the given matrix
 	 */
@@ -186,15 +186,16 @@ private:
 // 	void genOutMap();
 	
 	uint m_n;
+	uint m_m;
 	uint m_size;
-
-	// last constant value in matrix after last update, for caching LU
 	uint max_k;
-
+	
 	int *m_inMap; // Rowwise permutation mapping from external reference to internal storage
-
-	QuickMatrix *m_mat;
-	QuickMatrix *m_lu;
+// 	int *m_outMap; // Opposite of m_inMap
+	
+	matrix *m_mat;
+	matrix *m_lu;
+	double *m_y; // Avoids recreating it lots of times
 	Map *m_map;
 };
 

@@ -11,10 +11,9 @@
 #ifndef ELEMENTSET_H
 #define ELEMENTSET_H
 
-#include <qvaluelist.h>
-//#include <vector>
+#include <vector>
 
-//using namespace std;
+#include <qvaluelist.h>
 
 class CBranch;
 class Circuit;
@@ -24,13 +23,10 @@ class ElementSet;
 class LogicIn;
 class Matrix;
 class NonLinear;
-
-#include "math/qvector.h"
+class Vector;
 
 typedef QValueList<Element*> ElementList;
 typedef QValueList<NonLinear*> NonLinearList;
-
-//typedef vector<CBranch> CBranchList_T;
 
 /**
 Steps in simulation of a set of elements:
@@ -55,13 +51,13 @@ public:
 	 * After creating the circuit, you must call setGround to specify
 	 * the ground nodes, before adding any elements.
 	 */
-	ElementSet(Circuit *circuit, const int n, const int m);
+	ElementSet( Circuit * circuit, const int n, const int m );
 	/**
 	 * Destructor. Note that only the matrix and supporting data is deleted.
 	 * i.e. Any elements added to the circuit will not be deleted.
 	 */
 	~ElementSet();
-	Circuit *circuit() const { return m_pCircuit; }
+	Circuit * circuit() const { return m_pCircuit; }
 	void addElement( Element *e );
 	void setCacheInvalidated();
 	/**
@@ -72,12 +68,11 @@ public:
 	/**
 	 * Returns the vector for b (i.e. the independent currents & voltages)
 	 */
-	QuickVector *b() const { return p_b; }
+	Vector *b() const { return p_b; }
 	/**
 	 * Returns the vector for x (i.e. the currents & voltages at the branches and nodes)
 	 */
-	QuickVector *x() const { return p_x; }
-	void set_x(QuickVector *x) { delete p_x; p_x = x; }
+	Vector *x() const { return p_x; }
 	/**
 	 * @return if we have any nonlinear elements (e.g. diodes, tranaistors).
 	 */
@@ -92,22 +87,18 @@ public:
 	 * @returns true if anything changed
 	 */
 	bool doLinear( bool performLU );
-
-	CBranch *cbranches(const unsigned i) { return m_cbranches[i]; }
-	CNode *cnodes(const unsigned i) { return m_cnodes[i]; }
+	CBranch **cbranches() const { return m_cbranches; }
+	CNode **cnodes() const { return m_cnodes; }
 	CNode *ground() const { return m_ground; }
-
 	/**
 	 * Returns the number of nodes in the circuit (excluding ground 'nodes')
 	 */
 	int cnodeCount() const { return m_cn; }
-
 	/**
 	 * Returns the number of voltage sources in the circuit
 	 */
 	int cbranchCount() const { return m_cb; }
-//	int cbranchCount() const { return m_cbranches->size(); }
-
+	
 	void createMatrixMap();
 	/**
 	 * Displays the matrix equations Ax=b and J(dx)=-r
@@ -117,30 +108,23 @@ public:
 	 * Update the nodal voltages and branch currents from the x vector
 	 */
 	void updateInfo();
-
+	
 private:
-// calc enginge stuff
 	Matrix *p_A;
-	QuickVector *p_x;
-	QuickVector *p_b;
-// end calc engine stuff. 
-
+	Vector *p_x;
+	Vector *p_x_prev;
+	Vector *p_b;
+	uint m_cn;
+	uint m_cb;
 	ElementList m_elementList;
 	NonLinearList m_cnonLinearList;
-
-	uint m_cb; // # cbranches
 	CBranch **m_cbranches; // Pointer to an array of cbranches
-
-//	CBranchList_T *m_cbranches;
-
-	uint m_cn; // # cnodes
 	CNode **m_cnodes; // Pointer to an array of cnodes
 	CNode *m_ground;
-
 	uint m_clogic;
 	LogicIn **p_logicIn;
 	bool b_containsNonLinear;
-	Circuit *m_pCircuit;
+	Circuit * m_pCircuit;
 };
 
 #endif

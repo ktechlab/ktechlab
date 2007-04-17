@@ -17,15 +17,13 @@ const int max_ADDAC_bits = 32;
 
 /**
 @author David Saxton
-Abstract class for digital <> analog converters. 
 */
 class ADDAC : public Component
 {
 public:
 	public:
-		ADDAC( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+		ADDAC( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~ADDAC();
-		virtual bool canFlip() const { return true; }
 		
 	protected:
 		void dataChanged();
@@ -41,14 +39,11 @@ public:
 
 /**
 @author David Saxton
-
-Random idiot: I presume this is an "Analog To Digital Converter".
-Class names do not necessarily relate to well known acronyms. =\
  */
 class ADC : public ADDAC
 {
 	public:
-		ADC( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+		ADC( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~ADC();
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -71,13 +66,10 @@ class ADC : public ADDAC
 /**
 @author David Saxton
  */
-
-// TODO: make it possible to select current source or voltage source dac. =) 
-
 class DAC : public ADDAC
 {
 	public:
-		DAC( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+		DAC( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~DAC();
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

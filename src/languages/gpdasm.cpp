@@ -19,8 +19,8 @@
 #include <qfile.h>
 #include <qregexp.h>
 
-Gpdasm::Gpdasm( ProcessChain *processChain, KTechlab *parent )
- : ExternalLanguage( processChain, parent, "Gpdasm" )
+Gpdasm::Gpdasm( ProcessChain *processChain )
+ : ExternalLanguage( processChain, "Gpdasm" )
 {
 	m_successfulMessage = i18n("*** Disassembly successful ***");
 	m_failedMessage = i18n("*** Disassembly failed ***");

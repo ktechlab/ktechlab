@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2005 by David Saxton                                    *
+ *   Copyright (C) 2005-2006 David Saxton                                  *
  *   david@bluehaze.org                                                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -8,27 +8,34 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include "canvasitemparts.h"
 #include "canvasmanipulator.h"
 #include "cnitem.h"
+#include "component.h"
 #include "connector.h"
 #include "docmanager.h"
 #include "drawpart.h"
 #include "ecnode.h"
 #include "itemdocument.h"
+#include "itemlibrary.h"
 #include "itemview.h"
 #include "ktechlab.h"
 #include "core/ktlconfig.h"
+#include "utils.h"
 
 #include <kaccel.h>
+#include <kdebug.h>
 #include <kiconloader.h>
 #include <klocale.h>
 #include <kpopupmenu.h>
 #include <kurldrag.h>
 
-#include <cmath>
+#include <qapplication.h>
 #include <qcursor.h>
 #include <qtimer.h>
 #include <qwmatrix.h>
+
+#include <cmath>
 
 
 //BEGIN class ItemView
@@ -70,13 +77,14 @@ ItemView::ItemView( ItemDocument * itemDocument, ViewContainer *viewContainer, u
 	m->insertItem( KGlobal::iconLoader()->loadIcon( "tool_arrow",		KIcon::Small ), i18n("Arrow"),		DrawPart::da_arrow );
 	m->insertItem( KGlobal::iconLoader()->loadIcon( "tool_ellipse",		KIcon::Small ), i18n("Ellipse"),	DrawPart::da_ellipse );
 	m->insertItem( KGlobal::iconLoader()->loadIcon( "tool_rectangle",	KIcon::Small ), i18n("Rectangle"),	DrawPart::da_rectangle );
+	m->insertItem( KGlobal::iconLoader()->loadIcon( "imagegallery",		KIcon::Small ), i18n("Image"),		DrawPart::da_image );
 	connect( m, SIGNAL(activated(int)), itemDocument, SLOT(slotSetDrawAction(int)) );
 	//END Draw actions
 	
 	
 	//BEGIN Item Control actions
-	new KAction( i18n("Raise Selection"), "1uparrow", Qt::Key_PageUp, itemDocument, SLOT(raiseZ()), ac, "edit_raise" );
-	new KAction( i18n("Lower Selection"), "1downarrow", Qt::Key_PageDown, itemDocument, SLOT(lowerZ()), ac, "edit_lower" );
+	new KAction( i18n("Raise Selection"), "bring_forward", Qt::Key_PageUp, itemDocument, SLOT(raiseZ()), ac, "edit_raise" );
+	new KAction( i18n("Lower Selection"), "send_backward", Qt::Key_PageDown, itemDocument, SLOT(lowerZ()), ac, "edit_lower" );
 	//END Item Control actions
 	
 	
@@ -87,16 +95,22 @@ ItemView::ItemView( ItemDocument * itemDocument, ViewContainer *viewContainer, u
 	
 	m_pUpdateStatusTmr = new QTimer(this);
 	connect( m_pUpdateStatusTmr, SIGNAL(timeout()), this, SLOT(updateStatus()) );
-	connect( this, SIGNAL(viewUnfocused()), this, SLOT(stopUpdatingStatus()) );
+	connect( this, SIGNAL(unfocused()), this, SLOT(stopUpdatingStatus()) );
 	
+	m_pDragItem = 0l;
 	p_itemDocument = itemDocument;
 	m_zoomLevel = 1.;
 	m_CVBEditor = new CVBEditor( p_itemDocument->canvas(), this, "cvbEditor" );
 	m_CVBEditor->setLineWidth(1);
 	
+	connect( m_CVBEditor, SIGNAL(horizontalSliderReleased()), itemDocument, SLOT(requestCanvasResize()) );
+	connect( m_CVBEditor, SIGNAL(verticalSliderReleased()), itemDocument, SLOT(requestCanvasResize()) );
+	
 	m_layout->insertWidget( 0, m_CVBEditor );
 	
 	setAcceptDrops(true);
+	
+	setFocusWidget( m_CVBEditor->viewport() );
 }
 
 
@@ -115,6 +129,58 @@ bool ItemView::canZoomOut() const
 }
 
 
+QPoint ItemView::mousePosToCanvasPos( const QPoint & contentsClick ) const
+{
+	QPoint offsetPos = contentsClick + QPoint( cvbEditor()->contentsX(), cvbEditor()->contentsY() );
+	return (offsetPos / zoomLevel()) + p_itemDocument->canvas()->rect().topLeft();
+}
+
+
+void ItemView::zoomIn( const QPoint & center )
+{
+	// NOTE The code in this function is nearly the same as that in zoomOut.
+	// Any updates to this code should also be done to zoomOut
+	
+	// Previous position of center in widget coordinates
+	QPoint previous = center * zoomLevel() - QPoint( cvbEditor()->contentsX(), cvbEditor()->contentsY() );
+	
+	// Don't repaint the view until we've also shifted it
+	cvbEditor()->viewport()->setUpdatesEnabled( false );
+	
+	zoomIn();
+	
+	// Adjust the contents' position to ensure that "previous" remains fixed
+	QPoint offset = center * zoomLevel() - previous;
+	cvbEditor()->setContentsPos( offset.x(), offset.y() );
+	
+	cvbEditor()->viewport()->setUpdatesEnabled( true );
+	cvbEditor()->viewport()->update();
+	
+}
+
+
+void ItemView::zoomOut( const QPoint & center )
+{
+	// NOTE The code in this function is nearly the same as that in zoomIn.
+	// Any updates to this code should also be done to zoomIn
+	
+	// Previous position of center in widget coordinates
+	QPoint previous = center * zoomLevel() - QPoint( cvbEditor()->contentsX(), cvbEditor()->contentsY() );
+	
+	// Don't repaint the view until we've also shifted it
+	cvbEditor()->viewport()->setUpdatesEnabled( false );
+	
+	zoomOut();
+	
+	// Adjust the contents' position to ensure that "previous" remains fixed
+	QPoint offset = center * zoomLevel() - previous;
+	cvbEditor()->setContentsPos( offset.x(), offset.y() );
+	
+	cvbEditor()->viewport()->setUpdatesEnabled( true );
+	cvbEditor()->viewport()->update();
+}
+
+
 void ItemView::zoomIn()
 {
 	int currentZoomPercent = int(std::floor((100*m_zoomLevel)+0.5));
@@ -127,10 +193,8 @@ void ItemView::zoomIn()
 	else
 		newZoom += 100;
 	
-	m_zoomLevel = newZoom/100.;
-	
-	QWMatrix m( m_zoomLevel, 0.0, 0.0, m_zoomLevel, 1.0, 1.0 );
-	m_CVBEditor->setWorldMatrix(m);
+	m_zoomLevel = newZoom/100.0;
+	m_CVBEditor->updateWorldMatrix();
 	
 	p_itemDocument->requestEvent( ItemDocument::ItemDocumentEvent::ResizeCanvasToItems );
 	updateZoomActions();
@@ -151,10 +215,8 @@ void ItemView::zoomOut()
 	else
 		newZoom -= 100;
 	
-	m_zoomLevel = newZoom/100.;
-	
-	QWMatrix m( m_zoomLevel, 0.0, 0.0, m_zoomLevel, 1.0, 1.0 );
-	m_CVBEditor->setWorldMatrix(m);
+	m_zoomLevel = newZoom/100.0;
+	m_CVBEditor->updateWorldMatrix();
 	
 	p_itemDocument->requestEvent( ItemDocument::ItemDocumentEvent::ResizeCanvasToItems );
 	updateZoomActions();
@@ -182,6 +244,8 @@ void ItemView::updateZoomActions()
 
 void ItemView::dropEvent( QDropEvent *event )
 {
+	removeDragItem();
+	
 	KURL::List urls;
 	if ( KURLDrag::decode( event, urls ) )
 	{
@@ -201,31 +265,51 @@ void ItemView::dropEvent( QDropEvent *event )
 	QDataStream stream( event->encodedData(event->format()), IO_ReadOnly );
 	stream >> text;
 
-	QPoint position = event->pos();
-	position.setX( int((position.x() + m_CVBEditor->contentsX())/m_zoomLevel) );
-	position.setY( int((position.y() + m_CVBEditor->contentsY())/m_zoomLevel) );
-
 	// Get a new component item
-	p_itemDocument->addItem( text, position, true );
+	p_itemDocument->addItem( text, mousePosToCanvasPos( event->pos() ), true );
 	
 	setFocus();
 }
 
 
-void ItemView::scrollToMouse( const QPoint &pos )
+void ItemView::scrollToMouse( const QPoint & pos )
 {
-	QPoint position = pos * m_zoomLevel;
+	QPoint viewPos = pos - p_itemDocument->canvas()->rect().topLeft();
+	viewPos *= m_zoomLevel;
+	int x = viewPos.x();
+	int y = viewPos.y();
 	
 	int left = m_CVBEditor->contentsX();
 	int top = m_CVBEditor->contentsY();
+	int width = m_CVBEditor->contentsWidth();
+	int height = m_CVBEditor->contentsHeight();
 	int right = left + m_CVBEditor->visibleWidth();
 	int bottom = top + m_CVBEditor->visibleHeight();
 	
-	if( position.x() < left ) m_CVBEditor->scrollBy( position.x() - left, 0 );
-	else if( position.x() > right ) m_CVBEditor->scrollBy( position.x() - right, 0 );
+	// A magic "snap" region whereby if the mouse is near the edge of the canvas,
+	// then assume that we want to scroll right up to it
+	int snapMargin = 32;
 	
-	if( position.y() < top ) m_CVBEditor->scrollBy( 0, position.y() - top  );
-	else if( position.y() > bottom ) m_CVBEditor->scrollBy( 0, position.y() - bottom);
+	if ( x < snapMargin )
+		x = 0;
+	else if ( x > width - snapMargin )
+		x = width;
+	
+	if ( y < snapMargin )
+		y = 0;
+	else if ( y > height - snapMargin )
+		y = height;
+	
+	
+	if ( x < left )
+		m_CVBEditor->scrollBy( x - left, 0 );
+	else if ( x > right )
+		m_CVBEditor->scrollBy( x - right, 0 );
+	
+	if ( y < top )
+		m_CVBEditor->scrollBy( 0, y - top  );
+	else if ( y > bottom )
+		m_CVBEditor->scrollBy( 0, y - bottom);
 }
 
 
@@ -236,20 +320,26 @@ void ItemView::contentsMousePressEvent( QMouseEvent *e )
 	
 	e->accept();
 	
-	// For some reason, when we are initially unfocused, we only receive the
-	// release event if the user drags the mouse - not very often. So see if we
-	// were initially unfocused, and if so, do unclick as well.
-	bool wasFocused = isFocused();
-	setFocused();
-	
 	if ( !p_itemDocument )
 		return;
 	
-	p_itemDocument->canvas()->setMessage( QString::null );
-	p_itemDocument->m_cmManager->mousePressEvent( EventInfo( this, e ) );
+	EventInfo eventInfo( this, e );
 	
-	if ( !wasFocused )
-		p_itemDocument->m_cmManager->mouseReleaseEvent( EventInfo( this, e ) );
+	if ( eventInfo.isRightClick && m_pDragItem )
+	{
+		// We are dragging an item, and the user has right clicked.
+		// Therefore, we want to rotate the item.
+		/// @todo we should implement a virtual method in item for "rotating the item by one"
+		/// - whatever that one may be (e.g. by 90 degrees, or changing the pin layout for
+		/// flowparts, or nothing if the item isn't rotatable).
+		if ( Component * c = dynamic_cast<Component*>( m_pDragItem ) )
+			c->setAngleDegrees( c->angleDegrees() + 90 );
+		
+		return;
+	}
+	
+	p_itemDocument->canvas()->setMessage( QString::null );
+	p_itemDocument->m_cmManager->mousePressEvent( eventInfo );
 }
 
 
@@ -262,7 +352,7 @@ void ItemView::contentsMouseDoubleClickEvent( QMouseEvent *e )
 	
 	//HACK: Pass this of as a single press event if widget underneath
 	QCanvasItem * atTop = p_itemDocument->itemAtTop( e->pos()/zoomLevel() );
-	if ( atTop && atTop->rtti() == ItemDocument::RTTI::Widget )
+	if ( dynamic_cast<Widget*>(atTop) )
 		contentsMousePressEvent(e);
 	else
 		p_itemDocument->m_cmManager->mouseDoubleClickEvent( EventInfo( this, e ) );
@@ -271,12 +361,16 @@ void ItemView::contentsMouseDoubleClickEvent( QMouseEvent *e )
 
 void ItemView::contentsMouseMoveEvent( QMouseEvent *e )
 {
+// 	kdDebug() << k_funcinfo << "state = " << e->state() << endl;
+	
 	if ( !e || !p_itemDocument )
 		return;
 	
 	e->accept();
 	
-	p_itemDocument->m_cmManager->mouseMoveEvent( EventInfo( this, e ) );
+	EventInfo eventInfo( this, e );
+	
+	p_itemDocument->m_cmManager->mouseMoveEvent( eventInfo );
 	if ( !m_pUpdateStatusTmr->isActive() )
 		startUpdatingStatus();
 }
@@ -299,8 +393,21 @@ void ItemView::contentsWheelEvent( QWheelEvent *e )
 		return;
 	
 	e->accept();
+	EventInfo eventInfo( this, e );
+	if ( eventInfo.ctrlPressed )
+	{
+		// Zooming in or out
+		
+		if ( eventInfo.scrollDelta > 0 )
+			zoomIn( eventInfo.pos );
+		
+		else
+			zoomOut( eventInfo.pos );
+		
+		return;
+	}
 	
-	p_itemDocument->m_cmManager->wheelEvent( EventInfo( this, e ) );
+	p_itemDocument->m_cmManager->wheelEvent( eventInfo );
 }
 
 
@@ -315,6 +422,65 @@ void ItemView::dragEnterEvent( QDragEnterEvent *event )
 		// Then it is URLs that we can decode later :)
 		return;
 	}
+}
+
+
+void ItemView::createDragItem( QDragEnterEvent * e )
+{
+	removeDragItem();
+	
+	if ( !QString(e->format()).startsWith("ktechlab/") )
+		return;
+	
+	e->accept();
+	
+	QString text;
+	QDataStream stream( e->encodedData(e->format()), IO_ReadOnly );
+	stream >> text;
+
+	QPoint p = mousePosToCanvasPos( e->pos() );
+	
+	m_pDragItem = itemLibrary()->createItem( text, p_itemDocument, true );
+	
+	if ( CNItem * cnItem = dynamic_cast<CNItem*>(m_pDragItem) )
+		cnItem->move( snapToCanvas(p.x()), snapToCanvas(p.y()) );
+	
+	else
+		m_pDragItem->move( p.x(), p.y() );
+	
+	m_pDragItem->show();
+}
+
+
+void ItemView::removeDragItem()
+{
+	if ( !m_pDragItem )
+		return;
+	
+	m_pDragItem->removeItem();
+	p_itemDocument->flushDeleteList();
+	m_pDragItem = 0l;
+}
+
+
+void ItemView::dragMoveEvent( QDragMoveEvent * e )
+{
+	if ( !m_pDragItem )
+		return;
+
+	QPoint p = mousePosToCanvasPos( e->pos() );
+	
+	if ( CNItem * cnItem = dynamic_cast<CNItem*>(m_pDragItem) )
+		cnItem->move( snapToCanvas(p.x()), snapToCanvas(p.y()) );
+	
+	else
+		m_pDragItem->move( p.x(), p.y() );
+}
+
+
+void ItemView::dragLeaveEvent( QDragLeaveEvent * )
+{
+	removeDragItem();
 }
 
 
@@ -333,8 +499,8 @@ void ItemView::leaveEvent( QEvent * e )
 	// Cleanup
 	setCursor(Qt::ArrowCursor);
 	
-	if (p_ktechlab)
-		p_ktechlab->slotChangeStatusbar(QString::null);
+	if ( KTechlab::self() )
+		KTechlab::self()->slotChangeStatusbar(QString::null);
 	
 	if ( p_itemDocument )
 		p_itemDocument->m_canvasTip->setVisible(false);
@@ -366,7 +532,7 @@ void ItemView::stopUpdatingStatus()
 
 void ItemView::updateStatus()
 {
-	QPoint pos = (m_CVBEditor->mapFromGlobal( QCursor::pos() ) + QPoint( m_CVBEditor->contentsX(), m_CVBEditor->contentsY() )) / zoomLevel();
+	QPoint pos = mousePosToCanvasPos( m_CVBEditor->mapFromGlobal( QCursor::pos() ) );
 	
 	ItemDocument * itemDocument = static_cast<ItemDocument*>(document());
 	if ( !itemDocument )
@@ -417,44 +583,33 @@ void ItemView::updateStatus()
 	}
 	else if ( QCanvasItem *qcanvasItem = itemDocument->itemAtTop(pos) )
 	{
-		switch( qcanvasItem->rtti() )
+		if ( Connector * con = dynamic_cast<Connector*>(qcanvasItem) )
 		{
-			case ItemDocument::RTTI::Connector:
+			cursor = Qt::CrossCursor;
+			if ( itemDocument->type() == Document::dt_circuit )
 			{
-				cursor = Qt::CrossCursor;
-				if ( itemDocument->type() != Document::dt_circuit )
-					break;
-				
-				canvasTip->displayVI( static_cast<Connector*>(qcanvasItem), pos );
+				canvasTip->displayVI( con, pos );
 				displayTip = true;
-				break;
 			}
-			case ItemDocument::RTTI::Node:
+		}
+		else if ( Node * node = dynamic_cast<Node*>(qcanvasItem) )
+		{
+			cursor = Qt::CrossCursor;
+			if ( ECNode * ecnode = dynamic_cast<ECNode*>(node) )
 			{
-				cursor = Qt::CrossCursor;
-				ECNode * ecnode = dynamic_cast<ECNode*>(qcanvasItem);
-				if ( !ecnode )
-					break;
-				
 				canvasTip->displayVI( ecnode, pos );
 				displayTip = true;
-				break;
 			}
-			case ItemDocument::RTTI::CNItem:
-			{
-				statusbar = (static_cast<CNItem*>(qcanvasItem))->name();
-				break;
-			}
-			default:
-			{
-				break;
-			}
+		}
+		else if ( CNItem * item = dynamic_cast<CNItem*>(qcanvasItem) )
+		{
+			statusbar =item->name();
 		}
 	}
 	setCursor(cursor);
 	
-	if (p_ktechlab)
-		p_ktechlab->slotChangeStatusbar(statusbar);
+	if ( KTechlab::self() )
+		KTechlab::self()->slotChangeStatusbar(statusbar);
 	
 	canvasTip->setVisible(displayTip);
 }
@@ -464,12 +619,15 @@ void ItemView::updateStatus()
 
 
 //BEGIN class CVBEditor
-CVBEditor::CVBEditor( QCanvas *canvas, ItemView *itemView, const char *name )
+CVBEditor::CVBEditor( Canvas *canvas, ItemView *itemView, const char *name )
 	: QCanvasView( canvas, itemView, name, WNoAutoErase | WStaticContents )
 {
+	m_pCanvas = canvas;
 	b_ignoreEvents = false;
 	b_passEventsToView = true;
 	p_itemView = itemView;
+	
+	setMouseTracking(true);
 	viewport()->setMouseTracking(true);
 	setAcceptDrops(true);
 	setFrameShape(NoFrame);
@@ -478,98 +636,123 @@ CVBEditor::CVBEditor( QCanvas *canvas, ItemView *itemView, const char *name )
 	setPaletteBackgroundColor( Qt::white );
 	viewport()->setEraseColor( Qt::white );
 	viewport()->setPaletteBackgroundColor( Qt::white );
+	
+	connect( canvas, SIGNAL(resized( const QRect&, const QRect& )), this, SLOT(canvasResized( const QRect&, const QRect& )) );
 }
 
 
-void CVBEditor::contentsMousePressEvent( QMouseEvent* e )
+void CVBEditor::canvasResized( const QRect & oldSize, const QRect & newSize )
 {
-	if (b_passEventsToView)
-		p_itemView->contentsMousePressEvent(e);
-	else
-		QCanvasView::contentsMousePressEvent(e);
+	updateWorldMatrix();
+	
+	return;
+	
+	kdDebug() << k_funcinfo << endl;
+	
+	QPoint delta = oldSize.topLeft() - newSize.topLeft();
+	delta *= p_itemView->zoomLevel();
+	scrollBy( delta.x(), delta.y() );
 }
 
 
-void CVBEditor::contentsMouseReleaseEvent( QMouseEvent* e )
+void CVBEditor::updateWorldMatrix()
 {
-	if (b_passEventsToView)
-		p_itemView->contentsMouseReleaseEvent(e);
-	else
-		QCanvasView::contentsMouseReleaseEvent(e);
+	double z = p_itemView->zoomLevel();
+	QRect r = m_pCanvas->rect();
+// 	QWMatrix m( z, 0.0, 0.0, z, -r.left(), -r.top() );
+// 	QWMatrix m( z, 0.0, 0.0, z, 0.0, 0.0 );
+	QWMatrix m;
+	m.scale( z, z );
+	m.translate( -r.left(), -r.top() );
+	setWorldMatrix( m );
 }
 
 
-void CVBEditor::contentsMouseDoubleClickEvent( QMouseEvent* e )
+void CVBEditor::contentsWheelEvent( QWheelEvent * e )
 {
-	if (b_passEventsToView)
-		p_itemView->contentsMouseDoubleClickEvent(e);
-	else
-		QCanvasView::contentsMouseDoubleClickEvent(e);
-}
-
-
-void CVBEditor::contentsMouseMoveEvent( QMouseEvent* e )
-{
-	if (b_passEventsToView)
-		p_itemView->contentsMouseMoveEvent(e);
-	else
-		QCanvasView::contentsMouseMoveEvent(e);
-}
-
-
-void CVBEditor::dragEnterEvent( QDragEnterEvent* e )
-{
-	if (b_passEventsToView)
-		p_itemView->dragEnterEvent(e);
-	else
-		QCanvasView::dragEnterEvent(e);
-}
-
-
-void CVBEditor::dropEvent( QDropEvent* e )
-{
-	if (b_passEventsToView)
-		p_itemView->dropEvent(e);
-	else
-		QCanvasView::dropEvent(e);
-}
-
-
-void CVBEditor::enterEvent( QEvent * e )
-{
-	if (b_passEventsToView)
-		p_itemView->enterEvent(e);
-	else
-		QCanvasView::enterEvent(e);
-}
-
-
-void CVBEditor::leaveEvent( QEvent* e )
-{
-	if (b_passEventsToView)
-		p_itemView->leaveEvent(e);
-	else
-		QCanvasView::leaveEvent(e);
-}
-
-
-void CVBEditor::contentsWheelEvent( QWheelEvent *e )
-{
-	if (b_ignoreEvents)
-	{
-		e->ignore();
+	QWheelEvent ce( viewport()->mapFromGlobal( e->globalPos() ),
+					e->globalPos(), e->delta(), e->state());
+	
+	if ( e->orientation() == Horizontal && horizontalScrollBar() )
+		QApplication::sendEvent( horizontalScrollBar(), e);
+	else  if (e->orientation() == Vertical && verticalScrollBar() )
+		QApplication::sendEvent( verticalScrollBar(), e);
+	
+#if 0
+	if ( b_ignoreEvents )
 		return;
+	b_ignoreEvents = true;
+	QCanvasView::wheelEvent( e );
+	b_ignoreEvents = false;
+#endif
+}
+
+
+bool CVBEditor::event( QEvent * e )
+{
+	if ( !b_passEventsToView )
+	{
+		bool isWheel = e->type() == QEvent::Wheel;
+		if ( isWheel && b_ignoreEvents )
+			return false;
+		
+		b_ignoreEvents = isWheel;
+		bool accepted = QCanvasView::event( e );
+		b_ignoreEvents = false;
+		return accepted;
 	}
 	
-	if (b_passEventsToView)
-		p_itemView->contentsWheelEvent(e);
-	else
+	switch ( e->type() )
 	{
-		b_ignoreEvents = true;
-		QCanvasView::wheelEvent(e);
-		b_ignoreEvents = false;
+		case QEvent::MouseButtonPress:
+			p_itemView->contentsMousePressEvent( (QMouseEvent*)e );
+			return ((QMouseEvent*)e)->isAccepted();
+			
+		case QEvent::MouseButtonRelease:
+			p_itemView->contentsMouseReleaseEvent( (QMouseEvent*)e );
+			return ((QMouseEvent*)e)->isAccepted();
+			
+		case QEvent::MouseButtonDblClick:
+			p_itemView->contentsMouseDoubleClickEvent( (QMouseEvent*)e );
+			return ((QMouseEvent*)e)->isAccepted();
+			
+		case QEvent::MouseMove:
+			p_itemView->contentsMouseMoveEvent( (QMouseEvent*)e );
+			return ((QMouseEvent*)e)->isAccepted();
+			
+		case QEvent::DragEnter:
+			p_itemView->dragEnterEvent((QDragEnterEvent*)e );
+			return true;
+			
+		case QEvent::DragMove:
+			p_itemView->dragMoveEvent((QDragMoveEvent*)e );
+			return true;
+			
+		case QEvent::DragLeave:
+			p_itemView->dragLeaveEvent((QDragLeaveEvent*)e );
+			return true;
+			
+		case QEvent::Drop:
+			p_itemView->dropEvent( (QDropEvent*)e );
+			return true;
+			
+		case QEvent::Enter:
+			p_itemView->enterEvent( e );
+			return true;
+			
+		case QEvent::Leave:
+			p_itemView->leaveEvent(e);
+			return true;
+			
+		case QEvent::Wheel:
+			p_itemView->contentsWheelEvent( (QWheelEvent*)e );
+			return ((QWheelEvent*)e)->isAccepted();
+			
+		default:
+			return QCanvasView::event( e );
 	}
 }
+
 
 void CVBEditor::viewportResizeEvent( QResizeEvent * e )
 {

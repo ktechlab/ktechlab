@@ -35,7 +35,7 @@ class ViewIface : public DCOPObject
 		
 	k_dcop:
 		DCOPRef document();
-		bool isFocused();
+		bool hasFocus();
 		bool close();
 		void zoomIn();
 		void zoomOut();
@@ -86,8 +86,6 @@ class MechanicsViewIface : public ItemViewIface
 	protected:
 		MechanicsView * m_pMechanicsView;
 };
-
-// what's with all the tiny nearly identical classes? =P 
 
 class ICNViewIface : public ItemViewIface
 {

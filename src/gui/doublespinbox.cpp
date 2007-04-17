@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2003-2004 by David Saxton                               *
+ *   Copyright (C) 2003-2006 by David Saxton                               *
  *   david@bluehaze.org                                                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -40,12 +40,32 @@ DoubleSpinBox::DoubleSpinBox( double lower, double upper, double minAbs, double 
 	m_minAbsValue = minAbs;
 	m_queuedSuffix = QString::null;
 	
+	init();
+	setValue( value );
+}
+
+
+DoubleSpinBox::DoubleSpinBox( QWidget * parent )
+	: QSpinBox( parent )
+{
+	m_lastEmittedValue = 0;
+	m_minValue = 0;
+	m_maxValue = 1e9;
+	m_minAbsValue = 1e-9;
+	m_queuedSuffix = QString::null;
+	
+	init();
+	setValue( 0 );
+}
+
+
+void DoubleSpinBox::init()
+{
 	editor()->setAlignment( Qt::AlignRight );
 	
 	connect( this, SIGNAL(valueChanged(int)), this, SLOT(checkIfChanged()) );
 	QSpinBox::setMinValue( -(1<<30) );
 	QSpinBox::setMaxValue( +(1<<30) );	
-	setValue( value );
 	
 	setValidator( 0 );
 }
@@ -64,6 +84,9 @@ double DoubleSpinBox::value()
 
 void DoubleSpinBox::setValue( double value )
 {
+	if ( this->value() == value )
+		return;
+	
 	if ( value > maxValue() )
 		value = maxValue();
 	
@@ -101,7 +124,7 @@ void DoubleSpinBox::updateSuffix( double value )
 void DoubleSpinBox::setQueuedSuffix()
 {
 	bool changed = false;
-	if ( !m_queuedSuffix.isNull() && suffix() != m_queuedSuffix )
+	if ( !m_queuedSuffix.isNull() && suffix().simplifyWhiteSpace() != m_queuedSuffix.simplifyWhiteSpace() )
 	{
 		setSuffix( m_queuedSuffix );
 		changed = true;

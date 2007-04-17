@@ -26,7 +26,7 @@ Item* SetPin::construct( ItemDocument *itemDocument, bool newItem, const char *i
 LibraryItem* SetPin::libraryItem()
 {
 	return new LibraryItem(
-		QString("flow/setpin"),
+		"flow/setpin",
 		i18n("Set Pin State"),
 		i18n("I\\/O"),
 		"pinwrite.png",
@@ -35,10 +35,9 @@ LibraryItem* SetPin::libraryItem()
 }
 
 SetPin::SetPin( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowPart( icnDocument, newItem, (id) ? id : "setpin" )
+	: FlowPart( icnDocument, newItem, id ? id : "setpin" )
 {
 	m_name = i18n("Set Pin State");
-	m_desc = i18n("Set a pin on a port high or low. The pin needs to be set as an output pin.");
 	initIOSymbol();
 	createStdInput();
 	createStdOutput();

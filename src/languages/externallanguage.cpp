@@ -17,10 +17,10 @@
 #include <qregexp.h>
 #include <qtimer.h>
 
-ExternalLanguage::ExternalLanguage( ProcessChain *processChain, KTechlab *parent, const QString &name )
- : Language( processChain, parent, name )
+ExternalLanguage::ExternalLanguage( ProcessChain *processChain, const QString &name )
+ : Language( processChain, name )
 {
-	m_languageProcess = 0;
+	m_languageProcess = 0l;
 }
 
 
@@ -42,7 +42,7 @@ void ExternalLanguage::deleteLanguageProcess()
 	m_languageProcess->kill();
 	m_languageProcess->deleteLater();
 	
-	m_languageProcess = 0;
+	m_languageProcess = 0L;
 }
 
 

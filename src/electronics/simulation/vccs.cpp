@@ -9,6 +9,7 @@
  ***************************************************************************/
 
 #include "elementset.h"
+#include "matrix.h"
 #include "vccs.h"
 
 VCCS::VCCS( const double gain )
@@ -19,15 +20,17 @@ VCCS::VCCS( const double gain )
 	m_numCNodes = 4;
 }
 
+
 VCCS::~VCCS()
 {
 }
 
+
 void VCCS::setGain( const double g )
 {
-	if( g == m_g ) return;
+	if ( g == m_g ) return;
 	
-	if(p_eSet)
+	if (p_eSet)
 		p_eSet->setCacheInvalidated();
 	
 	// Remove old values
@@ -42,45 +45,49 @@ void VCCS::setGain( const double g )
 
 void VCCS::add_map()
 {
-	if(!b_status) return;
+	if (!b_status)
+		return;
 	
-	if( !p_cnode[0]->isGround )
-	{
-		p_A->setUse_c( p_cbranch[0]->n(), p_cnode[0]->n(), Map::et_stable, false );
-	}
-	if( !p_cnode[1]->isGround  )
-	{
-		p_A->setUse_c( p_cbranch[0]->n(), p_cnode[1]->n(), Map::et_stable, false );
-	}
-	if( !p_cnode[2]->isGround  )
-	{
-		p_A->setUse_b( p_cnode[2]->n(), p_cbranch[0]->n(), Map::et_constant, true );
-		p_A->setUse_c( p_cbranch[0]->n(), p_cnode[2]->n(), Map::et_constant, true );
-	}
-	if( !p_cnode[3]->isGround  )
-	{
-		p_A->setUse_b( p_cnode[3]->n(), p_cbranch[0]->n(), Map::et_constant, true );
-		p_A->setUse_c( p_cbranch[0]->n(), p_cnode[3]->n(), Map::et_constant, true );
-	}
+	setUse_c( 0, 0, Map::et_constant, true );
+	setUse_c( 0, 1, Map::et_constant, true );
+	setUse_b( 3, 0, Map::et_constant, true );
+	setUse_b( 2, 0, Map::et_constant, true );
+	setUse_d( 0, 0, Map::et_stable, false );
+	
+#if 0
+	setUse( 2, 0, Map::et_stable, true );
+	setUse( 3, 0, Map::et_stable, true );
+	setUse( 2, 1, Map::et_stable, true );
+	setUse( 3, 1, Map::et_stable, true );
+#endif
 }
 
 
 void VCCS::add_initial_dc()
 {
-	if(!b_status)
+	if (!b_status)
 		return;
 	
+	A_c( 0, 0 ) = +1.0;
+	A_c( 0, 1 ) = -1.0;
+	A_b( 3, 0 ) = +1.0;
+	A_b( 2, 0 ) = -1.0;
+	A_d( 0, 0 ) = -1.0 / m_g;
+	
+#if 0
 	A_g( 2, 0 ) += m_g;
 	A_g( 3, 0 ) -= m_g;
 	A_g( 2, 1 ) -= m_g;
 	A_g( 3, 1 ) += m_g;
+#endif
 }
 
 
 void VCCS::updateCurrents()
 {
-	if(!b_status) return;
-
+	if (!b_status)
+		return;
+	
 	m_cnodeI[0] = m_cnodeI[1] = 0.;
 	m_cnodeI[3] = (p_cnode[0]->v-p_cnode[1]->v)*m_g;
 	m_cnodeI[2] = -m_cnodeI[3];

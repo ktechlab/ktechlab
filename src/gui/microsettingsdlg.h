@@ -32,7 +32,7 @@ class MicroSettingsDlg : public KDialogBase
 {
 	Q_OBJECT
 	public:
-		MicroSettingsDlg( MicroSettings *_microSettings, QWidget *parent = 0, const char *name = 0 );
+		MicroSettingsDlg( MicroSettings *_microSettings, QWidget *parent = 0L, const char *name = 0L );
 		~MicroSettingsDlg();
 
 		void reject();

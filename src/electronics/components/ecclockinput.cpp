@@ -32,7 +32,7 @@ Item* ECClockInput::construct( ItemDocument *itemDocument, bool newItem, const c
 LibraryItem* ECClockInput::libraryItem()
 {
 	return new LibraryItem(
-		QString("ec/clock_input"),
+		"ec/clock_input",
 		i18n("Clock Input"),
 		i18n("Logic"),
 		"clockinput.png",
@@ -44,7 +44,6 @@ ECClockInput::ECClockInput( ICNDocument *icnDocument, bool newItem, const char *
 	: Component( icnDocument, newItem, (id) ? id : "clock_input" )
 {
 	m_name = i18n("Clock Input");
-	m_desc = i18n("A square-wave generator, outputing logical high/low at repeating time intervals.");
 	setSize( -16, -8, 32, 16 );
 	
 	m_lastSetTime = 0;
@@ -57,9 +56,8 @@ ECClockInput::ECClockInput( ICNDocument *icnDocument, bool newItem, const char *
 	
 	for ( unsigned i = 0; i < 1000; i++ )
 	{
-		ComponentCallback *ccb = new ComponentCallback( this, (VoidCallbackPtr)(&ECClockInput::stepCallback) );
-		m_pComponentCallback[i] = new list<ComponentCallback>;
-		m_pComponentCallback[i]->push_back(*ccb);
+		ComponentCallback * ccb = new ComponentCallback( this, (VoidCallbackPtr)(&ECClockInput::stepCallback) );
+		m_pComponentCallback[i] = new LinkedList<ComponentCallback>(ccb);
 	}
 
 	init1PinRight();
@@ -80,15 +78,16 @@ ECClockInput::ECClockInput( ICNDocument *icnDocument, bool newItem, const char *
 	addDisplayText( "freq", QRect( -16, -24, 32, 14 ), "", false );
 }
 
+
 ECClockInput::~ECClockInput()
 {
 	for ( unsigned i = 0; i < 1000; i++ )
 	{
-//		delete m_pComponentCallback[i]->data();
+		delete m_pComponentCallback[i]->data();
 		delete m_pComponentCallback[i];
-		m_pComponentCallback[i]=0;
 	}
 }
+
 
 void ECClockInput::dataChanged()
 {
@@ -105,8 +104,9 @@ void ECClockInput::dataChanged()
 	{
 		m_bSetStepCallbacks = setStepCallbacks;
 		if (setStepCallbacks)
-			m_pSimulator->detachComponentCallbacks(*this);
-		else	m_pSimulator->attachComponentCallback( this, (VoidCallbackPtr)(&ECClockInput::stepLogic) );
+			m_pSimulator->detachComponentCallbacks(this);
+		else
+			m_pSimulator->attachComponentCallback( this, (VoidCallbackPtr)(&ECClockInput::stepLogic) );
 	}
 	
 	m_bLastStepCallbackOut = false;
@@ -133,30 +133,30 @@ void ECClockInput::stepCallback()
 
 void ECClockInput::stepNonLogic()
 {
-	if (!m_bSetStepCallbacks) return;
-
+	if (!m_bSetStepCallbacks)
+		return;
+	
 	bool addingHigh = !m_bLastStepCallbackOut;
-
+	
 	//TODO 100 number shouldn't be hard-coded
-
-// random idiot asks: um, why are we using the number 100? what does it do?
-
 	long long lowerTime = m_pSimulator->time();
 	long long upperTime = lowerTime + 100;
-
+	
 	long long upTo = m_lastSetTime;
-
-	while(upTo + (addingHigh?m_high_time:m_low_time) < upperTime ) {
+	
+	while ( upTo + (addingHigh?m_high_time:m_low_time) < upperTime )
+	{
 		upTo += addingHigh ? m_high_time : m_low_time;
 		addingHigh = !addingHigh;
-
+		
 		long long at = upTo-lowerTime;
 		if ( at >= 0 && at < 100 )
-			m_pSimulator->addStepCallback(at, &m_pComponentCallback[at]->front());
+			m_pSimulator->addStepCallback( at, m_pComponentCallback[at] );
 	}
-
+	
 	m_lastSetTime = upTo;
 }
+
 
 void ECClockInput::drawShape( QPainter &p )
 {

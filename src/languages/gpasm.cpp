@@ -20,8 +20,8 @@
 #include <kprocess.h>
 #include <qregexp.h>
 
-Gpasm::Gpasm( ProcessChain *processChain, KTechlab * parent )
- : ExternalLanguage( processChain, parent, "Gpasm" )
+Gpasm::Gpasm( ProcessChain *processChain )
+ : ExternalLanguage( processChain, "Gpasm" )
 {
 	m_successfulMessage = i18n("*** Assembly successful ***");
 	m_failedMessage = i18n("*** Assembly failed ***");

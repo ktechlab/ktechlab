@@ -23,7 +23,7 @@ class ECNode;
 class ECSevenSegment : public Component
 {
 public:
-	ECSevenSegment( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	ECSevenSegment( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ECSevenSegment();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -32,7 +32,6 @@ public:
 	virtual void stepNonLogic();
 	virtual bool doesStepNonLogic() const { return true; }
 	virtual void dataChanged();
-	virtual bool canFlip() const { return true; }
 	
 private:
 	virtual void drawShape( QPainter &p );

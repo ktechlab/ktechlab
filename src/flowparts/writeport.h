@@ -20,7 +20,7 @@
 class WritePort : public FlowPart
 {
 public:
-	WritePort( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	WritePort( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~WritePort();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

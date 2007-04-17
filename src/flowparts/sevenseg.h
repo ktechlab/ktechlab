@@ -20,7 +20,7 @@
 class SevenSeg : public FlowPart
 {
 public:
-	SevenSeg( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	SevenSeg( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~SevenSeg();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

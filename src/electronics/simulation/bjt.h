@@ -11,6 +11,7 @@
 #ifndef BJT_H
 #define BJT_H
 
+#include "matrix.h"
 #include "nonlinear.h"
 
 class BJTState
@@ -18,14 +19,14 @@ class BJTState
 	public:
 		BJTState();
 		void reset();
-
+		
 		BJTState operator-( const BJTState & s ) const;
-
+	
 		double A[3][3];
 		double I[3];
 };
 
-// why isn't this a part of the BJT class? 
+
 class BJTSettings
 {
 	public:
@@ -38,10 +39,9 @@ class BJTSettings
 		double B_R; ///< reverse beta
 };
 
+
 /**
 @author David Saxton
-
-random idiot: appears to be the class for "Bipolar Junction Transistors" 
 */
 class BJT : public NonLinear
 {
@@ -55,20 +55,25 @@ class BJT : public NonLinear
 		virtual void add_map();
 		BJTSettings settings() const { return m_bjtSettings; }
 		void setBJTSettings( const BJTSettings & settings );
-
+	
 	protected:
 		virtual void updateCurrents();
 		/**
 		 * Calculates the new BJTState from the voltages on the nodes.
 		 */
 		void calc_eq();
-
-		void calcIg(double V_BE, double V_BC, double *I_BE, double *I_BC, double *I_T, double *g_BE, double *g_BC, double *g_IF, double *g_IR);
+		void calcIg( double V_BE, double V_BC,
+					 double * I_BE, double * I_BC,
+					 double * I_T,
+					 double * g_BE, double * g_BC,
+					 double * g_IF, double * g_IR ) const;
+		void updateLim();
 
 		BJTState m_os;
 		BJTState m_ns;
 		int m_pol;
 		double V_BE_prev, V_BC_prev;
+		double V_BE_lim, V_BC_lim;
 		BJTSettings m_bjtSettings;
 };
 

@@ -32,11 +32,16 @@
 using namespace std;
 
 
+Microbe * Microbe::m_pSelf = 0l;
+
+
 //BEGIN class Microbe
 Microbe::Microbe()
 {
+	m_pSelf = this;
 	m_maxDelaySubroutine = PIC14::Delay_None;
 	m_dest = 0;
+	m_pMainPIC = 0l;
 	m_uniqueLabel = 0;
 	
 	// Hardwired constants
@@ -97,15 +102,15 @@ QString Microbe::compile( const QString & url, bool showSource, bool optimize )
 		m_program.remove( m_program.begin() );
 	}
 	
-	PIC14 * pic = makePic();
-	if ( !pic )
+	m_pMainPIC = makePic();
+	if ( !m_pMainPIC )
 		return 0;
 	
 	Code * code = parser.parse( m_program );
-	pic->setCode( code );
-	pic->addCommonFunctions( (PIC14::DelaySubroutine)m_maxDelaySubroutine );
+	m_pMainPIC->setCode( code );
+	m_pMainPIC->addCommonFunctions( (PIC14::DelaySubroutine)m_maxDelaySubroutine );
 
-	pic->postCompileConstruct( m_usedInterrupts );
+	m_pMainPIC->postCompileConstruct( m_usedInterrupts );
 	code->postCompileConstruct();
 	
 	if ( optimize )
@@ -114,7 +119,7 @@ QString Microbe::compile( const QString & url, bool showSource, bool optimize )
 		opt.optimize( code );
 	}
 
-	return code->generateCode( pic );
+	return code->generateCode( m_pMainPIC );
 }
 
 
