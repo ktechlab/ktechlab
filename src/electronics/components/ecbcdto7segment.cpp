@@ -17,7 +17,7 @@
 #include <klocale.h>
 
 // Values for a,b,c,d,e,f,g of common-anode 7 segment display
-static bool numbers[16][7] =
+bool numbers[16][7] =
 	{ { 1, 1, 1, 1, 1, 1, 0 }, // 0
 	  { 0, 1, 1, 0, 0, 0, 0 }, // 1
 	  { 1, 1, 0, 1, 1, 0, 1 }, // 2
@@ -43,7 +43,7 @@ Item* ECBCDTo7Segment::construct( ItemDocument *itemDocument, bool newItem, cons
 LibraryItem* ECBCDTo7Segment::libraryItem()
 {
 	return new LibraryItem(
-		QString::QString("ec/bcd_to_seven_segment"),
+		"ec/bcd_to_seven_segment",
 		i18n("BCD to 7 Segment"),
 		i18n("Integrated Circuits"),
 		"ic2.png",
@@ -53,17 +53,16 @@ LibraryItem* ECBCDTo7Segment::libraryItem()
 }
 
 ECBCDTo7Segment::ECBCDTo7Segment( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, (id) ? id : "bcd_to_seven_segment" )
+	: Component( icnDocument, newItem, id ? id : "bcd_to_seven_segment" )
 {
 	m_name = i18n("BCD to Seven Segment");
-	m_desc = i18n("Converts a binary-coded-input to a form displayable by a seven segment display.<br><br>"
-				"Normal operation: <i>lt</i> (Lamp Test) and the <i>rb</i> (Ripple Blanking) are held high, <i>en</i> (Enable) is held low.");
 				
-	ALogic = BLogic = CLogic = DLogic = 0;
-	ltLogic = rbLogic = enLogic = 0;
+	ALogic = BLogic = CLogic = DLogic = 0L;
+	ltLogic = rbLogic = enLogic = 0L;
 	
-	for ( int i=0; i<7; i++ ) {
-		outLogic[i] = 0;
+	for ( int i=0; i<7; i++ )
+	{
+		outLogic[i] = 0L;
 		oldOut[i] = false;
 	}
 
@@ -108,39 +107,50 @@ void ECBCDTo7Segment::inStateChanged(bool)
 	bool lt = ltLogic->isHigh(); // Lamp test
 	bool rb = rbLogic->isHigh(); // Ripple Blank
 	bool en = enLogic->isHigh(); // Enable (store)
-
+	
 	int n = A + 2*B + 4*C + 8*D;
 // 	if ( n > 9 ) n = 0;
-
+	
 	bool out[7];
-
+	
 	if (lt) // Lamp test
 	{
 		if (rb) // Ripple blanking
 		{
 			if (en) // Enable (store)
 			{
-				for ( int i=0; i<7; i++ ) {
+				for ( int i=0; i<7; i++ )
+				{
 					out[i] = oldOut[i];
 				}
-			} else {
-				for ( int i=0; i<7; i++ ) {
+			}
+			else
+			{
+				for ( int i=0; i<7; i++ )
+				{
 					out[i] = numbers[n][i];
 					oldOut[i] = out[i];
 				}
 			}
-		} else {
-			for ( int i=0; i<7; i++ ) {
+		}
+		else
+		{
+			for ( int i=0; i<7; i++ )
+			{
 				out[i] = false;
 			}
 		}
-	} else {
-		for ( int i=0; i<7; i++ ) {
+	}
+	else
+	{
+		for ( int i=0; i<7; i++ )
+		{
 			out[i] = true;
 		}
 	}
 	
-	for ( int i=0; i<7; i++ ) {
+	for ( int i=0; i<7; i++ )
+	{
 		outLogic[i]->setHigh( out[i] );
 	}
 }

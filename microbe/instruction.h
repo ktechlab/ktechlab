@@ -514,17 +514,17 @@ class Code
 		 */
 		iterator find( Instruction * instruction );
 		/**
-		 * Removes the Instruction (regardless of position).
-		 * @warning You should always use only this function to remove an
-		 * instruction as this function handles stuff such as pushing labels
-		 * from this instruction onto the next before deletion.
+		 * Removes the Instruction. If @p pushLabels is true, then labels, etc
+		 * will be pushed to the instruction after the removed one.
 		 */
-		void removeInstruction( Instruction * instruction );
+		void removeInstruction( Instruction * instruction, bool pushLabels );
 		/**
 		 * Merges all the blocks output together with other magic such as adding
 		 * variables, gpasm directives, etc.
+		 * @param showLinks whether to show how the instructions are linked
+		 * together.
 		 */
-		QString generateCode( PIC14 * pic ) const;
+		QString generateCode( PIC14 * pic, bool showLinks = false ) const;
 		/**
 		 * Appends the InstructionLists to the end of the ones in this instance.
 		 * @param middleInsertionPosition is the position where the middle code
@@ -582,6 +582,7 @@ class CodeIterator
 		bool operator != ( const CodeIterator & i ) const { return it != i.it; }
 		bool operator == ( const CodeIterator & i ) const { return it == i.it; }
 		CodeIterator & operator ++ ();
+		CodeIterator & operator -- ();
 		Instruction * & operator * () { return *it; }
 		/**
 		 * Deletes the instruction that this iterator is currently pointing at
@@ -712,16 +713,24 @@ class Instruction
 		 * An input link is an instruction that might be executed immediately
 		 * before this Instruction.
 		 */
-		void addInputLink( Instruction * inputLink );
+		void addInputLink( Instruction * instruction );
+		/**
+		 * @see addInputLinks( Instruction * );
+		 */
+		void addInputLinks( const InstructionList & inputLinks );
 		/**
 		 * An output link is an instruction that might be executed immediately
 		 * after this Instruction.
 		 */
-		void addOutputLink( Instruction * inputLink );
+		void addOutputLink( Instruction * instruction );
+		/**
+		 * @see addOutputLinks( Instruction * );
+		 */
+		void addOutputLinks( const InstructionList & outputLinks );
 		/**
 		 * The list of instructions that might be executed immediately before
 		 * this instruction.
-		 * @see addInputLink
+		 * @see addInputLinks
 		 */
 		InstructionList inputLinks() const { return m_inputLinks; }
 		/**

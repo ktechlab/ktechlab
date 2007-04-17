@@ -53,19 +53,13 @@ MechanicsItem::MechanicsItem( MechanicsDocument *mechanicsDocument, bool newItem
 	property("moi")->setAdvanced(true);
 	
 	setZ(ItemDocument::Z::Item);
-	setAnimated(true);
+// 	setAnimated(true);
 	p_mechanicsDocument->registerItem(this);
 }
 
 
 MechanicsItem::~MechanicsItem()
 {
-}
-
-
-int MechanicsItem::rtti() const
-{
-	return ItemDocument::RTTI::MechanicsItem;
 }
 
 
@@ -312,11 +306,13 @@ QRect MechanicsItem::maxInnerRectangle( const QRect &outerRect ) const
 		
 		double xbig;/* = std::max( std::abs(x2-x3), std::abs(x1) );*/
 		double ybig;/* = std::max( std::abs(y2-y3), std::abs(y1) );*/
-		if ( (a - floor(a/6.2832)*6.2832) < M_PI )
+		if ( (a - floor(a/6.2832)*6.2832) < 3.1416 )
 		{
 			xbig = std::abs(x3-x2);
 			ybig = std::abs(y1);
-		} else {
+		}
+		else
+		{
 			xbig = std::abs(x1);
 			ybig = std::abs(y3-y2);
 		}

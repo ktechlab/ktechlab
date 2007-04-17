@@ -204,7 +204,7 @@ class Language : public QObject
 {
 	Q_OBJECT
 	public:
-		Language( ProcessChain *processChain, KTechlab *parent, const QString &name );
+		Language( ProcessChain *processChain, const QString &name );
 		~Language();
 	
 		/**
@@ -251,7 +251,6 @@ class Language : public QObject
 		void finish( bool successful );
 	
 		int m_errorCount;
-		KTechlab *p_ktechlab;
 		ProcessOptions m_processOptions;
 		ProcessChain *p_processChain;
 	

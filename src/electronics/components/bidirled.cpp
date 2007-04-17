@@ -11,7 +11,7 @@
 #include "bidirled.h"
 #include "colorcombo.h"
 #include "diode.h"
-#include "ecled.h"
+#include "led.h"
 #include "ecnode.h"
 #include "libraryitem.h"
 #include "simulator.h"
@@ -19,9 +19,9 @@
 #include <klocale.h>
 #include <qpainter.h>
 
-Item* BiDirLED::construct(ItemDocument *itemDocument, bool newItem, const char *id)
+Item* BiDirLED::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
-	return new BiDirLED((ICNDocument*)itemDocument, newItem, id);
+	return new BiDirLED( (ICNDocument*)itemDocument, newItem, id );
 }
 
 LibraryItem* BiDirLED::libraryItem()
@@ -32,14 +32,14 @@ LibraryItem* BiDirLED::libraryItem()
 		i18n("Outputs"),
 		"bidirled.png",
 		LibraryItem::lit_component,
-		BiDirLED::construct);
+		BiDirLED::construct
+						   );
 }
 
-BiDirLED::BiDirLED(ICNDocument *icnDocument, bool newItem, const char *id)
-	: Component(icnDocument, newItem, id ? id : "bidir_led")
+BiDirLED::BiDirLED( ICNDocument *icnDocument, bool newItem, const char *id )
+	: Component( icnDocument, newItem, id ? id : "bidir_led" )
 {
 	m_name = i18n("Bidirectional LED");
-	m_desc = i18n("Bidrectional Light Emitting Diode");
 	m_bDynamicContent = true;
 	
 	setSize( -8, -16, 16, 32 );
@@ -47,8 +47,8 @@ BiDirLED::BiDirLED(ICNDocument *icnDocument, bool newItem, const char *id)
 	init1PinRight();
 	setSize( -8, -24, 24, 40 );
 	
-	m_pDiode[0] = createDiode( m_pNNode[0], m_pPNode[0]);
-	m_pDiode[1] = createDiode( m_pPNode[0], m_pNNode[0]);
+	m_pDiode[0] = createDiode( m_pNNode[0], m_pPNode[0] );
+	m_pDiode[1] = createDiode( m_pPNode[0], m_pNNode[0] );
 	
 	avg_brightness[0] = avg_brightness[1] = 255;
 	lastUpdatePeriod = 0.;
@@ -74,9 +74,12 @@ void BiDirLED::dataChanged()
 	for ( unsigned i = 0; i < 2; i++ )
 	{
 		QColor color = dataColor(colors[i]);
-		r[i] = color.red()   / 255.0f;
-		g[i] = color.green() / 255.0f;
-		b[i] = color.blue()  / 255.0f;
+		r[i] = color.red();
+		g[i] = color.green();
+		b[i] = color.blue();
+		r[i] /= 0x100;
+		g[i] /= 0x100;
+		b[i] /= 0x100;
 	}
 }
 
@@ -86,38 +89,44 @@ void BiDirLED::stepNonLogic()
 	lastUpdatePeriod += interval;
 	
 	for ( unsigned i = 0; i < 2; i++ )
-		avg_brightness[i] += ECLed::brightness(m_pDiode[i]->current())*interval;
+		avg_brightness[i] += LED::brightness(m_pDiode[i]->current())*interval;
 }
 
 void BiDirLED::drawShape( QPainter &p )
 {
 	initPainter(p);
 	
-	for ( unsigned i = 0; i < 2; i++ ) {
+	for ( unsigned i = 0; i < 2; i++ )
+	{
 		uint _b;
-		if ( lastUpdatePeriod == 0. ) _b = last_brightness[i];
-		else {
+		if ( lastUpdatePeriod == 0. )
+			_b = last_brightness[i];
+		
+		else
+		{
 			_b = uint(avg_brightness[i]/lastUpdatePeriod);
 			last_brightness[i] = _b;
 		}
-
 		avg_brightness[i] = 0.;
 	
 		p.setBrush( QColor( uint(255-(255-_b)*(1-r[i])), uint(255-(255-_b)*(1-g[i])), uint(255-(255-_b)*(1-b[i])) ) );
 		
 		
 		QPointArray pa(3);
-		if ( i == 0 ) {
+		if ( i == 0 )
+		{
 			pa[0] = QPoint( 8, -8 );
 			pa[1] = QPoint( -8, -16 );
 			pa[2] = QPoint( -8, 0 );
-		} else {
+		}
+		else
+		{
 			pa[0] = QPoint( -8, 8 );
 			pa[1] = QPoint( 8, 0 );
 			pa[2] = QPoint( 8, 16 );
 		}
 		
-		pa.translate( int(x()), int(y()));
+		pa.translate( int(x()), int(y()) );
 		p.drawPolygon(pa);
 		p.drawPolyline(pa);
 	}

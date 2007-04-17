@@ -20,7 +20,7 @@
 class ECDPDT : public Component
 {
 public:
-	ECDPDT( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	ECDPDT( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ECDPDT();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -28,7 +28,6 @@ public:
 	
 	virtual void buttonStateChanged( const QString &id, bool state );
 	virtual void dataChanged();
-	virtual bool canFlip() const { return true; }
 	
 private:
 	virtual void drawShape( QPainter &p );
@@ -47,7 +46,7 @@ private:
 class ECDPST : public Component
 {
 public:
-	ECDPST( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	ECDPST( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ECDPST();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -55,7 +54,6 @@ public:
 	
 	virtual void buttonStateChanged( const QString &id, bool state );
 	virtual void dataChanged();
-	virtual bool canFlip() const { return true; }
 	
 private:
 	virtual void drawShape( QPainter &p );
@@ -72,7 +70,7 @@ private:
 class ECSPDT : public Component
 {
 public:
-	ECSPDT( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	ECSPDT( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ECSPDT();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -80,7 +78,6 @@ public:
 	
 	virtual void buttonStateChanged( const QString &id, bool state );
 	virtual void dataChanged();
-	virtual bool canFlip() const { return true; }
 	
 private:
 	virtual void drawShape( QPainter &p );
@@ -97,7 +94,7 @@ private:
 class ECSPST : public Component
 {
 public:
-	ECSPST( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	ECSPST( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ECSPST();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -105,7 +102,6 @@ public:
 	
 	virtual void buttonStateChanged( const QString &id, bool state );
 	virtual void dataChanged();
-	virtual bool canFlip() const { return true; }
 	
 private:
 	virtual void drawShape( QPainter &p );

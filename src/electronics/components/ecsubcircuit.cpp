@@ -65,8 +65,8 @@ void ECSubcircuit::setNumExtCon( unsigned numExtCon )
 	m_conNames.resize(numExtCon);
 
 	// Remove old pins
-	const NodeMap::iterator nodeMapEnd = m_nodeMap.end();
-	for ( NodeMap::iterator it = m_nodeMap.begin(); it != nodeMapEnd; ++it )
+	const NodeInfoMap::iterator nodeMapEnd = m_nodeMap.end();
+	for ( NodeInfoMap::iterator it = m_nodeMap.begin(); it != nodeMapEnd; ++it )
 	{
 		p_icnDocument->appendDeleteList( p_icnDocument->nodeWithID(it.data().id) );
 	}

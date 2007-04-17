@@ -22,12 +22,12 @@
 // #include <kmessagebox.h>
 #include <qfile.h>
 
-FlowCode::FlowCode( ProcessChain *processChain, KTechlab *parent )
-	: Language( processChain, parent, i18n("FlowCode") )
+FlowCode::FlowCode( ProcessChain *processChain )
+	: Language( processChain, i18n("FlowCode") )
 {
 	m_successfulMessage = i18n("*** Microbe generation successful ***");
 	m_failedMessage = i18n("*** Microbe generation failed ***");
-	p_startPart = 0;
+	p_startPart = 0l;
 }
 
 FlowCode::~FlowCode()
@@ -41,7 +41,7 @@ void FlowCode::processInput( ProcessOptions options )
 	
 	if ( !options.p_flowCodeDocument )
 	{
-		options.p_flowCodeDocument = new FlowCodeDocument( QString::null, 0 );
+		options.p_flowCodeDocument = new FlowCodeDocument( QString::null, 0l );
 		options.p_flowCodeDocument->openURL( options.inputFiles().first() );
 		
 		connect( this, SIGNAL(processSucceeded( Language *)), options.p_flowCodeDocument, SLOT(deleteLater()) );
@@ -164,9 +164,9 @@ QString FlowCode::generateMicrobe( const ItemList &itemList, MicroSettings *sett
 			continue;
 		
 		// Check to see if we have any floating connections
-		const NodeMap nodeMap = startPart->nodeMap();
-		NodeMap::const_iterator nodeMapEnd = nodeMap.end();
-		for ( NodeMap::const_iterator nodeMapIt = nodeMap.begin(); nodeMapIt != nodeMapEnd; ++nodeMapIt )
+		const NodeInfoMap nodeMap = startPart->nodeMap();
+		NodeInfoMap::const_iterator nodeMapEnd = nodeMap.end();
+		for ( NodeInfoMap::const_iterator nodeMapIt = nodeMap.begin(); nodeMapIt != nodeMapEnd; ++nodeMapIt )
 		{
 			Node * node = nodeMapIt.data().node;
 			if ( !node || (node->type() != Node::fp_out) )

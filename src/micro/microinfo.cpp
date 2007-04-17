@@ -13,12 +13,13 @@
 
 MicroInfo::MicroInfo()
 {
-	m_package = 0;
+	m_package = 0L;
 }
 
 MicroInfo::~MicroInfo()
 {
 	delete m_package;
+	m_package = 0L;
 }
 
 #if 0

@@ -160,7 +160,14 @@ public:
 	 * flipped. Returns false if no items present.
 	 */
 	bool canFlip() const;
-
+	/**
+	 * @return whether all the components or flowparts have the same
+	 * orientation. If there are a mixture of components and flowparts
+	 * (or other items), this will return false.
+	 */
+	bool haveSameOrientation() const;
+	
+	
 public slots:
 	/**
 	 * Sets the orientation of all selected items to 0 degrees.
@@ -187,9 +194,13 @@ public slots:
 	 */
 	void slotRotateCCW();
 	/**
-	 * Flips all CNItems in the group
+	 * Flips all CNItems in the group through a horizontal axis.
 	 */
-	void slotFlip();
+	void flipVertically();
+	/**
+	 * Flips all CNItems in the group through a veritcal axis.
+	 */
+	void flipHorizontally();
 
 signals:
 	void connectorAdded( Connector *con );

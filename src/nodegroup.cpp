@@ -15,7 +15,7 @@
 #include "nodegroup.h"
 
 #include <kdebug.h>
-#include <cassert>
+#include <assert.h>
 
 NodeGroup::NodeGroup( ICNDocument *icnDocument, const char *name )
 	: QObject( icnDocument, name )
@@ -29,16 +29,16 @@ NodeGroup::~NodeGroup()
 {
 	clearConList();
 	
-	m_extNodeList.remove( (Node*)0 );
+	m_extNodeList.remove( (Node*)0l );
 	const NodeList::iterator xnEnd = m_extNodeList.end();
 	for ( NodeList::iterator it = m_extNodeList.begin(); it != xnEnd; ++it )
-		(*it)->setNodeGroup(0);
+		(*it)->setNodeGroup(0l);
 	m_extNodeList.clear();
 	
-	m_nodeList.remove( (Node*)0 );
+	m_nodeList.remove( (Node*)0l );
 	const NodeList::iterator nEnd = m_nodeList.end();
 	for ( NodeList::iterator it = m_nodeList.begin(); it != nEnd; ++it )
-		(*it)->setNodeGroup(0);
+		(*it)->setNodeGroup(0l);
 	m_nodeList.clear();
 }
 
@@ -50,7 +50,7 @@ void NodeGroup::setVisible( bool visible )
 	
 	b_visible = visible;
 	
-	m_nodeList.remove( (Node*)0 );
+	m_nodeList.remove( (Node*)0l );
 	const NodeList::iterator nEnd = m_nodeList.end();
 	for ( NodeList::iterator it = m_nodeList.begin(); it != nEnd; ++it )
 		(*it)->setVisible(visible);
@@ -95,8 +95,8 @@ void NodeGroup::translate( int dx, int dy )
 	if ( (dx == 0) && (dy == 0) )
 		return;
 	
-	m_conList.remove((Connector*)0);
-	m_nodeList.remove((Node*)0);
+	m_conList.remove((Connector*)0l);
+	m_nodeList.remove((Node*)0l);
 	
 	const ConnectorList::iterator conEnd = m_conList.end();
 	for ( ConnectorList::iterator it = m_conList.begin(); it != conEnd; ++it )
@@ -134,7 +134,7 @@ void NodeGroup::updateRoutes()
 	while ( !currentList.isEmpty() )
 	{
 		findBestPair( &currentList, &n1, &n2 );
-		if ( n1 == 0 || n2 == 0 ) {
+		if ( n1 == 0l || n2 == 0l ) {
 			return;
 		}
 		NodeList route = findRoute( n1, n2 );
@@ -237,7 +237,7 @@ IntList NodeGroup::findRoute( IntList used, int currentNode, int endNode, bool *
 Connector* NodeGroup::findCommonConnector( Node *n1, Node *n2 )
 {
 	if ( !n1 || !n2 || n1==n2 ) {
-		return 0;
+		return 0l;
 	}
 	
 	ConnectorList n1Con = n1->inputConnectorList() + n1->outputConnectorList();
@@ -250,14 +250,14 @@ Connector* NodeGroup::findCommonConnector( Node *n1, Node *n2 )
 			return *it;
 		}
 	}
-	return 0;
+	return 0l;
 }
 
 
 void NodeGroup::findBestPair( NodeList *list, Node **n1, Node **n2 )
 {
-	*n1 = 0;
-	*n2 = 0;
+	*n1 = 0l;
+	*n2 = 0l;
 	
 	if ( list->size() < 2 ) {
 		return;
@@ -402,10 +402,10 @@ void NodeGroup::removeRoutedNodes( NodeList *nodes, Node *n1, Node *n2 )
 	for ( NodeList::iterator it = nodes->begin(); it != end; ++it )
 	{
 		if ( nodes->contains(*it) > 1 ) {
-			*it = 0;
+			*it = 0l;
 		}
 	}
-	nodes->remove((Node*)0);
+	nodes->remove((Node*)0l);
 	
 	const int n1pos = getNodePos(n1);
 	const int n2pos = getNodePos(n2);
@@ -456,7 +456,7 @@ int NodeGroup::getNodePos( Node *n )
 Node* NodeGroup::getNodePtr( int n )
 {
 	if ( n<0 ) {
-		return 0;
+		return 0l;
 	}
 	const int a = m_nodeList.size();
 	if (n<a) {
@@ -466,7 +466,7 @@ Node* NodeGroup::getNodePtr( int n )
 	if (n<a+b) {
 		return m_extNodeList[n-a];
 	}
-	return 0;
+	return 0l;
 }
 
 
@@ -478,7 +478,7 @@ void NodeGroup::clearConList()
 		Connector *con = *it;
 		if (con)
 		{
-			con->setNodeGroup(0);
+			con->setNodeGroup(0l);
 			disconnect( con, SIGNAL(removed(Connector*)), this, SLOT(connectorRemoved(Connector*)) );
 		}
 	}
@@ -491,7 +491,7 @@ void NodeGroup::init()
 	NodeList::iterator xnEnd = m_extNodeList.end();
 	for ( NodeList::iterator it = m_extNodeList.begin(); it != xnEnd; ++it )
 	{
-		(*it)->setNodeGroup(0);
+		(*it)->setNodeGroup(0l);
 	}
 	m_extNodeList.clear();
 	
@@ -547,7 +547,7 @@ void NodeGroup::nodeRemoved( Node *node )
 {
 	// We are probably about to get deleted by ICNDocument anyway...so no point in doing anything
 	m_nodeList.remove(node);
-	node->setNodeGroup(0);
+	node->setNodeGroup(0l);
 	node->setVisible(true);
 	m_extNodeList.remove(node);
 }

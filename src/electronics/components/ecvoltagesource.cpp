@@ -37,10 +37,9 @@ LibraryItem* ECCell::libraryItem()
 }
 
 ECCell::ECCell( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, (id) ? id : "cell" )
+	: Component( icnDocument, newItem, id ? id : "cell" )
 {
 	m_name = i18n("Battery");
-	m_desc = i18n("Provides a potential-difference.");
 	setSize( -8, -8, 16, 16 );
 	voltage = 0;
 

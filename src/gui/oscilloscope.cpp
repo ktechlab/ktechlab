@@ -31,7 +31,7 @@
 #include <qtimer.h>
 #include <qtoolbutton.h>
 
-#include <cassert>
+#include <assert.h>
 
 //BEGIN Oscilloscope Class
 QColor probeColors[9] = {
@@ -45,11 +45,12 @@ QColor probeColors[9] = {
 	QColor( 0x55, 0x12, 0x7B ),
 	QColor( 0x7B, 0x0C, 0x82 ) };
 
-Oscilloscope * Oscilloscope::m_pSelf = 0;
+Oscilloscope * Oscilloscope::m_pSelf = 0l;
 
 Oscilloscope * Oscilloscope::self( KateMDI::ToolView * parent )
 {
-	if ( !m_pSelf ) {
+	if ( !m_pSelf )
+	{
 		assert(parent);
 		m_pSelf = new Oscilloscope(parent);
 	}
@@ -63,7 +64,7 @@ Oscilloscope::Oscilloscope( KateMDI::ToolView * parent )
 	m_nextColor = 0;
 	m_nextId = 1;
 	m_oldestId = -1;
-	m_oldestProbe = 0;
+	m_oldestProbe = 0l;
 // 	b_isPaused = false;
 	m_zoomLevel = 0.5;
 	m_pSimulator = Simulator::self();
@@ -150,31 +151,37 @@ void Oscilloscope::slotZoomSliderChanged( int value )
 
 ProbeData * Oscilloscope::registerProbe( Probe * probe )
 {
-	if (!probe) return 0;
-
-	const uint id = m_nextId++;
-
-	ProbeData * probeData = 0;
+	if (!probe)
+		return 0l;
 	
-	if ( dynamic_cast<LogicProbe*>(probe) ) {
+	const uint id = m_nextId++;
+	
+	ProbeData * probeData = 0l;
+	
+	if ( dynamic_cast<LogicProbe*>(probe) )
+	{
 		probeData = new LogicProbeData(id);
 		m_logicProbeDataMap[id] = static_cast<LogicProbeData*>(probeData);
-	} else {
+	}
+	
+	else
+	{
 		probeData = new FloatingProbeData(id);
 		m_floatingProbeDataMap[id] = static_cast<FloatingProbeData*>(probeData);
 	}
-
+	
 	m_probeDataMap[id] = probeData;
-
-	if (!m_oldestProbe) {
+	
+	if (!m_oldestProbe)
+	{
 		m_oldestProbe = probeData;
 		m_oldestId = id;
 	}
-
+	
 	probeData->setColor( probeColors[m_nextColor] );
 	m_nextColor = (m_nextColor+1)%9;
-//	probeData->setPaused(b_isPaused);
-
+// 	probeData->setPaused(b_isPaused);
+	
 	emit probeRegistered( id, probeData );
 	return probeData;
 }
@@ -208,7 +215,7 @@ ProbeData * Oscilloscope::probeData( int id ) const
 	if ( bit != m_probeDataMap.end() )
 		return bit.data();
 	
-	return 0;
+	return 0l;
 }
 
 
@@ -236,7 +243,7 @@ void Oscilloscope::getOldestProbe()
 {
 	if ( m_probeDataMap.isEmpty() )
 	{
-		m_oldestProbe = 0;
+		m_oldestProbe = 0l;
 		m_oldestId = -1;
 		return;
 	}
@@ -270,11 +277,11 @@ void Oscilloscope::updateScrollbars()
 	const float pps = pixelsPerSecond();
 	
 	int pageLength = int(oscilloscopeView->width()*sliderTicksPerSecond()/pps);
-	int64_t timeAsTicks = time()*sliderTicksPerSecond()/LOGIC_UPDATE_RATE;
-	int64_t upper = (timeAsTicks > pageLength) ? (timeAsTicks - pageLength) : 0;
+	llong timeAsTicks = time()*sliderTicksPerSecond()/LOGIC_UPDATE_RATE;
+	llong upper = (timeAsTicks > pageLength) ? (timeAsTicks - pageLength) : 0;
 	horizontalScroll->setRange( 0, upper );
 	
-	horizontalScroll->setPageStep( uint64_t(oscilloscopeView->width()*sliderTicksPerSecond()/pps) );
+	horizontalScroll->setPageStep( ullong(oscilloscopeView->width()*sliderTicksPerSecond()/pps) );
 	
 	if (wasAtUpperEnd)
 	{
@@ -284,29 +291,31 @@ void Oscilloscope::updateScrollbars()
 }
 
 
-uint64_t Oscilloscope::time() const
+ullong Oscilloscope::time() const
 {
 	if (!m_oldestProbe)
 		return 0;
 	
-	return uint64_t( m_pSimulator->time() - m_oldestProbe->resetTime() );
+	return ullong( m_pSimulator->time() - m_oldestProbe->resetTime() );
 }
 
 
-int64_t Oscilloscope::scrollTime() const
+llong Oscilloscope::scrollTime() const
 {
 // 	if ( b_isPaused || numberOfProbes() == 0 )
 // 		return 0;
-
-	if ( numberOfProbes() == 0 ) return 0;
-
+	
+	if ( numberOfProbes() == 0 )
+		return 0;
+	
 	if ( horizontalScroll->maxValue() == 0 )
 	{
-		int64_t lengthAsTime = int64_t( oscilloscopeView->width() * LOGIC_UPDATE_RATE / pixelsPerSecond() );
-		int64_t ret =  m_pSimulator->time() - lengthAsTime;
-		if(ret < 0) return 0;
-		return ret;
-	} else return int64_t( m_oldestProbe->resetTime() + (int64_t(horizontalScroll->value()) * LOGIC_UPDATE_RATE / sliderTicksPerSecond()) );
+		llong lengthAsTime = llong( oscilloscopeView->width() * LOGIC_UPDATE_RATE / pixelsPerSecond() );
+		return m_pSimulator->time() - lengthAsTime;
+	}
+	
+	else
+		return llong( m_oldestProbe->resetTime() + (llong(horizontalScroll->value()) * LOGIC_UPDATE_RATE / sliderTicksPerSecond()) );
 }
 
 

@@ -23,9 +23,8 @@ class ECSubcircuit : public Component
 {
 Q_OBJECT
 public:
-	ECSubcircuit( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	ECSubcircuit( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ECSubcircuit();
-	virtual bool canFlip() const { return true; }
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();

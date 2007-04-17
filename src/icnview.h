@@ -24,7 +24,7 @@ class ICNView : public ItemView
 {
 	Q_OBJECT
 	public:
-		ICNView( ICNDocument * icnDocument, ViewContainer *viewContainer, uint viewAreaId, const char * name = 0 );
+		ICNView( ICNDocument * icnDocument, ViewContainer *viewContainer, uint viewAreaId, const char * name = 0l );
 		~ICNView();
 		
 	protected slots:

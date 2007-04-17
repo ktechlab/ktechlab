@@ -19,6 +19,7 @@
 #include <kconfig.h>
 #include <kdebug.h>
 #include <kiconloader.h>
+#include <klocale.h>
 #include <kstandarddirs.h>
 #include <qfile.h>
 #include <qtextstream.h>
@@ -104,7 +105,7 @@ void Subcircuits::updateComponentSelector( int id, const QString &name )
 	if ( name.isEmpty() )
 		return;
 	
-	ComponentSelector::self()->addItem( name, "sc/"+QString::number(id), "Subcircuits", KGlobal::iconLoader()->loadIcon( "ktechlab_circuit", KIcon::Small ), true );
+	ComponentSelector::self()->addItem( name, "sc/"+QString::number(id), i18n("Subcircuits"), KGlobal::iconLoader()->loadIcon( "ktechlab_circuit", KIcon::Small ), true );
 }
 
 

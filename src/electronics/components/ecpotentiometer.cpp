@@ -28,7 +28,7 @@ LibraryItem* ECPotentiometer::libraryItem()
 	return new LibraryItem(
 		"ec/potentiometer",
 		i18n("Potentiometer"),
-		i18n("Discrete"),
+		i18n("Passive"),
 		"potentiometer.png",
 		LibraryItem::lit_component,
 		ECPotentiometer::construct );
@@ -38,7 +38,6 @@ ECPotentiometer::ECPotentiometer( ICNDocument *icnDocument, bool newItem, const 
 	: Component( icnDocument, newItem, id ? id : "potentiometer" )
 {
 	m_name = i18n("Potentiometer");
-	m_desc =i18n("Consists of a resistor connected to the end pins, with a central pin connected at an adjustable point along the resistor");
 	setSize( -16, -16, 40, 32 );
 	
 	m_p1 = createPin( 32, 0, 180, "p1" );
@@ -99,7 +98,7 @@ void ECPotentiometer::drawShape( QPainter &p )
 	pa[2] = QPoint( 4, 3 );
 	
 	int space = m_pSlider->style().pixelMetric( QStyle::PM_SliderSpaceAvailable, m_pSlider );
-	int base_y = _y + (( angleDegrees() == 0 || angleDegrees() == 270 ) ? 1 : -1) * int( space * m_sliderProp );
+	int base_y = _y + int( space * m_sliderProp );
 	
 	pa.translate( _x+16, base_y );
 	

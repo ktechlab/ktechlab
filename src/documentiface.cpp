@@ -165,6 +165,7 @@ void FlowCodeDocumentIface::convertToAssembly()
 //END class FlowCodeDocumentIface
 
 
+
 //BEGIN class CircuitDocumentIface
 CircuitDocumentIface::CircuitDocumentIface( CircuitDocument * document )
 	: ICNDocumentIface(document)
@@ -202,9 +203,14 @@ void CircuitDocumentIface::rotateClockwise( )
 	m_pCircuitDocument->rotateClockwise();
 }
 
-void CircuitDocumentIface::flip( )
+void CircuitDocumentIface::flipHorizontally()
 {
-	m_pCircuitDocument->itemFlip();
+	m_pCircuitDocument->flipHorizontally();
+}
+
+void CircuitDocumentIface::flipVertically()
+{
+	m_pCircuitDocument->flipVertically();
 }
 
 void CircuitDocumentIface::displayEquations( )
@@ -240,9 +246,9 @@ QCStringList ICNDocumentIface::nodeIDs( const QString & id )
 	if ( !item )
 		return ids;
 	
-	const NodeMap nm = item->nodeMap();
-	const NodeMap::const_iterator end = nm.end();
-	for ( NodeMap::const_iterator it = nm.begin(); it != end; ++it )
+	const NodeInfoMap nm = item->nodeMap();
+	const NodeInfoMap::const_iterator end = nm.end();
+	for ( NodeInfoMap::const_iterator it = nm.begin(); it != end; ++it )
 		ids.append( it.key().ascii() );
 	
 	return ids;

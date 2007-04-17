@@ -17,7 +17,7 @@
 #include "projectdlgs.h"
 #include "projectmanager.h"
 
-#include <cassert>
+#include <assert.h>
 #include <kcombobox.h>
 #include <kdeversion.h>
 #include <kfiledialog.h>
@@ -160,7 +160,7 @@ LinkerOptionsDlg::LinkerOptionsDlg( LinkerOptions * linkingOptions, QWidget *par
 		item->setOn( linkedInternal.contains(relativeURL) );
 	}
 	
-	m_pExternalLibraryRequester = new KURLRequester( 0 );
+	m_pExternalLibraryRequester = new KURLRequester( 0l );
 	m_pExternalLibraryRequester->fileDialog()->setURL( "/usr/share/sdcc/lib" );
 	
 	delete m_pWidget->m_pExternalLibraries;
@@ -175,7 +175,8 @@ LinkerOptionsDlg::LinkerOptionsDlg( LinkerOptions * linkingOptions, QWidget *par
 #endif
 	m_pWidget->m_pExternalLibraries->insertStringList( m_pLinkerOptions->linkedExternal() );
 	//END Update library widgets
-
+	
+	
 	setMainWidget( m_pWidget );
 	setInitialSize( m_pWidget->rect().size() );
 }
@@ -272,3 +273,4 @@ void ProcessingOptionsDlg::reject()
 //END class ProcessingOptionsDlg
 
 
+#include "projectdlgs.moc"

@@ -32,9 +32,9 @@ DCOPRef ViewIface::document( )
 	return DCOPRef( m_pView->document()->dcopObject() );
 }
 
-bool ViewIface::isFocused( )
+bool ViewIface::hasFocus( )
 {
-	return m_pView->isFocused();
+	return m_pView->hasFocus();
 }
 
 bool ViewIface::close( )

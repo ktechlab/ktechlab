@@ -13,7 +13,7 @@
 
 #include <kdebug.h>
 
-#include <cassert>
+#include <assert.h>
 #include <iostream>
 using namespace std;
 
@@ -29,7 +29,7 @@ QString binary( uchar val )
 
 Optimizer::Optimizer()
 {
-	m_pCode = 0;
+	m_pCode = 0l;
 }
 
 

@@ -21,7 +21,7 @@ const int maxCount = 256;
 class ResistorDIP : public Component
 {
 public:
-	ResistorDIP( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	ResistorDIP( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ResistorDIP();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

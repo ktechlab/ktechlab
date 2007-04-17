@@ -19,6 +19,7 @@
 #include "iteminterface.h"
 #include "itemview.h"
 #include "ktechlab.h"
+#include "lineedit.h"
 
 #include <kcombobox.h>
 #include <kdebug.h>
@@ -30,29 +31,26 @@
 #include <qlabel.h>
 #include <qcheckbox.h>
 
-#include <cassert>
+#include <assert.h>
 
-ItemInterface * ItemInterface::m_pSelf = 0;
+ItemInterface * ItemInterface::m_pSelf = 0l;
 
-ItemInterface * ItemInterface::self( KTechlab * ktechlab )
+ItemInterface * ItemInterface::self()
 {
 	if ( !m_pSelf )
-	{
-		assert(ktechlab);
-		m_pSelf = new ItemInterface(ktechlab);
-	}
+		m_pSelf = new ItemInterface();
+	
 	return m_pSelf;
 }
 
 
-ItemInterface::ItemInterface( KTechlab * ktechlab )
-	: QObject(ktechlab),
-	p_ktechlab(ktechlab)
+ItemInterface::ItemInterface()
+	: QObject( KTechlab::self() )
 {
 	m_pActiveItemEditorToolBar = 0;
-	p_cvb = 0;
-	p_itemGroup = 0;
-	p_lastItem = 0;
+	p_cvb = 0l;
+	p_itemGroup = 0l;
+	p_lastItem = 0l;
 	m_currentActionTicket = -1;
 	m_toolBarWidgetID = -1;
 }
@@ -74,11 +72,10 @@ void ItemInterface::slotItemDocumentChanged( ItemDocument * doc )
 	slotClearAll();
 	if ( ItemDocument * itemDocument = dynamic_cast<ItemDocument*>((Document*)p_cvb) )
 	{
-		disconnect( itemDocument, SIGNAL(itemSelected(Item*)), this, SLOT(slotUpdateItemInterface()) );
-		disconnect( itemDocument, SIGNAL(itemUnselected(Item*)), this, SLOT(slotUpdateItemInterface()) );
+		disconnect( itemDocument, SIGNAL(selectionChanged()), this, SLOT(slotUpdateItemInterface()) );
 	}
 	
-	p_itemGroup = 0;
+	p_itemGroup = 0l;
 	p_cvb = doc;
 	
 	slotGetActionTicket();
@@ -86,8 +83,7 @@ void ItemInterface::slotItemDocumentChanged( ItemDocument * doc )
 	if (!p_cvb)
 		return;
 	
-	connect( p_cvb, SIGNAL(itemSelected(Item*)), this, SLOT(slotUpdateItemInterface()) );
-	connect( p_cvb, SIGNAL(itemUnselected(Item*)), this, SLOT(slotUpdateItemInterface()) );
+	connect( p_cvb, SIGNAL(selectionChanged()), this, SLOT(slotUpdateItemInterface()) );
 	
 	p_itemGroup = p_cvb->selectList();
 	
@@ -109,7 +105,7 @@ void ItemInterface::slotClearAll()
 	ContextHelp::self()->slotClear();
 	ItemEditor::self()->slotClear();
 	clearItemEditorToolBar();
-	p_lastItem = 0;
+	p_lastItem = 0l;
 }
 
 
@@ -118,7 +114,7 @@ void ItemInterface::slotMultipleSelected()
 	ContextHelp::self()->slotMultipleSelected();
 	ItemEditor::self()->slotMultipleSelected();
 	clearItemEditorToolBar();
-	p_lastItem = 0;
+	p_lastItem = 0l;
 }
 
 
@@ -137,7 +133,7 @@ void ItemInterface::slotUpdateItemInterface()
 	}
 	if ( p_lastItem && p_itemGroup->activeItem() )
 	{
-		ItemEditor::self()->updateMergeDefaults(p_itemGroup);
+		ItemEditor::self()->itemGroupUpdated( p_itemGroup );
 		return;
 	}
 	
@@ -151,17 +147,22 @@ void ItemInterface::slotUpdateItemInterface()
 	ContextHelp::self()->slotUpdate(p_lastItem);
 	ItemEditor::self()->slotUpdate(p_itemGroup);
 	if ( CNItem * cnItem = dynamic_cast<CNItem*>((Item*)p_lastItem) )
+	{
 		ItemEditor::self()->slotUpdate(cnItem);
+	}
 	
 	// Update item editor toolbar
 	if ( ItemView * itemView = dynamic_cast<ItemView*>(p_cvb->activeView()) )
 	{
-		if ( m_pActiveItemEditorToolBar = dynamic_cast<KToolBar*>(p_ktechlab->factory()->container("itemEditorTB",itemView)) )
+		if ( KTechlab * ktl = KTechlab::self() )
 		{
-			m_pActiveItemEditorToolBar->setFullSize( true );
-			QWidget * widget = configWidget();
-			m_toolBarWidgetID = 1;
-			m_pActiveItemEditorToolBar->insertWidget( m_toolBarWidgetID, 0, widget );
+			if ( m_pActiveItemEditorToolBar = dynamic_cast<KToolBar*>(ktl->factory()->container("itemEditorTB",itemView)) )
+			{
+				m_pActiveItemEditorToolBar->setFullSize( true );
+				QWidget * widget = configWidget();
+				m_toolBarWidgetID = 1;
+				m_pActiveItemEditorToolBar->insertWidget( m_toolBarWidgetID, 0, widget );
+			}
 		}
 	}
 }
@@ -169,7 +170,7 @@ void ItemInterface::slotUpdateItemInterface()
 
 void ItemInterface::updateItemActions()
 {
-	ItemView * itemView = ((ItemDocument*)p_cvb) ? dynamic_cast<ItemView*>(p_cvb->activeView()) : 0;
+	ItemView * itemView = ((ItemDocument*)p_cvb) ? dynamic_cast<ItemView*>(p_cvb->activeView()) : 0l;
 	if ( !itemView )
 		return;
 	
@@ -177,18 +178,25 @@ void ItemInterface::updateItemActions()
 	
 	itemView->action("edit_raise")->setEnabled(itemsSelected);
 	itemView->action("edit_lower")->setEnabled(itemsSelected);
-	p_ktechlab->action("edit_cut")->setEnabled(itemsSelected);
-	p_ktechlab->action("edit_copy")->setEnabled(itemsSelected);
+	
+	if ( KTechlab::self() )
+	{
+		KTechlab::self()->action("edit_cut")->setEnabled(itemsSelected);
+		KTechlab::self()->action("edit_copy")->setEnabled(itemsSelected);
+	}
 	
 	CNItemGroup * cnItemGroup = dynamic_cast<CNItemGroup*>((ItemGroup*)p_itemGroup);
 	CircuitView * circuitView = dynamic_cast<CircuitView*>(itemView);
 	
 	if ( cnItemGroup && circuitView  )
 	{
-		circuitView->action("edit_flip")->setEnabled(cnItemGroup->canFlip());
+		bool canFlip = cnItemGroup->canFlip();
+		circuitView->action("edit_flip_horizontally")->setEnabled( canFlip );
+		circuitView->action("edit_flip_vertically")->setEnabled( canFlip );
+		
 		bool canRotate = cnItemGroup->canRotate();
-		circuitView->action("edit_rotate_ccw")->setEnabled(canRotate);
-		circuitView->action("edit_rotate_cw")->setEnabled(canRotate);
+		circuitView->action("edit_rotate_ccw")->setEnabled( canRotate );
+		circuitView->action("edit_rotate_cw")->setEnabled( canRotate );
 	}
 }
 
@@ -229,7 +237,7 @@ void ItemInterface::itemEditTBCleared()
 QWidget * ItemInterface::configWidget()
 {
 	if ( !p_itemGroup || !p_itemGroup->activeItem() || !m_pActiveItemEditorToolBar )
-		return 0;
+		return 0l;
 	
 	VariantDataMap *variantMap = p_itemGroup->activeItem()->variantMap();
 	
@@ -258,7 +266,7 @@ QWidget * ItemInterface::configWidget()
 		if ( type != Variant::Type::Bool && !toolbarCaption.isEmpty() )
 			configLayout->addWidget( new QLabel( toolbarCaption, configWidget ) );
 		
-		QWidget * editWidget = 0; // Should be set to the created widget
+		QWidget * editWidget = 0l; // Should be set to the created widget
 		
 		switch( type )
 		{
@@ -270,7 +278,7 @@ QWidget * ItemInterface::configWidget()
 			case Variant::Type::KeyPad:
 			case Variant::Type::SevenSegment:
 			{
-				QString value = vait.data()->value().toString();
+				QString value = vait.data()->displayString();
 				if ( !value.isEmpty() && !vait.data()->allowed().contains(value) )
 					vait.data()->appendAllowed(value);
 				
@@ -287,7 +295,9 @@ QWidget * ItemInterface::configWidget()
 				m_stringComboBoxMap[vait.key()] = box;
 				connectMapWidget( box, SIGNAL(textChanged(const QString &)));
 				connectMapWidget( box, SIGNAL(activated(const QString &)));
-					
+				
+				connect( *vait, SIGNAL(valueChanged(const QString &)), box, SLOT(setCurrentItem(const QString &)) );
+				
 				editWidget = box;
 				break;
 			}
@@ -315,17 +325,22 @@ QWidget * ItemInterface::configWidget()
 				connectMapWidget( box, SIGNAL(returnPressed(const QString &)));
 				connectMapWidget( box, SIGNAL(activated(const QString &)));
 				
+				connect( *vait, SIGNAL(valueChanged(const QString &)), box, SLOT(setEditText(const QString &)) );
+				
 				editWidget = urlreq;
 				break;
 			}
 			case Variant::Type::String:
 			{
-				KLineEdit * edit = new KLineEdit( configWidget );
+				LineEdit * edit = new LineEdit( configWidget );
 				
 				edit->setText( vait.data()->value().toString() );
 				connectMapWidget(edit,SIGNAL(textChanged(const QString &)));
 				m_stringLineEditMap[vait.key()] = edit;
 				editWidget = edit;
+				
+				connect( *vait, SIGNAL(valueChanged(const QString &)), edit, SLOT(setText(const QString &)) );
+				
 				break;
 			}
 			case Variant::Type::Int:
@@ -335,6 +350,9 @@ QWidget * ItemInterface::configWidget()
 				connectMapWidget( spin, SIGNAL(valueChanged(int)) );
 				m_intSpinBoxMap[vait.key()] = spin;
 				editWidget = spin;
+				
+				connect( *vait, SIGNAL(valueChanged(int)), spin, SLOT(setValue(int)) );
+				
 				break;
 			}
 			case Variant::Type::Double:
@@ -344,6 +362,9 @@ QWidget * ItemInterface::configWidget()
 				connectMapWidget( spin, SIGNAL(valueChanged(double)));
 				m_doubleSpinBoxMap[vait.key()] = spin;
 				editWidget = spin;
+				
+				connect( *vait, SIGNAL(valueChanged(double)), spin, SLOT(setValue(double)) );
+				
 				break;
 			}
 			case Variant::Type::Color:
@@ -356,6 +377,8 @@ QWidget * ItemInterface::configWidget()
 				connectMapWidget( colorBox, SIGNAL(activated(const QColor &)));
 				m_colorComboMap[vait.key()] = colorBox;
 				
+				connect( *vait, SIGNAL(valueChanged(const QColor &)), colorBox, SLOT(setColor(const QColor &)) );
+				
 				editWidget = colorBox;
 				break;
 			}
@@ -367,6 +390,9 @@ QWidget * ItemInterface::configWidget()
 				box->setChecked(value);
 				connectMapWidget( box, SIGNAL(toggled(bool)));
 				m_boolCheckMap[vait.key()] = box;
+				
+				connect( *vait, SIGNAL(valueChanged(bool)), box, SLOT(setChecked(bool)) );
+				
 				editWidget = box;
 				break;
 			}
@@ -374,6 +400,7 @@ QWidget * ItemInterface::configWidget()
 			case Variant::Type::PenStyle:
 			case Variant::Type::PenCapStyle:
 			case Variant::Type::Multiline:
+			case Variant::Type::RichText:
 			case Variant::Type::None:
 			{
 				// Do nothing, as these data types are not handled in the toolbar
@@ -415,6 +442,7 @@ QWidget * ItemInterface::configWidget()
 			case Variant::Type::PenStyle:
 			case Variant::Type::PenCapStyle:
 			case Variant::Type::Multiline:
+			case Variant::Type::RichText:
 			case Variant::Type::None:
 				break;
 		}
@@ -437,8 +465,8 @@ void ItemInterface::connectMapWidget( QWidget *widget, const char *_signal )
 void ItemInterface::tbDataChanged()
 {
 	// Manual string values
-	const KLineEditMap::iterator m_stringLineEditMapEnd = m_stringLineEditMap.end();
-	for ( KLineEditMap::iterator leit = m_stringLineEditMap.begin(); leit != m_stringLineEditMapEnd; ++leit )
+	const LineEditMap::iterator m_stringLineEditMapEnd = m_stringLineEditMap.end();
+	for ( LineEditMap::iterator leit = m_stringLineEditMap.begin(); leit != m_stringLineEditMapEnd; ++leit )
 	{
 		slotSetData( leit.key(), leit.data()->text() );
 	}
@@ -492,6 +520,10 @@ void ItemInterface::tbDataChanged()
 }
 
 
+void ItemInterface::setProperty( Variant * v )
+{
+	slotSetData( v->id(), v->value() );
+}
 
 
 void ItemInterface::slotSetData( const QString &id, QVariant value )
@@ -512,87 +544,11 @@ void ItemInterface::slotSetData( const QString &id, QVariant value )
 		if (*it)
 			(*it)->property(id)->setValue(value);
 	}
+	
 	if (p_cvb)
 		p_cvb->setModified(true);
 	
-	
-	VariantDataMap * variantMap = (*itemList.begin())->variantMap();
-	VariantDataMap::iterator it = variantMap->find(id);
-	if ( it == variantMap->end() )
-		return;
-	
-	
-	// setData might have been called from the PropertiesListView, so want
-	// to see if the toolbar widgets want setting
-	
-	switch( it.data()->type() )
-	{
-		case Variant::Type::String:
-		{
-			KLineEditMap::iterator mit = m_stringLineEditMap.find(id);
-			if ( mit != m_stringLineEditMap.end() ) mit.data()->setText( it.data()->value().toString() );
-			break;
-		}
-		case Variant::Type::FileName:
-		{
-			KURLReqMap::iterator mit = m_stringURLReqMap.find(id);
-			if ( mit != m_stringURLReqMap.end() ) mit.data()->setURL( it.data()->value().toString() );
-			break;
-		}
-		case Variant::Type::PenCapStyle:
-		case Variant::Type::PenStyle:
-		case Variant::Type::Port:
-		case Variant::Type::Pin:
-		case Variant::Type::VarName:
-		case Variant::Type::Combo:
-		case Variant::Type::Select:
-		case Variant::Type::SevenSegment:
-		case Variant::Type::KeyPad:
-		{
-			KComboBoxMap::iterator mit = m_stringComboBoxMap.find(id);
-			if ( mit != m_stringComboBoxMap.end() ) mit.data()->setCurrentItem( it.data()->value().toString() );
-			break;
-		}
-		case Variant::Type::Int:
-		{
-			IntSpinBoxMap::iterator mit = m_intSpinBoxMap.find(id);
-			if ( mit != m_intSpinBoxMap.end() ) {
-				KIntSpinBox *sb = mit.data();
-				sb->setValue( it.data()->value().toInt() );
-			}
-			break;
-		}
-		case Variant::Type::Double:
-		{
-			DoubleSpinBoxMap::iterator mit = m_doubleSpinBoxMap.find(id);
-			if ( mit != m_doubleSpinBoxMap.end() ) {
-				DoubleSpinBox *sb = mit.data();
-				sb->setValue( it.data()->value().toDouble() );
-			}
-			break;
-		}
-		case Variant::Type::Color:
-		{
-			ColorComboMap::iterator mit = m_colorComboMap.find(id);
-			if ( mit != m_colorComboMap.end() ) mit.data()->setColor( it.data()->value().toColor() );
-			break;
-		}
-		case Variant::Type::Bool:
-		{
-			QCheckBoxMap::iterator mit = m_boolCheckMap.find(id);
-			if ( mit != m_boolCheckMap.end() ) mit.data()->setChecked( it.data()->value().toBool() );
-			break;
-		}
-		case Variant::Type::Raw:
-		case Variant::Type::Multiline:
-		case Variant::Type::None:
-		{
-			// This data will never be handled in the toolbar/PLV, so no need to worry about it
-			break;
-		}
-	}
-	
-	ItemEditor::self()->updateMergeDefaults(p_itemGroup);
+	ItemEditor::self()->itemGroupUpdated( p_itemGroup );
 	
 	if (p_cvb)
 		p_cvb->requestStateSave(m_currentActionTicket);

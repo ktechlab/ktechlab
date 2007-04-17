@@ -23,7 +23,7 @@ Item* Count::construct( ItemDocument *itemDocument, bool newItem, const char *id
 LibraryItem* Count::libraryItem()
 {
 	return new LibraryItem(
-		QString::QString("flow/count"),
+		"flow/count",
 		i18n("Count"),
 		i18n("Functions"),
 		"ppcount.png",
@@ -32,10 +32,9 @@ LibraryItem* Count::libraryItem()
 }
 
 Count::Count( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowPart( icnDocument, newItem, (id) ? id : "count" )
+	: FlowPart( icnDocument, newItem, id ? id : "count" )
 {
 	m_name = i18n("Count");
-	m_desc = i18n("Count the number of pulses during a fixed interval. To avoid ambiguity, this increments the counter on either a rising or falling edge, as opposed to a high or a low.");
 	initProcessSymbol();
 	createStdInput();
 	createStdOutput();

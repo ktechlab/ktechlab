@@ -19,18 +19,13 @@
 DrawPart::DrawPart( ItemDocument *itemDocument, bool newItem, const char *id )
 	: Item( itemDocument, newItem, id )
 {
-	itemDocument->registerItem(this);
+	if ( itemDocument )
+		itemDocument->registerItem(this);
 }
 
 
 DrawPart::~DrawPart()
 {
-}
-
-
-int DrawPart::rtti() const
-{
-	return ItemDocument::RTTI::DrawPart;
 }
 
 
@@ -106,6 +101,7 @@ ItemData DrawPart::itemData() const
 			case Variant::Type::Combo:
 			case Variant::Type::Select:
 			case Variant::Type::Multiline:
+			case Variant::Type::RichText:
 			case Variant::Type::Int:
 			case Variant::Type::Double:
 			case Variant::Type::Color:

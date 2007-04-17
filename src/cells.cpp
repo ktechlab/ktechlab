@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2003-2004 by David Saxton                               *
+ *   Copyright (C) 2003-2006 by David Saxton                               *
  *   david@bluehaze.org                                                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -9,113 +9,84 @@
  ***************************************************************************/
 
 #include "cells.h"
+#include "utils.h"
 
-#if 0
-class CellSmall
+
+//BEGIN class Cells
+Cells::Cells( const QRect & canvasRect )
 {
-	public:
-		/**
-	 * Resets bestScore, prevX, prevY, addedToLabels, it, permanent for each cell
-		 */
-		void reset();
-	
-// 		Point *point; // Pointer to the point in the TempLabelMap
-		short prevX, prevY; // Which cell this came from, (-1,-1) if originating cell
-		unsigned short CIpenalty; // 'Penalty' of using the cell from CNItem
-		unsigned short Cpenalty; // 'Penalty' of using the cell from Connector
-		unsigned short bestScore; // Best (lowest) score so far, _the_ best if it is permanent
-		unsigned char numCon; // Number of connectors through that point
-		bool permanent:1; // Whether the score can be improved on
-		bool addedToLabels:1; // Whether the cell has already been added to the list of cells to check
-};
-
-class CellBig
-{
-	public:
-		/**
-	 * Resets bestScore, prevX, prevY, addedToLabels, it, permanent for each cell
-		 */
-		void reset();
-	
-		Point *point; // Pointer to the point in the TempLabelMap
-		short prevX, prevY; // Which cell this came from, (-1,-1) if originating cell
-		unsigned short CIpenalty; // 'Penalty' of using the cell from CNItem
-		unsigned short Cpenalty; // 'Penalty' of using the cell from Connector
-		unsigned short bestScore; // Best (lowest) score so far, _the_ best if it is permanent
-		unsigned char numCon; // Number of connectors through that point
-		bool permanent:1; // Whether the score can be improved on
-		bool addedToLabels:1; // Whether the cell has already been added to the list of cells to check
-};
-#endif
-
-
-Cells::Cells( const uint w, const uint h )
-{
-#if 0
-	kdDebug() << "sizeof(CellSmall)="<<sizeof(CellSmall)<<endl;
-	kdDebug() << "sizeof(CellBig)="<<sizeof(Cell)<<endl;
-	kdDebug() << "sizeof(unsigned short)="<<sizeof(unsigned short)<<endl;
-	kdDebug() << "sizeof(short)="<<sizeof(short)<<endl;
-	kdDebug() << "sizeof(Point*)="<<sizeof(Point*)<<endl;
-	kdDebug() << "sizeof(bool)="<<sizeof(bool)<<endl;
-	kdDebug() << "sizeof(char)="<<sizeof(char)<<endl;
-#endif
-	init( w, h );
+	init( canvasRect );
 }
 
 
 Cells::~Cells()
 {
-	for ( uint i=0; i<m_w; ++i ) {
+	unsigned w = unsigned(m_cellsRect.width());
+	for ( uint i=0; i<w; i++ )
 		delete [] m_cells[i];
-	}
 	delete [] m_cells;
 }
 
-Cells::Cells( const Cells &c )
+
+Cells::Cells( const Cells & c )
 {
-	init( c.width(), c.height() );
-	for ( uint x=0; x<m_w; x++ )
+	init( QRect( c.cellsRect().topLeft() * 8, c.cellsRect().size() * 8 ) );
+	
+	unsigned w = unsigned(m_cellsRect.width());
+	unsigned h = unsigned(m_cellsRect.height());
+	
+	for ( uint i=0; i<w; i++ )
 	{
-		for ( uint y=0; y<m_h; y++ )
+		for ( uint j=0; j<h; j++ )
 		{
-			m_cells[x][y] = c.cell( x, y );
+			m_cells[i][j] = c.cell( i, j );
 		}
 	}
 }
 
 
-void Cells::init( const uint w, const uint h )
+void Cells::init( const QRect & canvasRect )
 {
-	m_w = w;
-	m_h = h;
+	m_cellsRect = QRect( roundDown( canvasRect.topLeft(), 8 ), canvasRect.size()/8 );
+	m_cellsRect = m_cellsRect.normalize();
+	
+	unsigned w = unsigned(m_cellsRect.width());
+	unsigned h = unsigned(m_cellsRect.height());
 	
 	typedef Cell* cellptr;
-	m_cells = new cellptr[m_w];
-	for ( uint i=0; i<m_w; ++i )
+	m_cells = new cellptr[w];
+	for ( uint i=0; i<w; ++i )
 	{
-		m_cells[i] = new Cell[m_h];
+		m_cells[i] = new Cell[h];
 	}
 }
 
 
 void Cells::reset()
 {
-	for ( uint x=0; x<m_w; x++ )
+	unsigned w = unsigned(m_cellsRect.width());
+	unsigned h = unsigned(m_cellsRect.height());
+	
+	for ( uint i=0; i<w; i++ )
 	{
-		for ( uint y=0; y<m_h; y++ )
-		{
-			m_cells[x][y].reset();
-		}
+		for ( uint j=0; j<h; j++ )
+			m_cells[i][j].reset();
 	}
 }
+//END class Cells
 
 
+
+//BEGIN class Point
 Point::Point()
 {
-	x = y = prevX = prevY = -1;
+	x = y = prevX = prevY = startCellPos;
 }
+//END class Point
 
+
+
+//BEGIN class Cell
 Cell::Cell()
 {
 	addedToLabels = false;
@@ -126,12 +97,13 @@ Cell::Cell()
 	bestScore = (int)1e9; // Nice large value
 }
 
+
 void Cell::reset()
 {
 	addedToLabels = false;
 	permanent = false;
 	bestScore = (int)1e9; // Nice large value
 }
-
+//END class Cell
 
 

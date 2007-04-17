@@ -31,7 +31,7 @@ Item* ChassisCircular2::construct( ItemDocument *itemDocument, bool newItem, con
 LibraryItem* ChassisCircular2::libraryItem()
 {
 	return new LibraryItem(
-		QString("mech/chassis_circular_2"),
+		"mech/chassis_circular_2",
 		i18n("Circular 2-Wheel Chassis"),
 		i18n("Chassis'"),
 		"chassis.png",
@@ -41,10 +41,9 @@ LibraryItem* ChassisCircular2::libraryItem()
 
 
 ChassisCircular2::ChassisCircular2( MechanicsDocument *mechanicsDocument, bool newItem, const char *id )
-	: MechanicsItem( mechanicsDocument, newItem, (id) ? id : "chassis_circular_2" )
+	: MechanicsItem( mechanicsDocument, newItem, id ? id : "chassis_circular_2" )
 {
 	m_name = i18n("Circular 2-Wheel Chassis");
-	m_desc = i18n("A circular base with two wheels and a support point.");
 	
 	m_theta1 = 0.0;
 	m_theta2 = 0.0;

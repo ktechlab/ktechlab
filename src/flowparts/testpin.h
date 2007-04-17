@@ -20,7 +20,7 @@
 class TestPin : public FlowPart
 {
 public:
-	TestPin( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	TestPin( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~TestPin();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

@@ -11,7 +11,7 @@
 #ifndef NODE_H
 #define NODE_H
 
-#include <qcanvas.h>
+#include <canvas.h>
 #include <qguardedptr.h>
 
 class CNItem;
@@ -49,14 +49,13 @@ public:
 		fp_junction
 	};
 	
-	enum node_dir
-	{
-		dir_up = 270,
-		dir_right = 0,
-		dir_down = 90,
-		dir_left = 180
-	};
-	Node( ICNDocument *icnDocument, Node::node_type type, node_dir dir, const QPoint &pos, QString *id = 0 );
+	/**
+	 * @param dir the direction of the node; 0 degrees for left, 90 degrees for
+	 * up, etc in an anti-clockwise direction. An "up" node has the
+	 * wire-connection point at the top and the (component/flowpart)-end at the
+	 * bottom.
+	 */
+	Node( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint &pos, QString *id = 0L );
 	virtual ~Node();
 	
 	/**
@@ -79,10 +78,6 @@ public:
 	 * amongst the other nodes associated with its parent CNItem
 	 */
 	void setChildId( const QString &id ) { m_childId = id; }
-	/**
-	 * Returns the run-time-type-identifier of ICNDocument::RTTI::Node
-	 */
-	virtual int rtti() const;
 	/**
 	 * Sets the "level" of the node. By default, the level is 0. The level of
 	 * the node tells the node what CNItems it can be connected to through
@@ -112,7 +107,12 @@ public:
 	/**
 	 * Sets the orientation of the node.
 	 */
-	void setOrientation( node_dir dir );
+	void setOrientation( int dir );
+	/**
+	 * Changes the lenght of the node. By default, this is 8. Some node types
+	 * (such as junctions) do not make use of this value.
+	 */
+	void setLength( int length );
 	/**
 	 * Associates a CNItem with the node - ie the node belongs to the CNItem,
 	 * and hence gets deleted when the CNItem gets deleted.s
@@ -122,7 +122,7 @@ public:
 	 * Returns true if the node is part of a CNItem
 	 * (i.e. not between multiple connectors)
 	 */
-	bool isChildNode() const { return (p_parentItem != 0); }
+	bool isChildNode() const { return (p_parentItem != 0L); }
 	/**
 	 * Returns a pointer to the CNItem to which the node belongs,
 	 * or Null if it doesn't.
@@ -172,7 +172,7 @@ public:
 	 * being the connected nodes, and so can simply return if they are in there.
 	 * If it is null, it will assume that it is the first ndoe & will create a list
 	 */
-	bool isConnected( Node *node, NodeList *checkedNodes = 0 );
+	bool isConnected( Node *node, NodeList *checkedNodes = 0L );
 	
 	void removeNullConnectors();
 	/**
@@ -202,18 +202,28 @@ protected:
 	QPoint findConnectorDivergePoint( bool * found );
 	void initPoints();
 	bool handleNewConnector( Connector * newConnector );
+	/**
+	 * Moves and rotates (according to m_dir) the painter, so that our current
+	 * position is (0,0).
+	 */
+	void initPainter( QPainter & p );
+	/**
+	 * Undoes the effects of initPainter.
+	 */
+	void deinitPainter( QPainter & p );
 	
 	node_type m_type;
 	QString m_id;
 	QString m_childId;
-	node_dir m_dir;
+	int m_dir;
+	int m_length;
 	ICNDocument *p_icnDocument;
 	CNItem *p_parentItem;
 	ConnectorList m_inputConnectorList;
 	ConnectorList m_outputConnectorList;
 	int m_level;
 	NodeGroup *p_nodeGroup;
-	QColor m_selectedColor;
+	static QColor m_selectedColor;
 
 private:
 	bool b_deleted;

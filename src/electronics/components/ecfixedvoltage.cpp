@@ -36,10 +36,10 @@ ECFixedVoltage::ECFixedVoltage( ICNDocument *icnDocument, bool newItem, const ch
 	: Component( icnDocument, newItem, id ? id : "fixed_voltage" )
 {
 	m_name = i18n("Fixed Voltage");
-	m_desc = i18n("Provides a fixed voltage point to connect components to.");
 	setSize( -8, -8, 16, 16 );
 	
 	init1PinRight();
+	m_pPNode[0]->setLength( 11 );
 	m_voltagePoint = createVoltagePoint( m_pPNode[0], 5.0 );
 	
 	addDisplayText( "voltage", QRect( -24, -20, width()+32, 12 ), "" );
@@ -66,12 +66,8 @@ void ECFixedVoltage::dataChanged()
 
 void ECFixedVoltage::drawShape( QPainter &p )
 {
-	initPainter(p);
-	int _x = int(x());
-	int _y = int(y());
-	p.drawEllipse( _x-4, _y-4, 8, 8 );
-	p.setPen( m_pPNode[0]->isSelected() ? m_selectedCol : Qt::black );
-	p.drawLine( _x+4, _y, _x+8, _y );
-	deinitPainter(p);
+	initPainter( p );
+	p.drawEllipse( int(x()-4), int(y()-4), 9, 9 );
+	deinitPainter( p );
 }
 

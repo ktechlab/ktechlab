@@ -65,11 +65,10 @@ public:
 	virtual ~View();
 	
 	KAction * action( const QString & name ) const;
-	bool isFocused() const { return b_isFocused; }
 	/**
 	 * Pointer to the parent document
 	 */
-	Document *document() const { return m_pDocument; }
+	Document * document() const { return m_pDocument; }
 	/**
 	 * Returns the DCOP object from this view
 	 */
@@ -114,21 +113,7 @@ public:
 	virtual void actualSize() {};
 	
 	virtual void toggleBreakpoint() {};
-	/**
-	 * Called by ktechlab when it has entered its destructor to avoid calls to
-	 * it (such as from the TextView destructor).
-	 */
-	void setKTechlabDeleted() { p_ktechlab = 0; }
-	
-public slots:
-	/**
-	 * Called when the view is to be focused (enables actions, etc)
-	 */
-	virtual void setFocused();
-	/**
-	 * Called when the view is to be unfocused (disables actions, etc)
-	 */
-	virtual void setUnfocused();
+	virtual bool eventFilter( QObject * watched, QEvent * e );
 
 protected slots:
 	/**
@@ -137,19 +122,31 @@ protected slots:
 	virtual void slotUpdateConfiguration() {};
 	
 signals:
-	void viewFocused( View *view );
-	void viewUnfocused();
+	/**
+	 * Emitted when the view receives focus. @p view is a pointer to this class.
+	 */
+	void focused( View * view );
+	/**
+	 * Emitted when the view looses focus.
+	 */
+	void unfocused();
 	
 protected:
+	/**
+	 * This function should be called in the constructor of the child class
+	 * (e.g. in ItemView or TextView) to set the widget which receives focus
+	 * events.
+	 */
+	void setFocusWidget( QWidget * focusWidget );
+	
 	QGuardedPtr<Document> m_pDocument;
-	KTechlab * p_ktechlab;
 	QGuardedPtr<ViewContainer> p_viewContainer;
 	uint m_viewAreaId;
-	bool b_isFocused;
-	ViewStatusBar *m_statusBar;
-	QVBoxLayout *m_layout;
+	ViewStatusBar * m_statusBar;
+	QVBoxLayout * m_layout;
 	ViewIface * m_pViewIface;
 	unsigned m_dcopID;
+	QWidget * m_pFocusWidget;
 };
 
 #endif

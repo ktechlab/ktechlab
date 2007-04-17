@@ -25,7 +25,7 @@
 Probe::Probe( ICNDocument *icnDocument, bool newItem, const char *id )
 	: Component( icnDocument, newItem, id )
 {
-	p_probeData = 0;
+	p_probeData = 0l;
 	setSize( -16, -8, 32, 16 );
 	
 	createProperty( "color", Variant::Type::Color );
@@ -60,7 +60,10 @@ FloatingProbe::FloatingProbe( ICNDocument *icnDocument, bool newItem, const char
 	
 	createProperty( "scaling", Variant::Type::Select );
 	property("scaling")->setCaption( i18n("Scaling") );
-	property("scaling")->setAllowed( QStringList::split( ',', "Linear,Logarithmic") );
+	QStringMap allowed;
+	allowed["Linear"] = i18n("Linear");
+	allowed["Logarithmic"] = i18n("Logarithmic");
+	property("scaling")->setAllowed( allowed );
 	property("scaling")->setValue("Linear");
 	property("scaling")->setAdvanced( true );
 	
@@ -145,7 +148,6 @@ VoltageProbe::VoltageProbe( ICNDocument *icnDocument, bool newItem, const char *
 	: FloatingProbe( icnDocument, newItem, id ? id : "voltageprobe" )
 {
 	m_name = i18n("Voltage Probe");
-	m_desc = i18n("Displays the voltage at the probe point on the oscilloscope.");
 	
 	init1PinLeft();
 	init1PinRight();
@@ -161,7 +163,7 @@ VoltageProbe::~VoltageProbe()
 
 void VoltageProbe::stepNonLogic()
 {
-	m_pFloatingProbeData->addDataPoint(m_pPin1->voltage() - m_pPin2->voltage());
+	m_pFloatingProbeData->addDataPoint( m_pPin1->voltage() - m_pPin2->voltage() );
 }
 //END class VoltageProbe
 
@@ -188,8 +190,6 @@ CurrentProbe::CurrentProbe( ICNDocument *icnDocument, bool newItem, const char *
 	: FloatingProbe( icnDocument, newItem, id ? id : "currentprobe" )
 {
 	m_name = i18n("Current Probe");
-	m_desc = i18n("Displays the current at the probe point on the oscilloscope.");
-	
 	
 	init1PinLeft(0);
 	init1PinRight(0);
@@ -235,7 +235,6 @@ LogicProbe::LogicProbe( ICNDocument *icnDocument, bool newItem, const char *id )
 	: Probe( icnDocument, newItem, id ? id : "probe" )
 {
 	m_name = i18n("Logic Probe");
-	m_desc = i18n("Connect this probe the the point in the circuit to measure the logic value. The output will be displayed in the Oscilloscope view.");
 	
 	init1PinRight();
 	m_pIn = createLogicIn( m_pPNode[0] );

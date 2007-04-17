@@ -23,7 +23,7 @@ Item* Delay::construct( ItemDocument *itemDocument, bool newItem, const char *id
 LibraryItem* Delay::libraryItem()
 {
 	return new LibraryItem(
-		QString::QString("flow/delay"),
+		"flow/delay",
 		i18n("Delay"),
 		i18n("Functions"),
 		"delay.png",
@@ -32,10 +32,9 @@ LibraryItem* Delay::libraryItem()
 }
 
 Delay::Delay( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowPart( icnDocument, newItem, (id) ? id : "delay" )
+	: FlowPart( icnDocument, newItem, id ? id : "delay" )
 {
 	m_name = i18n("Delay");
-	m_desc = i18n("Delay the program execution for a fixed period of time.");
 	initProcessSymbol();
 	createStdInput();
 	createStdOutput();

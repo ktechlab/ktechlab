@@ -13,7 +13,7 @@
 
 #include "eventinfo.h"
 
-#include <qcanvas.h>
+#include <canvas.h>
 #include <qguardedptr.h>
 
 class CanvasManipulator;
@@ -51,6 +51,7 @@ typedef QValueList<NodeGroup*> NodeGroupList;
 typedef QValueList<QGuardedPtr<Connector> > ConnectorList;
 typedef QValueList<QPoint> QPointList;
 
+
 class ManipulatorInfo
 {
 public:
@@ -78,14 +79,14 @@ public:
 	{
 		cms_repeated_add =	1 << 0,
 		cms_manual_route =	1 << 1,
-		cms_draw =		1 << 2
+		cms_draw =			1 << 2
 	};
 	enum ItemType
 	{
-		it_none =		1 << 0,
-		it_node =		1 << 1,
+		it_none =			1 << 0,
+		it_node =			1 << 1,
 		it_connector =		1 << 2,
-		it_pin =		1 << 3,
+		it_pin =			1 << 3,
 		it_canvas_item =	1 << 4,
 		it_mechanics_item =	1 << 5,
 		it_resize_handle =	1 << 6,
@@ -162,12 +163,15 @@ private slots:
 	void slotAllowItemScroll() { b_allowItemScroll = true; }
 };
 
+
 /**
 Abstract class for a "editing operation" on the ICNDocument, such as moving an item or resizing the canvas
 @author David Saxton
 */
-class CanvasManipulator
+class CanvasManipulator : public QObject
 {
+	Q_OBJECT
+	
 public:
 	CanvasManipulator( ItemDocument *itemDocument, CMManager *cmManager );
 	virtual ~CanvasManipulator();
@@ -207,6 +211,16 @@ public:
 	 * @returns true if the manipulation operation has finished
 	 */
 	virtual bool mouseReleased( const EventInfo &/*info*/ ) { return true; }
+	/**
+	 * Snaps the point to the 8-sized canvas grid.
+	 */
+	static QPoint snapPoint( QPoint point );
+	
+protected slots:
+	/**
+	 * Called when the working canvas emits a resized signal.
+	 */
+	virtual void canvasResized( const QRect & oldSize, const QRect & newSize ) { (void)oldSize; (void)newSize; }
 	
 protected:
 	Type m_type;
@@ -223,6 +237,7 @@ protected:
 	MechanicsItem *p_mechanicsItemClickedOn;
 	CMManager *p_cmManager;
 };
+
 
 /**
 @author David Saxton
@@ -245,6 +260,8 @@ public:
 	
 protected:
 };
+
+
 
 /**
 @author David Saxton
@@ -310,6 +327,7 @@ class ConnectorDraw : public CanvasManipulator
 		QPoint startConnectorPoint;
 };
 
+
 /**
 @author David Saxton
 */
@@ -331,6 +349,7 @@ public:
 protected:
 	QCanvasLine *m_connectorLine;
 };
+
 
 /**
 @author David Saxton
@@ -356,6 +375,7 @@ protected:
 	ManualConnectorDraw *m_manualConnectorDraw;
 };
 
+
 /**
 @author David Saxton
 */
@@ -373,12 +393,21 @@ public:
 	virtual bool mousePressedInitial( const EventInfo &info );
 	virtual bool mouseMoved( const EventInfo &info );
 	virtual bool mouseReleased( const EventInfo &info );
+	virtual bool mousePressedRepeat( const EventInfo & info );
 	
 protected:
+	virtual void canvasResized( const QRect & oldSize, const QRect & newSize );
+	void scrollCanvasToSelection();
+	
+	QPoint m_prevSnapPoint;
+	bool m_bItemsSnapToGrid; ///< true iff selection contains CNItems
+	int m_dx;
+	int m_dy;
 	ConnectorList m_translatableConnectors;
 	NodeGroupList m_translatableNodeGroups;
 	FlowContainer *p_flowContainerCandidate;
 };
+
 
 /**
 @author David Saxton
@@ -403,6 +432,7 @@ protected:
 	double m_rh_dx;
 	double m_rh_dy;
 };
+
 
 /**
 @author David Saxton
@@ -453,6 +483,7 @@ class SelectRectangle
 		QCanvasItemList m_prevCollisions;
 };
 
+
 /**
 @author David Saxton
 */
@@ -474,6 +505,7 @@ public:
 protected:
 	SelectRectangle *m_selectRectangle;
 };
+
 
 /**
 @author David Saxton
@@ -497,6 +529,8 @@ protected:
 	bool b_dragged;
 };
 
+
+
 /**
 @author David Saxton
 A QCanvasEllipse that uses a pen (not a brush) to paint
@@ -509,6 +543,7 @@ class CanvasEllipseDraw : public QCanvasEllipse
 	protected:
 		virtual void drawShape( QPainter & p );
 };
+
 
 /**
 @author David Saxton
@@ -533,6 +568,7 @@ class CMDraw : public CanvasManipulator
 		CanvasEllipseDraw * m_pDrawEllipse;
 		QCanvasLine * m_pDrawLine;
 };
+
 
 /**
 @author David Saxton
@@ -584,5 +620,6 @@ class ManualConnectorDraw
 	
 		QColor m_color;
 };
+
 
 #endif

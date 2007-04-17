@@ -23,7 +23,7 @@ Item* End::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 LibraryItem* End::libraryItem()
 {
 	return new LibraryItem(
-		QString("flow/end"),
+		"flow/end",
 		i18n("End"),
 		i18n("Common"),
 		"end.png",
@@ -32,10 +32,9 @@ LibraryItem* End::libraryItem()
 }
 
 End::End( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowPart( icnDocument, newItem, (id) ? id : "END" )
+	: FlowPart( icnDocument, newItem, id ? id : "END" )
 {
 	m_name = i18n("End");
-	m_desc = i18n("End the program execution, putting the IC into sleep. Unlike Start, however, this FlowPart is not necessary for proper program execution");
 	initRoundedRectSymbol();
 	createStdInput();
 	setCaption( i18n("End") );

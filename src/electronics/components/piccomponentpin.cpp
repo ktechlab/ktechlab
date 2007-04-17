@@ -24,10 +24,10 @@ PICComponentPin::PICComponentPin( PICComponent * picComponent, PicPin picPin )
 	m_gOutLow = 0.0;
 	m_picPin = picPin;
 	m_pPICComponent = picComponent;
-	m_pLogicOut = 0;
-	m_pLogicIn = 0;
-	m_pIOPIN = 0;
-	m_pStimulusNode = 0;
+	m_pLogicOut = 0l;
+	m_pLogicIn = 0l;
+	m_pIOPIN = 0l;
+	m_pStimulusNode = 0l;
 	Zth = 0.0;
 	Vth = 0.0;
 	
@@ -61,31 +61,36 @@ PICComponentPin::PICComponentPin( PICComponent * picComponent, PicPin picPin )
 		default:
 			break;
 	}
-
+	
 	if (m_pLogicIn)
 		m_pLogicIn->setCallback( this, (CallbackPtr)(&PICComponentPin::logicCallback) );	
 	if (m_pLogicOut)
 		m_pLogicOut->setCallback( this, (CallbackPtr)(&PICComponentPin::logicCallback) );	
 }
 
+
 PICComponentPin::~PICComponentPin()
 {
 	delete m_pStimulusNode;
 }
 
+
 void PICComponentPin::attach( IOPIN * iopin )
 {
-	if (!iopin) {
+	if (!iopin)
+	{
 		kdWarning() << k_funcinfo << " iopin is NULL" << endl;
 		return;
 	}
 	
-	if (m_pStimulusNode) {
+	if (m_pStimulusNode)
+	{
 		kdWarning() << k_funcinfo << " Already have a node stimulus" << endl;
 		return;
 	}
 	
-	if (m_pIOPIN) {
+	if (m_pIOPIN)
+	{
 		kdWarning() << k_funcinfo << " Already have an iopin" << endl;
 		return;
 	}
@@ -127,12 +132,13 @@ void PICComponentPin::set_nodeVoltage( double v )
 	{
 		m_pLogicOut->setOutputHighConductance(0.0);
 		m_pLogicOut->setOutputLowConductance(0.0);
-		return;
 	}
-	
-	m_pLogicOut->setHigh( m_pIOPIN->getDrivingState() );
-	m_pLogicOut->setOutputHighConductance(m_gOutHigh);
-	m_pLogicOut->setOutputLowConductance(m_gOutLow);
+	else
+	{
+		m_pLogicOut->setHigh( m_pIOPIN->getDrivingState() );
+		m_pLogicOut->setOutputHighConductance(m_gOutHigh);
+		m_pLogicOut->setOutputLowConductance(m_gOutLow);
+	}
 }
 
 

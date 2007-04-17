@@ -26,17 +26,13 @@ The inputs are:
 
 @short 4 Bit Binary Counter
 @author David Saxton
-
-TODO: re-implement as a "microcode" for a generic logic device simulator.
-
 */
 class BinaryCounter : public CallbackClass, public Component
 {
 public:
-	BinaryCounter( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	BinaryCounter( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~BinaryCounter();
 	
-	virtual bool canFlip() const { return true; }
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
 	
@@ -48,15 +44,11 @@ protected:
 	void outputValue();
 	void dataChanged();
 	void initPins( unsigned numBits );
-
+	
 	LogicIn *enLogic, *inLogic, *rLogic, *udLogic;
 	LogicOut * m_pLogicOut[26];
-
+	
 	unsigned m_numBits;
-
-
-// um, why are we remembering the pin states? Shouldn't we be reading these from the
-// simulator for each step? 
 	bool b_triggerHigh;
 	bool b_en; // Enable
 	bool b_ud; // Up/Down

@@ -26,7 +26,7 @@ Item* ECCurrentSignal::construct( ItemDocument *itemDocument, bool newItem, cons
 LibraryItem* ECCurrentSignal::libraryItem()
 {
 	return new LibraryItem(
-		QString("ec/ac_current"),
+		"ec/ac_current",
 		i18n("Current Signal"),
 		i18n("Sources"),
 		"currentsignal.png",
@@ -35,10 +35,9 @@ LibraryItem* ECCurrentSignal::libraryItem()
 }
 
 ECCurrentSignal::ECCurrentSignal( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, (id) ? id : "current_signal" )
+	: Component( icnDocument, newItem, id ? id : "current_signal" )
 {
 	m_name = i18n("Current Signal");
-	m_desc = i18n("Provides a variety of current signals");
 	setSize( -8, -8, 16, 16 );
 	
 	init1PinLeft();
@@ -61,9 +60,6 @@ ECCurrentSignal::ECCurrentSignal( ICNDocument *icnDocument, bool newItem, const 
 	property("1-current")->setMinValue(-1e12);
 	property("1-current")->setMaxValue(1e12);
 	property("1-current")->setValue(0.02);
-
-// NEEDS PHASE ANGLE VARIABLE!!! =)))
-
 	
 	addDisplayText( "~", QRect( -8, -8, 16, 16 ), "~" );
 	addDisplayText( "current", QRect( -16, -24, 32, 16 ), "" );

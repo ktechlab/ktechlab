@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2003-2004 by David Saxton                               *
+ *   Copyright (C) 2003-2006 by David Saxton                               *
  *   david@bluehaze.org                                                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -25,6 +25,7 @@ class DoubleSpinBox : public QSpinBox
 	Q_OBJECT
 	public:
 		DoubleSpinBox( double lower, double upper, double minAbs, double value, const QString & unit, QWidget * parent = 0 );
+		DoubleSpinBox( QWidget * parent = 0 );
 		virtual ~DoubleSpinBox();
 		
 		/**
@@ -62,11 +63,6 @@ class DoubleSpinBox : public QSpinBox
 		 */
 		double value();
 		/**
-		 * Set the value to be displayed - e.g. if value is 1e5, then the
-		 * spinbox might display "100 kF".
-		 */
-		void setValue( double value );
-		/**
 		 * Sets the unit used, e.g. "F"
 		 */
 		void setUnit( const QString & unit );
@@ -74,6 +70,11 @@ class DoubleSpinBox : public QSpinBox
 	public slots:
 		virtual void stepUp();
 		virtual void stepDown();
+		/**
+		 * Set the value to be displayed - e.g. if value is 1e5, then the
+		 * spinbox might display "100 kF".
+		 */
+		void setValue( double value );
 	
 	signals:
 		/**
@@ -119,6 +120,8 @@ class DoubleSpinBox : public QSpinBox
 		 * Returns value rounded off to one significant figure.
 		 */
 		double roundToOneSF( double value );
+		
+		void init();
 		
 		QString m_queuedSuffix; ///< Used
 		QString m_unit;

@@ -20,6 +20,7 @@ CIWidgetMgr::CIWidgetMgr( QCanvas *canvas, CNItem *item )
 	p_canvas = canvas;
 }
 
+
 CIWidgetMgr::~CIWidgetMgr()
 {
 	// QCanvas deletes our items for us. Actually, it pretty much insists on deleting them,
@@ -33,10 +34,12 @@ CIWidgetMgr::~CIWidgetMgr()
 	m_widgetMap.clear();
 }
 
+
 void CIWidgetMgr::setWidgetsPos( const QPoint &pos )
 {
 	m_pos = pos;
 }
+
 
 void CIWidgetMgr::setDrawWidgets( bool draw )
 {
@@ -47,12 +50,15 @@ void CIWidgetMgr::setDrawWidgets( bool draw )
 	}
 }
 
+
 Widget *CIWidgetMgr::widgetWithID( const QString &id ) const
 {
 	WidgetMap::const_iterator it = m_widgetMap.find(id);
-	if(it == m_widgetMap.end() ) return 0;
+	if ( it == m_widgetMap.end() )
+		return 0l;
 	else return it.data();
 }
+
 
 Button *CIWidgetMgr::button( const QString &id ) const
 {
@@ -64,10 +70,13 @@ Slider *CIWidgetMgr::slider( const QString &id ) const
 	return dynamic_cast<Slider*>(widgetWithID(id));
 }
 
+
+
 void CIWidgetMgr::setButtonState( const QString &id, int state )
 {
 	Button *b = button(id);
-	if(!b) return;
+	if (!b)
+		return;
 	
 	// Actually, we don't want to check to see if we are already down; this way,
 	// we get toggle events when loading from file
@@ -78,6 +87,7 @@ void CIWidgetMgr::setButtonState( const QString &id, int state )
 	b->setState(state);
 }
 
+
 void CIWidgetMgr::drawWidgets( QPainter &p )
 {
 	const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
@@ -86,6 +96,7 @@ void CIWidgetMgr::drawWidgets( QPainter &p )
 		it.data()->drawShape(p);
 	}
 }
+
 
 void CIWidgetMgr::removeWidget( const QString & id )
 {
@@ -96,6 +107,7 @@ void CIWidgetMgr::removeWidget( const QString & id )
 	m_widgetMap.remove(id);
 }
 
+
 Button* CIWidgetMgr::addButton( const QString &id, const QRect & pos, const QString &display, bool toggle )
 {
 	WidgetMap::iterator it;
@@ -104,11 +116,12 @@ Button* CIWidgetMgr::addButton( const QString &id, const QRect & pos, const QStr
 	(dynamic_cast<QButton*>(button->widget()))->setText(display);
 	
 	it = m_widgetMap.find(id);
-
 	if ( it == m_widgetMap.end() )
 	{
 		m_widgetMap[id] = button;
-	} else {
+	}
+	else
+	{
 		kdWarning() << "CIWidgetMgr::addButton: Attempting to re-add button with same id as previous"<<endl;
 		delete it.data();
 		it.data() = button;
@@ -118,6 +131,7 @@ Button* CIWidgetMgr::addButton( const QString &id, const QRect & pos, const QStr
 	return button;
 }
 
+
 Button* CIWidgetMgr::addButton( const QString &id, const QRect & pos, QPixmap pixmap, bool toggle )
 {
 	WidgetMap::iterator it;
@@ -126,11 +140,12 @@ Button* CIWidgetMgr::addButton( const QString &id, const QRect & pos, QPixmap pi
 	button->setPixmap(pixmap);
 	
 	it = m_widgetMap.find(id);
-
 	if ( it == m_widgetMap.end() )
 	{
 		m_widgetMap[id] = button;
-	} else {
+	}
+	else
+	{
 		kdWarning() << "CIWidgetMgr::addButton: Attempting to re-add button with same id as previous"<<endl;
 		delete it.data();
 		it.data() = button;
@@ -153,18 +168,21 @@ Slider* CIWidgetMgr::addSlider( const QString &id, int minValue, int maxValue, i
 	slider->setOrientation(orientation);
 	
 	WidgetMap::iterator it = m_widgetMap.find(id);
-
-	if ( it == m_widgetMap.end() ) {
+	if ( it == m_widgetMap.end() )
+	{
 		m_widgetMap[id] = slider;
-	} else {
+	}
+	else
+	{
 		kdWarning() << "CIWidgetMgr::addSlider: Attempting to re-add slider with same id as previous"<<endl;
 		delete slider;
-		return 0;
+		return 0l;
 	}
 	
 	p_cnItem->updateAttachedPositioning();
 	return slider;
 }
+
 
 bool CIWidgetMgr::mousePressEvent( const EventInfo &info )
 {
@@ -173,10 +191,11 @@ bool CIWidgetMgr::mousePressEvent( const EventInfo &info )
 	const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
 	for ( WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it )
 	{
-		if ( it.data()->rect().contains(info.pos) ) {
+		if ( it.data()->rect().contains(info.pos) )
+		{
 			it.data()->mousePressEvent(e);
-
-			if (e->isAccepted()) {
+			if (e->isAccepted())
+			{
 				delete e;
 				return true;
 			}
@@ -185,6 +204,7 @@ bool CIWidgetMgr::mousePressEvent( const EventInfo &info )
 	delete e;
 	return false;
 }
+
 
 bool CIWidgetMgr::mouseReleaseEvent( const EventInfo &info )
 {
@@ -195,16 +215,17 @@ bool CIWidgetMgr::mouseReleaseEvent( const EventInfo &info )
 	{
 		it.data()->mouseReleaseEvent(e);
 	}
-
+	
 	bool accepted = e->isAccepted();
 	delete e;
 	return accepted;
 }
 
+
 bool CIWidgetMgr::mouseDoubleClickEvent( const EventInfo &info )
 {
 	QMouseEvent *e = info.mouseDoubleClickEvent( 0, 0 );
-
+	
 	const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
 	for ( WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it )
 	{
@@ -222,14 +243,17 @@ bool CIWidgetMgr::mouseDoubleClickEvent( const EventInfo &info )
 	return false;
 }
 
+
 bool CIWidgetMgr::mouseMoveEvent( const EventInfo &info )
 {
 	QMouseEvent *e = info.mouseMoveEvent( 0, 0 );
 	
 	const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
-	for ( WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it ) {
+	for ( WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it )
+	{
 		it.data()->mouseMoveEvent(e);
-		if (e->isAccepted()) {
+		if (e->isAccepted())
+		{
 			delete e;
 			return true;
 		}
@@ -239,25 +263,28 @@ bool CIWidgetMgr::mouseMoveEvent( const EventInfo &info )
 }
 
 
-bool CIWidgetMgr::wheelEvent(const EventInfo &info )
+bool CIWidgetMgr::wheelEvent( const EventInfo &info )
 {
 	QWheelEvent *e = info.wheelEvent( 0, 0 );
 	
 	const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
 	for ( WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it )
 	{
-		if ( it.data()->rect().contains(info.pos) ) {
+		if ( it.data()->rect().contains(info.pos) )
+		{
 			it.data()->wheelEvent(e);
-			if (e->isAccepted()) {
+			if (e->isAccepted())
+			{
 				delete e;
 				return true;
 			}
 		}
 	}
-
+	
 	delete e;
 	return false;
 }
+
 
 void CIWidgetMgr::enterEvent()
 {
@@ -268,6 +295,7 @@ void CIWidgetMgr::enterEvent()
 	}
 }
 
+
 void CIWidgetMgr::leaveEvent()
 {
 	const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
@@ -276,4 +304,5 @@ void CIWidgetMgr::leaveEvent()
 		it.data()->leaveEvent();
 	}
 }
+
 

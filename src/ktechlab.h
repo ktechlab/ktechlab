@@ -12,6 +12,8 @@
 #define KTECHLAB_H
 
 #include <katemdi.h>
+#include <qmap.h>
+#include <qvaluelist.h>
 
 class CircuitDocument;
 class TextDocument;
@@ -24,11 +26,14 @@ class LogView;
 class MechanicsDocument;
 class ProjectManager;
 class View;
+class ViewArea;
 class ViewContainer;
 
+typedef QMap< int, QString > IntStringMap;
 typedef QValueList< QGuardedPtr<ViewContainer> > ViewContainerList;
 
 class KAction;
+class KActionCollection;
 class RecentFilesAction;
 class KTabWidget;
 class KToolBar;
@@ -49,7 +54,16 @@ class KTechlab : public KateMDI::MainWindow
 	public:
 		KTechlab();
 		~KTechlab();
-	
+		
+		/**
+		 * @return pointer to the main KTechlab object. This is set to null when
+		 * KTechlab is about to be deleted.
+		 */
+		static KTechlab * self() { return m_pSelf; }
+		/**
+		 * The standard item font in use (set to a maximum of 12 pixels).
+		 */
+		QFont itemFont() const { return m_itemFont; }
 		/**
 		 * Returns a pointer to an action with the given name.
 		 */
@@ -57,8 +71,10 @@ class KTechlab : public KateMDI::MainWindow
 		/**
 		 * Returns a URL from a Open File dialog (with all ktechlab related file
 		 * types allowed).
+		 * @param allowMultiple Whether to allow the user to select more than
+		 * one URL.
 		 */
-		static KURL::List getFileURLs();
+		static KURL::List getFileURLs( bool allowMultiple = true );
 		/**
 		 * Returns a list of the recently opened/saved files
 		 */
@@ -90,6 +106,10 @@ class KTechlab : public KateMDI::MainWindow
 		 * a pixmap of the current toolbars, and overlay it in position.
 		 */
 		void overlayToolBarScreenshot();
+		/**
+		 * Opens a file in the given ViewArea.
+		 */
+		void openFile( ViewArea * viewArea );
 		
 		virtual void show();
 		
@@ -112,13 +132,16 @@ class KTechlab : public KateMDI::MainWindow
 		 * The user right clicked on a tab item.
 		 */
 		void slotTabContext( QWidget* widget,const QPoint & pos );
-		void slotDragContextActivated( int id );
 		/**
 		 * The user clicked on an item in the tab-menu (from right clicking).
 		 */
 		void slotTabContextActivated( int id );
 		void slotChangeStatusbar(const QString& text);
-		void load(const KURL& url);
+		/**
+		 * Open the document at the given url. If viewArea is non-null, then the
+		 * new view will be put into viewArea.
+		 */
+		void load( const KURL & url, ViewArea * viewArea = 0l );
 		void slotUpdateConfiguration();
 		/**
 		 * Adds a url to the list of recently opened files
@@ -134,6 +157,19 @@ class KTechlab : public KateMDI::MainWindow
 		 * tab titles, etc as appropriate.
 		 */
 		void slotDocUndoRedoChanged();
+	
+		void slotFileNewAssembly();
+		void slotFileNewMicrobe();
+		void slotFileNewC();
+		void slotFileNewCircuit();
+		void slotFileNewFlowCode();
+		void slotFileNewMechanics();
+		void slotFileNew();
+		void slotFileOpen();
+		void slotFileSave();
+		void slotFileSaveAs();
+		void slotFilePrint();
+		void slotFileQuit();
 
 	protected:
 		/**
@@ -161,10 +197,6 @@ class KTechlab : public KateMDI::MainWindow
 	
 	protected slots:
 		void slotViewContainerActivated( QWidget * viewContainer );
-		void slotTabDragEvent( const QDragMoveEvent *e, bool &accept );
-		void slotTabDragInitiate( QWidget *widget );
-		void slotTabReceivedDropEvent( QDropEvent *e );
-		void slotTabReceivedDropEvent( QWidget *widget, QDropEvent *e );
 		void slotUpdateTabWidget();
 		/**
 		 * Updates the tab and window captions from what is currently open and
@@ -178,20 +210,12 @@ class KTechlab : public KateMDI::MainWindow
 		 * finished constructing themselves).
 		 */
 		void hideToolBarOverlay();
+		/**
+		 * Called when the user clicks on an example (circuit, etc) from the
+		 * help menu/
+		 */
+		void openExample( int id );
 		void slotViewContainerDestroyed( QObject * obj );
-	
-		void slotFileNewAssembly();
-		void slotFileNewMicrobe();
-		void slotFileNewC();
-		void slotFileNewCircuit();
-		void slotFileNewFlowCode();
-		void slotFileNewMechanics();
-		void slotFileNew();
-		void slotFileOpen();
-		void slotFileSave();
-		void slotFileSaveAs();
-		void slotFilePrint();
-		void slotFileQuit();
 	
 		// Editing operations
 		void slotEditUndo();
@@ -218,6 +242,7 @@ class KTechlab : public KateMDI::MainWindow
 
 	private:
 		void setupActions();
+		void setupExampleActions();
 		void setupToolDocks();
 		void setupView();
 		void setupTabWidget();
@@ -232,6 +257,10 @@ class KTechlab : public KateMDI::MainWindow
 		bool m_bIsShown; // Set true when show() is called
 		ViewContainerList m_viewContainerList;
 		QTimer * m_pUpdateCaptionsTimer;
+		IntStringMap m_exampleFiles;
+		QFont m_itemFont;
+		
+		static KTechlab * m_pSelf;
 	
 		QGuardedPtr<ViewContainer> m_pContextMenuContainer;
 		QGuardedPtr<ViewContainer> m_pFocusedContainer;

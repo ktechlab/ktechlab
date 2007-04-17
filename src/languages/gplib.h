@@ -19,7 +19,7 @@
 class Gplib : public ExternalLanguage
 {
 	public:
-		Gplib( ProcessChain *processChain, KTechlab *parent );
+		Gplib( ProcessChain *processChain );
 		~Gplib();
 	
 		virtual void processInput( ProcessOptions options );

@@ -35,8 +35,8 @@ MicroSettingsDlg::MicroSettingsDlg( MicroSettings * microSettings, QWidget *pare
 	: KDialogBase( parent, name, true, i18n("PIC Settings"), KDialogBase::Ok|KDialogBase::Apply|KDialogBase::Cancel, KDialogBase::Ok, true )
 {
 	m_pMicroSettings = microSettings;
-	m_pNewPinMappingWidget = 0;
-	m_pNewPinMappingDlg = 0;
+	m_pNewPinMappingWidget = 0l;
+	m_pNewPinMappingDlg = 0l;
 	m_pWidget = new MicroSettingsWidget(this);
 	
 	QWhatsThis::add( this, i18n("This dialog allows editing of the initial properties of the PIC") );
@@ -257,8 +257,8 @@ void MicroSettingsDlg::slotCreatePinMap()
 	
 	delete m_pNewPinMappingDlg;
 	delete validator;
-	m_pNewPinMappingDlg = 0;
-	m_pNewPinMappingWidget = 0;
+	m_pNewPinMappingDlg = 0l;
+	m_pNewPinMappingWidget = 0l;
 	if ( accepted != QDialog::Accepted )
 		return;
 	
@@ -324,14 +324,15 @@ void MicroSettingsDlg::slotModifyPinMap()
 {
 	QString name = m_pWidget->pinMapCombo->currentText();
 	PinMapping pinMapping = m_pinMappings[ name ];
-
-	PinMapEditor *pinMapEditor = new PinMapEditor( & pinMapping, m_pMicroSettings->microInfo(), this, "PinMapEditor" );
+	
+	PinMapEditor * pinMapEditor = new PinMapEditor( & pinMapping, m_pMicroSettings->microInfo(), this, "PinMapEditor" );
 	int accepted = pinMapEditor->exec();
-
+	
 	delete pinMapEditor;
-
-	if ( accepted != QDialog::Accepted ) return;
-
+	
+	if ( accepted != QDialog::Accepted )
+		return;
+	
 	m_pinMappings[ name ] = pinMapping;
 }
 

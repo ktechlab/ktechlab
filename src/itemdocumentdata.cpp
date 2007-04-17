@@ -61,7 +61,7 @@ static QBitArray toQBitArray( QString text )
 	
 	for ( unsigned i = 0; i < size; ++i )
 	{
-		unsigned val = QString(text[i]).toInt( 0, 16 );
+		unsigned val = QString(text[i]).toInt( 0l, 16 );
 		for ( unsigned j = 0; j < 4; ++j )
 			data[4*i+j] = val & (1 << j);
 	}
@@ -98,11 +98,11 @@ void ItemDocumentData::reset()
 bool ItemDocumentData::loadData( const KURL &url )
 {
 	QString target;
-	if ( !KIO::NetAccess::download( url, target, 0 ) )
+	if ( !KIO::NetAccess::download( url, target, 0l ) )
 	{
 		// If the file could not be downloaded, for example does not
 		// exist on disk, NetAccess will tell us what error to use
-		KMessageBox::error( 0, KIO::NetAccess::lastErrorString() );
+		KMessageBox::error( 0l, KIO::NetAccess::lastErrorString() );
 		
 		return false;
 	}
@@ -110,7 +110,7 @@ bool ItemDocumentData::loadData( const KURL &url )
 	QFile file(target);
 	if ( !file.open( IO_ReadOnly ) )
 	{
-		KMessageBox::sorry( 0, i18n("Could not open %1 for reading").arg(target) );
+		KMessageBox::sorry( 0l, i18n("Could not open %1 for reading").arg(target) );
 		return false;
 	}
 	
@@ -132,7 +132,7 @@ bool ItemDocumentData::fromXML( const QString &xml )
 	QString errorMessage;
 	if ( !doc.setContent( xml, &errorMessage ) )
 	{
-		KMessageBox::sorry( 0, i18n("Couldn't parse xml:\n%1").arg(errorMessage) );
+		KMessageBox::sorry( 0l, i18n("Couldn't parse xml:\n%1").arg(errorMessage) );
 		return false;
 	}
 	
@@ -180,7 +180,7 @@ bool ItemDocumentData::saveData( const KURL &url )
 		QFile file( url.path() );
 		if ( !file.open(IO_WriteOnly) )
 		{
-			KMessageBox::sorry( 0, i18n("Could not open '%1' for writing. Check that you have write permissions").arg(url.path()), i18n("Saving File") );
+			KMessageBox::sorry( 0l, i18n("Could not open '%1' for writing. Check that you have write permissions").arg(url.path()), i18n("Saving File") );
 			return false;
 		}
 		
@@ -194,9 +194,9 @@ bool ItemDocumentData::saveData( const KURL &url )
 		*file.textStream() << toXML();
 		file.close();
 		
-		if ( !KIO::NetAccess::upload( file.name(), url, 0 ) )
+		if ( !KIO::NetAccess::upload( file.name(), url, 0l ) )
 		{
-			KMessageBox::error( 0, KIO::NetAccess::lastErrorString() );
+			KMessageBox::error( 0l, KIO::NetAccess::lastErrorString() );
 			return false;
 		}
 	}
@@ -899,7 +899,7 @@ void ItemDocumentData::restoreDocument( ItemDocument *itemDocument )
 	
 	{
 		ItemList removeItems = itemDocument->itemList();
-		removeItems.remove((Item*)0);
+		removeItems.remove((Item*)0l);
 		
 		const ItemDataMap::iterator end = m_itemDataMap.end();
 		for ( ItemDataMap::iterator it = m_itemDataMap.begin(); it != end; ++it )
@@ -917,7 +917,7 @@ void ItemDocumentData::restoreDocument( ItemDocument *itemDocument )
 	{
 		{
 			NodeList removeNodes = icnd->nodeList();
-			removeNodes.remove((Node*)0);
+			removeNodes.remove((Node*)0l);
 			
 			const NodeDataMap::iterator end = m_nodeDataMap.end();
 			for ( NodeDataMap::iterator it = m_nodeDataMap.begin(); it != end; ++it )
@@ -932,7 +932,7 @@ void ItemDocumentData::restoreDocument( ItemDocument *itemDocument )
 		}
 		{
 			ConnectorList removeConnectors = icnd->connectorList();
-			removeConnectors.remove((Connector*)0);
+			removeConnectors.remove((Connector*)0l);
 			
 			const ConnectorDataMap::iterator end = m_connectorDataMap.end();
 			for ( ConnectorDataMap::iterator it = m_connectorDataMap.begin(); it != end; ++it )
@@ -968,10 +968,10 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 			{
 				QString id = it.key();
 				if ( itemDocument->type() == Document::dt_circuit )
-					new ECNode( icnd, Node::ec_junction, Node::dir_up, QPoint( int(it.data().x), int(it.data().y) ), &id );
+					new ECNode( icnd, Node::ec_junction, 270, QPoint( int(it.data().x), int(it.data().y) ), &id );
 			
 				else if ( itemDocument->type() == Document::dt_flowcode )
-					new FPNode( icnd, Node::fp_junction, Node::dir_up, QPoint( int(it.data().x), int(it.data().y) ), &id );
+					new FPNode( icnd, Node::fp_junction, 270, QPoint( int(it.data().x), int(it.data().y) ), &id );
 			}
 		}
 		for ( NodeDataMap::iterator it = m_nodeDataMap.begin(); it != nodeEnd; ++it )
@@ -996,7 +996,7 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 				kdWarning() << "Attempted to create invalid item with id: " << it.key() << endl;
 				item->removeItem();
 				itemDocument->flushDeleteList();
-				item = 0;
+				item = 0l;
 			}
 			if (item)
 			{
@@ -1030,8 +1030,8 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 				continue;
 			
 			QString id = it.key();
-			Node *startNode = 0;
-			Node *endNode = 0;
+			Node *startNode = 0l;
+			Node *endNode = 0l;
 			
 			if ( it.data().startNodeIsChild )
 			{
@@ -1307,7 +1307,7 @@ void SubcircuitData::initECSubcircuit( ECSubcircuit * ecSubcircuit )
 			component->setParentItem(ecSubcircuit);
 			component->updateConnectorPoints(false);
 			component->setVisible(false);
-			component->setCanvas(0);
+			component->setCanvas(0l);
 			ecSubcircuit->connect( ecSubcircuit, SIGNAL(subcircuitDeleted()), component, SLOT(removeItem()) );
 		}
 	}
@@ -1318,7 +1318,7 @@ void SubcircuitData::initECSubcircuit( ECSubcircuit * ecSubcircuit )
 		{
 			connector->updateConnectorPoints(false);
 			connector->setVisible(false);
-			connector->setCanvas(0);
+			connector->setCanvas(0l);
 			ecSubcircuit->connect( ecSubcircuit, SIGNAL(subcircuitDeleted()), connector, SLOT(removeConnector()) );
 		}
 	}
@@ -1329,7 +1329,7 @@ void SubcircuitData::initECSubcircuit( ECSubcircuit * ecSubcircuit )
 		if (node)
 		{
 			node->setVisible(false);
-			node->setCanvas(0);
+			node->setCanvas(0l);
 			ecSubcircuit->connect( ecSubcircuit, SIGNAL(subcircuitDeleted()), node, SLOT(removeNode()) );
 		}
 	}

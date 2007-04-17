@@ -20,10 +20,8 @@
 class ECOpAmp : public Component
 {
 	public:
-		ECOpAmp( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+		ECOpAmp( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~ECOpAmp();
-	
-		virtual bool canFlip() const { return true; }
 		
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();

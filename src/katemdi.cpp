@@ -200,6 +200,7 @@ Sidebar::Sidebar (KMultiTabBar::KMultiTabBarPosition pos, MainWindow *mainwin, Q
   , m_lastSize (0)
 {
   setSidebarPosition( pos );
+  setFocusPolicy( NoFocus );
   hide ();
 }
 
@@ -272,6 +273,30 @@ ToolView *Sidebar::addWidget (const QPixmap &icon, const QString &text, ToolView
   tab(newId)->installEventFilter(this);
 
   return widget;
+}
+
+void Sidebar::updateMinimumSize()
+{
+// 	kdDebug() << "layout()->margin()="<<layout()->margin()<<endl;
+	
+	QSize minSize;
+	
+	QValueList<ToolView*>::iterator end = m_toolviews.end();
+	for ( QValueList<ToolView*>::iterator it = m_toolviews.begin(); it != end; ++it )
+	{
+		QSize s = (*it)->childrenRect().size();
+		minSize = minSize.expandedTo( s );
+// 		kdDebug() << "s="<<s<<"(*it)->minimumSize()="<<(*it)->minimumSize()<<endl;
+// 		kdDebug() << "(*it)->layout()->margin()="<<(*it)->margin()<<endl;
+	}
+	
+	minSize.setWidth( minSize.width() - 30 );
+	minSize.setHeight( minSize.height() - 30 );
+	
+	for ( QValueList<ToolView*>::iterator it = m_toolviews.begin(); it != end; ++it )
+	{
+		(*it)->setMinimumSize( minSize );
+	}
 }
 
 bool Sidebar::removeWidget (ToolView *widget)
@@ -627,12 +652,14 @@ MainWindow::MainWindow (QWidget* parentWidget, const char* name)
 MainWindow::~MainWindow ()
 {
   // cu toolviews
-	while(!m_toolviews.isEmpty()) delete m_toolviews[0];
+  while (!m_toolviews.isEmpty())
+    delete m_toolviews[0];
 
   // seems like we really should delete this by hand ;)
-	delete m_centralWidget;
+  delete m_centralWidget;
 
-	for (unsigned int i=0; i < 4; ++i) delete m_sidebars[i];
+  for (unsigned int i=0; i < 4; ++i)
+    delete m_sidebars[i];
 }
 
 QWidget *MainWindow::centralWidget () const
@@ -853,9 +880,16 @@ void MainWindow::saveSession (KConfig *config, const QString &group)
     m_sidebars[i]->saveSession (config);
 }
 
+void KateMDI::MainWindow::updateSidebarMinimumSizes( )
+{
+// 	for (unsigned int i=0; i < 4; ++i)
+// 		m_sidebars[i]->updateMinimumSize();
+	m_sidebars[KMultiTabBar::Right]->updateMinimumSize();
+}
+
 //END MAIN WINDOW
 
-} // namespace KateMDI
+}
 
 #include "katemdi.moc"
 

@@ -9,6 +9,7 @@
  ***************************************************************************/
 
 #include "elementset.h"
+#include "matrix.h"
 #include "resistance.h"
 
 // #include <kdebug.h>
@@ -28,10 +29,12 @@ Resistance::~Resistance()
 
 void Resistance::setConductance( const double g )
 {
-	if ( g == m_g ) return;
-
-	if (p_eSet) p_eSet->setCacheInvalidated();
-
+	if ( g == m_g )
+		return;
+	
+	if (p_eSet)
+		p_eSet->setCacheInvalidated();
+	
 	// Remove old resistance
 	m_g = -m_g;
 	add_initial_dc();
@@ -40,28 +43,24 @@ void Resistance::setConductance( const double g )
 	add_initial_dc();
 }
 
+
 void Resistance::setResistance( const double r )
 {
 	setConductance( r < 1e-9 ? 1e9 : 1./r );
 }
 
+
 void Resistance::add_map()
 {
-	if(!b_status) return;
-	 
-	if( !p_cnode[0]->isGround ) {
-		p_A->setUse( p_cnode[0]->n(), p_cnode[0]->n(), Map::et_stable, false );
-	}
-	if ( !p_cnode[1]->isGround ) {
-		p_A->setUse( p_cnode[1]->n(), p_cnode[1]->n(), Map::et_stable, false );
-	}
+	if (!b_status)
+		return;
 	
-	if ( !p_cnode[0]->isGround && !p_cnode[1]->isGround )
-	{
-		p_A->setUse( p_cnode[0]->n(), p_cnode[1]->n(), Map::et_stable, false );
-		p_A->setUse( p_cnode[1]->n(), p_cnode[0]->n(), Map::et_stable, false );
-	}
+	setUse( 0, 0, Map::et_stable, false );
+	setUse( 1, 1, Map::et_stable, false );
+	setUse( 0, 1, Map::et_stable, false );
+	setUse( 1, 0, Map::et_stable, false );
 }
+
 
 void Resistance::add_initial_dc()
 {
@@ -73,6 +72,7 @@ void Resistance::add_initial_dc()
 	A_g( 1, 0 ) -= m_g;
 }
 
+
 void Resistance::updateCurrents()
 {
 	if (!b_status) return;
@@ -80,4 +80,7 @@ void Resistance::updateCurrents()
 	m_cnodeI[1] = v*m_g;
 	m_cnodeI[0] = -m_cnodeI[1];
 }
+
+
+
 

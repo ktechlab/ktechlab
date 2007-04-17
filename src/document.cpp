@@ -8,6 +8,7 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include "docmanager.h"
 #include "document.h"
 #include "documentiface.h"
 #include "ktechlab.h"
@@ -20,20 +21,18 @@
 #include <kmessagebox.h>
 #include <ktabwidget.h>
 
-Document::Document( const QString &caption, KTechlab *ktechlab, const char *name )
-	: QObject( ktechlab, name ),
+Document::Document( const QString &caption, const char *name )
+	: QObject( KTechlab::self(), name ),
 	b_modified(false),
-	p_ktechlab(ktechlab),
-	p_activeView(0),
+	m_pActiveView(0l),
 	m_caption(caption),
 	m_bAddToProjectOnSave(false),
-	m_pDocumentIface(0),
+	m_pDocumentIface(0l),
 	m_dcopID(0),
 	m_nextViewID(0),
 	m_bDeleted(false)
 {
-	if (p_ktechlab)
-		connect( p_ktechlab, SIGNAL(configurationChanged()), this, SLOT(slotUpdateConfiguration()) );
+	connect( KTechlab::self(), SIGNAL(configurationChanged()), this, SLOT(slotUpdateConfiguration()) );
 }
 
 
@@ -57,10 +56,13 @@ void Document::handleNewView( View *view )
 	view->setDCOPID(m_nextViewID++);
 	view->setCaption(m_caption);
 	connect( view, SIGNAL(destroyed(QObject* )), this, SLOT(slotViewDestroyed(QObject* )) );
-	connect( view, SIGNAL(viewFocused(View* )), this, SLOT(slotViewFocused(View* )) );
-	connect( view, SIGNAL(viewUnfocused()), this, SIGNAL(viewUnfocused()) );
+	connect( view, SIGNAL(focused(View* )), this, SLOT(slotViewFocused(View* )) );
+	connect( view, SIGNAL(unfocused()), this, SIGNAL(viewUnfocused()) );
+	
 	view->show();
-	view->setFocused();
+	
+	if ( !DocManager::self()->getFocusedView() )
+		view->setFocus();
 }
 
 
@@ -70,9 +72,9 @@ void Document::slotViewDestroyed( QObject *obj )
 	
 	m_viewList.remove(view);
 	
-	if ( p_activeView == (QGuardedPtr<View>)view )
+	if ( m_pActiveView == (QGuardedPtr<View>)view )
 	{
-		p_activeView = 0;
+		m_pActiveView = 0l;
 		emit viewUnfocused();
 	}
 	
@@ -86,7 +88,7 @@ void Document::slotViewFocused(View *view)
 	if (!view)
 		return;
 	
-	p_activeView = view;
+	m_pActiveView = view;
 	emit viewFocused(view);
 }
 
@@ -102,14 +104,14 @@ void Document::setCaption( const QString &caption )
 
 bool Document::getURL( const QString &types )
 {
-	KURL url = KFileDialog::getSaveURL( QString::null, types, p_ktechlab, i18n("Save Location"));
+	KURL url = KFileDialog::getSaveURL( QString::null, types, KTechlab::self(), i18n("Save Location"));
 	
 	if ( url.isEmpty() )
 		return false;
 	
 	if ( QFile::exists( url.path() ) )
 	{
-		int query = KMessageBox::warningYesNo( p_ktechlab,
+		int query = KMessageBox::warningYesNo( KTechlab::self(),
 											   i18n( "A file named \"%1\" already exists. Are you sure you want to overwrite it?" ).arg( url.fileName() ),
 											   i18n( "Overwrite File?" ),
 											   i18n( "Overwrite" ),
@@ -131,21 +133,28 @@ bool Document::fileClose()
 		// If the filename is empty then it must  be an untitled file.
 		QString name = m_url.fileName().isEmpty() ? caption() : m_url.fileName();
 		
-		if ( ViewContainer * viewContainer = (activeView() ? activeView()->viewContainer() : 0) )
-			p_ktechlab->tabWidget()->setCurrentPage( p_ktechlab->tabWidget()->indexOf(viewContainer) );
+		if ( ViewContainer * viewContainer = (activeView() ? activeView()->viewContainer() : 0l) )
+			KTechlab::self()->tabWidget()->setCurrentPage( KTechlab::self()->tabWidget()->indexOf(viewContainer) );
 		
-		int choice = KMessageBox::warningYesNoCancel( p_ktechlab,
+		KGuiItem saveItem = KStdGuiItem::yes();
+		saveItem.setText( i18n("Save") );
+		saveItem.setIconName( "filesave" );
+		
+		KGuiItem discardItem = KStdGuiItem::no();
+		discardItem.setText( i18n("Discard") );
+		
+		int choice = KMessageBox::warningYesNoCancel( KTechlab::self(),
 				i18n("The document \'%1\' has been modified.\nDo you want to save it?").arg(name),
 				i18n("Save Document?"),
-				i18n("Save"),
-				i18n("Discard") );
+				saveItem,
+				discardItem );
 		
 		if ( choice == KMessageBox::Cancel )
 			return false;
 		if ( choice == KMessageBox::Yes )
 			fileSave();
 	}
-
+	
 	deleteLater();
 	return true;
 }
@@ -176,10 +185,10 @@ void Document::setURL( const KURL &url )
 	
 	emit fileNameChanged(url);
 	
-	if (p_ktechlab)
+	if (KTechlab::self())
 	{
-		p_ktechlab->addRecentFile(url);
-		p_ktechlab->requestUpdateCaptions();
+		KTechlab::self()->addRecentFile(url);
+		KTechlab::self()->requestUpdateCaptions();
 	}
 }
 

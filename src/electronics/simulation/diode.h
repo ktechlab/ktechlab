@@ -22,7 +22,9 @@ class DiodeSettings
 		double I_S;	///< Diode saturation current
 		double N;	///< Emission coefficient
 		double V_B;	///< Reverse breakdown
+// 		double R;	///< Series resistance
 };
+
 
 /**
 This simulates a diode. The simulated diode characteristics are:
@@ -37,15 +39,12 @@ This simulates a diode. The simulated diode characteristics are:
 @short Simulates the electrical property of diode-ness
 @author David Saxton
 */
-
-/* TODO : create bridge rectifier device */
-
 class Diode : public NonLinear
 {
 	public:
 		Diode();
 		virtual ~Diode();
-
+	
 		virtual void update_dc();
 		virtual void add_initial_dc();
 		virtual void add_map();
@@ -56,17 +55,18 @@ class Diode : public NonLinear
 		 * Returns the current flowing through the diode
 		 */
 		double current() const;
-
+	
 	protected:
 		virtual void updateCurrents();
 		void calc_eq();
-
 		void calcIg( double V, double * I, double * g ) const;
-
+		void updateLim();
+		
 		double g_new, g_old;
 		double I_new, I_old;
 		double V_prev;
-
+		double V_lim;
+	
 		DiodeSettings m_diodeSettings;
 };
 

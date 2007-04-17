@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2004-2005 by David Saxton                               *
+ *   Copyright (C) 2004-2006 by David Saxton                               *
  *   david@bluehaze.org                                                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -8,9 +8,11 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include "core/ktlconfig.h"
 #include "itemdocument.h"
 #include "itemdocumentdata.h"
-#include "core/ktlconfig.h"
+#include "ktechlab.h"
+#include "richtexteditor.h"
 
 #include <cmath>
 #include <kdebug.h>
@@ -27,34 +29,40 @@ const QString SIprefix[] = {"y","z","a","f","p","n",QChar(0xB5),"m","","k","M","
 
 
 Item::Item( ItemDocument *itemDocument, bool newItem, const QString &id )
-	: QObject(), QCanvasPolygon( itemDocument->canvas() )
+	: QObject(), QCanvasPolygon( itemDocument ? itemDocument->canvas() : 0 )
 {
 	m_bDynamicContent = false;
 	m_bIsRaised = false;
 	m_bDoneCreation = false;
-	p_parentItem = 0;
+	p_parentItem = 0l;
 	b_deleted = false;
 	p_itemDocument = itemDocument;
 	m_baseZ = -1;
 	
-	if ( QFontInfo(m_font).pixelSize() > 11 ) // It has to be > 11, not > 12, as (I think) pixelSize() rounds off the actual size
-		m_font.setPixelSize(12);
-	
-	if (newItem)
-		m_id = p_itemDocument->generateUID(id);
-	
-	else
+	if ( p_itemDocument )
 	{
-		m_id = id;
-		p_itemDocument->registerUID(id);
+		if (newItem)
+			m_id = p_itemDocument->generateUID(id);
+	
+		else
+		{
+			m_id = id;
+			p_itemDocument->registerUID(id);
+		}
 	}
+	
+	m_pPropertyChangedTimer = new QTimer( this );
+	connect( m_pPropertyChangedTimer, SIGNAL(timeout()), this, SLOT(dataChanged()) );
 }
 
 
 Item::~Item()
 {
-	p_itemDocument->requestEvent( ItemDocument::ItemDocumentEvent::ResizeCanvasToItems );
-	p_itemDocument->unregisterUID( id() );
+	if ( p_itemDocument )
+	{
+		p_itemDocument->requestEvent( ItemDocument::ItemDocumentEvent::ResizeCanvasToItems );
+		p_itemDocument->unregisterUID( id() );
+	}
 	
 	QCanvasPolygon::hide();
 	
@@ -72,9 +80,18 @@ void Item::removeItem()
 	b_deleted = true;
 	
 	hide();
-	setCanvas(0);
+	setCanvas(0l);
 	emit removed(this);
 	p_itemDocument->appendDeleteList(this);
+}
+
+
+QFont Item::font() const
+{
+	if ( KTechlab::self() )
+		return KTechlab::self()->itemFont();
+	else
+		return QFont();
 }
 
 
@@ -112,6 +129,9 @@ void Item::itemPointsChanged()
 
 void Item::setSize( QRect sizeRect, bool forceItemPoints )
 {
+	if ( !canvas() )
+		return;
+	
 	if ( m_sizeRect == sizeRect && !forceItemPoints )
 		return;
 	
@@ -160,6 +180,7 @@ ItemData Item::itemData() const
 			case Variant::Type::Combo:
 			case Variant::Type::Select:
 			case Variant::Type::Multiline:
+			case Variant::Type::RichText:
 			case Variant::Type::SevenSegment:
 			case Variant::Type::KeyPad:
 			{
@@ -284,50 +305,64 @@ void Item::leaveEvent()
 {
 }
 
-bool Item::mouseDoubleClickEvent( const EventInfo &eventInfo )
+bool Item::mouseDoubleClickEvent( const EventInfo & eventInfo )
 {
 	Q_UNUSED(eventInfo);
 	
-	typedef QValueList<Variant*> VarPtrLst;
-	VarPtrLst list;
+	Property * property = 0l;
+	Variant::Type::Value type = Variant::Type::None;
+	
 	const VariantDataMap::iterator variantDataEnd = m_variantData.end();
 	for ( VariantDataMap::iterator it = m_variantData.begin(); it != variantDataEnd; ++it )
 	{
-		if ( it.data()->type() == Variant::Type::Multiline ) {
-			list.append(it.data());
+		Property * current = *it;
+		
+		if ( current->type() == Variant::Type::Multiline ||
+				   current->type() == Variant::Type::RichText )
+		{
+			property = current;
+			type = current->type();
+			break;
 		}
 	}
-	if ( list.count() > 1 )
-	{
-		kdWarning() << "Item::mouseDoubleClickEvent: Can't handle more than one multiline data"<<endl;
-		return false;
-	}
-	else if ( list.isEmpty() )
+	if ( !property )
 		return false;
 	
-	Variant *v = *(list.at(0));
-	
-	/// @todo Replace this with KInputDialog::getMultiLineText for KDE 3.3
-// 	bool ok;
-// 	QString text = KInputDialog::getMultiLineText( v->caption(), "", v->getValue(), ok );
-
-	KDialogBase *dlg = new KDialogBase( 0, "", true, v->editorCaption(), KDialogBase::Ok|KDialogBase::Cancel|KDialogBase::User1, KDialogBase::Ok, false, KStdGuiItem::clear() );
-	QFrame *frame = dlg->makeMainWidget();
-	QVBoxLayout *layout = new QVBoxLayout( frame, 0, dlg->spacingHint() );
-	KTextEdit *textEdit = new KTextEdit( frame );
-	textEdit->setTextFormat( PlainText );
-	textEdit->setText( v->value().toString() );
-	layout->addWidget( textEdit, 10 );
-	textEdit->setFocus();
-	connect( dlg, SIGNAL( user1Clicked() ), textEdit, SLOT( clear() ) );
-	dlg->setMinimumWidth( 600 );
-	if ( dlg->exec() == KDialogBase::Accepted )
+	if ( type == Variant::Type::Multiline )
 	{
-		v->setValue( textEdit->text() );
-		dataChanged();
-		p_itemDocument->setModified(true);
+		KDialogBase * dlg = new KDialogBase( 0l, "", true, property->editorCaption(), KDialogBase::Ok|KDialogBase::Cancel|KDialogBase::User1, KDialogBase::Ok, false, KStdGuiItem::clear() );
+		QFrame *frame = dlg->makeMainWidget();
+		QVBoxLayout *layout = new QVBoxLayout( frame, 0, dlg->spacingHint() );
+		KTextEdit *textEdit = new KTextEdit( frame );
+		textEdit->setTextFormat( PlainText );
+		textEdit->setText( property->value().toString() );
+		layout->addWidget( textEdit, 10 );
+		textEdit->setFocus();
+		connect( dlg, SIGNAL( user1Clicked() ), textEdit, SLOT( clear() ) );
+		dlg->setMinimumWidth( 600 );
+		
+		if ( dlg->exec() == KDialogBase::Accepted )
+		{
+			property->setValue( textEdit->text() );
+			dataChanged();
+			p_itemDocument->setModified(true);
+		}
+		delete dlg;
 	}
-	delete dlg;
+	else
+	{
+		// Is rich text
+		RichTextEditorDlg * dlg = new RichTextEditorDlg( 0l, property->editorCaption() );
+		dlg->setText( property->value().toString() );
+		
+		if ( dlg->exec() == KDialogBase::Accepted )
+		{
+			property->setValue( dlg->text() );
+			dataChanged();
+			p_itemDocument->setModified(true);
+		}
+		delete dlg;
+	}
 	
 	return true;
 }
@@ -335,11 +370,10 @@ bool Item::mouseDoubleClickEvent( const EventInfo &eventInfo )
 
 void Item::setSelected( bool yes )
 {
-	if ( isSelected() == yes ) {
+	if ( isSelected() == yes )
 		return;
-	}
 	QCanvasPolygon::setSelected(yes);
-	yes ? (emit selected(this)) : (emit unselected(this));
+	emit selectionChanged();
 }
 
 
@@ -561,9 +595,8 @@ Variant * Item::createProperty( const QString & id, Variant::Type::Value type )
 {
 	if ( !m_variantData.contains(id) )
 	{
-		m_variantData[id] = new Variant(type);
-		if (m_bDoneCreation)
-			connect( m_variantData[id], SIGNAL(valueChanged(QVariant,QVariant)), this, SLOT(dataChanged()) );
+		m_variantData[id] = new Variant( id, type );
+		connect( m_variantData[id], SIGNAL(valueChanged(QVariant,QVariant)), this, SLOT(propertyChangedInitial()) );
 	}
 	
 	return m_variantData[id];
@@ -576,7 +609,7 @@ Variant * Item::property( const QString & id ) const
 		return m_variantData[id];
 	
 	kdError() << k_funcinfo << " No such property with id " << id << endl;
-	return 0;
+	return 0l;
 }
 
 
@@ -589,10 +622,16 @@ bool Item::hasProperty( const QString & id ) const
 void Item::finishedCreation( )
 {
 	m_bDoneCreation = true;
-	const VariantDataMap::iterator end = m_variantData.end();
-	for ( VariantDataMap::iterator it = m_variantData.begin(); it != end; ++it )
-		connect( it.data(), SIGNAL(valueChanged(QVariant,QVariant)), this, SLOT(dataChanged()) );
 	dataChanged();
+}
+
+
+void Item::propertyChangedInitial()
+{
+	if ( !m_bDoneCreation )
+		return;
+	
+	m_pPropertyChangedTimer->start( 0, true );
 }
 //END Data stuff
 

@@ -39,7 +39,7 @@ basic from the code that they create. The 3 simple steps for usage of this funct
 class FlowCode : public Language
 {
 public:
-	FlowCode( ProcessChain *processChain, KTechlab *parent );
+	FlowCode( ProcessChain *processChain );
 
 	virtual void processInput( ProcessOptions options );
 	virtual ProcessOptions::ProcessPath::Path outputPath( ProcessOptions::ProcessPath::Path inputPath ) const;

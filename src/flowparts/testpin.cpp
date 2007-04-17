@@ -23,7 +23,7 @@ Item* TestPin::construct( ItemDocument *itemDocument, bool newItem, const char *
 LibraryItem* TestPin::libraryItem()
 {
 	return new LibraryItem(
-		QString("flow/testpin"),
+		"flow/testpin",
 		i18n("Test Pin State"),
 		i18n("I\\/O"),
 		"pinread.png",
@@ -32,10 +32,9 @@ LibraryItem* TestPin::libraryItem()
 }
 
 TestPin::TestPin( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowPart( icnDocument, newItem, (id) ? id : "testpin" )
+	: FlowPart( icnDocument, newItem, id ? id : "testpin" )
 {
 	m_name = i18n("Test Pin State");
-	m_desc = i18n("Conditional branch point, depending on the high/low state of a pin.");
 	initDecisionSymbol();
 	createStdInput();
 	createStdOutput();

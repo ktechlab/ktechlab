@@ -10,69 +10,38 @@
 
 #include "conrouter.h"
 #include "icndocument.h"
-
+#include "utils.h"
 #include <kdebug.h>
 
-#include <cassert>
-#include <cmath>
-
-inline static int toCanvas( int pos )
-{
-	return pos*8+4;
-}
-
-inline static int fromCanvas( int pos )
-{
-	return (pos-4)/8;
-}
-
-inline static QPoint toCanvas( const QPoint * const pos )
-{
-	return QPoint( toCanvas(pos->x()), toCanvas(pos->y()) );
-}
-
-inline static QPoint fromCanvas( const QPoint * const pos )
-{
-	return QPoint( fromCanvas(pos->x()), fromCanvas(pos->y()) );
-}
-
-inline static QPoint toCanvas( const QPoint &pos )
-{
-	return QPoint( toCanvas(pos.x()), toCanvas(pos.y()) );
-}
-
-inline static QPoint fromCanvas( const QPoint &pos )
-{
-	return QPoint( fromCanvas(pos.x()), fromCanvas(pos.y()) );
-}
-
-static inline int roundDouble( const double x )
-{
-	return int(std::floor(x+0.5));
-}
-
+#include <assert.h>
+#include <math.h>
 ConRouter::ConRouter( ICNDocument *cv )
 {
 	p_icnDocument = cv;
 	m_lcx = m_lcy = 0;
 }
 
+
 ConRouter::~ConRouter()
 {
 }
+
 
 QPointList ConRouter::pointList( bool reverse ) const
 {
 	QPointList pointList;
 	
-	if (reverse) {
+	if (reverse)
+	{
 		bool notDone = m_cellPointList.size() > 0;
 		for ( QPointList::const_iterator it = m_cellPointList.fromLast(); notDone; --it )
 		{
 			pointList.append( toCanvas(&*it) );
 			if ( it == m_cellPointList.begin() ) notDone = false;
 		}
-	} else {
+	}
+	else
+	{
 		const QPointList::const_iterator end = m_cellPointList.end();
 		for ( QPointList::const_iterator it = m_cellPointList.begin(); it != end; ++it )
 		{
@@ -83,13 +52,7 @@ QPointList ConRouter::pointList( bool reverse ) const
 	return pointList;
 }
 
-static double qpoint_distance( const QPoint & p1, const QPoint & p2 )
-{
-	double dx = p1.x() - p2.x();
-	double dy = p1.y() - p2.y();
-	
-	return std::sqrt( dx*dx + dy*dy );
-}
+
 
 QPointListList ConRouter::splitPoints( const QPoint &pos ) const
 {
@@ -114,7 +77,8 @@ QPointListList ConRouter::splitPoints( const QPoint &pos ) const
 	QPointList first;
 	QPointList second;
 	
-	if (!found) {
+	if (!found)
+	{
 		kdWarning() << "ConRouter::splitConnectorPoints: Could not find point ("<<pos.x()<<", "<<pos.y()<<") in connector points"<<endl;
 		kdWarning() << "ConRouter::splitConnectorPoints: Returning generic list"<<endl;
 		
@@ -156,6 +120,7 @@ QPointListList ConRouter::splitPoints( const QPoint &pos ) const
 	return list;
 }
 
+
 QPointListList ConRouter::dividePoints( uint n ) const
 {
 	// Divide the points up into n pieces...
@@ -185,18 +150,25 @@ QPointListList ConRouter::dividePoints( uint n ) const
 	return pll;
 }
 
+
 void ConRouter::checkACell( int x, int y, Cell *prev, int prevX, int prevY, int nextScore )
 {
-	if ( !p_icnDocument->isValidCellReference(x,y) ) return;
-	Cell * const c = &(*cellsPtr)[x][y];
-	if ( c->permanent ) return;
+// 	if ( !p_icnDocument->isValidCellReference(x,y) ) return;
+	if ( !cellsPtr->haveCell( x, y ) )
+		return;
+	
+	Cell * c = &cellsPtr->cell( x, y );
+	if ( c->permanent )
+		return;
+	
 	int newScore = nextScore + c->CIpenalty + c->Cpenalty;
 	
 	// Check for changing direction
 	if		( x != prevX && prev->prevX == prevX ) newScore += 5;
 	else if ( y != prevY && prev->prevY == prevY ) newScore += 5;
 	
-	if ( c->bestScore < newScore ) return;
+	if ( c->bestScore < newScore )
+		return;
 	
 	// We only want to change the previous cell if the score is different,
 	// or the score is the same but this cell allows the connector
@@ -209,8 +181,9 @@ void ConRouter::checkACell( int x, int y, Cell *prev, int prevX, int prevY, int 
 	c->bestScore = newScore;
 	c->prevX = prevX;
 	c->prevY = prevY;
-
-	if ( !c->addedToLabels ) {
+	
+	if ( !c->addedToLabels )
+	{
 		c->addedToLabels = true;
 		Point point;
 		point.x = x;
@@ -219,7 +192,9 @@ void ConRouter::checkACell( int x, int y, Cell *prev, int prevX, int prevY, int 
 		point.prevY = prevY;
 		TempLabelMap::iterator it = tempLabels.insert( std::make_pair(newScore,point) );
 		c->point = &it->second;
-	} else {
+	}
+	else
+	{
 		c->point->prevX = prevX;
 		c->point->prevY = prevY;
 	}
@@ -227,16 +202,16 @@ void ConRouter::checkACell( int x, int y, Cell *prev, int prevX, int prevY, int 
 
 void ConRouter::checkCell( int x, int y )
 {
-	Cell * const c = &(*cellsPtr)[x][y];
+	Cell * c = &cellsPtr->cell( x, y );
 	
 	c->permanent = true;
-	const int nextScore = c->bestScore+1;
+	int nextScore = c->bestScore+1;
 	
 	// Check the surrounding cells (up, left, right, down)
-	if ( y > 0 )		checkACell( x, y-1, c, x, y, nextScore );
-	if ( x > 0 )		checkACell( x-1, y, c, x, y, nextScore );
-	if ( x+1 < xcells ) checkACell( x+1, y, c, x, y, nextScore );
-	if ( y+1 < ycells ) checkACell( x, y+1, c, x, y, nextScore );
+	checkACell( x, y-1, c, x, y, nextScore );
+	checkACell( x-1, y, c, x, y, nextScore );
+	checkACell( x+1, y, c, x, y, nextScore );
+	checkACell( x, y+1, c, x, y, nextScore );
 }
 
 
@@ -262,18 +237,21 @@ bool ConRouter::needsRouting( int sx, int sy, int ex, int ey ) const
 		   (pex != scx || pey != scy || psx != ecx || psy != ecy );
 }
 
+
 void ConRouter::setRoutePoints( const QPointList &pointList )
 {
 	m_cellPointList = pointList;
 	removeDuplicatePoints();
 }
 
+
 void ConRouter::setPoints( const QPointList &pointList, bool reverse  )
 {
-	if (  pointList.size() == 0 ) return;
-
+	if (  pointList.size() == 0 )
+		return;
+	
 	QPointList cellPointList;
-
+	
 	QPoint prevCellPoint = fromCanvas(*pointList.begin());
 	cellPointList.append(prevCellPoint);
 	const QPointList::const_iterator end = pointList.end();
@@ -295,7 +273,8 @@ void ConRouter::setPoints( const QPointList &pointList, bool reverse  )
 	}
 	cellPointList.append(prevCellPoint);
 	
-	if (reverse) {
+	if (reverse)
+	{
 		m_cellPointList.clear();
 		const QPointList::iterator begin = cellPointList.begin();
 		for ( QPointList::iterator it = cellPointList.fromLast(); it != begin; --it )
@@ -303,7 +282,8 @@ void ConRouter::setPoints( const QPointList &pointList, bool reverse  )
 			m_cellPointList += *it;
 		}
 		m_cellPointList += *begin;
-	} else {
+	}
+	else {
 		m_cellPointList = cellPointList;
 	}
 	
@@ -340,16 +320,14 @@ void ConRouter::mapRoute( int sx, int sy, int ex, int ey )
 	const int ecx = fromCanvas(ex);
 	const int ecy = fromCanvas(ey);
 	
-	if ( !p_icnDocument->isValidCellReference( scx, scy ) ||
-		 !p_icnDocument->isValidCellReference( ecx, ecy ) )
-	{
+	cellsPtr = p_icnDocument->cells();
+	
+	if ( !cellsPtr->haveCell( scx, scy ) || !cellsPtr->haveCell( ecx, ecy ) )
 		return;
-	}
 	
 	m_cellPointList.clear();
 	m_lcx = ecx;
 	m_lcy = ecy;
-	
 	
 	// First, lets try some common connector routes (which will not necesssarily
 	// be shortest, but they will be neat, and cut down on overall CPU usage)
@@ -365,19 +343,22 @@ void ConRouter::mapRoute( int sx, int sy, int ex, int ey )
 			m_cellPointList.clear();
 		}
 	}
-
+	
 	// Corner 1
 	{
 		bool ok = checkLineRoute( scx, scy, ecx, ecy, 2*ICNDocument::hs_connector, 0 );
-		if (!ok) m_cellPointList.clear();
-		else {
+		if (!ok) {
+			m_cellPointList.clear();
+		} else {
 			ok = checkLineRoute( scx, scy, ecx, ecy, ICNDocument::hs_connector-1, 0 );
-
-			if(ok)	return;
-			else m_cellPointList.clear();
+			if (ok) {
+				return;
+			} else {
+				m_cellPointList.clear();
+			}
 		}
 	}
-
+	
 	// Corner 2
 	{
 		bool ok = checkLineRoute( scx, scy, ecx, ecy, 2*ICNDocument::hs_connector, 0 );
@@ -394,26 +375,25 @@ void ConRouter::mapRoute( int sx, int sy, int ex, int ey )
 	}
 	
 	// It seems we must resort to brute-force route-checking
-	{	
-		cellsPtr = p_icnDocument->cells();
+	{
 		cellsPtr->reset();
 	
 		xcells = p_icnDocument->canvas()->width()/8;
 		ycells = p_icnDocument->canvas()->height()/8;
 	
 		// Now to map out the shortest routes to the cells
-		Cell * const startCell = &(*cellsPtr)[ecx][ecy];
+		Cell * const startCell = &cellsPtr->cell( ecx, ecy );
 		startCell->permanent = true;
 		startCell->bestScore = 0;
-		startCell->prevX = -1;
-		startCell->prevY = -1;
+		startCell->prevX = startCellPos;
+		startCell->prevY = startCellPos;
 		
 		tempLabels.clear();
 		checkCell( ecx, ecy );
 		
 		// Daniel: I changed it from a do while to a while otherwise
 		// in rare cases the iterator can end up as end().
-		while ( tempLabels.size() > 0 && !(*cellsPtr)[scx][scy].permanent )
+		while ( tempLabels.size() > 0 && !cellsPtr->cell( scx, scy ).permanent )
 		{
 			TempLabelMap::iterator it = tempLabels.begin();
 			checkCell( it->second.x, it->second.y );
@@ -423,17 +403,18 @@ void ConRouter::mapRoute( int sx, int sy, int ex, int ey )
 		// Now, retrace the shortest route from the endcell to get out points :)
 		int x = scx, y = scy;
 		bool ok = true;
-
-		do {
+		do
+		{
 			m_cellPointList.append( QPoint( x, y ) );
-			int newx = (*cellsPtr)[x][y].prevX;
-			int newy = (*cellsPtr)[x][y].prevY;
+			int newx = cellsPtr->cell( x, y ).prevX;
+			int newy = cellsPtr->cell( x, y ).prevY;
 			if ( newx == x && newy == y ) {
 				ok = false;
 			}
 			x = newx;
 			y = newy;
-		} while ( p_icnDocument->isValidCellReference(x,y) && x != -1 && y != -1 && ok );
+		}
+		while ( cellsPtr->haveCell( x, y ) && (x != startCellPos) && (y != startCellPos) && ok );
 		
 		// And append the last point...
 		m_cellPointList.append( QPoint( ecx, ecy ) );
@@ -458,30 +439,34 @@ bool ConRouter::checkLineRoute( int scx, int scy, int ecx, int ecy, int maxConSc
 		start = scx;
 		end = ecx+dd;
 		y = scy;
-	} else {
+	}
+	else
+	{
 		dd = (scy<ecy)?1:-1;
 		start = scy;
 		end = ecy+dd;
 		x = scx;
 	}
 	
-	Cells *cells = p_icnDocument->cells();
+	Cells * cells = p_icnDocument->cells();
 	
 	if (isHorizontal)
 	{
 		for ( int x = start; x!=end; x+=dd )
 		{
-			if ( std::abs(x-start)>1 && std::abs(x-end)>1 && ((*cells)[x][y].CIpenalty > maxCIScore || (*cells)[x][y].Cpenalty > maxConScore) )
+			if ( std::abs(x-start)>1 && std::abs(x-end)>1 && (cells->cell( x, y ).CIpenalty > maxCIScore || cells->cell( x, y ).Cpenalty > maxConScore) )
 			{
 				return false;
 			} else {
 				m_cellPointList.append( QPoint( x, y ) );
 			}
 		}
-	} else {
+	}
+	else
+	{
 		for ( int y = start; y!=end; y+=dd )
 		{
-			if ( std::abs(y-start)>1 && std::abs(y-end)>1 && ((*cells)[x][y].CIpenalty > maxCIScore || (*cells)[x][y].Cpenalty > maxConScore) )
+			if ( std::abs(y-start)>1 && std::abs(y-end)>1 && (cells->cell( x, y ).CIpenalty > maxCIScore || cells->cell( x, y ).Cpenalty > maxConScore) )
 			{
 				return false;
 			} else {
@@ -496,18 +481,20 @@ bool ConRouter::checkLineRoute( int scx, int scy, int ecx, int ecy, int maxConSc
 	return true;
 }
 
+
 void ConRouter::removeDuplicatePoints()
 {
-	QPoint prev(-1,-1);
+	QPoint invalid( -(1<<30), -(1<<30) );
+	QPoint prev = invalid;
 	
 	const QPointList::iterator end = m_cellPointList.end();
 	for ( QPointList::iterator it = m_cellPointList.begin(); it != end; ++it )
 	{
 		if ( *it == prev ) {
-			*it = QPoint(-1,-1);
+			*it = invalid;
 		} else {
 			prev = *it;
 		}
 	}
-	m_cellPointList.remove( QPoint(-1,-1) );
+	m_cellPointList.remove( invalid );
 }

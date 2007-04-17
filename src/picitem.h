@@ -29,7 +29,6 @@ class PinItem : public QObject, public QCanvasRectangle
 public:
 	PinItem( FlowCodeDocument* _view, QPoint position, bool _onLeft, PinSettings *_pinSettings );
 
-	int rtti() const;
 	QRect boundingRect () const;
 	void switchState();
 	

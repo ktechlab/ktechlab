@@ -38,7 +38,7 @@ class DocManager : public QObject
 {
 Q_OBJECT
 public:
-	static DocManager * self( KTechlab * ktechlab = 0 );
+	static DocManager * self();
 	~DocManager();
 	
 	/**
@@ -53,7 +53,7 @@ public:
 	 * Attempts to open the document at the given url.
 	 * @param ViewArea if non-null, will open the new view into the ViewArea
 	 */
-	Document* openURL( const KURL &url, ViewArea *viewArea = 0 );
+	Document* openURL( const KURL &url, ViewArea *viewArea = 0l );
 	/**
 	 * Returns the focused View
 	 */
@@ -85,7 +85,7 @@ public:
 	 * Gives the given document focus. If it has no open views, one will be
 	 * created for it if viewAreaForNew is non-null
 	 */
-	void giveDocumentFocus( Document * toFocus, ViewArea * viewAreaForNew = 0 );
+	void giveDocumentFocus( Document * toFocus, ViewArea * viewAreaForNew = 0l );
 	void removeDocumentAssociations( Document *document );
 	void disableContextActions();
 	
@@ -132,16 +132,16 @@ protected:
 	 * This function should be called after creating a new document to add it
 	 * to the appropriate lists and connect it up as appropriate
 	 */
-	void handleNewDocument( Document *document, ViewArea *viewArea = 0 );
+	void handleNewDocument( Document *document, ViewArea *viewArea = 0l );
 	/**
 	 * Takes the document, creates a new view and shoves it in a new
 	 * ViewContainer
 	 */
-	View *createNewView( Document *document, ViewArea *viewArea = 0 );
-	CircuitDocument *openCircuitFile( const KURL &url, ViewArea *viewArea = 0 );
-	FlowCodeDocument *openFlowCodeFile( const KURL &url, ViewArea *viewArea = 0 );
-	MechanicsDocument *openMechanicsFile( const KURL &url, ViewArea *viewArea = 0 );
-	TextDocument *openTextFile( const KURL &url, ViewArea *viewArea = 0 );
+	View *createNewView( Document *document, ViewArea *viewArea = 0l );
+	CircuitDocument *openCircuitFile( const KURL &url, ViewArea *viewArea = 0l );
+	FlowCodeDocument *openFlowCodeFile( const KURL &url, ViewArea *viewArea = 0l );
+	MechanicsDocument *openMechanicsFile( const KURL &url, ViewArea *viewArea = 0l );
+	TextDocument *openTextFile( const KURL &url, ViewArea *viewArea = 0l );
 	
 	DocumentList m_documentList;
 	URLDocumentMap m_associatedDocuments;
@@ -155,14 +155,13 @@ protected:
 	int m_countMechanics;
 	int m_countOther;
 	
-	KTechlab * const p_ktechlab;
 	QGuardedPtr<View> p_focusedView;
 	QGuardedPtr<Document> p_connectedDocument;
 	DocManagerIface *m_pIface;
 	unsigned m_nextDocumentID;
 	
 private:
-	DocManager( KTechlab *ktechlab );
+	DocManager();
 	static DocManager * m_pSelf;
 };
 

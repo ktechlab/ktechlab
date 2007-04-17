@@ -15,15 +15,11 @@
 
 /**
 @author David Saxton
- NOTE: I'm not sure what the "BiDir" part means, but this class should probably be
- associated with a database containing the parameters such as current, voltage, resistance, spectrum, etc for common LED types. 
 */
-
-
 class BiDirLED : public Component
 {
 	public:
-		BiDirLED( ICNDocument * icnDocument, bool newItem, const char *id = 0 );
+		BiDirLED( ICNDocument * icnDocument, bool newItem, const char *id = 0L );
 		~BiDirLED();
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -35,11 +31,10 @@ class BiDirLED : public Component
 	
 	private:
 		virtual void drawShape( QPainter &p );
-
-// The standard precision for most graphics libraries 32 bit. 
-		float r[2];
-		float g[2];
-		float b[2];
+	
+		double r[2];
+		double g[2];
+		double b[2];
 	
 		double avg_brightness[2];
 		uint last_brightness[2];

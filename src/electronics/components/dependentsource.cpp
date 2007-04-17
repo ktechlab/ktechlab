@@ -30,6 +30,9 @@ DependentSource::DependentSource( ICNDocument *icnDocument, bool newItem, const 
 	init2PinLeft();
 	init2PinRight();
 	
+	m_pNNode[1]->setLength( 13 );
+	m_pPNode[1]->setLength( 13 );
+	
 	createProperty( "gain", Variant::Type::Double );
 	property("gain")->setCaption( i18n("Gain") );
 	property("gain")->setValue(1.0);
@@ -51,6 +54,7 @@ void DependentSource::drawOutline( QPainter & p )
 	// Top rectangle
 	p.drawRect( _x, _y+19, width(), 11 );
 	
+#if 0
 	p.save();
 	bool canSetCol = (p.pen().color() != Qt::color0) && (p.pen().color() != Qt::color1);
 	
@@ -64,6 +68,7 @@ void DependentSource::drawOutline( QPainter & p )
 	p.drawLine( _x+width(), _y+40, _x+24, _y+40 ); // Right inny
 	
 	p.restore();
+#endif
 	
 	// Bottom diamond
 	QPointArray pa4(4);

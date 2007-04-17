@@ -19,13 +19,14 @@
  ***************************************************************************/
  
 #include "instruction.h"
+#include "microbe.h"
 #include "optimizer.h"
 #include "pic14.h"
 
 #include <kdebug.h>
 #include <qstringlist.h>
 
-#include <cassert>
+#include <assert.h>
 #include <iostream>
 using namespace std;
 
@@ -827,7 +828,7 @@ void Code::queueLabel( const QString & label, InstructionPosition position )
 }
 
 
-void Code::removeInstruction( Instruction * instruction )
+void Code::removeInstruction( Instruction * instruction, bool pushLabels )
 {
 	if ( !instruction )
 		return;
@@ -865,13 +866,14 @@ void Code::removeInstruction( Instruction * instruction )
 			previous.list->remove( previous.it );
 		}
 		
-		if ( next != e )
-			(*next)->addLabels( labels );
+		if ( pushLabels )
+		{
+			if ( next != e )
+				(*next)->addLabels( labels );
+		}
 		
-		break;
+		return;
 	}
-	
-// 	instruction->removeOutputs();
 }
 
 
@@ -882,7 +884,7 @@ void Code::append( Instruction * instruction, InstructionPosition position )
 	
 // 	cout << k_funcinfo << instruction->code() << '\n';
 	
-	removeInstruction( instruction );
+	removeInstruction( instruction, false );
 	m_instructionLists[position].append( instruction );
 	
 	instruction->setCode( this );
@@ -890,7 +892,7 @@ void Code::append( Instruction * instruction, InstructionPosition position )
 	if ( instruction->type() == Instruction::Assembly /*||
 			instruction->type() == Instruction::Raw*/ )
 	{
-// 		if ( (position == Middle) && !m_queuedLabels[position].isEmpty() )
+// 		if ( !m_queuedLabels[position].isEmpty() )
 // 			cout << "adding queued labels for 1: " << m_queuedLabels[position].join(",") << '\n';
 		instruction->addLabels( m_queuedLabels[position] );
 		m_queuedLabels[position].clear();
@@ -909,7 +911,7 @@ Instruction * Code::instruction( const QString & label ) const
 				return *it;
 		}
 	}
-	return 0;
+	return 0l;
 }
 
 
@@ -947,6 +949,7 @@ void Code::postCompileConstruct()
 			{
 				if ( (*it)->type() == Instruction::Assembly )
 				{
+// 					cout << "shoving labels onto next block.\n";
 					(*it)->addLabels( labels );
 					added = true;
 					break;
@@ -960,7 +963,7 @@ void Code::postCompileConstruct()
 }
 
 
-QString Code::generateCode( PIC14 * pic ) const
+QString Code::generateCode( PIC14 * pic, bool showLinks ) const
 {
 	QString code;
 	
@@ -985,6 +988,18 @@ QString Code::generateCode( PIC14 * pic ) const
 	
 	code += "START\n\n";
 	
+	
+	CodeConstIterator e = end();
+	
+	typedef QMap< const Instruction *, int > InstructionIntMap;
+	InstructionIntMap instructionLines;
+	if ( showLinks )
+	{
+		unsigned at = 0;
+		for ( CodeConstIterator it = begin(); it != e; ++it )
+			instructionLines[ *it ] = at++;
+	}
+	
 	for ( unsigned i = 0; i < PositionCount; ++i )
 	{
 		InstructionList::const_iterator end = m_instructionLists[i].end();
@@ -998,10 +1013,52 @@ QString Code::generateCode( PIC14 * pic ) const
 				for ( QStringList::const_iterator labelsIt = labels.begin(); labelsIt != labelsEnd; ++labelsIt )
 					code += *labelsIt + '\n';
 			}
+		
+			if ( showLinks )
+			{
+			//BEGIN input links
+				QString inputs("(");
 			
-			if ( (*it)->type() == Instruction::Assembly )
-				code += '\t';
-			code += (*it)->code() + '\n';
+				const InstructionList inputLinks = (*it)->inputLinks();
+				InstructionList::const_iterator end = inputLinks.end();
+				for ( InstructionList::const_iterator linksIt = inputLinks.begin(); linksIt != end; ++linksIt )
+					inputs += QString("%1,").arg( instructionLines[ *linksIt ] );
+			
+				if ( inputs.length() > 1 )
+					inputs.remove( inputs.length()-1, 1 );
+				inputs += ")";
+			//END input links
+			
+			
+			//BEGIN output links
+				QString outputs("(");
+			
+				const InstructionList outputLinks = (*it)->outputLinks();
+				end = outputLinks.end();
+				for ( InstructionList::const_iterator linksIt = outputLinks.begin(); linksIt != end; ++linksIt )
+					outputs += QString("%1,").arg( instructionLines[ *linksIt ] );
+			
+				if ( outputs.length() > 1 )
+					outputs.remove( inputs.length()-1, 1 );
+				outputs += ")";
+			//END output links
+			
+			
+				code += QString("#%1) %3 -> %4")
+						.arg( instructionLines[ *it ], 4 )
+// 					.arg( inputs, 50 )
+						.arg( (*it)->code().replace( '\t', "   " ), -40 )
+						.arg( outputs, -12 );
+			}
+			else
+			{
+				if ( (*it)->type() == Instruction::Assembly )
+					code += '\t';
+		
+				code += (*it)->code();
+			}
+		
+			code += '\n';
 		}
 	}
 	
@@ -1177,18 +1234,39 @@ CodeIterator & CodeIterator::operator ++ ()
 }
 
 
+CodeIterator & CodeIterator::operator -- ()
+{
+	CodeIterator prev = code->begin();
+	CodeIterator end = code->end();
+	for ( CodeIterator it = prev; it != end; ++it )
+	{
+		if ( *it == **this )
+			break;
+		prev = it;
+	}
+	
+	assert( ++ CodeIterator( prev ) == *this );
+	
+	*this = prev;
+	return *this;
+}
+
+
 CodeIterator & CodeIterator::removeAndIncrement()
 {
 	Instruction * i = *it;
 	++(*this);
-	code->removeInstruction( i );
+	code->removeInstruction( i, true );
 	return *this;
 }
 
 
 void CodeIterator::insertBefore( Instruction * ins )
 {
-	list->insert( it, ins );
+	if ( *this == code->end() )
+		list->append( ins );
+	else
+		list->insert( it, ins );
 }
 //END class CodeIterator
 
@@ -1249,6 +1327,8 @@ Instruction::~ Instruction()
 void Instruction::addLabels( const QStringList & labels )
 {
 	m_labels += labels;
+// 	if ( !labels.isEmpty() )
+// 		cout << k_funcinfo << "added labels: " << labels.join(",") << '\n';
 }
 
 
@@ -1301,6 +1381,14 @@ void Instruction::makeLabelOutputLink( const QString & label )
 }
 
 
+void Instruction::addInputLinks( const InstructionList & instructions )
+{
+	InstructionList::const_iterator end = instructions.end();
+	for ( InstructionList::const_iterator it = instructions.begin(); it != end; ++it )
+		addInputLink( *it );
+}
+
+
 void Instruction::addInputLink( Instruction * instruction )
 {
 	// Don't forget that a link to ourself is valid!
@@ -1309,6 +1397,14 @@ void Instruction::addInputLink( Instruction * instruction )
 	
 	m_inputLinks << instruction;
 	instruction->addOutputLink( this );
+}
+
+
+void Instruction::addOutputLinks( const InstructionList & instructions )
+{
+	InstructionList::const_iterator end = instructions.end();
+	for ( InstructionList::const_iterator it = instructions.begin(); it != end; ++it )
+		addOutputLink( *it );
 }
 
 
@@ -1378,8 +1474,8 @@ void Instr_addwf::generateLinksAndStates( Code::iterator current )
 	for ( int i = 0; current != end && i < maxInc; ++i, ++current )
 	{
 		(*current)->addInputLink( this );
-//		if ( i != maxInc-1 )
-//			(*current)->setPositionAffectsBranching( true );
+// 		if ( i != maxInc-1 )
+// 			(*current)->setPositionAffectsBranching( true );
 	}
 }
 

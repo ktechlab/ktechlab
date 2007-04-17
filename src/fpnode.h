@@ -27,7 +27,7 @@ class FPNode : public Node
 {
 Q_OBJECT
 public:
-    FPNode( ICNDocument *_icnView, Node::node_type type, node_dir dir, const QPoint &pos, QString *id = 0 );
+	FPNode( ICNDocument *_icnView, Node::node_type type, int dir, const QPoint &pos, QString *id = 0L );
     ~FPNode();
 	
 	/**

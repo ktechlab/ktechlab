@@ -20,14 +20,13 @@
 class ECKeyPad : public Component
 {
 	public:
-		ECKeyPad( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+		ECKeyPad( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~ECKeyPad();
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
 	
 		virtual void buttonStateChanged( const QString &id, bool state );
-		virtual bool canFlip() const { return true; }
 
 	protected:
 		virtual void dataChanged();

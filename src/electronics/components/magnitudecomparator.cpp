@@ -23,7 +23,7 @@ Item* MagnitudeComparator::construct( ItemDocument *itemDocument, bool newItem, 
 LibraryItem* MagnitudeComparator::libraryItem()
 {
 	return new LibraryItem(
-			QString("ec/magnitudecomparator"),
+			"ec/magnitudecomparator",
 	i18n("Magnitude Comparator"),
 	i18n("Integrated Circuits"),
 	"ic1.png",
@@ -36,15 +36,6 @@ MagnitudeComparator::MagnitudeComparator( ICNDocument *icnDocument, bool newItem
 	: Component( icnDocument, newItem, id ? id : "magnitudecomparator" )
 {
 	m_name = i18n("Magnitude Comparator");
-// 	m_desc = i18n("Compares to two binary number and generates input to indicate which binary number has greater magnitude. It has 3 cascading inputs: I0 for I<SUB>A &gt; B</SUB>, I1 for I<SUB>A &lt; B</SUB>, and I2 for I<SUB>A = B</SUB> and 3 outputs: O0 for O<SUB>A &gt; B</SUB>, O1 for O<SUB>A &lt; B</SUB>, and O2 for O<SUB>A = B</SUB>");
-	m_desc = i18n("Compares two binary numbers and generates output to indicate which binary number has the greater magnitude. It has 3 cascading inputs:"
-			"<ul><li>I: A &gt; B</li>"
-			"<li>I: A &lt; B</li>"
-			"<li>I: A = B</li></ul>"
-			"and 3 outputs:"
-			"<ul><li>O: A &gt; B</li>"
-			"<li>O: A &lt; B</li>"
-			"<li>O: A = B</li></ul>");
 	
 	createProperty( "numInput", Variant::Type::Int );
 	property("numInput")->setCaption( i18n("Number Inputs") );

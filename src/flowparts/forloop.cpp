@@ -23,7 +23,7 @@ Item* ForLoop::construct( ItemDocument *itemDocument, bool newItem, const char *
 LibraryItem* ForLoop::libraryItem()
 {
 	return new LibraryItem(
-		QString("flow/forloop"),
+		"flow/forloop",
 		i18n("For"),
 		i18n("Loops"),
 		"for.png",
@@ -32,10 +32,9 @@ LibraryItem* ForLoop::libraryItem()
 }
 
 ForLoop::ForLoop( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowContainer( icnDocument, newItem, (id) ? id : "forloop" )
+	: FlowContainer( icnDocument, newItem, id ? id : "forloop" )
 {
 	m_name = i18n("For Loop");
-	m_desc = i18n("The code contained in the foor loop is repeatedly executed. By default, the variable used will be incremented every time. This can be changed by entering a value other than 1 into Step.<br><br>The for loop will exit when the value contained in the variable is equal to the end value.");
 	
 	createTopContainerNode();
 	createBotContainerNode();
@@ -51,7 +50,7 @@ ForLoop::ForLoop( ICNDocument *icnDocument, bool newItem, const char *id )
 	property("1-initial")->setValue("1");
 	
 	createProperty( "2-end", Variant::Type::Combo );
-	property("2-end")->setToolbarCaption("to");
+	property("2-end")->setToolbarCaption( i18n( "for x = 1 to", "to" ) );
 	property("2-end")->setEditorCaption( i18n("End Value") );
 	property("2-end")->setValue("10");
 	

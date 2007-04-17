@@ -34,10 +34,9 @@ LibraryItem* InputButton::libraryItem()
 
 
 InputButton::InputButton( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowPart( icnDocument, newItem, (id) ? id : "inputbutton" )
+	: FlowPart( icnDocument, newItem, id ? id : "inputbutton" )
 {
 	m_name = i18n("InputButton");
-	m_desc = i18n("Pauses program execution until a inputbutton has been pressed or released (i.e. on rising or falling input), after performing debouncing.");
 	initProcessSymbol();
 	createStdInput();
 	createStdOutput();

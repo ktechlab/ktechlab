@@ -25,10 +25,6 @@
 /**
 @short This holds a pointer to the start of the tree, and provides the traversal code.
 @author Daniel Clarke
-
-
-NOTE: Should probably be replaced with STL class. 
-
 */
 class BTreeBase{
 public:

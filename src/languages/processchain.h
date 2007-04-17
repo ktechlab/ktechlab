@@ -36,7 +36,7 @@ class ProcessChain : public QObject
 {
 	Q_OBJECT
 	public:
-		ProcessChain( ProcessOptions options, KTechlab *parent, const char *name = 0 );
+		ProcessChain( ProcessOptions options, const char *name = 0l );
 		~ProcessChain();
 		
 		void setProcessOptions( ProcessOptions options ) { m_processOptions = options; }
@@ -84,7 +84,6 @@ class ProcessChain : public QObject
 		
 		int m_errorCount;
 		ProcessOptions m_processOptions;
-		KTechlab * m_pKTechlab;
 	
 	private:
 		FlowCode * m_pFlowCode;
@@ -103,7 +102,7 @@ class ProcessListChain : public QObject
 	Q_OBJECT
 			
 	public:
-		ProcessListChain( ProcessOptionsList pol, KTechlab *parent, const char *name = 0 );
+		ProcessListChain( ProcessOptionsList pol, const char *name = 0l );
 		
 	signals:
 		/**
@@ -121,7 +120,6 @@ class ProcessListChain : public QObject
 		
 	protected:
 		ProcessOptionsList m_processOptionsList;
-		KTechlab * m_pKTechlab;
 };
 
 #endif

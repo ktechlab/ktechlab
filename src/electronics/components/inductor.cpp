@@ -25,7 +25,7 @@ LibraryItem* Inductor::libraryItem()
 	return new LibraryItem(
 		"ec/inductor",
 		i18n("Inductor"),
-		i18n("Discrete"),
+		i18n("Passive"),
 		"inductor.png",
 		LibraryItem::lit_component,
 		Inductor::construct
@@ -36,8 +36,6 @@ Inductor::Inductor( ICNDocument *icnDocument, bool newItem, const char *id )
 	: Component( icnDocument, newItem, id ? id : "inductor" )
 {
 	m_name = i18n("Inductor");
-// 	m_desc = i18n("Stores electrical charge.<br><br>"
-// 			"The voltage across the inductor and inductance are related by <i>Charge = Inductance x Voltage</i>.");
 	setSize( -16, -8, 32, 16 );
 	
 	init1PinLeft();

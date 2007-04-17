@@ -36,7 +36,6 @@ Keypad::Keypad( ICNDocument *icnDocument, bool newItem, const char *id )
 	: FlowPart( icnDocument, newItem, id ? id : "keypad" )
 {
 	m_name = i18n("Keypad");
-	m_desc = i18n("Gets a key from a keypad connected to the PIC.");
 	initProcessSymbol();
 	createStdInput();
 	createStdOutput();

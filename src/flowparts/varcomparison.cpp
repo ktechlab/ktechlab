@@ -23,7 +23,7 @@ Item* VarComparison::construct( ItemDocument *itemDocument, bool newItem, const 
 LibraryItem* VarComparison::libraryItem()
 {
 	return new LibraryItem(
-		QString("flow/varcomparison"),
+		"flow/varcomparison",
 		i18n("Comparison"),
 		i18n("Variables"),
 		"branch.png",
@@ -32,10 +32,9 @@ LibraryItem* VarComparison::libraryItem()
 }
 
 VarComparison::VarComparison( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowPart( icnDocument, newItem, (id) ? id : "varcomparison" )
+	: FlowPart( icnDocument, newItem, id ? id : "varcomparison" )
 {
 	m_name = i18n("Variable Comparison");
-	m_desc = i18n("Conditional branch point, depending on the comparison of two values. The supported comparisons are:<ul><li><b>x == y</b> - Equality: true if x has the same value as y.</li><li><b>x &lt; y</b> - Less than: true if x is smaller than y.</li><li><b>x &gt; y</b> - Greater than: true if x is bigger than y.</li><li><b>x &lt;= y</b> - Less than or equal: true if x is less than or equal to y.</li><li><b>x &gt;= y</b> - Greater than or equal: true if x is greater than or equal to y.</li><li><b>x != y</b> - Does not equal: true if x does not have the same value as y.</li></ul>");
 	initDecisionSymbol();
 	createStdInput();
 	createStdOutput();

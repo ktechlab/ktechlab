@@ -10,12 +10,13 @@
 
 #include "currentsignal.h"
 #include "element.h"
+#include "matrix.h"
 
-CurrentSignal::CurrentSignal( const double delta, const double current )
+CurrentSignal::CurrentSignal( double delta, double current )
 	: Reactive::Reactive(delta)
 {
 	m_current = current;
-	m_oldCurrent = m_newCurrent = 0.;
+	m_oldCurrent = m_newCurrent = 0.0;
 	m_numCNodes = 2;
 }
 
@@ -23,12 +24,12 @@ CurrentSignal::~CurrentSignal()
 {
 }
 
-void CurrentSignal::setCurrent( const double i )
+void CurrentSignal::setCurrent( double i )
 {
-	if ( m_oldCurrent != m_newCurrent ) add_initial_dc();
-	m_newCurrent *= i/m_current; // Instead of calling step again, we can just "adjust" what the current should be
+	// Instead of calling step again, we can just "adjust" what the current should be
+	m_newCurrent *= i/m_current;
 	m_current = i;
-	add_initial_dc();
+	addCurrents();
 }
 
 
@@ -40,6 +41,27 @@ void CurrentSignal::add_map()
 
 void CurrentSignal::add_initial_dc()
 {
+	m_oldCurrent = 0.0;
+	// time_step() will handle everything for us now :)
+}
+
+
+void CurrentSignal::updateCurrents()
+{
+	m_cnodeI[1] = m_newCurrent;
+	m_cnodeI[0] = -m_newCurrent;
+}
+
+
+void CurrentSignal::time_step()
+{
+	m_newCurrent = m_current*advance();
+	addCurrents();
+}
+
+
+void CurrentSignal::addCurrents()
+{
 	if ( !b_status )
 		return;
 	
@@ -50,17 +72,4 @@ void CurrentSignal::add_initial_dc()
 	b_i( 1 ) += m_newCurrent-m_oldCurrent;
 	
 	m_oldCurrent = m_newCurrent;
-}
-
-void CurrentSignal::updateCurrents()
-{
-	m_cnodeI[1] = m_newCurrent;
-	m_cnodeI[0] = -m_newCurrent;
-}
-
-void CurrentSignal::time_step()
-{
-	add_initial_dc(); // Make sure our old and new are synced
-	m_newCurrent = m_current*advance();
-	add_initial_dc();
 }

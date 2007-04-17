@@ -31,43 +31,49 @@
 #include <algorithm>
 #include <cmath>
 
-inline uint64_t min( uint64_t a, uint64_t b )
+inline ullong min( ullong a, ullong b )
 {
 	return a < b ? a : b;
+}
+template<typename T>
+inline T max (T a, T b)
+{
+	return a > b ? a : b;
 }
 
 
 OscilloscopeView::OscilloscopeView( QWidget *parent, const char *name )
-	: QFrame( parent, name, WNoAutoErase ),
-	b_needRedraw(true),
-	m_pixmap(0),
+	:ScopeViewBase(parent, name),
 	m_fps(10),
 	m_sliderValueAtClick(-1),
 	m_clickOffsetPos(-1),
-	m_pSimulator( Simulator::self() ),
-	m_halfOutputHeight(0.0)
+	m_pSimulator( Simulator::self() )
 {
 	KGlobal::config()->setGroup("Oscilloscope");
 	m_fps = KGlobal::config()->readNumEntry( "FPS", 25 );
-
+	
 	setBackgroundMode(NoBackground);
 	setMouseTracking(true);
-
+	
 	m_updateViewTmr = new QTimer(this);
 	connect( m_updateViewTmr, SIGNAL(timeout()), this, SLOT(updateViewTimeout()) );
 }
 
+
 OscilloscopeView::~OscilloscopeView()
 {
-	delete m_pixmap;
+
 }
+
 
 void OscilloscopeView::updateView()
 {
-	if (m_updateViewTmr->isActive() ) return;
-
+	if (m_updateViewTmr->isActive() )
+		return;
+	
 	m_updateViewTmr->start( 1000/m_fps, true );
 }
+
 
 void OscilloscopeView::updateViewTimeout()
 {
@@ -79,20 +85,15 @@ void OscilloscopeView::updateViewTimeout()
 
 void OscilloscopeView::updateTimeLabel()
 {
-	if ( hasMouse() ) {
+	if ( hasMouse() )
+	{
 		int x = mapFromGlobal( QCursor::pos() ).x();
 		double time = (double(Oscilloscope::self()->scrollTime()) / LOGIC_UPDATE_RATE) + (x / Oscilloscope::self()->pixelsPerSecond());
 		Oscilloscope::self()->timeLabel->setText( QString::number( time, 'f', 6 ) );
-	} else Oscilloscope::self()->timeLabel->setText( QString::null );
-}
-
-
-void OscilloscopeView::resizeEvent( QResizeEvent *e )
-{
-	delete m_pixmap;
-	m_pixmap = new QPixmap( e->size() );
-	b_needRedraw = true;
-	QFrame::resizeEvent(e);
+	}
+	
+	else
+		Oscilloscope::self()->timeLabel->setText( QString::null );
 }
 
 
@@ -173,241 +174,250 @@ void OscilloscopeView::slotSetFrameRate( int fps )
 
 
 // returns a % b
-static double lld_modulus( int64_t a, double b )
+static double lld_modulus( llong a, double b )
 {
-	return double(a) - int64_t(a/b)*b;
+	return double(a) - llong(a/b)*b;
 }
 
 
-void OscilloscopeView::paintEvent( QPaintEvent *e )
+
+void OscilloscopeView::drawBackground( QPainter & p )
 {
-	QRect r = e->rect();
-	
-	if (b_needRedraw)
-	{
-		updateOutputHeight();
-		const double pixelsPerSecond = Oscilloscope::self()->pixelsPerSecond();
-		
-		QPainter p;
-		m_pixmap->fill( paletteBackgroundColor() );
-		p.begin(m_pixmap);
-		p.setClipRegion(e->region());
-		
-		//BEGIN Draw vertical marker lines
-		const double divisions = 5.0;
-		const double min_sep = 10.0;
-		
-		double spacing = pixelsPerSecond/(std::pow( divisions, std::floor(std::log(pixelsPerSecond/min_sep)/std::log(divisions)) ));
-		
-		// Pixels offset is the number of pixels that the view is scrolled along
-		const int64_t pixelsOffset = int64_t(Oscilloscope::self()->scrollTime()*pixelsPerSecond/LOGIC_UPDATE_RATE);
-		double linesOffset = - lld_modulus( pixelsOffset, spacing );
-		
-		int blackness = 256 - int(184.0 * spacing / (min_sep*divisions*divisions));
-		p.setPen( QColor( blackness, blackness, blackness ) );
-		
-		for ( double i = linesOffset; i <= frameRect().width(); i += spacing )
-			p.drawLine( int(i), 1, int(i), frameRect().height()-2 );
-		
-		
-		
-		spacing *= divisions;
-		linesOffset = - lld_modulus( pixelsOffset, spacing );
-		
-		blackness = 256 - int(184.0 * spacing / (min_sep*divisions*divisions));
-		p.setPen( QColor( blackness, blackness, blackness ) );
-		
-		for ( double i = linesOffset; i <= frameRect().width(); i += spacing )
-			p.drawLine( int(i), 1, int(i), frameRect().height()-2 );
-		
-		
-		
-		spacing *= divisions;
-		linesOffset = - lld_modulus( pixelsOffset, spacing );
-		
-		blackness = 256 - int(184.0);
-		p.setPen( QColor( blackness, blackness, blackness ) );
-		
-		for ( double i = linesOffset; i <= frameRect().width(); i += spacing )
-			p.drawLine( int(i), 1, int(i), frameRect().height()-2 );
-		//END Draw vertical marker lines
-		
-		drawLogicData(p);
-		drawFloatingData(p);
-		
-		p.setPen(Qt::black);
-		p.drawRect( frameRect() );
-		
-		b_needRedraw = false;
-	}
-	
-	bitBlt( this, r.x(), r.y(), m_pixmap, r.x(), r.y(), r.width(), r.height() );
-}
-
-
-void OscilloscopeView::updateOutputHeight()
-{
-	m_halfOutputHeight = int((Oscilloscope::self()->probePositioner->probeOutputHeight() - (probeArrowWidth/Oscilloscope::self()->numberOfProbes()))/2)-1;
-}
-
-
-void OscilloscopeView::drawLogicData( QPainter & p )
-{
+	//BEGIN Draw vertical marker lines
 	const double pixelsPerSecond = Oscilloscope::self()->pixelsPerSecond();
+	const double divisions = 5.0;
+	const double min_sep = 10.0;
 	
-	const LogicProbeDataMap::iterator end = Oscilloscope::self()->m_logicProbeDataMap.end();
-	for ( LogicProbeDataMap::iterator it = Oscilloscope::self()->m_logicProbeDataMap.begin(); it != end; ++it )
-	{
-		// When searching for the next logic value to display, we look along
-		// until there is a recorded point which is at least one pixel along
-		// If we are zoomed out far, there might be thousands of data points
-		// between each pixel. It is time consuming searching for the next point
-		// to display one at a time, so we record the average number of data points
-		// between pixels ( = deltaAt / totalDeltaAt )
-		int64_t deltaAt = 1;
-		int totalDeltaAt = 1;
-		
-		LogicProbeData * probe = it.data();
-
-		vector<LogicDataPoint> *data = probe->m_data;
-		if(!data->size()) continue;
-		
-		const int midHeight = Oscilloscope::self()->probePositioner->probePosition(probe);
-		const int64_t timeOffset = Oscilloscope::self()->scrollTime();
-		
-		// Draw the horizontal line indicating the midpoint of our output
-		p.setPen( QColor( 228, 228, 228 ) );
-		p.drawLine( 0, midHeight, width(), midHeight );
-		
-		// Set the pen colour according to the colour the user has selected for the probe
-		p.setPen( probe->color() );
-		
-		// The smallest time step that will display in our oscilloscope
-		const int minTimeStep = int(LOGIC_UPDATE_RATE/pixelsPerSecond);
-		
-		int64_t at = probe->findPos(timeOffset);
-		const int64_t maxAt = probe->m_data->size();
-		int64_t prevTime = (*data)[at].time;
-		int prevX = (at > 0) ? 0 : int((prevTime - timeOffset)*(pixelsPerSecond/LOGIC_UPDATE_RATE));
-		bool prevHigh = (*data)[at].value;
-		int prevY = midHeight + int(prevHigh ? -m_halfOutputHeight : +m_halfOutputHeight);
-
-		while ( at < maxAt ) {
-			// Search for the next pos which will show up at our zoom level
-			int64_t previousAt = at;
-			int64_t dAt = deltaAt / totalDeltaAt;
-			
-			while ( (dAt > 1) && (at < maxAt) && ( (int64_t((*data)[at].time) - prevTime) != minTimeStep ) )
-			{
-				// Search forwards until we overshoot
-				while ( at < maxAt && ( int64_t((*data)[at].time) - prevTime ) < minTimeStep )
-					at += dAt;
-				dAt /= 2;
-				
-				// Search backwards until we undershoot
-				while ( (at < maxAt) && ( int64_t((*data)[at].time) - prevTime ) > minTimeStep )
-				{
-					at -= dAt;
-					if ( at < 0 )
-						at = 0;
-				}
-				dAt /= 2;
-			}
-			
-			// Possibly increment the value of at found by one (or more if this is the first go)
-			while ( (previousAt == at) || ((at < maxAt) && ( int64_t((*data)[at].time) - prevTime ) < minTimeStep) )
-				at++;
-
-			if ( at >= maxAt ) break;
-
-			// Update the average values
-			deltaAt += at - previousAt;
-			totalDeltaAt++;
-			
-			bool nextHigh = (*data)[at].value;
-			if ( nextHigh == prevHigh ) continue;
-
-			int64_t nextTime = (*data)[at].time;
-			int nextX = int((nextTime - timeOffset)*(pixelsPerSecond/LOGIC_UPDATE_RATE));
-			int nextY = midHeight + int(nextHigh ? -m_halfOutputHeight : +m_halfOutputHeight);
-			
-			p.drawLine( prevX, prevY, nextX, prevY );
-			p.drawLine( nextX, prevY, nextX, nextY );
-
-			prevHigh = nextHigh;
-			prevTime = nextTime;
-			prevX = nextX;
-			prevY = nextY;
-
-			if ( nextX > width() ) break;
-		};
-		
-		// If we could not draw right to the end; it is because we exceeded
-		// maxAt
-		if ( prevX < width() )
-			p.drawLine( prevX, prevY, width(), prevY );
-	}
+	double spacing = pixelsPerSecond/(std::pow( divisions, std::floor(std::log(pixelsPerSecond/min_sep)/std::log(divisions)) ));
+	
+		// Pixels offset is the number of pixels that the view is scrolled along
+	const llong pixelsOffset = llong(Oscilloscope::self()->scrollTime()*pixelsPerSecond/LOGIC_UPDATE_RATE);
+	double linesOffset = - lld_modulus( pixelsOffset, spacing );
+	
+	int blackness = 256 - int(184.0 * spacing / (min_sep*divisions*divisions));
+	p.setPen( QColor( blackness, blackness, blackness ) );
+	
+	for ( double i = linesOffset; i <= frameRect().width(); i += spacing )
+		p.drawLine( int(i), 1, int(i), frameRect().height()-2 );
+	
+	
+	
+	spacing *= divisions;
+	linesOffset = - lld_modulus( pixelsOffset, spacing );
+	
+	blackness = 256 - int(184.0 * spacing / (min_sep*divisions*divisions));
+	p.setPen( QColor( blackness, blackness, blackness ) );
+	
+	for ( double i = linesOffset; i <= frameRect().width(); i += spacing )
+		p.drawLine( int(i), 1, int(i), frameRect().height()-2 );
+	
+	
+	
+	spacing *= divisions;
+	linesOffset = - lld_modulus( pixelsOffset, spacing );
+	
+	blackness = 256 - int(184.0);
+	p.setPen( QColor( blackness, blackness, blackness ) );
+	
+	for ( double i = linesOffset; i <= frameRect().width(); i += spacing )
+		p.drawLine( int(i), 1, int(i), frameRect().height()-2 );
+	//END Draw vertical marker lines
 }
+
+
+
+
+void OscilloscopeView::drawProbe( QPainter & p, LogicProbeData * probe )
+{
+	//BEGIN mostly generic stuff (wrt data type)
+	StoredData<LogicDataPoint> * data = &(probe->m_data);
+
+	const int midHeight = Oscilloscope::self()->probePositioner->probePosition(probe);
+	
+	//END mostly generic stuff (wrt data type)
+		
+	//BEGIN just so close to generic I can't stand it
+		const double pixelsPerSecond = Oscilloscope::self()->pixelsPerSecond();
+		// When searching for the next logic value to display, we look along
+	// until there is a recorded point which is at least one pixel along
+	// If we are zoomed out far, there might be thousands of data points
+	// between each pixel. It is time consuming searching for the next point
+	// to display one at a time, so we record the average number of data points
+	// between pixels ( = deltaAt / totalDeltaAt )
+		llong deltaAt = 1;
+	int totalDeltaAt = 1;
+	const llong timeOffset = visibleStartTime();
+	// The smallest time step that will display in our oscilloscope
+	const int minTimeStep = int(LOGIC_UPDATE_RATE/pixelsPerSecond);
+	
+	llong at = probe->findPos(visibleStartTime());
+	const llong maxAt = min(probe->insertPos(), probe->findPos(visibleEndTime()) + 1);
+	
+	llong prevTime = data->dataAt(at).time;
+	int prevX = (at > 0) ? 0 : int((prevTime - timeOffset)*(pixelsPerSecond/LOGIC_UPDATE_RATE));
+	bool prevHigh = data->dataAt(at).value;
+	int prevY = midHeight + int(prevHigh ? -m_halfOutputHeight : +m_halfOutputHeight);
+	while ( at < maxAt )
+	{
+		// Search for the next pos which will show up at our zoom level
+		llong previousAt = at;
+		llong dAt = deltaAt / totalDeltaAt;
+		
+		while ( (dAt > 1) && (at < maxAt) && ( (llong(data->dataAt(at).time) - prevTime) != minTimeStep ) )
+		{
+			// Search forwards until we overshoot
+			while ( at < maxAt && ( llong(data->dataAt(at).time) - prevTime ) < minTimeStep )
+				at += dAt;
+			dAt /= 2;
+			
+			// Search backwards until we undershoot
+			while ( (at < maxAt) && ( llong(data->dataAt(at).time) - prevTime ) > minTimeStep )
+			{
+				at -= dAt;
+				if ( at < 0 )
+					at = 0;
+			}
+			dAt /= 2;
+		}
+
+		// Possibly increment the value of at found by one (or more if this is the first go)
+		while ( (previousAt == at) || ((at < maxAt) && ( llong(data->dataAt(at).time) - prevTime ) < minTimeStep) )
+			at++;
+	
+		if ( at >= maxAt )
+			break;
+		
+		// Update the average values
+		deltaAt += at - previousAt;
+		totalDeltaAt++;
+		
+		bool nextHigh = data->dataAt(at).value;
+		if ( nextHigh == prevHigh )
+			continue;
+		llong nextTime = data->dataAt(at).time;
+
+			
+		//BEGIN mostly generic stuff (wrt data type)
+		int nextX = int((nextTime - timeOffset)*(pixelsPerSecond/LOGIC_UPDATE_RATE));
+		int nextY = midHeight + int(nextHigh ? -m_halfOutputHeight : +m_halfOutputHeight);
+		
+		p.drawLine( prevX, prevY, nextX, prevY );
+		p.drawLine( nextX, prevY, nextX, nextY );
+		
+		prevHigh = nextHigh;
+		prevTime = nextTime;
+		prevX = nextX;
+		prevY = nextY;
+			
+		if ( nextX > width() )
+			break;
+		//END mostly generic stuff (wrt data type)
+	};
+	//END just so close to generic I can't stand it
+	//BEGIN mostly generic stuff (wrt data type)
+	// If we could not draw right to the end; it is because we exceeded
+	// maxAt
+	if ( prevX < width() )
+		p.drawLine( prevX, prevY, width(), prevY );
+	//END mostly generic stuff (wrt data type)
+}
+
 
 #define v_to_y int(midHeight - (logarithmic ? ( (v>0) ? log(v/lowerAbsValue) : -log(-v/lowerAbsValue) ) : v) * sf)
 
-void OscilloscopeView::drawFloatingData(QPainter &p)
+
+void OscilloscopeView::drawProbe( QPainter & p, FloatingProbeData * probe )
 {
 	const double pixelsPerSecond = Oscilloscope::self()->pixelsPerSecond();
 
-	const FloatingProbeDataMap::iterator end = Oscilloscope::self()->m_floatingProbeDataMap.end();
-	for(FloatingProbeDataMap::iterator it = Oscilloscope::self()->m_floatingProbeDataMap.begin(); it != end; ++it ) {
-		FloatingProbeData * probe = it.data();
-		vector<float> *data = probe->m_data;
-
-		if(!data->size()) continue;
-
-		bool logarithmic = probe->scaling() == FloatingProbeData::Logarithmic;
-		double lowerAbsValue = probe->lowerAbsValue();
-		double sf = m_halfOutputHeight / (logarithmic ? log(probe->upperAbsValue()/lowerAbsValue) : probe->upperAbsValue());
-
-		const int midHeight = Oscilloscope::self()->probePositioner->probePosition(probe);
-		const int64_t timeOffset = Oscilloscope::self()->scrollTime();
-
-		// Draw the horizontal line indicating the midpoint of our output
-		p.setPen( QColor( 228, 228, 228 ) );
-		p.drawLine( 0, midHeight, width(), midHeight );
-
-		// Set the pen colour according to the colour the user has selected for the probe
-		p.setPen( probe->color() );
-
-		int64_t at = probe->findPos(timeOffset);
-		const int64_t maxAt = probe->m_data->size();
-		if(at > maxAt) at = maxAt;
-		int64_t prevTime = probe->toTime(at);
-
-		double v = (*data)[(at>0)?at:0];
-		int prevY = v_to_y;
-		int prevX = int((prevTime - timeOffset)*(pixelsPerSecond/LOGIC_UPDATE_RATE));
-
-		while ( at < maxAt ) {
-			at++;
-
-			uint64_t nextTime = prevTime + uint64_t(LOGIC_UPDATE_RATE/LINEAR_UPDATE_RATE);
-
-			double v = (*data)[(at>0)?at:0];
-			int nextY = v_to_y;
-			int nextX = int((nextTime - timeOffset)*(pixelsPerSecond/LOGIC_UPDATE_RATE));
-
-			p.drawLine( prevX, prevY, nextX, nextY );
-
-			prevTime = nextTime;
-			prevX = nextX;
-			prevY = nextY;
-
-			if ( nextX > width() ) break;
-		};
-
-		// If we could not draw right to the end; it is because we exceeded
-		// maxAt
-		if ( prevX < width() )
-			p.drawLine( prevX, prevY, width(), prevY );
-	}
+	StoredData<float> * data = &(probe->m_data);
+	
+	bool logarithmic = probe->scaling() == FloatingProbeData::Logarithmic;
+	double lowerAbsValue = probe->lowerAbsValue();
+	double sf = m_halfOutputHeight / (logarithmic ? log(probe->upperAbsValue()/lowerAbsValue) : probe->upperAbsValue());
+	
+	const int midHeight = Oscilloscope::self()->probePositioner->probePosition(probe);
+	const llong timeOffset = Oscilloscope::self()->scrollTime();
+	
+	llong at = probe->findPos(visibleStartTime()); 
+	const llong maxAt = min(probe->insertPos(), probe->findPos(visibleEndTime()) + 1);
+	llong prevTime = probe->toTime(at);
+	
+	double v = data->dataAt((at>0)?at:0);
+	int prevY = v_to_y;
+	int prevX = int((prevTime - timeOffset)*(pixelsPerSecond/LOGIC_UPDATE_RATE));
+	
+	while ( at < maxAt-1 )
+	{
+		at++;
+		
+		ullong nextTime = prevTime + ullong(LOGIC_UPDATE_RATE/LINEAR_UPDATE_RATE);
+		
+		double v = data->dataAt((at>0)?at:0);
+		int nextY = v_to_y;
+		int nextX = int((nextTime - timeOffset)*(pixelsPerSecond/LOGIC_UPDATE_RATE));
+		
+		p.drawLine( prevX, prevY, nextX, nextY );
+			
+		prevTime = nextTime;
+		prevX = nextX;
+		prevY = nextY;
+		
+		if ( nextX > width() )
+			break;
+	};
+	
+	// If we could not draw right to the end; it is because we exceeded
+	// maxAt
+	if ( prevX < width() )
+		p.drawLine( prevX, prevY, width(), prevY );
 }
+
+void OscilloscopeView::drawMidLine( QPainter & p, ProbeData * probe )
+{
+	const int midHeight = Oscilloscope::self()->probePositioner->probePosition(probe);
+	// Draw the horizontal line indicating the midpoint of our output
+	p.setPen( QColor( 228, 228, 228 ) );
+	p.drawLine( 0, midHeight, width(), midHeight );
+}
+
+llong OscilloscopeView::visibleStartTime( ) const
+{
+	return Oscilloscope::self()->scrollTime();
+}
+
+llong OscilloscopeView::visibleEndTime( ) const
+{
+	return Oscilloscope::self()->scrollTime() + static_cast<llong>(ticksPerPixel() * (width() + 1));
+}
+
+llong OscilloscopeView::pixelsPerTick( ) const
+{
+	//hopefully these variables will optimize away...
+	const double pixelsPerSecond = Oscilloscope::self()->pixelsPerSecond();
+	const llong ticksPerSecond = LOGIC_UPDATE_RATE;
+	/* 
+     * pixels     seconds    pixels
+	 * ------- *  ------- =  ------
+	 * seconds     ticks     ticks
+	 */
+	
+	return static_cast<llong>(pixelsPerSecond/ticksPerSecond);
+}
+
+double OscilloscopeView::ticksPerPixel( ) const
+{
+	const double pixelsPerSecond = Oscilloscope::self()->pixelsPerSecond();
+	const double ticksPerSecond = LOGIC_UPDATE_RATE;
+	/* 
+     *  ticks     seconds    ticks 
+	 * ------- *  ------- =  ------
+	 * seconds     pixels    pixels
+	 */
+	return ticksPerSecond/pixelsPerSecond;
+}
+
+
+
 
 #include "oscilloscopeview.moc"

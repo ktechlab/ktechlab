@@ -10,7 +10,7 @@
 
 #include "colorcombo.h"
 #include "diode.h"
-#include "ecled.h"
+#include "led.h"
 #include "ecnode.h"
 #include "ecsevensegment.h"
 #include "libraryitem.h"
@@ -40,7 +40,6 @@ ECSevenSegment::ECSevenSegment( ICNDocument *icnDocument, bool newItem, const ch
 	: Component( icnDocument, newItem, id ? id : "seven_segment" )
 {
 	m_name = i18n("Seven Segment LED");
-	m_desc = i18n("A seven segment display with a decimal point. This can be configured to either have a common cathode or a common anode.");
 	m_bDynamicContent = true;
 	
 	QStringList pins = QStringList::split( ',', "g,f,e,d,"+QString(QChar(0xB7))+",c,b,a" );
@@ -51,17 +50,20 @@ ECSevenSegment::ECSevenSegment( ICNDocument *icnDocument, bool newItem, const ch
 	
 	createProperty( "diode-polarity", Variant::Type::Select );
 	property("diode-polarity")->setCaption( i18n("Configuration") );
-	property("diode-polarity")->setAllowed( QStringList::split(',',"Common Cathode,Common Anode") );
+	QStringMap allowed;
+	allowed["Common Cathode"] = i18n("Common Cathode");
+	allowed["Common Anode"] = i18n("Common Anode");
+	property("diode-polarity")->setAllowed( allowed );
 	property("diode-polarity")->setValue("Common Cathode");
 	
 	for ( int i=0; i<8; i++ )
 	{
-		m_diodes[i] = 0;
-		m_nodes[i] = 0;
+		m_diodes[i] = 0L;
+		m_nodes[i] = 0L;
 		avg_brightness[i] = 0.;
 		last_brightness[i] = 255;
 	}
-	m_nNode = 0;
+	m_nNode = 0L;
 	
 	lastUpdatePeriod = 0.;
 	
@@ -120,10 +122,13 @@ void ECSevenSegment::dataChanged()
 
 void ECSevenSegment::stepNonLogic()
 {
+	if ( !m_diodes[0] )
+		return;
+	
 	double interval = 1./LINEAR_UPDATE_RATE;
 	
 	for ( int i=0; i<8; i++ ) {
-		avg_brightness[i] += ECLed::brightness( m_diodes[i]->current() )*interval;
+		avg_brightness[i] += LED::brightness( m_diodes[i]->current() )*interval;
 	}
 	
 	lastUpdatePeriod += interval;

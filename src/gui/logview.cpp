@@ -25,6 +25,7 @@ LogView::LogView( KateMDI::ToolView * parent, const char *name )
 	setPaper( Qt::white );
 	setTextFormat( LogText );
 	setWordWrap( WidgetWidth );
+	setFocusPolicy( NoFocus );
 	
 	// Connect up signal emitted when the user doubleclicks on a paragraph in the log view
 	connect( this, SIGNAL(clicked(int,int)), this, SLOT(slotParaClicked(int,int)) );

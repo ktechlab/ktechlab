@@ -25,6 +25,7 @@ public:
 	virtual void stepNonLogic();
 	virtual bool doesStepNonLogic() const { return true; }
 	virtual void drawShape( QPainter &p );
+	virtual bool contentChanged() const;
 	
 protected:
 	QString displayText();
@@ -33,6 +34,8 @@ protected:
 	 * Return the value / current, or whatever the meter is measuring
 	 */
 	virtual double meterValue() = 0;
+	
+	double calcProp( double v ) const;
 	
 	bool b_firstRun; // If true, then update the text dispalyed
 	bool b_timerStarted; // The timer to change the text is started on change
@@ -43,6 +46,8 @@ protected:
 	double m_maxValue;
 	Text *p_displayText;
 	QString m_unit;
+	
+	double m_prevProp; // Used in contentChanged()
 };
 
 /**
@@ -52,7 +57,7 @@ protected:
 class FrequencyMeter : public Meter
 {
 public:
-	FrequencyMeter( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	FrequencyMeter( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~FrequencyMeter();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -70,7 +75,7 @@ protected:
 class ECAmmeter : public Meter
 {
 public:
-	ECAmmeter( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	ECAmmeter( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ECAmmeter();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -90,7 +95,7 @@ private:
 class ECVoltMeter : public Meter
 {
 public:
-	ECVoltMeter( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	ECVoltMeter( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ECVoltMeter();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

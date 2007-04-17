@@ -23,7 +23,7 @@ Item* Start::construct( ItemDocument *itemDocument, bool newItem, const char *id
 LibraryItem* Start::libraryItem()
 {
 	return new LibraryItem(
-		QString::QString("flow/start"),
+		"flow/start",
 		i18n("Start"),
 		i18n("Common"),
 		"start.png",
@@ -32,10 +32,9 @@ LibraryItem* Start::libraryItem()
 }
 
 Start::Start( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowPart( icnDocument, newItem, (id) ? id : "START" )
+	: FlowPart( icnDocument, newItem, id ? id : "START" )
 {
 	m_name = i18n("Start");
-	m_desc = i18n("Determines the initial program execution point.");
 	initRoundedRectSymbol();
 	createStdOutput();
 	setCaption( i18n("Start") );

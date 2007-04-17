@@ -22,7 +22,7 @@ class RectangularOverlay;
 class DPRectangle : public DrawPart
 {
 	public:
-		DPRectangle( ItemDocument *itemDocument, bool newItem, const char *id = 0 );
+		DPRectangle( ItemDocument *itemDocument, bool newItem, const char *id = 0L );
 		~DPRectangle();
 
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -52,7 +52,7 @@ class DPRectangle : public DrawPart
 class DPEllipse : public DPRectangle
 {
 	public:
-		DPEllipse( ItemDocument *itemDocument, bool newItem, const char *id = 0 );
+		DPEllipse( ItemDocument *itemDocument, bool newItem, const char *id = 0L );
 		~DPEllipse();
 
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

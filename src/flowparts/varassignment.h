@@ -20,7 +20,7 @@
 class VarAssignment : public FlowPart
 {
 public:
-	VarAssignment( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	VarAssignment( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~VarAssignment();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

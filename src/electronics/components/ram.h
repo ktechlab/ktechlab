@@ -23,10 +23,9 @@
 class RAM : public CallbackClass, public Component
 {
 	public:
-		RAM( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+		RAM( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~RAM();
 	
-		virtual bool canFlip() const { return true; }
 		static Item * construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem * libraryItem();
 	

@@ -1,0 +1,46 @@
+<!DOCTYPE KTechlab>
+<document type="circuit" >
+ <item x="172" y="132" z="5" type="ec/capacitor" id="capacitor" flip="0" angle="270" >
+  <data value="0.001" type="number" id="Capacitance" />
+ </item>
+ <item x="68" y="140" z="1" type="ec/battery" id="cell" flip="0" angle="270" >
+  <data value="9" type="number" id="voltage" />
+ </item>
+ <item x="284" y="100" z="4" type="ec/led" id="led" flip="0" angle="90" >
+  <data value="1e-15" type="number" id="I_S" />
+  <data value="1" type="number" id="N" />
+  <data value="4.7" type="number" id="V_B" />
+  <data value="#f62a2a" type="color" id="0-color" />
+ </item>
+ <item x="116" y="44" z="0" type="ec/resistor" id="resistor" flip="0" angle="0" >
+  <data value="1000" type="number" id="resistance" />
+ </item>
+ <item x="284" y="180" z="3" type="ec/resistor" id="resistor__9" flip="0" angle="270" >
+  <data value="470" type="number" id="resistance" />
+ </item>
+ <item x="172" y="76" z="2" type="ec/spdt_toggle" id="spdt_toggle" flip="0" angle="270" >
+  <data value="" type="string" id="button_text" />
+  <data value="0.005" type="number" id="bounce_period" />
+  <data value="0" type="bool" id="bounce" />
+  <button id="button" state="1" />
+ </item>
+ <item x="220" y="108" z="6" type="ec/voltmeter" id="voltmeter" flip="0" angle="0" >
+  <data value="0.1" type="number" id="0-minValue" />
+  <data value="9" type="number" id="1-maxValue" />
+ </item>
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="spdt_toggle" route="17,5,18,5,19,5,20,5,20,6," end-node-cid="p1" start-node-parent="resistor" start-node-cid="p1" id="connector" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="resistor__9" route="35,14,35,15,35,16,35,17,35,18,35,19," end-node-cid="p1" start-node-parent="led" start-node-cid="p1" id="connector__20" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="spdt_toggle" route="35,10,35,9,35,8,35,7,35,6,35,5,34,5,33,5,32,5,31,5,30,5,29,5,28,5,27,5,26,5,25,5,24,5,23,5,22,5,22,6," end-node-cid="p2" start-node-parent="led" start-node-cid="n1" id="connector__21" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="cell" route="11,5,10,5,9,5,8,5,8,6,8,7,8,8,8,9,8,10,8,11,8,12,8,13,8,14,8,15," end-node-cid="p1" start-node-parent="resistor" start-node-cid="n1" id="connector__23" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__34" route="24,13,23,13,22,13,21,13," start-node-parent="voltmeter" start-node-cid="n1" id="connector__35" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__34" route="21,14,21,13," start-node-parent="capacitor" start-node-cid="p1" id="connector__36" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="0" start-node-id="node1__34" end-node-parent="spdt_toggle" route="21,13,21,12," end-node-cid="n1" id="connector__37" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__47" route="35,25,35,26,34,26,33,26,32,26,31,26," start-node-parent="resistor__9" start-node-cid="n1" id="connector__48" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__47" route="30,13,31,13,31,14,31,15,31,16,31,17,31,18,31,19,31,20,31,21,31,22,31,23,31,24,31,25,31,26," start-node-parent="voltmeter" start-node-cid="p1" id="connector__49" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1" route="8,19,8,20,8,21,8,22,8,23,8,24,8,25,8,26,9,26,10,26,11,26,12,26,13,26,14,26,15,26,16,26,17,26,18,26,19,26,20,26,21,26," start-node-parent="cell" start-node-cid="n1" id="connector__52" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1" route="21,18,21,19,21,20,21,21,21,22,21,23,21,24,21,25,21,26," start-node-parent="capacitor" start-node-cid="n1" id="connector__53" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="0" end-node-id="node1__47" start-node-id="node1" route="21,26,22,26,23,26,24,26,25,26,26,26,27,26,28,26,29,26,30,26,31,26," id="connector__54" end-node-is-child="0" />
+ <node x="172" y="212" id="node1" />
+ <node x="172" y="108" id="node1__34" />
+ <node x="252" y="212" id="node1__47" />
+</document>

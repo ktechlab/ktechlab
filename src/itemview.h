@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2005 by David Saxton                                    *
+ *   Copyright (C) 2005-2006 David Saxton                                  *
  *   david@bluehaze.org                                                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -13,10 +13,12 @@
 
 #include <view.h>
 
-#include <qcanvas.h>
+#include <canvas.h>
 #include <qguardedptr.h>
 
+class Canvas;
 class CVBEditor;
+class Item;
 class ItemDocument;
 class QTimer;
 
@@ -37,6 +39,25 @@ class ItemView : public View
 		 * @returns The zoom level
 		 */
 		double zoomLevel() const { return m_zoomLevel; }
+		/**
+		 * When the user drags from an item selector into the item view, the
+		 * item will be created and shown to the user. This function returns
+		 * that item.
+		 */
+		Item * dragItem() const { return m_pDragItem; }
+		/**
+		 * Zoom in. The point center will remain fixed.
+		 */
+		void zoomIn( const QPoint & center );
+		/**
+		 * Zoom in. The point center will remain fixed.
+		 */
+		void zoomOut( const QPoint & center );
+		/**
+		 * Converts a mouse click position (in the contents coordinates) to the
+		 * associated position on the canvas.
+		 */
+		QPoint mousePosToCanvasPos( const QPoint & contentsClick ) const;
 
 	public slots:
 		void actualSize();
@@ -54,15 +75,24 @@ class ItemView : public View
 		void stopUpdatingStatus();
 
 	protected:
+		/**
+		 * If the user drags an acceptable item in (e.g. a component in a
+		 * circuit), then call this function to create the item and have it
+		 * moved when the user moves his mouse while dragging.
+		 */
+		void createDragItem( QDragEnterEvent * event );
+		void removeDragItem();
 		void updateZoomActions();
 		/**
 		 * Attempts to create a new CNItem if one was dragged onto the canvas
 		 */
-		void dropEvent( QDropEvent* );
+		void dropEvent( QDropEvent * event );
 		/**
 		 * Reinherit to allow different types of items to be dragged in.
 		 */
-		virtual void dragEnterEvent( QDragEnterEvent* );
+		virtual void dragEnterEvent( QDragEnterEvent * event );
+		void dragLeaveEvent( QDragLeaveEvent * event );
+		void dragMoveEvent( QDragMoveEvent * event );
 		void contentsMousePressEvent( QMouseEvent *e );
 		void contentsMouseReleaseEvent( QMouseEvent *e );
 		void contentsMouseDoubleClickEvent( QMouseEvent *e );
@@ -75,36 +105,41 @@ class ItemView : public View
 		CVBEditor *m_CVBEditor;
 		double m_zoomLevel;
 		QTimer * m_pUpdateStatusTmr;
+		Item * m_pDragItem;
 	
 		friend class CVBEditor;
 };
+
 
 /**
 @author David Saxton
 */
 class CVBEditor : public QCanvasView
 {
-Q_OBJECT
-public:
-    CVBEditor( QCanvas *canvas, ItemView *itemView, const char *name );
-	
-	void setPassEventsToView( bool pass ) { b_passEventsToView = pass; }
-
-	virtual void contentsMousePressEvent( QMouseEvent* e );
-	virtual void contentsMouseReleaseEvent( QMouseEvent* e );
-	virtual void contentsMouseDoubleClickEvent( QMouseEvent* e );
-	virtual void contentsMouseMoveEvent( QMouseEvent* e );
-	virtual void dragEnterEvent( QDragEnterEvent* e );
-	virtual void dropEvent( QDropEvent* e );
-	virtual void contentsWheelEvent( QWheelEvent *e );
-	virtual void enterEvent( QEvent * e );
-	virtual void leaveEvent( QEvent * e );
-
-protected:
-	virtual void viewportResizeEvent( QResizeEvent * );
-	ItemView *p_itemView;
-	bool b_passEventsToView;
-	bool b_ignoreEvents;
+	Q_OBJECT
+	public:
+		CVBEditor( Canvas * canvas, ItemView *itemView, const char *name );
+		
+		void setPassEventsToView( bool pass ) { b_passEventsToView = pass; }
+		virtual bool event( QEvent * e );
+		virtual void contentsWheelEvent( QWheelEvent * e );
+		/**
+		 * Updates the world matrix from ItmeView's zoom level and from Canvas'
+		 * offset.
+		 */
+		void updateWorldMatrix();
+		
+	protected slots:
+		void canvasResized( const QRect & oldSize, const QRect & newSize );
+		
+	protected:
+		virtual void viewportResizeEvent( QResizeEvent * );
+		ItemView *p_itemView;
+		bool b_passEventsToView;
+		bool b_ignoreEvents;
+		Canvas * m_pCanvas;
 };
+
+
 
 #endif

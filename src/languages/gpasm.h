@@ -20,7 +20,7 @@
 class Gpasm : public ExternalLanguage
 {
 	public:
-		Gpasm( ProcessChain *processChain, KTechlab *parent );
+		Gpasm( ProcessChain *processChain );
 		~Gpasm();
 	
 		virtual void processInput( ProcessOptions options );

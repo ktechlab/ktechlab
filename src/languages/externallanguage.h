@@ -26,7 +26,7 @@ class ExternalLanguage : public Language
 {
 Q_OBJECT
 public:
-	ExternalLanguage( ProcessChain *processChain, KTechlab *parent, const QString &name );
+	ExternalLanguage( ProcessChain *processChain, const QString &name );
 	~ExternalLanguage();
 	
 protected slots:

@@ -1,0 +1,188 @@
+<!-- item: complex -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p align="justify">Gleich vorweg: <span style="font-weight:600">Komplexe Zahlen</span> gibt es nicht! Es handelt sich dabei lediglich um ein theoretisches Gedankenkonstrukt, welches sich erst durch die Möglichkeiten der Mathematik ergibt. Dennoch hat es sich in einigen Fällen als äußerst hilfreich erwiesen dieses Konstrukt zu Nutzen und stur nach den Regeln der Mathematik zu berechnen.</p>
+<p align="justify">Immer wieder haben es mathematische Operationen notwendig gemacht neue Zahlenbereiche einzuführen:</p>
+<ul type="disc"><li align="justify">Im Bereich der <span style="font-style:italic">Natürlichen Zahlen</span> {0, 1, 2, ...} kann man lediglich uneingeschränkt addieren und multiplizieren, aber was ergibt z.B. 3 - 5 ?</li>
+<li align="justify">Abhilfe schafft der Bereich der <span style="font-style:italic">Ganzen Zahlen</span> {..., -2, -1, 0, 1, ...}. Schön, damit kann man jetzt also auch uneingeschränkt subtrahieren, aber sicher tauchte schon bald die Frage auf, was denn nun 1/2 ergibt.</li>
+<li align="justify">Dies übernimmt der Bereich der <span style="font-style:italic">Rationalen Zahlen</span>, welcher alle Zahlen, die sich als Brüche darstellen lassen umfasst. Also alle Zahlen mit endlichen oder periodischen Nachkommastellen.</li>
+<li align="justify">Mit z.B. pi, e, &#8730;2 gibt es aber auch Zahlen mit unendlich vielen, nichtperiodischen Nachkommastellen. Diese umfasst der Bereich der <span style="font-style:italic">Reellen Zahlen</span>.</li></ul>
+<p align="justify">Lange Zeit glaubte man damit nun alle erdenklichen Fälle abgedeckt zu haben, aber noch immer ließen sich Gleichungen aufstellen, die zu keiner Lösung führten. So führt z.B. x<span style="vertical-align:super">2</span>=-1 zu keinem Ergebnis, da jedes Element der oben vorgestellten Zahlenbereiche durch quadrieren positiv wird.</p>
+<p align="justify">Die Mathematiker lösten dieses Problem ganz einfach, indem sie einen neuen Zahlenbereich, den Bereich der <span style="font-style:italic">Komplexen Zahlen</span> erschufen und die <span style="font-style:italic">imaginäre Zahl</span> i=&#8730;-1 einführten. Diese imaginäre Zahl hat die Eigenschaft, dass sie durch quadrieren negativ und reell wird: i<span style="vertical-align:super">2</span>=-1</p>
+</body></html>
+<!-- item: datasheet -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p align="justify">Die genauen technischen Spezifikationen von elektrischen Bauelementen werden in sog. <span style="font-weight:600">Datenblättern</span>, die von dem jeweiligen Hersteller zur Verfügung gestellt werden aufgelistet. Eine gute Anlaufstelle für Datenblätter aller Art ist:</p>
+<p align="justify"><a href="http://www.datasheetarchive.com">www.datasheetarchive.com</a></p>
+</body></html>
+<!-- item: dp/text -->
+Doppelklick auf Textfeld zum bearbeiten
+<!-- item: ec/555 -->
+Gebräuchliches Zeit IC
+<!-- item: ec/ac_current -->
+Erzeugt einen sinusförmigen Wechselstrom
+<!-- item: ec/adc -->
+Analog -> Digital Umsetzer
+<!-- item: ec/ammeter -->
+In Reihe schalten, um den durchfließenden Strom zu messen.
+<!-- item: ec/and -->
+Der Ausgang ist High, wenn alle Eingänge High sind.
+<!-- item: ec/battery -->
+Erzeugt eine Potentialdifferenz
+<!-- item: ec/bidir_led -->
+Bidirektionale Leuchtdiode
+<!-- item: ec/bus -->
+Führt mehrere Signale zusammen.
+<!-- item: ec/capacitor -->
+Speichert elektrische Ladung.<br><br>Die Kondensatorspannung ist bestimmt durch: <i>Spannung=Ladung/Kapazität</i>.
+<!-- item: ec/clock_input -->
+Rechteckgenerator, generiert periodisch logische High/Low Pegel.
+<!-- item: ec/current_source -->
+Erzeugt einen Konstantstrom
+<!-- item: ec/currentprobe -->
+Stellt den Strom auf dem Oszilloskop dar.
+<!-- item: ec/d_flipflop -->
+Der Eingangszustand wird mit dem Taktsignal übernommen.
+<!-- item: ec/dac -->
+Digital -> Analog Umsetzer
+<!-- item: ec/dpdt_toggle -->
+Zweipoliger Wechselschalter
+<!-- item: ec/dpst_toggle -->
+Zweipoliger Schalter
+<!-- item: ec/fixed_voltage -->
+Stellt eine feste Versorgungsspannung bereit.
+<!-- item: ec/ground -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Bezugspunkt (0V)</p>
+</body></html>
+<!-- item: ec/inverter -->
+Das Ausgangssignal ist das logisch-inverse des Eingangssignals.
+<!-- item: ec/jk_flipflop -->
+Der Ausgang wird mit dem Taktsignal gemäß J und K gesetzt.
+<!-- item: ec/keypad -->
+Eine nummerische Anordnung von Tastern mit 4 Reihen und einer konfigurierbaren Anzahl an Spalten.
+<!-- item: ec/led -->
+Leuchtdiode
+<!-- item: ec/logic_output -->
+Zeigt den logischen Zustand des Eingangs.
+<!-- item: ec/matrix_display -->
+Eine Matrix Anzeige aus LEDs mit konfigurierbarer Spalten- und Zeilenzahl.
+<!-- item: ec/nand -->
+Der Ausgang ist Low, wenn alle Eingänge High sind.
+<!-- item: ec/nor -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Ein NOR ist ein ODER mit negiertem Ausgang. Es führt nur dann High Pegel, wenn alle Eingänge Low sind.</p>
+</body></html>
+<!-- item: ec/opamp -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p align="justify">Bei einem <span style="font-weight:600">Operationsverstärker</span> (OpAmp, OP) handelt es sich um einen integrierten Universalverstärker, dessen Verhalten sich leicht durch externe Beschaltung konfigurieren lässt. Seine hohe Flexibilität erreicht der Operationsverstärker durch seine hohe Leerlaufverstärkung <span style="font-style:italic">A</span><span style="vertical-align:sub">0</span>, mit der die Differenz der Eingangspotentiale verstärkt wird. Seine <a href="ktechlab-help:///transferfunction">Übertragungsfunktion</a> lautet:</p>
+<p align="center"><img src=opamp.png ></p>
+<p align="center"><img src=tf_op.png ></p>
+<p align="justify">Die Leerlaufverstärkung <span style="font-style:italic">A</span><span style="vertical-align:sub">0</span> ist der Wert des <a href="ktechlab-help:///complex">komplexen</a> Verstärkungsfaktors <span style="font-style:italic">A</span><span style="vertical-align:sub">0</span> für f = 0Hz (Gleichspannung) und liegt idealerweise bei unendlich, in der Praxis je nach Typ bei 10<span style="vertical-align:super">5</span> bis 10<span style="vertical-align:super">6</span>.</p>
+<p align="justify">Die gewünschte Funktionalität wird durch <a href="ktechlab-help:///feedback">Rückkopplung</a> des Ausgangs über diskrete Bauelemente auf den Eingang erreicht. Dadurch wird ein <a href="ktechlab-help:///controlloop">Regelkreis</a> aufgebaut, der die Regelabweichung, also hier die Eingangsspannung U<span style="vertical-align:sub">E </span>minimieren soll. Daraus folgt, dass bis auf wenige Ausnahmen beide Eingänge einer funktionierenden OP Schaltung im Arbeitsbereich gleiches <a href="ktechlab-help:///potential">Potential</a> haben müssen. Diese Erkenntnis ist sehr hilfreich zur Berechnung von OP Schaltungen!</p>
+<p align="justify">Oft können Operationsverstärker im sinnvollen Arbeitsbereich als ideal und <a href="ktechlab-help:///linear">linear</a> angesehen werden:</p>
+<ul type="disc"><li><span style="font-style:italic">A = A</span><span style="vertical-align:sub">0</span> = &#8734;</li>
+<li>R<span style="vertical-align:sub">E+</span> = R<span style="vertical-align:sub">E-</span> = &#8734;&#937;</li>
+<li>R<span style="vertical-align:sub">A</span>= 0&#937;</li></ul>
+<p align="justify">Kenndaten reeller Operationsverstärker können im <a href="ktechlab-help:///datasheet">Datenblatt</a> nachgesehen werden.</p>
+<p><span style="font-weight:600">Anwendungen:</span></p>
+<ul type="disc"><li><a href="ktechlab-example:///opamps/inverting-amplifier.circuit">Invertierender Verstärker</a>    </li>
+<li><a href="ktechlab-example:///opamps/noninverting-amplifier.circuit">Nichtinvertierender Verstärker</a>    </li>
+<li><a href="ktechlab-example:///opamps/decoupler.circuit">Impedanzwandler</a>    </li>
+<li><a href="ktechlab-example:///opamps/instrumentation-amplifier.circuit">Instrumentenverstärker</a>    </li>
+<li><a href="ktechlab-example:///opamps/pid-controller.circuit">PID Regler</a>    </li>
+<li><a href="ktechlab-example:///opamps/analog-computer.circuit">Analogrechner</a>    </li>
+<li><a href="ktechlab-example:///opamps/active-filter.circuit">Aktive Filter</a>    </li>
+<li><a href="ktechlab-example:///opamps/comperator.circuit">Komparator</a>    </li>
+<li><a href="ktechlab-example:///opamps/schmitt-trigger">Schmitt-Trigger</a></li></ul>
+</body></html>
+<!-- item: ec/or -->
+Der Ausgang ist High, wenn mindestens ein Eingang high ist; oder Low wenn alle Eingänge Low sind.
+<!-- item: ec/resistor -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p align="justify">Ein <span style="font-weight:600">Widerstand</span> hemmt den elektrischen Stromfluss nach dem Ohm'schen Gesetz, welches besagt, dass Strom und Spannung einander proportional sind. Durch Festlegung des Proportionalbeiwertes auf 1 ergibt sich seine Einheit:</p>
+<p align="center"><img src=ohm.png ></p>
+<p align="center"><img src=ohm_unit.png ></p>
+<p align="justify">Dieser Wert ist also ein Maß dafür, wie schlecht der Widerstand den Strom leitet. In der Praxis hat sich daneben noch eine Angabe, wie gut er den Strom leitet etabliert. Dazu wird einfach sein Kehrwert gebildet und eine neue Größe, der <span style="font-style:italic">Leitwert</span> eingeführt:</p>
+<p align="center"><img src=siemens.png ></p>
+<p align="center"><img src=siemens_unit.png ></p>
+<p align="justify">Zum besseren Verständnis ist es immer eine gute Idee, sich die praktische Bedeutung solcher Formeln bewusst zu machen und diese in Worte zu fassen. Dies geht hier noch relativ einfach:</p>
+<p align="justify">&quot;Ein Widerstand hat genau dann den Wert von einem Ohm, wenn eine an ihm angelegte Spannung von einem Volt einen Stromfluss von einem Ampere verursacht.&quot;</p>
+<p><span style="font-weight:600">Beispiele:</span></p>
+<ul type="disc"><li><a href="ktechlab-example:///basic/resistors-series.circuit">Reihenschaltung</a></li>
+<li><a href="ktechlab-example:///basic/resistors-parallel.circuit">Parallelschaltung</a></li></ul>
+</body></html>
+<!-- item: ec/resistordip -->
+Satz von Widerständen mit identischen Werten in einem Dual Inline Package (DIP).
+<!-- item: ec/roto_switch -->
+Drehschalter
+<!-- item: ec/seven_segment -->
+Eine Siebensegmentanzeige mit Dezimalpunkt. Kann mit gemeinsamer Kathode oder gemeinsamer Anode konfiguriert werden.
+<!-- item: ec/signal_lamp -->
+Eine einfache Signallampe mit 100 Ohm Serienwiderstand.
+<!-- item: ec/spdt_toggle -->
+Einpoliger Wechselschalter
+<!-- item: ec/spst_toggle -->
+Einpoliger Schalter
+<!-- item: ec/sr_flipflop -->
+Der Ausgang wird mit <i>set</i> High und mit <i>reset</i> Low gesetzt.
+<!-- item: ec/voltage_signal -->
+Erzeugt eine sinusförmige Wechselspannung
+<!-- item: ec/voltageprobe -->
+Stellt die Spannung auf dem Oszilloskop dar.
+<!-- item: ec/voltmeter -->
+Parallel schalten, um die anliegende Spannung zu messen.
+<!-- item: ec/xnor -->
+Exklusiv-NOR Gatter. Ausgang ist Low, wenn exakt EIN Eingang High ist.
+<!-- item: ec/xor -->
+Exklusiv-Oder Gatter. Ausgang ist High, wenn exakt EIN Eingang High ist. Sozusagen das "Entweder-Oder".
+<!-- item: feedback -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p align="justify">Von einer <span style="font-weight:600">Rückkopplung</span> spricht man dann, wenn der Ausgang eines Systems über irgendeinen Weg auf seinen Eingang zurückgeführt ist, die Wirkung also Einfluss auch ihre Ursache (und damit sich selbst) nimmt. Man unterscheidet:</p>
+<p align="justify"><span style="font-weight:600">Mitkopplung</span></p>
+<p align="justify">Bei einer Mitkopplung verstärkt die Wirkung ihre Ursache in einer Weise, so dass sie selbst immer stärker und stärker wird und damit letztendlich auch immer mehr Einfluss auf sich selber nehmen kann (-&gt; Teufelskreis). Eine Mitkopplung ist in den allermeisten Fällen unerwünscht!</p>
+<p align="justify">Ein einfaches Beispiel, das sicher jeder schon einmal erlebt hat, ist dieser Pfeifton, der entsteht wenn ein Mikrofon (Ursache) zu nah an die Lautsprecher (Wirkung) gehalten wird.</p>
+<p align="justify"><span style="font-weight:600">Gegenkopplung</span></p>
+<p align="justify">Bei einer Gegenkopplung wirkt die Wirkung ihrer Ursache entgegen, versucht sie also auszulöschen. In den meisten Fällen ist genau dies das gewünschte Verhalten und wird beispielsweise in der Regelungstechnik ausgenutzt:</p>
+<p align="justify">Dort wird ein rückgekoppeltes System aufgebaut, in dem die Regelabweichung die Ursache und die sog. Stellgröße die Wirkung ist. Nun fällt es wohl nicht besonders schwer zu glauben, dass es hier erwünscht ist, dass die Regelabweichung ausgelöscht wird.</p>
+</body></html>
+<!-- item: flow/callsub -->
+Ruft ein Unterprogramm auf und springt danach wieder hierhin zurück.
+<!-- item: flow/delay -->
+Verzögert die Programmausführung für eine feste Zeit.
+<!-- item: flow/embed -->
+Doppelklick auf Objekt um eingebetteten Code zu bearbeiten.
+<!-- item: flow/keypad -->
+Empfängt ein Zeichen von einem Tastenfeld das an dem PIC angeschlossen ist.
+<!-- item: flow/readport -->
+Den Wert einer Variablen einem Port zuordnen.
+<!-- item: flow/setpin -->
+Setzt den Pin an einem Port High oder Low. Der Pin muss als Ausgang konfiguriert sein.
+<!-- item: flow/sevenseg -->
+Ausgang zu einer Siebensegmentanzeige.
+<!-- item: flow/start -->
+Setzt den Startpunkt des Programms
+<!-- item: linear -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p align="justify">Ein System ist <span style="font-weight:600">linear</span>, wenn es folgenden Anforderungen entspricht:</p>
+<ul type="disc"><li>Das <span style="font-style:italic">n</span>-Fache eines Eingangssignals hat auch das <span style="font-style:italic">n</span>-Fache Ausgangssignal dieses Eingangssignals zur folge (<span style="font-style:italic">Homogenität</span>).</li>
+<li>Eine Überlagerung von <span style="font-style:italic">n</span> Eingangssignalen hat auch am Ausgang eine Überlagerung der <span style="font-style:italic">n</span> zugehörigen Ausgangssignale zur Folge (<span style="font-style:italic">Additivität</span>).</li></ul>
+<p align="justify">Ein lineares System erfüllt also das Prinzip der <span style="font-style:italic">Superposition</span>.</p>
+<p align="justify">In der Realität gibt es natürlich streng genommen keine linearen Systeme, da irgendwann jedes System einmal seine Belastungsgrenze erreicht. So brennt ein Konstantanwiderstand durch, oder eine Feder verformt sich. Aber in der Praxis lassen sich viele Systeme zumindest im sinnvollen Arbeitsbereich als linear betrachten. So war ein durchgebrannter Widerstand wahrscheinlich unterdimensioniert und wurde damit auch nicht im vorgesehenen Arbeitsbereich betrieben.</p>
+</body></html>
+<!-- item: storage -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p align="justify">Als <span style="font-weight:600">Speicherelemente</span> werden hier Elemente bezeichnet, die in der lage sind elektrische oder mechanische Energie zu speichern und auch wieder abzugeben.</p>
+<p>In der Elektrotechnik währen dies:</p>
+<ul type="disc"><li>Kondensator</li>
+<li>Spule</li></ul>
+<p>Und in der Mechanik:</p>
+<ul type="disc"><li>Masse</li>
+<li>Feder</li></ul>
+</body></html>
+<!-- item: transferfunction -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p align="justify">Eine <span style="font-weight:600">Übertragungsfunktion</span> beschreibt das Übertragungsverhalten eines Systems durch eine mathematische Funktion. Generell handelt es sich dabei um eine Division von dem resultierenden Ausgangssignal zu einem geeignetem, d.h. allgemeingültigen Eingangssignal. Multipliziert man diese Übertragungsfunktion dann mit einem beliebigen anderem Eingangssignal, so kürzt sich dieses heraus und man erhält das gewünschte Ausgangssignal.</p>
+<p align="justify">Im einfachstem Falle eines <a href="ktechlab-help:///linear">linearen</a> <a href="ktechlab-help:///system">SISO</a> Systems ohne <a href="ktechlab-help:///storage">Speicherelemente</a> wird die Übertragungsfunktion zu einem einfachen skalaren Verstärunksfaktor. Hier eignet sich jedes beliebige Eingangssignal um die Übertragungsfunktion aufzustellen, da das Übertragungsverhalten des Systems unabhängig von diesem ist.</p>
+<p align="justify">Kommen Speicherelemente hinzu, wird aus dem skalaren Verstärunksfaktor ein komplexer Verstärkungsfaktor im Frequenzbereich. Dieser beinhaltet Informationen über die frequenzabhängige Verstärkung und Phasenverschiebung des Systems im statischen, d.h. eingeschwungenen Endzustand. Will man auch noch das dynamische Einschwingverhalten des Systems beschreiben, so benutzt man die komplexe Übertragungsfunktion im Bildbereich, welche auch noch Informationen über Dämpfungsvorgänge enthält. Das allgemeingültige Eingangssignal ist hier ein Dirac Impuls, da dieser sich aus der Überlagerung <span style="font-style:italic">aller</span> Frequenzen in gleicher Amplitude zusammensetzt und somit dem System alle benötigten Informationen entlocken kann.</p>
+<p align="justify">Diese Erkenntnis hat übrigens auch ganz praktische Bedeutung. Da sich ein Schuss praktisch wie ein Dirac Impuls zusammensetzt kann man z.B. in einer Kathedrale einen Schuss abfeuern, das Echo aufnehmen und erhält damit die Übertragungsfunktion der Kathedrale. <a href="ktechlab-help:///convolution">Faltet</a> man damit eine beliebige Tonaufnahme, so wird sie sich anhören, wie in der Kathedrale abgespielt.</p>
+</body></html>

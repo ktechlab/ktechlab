@@ -17,6 +17,7 @@
 #include "flowpart.h"
 #include "itemdocumentdata.h"
 #include "languagemanager.h"
+#include "ktechlab.h"
 #include "microinfo.h"
 #include "microlibrary.h"
 #include "outputmethoddlg.h"
@@ -27,15 +28,15 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 
-FlowCodeDocument::FlowCodeDocument( const QString &caption, KTechlab *ktechlab, const char *name )
-	: ICNDocument( caption, ktechlab, name )
+FlowCodeDocument::FlowCodeDocument( const QString &caption, const char *name )
+	: ICNDocument( caption, name )
 {
 	m_pDocumentIface = new FlowCodeDocumentIface(this);
 	m_type = Document::dt_flowcode;
-	m_microInfo = 0;
-	m_microSettings = 0;
-	m_picItem = 0;
-	m_pLastTextOutputTarget = 0;
+	m_microInfo = 0L;
+	m_microSettings = 0L;
+	m_picItem = 0L;
+	m_pLastTextOutputTarget = 0l;
 	
 	m_cmManager->addManipulatorInfo( CMSelect::manipulatorInfo() );
 	m_cmManager->addManipulatorInfo( CMDraw::manipulatorInfo() );
@@ -44,21 +45,24 @@ FlowCodeDocument::FlowCodeDocument( const QString &caption, KTechlab *ktechlab, 
 	m_cmManager->addManipulatorInfo( CMItemResize::manipulatorInfo() );
 	m_cmManager->addManipulatorInfo( CMItemDrag::manipulatorInfo() );
 	
-	m_fileExtensionInfo = i18n("*.flowcode|FlowCode (*.flowcode)\n*|All Files");
+	m_fileExtensionInfo = QString("*.flowcode|FlowCode (*.flowcode)\n*|%1").arg( i18n("All Files") );
 	requestStateSave();
 }
+
 
 FlowCodeDocument::~FlowCodeDocument()
 {
 	m_bDeleted = true;
-	if (m_picItem) m_picItem->removeItem();
-
+	if (m_picItem)
+		m_picItem->removeItem();
+	
 	delete m_microSettings;
-	m_microSettings = 0;
-
+	m_microSettings = 0l;
+	
 	delete m_pDocumentIface;
-	m_pDocumentIface = 0;
+	m_pDocumentIface = 0l;
 }
+
 
 View *FlowCodeDocument::createView( ViewContainer *viewContainer, uint viewAreaId, const char *name )
 {
@@ -67,6 +71,7 @@ View *FlowCodeDocument::createView( ViewContainer *viewContainer, uint viewAreaI
 	return view;
 }
 
+
 void FlowCodeDocument::setPicType( const QString &id )
 {
 	if ( m_microSettings && m_microSettings->microInfo() && m_microSettings->microInfo()->id() == id )
@@ -74,28 +79,31 @@ void FlowCodeDocument::setPicType( const QString &id )
 	
 	MicroInfo *microInfo = MicroLibrary::self()->microInfoWithID(id);
 	
-	if(!microInfo) {
+	if ( !microInfo )
+	{
 		kdWarning() << "FlowCodeDocument::setPicType: Could not set the pic type to PIC \""<<id<<"\"\n";
 		return;
 	}
-
+	
 	m_microInfo = microInfo;
-
-	if (m_microSettings) {
+	
+	if (m_microSettings)
+	{
 		//TODO write the pic settings to somewhere temporary and then restore them
 		delete m_microSettings;
 	}
-
+	
 	m_microSettings = new MicroSettings(m_microInfo);
 	connect( m_microSettings, SIGNAL(pinMappingsChanged()), this, SIGNAL(pinMappingsChanged()) );
 	//TODO restore pic settings from temporary location if appropriate
-
+	
 	delete m_picItem;
 	m_picItem = new PicItem( this, true, "picItem", m_microSettings );
 	m_picItem->show();
-
+	
 	emit picTypeChanged();
 }
+
 
 bool FlowCodeDocument::isValidItem( const QString &itemId )
 {
@@ -111,13 +119,13 @@ bool FlowCodeDocument::isValidItem( Item *item )
 	if ( !item->id().startsWith("START") && !item->id().startsWith("PPEND") )
 		return true;
 	
-	const ItemList::iterator ciEnd = m_itemList.end();
+	const ItemMap::iterator ciEnd = m_itemList.end();
 	
 	if ( item->id().startsWith("START") )
 	{
 		int count = 0;
 		
-		for ( ItemList::iterator it = m_itemList.begin(); it != ciEnd; ++it )
+		for ( ItemMap::iterator it = m_itemList.begin(); it != ciEnd; ++it )
 		{
 			if ( (*it)->id().startsWith("START") )
 				count++;
@@ -129,7 +137,7 @@ bool FlowCodeDocument::isValidItem( Item *item )
 	else if ( item->id().startsWith("PPEND") )
 	{
 		int count = 0;
-		for ( ItemList::iterator it = m_itemList.begin(); it != ciEnd; ++it )
+		for ( ItemMap::iterator it = m_itemList.begin(); it != ciEnd; ++it )
 		{
 			if ( (*it)->id().startsWith("PPEND") )
 				count++;
@@ -175,7 +183,7 @@ void FlowCodeDocument::convertToMicrobe()
 {
 	OutputMethodDlg *dlg = new OutputMethodDlg( i18n("Microbe Code Output"), url(), false, activeView() );
 	dlg->setOutputExtension(".microbe");
-	dlg->setFilter("*.microbe|Microbe (*.microbe)\n*|All Files");
+	dlg->setFilter( QString("*.microbe|Microbe (*.microbe)\n*|%1").arg(i18n("All Files")) );
 	dlg->exec();
 	if (!dlg->isAccepted())
 	{
@@ -197,7 +205,7 @@ void FlowCodeDocument::convertToAssembly()
 {
 	OutputMethodDlg *dlg = new OutputMethodDlg( i18n("Assembly Code Output"), url(), false, activeView() );
 	dlg->setOutputExtension(".asm");
-	dlg->setFilter("*.asm *.src *.inc|Assembly Code (*.asm, *.src, *.inc)\n*|All Files");
+	dlg->setFilter( QString("*.asm *.src *.inc|%1 (*.asm, *.src, *.inc)\n*|%2").arg(i18n("Assembly Code")).arg(i18n("All Files")) );
 	dlg->exec();
 	if (!dlg->isAccepted())
 	{
@@ -217,9 +225,9 @@ void FlowCodeDocument::convertToAssembly()
 
 void FlowCodeDocument::convertToHex()
 {
-	OutputMethodDlg *dlg = new OutputMethodDlg( i18n("Hex Code Output"), url(), false, (QWidget*)p_ktechlab );
+	OutputMethodDlg *dlg = new OutputMethodDlg( i18n("Hex Code Output"), url(), false, KTechlab::self() );
 	dlg->setOutputExtension(".hex");
-	dlg->setFilter("*.hex|Hex (*.hex)\n*|All Files");
+	dlg->setFilter( QString("*.hex|Hex (*.hex)\n*|%1").arg(i18n("All Files")) );
 	dlg->exec();
 	if (!dlg->isAccepted())
 	{
@@ -239,7 +247,7 @@ void FlowCodeDocument::convertToHex()
 
 void FlowCodeDocument::convertToPIC()
 {
-	ProgrammerDlg * dlg = new ProgrammerDlg( microSettings()->microInfo()->id(), (QWidget*)p_ktechlab, "Programmer Dlg" );
+	ProgrammerDlg * dlg = new ProgrammerDlg( microSettings()->microInfo()->id(), (QWidget*)KTechlab::self(), "Programmer Dlg" );
 	dlg->exec();
 	if ( !dlg->isAccepted() )
 	{
@@ -289,10 +297,10 @@ void FlowCodeDocument::varNameChanged( const QString &newValue, const QString &o
 	}
 	
 	// Tell all FlowParts to update their variable lists
-	const ItemList::iterator end = m_itemList.end();
-	for ( ItemList::iterator it = m_itemList.begin(); it != end; ++it )
+	const ItemMap::iterator end = m_itemList.end();
+	for ( ItemMap::iterator it = m_itemList.begin(); it != end; ++it )
 	{
-		if ( FlowPart *flowPart = dynamic_cast<FlowPart*>((Item*)(*it)) ) 
+		if ( FlowPart *flowPart = dynamic_cast<FlowPart*>(*it) ) 
 			flowPart->updateVarNames();
 	}
 }

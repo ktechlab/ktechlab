@@ -35,7 +35,7 @@
 #include "gpsim/ioports.h"
 #include "gpsim/pic-processor.h"
 
-const QString _def_PICComponent_fileName = i18n("<Enter location of PIC Program>");
+QString PICComponent::_def_PICComponent_fileName = QString::null;
 
 
 Item* PICComponent::construct( ItemDocument *itemDocument, bool newItem, const char *id )
@@ -43,11 +43,12 @@ Item* PICComponent::construct( ItemDocument *itemDocument, bool newItem, const c
 	return new PICComponent( (ICNDocument*)itemDocument, newItem, id );
 }
 
+
 LibraryItem* PICComponent::libraryItem()
 {
 	QStringList IDs;
 	IDs << "ec/pic" << "ec/picitem" << "ec/picitem_18pin";
-
+	
 	return new LibraryItem(
 		IDs,
 		"PIC",
@@ -61,33 +62,20 @@ PICComponent::PICComponent( ICNDocument *icnDocument, bool newItem, const char *
 	: Component( icnDocument, newItem, id ? id : "pic" )
 {
 	m_name = i18n("PIC Micro");
-	m_desc = i18n("The PIC component allows the simulation of a PIC program.<br><br>"
-			"The loadable PIC program must be one of the following formats:"
-			"<ul><li>Assembly (.asm)</li>"
-			"<li>FlowCode (.flowcode)</li>"
-			"<li>Symbol file (.cod)</li>"
-			"<li>Microbe (.microbe, .basic)</li>"
-			"<li>C source (.c)</li></ul>"
-			"Doubleclick on the PIC component to open up the program source file.<br><br>"
-			"If the program source file is of type assembly, then the the opened text file will automatically be linked to the simulation. "
-			"You can control the program from the text document using the debug controls.<br><br>"
-			"Explanation of buttons:"
-			"<ul><li>Play - Run the PIC program from the point at which it was paused, or from the start otherwise.</li>"
-			"<li>Pause - Pause the simulation at the current execution point.</li>"
-			"<li>Stop - Reset all parts of the simulation.</li>"
-			"<li>Reload - Reread the PIC program from disk and restart gpsim.</li></ul>");
+	
+	if ( _def_PICComponent_fileName.isEmpty() )
+		_def_PICComponent_fileName = i18n("<Enter location of PIC Program>");
 	
 	m_bCreatedInitialPackage = false;
 	m_bLoadingProgram = false;
-	m_pGpsim = 0;
+	m_pGpsim = 0L;
 	
 	addButton( "run", QRect(), KGlobal::iconLoader()->loadIcon( "player_play", KIcon::Small ) );
 	addButton( "pause", QRect(), KGlobal::iconLoader()->loadIcon( "player_pause", KIcon::Small ) );
 	addButton( "reset", QRect(), KGlobal::iconLoader()->loadIcon( "stop", KIcon::Small ) );
 	addButton( "reload", QRect(), KGlobal::iconLoader()->loadIcon( "reload", KIcon::Small ) );
 	
-	if ( icnDocument->ktechlab() )
-		connect( icnDocument->ktechlab(), SIGNAL(recentFileAdded(const KURL &)), this, SLOT(slotUpdateFileList()) );
+	connect( KTechlab::self(), SIGNAL(recentFileAdded(const KURL &)), this, SLOT(slotUpdateFileList()) );
 	
 	connect( ProjectManager::self(),	SIGNAL(projectOpened()),		this, SLOT(slotUpdateFileList()) );
 	connect( ProjectManager::self(),	SIGNAL(projectClosed()),		this, SLOT(slotUpdateFileList()) );
@@ -98,7 +86,15 @@ PICComponent::PICComponent( ICNDocument *icnDocument, bool newItem, const char *
 	
 	createProperty( "program", Variant::Type::FileName );
 	property("program")->setCaption( i18n("Program") );
-	property("program")->setFilter("*.flowcode *.asm *.cod *.basic|All Supported Files\n*.flowcode|FlowCode (*.flowcode)\n*.cod|Symbol File (*.cod)\n*.asm|Assembly Code (*.asm)\n*.basic *.microbe|Microbe (*.basic, *.microbe)\n*.c|C (*.c)*|All Files");
+	QString filter;
+	filter = QString("*.flowcode *.asm *.cod *.basic|%1").arg(i18n("All Supported Files"));
+	filter += QString("\n*.flowcode|FlowCode (*.flowcode)");
+	filter += QString("\n*.cod|%1 (*.cod)").arg(i18n("Symbol File"));
+	filter += QString("\n*.asm|%1 (*.asm)").arg(i18n("Assembly Code"));
+	filter += QString("\n*.basic *.microbe|Microbe (*.basic, *.microbe)");
+	filter += QString("\n*.c|C (*.c)");
+	filter += QString("\n*|%1").arg(i18n("All Files"));
+	property("program")->setFilter( filter );
 	
 	// Used for restoring the pins on file loading before we have had a change
 	// to compile the PIC program
@@ -111,13 +107,15 @@ PICComponent::PICComponent( ICNDocument *icnDocument, bool newItem, const char *
 	
 	// This to allow loading of the PIC component from pre-0.3 files (which didn't set a
 	// "lastPackage" property).
-	if ( !newItem ) property("lastPackage")->setValue("P16F84");
-
+	if ( !newItem )
+		property("lastPackage")->setValue("P16F84");
+	
 	slotUpdateFileList();
 	slotUpdateBtns();
-
+	
 	initPackage( 0 );
 }
+
 
 PICComponent::~PICComponent()
 {
@@ -125,40 +123,45 @@ PICComponent::~PICComponent()
 	delete m_pGpsim;
 }
 
+
 void PICComponent::dataChanged()
 {
 	initPIC(false);
 }
 
+
 void PICComponent::initPIC( bool forceReload )
 {
-	if(!m_bCreatedInitialPackage) {
+	if ( !m_bCreatedInitialPackage )
+	{
 		// We are still being created, so other connectors will be expecting us to
 		// have grown pins soonish.
 		MicroInfo * microInfo = MicroLibrary::self()->microInfoWithID( dataString("lastPackage") );
 		if ( microInfo )
 			initPackage( microInfo );
 	}
-
+	
 	QString newProgram = KURL( dataString("program") ).path();
 	bool newFile = (m_picFile != newProgram);
-	if ( !newFile && !forceReload ) return;
-
+	if ( !newFile && !forceReload )
+		return;
+	
 	delete m_pGpsim;
-	m_pGpsim = 0;
-
-	switch(GpsimProcessor::isValidProgramFile(newProgram)) {
+	m_pGpsim = 0L;
+	
+	switch ( GpsimProcessor::isValidProgramFile(newProgram) )
+	{
 		case GpsimProcessor::DoesntExist:
 			if ( newProgram == _def_PICComponent_fileName && !newProgram.isEmpty() )
 				break;
-			KMessageBox::sorry( 0, i18n("The file \"%1\" does not exist.").arg( newProgram ) );
+			KMessageBox::sorry( 0l, i18n("The file \"%1\" does not exist.").arg( newProgram ) );
 			m_picFile = QString::null;
 			break;
 			
 		case GpsimProcessor::IncorrectType:
 			if ( newProgram == _def_PICComponent_fileName && !newProgram.isEmpty() )
 				break;
-			KMessageBox::sorry( 0, i18n("\"%1\" is not a valid PIC program.\nThe file must exist, and the extension should be \".cod\", \".asm\", \".flowcode\", \".basic\", \".microbe\" or \".c\".\n\".hex\" is allowed, provided that there is a corresponding \".cod\" file.").arg(newProgram) );
+			KMessageBox::sorry( 0L, i18n("\"%1\" is not a valid PIC program.\nThe file must exist, and the extension should be \".cod\", \".asm\", \".flowcode\", \".basic\", \".microbe\" or \".c\".\n\".hex\" is allowed, provided that there is a corresponding \".cod\" file.").arg(newProgram) );
 			m_picFile = QString::null;
 			break;
 			
@@ -183,11 +186,12 @@ void PICComponent::deletePICComponentPins()
 
 void PICComponent::initPackage( MicroInfo * microInfo )
 {
-	MicroPackage * microPackage = microInfo ? microInfo->package() : 0;
+	MicroPackage * microPackage = microInfo ? microInfo->package() : 0l;
 	
-	if ( microPackage ) {
+	if ( microPackage )
+	{
 		m_bCreatedInitialPackage = true;
-
+		
 		//BEGIN Get pin IDs
 		QStringList allPinIDs = microPackage->pinIDs();
 		QStringList ioPinIDs = microPackage->pinIDs( PicPin::type_bidir | PicPin::type_input | PicPin::type_open );
@@ -200,7 +204,8 @@ void PICComponent::initPackage( MicroInfo * microInfo )
 				*it = "";
 		}
 		//END Get pin IDs
-
+	
+	
 		//BEGIN Remove old stuff
 		// Remove old text
 		TextMap textMapCopy = m_textMap;
@@ -212,9 +217,9 @@ void PICComponent::initPackage( MicroInfo * microInfo )
 		deletePICComponentPins();
 	
 		// Remove old nodes
-		NodeMap nodeMapCopy = m_nodeMap;
-		const NodeMap::iterator nodeMapEnd = nodeMapCopy.end();
-		for ( NodeMap::iterator it = nodeMapCopy.begin(); it != nodeMapEnd; ++it )
+		NodeInfoMap nodeMapCopy = m_nodeMap;
+		const NodeInfoMap::iterator nodeMapEnd = nodeMapCopy.end();
+		for ( NodeInfoMap::iterator it = nodeMapCopy.begin(); it != nodeMapEnd; ++it )
 		{
 			if ( !ioPinIDs.contains(it.key()) )
 				removeNode( it.key() );
@@ -222,7 +227,9 @@ void PICComponent::initPackage( MicroInfo * microInfo )
 	
 		removeElements();
 		//END Remove old stuff
-
+	
+	
+	
 		//BEGIN Create new stuff
 		initDIPSymbol( allPinIDs, 80 );
 		initDIP(allPinIDs);
@@ -232,15 +239,19 @@ void PICComponent::initPackage( MicroInfo * microInfo )
 		for ( PicPinMap::iterator it = picPinMap.begin(); it != picPinMapEnd; ++it )
 			m_picComponentPinMap[it.key()] = new PICComponentPin( this, it.data() );
 		//END Create new stuff
-
+	
+	
 		removeDisplayText( "no_file" );
 		addDisplayText( "picid", QRect(offsetX(), offsetY()-16, width(), 16), microInfo->id() );
-	} else {
+	}
+	else
+	{
 		setSize( -48, -72, 96, 144 );
 		removeDisplayText( "picid" );
 		addDisplayText( "no_file", sizeRect(), i18n("(No\nprogram\nloaded)") );
 	}
-
+	
+	
 	//BEGIN Update button positions
 	int leftpos = (width()-88)/2+offsetX();
 	button("run")->setOriginalRect( QRect( leftpos, height()+4+offsetY(), 20, 20 ) );
@@ -251,32 +262,34 @@ void PICComponent::initPackage( MicroInfo * microInfo )
 	//END Update button positions
 }
 
+
 void PICComponent::attachPICComponentPins()
 {
-	if(!m_pGpsim || !m_pGpsim->picProcessor()) return;
-
+	if ( !m_pGpsim || !m_pGpsim->picProcessor() )
+		return;
+	
 	pic_processor * picProcessor = m_pGpsim->picProcessor();
-
+	
 	const PICComponentPinMap::iterator end = m_picComponentPinMap.end();
 	for ( PICComponentPinMap::iterator it = m_picComponentPinMap.begin(); it != end; ++it )
 		it.data()->attach( picProcessor->get_pin( it.key() ) );
 }
 
+
 void PICComponent::slotUpdateFileList()
 {
-	QStringList preFileList;
-	if ( p_icnDocument && p_icnDocument->ktechlab() )
-		preFileList += p_icnDocument->ktechlab()->recentFiles();
-
+	QStringList preFileList = KTechlab::self()->recentFiles();
+	
 	QStringList fileList;
-
-	if(ProjectInfo * info = ProjectManager::self()->currentProject()) {
+	 
+	if ( ProjectInfo * info = ProjectManager::self()->currentProject() )
+	{
 		const KURL::List urls = info->childOutputURLs( ProjectItem::AllTypes, ProjectItem::ProgramOutput );
 		KURL::List::const_iterator urlsEnd = urls.end();
 		for ( KURL::List::const_iterator it = urls.begin(); it != urlsEnd; ++it )
 			fileList << (*it).path();
 	}
-
+	
 	const QStringList::iterator end = preFileList.end();
 	for ( QStringList::iterator it = preFileList.begin(); it != end; ++it )
 	{
@@ -285,9 +298,9 @@ void PICComponent::slotUpdateFileList()
 			fileList.append(file);
 		}
 	}
-
+	
 	QString fileName = dataString("program");
-
+	
 	property("program")->setAllowed(fileList);
 	property("program")->setValue( fileName.isEmpty() ? _def_PICComponent_fileName : fileName );
 }
@@ -295,37 +308,46 @@ void PICComponent::slotUpdateFileList()
 
 void PICComponent::buttonStateChanged( const QString &id, bool state )
 {
-	if (!state) return;
+	if (!state)
+		return;
 	
-	if ( id == "reload" ) {
+	if ( id == "reload" )
+	{
 		programReload();
 		return;
 	}
 
-	if (!m_pGpsim) return;
-
-	if ( id == "run" ) m_pGpsim->setRunning(true);
-	else if ( id == "pause" ) m_pGpsim->setRunning(false);
-	else if ( id == "reset" ) {
+	if (!m_pGpsim)
+		return;
+	
+	if ( id == "run" )
+		m_pGpsim->setRunning(true);
+	
+	else if ( id == "pause" )
+		m_pGpsim->setRunning(false);
+	
+	else if ( id == "reset" )
+	{
 		m_pGpsim->reset();
-
+		
 		// Set all pin outputs to low
 		const PICComponentPinMap::iterator end = m_picComponentPinMap.end();
 		for ( PICComponentPinMap::iterator it = m_picComponentPinMap.begin(); it != end; ++it )
 			it.data()->resetOutput();
 	}
-
+	
 	slotUpdateBtns();
 }
+
 
 bool PICComponent::mouseDoubleClickEvent ( const EventInfo &eventInfo )
 {
 	Q_UNUSED(eventInfo);
 	if ( m_picFile.isEmpty() || (m_picFile == _def_PICComponent_fileName) )
 		return false;
-
+	
 	(void) DocManager::self()->openURL(m_picFile);
-
+	
 	return true;
 }
 
@@ -334,7 +356,7 @@ QString PICComponent::createSymbolFile()
 {
 	m_bLoadingProgram = true;
 	slotUpdateBtns();
-
+	
 	return GpsimProcessor::generateSymbolFile( dataString("program"), this, SLOT(slotCODCreationSucceeded()), SLOT(slotCODCreationFailed()) );
 }
 
@@ -342,25 +364,30 @@ QString PICComponent::createSymbolFile()
 void PICComponent::slotCODCreationSucceeded()
 {
 	m_bLoadingProgram = false;
-
+	
 	delete m_pGpsim;
 	m_pGpsim = new GpsimProcessor(m_symbolFile);
-
-	if ( m_pGpsim->codLoadStatus() == GpsimProcessor::CodSuccess ) {
+	
+	if ( m_pGpsim->codLoadStatus() == GpsimProcessor::CodSuccess )
+	{
 		MicroInfo * microInfo = m_pGpsim->microInfo();
 		property("lastPackage")->setValue( microInfo->id() );
 		initPackage( microInfo );
 		
 		connect( m_pGpsim, SIGNAL(runningStatusChanged(bool )), this, SLOT(slotUpdateBtns()) );
 		attachPICComponentPins();
-	} else {
+	}
+	
+	else
+	{
 		m_pGpsim->displayCodLoadStatus();
 		delete m_pGpsim;
-		m_pGpsim = 0;
+		m_pGpsim = 0l;
 	}
 	
 	slotUpdateBtns();
 }
+
 
 void PICComponent::slotCODCreationFailed()
 {
@@ -368,13 +395,14 @@ void PICComponent::slotCODCreationFailed()
 	slotUpdateBtns();
 }
 
+
 void PICComponent::programReload()
 {
 	delete m_pGpsim;
-	m_pGpsim = 0;
-
+	m_pGpsim = 0L;
+	
 	initPIC(true);
-
+	
 	slotUpdateBtns();
 }
 
