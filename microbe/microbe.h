@@ -97,6 +97,9 @@ class Microbe
 		Microbe();
 		~Microbe();
 		
+		static Microbe * self() { return m_pSelf; }
+		PIC14 * mainPIC() const { return m_pMainPIC; }
+		
 		enum MistakeType
 		{
 			UnknownStatement = 1,
@@ -242,6 +245,11 @@ class Microbe
 		 * @see PIC14::Type
 		 */
 		int m_picType;
+		
+		PIC14 * m_pMainPIC;
+		
+	private:
+		static Microbe * m_pSelf;
 };
 
 

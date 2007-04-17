@@ -1,0 +1,54 @@
+<!DOCTYPE KTechlab>
+<document type="circuit" >
+ <item x="444" y="132" z="7" type="ec/ammeter" id="ammeter" flip="0" angle="0" >
+  <data value="0.001" type="number" id="0-minValue" />
+  <data value="1000" type="number" id="1-maxValue" />
+ </item>
+ <item x="28" y="132" z="0" type="ec/fixed_voltage" id="fixed_voltage" flip="0" angle="0" >
+  <data value="12" type="number" id="voltage" />
+ </item>
+ <item x="516" y="188" z="8" type="ec/ground" id="ground" flip="0" angle="270" />
+ <item x="300" y="60" z="1" type="ec/resistor" id="resistor" flip="0" angle="0" >
+  <data value="1" type="number" id="resistance" />
+ </item>
+ <item x="284" y="228" z="3" type="ec/resistor" id="resistor__23" flip="0" angle="0" >
+  <data value="4" type="number" id="resistance" />
+ </item>
+ <item x="292" y="140" z="5" type="ec/resistor" id="resistor__32" flip="0" angle="0" >
+  <data value="2" type="number" id="resistance" />
+ </item>
+ <item x="212" y="52" z="2" type="ec/spdt_toggle" id="spdt_toggle" flip="0" angle="0" >
+  <data value="1 Ω" type="string" id="button_text" />
+  <data value="0.005" type="number" id="bounce_period" />
+  <data value="0" type="bool" id="bounce" />
+  <button id="button" state="0" />
+ </item>
+ <item x="212" y="220" z="4" type="ec/spdt_toggle" id="spdt_toggle__24" flip="0" angle="0" >
+  <data value="4Ω " type="string" id="button_text" />
+  <data value="0.005" type="number" id="bounce_period" />
+  <data value="0" type="bool" id="bounce" />
+  <button id="button" state="0" />
+ </item>
+ <item x="212" y="132" z="6" type="ec/spdt_toggle" id="spdt_toggle__33" flip="0" angle="0" >
+  <data value="2 Ω" type="string" id="button_text" />
+  <data value="0.005" type="number" id="bounce_period" />
+  <data value="0" type="bool" id="bounce" />
+  <button id="button" state="0" />
+ </item>
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1" route="38,28,39,28,40,28,41,28,42,28,43,28,44,28,45,28,46,28,47,28,48,28,49,28,50,28,51,28,51,27,51,26,51,25,51,24,51,23,51,22,51,21,51,20,51,19,51,18,51,17," start-node-parent="resistor__23" start-node-cid="p1" id="connector__102" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="ammeter" route="40,7,41,7,42,7,43,7,44,7,45,7,46,7,47,7,48,7,49,7,50,7,51,7,51,8,51,9,51,10,51,11,51,12,51,13,51,14,51,15,51,16,52,16," end-node-cid="n1" start-node-parent="resistor" start-node-cid="p1" id="connector__104" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__105" route="5,16,6,16,7,16,8,16,9,16,10,16,11,16,12,16,13,16,14,16,15,16,16,16," start-node-parent="fixed_voltage" start-node-cid="p1" id="connector__106" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__105" route="23,27,22,27,21,27,20,27,19,27,18,27,17,27,16,27,16,26,16,25,16,24,16,23,16,22,16,21,16,20,16,19,16,18,16,17,16,16," start-node-parent="spdt_toggle__24" start-node-cid="n1" id="connector__107" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="0" end-node-id="node1__86" start-node-id="node1__105" route="16,16,17,16,18,16,19,16,20,16," id="connector__108" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="spdt_toggle" route="34,7,33,7,32,7,31,7,30,7,29,7," end-node-cid="p2" start-node-parent="resistor" start-node-cid="n1" id="connector__41" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="spdt_toggle__33" route="33,17,32,17,31,17,30,17,29,17," end-node-cid="p2" start-node-parent="resistor__32" start-node-cid="n1" id="connector__43" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="spdt_toggle__24" route="32,28,31,28,30,28,29,28," end-node-cid="p2" start-node-parent="resistor__23" start-node-cid="n1" id="connector__62" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="ground" route="58,16,59,16,60,16,61,16,62,16,63,16,64,16,64,17,64,18,64,19,64,20,64,21," end-node-cid="p1" start-node-parent="ammeter" start-node-cid="p1" id="connector__69" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1" route="52,16,51,16,51,17," start-node-parent="ammeter" start-node-cid="n1" id="connector__76" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node1" end-node-parent="resistor__32" route="51,17,50,17,49,17,48,17,47,17,46,17,45,17,44,17,43,17,42,17,41,17,40,17,39,17," end-node-cid="p1" id="connector__77" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__86" route="23,6,22,6,21,6,20,6,20,7,20,8,20,9,20,10,20,11,20,12,20,13,20,14,20,15,20,16," start-node-parent="spdt_toggle" start-node-cid="n1" id="connector__87" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__86" route="23,16,22,16,21,16,20,16," start-node-parent="spdt_toggle__33" start-node-cid="n1" id="connector__88" end-node-is-child="0" />
+ <node x="412" y="140" id="node1" />
+ <node x="132" y="132" id="node1__105" />
+ <node x="164" y="132" id="node1__86" />
+</document>

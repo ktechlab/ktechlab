@@ -14,8 +14,14 @@
 #include <qobject.h>
 #include <qvariant.h>
 
+/// \todo Replace "Variant" with "Property"
+class Variant;
+typedef Variant Property;
+
 class QColor;
 class QString;
+
+typedef QMap< QString, QString > QStringMap;
 
 /**
 For information:
@@ -39,6 +45,7 @@ public:
 				Double, // Real number
 				String, // Editable string
 				Multiline, // String that may contain linebreaks
+				RichText, // HTML formatted text
 				Select, // Selection of strings
 				Combo, // Editable combination of strings
 				FileName, // Filename
@@ -54,8 +61,10 @@ public:
 			};
 	};
 	
-	Variant( Type::Value type );
+	Variant( const QString & id, Type::Value type );
 	virtual ~Variant();
+	
+	QString id() const { return m_id; }
 	
 	/**
 	 * Returns the type of Variant (see Variant::Type::Value)
@@ -116,7 +125,6 @@ public:
 	double minAbsValue() const { return m_minAbsValue; }
 	void setMinAbsValue( double val );
 	QVariant defaultValue() const { return m_defaultValue; }
-	void setDefaultValue( QVariant val );
 	/**
 	 * If this data is marked as advanced, it will only display in the item
 	 * editor (and not in the toolbar)
@@ -136,14 +144,22 @@ public:
 	QString displayString() const;
 	/**
 	 * The list of values that the data is allowed to take (if it is string)
+	 * that is displayed to the user.
 	 */
-	QStringList allowed() const { return m_allowed; }
-	void setAllowed(QStringList stringList);
-	void appendAllowed(QString string);
-	
+	QStringList allowed() const { return m_allowed.values(); }
+	/**
+	 * @param allowed A list of pairs of (id, i18n-name) of allowed values.
+	 */
+	void setAllowed( const QStringMap & allowed ) { m_allowed = allowed; }
+	void setAllowed( const QStringList & allowed );
+	void appendAllowed( const QString & id, const QString & i18nName );
+	void appendAllowed( const QString & allowed );
+	/**
+	 * @return whether the current value is different to the default value.
+	 */
+	bool changed() const;
 	QVariant value() const { return m_value; }
-	void setValue( const QVariant& val );
-	void resetToDefault();
+	void setValue( QVariant val );
 	
 signals:
 	/**
@@ -153,11 +169,32 @@ signals:
 	 * have to accept it
 	 */
 	void valueChanged( QVariant newValue, QVariant oldValue );
+	/**
+	 * Emitted for variants of string-like type.
+	 */
+	void valueChanged( const QString & newValue );
+	/**
+	 * Emitted for variants of int-like type.
+	 */
+	void valueChanged( int newValue );
+	/**
+	 * Emitted for variants of double-like type.
+	 */
+	void valueChanged( double newValue );
+	/**
+	 * Emitted for variants of color-like type.
+	 */
+	void valueChanged( const QColor & newValue );
+	/**
+	 * Emitted for variants of bool-like type.
+	 */
+	void valueChanged( bool newValue );
 
 private:
 	QVariant m_value; // the actual data
 	QVariant m_defaultValue;
 	QString m_unit;
+	const QString m_id;
 	double m_minAbsValue;
 	double m_minValue;
 	double m_maxValue;
@@ -168,7 +205,7 @@ private:
 	QString m_filter; // If type() == Type::FileName this is the filter used in file dialogs.
 	bool m_bSetDefault; // If false, then the default will be set to the first thing this variant is set to
 	Type::Value m_type;
-	QStringList m_allowed;
+	QStringMap m_allowed;
 	int m_colorScheme;
 };
 

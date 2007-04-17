@@ -35,7 +35,6 @@ Interrupt::Interrupt( ICNDocument *icnDocument, bool newItem, const char *id )
 	: FlowContainer( icnDocument, newItem, id ? id : "interrupt" )
 {
 	m_name = i18n("Interrupt");
-	m_desc = i18n("Defines the starting point of a interrupt handler.");
 	
 	QStringList interruptTypes;
 	interruptTypes.append("changed");

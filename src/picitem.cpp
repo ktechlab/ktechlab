@@ -53,12 +53,6 @@ PinItem::PinItem( FlowCodeDocument* _view, QPoint position, bool _onLeft, PinSet
 }
 
 
-int PinItem::rtti() const
-{
-	return ItemDocument::RTTI::Pin;
-}
-
-
 void PinItem::updateDrawing()
 {
 	update();
@@ -356,7 +350,7 @@ void PicItem::buttonStateChanged( const QString &id, bool state )
 		button("settings")->setState(false);
 		update();
 	
-		MicroSettingsDlg *dlg = new MicroSettingsDlg( microSettings, 0, "microSettingsDlg" );
+		MicroSettingsDlg *dlg = new MicroSettingsDlg( microSettings, 0L, "microSettingsDlg" );
 		connect( dlg, SIGNAL(okClicked()), this, SLOT(slotMicroSettingsDlgAccepted()) );
 		connect( dlg, SIGNAL(applyClicked()), this, SLOT(slotMicroSettingsDlgAccepted()) );
 		dlg->show();

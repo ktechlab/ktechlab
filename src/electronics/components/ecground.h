@@ -20,7 +20,7 @@
 class ECGround : public Component
 {
 public:
-	ECGround( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	ECGround( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ECGround();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

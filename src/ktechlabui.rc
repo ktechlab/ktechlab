@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KTechlab" version="7">
+<kpartgui name="KTechlab" version="10">
 	<MenuBar>
 		<Menu name="file">
 			<text>&amp;File</text>
@@ -37,6 +37,34 @@
 		
 		<DefineGroup name="bookmarks_merge"/>
 		<DefineGroup name="debug_merge"/>
+		
+		<Menu name="help">
+			<text>&amp;Help</text>
+			<Menu name="examples">
+				<text>Examples</text>
+				<Menu name="examples_555">
+					<text>555s</text>
+				</Menu>
+				<Menu name="examples_basic">
+					<text>Basic</text>
+				</Menu>
+				<Menu name="examples_diodes">
+					<text>Diodes</text>
+				</Menu>
+				<Menu name="examples_jfets">
+					<text>JFETs</text>
+				</Menu>
+				<Menu name="examples_mosfets">
+					<text>MOSFETs</text>
+				</Menu>
+				<Menu name="examples_transistors">
+					<text>Transistors</text>
+				</Menu>
+				<Menu name="examples_opamps">
+					<text>Opamps</text>
+				</Menu>
+			</Menu>
+		</Menu>
 	</MenuBar>
 	
 	<!-- When there is no project open -->
@@ -114,7 +142,6 @@
 		<Separator/>
 		<ActionList name="alignment_actionlist"/>
 		<ActionList name="orientation_actionlist"/>
-		<ActionList name="component_actionlist"/>
 	</Menu>
 	
 	<Menu name="ktexteditor_popup">

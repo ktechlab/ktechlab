@@ -35,10 +35,8 @@ double ElementSignal::advance()
 {
 	m_time += m_delta;
 	if ( m_time >= 1./m_frequency ) m_time -= 1./m_frequency;
-
-	// TODO: Compute the phase angle in radians.
-
-	switch (m_type)  // TODO would function pointers be faster? 
+	
+	switch (m_type)
 	{
 		case ElementSignal::st_sawtooth:
 		{
@@ -57,7 +55,6 @@ double ElementSignal::advance()
 		case ElementSignal::st_sinusoidal:
 		default:
 		{
-			// TODO: convert to phase angle version.
 			return sin(m_time*m_omega);
 		}
 	}

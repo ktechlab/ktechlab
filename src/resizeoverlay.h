@@ -13,7 +13,7 @@
 
 // This file contains class definitions for different types of resizing and rotating
 
-#include <qcanvas.h>
+#include <canvas.h>
 #include <qguardedptr.h>
 #include <qmap.h>
 #include <qobject.h>
@@ -79,7 +79,6 @@ public:
 	~ResizeHandle();
 	
 	int id() const { return m_id; }
-	int rtti() const;
 	
 	void setDrawType( DrawType drawType );
 	void moveRH( double x, double y );
@@ -229,7 +228,7 @@ public:
 	 * then *ok is set to false; otherwise to true.
 	 * @returns the sizerect, regardless of whether or not it is valid
 	 */
-	QRect getSizeRect( bool *ok = 0, bool *widthOk = 0, bool *heightOk = 0 ) const;
+	QRect getSizeRect( bool *ok = 0l, bool *widthOk = 0l, bool *heightOk = 0l ) const;
 	virtual bool isValidXPos( ResizeHandle *rh );
 	virtual bool isValidYPos( ResizeHandle *rh );
 	

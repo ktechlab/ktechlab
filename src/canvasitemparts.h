@@ -11,7 +11,7 @@
 #ifndef CANVASITEMPARTS_H
 #define CANVASITEMPARTS_H
 
-#include <qcanvas.h>
+#include <canvas.h>
 #include <qguardedptr.h>
 #include <qslider.h>
 #include <qtoolbutton.h>
@@ -132,8 +132,6 @@ class Widget : public GuiPart
 		Widget( const QString & id, CNItem *parent, const QRect & r, QCanvas * canvas );
 		~Widget();
 		
-		virtual int rtti() const;
-		
 		virtual QWidget *widget() const = 0;
 		QString id() const { return m_id; }
 		
@@ -184,8 +182,8 @@ class ToolButton : public QToolButton
 		virtual void mouseDoubleClickEvent ( QMouseEvent *e ) { QToolButton::mouseDoubleClickEvent(e); }
 		virtual void mouseMoveEvent( QMouseEvent *e ) { QToolButton::mouseMoveEvent(e); }
 		virtual void wheelEvent( QWheelEvent *e ) { QToolButton::wheelEvent(e); }
-		virtual void enterEvent() { QToolButton::enterEvent(0); }
-		virtual void leaveEvent() { QToolButton::leaveEvent(0); }
+		virtual void enterEvent() { QToolButton::enterEvent(0l); }
+		virtual void leaveEvent() { QToolButton::leaveEvent(0l); }
 		
 		void setAngleDegrees( int angleDegrees ) { m_angleDegrees = angleDegrees; }
 		
@@ -247,8 +245,8 @@ class SliderWidget : public QSlider
 		virtual void mouseDoubleClickEvent ( QMouseEvent *e ) { QSlider::mouseDoubleClickEvent(e); }
 		virtual void mouseMoveEvent( QMouseEvent *e ) { QSlider::mouseMoveEvent(e); }
 		virtual void wheelEvent( QWheelEvent *e ) { QSlider::wheelEvent(e); }
-		virtual void enterEvent() { QSlider::enterEvent(0); }
-		virtual void leaveEvent() { QSlider::leaveEvent(0); }
+		virtual void enterEvent() { QSlider::enterEvent(0l); }
+		virtual void leaveEvent() { QSlider::leaveEvent(0l); }
 };
 	
 	
@@ -283,6 +281,7 @@ class Slider : public Widget
 		void slotValueChanged( int value );
 		
 	private:
+		bool m_bSliderInverted; ///< In some orientations, the slider is reflected
 		SliderWidget *m_slider;
 		Orientation m_orientation;
 };

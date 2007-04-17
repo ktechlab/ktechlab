@@ -353,8 +353,8 @@ bool PicProgrammerSettings::isPredefined( const QString & name ) const
 
 
 //BEGIN class PicProgrammer
-PicProgrammer::PicProgrammer( ProcessChain *processChain, KTechlab * parent )
-	: ExternalLanguage( processChain, parent, "PicProgrammer" )
+PicProgrammer::PicProgrammer( ProcessChain *processChain )
+	: ExternalLanguage( processChain, "PicProgrammer" )
 {
 	m_successfulMessage = i18n("*** Programming successful ***");
 	m_failedMessage = i18n("*** Programming failed ***");

@@ -39,10 +39,8 @@ BinaryCounter::BinaryCounter( ICNDocument *icnDocument, bool newItem, const char
 	: Component( icnDocument, newItem, id ? id : "binary_counter" )
 {
 	m_name = i18n("Binary Counter");
-	m_desc = i18n("Holds an internal count, which changes when the clock input <i>&gt;</i> pin is pulsed.<br><br>"
-				  "Normal operation: <i>en</i> (Enable) and <i>u/d</i> (Up/Down) are held high, <i>r</i> (Reset) is low.");
 
-	enLogic = inLogic = rLogic = udLogic = 0;
+	enLogic = inLogic = rLogic = udLogic = 0L;
 	
 	b_reset = false;
 	b_triggerHigh = true;
@@ -56,8 +54,11 @@ BinaryCounter::BinaryCounter( ICNDocument *icnDocument, bool newItem, const char
 	
 	createProperty( "trig", Variant::Type::Select );
 	property("trig")->setCaption( i18n("Trigger Edge") );
-	property("trig")->setAllowed( QStringList::split( ',', "Rising,Falling" ) );
-	property("trig")->setValue("Rising");
+	QStringMap allowed;
+	allowed["Rising"] = i18n("Rising");
+	allowed["Falling"] = i18n("Falling");
+	property("trig")->setAllowed( allowed );
+	property("trig")->setValue("Falling");
 	
 	createProperty( "bitcount", Variant::Type::Int );
 	property("bitcount")->setCaption( i18n("Bit Count") );
@@ -98,37 +99,43 @@ void BinaryCounter::initPins( unsigned numBits )
 	initDIPSymbol( pins, 64 );
 	initDIP(pins);
 	
-	if ( m_numBits < numBits ) {
+	if ( m_numBits < numBits )
+	{
 		for ( unsigned i = m_numBits; i < numBits; i++ )
 			m_pLogicOut[i] = createLogicOut( ecNodeWithID( QChar('A'+i) ), false );
-	} else {
-		for ( unsigned i = numBits; i < m_numBits; i++ ) {
+	}
+	else
+	{
+		for ( unsigned i = numBits; i < m_numBits; i++ )
+		{
 			QString id = QChar('A'+i);
 			removeElement( m_pLogicOut[i], false );
 			removeDisplayText(id);
 			removeNode(id);
 		}
 	}
-
+	
 	m_numBits = numBits;
 	m_maxValue = (1<<m_numBits)-1;
-
-	if (!m_bDoneLogicIn) {
+	
+	if (!m_bDoneLogicIn)
+	{
 		enLogic = createLogicIn( ecNodeWithID("en") );
 		inLogic = createLogicIn( ecNodeWithID(">") );
 		rLogic = createLogicIn( ecNodeWithID("r") );
 		udLogic = createLogicIn( ecNodeWithID("u/d") );
-
+	
 		enLogic->setCallback( this, (CallbackPtr)(&BinaryCounter::enStateChanged) );
 		inLogic->setCallback( this, (CallbackPtr)(&BinaryCounter::inStateChanged) );
 		rLogic->setCallback( this, (CallbackPtr)(&BinaryCounter::rStateChanged) );
 		udLogic->setCallback( this, (CallbackPtr)(&BinaryCounter::udStateChanged) );
-
+		
 		m_bDoneLogicIn = true;
 	}
-
+	
 	outputValue();
 }
+
 
 void BinaryCounter::inStateChanged( bool state )
 {
@@ -136,33 +143,41 @@ void BinaryCounter::inStateChanged( bool state )
 	{
 		m_value += (b_ud) ? 1 : -1;
 		
-		if ( m_value < 0 ) m_value = m_maxValue;
-		else if ( m_value > m_maxValue ) m_value = 0;
-
+		if ( m_value < 0 )
+			m_value = m_maxValue;
+		
+		else if ( m_value > m_maxValue )
+			m_value = 0;
+		
 		outputValue();
 	}
 	
 	b_oldIn = state;
 }
 
+
 void BinaryCounter::rStateChanged( bool state )
 {
 	b_reset = state;
-	if (b_reset) {
+	if (b_reset)
+	{
 		m_value = 0;
 		outputValue();
 	}
 }
+
 
 void BinaryCounter::enStateChanged( bool state )
 {
 	b_en = state;
 }
 
+
 void BinaryCounter::udStateChanged( bool state )
 {
 	b_ud = state;
 }
+
 
 void BinaryCounter::outputValue()
 {

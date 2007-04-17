@@ -21,7 +21,7 @@ of a circuit part
 class ExternalConnection : public Component
 {
 public:
-	ExternalConnection( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	ExternalConnection( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ExternalConnection();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

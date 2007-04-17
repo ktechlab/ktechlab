@@ -23,9 +23,9 @@
 
 BTreeNode::BTreeNode()
 {
-	m_parent = 0;
-	m_left = 0;
-	m_right = 0;
+	m_parent = 0L;
+	m_left = 0L;
+	m_right = 0L;
 	m_type = unset;
 }
 
@@ -43,16 +43,20 @@ BTreeNode::~BTreeNode()
 
 void BTreeNode::deleteChildren()
 {
-	if(m_left) {
+	if(m_left)
+	{
 		m_left->deleteChildren();
 		delete m_left;
-		m_left = 0;
-	} if(m_right) {
+	}
+	if(m_right)
+	{
 		m_right->deleteChildren();
 		delete m_right;
-		m_right = 0;
 	}
-
+	
+	m_left = 0L;
+	m_right = 0L;
+	
 	return;
 }
 

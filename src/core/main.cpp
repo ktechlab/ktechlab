@@ -9,7 +9,6 @@
  ***************************************************************************/
 
 #include "ktechlab.h"
-#include "config.h"
 
 #include <dcopclient.h>
 #include <kaboutdata.h>
@@ -21,6 +20,8 @@
 static const char description[] =
     I18N_NOOP("An IDE for microcontrollers and electronics");
 
+static const char version[] = "0.3";
+
 static KCmdLineOptions options[] =
 {
     { "+[URL]", I18N_NOOP( "Document to open." ), 0 },
@@ -30,9 +31,7 @@ static KCmdLineOptions options[] =
 
 int main(int argc, char **argv)
 {
-/* FIXME: should use package names found in config.h provided by autoconf */
-
-    KAboutData about("ktechlab", I18N_NOOP("KTechlab"), VERSION, description,
+    KAboutData about("ktechlab", I18N_NOOP("KTechlab"), version, description,
 					 KAboutData::License_GPL, "(C) 2003-2005, The KTechlab developers", "", "http://ktechlab.org", "ktechlab-devel@lists.sourceforge.net" );
     about.addAuthor( "David Saxton", 0, "david@bluehaze.org" );
 	about.addAuthor( "Daniel Clarke", 0, "daniel.jc@gmail.com" );

@@ -23,7 +23,7 @@ Item* WritePort::construct( ItemDocument *itemDocument, bool newItem, const char
 LibraryItem* WritePort::libraryItem()
 {
 	return new LibraryItem(
-		QString("flow/writeport"),
+		"flow/writeport",
 		i18n("Write to Port"),
 		i18n("I\\/O"),
 		"portwrite.png",
@@ -32,10 +32,9 @@ LibraryItem* WritePort::libraryItem()
 }
 
 WritePort::WritePort( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowPart( icnDocument, newItem, (id) ? id : "writeport" )
+	: FlowPart( icnDocument, newItem, id ? id : "writeport" )
 {
 	m_name = i18n("Write to Port");
-	m_desc = i18n("Sets the port's pins state to high/low from the given value. Only pins that have been configured as output pins will take on the value assigned to them.");
 	initIOSymbol();
 	createStdInput();
 	createStdOutput();
@@ -46,7 +45,7 @@ WritePort::WritePort( ICNDocument *icnDocument, bool newItem, const char *id )
 	property("0-var")->setValue("x");
 	
 	createProperty( "1-port", Variant::Type::Port );
-	property("1-port")->setToolbarCaption( "to" );
+	property("1-port")->setToolbarCaption( i18n( "write to port", "to" ) );
 	property("1-port")->setEditorCaption( i18n("Port") );
 	property("1-port")->setValue("PORTA");
 }

@@ -8,6 +8,7 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include "matrix.h"
 #include "voltagesource.h"
 #include "elementset.h"
 
@@ -39,17 +40,10 @@ void VoltageSource::add_map()
 {
 	if (!b_status) return;
 	
-	if ( !p_cnode[0]->isGround )
-	{
-		p_A->setUse_b( p_cnode[0]->n(), p_cbranch[0]->n(), Map::et_constant, true );
-		p_A->setUse_c( p_cbranch[0]->n(), p_cnode[0]->n(), Map::et_constant, true );
-	}
-	
-	if ( !p_cnode[1]->isGround )
-	{
-		p_A->setUse_b( p_cnode[1]->n(), p_cbranch[0]->n(), Map::et_constant, true );
-		p_A->setUse_c( p_cbranch[0]->n(), p_cnode[1]->n(), Map::et_constant, true );
-	}
+	setUse_b( 0, 0, Map::et_constant, true );
+	setUse_c( 0, 0, Map::et_constant, true );
+	setUse_b( 1, 0, Map::et_constant, true );
+	setUse_c( 0, 1, Map::et_constant, true );
 }
 
 

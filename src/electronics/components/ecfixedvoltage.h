@@ -20,7 +20,7 @@
 class ECFixedVoltage : public Component
 {
 public:
-	ECFixedVoltage( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	ECFixedVoltage( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ECFixedVoltage();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

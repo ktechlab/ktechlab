@@ -12,10 +12,12 @@
 #include "cnitem.h"
 
 #include <cmath>
+#include <kdebug.h>
 #include <klocale.h>
+using namespace std;
 
-Variant::Variant( Type::Value type )
-	: QObject()
+Variant::Variant( const QString & id, Type::Value type )
+	: QObject(), m_id( id )
 {
 	m_type = type;
 	m_bSetDefault = false;
@@ -45,30 +47,28 @@ void Variant::setType( Type::Value type )
 }
 
 
-void Variant::appendAllowed(QString string)
+void Variant::appendAllowed( const QString & id, const QString & i18nName )
 {
-	if ( !m_allowed.contains(string) ) {
-		m_allowed.append(string);
-	}
+	m_allowed[id] = i18nName;
 }
 
 
-void Variant::setAllowed(QStringList stringList)
+void Variant::setAllowed( const QStringList & allowed )
 {
-	// Ideally, we should check for duplicates in whatever is setting the
-	// allowed strings, but it is a lot easier and permanent to do it here
 	m_allowed.clear();
-	const QStringList::iterator end = stringList.end();
-	for ( QStringList::iterator it = stringList.begin(); it != end; ++it )
-	{
-		if ( !m_allowed.contains(*it) ) {
-			m_allowed.append(*it);
-		}
-	}
+	QStringList::const_iterator end = allowed.end();
+	for ( QStringList::const_iterator it = allowed.begin(); it != end; ++it )
+		m_allowed[ *it ] = *it;
 }
 
 
-void Variant::setMinValue( const double value )
+void Variant::appendAllowed( const QString & allowed )
+{
+	m_allowed[ allowed ] = allowed;
+}
+
+
+void Variant::setMinValue( double value )
 {
 	m_minValue = value;
 	if ( std::abs(value) < m_minAbsValue && value != 0.  )
@@ -77,7 +77,7 @@ void Variant::setMinValue( const double value )
 	}
 }
 
-void Variant::setMaxValue( const double value )
+void Variant::setMaxValue( double value )
 {
 	m_maxValue = value;
 	if ( std::abs(value) < m_minAbsValue && value != 0. )
@@ -102,15 +102,39 @@ QString Variant::displayString() const
 		case Variant::Type::Bool:
 			return m_value.toBool() ? i18n("True") : i18n("False");
 			
+		case Variant::Type::Select:
+			return m_allowed[ m_value.toString() ];
+			
 		default:
 			return m_value.toString();
 	}
 }
 
-void Variant::setValue( const QVariant& val )
+void Variant::setValue( QVariant val )
 {
-	if (!m_bSetDefault)
-		setDefaultValue(val);
+	if ( type() == Variant::Type::Select && !m_allowed.contains( val.toString() ) )
+	{
+		// Our value is being set to an i18n name, not the actual string id.
+		// So change val to the id (if it exists)
+		
+		QString i18nName = val.toString();
+		
+		QStringMap::iterator end = m_allowed.end();
+		for ( QStringMap::iterator it = m_allowed.begin(); it != end; ++it )
+		{
+			if ( it.data() == i18nName )
+			{
+				val = it.key();
+				break;
+			}
+		}
+	}
+	
+	if ( !m_bSetDefault )
+	{
+		m_defaultValue = val;
+		m_bSetDefault = true;
+	}
 	
 	if ( m_value == val )
 		return;
@@ -118,22 +142,74 @@ void Variant::setValue( const QVariant& val )
 	const QVariant old = m_value;
 	m_value = val;
 	emit( valueChanged( val, old ) );
+	
+	switch ( type() )
+	{
+		case Variant::Type::String:
+		case Variant::Type::FileName:
+		case Variant::Type::PenCapStyle:
+		case Variant::Type::PenStyle:
+		case Variant::Type::Port:
+		case Variant::Type::Pin:
+		case Variant::Type::VarName:
+		case Variant::Type::Combo:
+		case Variant::Type::Select:
+		case Variant::Type::SevenSegment:
+		case Variant::Type::KeyPad:
+		case Variant::Type::Multiline:
+		case Variant::Type::RichText:
+			emit valueChanged( displayString() );
+			break;
+			
+		case Variant::Type::Int:
+			emit valueChanged( value().toInt() );
+			break;
+			
+		case Variant::Type::Double:
+			emit valueChanged( value().toDouble() );
+			break;
+			
+		case Variant::Type::Color:
+			emit valueChanged( value().toColor() );
+			break;
+			
+		case Variant::Type::Bool:
+			emit valueChanged( value().toBool() );
+			break;
+			
+		case Variant::Type::Raw:
+		case Variant::Type::None:
+			break;
+	}
 }
 
-void Variant::setDefaultValue( QVariant val )
-{
-	m_defaultValue = val;
-	m_bSetDefault = true;
-}
-
-void Variant::resetToDefault()
-{
-	setValue( defaultValue() );
-}
 
 void Variant::setMinAbsValue( double val )
 {
 	m_minAbsValue = val;
+}
+
+
+bool Variant::changed() const
+{
+	// Have to handle double slightly differently due inperfect storage of real
+	// numbers
+	if ( type() == Type::Double )
+	{
+		double cur = value().toDouble();
+		double def = defaultValue().toDouble();
+		
+		double diff = abs( cur - def );
+		if ( diff == 0 )
+			return false;
+		
+		// denom cannot be zero
+		double denom = max( abs( cur ), abs( def ) );
+		
+		// not changed if within 1e-4% of each other's value
+		return ( (diff / denom) > 1e-6 );
+	}
+	return value() != defaultValue();
 }
 
 #include "variant.moc"

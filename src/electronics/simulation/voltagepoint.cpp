@@ -8,6 +8,7 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include "matrix.h"
 #include "voltagepoint.h"
 #include "elementset.h"
 
@@ -27,10 +28,11 @@ VoltagePoint::~VoltagePoint()
 
 void VoltagePoint::setVoltage( const double v )
 {
-	if(-v == m_voltage ) return;
-
-	if(p_eSet) p_eSet->setCacheInvalidated();
-
+	if ( -v == m_voltage ) return;
+	
+	if (p_eSet)
+		p_eSet->setCacheInvalidated();
+	
 	m_voltage = -v;
 	add_initial_dc();
 }
@@ -38,29 +40,31 @@ void VoltagePoint::setVoltage( const double v )
 
 void VoltagePoint::add_map()
 {
-	if(!b_status) return;
+	if (!b_status) return;
 	
-	if(!p_cnode[0]->isGround) {
-		p_A->setUse_b(p_cnode[0]->n(), p_cbranch[0]->n(), Map::et_constant, true);
-		p_A->setUse_c(p_cbranch[0]->n(), p_cnode[0]->n(), Map::et_constant, true);
-	}
+	setUse_b( 0, 0, Map::et_constant, true );
+	setUse_c( 0, 0, Map::et_constant, true );
 }
 
 
 void VoltagePoint::add_initial_dc()
 {
-	if(!b_status) return;
+	if (!b_status) return;
 	
-	A_b(0, 0) = -1;
-	A_c(0, 0) = -1;
+	A_b( 0, 0 ) = -1;
+	A_c( 0, 0 ) = -1;
 	
-	b_v(0) = m_voltage;
+	b_v( 0 ) = m_voltage;
 }
 
 
 void VoltagePoint::updateCurrents()
 {
-	if(!b_status) return;
+	if (!b_status) return;
 	m_cnodeI[0] = p_cbranch[0]->i;
 }
+
+
+
+
 

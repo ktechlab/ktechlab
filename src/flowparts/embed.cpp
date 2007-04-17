@@ -23,7 +23,7 @@ Item* Embed::construct( ItemDocument *itemDocument, bool newItem, const char *id
 LibraryItem* Embed::libraryItem()
 {
 	return new LibraryItem(
-		QString::QString("flow/embed"),
+		"flow/embed",
 		i18n("Embed"),
 		i18n("Common"),
 		"embed.png",
@@ -33,10 +33,9 @@ LibraryItem* Embed::libraryItem()
 }
 
 Embed::Embed( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowPart( icnDocument, newItem, (id) ? id : "embed" )
+	: FlowPart( icnDocument, newItem, id ? id : "embed" )
 {
 	m_name = i18n("Embed");
-	m_desc = i18n("Doubleclick on the item to edit the embedded code.");
 	initProcessSymbol();
 	createStdInput();
 	createStdOutput();

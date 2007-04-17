@@ -19,11 +19,6 @@ CNodes n2 and n3 are used for the current output.
 @short Voltage Controlled Current Source
 @author David Saxton
 */
-
-// TODO: help section for schematic so user knows which pins to use.
-
-// FIXME: Should not create a current where there's no voltage?????
-
 class VCCS : public Element
 {
 public:

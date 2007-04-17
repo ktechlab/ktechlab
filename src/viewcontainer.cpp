@@ -1,6 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2005 by David Saxton                                    *
- *   david@bluehaze.org                                                    *
+ *   Copyright (C) 2005-2006 David Saxton <david@bluehaze.org>             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -10,6 +9,7 @@
 
 #include "docmanager.h"
 #include "document.h"
+#include "itemview.h"
 #include "ktechlab.h"
 #include "view.h"
 #include "viewcontainer.h"
@@ -18,33 +18,36 @@
 #include <kdebug.h>
 #include <kglobalsettings.h>
 #include <klocale.h>
+#include <kpushbutton.h>
 #include <ktabwidget.h>
+
 #include <qobjectlist.h>
 
-ViewContainer::ViewContainer( const QString & caption, KTechlab * ktechlab, QWidget * parent )
-	: QWidget( ktechlab ? ktechlab->tabWidget() : parent )
+
+//BEGIN class ViewContainer
+ViewContainer::ViewContainer( const QString & caption, QWidget * parent )
+	: QWidget( parent ? parent : KTechlab::self()->tabWidget() )
 {
 	b_deleted = false;
-	p_ktechlab = ktechlab;
-	if (ktechlab)
-		connect( ktechlab, SIGNAL(needUpdateCaptions()), this, SLOT(updateCaption()) );
+	connect( KTechlab::self(), SIGNAL(needUpdateCaptions()), this, SLOT(updateCaption()) );
 	
 	QHBoxLayout *layout = new QHBoxLayout(this);
-	m_baseViewArea = new ViewArea( this, this, 0, "viewarea_0" );
+	m_baseViewArea = new ViewArea( this, this, 0, false, "viewarea_0" );
 	connect( m_baseViewArea, SIGNAL(destroyed(QObject* )), this, SLOT(baseViewAreaDestroyed(QObject* )) );
 	
 	layout->addWidget(m_baseViewArea);
 	
 	m_activeViewArea = 0;
-	b_focused = false;
+	setFocusProxy( m_baseViewArea );
 	
-	if (ktechlab)
-		ktechlab->tabWidget()->addTab( this, caption );
+	if ( !parent )
+	{
+		KTechlab::self()->tabWidget()->addTab( this, caption );
+		KTabWidget * tabWidget = KTechlab::self()->tabWidget();
+		tabWidget->setCurrentPage( tabWidget->indexOf(this) );
+	}
 	
 	show();
-	
-	if (ktechlab)
-		ktechlab->tabWidget()->setCurrentPage( ktechlab->tabWidget()->indexOf(this) );
 }
 
 
@@ -54,53 +57,21 @@ ViewContainer::~ViewContainer()
 }
 
 
-void ViewContainer::setFocused()
-{
-	if (b_focused)
-		return;
-	b_focused = true;
-	
-	View *view = activeView();
-	if (view)
-		view->setFocused();
-}
-
-
-void ViewContainer::setUnfocused()
-{
-	if (!b_focused)
-		return;
-	b_focused = false;
-	
-	View *view = activeView();
-	if (view)
-		view->setUnfocused();
-}
-
-
 void ViewContainer::setActiveViewArea( uint id )
 {
 	if ( m_activeViewArea == int(id) )
 		return;
 	
-	View *oldView = view(m_activeViewArea);
-	if (oldView)
-		oldView->setUnfocused();
-	
 	m_activeViewArea = id;
+	View * newView = view(id);
+	setFocusProxy( newView );
 	
-	ViewArea *va = viewArea(id);
-	if ( va && b_focused )
-		va->setFocus();
-	
-	View *newView = view(id);
-	if ( newView && b_focused );
+	if ( newView )
 	{
-		if (newView)
-		{
-			setCaption( newView->caption() );
-			newView->setFocused();
-		}
+		setCaption( newView->caption() );
+		
+		if ( !DocManager::self()->getFocusedView() && newView->isVisible() )
+			newView->setFocus();
 	}
 }
 
@@ -108,15 +79,16 @@ void ViewContainer::setActiveViewArea( uint id )
 View *ViewContainer::view( uint id ) const
 {
 	ViewArea *va = viewArea(id);
-	if (!va) return 0;
-
+	if (!va)
+		return 0l;
+	
 	// We do not want a recursive search as ViewAreas also hold other ViewAreas
 	QObjectList *l = va->queryList( "View", 0, false, false );
-	View *view = 0;
+	View *view = 0l;
 	if ( !l->isEmpty() )
 		view = dynamic_cast<View*>(l->first());
 	delete l;
-
+	
 	return view;
 }
 
@@ -124,7 +96,7 @@ View *ViewContainer::view( uint id ) const
 ViewArea *ViewContainer::viewArea( uint id ) const
 {
 	if ( !m_viewAreaMap.contains(id) )
-		return 0;
+		return 0l;
 	
 	return m_viewAreaMap[id];
 }
@@ -175,7 +147,7 @@ bool ViewContainer::closeViewArea( uint id )
 }
 
 
-int ViewContainer::createViewArea( int relativeViewArea, ViewArea::Position position )
+int ViewContainer::createViewArea( int relativeViewArea, ViewArea::Position position, bool showOpenButton )
 {
 	if ( relativeViewArea == -1 )
 		relativeViewArea = activeViewArea();
@@ -190,7 +162,7 @@ int ViewContainer::createViewArea( int relativeViewArea, ViewArea::Position posi
 	uint id = uniqueNewId();
 // 	setActiveViewArea(id);
 	
-	ViewArea *viewArea = relative->createViewArea( position, id );
+	ViewArea *viewArea = relative->createViewArea( position, id, showOpenButton );
 // 	ViewArea *viewArea = new ViewArea( m_splitter, id, (const char*)("viewarea_"+QString::number(id)) );
 	viewArea->show(); // remove?
 	
@@ -240,41 +212,6 @@ void ViewContainer::baseViewAreaDestroyed( QObject *obj )
 		b_deleted = true;
 		close();
 		deleteLater();
-	}
-}
-
-
-ViewContainer * ViewContainer::duplicateViewContainer()
-{
-	ViewContainer *viewContainer = new ViewContainer( caption(), p_ktechlab );
-	copyViewContainerIntoExisting(viewContainer);
-	
-	p_ktechlab->addWindow(viewContainer);
-	
-	return viewContainer;
-}
-
-
-void ViewContainer::copyViewContainerIntoExisting( ViewContainer *viewContainer )
-{
-	if (!viewContainer)
-		return;
-	
-	const ViewAreaMap::iterator end = m_viewAreaMap.end();
-	for ( ViewAreaMap::iterator it = m_viewAreaMap.begin(); it != end; ++it )
-	{
-		View *oldView = view(it.key());
-		if (!oldView)
-			continue;
-			
-		// See if there is an empty view container to be inserted into with id 0...
-		uint newId;
-		if ( viewContainer->view(0) )
-			newId = viewContainer->createViewArea( 0, ViewArea::Right );
-		else
-			newId = 0;
-				
-		oldView->document()->createView( viewContainer, newId );
 	}
 }
 
@@ -355,37 +292,30 @@ void ViewContainer::updateCaption()
 	}
 	
 	setCaption(caption);
-	p_ktechlab->tabWidget()->setTabLabel( this, caption );
+	KTechlab::self()->tabWidget()->setTabLabel( this, caption );
 }
+//END class ViewContainer
 
 
-void ViewContainer::setKTechlabDeleted()
-{
-	p_ktechlab = 0;
-	ViewAreaMap::iterator end = m_viewAreaMap.end();
-	for ( ViewAreaMap::iterator it = m_viewAreaMap.begin(); it != end; ++it )
-	{
-		if ( *it )
-			(*it)->setKTechlabDeleted();
-	}
-}
-
-
-
-
-
-ViewArea::ViewArea( QWidget *parent, ViewContainer *viewContainer, int id, const char *name )
+//BEGIN class ViewArea
+ViewArea::ViewArea( QWidget *parent, ViewContainer *viewContainer, int id, bool showOpenButton, const char *name )
 	: QSplitter( parent, name )
 {
 	p_viewContainer = viewContainer;
 	m_id = id;
-	p_view = 0;
-	p_viewArea1 = 0;
-	p_viewArea2 = 0;
+	p_view = 0l;
+	p_viewArea1 = 0l;
+	p_viewArea2 = 0l;
+	
 	if (id >= 0)
 		p_viewContainer->setViewAreaId( this, uint(id) );
+	
 	p_viewContainer->setIdUsed(id);
-	setOpaqueResize(KGlobalSettings::opaqueResize());
+	setOpaqueResize( KGlobalSettings::opaqueResize() );
+	
+	m_pEmptyViewArea = 0l;
+	if ( showOpenButton )
+		m_pEmptyViewArea = new EmptyViewArea( this );
 }
 
 
@@ -396,30 +326,32 @@ ViewArea::~ViewArea()
 }
 
 
-ViewArea *ViewArea::createViewArea( Position position, uint id )
+ViewArea *ViewArea::createViewArea( Position position, uint id, bool showOpenButton )
 {
 	if (p_viewArea1 || p_viewArea2)
 	{
 		kdError() << k_funcinfo << "Attempting to create ViewArea when already containing ViewAreas!" << endl;
-		return 0;
+		return 0l;
 	}
 	if (!p_view)
 	{
 		kdError() << k_funcinfo << "We don't have a view yet, so creating a new ViewArea is redundant" << endl;
-		return 0;
+		return 0l;
 	}
 	
 	setOrientation( ( position == Right ) ? Qt::Horizontal : Qt::Vertical );
 	
-	p_viewArea1 = new ViewArea( this, p_viewContainer, m_id, (const char*)("viewarea_"+QString::number(m_id)) );
-	p_viewArea2 = new ViewArea( this, p_viewContainer, id, (const char*)("viewarea_"+QString::number(id)) );
+	p_viewArea1 = new ViewArea( this, p_viewContainer, m_id, false, (const char*)("viewarea_"+QString::number(m_id)) );
+	p_viewArea2 = new ViewArea( this, p_viewContainer, id, showOpenButton, (const char*)("viewarea_"+QString::number(id)) );
 	
 	connect( p_viewArea1, SIGNAL(destroyed(QObject* )), this, SLOT(viewAreaDestroyed(QObject* )) );
 	connect( p_viewArea2, SIGNAL(destroyed(QObject* )), this, SLOT(viewAreaDestroyed(QObject* )) );
 	
+	p_view->clearFocus();
 	p_view->reparent( p_viewArea1, QPoint(), true );
 	p_viewArea1->setView(p_view);
-	p_view = 0;
+	setView( 0l );
+	
 	m_id = p_viewContainer->uniqueParentId();
 	
 	QValueList<int> splitPos;
@@ -438,10 +370,10 @@ void ViewArea::viewAreaDestroyed( QObject *obj )
 	ViewArea *viewArea = static_cast<ViewArea*>(obj);
 	
 	if ( viewArea == p_viewArea1 )
-		p_viewArea1 = 0;
+		p_viewArea1 = 0l;
 	
 	if ( viewArea == p_viewArea2 )
-		p_viewArea2 = 0;
+		p_viewArea2 = 0l;
 	
 	if ( !p_viewArea1 && !p_viewArea2 )
 		deleteLater();
@@ -450,15 +382,36 @@ void ViewArea::viewAreaDestroyed( QObject *obj )
 
 void ViewArea::setView( View *view )
 {
-	if (!view)
+	if ( !view )
+	{
+		p_view = 0l;
+		setFocusProxy( 0l );
 		return;
-	if (p_view)
+	}
+	
+	delete m_pEmptyViewArea;
+	
+	if ( p_view )
 	{
 		kdError() << k_funcinfo << "Attempting to set already contained view!" << endl;
 		return;
 	}
+	
 	p_view = view;
+	
+// 	kdDebug() << k_funcinfo << "p_view->isFocusEnabled()="<<p_view->isFocusEnabled()<<" p_view->isHidden()="<<p_view->isHidden()<<endl;
+	
 	connect( view, SIGNAL(destroyed()), this, SLOT(viewDestroyed()) );
+	bool hadFocus = hasFocus();
+	setFocusProxy( p_view );
+	if ( hadFocus && !p_view->isHidden() )
+		p_view->setFocus();
+	
+	// The ViewContainer by default has a view area as its focus proxy.
+	// This is because there is no view when it is constructed. So give
+	// it our view as the focus proxy if it doesn't have one.
+	if ( !dynamic_cast<View*>(p_viewContainer->focusProxy()) )
+		p_viewContainer->setFocusProxy( p_view );
 }
 
 
@@ -466,13 +419,6 @@ void ViewArea::viewDestroyed()
 {
 	if ( !p_view && !p_viewArea1 && !p_viewArea2 )
 		deleteLater();
-}
-
-
-void ViewArea::setKTechlabDeleted()
-{
-	if ( p_view )
-		p_view->setKTechlabDeleted();
 }
 
 
@@ -558,7 +504,7 @@ void ViewArea::restoreState( KConfig *config, int id, const QString &groupName )
 			if ( contains.size() >= 1 )
 			{
 				int viewArea1Id = contains[0];
-				p_viewArea1 = new ViewArea( this, p_viewContainer, viewArea1Id, (const char*)("viewarea_"+QString::number(viewArea1Id)) );
+				p_viewArea1 = new ViewArea( this, p_viewContainer, viewArea1Id, false, (const char*)("viewarea_"+QString::number(viewArea1Id)) );
 				connect( p_viewArea1, SIGNAL(destroyed(QObject* )), this, SLOT(viewAreaDestroyed(QObject* )) );
 				p_viewArea1->restoreState( config, viewArea1Id, groupName );
 				p_viewArea1->show();
@@ -567,7 +513,7 @@ void ViewArea::restoreState( KConfig *config, int id, const QString &groupName )
 			if ( contains.size() >= 2 )
 			{
 				int viewArea2Id = contains[1];
-				p_viewArea2 = new ViewArea( this, p_viewContainer, viewArea2Id, (const char*)("viewarea_"+QString::number(viewArea2Id)) );
+				p_viewArea2 = new ViewArea( this, p_viewContainer, viewArea2Id, false, (const char*)("viewarea_"+QString::number(viewArea2Id)) );
 				connect( p_viewArea2, SIGNAL(destroyed(QObject* )), this, SLOT(viewAreaDestroyed(QObject* )) );
 				p_viewArea2->restoreState( config, viewArea2Id, groupName );
 				p_viewArea2->show();
@@ -596,14 +542,46 @@ QString ViewArea::orientationKey( int id )
 {
 	return QString("ViewArea ") + QString::number(id) + QString(" orientation");
 }
+//END class ViewArea
 
 
 
-
-ViewContainerDrag::ViewContainerDrag( ViewContainer *viewContainer )
-	: QStoredDrag( "dontcare", viewContainer)
+//BEGIN class EmptyViewArea
+EmptyViewArea::EmptyViewArea( ViewArea * parent )
+	: QWidget( parent )
 {
-	p_viewContainer = viewContainer;
+	m_pViewArea = parent;
+	
+	QGridLayout * layout = new QGridLayout( this, 5, 3, 0, 6 );
+	
+	layout->setRowStretch( 0, 20 );
+	layout->setRowStretch( 2, 1 );
+	layout->setRowStretch( 4, 20 );
+	
+	layout->setColStretch( 0, 1 );
+	layout->setColStretch( 2, 1 );
+	
+	KGuiItem openItem( i18n("Open Document"), "fileopen" );
+	KPushButton * newDocButton = new KPushButton( openItem, this );
+	layout->addWidget( newDocButton, 1, 1 );
+	connect( newDocButton, SIGNAL(clicked()), this, SLOT(openDocument()) );
+	
+	KGuiItem cancelItem( i18n("Cancel"), "button_cancel" );
+	KPushButton * cancelButton = new KPushButton( cancelItem, this );
+	layout->addWidget( cancelButton, 3, 1 );
+	connect( cancelButton, SIGNAL(clicked()), m_pViewArea, SLOT(deleteLater()) );
 }
+
+
+EmptyViewArea::~EmptyViewArea()
+{
+}
+
+
+void EmptyViewArea::openDocument()
+{
+	KTechlab::self()->openFile( m_pViewArea );
+}
+//END class EmptyViewArea
 
 #include "viewcontainer.moc"

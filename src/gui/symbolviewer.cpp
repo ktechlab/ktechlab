@@ -21,7 +21,7 @@
 #include <qlabel.h>
 #include <qlayout.h>
 
-#include <cassert>
+#include <assert.h>
 
 static const int NAME_COLUMN = 0;
 static const int VALUE_COLUMN = 1;
@@ -60,7 +60,7 @@ void SymbolViewerItem::radixChanged()
 
 
 //BEGIN class SymbolView
-SymbolViewer * SymbolViewer::m_pSelf = 0;
+SymbolViewer * SymbolViewer::m_pSelf = 0l;
 SymbolViewer * SymbolViewer::self( KateMDI::ToolView * parent )
 {
 	if (!m_pSelf)
@@ -77,6 +77,7 @@ SymbolViewer::SymbolViewer( KateMDI::ToolView * parent )
 	QGridLayout  * grid = new QGridLayout( this, 1, 1, 0, 6 );
 	
 	m_pSymbolList = new KListView(this);
+	m_pSymbolList->setFocusPolicy( NoFocus );
 	grid->addMultiCellWidget( m_pSymbolList, 0, 0, 0, 1 );
 	
 	grid->addWidget( new QLabel( i18n("Value radix:"), this ), 1, 0 );
@@ -91,8 +92,8 @@ SymbolViewer::SymbolViewer( KateMDI::ToolView * parent )
 	m_pRadixCombo->setCurrentItem(2);
 	connect( m_pRadixCombo, SIGNAL(activated(int)), this, SLOT(selectRadix(int)) );
 	
-	m_pGpsim = 0;
-	m_pCurrentContext = 0;
+	m_pGpsim = 0l;
+	m_pCurrentContext = 0l;
 	
 	m_pSymbolList->addColumn( i18n("Name") );
 	m_pSymbolList->addColumn( i18n("Value") );
@@ -144,7 +145,7 @@ void SymbolViewer::readProperties( KConfig * config )
 
 void SymbolViewer::setContext( GpsimProcessor * gpsim )
 {
-	RegisterSet * registerSet = gpsim ? gpsim->registerMemory() : 0;
+	RegisterSet * registerSet = gpsim ? gpsim->registerMemory() : 0l;
 	
 	if ( registerSet == m_pCurrentContext )
 		return;

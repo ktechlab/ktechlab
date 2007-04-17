@@ -22,10 +22,9 @@
 class Multiplexer : public CallbackClass, public Component
 {
 public:
-	Multiplexer( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	Multiplexer( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~Multiplexer();
 	
-	virtual bool canFlip() const { return true; }
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
 	

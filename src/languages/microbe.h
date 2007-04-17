@@ -24,7 +24,7 @@ typedef QMap< int, QString > ErrorMap;
 class Microbe : public ExternalLanguage
 {
 public:
-	Microbe( ProcessChain *processChain, KTechlab *parent );
+	Microbe( ProcessChain *processChain );
 	~Microbe();
 	
 	virtual void processInput( ProcessOptions options );

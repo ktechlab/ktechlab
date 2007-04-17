@@ -20,7 +20,7 @@
 class ECCurrentSource : public Component
 {
 public:
-	ECCurrentSource( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	ECCurrentSource( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ECCurrentSource();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

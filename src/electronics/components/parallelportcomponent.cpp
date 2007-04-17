@@ -45,30 +45,6 @@ ParallelPortComponent::ParallelPortComponent( ICNDocument *icnDocument, bool new
 	: Component( icnDocument, newItem, id ? id : "parallel_port" )
 {
 	m_name = i18n("Parallel Port");
-	m_desc = i18n("The pins are divided into 3 registers.<br><br>"
-			"<b>Data Pins</b><br><br>"
-			"The data pins can be configured as either all input or all output. They are:"
-			"<ul>"
-			"<li><b>D<i>[0..7]</i></b></li>"
-			"</ul><br>"
-			"<b>Status Pins</b><br><br>"
-			"The status pins are read-only. They area:"
-			"<ul>"
-			"<li><b>ERR</b> - Error</li>"
-			"<li><b>ON</b> - Online</li>"
-			"<li><b>PE</b> - Paper End</li>"
-			"<li><b>ACK</b> - Acknowledge</li>"
-			"<li><b>BUSY</b> - Busy</li>"
-			"</ul><br>"
-			"<b>Control Pins</b>"
-			"<ul>"
-			"<li><b>STR</b> - Strobe</li>"
-			"<li><b>AUT</b> - Auto Feed</li>"
-			"<li><b>INIT</b> - Init</li>"
-			"<li><b>SEL</b> - Select</li>"
-			"</ul><br>"
-			"The remaining pins are all ground."
-				 );
 	
 	QPointArray pa( 4 );
 	pa[0] = QPoint( -32, -112 );

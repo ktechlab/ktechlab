@@ -22,7 +22,7 @@ class QSlider;
 class ECPotentiometer : public Component
 {
 public:
-	ECPotentiometer( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	ECPotentiometer( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ECPotentiometer();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

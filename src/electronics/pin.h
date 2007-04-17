@@ -28,6 +28,7 @@ typedef QValueList<QGuardedPtr<Pin> > PinList;
 typedef QValueList<Switch*> SwitchList;
 typedef QValueList<QGuardedPtr<Wire> > WireList;
 
+
 /**
 @author David Saxton
 */
@@ -100,7 +101,7 @@ class Pin : public QObject
 		 * Tell thie Pin that none of the currents from the switches have yet
 		 * been merged.
 		 */
-		void setSwitchCurrentsUnknown() { m_switchList.remove( 0 ); m_unknownSwitchCurrents = m_switchList; }
+		void setSwitchCurrentsUnknown() { m_switchList.remove( 0l ); m_unknownSwitchCurrents = m_switchList; }
 		/**
 		 * This returns the value given by setCurrentKnown AND'd with whether
 		 * we know the current from each switch attached to this pin.
@@ -183,14 +184,12 @@ class Pin : public QObject
 		 */
 		void removeSwitch( Switch *e );
 		
-		void addInputWire(Wire *wire );
-		void addOutputWire(Wire *wire );
-		void removeWire(Wire *wire );
+		void addInputWire( Wire * wire );
+		void addOutputWire( Wire * wire );
+		void removeWire( Wire * wire );
 		WireList inputWireList() const { return m_inputWireList; }
 		WireList outputWireList() const { return m_outputWireList; }
-
-		int numWires() const
-		{ return m_inputWireList.size() + m_outputWireList.size(); }
+		int numWires() const { return m_inputWireList.size() + m_outputWireList.size(); }
 		
 	protected:
 		double m_voltage;

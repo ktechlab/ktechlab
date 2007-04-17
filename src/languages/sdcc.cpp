@@ -20,8 +20,8 @@
 #include <kmessagebox.h>
 #include <kprocess.h>
 
-SDCC::SDCC( ProcessChain * processChain, KTechlab * parent )
-	: ExternalLanguage( processChain, parent, "SDCC" )
+SDCC::SDCC( ProcessChain * processChain )
+	: ExternalLanguage( processChain, "SDCC" )
 {
 	m_successfulMessage = i18n("*** Compilation successful ***");
 	m_failedMessage = i18n("*** Compilation failed ***");

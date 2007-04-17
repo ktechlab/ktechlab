@@ -24,13 +24,11 @@ class Wire;
 class BusSplitter : public Component
 {
 	public:
-		BusSplitter( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+		BusSplitter( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~BusSplitter();
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
-		
-		virtual bool canFlip() const { return true; }
 	
 	protected:
 		QString outNodeID( unsigned node ) const;

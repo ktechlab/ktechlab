@@ -15,7 +15,10 @@
 
 #include <kiconloader.h>
 #include <klocale.h>
-#include <qpainter.h>
+
+#include <qpainter.h> 
+#include <qsimplerichtext.h>
+#include <qstylesheet.h>
 
 Item* DPText::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -37,13 +40,12 @@ LibraryItem* DPText::libraryItem()
 }
 
 DPText::DPText( ItemDocument *itemDocument, bool newItem, const char *id )
-	: DrawPart( itemDocument, newItem, (id) ? id : "canvas_text" )
+	: DrawPart( itemDocument, newItem, id ? id : "canvas_text" )
 {
 	m_rectangularOverlay = new RectangularOverlay(this);
 	m_name = i18n("Text");
-	m_desc = i18n("Doubleclick the Text Item to set the text");
 	
-	createProperty( "text", Variant::Type::Multiline );
+	createProperty( "text", Variant::Type::RichText );
 	property("text")->setValue( i18n("Text") );
 	
 	createProperty( "background", Variant::Type::Bool );
@@ -60,10 +62,6 @@ DPText::DPText( ItemDocument *itemDocument, bool newItem, const char *id )
 	property("frame-color")->setValue(Qt::black);
 	property("frame-color")->setCaption( i18n("Frame Color") );
 	property("frame-color")->setAdvanced(true);
-	
-	createProperty( "text-color", Variant::Type::Color );
-	property("text-color")->setValue(Qt::black);
-	property("text-color")->setCaption( i18n("Text Color") );
 }
 
 DPText::~DPText()
@@ -82,11 +80,18 @@ void DPText::setSelected( bool yes )
 
 void DPText::dataChanged()
 {
-	m_caption = dataString("text");
 	b_displayBackground = dataBool("background");
 	m_backgroundColor = dataColor("background-color");
-	m_textColor = dataColor("text-color");
 	m_frameColor = dataColor("frame-color");
+	
+	m_text = dataString("text");
+	
+	if ( !QStyleSheet::mightBeRichText( m_text ) )
+	{
+		// Format the text to be HTML
+		m_text.replace( '\n', "<br>" );
+	}
+	
 	update();
 }
 
@@ -122,12 +127,15 @@ void DPText::drawShape( QPainter &p )
 	const int pad = 6;
 	
 	bound.setLeft( bound.left()+pad );
-	bound.setTop( bound.top()+pad );
+	bound.setTop( bound.top() );
 	bound.setRight( bound.right()-pad );
 	bound.setBottom( bound.bottom()-pad );
 	
-	p.setPen(m_textColor);
-	p.setFont( font() );
-	p.drawText( bound, (Qt::WordBreak | Qt::AlignHCenter | Qt::AlignVCenter), m_caption );
+	
+	QSimpleRichText * t = new QSimpleRichText( m_text, QFont() );
+	t->setWidth( bound.width() );
+	
+	t->draw( &p, bound.left(), bound.top(), bound, QColorGroup() );
+	delete t;
 }
 

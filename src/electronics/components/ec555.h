@@ -22,10 +22,9 @@
 class EC555 : public Component
 {
 public:
-	EC555( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	EC555( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~EC555();
 	
-	virtual bool canFlip() const { return true; }
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
 	

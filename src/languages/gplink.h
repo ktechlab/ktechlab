@@ -20,7 +20,7 @@
 class Gplink : public ExternalLanguage
 {
 	public:
-		Gplink( ProcessChain *processChain, KTechlab *parent );
+		Gplink( ProcessChain *processChain );
 		~Gplink();
 	
 		virtual void processInput( ProcessOptions options );

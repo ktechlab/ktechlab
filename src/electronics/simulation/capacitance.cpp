@@ -9,6 +9,7 @@
  ***************************************************************************/
 
 #include "capacitance.h"
+#include "matrix.h"
 
 Capacitance::Capacitance( const double capacitance, const double delta )
 	: Reactive(delta)
@@ -46,22 +47,13 @@ void Capacitance::updateCurrents()
 
 void Capacitance::add_map()
 {
-	if (!b_status) return;
+	if (!b_status)
+		return;
 	
-	if ( !p_cnode[0]->isGround )
-	{
-		p_A->setUse( p_cnode[0]->n(), p_cnode[0]->n(), Map::et_unstable, false );
-	}
-	if ( !p_cnode[1]->isGround )
-	{
-		p_A->setUse( p_cnode[1]->n(), p_cnode[1]->n(), Map::et_unstable, false );
-	}
-	
-	if ( !p_cnode[0]->isGround && !p_cnode[1]->isGround )
-	{
-		p_A->setUse( p_cnode[0]->n(), p_cnode[1]->n(), Map::et_unstable, false );
-		p_A->setUse( p_cnode[1]->n(), p_cnode[0]->n(), Map::et_unstable, false );
-	}
+	setUse( 0, 0, Map::et_unstable, false );
+	setUse( 1, 1, Map::et_unstable, false );
+	setUse( 0, 1, Map::et_unstable, false );
+	setUse( 1, 0, Map::et_unstable, false );
 }
 
 
@@ -76,7 +68,8 @@ void Capacitance::time_step()
 	{
 		g_eq_new = m_cap/m_delta;
 		i_eq_new = -v*g_eq_new;
-	} else if ( m_method == Capacitance::m_trap ) {
+	}
+	else if ( m_method == Capacitance::m_trap ) {
 		// TODO Implement + test trapezoidal method
 		g_eq_new = 2.*m_cap/m_delta;
 	}

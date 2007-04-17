@@ -76,31 +76,31 @@ class BTreeNode
 		 * @return true if have a left or a right child node.
 		 */
 		bool hasChildren() const { return m_left || m_right; }
-
+	
 		ExprType type() const {return m_type;}
 		void setType(ExprType type) { m_type = type; }
 		QString value() const {return m_value;}
 		void setValue( const QString & value ) { m_value = value; }
-
+	
 		Expression::Operation childOp() const {return m_childOp;}
 		void setChildOp(Expression::Operation op){ m_childOp = op;}
-
+	
 		void setReg( const QString & r ){ m_reg = r; }
 		QString reg() const {return m_reg;}
-
+	
 		bool needsEvaluating() const { return hasChildren(); }
-
+		
 	protected:
 		BTreeNode *m_parent;
 		BTreeNode *m_left;
 		BTreeNode *m_right;
-
-	/** This is used to remember what working register contains the value of the node during assembly.*/
+	
+		/** This is used to remember what working register contains the value of the node during assembly.*/
 		QString m_reg;
-
+	
 		ExprType m_type;
 		QString m_value;
-
+	
 		Expression::Operation m_childOp;
 };
 

@@ -65,6 +65,7 @@ DPRectangle::DPRectangle( ItemDocument *itemDocument, bool newItem, const char *
 	
 	createProperty( "line-style", Variant::Type::PenStyle );
 	property("line-style")->setAdvanced(true);
+	property("line-style")->setCaption( i18n("Line Style") );
 	setDataPenStyle( "line-style", Qt::SolidLine );
 }
 

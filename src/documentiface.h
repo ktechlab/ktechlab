@@ -25,8 +25,6 @@ class MechanicsDocument;
 class TextDocument;
 class View;
 
-// TODO: should probably be split up and placed in proper subdirectories.
-
 /**
 @author David Saxton
 */
@@ -42,7 +40,7 @@ class DocumentIface : public DCOPObject
 		QString caption() const;
 		DCOPRef activeView();
 		uint numberOfViews();
-// 		View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0 );
+// 		View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l );
 		QString url();
 		bool openURL( const QString & url );
 		bool isModified();
@@ -166,7 +164,8 @@ class CircuitDocumentIface : public ICNDocumentIface
 		void setOrientation270();
 		void rotateCounterClockwise();
 		void rotateClockwise();
-		void flip();
+		void flipHorizontally();
+		void flipVertically();
 		void displayEquations();
 		void createSubcircuit();
 		

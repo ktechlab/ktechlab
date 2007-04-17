@@ -27,7 +27,7 @@ LibraryItem* ResistorDIP::libraryItem()
 	return new LibraryItem(
 		"ec/resistordip",
 		i18n("Resistor DIP"),
-		i18n("Discrete"),
+		i18n("Passive"),
 		"resistordip.png",
 		LibraryItem::lit_component,
 		ResistorDIP::construct
@@ -38,11 +38,10 @@ ResistorDIP::ResistorDIP( ICNDocument *icnDocument, bool newItem, const char *id
 	: Component( icnDocument, newItem, id ? id : "multiplexer" )
 {
 	m_name = i18n("Resistor DIP");
-	m_desc = i18n("Set of resistors with identical values in a Dual Inline Package.");
 	
 	m_resistorCount = 0;
 	for ( int i=0; i<maxCount; ++i )
-		m_resistance[i] = 0;
+		m_resistance[i] = 0l;
 	
 	createProperty( "resistance", Variant::Type::Double );
 	property("resistance")->setCaption( i18n("Resistance") );
@@ -87,7 +86,7 @@ void ResistorDIP::initPins()
 		for ( int i=count; i<m_resistorCount; ++i )
 		{
 			removeElement( m_resistance[i], false );
-			m_resistance[i] = 0;
+			m_resistance[i] = 0l;
 			removeNode( "n"+QString::number(i) );
 			removeNode( "p"+QString::number(i) );
 		}

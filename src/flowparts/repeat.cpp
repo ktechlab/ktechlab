@@ -23,7 +23,7 @@ Item* Repeat::construct( ItemDocument *itemDocument, bool newItem, const char *i
 LibraryItem* Repeat::libraryItem()
 {
 	return new LibraryItem(
-		QString("flow/repeat"),
+		"flow/repeat",
 		i18n("Repeat"),
 		i18n("Loops"),
 		"repeat.png",
@@ -32,10 +32,9 @@ LibraryItem* Repeat::libraryItem()
 }
 
 Repeat::Repeat( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowContainer( icnDocument, newItem, (id) ? id : "repeatloop" )
+	: FlowContainer( icnDocument, newItem, id ? id : "repeatloop" )
 {
 	m_name = i18n("Repeat");
-	m_desc = i18n("Repeatedly execute code, until the given condition is false. The condition is checked after the code has been executed.<br><br>This is different from \"While\", which checks for the condition to be true before the code is executed.");
 	createTopContainerNode();
 	createBotContainerNode();
 	

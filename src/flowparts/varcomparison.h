@@ -20,7 +20,7 @@
 class VarComparison : public FlowPart
 {
 public:
-	VarComparison( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	VarComparison( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~VarComparison();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

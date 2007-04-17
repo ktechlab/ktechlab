@@ -20,7 +20,7 @@
 class Interrupt : public FlowContainer
 {
 public:
-	Interrupt( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	Interrupt( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~Interrupt();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

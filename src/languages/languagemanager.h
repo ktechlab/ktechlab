@@ -37,7 +37,7 @@ class LanguageManager : public QObject
 {
 	Q_OBJECT
 	public:
-		static LanguageManager * self( KateMDI::ToolView * parent = 0, KTechlab * ktl = 0 );
+		static LanguageManager * self( KateMDI::ToolView * parent = 0l );
 		static QString toolViewIdentifier() { return "LanguageManager"; }
 		~LanguageManager();
 	
@@ -80,12 +80,11 @@ class LanguageManager : public QObject
 		void slotMessage( const QString &message, MessageInfo messageInfo );
 	
 	protected:
-		LanguageManager( KateMDI::ToolView * parent, KTechlab * ktl );
+		LanguageManager( KateMDI::ToolView * parent );
 	
 	private:
 		LogView * m_logView;
 		static LanguageManager * m_pSelf;
-		KTechlab * p_ktechlab;
 };
 
 #endif

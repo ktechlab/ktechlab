@@ -1,6 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2005 by David Saxton                                    *
- *   david@bluehaze.org                                                    *
+ *   Copyright (C) 2005-2006 David Saxton <david@bluehaze.org>             *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -29,15 +28,22 @@ class QSplitter;
 typedef QMap< uint, ViewArea* > ViewAreaMap;
 typedef QValueList<int> IntList;
 
-class ViewContainerDrag : public QStoredDrag
+/**
+Before a ViewAre has been given a view, this is shown.
+\author David Saxton
+*/
+class EmptyViewArea : public QWidget
 {
-public:
-	ViewContainerDrag( ViewContainer *viewContainer );
-	
-	ViewContainer *viewContainer() const { return p_viewContainer; }
-
-protected:
-	ViewContainer *p_viewContainer;
+	Q_OBJECT
+	public:
+		EmptyViewArea( ViewArea * parent );
+		~EmptyViewArea();
+		
+	protected slots:
+		void openDocument();
+		
+	protected:
+		ViewArea * m_pViewArea;
 };
 
 
@@ -57,15 +63,18 @@ public:
 		Bottom
 	};
 	
-	ViewArea( QWidget *parent, ViewContainer *viewContainer, int id, const char *name = 0 );
+	ViewArea( QWidget *parent, ViewContainer *viewContainer, int id, bool showOpenButton, const char * name = 0 );
 	~ViewArea();
 	
 	ViewContainer *viewContainer() const { return p_viewContainer; }
 	int id() const { return m_id; }
 	/**
 	 * Splits this ViewArea into two, and returns a pointer to the new ViewArea
+	 * @param showOpenButton Whether to present the user with the EmptyViewArea
+	 * widget (i.e. the new ViewArea is not destined to be immediately filled
+	 * with a view).
 	 */
-	ViewArea *createViewArea( Position position, uint id );
+	ViewArea *createViewArea( Position position, uint id, bool showOpenButton );
 	/**
 	 * Adds the given View to the main part of the layout
 	 */
@@ -85,14 +94,12 @@ public:
 	 * a view with a url in it)
 	 */
 	bool canSaveUsefulStateInfo() const;
-	/**
-	 * Calls View::setKTechlabDeleted.
-	 */
-	void setKTechlabDeleted();
 	
 	static QString fileKey( int id );
 	static QString containsKey( int id );
 	static QString orientationKey( int id );
+	
+	View * view() const { return p_view; }
 	
 protected slots:
 	void viewAreaDestroyed( QObject *obj );
@@ -100,6 +107,7 @@ protected slots:
 	
 protected:
 	int m_id;
+	EmptyViewArea * m_pEmptyViewArea;
 	QGuardedPtr<View> p_view;
 	ViewArea *p_viewArea1;
 	ViewArea *p_viewArea2;
@@ -118,7 +126,7 @@ public:
 	 * parenting a View, with an id of 0. parent is only used if ktechlab is
 	 * null; otherwise the parent widget is ktechlab's tabWidget()
 	 */
-	ViewContainer( const QString & caption, KTechlab * ktechlab, QWidget * parent = 0 );
+	ViewContainer( const QString & caption, QWidget * parent = 0 );
 	~ViewContainer();
 	
 	/**
@@ -152,8 +160,11 @@ public:
 	 * @param relativeViewArea the viewarea to position the new viewarea next to, if -1 then is taken to be the active view area
 	 * @param position Top, Right, Bottom or Left of given relativeViewArea
 	 * @returns id of the the view area, or -1 if unsucessful
+	 * @param showOpenButton Whether to present the user with the EmptyViewArea
+	 * widget (i.e. the new ViewArea is not destined to be immediately filled
+	 * with a view).
 	 */
-	int createViewArea( int relativeViewArea, ViewArea::Position position = ViewArea::Right );
+	int createViewArea( int relativeViewArea, ViewArea::Position position, bool showOpenButton );
 	/**
 	 * Attempts to close each view area, returning false if any fail to be
 	 * closed
@@ -163,25 +174,6 @@ public:
 	 * @returns number of views in this view container
 	 */
 	uint viewCount() const { return m_viewAreaMap.size(); }
-	/**
-	 * Called when the view container is focused (e.g. user clicks on the tab
-	 * for this view container)
-	 */
-	void setFocused();
-	/**
-	 * Called when the view container is unfocused (e.g. user clicks on another
-	 * tab).
-	 */
-	void setUnfocused();
-	/**
-	 * Create a new view container, and make a new instance of each view in
-	 * that view container.
-	 */
-	ViewContainer* duplicateViewContainer();
-	/**
-	 * Copies each view in this ViewContainer into the given ViewContainer
-	 */
-	void copyViewContainerIntoExisting( ViewContainer *viewContainer );
 	/**
 	 * Sets the pointer to the view area with the given id
 	 */
@@ -220,10 +212,6 @@ public:
 	 * a view with a url in it)
 	 */
 	bool canSaveUsefulStateInfo() const;
-	/**
-	 * Calls setKTechlabDeleted for each ViewArea.
-	 */
-	void setKTechlabDeleted();
 	
 public slots:
 	/**
@@ -241,8 +229,6 @@ protected:
 	ViewArea *m_baseViewArea;
 	ViewAreaMap m_viewAreaMap;
 	IntList m_usedIDs;
-	KTechlab *p_ktechlab;
-	bool b_focused;
 	bool b_deleted;
 };
 

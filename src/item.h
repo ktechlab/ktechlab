@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2004-2005 by David Saxton                               *
+ *   Copyright (C) 2004-2006 by David Saxton                               *
  *   david@bluehaze.org                                                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -13,10 +13,8 @@
 
 #include "variant.h"
 
-#include <qcanvas.h>
-#include <qfont.h>
+#include <canvas.h>
 #include <qguardedptr.h>
-
 
 class Document;
 class EventInfo;
@@ -28,6 +26,9 @@ class DoubleSpinBox;
 class Document;
 class Variant;
 class QBitArray;
+class QTimer;
+
+typedef Variant Property;
 
 typedef Item*(*createItemPtr)( ItemDocument *itemDocument, bool newItem, const char *id );
 typedef QGuardedPtr<Item> GuardedItem;
@@ -56,18 +57,10 @@ public:
 	QString dataString( const QString & id ) const;
 	QColor dataColor( const QString & id ) const;
 	
-	virtual Variant * createProperty( const QString & id, Variant::Type::Value type );
-	Variant * property( const QString & id ) const;
+	virtual Property * createProperty( const QString & id, Variant::Type::Value type );
+	Property * property( const QString & id ) const;
 	bool hasProperty( const QString & id ) const;
 	
-	/**
-	 * Whether or not we can rotate the item
-	 */
-	virtual bool canRotate() const { return false; }
-	/**
-	 * Whether or not we can flip the item
-	 */
-	virtual bool canFlip() const { return false; }
 	/**
 	 * Whether or not we can resize the item
 	 */
@@ -78,16 +71,24 @@ public:
 	 */
 	virtual bool isMovable() const { return true; }
 	/**
-	 * If your item doesn't move, yet still continously changes what is being
-	 * displayed (such as a seven segment display or a lamp), then this should
-	 * return true (set m_bDynamicContent to be true in your constructor).
+	 * Returns whether or not what the item is displaying has (possibly) changed
+	 * since this function was last called. If your item doesn't move, yet still
+	 * continously changes what is being displayed (such as a seven segment
+	 * display or a lamp), then set m_bDynamicContent to be true in the
+	 * constructor or reinherit this to return true when the contents of the
+	 * item have changed since this function was last called.
 	 */
-	bool hasDynamicContent() const { return m_bDynamicContent; }
+	virtual bool contentChanged() const { return m_bDynamicContent; }
 	/**
 	 * Returns a identifier for the CNItem, which is unique on the ICNDocument
 	 */
 	QString id() const { return m_id; }
 	QString type() const { return m_type; }
+	/**
+	 * @return the font used for drawing items. This is taken to be the
+	 * standard desktop font, limited to a size of 12 pixels.
+	 */
+	QFont font() const;
 	/**
 	 * Called from ItemLibrary after this class and subclasses have finished
 	 * constructing themselves.
@@ -155,8 +156,11 @@ public:
 	bool contains( Item *item, bool direct = false ) const;
 	/**
 	 * Calls prePresize with the bounds, and if that returns true, sets
-	 * m_sizeRect to the given rect, and then calls postResize.
-	 * @param forceItemPoints if true, will set the item points to a rectangle of the given size
+	 * m_sizeRect to the given rect, and then calls postResize. The center of
+	 * \p sizeRect is taken as the point of rotation.
+	 * @param forceItemPoints if true, will set the item points to a rectangle
+	 * @of the given size. Pass true if you have already set the size, and want
+	 * to update the appearance and bounding of the item.
 	 */
 	void setSize( QRect sizeRect, bool forceItemPoints = false );
 	/**
@@ -189,10 +193,6 @@ public:
 	 */
 	QString name() const { return m_name; }
 	/**
-	 * Returns a description of the CNItem, with html tags if appropriate.
-	 */
-	QString description() const { return m_desc; }
-	/**
 	 * Modifies the exponent of the number so that it appears readable:
 	 * eg 10000->10, 174822->175, 0.6->600, etc
 	 */
@@ -217,8 +217,6 @@ public:
 	virtual ItemData itemData() const;
 	virtual void restoreFromItemData( const ItemData &itemData );
 	
-	const QFont & font() const { return m_font; }
-	
 public slots:
 	virtual void removeItem();
 	/**
@@ -237,13 +235,9 @@ signals:
 	 */
 	void removed( Item *item );
 	/**
-	 * Emitted when the item is selected
+	 * Emitted when the item is selected or unselected.
 	 */
-	void selected( Item *item, bool isSelected = true );
-	/**
-	 * Emitted when the item is unselected
-	 */
-	void unselected( Item *item, bool isSelected = false );
+	void selectionChanged();
 	/**
 	 * Emitted when the item is resized (after calling postResize)
 	 */
@@ -254,6 +248,7 @@ signals:
 	void movedBy( double dx, double dy );
 	
 protected slots:
+	virtual void propertyChangedInitial();
 	virtual void dataChanged() {};
 	
 protected:
@@ -286,21 +281,21 @@ protected:
 	virtual void postResize() {};
 	
 	QString m_id;
-	QString m_name, m_desc; // Name and description
+	QString m_name; ///< Name (e.g. "Resistor")
 	QString m_type;
 	GuardedItem p_parentItem; // If attached to a parent item
 	ItemList m_children;
 	QGuardedPtr<ItemDocument> p_itemDocument;
 	QPointArray m_itemPoints; // The unorientated and unsized item points
+	QTimer * m_pPropertyChangedTimer; ///< Single show timer for one a property changes
 	
 	friend class ItemLibrary;
 	
 	int m_baseZ;
-	bool m_bIsRaised;
-	bool m_bDoneCreation;
-	bool b_deleted;
-	bool m_bDynamicContent;
-	QFont m_font;
+	bool m_bIsRaised:1;
+	bool m_bDoneCreation:1;
+	bool b_deleted:1;
+	bool m_bDynamicContent:1;
 	QRect m_sizeRect;
 	VariantDataMap m_variantData;
 };

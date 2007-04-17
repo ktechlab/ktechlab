@@ -15,11 +15,12 @@
 #include <kstaticdeleter.h>
 
 PicAsm14bit *PicAsm14bit::m_self = 0;
-static KStaticDeleter<PicAsm14bit> staticDeleter;
+static KStaticDeleter<PicAsm14bit> picAsm14BitStaticDeleter;
 
 PicAsm14bit *PicAsm14bit::self()
 {
-	if ( !m_self ) staticDeleter.setObject( m_self, new PicAsm14bit() );
+	if ( !m_self )
+		picAsm14BitStaticDeleter.setObject( m_self, new PicAsm14bit() );
 	return m_self;
 }
 
@@ -111,6 +112,7 @@ PicInfo16C8x::PicInfo16C8x()
 PicInfo16C8x::~PicInfo16C8x()
 {
 	delete m_package;
+	m_package = 0l;
 }
 
 PicInfo16C84::PicInfo16C84()
@@ -219,6 +221,7 @@ PicInfo16C62::PicInfo16C62()
 PicInfo16C62::~PicInfo16C62()
 {
 	delete m_package;
+	m_package = 0l;
 }
 
 PicInfo16C63::PicInfo16C63()
@@ -287,6 +290,7 @@ PicInfo16C64::PicInfo16C64()
 PicInfo16C64::~PicInfo16C64()
 {
 	delete m_package;
+	m_package = 0l;
 }
 
 PicInfo16C65::PicInfo16C65()
@@ -330,6 +334,7 @@ PicInfo16F62x::PicInfo16F62x()
 PicInfo16F62x::~PicInfo16F62x()
 {
 	delete m_package;
+	m_package = 0l;
 }
 
 PicInfo16F627::PicInfo16F627()

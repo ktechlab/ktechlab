@@ -21,7 +21,7 @@
 #include "processchain.h"
 #include "simulator.h"
 
-#include <cassert>
+#include <assert.h>
 
 #include <kdebug.h>
 #include <klocale.h>
@@ -75,7 +75,8 @@ GpsimProcessor::GpsimProcessor( QString symbolFile, QObject *parent )
 	: QObject(parent),
 	m_symbolFile(symbolFile)
 {
-	if (!bDoneGpsimInit) {
+	if (!bDoneGpsimInit)
+	{
 #ifndef GPSIM_0_21_4
 		initialize_ConsoleUI();
 #endif
@@ -84,18 +85,18 @@ GpsimProcessor::GpsimProcessor( QString symbolFile, QObject *parent )
 		
 		bDoneGpsimInit = true;
 	}
-
+	
 	m_bCanExecuteNextCycle = true;
 	m_bIsRunning = false;
-	m_pPicProcessor = 0;
+	m_pPicProcessor = 0l;
 	m_codLoadStatus = CodUnknown;
-	m_pRegisterMemory = 0;
+	m_pRegisterMemory = 0l;
 	m_debugMode = GpsimDebugger::AsmDebugger;
-	m_pDebugger[0] = m_pDebugger[1] = 0;
-
-	Processor * tempProcessor = 0;
+	m_pDebugger[0] = m_pDebugger[1] = 0l;
+	
+	Processor * tempProcessor = 0l;
 	const char * fileName = symbolFile.ascii();
-
+	
 #ifdef GPSIM_0_21_4
 	switch ( (cod_errors)load_symbol_file( &tempProcessor, fileName ) )
 	{
@@ -127,55 +128,59 @@ GpsimProcessor::GpsimProcessor( QString symbolFile, QObject *parent )
 	else
 		m_codLoadStatus = ( ProgramFileTypeList::GetList().LoadProgramFile( & tempProcessor, fileName, pFile ) ) ? CodSuccess : CodFailure;
 #endif
-
+	
 	m_pPicProcessor = dynamic_cast<pic_processor*>(tempProcessor);
-
-	if ( codLoadStatus() == CodSuccess ) {
+	
+	if ( codLoadStatus() == CodSuccess )
+	{
 		m_pRegisterMemory = new RegisterSet( m_pPicProcessor );
 		m_pDebugger[0] = new GpsimDebugger( GpsimDebugger::AsmDebugger, this );
 		m_pDebugger[1] = new GpsimDebugger( GpsimDebugger::HLLDebugger, this );
-		Simulator::self()->attachGpsimProcessor(*this);
+		Simulator::self()->attachGpsimProcessor(this);
 		DebugManager::self()->registerGpsim(this);
 	}
 }
 
+
 GpsimProcessor::~GpsimProcessor()
 {
-	Simulator::self()->detachGpsimProcessor(*this);
+	Simulator::self()->detachGpsimProcessor(this);
 	delete m_pRegisterMemory;
-
+	
 	if ( m_pDebugger[0] )
 		m_pDebugger[0]->deleteLater();
 	if ( m_pDebugger[1] )
 		m_pDebugger[1]->deleteLater();
 }
 
+
 void GpsimProcessor::displayCodLoadStatus( )
 {
-	switch (m_codLoadStatus) {
+	switch (m_codLoadStatus)
+	{
 		case CodSuccess:
 			break;
 		case CodFileNotFound:
-			KMessageBox::sorry( 0, i18n("The cod file \"%1\" was not found.").arg(m_symbolFile), i18n("File Not Found") );
+			KMessageBox::sorry( 0l, i18n("The cod file \"%1\" was not found.").arg(m_symbolFile), i18n("File Not Found") );
 			break;
 		case CodUnrecognizedProcessor:
-			KMessageBox::sorry( 0, i18n("The processor for cod file \"%1\" is unrecognized.").arg(m_symbolFile), i18n("Unrecognized Processor") );
+			KMessageBox::sorry( 0l, i18n("The processor for cod file \"%1\" is unrecognized.").arg(m_symbolFile), i18n("Unrecognized Processor") );
 			break;
 		case CodFileNameTooLong:
-			KMessageBox::sorry( 0, i18n("The file name \"%1\" is too long.").arg(m_symbolFile), i18n("Filename Too Long") );
+			KMessageBox::sorry( 0l, i18n("The file name \"%1\" is too long.").arg(m_symbolFile), i18n("Filename Too Long") );
 			break;
 		case CodLstNotFound:
-			KMessageBox::sorry( 0, i18n("The lst file associated with the cod file \"%1\" was not found.").arg(m_symbolFile), i18n("LST File Not Found") );
+			KMessageBox::sorry( 0l, i18n("The lst file associated with the cod file \"%1\" was not found.").arg(m_symbolFile), i18n("LST File Not Found") );
 			break;
 		case CodBadFile:
-			KMessageBox::sorry( 0, i18n("The cod file \"%1\" is bad.").arg(m_symbolFile), i18n("Bad File") );
+			KMessageBox::sorry( 0l, i18n("The cod file \"%1\" is bad.").arg(m_symbolFile), i18n("Bad File") );
 			break;
 		case CodFileUnreadable:
-			KMessageBox::sorry( 0, i18n("The cod file \"%1\" could not be read from.").arg(m_symbolFile), i18n("Unreadable File") );
+			KMessageBox::sorry( 0l, i18n("The cod file \"%1\" could not be read from.").arg(m_symbolFile), i18n("Unreadable File") );
 			break;
 		case CodFailure:
 		case CodUnknown:
-			KMessageBox::sorry( 0, i18n("An error occured with the cod file \"%1\".").arg(m_symbolFile), i18n("Error") );
+			KMessageBox::sorry( 0l, i18n("An error occured with the cod file \"%1\".").arg(m_symbolFile), i18n("Error") );
 			break;
 	}
 }
@@ -240,16 +245,23 @@ void GpsimProcessor::executeNext()
 	
 	unsigned long long beforeExecuteCount = get_cycles().get();
 	
-	m_pPicProcessor->step_one(false); // Don't know what the false is for; gpsim ignores its value anyway
-	
-	// Some instructions take more than one cycle to execute, so ignore next cycle if this was the case
-	if ( (get_cycles().get() - beforeExecuteCount) > 1 )
-		m_bCanExecuteNextCycle = false;
+	if(get_bp().have_interrupt())
+	{
+		m_pPicProcessor->interrupt();
+	}
+	else
+	{
+		m_pPicProcessor->step_one(false); // Don't know what the false is for; gpsim ignores its value anyway
+ 
+		// Some instructions take more than one cycle to execute, so ignore next cycle if this was the case
+		if ( (get_cycles().get() - beforeExecuteCount) > 1 )
+			m_bCanExecuteNextCycle = false;
+	}
 	
 	currentDebugger()->checkForBreak();
 	
-	// Let's also update the values of RegisterInfo every 50 milliseconds
-	if ( (beforeExecuteCount % 20000) == 0 )
+	// Let's also update the values of RegisterInfo every 25 milliseconds
+	if ( (beforeExecuteCount % 10000) == 0 )
 		registerMemory()->update();
 }
 
@@ -270,7 +282,7 @@ void GpsimProcessor::reset()
 MicroInfo * GpsimProcessor::microInfo( ) const
 {
 	if ( !m_pPicProcessor ) 
-		return 0;
+		return 0l;
 	
 	return MicroLibrary::self()->microInfoWithID( m_pPicProcessor->name().c_str() );
 }
@@ -435,8 +447,8 @@ GpsimDebugger::GpsimDebugger( Type type, GpsimProcessor * gpsim )
 {
 	m_pGpsim = gpsim;
 	m_type = type;
-	m_pBreakFromOldLine = 0;
-	m_addressToLineMap = 0;
+	m_pBreakFromOldLine = 0l;
+	m_addressToLineMap = 0l;
 	m_stackLevelLowerBreak = -1;
 	m_addressSize = 0;
 	
@@ -460,19 +472,21 @@ GpsimDebugger::GpsimDebugger( Type type, GpsimProcessor * gpsim )
 GpsimDebugger::~GpsimDebugger()
 {
 	QValueList<DebugLine*> debugLinesToDelete;
-
-	for ( unsigned i = 0; i < m_addressSize; ++i ) {
+	
+	for ( unsigned i = 0; i < m_addressSize; ++i )
+	{
 		DebugLine * dl = m_addressToLineMap[i];
-		if(!dl || dl->markedAsDeleted()) continue;
-
+		if ( !dl || dl->markedAsDeleted() )
+			continue;
+		
 		dl->markAsDeleted();
 		debugLinesToDelete += dl;
 	}
-
+	
 	const QValueList<DebugLine*>::iterator end = debugLinesToDelete.end();
 	for ( QValueList<DebugLine*>::iterator it = debugLinesToDelete.begin(); it != end; ++it )
 		delete *it;
-
+	
 	delete [] m_addressToLineMap;
 }
 
@@ -482,7 +496,7 @@ void GpsimDebugger::gpsimRunningStatusChanged( bool isRunning )
 	if (!isRunning)
 	{
 		m_stackLevelLowerBreak = -1;
-		m_pBreakFromOldLine = 0;
+		m_pBreakFromOldLine = 0l;
 		emitLineReached();
 	}
 }
@@ -694,7 +708,7 @@ void GpsimDebugger::stackStep( int dl )
 		initialStack = 0;
 	
 	// Reset any previous stackStep, and step
-	m_pBreakFromOldLine = 0;
+	m_pBreakFromOldLine = 0l;
 	m_stackLevelLowerBreak = -1;
 	m_pGpsim->picProcessor()->step_one(false);
 	
@@ -721,7 +735,8 @@ void GpsimDebugger::stackStep( int dl )
 RegisterSet::RegisterSet( pic_processor * picProcessor )
 {
 	unsigned numRegisters = picProcessor->rma.get_size();
-	m_registers.resize( numRegisters, 0 );
+	kdDebug() << k_funcinfo << "numRegisters="<<numRegisters<<endl;
+	m_registers.resize( numRegisters, 0l );
 	for ( unsigned i = 0; i < numRegisters; ++i )
 	{
 		RegisterInfo * info = new RegisterInfo( & picProcessor->rma[i] );
@@ -744,7 +759,7 @@ RegisterSet::~RegisterSet()
 
 RegisterInfo * RegisterSet::fromAddress( unsigned address )
 {
-	return (address < m_registers.size()) ? m_registers[address] : 0;
+	return (address < m_registers.size()) ? m_registers[address] : 0l;
 }
 
 
@@ -763,7 +778,7 @@ RegisterInfo * RegisterSet::fromName( const QString & name )
 			return it.data();
 	}
 	
-	return 0;
+	return 0l;
 }
 
 
@@ -803,7 +818,7 @@ RegisterInfo::RegisterInfo( Register * reg )
 			break;
 	}
 		
-	m_name = m_pRegister->baseName();
+	m_name = m_pRegister->baseName().c_str();
 }
 
 

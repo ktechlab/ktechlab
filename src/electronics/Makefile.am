@@ -5,14 +5,15 @@ INCLUDES = -I$(top_srcdir)/src -I$(top_srcdir)/src/electronics \
 
 METASOURCES = AUTO
 
-SUBDIRS = simulation components
+SUBDIRS = simulation components models
 
 noinst_LTLIBRARIES = libelectronics.la
 
 libelectronics_la_SOURCES = component.cpp subcircuits.cpp gpsimprocessor.cpp \
-	switch.cpp pin.cpp wire.cpp ecnode.cpp port.cpp
+		switch.cpp pin.cpp wire.cpp ecnode.cpp port.cpp componentmodellibrary.cpp
 
 libelectronics_la_LIBADD = \
 	$(top_builddir)/src/electronics/simulation/libelements.la $(top_builddir)/src/electronics/components/libcomponents.la
 
-noinst_HEADERS = gpsimprocessor.h switch.h pin.h wire.h ecnode.h port.h
+noinst_HEADERS = gpsimprocessor.h switch.h pin.h wire.h ecnode.h port.h \
+	componentmodellibrary.h

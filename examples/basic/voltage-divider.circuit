@@ -1,0 +1,35 @@
+<!DOCTYPE KTechlab>
+<document type="circuit" >
+ <item x="124" y="132" z="0" type="ec/battery" id="cell" flip="0" angle="270" >
+  <data value="9" type="number" id="voltage" />
+ </item>
+ <item x="124" y="196" z="1" type="ec/battery" id="cell__2" flip="0" angle="270" >
+  <data value="9" type="number" id="voltage" />
+ </item>
+ <item x="60" y="188" z="2" type="ec/ground" id="ground" flip="0" angle="270" />
+ <item x="196" y="52" z="3" type="ec/resistor" id="resistor" flip="0" angle="90" >
+  <data value="10000" type="number" id="resistance" />
+ </item>
+ <item x="196" y="108" z="4" type="ec/resistor" id="resistor__11" flip="0" angle="90" >
+  <data value="10000" type="number" id="resistance" />
+ </item>
+ <item x="196" y="164" z="5" type="ec/resistor" id="resistor__14" flip="0" angle="90" >
+  <data value="10000" type="number" id="resistance" />
+ </item>
+ <item x="196" y="220" z="6" type="ec/resistor" id="resistor__17" flip="0" angle="90" >
+  <data value="10000" type="number" id="resistance" />
+ </item>
+ <item x="196" y="276" z="7" type="ec/resistor" id="resistor__20" flip="0" angle="90" >
+  <data value="10000" type="number" id="resistance" />
+ </item>
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="resistor__11" route="24,9,24,10," end-node-cid="n1" start-node-parent="resistor" start-node-cid="p1" id="connector" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="resistor__14" route="24,16,24,17," end-node-cid="n1" start-node-parent="resistor__11" start-node-cid="p1" id="connector__23" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="resistor__17" route="24,23,24,24," end-node-cid="n1" start-node-parent="resistor__14" start-node-cid="p1" id="connector__24" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="resistor__20" route="24,30,24,31," end-node-cid="n1" start-node-parent="resistor__17" start-node-cid="p1" id="connector__25" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="cell__2" route="24,37,24,38,23,38,22,38,21,38,20,38,19,38,18,38,17,38,16,38,15,38,15,37,15,36,15,35,15,34,15,33,15,32,15,31,15,30,15,29,15,28,15,27,15,26," end-node-cid="n1" start-node-parent="resistor__20" start-node-cid="p1" id="connector__26" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="cell" route="24,3,24,2,23,2,22,2,21,2,20,2,19,2,18,2,17,2,16,2,15,2,15,3,15,4,15,5,15,6,15,7,15,8,15,9,15,10,15,11,15,12,15,13,15,14," end-node-cid="p1" start-node-parent="resistor" start-node-cid="n1" id="connector__27" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1" route="7,21,7,20,8,20,9,20,10,20,11,20,12,20,13,20,14,20,15,20," start-node-parent="ground" start-node-cid="p1" id="connector__6" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1" route="15,18,15,19,15,20," start-node-parent="cell" start-node-cid="n1" id="connector__7" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node1" end-node-parent="cell__2" route="15,20,15,21,15,22," end-node-cid="p1" id="connector__8" end-node-is-child="1" />
+ <node x="124" y="164" id="node1" />
+</document>

@@ -1,0 +1,29 @@
+<!DOCTYPE KTechlab>
+<document type="circuit" >
+ <item x="68" y="36" z="0" type="ec/fixed_voltage" id="fixed_voltage" flip="0" angle="0" >
+  <data value="5" type="number" id="voltage" />
+ </item>
+ <item x="116" y="204" z="3" type="ec/ground" id="ground" flip="0" angle="270" />
+ <item x="52" y="156" z="4" type="ec/logic_input" id="logic_input" flip="0" angle="0" >
+  <data value="1" type="bool" id="useToggle" />
+  <button id="button" state="0" />
+ </item>
+ <item x="172" y="124" z="5" type="ec/logic_output" id="logic_output" flip="0" angle="0" />
+ <item x="108" y="156" z="2" type="ec/njfet" id="njfet" flip="0" angle="0" >
+  <data value="1e-14" type="number" id="I_S" />
+  <data value="1" type="number" id="N" />
+  <data value="2" type="number" id="N_R" />
+  <data value="-2" type="number" id="V_Th" />
+  <data value="0.0001" type="number" id="beta" />
+ </item>
+ <item x="116" y="84" z="1" type="ec/resistor" id="resistor" flip="0" angle="90" >
+  <data value="6000" type="number" id="resistance" />
+ </item>
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="fixed_voltage" route="14,7,14,6,14,5,14,4,13,4,12,4,11,4,10,4," end-node-cid="p1" start-node-parent="resistor" start-node-cid="n1" id="connector" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="njfet" route="14,23,14,22,14,21," end-node-cid="S" start-node-parent="ground" start-node-cid="p1" id="connector__42" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="njfet" route="8,19,9,19,10,19,11,19," end-node-cid="G" start-node-parent="logic_input" start-node-cid="p1" id="connector__44" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1" route="19,15,18,15,17,15,16,15,15,15,14,15," start-node-parent="logic_output" start-node-cid="n1" id="connector__46" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1" route="14,17,14,16,14,15," start-node-parent="njfet" start-node-cid="D" id="connector__47" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="0" start-node-id="node1" end-node-parent="resistor" route="14,15,14,14,14,13," end-node-cid="p1" id="connector__48" end-node-is-child="1" />
+ <node x="116" y="124" id="node1" />
+</document>

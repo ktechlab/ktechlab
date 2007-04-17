@@ -17,8 +17,8 @@ dnl    Library General Public License for more details.
  
 dnl    You should have received a copy of the GNU Library General Public License
 dnl    along with this library; see the file COPYING.LIB.  If not, write to
-dnl    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-dnl    Boston, MA 02111-1307, USA.
+dnl    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+dnl    Boston, MA 02110-1301, USA.
 
 # Original Author was Kalle@kde.org
 # I lifted it in some mater. (Stephan Kulow)
@@ -209,20 +209,30 @@ KDE_CREATE_SUBDIRSLIST
 AC_CONFIG_FILES([ Makefile ])
 AC_CONFIG_FILES([ doc/Makefile ])
 AC_CONFIG_FILES([ doc/en/Makefile ])
+AC_CONFIG_FILES([ examples/Makefile ])
+AC_CONFIG_FILES([ examples/555/Makefile ])
+AC_CONFIG_FILES([ examples/basic/Makefile ])
+AC_CONFIG_FILES([ examples/diodes/Makefile ])
+AC_CONFIG_FILES([ examples/jfets/Makefile ])
+AC_CONFIG_FILES([ examples/mosfets/Makefile ])
+AC_CONFIG_FILES([ examples/opamps/Makefile ])
+AC_CONFIG_FILES([ examples/transistors/Makefile ])
 AC_CONFIG_FILES([ icons/Makefile ])
 AC_CONFIG_FILES([ icons/pics/Makefile ])
 AC_CONFIG_FILES([ microbe/Makefile ])
 AC_CONFIG_FILES([ po/Makefile ])
 AC_CONFIG_FILES([ src/Makefile ])
+AC_CONFIG_FILES([ src/contexthelp/Makefile ])
 AC_CONFIG_FILES([ src/core/Makefile ])
 AC_CONFIG_FILES([ src/drawparts/Makefile ])
 AC_CONFIG_FILES([ src/electronics/Makefile ])
 AC_CONFIG_FILES([ src/electronics/components/Makefile ])
+AC_CONFIG_FILES([ src/electronics/models/Makefile ])
 AC_CONFIG_FILES([ src/electronics/simulation/Makefile ])
 AC_CONFIG_FILES([ src/flowparts/Makefile ])
 AC_CONFIG_FILES([ src/gui/Makefile ])
+AC_CONFIG_FILES([ src/gui/itemeditor/Makefile ])
 AC_CONFIG_FILES([ src/languages/Makefile ])
-AC_CONFIG_FILES([ src/math/Makefile ])
 AC_CONFIG_FILES([ src/mechanics/Makefile ])
 AC_CONFIG_FILES([ src/micro/Makefile ])
 AC_OUTPUT

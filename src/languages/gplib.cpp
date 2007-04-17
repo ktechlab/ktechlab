@@ -16,8 +16,8 @@
 #include <kmessagebox.h>
 #include <kprocess.h>
 
-Gplib::Gplib( ProcessChain *processChain, KTechlab * parent )
-	: ExternalLanguage( processChain, parent, "Gpasm" )
+Gplib::Gplib( ProcessChain *processChain )
+	: ExternalLanguage( processChain, "Gpasm" )
 {
 	m_successfulMessage = i18n("*** Archiving successful ***");
 	m_failedMessage = i18n("*** Archiving failed ***");

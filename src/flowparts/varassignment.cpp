@@ -23,7 +23,7 @@ Item* VarAssignment::construct( ItemDocument *itemDocument, bool newItem, const 
 LibraryItem* VarAssignment::libraryItem()
 {
 	return new LibraryItem(
-		QString::QString("flow/varassignment"),
+		"flow/varassignment",
 		i18n("Assignment"),
 		i18n("Variables"),
 		"assignment.png",
@@ -32,10 +32,9 @@ LibraryItem* VarAssignment::libraryItem()
 }
 
 VarAssignment::VarAssignment( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowPart( icnDocument, newItem, (id) ? id : "varassignment" )
+	: FlowPart( icnDocument, newItem, id ? id : "varassignment" )
 {
 	m_name = i18n("Variable Assignment");
-	m_desc = i18n("Assigns the evaluation of an expression to a variable. The expression can take many forms. For example:<ul><li><b>x = 2</b></li><li><b>x = y + 3</b></li><li><b>x = y + z</b></li><li><b>x = 2 * y</b></ul>");
 	initProcessSymbol();
 	createStdInput();
 	createStdOutput();

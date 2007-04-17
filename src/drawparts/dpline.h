@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2005 by David Saxton                                    *
+ *   Copyright (C) 2005,2006 by David Saxton                               *
  *   david@bluehaze.org                                                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -21,7 +21,7 @@ class LineOverlay;
 class DPLine : public DrawPart
 {
 	public:
-		DPLine( ItemDocument *itemDocument, bool newItem, const char *id = 0 );
+		DPLine( ItemDocument *itemDocument, bool newItem, const char *id = 0L );
 		~DPLine();
 
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -43,14 +43,16 @@ class DPLine : public DrawPart
 class DPArrow : public DPLine
 {
 	public:
-		DPArrow( ItemDocument *itemDocument, bool newItem, const char *id = 0 );
+		DPArrow( ItemDocument *itemDocument, bool newItem, const char *id = 0L );
 		~DPArrow();
 
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
 
 	protected:
+		virtual void dataChanged();
 		virtual void drawShape( QPainter &p );
+		double m_headAngle;
 };
 
 #endif

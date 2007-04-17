@@ -22,14 +22,15 @@
 #include <qfile.h>
 #include <kprocess.h>
 
-Microbe::Microbe( ProcessChain *processChain, KTechlab *parent )
- : ExternalLanguage( processChain, parent, "Microbe" )
+Microbe::Microbe( ProcessChain *processChain )
+ : ExternalLanguage( processChain, "Microbe" )
 {
 	m_failedMessage = i18n("*** Compilation failed ***");
 	m_successfulMessage = i18n("*** Compilation successful ***");
 	
+#if 0
 	// Setup error messages list
-	QFile file( locate("appdata",i18n("error_messages_en_gb")) );
+	QFile file( locate("appdata",i1 8n("error_messages_en_gb")) );
 	if ( file.open( IO_ReadOnly ) ) 
 	{
         QTextStream stream( &file );
@@ -50,6 +51,7 @@ Microbe::Microbe( ProcessChain *processChain, KTechlab *parent )
         }
 		file.close();
 	}
+#endif
 }
 
 Microbe::~Microbe()

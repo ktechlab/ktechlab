@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2003,2005 by David Saxton                               *
+ *   Copyright (C) 2003-2006 by David Saxton                               *
  *   david@bluehaze.org                                                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -83,6 +83,7 @@ class ItemSelector : public KListView
 		void itemRemoved( const QString &id );
 		void itemDoubleClicked( const QString &id );
 		void itemClicked( const QString &id );
+		void itemSelected( const QString & id );
 	
 	protected:
 		/**
@@ -101,6 +102,7 @@ class ItemSelector : public KListView
 		bool readOpenState( const QString &id );
 
 	private slots:
+		void slotItemSelected( QListViewItem * item );
 		void slotItemClicked( QListViewItem *item );
 		void slotItemDoubleClicked( QListViewItem *item );
 
@@ -122,7 +124,7 @@ class ComponentSelector : public ItemSelector
 {
 	Q_OBJECT
 	public:
-		static ComponentSelector * self( KateMDI::ToolView * parent = 0 );
+		static ComponentSelector * self( KateMDI::ToolView * parent = 0l );
 		static QString toolViewIdentifier() { return "ComponentSelector"; }
 	
 	private:
@@ -139,7 +141,7 @@ class FlowPartSelector : public ItemSelector
 {
 	Q_OBJECT
 	public:
-		static FlowPartSelector * self( KateMDI::ToolView * parent = 0 );
+		static FlowPartSelector * self( KateMDI::ToolView * parent = 0l );
 		static QString toolViewIdentifier() { return "FlowPartSelector"; }
 	
 	private:
@@ -155,11 +157,11 @@ class MechanicsSelector : public ItemSelector
 {
 	Q_OBJECT
 	public:
-		static MechanicsSelector * self( KateMDI::ToolView * parent = 0 );
+		static MechanicsSelector * self( KateMDI::ToolView * parent = 0l );
 		static QString toolViewIdentifier() { return "MechanicsSelector"; }
 	
 	private:
-		MechanicsSelector( QWidget *parent = 0 );
+		MechanicsSelector( QWidget *parent = 0L );
 		static MechanicsSelector * m_pSelf;
 };
 

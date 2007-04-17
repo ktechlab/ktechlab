@@ -22,6 +22,14 @@
 			<label>Show Voltage Bars</label>
 			<default>true</default>
 		</entry>
+		<entry name="ShowVoltageColor" type="Bool">
+			<label>Show Voltage as Color</label>
+			<default>true</default>
+		</entry>
+		<entry name="AnimateWires" type="Bool">
+			<label>Animate Wires (current or power)</label>
+			<default>false</default>
+		</entry>
 		<entry name="RefreshRate" type="Int">
 			<label>Refresh Rate</label>
 			<default>50</default> <!-- Make sure this default value is synched with that in settingsdlg.cpp. TODO: Only store this value in one place -->
@@ -30,13 +38,9 @@
 			<label>Color of grid lines</label>
 			<default>#E8E8E8</default>
 		</entry>
-		<!--<entry name="BgColor" type="Color">
-			<label>Background color</label>
-			<default>white</default>
-		</entry>-->
 		<entry name="ShowGrid" type="Bool">
 			<label>Whether the grid should be shown.</label>
-			<default>true</default>
+			<default>false</default>
 		</entry>
 		<entry name="ReuseSameViewForOutput" type="Bool">
 			<label>Whether the same output should be use for generation of code, etc</label>
@@ -72,6 +76,14 @@
 	</group>
 	
 	<group name="Logic">
+		<entry name="LogicSymbolShapes" type="Enum">
+			<label>Logic Symbol Shapes</label>
+			<choices>
+				<choice name="Distinctive"/>
+				<choice name="Rectangular"/>
+			</choices>
+			<default>Distinctive</default>
+		</entry>
 		<entry name="LogicRisingTrigger" type="Double">
 			<label>Rising Trigger Threshold</label>
 			<default>2.5</default>

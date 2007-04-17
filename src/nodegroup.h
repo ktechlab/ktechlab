@@ -115,7 +115,7 @@ protected:
 	bool b_visible;
 	
 private:
-	IntList findRoute( IntList used, int currentNode, int endNode, bool *success = 0 );
+	IntList findRoute( IntList used, int currentNode, int endNode, bool *success = 0l );
 	void resetRoutedMap();
 	/**
 	 * Looks at b_routedMap as well as the connectors coming out of nodes, and

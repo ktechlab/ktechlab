@@ -26,17 +26,24 @@ EventInfo::EventInfo( ItemView *itemView, QEvent *e )
 	reset();
 }
 
+void EventInfo::extractPos( ItemView * itemView, const QPoint & contentsMouseClick )
+{
+	pos = itemView->mousePosToCanvasPos( contentsMouseClick );
+}
+
 EventInfo::EventInfo( ItemView *itemView, QMouseEvent *e )
 {
-	pos = e->pos()/itemView->zoomLevel();
+	reset();
+	
+	extractPos( itemView, e->pos() );
 	globalPos = e->globalPos();
 	isRightClick = e->button() == Qt::RightButton;
+	isMiddleClick = e->button() == Qt::MidButton;
 	ctrlPressed = e->state() & QMouseEvent::ControlButton;
 	shiftPressed = e->state() & QMouseEvent::ShiftButton;
 	altPressed = e->state() & QMouseEvent::AltButton;
 	if ( ItemDocument * id = dynamic_cast<ItemDocument*>(itemView->document()) )
 			qcanvasItemClickedOn = id->itemAtTop(pos);
-	itemRtti = qcanvasItemClickedOn ? qcanvasItemClickedOn->rtti() : ItemDocument::RTTI::None;
 	scrollDelta = 0;
 	scrollOrientation = Qt::Vertical;
 }
@@ -44,30 +51,28 @@ EventInfo::EventInfo( ItemView *itemView, QMouseEvent *e )
 
 EventInfo::EventInfo( ItemView *itemView, QWheelEvent *e )
 {
-	pos = e->pos()/itemView->zoomLevel();
+	reset();
+	
+	extractPos( itemView, e->pos() );
 	globalPos = e->globalPos();
-	isRightClick = false;
 	ctrlPressed = e->state() & QMouseEvent::ControlButton;
 	shiftPressed = e->state() & QMouseEvent::ShiftButton;
 	altPressed = e->state() & QMouseEvent::AltButton;
 	if ( ItemDocument * id = dynamic_cast<ItemDocument*>(itemView->document()) )
 		qcanvasItemClickedOn = id->itemAtTop(pos);
-	itemRtti = qcanvasItemClickedOn ? qcanvasItemClickedOn->rtti() : ItemDocument::RTTI::None;
 	scrollDelta = e->delta();
 	scrollOrientation = e->orientation();
-	
-// 	kdDebug() << "scrollOrientation="<<scrollOrientation<<endl;
 }
 
 
 void EventInfo::reset()
 {
 	isRightClick = false;
+	isMiddleClick = false;
 	ctrlPressed = false;
 	shiftPressed = false;
 	altPressed = false;
-	qcanvasItemClickedOn = 0;
-	itemRtti = ItemDocument::RTTI::None;
+	qcanvasItemClickedOn = 0l;
 	scrollDelta = 0;
 	scrollOrientation = Qt::Vertical;
 }

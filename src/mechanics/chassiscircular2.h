@@ -17,13 +17,10 @@
 @short Mechanics Framework, circular base, two wheels
 @author David Saxton
 */
-
-// hmm, doesn't seem to be enabled yet.
-
 class ChassisCircular2 : public MechanicsItem
 {
 public:
-	ChassisCircular2( MechanicsDocument *mechanicsDocument, bool newItem, const char *id = 0 );
+	ChassisCircular2( MechanicsDocument *mechanicsDocument, bool newItem, const char *id = 0l );
 	~ChassisCircular2();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

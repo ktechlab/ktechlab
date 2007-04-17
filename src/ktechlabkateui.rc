@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KTechlabText" version="9">
+<kpartgui name="KTechlabText" version="10">
 	<MenuBar>
 		<Menu name="file">
 			<text>&amp;File</text>
@@ -12,6 +12,7 @@
 		
 		<Menu name="edit">
 			<text>&amp;Edit</text>
+  			<Action name="edit_select_all" group="edit_select_merge" />
 			<Action name="edit_deselect" group="edit_select_merge" />
 			<Action name="set_verticalSelect" group="edit_select_merge" />
 			<Separator group="edit_select_merge" />

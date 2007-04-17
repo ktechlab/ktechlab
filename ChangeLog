@@ -1,0 +1,56 @@
+New or improved components:
+* Transistors (NPN and PNP).
+* Inductor.
+* Ideal opamp.
+* Rotary switch.
+* Bus connection.
+* Matrix display and driver.
+* Magnitude comparator.
+* Voltage and current probes for oscilloscope.
+* Simulated bouncing for switches.
+* Serial and parallel port components (interface with computer hardware).
+
+Project Management:
+* Complete rewrite...
+* Support for building targets, with processing and linking options.
+
+FlowCode / Microbe:
+* Can read from keypads and display on seven segment displays.
+* Add warning for floating connections in FlowCode.
+* Generated assembly is now heavily optimized.
+
+Debugging:
+* High level language support (SDCC, Microbe).
+* Mouse-over variable inspection.
+* Symbol Viewer.
+
+Optimization:
+* Cache simulation data for circuits with discrete set of inputs (and no
+  reactive components).
+* Speed up calculation of diode operating point.
+* Optimized mixed logic and non-logic simulation.
+* Optimized recording of boolean data from logic probes.
+
+Interface:
+* Translations into French, Spanish and Italian.
+* Replaced KMDI with KateMDI (toolviews remember sizes, lots of other
+  improvements).
+* Modularised GUI - menus and toolbars are hidden / shown as appropriate for
+  the document being edited.
+* Toolbar item editor is now squashable.
+* Lots of icon improvements.
+
+Polishing:
+* Removed flicker when resizing the work area.
+* Remember cursor position in text documents on save / restore.
+* Removed flicker when joining / splitting connectors.
+* Save undo / redo state after editing data.
+* Remember connection routing selection.
+* Try and retain upwards position of text when rotating / reflecting components.
+* Editing of real numbers now always uses three significant figures.
+* Give LEDs a nice selection of predefined LED colours.
+
+Miscellaneous Features:
+* PIC program uploading (via the use of external programs).
+* Allow changing of the z-ordering of items.
+* Added support for gpsim-0.21.11 and gpsim-0.21.12.

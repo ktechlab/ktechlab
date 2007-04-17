@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2003,2005 by David Saxton                               *
+ *   Copyright (C) 2003-2006 by David Saxton                               *
  *   david@bluehaze.org                                                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -28,14 +28,14 @@
 #include <qpopupmenu.h>
 #include <qwhatsthis.h>
 
-#include <cassert>
+#include <assert.h>
 
 ILVItem::ILVItem( QListView* parent, const QString &id )
 	: KListViewItem( parent, 0 )
 {
 	m_id = id;
 	b_isRemovable = false;
-	m_pProjectItem = 0;
+	m_pProjectItem = 0l;
 }
 
 ILVItem::ILVItem( QListViewItem* parent, const QString &id )
@@ -43,7 +43,7 @@ ILVItem::ILVItem( QListViewItem* parent, const QString &id )
 {
 	m_id = id;
 	b_isRemovable = false;
-	m_pProjectItem = 0;
+	m_pProjectItem = 0l;
 }
 
 
@@ -55,11 +55,13 @@ ItemSelector::ItemSelector( QWidget *parent, const char *name )
 	setSorting( -1, FALSE );
     setRootIsDecorated(true);
     setDragEnabled(true);
+	setFocusPolicy( NoFocus );
 	
 // 	connect( this, SIGNAL(executed(QListViewItem*) ), this, SLOT(slotItemExecuted(QListViewItem*)) );
 	connect( this, SIGNAL(clicked(QListViewItem*)), this, SLOT(slotItemClicked(QListViewItem*)) );
 	connect( this, SIGNAL(doubleClicked(QListViewItem*)), this, SLOT(slotItemDoubleClicked(QListViewItem*)) );
 	connect( this, SIGNAL(contextMenuRequested(QListViewItem*, const QPoint&, int )), this, SLOT(slotContextMenuRequested(QListViewItem*, const QPoint&, int )) );
+	connect( this, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotItemSelected( QListViewItem* )) );
 }
 
 ItemSelector::~ItemSelector()
@@ -77,7 +79,7 @@ void ItemSelector::clear()
 
 void ItemSelector::addItem( const QString & caption, const QString & id, const QString & _category, const QPixmap & icon, bool removable )
 {
-	ILVItem *parentItem = 0;
+	ILVItem *parentItem = 0L;
 	
 	QString category = _category;
 	if ( !category.startsWith("/") ) {
@@ -167,44 +169,61 @@ void ItemSelector::slotContextMenuRequested( QListViewItem* item, const QPoint& 
 	menu->popup(pos);
 }
 
+
 void ItemSelector::slotRemoveSelectedItem()
 {
 	ILVItem *item = dynamic_cast<ILVItem*>(selectedItem());
-	if (!item) return;
-
+	if (!item)
+		return;
+	
 	emit itemRemoved( item->key( 0, 0 ) );
 	ILVItem *parent = dynamic_cast<ILVItem*>(item->QListViewItem::parent());
 	delete item;
-
 	// Get rid of the category as well if it has no children
-	if(parent && !parent->firstChild()) {
+	if ( parent && !parent->firstChild() )
+	{
 		m_categories.remove(parent->text(0));
 		delete parent;
 	}
 }
+
 
 void ItemSelector::setListCaption( const QString &caption )
 {
 	setColumnText( 0, caption );
 }
 
+
+void ItemSelector::slotItemSelected( QListViewItem * item )
+{
+	if (!item)
+		return;
+	
+	emit itemSelected( item->key( 0, 0 ) );
+}
+
+
 void ItemSelector::slotItemClicked( QListViewItem *item )
 {
-	if (!item) return;
-
+	if (!item)
+		return;
+	
 	if ( ItemDocument * itemDocument = dynamic_cast<ItemDocument*>(DocManager::self()->getFocusedDocument()) )
 		itemDocument->slotUnsetRepeatedItemId();
-
+	
 	emit itemClicked( item->key( 0, 0 ) );
 }
 
+
 void ItemSelector::slotItemDoubleClicked( QListViewItem *item )
 {
-	if (!item) return;
+	if (!item)
+		return;
 	
 	QString id = item->key( 0, 0 );
 	
-	if(Document *doc = DocManager::self()->getFocusedDocument()) {
+	if ( Document * doc = DocManager::self()->getFocusedDocument() )
+	{
 		if ( doc->type() == Document::dt_flowcode && id.startsWith("flow/") )
 			(static_cast<FlowCodeDocument*>(doc))->slotSetRepeatedItemId(id);
 		
@@ -223,7 +242,7 @@ QDragObject* ItemSelector::dragObject()
 {
 	const QString id = currentItem()->key(0,0);
 	
-	QStoredDrag * d = 0;
+	QStoredDrag * d = 0l;
 	
 	if ( id.startsWith("flow/") )
 		d = new QStoredDrag( "ktechlab/flowpart", this );
@@ -255,7 +274,7 @@ QDragObject* ItemSelector::dragObject()
 
 
 //BEGIN class ComponentSelector
-ComponentSelector * ComponentSelector::m_pSelf = 0;
+ComponentSelector * ComponentSelector::m_pSelf = 0l;
 
 
 ComponentSelector * ComponentSelector::self( KateMDI::ToolView * parent )
@@ -295,7 +314,7 @@ ComponentSelector::ComponentSelector( KateMDI::ToolView * parent )
 
 
 //BEGIN class FlowPartSelector
-FlowPartSelector * FlowPartSelector::m_pSelf = 0;
+FlowPartSelector * FlowPartSelector::m_pSelf = 0l;
 
 
 FlowPartSelector * FlowPartSelector::self( KateMDI::ToolView * parent )
@@ -328,7 +347,7 @@ FlowPartSelector::FlowPartSelector( KateMDI::ToolView * parent )
 
 
 //BEGIN class MechanicsSelector
-MechanicsSelector * MechanicsSelector::m_pSelf = 0;
+MechanicsSelector * MechanicsSelector::m_pSelf = 0l;
 
 
 MechanicsSelector * MechanicsSelector::self( KateMDI::ToolView * parent )

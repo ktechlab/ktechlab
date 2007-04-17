@@ -27,28 +27,26 @@
 #include <klocale.h>
 #include <qwhatsthis.h>
 
-#include <cassert>
+#include <assert.h>
 
 
-LanguageManager * LanguageManager::m_pSelf = 0;
+LanguageManager * LanguageManager::m_pSelf = 0l;
 
 
-LanguageManager * LanguageManager::self( KateMDI::ToolView * parent, KTechlab * ktl )
+LanguageManager * LanguageManager::self( KateMDI::ToolView * parent )
 {
 	if (!m_pSelf)
 	{
 		assert(parent);
-		assert(ktl);
-		m_pSelf = new LanguageManager( parent, ktl );
+		m_pSelf = new LanguageManager( parent );
 	}
 	return m_pSelf;
 }
 
 
-LanguageManager::LanguageManager( KateMDI::ToolView * parent, KTechlab * ktl )
-	: QObject((QObject*)ktl)
+LanguageManager::LanguageManager( KateMDI::ToolView * parent )
+	: QObject( KTechlab::self() )
 {
-	p_ktechlab = ktl;
 	m_logView = new LogView( parent, "LanguageManager LogView");
 	
 	QWhatsThis::add( m_logView, i18n("These messages show the output of language-related functionality such as compiling and assembling.<br><br>For error messages, clicking on the line will automatically open up the file at the position of the error.") );
@@ -71,18 +69,18 @@ void LanguageManager::reset()
 ProcessChain * LanguageManager::compile( ProcessOptions options )
 {
 	if ( KTLConfig::raiseMessagesLog() )
-		p_ktechlab->showToolView( p_ktechlab->toolView( toolViewIdentifier() ) );
+		KTechlab::self()->showToolView( KTechlab::self()->toolView( toolViewIdentifier() ) );
 	
-	return new ProcessChain( options, p_ktechlab );
+	return new ProcessChain( options );
 }
 
 
 ProcessListChain * LanguageManager::compile( ProcessOptionsList pol )
 {
 	if ( KTLConfig::raiseMessagesLog() )
-		p_ktechlab->showToolView( p_ktechlab->toolView( toolViewIdentifier() ) );
+		KTechlab::self()->showToolView( KTechlab::self()->toolView( toolViewIdentifier() ) );
 	
-	return new ProcessListChain( pol, p_ktechlab );
+	return new ProcessListChain( pol );
 }
 
 

@@ -33,9 +33,9 @@ class ECNode : public Node
 {
 	Q_OBJECT
 	public:
-		ECNode( ICNDocument *icnDocument, Node::node_type type, node_dir dir, const QPoint &pos, QString *id = 0 );
+		ECNode( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint &pos, QString *id = 0L );
 		~ECNode();
-
+	
 		virtual void setParentItem( CNItem *parentItem );
 		virtual void drawShape( QPainter &p );
 		/**
@@ -48,20 +48,23 @@ class ECNode : public Node
 		 */
 		unsigned numPins() const { return m_pins.size(); }
 		PinVector pins() const { return m_pins; }
-		Pin * pin( unsigned num = 0 ) const { return (num < m_pins.size()) ? m_pins[num] : 0; }
+		Pin * pin( unsigned num = 0 ) const { return (num < m_pins.size()) ? m_pins[num] : 0l; }
 		bool showVoltageBars() const { return m_bShowVoltageBars; }
 		void setShowVoltageBars( bool show ) { m_bShowVoltageBars = show; }
+		bool showVoltageColor() const { return m_bShowVoltageColor; }
+		void setShowVoltageColor( bool show ) { m_bShowVoltageColor = show; }
 		void setNodeChanged();
-
+		
 	signals:
 		void numPinsChanged( unsigned newNum );
-
+	
 	protected slots:
 		void removeElement( Element * e );
 		void removeSwitch( Switch * sw );
-
+	
 	protected:
-		bool m_bShowVoltageBars;
+		bool m_bShowVoltageBars:1;
+		bool m_bShowVoltageColor:1;
 		double m_prevV;
 		double m_prevI;
 		QCanvasRectangle * m_pinPoint;
@@ -69,6 +72,4 @@ class ECNode : public Node
 };
 
 #endif
-
-
 

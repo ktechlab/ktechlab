@@ -20,7 +20,7 @@ Interface to the GNU Pic Disassembler
 class Gpdasm : public ExternalLanguage
 {
 public:
-	Gpdasm( ProcessChain *processChain, KTechlab *parent );
+	Gpdasm( ProcessChain *processChain );
 	~Gpdasm();
 	
 	virtual void processInput( ProcessOptions options );

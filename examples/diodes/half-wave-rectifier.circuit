@@ -1,0 +1,23 @@
+<!DOCTYPE KTechlab>
+<document type="circuit" >
+ <item x="116" y="108" z="3" type="ec/ammeter" id="ammeter" flip="0" angle="0" >
+  <data value="0.001" type="number" id="0-minValue" />
+  <data value="0.1" type="number" id="1-maxValue" />
+ </item>
+ <item x="116" y="44" z="2" type="ec/diode" id="diode" flip="0" angle="0" >
+  <data value="1e-15" type="number" id="I_S" />
+  <data value="1" type="number" id="N" />
+  <data value="4.7" type="number" id="V_B" />
+ </item>
+ <item x="172" y="76" z="1" type="ec/resistor" id="resistor" flip="0" angle="90" >
+  <data value="1000" type="number" id="resistance" />
+ </item>
+ <item x="68" y="76" z="0" type="ec/voltage_signal" id="voltage_signal" flip="0" angle="270" >
+  <data value="1" type="number" id="frequency" />
+  <data value="5" type="number" id="voltage" />
+ </item>
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="voltage_signal" route="11,13,10,13,9,13,8,13,8,12,8,11," end-node-cid="n1" start-node-parent="ammeter" start-node-cid="n1" id="connector" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="resistor" route="17,13,18,13,19,13,20,13,21,13,21,12," end-node-cid="p1" start-node-parent="ammeter" start-node-cid="p1" id="connector__10" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="voltage_signal" route="12,5,11,5,10,5,9,5,8,5,8,6,8,7," end-node-cid="p1" start-node-parent="diode" start-node-cid="n1" id="connector__6" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="resistor" route="16,5,17,5,18,5,19,5,20,5,21,5,21,6," end-node-cid="n1" start-node-parent="diode" start-node-cid="p1" id="connector__7" end-node-is-child="1" />
+</document>

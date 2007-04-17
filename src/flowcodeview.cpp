@@ -61,10 +61,14 @@ FlowCodeView::FlowCodeView( FlowCodeDocument * flowCodeDocument, ViewContainer *
 	m_pViewIface = new FlowCodeViewIface(this);
 }
 
+
 FlowCodeView::~FlowCodeView()
 {
 	delete m_pViewIface;
+	m_pViewIface = 0l;
 }
+
+
 
 void FlowCodeView::dragEnterEvent( QDragEnterEvent * e )
 {
@@ -72,7 +76,12 @@ void FlowCodeView::dragEnterEvent( QDragEnterEvent * e )
 	if ( e->isAccepted() )
 		return;
 	
-	e->accept( e->provides("ktechlab/flowpart") );
+	bool acceptable = e->provides("ktechlab/flowpart");
+	if ( !acceptable )
+		return;
+	
+	e->accept( true );
+	createDragItem( e );
 }
 
 #include "flowcodeview.moc"

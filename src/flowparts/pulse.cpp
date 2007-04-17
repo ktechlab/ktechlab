@@ -22,7 +22,7 @@ Item* Pulse::construct( ItemDocument *itemDocument, bool newItem, const char *id
 LibraryItem* Pulse::libraryItem()
 {
 	return new LibraryItem(
-		QString::QString("flow/pulse"),
+		"flow/pulse",
 		i18n("Pulse"),
 		i18n("Functions"),
 		"pppulse.png",
@@ -32,10 +32,9 @@ LibraryItem* Pulse::libraryItem()
 }
 
 Pulse::Pulse( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowPart( icnDocument, newItem, (id) ? id : "pulse" )
+	: FlowPart( icnDocument, newItem, id ? id : "pulse" )
 {
 	m_name = i18n("Pulse");
-	m_desc = i18n("Pulse a pin high/low for a given duration.");
 	initProcessSymbol();
 	createStdInput();
 	createStdOutput();

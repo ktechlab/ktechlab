@@ -23,7 +23,7 @@ Item* While::construct( ItemDocument *itemDocument, bool newItem, const char *id
 LibraryItem* While::libraryItem()
 {
 	return new LibraryItem(
-		QString("flow/while"),
+		"flow/while",
 		i18n("While"),
 		i18n("Loops"),
 		"while.png",
@@ -32,10 +32,9 @@ LibraryItem* While::libraryItem()
 }
 
 While::While( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FlowContainer( icnDocument, newItem, (id) ? id : "whileloop" )
+	: FlowContainer( icnDocument, newItem, id ? id : "whileloop" )
 {
 	m_name = i18n("While");
-	m_desc = i18n("Repeatedly execute code, until the given condition is false. The condition is checked before the code has been executed.<br><br>This is different from \"Repeat\", which checks for the condition to be true after the code is executed.");
 	createTopContainerNode();
 	createBotContainerNode();
 	

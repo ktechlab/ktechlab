@@ -39,7 +39,7 @@ public:
 		dt_text,
 		dt_pinMapEditor
 	};
-	Document( const QString &caption, KTechlab *ktechlab, const char *name = 0 );
+	Document( const QString &caption, const char *name = 0 );
 	virtual ~Document();
 	/**
 	 * If the user has created a new document from the new file dialog, and
@@ -74,7 +74,7 @@ public:
 	/**
 	 * Returns the active view, which is the last view to be used to edit in
 	 */
-	View *activeView() const { return p_activeView; }
+	View *activeView() const { return m_pActiveView; }
 	ViewList viewList() const { return m_viewList; }
 	/**
 	 * Returns the type of document.
@@ -90,7 +90,7 @@ public:
 	 * functions, you must call handleNewView after creating the view, so that
 	 * the appropriate slots, pointers, etc can all be initialised.
 	 */
-	virtual View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0 ) = 0;
+	virtual View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l ) = 0;
 	/**
 	 * Returns the url of the file that the Document refers to
 	 */
@@ -177,7 +177,6 @@ public:
 	virtual void debugInterrupt() {};
 	virtual void debugStop() {};
 	virtual void debugStep() {};
-	KTechlab *ktechlab() const { return p_ktechlab; }
 	bool isDeleted() const { return m_bDeleted; }
 
 protected slots:
@@ -222,8 +221,7 @@ protected:
 	virtual void handleNewView( View *view );
 	
 	bool b_modified;
-	KTechlab *p_ktechlab;
-	QGuardedPtr<View> p_activeView;
+	QGuardedPtr<View> m_pActiveView;
 	DocumentType m_type;
 	ViewList m_viewList;
 	QString m_caption;

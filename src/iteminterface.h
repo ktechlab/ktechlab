@@ -28,13 +28,13 @@ class KComboBox;
 class KToolBar;
 class KURLRequester;
 class QCheckBox;
-class KLineEdit;
+class LineEdit;
 class KIntSpinBox;
 
 
 typedef QMap<QString, Variant*> VariantDataMap;
 typedef QMap<QString, KComboBox*> KComboBoxMap;
-typedef QMap<QString, KLineEdit*> KLineEditMap;
+typedef QMap<QString, LineEdit*> LineEditMap;
 typedef QMap<QString, DoubleSpinBox*> DoubleSpinBoxMap;
 typedef QMap<QString, KIntSpinBox*> IntSpinBoxMap;
 typedef QMap<QString, ColorCombo*> ColorComboMap;
@@ -52,8 +52,11 @@ class ItemInterface : public QObject
 	Q_OBJECT
 	public:
 		~ItemInterface();
-		static ItemInterface * self( KTechlab * ktechlab = 0 );
-		
+		static ItemInterface * self();
+		/**
+		 * The current item group in use (or null if none).
+		 */
+		ItemGroup * itemGroup() const { return p_itemGroup; }
 		/**
 		 * Sets the orientation of all flowparts in the group.
 		 */
@@ -82,6 +85,10 @@ class ItemInterface : public QObject
 		 */
 		void slotSetData( const QString &id, QVariant value );
 		/**
+		 * Essentially the same as slotSetData.
+		 */
+		void setProperty( Variant * v );
+		/**
 		 * Called when the ItemEditTB is cleared. This clears all widget maps.
 		 */
 		void itemEditTBCleared();
@@ -98,11 +105,9 @@ class ItemInterface : public QObject
 		 * as specified by mi.
 		 */
 		void connectMapWidget( QWidget *widget, const char *_signal);
-		
-		KTechlab * const p_ktechlab;
 	
 		// Widget maps.
-		KLineEditMap m_stringLineEditMap;
+		LineEditMap m_stringLineEditMap;
 		KComboBoxMap m_stringComboBoxMap;
 		KURLReqMap m_stringURLReqMap;
 		DoubleSpinBoxMap m_doubleSpinBoxMap;
@@ -119,7 +124,7 @@ class ItemInterface : public QObject
 		void slotGetActionTicket();
 
 	private:
-		ItemInterface( KTechlab * ktechlab );
+		ItemInterface();
 		static ItemInterface * m_pSelf;
 	
 		QGuardedPtr<ItemDocument> p_cvb;

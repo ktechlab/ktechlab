@@ -20,7 +20,7 @@
 class Keypad : public FlowPart
 {
 public:
-	Keypad( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	Keypad( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~Keypad();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

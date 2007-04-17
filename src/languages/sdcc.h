@@ -19,7 +19,7 @@
 class SDCC : public ExternalLanguage
 {
 	public:
-		SDCC( ProcessChain * processChain, KTechlab * parent );
+		SDCC( ProcessChain * processChain );
 		~SDCC();
 	
 		virtual void processInput( ProcessOptions options );

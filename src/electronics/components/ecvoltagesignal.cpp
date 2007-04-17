@@ -26,7 +26,7 @@ Item* ECVoltageSignal::construct( ItemDocument *itemDocument, bool newItem, cons
 LibraryItem* ECVoltageSignal::libraryItem()
 {
 	return new LibraryItem(
-		QString("ec/voltage_signal"),
+		"ec/voltage_signal",
 		i18n("Voltage Signal"),
 		i18n("Sources"),
 		"voltagesignal.png",
@@ -35,10 +35,9 @@ LibraryItem* ECVoltageSignal::libraryItem()
 }
 
 ECVoltageSignal::ECVoltageSignal( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, (id) ? id : "voltage_signal" )
+	: Component( icnDocument, newItem, id ? id : "voltage_signal" )
 {
 	m_name = i18n("Voltage Signal");
-	m_desc = i18n("Provides a variety of voltage signals.");
 	setSize( -8, -8, 16, 16 );
 	
 	init1PinLeft();
@@ -47,10 +46,7 @@ ECVoltageSignal::ECVoltageSignal( ICNDocument *icnDocument, bool newItem, const 
 	m_pNNode[0]->pin()->setGroundType( Pin::gt_medium );
 	m_voltageSignal = createVoltageSignal( m_pNNode[0], m_pPNode[0], 0. );
 	m_voltageSignal->setStep( 1./LINEAR_UPDATE_RATE, ElementSignal::st_sinusoidal, 50. );
-
-// TODO: NEEDS PHASE ANGLE PARAMETER =))))
-// Ideally phase angle is entered in units of PI so 180 degrees is simply "1.0"
-
+	
 	createProperty( "frequency", Variant::Type::Double );
 	property("frequency")->setCaption( i18n("Frequency") );
 	property("frequency")->setUnit("Hz");

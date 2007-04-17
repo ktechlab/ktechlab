@@ -21,7 +21,6 @@ class DependentSource : public Component
 	public:
 		DependentSource( ICNDocument *icnDocument, bool newItem, const char *id );
 		~DependentSource();
-		virtual bool canFlip() const { return true; }
 
 	protected:
 		void drawOutline( QPainter & p );
@@ -36,7 +35,7 @@ class DependentSource : public Component
 class ECCCCS : public DependentSource
 {
 	public:
-		ECCCCS( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+		ECCCCS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~ECCCCS();
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -56,7 +55,7 @@ class ECCCCS : public DependentSource
 class ECCCVS : public DependentSource
 {
 	public:
-		ECCCVS( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+		ECCCVS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~ECCCVS();
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -76,7 +75,7 @@ class ECCCVS : public DependentSource
 class ECVCCS : public DependentSource
 {
 	public:
-		ECVCCS( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+		ECVCCS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~ECVCCS();
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -96,7 +95,7 @@ class ECVCCS : public DependentSource
 class ECVCVS : public DependentSource
 {
 	public:
-		ECVCVS( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+		ECVCVS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~ECVCVS();
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

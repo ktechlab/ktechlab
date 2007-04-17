@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>338</width>
-            <height>347</height>
+            <width>367</width>
+            <height>341</height>
         </rect>
     </property>
     <property name="caption">
@@ -22,6 +22,39 @@
         <property name="margin">
             <number>0</number>
         </property>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>layout2</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>textLabel1_3</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Logic Symbol Shapes:</string>
+                    </property>
+                </widget>
+                <widget class="KComboBox">
+                    <item>
+                        <property name="text">
+                            <string>Distinctive</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>Rectangular</string>
+                        </property>
+                    </item>
+                    <property name="name">
+                        <cstring>kcfg_LogicSymbolShapes</cstring>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
         <widget class="QGroupBox">
             <property name="name">
                 <cstring>groupBox3</cstring>
@@ -38,7 +71,7 @@
                         <cstring>kcfg_LogicRisingTrigger</cstring>
                     </property>
                     <property name="value">
-                        <number>0.3</number>
+                        <number>.3</number>
                     </property>
                     <property name="minValue">
                         <number>0.1</number>
@@ -75,10 +108,10 @@
                         <cstring>kcfg_LogicFallingTrigger</cstring>
                     </property>
                     <property name="value">
-                        <number>0.2</number>
+                        <number>.2</number>
                     </property>
                     <property name="minValue">
-                        <number>0.1</number>
+                        <number>.1</number>
                     </property>
                     <property name="maxValue">
                         <number>1.6</number>
@@ -136,10 +169,10 @@
                         <cstring>kcfg_LogicOutputHigh</cstring>
                     </property>
                     <property name="value">
-                        <number>0.5</number>
+                        <number>.5</number>
                     </property>
                     <property name="minValue">
-                        <number>0.1</number>
+                        <number>.1</number>
                     </property>
                     <property name="maxValue">
                         <number>1.6</number>
@@ -251,12 +284,12 @@ These values will apply to all components, apart from the PIC, whose pins' imped
                 <enum>Vertical</enum>
             </property>
             <property name="sizeType">
-                <enum>Expanding</enum>
+                <enum>MinimumExpanding</enum>
             </property>
             <property name="sizeHint">
                 <size>
                     <width>20</width>
-                    <height>16</height>
+                    <height>29</height>
                 </size>
             </property>
         </spacer>
@@ -264,6 +297,7 @@ These values will apply to all components, apart from the PIC, whose pins' imped
 </widget>
 <layoutdefaults spacing="6" margin="11"/>
 <includehints>
+    <includehint>kcombobox.h</includehint>
     <includehint>knuminput.h</includehint>
     <includehint>knuminput.h</includehint>
     <includehint>knuminput.h</includehint>

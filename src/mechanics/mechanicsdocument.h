@@ -28,10 +28,10 @@ class MechanicsDocument : public ItemDocument
 {
 Q_OBJECT
 public:
-	MechanicsDocument( const QString &caption, KTechlab *ktechlab, const char *name = 0 );
+	MechanicsDocument( const QString &caption, const char *name = 0 );
 	~MechanicsDocument();
 	
-	virtual View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0 );
+	virtual View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l );
 	
 	virtual bool isValidItem( const QString &itemId );
 	virtual bool isValidItem( Item *item );

@@ -68,7 +68,7 @@ ECBJT::ECBJT( bool isNPN, ICNDocument * icnDocument, bool newItem, const char * 
 	BJTSettings s; // will be created with the default settings
 	
 	Variant * v = createProperty( "I_S", Variant::Type::Double );
-	v->setCaption("Saturation Current");
+	v->setCaption( i18n("Saturation Current") );
 	v->setUnit("A");
 	v->setMinValue(1e-20);
 	v->setMaxValue(1e-0);
@@ -138,7 +138,7 @@ void ECBJT::drawShape( QPainter &p )
 	{
 		pa[0] = QPoint( _x+6, _y+7 );
 		pa[1] = QPoint( _x+2, _y+8 );
-		pa[2] = QPoint( _x+6, _y+3 );
+		pa[2] = QPoint( _x+5, _y+3 );
 	}
 	else
 	{

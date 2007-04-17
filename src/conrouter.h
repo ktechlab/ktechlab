@@ -32,13 +32,6 @@ otherwise indicated).
 
 @author David Saxton
 */
-
-// TODO: ENHANCE THIS CODE!!!
-
-// needs to be easier to cut routes.
-// Routes need to be more intelligent/optimal.
-// needs to be able to improve the topology of the wires. 
-
 class ConRouter
 {
 public:

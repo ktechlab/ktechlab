@@ -23,7 +23,7 @@ public:
 	Reactive( const double delta );
 	virtual ~Reactive();
 	
-	virtual bool isReactive() { return true; }
+	virtual bool isReactive() const { return true; }
 	/**
 	 * Call this function to set the time period (in seconds)
 	 */

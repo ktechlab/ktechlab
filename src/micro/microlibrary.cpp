@@ -20,7 +20,7 @@
 
 #include "micropackage.h"
 
-MicroLibrary * MicroLibrary::m_pSelf = 0;
+MicroLibrary * MicroLibrary::m_pSelf = 0l;
 static KStaticDeleter<MicroLibrary> staticMicroLibraryDeleter;
 
 MicroLibrary * MicroLibrary::self()
@@ -75,7 +75,7 @@ MicroLibrary::~MicroLibrary()
 	for ( MicroInfoList::iterator it = m_microInfoList.begin(); it != end; ++it )
 	{
 		delete *it;
-		*it = 0;
+		*it = 0l;
 	}
 }
 
@@ -88,7 +88,7 @@ MicroInfo * const MicroLibrary::microInfoWithID( QString id )
 		if ( (*it)->id() == id ) return *it;
 	}
 	
-	return 0;
+	return 0L;
 }
 
 void MicroLibrary::addMicroInfo( MicroInfo *microInfo )

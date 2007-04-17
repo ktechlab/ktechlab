@@ -83,7 +83,7 @@ PinMapEditor::PinMapEditor( PinMapping * pinMapping, MicroInfo * picInfo, QWidge
 	f->setFrameShadow( QFrame::Plain );
 	QVBoxLayout * fLayout = new QVBoxLayout( f, 1, 0, "fLayout" );
 
-	ViewContainer * vc = new ViewContainer( 0, 0, f );
+	ViewContainer * vc = new ViewContainer( 0, f );
 	fLayout->addWidget( vc );
 	
 	m_pPinMapView = static_cast<PinMapView*>(m_pPinMapDocument->createView( vc, 0 ));
@@ -121,11 +121,11 @@ void PinMapEditor::savePinMapping()
 
 //BEGIN class PinMapDocument
 PinMapDocument::PinMapDocument()
-	: ICNDocument( 0, 0, 0 )
+	: ICNDocument( 0, 0 )
 {
-	m_pPicComponent = 0;
-	m_pKeypad = 0;
-	m_pSevenSegment = 0;
+	m_pPicComponent = 0l;
+	m_pKeypad = 0l;
+	m_pSevenSegment = 0l;
 	m_type = dt_pinMapEditor;
 	
 	m_cmManager->addManipulatorInfo( CMSelect::manipulatorInfo() );
@@ -188,7 +188,7 @@ void PinMapDocument::init( const PinMapping & pinMapping, MicroInfo * microInfo 
 		for ( unsigned row = 0; (row < 4) && (it != end); ++row, ++it )
 			createConnector( m_pKeypad->childNode( QString("row_%1").arg( row ) ), m_pPicComponent->childNode( *it ) );
 		
-		for ( unsigned col = 0; (col < keypadCols) && (it != end); ++col, ++it )
+		for ( int col = 0; (col < keypadCols) && (it != end); ++col, ++it )
 			createConnector( m_pKeypad->childNode( QString("col_%1").arg( col ) ), m_pPicComponent->childNode( *it ) );
 	}
 	
@@ -225,23 +225,25 @@ bool PinMapDocument::isValidItem( const QString & id )
 	return false;
 }
 
+
 void PinMapDocument::deleteSelection()
 {
-	m_selectList->removeQCanvasItem(m_pPicComponent);
-	m_selectList->removeQCanvasItem(m_pSevenSegment);
-	m_selectList->removeQCanvasItem(m_pKeypad);
+	m_selectList->removeQCanvasItem( m_pPicComponent );
+	m_selectList->removeQCanvasItem( m_pSevenSegment );
+	m_selectList->removeQCanvasItem( m_pKeypad );
 	
 	ICNDocument::deleteSelection();
 }
 
+
 PinMapping PinMapDocument::pinMapping() const
 {
-	const NodeMap picNodeMap = m_pPicComponent->nodeMap();
-	const NodeMap::const_iterator picNodeMapEnd = picNodeMap.end();
+	const NodeInfoMap picNodeInfoMap = m_pPicComponent->nodeMap();
+	const NodeInfoMap::const_iterator picNodeInfoMapEnd = picNodeInfoMap.end();
 	
 	QStringList picPinIDs;
 	QStringList attachedIDs;
-	Component *attached = 0;
+	Component * attached = 0l;
 	
 	switch ( m_pinMappingType )
 	{
@@ -280,7 +282,7 @@ PinMapping PinMapDocument::pinMapping() const
 		Node * node = attached->childNode( *attachedIt );
 		QString pinID;
 				
-		for ( NodeMap::const_iterator it = picNodeMap.begin(); it != picNodeMapEnd; ++it )
+		for ( NodeInfoMap::const_iterator it = picNodeInfoMap.begin(); it != picNodeInfoMapEnd; ++it )
 		{
 			if ( it.data().node->isConnected( node ) )
 			{
@@ -372,9 +374,9 @@ void PIC_IC::initPackage( MicroInfo * microInfo )
 		removeDisplayText(it.key());
 	
 	// Remove old nodes
-	NodeMap nodeMapCopy = m_nodeMap;
-	const NodeMap::iterator nodeMapEnd = nodeMapCopy.end();
-	for ( NodeMap::iterator it = nodeMapCopy.begin(); it != nodeMapEnd; ++it )
+	NodeInfoMap nodeMapCopy = m_nodeMap;
+	const NodeInfoMap::iterator nodeMapEnd = nodeMapCopy.end();
+	for ( NodeInfoMap::iterator it = nodeMapCopy.begin(); it != nodeMapEnd; ++it )
 	{
 		if ( !ioPinIDs.contains(it.key()) )
 			removeNode( it.key() );

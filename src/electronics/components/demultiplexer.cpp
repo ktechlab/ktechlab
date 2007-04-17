@@ -39,9 +39,8 @@ Demultiplexer::Demultiplexer( ICNDocument *icnDocument, bool newItem, const char
 	: Component( icnDocument, newItem, id ? id : "demultiplexer" )
 {
 	m_name = i18n("Demultiplexer");
-	m_desc = i18n("Seperates the input data stream into components. The value of the input is passed to the \"X\" output selected by the binary number given by the \"A\" inputs.");
 	
-	m_input = 0;
+	m_input = 0l;
 	
 	createProperty( "addressSize", Variant::Type::Int );
 	property("addressSize")->setCaption( i18n("Address Size") );

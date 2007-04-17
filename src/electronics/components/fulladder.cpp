@@ -25,7 +25,7 @@ Item* FullAdder::construct( ItemDocument *itemDocument, bool newItem, const char
 LibraryItem* FullAdder::libraryItem()
 {
 	return new LibraryItem(
-		QString("ec/adder"),
+		"ec/adder",
 		i18n("Adder"),
 		i18n("Integrated Circuits"),
 		"ic1.png",
@@ -38,10 +38,9 @@ FullAdder::FullAdder( ICNDocument *icnDocument, bool newItem, const char *id )
 	: Component( icnDocument, newItem, (id) ? id : "adder" )
 {
 	m_name = i18n("Adder");
-// 	m_desc = i18n("Insert missing adder help here.");
 
-	ALogic = BLogic = inLogic = 0;
-	outLogic = SLogic = 0;
+	ALogic = BLogic = inLogic = 0l;
+	outLogic = SLogic = 0l;
 
 	QStringList pins = QStringList::split( ',', "A,B,>,,S,C", true );
 	initDIPSymbol( pins, 48 );

@@ -26,7 +26,7 @@ Item* ECSignalLamp::construct( ItemDocument *itemDocument, bool newItem, const c
 LibraryItem* ECSignalLamp::libraryItem()
 {
 	return new LibraryItem(
-		QString("ec/signal_lamp"),
+		"ec/signal_lamp",
 		i18n("Signal Lamp"),
 		i18n("Outputs"),
 		"signal_lamp.png",
@@ -35,10 +35,9 @@ LibraryItem* ECSignalLamp::libraryItem()
 }
 
 ECSignalLamp::ECSignalLamp( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, (id) ? id : "signal_lamp" )
+	: Component( icnDocument, newItem, id ? id : "signal_lamp" )
 {
 	m_name = i18n("Signal Lamp");
-	m_desc = i18n("A simple filament signal lamp, with a 100 ohms series resistance.");
 	setSize( -8, -8, 16, 16 );
 	
 	init1PinLeft();

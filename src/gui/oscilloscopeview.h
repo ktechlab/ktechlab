@@ -12,6 +12,7 @@
 #define OSCILLOSCOPEVIEW_H
 
 #include <qframe.h>
+#include "scopeviewbase.h"
 
 class Oscilloscope;
 class Simulator;
@@ -20,10 +21,11 @@ class QPaintEvent;
 class QPixmap;
 class QTimer;
 
+///A printing tape-style view of oscilloscope data
 /**
 @author David Saxton
 */
-class OscilloscopeView : public QFrame
+class OscilloscopeView : public ScopeViewBase
 {
 	Q_OBJECT
 	public:
@@ -44,22 +46,27 @@ class OscilloscopeView : public QFrame
 		virtual void mousePressEvent( QMouseEvent *event );
 		virtual void mouseMoveEvent( QMouseEvent *event );
 		virtual void mouseReleaseEvent( QMouseEvent *event );
-		virtual void paintEvent( QPaintEvent *event );
-		virtual void resizeEvent( QResizeEvent *event );
-		
-		void drawLogicData( QPainter & p );
-		void drawFloatingData( QPainter & p );
-		void updateOutputHeight();
+	
+		virtual void drawBackground( QPainter& p );
+		virtual void drawMidLine(QPainter & p, ProbeData * probe);
+	
+	
+		virtual llong visibleStartTime() const;
+		virtual llong visibleEndTime() const;
+	
+		virtual double ticksPerPixel() const;
+		virtual llong pixelsPerTick() const;
+	
+		void drawProbe( QPainter & p, LogicProbeData * probe);
+		void drawProbe( QPainter & p, FloatingProbeData * probe );
 		void updateTimeLabel();
-		
-		bool b_needRedraw;
-		QPixmap *m_pixmap;
+
 		QTimer *m_updateViewTmr;
 		int m_fps;
 		int m_sliderValueAtClick;
 		int m_clickOffsetPos;
 		Simulator * m_pSimulator;
-		double m_halfOutputHeight;
+		
 };
 
 #endif

@@ -36,7 +36,6 @@ ECDiode::ECDiode( ICNDocument *icnDocument, bool newItem, const char *id )
 	: Component( icnDocument, newItem, id ? id : "diode" )
 {
 	m_name = i18n("Diode");
-	m_desc = i18n("Allows current to flow in the direction indicated by the arrow when a certain voltage difference has been reached.");
 	
 	setSize( -8, -8, 16, 16 );
 	

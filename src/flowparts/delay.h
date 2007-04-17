@@ -20,7 +20,7 @@
 class Delay : public FlowPart
 {
 public:
-	Delay( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	Delay( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~Delay();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

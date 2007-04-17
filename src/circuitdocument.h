@@ -13,8 +13,6 @@
 
 #include "icndocument.h"
 
-// TODO: should probably be moved to electronics.
-
 class Circuit;
 class Component;
 class Connector;
@@ -42,14 +40,14 @@ class Circuitoid
 {
 public:
 	bool contains( Pin *node ) { return pinList.contains(node); }
-	bool contains( Wire *con ) { return wireList.contains(con); }
+// 	bool contains( Wire *con ) { return wireList.contains(con); }
 	bool contains( Element *ele ) { return elementList.contains(ele); }
 	
 	void addPin( Pin *node ) { if (node && !contains(node)) pinList += node; }
-	void addWire( Wire *con ) { if (con && !contains(con)) wireList += con; }
+// 	void addWire( Wire *con ) { if (con && !contains(con)) wireList += con; }
 	void addElement( Element *ele ) { if (ele && !contains(ele)) elementList += ele; }
 
-	WireList wireList;
+// 	WireList wireList;
 	PinList pinList;
 	ElementList elementList;
 };
@@ -65,10 +63,10 @@ class CircuitDocument : public ICNDocument
 {
 	Q_OBJECT
 	public:
-		CircuitDocument( const QString &caption, KTechlab *ktechlab, const char *name = 0 );
+		CircuitDocument( const QString &caption, const char *name = 0L );
 		~CircuitDocument();
 	
-		virtual View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0 );
+		virtual View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l );
 	
 		void calculateConnectorCurrents();
 		/**
@@ -90,13 +88,14 @@ class CircuitDocument : public ICNDocument
 		void setOrientation270();
 		void rotateCounterClockwise();
 		void rotateClockwise();
-		void itemFlip();
+		void flipHorizontally();
+		void flipVertically();
 		/**
 		 * Enables / disables / selects various actions depending on what is
 		 * selected or not.
 		 * @param plugContextMenu If true, then will insert actions into contextmenu
 		 */
-		virtual void slotInitItemActions( Item *item = 0 );
+		virtual void slotInitItemActions();
 		void requestAssignCircuits();
 		void componentAdded( Item * item );
 		void componentRemoved( Item * item );

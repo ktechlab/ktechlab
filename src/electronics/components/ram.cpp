@@ -24,7 +24,7 @@ Item* RAM::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 LibraryItem* RAM::libraryItem()
 {
 	return new LibraryItem(
-		QString("ec/ram"),
+		"ec/ram",
 		i18n("RAM"),
 		i18n("Integrated Circuits"),
 		"ic2.png",
@@ -37,25 +37,24 @@ RAM::RAM( ICNDocument *icnDocument, bool newItem, const char *id )
 	: Component( icnDocument, newItem, id ? id : "ram" )
 {
 	m_name = i18n("RAM");
-	m_desc = i18n("This RAM stores data as a collection of words; each of which contains <i>word size</i> bits of data.<br><br>To read data, set the CS (<i>chip select</i>) and the OE (<i>output enable</i>) pins high, and select the word using the address pins <i>A*</i>. The word is outputted on the data-out pins: <i>DO*</i>.<br><br>To write data, set the CS (<i>chip select</i>) and the WE (<i>write enable</i>) pins high, and select the address to write to with the <i>A*</i> pins. Write to the selected word using the data-in pins: <i>DI*</i>.<br><br>The <i>Address Size</i> is the number of bits that determine an address; so the total number of words stored will be 2^<sup><i>Address Size</i></sup>.");
 	
-	m_data = 0;
-	m_pCS = 0;
-	m_pOE = 0;
-	m_pWE = 0;
+	m_data = 0l;
+	m_pCS = 0l;
+	m_pOE = 0l;
+	m_pWE = 0l;
 	m_wordSize = 0;
 	m_addressSize = 0;
 	
 	createProperty( "wordSize", Variant::Type::Int );
 	property("wordSize")->setCaption( i18n("Word Size") );
 	property("wordSize")->setMinValue(1);
-	property("wordSize")->setMaxValue(256);
+	property("wordSize")->setMaxValue(64);
 	property("wordSize")->setValue(2);
 	
 	createProperty( "addressSize", Variant::Type::Int );
 	property("addressSize")->setCaption( i18n("Address Size") );
 	property("addressSize")->setMinValue(1);
-	property("addressSize")->setMaxValue(32);
+	property("addressSize")->setMaxValue(24);
 	property("addressSize")->setValue(4);
 	
 	m_data = createProperty( "data", Variant::Type::Raw )->value().asBitArray();

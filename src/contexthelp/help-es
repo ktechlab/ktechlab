@@ -1,0 +1,202 @@
+<!-- item: PIC_IC -->
+
+<!-- item: dp/arrow -->
+Seleccione la línea para posicionar los extremos
+<!-- item: dp/ellipse -->
+
+<!-- item: dp/image -->
+Displays an image.
+<!-- item: dp/line -->
+Seleccione la línea para posicionar los extremos
+<!-- item: dp/rectangle -->
+
+<!-- item: dp/text -->
+Doble pulsación sobre el elemento de texto para establecer el texto
+<!-- item: ec/555 -->
+Common timer IC
+<!-- item: ec/ac_current -->
+Provides a variety of current signals
+<!-- item: ec/adc -->
+Convierte una señal analógica en una salida digital
+<!-- item: ec/adder -->
+
+<!-- item: ec/ammeter -->
+Situé este componente en serie con el circuito para medir el flujo de corriente. 
+<!-- item: ec/and -->
+La salida está activa (1 lógico, nivel alto) si y solo si todas las entradas también están activas
+<!-- item: ec/bar_graph_display -->
+
+<!-- item: ec/battery -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Suministra una diferencia de potencial. </p>
+</body></html>
+<!-- item: ec/bcd_to_seven_segment -->
+Convierte un número binario proporcionado en la entrada a un formato representable por un "display" de siete segmentos.<br><br>Funcionamiento normal: <i>lt</i> ("Lamp Test", prueba de bombillas) y <i>rb</i> ("Ripple Blanking", apagar bombillas) se mantienen normalmente en nivel alto y se activan con nivel bajo (0 lógico, usando lógica inversa), <i>en</i> ("Enable", activar) se mantiene normalmente en nivel bajo y se activa con nivel alto (1 lógico).
+<!-- item: ec/bidir_led -->
+Diodo Bidireccional Emisor de Luz
+<!-- item: ec/binary_counter -->
+Mantiene un contador interno que cambia cuando se recibe un pulso por la entrada de reloj en la patilla <i>&gt;</i>.<br><br>Funcionamiento normal: <i>en</i> ("Enable", activar) y <i>u/d</i> ("Up/Down", incremento/decremento) están en nivel alto y <i>r</i> ("Reset", reiniciar el contador) está en nivel bajo.
+<!-- item: ec/buffer -->
+Cleans the logic input, with the output high or low depending on input trigger levels.
+<!-- item: ec/bus -->
+Une varias conexiones.
+<!-- item: ec/capacitor -->
+Almacena carga eléctrica.<br><br>La diferencia de potencial entre el condensador y la capacitancia están relacionados mediante la fórmula: <i>Carga = Capacitancia x Voltaje</i>.
+<!-- item: ec/cccs -->
+
+<!-- item: ec/ccvs -->
+
+<!-- item: ec/clock_input -->
+Un generador de ondas cuadradas, estableciendo la salida en nivel alto/bajo alternativamente y repitiéndolo cíclicamente.
+<!-- item: ec/current_source -->
+Provides a fixed current source.
+<!-- item: ec/currentprobe -->
+Displays the current at the probe point on the oscilloscope.
+<!-- item: ec/d_flipflop -->
+El valor de la salida se establece como el mismo que la entrada cuando se recibe una señal de reloj.
+<!-- item: ec/dac -->
+Convierte una entrada digital en una señal de salida analógica
+<!-- item: ec/demultiplexer -->
+Separa el flujo de datos de la entrada en distintos componentes. El valor de la entrada es enviado a la salida "X" seleccionada por el número binario dado en las entradas "A".
+<!-- item: ec/diode -->
+Permite a la corriente fluir en la dirección indicada por la flecha cuando cierta diferencia de voltaje ha sido alcanzada
+<!-- item: ec/dpdt_toggle -->
+Conmutador de doble entrada y doble salida
+<!-- item: ec/dpst_toggle -->
+Conmutador de doble entrada y salida simple
+<!-- item: ec/external_connection -->
+Punto para conectar el circuito a una entidad externa, como por ejemplo un componente mecánico o como si fuese una parte de un subcircuito
+<!-- item: ec/fixed_voltage -->
+Provides a fixed voltage point to connect components to.
+<!-- item: ec/ground -->
+Punto de masa (0V)
+<!-- item: ec/inductor -->
+
+<!-- item: ec/inverter -->
+La salida es el valor lógico invertido de la señal de entrada
+<!-- item: ec/jk_flipflop -->
+El valor de la salida se establece de acuerdo a las entradas J y K cuando se recibe una señal de reloj.
+<!-- item: ec/keypad -->
+Proporciona una matriz numérica de pulsadores normalmente abiertos, con 4 filas y una cantidad configurable de columnas
+<!-- item: ec/led -->
+Diodo emisor de luz
+<!-- item: ec/logic_input -->
+Proporciona un estado lógico ajustable por el usuario.<br><br>Pulsa para obtener un pulso lógico alto, o libera el pulsador para mantener el valor lógico alto.
+<!-- item: ec/logic_output -->
+Muestra el valor lógico de la entrada.
+<!-- item: ec/magnitudecomparator -->
+Compares two binary numbers and generates output to indicate which binary number has the greater magnitude. It has 3 cascading inputs:<ul><li>I: A &gt; B</li><li>I: A &lt; B</li><li>I: A = B</li></ul>and 3 outputs:<ul><li>O: A &gt; B</li><li>O: A &lt; B</li><li>O: A = B</li></ul>
+<!-- item: ec/matrix_display -->
+Matriz de LEDs con número configurable de filas y columnas. 
+<!-- item: ec/matrix_display_driver -->
+
+<!-- item: ec/multiplexer -->
+Combines the input data stream into one single stream. The value of the input selected by the "A" inputs is passed to the output.
+<!-- item: ec/nand -->
+La salida está en reposo (0 lógico, nivel bajo) sólo cuando todas las entradas están activas (1 lógico, nivel alto)
+<!-- item: ec/nemosfet -->
+
+<!-- item: ec/njfet -->
+
+<!-- item: ec/nor -->
+La salida está activa (1 lógico, nivel alto) cuando todas las entradas están en reposo (0 lógico, nivel bajo)
+<!-- item: ec/npnbjt -->
+
+<!-- item: ec/opamp -->
+Amplificador Ideal
+<!-- item: ec/or -->
+La salida está activa (1 lógico, nivel alto) cuando al menos una de las entradas está activa, o en reposo cuando todas las entradas también están en reposo
+<!-- item: ec/parallel_port -->
+The pins are divided into 3 registers.<br><br><b>Data Pins</b><br><br>The data pins can be configured as either all input or all output. They are:<ul><li><b>D<i>[0..7]</i></b></li></ul><br><b>Status Pins</b><br><br>The status pins are read-only. They area:<ul><li><b>ERR</b> - Error</li><li><b>ON</b> - Online</li><li><b>PE</b> - Paper End</li><li><b>ACK</b> - Acknowledge</li><li><b>BUSY</b> - Busy</li></ul><br><b>Control Pins</b><ul><li><b>STR</b> - Strobe</li><li><b>AUT</b> - Auto Feed</li><li><b>INIT</b> - Init</li><li><b>SEL</b> - Select</li></ul><br>The remaining pins are all ground.
+<!-- item: ec/pemosfet -->
+
+<!-- item: ec/pic -->
+The PIC component allows the simulation of a PIC program.<br><br>The loadable PIC program must be one of the following formats:<ul><li>Assembly (.asm)</li><li>FlowCode (.flowcode)</li><li>Symbol file (.cod)</li><li>Microbe (.microbe, .basic)</li><li>C source (.c)</li></ul>Doubleclick on the PIC component to open up the program source file.<br><br>If the program source file is of type assembly, then the the opened text file will automatically be linked to the simulation. You can control the program from the text document using the debug controls.<br><br>Explanation of buttons:<ul><li>Play - Run the PIC program from the point at which it was paused, or from the start otherwise.</li><li>Pause - Pause the simulation at the current execution point.</li><li>Stop - Reset all parts of the simulation.</li><li>Reload - Reread the PIC program from disk and restart gpsim.</li></ul>
+<!-- item: ec/pjfet -->
+
+<!-- item: ec/pnpbjt -->
+
+<!-- item: ec/potentiometer -->
+Consiste en una resistencia conectada a las patillas de los extremos, con una patilla central conectada a un punto ajustable a lo largo de la resistencia.
+<!-- item: ec/probe -->
+Conecta este medidor al punto del circuito donde quieras medir el valor lógico. La salida será mostrada en el Osciloscopio.
+<!-- item: ec/ptb_switch -->
+
+<!-- item: ec/ptm_switch -->
+
+<!-- item: ec/ram -->
+This RAM stores data as a collection of words; each of which contains <i>word size</i> bits of data.<br><br>To read data, set the CS (<i>chip select</i>) and the OE (<i>output enable</i>) pins high, and select the word using the address pins <i>A*</i>. The word is outputted on the data-out pins: <i>DO*</i>.<br><br>To write data, set the CS (<i>chip select</i>) and the WE (<i>write enable</i>) pins high, and select the address to write to with the <i>A*</i> pins. Write to the selected word using the data-in pins: <i>DI*</i>.<br><br>The <i>Address Size</i> is the number of bits that determine an address; so the total number of words stored will be 2^<sup><i>Address Size</i></sup>.
+<!-- item: ec/resistor -->
+Limita el flujo de corriente, obedeciendo la Ley de Ohm.
+<!-- item: ec/resistordip -->
+Conjunto de resistencias con los mismos valores en un "DIP", un encapsulado rectangular con una columna de patillas en cada uno de los lados opuestos, generalmente los lados mayores.
+<!-- item: ec/roto_switch -->
+Rotary Switch
+<!-- item: ec/serial_port -->
+Interface to a serial port. The pins are:<br><ul><li><b>CD</b> - Carrier Detect (control; output)</li><li><b>RD</b> - Received Data (data; output)</li><li><b>TD</b> - Transmitted Data (data; input)</li><li><b>DTR</b> - Data Terminal Ready (control; input)</li><li><b>GND</b> - Signal Ground (ground)</li><li><b>DSR</b> - Data Set Ready (control; input)</li><li><b>RTS</b> - Request to Send (control; input)</li><li><b>CTS</b> - Clear to Send (control; output)</li><li><b>RI</b> - Ring Indicator (control; output)</li></ul>
+<!-- item: ec/seven_segment -->
+Un "display" de siete segmentos con un punto decimal. Puede ser configurado para tener común el cátodo o el ánodo.
+<!-- item: ec/signal_lamp -->
+Bombilla de un filamento con una resistencia de 100 ohmios en serie
+<!-- item: ec/spdt_toggle -->
+Conmutador de una entrada y salida doble
+<!-- item: ec/spst_toggle -->
+Conmutador de una entrada y salida simple
+<!-- item: ec/sr_flipflop -->
+El valor de la salida se establece en 1 (alto) al recibir un nivel alto en la entrada S ("<i>set</i>") y en 0 (bajo) al recibir un nivel alto en la entrada R ("<i>reset</i>").
+<!-- item: ec/subcircuit -->
+
+<!-- item: ec/variablecapacitor -->
+Almacena carga eléctrica.<br><br>La diferencia de potencial entre el condensador y la capacitancia están relacionados mediante la fórmula: <i>Carga = Capacitancia x Voltaje</i>.
+<!-- item: ec/variableresistor -->
+Limita el flujo de corriente, obedeciendo la Ley de Ohm.
+<!-- item: ec/vccs -->
+
+<!-- item: ec/vcvs -->
+
+<!-- item: ec/voltage_signal -->
+Provides a variety of voltage signals.
+<!-- item: ec/voltageprobe -->
+Muestra en el osciloscopio el potencial de un punto, la diferencia de potencial de ese punto respecto a la masa.
+<!-- item: ec/voltmeter -->
+Sitúe este componente en paralelo en el circuito para medir la diferencia de potencial entre dos puntos.
+<!-- item: ec/xnor -->
+Puerta lógica O exclusivo negada. La salida está en reposo (0 lógico, estado bajo) cuando sólo una entrada está activa (1 lógico, estado alto)
+<!-- item: ec/xor -->
+Puerta lógica O exclusivo. La salida está activada (1 lógico, nivel alto) cuando sólo una entrada está activa.
+<!-- item: flow/callsub -->
+Llama a una subrutina. Cuando la subrutina termina de ejecutarse, el código continuará ejecutándose desde este punto.
+<!-- item: flow/delay -->
+Delay the program execution for a fixed period of time.
+<!-- item: flow/embed -->
+Doubleclick on the item to edit the embedded code.
+<!-- item: flow/end -->
+End the program execution, putting the IC into sleep. Unlike Start, however, this FlowPart is not necessary for proper program execution
+<!-- item: flow/forloop -->
+The code contained in the foor loop is repeatedly executed. By default, the variable used will be incremented every time. This can be changed by entering a value other than 1 into Step.<br><br>The for loop will exit when the value contained in the variable is equal to the end value.
+<!-- item: flow/keypad -->
+Gets a key from a keypad connected to the PIC.
+<!-- item: flow/readport -->
+Asigna el valor de un puerto a una variable.
+<!-- item: flow/repeat -->
+Repeatedly execute code, until the given condition is false. The condition is checked after the code has been executed.<br><br>This is different from "While", which checks for the condition to be true before the code is executed.
+<!-- item: flow/setpin -->
+Set a pin on a port high or low. The pin needs to be set as an output pin.
+<!-- item: flow/sevenseg -->
+Salida a "display" de siete segmentos.
+<!-- item: flow/start -->
+Determines the initial program execution point.
+<!-- item: flow/sub -->
+Defines the starting point of a subroutine. Call this subroutine using "Call Sub"
+<!-- item: flow/testpin -->
+Conditional branch point, depending on the high/low state of a pin.
+<!-- item: flow/unary -->
+A unary operation involves only one variable. Suppo operations are:<br><ul><li><b>Rotate Left</b> rotates the binary bits of the variable left (discarding the end bits).</li><li><b>Rotate Right</b> rotates the binary bits right (discarding the start bits).</li><li><b>Increment</b> increases the value of the variable by 1. A value of 255 wraps around to 0.</li><li><b>Decrement</b> decreases the value of a variable by 1. A value of 0 wraps around to 255.</li></ul>
+<!-- item: flow/varassignment -->
+Assigns the evaluation of an expression to a variable. The expression can take many forms. For example:<ul><li><b>x = 2</b></li><li><b>x = y + 3</b></li><li><b>x = y + z</b></li><li><b>x = 2 * y</b></ul>
+<!-- item: flow/varcomparison -->
+Conditional branch point, depending on the comparison of two values. The supported comparisons are:<ul><li><b>x == y</b> - Equality: true if x has the same value as y.</li><li><b>x &lt; y</b> - Less than: true if x is smaller than y.</li><li><b>x &gt; y</b> - Greater than: true if x is bigger than y.</li><li><b>x &lt;= y</b> - Less than or equal: true if x is less than or equal to y.</li><li><b>x &gt;= y</b> - Greater than or equal: true if x is greater than or equal to y.</li><li><b>x != y</b> - Does not equal: true if x does not have the same value as y.</li></ul>
+<!-- item: flow/while -->
+Repeatedly execute code, until the given condition is false. The condition is checked before the code has been executed.<br><br>This is different from "Repeat", which checks for the condition to be true after the code is executed.
+<!-- item: flow/writeport -->
+Sets the port's pins state to high/low from the given value. Only pins that have been configured as output pins will take on the value assigned to them.

@@ -150,7 +150,7 @@ class ProjectItem : public QObject, public LinkerOptions, public ProcessingOptio
 		};
 		enum { AllOutputs = ProgramOutput | ObjectOutput | LibraryOutput | UnknownOutput };
 		
-		ProjectItem( ProjectItem * parent, Type type, ProjectManager * projectManager, KTechlab * ktechlab );
+		ProjectItem( ProjectItem * parent, Type type, ProjectManager * projectManager );
 		virtual ~ProjectItem();
 		
 		Type type() const { return m_type; }
@@ -225,7 +225,6 @@ class ProjectItem : public QObject, public LinkerOptions, public ProcessingOptio
 		ProjectItemList m_children;
 		Type m_type;
 		
-		KTechlab * p_ktechlab;
 		QGuardedPtr<ILVItem> m_pILVItem;
 		ProjectManager * m_pProjectManager;
 		ProjectItem * m_pParent;
@@ -240,7 +239,7 @@ class ProjectInfo : public ProjectItem
 	Q_OBJECT
 
 	public:
-		ProjectInfo( ProjectManager * projectManager, KTechlab * ktechlab );
+		ProjectInfo( ProjectManager * projectManager );
 		~ProjectInfo();
 	
   	 	/**
@@ -268,7 +267,7 @@ class ProjectManager : public ItemSelector
 	Q_OBJECT
 	public:
 		~ProjectManager();
-		static ProjectManager * self( KTechlab * ktl = 0, KateMDI::ToolView * parent = 0 );
+		static ProjectManager * self( KateMDI::ToolView * parent = 0l );
 	
 		static QString toolViewIdentifier() { return "ProjectManager"; }
 	
@@ -335,10 +334,9 @@ class ProjectManager : public ItemSelector
 		
 	protected:
 		ProjectInfo * m_pCurrentProject;
-		KTechlab * const p_ktechlab;
 	
 	private:
-		ProjectManager( KTechlab * ktl, KateMDI::ToolView * parent );
+		ProjectManager( KateMDI::ToolView * parent );
 		static ProjectManager * m_pSelf;
 };
 

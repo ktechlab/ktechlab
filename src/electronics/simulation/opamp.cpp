@@ -9,6 +9,7 @@
  ***************************************************************************/
 
 #include "elementset.h"
+#include "matrix.h"
 #include "opamp.h"
 
 OpAmp::OpAmp()
@@ -29,23 +30,14 @@ void OpAmp::add_map()
 	if (!b_status)
 		return;
 	
-	if ( !p_cnode[0]->isGround )
-	{
-		// Non-inverting input
-		p_A->setUse_c( p_cbranch[0]->n(), p_cnode[0]->n(), Map::et_constant, true );
-	}
+	// Non-inverting input
+	setUse_c( 0, 0, Map::et_constant, true );
 	
-	if ( !p_cnode[2]->isGround )
-	{
-		// Inverting input
-		p_A->setUse_c( p_cbranch[0]->n(), p_cnode[2]->n(), Map::et_constant, true );
-	}
+	// Inverting input
+	setUse_c( 0, 2, Map::et_constant, true );
 	
-	if ( !p_cnode[1]->isGround )
-	{
-		// Output
-		p_A->setUse_b( p_cnode[1]->n(), p_cbranch[0]->n(), Map::et_constant, true );
-	}
+	// Output
+	setUse_b( 1, 0, Map::et_constant, true );
 }
 
 

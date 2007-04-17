@@ -16,21 +16,35 @@
 
 class Simulator;
 
+class ClockedFlipFlop : public CallbackClass, public Component
+{
+	public:
+		ClockedFlipFlop( ICNDocument *icnDocument, bool newItem, const char * id );
+	
+	protected:
+		enum EdgeTrigger { Rising, Falling };
+		virtual void dataChanged();
+		virtual void initSymbolFromTrigger() = 0;
+		EdgeTrigger m_edgeTrigger;
+};
+
+
 /**
 @short Boolean D-Type Flip-Flop
 @author David Saxton
 */
-class ECDFlipFlop : public CallbackClass, public Component
+class ECDFlipFlop : public ClockedFlipFlop
 {
 public:
-	ECDFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	ECDFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ECDFlipFlop();
-	virtual bool canFlip() const { return true; }
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
 	
-private:
+protected:
+	virtual void drawShape( QPainter & p );
+	virtual void initSymbolFromTrigger();
 	void inputChanged( bool newState );
 	void inStateChanged( bool newState );
 	void asyncChanged(bool newState );
@@ -44,9 +58,8 @@ private:
 	LogicIn *rstp;
 	bool m_bPrevClock;
 	
-	bool m_prevD[2];
-	unsigned m_whichPrevD:1;
-	unsigned long long m_prevDSimTime;
+	bool m_prevD;
+	unsigned long long m_prevDChangeSimTime;
 	Simulator * m_pSimulator;
 };
 
@@ -55,21 +68,24 @@ private:
 @short Boolean JK-Type Flip-Flop
 @author Couriousous
 */
-class ECJKFlipFlop : public CallbackClass, public Component
+class ECJKFlipFlop : public ClockedFlipFlop
 {
 public:
-	ECJKFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	ECJKFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ECJKFlipFlop();
-	virtual bool canFlip() const { return true; }
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
 	
 private:
+	virtual void drawShape( QPainter & p );
+	virtual void initSymbolFromTrigger();
 	void inStateChanged( bool newState );
 	void asyncChanged(bool newState );
 	void clockChanged(bool newState );
+	
 	bool prev_state;
+	bool m_bPrevClock;
 	LogicIn *m_pJ;
 	LogicIn *m_pClock;
 	LogicIn *m_pK;
@@ -87,9 +103,8 @@ private:
 class ECSRFlipFlop : public CallbackClass, public Component
 {
 public:
-	ECSRFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+	ECSRFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ECSRFlipFlop();
-	virtual bool canFlip() const { return true; }
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();

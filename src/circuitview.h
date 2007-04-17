@@ -22,7 +22,7 @@ class CircuitView : public ICNView
 {
 Q_OBJECT
 public:
-	CircuitView( CircuitDocument *circuitDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = 0 );
+	CircuitView( CircuitDocument *circuitDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l );
 	~CircuitView();
 
 public slots:

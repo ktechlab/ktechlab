@@ -38,7 +38,6 @@ ECOpAmp::ECOpAmp( ICNDocument *icnDocument, bool newItem, const char *id )
 	: Component( icnDocument, newItem, id ? id : "opamp" )
 {
 	m_name = i18n("Operational Amplifier");
-	m_desc = i18n("Ideal amplifier");
 	
 	QPointArray pa(3);
 	pa[0] = QPoint( -16, -16 );

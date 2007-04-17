@@ -34,7 +34,6 @@ ExternalConnection::ExternalConnection( ICNDocument *icnDocument, bool newItem, 
 	: Component( icnDocument, newItem, id ? id : "external_connection" )
 {
 	m_name = i18n("External Connection");
-	m_desc = i18n("Point to connect the circuit to an external entity - e.g. a mechanical component or as part of a subcircuit.");
 	setSize( -8, -8, 16, 16 );
 	
 	createProperty( "name", Variant::Type::Combo );

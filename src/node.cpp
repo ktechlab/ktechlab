@@ -18,50 +18,54 @@
 
 #include <qpainter.h>
 
-Node::Node( ICNDocument *icnDocument, Node::node_type type, node_dir dir, const QPoint &pos, QString *id )
-	: QObject(), QCanvasPolygon( icnDocument->canvas() )
+QColor Node::m_selectedColor = QColor( 101, 134, 192 );
+
+Node::Node( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint &pos, QString *id )
+	: QObject(), QCanvasPolygon( icnDocument ? icnDocument->canvas() : 0 )
 {
-	p_nodeGroup = 0;
-	p_parentItem = 0;
+	m_length = 8;
+	p_nodeGroup = 0l;
+	p_parentItem = 0L;
 	b_deleted = false;
 	m_dir = dir;
 	m_type = type;
 	p_icnDocument = icnDocument;
 	m_level = 0;
-	m_selectedColor = QColor( 101, 134, 192 );
-
-	if (id) {
-		m_id = *id;
-		if ( !p_icnDocument->registerUID(*id) )
-			kdError() << k_funcinfo << "Could not register id " << *id << endl;
-	} else m_id = p_icnDocument->generateUID("node"+QString::number(type));
-
+	
+	if ( p_icnDocument )
+	{
+		if (id)
+		{
+			m_id = *id;
+			if ( !p_icnDocument->registerUID(*id) )
+				kdError() << k_funcinfo << "Could not register id " << *id << endl;
+		}
+		else
+			m_id = p_icnDocument->generateUID("node"+QString::number(type));
+	}
+	
 	initPoints();
 	move( pos.x(), pos.y() );
 	setBrush( Qt::black );
 	setPen( Qt::black );
 	show();
-
+	
 	emit (moved(this));
 }
 
 
 Node::~Node()
 {
-	p_icnDocument->unregisterUID( id() );
+	if ( p_icnDocument )
+		p_icnDocument->unregisterUID( id() );
 }
 
 
-int Node::rtti() const
-{
-	return ICNDocument::RTTI::Node;
-}
-
-
-void Node::setLevel(const int level)
+void Node::setLevel( const int level )
 {
 	m_level = level;
 }
+
 
 bool Node::acceptInput() const
 {
@@ -74,9 +78,10 @@ bool Node::acceptOutput() const
 	return type() != fp_in;
 }
 
-void Node::setVisible(bool yes)
+
+void Node::setVisible( bool yes )
 {
-	if ( isVisible() == yes)
+	if ( isVisible() == yes )
 		return;
 	
 	QCanvasPolygon::setVisible(yes);
@@ -142,7 +147,6 @@ bool Node::isConnected( Node *node, NodeList *checkedNodes )
 			if ( startNode && startNode->isConnected( node, checkedNodes ) ) {
 				if (firstNode) {
 					delete checkedNodes;
-					checkedNodes = 0;
 				}
 				return true;
 			}
@@ -159,7 +163,6 @@ bool Node::isConnected( Node *node, NodeList *checkedNodes )
 			if ( endNode && endNode->isConnected( node, checkedNodes ) ) {
 				if (firstNode) {
 					delete checkedNodes;
-					checkedNodes = 0;
 				}
 				return true;
 			}
@@ -168,24 +171,26 @@ bool Node::isConnected( Node *node, NodeList *checkedNodes )
 	
 	if (firstNode) {
 		delete checkedNodes;
-		checkedNodes = 0;
 	}
 	
 	return false;
 }
 
-void Node::setOrientation( node_dir dir )
-{
-	if ( m_dir == dir ) return;
 
-	if ( dir != Node::dir_up &&
-		 dir != Node::dir_right &&
-		 dir != Node::dir_down &&
-		 dir != Node::dir_left )
-	{
-		kdDebug() << "Node::setOrientation: Unknown node direction "<<dir<<endl;
+void Node::setLength( int length )
+{
+	if ( m_length == length )
 		return;
-	} else m_dir = dir;
+	m_length = length;
+	initPoints();
+}
+
+
+void Node::setOrientation( int dir )
+{
+	if ( m_dir == dir )
+		return;
+	m_dir = dir;
 	initPoints();
 }
 
@@ -204,24 +209,15 @@ void Node::initPoints()
 		return;
 	}
 	
-	const int length = ( type() == ec_pin ) ? 8 : -8;
+	int l = m_length;
+	if ( type() != ec_pin )
+		l *= -1;
 	
 	// Bounding rectangle, facing right
-	QPointArray pa( QRect( 0, -8, length, 16 ) );
-	
-	double angle;
-	if		( m_dir == Node::dir_up ) angle = -90.;
-	else if ( m_dir == Node::dir_right ) angle = 0.;
-	else if ( m_dir == Node::dir_down ) angle = 90.;
-	else if ( m_dir == Node::dir_left ) angle = 180.;
-	else
-	{
-		kdError() << "Node::initPoints: unknown m_dir = "<<m_dir<<endl;
-		return;
-	}
+	QPointArray pa( QRect( 0, -8, l, 16 ) );
 	
 	QWMatrix m;
-	m.rotate(angle);
+	m.rotate( m_dir );
 	pa = m.map(pa);
 	setPoints(pa);
 }
@@ -269,8 +265,10 @@ QPoint Node::findConnectorDivergePoint( bool * found )
 	
 	unsigned maxLength = p1.size() > p2.size() ? p1.size() : p2.size();
 	
-	for ( unsigned i = 1; i < maxLength; ++i ) {
-		if ( p1[i] != p2[i] ) {
+	for ( unsigned i = 1; i < maxLength; ++i )
+	{
+		if ( p1[i] != p2[i] )
+		{
 			*found = true;
 			return p1[i-1];
 		}
@@ -278,30 +276,34 @@ QPoint Node::findConnectorDivergePoint( bool * found )
 	return QPoint(0, 0);
 }
 
+
 void Node::setParentItem( CNItem *parentItem )
 {
-	if (!parentItem) {
+	if (!parentItem)
+	{
 		kdError() << k_funcinfo << "no parent item" << endl;
 		return;
 	}
-
+	
 	p_parentItem = parentItem;
-
+	
 	setLevel(p_parentItem->level());
-
+	
 	connect( p_parentItem, SIGNAL(movedBy(double, double )), this, SLOT(moveBy(double, double)) );
 	connect( p_parentItem, SIGNAL(removed(Item*)), this, SLOT(removeNode(Item*)) );
 }
 
+
 void Node::removeNode()
 {
-	if (b_deleted) return;
-
+	if (b_deleted)
+		return;
 	b_deleted = true;
-
+	
 	emit removed(this);
 	p_icnDocument->appendDeleteList(this);
 }
+
 
 void Node::moveBy( double dx, double dy )
 {
@@ -309,6 +311,7 @@ void Node::moveBy( double dx, double dy )
 	QCanvasPolygon::moveBy( dx, dy );
 	emit moved(this);
 }
+
 
 int Node::numCon( bool includeParentItem, bool includeHiddenConnectors ) const
 {
@@ -337,10 +340,11 @@ void Node::addOutputConnector( Connector * const connector )
 {
 	if ( type() == fp_in || !handleNewConnector(connector) )
 		return;
-
+	
 	m_outputConnectorList.append(connector);
-
-	if(type() == fp_out || type() == fp_junction) {
+	
+	if ( type() == fp_out || type() == fp_junction )
+	{
 		// We can only have one output connector, so remove the others. Note
 		// that this code has to come *after* adding the new output connector,
 		// as this node will delete itself if it's an fp_junction and there are
@@ -348,29 +352,34 @@ void Node::addOutputConnector( Connector * const connector )
 		
 		const ConnectorList connectors = m_outputConnectorList;
 		const ConnectorList::const_iterator end = connectors.end();
-		for ( ConnectorList::const_iterator it = connectors.begin(); it != end; ++it ) {
+		for ( ConnectorList::const_iterator it = connectors.begin(); it != end; ++it )
+		{
 			Connector * con = *it;
 			if ( con && con != connector )
 				con->removeConnector();
 		}
 	}
-
-	m_outputConnectorList.remove((Connector*)0);
+	
+	m_outputConnectorList.remove((Connector*)0l);
 }
+
 
 void Node::addInputConnector( Connector * const connector )
 {
 	if ( type() == fp_out || !handleNewConnector(connector) )
 		return;
-
+	
 	m_inputConnectorList.append(connector);
 }
 
+
 bool Node::handleNewConnector( Connector * connector )
 {
-	if (!connector) return false;
+	if (!connector)
+		return false;
 	
-	if(m_inputConnectorList.contains(connector) || m_outputConnectorList.contains(connector)) {
+	if ( m_inputConnectorList.contains(connector) || m_outputConnectorList.contains(connector) )
+	{
 		kdWarning() << k_funcinfo << " Already have connector = " << connector << endl;
 		return false;
 	}
@@ -378,39 +387,45 @@ bool Node::handleNewConnector( Connector * connector )
 	connect( this, SIGNAL(removed(Node*)), connector, SLOT(removeConnector(Node*)) );
 	connect( connector, SIGNAL(removed(Connector*)), this, SLOT(checkForRemoval(Connector*)) );
 	connect( connector, SIGNAL(selected(bool)), this, SLOT(setNodeSelected(bool)) );
-
+	
 	if ( !isChildNode() )
 		p_icnDocument->slotRequestAssignNG();
-
+	
 	return true;
 }
 
+
 Connector* Node::createInputConnector( Node * startNode )
 {
-	if(type() == fp_out || !startNode) return 0;
-
+	if ( type() == fp_out || !startNode )
+		return 0l;
+	
 	Connector *connector = new Connector( startNode, this, p_icnDocument );
 	addInputConnector(connector);
-
+	
 	return connector;
 }
 
+
 void Node::removeConnector( Connector *connector )
 {
-	if (!connector) return;
-
+	if (!connector)
+		return;
+	
 	ConnectorList::iterator it;
-
+	
 	it = m_inputConnectorList.find(connector);
-	if(it != m_inputConnectorList.end() ) {
+	if ( it != m_inputConnectorList.end() )
+	{
 		(*it)->removeConnector();
-		(*it) = 0;
+		(*it) = 0L;
 	}
-
+	
 	it = m_outputConnectorList.find(connector);
-	if(it != m_outputConnectorList.end()) {
+	if ( it != m_outputConnectorList.end() )
+	{
 		(*it)->removeConnector();
-		(*it) = 0;
+		(*it) = 0L;
 	}
 }
 
@@ -418,23 +433,26 @@ void Node::checkForRemoval( Connector *connector )
 {
 	removeConnector(connector);
 	setNodeSelected(false);
-
+	
 	removeNullConnectors();
-
-	if (!p_parentItem) {
+	
+	if (!p_parentItem)
+	{
 		int conCount = m_inputConnectorList.count() + m_outputConnectorList.count();
-		if ( conCount < 2 ) removeNode();
+		if ( conCount < 2 )
+			removeNode();
 	}
-
+	
 	if ( type() == Node::fp_junction && m_outputConnectorList.isEmpty() )
 		removeNode();
 }
 
 void Node::removeNullConnectors()
 {
-	m_inputConnectorList.remove((Connector*)0);
-	m_outputConnectorList.remove((Connector*)0);
+	m_inputConnectorList.remove((Connector*)0L);
+	m_outputConnectorList.remove((Connector*)0L);
 }
+
 
 NodeData Node::nodeData() const
 {
@@ -444,15 +462,30 @@ NodeData Node::nodeData() const
 	return data;
 }
 
+
 void Node::setNodeSelected( bool yes )
 {
-	if ( isSelected() == yes ) return;
-
+	if ( isSelected() == yes )
+		return;
+	
 	QCanvasItem::setSelected(yes);
-
+	
 	setPen(   yes ? m_selectedColor : Qt::black );
 	setBrush( yes ? m_selectedColor : Qt::black );
 }
 
-#include "node.moc"
 
+void Node::initPainter( QPainter & p )
+{
+	p.translate( int(x()), int(y()) );
+	p.rotate( m_dir );
+}
+
+
+void Node::deinitPainter( QPainter & p )
+{
+	p.rotate( -m_dir );
+	p.translate( -int(x()), -int(y()) );
+}
+
+#include "node.moc"

@@ -1,0 +1,50 @@
+<!DOCTYPE KTechlab>
+<document type="circuit" >
+ <item x="148" y="52" z="1" type="ec/fixed_voltage" id="fixed_voltage" flip="0" angle="0" >
+  <data value="5" type="number" id="voltage" />
+ </item>
+ <item x="188" y="348" z="2" type="ec/ground" id="ground" flip="0" angle="270" />
+ <item x="52" y="276" z="3" type="ec/logic_input" id="logic_input" flip="0" angle="0" >
+  <data value="1" type="bool" id="useToggle" />
+  <button id="button" state="0" />
+ </item>
+ <item x="52" y="316" z="4" type="ec/logic_input" id="logic_input__1" flip="0" angle="0" >
+  <data value="1" type="bool" id="useToggle" />
+  <button id="button" state="0" />
+ </item>
+ <item x="284" y="212" z="5" type="ec/logic_output" id="logic_output" flip="0" angle="0" />
+ <item x="132" y="268" z="6" type="ec/nemosfet" id="nemosfet" flip="0" angle="0" >
+  <data value="0" type="bool" id="bodyPin" />
+ </item>
+ <item x="236" y="268" z="7" type="ec/nemosfet" id="nemosfet__2" flip="1" angle="0" >
+  <data value="0" type="bool" id="bodyPin" />
+ </item>
+ <item x="164" y="108" z="8" type="ec/pemosfet" id="pemosfet" flip="1" angle="180" >
+  <data value="0" type="bool" id="bodyPin" />
+ </item>
+ <item x="164" y="172" z="9" type="ec/pemosfet" id="pemosfet__3" flip="1" angle="180" >
+  <data value="1" type="bool" id="bodyPin" />
+ </item>
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1" route="23,41,23,40,23,39,23,38,23,37," start-node-parent="ground" start-node-cid="p1" id="connector" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node1" end-node-parent="nemosfet" route="23,37,22,37,21,37,20,37,19,37,18,37,17,37,17,36," end-node-cid="s" id="connector__10" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="pemosfet__3" route="21,16,21,17,21,18," end-node-cid="s" start-node-parent="pemosfet" start-node-cid="d" id="connector__17" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__6" route="22,21,23,21,23,20,23,19,23,18,23,17,23,16,23,15,23,14,23,13,23,12,23,11,23,10,23,9,23,8,22,8,21,8," start-node-parent="pemosfet__3" start-node-cid="b" id="connector__18" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__6" route="20,6,21,6,21,7,21,8," start-node-parent="fixed_voltage" start-node-cid="p1" id="connector__19" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="0" start-node-id="node1__6" end-node-parent="pemosfet" route="21,8,21,9,21,10," end-node-cid="s" id="connector__20" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__7" route="21,24,21,25," start-node-parent="pemosfet__3" start-node-cid="d" id="connector__21" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node1__7" end-node-parent="nemosfet" route="21,25,20,25,19,25,18,25,17,25,17,26,17,27,17,28,17,29,17,30," end-node-cid="d" id="connector__22" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__8" route="33,26,32,26,31,26,30,26,29,26,28,26,27,26,26,26,25,26,24,26,23,26,22,26,21,26," start-node-parent="logic_output" start-node-cid="n1" id="connector__23" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__8" route="28,30,28,29,27,29,26,29,25,29,24,29,23,29,22,29,21,29,21,28,21,27,21,26," start-node-parent="nemosfet__2" start-node-cid="d" id="connector__24" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" end-node-id="node1__7" start-node-id="node1__8" route="21,26,21,25," id="connector__25" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="logic_input" route="14,34,13,34,12,34,11,34,10,34,9,34,8,34," end-node-cid="p1" start-node-parent="nemosfet" start-node-cid="g" id="connector__43" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="logic_input" route="18,12,17,12,16,12,15,12,14,12,13,12,12,12,11,12,10,12,9,12,9,13,9,14,9,15,9,16,9,17,9,18,9,19,9,20,9,21,9,22,9,23,9,24,9,25,9,26,9,27,9,28,9,29,9,30,9,31,9,32,9,33,9,34,8,34," end-node-cid="p1" start-node-parent="pemosfet" start-node-cid="g" id="connector__44" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__53" route="31,34,32,34,32,35,32,36,32,37,32,38,32,39,31,39,30,39,29,39,28,39,27,39,26,39,25,39,24,39,23,39,22,39,21,39,20,39,19,39,18,39,17,39,16,39,15,39,14,39,13,39,12,39,11,39,10,39,9,39," start-node-parent="nemosfet__2" start-node-cid="g" id="connector__54" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__53" route="18,20,17,20,16,20,15,20,14,20,13,20,13,21,13,22,13,23,13,24,13,25,13,26,13,27,13,28,13,29,13,30,13,31,13,32,13,33,13,34,13,35,12,35,11,35,10,35,9,35,9,36,9,37,9,38,9,39," start-node-parent="pemosfet__3" start-node-cid="g" id="connector__55" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node1__53" end-node-parent="logic_input__1" route="9,39,8,39," end-node-cid="p1" id="connector__56" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1" route="28,36,28,37,27,37,26,37,25,37,24,37,23,37," start-node-parent="nemosfet__2" start-node-cid="s" id="connector__9" end-node-is-child="0" />
+ <node x="188" y="300" id="node1" />
+ <node x="76" y="316" id="node1__53" />
+ <node x="172" y="68" id="node1__6" />
+ <node x="172" y="204" id="node1__7" />
+ <node x="172" y="212" id="node1__8" />
+</document>

@@ -26,10 +26,9 @@
 #include <qtimer.h>
 
 //BEGIN class Language
-Language::Language( ProcessChain *processChain, KTechlab *parent, const QString &name )
-	: QObject(parent,name)
+Language::Language( ProcessChain *processChain, const QString &name )
+	: QObject( KTechlab::self(), name )
 {
-	p_ktechlab = parent;
 	p_processChain = processChain;
 }
 
@@ -63,7 +62,7 @@ void Language::finish( bool successful )
 	if (successful)
 	{
 		outputMessage(m_successfulMessage + "\n");
-		p_ktechlab->slotChangeStatusbar(m_successfulMessage);
+		KTechlab::self()->slotChangeStatusbar(m_successfulMessage);
 		
 		ProcessOptions::ProcessPath::Path newPath = outputPath( m_processOptions.processPath() );
 		
@@ -83,7 +82,7 @@ void Language::finish( bool successful )
 	else
 	{
 		outputError(m_failedMessage + "\n");
-		p_ktechlab->slotChangeStatusbar(m_failedMessage);
+		KTechlab::self()->slotChangeStatusbar(m_failedMessage);
 		emit processFailed(this);
 		return;
 	}
@@ -134,7 +133,7 @@ ProcessOptionsSpecial::ProcessOptionsSpecial()
 	b_forceList = true;
 	b_addToProject = ProjectManager::self()->currentProject();
 	
-	p_flowCodeDocument = 0;
+	p_flowCodeDocument = 0l;
 	
 	switch ( KTLConfig::hexFormat() )
 	{
@@ -165,7 +164,7 @@ ProcessOptions::ProcessOptions()
 	m_pHelper = new ProcessOptionsHelper;
 	
 	b_targetFileSet = false;
-	m_pTextOutputTarget = 0;
+	m_pTextOutputTarget = 0l;
 }
 
 
@@ -177,16 +176,7 @@ ProcessOptions::ProcessOptions( OutputMethodInfo info )
 	m_picID = info.picID();
 	b_targetFileSet = false;
 	
-	QString target;
-	if ( !KIO::NetAccess::download( info.outputFile(), target, 0 ) )
-	{
-		// If the file could not be downloaded, for example does not
-		// exist on disk, NetAccess will tell us what error to use
-		KMessageBox::error( 0, KIO::NetAccess::lastErrorString() );
-		
-		return;
-	}
-	setTargetFile(target);
+	setTargetFile( info.outputFile().path() );
 	
 	switch ( info.method() )
 	{
