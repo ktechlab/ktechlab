@@ -73,7 +73,7 @@ class MOSFET : public NonLinear
 		void setMOSFETSettings( const MOSFETSettings & settings );
 	
 	protected:
-		void MOSFET::calcIg( double V_BS, double V_BD, double V_DS, double V_GS, double V_GD,
+		void calcIg( double V_BS, double V_BD, double V_DS, double V_GS, double V_GD,
 							 double * I_BS, double * I_BD, double * I_DS,
 							 double * g_BS, double * g_BD, double * g_DS,
 							 double * g_M ) const;
