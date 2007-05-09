@@ -193,10 +193,10 @@ void OscilloscopeView::drawBackground( QPainter & p )
 		// Pixels offset is the number of pixels that the view is scrolled along
 	const llong pixelsOffset = llong(Oscilloscope::self()->scrollTime()*pixelsPerSecond/LOGIC_UPDATE_RATE);
 	double linesOffset = - lld_modulus( pixelsOffset, spacing );
-	
+	//Light Grey
 	int blackness = 256 - int(184.0 * spacing / (min_sep*divisions*divisions));
 	p.setPen( QColor( blackness, blackness, blackness ) );
-	
+	double time = 0;
 	for ( double i = linesOffset; i <= frameRect().width(); i += spacing )
 		p.drawLine( int(i), 1, int(i), frameRect().height()-2 );
 	
@@ -204,18 +204,19 @@ void OscilloscopeView::drawBackground( QPainter & p )
 	
 	spacing *= divisions;
 	linesOffset = - lld_modulus( pixelsOffset, spacing );
-	
+	//Not so Light Grey
 	blackness = 256 - int(184.0 * spacing / (min_sep*divisions*divisions));
 	p.setPen( QColor( blackness, blackness, blackness ) );
 	
 	for ( double i = linesOffset; i <= frameRect().width(); i += spacing )
+		{
 		p.drawLine( int(i), 1, int(i), frameRect().height()-2 );
-	
-	
-	
+	 	time = (double(Oscilloscope::self()->scrollTime()) / LOGIC_UPDATE_RATE) + (i / Oscilloscope::self()->pixelsPerSecond());
+	       	p.drawText( int(i), int(frameRect().height()/2), QString::number( time, 'f', 1 ) );
+		}
 	spacing *= divisions;
 	linesOffset = - lld_modulus( pixelsOffset, spacing );
-	
+	// This draws the darkest lines
 	blackness = 256 - int(184.0);
 	p.setPen( QColor( blackness, blackness, blackness ) );
 	
