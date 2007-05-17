@@ -1,6 +1,11 @@
 /***************************************************************************
  *   Copyright (C) 2004-2005 by Daniel Clarke <daniel.jc@gmail.com>        *
  *                      2005 by David Saxton <david@bluehaze.org>          *
+ *									   *
+ *   24-04-2007                                                            *
+ *   Modified to add pic 16f877,16f627 and 16f628 			   *
+ *   by george john george@space-kerala.org 				   *
+ *   supported by SPACE www.space-kerala.org	 			   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -62,11 +67,59 @@ class Register
 			EECON2,
 			PCLATH,
 			INTCON,
-			
+//modification start
+			PORTC,
+			PORTD,
+			PORTE,
+			TRISC,
+			TRISD,
+			TRISE,
+			ADCON0,
+			ADCON1,
+//modification end			
 			// The following three are "special"
 			WORKING, // Not a register that is addressable by an address
 			GPR, // Refers to the collection of General Purpose Registers
+//modification start
+			PIR1,
+			PIR2,
+			TMR1L,
+			TMR1H,
+			T1CON,
+			TMR2,
+			T2CON,
+			RCSTA,
+			TXREG,
+			RCREG,
+			ADRESH,
+			PIE1,
+			TXSTA,
+			ADRESL,
+			EEDATH,
+			EEADRH,
+			SSPBUF,
+			SSPCON,
+			CCPR1L,
+			CCPR1H,
+			CCP1CON,
+			CCPR2L,
+			CCPR2H,
+			CCP2CON,
+			PIE2,
+			PCON,
+			SSPCON2,
+			PR2,
+			SSPADD,
+			SSPSTAT,
+			SPBRG,
+			VRCON,
+			CMCON,
+
+//modification end
 			none, // used in default constructor
+//TODO
+//SSPBUF:SSPCON:CCPR1L:CCPR1H:CCP1CON:CCPR2L:CCPR2H:CCP2CON:--FOR BANK0 
+//PIE2:PCON:SSPCON2:PR2:SSPADD:SSPSTAT:SPBRG:--------FOR BANK1
 		};
 		
 		// These banks are used for ORing together in the banks() function
@@ -164,10 +217,10 @@ class RegisterBit
 		
 		enum OPTION_bits
 		{
-			PS0			= 0,
-			PS1			= 1,
-			PS2			= 2,
-			PSA			= 3,
+			PS0		= 0,
+			PS1		= 1,
+			PS2		= 2,
+			PSA		= 3,
 			T0SE		= 4,
 			T0CS		= 5,
 			INTEDG		= 6,
@@ -176,11 +229,12 @@ class RegisterBit
 		
 		enum EECON1_bits
 		{
-			RD			= 0,
-			WR			= 1,
+			RD		= 0,
+			WR		= 1,
 			WREN		= 2,
 			WRERR		= 3,
 			EEIF		= 4,
+			EEPGD           = 7,
 		};
 		/**
 		 * Constructs a bit of the given register type at the given position.
@@ -514,17 +568,17 @@ class Code
 		 */
 		iterator find( Instruction * instruction );
 		/**
-		 * Removes the Instruction. If @p pushLabels is true, then labels, etc
-		 * will be pushed to the instruction after the removed one.
+		 * Removes the Instruction (regardless of position).
+		 * @warning You should always use only this function to remove an
+		 * instruction as this function handles stuff such as pushing labels
+		 * from this instruction onto the next before deletion.
 		 */
-		void removeInstruction( Instruction * instruction, bool pushLabels );
+		void removeInstruction( Instruction * instruction );
 		/**
 		 * Merges all the blocks output together with other magic such as adding
 		 * variables, gpasm directives, etc.
-		 * @param showLinks whether to show how the instructions are linked
-		 * together.
 		 */
-		QString generateCode( PIC14 * pic, bool showLinks = false ) const;
+		QString generateCode( PIC14 * pic ) const;
 		/**
 		 * Appends the InstructionLists to the end of the ones in this instance.
 		 * @param middleInsertionPosition is the position where the middle code
@@ -582,7 +636,6 @@ class CodeIterator
 		bool operator != ( const CodeIterator & i ) const { return it != i.it; }
 		bool operator == ( const CodeIterator & i ) const { return it == i.it; }
 		CodeIterator & operator ++ ();
-		CodeIterator & operator -- ();
 		Instruction * & operator * () { return *it; }
 		/**
 		 * Deletes the instruction that this iterator is currently pointing at
@@ -713,24 +766,16 @@ class Instruction
 		 * An input link is an instruction that might be executed immediately
 		 * before this Instruction.
 		 */
-		void addInputLink( Instruction * instruction );
-		/**
-		 * @see addInputLinks( Instruction * );
-		 */
-		void addInputLinks( const InstructionList & inputLinks );
+		void addInputLink( Instruction * inputLink );
 		/**
 		 * An output link is an instruction that might be executed immediately
 		 * after this Instruction.
 		 */
-		void addOutputLink( Instruction * instruction );
-		/**
-		 * @see addOutputLinks( Instruction * );
-		 */
-		void addOutputLinks( const InstructionList & outputLinks );
+		void addOutputLink( Instruction * inputLink );
 		/**
 		 * The list of instructions that might be executed immediately before
 		 * this instruction.
-		 * @see addInputLinks
+		 * @see addInputLink
 		 */
 		InstructionList inputLinks() const { return m_inputLinks; }
 		/**

@@ -1,6 +1,11 @@
 /***************************************************************************
  *   Copyright (C) 2004-2005 by Daniel Clarke                              *
- *   daniel.jc@gmail.com                                                   *
+ *   daniel.jc@gmail.com						   *
+ *									   *
+ *   24-04-2007                                                            *
+ *   Modified to add pic 16f877,16f627 and 16f628 			   *
+ *   by george john george@space-kerala.org 				   *
+ *   supported by SPACE www.space-kerala.org	 			   *	
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -27,7 +32,7 @@
 #include <kdebug.h>
 #include <iostream>
 using namespace std;
-
+QString pic_type;
 bool LEDSegTable[][7] = {
 { 1, 1, 1, 1, 1, 1, 0 },
 { 0, 1, 1, 0, 0, 0, 0 }, // 1
@@ -64,14 +69,21 @@ PIC14::~PIC14()
 
 PortPin PIC14::toPortPin( const QString & portPinString )
 {
-	QString port;
+	QString port,holdport;
 	int pin = -1;
-	
-	// In form e.g. RB3
-	if ( portPinString.length() == 3 )
+/*****************************modified *********************************************/
+//inorder to support RB.3=high/1
+
+	if ( portPinString.length()  == 3 )	
 	{
 		port = QString("PORT%1").arg( portPinString[1].upper() );
 		pin = QString( portPinString[2] ).toInt();
+	}
+	// In form e.g. RB.3
+	else if ( portPinString.length()  == 4 )//modification change ==3 to ==4	
+	{
+		port = QString("PORT%1").arg( portPinString[1].upper() );
+		pin = QString( portPinString[3] ).toInt();//modification change 2 to 3	
 	}
 	else
 	{
@@ -80,15 +92,38 @@ PortPin PIC14::toPortPin( const QString & portPinString )
 			return PortPin();
 		
 		port = portPinString.left(dotpos);
-		pin = portPinString.mid(dotpos+1).toInt();
+//modified checking is added in the case of Register also
+//now INTCON.GIE is high ,and INTCON.GIE=1/high works
+		if(isValidRegister( port))
+		{
+
+			RegisterBit REG(portPinString.mid(dotpos+1));
+			pin=REG.bitPos();
+			Register Reg(REG.registerType());
+			holdport=Reg.name();
+			if(holdport!=port)
+		    	 cerr << QString(" ERROR: %1 is not a Register bit\n").arg(portPinString );
+		}
+		else
+			pin = portPinString.mid(dotpos+1).toInt();
+
+
+//***************************Modification ends********************************
 	}
 	
 	PortPin portPin( port, pin );
 	
 	if ( isValidPortPin( portPin ) )
 		return portPin;
+//**************************Modification start ********************************
+	else if(isValidRegister(port))
+		return portPin;
+//**************************Modification ends ********************************
 	else
+	{
+		cerr << QString("ERROR: %1 is not a Port/Register bit\n").arg(portPinString );
 		return PortPin();
+	}
 }
 
 
@@ -108,6 +143,7 @@ uchar PIC14::gprStart() const
 			
 		case P16F627:
 		case P16F628:
+		case P16F877:
 			return 0x20;
 			
 		case unknown:
@@ -124,16 +160,32 @@ PIC14::Type PIC14::toType( const QString & _text )
 	QString text = _text.upper().simplifyWhiteSpace().remove('P');
 	
 	if ( text == "16C84" )
+	{	
+		pic_type="P16C84";
 		return P16C84;
-	
+	}
 	if ( text == "16F84" )
+	{	
+		pic_type="P16F84";
 		return P16F84;
-	
+	}
 	if ( text == "16F627" )
+	{	
+		pic_type="P16F627";
 		return P16F627;
+	}
 	
 	if ( text == "16F628" )
+	{	
+		pic_type="P16F627";
 		return P16F628;
+	}
+//modified checking of 16F877 is included
+	if ( text == "16F877" )
+	{	
+		pic_type="P16F877";
+		return P16F877;
+	}
 	
 	cerr << QString("%1 is not a known PIC identifier\n").arg(_text);
 	return unknown;
@@ -155,7 +207,12 @@ QString PIC14::minimalTypeString() const
 			
 		case P16F628:
 			return "16F628";
-			
+
+//modified checking of 16F877 is included			
+
+		case P16F877:
+			return "16F877";
+
 		case unknown:
 			break;
 	}
@@ -251,38 +308,94 @@ int PIC14::interruptNameToBit(const QString &name, bool flag)
 
 bool PIC14::isValidPort( const QString & portName ) const
 {
-	return ( portName == "PORTA" || portName == "porta" ||
-			 portName == "PORTB" || portName == "portb" );
+
+	if(pic_type =="P16F84"||pic_type =="P16C84"||pic_type =="P16F627"||pic_type =="P16F628")   
+		return ( portName == "PORTA" || portName == "PORTB");
+
+	if(pic_type=="P16F877")
+		return ( portName == "PORTA" ||portName == "PORTB"||portName == "PORTC" ||portName == "PORTD"||portName == "PORTE");
+
+	return false;
 }
 
 
 bool PIC14::isValidPortPin( const PortPin & portPin ) const
 {
-	if ( portPin.port() == "PORTA" )
-		return (portPin.pin() >= 0) && (portPin.pin() <= 4);
+ 	
+	if(pic_type == "P16F84" ||pic_type =="P16C84")   
+	{
+		if ( portPin.port() == "PORTA" )
+			return (portPin.pin() >= 0) && (portPin.pin() <= 4);
 	
-	if ( portPin.port() == "PORTB" )
-		return (portPin.pin() >= 0) && (portPin.pin() <= 7);
+		if ( portPin.port() == "PORTB" )
+			return (portPin.pin() >= 0) && (portPin.pin() <= 7);
+	}
+	if(pic_type == "P16F627" ||pic_type =="P16F628")   
+	{
+		if ( portPin.port() == "PORTA" )
+			return (portPin.pin() >= 0) && (portPin.pin() <= 7);
+	
+		if ( portPin.port() == "PORTB" )
+			return (portPin.pin() >= 0) && (portPin.pin() <= 7);
+	}
+
+	if(pic_type=="P16F877")
+	{
+		if ( portPin.port() == "PORTA" )
+			return (portPin.pin() >= 0) && (portPin.pin() <= 5);
+	
+		if ( portPin.port() == "PORTB" )
+			return (portPin.pin() >= 0) && (portPin.pin() <= 7);
+		if ( portPin.port() == "PORTC" )
+			return (portPin.pin() >= 0) && (portPin.pin() <= 7);
+
+		if ( portPin.port() == "PORTD" )
+			return (portPin.pin() >= 0) && (portPin.pin() <= 7);
+
+		if ( portPin.port() == "PORTE" )
+			return (portPin.pin() >= 0) && (portPin.pin() <= 2);
+	}
 	
 	return false;
 }
 
 
 bool PIC14::isValidTris( const QString & trisName ) const
+{	
+	if(pic_type =="P16F84"||pic_type =="P16C84"||pic_type =="P16F627"||pic_type =="P16F628")
+		return ( trisName == "TRISA" || trisName == "TRISB");
+
+	if(pic_type=="P16F877")
+		return ( trisName =="TRISA"|| trisName =="TRISB"||trisName =="TRISC"||trisName == "TRISD"||trisName == "TRISE" );
+
+	return false;
+}
+//*****************Modified ****************************//
+//New function isValiedRegister is added to check whether a register is valied or not
+bool PIC14::isValidRegister( const QString & registerName)const
 {
-	return ( trisName == "TRISA" || trisName == "trisa" ||
-			 trisName == "TRISB" || trisName == "trisb" );
+ 	if(pic_type=="P16F84"||pic_type=="P16C84")
+		return ( registerName == "TMR0" ||registerName == "PCL" || registerName == "STATUS"||registerName == "FSR"|| registerName == "EEDATH" || registerName == "EEADR"||registerName == "PCLATH"||registerName == "INTCON" || registerName == "EECON1"||registerName == "EECON2"||registerName == "OPTION_REG");
+
+	if(pic_type=="P16F877")
+		return ( registerName == "TMR0" ||registerName == "PCL" || registerName == "STATUS"||registerName == "FSR" ||registerName == "PCLATH"||registerName == "INTCON" ||registerName == "PIR1" ||registerName == "PIR2" ||registerName == "TMR1L" ||registerName == "TMR1H" ||registerName == "T1CON"||registerName == "TMR2" ||registerName == "T2CON" ||registerName == "SSPBUF"||registerName == "SSPCON"||registerName == "CCPR1L"||registerName == "CCPR1H"||registerName == "CCP1CON"||registerName == "RCSTA" ||registerName == "TXREG" ||registerName == "RCREG" ||registerName == "CCPR2L"||registerName == "CCPR2H"||registerName == "CCP2CON"||registerName == "ADRESH" ||registerName == "ADCON0" /*bank0ends*/ |registerName == "OPTION_REG"|| registerName == "PIE1"||registerName == "PIE2"||registerName == "PCON"||registerName == "SSPCON2"||registerName == "PR2"||registerName == "SSPADD"||registerName == "SSPSTAT"|| registerName == "TXSTA"||registerName == "SPBRG"|| registerName == "ADRESL"|| registerName == "ADCON1" /*bank1ends*/ || registerName == "EEDATA"|| registerName == "EEADR"|| registerName == "EEDATH"|| registerName == "EEADRH" /*bank2ends*/ ||registerName == "EECON1"||registerName == "EECON2" /*bank3ends*/   );
+
+	if(pic_type=="P16F627"||pic_type=="P16F628")
+		return ( registerName == "TMR0" ||registerName == "PCL" || registerName == "STATUS"||registerName == "FSR" ||registerName == "PCLATH"||registerName == "INTCON" ||registerName == "PIR1" ||registerName == "TMR1L" ||registerName == "TMR1H" ||registerName == "T1CON"||registerName == "TMR2" ||registerName == "T2CON" ||registerName == "CCPR1L"||registerName == "CCPR1H"||registerName == "CCP1CON"||registerName == "RCSTA" ||registerName == "TXREG" ||registerName == "RCREG" ||registerName == "CMCON"/*bank0ends*/ |registerName == "OPTION_REG"|| registerName == "PIE1"||registerName == "PCON"||registerName == "PR2"|| registerName == "TXSTA"||registerName == "SPBRG"|| registerName == "EEDATA"|| registerName == "EEADR" ||registerName == "EECON1"||registerName == "EECON2"||registerName == "VRCON"/*bank1ends*/ );
+
+	return false;
 }
 
 
+//****************************modifications ends********************************************
+
 bool PIC14::isValidInterrupt( const QString & interruptName ) const
 {
-	if( m_type == P16F84 || m_type == P16C84 )
-	{
+	if(pic_type == "P16F84" ||pic_type =="P16C84"||pic_type =="P16F877"||pic_type=="P16F627"||pic_type=="P16F628")
 		return ( interruptName == "change" ||
 				 interruptName == "timer" ||
 				 interruptName == "external" );
-	}
+
 	return false;
 }
 
@@ -1096,6 +1209,7 @@ void PIC14::Skeypad( const Variable & pinMap )
 	//END Read current value of keypad subroutine
 }
 
+/*****************************commented for modification *******************************
 
 void PIC14::bitwise( Expression::Operation op, const QString &r_val1, const QString &val2, bool val1IsNum, bool val2IsNum )
 {
@@ -1130,8 +1244,49 @@ void PIC14::bitwise( Expression::Operation op, const QString &r_val1, const QStr
 		}
 	
 	}
-}
-
+}*/
+///comment end and the new function is given bellow -- new code is working well
+// TODO - One error with OR operation if A OR 255 result in segebentation fault 
+//*****************modified to make the bit operation works***************************/
+void PIC14::bitwise( Expression::Operation op,const QString & r_val1, const QString & val2, LocationType val1Type, LocationType val2Type)
+{
+	QString val1 = r_val1;
+	if( op == Expression::bwnot ) val1 = "0xFF";
+	switch(val1Type)
+	{
+		case num: m_pCode->append(new Instr_movlw(val1.toInt( 0, 0 ))); break;
+		case work: break;
+		case var: m_pCode->append(new Instr_movf(val1,0)); break;
+	}
+	switch(val2Type)
+	{
+		case num: 
+		{
+			switch(op)
+			{
+				case Expression::bwand: m_pCode->append(new Instr_andlw(val2.toInt( 0, 0 ))); break;
+				case Expression::bwor: m_pCode->append(new Instr_iorlw(val2.toInt( 0, 0 ))); break;
+				case Expression::bwxor: m_pCode->append(new Instr_xorlw(val2.toInt( 0, 0 ))); break;
+				case Expression::bwnot: m_pCode->append(new Instr_xorlw(val2.toInt( 0, 0 ))); break;
+				default: break;
+		}
+		}
+		case work: break;
+		case var: 
+		{
+			switch(op)
+			{
+				case Expression::bwand: m_pCode->append(new Instr_andwf(val2,0)); break;
+				case Expression::bwor: m_pCode->append(new Instr_iorwf(val2,0)); break;
+				case Expression::bwxor: m_pCode->append(new Instr_xorwf(val2,0)); break;
+				case Expression::bwnot: m_pCode->append(new Instr_xorwf(val2,0)); break;
+				default: break;
+			}
+			
+		}
+	}
+	
+}//***************************************modification ends*****************************
 void PIC14::SincVar( const QString &var )
 {
 	m_pCode->append(new Instr_incf(var,1) );
@@ -1154,14 +1309,30 @@ void PIC14::SrotrVar( const QString &var )
 
 void PIC14::Stristate(const QString &port)
 {
-	m_pCode->append( new Instr_bsf("STATUS","5") );
+//modification pic type is checked here
+	m_pCode->append( new Instr_bsf("STATUS","5") );//commented
+	if(pic_type== "P16C84" || pic_type =="P16F84"||pic_type =="P16F627")
+	{ 	
+		if( port == "trisa" || port == "TRISA" )
+			saveResultToVar( "TRISA" );
+		else
+			saveResultToVar( "TRISB" );
+	}
+	if(pic_type =="P16F877") 
+	{ 	
+		if( port == "trisa" || port == "TRISA" )
+			saveResultToVar( "TRISA" );
+		else if( port == "trisb" || port == "TRISB" )
+			saveResultToVar( "TRISB" );
+		else if( port == "trisc" || port == "TRISC" )
+			saveResultToVar( "TRISC" );
+		else if( port == "trisd" || port == "TRISD" )
+			saveResultToVar( "TRISD" );
+		else
+			saveResultToVar( "TRISE" );		
 	
-	if( port == "trisa" || port == "TRISA" )
-		saveResultToVar( "TRISA" );
-	else
-		saveResultToVar( "TRISB" );
-	
-	m_pCode->append( new Instr_bcf(Register("STATUS"),"5") );
+	}
+	m_pCode->append( new Instr_bcf(Register("STATUS"),"5") );//commented
 }
 
 void PIC14::Sasm(const QString &raw)

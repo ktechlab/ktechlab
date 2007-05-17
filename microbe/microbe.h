@@ -1,6 +1,11 @@
 /***************************************************************************
  *   Copyright (C) 2004-2005 by Daniel Clarke                              *
  *   daniel.jc@gmail.com                                                   *
+ *									   *
+ *   24-04-2007                                                            *
+ *   Modified to add pic 16f877,16f627 and 16f628 			   *
+ *   by george john george@space-kerala.org 				   *
+ *   supported by SPACE www.space-kerala.org	 			   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -96,9 +101,6 @@ class Microbe
 	public:
 		Microbe();
 		~Microbe();
-		
-		static Microbe * self() { return m_pSelf; }
-		PIC14 * mainPIC() const { return m_pMainPIC; }
 		
 		enum MistakeType
 		{
@@ -245,11 +247,6 @@ class Microbe
 		 * @see PIC14::Type
 		 */
 		int m_picType;
-		
-		PIC14 * m_pMainPIC;
-		
-	private:
-		static Microbe * m_pSelf;
 };
 
 

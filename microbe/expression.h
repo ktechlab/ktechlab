@@ -1,6 +1,11 @@
 /***************************************************************************
  *   Copyright (C) 2004-2005 by Daniel Clarke                              *
  *   daniel.jc@gmail.com                                                   *
+ *									   *
+ *   24-04-2007                                                            *
+ *   Modified to add pic 16f877,16f627 and 16f628 			   *
+ *   by george john george@space-kerala.org,az.j.george@gmail.com	   *
+ *   supported by SPACE www.space-kerala.org	 			   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *

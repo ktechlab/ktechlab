@@ -1,6 +1,11 @@
 /***************************************************************************
  *   Copyright (C) 2004-2005 by Daniel Clarke <daniel.jc@gmail.com>        *
  *                      2005 by David Saxton <david@bluehaze.org>          *
+ *									   *
+ *   24-04-2007                                                            *
+ *   Modified to add pic 16f877,16f627 and 16f628 			   *
+ *   by george john george@space-kerala.org 				   *
+ *   supported by SPACE www.space-kerala.org		 		   *	
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -19,30 +24,25 @@
  ***************************************************************************/
  
 #include "instruction.h"
-#include "microbe.h"
 #include "optimizer.h"
 #include "pic14.h"
-
 #include <kdebug.h>
 #include <qstringlist.h>
-
 #include <assert.h>
 #include <iostream>
 using namespace std;
-
-
+//modified new varable pic_type is added
+extern QString pic_type;
 //BEGIN class Register
 Register::Register( Type type )
 {
 	m_type = type;
-	
+//***********modified almost all the register names are included**************//	
 	switch ( m_type )
 	{
+//----------------------------------------------Bank0---------------------------//
 		case TMR0:
 			m_name = "TMR0";
-			break;
-		case OPTION_REG:
-			m_name = "OPTION_REG";
 			break;
 		case PCL:
 			m_name = "PCL";
@@ -56,26 +56,17 @@ Register::Register( Type type )
 		case PORTA:
 			m_name = "PORTA";
 			break;
-		case TRISA:
-			m_name = "TRISA";
-			break;
 		case PORTB:
 			m_name = "PORTB";
 			break;
-		case TRISB:
-			m_name = "TRISB";
+		case PORTC:
+			m_name = "PORTC";
 			break;
-		case EEDATA:
-			m_name = "EEDATA";
+		case PORTD:
+			m_name = "PORTD";
 			break;
-		case EECON1:
-			m_name = "EECON1";
-			break;
-		case EEADR:
-			m_name = "EEADR";
-			break;
-		case EECON2:
-			m_name = "EECON2";
+		case PORTE:
+			m_name = "PORTE";
 			break;
 		case PCLATH:
 			m_name = "PCLATH";
@@ -83,6 +74,147 @@ Register::Register( Type type )
 		case INTCON:
 			m_name = "INTCON";
 			break;
+		case PIR1:
+			m_name = "PIR1";
+			break;
+		case PIR2:
+			m_name = "PIR2";
+			break;
+		case TMR1L:
+			m_name = "TMR1L";
+			break;
+		case TMR1H:
+			m_name = "TMR1H";
+			break;
+		case T1CON:
+			m_name = "T1CON";
+			break;
+		case TMR2:
+			m_name = "TMR2";
+			break;
+		case T2CON:
+			m_name = "T2CON";
+			break;
+		case SSPBUF:
+			m_name = "SSPBUF";
+			break;
+		case SSPCON:
+			m_name = "SSPCON";
+			break;
+		case CCPR1L:
+			m_name = "CCPR1L";
+			break;
+		case CCPR1H:
+			m_name = "CCPR1H";
+			break;
+		case CCP1CON:
+			m_name = "CCP1CON";
+			break;
+		case RCSTA:
+			m_name = "RCSTA";
+			break;
+		case TXREG:
+			m_name = "TXREG";
+			break;
+		case RCREG:
+			m_name = "RCREG";
+			break;
+		case CCPR2L:
+			m_name = "CCPR2L";
+			break;
+		case CCPR2H:
+			m_name = "CCPR2H";
+			break;
+		case CCP2CON:
+			m_name = "CCP2CON";
+			break;
+		case ADRESH:
+			m_name = "ADRESH";
+			break;
+		case ADCON0:
+                        m_name = "ADCON0";
+			break;
+		case CMCON:
+                        m_name = "CMCON";
+			break;
+//----------------------------------------------Bank1---------------------------//
+
+		case OPTION_REG:
+			m_name = "OPTION_REG";
+			break;
+		case TRISA:
+			m_name = "TRISA";
+			break;
+		case TRISB:
+			m_name = "TRISB";
+			break;
+		case TRISC:
+			m_name = "TRISC";
+			break;
+		case TRISD:
+			m_name = "TRISD";
+			break;
+		case TRISE:
+			m_name = "TRISE";
+			break;
+		case PIE1:
+			m_name = "PIE1";
+			break;
+		case PIE2:
+			m_name = "PIE2";
+			break;
+		case PCON:
+			m_name = "PCON";
+			break;
+		case SSPCON2:
+			m_name = "SSPCON2";
+			break;
+		case PR2:
+			m_name = "PR2";
+			break;
+		case SSPADD:
+			m_name = "SSPADD";
+			break;
+		case SSPSTAT:
+			m_name = "SSPSTAT";
+			break;
+		case TXSTA:
+			m_name = "TXSTA";
+			break;
+		case SPBRG:
+			m_name = "SPBRG";
+			break;
+		case ADRESL:
+			m_name = "ADRESL";
+			break;
+		case ADCON1:
+                        m_name = "ADCON1";
+			break;
+		case VRCON:
+                        m_name = "VRCON";
+			break;
+//----------------------------------------------Bank2---------------------------//
+		case EEDATA:
+			m_name = "EEDATA";
+			break;
+		case EEADR:
+			m_name = "EEADR";
+			break;
+		case EEDATH:
+			m_name = "EEDATH";
+			break;
+		case EEADRH:
+			m_name = "EEADRH";
+			break;
+//----------------------------------------------Bank3---------------------------//
+		case EECON1:
+			m_name = "EECON1";
+			break;
+
+		case EECON2:
+			m_name = "EECON2";
+			break;
+//---------------------------------------------NoBank---------------------------//       
 		case WORKING:
 			m_name = "<working>";
 			break;
@@ -93,15 +225,13 @@ Register::Register( Type type )
 }
 
 
-Register::Register( const QString & name )
+Register::Register( const QString & name )//--to find a name varable or register(ex  trise)
 {
 	m_name = name.stripWhiteSpace();
 	QString upper = m_name.upper();
-	
+//--------------------------------------------Bank0-------------------//
 	if ( upper == "TMR0" )
 		m_type = TMR0;
-	else if ( upper == "OPTION_REG" )
-		m_type = OPTION_REG;
 	else if ( upper == "PCL" )
 		m_type = PCL;
 	else if ( upper == "STATUS")
@@ -110,24 +240,112 @@ Register::Register( const QString & name )
 		m_type = FSR;
 	else if ( upper == "PORTA")
 		m_type = PORTA;
-	else if ( upper == "TRISA")
-		m_type = TRISA;
 	else if ( upper == "PORTB")
 		m_type = PORTB;
-	else if ( upper == "TRISB")
-		m_type = TRISB;
-	else if ( upper == "EEDATA")
-		m_type = EEDATA;
-	else if ( upper == "EECON1")
-		m_type = EECON1;
-	else if ( upper == "EEADR")
-		m_type = EEADR;
-	else if ( upper == "EECON2")
-		m_type = EECON2;
+	else if ( upper == "PORTC")
+		m_type = PORTC;
+	else if ( upper == "PORTD")
+		m_type = PORTD;
+	else if ( upper == "PORTE")
+		m_type = PORTE;
 	else if ( upper == "PCLATH")
 		m_type = PCLATH;
 	else if ( upper == "INTCON")
-		m_type = INTCON;
+	 	m_type = INTCON;
+	else if ( upper == "PIR1")
+		m_type = PIR1;
+	else if ( upper == "PIR2")
+		m_type = PIR2;
+	else if ( upper == "TMR1L")
+		m_type = TMR1L;
+	else if ( upper == "TMR1H")
+		m_type = TMR1H;
+	else if ( upper == "T1CON")
+		m_type = T1CON;
+	else if ( upper == "TMR2")
+		m_type = TMR2;
+	else if ( upper == "T2CON")
+		m_type = T2CON;
+	else if ( upper == "SSPBUF")
+		m_type = SSPBUF;
+	else if ( upper == "SSPCON")
+		m_type = SSPCON;
+	else if ( upper == "CCPR1L")
+		m_type = CCPR1L;
+	else if ( upper == "CCPR1H")
+		m_type = CCPR1H;
+	else if ( upper == "CCP1CON")
+		m_type = CCP1CON;
+	else if ( upper == "RCSTA")
+		m_type = RCSTA;
+	else if ( upper == "TXREG")
+		m_type = TXREG;
+	else if ( upper == "RCREG")
+		m_type = RCREG;
+	else if ( upper == "CCPR2L")
+		m_type = CCPR2L;
+	else if ( upper == "CCPR2H")
+		m_type = CCPR2H;
+	else if ( upper == "CCP2CON")
+		m_type = CCP2CON;
+	else if ( upper == "ADRESH")
+		m_type = ADRESH;
+	else if ( upper == "ADCON0")
+		m_type = ADCON0;
+	else if ( upper == "CMCON")
+		m_type = CMCON;
+//--------------------------------------------Bank1-------------------//
+	else if ( upper == "OPTION_REG" )
+		m_type = OPTION_REG;
+	else if ( upper == "TRISA")
+		m_type = TRISA;
+	else if ( upper == "TRISB")
+		m_type = TRISB;
+	else if ( upper == "TRISC")
+		m_type = TRISC;
+	else if ( upper == "TRISD")
+		m_type = TRISD;
+	else if ( upper == "TRISE")
+		m_type = TRISE;
+	else if ( upper == "PIE1")
+		m_type = PIE1;
+	else if ( upper == "PIE2")
+		m_type = PIE2;
+	else if ( upper == "PCON")
+		m_type = PCON;
+	else if ( upper == "SSPCON2")
+		m_type = SSPCON2;
+	else if ( upper == "PR2")
+		m_type = PR2;
+	else if ( upper == "SSPADD")
+		m_type = SSPADD;
+	else if ( upper == "SSPSTAT")
+		m_type = SSPSTAT;
+	else if ( upper == "TXSTA")
+		m_type = TXSTA;
+	else if ( upper == "SPBRG")
+		m_type = SPBRG;
+	else if ( upper == "ADRESL")
+		m_type = ADRESL;
+	else if ( upper == "ADCON1")
+		m_type = ADCON1;
+	else if ( upper == "VRCON")
+		m_type = VRCON;
+//--------------------------------------------Bank2-------------------//
+	else if ( upper == "EEDATA")
+		m_type = EEDATA;
+	else if ( upper == "EEADR")
+		m_type = EEADR;
+	else if ( upper == "EEDATH")
+		m_type = EEDATH;
+	else if ( upper == "EEADRH")
+	 	m_type = EEADRH;
+//--------------------------------------------Bank3-------------------//
+	else if ( upper == "EECON1")
+		m_type = EECON1;
+	else if ( upper == "EECON2")
+		m_type = EECON2;
+//---------------------------------------------NoBank----------------//
 	else
 		m_type = GPR;
 }
@@ -161,28 +379,84 @@ uchar Register::banks() const
 {
 	switch ( m_type )
 	{
-		case TMR0: return Bank0;
-		case OPTION_REG: return Bank1;
-		case PCL: return Bank0 | Bank1;
-		case STATUS: return Bank0 | Bank1;
-		case FSR: return Bank0 | Bank1;
-		case PORTA: return Bank0;
-		case TRISA: return Bank1;
-		case PORTB: return Bank0;
-		case TRISB: return Bank1;
-		case EEDATA: return Bank0;
-		case EECON1: return Bank1;
-		case EEADR: return Bank0;
-		case EECON2: return Bank1;
-		case PCLATH: return Bank0 | Bank1;
-		case INTCON: return Bank0 | Bank1;
-		
-		case GPR: return Bank0 | Bank1;
-		case WORKING: return Bank0 | Bank1;
-		case none: return Bank0 | Bank1;
+//---------------------bank 0 registers return zero---------------------------// 		
+
+		case TMR0: return Bank0& Bank1;//Bank0
+		case PCL: return Bank0 & Bank1;//Bank0 | Bank1
+		case STATUS: return Bank0 & Bank1;//Bank0 | Bank1
+		case FSR: return Bank0 & Bank1;//Bank0 | Bank1
+		case PORTA: return Bank0 & Bank1;//Bank0
+		case PORTB: return Bank0 & Bank1;//Bank0
+		case PORTC: return Bank0 & Bank1;//Bank0
+		case PORTD: return Bank0 & Bank1;//Bank0
+		case PORTE: return Bank0 & Bank1;//Bank0
+		case PCLATH: return Bank0 & Bank1;//Bank0 | Bank1
+		case INTCON: return Bank0 & Bank1;//Bank0 | Bank1
+		case PIR1: return Bank0 & Bank1;
+		case PIR2: return Bank0 & Bank1;
+		case TMR1L: return Bank0 & Bank1;
+		case TMR1H: return Bank0 & Bank1;
+		case T1CON: return Bank0 & Bank1;
+		case TMR2: return Bank0 & Bank1;
+		case T2CON: return Bank0 & Bank1;
+		case SSPBUF: return Bank0 & Bank1;
+		case SSPCON: return Bank0 & Bank1;
+		case CCPR1L: return Bank0 & Bank1;
+		case CCPR1H: return Bank0 & Bank1;
+		case CCP1CON: return Bank0 & Bank1;
+		case RCSTA: return Bank0 & Bank1;
+		case TXREG: return Bank0 & Bank1;
+		case RCREG: return Bank0 & Bank1;
+		case CCPR2L: return Bank0 & Bank1;
+		case CCPR2H: return Bank0 & Bank1;
+		case CCP2CON: return Bank0 & Bank1;
+		case ADRESH: return Bank0 & Bank1;//Bank0	
+		case ADCON0: return Bank0 & Bank1;//Bank0
+		case CMCON: return Bank0 & Bank1;//Bank0
+//-----------------------------NO Bank-------------------------------------//
+		case GPR: return Bank0 & Bank1;//Bank0 | Bank1
+		case WORKING: return Bank0 & Bank1;//Bank0 | Bank1
+		case none: return Bank0 & Bank1;//Bank0 | Bank1
+
+//-------------------bank 1 registers return one---------------------------// 		
+
+		case OPTION_REG: return Bank0;//Bank1
+///------tris registers-------//
+		case TRISA: return Bank0;//Bank1
+		case TRISB: return Bank0;//Bank1
+		case TRISC: return Bank0;//Bank1
+		case TRISD: return Bank0;//Bank1
+		case TRISE: return Bank0;//Bank1
+//--------------------------------------------------------------------------//
+		case PIE1: return Bank0;
+		case PIE2: return Bank0;
+		case PCON: return Bank0;
+		case SSPCON2: return Bank0;
+		case PR2: return Bank0;
+		case SSPADD: return Bank0;
+		case SSPSTAT: return Bank0;
+		case TXSTA: return Bank0;
+		case SPBRG: return Bank0;	
+//--------adc register-------//
+		case ADRESL: return Bank0;//Bank1 
+		case ADCON1: return Bank0;//Bank1
+		case VRCON: return Bank0;//Bank1		
+
+//------------------bank 2 registers return two----------completed------------//
+
+		case EEDATA: return Bank1;//Bank1
+		case EEADR: return Bank1;//Bank0
+		case EEDATH: return Bank1;//Bank0
+		case EEADRH: return Bank1;//Bank0	
+
+//------------------bank 3 registers return three--------completed----------------//
+
+		case EECON1: return Bank0|Bank1;//Bank1
+		case EECON2: return Bank0|Bank1;//Bank1
+
 	}
 	
-	return Bank0 | Bank1; // Vacously true (and useful too) - a non-existent bank can be accessed anywhere
+	return Bank0 & Bank1; // Vacously true (and useful too) - a non-existent bank can be accessed anywhere
 }
 
 
@@ -200,8 +474,16 @@ bool Register::affectsExternal() const
 		case TRISA:
 		case PORTB:
 		case TRISB:
-			return true;
-			
+		case PORTC:
+		case TRISC:
+		case PORTD:
+		case TRISD:
+		case PORTE:
+		case TRISE:
+		case INTCON:
+		case ADCON0:
+		case ADCON1:
+//************************modification***************************		
 		case TMR0:
 		case OPTION_REG:
 		case PCL:
@@ -212,15 +494,48 @@ bool Register::affectsExternal() const
 		case EEADR:
 		case EECON2:
 		case PCLATH:
-		case INTCON:
 		case GPR:
+//--------------------------------FINAL LAST-------------//
+		case PIR1:
+		case PIR2:
+		case TMR1L:
+		case TMR2:
+		case TMR1H:
+		case T1CON:
+		case T2CON:
+		case SSPBUF:
+		case SSPCON:
+		case CCPR1L:
+		case CCPR1H:
+		case CCP1CON:
+		case CCPR2L:
+		case CCPR2H:
+		case CCP2CON:
+		case ADRESH:
+		case PIE1:
+		case PIE2:
+		case PCON:
+		case SSPCON2:
+		case PR2:
+		case SSPADD:
+		case SSPSTAT:
+		case TXSTA:
+		case SPBRG:
+		case ADRESL:
+		case EEDATH:
+		case EEADRH:
+		case RCSTA:
+		case TXREG:
+		case RCREG:
+		case CMCON:
+		case VRCON:
+			return true;
 		case WORKING:
 		case none:
 			return false;
 	}
 	return false;
 }
-//END class Register
 
 
 
@@ -231,7 +546,10 @@ RegisterBit::RegisterBit( uchar bitPos, Register::Type reg )
 	m_registerType = reg;
 	
 	switch ( m_registerType )
-	{
+	{	
+		case Register::TMR0:
+		case Register::PCL:
+			break;
 		case Register::STATUS:
 		{
 			switch ( m_bitPos )
@@ -247,6 +565,14 @@ RegisterBit::RegisterBit( uchar bitPos, Register::Type reg )
 			}
 			break;
 		}
+		case Register::FSR:
+		case Register::PORTA:
+		case Register::PORTB:
+		case Register::PORTC:
+		case Register::PORTD:
+		case Register::PORTE:
+		case Register::PCLATH:
+			break;
 		case Register::INTCON:
 		{
 			switch ( m_bitPos )
@@ -257,11 +583,188 @@ RegisterBit::RegisterBit( uchar bitPos, Register::Type reg )
 				case 3: m_name = "RBIE"; break;
 				case 4: m_name = "INTE"; break;
 				case 5: m_name = "T0IE"; break;
-				case 6: m_name = "EEIE"; break;
+				case 6: 
+				{
+				  if(pic_type=="P16F84"||pic_type=="P16C84")
+					m_name = "EEIE"; break;
+				  if(pic_type=="P16F877"||pic_type=="P16F627" ||pic_type =="P16F628")
+					m_name = "PEIE"; break;
+	 			  break;
+
+
+				}
 				case 7: m_name = "GIE"; break;
 			}
 			break;
 		}
+		case Register::PIR1:
+		{
+			switch ( m_bitPos )
+			{
+				case 0: m_name = "TMR1F"; break;
+				case 1: m_name = "TMR2F"; break;
+				case 2: m_name = "CCP1IF"; break;
+				case 3: m_name = "SSPIF"; break;
+				case 4: m_name = "TXIF"; break;
+				case 5: m_name = "RCIF"; break;
+				case 6:
+				  if(pic_type=="P16F877")
+					 m_name = "ADIF"; break;
+				  if(pic_type=="P16F627"||pic_type=="P16F628")
+					 m_name = "CMIF";break;
+				  break;					
+				case 7:
+				  if(pic_type=="P16F877") 
+					m_name = "PSPIF"; break;
+				  if(pic_type=="P16F627"||pic_type=="P16F628")
+					 m_name = "EEIF";break;
+				  break;
+			}
+			break;
+		}
+		case Register::PIR2:
+		{
+			switch ( m_bitPos )
+			{
+				case 0: m_name = "CCP2IF"; break;
+				case 3: m_name = "BCLIF"; break;
+				case 4: m_name = "EEIF"; break;
+	
+			}
+			break;
+		}
+		case Register::TMR1L:
+		case Register::TMR1H:
+			break;
+		case Register::T1CON:
+		{
+			switch ( m_bitPos )
+			{
+				case 0: m_name = "TMR1ON"; break;
+				case 1: m_name = "TMRCS"; break;
+				case 2:
+				  if(pic_type=="P16F877")
+					 m_name = "T1SYNC"; break;
+				  if(pic_type=="P16F627"||pic_type=="P16F628")
+					 m_name = "NOT_T1SYNC"; break;
+				  break;
+				case 3: m_name = "T1OSCEN"; break;
+				case 4: m_name = "T1CKPS0"; break;
+				case 5: m_name = "T1CKPS1"; break;
+			}
+			break;
+		}
+		case Register::TMR2:
+			break;
+		case Register::T2CON:
+		{
+			switch ( m_bitPos )
+			{
+				case 0: m_name = "T2CKPS0"; break;
+				case 1: m_name = "T2CKPS1"; break;
+				case 2: m_name = "TMR2ON"; break;
+				case 3: m_name = "TOUTPS0"; break;
+				case 4: m_name = "TOUTPS1"; break;
+				case 5: m_name = "TOUTPS2"; break;
+				case 6: m_name = "TOUTPS3"; break;
+			}
+			break;
+		}
+		case Register::SSPBUF:
+			break;
+		case Register::SSPCON:
+			switch ( m_bitPos )
+			{
+				case 0: m_name = "SSPM0"; break;
+				case 1: m_name = "SSPM1"; break;
+				case 2: m_name = "SSPM2"; break;
+				case 3: m_name = "SSPM3"; break;
+				case 4: m_name = "CKP"; break;
+				case 5: m_name = "SSPEN"; break;
+				case 6: m_name = "SSPOV"; break;//!!!!!!START&STOPEEIE!!!
+				case 7: m_name = "WCOL"; break;
+			}
+			break;
+		case Register::CCPR1L:
+		case Register::CCPR1H:
+			break;
+		case Register::CCP1CON:
+			switch ( m_bitPos )
+			{
+				case 0: m_name = "CCP1M0"; break;
+				case 1: m_name = "CCP1M1"; break;
+				case 2: m_name = "CCP1M2"; break;
+				case 3: m_name = "CCP1M3"; break;
+				case 4: m_name = "CCP1Y"; break;
+				case 5: m_name = "CCP1X"; break;
+			}
+			break;
+		case Register::RCSTA:
+			switch ( m_bitPos )
+			{
+				case 0: m_name = "RX9D"; break;
+				case 1: m_name = "OERR"; break;
+				case 2: m_name = "FERR"; break;
+				case 3: 
+				  if(pic_type=="P16F877")
+					m_name = "ADDEN"; break;
+				  if(pic_type=="P16F627"||pic_type=="P16F628")
+					m_name = "ADEN"; break;
+				case 4: m_name = "CREN"; break;
+				case 5: m_name = "SREN"; break;
+				case 6: m_name = "RX9"; break;
+				case 7: m_name = "SPEN"; break;
+			}
+			break;
+		case Register::TXREG:
+		case Register::RCREG:
+		case Register::CCPR2L:
+		case Register::CCPR2H:
+			break;
+		case Register::CCP2CON:
+			switch ( m_bitPos )
+			{
+				case 0: m_name = "CCP2M0"; break;
+				case 1: m_name = "CCP2M1"; break;
+				case 2: m_name = "CCP2M2"; break;
+				case 3: m_name = "CCP2M3"; break;
+				case 4: m_name = "CCP2Y"; break;
+				case 5: m_name = "CCP2X"; break;
+			}
+			break;
+
+		case Register::ADRESH:
+			break;
+		case Register::ADCON0:
+		{
+			switch ( m_bitPos )
+			{
+				case 0: m_name = "ADON"; break;
+				case 2: m_name = "GO"; break;
+				case 3: m_name = "CHS0"; break;
+				case 4: m_name = "CHS1"; break;
+				case 5: m_name = "CHS2"; break;
+				case 6: m_name = "ADCS0"; break;
+				case 7: m_name = "ADCS1"; break;
+			}
+			break;
+		}
+		case Register::CMCON:
+		{
+			switch ( m_bitPos )
+			{
+				case 0: m_name = "CM0"; break;
+				case 1: m_name = "CM1"; break;
+				case 2: m_name = "CM2"; break;
+				case 3: m_name = "CIS"; break;
+				case 4: m_name = "C1INV"; break;
+				case 5: m_name = "C2INV"; break;
+				case 6: m_name = "C1OUT"; break;
+				case 7: m_name = "C2OUT"; break;
+			}
+			break;
+		}
+//-----------------------------------------------------Bank1----------------//
 		case Register::OPTION_REG:
 		{
 			switch ( m_bitPos )
@@ -269,14 +772,137 @@ RegisterBit::RegisterBit( uchar bitPos, Register::Type reg )
 				case 0: m_name = "PS0"; break;
 				case 1: m_name = "PS1"; break;
 				case 2: m_name = "PS2"; break;
-				case 3: m_name = "PSa"; break;
+				case 3: m_name = "PSA"; break;
 				case 4: m_name = "T0SE"; break;
 				case 5: m_name = "T0CS"; break;
 				case 6: m_name = "INTEDG"; break;
-				case 7: m_name = "NOT_RBPU"; break;
+				case 7: 
+				{
+					if(pic_type=="P16F84")
+						m_name = "RBPU";
+					if(pic_type=="P16F877"||pic_type=="P16C84"||pic_type=="P16F627"||pic_type=="P16F628")
+						m_name = "NOT_RBPU";
+	 				break;
+
+
+				}
 			}
 			break;
 		}
+		case Register::TRISA:
+		case Register::TRISB:
+		case Register::TRISC:
+		case Register::TRISD:
+		case Register::TRISE:
+			break;
+		case Register::PIE1:
+			switch ( m_bitPos )
+			{
+				case 0: m_name = "TMR1IE"; break;
+				case 1: m_name = "TMR2IE"; break;
+				case 2: m_name = "CCP1IE"; break;
+				case 3: m_name = "SSPIE"; break;
+				case 4: m_name = "TXIE"; break;
+				case 5: m_name = "RCIE"; break;
+				case 6:
+				{
+				   if (pic_type=="P16F877")
+ 					m_name = "ADIE"; break;
+				   if (pic_type=="P16F627"||pic_type=="P16F628")
+ 					m_name = "CMIE"; break;
+				   break;
+ 				}
+				case 7:
+				{
+				   if (pic_type=="P16F877")
+ 					m_name = "PSPIE"; break;
+				   if (pic_type=="P16F627"||pic_type=="P16F628")
+ 					m_name = "EEIE"; break;
+				   break;
+ 				} 
+			}
+			break;
+		case Register::PIE2:
+			switch ( m_bitPos )
+			{
+				case 0: m_name = "CCP2IE"; break;
+				case 3: m_name = "BCLIE"; break;
+				case 4: m_name = "EEIE"; break;
+			}
+			break;
+		case Register::PCON:
+			switch ( m_bitPos )
+			{
+				case 0: m_name = "NOT_BOR"; break;
+				case 1: m_name = "NOT_POR"; break;
+				case 3: m_name = "OSCF"; break;
+
+			}
+			break;
+		case Register::SSPCON2:
+			switch ( m_bitPos )
+			{
+				case 0: m_name = "SEN"; break;
+				case 1: m_name = "RSEN"; break;
+				case 2: m_name = "PEN"; break;
+				case 3: m_name = "RCEN"; break;
+				case 4: m_name = "ACKEN"; break;
+				case 5: m_name = "ACKDT"; break;
+				case 6: m_name = "ACKSTAT"; break;
+				case 7: m_name = "GCEN"; break;
+			}
+			break;
+		case Register::PR2:
+		case Register::SSPADD:
+			break;
+		case Register::SSPSTAT:
+			switch ( m_bitPos )
+			{
+				case 0: m_name = "BF"; break;
+				case 1: m_name = "UA"; break;
+				case 2: m_name = "R"; break;
+				case 3: m_name = "S"; break;
+				case 4: m_name = "P"; break;
+				case 5: m_name = "D"; break;
+				case 6: m_name = "CKE"; break;
+				case 7: m_name = "SMP"; break;
+			}
+			break;	
+		case Register::TXSTA:
+			switch ( m_bitPos )
+			{
+				case 0: m_name = "TX9D"; break;
+				case 1: m_name = "TRMT"; break;
+				case 2: m_name = "BRGH"; break;
+				case 4: m_name = "SYNC"; break;
+				case 5: m_name = "TXEN"; break;
+				case 6: m_name = "TX9"; break;
+				case 7: m_name = "CSRC"; break;
+			}
+			break;
+		case Register::SPBRG:
+		case Register::ADRESL:
+			break;
+		case Register::ADCON1:
+		{
+			switch ( m_bitPos )
+			{
+				case 0: m_name = "PCFG0"; break;
+				case 1: m_name = "PCFG1"; break;
+				case 2: m_name = "PCFG2"; break;
+				case 3: m_name = "PCFG3"; break;
+				case 7: m_name = "ADFM"; break;
+			}
+			break;
+		}
+
+//-----------------------------------------------------Bank2----------------//
+		case Register::EEDATA:
+		case Register::EEADR:
+		case Register::EEDATH:
+		case Register::EEADRH:
+			break;
+//-----------------------------------------------------Bank3----------------//
 		case Register::EECON1:
 		{
 			switch ( m_bitPos )
@@ -286,21 +912,27 @@ RegisterBit::RegisterBit( uchar bitPos, Register::Type reg )
 				case 2: m_name = "WREN"; break;
 				case 3: m_name = "WRERR"; break;
 				case 4: m_name = "EEIF"; break;
+				case 7: m_name = "EEPGD"; break;//imp *****
 			}
 			break;
 		}
 			
-		case Register::TMR0:
-		case Register::PCL:
-		case Register::FSR:
-		case Register::PORTA:
-		case Register::TRISA:
-		case Register::PORTB:
-		case Register::TRISB:
-		case Register::EEDATA:
-		case Register::EEADR:
 		case Register::EECON2:
-		case Register::PCLATH:
+			break;
+		case Register::VRCON:
+		{
+			switch ( m_bitPos )
+			{
+				case 0: m_name = "VR0"; break;
+				case 1: m_name = "VR1"; break;
+				case 2: m_name = "VR2"; break;
+				case 3: m_name = "VR3"; break;
+				case 5: m_name = "VRR"; break;
+				case 6: m_name = "VROE"; break;
+				case 7: m_name = "VREN"; break;
+			}
+			break;
+		}
 		case Register::GPR:
 		case Register::WORKING:
 		case Register::none:
@@ -331,6 +963,9 @@ void RegisterBit::initFromName()
 	m_bitPos = m_name.toInt( & ok, 0 );
 	if ( ok )
 		m_registerType = Register::none; // hmm it should be unknown - not none.
+//----------------------------------------Bank0----------------------------//
+
+//--------STATUS REGISTER--------//
 	
 	else if ( m_name == "C" )
 	{
@@ -372,6 +1007,9 @@ void RegisterBit::initFromName()
 		m_registerType = Register::STATUS;
 		m_bitPos = 7;
 	}
+
+//-----------INTCON REGISTER---------//
+
 	else if ( m_name == "RBIF" )
 	{
 		m_registerType = Register::INTCON;
@@ -402,7 +1040,12 @@ void RegisterBit::initFromName()
 		m_registerType = Register::INTCON;
 		m_bitPos = 5;
 	}
-	else if ( m_name == "EEIE" )
+	else if ( m_name =="PEIE"&&(pic_type=="P16F877"||pic_type=="P16F627"))
+	{
+		m_registerType = Register::INTCON;
+		m_bitPos = 6;
+	}
+	else if (m_name == "EEIE"&& (pic_type=="P16F84"||pic_type=="P16C84"))
 	{
 		m_registerType = Register::INTCON;
 		m_bitPos = 6;
@@ -412,6 +1055,376 @@ void RegisterBit::initFromName()
 		m_registerType = Register::INTCON;
 		m_bitPos = 7;
 	}
+//-------PIR1---------//
+
+	else if ( m_name == "TMR1F" )
+	{
+		m_registerType = Register::PIR1;
+		m_bitPos = 0;
+	}
+	else if ( m_name == "TMR2F" )
+	{
+		m_registerType = Register::PIR1;
+		m_bitPos = 1;
+	}
+	else if ( m_name == "CCP1IF" )
+	{
+		m_registerType = Register::PIR1;
+		m_bitPos = 2;
+	}
+	else if ( m_name == "SSPIF"&& pic_type=="P16F877" )
+	{
+		m_registerType = Register::PIR1;
+		m_bitPos = 3;
+	}
+	else if ( m_name == "TXIF" )
+	{
+		m_registerType = Register::PIR1;
+		m_bitPos = 4;
+	}
+	else if ( m_name == "RCIF" )
+	{
+		m_registerType = Register::PIR1;
+		m_bitPos = 5;
+	}
+	else if ( m_name == "ADIF" && pic_type=="P16F877")
+	{
+		m_registerType = Register::PIR1;
+		m_bitPos = 6;
+	}
+	else if ( m_name == "CMIF" && pic_type=="P16F627")
+	{
+		m_registerType = Register::PIR1;
+		m_bitPos = 6;
+	}
+	else if ( m_name == "PSPIF"&& pic_type=="P16F877")
+	{
+		m_registerType = Register::PIR1;
+		m_bitPos = 7;
+	}
+	else if ( m_name == "EEIF"&& pic_type=="P16F627")
+	{
+		m_registerType = Register::PIR1;
+		m_bitPos = 7;
+	}
+//-------PIR2---------//
+	else if ( m_name == "CCP2IF" )
+	{
+		m_registerType = Register::PIR2;
+		m_bitPos = 0;
+	}
+	else if ( m_name == "BCLIF" )
+	{
+		m_registerType = Register::PIR2;
+		m_bitPos = 3;
+	}
+	else if ( m_name == "EEIF" && pic_type=="P16F877" )
+	{
+		m_registerType = Register::PIR2;
+		m_bitPos = 4;
+	}
+//-------T1CON--------//
+	else if ( m_name == "TMR1ON" )
+	{
+		m_registerType = Register::T1CON;
+		m_bitPos = 0;
+	}
+	else if ( m_name == "TMR1CS" )
+	{
+		m_registerType = Register::T1CON;
+		m_bitPos = 1;
+	}
+	else if ( m_name == "T1SYNC"&& pic_type=="P16F877" )
+	{
+		m_registerType = Register::T1CON;
+		m_bitPos = 2;
+	}
+	else if ( m_name == "NOT_T1SYNC"&& pic_type=="P16F627" )
+	{
+		m_registerType = Register::T1CON;
+		m_bitPos = 2;
+	}
+	else if ( m_name == "T1OSCEN" )
+	{
+		m_registerType = Register::T1CON;
+		m_bitPos = 3;
+	}
+	else if ( m_name == "T1CKPS0" )
+	{
+		m_registerType = Register::T1CON;
+		m_bitPos = 4;
+	}
+	else if ( m_name == "T1CKPS1" )
+	{
+		m_registerType = Register::T1CON;
+		m_bitPos = 5;
+	}
+//-------T2CON--------//
+
+	else if ( m_name == "T2CKPS0" )
+	{
+		m_registerType = Register::T2CON;
+		m_bitPos = 0;
+	}
+	else if ( m_name == "T2CKPS1" )
+	{
+		m_registerType = Register::T2CON;
+		m_bitPos = 1;
+	}
+	else if ( m_name == "TMR2ON" )
+	{
+		m_registerType = Register::T2CON;
+		m_bitPos = 2;
+	}
+	else if ( m_name == "TOUTPS0" )
+	{
+		m_registerType = Register::T2CON;
+		m_bitPos = 3;
+	}
+	else if ( m_name == "TOUTPS1" )
+	{
+		m_registerType = Register::T2CON;
+		m_bitPos = 4;
+	}
+	else if ( m_name == "TOUTPS2" )
+	{
+		m_registerType = Register::T2CON;
+		m_bitPos = 5;
+	}
+	else if ( m_name == "TOUTPS3" )
+	{
+		m_registerType = Register::T2CON;
+		m_bitPos = 6;
+	}
+//---SSPCON------//
+
+	else if ( m_name == "SSPM0" )
+	{
+		m_registerType = Register::SSPCON;
+		m_bitPos = 0;
+	}
+	else if ( m_name == "SSPM1" )
+	{
+		m_registerType = Register::SSPCON;
+		m_bitPos = 1;
+	}
+	else if ( m_name == "SSPM2" )
+	{
+		m_registerType = Register::SSPCON;
+		m_bitPos = 2;
+	}
+	else if ( m_name == "SSPM3" )
+	{
+		m_registerType = Register::SSPCON;
+		m_bitPos = 3;
+	}
+	else if ( m_name == "CKP" )
+	{
+		m_registerType = Register::SSPCON;
+		m_bitPos = 4;
+	}
+	else if ( m_name == "SSPEN" )
+	{
+		m_registerType = Register::SSPCON;
+		m_bitPos = 5;
+	}
+	else if ( m_name == "SSPOV" )
+	{
+		m_registerType = Register::SSPCON;
+		m_bitPos = 6;
+	}
+	else if ( m_name == "WCOL" )
+	{
+		m_registerType = Register::SSPCON;
+		m_bitPos = 7;
+	}
+//-------CCP1CON----//
+	else if ( m_name == "CCP1M0" )
+	{
+		m_registerType = Register::CCP1CON;
+		m_bitPos = 0;
+	}
+	else if ( m_name == "CCP1M1" )
+	{
+		m_registerType = Register::CCP1CON;
+		m_bitPos = 1;
+	}
+	else if ( m_name == "CCP1M2" )
+	{
+		m_registerType = Register::CCP1CON;
+		m_bitPos = 2;
+	}
+	else if ( m_name == "CCP1M3" )
+	{
+		m_registerType = Register::CCP1CON;
+		m_bitPos = 3;
+	}
+	else if ( m_name == "CCP1Y" )
+	{
+		m_registerType = Register::CCP1CON;
+		m_bitPos = 4;
+	}
+	else if ( m_name == "CCP1X" )
+	{
+		m_registerType = Register::CCP1CON;
+		m_bitPos = 5;
+	}
+//-------RCSTA----//
+	else if ( m_name == "RX9D" )
+	{
+		m_registerType = Register::RCSTA;
+		m_bitPos = 0;
+	}
+	else if ( m_name == "OERR" )
+	{
+		m_registerType = Register::RCSTA;
+		m_bitPos = 1;
+	}
+	else if ( m_name == "FERR" )
+	{
+		m_registerType = Register::RCSTA;
+		m_bitPos = 2;
+	}
+	else if ( m_name == "ADDEN"&& pic_type=="P16F877" )
+	{
+		m_registerType = Register::RCSTA;
+		m_bitPos = 3;
+	}
+	else if ( m_name == "ADEN"&& pic_type=="P16F627" )
+	{
+		m_registerType = Register::RCSTA;
+		m_bitPos = 3;
+	}
+	else if ( m_name == "CREN" )
+	{
+		m_registerType = Register::RCSTA;
+		m_bitPos = 4;
+	}
+	else if ( m_name == "SREN" )
+	{
+		m_registerType = Register::RCSTA;
+		m_bitPos = 5;
+	}
+	else if ( m_name == "RX9" )
+	{
+		m_registerType = Register::RCSTA;
+		m_bitPos = 6;
+	}
+	else if ( m_name == "SPEN" )
+	{
+		m_registerType = Register::RCSTA;
+		m_bitPos = 7;
+	}
+//-----CCP2CON-------//
+	else if ( m_name == "CCP2M0" )
+	{
+		m_registerType = Register::CCP2CON;
+		m_bitPos = 0;
+	}
+	else if ( m_name == "CCP2M1" )
+	{
+		m_registerType = Register::CCP2CON;
+		m_bitPos = 1;
+	}
+	else if ( m_name == "CCP2M2" )
+	{
+		m_registerType = Register::CCP2CON;
+		m_bitPos = 2;
+	}
+	else if ( m_name == "CCP2M3" )
+	{
+		m_registerType = Register::CCP2CON;
+		m_bitPos = 3;
+	}
+	else if ( m_name == "CCP2Y" )
+	{
+		m_registerType = Register::CCP2CON;
+		m_bitPos = 4;
+	}
+	else if ( m_name == "CCP2X" )
+	{
+		m_registerType = Register::CCP2CON;
+		m_bitPos = 5;
+	}
+//--------ADCON0------//
+	else if ( m_name == "ADON" )
+	{
+		m_registerType = Register::ADCON0;
+		m_bitPos = 0;
+	}
+	else if ( m_name == "GO" )
+	{
+		m_registerType = Register::ADCON0;
+		m_bitPos = 2;
+	}
+	else if ( m_name == "CHS0" )
+	{
+		m_registerType = Register::ADCON0;
+		m_bitPos = 3;
+	}
+	else if ( m_name == "CHS1" )
+	{
+		m_registerType = Register::ADCON0;
+		m_bitPos = 4;
+	}
+	else if ( m_name == "CHS2" )
+	{
+		m_registerType = Register::ADCON0;
+		m_bitPos = 5;
+	}
+	else if ( m_name == "ADCS0" )
+	{
+		m_registerType = Register::ADCON0;
+		m_bitPos = 6;
+	}
+	else if ( m_name == "ADCS1" )
+	{
+		m_registerType = Register::ADCON0;
+		m_bitPos = 7;
+	}
+//-------CMCON---------------//pic16f627
+	else if ( m_name == "CM0"&& pic_type=="P16F627")
+	{
+		m_registerType = Register::CMCON;
+		m_bitPos = 0;
+	}
+	else if ( m_name == "CM1"&& pic_type=="P16F627")
+	{
+		m_registerType = Register::CMCON;
+		m_bitPos = 1;
+	}
+	else if ( m_name == "CM2"&& pic_type=="P16F627")
+	{
+		m_registerType = Register::CMCON;
+		m_bitPos = 2;
+	}
+	else if ( m_name == "CM3"&& pic_type=="P16F627")
+	{
+		m_registerType = Register::CMCON;
+		m_bitPos = 3;
+	}
+	else if ( m_name == "CIS"&& pic_type=="P16F627")
+	{
+		m_registerType = Register::CMCON;
+		m_bitPos = 4;
+	}
+	else if ( m_name == "C2INV"&& pic_type=="P16F627")
+	{
+		m_registerType = Register::CMCON;
+		m_bitPos = 5;
+	}
+	else if ( m_name == "C1OUT"&& pic_type=="P16F627")
+	{
+		m_registerType = Register::CMCON;
+		m_bitPos = 6;
+	}
+	else if ( m_name == "C2OUT"&& pic_type=="P16F627")
+	{
+		m_registerType = Register::CMCON;
+		m_bitPos = 7;
+	}
+//---------------------------------------------Bank1-------------------------------//
+//-------OPTION_REGSITER---------------//
 	else if ( m_name == "PS0" )
 	{
 		m_registerType = Register::OPTION_REG;
@@ -447,11 +1460,247 @@ void RegisterBit::initFromName()
 		m_registerType = Register::OPTION_REG;
 		m_bitPos = 6;
 	}
-	else if ( m_name == "NOT_RBPU" )
+	else if(m_name =="NOT_RBPU"&&(pic_type=="P16C84"||pic_type=="P16F84"||pic_type=="P16F627"))
 	{
 		m_registerType = Register::OPTION_REG;
 		m_bitPos = 7;
 	}
+	else if (m_name == "RBPU" && pic_type=="P16C84")
+	{
+		m_registerType = Register::OPTION_REG;
+		m_bitPos = 7;
+	}
+//--------PIE1---------//
+	else if ( m_name == "TMR1IE" )
+	{
+		m_registerType = Register::PIE1;
+		m_bitPos = 0;
+	}
+	else if ( m_name == "TMR2IE" )
+	{
+		m_registerType = Register::PIE1;
+		m_bitPos = 1;
+	}
+	else if ( m_name == "CCP1IE" )
+	{
+		m_registerType = Register::PIE1;
+		m_bitPos = 2;
+	}
+	else if ( m_name == "SSPIE" && pic_type=="P16F877")
+	{
+		m_registerType = Register::PIE1;
+		m_bitPos = 3;
+	}
+	else if ( m_name == "TXIE" )
+	{
+		m_registerType = Register::PIE1;
+		m_bitPos = 4;
+	}
+	else if ( m_name == "RCIE" )
+	{
+		m_registerType = Register::PIE1;
+		m_bitPos = 5;
+	}
+	else if ( m_name == "ADIE" && pic_type=="P16F877" )
+	{
+		m_registerType = Register::PIE1;
+		m_bitPos = 6;
+	}
+	else if ( m_name == "CMIE" && pic_type=="P16F627" )
+	{
+		m_registerType = Register::PIE1;
+		m_bitPos = 6;
+	}
+	else if ( m_name == "PSPIE" && pic_type=="P16F877" )
+	{
+		m_registerType = Register::PIE1;
+		m_bitPos = 7;
+	}
+	else if ( m_name == "EEIE" && pic_type=="P16F627" )
+	{
+		m_registerType = Register::PIE1;
+		m_bitPos = 7;
+	}
+ //--------PIE2---------//
+	else if ( m_name == "CCP2IE" )
+	{
+		m_registerType = Register::PIE2;
+		m_bitPos = 0;
+	}
+	else if ( m_name == "BCLIE" )
+	{
+		m_registerType = Register::PIE2;
+		m_bitPos = 3;
+	}
+	else if ( m_name == "EEIE"&& pic_type=="P16F877" )
+	{
+		m_registerType = Register::PIE2;
+		m_bitPos = 4;
+	}
+//--------PCON---------//
+	else if ( m_name == "NOT_BOR" )
+	{
+		m_registerType = Register::PCON;
+		m_bitPos = 0;
+	}
+	else if ( m_name == "NOT_POR" )
+	{
+		m_registerType = Register::PCON;
+		m_bitPos = 1;
+	}
+	else if ( m_name == "OSCF"&& pic_type=="P16F627" )
+	{
+		m_registerType = Register::PCON;
+		m_bitPos = 3;
+	}
+//--------SSPCON2------//
+	else if ( m_name =="SEN")
+	{
+		m_registerType = Register::SSPCON2;
+		m_bitPos = 0;
+	}
+	else if ( m_name =="RSEN")
+	{
+		m_registerType = Register::SSPCON2;
+		m_bitPos = 1;
+	}
+	else if ( m_name =="PEN")
+	{
+		m_registerType = Register::SSPCON2;
+		m_bitPos = 2;
+	}
+	else if ( m_name =="RCEN")
+	{
+		m_registerType = Register::SSPCON2;
+		m_bitPos = 3;
+	}
+	else if ( m_name =="ACKEN")
+	{
+		m_registerType = Register::SSPCON2;
+		m_bitPos = 4;
+	}
+	else if ( m_name =="ACKDT")
+	{
+		m_registerType = Register::SSPCON2;
+		m_bitPos = 5;
+	}
+	else if ( m_name =="ACKSTAT" )
+	{
+		m_registerType = Register::SSPCON2;
+		m_bitPos = 6;
+	}
+	else if ( m_name == "GCEN" )
+	{
+		m_registerType = Register::SSPCON2;
+		m_bitPos = 7;
+	}
+//--------SSPSTAT------//
+	else if ( m_name =="BF")
+	{
+		m_registerType = Register::SSPSTAT;
+		m_bitPos = 0;
+	}
+	else if ( m_name == "UA")
+	{
+		m_registerType = Register::SSPSTAT;
+		m_bitPos = 1;
+	}
+	else if ( m_name =="R")
+	{
+		m_registerType = Register::SSPSTAT;
+		m_bitPos = 2;
+	}
+	else if ( m_name =="S")
+	{
+		m_registerType = Register::SSPSTAT;
+		m_bitPos = 3;
+	}
+	else if ( m_name == "P")
+	{
+		m_registerType = Register::SSPSTAT;
+		m_bitPos = 4;
+	}
+	else if ( m_name == "D")
+	{
+		m_registerType = Register::SSPSTAT;
+		m_bitPos = 5;
+	}
+	else if ( m_name == "CKE" )
+	{
+		m_registerType = Register::SSPSTAT;
+		m_bitPos = 6;
+	}
+	else if ( m_name == "SMP" )
+	{
+		m_registerType = Register::SSPSTAT;
+		m_bitPos = 7;
+	}
+//--------TXSTA--------//
+	else if ( m_name == "TX9D" )
+	{
+		m_registerType = Register::TXSTA;
+		m_bitPos = 0;
+	}
+	else if ( m_name == "TRMT" )
+	{
+		m_registerType = Register::TXSTA;
+		m_bitPos = 1;
+	}
+	else if ( m_name == "BRGH" )
+	{
+		m_registerType = Register::TXSTA;
+		m_bitPos = 2;
+	}
+	else if ( m_name == "SYNC" )
+	{
+		m_registerType = Register::TXSTA;
+		m_bitPos = 4;
+	}
+	else if ( m_name == "TXEN" )
+	{
+		m_registerType = Register::TXSTA;
+		m_bitPos = 5;
+	}
+	else if ( m_name == "TX9" )
+	{
+		m_registerType = Register::TXSTA;
+		m_bitPos = 6;
+	}
+	else if ( m_name == "CSRC" )
+	{
+		m_registerType = Register::TXSTA;
+		m_bitPos = 7;
+	}
+ //---------ADCON1-----//
+	else if ( m_name == "PCFG0" )
+	{
+		m_registerType = Register::ADCON1;
+		m_bitPos = 0;
+	}
+	else if ( m_name == "PCFG1" )
+	{
+		m_registerType = Register::ADCON1;
+		m_bitPos = 1;
+	}
+	else if ( m_name == "PCFG2" )
+	{
+		m_registerType = Register::ADCON1;
+		m_bitPos = 2;
+	}
+	else if ( m_name == "PCFG3" )
+	{
+		m_registerType = Register::ADCON1;
+		m_bitPos = 3;
+	}
+	else if ( m_name == "ADFM" )
+	{
+		m_registerType = Register::ADCON1;
+		m_bitPos = 7;
+	}
+ //--------------------------------------------Bank2------------------//
+//-----NOTHING TODO---//
+//
+//--------------------------------------------Bank3------------------//
 	else if ( m_name == "RD" )
 	{
 		m_registerType = Register::EECON1;
@@ -472,10 +1721,51 @@ void RegisterBit::initFromName()
 		m_registerType = Register::EECON1;
 		m_bitPos = 3;
 	}
-	else if ( m_name == "EEIF" )
+	else if ( m_name == "EEIF"&&(pic_type=="P16F84"||pic_type=="P16C84"))//imp ****
 	{
 		m_registerType = Register::EECON1;
 		m_bitPos = 4;
+	}
+	else if ( m_name == "EEPGD" && pic_type=="P16F877" )
+	{
+		m_registerType = Register::EECON1;
+		m_bitPos = 7;
+	}
+//---------VRCON------//
+	else if ( m_name == "VR0" && pic_type=="P16F627" )
+	{
+		m_registerType = Register::VRCON;
+		m_bitPos = 0;
+	}
+	else if ( m_name == "VR1" && pic_type=="P16F627" )
+	{
+		m_registerType = Register::VRCON;
+		m_bitPos = 1;
+	}
+	else if ( m_name == "VR2" && pic_type=="P16F627" )
+	{
+		m_registerType = Register::VRCON;
+		m_bitPos = 2;
+	}
+	else if ( m_name == "VR3" && pic_type=="P16F627" )
+	{
+		m_registerType = Register::VRCON;
+		m_bitPos = 3;
+	}
+	else if ( m_name == "VRR" && pic_type=="P16F627" )
+	{
+		m_registerType = Register::VRCON;
+		m_bitPos = 5;
+	}
+	else if ( m_name == "VROE" && pic_type=="P16F627" )
+	{
+		m_registerType = Register::VRCON;
+		m_bitPos = 6;
+	}
+	else if ( m_name == "VREN" && pic_type=="P16F627" )
+	{
+		m_registerType = Register::VRCON;
+		m_bitPos = 7;
 	}
 	else
 	{
@@ -828,7 +2118,7 @@ void Code::queueLabel( const QString & label, InstructionPosition position )
 }
 
 
-void Code::removeInstruction( Instruction * instruction, bool pushLabels )
+void Code::removeInstruction( Instruction * instruction )
 {
 	if ( !instruction )
 		return;
@@ -866,14 +2156,13 @@ void Code::removeInstruction( Instruction * instruction, bool pushLabels )
 			previous.list->remove( previous.it );
 		}
 		
-		if ( pushLabels )
-		{
-			if ( next != e )
-				(*next)->addLabels( labels );
-		}
+		if ( next != e )
+			(*next)->addLabels( labels );
 		
-		return;
+		break;
 	}
+	
+// 	instruction->removeOutputs();
 }
 
 
@@ -884,7 +2173,7 @@ void Code::append( Instruction * instruction, InstructionPosition position )
 	
 // 	cout << k_funcinfo << instruction->code() << '\n';
 	
-	removeInstruction( instruction, false );
+	removeInstruction( instruction );
 	m_instructionLists[position].append( instruction );
 	
 	instruction->setCode( this );
@@ -892,7 +2181,7 @@ void Code::append( Instruction * instruction, InstructionPosition position )
 	if ( instruction->type() == Instruction::Assembly /*||
 			instruction->type() == Instruction::Raw*/ )
 	{
-// 		if ( !m_queuedLabels[position].isEmpty() )
+// 		if ( (position == Middle) && !m_queuedLabels[position].isEmpty() )
 // 			cout << "adding queued labels for 1: " << m_queuedLabels[position].join(",") << '\n';
 		instruction->addLabels( m_queuedLabels[position] );
 		m_queuedLabels[position].clear();
@@ -949,7 +2238,6 @@ void Code::postCompileConstruct()
 			{
 				if ( (*it)->type() == Instruction::Assembly )
 				{
-// 					cout << "shoving labels onto next block.\n";
 					(*it)->addLabels( labels );
 					added = true;
 					break;
@@ -963,7 +2251,7 @@ void Code::postCompileConstruct()
 }
 
 
-QString Code::generateCode( PIC14 * pic, bool showLinks ) const
+QString Code::generateCode( PIC14 * pic ) const
 {
 	QString code;
 	
@@ -988,18 +2276,6 @@ QString Code::generateCode( PIC14 * pic, bool showLinks ) const
 	
 	code += "START\n\n";
 	
-	
-	CodeConstIterator e = end();
-	
-	typedef QMap< const Instruction *, int > InstructionIntMap;
-	InstructionIntMap instructionLines;
-	if ( showLinks )
-	{
-		unsigned at = 0;
-		for ( CodeConstIterator it = begin(); it != e; ++it )
-			instructionLines[ *it ] = at++;
-	}
-	
 	for ( unsigned i = 0; i < PositionCount; ++i )
 	{
 		InstructionList::const_iterator end = m_instructionLists[i].end();
@@ -1013,52 +2289,10 @@ QString Code::generateCode( PIC14 * pic, bool showLinks ) const
 				for ( QStringList::const_iterator labelsIt = labels.begin(); labelsIt != labelsEnd; ++labelsIt )
 					code += *labelsIt + '\n';
 			}
-		
-			if ( showLinks )
-			{
-			//BEGIN input links
-				QString inputs("(");
 			
-				const InstructionList inputLinks = (*it)->inputLinks();
-				InstructionList::const_iterator end = inputLinks.end();
-				for ( InstructionList::const_iterator linksIt = inputLinks.begin(); linksIt != end; ++linksIt )
-					inputs += QString("%1,").arg( instructionLines[ *linksIt ] );
-			
-				if ( inputs.length() > 1 )
-					inputs.remove( inputs.length()-1, 1 );
-				inputs += ")";
-			//END input links
-			
-			
-			//BEGIN output links
-				QString outputs("(");
-			
-				const InstructionList outputLinks = (*it)->outputLinks();
-				end = outputLinks.end();
-				for ( InstructionList::const_iterator linksIt = outputLinks.begin(); linksIt != end; ++linksIt )
-					outputs += QString("%1,").arg( instructionLines[ *linksIt ] );
-			
-				if ( outputs.length() > 1 )
-					outputs.remove( inputs.length()-1, 1 );
-				outputs += ")";
-			//END output links
-			
-			
-				code += QString("#%1) %3 -> %4")
-						.arg( instructionLines[ *it ], 4 )
-// 					.arg( inputs, 50 )
-						.arg( (*it)->code().replace( '\t', "   " ), -40 )
-						.arg( outputs, -12 );
-			}
-			else
-			{
-				if ( (*it)->type() == Instruction::Assembly )
-					code += '\t';
-		
-				code += (*it)->code();
-			}
-		
-			code += '\n';
+			if ( (*it)->type() == Instruction::Assembly )
+				code += '\t';
+			code += (*it)->code() + '\n';
 		}
 	}
 	
@@ -1234,39 +2468,18 @@ CodeIterator & CodeIterator::operator ++ ()
 }
 
 
-CodeIterator & CodeIterator::operator -- ()
-{
-	CodeIterator prev = code->begin();
-	CodeIterator end = code->end();
-	for ( CodeIterator it = prev; it != end; ++it )
-	{
-		if ( *it == **this )
-			break;
-		prev = it;
-	}
-	
-	assert( ++ CodeIterator( prev ) == *this );
-	
-	*this = prev;
-	return *this;
-}
-
-
 CodeIterator & CodeIterator::removeAndIncrement()
 {
 	Instruction * i = *it;
 	++(*this);
-	code->removeInstruction( i, true );
+	code->removeInstruction( i );
 	return *this;
 }
 
 
 void CodeIterator::insertBefore( Instruction * ins )
 {
-	if ( *this == code->end() )
-		list->append( ins );
-	else
-		list->insert( it, ins );
+	list->insert( it, ins );
 }
 //END class CodeIterator
 
@@ -1327,8 +2540,6 @@ Instruction::~ Instruction()
 void Instruction::addLabels( const QStringList & labels )
 {
 	m_labels += labels;
-// 	if ( !labels.isEmpty() )
-// 		cout << k_funcinfo << "added labels: " << labels.join(",") << '\n';
 }
 
 
@@ -1381,14 +2592,6 @@ void Instruction::makeLabelOutputLink( const QString & label )
 }
 
 
-void Instruction::addInputLinks( const InstructionList & instructions )
-{
-	InstructionList::const_iterator end = instructions.end();
-	for ( InstructionList::const_iterator it = instructions.begin(); it != end; ++it )
-		addInputLink( *it );
-}
-
-
 void Instruction::addInputLink( Instruction * instruction )
 {
 	// Don't forget that a link to ourself is valid!
@@ -1397,14 +2600,6 @@ void Instruction::addInputLink( Instruction * instruction )
 	
 	m_inputLinks << instruction;
 	instruction->addOutputLink( this );
-}
-
-
-void Instruction::addOutputLinks( const InstructionList & instructions )
-{
-	InstructionList::const_iterator end = instructions.end();
-	for ( InstructionList::const_iterator it = instructions.begin(); it != end; ++it )
-		addOutputLink( *it );
 }
 
 

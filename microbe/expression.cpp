@@ -1,6 +1,11 @@
 /***************************************************************************
  *   Copyright (C) 2004-2005 by Daniel Clarke                              *
  *   daniel.jc@gmail.com                                                   *
+ *									   *
+ *   24-04-2007                                                            *
+ *   Modified to add pic 16f877,16f627 and 16f628 			   *
+ *   by george john george@space-kerala.org,az.j.george@gmail.com	   *
+ *   supported by SPACE www.space-kerala.org	 			   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -728,10 +733,14 @@ void Expression::expressionValue( QString expr, BTreeBase */*tree*/, BTreeNode *
 		mistake( Microbe::ConsecutiveOperators );
 	else if(expr.contains(QRegExp("\\s")) && t!= extpin)
 		mistake( Microbe::MissingOperator );
-	
-	if( t == variable && !mb->isVariableKnown(expr) && !m_pic->isValidPort( expr ) && !m_pic->isValidTris( expr ) )
+
+//***************modified isValidRegister is included ***********************//	
+
+	if( t == variable && !mb->isVariableKnown(expr) && !m_pic->isValidPort( expr ) && !m_pic->isValidTris( expr )&&!m_pic->isValidRegister( expr ) )
 		mistake( Microbe::UnknownVariable, expr );
-	
+
+//modification ends
+
 	if ( mb->isVariableKnown(expr) && !mb->variable(expr).isReadable() )
 		mistake( Microbe::WriteOnlyVariable, expr );
 	
