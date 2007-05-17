@@ -1,6 +1,11 @@
 /***************************************************************************
  *   Copyright (C) 2004-2005 by Daniel Clarke   daniel.jc@gmail.com        *
  *   Copyright (C)      2005 by David Saxton                               *
+ *									   *
+ *   24-04-2007                                                            *
+ *   Modified to add pic 16f877,16f627 and 16f628 			   *
+ *   by george john george@space-kerala.org 				   *
+ *   supported by SPACE www.space-kerala.org	 			   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -32,16 +37,11 @@
 using namespace std;
 
 
-Microbe * Microbe::m_pSelf = 0l;
-
-
 //BEGIN class Microbe
 Microbe::Microbe()
 {
-	m_pSelf = this;
 	m_maxDelaySubroutine = PIC14::Delay_None;
 	m_dest = 0;
-	m_pMainPIC = 0l;
 	m_uniqueLabel = 0;
 	
 	// Hardwired constants
@@ -102,15 +102,15 @@ QString Microbe::compile( const QString & url, bool showSource, bool optimize )
 		m_program.remove( m_program.begin() );
 	}
 	
-	m_pMainPIC = makePic();
-	if ( !m_pMainPIC )
+	PIC14 * pic = makePic();
+	if ( !pic )
 		return 0;
 	
 	Code * code = parser.parse( m_program );
-	m_pMainPIC->setCode( code );
-	m_pMainPIC->addCommonFunctions( (PIC14::DelaySubroutine)m_maxDelaySubroutine );
+	pic->setCode( code );
+	pic->addCommonFunctions( (PIC14::DelaySubroutine)m_maxDelaySubroutine );
 
-	m_pMainPIC->postCompileConstruct( m_usedInterrupts );
+	pic->postCompileConstruct( m_usedInterrupts );
 	code->postCompileConstruct();
 	
 	if ( optimize )
@@ -119,7 +119,7 @@ QString Microbe::compile( const QString & url, bool showSource, bool optimize )
 		opt.optimize( code );
 	}
 
-	return code->generateCode( m_pMainPIC );
+	return code->generateCode( pic );
 }
 
 
@@ -336,8 +336,17 @@ void Microbe::compileError( MistakeType type, const QString & context, const Sou
 }
 
 
-bool Microbe::isValidVariableName( const QString & variableName )
+bool Microbe::isValidVariableName( const QString & variableName)
 {
+
+//*****modified checking is included for preventing the uses of registername as varable name*****
+
+//Prevent usage of register/port name as varable
+	if (/*PORT-NAME*/ variableName == "PORTA" ||variableName == "PORTB" ||variableName == "PORTC" ||variableName == "PORTD" ||variableName == "PORTE" /*TRIS-NAME*/|| variableName  == "TRISA" || variableName  == "TRISB" ||variableName  == "TRISC"||variableName  == "TRISD" ||variableName  == "TRISE" /**REGISTER-NAME**/||variableName  == "TMR0" ||variableName  == "PCL" || variableName  == "STATUS"||variableName  == "FSR" ||variableName  == "PCLATH"||variableName  == "INTCON" ||variableName  == "PIR1" ||variableName  == "PIR2" ||variableName  == "TMR1L" ||variableName  == "TMR1H" ||variableName  == "T1CON"||variableName  == "TMR2" ||variableName  == "T2CON" ||variableName  == "SSPBUF"||variableName  == "SSPCON"||variableName  == "CCPR1L"||variableName  == "CCPR1H"||variableName  == "CCP1CON"||variableName  == "RCSTA" ||variableName  == "TXREG" ||variableName  == "RCREG" ||variableName  == "CCPR2L"||variableName  == "CCPR2H"||variableName  == "CCP2CON"||variableName  == "ADRESH" ||variableName  == "ADCON0" /*bank0ends*/ |variableName  == "OPTION_REG"|| variableName  == "PIE1"||variableName  == "PIE2"||variableName  == "PCON"||variableName  == "SSPCON2"||variableName  == "PR2"||variableName  == "SSPADD"||variableName  == "SSPSTAT"|| variableName  == "TXSTA"||variableName  == "SPBRG"|| variableName  == "ADRESL"|| variableName  =="ADCON1" /*bank1ends*/ || variableName  =="EEDATA "|| variableName  == "EEADR"|| variableName  == "EEDATH"|| variableName  == "EEADRH" /*bank2ends*/ ||variableName  == "EECON1"||variableName  == "EECON2"  /*bank3ends*/ )
+		return false;
+
+//****************************modification ends*******************************
+
 	if ( variableName.isEmpty() )
 		return false;
 	
