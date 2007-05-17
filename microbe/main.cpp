@@ -2,6 +2,11 @@
  *   Copyright (C) 2004-2005 by Daniel Clarke                              *
  *   Copyright (C) 2005 by David Saxton                                    *
  *   daniel.jc@gmail.com                                                   *
+ *									   *
+ *   24-04-2007                                                            *
+ *   Modified to add pic 16f877,16f627 and 16f628 			   *
+ *   by george john george@space-kerala.org,az.j.george@gmail.com	   *
+ *   supported by SPACE www.space-kerala.org	 			   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -51,6 +56,7 @@ int main(int argc, char **argv)
 					 KAboutData::License_GPL, "(C) 2004-2005, The KTechlab developers", 0, "http://ktechlab.org", "ktechlab-devel@lists.sourceforge.net" );
 	about.addAuthor( "Daniel Clarke", 0, "daniel.jc@gmail.com" );
 	about.addAuthor( "David Saxton", 0, "david@bluehaze.org" );
+	about.addAuthor( "Modified to add pic 16f877,16f627 and 16f628 by George John", 0,"az.j.george@gmail.com" );
     KCmdLineArgs::init(argc, argv, &about);
     KCmdLineArgs::addCmdLineOptions( options );
 	

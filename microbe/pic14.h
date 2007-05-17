@@ -1,7 +1,12 @@
 /***************************************************************************
  *   Copyright (C) 2004-2005 by Daniel Clarke                              *
  *   daniel.jc@gmail.com                                                   *
- *                                                                         *
+ *									   *
+ *   24-04-2007                                                            *
+ *   Modified to add pic 16f877,16f627 and 16f628 			   *
+ *   by george john george@space-kerala.org 				   *
+ *   supported by SPACE www.space-kerala.org				   *
+ *                                                                          *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
@@ -76,6 +81,7 @@ class PIC14
 			P16F84,
 			P16F627,
 			P16F628,
+			P16F877,
 			unknown,
 		};
 		enum LocationType
@@ -96,7 +102,7 @@ class PIC14
 			Delay_50S	= 4,
 		};
 		
-		PIC14( Microbe * master, Type type );
+		/*PIC14::*/PIC14( Microbe * master, Type type );
 		~PIC14();
 		
 		/**
@@ -149,6 +155,12 @@ class PIC14
 		bool isValidTris( const QString & trisName ) const;
 		bool isValidInterrupt( const QString & interruptName ) const;
 
+///modified new function isValidRegister is added ******************
+
+		bool isValidRegister( const QString & interruptName ) const;
+//		bool isValidRegisterBit( const QString & interruptName ) const; 
+//TODO GIE=high
+//******************************modification ends***********************************
 		void Sgoto(const QString &label);
 		void Slabel(const QString &label);
 		void Send();
@@ -185,7 +197,14 @@ class PIC14
 		/** Code for "<=" */
 		void lessOrEqual( const QString &val1, const QString &val2, LocationType val1Type, LocationType val2Type );
 
-		void bitwise( Expression::Operation op, const QString &val1, const QString &val2, bool val1IsNum, bool val2IsNum );
+///*****modified the function **************
+
+		//commented for new function since it is not working 
+//		void bitwise( Expression::Operation op, const QString &val1, const QString &val2, bool val1IsNum, bool val2IsNum );
+		//code for AND OR XOR opertions 
+		void bitwise( Expression::Operation op,const QString & val1, const QString & val2, LocationType val1Type, LocationType val2Type);
+
+//*******************modification end  ---Result --- new code is working well**************
 	
 		void Swhile( Code * whileCode, const QString &expression);
 		void Srepeat( Code * repeatCode, const QString &expression);
@@ -223,6 +242,7 @@ class PIC14
 		void Stristate( const QString &port );
 	
 		void Sasm(const QString &raw);
+
 	
 	protected:
 		void multiply();
