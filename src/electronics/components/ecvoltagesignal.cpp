@@ -7,7 +7,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *									   *
- *   Peak to Peak / RMS added 19/06/2007 by Jason Lucas			   *
+ *   Peak/RMS added (c)19/06/2007 by Jason Lucas			   *
  ***************************************************************************/
 
 #include "ecnode.h"
@@ -70,10 +70,10 @@ ECVoltageSignal::ECVoltageSignal( ICNDocument *icnDocument, bool newItem, const 
 	createProperty( "peak-rms", Variant::Type::Select );
 	property("peak-rms")->setCaption( i18n("Output") );
 	QStringMap allowed;
-	allowed["Peak to Peak"] = i18n("Peak to Peak");
+	allowed["Peak"] = i18n("Peak");
 	allowed["RMS"] = i18n("RMS");
 	property("peak-rms")->setAllowed( allowed );
-	property("peak-rms")->setValue("Peak to Peak");
+	property("peak-rms")->setValue("Peak");
 }	
 
 
@@ -87,15 +87,21 @@ void ECVoltageSignal::dataChanged()
 	const double frequency = dataDouble("frequency");
 	bool rms = dataString("peak-rms") == "RMS";
 
-	QString display = QString::number( voltage / getMultiplier(voltage), 'g', 3 ) + getNumberMag(voltage) + "V";
-	setDisplayText( "voltage", display );
+	
 	
 	m_voltageSignal->setStep( 1./LINEAR_UPDATE_RATE, ElementSignal::st_sinusoidal, frequency );
 	if (rms)
+		{
+		QString display = QString::number( voltage / getMultiplier(voltage), 'g', 3 ) + getNumberMag(voltage) + "V RMS";
+		setDisplayText( "voltage", display );
 		m_voltageSignal->setVoltage(voltage*1.414);
+		}
 	else
+		{
+		QString display = QString::number( voltage / getMultiplier(voltage), 'g', 3 ) + getNumberMag(voltage) + "V Peak";
+		setDisplayText( "voltage", display );
 		m_voltageSignal->setVoltage(voltage);
-	
+		}
 }
 
 
