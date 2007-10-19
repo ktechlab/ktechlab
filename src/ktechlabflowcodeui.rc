@@ -1,0 +1,31 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="KTechlabFlowCode" version="6">
+	<MenuBar>
+		<Menu name="tools"><text>&amp;Tools</text>
+			<Separator/>
+			<Menu name="routing_mode_menu">
+				<text>Routing Mode</text>
+				<Action name="routing_mode_auto"/>
+				<Action name="routing_mode_manual"/>
+			</Menu>
+			<Separator/>
+			<Action name="tools_to_microbe"/>
+			<Action name="tools_to_assembly"/>
+			<Action name="tools_to_hex"/>
+			<Action name="tools_to_pic"/>
+		</Menu>
+	</MenuBar>
+	
+	<ToolBar name="toolsToolBar">
+		<Separator/>
+		<Action name="routing_mode"/>
+		<Action name="edit_draw"/>
+		<Action name="program_convert"/>
+	</ToolBar>
+	
+	<ToolBar name="itemEditorTB" noMerge="1">
+		<text>Item Editor</text>
+<!-- 		<Action name="null_action"/> -->
+	</ToolBar>
+</kpartgui>
+

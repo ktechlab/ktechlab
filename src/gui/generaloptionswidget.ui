@@ -1,0 +1,269 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>GeneralOptionsWidget</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>GeneralOptionsWidget</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>456</width>
+            <height>488</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>General Options</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>0</number>
+        </property>
+        <widget class="QCheckBox" row="0" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>kcfg_ReuseSameViewForOutput</cstring>
+            </property>
+            <property name="text">
+                <string>Reuse the same output view for code generation</string>
+            </property>
+            <property name="accel">
+                <string></string>
+            </property>
+        </widget>
+        <widget class="QCheckBox" row="1" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>kcfg_ShowVoltageBars</cstring>
+            </property>
+            <property name="text">
+                <string>Show voltage bars &amp;on electronic components</string>
+            </property>
+            <property name="accel">
+                <string>Alt+O</string>
+            </property>
+        </widget>
+        <widget class="KColorButton" row="2" column="1">
+            <property name="name">
+                <cstring>kcfg_GridColor</cstring>
+            </property>
+            <property name="text">
+                <string>Grid Colour</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>The grid color in the work area.</string>
+            </property>
+        </widget>
+        <widget class="QCheckBox" row="2" column="0">
+            <property name="name">
+                <cstring>kcfg_ShowGrid</cstring>
+            </property>
+            <property name="text">
+                <string>Show &amp;grid:</string>
+            </property>
+            <property name="accel">
+                <string>Alt+G</string>
+            </property>
+        </widget>
+        <widget class="KIntSpinBox" row="3" column="1">
+            <property name="name">
+                <cstring>kcfg_MaxUndo</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>5</hsizetype>
+                    <vsizetype>0</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="maxValue">
+                <number>100000</number>
+            </property>
+        </widget>
+        <widget class="QLabel" row="3" column="0">
+            <property name="name">
+                <cstring>textLabel1</cstring>
+            </property>
+            <property name="text">
+                <string>Maximum undo steps for work area:</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Maximum undo steps for work area. This doesn't apply to text documents - that is configurable seperately under Configure Editor.</string>
+            </property>
+        </widget>
+        <widget class="QGroupBox" row="4" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>groupBox4</cstring>
+            </property>
+            <property name="title">
+                <string>Convenience</string>
+            </property>
+            <vbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QCheckBox">
+                    <property name="name">
+                        <cstring>kcfg_RestoreDocumentsOnStartup</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Restore opened doc&amp;uments on startup</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+U</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox">
+                    <property name="name">
+                        <cstring>kcfg_RaiseItemSelectors</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Raise the &amp;appropriate item selector on creating a new document</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+A</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox">
+                    <property name="name">
+                        <cstring>kcfg_RaiseMessagesLog</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Raise the &amp;Messages log when compiling</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+M</string>
+                    </property>
+                </widget>
+            </vbox>
+        </widget>
+        <widget class="QGroupBox" row="5" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>groupBox21</cstring>
+            </property>
+            <property name="title">
+                <string>Display Refresh Rate</string>
+            </property>
+            <vbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>layout8_2</cstring>
+                    </property>
+                    <grid>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QSlider" row="0" column="1">
+                            <property name="name">
+                                <cstring>refreshRateSlider</cstring>
+                            </property>
+                            <property name="maxValue">
+                                <number>4</number>
+                            </property>
+                            <property name="pageStep">
+                                <number>1</number>
+                            </property>
+                            <property name="value">
+                                <number>2</number>
+                            </property>
+                            <property name="orientation">
+                                <enum>Horizontal</enum>
+                            </property>
+                            <property name="tickmarks">
+                                <enum>Below</enum>
+                            </property>
+                        </widget>
+                        <widget class="QLabel" row="0" column="0">
+                            <property name="name">
+                                <cstring>textLabel3_2</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Refresh rate:</string>
+                            </property>
+                        </widget>
+                        <widget class="QLabel" row="1" column="1">
+                            <property name="name">
+                                <cstring>refreshRateLabel</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Medium (50 FPS)</string>
+                            </property>
+                        </widget>
+                    </grid>
+                </widget>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>textLabel9_2</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>5</hsizetype>
+                            <vsizetype>1</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>This is the number of times per second that the work area view is updated; a compromise between CPU usage and smoothness of display.</string>
+                    </property>
+                    <property name="textFormat">
+                        <enum>PlainText</enum>
+                    </property>
+                    <property name="scaledContents">
+                        <bool>false</bool>
+                    </property>
+                    <property name="alignment">
+                        <set>WordBreak|AlignVCenter</set>
+                    </property>
+                </widget>
+            </vbox>
+        </widget>
+        <spacer row="6" column="1">
+            <property name="name">
+                <cstring>spacer3</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>20</width>
+                    <height>40</height>
+                </size>
+            </property>
+        </spacer>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>kcfg_ShowGrid</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>kcfg_GridColor</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>kcfg_ReuseSameViewForOutput</tabstop>
+    <tabstop>kcfg_ShowVoltageBars</tabstop>
+    <tabstop>kcfg_ShowGrid</tabstop>
+    <tabstop>kcfg_GridColor</tabstop>
+    <tabstop>kcfg_MaxUndo</tabstop>
+    <tabstop>kcfg_RestoreDocumentsOnStartup</tabstop>
+    <tabstop>kcfg_RaiseItemSelectors</tabstop>
+    <tabstop>kcfg_RaiseMessagesLog</tabstop>
+    <tabstop>refreshRateSlider</tabstop>
+</tabstops>
+<layoutdefaults spacing="6" margin="11"/>
+<includehints>
+    <includehint>kcolorbutton.h</includehint>
+    <includehint>knuminput.h</includehint>
+</includehints>
+</UI>

@@ -1,0 +1,19 @@
+<!DOCTYPE KTechlab>
+<document type="circuit" >
+ <item x="140" y="124" z="13" type="ec/fixed_voltage" id="fixed_voltage" flip="0" angle="0" >
+  <data value="5" type="number" id="voltage" />
+ </item>
+ <item x="276" y="124" z="15" type="ec/ground" id="ground" flip="0" angle="180" />
+ <item x="236" y="124" z="16" type="ec/led" id="led__38" flip="0" angle="0" >
+  <data value="1e-15" type="number" id="I_S" />
+  <data value="1" type="number" id="N" />
+  <data value="4.7" type="number" id="V_B" />
+  <data value="#f62a2a" type="color" id="0-color" />
+ </item>
+ <item x="188" y="124" z="14" type="ec/resistor" id="resistor__29" flip="0" angle="0" >
+  <data value="1" type="number" id="resistance" />
+ </item>
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="resistor__29" route="19,15,20,15," end-node-cid="n1" start-node-parent="fixed_voltage" start-node-cid="p1" id="connector__32" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="led__38" route="26,15,27,15," end-node-cid="n1" start-node-parent="resistor__29" start-node-cid="p1" id="connector__41" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="ground" route="31,15,32,15," end-node-cid="p1" start-node-parent="led__38" start-node-cid="p1" id="connector__42" end-node-is-child="1" />
+</document>

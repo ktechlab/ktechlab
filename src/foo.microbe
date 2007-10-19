@@ -1,0 +1,53 @@
+P16F84
+// Initial variable values:
+ok = 0
+keypad keypad1 RB0 RB1 RB2 RB3 RB4 RB5 RB6
+TRISA = 28
+TRISB = 240
+PORTA = 0
+PORTB = 0
+__label_setpin__65:
+PORTA.0 = low
+PORTA.1 = low
+ok = 1
+if keypad1 != 1 then 
+{
+	ok = 0
+}
+if keypad1 != 2 then 
+{
+	ok = 0
+}
+if keypad1 != 3 then 
+{
+	ok = 0
+}
+if keypad1 == 4 then 
+{
+	if ok == 1 then 
+	{
+		PORTA.0 = high
+		__label_testpin:
+		if PORTA.2 is high then 
+		{
+			goto __label_setpin__65
+		}
+		else
+		{
+			goto __label_testpin
+		}
+	}
+	else
+	{
+		__label_setpin__73:
+		PORTA.1 = high
+		delay 5000
+		goto __label_setpin__65
+	}
+}
+else
+{
+	ok = 0
+	goto __label_setpin__73
+}
+end

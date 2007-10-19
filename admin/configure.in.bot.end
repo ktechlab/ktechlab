@@ -1,0 +1,21 @@
+if test x$have_gpsim_0_21_4 != xyes; then
+	if test x$have_gpsim_0_21_11 != xyes; then
+		echo ""
+        echo "################################################################################"
+        echo "# WARNING: gpsim support will not be compiled as gpsim >= 0.21.4 was not found #"
+        echo "################################################################################"
+    fi
+fi
+
+if test "$all_tests" = "bad"; then
+  if test ! "$cache_file" = "/dev/null"; then
+    echo ""    
+    echo "Please remove the file $cache_file after changing your setup"
+    echo "so that configure will find the changes next time."
+    echo ""
+  fi
+else
+  echo ""
+  echo "Good - your configure finished. Start make now"
+  echo ""
+fi
