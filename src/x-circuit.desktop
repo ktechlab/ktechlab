@@ -1,0 +1,7 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=MimeType
+MimeType=application/x-circuit
+Icon=ktechlab_circuit
+Patterns=*.circuit
+Comment=KTechlab Circuit

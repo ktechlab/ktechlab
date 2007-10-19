@@ -1,0 +1,122 @@
+<!DOCTYPE KTechlab>
+<document type="flowcode" >
+ <item x="268" y="20" z="1" orientation="0" type="flow/start" id="START" />
+ <item x="460" y="756" z="15" orientation="0" type="flow/delay" id="delay" >
+  <data value="5" type="number" id="delay_length" />
+ </item>
+ <item x="268" y="668" z="10" orientation="0" type="flow/setpin" id="setpin" >
+  <data value="RA0" type="string" id="pin" />
+  <data value="high" type="string" id="state" />
+ </item>
+ <item x="268" y="92" z="12" orientation="0" type="flow/setpin" id="setpin__65" >
+  <data value="RA0" type="string" id="pin" />
+  <data value="low" type="string" id="state" />
+ </item>
+ <item x="268" y="140" z="13" orientation="0" type="flow/setpin" id="setpin__68" >
+  <data value="RA1" type="string" id="pin" />
+  <data value="low" type="string" id="state" />
+ </item>
+ <item x="460" y="668" z="14" orientation="0" type="flow/setpin" id="setpin__73" >
+  <data value="RA1" type="string" id="pin" />
+  <data value="high" type="string" id="state" />
+ </item>
+ <item x="268" y="748" z="16" orientation="0" type="flow/testpin" id="testpin" >
+  <data value="RA2" type="string" id="pin" />
+ </item>
+ <item x="268" y="188" z="0" orientation="0" type="flow/varassignment" id="varassignment" >
+  <data value="ok" type="string" id="0-var1" />
+  <data value="1" type="string" id="2-var2" />
+ </item>
+ <item x="468" y="332" z="5" orientation="5" type="flow/varassignment" id="varassignment__18" >
+  <data value="ok" type="string" id="0-var1" />
+  <data value="0" type="string" id="2-var2" />
+ </item>
+ <item x="460" y="508" z="6" orientation="5" type="flow/varassignment" id="varassignment__22" >
+  <data value="ok" type="string" id="0-var1" />
+  <data value="0" type="string" id="2-var2" />
+ </item>
+ <item x="460" y="420" z="8" orientation="5" type="flow/varassignment" id="varassignment__34" >
+  <data value="ok" type="string" id="0-var1" />
+  <data value="0" type="string" id="2-var2" />
+ </item>
+ <item x="460" y="244" z="3" orientation="5" type="flow/varassignment" id="varassignment__6" >
+  <data value="ok" type="string" id="0-var1" />
+  <data value="0" type="string" id="2-var2" />
+ </item>
+ <item x="268" y="244" z="2" orientation="0" type="flow/varcomparison" id="varcomparison" >
+  <data value="keypad1" type="string" id="0var1" />
+  <data value="==" type="string" id="1op" />
+  <data value="1" type="string" id="2var2" />
+ </item>
+ <item x="268" y="332" z="4" orientation="0" type="flow/varcomparison" id="varcomparison__10" >
+  <data value="keypad1" type="string" id="0var1" />
+  <data value="==" type="string" id="1op" />
+  <data value="2" type="string" id="2var2" />
+ </item>
+ <item x="268" y="508" z="7" orientation="0" type="flow/varcomparison" id="varcomparison__23" >
+  <data value="keypad1" type="string" id="0var1" />
+  <data value="==" type="string" id="1op" />
+  <data value="4" type="string" id="2var2" />
+ </item>
+ <item x="268" y="420" z="9" orientation="0" type="flow/varcomparison" id="varcomparison__35" >
+  <data value="keypad1" type="string" id="0var1" />
+  <data value="==" type="string" id="1op" />
+  <data value="3" type="string" id="2var2" />
+ </item>
+ <item x="268" y="588" z="11" orientation="0" type="flow/varcomparison" id="varcomparison__58" >
+  <data value="ok" type="string" id="0var1" />
+  <data value="==" type="string" id="1op" />
+  <data value="1" type="string" id="2var2" />
+ </item>
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="setpin__68" route="33,13,33,14," end-node-cid="stdinput" start-node-parent="setpin__65" start-node-cid="stdoutput" id="connector" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node4" route="57,32,57,33,57,34,57,35,57,36,56,36,55,36,54,36,53,36,52,36,51,36,50,36,49,36,48,36,47,36,46,36,45,36,44,36,43,36,42,36,41,36,40,36,39,36,38,36,37,36,36,36,35,36,34,36,33,36," start-node-parent="varassignment__6" start-node-cid="stdoutput" id="connector__15" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node4" route="33,34,33,35,33,36," start-node-parent="varcomparison" start-node-cid="stdoutput" id="connector__16" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node4" end-node-parent="varcomparison__10" route="33,36,33,37," end-node-cid="stdinput" id="connector__17" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="varassignment__18" route="44,41,45,41,46,41,47,41,48,41,49,41,50,41,51,41,52,41," end-node-cid="stdinput" start-node-parent="varcomparison__10" start-node-cid="altoutput" id="connector__21" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="varassignment__22" route="44,63,45,63,46,63,47,63,48,63,49,63,50,63,51,63," end-node-cid="stdinput" start-node-parent="varcomparison__23" start-node-cid="altoutput" id="connector__28" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="varassignment__34" route="44,52,45,52,46,52,47,52,48,52,49,52,50,52,51,52," end-node-cid="stdinput" start-node-parent="varcomparison__35" start-node-cid="altoutput" id="connector__40" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node4__48" route="57,54,57,55,57,56,57,57,57,58,56,58,55,58,54,58,53,58,52,58,51,58,50,58,49,58,48,58,47,58,46,58,45,58,44,58,43,58,42,58,41,58,40,58,39,58,38,58,37,58,36,58,35,58,34,58,33,58," start-node-parent="varassignment__34" start-node-cid="stdoutput" id="connector__49" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="varcomparison" route="33,25,33,26," end-node-cid="stdinput" start-node-parent="varassignment" start-node-cid="stdoutput" id="connector__5" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node4__48" route="33,56,33,57,33,58," start-node-parent="varcomparison__35" start-node-cid="stdoutput" id="connector__50" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node4__48" end-node-parent="varcomparison__23" route="33,58,33,59," end-node-cid="stdinput" id="connector__51" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node4__52" route="58,43,58,44,58,45,58,46,58,47,57,47,56,47,55,47,54,47,53,47,52,47,51,47,50,47,49,47,48,47,47,47,46,47,45,47,44,47,43,47,42,47,41,47,40,47,39,47,38,47,37,47,36,47,35,47,34,47,33,47," start-node-parent="varassignment__18" start-node-cid="stdoutput" id="connector__53" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node4__52" route="33,45,33,46,33,47," start-node-parent="varcomparison__10" start-node-cid="stdoutput" id="connector__54" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node4__52" end-node-parent="varcomparison__35" route="33,47,33,48," end-node-cid="stdinput" id="connector__55" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="varcomparison__58" route="33,67,33,68,33,69," end-node-cid="stdinput" start-node-parent="varcomparison__23" start-node-cid="stdoutput" id="connector__62" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="setpin" route="33,77,33,78,33,79,33,80," end-node-cid="stdinput" start-node-parent="varcomparison__58" start-node-cid="stdoutput" id="connector__64" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="varassignment" route="33,19,33,20," end-node-cid="stdinput" start-node-parent="setpin__68" start-node-cid="stdoutput" id="connector__71" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node4__77" route="41,73,42,73,43,73,44,73,45,73,46,73,47,73,48,73,49,73,50,73,51,73,52,73,53,73,54,73,55,73,56,73,57,73," start-node-parent="varcomparison__58" start-node-cid="altoutput" id="connector__78" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node4__77" route="57,65,57,66,57,67,57,68,57,69,57,70,57,71,57,72,57,73," start-node-parent="varassignment__22" start-node-cid="stdoutput" id="connector__79" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node4__77" end-node-parent="setpin__73" route="57,73,57,74,57,75,57,76,57,77,57,78,57,79,57,80," end-node-cid="stdinput" id="connector__80" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="delay" route="57,85,57,86,57,87,57,88,57,89,57,90,57,91," end-node-cid="stdinput" start-node-parent="setpin__73" start-node-cid="stdoutput" id="connector__83" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node4__84" route="57,96,57,97,58,97,59,97,60,97,61,97,62,97,63,97,64,97,65,97,66,97,66,96,66,95,66,94,66,93,66,92,66,91,66,90,66,89,66,88,66,87,66,86,66,85,66,84,66,83,66,82,66,81,66,80,66,79,66,78,66,77,66,76,66,75,66,74,66,73,66,72,66,71,66,70,66,69,66,68,66,67,66,66,66,65,66,64,66,63,66,62,66,61,66,60,66,59,66,58,66,57,66,56,66,55,66,54,66,53,66,52,66,51,66,50,66,49,66,48,66,47,66,46,66,45,66,44,66,43,66,42,66,41,66,40,66,39,66,38,66,37,66,36,66,35,66,34,66,33,66,32,66,31,66,30,66,29,66,28,66,27,66,26,66,25,66,24,66,23,66,22,66,21,66,20,66,19,66,18,66,17,66,16,66,15,66,14,66,13,66,12,66,11,66,10,66,9,66,8,66,7,65,7,64,7,63,7,62,7,61,7,60,7,59,7,58,7,57,7,56,7,55,7,54,7,53,7,52,7,51,7,50,7,49,7,48,7,47,7,46,7,45,7,44,7,43,7,42,7,41,7,40,7,39,7,38,7,37,7,36,7,35,7,34,7,33,7," start-node-parent="delay" start-node-cid="stdoutput" id="connector__85" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node4__84" route="33,5,33,6,33,7," start-node-parent="START" start-node-cid="stdoutput" id="connector__86" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="0" start-node-id="node4__84" end-node-parent="setpin__65" route="33,7,33,8," end-node-cid="stdinput" id="connector__87" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="varassignment__6" route="44,30,45,30,46,30,47,30,48,30,49,30,50,30,51,30," end-node-cid="stdinput" start-node-parent="varcomparison" start-node-cid="altoutput" id="connector__9" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node4__92" route="41,93,42,93,42,92,42,91,42,90,42,89,42,88,41,88,40,88,39,88,38,88,37,88,36,88,35,88,34,88,33,88," start-node-parent="testpin" start-node-cid="altoutput" id="connector__93" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node4__92" route="33,85,33,86,33,87,33,88," start-node-parent="setpin" start-node-cid="stdoutput" id="connector__94" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node4__92" end-node-parent="testpin" route="33,88,33,89," end-node-cid="stdinput" id="connector__95" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="setpin__65" route="33,97,33,98,32,98,31,98,30,98,29,98,28,98,27,98,26,98,25,98,24,98,23,98,22,98,21,98,21,97,21,96,21,95,21,94,21,93,21,92,21,91,21,90,21,89,21,88,21,87,21,86,21,85,21,84,21,83,21,82,21,81,21,80,21,79,21,78,21,77,21,76,21,75,21,74,21,73,21,72,21,71,21,70,21,69,21,68,21,67,21,66,21,65,21,64,21,63,21,62,21,61,21,60,21,59,21,58,21,57,21,56,21,55,21,54,21,53,21,52,21,51,21,50,21,49,21,48,21,47,21,46,21,45,21,44,21,43,21,42,21,41,21,40,21,39,21,38,21,37,21,36,21,35,21,34,21,33,21,32,21,31,21,30,21,29,21,28,21,27,21,26,21,25,21,24,21,23,21,22,21,21,21,20,21,19,21,18,21,17,21,16,21,15,21,14,21,13,21,12,21,11,21,10,21,9,21,8,21,7,22,7,23,7,24,7,25,7,26,7,27,7,28,7,29,7,30,7,31,7,32,7,33,7,33,8," end-node-cid="stdinput" start-node-parent="testpin" start-node-cid="stdoutput" id="connector__96" end-node-is-child="1" />
+ <node x="268" y="292" id="node4" />
+ <node x="268" y="468" id="node4__48" />
+ <node x="268" y="380" id="node4__52" />
+ <node x="460" y="588" id="node4__77" />
+ <node x="268" y="60" id="node4__84" />
+ <node x="268" y="708" id="node4__92" />
+ <micro id="P16F84" >
+  <pinmap map="RB0 RB1 RB2 RB3 RB4 RB5 RB6" type="keypad_4x3" id="keypad1" />
+  <pin type="output" id="RA0" state="off" />
+  <pin type="output" id="RA1" state="off" />
+  <pin type="input" id="RA2" state="off" />
+  <pin type="input" id="RA3" state="off" />
+  <pin type="input" id="RA4" state="off" />
+  <pin type="output" id="RB0" state="off" />
+  <pin type="output" id="RB1" state="off" />
+  <pin type="output" id="RB2" state="off" />
+  <pin type="output" id="RB3" state="off" />
+  <pin type="input" id="RB4" state="off" />
+  <pin type="input" id="RB5" state="off" />
+  <pin type="input" id="RB6" state="off" />
+  <pin type="input" id="RB7" state="off" />
+ </micro>
+</document>

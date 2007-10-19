@@ -1,0 +1,119 @@
+<!DOCTYPE KTechlab>
+<document type="circuit" >
+ <item width="96" x="304" y="226" z="0" offset-x="0" offset-y="0" height="32" type="dp/text" id="canvas_text" flip="0" angle="0" >
+  <data value="Lock   Open" type="string" id="text" />
+  <data value="#ffffff" type="color" id="background-color" />
+  <data value="#000000" type="color" id="frame-color" />
+  <data value="#000000" type="color" id="text-color" />
+  <data value="0" type="bool" id="background" />
+ </item>
+ <item width="65" x="277" y="122" z="1" offset-x="0" offset-y="8" height="24" type="dp/text" id="canvas_text__53" flip="0" angle="0" >
+  <data value="Alarm!" type="string" id="text" />
+  <data value="#ffffff" type="color" id="background-color" />
+  <data value="#000000" type="color" id="frame-color" />
+  <data value="#000000" type="color" id="text-color" />
+  <data value="0" type="bool" id="background" />
+ </item>
+ <item width="147" x="122" y="23" z="2" offset-x="0" offset-y="0" height="24" type="dp/text" id="canvas_text__75" flip="0" angle="0" >
+  <data value="Combination Lock" type="string" id="text" />
+  <data value="#ffffff" type="color" id="background-color" />
+  <data value="#000000" type="color" id="frame-color" />
+  <data value="#000000" type="color" id="text-color" />
+  <data value="1" type="bool" id="background" />
+ </item>
+ <item x="140" y="76" z="3" type="ec/fixed_voltage" id="fixed_voltage" flip="0" angle="0" >
+  <data value="5" type="number" id="voltage" />
+ </item>
+ <item x="348" y="316" z="14" type="ec/ground" id="ground__41" flip="0" angle="270" />
+ <item x="76" y="260" z="7" type="ec/keypad" id="keypad" flip="0" angle="0" >
+  <data value="0.005" type="number" id="bounce_period" />
+  <data value="3" type="number" id="numCols" />
+  <data value="1" type="bool" id="bounce" />
+  <data value="0" type="bool" id="useToggles" />
+  <button id="b_0_0" state="0" />
+  <button id="b_0_1" state="0" />
+  <button id="b_0_2" state="0" />
+  <button id="b_1_0" state="0" />
+  <button id="b_1_1" state="0" />
+  <button id="b_1_2" state="0" />
+  <button id="b_2_0" state="0" />
+  <button id="b_2_1" state="0" />
+  <button id="b_2_2" state="0" />
+  <button id="b_3_0" state="0" />
+  <button id="b_3_1" state="0" />
+  <button id="b_3_2" state="0" />
+ </item>
+ <item x="316" y="164" z="15" type="ec/led" id="led" flip="0" angle="0" >
+  <data value="1e-15" type="number" id="I_S" />
+  <data value="1" type="number" id="N" />
+  <data value="4.7" type="number" id="V_B" />
+  <data value="#f62a2a" type="color" id="0-color" />
+ </item>
+ <item x="292" y="420" z="9" type="ec/resistordip" id="multiplexer" flip="0" angle="180" >
+  <data value="3" type="number" id="count" />
+  <data value="10000" type="number" id="resistance" />
+ </item>
+ <item x="340" y="204" z="10" type="ec/npnbjt" id="npnbjt" flip="0" angle="0" >
+  <data value="100" type="number" id="B_F" />
+  <data value="1" type="number" id="B_R" />
+  <data value="1e-16" type="number" id="I_S" />
+  <data value="1" type="number" id="N_F" />
+  <data value="1" type="number" id="N_R" />
+ </item>
+ <item x="212" y="228" z="11" type="ec/pic" id="pic" flip="0" angle="0" >
+  <data value="P16F84" type="string" id="lastPackage" />
+  <data value="/home/atg/source/ktechlab-0.3/src/code_entry.flowcode" type="string" id="program" />
+  <button id="pause" state="0" />
+  <button id="reload" state="0" />
+  <button id="reset" state="0" />
+  <button id="run" state="0" />
+ </item>
+ <item x="52" y="164" z="13" type="ec/ptm_switch" id="ptm_switch" flip="0" angle="0" >
+  <data value="Close Lock" type="string" id="button_text" />
+  <data value="0.005" type="number" id="bounce_period" />
+  <data value="0" type="bool" id="bounce" />
+  <button id="button" state="0" />
+ </item>
+ <item x="292" y="204" z="5" type="ec/resistor" id="resistor" flip="0" angle="0" >
+  <data value="1000" type="number" id="resistance" />
+ </item>
+ <item x="132" y="164" z="12" type="ec/resistor" id="resistor__55" flip="0" angle="0" >
+  <data value="10000" type="number" id="resistance" />
+ </item>
+ <item x="348" y="260" z="8" type="ec/signal_lamp" id="signal_lamp" flip="0" angle="90" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="keypad" route="20,30,19,30,19,29,19,28,18,28,17,28,16,28,15,28,14,28," end-node-cid="row_0" start-node-parent="pic" start-node-cid="RB0" id="connector" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="pic" route="14,31,15,31,16,31,16,32,17,32,18,32,19,32,20,32," end-node-cid="RB1" start-node-parent="keypad" start-node-cid="row_1" id="connector__20" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="keypad" route="20,34,19,34,18,34,17,34,16,34,15,34,14,34," end-node-cid="row_2" start-node-parent="pic" start-node-cid="RB2" id="connector__21" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="keypad" route="20,36,19,36,19,37,18,37,17,37,16,37,15,37,14,37," end-node-cid="row_3" start-node-parent="pic" start-node-cid="RB3" id="connector__22" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="pic" route="33,25,33,24,33,23,33,22,32,22," end-node-cid="RA0" start-node-parent="resistor" start-node-cid="n1" id="connector__33" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="npnbjt" route="39,25,40,25," end-node-cid="b" start-node-parent="resistor" start-node-cid="p1" id="connector__34" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="signal_lamp" route="43,27,43,28,43,29,43,30," end-node-cid="n1" start-node-parent="npnbjt" start-node-cid="e" id="connector__45" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="signal_lamp" route="43,37,43,36,43,35,43,34," end-node-cid="p1" start-node-parent="ground__41" start-node-cid="p1" id="connector__46" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="pic" route="37,20,36,20,35,20,34,20,33,20,32,20," end-node-cid="RA1" start-node-parent="led" start-node-cid="n1" id="connector__49" end-node-is-child="1" />
+ <connector start-node-is-child="0" manual-route="0" start-node-id="node1__44" end-node-parent="multiplexer" route="39,53,39,54," end-node-cid="n0" id="connector__51" end-node-is-child="1" />
+ <connector start-node-is-child="0" manual-route="0" start-node-id="node1__44" end-node-parent="multiplexer" route="39,53,39,52," end-node-cid="n1" id="connector__53" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__54" route="43,37,43,36,44,36,45,36,46,36,46,35,46,34,46,33,46,32,46,31,46,30,46,29,46,28,46,27," start-node-parent="ground__41" start-node-cid="p1" id="connector__55" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="0" end-node-id="node1__54" start-node-id="node1__44" route="39,53,40,53,41,53,42,53,43,53,44,53,45,53,46,53,47,53,48,53,48,52,48,51,48,50,48,49,48,48,48,47,48,46,48,45,48,44,48,43,48,42,48,41,48,40,48,39,48,38,48,37,48,36,48,35,48,34,48,33,48,32,48,31,48,30,48,29,48,28,48,27,47,27,46,27," id="connector__56" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__56" route="19,9,20,9,20,10,20,11,20,12,20,13,20,14," start-node-parent="fixed_voltage" start-node-cid="p1" id="connector__57" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="multiplexer" route="39,50,39,51,39,52," end-node-cid="n1" start-node-parent="multiplexer" start-node-cid="n2" id="connector__58" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__54" route="41,20,42,20,43,20,44,20,45,20,46,20,46,21,46,22,46,23,46,24,46,25,46,26,46,27," start-node-parent="led" start-node-cid="p1" id="connector__60" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="pic" route="19,20,20,20," end-node-cid="RA2" start-node-parent="resistor__55" start-node-cid="p1" id="connector__62" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__62" route="33,54,32,54,32,53,32,52,32,51,32,50,32,49,32,48,32,47,32,46,33,46,33,45,33,44,33,43," start-node-parent="multiplexer" start-node-cid="p0" id="connector__63" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__62" route="12,40,12,41,12,42,12,43,13,43,14,43,15,43,16,43,17,43,18,43,19,43,20,43,21,43,22,43,23,43,24,43,25,43,26,43,27,43,28,43,29,43,30,43,31,43,32,43,33,43," start-node-parent="keypad" start-node-cid="col_2" id="connector__64" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="0" start-node-id="node1__62" end-node-parent="pic" route="33,43,33,42,33,41,33,40,33,39,33,38,33,37,33,36,33,35,33,34,33,33,33,32,32,32," end-node-cid="RB6" id="connector__65" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="resistor__55" route="9,20,10,20,11,20,12,20,13,20," end-node-cid="n1" start-node-parent="ptm_switch" start-node-cid="p1" id="connector__66" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__66" route="33,52,32,52,31,52,30,52,30,51,30,50,30,49,30,48,30,47,30,46,30,45,31,45,32,45,33,45,34,45,35,45," start-node-parent="multiplexer" start-node-cid="p1" id="connector__67" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__66" route="32,34,33,34,34,34,35,34,35,35,35,36,35,37,35,38,35,39,35,40,35,41,35,42,35,43,35,44,35,45," start-node-parent="pic" start-node-cid="RB5" id="connector__68" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="0" start-node-id="node1__66" end-node-parent="keypad" route="35,45,36,45,37,45,38,45,39,45,40,45,41,45,42,45,42,46,42,47,42,48,42,49,42,50,42,51,42,52,42,53,42,54,42,55,42,56,42,57,42,58,42,59,42,60,41,60,40,60,39,60,38,60,37,60,36,60,35,60,34,60,33,60,32,60,31,60,30,60,29,60,28,60,27,60,26,60,25,60,24,60,23,60,22,60,21,60,20,60,19,60,18,60,17,60,16,60,15,60,14,60,13,60,12,60,11,60,10,60,9,60,9,59,9,58,9,57,9,56,9,55,9,54,9,53,9,52,9,51,9,50,9,49,9,48,9,47,9,46,9,45,9,44,9,43,9,42,9,41,9,40," end-node-cid="col_1" id="connector__69" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__56" route="3,20,2,20,2,19,2,18,2,17,2,16,2,15,2,14,3,14,4,14,5,14,6,14,7,14,8,14,9,14,10,14,11,14,12,14,13,14,14,14,15,14,16,14,17,14,18,14,19,14,20,14," start-node-parent="ptm_switch" start-node-cid="n1" id="connector__70" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__70" route="33,50,32,50,31,50,30,50,29,50,28,50,28,49,28,48,28,47,28,46,28,45,28,44,28,43,28,42,29,42," start-node-parent="multiplexer" start-node-cid="p2" id="connector__71" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__70" route="6,40,6,41,6,42,7,42,8,42,9,42,10,42,11,42,12,42,13,42,14,42,15,42,16,42,17,42,18,42,19,42,20,42,21,42,22,42,23,42,24,42,25,42,26,42,27,42,28,42,29,42," start-node-parent="keypad" start-node-cid="col_0" id="connector__72" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="0" start-node-id="node1__70" end-node-parent="pic" route="29,42,30,42,31,42,32,42,33,42,34,42,34,41,34,40,34,39,34,38,34,37,34,36,33,36,32,36," end-node-cid="RB4" id="connector__73" end-node-is-child="1" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node1__56" end-node-parent="npnbjt" route="20,14,21,14,22,14,23,14,24,14,25,14,26,14,27,14,28,14,29,14,30,14,31,14,32,14,33,14,34,14,35,14,36,14,37,14,38,14,39,14,40,14,41,14,42,14,43,14,43,15,43,16,43,17,43,18,43,19,43,20,43,21,43,22,43,23," end-node-cid="c" id="connector__74" end-node-is-child="1" />
+ <node x="316" y="428" id="node1__44" />
+ <node x="372" y="220" id="node1__54" />
+ <node x="164" y="116" id="node1__56" />
+ <node x="268" y="348" id="node1__62" />
+ <node x="284" y="364" id="node1__66" />
+ <node x="236" y="340" id="node1__70" />
+</document>

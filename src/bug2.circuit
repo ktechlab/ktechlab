@@ -1,0 +1,42 @@
+<!DOCTYPE KTechlab>
+<document type="circuit" >
+ <item x="260" y="172" z="6" type="ec/capacitor" id="capacitor" flip="0" angle="90" >
+  <data value="1e-06" type="number" id="Capacitance" />
+ </item>
+ <item x="404" y="148" z="3" type="ec/currentprobe" id="currentprobe" flip="0" angle="90" >
+  <data value="Linear" type="string" id="scaling" />
+  <data value="0.1" type="number" id="lower_abs_value" />
+  <data value="2" type="number" id="upper_abs_value" />
+  <data value="#b5002f" type="color" id="color" />
+ </item>
+ <item x="212" y="172" z="7" type="ec/diode" id="diode" flip="0" angle="-90" >
+  <data value="1e-15" type="number" id="I_S" />
+  <data value="1" type="number" id="N" />
+  <data value="4.7" type="number" id="V_B" />
+ </item>
+ <item x="436" y="196" z="0" type="ec/ground" id="ground" flip="0" angle="180" />
+ <item x="276" y="100" z="4" type="ec/inductor" id="inductor" flip="0" angle="0" >
+  <data value="0.001" type="number" id="Inductance" />
+ </item>
+ <item x="348" y="100" z="2" type="ec/resistor" id="resistor" flip="0" angle="0" >
+  <data value="5" type="number" id="resistance" />
+ </item>
+ <item x="212" y="212" z="8" type="ec/voltage_signal" id="voltage_signal" flip="0" angle="-90" >
+  <data value="50" type="number" id="frequency" />
+  <data value="5" type="number" id="voltage" />
+ </item>
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="diode" route="26,24,26,23," end-node-cid="n1" start-node-parent="voltage_signal" start-node-cid="p1" id="connector" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="resistor" route="37,12,38,12,39,12,40,12," end-node-cid="n1" start-node-parent="inductor" start-node-cid="p1" id="connector__141" end-node-is-child="1" />
+ <connector start-node-is-child="0" manual-route="0" start-node-id="node1__168" end-node-parent="inductor" route="29,18,29,17,29,16,29,15,29,14,29,13,29,12,30,12,31,12," end-node-cid="n1" id="connector__170" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__181" route="26,28,26,29,27,29,28,29,29,29,30,29,31,29,32,29," start-node-parent="voltage_signal" start-node-cid="n1" id="connector__182" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="0" end-node-id="node1" start-node-id="node1__181" route="32,29,33,29,34,29,35,29,36,29,37,29,38,29,39,29,40,29,41,29,42,29,43,29,44,29,45,29,46,29,47,29,48,29,49,29,50,29,50,28,50,27,50,26,50,25,50,24," id="connector__184" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__168" route="26,19,26,18,27,18,28,18,29,18," start-node-parent="diode" start-node-cid="p1" id="connector__185" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__181" route="32,23,32,24,32,25,32,26,32,27,32,28,32,29," start-node-parent="capacitor" start-node-cid="p1" id="connector__186" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__168" route="32,19,32,18,31,18,30,18,29,18," start-node-parent="capacitor" start-node-cid="n1" id="connector__187" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1" route="50,21,50,22,50,23,50,24," start-node-parent="currentprobe" start-node-cid="p1" id="connector__80" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1" route="52,24,51,24,50,24," start-node-parent="ground" start-node-cid="p1" id="connector__81" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="currentprobe" route="46,12,47,12,48,12,49,12,50,12,50,13,50,14,50,15," end-node-cid="n1" start-node-parent="resistor" start-node-cid="p1" id="connector__83" end-node-is-child="1" />
+ <node x="404" y="196" id="node1" />
+ <node x="236" y="148" id="node1__168" />
+ <node x="260" y="236" id="node1__181" />
+</document>
