@@ -1424,7 +1424,7 @@ linux*)
   libsuff=
   if test "x$LINUX_64_MODE" = x64; then
     # Some platforms are per default 64-bit, so there's no /lib64
-    if test -d /lib64; then
+    if test -d /lib64 -a ! -h /lib64; then
       libsuff=64
     fi
   fi
