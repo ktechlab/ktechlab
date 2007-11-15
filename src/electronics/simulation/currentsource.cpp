@@ -40,13 +40,6 @@ void CurrentSource::setCurrent( const double i )
 	add_initial_dc();
 }
 
-
-void CurrentSource::add_map()
-{
-	// We don't need a map for current source :-)
-}
-
-
 void CurrentSource::add_initial_dc()
 {
 	if (!b_status)
