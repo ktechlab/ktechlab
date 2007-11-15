@@ -26,8 +26,7 @@ class OpAmp : public Element
 		virtual ~OpAmp();
 	
 		virtual Type type() const { return Element_OpAmp; }
-		virtual void add_map();
-	
+
 	protected:
 		virtual void updateCurrents();
 		virtual void add_initial_dc();

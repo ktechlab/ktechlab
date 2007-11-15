@@ -24,23 +24,6 @@ OpAmp::~OpAmp()
 {
 }
 
-
-void OpAmp::add_map()
-{
-	if (!b_status)
-		return;
-	
-	// Non-inverting input
-	setUse_c( 0, 0, Map::et_constant, true );
-	
-	// Inverting input
-	setUse_c( 0, 2, Map::et_constant, true );
-	
-	// Output
-	setUse_b( 1, 0, Map::et_constant, true );
-}
-
-
 void OpAmp::add_initial_dc()
 {
 	if (!b_status)
