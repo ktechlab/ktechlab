@@ -38,8 +38,7 @@ class Inductance : public Reactive
 		virtual void time_step();
 		virtual void add_initial_dc();
 		void setInductance( double i );
-		virtual void add_map();
-	
+
 	protected:
 		virtual void updateCurrents();
 		virtual bool updateStatus();
