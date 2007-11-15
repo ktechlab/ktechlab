@@ -43,24 +43,10 @@ void Resistance::setConductance( const double g )
 	add_initial_dc();
 }
 
-
 void Resistance::setResistance( const double r )
 {
 	setConductance( r < 1e-9 ? 1e9 : 1./r );
 }
-
-
-void Resistance::add_map()
-{
-	if (!b_status)
-		return;
-	
-	setUse( 0, 0, Map::et_stable, false );
-	setUse( 1, 1, Map::et_stable, false );
-	setUse( 0, 1, Map::et_stable, false );
-	setUse( 1, 0, Map::et_stable, false );
-}
-
 
 void Resistance::add_initial_dc()
 {
@@ -71,7 +57,6 @@ void Resistance::add_initial_dc()
 	A_g( 0, 1 ) -= m_g;
 	A_g( 1, 0 ) -= m_g;
 }
-
 
 void Resistance::updateCurrents()
 {
