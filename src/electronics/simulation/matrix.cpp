@@ -31,22 +31,16 @@ Matrix::Matrix( uint n, uint m )
 	m_lu = new matrix(m_size);
 	m_y = new double[m_size];
 	m_inMap = new int[m_size];
-// 	m_outMap = new int[m_size];
-	m_map = new Map(m_size);
 	zero();
 }
 
-
 Matrix::~Matrix()
 {
-	delete m_map;
 	delete m_mat;
 	delete m_lu;
 	delete [] m_y;
 	delete [] m_inMap;
-// 	delete [] m_outMap;
 }
-
 
 void Matrix::zero()
 {
@@ -58,41 +52,10 @@ void Matrix::zero()
 			(*m_lu)[i][j] = 0.;
 		}
 		m_inMap[i] = i;
-// 		m_outMap[i] = i;
 	}
 	
 	max_k = 0;
 }
-
-
-void Matrix::setUse( const uint i, const uint j, Map::e_type type, bool big )
-{
-	m_map->setUse( i, j, type, big );
-}
-
-
-void Matrix::createMap()
-{
-	int newMap[m_size];
-	m_map->createMap(newMap);
-	for ( uint i=0; i<m_size; i++ )
-	{
-		const int nu = newMap[i];
-		if ( nu != m_inMap[i] )
-		{
-			int old = -1;
-			for ( uint j=0; j<m_size && old == -1; j++ )
-			{
-				if ( m_inMap[j] == nu ) {
-					old = j;
-				}
-			}
-			assert( old != -1 );
-			swapRows( old, i );
-		}
-	}
-}
-
 
 void Matrix::swapRows( const uint a, const uint b )
 {
@@ -105,16 +68,6 @@ void Matrix::swapRows( const uint a, const uint b )
 	
 	max_k = 0;
 }
-
-
-/*void Matrix::genOutMap()
-{
-	for ( uint i=0; i<m_size; i++ )
-	{
-		m_outMap[ m_inMap[i] ] = i;
-	}
-}*/
-
 
 void Matrix::operator=( Matrix *const m )
 {
@@ -146,7 +99,6 @@ void Matrix::operator+=( Matrix *const m )
 
 void Matrix::performLU()
 {
-// 	max_k = 0;
 	uint n = m_size;
 	if ( n == 0 ) return;
 	
@@ -225,7 +177,6 @@ void Matrix::fbSub( Vector* b )
 		(*b)[i] = m_y[i];
 }
 
-
 void Matrix::multiply( Vector *rhs, Vector *result )
 {
 	if ( !rhs || !result ) return;
@@ -239,7 +190,6 @@ void Matrix::multiply( Vector *rhs, Vector *result )
 		}
 	}
 }
-
 
 void Matrix::displayMatrix()
 {
@@ -283,200 +233,6 @@ void Matrix::displayLU()
 	}
 	cout << endl;*/
 }
-
-
-Map::Map( const uint size )
-{
-	m_size = size;
-	m_map = new ETMap( m_size, m_size );
-	reset();
-}
-
-
-Map::~Map()
-{
-	delete m_map;
-}
-
-
-void Map::reset()
-{
-	for ( uint i=0; i<m_size; i++ )
-	{
-		for ( uint j=0; j<m_size; j++ )
-		{
-			(*m_map)[i][j] = 0;
-		}
-	}
-}
-
-
-void Map::setUse( const uint i, const uint j, Map::e_type type, bool big )
-{
-	if ( type == Map::et_none ) {
-		(*m_map)[i][j] = Map::et_none;
-	} else {
-		(*m_map)[i][j] = type | (big)?Map::et_big:0;
-	}
-}
-
-
-void Map::createMap( int *map )
-{
-	assert(map);
-	
-	// In this function, the passes through that we make want to be done from
-	// top left to bottom right, to minimise fill-in
-	
-	// available[i] is true if an external-row can be mapped to internal-row "i"
-	// map[i] gives the internal-row for external-row i
-	bool available[m_size];
-	for ( uint i=0; i<m_size; i++ )
-	{
-		available[i] = true;
-		map[i] = -1;
-	}
-	
-	// This loop looks through columns and rows to find any swaps that are necessary
-	// (e.g. only one matrix-element in that row/column), and if no necessary swaps
-	// were found, then it will swap two rows according to criteria given below
-	bool badMap = false;
-	bool changed;
-	do
-	{
-		changed = false;
-		
-		// Pass through columns
-		int E,N;
-		uint highest = 0;
-		for ( uint j=0; j<m_size; j++ )
-		{
-			if ( map[j] == -1 ) // If we haven't mapped this column yet
-			{
-				int count = 0; // Number of "spare" elements
-				int element; // Last element that is "spare", only applicable if count=1
-				for ( uint i=0; i<m_size; i++ )
-				{
-					if ( available[i] && (*m_map)[i][j] )
-					{
-						count++;
-						element = i;
-					}
-				}
-				if ( count == 0 ) {
-					badMap = true;
-				}
-				else if ( count == 1 )
-				{
-					const uint newType = (*m_map)[element][j];
-					if ( typeCmp( newType, highest) )
-					{
-						E=element;
-						N=j;
-						highest=newType;
-					}
-				}
-			}
-		}
-		// Pass through rows
-		for ( uint i=0; i<m_size; i++ )
-		{
-			if ( map[i] == -1 ) // If we haven't mapped this row yet
-			{
-				int count = 0; // Number of "spare" elements
-				int element; // Last element that is "spare", only applicable if count=1
-				for ( uint j=0; j<m_size; j++ )
-				{
-					if ( available[j] && (*m_map)[i][j] )
-					{
-						count++;
-						element = j;
-					}
-				}
-				if ( count == 0 ) {
-					badMap = true;
-				}
-				else if ( count == 1 )
-				{
-					const uint newType = (*m_map)[i][element];
-					if ( typeCmp( newType, highest) )
-					{
-						E=element;
-						N=i;
-						highest=newType;
-					}
-				}
-			}
-		}
-		if (highest)
-		{
-			available[E] = false;
-			map[N] = E;
-			changed = true;
-		}
-		if (!changed)
-		{
-			int next = -1; // next is the row to mapped to (interally)
-			uint j=0;
-			
-			/// TODO We want to change this search to one that finds a swap, taking into acocunt the priorities given below
-			while ( next == -1 && j<m_size )
-			{
-				if ( available[j] ) next=j;
-				j++;
-			}
-			uint i=0;
-			while ( i<m_size && map[i] != -1 ) i++;
-			if ( next != -1 && i < m_size )
-			{
-				available[next] = false;
-				map[i] = next;
-				changed = true;
-			}
-		}
-	} while (changed);
-	
-	if (badMap)
-	{
-// 		cerr << "Map::createMap: unable to create decent mapping; do not trust the matrix, Neo!"<<endl;
-	}
-	
-	for ( int i = 0; i < int(m_size); ++i )
-	{
-		assert( map[i] >= 0 && map[i] < int(m_size) );
-	}
-	
-	// Ignore this, for now:
-	
-	// Now, we want to order the matrix, with the following priorities:
-	//	(1) How often values change
-	//	(2) How few values there are
-	//	(3) How large the values are
-	// For each value in the column, 
-}
-
-
-bool Map::typeCmp( const uint t1, const uint t2 )
-{
-	if (!t2) return true;
-	if (!t1) return false;
-	
-	int t1_score = 1;
-	if		( t1 | Map::et_constant )	t1_score += 64;
-	else if ( t1 | Map::et_stable )		t1_score += 16;
-	else if ( t1 | Map::et_variable )	t1_score += 4;
-	
-	int t2_score = 1;
-	if		( t2 | Map::et_constant )	t2_score += 64;
-	else if ( t2 | Map::et_stable )		t2_score += 16;
-	else if ( t2 | Map::et_variable )	t2_score += 4;
-	
-	if ( t1 | Map::et_big ) t1_score *= 2;
-	if ( t2 | Map::et_big ) t2_score *= 2;
-	
-	return ( t1_score >= t2_score );
-}
-
 
 Matrix22::Matrix22()
 {
@@ -541,6 +297,4 @@ void Matrix22::reset()
 	m_b1=m_b2=0.;
 	m_x1=m_x2=0.;
 }
-
-
 
