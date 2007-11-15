@@ -52,7 +52,6 @@ class BJT : public NonLinear
 		virtual Type type() const { return Element_BJT; }
 		virtual void update_dc();
 		virtual void add_initial_dc();
-		virtual void add_map();
 		BJTSettings settings() const { return m_bjtSettings; }
 		void setBJTSettings( const BJTSettings & settings );
 	
