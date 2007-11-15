@@ -82,13 +82,13 @@ class PIC14
 			P16F627,
 			P16F628,
 			P16F877,
-			unknown,
+			unknown
 		};
 		enum LocationType
 		{
 			num = 1,
 			work = 2,
-			var = 3,
+			var = 3
 		};
 		/**
 		 * Used in determining which delay subroutine should be created.
@@ -99,7 +99,7 @@ class PIC14
 			Delay_3uS	= 1,
 			Delay_768uS	= 2,
 			Delay_200mS	= 3,
-			Delay_50S	= 4,
+			Delay_50S	= 4
 		};
 		
 		/*PIC14::*/PIC14( Microbe * master, Type type );
