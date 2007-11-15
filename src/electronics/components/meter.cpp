@@ -87,7 +87,7 @@ void Meter::stepNonLogic()
 // 		setChanged();
 		if ( m_timeSinceUpdate > 0.05 )
 		{
-			if ( p_displayText->setText(displayText()) );
+			if ( p_displayText->setText(displayText()) )
 				updateAttachedPositioning();
 		}
 	}
