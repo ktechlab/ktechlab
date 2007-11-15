@@ -34,6 +34,9 @@
 #include <algorithm>
 #include <cmath>
 
+// Degrees per radian
+const double DPR = 57.29577951308232087665461840231273527024;
+
 // The following arrays of numbers represent the positions of nodes in different configurations,
 // with the numbers as NodeInfo::Position.
 
@@ -265,11 +268,9 @@ void FlowPart::drawShape( QPainter &p )
 			double roundSize = 8;
 			double slantIndent = 5;
 			
-			const double pi = 3.1415926536;
-			const double DPR = 180./pi;
 // 			CNItem::drawShape(p);
 			double inner = std::atan(h/slantIndent);
-			double outer = pi-inner;
+			double outer = M_PI - inner;
 			
 			int inner16 = int(16*inner*DPR);
 			int outer16 = int(16*outer*DPR);
