@@ -76,6 +76,8 @@ class PicItem : public CNItem
 	
 		static QString typeString() { return "microitem"; }
 		virtual void updateZ( int baseZ );
+
+		bool mousePressEvent( const EventInfo &info );
 	
 	protected slots:
 		void slotMicroSettingsDlgAccepted();

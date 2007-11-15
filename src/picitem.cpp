@@ -15,6 +15,7 @@
 #include "microsettingsdlg.h"
 #include "micropackage.h"
 #include "picitem.h"
+#include "eventinfo.h"
 
 #include <kdebug.h>
 #include <kiconloader.h>
@@ -385,6 +386,26 @@ void PicItem::slotMicroSettingsDlgAccepted()
 		canvas()->setChanged( (*it)->boundingRect() );
 	
 	p_icnDocument->requestStateSave();
+}
+
+bool PicItem::mousePressEvent( const EventInfo &info )
+{
+	QMouseEvent *e = info.mouseReleaseEvent( 0, 0 );
+
+	const PinItemList::iterator end = m_pinItemList.end();
+	for ( PinItemList::iterator it = m_pinItemList.begin(); it != end; ++it )
+		if ( (*it)->boundingRect().contains(info.pos) ) 
+		{
+			if (e->isAccepted())
+			{
+				(*it)->switchState();
+				delete e;
+				return true;
+			}
+		}
+	delete e;
+
+	return CNItem::mousePressEvent( info );
 }
 //END class PicItem
 
