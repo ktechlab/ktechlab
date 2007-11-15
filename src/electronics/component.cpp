@@ -1045,11 +1045,6 @@ void Component::initElements( const uint stage )
 			m.e->setCNodes( m.n[0]->eqId() );
 		}
 	}
-	
-	for ( ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it )
-	{
-		(*it).e->add_map();
-	}
 }
 
 
