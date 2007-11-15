@@ -48,19 +48,6 @@ Diode::~Diode()
 {
 }
 
-
-void Diode::add_map()
-{
-	if (!b_status)
-		return;
-	
-	setUse( 0, 0, Map::et_unstable, false );
-	setUse( 1, 1, Map::et_unstable, false );
-	setUse( 0, 1, Map::et_unstable, false );
-	setUse( 1, 0, Map::et_unstable, false );
-}
-
-
 void Diode::add_initial_dc()
 {
 	g_new = g_old = I_new = I_old = V_prev = 0.0;

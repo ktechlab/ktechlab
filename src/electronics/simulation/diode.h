@@ -47,7 +47,6 @@ class Diode : public NonLinear
 	
 		virtual void update_dc();
 		virtual void add_initial_dc();
-		virtual void add_map();
 		virtual Element::Type type() const { return Element_Diode; }
 		DiodeSettings settings() const { return m_diodeSettings; }
 		void setDiodeSettings( const DiodeSettings & settings );
