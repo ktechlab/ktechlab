@@ -68,7 +68,6 @@ class MOSFET : public NonLinear
 		virtual Type type() const { return Element_MOSFET; }
 		virtual void update_dc();
 		virtual void add_initial_dc();
-		virtual void add_map();
 		MOSFETSettings settings() const { return m_mosfetSettings; }
 		void setMOSFETSettings( const MOSFETSettings & settings );
 	

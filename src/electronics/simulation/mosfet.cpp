@@ -113,28 +113,6 @@ MOSFET::~MOSFET()
 {
 }
 
-
-void MOSFET::add_map()
-{
-	if (!b_status)
-		return;
-	
-	setUse( PinD, PinG, Map::et_unstable, false );    
-	setUse( PinD, PinD, Map::et_unstable, false );    
-	setUse( PinD, PinS, Map::et_unstable, false );    
-	setUse( PinD, PinB, Map::et_unstable, false );  
-	  
-	setUse( PinS, PinG, Map::et_unstable, false );    
-	setUse( PinS, PinD, Map::et_unstable, false );    
-	setUse( PinS, PinS, Map::et_unstable, false );    
-	setUse( PinS, PinB, Map::et_unstable, false );
-	
-	setUse( PinB, PinD, Map::et_unstable, false );
-	setUse( PinB, PinS, Map::et_unstable, false );
-	setUse( PinB, PinB, Map::et_unstable, false );
-}
-
-
 void MOSFET::add_initial_dc()
 {
 	V_GS_prev = V_GD_prev = V_BD_prev = V_DS_prev = V_BS_prev = 0.0;
