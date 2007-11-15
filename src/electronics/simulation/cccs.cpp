@@ -36,21 +36,6 @@ void CCCS::setGain( const double g )
 	add_initial_dc();
 }
 
-
-void CCCS::add_map()
-{
-	if (!b_status) return;
-	
-	setUse_b( 0, 0, Map::et_constant, true );
-	setUse_c( 0, 0, Map::et_constant, true );
-	setUse_b( 1, 0, Map::et_constant, true );
-	setUse_c( 0, 1, Map::et_constant, true );
-	setUse_b( 2, 1, Map::et_constant, true );
-	setUse_b( 3, 1, Map::et_constant, true );
-	setUse_d( 1, 0, Map::et_stable, true );
-	setUse_d( 1, 1, Map::et_constant, true );
-}
-
 void CCCS::add_initial_dc()
 {
 	if (!b_status)
