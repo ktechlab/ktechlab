@@ -32,7 +32,7 @@ class DrawPart : public Item
 			da_arrow = 2,
 			da_rectangle = 3,
 			da_ellipse = 4,
-			da_image = 5,
+			da_image = 5
 		};
 		
 		DrawPart( ItemDocument *itemDocument, bool newItem, const char *id );
