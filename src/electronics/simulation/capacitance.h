@@ -38,8 +38,7 @@ public:
 	virtual void time_step();
 	virtual void add_initial_dc();
 	void setCapacitance( const double c );
-	virtual void add_map();
-	
+
 protected:
 	virtual void updateCurrents();
 	virtual bool updateStatus();
