@@ -42,27 +42,6 @@ void VCCS::setGain( const double g )
 	add_initial_dc();
 }
 
-
-void VCCS::add_map()
-{
-	if (!b_status)
-		return;
-	
-	setUse_c( 0, 0, Map::et_constant, true );
-	setUse_c( 0, 1, Map::et_constant, true );
-	setUse_b( 3, 0, Map::et_constant, true );
-	setUse_b( 2, 0, Map::et_constant, true );
-	setUse_d( 0, 0, Map::et_stable, false );
-	
-#if 0
-	setUse( 2, 0, Map::et_stable, true );
-	setUse( 3, 0, Map::et_stable, true );
-	setUse( 2, 1, Map::et_stable, true );
-	setUse( 3, 1, Map::et_stable, true );
-#endif
-}
-
-
 void VCCS::add_initial_dc()
 {
 	if (!b_status)

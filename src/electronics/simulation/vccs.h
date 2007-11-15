@@ -27,8 +27,7 @@ public:
 	
 	virtual Type type() const { return Element_VCCS; }
 	void setGain( const double g );
-	virtual void add_map();
-	
+
 protected:
 	virtual void updateCurrents();
 	virtual void add_initial_dc();
