@@ -37,16 +37,6 @@ void VoltagePoint::setVoltage( const double v )
 	add_initial_dc();
 }
 
-
-void VoltagePoint::add_map()
-{
-	if (!b_status) return;
-	
-	setUse_b( 0, 0, Map::et_constant, true );
-	setUse_c( 0, 0, Map::et_constant, true );
-}
-
-
 void VoltagePoint::add_initial_dc()
 {
 	if (!b_status) return;
