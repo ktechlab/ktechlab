@@ -26,8 +26,7 @@ public:
 	
 	virtual Type type() const { return Element_CurrentSource; }
 	void setCurrent( const double i );
-	virtual void add_map();
-	
+
 protected:
 	virtual void updateCurrents();
 	virtual void add_initial_dc();
