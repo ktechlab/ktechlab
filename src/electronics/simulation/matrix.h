@@ -15,48 +15,7 @@
 
 #include <vector>
 
-class Map;
-
 typedef std::vector<std::vector<uint> > ETMap;
-
-/**
-@short Handles row-wise permutation of matrixes
-*/
-class Map
-{
-public:
-	enum e_type
-	{
-		et_none = 0x0, // Default value, none
-		et_constant = 0x1, // Never changes value in lifetime of matrix
-		et_stable = 0x2, // Value changes occasionally, e.g. user changing resistance value
-		et_variable = 0x3, // Rate of changing is unknown, probably average - e.g. logic
-		et_unstable = 0x4, // Value changes practically every call of performLU
-		et_big = 0x8 // Ignore this :-) It is used to OR with one of the others, but it should only ever be accessed by the class
-	};
-	Map( const uint size );
-	~Map();
-
-	void setUse( const uint i, const uint j, Map::e_type type, bool big );
-	/**
-	 * Generates an optimal permutation, returned in the given array
-	 */
-	void createMap( int *map );
-	/**
-	 * Resets the info to a blank pattern
-	 */
-	void reset();
-	
-protected:
-	/**
-	 * Compares two "types", returning true if t1 >= t2, else false
-	 */
-	bool typeCmp( const uint t1, const uint t2 );
-	
-private:
-	ETMap *m_map;
-	uint m_size;
-};
 
 /**
 This class performs matrix storage, lu decomposition, forward and backward
@@ -88,28 +47,7 @@ public:
 	 * Sets all elements to zero
 	 */
 	void zero();
-	/** 
-	 * Sets the type of (matrix-) element at the position i, j.
-	 * @param type Describes how often the value changes
-	 * @param big Set this true if the value is likely to be >= 1, else false
-	 */
-	void setUse( uint i, uint j, Map::e_type type, bool big );
-	void setUse_b( uint i, uint j, Map::e_type type, bool big )
-	{
-		setUse( i, j+m_n, type, big );
-	}
-	void setUse_c( uint i, uint j, Map::e_type type, bool big )
-	{
-		setUse( i+m_n, j, type, big );
-	}
-	void setUse_d( uint i, uint j, Map::e_type type, bool big )
-	{
-		setUse( i+m_n, j+m_n, type, big );
-	}
-	/**
-	 * Generates the row-wise permutation mapping from the values set by setUse
-	 */
-	void createMap();
+
 	/**
 	 * Returns true if the matrix is changed since last calling performLU()
 	 * - i.e. if we do need to call performLU again.
@@ -191,12 +129,10 @@ private:
 	uint max_k;
 	
 	int *m_inMap; // Rowwise permutation mapping from external reference to internal storage
-// 	int *m_outMap; // Opposite of m_inMap
-	
+
 	matrix *m_mat;
 	matrix *m_lu;
 	double *m_y; // Avoids recreating it lots of times
-	Map *m_map;
 };
 
 
