@@ -93,22 +93,6 @@ JFET::~JFET()
 {
 }
 
-
-void JFET::add_map()
-{
-	if (!b_status)
-		return;
-	
-	setUse( 0, 0, Map::et_unstable, false );
-	setUse( 1, 1, Map::et_unstable, false );
-	setUse( 2, 2, Map::et_unstable, false );
-	setUse( 0, 2, Map::et_unstable, false );
-	setUse( 2, 0, Map::et_unstable, false );
-	setUse( 2, 1, Map::et_unstable, false );
-	setUse( 1, 2, Map::et_unstable, false );
-}
-
-
 void JFET::add_initial_dc()
 {
 	V_GS_prev = 0.0;
