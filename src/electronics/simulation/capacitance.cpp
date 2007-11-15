@@ -44,19 +44,6 @@ void Capacitance::updateCurrents()
 	m_cnodeI[1] = -m_cnodeI[0];
 }
 
-
-void Capacitance::add_map()
-{
-	if (!b_status)
-		return;
-	
-	setUse( 0, 0, Map::et_unstable, false );
-	setUse( 1, 1, Map::et_unstable, false );
-	setUse( 0, 1, Map::et_unstable, false );
-	setUse( 1, 0, Map::et_unstable, false );
-}
-
-
 void Capacitance::time_step()
 {
 	if (!b_status) return;
