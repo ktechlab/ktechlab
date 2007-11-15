@@ -32,26 +32,17 @@ void CurrentSignal::setCurrent( double i )
 	addCurrents();
 }
 
-
-void CurrentSignal::add_map()
-{
-	// We don't need a map for current signal :-)
-}
-
-
 void CurrentSignal::add_initial_dc()
 {
 	m_oldCurrent = 0.0;
 	// time_step() will handle everything for us now :)
 }
 
-
 void CurrentSignal::updateCurrents()
 {
 	m_cnodeI[1] = m_newCurrent;
 	m_cnodeI[0] = -m_newCurrent;
 }
-
 
 void CurrentSignal::time_step()
 {

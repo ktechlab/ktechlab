@@ -28,8 +28,7 @@ public:
 	void setCurrent( double current );
 	double current() { return m_current; }
 	virtual void time_step();
-	virtual void add_map();
-	
+
 protected:
 	virtual void updateCurrents();
 	virtual void add_initial_dc();
