@@ -94,7 +94,7 @@ Cell::Cell()
 	CIpenalty = 0;
 	numCon = 0;
 	Cpenalty = 0;
-	bestScore = (int)1e9; // Nice large value
+	bestScore = 0xffff; // Nice large value
 }
 
 
@@ -102,7 +102,7 @@ void Cell::reset()
 {
 	addedToLabels = false;
 	permanent = false;
-	bestScore = (int)1e9; // Nice large value
+	bestScore = 0xffff; // Nice large value
 }
 //END class Cell
 
