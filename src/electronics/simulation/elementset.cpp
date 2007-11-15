@@ -100,9 +100,8 @@ void ElementSet::addElement( Element *e )
 
 void ElementSet::createMatrixMap()
 {
-	p_A->createMap();
-	
-	
+// mapping nolonger done, overly ambitious optimization... 
+
 	// And do our logic as well...
 	
 	m_clogic = 0;
@@ -193,7 +192,6 @@ bool ElementSet::doLinear( bool performLU )
 	return true;
 }
 
-
 void ElementSet::updateInfo()
 {
 	for ( uint i=0; i<m_cn; i++ )
@@ -225,7 +223,6 @@ void ElementSet::updateInfo()
 	}
 }
 
-
 void ElementSet::displayEquations()
 {
 	std::cout.setf(std::ios_base::fixed);
@@ -249,5 +246,4 @@ void ElementSet::displayEquations()
 	std::cout << "A_LU:"<<std::endl;
 	p_A->displayLU();
 }
-
 
