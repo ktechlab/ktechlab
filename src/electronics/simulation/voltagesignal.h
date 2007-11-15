@@ -28,8 +28,7 @@ public:
 	void setVoltage( const double voltage );
 	double voltage() { return m_voltage; }
 	virtual void time_step();
-	virtual void add_map();
-	
+
 protected:
 	virtual void updateCurrents();
 	virtual void add_initial_dc();
