@@ -214,19 +214,18 @@ void DPArrow::drawShape( QPainter & p )
 	if ( dx == 0. && dy == 0. )
 		return;
 	
-	double pi = 3.14159265358979323846264;
-	double arrow_angle = ( dx == 0 ? (dy>0?(pi/2.):(-pi/2.)) : std::atan(dy/dx) );
+	double arrow_angle = ( dx == 0 ? (dy>0?(M_PI_2):(-M_PI_2)) : std::atan(dy/dx) );
 	if ( dx < 0 )
-		arrow_angle += pi;
+		arrow_angle += M_PI;
 	
-	double head_angle = pi * m_headAngle / 180.0;
+	double head_angle = M_PI * m_headAngle / 180.0;
 	double head_length = 10.0;
 	
 	// Position of arrowhead
-	double x3 = x2 + head_length*std::cos( pi + arrow_angle - head_angle );
-	double y3 = y2 + head_length*std::sin( pi + arrow_angle - head_angle );
-	double x4 = x2 + head_length*std::cos( pi + arrow_angle + head_angle );
-	double y4 = y2 + head_length*std::sin( pi + arrow_angle + head_angle );
+	double x3 = x2 + head_length*std::cos( M_PI + arrow_angle - head_angle );
+	double y3 = y2 + head_length*std::sin( M_PI + arrow_angle - head_angle );
+	double x4 = x2 + head_length*std::cos( M_PI + arrow_angle + head_angle );
+	double y4 = y2 + head_length*std::sin( M_PI + arrow_angle + head_angle );
 	
 	// Draw arrowhead
 	QPen pen = p.pen();
