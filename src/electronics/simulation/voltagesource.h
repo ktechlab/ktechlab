@@ -25,8 +25,7 @@ public:
 	
 	virtual Type type() const { return Element_VoltageSource; }
 	void setVoltage( const double v );
-	virtual void add_map();
-	
+
 protected:
 	virtual void updateCurrents();
 	virtual void add_initial_dc();
