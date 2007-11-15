@@ -262,16 +262,6 @@ void LogicOut::configChanged()
 	check();
 }
 
-
-void LogicOut::add_map()
-{
-	if (!b_status)
-		return;
-	
-	setUse( 0, 0, Map::et_variable, false );
-}
-
-
 void LogicOut::add_initial_dc()
 {
 	if (!b_status)

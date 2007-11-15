@@ -122,7 +122,6 @@ class LogicOut : public LogicIn
 	
 		virtual void setLogic( LogicConfig config );
 		virtual void setElementSet( ElementSet *c );
-		virtual void add_map();
 		virtual Type type() const { return Element_LogicOut; }
 	
 		/**
