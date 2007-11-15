@@ -83,12 +83,10 @@ void MagnitudeComparator::inStateChanged()
 	
 	if ( m_cLogic[2]->isHigh() )
 		m_output[2]->setHigh(true);
-	else if ( m_cLogic[0]->isHigh() )
+	else if ( m_cLogic[0]->isHigh() ) {
 		if ( !m_cLogic[1]->isHigh() )
 			m_output[0]->setHigh(true);
-	else
-		;
-	else if ( m_cLogic[1]->isHigh() )
+	} else if ( m_cLogic[1]->isHigh() )
 		m_output[1]->setHigh(true);
 	else {
 		m_output[0]->setHigh(true);
