@@ -97,7 +97,7 @@ class ItemDocument : public Document
 		 * (such as PIC/START) have restrictions, and can only have one instance of
 		 * themselves on the canvas, and adds the operation to the undo list
 		 */
-		virtual Item* addItem( const QString &id, const QPoint &p, bool newItem ) = 0l;
+		virtual Item* addItem( const QString &id, const QPoint &p, bool newItem ) = 0;
 		/**
 		 * @returns A pointer to the canvas
 		 */
