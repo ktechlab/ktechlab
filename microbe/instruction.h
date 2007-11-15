@@ -116,7 +116,7 @@ class Register
 			CMCON,
 
 //modification end
-			none, // used in default constructor
+			none // used in default constructor
 //TODO
 //SSPBUF:SSPCON:CCPR1L:CCPR1H:CCP1CON:CCPR2L:CCPR2H:CCP2CON:--FOR BANK0 
 //PIE2:PCON:SSPCON2:PR2:SSPADD:SSPSTAT:SPBRG:--------FOR BANK1
@@ -126,7 +126,7 @@ class Register
 		enum Banks
 		{
 			Bank0 = 1 << 0,
-			Bank1 = 1 << 1,
+			Bank1 = 1 << 1
 		};
 		
 		/**
@@ -200,7 +200,7 @@ class RegisterBit
 			NOT_TO		= 4, // Time-out
 			RP0			= 5, // Bank Select
 			RP1			= 6,
-			IRP			= 7,
+			IRP			= 7
 		};
 		
 		enum INTCON_bits
@@ -212,7 +212,7 @@ class RegisterBit
 			INTE		= 4,
 			T0IE		= 5,
 			EEIE		= 6,
-			GIE			= 7,
+			GIE		= 7
 		};
 		
 		enum OPTION_bits
@@ -224,7 +224,7 @@ class RegisterBit
 			T0SE		= 4,
 			T0CS		= 5,
 			INTEDG		= 6,
-			NOT_RBPU	= 7,
+			NOT_RBPU	= 7
 		};
 		
 		enum EECON1_bits
@@ -234,7 +234,7 @@ class RegisterBit
 			WREN		= 2,
 			WRERR		= 3,
 			EEIF		= 4,
-			EEPGD           = 7,
+			EEPGD           = 7
 		};
 		/**
 		 * Constructs a bit of the given register type at the given position.
@@ -534,7 +534,7 @@ class Code
 			Middle				= 2, ///< Used for main code
 			Subroutine			= 3, ///< Used for subroutines
 			
-			PositionCount		= 4, ///< This must remain the last item and be the number of valid positions
+			PositionCount		= 4 ///< This must remain the last item and be the number of valid positions
 		};
 		
 		CodeIterator begin();
@@ -689,7 +689,7 @@ class Instruction
 		{
 			Assembly,
 			Raw, // User-inserted assembly
-			Comment,
+			Comment
 		};
 		/**
 		 * Used in optimization. Note that this follows roughly, but not
@@ -722,7 +722,7 @@ class Instruction
 			/**
 			 * The Instruction is not of Assembly InstructionType.
 			 */
-			None,
+			None
 		};
 
 		Instruction();
