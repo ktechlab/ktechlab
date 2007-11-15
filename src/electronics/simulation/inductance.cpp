@@ -55,20 +55,6 @@ void Inductance::updateCurrents()
 	m_cnodeI[1] = -m_cnodeI[0];
 }
 
-
-void Inductance::add_map()
-{
-	if (!b_status)
-		return;
-	
-	setUse_c( 0, 0, Map::et_constant, true );
-	setUse_b( 0, 0, Map::et_constant, true );
-	setUse_c( 0, 1, Map::et_constant, true );
-	setUse_b( 1, 0, Map::et_constant, true );
-	setUse_d( 0, 0, Map::et_unstable, false );
-}
-
-
 void Inductance::time_step()
 {
 	if (!b_status) return;
