@@ -41,21 +41,6 @@ void VCVS::setGain( const double g )
 	add_initial_dc();
 }
 
-
-void VCVS::add_map()
-{
-	if (!b_status)
-		return;
-	
-	setUse_c( 0, 0, Map::et_stable, false );
-	setUse_c( 0, 1, Map::et_stable, false );
-	setUse_b( 2, 0, Map::et_constant, true );
-	setUse_c( 0, 2, Map::et_constant, true );
-	setUse_b( 3, 0, Map::et_constant, true );
-	setUse_c( 0, 3, Map::et_constant, true );
-}
-
-
 void VCVS::add_initial_dc()
 {
 	if (!b_status)
