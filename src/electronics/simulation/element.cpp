@@ -177,34 +177,7 @@ double Element::cnodeVoltage( const int node )
 	return (*p_cnode)[node].v;
 }
 
-
-void Element::setUse( uint i, uint j, Map::e_type type, bool big )
-{
-	if ( !p_cnode[i]->isGround && !p_cnode[j]->isGround )
-		p_A->setUse( p_cnode[i]->n(), p_cnode[j]->n(), type, big );
-}
-
-
-void Element::setUse_b( uint i, uint j, Map::e_type type, bool big )
-{
-	if ( !p_cnode[i]->isGround )
-		p_A->setUse_b( p_cnode[i]->n(), p_cbranch[j]->n(), type, big );
-}
-
-
-void Element::setUse_c( uint i, uint j, Map::e_type type, bool big )
-{
-	if ( !p_cnode[j]->isGround )
-		p_A->setUse_c( p_cbranch[i]->n(), p_cnode[j]->n(), type, big );
-}
-
-
-void Element::setUse_d( uint i, uint j, Map::e_type type, bool big )
-{
-	p_A->setUse_d( p_cbranch[i]->n(), p_cbranch[j]->n(), type, big );
-}
 //END class Element
-
 
 CNode::CNode()
 {

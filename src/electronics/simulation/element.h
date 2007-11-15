@@ -154,10 +154,7 @@ public:
 	 * Returns the type of element
 	 */
 	virtual Type type() const = 0;
-	/**
-	 * Call this function to tell the element to add its map to the matrix in use
-	 */
-	virtual void add_map() {};
+
 	/**
 	 * Does the required MNA stuff. This should be called from ElementSet when necessary.
 	 */
@@ -186,12 +183,7 @@ protected:
 	
 	inline double & b_i( uint i );
 	inline double & b_v( uint i );
-	
-	void setUse( uint i, uint j, Map::e_type type, bool big );
-	void setUse_b( uint i, uint j, Map::e_type type, bool big );
-	void setUse_c( uint i, uint j, Map::e_type type, bool big );
-	void setUse_d( uint i, uint j, Map::e_type type, bool big );
-	
+
 	ElementSet *p_eSet;
 	Matrix *p_A;
 	Vector *p_b;
