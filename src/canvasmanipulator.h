@@ -92,9 +92,10 @@ public:
 		it_resize_handle =	1 << 6,
 		it_drawpart =		1 << 7
 	};
+
 	enum ItemStateInfo
 	{
-		isi_isMovable = 0x2,
+		isi_isMovable = 0x2
 	};
 	CMManager( ItemDocument *itemDocument );
 	~CMManager();

@@ -95,7 +95,7 @@ class ContextHelp : public ContextHelpWidget
 			HelpLink, ///< Context help item (that exists)
 			NewHelpLink, ///< Context help item that doesn't yet exist
 			ExampleLink, ///< Example circuit or flowcode
-			ExternalLink,  ///< External website, etc
+			ExternalLink  ///< External website, etc
 		};
 		/**
 		 * Looks at url and tries to determine the link type. Will return
