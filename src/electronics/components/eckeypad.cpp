@@ -131,7 +131,7 @@ void ECKeyPad::initPins( unsigned numCols )
 				addButton( buttonID(i,j), QRect( 0, 0, 20, 20 ), text[i][j] );
 		}
 		
-		ECNode * cols[numCols];
+		ECNode * cols[9];
 	
 		for ( unsigned j = m_numCols; j < numCols; j++ )
 			cols[j] = createPin( 0, 64, 270, "col_" + QString::number(j) );

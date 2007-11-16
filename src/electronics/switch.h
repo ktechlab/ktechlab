@@ -31,7 +31,7 @@ class Switch : public QObject
 		enum State
 		{
 			Open,
-			Closed,
+			Closed
 		};
 		
 		Switch( Component * parent, Pin * p1, Pin * p2, State state );
