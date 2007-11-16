@@ -72,7 +72,7 @@ void Unary::generateMicrobe( FlowCode *code )
 	else if ( op == "Rotate Right" )	code->addCode( "rotateright "+var );
 	else if ( op == "Increment" )		code->addCode( "increment "+var );
 	else if ( op == "Decrement" )		code->addCode( "decrement "+var );
-	else; // Hmm...
+//	else; // Hmm...
 	code->addCodeBranch( outputPart("stdoutput") );
 	
 #if 0

@@ -11,12 +11,17 @@
 #ifndef OSCILLOSCOPE_H
 #define OSCILLOSCOPE_H
 
-//specifying this long path allows the compiler to see this header even when
-//using an alternate build root (such as from kdevelop)
-#include "src/gui/oscilloscopewidget.h"
+#ifndef PROBE_H
+#ifndef KTECHLAB_H
+#ifndef OSCILLOSCOPEDATA_H
+#include "oscilloscopewidget.h"
+#endif
+#endif
+#endif
 
 #include "simulator.h"
 #include <qmap.h>
+#include <stdint.h>
 
 class FloatingProbeData;
 class LogicProbe;
@@ -32,10 +37,6 @@ namespace KateMDI { class ToolView; }
 typedef QMap< int, ProbeData * > ProbeDataMap;
 typedef QMap< int, LogicProbeData * > LogicProbeDataMap;
 typedef QMap< int, FloatingProbeData * > FloatingProbeDataMap;
-
-typedef unsigned long long ullong;
-typedef long long llong;
-
 
 #if 0
 const double MAX_BITS_PER_S = 100000;
@@ -58,11 +59,14 @@ my inability to sort it out neatly), files other than those in /src/gui can't
 see header files such as "oscilloscopewidget.h", so we have to provide some
 interface functions for accessing the functionality in this class
 */
-ProbeData * registerProbe( Probe * probe );
-void unregisterProbe( int id );
-void addOscilloscopeAsToolView( KTechlab *ktechlab );
+ProbeData * registerProbe( Probe * probe);
+void unregisterProbe( int id);
+void addOscilloscopeAsToolView( KTechlab *ktechlab);
 
 
+#ifndef PROBE_H
+#ifndef KTECHLAB_H
+#ifndef OSCILLOSCOPEDATA_H
 /**
 @author David Saxton
 */
@@ -70,7 +74,7 @@ class Oscilloscope : public OscilloscopeWidget
 {
 	Q_OBJECT
 	public:
-		static Oscilloscope * self( KateMDI::ToolView * parent = 0l );
+		static Oscilloscope * self( KateMDI::ToolView * parent = 0);
 		static QString toolViewIdentifier() { return "Oscilloscope"; }
 		virtual ~Oscilloscope();
 		
@@ -78,12 +82,12 @@ class Oscilloscope : public OscilloscopeWidget
 	 	* Register a probe (that outputs boolean data) with the oscilloscope.
 	 	* Returns a unique id that the probe can use to add data points
 		 */
-		ProbeData * registerProbe( Probe * probe );
-		void unregisterProbe( int id );
+		ProbeData * registerProbe( Probe * probe);
+		void unregisterProbe( int id);
 		/**
 		 * Returns the Simulator time since recording started.
 		 */
-		ullong time() const;
+		uint64_t time() const;
 		/**
 		 * Returns how much of an increment in value of the oscilloscope slider
 		 * is equivalent to one second.
@@ -103,16 +107,16 @@ class Oscilloscope : public OscilloscopeWidget
 		 * Sets the zoom level (and in the process, checks that it is within the
 		 * bounds allowed).
 		 */
-		void setZoomLevel( double zoomLevel );
+		void setZoomLevel( double zoomLevel);
 		/**
 		 * Returns the Simulator time as given by the current scrollbar
 		 * position.
 		 */
-		llong scrollTime() const;
+		int64_t scrollTime() const;
 		/**
 		 * @returns pointer to probe with given id, or NULL if no such probe exists
 		 */
-		ProbeData * probeData( int id ) const;
+		ProbeData * probeData( int id) const;
 		/**
 		 * @returns the total number of probes
 		 */
@@ -120,17 +124,17 @@ class Oscilloscope : public OscilloscopeWidget
 		/**
 		 * @returns number of the probe with the given id, starting from 0, or -1 if no such probe
 		 */
-		int probeNumber( int id ) const;
+		int probeNumber( int id) const;
 		
 	signals:
 		/**
 		 * Emitted when a probe is registered
 		 */
-		void probeRegistered( int id, ProbeData * probe );
+		void probeRegistered( int id, ProbeData * probe);
 		/**
 		 * Emitted when a probe is unregistered
 		 */
-		void probeUnregistered( int id );
+		void probeUnregistered( int id);
 		
 	public slots:
 		/**
@@ -140,11 +144,11 @@ class Oscilloscope : public OscilloscopeWidget
 		/**
 		 * Called when the zoom slider value was changed.
 		 */
-		void slotZoomSliderChanged( int value );
+		void slotZoomSliderChanged( int value);
 		/**
 		 * Called when the horizontal scrollbar was scrolled by the user
 		 */
-		void slotSliderValueChanged( int value );
+		void slotSliderValueChanged( int value);
 		/**
 		 * Pause the data capture (e.g. user clicked on pause button)
 		 */
@@ -153,7 +157,6 @@ class Oscilloscope : public OscilloscopeWidget
 	protected:
 		void getOldestProbe();
 		
-// 		bool b_isPaused;
 		int m_nextId;
 		ProbeData * m_oldestProbe;
 		int m_oldestId;
@@ -169,16 +172,17 @@ class Oscilloscope : public OscilloscopeWidget
 		void updateScrollbars();
 		
 	private:
-		Oscilloscope( KateMDI::ToolView * parent );
+		Oscilloscope( KateMDI::ToolView * parent);
 		
 		static Oscilloscope * m_pSelf;
 		double m_zoomLevel;
 		
-		friend class ScopeViewBase;
+		friend class OscilloscopeView;
 		friend class ProbePositioner;
-
-	
 };
 
+#endif // OSCILLOSCOPEDATA_H
+#endif // KTECHLAB_H
+#endif // PROBE_H
 
 #endif // OSCILLOSCOPE_H

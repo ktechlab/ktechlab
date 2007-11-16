@@ -13,20 +13,22 @@
 
 #include <qcolor.h>
 #include <qobject.h>
+#include <stdint.h>
+#include <vector>
 
-typedef long long llong;
-typedef unsigned long long ullong;
-typedef unsigned int uint;
+using namespace std;
 
 #define DATA_CHUNK_SIZE (8192/sizeof(T))
-#define DATA_CHUNK_ARRAY_SIZE ((8192-sizeof(uint))/sizeof(DataChunk<T>*))
+
+/*
+#define DATA_CHUNK_ARRAY_SIZE ((8192-sizeof(uint32_t))/sizeof(DataChunk<T>*))
 
 // Allow a minimum of 64 megabytes of stored data (67108864 bytes)
 /// \todo The maximum allowed amount of stored data should be configurable or
 /// more intelligent (e.g. taking into account the number of probes or the
 /// amount of physical memory on the system).
 #define DCARRAY_ARRAY_SIZE ((67108864/(8192*DATA_CHUNK_ARRAY_SIZE))+1)
-
+*/
 
 /**
 For use in LogicProbe: Every time the input changes state, the new input state
@@ -35,182 +37,21 @@ is recorded in value, along with the simulator time that it occurs at.
 class LogicDataPoint
 {
 	public:
-		LogicDataPoint()
-		{
-			value = 0;
-			time = 0;
-		}
-		LogicDataPoint( bool v, ullong t )
-		{
-			value = v;
-			time = t;
-		}
-		bool	value	:  1;
-		ullong	time	: 63;
+		LogicDataPoint() : value(0), time(0) { }
+		LogicDataPoint( bool v, uint64_t t) : value(v), time(t) {}
+
+		bool value	:  1;
+		uint64_t time	: 63;
 };
-
-
-template <typename T>
-class DataChunk
-{
-	public:
-		DataChunk() { memset( data, 0, DATA_CHUNK_SIZE*sizeof(T) ); }
-		
-		T data[ DATA_CHUNK_SIZE ];
-		
-	private:
-		// We don't want to accidently copy a shedload of data
-		DataChunk( const DataChunk & );
-};
-
-typedef DataChunk<LogicDataPoint> LogicChunk;
-typedef DataChunk<float> FloatingChunk;
-
-
-template <typename T>
-class DCArray
-{
-	public:
-		DCArray()
-		{
-			memset( m_data, 0, DATA_CHUNK_ARRAY_SIZE*sizeof(DataChunk<T> *) );
-			m_allocatedUpTo = 0;
-		}
-		~DCArray()
-		{
-			for ( uint i=0; i<m_allocatedUpTo; ++i)
-				delete m_data[i];
-		}
-		
-		inline DataChunk<T> * chunk( uint i )
-		{
-			if ( i >= m_allocatedUpTo )
-				allocateUpTo(i+1024);
-			
-			if ( i >= DATA_CHUNK_ARRAY_SIZE )
-				return 0l;
-			
-			return m_data[i];
-		}
-		uint allocatedUpTo() const { return m_allocatedUpTo; }
-		
-		
-	protected:
-		void allocateUpTo( uint upTo )
-		{
-			if ( upTo > DATA_CHUNK_ARRAY_SIZE )
-				upTo = DATA_CHUNK_ARRAY_SIZE;
-	
-			for ( uint i=m_allocatedUpTo; i<upTo; ++i )
-				m_data[i] = new DataChunk<T>;
-			m_allocatedUpTo = upTo;
-		}
-		
-		DataChunk<T> * m_data[DATA_CHUNK_ARRAY_SIZE];
-		uint m_allocatedUpTo;
-		
-	private:
-		// We don't want to accidently copy a shedload of data
-		DCArray( const DCArray & );
-};
-
-
-template <typename T>
-class StoredData
-{
-	public:
-		StoredData()
-		{
-			memset( m_data, 0, DCARRAY_ARRAY_SIZE*sizeof(DCArray<T> *) );
-			m_allocatedUpTo = 0;
-		}
-		~StoredData()
-		{
-			reset();
-		}
-		
-		inline T & operator[]( ullong i )
-		{
-			return dataAt(i);
-		}
-		inline T & dataAt( ullong i, ullong * insertPos = 0 )
-		{
-			ullong c = i % DATA_CHUNK_SIZE;
-			ullong b = ullong((i-c)/DATA_CHUNK_SIZE) % DATA_CHUNK_ARRAY_SIZE;
-			ullong a = ullong((ullong((i-c)/DATA_CHUNK_SIZE)-b)/DATA_CHUNK_ARRAY_SIZE);
-			
-			if ( a >= m_allocatedUpTo )
-				allocateUpTo(a+1);
-			
-			if ( a >= DCARRAY_ARRAY_SIZE )
-			{
-				a = DCARRAY_ARRAY_SIZE - 1;
-				if ( insertPos )
-					*insertPos = toPos( a, b, c );
-			}
-			
-			return m_data[a]->chunk(b)->data[c];
-		}
-		
-		ullong toPos( ullong a, ullong b, ullong c ) const
-		{
-			return (((a*DATA_CHUNK_ARRAY_SIZE)+b)*DATA_CHUNK_SIZE)+c;
-		}
-		
-		uint allocatedUpTo() const { return m_allocatedUpTo; }
-		
-		DCArray<T> * dcArray( unsigned pos ) const
-		{
-			return (pos < m_allocatedUpTo) ? m_data[pos] : 0l;
-		}
-		
-		/**
-		 * Initialises all data to 0
-		 */
-		void reset()
-		{
-			for ( uint i=0; i<m_allocatedUpTo; ++i)
-				delete m_data[i];
-			m_allocatedUpTo = 0;
-		}
-		
-	protected:
-		void allocateUpTo( uint upTo )
-		{
-			if ( upTo >= DCARRAY_ARRAY_SIZE )
-			{
-				// Shuffle all data (getting rid of the oldest data)
-				delete m_data[0];
-				for ( unsigned i = 1; i < m_allocatedUpTo; ++i )
-					m_data[i-1] = m_data[i];
-				
-				upTo = DCARRAY_ARRAY_SIZE;
-				m_allocatedUpTo--;
-			}
-	
-			for ( unsigned i = m_allocatedUpTo; i < upTo; ++i )
-				m_data[i] = new DCArray<T>;
-			
-			m_allocatedUpTo = upTo;
-		}
-		DCArray<T> * m_data[DCARRAY_ARRAY_SIZE];
-		
-		uint m_allocatedUpTo;
-		
-	private:
-		// We don't want to accidently copy a shedload of data
-		StoredData( const StoredData<T> & );
-};
-
 
 /**
 @author David Saxton
  */
 class ProbeData : public QObject
 {
-	Q_OBJECT;
+	Q_OBJECT
 	public:
-		ProbeData( int id );
+		ProbeData( int id);
 		~ProbeData();
 		
 		/**
@@ -222,7 +63,7 @@ class ProbeData : public QObject
 		 * oscilloscope view that the probe output is drawn. If the proportion
 		 * is out of range ( <0, or >1), then the drawPosition is set to 0/1
 		 */
-		void setDrawPosition( float drawPosition ) { m_drawPosition = drawPosition; }
+		void setDrawPosition( float drawPosition) { m_drawPosition = drawPosition; }
 		/**
 		 * Returns the draw position. Default is 0.5.
 		 * @see setDrawPosition
@@ -232,7 +73,7 @@ class ProbeData : public QObject
 		 * Set the colour that is used to display the probe in the oscilloscope.
 		 * Default is black.
 		 */
-		void setColor( QColor color );
+		void setColor( QColor color);
 		/**
 		 * @returns the colour that is used to display the probe in the oscilloscope
 		 */
@@ -240,12 +81,12 @@ class ProbeData : public QObject
 // 		/**
 // 		 * Will not record any data when paused
 // 		 */
-// 		void setPaused( bool isPaused ) { b_isPaused = isPaused; }
+// 		void setPaused( bool isPaused) { b_isPaused = isPaused; }
 		/**
 		 * Returns the time (in Simulator time) that this probe was created at,
 		 * or last reset.
 		 */
-		ullong resetTime() const { return m_resetTime; }
+		uint64_t resetTime() const { return m_resetTime; }
 		/**
 		 * Erases all recorded data, and sets m_resetTime to the current
 		 * simulator time.
@@ -258,23 +99,19 @@ class ProbeData : public QObject
 		 * to the given time. Will return 0 if no DataPoints have been recorded
 		 * yet.
 		 */
-		virtual ullong findPos( llong time ) const = 0;
-		
-		ullong insertPos() const { return m_insertPos; }
-		
+		virtual uint64_t findPos( uint64_t time) const = 0;
+
 	signals:
 		/**
 		 * Emitted when an attribute that affects how the probe is drawn in the
 		 * oscilloscope is changed.
 		 */
 		void displayAttributeChanged();
-		
+
 	protected:
 		const int m_id;
 		float m_drawPosition;
-		ullong m_insertPos;
-// 		bool b_isPaused;
-		ullong m_resetTime;
+		uint64_t m_resetTime;
 		QColor m_color;
 };
 
@@ -285,27 +122,25 @@ class ProbeData : public QObject
 class LogicProbeData : public ProbeData
 {
 	public:
-		LogicProbeData( int id );
-		
+		LogicProbeData( int id);
+		~LogicProbeData() { delete m_data; }
+
 		/**
 		 * Appends the data point to the set of data.
 		 */
-		void addDataPoint( LogicDataPoint data )
-		{
-			ullong next = m_insertPos++;
-			m_data.dataAt( next, & m_insertPos ) = data;
+		void addDataPoint( LogicDataPoint data) {
+			m_data->push_back(data);
 		}
-		
-		virtual void eraseData();
-		virtual ullong findPos( llong time ) const;
-		
-	protected:
-		StoredData<LogicDataPoint> m_data;
-		friend class ScopeViewBase;
-		friend class OscilloscopeView;
-		friend class ScopeScreenView;
-};
 
+		virtual void eraseData();
+		virtual uint64_t findPos( uint64_t time) const;
+
+		bool isEmpty() const { return m_data->size() == 0; }
+
+	protected:
+		vector<LogicDataPoint> *m_data;
+		friend class OscilloscopeView;
+};
 
 /**
 @author David Saxton
@@ -315,20 +150,20 @@ class FloatingProbeData : public ProbeData
 	public:
 		enum Scaling { Linear, Logarithmic };
 		
-		FloatingProbeData( int id );
+		FloatingProbeData( int id);
 		
 		/**
 		 * Appends the data point to the set of data.
 		 */
-		void addDataPoint( float data ) { m_data[m_insertPos++] = data; }
+		void addDataPoint( float data) { m_data->push_back(data); }
 		/**
 		 * Converts the insert position to a Simulator time.
 		 */
-		ullong toTime( ullong at ) const;
+		uint64_t toTime( uint64_t at) const;
 		/**
 		 * Sets the scaling to use in the oscilloscope display.
 		 */
-		void setScaling( Scaling scaling );
+		void setScaling( Scaling scaling);
 		/**
 		 * @return the scaling used for the oscilloscope display.
 		 */
@@ -336,7 +171,7 @@ class FloatingProbeData : public ProbeData
 		/**
 		 * Sets the value to use as the upper absolute value in the display.
 		 */
-		void setUpperAbsValue( double upperAbsValue );
+		void setUpperAbsValue( double upperAbsValue);
 		/**
 		 * @return the upper absolute value to use in the display.
 		 */
@@ -345,7 +180,7 @@ class FloatingProbeData : public ProbeData
 		 * Sets the value to use as the lower absolute value in the display
 		 * (this is only used with logarithmic scaling).
 		 */
-		void setLowerAbsValue( double lowerAbsValue );
+		void setLowerAbsValue( double lowerAbsValue);
 		/**
 		 * @return the lower absolute value to use in the display (this is
 		 * only used with logarithmic scaling).
@@ -353,17 +188,16 @@ class FloatingProbeData : public ProbeData
 		double lowerAbsValue() const { return m_lowerAbsValue; }
 		
 		virtual void eraseData();
-		virtual ullong findPos( llong time ) const;
-		
+		virtual uint64_t findPos( uint64_t time) const;
+
+		bool isEmpty() const { return m_data->size() == 0; }
+
 	protected:
 		Scaling m_scaling;
 		double m_upperAbsValue;
 		double m_lowerAbsValue;
-		StoredData<float> m_data;
+		vector<float> *m_data;
 		friend class OscilloscopeView;
-		friend class ScopeScreenView;
-		friend class ScopeViewBase;
 };
-	
 
 #endif

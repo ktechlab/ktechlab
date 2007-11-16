@@ -274,3 +274,4 @@ void ScopeScreenView::drawProbe( QPainter & p, FloatingProbeData * probe )
 }
 
 #include "scopescreenview.moc"
+

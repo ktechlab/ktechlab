@@ -43,6 +43,9 @@ typedef QValueList<LogicIn*> LogicInList;
 
 typedef void(Component::*VoidCallbackPtr)();
 
+
+/* TODO: replace with STD::list */
+
 template <typename T>
 class LinkedList
 {
@@ -227,7 +230,7 @@ class Simulator : public QObject
 		
 	private:
 		Simulator();
-		long m_llNumber;
+		long m_llNumber; // simulation clock. 
 		long long m_stepNumber;
 		unsigned char m_currentChain;
 };

@@ -24,6 +24,7 @@ struct Instruction
 	QString description;
 	QString opcode;
 };
+
 typedef QValueList<Instruction> InstructionList;
 
 /**
