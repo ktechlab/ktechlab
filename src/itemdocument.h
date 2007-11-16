@@ -77,10 +77,10 @@ class ItemDocument : public Document
 		{
 			public: enum type
 			{
-				ResizeCanvasToItems				= 1 << 0,
-				UpdateNodeGroups				= 1 << 1,
+				ResizeCanvasToItems		= 1 << 0,
+				UpdateNodeGroups		= 1 << 1,
 				RerouteInvalidatedConnectors	= 1 << 2,
-				UpdateZOrdering					= 1 << 3,
+				UpdateZOrdering			= 1 << 3
 			};
 		};
 	
