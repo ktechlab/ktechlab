@@ -30,7 +30,7 @@ class ColorCombo : public QComboBox
 		{
 			QtStandard = 0,
 			LED = 1,
-			NumberOfSchemes = 2, ///< for internal usage; this should be one less than the number of items in the enum
+			NumberOfSchemes = 2 ///< for internal usage; this should be one less than the number of items in the enum
 		};
 		
   	 	/**
