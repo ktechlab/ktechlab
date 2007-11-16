@@ -53,8 +53,8 @@ void ScopeViewBase::paintEvent( QPaintEvent * event )
 		//let the subclass draw the background (grids, etc.)
 		drawBackground(p);
 		
-		drawProbeMap(p, Oscilloscope::self()->m_logicProbeDataMap);	
-		drawProbeMap(p, Oscilloscope::self()->m_floatingProbeDataMap);	
+//		drawProbeMap(p, Oscilloscope::self()->m_logicProbeDataMap);	
+//		drawProbeMap(p, Oscilloscope::self()->m_floatingProbeDataMap);	
 		
 		p.setPen(Qt::black);
 		p.drawRect( frameRect() );
@@ -90,7 +90,7 @@ void ScopeViewBase::drawProbeMap( QPainter & p, QMap< int, T * > & map )
 	{
 		T * probe = it.data();
 		
-		if ( probe->m_data.allocatedUpTo() == 0 )
+		if ( probe->isEmpty() )
 			return;
 		
 		drawMidLine( p, probe );

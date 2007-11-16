@@ -46,7 +46,6 @@ bool bUseGUI = true;
 // extern "C" void initialize_gpsim();
 // void initialize_gpsim(void);
 extern void initialize_commands();
-void initialize_ConsoleUI();
 extern void initialize_readline();
 extern void gui_main(void);
 extern void cli_main();
@@ -77,9 +76,6 @@ GpsimProcessor::GpsimProcessor( QString symbolFile, QObject *parent )
 {
 	if (!bDoneGpsimInit)
 	{
-#ifndef GPSIM_0_21_4
-		initialize_ConsoleUI();
-#endif
 		initialize_gpsim_core();
 		initialization_is_complete();
 		

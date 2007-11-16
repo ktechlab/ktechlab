@@ -69,7 +69,7 @@ void PropertyEditorItem::paintCell(QPainter *p, const QColorGroup & cg, int colu
 	
 	int margin = listView()->itemMargin();
 	
-	QColor bgColor = backgroundColor();
+	QColor bgColor = backgroundColor(0);
 	
 	if(column == 1)
 	{
