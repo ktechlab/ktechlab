@@ -67,10 +67,10 @@ bool Gplib::isWarning( const QString &message ) const
 
 MessageInfo Gplib::extractMessageInfo( const QString &text )
 {
-#if 0
+
 	if ( text.length()<5 || !text.startsWith("/") )
 		return MessageInfo();
-	
+#if 0	
 	const int index = text.find( ".asm", 0, false )+4;
 	if ( index == -1+4 )
 		return MessageInfo();

@@ -44,6 +44,7 @@ public:
 	QString portName; // Name of port, eg 'PORTA'
 	int portPosition; // Position in port
 };
+
 typedef QMap<int, PicPin> PicPinMap;
 
 /**

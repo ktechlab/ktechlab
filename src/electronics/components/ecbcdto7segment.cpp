@@ -17,7 +17,7 @@
 #include <klocale.h>
 
 // Values for a,b,c,d,e,f,g of common-anode 7 segment display
-bool numbers[16][7] =
+static bool numbers[16][7] =
 	{ { 1, 1, 1, 1, 1, 1, 0 }, // 0
 	  { 0, 1, 1, 0, 0, 0, 0 }, // 1
 	  { 1, 1, 0, 1, 1, 0, 1 }, // 2

@@ -27,11 +27,9 @@ SDCC::SDCC( ProcessChain * processChain )
 	m_failedMessage = i18n("*** Compilation failed ***");
 }
 
-
 SDCC::~SDCC()
 {
 }
-
 
 void SDCC::processInput( ProcessOptions options )
 {
@@ -52,11 +50,11 @@ void SDCC::processInput( ProcessOptions options )
 	//BEGIN Pass custom sdcc options
 #define ARG(text,option) if ( KTLConfig::text() ) *m_languageProcess << ( QString("--%1").arg(option) );
 	// General
-	ARG( sDCC_nostdlib,				"nostdlib" )
-	ARG( sDCC_nostdinc,				"nostdinc" )
+	ARG( sDCC_nostdlib,			"nostdlib" )
+	ARG( sDCC_nostdinc,			"nostdinc" )
 	ARG( sDCC_less_pedantic,		"less-pedantic" )
-	ARG( sDCC_std_c89,				"std-c89" )
-	ARG( sDCC_std_c99,				"std-c99" )
+	ARG( sDCC_std_c89,			"std-c89" )
+	ARG( sDCC_std_c99,			"std-c99" )
 	
 	// Code generation
 	ARG( sDCC_stack_auto,			"stack-auto" )
@@ -68,15 +66,15 @@ void SDCC::processInput( ProcessOptions options )
 	
 	// Optimization
 	ARG( sDCC_nooverlay,			"nooverlay" )
-	ARG( sDCC_nogcse,				"nogcse" )
+	ARG( sDCC_nogcse,			"nogcse" )
 	ARG( sDCC_nolabelopt,			"nolabelopt" )
 	ARG( sDCC_noinvariant,			"noinvariant" )
 	ARG( sDCC_noinduction,			"noinduction" )
-	ARG( sDCC_no_peep,				"no-peep" )
+	ARG( sDCC_no_peep,			"no-peep" )
 	ARG( sDCC_noloopreverse,		"noloopreverse" )
 	ARG( sDCC_opt_code_size,		"opt-code-size" )
 	ARG( sDCC_opt_code_speed,		"opt-code-speed" )
-	ARG( sDCC_peep_asm,				"peep-asm" )
+	ARG( sDCC_peep_asm,			"peep-asm" )
 	ARG( sDCC_nojtbound,			"nojtbound" )
 	
 	// PIC16 Specific
@@ -87,8 +85,8 @@ void SDCC::processInput( ProcessOptions options )
 		ARG( sDCC_pstack_model_large,	"pstack-model=large" )
 		ARG( sDCC_debug_xtra,			"debug-xtra" )
 		ARG( sDCC_denable_peeps,		"denable-peeps" )
-		ARG( sDCC_calltree,				"calltree" )
-		ARG( sDCC_fstack,				"fstack" )
+		ARG( sDCC_calltree,			"calltree" )
+		ARG( sDCC_fstack,			"fstack" )
 		ARG( sDCC_optimize_goto,		"optimize-goto" )
 		ARG( sDCC_optimize_cmp,			"optimize-cmp" )
 		ARG( sDCC_optimize_df,			"optimize-df" )
@@ -138,9 +136,11 @@ void SDCC::processInput( ProcessOptions options )
 
 bool SDCC::isError( const QString &message ) const
 {
+	if ( message.startsWith("Error:") )
+		return true;
+
 	return false;
 }
-
 
 bool SDCC::isStderrOutputFatal( const QString & message ) const
 {
@@ -150,12 +150,12 @@ bool SDCC::isStderrOutputFatal( const QString & message ) const
 	return true;
 }
 
-
 bool SDCC::isWarning( const QString &message ) const
 {
+	if ( message.startsWith("Warning:") )
+		return true;
 	return false;
 }
-
 
 ProcessOptions::ProcessPath::Path SDCC::outputPath( ProcessOptions::ProcessPath::Path inputPath ) const
 {
