@@ -154,7 +154,7 @@ class TextViewEventFilter : public QObject
 			 * A word was not unhovered recentely. There will be a short display
 			 * before going to PoppedUp mode if a word is hovered over.
 			 */
-			Sleeping,
+			Sleeping
 		};
 		
 		/**
