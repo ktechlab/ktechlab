@@ -49,8 +49,8 @@ extern void initialize_commands();
 extern void initialize_readline();
 extern void gui_main(void);
 extern void cli_main();
-void gpsim_version() {};
-void quit_gui() {};
+void gpsim_version() {}
+void quit_gui() {}
 
 
 //BEGIN class GpsimProcessor
