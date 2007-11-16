@@ -58,7 +58,7 @@ class SerialPort : public Port
 			DSR		= 6, // Data set ready
 			RTS		= 7, // Request to send
 			CTS		= 8, // Clear to send
-			RI		= 9, // Ring indicator
+			RI		= 9 // Ring indicator
 		};
 		
 		SerialPort();
@@ -137,7 +137,7 @@ class ParallelPort : public Port
 			PIN14 = 1 << 17,	// Auto Feed
 			PIN16 = 1 << 18,	// Init
 			PIN17 = 1 << 19,	// Select
-			CONTROL_PINS = PIN01 | PIN14 | PIN16 | PIN17,
+			CONTROL_PINS = PIN01 | PIN14 | PIN16 | PIN17
 			
 			
 			// Pins 18 to 25 are ground
@@ -147,7 +147,7 @@ class ParallelPort : public Port
 		{
 			Data	= 0,
 			Status	= 1,
-			Control	= 2,
+			Control	= 2
 		};
 		
 		/**
@@ -156,7 +156,7 @@ class ParallelPort : public Port
 		enum Direction
 		{
 			Input = 0,
-			Output = 1,
+			Output = 1
 		};
 		
 		ParallelPort();
