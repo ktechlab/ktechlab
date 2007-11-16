@@ -130,7 +130,7 @@ protected:
 	ItemDocument * p_view;
 	
 	ICNDocument *p_icnDocument;
-	MechanicsDocument *p_mechanicsDocument;;
+	MechanicsDocument *p_mechanicsDocument;
 	Item *m_activeItem;
 	
 private slots:

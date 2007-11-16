@@ -287,7 +287,7 @@ inline static bool displayBit( unsigned value, unsigned row, unsigned column )
 	assert( row < 7 );
 	assert( column < 5 );
 	return characterMap[value][column] & (1 << row);
-};
+}
 
 
 Item* MatrixDisplayDriver::construct( ItemDocument *itemDocument, bool newItem, const char *id )
