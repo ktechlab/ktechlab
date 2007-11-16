@@ -49,7 +49,7 @@ class AsmFormatter
 		{
 			Equ,
 			Instruction, // could include label
-			Other, // eg comments, __config
+			Other // eg comments, __config
 		};
 	
 		QString tidyAsm( QStringList lines );
