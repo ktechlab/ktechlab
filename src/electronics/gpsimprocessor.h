@@ -275,7 +275,7 @@ class GpsimProcessor : public QObject
 			LiteralOp,
 			BitOp,
 			RegisterOp,
-			UnknownOp,
+			UnknownOp
 		};
 				
 		/**
