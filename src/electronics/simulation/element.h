@@ -15,7 +15,6 @@
 #include "matrix.h"
 
 class ElementSet;
-class Vector;
 typedef unsigned int uint;
 
 const double T = 300.; ///< Temperature in Kelvin
