@@ -11,6 +11,7 @@
 #include "pin.h"
 #include "wire.h"
 #include <assert.h>
+#include <kdebug.h>
 
 Wire::Wire( Pin * startPin, Pin * endPin )
 {
@@ -133,7 +134,11 @@ bool Wire::calculateCurrent()
 
 double Wire::voltage() const
 {
-	return ( m_pStartPin->voltage() + m_pEndPin->voltage() )/2;
+	double temp;
+	if( (temp=m_pStartPin->voltage() - m_pEndPin->voltage()) )
+		kdebug() << "Wire voltage error: " << temp << endl;
+
+	return m_pStartPin->voltage();
 }
 
 
