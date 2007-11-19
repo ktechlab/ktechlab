@@ -79,7 +79,7 @@ void ECCell::drawShape( QPainter &p )
 	int _x = (int)x()-8;
 	int _y = (int)y()-24;
 	
-	p.drawLine( _x,		_y+20,	_x,		_y+28 );
+	p.drawLine( _x,		_y+20,	_x,	_y+28 );
 	p.drawLine( _x+5,	_y+16,	_x+5,	_y+32 );
 	p.drawLine( _x+10,	_y+20,	_x+10,	_y+28 );
 	p.drawLine( _x+15,	_y+16,	_x+15,	_y+32 );
