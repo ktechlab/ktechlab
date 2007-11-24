@@ -341,6 +341,8 @@ void CircuitDocument::componentRemoved( Item * item )
 	Simulator::self()->detachComponent(component);
 }
 
+// I think this is where the inf0z from cnodes/branches is moved into the midle-layer
+// pins/wires. 
 
 void CircuitDocument::calculateConnectorCurrents()
 {
@@ -380,11 +382,12 @@ void CircuitDocument::calculateConnectorCurrents()
 	
 	
 	// Tell the components to update their ECNode's currents' from the elements
+// currents are merged into PINS. 
 	const ComponentList::iterator componentEnd = m_componentList.end();
 	for ( ComponentList::iterator it = m_componentList.begin(); it != componentEnd; ++it )
 		(*it)->setNodalCurrents();
-	
-	
+
+
 	// And now for the wires and switches...
 	m_wireList.remove((Wire*)0l);
 	const WireList::iterator clEnd = m_wireList.end();
@@ -425,7 +428,11 @@ void CircuitDocument::calculateConnectorCurrents()
 			else
 				++it;
 		}
-		
+
+/*
+make the ground pins work. Current engine doesn't treat ground explicitly. 
+*/
+
 		PinList::iterator groundPinsEnd = groundPins.end();
 		for ( PinList::iterator it = groundPins.begin(); it != groundPinsEnd; )
 		{
