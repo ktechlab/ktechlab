@@ -22,10 +22,9 @@
 const double epsilon = 1e-50;
 
 Matrix::Matrix( uint n, uint m )
+	: m_n(n)
 {
-	m_n = n;
-	m_m = m;
-	m_size = m_n+m_m;
+	m_size = m_n+m;
 	
 	m_mat = new matrix(m_size);
 	m_lu = new matrix(m_size);
@@ -46,14 +45,11 @@ void Matrix::zero()
 {
 	for ( uint i=0; i<m_size; i++ )
 	{
-		for ( uint j=0; j<m_size; j++ )
-		{
-			(*m_mat)[i][j] = 0.;
-			(*m_lu)[i][j] = 0.;
-		}
+		(*m_mat)[i].fillWithZeros();
+		(*m_lu)[i].fillWithZeros();
+
 		m_inMap[i] = i;
 	}
-	
 	max_k = 0;
 }
 
@@ -71,13 +67,9 @@ void Matrix::swapRows( const uint a, const uint b )
 
 void Matrix::operator=( Matrix *const m )
 {
-	for ( uint _i=0; _i<m_size; _i++ )
-	{
+	for ( uint _i=0; _i<m_size; _i++ ) {
 		uint i = m_inMap[_i];
-		for ( uint j=0; j<m_size; j++ )
-		{
-			(*m_mat)[i][j] = m->m(i,j);
-		}
+		(*m_mat)[i] = (*m->m_mat)[i];
 	}
 	
 	max_k = 0;
@@ -85,13 +77,9 @@ void Matrix::operator=( Matrix *const m )
 
 void Matrix::operator+=( Matrix *const m )
 {
-	for ( uint _i=0; _i<m_size; _i++ )
-	{
+	for ( uint _i=0; _i<m_size; _i++ ) {
 		uint i = m_inMap[_i];
-		for ( uint j=0; j<m_size; j++ )
-		{
-			(*m_mat)[i][j] += m->m(i,j);
-		}
+		(*m_mat)[i] += (*m->m_mat)[i];
 	}
 	
 	max_k = 0;
@@ -103,10 +91,8 @@ void Matrix::performLU()
 	if ( n == 0 ) return;
 	
 	// Copy the affected segment to LU
-	for ( uint i=max_k; i<n; i++ )
-	{
-		for ( uint j=max_k; j<n; j++ )
-		{
+	for ( uint i=max_k; i<n; i++ ) {
+		for ( uint j=max_k; j<n; j++ ) {
 			(*m_lu)[i][j] = (*m_mat)[i][j];
 		}
 	}
@@ -140,7 +126,7 @@ void Matrix::performLU()
 	max_k = n;
 }
 
-void Matrix::fbSub( Vector* b )
+void Matrix::fbSub( QuickVector* b )
 {
 	if ( m_size == 0 ) return;
 	
@@ -177,10 +163,10 @@ void Matrix::fbSub( Vector* b )
 		(*b)[i] = m_y[i];
 }
 
-void Matrix::multiply( Vector *rhs, Vector *result )
+void Matrix::multiply( QuickVector *rhs, QuickVector *result )
 {
 	if ( !rhs || !result ) return;
-	result->reset();
+	result->fillWithZeros();
 	for ( uint _i=0; _i<m_size; _i++ )
 	{
 		uint i = m_inMap[_i];
@@ -249,39 +235,31 @@ bool Matrix22::solve()
 	const bool e21 = std::abs((m_a21))<epsilon;
 	const bool e22 = std::abs((m_a22))<epsilon;
 	
-	if (e11)
-	{
+	if (e11) {
 		if ( e12||e21 )
 			return false;
 		m_x2 = m_b1/m_a12;
 		m_x1 = (m_b2-(m_a22*m_x2))/m_a21;
-	}
-	else if (e12)
-	{
+	} else if (e12) {
 		if ( e11||e22 )
 			return false;
 		m_x1 = m_b1/m_a11;
 		m_x2 = (m_b2-(m_a21*m_x1))/m_a22;
-	}
-	else if (e21)
-	{
+	} else if (e21) {
 		if ( e11||e22 )
 			return false;
 		m_x2 = m_b2/m_a22;
 		m_x1 = (m_b1-(m_a12*m_x2))/m_a11;
-	}
-	else if (e22)
-	{
+	} else if (e22) {
 		if ( e12||e21 )
 			return false;
 		m_x1 = m_b2/m_a21;
 		m_x2 = (m_b1-(m_a11*m_x1))/m_a12;
-	}
-	else
-	{
+	} else {
 		m_x2 = (m_b2-(m_a21*m_b1/m_a11))/(m_a22-(m_a21*m_a12/m_a11));
 		m_x1 = (m_b1-(m_a12*m_x2))/m_a11;
 	}
+
 	if ( !std::isfinite(m_x1) || !std::isfinite(m_x2) )
 	{
 		m_x1 = old_x1;
