@@ -185,7 +185,6 @@ protected:
 
 	ElementSet *p_eSet;
 	Matrix *p_A;
-	Vector *p_b;
 	CNode *p_cnode[MAX_CNODES];
 	CBranch *p_cbranch[4];
 	
@@ -246,19 +245,18 @@ double & Element::A_d( uint i, uint j )
 }
 
 
-
 double & Element::b_i( uint i )
 {
 	if ( p_cnode[i]->isGround )
 		return m_temp;
 	
-	return (*p_b)[ p_cnode[i]->n() ];
+	return (*(p_eSet->b()))[ p_cnode[i]->n() ];
 }
 
 
 double & Element::b_v( uint i )
 {
-	return (*p_b)[ p_eSet->cnodeCount() + p_cbranch[i]->n() ];
+	return (*(p_eSet->b()))[ p_eSet->cnodeCount() + p_cbranch[i]->n() ];
 }
 
 #endif

@@ -19,9 +19,8 @@
 Element::Element()
 {
 	b_status = false;
-	p_A = 0l;
-	p_eSet = 0l;
-	p_b = 0l;
+	p_A = 0;
+	p_eSet = 0;
 	b_componentDeleted = false;
 	b_eSetDeleted = true;
 	
@@ -55,7 +54,6 @@ void Element::setElementSet( ElementSet *c )
 	b_eSetDeleted = false;
 	p_eSet = c;
 	p_A = p_eSet->matrix();
-	p_b = p_eSet->b();
 	updateStatus();
 }
 
@@ -71,9 +69,8 @@ void Element::componentDeleted()
 	b_status = false;
 // 	kdDebug() << "Element::componentDeleted(): Setting b_status to false, this="<<this<<endl;
 	
-	p_eSet = 0l;
-	p_A = 0l;
-	p_b = 0l;
+	p_eSet = 0;
+	p_A = 0;
 	setCNodes();
 	setCBranches();
 }
@@ -90,9 +87,8 @@ void Element::elementSetDeleted()
 	b_status = false;
 // 	kdDebug() << "Element::elementSetDeleted(): Setting b_status to false, this="<<this<<endl;
 	
-	p_eSet = 0l;
-	p_A = 0l;
-	p_b = 0l;
+	p_eSet = 0;
+	p_A = 0;
 	setCNodes();
 	setCBranches();
 }
@@ -154,7 +150,7 @@ bool Element::updateStatus()
 	}
 	
 	// Finally, check for various pointers
-	if ( !p_eSet || !p_A || !p_b ) b_status = false;
+	if ( !p_eSet || !p_A ) b_status = false;
 	
 	if (!b_status)
 	{
