@@ -51,11 +51,11 @@ public :
 	bool swapElements(CUI m_a, CUI m_b);
 
 // Vector arithmetic.
-
-	QuickVector *operator*=(const double *y);
-	QuickVector *operator*=(const QuickVector *y);
-	QuickVector *operator+=(const QuickVector *y);
-	QuickVector *operator-(const QuickVector *y) const;
+	QuickVector &operator=(const QuickVector &y);
+	QuickVector &operator*=(const double y);
+	QuickVector &operator*=(const QuickVector &y);
+	QuickVector &operator+=(const QuickVector &y);
+	QuickVector &operator-(const QuickVector &y) const;
 
 // debugging
 	void dumpToAux() const;
