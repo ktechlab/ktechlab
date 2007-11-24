@@ -63,7 +63,7 @@ public:
 	 * Applies the right side vector (x) to the decomposed matrix,
 	 * with the solution returned in x.
 	 */
-	void fbSub( Vector* x );
+	void fbSub( QuickVector* x );
 	/**
 	 * Prints the matrix to stdout
 	 */
@@ -104,7 +104,7 @@ public:
 	 * Multiplies this matrix by the Vector rhs, and places the result
 	 * in the vector pointed to by result. Will fail if wrong size.
 	 */
-	void multiply( Vector *rhs, Vector *result );
+	void multiply( QuickVector *rhs, QuickVector *result );
 	/**
 	 * Sets the values of this matrix to that of the given matrix
 	 */
@@ -124,7 +124,6 @@ private:
 // 	void genOutMap();
 	
 	uint m_n;
-	uint m_m;
 	uint m_size;
 	uint max_k;
 	
