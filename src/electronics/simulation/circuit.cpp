@@ -8,7 +8,7 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include <vector>
+
 #include "circuit.h"
 #include "circuitdocument.h"
 #include "element.h"
@@ -20,7 +20,7 @@
 #include "reactive.h"
 #include "wire.h"
 
-
+//#include <vector>
 #include <cmath>
 #include <map>
 
@@ -34,7 +34,7 @@ Circuit::Circuit()
 	m_logicOutCount = 0;
 	m_bCanCache = false;
 	m_pLogicOut = 0l;
-	m_elementSet = new ElementSet( this, 0, 0 );
+	m_elementSet = new ElementSet( this, 0, 0 ); // why do we do this?
 	m_cnodeCount = m_branchCount = -1;
 	m_prepNLCount = 0;
 	m_pLogicCacheBase = new LogicCacheNode;
@@ -203,7 +203,7 @@ void Circuit::init()
 	m_elementSet = new ElementSet( this, m_cnodeCount, m_branchCount );
 	
 	// Now, we can give the nodes their cnode ids, or tell them they are ground
-	Vector *x = m_elementSet->x();
+	QuickVector *x = m_elementSet->x();
 	int i=0;
 	const PinListMap::iterator eqsEnd = eqs.end();
 	for ( PinListMap::iterator it = eqs.begin(); it != eqsEnd; ++it )
@@ -394,9 +394,7 @@ void Circuit::cacheAndUpdate()
 				node->high = new LogicCacheNode;
 			
 			node = node->high;
-		}
-		else
-		{
+		} else {
 			if (!node->low)
 				node->low = new LogicCacheNode;
 			
@@ -404,8 +402,7 @@ void Circuit::cacheAndUpdate()
 		}
 	}
 	
-	if ( node->data )
-	{
+	if(node->data) {
 		(*m_elementSet->x()) = *node->data;
 		m_elementSet->updateInfo();
 		return;
@@ -413,11 +410,18 @@ void Circuit::cacheAndUpdate()
 	
 	if ( m_elementSet->containsNonLinear() )
 		m_elementSet->doNonLinear( 150, 1e-10, 1e-13 );
-	else
-		m_elementSet->doLinear(true);
-	
-	node->data = new Vector( m_elementSet->x()->size() );
-	*node->data = *m_elementSet->x();
+	else	m_elementSet->doLinear(true);
+
+	if(node->data) {
+
+		node->data = m_elementSet->x();
+	} else {
+		node->data = new QuickVector(m_elementSet->x());
+
+	}
+
+//	node->data = new Vector( m_elementSet->x()->size() );
+//	*node->data = *m_elementSet->x();
 }
 
 
@@ -531,8 +535,8 @@ void Circuit::displayEquations()
 //END class Circuit
 
 
-
 //BEGIN class LogicCacheNode
+
 LogicCacheNode::LogicCacheNode()
 {
 	low = 0l;
@@ -545,7 +549,7 @@ LogicCacheNode::~LogicCacheNode()
 {
 	delete low;
 	delete high;
-	delete data;
+	if(data) delete data;
 }
 //END class LogicCacheNode
 

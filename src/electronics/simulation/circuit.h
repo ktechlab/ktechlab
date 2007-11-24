@@ -35,7 +35,7 @@ class LogicCacheNode
 	
 		LogicCacheNode * high;
 		LogicCacheNode * low;
-		Vector * data;
+		QuickVector * data;
 };
 
 
