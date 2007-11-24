@@ -95,7 +95,7 @@ QuickVector::QuickVector(const QuickVector *old)
 // #####################################
 
 QuickVector::~QuickVector() {
-	delete values;
+	delete[] values;
 }
 
 // #####################################
@@ -116,15 +116,15 @@ void QuickVector::fillWithZeros() {
 
 // #####################################
 
-QuickVector *QuickVector::operator-(const QuickVector *y) const {
-	if(y->m != m) return NULL;
+QuickVector &QuickVector::operator-(const QuickVector &y) const {
+//	if(y.m != m) abort();
 
 	QuickVector *ret;
 	ret = new QuickVector(m);
 
-	for(unsigned int i = 0; i < m; i++) ret->values[i] = values[i] - y->values[i];
+	for(unsigned int i = 0; i < m; i++) ret->values[i] = values[i] - y.values[i];
 
-	return ret;
+	return *ret;
 }
 
 // ####################################
@@ -149,22 +149,33 @@ bool QuickVector::swapElements(CUI m_a, CUI m_b) {
 
 // ###################################
 
-QuickVector *QuickVector::operator *=(const QuickVector *y) {
-	if(y->m != m) return NULL;
+QuickVector &QuickVector::operator=(const QuickVector &y)
+{ 
+	assert(y.m == m);
 
-	for(unsigned int i = 0; i < m; i++) values[i] *= y->values[i];
+	for(unsigned int i = 0; i < m; i++) values[i] = y.values[i];
 	changed = true;
-	return this;
+	return *this;
 }
 
 // ###################################
 
-QuickVector *QuickVector::operator +=(const QuickVector *y) {
-	if(y->m != m) return NULL;
+QuickVector &QuickVector::operator *=(const QuickVector &y) {
+//	if(y.m != m) return NULL;
 
-	for(unsigned int i = 0; i < m; i++) values[i] += y->values[i];
+	for(unsigned int i = 0; i < m; i++) values[i] *= y.values[i];
 	changed = true;
-	return this;
+	return *this;
+}
+
+// ###################################
+
+QuickVector &QuickVector::operator +=(const QuickVector &y) {
+//	if(y.m != m) return NULL;
+
+	for(unsigned int i = 0; i < m; i++) values[i] += y.values[i];
+	changed = true;
+	return *this;
 }
 
 // ###################################
