@@ -11,7 +11,7 @@
 #ifndef ELEMENTSET_H
 #define ELEMENTSET_H
 
-#include <vector>
+//#include <vector>
 
 #include <qvaluelist.h>
 
@@ -23,7 +23,7 @@ class ElementSet;
 class LogicIn;
 class Matrix;
 class NonLinear;
-class Vector;
+class QuickVector;  // not exactly sure how these types of declarations work. 
 
 typedef QValueList<Element*> ElementList;
 typedef QValueList<NonLinear*> NonLinearList;
@@ -68,11 +68,11 @@ public:
 	/**
 	 * Returns the vector for b (i.e. the independent currents & voltages)
 	 */
-	Vector *b() const { return p_b; }
+	QuickVector *b() const { return p_b; }
 	/**
 	 * Returns the vector for x (i.e. the currents & voltages at the branches and nodes)
 	 */
-	Vector *x() const { return p_x; }
+	QuickVector *x() const { return p_x; }
 	/**
 	 * @return if we have any nonlinear elements (e.g. diodes, tranaistors).
 	 */
@@ -111,9 +111,8 @@ public:
 	
 private:
 	Matrix *p_A;
-	Vector *p_x;
-	Vector *p_x_prev;
-	Vector *p_b;
+	QuickVector *p_x;
+	QuickVector *p_b;
 	uint m_cn;
 	uint m_cb;
 	ElementList m_elementList;

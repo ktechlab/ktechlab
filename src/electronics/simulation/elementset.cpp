@@ -24,19 +24,26 @@
 #include <assert.h>
 
 ElementSet::ElementSet( Circuit * circuit, const int n, const int m )
+	: m_cn(n), m_cb(m)
 {
 	m_pCircuit = circuit;
-	m_cn = n;
-	m_cb = m;
-	p_logicIn = 0l;
+
+	int tmp = m_cn + m_cb;
+
+	p_logicIn = 0;
 	p_A = new Matrix( m_cn, m_cb );
-	p_b = new Vector(m_cn+m_cb);
-	p_x = new Vector(m_cn+m_cb);
-	p_x_prev = new Vector(m_cn+m_cb);
+
+	if( tmp) {
+
+		p_b = new QuickVector(tmp);
+		p_x = new QuickVector(tmp);
+	} else {
+		p_x = p_b = 0;
+	}
+
 	m_cbranches = new CBranch*[m_cb];
 	m_cnodes = new CNode*[m_cn];
-	for ( uint i=0; i<m_cn; i++ )
-	{
+	for ( uint i=0; i<m_cn; i++ ) {
 		m_cnodes[i] = new CNode();
 		m_cnodes[i]->set_n(i);
 	}
@@ -73,9 +80,8 @@ ElementSet::~ElementSet()
 	delete[] p_logicIn;
 	delete m_ground;
 	delete p_A;
-	delete p_b;
-	delete p_x;
-	delete p_x_prev;
+	if(p_b) delete p_b;
+	if(p_x) delete p_x;
 }
 
 
@@ -124,7 +130,8 @@ void ElementSet::createMatrixMap()
 
 void ElementSet::doNonLinear( int maxIterations, double maxErrorV, double maxErrorI )
 {
-// 	p_x_prev->reset();
+	QuickVector *p_x_prev = new QuickVector(p_x);
+//	*p_x_prev = *p_x; // copy constructor would be better in this case...
 	
 	// And now tell the cnodes and cbranches about their new voltages & currents
 	updateInfo();
@@ -137,8 +144,13 @@ void ElementSet::doNonLinear( int maxIterations, double maxErrorV, double maxErr
 		// Tell the nonlinear elements to update its J, A and b from the newly calculated x
 		for ( NonLinearList::iterator it = m_cnonLinearList.begin(); it != end; ++it )
 			(*it)->update_dc();
-		
-		*p_x = *p_b;
+
+
+// FIXME
+//		delete p_x;
+//		p_x = new QuickVector(p_b);
+		*p_x = *p_b;  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
 		p_A->performLU();
 		p_A->fbSub(p_x);
 		updateInfo();
@@ -154,8 +166,7 @@ void ElementSet::doNonLinear( int maxIterations, double maxErrorV, double maxErr
 				break;
 			}
 		}
-		if ( converged )
-		{
+		if ( converged ) {
 			for ( unsigned i = m_cn; i < m_cn+m_cb; ++i )
 			{
 				double diff = std::abs( (*p_x_prev)[i] - (*p_x)[i] );
@@ -166,11 +177,11 @@ void ElementSet::doNonLinear( int maxIterations, double maxErrorV, double maxErr
 				}
 			}
 		}
-		
-		*p_x_prev = *p_x;
-		
-		if ( converged )
-			break;
+
+// FIXME...
+		*p_x_prev = *p_x; // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+		if ( converged ) break;
 	}
 	while ( ++k < maxIterations );
 }
@@ -183,8 +194,11 @@ bool ElementSet::doLinear( bool performLU )
 	
 	if (performLU)
 		p_A->performLU();
-	
-	*p_x = *p_b;
+
+// FIXME
+	*p_x = *p_b;   // <<< why does this code work, when I try it, I always get the default shallow copy.
+
+
 	p_A->fbSub(p_x);
 	updateInfo();
 	p_b->setUnchanged();
@@ -204,6 +218,7 @@ void ElementSet::updateInfo()
 			m_cnodes[i]->v = 0.;
 		}
 	}
+
 	for ( uint i=0; i<m_cb; i++ )
 	{
 		// NOTE: I've used lowercase and uppercase "I" here, so be careful!
@@ -215,7 +230,7 @@ void ElementSet::updateInfo()
 			m_cbranches[i]->i = 0.;
 		}
 	}
-	
+
 	// Tell logic to check themselves
 	for ( uint i=0; i<m_clogic; ++i )
 	{
@@ -235,7 +250,7 @@ void ElementSet::displayEquations()
 		for ( uint j=0; j<m_cn+m_cb; j++ )
 		{
 			const double value = p_A->g(i,j);
-// 			if		( value > 0 ) cout <<"+";
+// 			if	( value > 0 ) cout <<"+";
 // 			else if ( value == 0 ) cout <<" ";
 			std::cout.width(10);
 			std::cout << value<<" ";
