@@ -20,8 +20,9 @@ ktechlab_LDADD = $(top_builddir)/src/gui/libgui.la \
 	$(top_builddir)/src/mechanics/libmechanics.la $(top_builddir)/src/electronics/libelectronics.la \
 	$(top_builddir)/src/electronics/simulation/libelements.la $(top_builddir)/src/electronics/components/libcomponents.la \
 	$(top_builddir)/src/languages/liblanguages.la $(top_builddir)/src/drawparts/libdrawparts.la \
-	$(top_builddir)/src/core/libcore.la $(top_builddir)/src/gui/itemeditor/libitemeditor.la -lkhtml -lkutils \
-	$(LIB_GPSIM) -lktexteditor $(LIB_KFILE) $(LIB_KDEPRINT)
+	$(top_builddir)/src/core/libcore.la $(top_builddir)/src/gui/itemeditor/libitemeditor.la \
+	$(top_builddir)/src/math/libmath.la \
+	-lkhtml -lkutils $(LIB_GPSIM) -lktexteditor $(LIB_KFILE) $(LIB_KDEPRINT)
 
 # which sources should be compiled for ktechlab
 ktechlab_SOURCES = ktechlab.cpp node.cpp connector.cpp itemlibrary.cpp \
@@ -78,7 +79,7 @@ rc_DATA = ktechlabui.rc ktechlabcircuitui.rc \
 	ktechlabflowcodeui.rc ktechlabitemviewui.rc ktechlabmechanicsui.rc ktechlabtextui.rc ktechlabkateui.rc
  
 SUBDIRS = core gui flowparts micro mechanics electronics languages drawparts \
-	contexthelp
+	contexthelp math
 #iconsdir = $(kde_datadir)/ktechlab/icons
 
 
