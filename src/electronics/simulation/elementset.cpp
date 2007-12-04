@@ -15,7 +15,6 @@
 #include "logic.h"
 #include "matrix.h"
 #include "nonlinear.h"
-#include "vec.h"
 
 #include <kdebug.h>
 
@@ -31,13 +30,13 @@ ElementSet::ElementSet( Circuit * circuit, const int n, const int m )
 	int tmp = m_cn + m_cb;
 
 	p_logicIn = 0;
-	p_A = new Matrix( m_cn, m_cb );
 
 	if( tmp) {
-
+		p_A = new Matrix( m_cn, m_cb );
 		p_b = new QuickVector(tmp);
 		p_x = new QuickVector(tmp);
 	} else {
+		p_A = 0;
 		p_x = p_b = 0;
 	}
 
@@ -79,7 +78,7 @@ ElementSet::~ElementSet()
 	delete[] m_cnodes;
 	delete[] p_logicIn;
 	delete m_ground;
-	delete p_A;
+	if(p_A) delete p_A;
 	if(p_b) delete p_b;
 	if(p_x) delete p_x;
 }
