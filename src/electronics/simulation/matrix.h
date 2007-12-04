@@ -1,4 +1,4 @@
-/***************************************************************************
+/**************************************************************************
  *   Copyright (C) 2003-2004 by David Saxton                               *
  *   david@bluehaze.org                                                    *
  *                                                                         *
@@ -11,7 +11,7 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-#include "vec.h"
+#include <math/qmatrix.h>
 
 #include <vector>
 
@@ -104,33 +104,22 @@ public:
 	 * Multiplies this matrix by the Vector rhs, and places the result
 	 * in the vector pointed to by result. Will fail if wrong size.
 	 */
-	void multiply( QuickVector *rhs, QuickVector *result );
-	/**
-	 * Sets the values of this matrix to that of the given matrix
-	 */
-	void operator=( Matrix *const m );
-	/**
-	 * Adds the values of the given matrix to this matrix
-	 */
-	void operator+=( Matrix *const m );
-	
+	void multiply(const QuickVector *rhs, QuickVector *result );
+
 private:
 	/**
 	 * Swaps around the rows in the (a) the matrix; and (b) the mappings
 	 */
 	void swapRows( const uint a, const uint b );
-	
-// 	// Generates m_outMap from m_inMap
-// 	void genOutMap();
-	
+
 	uint m_n;
 	uint m_size;
 	uint max_k;
 	
 	int *m_inMap; // Rowwise permutation mapping from external reference to internal storage
 
-	matrix *m_mat;
-	matrix *m_lu;
+	QuickMatrix *m_mat;
+	QuickMatrix *m_lu;
 	double *m_y; // Avoids recreating it lots of times
 };
 
