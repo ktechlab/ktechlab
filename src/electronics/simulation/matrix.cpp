@@ -12,7 +12,7 @@
 
 #include <kdebug.h>
 
-#include <assert.h>
+#include <cassert>
 
 #include <cmath>
 #include <iostream>
@@ -26,8 +26,8 @@ Matrix::Matrix( uint n, uint m )
 {
 	m_size = m_n+m;
 	
-	m_mat = new matrix(m_size);
-	m_lu = new matrix(m_size);
+	m_mat = new QuickMatrix(m_size);
+	m_lu = new QuickMatrix(m_size);
 	m_y = new double[m_size];
 	m_inMap = new int[m_size];
 	zero();
@@ -43,13 +43,14 @@ Matrix::~Matrix()
 
 void Matrix::zero()
 {
-	for ( uint i=0; i<m_size; i++ )
-	{
-		(*m_mat)[i].fillWithZeros();
-		(*m_lu)[i].fillWithZeros();
+//??????  do we really want the matrixes to be 0 or do we want them initialized to Identity?
 
+	m_mat->fillWithZero();
+	m_lu->fillWithZero();
+
+	for ( uint i=0; i<m_size; i++ )
 		m_inMap[i] = i;
-	}
+
 	max_k = 0;
 }
 
@@ -61,26 +62,6 @@ void Matrix::swapRows( const uint a, const uint b )
 	const int old = m_inMap[a];
 	m_inMap[a] = m_inMap[b];
 	m_inMap[b] = old;
-	
-	max_k = 0;
-}
-
-void Matrix::operator=( Matrix *const m )
-{
-	for ( uint _i=0; _i<m_size; _i++ ) {
-		uint i = m_inMap[_i];
-		(*m_mat)[i] = (*m->m_mat)[i];
-	}
-	
-	max_k = 0;
-}
-
-void Matrix::operator+=( Matrix *const m )
-{
-	for ( uint _i=0; _i<m_size; _i++ ) {
-		uint i = m_inMap[_i];
-		(*m_mat)[i] += (*m->m_mat)[i];
-	}
 	
 	max_k = 0;
 }
@@ -98,31 +79,33 @@ void Matrix::performLU()
 	}
 	
 	// LU decompose the matrix, and store result back in matrix
-	for ( uint k=0; k<n-1; k++ )
-	{
+	for ( uint k=0; k<n-1; k++ ) {
+
 		double * const lu_K_K = &(*m_lu)[k][k];
-		if ( std::abs(*lu_K_K) < 1e-10 )
-		{
+		unsigned foo = std::max(k,max_k)+1;
+
+
+// detect singular matrixes...
+		if ( std::abs(*lu_K_K) < 1e-10 ) {
+
+
 			if ( *lu_K_K < 0. ) *lu_K_K = -1e-10;
 			else *lu_K_K = 1e-10;
 		}
-		for ( uint i=std::max(k,max_k)+1; i<n; i++ )
-		{
+// #############
+
+		for ( uint i= foo; i<n; i++ ) {
 			(*m_lu)[i][k] /= *lu_K_K;
 		}
-		for ( uint i=std::max(k,max_k)+1; i<n; i++ )
-		{
+
+		for ( uint i=std::max(k,max_k)+1; i<n; i++ ) {
 			const double lu_I_K = (*m_lu)[i][k];
-			if ( std::abs(lu_I_K) > 1e-12 )
-			{
-				for ( uint j=std::max(k,max_k)+1; j<n; j++ )
-				{
-					(*m_lu)[i][j] -= lu_I_K*(*m_lu)[k][j];
-				}
+			if ( std::abs(lu_I_K) > 1e-12 )	{
+				m_lu->partialSAF(k, i, foo, -lu_I_K);
 			}
 		}
 	}
-	
+
 	max_k = n;
 }
 
@@ -158,21 +141,28 @@ void Matrix::fbSub( QuickVector* b )
 		m_y[i] -= sum;
 		m_y[i] /= (*m_lu)[i][i];
 	}
-	
+
+// I think we don't need to reverse the mapping because we only permute rows, not columns. 
 	for ( uint i=0; i<m_size; i++ )
 		(*b)[i] = m_y[i];
 }
 
-void Matrix::multiply( QuickVector *rhs, QuickVector *result )
+void Matrix::multiply(const QuickVector *rhs, QuickVector *result )
 {
 	if ( !rhs || !result ) return;
 	result->fillWithZeros();
 	for ( uint _i=0; _i<m_size; _i++ )
 	{
 		uint i = m_inMap[_i];
-		for ( uint j=0; j<m_size; j++ )
-		{
-			(*result)[_i] += (*m_mat)[i][j] * (*rhs)[j];
+/* hmm, we should move the resolution of pointers involving i out of the inner loop but
+there doesn't appear to be a way to obtain direct pointers into our classes inner structures.
+While it is a good safety feature of our classes, it doesn't facilitate optimization in this
+instance... Furthermore, our matrix class has an accelerator for this operation however it is
+ignorant of row permutations and it allocates new memory for the result matrix, breaking the
+interface of this method. 
+*/
+		for ( uint j=0; j<m_size; j++ ) {
+			result->atAdd(_i, (*m_mat)[i][j] * (*rhs)[j]);
 		}
 	}
 }
@@ -219,6 +209,8 @@ void Matrix::displayLU()
 	}
 	cout << endl;*/
 }
+
+// ###############################################################################
 
 Matrix22::Matrix22()
 {
