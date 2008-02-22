@@ -145,4 +145,4 @@ void FloatingProbeData::setLowerAbsValue( double lowerAbsValue)
 }
 //END class FloatingProbeData
 
-
+#include "oscilloscopedata.moc"
