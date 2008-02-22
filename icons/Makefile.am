@@ -1,6 +1,0 @@
-
-METASOURCES = AUTO
-	
-KDE_ICON = AUTO
-
-SUBDIRS = pics
