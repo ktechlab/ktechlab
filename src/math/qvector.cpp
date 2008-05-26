@@ -39,12 +39,6 @@ using namespace std;
 
 // ######################################
 
-unsigned int QuickVector::size() const {
-	return m;
-}
-
-// ######################################
-
 double QuickVector::at(CUI m_a) const {
 //	if(!m_a || m_a > m) return NAN;
 
@@ -149,8 +143,7 @@ bool QuickVector::swapElements(CUI m_a, CUI m_b) {
 
 // ###################################
 
-QuickVector &QuickVector::operator=(const QuickVector &y)
-{ 
+QuickVector &QuickVector::operator=(const QuickVector &y) {
 	assert(y.m == m);
 
 	for(unsigned int i = 0; i < m; i++) values[i] = y.values[i];

@@ -133,8 +133,8 @@ QuickMatrix::QuickMatrix(const QuickMatrix *old)
 // ####################################
 
 QuickMatrix::~QuickMatrix() {
-	for(unsigned int i = 0; i < m; i++) delete values[i];
-	delete values;
+	for(unsigned int i = 0; i < m; i++) delete[] values[i];
+	delete[] values;
 }
 
 // ####################################
