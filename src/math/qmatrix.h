@@ -78,9 +78,10 @@ public :
 	QuickMatrix *operator +=(const QuickMatrix *othermat);
 	QuickMatrix *operator *=(const double y);
 	QuickMatrix *operator =(const double y); // sets the diagonal to a constant.
-	QuickMatrix *operator =(const QuickMatrix *oldmat);
-	QuickVector *operator *(const QuickVector *operandvec) const;
+//	QuickMatrix *operator =(const QuickMatrix *oldmat);
 	QuickMatrix *operator *(const QuickMatrix *operandmat) const;
+
+	QuickVector *operator *(const QuickVector *operandvec) const;
 
 // debugging
 	void dumpToAux() const;

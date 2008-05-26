@@ -43,7 +43,7 @@ public :
 	bool atPut(CUI m_a, const double val);
 	bool atAdd(CUI m_a, const double val);
 
-	unsigned int size() const;
+	unsigned int size() const { return m; }
 
 // utility functions:
 //	void fillWithRandom();
