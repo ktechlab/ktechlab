@@ -54,16 +54,16 @@ class ItemDocument : public Document
 			public:
 				enum
 				{
-					Select				= 10000000,
-					Connector			= 20000000,
-					Item				= 30000000,
-					RaisedItem			= 40000000,
+					Select			= 10000000,
+					Connector		= 20000000,
+					Item			= 30000000,
+					RaisedItem		= 40000000,
 					ResizeHandle 		= 50000000,
-					Tip					= 60000000,
+					Tip			= 60000000,
 					ConnectorCreateLine	= 70000000,
 					
 					// How much "Z" separates items stacked on each other
-					DeltaItem			= 10000
+					DeltaItem		= 10000
 				};
 		};
 		
@@ -83,7 +83,7 @@ class ItemDocument : public Document
 				UpdateZOrdering			= 1 << 3
 			};
 		};
-	
+
 		virtual void fileSave();
 		virtual void fileSaveAs();
 		virtual void print();
