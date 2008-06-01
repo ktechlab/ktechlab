@@ -257,9 +257,9 @@ void MOSFET::calc_eq()
 
 
 void MOSFET::calcIg( double V_BS, double V_BD, double V_DS, double V_GS, double V_GD,
-				     double * I_BS, double * I_BD, double * I_DS,
-				     double * g_BS, double * g_BD, double * g_DS,
-					 double * g_M ) const
+				double * I_BS, double * I_BD, double * I_DS,
+				double * g_BS, double * g_BD, double * g_DS,
+				double * g_M ) const
 {
 	double I_S = m_mosfetSettings.I_S;
 	double N = m_mosfetSettings.N;
