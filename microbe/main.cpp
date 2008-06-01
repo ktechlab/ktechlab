@@ -65,7 +65,10 @@ int main(int argc, char **argv)
 	if(args->count() == 2 )
 	{
 		Microbe mb;	
-		QString s = mb.compile( args->arg(0), args->isSet("show-source"), args->isSet("optimize"));
+//		QString s = mb.compile( args->arg(0), args->isSet("show-source"), args->isSet("optimize"));
+
+		QString s = mb.compile( args->arg(0), args->isSet("optimize"));
+
 		QString errorReport = mb.errorReport();
 		
 		if ( !errorReport.isEmpty() )
