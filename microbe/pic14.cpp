@@ -1027,7 +1027,7 @@ void PIC14::SsevenSegment( const Variable & pinMap )
 	};
 	
 	unsigned numPorts = 2;
-	SSPortOutput portOutput[ numPorts ];
+	SSPortOutput portOutput[ 2 ];  // numPorts
 	memset( portOutput, 0, numPorts * sizeof(SSPortOutput) );
 	
 	for ( unsigned i = 0; i < 7; ++i )
