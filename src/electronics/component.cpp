@@ -156,6 +156,7 @@ void Component::removeSwitch( Switch * sw )
 
 void Component::setNodalCurrents()
 {
+
     const ElementMapList::iterator end = m_elementMapList.end();
     for ( ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it )
     {
@@ -168,6 +169,7 @@ void Component::setNodalCurrents()
             }
         }
     }
+
 }
 
 
