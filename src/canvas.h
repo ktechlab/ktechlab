@@ -53,15 +53,15 @@ class QCanvasItem : public Qt
 		double y() const { return myy; }
 		double z() const { return myz; } // (depth)
 
-		virtual void moveBy(double dx, double dy);
-		void move(double x, double y);
+		virtual void moveBy(double const dx, double const dy);
+		void move(double const x, double const y);
 		void setX(double a) { move(a,y()); }
 		void setY(double a) { move(x(),a); }
 		void setZ(double a);
 
 		virtual bool collidesWith( const QCanvasItem* ) const=0;
 
-		QCanvasItemList collisions(bool exact /* NO DEFAULT */ ) const;
+		QCanvasItemList collisions(const bool exact /* NO DEFAULT */ ) const;
 
 		virtual void setCanvas(QCanvas*);
 
@@ -71,20 +71,20 @@ class QCanvasItem : public Qt
 		void hide();
 
 		virtual void setVisible(bool yes);
-		bool isVisible() const { return (bool)vis; }
-		virtual void setSelected(bool yes);
-		bool isSelected() const { return (bool)sel; }
+		bool isVisible() const { return vis; }
+		virtual void setSelected(const bool yes);
+		bool isSelected() const { return sel; }
 
 		virtual QRect boundingRect() const=0;
 
 		QCanvas* canvas() const { return cnv; }
 		
 		virtual bool collidesWith( const QCanvasPolygonalItem*,
-								   const QCanvasRectangle*,
-								   const QCanvasEllipse* ) const = 0;
-		
+					   const QCanvasRectangle*,
+					   const QCanvasEllipse* ) const = 0;
+
 		bool needRedraw() const { return m_bNeedRedraw; }
-		void setNeedRedraw( bool needRedraw ) { m_bNeedRedraw = needRedraw; }
+		void setNeedRedraw( const bool needRedraw ) { m_bNeedRedraw = needRedraw; }
 
 	protected:
 		void update() { changeChunks(); }
@@ -102,9 +102,9 @@ class QCanvasItem : public Qt
 		static QCanvas* current_canvas;
 		QCanvasItemExtra *ext;
 		QCanvasItemExtra& extra();
-		uint vis:1;
-		uint sel:1;
-		uint m_bNeedRedraw:1;
+		bool vis;
+		bool sel;
+		bool m_bNeedRedraw;
 };
 
 class QCanvas : public QObject
@@ -112,7 +112,7 @@ class QCanvas : public QObject
 	Q_OBJECT
 	public:
 		QCanvas( QObject* parent = 0, const char* name = 0 );
-		QCanvas(int w, int h);
+		QCanvas( const int w, const int h);
 		QCanvas( QPixmap p, int h, int v, int tilewidth, int tileheight );
 
 		virtual ~QCanvas();
@@ -131,17 +131,17 @@ class QCanvas : public QObject
 		int tilesHorizontally() const { return htiles; }
 		int tilesVertically() const { return vtiles; }
 
-		int tileWidth() const { return tilew; }
+		int tileWidth()  const { return tilew; }
 		int tileHeight() const { return tileh; }
 
 		virtual void resize( const QRect & newSize );
-		int width() const { return size().width(); }
+		int width()  const { return size().width(); }
 		int height() const { return size().height(); }
 		QSize size() const { return m_size.size(); }
 		QRect rect() const { return m_size; }
-		bool onCanvas( int x, int y ) const { return onCanvas( QPoint( x, y ) ); }
+		bool onCanvas( const int x, const int y ) const { return onCanvas( QPoint( x, y ) ); }
 		bool onCanvas( const QPoint& p ) const { return m_size.contains( p ); }
-		bool validChunk( int x, int y ) const { return validChunk( QPoint( x, y ) ); }
+		bool validChunk( const int x, const int y ) const { return validChunk( QPoint( x, y ) ); }
 		bool validChunk( const QPoint& p ) const { return m_chunkSize.contains( p ); }
 
 		int chunkSize() const { return chunksize; }
@@ -162,7 +162,7 @@ class QCanvas : public QObject
 		QCanvasItemList collisions( const QPoint&) const;
 		QCanvasItemList collisions( const QRect&) const;
 		QCanvasItemList collisions( const QPointArray& pa, const QCanvasItem* item,
-									bool exact) const;
+						bool exact) const;
 
 		void drawArea(const QRect&, QPainter* p, bool double_buffer=FALSE);
 
@@ -174,7 +174,7 @@ class QCanvas : public QObject
 
 		// These are for QCanvasItem to call
 		virtual void addItem(QCanvasItem*);
-		virtual void removeItem(QCanvasItem*);
+		virtual void removeItem(const QCanvasItem*);
 
 		virtual void setUpdatePeriod(int ms);
 		int toChunkScaling( int x ) const;
@@ -227,7 +227,6 @@ class QCanvas : public QObject
 
 		friend void qt_unview(QCanvas* c);
 
-	private:
 		QCanvas( const QCanvas & );
 		QCanvas &operator=( const QCanvas & );
 };
@@ -260,16 +259,14 @@ class QCanvasView : public QScrollView
 		QCanvas* viewing;
 		QCanvasViewData* d;
 		friend void qt_unview(QCanvas* c);
+		QCanvasView( const QCanvasView & );
+		QCanvasView &operator=( const QCanvasView & );
 
 	private slots:
 		void cMoving(int,int);
 		void updateContentsSize();
 
-	private:
-		QCanvasView( const QCanvasView & );
-		QCanvasView &operator=( const QCanvasView & );
 };
-
 
 
 class QPolygonalProcessor;
@@ -306,12 +303,13 @@ class QCanvasPolygonalItem : public QCanvasItem
 
 	private:
 		void scanPolygon( const QPointArray& pa, int winding,
-						  QPolygonalProcessor& process ) const;
+					QPolygonalProcessor& process ) const;
+
 		QPointArray chunks() const;
 
 		bool collidesWith( const QCanvasPolygonalItem*,
-						   const QCanvasRectangle*,
-						   const QCanvasEllipse* ) const;
+				   const QCanvasRectangle*,
+				   const QCanvasEllipse* ) const;
 
 		QBrush br;
 		QPen pn;
@@ -330,7 +328,7 @@ class QCanvasRectangle : public QCanvasPolygonalItem
 
 		int width() const;
 		int height() const;
-		void setSize(int w, int h);
+		void setSize(const int w, const int h);
 		QSize size() const
 		{ return QSize(w,h); }
 		QPointArray areaPoints() const;
@@ -369,7 +367,6 @@ class QCanvasPolygon : public QCanvasPolygonalItem
 };
 
 
-
 class QCanvasLine : public QCanvasPolygonalItem
 {
 	public:
@@ -401,7 +398,7 @@ class QCanvasEllipse : public QCanvasPolygonalItem
 		QCanvasEllipse( QCanvas* canvas );
 		QCanvasEllipse( int width, int height, QCanvas* canvas );
 		QCanvasEllipse( int width, int height, int startangle, int angle,
-						QCanvas* canvas );
+					QCanvas* canvas );
 
 		~QCanvasEllipse();
 
@@ -420,8 +417,8 @@ class QCanvasEllipse : public QCanvasPolygonalItem
 
 	private:
 		bool collidesWith( const QCanvasPolygonalItem*,
-						   const QCanvasRectangle*,
-						   const QCanvasEllipse* ) const;
+				   const QCanvasRectangle*,
+				   const QCanvasEllipse* ) const;
 		int w, h;
 		int a1, a2;
 };

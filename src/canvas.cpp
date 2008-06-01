@@ -399,13 +399,13 @@ QCanvas::QCanvas( QObject* parent, const char* name )
 	init(0,0);
 }
 
-QCanvas::QCanvas(int w, int h)
+QCanvas::QCanvas(const int w, const int h)
 {
 	init(w,h);
 }
 
-QCanvas::QCanvas( QPixmap p, int h, int v, int tilewidth, int tileheight )
-{
+QCanvas::QCanvas( QPixmap p, int h, int v, int tilewidth, int tileheight ) {
+
 	init(h*tilewidth, v*tileheight, scm(tilewidth,tileheight) );
 	setTiles( p, h, v, tilewidth, tileheight );
 }
@@ -524,7 +524,7 @@ void QCanvas::addItem(QCanvasItem* item)
 	m_canvasItems.insert( make_pair( item->z(), item ) );
 }
 
-void QCanvas::removeItem(QCanvasItem* item)
+void QCanvas::removeItem(const QCanvasItem* item)
 {
 	SortedCanvasItems::iterator end = m_canvasItems.end();
 	for ( SortedCanvasItems::iterator it = m_canvasItems.begin(); it != end; ++it )
@@ -875,17 +875,14 @@ void QCanvas::drawCanvasArea(const QRect& inarea, QPainter* p, bool double_buffe
     // to area.topLeft()  (so as to keep within bounds of 16-bit XRegions)
 	QRegion rgn;
 
-	for (int x=lx; x<=mx; x++)
-	{
-		for (int y=ly; y<=my; y++)
-		{
+	for (int x=lx; x<=mx; x++) {
+		for (int y=ly; y<=my; y++) {
 	    	// Only reset change if all views updating, and
 	    	// wholy within area. (conservative:  ignore entire boundary)
 			//
 	  		// Disable this to help debugging.
 			//
-			if (!p)
-			{
+			if (!p) {
 				if ( chunk(x,y).takeChange() )
 				{
 					// ### should at least make bands
@@ -894,9 +891,7 @@ void QCanvas::drawCanvasArea(const QRect& inarea, QPainter* p, bool double_buffe
 					setNeedRedraw( chunk(x,y).listPtr() );
 // 					chunk(x,y).listPtr()->first()->m_bNeedRedraw = true;
 				}
-			}
-			else
-			{
+			} else {
 // 				allvisible += *chunk(x,y).listPtr();
 				setNeedRedraw( chunk(x,y).listPtr() );
 			}
@@ -904,36 +899,35 @@ void QCanvas::drawCanvasArea(const QRect& inarea, QPainter* p, bool double_buffe
 	}
 // 	allvisible.sort();
 
-	if ( double_buffer )
-	{
+	if ( double_buffer ) {
 		offscr = QPixmap(area.width(), area.height());
-		if (p)
-			offscr.x11SetScreen(p->device()->x11Screen());
+		if (p) offscr.x11SetScreen(p->device()->x11Screen());
 	}
 
-	if ( double_buffer && !offscr.isNull() )
-	{
+	if ( double_buffer && !offscr.isNull() ) {
 		QPainter painter;
 		painter.begin(&offscr);
 		painter.translate(-area.x(),-area.y());
 		painter.setBrushOrigin(-area.x(),-area.y());
+
 		if ( p ) {
 			painter.setClipRect(QRect(0,0,area.width(),area.height()));
 		} else {
 			painter.setClipRegion(rgn);
 		}
+
 		drawBackground(painter,area);
 // 		allvisible.drawUnique(painter);
 		drawChangedItems( painter );
 		drawForeground(painter,area);
 		painter.end();
+
 		if ( p ) {
 			p->drawPixmap( area.x(), area.y(), offscr, 0, 0, area.width(), area.height() );
 			return;
 		}
-	}
-	else if ( p )
-	{
+
+	} else if ( p ) {
 		drawBackground(*p,area);
 // 		allvisible.drawUnique(*p);
 		drawChangedItems( *p );
@@ -945,25 +939,21 @@ void QCanvas::drawCanvasArea(const QRect& inarea, QPainter* p, bool double_buffe
 
 	trtr -= area.topLeft();
 
-	for (QCanvasView* view=m_viewList.first(); view; view=m_viewList.next())
-	{
+	for (QCanvasView* view=m_viewList.first(); view; view=m_viewList.next()) {
 		if ( !view->worldMatrix().isIdentity() )
 			continue; // Cannot paint those here (see callers).
-		
+
 		QPainter painter(view->viewport());
 		QPoint tr = view->contentsToViewport(area.topLeft());
 		QPoint nrtr = view->contentsToViewport(QPoint(0,0)); // new translation
 		QPoint rtr = nrtr - trtr; // extra translation of rgn
 		trtr += rtr; // add to total
 		
-		if (double_buffer)
-		{
+		if (double_buffer) {
 			rgn.translate(rtr.x(),rtr.y());
 			painter.setClipRegion(rgn);
 			painter.drawPixmap(tr,offscr, QRect(QPoint(0,0),area.size()));
-		}
-		else
-		{
+		} else {
 			painter.translate(nrtr.x(),nrtr.y());
 			rgn.translate(rtr.x(),rtr.y());
 			painter.setClipRegion(rgn);
@@ -988,11 +978,9 @@ void QCanvas::setNeedRedraw( const QCanvasItemList * list )
 void QCanvas::drawChangedItems( QPainter & painter )
 {
 	SortedCanvasItems::iterator end = m_canvasItems.end();
-	for ( SortedCanvasItems::iterator it = m_canvasItems.begin(); it != end; ++it )
-	{
+	for ( SortedCanvasItems::iterator it = m_canvasItems.begin(); it != end; ++it ) {
 		QCanvasItem * i = it->second;
-		if ( i->needRedraw() )
-		{
+		if ( i->needRedraw() ) {
 			i->draw( painter );
 			i->setNeedRedraw( false );
 		}
@@ -1011,8 +999,7 @@ void QCanvas::drawChangedItems( QPainter & painter )
  */
 void QCanvas::setChangedChunk(int x, int y)
 {
-	if (validChunk(x,y))
-	{
+	if (validChunk(x,y)) {
 		QCanvasChunk& ch=chunk(x,y);
 		ch.change();
 	}
@@ -1030,8 +1017,7 @@ void QCanvas::setChangedChunk(int x, int y)
  */
 void QCanvas::setChangedChunkContaining(int x, int y)
 {
-	if ( onCanvas( x, y ) )
-	{
+	if ( onCanvas(x, y) ) {
 		QCanvasChunk& chunk=chunkContaining(x,y);
 		chunk.change();
 	}
@@ -1046,8 +1032,7 @@ void QCanvas::setChangedChunkContaining(int x, int y)
  */
 void QCanvas::addItemToChunk(QCanvasItem* g, int x, int y)
 {
-	if (validChunk(x,y))
-	{
+	if (validChunk(x, y) ) {
 		chunk(x,y).add(g);
 	}
 }
@@ -1065,7 +1050,6 @@ void QCanvas::removeItemFromChunk(QCanvasItem* g, int x, int y)
 		chunk(x,y).remove(g);
 	}
 }
-
 
 /*!
 	\internal
@@ -1275,11 +1259,11 @@ class QCanvasItemExtra
 };
 
 QCanvasItem::QCanvasItem(QCanvas* canvas)
-	: myx(0),myy(0),myz(0),cnv(canvas),m_bNeedRedraw(true)
+	: myx(0), myy(0), myz(0), cnv(canvas), m_bNeedRedraw(true)
 {
-	vis=0;
-	val=0;
-	sel=0;
+	vis = false;
+	val = false;
+	sel = false;
 
 	ext = 0;
 	if (cnv) cnv->addItem(this);
@@ -1321,7 +1305,7 @@ void QCanvasItem::setZ(double a)
 }
 
 
-void QCanvasItem::moveBy( double dx, double dy )
+void QCanvasItem::moveBy(const double dx, const double dy )
 {
 	if ( dx || dy ) {
 		removeFromChunks();
@@ -1332,7 +1316,7 @@ void QCanvasItem::moveBy( double dx, double dy )
 }
 
 
-void QCanvasItem::move( double x, double y )
+void QCanvasItem::move(const double x, const double y )
 {
 	moveBy( x-myx, y-myy );
 }
@@ -1345,10 +1329,13 @@ void QCanvasItem::setCanvas(QCanvas* c)
 	if (cnv) {
 		cnv->removeItem(this);
 	}
+
 	cnv=c;
+
 	if (cnv) {
 		cnv->addItem(this);
 	}
+
 	setVisible(v);
 }
 
@@ -1365,7 +1352,7 @@ void QCanvasItem::hide()
 
 void QCanvasItem::setVisible(bool yes)
 {
-	if ((bool)vis!=yes) {
+	if (vis != yes) {
 		if (yes) {
 			vis=(uint)yes;
 			addToChunks();
@@ -1377,8 +1364,7 @@ void QCanvasItem::setVisible(bool yes)
 }
 
 
-
-void QCanvasItem::setSelected(bool yes)
+void QCanvasItem::setSelected(const bool yes)
 {
 	if ((bool)sel!=yes)
 	{
@@ -1441,7 +1427,7 @@ bool QCanvasPolygonalItem::collidesWith( const QCanvasItem* i ) const
 }
 
 
-bool QCanvasPolygonalItem::collidesWith(  const QCanvasPolygonalItem* p, const QCanvasRectangle* r, const QCanvasEllipse* e ) const
+bool QCanvasPolygonalItem::collidesWith( const QCanvasPolygonalItem* p, const QCanvasRectangle* r, const QCanvasEllipse* e ) const
 {
 	return collision_double_dispatch(p,r,e,this,0,0);
 }
@@ -1453,7 +1439,7 @@ bool QCanvasRectangle::collidesWith( const QCanvasItem* i ) const
 }
 
 
-bool QCanvasRectangle::collidesWith(  const QCanvasPolygonalItem* p, const QCanvasRectangle* r, const QCanvasEllipse* e ) const
+bool QCanvasRectangle::collidesWith( const QCanvasPolygonalItem* p, const QCanvasRectangle* r, const QCanvasEllipse* e ) const
 {
 	return collision_double_dispatch(p,r,e,this,this,0);
 }
@@ -1465,13 +1451,13 @@ bool QCanvasEllipse::collidesWith( const QCanvasItem* i ) const
 }
 
 
-bool QCanvasEllipse::collidesWith(  const QCanvasPolygonalItem* p, const QCanvasRectangle* r, const QCanvasEllipse* e ) const
+bool QCanvasEllipse::collidesWith( const QCanvasPolygonalItem* p, const QCanvasRectangle* r, const QCanvasEllipse* e ) const
 {
 	return collision_double_dispatch(p,r,e,this,0,this);
 }
 
 
-QCanvasItemList QCanvasItem::collisions(bool exact) const
+QCanvasItemList QCanvasItem::collisions(const bool exact) const
 {
 	return canvas()->collisions(chunks(),this,exact);
 }
@@ -2096,7 +2082,7 @@ int QCanvasRectangle::height() const
 	return h;
 }
 
-void QCanvasRectangle::setSize(int width, int height)
+void QCanvasRectangle::setSize(const int width, const int height)
 {
 	if ( w != width || h != height ) {
 		removeFromChunks();
@@ -2119,7 +2105,7 @@ QPointArray QCanvasRectangle::areaPoints() const
 	return pa;
 }
 
-void QCanvasRectangle::drawShape(QPainter & p)
+void QCanvasRectangle::drawShape(QPainter &p)
 {
 	p.drawRect((int)x(), (int)y(), w, h);
 }
