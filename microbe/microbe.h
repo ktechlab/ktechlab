@@ -53,7 +53,7 @@ enum ExprType
 	number		= 3,
 	variable	= 4,
 	extpin		= 5,
-	keypad		= 6,
+	keypad		= 6
 };
 
 
@@ -152,7 +152,7 @@ class Microbe
 		 * levels use parseUsingChild(), or create your own Parser.
 		 * @param url is used for reporting errors
 		 */
-		QString compile( const QString & url, bool showSource, bool optimize );
+		QString compile( const QString & url, bool optimize );
 		/**
 		 * Adds the given compiler error at the file line number to the
 		 * compilation report.

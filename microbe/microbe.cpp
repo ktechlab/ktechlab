@@ -75,7 +75,7 @@ Microbe::~Microbe()
 }
 
 
-QString Microbe::compile( const QString & url, bool showSource, bool optimize )
+QString Microbe::compile( const QString & url, bool optimize )
 {
 	QFile file( url );
 	if( file.open( IO_ReadOnly ) )
