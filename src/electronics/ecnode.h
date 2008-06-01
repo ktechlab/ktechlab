@@ -35,7 +35,7 @@ class ECNode : public Node
 	public:
 		ECNode( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint &pos, QString *id = 0L );
 		~ECNode();
-	
+
 		virtual void setParentItem( CNItem *parentItem );
 		virtual void drawShape( QPainter &p );
 		/**
@@ -54,17 +54,17 @@ class ECNode : public Node
 		bool showVoltageColor() const { return m_bShowVoltageColor; }
 		void setShowVoltageColor( bool show ) { m_bShowVoltageColor = show; }
 		void setNodeChanged();
-		
+
 	signals:
 		void numPinsChanged( unsigned newNum );
-	
+
 	protected slots:
 		void removeElement( Element * e );
 		void removeSwitch( Switch * sw );
-	
+
 	protected:
-		bool m_bShowVoltageBars:1;
-		bool m_bShowVoltageColor:1;
+		bool m_bShowVoltageBars;
+		bool m_bShowVoltageColor;
 		double m_prevV;
 		double m_prevI;
 		QCanvasRectangle * m_pinPoint;

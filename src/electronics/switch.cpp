@@ -212,7 +212,7 @@ bool Switch::calculateCurrent()
 	m_pP2->setSwitchCurrentKnown( this );
 	m_pP1->mergeCurrent( -current * pol );
 	m_pP2->mergeCurrent( current * pol );
-	
+
 	return true;
 }
 
