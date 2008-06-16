@@ -15,8 +15,6 @@
 
 #include <vector>
 
-typedef std::vector<std::vector<uint> > ETMap;
-
 /**
 This class performs matrix storage, lu decomposition, forward and backward
 substitution, and a few other useful operations. Steps in using class:
@@ -41,7 +39,7 @@ public:
 	 * Creates a size x size square matrix m, with all values zero,
 	 * and a right side vector x of size m+n
 	 */
-	Matrix( uint n, uint m );
+	Matrix( CUI n, CUI m );
 	~Matrix();
 	/**
 	 * Sets all elements to zero
@@ -75,28 +73,28 @@ public:
 	/**
 	 * Sets the element matrix at row i, col j to value x
 	 */
-	double& g( uint i, uint j )
+	double& g( CUI i, CUI j )
 	{
-		i = m_inMap[i];
-		if ( i<max_k ) max_k=i;
+		const unsigned int mapped_i = m_inMap[i];
+		if ( mapped_i<max_k ) max_k=mapped_i;
 		if ( j<max_k ) max_k=j;
 		
 		// I think I need the next line...
 		if ( max_k>0 ) max_k--;
 		
-		return (*m_mat)[i][j];
+		return (*m_mat)[mapped_i][j];
 	}
-	double& b( uint i, uint j ) { return g( i, j+m_n ); }
-	double& c( uint i, uint j ) { return g( i+m_n, j ); }
-	double& d( uint i, uint j ) { return g( i+m_n, j+m_n ); }
-	const double g( uint i, uint j ) const { return (*m_mat)[m_inMap[i]][j]; }
-	const double b( uint i, uint j ) const { return g( i, j+m_n ); }
-	const double c( uint i, uint j ) const { return g( i+m_n, j ); }
-	const double d( uint i, uint j ) const { return g( i+m_n, j+m_n ); }
+	double& b( CUI i, CUI j ) { return g( i, j+m_n ); }
+	double& c( CUI i, CUI j ) { return g( i+m_n, j ); }
+	double& d( CUI i, CUI j ) { return g( i+m_n, j+m_n ); }
+	double g( CUI i, CUI j ) const { return (*m_mat)[m_inMap[i]][j]; }
+	double b( CUI i, CUI j ) const { return g( i, j+m_n ); }
+	double c( CUI i, CUI j ) const { return g( i+m_n, j ); }
+	double d( CUI i, CUI j ) const { return g( i+m_n, j+m_n ); }
 	/**
 	 * Returns the value of matrix at row i, col j.
 	 */
-	const double m( uint i, uint j ) const
+	double m( CUI i, CUI j ) const
 	{
 		return (*m_mat)[m_inMap[i]][j];
 	}
@@ -110,11 +108,11 @@ private:
 	/**
 	 * Swaps around the rows in the (a) the matrix; and (b) the mappings
 	 */
-	void swapRows( const uint a, const uint b );
+	void swapRows( CUI a, CUI b );
 
-	uint m_n;
-	uint m_size;
-	uint max_k;
+	unsigned int m_n;
+	unsigned int m_size;
+	unsigned int max_k;
 	
 	int *m_inMap; // Rowwise permutation mapping from external reference to internal storage
 
