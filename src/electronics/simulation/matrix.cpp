@@ -21,7 +21,7 @@
 /// Minimum value before an entry is deemed "zero"
 const double epsilon = 1e-50;
 
-Matrix::Matrix( uint n, uint m )
+Matrix::Matrix( CUI n, CUI m )
 	: m_n(n)
 {
 	m_size = m_n+m;
@@ -48,13 +48,13 @@ void Matrix::zero()
 	m_mat->fillWithZero();
 	m_lu->fillWithZero();
 
-	for ( uint i=0; i<m_size; i++ )
+	for ( unsigned int i=0; i<m_size; i++ )
 		m_inMap[i] = i;
 
 	max_k = 0;
 }
 
-void Matrix::swapRows( const uint a, const uint b )
+void Matrix::swapRows( CUI a, CUI b )
 {
 	if ( a == b ) return;
 	m_mat->swapRows( a, b );
@@ -68,7 +68,7 @@ void Matrix::swapRows( const uint a, const uint b )
 
 void Matrix::performLU()
 {
-	uint n = m_size;
+	unsigned int n = m_size;
 	if ( n == 0 ) return;
 	
 	// Copy the affected segment to LU
@@ -122,7 +122,7 @@ void Matrix::fbSub( QuickVector* b )
 	for ( uint i=1; i<m_size; i++ )
 	{
 		double sum = 0;
-		for ( uint j=0; j<i; j++ )
+		for ( unsigned int j=0; j<i; j++ )
 		{
 			sum += (*m_lu)[i][j]*m_y[j];
 		}
