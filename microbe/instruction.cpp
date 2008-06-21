@@ -28,7 +28,7 @@
 #include "pic14.h"
 #include <kdebug.h>
 #include <qstringlist.h>
-#include <assert.h>
+#include <cassert>
 #include <iostream>
 using namespace std;
 //modified new varable pic_type is added

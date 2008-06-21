@@ -28,7 +28,7 @@
 #include "parser.h"
 #include "pic14.h"
 
-#include <assert.h>
+#include <cassert>
 #include <kdebug.h>
 #include <iostream>
 using namespace std;
@@ -377,11 +377,84 @@ bool PIC14::isValidRegister( const QString & registerName)const
  	if(pic_type=="P16F84"||pic_type=="P16C84")
 		return ( registerName == "TMR0" ||registerName == "PCL" || registerName == "STATUS"||registerName == "FSR"|| registerName == "EEDATH" || registerName == "EEADR"||registerName == "PCLATH"||registerName == "INTCON" || registerName == "EECON1"||registerName == "EECON2"||registerName == "OPTION_REG");
 
+// TODO: Wow, this code is uuugly...
 	if(pic_type=="P16F877")
-		return ( registerName == "TMR0" ||registerName == "PCL" || registerName == "STATUS"||registerName == "FSR" ||registerName == "PCLATH"||registerName == "INTCON" ||registerName == "PIR1" ||registerName == "PIR2" ||registerName == "TMR1L" ||registerName == "TMR1H" ||registerName == "T1CON"||registerName == "TMR2" ||registerName == "T2CON" ||registerName == "SSPBUF"||registerName == "SSPCON"||registerName == "CCPR1L"||registerName == "CCPR1H"||registerName == "CCP1CON"||registerName == "RCSTA" ||registerName == "TXREG" ||registerName == "RCREG" ||registerName == "CCPR2L"||registerName == "CCPR2H"||registerName == "CCP2CON"||registerName == "ADRESH" ||registerName == "ADCON0" /*bank0ends*/ |registerName == "OPTION_REG"|| registerName == "PIE1"||registerName == "PIE2"||registerName == "PCON"||registerName == "SSPCON2"||registerName == "PR2"||registerName == "SSPADD"||registerName == "SSPSTAT"|| registerName == "TXSTA"||registerName == "SPBRG"|| registerName == "ADRESL"|| registerName == "ADCON1" /*bank1ends*/ || registerName == "EEDATA"|| registerName == "EEADR"|| registerName == "EEDATH"|| registerName == "EEADRH" /*bank2ends*/ ||registerName == "EECON1"||registerName == "EECON2" /*bank3ends*/   );
+		return ( registerName == "TMR0"
+			|| registerName == "PCL"
+			|| registerName == "STATUS"
+			|| registerName == "FSR"
+			|| registerName == "PCLATH"
+			|| registerName == "INTCON"
+			|| registerName == "PIR1"
+			|| registerName == "PIR2"
+			|| registerName == "TMR1L"
+			|| registerName == "TMR1H"
+			|| registerName == "T1CON"
+			|| registerName == "TMR2"
+			|| registerName == "T2CON"
+			|| registerName == "SSPBUF"
+			|| registerName == "SSPCON"
+			|| registerName == "CCPR1L"
+			|| registerName == "CCPR1H"
+			|| registerName == "CCP1CON"
+			|| registerName == "RCSTA"
+			|| registerName == "TXREG"
+			|| registerName == "RCREG"
+			|| registerName == "CCPR2L"
+			|| registerName == "CCPR2H"
+			|| registerName == "CCP2CON"
+			|| registerName == "ADRESH"
+			|| registerName == "ADCON0" /*bank0ends*/
+			|| registerName == "OPTION_REG"
+			|| registerName == "PIE1"
+			|| registerName == "PIE2"
+			|| registerName == "PCON"
+			|| registerName == "SSPCON2"
+			|| registerName == "PR2"
+			|| registerName == "SSPADD"
+			|| registerName == "SSPSTAT"
+			|| registerName == "TXSTA"
+			|| registerName == "SPBRG"
+			|| registerName == "ADRESL"
+			|| registerName == "ADCON1" /*bank1ends*/
+			|| registerName == "EEDATA"
+			|| registerName == "EEADR"
+			|| registerName == "EEDATH"
+			|| registerName == "EEADRH" /*bank2ends*/
+			|| registerName == "EECON1"
+			|| registerName == "EECON2" /*bank3ends*/   );
 
 	if(pic_type=="P16F627"||pic_type=="P16F628")
-		return ( registerName == "TMR0" ||registerName == "PCL" || registerName == "STATUS"||registerName == "FSR" ||registerName == "PCLATH"||registerName == "INTCON" ||registerName == "PIR1" ||registerName == "TMR1L" ||registerName == "TMR1H" ||registerName == "T1CON"||registerName == "TMR2" ||registerName == "T2CON" ||registerName == "CCPR1L"||registerName == "CCPR1H"||registerName == "CCP1CON"||registerName == "RCSTA" ||registerName == "TXREG" ||registerName == "RCREG" ||registerName == "CMCON"/*bank0ends*/ |registerName == "OPTION_REG"|| registerName == "PIE1"||registerName == "PCON"||registerName == "PR2"|| registerName == "TXSTA"||registerName == "SPBRG"|| registerName == "EEDATA"|| registerName == "EEADR" ||registerName == "EECON1"||registerName == "EECON2"||registerName == "VRCON"/*bank1ends*/ );
+		return ( registerName == "TMR0"
+			|| registerName == "PCL"
+			|| registerName == "STATUS"
+			|| registerName == "FSR"
+			|| registerName == "PCLATH"
+			|| registerName == "INTCON"
+			|| registerName == "PIR1"
+			|| registerName == "TMR1L"
+			|| registerName == "TMR1H"
+			|| registerName == "T1CON"
+			|| registerName == "TMR2"
+			|| registerName == "T2CON"
+			|| registerName == "CCPR1L"
+			|| registerName == "CCPR1H"
+			|| registerName == "CCP1CON"
+			|| registerName == "RCSTA"
+			|| registerName == "TXREG"
+			|| registerName == "RCREG"
+			|| registerName == "CMCON"/*bank0ends*/
+			|| registerName == "OPTION_REG"
+			|| registerName == "PIE1"
+			|| registerName == "PCON"
+			|| registerName == "PR2"
+			|| registerName == "TXSTA"
+			|| registerName == "SPBRG"
+			|| registerName == "EEDATA"
+			|| registerName == "EEADR"
+			|| registerName == "EECON1"
+			|| registerName == "EECON2"
+			|| registerName == "VRCON"/*bank1ends*/ );
 
 	return false;
 }
@@ -1265,7 +1338,7 @@ void PIC14::bitwise( Expression::Operation op,const QString & r_val1, const QStr
 			switch(op)
 			{
 				case Expression::bwand: m_pCode->append(new Instr_andlw(val2.toInt( 0, 0 ))); break;
-				case Expression::bwor: m_pCode->append(new Instr_iorlw(val2.toInt( 0, 0 ))); break;
+				case Expression::bwor:  m_pCode->append(new Instr_iorlw(val2.toInt( 0, 0 ))); break;
 				case Expression::bwxor: m_pCode->append(new Instr_xorlw(val2.toInt( 0, 0 ))); break;
 				case Expression::bwnot: m_pCode->append(new Instr_xorlw(val2.toInt( 0, 0 ))); break;
 				default: break;
@@ -1277,7 +1350,7 @@ void PIC14::bitwise( Expression::Operation op,const QString & r_val1, const QStr
 			switch(op)
 			{
 				case Expression::bwand: m_pCode->append(new Instr_andwf(val2,0)); break;
-				case Expression::bwor: m_pCode->append(new Instr_iorwf(val2,0)); break;
+				case Expression::bwor:  m_pCode->append(new Instr_iorwf(val2,0)); break;
 				case Expression::bwxor: m_pCode->append(new Instr_xorwf(val2,0)); break;
 				case Expression::bwnot: m_pCode->append(new Instr_xorwf(val2,0)); break;
 				default: break;
@@ -1315,8 +1388,7 @@ void PIC14::Stristate(const QString &port)
 	{ 	
 		if( port == "trisa" || port == "TRISA" )
 			saveResultToVar( "TRISA" );
-		else
-			saveResultToVar( "TRISB" );
+		else	saveResultToVar( "TRISB" );
 	}
 	if(pic_type =="P16F877") 
 	{ 	
@@ -1328,8 +1400,7 @@ void PIC14::Stristate(const QString &port)
 			saveResultToVar( "TRISC" );
 		else if( port == "trisd" || port == "TRISD" )
 			saveResultToVar( "TRISD" );
-		else
-			saveResultToVar( "TRISE" );		
+		else	saveResultToVar( "TRISE" );
 	
 	}
 	m_pCode->append( new Instr_bcf(Register("STATUS"),"5") );//commented
@@ -1339,9 +1410,6 @@ void PIC14::Sasm(const QString &raw)
 {
 	m_pCode->append(new Instr_asm(raw));
 }
-
-
-
 
 //BEGIN class PortPin
 PortPin::PortPin( const QString & port, int pin )
@@ -1364,4 +1432,6 @@ int PortPin::portPosition() const
 		return 0;
 	return uchar( m_port[ m_port.length() - 1 ] ) - 'A';
 }
+
 //END class PortPin
+

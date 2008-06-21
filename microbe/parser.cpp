@@ -25,7 +25,7 @@
 #include "pic14.h"
 #include "traverser.h"
 
-#include <assert.h>
+#include <cassert>
 #include <kdebug.h>
 #include <klocale.h>
 #include <qfile.h>
