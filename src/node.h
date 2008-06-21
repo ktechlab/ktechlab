@@ -213,19 +213,26 @@ protected:
 	void deinitPainter( QPainter & p );
 	
 	node_type m_type;
-	QString m_id;
-	QString m_childId;
+
 	int m_dir;
 	int m_length;
+	int m_level;
+
 	ICNDocument *p_icnDocument;
 	CNItem *p_parentItem;
+
 	ConnectorList m_inputConnectorList;
 	ConnectorList m_outputConnectorList;
-	int m_level;
+
 	NodeGroup *p_nodeGroup;
+
 	static QColor m_selectedColor;
 
 private:
+// these fields are critical to saved circuit documents.
+	QString m_id;
+	QString m_childId;
+
 	bool b_deleted;
 };
 
