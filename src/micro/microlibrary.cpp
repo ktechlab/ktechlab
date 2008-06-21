@@ -79,7 +79,7 @@ MicroLibrary::~MicroLibrary()
 	}
 }
 
-MicroInfo * const MicroLibrary::microInfoWithID( QString id )
+MicroInfo *MicroLibrary::microInfoWithID( QString id )
 {
 	id = id.upper();
 	const MicroInfoList::iterator end = m_microInfoList.end();

@@ -35,7 +35,7 @@ class MicroLibrary
 		
 		~MicroLibrary();
 	
-		MicroInfo * const microInfoWithID( QString id );
+		MicroInfo *microInfoWithID( QString id );
 		void addMicroInfo( MicroInfo *microInfo );
 		
 		/**
