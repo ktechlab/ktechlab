@@ -203,23 +203,6 @@ void SettingsDlg::slotRemoveProgrammerConfig()
 }
 
 
-class NameValidator : public QValidator
-{
-	public:
-		NameValidator( QStringList unallowed )
-			: QValidator(0) {
-			m_unallowed = unallowed;
-		}
-		
-		virtual State validate( QString & input, int & ) const {
-			return (input.isEmpty() || m_unallowed.contains( input.lower() )) ? Intermediate : Acceptable;
-		}
-		
-	protected:
-		QStringList m_unallowed;
-};
-
-
 void SettingsDlg::slotAddProgrammerConfig()
 {
 	KComboBox * combo = m_picProgrammerConfigWidget->kcfg_PicProgrammerProgram;

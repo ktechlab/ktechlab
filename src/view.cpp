@@ -25,45 +25,6 @@
 
 #include <cassert>
 
-//BEGIN KVSSBSep
-// Taken from kdebase-3.4.0/kate/app/kateviewspace.cpp, Copyright Anders Lund <anders.lund@lund.tdcadsl.dk>
-/*
-   "KateViewSpaceStatusBarSeparator"
-   A 2 px line to separate the statusbar from the view.
-   It is here to compensate for the lack of a frame in the view,
-   I think Kate looks very nice this way, as QScrollView with frame
-   looks slightly clumsy...
-   Slight 3D effect. I looked for suitable QStyle props or methods,
-   but found none, though maybe it should use QStyle::PM_DefaultFrameWidth
-   for height (TRY!).
-   It does look a bit funny with flat styles (Light, .Net) as is,
-   but there are on methods to paint panel lines separately. And,
-   those styles tends to look funny on their own, as a light line
-   in a 3D frame next to a light contents widget is not functional.
-   Also, QStatusBar is up to now completely ignorant to style.
-   -anders
-*/
-class KVSSBSep : public QWidget
-{
-	public:
-		KVSSBSep( View * parent=0) : QWidget(parent)
-		{
-			setFixedHeight( 2 );
-		}
-	protected:
-		void paintEvent( QPaintEvent *e )
-		{
-			QPainter p( this );
-			p.setPen( colorGroup().shadow() );
-			p.drawLine( e->rect().left(), 0, e->rect().right(), 0 );
-			p.setPen( ((View*)parentWidget())->hasFocus() ? colorGroup().light() : colorGroup().midlight() );
-			p.drawLine( e->rect().left(), 1, e->rect().right(), 1 );
-		}
-};
-//END KVSSBSep
-
-
-
 //BEGIN class View
 View::View( Document *document, ViewContainer *viewContainer, uint viewAreaId, const char *name )
 	: QWidget( viewContainer->viewArea(viewAreaId), name ? name : (const char *)("view_" + QString::number(viewAreaId)) ),
