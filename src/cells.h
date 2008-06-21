@@ -64,12 +64,12 @@ class Cell
 		/**
 		 * Whether the score can be improved on.
 		 */
-		bool permanent:1;
+		bool permanent;
 		/**
 		 * Whether the cell has already been added to the list of cells to
 		 * check.
 		 */
-		bool addedToLabels:1;
+		bool addedToLabels;
 		/**
 		 * Pointer to the point in the TempLabelMap.
 		 */

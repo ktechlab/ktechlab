@@ -1697,10 +1697,8 @@ static const QBrush& defaultPolygonBrush()
 QCanvasPolygonalItem::QCanvasPolygonalItem(QCanvas* canvas)
 	: QCanvasItem(canvas),
 	br(defaultPolygonBrush()),
-	pn(defaultPolygonPen())
-{
-	wind=0;
-}
+	pn(defaultPolygonPen()), wind(false)
+{}
 
 QCanvasPolygonalItem::~QCanvasPolygonalItem()
 {
@@ -1718,7 +1716,7 @@ void QCanvasPolygonalItem::setWinding(bool enable)
 
 void QCanvasPolygonalItem::invalidate()
 {
-	val = (uint)false;
+	val = false;
 	removeFromChunks();
 }
 
