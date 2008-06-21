@@ -32,16 +32,12 @@ Node::Node( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoin
 	p_icnDocument = icnDocument;
 	m_level = 0;
 	
-	if ( p_icnDocument )
-	{
-		if (id)
-		{
+	if ( p_icnDocument ) {
+		if (id) {
 			m_id = *id;
 			if ( !p_icnDocument->registerUID(*id) )
 				kdError() << k_funcinfo << "Could not register id " << *id << endl;
-		}
-		else
-			m_id = p_icnDocument->generateUID("node"+QString::number(type));
+		} else m_id = p_icnDocument->generateUID("node"+QString::number(type));
 	}
 	
 	initPoints();
@@ -81,22 +77,17 @@ bool Node::acceptOutput() const
 
 void Node::setVisible( bool yes )
 {
-	if ( isVisible() == yes )
-		return;
+	if ( isVisible() == yes ) return;
 	
 	QCanvasPolygon::setVisible(yes);
 	
 	const ConnectorList::iterator inputEnd = m_inputConnectorList.end();
-	for ( ConnectorList::iterator it = m_inputConnectorList.begin(); it != inputEnd; ++it )
-	{
+	for ( ConnectorList::iterator it = m_inputConnectorList.begin(); it != inputEnd; ++it ) {
 		Connector *connector = *it;
-		if (connector)
-		{
+		if (connector) {
 			if ( isVisible() )
 				connector->setVisible(true);
-			
-			else
-			{
+			else {
 				Node *node = connector->startNode();
 				connector->setVisible( node && node->isVisible() );
 			}
@@ -104,16 +95,12 @@ void Node::setVisible( bool yes )
 	}
 	
 	const ConnectorList::iterator outputEnd = m_outputConnectorList.end();
-	for ( ConnectorList::iterator it = m_outputConnectorList.begin(); it != outputEnd; ++it )
-	{
+	for ( ConnectorList::iterator it = m_outputConnectorList.begin(); it != outputEnd; ++it ) {
 		Connector *connector = *it;
-		if (connector)
-		{
+		if (connector) {
 			if ( isVisible() )
 				connector->setVisible(true);
-			
-			else
-			{
+			else {
 				Node *node = connector->endNode();
 				connector->setVisible( node && node->isVisible() );
 			}
@@ -126,23 +113,21 @@ bool Node::isConnected( Node *node, NodeList *checkedNodes )
 {
 	if ( this == node )
 		return true;
-		
+
 	bool firstNode = !checkedNodes;
 	if (firstNode)
 		checkedNodes = new NodeList();
-		
+
 	else if ( checkedNodes->contains(this) )
 		return false;
-	
-	
+
 	checkedNodes->append(this);
-	
+
 	const ConnectorList::const_iterator inputEnd = m_inputConnectorList.end();
 	for ( ConnectorList::const_iterator it = m_inputConnectorList.begin(); it != inputEnd; ++it )
 	{
 		Connector *connector = *it;
-		if (connector)
-		{
+		if (connector) {
 			Node *startNode = connector->startNode();
 			if ( startNode && startNode->isConnected( node, checkedNodes ) ) {
 				if (firstNode) {
@@ -152,7 +137,7 @@ bool Node::isConnected( Node *node, NodeList *checkedNodes )
 			}
 		}
 	}
-	
+
 	const ConnectorList::const_iterator outputEnd = m_outputConnectorList.end();
 	for ( ConnectorList::const_iterator it = m_outputConnectorList.begin(); it != outputEnd; ++it )
 	{
@@ -168,11 +153,11 @@ bool Node::isConnected( Node *node, NodeList *checkedNodes )
 			}
 		}
 	}
-	
+
 	if (firstNode) {
 		delete checkedNodes;
 	}
-	
+
 	return false;
 }
 
@@ -202,20 +187,20 @@ void Node::initPoints()
 		setPoints( QPointArray( QRect( -4, -4, 8, 8 ) ) );
 		return;
 	}
-	
+
 	if ( type() == fp_junction )
 	{
 		setPoints( QPointArray( QRect( -4, -4, 9, 9 ) ) );
 		return;
 	}
-	
+
 	int l = m_length;
 	if ( type() != ec_pin )
 		l *= -1;
-	
+
 	// Bounding rectangle, facing right
 	QPointArray pa( QRect( 0, -8, l, 16 ) );
-	
+
 	QWMatrix m;
 	m.rotate( m_dir );
 	pa = m.map(pa);
@@ -229,15 +214,15 @@ QPoint Node::findConnectorDivergePoint( bool * found )
 	if (!found)
 		found = &temp;
 	*found = false;
-	
+
 	if ( numCon( false, false ) != 2 )
 		return QPoint(0,0);
-	
+
 	QPointList p1;
 	QPointList p2;
-	
+
 	int inSize = m_inputConnectorList.count();
-	
+
 	const ConnectorList connectors = m_inputConnectorList + m_outputConnectorList;
 	const ConnectorList::const_iterator end = connectors.end();
 	bool gotP1 = false;
@@ -248,18 +233,16 @@ QPoint Node::findConnectorDivergePoint( bool * found )
 		at++;
 		if ( !(*it) || !(*it)->canvas() )
 			continue;
-		
-		if (gotP1)
-		{
+
+		if (gotP1) {
 			p2 = (*it)->connectorPoints( at < inSize );
 			gotP2 = true;
-		}
-		else
-		{
+		} else {
 			p1 = (*it)->connectorPoints( at < inSize );
 			gotP1 = true;
 		}
 	}
+
 	if ( !gotP1 || !gotP2 )
 		return QPoint(0,0);
 	
@@ -267,8 +250,7 @@ QPoint Node::findConnectorDivergePoint( bool * found )
 	
 	for ( unsigned i = 1; i < maxLength; ++i )
 	{
-		if ( p1[i] != p2[i] )
-		{
+		if ( p1[i] != p2[i] ) {
 			*found = true;
 			return p1[i-1];
 		}
@@ -279,12 +261,11 @@ QPoint Node::findConnectorDivergePoint( bool * found )
 
 void Node::setParentItem( CNItem *parentItem )
 {
-	if (!parentItem)
-	{
+	if (!parentItem) {
 		kdError() << k_funcinfo << "no parent item" << endl;
 		return;
 	}
-	
+
 	p_parentItem = parentItem;
 	
 	setLevel(p_parentItem->level());
@@ -296,10 +277,9 @@ void Node::setParentItem( CNItem *parentItem )
 
 void Node::removeNode()
 {
-	if (b_deleted)
-		return;
+	if (b_deleted) return;
 	b_deleted = true;
-	
+
 	emit removed(this);
 	p_icnDocument->appendDeleteList(this);
 }
@@ -319,8 +299,7 @@ int Node::numCon( bool includeParentItem, bool includeHiddenConnectors ) const
 	
 	const ConnectorList connectors[2] = { m_inputConnectorList, m_outputConnectorList };
 	
-	for ( unsigned i = 0; i < 2; i++ )
-	{
+	for ( unsigned i = 0; i < 2; i++ ) {
 		ConnectorList::const_iterator end = connectors[i].end();
 		for ( ConnectorList::const_iterator it = connectors[i].begin(); it != end; ++it )
 		{
@@ -328,10 +307,10 @@ int Node::numCon( bool includeParentItem, bool includeHiddenConnectors ) const
 				count++;
 		}
 	}
-	
+
 	if ( isChildNode() && includeParentItem )
 		count++;
-	
+
 	return count;
 }
 
@@ -340,11 +319,10 @@ void Node::addOutputConnector( Connector * const connector )
 {
 	if ( type() == fp_in || !handleNewConnector(connector) )
 		return;
-	
+
 	m_outputConnectorList.append(connector);
-	
-	if ( type() == fp_out || type() == fp_junction )
-	{
+
+	if ( type() == fp_out || type() == fp_junction ) {
 		// We can only have one output connector, so remove the others. Note
 		// that this code has to come *after* adding the new output connector,
 		// as this node will delete itself if it's an fp_junction and there are
@@ -377,20 +355,20 @@ bool Node::handleNewConnector( Connector * connector )
 {
 	if (!connector)
 		return false;
-	
+
 	if ( m_inputConnectorList.contains(connector) || m_outputConnectorList.contains(connector) )
 	{
 		kdWarning() << k_funcinfo << " Already have connector = " << connector << endl;
 		return false;
 	}
-	
+
 	connect( this, SIGNAL(removed(Node*)), connector, SLOT(removeConnector(Node*)) );
 	connect( connector, SIGNAL(removed(Connector*)), this, SLOT(checkForRemoval(Connector*)) );
 	connect( connector, SIGNAL(selected(bool)), this, SLOT(setNodeSelected(bool)) );
-	
+
 	if ( !isChildNode() )
 		p_icnDocument->slotRequestAssignNG();
-	
+
 	return true;
 }
 
@@ -409,8 +387,7 @@ Connector* Node::createInputConnector( Node * startNode )
 
 void Node::removeConnector( Connector *connector )
 {
-	if (!connector)
-		return;
+	if (!connector) return;
 	
 	ConnectorList::iterator it;
 	
@@ -429,6 +406,7 @@ void Node::removeConnector( Connector *connector )
 	}
 }
 
+
 void Node::checkForRemoval( Connector *connector )
 {
 	removeConnector(connector);
@@ -436,8 +414,7 @@ void Node::checkForRemoval( Connector *connector )
 	
 	removeNullConnectors();
 	
-	if (!p_parentItem)
-	{
+	if (!p_parentItem) {
 		int conCount = m_inputConnectorList.count() + m_outputConnectorList.count();
 		if ( conCount < 2 )
 			removeNode();
@@ -446,6 +423,7 @@ void Node::checkForRemoval( Connector *connector )
 	if ( type() == Node::fp_junction && m_outputConnectorList.isEmpty() )
 		removeNode();
 }
+
 
 void Node::removeNullConnectors()
 {

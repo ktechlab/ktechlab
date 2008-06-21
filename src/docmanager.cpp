@@ -26,7 +26,7 @@
 #include <ktabwidget.h>
 #include <qfile.h>
 
-#include <assert.h>
+#include <cassert>
 
 DocManager * DocManager::m_pSelf = 0l;
 

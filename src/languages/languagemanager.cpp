@@ -27,7 +27,7 @@
 #include <klocale.h>
 #include <qwhatsthis.h>
 
-#include <assert.h>
+#include <cassert>
 
 
 LanguageManager * LanguageManager::m_pSelf = 0l;
