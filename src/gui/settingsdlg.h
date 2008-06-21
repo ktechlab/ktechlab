@@ -13,6 +13,7 @@
 
 #include <kconfigdialog.h>
 #include <qmap.h>
+#include <qvalidator.h>
 
 class AsmFormattingWidget;
 class GeneralOptionsWidget;

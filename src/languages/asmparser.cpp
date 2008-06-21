@@ -45,23 +45,21 @@ bool AsmParser::parse( GpsimDebugger * debugger )
 			"code,.def,.dim,.direct,endw,extern,.file,global,idata,.ident,.line,.type,udata,udata_acs,udata_ovr,udata_shr" );
 	
 	unsigned inputAtLine = 0;
-	while ( !stream.atEnd() )
-	{
+	while ( !stream.atEnd() ) {
 		const QString line = stream.readLine().stripWhiteSpace();
-		if ( m_type != Relocatable )
-		{
+		if ( m_type != Relocatable ) {
 			QString col0 = line.section( QRegExp("[; ]"), 0, 0 );
 			col0 = col0.stripWhiteSpace();
 			if ( nonAbsoluteOps.contains(col0) )
 				m_type = Relocatable;
 		}
-		if ( !m_bContainsRadix )
-		{
+
+		if ( !m_bContainsRadix ) {
 			if ( line.contains( QRegExp("^RADIX[\\s]*") ) || line.contains( QRegExp("^radix[\\s]*") ) )
 				m_bContainsRadix = true;
 		}
-		if ( m_picID.isEmpty() )
-		{
+
+		if ( m_picID.isEmpty() ) {
 			// We look for "list p = ", and "list p = picid ", and subtract the positions / lengths away from each other to get the picid text position
 			QRegExp fullRegExp("[lL][iI][sS][tT][\\s]+[pP][\\s]*=[\\s]*[\\d\\w]+");
 			QRegExp halfRegExp("[lL][iI][sS][tT][\\s]+[pP][\\s]*=[\\s]*");
@@ -85,14 +83,12 @@ bool AsmParser::parse( GpsimDebugger * debugger )
 			
 			if ( fileLineAt == -1 )
 				kdWarning() << k_funcinfo << "Syntax error in line \"" << line << "\" while looking for file-line" << endl;
-			else
-			{
+			else {
 				// 7 = length_of(";#CSRC\t")
 				QString fileName = line.mid( 7, fileLineAt-7 );
 				QString fileLineString = line.mid( fileLineAt+1, line.length() - fileLineAt - 1 );
 					
-				if ( fileName.startsWith("\"") )
-				{
+				if ( fileName.startsWith("\"") ) {
 					// Newer versions of SDCC insert " around the filename
 					fileName.remove( 0, 1 ); // First "
 					fileName.remove( fileName.length()-1, 1 ); // Last "
@@ -102,31 +98,27 @@ bool AsmParser::parse( GpsimDebugger * debugger )
 				int fileLine = fileLineString.toInt(&ok) - 1;
 				if ( ok && fileLine >= 0 )
 					debugger->associateLine( fileName, fileLine, m_url, inputAtLine );
-				else
-					kdDebug() << k_funcinfo << "Not a valid line number: \"" << fileLineString << "\"" << endl;
+				else	kdDebug() << k_funcinfo << "Not a valid line number: \"" << fileLineString << "\"" << endl;
 			}
 		}
-		if ( debugger && (line.startsWith(".line\t") || line.startsWith(";#MSRC") ) )
-		{
+
+		if ( debugger && (line.startsWith(".line\t") || line.startsWith(";#MSRC") ) ) {
 			// Assembly file produced by either sdcc or microbe, line is in format:
 			// \t[".line"/"#MSRC"]\t[file-line]; [file-name]\t[c/microbe source code for that line]
 			// We're screwed if the file name contains tabs, but hopefully not many do...
 			QStringList lineParts = QStringList::split( '\t', line );
 			if ( lineParts.size() < 2 )
 				kdWarning() << k_funcinfo << "Line is in wrong format for extracing source line and file: \""<<line<<"\""<<endl;
-			else
-			{
+			else {
 				const QString lineAndFile = lineParts[1];
 				int lineFileSplit = lineAndFile.find("; ");
 				if ( lineFileSplit == -1 )
 					kdDebug() << k_funcinfo << "Could not find file / line split in \""<<lineAndFile<<"\""<<endl;
-				else
-				{
+				else {
 					QString fileName = lineAndFile.mid( lineFileSplit + 2 );
 					QString fileLineString = lineAndFile.left( lineFileSplit );
 					
-					if ( fileName.startsWith("\"") )
-					{
+					if ( fileName.startsWith("\"") ) {
 						// Newer versions of SDCC insert " around the filename
 						fileName.remove( 0, 1 ); // First "
 						fileName.remove( fileName.length()-1, 1 ); // Last "
@@ -136,8 +128,7 @@ bool AsmParser::parse( GpsimDebugger * debugger )
 					int fileLine = fileLineString.toInt(&ok) - 1;
 					if ( ok && fileLine >= 0 )
 						debugger->associateLine( fileName, fileLine, m_url, inputAtLine );
-					else
-						kdDebug() << k_funcinfo << "Not a valid line number: \"" << fileLineString << "\"" << endl;
+					else kdDebug() << k_funcinfo << "Not a valid line number: \"" << fileLineString << "\"" << endl;
 				}
 			}
 		}
