@@ -29,7 +29,7 @@
 #include <qtimer.h>
 #include <qtoolbutton.h>
 
-#include <assert.h>
+#include <cassert>
 
 ScopeScreen::ScopeScreen( KateMDI::ToolView * parent)
         : ScopeScreenWidget(parent)

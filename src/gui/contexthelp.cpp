@@ -45,7 +45,7 @@
 #include <qwhatsthis.h>
 #include <qwidgetstack.h>
 
-#include <assert.h>
+#include <cassert>
 
 ContextHelp * ContextHelp::m_pSelf = 0l;
 

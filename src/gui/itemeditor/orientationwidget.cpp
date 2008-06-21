@@ -26,7 +26,7 @@
 #include <qpainter.h>
 #include <qpushbutton.h>
 
-#include <assert.h>
+#include <cassert>
 
 const int _size = 44;
 

@@ -21,7 +21,7 @@
 #include <qlabel.h>
 #include <qlayout.h>
 
-#include <assert.h>
+#include <cassert>
 
 static const int NAME_COLUMN = 0;
 static const int VALUE_COLUMN = 1;

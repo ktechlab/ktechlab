@@ -28,7 +28,7 @@
 #include <qpopupmenu.h>
 #include <qwhatsthis.h>
 
-#include <assert.h>
+#include <cassert>
 
 ILVItem::ILVItem( QListView* parent, const QString &id )
 	: KListViewItem( parent, 0 )
@@ -52,7 +52,7 @@ ItemSelector::ItemSelector( QWidget *parent, const char *name )
 {
     addColumn( i18n( "Component" ) );
 	setFullWidth(true);
-	setSorting( -1, FALSE );
+	setSorting( -1, false );
     setRootIsDecorated(true);
     setDragEnabled(true);
 	setFocusPolicy( NoFocus );
