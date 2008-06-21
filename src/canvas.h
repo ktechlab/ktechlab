@@ -94,7 +94,7 @@ class QCanvasItem : public Qt
 		virtual void removeFromChunks();
 		virtual void changeChunks();
 		
-		uint val:1;
+		bool val;
 		double myx,myy,myz;
 
 	private:
@@ -314,7 +314,7 @@ class QCanvasPolygonalItem : public QCanvasItem
 
 		QBrush br;
 		QPen pn;
-		uint wind:1;
+		bool wind;
 };
 
 
