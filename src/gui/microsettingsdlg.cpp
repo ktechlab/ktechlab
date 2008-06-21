@@ -197,34 +197,6 @@ QValidator::State MicroSettingsDlg::validatePinMapName( QString & name ) const
 }
 
 
-class PinMappingNameValidator : public QValidator
-{
-	public:
-		/**
-		 * Create a validator. If oldName is not empty, then the input is
-		 * allowed to be oldName.
-		 */
-		PinMappingNameValidator( MicroSettingsDlg * dlg, const QString & oldName = 0 )
-			: QValidator(0)
-		{
-			m_pDlg = dlg;
-			m_oldName = oldName;
-		}
-		
-		virtual State validate( QString & input, int & ) const
-		{
-			if ( (!m_oldName.isEmpty()) && (input == m_oldName) )
-				return QValidator::Acceptable;
-			
-			return m_pDlg->validatePinMapName( input );
-		}
-		
-	protected:
-		MicroSettingsDlg * m_pDlg;
-		QString m_oldName;
-};
-
-
 void MicroSettingsDlg::slotCheckNewPinMappingName( const QString & name )
 {
 	// Validate name might change the name so that it is valid

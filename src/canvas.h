@@ -344,8 +344,8 @@ class QCanvasRectangle : public QCanvasPolygonalItem
 
 	private:
 		bool collidesWith( const QCanvasPolygonalItem*,
-						   const QCanvasRectangle*,
-						   const QCanvasEllipse* ) const;
+				   const QCanvasRectangle*,
+				   const QCanvasEllipse* ) const;
 
 		int w, h;
 };
