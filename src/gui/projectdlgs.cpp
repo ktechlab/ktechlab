@@ -17,7 +17,7 @@
 #include "projectdlgs.h"
 #include "projectmanager.h"
 
-#include <assert.h>
+#include <cassert>
 #include <kcombobox.h>
 #include <kdeversion.h>
 #include <kfiledialog.h>
