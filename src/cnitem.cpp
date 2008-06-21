@@ -23,10 +23,6 @@
 #include <cstdlib>
 #include <cmath>
 
-// Degrees per radian
-const double DPR = 57.29577951308232087665461840231273527024;
-
-
 CNItem::CNItem( ICNDocument *icnDocument, bool newItem, const QString &id )
 	: Item( icnDocument, newItem, id ),
 	  CIWidgetMgr( icnDocument ? icnDocument->canvas() : 0, this ),
