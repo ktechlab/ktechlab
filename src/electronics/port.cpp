@@ -261,7 +261,6 @@ QStringList SerialPort::ports( unsigned probeResult )
 
 const int IRQ_MODE_BIT = 1 << 20; // Controls if pin 10 (Ack) causes interrupts
 const int INPUT_MODE_BIT = 1 << 21; // Controls if the data pins are input or output
-const int ALWAYS_INPUT_PINS = ParallelPort::STATUS_PINS;
 
 // No code using these values will be reached on Darwin, this is just to
 // keep the preprocessor happy.
@@ -311,7 +310,7 @@ void ParallelPort::reset()
 	m_reg[Status] = 0;
 	m_reg[Control] = 0;
 	m_outputPins = INPUT_MODE_BIT | IRQ_MODE_BIT;
-	m_inputPins = ALWAYS_INPUT_PINS | INPUT_MODE_BIT | IRQ_MODE_BIT;
+	m_inputPins = STATUS_PINS | INPUT_MODE_BIT | IRQ_MODE_BIT;
 }
 
 

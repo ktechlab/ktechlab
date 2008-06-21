@@ -49,7 +49,6 @@ const int dipWidth = 112;
 const int pairSep = 32;
 
 // Degrees per radian
-static const double DPR = 57.29577951308232087665461840231273527024;
 
 Component::Component( ICNDocument *icnDocument, bool newItem, const QString &id )
         : CNItem( icnDocument, newItem, id ),
@@ -294,6 +293,8 @@ void Component::finishedCreation()
 
 void Component::updateAttachedPositioning()
 {
+	const double RPD = M_PI / 180.0;
+
     if (b_deleted || !m_bDoneCreation)
         return;
 
@@ -305,8 +306,8 @@ void Component::updateAttachedPositioning()
             kdError() << k_funcinfo << "Node in nodemap is null" << endl;
         else
         {
-            int nx = int((std::cos(m_angleDegrees/DPR) * it.data().x) - (std::sin(m_angleDegrees/DPR) * it.data().y));
-            int ny = int((std::sin(m_angleDegrees/DPR) * it.data().x) + (std::cos(m_angleDegrees/DPR) * it.data().y));
+            int nx = int((std::cos(m_angleDegrees * RPD) * it.data().x) - (std::sin(m_angleDegrees * RPD) * it.data().y));
+            int ny = int((std::sin(m_angleDegrees * RPD) * it.data().x) + (std::cos(m_angleDegrees * RPD) * it.data().y));
 
             if (b_flipped)
                 nx = -nx;
@@ -365,10 +366,9 @@ void Component::drawPortShape( QPainter & p )
     double roundSize = 8;
     double slantIndent = 8;
 
-    const double pi = 3.1415926536;
-    const double DPR = 180./pi;
+    const double DPR = 180.0 / M_PI;
     double inner = std::atan(h/slantIndent);	// Angle for slight corner
-    double outer = pi-inner;					// Angle for sharp corner
+    double outer = M_PI - inner;		// Angle for sharp corner
 
     int inner16 = int(16*inner*DPR);
     int outer16 = int(16*outer*DPR);
@@ -511,7 +511,7 @@ void Component::init1PinLeft( int h1 )
 {
     if ( h1 == -1 ) h1 = offsetY()+height()/2;
 
-    m_pNNode[0] = createPin( offsetX()-8,			h1, 0,	"n1" );
+    m_pNNode[0] = createPin( offsetX()-8, h1, 0, "n1" );
 }
 
 void Component::init2PinLeft( int h1, int h2 )
@@ -519,8 +519,8 @@ void Component::init2PinLeft( int h1, int h2 )
     if ( h1 == -1 ) h1 = offsetY()+8;
     if ( h2 == -1 ) h2 = offsetY()+height()-8;
 
-    m_pNNode[0] = createPin( offsetX()-8,			h1, 0,	"n1" );
-    m_pNNode[1] = createPin( offsetX()-8,			h2, 0,	"n2" );
+    m_pNNode[0] = createPin( offsetX()-8, h1, 0, "n1" );
+    m_pNNode[1] = createPin( offsetX()-8, h2, 0, "n2" );
 }
 
 void Component::init3PinLeft( int h1, int h2, int h3 )
@@ -529,9 +529,9 @@ void Component::init3PinLeft( int h1, int h2, int h3 )
     if ( h2 == -1 ) h2 = offsetY()+height()/2;
     if ( h3 == -1 ) h3 = offsetY()+height()-8;
 
-    m_pNNode[0] = createPin( offsetX()-8,			h1, 0,	"n1" );
-    m_pNNode[1] = createPin( offsetX()-8,			h2, 0,	"n2" );
-    m_pNNode[2] = createPin( offsetX()-8,			h3, 0,	"n3" );
+    m_pNNode[0] = createPin( offsetX()-8, h1, 0, "n1" );
+    m_pNNode[1] = createPin( offsetX()-8, h2, 0, "n2" );
+    m_pNNode[2] = createPin( offsetX()-8, h3, 0, "n3" );
 }
 
 void Component::init4PinLeft( int h1, int h2, int h3, int h4 )
@@ -541,10 +541,10 @@ void Component::init4PinLeft( int h1, int h2, int h3, int h4 )
     if ( h3 == -1 ) h3 = offsetY()+height()-24;
     if ( h4 == -1 ) h4 = offsetY()+height()-8;
 
-    m_pNNode[0] = createPin( offsetX()-8,			h1, 0,	"n1" );
-    m_pNNode[1] = createPin( offsetX()-8,			h2, 0,	"n2" );
-    m_pNNode[2] = createPin( offsetX()-8,			h3, 0,	"n3" );
-    m_pNNode[3] = createPin( offsetX()-8,			h4, 0,	"n4" );
+    m_pNNode[0] = createPin( offsetX()-8, h1, 0, "n1" );
+    m_pNNode[1] = createPin( offsetX()-8, h2, 0, "n2" );
+    m_pNNode[2] = createPin( offsetX()-8, h3, 0, "n3" );
+    m_pNNode[3] = createPin( offsetX()-8, h4, 0, "n4" );
 }
 
 void Component::init1PinRight( int h1 )
