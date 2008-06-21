@@ -21,7 +21,7 @@
 #include "processchain.h"
 #include "simulator.h"
 
-#include <assert.h>
+#include <cassert>
 
 #include <kdebug.h>
 #include <klocale.h>
