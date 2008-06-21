@@ -194,17 +194,23 @@ class Pin : public QObject
 	protected:
 		double m_voltage;
 		double m_current;
+
 		int m_eqId;
+		int m_groundType;
+
 		bool m_bCurrentIsKnown;
+
 		PinList m_circuitDependentPins;
 		PinList m_groundDependentPins;
-		ElementList m_elementList;
-		SwitchList m_switchList;
-		int m_groundType;
 		PinList m_switchConnectedPins;
+
+		ElementList m_elementList;
+
 		WireList m_inputWireList;
 		WireList m_outputWireList;
 		ECNode * m_pECNode;
+
+		SwitchList m_switchList;
 		SwitchList m_unknownSwitchCurrents;
 };
 
