@@ -322,9 +322,9 @@ void addOscilloscopeAsToolView( KTechlab *ktechlab)
 {
 	KateMDI::ToolView * tv;
 	tv = ktechlab->createToolView( Oscilloscope::toolViewIdentifier(),
-								   KMultiTabBar::Bottom,
-								   KGlobal::iconLoader()->loadIcon( "oscilloscope", KIcon::Small),
-								   i18n("Oscilloscope"));
+				KMultiTabBar::Bottom,
+				KGlobal::iconLoader()->loadIcon( "oscilloscope", KIcon::Small),
+				i18n("Oscilloscope"));
 	
 	Oscilloscope::self(tv);
 }
@@ -343,3 +343,4 @@ void unregisterProbe( int id)
 
 
 #include "oscilloscope.moc"
+
