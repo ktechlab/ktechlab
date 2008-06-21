@@ -25,7 +25,6 @@
 #include <iostream>
 
 using namespace std;
-using namespace std;
 
 #ifndef QVECTOR_H
 #include "qvector.h"
