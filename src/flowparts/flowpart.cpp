@@ -30,7 +30,7 @@
 #include <qpixmap.h>
 #include <qregexp.h>
 
-#include <assert.h>
+#include <cassert>
 #include <algorithm>
 #include <cmath>
 
