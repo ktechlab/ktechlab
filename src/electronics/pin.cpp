@@ -10,7 +10,7 @@
 
 #include "pin.h"
 
-#include <assert.h>
+#include <cassert>
 #include <kdebug.h>
 
 Pin::Pin( ECNode * parent )

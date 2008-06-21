@@ -48,7 +48,10 @@ class ECNode : public Node
 		 */
 		unsigned numPins() const { return m_pins.size(); }
 		PinVector pins() const { return m_pins; }
-		Pin * pin( unsigned num = 0 ) const { return (num < m_pins.size()) ? m_pins[num] : 0l; }
+
+		Pin *pin( unsigned num = 0 ) const
+			{ return (num < m_pins.size()) ? m_pins[num] : 0l; }
+
 		bool showVoltageBars() const { return m_bShowVoltageBars; }
 		void setShowVoltageBars( bool show ) { m_bShowVoltageBars = show; }
 		bool showVoltageColor() const { return m_bShowVoltageColor; }
