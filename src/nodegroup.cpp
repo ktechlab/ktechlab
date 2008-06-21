@@ -15,7 +15,8 @@
 #include "nodegroup.h"
 
 #include <kdebug.h>
-#include <assert.h>
+#include <cassert>
+#include <cstdlib>
 
 NodeGroup::NodeGroup( ICNDocument *icnDocument, const char *name )
 	: QObject( icnDocument, name )

@@ -32,7 +32,7 @@
 #include <qpopupmenu.h>
 #include <qwhatsthis.h>
 
-#include <assert.h>
+#include <cassert>
 
 //BEGIN class LinkerOptions
 LinkerOptions::LinkerOptions()

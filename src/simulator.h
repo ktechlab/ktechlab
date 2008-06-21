@@ -230,7 +230,7 @@ class Simulator : public QObject
 		
 	private:
 		Simulator();
-		long m_llNumber; // simulation clock. 
+		unsigned long m_llNumber; // simulation clock. 
 		long long m_stepNumber;
 		unsigned char m_currentChain;
 };

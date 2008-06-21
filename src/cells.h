@@ -11,7 +11,7 @@
 #ifndef CELLS_H
 #define CELLS_H
 
-#include <assert.h>
+#include <cassert>
 #include <map>
 #include <qrect.h>
 #include "utils.h"

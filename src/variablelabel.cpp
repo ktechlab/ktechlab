@@ -24,7 +24,7 @@ VariableLabel::VariableLabel( TextView * parent )
 	m_value = -1;
 	
 	setMargin(1);
-	setAutoMask( FALSE );
+	setAutoMask( false );
 	setFrameStyle( QFrame::Plain | QFrame::Box );
 	setLineWidth( 1 );
 	setAlignment( AlignAuto | AlignTop );

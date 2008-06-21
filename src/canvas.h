@@ -102,9 +102,10 @@ class QCanvasItem : public Qt
 		static QCanvas* current_canvas;
 		QCanvasItemExtra *ext;
 		QCanvasItemExtra& extra();
+		bool m_bNeedRedraw;
 		bool vis;
 		bool sel;
-		bool m_bNeedRedraw;
+
 };
 
 class QCanvas : public QObject
@@ -164,12 +165,12 @@ class QCanvas : public QObject
 		QCanvasItemList collisions( const QPointArray& pa, const QCanvasItem* item,
 						bool exact) const;
 
-		void drawArea(const QRect&, QPainter* p, bool double_buffer=FALSE);
+		void drawArea(const QRect&, QPainter* p, bool double_buffer=false);
 
 		// These are for QCanvasView to call
 		virtual void addView(QCanvasView*);
 		virtual void removeView(QCanvasView*);
-		void drawCanvasArea(const QRect&, QPainter* p=0, bool double_buffer=TRUE);
+		void drawCanvasArea(const QRect&, QPainter* p=0, bool double_buffer=true);
 		void drawViewArea( QCanvasView* view, QPainter* p, const QRect& r, bool dbuf );
 
 		// These are for QCanvasItem to call

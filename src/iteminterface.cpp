@@ -31,7 +31,7 @@
 #include <qlabel.h>
 #include <qcheckbox.h>
 
-#include <assert.h>
+#include <cassert>
 
 ItemInterface * ItemInterface::m_pSelf = 0l;
 

@@ -12,9 +12,19 @@ INCLUDES = -I$(top_srcdir)/src -I$(top_srcdir)/src/drawparts \
 	-I$(top_srcdir)/src/micro $(all_includes)
 
 # the library search path. 
-ktechlab_LDFLAGS = -module $(all_libraries) $(KDE_RPATH)
+ktechlab_LDFLAGS = -module $(KDE_RPATH) $(all_libraries)
 
 # the libraries to link against.
+<<<<<<< .mine
+ktechlab_LDADD = $(top_builddir)/src/core/libcore.la \
+	$(top_builddir)/src/drawparts/libdrawparts.la $(top_builddir)/src/electronics/components/libcomponents.la \
+	$(top_builddir)/src/electronics/libelectronics.la $(top_builddir)/src/electronics/simulation/libelements.la \
+	$(top_builddir)/src/flowparts/libflowparts.la $(top_builddir)/src/gui/itemeditor/libitemeditor.la \
+	$(top_builddir)/src/gui/libgui.la $(top_builddir)/src/languages/liblanguages.la \
+	$(top_builddir)/src/mechanics/libmechanics.la $(top_builddir)/src/micro/libmicro.la \
+	$(LIB_GPSIM) $(LIB_KDEPRINT) $(LIB_KFILE) \
+	$(top_builddir)/src/math/libtechmath.la -lkhtml -lktexteditor -lkutils
+=======
 ktechlab_LDADD = $(top_builddir)/src/gui/libgui.la \
 	$(top_builddir)/src/micro/libmicro.la $(top_builddir)/src/flowparts/libflowparts.la \
 	$(top_builddir)/src/mechanics/libmechanics.la $(top_builddir)/src/electronics/libelectronics.la \
@@ -23,6 +33,7 @@ ktechlab_LDADD = $(top_builddir)/src/gui/libgui.la \
 	$(top_builddir)/src/core/libcore.la $(top_builddir)/src/gui/itemeditor/libitemeditor.la \
 	$(top_builddir)/src/math/libmath.la \
 	-lkhtml -lkutils $(LIB_GPSIM) -lktexteditor $(LIB_KFILE) $(LIB_KDEPRINT)
+>>>>>>> .r97
 
 # which sources should be compiled for ktechlab
 ktechlab_SOURCES = ktechlab.cpp node.cpp connector.cpp itemlibrary.cpp \
@@ -78,8 +89,13 @@ rcdir = $(kde_datadir)/ktechlab
 rc_DATA = ktechlabui.rc ktechlabcircuitui.rc \
 	ktechlabflowcodeui.rc ktechlabitemviewui.rc ktechlabmechanicsui.rc ktechlabtextui.rc ktechlabkateui.rc
  
+<<<<<<< .mine
+SUBDIRS = contexthelp core drawparts electronics flowparts gui languages math \
+	mechanics micro
+=======
 SUBDIRS = core gui flowparts micro mechanics electronics languages drawparts \
 	contexthelp math
+>>>>>>> .r97
 #iconsdir = $(kde_datadir)/ktechlab/icons
 
 

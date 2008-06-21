@@ -20,6 +20,7 @@
 #include <qbitarray.h>
 #include <qpainter.h>
 
+#include <cstdlib>
 #include <cmath>
 
 // Degrees per radian

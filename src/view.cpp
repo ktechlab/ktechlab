@@ -23,7 +23,7 @@
 #include <qapplication.h>
 #include <qpainter.h>
 
-#include <assert.h>
+#include <cassert>
 
 //BEGIN KVSSBSep
 // Taken from kdebase-3.4.0/kate/app/kateviewspace.cpp, Copyright Anders Lund <anders.lund@lund.tdcadsl.dk>
