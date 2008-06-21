@@ -311,28 +311,6 @@ void ContextHelp::setCurrentLanguage( const QString & language )
 	slotEdit();
 }
 
-
-#if 0
-class FileWritableValidator : public QValidator
-{
-	public:
-		FileWritableValidator() : QValidator( 0 ) {};
-		
-		virtual State validate( QString & input, int & ) const
-		{
-			if ( QFile::exists( input ) )
-				return Intermediate;
-			
-			QFile f( input );
-			if ( !f.open( IO_WriteOnly ) )
-				return Intermediate;
-			f.remove();
-			return Acceptable;
-		}
-};
-#endif
-
-
 void ContextHelp::requestItemDescriptionsDirectory()
 {
 	KDirSelectDialog * dlg = new KDirSelectDialog( itemLibrary()->itemDescriptionsDirectory(), true );

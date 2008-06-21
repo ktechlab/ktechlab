@@ -15,7 +15,6 @@ INCLUDES = -I$(top_srcdir)/src -I$(top_srcdir)/src/drawparts \
 ktechlab_LDFLAGS = -module $(KDE_RPATH) $(all_libraries)
 
 # the libraries to link against.
-<<<<<<< .mine
 ktechlab_LDADD = $(top_builddir)/src/core/libcore.la \
 	$(top_builddir)/src/drawparts/libdrawparts.la $(top_builddir)/src/electronics/components/libcomponents.la \
 	$(top_builddir)/src/electronics/libelectronics.la $(top_builddir)/src/electronics/simulation/libelements.la \
@@ -24,16 +23,6 @@ ktechlab_LDADD = $(top_builddir)/src/core/libcore.la \
 	$(top_builddir)/src/mechanics/libmechanics.la $(top_builddir)/src/micro/libmicro.la \
 	$(LIB_GPSIM) $(LIB_KDEPRINT) $(LIB_KFILE) \
 	$(top_builddir)/src/math/libtechmath.la -lkhtml -lktexteditor -lkutils
-=======
-ktechlab_LDADD = $(top_builddir)/src/gui/libgui.la \
-	$(top_builddir)/src/micro/libmicro.la $(top_builddir)/src/flowparts/libflowparts.la \
-	$(top_builddir)/src/mechanics/libmechanics.la $(top_builddir)/src/electronics/libelectronics.la \
-	$(top_builddir)/src/electronics/simulation/libelements.la $(top_builddir)/src/electronics/components/libcomponents.la \
-	$(top_builddir)/src/languages/liblanguages.la $(top_builddir)/src/drawparts/libdrawparts.la \
-	$(top_builddir)/src/core/libcore.la $(top_builddir)/src/gui/itemeditor/libitemeditor.la \
-	$(top_builddir)/src/math/libmath.la \
-	-lkhtml -lkutils $(LIB_GPSIM) -lktexteditor $(LIB_KFILE) $(LIB_KDEPRINT)
->>>>>>> .r97
 
 # which sources should be compiled for ktechlab
 ktechlab_SOURCES = ktechlab.cpp node.cpp connector.cpp itemlibrary.cpp \
@@ -52,15 +41,16 @@ ktechlab_PCH = AUTO
 
 
 # these are the headers for your project
-noinst_HEADERS = ktechlab.h node.h connector.h itemlibrary.h libraryitem.h \
-		projectmanager.h picitem.h canvasitemparts.h microsettings.h fpnode.h cells.h \
-		asmformatter.h conrouter.h nodegroup.h canvasmanipulator.h iteminterface.h itemgroup.h \
-		ciwidgetmgr.h filemetainfo.h resizeoverlay.h document.h view.h docmanager.h cnitem.h \
-		item.h cnitemgroup.h itemview.h itemdocument.h textview.h textdocument.h \
-		circuitdocument.h flowcodedocument.h icnview.h icndocument.h viewcontainer.h \
-		circuitview.h flowcodeview.h eventinfo.h oscilloscopedata.h itemdocumentdata.h \
-		docmanageriface.h documentiface.h viewiface.h simulator.h katemdi.h debugmanager.h \
-		recentfilesaction.h variablelabel.h utils.h property.h canvas.h
+noinst_HEADERS = asmformatter.h canvas.h canvas_private.h canvasitemparts.h \
+	canvasmanipulator.h cells.h circuitdocument.h circuitview.h ciwidgetmgr.h cnitem.h \
+	cnitemgroup.h connector.h conrouter.h debugmanager.h docmanager.h docmanageriface.h \
+	document.h documentiface.h eventinfo.h filemetainfo.h flowcodedocument.h \
+	flowcodeview.h fpnode.h icndocument.h icnview.h item.h itemdocument.h \
+	itemdocumentdata.h itemgroup.h iteminterface.h itemlibrary.h itemview.h katemdi.h \
+	ktechlab.h libraryitem.h microsettings.h node.h nodegroup.h oscilloscopedata.h \
+	picitem.h projectmanager.h property.h recentfilesaction.h resizeoverlay.h \
+	simulator.h textdocument.h textview.h utils.h variablelabel.h view.h \
+	viewcontainer.h viewiface.h
 
 
 # client stuff
@@ -89,13 +79,9 @@ rcdir = $(kde_datadir)/ktechlab
 rc_DATA = ktechlabui.rc ktechlabcircuitui.rc \
 	ktechlabflowcodeui.rc ktechlabitemviewui.rc ktechlabmechanicsui.rc ktechlabtextui.rc ktechlabkateui.rc
  
-<<<<<<< .mine
 SUBDIRS = contexthelp core drawparts electronics flowparts gui languages math \
 	mechanics micro
-=======
-SUBDIRS = core gui flowparts micro mechanics electronics languages drawparts \
-	contexthelp math
->>>>>>> .r97
+
 #iconsdir = $(kde_datadir)/ktechlab/icons
 
 
