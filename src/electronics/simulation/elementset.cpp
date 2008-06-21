@@ -20,7 +20,7 @@
 
 #include <cmath>
 #include <iostream>
-#include <assert.h>
+#include <cassert>
 
 ElementSet::ElementSet( Circuit * circuit, const int n, const int m )
 	: m_cn(n), m_cb(m)

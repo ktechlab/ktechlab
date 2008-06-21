@@ -16,7 +16,7 @@
 #include <qpainter.h>
 #include <qstring.h>
 
-#include <assert.h>
+#include <cassert>
 
 // Thank you Scott Dattalo!
 // http://www.dattalo.com/gnupic/lcdfont.inc

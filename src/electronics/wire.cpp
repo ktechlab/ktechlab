@@ -10,7 +10,7 @@
 
 #include "pin.h"
 #include "wire.h"
-#include <assert.h>
+#include <cassert>
 #include <kdebug.h>
 
 Wire::Wire( Pin * startPin, Pin * endPin )

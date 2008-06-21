@@ -18,7 +18,7 @@
 #include <klocale.h>
 #include <qpainter.h>
 #include <cmath>
-#include <assert.h>
+#include <cassert>
 
 #include <kdebug.h>
 

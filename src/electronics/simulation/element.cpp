@@ -11,7 +11,7 @@
 #include "element.h"
 #include "elementset.h"
 
-#include <assert.h>
+#include <cassert>
 
 #include <kdebug.h>
 

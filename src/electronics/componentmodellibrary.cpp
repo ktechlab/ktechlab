@@ -15,7 +15,7 @@
 #include <qdatetime.h>
 #include <qfile.h>
 
-#include <assert.h>
+#include <cassert>
 
 // A prime number slightly larger than the number of models for any particular type
 const int maxComponentModels = 101;
