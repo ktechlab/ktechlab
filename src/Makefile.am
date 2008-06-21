@@ -5,11 +5,12 @@
 bin_PROGRAMS = ktechlab
 
 # set the include path for X, qt and KDE
-INCLUDES = -I$(top_srcdir)/src -I$(top_srcdir)/src/drawparts \
-	-I$(top_srcdir)/src/electronics -I$(top_srcdir)/src/electronics/components \
+INCLUDES = -I$(top_srcdir)/doc -I$(top_srcdir)/microbe -I$(top_srcdir)/src \
+	-I$(top_srcdir)/src/core -I$(top_srcdir)/src/drawparts -I$(top_srcdir)/src/electronics \
+	-I$(top_srcdir)/src/electronics/components -I$(top_srcdir)/src/electronics/models \
 	-I$(top_srcdir)/src/electronics/simulation -I$(top_srcdir)/src/flowparts -I$(top_srcdir)/src/gui \
-	-I$(top_srcdir)/src/gui/itemeditor -I$(top_srcdir)/src/languages -I$(top_srcdir)/src/mechanics \
-	-I$(top_srcdir)/src/micro $(all_includes)
+	-I$(top_srcdir)/src/gui/itemeditor -I$(top_srcdir)/src/languages -I$(top_srcdir)/src/math \
+	-I$(top_srcdir)/src/mechanics -I$(top_srcdir)/src/micro $(all_includes)
 
 # the library search path. 
 ktechlab_LDFLAGS = -module $(KDE_RPATH) $(all_libraries)
@@ -26,16 +27,16 @@ ktechlab_LDADD = $(top_builddir)/src/core/libcore.la \
 
 # which sources should be compiled for ktechlab
 ktechlab_SOURCES = ktechlab.cpp node.cpp connector.cpp itemlibrary.cpp \
-				libraryitem.cpp projectmanager.cpp picitem.cpp variant.cpp canvasitemparts.cpp \
-				flowcontainer.cpp microsettings.cpp fpnode.cpp cells.cpp asmformatter.cpp conrouter.cpp \
-				nodegroup.cpp canvasmanipulator.cpp iteminterface.cpp itemgroup.cpp ciwidgetmgr.cpp \
-				filemetainfo.cpp resizeoverlay.cpp document.cpp view.cpp docmanager.cpp cnitem.cpp \
-				item.cpp cnitemgroup.cpp itemview.cpp itemdocument.cpp textview.cpp \
-				textdocument.cpp circuitdocument.cpp flowcodedocument.cpp icnview.cpp icndocument.cpp \
-				viewcontainer.cpp circuitview.cpp flowcodeview.cpp eventinfo.cpp oscilloscopedata.cpp \
-				itemdocumentdata.cpp docmanageriface.cpp documentiface.cpp viewiface.cpp \
-				docmanageriface.skel viewiface.skel documentiface.skel simulator.cpp katemdi.cpp \
-				debugmanager.cpp recentfilesaction.cpp variablelabel.cpp canvas.cpp
+		libraryitem.cpp projectmanager.cpp picitem.cpp variant.cpp canvasitemparts.cpp \
+		flowcontainer.cpp microsettings.cpp fpnode.cpp cells.cpp asmformatter.cpp conrouter.cpp \
+		nodegroup.cpp canvasmanipulator.cpp iteminterface.cpp itemgroup.cpp ciwidgetmgr.cpp \
+		filemetainfo.cpp resizeoverlay.cpp document.cpp view.cpp docmanager.cpp cnitem.cpp \
+		item.cpp cnitemgroup.cpp itemview.cpp itemdocument.cpp textview.cpp \
+		textdocument.cpp circuitdocument.cpp flowcodedocument.cpp icnview.cpp icndocument.cpp \
+		viewcontainer.cpp circuitview.cpp flowcodeview.cpp eventinfo.cpp oscilloscopedata.cpp \
+		itemdocumentdata.cpp docmanageriface.cpp documentiface.cpp viewiface.cpp \
+		docmanageriface.skel viewiface.skel documentiface.skel simulator.cpp katemdi.cpp \
+		debugmanager.cpp recentfilesaction.cpp variablelabel.cpp canvas.cpp
 
 ktechlab_PCH = AUTO
 

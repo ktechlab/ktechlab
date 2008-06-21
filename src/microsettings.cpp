@@ -37,7 +37,6 @@ QString VariableInfo::valueAsString() const
 //END class VariableInfo
 
 
-
 //BEGIN class PinSettings
 PinSettings::PinSettings()
 	: QObject()

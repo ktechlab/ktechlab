@@ -16,6 +16,7 @@
 #include <kxmlguiclient.h>
 #include <qguardedptr.h>
 #include <qpixmap.h>
+#include <qpainter.h>
 
 class DCOPObject;
 class Document;

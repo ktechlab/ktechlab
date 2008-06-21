@@ -35,7 +35,7 @@
 #include <qslider.h>
 #include <qtimer.h>
 #include <qtooltip.h>
-#include <qvalidator.h>
+
 
 // Make sure that this value is the same as that in ktechlab.kcfg
 const int defaultRefreshRate = 50;
