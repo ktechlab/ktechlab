@@ -34,7 +34,7 @@ public :
 	 QuickVector(const QuickVector *old); // ye olde copy constructor.
 
 	double & operator[]( const int i) { changed = true; return values[i]; }
-	const double operator[]( const int i) const { return values[i]; }
+	double operator[]( const int i) const { return values[i]; }
 
 // accessors
 // we use accessors so that we can provide range checking.
