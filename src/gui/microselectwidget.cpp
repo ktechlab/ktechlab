@@ -34,15 +34,15 @@ MicroSelectWidget::MicroSelectWidget( QWidget* parent, const char* name, WFlags 
 	m_pMicroFamilyLabel = new QLabel( this, "m_pMicroFamilyLabel" );
 	m_pMicroFamilyLabel->setText( i18n("Family") );
 
-	m_pMicroFamily = new KComboBox( FALSE, this, "m_pMicroFamily" );
+	m_pMicroFamily = new KComboBox( false, this, "m_pMicroFamily" );
 	m_pMicroFamily->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Preferred );
 
 	m_pMicroLabel = new QLabel( this, "m_pMicroLabel" );
 	m_pMicroLabel->setText( i18n("Micro") );
 
-	m_pMicro = new KComboBox( FALSE, this, "m_pMicro" );
+	m_pMicro = new KComboBox( false, this, "m_pMicro" );
 	m_pMicro->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Preferred );
-	m_pMicro->setEditable( TRUE );
+	m_pMicro->setEditable( true );
 	m_pMicro->setAutoCompletion(true);
 	updateFromAllowed();
 	setMicro("P16F84");

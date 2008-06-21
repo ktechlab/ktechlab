@@ -23,7 +23,7 @@
 #include <qpushbutton.h>
 #include <qwhatsthis.h>
 
-#include <assert.h>
+#include <cassert>
 
 ItemEditor * ItemEditor::m_pSelf = 0l;
 

@@ -88,11 +88,11 @@ void ComponentModelWidget::init( Component * component )
 	QStringList types;
 	if ( component->type() == "ec/npnbjt" )
 	{
-		types = ComponentModelLibrary::self()->modelIDs( ComponentModelLibrary::NPN );
+//		types = ComponentModelLibrary::self()->modelIDs( ComponentModelLibrary::NPN );
 	}
 	else if ( component->type() == "ec/pnpbjt" )
 	{
-		types = ComponentModelLibrary::self()->modelIDs( ComponentModelLibrary::PNP );
+//		types = ComponentModelLibrary::self()->modelIDs( ComponentModelLibrary::PNP );
 	}
 	else
 		return;
