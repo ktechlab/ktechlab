@@ -292,10 +292,10 @@ protected:
 	friend class ItemLibrary;
 	
 	int m_baseZ;
-	bool m_bIsRaised:1;
-	bool m_bDoneCreation:1;
-	bool b_deleted:1;
-	bool m_bDynamicContent:1;
+	bool m_bIsRaised;
+	bool m_bDoneCreation;
+	bool b_deleted;
+	bool m_bDynamicContent;
 	QRect m_sizeRect;
 	VariantDataMap m_variantData;
 };
