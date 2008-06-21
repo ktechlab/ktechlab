@@ -21,7 +21,7 @@
 #include <ksqueezedtextlabel.h>
 
 #include <qapplication.h>
-#include <qpainter.h>
+
 
 #include <cassert>
 

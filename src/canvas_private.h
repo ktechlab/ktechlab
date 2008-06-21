@@ -13,6 +13,8 @@
 #ifndef CANVAS_PRIVATE_H
 #define CANVAS_PRIVATE_H
 
+#include "qbitmap.h"
+#include "qimage.h"
 
 class QPolygonalProcessor 
 {
@@ -83,9 +85,11 @@ public:
 		result.resize(pnt);
 	}
 
+	QPointArray result;
+
 private:
 	int pnt;
-	QPointArray result;
+
 	QCanvas* canvas;
 	QRect bounds;
 	QImage bitmap;
