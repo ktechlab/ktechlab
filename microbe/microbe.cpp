@@ -342,8 +342,61 @@ bool Microbe::isValidVariableName( const QString & variableName)
 //*****modified checking is included for preventing the uses of registername as varable name*****
 
 //Prevent usage of register/port name as varable
-	if (/*PORT-NAME*/ variableName == "PORTA" ||variableName == "PORTB" ||variableName == "PORTC" ||variableName == "PORTD" ||variableName == "PORTE" /*TRIS-NAME*/|| variableName  == "TRISA" || variableName  == "TRISB" ||variableName  == "TRISC"||variableName  == "TRISD" ||variableName  == "TRISE" /**REGISTER-NAME**/||variableName  == "TMR0" ||variableName  == "PCL" || variableName  == "STATUS"||variableName  == "FSR" ||variableName  == "PCLATH"||variableName  == "INTCON" ||variableName  == "PIR1" ||variableName  == "PIR2" ||variableName  == "TMR1L" ||variableName  == "TMR1H" ||variableName  == "T1CON"||variableName  == "TMR2" ||variableName  == "T2CON" ||variableName  == "SSPBUF"||variableName  == "SSPCON"||variableName  == "CCPR1L"||variableName  == "CCPR1H"||variableName  == "CCP1CON"||variableName  == "RCSTA" ||variableName  == "TXREG" ||variableName  == "RCREG" ||variableName  == "CCPR2L"||variableName  == "CCPR2H"||variableName  == "CCP2CON"||variableName  == "ADRESH" ||variableName  == "ADCON0" /*bank0ends*/ |variableName  == "OPTION_REG"|| variableName  == "PIE1"||variableName  == "PIE2"||variableName  == "PCON"||variableName  == "SSPCON2"||variableName  == "PR2"||variableName  == "SSPADD"||variableName  == "SSPSTAT"|| variableName  == "TXSTA"||variableName  == "SPBRG"|| variableName  == "ADRESL"|| variableName  =="ADCON1" /*bank1ends*/ || variableName  =="EEDATA "|| variableName  == "EEADR"|| variableName  == "EEDATH"|| variableName  == "EEADRH" /*bank2ends*/ ||variableName  == "EECON1"||variableName  == "EECON2"  /*bank3ends*/ )
-		return false;
+	if (/*PORT-NAME*/ variableName == "PORTA"
+		|| variableName == "PORTB"
+		|| variableName == "PORTC"
+		|| variableName == "PORTD"
+		|| variableName == "PORTE" /*TRIS-NAME*/
+		|| variableName  == "TRISA"
+		|| variableName  == "TRISB"
+		|| variableName  == "TRISC"
+		|| variableName  == "TRISD"
+		|| variableName  == "TRISE" /**REGISTER-NAME**/
+		|| variableName  == "TMR0"
+		|| variableName  == "PCL"
+		|| variableName  == "STATUS"
+		|| variableName  == "FSR"
+		|| variableName  == "PCLATH"
+		|| variableName  == "INTCON"
+		|| variableName  == "PIR1"
+		|| variableName  == "PIR2"
+		|| variableName  == "TMR1L"
+		|| variableName  == "TMR1H"
+		|| variableName  == "T1CON"
+		|| variableName  == "TMR2"
+		|| variableName  == "T2CON"
+		|| variableName  == "SSPBUF"
+		|| variableName  == "SSPCON"
+		|| variableName  == "CCPR1L"
+		|| variableName  == "CCPR1H"
+		|| variableName  == "CCP1CON"
+		|| variableName  == "RCSTA"
+		|| variableName  == "TXREG"
+		|| variableName  == "RCREG"
+		|| variableName  == "CCPR2L"
+		|| variableName  == "CCPR2H"
+		|| variableName  == "CCP2CON"
+		|| variableName  == "ADRESH"
+		|| variableName  == "ADCON0" /*bank0ends*/
+		|| variableName  == "OPTION_REG"
+		|| variableName  == "PIE1"
+		|| variableName  == "PIE2"
+		|| variableName  == "PCON"
+		|| variableName  == "SSPCON2"
+		|| variableName  == "PR2"
+		|| variableName  == "SSPADD"
+		|| variableName  == "SSPSTAT"
+		|| variableName  == "TXSTA"
+		|| variableName  == "SPBRG"
+		|| variableName  == "ADRESL"
+		|| variableName  =="ADCON1" /*bank1ends*/
+		|| variableName  =="EEDATA "
+		|| variableName  == "EEADR"
+		|| variableName  == "EEDATH"
+		|| variableName  == "EEADRH" /*bank2ends*/
+		||variableName  == "EECON1"
+		||variableName  == "EECON2"  /*bank3ends*/ )
+			return false;
 
 //****************************modification ends*******************************
 
