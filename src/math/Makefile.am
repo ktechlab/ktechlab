@@ -7,11 +7,11 @@ METASOURCES = AUTO
 
 SUBDIRS = 
 
-noinst_LTLIBRARIES = libmath.la
+noinst_LTLIBRARIES = libtechmath.la
 
-libmath_la_SOURCES = qvector.cpp qmatrix.cpp
+libtechmath_la_SOURCES = qvector.cpp qmatrix.cpp
 
-libmath_la_LIBADD = 
+libtechmath_la_LIBADD =
 
 
 noinst_HEADERS = qvector.h qmatrix.h
