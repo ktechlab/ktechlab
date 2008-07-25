@@ -19,41 +19,41 @@ typedef unsigned int uint;
 
 const double T = 300.; ///< Temperature in Kelvin
 const double K = 1.3806503e-23; ///< Boltzmann's constant
-const double q = 1.60217646e-19; ///< Charge on an electron
+const double q = 1.602176462e-19; ///< Charge on an electron
 const double V_T = K*T/q; ///< Thermal voltage
 
 class CNode
 {
-	public:
-		CNode();
-		void set_n( const uint n ) { m_n=n; }
-		uint n() const { return m_n; }
-		
-		/// Voltage on node. This is set from the last calculated voltage.
-		double v;
-		
-		/// True for ground nodes. Obviously, you should ignore n and v if this is true
-		bool isGround;
-		
-	private:
-		
-		/// CNode number
-		uint m_n;
+public:
+	CNode();
+	void set_n( const uint n ) { m_n=n; }
+	uint n() const { return m_n; }
+
+	/// Voltage on node. This is set from the last calculated voltage.
+	double v;
+
+	/// True for ground nodes. Obviously, you should ignore n and v if this is true
+	bool isGround;
+
+private:
+
+	/// CNode number
+	uint m_n;
 };
 
 class CBranch
 {
-	public:
-		CBranch();
-		void set_n( const uint n ) { m_n=n; }
-		uint n() const { return m_n; }
-		
-		/// Current flowing through branch. This is set from the last calculated current.
-		double i;
-		
-	private:
-		/// CBranch number
-		uint m_n;
+public:
+	CBranch();
+	void set_n( const uint n ) { m_n=n; }
+	uint n() const { return m_n; }
+
+	/// Current flowing through branch. This is set from the last calculated current.
+	double i;
+
+private:
+	/// CBranch number
+	uint m_n;
 };
 
 const int MAX_CNODES = 4;
