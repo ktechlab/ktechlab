@@ -17,6 +17,7 @@
 
 #include <klocale.h>
 #include <qpainter.h>
+#include <cmath>
 
 Item* ECSignalLamp::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -75,8 +76,7 @@ void ECSignalLamp::drawShape( QPainter &p )
 	p.setBrush( QColor( 255, 255, brightness ) );
 	p.drawEllipse( _x-8, _y-8, 16, 16 );
 	
-	// 2*sqrt(2) = 2.828427125...
-	int pos = 8 - int(16/2.828);
+	int pos = 8 - int(8 * M_SQRT1_2);
 	
 	p.drawLine( _x-8+pos,	_y-8+pos, _x+8-pos,	_y+8-pos );
 	p.drawLine( _x+8-pos,	_y-8+pos, _x-8+pos,	_y+8-pos );
