@@ -17,6 +17,7 @@
 #include "simulator.h"
 #include "voltagesignal.h"
 
+#include <cmath>
 #include <klocale.h>
 #include <qpainter.h>
 #include <qstring.h>
@@ -74,8 +75,7 @@ ECVoltageSignal::ECVoltageSignal( ICNDocument *icnDocument, bool newItem, const 
 	allowed["RMS"] = i18n("RMS");
 	property("peak-rms")->setAllowed( allowed );
 	property("peak-rms")->setValue("Peak");
-}	
-
+}
 
 ECVoltageSignal::~ECVoltageSignal()
 {
@@ -87,23 +87,17 @@ void ECVoltageSignal::dataChanged()
 	const double frequency = dataDouble("frequency");
 	bool rms = dataString("peak-rms") == "RMS";
 
-	
-	
 	m_voltageSignal->setStep( 1./LINEAR_UPDATE_RATE, ElementSignal::st_sinusoidal, frequency );
-	if (rms)
-		{
+	if (rms) {
 		QString display = QString::number( voltage / getMultiplier(voltage), 'g', 3 ) + getNumberMag(voltage) + "V RMS";
 		setDisplayText( "voltage", display );
-		m_voltageSignal->setVoltage(voltage*1.414);
-		}
-	else
-		{
+		m_voltageSignal->setVoltage(voltage* M_SQRT2);
+	} else {
 		QString display = QString::number( voltage / getMultiplier(voltage), 'g', 3 ) + getNumberMag(voltage) + "V Peak";
 		setDisplayText( "voltage", display );
 		m_voltageSignal->setVoltage(voltage);
-		}
+	}
 }
-
 
 void ECVoltageSignal::drawShape( QPainter &p )
 {
