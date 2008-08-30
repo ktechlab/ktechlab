@@ -34,6 +34,7 @@ class LogicConfig
 		float lowImpedance;		///< Output impedance when low
 };
 
+
 class CallbackClass {};
 typedef void(CallbackClass::*CallbackPtr)( bool isHigh );
 
