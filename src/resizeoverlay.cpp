@@ -14,6 +14,9 @@
 
 #include <kdebug.h>
 #include <qpainter.h>
+#include <cmath>
+
+#define DPR ( 180.0 / M_PI )
 
 
 //BEGIN class ResizeOverlay
@@ -178,7 +181,7 @@ void MechanicsItemOverlay::slotUpdateResizeHandles()
 	pa[8] = QPoint(0,0);
 	
 	QWMatrix m;
-	m.rotate(absPos.angle()*57.29577951308232);
+	m.rotate(absPos.angle() * DPR);
 	
 	pa = m.map(pa);
 	

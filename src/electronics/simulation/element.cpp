@@ -22,13 +22,13 @@ Element::Element()
 	p_eSet = 0;
 	b_componentDeleted = false;
 
-	for ( int i=0; i<8; i++ )
-		p_cnode[i] = 0l;
+	for ( int i = 0; i < MAX_CNODES; i++ )
+		p_cnode[i] = 0;
 	
 	resetCurrents();
 	
-	for ( int i=0; i<4; i++ )
-		p_cbranch[i] = 0l;
+	for ( int i = 0; i < MAX_CBRANCHES; i++ )
+		p_cbranch[i] = 0;
 	
 	m_numCBranches = 0;
 	m_numCNodes = 0;
@@ -81,17 +81,15 @@ void Element::setCNodes( const int n0, const int n1, const int n2, const int n3 
 	if ( !p_eSet )
 	{
 // 		cerr << "Element::setCNodes: can't set nodes without circuit!"<<endl;
-		for ( int i=0; i<8; i++ )
-			p_cnode[i] = 0l;
+		for ( int i=0; i<MAX_CNODES; i++ )
+			p_cnode[i] = 0;
 		return;
 	}
-	
-	// MAX_CNODES-1 should match the last array index below.
-	assert( MAX_CNODES == 4 );
-	p_cnode[0] = (n0>-1)?p_eSet->cnodes()[n0]:(n0==-1?p_eSet->ground():0l);
-	p_cnode[1] = (n1>-1)?p_eSet->cnodes()[n1]:(n1==-1?p_eSet->ground():0l);
-	p_cnode[2] = (n2>-1)?p_eSet->cnodes()[n2]:(n2==-1?p_eSet->ground():0l);
-	p_cnode[3] = (n3>-1)?p_eSet->cnodes()[n3]:(n3==-1?p_eSet->ground():0l);
+
+	p_cnode[0] = (n0>-1)?p_eSet->cnodes()[n0]:(n0==-1?p_eSet->ground():0);
+	p_cnode[1] = (n1>-1)?p_eSet->cnodes()[n1]:(n1==-1?p_eSet->ground():0);
+	p_cnode[2] = (n2>-1)?p_eSet->cnodes()[n2]:(n2==-1?p_eSet->ground():0);
+	p_cnode[3] = (n3>-1)?p_eSet->cnodes()[n3]:(n3==-1?p_eSet->ground():0);
 	updateStatus();
 }
 
@@ -100,13 +98,13 @@ void Element::setCBranches( const int b0, const int b1, const int b2, const int 
 	if ( !p_eSet )
 	{
 // 		cerr << "Element::setCBranches: can't set branches without circuit!"<<endl;
-		for ( int i=0; i<4; i++ ) p_cbranch[i] = 0l;
+		for ( int i=0; i<4; i++ ) p_cbranch[i] = 0;
 		return;
 	}
-	p_cbranch[0] = (b0>-1)?p_eSet->cbranches()[b0]:0l;
-	p_cbranch[1] = (b1>-1)?p_eSet->cbranches()[b1]:0l;
-	p_cbranch[2] = (b2>-1)?p_eSet->cbranches()[b2]:0l;
-	p_cbranch[3] = (b3>-1)?p_eSet->cbranches()[b3]:0l;
+	p_cbranch[0] = (b0>-1)?p_eSet->cbranches()[b0]:0;
+	p_cbranch[1] = (b1>-1)?p_eSet->cbranches()[b1]:0;
+	p_cbranch[2] = (b2>-1)?p_eSet->cbranches()[b2]:0;
+	p_cbranch[3] = (b3>-1)?p_eSet->cbranches()[b3]:0;
 	updateStatus();
 }
 
@@ -157,17 +155,5 @@ double Element::cnodeVoltage( const int node )
 
 //END class Element
 
-CNode::CNode()
-{
-	m_n = 0;
-	v = 0.0;
-	isGround = false;
-}
-
-CBranch::CBranch()
-{
-	m_n = 0;
-	i = 0.0;
-}
 
 

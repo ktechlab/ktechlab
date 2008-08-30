@@ -17,7 +17,6 @@
 
 typedef QMap< QString, double > DoubleMap;
 
-
 class ComponentModel
 {
 	public:

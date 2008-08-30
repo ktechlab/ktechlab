@@ -54,7 +54,3 @@ void VoltagePoint::updateCurrents()
 	m_cnodeI[0] = p_cbranch[0]->i;
 }
 
-
-
-
-

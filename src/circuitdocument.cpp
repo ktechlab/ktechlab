@@ -456,10 +456,9 @@ void CircuitDocument::assignCircuits()
 	const ComponentList::iterator toSimulateEnd = m_toSimulateList.end();
 	for ( ComponentList::iterator it = m_toSimulateList.begin(); it != toSimulateEnd; ++it )
 		Simulator::self()->attachComponent(*it);
+
 	m_toSimulateList.clear();
-	
-	
-	
+
 	// Stage 0: Build up pin and wire lists
 	m_pinList.clear();
 	const NodeMap::const_iterator nodeListEnd = m_nodeList.end();
@@ -479,22 +478,20 @@ void CircuitDocument::assignCircuits()
 		for ( unsigned i = 0; i < (*it)->numWires(); i++ )
 			m_wireList << (*it)->wire(i);
 	}
-	
-	
-	
-	
+
 	typedef QValueList<PinList> PinListList;
 	
 	// Stage 1: Partition the circuit up into dependent areas (bar splitting
 	// at ground pins)
 	PinList unassignedPins = m_pinList;
 	PinListList pinListList;
-	while ( !unassignedPins.isEmpty() )
-	{
+
+	while( !unassignedPins.isEmpty() ) {
 		PinList pinList;
 		getPartition( *unassignedPins.begin(), & pinList, & unassignedPins );
 		pinListList.append(pinList);
 	}
+
 // 	kdDebug () << "pinListList.size()="<<pinListList.size()<<endl;
 	
 	// Stage 2: Split up each partition into circuits by ground pins

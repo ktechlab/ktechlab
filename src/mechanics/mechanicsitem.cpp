@@ -19,15 +19,16 @@
 #include <qwmatrix.h>
 #include <cmath>
 
+#define DPR ( 180.0 / M_PI )
+
 /**
 @returns an angle between 0 and 2 pi
 */
 double normalizeAngle( double angle )
 {
 	if ( angle < 0 )
-		angle += 6.2832*(std::ceil(-angle));
-	
-	return angle - 6.2832*std::floor(angle/6.2832);
+		angle += 2 * M_PI *(std::ceil(-angle));
+	return angle - 2 * M_PI * std::floor(angle/(2 * M_PI));
 }
 
 MechanicsItem::MechanicsItem( MechanicsDocument *mechanicsDocument, bool newItem, const QString &id )
@@ -166,7 +167,7 @@ void MechanicsItem::updateCanvasPoints()
 	PositionInfo abs = absolutePosition();
 	
 	QWMatrix m;
-	m.rotate(abs.angle()*57.29577951308232);
+	m.rotate(abs.angle() * DPR);
 	m.translate( m_sizeRect.left(), m_sizeRect.top() );
 	m.scale( scalex, scaley );
 	m.translate( -int(ipbr.left()), -int(ipbr.top()) );
@@ -231,7 +232,7 @@ void MechanicsItem::updateMechanicsInfoCombined()
 ItemData MechanicsItem::itemData() const
 {
 	ItemData itemData = Item::itemData();
-	itemData.angleDegrees = m_relativePosition.angle()*57.29577951308232;
+	itemData.angleDegrees = m_relativePosition.angle() * DPR;
 	return itemData;
 }
 
@@ -332,8 +333,7 @@ void MechanicsItem::initPainter( QPainter &p )
 {
        PositionInfo absPos = absolutePosition();
        p.translate( absPos.x(), absPos.y() );
-       // 57.29577951308232 is the number of degrees per radian.
-       p.rotate( absPos.angle()*57.29577951308232 );
+       p.rotate( absPos.angle() * DPR);
        p.translate( -absPos.x(), -absPos.y() );
 }
 
@@ -342,14 +342,9 @@ void MechanicsItem::deinitPainter( QPainter &p )
 {
        PositionInfo absPos = absolutePosition();
        p.translate( absPos.x(), absPos.y() );
-       // 57.29577951308232 is the number of degrees per radian.
-       p.rotate( -absPos.angle()*57.29577951308232 );
+       p.rotate( -absPos.angle() * DPR);
        p.translate( -absPos.x(), -absPos.y() );
 }
-
-
-
-
 
 PositionInfo::PositionInfo()
 {
