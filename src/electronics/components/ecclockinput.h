@@ -11,6 +11,10 @@
 #ifndef ECCLOCKINPUT_H
 #define ECCLOCKINPUT_H
 
+#include <list>
+
+using namespace std;
+
 #include "component.h"
 
 class ComponentCallback;
@@ -50,7 +54,7 @@ protected:
 	bool m_bSetStepCallbacks;
 	bool m_bLastStepCallbackOut;
 	Simulator * m_pSimulator;
-	LinkedList<ComponentCallback> * m_pComponentCallback[1000];
+	list<ComponentCallback> * m_pComponentCallback[1000];
 };
 
 #endif

@@ -16,6 +16,7 @@
 
 #include <kstaticdeleter.h>
 #include <qtimer.h>
+#include <cassert>
 
 
 //BEGIN class Simulator
@@ -32,21 +33,19 @@ Simulator * Simulator::self()
 
 Simulator::Simulator()
 {
-	m_currentChain = 0;
-	m_llNumber = 0;
-	m_stepNumber = 0;
-	m_bIsSimulating = true;
-	m_gpsimProcessors = 0l;
-	m_componentCallbacks = 0l;
-	m_components = 0l;
-	m_ordinaryCircuits = 0l;
-	m_switches = 0l;
+	m_currentChain 	= 0;
+	m_llNumber	= 0;
+	m_stepNumber 	= 0;
+	m_bIsSimulating	= true;
+	m_gpsimProcessors = new list<GpsimProcessor*>;
+	m_componentCallbacks = new list<ComponentCallback>;
+	m_components 	= new list<Component*>;
+	m_ordinaryCircuits = new list<Circuit*>;
+	m_switches 	= new list<Switch*>;
 	
 	unsigned max = unsigned(LOGIC_UPDATE_RATE/LINEAR_UPDATE_RATE);
-	for ( unsigned i = 0; i < max; i++ )
-	{
+	for ( unsigned i = 0; i < max; i++ ) {
 		m_pStartStepCallback[i] = 0l;
-		m_pNextStepCallback[i] = 0l;
 	}
 	
 	LogicConfig lc;
@@ -67,11 +66,11 @@ Simulator::~Simulator()
 	delete m_pChangedLogicStart;
 	delete m_pChangedCircuitStart;
 	
-	detachAll(m_gpsimProcessors);
-	detachAll(m_components);
-	detachAll(m_componentCallbacks);
-	detachAll(m_ordinaryCircuits);
-	detachAll(m_switches);
+	delete m_gpsimProcessors;
+	delete m_components;
+	delete m_componentCallbacks;
+	delete m_ordinaryCircuits;
+	delete m_switches;
 }
 
 
@@ -90,54 +89,57 @@ void Simulator::step()
 		m_stepNumber++;
 	
 		// Update the non-logic parts of the simulation
-		LinkedList<Component> * component = m_components;
-		while (component)
 		{
-			component->data()->stepNonLogic();
-			component = component->m_pNext;
+		list<Component*>::iterator components_end = m_components->end();
+		for(list<Component*>::iterator component = m_components->begin(); component != components_end; component++) {
+			(*component)->stepNonLogic();
 		}
-		LinkedList<Circuit> * circuit = m_ordinaryCircuits;
-		while (circuit)
+		}
+
 		{
-			circuit->data()->doNonLogic();
-			circuit = circuit->m_pNext;
+		list<Circuit*>::iterator circuits_end = m_ordinaryCircuits->end();
+		for(list<Circuit*>::iterator circuit = m_ordinaryCircuits->begin(); circuit != circuits_end; circuit++) {
+			(*circuit)->doNonLogic();
 		}
-		LinkedList<Switch> * sw = m_switches;
-		while (sw)
+		}
+
 		{
-			sw->data()->bounce();
-			sw = sw->m_pNext;
+		list<Switch*>::iterator switches_end = m_switches->end();
+		for(list<Switch*>::iterator sw = m_switches->begin(); sw != switches_end; sw++) {
+			(*sw)->bounce();
 		}
-	
+		}
+
 		// Update the logic parts of our simulation
 		const unsigned max = unsigned(LOGIC_UPDATE_RATE/LINEAR_UPDATE_RATE);
 		for ( m_llNumber = 0; m_llNumber < max; ++m_llNumber )
 		{
 			// Update the logic components
-			LinkedList<ComponentCallback> * callback = m_componentCallbacks;
-			while (callback)
 			{
-				callback->data()->callback();
-				callback = callback->m_pNext;
+			list<ComponentCallback>::iterator callbacks_end = m_componentCallbacks->end();
+			for(list<ComponentCallback>::iterator callback = m_componentCallbacks->begin(); callback != callbacks_end; callback++) {
+				callback->callback();
+			}
 			}
 		
-			callback = m_pStartStepCallback[m_llNumber];
-			while (callback)
-			{
-				LinkedList<ComponentCallback> * next = callback->m_pNext;
-				callback->m_pNext = 0l;
-				callback->data()->callback();
-				callback = next;
+			if(m_pStartStepCallback[m_llNumber]) {
+			   list<ComponentCallback*>::iterator callbacks_end = m_pStartStepCallback[m_llNumber]->end();
+			   for(list<ComponentCallback*>::iterator callback = m_pStartStepCallback[m_llNumber]->begin(); callback != callbacks_end; callback++) {
+				(*callback)->callback();
+		// should we delete the list entry?
+				}
 			}
-			m_pStartStepCallback[m_llNumber] = 0l;
+
+			delete m_pStartStepCallback[m_llNumber];
+			m_pStartStepCallback[m_llNumber] = 0;
 		
 #ifndef NO_GPSIM
 			// Update the gpsim processors
-			LinkedList<GpsimProcessor> * gpsimProcessor = m_gpsimProcessors;
-			while (gpsimProcessor)
 			{
-				gpsimProcessor->data()->executeNext();
-				gpsimProcessor = gpsimProcessor->m_pNext;
+			list<GpsimProcessor*>::iterator processors_end = m_gpsimProcessors->end();
+			for(list<GpsimProcessor*>::iterator processor = m_gpsimProcessors->begin(); processor != processors_end; processor++) {
+				(*processor)->executeNext();
+			}
 			}
 #endif
 		
@@ -155,8 +157,7 @@ void Simulator::step()
 				m_pChangedCircuitStart->setNextChanged( 0l, prevChain );
 				m_pChangedCircuitLast = m_pChangedCircuitStart;
 			
-				do
-				{
+				do {
 					Circuit * next = changed->nextChanged(prevChain);
 					changed->setNextChanged( 0l, prevChain );
 					changed->doLogic();
@@ -251,75 +252,19 @@ void Simulator::createLogicChain( LogicOut * logicOut, const LogicInList & logic
 		m_logicChainStarts << logicOut;
 }
 
-
-template <typename T>
-void Simulator::attach( LinkedList<T> ** start, T * data )
+void Simulator::attachGpsimProcessor( GpsimProcessor &cpu )
 {
-	if (!data)
-		return;
-	
-	while ( *start && (*start)->m_pNext )
-	{
-		if ( (*start)->data() == data )
-			return;
-		start = & (*start)->m_pNext;
-	}
-	
-	if (*start)
-		(*start)->m_pNext = new LinkedList<T>(data);
-	else
-		*start = new LinkedList<T>(data);
+	m_gpsimProcessors->push_back(&cpu);
 }
 
-
-template <typename T>
-void Simulator::detach( LinkedList<T> ** start, T * data )
+void Simulator::detachGpsimProcessor( GpsimProcessor &cpu )
 {
-	if (!data)
-		return;
-	
-	while (*start)
-	{
-		if ( (*start)->data() == data )
-		{
-			LinkedList<T> * toDelete = *start;
-			*start = (*start)->m_pNext;
-			delete toDelete;
-			return;
-		}
-		
-		start = & (*start)->m_pNext;
-	}
+	m_gpsimProcessors->remove(&cpu);
 }
-
-
-template <typename T>
-void Simulator::detachAll( LinkedList<T> * list )
-{
-	while (list)
-	{
-		LinkedList<T> * next = list->m_pNext;
-		delete list;
-		list = next;
-	}
-}
-
-
-void Simulator::attachGpsimProcessor( GpsimProcessor * cpu )
-{
-	attach( & m_gpsimProcessors, cpu );
-}
-
-
-void Simulator::detachGpsimProcessor( GpsimProcessor * cpu )
-{
-	detach( & m_gpsimProcessors, cpu );
-}
-
 
 void Simulator::attachComponentCallback( Component * component, VoidCallbackPtr function )
 {
-	attach( & m_componentCallbacks, new ComponentCallback( component, function ) );
+	m_componentCallbacks->push_back(ComponentCallback( component, function ));
 }
 
 
@@ -327,60 +272,51 @@ void Simulator::attachComponent( Component * component )
 {
 	if ( !component || !component->doesStepNonLogic() )
 		return;
-	
-	attach( & m_components, component );
+
+	m_components->push_back(component);
 }
 
 
 void Simulator::detachComponent( Component * component )
 {
-	detach( & m_components, component );
-	detachComponentCallbacks(component);
+	m_components->remove(component);
+	detachComponentCallbacks(*component);
 }
 
 
 void Simulator::attachSwitch( Switch * sw )
 {
-	attach( & m_switches, sw );
+	m_switches->push_back(sw);
 }
 
-
-void Simulator::detachSwitch( Switch * sw )
+void Simulator::detachSwitch(Switch *sw)
 {
-	detach( & m_switches, sw );
+	assert(sw);
+	m_switches->remove(sw);
 }
 
+static Component *compx;
 
-void Simulator::detachComponentCallbacks( Component * component )
+bool pred1(ComponentCallback &x)
+{ return x.component() == compx; }
+
+void Simulator::detachComponentCallbacks( Component &component )
 {
-	LinkedList<ComponentCallback> * callback = m_componentCallbacks;
-	while (callback)
-	{
-		LinkedList<ComponentCallback> * next = callback->m_pNext;
-		ComponentCallback * data = callback->data();
-		if ( data->component() == component )
-		{
-			detach( & m_componentCallbacks, data );
-			delete data;
-		}
-		callback = next;
-	}
+	compx = &component;
+	m_componentCallbacks->remove_if(pred1);
 }
-
 
 void Simulator::attachCircuit( Circuit * circuit )
 {
-	if (!circuit)
-		return;
-	attach( & m_ordinaryCircuits, circuit );
-	
-	if ( circuit->canAddChanged() )
-	{
-		addChangedCircuit(circuit);
-		circuit->setCanAddChanged(false);
-	}
-}
+	if (!circuit) return;
 
+	m_ordinaryCircuits->push_back(circuit);
+	
+//	if ( circuit->canAddChanged() ) {
+	addChangedCircuit(circuit);
+	circuit->setCanAddChanged(false);
+//	}
+}
 
 void Simulator::removeLogicInReferences( LogicIn * logicIn )
 {
@@ -436,11 +372,10 @@ void Simulator::removeLogicOutReferences( LogicOut * logic )
 
 void Simulator::detachCircuit( Circuit * circuit )
 {
-	if (!circuit)
-		return;
+	if (!circuit) return;
 	
-	detach( & m_ordinaryCircuits, circuit );
-	
+	m_ordinaryCircuits->remove(circuit);
+
 	// Any changes to the code below will probably also apply to Simulator::removeLogicOutReferences
 	
 	if ( m_pChangedCircuitLast == circuit )

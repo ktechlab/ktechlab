@@ -23,9 +23,8 @@
 #include <cassert>
 
 ElementSet::ElementSet( Circuit * circuit, const int n, const int m )
-	: m_cn(n), m_cb(m)
+	:  m_cb(m), m_cn(n), m_pCircuit(circuit)
 {
-	m_pCircuit = circuit;
 
 	int tmp = m_cn + m_cb;
 
@@ -40,17 +39,16 @@ ElementSet::ElementSet( Circuit * circuit, const int n, const int m )
 		p_x = p_b = 0;
 	}
 
-	m_cbranches = new CBranch*[m_cb];
 	m_cnodes = new CNode*[m_cn];
 	for ( uint i=0; i<m_cn; i++ ) {
-		m_cnodes[i] = new CNode();
-		m_cnodes[i]->set_n(i);
+		m_cnodes[i] = new CNode(i);
 	}
-	for ( uint i=0; i<m_cb; i++ )
-	{
-		m_cbranches[i] = new CBranch();
-		m_cbranches[i]->set_n(i);
+
+	m_cbranches = new CBranch*[m_cb];
+	for ( uint i=0; i<m_cb; i++ ) {
+		m_cbranches[i] = new CBranch(i);
 	}
+
 	m_ground = new CNode();
 	m_ground->isGround = true;
 	b_containsNonLinear = false;

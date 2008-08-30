@@ -25,7 +25,8 @@ const double V_T = K*T/q; ///< Thermal voltage
 class CNode
 {
 public:
-	CNode();
+	CNode() : v(0.0), isGround(false), m_n(0) {}
+	CNode(const uint32_t n) : v(0.0), isGround(false), m_n(n) {}
 	void set_n( const uint n ) { m_n=n; }
 	uint n() const { return m_n; }
 
@@ -44,7 +45,8 @@ private:
 class CBranch
 {
 public:
-	CBranch();
+	CBranch() : i(0.0), m_n(0) {}
+	CBranch(const uint32_t n) : i(0.0), m_n(n) {}
 	void set_n( const uint n ) { m_n=n; }
 	uint n() const { return m_n; }
 

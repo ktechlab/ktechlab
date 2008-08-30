@@ -95,8 +95,7 @@ ECBCDTo7Segment::ECBCDTo7Segment( ICNDocument *icnDocument, bool newItem, const 
 }
 
 ECBCDTo7Segment::~ECBCDTo7Segment()
-{
-}
+{}
 
 void ECBCDTo7Segment::inStateChanged(bool)
 {
@@ -119,38 +118,27 @@ void ECBCDTo7Segment::inStateChanged(bool)
 		{
 			if (en) // Enable (store)
 			{
-				for ( int i=0; i<7; i++ )
-				{
+				for ( int i=0; i<7; i++ ) {
 					out[i] = oldOut[i];
 				}
-			}
-			else
-			{
-				for ( int i=0; i<7; i++ )
-				{
+			} else {
+				for ( int i=0; i<7; i++ ) {
 					out[i] = numbers[n][i];
 					oldOut[i] = out[i];
 				}
 			}
-		}
-		else
-		{
-			for ( int i=0; i<7; i++ )
-			{
+		} else {
+			for ( int i=0; i<7; i++ ) {
 				out[i] = false;
 			}
 		}
-	}
-	else
-	{
-		for ( int i=0; i<7; i++ )
-		{
+	} else {
+		for ( int i=0; i<7; i++ ) {
 			out[i] = true;
 		}
 	}
 	
-	for ( int i=0; i<7; i++ )
-	{
+	for ( int i=0; i<7; i++ ) {
 		outLogic[i]->setHigh( out[i] );
 	}
 }
