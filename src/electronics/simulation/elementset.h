@@ -110,16 +110,22 @@ public:
 	void updateInfo();
 	
 private:
+// calc engine stuff 
 	Matrix *p_A;
 	QuickVector *p_x;
 	QuickVector *p_b;
-	uint m_cn;
-	uint m_cb;
+// end calc engine stuff.
+
 	ElementList m_elementList;
 	NonLinearList m_cnonLinearList;
+
+	uint m_cb;
 	CBranch **m_cbranches; // Pointer to an array of cbranches
+
+	uint m_cn;
 	CNode **m_cnodes; // Pointer to an array of cnodes
 	CNode *m_ground;
+
 	uint m_clogic;
 	LogicIn **p_logicIn;
 	bool b_containsNonLinear;
