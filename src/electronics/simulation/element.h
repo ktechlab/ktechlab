@@ -73,8 +73,7 @@ const int noBranch = -2;
 class Element
 {
 public:
-	enum Type
-	{
+	enum Type {
 		Element_BJT,
 		Element_Capacitance,
 		Element_CCCS,
