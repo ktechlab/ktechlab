@@ -1079,8 +1079,7 @@ void Component::initElements( const uint stage )
 
     const ElementMapList::iterator end = m_elementMapList.end();
 
-    if ( stage == 1 )
-    {
+    if ( stage == 1 ) {
         for ( ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it )
         {
             (*it).e->add_initial_dc();
@@ -1092,20 +1091,13 @@ void Component::initElements( const uint stage )
     {
         ElementMap m = (*it);
 
-        if ( m.n[3] )
-        {
+        if ( m.n[3] ) {
             m.e->setCNodes( m.n[0]->eqId(), m.n[1]->eqId(), m.n[2]->eqId(), m.n[3]->eqId() );
-        }
-        else if ( m.n[2] )
-        {
+        } else if ( m.n[2] ) {
             m.e->setCNodes( m.n[0]->eqId(), m.n[1]->eqId(), m.n[2]->eqId() );
-        }
-        else if ( m.n[1] )
-        {
+        } else if ( m.n[1] ) {
             m.e->setCNodes( m.n[0]->eqId(), m.n[1]->eqId() );
-        }
-        else if ( m.n[0] )
-        {
+        } else if ( m.n[0] ) {
             m.e->setCNodes( m.n[0]->eqId() );
         }
     }

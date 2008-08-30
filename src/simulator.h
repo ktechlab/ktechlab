@@ -11,8 +11,12 @@
 #ifndef SIMULATOR_H
 #define SIMULATOR_H
 
+#include <list>
+
 #include "circuit.h"
 #include "logic.h"
+
+using namespace std;
 
 /**
 This should be a multiple of 1000. It is the number of times a second that
@@ -42,23 +46,6 @@ typedef QValueList<ECNode*> ECNodeList;
 typedef QValueList<LogicIn*> LogicInList;
 
 typedef void(Component::*VoidCallbackPtr)();
-
-
-/* TODO: replace with STD::list */
-
-template <typename T>
-class LinkedList
-{
-	public:
-		LinkedList( T * data ) { m_pData = data; m_pNext = 0l; }
-		T * data() const { return m_pData; }
-		
-		LinkedList<T> * m_pNext;
-		
-	protected:
-		T * m_pData;
-};
-
 
 class ComponentCallback
 {
@@ -127,7 +114,7 @@ class Simulator : public QObject
 			m_pChangedCircuitLast->setNextChanged( changed, m_currentChain );
 			m_pChangedCircuitLast = changed;
 		}
-		inline void addStepCallback( int at, LinkedList<ComponentCallback> * ccb );
+		inline void addStepCallback( int at, ComponentCallback *ccb );
 		/**
 		 * Add the given processor to the simulator. GpsimProcessor::step will
 		 * be called while present in the simulator (it is at GpsimProcessor's
@@ -135,11 +122,11 @@ class Simulator : public QObject
 		 * status).
 		 * @see detachGpsimProcessor( GpsimProcessor * cpu );
 		 */
-		void attachGpsimProcessor( GpsimProcessor * cpu );
+		void attachGpsimProcessor( GpsimProcessor &cpu );
 		/**
 		 * Remove the given processor from the simulation loop
 		 */
-		void detachGpsimProcessor( GpsimProcessor * cpu );
+		void detachGpsimProcessor( GpsimProcessor &cpu );
 		/**
 		 * Attach the component callback to the simulator. This will be called
 		 * during the logic update loop, at LOGIC_UPDATE_RATE times per second (so
@@ -149,7 +136,7 @@ class Simulator : public QObject
 		/**
 		 * Removes the callbacks for the given component from the simulator.
 		 */
-		void detachComponentCallbacks( Component * component );
+		void detachComponentCallbacks( Component &component );
 		/**
 		 * Attach the component to the simulator.
 		 */
@@ -200,13 +187,6 @@ class Simulator : public QObject
 		void step();
 
 	protected:
-		template <typename T>
-		void attach( LinkedList<T> ** start, T * data );
-		template <typename T>
-		void detach( LinkedList<T> ** start, T * data );
-		template <typename T>
-		void detachAll( LinkedList<T> * list );
-		
 		bool m_bIsSimulating;
 		static Simulator * m_pSelf;
 		
@@ -219,15 +199,18 @@ class Simulator : public QObject
 		Circuit * m_pChangedCircuitStart;
 		Circuit * m_pChangedCircuitLast;
 		
-		LinkedList<GpsimProcessor> * m_gpsimProcessors;
-		LinkedList<Component> * m_components;
-		LinkedList<ComponentCallback> * m_componentCallbacks;
-		LinkedList<Circuit> * m_ordinaryCircuits;
-		LinkedList<Switch> * m_switches;
-		
-		LinkedList<ComponentCallback> * m_pStartStepCallback[LOGIC_UPDATE_RATE/LINEAR_UPDATE_RATE];
-		LinkedList<ComponentCallback> * m_pNextStepCallback[LOGIC_UPDATE_RATE/LINEAR_UPDATE_RATE];
-		
+		list<GpsimProcessor*> *m_gpsimProcessors;
+		list<Component*> *m_components;
+		list<ComponentCallback> *m_componentCallbacks;
+		list<Circuit*> *m_ordinaryCircuits;
+		list<Switch*> *m_switches;
+
+// FIXME: Something weird is going on here.
+// Is this the right design?
+// would a simple array be quicker for this application? 
+		list<ComponentCallback *> * m_pStartStepCallback[LOGIC_UPDATE_RATE/LINEAR_UPDATE_RATE];
+// ????????????????????????????????
+
 	private:
 		Simulator();
 		unsigned long m_llNumber; // simulation clock. 
@@ -236,15 +219,15 @@ class Simulator : public QObject
 };
 
 
-inline void Simulator::addStepCallback( int at, LinkedList<ComponentCallback> * ccb )
+inline void Simulator::addStepCallback( int at, ComponentCallback *ccb )
 {
-	if ( !m_pStartStepCallback[at] )
-		m_pStartStepCallback[at] = ccb;
+// code was buggy[er], don't really know what variables are for, rewritten to make it work,
+// OK for now. 
+	if(!m_pStartStepCallback[at]) {
+		m_pStartStepCallback[at] = new list<ComponentCallback*>;
+	}
 	
-	else
-		m_pNextStepCallback[at]->m_pNext = ccb;
-	
-	m_pNextStepCallback[at] = ccb;
+	m_pStartStepCallback[at]->push_back(ccb);
 }
 
 #endif

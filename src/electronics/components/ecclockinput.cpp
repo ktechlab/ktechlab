@@ -57,7 +57,8 @@ ECClockInput::ECClockInput( ICNDocument *icnDocument, bool newItem, const char *
 	for ( unsigned i = 0; i < 1000; i++ )
 	{
 		ComponentCallback * ccb = new ComponentCallback( this, (VoidCallbackPtr)(&ECClockInput::stepCallback) );
-		m_pComponentCallback[i] = new LinkedList<ComponentCallback>(ccb);
+		m_pComponentCallback[i] = new list<ComponentCallback>;
+		m_pComponentCallback[i]->push_back(*ccb);
 	}
 
 	init1PinRight();
@@ -83,8 +84,8 @@ ECClockInput::~ECClockInput()
 {
 	for ( unsigned i = 0; i < 1000; i++ )
 	{
-		delete m_pComponentCallback[i]->data();
 		delete m_pComponentCallback[i];
+		m_pComponentCallback[i] = 0;
 	}
 }
 
@@ -104,7 +105,7 @@ void ECClockInput::dataChanged()
 	{
 		m_bSetStepCallbacks = setStepCallbacks;
 		if (setStepCallbacks)
-			m_pSimulator->detachComponentCallbacks(this);
+			m_pSimulator->detachComponentCallbacks(*this);
 		else
 			m_pSimulator->attachComponentCallback( this, (VoidCallbackPtr)(&ECClockInput::stepLogic) );
 	}
@@ -151,7 +152,7 @@ void ECClockInput::stepNonLogic()
 		
 		long long at = upTo-lowerTime;
 		if ( at >= 0 && at < 100 )
-			m_pSimulator->addStepCallback( at, m_pComponentCallback[at] );
+			m_pSimulator->addStepCallback( at, &m_pComponentCallback[at]->front());
 	}
 	
 	m_lastSetTime = upTo;
@@ -167,7 +168,7 @@ void ECClockInput::drawShape( QPainter &p )
 	
 	p.drawRect( _x-6, _y, 32, 16 );
 	
-	p.drawLine( _x,		_y+8,	_x,		_y+4 );
+	p.drawLine( _x,		_y+8,	_x,	_y+4 );
 	p.drawLine( _x,		_y+4,	_x+4,	_y+4 );
 	p.drawLine( _x+4,	_y+4,	_x+4,	_y+12 );
 	p.drawLine( _x+4,	_y+12,	_x+8,	_y+12 );
