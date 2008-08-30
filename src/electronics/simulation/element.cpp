@@ -19,11 +19,9 @@
 Element::Element()
 {
 	b_status = false;
-	p_A = 0;
 	p_eSet = 0;
 	b_componentDeleted = false;
-	b_eSetDeleted = true;
-	
+
 	for ( int i=0; i<8; i++ )
 		p_cnode[i] = 0l;
 	
@@ -51,44 +49,28 @@ void Element::setElementSet( ElementSet *c )
 	assert(!b_componentDeleted);
 	assert(!p_eSet);
 	if (!c) return elementSetDeleted();
-	b_eSetDeleted = false;
 	p_eSet = c;
-	p_A = p_eSet->matrix();
 	updateStatus();
 }
 
 void Element::componentDeleted()
 {
-// 	assert(!b_componentDeleted);
-	if (b_componentDeleted)
-	{
-		// Something strange happened here....
-	}
-	if (b_eSetDeleted) return delete this;
 	b_componentDeleted = true;
 	b_status = false;
-// 	kdDebug() << "Element::componentDeleted(): Setting b_status to false, this="<<this<<endl;
-	
+
 	p_eSet = 0;
-	p_A = 0;
 	setCNodes();
 	setCBranches();
 }
 
 void Element::elementSetDeleted()
 {
-// 	assert(!b_eSetDeleted);
-	if (b_eSetDeleted)
-	{
-		// Something strange happened here....
-	}
 	if (b_componentDeleted) return delete this;
-	b_eSetDeleted = true;
+
 	b_status = false;
 // 	kdDebug() << "Element::elementSetDeleted(): Setting b_status to false, this="<<this<<endl;
 	
 	p_eSet = 0;
-	p_A = 0;
 	setCNodes();
 	setCBranches();
 }
@@ -150,12 +132,12 @@ bool Element::updateStatus()
 	}
 	
 	// Finally, check for various pointers
-	if ( !p_eSet || !p_A ) b_status = false;
+	if (!p_eSet) b_status = false;
 	
-	if (!b_status)
-	{
+	if (!b_status) {
 		resetCurrents();
 	}
+
 	// And return the status :-)
 // 	kdDebug() << "Element::updateStatus(): Setting b_status to "<<(b_status?"true":"false")<<" this="<<this<<endl;
 	return b_status;
