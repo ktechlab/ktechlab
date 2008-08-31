@@ -39,7 +39,6 @@ double NonLinear::diodeCurrent( double v, double I_S, double N ) const
 }
 
 
-
 double NonLinear::diodeConductance( double v, double I_S, double N ) const
 {
 	double Vt = V_T * N;
@@ -47,28 +46,19 @@ double NonLinear::diodeConductance( double v, double I_S, double N ) const
 }
 
 
-
 double NonLinear::diodeVoltage( double V, double V_prev, double N, double V_lim ) const
 {
 	double Vt = V_T * N;
 	
-	if ( V > V_lim && fabs( V - V_prev ) > 2 * Vt )
-	{
-		if ( V_prev > 0 )
-		{
+	if ( V > V_lim && fabs( V - V_prev ) > 2 * Vt ) {
+		if ( V_prev > 0 ) {
 			double arg = (V - V_prev) / Vt;
 			if (arg > 0)
 				V = V_prev + Vt * (2 + log( arg - 2 ));
-			else
-				V = V_prev - Vt * (2 + log( 2 - arg ));
-		}
-		else
-			V = (V_prev < 0) ? (Vt * log (V / Vt)) : V_lim;
-	}
-	else
-	{
-		if ( V < 0 )
-		{
+			else	V = V_prev - Vt * (2 + log( 2 - arg ));
+		} else		V = (V_prev < 0) ? (Vt * log (V / Vt)) : V_lim;
+	} else {
+		if ( V < 0 ) {
 			double arg = (V_prev > 0) ? (-1 - V_prev) : (2 * V_prev - 1);
 			if (V < arg)
 				V = arg;
@@ -90,15 +80,12 @@ void NonLinear::diodeJunction( double V, double I_S, double N, double * I, doubl
 {
 	double Vt = N * V_T;
 	
-	if (V < -3 * Vt)
-	{
+	if (V < -3 * Vt) {
 		double a = 3 * Vt / (V * M_E);
 		a = a * a * a;
 		*I = -I_S * (1 + a);
 		*g = +I_S * 3 * a / V;
-	}
-	else
-	{ 
+	} else {
 		double e = exp( MIN( V / Vt, KTL_MAX_EXPONENT ) );
 		*I = I_S * (e - 1);
 		*g = I_S * e / Vt;
@@ -113,76 +100,67 @@ double NonLinear::fetVoltage( double V, double V_prev, double Vth ) const
 	double V_tox = Vth + 3.5;
 	double delta_V = V - V_prev;
 	
-	if ( V_prev >= Vth )
-	{
+	if ( V_prev >= Vth ) {
 		// on
-		if ( V_prev >= V_tox )
-		{
-			if ( delta_V <= 0 )
-			{
+		if ( V_prev >= V_tox ) {
+			if ( delta_V <= 0 ) {
 				// going off
-				if ( V >= V_tox )
-				{
+				if ( V >= V_tox ) {
 					if ( -delta_V > V_tst_lo )
 						return V_prev - V_tst_lo;
-					
+
 					return V;
 				}
-				
+
 				return MAX( V, Vth + 2 );
 			}
-			
+
 			// staying on
 			if ( delta_V >= V_tst_hi )
 				return V_prev + V_tst_hi;
 			
 			return V;
 		}
-		
+
 		// middle region
-		if ( delta_V <= 0 )
-		{
+		if ( delta_V <= 0 ) {
 			// decreasing
 			return MAX( V, Vth - 0.5 );
 		}
-		
+
 		// increasing
 		return MIN( V, Vth + 4 );
 	}
-	
+
 	//  off
-	if ( delta_V <= 0 )
-	{
+	if ( delta_V <= 0 ) {
 		// staying off
 		if ( -delta_V > V_tst_hi )
 			return V_prev - V_tst_hi;
 		
 		return V;
 	}
-	
+
 	// going on
-	if ( V <= Vth + 0.5 )
-	{
+	if ( V <= Vth + 0.5 ) {
 		if ( delta_V > V_tst_lo )
 			return V_prev + V_tst_lo;
 		
 		return V;
 	}
-	
+
 	return Vth + 0.5;
 }
 
 
 double NonLinear::fetVoltageDS( double V, double V_prev ) const
 {
-	if ( V_prev >= 3.5 )
-	{
+	if ( V_prev >= 3.5 ) {
 		if ( V > V_prev )
 			return MIN( V, 3 * V_prev + 2 );
-		
 		else if (V < 3.5)
 			return MAX( V, 2 );
-		
+
 		return V;
 	}
 	
@@ -201,9 +179,7 @@ void NonLinear::mosDiodeJunction( double V, double I_S, double N, double * I, do
 	{
 		*g = I_S / Vt;
 		*I = *g * V;
-	}
-	else
-	{
+	} else {
 		double e = exp( MIN ( V / Vt, KTL_MAX_EXPONENT ) );
 		*I = I_S * (e - 1);
 		*g = I_S * e / Vt;
@@ -212,3 +188,4 @@ void NonLinear::mosDiodeJunction( double V, double I_S, double N, double * I, do
 	*I += V * I_S;
 	*g += I_S;
 }
+

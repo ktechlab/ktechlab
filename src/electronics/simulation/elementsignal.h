@@ -28,17 +28,16 @@ public:
 	ElementSignal();
 	~ElementSignal();
 	
-	void setStep( double delta, Type type, double frequency );
+	void setStep(Type type, double frequency );
 	/**
 	 * Advances the timer, returns amplitude (between -1 and 1)
 	 */
-	double advance();
+	double advance(double delta);
 
 protected:
 	Type m_type;
 	double m_time;
 	double m_frequency;
-	double m_delta;
 	double m_omega; // Used for sinusoidal signal
 };
 

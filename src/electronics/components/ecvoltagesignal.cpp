@@ -49,7 +49,7 @@ ECVoltageSignal::ECVoltageSignal( ICNDocument *icnDocument, bool newItem, const 
 	
 	m_pNNode[0]->pin()->setGroundType( Pin::gt_medium );
 	m_voltageSignal = createVoltageSignal( m_pNNode[0], m_pPNode[0], 0. );
-	m_voltageSignal->setStep( 1./LINEAR_UPDATE_RATE, ElementSignal::st_sinusoidal, 50. );
+	m_voltageSignal->setStep(ElementSignal::st_sinusoidal, 50. );
 	
 	createProperty( "frequency", Variant::Type::Double );
 	property("frequency")->setCaption( i18n("Frequency") );
@@ -87,7 +87,7 @@ void ECVoltageSignal::dataChanged()
 	const double frequency = dataDouble("frequency");
 	bool rms = dataString("peak-rms") == "RMS";
 
-	m_voltageSignal->setStep( 1./LINEAR_UPDATE_RATE, ElementSignal::st_sinusoidal, frequency );
+	m_voltageSignal->setStep(ElementSignal::st_sinusoidal, frequency );
 	if (rms) {
 		QString display = QString::number( voltage / getMultiplier(voltage), 'g', 3 ) + getNumberMag(voltage) + "V RMS";
 		setDisplayText( "voltage", display );

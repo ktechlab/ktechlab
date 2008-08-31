@@ -46,7 +46,7 @@ void VoltageSignal::add_initial_dc()
 void VoltageSignal::time_step()
 {
 	if (!b_status) return;
-	b_v( 0 ) =  m_voltage*advance();
+	b_v( 0 ) =  m_voltage*advance(m_delta);
 }
 
 
