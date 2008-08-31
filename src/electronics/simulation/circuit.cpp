@@ -462,9 +462,8 @@ void Circuit::doNonLogic()
 {
 	if ( !m_elementSet || m_cnodeCount+m_branchCount <= 0 )
 		return;
-	
-	if (m_bCanCache)
-	{
+
+	if (m_bCanCache) {
 		if ( !m_elementSet->b()->isChanged() && !m_elementSet->matrix()->isChanged() )
 			return;
 		cacheAndUpdate();
@@ -472,15 +471,13 @@ void Circuit::doNonLogic()
 		m_elementSet->b()->setUnchanged();
 		return;
 	}
-	
+
 	stepReactive();
 	if ( m_elementSet->containsNonLinear() )
 	{
 		m_elementSet->doNonLinear( 10, 1e-9, 1e-12 );
 		updateNodalVoltages();
-	}
-	else
-	{
+	} else {
 		if ( m_elementSet->doLinear(true) )
 			updateNodalVoltages();
 	}

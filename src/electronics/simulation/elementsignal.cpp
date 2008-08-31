@@ -22,18 +22,17 @@ ElementSignal::~ElementSignal()
 {
 }
 
-void ElementSignal::setStep( double delta, Type type, double frequency )
+void ElementSignal::setStep(Type type, double frequency )
 {
 	m_type = type;
-	m_delta = delta;
 	m_frequency = frequency;
 	m_omega = 2 * M_PI * m_frequency;
 	m_time = 1./(4.*m_frequency);
 }
 
-double ElementSignal::advance()
+double ElementSignal::advance(double delta)
 {
-	m_time += m_delta;
+	m_time += delta;
 	if ( m_time >= 1./m_frequency ) m_time -= 1./m_frequency;
 	
 	switch (m_type)
@@ -41,11 +40,13 @@ double ElementSignal::advance()
 		case ElementSignal::st_sawtooth:
 		{
 			// TODO Sawtooth signal
-			return 0.;
+			double val = (m_time * m_omega / M_PI);
+
+			return 1 - remainder(val,2);
 		}
 		case ElementSignal::st_square:
 		{
-			return (sin(m_time*m_omega)>=0)?1:-1;
+			return (((int)trunc(m_time*m_omega/M_PI) & 1) == 0)?1:-1;
 		}
 		case ElementSignal::st_triangular:
 		{

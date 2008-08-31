@@ -30,8 +30,8 @@ JFETSettings::JFETSettings()
 //END class JFETSettings
 
 
-
 //BEGIN class JFETState
+
 JFETState::JFETState()
 {
 	reset();
@@ -64,8 +64,8 @@ JFETState JFETState::operator-( const JFETState & s ) const
 	
 	return newState;
 }
-//END class JFETState
 
+//END class JFETState
 
 
 //BEGIN class JFET
@@ -73,13 +73,13 @@ JFET::JFET( JFET_type type )
 {
 	switch ( type )
 	{
-		case nJFET:
-			m_pol = 1;
-			break;
+	case nJFET:
+		m_pol = 1;
+		break;
 			
-		case pJFET:
-			m_pol = -1;
-			break;
+	case pJFET:
+		m_pol = -1;
+		break;
 	}
 	
 	V_GS_prev = 0.0;
@@ -92,6 +92,7 @@ JFET::JFET( JFET_type type )
 JFET::~JFET()
 {
 }
+
 
 void JFET::add_initial_dc()
 {
@@ -118,9 +119,9 @@ void JFET::updateCurrents()
 	double I_GS, I_GD, I_DS, g_GS, g_GD, g_DS, g_m;
 	
 	calcIg( V_GS, V_GD, V_DS,
-			& I_GS, & I_GD, & I_DS,
-			& g_GS, & g_GD, & g_DS,
-			& g_m );
+		& I_GS, & I_GD, & I_DS,
+		& g_GS, & g_GD, & g_DS,
+		& g_m );
 	
 	m_cnodeI[PinD] = I_GD - I_DS;
 	m_cnodeI[PinS] = I_GS + I_DS;
@@ -197,9 +198,9 @@ void JFET::calc_eq()
 
 
 void JFET::calcIg( double V_GS, double V_GD, double V_DS,
-				   double * I_GS, double * I_GD, double * I_DS,
-				   double * g_GS, double * g_GD, double * g_DS,
-				   double * g_m ) const
+		   double * I_GS, double * I_GD, double * I_DS,
+		   double * g_GS, double * g_GD, double * g_DS,
+		   double * g_m ) const
 {
 	double V_Th = m_jfetSettings.V_Th;
 	double beta = m_jfetSettings.beta;
@@ -226,33 +227,33 @@ void JFET::calcIg( double V_GS, double V_GD, double V_DS,
 	
 	switch ( getOpRegion( V_DS, V_GST, V_GDT ) )
 	{
-		case NormalCutoff:
-		case InverseCutoff:
-			break;
+	case NormalCutoff:
+	case InverseCutoff:
+		break;
 			
-		case NormalSaturation:
-			*I_DS = beta * V_GST * V_GST;
-			*g_DS = 0;
-			*g_m  = beta * 2 * V_GST;
-			break;
+	case NormalSaturation:
+		*I_DS = beta * V_GST * V_GST;
+		*g_DS = 0;
+		*g_m  = beta * 2 * V_GST;
+		break;
 			
-		case NormalLinear:
-			*I_DS = beta * V_DS * (2 * V_GST - V_DS);
-			*g_DS = beta * 2 * (V_GST - V_DS);
-			*g_m  = beta * 2 * V_DS;
-			break;
-			
-		case InverseSaturation:
-			*I_DS = - beta * V_GDT * V_GDT;
-			*g_DS = beta * 2 * V_GDT;
-			*g_m  = - beta * 2 * V_GDT;
-			break;
-			
-		case InverseLinear:
-			*I_DS = beta * V_DS * (2 * V_GDT + V_DS);
-			*g_DS = 2 * beta * V_GDT;
-			*g_m  = beta * 2 * V_DS;
-			break;
+	case NormalLinear:
+		*I_DS = beta * V_DS * (2 * V_GST - V_DS);
+		*g_DS = beta * 2 * (V_GST - V_DS);
+		*g_m  = beta * 2 * V_DS;
+		break;
+		
+	case InverseSaturation:
+		*I_DS = - beta * V_GDT * V_GDT;
+		*g_DS = beta * 2 * V_GDT;
+		*g_m  = - beta * 2 * V_GDT;
+		break;
+		
+	case InverseLinear:
+		*I_DS = beta * V_DS * (2 * V_GDT + V_DS);
+		*g_DS = 2 * beta * V_GDT;
+		*g_m  = beta * 2 * V_DS;
+		break;
 	}
 }
 
@@ -263,23 +264,15 @@ JFET::OpRegion JFET::getOpRegion( double V_DS, double V_GST, double V_GDT ) cons
 	{
 		if ( V_GST <= 0 )
 			return NormalCutoff;
-		
 		else if ( V_GST <= V_DS )
 			return NormalSaturation;
-		
-		else
-			return NormalLinear;
-	}
-	else
-	{
+		else	return NormalLinear;
+	} else {
 		if ( V_GDT <= 0 )
 			return InverseCutoff;
-		
 		else if ( V_GDT <= -V_DS )
 			return InverseSaturation;
-		
-		else
-			return InverseLinear;
+		else	return InverseLinear;
 	}
 }
 
@@ -288,7 +281,7 @@ void JFET::setJFETSettings( const JFETSettings & settings )
 {
 	m_jfetSettings = settings;
 	updateLim();
-	
+
 	if (p_eSet)
 		p_eSet->setCacheInvalidated();
 }
@@ -300,4 +293,6 @@ void JFET::updateLim()
 	double N = m_jfetSettings.N;
 	V_lim = diodeLimitedVoltage( I_S, N );
 }
+
 //END class JFET
+

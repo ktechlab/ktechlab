@@ -20,7 +20,7 @@
 
 
 //BEGIN class Simulator
-Simulator * Simulator::m_pSelf = 0l;
+Simulator * Simulator::m_pSelf = 0;
 static KStaticDeleter<Simulator> staticSimulatorDeleter;
 
 Simulator * Simulator::self()
@@ -45,7 +45,7 @@ Simulator::Simulator()
 	
 	unsigned max = unsigned(LOGIC_UPDATE_RATE/LINEAR_UPDATE_RATE);
 	for ( unsigned i = 0; i < max; i++ ) {
-		m_pStartStepCallback[i] = 0l;
+		m_pStartStepCallback[i] = 0;
 	}
 	
 	LogicConfig lc;
@@ -154,12 +154,12 @@ void Simulator::step()
 				for ( Circuit * circuit = changed; circuit; circuit = circuit->nextChanged(prevChain) )
 					circuit->setCanAddChanged(true);
 			
-				m_pChangedCircuitStart->setNextChanged( 0l, prevChain );
+				m_pChangedCircuitStart->setNextChanged( 0, prevChain );
 				m_pChangedCircuitLast = m_pChangedCircuitStart;
 			
 				do {
 					Circuit * next = changed->nextChanged(prevChain);
-					changed->setNextChanged( 0l, prevChain );
+					changed->setNextChanged( 0, prevChain );
 					changed->doLogic();
 					changed = next;
 				}
@@ -172,12 +172,12 @@ void Simulator::step()
 				for ( LogicOut * out = changed; out; out = out->nextChanged(prevChain) )
 					out->setCanAddChanged(true);
 			
-				m_pChangedLogicStart->setNextChanged( 0l, prevChain );
+				m_pChangedLogicStart->setNextChanged( 0, prevChain );
 				m_pChangedLogicLast = m_pChangedLogicStart;
 				do
 				{
 					LogicOut * next = changed->nextChanged(prevChain);
-					changed->setNextChanged( 0l, prevChain );
+					changed->setNextChanged( 0, prevChain );
 			
 					double v = changed->isHigh() ? changed->outputHighVoltage() : 0.0;
 				
@@ -234,7 +234,7 @@ void Simulator::createLogicChain( LogicOut * logicOut, const LogicInList & logic
 		last->setLastState(state);
 		last = next;
 	}
-	last->setNextLogic(0l);
+	last->setNextLogic(0);
 	last->setLastState(state);
 	
 	// Mark it as changed, if it isn't already changed...
@@ -345,8 +345,8 @@ void Simulator::removeLogicOutReferences( LogicOut * logic )
 	
 	if ( m_pChangedLogicLast == logic )
 	{
-		LogicOut * previous_1 = 0l;
-		LogicOut * previous_2 = 0l;
+		LogicOut * previous_1 = 0;
+		LogicOut * previous_2 = 0;
 		for ( LogicOut * logic = m_pChangedLogicStart; logic; )
 		{
 			if (previous_1)
@@ -380,8 +380,8 @@ void Simulator::detachCircuit( Circuit * circuit )
 	
 	if ( m_pChangedCircuitLast == circuit )
 	{
-		Circuit * previous_1 = 0l;
-		Circuit * previous_2 = 0l;
+		Circuit * previous_1 = 0;
+		Circuit * previous_2 = 0;
 		for ( Circuit * circuit = m_pChangedCircuitStart; circuit; )
 		{
 			if (previous_1)

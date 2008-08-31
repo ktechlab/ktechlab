@@ -128,8 +128,7 @@ void ElementSet::createMatrixMap()
 void ElementSet::doNonLinear( int maxIterations, double maxErrorV, double maxErrorI )
 {
 	QuickVector *p_x_prev = new QuickVector(p_x);
-//	*p_x_prev = *p_x; // copy constructor would be better in this case...
-	
+
 	// And now tell the cnodes and cbranches about their new voltages & currents
 	updateInfo();
 	
