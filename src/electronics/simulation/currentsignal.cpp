@@ -46,7 +46,7 @@ void CurrentSignal::updateCurrents()
 
 void CurrentSignal::time_step()
 {
-	m_newCurrent = m_current*advance();
+	m_newCurrent = m_current*advance(m_delta);
 	addCurrents();
 }
 
