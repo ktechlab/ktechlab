@@ -16,7 +16,7 @@ Inductance::Inductance( double inductance, double delta )
 	: Reactive(delta)
 {
 	m_inductance = inductance;
-	r_eq_old = v_eq_old = 0.0;
+	scaled_inductance = v_eq_old = 0.0;
 	m_numCNodes = 2;
 	m_numCBranches = 1;
 	setMethod( Inductance::m_euler );
@@ -43,14 +43,14 @@ void Inductance::add_initial_dc()
 	
 	// The adding of r_eg and v_eq will be done for us by time_step.
 	// So for now, just reset the constants used.
-	r_eq_old = v_eq_old = 0.0;
+	scaled_inductance = v_eq_old = 0.0;
 }
 
 
 void Inductance::updateCurrents()
 {
-	if (!b_status)
-		return;
+	if (!b_status) return;
+
 	m_cnodeI[0] = -p_cbranch[0]->i;
 	m_cnodeI[1] = -m_cnodeI[0];
 }
@@ -64,17 +64,17 @@ void Inductance::time_step()
 	
 	if ( m_method == Inductance::m_euler )
 	{
-		r_eq_new = m_inductance/m_delta;
-		v_eq_new = -i*r_eq_new;
+		r_eq_new = m_inductance / m_delta;
+		v_eq_new = -i * r_eq_new;
 	}
 	else if ( m_method == Inductance::m_trap ) {
 		// TODO Implement + test trapezoidal method
-		r_eq_new = 2.0*m_inductance/m_delta;
+		r_eq_new = 2.0 * m_inductance / m_delta;
 	}
 	
-	if ( r_eq_old != r_eq_new )
+	if ( scaled_inductance != r_eq_new )
 	{
-		A_d( 0, 0 ) -= r_eq_new - r_eq_old;
+		A_d( 0, 0 ) -= r_eq_new - scaled_inductance;
 	}
 	
 	if ( v_eq_new != v_eq_old )
@@ -82,7 +82,7 @@ void Inductance::time_step()
 		b_v( 0 ) += v_eq_new - v_eq_old;
 	}
 	
-	r_eq_old = r_eq_new;
+	scaled_inductance = r_eq_new;
 	v_eq_old = v_eq_new;
 }
 

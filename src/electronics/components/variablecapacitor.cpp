@@ -49,8 +49,8 @@ VariableCapacitor::VariableCapacitor( ICNDocument* icnDocument, bool newItem, co
 	// addSlider is called later on), and causing a crash - david.
 	m_tickValue = 1;
 	
-	m_maxCapacitance = 1.0;
-	m_minCapacitance = 0.5;
+	m_maxCapacitance = 0.0001;
+	m_minCapacitance = 0.00005;
 	
 	m_currCapacitance = m_minCapacitance + ( ( m_maxCapacitance - m_minCapacitance ) / 2 );
 
@@ -59,11 +59,11 @@ VariableCapacitor::VariableCapacitor( ICNDocument* icnDocument, bool newItem, co
 	
 	m_pNNode[0]->setLength( 15 );
 	m_pPNode[0]->setLength( 15 );
-	
+
 	m_pCapacitance = createCapacitance( m_pNNode[0], m_pPNode[0], m_currCapacitance );
-				
+
 	addDisplayText( "capacitance", QRect( -8, -26, 16, 16 ), "", false );
-		
+
 	createProperty( "currcapacitance", Variant::Type::Double );
 	property("currcapacitance")->setCaption( i18n("Capacitance") );
 	property("currcapacitance")->setUnit("F");
@@ -77,68 +77,64 @@ VariableCapacitor::VariableCapacitor( ICNDocument* icnDocument, bool newItem, co
 	property("maximum capacitance")->setMinValue(1e-12);
 	property("maximum capacitance")->setMaxValue(1e12);
 	property("maximum capacitance")->setValue( m_maxCapacitance );
-	m_prevMax = m_maxCapacitance;
-	
+
 	createProperty( "minimum capacitance", Variant::Type::Double );
 	property("minimum capacitance")->setCaption( i18n("Min") );
 	property("minimum capacitance")->setUnit("F");
 	property("minimum capacitance")->setMinValue(1e-12);
 	property("minimum capacitance")->setMaxValue(1e12);
 	property("minimum capacitance")->setValue( m_minCapacitance );
-	m_prevMin = m_minCapacitance;
-			
+
 	Slider * s = addSlider( "slider", 0, 100, 1, 50, Qt::Horizontal, QRect( -16, 10, 32, 16 ) );
 	m_pSlider = static_cast<QSlider*>(s->widget());
 }
 
 
 VariableCapacitor::~VariableCapacitor()
-{
-	
-}
+{}
 
 void VariableCapacitor::dataChanged()
 {
-	/** @todo fix slider so current cap can be set in toolbar and editor and slider updates */ 
+
 	
-	m_minCapacitance = dataDouble( "minimum capacitance" );
-	m_maxCapacitance = dataDouble( "maximum capacitance" );
+	double new_minCapacitance = dataDouble( "minimum capacitance" );
+	double new_maxCapacitance = dataDouble( "maximum capacitance" );
 	
-	if( m_prevMin != m_minCapacitance )
-	{
-		if( m_minCapacitance >= m_maxCapacitance )
-		{
+	if( new_minCapacitance != m_minCapacitance ) {
+		if( new_minCapacitance >= m_maxCapacitance ) {
 			m_minCapacitance = m_maxCapacitance;
 			property( "minimum capacitance" )->setValue( m_minCapacitance );
-
-		}
+		} else m_minCapacitance = new_minCapacitance;
 	}
 
-	if( m_prevMax != m_maxCapacitance )
-	{
-		if( m_maxCapacitance <= m_minCapacitance )
+	if( new_maxCapacitance != m_maxCapacitance ) {
+		if( new_maxCapacitance <= m_minCapacitance )
 		{
 			m_maxCapacitance = m_minCapacitance;
 			property( "maximum capacitance" )->setValue( m_maxCapacitance );
-		}
+		} else m_maxCapacitance = new_maxCapacitance;
 	}
-	
-	m_prevMin = m_minCapacitance;
-	m_prevMax = m_maxCapacitance;
-	
+
+/*  Attempt at  fixme.
+	m_currCapacitance = property( "currcapacitance" )->value().asDouble();
+
+	if(m_currCapacitance > m_maxCapacitance) m_currCapacitance = m_maxCapacitance;
+	else if(m_currCapacitance < m_minCapacitance) m_currCapacitance = m_minCapacitance;
+*/
+
 	m_tickValue = ( m_maxCapacitance - m_minCapacitance ) / m_pSlider->maxValue();
-	
+
 	property( "currcapacitance" )->setValue( m_currCapacitance );
-	
+
 	// Calculate the capacitance jump per tick of a 100 tick slider.
 	sliderValueChanged( "slider", slider("slider")->value() );
 }
 
 void VariableCapacitor::sliderValueChanged( const QString &id, int newValue )
 {
-	if ( id != "slider" )
-		return;
-	
+	if ( id != "slider" ) return;
+
+	/** @todo fix slider so current cap can be set in toolbar and editor and slider updates */
 	m_currCapacitance = m_minCapacitance + ( newValue * m_tickValue );
 	
 	// Set the new capacitance value.

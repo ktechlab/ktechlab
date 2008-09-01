@@ -102,7 +102,7 @@ if test x$have_gpsim_0_21_4 == xyes || test x$have_gpsim_0_21_11 == xyes || test
 	for LIBREADLINE in "-lreadline" "-lreadline $LIBCURSES" "-lreadline -ltermcap" "-lreadline -lncurses" "-lreadline -lcurses"
 	do
 		LIBS="$ac_save_LIBS $LIBREADLINE"
-		LIB_GPSIM="$LIBREADLINE -lgpsim -lgpsim_eXdbm -lgpsimcli"
+		LIB_GPSIM="$LIBREADLINE -lgpsim -lgpsim_eXdbm "
 		AC_TRY_RUN([
 			/* program */
 			#include <stdio.h>

@@ -112,10 +112,10 @@ void ChassisCircular2::drawShape( QPainter &p )
 	
 	// Draw wheels
 	// TODO get this info from m_wheel1Pos and m_wheel2Pos
-	const double X = _x+(w/5); // Wheel's left pos
-	const double H = h/8; // Wheel's height
-	const double y1 = _y+(h/6); // Wheel 1 y-pos
-	const double y2 = _y+(5*h/6)-H; // Wheel 2 y-pos
+	const double X = _x + (w / 5); // Wheel's left pos
+	const double H = h / 8; // Wheel's height
+	const double y1 = _y + (h / 6); // Wheel 1 y-pos
+	const double y2 = _y + (5 * h / 6)-H; // Wheel 2 y-pos
 	
 	p.setPen( Qt::NoPen );
 	const double stripeWidth = 5;

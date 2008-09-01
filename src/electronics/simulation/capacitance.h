@@ -47,7 +47,7 @@ private:
 	double m_cap; // Capacitance
 	Method m_method; // Method of integration
 	
-	double g_eq_old;
+	double m_scaled_cap; // capacitance scaled to time base of latest m_delta
 	double i_eq_old;
 };
 

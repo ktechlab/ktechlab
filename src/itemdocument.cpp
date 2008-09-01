@@ -329,8 +329,7 @@ void ItemDocument::requestStateSave( int actionTicket )
 		return;
 	IDDStack tempStack;
 	int pushed = 0;
-	while ( !m_undoStack.isEmpty() && pushed < maxUndo )
-	{
+	while ( !m_undoStack.isEmpty() && pushed < maxUndo ) {
 		tempStack.push( m_undoStack.pop() );
 		pushed++;
 	}

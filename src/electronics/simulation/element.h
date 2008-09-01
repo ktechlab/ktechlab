@@ -217,43 +217,37 @@ private:
 };
 
 
-double & Element::A_g( uint i, uint j )
+double &Element::A_g( uint i, uint j )
 {
 	if(p_cnode[i]->isGround || p_cnode[j]->isGround) return m_temp;
 	return p_eSet->matrix()->g( p_cnode[i]->n(), p_cnode[j]->n() );
 }
 
-
-double & Element::A_b( uint i, uint j )
+double &Element::A_b( uint i, uint j )
 {
-	if ( p_cnode[i]->isGround )
-		return m_temp;
+	if ( p_cnode[i]->isGround ) return m_temp;
 	return p_eSet->matrix()->b( p_cnode[i]->n(), p_cbranch[j]->n() );
 }
 
-
-double & Element::A_c( uint i, uint j )
+double &Element::A_c( uint i, uint j )
 {
-	if ( p_cnode[j]->isGround )
-		return m_temp;
+	if ( p_cnode[j]->isGround ) return m_temp;
 	return p_eSet->matrix()->c( p_cbranch[i]->n(), p_cnode[j]->n() );
 }
 
-
-double & Element::A_d( uint i, uint j )
+double &Element::A_d( uint i, uint j )
 {
 	return p_eSet->matrix()->d( p_cbranch[i]->n(), p_cbranch[j]->n() );
 }
 
 
-double & Element::b_i( uint i )
+double &Element::b_i( uint i )
 {
 	if ( p_cnode[i]->isGround )
 		return m_temp;
 	
 	return (*(p_eSet->b()))[ p_cnode[i]->n() ];
 }
-
 
 double & Element::b_v( uint i )
 {

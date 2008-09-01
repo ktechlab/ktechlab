@@ -853,9 +853,6 @@ bool ProjectInfo::save()
 	QDomElement root = doc.createElement("project");
 	doc.appendChild(root);
 	
-// 	root.appendChild( LinkerOptions::toDomElement(doc) );
-// 	root.appendChild( ProcessingOptions::toDomElement(doc) );
-	
 	m_children.remove( (ProjectItem*)0l );
 	ProjectItemList::const_iterator end = m_children.end();
 	for ( ProjectItemList::const_iterator it = m_children.begin(); it != end; ++it )

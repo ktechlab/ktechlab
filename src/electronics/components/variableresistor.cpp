@@ -67,15 +67,13 @@ VariableResistor::VariableResistor( ICNDocument* icnDocument, bool newItem, cons
 	property("minimum resistance")->setUnit( QChar( 0x3a9 ) );
 	property("minimum resistance")->setMinValue( 1e-6 );
 	property("minimum resistance")->setValue( m_minResistance );
-	m_prevMin = m_minResistance;
-	
+
 	createProperty( "maximum resistance", Variant::Type::Double );
 	property("maximum resistance")->setCaption( i18n("Max") );
 	property("maximum resistance")->setUnit( QChar( 0x3a9 ) );
 	property("maximum resistance")->setMinValue( 1e-6 );
 	property("maximum resistance")->setValue( m_maxResistance );
-	m_prevMax = m_maxResistance;
-	
+
 	addDisplayText( "res", QRect( -16, -26, 32, 12 ), "", false );
 	
 	Slider * s = addSlider( "slider", 0, 100, 1, 50, Qt::Horizontal, QRect( -16, 14, width(), 16 ) );
@@ -90,32 +88,28 @@ VariableResistor::~VariableResistor()
 
 void VariableResistor::dataChanged()
 {
-	/** @todo fix slider so current cap can be set in toolbar and editor and slider updates */ 
+
+	double new_minResistance = dataDouble( "minimum resistance" );
+	double new_maxResistance = dataDouble( "maximum resistance" );
 	
-	m_minResistance = dataDouble( "minimum resistance" );
-	m_maxResistance = dataDouble( "maximum resistance" );
-	
-	if( m_prevMin != m_minResistance )
+	if( new_minResistance != m_minResistance )
 	{
-		if( m_minResistance >= m_maxResistance )
+		if( new_minResistance >= m_maxResistance )
 		{
 			m_minResistance = m_maxResistance;
 			property( "minimum resistance" )->setValue( m_minResistance );
-		}
+		} else m_minResistance = new_minResistance;
 	}
 
-	if( m_prevMax != m_maxResistance )
+	if( new_maxResistance != m_maxResistance )
 	{
-		if( m_maxResistance <= m_minResistance )
+		if( new_maxResistance <= m_minResistance )
 		{
 			m_maxResistance = m_minResistance;
 			property( "maximum resistance" )->setValue( m_maxResistance );
-		}
+		} else m_maxResistance = new_maxResistance;
 	}
-			
-	m_prevMin = m_minResistance;
-	m_prevMax = m_maxResistance;
-	
+
 	m_tickValue = ( m_maxResistance - m_minResistance ) / m_pSlider->maxValue();
 	
 	// Calculate the resistance jump per tick of a 100 tick slider.
@@ -124,9 +118,9 @@ void VariableResistor::dataChanged()
 
 void VariableResistor::sliderValueChanged( const QString &id, int newValue )
 {
-	if ( id != "slider" )
-		return;
-	
+	if ( id != "slider" ) return;
+
+	/** @todo fix slider so current cap can be set in toolbar and editor and slider updates */ 
 	m_currResistance = m_minResistance + ( newValue * m_tickValue );
 	
 	// Set the new capacitance value.

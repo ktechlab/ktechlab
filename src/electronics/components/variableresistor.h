@@ -39,7 +39,7 @@ class VariableResistor : public Component
 		double m_minResistance;
 		double m_maxResistance;
 		double m_currResistance;
-		double m_prevMin, m_prevMax, m_tickValue;
+		double m_tickValue;
 };
 
 #endif

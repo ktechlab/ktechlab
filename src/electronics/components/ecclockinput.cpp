@@ -19,6 +19,9 @@
 
 #include <cmath>
 
+// was a constant, this is my guess for an appropriate name. 
+#define TIME_INTERVAL 100  
+
 static inline uint roundDouble( const double x )
 {
 	return uint(std::floor(x+0.5));
@@ -89,25 +92,23 @@ ECClockInput::~ECClockInput()
 	}
 }
 
-
 void ECClockInput::dataChanged()
 {
-	m_high_time = roundDouble(dataDouble("high-time")*LOGIC_UPDATE_RATE);
-	m_low_time = roundDouble(dataDouble("low-time")*LOGIC_UPDATE_RATE);
-	m_period = m_low_time+m_high_time;
+	m_high_time = roundDouble(dataDouble("high-time") * LOGIC_UPDATE_RATE);
+	m_low_time = roundDouble(dataDouble("low-time") * LOGIC_UPDATE_RATE);
+	m_period = m_low_time + m_high_time;
 	
-	const double frequency = 1./(dataDouble("high-time")+dataDouble("low-time"));
+	const double frequency = 1. / (dataDouble("high-time") + dataDouble("low-time"));
 	QString display = QString::number( frequency / getMultiplier(frequency), 'g', 3 ) + getNumberMag(frequency) + "Hz";
 	setDisplayText( "freq", display );
 	
-	bool setStepCallbacks = m_period > 100;
-	if ( setStepCallbacks != m_bSetStepCallbacks )
-	{
+	bool setStepCallbacks = m_period > TIME_INTERVAL;
+	if ( setStepCallbacks != m_bSetStepCallbacks ) {
+
 		m_bSetStepCallbacks = setStepCallbacks;
 		if (setStepCallbacks)
 			m_pSimulator->detachComponentCallbacks(*this);
-		else
-			m_pSimulator->attachComponentCallback( this, (VoidCallbackPtr)(&ECClockInput::stepLogic) );
+		else	m_pSimulator->attachComponentCallback( this, (VoidCallbackPtr)(&ECClockInput::stepLogic) );
 	}
 	
 	m_bLastStepCallbackOut = false;
@@ -120,7 +121,7 @@ void ECClockInput::stepLogic()
 	m_pOut->setHigh( m_time>m_low_time );
 	
 	if ( ++m_time > m_period ) {
-		m_time -= int(m_time/m_period)*m_period;
+		m_time -= int(m_time / m_period) * m_period;
 	}
 }
 
@@ -139,9 +140,8 @@ void ECClockInput::stepNonLogic()
 	
 	bool addingHigh = !m_bLastStepCallbackOut;
 	
-	//TODO 100 number shouldn't be hard-coded
 	long long lowerTime = m_pSimulator->time();
-	long long upperTime = lowerTime + 100;
+	long long upperTime = lowerTime + TIME_INTERVAL;
 	
 	long long upTo = m_lastSetTime;
 	
@@ -151,7 +151,7 @@ void ECClockInput::stepNonLogic()
 		addingHigh = !addingHigh;
 		
 		long long at = upTo-lowerTime;
-		if ( at >= 0 && at < 100 )
+		if ( at >= 0 && at < TIME_INTERVAL )
 			m_pSimulator->addStepCallback( at, &m_pComponentCallback[at]->front());
 	}
 	

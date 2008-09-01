@@ -1357,7 +1357,6 @@ NodeList ICNDocument::nodeList( ) const
 //END class ICNDocument
 
 
-
 DirCursor *DirCursor::m_self = 0l;
 
 DirCursor::DirCursor()
@@ -1383,8 +1382,6 @@ void DirCursor::initCursors()
 // 	QPixmap pm( bitmap->width(), bitmap->height() );
 // 	pm.setMask(mask);
 // 	pm = c.pi
-	// @todo finish
 }
-
 
 #include "icndocument.moc"

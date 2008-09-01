@@ -50,7 +50,7 @@ Pulse::Pulse( ICNDocument *icnDocument, bool newItem, const char *id )
 	property("1-high")->setValue(0.5);
 	
 	createProperty( "2-low", Variant::Type::Double );
-	property("2-low")->setCaption( i18n("High Time") );
+	property("2-low")->setCaption( i18n("Low Time") );
 	property("2-low")->setUnit("sec");
 	property("2-low")->setValue(0.5);
 	
