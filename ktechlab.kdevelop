@@ -1,8 +1,8 @@
 <?xml version = '1.0'?>
 <kdevelop>
   <general>
-    <author>David Saxton</author>
-    <email>david@bluehaze.org</email>
+    <author>David Saxton, Alan Grimes</author>
+    <email>agrimes@speakeasy.net</email>
     <version>0.3</version>
     <projectmanagement>KDevKDEAutoProject</projectmanagement>
     <primarylanguage>C++</primarylanguage>
@@ -19,17 +19,16 @@
       <part>kdevbookmarks</part>
       <part>kdevctags2</part>
       <part>kdevsnippet</part>
-      <part>kdevdocumentation</part>
       <part>kdevfileview</part>
       <part>kdevfilelist</part>
-      <part>kdevpartexplorer</part>
       <part>kdevquickopen</part>
       <part>kdevfilter</part>
       <part>kdevtools</part>
-      <part>kdevrbdebugger</part>
     </ignoreparts>
     <secondaryLanguages/>
     <versioncontrol>kdevsubversion</versioncontrol>
+    <projectname>ktechlab</projectname>
+    <defaultencoding/>
   </general>
   <kdevautoproject>
     <general>
@@ -37,7 +36,7 @@
       <activetarget>src/ktechlab</activetarget>
     </general>
     <run>
-      <mainprogram>src/ktechlab</mainprogram>
+      <mainprogram/>
       <terminal>false</terminal>
       <directoryradio>executable</directoryradio>
       <customdirectory>/</customdirectory>
@@ -47,17 +46,30 @@
       <runarguments>
         <ktechlab/>
         <microbasic/>
+        <utest/>
       </runarguments>
+      <globaldebugarguments/>
+      <globalcwd/>
+      <useglobalprogram>false</useglobalprogram>
+      <autoinstall>false</autoinstall>
+      <autokdesu>false</autokdesu>
+      <debugarguments>
+        <ktechlab/>
+        <utest/>
+      </debugarguments>
+      <cwd>
+        <ktechlab>/home/atg/source/ktechlab-svn/ktechlab/trunk/debug/./src</ktechlab>
+        <utest>/home/atg/source/ktechlab-svn/ktechlab/trunk/debug/./src</utest>
+      </cwd>
     </run>
     <make>
-      <envvars>
-        <envvar value="1" name="WANT_AUTOCONF_2_5" />
-      </envvars>
-      <abortonerror>false</abortonerror>
-      <numberofjobs>1</numberofjobs>
+      <envvars/>
+      <abortonerror>true</abortonerror>
+      <numberofjobs>3</numberofjobs>
       <dontact>false</dontact>
       <makebin/>
       <prio>0</prio>
+      <runmultiplejobs>true</runmultiplejobs>
     </make>
     <configurations>
       <optimized>
@@ -78,19 +90,19 @@
         <envvars/>
       </optimized>
       <debug>
-        <configargs>--enable-debug=full --prefix=/usr --enable-pch=yes</configargs>
+        <configargs>--enable-debug=full --prefix=/usr --enable-pch=yes --without-arts</configargs>
         <builddir>debug</builddir>
         <ccompiler>kdevgccoptions</ccompiler>
         <cxxcompiler>kdevgppoptions</cxxcompiler>
         <f77compiler>kdevpgf77options</f77compiler>
-        <cxxflags>-O0 -g3</cxxflags>
+        <cxxflags>-O0 -ggdb -pedantic</cxxflags>
         <topsourcedir/>
         <cppflags/>
         <ldflags/>
         <ccompilerbinary/>
         <cxxcompilerbinary/>
         <f77compilerbinary/>
-        <cflags/>
+        <cflags>-Werror -pedantic-errors -ggdb</cflags>
         <f77flags/>
         <envvars/>
       </debug>
@@ -169,6 +181,7 @@
       <configGdbScript/>
       <runShellScript/>
       <runGdbScript/>
+      <raiseGDBOnStart>false</raiseGDBOnStart>
     </general>
     <display>
       <staticmembers>false</staticmembers>
@@ -222,6 +235,21 @@
       <codeCompletionDelay>250</codeCompletionDelay>
       <argumentsHintDelay>400</argumentsHintDelay>
       <headerCompletionDelay>250</headerCompletionDelay>
+      <showOnlyAccessibleItems>false</showOnlyAccessibleItems>
+      <completionBoxItemOrder>0</completionBoxItemOrder>
+      <howEvaluationContextMenu>true</howEvaluationContextMenu>
+      <showCommentWithArgumentHint>true</showCommentWithArgumentHint>
+      <statusBarTypeEvaluation>false</statusBarTypeEvaluation>
+      <namespaceAliases>std=_GLIBCXX_STD;__gnu_cxx=std</namespaceAliases>
+      <processPrimaryTypes>true</processPrimaryTypes>
+      <processFunctionArguments>false</processFunctionArguments>
+      <preProcessAllHeaders>false</preProcessAllHeaders>
+      <parseMissingHeadersExperimental>false</parseMissingHeadersExperimental>
+      <resolveIncludePathsUsingMakeExperimental>false</resolveIncludePathsUsingMakeExperimental>
+      <alwaysParseInBackground>true</alwaysParseInBackground>
+      <usePermanentCaching>true</usePermanentCaching>
+      <alwaysIncludeNamespaces>false</alwaysIncludeNamespaces>
+      <includePaths>.;</includePaths>
     </codecompletion>
     <references/>
     <creategettersetter>
@@ -238,8 +266,18 @@
     <qt>
       <used>true</used>
       <version>3</version>
-      <root/>
+      <root>/usr/qt/3</root>
+      <includestyle>3</includestyle>
+      <designerintegration>EmbeddedKDevDesigner</designerintegration>
+      <qmake>/usr/qt/3/bin/qmake</qmake>
+      <designer>/usr/qt/3/bin/designer</designer>
+      <designerpluginpaths/>
     </qt>
+    <splitheadersource>
+      <enabled>false</enabled>
+      <synchronize>true</synchronize>
+      <orientation>Vertical</orientation>
+    </splitheadersource>
   </kdevcppsupport>
   <kdevdocumentation>
     <projectdoc>
@@ -253,7 +291,7 @@
     <bzip>true</bzip>
     <archname>ktechlab-0.2</archname>
     <appname>ktechlab</appname>
-    <version>0.2</version>
+    <version>0.3</version>
     <release/>
     <vendor/>
     <licence/>

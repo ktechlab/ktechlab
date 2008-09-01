@@ -112,7 +112,7 @@ private:
 	void swapRows( CUI a, CUI b );
 
 	unsigned int m_n; // number of cnodes. 
-	unsigned int max_k;
+	unsigned int max_k; // optimization variable, allows partial L_U re-do. 
 	
 	int *m_inMap; // Rowwise permutation mapping from external reference to internal storage
 

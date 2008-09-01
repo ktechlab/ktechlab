@@ -79,16 +79,14 @@ void FlowCodeDocument::setPicType( const QString &id )
 	
 	MicroInfo *microInfo = MicroLibrary::self()->microInfoWithID(id);
 	
-	if ( !microInfo )
-	{
+	if ( !microInfo ) {
 		kdWarning() << "FlowCodeDocument::setPicType: Could not set the pic type to PIC \""<<id<<"\"\n";
 		return;
 	}
 	
 	m_microInfo = microInfo;
 	
-	if (m_microSettings)
-	{
+	if (m_microSettings) {
 		//TODO write the pic settings to somewhere temporary and then restore them
 		delete m_microSettings;
 	}
@@ -121,8 +119,7 @@ bool FlowCodeDocument::isValidItem( Item *item )
 	
 	const ItemMap::iterator ciEnd = m_itemList.end();
 	
-	if ( item->id().startsWith("START") )
-	{
+	if ( item->id().startsWith("START") ) {
 		int count = 0;
 		
 		for ( ItemMap::iterator it = m_itemList.begin(); it != ciEnd; ++it )
@@ -132,16 +129,14 @@ bool FlowCodeDocument::isValidItem( Item *item )
 		}
 		if ( count > 1 )
 			return false;
-	}
-	
-	else if ( item->id().startsWith("PPEND") )
-	{
+	} else if ( item->id().startsWith("PPEND") ) {
 		int count = 0;
 		for ( ItemMap::iterator it = m_itemList.begin(); it != ciEnd; ++it )
 		{
 			if ( (*it)->id().startsWith("PPEND") )
 				count++;
 		}
+
 		if ( count > 1 )
 			return false;
 	}
@@ -160,21 +155,21 @@ void FlowCodeDocument::slotConvertTo( int target )
 {
 	switch ( (ConvertToTarget)target )
 	{
-		case FlowCodeDocument::MicrobeOutput:
-			convertToMicrobe();
-			break;
+	case FlowCodeDocument::MicrobeOutput:
+		convertToMicrobe();
+		break;
 			
-		case FlowCodeDocument::AssemblyOutput:
-			convertToAssembly();
-			break;
+	case FlowCodeDocument::AssemblyOutput:
+		convertToAssembly();
+		break;
 			
-		case FlowCodeDocument::HexOutput:
-			convertToHex();
-			break;
+	case FlowCodeDocument::HexOutput:
+		convertToHex();
+		break;
 			
-		case FlowCodeDocument::PICOutput:	
-			convertToPIC();
-			break;
+	case FlowCodeDocument::PICOutput:
+		convertToPIC();
+		break;
 	}
 }
 
@@ -185,8 +180,8 @@ void FlowCodeDocument::convertToMicrobe()
 	dlg->setOutputExtension(".microbe");
 	dlg->setFilter( QString("*.microbe|Microbe (*.microbe)\n*|%1").arg(i18n("All Files")) );
 	dlg->exec();
-	if (!dlg->isAccepted())
-	{
+
+	if (!dlg->isAccepted()) {
 		delete dlg;
 		return;
 	}
@@ -207,8 +202,8 @@ void FlowCodeDocument::convertToAssembly()
 	dlg->setOutputExtension(".asm");
 	dlg->setFilter( QString("*.asm *.src *.inc|%1 (*.asm, *.src, *.inc)\n*|%2").arg(i18n("Assembly Code")).arg(i18n("All Files")) );
 	dlg->exec();
-	if (!dlg->isAccepted())
-	{
+
+	if (!dlg->isAccepted()) {
 		delete dlg;
 		return;
 	}
@@ -229,8 +224,8 @@ void FlowCodeDocument::convertToHex()
 	dlg->setOutputExtension(".hex");
 	dlg->setFilter( QString("*.hex|Hex (*.hex)\n*|%1").arg(i18n("All Files")) );
 	dlg->exec();
-	if (!dlg->isAccepted())
-	{
+
+	if (!dlg->isAccepted()) {
 		delete dlg;
 		return;
 	}
@@ -249,8 +244,8 @@ void FlowCodeDocument::convertToPIC()
 {
 	ProgrammerDlg * dlg = new ProgrammerDlg( microSettings()->microInfo()->id(), (QWidget*)KTechlab::self(), "Programmer Dlg" );
 	dlg->exec();
-	if ( !dlg->isAccepted() )
-	{
+
+	if ( !dlg->isAccepted() ) {
 		dlg->deleteLater();
 		return;
 	}
@@ -267,17 +262,14 @@ void FlowCodeDocument::convertToPIC()
 
 void FlowCodeDocument::varNameChanged( const QString &newValue, const QString &oldValue )
 {
-	if (m_bDeleted)
-		return;
+	if (m_bDeleted) return;
 	
 	// Decrease the old variable count
 	// If none are left after, remove it from microsettings
 	StringIntMap::iterator it = m_varNames.find(oldValue);
-	if ( it != m_varNames.end() )
-	{
+	if ( it != m_varNames.end() ) {
 		--(it.data());
-		if ( it.data() <= 0 )
-		{
+		if ( it.data() <= 0 ) {
 			VariableInfo *info = microSettings()->variableInfo(it.key());
 			if ( info && !info->permanent ) microSettings()->deleteVariable(oldValue);
 			m_varNames.erase(it);
@@ -285,8 +277,7 @@ void FlowCodeDocument::varNameChanged( const QString &newValue, const QString &o
 	}
 	
 	// Add the new variable to a count, tell microsettings about it if it is new
-	if ( !newValue.isEmpty() )
-	{
+	if ( !newValue.isEmpty() ) {
 		it = m_varNames.find(newValue);
 		if ( it != m_varNames.end() ) {
 			++it.data();
