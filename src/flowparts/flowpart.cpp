@@ -121,27 +121,19 @@ void FlowPart::setCaption( const QString &caption )
 	switch(m_flowSymbol)
 	{
 		case FlowPart::ps_call:
-		{
 			width += 48;
 			break;
-		}
 		case FlowPart::ps_io:
 		case FlowPart::ps_round:
-		{
 			width += 32;
 			break;
-		}
 		case FlowPart::ps_decision:
-		{
 			width += 64;
 			break;
-		}
 		case FlowPart::ps_process:
 		default:
-		{
 			width += 32;
 			break;
-		}
 	}
 	
 	bool hasSideConnectors = m_flowSymbol == FlowPart::ps_decision;
@@ -180,16 +172,11 @@ void FlowPart::initSymbol( FlowPart::FlowSymbol symbol, int width )
 	switch(symbol)
 	{
 		case FlowPart::ps_other:
-		{
 			return;
-		}
 		case FlowPart::ps_call:
 		case FlowPart::ps_process:
-		{	
 			setItemPoints( QRect( -width/2, -16, width, 24 ) );
 			break;
-		}
-		
 		case FlowPart::ps_io:
 		{
 			// define parallelogram shape
@@ -201,7 +188,6 @@ void FlowPart::initSymbol( FlowPart::FlowSymbol symbol, int width )
 			setItemPoints(pa);
 			break;
 		}
-		
 		case FlowPart::ps_round:
 		{
 			// define rounded rectangles as two semicricles with RP_NUM/2 points with gap inbetween
@@ -254,71 +240,86 @@ void FlowPart::drawShape( QPainter &p )
 	const double w = width();
 	double h = height();
 	
-	switch (m_flowSymbol)
-	{
-		case FlowPart::ps_other:
-		{	
-			CNItem::drawShape(p);
-			break;
-		}
+	switch (m_flowSymbol) {
+
+	case FlowPart::ps_other:
+		CNItem::drawShape(p);
+		break;
+	case FlowPart::ps_io:
+		{
+		h--;
+		double roundSize = 8;
+		double slantIndent = 5;
+			
+// 		CNItem::drawShape(p);
+		double inner = std::atan(h/slantIndent);
+		double outer = M_PI - inner;
 		
-		case FlowPart::ps_io:
-		{
-			h--;
-			double roundSize = 8;
-			double slantIndent = 5;
+		int inner16 = int(16*inner*DPR);
+		int outer16 = int(16*outer*DPR);
 			
-// 			CNItem::drawShape(p);
-			double inner = std::atan(h/slantIndent);
-			double outer = M_PI - inner;
-			
-			int inner16 = int(16*inner*DPR);
-			int outer16 = int(16*outer*DPR);
-			
-			p.save();
-			p.setPen( Qt::NoPen );
-			p.drawPolygon( areaPoints() );
-			p.restore();
-			
-			p.drawLine( int(_x+slantIndent+roundSize/2),	int(_y),	int(_x+w-roundSize/2),	int(_y) );
-			p.drawLine( int(_x-slantIndent+w-roundSize/2),	int(_y+h),	int(_x+roundSize/2),	int(_y+h) );
-			p.drawLine( int(_x+w+(std::sin(outer)-1)*(roundSize/2)),				int(_y+(1-std::cos(outer))*(roundSize/2)),
-						int(_x+w-slantIndent+(std::sin(inner)-1)*(roundSize/2)),	int(_y+h+(std::cos(inner)-1)*(roundSize/2)) );
-			p.drawLine( int(_x+(1-std::sin(outer))*(roundSize/2)),					int(_y+h+(std::cos(outer)-1)*(roundSize/2)),
-						int(_x+slantIndent+(1-std::sin(inner))*(roundSize/2)),		int(_y+(1-std::cos(inner))*(roundSize/2)) );
-			
-			p.drawArc( int(_x+slantIndent),				int(_y),				int(roundSize), int(roundSize), 90*16,			inner16 );
-			p.drawArc( int(_x+w-roundSize),				int(_y),				int(roundSize), int(roundSize), 270*16+inner16,	outer16 );
-			p.drawArc( int(_x-slantIndent+w-roundSize),	int(_y+h-roundSize),	int(roundSize), int(roundSize), 270*16,			inner16 );
-			p.drawArc( int(_x),							int(_y+h-roundSize),	int(roundSize), int(roundSize), 90*16+inner16,	outer16) ;
-			break;
-		}
+		p.save();
+		p.setPen( Qt::NoPen );
+		p.drawPolygon( areaPoints() );
+		p.restore();
 		
-		case FlowPart::ps_decision:
-		{
-			// TODO Make the shape nice and pretty with rounded corners
-			CNItem::drawShape(p);
-			break;
+		p.drawLine(int(_x + slantIndent+roundSize / 2),
+			   int(_y),
+			   int(_x + w  -                                  roundSize / 2),
+			   int(_y));
+		p.drawLine(int(_x + w  - slantIndent  - 		  roundSize / 2),
+			   int(_y + h),
+			   int(_x + 					  roundSize / 2),
+			   int(_y + h) );
+		p.drawLine(int(_x + w  + (std::sin(outer) - 1)          * roundSize / 2),
+			   int(_y + (1 -  std::cos(outer))              * roundSize / 2),
+			   int(_x + w  - slantIndent + (std::sin(inner) - 1) * roundSize/2),
+			   int(_y + h  + (std::cos(inner) - 1)          * roundSize / 2) );
+		p.drawLine(int(_x + (1 -  std::sin(outer))              * roundSize / 2),
+			   int(_y + h  + (std::cos(outer) - 1)          * roundSize / 2),
+			   int(_x + slantIndent + (1 - std::sin(inner)) * roundSize / 2),
+			   int(_y +               (1 - std::cos(inner)) * roundSize / 2) );
+		p.drawArc(int(_x + slantIndent),
+			  int(_y),
+			  int(roundSize),
+			  int(roundSize),
+			  90 * 16,
+			  inner16);
+		p.drawArc(int(_x + w - roundSize),
+			  int(_y),
+			  int(roundSize),
+			  int(roundSize),
+			  270 * 16 + inner16,
+			  outer16 );
+		p.drawArc(int(_x - slantIndent + w - roundSize),
+			  int(_y + h - roundSize),
+			  int(roundSize),
+			  int(roundSize),
+			  270*16,
+			  inner16);
+		p.drawArc(int(_x),
+			  int(_y + h - roundSize),
+			  int(roundSize),
+			  int(roundSize),
+			  90*16 + inner16,
+			  outer16);
+		break;
 		}
-		
-		case FlowPart::ps_call:
-		{
-			p.drawRoundRect( int(_x), int(_y), int(w), int(h+1), int(1000./w), int(1000./h) );
-			p.drawLine( int(_x+8), int(_y), int(_x+8), int(_y+h) );
-			p.drawLine( int(_x+w-8), int(_y), int(_x+w-8), int(_y+h) );
-			break;
-		}
-		case FlowPart::ps_process:
-		{
-			p.drawRoundRect( int(_x), int(_y), int(w), int(h+1), int(1000./w), int(1000./h) );
-			break;
-		}
-		
-		case FlowPart::ps_round:
-		{
-			p.drawRoundRect( int(_x), int(_y), int(w), int(h+1), 30, 100 );
-			break;
-		}
+	case FlowPart::ps_decision:
+		// TODO Make the shape nice and pretty with rounded corners
+		CNItem::drawShape(p);
+		break;
+	case FlowPart::ps_call:
+		p.drawRoundRect( int(_x), int(_y), int(w), int(h + 1), int(1000. / w), int(1000. / h) );
+		p.drawLine( int(_x + 8), int(_y), int(_x + 8), int(_y + h) );
+		p.drawLine( int(_x + w - 8), int(_y), int(_x + w - 8), int(_y + h) );
+		break;
+	case FlowPart::ps_process:
+		p.drawRoundRect( int(_x), int(_y), int(w), int(h + 1), int(1000. / w), int(1000. / h) );
+		break;
+	case FlowPart::ps_round:
+		p.drawRoundRect( int(_x), int(_y), int(w), int(h + 1), 30, 100 );
+		break;
 	}
 	
 	p.setPen( Qt::black );
@@ -410,11 +411,13 @@ FlowPart* FlowPart::endPart( QStringList ids, FlowPartList *previousParts )
 	} else if ( previousParts->contains(this) ) {
 		return 0l;
 	}
+
 	previousParts->append(this);
 	
 	if ( ids.empty() ) {
 		return 0l;
 	}
+
 	if ( ids.size() == 1 ) {
 		return outputPart( *(ids.begin()) );
 	}
@@ -503,9 +506,7 @@ void FlowPart::handleIfElse( FlowCode *code, const QString &case1Statement, cons
 			code->addCodeBranch(part2);
 			code->addCode("}");
 		}
-	}
-	else if ( code->isValidBranch(part2) )
-	{
+	} else if ( code->isValidBranch(part2) ) {
 		// Use the case2 statement
 		code->addCode( "if "+case2Statement+" then "+"\n{" );
 		code->addCodeBranch(part2);
@@ -547,32 +548,31 @@ Variant * FlowPart::createProperty( const QString & id, Variant::Type::Value typ
 
 void FlowPart::slotUpdateFlowPartVariables()
 {
-	if (!m_pFlowCodeDocument)
-		return;
+	if (!m_pFlowCodeDocument) return;
 	
 	MicroSettings *s = m_pFlowCodeDocument->microSettings();
-	if (!s)
-		return;
+	if (!s) return;
 	
 	const PinMappingMap pinMappings = s->pinMappings();
 	QStringList sevenSegMaps;
 	QStringList keyPadMaps;
+
 	PinMappingMap::const_iterator pEnd = pinMappings.end();
 	for ( PinMappingMap::const_iterator it = pinMappings.begin(); it != pEnd; ++it )
 	{
 		switch ( it.data().type() )
 		{
-			case PinMapping::SevenSegment:
-				sevenSegMaps << it.key();
-				break;
-				
-			case PinMapping::Keypad_4x3:
-			case PinMapping::Keypad_4x4:
-				keyPadMaps << it.key();
-				break;
-				
-			case PinMapping::Invalid:
-				break;
+		case PinMapping::SevenSegment:
+			sevenSegMaps << it.key();
+			break;
+			
+		case PinMapping::Keypad_4x3:
+		case PinMapping::Keypad_4x4:
+			keyPadMaps << it.key();
+			break;
+			
+		case PinMapping::Invalid:
+			break;
 		}
 	}
 	
@@ -586,24 +586,17 @@ void FlowPart::slotUpdateFlowPartVariables()
 	for ( VariantDataMap::iterator it = m_variantData.begin(); it != vEnd; ++it )
 	{
 		Variant * v = it.data();
-		if ( !v )
-			continue;
+		if ( !v ) continue;
 		
 		if ( v->type() == Variant::Type::Port )
 			v->setAllowed( ports );
-		
 		else if ( v->type() == Variant::Type::Pin )
 			v->setAllowed( pins );
-		
-		else if ( v->type() == Variant::Type::SevenSegment )
-		{
+		else if ( v->type() == Variant::Type::SevenSegment ) {
 			v->setAllowed( sevenSegMaps );
 			if ( !sevenSegMaps.isEmpty() && !sevenSegMaps.contains( v->value().toString() ) )
 				v->setValue( sevenSegMaps.first() );
-		}
-		
-		else if ( v->type() == Variant::Type::KeyPad )
-		{
+		} else if ( v->type() == Variant::Type::KeyPad ) {
 			v->setAllowed( keyPadMaps );
 			if ( !keyPadMaps.isEmpty() && !keyPadMaps.contains( v->value().toString() ) )
 				v->setValue( keyPadMaps.first() );
@@ -614,13 +607,11 @@ void FlowPart::slotUpdateFlowPartVariables()
 
 void FlowPart::updateVarNames()
 {
-	if (!m_pFlowCodeDocument)
-		return;
-	
+	if (!m_pFlowCodeDocument) return;
+
 	MicroSettings *s = m_pFlowCodeDocument->microSettings();
-	if (!s)
-		return;
-	
+	if (!s) return;
+
 	const QStringList names = s->variableNames();
 	const VariantDataMap::iterator end = m_variantData.end();
 	for ( VariantDataMap::iterator it = m_variantData.begin(); it != end; ++it )
@@ -631,7 +622,6 @@ void FlowPart::updateVarNames()
 	}
 }
 
-
 void FlowPart::varNameChanged( QVariant newValue, QVariant oldValue )
 {
 	if (!m_pFlowCodeDocument)
@@ -639,19 +629,17 @@ void FlowPart::varNameChanged( QVariant newValue, QVariant oldValue )
 	m_pFlowCodeDocument->varNameChanged( newValue.asString(), oldValue.asString() );
 }
 
-
 inline int nodeDirToPos( int dir )
 {
-	switch ( dir )
-	{
-		case 0:
-			return 0;
-		case 270:
-			return 1;
-		case 180:
-			return 2;
-		case 90:
-			return 3;
+	switch ( dir ) {
+	case 0:
+		return 0;
+	case 270:
+		return 1;
+	case 180:
+		return 2;
+	case 90:
+		return 3;
 	}
 	return 0;
 }
@@ -659,8 +647,7 @@ inline int nodeDirToPos( int dir )
 
 void FlowPart::updateAttachedPositioning( )
 {
-	if (b_deleted)
-		return;
+	if (b_deleted) return;
 	
 	//BEGIN Rearrange text if appropriate
 	const QRect textPos[4] = {
@@ -712,7 +699,6 @@ void FlowPart::updateAttachedPositioning( )
 	}
 }
 
-
 ItemData FlowPart::itemData( ) const
 {
 	ItemData itemData = CNItem::itemData();
@@ -720,14 +706,12 @@ ItemData FlowPart::itemData( ) const
 	return itemData;
 }
 
-
 void FlowPart::restoreFromItemData( const ItemData & itemData )
 {
 	CNItem::restoreFromItemData(itemData);
 	if ( itemData.orientation >= 0 )
 		setOrientation( uint(itemData.orientation) );
 }
-
 
 void FlowPart::updateNodePositions()
 {
@@ -741,26 +725,19 @@ void FlowPart::updateNodePositions()
 	NodeInfo * stdOutputInfo = m_stdOutput ? &m_nodeMap["stdoutput"] : 0;
 	NodeInfo * altOutputInfo = m_altOutput ? &m_nodeMap["altoutput"] : 0l;
 	
-	if ( m_stdInput && m_stdOutput && m_altOutput )
-	{
+	if ( m_stdInput && m_stdOutput && m_altOutput ) {
 		stdInputInfo->orientation = diamondNodePositioning[m_orientation][0];
 		stdOutputInfo->orientation = diamondNodePositioning[m_orientation][1];
 		altOutputInfo->orientation = diamondNodePositioning[m_orientation][2];
-	}
-	else if ( m_stdInput && m_stdOutput )
-	{
+	} else if ( m_stdInput && m_stdOutput ) {
 		stdInputInfo->orientation = inOutNodePositioning[m_orientation][0];
 		stdOutputInfo->orientation = inOutNodePositioning[m_orientation][1];
-	}
-	else if ( m_orientation < 4 )
-	{
+	} else if ( m_orientation < 4 ) {
 		if (stdInputInfo)
 			stdInputInfo->orientation = inNodePositioning[m_orientation];
 		else if (stdOutputInfo)
 			stdOutputInfo->orientation = outNodePositioning[m_orientation];
-	}
-	else
-	{
+	} else {
 		kdWarning() << k_funcinfo << "Invalid orientation: "<<m_orientation<<endl;
 		return;
 	}
@@ -770,27 +747,24 @@ void FlowPart::updateNodePositions()
 	{
 		if ( !it.data().node )
 			kdError() << k_funcinfo << "Node in nodemap is null" << endl;
-		
-		else
-		{
-			switch ( it.data().orientation )
-			{
-				case 0:
-					it.data().x = offsetX()+width()+8;
-					it.data().y = 0;
-					break;
-				case 270:
-					it.data().x = 0;
-					it.data().y = offsetY()-8;
-					break;
-				case 180:
-					it.data().x = offsetX()-8;
-					it.data().y = 0;
-					break;
-				case 90:
-					it.data().x = 0;
-					it.data().y = offsetY()+height()+8;;
-					break;
+		else {
+			switch ( it.data().orientation ) {
+			case 0:
+				it.data().x = offsetX()+width()+8;
+				it.data().y = 0;
+				break;
+			case 270:
+				it.data().x = 0;
+				it.data().y = offsetY()-8;
+				break;
+			case 180:
+				it.data().x = offsetX()-8;
+				it.data().y = 0;
+				break;
+			case 90:
+				it.data().x = 0;
+				it.data().y = offsetY()+height()+8;;
+				break;
 			}
 		}
 	}
@@ -906,10 +880,7 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 		p.drawLineSegments(cross);
 		maskPainter.drawLineSegments(cross);
 		//END Draw "false" output as a cross
-	}
-	
-	else if ( m_stdInput || m_stdOutput )
-	{
+	} else if ( m_stdInput || m_stdOutput ) {
 		p.drawRoundRect( int(0.3*size.width()), int(0.4*size.height()), int(0.4*size.width()), int(0.2*size.height()) );
 		maskPainter.drawRoundRect( int(0.3*size.width()), int(0.4*size.height()), int(0.4*size.width()), int(0.2*size.height()) );
 		
@@ -936,22 +907,16 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 		int inPos = -1;
 		int outPos = -1;
 		
-		if ( m_stdInput && m_stdOutput )
-		{
+		if ( m_stdInput && m_stdOutput ) {
 			inPos = nodeDirToPos( inOutNodePositioning[orientation][0] );
 			outPos = nodeDirToPos( inOutNodePositioning[orientation][1] );
-		}
-		else if ( m_stdInput )
-		{
+		} else if ( m_stdInput ) {
 			inPos = nodeDirToPos( inNodePositioning[orientation] );
-		}
-		else if ( m_stdOutput )
-		{
+		} else if ( m_stdOutput ) {
 			outPos = nodeDirToPos( outNodePositioning[orientation] );
 		}
 		
-		if ( inPos != -1 )
-		{
+		if ( inPos != -1 ) {
 			QPointArray inArrow(6);
 			for ( int i=0; i<6; ++i )
 			{
@@ -962,11 +927,9 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 			maskPainter.drawPolygon(inArrow);
 		}
 		
-		if ( outPos != -1 )
-		{
+		if ( outPos != -1 ) {
 			QPointArray outArrow(6);
-			for ( int i=0; i<6; ++i )
-			{
+			for ( int i=0; i<6; ++i ) {
 				outArrow[i] = arrows[outPos][i];
 			}
 			outArrow.translate( d[outPos].x(), d[outPos].y() );
@@ -977,7 +940,6 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 	
 	pm.setMask(mask);
 }
-
 
 #include "flowpart.moc"
 

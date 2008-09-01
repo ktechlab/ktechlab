@@ -370,14 +370,24 @@ bool PIC14::isValidTris( const QString & trisName ) const
 
 	return false;
 }
+
 //*****************Modified ****************************//
 //New function isValiedRegister is added to check whether a register is valied or not
 bool PIC14::isValidRegister( const QString & registerName)const
 {
  	if(pic_type=="P16F84"||pic_type=="P16C84")
-		return ( registerName == "TMR0" ||registerName == "PCL" || registerName == "STATUS"||registerName == "FSR"|| registerName == "EEDATH" || registerName == "EEADR"||registerName == "PCLATH"||registerName == "INTCON" || registerName == "EECON1"||registerName == "EECON2"||registerName == "OPTION_REG");
+		return ( registerName == "TMR0"
+			|| registerName == "PCL"
+			|| registerName == "STATUS"
+			|| registerName == "FSR"
+			|| registerName == "EEDATH"
+			|| registerName == "EEADR"
+			|| registerName == "PCLATH"
+			|| registerName == "INTCON"
+			|| registerName == "EECON1"
+			|| registerName == "EECON2"
+			|| registerName == "OPTION_REG");
 
-// TODO: Wow, this code is uuugly...
 	if(pic_type=="P16F877")
 		return ( registerName == "TMR0"
 			|| registerName == "PCL"
@@ -458,7 +468,6 @@ bool PIC14::isValidRegister( const QString & registerName)const
 
 	return false;
 }
-
 
 //****************************modifications ends********************************************
 

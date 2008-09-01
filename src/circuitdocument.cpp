@@ -576,20 +576,18 @@ void CircuitDocument::splitIntoCircuits( PinList *pinList )
 	PinList unassignedPins = *pinList;
 	typedef QValueList<PinList> PinListList;
 	PinListList pinListList;
-	while ( !unassignedPins.isEmpty() )
-	{
+
+	while ( !unassignedPins.isEmpty() ) {
 		PinList tempPinList;
 		getPartition( *unassignedPins.begin(), & tempPinList, & unassignedPins, true );
 		pinListList.append(tempPinList);
 	}
+
 	const PinListList::iterator nllEnd = pinListList.end();
 	for ( PinListList::iterator it = pinListList.begin(); it != nllEnd; ++it )
 		Circuit::identifyGround(*it);
-	
-	
 
-	while ( !pinList->isEmpty() )
-	{
+	while ( !pinList->isEmpty() ) {
 		PinList::iterator end = pinList->end();
 		PinList::iterator it = pinList->begin();
 		
@@ -598,9 +596,7 @@ void CircuitDocument::splitIntoCircuits( PinList *pinList )
 		
 		if ( it == end )
 			break;
-		
-		else
-		{
+		else {
 			Circuitoid *circuitoid = new Circuitoid;
 			recursivePinAdd( *it, circuitoid, pinList );
 			
@@ -615,10 +611,8 @@ void CircuitDocument::splitIntoCircuits( PinList *pinList )
 	// Remaining pins are ground; tell them about it
 	// TODO This is a bit hacky....
 	const PinList::iterator end = pinList->end();
-	for ( PinList::iterator it = pinList->begin(); it != end; ++it )
-	{
+	for ( PinList::iterator it = pinList->begin(); it != end; ++it ) {
 		(*it)->setVoltage(0.0);
-		
 		ElementList elements = (*it)->elements();
 		const ElementList::iterator eEnd = elements.end();
 		for ( ElementList::iterator it = elements.begin(); it != eEnd; ++it )
@@ -635,34 +629,33 @@ void CircuitDocument::splitIntoCircuits( PinList *pinList )
 
 void CircuitDocument::recursivePinAdd( Pin *pin, Circuitoid *circuitoid, PinList *unassignedPins )
 {
-	if (!pin)
-		return;
+	if (!pin) return;
 	
 	if ( pin->eqId() != -1 )
 		unassignedPins->remove(pin);
-	
+
 	if ( circuitoid->contains(pin) )
 		return;
 	circuitoid->addPin(pin);
-	
+
 	if ( pin->eqId() == -1 )
 		return;
-	
+
 	const PinList localConnectedPins = pin->localConnectedPins();
 	const PinList::const_iterator end = localConnectedPins.end();
 	for ( PinList::const_iterator it = localConnectedPins.begin(); it != end; ++it )
 		recursivePinAdd( *it, circuitoid, unassignedPins );
-	
+
 	const PinList groundDependentPins = pin->groundDependentPins();
 	const PinList::const_iterator gdEnd = groundDependentPins.end();
 	for ( PinList::const_iterator it = groundDependentPins.begin(); it != gdEnd; ++it )
 		recursivePinAdd( *it, circuitoid, unassignedPins );
-	
+
 	const PinList circuitDependentPins = pin->circuitDependentPins();
 	const PinList::const_iterator cdEnd = circuitDependentPins.end();
 	for ( PinList::const_iterator it = circuitDependentPins.begin(); it != cdEnd; ++it )
 		recursivePinAdd( *it, circuitoid, unassignedPins );
-	
+
 	const ElementList elements = pin->elements();
 	const ElementList::const_iterator eEnd = elements.end();
 	for ( ElementList::const_iterator it = elements.begin(); it != eEnd; ++it )

@@ -135,16 +135,11 @@ void ElementSet::doNonLinear( int maxIterations, double maxErrorV, double maxErr
 	const NonLinearList::iterator end = m_cnonLinearList.end();
 	
 	int k = 0;
-	do
-	{
+	do {
 		// Tell the nonlinear elements to update its J, A and b from the newly calculated x
 		for ( NonLinearList::iterator it = m_cnonLinearList.begin(); it != end; ++it )
 			(*it)->update_dc();
 
-
-// FIXME
-//		delete p_x;
-//		p_x = new QuickVector(p_b);
 		*p_x = *p_b;  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 		p_A->performLU();
@@ -174,8 +169,7 @@ void ElementSet::doNonLinear( int maxIterations, double maxErrorV, double maxErr
 			}
 		}
 
-// FIXME...
-		*p_x_prev = *p_x; // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		*p_x_prev = *p_x; // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 		if ( converged ) break;
 	}
@@ -191,7 +185,6 @@ bool ElementSet::doLinear( bool performLU )
 	if (performLU)
 		p_A->performLU();
 
-// FIXME
 	*p_x = *p_b;   // <<< why does this code work, when I try it, I always get the default shallow copy.
 
 
