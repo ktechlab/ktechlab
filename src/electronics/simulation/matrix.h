@@ -13,8 +13,6 @@
 
 #include <math/qmatrix.h>
 
-#include <vector>
-
 /**
 This class performs matrix storage, lu decomposition, forward and backward
 substitution, and a few other useful operations. Steps in using class:
@@ -50,7 +48,7 @@ public:
 	 * Returns true if the matrix is changed since last calling performLU()
 	 * - i.e. if we do need to call performLU again.
 	 */
-	inline bool isChanged() const { return max_k < m_size; }
+	inline bool isChanged() const { return max_k < m_mat->size_m(); }
 	/**
 	 * Performs LU decomposition. Going along the rows,
 	 * the value of the decomposed LU matrix depends only on
@@ -84,10 +82,13 @@ public:
 		
 		return (*m_mat)[mapped_i][j];
 	}
+
+	double g( CUI i, CUI j ) const { return (*m_mat)[m_inMap[i]][j]; }
+
 	double& b( CUI i, CUI j ) { return g( i, j+m_n ); }
 	double& c( CUI i, CUI j ) { return g( i+m_n, j ); }
 	double& d( CUI i, CUI j ) { return g( i+m_n, j+m_n ); }
-	double g( CUI i, CUI j ) const { return (*m_mat)[m_inMap[i]][j]; }
+
 	double b( CUI i, CUI j ) const { return g( i, j+m_n ); }
 	double c( CUI i, CUI j ) const { return g( i+m_n, j ); }
 	double d( CUI i, CUI j ) const { return g( i+m_n, j+m_n ); }
@@ -110,8 +111,7 @@ private:
 	 */
 	void swapRows( CUI a, CUI b );
 
-	unsigned int m_n;
-	unsigned int m_size;
+	unsigned int m_n; // number of cnodes. 
 	unsigned int max_k;
 	
 	int *m_inMap; // Rowwise permutation mapping from external reference to internal storage

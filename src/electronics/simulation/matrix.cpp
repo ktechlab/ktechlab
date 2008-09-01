@@ -24,13 +24,16 @@ const double epsilon = 1e-50;
 Matrix::Matrix( CUI n, CUI m )
 	: m_n(n)
 {
-	m_size = m_n+m;
+	unsigned int size = m_n+m;
 	
-	m_mat = new QuickMatrix(m_size);
-	m_lu = new QuickMatrix(m_size);
-	m_y = new double[m_size];
-	m_inMap = new int[m_size];
-	zero();
+	m_mat = new QuickMatrix(size);
+	m_lu = new QuickMatrix(size);
+
+	m_y = new double[size];
+	m_inMap = new int[size];
+
+	for ( unsigned int i=0; i<size; i++ )
+		m_inMap[i] = i;
 }
 
 Matrix::~Matrix()
@@ -47,8 +50,9 @@ void Matrix::zero()
 
 	m_mat->fillWithZero();
 	m_lu->fillWithZero();
+	unsigned int size = m_mat->size_m();
 
-	for ( unsigned int i=0; i<m_size; i++ )
+	for ( unsigned int i=0; i<size; i++ )
 		m_inMap[i] = i;
 
 	max_k = 0;
@@ -68,7 +72,7 @@ void Matrix::swapRows( CUI a, CUI b )
 
 void Matrix::performLU()
 {
-	unsigned int n = m_size;
+	unsigned int n = m_mat->size_m();
 	if ( n == 0 ) return;
 	
 	// Copy the affected segment to LU
@@ -111,15 +115,15 @@ void Matrix::performLU()
 
 void Matrix::fbSub( QuickVector* b )
 {
-	if ( m_size == 0 ) return;
-	
-	for ( uint i=0; i<m_size; i++ )
+	unsigned int size = m_mat->size_m();
+
+	for ( uint i=0; i<size; i++ )
 	{
 		m_y[m_inMap[i]] = (*b)[i];
 	}
 	
 	// Forward substitution
-	for ( uint i=1; i<m_size; i++ )
+	for ( uint i = 1; i<size; i++ )
 	{
 		double sum = 0;
 		for ( unsigned int j=0; j<i; j++ )
@@ -130,11 +134,11 @@ void Matrix::fbSub( QuickVector* b )
 	}
 	
 	// Back substitution
-	m_y[m_size-1] /= (*m_lu)[m_size-1][m_size-1];
-	for ( int i=m_size-2; i>=0; i-- )
+	m_y[size - 1] /= (*m_lu)[size - 1][size - 1];
+	for ( int i = size - 2; i >= 0; i-- )
 	{
 		double sum = 0;
-		for ( uint j=i+1; j<m_size; j++ )
+		for ( uint j=i+1; j<size; j++ )
 		{
 			sum += (*m_lu)[i][j]*m_y[j];
 		}
@@ -143,7 +147,7 @@ void Matrix::fbSub( QuickVector* b )
 	}
 
 // I think we don't need to reverse the mapping because we only permute rows, not columns. 
-	for ( uint i=0; i<m_size; i++ )
+	for ( uint i=0; i<size; i++ )
 		(*b)[i] = m_y[i];
 }
 
@@ -151,7 +155,9 @@ void Matrix::multiply(const QuickVector *rhs, QuickVector *result )
 {
 	if ( !rhs || !result ) return;
 	result->fillWithZeros();
-	for ( uint _i=0; _i<m_size; _i++ )
+
+	unsigned int size = m_mat->size_m();
+	for ( uint _i=0; _i<size; _i++ )
 	{
 		uint i = m_inMap[_i];
 /* hmm, we should move the resolution of pointers involving i out of the inner loop but
@@ -161,7 +167,7 @@ instance... Furthermore, our matrix class has an accelerator for this operation 
 ignorant of row permutations and it allocates new memory for the result matrix, breaking the
 interface of this method. 
 */
-		for ( uint j=0; j<m_size; j++ ) {
+		for ( uint j=0; j<size; j++ ) {
 			result->atAdd(_i, (*m_mat)[i][j] * (*rhs)[j]);
 		}
 	}
@@ -169,7 +175,7 @@ interface of this method.
 
 void Matrix::displayMatrix()
 {
-	uint n = m_size;
+	uint n = m_mat->size_m();
 	for ( uint _i=0; _i<n; _i++ )
 	{
 		uint i = m_inMap[_i];
@@ -184,7 +190,7 @@ void Matrix::displayMatrix()
 
 void Matrix::displayLU()
 {
-	uint n = m_size;
+	uint n = m_mat->size_m();
 	for ( uint _i=0; _i<n; _i++ )
 	{
 		uint i = m_inMap[_i];
