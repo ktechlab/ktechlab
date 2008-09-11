@@ -70,23 +70,19 @@ void NodeGroup::addNode( Node *node, bool checkSurrouding )
 	
 	if (checkSurrouding)
 	{
-		ConnectorList con = node->inputConnectorList();
+		ConnectorList con = node->getAllConnectors();
 		ConnectorList::iterator end = con.end();
 		for ( ConnectorList::iterator it = con.begin(); it != end; ++it )
 		{
 			if (*it) {
-				addNode( (*it)->startNode(), true );
+				// maybe we can put here a check, because only 1 of there checks should pass
+				if( (*it)->startNode() != node )
+					addNode( (*it)->startNode(), true );
+				if( (*it)->endNode() != node )
+					addNode( (*it)->endNode(), true );
 			}
 		}
-		
-		con = node->outputConnectorList();
-		end = con.end();
-		for ( ConnectorList::iterator it = con.begin(); it != end; ++it )
-		{
-			if (*it) {
-				addNode( (*it)->endNode(), true );
-			}
-		}
+
 	}
 }
 
@@ -241,8 +237,8 @@ Connector* NodeGroup::findCommonConnector( Node *n1, Node *n2 )
 		return 0l;
 	}
 	
-	ConnectorList n1Con = n1->inputConnectorList() + n1->outputConnectorList();
-	ConnectorList n2Con = n2->inputConnectorList() + n2->outputConnectorList();
+	ConnectorList n1Con = n1->getAllConnectors();
+	ConnectorList n2Con = n2->getAllConnectors();
 	
 	const ConnectorList::iterator end = n1Con.end();
 	for ( ConnectorList::iterator it = n1Con.begin(); it != end; ++it )
@@ -502,36 +498,40 @@ void NodeGroup::init()
 	const NodeList::iterator nlEnd = m_nodeList.end();
 	for ( NodeList::iterator nodeIt = m_nodeList.begin(); nodeIt != nlEnd; ++nodeIt )
 	{
-		ConnectorList inCon = (*nodeIt)->inputConnectorList();
-		ConnectorList outCon = (*nodeIt)->outputConnectorList();
-		ConnectorList::iterator conEnd;
-		
-		conEnd = inCon.end();
-		for ( ConnectorList::iterator conIt = inCon.begin(); conIt != conEnd; ++conIt )
+		// 2. rewrite
+		ConnectorList conList = ( *nodeIt )->getAllConnectors();
+	
+		ConnectorList::iterator conIt,
+		conEnd = conList.end();
+		for ( conIt = conList.begin(); conIt != conEnd; ++conIt )
 		{
+	
 			Connector *con = *conIt;
-			addExtNode(con->startNode());
-			if ( !m_conList.contains(con) ) {
-				m_conList += con;
-				con->setNodeGroup(this);
+	
+			// possible check: only 1 of these ifs should be true
+			if ( con->startNode() != *nodeIt )
+			{
+				addExtNode ( con->startNode() );
+				if ( !m_conList.contains ( con ) )
+				{
+					m_conList += con;
+					con->setNodeGroup ( this );
+				}
 			}
-			connect( con, SIGNAL(removed(Connector*)), this, SLOT(connectorRemoved(Connector*)) );
-		}
-		
-		conEnd = outCon.end();
-		for ( ConnectorList::iterator conIt = outCon.begin(); conIt != conEnd; ++conIt )
-		{
-			Connector *con = *conIt;
-			addExtNode(con->endNode());
-			if ( !m_conList.contains(con) ) {
-				m_conList += con;
-				con->setNodeGroup(this);
+			if ( con->endNode() != *nodeIt )
+			{
+				addExtNode ( con->endNode() );
+				if ( !m_conList.contains ( con ) )
+				{
+					m_conList += con;
+					con->setNodeGroup ( this );
+				}
 			}
-			connect( con, SIGNAL(removed(Connector*)), this, SLOT(connectorRemoved(Connector*)) );
+			connect ( con, SIGNAL ( removed ( Connector* ) ), this, SLOT ( connectorRemoved ( Connector* ) ) );
 		}
-		
+	
 		// Connect the node up to us
-		connect( *nodeIt, SIGNAL(removed(Node*)), this, SLOT(nodeRemoved(Node*)) );
+		connect ( *nodeIt, SIGNAL ( removed ( Node* ) ), this, SLOT ( nodeRemoved ( Node* ) ) );
 	}
 	
 	// And connect up our external nodes

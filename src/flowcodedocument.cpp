@@ -29,7 +29,7 @@
 #include <kmessagebox.h>
 
 FlowCodeDocument::FlowCodeDocument( const QString &caption, const char *name )
-	: ICNDocument( caption, name )
+	: FlowICNDocument( caption, name )
 {
 	m_pDocumentIface = new FlowCodeDocumentIface(this);
 	m_type = Document::dt_flowcode;

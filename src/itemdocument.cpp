@@ -835,13 +835,15 @@ void ItemDocument::exportToImage()
 	// gotme here, KFileDialog makes itself parent so tries to destroy cropCheck when it is deleted.
 	// therefore we use a pointer.
 	QString cropMessage;
+	// sorry for commenting out this part of the program, but the type() member is just a hack
+	/*
 	if ( type() == Document::dt_flowcode )
 		cropMessage = i18n("Crop image to program parts");
 	
 	else if ( type() == Document::dt_circuit )
 		cropMessage = i18n("Crop image to circuit components");
 	
-	else 
+	else  */
 		cropMessage = i18n("Crop image");
 	
 	QCheckBox *cropCheck = new QCheckBox( cropMessage, KTechlab::self(), "cropCheck" );

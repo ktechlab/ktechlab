@@ -11,14 +11,14 @@
 #ifndef CIRCUITDOCUMENT_H
 #define CIRCUITDOCUMENT_H
 
-#include "icndocument.h"
+#include "circuiticndocument.h"
 
 class Circuit;
 class Component;
 class Connector;
 class ECNode;
 class Element;
-class ICNDocument;
+class CircuitICNDocument;
 class KTechlab;
 class Pin;
 class QTimer;
@@ -59,7 +59,7 @@ information from those simulations back on the ICNDocument
 @short Circuit view
 @author David Saxton
 */
-class CircuitDocument : public ICNDocument
+class CircuitDocument : public CircuitICNDocument
 {
 	Q_OBJECT
 	public:

@@ -9,11 +9,11 @@
  ***************************************************************************/
 
 #include "connector.h"
-#include "ecnode.h"
+#include "junctionnode.h"
 #include "ecsubcircuit.h"
 #include "flowcodedocument.h"
 #include "flowcontainer.h"
-#include "fpnode.h"
+#include "junctionflownode.h"
 #include "itemdocumentdata.h"
 #include "itemlibrary.h"
 #include "picitem.h"
@@ -968,10 +968,10 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 			{
 				QString id = it.key();
 				if ( itemDocument->type() == Document::dt_circuit )
-					new ECNode( icnd, Node::ec_junction, 270, QPoint( int(it.data().x), int(it.data().y) ), &id );
+					new JunctionNode( icnd, 270, QPoint( int(it.data().x), int(it.data().y) ), &id );
 			
 				else if ( itemDocument->type() == Document::dt_flowcode )
-					new FPNode( icnd, Node::fp_junction, 270, QPoint( int(it.data().x), int(it.data().y) ), &id );
+					new JunctionFlowNode( icnd, 270, QPoint( int(it.data().x), int(it.data().y) ), &id );
 			}
 		}
 		for ( NodeDataMap::iterator it = m_nodeDataMap.begin(); it != nodeEnd; ++it )
@@ -1063,8 +1063,15 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 			{
 				Connector *connector = new Connector( startNode, endNode, icnd, &id );
 					
-				startNode->addOutputConnector(connector);
-				endNode->addInputConnector(connector);
+				// FIXME ICNDocument->type() used
+				// FIXME tons of dynamic_cast
+				if( icnd->type() == Document::dt_circuit ) {
+					(dynamic_cast<ECNode *>(startNode))->addConnector(connector);
+					(dynamic_cast<ECNode *>(endNode))->addConnector(connector);
+				} else {
+					(dynamic_cast<FPNode *>(startNode))->addOutputConnector(connector);
+					(dynamic_cast<FPNode *>(endNode))->addInputConnector(connector);
+				}
 			}
 		}
 		for ( ConnectorDataMap::iterator it = m_connectorDataMap.begin(); it != connectorEnd; ++it )

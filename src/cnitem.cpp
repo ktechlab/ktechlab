@@ -12,8 +12,11 @@
 #include "icndocument.h"
 #include "cells.h"
 #include "component.h"
-#include "ecnode.h"
-#include "fpnode.h"
+#include "pinnode.h"
+#include "junctionnode.h"
+#include "inputflownode.h"
+#include "outputflownode.h"
+#include "junctionflownode.h"
 #include "itemdocumentdata.h"
 #include <kdebug.h>
 
@@ -137,7 +140,7 @@ ConnectorList CNItem::connectorList()
 		Node *node = p_icnDocument->nodeWithID(it.data().id);
 		if (node)
 		{
-			ConnectorList nodeList = node->inputConnectorList();
+			ConnectorList nodeList = node->getAllConnectors(); // node->inputConnectorList();
 			ConnectorList::iterator end = nodeList.end();
 			for ( ConnectorList::iterator it = nodeList.begin(); it != end; ++it )
 			{
@@ -146,15 +149,7 @@ ConnectorList CNItem::connectorList()
 					list.append(*it);
 				}
 			}
-			nodeList = node->outputConnectorList();
-			end = nodeList.end();
-			for ( ConnectorList::iterator it = nodeList.begin(); it != end; ++it )
-			{
-				if ( *it && !list.contains(*it) )
-				{
-					list.append(*it);
-				}
-			}
+
 		}
 	}
 	
@@ -229,14 +224,26 @@ Node* CNItem::createNode( double _x, double _y, int orientation, const QString &
 		orientation += 360;
 	
 	Node *node;
-	if ( (type == Node::ec_pin) || (type == Node::ec_junction) )
-	{
-		node = new ECNode( p_icnDocument, Node::node_type(type), orientation, QPoint( 0, 0 ) );
+
+	// TODO get rid of this switch statement... 
+	switch(type) {
+		case Node::ec_pin:
+			node = new PinNode(p_icnDocument, orientation, QPoint( 0, 0) );
+			break;
+		case Node::ec_junction:
+			node = new JunctionNode( p_icnDocument, orientation, QPoint( 0, 0) );
+			break;
+		case Node::fp_junction:
+			node = new JunctionFlowNode(p_icnDocument, orientation, QPoint( 0, 0) );
+			break;
+		case Node::fp_in:
+			node = new InputFlowNode( p_icnDocument, orientation, QPoint( 0, 0) );
+			break;
+		case Node::fp_out:
+			node = new OutputFlowNode( p_icnDocument, orientation, QPoint( 0, 0) );
+			break;
 	}
-	else
-	{
-		node = new FPNode( p_icnDocument, Node::node_type(type), orientation, QPoint( 0, 0 ) );
-	}
+			
 	node->setLevel( level() );
 	
 	node->setParentItem(this);

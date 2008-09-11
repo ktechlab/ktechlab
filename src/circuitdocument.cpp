@@ -10,6 +10,7 @@
 
 #include "canvasmanipulator.h"
 #include "circuitdocument.h"
+#include "circuiticndocument.h"
 #include "circuitview.h"
 #include "component.h"
 #include "connector.h"
@@ -34,7 +35,7 @@
 
 
 CircuitDocument::CircuitDocument( const QString & caption, const char *name )
-	: ICNDocument( caption, name )
+	: CircuitICNDocument( caption, name )
 {
 	m_pOrientationAction = new KActionMenu( i18n("Orientation"), "rotate", this );
 	
@@ -73,7 +74,7 @@ CircuitDocument::~CircuitDocument()
 
 void CircuitDocument::slotInitItemActions( )
 {
-	ICNDocument::slotInitItemActions();
+	CircuitICNDocument::slotInitItemActions();
 	
 	CircuitView * activeCircuitView = dynamic_cast<CircuitView*>(activeView());
 	if ( !KTechlab::self() || !activeCircuitView )
@@ -170,12 +171,12 @@ View *CircuitDocument::createView( ViewContainer *viewContainer, uint viewAreaId
 
 void CircuitDocument::slotUpdateConfiguration()
 {
-	ICNDocument::slotUpdateConfiguration();
+	CircuitICNDocument::slotUpdateConfiguration();
 	
-	NodeMap::iterator nodeEnd = m_nodeList.end();
-	for ( NodeMap::iterator it = m_nodeList.begin(); it != nodeEnd; ++it )
+	ECNodeMap::iterator nodeEnd = m_ecNodeList.end();
+	for ( ECNodeMap::iterator it = m_ecNodeList.begin(); it != nodeEnd; ++it )
 	{
-		ECNode * n = static_cast<ECNode*>(*it);
+		ECNode * n = *it; // static_cast<ECNode*>(*it);
 		n->setShowVoltageBars( KTLConfig::showVoltageBars() );
 		n->setShowVoltageColor( KTLConfig::showVoltageColor() );
 	}
@@ -192,7 +193,7 @@ void CircuitDocument::slotUpdateConfiguration()
 
 void CircuitDocument::update()
 {
-	ICNDocument::update();
+	CircuitICNDocument::update();
 	
 	bool animWires = KTLConfig::animateWires();
 	
@@ -215,10 +216,11 @@ void CircuitDocument::update()
 	
 	if ( KTLConfig::showVoltageColor() || KTLConfig::showVoltageBars() )
 	{	
-		NodeMap::iterator end = m_nodeList.end();
-		for ( NodeMap::iterator it = m_nodeList.begin(); it != end; ++it )
+		ECNodeMap::iterator end = m_ecNodeList.end();
+		for ( ECNodeMap::iterator it = m_ecNodeList.begin(); it != end; ++it )
 		{
-			static_cast<ECNode*>(*it)->setNodeChanged();
+			// static_cast<ECNode*>(*it)->setNodeChanged();
+			(*it)->setNodeChanged();
 		}
 	}
 }
@@ -226,7 +228,7 @@ void CircuitDocument::update()
 
 void CircuitDocument::fillContextMenu( const QPoint &pos )
 {
-	ICNDocument::fillContextMenu(pos);
+	CircuitICNDocument::fillContextMenu(pos);
 	
 	CircuitView * activeCircuitView = dynamic_cast<CircuitView*>(activeView());
 	if ( !activeCircuitView )
@@ -303,7 +305,7 @@ void CircuitDocument::connectorAdded( Connector * connector )
 
 void CircuitDocument::itemAdded( Item * item)
 {
-	ICNDocument::itemAdded( item );
+	CircuitICNDocument::itemAdded( item );
 	componentAdded( item );
 }
 
@@ -461,10 +463,11 @@ void CircuitDocument::assignCircuits()
 
 	// Stage 0: Build up pin and wire lists
 	m_pinList.clear();
-	const NodeMap::const_iterator nodeListEnd = m_nodeList.end();
-	for ( NodeMap::const_iterator it = m_nodeList.begin(); it != nodeListEnd; ++it )
+	const ECNodeMap::const_iterator nodeListEnd = m_ecNodeList.end();
+	for ( ECNodeMap::const_iterator it = m_ecNodeList.begin(); it != nodeListEnd; ++it )
 	{
-		if ( ECNode * ecnode = dynamic_cast<ECNode*>(*it) )
+		// if ( ECNode * ecnode = dynamic_cast<ECNode*>(*it) )
+		ECNode* ecnode = *it;
 		{
 			for ( unsigned i = 0; i < ecnode->numPins(); i++ )
 				m_pinList << ecnode->pin(i);
