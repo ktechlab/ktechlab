@@ -122,11 +122,11 @@ class Simulator : public QObject
 		 * status).
 		 * @see detachGpsimProcessor( GpsimProcessor * cpu );
 		 */
-		void attachGpsimProcessor( GpsimProcessor &cpu );
+		void attachGpsimProcessor( GpsimProcessor * cpu );
 		/**
 		 * Remove the given processor from the simulation loop
 		 */
-		void detachGpsimProcessor( GpsimProcessor &cpu );
+		void detachGpsimProcessor( GpsimProcessor * cpu );
 		/**
 		 * Attach the component callback to the simulator. This will be called
 		 * during the logic update loop, at LOGIC_UPDATE_RATE times per second (so
