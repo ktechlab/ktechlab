@@ -12,7 +12,7 @@
 #define PINMAPPING_H
 
 #include "component.h"
-#include "icndocument.h"
+#include "circuiticndocument.h"
 #include "icnview.h"
 
 #include <kdialogbase.h>
@@ -89,8 +89,12 @@ class PinMapEditor : public KDialogBase
 /**
 For use with FlowParts that require a pin map (e.g. Keypad and Seven Segment).
 @author David Saxton
+To see a document like this: put down a PIC, clik advanced on it, then down in the pin map definitions dialog
+clik add/modifify, select something in the appearing dialog, and there is is.
+It's similar to a circuit.
 */
-class PinMapDocument : public ICNDocument
+// because this document is similar to a circuit, the nodes are the electronic nodes
+class PinMapDocument : public CircuitICNDocument
 {
 	Q_OBJECT
 	public:
