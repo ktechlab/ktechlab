@@ -252,14 +252,14 @@ void Simulator::createLogicChain( LogicOut * logicOut, const LogicInList & logic
 		m_logicChainStarts << logicOut;
 }
 
-void Simulator::attachGpsimProcessor( GpsimProcessor &cpu )
+void Simulator::attachGpsimProcessor( GpsimProcessor * cpu )
 {
-	m_gpsimProcessors->push_back(&cpu);
+	m_gpsimProcessors->push_back(cpu);
 }
 
-void Simulator::detachGpsimProcessor( GpsimProcessor &cpu )
+void Simulator::detachGpsimProcessor( GpsimProcessor * cpu )
 {
-	m_gpsimProcessors->remove(&cpu);
+	m_gpsimProcessors->remove(cpu);
 }
 
 void Simulator::attachComponentCallback( Component * component, VoidCallbackPtr function )
