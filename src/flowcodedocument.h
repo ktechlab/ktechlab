@@ -11,7 +11,7 @@
 #ifndef FLOWCODEDOCUMENT_H
 #define FLOWCODEDOCUMENT_H
 
-#include "icndocument.h"
+#include "flowicndocument.h"
 
 #include <qguardedptr.h>
 
@@ -31,7 +31,7 @@ typedef QMap<QString, int > StringIntMap;
 @short View for editing FlowCode
 @author David Saxton
 */
-class FlowCodeDocument : public ICNDocument
+class FlowCodeDocument : public FlowICNDocument
 {
 	Q_OBJECT
 	public:
@@ -60,6 +60,7 @@ class FlowCodeDocument : public ICNDocument
 			PICOutput
 		};
 
+	// TODO clean up this preprocessor jewel :P
 #define protected public
 	signals:
 		void picTypeChanged();

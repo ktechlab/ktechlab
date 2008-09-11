@@ -21,9 +21,9 @@ ktechlab_LDADD = $(top_builddir)/src/core/libcore.la \
 	$(top_builddir)/src/electronics/libelectronics.la $(top_builddir)/src/electronics/simulation/libelements.la \
 	$(top_builddir)/src/flowparts/libflowparts.la $(top_builddir)/src/gui/itemeditor/libitemeditor.la \
 	$(top_builddir)/src/gui/libgui.la $(top_builddir)/src/languages/liblanguages.la \
-	$(top_builddir)/src/mechanics/libmechanics.la $(top_builddir)/src/micro/libmicro.la \
-	$(LIB_GPSIM) $(LIB_KDEPRINT) $(LIB_KFILE) \
-	$(top_builddir)/src/math/libtechmath.la -lkhtml -lktexteditor -lkutils
+	$(top_builddir)/src/math/libtechmath.la $(top_builddir)/src/mechanics/libmechanics.la \
+	$(top_builddir)/src/micro/libmicro.la $(LIB_GPSIM) $(LIB_KDEPRINT) $(LIB_KFILE) -lkhtml -lktexteditor \
+	-lkutils
 
 # which sources should be compiled for ktechlab
 ktechlab_SOURCES = ktechlab.cpp node.cpp connector.cpp itemlibrary.cpp \

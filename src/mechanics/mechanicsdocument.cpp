@@ -93,8 +93,8 @@ Item* MechanicsDocument::addItem( const QString &id, const QPoint &p, bool newIt
 	int dx = (int)(p.x())-rect.width()/2;
 	int dy = (int)(p.y())-rect.height()/2;
 	
-	if ( dx < 16 || dx > m_canvas->width() ) dx = 16;
-	if ( dy < 16 || dy > m_canvas->height() ) dy = 16;
+	if ( dx < 16 || dx > (m_canvas->width()) ) dx = 16;
+	if ( dy < 16 || dy > (m_canvas->height()) ) dy = 16;
 	
 	item->move( dx, dy );
 	item->show();

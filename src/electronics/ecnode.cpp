@@ -18,36 +18,6 @@
 #include <kdebug.h>
 #include <qpainter.h>
 
-#include <cmath>
-
-// The maximum length of the voltage indiactor
-const int vLength = 8;
-
-// The current at the middle of the current indicator
-const double iMidPoint = 0.03;
-
-// The maximum thicnkess of the current indicator
-const int iLength = 6;
-
-inline double calcIProp( const double i )
-{
-	return 1 - iMidPoint/(iMidPoint+std::abs(i));
-}
-
-inline int calcThickness( const double prop )
-{
-	return (int)((iLength-2)*prop+2);
-}
-
-inline int calcLength( double v )
-{
-	double prop = Component::voltageLength( v );
-	if ( v > 0 )
-		prop *= -1.0;
-	
-	return int(vLength * prop);
-}
-
 ECNode::ECNode( ICNDocument *icnDocument, Node::node_type _type, int dir, const QPoint &pos, QString *_id )
 	: Node( icnDocument, _type, dir, pos, _id )
 {
@@ -60,7 +30,7 @@ ECNode::ECNode( ICNDocument *icnDocument, Node::node_type _type, int dir, const 
 	if ( icnDocument )
 		icnDocument->registerItem(this);
 
-	if ( type() == ec_pin ) {
+	if ( _type == ec_pin ) {
 		m_pinPoint = new QCanvasRectangle( 0, 0, 3, 3, canvas() );
 		m_pinPoint->setBrush(Qt::black);
 		m_pinPoint->setPen(Qt::black);
@@ -149,67 +119,213 @@ void ECNode::removeSwitch( Switch * sw )
 }
 
 
-void ECNode::drawShape( QPainter & p )
+// -- functionality from node.cpp --
+
+bool ECNode::isConnected( Node *node, NodeList *checkedNodes )
 {
-	initPainter( p );
+	if ( this == node )
+		return true;
 
-	double v = pin() ? pin()->voltage() : 0.0;
-	QColor voltageColor = Component::voltageColor( v );
+	bool firstNode = !checkedNodes;
+	if (firstNode)
+		checkedNodes = new NodeList();
 
-	QPen pen = p.pen();
+	else if ( checkedNodes->contains(this) )
+		return false;
 
-	if ( isSelected() )
-		pen = m_selectedColor;
-	else if ( m_bShowVoltageColor )
-		pen = voltageColor;
+	checkedNodes->append(this);
 
-	if ( type() == ec_junction ) {
-		p.setPen( pen );
-		p.setBrush( pen.color() );
-		p.drawRect( -1, -1, 3, 3 );
-		deinitPainter( p );
+	const ConnectorList::const_iterator inputEnd = m_connectorList.end();
+	for ( ConnectorList::const_iterator it = m_connectorList.begin(); it != inputEnd; ++it )
+	{
+		Connector *connector = *it;
+		if (connector) {
+			Node *startNode = connector->startNode();
+			if ( startNode && startNode->isConnected( node, checkedNodes ) ) {
+				if (firstNode) {
+					delete checkedNodes;
+				}
+				return true;
+			}
+		}
+	}
+	
+	if (firstNode) {
+		delete checkedNodes;
+	}
+
+	return false;
+}
+
+void ECNode::checkForRemoval( Connector *connector )
+{
+	removeConnector(connector);
+	setNodeSelected(false);
+	
+	removeNullConnectors();
+	
+	if (!p_parentItem) {
+		int conCount = m_connectorList.count();
+		if ( conCount < 1 )
+			removeNode();
+	}
+}
+
+void ECNode::setVisible( bool yes )
+{
+	if ( isVisible() == yes ) return;
+	
+	QCanvasPolygon::setVisible(yes);
+	
+	const ConnectorList::iterator inputEnd = m_connectorList.end();
+	for ( ConnectorList::iterator it = m_connectorList.begin(); it != inputEnd; ++it ) {
+		Connector *connector = *it;
+		if (connector) {
+			if ( isVisible() )
+				connector->setVisible(true);
+			else {
+				Node *node = connector->startNode();
+				connector->setVisible( node && node->isVisible() );
+			}
+		}
+	}
+}
+
+QPoint ECNode::findConnectorDivergePoint( bool * found )
+{
+	// FIXME someone should check that this function is OK ... I just don't understand what it does
+	bool temp;
+	if (!found)
+		found = &temp;
+	*found = false;
+
+	if ( numCon( false, false ) != 2 )
+		return QPoint(0,0);
+
+	QPointList p1;
+	QPointList p2;
+
+	int inSize = m_connectorList.count();
+
+	const ConnectorList connectors = m_connectorList;
+	const ConnectorList::const_iterator end = connectors.end();
+	
+	bool gotP1 = false;
+	bool gotP2 = false;
+	
+	int at = -1;
+	for ( ConnectorList::const_iterator it = connectors.begin(); it != end && !gotP2; ++it )
+	{
+		at++;
+		if ( !(*it) || !(*it)->canvas() )
+			continue;
+
+		if (gotP1) {
+			p2 = (*it)->connectorPoints( at < inSize );
+			gotP2 = true;
+		} else {
+			p1 = (*it)->connectorPoints( at < inSize );
+			gotP1 = true;
+		}
+	}
+
+	if ( !gotP1 || !gotP2 )
+		return QPoint(0,0);
+	
+	unsigned maxLength = p1.size() > p2.size() ? p1.size() : p2.size();
+	
+	for ( unsigned i = 1; i < maxLength; ++i )
+	{
+		if ( p1[i] != p2[i] ) {
+			*found = true;
+			return p1[i-1];
+		}
+	}
+	return QPoint(0, 0);
+}
+
+void ECNode::addConnector( Connector * const connector )
+{
+	if ( !handleNewConnector(connector) )
 		return;
+	
+	m_connectorList.append(connector);
+}
+
+bool ECNode::handleNewConnector( Connector * connector )
+{
+	if (!connector)
+		return false;
+
+	if ( m_connectorList.contains(connector) )
+	{
+		kdWarning() << k_funcinfo << " Already have connector = " << connector << endl;
+		return false;
 	}
 
-	if (m_pinPoint) {
-		bool drawDivPoint;
-		QPoint divPoint = findConnectorDivergePoint(&drawDivPoint);
-		m_pinPoint->setVisible(drawDivPoint);
-		m_pinPoint->move( divPoint.x()-1, divPoint.y()-1 );
-		m_pinPoint->setBrush( pen.color() );
-		m_pinPoint->setPen( pen.color() );
+	connect( this, SIGNAL(removed(Node*)), connector, SLOT(removeConnector(Node*)) );
+	connect( connector, SIGNAL(removed(Connector*)), this, SLOT(checkForRemoval(Connector*)) );
+	connect( connector, SIGNAL(selected(bool)), this, SLOT(setNodeSelected(bool)) );
+
+	if ( !isChildNode() )
+		p_icnDocument->slotRequestAssignNG();
+
+	return true;
+}
+
+Connector* ECNode::createConnector( Node * node)
+{
+	Connector *connector = new Connector( node, this, p_icnDocument );
+	addConnector(connector);
+	
+	return connector;
+}
+
+void ECNode::removeNullConnectors()
+{
+	m_connectorList.remove((Connector*)0L);
+}
+
+int ECNode::numCon( bool includeParentItem, bool includeHiddenConnectors ) const
+{
+	unsigned count = 0;
+	
+	const ConnectorList connectors = m_connectorList;
+	
+	ConnectorList::const_iterator end = connectors.end();
+	for ( ConnectorList::const_iterator it = connectors.begin(); it != end; ++it )
+	{
+		if ( *it && (includeHiddenConnectors || (*it)->canvas()) )
+			count++;
 	}
+	
 
-	// Now to draw on our current/voltage bar indicators
-	int length = calcLength( v );
+	if ( isChildNode() && includeParentItem )
+		count++;
 
-	if ( (numPins() == 1) && m_bShowVoltageBars && length != 0 ) {
-		// we can assume that v != 0 as length != 0
-		double i = pin()->current();
-		double iProp = calcIProp(i);
-		int thickness = calcThickness(iProp);
+	return count;
+}
 
-		p.setPen( QPen( voltageColor, thickness ) );
-
-		// The node line (drawn at the end of this function) will overdraw
-		// some of the voltage bar, so we need to adapt the length
-		if ( (v > 0) && (((225 < m_dir) && (m_dir < 315)) || ((45 < m_dir) && (m_dir < 135))) )
-			length--;
-
-		else if ( (v < 0) && (((135 < m_dir) && (m_dir < 225)) || ((315 < m_dir) || (m_dir < 45))) )
-			length++;
-
-		if ( (m_dir > 270) || (m_dir <= 90) )
-			p.drawLine( 3, 0, 3, length );
-		else	p.drawLine( 3, 0, 3, -length );
+void ECNode::removeConnector( Connector *connector )
+{
+	if (!connector) return;
+	
+	ConnectorList::iterator it;
+	
+	it = m_connectorList.find(connector);
+	if ( it != m_connectorList.end() )
+	{
+		(*it)->removeConnector();
+		(*it) = 0L;
 	}
+}
 
-	pen.setWidth( (numPins() > 1) ? 2 : 1 );
-	p.setPen( pen );
-
-	p.drawLine( 0, 0, m_length, 0 );
-
-	deinitPainter( p );
+Connector* ECNode::getAConnector() const 
+{
+	if( ! m_connectorList.isEmpty() )
+		return *m_connectorList.begin();
+	else
+		0l;
 }
 
 #include "ecnode.moc"

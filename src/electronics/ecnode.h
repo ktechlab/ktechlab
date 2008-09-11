@@ -37,7 +37,11 @@ class ECNode : public Node
 		~ECNode();
 
 		virtual void setParentItem( CNItem *parentItem );
-		virtual void drawShape( QPainter &p );
+		
+		/**
+		 *  draws the ECNode; still only a pure virtual function
+		 */
+		virtual void drawShape( QPainter &p ) = 0;
 		/**
 		 * Set the number of pins "contained" in this node.
 		 */
@@ -47,8 +51,15 @@ class ECNode : public Node
 		 * @see setNumPins
 		 */
 		unsigned numPins() const { return m_pins.size(); }
+		/**
+		 * @return the pins in the node, as a vector
+		 */
 		PinVector pins() const { return m_pins; }
 
+		/**
+		 * @param num number of the 
+		 * @return pointer to a pin in this node, given by num
+		 */
 		Pin *pin( unsigned num = 0 ) const
 			{ return (num < m_pins.size()) ? m_pins[num] : 0l; }
 
@@ -57,9 +68,70 @@ class ECNode : public Node
 		bool showVoltageColor() const { return m_bShowVoltageColor; }
 		void setShowVoltageColor( bool show ) { m_bShowVoltageColor = show; }
 		void setNodeChanged();
+		
+		// -- the moved interface from node.h; some methods are changed --
+		/**
+		 * Returns true if this node is connected (or is the same as) the node given
+		 * by other connectors or nodes (although not through CNItems)
+		 * checkedNodes is a list of nodes that have already been checked for
+		 * being the connected nodes, and so can simply return if they are in there.
+		 * If it is null, it will assume that it is the first ndoe & will create a list
+		 */
+		virtual bool isConnected( Node *node, NodeList *checkedNodes = 0L );
+		/**
+		 * Sets the node's visibility, as well as updating the visibility of the
+		 * attached connectors as appropriate
+	 	*/		
+		virtual void setVisible( bool yes );
+		/**
+		 * Registers an input connector (i.e. this is the end node) as connected
+		 * to this node.
+	 	*/
+		void addConnector( Connector * const connector );
+		/**
+		 * Creates a new connector, sets this as the end node to the connector
+		 * and returns a pointer to the connector.
+		 */
+		Connector* createConnector( Node * node);
+		/**
+		 * Returns a list of the attached connectors; implemented inline 
+	 	*/
+		ConnectorList connectorList() const { return m_connectorList; }
+		/**
+		 * Removes all the NULL connectors
+	 	 */
+		virtual void removeNullConnectors();
+		/**
+		 * Returns the total number of connections to the node. This is the number
+		 * of connectors and the parent
+		 * item connector if it exists and is requested.
+		 * @param includeParentItem Count the parent item as a connector if it exists
+		 * @param includeHiddenConnectors hidden connectors are those as e.g. part of a subcircuit
+	 	*/
+		virtual int numCon( bool includeParentItem, bool includeHiddenConnectors ) const;
+		/**
+		 * Removes a specific connector
+		 */
+		virtual void removeConnector( Connector *connector );
 
+		/**
+		 * @return the list of all the connectors attached to the node
+		 */
+		virtual ConnectorList getAllConnectors() const { return m_connectorList; }
+	
+		/**
+		 * For an electric node: returns the first connector
+		 * If the node isn't connected to anyithing, returns null ( 0 )
+		 * @return pointer to the desired connector
+		 */
+		virtual Connector* getAConnector() const ;
+		
 	signals:
 		void numPinsChanged( unsigned newNum );
+
+	public slots:
+		// -- from node.h --
+		void checkForRemoval( Connector *connector );
 
 	protected slots:
 		void removeElement( Element * e );
@@ -72,6 +144,20 @@ class ECNode : public Node
 		double m_prevI;
 		QCanvasRectangle * m_pinPoint;
 		PinVector m_pins;
+		
+		// -- functionality from node.h --
+		/** If this node has precisely two connectors emerging from it, then this
+		 * function will trace the two connectors until the point where they
+		 * diverge; this point is returned. 
+		 * TODO: find a meaning for this function, for an electronic node...
+		 */
+		virtual QPoint findConnectorDivergePoint( bool * found );
+		
+		/** The attached connectors to this electronic node. No directionality here */
+		ConnectorList m_connectorList;
+		
+		/** (please document this) registers some signals for the node and the new connector (?) */
+		bool handleNewConnector( Connector * newConnector );
 };
 
 #endif

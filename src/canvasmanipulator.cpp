@@ -563,15 +563,7 @@ Connector * ConnectorDraw::toConnector( Node * node )
 	if ( !node || node->numCon( true, false ) < 3 )
 		return 0l;
 	
-	const ConnectorList inList = node->inputConnectorList();
-	if ( !inList.isEmpty() )
-		return *inList.begin();
-	
-	const ConnectorList outList = node->outputConnectorList();
-	if ( !outList.isEmpty() )
-		return *outList.begin();
-	
-	return 0l;
+	return node->getAConnector();
 }
 
 

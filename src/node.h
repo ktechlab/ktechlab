@@ -35,10 +35,12 @@ class Node : public QObject, public QCanvasPolygon
 {
 Q_OBJECT
 public:
+	// this shall disappear one day
 	/**
 	 * Used for run-time identification of the node:
 	 * Can be electronic node (so has values of current, voltage, etc)
 	 * or a pic part node
+	 * this enum will be cleared soon
 	 */
 	enum node_type
 	{
@@ -90,20 +92,8 @@ public:
 	 * @see setLevel
 	 */
 	int level() const { return m_level; }
-	/**
-	 * Use this to identify the type of node - eg ECNode or FPNode
-	 */
-	node_type type() const { return m_type; }
-	/**
-	 * Returns true if the node can accept input connections. This will depend
-	 * on the node type and number of input / output connections.
-	 */
-	bool acceptInput() const;
-	/**
-	 * Returns true if the node can accept output connections. This will depend
-	 * on the node type and number of input / output connections.
-	 */
-	bool acceptOutput() const;
+	
+	
 	/**
 	 * Sets the orientation of the node.
 	 */
@@ -128,53 +118,49 @@ public:
 	 * or Null if it doesn't.
 	 */
 	CNItem *parentItem() const { return p_parentItem; }
-	/**
-	 * Remove a specific connector
-	 */
-	void removeConnector( Connector *connector );
-	/**
-	 * Creates a new connector, sets this as the end node to the connector
-	 * (i.e. this node is the connector's input node), and returns a pointer
-	 * to the connector.
-	 */
-	Connector* createInputConnector( Node * startNode );
-	/**
-	 * Registers an input connector (i.e. this is the end node) as connected
-	 * to this node.
-	 */
-	void addInputConnector( Connector * const connector );
-	/**
-	 * Registers an input connector (i.e. this is the start node) as connected
-	 * to this node.
-	 */
-	void addOutputConnector( Connector * const connector );
-	/**
-	 * Returns the total number of connections to the node. This is the number
-	 * of input connectors, the number of output connectors, and the parent
-	 * item connector if it exists and is requested.
-	 * @param includeParentItem Count the parent item as a connector if it exists
-	 * @param includeHiddenConnectors hidden connectors are those as e.g. part of a subcircuit
-	 */
-	int numCon( bool includeParentItem, bool includeHiddenConnectors ) const;
-	
+		
 	NodeData nodeData() const;
 	
-	ConnectorList inputConnectorList() const { return m_inputConnectorList; }
-	ConnectorList outputConnectorList() const { return m_outputConnectorList; }
 	
 	void setNodeGroup( NodeGroup *ng ) { p_nodeGroup = ng; }
 	NodeGroup *nodeGroup() const { return p_nodeGroup; }
 	
-	/**
-	 * Returns true if this node is connected (or is the same as) the node given
-	 * by other connectors or nodes (although not through CNItems)
-	 * checkedNodes is a list of nodes that have already been checked for
-	 * being the connected nodes, and so can simply return if they are in there.
-	 * If it is null, it will assume that it is the first ndoe & will create a list
-	 */
-	bool isConnected( Node *node, NodeList *checkedNodes = 0L );
+	/** Returns the node's type. This member will be removed one day */
+	node_type type() const { return m_type; }
+		
+	/* interface common to ecnode and fpnode; these might be required by ItemDocumentData, ICNDocument  */
 	
-	void removeNullConnectors();
+	virtual bool isConnected( Node *node, NodeList *checkedNodes = 0L ) = 0;
+	
+	virtual void removeConnector( Connector *connector ) = 0;
+	
+	/**
+	 * Returns the total number of connections to the node. This is the number
+	 * of connectors and the parent
+	 * item connector if it exists and is requested.
+	 * @param includeParentItem Count the parent item as a connector if it exists
+	 * @param includeHiddenConnectors hidden connectors are those as e.g. part of a subcircuit
+	 */
+	virtual int numCon( bool includeParentItem, bool includeHiddenConnectors ) const = 0;
+	
+	/**
+	 * @return the list of all the connectors attached to the node
+	 */
+	virtual ConnectorList getAllConnectors() const = 0;
+	
+	/**
+	 * For a flownode: returns the first input connector, if it exist, or the fist outptut connector, if it exists.
+	 * For an electric node: returns the first connector
+	 * If the node isn't connected to anyithing, returns null ( 0 )
+	 * @return pointer to the desired connector
+	 */
+	virtual Connector* getAConnector() const = 0;
+
+	/**
+	 * Removes all the NULL connectors
+	 */	
+	virtual void removeNullConnectors() = 0;
+	
 	/**
 	 * Draw shape. Note that this has to remain public.
 	 */
@@ -184,7 +170,6 @@ public slots:
 	void moveBy( double dx, double dy );
 	void removeNode(Item*) { removeNode(); }
 	void removeNode();
-	void checkForRemoval( Connector *connector );
 	void setNodeSelected( bool yes );
 	
 signals:
@@ -196,12 +181,7 @@ signals:
 	void removed( Node* node );
 	
 protected:
-	/** If this node has precisely two connectors emerging from it, then this
-	 * function will trace thw two connectors until the point where they
-	 * diverge; this point is returned. */
-	QPoint findConnectorDivergePoint( bool * found );
 	void initPoints();
-	bool handleNewConnector( Connector * newConnector );
 	/**
 	 * Moves and rotates (according to m_dir) the painter, so that our current
 	 * position is (0,0).
@@ -212,6 +192,13 @@ protected:
 	 */
 	void deinitPainter( QPainter & p );
 	
+
+	/** If this node has precisely two connectors emerging from it, then this
+	 * function will trace the two connectors until the point where they
+	 * diverge; this point is returned. */
+	virtual QPoint findConnectorDivergePoint( bool * found ) = 0;
+	
+	/** The node's type. This member will be removed! */
 	node_type m_type;
 
 	int m_dir;
@@ -221,8 +208,6 @@ protected:
 	ICNDocument *p_icnDocument;
 	CNItem *p_parentItem;
 
-	ConnectorList m_inputConnectorList;
-	ConnectorList m_outputConnectorList;
 
 	NodeGroup *p_nodeGroup;
 
