@@ -1501,7 +1501,7 @@ void QCanvasView::cMoving(int x, int y)
     // A little kludge to smooth up repaints when scrolling
 	int dx = x - contentsX();
 	int dy = y - contentsY();
-	d->repaint_from_moving = QABS(dx) < width()/8 && QABS(dy) < height()/8;
+	d->repaint_from_moving = abs(dx) < width() / 8 && abs(dy) < height() / 8;
 }
 
 /*!
@@ -1771,8 +1771,8 @@ QPointArray QCanvasLine::areaPoints() const
 	int xi = int(x());
 	int yi = int(y());
 	int pw = pen().width();
-	int dx = QABS(x1-x2);
-	int dy = QABS(y1-y2);
+	int dx = abs(x1-x2);
+	int dy = abs(y1-y2);
 	pw = pw*4/3+2; // approx pw*sqrt(2)
 	int px = x1<x2 ? -pw : pw ;
 	int py = y1<y2 ? -pw : pw ;

@@ -14,6 +14,7 @@
 #include "variant.h"
 
 #include <cmath>
+#include <cstdlib> 
 #include <kiconloader.h>
 #include <klocale.h>
 #include <qpainter.h>
@@ -99,9 +100,9 @@ void DPLine::postResize()
 	
 	QPointArray p(4);
 	int pw = pen().width();
-	int dx = QABS(x1-x2);
-	int dy = QABS(y1-y2);
-	pw = pw*4/3+2; // approx pw*sqrt(2)
+	int dx = abs(x1-x2);
+	int dy = abs(y1-y2);
+	pw = pw * 4 / 3 + 2; // approx pw*sqrt(2) 
 	int px = x1<x2 ? -pw : pw ;
 	int py = y1<y2 ? -pw : pw ;
 	if ( dx && dy && (dx > dy ? (dx*2/dy <= 2) : (dy*2/dx <= 2)) ) {
