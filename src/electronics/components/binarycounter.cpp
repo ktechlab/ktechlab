@@ -10,11 +10,12 @@
 
 #include "binarycounter.h"
 
-#include "logic.h"
-#include "libraryitem.h"
-
+#include <cstdlib>
 #include <kiconloader.h>
 #include <klocale.h>
+
+#include "logic.h"
+#include "libraryitem.h"
 
 Item* BinaryCounter::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -89,9 +90,12 @@ void BinaryCounter::initPins( unsigned numBits )
 	
 	QStringList pins;
 	pins << "en" << ">" << "u/d" << "r";
-	
-	for ( int i = 0; i < QABS(4-int(numBits)); i++ )
-		pins << "";
+
+	{
+	int np = abs(4-int(numBits));
+	for ( int i = 0; i < np; i++ )
+		pins << " ";
+	}
 	
 	for ( int i = numBits-1; i >= 0; i-- )
 		pins << QChar('A'+i);
