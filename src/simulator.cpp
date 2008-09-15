@@ -253,7 +253,7 @@ void Simulator::detachGpsimProcessor( GpsimProcessor * cpu )
 	m_gpsimProcessors->remove(cpu);
 }
 
-void Simulator::( Component * component, VoidCallbackPtr function )
+void Simulator::attachComponentCallback( Component * component, VoidCallbackPtr function )
 {
 	m_componentCallbacks->push_back(ComponentCallback( component, function ));
 }
