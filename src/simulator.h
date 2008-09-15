@@ -200,9 +200,18 @@ class Simulator : public QObject
 		Circuit * m_pChangedCircuitLast;
 		
 		list<GpsimProcessor*> *m_gpsimProcessors;
+
+// doesn't look too appropriate.
+// essentially a grab bag of every odd *component* that answers "true" to does step non-logic,
+// Which is every component that has special UI-related code that needs to be called every time the simulator steps.
+// this is not to be confused with elements which have nonLinear and Reactive components. =P 
 		list<Component*> *m_components;
 		list<ComponentCallback> *m_componentCallbacks;
 		list<Circuit*> *m_ordinaryCircuits;
+
+// TODO/ CLEANUP -- I think we should call our switch callbacks through their respective components using the
+// component list, this will remove at least a dozen lines of code from the top-level class here, but then
+// it's 2:00 AM, which automatically disqualifies me from making design decisions. 
 		list<Switch*> *m_switches;
 
 // FIXME: Something weird is going on here.
@@ -213,8 +222,10 @@ class Simulator : public QObject
 
 	private:
 		Simulator();
-		unsigned long m_llNumber; // simulation clock. 
+		unsigned long m_llNumber; // simulation clock; Exists only to support the time() callback. 
 		long long m_stepNumber;
+
+// looks like there are only ever two chains, 0 and 1, code elsewhere toggles between the two...
 		unsigned char m_currentChain;
 };
 
