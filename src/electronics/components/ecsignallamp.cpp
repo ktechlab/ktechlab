@@ -58,7 +58,7 @@ ECSignalLamp::~ECSignalLamp()
 void ECSignalLamp::stepNonLogic()
 {
 	const double voltage = m_pPNode[0]->pin()->voltage()-m_pNNode[0]->pin()->voltage();
-	avgPower = QABS(avgPower*advanceSinceUpdate + (voltage*voltage/100))/++advanceSinceUpdate;
+	avgPower = fabs(avgPower * advanceSinceUpdate + (voltage * voltage / 100)) / ++advanceSinceUpdate;
 }
 
 void ECSignalLamp::drawShape( QPainter &p )

@@ -26,6 +26,7 @@
 
 #include "utils.h"
 #include <cmath>
+#include <cstdlib>
 
 #include <kconfig.h>
 #include <kdebug.h>
@@ -112,36 +113,24 @@ void CMManager::mousePressEvent( EventInfo eventInfo )
 	
 	QCanvasItem * qcanvasItem = eventInfo.qcanvasItemClickedOn;
 	
-	if ( ! qcanvasItem )
-		itemType = it_none;
-	
-	else if ( dynamic_cast<Node*>(qcanvasItem) )
-		itemType = it_node;
-	
+	if ( ! qcanvasItem ) itemType = it_none;
+	else if ( dynamic_cast<Node*>(qcanvasItem) ) itemType = it_node;
 	else if ( dynamic_cast<ConnectorLine*>(qcanvasItem) || dynamic_cast<Connector*>(qcanvasItem) )
 		itemType = it_connector;
-	
-	else if ( dynamic_cast<PinItem*>(qcanvasItem) )
-		itemType = it_pin;
-	
-	else if ( dynamic_cast<ResizeHandle*>(qcanvasItem) )
-		itemType = it_resize_handle;
-	
+	else if ( dynamic_cast<PinItem*>(qcanvasItem) ) itemType = it_pin;
+	else if ( dynamic_cast<ResizeHandle*>(qcanvasItem) ) itemType = it_resize_handle;
 	else if ( DrawPart *drawPartClickedOn = dynamic_cast<DrawPart*>(qcanvasItem) )
 	{
 		itemType = it_drawpart;
 			
-		if ( drawPartClickedOn->mousePressEvent(eventInfo) )
-		{
+		if ( drawPartClickedOn->mousePressEvent(eventInfo) ) {
 			p_lastItemClicked = drawPartClickedOn;
 			return;
 		}
-			
+
 		if ( drawPartClickedOn->isMovable() )
 			cnItemType |= CMManager::isi_isMovable;
-	}
-	
-	else if ( MechanicsItem *p_mechanicsItemClickedOn = dynamic_cast<MechanicsItem*>(qcanvasItem) )
+	} else if ( MechanicsItem *p_mechanicsItemClickedOn = dynamic_cast<MechanicsItem*>(qcanvasItem) )
 	{
 		itemType = it_mechanics_item;
 			
@@ -150,10 +139,7 @@ void CMManager::mousePressEvent( EventInfo eventInfo )
 			p_lastItemClicked = p_mechanicsItemClickedOn;
 			return;
 		}
-	}
-	
-	else
-	{
+	} else {
 		if ( Widget *widget = dynamic_cast<Widget*>(qcanvasItem) )
 			qcanvasItem = widget->parent();
 		
@@ -182,6 +168,7 @@ void CMManager::mousePressEvent( EventInfo eventInfo )
 			m_canvasManipulator = (*it)->m_createManipulatorPtr( p_itemDocument, this );
 		}
 	}
+
 	if (m_canvasManipulator)
 	{
 		if (m_canvasManipulator->mousePressedInitial(eventInfo))
@@ -212,6 +199,7 @@ void CMManager::mouseDoubleClickEvent( const EventInfo &eventInfo )
 		item->mouseDoubleClickEvent(eventInfo);
 		return;
 	}
+
 	Widget *widget = dynamic_cast<Widget*>(eventInfo.qcanvasItemClickedOn);
 	if (widget)
 	{
@@ -240,31 +228,24 @@ void CMManager::mouseMoveEvent( const EventInfo &eventInfo )
 	QCanvasItem *qcnItem = p_itemDocument->itemAtTop(eventInfo.pos);
 	Item *item;
 	Widget *widget = dynamic_cast<Widget*>(qcnItem);
-	if (widget)
-		item = widget->parent();
-	else
-		item = dynamic_cast<Item*>(qcnItem);
+	if (widget) item = widget->parent();
+	else item = dynamic_cast<Item*>(qcnItem);
 	
-	if ( p_lastMouseOverItem != (QGuardedPtr<Item>)item )
-	{
+	if ( p_lastMouseOverItem != (QGuardedPtr<Item>)item ) {
 		QEvent event(QEvent::Leave);
 		
 		if (p_lastMouseOverItem)
 			p_lastMouseOverItem->leaveEvent();
 		
-		if (item)
-			item->enterEvent();
+		if (item) item->enterEvent();
 		
 		p_lastMouseOverItem = item;
 	}
 	
 	// If we clicked on an item, then continue to pass mouse events to that item until we release the mouse...
-	if (p_lastItemClicked)
-	{
+	if (p_lastItemClicked) {
 		p_lastItemClicked->mouseMoveEvent(eventInfo);
-	}
-	else if (item)
-	{
+	} else if (item) {
 		item->mouseMoveEvent(eventInfo);
 	}
 	//END
@@ -315,11 +296,8 @@ void CMManager::wheelEvent( const EventInfo &eventInfo )
 		Widget *widget = dynamic_cast<Widget*>(qcnItem);
 		if (widget)
 			item = widget->parent();
-		else
-			item = dynamic_cast<Item*>(qcnItem);
-		
-		if (item)
-			accepted = item->wheelEvent(eventInfo);
+		else	item = dynamic_cast<Item*>(qcnItem);
+		if (item) accepted = item->wheelEvent(eventInfo);
 	}
 	if (!accepted)
 	{
@@ -1729,7 +1707,7 @@ bool CMDraw::mouseMoved( const EventInfo &eventInfo )
 // 		m_pDrawEllipse->setSize( r.width(), r.height() );
 // 		m_pDrawEllipse->move( r.left()+(r.width()/2), r.top()+(r.height()/2) );
 		
-		m_pDrawEllipse->setSize( 2*QABS(pos.x()-m_eventInfo.pos.x()), 2*QABS(pos.y()-m_eventInfo.pos.y()) );
+		m_pDrawEllipse->setSize( 2 * abs(pos.x() - m_eventInfo.pos.x()), 2 * abs(pos.y() - m_eventInfo.pos.y()) );
 	}
 	
 	else if (m_pDrawLine)

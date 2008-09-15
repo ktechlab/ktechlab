@@ -22,6 +22,7 @@
 #include <kdebug.h>
 #include <qpainter.h>
 
+#include <cstdlib>
 #include <cmath>
 
 
@@ -31,8 +32,8 @@ Connector::Connector( Node * startNode, Node * endNode, ICNDocument *icnDocument
 	  QCanvasPolygon( icnDocument->canvas() )
 {
 	m_currentAnimationOffset = 0.0;
-	p_parentContainer = 0l;
-	p_nodeGroup = 0l;
+	p_parentContainer = 0;
+	p_nodeGroup = 0;
 	b_semiHidden = false;
 	b_deleted = false;
 	b_pointsAdded = false;
@@ -43,16 +44,12 @@ Connector::Connector( Node * startNode, Node * endNode, ICNDocument *icnDocument
 	p_icnDocument = icnDocument;
 	m_conRouter = new ConRouter( p_icnDocument );
 	
-	if (id)
-	{
+	if (id) {
 		m_id = *id;
-		if ( !p_icnDocument->registerUID(*id) )
-		{
+//		if ( !p_icnDocument->registerUID(*id) ) {
 // 			kdDebug() << k_funcinfo << "KTechlab: Connector attempted to register given ID, but ID already in use"<<endl;
-		}
-	}
-	else
-		m_id = p_icnDocument->generateUID("connector");
+//		}
+	} else m_id = p_icnDocument->generateUID("connector");
 	
 	p_icnDocument->registerItem(this);
 	
@@ -75,7 +72,7 @@ Connector::~Connector()
 	p_icnDocument->unregisterUID( id() );
 	
 	delete m_conRouter;
-	m_conRouter = 0l;
+	m_conRouter = 0;
 	
 	for ( unsigned i = 0; i < m_wires.size(); i++ )
 		delete m_wires[i];
@@ -356,7 +353,7 @@ void Connector::updateDrawList()
 			line->setPoints( prev.x(), prev.y(), next.x(), next.y() );
 			
 			// (note that only one of the following QABS will be non-zero)
-			pixelOffset += QABS( prev.x() - next.x() ) + QABS( prev.y() - next.y() );
+			pixelOffset += abs( prev.x() - next.x() ) + abs( prev.y() - next.y() );
 			
 			prev = next;
 		}
