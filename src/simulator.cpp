@@ -34,7 +34,6 @@ Simulator * Simulator::self()
 Simulator::Simulator()
 {
 	m_currentChain 	= 0;
-	m_llNumber	= 0;
 	m_stepNumber 	= 0;
 	m_bIsSimulating	= true;
 	m_gpsimProcessors = new list<GpsimProcessor*>;
@@ -85,7 +84,6 @@ void Simulator::step()
 	const unsigned maxSteps = unsigned(LINEAR_UPDATE_RATE/1e3);
 	for ( unsigned i = 0; i < maxSteps; ++i )
 	{
-		m_llNumber = 0;
 		m_stepNumber++;
 	
 		// Update the non-logic parts of the simulation
@@ -112,7 +110,7 @@ void Simulator::step()
 
 		// Update the logic parts of our simulation
 		const unsigned max = unsigned(LOGIC_UPDATE_RATE/LINEAR_UPDATE_RATE);
-		for ( m_llNumber = 0; m_llNumber < max; ++m_llNumber )
+		for(m_llNumber = 0; m_llNumber < max; ++m_llNumber )
 		{
 			// Update the logic components
 			{
@@ -142,30 +140,27 @@ void Simulator::step()
 			}
 			}
 #endif
-		
-		
+
+			// why do we change this here instead of later?
 			int prevChain = m_currentChain;
-			m_currentChain = 1 - m_currentChain;
-		
-		
+			m_currentChain ^= 1;
+
 			// Update the non-logic circuits
-			if ( Circuit * changed = m_pChangedCircuitStart->nextChanged(prevChain) )
-			{
+			if ( Circuit * changed = m_pChangedCircuitStart->nextChanged(prevChain) ) {
 				for ( Circuit * circuit = changed; circuit; circuit = circuit->nextChanged(prevChain) )
 					circuit->setCanAddChanged(true);
-			
+
 				m_pChangedCircuitStart->setNextChanged( 0, prevChain );
 				m_pChangedCircuitLast = m_pChangedCircuitStart;
-			
+
 				do {
 					Circuit * next = changed->nextChanged(prevChain);
 					changed->setNextChanged( 0, prevChain );
 					changed->doLogic();
 					changed = next;
-				}
-				while (changed);
+				} while (changed);
 			}
-		
+
 			// Call the logic callbacks
 			if (LogicOut * changed = m_pChangedLogicStart->nextChanged(prevChain))
 			{
@@ -174,8 +169,7 @@ void Simulator::step()
 			
 				m_pChangedLogicStart->setNextChanged( 0, prevChain );
 				m_pChangedLogicLast = m_pChangedLogicStart;
-				do
-				{
+				do {
 					LogicOut * next = changed->nextChanged(prevChain);
 					changed->setNextChanged( 0, prevChain );
 			
@@ -188,15 +182,13 @@ void Simulator::step()
 					}
 			
 					LogicIn * logicCallback = changed;
-					while (logicCallback)
-					{
+					while (logicCallback) {
 						logicCallback->callCallback();
 						logicCallback = logicCallback->nextLogic();
 					}
 		
 					changed = next;
-				}
-				while (changed);
+				} while (changed);
 			}
 		}
 	}
@@ -215,8 +207,7 @@ void Simulator::slotSetSimulating( bool simulate )
 
 void Simulator::createLogicChain( LogicOut * logicOut, const LogicInList & logicInList, const PinList & pinList )
 {
-	if (!logicOut)
-		return;
+	if (!logicOut) return;
 	
 	bool state = logicOut->outputState();
 	
@@ -234,15 +225,15 @@ void Simulator::createLogicChain( LogicOut * logicOut, const LogicInList & logic
 		last->setLastState(state);
 		last = next;
 	}
+
 	last->setNextLogic(0);
 	last->setLastState(state);
 	
 	// Mark it as changed, if it isn't already changed...
 	LogicOut * changed = m_pChangedLogicStart->nextChanged(m_currentChain);
-	while (changed)
-	{
-		if ( changed == logicOut )
-			return;
+	while (changed) {
+		if ( changed == logicOut ) return;
+
 		changed = changed->nextChanged(m_currentChain);
 	}
 	addChangedLogic(logicOut);
@@ -262,7 +253,7 @@ void Simulator::detachGpsimProcessor( GpsimProcessor * cpu )
 	m_gpsimProcessors->remove(cpu);
 }
 
-void Simulator::attachComponentCallback( Component * component, VoidCallbackPtr function )
+void Simulator::( Component * component, VoidCallbackPtr function )
 {
 	m_componentCallbacks->push_back(ComponentCallback( component, function ));
 }
@@ -320,8 +311,7 @@ void Simulator::attachCircuit( Circuit * circuit )
 
 void Simulator::removeLogicInReferences( LogicIn * logicIn )
 {
-	if ( !logicIn )
-		return;
+	if ( !logicIn ) return;
 	
 	QValueList<LogicOut*>::iterator end = m_logicChainStarts.end();
 	for ( QValueList<LogicOut*>::iterator it = m_logicChainStarts.begin(); it != end; ++it )
