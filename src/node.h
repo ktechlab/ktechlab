@@ -125,9 +125,6 @@ public:
 	void setNodeGroup( NodeGroup *ng ) { p_nodeGroup = ng; }
 	NodeGroup *nodeGroup() const { return p_nodeGroup; }
 	
-	/** Returns the node's type. This member will be removed one day */
-	node_type type() const { return m_type; }
-		
 	/* interface common to ecnode and fpnode; these might be required by ItemDocumentData, ICNDocument  */
 	
 	virtual bool isConnected( Node *node, NodeList *checkedNodes = 0L ) = 0;
@@ -181,7 +178,7 @@ signals:
 	void removed( Node* node );
 	
 protected:
-	void initPoints();
+	virtual void initPoints();
 	/**
 	 * Moves and rotates (according to m_dir) the painter, so that our current
 	 * position is (0,0).

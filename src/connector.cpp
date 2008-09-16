@@ -14,6 +14,7 @@
 #include "conrouter.h"
 #include "cnitem.h"
 #include "ecnode.h"
+#include "junctionnode.h"
 #include "itemdocumentdata.h"
 #include "src/core/ktlconfig.h"
 #include "wire.h"
@@ -82,18 +83,21 @@ Connector::~Connector()
 
 void Connector::syncWiresWithNodes()
 {
+	// FIXME dynamic_cast is used...
 	ECNode * startECNode = dynamic_cast<ECNode*>((Node*)m_startNode);
 	ECNode * endECNode = dynamic_cast<ECNode*>((Node*)m_endNode);
 	
 	if ( !startECNode || !endECNode )
 		return;
 	
+	// FIXME more dynamic_cast to avoid using type() member
+	const bool isStartNodeJunction = dynamic_cast<JunctionNode*>(startECNode) != 0l;
+	const bool isEndNodeJunction = dynamic_cast<JunctionNode*>(endECNode) != 0l;
+	
 	unsigned newNumWires = 0;
 	 
-	if ( startECNode->type() == Node::ec_junction ||
-			endECNode->type() == Node::ec_junction )
+	if ( isStartNodeJunction || isEndNodeJunction )
 		newNumWires = QMAX( startECNode->numPins(), endECNode->numPins() );
-	
 	else
 		newNumWires = QMIN( startECNode->numPins(), endECNode->numPins() );
 	
@@ -103,9 +107,9 @@ void Connector::syncWiresWithNodes()
 		return;
 	
 	m_bIsSyncingWires = true;
-	if ( startECNode->type() == Node::ec_junction )
+	if ( isStartNodeJunction )
 		startECNode->setNumPins(newNumWires);
-	if ( endECNode->type() == Node::ec_junction )
+	if ( isEndNodeJunction )
 		endECNode->setNumPins(newNumWires);
 	m_bIsSyncingWires = false;
 	

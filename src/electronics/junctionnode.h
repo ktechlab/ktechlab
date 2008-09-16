@@ -30,6 +30,9 @@ public:
 	 *  draws the JunctionNode
 	 */
     	virtual void drawShape( QPainter &p );
+
+protected:
+	virtual void initPoints();
 	
 };
 

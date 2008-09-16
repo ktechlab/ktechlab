@@ -17,3 +17,9 @@ JunctionFlowNode::JunctionFlowNode(ICNDocument* _icnView, int dir, const QPoint&
 JunctionFlowNode::~JunctionFlowNode()
 {
 }
+
+void JunctionFlowNode::initPoints()
+{
+	setPoints( QPointArray( QRect( -4, -4, 9, 9 ) ) );
+}
+

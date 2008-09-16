@@ -30,16 +30,10 @@ ECNode::ECNode( ICNDocument *icnDocument, Node::node_type _type, int dir, const 
 	if ( icnDocument )
 		icnDocument->registerItem(this);
 
-	if ( _type == ec_pin ) {
-		m_pinPoint = new QCanvasRectangle( 0, 0, 3, 3, canvas() );
-		m_pinPoint->setBrush(Qt::black);
-		m_pinPoint->setPen(Qt::black);
-	}
 
 	m_pins.resize(1);
 	m_pins[0] = new Pin(this);
 }
-
 
 ECNode::~ECNode()
 {
