@@ -8,10 +8,13 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "icndocument.h"
 #include "connector.h"
 #include "flowpart.h"
 #include "fpnode.h"
+#include "icndocument.h"
+#include "inputflownode.h"
+#include "junctionflownode.h"
+#include "outputflownode.h"
 
 #include <kdebug.h>
 #include <qpainter.h>
@@ -33,7 +36,8 @@ FlowPart *FPNode::outputFlowPart() const
 {
 	FlowPart *flowPart = dynamic_cast<FlowPart*>(parentItem());
 
-	if ( type() == fp_in )
+		// FIXME dynamic_cast used
+	if( dynamic_cast<const InputFlowNode*>(this) != 0)
 		return flowPart;
 
 	if ( m_outputConnectorList.size() > 1 )
@@ -54,7 +58,8 @@ FlowPartList FPNode::inputFlowParts() const
 	FlowPartList list;
 	FlowPart *flowPart = dynamic_cast<FlowPart*>(parentItem());
 
-	if ( type() != fp_in && flowPart )
+		// FIXME dynamic_cast used
+	if( flowPart && ( dynamic_cast<const InputFlowNode*>(this) == 0 ))
 	{
 		list.append(flowPart);
 		return list;
@@ -109,7 +114,8 @@ void FPNode::drawShape( QPainter &p )
 	const int _x = (int)x();
 	const int _y = (int)y();
 	
-	if ( type() == fp_junction && !m_inputConnectorList.isEmpty() )
+		// FIXME dynamic_cast used
+	if( (dynamic_cast<JunctionFlowNode*>(this) != 0) && ( !m_inputConnectorList.isEmpty() ) )
 	{
 		const ConnectorList::iterator end = m_inputConnectorList.end();
 		for ( ConnectorList::iterator it = m_inputConnectorList.begin(); it != end; ++ it)
@@ -157,36 +163,60 @@ void FPNode::drawShape( QPainter &p )
 	
 	QPointArray pa(3);	
 	
-	// Right facing arrow
-	if ( (type() == fp_out && m_dir == 0) ||
-			 (type() == fp_in && m_dir == 180 ) )
-		pa = arrowPoints( 0 );
-	
-	// Left facing arrow
-	else if ( (type() == fp_out && m_dir == 180) ||
-				  (type() == fp_in && m_dir == 0) )
-		pa = arrowPoints( 180 );
-	
-	// Down facing arrow
-	else if ( (type() == fp_out && m_dir == 90) ||
-				  (type() == fp_in && m_dir == 270) )
-		pa = arrowPoints( 90 );
-	
-	// Up facing arrow
-	else	pa = arrowPoints( 270 );
-	
+	// FIXME 2 dynamic_cast-s
+
+	// input node
+	if( dynamic_cast<InputFlowNode*>(this) != 0 ){
+		switch( m_dir ){
+			case 180: // right
+				pa = arrowPoints( 0 );
+				break;
+			case 0: // left
+				pa = arrowPoints( 180 );
+				break;
+			case 270: // down
+				pa = arrowPoints( 90 );
+				break;
+			case 90: // up
+				pa = arrowPoints( 270 );
+				break;
+			default:
+				kdError() << k_funcinfo << "BUG: m_dir = " << m_dir << endl;
+		}
+	}
+	//output node
+	if( dynamic_cast<OutputFlowNode*>(this) != 0){
+		switch( m_dir ){
+			case 0: // right
+				pa = arrowPoints( 0 );
+				break;
+			case 180: // left
+				pa = arrowPoints( 180 );
+				break;
+			case 90: // down
+				pa = arrowPoints( 90 );
+				break;
+			case 270: // up
+				pa = arrowPoints( 270 );
+				break;
+			default:
+				kdError() << k_funcinfo << "BUG: m_dir = " << m_dir << endl;
+		}
+	}
 	
 	// Note: I have not tested the positioning of the arrows for all combinations.
 	// In fact, most almost definitely do not work. So feel free to change the code
 	// as you see fit if necessary.
 	
-	if ( type() == fp_out )
+	// FIXME 2 dynamic_cast-s
+	
+	if ( dynamic_cast<OutputFlowNode*>(this) != 0 )
 	{
 		if		( m_dir == 0 ) pa.translate( -5, 0 );
 		else if ( m_dir == 90 ) pa.translate( 0, -5 );
 		else if ( m_dir == 180 ) pa.translate( 5, 0 );
 		else if ( m_dir == 270 ) pa.translate( 0, 5 );
-	} else if ( type() == fp_in ) {
+	} else if ( dynamic_cast<InputFlowNode*>(this) != 0 ) {
 		if		( m_dir == 0 );
 		else if ( m_dir == 90 );
 		else if ( m_dir == 180 ) pa.translate( 3, 0 );
@@ -201,24 +231,29 @@ void FPNode::drawShape( QPainter &p )
 
 bool FPNode::acceptInput() const
 {
-	return type() != fp_out;
+	// FIXME dynamic_cast
+	// return type() != fp_out;
+	return (  dynamic_cast<const OutputFlowNode*>(this) == 0 );
 }
 
 
 bool FPNode::acceptOutput() const
 {
-	return type() != fp_in;
+	// FIXME dynamic_cast
+	return (  dynamic_cast<const InputFlowNode*>(this) == 0 );
+	// return type() != fp_in;
 }
 
 
 void FPNode::addOutputConnector( Connector * const connector )
 {
-	if ( type() == fp_in || !handleNewConnector(connector) )
-		return;
+	// FIXME dynamic_cast-s
+	if( (dynamic_cast<InputFlowNode*>(this) != 0 ) || !handleNewConnector(connector) )
+		return ;
 
 	m_outputConnectorList.append(connector);
 
-	if ( type() == fp_out || type() == fp_junction ) {
+	if( dynamic_cast<InputFlowNode*>(this) == 0 ) { // it's an output or junction node
 		// We can only have one output connector, so remove the others. Note
 		// that this code has to come *after* adding the new output connector,
 		// as this node will delete itself if it's an fp_junction and there are
@@ -240,7 +275,8 @@ void FPNode::addOutputConnector( Connector * const connector )
 
 void FPNode::addInputConnector( Connector * const connector )
 {
-	if ( type() == fp_out || !handleNewConnector(connector) )
+	// FIXME dynamic_cast
+	if( (dynamic_cast<OutputFlowNode*>(this) != 0) || !handleNewConnector(connector) )
 		return;
 	
 	m_inputConnectorList.append(connector);
@@ -271,7 +307,8 @@ bool FPNode::handleNewConnector( Connector * connector )
 
 Connector* FPNode::createInputConnector( Node * startNode )
 {
-	if ( type() == fp_out || !startNode )
+	// FIXME dynamic_cast
+	if( (dynamic_cast<OutputFlowNode*>(this) != 0) || !startNode )
 		return 0l;
 	
 	Connector *connector = new Connector( startNode, this, p_icnDocument );
@@ -338,7 +375,8 @@ void FPNode::checkForRemoval( Connector *connector )
 			removeNode();
 	}
 	
-	if ( type() == Node::fp_junction && m_outputConnectorList.isEmpty() )
+	// FIXME dynamic_cast again
+	if( (dynamic_cast<JunctionFlowNode*>(this) != 0) && m_outputConnectorList.isEmpty() )
 		removeNode();
 }
 
