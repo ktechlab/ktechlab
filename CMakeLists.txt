@@ -23,8 +23,8 @@ CONFIGURE_FILE( ${CMAKE_SOURCE_DIR}/config.h.cmake
 
 add_subdirectory( src )
 add_subdirectory( icons )
-#add_subdirectory( examples )
-add_subdirectory( docs )
+add_subdirectory( examples )
+add_subdirectory( doc )
 
 ########### install files ###############
 
