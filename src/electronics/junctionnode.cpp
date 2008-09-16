@@ -47,3 +47,9 @@ void JunctionNode::drawShape( QPainter & p )
 	p.drawRect( -1, -1, 3, 3 );
 	deinitPainter( p );
 }
+
+
+void JunctionNode::initPoints()
+{
+	setPoints( QPointArray( QRect( -4, -4, 8, 8 ) ) );
+}

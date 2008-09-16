@@ -145,7 +145,9 @@ protected:
 	 * diverge; this point is returned. */
 	virtual QPoint findConnectorDivergePoint( bool * found );
 	
-	/** (please document this) registers some signals for the node and the new connector (?) */
+	/** (please document this) registers some signals for the node and the new connector (?) 
+	 * @return true of the operation was successful or false otherwise
+	 */
 	bool handleNewConnector( Connector * newConnector );
 	
 

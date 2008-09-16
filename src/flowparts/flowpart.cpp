@@ -14,6 +14,7 @@
 #include "flowcode.h"
 #include "flowpart.h"
 #include "fpnode.h"
+#include "inputflownode.h"
 #include "itemdocument.h"
 #include "itemdocumentdata.h"
 #include "microsettings.h"
@@ -339,7 +340,9 @@ FlowPart* FlowPart::outputPart( const QString& internalNodeId )
 	Node *node = p_icnDocument->nodeWithID( nodeId(internalNodeId) );
 	
 	FPNode *fpnode = dynamic_cast<FPNode*>(node);
-	if ( !fpnode || fpnode->type() == Node::fp_in )
+		// FIXME dynamic_cast used to replace fpnode::type() call
+	if ( !fpnode || ( dynamic_cast<InputFlowNode*>(fpnode) != 0) )
+	// if ( !fpnode || fpnode->type() == Node::fp_in )
 		return 0l;
 	
 	return fpnode->outputFlowPart();

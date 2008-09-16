@@ -25,6 +25,10 @@ public:
     /** Returns the node's type. This member will be removed one day */
     virtual node_type type() const { return Node::fp_junction; }
 
+
+protected:
+	virtual void initPoints();
+
 };
 
 #endif
