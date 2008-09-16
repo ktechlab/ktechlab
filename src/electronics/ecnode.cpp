@@ -324,8 +324,7 @@ Connector* ECNode::getAConnector() const
 {
 	if( ! m_connectorList.isEmpty() )
 		return *m_connectorList.begin();
-	else
-		0l;
+	else	return 0l;
 }
 
 #include "ecnode.moc"
