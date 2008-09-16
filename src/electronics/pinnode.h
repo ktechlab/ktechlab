@@ -31,6 +31,9 @@ public:
 	 *  draws the PinNode
 	 */
 	virtual void drawShape( QPainter &p );
+	
+protected:
+	virtual void initPoints();
 };
 
 #endif
