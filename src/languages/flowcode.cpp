@@ -16,6 +16,7 @@
 #include "microinfo.h"
 #include "micropackage.h"
 #include "node.h"
+#include "outputflownode.h"
 #include "pinmapping.h"
 
 #include <klocale.h>
@@ -169,7 +170,8 @@ QString FlowCode::generateMicrobe( const ItemList &itemList, MicroSettings *sett
 		for ( NodeInfoMap::const_iterator nodeMapIt = nodeMap.begin(); nodeMapIt != nodeMapEnd; ++nodeMapIt )
 		{
 			Node * node = nodeMapIt.data().node;
-			if ( !node || (node->type() != Node::fp_out) )
+				// FIXME dynamic_cast used
+			if(  !node || ( dynamic_cast<OutputFlowNode*>(node) == 0) )
 				continue;
 			
 			if ( !startPart->outputPart( nodeMapIt.key() ) )

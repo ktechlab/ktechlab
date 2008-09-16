@@ -24,6 +24,7 @@
 #include "itemlibrary.h"
 #include "ktechlab.h"
 #include "nodegroup.h"
+#include "outputflownode.h"
 #include "utils.h"
 
 #include <kapplication.h>
@@ -292,7 +293,8 @@ Connector * ICNDocument::createConnector( Node *startNode, Node *endNode, QPoint
 	Connector * con = 0l;
 	
 	// Check if we need to swap the ends around, and create the connector
-	if ( endNode->type() == Node::fp_out )
+		// FIXME: dynamic_cast used
+	if( dynamic_cast<OutputFlowNode*>(endNode) != 0l )
 		con = createConnector( endNode->id(), startNode->id(), pointList );
 	else
 		con = createConnector( startNode->id(), endNode->id(), pointList );

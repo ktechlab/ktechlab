@@ -78,21 +78,7 @@ void Node::setOrientation( int dir )
 
 void Node::initPoints()
 {
-	if ( type() == ec_junction )
-	{
-		setPoints( QPointArray( QRect( -4, -4, 8, 8 ) ) );
-		return;
-	}
-
-	if ( type() == fp_junction )
-	{
-		setPoints( QPointArray( QRect( -4, -4, 9, 9 ) ) );
-		return;
-	}
-
 	int l = m_length;
-	if ( type() != ec_pin )
-		l *= -1;
 
 	// Bounding rectangle, facing right
 	QPointArray pa( QRect( 0, -8, l, 16 ) );
