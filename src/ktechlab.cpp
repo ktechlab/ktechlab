@@ -41,7 +41,7 @@ KTechlab::KTechlab() : KXmlGuiWindow()
     createStatusBar();
 
     readSettings();
-    setupGUI( Default, QString("/home/jb/kde/sources/trunk/ktechlab/src/ktechlabui.rc") );
+    setupGUI( Default );
 }
 
 KTechlab::~KTechlab()
