@@ -63,6 +63,8 @@ class KTechlab : public KXmlGuiWindow
         void slotCut();
         void slotCopy();
         void slotPaste();
+        void slotComponentRotateCCW();
+        void slotComponentRotateCW();
 
     private:
         void setupActions();
