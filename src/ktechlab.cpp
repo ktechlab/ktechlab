@@ -155,7 +155,6 @@ void KTechlab::createMenus()
 
 void KTechlab::createActions()
 {
-    //KStandardAction::openNew( this, SLOT(slotFileNew()), actionCollection() );
     KStandardAction::open( this, SLOT(slotFileOpen()), actionCollection() );
     KStandardAction::openRecent( this, SLOT(slotFileOpenRecent()), actionCollection() );
     KStandardAction::save( this, SLOT(slotFileSave()), actionCollection() );
