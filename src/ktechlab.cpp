@@ -138,6 +138,12 @@ void KTechlab::slotPaste()
 {
 }
 
+void KTechlab::slotComponentRotateCCW()
+{}
+
+void KTechlab::slotComponentRotateCW()
+{}
+
 void KTechlab::setupActions()
 {
 }
@@ -149,7 +155,7 @@ void KTechlab::createMenus()
 
 void KTechlab::createActions()
 {
-    KStandardAction::openNew( this, SLOT(slotFileNew()), actionCollection() );
+    //KStandardAction::openNew( this, SLOT(slotFileNew()), actionCollection() );
     KStandardAction::open( this, SLOT(slotFileOpen()), actionCollection() );
     KStandardAction::openRecent( this, SLOT(slotFileOpenRecent()), actionCollection() );
     KStandardAction::save( this, SLOT(slotFileSave()), actionCollection() );
@@ -204,15 +210,18 @@ void KTechlab::createActions()
     connect( action, SIGNAL(triggered()), this, SLOT(slotFileNewMicrobe()) );
     newActionMenu->addAction( action );
 
-    action = actionCollection()->addAction( QString("rotate_clockwise") );
+    /*
+    ** circuit actions
+    **/
+    action = actionCollection()->addAction( QString("edit_rotate_cw") );
     action->setText( i18n("Rotate Clockwise") );
     action->setIcon( KIcon("object-rotate-right") );
-    connect( action, SIGNAL(triggered()), this, SLOT(slotComponentRotateClockwise()) );
+    connect( action, SIGNAL(triggered()), this, SLOT(slotComponentRotateCW()) );
 
-    action = actionCollection()->addAction( QString("rotate_counterclockwise") );
+    action = actionCollection()->addAction( QString("edit_rotate_ccw") );
     action->setText( i18n("Rotate Counter-Clockwise") );
     action->setIcon( KIcon("object-rotate-left") );
-    connect( action, SIGNAL(triggered()), this, SLOT(slotComponentRotateClockwise()) );
+    connect( action, SIGNAL(triggered()), this, SLOT(slotComponentRotateCCW()) );
 }
 
 void KTechlab::createToolBars()
