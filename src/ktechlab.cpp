@@ -19,6 +19,9 @@
 
 #include "ktechlab.h"
 
+#include "docmanager.h"
+#include "projectmanager.h"
+
 #include <QMenu>
 
 #include <KApplication>
@@ -30,7 +33,6 @@
 #include <KStandardAction>
 #include <KActionCollection>
 #include <KActionMenu>
-
 #include <KDebug>
 
 KTechlab::KTechlab() : KXmlGuiWindow()
@@ -51,7 +53,43 @@ KTechlab::~KTechlab()
 
 void KTechlab::load( KUrl url )
 {
-    return;
+    if ( !url.isValid() )
+        return;
+
+    if ( url.url().endsWith( ".ktechlab", false ) )
+    {
+        // This is a ktechlab project; it has to be handled separetly from a
+        // normal file.
+
+        ProjectManager::self()->slotOpenProject( url );
+        return;
+    }
+
+    QString target;
+    // the below code is what you should normally do.  in this
+    // example case, we want the url to our own.  you probably
+    // want to use this code instead for your app
+
+    // download the contents
+    if ( !KIO::NetAccess::download( url, target, this ) )
+    {
+        // If the file could not be downloaded, for example does not
+        // exist on disk, NetAccess will tell us what error to use
+        KMessageBox::error(this, KIO::NetAccess::lastErrorString());
+
+        return;
+    }
+
+    addRecentFile( url );
+
+    // set our caption
+    setCaption( url.prettyURL() );
+
+    // load in the file (target is always local)
+    DocManager::self()->openURL( target, viewArea );
+
+    // and remove the temp file
+    KIO::NetAccess::removeTempFile( target );
 }
 
 void KTechlab::slotFileNewAssembly()

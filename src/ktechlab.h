@@ -76,7 +76,7 @@ class KTechlab : public KXmlGuiWindow
         void readSettings();
 
         QMenu *fileMenu;
-	KActionMenu *m_newActionMenu;
+        KActionMenu *m_newActionMenu;
 };
 
 #endif
