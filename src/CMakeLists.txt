@@ -34,11 +34,22 @@ install(TARGETS ktechlab DESTINATION bin)
 
 ########### install files ###############
 
-#install(FILES  microbe.xml DESTINATION share/apps/katepart/syntax)
-#install(FILES  ktechlabui.rc ktechlabcircuitui.rc  	ktechlabflowcodeui.rc
-#	ktechlabitemviewui.rc ktechlabmechanicsui.rc ktechlabtextui.rc
-#	ktechlabkateui.rc DESTINATION share/apps/ktechlab)
-#install(FILES  ktechlab.desktop DESTINATION share/applnk/Development)
-#install(FILES  x-circuit.desktop x-flowcode.desktop x-ktechlab.desktop
-#	x-microbe.desktop DESTINATION share/mimelink/application)
+install(FILES  microbe.xml DESTINATION share/apps/katepart/syntax)
+install(FILES
+    ktechlabui.rc
+    ktechlabcircuitui.rc
+    ktechlabflowcodeui.rc
+    ktechlabitemviewui.rc
+    ktechlabmechanicsui.rc
+    ktechlabtextui.rc
+    ktechlabkateui.rc
 
+    DESTINATION share/apps/ktechlab)
+install(FILES  ktechlab.desktop DESTINATION share/applnk/Development)
+install(FILES
+    x-circuit.desktop
+    x-flowcode.desktop
+    x-ktechlab.desktop
+    x-microbe.desktop
+
+    DESTINATION share/mimelink/application)
