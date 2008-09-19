@@ -9,12 +9,30 @@
 #add_subdirectory(contexthelp)
 #add_subdirectory(math)
 
-#include_directories(${CMAKE_SOURCE_DIR}/src ${CMAKE_SOURCE_DIR}/src/drawparts ${CMAKE_SOURCE_DIR}/src/electronics ${CMAKE_SOURCE_DIR}/src/electronics/components ${CMAKE_SOURCE_DIR}/src/electronics/simulation ${CMAKE_SOURCE_DIR}/src/flowparts ${CMAKE_SOURCE_DIR}/src/gui ${CMAKE_SOURCE_DIR}/src/gui/itemeditor ${CMAKE_SOURCE_DIR}/src/languages ${CMAKE_SOURCE_DIR}/src/mechanics ${CMAKE_SOURCE_DIR}/src/micro ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${KDE3_INCLUDE_DIR} ${QT_INCLUDE_DIR} )
+include_directories(
+    ${CMAKE_SOURCE_DIR}/src
+    ${CMAKE_SOURCE_DIR}/src/drawparts
+    ${CMAKE_SOURCE_DIR}/src/electronics
+    ${CMAKE_SOURCE_DIR}/src/electronics/components
+    ${CMAKE_SOURCE_DIR}/src/electronics/simulation
+    ${CMAKE_SOURCE_DIR}/src/flowparts
+    ${CMAKE_SOURCE_DIR}/src/gui
+    ${CMAKE_SOURCE_DIR}/src/gui/itemeditor
+    ${CMAKE_SOURCE_DIR}/src/languages
+    ${CMAKE_SOURCE_DIR}/src/mechanics
+    ${CMAKE_SOURCE_DIR}/src/micro
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_BINARY_DIR}
+    ${KDE4_INCLUDES}
+    ${QT_INCLUDES}
+)
 
 
 ########### next target ###############
 
 SET(ktechlab_SRCS
+    docmanager.cpp
+    projectmanager.cpp
     ktechlab.cpp
     main.cpp
 )
