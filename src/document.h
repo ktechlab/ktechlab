@@ -11,8 +11,10 @@
 #ifndef DOCUMENT_H
 #define DOCUMENT_H
 
-#include <kurl.h>
-#include <qguardedptr.h>
+#include <KUrl>
+
+#include <QPointer>
+#include <QLinkedList>
 
 class DCOPObject;
 class Document;
@@ -21,7 +23,7 @@ class KTechlab;
 class View;
 class ViewContainer;
 
-typedef QValueList<QGuardedPtr<View> > ViewList;
+typedef QLinkedList< QPointer<View> > ViewList;
 
 /**
 @author David Saxton
@@ -94,7 +96,7 @@ public:
 	/**
 	 * Returns the url of the file that the Document refers to
 	 */
-	const KURL& url() const { return m_url; }
+	const KUrl& url() const { return m_url; }
 	/**
 	 * Prompts the user for a url, with the given types for the filter.
 	 * If user accepts, returns true, and set the url to the new url.
@@ -104,11 +106,11 @@ public:
 	 * Attempts to open a url, and returns true if succesful.
 	 * You must reinherit this function.
 	 */
-	virtual bool openURL( const KURL &url ) = 0;
+	virtual bool openURL( const KUrl &url ) = 0;
 	/**
 	 * Sets the url of the file that this Document refers to
 	 */
-	void setURL( const KURL &url );
+	void setURL( const KUrl &url );
 	/**
 	 * Sets whether the file is modified or not. Will emit modifiedStateChanged
 	 * if state changes. You must emit this signal if you reinherit this
@@ -184,17 +186,17 @@ protected slots:
 	 * Called when the user changes the configuration.
 	 */
 	virtual void slotUpdateConfiguration() {};
-	
+
 #define protected public
 signals:
 	/**
 	 * Emitted when an operation has been performed that
-	 * has caused the stack of available undo/redo operations to 
+	 * has caused the stack of available undo/redo operations to
 	 * have changed
 	 */
 	void undoRedoStateChanged();
 #undef protected
-	
+
 signals:
 	/**
 	 * Emitted when the Document goes from modified to unmodified,
@@ -205,23 +207,23 @@ signals:
 	 * Emitted when the name of the file that the Document refers to
 	 * is changed.
 	 */
-	void fileNameChanged( const KURL &url );
-	
+	void fileNameChanged( const KUrl &url );
+
 	void viewFocused( View *view );
 	void viewUnfocused();
-	
+
 private slots:
 	void slotViewDestroyed( QObject *obj );
 	void slotViewFocused( View *view );
-	
+
 protected:
 	/**
 	 * You must call this function after creating a new view
 	 */
 	virtual void handleNewView( View *view );
-	
+
 	bool b_modified;
-	QGuardedPtr<View> m_pActiveView;
+	QPointer<View> m_pActiveView;
 	DocumentType m_type;
 	ViewList m_viewList;
 	QString m_caption;
@@ -229,13 +231,13 @@ protected:
 	DocumentIface * m_pDocumentIface;
 	unsigned m_dcopID;
 	unsigned m_nextViewID;
-	
+
 	// Set to true by the document et subclasses destructors, used to avoid
 	// doing stuff that might lead to crash when being deleted.
-	bool m_bDeleted; 
-	
+	bool m_bDeleted;
+
 private:
-	KURL m_url;
+	KUrl m_url;
 };
 
 #endif

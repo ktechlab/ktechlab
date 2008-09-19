@@ -1,6 +1,7 @@
 /******************************************************************************
  * Main Window Class                                                          *
  *                                                                            *
+ * Copyright (C) 2005 by David Saxton <david@bluehaze.org>                    *
  * Copyright (C) 2008 Julian Bäume <julian@svg4all.de>                        *
  *                                                                            *
  * This program is free software; you can redistribute it and/or              *
@@ -21,6 +22,7 @@
 
 #include "docmanager.h"
 #include "projectmanager.h"
+#include "viewcontainer.h"
 
 #include <QMenu>
 
@@ -49,6 +51,11 @@ KTechlab::KTechlab() : KXmlGuiWindow()
 KTechlab::~KTechlab()
 {
     return;
+}
+
+KTabWidget * tabWidget()
+{
+    return 0;
 }
 
 void KTechlab::load( KUrl url )

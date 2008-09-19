@@ -1,6 +1,7 @@
 /******************************************************************************
  * Main Window Class                                                          *
  *                                                                            *
+ * Copyright (C) 2005 by David Saxton <david@bluehaze.org>                    *
  * Copyright (C) 2008 Julian Bäume <julian@svg4all.de>                        *
  *                                                                            *
  * This program is free software; you can redistribute it and/or              *
@@ -26,6 +27,7 @@ class QMenu;
 class KUrl;
 class KTextEdit;
 class KActionMenu;
+class KTabWidget;
 
 /**
  * This class serves as the main window for KTechlab.  It handles the
@@ -41,6 +43,7 @@ class KTechlab : public KXmlGuiWindow
         KTechlab();
         ~KTechlab();
 
+        KTabWidget *tabWidget();
         void load( KUrl url );
 
     public slots:
