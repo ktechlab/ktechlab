@@ -24,10 +24,10 @@
 Document::Document( const QString &caption, const char *name )
 	: QObject( KTechlab::self(), name ),
 	b_modified(false),
-	m_pActiveView(0l),
+	m_pDocumentIface(0),
+	m_pActiveView(0),
 	m_caption(caption),
 	m_bAddToProjectOnSave(false),
-	m_pDocumentIface(0l),
 	m_dcopID(0),
 	m_nextViewID(0),
 	m_bDeleted(false)
@@ -85,8 +85,7 @@ void Document::slotViewDestroyed( QObject *obj )
 
 void Document::slotViewFocused(View *view)
 {
-	if (!view)
-		return;
+	if (!view) return;
 	
 	m_pActiveView = view;
 	emit viewFocused(view);
@@ -106,16 +105,15 @@ bool Document::getURL( const QString &types )
 {
 	KURL url = KFileDialog::getSaveURL( QString::null, types, KTechlab::self(), i18n("Save Location"));
 	
-	if ( url.isEmpty() )
-		return false;
+	if ( url.isEmpty() ) return false;
 	
 	if ( QFile::exists( url.path() ) )
 	{
 		int query = KMessageBox::warningYesNo( KTechlab::self(),
-											   i18n( "A file named \"%1\" already exists. Are you sure you want to overwrite it?" ).arg( url.fileName() ),
-											   i18n( "Overwrite File?" ),
-											   i18n( "Overwrite" ),
-											   KStdGuiItem::cancel() );
+			   i18n( "A file named \"%1\" already exists. Are you sure you want to overwrite it?" ).arg( url.fileName() ),
+			   i18n( "Overwrite File?" ),
+			   i18n( "Overwrite" ),
+			   KStdGuiItem::cancel() );
 		if ( query == KMessageBox::No )
 			return false;
 	}
@@ -162,20 +160,17 @@ bool Document::fileClose()
 
 void Document::setModified( bool modified )
 {
-	if ( b_modified == modified )
-		return;
+	if ( b_modified == modified ) return;
 	
 	b_modified = modified;
 	
-	if (!m_bDeleted)
-		emit modifiedStateChanged();
+	if (!m_bDeleted) emit modifiedStateChanged();
 }
 
 
 void Document::setURL( const KURL &url )
 {
-	if ( m_url == url )
-		return;
+	if ( m_url == url ) return;
 	
 	bool wasEmpty = m_url.isEmpty();
 	m_url = url;
@@ -185,8 +180,7 @@ void Document::setURL( const KURL &url )
 	
 	emit fileNameChanged(url);
 	
-	if (KTechlab::self())
-	{
+	if (KTechlab::self()) {
 		KTechlab::self()->addRecentFile(url);
 		KTechlab::self()->requestUpdateCaptions();
 	}
@@ -199,12 +193,10 @@ DCOPObject * Document::dcopObject( ) const
 
 void Document::setDCOPID( unsigned id )
 {
-	if ( m_dcopID == id )
-		return;
+	if ( m_dcopID == id ) return;
 	
 	m_dcopID = id;
-	if ( m_pDocumentIface )
-	{
+	if ( m_pDocumentIface ) {
 		QCString docID;
 		docID.setNum( dcopID() );
 		m_pDocumentIface->setObjId( "Document#" + docID );
