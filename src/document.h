@@ -220,22 +220,26 @@ protected:
 	 */
 	virtual void handleNewView( View *view );
 	
-	bool b_modified;
-	QGuardedPtr<View> m_pActiveView;
-	DocumentType m_type;
-	ViewList m_viewList;
-	QString m_caption;
-	bool m_bAddToProjectOnSave;
-	DocumentIface * m_pDocumentIface;
-	unsigned m_dcopID;
-	unsigned m_nextViewID;
-	
+	bool		  b_modified;
+
+// TODO: refactor this out. 
+	DocumentType	  m_type;
+// XXXX
+
+	ViewList	  m_viewList;
+	DocumentIface    *m_pDocumentIface;
+
 	// Set to true by the document et subclasses destructors, used to avoid
 	// doing stuff that might lead to crash when being deleted.
 	bool m_bDeleted; 
 	
 private:
-	KURL m_url;
+	KURL		  m_url;
+	QGuardedPtr<View> m_pActiveView;
+	QString		  m_caption;
+	bool		  m_bAddToProjectOnSave;
+	unsigned 	  m_dcopID;
+	unsigned 	  m_nextViewID;
 };
 
 #endif
