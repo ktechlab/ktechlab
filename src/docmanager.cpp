@@ -24,6 +24,7 @@
 #include "viewcontainer.h"
 
 #include <KApplication>
+#include <KAction>
 #include <KLocale>
 #include <KMessageBox>
 #include <KTabWidget>
@@ -159,13 +160,14 @@ Document *DocManager::getFocusedDocument() const
 
 void DocManager::giveDocumentFocus( Document * toFocus, ViewArea * viewAreaForNew )
 {
-    if ( !toFocus )
+    KTechlab *w = dynamic_cast<KTechlab *>( KApplication::activeWindow() );
+    if ( !toFocus || !w )
         return;
 
     if ( View * activeView = toFocus->activeView() )
-        KTechlab::self()->tabWidget()->showPage( activeView->viewContainer() );
-
-    else if ( viewAreaForNew )
+    {
+        w->tabWidget()->setCurrentWidget( activeView->viewContainer() );
+    } else if ( viewAreaForNew )
         createNewView( toFocus, viewAreaForNew );
 }
 
@@ -249,13 +251,13 @@ void DocManager::removeDocumentAssociations( Document *document )
     do
     {
         doneErase = false;
-        const URLDocumentMap::iterator end = m_associatedDocuments.end();
-        for ( URLDocumentMap::iterator it = m_associatedDocuments.begin(); it != end; ++it )
+        QMapIterator<KUrl, Document*> it(m_associatedDocuments);
+        while ( it.hasNext() )
         {
-            if ( it.data() == document )
+            if ( it.value() == document )
             {
                 doneErase = true;
-                m_associatedDocuments.erase(it);
+                m_associatedDocuments.remove( it.key() );
                 break;
             }
         }
@@ -269,12 +271,16 @@ void DocManager::handleNewDocument( Document *document, ViewArea *viewArea )
     if ( !document || m_documentList.contains(document) )
         return;
 
-    m_documentList.append(document);
+    m_documentList.insert(document);
     document->setDCOPID(m_nextDocumentID++);
 
-    connect( document, SIGNAL(modifiedStateChanged()), KTechlab::self(), SLOT(slotDocModifiedChanged()) );
-    connect( document, SIGNAL(fileNameChanged(const KUrl&)), KTechlab::self(), SLOT(slotDocModifiedChanged()) );
-    connect( document, SIGNAL(fileNameChanged(const KUrl&)), KTechlab::self(), SLOT(addRecentFile(const KUrl&)) );
+    KTechlab *w = dynamic_cast<KTechlab *>( KApplication::activeWindow() );
+    if ( w )
+    {
+        connect( document, SIGNAL(modifiedStateChanged()), w, SLOT(slotDocModifiedChanged()) );
+        connect( document, SIGNAL(fileNameChanged(const KUrl&)), w, SLOT(slotDocModifiedChanged()) );
+        connect( document, SIGNAL(fileNameChanged(const KUrl&)), w, SLOT(addRecentFile(const KUrl&)) );
+    }
     connect( document, SIGNAL(destroyed(QObject* )), this, SLOT(documentDestroyed(QObject* )) );
     connect( document, SIGNAL(viewFocused(View* )), this, SLOT(slotViewFocused(View* )) );
     connect( document, SIGNAL(viewUnfocused()), this, SLOT(slotViewUnfocused()) );
@@ -297,7 +303,10 @@ View *DocManager::createNewView( Document *document, ViewArea *viewArea )
     {
         ViewContainer *viewContainer = new ViewContainer( document->caption() );
         view = document->createView( viewContainer, 0 );
-        KTechlab::self()->addWindow(viewContainer);
+        KTechlab *w = dynamic_cast<KTechlab *>( KApplication::activeWindow() );
+        //FIXME: find out what to do here, to me it's not clear what
+        //addWindow() should do. (at least for now)
+        //if (w) w->addWindow(viewContainer);
     }
 
     return view;
@@ -315,7 +324,10 @@ void DocManager::documentDestroyed( QObject *obj )
 
 void DocManager::slotViewFocused( View *view )
 {
-    ViewContainer * vc = static_cast<ViewContainer*>(KTechlab::self()->tabWidget()->currentPage());
+    KTechlab *w = dynamic_cast<KTechlab *>( KApplication::activeWindow() );
+    Q_ASSERT(w);
+
+    ViewContainer * vc = static_cast<ViewContainer*>(w->tabWidget()->currentWidget());
     if (!vc)
         view = 0l;
 
@@ -335,17 +347,18 @@ void DocManager::slotViewFocused( View *view )
         slotViewUnfocused();
 
     p_focusedView = view;
-
+/*FIXME: port this
     if ( TextView * textView = dynamic_cast<TextView*>((View*)p_focusedView) )
-        KTechlab::self()->factory()->addClient( textView->kateView() );
+        w->factory()->addClient( textView->kateView() );
     else
-        KTechlab::self()->factory()->addClient( p_focusedView );
-
+        w->factory()->addClient( p_focusedView );
+*/
     Document *document = view->document();
 
-    connect( document, SIGNAL(undoRedoStateChanged()), KTechlab::self(), SLOT(slotDocUndoRedoChanged()) );
+    connect( document, SIGNAL(undoRedoStateChanged()), w, SLOT(slotDocUndoRedoChanged()) );
     p_connectedDocument = document;
 
+/*FIXME: port this, remove type() calls
     if ( document->type() == Document::dt_circuit ||
             document->type() == Document::dt_flowcode ||
             document->type() == Document::dt_mechanics )
@@ -353,19 +366,24 @@ void DocManager::slotViewFocused( View *view )
         ItemDocument *cvb = static_cast<ItemDocument*>(view->document());
         ItemInterface::self()->slotItemDocumentChanged(cvb);
     }
-
-    KTechlab::self()->slotDocUndoRedoChanged();
-    KTechlab::self()->slotDocModifiedChanged();
-    KTechlab::self()->requestUpdateCaptions();
+*/
+/*FIXME: reimplement
+    w->slotDocUndoRedoChanged();
+    w->slotDocModifiedChanged();
+    w->requestUpdateCaptions();
+*/
 }
 
 
 void DocManager::slotViewUnfocused()
 {
-    if ( !KTechlab::self() )
+    KTechlab *w = dynamic_cast<KTechlab *>( KApplication::activeWindow() );
+
+    if ( !w )
         return;
 
-    KTechlab::self()->removeGUIClients();
+    //FIXME:
+    //w->removeGUIClients();
     disableContextActions();
 
     if (!p_focusedView)
@@ -373,21 +391,24 @@ void DocManager::slotViewUnfocused()
 
     if (p_connectedDocument)
     {
-        disconnect( p_connectedDocument, SIGNAL(undoRedoStateChanged()), KTechlab::self(), SLOT(slotDocUndoRedoChanged()) );
+        //FIXME:
+        //disconnect( p_connectedDocument, SIGNAL(undoRedoStateChanged()), w, SLOT(slotDocUndoRedoChanged()) );
         p_connectedDocument = 0l;
     }
 
-    ItemInterface::self()->slotItemDocumentChanged(0l);
+    //FIXME:
+    //ItemInterface::self()->slotItemDocumentChanged(0l);
     p_focusedView = 0l;
 
 // 	KTechlab::self()->setCaption( 0 );
-    KTechlab::self()->requestUpdateCaptions();
+    //FIXME:
+    //w->requestUpdateCaptions();
 }
 
 
 void DocManager::disableContextActions()
 {
-    KTechlab * ktl = KTechlab::self();
+    KTechlab * ktl = dynamic_cast<KTechlab *>( KApplication::activeWindow() );
     if ( !ktl )
         return;
 
@@ -404,7 +425,7 @@ void DocManager::disableContextActions()
     ktl->action("view_split_topbottom")->setEnabled(false);
 }
 
-
+/*FIXME: these methods shouldn't be in here
 TextDocument *DocManager::createTextDocument()
 {
     TextDocument *document = TextDocument::constructTextDocument( untitledName(Document::dt_text) );
@@ -514,5 +535,5 @@ TextDocument *DocManager::openTextFile( const KUrl &url, ViewArea *viewArea )
     return document;
 }
 
-
+*/
 #include "docmanager.moc"

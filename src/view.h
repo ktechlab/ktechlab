@@ -181,9 +181,12 @@ protected:
     void paintEvent( QPaintEvent *e )
     {
         QPainter p( this );
-        p.setPen( palette().shadow() );
+        p.setPen( palette().shadow().color() );
         p.drawLine( e->rect().left(), 0, e->rect().right(), 0 );
-        p.setPen( ((View*)parentWidget())->hasFocus() ? palette().light() : palette().midlight() );
+        p.setPen(
+            ((View*)parentWidget())->hasFocus() ?
+                palette().light().color() : palette().midlight().color()
+        );
         p.drawLine( e->rect().left(), 1, e->rect().right(), 1 );
     }
 };
