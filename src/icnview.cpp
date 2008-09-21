@@ -105,9 +105,7 @@ void ICNView::slotUpdateRoutingToggles( bool manualRouting )
 	
 	if ( manualRouting )
 		m_pManualRoutingAction->setChecked(true);
-	
-	else
-		m_pAutoRoutingAction->setChecked(true);
+	else	m_pAutoRoutingAction->setChecked(true);
 }
 
 
