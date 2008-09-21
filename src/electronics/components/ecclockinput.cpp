@@ -86,10 +86,7 @@ ECClockInput::ECClockInput( ICNDocument *icnDocument, bool newItem, const char *
 ECClockInput::~ECClockInput()
 {
 	for ( unsigned i = 0; i < 1000; i++ )
-	{
 		delete m_pComponentCallback[i];
-		m_pComponentCallback[i] = 0;
-	}
 }
 
 void ECClockInput::dataChanged()

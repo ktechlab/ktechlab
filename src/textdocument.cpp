@@ -93,8 +93,7 @@ TextDocument::TextDocument( const QString &caption, const char *name )
 
 TextDocument::~TextDocument()
 {
-	if( !m_constructorSuccessful )
-		return; 
+	if( !m_constructorSuccessful ) return;
 
 	debugStop();
 	
@@ -112,10 +111,7 @@ TextDocument::~TextDocument()
 	}
 	
 	delete m_doc;
-	m_doc = 0l;
-	
 	delete m_pDocumentIface;
-	m_pDocumentIface = 0l;
 }
 
 

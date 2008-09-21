@@ -1132,8 +1132,7 @@ QCanvasItem::QCanvasItem(QCanvas* canvas)
 
 QCanvasItem::~QCanvasItem()
 {
-	if (cnv)
-		cnv->removeItem(this);
+	if (cnv) cnv->removeItem(this);
 	delete ext;
 }
 
@@ -1426,7 +1425,6 @@ QCanvasView::QCanvasView(QCanvas* canvas, QWidget* parent, const char* name, WFl
 QCanvasView::~QCanvasView()
 {
 	delete d;
-	d = 0;
 	setCanvas(0);
 }
 

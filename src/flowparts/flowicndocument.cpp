@@ -291,16 +291,14 @@ Node *FlowICNDocument::nodeWithID( const QString &id )
 {
 	if ( m_flowNodeList.contains( id ) )
 		return m_flowNodeList[id];
-	else
-		return 0l;
+	else	return 0l;
 }
 
 FPNode *FlowICNDocument::getFPnodeWithID( const QString &id )
 {
 	if ( m_flowNodeList.contains( id ) )
 		return m_flowNodeList[id];
-	else
-		return 0l;
+	else	return 0l;
 }
 
 void FlowICNDocument::slotAssignNodeGroups()

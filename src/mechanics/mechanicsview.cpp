@@ -24,10 +24,7 @@ MechanicsView::MechanicsView( MechanicsDocument *mechanicsDocument, ViewContaine
 MechanicsView::~MechanicsView()
 {
 	delete m_pViewIface;
-	m_pViewIface = 0l;
 }
-
-
 
 
 void MechanicsView::dragEnterEvent( QDragEnterEvent * e )

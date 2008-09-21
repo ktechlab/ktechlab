@@ -40,44 +40,44 @@ PicAsm14bit::PicAsm14bit()
 	: AsmInfo()
 {
 	// Byte-orientated file register operations
-	addInstruction( "ADDWF",	0,					"000111dfffffff" );
-	addInstruction( "ANDWF",	0,					"000101dfffffff" );
-	addInstruction( "CLRF",		0,						"0000011fffffff" );
-	addInstruction( "CLRW",		0,						"0000010xxxxxxx" );
-	addInstruction( "COMF",		0,					"001001dfffffff" );
-	addInstruction( "DECF",		0,					"000011dfffffff" );
-	addInstruction( "DECFSZ",	0,			"001011dfffffff" );
-	addInstruction( "INCF",		0,					"001010dfffffff" );
-	addInstruction( "INCFSZ",	0,			"001111dfffffff" );
-	addInstruction( "IORWF",	0,			"000100dfffffff" );
-	addInstruction( "MOVF",		0,							"001000dfffffff" );
-	addInstruction( "MOVWF",	0,					"0000001fffffff" );
-	addInstruction( "NOP",		0,					"0000000xx00000" );
+	addInstruction( "ADDWF",	0,	"000111dfffffff" );
+	addInstruction( "ANDWF",	0,	"000101dfffffff" );
+	addInstruction( "CLRF",		0,	"0000011fffffff" );
+	addInstruction( "CLRW",		0,	"0000010xxxxxxx" );
+	addInstruction( "COMF",		0,	"001001dfffffff" );
+	addInstruction( "DECF",		0,	"000011dfffffff" );
+	addInstruction( "DECFSZ",	0,	"001011dfffffff" );
+	addInstruction( "INCF",		0,	"001010dfffffff" );
+	addInstruction( "INCFSZ",	0,	"001111dfffffff" );
+	addInstruction( "IORWF",	0,	"000100dfffffff" );
+	addInstruction( "MOVF",		0,	"001000dfffffff" );
+	addInstruction( "MOVWF",	0,	"0000001fffffff" );
+	addInstruction( "NOP",		0,	"0000000xx00000" );
 	addInstruction( "RLF",		0,	"001101dfffffff" );
 	addInstruction( "RRF",		0,	"001100dfffffff" );
-	addInstruction( "SUBWF",	0,				"000010dfffffff" );
-	addInstruction( "SWAPF",	0,				"001110dfffffff" );
-	addInstruction( "XORWF",	0,			"000110dfffffff" );
-	
+	addInstruction( "SUBWF",	0,	"000010dfffffff" );
+	addInstruction( "SWAPF",	0,	"001110dfffffff" );
+	addInstruction( "XORWF",	0,	"000110dfffffff" );
+
 	// Bit-orientated file register operations
-	addInstruction( "BCF",		0,					"0100bbbfffffff" );
-	addInstruction( "BSF",		0,						"0101bbbfffffff" );
-	addInstruction( "BTFSC",	0,		"0110bbbfffffff" );
-	addInstruction( "BTFSS",	0,		"0111bbbfffffff" );
+	addInstruction( "BCF",		0,	"0100bbbfffffff" );
+	addInstruction( "BSF",		0,	"0101bbbfffffff" );
+	addInstruction( "BTFSC",	0,	"0110bbbfffffff" );
+	addInstruction( "BTFSS",	0,	"0111bbbfffffff" );
 	
 	// Literal and control operations
-	addInstruction( "ADDLW",	0,				"11111xkkkkkkkk" );
-	addInstruction( "ANDLW",	0,				"111001kkkkkkkk" );
-	addInstruction( "CALL",		0,				"100kkkkkkkkkkk" );
-	addInstruction( "CLRWDT",	0,			"00000001100100" );
-	addInstruction( "GOTO",		0,					"101kkkkkkkkkkk" );
+	addInstruction( "ADDLW",	0,	"11111xkkkkkkkk" );
+	addInstruction( "ANDLW",	0,	"111001kkkkkkkk" );
+	addInstruction( "CALL",		0,	"100kkkkkkkkkkk" );
+	addInstruction( "CLRWDT",	0,	"00000001100100" );
+	addInstruction( "GOTO",		0,	"101kkkkkkkkkkk" );
 	addInstruction( "IORLW",	0,	"111000kkkkkkkk" );
-	addInstruction( "MOVLW",	0,				"1100xxkkkkkkkk" );
-	addInstruction( "RETFIE",	0,			"00000000001001" );
-	addInstruction( "RETLW",	0,		"1101xxkkkkkkkk" );
-	addInstruction( "RETURN",	0,			"00000000001000" );
-	addInstruction( "SLEEP",	0,			"00000000000011" );
-	addInstruction( "SUBLW",	0,		"11110xkkkkkkkk" );
+	addInstruction( "MOVLW",	0,	"1100xxkkkkkkkk" );
+	addInstruction( "RETFIE",	0,	"00000000001001" );
+	addInstruction( "RETLW",	0,	"1101xxkkkkkkkk" );
+	addInstruction( "RETURN",	0,	"00000000001000" );
+	addInstruction( "SLEEP",	0,	"00000000000011" );
+	addInstruction( "SUBLW",	0,	"11110xkkkkkkkk" );
 	addInstruction( "XORLW",	0,	"111010kkkkkkkk" );
 }
 
@@ -112,7 +112,6 @@ PicInfo16C8x::PicInfo16C8x()
 PicInfo16C8x::~PicInfo16C8x()
 {
 	delete m_package;
-	m_package = 0l;
 }
 
 PicInfo16C84::PicInfo16C84()
@@ -120,6 +119,7 @@ PicInfo16C84::PicInfo16C84()
 {
 	m_id = "P16C84";
 }
+
 PicInfo16C84::~PicInfo16C84()
 {
 }
@@ -129,6 +129,7 @@ PicInfo16F84::PicInfo16F84()
 {
 	m_id = "P16F84";
 }
+
 PicInfo16F84::~PicInfo16F84()
 {
 }
@@ -138,6 +139,7 @@ PicInfo16CR84::PicInfo16CR84()
 {
 	m_id = "P16CR84";
 }
+
 PicInfo16CR84::~PicInfo16CR84()
 {
 }
@@ -147,6 +149,7 @@ PicInfo16F83::PicInfo16F83()
 {
 	m_id = "P16F83";
 }
+
 PicInfo16F83::~PicInfo16F83()
 {
 }
@@ -165,6 +168,7 @@ PicInfo16C61::PicInfo16C61()
 {
 	m_id = "P16C61";
 }
+
 PicInfo16C61::~PicInfo16C61()
 {
 }
@@ -174,6 +178,7 @@ PicInfo16X6X::PicInfo16X6X()
 {
 	m_id = "P16X6X";
 }
+
 PicInfo16X6X::~PicInfo16X6X()
 {
 }
@@ -218,10 +223,11 @@ PicInfo16C62::PicInfo16C62()
 	m_package->assignPin( 19,	PicPin::type_vss,	"VSS" );
 	m_package->assignPin( 20,	PicPin::type_vdd,	"VDD" );
 }
+
 PicInfo16C62::~PicInfo16C62()
 {
 	delete m_package;
-	m_package = 0l;
+
 }
 
 PicInfo16C63::PicInfo16C63()
@@ -229,6 +235,7 @@ PicInfo16C63::PicInfo16C63()
 {
 	m_id = "P16C63";
 }
+
 PicInfo16C63::~PicInfo16C63()
 {
 }
@@ -287,10 +294,10 @@ PicInfo16C64::PicInfo16C64()
 	m_package->assignPin( 31,	PicPin::type_vss,	"VSS" );
 	m_package->assignPin( 32,	PicPin::type_vdd,	"VDD" );
 }
+
 PicInfo16C64::~PicInfo16C64()
 {
 	delete m_package;
-	m_package = 0l;
 }
 
 PicInfo16C65::PicInfo16C65()
@@ -298,6 +305,7 @@ PicInfo16C65::PicInfo16C65()
 {
 	m_id = "P16C65";
 }
+
 PicInfo16C65::~PicInfo16C65()
 {
 }
@@ -331,6 +339,7 @@ PicInfo16F62x::PicInfo16F62x()
 	m_package->assignPin( 5,	PicPin::type_vss,	"VSS" );
 	m_package->assignPin( 14,	PicPin::type_vdd,	"VDD" );
 }
+
 PicInfo16F62x::~PicInfo16F62x()
 {
 	delete m_package;
@@ -342,6 +351,7 @@ PicInfo16F627::PicInfo16F627()
 {
 	m_id = "P16F627";
 }
+
 PicInfo16F627::~PicInfo16F627()
 {
 }
@@ -351,6 +361,7 @@ PicInfo16F628::PicInfo16F628()
 {
 	m_id = "P16F628";
 }
+
 PicInfo16F628::~PicInfo16F628()
 {
 }
@@ -360,15 +371,18 @@ PicInfo16F648::PicInfo16F648()
 {
 	m_id = "P16F648";
 }
+
 PicInfo16F648::~PicInfo16F648()
 {
 }
+
 
 PicInfo16C71::PicInfo16C71()
 	: PicInfo16C61()
 {
 	m_id = "P16C71";
 }
+
 PicInfo16C71::~PicInfo16C71()
 {
 }
@@ -378,6 +392,7 @@ PicInfo16C712::PicInfo16C712()
 {
 	m_id = "P16C712";
 }
+
 PicInfo16C712::~PicInfo16C712()
 {
 }
@@ -387,6 +402,7 @@ PicInfo16C716::PicInfo16C716()
 {
 	m_id = "P16C716";
 }
+
 PicInfo16C716::~PicInfo16C716()
 {
 }
@@ -396,15 +412,18 @@ PicInfo16C72::PicInfo16C72()
 {
 	m_id = "P16C72";
 }
+
 PicInfo16C72::~PicInfo16C72()
 {
 }
+
 
 PicInfo16C73::PicInfo16C73()
 	: PicInfo16C63()
 {
 	m_id = "P16C73";
 }
+
 PicInfo16C73::~PicInfo16C73()
 {
 }
@@ -414,6 +433,7 @@ PicInfo16C74::PicInfo16C74()
 {
 	m_id = "P16C74";
 }
+
 PicInfo16C74::~PicInfo16C74()
 {
 }
@@ -423,6 +443,7 @@ PicInfo16F873::PicInfo16F873()
 {
 	m_id = "P16F873";
 }
+
 PicInfo16F873::~PicInfo16F873()
 {
 }
@@ -432,6 +453,7 @@ PicInfo16F874::PicInfo16F874()
 {
 	m_id = "P16F874";
 }
+
 PicInfo16F874::~PicInfo16F874()
 {
 }
@@ -441,6 +463,7 @@ PicInfo16F877::PicInfo16F877()
 {
 	m_id = "P16F877";
 }
+
 PicInfo16F877::~PicInfo16F877()
 {
 }

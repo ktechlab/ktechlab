@@ -43,25 +43,20 @@ Switch::Switch( Component * parent, Pin * p1, Pin * p2, State state )
 
 Switch::~ Switch( )
 {
-	if (m_pP1)
-		m_pP1->setSwitchConnected( m_pP2, false );
+	if (m_pP1) m_pP1->setSwitchConnected( m_pP2, false );
 	
-	if (m_pP2)
-		m_pP2->setSwitchConnected( m_pP1, false );
+	if (m_pP2) m_pP2->setSwitchConnected( m_pP1, false );
 }
 
 
 void Switch::setState( State state )
 {
-	if ( m_state == state )
-		return;
+	if ( m_state == state ) return;
 	
 	m_state = state;
 	
-	if ( m_bBounce )
-		startBouncing();
-	else
-	{
+	if ( m_bBounce ) startBouncing();
+	else {
 		// I'm being lazy...calling stopBouncing will connect the stuff
 		stopBouncing();
 	}

@@ -47,8 +47,8 @@ CNItem::~CNItem()
 	const TextMap::iterator textMapEnd = m_textMap.end();
 	for ( TextMap::iterator it = m_textMap.begin(); it != textMapEnd; ++it )
 	{
-		if (it.data())
-			it.data()->setCanvas(0l);
+		if (it.data()) it.data()->setCanvas(0l);
+
 		delete (Text*)it.data();
 	}
 	m_textMap.clear();

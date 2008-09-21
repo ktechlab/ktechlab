@@ -36,6 +36,7 @@ m_offsetX(0)
 
 ScopeScreenView::~ScopeScreenView()
 {}
+
 #if 0
 void ScopeScreenView::drawContents(QPainter * p)
 {
