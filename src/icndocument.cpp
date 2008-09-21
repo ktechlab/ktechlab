@@ -59,11 +59,8 @@ ICNDocument::~ICNDocument()
 	for ( GuardedNodeGroupList::iterator it = ngToDelete.begin(); it != nglEnd; ++it )
 		delete (NodeGroup *)(*it);
 	
-	
 	delete m_cells;
-	m_cells = 0;
 	delete m_selectList;
-	m_selectList = 0;
 }
 
 
@@ -148,7 +145,8 @@ bool ICNDocument::canConnect( QCanvasItem *qcanvasItem1, QCanvasItem *qcanvasIte
 	
 	Connector *startConnector = dynamic_cast<Connector*>(qcanvasItem1);
 	Connector *endConnector   = dynamic_cast<Connector*>(qcanvasItem2);
-	
+
+// FIXME: overload this instead of calling type(). 
 	// Can't have T- or I- junction in PinMapEditor document
 	if ( type() == Document::dt_pinMapEditor && (startConnector || endConnector) )
 		return false;
@@ -879,10 +877,10 @@ DirCursor::~DirCursor()
 {
 }
 
-DirCursor* DirCursor::self()
+DirCursor *DirCursor::self()
 {
-  if (!m_self) m_self = new DirCursor;
-  return m_self;
+	 if (!m_self) m_self = new DirCursor;
+	return m_self;
 }
 
 void DirCursor::initCursors()

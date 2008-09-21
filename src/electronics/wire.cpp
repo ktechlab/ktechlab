@@ -35,15 +35,13 @@ Wire::~Wire()
 
 bool Wire::calculateCurrent()
 {
-	if ( m_pStartPin->currentIsKnown() && m_pStartPin->numWires() < 2 )
-	{
+	if ( m_pStartPin->currentIsKnown() && m_pStartPin->numWires() < 2 ) {
 		m_current = m_pStartPin->current();
 		m_bCurrentIsKnown = true;
 		return true;
 	}
 	
-	if ( m_pEndPin->currentIsKnown() && m_pEndPin->numWires() < 2 )
-	{
+	if ( m_pEndPin->currentIsKnown() && m_pEndPin->numWires() < 2 ) {
 		m_current = -m_pEndPin->current();
 		m_bCurrentIsKnown = true;
 		return true;
@@ -53,6 +51,7 @@ bool Wire::calculateCurrent()
 	{
 		double i = m_pStartPin->current();
 		bool ok = true;
+
 		const WireList outlist = m_pStartPin->outputWireList();
 		WireList::const_iterator end = outlist.end();
 		for ( WireList::const_iterator it = outlist.begin(); it != end && ok; ++it )
@@ -66,6 +65,7 @@ bool Wire::calculateCurrent()
 					ok = false;
 			}
 		}
+
 		const WireList inlist = m_pStartPin->inputWireList();
 		end = inlist.end();
 		for ( WireList::const_iterator it = inlist.begin(); it != end && ok; ++it )
@@ -80,8 +80,7 @@ bool Wire::calculateCurrent()
 			}
 		}
 		
-		if (ok)
-		{
+		if (ok) {
 			m_current = i;
 			m_bCurrentIsKnown = true;
 			return true;
@@ -93,6 +92,7 @@ bool Wire::calculateCurrent()
 		double i = -m_pEndPin->current();
 		bool ok = true;
 		const WireList outlist = m_pEndPin->outputWireList();
+
 		WireList::const_iterator end = outlist.end();
 		for ( WireList::const_iterator it = outlist.begin(); it != end && ok; ++it )
 		{
@@ -100,11 +100,10 @@ bool Wire::calculateCurrent()
 			{
 				if ( (*it)->currentIsKnown() )
 					i += (*it)->current();
-				
-				else
-					ok = false;
+				else ok = false;
 			}	
 		}
+
 		const WireList inlist = m_pEndPin->inputWireList();
 		end = inlist.end();
 		for ( WireList::const_iterator it = inlist.begin(); it != end && ok; ++it )
@@ -113,14 +112,11 @@ bool Wire::calculateCurrent()
 			{
 				if ( (*it)->currentIsKnown() )
 					i -= (*it)->current();
-				
-				else
-					ok = false;
+				else ok = false;
 			}	
 		}
 		
-		if (ok)
-		{	
+		if (ok) {
 			m_current = i;
 			m_bCurrentIsKnown = true;
 			return true;
@@ -146,7 +142,6 @@ double Wire::voltage() const
 void Wire::setCurrentKnown( bool known )
 {
 	m_bCurrentIsKnown = known;
-	if (!known)
-		m_current = 0.;
+	if (!known) m_current = 0.;
 }
 

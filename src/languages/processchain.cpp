@@ -64,21 +64,13 @@ ProcessChain::ProcessChain( ProcessOptions options, const char *name )
 ProcessChain::~ProcessChain()
 {
 	delete m_pFlowCode;
-	m_pFlowCode = 0l;
 	delete m_pGpasm;
-	m_pGpasm = 0l;
 	delete m_pGpdasm;
-	m_pGpdasm = 0l;
 	delete m_pGplib;
-	m_pGplib = 0l;
 	delete m_pGplink;
-	m_pGplink = 0l;
 	delete m_pMicrobe;
-	m_pMicrobe = 0l;
 	delete m_pPicProgrammer;
-	m_pPicProgrammer = 0l;
 	delete m_pSDCC;
-	m_pSDCC = 0l;
 }
 
 

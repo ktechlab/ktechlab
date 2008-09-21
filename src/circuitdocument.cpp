@@ -65,10 +65,7 @@ CircuitDocument::~CircuitDocument()
 	deleteCircuits();
 	
 	delete m_updateCircuitsTmr;
-	m_updateCircuitsTmr = 0l;
-	
 	delete m_pDocumentIface;
-	m_pDocumentIface = 0l;
 }
 
 
@@ -76,11 +73,11 @@ void CircuitDocument::slotInitItemActions( )
 {
 	CircuitICNDocument::slotInitItemActions();
 	
-	CircuitView * activeCircuitView = dynamic_cast<CircuitView*>(activeView());
-	if ( !KTechlab::self() || !activeCircuitView )
-		return;
+	CircuitView *activeCircuitView = dynamic_cast<CircuitView*>(activeView());
+
+	if ( !KTechlab::self() || !activeCircuitView ) return;
 	
-	Component * item = dynamic_cast<Component*>( m_selectList->activeItem() );
+	Component *item = dynamic_cast<Component*>( m_selectList->activeItem() );
 	
 	if ( !item && m_selectList->count() > 0 || !m_selectList->itemsAreSameType() )
 		return;
@@ -124,36 +121,43 @@ void CircuitDocument::rotateCounterClockwise()
 	m_selectList->slotRotateCCW();
 	requestRerouteInvalidatedConnectors();
 }
+
 void CircuitDocument::rotateClockwise()
 {
 	m_selectList->slotRotateCW();
 	requestRerouteInvalidatedConnectors();
 }
+
 void CircuitDocument::flipHorizontally()
 {
 	m_selectList->flipHorizontally();
 	requestRerouteInvalidatedConnectors();
 }
+
 void CircuitDocument::flipVertically()
 {
 	m_selectList->flipVertically();
 	requestRerouteInvalidatedConnectors();
 }
+
 void CircuitDocument::setOrientation0()
 {
 	m_selectList->slotSetOrientation0();
 	requestRerouteInvalidatedConnectors();
 }
+
 void CircuitDocument::setOrientation90()
 {
 	m_selectList->slotSetOrientation90();
 	requestRerouteInvalidatedConnectors();
 }
+
 void CircuitDocument::setOrientation180()
 {
 	m_selectList->slotSetOrientation180();
 	requestRerouteInvalidatedConnectors();
 }
+
 void CircuitDocument::setOrientation270()
 {
 	m_selectList->slotSetOrientation270();
@@ -194,9 +198,9 @@ void CircuitDocument::slotUpdateConfiguration()
 void CircuitDocument::update()
 {
 	CircuitICNDocument::update();
-	
+
 	bool animWires = KTLConfig::animateWires();
-	
+
 	if ( KTLConfig::showVoltageColor() || animWires )
 	{
 		if ( animWires )
@@ -205,7 +209,7 @@ void CircuitDocument::update()
 			// in the wires.
 			calculateConnectorCurrents();
 		}
-		
+
 		ConnectorList::iterator end = m_connectorList.end();
 		for ( ConnectorList::iterator it = m_connectorList.begin(); it != end; ++it )
 		{
@@ -213,7 +217,7 @@ void CircuitDocument::update()
 			(*it)->updateConnectorLines( animWires );
 		}
 	}
-	
+
 	if ( KTLConfig::showVoltageColor() || KTLConfig::showVoltageBars() )
 	{	
 		ECNodeMap::iterator end = m_ecNodeList.end();
@@ -229,20 +233,19 @@ void CircuitDocument::update()
 void CircuitDocument::fillContextMenu( const QPoint &pos )
 {
 	CircuitICNDocument::fillContextMenu(pos);
-	
-	CircuitView * activeCircuitView = dynamic_cast<CircuitView*>(activeView());
-	if ( !activeCircuitView )
-		return;
-	
+
+	CircuitView *activeCircuitView = dynamic_cast<CircuitView*>(activeView());
+
+	if ( !activeCircuitView ) return;
+
 	bool canCreateSubcircuit = (m_selectList->count() > 1 && countExtCon(m_selectList->items()) > 0);
 	KAction * subcircuitAction = activeCircuitView->action("circuit_create_subcircuit");
 	subcircuitAction->setEnabled( canCreateSubcircuit );
-	
-	if ( m_selectList->count() < 1 )
-		return;
-	
-	Component * item = dynamic_cast<Component*>( selectList()->activeItem() );
-	
+
+	if ( m_selectList->count() < 1 ) return;
+
+	Component *item = dynamic_cast<Component*>( selectList()->activeItem() );
+
 	// NOTE: I negated this whole condition because I couldn't make out quite what the
 	//logic was --electronerd
 	if (!( !item && m_selectList->count() > 0 || !m_selectList->itemsAreSameType() ))
@@ -252,16 +255,15 @@ void CircuitDocument::fillContextMenu( const QPoint &pos )
 			activeCircuitView->action("edit_orientation_90"),
 			activeCircuitView->action("edit_orientation_180"),
 			activeCircuitView->action("edit_orientation_270") };
-	
-		if ( !item )
-			return;
-	
+
+		if ( !item ) return;
+
 		for ( unsigned i = 0; i < 4; ++ i)
 		{
 			m_pOrientationAction->remove( orientation_actions[i] );
 			m_pOrientationAction->insert( orientation_actions[i] );
 		}
-		
+
 		QPtrList<KAction> orientation_actionlist;
 	// 	orientation_actionlist.prepend( new KActionSeparator() );
 		orientation_actionlist.append( m_pOrientationAction );
@@ -295,8 +297,7 @@ void CircuitDocument::requestAssignCircuits()
 
 void CircuitDocument::connectorAdded( Connector * connector )
 {
-	if (connector)
-	{
+	if (connector) {
 		connect( connector, SIGNAL(numWiresChanged(unsigned )), this, SLOT(requestAssignCircuits()) );
 		connect( connector, SIGNAL(removed(Connector*)), this, SLOT(requestAssignCircuits()) );
 	}
@@ -312,16 +313,16 @@ void CircuitDocument::itemAdded( Item * item)
 
 void CircuitDocument::componentAdded( Item * item )
 {
-	Component * component = dynamic_cast<Component*>(item);
-	if (!component)
-		return;
-	
+	Component *component = dynamic_cast<Component*>(item);
+
+	if (!component) return;
+
 	requestAssignCircuits();
-	
+
 	connect( component, SIGNAL(elementCreated(Element*)), this, SLOT(requestAssignCircuits()) );
 	connect( component, SIGNAL(elementDestroyed(Element*)), this, SLOT(requestAssignCircuits()) );
 	connect( component, SIGNAL(removed(Item*)), this, SLOT(componentRemoved(Item*)) );
-	
+
 	// We don't attach the component to the Simulator just yet, as the
 	// Component's vtable is not yet fully constructed, and so Simulator can't
 	// tell whether or not it is a logic component
@@ -332,13 +333,13 @@ void CircuitDocument::componentAdded( Item * item )
 
 void CircuitDocument::componentRemoved( Item * item )
 {
-	Component * component = dynamic_cast<Component*>(item);
-	if (!component)
-		return;
-	
+	Component *component = dynamic_cast<Component*>(item);
+
+	if (!component) return;
+
 	m_componentList.remove( component );
 	m_toSimulateList.remove( component );
-	
+
 	requestAssignCircuits();
 	Simulator::self()->detachComponent(component);
 }
@@ -351,31 +352,26 @@ void CircuitDocument::calculateConnectorCurrents()
 	const CircuitList::iterator circuitEnd = m_circuitList.end();
 	for ( CircuitList::iterator it = m_circuitList.begin(); it != circuitEnd; ++it )
 		(*it)->updateCurrents();
-	
+
 	PinList groundPins;
-	
+
 	// Tell the Pins to reset their calculated currents to zero
-	m_pinList.remove((Pin*)0l);
+	m_pinList.remove((Pin*)0);
+
 	const PinList::iterator pinEnd = m_pinList.end();
 	for ( PinList::iterator it = m_pinList.begin(); it != pinEnd; ++it )
 	{
-		if ( Pin *n = dynamic_cast<Pin*>((Pin*)*it) )
-		{
+		if ( Pin *n = dynamic_cast<Pin*>((Pin*)*it) ) {
 			n->resetCurrent();
 			n->setSwitchCurrentsUnknown();
-			
-			if ( !n->parentECNode()->isChildNode() )
-			{
+
+			if ( !n->parentECNode()->isChildNode() ) {
 				n->setCurrentKnown( true );
 				// (and it has a current of 0 amps)
-			}
-			else if ( n->groundType() == Pin::gt_always )
-			{
+			} else if ( n->groundType() == Pin::gt_always ) {
 				groundPins << n;
 				n->setCurrentKnown( false );
-			}
-			else
-			{
+			} else {
 				// Child node that is non ground
 				n->setCurrentKnown( n->parentECNode()->numPins() < 2 );
 			}
@@ -391,7 +387,7 @@ void CircuitDocument::calculateConnectorCurrents()
 
 
 	// And now for the wires and switches...
-	m_wireList.remove((Wire*)0l);
+	m_wireList.remove((Wire*)0);
 	const WireList::iterator clEnd = m_wireList.end();
 	for ( WireList::iterator it = m_wireList.begin(); it != clEnd; ++it )
 		(*it)->setCurrentKnown(false);
@@ -412,9 +408,7 @@ void CircuitDocument::calculateConnectorCurrents()
 				WireList::iterator oldIt = it;
 				++it;
 				wires.remove(oldIt);
-			}
-			else
-				++it;
+			} else	++it;
 		}
 		
 		SwitchList::iterator switchesEnd = switches.end();
@@ -426,9 +420,7 @@ void CircuitDocument::calculateConnectorCurrents()
 				SwitchList::iterator oldIt = it;
 				++it;
 				switches.remove(oldIt);
-			}
-			else
-				++it;
+			} else ++it;
 		}
 
 /*
@@ -436,17 +428,13 @@ make the ground pins work. Current engine doesn't treat ground explicitly.
 */
 
 		PinList::iterator groundPinsEnd = groundPins.end();
-		for ( PinList::iterator it = groundPins.begin(); it != groundPinsEnd; )
-		{
-			if ( (*it)->calculateCurrentFromWires() )
-			{
+		for ( PinList::iterator it = groundPins.begin(); it != groundPinsEnd; ) {
+			if ( (*it)->calculateCurrentFromWires() ) {
 				found = true;
 				PinList::iterator oldIt = it;
 				++it;
 				groundPins.remove(oldIt);
-			}
-			else
-				++it;
+			} else ++it;
 		}
 	}
 }
@@ -463,18 +451,20 @@ void CircuitDocument::assignCircuits()
 
 	// Stage 0: Build up pin and wire lists
 	m_pinList.clear();
+
 	const ECNodeMap::const_iterator nodeListEnd = m_ecNodeList.end();
 	for ( ECNodeMap::const_iterator it = m_ecNodeList.begin(); it != nodeListEnd; ++it )
 	{
 		// if ( ECNode * ecnode = dynamic_cast<ECNode*>(*it) )
 		ECNode* ecnode = *it;
-		{
-			for ( unsigned i = 0; i < ecnode->numPins(); i++ )
-				m_pinList << ecnode->pin(i);
-		}
+
+		for ( unsigned i = 0; i < ecnode->numPins(); i++ )
+			m_pinList << ecnode->pin(i);
+
 	}
 	
 	m_wireList.clear();
+
 	const ConnectorList::const_iterator connectorListEnd = m_connectorList.end();
 	for ( ConnectorList::const_iterator it = m_connectorList.begin(); it != connectorListEnd; ++it )
 	{
@@ -513,10 +503,10 @@ void CircuitDocument::assignCircuits()
 	const ItemMap::const_iterator cilEnd = m_itemList.end();
 	for ( ItemMap::const_iterator it = m_itemList.begin(); it != cilEnd; ++it )
 	{
-		Component * component = dynamic_cast<Component*>(*it);
-		if ( !component )
-			continue;
-		
+		Component *component = dynamic_cast<Component*>(*it);
+
+		if ( !component ) continue;
+
 		m_componentList << component;
 		component->initElements(0);
 		m_switchList += component->switchList();
@@ -528,9 +518,9 @@ void CircuitDocument::assignCircuits()
 	
 	for ( ItemMap::const_iterator it = m_itemList.begin(); it != cilEnd; ++it )
 	{
-		Component * component = dynamic_cast<Component*>(*it);
-		if (component)
-			component->initElements(1);
+		Component *component = dynamic_cast<Component*>(*it);
+
+		if (component) component->initElements(1);
 	}
 	
 	circuitListEnd = m_circuitList.end();
@@ -544,15 +534,14 @@ void CircuitDocument::assignCircuits()
 
 void CircuitDocument::getPartition( Pin *pin, PinList *pinList, PinList *unassignedPins, bool onlyGroundDependent )
 {
-	if (!pin)
-		return;
+	if (!pin) return;
 	
 	unassignedPins->remove(pin);
 	
-	if ( pinList->contains(pin) )
-		return;
+	if ( pinList->contains(pin) ) return;
+
 	pinList->append(pin);
-	
+
 	const PinList localConnectedPins = pin->localConnectedPins();
 	const PinList::const_iterator end = localConnectedPins.end();
 	for ( PinList::const_iterator it = localConnectedPins.begin(); it != end; ++it )
@@ -563,8 +552,7 @@ void CircuitDocument::getPartition( Pin *pin, PinList *pinList, PinList *unassig
 	for ( PinList::const_iterator it = groundDependentPins.begin(); it != dEnd; ++it )
 		getPartition( *it, pinList, unassignedPins, onlyGroundDependent );
 	
-	if (!onlyGroundDependent)
-	{
+	if (!onlyGroundDependent) {
 		PinList circuitDependentPins = pin->circuitDependentPins();
 		const PinList::const_iterator dEnd = circuitDependentPins.end();
 		for ( PinList::const_iterator it = circuitDependentPins.begin(); it != dEnd; ++it )
@@ -597,8 +585,7 @@ void CircuitDocument::splitIntoCircuits( PinList *pinList )
 		while ( it != end && (*it)->eqId() == -1 )
 			++it;
 		
-		if ( it == end )
-			break;
+		if ( it == end ) break;
 		else {
 			Circuitoid *circuitoid = new Circuitoid;
 			recursivePinAdd( *it, circuitoid, pinList );
@@ -632,17 +619,16 @@ void CircuitDocument::splitIntoCircuits( PinList *pinList )
 
 void CircuitDocument::recursivePinAdd( Pin *pin, Circuitoid *circuitoid, PinList *unassignedPins )
 {
-	if (!pin) return;
+	if(!pin) return;
 	
-	if ( pin->eqId() != -1 )
+	if(pin->eqId() != -1 )
 		unassignedPins->remove(pin);
 
-	if ( circuitoid->contains(pin) )
-		return;
+	if(circuitoid->contains(pin) ) return;
+
 	circuitoid->addPin(pin);
 
-	if ( pin->eqId() == -1 )
-		return;
+	if(pin->eqId() == -1 ) return;
 
 	const PinList localConnectedPins = pin->localConnectedPins();
 	const PinList::const_iterator end = localConnectedPins.end();
@@ -668,8 +654,7 @@ void CircuitDocument::recursivePinAdd( Pin *pin, Circuitoid *circuitoid, PinList
 
 bool CircuitDocument::tryAsLogicCircuit( Circuitoid *circuitoid )
 {
-	if (!circuitoid)
-		return false;
+	if (!circuitoid) return false;
 	
 	if ( circuitoid->elementList.size() == 0 )
 	{
@@ -685,7 +670,7 @@ bool CircuitDocument::tryAsLogicCircuit( Circuitoid *circuitoid )
 	}
 	
 	LogicInList logicInList;
-	LogicOut *out = 0l;
+	LogicOut *out = 0;
 	
 	uint logicInCount = 0;
 	uint logicOutCount = 0;
@@ -696,23 +681,17 @@ bool CircuitDocument::tryAsLogicCircuit( Circuitoid *circuitoid )
 		{
 			logicOutCount++;
 			out = static_cast<LogicOut*>(*it);
-		}
-		else if ( (*it)->type() == Element::Element_LogicIn )
+		} else if ( (*it)->type() == Element::Element_LogicIn )
 		{
 			logicInCount++;
 			logicInList += static_cast<LogicIn*>(*it);
-		}
-		else
-			return false;
+		} else return false;
 	}
-	if ( logicOutCount > 1 )
-		return false;
-	
+
+	if ( logicOutCount > 1 ) return false;
 	else if ( logicOutCount == 1 )
 		Simulator::self()->createLogicChain( out, logicInList, circuitoid->pinList );
-	
-	else
-	{
+	else {
 		// We have ourselves stranded LogicIns...so lets set them all to low
 		
 		const PinList::const_iterator pinListEnd = circuitoid->pinList.constEnd();
@@ -738,10 +717,8 @@ bool CircuitDocument::tryAsLogicCircuit( Circuitoid *circuitoid )
 
 Circuit *CircuitDocument::createCircuit( Circuitoid *circuitoid )
 {
-	if (!circuitoid) {
-		return 0l;
-	}
-	
+	if (!circuitoid) return 0l;
+
 	Circuit *circuit = new Circuit();
 	
 	const PinList::const_iterator nEnd = circuitoid->pinList.end();
@@ -756,7 +733,6 @@ Circuit *CircuitDocument::createCircuit( Circuitoid *circuitoid )
 }
 
 
-
 void CircuitDocument::createSubcircuit()
 {
 	ItemList itemList = m_selectList->items();
@@ -764,34 +740,32 @@ void CircuitDocument::createSubcircuit()
 	for ( ItemList::iterator it = itemList.begin(); it != itemListEnd; ++it )
 	{
 		if ( !dynamic_cast<Component*>((Item*)*it) )
-			*it = 0l;
+			*it = 0;
 	}
-	itemList.remove((Item*)0l);
+
+	itemList.remove((Item*)0);
 	
-	if ( itemList.isEmpty() )
-	{
+	if ( itemList.isEmpty() ) {
 		KMessageBox::sorry( activeView(), i18n("No components were found in the selection.") );
 		return;
 	}
-	
+
 	// Number of external connections
 	const int extConCount = countExtCon(itemList);
-	if ( extConCount == 0 )
-	{
+	if ( extConCount == 0 ) {
 		KMessageBox::sorry( activeView(), i18n("No External Connection components were found in the selection.") );
 		return;
 	}
-	
+
 	bool ok;
 	const QString name = KInputDialog::getText( "Subcircuit", "Name", QString::null, &ok, activeView() );
-	if (!ok)
-		return;
-	
+	if (!ok) return;
+
 	SubcircuitData subcircuit;
 	subcircuit.addItems(itemList);
 	subcircuit.addNodes( getCommonNodes(itemList) );
 	subcircuit.addConnectors( getCommonConnectors(itemList) );
-	
+
 	Subcircuits::addSubcircuit( name, subcircuit.toXML() );
 }
 
@@ -803,7 +777,8 @@ int CircuitDocument::countExtCon( const ItemList &itemList ) const
 	for ( ItemList::const_iterator it = itemList.begin(); it != end; ++it )
 	{
 		Item * item = *it;
-    	if ( item && item->type() == "ec/external_connection" )
+
+		if ( item && item->type() == "ec/external_connection" )
 			count++;
 	}
 	return count;

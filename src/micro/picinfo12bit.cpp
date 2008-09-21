@@ -39,48 +39,47 @@ PicAsm12bit::PicAsm12bit()
 	: AsmInfo()
 {
 	// Byte-orientated file register operations
-	addInstruction( "ADDWF",	0,					"000111dfffff" );
-	addInstruction( "ANDWF",	0,					"000101dfffff" );
-	addInstruction( "CLRF",		0,						"0000011fffff" );
-	addInstruction( "CLRW",		0,						"000001000000" );
-	addInstruction( "COMF",		0,					"001001dfffff" );
-	addInstruction( "DECF",		0,					"000011dfffff" );
-	addInstruction( "DECFSZ",	0,			"001011dfffff" );
-	addInstruction( "INCF",		0,					"001010dfffff" );
-	addInstruction( "INCFSZ",	0,			"001111dfffff" );
-	addInstruction( "IORWF",	0,			"000100dfffff" );
-	addInstruction( "MOVF",		0,							"001000dfffff" );
-	addInstruction( "MOVWF",	0,					"0000001fffff" );
-	addInstruction( "NOP",		0,					"000000000000" );
+	addInstruction( "ADDWF",	0,	"000111dfffff" );
+	addInstruction( "ANDWF",	0,	"000101dfffff" );
+	addInstruction( "CLRF",		0,	"0000011fffff" );
+	addInstruction( "CLRW",		0,	"000001000000" );
+	addInstruction( "COMF",		0,	"001001dfffff" );
+	addInstruction( "DECF",		0,	"000011dfffff" );
+	addInstruction( "DECFSZ",	0,	"001011dfffff" );
+	addInstruction( "INCF",		0,	"001010dfffff" );
+	addInstruction( "INCFSZ",	0,	"001111dfffff" );
+	addInstruction( "IORWF",	0,	"000100dfffff" );
+	addInstruction( "MOVF",		0,	"001000dfffff" );
+	addInstruction( "MOVWF",	0,	"0000001fffff" );
+	addInstruction( "NOP",		0,	"000000000000" );
 	addInstruction( "RLF",		0,	"001101dfffff" );
 	addInstruction( "RRF",		0,	"001100dfffff" );
-	addInstruction( "SUBWF",	0,				"000010dfffff" );
-	addInstruction( "SWAPF",	0,				"001110dfffff" );
-	addInstruction( "XORWF",	0,			"000110dfffff" );
+	addInstruction( "SUBWF",	0,	"000010dfffff" );
+	addInstruction( "SWAPF",	0,	"001110dfffff" );
+	addInstruction( "XORWF",	0,	"000110dfffff" );
 	
 	// Bit-orientated file register operations
-	addInstruction( "BCF",		0,					"0100bbbfffff" );
-	addInstruction( "BSF",		0,						"0101bbbfffff" );
-	addInstruction( "BTFSC",	0,		"0110bbbfffff" );
-	addInstruction( "BTFSS",	0,		"0111bbbfffff" );
+	addInstruction( "BCF",		0,	"0100bbbfffff" );
+	addInstruction( "BSF",		0,	"0101bbbfffff" );
+	addInstruction( "BTFSC",	0,	"0110bbbfffff" );
+	addInstruction( "BTFSS",	0,	"0111bbbfffff" );
 	
 	// Literal and control operations
-	addInstruction( "ANDLW",	0,				"1110kkkkkkkk" );
-	addInstruction( "CALL",		0,				"1001kkkkkkkk" );
-	addInstruction( "CLRWDT",	0,			"000000000100" );
-	addInstruction( "GOTO",		0,					"101kkkkkkkkk" );
+	addInstruction( "ANDLW",	0,	"1110kkkkkkkk" );
+	addInstruction( "CALL",		0,	"1001kkkkkkkk" );
+	addInstruction( "CLRWDT",	0,	"000000000100" );
+	addInstruction( "GOTO",		0,	"101kkkkkkkkk" );
 	addInstruction( "IORLW",	0,	"1101kkkkkkkk" );
-	addInstruction( "MOVLW",	0,				"1100kkkkkkkk" );
-// 	addInstruction( "RETFIE",	0,			"00000000001001" );
-	addInstruction( "OPTION",	0,			"000000000010" );
-	addInstruction( "RETLW",	0,		"1000kkkkkkkk" );
-// 	addInstruction( "RETURN",	0,			"00000000001000" );
-	addInstruction( "SLEEP",	0,			"000000000011" );
-// 	addInstruction( "SUBLW",	0,		"11110xkkkkkkkk" );
-	addInstruction( "TRIS",		0,				"000000000fff" );
+	addInstruction( "MOVLW",	0,	"1100kkkkkkkk" );
+// 	addInstruction( "RETFIE",	0,	"00000000001001" );
+	addInstruction( "OPTION",	0,	"000000000010" );
+	addInstruction( "RETLW",	0,	"1000kkkkkkkk" );
+// 	addInstruction( "RETURN",	0,	"00000000001000" );
+	addInstruction( "SLEEP",	0,	"000000000011" );
+// 	addInstruction( "SUBLW",	0,	"11110xkkkkkkkk" );
+	addInstruction( "TRIS",		0,	"000000000fff" );
 	addInstruction( "XORLW",	0,	"1111kkkkkkkk" );
 }
-
 
 
 PicInfo16C54::PicInfo16C54()
@@ -116,7 +115,6 @@ PicInfo16C54::PicInfo16C54()
 PicInfo16C54::~PicInfo16C54()
 {
 	delete m_package;
-	m_package = 0l;
 }
 
 PicInfo16C55::PicInfo16C55()
@@ -124,10 +122,10 @@ PicInfo16C55::PicInfo16C55()
 {
 	m_id = "P16C55";
 }
+
 PicInfo16C55::~PicInfo16C55()
 {
 }
-
 
 PicInfo12C508::PicInfo12C508()
 	: PicInfo12bit()
@@ -147,10 +145,10 @@ PicInfo12C508::PicInfo12C508()
 	m_package->assignPin( 8, PicPin::type_vss, "VSS" );
 	m_package->assignPin( 1, PicPin::type_vdd, "VDD" );
 }
+
 PicInfo12C508::~PicInfo12C508()
 {
 	delete m_package;
-	m_package = 0l;
 }
 
 PicInfo12C509::PicInfo12C509()
@@ -158,6 +156,7 @@ PicInfo12C509::PicInfo12C509()
 {
 	m_id = "P12C509";
 }
+
 PicInfo12C509::~PicInfo12C509()
 {
 }
@@ -167,6 +166,7 @@ PicInfo12C671::PicInfo12C671()
 {
 	m_id = "P12C671";
 }
+
 PicInfo12C671::~PicInfo12C671()
 {
 }
@@ -176,6 +176,7 @@ PicInfo12C672::PicInfo12C672()
 {
 	m_id = "P12C672";
 }
+
 PicInfo12C672::~PicInfo12C672()
 {
 }

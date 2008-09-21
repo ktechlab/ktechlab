@@ -108,7 +108,7 @@ class CircuitDocument : public CircuitICNDocument
 		virtual bool isValidItem( Item *item );
 		virtual bool isValidItem( const QString &itemId );
 		
-		KActionMenu * m_pOrientationAction;
+		KActionMenu *m_pOrientationAction;
 	
 	private slots:
 		void assignCircuits();
@@ -149,6 +149,8 @@ class CircuitDocument : public CircuitICNDocument
 		CircuitList m_circuitList;
 		ComponentList m_toSimulateList;
 		ComponentList m_componentList; // List is built up during call to assignCircuits
+
+// hmm, we have one of these in circuit too.... 
 		PinList m_pinList;
 		WireList m_wireList;
 		SwitchList m_switchList;

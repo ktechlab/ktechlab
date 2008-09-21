@@ -49,12 +49,10 @@ VoltageRegulator::VoltageRegulator( ICNDocument* icnDocument, bool newItem, cons
 
 VoltageRegulator::~VoltageRegulator()
 {
-	
 }
 
 void VoltageRegulator::dataChanged()
 {
-
 }
 	
 void VoltageRegulator::drawShape( QPainter &p )

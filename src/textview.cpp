@@ -123,16 +123,14 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
 
 TextView::~TextView()
 {
-	if ( KTechlab::self() )
-	{
+	if ( KTechlab::self() ) {
 		if ( KXMLGUIFactory * f = m_view->factory() )
 			f->removeClient( m_view );
 		
 		KTechlab::self()->addNoRemoveGUIClient( m_view );
 	}
-	
+
 	delete m_pViewIface;
-	m_pViewIface = 0l;
 }
 
 
