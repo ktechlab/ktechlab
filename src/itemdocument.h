@@ -209,10 +209,7 @@ class ItemDocument : public Document
 		 * @see getActionTicket
 		 */
 		void requestStateSave( int actionTicket = -1 );
-		/**
-		 * Returns a unique id, for use in requestStateSave
-		 */
-		int getActionTicket() const { return m_nextActionTicket++; }
+
 		/**
 		 * Clears the undo / redo history
 		 */
@@ -226,7 +223,12 @@ class ItemDocument : public Document
 		 */
 		virtual void update();
 
-	public slots:
+	/**
+	 * Returns a unique id, for use in requestStateSave
+	 */
+	int getActionTicket() const { return m_nextActionTicket++; }
+
+public slots:
 		virtual void undo();
 		virtual void redo();
 		virtual void cut();
@@ -264,6 +266,8 @@ class ItemDocument : public Document
 		 * Sets the y-positions of the selected items to the average of the
 		 * initial y-positions.
 		 */
+
+// TODO: decide whether these should be moved to ICNdocument...
 		void alignHorizontally();
 		/**
 		 * Sets the x-positions of the selected items to the average of the
@@ -283,6 +287,9 @@ class ItemDocument : public Document
 		 * items from the Z ordering if they have parents. Then, calls all items
 		 * found in the ordering to tell them their Z position.
 		 */
+// ##################
+
+
 		void slotUpdateZOrdering();
 		/**
 		 * Call this with ItemDocument::DrawAction to start drawing the given thing
@@ -355,31 +362,44 @@ class ItemDocument : public Document
 		 */
 		void resizeCanvasToItems();
 	
-		Canvas *m_canvas;
-// 		QStringList m_idList;
-		QMap< QString, void* > m_idList;
-		static int m_nextActionTicket;
-		uint m_nextIdNum;
-		bool m_bIsLoading;
-		QSize m_oldCanvasSize;
-		CMManager *m_cmManager;
-		ItemList m_itemDeleteList;
-		ItemMap m_itemList;
-		IDDStack m_undoStack;
-		IDDStack m_redoStack;
-		ItemDocumentData * m_currentState;
-		int m_currentActionTicket;
-		ItemDocumentData * m_savedState; // Pointer to the document data that holds the state when it saved
-		QString m_fileExtensionInfo; // For displaying in the save file dialog
-		CanvasTip * m_canvasTip;
-		IntItemMap m_zOrder;
-		KActionMenu * m_pAlignmentAction;
-		QTimer * m_pEventTimer;
-		QTimer * m_pUpdateItemViewScrollbarsTimer;
-		unsigned m_queuedEvents; // OR'ed together list of ItemDocumentEvent::type
-		
-		friend class ICNView;
-		friend class ItemView;
+		Canvas		*m_canvas;
+
+		CMManager	*m_cmManager;
+		CanvasTip	*m_canvasTip;
+
+		ItemList	 m_itemDeleteList;
+		ItemMap		 m_itemList;
+
+		QString		 m_fileExtensionInfo; // For displaying in the save file dialog
+
+
+
+private:
+
+	static int	  m_nextActionTicket;
+
+	unsigned	  m_queuedEvents; // OR'ed together list of ItemDocumentEvent::type
+	unsigned	  m_nextIdNum;
+	int		  m_currentActionTicket;
+	bool		  m_bIsLoading;
+
+	ItemDocumentData *m_currentState;
+	ItemDocumentData *m_savedState; // Pointer to the document data that holds the state when it saved
+
+	KActionMenu	 *m_pAlignmentAction;
+
+	IntItemMap	  m_zOrder;
+
+	QMap<QString, void*> m_idList; // used to ensure unique IDs to try to make sure save files are valid.  
+
+	QTimer		*m_pEventTimer;
+	QTimer		*m_pUpdateItemViewScrollbarsTimer;
+
+	IDDStack	 m_undoStack;
+	IDDStack	 m_redoStack;
+
+	friend class ICNView;
+	friend class ItemView;
 };
 
 
