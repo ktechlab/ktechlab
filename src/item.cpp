@@ -43,9 +43,7 @@ Item::Item( ItemDocument *itemDocument, bool newItem, const QString &id )
 	{
 		if (newItem)
 			m_id = p_itemDocument->generateUID(id);
-	
-		else
-		{
+		else {
 			m_id = id;
 			p_itemDocument->registerUID(id);
 		}

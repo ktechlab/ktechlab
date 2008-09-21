@@ -44,10 +44,10 @@ ItemView::ItemView( ItemDocument * itemDocument, ViewContainer *viewContainer, u
 {
 	KActionCollection * ac = actionCollection();
 	
-	KStdAction::selectAll(	itemDocument,	SLOT(selectAll()),		ac );
-	KStdAction::zoomIn(		this,			SLOT(zoomIn()),			ac );
-	KStdAction::zoomOut(	this,			SLOT(zoomOut()),		ac );
-	KStdAction::actualSize(	this,			SLOT(actualSize()),		ac )->setEnabled(false);
+	KStdAction::selectAll(	itemDocument,	SLOT(selectAll()),	ac );
+	KStdAction::zoomIn(	this,		SLOT(zoomIn()),		ac );
+	KStdAction::zoomOut(	this,		SLOT(zoomOut()),	ac );
+	KStdAction::actualSize(	this,		SLOT(actualSize()),	ac )->setEnabled(false);
 	
 	
 	KAccel *pAccel = new KAccel(this);
@@ -72,18 +72,18 @@ ItemView::ItemView( ItemDocument * itemDocument, ViewContainer *viewContainer, u
 	KPopupMenu * m = pa->popupMenu();
 	m->insertTitle( i18n("Draw") );
 	
-	m->insertItem( KGlobal::iconLoader()->loadIcon( "tool_text",		KIcon::Small ), i18n("Text"),		DrawPart::da_text );
-	m->insertItem( KGlobal::iconLoader()->loadIcon( "tool_line",		KIcon::Small ), i18n("Line"),		DrawPart::da_line );
-	m->insertItem( KGlobal::iconLoader()->loadIcon( "tool_arrow",		KIcon::Small ), i18n("Arrow"),		DrawPart::da_arrow );
-	m->insertItem( KGlobal::iconLoader()->loadIcon( "tool_ellipse",		KIcon::Small ), i18n("Ellipse"),	DrawPart::da_ellipse );
-	m->insertItem( KGlobal::iconLoader()->loadIcon( "tool_rectangle",	KIcon::Small ), i18n("Rectangle"),	DrawPart::da_rectangle );
-	m->insertItem( KGlobal::iconLoader()->loadIcon( "imagegallery",		KIcon::Small ), i18n("Image"),		DrawPart::da_image );
+	m->insertItem( KGlobal::iconLoader()->loadIcon( "tool_text",	KIcon::Small ), i18n("Text"),		DrawPart::da_text );
+	m->insertItem( KGlobal::iconLoader()->loadIcon( "tool_line",	KIcon::Small ), i18n("Line"),		DrawPart::da_line );
+	m->insertItem( KGlobal::iconLoader()->loadIcon( "tool_arrow",	KIcon::Small ), i18n("Arrow"),		DrawPart::da_arrow );
+	m->insertItem( KGlobal::iconLoader()->loadIcon( "tool_ellipse",	KIcon::Small ), i18n("Ellipse"),	DrawPart::da_ellipse );
+	m->insertItem( KGlobal::iconLoader()->loadIcon("tool_rectangle", KIcon::Small ), i18n("Rectangle"),	DrawPart::da_rectangle );
+	m->insertItem( KGlobal::iconLoader()->loadIcon( "imagegallery",	KIcon::Small ), i18n("Image"),		DrawPart::da_image );
 	connect( m, SIGNAL(activated(int)), itemDocument, SLOT(slotSetDrawAction(int)) );
 	//END Draw actions
 	
 	
 	//BEGIN Item Control actions
-	new KAction( i18n("Raise Selection"), "bring_forward", Qt::Key_PageUp, itemDocument, SLOT(raiseZ()), ac, "edit_raise" );
+	new KAction( i18n("Raise Selection"), "bring_forward", Qt::Key_PageUp,   itemDocument, SLOT(raiseZ()), ac, "edit_raise" );
 	new KAction( i18n("Lower Selection"), "send_backward", Qt::Key_PageDown, itemDocument, SLOT(lowerZ()), ac, "edit_lower" );
 	//END Item Control actions
 	
@@ -109,7 +109,7 @@ ItemView::ItemView( ItemDocument * itemDocument, ViewContainer *viewContainer, u
 	m_layout->insertWidget( 0, m_CVBEditor );
 	
 	setAcceptDrops(true);
-	
+
 	setFocusWidget( m_CVBEditor->viewport() );
 }
 
@@ -190,8 +190,7 @@ void ItemView::zoomIn()
 		newZoom += 25;
 	else if ( currentZoomPercent < 200 )
 		newZoom += 50;
-	else
-		newZoom += 100;
+	else	newZoom += 100;
 	
 	m_zoomLevel = newZoom/100.0;
 	m_CVBEditor->updateWorldMatrix();
@@ -212,8 +211,7 @@ void ItemView::zoomOut()
 		newZoom -= 25;
 	else if ( currentZoomPercent <= 200 )
 		newZoom -= 50;
-	else
-		newZoom -= 100;
+	else	newZoom -= 100;
 	
 	m_zoomLevel = newZoom/100.0;
 	m_CVBEditor->updateWorldMatrix();
@@ -290,38 +288,29 @@ void ItemView::scrollToMouse( const QPoint & pos )
 	// then assume that we want to scroll right up to it
 	int snapMargin = 32;
 	
-	if ( x < snapMargin )
-		x = 0;
+	if ( x < snapMargin ) x = 0;
 	else if ( x > width - snapMargin )
 		x = width;
 	
-	if ( y < snapMargin )
-		y = 0;
+	if ( y < snapMargin ) y = 0;
 	else if ( y > height - snapMargin )
 		y = height;
 	
+	if ( x < left )		m_CVBEditor->scrollBy( x - left, 0 );
+	else if ( x > right )	m_CVBEditor->scrollBy( x - right, 0 );
 	
-	if ( x < left )
-		m_CVBEditor->scrollBy( x - left, 0 );
-	else if ( x > right )
-		m_CVBEditor->scrollBy( x - right, 0 );
-	
-	if ( y < top )
-		m_CVBEditor->scrollBy( 0, y - top  );
-	else if ( y > bottom )
-		m_CVBEditor->scrollBy( 0, y - bottom);
+	if ( y < top )		m_CVBEditor->scrollBy( 0, y - top  );
+	else if ( y > bottom )	m_CVBEditor->scrollBy( 0, y - bottom);
 }
 
 
 void ItemView::contentsMousePressEvent( QMouseEvent *e )
 {
-	if (!e)
-		return;
+	if (!e) return;
 	
 	e->accept();
 	
-	if ( !p_itemDocument )
-		return;
+	if(!p_itemDocument ) return;
 	
 	EventInfo eventInfo( this, e );
 	
@@ -345,8 +334,7 @@ void ItemView::contentsMousePressEvent( QMouseEvent *e )
 
 void ItemView::contentsMouseDoubleClickEvent( QMouseEvent *e )
 {
-	if (!e)
-		return;
+	if (!e) return;
 	
 	e->accept();
 	
@@ -354,8 +342,7 @@ void ItemView::contentsMouseDoubleClickEvent( QMouseEvent *e )
 	QCanvasItem * atTop = p_itemDocument->itemAtTop( e->pos()/zoomLevel() );
 	if ( dynamic_cast<Widget*>(atTop) )
 		contentsMousePressEvent(e);
-	else
-		p_itemDocument->m_cmManager->mouseDoubleClickEvent( EventInfo( this, e ) );
+	else	p_itemDocument->m_cmManager->mouseDoubleClickEvent( EventInfo( this, e ) );
 }
 
 
@@ -378,8 +365,7 @@ void ItemView::contentsMouseMoveEvent( QMouseEvent *e )
 
 void ItemView::contentsMouseReleaseEvent( QMouseEvent *e )
 {
-	if (!e)
-		return;
+	if (!e) return;
 	
 	e->accept();
 	
@@ -389,8 +375,7 @@ void ItemView::contentsMouseReleaseEvent( QMouseEvent *e )
 
 void ItemView::contentsWheelEvent( QWheelEvent *e )
 {
-	if (!e)
-		return;
+	if (!e) return;
 	
 	e->accept();
 	EventInfo eventInfo( this, e );
@@ -400,9 +385,7 @@ void ItemView::contentsWheelEvent( QWheelEvent *e )
 		
 		if ( eventInfo.scrollDelta > 0 )
 			zoomIn( eventInfo.pos );
-		
-		else
-			zoomOut( eventInfo.pos );
+		else	zoomOut( eventInfo.pos );
 		
 		return;
 	}
@@ -416,8 +399,7 @@ void ItemView::dragEnterEvent( QDragEnterEvent *event )
 	startUpdatingStatus();
 	
 	KURL::List urls;
-	if ( KURLDrag::decode( event, urls ) )
-	{
+	if ( KURLDrag::decode( event, urls ) ) {
 		event->accept(true);
 		// Then it is URLs that we can decode later :)
 		return;
@@ -444,9 +426,7 @@ void ItemView::createDragItem( QDragEnterEvent * e )
 	
 	if ( CNItem * cnItem = dynamic_cast<CNItem*>(m_pDragItem) )
 		cnItem->move( snapToCanvas(p.x()), snapToCanvas(p.y()) );
-	
-	else
-		m_pDragItem->move( p.x(), p.y() );
+	else m_pDragItem->move( p.x(), p.y() );
 	
 	m_pDragItem->show();
 }
@@ -454,8 +434,7 @@ void ItemView::createDragItem( QDragEnterEvent * e )
 
 void ItemView::removeDragItem()
 {
-	if ( !m_pDragItem )
-		return;
+	if ( !m_pDragItem ) return;
 	
 	m_pDragItem->removeItem();
 	p_itemDocument->flushDeleteList();
@@ -465,16 +444,13 @@ void ItemView::removeDragItem()
 
 void ItemView::dragMoveEvent( QDragMoveEvent * e )
 {
-	if ( !m_pDragItem )
-		return;
+	if ( !m_pDragItem ) return;
 
 	QPoint p = mousePosToCanvasPos( e->pos() );
 	
 	if ( CNItem * cnItem = dynamic_cast<CNItem*>(m_pDragItem) )
 		cnItem->move( snapToCanvas(p.x()), snapToCanvas(p.y()) );
-	
-	else
-		m_pDragItem->move( p.x(), p.y() );
+	else	m_pDragItem->move( p.x(), p.y() );
 }
 
 
@@ -535,8 +511,7 @@ void ItemView::updateStatus()
 	QPoint pos = mousePosToCanvasPos( m_CVBEditor->mapFromGlobal( QCursor::pos() ) );
 	
 	ItemDocument * itemDocument = static_cast<ItemDocument*>(document());
-	if ( !itemDocument )
-		return;
+	if ( !itemDocument ) return;
 	
 	CMManager * cmManager = itemDocument->m_cmManager;
 	CanvasTip * canvasTip = itemDocument->m_canvasTip;
@@ -545,18 +520,13 @@ void ItemView::updateStatus()
 	QCursor cursor = Qt::ArrowCursor;
 	QString statusbar;
 	
-	if ( cmManager->cmState() & CMManager::cms_repeated_add )
-	{
+	if ( cmManager->cmState() & CMManager::cms_repeated_add ) {
 		cursor = Qt::CrossCursor;
 		statusbar = i18n("Left click to add. Right click to resume normal editing");
-	}
-	else if ( cmManager->cmState() & CMManager::cms_draw )
-	{
+	} else if ( cmManager->cmState() & CMManager::cms_draw ) {
 		cursor = Qt::CrossCursor;
 		statusbar = i18n("Click and hold to start drawing.");
-	}
-	else if ( cmManager->currentManipulator())
-	{
+	} else if ( cmManager->currentManipulator()) {
 		switch ( cmManager->currentManipulator()->type() )
 		{
 			case CanvasManipulator::RepeatedItemAdd:
@@ -580,9 +550,7 @@ void ItemView::updateStatus()
 				break;
 		}
 				
-	}
-	else if ( QCanvasItem *qcanvasItem = itemDocument->itemAtTop(pos) )
-	{
+	} else if ( QCanvasItem *qcanvasItem = itemDocument->itemAtTop(pos) ) {
 		if ( Connector * con = dynamic_cast<Connector*>(qcanvasItem) )
 		{
 			cursor = Qt::CrossCursor;
@@ -591,18 +559,14 @@ void ItemView::updateStatus()
 				canvasTip->displayVI( con, pos );
 				displayTip = true;
 			}
-		}
-		else if ( Node * node = dynamic_cast<Node*>(qcanvasItem) )
-		{
+		} else if ( Node * node = dynamic_cast<Node*>(qcanvasItem) ) {
 			cursor = Qt::CrossCursor;
 			if ( ECNode * ecnode = dynamic_cast<ECNode*>(node) )
 			{
 				canvasTip->displayVI( ecnode, pos );
 				displayTip = true;
 			}
-		}
-		else if ( CNItem * item = dynamic_cast<CNItem*>(qcanvasItem) )
-		{
+		} else if ( CNItem * item = dynamic_cast<CNItem*>(qcanvasItem) ) {
 			statusbar =item->name();
 		}
 	}
@@ -671,7 +635,7 @@ void CVBEditor::updateWorldMatrix()
 void CVBEditor::contentsWheelEvent( QWheelEvent * e )
 {
 	QWheelEvent ce( viewport()->mapFromGlobal( e->globalPos() ),
-					e->globalPos(), e->delta(), e->state());
+			e->globalPos(), e->delta(), e->state());
 	
 	if ( e->orientation() == Horizontal && horizontalScrollBar() )
 		QApplication::sendEvent( horizontalScrollBar(), e);
