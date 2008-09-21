@@ -242,7 +242,7 @@ signals:
 	 * Emitted when a Node is added
 	 */
 	void nodeAdded( Node *node );
-	
+
 protected:
 	/**
 	 * Adds all connector points from the items (used in connector routing).
