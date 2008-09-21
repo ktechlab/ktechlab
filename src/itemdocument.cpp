@@ -250,10 +250,10 @@ void ItemDocument::print()
 	
 	// Round to 16 so that we cut in the middle of squares
 	int w = metrics.width();
-	w = w & 0xFFFFFFF0 + (w << 1) & 0x10;
+	w = (w & 0xFFFFFFF0) + ((w << 1) & 0x10);
 
 	int h = metrics.height();
-	h = h & 0xFFFFFFF0 + (h << 1) & 0x10;
+	h = (h & 0xFFFFFFF0) + ((h << 1) & 0x10);
 
 	p.setClipping( true );
 	p.setClipRect( 0, 0, w, h, QPainter::CoordPainter );
@@ -522,19 +522,13 @@ void ItemDocument::distributeVertically( )
 
 bool ItemDocument::registerUID( const QString &UID )
 {
-	if ( !m_idList.contains( UID ) )
-	{
-		m_idList[ UID ] = (void*)0;
-		return true;
-	}
-	
-	return false;
+	return m_idList.insert(UID).second;
 }
 
 
 void ItemDocument::unregisterUID( const QString & uid )
 {
-	m_idList.remove(uid);
+	m_idList.erase(uid);
 	m_itemList.remove(uid);
 }
 

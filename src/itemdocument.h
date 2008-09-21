@@ -11,6 +11,7 @@
 #ifndef ITEMDOCUMENT_H
 #define ITEMDOCUMENT_H
 
+#include <set>
 #include <document.h>
 #include <canvas.h>
 
@@ -390,7 +391,7 @@ private:
 
 	IntItemMap	  m_zOrder;
 
-	QMap<QString, void*> m_idList; // used to ensure unique IDs to try to make sure save files are valid.  
+	std::set<QString> m_idList; // used to ensure unique IDs to try to make sure save files are valid.
 
 	QTimer		*m_pEventTimer;
 	QTimer		*m_pUpdateItemViewScrollbarsTimer;
