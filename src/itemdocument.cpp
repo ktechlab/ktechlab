@@ -60,8 +60,8 @@ ItemDocument::ItemDocument( const QString &caption, const char *name)
 {
 	m_queuedEvents = 0;
 	m_nextIdNum = 1;
-	m_savedState = 0l;
-	m_currentState = 0l;
+	m_savedState = 0;
+	m_currentState = 0;
 	m_bIsLoading = false;
 	
 	m_canvas = new Canvas( this, "canvas" );
@@ -80,10 +80,10 @@ ItemDocument::ItemDocument( const QString &caption, const char *name)
 	
 	connect( this, SIGNAL(selectionChanged()), this, SLOT(slotInitItemActions()) );
 	
-	connect( ComponentSelector::self(),	SIGNAL(itemClicked(const QString& )),		this, SLOT(slotUnsetRepeatedItemId()) );
-	connect( FlowPartSelector::self(),	SIGNAL(itemClicked(const QString& )),		this, SLOT(slotUnsetRepeatedItemId()) );
+	connect( ComponentSelector::self(),	SIGNAL(itemClicked(const QString& )),	this, SLOT(slotUnsetRepeatedItemId()) );
+	connect( FlowPartSelector::self(),	SIGNAL(itemClicked(const QString& )),	this, SLOT(slotUnsetRepeatedItemId()) );
 #ifdef MECHANICS
-	connect( MechanicsSelector::self(),	SIGNAL(itemClicked(const QString& )),		this, SLOT(slotUnsetRepeatedItemId()) );
+	connect( MechanicsSelector::self(),	SIGNAL(itemClicked(const QString& )),	this, SLOT(slotUnsetRepeatedItemId()) );
 #endif
 
 	m_pAlignmentAction = new KActionMenu( i18n("Alignment"), "rightjust", this );
@@ -91,25 +91,21 @@ ItemDocument::ItemDocument( const QString &caption, const char *name)
 	slotUpdateConfiguration();
 }
 
-
 ItemDocument::~ItemDocument()
 {
 	m_bDeleted = true;
 	
-	ItemMap toDelete = m_itemList;
-	m_itemList.clear();
-	const ItemMap::iterator end = toDelete.end();
-	for ( ItemMap::iterator it = toDelete.begin(); it != end; ++it )
-		delete *it;
-	
-	delete m_cmManager;
-	m_cmManager = 0l;
-	delete m_currentState;
-	m_currentState = 0l;
-	delete m_canvasTip;
-	m_canvasTip = 0l;
-}
+//	ItemMap toDelete = m_itemList;
 
+	const ItemMap::iterator end = m_itemList.end();
+	for ( ItemMap::iterator it = m_itemList.begin(); it != end; ++it )
+		delete *it;
+	m_itemList.clear();
+
+	delete m_cmManager;
+	delete m_currentState;
+	delete m_canvasTip;
+}
 
 void ItemDocument::handleNewView( View * view )
 {
@@ -117,15 +113,13 @@ void ItemDocument::handleNewView( View * view )
 	requestEvent( ItemDocument::ItemDocumentEvent::ResizeCanvasToItems );
 }
 
-
-bool ItemDocument::registerItem( QCanvasItem *qcanvasItem )
+bool ItemDocument::registerItem(QCanvasItem *qcanvasItem)
 {
-	if (!qcanvasItem)
-		return false;
+	if (!qcanvasItem) return false;
 	
 	requestEvent( ItemDocument::ItemDocumentEvent::ResizeCanvasToItems );
 	
-	if ( Item * item = dynamic_cast<Item*>(qcanvasItem) )
+	if(Item *item = dynamic_cast<Item*>(qcanvasItem) )
 	{
 		m_itemList[ item->id() ] = item;
 		connect( item, SIGNAL(selectionChanged()), this, SIGNAL(selectionChanged()) );
@@ -142,19 +136,16 @@ void ItemDocument::slotSetDrawAction( int drawAction )
 	m_cmManager->setDrawAction(drawAction);
 }
 
-
 void ItemDocument::cancelCurrentOperation()
 {
 	m_cmManager->cancelCurrentManipulation();
 }
-
 
 void ItemDocument::slotSetRepeatedItemId( const QString &id )
 {
 	m_cmManager->setCMState( CMManager::cms_repeated_add, true );
 	m_cmManager->setRepeatedAddId(id);
 }
-
 
 void ItemDocument::slotUnsetRepeatedItemId()
 {
@@ -257,10 +248,13 @@ void ItemDocument::print()
 	// we let our view do the actual printing
 	QPaintDeviceMetrics metrics( printer );
 	
-	// Round to 16 (= 2 * 8) so that we cut in the middle of squares
-	int w = 16*int(metrics.width()/16);
-	int h = 16*int(metrics.height()/16);
-	
+	// Round to 16 so that we cut in the middle of squares
+	int w = metrics.width();
+	w = w & 0xFFFFFFF0 + (w << 1) & 0x10;
+
+	int h = metrics.height();
+	h = h & 0xFFFFFFF0 + (h << 1) & 0x10;
+
 	p.setClipping( true );
 	p.setClipRect( 0, 0, w, h, QPainter::CoordPainter );
 	
@@ -297,15 +291,14 @@ void ItemDocument::print()
 
 void ItemDocument::requestStateSave( int actionTicket )
 {
-	if ( m_bIsLoading )
-		return;
+	if ( m_bIsLoading ) return;
 	
 	m_redoStack.clear();
 	
 	if ( (actionTicket >= 0) && (actionTicket == m_currentActionTicket) )
 	{
 		delete m_currentState;
-		m_currentState = 0l;
+		m_currentState = 0;
 	}
 	
 	m_currentActionTicket = actionTicket;
@@ -324,6 +317,7 @@ void ItemDocument::requestStateSave( int actionTicket )
 	emit undoRedoStateChanged();
 	
 	//FIXME To resize undo queue, have to pop and push everything
+	// Should replace with a container such as DeQue that supports "pop_back" or something. 
 	int maxUndo = KTLConfig::maxUndo();
 	if ( maxUndo <= 0 || m_undoStack.count() < (unsigned)maxUndo )
 		return;
@@ -344,7 +338,7 @@ void ItemDocument::clearHistory()
 	m_undoStack.clear();
 	m_redoStack.clear();
 	delete m_currentState;
-	m_currentState = 0l;
+	m_currentState = 0;
 	requestStateSave();
 }
 
@@ -364,25 +358,21 @@ bool ItemDocument::isRedoAvailable() const
 void ItemDocument::undo()
 {
 	ItemDocumentData *idd = m_undoStack.pop();
-	if (!idd)
-		return;
-	
-	if (m_currentState)
-		m_redoStack.push(m_currentState);
-	
+	if (!idd) return;
+
+	if (m_currentState) m_redoStack.push(m_currentState);
+
 	idd->restoreDocument(this);
 	m_currentState = idd;
-	
+
 	setModified( m_savedState != m_currentState );
 	emit undoRedoStateChanged();
 }
 
-
 void ItemDocument::redo()
 {
 	ItemDocumentData *idd = m_redoStack.pop();
-	if (!idd)
-		return;
+	if (!idd) return;
 	
 	if (m_currentState)
 		m_undoStack.push(m_currentState);
@@ -393,7 +383,6 @@ void ItemDocument::redo()
 	setModified( m_savedState != m_currentState );
 	emit undoRedoStateChanged();
 }
-
 
 void ItemDocument::cut()
 {
@@ -416,12 +405,12 @@ void ItemDocument::paste()
 		return;
 	
 	data.generateUniqueIDs(this);
-	data.translateContents( 64, 64 );
+//	data.translateContents( 64, 64 );
 	data.mergeWithDocument( this, true );
 	
 	// Get rid of any garbage that shouldn't be around / merge connectors / etc
 	flushDeleteList();
-	
+
 	requestStateSave();
 }
 
@@ -430,8 +419,7 @@ Item *ItemDocument::itemWithID( const QString &id )
 {
 	if ( m_itemList.contains( id ) )
 		return m_itemList[id];
-	else
-		return 0l;
+	else	return 0;
 }
 
 
@@ -443,8 +431,8 @@ void ItemDocument::unselectAll()
 
 void ItemDocument::select( QCanvasItem * item )
 {
-	if (!item)
-		return;
+	if (!item) return;
+
 	item->setSelected( selectList()->contains( item ) || selectList()->addQCanvasItem( item ) );
 }
 
@@ -476,58 +464,60 @@ void ItemDocument::slotUpdateConfiguration()
 QCanvasItem* ItemDocument::itemAtTop( const QPoint &pos ) const
 {
 	QCanvasItemList list = m_canvas->collisions( QRect( pos.x()-1, pos.y()-1, 3, 3 ) );
-	
 	QCanvasItemList::const_iterator it = list.begin();
 	const QCanvasItemList::const_iterator end = list.end();
-	while ( it != end )
-	{
+
+	while ( it != end ) {
 		QCanvasItem *item = *it;
-		if ( !dynamic_cast<Item*>(item) &&
-					!dynamic_cast<ConnectorLine*>(item) &&
-					!dynamic_cast<Node*>(item) &&
-					!dynamic_cast<Widget*>(item) &&
-					!dynamic_cast<ResizeHandle*>(item) )
+		if(	!dynamic_cast<Item*>(item) &&
+			!dynamic_cast<ConnectorLine*>(item) &&
+			!dynamic_cast<Node*>(item) &&
+			!dynamic_cast<Widget*>(item) &&
+			!dynamic_cast<ResizeHandle*>(item) )
 		{
 			++it;
-		}
-		else
-		{
+		} else {
 			if ( ConnectorLine * l = dynamic_cast<ConnectorLine*>(item) )
 				return l->parent();
 			
 			return item;
 		}
 	}
-	
-	return 0L;
+
+	return 0;
 }
 
 
-
+// these look dangerous., see todo in header file.
 void ItemDocument::alignHorizontally( )
 {
 	selectList()->slotAlignHorizontally();
 	if ( ICNDocument *icnd = dynamic_cast<ICNDocument*>(this) )
 		icnd->requestRerouteInvalidatedConnectors();
 }
+
 void ItemDocument::alignVertically( )
 {
 	selectList()->slotAlignVertically();
 	if ( ICNDocument *icnd = dynamic_cast<ICNDocument*>(this) )
 		icnd->requestRerouteInvalidatedConnectors();
 }
+
 void ItemDocument::distributeHorizontally( )
 {
 	selectList()->slotDistributeHorizontally();
 	if ( ICNDocument *icnd = dynamic_cast<ICNDocument*>(this) )
 		icnd->requestRerouteInvalidatedConnectors();
 }
+
 void ItemDocument::distributeVertically( )
 {
 	selectList()->slotDistributeVertically();
 	if ( ICNDocument *icnd = dynamic_cast<ICNDocument*>(this) )
 		icnd->requestRerouteInvalidatedConnectors();
 }
+// ###########################
+
 
 
 bool ItemDocument::registerUID( const QString &UID )
@@ -560,11 +550,10 @@ QString ItemDocument::generateUID( QString name )
 	return idAttempt;
 }
 
-
+// FIXME: popup menu doesn't seem to work these days. =( 
 void ItemDocument::canvasRightClick( const QPoint &pos, QCanvasItem* item )
 {
-	if (item)
-	{
+	if (item) {
 		if ( dynamic_cast<CNItem*>(item) &&
 			!item->isSelected() )
 		{
@@ -572,16 +561,15 @@ void ItemDocument::canvasRightClick( const QPoint &pos, QCanvasItem* item )
 			select(item);
 		}
 	}
-	
+
 	KTechlab::self()->unplugActionList("alignment_actionlist");
 	KTechlab::self()->unplugActionList("orientation_actionlist");
 	fillContextMenu(pos);
-	
-	QPopupMenu *pop = static_cast<QPopupMenu*>(KTechlab::self()->factory()->container( "item_popup", KTechlab::self() ));
-	
-	if (!pop)
-		return;
-	
+
+	QPopupMenu *pop = static_cast<QPopupMenu*>(KTechlab::self()->factory()->container("item_popup", KTechlab::self() ));
+
+	if (!pop) return;
+
 	pop->popup(pos);
 }
 
@@ -601,9 +589,8 @@ void ItemDocument::fillContextMenu( const QPoint & pos )
 		activeItemView->action("distribute_vertically") };
 	
 	bool enableAlignment = selectList()->itemCount() > 1;
-	
-	if ( !enableAlignment )
-		return;
+
+	if ( !enableAlignment ) return;
 	
 	for ( unsigned i = 0; i < 4; ++i )
 	{
@@ -716,8 +703,7 @@ void ItemDocument::resizeCanvasToItems()
 	
 	m_viewList.remove((View*)0);
 	const ViewList::iterator end = m_viewList.end();
-	for ( ViewList::iterator it = m_viewList.begin(); it != end; ++it )
-	{
+	for ( ViewList::iterator it = m_viewList.begin(); it != end; ++it ) {
 		ItemView * iv = static_cast<ItemView*>((View*)*it);
 		CVBEditor * cvbEditor = iv->cvbEditor();
 		
@@ -739,13 +725,10 @@ void ItemDocument::resizeCanvasToItems()
 	m_pUpdateItemViewScrollbarsTimer->start( 10, true );
 	
 	bool changedSize = canvas()->rect() != bound;
-	if ( changedSize )
-	{
+	if ( changedSize ) {
 		canvas()->resize( bound );
 		requestEvent( ItemDocumentEvent::ResizeCanvasToItems );
-	}
-	else if ( ICNDocument * icnd = dynamic_cast<ICNDocument*>(this) )
-	{
+	} else if ( ICNDocument * icnd = dynamic_cast<ICNDocument*>(this) ) {
 		icnd->createCellMap();
 	}
 }
@@ -773,35 +756,30 @@ QRect ItemDocument::canvasBoundingRect() const
 	QRect bound;
 	
 	// Don't include items used for dragging
-	Item * dragItem = 0l;
+	Item *dragItem = 0;
 	const ViewList::const_iterator viewsEnd = m_viewList.end();
 	for ( ViewList::const_iterator it = m_viewList.begin(); it != viewsEnd; ++it )
 	{
 		dragItem = (static_cast<ItemView*>((View*)*it))->dragItem();
-		if ( dragItem )
-			break;
+		if ( dragItem ) break;
 	}
 	
 	const QCanvasItemList allItems = canvas()->allItems();
 	const QCanvasItemList::const_iterator end = allItems.end();
+
 	for ( QCanvasItemList::const_iterator it = allItems.begin(); it != end; ++it )
 	{
-		if ( !(*it)->isVisible() )
-			continue;
+		if( !(*it)->isVisible() ) continue;
 		
-		if ( dragItem )
-		{
-			if ( *it == dragItem )
-				continue;
+		if(dragItem ) {
+			if(*it == dragItem ) continue;
 			
-			if ( Node * n = dynamic_cast<Node*>(*it) )
-			{
+			if(Node *n = dynamic_cast<Node*>(*it) ) {
 				if ( n->parentItem() == dragItem )
 					continue;
 			}
 		
-			if ( GuiPart * gp = dynamic_cast<GuiPart*>(*it) )
-			{
+			if(GuiPart *gp = dynamic_cast<GuiPart*>(*it) ) {
 				if ( gp->parent() == dragItem )
 					continue;
 			}
@@ -835,16 +813,8 @@ void ItemDocument::exportToImage()
 	// gotme here, KFileDialog makes itself parent so tries to destroy cropCheck when it is deleted.
 	// therefore we use a pointer.
 	QString cropMessage;
-	// sorry for commenting out this part of the program, but the type() member is just a hack
-	/*
-	if ( type() == Document::dt_flowcode )
-		cropMessage = i18n("Crop image to program parts");
-	
-	else if ( type() == Document::dt_circuit )
-		cropMessage = i18n("Crop image to circuit components");
-	
-	else  */
-		cropMessage = i18n("Crop image");
+
+	cropMessage = i18n("Crop image");
 	
 	QCheckBox *cropCheck = new QCheckBox( cropMessage, KTechlab::self(), "cropCheck" );
 	cropCheck->setChecked(true); // yes by default?
@@ -861,8 +831,7 @@ void ItemDocument::exportToImage()
 		return;
 	KURL url = exportDialog.selectedURL();
 
-	if ( url.isEmpty() )
-		return;
+	if ( url.isEmpty() ) return;
 	
 	if ( QFile::exists( url.path() ) )
 	{
@@ -884,35 +853,25 @@ void ItemDocument::exportToImage()
 	filter = filter.lower(); // gently soften the appearance of the letters.
 	
 	// did have a switch here but seems you can't use that on strings
-	if ( filter == "*.png" )
-		type = "PNG";
-	
-	else if ( filter == "*.bmp" )
-		type = "BMP";
-	
-	else if ( filter == "*.svg" )
-	{
+	if ( filter == "*.png") 	type = "PNG";
+	else if ( filter == "*.bmp")	type = "BMP";
+	else if ( filter == "*.svg" ) {
 		KMessageBox::information( NULL, i18n("SVG export is sub-functional"), i18n("Export As Image") );
 		type = "SVG";
 	}
 	// I don't like forcing people to use the right extension (personally)
 	// but it is the easiest way to decide image type.
-	else
-	{
+	else {
 		KMessageBox::sorry( NULL, i18n("Unknown extension, please select one from the filter list."), i18n("Export As Image") );
 		return;
 	}
 
-	if ( cropCheck->isChecked() )
-	{
+	if ( cropCheck->isChecked() ) {
 		cropArea = canvasBoundingRect();
-		if ( cropArea.isNull() )
-		{  
+		if ( cropArea.isNull() ) {
 			KMessageBox::sorry( 0l, i18n("There is nothing to crop"), i18n("Export As Image") );
 			return;
-		}
-		else
-		{
+		} else {
 			cropArea &= canvas()->rect();
 		}
 	}
@@ -921,16 +880,12 @@ void ItemDocument::exportToImage()
 
 	if ( type == "PNG" || type == "BMP" )
 		outputImage = new QPixmap( saveArea.size() );
-	
-	else if ( type == "SVG" )
-	{
+	else if ( type == "SVG" ) {
 		setSVGExport(true);
 		outputImage = new QPicture();
 		// svg can't be cropped using the qimage method.
 		saveArea = cropArea;
-	}
-	else
-	{
+	} else {
 		kdWarning() << "Unknown type!" << endl;
 		return;
 	}
@@ -951,31 +906,25 @@ void ItemDocument::exportToImage()
 	{
 		if( type == "SVG" )
 			saveResult = dynamic_cast<QPicture*>(outputImage)->save( url.path(), type);
-		
-		else
-		{
+		else {
 			QImage img = dynamic_cast<QPixmap*>(outputImage)->convertToImage();
 			img = img.copy(cropArea);
 			saveResult = img.save(url.path(),type);
 		}
-	}
-	else
-	{
+	} else {
 		if ( type=="SVG" )
 			saveResult = dynamic_cast<QPicture*>(outputImage)->save( url.path(), type );
-		else
-			saveResult = dynamic_cast<QPixmap*>(outputImage)->save( url.path(), type );
+		else	saveResult = dynamic_cast<QPixmap*>(outputImage)->save( url.path(), type );
 	}
 	
 	//if(saveResult == true)	KMessageBox::information( this, i18n("Sucessfully exported to \"%1\"").arg( url.filename() ), i18n("Image Export") );
 	//else KMessageBox::information( this, i18n("Export failed"), i18n("Image Export") );
 	
-	if ( type == "SVG" )
-		setSVGExport(false);
-	
+	if ( type == "SVG" ) setSVGExport(false);
+
 	if (saveResult == false)
 		KMessageBox::information( KTechlab::self(), i18n("Export failed"), i18n("Image Export") );
-	
+
 	delete outputImage;
 }
 
@@ -998,17 +947,14 @@ void ItemDocument::raiseZ()
 }
 void ItemDocument::raiseZ( const ItemList & itemList )
 {
-	if ( m_zOrder.isEmpty() )
-		slotUpdateZOrdering();
+	if ( m_zOrder.isEmpty() ) slotUpdateZOrdering();
 	
-	if ( m_zOrder.isEmpty() )
-		return;
+	if ( m_zOrder.isEmpty() ) return;
 	
 	IntItemMap::iterator begin = m_zOrder.begin();
 	IntItemMap::iterator previous = m_zOrder.end();
 	IntItemMap::iterator it = --m_zOrder.end();
-	do
-	{
+	do {
 		Item * previousData = (previous == m_zOrder.end()) ? 0l : previous.data();
 		Item * currentData = it.data();
 		
@@ -1020,8 +966,7 @@ void ItemDocument::raiseZ( const ItemList & itemList )
 		
 		previous = it;
 		--it;
-	}
-	while ( previous != begin );
+	} while ( previous != begin );
 	
 	slotUpdateZOrdering();
 }
@@ -1031,13 +976,12 @@ void ItemDocument::lowerZ()
 {
 	lowerZ( selectList()->items(true) );
 }
-void ItemDocument::lowerZ( const ItemList & itemList )
+
+void ItemDocument::lowerZ( const ItemList &itemList )
 {
-	if ( m_zOrder.isEmpty() )
-		slotUpdateZOrdering();
+	if ( m_zOrder.isEmpty() ) slotUpdateZOrdering();
 	
-	if ( m_zOrder.isEmpty() )
-		return;
+	if ( m_zOrder.isEmpty() ) return;
 	
 	IntItemMap::iterator previous = m_zOrder.begin();
 	IntItemMap::iterator end = m_zOrder.end();
@@ -1076,8 +1020,7 @@ void ItemDocument::slotUpdateZOrdering()
 	for ( IntItemMap::iterator it = m_zOrder.begin(); it != zEnd; ++it )
 	{	
 		Item * item = it.data();
-		if (!item)
-			continue;
+		if (!item) continue;
 		
 		toAdd.remove( item->id() );
 		
@@ -1121,7 +1064,7 @@ ItemList ItemDocument::itemList( ) const
 	ItemMap::const_iterator end = m_itemList.end();
 	for ( ItemMap::const_iterator it = m_itemList.begin(); it != end; ++it )
 		l << it.data();
-	
+
 	return l;
 }
 //END class ItemDocument
@@ -1133,7 +1076,7 @@ CanvasTip::CanvasTip( ItemDocument *itemDocument, QCanvas *qcanvas )
 	: QCanvasRectangle( qcanvas )
 {
 	p_itemDocument = itemDocument;
-	
+
 	setZ( ICNDocument::Z::Tip );
 }
 
@@ -1202,8 +1145,7 @@ void CanvasTip::display( const QPoint &pos )
 {
 	unsigned num = m_v.size();
 	
-	for ( unsigned i = 0; i < num; i++ )
-	{
+	for ( unsigned i = 0; i < num; i++ ) {
 		if ( !std::isfinite(m_v[i]) || std::abs(m_v[i]) < 1e-9 )
 			m_v[i] = 0.;
 		
@@ -1213,14 +1155,11 @@ void CanvasTip::display( const QPoint &pos )
 	
 	move( pos.x()+20, pos.y()+4 );
 	
-	if ( num == 0 )
-		return;
+	if ( num == 0 ) return;
 	
 	if ( num == 1 )
 		setText( displayText(0) );
-	
-	else
-	{
+	else {
 		QString text;
 		for ( unsigned i = 0; i < num; i++ )
 			text += QString("%1: %2\n").arg( QString::number(i) ).arg( displayText(i) );
@@ -1270,8 +1209,6 @@ void CanvasTip::setText( const QString & text )
 //END class CanvasTip
 
 
-
-
 //BEGIN class Canvas
 Canvas::Canvas( ItemDocument *itemDocument, const char * name )
 	: QCanvas( itemDocument, name )
@@ -1298,9 +1235,7 @@ void Canvas::setMessage( const QString & message )
 	
 	if ( message.isEmpty() )
 		m_pMessageTimeout->stop();
-	
-	else
-		m_pMessageTimeout->start( 2000, true );
+	else	m_pMessageTimeout->start( 2000, true );
 	
 	setAllChanged();
 }
@@ -1349,9 +1284,7 @@ void Canvas::drawForeground ( QPainter &p, const QRect & clip )
 	
 	if ( !m_pMessageTimeout->isActive() )
 		return;
-	
-	
-	
+
 	// Following code stolen and adapted from amarok/src/playlist.cpp :)
 	
 	// Find out width of smallest view
@@ -1361,20 +1294,16 @@ void Canvas::drawForeground ( QPainter &p, const QRect & clip )
 	View * firstView = 0l;
 	for ( ViewList::const_iterator it = viewList.begin(); it != end; ++it )
 	{
-		if ( !*it )
-			continue;
+		if ( !*it ) continue;
 		
 		if ( !firstView )
 		{
 			firstView = *it;
 			minSize = (*it)->size();
-		}
-		else
-			minSize = minSize.boundedTo( (*it)->size() );
+		} else	minSize = minSize.boundedTo( (*it)->size() );
 	}
 	
-	if ( !firstView )
-		return;
+	if ( !firstView ) return;
 	
 	QSimpleRichText * t = new QSimpleRichText( m_message, QApplication::font() );
 	
@@ -1405,5 +1334,4 @@ void Canvas::update()
 //END class Canvas
 
 #include "itemdocument.moc"
-
 
