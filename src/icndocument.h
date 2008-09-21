@@ -263,7 +263,6 @@ protected:
 	 * @returns true if the NodeGroup was found and deleted
 	 */
 	bool deleteNodeGroup( Node *node );
-    
 
 	friend class CanvasEditor;
 	
@@ -276,15 +275,18 @@ protected:
 	 *        Selects all nodes on the document. Should be overridden.
 	 */
 	virtual void selectAllNodes() = 0;
-	
-	Cells *m_cells;
-	GuardedNodeGroupList m_nodeGroupList;
+
 	ConnectorList m_connectorList;
 	CNItemGroup *m_selectList; // Selected objects
-	
-	QCanvasItemList m_itemDeleteList; // List of canvas items to be deleted
-};
 
+	// OVERLOADED	
+	QCanvasItemList m_itemDeleteList; // List of canvas items to be deleted
+
+private:
+	Cells *m_cells;
+	GuardedNodeGroupList m_nodeGroupList;
+
+};
 
 /**
 @author David Saxton
