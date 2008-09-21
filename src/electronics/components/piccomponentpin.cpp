@@ -71,6 +71,11 @@ PICComponentPin::PICComponentPin( PICComponent * picComponent, PicPin picPin )
 
 PICComponentPin::~PICComponentPin()
 {
+	if (m_pLogicIn)
+		m_pLogicIn->setCallback( 0, (CallbackPtr)0 );	
+	if (m_pLogicOut)
+		m_pLogicOut->setCallback( 0, (CallbackPtr)0 );	
+	
 	delete m_pStimulusNode;
 }
 
