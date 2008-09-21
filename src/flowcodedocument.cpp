@@ -53,14 +53,10 @@ FlowCodeDocument::FlowCodeDocument( const QString &caption, const char *name )
 FlowCodeDocument::~FlowCodeDocument()
 {
 	m_bDeleted = true;
-	if (m_picItem)
-		m_picItem->removeItem();
-	
+	if (m_picItem) m_picItem->removeItem();
+
 	delete m_microSettings;
-	m_microSettings = 0l;
-	
 	delete m_pDocumentIface;
-	m_pDocumentIface = 0l;
 }
 
 

@@ -71,7 +71,6 @@ CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *view
 CircuitView::~CircuitView()
 {
 	delete m_pViewIface;
-	m_pViewIface = 0l;
 }
 
 

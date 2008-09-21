@@ -83,7 +83,6 @@ VariableResistor::VariableResistor( ICNDocument* icnDocument, bool newItem, cons
 
 VariableResistor::~VariableResistor()
 {
-	
 }
 
 void VariableResistor::dataChanged()

@@ -57,21 +57,16 @@ ElementSet::ElementSet( Circuit * circuit, const int n, const int m )
 ElementSet::~ElementSet()
 {
 	const ElementList::iterator end = m_elementList.end();
-	for ( ElementList::iterator it = m_elementList.begin(); it != end; ++it )
-	{
+	for ( ElementList::iterator it = m_elementList.begin(); it != end; ++it ) {
 		// Note: By calling setElementSet(0l), we might have deleted it (the Element will commit
 		// suicide when both the the ElementSet and Component to which it belongs have deleted
 		// themselves). So be very careful it you plan to do anything with the (*it) pointer
 		if (*it) (*it)->elementSetDeleted();
 	}
-	for ( uint i=0; i<m_cn; i++ )
-	{
-		delete m_cnodes[i];
-	}
-	for ( uint i=0; i<m_cb; i++ )
-	{
-		delete m_cbranches[i];
-	}
+
+	for ( uint i=0; i<m_cn; i++ ) delete m_cnodes[i];
+	for ( uint i=0; i<m_cb; i++ ) delete m_cbranches[i];
+
 	delete[] m_cbranches;
 	delete[] m_cnodes;
 	delete[] p_logicIn;

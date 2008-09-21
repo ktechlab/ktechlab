@@ -65,9 +65,7 @@ FlowCodeView::FlowCodeView( FlowCodeDocument * flowCodeDocument, ViewContainer *
 FlowCodeView::~FlowCodeView()
 {
 	delete m_pViewIface;
-	m_pViewIface = 0l;
 }
-
 
 
 void FlowCodeView::dragEnterEvent( QDragEnterEvent * e )

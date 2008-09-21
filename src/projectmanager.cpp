@@ -198,7 +198,6 @@ ProjectItem::~ProjectItem()
 	m_children.clear();
 	
 	delete m_pILVItem;
-	m_pILVItem = 0l;
 }
 
 

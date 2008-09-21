@@ -145,7 +145,6 @@ LEDBarGraphDisplay::LEDBarGraphDisplay( ICNDocument* icnDocument, bool newItem, 
 
 LEDBarGraphDisplay::~LEDBarGraphDisplay()
 {
-	
 }
 
 void LEDBarGraphDisplay::dataChanged()

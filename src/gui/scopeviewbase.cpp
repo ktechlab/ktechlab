@@ -32,7 +32,6 @@ m_halfOutputHeight(0.0)
 ScopeViewBase::~ScopeViewBase()
 {
 	delete m_pixmap;
-	m_pixmap = 0l;
 }
 
 void ScopeViewBase::paintEvent( QPaintEvent * event )

@@ -37,10 +37,10 @@ ECNode::ECNode( ICNDocument *icnDocument, Node::node_type _type, int dir, const 
 
 ECNode::~ECNode()
 {
-	if (m_pinPoint)
+	if (m_pinPoint) {
 		m_pinPoint->setCanvas(0l);
-	delete m_pinPoint;
-	m_pinPoint = 0l;
+		delete m_pinPoint;
+	}
 
 	for ( unsigned i = 0; i < m_pins.size(); i++ )
 		delete m_pins[i];
@@ -70,8 +70,7 @@ void ECNode::setNumPins( unsigned num )
 
 void ECNode::setNodeChanged()
 {
-	if ( !canvas() || numPins() != 1 )
-		return;
+	if ( !canvas() || numPins() != 1 ) return;
 
 	Pin * pin = m_pins[0];
 

@@ -52,11 +52,12 @@ CircuitICNDocument::~CircuitICNDocument()
 
 
 void CircuitICNDocument::deleteAllNodes() {
-	ECNodeMap nodesToDelete = m_ecNodeList;
+
+	const ECNodeMap::iterator nodeListEnd = m_ecNodeList.end();
+	for ( ECNodeMap::iterator it = m_ecNodeList.begin(); it != nodeListEnd; ++it )
+		delete *it;
+
 	m_ecNodeList.clear();
-	const ECNodeMap::iterator nodeListEnd = nodesToDelete.end();
-	for ( ECNodeMap::iterator it = nodesToDelete.begin(); it != nodeListEnd; ++it )
-		delete *it;	
 }
 
 
@@ -77,24 +78,20 @@ bool CircuitICNDocument::canConnect( QCanvasItem *qcanvasItem1, QCanvasItem *qca
 
 Connector * CircuitICNDocument::createConnector( Node *node, Connector *con, const QPoint &pos2, QPointList *pointList )
 {
-	if ( !canConnect( node, con ) )
-		return 0l;
+	if(!canConnect( node, con ) ) return 0;
 	
 	// FIXME dynamic_cast used, fix it in Connector class
 	
-	ECNode *conStartNode = dynamic_cast<ECNode *> ( con->startNode() );
-	ECNode *conEndNode = dynamic_cast<ECNode *> ( con->endNode() );
-	
-	ECNode *ecNode = dynamic_cast<ECNode *> ( node );
+	ECNode *conStartNode = dynamic_cast<ECNode *> (con->startNode() );
+	ECNode *conEndNode   = dynamic_cast<ECNode *> (con->endNode() );
+	ECNode *ecNode       = dynamic_cast<ECNode *> (node );
 	
 	const bool usedManual = con->usesManualPoints();
 	
-	ECNode *newNode = new JunctionNode( this, 0, pos2 );
+	ECNode *newNode = new JunctionNode(this, 0, pos2);
 
-	
 	QPointList autoPoints;
-	if (!pointList)
-	{
+	if (!pointList) {
 		addAllItemConnectorPoints();
 		ConRouter cr(this);
 		cr.mapRoute( int(node->x()), int(node->y()), pos2.x(), pos2.y() );
@@ -104,43 +101,42 @@ Connector * CircuitICNDocument::createConnector( Node *node, Connector *con, con
 	
 	QValueList<QPointList> oldConPoints = con->splitConnectorPoints(pos2);
 	con->hide();
-	
+
 	// The actual new connector
 	Connector *new1 = newNode->createConnector(node);
 	ecNode->addConnector(new1);
 	new1->setRoutePoints(*pointList,usedManual);
-	
+
 	// The two connectors formed from the original one when split
 	Connector *new2 = newNode->createConnector(conStartNode);
 	conStartNode->addConnector(new2);
 	new2->setRoutePoints( *oldConPoints.at(0), usedManual );
-	
+
 	Connector *new3 = conEndNode->createConnector(newNode);
 	newNode->addConnector(new3);
 	new3->setRoutePoints( *oldConPoints.at(1), usedManual );
-	
+
 	// Avoid flicker: tell them to update their draw lists now
 	con->updateConnectorPoints(false);
 	new1->updateDrawList();
 	new2->updateDrawList();
 	new3->updateDrawList();
-	
+
 	// Now it's safe to remove the connector...
 	con->removeConnector();
 	flushDeleteList();
-	
+
 	deleteNodeGroup(conStartNode);
 	deleteNodeGroup(conEndNode);
 	createNodeGroup(newNode)->init();
-	
+
 	return new1;
 }
 
 
-Connector *CircuitICNDocument::createConnector( Connector *con1, Connector *con2, const QPoint &pos1, const QPoint &pos2, QPointList *pointList )
+Connector *CircuitICNDocument::createConnector(Connector *con1, Connector *con2, const QPoint &pos1, const QPoint &pos2, QPointList *pointList )
 {
-	if ( !canConnect( con1, con2 ) )
-		return 0;
+	if ( !canConnect( con1, con2 ) ) return 0;
 	
 	const bool con1UsedManual = con1->usesManualPoints();
 	const bool con2UsedManual = con2->usesManualPoints();
@@ -149,24 +145,24 @@ Connector *CircuitICNDocument::createConnector( Connector *con1, Connector *con2
 	QValueList<QPointList> oldCon2Points = con2->splitConnectorPoints(pos2);
 	
 	ECNode *node1a = dynamic_cast<ECNode*> ( con1->startNode() );
-	ECNode *node1b = dynamic_cast<ECNode*> ( con1->endNode() );
+	ECNode *node1b = dynamic_cast<ECNode*> ( con1->endNode(  ) );
 	
 	ECNode *node2a = dynamic_cast<ECNode*> ( con2->startNode() );
-	ECNode *node2b = dynamic_cast<ECNode*> ( con2->endNode() );
+	ECNode *node2b = dynamic_cast<ECNode*> ( con2->endNode(  ) );
 	
-	if ( !node1a || !node1b || !node2a || !node2b )
-		return 0l;
+	if ( !node1a || !node1b || !node2a || !node2b ) return 0;
 	
 	con1->hide();	
 	con2->hide();
 
 	// from this point forward, we are dealing with a circuit document -> all nodes are electronic
 	
-	ECNode * newNode1 = new JunctionNode( this, 0, pos1 );
-	ECNode * newNode2 = new JunctionNode( this, 0, pos2 );
+	ECNode *newNode1 = new JunctionNode( this, 0, pos1 );
+	ECNode *newNode2 = new JunctionNode( this, 0, pos2 );
 	
 	Connector *con1a = newNode1->createConnector(node1a);
 	node1a->addConnector(con1a);
+
 	Connector *con1b = newNode1->createConnector(node1b);
 	node1b->addConnector(con1b);
 	
@@ -175,19 +171,19 @@ Connector *CircuitICNDocument::createConnector( Connector *con1, Connector *con2
 	
 	Connector *con2a = node2a->createConnector(newNode2);
 	newNode2->addConnector(con2a);
+
 	Connector *con2b = node2b->createConnector(newNode2);
 	newNode2->addConnector(con2b);
 	
-	if ( !con1a || !con1b || !con2a || !con2b )
-	{
+	if(!con1a || !con1b || !con2a || !con2b ) {
 		// This should never happen, as the canConnect function should strictly
 		// determine whether the connectors could be created before hand.
 		kdWarning() << k_funcinfo << "Not all the connectors were created, this should never happen" << endl;
 		
-		if (con1a) con1a->removeConnector();
-		if (con1b) con1b->removeConnector();
-		if (con2a) con2a->removeConnector();
-		if (con2b) con2b->removeConnector();
+		if(con1a) con1a->removeConnector();
+		if(con1b) con1b->removeConnector();
+		if(con2a) con2a->removeConnector();
+		if(con2b) con2b->removeConnector();
 		
 		newNode1->removeNode();
 		newNode2->removeNode();
@@ -196,24 +192,24 @@ Connector *CircuitICNDocument::createConnector( Connector *con1, Connector *con2
 		return 0;
 	}
 	
-	con1a->setRoutePoints( *oldCon1Points.at(0), con1UsedManual );
-	con1b->setRoutePoints( *oldCon1Points.at(1), con1UsedManual );
+	con1a->setRoutePoints(*oldCon1Points.at(0), con1UsedManual );
+	con1b->setRoutePoints(*oldCon1Points.at(1), con1UsedManual );
 	
-	con2a->setRoutePoints( *oldCon2Points.at(0), con2UsedManual );
-	con2b->setRoutePoints( *oldCon2Points.at(1), con2UsedManual );
+	con2a->setRoutePoints(*oldCon2Points.at(0), con2UsedManual );
+	con2b->setRoutePoints(*oldCon2Points.at(1), con2UsedManual );
 	
 	QPointList autoPoints;
-	if (!pointList)
-	{
+
+	if (!pointList) {
 		addAllItemConnectorPoints();
 		ConRouter cr(this);
 		cr.mapRoute( pos1.x(), pos1.y(), pos2.x(), pos2.y() );
 		autoPoints = cr.pointList(false);
 		pointList = &autoPoints;
 	}
+
 	newCon->setRoutePoints(*pointList,true);
-	
-	
+
 	// Avoid flicker: tell them to update their draw lists now
 	con1->updateConnectorPoints(false);
 	con2->updateConnectorPoints(false);
@@ -222,7 +218,6 @@ Connector *CircuitICNDocument::createConnector( Connector *con1, Connector *con2
 	con1b->updateDrawList();
 	con2a->updateDrawList();
 	con2b->updateDrawList();
-	
 	
 	// Now it's safe to remove the connectors
 	con1->removeConnector();
@@ -234,7 +229,9 @@ Connector *CircuitICNDocument::createConnector( Connector *con1, Connector *con2
 	deleteNodeGroup(node1b);
 	deleteNodeGroup(node2a);
 	deleteNodeGroup(node2b);
+
 	NodeGroup *ng = createNodeGroup(newNode1);
+
 	ng->addNode( newNode2, true );
 	ng->init();
 	
@@ -247,31 +244,28 @@ Connector *CircuitICNDocument::createConnector( const QString &startNodeId, cons
 	ECNode *startNode = getEcNodeWithID(startNodeId);
 	ECNode *endNode = getEcNodeWithID(endNodeId);
 	
-	if ( !startNode || !endNode )
-	{
+	if ( !startNode || !endNode ) {
 		kdDebug() << "Either/both the connector start node and end node could not be found" << endl;
 		return 0L;
 	}
 	
-	if ( !canConnect( startNode, endNode ) )
-		return 0l;	
+	if ( !canConnect( startNode, endNode ) ) return 0l;
 	
 	Connector *connector = endNode->createConnector(startNode);
-	if (!connector)
-	{
+	if (!connector) {
 		kdError() << k_funcinfo << "End node did not create the connector" << endl;
 		return 0l;
 	}
+
 	startNode->addConnector(connector);
 	flushDeleteList(); // Delete any connectors that might have been removed by the nodes
 	
 	// Set the route to the manual created one if the user created such a route
-	if (pointList)
-		connector->setRoutePoints(*pointList,true);
+	if(pointList) connector->setRoutePoints(*pointList,true);
 	
 	// FIXME WTF is going on here? Redundant/meaningless code?
-	ConnectorList connectorList;
-	connectorList.append(connector);
+//	ConnectorList connectorList;
+//	connectorList.append(connector);
 	
 	setModified(true);
 	
@@ -322,13 +316,14 @@ void CircuitICNDocument::flushDeleteList()
 	QCanvasItemList::iterator end = m_itemDeleteList.end();
 	for ( QCanvasItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it )
 	{
-		if ( *it && m_itemDeleteList.contains ( *it ) > 1 )
-		{
+		if ( *it && m_itemDeleteList.contains ( *it ) > 1 ) {
 			*it = 0;
 		}
 	}
-	m_itemDeleteList.remove (0);
 
+	m_itemDeleteList.remove(0);
+
+/* again we're spending time to figure out what special method to call instead of a generic call..*/
 	end = m_itemDeleteList.end();
 	for ( QCanvasItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it )
 	{
@@ -343,7 +338,7 @@ void CircuitICNDocument::flushDeleteList()
 			m_connectorList.remove ( con );
 		else	kdError() << k_funcinfo << "Unknown qcanvasItem! "<<qcanvasItem << endl;
 
-		qcanvasItem->setCanvas ( 0l );
+		qcanvasItem->setCanvas(0);
 
 		delete qcanvasItem;
 		*it = 0;
@@ -372,7 +367,7 @@ void CircuitICNDocument::flushDeleteList()
 bool CircuitICNDocument::registerItem( QCanvasItem *qcanvasItem )
 {
 	if(!qcanvasItem) return false;
-	
+
 	if ( !ItemDocument::registerItem(qcanvasItem) ) {
 		if ( ECNode * node = dynamic_cast<ECNode*>(qcanvasItem) ) {
 			m_ecNodeList[ node->id() ] = node;
@@ -385,9 +380,9 @@ bool CircuitICNDocument::registerItem( QCanvasItem *qcanvasItem )
 			return false;
 		}
 	}
-	
+
 	requestRerouteInvalidatedConnectors();
-	
+
 	return true;
 }
 
@@ -398,8 +393,8 @@ void CircuitICNDocument::unregisterUID( const QString & uid )
 	ICNDocument::unregisterUID( uid );
 }
 
-
-NodeList CircuitICNDocument::nodeList( ) const
+/* this method smells a little funny */ 
+NodeList CircuitICNDocument::nodeList() const
 {
 	NodeList l;
 	
@@ -423,23 +418,23 @@ bool CircuitICNDocument::joinConnectors( ECNode *node )
 {
 	// We don't want to destroy the node if it has a parent
 	if ( node->parentItem() ) return false;
-	
+
 	node->removeNullConnectors();
-	
+
 	// an electronic node can be removed if it has exactly 2 connectors connected to it
-	
+
 	int conCount = node->getAllConnectors().count();
 	if ( conCount != 2 ) return false;
-	
+
 	Connector *con1, *con2;
 	ECNode *startNode, *endNode;
 	QPointList conPoints;
-	
-	con1 = * node->connectorList().at(0);
-	con2 = * node->connectorList().at(1);
+
+	con1 = *node->connectorList().at(0);
+	con2 = *node->connectorList().at(1);
 
 	if ( con1 == con2 ) return false;
-	
+
 	// we don't know on which end of the connectors is our node, so we must check both ends
 	// HACK // TODO // dynamic_cast used, because Connector doesn't know about ECNode, only Node
 	if( con1->startNode() == node )
@@ -449,24 +444,23 @@ bool CircuitICNDocument::joinConnectors( ECNode *node )
 	if( con2->startNode() == node )
 		endNode = dynamic_cast<ECNode*> ( con2->endNode() );
 	else	endNode = dynamic_cast<ECNode*> ( con2->startNode() );
-	
+
 	conPoints = con1->connectorPoints(false) + con2->connectorPoints(false);
 	
-	if ( !startNode || !endNode )
-		return false;
-	
+	if( !startNode || !endNode ) return false;
+
 	Connector *newCon = endNode->createConnector(startNode);
 
-	if (!newCon) return false;
-	
+	if(!newCon) return false;
+
 	startNode->addConnector(newCon);
 	newCon->setRoutePoints( conPoints, con1->usesManualPoints() || con2->usesManualPoints() );
-	
+
 	// Avoid flicker: update draw lists now
 	con1->updateConnectorPoints(false);
 	con2->updateConnectorPoints(false);
 	newCon->updateDrawList();
-	
+
 	node->removeNode();
 	con1->removeConnector();
 	con2->removeConnector();
