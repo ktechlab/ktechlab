@@ -347,7 +347,7 @@ PicInfo18F1220::PicInfo18F1220()
 
 PicInfo18F1220::~PicInfo18F1220()
 {
-	delete m_package;
+
 }
 
 PicInfo18F1320::PicInfo18F1320()
