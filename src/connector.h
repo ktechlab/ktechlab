@@ -144,9 +144,14 @@ public:
 	 */
 	void translateRoute( int dx, int dy );
 	virtual void setVisible( bool yes );
+
+	/**
+	Methods relating to wire lists
+	*/
 	WireVector wires() const { return m_wires; }
 	unsigned numWires() const { return m_wires.size(); }
-	Wire * wire( unsigned num = 0 ) const { return (num < m_wires.size()) ? m_wires[num] : 0l; }
+	Wire *wire( unsigned num = 0 ) const { return (num < m_wires.size()) ? m_wires[num] : 0l; }
+
 	void updateConnectorLines( bool forceRedraw = false );
 	/**
 	 * Modular offset of moving dots in connector, indicating current (in
@@ -172,23 +177,34 @@ public slots:
 	 */
 	void syncWiresWithNodes();
 	
-protected:
-	bool m_bIsSyncingWires;
+//protected:
+//	bool m_bIsSyncingWires;
+
+private:
+
 	bool b_semiHidden;
-	QGuardedPtr<Node> m_startNode;
-	QGuardedPtr<Node> m_endNode;
-	NodeGroup *p_nodeGroup;
-	CNItem *p_parentContainer;
-	ICNDocument *p_icnDocument;
-	ConRouter *m_conRouter;
-	QString m_id;
-	ConnectorLineList m_connectorLineList;
-	QRect m_oldBoundRect;
-	WireVector m_wires;
 	bool b_deleted;
 	bool b_manualPoints;
 	bool b_pointsAdded;
+
 	double m_currentAnimationOffset;
+
+	QGuardedPtr<Node> m_startNode;
+	QGuardedPtr<Node> m_endNode;
+
+	NodeGroup   *p_nodeGroup;
+	CNItem      *p_parentContainer;
+	ICNDocument *p_icnDocument;
+	ConRouter   *m_conRouter;
+
+	QString           m_id;
+	QRect             m_oldBoundRect;
+
+	ConnectorLineList m_connectorLineList;
+
+
+	WireVector        m_wires;
+
 };
 typedef QValueList<QGuardedPtr<Connector> > ConnectorList;
 
