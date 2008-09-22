@@ -104,6 +104,7 @@ class LogicIn : public Element
 		virtual void updateCurrents();
 		virtual void add_initial_dc();
 	
+		// TODO: fix this crap NO FUNCTION POINTERS
 		CallbackPtr m_pCallbackFunction;
 		CallbackClass * m_pCallbackObject;
 		bool m_bLastState;

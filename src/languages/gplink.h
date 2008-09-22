@@ -30,6 +30,8 @@ class Gplink : public ExternalLanguage
 	protected:
 		virtual bool isError( const QString &message ) const;
 		virtual bool isWarning( const QString &message ) const;
+		
+		QString m_sdccLibDir;
 };
 
 #endif

@@ -19,6 +19,7 @@
 
 #include <qstring.h>
 
+
 /**
 @short Controls a pin on the PIC component
 @author David Saxton

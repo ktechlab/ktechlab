@@ -18,10 +18,12 @@
 class AsmFormattingWidget;
 class GeneralOptionsWidget;
 class GpasmSettingsWidget;
+class GplinkSettingsWidget;
 class LogicWidget;
 class PicProgrammerConfigWidget;
 class PicProgrammerSettings;
 class SDCCOptionsWidget;
+
 
 
 /**
@@ -65,6 +67,7 @@ class SettingsDlg : public KConfigDialog
 		AsmFormattingWidget * m_asmFormattingWidget;
 		LogicWidget * m_logicWidget;
 		PicProgrammerConfigWidget * m_picProgrammerConfigWidget;
+		GplinkSettingsWidget * m_gplinkSettingsWidget;
 };
 
 
