@@ -11,6 +11,7 @@
 #include "asmformattingwidget.h"
 #include "generaloptionswidget.h"
 #include "gpasmsettingswidget.h"
+#include "gplinksettingswidget.h"
 #include "logicwidget.h"
 #include "picprogrammerconfigwidget.h"
 #include "picprogrammer.h"
@@ -49,6 +50,7 @@ SettingsDlg::SettingsDlg( QWidget *parent, const char *name, KConfigSkeleton *co
 	m_asmFormattingWidget = new AsmFormattingWidget( this, "asmFormattingWidget" );
 	m_logicWidget = new LogicWidget( this, "logicWidget" );
 	m_picProgrammerConfigWidget = new PicProgrammerConfigWidget( this, "picProgrammerConfigWidget" );
+	m_gplinkSettingsWidget = new GplinkSettingsWidget( this, "gplinkSettingsWidget" );
 	
 	m_pPicProgrammerSettings = new PicProgrammerSettings;
 	
@@ -60,6 +62,7 @@ SettingsDlg::SettingsDlg( QWidget *parent, const char *name, KConfigSkeleton *co
 	addPage( m_asmFormattingWidget, i18n("Formatter"), "indent_asm", i18n("Assembly Formatter") );
 	addPage( m_logicWidget, i18n("Logic"), "logic_or", i18n("Electronic Logic Values") );
 	addPage( m_gpasmSettingsWidget, "Gpasm", "convert_to_hex", "gpasm" );
+	addPage( m_gplinkSettingsWidget, "Gplink", "gplink", "Gpasm" );
 	addPage( m_sdccOptionsWidget, "SDCC", "source_c", "SDCC" );
 	
 	connect( m_generalOptionsWidget->refreshRateSlider, SIGNAL(valueChanged(int)), this, SLOT(slotUpdateRefreshRateLabel(int)) );

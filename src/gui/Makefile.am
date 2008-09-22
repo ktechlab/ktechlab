@@ -5,16 +5,16 @@ INCLUDES = -I$(top_srcdir)/src -I$(top_srcdir)/src/core \
 	-I$(top_srcdir)/gpsim-interface $(all_includes)
 METASOURCES = AUTO
 noinst_LTLIBRARIES = libgui.la
-libgui_la_SOURCES = contexthelp.cpp doublespinbox.cpp itemselector.cpp \
-	microsettingsdlg.cpp newfiledlg.cpp outputmethoddlg.cpp asmformattingwidget.ui \
-	gpasmsettingswidget.ui logicwidget.ui newfilewidget.ui newprojectwidget.ui \
-	outputmethodwidget.ui microsettingswidget.ui settingsdlg.cpp oscilloscope.cpp \
-	oscilloscopewidget.ui oscilloscopeview.cpp probepositioner.cpp generaloptionswidget.ui \
-	logview.cpp createsubprojectwidget.ui processingoptionswidget.ui \
-	sdccoptionswidget.ui projectdlgs.cpp linkeroptionswidget.ui microselectwidget.cpp \
-	symbolviewer.cpp picprogrammerconfigwidget.ui newpinmappingwidget.ui programmerwidget.ui \
-	programmerdlg.cpp colorcombo.cpp contexthelpwidget.ui scopescreenwidget.ui \
-	scopescreenview.cpp scopescreen.cpp scopeviewbase.cpp richtexteditor.cpp lineedit.cpp
+libgui_la_SOURCES = asmformattingwidget.ui colorcombo.cpp contexthelp.cpp \
+	contexthelpwidget.ui createsubprojectwidget.ui doublespinbox.cpp generaloptionswidget.ui \
+	gpasmsettingswidget.ui gplinksettingswidget.ui itemselector.cpp lineedit.cpp \
+	linkeroptionswidget.ui logicwidget.ui logview.cpp microselectwidget.cpp microsettingsdlg.cpp \
+	microsettingswidget.ui newfiledlg.cpp newfilewidget.ui newpinmappingwidget.ui \
+	newprojectwidget.ui oscilloscope.cpp oscilloscopeview.cpp oscilloscopewidget.ui \
+	outputmethoddlg.cpp outputmethodwidget.ui picprogrammerconfigwidget.ui probepositioner.cpp \
+	processingoptionswidget.ui programmerdlg.cpp programmerwidget.ui projectdlgs.cpp \
+	richtexteditor.cpp scopescreen.cpp scopescreenview.cpp scopescreenwidget.ui \
+	scopeviewbase.cpp sdccoptionswidget.ui settingsdlg.cpp symbolviewer.cpp
 
 libgui_la_PCH = AUTO
 			 
