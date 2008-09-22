@@ -111,7 +111,6 @@ PicInfo16C8x::PicInfo16C8x()
 
 PicInfo16C8x::~PicInfo16C8x()
 {
-	delete m_package;
 }
 
 PicInfo16C84::PicInfo16C84()
@@ -226,7 +225,6 @@ PicInfo16C62::PicInfo16C62()
 
 PicInfo16C62::~PicInfo16C62()
 {
-	delete m_package;
 
 }
 
@@ -297,7 +295,6 @@ PicInfo16C64::PicInfo16C64()
 
 PicInfo16C64::~PicInfo16C64()
 {
-	delete m_package;
 }
 
 PicInfo16C65::PicInfo16C65()
