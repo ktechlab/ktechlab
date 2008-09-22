@@ -462,8 +462,10 @@ void TextDocument::convertToHex()
 		filePath = outputFilePath(".microbe");
 	
 	else if ( m_guessedCodeType == TextDocument::ct_asm )
+	{
 		filePath = outputFilePath(".asm");
-	
+		showPICSelect = true;	// FIXME if we use shared libs, then we need the pic type
+	}
 	else if ( m_guessedCodeType == TextDocument::ct_c )
 	{
 		filePath = outputFilePath(".c");
