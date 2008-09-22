@@ -13,7 +13,7 @@
 #include <cassert>
 #include <kdebug.h>
 
-Wire::Wire( Pin * startPin, Pin * endPin )
+Wire::Wire( Pin *startPin, Pin *endPin )
 {
 	assert(startPin);
 	assert(endPin);
@@ -60,9 +60,7 @@ bool Wire::calculateCurrent()
 			{
 				if ( (*it)->currentIsKnown() )
 					i -= (*it)->current();
-				
-				else
-					ok = false;
+				else	ok = false;
 			}
 		}
 
@@ -74,9 +72,7 @@ bool Wire::calculateCurrent()
 			{
 				if ( (*it)->currentIsKnown() )
 					i += (*it)->current();
-				
-				else
-					ok = false;
+				else	ok = false;
 			}
 		}
 		
@@ -115,14 +111,14 @@ bool Wire::calculateCurrent()
 				else ok = false;
 			}	
 		}
-		
+
 		if (ok) {
 			m_current = i;
 			m_bCurrentIsKnown = true;
 			return true;
 		}
 	}
-	
+
 	m_bCurrentIsKnown = false;
 	return false;
 }
@@ -134,7 +130,7 @@ double Wire::voltage() const
 	if( (temp=m_pStartPin->voltage() - m_pEndPin->voltage()) ) {
 		kdError() << "Wire voltage error: " << temp << endl;
 	}
-	
+
 	return m_pStartPin->voltage();
 }
 

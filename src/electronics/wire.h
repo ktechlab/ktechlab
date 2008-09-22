@@ -22,7 +22,7 @@ class Pin;
 class Wire : public QObject
 {
 	public:
-		Wire( Pin * startPin, Pin * endPin );
+		Wire( Pin *startPin, Pin *endPin );
 		~Wire();
 
 		/**
@@ -51,14 +51,16 @@ class Wire : public QObject
 		 */
 		double voltage() const;
 		
-		Pin * startPin() const { return m_pStartPin; }
-		Pin * endPin() const { return m_pEndPin; }
+		Pin *startPin() const { return m_pStartPin; }
+		Pin *endPin() const { return m_pEndPin; }
 		
-	protected:
-		double m_current;
-		bool m_bCurrentIsKnown;
-		QGuardedPtr<Pin> m_pStartPin;
-		QGuardedPtr<Pin> m_pEndPin;
+// protected:
+
+private:
+	double m_current;
+	bool m_bCurrentIsKnown;
+	QGuardedPtr<Pin> m_pStartPin;
+	QGuardedPtr<Pin> m_pEndPin;
 };
 
 #endif
