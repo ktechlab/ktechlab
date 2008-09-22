@@ -114,7 +114,6 @@ PicInfo16C54::PicInfo16C54()
 
 PicInfo16C54::~PicInfo16C54()
 {
-	delete m_package;
 }
 
 PicInfo16C55::PicInfo16C55()
@@ -148,7 +147,6 @@ PicInfo12C508::PicInfo12C508()
 
 PicInfo12C508::~PicInfo12C508()
 {
-	delete m_package;
 }
 
 PicInfo12C509::PicInfo12C509()
