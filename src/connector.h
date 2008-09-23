@@ -34,59 +34,75 @@ typedef QValueVector<QGuardedPtr<Wire> > WireVector;
 @short Represents a connection between two Nodes on a ICNDocument
 @author David Saxton
 */
-class Connector : public QObject, public QCanvasPolygon
-{
-Q_OBJECT
+
+/*
+TODO: refactor into directional FPconnector without wires and undirected EC connector with wires.
+* probably end up with subclasses for each case.
+*/
+
+class Connector : public QObject, public QCanvasPolygon {
+	Q_OBJECT
+
 public:
-	Connector( Node * startNode, Node * endNode, ICNDocument *_ICNDocument, QString *id = 0L );
+	Connector(Node * startNode, Node * endNode, ICNDocument *_ICNDocument, QString *id = 0L);
 	~Connector();
-	
+
 	/**
 	 * Node at start of connector (which refers to this as the output connector)
 	 */
-	Node * startNode() const { return m_startNode; }
+	Node *startNode() const { return m_startNode; }
+
 	/**
 	 * Node at end of connector (which refers to this as the input connector)
 	 */
-	Node * endNode() const { return m_endNode; }
+	Node *endNode() const { return m_endNode; }
+
 	/**
 	 * @returns connector data describing this connector
 	 */
 	ConnectorData connectorData() const;
+
 	/**
 	 * Restore the state of the connector (route, etc) from the saved data
 	 */
-	void restoreFromConnectorData( const ConnectorData &connectorData );
+	void restoreFromConnectorData(const ConnectorData &connectorData);
+
 	/**
 	 * If selected, will be drawn in a different colour
 	 */
-	virtual void setSelected( bool yes );
+	virtual void setSelected(bool yes);
+
 	/**
 	 * Connected id
 	 */
 	QString id() const { return m_id; }
+
 	/**
 	 * Update the list of lines and connetion-points that the connector uses for
 	 * drawing.
 	 */
 	void updateDrawList();
+
 	/**
 	 * Tells the connector that it is under the control of a NodeGroup. When
 	 * the connector is under the control of a NodeGroup, all requests for
 	 * connection rerouting will be passed onto that NodeGroup
 	 */
-	void setNodeGroup( NodeGroup *nodeGroup ) { p_nodeGroup = nodeGroup; }
+	void setNodeGroup(NodeGroup *nodeGroup) { p_nodeGroup = nodeGroup; }
+
 	/**
 	 * Returns the NodeGroup that the connector is under the control of (if any)
 	 */
 	NodeGroup *nodeGroup() const { return p_nodeGroup; }
+
 	/**
 	 * ICNDocument needs to know what 'cells' a connector is present in,
 	 * so that connection mapping can be done to avoid connectors.
 	 * This function will add the hit penalty to the cells pointed to
 	 * by ICNDocument::cells()
 	 */
-	void updateConnectorPoints( bool add );
+	void updateConnectorPoints(bool add);
+
 	/**
 	 * Sets the canvas points that the connector should route itself along.
 	 * This is used for manual routing. The cells points are absolute positions
@@ -94,89 +110,103 @@ public:
 	 * @param setManual if true then the connector will change to a manual route one
 	 * @param checkEndPoints if true then will  check to see if the end points are at the nodes, and adds them if not
 	 */
-	void setRoutePoints( QPointList pointList, bool setManual, bool checkEndPoints = false );
+	void setRoutePoints(QPointList pointList, bool setManual, bool checkEndPoints = false);
+
 	/**
 	 * Call this function (e.g. when moving a CNItem connected to the connector)
 	 * to make the connector partially hidden - probably grayed out - if semiHidden
 	 * is true.
 	 */
-	void setSemiHidden( bool semiHidden );
+	void setSemiHidden(bool semiHidden);
+
 	/**
 	 * Sets the container parent (i.e. the container of the parent item)
 	 */
-	void setParentContainer( const QString &cnItemId );
+	void setParentContainer(const QString &cnItemId);
+
 	/**
 	 * Returns a pointer to the parent item container
 	 */
 	CNItem *parentContainer() const { return p_parentContainer; }
+
 	/**
 	 * @returns whether the points have been set by the user manually defining them
 	 */
 	bool usesManualPoints() const { return b_manualPoints; }
+
 	/**
 	 * Returns two sets of points (in canvas-reference) that define the connector
 	 * from start to finish, when it is split at the given point (in canvas-reference)
 	 */
-	QValueList<QPointList> splitConnectorPoints( const QPoint &pos ) const;
+	QValueList<QPointList> splitConnectorPoints(const QPoint &pos) const;
+
 	/**
 	 * @returns pointer to ICNDocument that this connector is a member of
 	 */
 	ICNDocument *icnDocument() const { return p_icnDocument; }
+
 	/**
 	 * Looks at the set of canvas points and tries to determine whether they are
 	 * in the reverse order from start to end node
 	 */
-	bool pointsAreReverse( const QPointList &pointList ) const;
+	bool pointsAreReverse(const QPointList &pointList) const;
+
 	/**
 	 * Returns the points, given in canvas-reference, in order of start node to
 	 * end node if reverse is false
 	 * @param reverse whether or not to reverse the points from start node to end node
 	 */
-	QPointList connectorPoints( bool reverse = false ) const;
+	QPointList connectorPoints(bool reverse = false) const;
+
 	/**
 	 * Reroute the connector. Note that if this connector is controlled by a
 	 * NodeGroup, it will do nothing (other than print out a warning)
 	 */
 	void rerouteConnector();
+
 	/**
 	 * Translates the route by the given amoumt. No checking is done to see if
 	 * the translation is useful, etc.
 	 */
-	void translateRoute( int dx, int dy );
-	virtual void setVisible( bool yes );
+	void translateRoute(int dx, int dy);
+	virtual void setVisible(bool yes);
 
 	/**
 	Methods relating to wire lists
 	*/
 	WireVector wires() const { return m_wires; }
 	unsigned numWires() const { return m_wires.size(); }
-	Wire *wire( unsigned num = 0 ) const { return (num < m_wires.size()) ? m_wires[num] : 0l; }
+	Wire *wire(unsigned num = 0) const {
+		return (num < m_wires.size()) ? m_wires[num] : 0;
+	}
 
-	void updateConnectorLines( bool forceRedraw = false );
+	void updateConnectorLines(bool forceRedraw = false);
+
 	/**
 	 * Modular offset of moving dots in connector, indicating current (in
 	 * pixels).
 	 */
 	double currentAnimationOffset() const { return m_currentAnimationOffset; }
+
 	/**
 	 * Increases the currentAnimationOffset according to the current flowing in
 	 * the connector and deltaTime.
 	 */
-	void incrementCurrentAnimation( double deltaTime );
-	
+	void incrementCurrentAnimation(double deltaTime);
+
 signals:
-	void removed( Connector *connector );
-	void selected( bool yes );
-	void numWiresChanged( unsigned newNum );
-	
+	void removed(Connector *connector);
+	void selected(bool yes);
+	void numWiresChanged(unsigned newNum);
+
 public slots:
-	void removeConnector( Node* = 0L );
+	void removeConnector(Node* = 0);
 	/**
 	 * Takes the minimum pin count of the start and end nodes, and creates a
 	 * connector for each pin up to that minimum.
 	 */
 	void syncWiresWithNodes();
-	
+
 //protected:
 //	bool m_bIsSyncingWires;
 
@@ -201,34 +231,35 @@ private:
 	QRect             m_oldBoundRect;
 
 	ConnectorLineList m_connectorLineList;
-
-
 	WireVector        m_wires;
 
 };
+
 typedef QValueList<QGuardedPtr<Connector> > ConnectorList;
 
-
 //BEGIN ConnectorLine things
-class ConnectorLine : public QObject, public QCanvasLine
-{
-	public:
-		/**
-		 * @param pixelOffset the number of pixels between the start of the
-		 * parent connector and the start of this wire. Used in current
-		 * animation.
-		 */
-		ConnectorLine( Connector * connector, int pixelOffset );
-		Connector * parent() const { return m_pConnector; }
-		void setAnimateCurrent( bool animateCurrent ) { m_bAnimateCurrent = animateCurrent; }
-		
-	protected:
-		virtual void drawShape( QPainter & p );
-		
-		Connector * m_pConnector;
-		int m_pixelOffset;
-		bool m_bAnimateCurrent;
+
+class ConnectorLine : public QObject, public QCanvasLine {
+
+public:
+	/**
+	 * @param pixelOffset the number of pixels between the start of the
+	 * parent connector and the start of this wire. Used in current
+	 * animation.
+	 */
+	ConnectorLine(Connector *connector, int pixelOffset);
+	Connector *parent() const { return m_pConnector; }
+
+	void setAnimateCurrent(bool animateCurrent) { m_bAnimateCurrent = animateCurrent; }
+
+protected:
+	virtual void drawShape(QPainter &p);
+
+	Connector *m_pConnector;
+	int  m_pixelOffset;
+	bool m_bAnimateCurrent;
 };
+
 //END ConnectorLine things
 
 #endif

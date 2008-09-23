@@ -28,21 +28,21 @@
 
 
 //BEGIN class Connector
-Connector::Connector(Node * startNode, Node * endNode, ICNDocument *icnDocument, QString *id)
+Connector::Connector(Node *startNode, Node *endNode, ICNDocument *icnDocument, QString *id)
 		: QObject(icnDocument),
 		QCanvasPolygon(icnDocument->canvas()) {
 	m_currentAnimationOffset = 0.0;
 	p_parentContainer = 0;
-	p_nodeGroup = 0;
-	b_semiHidden = false;
-	b_deleted = false;
-	b_pointsAdded = false;
+	p_nodeGroup    = 0;
+	b_semiHidden   = false;
+	b_deleted      = false;
+	b_pointsAdded  = false;
 	b_manualPoints = false;
 //	m_bIsSyncingWires = false;
-	m_startNode = startNode;
-	m_endNode = endNode;
-	p_icnDocument = icnDocument;
-	m_conRouter = new ConRouter(p_icnDocument);
+	m_startNode    = startNode;
+	m_endNode      = endNode;
+	p_icnDocument  = icnDocument;
+	m_conRouter    = new ConRouter(p_icnDocument);
 
 	if (id) {
 		m_id = *id;
@@ -52,14 +52,12 @@ Connector::Connector(Node * startNode, Node * endNode, ICNDocument *icnDocument,
 	} else m_id = p_icnDocument->generateUID("connector");
 
 	p_icnDocument->registerItem(this);
-
 	p_icnDocument->requestRerouteInvalidatedConnectors();
 
 	setVisible(true);
 
-	ECNode * startECNode = dynamic_cast<ECNode*>(startNode);
-
-	ECNode * endECNode = dynamic_cast<ECNode*>(endNode);
+	ECNode *startECNode = dynamic_cast<ECNode*>(startNode);
+	ECNode *endECNode = dynamic_cast<ECNode*>(endNode);
 
 	if (startECNode && endECNode) {
 		connect(startECNode, SIGNAL(numPinsChanged(unsigned)), this, SLOT(syncWiresWithNodes()));
@@ -77,21 +75,20 @@ Connector::~Connector() {
 	for (unsigned i = 0; i < m_wires.size(); i++)
 		delete m_wires[i];
 
-	m_wires.resize(0);
+//	m_wires.resize(0);
 }
 
 
 void Connector::syncWiresWithNodes() {
 	// FIXME dynamic_cast is used...
-	ECNode * startECNode = dynamic_cast<ECNode*>((Node*)m_startNode);
-	ECNode * endECNode = dynamic_cast<ECNode*>((Node*)m_endNode);
+	ECNode *startECNode = dynamic_cast<ECNode*>((Node*)m_startNode);
+	ECNode *endECNode   = dynamic_cast<ECNode*>((Node*)m_endNode);
 
 	if (!startECNode || !endECNode) return;
 
 	// FIXME more dynamic_cast to avoid using type() member
-	const bool isStartNodeJunction = dynamic_cast<JunctionNode*>(startECNode) != 0l;
-
-	const bool isEndNodeJunction = dynamic_cast<JunctionNode*>(endECNode) != 0l;
+	const bool isStartNodeJunction = dynamic_cast<JunctionNode*>(startECNode) != 0;
+	const bool isEndNodeJunction   = dynamic_cast<JunctionNode*>(endECNode)   != 0;
 
 	unsigned newNumWires = 0;
 
@@ -130,7 +127,6 @@ void Connector::syncWiresWithNodes() {
 	}
 
 	updateConnectorLines();
-
 	emit numWiresChanged(newNumWires);
 }
 
@@ -166,18 +162,15 @@ int getSlope(float x1, float y1, float x2, float y2) {
 		s_v,	//	|
 		s_h,	//	-
 		s_s,	//	/
-		s_d		//	\ (backwards slash)
+		s_d	//	\ (backwards slash)
 	};
 
 	if (x1 == x2) {
-		if (y1 == y2) {
-			return s_n;
-		}
-
+		if (y1 == y2) return s_n;
 		return s_v;
 	} else if (y1 == y2) {
 		return s_h;
-	} else if ((y2 -y1) / (x2 - x1) > 0) {
+	} else if ((y2 - y1) / (x2 - x1) > 0) {
 		return s_s;
 	} else 	return s_d;
 }
@@ -202,6 +195,7 @@ void Connector::updateDrawList() {
 	for (QPointList::const_iterator it = m_conRouter->cellPointList()->begin(); it != cplEnd; ++it) {
 		const int x = (*it).x();
 		const int y = (*it).y();
+
 		const int numCon = cells->haveCell(x, y) ? cells->cell(x, y).numCon : 0;
 
 		const int y_canvas = toCanvas(y);
@@ -210,7 +204,7 @@ void Connector::updateDrawList() {
 		const bool bumpNext = (prevX == x
 		                       && numCon > 1
 		                       && std::abs(y_canvas - m_startNode->y()) > 8
-		                       && std::abs(y_canvas - m_endNode->y()) > 8);
+		                       && std::abs(y_canvas - m_endNode->y())   > 8);
 
 		int x0 = prevX_canvas;
 		int x2 = x_canvas;
@@ -221,8 +215,7 @@ void Connector::updateDrawList() {
 		int y1 = (y0 == y3) ? y0 : ((y0 < y3) ? y0 + 3 : y0 - 3);
 		int y2 = (y0 == y3) ? y3 : ((y0 < y3) ? y3 - 3 : y3 + 3);
 
-		if (bumpNow) x0 += 3;
-
+		if (bumpNow)  x0 += 3;
 		if (bumpNext) x2 += 3;
 
 		if (!bumpNow && !bumpNext) {
@@ -244,8 +237,8 @@ void Connector::updateDrawList() {
 		}
 
 		prevX = x;
-
 		prevY = y;
+
 		prevY_canvas = y_canvas;
 		prevX_canvas = x_canvas;
 		bumpNow = bumpNext;
@@ -254,20 +247,14 @@ void Connector::updateDrawList() {
 	// Now, remove redundant points (i.e. those that are either repeated or are
 	// in the same direction as the previous points)
 
-	if (drawLineList.size() < 3) {
-		return;
-	}
+	if (drawLineList.size() < 3) return;
 
 	const QPointList::iterator dllEnd = drawLineList.end();
 
 	QPointList::iterator previous = drawLineList.begin();
-
 	QPointList::iterator current = previous;
-
 	current++;
-
 	QPointList::const_iterator next = current;
-
 	next++;
 
 	int invalid = -(1 << 30);
@@ -278,12 +265,9 @@ void Connector::updateDrawList() {
 
 		if (slope1 == slope2 || slope1 == 0 || slope2 == 0) {
 			*current = QPoint(invalid, invalid);
-		} else {
-			previous = current;
-		}
+		} else 	previous = current;
 
 		current++;
-
 		next++;
 	}
 
@@ -297,17 +281,11 @@ void Connector::updateDrawList() {
 		for (QPointList::iterator it = drawLineList.begin(); it != end; ++it) {
 			const QPoint p = *it;
 
-			if (p.x() < x1 || x1 == invalid)
-				x1 = p.x();
+			if (p.x() < x1 || x1 == invalid) x1 = p.x();
+			if (p.x() > x2 || x2 == invalid) x2 = p.x();
 
-			if (p.x() > x2 || x2 == invalid)
-				x2 = p.x();
-
-			if (p.y() < y1 || y1 == invalid)
-				y1 = p.y();
-
-			if (p.y() > y2 || y2 == invalid)
-				y2 = p.y();
+			if (p.y() < y1 || y1 == invalid) y1 = p.y();
+			if (p.y() > y2 || y2 == invalid) y2 = p.y();
 		}
 
 		QRect boundRect(x1, y1, x2 - x1, y2 - y1);
@@ -357,28 +335,22 @@ void Connector::setSemiHidden(bool semiHidden) {
 		return;
 
 	b_semiHidden = semiHidden;
-
 	updateConnectorLines();
 }
 
 
 void Connector::updateConnectorPoints(bool add) {
-	if (!canvas())
-		return;
+	if (!canvas()) return;
 
-	if (b_deleted || !isVisible())
-		add = false;
+	if (b_deleted || !isVisible()) add = false;
 
 	// Check we haven't already added/removed the points...
-	if (b_pointsAdded == add)
-		return;
+	if (b_pointsAdded == add) return;
 
 	b_pointsAdded = add;
 
 	// We don't include the end points in the mapping
-	if (m_conRouter->cellPointList()->size() < 3) {
-		return;
-	}
+	if (m_conRouter->cellPointList()->size() < 3) return;
 
 	Cells * cells = p_icnDocument->cells();
 
@@ -393,11 +365,11 @@ void Connector::updateConnectorPoints(bool add) {
 		// so that other connectors still to calculate their points know to try
 		// and avoid this connector
 
-		p_icnDocument->addCPenalty(x,	y - 1,	mult*ICNDocument::hs_connector / 2);
-		p_icnDocument->addCPenalty(x - 1, y,	mult*ICNDocument::hs_connector / 2);
-		p_icnDocument->addCPenalty(x,	  y,	mult*ICNDocument::hs_connector    );
-		p_icnDocument->addCPenalty(x + 1, y,	mult*ICNDocument::hs_connector / 2);
-		p_icnDocument->addCPenalty(x,	y + 1,	mult*ICNDocument::hs_connector / 2);
+		p_icnDocument->addCPenalty(x    , y - 1, mult*ICNDocument::hs_connector / 2);
+		p_icnDocument->addCPenalty(x - 1, y    , mult*ICNDocument::hs_connector / 2);
+		p_icnDocument->addCPenalty(x    , y    , mult*ICNDocument::hs_connector    );
+		p_icnDocument->addCPenalty(x + 1, y    , mult*ICNDocument::hs_connector / 2);
+		p_icnDocument->addCPenalty(x    , y + 1, mult*ICNDocument::hs_connector / 2);
 
 		if (cells->haveCell(x , y))
 			cells->cell(x, y).numCon += mult;
@@ -410,18 +382,17 @@ void Connector::updateConnectorPoints(bool add) {
 void Connector::setRoutePoints(QPointList pointList, bool setManual, bool checkEndPoints) {
 	if (!canvas())	return;
 
-
 	updateConnectorPoints(false);
 
 	bool reversed = pointsAreReverse(pointList);
 
 	if (checkEndPoints) {
 		if (reversed) {
-			pointList.prepend(QPoint(int(m_endNode->x()), int(m_endNode->y())));
+			pointList.prepend(QPoint(int(m_endNode->x()),  int(m_endNode->y())));
 			pointList.append(QPoint(int(m_startNode->x()), int(m_startNode->y())));
 		} else {
 			pointList.prepend(QPoint(int(m_startNode->x()), int(m_startNode->y())));
-			pointList.append(QPoint(int(m_endNode->x()), int(m_endNode->y())));
+			pointList.append(QPoint(int(m_endNode->x()),    int(m_endNode->y())));
 		}
 	}
 
@@ -442,17 +413,23 @@ bool Connector::pointsAreReverse(const QPointList &pointList) const {
 
 	int plsx = pointList.first().x();
 	int plsy = pointList.first().y();
-	int plex = pointList.last().x();
-	int pley = pointList.last().y();
+	int plex =  pointList.last().x();
+	int pley =  pointList.last().y();
 
 	double nsx = m_startNode->x();
 	double nsy = m_startNode->y();
-	double nex = m_endNode->x();
-	double ney = m_endNode->y();
+	double nex =   m_endNode->x();
+	double ney =   m_endNode->y();
 
-	double dist_normal = (nsx - plsx) * (nsx - plsx) + (nsy - plsy) * (nsy - plsy) + (nex - plex) * (nex - plex) + (ney - pley) * (ney - pley);
+	double dist_normal = (nsx - plsx) * (nsx - plsx)
+			   + (nsy - plsy) * (nsy - plsy)
+			   + (nex - plex) * (nex - plex)
+			   + (ney - pley) * (ney - pley);
 
-	double dist_reverse = (nsx - plex) * (nsx - plex) + (nsy - pley) * (nsy - pley) + (nex - plsx) * (nex - plsx) + (ney - plsy) * (ney - plsy);
+	double dist_reverse = (nsx - plex) * (nsx - plex)
+			    + (nsy - pley) * (nsy - pley)
+			    + (nex - plsx) * (nex - plsx)
+			    + (ney - plsy) * (ney - plsy);
 
 	return dist_reverse < dist_normal;
 }
@@ -466,14 +443,16 @@ void Connector::rerouteConnector() {
 		return;
 	}
 
-	if (!startNode() || !endNode()) return;
+	if (!m_startNode || !m_endNode) return;
 
 	updateConnectorPoints(false);
 
-	m_conRouter->mapRoute(int(startNode()->x()), int(startNode()->y()), int(endNode()->x()), int(endNode()->y()));
+	m_conRouter->mapRoute(int(m_startNode->x()),
+			      int(m_startNode->y()),
+			      int(m_endNode->x()),
+                              int(m_endNode->y()));
 
 	b_manualPoints = false;
-
 	updateConnectorPoints(true);
 }
 
@@ -566,9 +545,11 @@ void Connector::updateConnectorLines(bool forceRedraw) {
 	for (ConnectorLineList::iterator it = m_connectorLineList.begin(); it != end; ++it) {
 		(*it)->setAnimateCurrent(animateWires);
 
-		QCanvasPolygonalItem * item = static_cast<QCanvasPolygonalItem*>(*it);
+		QCanvasPolygonalItem *item = static_cast<QCanvasPolygonalItem*>(*it);
 
-		bool changed = (item->z() != z) || (item->pen() != pen) || (item->isVisible() != isVisible());
+		bool changed = (item->z() != z)
+			    || (item->pen() != pen)
+			    || (item->isVisible() != isVisible());
 
 		if (!changed) {
 			if (forceRedraw)
@@ -577,7 +558,6 @@ void Connector::updateConnectorLines(bool forceRedraw) {
 		}
 
 		item->setZ(z);
-
 		item->setPen(pen);
 		item->setVisible(isVisible());
 	}
@@ -601,20 +581,19 @@ void Connector::incrementCurrentAnimation(double deltaTime) {
 	// a good indication of the amount of current flowing
 
 	double I_min = 1e-4;
-	double sf = 3.0; // scaling factor
+	double sf    = 3.0; // scaling factor
 
 	for (unsigned i = 0; i < m_wires.size(); ++i) {
 		if (!m_wires[i]) continue;
 
 		double I = m_wires[i]->current();
-		double sign = (I > 0) ? 1 : -1;
+		double sign  = (I > 0) ? 1 : -1;
 		double I_abs = I * sign;
-		double prop = (I_abs > I_min) ? std::log(I_abs / I_min) : 0.0;
+		double prop  = (I_abs > I_min) ? std::log(I_abs / I_min) : 0.0;
 
 		m_currentAnimationOffset += deltaTime * sf * std::pow(prop, 1.3) * sign;
 	}
 }
-
 //END class Connector
 
 
@@ -633,8 +612,8 @@ int boundify(int x, int bound1, int bound2) {
 	if (bound2 < bound1) {
 		// swap bounds
 		int temp = bound2;
-		bound2 = bound1;
-		bound1 = temp;
+		bound2   = bound1;
+		bound1   = temp;
 	}
 
 	// now, have bound1 <= bound2
@@ -651,7 +630,6 @@ void ConnectorLine::drawShape(QPainter & p) {
 	}
 
 	int ss = 3; // segment spacing
-
 	int sl = 13; // segment length (includes segment spacing)
 
 	int offset = int(m_pConnector->currentAnimationOffset() - m_pixelOffset);
@@ -688,7 +666,7 @@ void ConnectorLine::drawShape(QPainter & p) {
 	} else {
 		// y1 == y2
 
-		int _y = int(y() + y1);
+		int _y    = int(y() + y1);
 		int x_end = int(x() + x2);
 
 		if (x1 > x2) {
@@ -710,7 +688,6 @@ void ConnectorLine::drawShape(QPainter & p) {
 		}
 	}
 }
-
 //END class ConnectorLine
 
 #include "connector.moc"
