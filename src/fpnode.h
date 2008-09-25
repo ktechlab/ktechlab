@@ -47,20 +47,17 @@ public:
 	 * attached connectors as appropriate
 	 */
 	virtual void setVisible( bool yes );
-	/**
-	 * Use this to identify the type of node - eg ECNode or FPNode -- will be removed!
-	 */
-	// virtual node_type type() const = 0;
+
 	/**
 	 * Returns true if the node can accept input connections. This will depend
 	 * on the node type and number of input / output connections.
 	 */
-	bool acceptInput() const;
+	virtual bool acceptInput() const = 0;
 	/**
 	 * Returns true if the node can accept output connections. This will depend
 	 * on the node type and number of input / output connections.
 	 */
-	bool acceptOutput() const;
+	virtual bool acceptOutput() const = 0;
 	/**
 	 * Removes a specific connector
 	 */
@@ -75,12 +72,12 @@ public:
 	 * Registers an input connector (i.e. this is the end node) as connected
 	 * to this node.
 	 */
-	void addInputConnector( Connector * const connector );
+	virtual void addInputConnector( Connector * const connector );
 	/**
 	 * Registers an input connector (i.e. this is the start node) as connected
 	 * to this node.
 	 */
-	void addOutputConnector( Connector * const connector );
+	virtual void addOutputConnector( Connector * const connector );
 	/**
 	 * Returns the total number of connections to the node. This is the number
 	 * of input connectors, the number of output connectors, and the parent
@@ -128,14 +125,14 @@ public:
 public slots:	
 	
 	/**
-	 * what is this?
+	 * what is this? (verifies if the node can be removed; if it can, removes itself (?) )
 	 */
-	void checkForRemoval( Connector *connector );
+	virtual void checkForRemoval( Connector *connector );
 	
 	/**
 	 * Draw shape. Note that this has to remain public.
 	 */
-	virtual void drawShape( QPainter & p );
+	virtual void drawShape( QPainter & p ) = 0;
 
 protected:
 	
