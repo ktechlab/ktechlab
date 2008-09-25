@@ -33,7 +33,7 @@ class TextView : public View
 	Q_OBJECT
 	public:
 		TextView( TextDocument *textDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = 0 );
-		~TextView();
+		virtual ~TextView();
 		virtual bool closeView();
 		/**
 		 * Brings up the goto line dialog.
