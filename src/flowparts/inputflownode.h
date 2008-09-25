@@ -13,7 +13,7 @@
 #include <fpnode.h>
 
 /**
- a FPNode with type() == fp_in
+ a FlowNode which serves as an input for a flowpart
 */
 class InputFlowNode : public FPNode
 {
@@ -22,8 +22,13 @@ public:
 
 	~InputFlowNode();
 
-	/** Returns the node's type. This member will be removed one day */
-	node_type type() const { return Node::fp_in; }
+	
+	/**
+	 * Returns a pointer to the FlowPart attached to this node if this node isInput, or
+	 * to the other end of the connector (if one exists) if it isOutput()
+	 */
+	FlowPart *outputFlowPart() const;	
+	
 };
 
 #endif

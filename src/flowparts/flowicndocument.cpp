@@ -497,7 +497,7 @@ bool FlowICNDocument::joinConnectors( FPNode *node )
 	if ( !startNode || !endNode )
 		return false;
 	
-	// HACK // TODO // dynamic_cast used
+	// HACK // FIXME // dynamic_cast used
 	FPNode 	*startFpNode, *endFpNode;
 	startFpNode = dynamic_cast<FPNode *> (startNode);
  	endFpNode = dynamic_cast<FPNode *> (endNode);
