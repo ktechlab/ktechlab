@@ -18,11 +18,11 @@ class FlowPart;
 typedef QValueList<FlowPart*> FlowPartList;
 
 /**
-You should use this node for all FlowParts. It ensures that connections between FlowParts are
-always valid (eg not more than two outputs from one node, which makes no sense)
-@short FlowPart node
-@author David Saxton
-*/
+ * You should use this node for all FlowParts. It ensures that connections between FlowParts are
+ * always valid (eg not more than two outputs from one node, which makes no sense)
+ * @short FlowPart node
+ * @author David Saxton
+ */
 class FPNode : public Node
 {
 Q_OBJECT
@@ -34,13 +34,13 @@ public:
 	 * Returns a pointer to the FlowPart attached to this node if this node isInput, or
 	 * to the other end of the connector (if one exists) if it isOutput()
 	 */
-	FlowPart *outputFlowPart() const;
+	virtual FlowPart *outputFlowPart() const;
 	/** 
 	 * Returns a list of FlowParts attached to the node - either a single-item list containing
 	 * the FlowPart attached to this node if isOutput, or a list of FlowParts connected to the
 	 * input (?) connectors
 	 */
-	FlowPartList inputFlowParts() const;
+	virtual FlowPartList inputFlowParts() const;
 
 	/**
 	 * Sets the node's visibility, as well as updating the visibility of the
@@ -108,14 +108,13 @@ public:
 	 */
 	ConnectorList inputConnectorList() const { return m_inputConnectorList; }
 	/**
-	 * Returns a list of the output connectors; implemented inline 
+	 * Returns a list of the output connectors
 	 */
-	ConnectorList outputConnectorList() const { return m_outputConnectorList; }
-	
+	ConnectorList outputConnectorList() const ;
 	/**
 	 * @return the list of all the connectors attached to the node
 	 */
-	virtual ConnectorList getAllConnectors() const { return m_inputConnectorList + m_outputConnectorList; }
+	virtual ConnectorList getAllConnectors() const ;
 	
 	/**
 	 * For a flownode: returns the first input connector, if it exist, or the fist outptut connector, if it exists.
@@ -152,7 +151,7 @@ protected:
 	
 
 	ConnectorList m_inputConnectorList;
-	ConnectorList m_outputConnectorList;
+	QGuardedPtr<Connector> m_outputConnector;
 
 private:
 	bool m_isInput;

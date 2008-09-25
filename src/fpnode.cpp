@@ -24,6 +24,7 @@ FPNode::FPNode( ICNDocument *icnDocument, Node::node_type type, int dir, const Q
 {
 	if ( icnDocument )
 		icnDocument->registerItem(this);
+	m_outputConnector = 0;
 }
 
 
@@ -39,17 +40,13 @@ FlowPart *FPNode::outputFlowPart() const
 		// FIXME dynamic_cast used
 	if( dynamic_cast<const InputFlowNode*>(this) != 0)
 		return flowPart;
-
-	if ( m_outputConnectorList.size() > 1 )
-		kdError() << "FpNode::outputFlowPart(): outputConnectorList() size is greater than 1"<<endl;
-	else if ( m_outputConnectorList.size() < 1 )
-		return 0l;
-
-	ConnectorList::const_iterator it = m_outputConnectorList.begin();
-	if ( it == m_outputConnectorList.end() || !*it || !(*it)->endNode()  )
-		return 0L;
-
-	return (dynamic_cast<FPNode*>((*it)->endNode()))->outputFlowPart();
+	
+	if( m_outputConnector)
+		return 0;
+	if( m_outputConnector->endNode() == 0)
+		return 0;
+	
+	return (dynamic_cast<FPNode*>(m_outputConnector->endNode()))->outputFlowPart();
 }
 
 
@@ -251,25 +248,8 @@ void FPNode::addOutputConnector( Connector * const connector )
 	if( (dynamic_cast<InputFlowNode*>(this) != 0 ) || !handleNewConnector(connector) )
 		return ;
 
-	m_outputConnectorList.append(connector);
+	m_outputConnector = connector;
 
-	if( dynamic_cast<InputFlowNode*>(this) == 0 ) { // it's an output or junction node
-		// We can only have one output connector, so remove the others. Note
-		// that this code has to come *after* adding the new output connector,
-		// as this node will delete itself if it's an fp_junction and there are
-		// no output connectors.
-		
-		const ConnectorList connectors = m_outputConnectorList;
-		const ConnectorList::const_iterator end = connectors.end();
-		for ( ConnectorList::const_iterator it = connectors.begin(); it != end; ++it )
-		{
-			Connector * con = *it;
-			if ( con && con != connector )
-				con->removeConnector();
-		}
-	}
-	
-	m_outputConnectorList.remove((Connector*)0l);
 }
 
 
@@ -288,7 +268,7 @@ bool FPNode::handleNewConnector( Connector * connector )
 	if (!connector)
 		return false;
 
-	if ( m_inputConnectorList.contains(connector) || m_outputConnectorList.contains(connector) )
+	if ( m_inputConnectorList.contains(connector) || ((Connector*)m_outputConnector == connector) )
 	{
 		kdWarning() << k_funcinfo << " Already have connector = " << connector << endl;
 		return false;
@@ -322,17 +302,17 @@ int FPNode::numCon( bool includeParentItem, bool includeHiddenConnectors ) const
 {
 	unsigned count = 0;
 	
-	const ConnectorList connectors[2] = { m_inputConnectorList, m_outputConnectorList };
+	ConnectorList connectors = m_inputConnectorList;
+	if ( m_outputConnector )
+		connectors.append ( m_outputConnector );
 	
-	for ( unsigned i = 0; i < 2; i++ ) {
-		ConnectorList::const_iterator end = connectors[i].end();
-		for ( ConnectorList::const_iterator it = connectors[i].begin(); it != end; ++it )
-		{
-			if ( *it && (includeHiddenConnectors || (*it)->canvas()) )
-				count++;
-		}
+	ConnectorList::const_iterator end = connectors.end();
+	for ( ConnectorList::const_iterator it = connectors.begin(); it != end; ++it )
+	{
+		if ( *it && ( includeHiddenConnectors || ( *it )->canvas() ) )
+			count++;
 	}
-
+	
 	if ( isChildNode() && includeParentItem )
 		count++;
 
@@ -353,11 +333,10 @@ void FPNode::removeConnector( Connector *connector )
 		(*it) = 0L;
 	}
 	
-	it = m_outputConnectorList.find(connector);
-	if ( it != m_outputConnectorList.end() )
+	if((Connector *)m_outputConnector == connector)
 	{
-		(*it)->removeConnector();
-		(*it) = 0L;
+		connector->removeConnector();
+		m_outputConnector = 0;
 	}
 }
 
@@ -370,13 +349,15 @@ void FPNode::checkForRemoval( Connector *connector )
 	removeNullConnectors();
 	
 	if (!p_parentItem) {
-		int conCount = m_inputConnectorList.count() + m_outputConnectorList.count();
+		int conCount = m_inputConnectorList.count();
+		if( m_outputConnector)
+			conCount++;
 		if ( conCount < 2 )
 			removeNode();
 	}
 	
 	// FIXME dynamic_cast again
-	if( (dynamic_cast<JunctionFlowNode*>(this) != 0) && m_outputConnectorList.isEmpty() )
+	if( (dynamic_cast<JunctionFlowNode*>(this) != 0) && (!m_outputConnector) )
 		removeNode();
 }
 
@@ -384,7 +365,6 @@ void FPNode::checkForRemoval( Connector *connector )
 void FPNode::removeNullConnectors()
 {
 	m_inputConnectorList.remove((Connector*)0L);
-	m_outputConnectorList.remove((Connector*)0L);
 }
 
 
@@ -403,7 +383,10 @@ QPoint FPNode::findConnectorDivergePoint( bool * found )
 
 	int inSize = m_inputConnectorList.count();
 
-	const ConnectorList connectors = m_inputConnectorList + m_outputConnectorList;
+	ConnectorList connectors = m_inputConnectorList;
+	if(m_outputConnector)
+		connectors.append(m_outputConnector);
+	
 	const ConnectorList::const_iterator end = connectors.end();
 	bool gotP1 = false;
 	bool gotP2 = false;
@@ -446,28 +429,30 @@ void FPNode::setVisible( bool yes )
 	QCanvasPolygon::setVisible(yes);
 	
 	const ConnectorList::iterator inputEnd = m_inputConnectorList.end();
-	for ( ConnectorList::iterator it = m_inputConnectorList.begin(); it != inputEnd; ++it ) {
+	for ( ConnectorList::iterator it = m_inputConnectorList.begin(); it != inputEnd; ++it )
+	{
 		Connector *connector = *it;
-		if (connector) {
+		if ( connector )
+		{
 			if ( isVisible() )
-				connector->setVisible(true);
-			else {
+				connector->setVisible ( true );
+			else
+			{
 				Node *node = connector->startNode();
-				connector->setVisible( node && node->isVisible() );
+				connector->setVisible ( node && node->isVisible() );
 			}
 		}
 	}
 	
-	const ConnectorList::iterator outputEnd = m_outputConnectorList.end();
-	for ( ConnectorList::iterator it = m_outputConnectorList.begin(); it != outputEnd; ++it ) {
-		Connector *connector = *it;
-		if (connector) {
-			if ( isVisible() )
-				connector->setVisible(true);
-			else {
-				Node *node = connector->endNode();
-				connector->setVisible( node && node->isVisible() );
-			}
+	Connector *connector = m_outputConnector; 
+	if ( connector )
+	{
+		if ( isVisible() )
+			connector->setVisible ( true );
+		else
+		{
+			Node *node = connector->endNode();
+			connector->setVisible ( node && node->isVisible() );
 		}
 	}
 }
@@ -498,24 +483,23 @@ bool FPNode::isConnected( Node *node, NodeList *checkedNodes )
 				}
 				return true;
 			}
+		}	
+	}
+	
+	Connector *connector = m_outputConnector;
+	if ( connector )
+	{
+		Node *endNode = connector->endNode();
+		if ( endNode && endNode->isConnected ( node, checkedNodes ) )
+		{
+			if ( firstNode )
+			{
+				delete checkedNodes;
+			}
+			return true;
 		}
 	}
 
-	const ConnectorList::const_iterator outputEnd = m_outputConnectorList.end();
-	for ( ConnectorList::const_iterator it = m_outputConnectorList.begin(); it != outputEnd; ++it )
-	{
-		Connector *connector = *it;
-		if (connector)
-		{
-			Node *endNode = connector->endNode();
-			if ( endNode && endNode->isConnected( node, checkedNodes ) ) {
-				if (firstNode) {
-					delete checkedNodes;
-				}
-				return true;
-			}
-		}
-	}
 
 	if (firstNode) {
 		delete checkedNodes;
@@ -524,11 +508,29 @@ bool FPNode::isConnected( Node *node, NodeList *checkedNodes )
 	return false;
 }
 
+ConnectorList FPNode::outputConnectorList() const 
+{  
+	ConnectorList out;
+	if( m_outputConnector)
+		out.append(m_outputConnector);
+	return out;
+}
+
+ConnectorList FPNode::getAllConnectors() const
+{
+	ConnectorList all = m_inputConnectorList ;
+	if ( m_outputConnector )
+		all.append ( m_outputConnector );
+	return all;
+}
+
 Connector* FPNode::getAConnector() const {
 	if( ! m_inputConnectorList.isEmpty() )
 		return *m_inputConnectorList.begin();
-	if( ! m_outputConnectorList.isEmpty() )
-		return *m_outputConnectorList.begin();
+
+	if( m_outputConnector)
+		return m_outputConnector;
+	
 	return 0l;
 }
 
