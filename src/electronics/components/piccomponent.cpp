@@ -371,6 +371,11 @@ void PICComponent::slotCODCreationSucceeded()
 	if ( m_pGpsim->codLoadStatus() == GpsimProcessor::CodSuccess )
 	{
 		MicroInfo * microInfo = m_pGpsim->microInfo();
+		if(!microInfo){
+			// FIXME we should be select somehow the type of the PIC. this is only a stability hack.
+			kdWarning() << k_funcinfo << "cannot identify the PIC, defaulting to P16F84" << endl;
+			microInfo = MicroLibrary::self()->microInfoWithID("P16F84");
+		}
 		property("lastPackage")->setValue( microInfo->id() );
 		initPackage( microInfo );
 		

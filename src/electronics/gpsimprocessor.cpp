@@ -277,8 +277,10 @@ void GpsimProcessor::reset()
 
 MicroInfo * GpsimProcessor::microInfo( ) const
 {
-	if ( !m_pPicProcessor ) 
+	if ( !m_pPicProcessor ){
+		kdWarning() << k_funcinfo << " m_pPicProcessor == NULL" << endl;
 		return 0l;
+	}
 	
 	return MicroLibrary::self()->microInfoWithID( m_pPicProcessor->name().c_str() );
 }
