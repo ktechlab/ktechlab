@@ -13,7 +13,7 @@
 #include <fpnode.h>
 
 /**
-	A FPNode with type() == fp_out
+	a FlowNode which serves as Output for flowparts
 */
 class OutputFlowNode : public FPNode
 {
@@ -22,7 +22,6 @@ public:
 
     ~OutputFlowNode();
 
-    virtual node_type type() const { return Node::fp_out; }
 
 };
 
