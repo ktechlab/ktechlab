@@ -1,4 +1,4 @@
-#add_subdirectory(core)
+add_subdirectory(core)
 #add_subdirectory(gui)
 #add_subdirectory(flowparts)
 #add_subdirectory(micro)
@@ -34,14 +34,13 @@ SET(ktechlab_SRCS
     docmanager.cpp
     projectmanager.cpp
     ktechlab.cpp
-    main.cpp
 )
 
 #kde4_automoc( ${ktechlab_SRCS} )
 
 kde4_add_executable(ktechlab ${ktechlab_SRCS})
 
-target_link_libraries( ktechlab ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS}#core gui micro flowparts
+target_link_libraries( ktechlab ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} core #gui micro flowparts
 #	mechanics electronics elements components languages drawparts
 #	itemeditor math khtml kutils ${GPSIM_LIBRARY} ktexteditor kio
 #	kdeprint )
