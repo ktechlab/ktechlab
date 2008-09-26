@@ -62,7 +62,7 @@ protected:
 /**
 @author David Saxton
 */
-class View : public QWidget, public KXMLGUIClient
+class View : public QGraphicsView
 {
 Q_OBJECT
 public:

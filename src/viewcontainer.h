@@ -13,7 +13,8 @@
 
 #include <QDrag>
 #include <QMap>
-#include <QSplitter>
+#include <QGraphicsScene>
+#include <QGraphicsView>
 #include <QList>
 
 class KTechlab;
@@ -33,7 +34,7 @@ typedef QList<int> IntList;
 Before a ViewArea has been given a view, this is shown.
 \author David Saxton
 */
-class EmptyViewArea : public QWidget
+class EmptyViewArea : public QGraphicsScene
 {
     Q_OBJECT
     public:
@@ -54,7 +55,7 @@ If it contains one view, then the value returned in id() is that of the view.
 If it contains two ViewAreas, then the value returned by id() is -1.
 @author David Saxton
 */
-class ViewArea : public QSplitter
+class ViewArea : public QGraphicsScene
 {
 Q_OBJECT
 public:
@@ -118,7 +119,7 @@ protected:
 /**
 @author David Saxton
 */
-class ViewContainer : public QWidget
+class ViewContainer : public QGraphicsScene
 {
 Q_OBJECT
 public:
