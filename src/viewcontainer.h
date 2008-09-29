@@ -119,7 +119,7 @@ protected:
 /**
 @author David Saxton
 */
-class ViewContainer : public QGraphicsScene
+class ViewContainer : public QWidget
 {
 Q_OBJECT
 public:

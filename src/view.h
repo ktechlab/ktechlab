@@ -19,6 +19,7 @@
 #include <QPixmap>
 #include <QPainter>
 #include <QPaintEvent>
+#include <QGraphicsView>
 #include <QLabel>
 #include <QColorGroup>
 
