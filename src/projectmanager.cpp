@@ -28,118 +28,137 @@
 #include <KMessageBox>
 #include <KMimeType>
 #include <KStandardDirs>
-#include <QDom>
-#include <QPopupMenu>
+#include <QDomDocument>
+#include <QDomElement>
+#include <QMenu>
 #include <QWhatsThis>
 
 #include <cassert>
 
+ILVItem::ILVItem( QTreeWidget* parent, const QString &id )
+: QTreeWidgetItem( parent, 0 )
+{
+    m_id = id;
+    b_isRemovable = false;
+    m_pProjectItem = 0l;
+}
+
+ILVItem::ILVItem( QTreeWidgetItem* parent, const QString &id )
+: QTreeWidgetItem( parent, 0 )
+{
+    m_id = id;
+    b_isRemovable = false;
+    m_pProjectItem = 0l;
+}
+
 //BEGIN class LinkerOptions
 LinkerOptions::LinkerOptions()
+    : Options()
 {
-	m_hexFormat = HexFormat::inhx32;
-	m_bOutputMapFile = false;
+    m_hexFormat = HexFormat::inhx32;
+    m_bOutputMapFile = false;
 }
 
 
-QDomElement LinkerOptions::toDomElement( QDomDocument & doc, const KURL & baseURL ) const
+QDomElement LinkerOptions::toDomElement( QDomDocument & doc, const KUrl & baseURL ) const
 {
-	QDomElement node = doc.createElement("linker");
+    QDomElement node = doc.createElement("linker");
 
-	node.setAttribute( "hex-format", hexFormatToString(hexFormat()) );
-	node.setAttribute( "output-map-file", outputMapFile() );
-	node.setAttribute( "library-dir", libraryDir() );
-	node.setAttribute( "linker-script", linkerScript() );
-	node.setAttribute( "other", linkerOther() );
+    node.setAttribute( "hex-format", hexFormatToString(hexFormat()) );
+    node.setAttribute( "output-map-file", outputMapFile() );
+    node.setAttribute( "library-dir", libraryDir() );
+    node.setAttribute( "linker-script", linkerScript() );
+    node.setAttribute( "other", linkerOther() );
 
-	QStringList::const_iterator end = m_linkedInternal.end();
-	for ( QStringList::const_iterator it = m_linkedInternal.begin(); it != end; ++it )
-	{
-		QDomElement child = doc.createElement("linked-internal");
-		node.appendChild(child);
-		child.setAttribute( "url", KURL::relativeURL( baseURL, *it ) );
-	}
+    QStringList::const_iterator end = m_linkedInternal.end();
+    for ( QStringList::const_iterator it = m_linkedInternal.begin(); it != end; ++it )
+    {
+        QDomElement child = doc.createElement("linked-internal");
+        node.appendChild(child);
+        child.setAttribute( "url", KUrl::relativeUrl( baseURL, *it ) );
+    }
 
-	end = m_linkedExternal.end();
-	for ( QStringList::const_iterator it = m_linkedExternal.begin(); it != end; ++it )
-	{
-		QDomElement child = doc.createElement("linked-external");
-		node.appendChild(child);
-		child.setAttribute( "url", *it );
-	}
+    end = m_linkedExternal.end();
+    for ( QStringList::const_iterator it = m_linkedExternal.begin(); it != end; ++it )
+    {
+        QDomElement child = doc.createElement("linked-external");
+        node.appendChild(child);
+        child.setAttribute( "url", *it );
+    }
 
-	return node;
+    return node;
 }
 
 
-void LinkerOptions::domElementToLinkerOptions( const QDomElement & element, const KURL & baseURL )
+bool LinkerOptions::fromDomElement( const QDomElement & element, const KUrl & baseURL )
 {
-	setHexFormat( stringToHexFormat( element.attribute( "hex-format", QString::null ) ) );
-	setOutputMapFile( element.attribute( "output-map-file", "0" ).toInt() );
-	setLibraryDir( element.attribute( "library-dir", QString::null ) );
-	setLinkerScript( element.attribute( "linker-script", QString::null ) );
-	setLinkerOther( element.attribute( "other", QString::null ) );
+    setHexFormat( stringToHexFormat( element.attribute( "hex-format", QString() ) ) );
+    setOutputMapFile( element.attribute( "output-map-file", "0" ).toInt() );
+    setLibraryDir( element.attribute( "library-dir", QString() ) );
+    setLinkerScript( element.attribute( "linker-script", QString() ) );
+    setLinkerOther( element.attribute( "other", QString() ) );
 
-	m_linkedInternal.clear();
-	m_linkedExternal.clear();
+    m_linkedInternal.clear();
+    m_linkedExternal.clear();
 
-	QDomNode node = element.firstChild();
-	while ( !node.isNull() )
-	{
-		QDomElement childElement = node.toElement();
-		if ( !childElement.isNull() )
-		{
-			const QString tagName = childElement.tagName();
+    QDomNode node = element.firstChild();
+    while ( !node.isNull() )
+    {
+        QDomElement childElement = node.toElement();
+        if ( !childElement.isNull() )
+        {
+            const QString tagName = childElement.tagName();
 
-			if ( tagName == "linked-internal" )
-				m_linkedInternal << KURL( baseURL, childElement.attribute( "url", QString::null ) ).url();
+            if ( tagName == "linked-internal" )
+                m_linkedInternal << KUrl( baseURL, childElement.attribute( "url", QString() ) ).url();
 
-			else if ( tagName == "linked-external" )
-				m_linkedExternal << childElement.attribute( "url", QString::null );
+            else if ( tagName == "linked-external" )
+                m_linkedExternal << childElement.attribute( "url", QString() );
 
-			else
-				kdError() << k_funcinfo << "Unrecognised element tag name: "<<tagName<<endl;
-		}
+            else
+                kError() << k_funcinfo << "Unrecognised element tag name: "<<tagName<<endl;
+        }
 
-		node = node.nextSibling();
-	}
+        node = node.nextSibling();
+    }
+    return true;
 }
 
 
 QString LinkerOptions::hexFormatToString( HexFormat::type hexFormat )
 {
-	switch ( hexFormat )
-	{
-		case HexFormat::inhx32:
-			return "inhx32";
+    switch ( hexFormat )
+    {
+        case HexFormat::inhx32:
+            return "inhx32";
 
-		case HexFormat::inhx8m:
-			return "inhx8m";
+        case HexFormat::inhx8m:
+            return "inhx8m";
 
-		case HexFormat::inhx8s:
-			return "inhx8s";
+        case HexFormat::inhx8s:
+            return "inhx8s";
 
-		case HexFormat::inhx16:
-			return "inhx16";
-	}
+        case HexFormat::inhx16:
+            return "inhx16";
+    }
 
-	// Default hex format is inhx32
-	return "inhx32";
+    // Default hex format is inhx32
+    return "inhx32";
 }
 
 
 LinkerOptions::HexFormat::type LinkerOptions::stringToHexFormat( const QString & hexFormat )
 {
-	if ( hexFormat == "inhx8m" )
-		return HexFormat::inhx8m;
+    if ( hexFormat == "inhx8m" )
+        return HexFormat::inhx8m;
 
-	if ( hexFormat == "inhx8s" )
-		return HexFormat::inhx8s;
+    if ( hexFormat == "inhx8s" )
+        return HexFormat::inhx8s;
 
-	if ( hexFormat == "inhx16" )
-		return HexFormat::inhx16;
+    if ( hexFormat == "inhx16" )
+        return HexFormat::inhx16;
 
-	return HexFormat::inhx32;
+    return HexFormat::inhx32;
 }
 //END class LinkerOptions
 
@@ -147,9 +166,10 @@ LinkerOptions::HexFormat::type LinkerOptions::stringToHexFormat( const QString &
 
 //BEGIN class ProcessingOptions
 ProcessingOptions::ProcessingOptions()
+    : Options()
 {
-	m_bUseParentMicroID = false;
-	m_microID = "P16F84";
+    m_bUseParentMicroID = false;
+    m_microID = "P16F84";
 }
 
 
@@ -158,426 +178,353 @@ ProcessingOptions::~ProcessingOptions()
 }
 
 
-QDomElement ProcessingOptions::toDomElement( QDomDocument & doc, const KURL & baseURL ) const
+QDomElement ProcessingOptions::toDomElement( QDomDocument & doc, const KUrl & baseURL ) const
 {
-	QDomElement node = doc.createElement("processing");
+    QDomElement node = doc.createElement("processing");
 
-	node.setAttribute( "output", KURL::relativeURL( baseURL, outputURL().url() ) );
-	node.setAttribute( "micro", m_microID );
+    node.setAttribute( "output", KUrl::relativeUrl( baseURL, outputURL().url() ) );
+    node.setAttribute( "micro", m_microID );
 
-	return node;
+    return node;
 }
 
 
-void ProcessingOptions::domElementToProcessingOptions( const QDomElement & element, const KURL & baseURL )
+bool ProcessingOptions::fromDomElement( const QDomElement & element, const KUrl & baseURL )
 {
-	setOutputURL( KURL( baseURL, element.attribute( "output", QString::null ) ) );
-	setMicroID( element.attribute("micro", QString::null ) );
+    setOutputURL( KUrl( baseURL, element.attribute( "output", QString() ) ) );
+    setMicroID( element.attribute("micro", QString() ) );
+
+    return true;
 }
 //END class ProcessingOptions
 
 
 
 //BEGIN class ProjectItem
-ProjectItem::ProjectItem( ProjectItem * parent, Type type, ProjectManager * projectManager )
-	: QObject()
+ProjectItem::ProjectItem( ProjectItem * parent, ProjectManager * projectManager )
+//    : QObject()
 {
-	m_pParent = parent;
-	m_pILVItem = 0l;
-	m_pProjectManager = projectManager;
-	m_type = type;
+    m_pParent = parent;
+    m_pILVItem = 0l;
+    m_pProjectManager = projectManager;
+    m_processingOptions = 0;
+    m_linkerOptions = 0;
 }
 
 
 ProjectItem::~ProjectItem()
 {
-	m_children.remove( (ProjectItem*)0l );
-	ProjectItemList::iterator end = m_children.end();
-	for ( ProjectItemList::iterator it = m_children.begin(); it != end; ++it )
-		(*it)->deleteLater();
-	m_children.clear();
+    m_children.removeAll( (ProjectItem*)0l );
 
-	delete m_pILVItem;
-	m_pILVItem = 0l;
+    foreach ( ProjectItem * child, m_children)
+        delete child;
+    m_children.clear();
+
+    delete m_pILVItem;
+    m_pILVItem = 0l;
 }
 
 
 void ProjectItem::setILVItem( ILVItem * ilvItem )
 {
-	m_pILVItem = ilvItem;
-	ilvItem->setOpen(true);
-	ilvItem->setText( 0, name() );
-	ilvItem->setProjectItem(this);
-	updateILVItemPixmap();
-}
-
-
-void ProjectItem::updateILVItemPixmap()
-{
-	if ( !m_pILVItem )
-		return;
-
-	switch ( type() )
-	{
-		case ProjectType:
-		{
-			// ?! - We shouldn't have an ilvitem for this.
-			break;
-		}
-
-		case ProgramType:
-		{
-			QPixmap pm;
-			pm.load( locate( "appdata", "icons/project_program.png" ) );
-			m_pILVItem->setPixmap( 0, pm );
-			break;
-		}
-
-		case LibraryType:
-		{
-			QPixmap pm;
-			pm.load( locate( "appdata", "icons/project_library.png" ) );
-			m_pILVItem->setPixmap( 0, pm );
-			break;
-		}
-
-		case FileType:
-		{
-			KMimeType::Ptr m = KMimeType::findByPath( url().path() );
-			m_pILVItem->setPixmap( 0, m->pixmap( KIcon::Small ) );
-			break;
-		}
-	}
+    m_pILVItem = ilvItem;
+    ilvItem->setExpanded(true);
+    ilvItem->setText( 0, name() );
+    ilvItem->setProjectItem(this);
+    updateILVItemPixmap();
 }
 
 
 void ProjectItem::addChild( ProjectItem * child )
 {
-	if ( !child || m_children.contains(child) )
-		return;
+    if ( !child || m_children.contains(child) )
+        return;
 
-	m_children << child;
+    m_children << child;
 
-	child->setILVItem( m_pILVItem ?
-			new ILVItem( m_pILVItem, child->name() ) :
-			new ILVItem( m_pProjectManager, name() ) );
+    child->setILVItem( m_pILVItem ?
+            new ILVItem( m_pILVItem, child->name() ) :
+            new ILVItem( m_pProjectManager->treeWidget(), name() ) );
 
-	updateControlChildMicroIDs();
+    updateControlChildMicroIDs();
 }
 
 
 void ProjectItem::updateControlChildMicroIDs()
 {
-	bool control = false;
-	switch ( type() )
-	{
-		case ProjectItem::ProjectType:
-		case ProjectItem::LibraryType:
-		case ProjectItem::ProgramType:
-			control = !microID().isEmpty();
-			break;
+    bool control = shouldUpdateControlChildMicroIDs();
 
-		case ProjectItem::FileType:
-			control = true;
-			break;
-	}
-
-	m_children.remove( (ProjectItem*)0l );
-	ProjectItemList::iterator end = m_children.end();
-	for ( ProjectItemList::iterator it = m_children.begin(); it != end; ++it )
-		(*it)->setUseParentMicroID( control );
+    m_children.removeAll( (ProjectItem*)0l );
+    ProjectItemList::iterator end = m_children.end();
+    for ( ProjectItemList::iterator it = m_children.begin(); it != end; ++it )
+        if ( ProcessingOptions * p = (*it)->processingOptions() )
+            p->setUseParentMicroID( control );
 }
 
 
 void ProjectItem::setName( const QString & name )
 {
-	m_name = name;
-	if (m_pILVItem)
-		m_pILVItem->setText( 0, name );
+    m_name = name;
+    if (m_pILVItem)
+        m_pILVItem->setText( 0, name );
 }
 
 
-void ProjectItem::setURL( const KURL & url )
+void ProjectItem::setURL( const KUrl & url )
 {
-	m_url = url;
+    m_url = url;
 
-	if ( m_name.isEmpty() )
-		setName( url.fileName() );
+    if ( m_name.isEmpty() )
+        setName( url.fileName() );
 
-	if ( type() != FileType )
-	{
-		// The output url *is* our url
-		setOutputURL(url);
-	}
-	else if ( outputURL().isEmpty() )
-	{
-		// Try and guess what the output url should be...
-		QString newExtension;
-
-		switch ( outputType() )
-		{
-			case ProgramOutput:
-				newExtension = ".hex";
-				break;
-
-			case ObjectOutput:
-				newExtension = ".o";
-				break;
-
-			case LibraryOutput:
-				newExtension = ".o";
-				break;
-
-			case UnknownOutput:
-				break;
-		}
-
-		if ( !newExtension.isEmpty() )
-		{
-			const QString fileName = url.url();
-			QString extension = fileName.right( fileName.length() - fileName.findRev('.') );
-			setOutputURL( QString(fileName).replace( extension, newExtension ) );
-		}
-	}
-
-	updateILVItemPixmap();
+    m_processingOptions->setOutputURL(url);
+    updateILVItemPixmap();
 }
 
 
 QString ProjectItem::microID() const
 {
-	if ( !m_bUseParentMicroID )
-		return m_microID;
+    if ( !m_processingOptions->useParentMicroID() )
+        return m_processingOptions->microID();
 
-	return m_pParent ? m_pParent->microID() : QString::null;
+    return m_pParent ? m_pParent->microID() : QString();
 }
 
 
 void ProjectItem::setMicroID( const QString & id )
 {
-	ProcessingOptions::setMicroID(id);
-	updateControlChildMicroIDs();
+    m_processingOptions->setMicroID(id);
+    updateControlChildMicroIDs();
 }
 
 
-ProjectItem::OutputType ProjectItem::outputType() const
-{
-	if ( !m_pParent )
-		return UnknownOutput;
+// ProjectItem::OutputType ProjectItem::outputType() const
+// {
+// 	if ( !m_pParent )
+// 		return UnknownOutput;
+//
+// 	switch ( m_pParent->type() )
+// 	{
+// 		case ProjectItem::ProjectType:
+// 		{
+// 			// We're a top level build target, so look at our own type
+// 			switch ( type() )
+// 			{
+// 				case ProjectItem::ProjectType:
+// 					kdWarning() << k_funcinfo << "Parent item and this item are both project items" << endl;
+// 					return UnknownOutput;
+//
+// 				case ProjectItem::FileType:
+// 				case ProjectItem::ProgramType:
+// 					return ProgramOutput;
+//
+// 				case ProjectItem::LibraryType:
+// 					return LibraryOutput;
+// 			}
+// 			return UnknownOutput;
+// 		}
+//
+// 		case ProjectItem::FileType:
+// 		{
+// 			kdWarning() << k_funcinfo << "Don't know how to handle parent item being a file" << endl;
+// 			return UnknownOutput;
+// 		}
+//
+// 		case ProjectItem::ProgramType:
+// 		case ProjectItem::LibraryType:
+// 			return ObjectOutput;
+// 	}
+//
+// 	return UnknownOutput;
+// }
 
-	switch ( m_pParent->type() )
-	{
-		case ProjectItem::ProjectType:
-		{
-			// We're a top level build target, so look at our own type
-			switch ( type() )
-			{
-				case ProjectItem::ProjectType:
-					kdWarning() << k_funcinfo << "Parent item and this item are both project items" << endl;
-					return UnknownOutput;
 
-				case ProjectItem::FileType:
-				case ProjectItem::ProgramType:
-					return ProgramOutput;
-
-				case ProjectItem::LibraryType:
-					return LibraryOutput;
-			}
-			return UnknownOutput;
-		}
-
-		case ProjectItem::FileType:
-		{
-			kdWarning() << k_funcinfo << "Don't know how to handle parent item being a file" << endl;
-			return UnknownOutput;
-		}
-
-		case ProjectItem::ProgramType:
-		case ProjectItem::LibraryType:
-			return ObjectOutput;
-	}
-
-	return UnknownOutput;
-}
-
-
+//FIXME: port build()
 bool ProjectItem::build( ProcessOptionsList * pol )
 {
-	if ( !pol )
-		return false;
-
-	// Check to see that we aren't already in the ProcessOptionstList;
-	ProcessOptionsList::iterator polEnd = pol->end();
-	for ( ProcessOptionsList::iterator it = pol->begin(); it != polEnd; ++it )
-	{
-		if ( (*it).targetFile() == outputURL().path() )
-			return true;
-	}
-
-	ProjectInfo * projectInfo = ProjectManager::self()->currentProject();
-	assert(projectInfo);
-
-	if ( outputURL().isEmpty() )
-	{
-		KMessageBox::sorry( 0l, i18n("Don't know how to build \"%1\" (output url is empty).").arg(name()) );
-		return false;
-	}
-
-	// Build all internal libraries that we depend on
-	QStringList::iterator send = m_linkedInternal.end();
-	for ( QStringList::iterator it = m_linkedInternal.begin(); it != send; ++it )
-	{
-		ProjectItem * lib = projectInfo->findItem( projectInfo->directory() + *it );
-		if ( !lib )
-		{
-			KMessageBox::sorry( 0l, i18n("Don't know how to build \"%1\" (library does not exist in project).").arg(*it) );
-			return false;
-		}
-
-		if ( !lib->build(pol) )
-			return false;
-	}
-
-
-	// Build all children
-	m_children.remove( (ProjectItem*)0l );
-	ProjectItemList::iterator cend = m_children.end();
-	for ( ProjectItemList::iterator it = m_children.begin(); it != cend; ++it )
-	{
-		if ( ! (*it)->build(pol) )
-			return false;
-	}
-
-
-	// Now build ourself
-	ProcessOptions po;
-	po.b_addToProject = false;
-	po.setTargetFile( outputURL().path() );
-	po.m_picID = microID();
-
-	ProcessOptions::ProcessPath::MediaType typeTo;
-
-	switch ( outputType() )
-	{
-		case UnknownOutput:
-			KMessageBox::sorry( 0l, i18n("Don't know how to build \"%1\" (unknown output type).").arg(name()) );
-			return false;
-
-		case ProgramOutput:
-			typeTo = ProcessOptions::ProcessPath::Program;
-			break;
-
-		case ObjectOutput:
-			typeTo = ProcessOptions::ProcessPath::Object;
-			break;
-
-		case LibraryOutput:
-			typeTo = ProcessOptions::ProcessPath::Library;
-			break;
-	}
-
-	switch ( type() )
-	{
-		case ProjectType:
-			// Nothing to do
-			return true;
-
-		case FileType:
-			po.setInputFiles( url().path() );
-			po.setProcessPath( ProcessOptions::ProcessPath::path( ProcessOptions::guessMediaType( url().url() ), typeTo ) );
-			break;
-
-		case ProgramType:
-		case LibraryType:
-			// Build up a list of input urls
-			QStringList inputFiles;
-
-			// Link child objects
-			m_children.remove( (ProjectItem*)0l );
-			ProjectItemList::iterator cend = m_children.end();
-			for ( ProjectItemList::iterator it = m_children.begin(); it != cend; ++it )
-				inputFiles << (*it)->outputURL().path();
-
-			po.setInputFiles(inputFiles);
-			po.setProcessPath( ProcessOptions::ProcessPath::path( ProcessOptions::ProcessPath::Object, typeTo ) );
-			break;
-	}
-
-	po.m_hexFormat = hexFormatToString( hexFormat() );
-	po.m_bOutputMapFile = outputMapFile();
-	po.m_libraryDir = libraryDir();
-	po.m_linkerScript = linkerScript();
-	po.m_linkOther = linkerOther();
-
-	// Link against libraries
-	QStringList::iterator lend = m_linkedInternal.end();
-	for ( QStringList::iterator it = m_linkedInternal.begin(); it != lend; ++it )
-		po.m_linkLibraries += projectInfo->directory() + *it;
-	lend = m_linkedExternal.end();
-	for ( QStringList::iterator it = m_linkedExternal.begin(); it != lend; ++it )
-		po.m_linkLibraries += *it;
-
-	// Save our working file (if open) and append to the build list
-	Document * currentDoc = DocManager::self()->findDocument( url() );
-	if (currentDoc)
-		currentDoc->fileSave();
-	pol->append(po);
-
-	return true;
+    return true;
 }
+// bool ProjectItem::build( ProcessOptionsList * pol )
+// {
+// 	if ( !pol )
+// 		return false;
+//
+// 	// Check to see that we aren't already in the ProcessOptionstList;
+// 	ProcessOptionsList::iterator polEnd = pol->end();
+// 	for ( ProcessOptionsList::iterator it = pol->begin(); it != polEnd; ++it )
+// 	{
+// 		if ( (*it).targetFile() == outputURL().path() )
+// 			return true;
+// 	}
+//
+// 	ProjectInfo * projectInfo = ProjectManager::self()->currentProject();
+// 	assert(projectInfo);
+//
+// 	if ( outputURL().isEmpty() )
+// 	{
+// 		KMessageBox::sorry( 0l, i18n("Don't know how to build \"%1\" (output url is empty).").arg(name()) );
+// 		return false;
+// 	}
+//
+// 	// Build all internal libraries that we depend on
+// 	QStringList::iterator send = m_linkedInternal.end();
+// 	for ( QStringList::iterator it = m_linkedInternal.begin(); it != send; ++it )
+// 	{
+// 		ProjectItem * lib = projectInfo->findItem( projectInfo->directory() + *it );
+// 		if ( !lib )
+// 		{
+// 			KMessageBox::sorry( 0l, i18n("Don't know how to build \"%1\" (library does not exist in project).").arg(*it) );
+// 			return false;
+// 		}
+//
+// 		if ( !lib->build(pol) )
+// 			return false;
+// 	}
+//
+//
+// 	// Build all children
+// 	m_children.remove( (ProjectItem*)0l );
+// 	ProjectItemList::iterator cend = m_children.end();
+// 	for ( ProjectItemList::iterator it = m_children.begin(); it != cend; ++it )
+// 	{
+// 		if ( ! (*it)->build(pol) )
+// 			return false;
+// 	}
+//
+//
+// 	// Now build ourself
+// 	ProcessOptions po;
+// 	po.b_addToProject = false;
+// 	po.setTargetFile( outputURL().path() );
+// 	po.m_picID = microID();
+//
+// 	ProcessOptions::ProcessPath::MediaType typeTo;
+//
+// 	switch ( outputType() )
+// 	{
+// 		case UnknownOutput:
+// 			KMessageBox::sorry( 0l, i18n("Don't know how to build \"%1\" (unknown output type).").arg(name()) );
+// 			return false;
+//
+// 		case ProgramOutput:
+// 			typeTo = ProcessOptions::ProcessPath::Program;
+// 			break;
+//
+// 		case ObjectOutput:
+// 			typeTo = ProcessOptions::ProcessPath::Object;
+// 			break;
+//
+// 		case LibraryOutput:
+// 			typeTo = ProcessOptions::ProcessPath::Library;
+// 			break;
+// 	}
+//
+// 	switch ( type() )
+// 	{
+// 		case ProjectType:
+// 			// Nothing to do
+// 			return true;
+//
+// 		case FileType:
+// 			po.setInputFiles( url().path() );
+// 			po.setProcessPath( ProcessOptions::ProcessPath::path( ProcessOptions::guessMediaType( url().url() ), typeTo ) );
+// 			break;
+//
+// 		case ProgramType:
+// 		case LibraryType:
+// 			// Build up a list of input urls
+// 			QStringList inputFiles;
+//
+// 			// Link child objects
+// 			m_children.remove( (ProjectItem*)0l );
+// 			ProjectItemList::iterator cend = m_children.end();
+// 			for ( ProjectItemList::iterator it = m_children.begin(); it != cend; ++it )
+// 				inputFiles << (*it)->outputURL().path();
+//
+// 			po.setInputFiles(inputFiles);
+// 			po.setProcessPath( ProcessOptions::ProcessPath::path( ProcessOptions::ProcessPath::Object, typeTo ) );
+// 			break;
+// 	}
+//
+// 	po.m_hexFormat = hexFormatToString( hexFormat() );
+// 	po.m_bOutputMapFile = outputMapFile();
+// 	po.m_libraryDir = libraryDir();
+// 	po.m_linkerScript = linkerScript();
+// 	po.m_linkOther = linkerOther();
+//
+// 	// Link against libraries
+// 	QStringList::iterator lend = m_linkedInternal.end();
+// 	for ( QStringList::iterator it = m_linkedInternal.begin(); it != lend; ++it )
+// 		po.m_linkLibraries += projectInfo->directory() + *it;
+// 	lend = m_linkedExternal.end();
+// 	for ( QStringList::iterator it = m_linkedExternal.begin(); it != lend; ++it )
+// 		po.m_linkLibraries += *it;
+//
+// 	// Save our working file (if open) and append to the build list
+// 	Document * currentDoc = DocManager::self()->findDocument( url() );
+// 	if (currentDoc)
+// 		currentDoc->fileSave();
+// 	pol->append(po);
+//
+// 	return true;
+// }
 
-
+//FIXME: port upload()
 void ProjectItem::upload( ProcessOptionsList * pol )
+{}
+// void ProjectItem::upload( ProcessOptionsList * pol )
+// {
+// 	build( pol );
+//
+// 	ProgrammerDlg * dlg = new ProgrammerDlg( microID(), (QWidget*)KTechlab::self(), "Programmer Dlg" );
+//
+// 	dlg->exec();
+// 	if ( !dlg->isAccepted() )
+// 	{
+// 		dlg->deleteLater();
+// 		return;
+// 	}
+//
+// 	ProcessOptions po;
+// 	dlg->initOptions( & po );
+// 	po.b_addToProject = false;
+// 	po.setInputFiles( outputURL().path() );
+// 	po.setProcessPath( ProcessOptions::ProcessPath::Program_PIC );
+//
+// 	pol->append( po );
+//
+// 	dlg->deleteLater();
+// }
+
+
+QDomElement ProjectItem::toDomElement( QDomDocument & doc, const KUrl & baseURL ) const
 {
-	build( pol );
+    QDomElement node = doc.createElement("item");
 
-	ProgrammerDlg * dlg = new ProgrammerDlg( microID(), (QWidget*)KTechlab::self(), "Programmer Dlg" );
+    node.setAttribute( "type", typeToString() );
+    node.setAttribute( "name", m_name );
+    node.setAttribute( "url", KUrl::relativeUrl( baseURL, m_url.url() ) );
 
-	dlg->exec();
-	if ( !dlg->isAccepted() )
-	{
-		dlg->deleteLater();
-		return;
-	}
+    if ( m_linkerOptions )
+        node.appendChild( m_linkerOptions->toDomElement( doc, baseURL ) );
+    if ( m_processingOptions )
+        node.appendChild( m_processingOptions->toDomElement( doc, baseURL ) );
 
-	ProcessOptions po;
-	dlg->initOptions( & po );
-	po.b_addToProject = false;
-	po.setInputFiles( outputURL().path() );
-	po.setProcessPath( ProcessOptions::ProcessPath::Program_PIC );
 
-	pol->append( po );
+    ProjectItemList::const_iterator end = m_children.end();
+    for ( ProjectItemList::const_iterator it = m_children.begin(); it != end; ++it )
+    {
+        if (*it)
+            node.appendChild( (*it)->toDomElement( doc, baseURL ) );
+    }
 
-	dlg->deleteLater();
+    return node;
 }
 
 
-QDomElement ProjectItem::toDomElement( QDomDocument & doc, const KURL & baseURL ) const
+KUrl::List ProjectItem::childOutputURLs( unsigned types, unsigned outputTypes ) const
 {
-	QDomElement node = doc.createElement("item");
-
-	node.setAttribute( "type", typeToString() );
-	node.setAttribute( "name", m_name );
-	node.setAttribute( "url", KURL::relativeURL( baseURL, m_url.url() ) );
-
-	node.appendChild( LinkerOptions::toDomElement( doc, baseURL ) );
-	node.appendChild( ProcessingOptions::toDomElement( doc, baseURL ) );
-
-
-	ProjectItemList::const_iterator end = m_children.end();
-	for ( ProjectItemList::const_iterator it = m_children.begin(); it != end; ++it )
-	{
-		if (*it)
-			node.appendChild( (*it)->toDomElement( doc, baseURL ) );
-	}
-
-	return node;
-}
-
-
-KURL::List ProjectItem::childOutputURLs( unsigned types, unsigned outputTypes ) const
-{
-	KURL::List urls;
+	KUrl::List urls;
 
 	ProjectItemList::const_iterator end = m_children.end();
 	for ( ProjectItemList::const_iterator it = m_children.begin(); it != end; ++it )
@@ -585,8 +532,9 @@ KURL::List ProjectItem::childOutputURLs( unsigned types, unsigned outputTypes ) 
 		if (!*it)
 			continue;
 
-		if ( ((*it)->type() & types) && ((*it)->outputType() & outputTypes) )
-			urls += (*it)->outputURL().prettyURL();
+        //FIXME: Port this
+//		if ( ((*it)->type() & types) && ((*it)->outputType() & outputTypes) )
+//			urls += (*it)->outputURL().prettyUrl();
 
 		urls += (*it)->childOutputURLs(types);
 	}
@@ -595,112 +543,93 @@ KURL::List ProjectItem::childOutputURLs( unsigned types, unsigned outputTypes ) 
 }
 
 
-ProjectItem * ProjectItem::findItem( const KURL & url )
+ProjectItem * ProjectItem::findItem( const KUrl & url )
 {
-	if ( this->url() == url )
-		return this;
+    if ( this->url() == url )
+        return this;
 
-	ProjectItemList::const_iterator end = m_children.end();
-	for ( ProjectItemList::const_iterator it = m_children.begin(); it != end; ++it )
-	{
-		if (!*it)
-			continue;
+    ProjectItemList::const_iterator end = m_children.end();
+    for ( ProjectItemList::const_iterator it = m_children.begin(); it != end; ++it )
+    {
+        if (!*it)
+            continue;
 
-		ProjectItem * found = (*it)->findItem(url);
-		if (found)
-			return found;
-	}
+        ProjectItem * found = (*it)->findItem(url);
+        if (found)
+            return found;
+    }
 
-	return 0l;
+    return 0l;
 }
 
 
 bool ProjectItem::closeOpenFiles()
 {
-	Document * doc = DocManager::self()->findDocument(m_url);
-	if ( doc && !doc->fileClose() )
-		return false;
+    Document * doc = DocManager::self()->findDocument(m_url);
+    if ( doc && !doc->fileClose() )
+        return false;
 
-	m_children.remove( (ProjectItem*)0l );
-	ProjectItemList::iterator end = m_children.end();
-	for ( ProjectItemList::iterator it = m_children.begin(); it != end; ++it )
-	{
-		if ( !(*it)->closeOpenFiles() )
-			return false;
-	}
+    m_children.removeAll( (ProjectItem*)0l );
+    ProjectItemList::iterator end = m_children.end();
+    for ( ProjectItemList::iterator it = m_children.begin(); it != end; ++it )
+    {
+        if ( !(*it)->closeOpenFiles() )
+            return false;
+    }
 
-	return true;
+    return true;
 }
 
 
 void ProjectItem::addFiles()
 {
-	KURL::List urls = KTechlab::self()->getFileURLs();
-	const KURL::List::iterator end = urls.end();
-	for ( KURL::List::iterator it = urls.begin(); it != end; ++ it)
-		addFile(*it);
+    //FIXME: Port this
+    KUrl::List urls;// = KTechlab::self()->getFileURLs();
+    const KUrl::List::iterator end = urls.end();
+    for ( KUrl::List::iterator it = urls.begin(); it != end; ++ it)
+        addFile(*it);
 }
 
 
 void ProjectItem::addCurrentFile()
 {
-	Document *document = DocManager::self()->getFocusedDocument();
-	if (!document)
-		return;
+    Document *document = DocManager::self()->getFocusedDocument();
+    if (!document)
+        return;
 
-	// If the file isn't saved yet, we must do that
-	// before it is added to the project.
-	if( document->url().isEmpty() )
-	{
-		document->fileSaveAs();
-		// If the user pressed cancel then just give up,
-		// otherwise the file can now be added.
-	}
+    // If the file isn't saved yet, we must do that
+    // before it is added to the project.
+    if( document->url().isEmpty() )
+    {
+        document->fileSaveAs();
+        // If the user pressed cancel then just give up,
+        // otherwise the file can now be added.
+    }
 
-	if( !document->url().isEmpty() )
-		addFile( document->url() );
+    if( !document->url().isEmpty() )
+        addFile( document->url() );
 }
 
 
-void ProjectItem::addFile( const KURL & url )
+void ProjectItem::addFile( const KUrl & url )
 {
-	if ( url.isEmpty() )
-		return;
+    if ( url.isEmpty() )
+        return;
 
-	m_children.remove( (ProjectItem*)0l );
-	ProjectItemList::iterator end = m_children.end();
-	for ( ProjectItemList::iterator it = m_children.begin(); it != end; ++it )
-	{
-		if ( (*it)->type() == FileType && (*it)->url() == url )
-			return;
-	}
+    m_children.removeAll( (ProjectItem*)0l );
+    ProjectItemList::iterator end = m_children.end();
+    for ( ProjectItemList::iterator it = m_children.begin(); it != end; ++it )
+    {
+        if ( (*it)->type() == FileType && (*it)->url() == url )
+            return;
+    }
 
-	ProjectItem * item = new ProjectItem( this, FileType, m_pProjectManager );
-	item->setURL(url);
-	addChild(item);
+    ProjectItem * item = new ProjectItem( this, FileType, m_pProjectManager );
+    item->setURL(url);
+    addChild(item);
 }
 
-
-QString ProjectItem::typeToString() const
-{
-	switch (m_type)
-	{
-		case ProjectType:
-			return "Project";
-
-		case FileType:
-			return "File";
-
-		case ProgramType:
-			return "Program";
-
-		case LibraryType:
-			return "Library";
-	}
-	return QString::null;
-}
-
-
+/*
 ProjectItem::Type ProjectItem::stringToType( const QString & type )
 {
 	if ( type == "Project" )
@@ -717,158 +646,216 @@ ProjectItem::Type ProjectItem::stringToType( const QString & type )
 
 	return FileType;
 }
+*/
 
-
-void ProjectItem::domElementToItem( const QDomElement & element, const KURL & baseURL )
+bool ProjectItem::setFromDomElement( const QDomElement & element, const KUrl & baseURL )
 {
-	Type type = stringToType( element.attribute( "type", QString::null ) );
-	QString name = element.attribute( "name", QString::null );
-	KURL url( baseURL, element.attribute( "url", QString::null ) );
+    QString type = element.attribute( "type", QString() );
+    QString name = element.attribute( "name", QString() );
+    KUrl url( baseURL, element.attribute( "url", QString()) ) );
 
-	ProjectItem * createdItem = new ProjectItem( this, type, m_pProjectManager );
-	createdItem->setName( name );
-	createdItem->setURL( url );
+    ProjectItem * createdItem = new ProjectItem( m_project, type, m_pProjectManager );
+    createdItem->setName( name );
+    createdItem->setURL( url );
 
-	addChild( createdItem );
+    addChild( createdItem );
 
-	QDomNode node = element.firstChild();
-	while ( !node.isNull() )
-	{
-		QDomElement childElement = node.toElement();
-		if ( !childElement.isNull() )
-		{
-			const QString tagName = childElement.tagName();
+    QDomNode node = element.firstChild();
+    while ( !node.isNull() )
+    {
+        QDomElement childElement = node.toElement();
+        if ( !childElement.isNull() )
+        {
+            const QString tagName = childElement.tagName();
 
-			if ( tagName == "linker" )
-				createdItem->domElementToLinkerOptions( childElement, baseURL );
+            if ( tagName == "linker" )
+                createdItem->domElementToLinkerOptions( childElement, baseURL );
 
-			else if ( tagName == "processing" )
-				createdItem->domElementToProcessingOptions( childElement, baseURL );
+            else if ( tagName == "processing" )
+                createdItem->domElementToProcessingOptions( childElement, baseURL );
 
-			else if ( tagName == "item" )
-				createdItem->domElementToItem( childElement, baseURL );
+            else if ( tagName == "item" )
+                createdItem->domElementToItem( childElement, baseURL );
 
-			else
-				kdError() << k_funcinfo << "Unrecognised element tag name: "<<tagName<<endl;
-		}
+            else
+                kdError() << k_funcinfo << "Unrecognised element tag name: "<<tagName<<endl;
+        }
 
-		node = node.nextSibling();
-	}
+        node = node.nextSibling();
+    }
+    return true;
 }
 //END class ProjectItem
 
+//BEGIN namespace ProjectItemTypes
+namespace ProjectItemTypes {
+
+void File::updateILVItemPixmap()
+{
+    if ( !m_pILVItem )
+        return;
+
+    KMimeType::Ptr m = KMimeType::findByPath( url().path() );
+    m_pILVItem->setPixmap( 0, m->pixmap( KIcon::Small ) );
+}
+
+
+void ProjectItemTypes::File::setURL( const KUrl & url )
+{
+    if ( outputURL().isEmpty() )
+    {
+        // Try and guess what the output url should be...
+        QString newExtension = outputExtension();
+/*
+        switch ( outputType() )
+        {
+            case ProgramOutput:
+                newExtension = ".hex";
+                break;
+
+            case ObjectOutput:
+                newExtension = ".o";
+                break;
+
+            case LibraryOutput:
+                newExtension = ".o";
+                break;
+
+            case UnknownOutput:
+                break;
+        }*/
+
+        if ( !newExtension.isEmpty() )
+        {
+            const QString fileName = url.url();
+            QString extension = fileName.right( fileName.length() - fileName.findRev('.') );
+            ProjectItem::setURL( QString(fileName).replace( extension, newExtension ) );
+        }
+    }
+}
+
+
+void Program::updateILVItemPixmap()
+{
+    if ( !m_pILVItem )
+        return;
+
+    QPixmap pm;
+    pm.load( locate( "appdata", "icons/project_program.png" ) );
+    m_pILVItem->setPixmap( 0, pm );
+}
+
+void Program::updateILVItemPixmap()
+{
+    if ( !m_pILVItem )
+        return;
+
+    QPixmap pm;
+    pm.load( locate( "appdata", "icons/project_library.png" ) );
+    m_pILVItem->setPixmap( 0, pm );
+}
+
+}
+//END namespace ProjectItemTypes
 
 
 //BEGIN class ProjectInfo
 ProjectInfo::ProjectInfo( ProjectManager * projectManager )
-	: ProjectItem( 0l, ProjectItem::ProjectType, projectManager )
 {
-	m_microID = QString::null;
+    m_project = new ProjectItem( 0l, ProjectItem::ProjectType, projectManager );
 }
 
 
 ProjectInfo::~ ProjectInfo()
 {
+    delete m_project;
 }
 
 
 bool ProjectInfo::open( const KURL & url )
 {
-	QString target;
-	if ( !KIO::NetAccess::download( url, target, 0l ) )
-	{
-		// If the file could not be downloaded, for example does not
-		// exist on disk, NetAccess will tell us what error to use
-		KMessageBox::error( 0l, KIO::NetAccess::lastErrorString() );
+    QString target;
+    if ( !KIO::NetAccess::download( url, target, 0l ) )
+    {
+        // If the file could not be downloaded, for example does not
+        // exist on disk, NetAccess will tell us what error to use
+        KMessageBox::error( 0l, KIO::NetAccess::lastErrorString() );
 
-		return false;
-	}
+        return false;
+    }
 
-	QFile file(target);
-	if ( !file.open( IO_ReadOnly ) )
-	{
-		KMessageBox::sorry( 0l, i18n("Could not open %1 for reading").arg(target) );
-		return false;
-	}
+    QFile file(target);
+    if ( !file.open( IO_ReadOnly ) )
+    {
+        KMessageBox::sorry( 0l, i18n("Could not open %1 for reading").arg(target) );
+        return false;
+    }
 
-	m_url = url;
+    m_url = url;
 
-	QString xml;
-	QTextStream textStream( &file );
-	while ( !textStream.eof() )
-		xml += textStream.readLine() + '\n';
+    QString xml;
+    QTextStream textStream( &file );
+    while ( !textStream.eof() )
+        xml += textStream.readLine() + '\n';
 
-	file.close();
+    file.close();
 
-	QDomDocument doc( "KTechlab" );
-	QString errorMessage;
-	if ( !doc.setContent( xml, &errorMessage ) )
-	{
-		KMessageBox::sorry( 0l, i18n("Couldn't parse xml:\n%1").arg(errorMessage) );
-		return false;
-	}
+    QDomDocument doc( "KTechlab" );
+    QString errorMessage;
+    if ( !doc.setContent( xml, &errorMessage ) )
+    {
+        KMessageBox::sorry( 0l, i18n("Couldn't parse xml:\n%1").arg(errorMessage) );
+        return false;
+    }
 
-	QDomElement root = doc.documentElement();
+    QDomElement root = doc.documentElement();
 
-	QDomNode node = root.firstChild();
-	while ( !node.isNull() )
-	{
-		QDomElement element = node.toElement();
-		if ( !element.isNull() )
-		{
-			const QString tagName = element.tagName();
+    QDomNode node = root.firstChild();
+    while ( !node.isNull() )
+    {
+        QDomElement element = node.toElement();
+        if ( !element.isNull() && !m_project->addChild( element, m_url ) )
+            kWarning() << k_funcinfo << "Unrecognised element tag name: "<< element.tagName() <<endl;
 
-			if ( tagName == "linker" )
-				domElementToLinkerOptions( element, m_url );
+        node = node.nextSibling();
+    }
 
-			else if ( tagName == "processing" )
-				domElementToProcessingOptions( element, m_url );
-
-			else if ( tagName == "file" || tagName == "item" )
-				domElementToItem( element, m_url );
-
-			else
-				kdWarning() << k_funcinfo << "Unrecognised element tag name: "<<tagName<<endl;
-		}
-
-		node = node.nextSibling();
-	}
-
-	updateControlChildMicroIDs();
-	return true;
+    m_project->updateControlChildMicroIDs();
+    return true;
 }
 
 
 bool ProjectInfo::save()
 {
-	QFile file( m_url.path() );
-	if ( file.open(IO_WriteOnly) == false )
-	{
-		KMessageBox::sorry( NULL, i18n("Project could not be saved to \"%1\"").arg(m_url.path()), i18n("Saving Project") );
-		return false;
-	}
+    QFile file( m_url.path() );
+    if ( file.open(IO_WriteOnly) == false )
+    {
+        KMessageBox::sorry( NULL, i18n("Project could not be saved to \"%1\"").arg(m_url.path()), i18n("Saving Project") );
+        return false;
+    }
 
-	QDomDocument doc("KTechlab");
+    QDomDocument doc("KTechlab");
 
-	QDomElement root = doc.createElement("project");
-	doc.appendChild(root);
+    QDomElement root = doc.createElement("project");
+    doc.appendChild(root);
 
-	m_children.remove( (ProjectItem*)0l );
-	ProjectItemList::const_iterator end = m_children.end();
-	for ( ProjectItemList::const_iterator it = m_children.begin(); it != end; ++it )
-		root.appendChild( (*it)->toDomElement( doc, m_url ) );
+    m_children.remove( (ProjectItem*)0l );
 
-	QTextStream stream(&file);
-	stream << doc.toString();
-	file.close();
+    foreach ( ProjectItem it, m_children )
+        root.appendChild( it.toDomElement( doc, m_url ) );
 
-	(static_cast<RecentFilesAction*>(KTechlab::self()->action("project_open_recent")))->addURL(m_url);
+    QTextStream stream(&file);
+    stream << doc.toString();
+    file.close();
 
-	return true;
+    //FIXME: get reference from KApplication
+    //(static_cast<RecentFilesAction*>(KTechlab::self()->action("project_open_recent")))->addURL(m_url);
+
+    return true;
 }
 
 
-bool ProjectInfo::saveAndClose()
+bool ProjectInfo::saveAndCloseOptions()
 {
 	if (!save())
 		return false;
@@ -885,7 +872,7 @@ bool ProjectInfo::saveAndClose()
 //BEGIN class ProjectManager
 ProjectManager * ProjectManager::m_pSelf = 0l;
 
-ProjectManager * ProjectManager::self( KateMDI::ToolView * parent )
+ProjectManager * ProjectManager::self( QWidget * parent )
 {
 	if ( !m_pSelf )
 	{
@@ -896,8 +883,8 @@ ProjectManager * ProjectManager::self( KateMDI::ToolView * parent )
 }
 
 
-ProjectManager::ProjectManager( KateMDI::ToolView * parent )
-	: ItemSelector( parent, "Project Manager" ),
+ProjectManager::ProjectManager( QWidget * parent )
+//	: ItemSelector( parent, "Project Manager" ),
 	m_pCurrentProject(0l)
 {
 	QWhatsThis::add( this, i18n("Displays the list of files in the project.\nTo open or close a project, use the \"Project\" menu. Right click on a file to remove it from the project") );
