@@ -213,6 +213,7 @@ class ProjectItem
         };
         enum { AllOutputs = ProgramOutput | ObjectOutput | LibraryOutput | UnknownOutput };
 
+        static ProjectItem * createProjectItem(ProjectItem * parent, QString type, ProjectManager * manager);
         virtual ~ProjectItem();
 
         void setILVItem( ILVItem * ilvItem );
@@ -252,6 +253,9 @@ class ProjectItem
         */
         KUrl::List childOutputURLs( unsigned types = AllTypes, unsigned outputTypes = AllOutputs ) const;
 
+        virtual QString outputExtension() const { return QString(); };
+        virtual void setOutputExtension( QString & ext ) { Q_UNUSED(ext); };
+
         /**
         * Creates a new ProjectItem for the given url and adds it as a child.
         */
@@ -271,7 +275,11 @@ class ProjectItem
         virtual void setMicroID( const QString & id );
         virtual QString microID() const;
 
+        void setProcessingOptions( ProcessingOptions * options ) { m_processingOptions = options; };
         ProcessingOptions * processingOptions() { return m_processingOptions; };
+
+        void setLinkerOptions( LinkerOptions * options ) { m_linkerOptions = options; };
+        LinkerOptions * linkerOptions() { return m_linkerOptions; };
 
         /**
         * Searches this item and the children for an item for the given url,
@@ -280,7 +288,7 @@ class ProjectItem
         ProjectItem * findItem( const KUrl & url );
 
         virtual QDomElement toDomElement( QDomDocument & doc, const KUrl & baseURL ) const;
-        virtual void fromDomElement( const QDomElement & element, const KUrl & baseURL );
+        virtual bool fromDomElement( const QDomElement & element, const KUrl & baseURL );
 
     protected:
         ProjectItem( ProjectItem * parent, ProjectManager * projectManager );
@@ -293,11 +301,11 @@ class ProjectItem
         virtual void updateControlChildMicroIDs();
         virtual inline bool shouldUpdateControlChildMicroIDs() { return false; };
 
+        QPointer<ILVItem> m_pILVItem;
     private:
         KUrl m_url;
         QString m_name;
 
-        QPointer<ILVItem> m_pILVItem;
         ProjectManager * m_pProjectManager;
         ProjectItem * m_pParent;
         ProjectItemList m_children;
@@ -310,29 +318,47 @@ namespace ProjectItemTypes {
 
 class Project : public ProjectItem
 {
-    //Does nothing, projects don't have a pixmap
-    void updateILVItemPixmap() {};
-    QString typeToString() const { return QString("Project"); };
+    public:
+        Project( ProjectItem * parent, ProjectManager * projectManager );
+    private:
+        //Does nothing, projects don't have a pixmap
+        void updateILVItemPixmap() {};
+        QString typeToString() const { return QString("Project"); };
 };
 
 class File : public ProjectItem
 {
-    void updateILVItemPixmap();
-    inline bool shouldUpdateControlChildMicroIDs() { return true; };
-    QString typeToString() const { return QString("File"); };
+    public:
+        File( ProjectItem * parent, ProjectManager * projectManager );
+    private:
+        virtual QString outputExtension() const { return m_outputExtension; };
+        virtual void setOutputExtension( QString & ext ) { m_outputExtension = ext; };
+
+        void setURL( const KUrl & url );
+        void updateILVItemPixmap();
+        inline bool shouldUpdateControlChildMicroIDs() { return true; };
+        QString typeToString() const { return QString("File"); };
+
+        QString m_outputExtension;
 };
 
 class Program : public ProjectItem
 {
-    void updateILVItemPixmap();
-    inline bool shouldUpdateControlChildMicroIDs() { return !microID().isEmpty(); };
-    QString typeToString() const { return QString("Program"); };
+    public:
+        Program( ProjectItem * parent, ProjectManager * projectManager );
+    private:
+        void updateILVItemPixmap();
+        inline bool shouldUpdateControlChildMicroIDs() { return !microID().isEmpty(); };
+        QString typeToString() const { return QString("Program"); };
 };
 
 class Library : public ProjectItem
 {
-    void updateILVItemPixmap();
-    QString typeToString() const { return QString("Library"); };
+    public:
+        Library( ProjectItem * parent, ProjectManager * projectManager );
+    private:
+        void updateILVItemPixmap();
+        QString typeToString() const { return QString("Library"); };
 };
 
 };
