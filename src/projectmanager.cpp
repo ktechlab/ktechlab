@@ -620,13 +620,29 @@ void ProjectItem::addFile( const KUrl & url )
     ProjectItemList::iterator end = m_children.end();
     for ( ProjectItemList::iterator it = m_children.begin(); it != end; ++it )
     {
-        if ( (*it)->type() == FileType && (*it)->url() == url )
-            return;
+//FIXME: port this...
+        /*        if ( (*it)->type() == FileType && (*it)->url() == url )
+            return;*/
     }
 
-    ProjectItem * item = new ProjectItem( this, FileType, m_pProjectManager );
+    ProjectItem * item = ProjectItem::createProjectItem( this, "File", m_pProjectManager );
     item->setURL(url);
     addChild(item);
+}
+
+ProjectItem * ProjectItem::createProjectItem( ProjectItem * parent, QString type, ProjectManager * manager)
+{
+    if ( type == "Project" )
+        return new ProjectItemTypes::Project(parent, manager);
+    if ( type == "File" )
+        return new ProjectItemTypes::File(parent, manager);
+    if ( type == "Program" )
+        return new ProjectItemTypes::Program(parent, manager);
+    if ( type == "Library" )
+        return new ProjectItemTypes::Library(parent, manager);
+
+    kError() << "Couldn't create ProjectItem of type "<<type;
+    return 0;
 }
 
 /*
@@ -648,13 +664,13 @@ ProjectItem::Type ProjectItem::stringToType( const QString & type )
 }
 */
 
-bool ProjectItem::setFromDomElement( const QDomElement & element, const KUrl & baseURL )
+bool ProjectItem::fromDomElement( const QDomElement & element, const KUrl & baseURL )
 {
     QString type = element.attribute( "type", QString() );
     QString name = element.attribute( "name", QString() );
-    KUrl url( baseURL, element.attribute( "url", QString()) ) );
+    KUrl url( baseURL, element.attribute( "url", QString() ) );
 
-    ProjectItem * createdItem = new ProjectItem( m_project, type, m_pProjectManager );
+    ProjectItem * createdItem = ProjectItem::createProjectItem( this, type, m_pProjectManager );
     createdItem->setName( name );
     createdItem->setURL( url );
 
@@ -668,17 +684,26 @@ bool ProjectItem::setFromDomElement( const QDomElement & element, const KUrl & b
         {
             const QString tagName = childElement.tagName();
 
+            //TODO: should these decisions be replaced to somewhere else?
             if ( tagName == "linker" )
-                createdItem->domElementToLinkerOptions( childElement, baseURL );
-
-            else if ( tagName == "processing" )
-                createdItem->domElementToProcessingOptions( childElement, baseURL );
-
-            else if ( tagName == "item" )
-                createdItem->domElementToItem( childElement, baseURL );
-
-            else
-                kdError() << k_funcinfo << "Unrecognised element tag name: "<<tagName<<endl;
+            {
+                LinkerOptions * o = new LinkerOptions();
+                if ( o->fromDomElement( childElement, baseURL ) )
+                    createdItem->setLinkerOptions( o );
+                else
+                    delete o;
+            } else if ( tagName == "processing" )
+            {
+                ProcessingOptions * o = new ProcessingOptions();
+                if ( o->fromDomElement( childElement, baseURL ) )
+                    createdItem->setProcessingOptions( o );
+                else
+                    delete o;
+            } else if ( tagName == "item" )
+            {
+                createdItem->fromDomElement( childElement, baseURL );
+            } else
+                kError() << k_funcinfo << "Unrecognised element tag name: "<<tagName<<endl;
         }
 
         node = node.nextSibling();
@@ -695,14 +720,13 @@ void File::updateILVItemPixmap()
     if ( !m_pILVItem )
         return;
 
-    KMimeType::Ptr m = KMimeType::findByPath( url().path() );
-    m_pILVItem->setPixmap( 0, m->pixmap( KIcon::Small ) );
+    m_pILVItem->setIcon( 0, KIcon( KMimeType::iconNameForUrl( url() ) ) );
 }
 
 
 void ProjectItemTypes::File::setURL( const KUrl & url )
 {
-    if ( outputURL().isEmpty() )
+    if ( processingOptions() && processingOptions()->outputURL().isEmpty() )
     {
         // Try and guess what the output url should be...
         QString newExtension = outputExtension();
@@ -728,7 +752,7 @@ void ProjectItemTypes::File::setURL( const KUrl & url )
         if ( !newExtension.isEmpty() )
         {
             const QString fileName = url.url();
-            QString extension = fileName.right( fileName.length() - fileName.findRev('.') );
+            QString extension = fileName.right( fileName.length() - fileName.lastIndexOf('.') );
             ProjectItem::setURL( QString(fileName).replace( extension, newExtension ) );
         }
     }
@@ -740,19 +764,15 @@ void Program::updateILVItemPixmap()
     if ( !m_pILVItem )
         return;
 
-    QPixmap pm;
-    pm.load( locate( "appdata", "icons/project_program.png" ) );
-    m_pILVItem->setPixmap( 0, pm );
+    m_pILVItem->setIcon( 0, KIcon( "project_program.png" ) );
 }
 
-void Program::updateILVItemPixmap()
+void Library::updateILVItemPixmap()
 {
     if ( !m_pILVItem )
         return;
 
-    QPixmap pm;
-    pm.load( locate( "appdata", "icons/project_library.png" ) );
-    m_pILVItem->setPixmap( 0, pm );
+    m_pILVItem->setIcon( 0, KIcon( "project_library.png" ) );
 }
 
 }
@@ -762,7 +782,7 @@ void Program::updateILVItemPixmap()
 //BEGIN class ProjectInfo
 ProjectInfo::ProjectInfo( ProjectManager * projectManager )
 {
-    m_project = new ProjectItem( 0l, ProjectItem::ProjectType, projectManager );
+    m_project = ProjectItem::createProjectItem( 0l, "Project", projectManager );
 }
 
 
@@ -772,7 +792,7 @@ ProjectInfo::~ ProjectInfo()
 }
 
 
-bool ProjectInfo::open( const KURL & url )
+bool ProjectInfo::open( const KUrl & url )
 {
     QString target;
     if ( !KIO::NetAccess::download( url, target, 0l ) )
@@ -785,17 +805,15 @@ bool ProjectInfo::open( const KURL & url )
     }
 
     QFile file(target);
-    if ( !file.open( IO_ReadOnly ) )
+    if ( !file.open( QIODevice::ReadOnly ) )
     {
         KMessageBox::sorry( 0l, i18n("Could not open %1 for reading").arg(target) );
         return false;
     }
 
-    m_url = url;
-
     QString xml;
     QTextStream textStream( &file );
-    while ( !textStream.eof() )
+    while ( !textStream.atEnd() )
         xml += textStream.readLine() + '\n';
 
     file.close();
@@ -810,39 +828,24 @@ bool ProjectInfo::open( const KURL & url )
 
     QDomElement root = doc.documentElement();
 
-    QDomNode node = root.firstChild();
-    while ( !node.isNull() )
-    {
-        QDomElement element = node.toElement();
-        if ( !element.isNull() && !m_project->addChild( element, m_url ) )
-            kWarning() << k_funcinfo << "Unrecognised element tag name: "<< element.tagName() <<endl;
+    m_project->fromDomElement( root, url );
 
-        node = node.nextSibling();
-    }
-
-    m_project->updateControlChildMicroIDs();
     return true;
 }
 
 
 bool ProjectInfo::save()
 {
-    QFile file( m_url.path() );
-    if ( file.open(IO_WriteOnly) == false )
+    QFile file( m_project->url().path() );
+    if ( file.open(QIODevice::WriteOnly) == false )
     {
-        KMessageBox::sorry( NULL, i18n("Project could not be saved to \"%1\"").arg(m_url.path()), i18n("Saving Project") );
+        KMessageBox::sorry( NULL, i18n("Project could not be saved to \"%1\"").arg(m_project->url().path()), i18n("Saving Project") );
         return false;
     }
 
     QDomDocument doc("KTechlab");
 
-    QDomElement root = doc.createElement("project");
-    doc.appendChild(root);
-
-    m_children.remove( (ProjectItem*)0l );
-
-    foreach ( ProjectItem it, m_children )
-        root.appendChild( it.toDomElement( doc, m_url ) );
+    QDomElement root = m_project->toDomElement( doc, m_project->url() );
 
     QTextStream stream(&file);
     stream << doc.toString();
@@ -855,15 +858,15 @@ bool ProjectInfo::save()
 }
 
 
-bool ProjectInfo::saveAndCloseOptions()
+bool ProjectInfo::saveAndClose()
 {
-	if (!save())
-		return false;
+    if (!save())
+        return false;
 
-	if (!closeOpenFiles())
-		return false;
+    if (!m_project->closeOpenFiles())
+        return false;
 
-	return true;
+    return true;
 }
 //END class ProjectInfo
 
@@ -885,12 +888,13 @@ ProjectManager * ProjectManager::self( QWidget * parent )
 
 ProjectManager::ProjectManager( QWidget * parent )
 //	: ItemSelector( parent, "Project Manager" ),
-	m_pCurrentProject(0l)
+    : m_pCurrentProject(0l)
 {
-	QWhatsThis::add( this, i18n("Displays the list of files in the project.\nTo open or close a project, use the \"Project\" menu. Right click on a file to remove it from the project") );
+    QWhatsThis::add( this, i18n("Displays the list of files in the project.\nTo open or close a project, use the \"Project\" menu. Right click on a file to remove it from the project") );
+    m_treeWidget = new QTreeWidget(parent);
 
-	setListCaption( i18n("File") );
-	setCaption( i18n("Project Manager") );
+    m_treeWidget->setListCaption( i18n("File") );
+    m_treeWidget->setCaption( i18n("Project Manager") );
 
 	connect( this, SIGNAL(clicked(QListViewItem*)), this, SLOT(slotItemClicked(QListViewItem*)) );
 }
@@ -898,6 +902,7 @@ ProjectManager::ProjectManager( QWidget * parent )
 
 ProjectManager::~ProjectManager()
 {
+    delete m_treeWidget;
 }
 
 
