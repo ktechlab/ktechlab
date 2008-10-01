@@ -11,6 +11,9 @@
 #ifndef DOCMANAGER_H
 #define DOCMANAGER_H
 
+#include "view.h"
+#include "viewcontainer.h"
+
 #include <KUrl>
 
 #include <QPointer>
