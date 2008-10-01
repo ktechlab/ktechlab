@@ -12,11 +12,11 @@
 #include "docmanager.h"
 #include "document.h"
 //#include "language.h"
-//#include "languagemanager.h"
+#include "languagemanager.h"
 #include "ktechlab.h"
 //#include "microselectwidget.h"
 //#include "programmerdlg.h"
-//#include "projectdlgs.h"
+#include "projectdlgs.h"
 #include "projectmanager.h"
 //#include "recentfilesaction.h"
 
@@ -890,13 +890,13 @@ ProjectManager::ProjectManager( QWidget * parent )
 //	: ItemSelector( parent, "Project Manager" ),
     : m_pCurrentProject(0l)
 {
-    QWhatsThis::add( this, i18n("Displays the list of files in the project.\nTo open or close a project, use the \"Project\" menu. Right click on a file to remove it from the project") );
+//     QWhatsThis::add( this, i18n("Displays the list of files in the project.\nTo open or close a project, use the \"Project\" menu. Right click on a file to remove it from the project") );
     m_treeWidget = new QTreeWidget(parent);
 
-    m_treeWidget->setListCaption( i18n("File") );
-    m_treeWidget->setCaption( i18n("Project Manager") );
+//     m_treeWidget->setListCaption( i18n("File") );
+//     m_treeWidget->setCaption( i18n("Project Manager") );
 
-	connect( this, SIGNAL(clicked(QListViewItem*)), this, SLOT(slotItemClicked(QListViewItem*)) );
+    connect( this, SIGNAL(clicked(QListViewItem*)), this, SLOT(slotItemClicked(QListViewItem*)) );
 }
 
 
@@ -908,29 +908,29 @@ ProjectManager::~ProjectManager()
 
 void ProjectManager::slotNewProject()
 {
-	if ( !slotCloseProject() )
-		return;
+    if ( !slotCloseProject() )
+        return;
 
-	NewProjectDlg *newProjectDlg = new NewProjectDlg(this);
-	newProjectDlg->exec();
+    NewProjectDlg *newProjectDlg = new NewProjectDlg( m_treeWidget );
+    newProjectDlg->exec();
 
-	if ( newProjectDlg->accepted() )
-	{
-		m_pCurrentProject = new ProjectInfo( this );
-		m_pCurrentProject->setName( newProjectDlg->projectName() );
-		m_pCurrentProject->setURL( newProjectDlg->location() + m_pCurrentProject->name().lower() + ".ktechlab" );
+    if ( newProjectDlg->accepted() )
+    {
+        m_pCurrentProject = new ProjectInfo( this );
+        m_pCurrentProject->setName( newProjectDlg->projectName() );
+        m_pCurrentProject->setURL( newProjectDlg->location() + m_pCurrentProject->name().toLower() + ".ktechlab" );
 
         QDir dir;
         if ( !dir.mkdir( m_pCurrentProject->directory() ) )
-			kdDebug() << "Error in creating directory " << m_pCurrentProject->directory() << endl;
+            kDebug() << "Error in creating directory " << m_pCurrentProject->directory() << endl;
 
-		m_pCurrentProject->save();
-		updateActions();
+        m_pCurrentProject->save();
+        updateActions();
 
-		emit projectCreated();
-	}
+        emit projectCreated();
+    }
 
-	delete newProjectDlg;
+    delete newProjectDlg;
 }
 
 
@@ -941,19 +941,19 @@ void ProjectManager::slotProjectOptions()
 
 void ProjectManager::slotOpenProject()
 {
-	QString filter;
-	filter = QString("*.ktechlab|%1 (*.ktechlab)\n*|%2").arg( i18n("KTechlab Project") ).arg( i18n("All Files") );
+    QString filter;
+    filter = QString("*.ktechlab|%1 (*.ktechlab)\n*|%2").arg( i18n("KTechlab Project") ).arg( i18n("All Files") );
 
-    KURL url = KFileDialog::getOpenURL(QString::null, filter, this, i18n("Open Location"));
+    KUrl url = KFileDialog::getOpenUrl(QString(), filter, m_treeWidget, i18n("Open Location"));
 
     if ( url.isEmpty() )
-		return;
+        return;
 
-	slotOpenProject(url);
+    slotOpenProject(url);
 }
 
 
-void ProjectManager::slotOpenProject( const KURL & url )
+void ProjectManager::slotOpenProject( const KUrl & url )
 {
 	if ( m_pCurrentProject && m_pCurrentProject->url() == url )
 		return;
@@ -965,16 +965,16 @@ void ProjectManager::slotOpenProject( const KURL & url )
 
 	if ( !m_pCurrentProject->open(url) )
 	{
-		m_pCurrentProject->deleteLater();
+		delete m_pCurrentProject;
 		m_pCurrentProject = 0l;
 		return;
 	}
 
-	RecentFilesAction * rfa = static_cast<RecentFilesAction*>(KTechlab::self()->action("project_open_recent"));
-	rfa->addURL( m_pCurrentProject->url() );
+// 	RecentFilesAction * rfa = static_cast<RecentFilesAction*>(KTechlab::self()->action("project_open_recent"));
+// 	rfa->addURL( m_pCurrentProject->url() );
 
-	if ( KTLConfig::raiseItemSelectors() )
-		KTechlab::self()->showToolView( KTechlab::self()->toolView( toolViewIdentifier() ) );
+//    if ( KTLConfig::raiseItemSelectors() )
+//        KTechlab::self()->showToolView( KTechlab::self()->toolView( toolViewIdentifier() ) );
 
 	updateActions();
 	emit projectOpened();
@@ -983,17 +983,17 @@ void ProjectManager::slotOpenProject( const KURL & url )
 
 bool ProjectManager::slotCloseProject()
 {
-	if ( !m_pCurrentProject )
-		return true;
+    if ( !m_pCurrentProject )
+        return true;
 
-	if ( !m_pCurrentProject->saveAndClose() )
-		return false;
+    if ( !m_pCurrentProject->saveAndClose() )
+        return false;
 
-	m_pCurrentProject->deleteLater();
-	m_pCurrentProject = 0l;
-	updateActions();
-	emit projectClosed();
-	return true;
+    delete m_pCurrentProject;
+    m_pCurrentProject = 0l;
+    updateActions();
+    emit projectClosed();
+    return true;
 }
 
 
@@ -1002,24 +1002,13 @@ void ProjectManager::slotCreateSubproject()
 	if ( !currentProject() )
 		return;
 
-	CreateSubprojectDlg * dlg = new CreateSubprojectDlg(this);
+	CreateSubprojectDlg * dlg = new CreateSubprojectDlg( m_treeWidget );
 	dlg->exec();
 
 	if ( dlg->accepted() )
 	{
-		ProjectItem::Type type = ProjectItem::ProgramType;
-		switch ( dlg->type() )
-		{
-			case CreateSubprojectDlg::ProgramType:
-				type = ProjectItem::ProgramType;
-				break;
 
-			case CreateSubprojectDlg::LibraryType:
-				type = ProjectItem::LibraryType;
-				break;
-		}
-
-		ProjectItem * subproject = new ProjectItem( currentProject(), type, this );
+		ProjectItem * subproject = ProjectItem::createProjectItem( currentProject()->project(), dlg->type(), this );
 		subproject->setURL( dlg->targetFile() );
 
 		currentProject()->addChild(subproject);
@@ -1036,14 +1025,14 @@ void ProjectManager::updateActions()
 {
 	bool projectIsOpen = m_pCurrentProject;
 
-	KTechlab::self()->action("project_create_subproject")->setEnabled( projectIsOpen );
+/*	KTechlab::self()->action("project_create_subproject")->setEnabled( projectIsOpen );
 	KTechlab::self()->action("project_export_makefile")->setEnabled( projectIsOpen );
 	KTechlab::self()->action("subproject_add_existing_file")->setEnabled( projectIsOpen );
 	KTechlab::self()->action("subproject_add_current_file")->setEnabled( projectIsOpen );
 // 	KTechlab::self()->action("project_options")->setEnabled( projectIsOpen );
 	KTechlab::self()->action("project_close")->setEnabled( projectIsOpen );
 	KTechlab::self()->action("project_add_existing_file")->setEnabled( projectIsOpen );
-	KTechlab::self()->action("project_add_current_file")->setEnabled( projectIsOpen );
+	KTechlab::self()->action("project_add_current_file")->setEnabled( projectIsOpen );*/
 }
 
 
@@ -1052,23 +1041,23 @@ void ProjectManager::slotAddFile()
 	if ( !currentProject() )
 		return;
 
-	currentProject()->addFiles();
+	currentProject()->project()->addFiles();
 	emit filesAdded();
 }
 
 
 void ProjectManager::slotAddCurrentFile()
 {
-	if ( !currentProject() )
+	if ( !currentProject() || !currentProject()->project() )
 		return;
-	currentProject()->addCurrentFile();
+	currentProject()->project()->addCurrentFile();
 	emit filesAdded();
 }
 
 
 void ProjectManager::slotSubprojectAddExistingFile()
 {
-	ILVItem * currentItem = dynamic_cast<ILVItem*>(selectedItem());
+	ILVItem * currentItem = dynamic_cast<ILVItem*>(m_treeWidget->currentItem());
 	if ( !currentItem || !currentItem->projectItem() )
 		return;
 
@@ -1079,7 +1068,7 @@ void ProjectManager::slotSubprojectAddExistingFile()
 
 void ProjectManager::slotSubprojectAddCurrentFile()
 {
-	ILVItem * currentItem = dynamic_cast<ILVItem*>(selectedItem());
+    ILVItem * currentItem = dynamic_cast<ILVItem*>(m_treeWidget->currentItem());
 	if ( !currentItem || !currentItem->projectItem() )
 		return;
 
@@ -1090,7 +1079,7 @@ void ProjectManager::slotSubprojectAddCurrentFile()
 
 void ProjectManager::slotItemBuild()
 {
-	ILVItem * currentItem = dynamic_cast<ILVItem*>(selectedItem());
+    ILVItem * currentItem = dynamic_cast<ILVItem*>(m_treeWidget->currentItem());
 	if ( !currentItem || !currentItem->projectItem() )
 		return;
 
@@ -1102,7 +1091,7 @@ void ProjectManager::slotItemBuild()
 
 void ProjectManager::slotItemUpload()
 {
-	ILVItem * currentItem = dynamic_cast<ILVItem*>(selectedItem());
+    ILVItem * currentItem = dynamic_cast<ILVItem*>(m_treeWidget->currentItem());
 	if ( !currentItem || !currentItem->projectItem() )
 		return;
 
@@ -1114,16 +1103,16 @@ void ProjectManager::slotItemUpload()
 
 void ProjectManager::slotRemoveSelected()
 {
-	ILVItem *currentItem = dynamic_cast<ILVItem*>(selectedItem());
+    ILVItem *currentItem = dynamic_cast<ILVItem*>(m_treeWidget->currentItem());
 	if ( !currentItem )
 		return;
 
-	int choice = KMessageBox::questionYesNo( this, i18n("Do you really want to remove \"%1\"?").arg( currentItem->text(0) ), i18n("Remove Project File?"), KGuiItem(i18n("Remove")), KGuiItem(i18n("Cancel")) );
+	int choice = KMessageBox::questionYesNo( m_treeWidget, i18n("Do you really want to remove \"%1\"?").arg( currentItem->text(0) ), i18n("Remove Project File?"), KGuiItem(i18n("Remove")), KGuiItem(i18n("Cancel")) );
 
 	if ( choice == KMessageBox::No )
 		return;
 
-	currentItem->projectItem()->deleteLater();
+	delete currentItem->projectItem();
 	emit filesRemoved();
 }
 
@@ -1135,11 +1124,11 @@ void ProjectManager::slotExportToMakefile()
 
 void ProjectManager::slotSubprojectLinkerOptions()
 {
-	ILVItem * currentItem = dynamic_cast<ILVItem*>(selectedItem());
+    ILVItem * currentItem = dynamic_cast<ILVItem*>(m_treeWidget->currentItem());
 	if ( !currentItem || !currentItem->projectItem() )
 		return;
 
-	LinkerOptionsDlg * dlg = new LinkerOptionsDlg( currentItem->projectItem(), this );
+	LinkerOptionsDlg * dlg = new LinkerOptionsDlg( currentItem->projectItem()->linkerOptions(), m_treeWidget );
 	dlg->exec();
 	currentProject()->save();
 
@@ -1150,11 +1139,11 @@ void ProjectManager::slotSubprojectLinkerOptions()
 
 void ProjectManager::slotItemProcessingOptions()
 {
-	ILVItem * currentItem = dynamic_cast<ILVItem*>(selectedItem());
+    ILVItem * currentItem = dynamic_cast<ILVItem*>(m_treeWidget->currentItem());
 	if ( !currentItem || !currentItem->projectItem() )
 		return;
 
-	ProcessingOptionsDlg * dlg = new ProcessingOptionsDlg( currentItem->projectItem(), this );
+	ProcessingOptionsDlg * dlg = new ProcessingOptionsDlg( currentItem->projectItem(), m_treeWidget );
 	dlg->exec();
 	currentProject()->save();
 
@@ -1163,26 +1152,26 @@ void ProjectManager::slotItemProcessingOptions()
 }
 
 
-void ProjectManager::slotItemClicked( QListViewItem * item )
+void ProjectManager::slotItemClicked( QTreeWidgetItem * item )
 {
 	ILVItem * ilvItem = dynamic_cast<ILVItem*>(item);
 	if ( !ilvItem )
 		return;
 
-	ProjectItem * projectItem = ilvItem->projectItem();
-	if ( !projectItem || projectItem->type() != ProjectItem::FileType )
+	ProjectItemTypes::File * projectItem = dynamic_cast<ProjectItemTypes::File*>( ilvItem->projectItem() );
+	if ( !projectItem )
 		return;
 
 	DocManager::self()->openURL( projectItem->url() );
 }
 
 
-void ProjectManager::slotContextMenuRequested( QListViewItem * item, const QPoint& pos, int /*col*/ )
+void ProjectManager::slotContextMenuRequested( QTreeWidgetItem * item, const QPoint& pos, int /*col*/ )
 {
 	QString popupName;
 	ILVItem * ilvItem = dynamic_cast<ILVItem*>(item);
-	KAction * linkerOptionsAct = KTechlab::self()->action("project_item_linker_options");
-	linkerOptionsAct->setEnabled(false);
+// 	KAction * linkerOptionsAct = KTechlab::self()->action("project_item_linker_options");
+//	linkerOptionsAct->setEnabled(false);
 
 	if ( !m_pCurrentProject )
 		popupName = "project_none_popup";
@@ -1194,7 +1183,8 @@ void ProjectManager::slotContextMenuRequested( QListViewItem * item, const QPoin
 	{
 		ProcessOptions::ProcessPath::MediaType mediaType = ProcessOptions::guessMediaType( ilvItem->projectItem()->url().url() );
 
-		switch ( ilvItem->projectItem()->type() )
+        //FIXME: add virtual method QString ProjectItem::popupName()
+/*		switch ( ilvItem->projectItem()->type() )
 		{
 			case ProjectItem::FileType:
 				if ( mediaType == ProcessOptions::ProcessPath::Unknown )
@@ -1213,31 +1203,32 @@ void ProjectManager::slotContextMenuRequested( QListViewItem * item, const QPoin
 
 			case ProjectItem::ProjectType:
 				return;
-		}
-		switch ( ilvItem->projectItem()->outputType() )
-		{
-			case ProjectItem::ProgramOutput:
-				linkerOptionsAct->setEnabled(true);
-				break;
-
-			case ProjectItem::ObjectOutput:
-			case ProjectItem::LibraryOutput:
-			case ProjectItem::UnknownOutput:
-				linkerOptionsAct->setEnabled(false);
-				break;
-		}
+		}*/
+//FIXME: add bool ProjectItem::haveLinkerOptions() (have/has??)
+// 		switch ( ilvItem->projectItem()->outputType() )
+// 		{
+// 			case ProjectItem::ProgramOutput:
+// 				linkerOptionsAct->setEnabled(true);
+// 				break;
+//
+// 			case ProjectItem::ObjectOutput:
+// 			case ProjectItem::LibraryOutput:
+// 			case ProjectItem::UnknownOutput:
+// 				linkerOptionsAct->setEnabled(false);
+// 				break;
+// 		}
 
 		// Only have linking options for SDCC files
-		linkerOptionsAct->setEnabled( mediaType == ProcessOptions::ProcessPath::C );
+// 		linkerOptionsAct->setEnabled( mediaType == ProcessOptions::ProcessPath::C );
 	}
 
 	bool haveFocusedDocument = DocManager::self()->getFocusedDocument();
-	KTechlab::self()->action("subproject_add_current_file")->setEnabled( haveFocusedDocument );
-	KTechlab::self()->action("project_add_current_file")->setEnabled( haveFocusedDocument );
+// 	KTechlab::self()->action("subproject_add_current_file")->setEnabled( haveFocusedDocument );
+// 	KTechlab::self()->action("project_add_current_file")->setEnabled( haveFocusedDocument );
 
-	QPopupMenu *pop = static_cast<QPopupMenu*>(KTechlab::self()->factory()->container( popupName, KTechlab::self() ));
+	/*QPopupMenu *pop = static_cast<QPopupMenu*>(KTechlab::self()->factory()->container( popupName, KTechlab::self() ));
 	if (pop)
-		pop->popup(pos);
+		pop->popup(pos);*/
 }
 //END class ProjectManager
 
