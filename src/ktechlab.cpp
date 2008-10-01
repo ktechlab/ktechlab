@@ -20,6 +20,7 @@
 
 #include "ktechlab.h"
 
+#include "document.h"
 #include "docmanager.h"
 #include "projectmanager.h"
 #include "viewcontainer.h"
@@ -27,6 +28,7 @@
 #include <QMenu>
 
 #include <KApplication>
+#include <KMessageBox>
 #include <KUrl>
 #include <KTextEdit>
 #include <KLocalizedString>
@@ -36,6 +38,7 @@
 #include <KActionCollection>
 #include <KActionMenu>
 #include <KDebug>
+#include <KIO/NetAccess>
 
 KTechlab::KTechlab() : KXmlGuiWindow()
 {
@@ -63,7 +66,7 @@ void KTechlab::load( KUrl url )
     if ( !url.isValid() )
         return;
 
-    if ( url.url().endsWith( ".ktechlab", false ) )
+    if ( url.url().endsWith( ".ktechlab", Qt::CaseInsensitive ) )
     {
         // This is a ktechlab project; it has to be handled separetly from a
         // normal file.
@@ -87,13 +90,13 @@ void KTechlab::load( KUrl url )
         return;
     }
 
-    addRecentFile( url );
+//     addRecentFile( url );
 
     // set our caption
-    setCaption( url.prettyURL() );
+    setCaption( url.url() );
 
     // load in the file (target is always local)
-    DocManager::self()->openURL( target, viewArea );
+//     DocManager::self()->openURL( target, viewArea );
 
     // and remove the temp file
     KIO::NetAccess::removeTempFile( target );

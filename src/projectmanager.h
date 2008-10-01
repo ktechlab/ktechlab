@@ -77,11 +77,11 @@ class ILVItem : public QObject, public QTreeWidgetItem
 class Options
 {
     public:
-        Options();
-        virtual ~Options();
+        Options() {};
+        virtual ~Options() {};
 
-        virtual QDomElement toDomElement( QDomDocument & doc, const KUrl & baseURL ) const;
-        virtual bool fromDomElement( const QDomElement & element, const KUrl & baseURL );
+        virtual QDomElement toDomElement( QDomDocument & doc, const KUrl & baseURL ) const =0;
+        virtual bool fromDomElement( const QDomElement & element, const KUrl & baseURL ) =0;
 
 };
 
@@ -319,7 +319,8 @@ namespace ProjectItemTypes {
 class Project : public ProjectItem
 {
     public:
-        Project( ProjectItem * parent, ProjectManager * projectManager );
+        Project( ProjectItem * parent, ProjectManager * projectManager )
+            :   ProjectItem(parent,projectManager) {};
     private:
         //Does nothing, projects don't have a pixmap
         void updateILVItemPixmap() {};
@@ -329,7 +330,8 @@ class Project : public ProjectItem
 class File : public ProjectItem
 {
     public:
-        File( ProjectItem * parent, ProjectManager * projectManager );
+        File( ProjectItem * parent, ProjectManager * projectManager )
+            :   ProjectItem(parent,projectManager) {};
     private:
         virtual QString outputExtension() const { return m_outputExtension; };
         virtual void setOutputExtension( QString & ext ) { m_outputExtension = ext; };
@@ -345,7 +347,8 @@ class File : public ProjectItem
 class Program : public ProjectItem
 {
     public:
-        Program( ProjectItem * parent, ProjectManager * projectManager );
+        Program( ProjectItem * parent, ProjectManager * projectManager )
+            :   ProjectItem(parent,projectManager) {};
     private:
         void updateILVItemPixmap();
         inline bool shouldUpdateControlChildMicroIDs() { return !microID().isEmpty(); };
@@ -355,7 +358,8 @@ class Program : public ProjectItem
 class Library : public ProjectItem
 {
     public:
-        Library( ProjectItem * parent, ProjectManager * projectManager );
+        Library( ProjectItem * parent, ProjectManager * projectManager )
+            :   ProjectItem(parent,projectManager) {};
     private:
         void updateILVItemPixmap();
         QString typeToString() const { return QString("Library"); };
@@ -390,6 +394,16 @@ class ProjectInfo
         bool save();
 
         bool open( const KUrl & url );
+
+        void setName(QString name) { m_project->setName( name ); };
+        QString name() { return m_project->name(); };
+
+        void setURL(KUrl url) { m_project->setURL( url ); };
+        KUrl url() { return m_project->url(); };
+
+        void addChild(ProjectItem * child) { m_project->addChild(child); };
+
+        ProjectItem * project() { return m_project; };
 
     private:
         ProjectItem * m_project;

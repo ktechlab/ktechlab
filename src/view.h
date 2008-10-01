@@ -26,6 +26,7 @@
 class DCOPObject;
 class Document;
 class KSqueezedTextLabel;
+class KAction;
 class KTechlab;
 class View;
 class ViewContainer;
