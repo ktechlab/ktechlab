@@ -33,6 +33,7 @@ include_directories(
 SET(ktechlab_SRCS
     docmanager.cpp
     projectmanager.cpp
+    viewcontainer.cpp
     ktechlab.cpp
 )
 
@@ -40,9 +41,11 @@ SET(ktechlab_SRCS
 
 kde4_add_executable(ktechlab ${ktechlab_SRCS})
 
-target_link_libraries( ktechlab ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} core #gui micro flowparts
-#	mechanics electronics elements components languages drawparts
+target_link_libraries( ktechlab ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS}
+	core #languages gui micro flowparts
+#	mechanics electronics elements components drawparts
 #	itemeditor math khtml kutils ${GPSIM_LIBRARY} ktexteditor kio
+	kio
 #	kdeprint )
 )
 
