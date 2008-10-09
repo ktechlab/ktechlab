@@ -23,7 +23,6 @@
 #include "document.h"
 #include "docmanager.h"
 #include "projectmanager.h"
-#include "viewcontainer.h"
 
 #include <QMenu>
 
@@ -40,6 +39,8 @@
 #include <KDebug>
 #include <KIO/NetAccess>
 
+static KTechlab * m_instance;
+
 KTechlab::KTechlab() : KXmlGuiWindow()
 {
     createActions();
@@ -48,6 +49,7 @@ KTechlab::KTechlab() : KXmlGuiWindow()
     createStatusBar();
 
     readSettings();
+
     setupGUI( Default );
 }
 
@@ -56,7 +58,7 @@ KTechlab::~KTechlab()
     return;
 }
 
-KTabWidget * tabWidget()
+KTabWidget * KTechlab::tabWidget()
 {
     return 0;
 }
@@ -96,10 +98,18 @@ void KTechlab::load( KUrl url )
     setCaption( url.url() );
 
     // load in the file (target is always local)
-//     DocManager::self()->openURL( target, viewArea );
+    DocManager::self()->openURL( target );
 
     // and remove the temp file
     KIO::NetAccess::removeTempFile( target );
+}
+
+KTechlab * KTechlab::self()
+{
+    if ( !m_instance )
+        m_instance = new KTechlab();
+
+    return m_instance;
 }
 
 void KTechlab::slotFileNewAssembly()
