@@ -13,7 +13,7 @@
 
 #include <KAboutData>
 #include <KCmdLineArgs>
-#include <KApplication>
+#include <KUniqueApplication>
 #include <KUrl>
 
 static const char description[] =
@@ -63,7 +63,7 @@ int main(int argc, char **argv)
     KCmdLineArgs::addCmdLineOptions(options);
     KApplication app;
 
-    KTechlab *ktechlab = new KTechlab();
+    KTechlab *ktechlab = KTechlab::self();
 
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     for ( int i=0; i < args->count(); ++i )
