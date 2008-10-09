@@ -30,7 +30,7 @@ class QDomDocument;
 class QDomElement;
 class QStringList;
 
-typedef QList<ProcessOptions*> ProcessOptionsList;
+typedef QList<ProcessOptions> ProcessOptionsList;
 typedef QList<ProjectItem*> ProjectItemList;
 
 /**
