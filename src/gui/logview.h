@@ -12,9 +12,10 @@
 #define LOGVIEW_H
 
 class KTechlab;
+class QPopupMenu;
 
-#include <ktextedit.h>
-#include <qmap.h>
+#include <KTextEdit>
+#include <QMap>
 
 namespace KateMDI { class ToolView; }
 
@@ -23,10 +24,10 @@ class MessageInfo
 	public:
 		MessageInfo();
 		MessageInfo( QString fileURL, int fileLine );
-		
+
 		QString fileURL() const { return m_fileURL; }
 		int fileLine() const { return m_fileLine; }
-			
+
 	protected:
 		QString m_fileURL;
 		int m_fileLine;
@@ -45,7 +46,7 @@ class LogView : public KTextEdit
 	public:
 		LogView( KateMDI::ToolView * parent, const char *name = 0 );
 		~LogView();
-	
+
 		enum OutputType
 		{
 			ot_important,	// Bold
@@ -54,17 +55,17 @@ class LogView : public KTextEdit
 			ot_warning,		// Grey
 			ot_error		// Red
 		};
-		
+
 	signals:
 		/**
 		 * Emitted when the user clicks on a paragraph in the log view
 		 */
 		void paraClicked( const QString &text, MessageInfo messageInfo );
-	
+
 	public slots:
 		virtual void clear();
 		void addOutput( QString text, OutputType outputType, MessageInfo messageInfo = MessageInfo() );
-	
+
 	protected:
 		virtual QPopupMenu * createPopupMenu( const QPoint & pos );
 		/**
@@ -75,9 +76,9 @@ class LogView : public KTextEdit
 		 * Replaces "&lt;" with "<", "&amp;" with "&", etc
 		 */
 		void untidyText( QString &t );
-	
+
 		MessageInfoMap m_messageInfoMap;
-	
+
 	private slots:
 		void slotParaClicked( int para, int pos );
 };
