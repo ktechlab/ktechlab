@@ -25,7 +25,7 @@ class ProcessOptions;
 class TextDocument;
 class QProcess;
 
-typedef QList<ProcessOptions*> ProcessOptionsList;
+typedef QList<ProcessOptions> ProcessOptionsList;
 
 class ProcessOptionsSpecial
 {
