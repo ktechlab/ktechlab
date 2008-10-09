@@ -12,8 +12,8 @@
 #define PROCESSCHAIN_H
 
 #include "language.h"
-#include <qobject.h>
-#include <qvaluelist.h>
+#include <QObject>
+#include <QList>
 
 class FlowCode;
 class Gpasm;
@@ -26,7 +26,7 @@ class PicProgrammer;
 class ProcesOptions;
 class SDCC;
 
-typedef QValueList<ProcessOptions> ProcessOptionsList;
+typedef QList<ProcessOptions> ProcessOptionsList;
 
 /**
 @author Daniel Clarke
@@ -38,9 +38,9 @@ class ProcessChain : public QObject
 	public:
 		ProcessChain( ProcessOptions options, const char *name = 0l );
 		~ProcessChain();
-		
+
 		void setProcessOptions( ProcessOptions options ) { m_processOptions = options; }
-	
+
 	public slots:
 		/**
 		 * Adds the output file to project if requested in the options, and opens
@@ -54,7 +54,7 @@ class ProcessChain : public QObject
 		 * later in setProcessOptions.
 		 */
 		void compile();
-		
+
 	signals:
 		/**
 		 * Emitted when compiling has successfully gone all the way through to the
@@ -81,10 +81,10 @@ class ProcessChain : public QObject
 		Microbe * microbe();
 		PicProgrammer * picProgrammer();
 		SDCC * sdcc();
-		
+
 		int m_errorCount;
 		ProcessOptions m_processOptions;
-	
+
 	private:
 		FlowCode * m_pFlowCode;
 		Microbe * m_pMicrobe;
@@ -100,10 +100,10 @@ class ProcessChain : public QObject
 class ProcessListChain : public QObject
 {
 	Q_OBJECT
-			
+
 	public:
 		ProcessListChain( ProcessOptionsList pol, const char *name = 0l );
-		
+
 	signals:
 		/**
 		 * Emitted if successful
@@ -113,11 +113,11 @@ class ProcessListChain : public QObject
 		 * Emitted if not successful
 		 */
 		void failed();
-		
+
 	protected slots:
 		void slotProcessChainSuccessful();
 		void slotProcessChainFailed();
-		
+
 	protected:
 		ProcessOptionsList m_processOptionsList;
 };

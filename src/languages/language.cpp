@@ -18,12 +18,12 @@
 #include "languagemanager.h"
 #include "src/core/ktlconfig.h"
 
-#include <kdebug.h>
-#include <kio/netaccess.h>
-#include <kmessagebox.h>
-#include <kprocess.h>
-#include <qregexp.h>
-#include <qtimer.h>
+#include <KDebug>
+#include <KIO/NetAccess>
+#include <KMessageBox>
+#include <KProcess>
+#include <QRegExp>
+#include <QTimer>
 
 //BEGIN class Language
 Language::Language( ProcessChain *processChain, const QString &name )
@@ -63,12 +63,12 @@ void Language::finish( bool successful )
 	{
 		outputMessage(m_successfulMessage + "\n");
 		KTechlab::self()->slotChangeStatusbar(m_successfulMessage);
-		
+
 		ProcessOptions::ProcessPath::Path newPath = outputPath( m_processOptions.processPath() );
-		
+
 		if ( newPath == ProcessOptions::ProcessPath::None )
 			emit processSucceeded(this);
-		
+
 		else if (p_processChain)
 		{
 			m_processOptions.setInputFiles( m_processOptions.intermediaryOutput() );
@@ -99,12 +99,12 @@ MessageInfo Language::extractMessageInfo( const QString &text )
 {
 	if ( !text.startsWith("/") )
 		return MessageInfo();
-	
+
 	const int index = text.find( ":", 0, false );
 	if ( index == -1 )
 		return MessageInfo();
 	const QString fileName = text.left(index);
-	
+
 	// Extra line number
 	const QString message = text.right(text.length()-index);
 	const int linePos = message.find( QRegExp(":[\\d]+") );
@@ -132,23 +132,23 @@ ProcessOptionsSpecial::ProcessOptionsSpecial()
 	m_bOutputMapFile = true;
 	b_forceList = true;
 	b_addToProject = ProjectManager::self()->currentProject();
-	
+
 	p_flowCodeDocument = 0l;
-	
+
 	switch ( KTLConfig::hexFormat() )
 	{
 		case KTLConfig::EnumHexFormat::inhx8m:
 			m_hexFormat = "inhx8m";
 			break;
-			
+
 		case KTLConfig::EnumHexFormat::inhx8s:
 			m_hexFormat = "inhx8s";
 			break;
-			
+
 		case KTLConfig::EnumHexFormat::inhx16:
 			m_hexFormat = "inhx16";
 			break;
-			
+
 		case KTLConfig::EnumHexFormat::inhx32:
 		default:
 			m_hexFormat = "inhx32";
@@ -162,7 +162,7 @@ ProcessOptionsSpecial::ProcessOptionsSpecial()
 ProcessOptions::ProcessOptions()
 {
 	m_pHelper = new ProcessOptionsHelper;
-	
+
 	b_targetFileSet = false;
 	m_pTextOutputTarget = 0l;
 }
@@ -171,23 +171,23 @@ ProcessOptions::ProcessOptions()
 ProcessOptions::ProcessOptions( OutputMethodInfo info )
 {
 	m_pHelper = new ProcessOptionsHelper;
-	
+
 	b_addToProject = info.addToProject();
 	m_picID = info.picID();
 	b_targetFileSet = false;
-	
+
 	setTargetFile( info.outputFile().path() );
-	
+
 	switch ( info.method() )
 	{
 		case OutputMethodInfo::Method::Direct:
 			m_method = Method::LoadAsNew;
 			break;
-			
+
 		case OutputMethodInfo::Method::SaveAndForget:
 			m_method = Method::Forget;
 			break;
-			
+
 		case OutputMethodInfo::Method::SaveAndLoad:
 			m_method = Method::Load;
 			break;
@@ -213,7 +213,7 @@ void ProcessOptions::setTargetFile( const QString &file )
 {
 	if (b_targetFileSet)
 	{
-		kdWarning() << "Trying to reset target file!"<<endl;
+		kWarning() << "Trying to reset target file!"<<endl;
 		return;
 	}
 	m_targetFile = file;
@@ -226,7 +226,7 @@ ProcessOptions::ProcessPath::MediaType ProcessOptions::guessMediaType( const QSt
 {
 	QString extension = url.right( url.length() - url.findRev('.') - 1 );
 	extension = extension.lower();
-	
+
 	if ( extension == "asm" )
 	{
 		// We'll have to look at the file contents to determine its type...
@@ -236,30 +236,30 @@ ProcessOptions::ProcessPath::MediaType ProcessOptions::guessMediaType( const QSt
 		{
 			case AsmParser::Relocatable:
 				return ProcessPath::AssemblyRelocatable;
-				
+
 			case AsmParser::Absolute:
 				return ProcessPath::AssemblyAbsolute;
 		}
 	}
-	
+
 	if ( extension == "c" )
 		return ProcessPath::C;
-	
+
 	if ( extension == "flowcode" )
 		return ProcessPath::FlowCode;
-	
+
 	if ( extension == "a" || extension == "lib" )
 		return ProcessPath::Library;
-	
+
 	if ( extension == "microbe" || extension == "basic" )
 		return ProcessPath::Microbe;
-	
+
 	if ( extension == "o" )
 		return ProcessPath::Object;
-	
+
 	if ( extension == "hex" )
 		return ProcessPath::Program;
-	
+
 	return ProcessPath::Unknown;
 }
 
@@ -277,7 +277,7 @@ ProcessOptions::ProcessPath::Path ProcessOptions::ProcessPath::path( MediaType f
 					return AssemblyAbsolute_PIC;
 				case Program:
 					return AssemblyAbsolute_Program;
-					
+
 				case AssemblyRelocatable:
 				case C:
 				case Disassembly:
@@ -288,7 +288,7 @@ ProcessOptions::ProcessPath::Path ProcessOptions::ProcessPath::path( MediaType f
 				case Unknown:
 					return Invalid;
 			}
-			
+
 		case AssemblyRelocatable:
 			switch (to)
 			{
@@ -300,7 +300,7 @@ ProcessOptions::ProcessPath::Path ProcessOptions::ProcessPath::path( MediaType f
 					return AssemblyRelocatable_PIC;
 				case Program:
 					return AssemblyRelocatable_Program;
-					
+
 				case AssemblyAbsolute:
 				case AssemblyRelocatable:
 				case C:
@@ -310,7 +310,7 @@ ProcessOptions::ProcessPath::Path ProcessOptions::ProcessPath::path( MediaType f
 				case Unknown:
 					return Invalid;
 			}
-			
+
 		case C:
 			switch (to)
 			{
@@ -324,7 +324,7 @@ ProcessOptions::ProcessPath::Path ProcessOptions::ProcessPath::path( MediaType f
 					return C_PIC;
 				case Program:
 					return C_Program;
-					
+
 				case AssemblyAbsolute:
 				case C:
 				case Disassembly:
@@ -333,10 +333,10 @@ ProcessOptions::ProcessPath::Path ProcessOptions::ProcessPath::path( MediaType f
 				case Unknown:
 					return Invalid;
 			}
-			
+
 		case Disassembly:
 			return Invalid;
-			
+
 		case FlowCode:
 			switch (to)
 			{
@@ -348,7 +348,7 @@ ProcessOptions::ProcessPath::Path ProcessOptions::ProcessPath::path( MediaType f
 					return FlowCode_PIC;
 				case Program:
 					return FlowCode_Program;
-					
+
 				case AssemblyRelocatable:
 				case C:
 				case Disassembly:
@@ -358,20 +358,20 @@ ProcessOptions::ProcessPath::Path ProcessOptions::ProcessPath::path( MediaType f
 				case Unknown:
 					return Invalid;
 			}
-			
+
 		case Library:
 			return Invalid;
-			
+
 		case Microbe:
 			switch (to)
-			{	
+			{
 				case AssemblyAbsolute:
 					return Microbe_AssemblyAbsolute;
 				case Pic:
 					return Microbe_PIC;
 				case Program:
 					return Microbe_Program;
-					
+
 				case AssemblyRelocatable:
 				case C:
 				case Disassembly:
@@ -382,7 +382,7 @@ ProcessOptions::ProcessPath::Path ProcessOptions::ProcessPath::path( MediaType f
 				case Unknown:
 					return Invalid;
 			}
-			
+
 		case Object:
 			switch (to)
 			{
@@ -394,7 +394,7 @@ ProcessOptions::ProcessPath::Path ProcessOptions::ProcessPath::path( MediaType f
 					return Object_PIC;
 				case Program:
 					return Object_Program;
-					
+
 				case AssemblyAbsolute:
 				case AssemblyRelocatable:
 				case C:
@@ -404,10 +404,10 @@ ProcessOptions::ProcessPath::Path ProcessOptions::ProcessPath::path( MediaType f
 				case Unknown:
 					return Invalid;
 			}
-			
+
 		case Pic:
 			return Invalid;
-			
+
 		case Program:
 			switch (to)
 			{
@@ -415,7 +415,7 @@ ProcessOptions::ProcessPath::Path ProcessOptions::ProcessPath::path( MediaType f
 					return Program_Disassembly;
 				case Pic:
 					return Program_PIC;
-					
+
 				case AssemblyAbsolute:
 				case AssemblyRelocatable:
 				case C:
@@ -427,11 +427,11 @@ ProcessOptions::ProcessPath::Path ProcessOptions::ProcessPath::path( MediaType f
 				case Unknown:
 					return Invalid;
 			}
-				
+
 		case Unknown:
 			return Invalid;
 	}
-	
+
 	return Invalid;
 }
 
@@ -443,49 +443,49 @@ ProcessOptions::ProcessPath::MediaType ProcessOptions::ProcessPath::from( Path p
 		case ProcessPath::AssemblyAbsolute_PIC:
 		case ProcessPath::AssemblyAbsolute_Program:
 			return AssemblyAbsolute;
-			
+
 		case ProcessPath::AssemblyRelocatable_Library:
 		case ProcessPath::AssemblyRelocatable_Object:
 		case ProcessPath::AssemblyRelocatable_PIC:
 		case ProcessPath::AssemblyRelocatable_Program:
 			return AssemblyRelocatable;
-			
+
 		case ProcessPath::C_AssemblyRelocatable:
 		case ProcessPath::C_Library:
 		case ProcessPath::C_Object:
 		case ProcessPath::C_PIC:
 		case ProcessPath::C_Program:
 			return C;
-			
+
 		case ProcessPath::FlowCode_AssemblyAbsolute:
 		case ProcessPath::FlowCode_Microbe:
 		case ProcessPath::FlowCode_PIC:
 		case ProcessPath::FlowCode_Program:
 			return FlowCode;
-			
+
 		case ProcessPath::Microbe_AssemblyAbsolute:
 		case ProcessPath::Microbe_PIC:
 		case ProcessPath::Microbe_Program:
 			return Microbe;
-			
+
 		case ProcessPath::Object_Disassembly:
 		case ProcessPath::Object_Library:
 		case ProcessPath::Object_PIC:
 		case ProcessPath::Object_Program:
 			return Object;
-			
+
 		case ProcessPath::PIC_AssemblyAbsolute:
 			return Pic;
-			
+
 		case ProcessPath::Program_Disassembly:
 		case ProcessPath::Program_PIC:
 			return Program;
-			
+
 		case ProcessPath::Invalid:
 		case ProcessPath::None:
 			return Unknown;
 	}
-	
+
 	return Unknown;
 }
 
@@ -498,26 +498,26 @@ ProcessOptions::ProcessPath::MediaType ProcessOptions::ProcessPath::to( Path pat
 		case ProcessPath::Microbe_AssemblyAbsolute:
 		case ProcessPath::PIC_AssemblyAbsolute:
 			return AssemblyAbsolute;
-			
+
 		case ProcessPath::C_AssemblyRelocatable:
 			return AssemblyRelocatable;
-			
+
 		case ProcessPath::Object_Disassembly:
 		case ProcessPath::Program_Disassembly:
 			return Disassembly;
-			
+
 		case ProcessPath::AssemblyRelocatable_Library:
 		case ProcessPath::C_Library:
 		case ProcessPath::Object_Library:
 			return Library;
-			
+
 		case ProcessPath::FlowCode_Microbe:
 			return Microbe;
-			
+
 		case ProcessPath::AssemblyRelocatable_Object:
 		case ProcessPath::C_Object:
 			return Object;
-			
+
 		case ProcessPath::AssemblyAbsolute_PIC:
 		case ProcessPath::AssemblyRelocatable_PIC:
 		case ProcessPath::C_PIC:
@@ -526,7 +526,7 @@ ProcessOptions::ProcessPath::MediaType ProcessOptions::ProcessPath::to( Path pat
 		case ProcessPath::Object_PIC:
 		case ProcessPath::Program_PIC:
 			return Pic;
-			
+
 		case ProcessPath::AssemblyAbsolute_Program:
 		case ProcessPath::AssemblyRelocatable_Program:
 		case ProcessPath::C_Program:
@@ -534,12 +534,12 @@ ProcessOptions::ProcessPath::MediaType ProcessOptions::ProcessPath::to( Path pat
 		case ProcessPath::Microbe_Program:
 		case ProcessPath::Object_Program:
 			return Program;
-			
+
 		case ProcessPath::Invalid:
 		case ProcessPath::None:
 			return Unknown;
 	}
-	
+
 	return Unknown;
 }
 //END class ProcessOptions
