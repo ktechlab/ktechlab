@@ -17,15 +17,15 @@
 #include "microselectwidget.h"
 #include "projectmanager.h"
 
-#include <kcombobox.h>
-#include <kconfigskeleton.h>
-#include <kdebug.h>
-#include <ktempfile.h>
-#include <kurlrequester.h>
+#include <KComboBox>
+#include <KConfigSkeleton>
+#include <KDebug>
+#include <KTempfile>
+#include <KUrlRequester>
 
-#include <qcheckbox.h>
-#include <qfile.h>
-#include <qradiobutton.h>
+#include <QCheckBox>
+#include <QFile>
+#include <QRadioButton>
 
 
 //BEGIN class OutputMethodInfo
@@ -46,19 +46,19 @@ void OutputMethodInfo::initialize( OutputMethodDlg * dlg )
 		m_outputFile = f.name();
 		m_bAddToProject = false;
 	}
-	
+
 	else
 	{
 		if ( dlg->m_widget->loadFileCheck->isChecked() )
 			m_method = Method::SaveAndLoad;
-		
+
 		else
 			m_method = Method::SaveAndForget;
-		
+
 		m_outputFile = dlg->m_widget->outputFileURL->url();
 		m_bAddToProject = dlg->m_widget->addToProjectCheck->isChecked();
 	}
-	
+
 	m_picID = dlg->m_widget->m_pMicroSelect->micro();
 }
 //END class OutputMethodInfo
@@ -66,23 +66,23 @@ void OutputMethodInfo::initialize( OutputMethodDlg * dlg )
 
 
 //BEGIN class OutputMethodDlg
-OutputMethodDlg::OutputMethodDlg( const QString &caption, const KURL & inputURL, bool showPICSelect, QWidget *parent, const char *name )
-	: KDialogBase( parent, name, true, caption, Ok|Cancel )
+OutputMethodDlg::OutputMethodDlg( const QString &caption, const KUrl & inputURL, bool showPICSelect, QWidget *parent, const char *name )
+	: KDialog( parent, name, true, caption, Ok|Cancel )
 {
 	m_inputURL = inputURL;
 	m_bAccepted = false;
 	m_widget = new OutputMethodWidget(this);
-	
+
 	m_widget->addToProjectCheck->setEnabled( ProjectManager::self()->currentProject() );
-	
+
 	if (!showPICSelect)
 	{
 		m_widget->m_pMicroSelect->hide();
 		m_widget->adjustSize();
 	}
-	
+
 	fileMetaInfo()->initializeFromMetaInfo( m_inputURL, this );
-	
+
 	setMainWidget(m_widget);
 }
 
@@ -111,12 +111,12 @@ void OutputMethodDlg::setMethod( OutputMethodInfo::Method::Type m )
 		case OutputMethodInfo::Method::Direct:
 			m_widget->displayDirectCheck->setChecked(true);
 			break;
-			
+
 		case OutputMethodInfo::Method::SaveAndForget:
 			m_widget->saveFileCheck->setChecked(true);
 			m_widget->loadFileCheck->setChecked(false);
 			break;
-			
+
 		case OutputMethodInfo::Method::SaveAndLoad:
 			m_widget->saveFileCheck->setChecked(true);
 			m_widget->loadFileCheck->setChecked(true);
