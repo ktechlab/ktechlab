@@ -40,11 +40,12 @@ class KTechlab : public KXmlGuiWindow
 {
     Q_OBJECT
     public:
-        KTechlab();
         ~KTechlab();
 
         KTabWidget *tabWidget();
         void load( KUrl url );
+
+        static KTechlab * self();
 
     public slots:
         void slotFileNewAssembly();
@@ -70,6 +71,8 @@ class KTechlab : public KXmlGuiWindow
         void slotComponentRotateCW();
 
     private:
+        KTechlab();
+
         void setupActions();
         void createMenus();
         void createActions();
