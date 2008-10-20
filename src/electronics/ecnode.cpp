@@ -13,6 +13,7 @@
 #include "component.h"
 #include "connector.h"
 #include "ecnode.h"
+#include "electronicconnector.h"
 #include "pin.h"
 
 #include <kdebug.h>
@@ -268,7 +269,8 @@ bool ECNode::handleNewConnector( Connector * connector )
 
 Connector* ECNode::createConnector( Node * node)
 {
-	Connector *connector = new Connector( node, this, p_icnDocument );
+	// FIXME dynamic_cast used
+	Connector *connector = new ElectronicConnector( dynamic_cast<ECNode*>(node), dynamic_cast<ECNode*>(this), p_icnDocument );
 	addConnector(connector);
 	
 	return connector;
