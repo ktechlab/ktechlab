@@ -9,6 +9,7 @@
  ***************************************************************************/
 
 #include "connector.h"
+#include "flowconnector.h"
 #include "flowpart.h"
 #include "fpnode.h"
 #include "icndocument.h"
@@ -151,7 +152,8 @@ Connector* FPNode::createInputConnector( Node * startNode )
 	if( (!acceptInput()) || !startNode )
 		return 0l;
 	
-	Connector *connector = new Connector( startNode, this, p_icnDocument );
+	// FIXME dynamic_cast used
+	Connector *connector = new FlowConnector( dynamic_cast<FPNode*>(startNode), dynamic_cast<FPNode*>(this), p_icnDocument );
 	addInputConnector(connector);
 	
 	return connector;

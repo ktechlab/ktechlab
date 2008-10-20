@@ -35,10 +35,6 @@ typedef QValueVector<QGuardedPtr<Wire> > WireVector;
 @author David Saxton
 */
 
-/*
-TODO: refactor into directional FPconnector without wires and undirected EC connector with wires.
-* probably end up with subclasses for each case.
-*/
 
 class Connector : public QObject, public QCanvasPolygon {
 	Q_OBJECT
@@ -50,12 +46,12 @@ public:
 	/**
 	 * Node at start of connector (which refers to this as the output connector)
 	 */
-	Node *startNode() const { return m_startNode; }
+	virtual Node *startNode() const = 0;
 
 	/**
 	 * Node at end of connector (which refers to this as the input connector)
 	 */
-	Node *endNode() const { return m_endNode; }
+	virtual Node *endNode() const = 0;
 
 	/**
 	 * @returns connector data describing this connector
@@ -201,15 +197,13 @@ signals:
 
 public slots:
 	void removeConnector(Node* = 0);
-	/**
-	 * Takes the minimum pin count of the start and end nodes, and creates a
-	 * connector for each pin up to that minimum.
-	 */
-	void syncWiresWithNodes();
 
 //protected:
 //	bool m_bIsSyncingWires;
 
+protected:
+	WireVector        m_wires;
+		
 private:
 
 	bool b_semiHidden;
@@ -218,9 +212,6 @@ private:
 	bool b_pointsAdded;
 
 	double m_currentAnimationOffset;
-
-	QGuardedPtr<Node> m_startNode;
-	QGuardedPtr<Node> m_endNode;
 
 	NodeGroup   *p_nodeGroup;
 	CNItem      *p_parentContainer;
@@ -231,7 +222,7 @@ private:
 	QRect             m_oldBoundRect;
 
 	ConnectorLineList m_connectorLineList;
-	WireVector        m_wires;
+
 
 };
 
