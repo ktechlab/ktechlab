@@ -13,9 +13,8 @@
 
 #include <QDrag>
 #include <QMap>
-#include <QGraphicsScene>
-#include <QGraphicsView>
 #include <QList>
+#include <QSplitter>
 
 class KTechlab;
 class View;
@@ -25,7 +24,6 @@ class ViewContainer;
 class KConfig;
 class QHBoxLayout;
 class QLayout;
-class QSplitter;
 
 typedef QMap< uint, ViewArea* > ViewAreaMap;
 typedef QList<int> IntList;
@@ -34,7 +32,7 @@ typedef QList<int> IntList;
 Before a ViewArea has been given a view, this is shown.
 \author David Saxton
 */
-class EmptyViewArea : public QGraphicsScene
+class EmptyViewArea : public QWidget
 {
     Q_OBJECT
     public:
@@ -55,7 +53,7 @@ If it contains one view, then the value returned in id() is that of the view.
 If it contains two ViewAreas, then the value returned by id() is -1.
 @author David Saxton
 */
-class ViewArea : public QGraphicsScene
+class ViewArea : public QSplitter
 {
 Q_OBJECT
 public:
@@ -218,8 +216,13 @@ public:
 public slots:
     /**
     * Sets the tab caption et al from the contents of this ViewContainer
+    * @deprecated use updateWindowTitle instead
     */
     void updateCaption();
+    /**
+    * Sets the tab windowTitle (former known as caption) et al from the contents of this ViewContainer
+    */
+    void updateWindowTitle();
 
 protected slots:
     void baseViewAreaDestroyed( QObject *obj );
