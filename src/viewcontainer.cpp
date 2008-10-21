@@ -158,10 +158,10 @@ int ViewContainer::createViewArea( int relativeViewArea, ViewArea::Position posi
     }
 
     uint id = uniqueNewId();
-// 	setActiveViewArea(id);
+    setActiveViewArea(id);
 
     ViewArea *viewArea = relative->createViewArea( position, id, showOpenButton );
-// 	ViewArea *viewArea = new ViewArea( m_splitter, id, (const char*)("viewarea_"+QString::number(id)) );
+
     viewArea->show(); // remove?
 
     return id;

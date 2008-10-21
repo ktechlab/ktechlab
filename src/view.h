@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2005 by David Saxton                                    *
- *   david@bluehaze.org                                                    *
+ *   Copyright (C) 2005 by David Saxton <david@bluehaze.org>               *
+ *   Copyright (C) 2008 Julian Bäume <julian@svg4all.de>                   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -23,7 +23,6 @@
 #include <QLabel>
 #include <QColorGroup>
 
-class DCOPObject;
 class Document;
 class KSqueezedTextLabel;
 class KAction;
@@ -64,14 +63,14 @@ protected:
 /**
 @author David Saxton
 */
-class View : public QWidget
+class View : public KXmlGuiWindow
 {
 Q_OBJECT
 public:
     View( Document *document, ViewContainer *viewContainer, uint viewAreaId, const char *name = 0 );
     virtual ~View();
 
-    KAction * action( const QString & name ) const;
+    //KAction * action( const QString & name ) const;
     /**
     * Pointer to the parent document
     */
@@ -79,18 +78,18 @@ public:
     /**
     * Returns the DCOP object from this view
     */
-    DCOPObject * dcopObject() const;
+    //DCOPObject * dcopObject() const;
     /**
     * Returns the dcop suffix for this view - a unique ID for the current the
     * view within all views associated with the parent document. DCOP name
     * will become "View#docID#viewID".
     */
-    unsigned dcopID() const { return m_dcopID; }
+    //unsigned dcopID() const { return m_dcopID; }
     /**
     * Sets the dcop suffix. The DCOP object for this view will be renamed.
     * @see dcopID
     */
-    void setDCOPID( unsigned id );
+    //void setDCOPID( unsigned id );
     /**
     * Pointer to the ViewContainer that we're in
     */
