@@ -33,6 +33,7 @@ include_directories(
 SET(ktechlab_SRCS
     docmanager.cpp
     projectmanager.cpp
+    view.cpp
     viewcontainer.cpp
     ktechlab.cpp
 )

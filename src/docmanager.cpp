@@ -272,7 +272,7 @@ void DocManager::handleNewDocument( Document *document, ViewArea *viewArea )
         return;
 
     m_documentList.insert(document);
-    document->setDCOPID(m_nextDocumentID++);
+//     document->setDCOPID(m_nextDocumentID++);
 
     KTechlab *w = dynamic_cast<KTechlab *>( KApplication::activeWindow() );
     if ( w )
