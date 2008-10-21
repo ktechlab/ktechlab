@@ -64,7 +64,7 @@ protected:
 /**
 @author David Saxton
 */
-class View : public QGraphicsView
+class View : public QWidget
 {
 Q_OBJECT
 public:
