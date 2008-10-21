@@ -39,12 +39,10 @@ Connector::Connector( Node * startNode, Node * endNode, ICNDocument *icnDocument
 	b_deleted = false;
 	b_pointsAdded = false;
 	b_manualPoints = false;
-	m_bIsSyncingWires = false;
-	m_startNode = startNode;
-	m_endNode = endNode;
-	p_icnDocument = icnDocument;
-	m_conRouter = new ConRouter( p_icnDocument );
-	
+//	m_bIsSyncingWires = false;
+	p_icnDocument  = icnDocument;
+	m_conRouter    = new ConRouter(p_icnDocument);
+
 	if (id) {
 		m_id = *id;
 //		if ( !p_icnDocument->registerUID(*id) ) {
@@ -56,6 +54,7 @@ Connector::Connector( Node * startNode, Node * endNode, ICNDocument *icnDocument
 	
 	p_icnDocument->requestRerouteInvalidatedConnectors();
 	setVisible(true);
+<<<<<<< HEAD:src/connector.cpp
 	
 	ECNode * startECNode = dynamic_cast<ECNode*>(startNode);
 	ECNode * endECNode = dynamic_cast<ECNode*>(endNode);
@@ -65,6 +64,9 @@ Connector::Connector( Node * startNode, Node * endNode, ICNDocument *icnDocument
 		connect( endECNode, SIGNAL(numPinsChanged(unsigned)), this, SLOT(syncWiresWithNodes()) );
 		syncWiresWithNodes();
 	}
+=======
+
+>>>>>>> master:src/connector.cpp
 }
 
 
@@ -81,6 +83,7 @@ Connector::~Connector()
 }
 
 
+<<<<<<< HEAD:src/connector.cpp
 void Connector::syncWiresWithNodes()
 {
 	// FIXME dynamic_cast is used...
@@ -136,6 +139,9 @@ void Connector::syncWiresWithNodes()
 
 void Connector::setParentContainer( const QString &cnItemId )
 {
+=======
+void Connector::setParentContainer(const QString &cnItemId) {
+>>>>>>> master:src/connector.cpp
 // 	// We only allow the node to be parented once
 // 	if ( p_parentContainer || !ICNDocument->itemWithID(cnItemId) ) return;
 	p_parentContainer = p_icnDocument->cnItemWithID(cnItemId);
@@ -153,10 +159,17 @@ void Connector::removeConnector( Node* )
 	
 	emit selected(false);
 	emit removed(this);
+<<<<<<< HEAD:src/connector.cpp
 	if ( m_startNode )
 		m_startNode->removeConnector(this);
 	if ( m_endNode )
 		m_endNode->removeConnector(this);
+=======
+
+	if (startNode()) startNode()->removeConnector(this);
+	if (endNode())	 endNode()->removeConnector(this);
+
+>>>>>>> master:src/connector.cpp
 	p_icnDocument->appendDeleteList(this);
 }
 
@@ -192,12 +205,18 @@ int getSlope( float x1, float y1, float x2, float y2 )
 }
 
 
+<<<<<<< HEAD:src/connector.cpp
 void Connector::updateDrawList()
 {
 	if ( !m_startNode || !m_endNode || !canvas() ) {
 		return;
 	}
 	
+=======
+void Connector::updateDrawList() {
+	if (!startNode() || !endNode() || !canvas()) return;
+
+>>>>>>> master:src/connector.cpp
 	QPointList drawLineList;
 	
 	int prevX = (*m_conRouter->cellPointList()->begin()).x();
@@ -218,12 +237,21 @@ void Connector::updateDrawList()
 		
 		const int y_canvas = toCanvas(y);
 		const int x_canvas = toCanvas(x);
+<<<<<<< HEAD:src/connector.cpp
 		
 		const bool bumpNext = ( prevX == x &&
 								numCon > 1 &&
 								std::abs(y_canvas-m_startNode->y())>8 &&
 								std::abs(y_canvas-m_endNode->y())>8 );
 		
+=======
+
+		const bool bumpNext = (prevX == x
+		                       && numCon > 1
+		                       && std::abs(y_canvas - startNode()->y()) > 8
+		                       && std::abs(y_canvas - endNode()->y())   > 8);
+
+>>>>>>> master:src/connector.cpp
 		int x0 = prevX_canvas;
 		int x2 = x_canvas;
 		int x1 = (x0+x2)/2;
@@ -430,6 +458,7 @@ void Connector::setRoutePoints( QPointList pointList, bool setManual, bool check
 	updateConnectorPoints(false);
 	
 	bool reversed = pointsAreReverse(pointList);
+<<<<<<< HEAD:src/connector.cpp
 	if (checkEndPoints)
 	{
 		if (reversed)
@@ -441,6 +470,20 @@ void Connector::setRoutePoints( QPointList pointList, bool setManual, bool check
 		{
 			pointList.prepend( QPoint( int(m_startNode->x()), int(m_startNode->y()) ) );
 			pointList.append( QPoint( int(m_endNode->x()), int(m_endNode->y()) ) );
+=======
+	
+	// a little performance boost: don't call (start|end)Node 4 times
+	Node* l_endNode = endNode();
+	Node* l_startNode = startNode();
+
+	if (checkEndPoints) {
+		if (reversed) {
+			pointList.prepend(QPoint(int(l_endNode->x()),  int(l_endNode->y())));
+			pointList.append(QPoint(int(l_startNode->x()), int(l_startNode->y())));
+		} else {
+			pointList.prepend(QPoint(int(l_startNode->x()), int(l_startNode->y())));
+			pointList.append(QPoint(int(l_endNode->x()),    int(l_endNode->y())));
+>>>>>>> master:src/connector.cpp
 		}
 	}
 	
@@ -450,10 +493,15 @@ void Connector::setRoutePoints( QPointList pointList, bool setManual, bool check
 }
 
 
+<<<<<<< HEAD:src/connector.cpp
 bool Connector::pointsAreReverse( const QPointList &pointList ) const
 {
 	if ( !m_startNode || !m_endNode )
 	{
+=======
+bool Connector::pointsAreReverse(const QPointList &pointList) const {
+	if (!startNode() || !endNode()) {
+>>>>>>> master:src/connector.cpp
 		kdWarning() << k_funcinfo << "Cannot determine orientation as no start and end nodes" << endl;
 		return false;
 	}
@@ -464,6 +512,7 @@ bool Connector::pointsAreReverse( const QPointList &pointList ) const
 	
 	int plsx = pointList.first().x();
 	int plsy = pointList.first().y();
+<<<<<<< HEAD:src/connector.cpp
 	int plex = pointList.last().x();
 	int pley = pointList.last().y();
 	
@@ -475,6 +524,26 @@ bool Connector::pointsAreReverse( const QPointList &pointList ) const
 	double dist_normal =  (nsx-plsx)*(nsx-plsx) + (nsy-plsy)*(nsy-plsy) + (nex-plex)*(nex-plex) + (ney-pley)*(ney-pley);
 	double dist_reverse = (nsx-plex)*(nsx-plex) + (nsy-pley)*(nsy-pley) + (nex-plsx)*(nex-plsx) + (ney-plsy)*(ney-plsy);
 	
+=======
+	int plex =  pointList.last().x();
+	int pley =  pointList.last().y();
+
+	double nsx = startNode()->x();
+	double nsy = startNode()->y();
+	double nex =   endNode()->x();
+	double ney =   endNode()->y();
+
+	double dist_normal = (nsx - plsx) * (nsx - plsx)
+			   + (nsy - plsy) * (nsy - plsy)
+			   + (nex - plex) * (nex - plex)
+			   + (ney - pley) * (ney - pley);
+
+	double dist_reverse = (nsx - plex) * (nsx - plex)
+			    + (nsy - pley) * (nsy - pley)
+			    + (nex - plsx) * (nex - plsx)
+			    + (ney - plsy) * (ney - plsy);
+
+>>>>>>> master:src/connector.cpp
 	return dist_reverse < dist_normal;
 }
 
@@ -489,12 +558,25 @@ void Connector::rerouteConnector()
 		kdWarning() << k_funcinfo << "Connector is controlled by a NodeGroup! Use that to reroute the connector" << endl;
 		return;
 	}
+<<<<<<< HEAD:src/connector.cpp
 	
 	if ( !startNode() || !endNode() )
 		return;
 	
 	updateConnectorPoints(false);
 	m_conRouter->mapRoute( int(startNode()->x()), int(startNode()->y()), int(endNode()->x()), int(endNode()->y()) );
+=======
+
+	if (!startNode() || !endNode()) return;
+
+	updateConnectorPoints(false);
+
+	m_conRouter->mapRoute(int(startNode()->x()),
+			      int(startNode()->y()),
+			      int(endNode()->x()),
+                              int(endNode()->y()));
+
+>>>>>>> master:src/connector.cpp
 	b_manualPoints = false;
 	updateConnectorPoints(true);
 }
@@ -522,14 +604,21 @@ void Connector::restoreFromConnectorData( const ConnectorData &connectorData )
 ConnectorData Connector::connectorData() const
 {
 	ConnectorData connectorData;
+<<<<<<< HEAD:src/connector.cpp
 	if ( !m_startNode || !m_endNode )
 	{
 		kdDebug() << k_funcinfo << " m_startNode="<<m_startNode<<" m_endNode="<<m_endNode<<endl;
+=======
+
+	if (!startNode() || !endNode()) {
+		kdDebug() << k_funcinfo << " m_startNode=" << startNode() << " m_endNode=" << endNode() << endl;
+>>>>>>> master:src/connector.cpp
 		return connectorData;
 	}
 	
 	connectorData.manualRoute = usesManualPoints();
 	connectorData.route = *m_conRouter->cellPointList();
+<<<<<<< HEAD:src/connector.cpp
 	
 	if ( m_startNode->isChildNode() )
 	{
@@ -539,9 +628,18 @@ ConnectorData Connector::connectorData() const
 	}
 	else
 	{
+=======
+
+	if (startNode()->isChildNode()) {
+		connectorData.startNodeIsChild = true;
+		connectorData.startNodeCId = startNode()->childId();
+		connectorData.startNodeParent = startNode()->parentItem()->id();
+	} else {
+>>>>>>> master:src/connector.cpp
 		connectorData.startNodeIsChild = false;
-		connectorData.startNodeId = m_startNode->id();
+		connectorData.startNodeId = startNode()->id();
 	}
+<<<<<<< HEAD:src/connector.cpp
 	
 	if ( m_endNode->isChildNode() )
 	{
@@ -551,8 +649,16 @@ ConnectorData Connector::connectorData() const
 	}
 	else
 	{
+=======
+
+	if (endNode()->isChildNode()) {
+		connectorData.endNodeIsChild = true;
+		connectorData.endNodeCId = endNode()->childId();
+		connectorData.endNodeParent = endNode()->parentItem()->id();
+	} else {
+>>>>>>> master:src/connector.cpp
 		connectorData.endNodeIsChild = false;
-		connectorData.endNodeId = m_endNode->id();
+		connectorData.endNodeId = endNode()->id();
 	}
 	
 	return connectorData;

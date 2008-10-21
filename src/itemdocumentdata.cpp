@@ -11,7 +11,9 @@
 #include "connector.h"
 #include "junctionnode.h"
 #include "ecsubcircuit.h"
+#include "electronicconnector.h"
 #include "flowcodedocument.h"
+#include "flowconnector.h"
 #include "flowcontainer.h"
 #include "junctionflownode.h"
 #include "itemdocumentdata.h"
@@ -1061,14 +1063,20 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 			}
 			else
 			{
-				Connector *connector = new Connector( startNode, endNode, icnd, &id );
+				Connector *connector;
 					
 				// FIXME ICNDocument->type() used
 				// FIXME tons of dynamic_cast
 				if( icnd->type() == Document::dt_circuit ) {
+					connector = new ElectronicConnector( 
+								dynamic_cast<ECNode *>(startNode), 
+								dynamic_cast<ECNode *>(endNode), icnd, &id );
 					(dynamic_cast<ECNode *>(startNode))->addConnector(connector);
 					(dynamic_cast<ECNode *>(endNode))->addConnector(connector);
 				} else {
+					connector = new FlowConnector( 
+								dynamic_cast<FPNode *>(startNode),
+								dynamic_cast<FPNode *>(endNode), icnd, &id );
 					(dynamic_cast<FPNode *>(startNode))->addOutputConnector(connector);
 					(dynamic_cast<FPNode *>(endNode))->addInputConnector(connector);
 				}

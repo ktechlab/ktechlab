@@ -34,9 +34,11 @@ typedef QValueVector<QGuardedPtr<Wire> > WireVector;
 @short Represents a connection between two Nodes on a ICNDocument
 @author David Saxton
 */
-class Connector : public QObject, public QCanvasPolygon
-{
-Q_OBJECT
+
+
+class Connector : public QObject, public QCanvasPolygon {
+	Q_OBJECT
+
 public:
 	Connector( Node * startNode, Node * endNode, ICNDocument *_ICNDocument, QString *id = 0L );
 	~Connector();
@@ -44,11 +46,13 @@ public:
 	/**
 	 * Node at start of connector (which refers to this as the output connector)
 	 */
-	Node * startNode() const { return m_startNode; }
+	virtual Node *startNode() const = 0;
+
 	/**
 	 * Node at end of connector (which refers to this as the input connector)
 	 */
-	Node * endNode() const { return m_endNode; }
+	virtual Node *endNode() const = 0;
+
 	/**
 	 * @returns connector data describing this connector
 	 */
@@ -165,6 +169,7 @@ signals:
 	void numWiresChanged( unsigned newNum );
 	
 public slots:
+<<<<<<< HEAD:src/connector.h
 	void removeConnector( Node* = 0L );
 	/**
 	 * Takes the minimum pin count of the start and end nodes, and creates a
@@ -179,16 +184,42 @@ protected:
 	QGuardedPtr<Node> m_endNode;
 	NodeGroup *p_nodeGroup;
 	CNItem *p_parentContainer;
+=======
+	void removeConnector(Node* = 0);
+
+//protected:
+//	bool m_bIsSyncingWires;
+
+protected:
+	WireVector        m_wires;
+		
+private:
+
+	bool b_semiHidden;
+	bool b_deleted;
+	bool b_manualPoints;
+	bool b_pointsAdded;
+
+	double m_currentAnimationOffset;
+
+	NodeGroup   *p_nodeGroup;
+	CNItem      *p_parentContainer;
+>>>>>>> master:src/connector.h
 	ICNDocument *p_icnDocument;
 	ConRouter *m_conRouter;
 	QString m_id;
 	ConnectorLineList m_connectorLineList;
+<<<<<<< HEAD:src/connector.h
 	QRect m_oldBoundRect;
 	WireVector m_wires;
 	bool b_deleted;
 	bool b_manualPoints;
 	bool b_pointsAdded;
 	double m_currentAnimationOffset;
+=======
+
+
+>>>>>>> master:src/connector.h
 };
 typedef QValueList<QGuardedPtr<Connector> > ConnectorList;
 
