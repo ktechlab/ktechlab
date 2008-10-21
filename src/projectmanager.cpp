@@ -911,7 +911,7 @@ void ProjectManager::slotNewProject()
     if ( !slotCloseProject() )
         return;
 
-    NewProjectDlg *newProjectDlg = new NewProjectDlg( m_treeWidget );
+/*    NewProjectDlg *newProjectDlg = new NewProjectDlg( m_treeWidget );
     newProjectDlg->exec();
 
     if ( newProjectDlg->accepted() )
@@ -930,7 +930,7 @@ void ProjectManager::slotNewProject()
         emit projectCreated();
     }
 
-    delete newProjectDlg;
+    delete newProjectDlg;*/
 }
 
 
@@ -1002,7 +1002,7 @@ void ProjectManager::slotCreateSubproject()
 	if ( !currentProject() )
 		return;
 
-	CreateSubprojectDlg * dlg = new CreateSubprojectDlg( m_treeWidget );
+/*	CreateSubprojectDlg * dlg = new CreateSubprojectDlg( m_treeWidget );
 	dlg->exec();
 
 	if ( dlg->accepted() )
@@ -1017,7 +1017,7 @@ void ProjectManager::slotCreateSubproject()
 		emit subprojectCreated();
 	}
 
-	delete dlg;
+	delete dlg;*/
 }
 
 
@@ -1083,9 +1083,9 @@ void ProjectManager::slotItemBuild()
 	if ( !currentItem || !currentItem->projectItem() )
 		return;
 
-	ProcessOptionsList pol;
+/*	ProcessOptionsList pol;
 	currentItem->projectItem()->build(&pol);
-	LanguageManager::self()->compile(pol);
+	LanguageManager::self()->compile(pol);*/
 }
 
 
@@ -1095,9 +1095,9 @@ void ProjectManager::slotItemUpload()
 	if ( !currentItem || !currentItem->projectItem() )
 		return;
 
-	ProcessOptionsList pol;
+/*	ProcessOptionsList pol;
 	currentItem->projectItem()->upload(&pol);
-	LanguageManager::self()->compile(pol);
+	LanguageManager::self()->compile(pol);*/
 }
 
 
@@ -1128,12 +1128,12 @@ void ProjectManager::slotSubprojectLinkerOptions()
 	if ( !currentItem || !currentItem->projectItem() )
 		return;
 
-	LinkerOptionsDlg * dlg = new LinkerOptionsDlg( currentItem->projectItem()->linkerOptions(), m_treeWidget );
+/*	LinkerOptionsDlg * dlg = new LinkerOptionsDlg( currentItem->projectItem()->linkerOptions(), m_treeWidget );
 	dlg->exec();
 	currentProject()->save();
 
 	// The dialog sets the options for us if it was accepted, so we don't need to do anything
-	delete dlg;
+	delete dlg;*/
 }
 
 
@@ -1143,12 +1143,12 @@ void ProjectManager::slotItemProcessingOptions()
 	if ( !currentItem || !currentItem->projectItem() )
 		return;
 
-	ProcessingOptionsDlg * dlg = new ProcessingOptionsDlg( currentItem->projectItem(), m_treeWidget );
+/*	ProcessingOptionsDlg * dlg = new ProcessingOptionsDlg( currentItem->projectItem(), m_treeWidget );
 	dlg->exec();
 	currentProject()->save();
 
 	// The dialog sets the options for us if it was accepted, so we don't need to do anything
-	delete dlg;
+	delete dlg;*/
 }
 
 
@@ -1181,7 +1181,7 @@ void ProjectManager::slotContextMenuRequested( QTreeWidgetItem * item, const QPo
 
 	else
 	{
-		ProcessOptions::ProcessPath::MediaType mediaType = ProcessOptions::guessMediaType( ilvItem->projectItem()->url().url() );
+// 		ProcessOptions::ProcessPath::MediaType mediaType = ProcessOptions::guessMediaType( ilvItem->projectItem()->url().url() );
 
         //FIXME: add virtual method QString ProjectItem::popupName()
 /*		switch ( ilvItem->projectItem()->type() )
