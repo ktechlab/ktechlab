@@ -1,5 +1,5 @@
 add_subdirectory(core)
-#add_subdirectory(gui)
+add_subdirectory(gui)
 #add_subdirectory(flowparts)
 #add_subdirectory(micro)
 #add_subdirectory(mechanics)
@@ -43,7 +43,7 @@ SET(ktechlab_SRCS
 kde4_add_executable(ktechlab ${ktechlab_SRCS})
 
 target_link_libraries( ktechlab ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS}
-	core #languages gui micro flowparts
+	core gui#languages gui micro flowparts
 #	mechanics electronics elements components drawparts
 #	itemeditor math khtml kutils ${GPSIM_LIBRARY} ktexteditor kio
 	kio
