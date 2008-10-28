@@ -20,6 +20,7 @@
 
 #include "ktechlab.h"
 
+#include "newfiledlg.h"
 #include "document.h"
 #include "docmanager.h"
 #include "projectmanager.h"
@@ -144,7 +145,14 @@ void KTechlab::slotFileNewMicrobe()
 
 void KTechlab::slotFileNew()
 {
-    kDebug() << "triggered()";
+    NewFileDlg newFileDlg( this );
+
+    newFileDlg.exec();
+    if ( newFileDlg.accepted() )
+    {
+        //FIXME: implement this feature
+        kDebug() << "We should now open a new file!";
+    }
 }
 
 void KTechlab::slotFileOpen()
