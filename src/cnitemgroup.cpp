@@ -275,7 +275,6 @@ ConnectorList CNItemGroup::connectors( bool excludeParented ) const
 		NodeList::const_iterator internalEnd = internal.end();
 		for ( NodeList::const_iterator intIt = internal.begin(); intIt != internalEnd; ++intIt )
 		{
-			// const ConnectorList connected = (*intIt)->inputConnectorList() + (*intIt)->outputConnectorList();
 			const ConnectorList connected = (*intIt)->getAllConnectors();
 			ConnectorList::const_iterator connectedEnd = connected.end();
 			for ( ConnectorList::const_iterator conIt = connected.begin(); conIt != connectedEnd; ++conIt )
