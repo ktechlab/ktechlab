@@ -98,21 +98,21 @@ class PinMapDocument : public CircuitICNDocument
 	public:
 		PinMapDocument();
 		~PinMapDocument();
-		
+
 		void init( const PinMapping & PinMapping, MicroInfo *microInfo );
-		
-		virtual bool isValidItem( Item * item );
+
+		virtual bool isValidItem( Item *item );
 		virtual bool isValidItem( const QString &itemId );
-		
+
 		PinMapping pinMapping() const;
-		
+
 		virtual void deleteSelection();
-		
+
 	protected:
 		PinMapping::Type m_pinMappingType;
-		ECKeyPad * m_pKeypad;
-		ECSevenSegment * m_pSevenSegment;
-		PIC_IC * m_pPicComponent;
+		ECKeyPad *m_pKeypad;
+		ECSevenSegment *m_pSevenSegment;
+		PIC_IC *m_pPicComponent;
 };
 
 
@@ -123,7 +123,7 @@ class PinMapView : public ICNView
 {
 	Q_OBJECT
 	public:
-		PinMapView( PinMapDocument * pinMapDocument, ViewContainer * viewContainer, uint viewAreaId, const char * name = 0l );
+		PinMapView( PinMapDocument *pinMapDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l );
 		~PinMapView();
 };
 
@@ -131,13 +131,13 @@ class PinMapView : public ICNView
 class PIC_IC : public Component
 {
 	public:
-		PIC_IC( ICNDocument * icnDocument, bool newItem, const char *id = 0L );
+		PIC_IC( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		virtual ~PIC_IC();
 		
-		static Item * construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem * libraryItem();
+		static Item *construct( ItemDocument *itemDocument, bool newItem, const char *id );
+		static LibraryItem *libraryItem();
 	
-		void initPackage( MicroInfo * info );
+		void initPackage(MicroInfo *info);
 };
 
 #endif
