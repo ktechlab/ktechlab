@@ -361,13 +361,13 @@ void FlowICNDocument::flushDeleteList()
 		*it = 0l;
 	}
 
-// 	// Check connectors for merging
+ 	// Check connectors for merging
 	bool doneJoin = false;
 	const FPNodeMap::iterator nlEnd = m_flowNodeList.end();
 	for ( FPNodeMap::iterator it = m_flowNodeList.begin(); it != nlEnd; ++it )
 	{
 		( *it )->removeNullConnectors();
-		int conCount = ( *it )->inputConnectorList().count() + ( *it )->outputConnectorList().count();
+		int conCount = ( *it )->getAllConnectors().count();
 		if ( conCount == 2 && ! ( *it )->parentItem() )
 		{
 			if ( joinConnectors ( *it ) )
@@ -444,7 +444,6 @@ bool FlowICNDocument::joinConnectors( FPNode *node )
 	
 	node->removeNullConnectors();
 	
-	// int conCount = node->inputConnectorList().count() + node->outputConnectorList().count();
 	int conCount = node->getAllConnectors().count();
 	if ( conCount != 2 )
 		return false;
