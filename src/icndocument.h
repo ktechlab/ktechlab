@@ -173,7 +173,9 @@ public:
 	 * Creates a connector from node1 to node2. If pointList is non-null, then the
 	 * connector will be assigned those points
 	 */
-	virtual Connector * createConnector( Node *node1, Node *node2, QPointList *pointList = 0L );
+	//virtual
+
+	Connector *createConnector( Node *node1, Node *node2, QPointList *pointList = 0);
 	/**
 	 * Splits Connector con into two connectors at point pos2, and creates a connector from the node
 	 * to the intersection of the two new connectors. If pointList is non-null, then the new connector

@@ -150,6 +150,7 @@ class ICNDocumentIface : public ItemDocumentIface
 		ICNDocument * m_pICNDocument;
 };
 
+// FIXME: move to separate file and put in same path as circuitdocument.*
 class CircuitDocumentIface : public ICNDocumentIface
 {
 	K_DCOP
