@@ -31,6 +31,11 @@ The simplest way to compile this package is:
      `sh ./configure' instead to prevent `csh' from trying to execute
      `configure' itself.
 
+     If you can't find the `configure' file in the source code then type
+     `make -f Makefile.cvs' to generate the configure file. Note that 
+     for this step the program `autoconf' must be installed on your 
+     system.
+
      Running `configure' takes a while.  While running, it prints some
      messages telling which features it is checking for.
 
