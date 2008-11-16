@@ -14,12 +14,8 @@
 #include "circuitview.h"
 #include "component.h"
 #include "connector.h"
-
-// Why in god's name doesn't the following line, or any reasonable variation work?
-//#include "ktlconfig.h"
-#include "/home/atg/source/ktechlab/trunk/debug/src/core/ktlconfig.h"
-// 
-
+//#include "ktlconfig.h"	// Works like this:
+#include "src/core/ktlconfig.h"
 #include "cnitemgroup.h"
 #include "documentiface.h"
 #include "drawpart.h"
