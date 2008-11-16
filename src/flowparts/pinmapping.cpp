@@ -158,7 +158,8 @@ void PinMapDocument::init( const PinMapping & pinMapping, MicroInfo * microInfo 
 			char ssPin = 'a';
 			for ( QStringList::const_iterator it = pins.begin(); it != end; ++it )
 			{
-				createConnector( m_pSevenSegment->childNode( QChar(ssPin) ), m_pPicComponent->childNode(*it) );
+				ICNDocument::createConnector( m_pSevenSegment->childNode( QChar(ssPin) ),
+						 m_pPicComponent->childNode(*it) );
 				ssPin++;
 			}
 			
@@ -186,10 +187,10 @@ void PinMapDocument::init( const PinMapping & pinMapping, MicroInfo * microInfo 
 	{
 		QStringList::const_iterator it = pins.begin();
 		for ( unsigned row = 0; (row < 4) && (it != end); ++row, ++it )
-			createConnector( m_pKeypad->childNode( QString("row_%1").arg( row ) ), m_pPicComponent->childNode( *it ) );
+			ICNDocument::createConnector( m_pKeypad->childNode( QString("row_%1").arg( row ) ), m_pPicComponent->childNode( *it ) );
 		
 		for ( int col = 0; (col < keypadCols) && (it != end); ++col, ++it )
-			createConnector( m_pKeypad->childNode( QString("col_%1").arg( col ) ), m_pPicComponent->childNode( *it ) );
+			ICNDocument::createConnector( m_pKeypad->childNode( QString("col_%1").arg( col ) ), m_pPicComponent->childNode( *it ) );
 	}
 	
 	clearHistory(); // Don't allow undoing of initial creation of stuff

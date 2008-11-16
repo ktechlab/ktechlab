@@ -256,7 +256,7 @@ bool ICNDocument::canConnect( QCanvasItem *qcanvasItem1, QCanvasItem *qcanvasIte
 }
 
 
-Connector * ICNDocument::createConnector( Node *startNode, Node *endNode, QPointList *pointList )
+Connector *ICNDocument::createConnector( Node *startNode, Node *endNode, QPointList *pointList )
 {
 	if(!canConnect(startNode, endNode) ) return 0;
 
