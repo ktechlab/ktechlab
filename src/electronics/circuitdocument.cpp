@@ -14,7 +14,7 @@
 #include "circuitview.h"
 #include "component.h"
 #include "connector.h"
-#include "core/ktlconfig.h"
+#include "ktlconfig.h"
 #include "cnitemgroup.h"
 #include "documentiface.h"
 #include "drawpart.h"
@@ -104,13 +104,10 @@ void CircuitDocument::slotInitItemActions( )
 	
 	if ( item->angleDegrees() == 0 )
 		(static_cast<KToggleAction*>( orientation_actions[0] ))->setChecked(true);
-	
 	else if ( item->angleDegrees() == 90 )
 		(static_cast<KToggleAction*>( orientation_actions[1] ))->setChecked(true);
-	
 	else if ( item->angleDegrees() == 180 )
 		(static_cast<KToggleAction*>( orientation_actions[2] ))->setChecked(true);
-	
 	else if ( item->angleDegrees() == 270 )
 		(static_cast<KToggleAction*>( orientation_actions[3] ))->setChecked(true);
 }
