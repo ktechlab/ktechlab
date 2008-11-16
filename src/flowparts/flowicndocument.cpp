@@ -154,7 +154,7 @@ bool FlowICNDocument::canConnect( QCanvasItem *qcanvasItem1, QCanvasItem *qcanva
 }
 
 
-Connector * FlowICNDocument::createConnector( Connector *con1, Connector *con2, const QPoint &pos1, const QPoint &pos2, QPointList *pointList )
+Connector *FlowICNDocument::createConnector( Connector *con1, Connector *con2, const QPoint &pos1, const QPoint &pos2, QPointList *pointList )
 {
 	// FIXME isn't all this dead code?
 	/*
@@ -184,7 +184,7 @@ Connector * FlowICNDocument::createConnector( Connector *con1, Connector *con2, 
 	con2->hide();
 	
 	// if ( type() != Document::dt_circuit )
-		return 0l;
+	return 0;
 }
 
 

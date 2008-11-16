@@ -234,6 +234,7 @@ protected:
 	bool m_bDeleted; 
 	
 private:
+
 	KURL		  m_url;
 	QGuardedPtr<View> m_pActiveView;
 	QString		  m_caption;
