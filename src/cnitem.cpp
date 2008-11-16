@@ -140,7 +140,7 @@ ConnectorList CNItem::connectorList()
 		Node *node = p_icnDocument->nodeWithID(it.data().id);
 		if (node)
 		{
-			ConnectorList nodeList = node->getAllConnectors(); // node->inputConnectorList();
+			ConnectorList nodeList = node->getAllConnectors();
 			ConnectorList::iterator end = nodeList.end();
 			for ( ConnectorList::iterator it = nodeList.begin(); it != end; ++it )
 			{
