@@ -12,7 +12,7 @@
 #define PINMAPPING_H
 
 #include "component.h"
-#include "flowicndocument.h"
+#include "circuiticndocument.h"
 #include "icnview.h"
 
 #include <kdialogbase.h>
@@ -92,7 +92,7 @@ clik add/modifify, select something in the appearing dialog, and there is is.
 It's similar to a circuit.
 */
 // because this document is similar to a circuit, the nodes are the electronic nodes
-class PinMapDocument : public FlowICNDocument
+class PinMapDocument : public CircuitICNDocument
 {
 	Q_OBJECT
 	public:
