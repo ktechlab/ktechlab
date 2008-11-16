@@ -13,12 +13,12 @@ INCLUDES = -I$(top_srcdir)/doc -I$(top_srcdir)/microbe -I$(top_srcdir)/src \
 	-I$(top_srcdir)/src/mechanics -I$(top_srcdir)/src/micro $(all_includes)
 
 # the library search path. 
-ktechlab_LDFLAGS = -module $(KDE_RPATH) $(all_libraries)
+ktechlab_LDFLAGS = $(KDE_RPATH) $(all_libraries)
 
 # the libraries to link against.
 ktechlab_LDADD = $(top_builddir)/src/core/libcore.la \
 	$(top_builddir)/src/drawparts/libdrawparts.la $(top_builddir)/src/electronics/components/libcomponents.la \
-	$(top_builddir)/src/electronics/libelectronics.la $(top_builddir)/src/electronics/simulation/libelements.la \
+	$(top_builddir)/src/electronics/simulation/libelements.la $(top_builddir)/src/electronics/libelectronics.la \
 	$(top_builddir)/src/flowparts/libflowparts.la $(top_builddir)/src/gui/itemeditor/libitemeditor.la \
 	$(top_builddir)/src/gui/libgui.la $(top_builddir)/src/languages/liblanguages.la \
 	$(top_builddir)/src/math/libtechmath.la $(top_builddir)/src/mechanics/libmechanics.la \
@@ -27,31 +27,30 @@ ktechlab_LDADD = $(top_builddir)/src/core/libcore.la \
 
 # which sources should be compiled for ktechlab
 ktechlab_SOURCES = ktechlab.cpp node.cpp connector.cpp itemlibrary.cpp \
-		libraryitem.cpp projectmanager.cpp picitem.cpp variant.cpp canvasitemparts.cpp \
-		flowcontainer.cpp microsettings.cpp fpnode.cpp cells.cpp asmformatter.cpp conrouter.cpp \
-		nodegroup.cpp canvasmanipulator.cpp iteminterface.cpp itemgroup.cpp ciwidgetmgr.cpp \
-		filemetainfo.cpp resizeoverlay.cpp document.cpp view.cpp docmanager.cpp cnitem.cpp \
-		item.cpp cnitemgroup.cpp itemview.cpp itemdocument.cpp textview.cpp \
-		textdocument.cpp circuitdocument.cpp flowcodedocument.cpp icnview.cpp icndocument.cpp \
-		viewcontainer.cpp circuitview.cpp flowcodeview.cpp eventinfo.cpp oscilloscopedata.cpp \
-		itemdocumentdata.cpp docmanageriface.cpp documentiface.cpp viewiface.cpp \
-		docmanageriface.skel viewiface.skel documentiface.skel simulator.cpp katemdi.cpp \
-		debugmanager.cpp recentfilesaction.cpp variablelabel.cpp canvas.cpp
+	libraryitem.cpp projectmanager.cpp picitem.cpp variant.cpp canvasitemparts.cpp \
+	flowcontainer.cpp microsettings.cpp fpnode.cpp cells.cpp asmformatter.cpp conrouter.cpp \
+	nodegroup.cpp canvasmanipulator.cpp iteminterface.cpp itemgroup.cpp ciwidgetmgr.cpp \
+	filemetainfo.cpp resizeoverlay.cpp document.cpp view.cpp docmanager.cpp cnitem.cpp \
+	item.cpp cnitemgroup.cpp itemview.cpp itemdocument.cpp textview.cpp \
+	textdocument.cpp flowcodedocument.cpp icnview.cpp icndocument.cpp viewcontainer.cpp \
+	circuitview.cpp flowcodeview.cpp eventinfo.cpp oscilloscopedata.cpp \
+	itemdocumentdata.cpp docmanageriface.cpp documentiface.cpp viewiface.cpp \
+	docmanageriface.skel viewiface.skel documentiface.skel simulator.cpp katemdi.cpp \
+	debugmanager.cpp recentfilesaction.cpp variablelabel.cpp canvas.cpp
 
 ktechlab_PCH = AUTO
 
 
 # these are the headers for your project
 noinst_HEADERS = asmformatter.h canvas.h canvas_private.h canvasitemparts.h \
-	canvasmanipulator.h cells.h circuitdocument.h circuitview.h ciwidgetmgr.h cnitem.h \
-	cnitemgroup.h connector.h conrouter.h debugmanager.h docmanager.h docmanageriface.h \
-	document.h documentiface.h eventinfo.h filemetainfo.h flowcodedocument.h \
-	flowcodeview.h fpnode.h icndocument.h icnview.h item.h itemdocument.h \
-	itemdocumentdata.h itemgroup.h iteminterface.h itemlibrary.h itemview.h katemdi.h \
-	ktechlab.h libraryitem.h microsettings.h node.h nodegroup.h oscilloscopedata.h \
-	picitem.h projectmanager.h property.h recentfilesaction.h resizeoverlay.h \
-	simulator.h textdocument.h textview.h utils.h variablelabel.h view.h \
-	viewcontainer.h viewiface.h
+	canvasmanipulator.h cells.h circuitview.h ciwidgetmgr.h cnitem.h cnitemgroup.h connector.h \
+	conrouter.h debugmanager.h docmanager.h docmanageriface.h document.h \
+	documentiface.h eventinfo.h filemetainfo.h flowcodedocument.h flowcodeview.h fpnode.h \
+	icndocument.h icnview.h item.h itemdocument.h itemdocumentdata.h itemgroup.h \
+	iteminterface.h itemlibrary.h itemview.h katemdi.h ktechlab.h libraryitem.h \
+	microsettings.h node.h nodegroup.h oscilloscopedata.h picitem.h projectmanager.h \
+	property.h recentfilesaction.h resizeoverlay.h simulator.h textdocument.h \
+	textview.h utils.h variablelabel.h view.h viewcontainer.h viewiface.h
 
 
 # client stuff

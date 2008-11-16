@@ -11,7 +11,7 @@
 
 #include "cnitem.h"
 #include "canvasitemparts.h"
-#include "circuitdocument.h"
+#include "electronics/circuitdocument.h"
 #include "component.h"
 #include "ecsubcircuit.h"
 #include "ecnode.h"
@@ -347,41 +347,36 @@ LibraryItem * ItemLibrary::libraryItem( QString type ) const
 
 Item * ItemLibrary::createItem( const QString &id, ItemDocument *itemDocument, bool newItem, const char *newId, bool finishCreation  )
 {
-	Item * item = 0l;
-	if ( id.startsWith("sc/") )
+	Item *item = 0;
+/*	if ( id.startsWith("sc/") )
 	{
 		// Is a subcircuit...
 		
-		CircuitDocument * circuitDocument = dynamic_cast<CircuitDocument*>(itemDocument);
+		CircuitDocument *circuitDocument = dynamic_cast<CircuitDocument*>(itemDocument);
 		if (!circuitDocument)
 		{
 			kdWarning() << "Cannot create subcircuit without a circuit document" << endl;
-			return 0l;
+			return 0;
 		}
 		
 		QString temp = id;
 		int numId = temp.remove("sc/").toInt();
 		
-		item = subcircuits()->createSubcircuit( numId, /*id,*/ circuitDocument, newItem, newId );
-	}
-	
-	else
-	{
+		item = subcircuits()->createSubcircuit( numId,  circuitDocument, newItem, newId );
+	} else { */
 		LibraryItem * li = libraryItem( id );
 		
 		if ( !li )
 			kdWarning() << "Could not find the item constructor for id " << id << endl;
-		
-		else
-		{
+		else {
 			item = li->createItemFnPtr()( itemDocument, newItem, newId );
 			item->m_type = li->activeID();
 		}
-	}
-	
+	//}
+
 	if ( finishCreation && item )
 		item->finishedCreation();
-	
+
 	return item;
 }
 
@@ -402,13 +397,10 @@ QImage ItemLibrary::componentImage( Component * component, const uint maxSize )
 
 	// We want a nice square bounding rect
 	const int dy = bound.width() - bound.height();
-	if ( dy > 0 )
-	{
+	if ( dy > 0 ) {
 		bound.setTop( bound.top()-(dy/2) );
 		bound.setBottom( bound.bottom()+(dy/2) );
-	}
-	else if ( dy < 0 )
-	{
+	} else if ( dy < 0 ) {
 		bound.setLeft( bound.left()+(dy/2) );
 		bound.setRight( bound.right()-(dy/2) );
 	}
@@ -440,8 +432,7 @@ QImage ItemLibrary::componentImage( Component * component, const uint maxSize )
 	//BEGIN Draw the component
 	const bool sel = component->isSelected();
 	
-	if (sel)
-	{
+	if (sel) {
 		// We block the signals as we end up in an infinite loop with component emitting a selected signal
 		component->blockSignals(true);
 		component->setSelected(false);
@@ -451,8 +442,7 @@ QImage ItemLibrary::componentImage( Component * component, const uint maxSize )
 	component->drawShape(p);
 	component->drawShape(maskPainter);
 	
-	if (sel)
-	{
+	if (sel) {
 		component->blockSignals(true);
 		component->setSelected(sel);
 		component->blockSignals(false);
@@ -486,14 +476,12 @@ QImage ItemLibrary::componentImage( Component * component, const uint maxSize )
 				
 			ecnode->setShowVoltageBars( showVB );
 			ecnode->setShowVoltageColor( showVC );
-		}
-		else
-		{
+		} else {
 			node->drawShape(p);
 			node->drawShape(maskPainter);
 		}
-		if (sel)
-			node->setSelected(sel);
+
+		if (sel) node->setSelected(sel);
 	}
 		
 	p.setPen(Qt::black);
@@ -711,9 +699,7 @@ void ItemLibrary::loadItemDescriptions()
 				}
 				
 				description = QString::null;
-			}
-			else
-				description += line + '\n';
+			} else description += line + '\n';
 		}
 	
 		// Save the previous description

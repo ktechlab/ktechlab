@@ -38,7 +38,6 @@ Connector::Connector(Node *startNode, Node *endNode, ICNDocument *icnDocument, Q
 	b_deleted      = false;
 	b_pointsAdded  = false;
 	b_manualPoints = false;
-//	m_bIsSyncingWires = false;
 	p_icnDocument  = icnDocument;
 	m_conRouter    = new ConRouter(p_icnDocument);
 
@@ -53,7 +52,6 @@ Connector::Connector(Node *startNode, Node *endNode, ICNDocument *icnDocument, Q
 	p_icnDocument->requestRerouteInvalidatedConnectors();
 
 	setVisible(true);
-
 }
 
 

@@ -12,7 +12,7 @@
 #define PINMAPPING_H
 
 #include "component.h"
-#include "circuiticndocument.h"
+#include "flowicndocument.h"
 #include "icnview.h"
 
 #include <kdialogbase.h>
@@ -63,7 +63,6 @@ class PinMapping
 typedef QMap< QString, PinMapping > PinMappingMap;
 
 
-
 /**
 Dialog for editing a Pin Mapping
 @author David Saxton
@@ -85,7 +84,6 @@ class PinMapEditor : public KDialogBase
 };
 
 
-
 /**
 For use with FlowParts that require a pin map (e.g. Keypad and Seven Segment).
 @author David Saxton
@@ -94,14 +92,14 @@ clik add/modifify, select something in the appearing dialog, and there is is.
 It's similar to a circuit.
 */
 // because this document is similar to a circuit, the nodes are the electronic nodes
-class PinMapDocument : public CircuitICNDocument
+class PinMapDocument : public FlowICNDocument
 {
 	Q_OBJECT
 	public:
 		PinMapDocument();
 		~PinMapDocument();
 		
-		void init( const PinMapping & PinMapping, MicroInfo * microInfo );
+		void init( const PinMapping & PinMapping, MicroInfo *microInfo );
 		
 		virtual bool isValidItem( Item * item );
 		virtual bool isValidItem( const QString &itemId );
