@@ -15,3 +15,4 @@ libtechmath_la_LIBADD =
 
 
 noinst_HEADERS = qvector.h qmatrix.h
+libtechmath_la_LDFLAGS = -no-undefined

@@ -8,7 +8,7 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "circuitdocument.h"
+#include "electronics/circuitdocument.h"
 #include "docmanager.h"
 #include "docmanageriface.h"
 #include "flowcodedocument.h"
@@ -34,7 +34,7 @@ DocManager * DocManager::self()
 {
 	if ( !m_pSelf )
 		m_pSelf = new DocManager();
-	
+
 	return m_pSelf;
 }
 
@@ -47,7 +47,7 @@ DocManager::DocManager()
 	m_countFlowCode = 0;
 	m_countMechanics = 0;
 	m_countOther = 0;
-	p_connectedDocument = 0l;
+	p_connectedDocument = 0;
 	m_nextDocumentID = 1;
 	m_pIface = new DocManagerIface(this);
 }
@@ -67,9 +67,7 @@ bool DocManager::closeAll()
 		{
 			m_documentList.remove(document);
 			removeDocumentAssociations(document);
-		}
-		else
-			return false;
+		} else return false;
 	}
 	return true;
 }
@@ -80,8 +78,7 @@ void DocManager::gotoTextLine( const KURL &url, int line )
 	TextDocument * doc = dynamic_cast<TextDocument*>( openURL(url) );
 	TextView * tv = doc ? doc->textView() : 0l;
 	
-	if ( !tv )
-		return;
+	if ( !tv ) return;
 	
 	tv->gotoLine(line);
 	tv->setFocus();
@@ -90,8 +87,7 @@ void DocManager::gotoTextLine( const KURL &url, int line )
 
 Document* DocManager::openURL( const KURL &url, ViewArea *viewArea )
 {
-	if ( url.isEmpty() )
-		return 0l;
+	if ( url.isEmpty() ) return 0;
 	
 	if ( url.isLocalFile() )
 	{
@@ -121,12 +117,10 @@ Document* DocManager::openURL( const KURL &url, ViewArea *viewArea )
 	// specified, then just return that document - otherwise, create a new
 	// view in the viewarea
 	Document *document = findDocument(url);
-	if ( document )
-	{
+	if ( document ) {
 		if ( viewArea )
 			createNewView( document, viewArea );
-		else
-			giveDocumentFocus( document, viewArea );
+		else	giveDocumentFocus( document, viewArea );
 		return document;
 	}
 	
@@ -135,15 +129,11 @@ Document* DocManager::openURL( const KURL &url, ViewArea *viewArea )
 	
 	if ( extension == ".circuit" )
 		return openCircuitFile( url, viewArea );
-	
 	else if ( extension == ".flowcode" )
 		return openFlowCodeFile( url, viewArea );
-	
 	else if ( extension == ".mechanics" )
 		return openMechanicsFile( url, viewArea );
-	
-	else
-		return openTextFile( url, viewArea );
+	else	return openTextFile( url, viewArea );
 }
 
 
@@ -156,8 +146,7 @@ Document *DocManager::getFocusedDocument() const
 
 void DocManager::giveDocumentFocus( Document * toFocus, ViewArea * viewAreaForNew )
 {
-	if ( !toFocus )
-		return;
+	if ( !toFocus ) return;
 	
 	if ( View * activeView = toFocus->activeView() )
 		KTechlab::self()->tabWidget()->showPage( activeView->viewContainer() );
@@ -170,9 +159,8 @@ void DocManager::giveDocumentFocus( Document * toFocus, ViewArea * viewAreaForNe
 QString DocManager::untitledName( int type )
 {
 	QString name;
-	switch(type)
-	{
-		case Document::dt_circuit:
+	switch(type) {
+	case Document::dt_circuit:
 		{
 			if ( m_countCircuit>1 )
 				name = i18n("Untitled (Circuit %1)").arg(QString::number(m_countCircuit));
@@ -181,7 +169,7 @@ QString DocManager::untitledName( int type )
 			m_countCircuit++;
 			break;
 		}
-		case Document::dt_flowcode:
+	case Document::dt_flowcode:
 		{
 			if ( m_countFlowCode>1 )
 				name = i18n("Untitled (FlowCode %1)").arg(QString::number(m_countFlowCode));
@@ -190,7 +178,7 @@ QString DocManager::untitledName( int type )
 			m_countFlowCode++;
 			break;
 		}
-		case Document::dt_mechanics:
+	case Document::dt_mechanics:
 		{
 			if ( m_countMechanics>1 )
 				name = i18n("Untitled (Mechanics %1)").arg(QString::number(m_countMechanics));
@@ -199,7 +187,7 @@ QString DocManager::untitledName( int type )
 			m_countMechanics++;
 			break;
 		}
-		default:
+	default:
 		{
 			if ( m_countOther>1 )
 				name = i18n("Untitled (%1)").arg(QString::number(m_countOther));
@@ -385,8 +373,7 @@ void DocManager::slotViewUnfocused()
 void DocManager::disableContextActions()
 {
 	KTechlab * ktl = KTechlab::self();
-	if ( !ktl )
-		return;
+	if ( !ktl ) return;
 	
 	ktl->action("file_save")->setEnabled(false);
 	ktl->action("file_save_as")->setEnabled(false);
