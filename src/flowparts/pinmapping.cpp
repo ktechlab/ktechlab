@@ -121,7 +121,7 @@ void PinMapEditor::savePinMapping()
 
 //BEGIN class PinMapDocument
 PinMapDocument::PinMapDocument()
-	: FlowICNDocument( 0, 0 )
+	: CircuitICNDocument( 0, 0 )
 {
 	m_pPicComponent = 0l;
 	m_pKeypad = 0l;
