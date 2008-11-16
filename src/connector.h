@@ -40,7 +40,7 @@ class Connector : public QObject, public QCanvasPolygon {
 	Q_OBJECT
 
 public:
-	Connector(Node * startNode, Node * endNode, ICNDocument *_ICNDocument, QString *id = 0L);
+	Connector(Node *startNode, Node *endNode, ICNDocument *_ICNDocument, QString *id = 0L);
 	~Connector();
 
 	/**
@@ -222,8 +222,6 @@ private:
 	QRect             m_oldBoundRect;
 
 	ConnectorLineList m_connectorLineList;
-
-
 };
 
 typedef QValueList<QGuardedPtr<Connector> > ConnectorList;
