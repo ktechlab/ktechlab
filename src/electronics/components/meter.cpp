@@ -80,10 +80,9 @@ void Meter::stepNonLogic()
 		b_timerStarted = true;
 	}
 	
-	if (b_timerStarted)
-	{
-		m_timeSinceUpdate += 1./LINEAR_UPDATE_RATE;
-		m_avgValue += v/LINEAR_UPDATE_RATE;
+	if (b_timerStarted) {
+		m_timeSinceUpdate += LINEAR_UPDATE_PERIOD;
+		m_avgValue += v * LINEAR_UPDATE_PERIOD;
 // 		setChanged();
 		if ( m_timeSinceUpdate > 0.05 )
 		{
