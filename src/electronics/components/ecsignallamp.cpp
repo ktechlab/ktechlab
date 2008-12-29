@@ -19,6 +19,12 @@
 #include <qpainter.h>
 #include <cmath>
 
+// TODO: resistance and power rating should be user definable properties.
+#define RESISTANCE 100
+#define WATTAGE    0.5
+// minimal power to create glow. (looks low...)
+#define LIGHTUP   (WATTAGE / 20)
+
 Item* ECSignalLamp::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
 	return new ECSignalLamp( (ICNDocument*)itemDocument, newItem, id );
@@ -44,7 +50,7 @@ ECSignalLamp::ECSignalLamp( ICNDocument *icnDocument, bool newItem, const char *
 	init1PinLeft();
 	init1PinRight();
 	
-	createResistance( m_pPNode[0], m_pNNode[0], 100. );
+	createResistance( m_pPNode[0], m_pNNode[0], RESISTANCE );
 	
 	advanceSinceUpdate = 0;
 	avgPower = 0.;
@@ -58,19 +64,22 @@ ECSignalLamp::~ECSignalLamp()
 void ECSignalLamp::stepNonLogic()
 {
 	const double voltage = m_pPNode[0]->pin()->voltage()-m_pNNode[0]->pin()->voltage();
-	avgPower = fabs(avgPower * advanceSinceUpdate + (voltage * voltage / 100)) / ++advanceSinceUpdate;
+	avgPower = fabs(avgPower * advanceSinceUpdate +
+			(voltage * voltage / RESISTANCE)) /
+			++advanceSinceUpdate;
 }
 
 void ECSignalLamp::drawShape( QPainter &p )
 {
 	initPainter(p);
-	
+
 	int _x = int(x());
 	int _y = int(y());
-	
+
 	// Calculate the brightness as a linear function of power, bounded below by
 	// 25 milliWatts and above by 500 milliWatts.
-	int brightness = (avgPower<0.025) ? 255 : ((avgPower>0.5) ? 0 : (int)(255*(1-((avgPower-0.025)/0.475))));
+	int brightness = (avgPower < LIGHTUP) ? 255 :
+			((avgPower > WATTAGE) ? 0 : (int)(255 * (1 - ((avgPower - LIGHTUP) / (WATTAGE - LIGHTUP)))));
 	advanceSinceUpdate = 0;
 	
 	p.setBrush( QColor( 255, 255, brightness ) );
@@ -78,8 +87,8 @@ void ECSignalLamp::drawShape( QPainter &p )
 	
 	int pos = 8 - int(8 * M_SQRT1_2);
 	
-	p.drawLine( _x-8+pos,	_y-8+pos, _x+8-pos,	_y+8-pos );
-	p.drawLine( _x+8-pos,	_y-8+pos, _x-8+pos,	_y+8-pos );
+	p.drawLine( _x-8+pos, _y-8+pos, _x+8-pos, _y+8-pos );
+	p.drawLine( _x+8-pos, _y-8+pos, _x-8+pos, _y+8-pos );
 	
 	deinitPainter(p);
 }
