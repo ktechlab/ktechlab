@@ -176,13 +176,6 @@ public:
 		return m_bIsSimulating;
 	}
 
-public slots:
-	/**
-	 * Set whether or not to simulate at the moment.
-	 * @see isSimulating
-	 */
-	void slotSetSimulating(bool simulate);
-
 signals:
 	/**
 	 * Emitted when the simulating state changes.
@@ -190,10 +183,17 @@ signals:
 	 */
 	void simulatingStateChanged(bool isSimulating);
 
+public slots:
+	/**
+	 * Set whether or not to simulate at the moment.
+	 * @see isSimulating
+	 */
+	void slotSetSimulating(bool simulate);
+
 private slots:
 	void step();
 
-protected:
+private:
 	bool m_bIsSimulating;
 	static Simulator *m_pSelf;
 
@@ -209,13 +209,9 @@ protected:
 	list<ComponentCallback> *m_componentCallbacks;
 	list<Circuit*> *m_ordinaryCircuits;
 
-// FIXME: Something weird is going on here.
-// Is this the right design?
-// would a simple array be quicker for this application?
+// allow a variable number of callbacks be scheduled at each possible time. 
 	list<ComponentCallback *> *m_pStartStepCallback[LOGIC_UPDATE_RATE/LINEAR_UPDATE_RATE];
-// ????????????????????????????????
 
-private:
 	Circuit *m_pChangedCircuitStart;
 	Circuit *m_pChangedCircuitLast;
 
