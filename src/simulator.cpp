@@ -30,12 +30,13 @@ Simulator *Simulator::self() {
 }
 
 Simulator::Simulator()
-		: m_currentChain(0), m_stepNumber(0), m_bIsSimulating(true) {
+		:  m_stepNumber(0), m_currentChain(0), m_bIsSimulating(true) {
 	m_gpsimProcessors = new list<GpsimProcessor*>;
 	m_componentCallbacks = new list<ComponentCallback>;
-	m_components 	= new list<Component*>;
+	m_components	   = new list<Component*>;
 	m_ordinaryCircuits = new list<Circuit*>;
 
+// use integer math for these, update period is double. 
 	unsigned max = unsigned(LOGIC_UPDATE_RATE / LINEAR_UPDATE_RATE);
 
 	for (unsigned i = 0; i < max; i++) {
@@ -45,10 +46,10 @@ Simulator::Simulator()
 	LogicConfig lc;
 
 	m_pChangedLogicStart = new LogicOut(lc, false);
-	m_pChangedLogicLast = m_pChangedLogicStart;
+	m_pChangedLogicLast  = m_pChangedLogicStart;
 
 	m_pChangedCircuitStart = new Circuit;
-	m_pChangedCircuitLast = m_pChangedCircuitStart;
+	m_pChangedCircuitLast  = m_pChangedCircuitStart;
 
 	QTimer *stepTimer = new QTimer(this);
 	connect(stepTimer, SIGNAL(timeout()), this, SLOT(step()));
@@ -116,7 +117,6 @@ void Simulator::step() {
 			}
 
 			delete m_pStartStepCallback[m_llNumber];
-
 			m_pStartStepCallback[m_llNumber] = 0;
 
 #ifndef NO_GPSIM
@@ -135,13 +135,11 @@ void Simulator::step() {
 			m_currentChain ^= 1;
 
 			// Update the non-logic circuits
-
 			if (Circuit *changed = m_pChangedCircuitStart->nextChanged(prevChain)) {
 				for (Circuit *circuit = changed; circuit; circuit = circuit->nextChanged(prevChain))
 					circuit->setCanAddChanged(true);
 
 				m_pChangedCircuitStart->setNextChanged(0, prevChain);
-
 				m_pChangedCircuitLast = m_pChangedCircuitStart;
 
 				do {
@@ -158,7 +156,6 @@ void Simulator::step() {
 					out->setCanAddChanged(true);
 
 				m_pChangedLogicStart->setNextChanged(0, prevChain);
-
 				m_pChangedLogicLast = m_pChangedLogicStart;
 
 				do {
@@ -186,12 +183,10 @@ void Simulator::step() {
 	}
 }
 
-void Simulator::slotSetSimulating(bool simulate) {
-	if (m_bIsSimulating == simulate)
-		return;
+void Simulator::slotSetSimulating(const bool simulate) {
+	if (m_bIsSimulating == simulate) return;
 
 	m_bIsSimulating = simulate;
-
 	emit simulatingStateChanged(simulate);
 }
 
@@ -201,11 +196,8 @@ void Simulator::createLogicChain(LogicOut *logicOut, const LogicInList &logicInL
 	bool state = logicOut->outputState();
 
 	logicOut->setUseLogicChain(true);
-
 	logicOut->pinList = pinList;
-
 	logicOut->pinListBegin = logicOut->pinList.begin();
-
 	logicOut->pinListEnd = logicOut->pinList.end();
 
 	LogicIn *last = logicOut;
@@ -220,7 +212,6 @@ void Simulator::createLogicChain(LogicOut *logicOut, const LogicInList &logicInL
 	}
 
 	last->setNextLogic(0);
-
 	last->setLastState(state);
 
 	// Mark it as changed, if it isn't already changed...
@@ -233,7 +224,6 @@ void Simulator::createLogicChain(LogicOut *logicOut, const LogicInList &logicInL
 	}
 
 	addChangedLogic(logicOut);
-
 	logicOut->setCanAddChanged(false);
 
 	if (!m_logicChainStarts.contains(logicOut))
@@ -307,7 +297,6 @@ void Simulator::removeLogicOutReferences(LogicOut *logic) {
 	m_logicChainStarts.remove(logic);
 
 	// Any changes to the code below will probably also apply to Simulator::detachCircuit
-
 	if (m_pChangedLogicLast == logic) {
 		LogicOut *previous_1 = 0;
 		LogicOut *previous_2 = 0;
@@ -317,7 +306,6 @@ void Simulator::removeLogicOutReferences(LogicOut *logic) {
 				previous_2 = previous_1;
 
 			previous_1 = logic;
-
 			logic = logic->nextChanged(m_currentChain);
 		}
 
@@ -350,7 +338,6 @@ void Simulator::detachCircuit(Circuit *circuit) {
 				previous_2 = previous_1;
 
 			previous_1 = circuit;
-
 			circuit = circuit->nextChanged(m_currentChain);
 		}
 
