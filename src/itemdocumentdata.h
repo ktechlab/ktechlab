@@ -95,7 +95,6 @@ class NodeData
 };
 typedef QMap< QString, NodeData > NodeDataMap;
 
-
 class PinData
 {
 	public:
@@ -105,7 +104,6 @@ class PinData
 		PinSettings::pin_state state;
 };
 typedef QMap< QString, PinData > PinDataMap;
-
 
 class MicroData
 {
@@ -118,7 +116,6 @@ class MicroData
 		QStringMap variableMap;
 		PinMappingMap pinMappings;
 };
-
 
 /**
 This class encapsulates all or part of an ItemDocument. It is used for writing
@@ -230,7 +227,6 @@ class ItemDocumentData
 		MicroData m_microData;
 		uint m_documentType; // See Document::DocumentType
 };
-
 
 class SubcircuitData : public ItemDocumentData
 {

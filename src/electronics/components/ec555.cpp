@@ -32,8 +32,7 @@ LibraryItem* EC555::libraryItem()
 		i18n("Integrated Circuits"),
 		"ic1.png",
 		LibraryItem::lit_component,
-		EC555::construct
-			);
+		EC555::construct );
 }
 
 EC555::EC555( ICNDocument *icnDocument, bool newItem, const char *id )
@@ -48,8 +47,7 @@ EC555::EC555( ICNDocument *icnDocument, bool newItem, const char *id )
 	old_q = false;
 	
 	setSize( -32, -32, 64, 64 );
-	
-	
+
 	// Pins down left
 	
 	// Pin 7
@@ -63,9 +61,7 @@ EC555::EC555( ICNDocument *icnDocument, bool newItem, const char *id )
 	// Pin 2
 	trigger = createPin( -40, 16, 0, "Trg" )->pin();
 	addDisplayText( "trg", QRect( -32, 8, 24, 16 ), "Trg" );
-	
-	
-	
+
 	// Top two
 	
 	// Pin 8
@@ -75,8 +71,6 @@ EC555::EC555( ICNDocument *icnDocument, bool newItem, const char *id )
 	// Pin 4
 	reset = createPin( 16, -40, 90, "Res" )->pin();
 	addDisplayText( "res", QRect( 8, -28, 16, 16 ), "Res" );
-	
-	
 	
 	// Bottom two
 	
@@ -88,15 +82,11 @@ EC555::EC555( ICNDocument *icnDocument, bool newItem, const char *id )
 	control = createPin( 16, 40, 270, "CV" )->pin();
 	addDisplayText( "cv", QRect( 8, 12, 16, 16 ), "CV" );
 	
-	
-	
 	// Output on right
 	
 	// Pin 3
 	output = createPin( 40, 0, 180, "Out" )->pin();
 	addDisplayText( "out", QRect( 8, -8, 16, 16 ), "Out" );
-	
-	
 	
 	m_r1 = createResistance( vcc, control, 5e3 );
 	m_r23 = createResistance( control, ground, 1e4 );
@@ -106,10 +96,13 @@ EC555::EC555( ICNDocument *icnDocument, bool newItem, const char *id )
 	m_r_discharge = createResistance( discharge, ground, 0. );
 }
 
-
 EC555::~EC555()
 {
 }
+
+// TODO: This is simulation code not UI code, so it shouldn't be here.
+// Would it be better to simulate the appropriate elements, ie comparator, voltage divider,
+// and flip-flop instead of all this hand-wavy logic?
 
 void EC555::stepNonLogic()
 {
@@ -119,53 +112,42 @@ void EC555::stepNonLogic()
 	double v_trigger = trigger->voltage();
 	double v_reset = reset->voltage();
 	double v_vcc = vcc->voltage();
-	
 	double v_r = (v_control+v_ground)/2;
 	
-	bool com1 = ( v_threshold == v_control ) ? old_com1 : ( v_threshold < v_control );
-	bool com2 = ( v_r == v_trigger ) ? old_com2 : ( v_r > v_trigger );
-	bool reset = ( v_reset >= (v_control-v_ground)/2 + v_ground );
+	bool com1 = (v_threshold == v_control ) ? old_com1 : ( v_threshold < v_control );
+	bool com2 = (v_r == v_trigger )         ? old_com2 : ( v_r > v_trigger );
+	bool reset = v_reset >= (v_control - v_ground) / 2 + v_ground;
+
 	old_com1 = com1;
 	old_com2 = com2;
 	
-	bool r = ( !reset || !com1 );
+	bool r = !(reset && com1);
 	bool s = com2;
-	
 	bool q = old_q;
-	if ( v_vcc - v_ground >= 2.5 )
-	{
-		if ( s && !r )
-		{
+
+	if ( v_vcc - v_ground >= 2.5 ) {
+		if ( s && !r ) {
 			q = true;
-		}
-		else if ( r && !s )
-		{
+		} else if ( r && !s ) {
 			q = false;
 		}
-	}
-	else
-	{
+	} else {
 		q = false;
 	}
+
 	old_q = q;
-	
-	
 	m_r_discharge->setConductance(0.);
 	
-	if (q)
-	{
+	if (q) {
 		m_po_source->setResistance(10.);
 		m_po_sink->setConductance(0.);
-	}
-	else
-	{
+	} else {
 		m_po_source->setConductance(0.);
 		m_po_sink->setResistance(10.);
-		if ( v_ground+0.7 <= v_vcc )
-		{
+
+		if ( v_ground+0.7 <= v_vcc ) {
 			m_r_discharge->setResistance(10.);
 		}
 	}
 }
-
 

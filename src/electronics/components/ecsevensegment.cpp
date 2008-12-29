@@ -89,13 +89,10 @@ ECSevenSegment::~ECSevenSegment()
 void ECSevenSegment::dataChanged()
 {
 	QColor color = dataColor("0-color");
-	r = color.red();
-	g = color.green();
-	b = color.blue();
-	r /= 0x100;
-	g /= 0x100;
-	b /= 0x100;
-	
+	r = color.red() / 0x100;
+	g = color.green() / 0x100;
+	b = color.blue() / 0x100;
+
 	bool commonCathode = dataString("diode-polarity") == "Common Cathode";
 	if ( commonCathode != m_bCommonCathode )
 	{
@@ -122,16 +119,13 @@ void ECSevenSegment::dataChanged()
 
 void ECSevenSegment::stepNonLogic()
 {
-	if ( !m_diodes[0] )
-		return;
-	
-	double interval = 1./LINEAR_UPDATE_RATE;
-	
+	if ( !m_diodes[0] ) return;
+
 	for ( int i=0; i<8; i++ ) {
-		avg_brightness[i] += LED::brightness( m_diodes[i]->current() )*interval;
+		avg_brightness[i] += LED::brightness( m_diodes[i]->current() ) * LINEAR_UPDATE_PERIOD;
 	}
 	
-	lastUpdatePeriod += interval;
+	lastUpdatePeriod += LINEAR_UPDATE_PERIOD;
 }
 
 void ECSevenSegment::drawShape( QPainter &p )

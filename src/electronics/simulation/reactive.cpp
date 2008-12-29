@@ -17,18 +17,15 @@ Reactive::Reactive( const double delta )
 	m_delta = delta;
 }
 
-
 Reactive::~Reactive()
 {
 }
-
 
 void Reactive::setDelta( double delta )
 {
 	m_delta = delta;
 	updateStatus();
 }
-
 
 bool Reactive::updateStatus()
 {

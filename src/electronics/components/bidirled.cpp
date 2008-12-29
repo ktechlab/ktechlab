@@ -74,22 +74,18 @@ void BiDirLED::dataChanged()
 	for ( unsigned i = 0; i < 2; i++ )
 	{
 		QColor color = dataColor(colors[i]);
-		r[i] = color.red();
-		g[i] = color.green();
-		b[i] = color.blue();
-		r[i] /= 0x100;
-		g[i] /= 0x100;
-		b[i] /= 0x100;
+		r[i] = color.red() / 0x100;
+		g[i] = color.green() / 0x100;
+		b[i] = color.blue() / 0x100;
 	}
 }
 
 void BiDirLED::stepNonLogic()
 {
-	double interval = 1./LINEAR_UPDATE_RATE;
-	lastUpdatePeriod += interval;
+	lastUpdatePeriod += LINEAR_UPDATE_PERIOD;
 	
 	for ( unsigned i = 0; i < 2; i++ )
-		avg_brightness[i] += LED::brightness(m_pDiode[i]->current())*interval;
+		avg_brightness[i] += LED::brightness(m_pDiode[i]->current()) * LINEAR_UPDATE_PERIOD;
 }
 
 void BiDirLED::drawShape( QPainter &p )

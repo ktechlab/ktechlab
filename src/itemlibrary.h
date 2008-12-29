@@ -136,6 +136,7 @@ class ItemLibrary : public QObject
 
 inline ItemLibrary* itemLibrary()
 {
+	// are we really sure we aren't calling new over and over again? 
 	static ItemLibrary *_itemLibrary = new ItemLibrary();
 	return _itemLibrary;
 }

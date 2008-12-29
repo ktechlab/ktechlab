@@ -23,6 +23,7 @@ This should be a multiple of 1000. It is the number of times a second that
 linear elements are updated.
 */
 const int LINEAR_UPDATE_RATE = int(1e4);
+const double LINEAR_UPDATE_PERIOD = 1.0 / LINEAR_UPDATE_RATE;
 
 /**
 This should be a multiple of 1000. It is the number of times a second that
@@ -99,7 +100,7 @@ public:
 	/**
 	 * Initializes a new logic chain.
 	 */
-	void createLogicChain(LogicOut * logicOut, const LogicInList & logicInList, const PinList & pinList);
+	void createLogicChain(LogicOut *logicOut, const LogicInList &logicInList, const PinList &pinList);
 	/**
 	 * Adds the given LogicOut to the list of changed LogicOuts
 	 */
@@ -188,7 +189,7 @@ public slots:
 	 * Set whether or not to simulate at the moment.
 	 * @see isSimulating
 	 */
-	void slotSetSimulating(bool simulate);
+	void slotSetSimulating(const bool simulate);
 
 private slots:
 	void step();
