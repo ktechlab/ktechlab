@@ -203,7 +203,7 @@ class Button : public Widget
 {
 	Q_OBJECT
 	public:
-		Button( const QString & id, CNItem *parent, bool isToggle, const QRect & r, QCanvas * canvas );
+		Button( const QString & id, CNItem *parent, bool isToggle, const QRect &r, QCanvas *canvas );
 		~Button();
 		
 		virtual void mousePressEvent( QMouseEvent *e );

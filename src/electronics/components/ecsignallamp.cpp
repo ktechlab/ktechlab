@@ -8,7 +8,6 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-
 #include "ecnode.h"
 #include "ecsignallamp.h"
 #include "element.h"

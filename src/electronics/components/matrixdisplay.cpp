@@ -93,9 +93,9 @@ MatrixDisplay::~MatrixDisplay()
 void MatrixDisplay::dataChanged()
 {
 	QColor color = dataColor("color");
-	m_r = double(color.red())	/ double(0x100);
-	m_g = double(color.green())	/ double(0x100);
-	m_b = double(color.blue())	/ double(0x100);
+	m_r = double(color.red())	/ 0x100;
+	m_g = double(color.green())	/ 0x100;
+	m_b = double(color.blue())	/ 0x100;
 	
 	int numRows = dataInt("0-rows");
 	int numCols = dataInt("1-cols");
@@ -232,20 +232,16 @@ QString MatrixDisplay::rowPinID( int row ) const
 	return QString("row_%1").arg(QString::number(row));
 }
 
-
 void MatrixDisplay::stepNonLogic()
 {
-	double interval = 1./LINEAR_UPDATE_RATE;
-	
 	for ( unsigned i = 0; i < m_numCols; i++ )
 	{
 		for ( unsigned j = 0; j < m_numRows; j++ )
-			m_avgBrightness[i][j] += LED::brightness( m_pDiodes[i][j]->current() )*interval;
+			m_avgBrightness[i][j] += LED::brightness( m_pDiodes[i][j]->current() ) * LINEAR_UPDATE_PERIOD;
 	}
 	
-	m_lastUpdatePeriod += interval;
+	m_lastUpdatePeriod += LINEAR_UPDATE_PERIOD;
 }
-
 
 void MatrixDisplay::drawShape( QPainter &p )
 {
