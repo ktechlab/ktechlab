@@ -278,6 +278,7 @@ protected:
 	 */
 	virtual void selectAllNodes() = 0;
 
+	// this should be overridden in {Flow|Circuit}ICNDocument
 	ConnectorList m_connectorList;
 	CNItemGroup *m_selectList; // Selected objects
 

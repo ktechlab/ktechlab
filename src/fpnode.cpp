@@ -58,8 +58,8 @@ FlowPartList FPNode::inputFlowParts() const
 	}
 
 	
-	const ConnectorList::const_iterator end = m_inputConnectorList.end();
-	for ( ConnectorList::const_iterator it = m_inputConnectorList.begin(); it != end; ++it )
+	const FlowConnectorList::const_iterator end = m_inFlowConnList.end();
+	for ( FlowConnectorList::const_iterator it = m_inFlowConnList.begin(); it != end; ++it )
 	{
 		if (*it) {
 			Node *startNode = (*it)->startNode();
@@ -109,8 +109,9 @@ void FPNode::addOutputConnector( Connector * const connector )
 
 	if( m_outputConnector)
 		kdError() << k_funcinfo << "BUG: adding an output connector when we already have one" << endl;
-				
-	m_outputConnector = connector;
+
+	// FIXME dynamic_cast connector
+	m_outputConnector = dynamic_cast<FlowConnector*>(connector);
 
 }
 
@@ -121,7 +122,8 @@ void FPNode::addInputConnector( Connector * const connector )
 	if( !handleNewConnector(connector) )
 		return;
 	
-	m_inputConnectorList.append(connector);
+	// FIXME dynamic_cast connector
+	m_inFlowConnList.append( dynamic_cast<FlowConnector*> (connector) );
 }
 
 
@@ -130,7 +132,9 @@ bool FPNode::handleNewConnector( Connector * connector )
 	if (!connector)
 		return false;
 
-	if ( m_inputConnectorList.contains(connector) || ((Connector*)m_outputConnector == connector) )
+	// FIXME dynamic_cast connector
+	if ( m_inFlowConnList.contains(dynamic_cast<FlowConnector *> (connector) ) || 
+		    ((Connector*)m_outputConnector == connector) )
 	{
 		kdWarning() << k_funcinfo << " Already have connector = " << connector << endl;
 		return false;
@@ -164,12 +168,12 @@ int FPNode::numCon( bool includeParentItem, bool includeHiddenConnectors ) const
 {
 	unsigned count = 0;
 	
-	ConnectorList connectors = m_inputConnectorList;
+	FlowConnectorList connectors = m_inFlowConnList;
 	if ( m_outputConnector )
 		connectors.append ( m_outputConnector );
 	
-	ConnectorList::const_iterator end = connectors.end();
-	for ( ConnectorList::const_iterator it = connectors.begin(); it != end; ++it )
+	FlowConnectorList::const_iterator end = connectors.end();
+	for ( FlowConnectorList::const_iterator it = connectors.begin(); it != end; ++it )
 	{
 		if ( *it && ( includeHiddenConnectors || ( *it )->canvas() ) )
 			count++;
@@ -186,10 +190,11 @@ void FPNode::removeConnector( Connector *connector )
 {
 	if (!connector) return;
 	
-	ConnectorList::iterator it;
+	FlowConnectorList::iterator it;
 	
-	it = m_inputConnectorList.find(connector);
-	if ( it != m_inputConnectorList.end() )
+	// FIXME dynamic_cast connector
+	it = m_inFlowConnList.find( dynamic_cast<FlowConnector*>(connector) );
+	if ( it != m_inFlowConnList.end() )
 	{
 		(*it)->removeConnector();
 		(*it) = 0L;
@@ -211,7 +216,7 @@ void FPNode::checkForRemoval( Connector *connector )
 	removeNullConnectors();
 	
 	if (!p_parentItem) {
-		int conCount = m_inputConnectorList.count();
+		int conCount = m_inFlowConnList.count();
 		if( m_outputConnector)
 			conCount++;
 		if ( conCount < 2 )
@@ -223,7 +228,7 @@ void FPNode::checkForRemoval( Connector *connector )
 
 void FPNode::removeNullConnectors()
 {
-	m_inputConnectorList.remove((Connector*)0L);
+	m_inFlowConnList.remove((FlowConnector*)0L);
 }
 
 
@@ -240,17 +245,17 @@ QPoint FPNode::findConnectorDivergePoint( bool * found )
 	QPointList p1;
 	QPointList p2;
 
-	int inSize = m_inputConnectorList.count();
+	int inSize = m_inFlowConnList.count();
 
-	ConnectorList connectors = m_inputConnectorList;
+	FlowConnectorList connectors = m_inFlowConnList;
 	if(m_outputConnector)
 		connectors.append(m_outputConnector);
 	
-	const ConnectorList::const_iterator end = connectors.end();
+	const FlowConnectorList::const_iterator end = connectors.end();
 	bool gotP1 = false;
 	bool gotP2 = false;
 	int at = -1;
-	for ( ConnectorList::const_iterator it = connectors.begin(); it != end && !gotP2; ++it )
+	for ( FlowConnectorList::const_iterator it = connectors.begin(); it != end && !gotP2; ++it )
 	{
 		at++;
 		if ( !(*it) || !(*it)->canvas() )
@@ -287,8 +292,8 @@ void FPNode::setVisible( bool yes )
 	
 	QCanvasPolygon::setVisible(yes);
 	
-	const ConnectorList::iterator inputEnd = m_inputConnectorList.end();
-	for ( ConnectorList::iterator it = m_inputConnectorList.begin(); it != inputEnd; ++it )
+	const FlowConnectorList::iterator inputEnd = m_inFlowConnList.end();
+	for ( FlowConnectorList::iterator it = m_inFlowConnList.begin(); it != inputEnd; ++it )
 	{
 		Connector *connector = *it;
 		if ( connector )
@@ -330,8 +335,8 @@ bool FPNode::isConnected( Node *node, NodeList *checkedNodes )
 
 	checkedNodes->append(this);
 
-	const ConnectorList::const_iterator inputEnd = m_inputConnectorList.end();
-	for ( ConnectorList::const_iterator it = m_inputConnectorList.begin(); it != inputEnd; ++it )
+	const FlowConnectorList::const_iterator inputEnd = m_inFlowConnList.end();
+	for ( FlowConnectorList::const_iterator it = m_inFlowConnList.begin(); it != inputEnd; ++it )
 	{
 		Connector *connector = *it;
 		if (connector) {
@@ -367,25 +372,26 @@ bool FPNode::isConnected( Node *node, NodeList *checkedNodes )
 	return false;
 }
 
+		
 ConnectorList FPNode::outputConnectorList() const 
 {  
 	ConnectorList out;
 	if( m_outputConnector)
-		out.append(m_outputConnector);
+		out.append( (Connector *) m_outputConnector);	// un upcast between downcasts :o
 	return out;
 }
 
 ConnectorList FPNode::getAllConnectors() const
 {
-	ConnectorList all = m_inputConnectorList ;
+	ConnectorList all = (ConnectorList)(FlowConnectorList)m_inFlowConnList;
 	if ( m_outputConnector )
-		all.append ( m_outputConnector );
+		all.append ( (Connector *) m_outputConnector );
 	return all;
 }
 
 Connector* FPNode::getAConnector() const {
-	if( ! m_inputConnectorList.isEmpty() )
-		return *m_inputConnectorList.begin();
+	if( ! m_inFlowConnList.isEmpty() )
+		return *m_inFlowConnList.begin();
 
 	if( m_outputConnector)
 		return m_outputConnector;

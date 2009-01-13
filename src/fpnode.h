@@ -13,9 +13,14 @@
 
 #include "node.h"
 
-
 class FlowPart;
+class FlowConnector;
+class FlowConnectorList;
+
+#include "flowconnectorlist.h"
+
 typedef QValueList<FlowPart*> FlowPartList;
+
 
 /**
  * You should use this node for all FlowParts. It ensures that connections between FlowParts are
@@ -103,7 +108,8 @@ public:
 	/**
 	 * Returns a list of the input connectors; implemented inline 
 	 */
-	ConnectorList inputConnectorList() const { return m_inputConnectorList; }
+	ConnectorList inputConnectorList() const  {  
+			return (ConnectorList)(FlowConnectorList) m_inFlowConnList; 	}
 	/**
 	 * Returns a list of the output connectors
 	 */
@@ -147,8 +153,8 @@ protected:
 	bool handleNewConnector( Connector * newConnector );
 	
 
-	ConnectorList m_inputConnectorList;
-	QGuardedPtr<Connector> m_outputConnector;
+	FlowConnectorList m_inFlowConnList;
+	QGuardedPtr<FlowConnector> m_outputConnector;
 
 private:
 	bool m_isInput;
