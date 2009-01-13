@@ -30,7 +30,7 @@ Q_OBJECT
 public:
 	FlowICNDocument(const QString &caption, const char *name);
 
-	~FlowICNDocument();
+	virtual ~FlowICNDocument();
 
 	/**
 	 * Reinherit this function to perform special checks on whether the two
