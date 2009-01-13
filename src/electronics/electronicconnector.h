@@ -14,7 +14,7 @@
 
 #include <connector.h>
 
-class ECNode;
+#include "ecnode.h"
 
 /**
 	@author David Saxton, Alan Grimes, Zoltan Padrah <zoltan.padrah@gmail.com>
@@ -33,14 +33,12 @@ public:
    /**
      * Node at start of connector (which refers to this as the output connector)
      */
-    virtual Node* startNode() const { return (Node *)startEcNode(); }
-    ECNode* startEcNode() const { return m_startEcNode; }		// some magic to make QGuardedPtr conversion compile
+    virtual Node* startNode() const { return m_startEcNode; }
 
     /**
      * Node at end of connector (which refers to this as the input connector)
      */
-    virtual Node* endNode() const { return (Node *)endEcNode(); }
-    ECNode* endEcNode() const { return m_endEcNode; }			// some magic to make QGuardedPtr conversion compile
+    virtual Node* endNode() const { return m_endEcNode; }
 
 public slots:
 	/**
