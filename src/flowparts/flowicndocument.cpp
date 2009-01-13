@@ -79,12 +79,8 @@ bool FlowICNDocument::canConnect( QCanvasItem *qcanvasItem1, QCanvasItem *qcanva
 	Connector *startConnector = dynamic_cast<Connector*>(qcanvasItem1);
 	Connector *endConnector = dynamic_cast<Connector*>(qcanvasItem2);
 	
-	// Can't have T- or I- junction in PinMapEditor document
-	if ( type() == Document::dt_pinMapEditor && (startConnector || endConnector) )
-		return false;
-	
 	// Can't have I-junction in flowcode document
-	if ( type() == Document::dt_flowcode && startConnector && endConnector )
+	if ( startConnector && endConnector )
 		return false;
 	
 	

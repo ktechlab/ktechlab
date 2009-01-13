@@ -10,6 +10,7 @@
 //
 #include "connector.h"
 #include "inputflownode.h"
+#include "flowconnector.h"
 #include "flowpart.h"
 
 #include <kdebug.h>
@@ -35,8 +36,8 @@ FlowPartList InputFlowNode::inputFlowParts() const
 {
 	FlowPartList list;
 
-	const ConnectorList::const_iterator end = m_inputConnectorList.end();
-	for ( ConnectorList::const_iterator it = m_inputConnectorList.begin(); it != end; ++it )
+	const FlowConnectorList::const_iterator end = m_inFlowConnList.end();
+	for ( FlowConnectorList::const_iterator it = m_inFlowConnList.begin(); it != end; ++it )
 	{
 		if (*it) {
 			Node *startNode = (*it)->startNode();
@@ -63,7 +64,7 @@ bool InputFlowNode::acceptOutput() const
 
 void InputFlowNode::addOutputConnector( Connector * const connector )
 {
-	kdError() << k_funcinfo << "BUG: addign output connector to an input node" << endl;
+	kdError() << k_funcinfo << "BUG: adding output connector to an input node" << endl;
 }
 
 

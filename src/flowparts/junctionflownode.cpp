@@ -9,6 +9,7 @@
 //
 #include "connector.h"
 #include "junctionflownode.h"
+#include "flowconnector.h"
 
 #include <qpainter.h>
 
@@ -80,10 +81,10 @@ void JunctionFlowNode::drawShape ( QPainter &p )
 	const int _x = ( int ) x();
 	const int _y = ( int ) y();
 
-	if ( !m_inputConnectorList.isEmpty() )
+	if ( !m_inFlowConnList.isEmpty() )
 	{
-		const ConnectorList::iterator end = m_inputConnectorList.end();
-		for ( ConnectorList::iterator it = m_inputConnectorList.begin(); it != end; ++ it )
+		const FlowConnectorList::iterator end = m_inFlowConnList.end();
+		for ( FlowConnectorList::iterator it = m_inFlowConnList.begin(); it != end; ++ it )
 		{
 			Connector * connector = *it;
 			if ( !connector )
