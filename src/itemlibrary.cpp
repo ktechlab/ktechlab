@@ -348,7 +348,7 @@ LibraryItem * ItemLibrary::libraryItem( QString type ) const
 Item * ItemLibrary::createItem( const QString &id, ItemDocument *itemDocument, bool newItem, const char *newId, bool finishCreation  )
 {
 	Item *item = 0;
-/*	if ( id.startsWith("sc/") )
+	if ( id.startsWith("sc/") )
 	{
 		// Is a subcircuit...
 		
@@ -363,7 +363,7 @@ Item * ItemLibrary::createItem( const QString &id, ItemDocument *itemDocument, b
 		int numId = temp.remove("sc/").toInt();
 		
 		item = subcircuits()->createSubcircuit( numId,  circuitDocument, newItem, newId );
-	} else { */
+	} else { 
 		LibraryItem * li = libraryItem( id );
 		
 		if ( !li )
@@ -372,7 +372,7 @@ Item * ItemLibrary::createItem( const QString &id, ItemDocument *itemDocument, b
 			item = li->createItemFnPtr()( itemDocument, newItem, newId );
 			item->m_type = li->activeID();
 		}
-	//}
+	}
 
 	if ( finishCreation && item )
 		item->finishedCreation();
