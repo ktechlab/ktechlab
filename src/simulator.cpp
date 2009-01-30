@@ -183,7 +183,7 @@ void Simulator::step() {
 	}
 }
 
-void Simulator::slotSetSimulating(const bool simulate) {
+void Simulator::slotSetSimulating(bool simulate) {
 	if (m_bIsSimulating == simulate) return;
 
 	m_bIsSimulating = simulate;
