@@ -189,7 +189,7 @@ public slots:
 	 * Set whether or not to simulate at the moment.
 	 * @see isSimulating
 	 */
-	void slotSetSimulating(const bool simulate);
+	void slotSetSimulating(bool simulate);
 
 private slots:
 	void step();
