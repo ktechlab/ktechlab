@@ -57,9 +57,9 @@ LED::~LED()
 void LED::dataChanged()
 {
 	QColor color = dataColor("0-color");
-	r = color.red() / 0x100;
-	g = color.green() / 0x100;
-	b = color.blue() / 0x100;
+	r = color.red() / (double)0x100;
+	g = color.green() / (double)0x100;
+	b = color.blue() / (double)0x100;
 }
 
 void LED::stepNonLogic()
