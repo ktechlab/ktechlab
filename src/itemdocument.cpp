@@ -67,8 +67,6 @@ ItemDocument::ItemDocument( const QString &caption, const char *name)
 	m_canvas = new Canvas( this, "canvas" );
 	m_canvasTip = new CanvasTip(this,m_canvas);
 	m_cmManager = new CMManager(this);
-	m_undoStack.setAutoDelete(true);
-	m_redoStack.setAutoDelete(true);
 	
 	updateBackground();
 	
@@ -101,6 +99,9 @@ ItemDocument::~ItemDocument()
 	for ( ItemMap::iterator it = m_itemList.begin(); it != end; ++it )
 		delete *it;
 	m_itemList.clear();
+
+	cleanClearStack( m_undoStack );
+	cleanClearStack( m_redoStack );
 
 	delete m_cmManager;
 	delete m_currentState;
@@ -288,13 +289,12 @@ void ItemDocument::print()
 	p.end();
 }
 
-
 void ItemDocument::requestStateSave( int actionTicket )
 {
 	if ( m_bIsLoading ) return;
 	
-	m_redoStack.clear();
-	
+	cleanClearStack( m_redoStack );
+
 	if ( (actionTicket >= 0) && (actionTicket == m_currentActionTicket) )
 	{
 		delete m_currentState;
@@ -303,6 +303,13 @@ void ItemDocument::requestStateSave( int actionTicket )
 	
 	m_currentActionTicket = actionTicket;
 	
+	//FIXME: it is possible, that we push something here, also nothing has changed, yet.
+	// to reproduce do:
+	// 1. select an item -> something is pushed onto undoStack, but nothing changed
+	// 2. select Undo -> pushed on redoStack, pop from undoStack
+	// 3. deselect item -> there is still something on the redoStack
+	//
+	// this way you can fill up the redoStack, as you like :-/
 	if (m_currentState)
 		m_undoStack.push(m_currentState);
 	
@@ -317,7 +324,8 @@ void ItemDocument::requestStateSave( int actionTicket )
 	emit undoRedoStateChanged();
 	
 	//FIXME To resize undo queue, have to pop and push everything
-	// Should replace with a container such as DeQue that supports "pop_back" or something. 
+	// In Qt4 QStack is used and QStack inherits QVector, that should
+	// make it a bit more easy
 	int maxUndo = KTLConfig::maxUndo();
 	if ( maxUndo <= 0 || m_undoStack.count() < (unsigned)maxUndo )
 		return;
@@ -327,16 +335,25 @@ void ItemDocument::requestStateSave( int actionTicket )
 		tempStack.push( m_undoStack.pop() );
 		pushed++;
 	}
-	m_undoStack.clear();
+	cleanClearStack( m_undoStack );
 	while ( !tempStack.isEmpty() )
 		m_undoStack.push( tempStack.pop() );
 }
 
+void ItemDocument::cleanClearStack( IDDStack &stack )
+{
+	while ( !stack.isEmpty() )
+	{
+		ItemDocumentData * idd = stack.pop();
+		if ( m_currentState != idd )
+			delete idd;
+	}
+}
 
 void ItemDocument::clearHistory()
 {
-	m_undoStack.clear();
-	m_redoStack.clear();
+	cleanClearStack( m_undoStack );
+	cleanClearStack( m_redoStack );
 	delete m_currentState;
 	m_currentState = 0;
 	requestStateSave();

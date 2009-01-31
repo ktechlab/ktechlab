@@ -376,6 +376,10 @@ public slots:
 
 
 private:
+	/**
+	 * This clears a given stack and deletes all pointers, but the one to m_currentState.
+	 */
+	void cleanClearStack( IDDStack &stack );
 
 	static int	  m_nextActionTicket;
 
