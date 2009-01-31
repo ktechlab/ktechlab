@@ -47,9 +47,9 @@ void LEDPart::setDiodeSettings( const DiodeSettings& ds )
 
 void LEDPart::setColor( const QColor &color )
 {
-	r = color.red()   / 0x100;
-	g = color.green() / 0x100;
-	b = color.blue()  / 0x100;
+	r = color.red()   / (double)0x100;
+	g = color.green() / (double)0x100;
+	b = color.blue()  / (double)0x100;
 }
 
 void LEDPart::step()
