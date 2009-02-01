@@ -71,14 +71,12 @@ FloatingProbe::FloatingProbe( ICNDocument *icnDocument, bool newItem, const char
 	property("upper_abs_value")->setCaption( i18n("Upper Absolute Value") );
 	property("upper_abs_value")->setValue(10.0);
 	property("upper_abs_value")->setMinValue(0.0);
-	property("upper_abs_value")->setUnit("V");
 	property("upper_abs_value")->setAdvanced(true);
 	
 	createProperty( "lower_abs_value", Variant::Type::Double );
 	property("lower_abs_value")->setCaption( i18n("Lower Absolute Value") );
 	property("lower_abs_value")->setValue(0.1);
 	property("lower_abs_value")->setMinValue(0.0);
-	property("lower_abs_value")->setUnit("V");
 	property("lower_abs_value")->setAdvanced(true);
 }
 
@@ -149,6 +147,9 @@ VoltageProbe::VoltageProbe( ICNDocument *icnDocument, bool newItem, const char *
 {
 	m_name = i18n("Voltage Probe");
 	
+	property("upper_abs_value")->setUnit("V");
+	property("lower_abs_value")->setUnit("V");
+
 	init1PinLeft();
 	init1PinRight();
 	m_pPin1 = m_pNNode[0]->pin();
@@ -191,6 +192,9 @@ CurrentProbe::CurrentProbe( ICNDocument *icnDocument, bool newItem, const char *
 {
 	m_name = i18n("Current Probe");
 	
+	property("upper_abs_value")->setUnit("A");
+	property("lower_abs_value")->setUnit("A");
+
 	init1PinLeft(0);
 	init1PinRight(0);
 	
