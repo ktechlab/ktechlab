@@ -28,7 +28,7 @@
 
 
 //BEGIN class Connector
-Connector::Connector(Node *startNode, Node *endNode, ICNDocument *icnDocument, QString *id)
+Connector::Connector(ICNDocument *icnDocument, QString *id)
 		: QObject(icnDocument),
 		QCanvasPolygon(icnDocument->canvas()) {
 	m_currentAnimationOffset = 0.0;

@@ -1123,7 +1123,7 @@ void QCanvas::setTile( int x, int y, int tilenum )
 
 
 QCanvasItem::QCanvasItem(QCanvas* canvas)
-	: myx(0), myy(0), myz(0), cnv(canvas), val(false),
+	: myx(0), myy(0), myz(0), val(false), cnv(canvas),
 	 ext(0), m_bNeedRedraw(true), vis(false), sel(false)
 {
 	if (cnv) cnv->addItem(this);
