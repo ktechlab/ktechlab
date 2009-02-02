@@ -40,7 +40,7 @@ class Connector : public QObject, public QCanvasPolygon {
 	Q_OBJECT
 
 public:
-	Connector(Node *startNode, Node *endNode, ICNDocument *_ICNDocument, QString *id = 0L);
+	Connector(ICNDocument *_ICNDocument, QString *id = 0);
 	~Connector();
 
 	/**
