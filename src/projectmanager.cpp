@@ -1162,7 +1162,7 @@ void ProjectManager::slotItemClicked( QTreeWidgetItem * item )
 	if ( !projectItem )
 		return;
 
-	DocManager::self()->openURL( projectItem->url() );
+	DocManager::self()->openUrl( projectItem->url() );
 }
 
 

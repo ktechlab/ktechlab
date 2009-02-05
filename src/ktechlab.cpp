@@ -26,10 +26,13 @@
 #include "projectmanager.h"
 
 #include <QMenu>
+#include <QLayout>
+#include <QSplitter>
 
 #include <KApplication>
 #include <KMessageBox>
 #include <KUrl>
+#include <KFileDialog>
 #include <KTextEdit>
 #include <KLocalizedString>
 #include <KMenuBar>
@@ -56,7 +59,6 @@ KTechlab::KTechlab() : KXmlGuiWindow()
 
 KTechlab::~KTechlab()
 {
-    return;
 }
 
 KTabWidget * KTechlab::tabWidget()
@@ -99,7 +101,7 @@ void KTechlab::load( KUrl url )
     setCaption( url.url() );
 
     // load in the file (target is always local)
-    DocManager::self()->openURL( target );
+    DocManager::self()->openUrl( target );
 
     // and remove the temp file
     KIO::NetAccess::removeTempFile( target );
@@ -111,6 +113,10 @@ KTechlab * KTechlab::self()
         m_instance = new KTechlab();
 
     return m_instance;
+}
+
+void KTechlab::init()
+{
 }
 
 void KTechlab::slotFileNewAssembly()
@@ -157,6 +163,10 @@ void KTechlab::slotFileNew()
 
 void KTechlab::slotFileOpen()
 {
+    KUrl file = KFileDialog::getOpenUrl( KUrl("kfiledialog:///<keyword>"), "*", this );
+
+    if ( !file.isEmpty() )
+        load( file );
 }
 
 void KTechlab::slotFileOpenRecent()
