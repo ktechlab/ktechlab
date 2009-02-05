@@ -57,29 +57,31 @@ public:
 	Circuit();
 	~Circuit();
 
-	void addPin( Pin *node );
-	void addElement( Element *element );
+	void addPin(Pin *node);
+	void addElement(Element *element);
 
-	bool contains( Pin *node );
+	bool contains(Pin *node);
 	bool containsNonLinear() const { return m_elementSet->containsNonLinear(); }
 
 	void init();
 	/**
-		* Called after everything else has been setup - before doNonLogic or
-		* doLogic are called for the first time. Preps the circuit.
-		*/
+	* Called after everything else has been setup - before doNonLogic or
+	* doLogic are called for the first time. Preps the circuit.
+	*/
 	void initCache();
 	/**
-		* Marks all cached results as invalidated and removes them.
-		*/
+	* Marks all cached results as invalidated and removes them.
+	*/
 	void setCacheInvalidated();
+
 	/**
-		* Solves for non-logic elements
-		*/
+	* Solves for non-logic elements
+	*/
 	void doNonLogic();
+
 	/**
-		* Solves for logic elements (i.e just does fbSub)
-		*/
+	* Solves for logic elements (i.e just does fbSub)
+	*/
 	void doLogic() { m_elementSet->doLinear(false); }
 
 	void displayEquations();
@@ -87,37 +89,35 @@ public:
 
 	void createMatrixMap();
 	/**
-		* This will identify the ground node and non-ground nodes in the given set.
-		* Ground will be given the eqId -1, non-ground of 0.
-		* @param highest The highest ground type of the groundnodes found. If no
-		ground nodes were found, this will be (gt_never-1).
-		* @returns the number of ground nodes. If all nodes are at or below the
-		* 			gt_never threshold, then this will be zero.
-		*/
-	static int identifyGround( PinList nodeList, int *highest = 0l );
+	* This will identify the ground node and non-ground nodes in the given set.
+	* Ground will be given the eqId -1, non-ground of 0.
+	* @param highest The highest ground type of the groundnodes found. If no
+	ground nodes were found, this will be (gt_never-1).
+	* @returns the number of ground nodes. If all nodes are at or below the
+	* 		gt_never threshold, then this will be zero.
+	*/
+	static int identifyGround(PinList nodeList, int *highest = 0);
 
-	void setNextChanged( Circuit * circuit, unsigned char chain ) { m_pNextChanged[chain] = circuit; }
-	Circuit * nextChanged( unsigned char chain ) const { return m_pNextChanged[chain]; }
-	void setCanAddChanged( bool canAdd ) { m_bCanAddChanged = canAdd; }
+	void setNextChanged(Circuit *circuit, unsigned char chain) { m_pNextChanged[chain] = circuit; }
+	Circuit *nextChanged(unsigned char chain) const { return m_pNextChanged[chain]; }
+	void setCanAddChanged(bool canAdd) { m_bCanAddChanged = canAdd; }
 	bool canAddChanged() const { return m_bCanAddChanged; }
 
 protected:
 	void cacheAndUpdate();
 	/**
-		* Update the nodal voltages from those calculated in ElementSet
-		*/
+	* Update the nodal voltages from those calculated in ElementSet
+	*/
 	void updateNodalVoltages();
 	/**
-		* Step the reactive elements.
-		*/
+	* Step the reactive elements.
+	*/
 	void stepReactive();
 	/**
-		* Returns true if any of the nodes are ground
-		*/
-	static bool recursivePinAdd( Pin *node, PinList *unassignedNodes, PinList *associated, PinList *nodes );
+	* Returns true if any of the nodes are ground
+	*/
+	static bool recursivePinAdd(Pin *node, PinList *unassignedNodes, PinList *associated, PinList *nodes);
 
-	int m_cnodeCount;
-	int m_branchCount;
 	int m_prepNLCount; // Count until next m_elementSet->prepareNonLinear() is called
 
 	PinList m_pinList;
@@ -126,12 +126,13 @@ protected:
 
 	//Stuff for caching
 	bool m_bCanCache;
-	LogicCacheNode * m_pLogicCacheBase;
+	LogicCacheNode *m_pLogicCacheBase;
+
 	unsigned m_logicOutCount;
-	LogicOut ** m_pLogicOut;
+	LogicOut **m_pLogicOut;
 
 	bool m_bCanAddChanged;
-	Circuit * m_pNextChanged[2];
+	Circuit *m_pNextChanged[2];
 };
 
 #endif
