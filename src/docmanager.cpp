@@ -15,15 +15,10 @@
 #include "ktechlab.h"
 //#include "core/ktlconfig.h"
 #include "document.h"
-//#include "circuitdocument.h"
-//#include "flowcodedocument.h"
-//#include "mechanicsdocument.h"
-//#include "textdocument.h"
-//#include "textview.h"
-#include "view.h"
-#include "viewcontainer.h"
 
+#include <Plasma/DataEngineManager>
 #include <KApplication>
+#include <KDebug>
 #include <KAction>
 #include <KLocale>
 #include <KMessageBox>
@@ -47,14 +42,14 @@ DocManager * DocManager::self()
 DocManager::DocManager()
     : QObject( /*KTechlab::self()*/ )
 {
-    p_focusedView = 0l;
     m_countCircuit = 0;
     m_countFlowCode = 0;
     m_countMechanics = 0;
     m_countOther = 0;
     p_connectedDocument = 0l;
     m_nextDocumentID = 1;
-//	m_pIface = new DocManagerIface(this);
+    m_docEngine = Plasma::DataEngineManager::self()->loadEngine( "DocumentEngine" );
+//  m_pIface = new DocManagerIface(this);
 }
 
 
@@ -65,34 +60,13 @@ DocManager::~DocManager()
 
 bool DocManager::closeAll()
 {
-    foreach( Document *document, m_documentList )
-    {
-        if ( !document->fileClose() )
-            return false;
-
-        removeDocumentAssociations(document);
-    }
     return true;
 }
 
-
-void DocManager::gotoTextLine( const KUrl &url, int line )
-{
-/*    TextDocument * doc = dynamic_cast<TextDocument*>( openURL(url) );
-    TextView * tv = doc ? doc->textView() : 0l;
-
-    if ( !tv )
-        return;
-
-    tv->gotoLine(line);
-    tv->setFocus();*/
-}
-
-
-Document* DocManager::openURL( const KUrl &url, ViewArea *viewArea )
+bool DocManager::openUrl( const KUrl &url )
 {
     if ( url.isEmpty() )
-        return 0l;
+        return false;
 
     if ( url.isLocalFile() )
     {
@@ -100,77 +74,36 @@ Document* DocManager::openURL( const KUrl &url, ViewArea *viewArea )
         if ( !file.open(QIODevice::ReadOnly) )
         {
             KMessageBox::sorry( 0l, i18n("Could not open '%1'").arg( url.prettyUrl() ) );
-            return 0l;
+            return false;
         }
         file.close();
     }
 
-    // If the currently active view area is empty, and we were not given a view area
-    // to open into, then use the empty view area
-    if ( !viewArea )
+    KTechlab *w = dynamic_cast<KTechlab *>( KApplication::activeWindow() );
+    //ViewContainer * currentVC = w ? static_cast<ViewContainer*>( w->tabWidget()->currentWidget() ) : 0;
+    //if ( currentVC )
     {
-        KTechlab *w = dynamic_cast<KTechlab *>( KApplication::activeWindow() );
-        ViewContainer * currentVC = w ? static_cast<ViewContainer*>( w->tabWidget()->currentWidget() ) : 0;
-        if ( currentVC )
-        {
-            ViewArea * va = currentVC->viewArea( currentVC->activeViewArea() );
-            if ( !va->view() )
-                viewArea = va;
-        }
+        //ViewArea * va = currentVC->viewArea( currentVC->activeViewArea() );
+        //if ( !va->view() )
+        //    viewArea = va;
     }
 
-    // If the document is already open, and a specific view area hasn't been
-    // specified, then just return that document - otherwise, create a new
-    // view in the viewarea
+    // If the document is already open then just return that document
+    // otherwise, create a new view in the viewarea
     Document *document = findDocument(url);
     if ( document )
     {
-        if ( viewArea )
-            createNewView( document, viewArea );
-        else
-            giveDocumentFocus( document, viewArea );
-        return document;
+       return true;
     }
 
     QString fileName = url.fileName();
     QString extension = fileName.right( fileName.length() - fileName.lastIndexOf('.') );
-/*
-    if ( extension == ".circuit" )
-        return openCircuitFile( url, viewArea );
+    kDebug() << "open: " << url;
 
-    else if ( extension == ".flowcode" )
-        return openFlowCodeFile( url, viewArea );
+    //FIXME: register document within DocumentEngine
 
-    else if ( extension == ".mechanics" )
-        return openMechanicsFile( url, viewArea );
-
-    else
-        return openTextFile( url, viewArea );
-*/
-    return document;
+    return true;
 }
-
-
-Document *DocManager::getFocusedDocument() const
-{
-    Document * doc = p_focusedView ? p_focusedView->document() : 0l;
-    return (doc && !doc->isDeleted()) ? doc : 0l;
-}
-
-
-void DocManager::giveDocumentFocus( Document * toFocus, ViewArea * viewAreaForNew )
-{
-    KTechlab *w = dynamic_cast<KTechlab *>( KApplication::activeWindow() );
-    if ( !toFocus || !w )
-        return;
-
-    if ( View * activeView = toFocus->activeView() )
-    {
-        w->tabWidget()->setCurrentWidget( activeView->viewContainer() );
-    } else if ( viewAreaForNew )
-        createNewView( toFocus, viewAreaForNew );
-}
-
 
 QString DocManager::untitledName( int type )
 {
@@ -220,19 +153,14 @@ QString DocManager::untitledName( int type )
 
 Document *DocManager::findDocument( const KUrl &url ) const
 {
-    // First, look in the associated documents
-    if ( m_associatedDocuments.contains(url) )
-        return m_associatedDocuments[url];
+    Plasma::DataEngine::Data result = m_docEngine->query( url.url() );
 
-    // Not found, so look in the known documents
-    const DocumentList::const_iterator end = m_documentList.end();
-    for ( DocumentList::const_iterator it = m_documentList.begin(); it != end; ++it )
-    {
-        if ( (*it)->url() == url )
-            return *it;
-    }
+    return 0;
+}
 
-    return 0l;
+Document* DocManager::getFocusedDocument() const
+{
+    return 0;
 }
 
 
@@ -241,37 +169,16 @@ void DocManager::associateDocument( const KUrl &url, Document *document )
     if (!document)
         return;
 
-    m_associatedDocuments[url] = document;
 }
 
 
 void DocManager::removeDocumentAssociations( Document *document )
 {
-    bool doneErase;
-    do
-    {
-        doneErase = false;
-        QMapIterator<KUrl, Document*> it(m_associatedDocuments);
-        while ( it.hasNext() )
-        {
-            if ( it.value() == document )
-            {
-                doneErase = true;
-                m_associatedDocuments.remove( it.key() );
-                break;
-            }
-        }
-    }
-    while (doneErase);
 }
 
 
-void DocManager::handleNewDocument( Document *document, ViewArea *viewArea )
+void DocManager::handleNewDocument( Document *document )
 {
-    if ( !document || m_documentList.contains(document) )
-        return;
-
-    m_documentList.insert(document);
 //     document->setDCOPID(m_nextDocumentID++);
 
     KTechlab *w = dynamic_cast<KTechlab *>( KApplication::activeWindow() );
@@ -285,124 +192,13 @@ void DocManager::handleNewDocument( Document *document, ViewArea *viewArea )
     connect( document, SIGNAL(viewFocused(View* )), this, SLOT(slotViewFocused(View* )) );
     connect( document, SIGNAL(viewUnfocused()), this, SLOT(slotViewUnfocused()) );
 
-    createNewView( document, viewArea );
 }
-
-
-View *DocManager::createNewView( Document *document, ViewArea *viewArea )
-{
-    if (!document)
-        return 0l;
-
-    View *view = 0l;
-
-    if (viewArea)
-        view = document->createView( viewArea->viewContainer(), viewArea->id() );
-
-    else
-    {
-        ViewContainer *viewContainer = new ViewContainer( document->caption() );
-        view = document->createView( viewContainer, 0 );
-        KTechlab *w = dynamic_cast<KTechlab *>( KApplication::activeWindow() );
-        //FIXME: find out what to do here, to me it's not clear what
-        //addWindow() should do. (at least for now)
-        //if (w) w->addWindow(viewContainer);
-    }
-
-    return view;
-}
-
 
 void DocManager::documentDestroyed( QObject *obj )
 {
     Document *doc = static_cast<Document*>(obj);
-    m_documentList.remove(doc);
     removeDocumentAssociations(doc);
     disableContextActions();
-}
-
-
-void DocManager::slotViewFocused( View *view )
-{
-    KTechlab *w = dynamic_cast<KTechlab *>( KApplication::activeWindow() );
-    Q_ASSERT(w);
-
-    ViewContainer * vc = static_cast<ViewContainer*>(w->tabWidget()->currentWidget());
-    if (!vc)
-        view = 0l;
-
-    if (!view)
-        return;
-
-    // This function can get called with a view that is not in the current view
-    // container (such as when the user right clicks and then the popup is
-    // destroyed - not too sure why, but this is the easiest way to fix it).
-    if ( view->viewContainer() != vc )
-        view = vc->activeView();
-
-    if ( !view || (View*)p_focusedView == view )
-        return;
-
-    if (p_focusedView)
-        slotViewUnfocused();
-
-    p_focusedView = view;
-/*FIXME: port this
-    if ( TextView * textView = dynamic_cast<TextView*>((View*)p_focusedView) )
-        w->factory()->addClient( textView->kateView() );
-    else
-        w->factory()->addClient( p_focusedView );
-*/
-    Document *document = view->document();
-
-    connect( document, SIGNAL(undoRedoStateChanged()), w, SLOT(slotDocUndoRedoChanged()) );
-    p_connectedDocument = document;
-
-/*FIXME: port this, remove type() calls
-    if ( document->type() == Document::dt_circuit ||
-            document->type() == Document::dt_flowcode ||
-            document->type() == Document::dt_mechanics )
-    {
-        ItemDocument *cvb = static_cast<ItemDocument*>(view->document());
-        ItemInterface::self()->slotItemDocumentChanged(cvb);
-    }
-*/
-/*FIXME: reimplement
-    w->slotDocUndoRedoChanged();
-    w->slotDocModifiedChanged();
-    w->requestUpdateCaptions();
-*/
-}
-
-
-void DocManager::slotViewUnfocused()
-{
-    KTechlab *w = dynamic_cast<KTechlab *>( KApplication::activeWindow() );
-
-    if ( !w )
-        return;
-
-    //FIXME:
-    //w->removeGUIClients();
-    disableContextActions();
-
-    if (!p_focusedView)
-        return;
-
-    if (p_connectedDocument)
-    {
-        //FIXME:
-        //disconnect( p_connectedDocument, SIGNAL(undoRedoStateChanged()), w, SLOT(slotDocUndoRedoChanged()) );
-        p_connectedDocument = 0l;
-    }
-
-    //FIXME:
-    //ItemInterface::self()->slotItemDocumentChanged(0l);
-    p_focusedView = 0l;
-
-// 	KTechlab::self()->setCaption( 0 );
-    //FIXME:
-    //w->requestUpdateCaptions();
 }
 
 
@@ -425,115 +221,4 @@ void DocManager::disableContextActions()
     ktl->action("view_split_topbottom")->setEnabled(false);
 }
 
-/*FIXME: these methods shouldn't be in here
-TextDocument *DocManager::createTextDocument()
-{
-    TextDocument *document = TextDocument::constructTextDocument( untitledName(Document::dt_text) );
-    handleNewDocument(document);
-    return document;
-}
-
-
-CircuitDocument *DocManager::createCircuitDocument()
-{
-    CircuitDocument *document = new CircuitDocument( untitledName(Document::dt_circuit) );
-    handleNewDocument(document);
-    if ( KTLConfig::raiseItemSelectors() )
-        KTechlab::self()->showToolView( KTechlab::self()->toolView( ComponentSelector::toolViewIdentifier() ) );
-    return document;
-}
-
-
-FlowCodeDocument *DocManager::createFlowCodeDocument()
-{
-    FlowCodeDocument *document = new FlowCodeDocument( untitledName(Document::dt_flowcode) );
-    handleNewDocument(document);
-    if ( KTLConfig::raiseItemSelectors() )
-        KTechlab::self()->showToolView( KTechlab::self()->toolView( FlowPartSelector::toolViewIdentifier() ) );
-    return document;
-}
-
-
-MechanicsDocument *DocManager::createMechanicsDocument()
-{
-    MechanicsDocument *document = new MechanicsDocument( untitledName(Document::dt_mechanics) );
-    handleNewDocument(document);
-    if ( KTLConfig::raiseItemSelectors() )
-        KTechlab::self()->showToolView( KTechlab::self()->toolView( MechanicsSelector::toolViewIdentifier() ) );
-    return document;
-}
-
-
-CircuitDocument *DocManager::openCircuitFile( const KUrl &url, ViewArea *viewArea )
-{
-    CircuitDocument *document = new CircuitDocument( url.fileName().remove(url.directory()) );
-
-    if ( !document->openURL(url) )
-    {
-        KMessageBox::sorry( 0l, i18n("Could not open Circuit file \"%1\"").arg(url.prettyURL()) );
-        document->deleteLater();
-        return 0l;
-    }
-
-    handleNewDocument( document, viewArea );
-    emit fileOpened(url);
-    return document;
-}
-
-
-FlowCodeDocument *DocManager::openFlowCodeFile( const KUrl &url, ViewArea *viewArea )
-{
-    FlowCodeDocument *document = new FlowCodeDocument( url.fileName().remove(url.directory()) );
-
-    if ( !document->openURL(url) )
-    {
-        KMessageBox::sorry( 0l, i18n("Could not open FlowCode file \"%1\"").arg(url.prettyURL()) );
-        document->deleteLater();
-        return 0l;
-    }
-
-    handleNewDocument( document, viewArea );
-    emit fileOpened(url);
-    return document;
-}
-
-
-MechanicsDocument *DocManager::openMechanicsFile( const KUrl &url, ViewArea *viewArea )
-{
-    MechanicsDocument *document = new MechanicsDocument( url.fileName().remove(url.directory()) );
-
-    if ( !document->openURL(url) )
-    {
-        KMessageBox::sorry( 0l, i18n("Could not open Mechanics file \"%1\"").arg(url.prettyURL()) );
-        document->deleteLater();
-        return 0l;
-    }
-
-    handleNewDocument( document, viewArea );
-    emit fileOpened(url);
-    return document;
-
-}
-
-
-TextDocument *DocManager::openTextFile( const KUrl &url, ViewArea *viewArea )
-{
-    TextDocument *document = TextDocument::constructTextDocument( url.fileName().remove(url.directory()) );
-
-    if (!document)
-        return 0l;
-
-    if ( !document->openURL(url) )
-    {
-        KMessageBox::sorry( 0l, i18n("Could not open text file \"%1\"").arg(url.prettyURL()) );
-        document->deleteLater();
-        return 0l;
-    }
-
-    handleNewDocument( document, viewArea );
-    emit fileOpened(url);
-    return document;
-}
-
-*/
 #include "docmanager.moc"
