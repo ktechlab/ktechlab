@@ -21,8 +21,10 @@
 #define KTECHLAB_H
 
 #include <KXmlGuiWindow>
+#include <Plasma/View>
 
 class QMenu;
+class QSplitter;
 
 class KUrl;
 class KTextEdit;
@@ -41,6 +43,8 @@ class KTechlab : public KXmlGuiWindow
     Q_OBJECT
     public:
         ~KTechlab();
+
+        void init();
 
         KTabWidget *tabWidget();
         void load( KUrl url );
