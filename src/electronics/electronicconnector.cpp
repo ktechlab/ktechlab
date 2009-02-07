@@ -15,7 +15,7 @@
 #include "ecnode.h"
 #include "wire.h"
 
-ElectronicConnector::ElectronicConnector(ECNode* startNode, ECNode* endNode, ICNDocument* _ICNDocument, const QString &id): Connector(startNode, endNode, _ICNDocument, id)
+ElectronicConnector::ElectronicConnector(ECNode* startNode, ECNode* endNode, ICNDocument* _ICNDocument, const QString &id): Connector(_ICNDocument, id)
 {
 	m_startEcNode = startNode;
 	m_endEcNode = endNode;
