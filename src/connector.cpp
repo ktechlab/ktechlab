@@ -28,7 +28,7 @@
 
 
 //BEGIN class Connector
-Connector::Connector(ICNDocument *icnDocument, QString *id)
+Connector::Connector(ICNDocument *icnDocument, const QString &id)
 		: QObject(icnDocument),
 		QCanvasPolygon(icnDocument->canvas()) {
 	m_currentAnimationOffset = 0.0;
@@ -41,11 +41,13 @@ Connector::Connector(ICNDocument *icnDocument, QString *id)
 	p_icnDocument  = icnDocument;
 	m_conRouter    = new ConRouter(p_icnDocument);
 
-	if (id) {
-		m_id = *id;
-//		if ( !p_icnDocument->registerUID(*id) ) {
-// 			kdDebug() << k_funcinfo << "KTechlab: Connector attempted to register given ID, but ID already in use"<<endl;
-//		}
+	if ( !id.isEmpty() ) {
+		m_id = id;
+		if ( !p_icnDocument->registerUID(id) ) {
+ 			kdDebug() << k_funcinfo << "Connector attempted to register given ID, but ID already in use: " << id << endl;
+                        m_id = p_icnDocument->generateUID( id );
+                        kdDebug() << "Creating a new one: " << m_id << endl;
+		}
 	} else m_id = p_icnDocument->generateUID("connector");
 
 	p_icnDocument->registerItem(this);

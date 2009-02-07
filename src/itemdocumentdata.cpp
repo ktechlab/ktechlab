@@ -1070,13 +1070,13 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 				if( icnd->type() == Document::dt_circuit ) {
 					connector = new ElectronicConnector( 
 								dynamic_cast<ECNode *>(startNode), 
-								dynamic_cast<ECNode *>(endNode), icnd, &id );
+								dynamic_cast<ECNode *>(endNode), icnd, id );
 					(dynamic_cast<ECNode *>(startNode))->addConnector(connector);
 					(dynamic_cast<ECNode *>(endNode))->addConnector(connector);
 				} else {
 					connector = new FlowConnector( 
 								dynamic_cast<FPNode *>(startNode),
-								dynamic_cast<FPNode *>(endNode), icnd, &id );
+								dynamic_cast<FPNode *>(endNode), icnd, id );
 					(dynamic_cast<FPNode *>(startNode))->addOutputConnector(connector);
 					(dynamic_cast<FPNode *>(endNode))->addInputConnector(connector);
 				}
@@ -1133,11 +1133,11 @@ void ItemDocumentData::addConnectors( const ConnectorList &connectorList )
 	{
 		if ( *it && (*it)->canvas() )
 		{
-			if ( (*it)->startNode() && (*it)->endNode() )
+			if ( (*it)->startNode() && (*it)->endNode() ) {
 				addConnectorData( (*it)->connectorData(), (*it)->id() );
-			
-			else
+                        } else {
 				kdDebug() << k_funcinfo << " *it="<<*it<<" (*it)->startNode()="<<(*it)->startNode()<<" (*it)->endNode()="<<(*it)->endNode()<<endl;
+                        }
 		}
 	}
 }
@@ -1156,13 +1156,16 @@ void ItemDocumentData::addNodes( const NodeList &nodeList )
 
 void ItemDocumentData::addItemData( ItemData itemData, QString id )
 {
+        if ( m_itemDataMap.contains( id ) ) {
+             kdWarning() << "Overwriting item: " << id << endl;
+        }
 	m_itemDataMap[id] = itemData;
 }
 
 
 void ItemDocumentData::addConnectorData( ConnectorData connectorData, QString id )
 {
-        if ( m_connectorDataMap.contains(id) ) {
+        if ( m_connectorDataMap.contains( id ) ) {
             kdWarning() << "Overwriting connector: " << id << endl;
         }
 	m_connectorDataMap[id] = connectorData;
@@ -1171,6 +1174,9 @@ void ItemDocumentData::addConnectorData( ConnectorData connectorData, QString id
 
 void ItemDocumentData::addNodeData( NodeData nodeData, QString id )
 {
+        if ( m_nodeDataMap.contains( id ) ) {
+            kdWarning() << "Overwriting node: " << id << endl;
+        }
 	m_nodeDataMap[id] = nodeData;
 }
 //END class ItemDocumentData
