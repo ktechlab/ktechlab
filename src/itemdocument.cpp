@@ -537,9 +537,9 @@ void ItemDocument::distributeVertically( )
 
 
 
-bool ItemDocument::registerUID( const QString &UID )
+bool ItemDocument::registerUID( const QString &uid )
 {
-	return m_idList.insert(UID).second;
+	return m_idList.insert( uid ).second;
 }
 
 
