@@ -1162,6 +1162,9 @@ void ItemDocumentData::addItemData( ItemData itemData, QString id )
 
 void ItemDocumentData::addConnectorData( ConnectorData connectorData, QString id )
 {
+        if ( m_connectorDataMap.contains(id) ) {
+            kdWarning() << "Overwriting connector: " << id << endl;
+        }
 	m_connectorDataMap[id] = connectorData;
 }
 
