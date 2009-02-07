@@ -43,9 +43,11 @@ Connector::Connector(Node *startNode, Node *endNode, ICNDocument *icnDocument, Q
 
 	if (id) {
 		m_id = *id;
-//		if ( !p_icnDocument->registerUID(*id) ) {
-// 			kdDebug() << k_funcinfo << "KTechlab: Connector attempted to register given ID, but ID already in use"<<endl;
-//		}
+		if ( !p_icnDocument->registerUID(*id) ) {
+                    kdDebug() << k_funcinfo << "Connector attempted to register given ID, but ID already in use: " << *id << endl;
+                    m_id = p_icnDocument->generateUID( *id );
+                    kdDebug() << "Creating a new one: " << m_id << endl;
+		}
 	} else m_id = p_icnDocument->generateUID("connector");
 
 	p_icnDocument->registerItem(this);

@@ -1156,18 +1156,27 @@ void ItemDocumentData::addNodes( const NodeList &nodeList )
 
 void ItemDocumentData::addItemData( ItemData itemData, QString id )
 {
+        if ( m_itemDataMap.contains( id ) ) {
+            kdWarning() << "Overwriting item: " << id << endl;
+        }
 	m_itemDataMap[id] = itemData;
 }
 
 
 void ItemDocumentData::addConnectorData( ConnectorData connectorData, QString id )
 {
+        if ( m_connectorDataMap.contains( id ) ) {
+            kdWarning() << "Overwriting connector: " << id << endl;
+        }
 	m_connectorDataMap[id] = connectorData;
 }
 
 
 void ItemDocumentData::addNodeData( NodeData nodeData, QString id )
 {
+        if ( m_nodeDataMap.contains( id ) ) {
+            kdWarning() << "Overwriting node: " << id << endl;
+        }
 	m_nodeDataMap[id] = nodeData;
 }
 //END class ItemDocumentData
