@@ -3,7 +3,7 @@
   <general>
     <author>David Saxton, Alan Grimes</author>
     <email>agrimes@speakeasy.net</email>
-    <version>0.3</version>
+    <version>0.4</version>
     <projectmanagement>KDevKDEAutoProject</projectmanagement>
     <primarylanguage>C++</primarylanguage>
     <keywords>
@@ -14,7 +14,7 @@
     </keywords>
     <projectdirectory>.</projectdirectory>
     <absoluteprojectpath>false</absoluteprojectpath>
-    <description/>
+    <description></description>
     <ignoreparts>
       <part>kdevbookmarks</part>
       <part>kdevctags2</part>
@@ -28,7 +28,7 @@
     <secondaryLanguages/>
     <versioncontrol>kdevsubversion</versioncontrol>
     <projectname>ktechlab</projectname>
-    <defaultencoding/>
+    <defaultencoding></defaultencoding>
   </general>
   <kdevautoproject>
     <general>
@@ -171,16 +171,16 @@
   </kdevdoctreeview>
   <kdevdebugger>
     <general>
-      <dbgshell>libtool</dbgshell>
+      <dbgshell></dbgshell>
       <programargs/>
-      <gdbpath/>
+      <gdbpath></gdbpath>
       <breakonloadinglibs>true</breakonloadinglibs>
       <separatetty>false</separatetty>
       <floatingtoolbar>false</floatingtoolbar>
       <runappinappdirectory>true</runappinappdirectory>
-      <configGdbScript/>
-      <runShellScript/>
-      <runGdbScript/>
+      <configGdbScript></configGdbScript>
+      <runShellScript></runShellScript>
+      <runGdbScript></runGdbScript>
       <raiseGDBOnStart>false</raiseGDBOnStart>
     </general>
     <display>
@@ -253,7 +253,7 @@
     </codecompletion>
     <references/>
     <creategettersetter>
-      <prefixGet/>
+      <prefixGet></prefixGet>
       <prefixSet>set</prefixSet>
       <prefixVariable>m_,_</prefixVariable>
       <parameterName>theValue</parameterName>
