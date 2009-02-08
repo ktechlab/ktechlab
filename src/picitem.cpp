@@ -390,23 +390,71 @@ void PicItem::slotMicroSettingsDlgAccepted()
 
 bool PicItem::mousePressEvent( const EventInfo &info )
 {
+	QMouseEvent *e = info.mousePressEvent( 0, 0 );
+	const PinItemList::iterator end = m_pinItemList.end();
+	for ( PinItemList::iterator it = m_pinItemList.begin(); it != end; ++it )
+		if ( e->isAccepted() && (*it)->boundingRect().contains( info.pos ) ) {
+			//reset mouse-gesture state
+			m_pressed = true;
+			m_pos = info.pos;
+			m_dragged = false;
+			m_dx = 0;
+			delete e;
+			return true;
+		}
+
+	m_pressed = false;
+	delete e;
+	return CNItem::mousePressEvent( info );
+}
+
+bool PicItem::mouseReleaseEvent( const EventInfo &info )
+{
 	QMouseEvent *e = info.mouseReleaseEvent( 0, 0 );
+	if ( !m_pressed ) {
+		delete e;
+		return CNItem::mouseReleaseEvent( info );
+	}
 
 	const PinItemList::iterator end = m_pinItemList.end();
 	for ( PinItemList::iterator it = m_pinItemList.begin(); it != end; ++it )
-		if ( (*it)->boundingRect().contains(info.pos) ) 
-		{
-			if (e->isAccepted())
-			{
+		if ( !e->isAccepted() ) {
+			continue;
+		} else if ( (*it)->boundingRect().contains(m_pos) && (*it)->boundingRect().contains( info.pos ) ) {
+			if ( m_dragged ) {
+				(*it)->dragged( m_dx );
+			} else {
 				(*it)->switchState();
-				delete e;
-				return true;
 			}
+			m_pressed = false;
+			m_dragged = false;
+			m_pos = QPoint();
+			m_dx = 0;
+			delete e;
+			return true;
 		}
 	delete e;
-
-	return CNItem::mousePressEvent( info );
+	return CNItem::mouseReleaseEvent( info );
 }
+
+bool PicItem::mouseMoveEvent( const EventInfo &info )
+{
+	QMouseEvent *e = info.mouseMoveEvent( 0, 0 );
+	const PinItemList::iterator end = m_pinItemList.end();
+	for ( PinItemList::iterator it = m_pinItemList.begin(); it != end; ++it )
+		if ( e->isAccepted() && (*it)->boundingRect().contains( info.pos ) ) {
+			QPoint vec = info.pos - m_pos;
+			if ( m_pressed && vec.manhattanLength() > 4 ) {
+				m_dragged = true;
+				m_dx = vec.x();
+        		}
+			delete e;
+			return true;
+		}
+	delete e;
+	return CNItem::mouseMoveEvent( info );
+}
+
 //END class PicItem
 
 #include "picitem.moc"
