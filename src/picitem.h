@@ -78,6 +78,8 @@ class PicItem : public CNItem
 		virtual void updateZ( int baseZ );
 
 		bool mousePressEvent( const EventInfo &info );
+		bool mouseReleaseEvent( const EventInfo &info );
+		bool mouseMoveEvent( const EventInfo &info );
 	
 	protected slots:
 		void slotMicroSettingsDlgAccepted();
@@ -90,6 +92,12 @@ class PicItem : public CNItem
 		ICNDocument *p_icnDocument;
 		bool m_bExpanded;
 		int m_innerHeight;
+
+	private:
+		QPoint m_pos;
+		int m_dx;
+		bool m_pressed;
+		bool m_dragged;
 };
 
 #endif
