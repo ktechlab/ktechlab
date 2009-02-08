@@ -20,7 +20,7 @@
 #ifndef KTECHLAB_H
 #define KTECHLAB_H
 
-#include <KXmlGuiWindow>
+#include <sublime/mainwindow.h>
 #include <Plasma/View>
 
 class QMenu;
@@ -31,6 +31,11 @@ class KTextEdit;
 class KActionMenu;
 class KTabWidget;
 
+namespace Sublime {
+    class Area;
+    class Controller;
+}
+
 /**
  * This class serves as the main window for KTechlab.  It handles the
  * menus, toolbars, status bars, loading/saving files, config, etc.
@@ -38,18 +43,17 @@ class KTabWidget;
  * @short Main window class
  * @author Julian Bäume
  */
-class KTechlab : public KXmlGuiWindow
+class KTechlab : public Sublime::MainWindow
 {
     Q_OBJECT
     public:
+        explicit KTechlab( Sublime::Controller *controller, Qt::WindowFlags flags = KDE_DEFAULT_WINDOWFLAGS );
         ~KTechlab();
 
         void init();
 
         KTabWidget *tabWidget();
         void load( KUrl url );
-
-        static KTechlab * self();
 
     public slots:
         void slotFileNewAssembly();
@@ -75,8 +79,6 @@ class KTechlab : public KXmlGuiWindow
         void slotComponentRotateCW();
 
     private:
-        KTechlab();
-
         void setupActions();
         void createMenus();
         void createActions();
@@ -87,6 +89,8 @@ class KTechlab : public KXmlGuiWindow
 
         QMenu *fileMenu;
         KActionMenu *m_newActionMenu;
+
+        Sublime::Area *m_mainArea;
 };
 
 #endif
