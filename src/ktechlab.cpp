@@ -27,6 +27,7 @@
 
 #include <QMenu>
 #include <QLayout>
+#include <QListView>
 #include <QSplitter>
 
 #include <KApplication>
@@ -43,9 +44,12 @@
 #include <KDebug>
 #include <KIO/NetAccess>
 
-static KTechlab * m_instance;
+#include <sublime/area.h>
+#include <sublime/controller.h>
+#include <sublime/tooldocument.h>
 
-KTechlab::KTechlab() : KXmlGuiWindow()
+KTechlab::KTechlab( Sublime::Controller *controller, Qt::WindowFlags flags )
+: Sublime::MainWindow( controller, flags )
 {
     createActions();
     createMenus();
@@ -107,16 +111,13 @@ void KTechlab::load( KUrl url )
     KIO::NetAccess::removeTempFile( target );
 }
 
-KTechlab * KTechlab::self()
-{
-    if ( !m_instance )
-        m_instance = new KTechlab();
-
-    return m_instance;
-}
-
 void KTechlab::init()
 {
+    Sublime::Document *componentView = new Sublime::ToolDocument( "ComponentView", controller(),
+            new Sublime::SimpleToolWidgetFactory<QListView>( "ComponentView" ) );
+
+    m_mainArea = new Sublime::Area( controller(), "mainArea" );
+    m_mainArea->addToolView( componentView->createView(), Sublime::Left );
 }
 
 void KTechlab::slotFileNewAssembly()
@@ -310,3 +311,4 @@ void KTechlab::createStatusBar()
 void KTechlab::readSettings()
 {
 }
+
