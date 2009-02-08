@@ -9,12 +9,19 @@
  ***************************************************************************/
 
 #include "ktechlab.h"
+#include "ktechlabideextension.h"
 #include "config.h"
+#include "shell/ktechlabcore.h"
+
+#include <shell/projectcontroller.h>
+#include <shell/documentcontroller.h>
 
 #include <KAboutData>
 #include <KCmdLineArgs>
 #include <KUniqueApplication>
 #include <KUrl>
+
+#include <QFileInfo>
 
 static const char description[] =
     "An IDE for microcontrollers and electronics";
@@ -63,13 +70,27 @@ int main(int argc, char **argv)
     KCmdLineArgs::addCmdLineOptions(options);
     KApplication app;
 
-    KTechlab *ktechlab = KTechlab::self();
+    KTechlabIDEExtension::init();
+
+    KTechlabCore::initialize();
+    KDevelop::Core *core = KTechlabCore::self();
 
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-    for ( int i=0; i < args->count(); ++i )
-        ktechlab->load( args->url(i) );
+    bool openProject = false;
+    if ( args->count() > 0) {
+        KUrl url = args->url( 0 );
+        QString ext = QFileInfo( url.fileName() ).suffix();
+        if( ext == "kdev4" || ext == "ktechlab" ) {
+            core->projectController()->openProject( url );
+            openProject = true;
+        }
+    }
 
-    ktechlab->show();
+    if ( !openProject ) {
+        for ( int i=0; i < args->count(); ++i ) {
+            core->documentController()->openDocument( args->url( i ) );
+        }
+    }
 
     args->clear(); // Free up some memory
     return app.exec();

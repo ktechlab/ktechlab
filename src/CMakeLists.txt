@@ -1,5 +1,7 @@
 add_subdirectory(core)
 add_subdirectory(gui)
+add_subdirectory(shell)
+
 #add_subdirectory(context)
 #add_subdirectory(flowparts)
 #add_subdirectory(micro)
@@ -48,6 +50,8 @@ SET(ktechlab_SRCS
     docmanager.cpp
     projectmanager.cpp
     ktechlab.cpp
+    ktechlabideextension.cpp
+    main.cpp
 )
 
 #kde4_automoc( ${ktechlab_SRCS} )
@@ -60,13 +64,17 @@ SET(ktechlab_SRCS
 
 kde4_add_executable(ktechlab ${ktechlab_SRCS})
 
-target_link_libraries( ktechlab ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS}
-	core gui # ktechlablib
-#	languages gui micro flowparts
-#	mechanics electronics elements components drawparts
-#	itemeditor math khtml kutils ${GPSIM_LIBRARY} ktexteditor
-	kio plasma
-#	kdeprint )
+target_link_libraries( ktechlab 
+   ${KDE4_KDEUI_LIBS}
+   ${KDE4_KIO_LIBS}
+   # ktechlablib
+   ktlshell
+   gui
+#  languages gui micro flowparts
+#  mechanics electronics elements components drawparts
+#  itemeditor math khtml kutils ${GPSIM_LIBRARY} ktexteditor
+   kio plasma
+#  kdeprint
 )
 
 install(TARGETS ktechlab DESTINATION bin)
@@ -74,8 +82,11 @@ install(TARGETS ktechlab DESTINATION bin)
 
 ########### install files ###############
 
+install( FILES  profile.config  DESTINATION ${DATA_INSTALL_DIR}/kdevplatform/profiles/ktechlab )
+
 install(FILES  microbe.xml DESTINATION share/apps/katepart/syntax)
 install(FILES
+    ktechlabrc
     ktechlabui.rc
     ktechlabcircuitui.rc
     ktechlabflowcodeui.rc
@@ -84,7 +95,8 @@ install(FILES
     ktechlabtextui.rc
     ktechlabkateui.rc
 
-    DESTINATION share/apps/ktechlab)
+    DESTINATION ${DATA_INSTALL_DIR}/ktechlab
+)
 install(FILES  ktechlab.desktop DESTINATION share/applnk/Development)
 install(FILES
     x-circuit.desktop

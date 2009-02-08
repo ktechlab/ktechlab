@@ -1,10 +1,18 @@
 project( ktechlab )
 set( VERSION 0.5.0 )
 
+set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
+
+
 find_package(KDE4 REQUIRED)
 find_package(Qt4 REQUIRED)
-include( ${CMAKE_SOURCE_DIR}/cmake/modules/FindGLIB.cmake )
-include( ${CMAKE_SOURCE_DIR}/cmake/modules/FindGPSim.cmake )
+find_package(KDevPlatform 1.0.0 REQUIRED)
+find_package(GLIB REQUIRED)
+
+include( KDE4Defaults )
+include( MacroLibrary )
+
+MACRO_OPTIONAL_FIND_PACKAGE( GPSim )
 
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
@@ -15,11 +23,19 @@ add_definitions(${QT4_DEFINITIONS} ${KDE4_DEFINITIONS} ${GLIB2_DEFINITIONS})
 
 link_directories(${KDE4_LIB_DIR})
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}
-    ${KDE4_INCLUDES} ${QT_INCLUDES} ${GLIB2_INCLUDE_DIRS} )
+include_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_BINARY_DIR}
+    ${KDE4_INCLUDES}
+    ${KDEVPLATFORM_INCLUDE_DIR}
+    ${QT_INCLUDES}
+    ${GLIB2_INCLUDE_DIRS}
+)
 
-CONFIGURE_FILE( ${CMAKE_SOURCE_DIR}/config.h.cmake
-    ${CMAKE_BINARY_DIR}/config.h )
+CONFIGURE_FILE(
+    ${CMAKE_SOURCE_DIR}/config.h.cmake
+    ${CMAKE_BINARY_DIR}/config.h
+)
 
 add_subdirectory( src )
 add_subdirectory( icons )
