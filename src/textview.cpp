@@ -310,6 +310,9 @@ void TextView::toggleBreakpoint()
 
 void TextView::slotWordHoveredOver( const QString & word, int line, int col )
 {
+// NOTE: even though we don't use COL, we need to be compatible with the signal we're
+// receiving. 
+
 #ifndef NO_GPSIM
 	// We're only interested in popping something up if we currently have a debugger running
 	GpsimProcessor * gpsim = textDocument()->debugger() ? textDocument()->debugger()->gpsim() : 0l;
@@ -320,30 +323,26 @@ void TextView::slotWordHoveredOver( const QString & word, int line, int col )
 	}
 	
 	// Find out if the word that we are hovering over is the operand data
-	KTextEditor::EditInterface * e = (KTextEditor::EditInterface*)textDocument()->kateDocument()->qt_cast("KTextEditor::EditInterface");
+	KTextEditor::EditInterface *e = (KTextEditor::EditInterface*)textDocument()->kateDocument()->qt_cast("KTextEditor::EditInterface");
 	InstructionParts parts( e->textLine( unsigned(line) ) );
 	if ( !parts.operandData().contains( word ) )
 		return;
-	
+
 	if ( RegisterInfo * info = gpsim->registerMemory()->fromName( word ) )
 		m_pTextViewLabel->setRegister( info, info->name() );
-	
-	else
-	{
+	else {
 		int operandAddress = textDocument()->debugger()->programAddress( textDocument()->debugFile(), line );
 		if ( operandAddress == -1 )
 		{
 			m_pTextViewLabel->hide();
 			return;
 		}
-		
+
 		int regAddress = gpsim->operandRegister( operandAddress );
 		
 		if ( regAddress != -1 )
 			m_pTextViewLabel->setRegister( gpsim->registerMemory()->fromAddress( regAddress ), word );
-		
-		else
-		{
+		else {
 			m_pTextViewLabel->hide();
 			return;
 		}
@@ -362,7 +361,6 @@ void TextView::slotWordUnhovered()
 #endif // !NO_GPSIM
 }
 //END class TextView
-
 
 
 //BEGIN class TextViewEventFilter
@@ -390,8 +388,7 @@ bool TextViewEventFilter::eventFilter( QObject *, QEvent * e )
 {
 // 	kdDebug() << k_funcinfo << "e->type() = " << e->type() << endl;
 	
-	if ( e->type() == QEvent::MouseMove )
-	{
+	if ( e->type() == QEvent::MouseMove ) {
 		if ( !m_pNoWordTimer->isActive() )
 			m_pNoWordTimer->start( 10 );
 		return false;
@@ -454,8 +451,7 @@ void TextViewEventFilter::updateHovering( const QString & currentWord, int line,
 	
 	if ( m_hoverStatus != Sleeping )
 		emit wordHoveredOver( currentWord, line, col );
-	else
-		m_pHoverTimer->start( 700, true );
+	else	m_pHoverTimer->start( 700, true );
 }
 
 
@@ -469,7 +465,7 @@ void TextViewEventFilter::slotNeedTextHint( int line, int col, QString & )
 	KTextEditor::EditInterface * e = (KTextEditor::EditInterface*)m_pTextView->textDocument()->kateDocument()->qt_cast("KTextEditor::EditInterface");
 	
 	// Return if we aren't currently in a word
-	if ( !isWordLetter( e->text( line, col, line, col+1 ) ) )
+	if ( !isWordLetter( e->text( line, col, line, col+1 )))
 	{
 		updateHovering( QString::null, line, col );
 		return;

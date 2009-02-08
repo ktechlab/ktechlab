@@ -8,7 +8,6 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-
 #include "circuit.h"
 #include "circuitdocument.h"
 #include "element.h"
@@ -20,7 +19,6 @@
 #include "reactive.h"
 #include "wire.h"
 
-//#include <vector>
 #include <cmath>
 #include <map>
 
@@ -33,9 +31,8 @@ Circuit::Circuit()
 	m_pNextChanged[0] = m_pNextChanged[1] = 0;
 	m_logicOutCount = 0;
 	m_bCanCache = false;
-	m_pLogicOut = 0l;
+	m_pLogicOut = 0;
 	m_elementSet = new ElementSet(this, 0, 0); // why do we do this?
-	m_prepNLCount = 0;
 	m_pLogicCacheBase = new LogicCacheNode;
 }
 
@@ -46,16 +43,15 @@ Circuit::~Circuit()
 	delete[] m_pLogicOut;
 }
 
-
-void Circuit::addPin( Pin *node )
+void Circuit::addPin(Pin *node)
 {
-	if ( m_pinList.contains(node) ) return;
+	if(m_pinList.contains(node)) return;
 	m_pinList.append(node);
 }
 
-void Circuit::addElement( Element *element )
+void Circuit::addElement(Element *element)
 {
-	if ( m_elementList.contains(element) ) return;
+	if(m_elementList.contains(element)) return;
 	m_elementList.append(element);
 }
 
@@ -63,7 +59,6 @@ bool Circuit::contains( Pin *node )
 {
 	return m_pinList.contains(node);
 }
-
 
 // static function
 int Circuit::identifyGround( PinList nodeList, int *highest )
@@ -83,7 +78,7 @@ int Circuit::identifyGround( PinList nodeList, int *highest )
 	int temp_highest;
 	if (!highest)
 		highest = &temp_highest;
-	
+
 	// Now to give all the Pins ids
 	PinListMap eqs;
 	while ( !nodeList.isEmpty() )
@@ -97,7 +92,6 @@ int Circuit::identifyGround( PinList nodeList, int *highest )
 			eqs.insert( std::make_pair( associated.size(), nodes ) );
 		}
 	}
-	
 	
 	// Now, we want to look through the associated Pins, 
 	// to find the ones with the highest "Ground Priority". Anything with a lower
@@ -117,9 +111,7 @@ int Circuit::identifyGround( PinList nodeList, int *highest )
 		
 		if ( highPri == *highest )
 			numGround++;
-		
-		else if ( highPri < *highest ) 
-		{
+		else if ( highPri < *highest ) {
 			numGround = 1;
 			*highest = highPri;
 		}
@@ -134,7 +126,6 @@ int Circuit::identifyGround( PinList nodeList, int *highest )
 	else if ( *highest > Pin::gt_always )
 		numGround = 1;
 	
-	
 	// Now, we can give the nodes their cnode ids, or tell them they are ground
 	bool foundGround = false; // This is only used when we don't have a Always ground node
 	for ( PinListMap::iterator it = eqs.begin(); it != eqsEnd; ++it )
@@ -145,6 +136,7 @@ int Circuit::identifyGround( PinList nodeList, int *highest )
 		{
 			ground |= (*sit)->groundType() <= (*highest);
 		}
+
 		if ( ground && (!foundGround || *highest == Pin::gt_always ) )
 		{
 			for ( PinList::iterator sit = it->second.begin(); sit != send; ++sit )
@@ -152,9 +144,7 @@ int Circuit::identifyGround( PinList nodeList, int *highest )
 				(*sit)->setEqId(-1);
 			}
 			foundGround = true;
-		}
-		else
-		{
+		} else {
 			for ( PinList::iterator sit = it->second.begin(); sit != send; ++sit )
 			{
 				(*sit)->setEqId(0);
@@ -180,14 +170,14 @@ void Circuit::init()
 	unsigned groundCount = 0;
 	PinListMap eqs;
 	PinList unassignedNodes = m_pinList;
-	while ( !unassignedNodes.isEmpty() )
-	{
+	while ( !unassignedNodes.isEmpty() ) {
 		PinList associated;
 		PinList nodes;
 		Pin *node = *unassignedNodes.begin();
 		if ( recursivePinAdd( node, &unassignedNodes, &associated, &nodes ) ) {
 			groundCount++;
 		}
+
 		if ( nodes.size() > 0 ) {
 			eqs.insert( std::make_pair( associated.size(), nodes ) );
 		}
@@ -203,21 +193,20 @@ void Circuit::init()
 	
 	// Now, we can give the nodes their cnode ids, or tell them they are ground
 	QuickVector *x = m_elementSet->x();
-	int i=0;
+	int i = 0;
 	const PinListMap::iterator eqsEnd = eqs.end();
 	for ( PinListMap::iterator it = eqs.begin(); it != eqsEnd; ++it )
 	{
 		bool foundGround = false;
-		
+
 		const PinList::iterator sEnd = it->second.end();
 		for ( PinList::iterator sit = it->second.begin(); sit != sEnd; ++sit )
 			foundGround |= (*sit)->eqId() == -1;
 			
-		if ( foundGround )
-			continue;
-		
+		if(foundGround) continue;
+
 		bool foundEnergyStoragePin = false;
-		
+
 		for ( PinList::iterator sit = it->second.begin(); sit != sEnd; ++sit )
 		{
 			(*sit)->setEqId(i);
@@ -227,11 +216,10 @@ void Circuit::init()
 			ElementList::const_iterator elementsEnd = elements.end();
 			for ( ElementList::const_iterator it = elements.begin(); it != elementsEnd; ++it )
 			{
-				if ( !*it )
-					continue;
-				
-				if ( ((*it)->type() == Element::Element_Capacitance)
-									|| ((*it)->type() == Element::Element_Inductance) )
+				if(!*it) continue;
+
+				if( ((*it)->type() == Element::Element_Capacitance)
+					|| ((*it)->type() == Element::Element_Inductance) )
 				{
 					energyStorage = true;
 					break;
@@ -315,38 +303,30 @@ void Circuit::initCache()
 	{
 		switch ( (*it)->type() )
 		{
-			case Element::Element_BJT:
-			case Element::Element_CCCS:
-			case Element::Element_CCVS:
-			case Element::Element_CurrentSource:
-			case Element::Element_Diode:
-			case Element::Element_JFET:
-			case Element::Element_LogicIn:
-			case Element::Element_MOSFET:
-			case Element::Element_OpAmp:
-			case Element::Element_Resistance:
-			case Element::Element_VCCS:
-			case Element::Element_VCVS:
-			case Element::Element_VoltagePoint:
-			case Element::Element_VoltageSource:
-			{
-				break;
-			}
-				
-			case Element::Element_LogicOut:
-			{
-				m_logicOutCount++;
-				break;
-			}
-				
-			case Element::Element_CurrentSignal:
-			case Element::Element_VoltageSignal:
-			case Element::Element_Capacitance:
-			case Element::Element_Inductance:
-			{
-				m_bCanCache = false;
-				break;
-			}
+		case Element::Element_BJT:
+		case Element::Element_CCCS:
+		case Element::Element_CCVS:
+		case Element::Element_CurrentSource:
+		case Element::Element_Diode:
+		case Element::Element_JFET:
+		case Element::Element_LogicIn:
+		case Element::Element_MOSFET:
+		case Element::Element_OpAmp:
+		case Element::Element_Resistance:
+		case Element::Element_VCCS:
+		case Element::Element_VCVS:
+		case Element::Element_VoltagePoint:
+		case Element::Element_VoltageSource:
+			break;
+		case Element::Element_LogicOut:
+			m_logicOutCount++;
+			break;
+		case Element::Element_CurrentSignal:
+		case Element::Element_VoltageSignal:
+		case Element::Element_Capacitance:
+		case Element::Element_Inductance:
+			m_bCanCache = false;
+			break;
 		}
 	}
 
@@ -369,13 +349,13 @@ void Circuit::setCacheInvalidated()
 	if (m_pLogicCacheBase)
 	{
 		delete m_pLogicCacheBase->high;
-		m_pLogicCacheBase->high = 0l;
+		m_pLogicCacheBase->high = 0;
 	
 		delete m_pLogicCacheBase->low;
-		m_pLogicCacheBase->low = 0l;
+		m_pLogicCacheBase->low = 0;
 	
 		delete m_pLogicCacheBase->data;
-		m_pLogicCacheBase->data = 0l;
+		m_pLogicCacheBase->data = 0;
 	}
 }
 
@@ -505,8 +485,7 @@ void Circuit::updateNodalVoltages()
 		int i = node->eqId();
 		if ( i == -1 )
 			node->setVoltage(0.);
-		else
-		{
+		else {
 			const double v = _cnodes[i]->v;
 			node->setVoltage( std::isfinite(v)?v:0. );
 		}
@@ -534,9 +513,9 @@ void Circuit::displayEquations()
 
 LogicCacheNode::LogicCacheNode()
 {
-	low = 0l;
-	high = 0l;
-	data = 0l;
+	low  = 0;
+	high = 0;
+	data = 0;
 }
 
 LogicCacheNode::~LogicCacheNode()
@@ -546,5 +525,4 @@ LogicCacheNode::~LogicCacheNode()
 	if(data) delete data;
 }
 //END class LogicCacheNode
-
 
