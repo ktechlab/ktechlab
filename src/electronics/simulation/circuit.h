@@ -26,18 +26,16 @@ class LogicOut;
 typedef QValueList<QGuardedPtr<Pin> > PinList;
 typedef QValueList<Element*> ElementList;
 
-
 class LogicCacheNode
 {
 public:
 	LogicCacheNode();
 	~LogicCacheNode();
 
-	LogicCacheNode * high;
-	LogicCacheNode * low;
-	QuickVector * data;
+	LogicCacheNode *high;
+	LogicCacheNode *low;
+	QuickVector *data;
 };
-
 
 /**
 Usage of this class (usually invoked from CircuitDocument):
@@ -117,8 +115,6 @@ protected:
 	* Returns true if any of the nodes are ground
 	*/
 	static bool recursivePinAdd(Pin *node, PinList *unassignedNodes, PinList *associated, PinList *nodes);
-
-	int m_prepNLCount; // Count until next m_elementSet->prepareNonLinear() is called
 
 	PinList m_pinList;
 	ElementList m_elementList;

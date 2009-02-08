@@ -3,7 +3,7 @@
   <general>
     <author>David Saxton, Alan Grimes</author>
     <email>agrimes@speakeasy.net</email>
-    <version>0.4</version>
+    <version>0.3.7</version>
     <projectmanagement>KDevKDEAutoProject</projectmanagement>
     <primarylanguage>C++</primarylanguage>
     <keywords>

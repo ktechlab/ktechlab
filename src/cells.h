@@ -73,7 +73,7 @@ class Cell
 		/**
 		 * Pointer to the point in the TempLabelMap.
 		 */
-		Point * point;
+		Point *point;
 		/**
 		 * Number of connectors through that point.
 		 */
@@ -123,6 +123,7 @@ class Cells
 		{
 			return haveCell( roundDown( x, 8 ), roundDown( y, 8 ) );
 		}
+
 		Cell & cell( int i, int j ) const
 		{
 			assert( i < m_cellsRect.right() );
