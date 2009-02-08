@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
 <gui name="ktechlab" version="0.5">
+    <MenuBar>
+        <Menu>
+            <text context="@title:menu">File</text>
+            <DefineGroup name="new_operations" />
+            <Action name="new_file" />
+            <Action name="newfile_asm" />
+            <Action name="newfile_c" />
+            <Action name="ktechlab_circuit" />
+            <Merge />
+        </Menu>
+    </MenuBar>    
     <ToolBar name="mainToolBar">
         <text>Main Toolbar</text>
-        <Action name="New" />
+        <Action name="new_file" />
         <Action name="Open" />
         <Action name="Save" />
-        <Action name="Print" />
+        <Action name="switch_area" />
         <Seperator />
         <Action name="Undo" />
         <Action name="Redo" />
@@ -14,6 +25,4 @@
         <Action name="Copy" />
         <Action name="Paste" />
     </ToolBar>
-    <MenuBar>
-    </MenuBar>
 </gui>
