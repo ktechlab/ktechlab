@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
+<kcfg>
+  <kcfgfile/>
+  <group name="UiSettings">
+        <entry name="TopLeftCornerOwner" key="TopLeftCornerOwner" type="Int">
+        </entry>
+        <entry name="TopRightCornerOwner" key="TopRightCornerOwner" type="Int">
+        </entry>
+        <entry name="BottomLeftCornerOwner" key="BottomLeftCornerOwner" type="Int">
+        </entry>
+        <entry name="BottomRightCornerOwner" key="BottomRightCornerOwner" type="Int">
+        </entry>
+        <entry name="TabBarVisibility" key="TabBarVisibility" type="Int">
+            <default>1</default>
+        </entry>
+  </group>
+</kcfg>
