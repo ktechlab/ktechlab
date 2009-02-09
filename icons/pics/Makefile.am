@@ -13,7 +13,8 @@ ktlicon_DATA = and.png cell.png logic_input.png logic_output.png nand.png \
 				ccvs.png vcvs.png vccs.png mechanics.png buffer.png external_connection.png \
 				logicprobe.png potentiometer.png resistordip.png bidirled.png project_library.png \
 				project_program.png bus.png floatingprobe.png inductor.png matrixdisplay.png 		rotary.png \
-		variable_capacitor.png variable_resistor.png external_link.png nemosfet.png njfet.png pemosfet.png pjfet.png
+		variable_capacitor.png variable_resistor.png external_link.png nemosfet.png njfet.png pemosfet.png pjfet.png \
+		bar_graph_display.png
 ktlicondir = $(kde_datadir)/ktechlab/icons
 	
 
