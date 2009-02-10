@@ -37,7 +37,7 @@ public:
 	 * Creates a size x size square matrix m, with all values zero,
 	 * and a right side vector x of size m+n
 	 */
-	Matrix( CUI n, CUI m );
+	Matrix(CUI n, CUI m);
 	~Matrix();
 	/**
 	 * Sets all elements to zero
@@ -59,7 +59,7 @@ public:
 	 * Applies the right side vector (x) to the decomposed matrix,
 	 * with the solution returned in x.
 	 */
-	void fbSub( QuickVector* x );
+	void fbSub(QuickVector *x);
 	/**
 	 * Prints the matrix to stdout
 	 */
@@ -71,34 +71,31 @@ public:
 	/**
 	 * Sets the element matrix at row i, col j to value x
 	 */
-	double& g( CUI i, CUI j )
-	{
+	double& g(CUI i, CUI j) {
 		const unsigned int mapped_i = m_inMap[i];
-		if ( mapped_i<max_k ) max_k=mapped_i;
-		if ( j<max_k ) max_k=j;
-		
+		if ( mapped_i<max_k ) max_k = mapped_i;
+
+		if ( j<max_k ) max_k = j;
+
 		// I think I need the next line...
-		if ( max_k>0 ) max_k--;
-		
+		if ( max_k > 0 ) max_k--;
+
 		return (*m_mat)[mapped_i][j];
 	}
 
-	double g( CUI i, CUI j ) const { return (*m_mat)[m_inMap[i]][j]; }
-
-	double& b( CUI i, CUI j ) { return g( i, j+m_n ); }
-	double& c( CUI i, CUI j ) { return g( i+m_n, j ); }
-	double& d( CUI i, CUI j ) { return g( i+m_n, j+m_n ); }
-
-	double b( CUI i, CUI j ) const { return g( i, j+m_n ); }
-	double c( CUI i, CUI j ) const { return g( i+m_n, j ); }
-	double d( CUI i, CUI j ) const { return g( i+m_n, j+m_n ); }
 	/**
 	 * Returns the value of matrix at row i, col j.
 	 */
-	double m( CUI i, CUI j ) const
-	{
-		return (*m_mat)[m_inMap[i]][j];
-	}
+	double  g(CUI i, CUI j) const { return (*m_mat)[m_inMap[i]][j]; }
+
+	double &b(CUI i, CUI j) { return g(i, j + m_n); }
+	double &c(CUI i, CUI j) { return g(i + m_n, j); }
+	double &d(CUI i, CUI j) { return g(i + m_n, j + m_n); }
+
+	double  b(CUI i, CUI j) const { return g(i, j + m_n); }
+	double  c(CUI i, CUI j) const { return g(i + m_n, j); }
+	double  d(CUI i, CUI j) const { return g(i + m_n, j + m_n); }
+
 	/**
 	 * Multiplies this matrix by the Vector rhs, and places the result
 	 * in the vector pointed to by result. Will fail if wrong size.
@@ -109,7 +106,7 @@ private:
 	/**
 	 * Swaps around the rows in the (a) the matrix; and (b) the mappings
 	 */
-	void swapRows( CUI a, CUI b );
+	void swapRows(CUI a, CUI b);
 
 	unsigned int m_n; // number of cnodes. 
 	unsigned int max_k; // optimization variable, allows partial L_U re-do. 
@@ -120,51 +117,5 @@ private:
 	QuickMatrix *m_lu;
 	double *m_y; // Avoids recreating it lots of times
 };
-
-
-/**
-This class provides a very simple, lightweight, 2x2 matrix solver.
-It's fast and reliable. Set the values for the entries of A and b:
-
-A x = b
-
-call solve() (which returns true if successful - i.e. exactly one solution to the
-matrix), and get the values of x with the appropriate functions.
-
-@short 2x2 Matrix
-@author David Saxton
-*/
-class Matrix22
-{
-public:
-	Matrix22();
-	
-	double &a11() { return m_a11; }
-	double &a12() { return m_a12; }
-	double &a21() { return m_a21; }
-	double &a22() { return m_a22; }
-	
-	double &b1() { return m_b1; }
-	double &b2() { return m_b2; }
-	
-	/**
-	 * Solve the matrix. Returns true if successful (i.e. non-singular), else
-	 * false. Get the solution with x1() and x2().
-	 */
-	bool solve();
-	/**
-	 * Resets all entries to zero
-	 */
-	void reset();
-	
-	double x1() const { return m_x1; }
-	double x2() const { return m_x2; }
-	
-private:
-	double m_a11, m_a12, m_a21, m_a22;
-	double m_b1, m_b2;
-	double m_x1, m_x2;
-};
-
 
 #endif
