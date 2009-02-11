@@ -9,4 +9,4 @@ Comment=An IDE for microcontrollers and electronics
 Comment[fr]=Une interface de développement intégrée pour microcontrôleurs et électronique
 Terminal=false
 MimeType=application/x-ktechlab;application/x-flowcode;application/x-circuit;application/x-microbe;
-Categories=Qt;KDE;Education;Science;Electronics
+Categories=Qt;KDE;Education;Science;Electronics;
