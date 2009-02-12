@@ -691,7 +691,7 @@ void ItemLibrary::loadItemDescriptions()
 				line.remove( "<!-- item: " );
 				line.remove( " -->" );
 				
-				type = line;
+				type = line.stripWhiteSpace();
 				if ( type.startsWith("/") )
 				{
 					// Possibly change e.g. "/ec/capacitor" to "ec/capacitor"
