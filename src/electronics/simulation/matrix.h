@@ -39,10 +39,6 @@ public:
 	 */
 	Matrix(CUI n, CUI m);
 	~Matrix();
-	/**
-	 * Sets all elements to zero
-	 */
-	void zero();
 
 	/**
 	 * Returns true if the matrix is changed since last calling performLU()
