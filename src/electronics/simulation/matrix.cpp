@@ -44,20 +44,6 @@ Matrix::~Matrix()
 	delete[] m_inMap;
 }
 
-void Matrix::zero()
-{
-//??????  do we really want the matrixes to be 0 or do we want them initialized to Identity?
-
-	m_mat->fillWithZero();
-	m_lu->fillWithZero();
-	unsigned int size = m_mat->size_m();
-
-	for(unsigned int i = 0; i < size; i++ )
-		m_inMap[i] = i;
-
-	max_k = 0;
-}
-
 void Matrix::swapRows(CUI a, CUI b)
 {
 	if(a == b) return;
