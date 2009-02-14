@@ -12,8 +12,16 @@
 #include "elementset.h"
 
 #include <cassert>
-
 #include <kdebug.h>
+
+double T_K = 300.; ///< Temperature in Kelvin
+
+/*
+double thermal_voltage(double temperature)
+{
+	return K * temperature / q;
+}
+*/
 
 //BEGIN class Element
 Element::Element()
@@ -22,12 +30,12 @@ Element::Element()
 	p_eSet = 0;
 	b_componentDeleted = false;
 
-	for ( int i = 0; i < MAX_CNODES; i++ )
+	for(int i = 0; i < MAX_CNODES; i++)
 		p_cnode[i] = 0;
 	
 	resetCurrents();
 	
-	for ( int i = 0; i < MAX_CBRANCHES; i++ )
+	for(int i = 0; i < MAX_CBRANCHES; i++)
 		p_cbranch[i] = 0;
 	
 	m_numCBranches = 0;
@@ -40,15 +48,15 @@ Element::~ Element()
 
 void Element::resetCurrents()
 {
-	for ( int i=0; i<8; i++ )
+	for(int i = 0; i < 8; i++ )
 		m_cnodeI[i] = 0.0;
 }
 
-void Element::setElementSet( ElementSet *c )
+void Element::setElementSet(ElementSet *c)
 {
 	assert(!b_componentDeleted);
 	assert(!p_eSet);
-	if (!c) return elementSetDeleted();
+	if(!c) return elementSetDeleted();
 	p_eSet = c;
 	updateStatus();
 }
@@ -68,43 +76,45 @@ void Element::elementSetDeleted()
 	if (b_componentDeleted) return delete this;
 
 	b_status = false;
-// 	kdDebug() << "Element::elementSetDeleted(): Setting b_status to false, this="<<this<<endl;
-	
+// 	kdDebug() << "Element::elementSetDeleted(): Setting b_status to false, this=" << this << endl;
+
 	p_eSet = 0;
 	setCNodes();
 	setCBranches();
 }
-
 
 void Element::setCNodes( const int n0, const int n1, const int n2, const int n3 )
 {
 	if ( !p_eSet )
 	{
 // 		cerr << "Element::setCNodes: can't set nodes without circuit!"<<endl;
-		for ( int i=0; i<MAX_CNODES; i++ )
+		for(int i = 0; i < MAX_CNODES; i++ )
 			p_cnode[i] = 0;
 		return;
 	}
 
-	p_cnode[0] = (n0>-1)?p_eSet->cnodes()[n0]:(n0==-1?p_eSet->ground():0);
-	p_cnode[1] = (n1>-1)?p_eSet->cnodes()[n1]:(n1==-1?p_eSet->ground():0);
-	p_cnode[2] = (n2>-1)?p_eSet->cnodes()[n2]:(n2==-1?p_eSet->ground():0);
-	p_cnode[3] = (n3>-1)?p_eSet->cnodes()[n3]:(n3==-1?p_eSet->ground():0);
+	p_cnode[0] = (n0 > -1) ? p_eSet->cnodes()[n0] :
+				(n0 ==-1 ? p_eSet->ground() : 0);
+	p_cnode[1] = (n1 > -1) ? p_eSet->cnodes()[n1] :
+				(n1 ==-1 ? p_eSet->ground() : 0);
+	p_cnode[2] = (n2 > -1) ? p_eSet->cnodes()[n2] :
+				(n2 ==-1 ? p_eSet->ground() : 0);
+	p_cnode[3] = (n3 > -1) ? p_eSet->cnodes()[n3] :
+				(n3 ==-1 ? p_eSet->ground() : 0);
 	updateStatus();
 }
 
 void Element::setCBranches( const int b0, const int b1, const int b2, const int b3 )
 {
-	if ( !p_eSet )
-	{
+	if(!p_eSet) {
 // 		cerr << "Element::setCBranches: can't set branches without circuit!"<<endl;
-		for ( int i=0; i<4; i++ ) p_cbranch[i] = 0;
+		for(int i = 0; i < 4; i++) p_cbranch[i] = 0;
 		return;
 	}
-	p_cbranch[0] = (b0>-1)?p_eSet->cbranches()[b0]:0;
-	p_cbranch[1] = (b1>-1)?p_eSet->cbranches()[b1]:0;
-	p_cbranch[2] = (b2>-1)?p_eSet->cbranches()[b2]:0;
-	p_cbranch[3] = (b3>-1)?p_eSet->cbranches()[b3]:0;
+	p_cbranch[0] = (b0 > -1) ? p_eSet->cbranches()[b0] : 0;
+	p_cbranch[1] = (b1 > -1) ? p_eSet->cbranches()[b1] : 0;
+	p_cbranch[2] = (b2 > -1) ? p_eSet->cbranches()[b2] : 0;
+	p_cbranch[3] = (b3 > -1) ? p_eSet->cbranches()[b3] : 0;
 	updateStatus();
 }
 
@@ -112,19 +122,17 @@ bool Element::updateStatus()
 {
 	// First, set status to false if all nodes in use are ground
 	b_status = false;
-	for ( int i=0; i<m_numCNodes; i++ )
-	{
-		b_status |= p_cnode[i]?!p_cnode[i]->isGround:false;
+	for(int i = 0; i < m_numCNodes; i++) {
+		b_status |= p_cnode[i] ? !p_cnode[i]->isGround : false;
 	}
 	
 	// Set status to false if any of the nodes are not set
-	for ( int i=0; i<m_numCNodes; i++ )
-	{
-		if (!p_cnode[i]) b_status = false;
+	for(int i = 0; i < m_numCNodes; i++ ) {
+		if(!p_cnode[i]) b_status = false;
 	}
 	
 	// Finally, set status to false if not all the required branches are set
-	for ( int i=0; i<m_numCBranches; i++ )
+	for(int i = 0; i < m_numCBranches; i++ )
 	{
 		if (!p_cbranch[i]) b_status = false;
 	}
@@ -154,6 +162,4 @@ double Element::cnodeVoltage( const int node )
 }
 
 //END class Element
-
-
 
