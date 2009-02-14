@@ -17,10 +17,16 @@
 class ElementSet;
 typedef unsigned int uint;
 
-const double T = 300.; ///< Temperature in Kelvin
-const double K = 1.3806503e-23; ///< Boltzmann's constant
-const double q = 1.602176462e-19; ///< Charge on an electron
-const double V_T = K*T/q; ///< Thermal voltage
+extern double T_K; ///< Temperature in Kelvin
+
+const double K = 1.3806504e-23; ///< Boltzmann's constant
+const double q = 1.602176487e-19; ///< Charge on an electron
+
+///< Thermal voltage
+#define V_T (K * T_K / q)
+
+// do we want this as a macro or as a function? 
+// double thermal_voltage(double temperature);
 
 class CNode
 {
@@ -108,7 +114,7 @@ public:
 	/**
 	 * Returns a pointer to the current element set
 	 */
-	ElementSet * elementSet() const { return p_eSet; }
+	ElementSet *elementSet() const { return p_eSet; }
 	/**
 	 * Tells the element which nodes to use. Remember that -1 is ground. You
 	 * should refer to the individual elements for which nodes are used for what.
@@ -164,30 +170,32 @@ public:
 	 * This is called from the Component destructor. When elementSetDeleted has
 	 * also been called, this class will delete itself.
 	 */
-	 void componentDeleted();
-	 void elementSetDeleted();
-	
+	void componentDeleted();
+	void elementSetDeleted();
+
 	double m_cnodeI[8]; ///< Current flowing into the cnodes from the element
 	double cbranchCurrent( const int branch );
 	double cnodeVoltage( const int node );
-	
+
 protected:
 	/**
 	 * Update the status, returning b_status
 	 */
 	virtual bool updateStatus();
+
 	/**
 	 * Resets all calculated currents in the nodes to 0
 	 */
 	void resetCurrents();
+
+// TODO: give these more descriptive names
+	inline double &A_g(uint i, uint j);
+	inline double &A_b(uint i, uint j);
+	inline double &A_c(uint i, uint j);
+	inline double &A_d(uint i, uint j);
 	
-	inline double & A_g( uint i, uint j );
-	inline double & A_b( uint i, uint j );
-	inline double & A_c( uint i, uint j );
-	inline double & A_d( uint i, uint j );
-	
-	inline double & b_i( uint i );
-	inline double & b_v( uint i );
+	inline double &b_i(uint i);
+	inline double &b_v(uint i);
 
 	ElementSet *p_eSet;
 
@@ -204,7 +212,7 @@ protected:
 	 */
 	int m_numCBranches;
 	CBranch *p_cbranch[MAX_CBRANCHES];
-	
+
 	/**
 	 * True when the element can do add_initial_dc(), i.e. when it has
 	 * pointers to the circuit, and at least one of its nodes is not ground.
@@ -213,9 +221,11 @@ protected:
 
 private:
 	bool b_componentDeleted;
+
+	// TODO: this is never initialized, and is only returned as a default value
+	// for several functions, maybe named constand 0 or 1 should be used? 
 	double m_temp;
 };
-
 
 double &Element::A_g( uint i, uint j )
 {
@@ -225,13 +235,13 @@ double &Element::A_g( uint i, uint j )
 
 double &Element::A_b( uint i, uint j )
 {
-	if ( p_cnode[i]->isGround ) return m_temp;
+	if(p_cnode[i]->isGround) return m_temp;
 	return p_eSet->matrix()->b( p_cnode[i]->n(), p_cbranch[j]->n() );
 }
 
 double &Element::A_c( uint i, uint j )
 {
-	if ( p_cnode[j]->isGround ) return m_temp;
+	if(p_cnode[j]->isGround) return m_temp;
 	return p_eSet->matrix()->c( p_cbranch[i]->n(), p_cnode[j]->n() );
 }
 
@@ -240,12 +250,9 @@ double &Element::A_d( uint i, uint j )
 	return p_eSet->matrix()->d( p_cbranch[i]->n(), p_cbranch[j]->n() );
 }
 
-
 double &Element::b_i( uint i )
 {
-	if ( p_cnode[i]->isGround )
-		return m_temp;
-	
+	if(p_cnode[i]->isGround) return m_temp;
 	return (*(p_eSet->b()))[ p_cnode[i]->n() ];
 }
 
