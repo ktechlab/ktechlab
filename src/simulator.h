@@ -116,8 +116,15 @@ public:
 	 * Adds the given Circuit to the list of changed Circuits
 	 */
 	void addChangedCircuit(Circuit *changed) {
-		m_pChangedCircuitLast->setNextChanged(changed, m_currentChain);
-		m_pChangedCircuitLast = changed;
+		if(!m_pChangedCircuitStart) {
+			m_pChangedCircuitLast =
+				m_pChangedCircuitStart = changed;
+		} else {
+	//		assert(m_pChangedCircuitLast != changed);
+
+			m_pChangedCircuitLast->setNextChanged(changed, m_currentChain);
+			m_pChangedCircuitLast = changed;
+		}
 	}
 
 	inline void addStepCallback(int at, ComponentCallback *ccb);
