@@ -16,8 +16,8 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.         *
  ***************************************************************************/
-#ifndef KDEV_TEXTDOCUMENT_H
-#define KDEV_TEXTDOCUMENT_H
+#ifndef KTL_TEXTDOCUMENT_H
+#define KTL_TEXTDOCUMENT_H
 
 #include <QtGui/QWidget>
 #include <KDE/KXMLGUIClient>
@@ -26,13 +26,17 @@
 
 #include "partdocument.h"
 
-#include "shellexport.h"
+#include "ktlshellexport.h"
 
-namespace KTextEditor {
-    class View;
+namespace KTextEditor
+{
+class View;
 }
 
-namespace KDevelop {
+namespace KTechLab
+{
+
+class Core;
 
 /**
 Text document which represents KTextEditor documents.
@@ -40,10 +44,10 @@ Text document which represents KTextEditor documents.
 Usually Kate documents are represented by this class but TextDocument is not
 limited to Kate. Each conforming text editor will work.
 */
-class KDEVPLATFORMSHELL_EXPORT TextDocument: public PartDocument {
+class KTLSHELL_EXPORT TextDocument: public PartDocument {
     Q_OBJECT
 public:
-    TextDocument(const KUrl &url, ICore* );
+    TextDocument(const KUrl &url, Core* );
     virtual ~TextDocument();
 
     virtual QWidget *createViewWidget(QWidget *parent = 0);
@@ -83,7 +87,7 @@ private:
     friend class TextDocumentPrivate;
 };
 
-class KDEVPLATFORMSHELL_EXPORT TextView : public Sublime::View
+class KTLSHELL_EXPORT TextView : public Sublime::View
 {
     Q_OBJECT
 public:
@@ -109,7 +113,7 @@ private:
     class TextViewPrivate* const d;
 };
 
-class KDEVPLATFORMSHELL_EXPORT TextEditorWidget : public QWidget, public KXMLGUIClient
+class KTLSHELL_EXPORT TextEditorWidget : public QWidget, public KXMLGUIClient
 {
     Q_OBJECT
 public:

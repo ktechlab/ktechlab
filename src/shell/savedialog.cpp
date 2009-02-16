@@ -30,12 +30,12 @@
 
 #include <interfaces/idocument.h>
 
-using namespace KDevelop;
+using namespace KTechLab;
 
 class DocumentItem : public QListWidgetItem
 {
 public:
-    DocumentItem( IDocument* doc, QListWidget* parent )
+    DocumentItem( KDevelop::IDocument* doc, QListWidget* parent )
         : QListWidgetItem(parent)
         , m_doc( doc )
     {
@@ -44,13 +44,13 @@ public:
         setText(m_doc->url().prettyUrl());
     }
 
-    IDocument* doc() const { return m_doc; }
+    KDevelop::IDocument* doc() const { return m_doc; }
 
 private:
-    IDocument* m_doc;
+    KDevelop::IDocument* m_doc;
 };
 
-KSaveSelectDialog::KSaveSelectDialog( const QList<IDocument*>& files, QWidget * parent )
+KSaveSelectDialog::KSaveSelectDialog( const QList<KDevelop::IDocument*>& files, QWidget * parent )
     : KDialog( parent )
 {
     setCaption( i18n("Save Modified Files?") );
@@ -76,7 +76,7 @@ KSaveSelectDialog::KSaveSelectDialog( const QList<IDocument*>& files, QWidget * 
     setButtonToolTip( User1, i18n("Discard all modifications") );
     setDefaultButton( Ok );
 
-    foreach (IDocument* doc, files)
+    foreach (KDevelop::IDocument* doc, files)
         new DocumentItem( doc, m_listWidget );
 
     connect( this, SIGNAL(okClicked()), this, SLOT(save()) );
@@ -92,7 +92,7 @@ void KSaveSelectDialog::save( )
     for (int i = 0; i < m_listWidget->count(); ++i) {
         DocumentItem* item = static_cast<DocumentItem*>(m_listWidget->item(i));
         if (item->data(Qt::CheckStateRole).toBool())
-            item->doc()->save(IDocument::Silent);
+            item->doc()->save(KDevelop::IDocument::Silent);
     }
 
     accept();

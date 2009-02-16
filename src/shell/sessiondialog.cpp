@@ -27,7 +27,7 @@ Boston, MA 02110-1301, USA.
 #include "sessioncontroller.h"
 #include "session.h"
 
-namespace KDevelop
+namespace KTechLab
 {
 
 const QString newSessionName = "New Session";

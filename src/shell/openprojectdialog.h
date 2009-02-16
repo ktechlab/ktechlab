@@ -20,7 +20,7 @@ namespace KIO
 class Job;
 }
 
-namespace KDevelop
+namespace KTechLab
 {
 
 class OpenProjectDialog : public KAssistantDialog

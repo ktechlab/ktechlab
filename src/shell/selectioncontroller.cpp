@@ -21,13 +21,13 @@ Boston, MA 02110-1301, USA.
 
 #include <interfaces/context.h>
 
-namespace KDevelop
+namespace KTechLab
 {
 
 class SelectionControllerPrivate
 {
 public:
-    Context* currentSelection;
+    KDevelop::Context* currentSelection;
 };
 
 SelectionController::SelectionController( QObject* o )
@@ -41,12 +41,12 @@ SelectionController::~SelectionController()
     delete d;
 }
 
-Context* SelectionController::currentSelection()
+KDevelop::Context* SelectionController::currentSelection()
 {
     return d->currentSelection;
 }
 
-void SelectionController::updateSelection( Context* ctx )
+void SelectionController::updateSelection( KDevelop::Context* ctx )
 {
     d->currentSelection = ctx;
     emit selectionChanged( d->currentSelection );

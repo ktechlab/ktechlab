@@ -19,8 +19,8 @@ along with this library; see the file COPYING.LIB.  If not, write to
 the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 Boston, MA 02110-1301, USA.
 */
-#ifndef KDEVMAINWINDOW_PRIVATE_H
-#define KDEVMAINWINDOW_PRIVATE_H
+#ifndef KTLMAINWINDOW_PRIVATE_H
+#define KTLMAINWINDOW_PRIVATE_H
 
 #include <QObject>
 #include <QPointer>
@@ -40,11 +40,15 @@ namespace KTextEditor {
 class View;
 }
 
-namespace KDevelop {
-
+namespace KDevelop
+{
 class IPlugin;
-class MainWindow;
+} // namespace KDevelop
+
+namespace KTechLab {
+
 class StatusBar;
+class MainWindow;
 
 class MainWindowPrivate: public QObject {
     Q_OBJECT
@@ -59,7 +63,7 @@ public:
 
 public Q_SLOTS:
     void addPlugin( KDevelop::IPlugin *plugin );
-    void removePlugin( IPlugin *plugin );
+    void removePlugin( KDevelop::IPlugin *plugin );
 
     void activePartChanged(KParts::Part *part);
     void changeActiveView(Sublime::View *view);

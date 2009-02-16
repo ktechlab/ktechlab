@@ -30,7 +30,7 @@
 #include "mainwindow.h"
 #include "shellextension.h"
 
-namespace KDevelop
+namespace KTechLab
 {
 
 OpenProjectDialog::OpenProjectDialog( QWidget* parent )
@@ -73,7 +73,7 @@ void OpenProjectDialog::validateOpenUrl( const KUrl& url )
             return;
         }
     }
-    if( isDir || extension != ShellExtension::getInstance()->projectFileExtension() ) 
+    if( isDir || extension != KDevelop::ShellExtension::getInstance()->projectFileExtension() ) 
     {
         setAppropriate( projectInfoPage, true );
         m_url = url;
@@ -115,7 +115,7 @@ void OpenProjectDialog::validateOpenUrl( const KUrl& url )
                 }
             }
         }
-        m_url.addPath( m_url.fileName()+'.'+ShellExtension::getInstance()->projectFileExtension() );
+        m_url.addPath( m_url.fileName()+'.'+KDevelop::ShellExtension::getInstance()->projectFileExtension() );
     } else
     {
         setAppropriate( projectInfoPage, false );
@@ -160,4 +160,3 @@ QString OpenProjectDialog::projectManager()
 }
 
 #include "openprojectdialog.moc"
-

@@ -46,10 +46,10 @@ class Document;
 class Editor;
 }
 
-namespace KDevelop
+namespace KTechLab
 {
 
-class KDEVPLATFORMSHELL_EXPORT PartController : public KParts::PartManager
+class KTLSHELL_EXPORT PartController : public KParts::PartManager
 {
     friend class CorePrivate;
     Q_OBJECT

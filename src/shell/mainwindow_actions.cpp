@@ -29,7 +29,7 @@ Boston, MA 02110-1301, USA.
 #include "documentcontroller.h"
 #include "sessiondialog.h"
 
-namespace KDevelop {
+namespace KTechLab {
 
 // merge the gotoNext and gotoPrev code, to prevent copy/paste errors
 static void gotoPrevNextWindow(bool next)

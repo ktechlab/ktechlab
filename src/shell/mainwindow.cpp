@@ -43,8 +43,7 @@ Boston, MA 02110-1301, USA.
 #include "uicontroller.h"
 #include "documentcontroller.h"
 
-namespace KDevelop
-{
+using namespace KTechLab;
 
 MainWindow::MainWindow( Sublime::Controller *parent, Qt::WFlags flags )
         : Sublime::MainWindow( parent, flags )
@@ -72,16 +71,16 @@ MainWindow::MainWindow( Sublime::Controller *parent, Qt::WFlags flags )
     setStandardToolBarMenuEnabled( true );
     d->setupActions();
 
-    if( !ShellExtension::getInstance()->xmlFile().isEmpty() )
+    if( !KDevelop::ShellExtension::getInstance()->xmlFile().isEmpty() )
     {
-        setXMLFile( ShellExtension::getInstance() ->xmlFile() );
+        setXMLFile( KDevelop::ShellExtension::getInstance() ->xmlFile() );
     }
 
     connect(this->guiFactory(), SIGNAL(clientAdded(KXMLGUIClient*)),
             d, SLOT(fixToolbar()));
 }
 
-MainWindow::~ MainWindow()
+MainWindow::~MainWindow()
 {
     if (memberList().count() == 1) {
         // We're closing down...
@@ -148,7 +147,7 @@ void MainWindow::cleanup()
 {
 }
 
-void MainWindow::fillContextMenu( KMenu *menu, const Context *context )
+void MainWindow::fillContextMenu( KMenu *menu, const KDevelop::Context *context )
 {
     //Perhaps we get rid of this framework and instead have every Context contains
     //a kactioncollection.  Plugins could add their actions directly to the context
@@ -168,23 +167,23 @@ void MainWindow::setVisible( bool visible )
 
 bool MainWindow::queryClose()
 {
-    if (!Core::self()->documentControllerInternal()->saveAllDocumentsForWindow(this, IDocument::Default))
+    if (!Core::self()->documentControllerInternal()->saveAllDocumentsForWindow(this, KDevelop::IDocument::Default))
         return false;
 
     return Sublime::MainWindow::queryClose();
 }
 
-void MainWindow::documentActivated( IDocument* document )
+void MainWindow::documentActivated( KDevelop::IDocument* document )
 {
-    setCaption(document->url().pathOrUrl(), document->state() == IDocument::Modified || document->state() == IDocument::DirtyAndModified);
+    setCaption(document->url().pathOrUrl(), document->state() == KDevelop::IDocument::Modified || document->state() == KDevelop::IDocument::DirtyAndModified);
 }
 
-void MainWindow::documentStateChanged( IDocument* document )
+void MainWindow::documentStateChanged( KDevelop::IDocument* document )
 {
-    setCaption(document->url().pathOrUrl(), document->state() == IDocument::Modified || document->state() == IDocument::DirtyAndModified);
+    setCaption(document->url().pathOrUrl(), document->state() == KDevelop::IDocument::Modified || document->state() == KDevelop::IDocument::DirtyAndModified);
 }
 
-void MainWindow::documentClosed( IDocument* document )
+void MainWindow::documentClosed( KDevelop::IDocument* document )
 {
     Q_UNUSED(document);
     if (Core::self()->documentController()->openDocuments().count() == 0) 
@@ -196,8 +195,6 @@ void MainWindow::documentClosed( IDocument* document )
 void MainWindow::registerStatus(QObject* status)
 {
     d->registerStatus(status);
-}
-
 }
 
 #include "mainwindow.moc"

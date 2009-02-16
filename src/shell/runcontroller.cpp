@@ -47,9 +47,9 @@ Boston, MA 02110-1301, USA.
 #include "projectcontroller.h"
 #include "mainwindow.h"
 
-using namespace KDevelop;
+using namespace KTechLab;
 
-typedef QPair<QString, IProject*> Target;
+typedef QPair<QString, KDevelop::IProject*> Target;
 Q_DECLARE_METATYPE(Target)
 
 class RunController::RunControllerPrivate
@@ -75,7 +75,9 @@ RunController::RunController(QObject *parent)
     d->state = Idle;
     d->delegate = new RunDelegate(this);
 
-    if(!(Core::self()->setupFlags() & Core::NoUi)) setupActions();
+    //we allways demand a Ui, so we allways setup actions
+    //if(!(Core::self()->setupFlags() & Core::NoUi))
+    setupActions();
 }
 
 void RunController::initialize()
@@ -141,7 +143,7 @@ class ExecuteCompositeJob : public KCompositeJob
         bool m_killing;
 };
 
-KJob* RunController::execute(const IRun & run)
+KJob* RunController::execute(const KDevelop::IRun & run)
 {
     if(!run.dependencies().isEmpty())
         ICore::self()->documentController()->saveAllDocuments(IDocument::Silent);
@@ -194,7 +196,7 @@ void RunController::setupActions()
     d->currentTargetAction->setWhatsThis(i18n("<b>Run Target</b><p>Select which target to run when run is invoked."));
     ac->addAction("run_default_target", d->currentTargetAction);
 
-    foreach (IProject* project, Core::self()->projectController()->projects()) {
+    foreach (KDevelop::IProject* project, Core::self()->projectController()->projects()) {
         slotProjectOpened(project);
     }
 
@@ -208,7 +210,7 @@ void RunController::setupActions()
              this, SLOT(slotRefreshProject(KDevelop::IProject*)));
 }
 
-QAction* KDevelop::RunController::addTarget(KDevelop::IProject * project, const QString& targetName)
+QAction* RunController::addTarget(KDevelop::IProject * project, const QString& targetName)
 {
     // First check weather we already have the action, if there's a large number
     // we might need to use a map/hash for storing the data instead of
@@ -231,7 +233,7 @@ QAction* KDevelop::RunController::addTarget(KDevelop::IProject * project, const 
     return action;
 }
 
-void KDevelop::RunController::slotProjectOpened(KDevelop::IProject * project)
+void RunController::slotProjectOpened(KDevelop::IProject * project)
 {
     KConfigGroup group(project->projectConfiguration(), "Run Options");
     QStringList runTargets = group.readEntry("Run Targets", QStringList());
@@ -245,7 +247,7 @@ void KDevelop::RunController::slotProjectOpened(KDevelop::IProject * project)
         a->setChecked(true);
 }
 
-void KDevelop::RunController::slotProjectClosing(KDevelop::IProject * project)
+void RunController::slotProjectClosing(KDevelop::IProject * project)
 {
     foreach (QAction* action, d->currentTargetAction->actions()) {
         if (project == qvariant_cast<Target>(action->data()).second) {
@@ -258,7 +260,7 @@ void KDevelop::RunController::slotProjectClosing(KDevelop::IProject * project)
     }
 }
 
-void KDevelop::RunController::slotRefreshProject(KDevelop::IProject* project)
+void RunController::slotRefreshProject(KDevelop::IProject* project)
 {
     slotProjectClosing(project);
     slotProjectOpened(project);
@@ -328,10 +330,10 @@ QModelIndex pathToIndex(const QAbstractItemModel* model, const QStringList& tofe
     return ret;
 }
 
-IRun KDevelop::RunController::defaultRun() const
+KDevelop::IRun RunController::defaultRun() const
 {
-    IProject* project = 0;
-    IRun run;
+    KDevelop::IProject* project = 0;
+    KDevelop::IRun run;
 
     QAction* projectAction = d->currentTargetAction->currentAction();
 
@@ -349,14 +351,14 @@ IRun KDevelop::RunController::defaultRun() const
     KConfigGroup group(project->projectConfiguration(), targetName+"-Run Options" );
 
     QString exec=group.readEntry("Executable", QString());
-    ProjectModel *model=ICore::self()->projectController()->projectModel();
+    KDevelop::ProjectModel *model=ICore::self()->projectController()->projectModel();
     if(exec.isEmpty())
     {
         QString target=group.readEntry("Run Item", QString());
         QModelIndex idx=pathToIndex(model, target.split('/'));
         if( idx.isValid() )
         {
-            ProjectBaseItem *it=model->item(idx);
+            KDevelop::ProjectBaseItem *it=model->item(idx);
             // This should never happen, pathToIndex asks
             // the model for indexes that match a target
             // so the indexes should always be convertable to an item
@@ -392,7 +394,7 @@ IRun KDevelop::RunController::defaultRun() const
         foreach(const QString& it, compileItems)
         {
             QModelIndex idx=pathToIndex(model, it.split('/'));
-            ProjectBaseItem *pit=model->item(idx);
+            KDevelop::ProjectBaseItem *pit=model->item(idx);
 
             if(!pit)
             {
@@ -400,13 +402,13 @@ IRun KDevelop::RunController::defaultRun() const
                 continue;
             }
 
-            IProject* project = pit->project();
+            KDevelop::IProject* project = pit->project();
             if (!project)
                 continue;
 
-            IPlugin* fmgr = project->managerPlugin();
-            IBuildSystemManager* mgr = fmgr->extension<IBuildSystemManager>();
-            IProjectBuilder* builder;
+            KDevelop::IPlugin* fmgr = project->managerPlugin();
+            KDevelop::IBuildSystemManager* mgr = fmgr->extension<IBuildSystemManager>();
+            KDevelop::IProjectBuilder* builder;
             if( mgr )
             {
                 builder=mgr->builder( project->projectItem() );
@@ -438,9 +440,9 @@ IRun KDevelop::RunController::defaultRun() const
     return run;
 }
 
-IRunProvider * KDevelop::RunController::findProvider(const QString & instrumentor)
+KDevelop::IRunProvider * RunController::findProvider(const QString & instrumentor)
 {
-    foreach (IPlugin* i, Core::self()->pluginController()->allPluginsForExtension("org.kdevelop.IRunProvider", QStringList())) {
+    foreach (KDevelop::IPlugin* i, Core::self()->pluginController()->allPluginsForExtension("org.kdevelop.IRunProvider", QStringList())) {
         KDevelop::IRunProvider* provider = i->extension<KDevelop::IRunProvider>();
         if (provider && provider->instrumentorsProvided().contains(instrumentor))
                 return provider;
@@ -449,7 +451,7 @@ IRunProvider * KDevelop::RunController::findProvider(const QString & instrumento
     return 0;
 }
 
-void KDevelop::RunController::registerJob(KJob * job)
+void RunController::registerJob(KJob * job)
 {
     if (!job)
         return;
@@ -474,9 +476,9 @@ void KDevelop::RunController::registerJob(KJob * job)
     checkState();
 }
 
-void KDevelop::RunController::unregisterJob(KJob * job)
+void RunController::unregisterJob(KJob * job)
 {
-    IRunController::unregisterJob(job);
+    KDevelop::IRunController::unregisterJob(job);
 
     Q_ASSERT(d->jobs.contains(job));
 
@@ -488,7 +490,7 @@ void KDevelop::RunController::unregisterJob(KJob * job)
     emit jobUnregistered(job);
 }
 
-void KDevelop::RunController::checkState()
+void RunController::checkState()
 {
     bool running = false;
 
@@ -507,7 +509,7 @@ void KDevelop::RunController::checkState()
     d->stopAction->setEnabled(running);
 }
 
-void KDevelop::RunController::stopAllProcesses()
+void RunController::stopAllProcesses()
 {
     foreach (KJob* job, d->jobs.keys()) {
         if (job->capabilities() & KJob::Killable)
@@ -515,7 +517,7 @@ void KDevelop::RunController::stopAllProcesses()
     }
 }
 
-void KDevelop::RunController::slotKillJob()
+void RunController::slotKillJob()
 {
     KAction* action = dynamic_cast<KAction*>(sender());
     Q_ASSERT(action);
@@ -525,7 +527,7 @@ void KDevelop::RunController::slotKillJob()
         job->kill();
 }
 
-void KDevelop::RunController::finished(KJob * job)
+void RunController::finished(KJob * job)
 {
     unregisterJob(job);
 
@@ -539,21 +541,21 @@ void KDevelop::RunController::finished(KJob * job)
     }
 }
 
-void KDevelop::RunController::suspended(KJob * job)
+void RunController::suspended(KJob * job)
 {
     Q_UNUSED(job);
 
     checkState();
 }
 
-void KDevelop::RunController::resumed(KJob * job)
+void RunController::resumed(KJob * job)
 {
     Q_UNUSED(job);
 
     checkState();
 }
 
-KDevelop::RunJob::RunJob(RunController* controller, const IRun & run)
+RunJob::RunJob(RunController* controller, const KDevelop::IRun & run)
     : m_controller(controller)
     , m_provider(0)
     , m_run(run)
@@ -570,7 +572,7 @@ KDevelop::RunJob::RunJob(RunController* controller, const IRun & run)
     setObjectName(i18n("%1: %2", instrumentorName, run.executable().path()));
 }
 
-void KDevelop::RunJob::start()
+void RunJob::start()
 {
     if (m_run.instrumentor().isEmpty()) {
         setErrorText(i18n("No run target was selected. Please select a run target in the Run menu."));
@@ -597,7 +599,7 @@ void KDevelop::RunJob::start()
     // TODO should this really be hard-coded? or should the provider get a say...
     // Don't show the run output if the process is being run in konsole
     if (m_run.instrumentor() != "konsole") {
-        setStandardToolView(IOutputView::RunView);
+        setStandardToolView(KDevelop::IOutputView::RunView);
         setDelegate(m_controller->delegate());
         setTitle(m_run.executable().path());
         setBehaviours( KDevelop::IOutputView::AllowUserClose | KDevelop::IOutputView::AutoScroll );
@@ -605,7 +607,7 @@ void KDevelop::RunJob::start()
     }
 }
 
-QList< KJob * > KDevelop::RunController::currentJobs() const
+QList< KJob * > RunController::currentJobs() const
 {
     return d->jobs.keys();
 }
@@ -630,13 +632,13 @@ void RunJob::slotOutput(KJob * job, const QString & line, KDevelop::IRunProvider
     model()->setData( row_idx, QVariant::fromValue(type), Qt::UserRole+1 );
 }
 
-void KDevelop::RunJob::slotFinished(KJob * job)
+void RunJob::slotFinished(KJob * job)
 {
     if (job == this)
         emitResult();
 }
 
-bool KDevelop::RunJob::doKill()
+bool RunJob::doKill()
 {
     setError(KJob::KilledJobError);
     m_provider->abort(this);
@@ -644,7 +646,7 @@ bool KDevelop::RunJob::doKill()
     return true;
 }
 
-QItemDelegate * KDevelop::RunController::delegate() const
+QItemDelegate * RunController::delegate() const
 {
     return d->delegate;
 }
@@ -661,17 +663,16 @@ void RunDelegate::paint( QPainter* painter, const QStyleOptionViewItem& option, 
     QVariant status = index.data(Qt::UserRole+1);
     if( status.isValid() && status.canConvert<KDevelop::IRunProvider::OutputTypes>() )
     {
-        IRunProvider::OutputTypes type = status.value<KDevelop::IRunProvider::OutputTypes>();
-        if( type == IRunProvider::RunProvider )
+        KDevelop::IRunProvider::OutputTypes type = status.value<KDevelop::IRunProvider::OutputTypes>();
+        if( type == KDevelop::IRunProvider::RunProvider )
         {
             opt.palette.setBrush( QPalette::Text, runProviderBrush.brush( option.palette ) );
-        } else if( type == IRunProvider::StandardError )
+        } else if( type == KDevelop::IRunProvider::StandardError )
         {
             opt.palette.setBrush( QPalette::Text, errorBrush.brush( option.palette ) );
         }
     }
     QItemDelegate::paint(painter, opt, index);
 }
-
 
 #include "runcontroller.moc"

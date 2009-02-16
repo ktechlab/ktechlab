@@ -27,15 +27,15 @@
 
 #include <language/interfaces/ilanguagesupport.h>
 
-namespace KDevelop {
+namespace KTechLab {
 
 struct LanguagePrivate {
-    ILanguageSupport *support;
+    KDevelop::ILanguageSupport *support;
 
     mutable QReadWriteLock lock;
 };
 
-Language::Language(ILanguageSupport *support, QObject *parent)
+Language::Language(KDevelop::ILanguageSupport *support, QObject *parent)
     : ILanguage(support->name(), parent)
 {
     kDebug() << "creating language" << support->name();
@@ -59,7 +59,7 @@ void Language::activate()
     kDebug() << "activating language" << name();
 }
 
-ILanguageSupport *Language::languageSupport()
+KDevelop::ILanguageSupport *Language::languageSupport()
 {
     return d->support;
 }

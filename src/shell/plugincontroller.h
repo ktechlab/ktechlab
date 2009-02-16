@@ -21,8 +21,8 @@ along with this library; see the file COPYING.LIB.  If not, write to
 the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 Boston, MA 02110-1301, USA.
 */
-#ifndef KDEVPLUGINCONTROLLER_H
-#define KDEVPLUGINCONTROLLER_H
+#ifndef KTLPLUGINCONTROLLER_H
+#define KTLPLUGINCONTROLLER_H
 
 
 #include <QtCore/QHash>
@@ -34,21 +34,24 @@ Boston, MA 02110-1301, USA.
 
 #include <interfaces/iplugincontroller.h>
 
-#include "shellexport.h"
-
+#include "ktlshellexport.h"
 
 namespace KDevelop
 {
+class IPlugin;
+}
+
+namespace KTechLab
+{
 class Core;
 class CorePrivate;
-class IPlugin;
 class PluginControllerPrivate;
 /**
- * The KDevelop plugin controller.
+ * The KTechLab plugin controller.
  * The Plugin controller is responsible for querying, loading and unloading
  * available plugins.
  */
-class KDEVPLATFORMSHELL_EXPORT PluginController: public IPluginController
+class KTLSHELL_EXPORT PluginController: public KDevelop::IPluginController
 {
 
     Q_OBJECT
@@ -65,24 +68,24 @@ public:
      * Get the plugin instance based on the ID. The ID should be whatever is
      * in X-KDE-PluginInfo-Name
      */
-    IPlugin* plugin( const QString& );
+    KDevelop::IPlugin* plugin( const QString& );
 
     /**
      * Get the plugin info for a loaded plugin
      */
-    KPluginInfo pluginInfo( const IPlugin* ) const;
+    KPluginInfo pluginInfo( const KDevelop::IPlugin* ) const;
 
     /**
      * Get a list of currently loaded plugins
      */
-    QList<IPlugin*> loadedPlugins() const;
+    QList<KDevelop::IPlugin*> loadedPlugins() const;
 
     /**
      * Returns a uniquely specified plugin. If it isn't already loaded, it will be.
      * @param pluginName the name of the plugin, as given in the X-KDE-PluginInfo-Name property
      * @returns a pointer to the plugin instance or 0
      */
-    IPlugin * loadPlugin( const QString & pluginName );
+    KDevelop::IPlugin * loadPlugin( const QString & pluginName );
 
     /**
      * @brief Unloads the plugin specified by @p plugin
@@ -115,7 +118,7 @@ public:
      * \param plugin plugin to unload
      * \param deletion if true, delete the plugin later, if false, delete it now.
      */
-    void unloadPlugin(IPlugin* plugin, PluginDeletion deletion);
+    void unloadPlugin(KDevelop::IPlugin* plugin, PluginDeletion deletion);
 
     /**
      * Queries for the plugin which supports given extension interface.
@@ -126,16 +129,16 @@ public:
      * @param pluginname The name of the plugin to load if multiple plugins for the extension exist, corresponds to the X-KDE-PluginInfo-Name
      * @return A KDevelop extension plugin for given service type or 0 if no plugin supports it
      */
-    IPlugin *pluginForExtension(const QString &extension, const QString &pluginname = "");
-    IPlugin *pluginForExtension(const QString &extension, const QStringList &constraints);
+    KDevelop::IPlugin *pluginForExtension(const QString &extension, const QString &pluginname = "");
+    KDevelop::IPlugin *pluginForExtension(const QString &extension, const QStringList &constraints);
 
-    QList<IPlugin*> allPluginsForExtension(const QString &extension, const QStringList &constraints = QStringList());
+    QList<KDevelop::IPlugin*> allPluginsForExtension(const QString &extension, const QStringList &constraints = QStringList());
 
     QExtensionManager* extensionManager();
 
     QStringList allPluginNames();
 
-    QList<ContextMenuExtension> queryPluginsForContextMenuExtensions( KDevelop::Context* context ) const;
+    QList<KDevelop::ContextMenuExtension> queryPluginsForContextMenuExtensions( KDevelop::Context* context ) const;
 
     QStringList projectPlugins();
 
@@ -154,7 +157,7 @@ private:
      * Called by @ref loadPlugin directly or through the queue for async plugin
      * loading.
      */
-    IPlugin* loadPluginInternal( const QString &pluginId );
+    KDevelop::IPlugin* loadPluginInternal( const QString &pluginId );
 
     /**
      * @internal
@@ -177,7 +180,8 @@ private:
     class PluginControllerPrivate* const d;
 };
 
-}
+} // namespace KTechLab
+
 #endif
 
 

@@ -25,16 +25,16 @@
 
 class QListWidget;
 
-namespace KDevelop {
+namespace KDevelop { class IDocument; }
 
-class IDocument;
+namespace KTechLab {
 
 class KSaveSelectDialog : public KDialog
 {
     Q_OBJECT
 
 public:
-    KSaveSelectDialog( const QList<IDocument*>& files, QWidget * parent );
+    KSaveSelectDialog( const QList<KDevelop::IDocument*>& files, QWidget * parent );
     virtual ~KSaveSelectDialog();
 
 private Q_SLOTS:
