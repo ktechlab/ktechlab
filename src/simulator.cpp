@@ -270,10 +270,10 @@ void Simulator::attachCircuit(Circuit *circuit) {
 
 	m_ordinaryCircuits->push_back(circuit);
 
-//	if ( circuit->canAddChanged() ) {
-	addChangedCircuit(circuit);
-	circuit->setCanAddChanged(false);
-//	}
+	if ( circuit->canAddChanged() ) {
+		addChangedCircuit(circuit);
+		circuit->setCanAddChanged(false);
+	}
 }
 
 void Simulator::removeLogicInReferences(LogicIn *logicIn) {
