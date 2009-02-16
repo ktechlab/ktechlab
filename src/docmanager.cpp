@@ -42,13 +42,8 @@ DocManager * DocManager::self()
 DocManager::DocManager()
     : QObject( /*KTechlab::self()*/ )
 {
-    m_countCircuit = 0;
-    m_countFlowCode = 0;
-    m_countMechanics = 0;
-    m_countOther = 0;
     p_connectedDocument = 0l;
     m_nextDocumentID = 1;
-    m_docEngine = Plasma::DataEngineManager::self()->loadEngine( "DocumentEngine" );
 //  m_pIface = new DocManagerIface(this);
 }
 
@@ -79,15 +74,6 @@ bool DocManager::openUrl( const KUrl &url )
         file.close();
     }
 
-    KTechlab *w = dynamic_cast<KTechlab *>( KApplication::activeWindow() );
-    //ViewContainer * currentVC = w ? static_cast<ViewContainer*>( w->tabWidget()->currentWidget() ) : 0;
-    //if ( currentVC )
-    {
-        //ViewArea * va = currentVC->viewArea( currentVC->activeViewArea() );
-        //if ( !va->view() )
-        //    viewArea = va;
-    }
-
     // If the document is already open then just return that document
     // otherwise, create a new view in the viewarea
     Document *document = findDocument(url);
@@ -98,65 +84,37 @@ bool DocManager::openUrl( const KUrl &url )
 
     QString fileName = url.fileName();
     QString extension = fileName.right( fileName.length() - fileName.lastIndexOf('.') );
-    kDebug() << "open: " << url;
+    kDebug() << "open: " << url << endl;
 
     //FIXME: register document within DocumentEngine
 
     return true;
 }
 
-QString DocManager::untitledName( int type )
+QString DocManager::untitledName( const QString &type )
 {
-    QString name;
-    switch(type)
-    {
-        case Document::dt_circuit:
-        {
-            if ( m_countCircuit>1 )
-                name = i18n("Untitled (Circuit %1)").arg(QString::number(m_countCircuit));
-            else
-                name = i18n("Untitled (Circuit)");
-            m_countCircuit++;
-            break;
-        }
-        case Document::dt_flowcode:
-        {
-            if ( m_countFlowCode>1 )
-                name = i18n("Untitled (FlowCode %1)").arg(QString::number(m_countFlowCode));
-            else
-                name = i18n("Untitled (FlowCode)");
-            m_countFlowCode++;
-            break;
-        }
-        case Document::dt_mechanics:
-        {
-            if ( m_countMechanics>1 )
-                name = i18n("Untitled (Mechanics %1)").arg(QString::number(m_countMechanics));
-            else
-                name = i18n("Untitled (Mechanics)");
-            m_countMechanics++;
-            break;
-        }
-        default:
-        {
-            if ( m_countOther>1 )
-                name = i18n("Untitled (%1)").arg(QString::number(m_countOther));
-            else
-                name = i18n("Untitled");
-            m_countOther++;
-            break;
-        }
+    QString name = i18n("Untitled");
+
+    int count;
+    //handle empty types..
+    if ( type.isEmpty() ) {
+        count = m_count["Other"];
+        m_count["Other"]++;
+    } else {
+        count = m_count[type];
+        m_count[type]++;
     }
+
+    if ( count > 1 ) {
+        name += QString("(%1 %2)").arg( type )
+                                .arg( QString::number( count ) );
+    } else {
+        name += type.isEmpty() ? QString() : QString("(%1)").arg( type );
+    }
+
     return name;
 }
 
-
-Document *DocManager::findDocument( const KUrl &url ) const
-{
-    Plasma::DataEngine::Data result = m_docEngine->query( url.url() );
-
-    return 0;
-}
 
 Document* DocManager::getFocusedDocument() const
 {
