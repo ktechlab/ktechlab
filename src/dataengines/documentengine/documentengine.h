@@ -17,10 +17,48 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.      *
  ******************************************************************************/
 
+#ifndef DOCUMENTENGINE_H
+#define DOCUMENTENGINE_H
+
 #include <Plasma/DataEngine>
 
+
 /**
-*/
+ * Handle all opened documents in KTechLab via this Engine.
+ */
 class DocumentEngine : public Plasma::DataEngine
 {
+    Q_OBJECT
+
+    public:
+        DocumentEngine( QObject* parent, const QVariantList& args );
+        ~DocumentEngine();
+
+        /**
+         * Implementation of virtual Plasma::DataEngine::sources() method.
+         * This provides a list of all documents sorted within projects.
+         */
+        QStringList sources() const;
+
+    protected:
+        /**
+         * Do some initialization for the DocumentEngine
+         */
+        void init();
+
+        /**
+         * Handle a request to a source named \param{name}
+         */
+        bool sourceRequestEvent( const QString &name );
+
+        /**
+         * Update the internal data of a source named \param{name}
+         */
+        bool updateSourceEvent( const QString &source );
+
+    private:
+        //keep track of opened documents which in fact are our sources
+        QStringList m_sources;
 };
+
+#endif
