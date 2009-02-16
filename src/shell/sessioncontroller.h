@@ -20,17 +20,17 @@ Boston, MA 02110-1301, USA.
 #ifndef SESSIONCONTROLLER_H
 #define SESSIONCONTROLLER_H
 
-#include "shellexport.h"
+#include "ktlshellexport.h"
 #include <QtCore/QObject>
 
-namespace KDevelop
+namespace KDevelop { class ISession; }
+
+namespace KTechLab
 {
 
-
 class Session;
-class ISession;
 
-class KDEVPLATFORMSHELL_EXPORT SessionController : public QObject
+class KTLSHELL_EXPORT SessionController : public QObject
 {
     Q_OBJECT
 public:
@@ -40,7 +40,7 @@ public:
     void cleanup();
 
     Session* session( const QString& name ) const;
-    virtual ISession* activeSession() const;
+    virtual KDevelop::ISession* activeSession() const;
     QList<QString> sessions() const;
     Session* createSession( const QString& name );
     void loadDefaultSession();
@@ -52,12 +52,12 @@ public:
     static const QString cfgSessionGroup;
     static const QString cfgActiveSessionEntry;
 Q_SIGNALS:
-    void sessionLoaded( ISession* );
+    void sessionLoaded( KDevelop::ISession* );
     void sessionDeleted( const QString& );
 private:
     class SessionControllerPrivate* const d;
 };
 
 }
-#endif
 
+#endif

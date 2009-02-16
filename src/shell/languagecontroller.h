@@ -22,15 +22,15 @@
 
 #include <interfaces/ilanguagecontroller.h>
 
-#include "shellexport.h"
+#include "ktlshellexport.h"
 
 namespace KParts {
 class Part;
 }
 
-namespace KDevelop {
+namespace KTechLab {
 
-class KDEVPLATFORMSHELL_EXPORT LanguageController : public ILanguageController {
+    class KTLSHELL_EXPORT LanguageController : public KDevelop::ILanguageController {
     Q_OBJECT
 public:
     LanguageController(QObject *parent);
@@ -39,17 +39,17 @@ public:
     void initialize();
 
     /** @copydoc ILanguageController::activeLanguages() */
-    virtual QList<ILanguage*> activeLanguages();
+    virtual QList<KDevelop::ILanguage*> activeLanguages();
     /** @copydoc ILanguageController::language() */
-    virtual ILanguage *language(const QString &name) const;
+    virtual KDevelop::ILanguage *language(const QString &name) const;
     /** @copydoc ILanguageController::languageForUrl() */
-    virtual QList<ILanguage*> languagesForUrl(const KUrl &url);
+    virtual QList<KDevelop::ILanguage*> languagesForUrl(const KUrl &url);
     /** @copydoc ILanguageController::backgroundParser() */
-    Q_SCRIPTABLE virtual BackgroundParser *backgroundParser() const;
+    Q_SCRIPTABLE virtual KDevelop::BackgroundParser *backgroundParser() const;
 
-    virtual QList<ILanguage*> loadedLanguages() const;
+    virtual QList<KDevelop::ILanguage*> loadedLanguages() const;
     
-    virtual ICompletionSettings *completionSettings() const;
+    virtual KDevelop::ICompletionSettings *completionSettings() const;
     
     
 private:
@@ -61,4 +61,3 @@ private:
 }
 
 #endif
-

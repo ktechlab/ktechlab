@@ -20,15 +20,15 @@ Boston, MA 02110-1301, USA.
 #ifndef SESSION_H
 #define SESSION_H
 
-#include "shellexport.h"
+#include "ktlshellexport.h"
 #include <QtCore/QObject>
 #include <QtCore/QUuid>
 #include <interfaces/isession.h>
 
-namespace KDevelop
+namespace KTechLab
 {
 
-class KDEVPLATFORMSHELL_EXPORT Session : public ISession
+class KTLSHELL_EXPORT Session : public KDevelop::ISession
 {
     Q_OBJECT
 public:
@@ -36,7 +36,7 @@ public:
     Session( const QUuid& );
     virtual ~Session();
 
-    virtual KUrl pluginDataArea( const IPlugin* );
+    virtual KUrl pluginDataArea( const KDevelop::IPlugin* );
     virtual KSharedConfig::Ptr config();
 
     void deleteFromDisk();

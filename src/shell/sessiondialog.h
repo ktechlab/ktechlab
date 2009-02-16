@@ -32,7 +32,7 @@ class QModelIndex;
 class QItemSelection;
 class QVariant;
 
-namespace KDevelop
+namespace KTechLab
 {
 class Session;
 

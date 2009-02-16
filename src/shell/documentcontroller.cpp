@@ -53,7 +53,7 @@ Boston, MA 02110-1301, USA.
 #include "savedialog.h"
 
 
-namespace KDevelop
+namespace KTechLab
 {
 
 struct DocumentControllerPrivate {
@@ -72,9 +72,9 @@ struct DocumentControllerPrivate {
     QString presetEncoding;
 
     // used to map urls to open docs
-    QHash< KUrl, IDocument* > documents;
+    QHash< KUrl, KDevelop::IDocument* > documents;
 
-    QHash< QString, IDocumentFactory* > factories;
+    QHash< QString, KDevelop::IDocumentFactory* > factories;
     QList<KTemporaryFile*> tempFiles;
 
     struct HistoryEntry
@@ -103,13 +103,13 @@ struct DocumentControllerPrivate {
 
     void changeDocumentUrl(KDevelop::IDocument* document)
     {
-        QMutableHashIterator<KUrl, IDocument*> it = documents;
+        QMutableHashIterator<KUrl, KDevelop::IDocument*> it = documents;
         while (it.hasNext()) {
             if (it.next().value() == document) {
                 if (documents.contains(document->url())) {
                     // Weird situation (saving as a file that is aready open)
-                    IDocument* origDoc = documents[document->url()];
-                    if (origDoc->state() & IDocument::Modified) {
+                    KDevelop::IDocument* origDoc = documents[document->url()];
+                    if (origDoc->state() & KDevelop::IDocument::Modified) {
                         // given that the file has been saved, close the saved file as the other instance will become conflicted on disk
                         document->close();
                         controller->activateDocument( origDoc );
@@ -152,15 +152,17 @@ DocumentController::DocumentController( QObject *parent )
 {
     setObjectName("DocumentController");
     d = new DocumentControllerPrivate(this);
-    QDBusConnection::sessionBus().registerObject( "/org/kdevelop/DocumentController",
+    QDBusConnection::sessionBus().registerObject( "/org/ktechlab/DocumentController",
         this, QDBusConnection::ExportScriptableSlots );
 
     connect(this, SIGNAL(documentUrlChanged(KDevelop::IDocument*)), this, SLOT(changeDocumentUrl(KDevelop::IDocument*)));
 
-    if(!(Core::self()->setupFlags() & Core::NoUi)) setupActions();
+    //we don't want to run in NoUi mode, as it was possible for KDevelop
+    //if(!(Core::self()->setupFlags() & Core::NoUi))
+    setupActions();
 }
 
-void KDevelop::DocumentController::initialize()
+void DocumentController::initialize()
 {
 }
 
@@ -171,8 +173,8 @@ void DocumentController::cleanup()
     // Close all documents without checking if they should be saved.
     // This is because the user gets a chance to save them during MainWindow::queryClose.
     foreach (Sublime::MainWindow* mw, Core::self()->uiControllerInternal()->mainWindows())
-        foreach (IDocument* doc, documentsInWindow(dynamic_cast<KDevelop::MainWindow*>(mw)))
-            doc->close(IDocument::Discard);
+    foreach (KDevelop::IDocument* doc, documentsInWindow(dynamic_cast<MainWindow*>(mw)))
+            doc->close(KDevelop::IDocument::Discard);
 }
 
 DocumentController::~DocumentController()
@@ -247,7 +249,7 @@ void DocumentController::setEncoding( const QString &encoding )
     d->presetEncoding = encoding;
 }
 
-QString KDevelop::DocumentController::encoding() const
+QString DocumentController::encoding() const
 {
     return d->presetEncoding;
 }
@@ -257,7 +259,7 @@ void DocumentController::slotOpenDocument(const KUrl &url)
     openDocument(url);
 }
 
-IDocument* DocumentController::openDocumentFromText( const QString& data )
+KDevelop::IDocument* DocumentController::openDocumentFromText( const QString& data )
 {
     KTemporaryFile *temp = new KTemporaryFile();
     temp->setSuffix("kdevtmp");
@@ -268,11 +270,11 @@ IDocument* DocumentController::openDocumentFromText( const QString& data )
     return openDocument(temp->fileName());
 }
 
-IDocument* DocumentController::openDocument( const KUrl & inputUrl,
+KDevelop::IDocument* DocumentController::openDocument( const KUrl & inputUrl,
         const KTextEditor::Range& range,
         DocumentActivationParams activationParams)
 {
-    IDocument* previousActiveDocument = activeDocument();
+    KDevelop::IDocument* previousActiveDocument = activeDocument();
     KTextEditor::Cursor previousActivePosition;
     if(previousActiveDocument && previousActiveDocument->textDocument() && previousActiveDocument->textDocument()->activeView())
         previousActivePosition = previousActiveDocument->textDocument()->activeView()->cursorPosition();
@@ -283,7 +285,7 @@ IDocument* DocumentController::openDocument( const KUrl & inputUrl,
 
     KUrl url = inputUrl;
 
-    if ( url.isEmpty() && (!activationParams.testFlag(IDocumentController::DoNotCreateView)) )
+    if ( url.isEmpty() && (!activationParams.testFlag(KDevelop::IDocumentController::DoNotCreateView)) )
     {
         KUrl dir;
         if( activeDocument() )
@@ -334,7 +336,7 @@ IDocument* DocumentController::openDocument( const KUrl & inputUrl,
 
         // Try to find a plugin that handles this mimetype
         QString constraint = QString("'%1' in [X-KDevelop-SupportedMimeTypes]").arg(mimeType->name());
-        KPluginInfo::List plugins = IPluginController::queryPlugins( constraint );
+        KPluginInfo::List plugins = KDevelop::IPluginController::queryPlugins( constraint );
 
         if( !plugins.isEmpty() )
         {
@@ -343,7 +345,7 @@ IDocument* DocumentController::openDocument( const KUrl & inputUrl,
             Core::self()->pluginController()->loadPlugin( info.pluginName() );
             if( d->factories.contains( mimeType->name() ) )
             {
-                IDocument* idoc = d->factories[mimeType->name()]->create(url, Core::self());
+                KDevelop::IDocument* idoc = d->factories[mimeType->name()]->create(url, Core::self());
                 if( idoc )
                 {
                      d->documents[url] = idoc;
@@ -356,7 +358,7 @@ IDocument* DocumentController::openDocument( const KUrl & inputUrl,
             d->documents[url] = new PartDocument(url, Core::self());
         emitOpened = d->documents.contains(url);
     }
-    IDocument *doc = d->documents[url];
+    KDevelop::IDocument *doc = d->documents[url];
 
     Sublime::Document *sdoc = dynamic_cast<Sublime::Document*>(doc);
     if( !sdoc )
@@ -368,7 +370,7 @@ IDocument* DocumentController::openDocument( const KUrl & inputUrl,
     //react on document deletion - we need to cleanup controller structures
     connect(sdoc, SIGNAL(aboutToDelete(Sublime::Document*)), this, SLOT(removeDocument(Sublime::Document*)));
 
-    if (!activationParams.testFlag(IDocumentController::DoNotCreateView))
+    if (!activationParams.testFlag(KDevelop::IDocumentController::DoNotCreateView))
     {
         //find a view if there's one already opened in this area
         Sublime::View *partView = 0;
@@ -388,7 +390,7 @@ IDocument* DocumentController::openDocument( const KUrl & inputUrl,
             addView = true;
         }
         
-        KDevelop::TextView* textView = dynamic_cast<KDevelop::TextView*>(partView);
+        TextView* textView = dynamic_cast<TextView*>(partView);
         if(textView && textView->textView()) {
             applyRange = false;
             if (range.isEmpty())
@@ -446,7 +448,7 @@ IDocument* DocumentController::openDocument( const KUrl & inputUrl,
 
 void DocumentController::fileClose()
 {
-    IDocument *activeDoc = activeDocument();
+    KDevelop::IDocument *activeDoc = activeDocument();
     if (activeDoc)
     {
         UiController *uiController = Core::self()->uiControllerInternal();
@@ -476,7 +478,7 @@ void DocumentController::closeDocument( const KUrl &url )
     d->documents[url]->close();
 }
 
-void DocumentController::notifyDocumentClosed(IDocument* doc)
+void DocumentController::notifyDocumentClosed(KDevelop::IDocument* doc)
 {
     d->documents.remove(doc->url());
 
@@ -496,7 +498,7 @@ void DocumentController::notifyDocumentClosed(IDocument* doc)
     emit documentClosed(doc);
 }
 
-IDocument * DocumentController::documentForUrl( const KUrl & url ) const
+KDevelop::IDocument * DocumentController::documentForUrl( const KUrl & url ) const
 {
     if ( d->documents.contains( url ) )
         return d->documents.value( url );
@@ -504,10 +506,10 @@ IDocument * DocumentController::documentForUrl( const KUrl & url ) const
     return 0;
 }
 
-QList<IDocument*> DocumentController::openDocuments() const
+QList<KDevelop::IDocument*> DocumentController::openDocuments() const
 {
-    QList<IDocument*> opened;
-    foreach (IDocument *doc, d->documents)
+    QList<KDevelop::IDocument*> opened;
+    foreach (KDevelop::IDocument *doc, d->documents)
     {
         Sublime::Document *sdoc = dynamic_cast<Sublime::Document*>(doc);
         if( !sdoc )
@@ -520,7 +522,7 @@ QList<IDocument*> DocumentController::openDocuments() const
     return opened;
 }
 
-void DocumentController::activateDocument( IDocument * document, const KTextEditor::Range& range )
+void DocumentController::activateDocument( KDevelop::IDocument * document, const KTextEditor::Range& range )
 {
     // TODO avoid some code in openDocument?
     openDocument(document->url(), range);
@@ -528,18 +530,18 @@ void DocumentController::activateDocument( IDocument * document, const KTextEdit
 
 void DocumentController::slotSaveAllDocuments()
 {
-    saveAllDocuments(IDocument::Silent);
+    saveAllDocuments(KDevelop::IDocument::Silent);
 }
 
-bool DocumentController::saveAllDocuments(IDocument::DocumentSaveMode mode)
+bool DocumentController::saveAllDocuments(KDevelop::IDocument::DocumentSaveMode mode)
 {
     return saveSomeDocuments(openDocuments(), mode);
 }
 
-bool KDevelop::DocumentController::saveSomeDocuments(const QList< IDocument * > & list, IDocument::DocumentSaveMode mode)
+bool DocumentController::saveSomeDocuments(const QList< KDevelop::IDocument * > & list, KDevelop::IDocument::DocumentSaveMode mode)
 {
-    if (mode & IDocument::Silent) {
-        foreach (IDocument* doc, modifiedDocuments(list)) {
+    if (mode & KDevelop::IDocument::Silent) {
+        foreach (KDevelop::IDocument* doc, modifiedDocuments(list)) {
             bool ret = doc->save(mode);
             Q_ASSERT(ret);
             // TODO if (!ret) showErrorDialog() ?
@@ -547,7 +549,7 @@ bool KDevelop::DocumentController::saveSomeDocuments(const QList< IDocument * > 
 
     } else {
         // Ask the user which documents to save
-        QList<IDocument*> checkSave = modifiedDocuments(list);
+        QList<KDevelop::IDocument*> checkSave = modifiedDocuments(list);
 
         if (!checkSave.isEmpty()) {
             KSaveSelectDialog dialog(checkSave, qApp->activeWindow());
@@ -559,11 +561,11 @@ bool KDevelop::DocumentController::saveSomeDocuments(const QList< IDocument * > 
     return true;
 }
 
-QList< IDocument * > KDevelop::DocumentController::documentsInWindow(MainWindow * mw) const
+QList< KDevelop::IDocument * > DocumentController::documentsInWindow(MainWindow * mw) const
 {
     // Gather a list of all documents which do have a view in the given main window
-    QList<IDocument*> list;
-    foreach (IDocument* doc, openDocuments()) {
+    QList<KDevelop::IDocument*> list;
+    foreach (KDevelop::IDocument* doc, openDocuments()) {
         if (Sublime::Document* sdoc = dynamic_cast<Sublime::Document*>(doc)) {
             foreach (Sublime::View* view, sdoc->views()) {
                 if (view->hasWidget() && view->widget()->window() == mw) {
@@ -576,11 +578,11 @@ QList< IDocument * > KDevelop::DocumentController::documentsInWindow(MainWindow 
     return list;
 }
 
-QList< IDocument * > KDevelop::DocumentController::documentsExclusivelyInWindow(MainWindow * mw) const
+QList< KDevelop::IDocument * > DocumentController::documentsExclusivelyInWindow(MainWindow * mw) const
 {
     // Gather a list of all documents which have views only in the given main window
-    QList<IDocument*> checkSave;
-    foreach (IDocument* doc, openDocuments()) {
+    QList<KDevelop::IDocument*> checkSave;
+    foreach (KDevelop::IDocument* doc, openDocuments()) {
         if (Sublime::Document* sdoc = dynamic_cast<Sublime::Document*>(doc)) {
             bool inOtherWindow = false;
 
@@ -598,18 +600,18 @@ QList< IDocument * > KDevelop::DocumentController::documentsExclusivelyInWindow(
     return checkSave;
 }
 
-QList< IDocument * > KDevelop::DocumentController::modifiedDocuments(const QList< IDocument * > & list) const
+QList< KDevelop::IDocument * > DocumentController::modifiedDocuments(const QList< KDevelop::IDocument * > & list) const
 {
-    QList< IDocument * > ret;
-    foreach (IDocument* doc, list)
-        if (doc->state() == IDocument::Modified || doc->state() == IDocument::DirtyAndModified)
+    QList< KDevelop::IDocument * > ret;
+    foreach (KDevelop::IDocument* doc, list)
+        if (doc->state() == KDevelop::IDocument::Modified || doc->state() == KDevelop::IDocument::DirtyAndModified)
             ret.append(doc);
     return ret;
 }
 
-bool DocumentController::saveAllDocumentsForWindow(MainWindow* mw, IDocument::DocumentSaveMode mode)
+bool DocumentController::saveAllDocumentsForWindow(MainWindow* mw, KDevelop::IDocument::DocumentSaveMode mode)
 {
-    QList<IDocument*> checkSave = documentsExclusivelyInWindow(mw);
+    QList<KDevelop::IDocument*> checkSave = documentsExclusivelyInWindow(mw);
 
     return saveSomeDocuments(checkSave, mode);
 }
@@ -617,13 +619,13 @@ bool DocumentController::saveAllDocumentsForWindow(MainWindow* mw, IDocument::Do
 void DocumentController::reloadAllDocuments()
 {
     if (Sublime::MainWindow* mw = Core::self()->uiControllerInternal()->activeSublimeWindow()) {
-        QList<IDocument*> views = documentsInWindow(dynamic_cast<KDevelop::MainWindow*>(mw));
+        QList<KDevelop::IDocument*> views = documentsInWindow(dynamic_cast<MainWindow*>(mw));
 
-        if (!saveSomeDocuments(views, IDocument::Default))
+        if (!saveSomeDocuments(views, KDevelop::IDocument::Default))
             // User cancelled or other error
             return;
 
-        foreach (IDocument* doc, views)
+        foreach (KDevelop::IDocument* doc, views)
             doc->reload();
     }
 }
@@ -631,14 +633,14 @@ void DocumentController::reloadAllDocuments()
 void DocumentController::closeAllDocuments()
 {
     if (Sublime::MainWindow* mw = Core::self()->uiControllerInternal()->activeSublimeWindow()) {
-        QList<IDocument*> views = documentsInWindow(dynamic_cast<KDevelop::MainWindow*>(mw));
+        QList<KDevelop::IDocument*> views = documentsInWindow(dynamic_cast<MainWindow*>(mw));
 
-        if (!saveSomeDocuments(views, IDocument::Default))
+        if (!saveSomeDocuments(views, KDevelop::IDocument::Default))
             // User cancelled or other error
             return;
 
-        foreach (IDocument* doc, views)
-            doc->close(IDocument::Discard);
+        foreach (KDevelop::IDocument* doc, views)
+            doc->close(KDevelop::IDocument::Discard);
     }
 }
 
@@ -653,10 +655,10 @@ void DocumentController::closeAllOtherDocuments()
         }
 
         // Deal with saving unsaved solo views
-        QList<IDocument*> soloViews = documentsExclusivelyInWindow(dynamic_cast<KDevelop::MainWindow*>(mw));
-        soloViews.removeAll(dynamic_cast<IDocument*>(activeView->document()));
+        QList<KDevelop::IDocument*> soloViews = documentsExclusivelyInWindow(dynamic_cast<MainWindow*>(mw));
+        soloViews.removeAll(dynamic_cast<KDevelop::IDocument*>(activeView->document()));
 
-        if (!saveSomeDocuments(soloViews, IDocument::Default))
+        if (!saveSomeDocuments(soloViews, KDevelop::IDocument::Default))
             // User cancelled or other error
             return;
 
@@ -671,9 +673,9 @@ void DocumentController::closeAllOtherDocuments()
                 else
                 {
                     //close the document instead as no views remain
-                    IDocument* doc = dynamic_cast<IDocument*>(view->document());
+                    KDevelop::IDocument* doc = dynamic_cast<KDevelop::IDocument*>(view->document());
                     if (doc) {
-                        doc->close(IDocument::Discard);
+                        doc->close(KDevelop::IDocument::Discard);
 
                     } else {
                         // Fallback, ick
@@ -687,11 +689,11 @@ void DocumentController::closeAllOtherDocuments()
     }
 }
 
-IDocument* DocumentController::activeDocument() const
+KDevelop::IDocument* DocumentController::activeDocument() const
 {
     UiController *uiController = Core::self()->uiControllerInternal();
     if( !uiController->activeSublimeWindow() || !uiController->activeSublimeWindow()->activeView() ) return 0;
-    return dynamic_cast<IDocument*>(uiController->activeSublimeWindow()->activeView()->document());
+    return dynamic_cast<KDevelop::IDocument*>(uiController->activeSublimeWindow()->activeView()->document());
 }
 
 void DocumentController::registerDocumentForMimetype( const QString& mimetype,
@@ -703,7 +705,7 @@ void DocumentController::registerDocumentForMimetype( const QString& mimetype,
 
 QStringList DocumentController::documentTypes() const
 {
-    return QStringList() << "Text";
+    return QStringList() << "Text" << "Circuit" << "FlowCode";
 }
 
 }

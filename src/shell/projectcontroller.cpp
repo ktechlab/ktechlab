@@ -69,7 +69,7 @@ Boston, MA 02110-1301, USA.
 #include "documentcontroller.h"
 #include "openprojectdialog.h"
 
-namespace KDevelop
+namespace KTechLab
 {
 
 bool reopenProjectsOnStartup()
@@ -87,20 +87,20 @@ bool parseAllProjectSources()
 class ProjectControllerPrivate
 {
 public:
-    QList<IProject*> m_projects;
-    QMap< IProject*, QList<IPlugin*> > m_projectPlugins;
+    QList<KDevelop::IProject*> m_projects;
+    QMap< KDevelop::IProject*, QList<KDevelop::IPlugin*> > m_projectPlugins;
     QPointer<KRecentFilesAction> m_recentAction;
     Core* m_core;
 //     IProject* m_currentProject;
-    ProjectModel* model;
+    KDevelop::ProjectModel* model;
     QItemSelectionModel* selectionModel;
-    QMap<IProject*, QPointer<KSettings::Dialog> > m_cfgDlgs;
+    QMap<KDevelop::IProject*, QPointer<KSettings::Dialog> > m_cfgDlgs;
     QPointer<KAction> m_closeAllProjects;
     QPointer<KAction> m_closeProject;
     QPointer<KAction> m_openConfig;
     IProjectDialogProvider* dialog;
     QList<KUrl> m_currentlyOpening; // project-file urls that are being opened
-    IProject* m_configuringProject;
+    KDevelop::IProject* m_configuringProject;
     ProjectController* q;
 
     ProjectControllerPrivate( ProjectController* p )
@@ -146,14 +146,14 @@ public:
         m_cfgDlgs[proj]->exec();
         m_configuringProject = 0;
     }
-    QStringList findPluginsForProject( IProject* project )
+    QStringList findPluginsForProject( KDevelop::IProject* project )
     {
-        QList<IPlugin*> plugins = m_core->pluginController()->loadedPlugins();
+        QList<KDevelop::IPlugin*> plugins = m_core->pluginController()->loadedPlugins();
         QStringList pluginnames;
-        for( QList<IPlugin*>::iterator it = plugins.begin(); it != plugins.end(); ++it )
+        for( QList<KDevelop::IPlugin*>::iterator it = plugins.begin(); it != plugins.end(); ++it )
         {
-            IPlugin* plugin = *it;
-            IProjectFileManager* iface = plugin->extension<KDevelop::IProjectFileManager>();
+            KDevelop::IPlugin* plugin = *it;
+            KDevelop::IProjectFileManager* iface = plugin->extension<KDevelop::IProjectFileManager>();
             if( !iface || plugin == project->managerPlugin() )
                 pluginnames << m_core->pluginController()->pluginInfo( plugin ).pluginName();
         }
@@ -169,16 +169,16 @@ public:
         }
     }
 
-    void updateActionStates( Context* ctx )
+    void updateActionStates( KDevelop::Context* ctx )
     {
-        ProjectItemContext* itemctx = dynamic_cast<ProjectItemContext*>(ctx);
+        KDevelop::ProjectItemContext* itemctx = dynamic_cast<KDevelop::ProjectItemContext*>(ctx);
         m_openConfig->setEnabled( itemctx && itemctx->items().count() == 1 );
         m_closeProject->setEnabled( itemctx && itemctx->items().count() > 0 );
     }
     
     void openProjectConfig()
     {
-        ProjectItemContext* ctx = dynamic_cast<ProjectItemContext*>( Core::self()->selectionController()->currentSelection() );
+        KDevelop::ProjectItemContext* ctx = dynamic_cast<KDevelop::ProjectItemContext*>( Core::self()->selectionController()->currentSelection() );
         if( ctx && ctx->items().count() == 1 )
         {
             q->configureProject( ctx->items().at(0)->project() );
@@ -187,15 +187,15 @@ public:
     
     void closeSelectedProjects()
     {
-        ProjectItemContext* ctx =  dynamic_cast<ProjectItemContext*>( Core::self()->selectionController()->currentSelection() );
+        KDevelop::ProjectItemContext* ctx =  dynamic_cast<KDevelop::ProjectItemContext*>( Core::self()->selectionController()->currentSelection() );
         if( ctx && ctx->items().count() > 0 )
         {
-            QSet<IProject*> projects;
-            foreach( ProjectBaseItem* item, ctx->items() )
+            QSet<KDevelop::IProject*> projects;
+            foreach( KDevelop::ProjectBaseItem* item, ctx->items() )
             {
                 projects.insert( item->project() );
             }
-            foreach( IProject* project, projects )
+            foreach( KDevelop::IProject* project, projects )
             {
                 q->closeProject( project );
             }
@@ -284,13 +284,16 @@ void ProjectController::setDialogProvider(IProjectDialogProvider* dialog)
 }
 
 ProjectController::ProjectController( Core* core )
-        : IProjectController( core ), d( new ProjectControllerPrivate( this ) )
+        : KDevelop::IProjectController( core ), d( new ProjectControllerPrivate( this ) )
 {
     setObjectName("ProjectController");
     d->m_core = core;
-    d->model = new ProjectModel();
+    d->model = new KDevelop::ProjectModel();
     d->selectionModel = new QItemSelectionModel(d->model);
-    if(!(Core::self()->setupFlags() & Core::NoUi)) setupActions();
+
+    //We'll always setup actions, since we don't use NoUi
+    //if(!(Core::self()->setupFlags() & Core::NoUi))
+    setupActions();
 
     loadSettings(false);
     d->dialog = new ProjectDialogProvider(d);
@@ -367,7 +370,7 @@ void ProjectController::cleanup()
 
     KUrl::List openProjects;
 
-    foreach( IProject* project, d->m_projects ) {
+    foreach( KDevelop::IProject* project, d->m_projects ) {
         openProjects.append(project->projectFileUrl());
         closeProject( project );
     }
@@ -406,14 +409,14 @@ int ProjectController::projectCount() const
     return d->m_projects.count();
 }
 
-IProject* ProjectController::projectAt( int num ) const
+KDevelop::IProject* ProjectController::projectAt( int num ) const
 {
     if( !d->m_projects.isEmpty() && num >= 0 && num < d->m_projects.count() )
         return d->m_projects.at( num );
     return 0;
 }
 
-QList<IProject*> ProjectController::projects() const
+QList<KDevelop::IProject*> ProjectController::projects() const
 {
     return d->m_projects;
 }
@@ -439,7 +442,7 @@ bool ProjectController::openProject( const KUrl &projectFile )
         return false;
     }
 
-    foreach( IProject* project, d->m_projects )
+    foreach( KDevelop::IProject* project, d->m_projects )
     {
         if ( url == project->projectFileUrl() )
         {
@@ -481,10 +484,10 @@ bool ProjectController::openProject( const KUrl &projectFile )
     return true;
 }
 
-bool ProjectController::projectImportingFinished( IProject* project )
+bool ProjectController::projectImportingFinished( KDevelop::IProject* project )
 {
-    IPlugin *managerPlugin = project->managerPlugin();
-    QList<IPlugin*> pluglist;
+    KDevelop::IPlugin *managerPlugin = project->managerPlugin();
+    QList<KDevelop::IPlugin*> pluglist;
     pluglist.append( managerPlugin );
     d->m_projectPlugins.insert( project, pluglist );
     d->m_projects.append( project );
@@ -509,8 +512,8 @@ bool ProjectController::projectImportingFinished( IProject* project )
     if (parseAllProjectSources())
     {
         // Add the project files to the background parser to be parsed.
-        QList<ProjectFileItem*> files = project->files();
-        foreach ( ProjectFileItem* file, files )
+        QList<KDevelop::ProjectFileItem*> files = project->files();
+        foreach ( KDevelop::ProjectFileItem* file, files )
         {
             parseList.append( file->url() );
         }
@@ -520,7 +523,7 @@ bool ProjectController::projectImportingFinished( IProject* project )
     {
         // Add all currently open files that belong to the project to the background-parser,
         // since more information may be available for parsing them now(Like include-paths).
-        foreach(IDocument* document, Core::self()->documentController()->openDocuments())
+        foreach(KDevelop::IDocument* document, Core::self()->documentController()->openDocuments())
         {
             if(!project->filesForUrl(document->url()).isEmpty())
             {
@@ -537,22 +540,22 @@ bool ProjectController::projectImportingFinished( IProject* project )
 }
 
 // helper method for closeProject()
-void ProjectController::unloadUnusedProjectPlugins(IProject* proj)
+void ProjectController::unloadUnusedProjectPlugins(KDevelop::IProject* proj)
 {
-    QList<IPlugin*> pluginsForProj = d->m_projectPlugins.value( proj );
+    QList<KDevelop::IPlugin*> pluginsForProj = d->m_projectPlugins.value( proj );
     d->m_projectPlugins.remove( proj );
 
-    QList<IPlugin*> otherProjectPlugins;
-    Q_FOREACH( QList<IPlugin*> _list, d->m_projectPlugins )
+    QList<KDevelop::IPlugin*> otherProjectPlugins;
+    Q_FOREACH( QList<KDevelop::IPlugin*> _list, d->m_projectPlugins )
     {
         otherProjectPlugins << _list;
     }
 
-    QSet<IPlugin*> pluginsForProjSet = QSet<IPlugin*>::fromList( pluginsForProj );
-    QSet<IPlugin*> otherPrjPluginsSet = QSet<IPlugin*>::fromList( otherProjectPlugins );
+    QSet<KDevelop::IPlugin*> pluginsForProjSet = QSet<KDevelop::IPlugin*>::fromList( pluginsForProj );
+    QSet<KDevelop::IPlugin*> otherPrjPluginsSet = QSet<KDevelop::IPlugin*>::fromList( otherProjectPlugins );
     // loaded - target = tobe unloaded.
-    QSet<IPlugin*> tobeRemoved = pluginsForProjSet.subtract( otherPrjPluginsSet );
-    Q_FOREACH( IPlugin* _plugin, tobeRemoved )
+    QSet<KDevelop::IPlugin*> tobeRemoved = pluginsForProjSet.subtract( otherPrjPluginsSet );
+    Q_FOREACH( KDevelop::IPlugin* _plugin, tobeRemoved )
     {
         KPluginInfo _plugInfo = Core::self()->pluginController()->pluginInfo( _plugin );
         if( _plugInfo.isValid() )
@@ -565,16 +568,16 @@ void ProjectController::unloadUnusedProjectPlugins(IProject* proj)
 }
 
 // helper method for closeProject()
-void ProjectController::closeAllOpenedFiles(IProject* proj)
+void ProjectController::closeAllOpenedFiles(KDevelop::IProject* proj)
 {
-    Q_FOREACH( ProjectFileItem *fileItem, proj->files() )
+    Q_FOREACH( KDevelop::ProjectFileItem *fileItem, proj->files() )
     {
         Core::self()->documentControllerInternal()->closeDocument( fileItem->url() );
     }
 }
 
 // helper method for closeProject()
-void ProjectController::initializePluginCleanup(IProject* proj)
+void ProjectController::initializePluginCleanup(KDevelop::IProject* proj)
 {
     // Unloading (and thus deleting) these plugins is not a good idea just yet
     // as we're being called by the view part and it gets deleted when we unload the plugin(s)
@@ -586,7 +589,7 @@ void ProjectController::initializePluginCleanup(IProject* proj)
     }
 }
 
-bool ProjectController::closeProject(IProject* proj)
+bool ProjectController::closeProject(KDevelop::IProject* proj)
 {
     if(!proj || d->m_projects.indexOf(proj) == -1)
     {
@@ -615,14 +618,14 @@ bool ProjectController::loadProjectPart()
     return true;
 }
 
-ProjectModel* ProjectController::projectModel()
+KDevelop::ProjectModel* ProjectController::projectModel()
 {
     return d->model;
 }
 
-IProject* ProjectController::findProjectForUrl( const KUrl& url ) const
+KDevelop::IProject* ProjectController::findProjectForUrl( const KUrl& url ) const
 {
-    Q_FOREACH( IProject* proj, d->m_projects )
+    Q_FOREACH( KDevelop::IProject* proj, d->m_projects )
     {
         if( proj->inProject( url ) )
             return proj;
@@ -630,9 +633,9 @@ IProject* ProjectController::findProjectForUrl( const KUrl& url ) const
     return 0;
 }
 
-IProject* ProjectController::findProjectByName( const QString& name )
+KDevelop::IProject* ProjectController::findProjectByName( const QString& name )
 {
-    Q_FOREACH( IProject* proj, d->m_projects )
+    Q_FOREACH( KDevelop::IProject* proj, d->m_projects )
     {
         if( proj->name() == name )
         {
@@ -643,13 +646,13 @@ IProject* ProjectController::findProjectByName( const QString& name )
 }
 
 
-bool ProjectController::configureProject( IProject* project )
+bool ProjectController::configureProject( KDevelop::IProject* project )
 {
     d->projectConfig( project );
     return true;
 }
 
-void ProjectController::addProject(IProject* project)
+void ProjectController::addProject(KDevelop::IProject* project)
 {
     d->m_projects.append( project );
 }
@@ -658,7 +661,7 @@ void ProjectController::addProject(IProject* project)
 
 void ProjectController::closeAllProjects()
 {
-    foreach (IProject* project, projects())
+    foreach (KDevelop::IProject* project, projects())
     {
         closeProject(project);
     }
@@ -671,7 +674,7 @@ QItemSelectionModel* ProjectController::projectSelectionModel()
 
 bool ProjectController::isProjectNameUsed( const QString& name ) const
 {
-    foreach( IProject* p, projects() )
+    foreach( KDevelop::IProject* p, projects() )
     {
         if( p->name() == name )
         {

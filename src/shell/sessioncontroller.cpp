@@ -35,7 +35,7 @@ Boston, MA 02110-1301, USA.
 #include "core.h"
 #include "uicontroller.h"
 
-namespace KDevelop
+namespace KTechLab
 {
 
 const QString SessionController::cfgSessionGroup = "Sessions";
@@ -59,7 +59,7 @@ public:
     }
 
     QList<Session*> availableSessions;
-    ISession* activeSession;
+    KDevelop::ISession* activeSession;
 };
 
 SessionController::SessionController( QObject *parent )
@@ -93,7 +93,7 @@ void SessionController::initialize()
 }
 
 
-ISession* SessionController::activeSession() const
+KDevelop::ISession* SessionController::activeSession() const
 {
     return d->activeSession;
 }
@@ -175,5 +175,5 @@ QString SessionController::cloneSession( const QString& sessionName )
 }
 
 }
-#include "sessioncontroller.moc"
 
+#include "sessioncontroller.moc"

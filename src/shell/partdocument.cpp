@@ -30,13 +30,13 @@
 #include "partcontroller.h"
 #include "documentcontroller.h"
 
-namespace KDevelop {
+namespace KTechLab {
 
 struct PartDocumentPrivate {
     QMap<QWidget*, KParts::Part*> partForView;
 };
 
-PartDocument::PartDocument(const KUrl &url, ICore* core)
+PartDocument::PartDocument(const KUrl &url, KDevelop::ICore* core)
     : Sublime::UrlDocument(core->uiController()->controller(), url), KDevelop::IDocument(core), d(new PartDocumentPrivate)
 {
 }
@@ -154,7 +154,7 @@ void PartDocument::reload()
     //part document is read-only so do nothing here
 }
 
-IDocument::DocumentState PartDocument::state() const
+KDevelop::IDocument::DocumentState PartDocument::state() const
 {
     return Clean;
 }
@@ -168,7 +168,7 @@ void PartDocument::activate(Sublime::View *activeView, KParts::MainWindow *mainW
     notifyActivated();
 }
 
-KTextEditor::Cursor KDevelop::PartDocument::cursorPosition() const
+KTextEditor::Cursor PartDocument::cursorPosition() const
 {
     return KTextEditor::Cursor::invalid();
 }

@@ -23,18 +23,19 @@ Boston, MA 02110-1301, USA.
 
 #include <interfaces/iprojectcontroller.h>
 
-#include "shellexport.h"
+#include "ktlshellexport.h"
 
 class QModelIndex;
 
-namespace KDevelop
+namespace KDevelop { class IProject; }
+
+namespace KTechLab
 {
 
-class IProject;
 class Core;
 class UiController;
 
-class KDEVPLATFORMSHELL_EXPORT IProjectDialogProvider : public QObject
+class KTLSHELL_EXPORT IProjectDialogProvider : public QObject
 {
 Q_OBJECT
 public:
@@ -46,7 +47,7 @@ public Q_SLOTS:
     virtual bool userWantsReopen() = 0;
 };
 
-class KDEVPLATFORMSHELL_EXPORT ProjectController : public IProjectController
+class KTLSHELL_EXPORT ProjectController : public KDevelop::IProjectController
 {
     Q_OBJECT
     friend class Core;
@@ -57,15 +58,15 @@ public:
     ProjectController( Core* core );
     virtual ~ProjectController();
 
-    virtual IProject* projectAt( int ) const;
+    virtual KDevelop::IProject* projectAt( int ) const;
     virtual int projectCount() const;
-    virtual QList<IProject*> projects() const;
+    virtual QList<KDevelop::IProject*> projects() const;
 
-    virtual ProjectModel* projectModel();
+    virtual KDevelop::ProjectModel* projectModel();
     virtual QItemSelectionModel* projectSelectionModel();
-    virtual IProject* findProjectByName( const QString& name );
-    IProject* findProjectForUrl( const KUrl& ) const;
-    void addProject(IProject*);
+    virtual KDevelop::IProject* findProjectByName( const QString& name );
+    KDevelop::IProject* findProjectForUrl( const KUrl& ) const;
+    void addProject(KDevelop::IProject*);
 //     IProject* currentProject() const;
 
     virtual bool isProjectNameUsed( const QString& name ) const;
@@ -75,10 +76,10 @@ public:
 
 public Q_SLOTS:
     virtual bool openProject( const KUrl &KDev4ProjectFile = KUrl() );
-    virtual bool projectImportingFinished( IProject* );
-    virtual bool closeProject( IProject* );
+    virtual bool projectImportingFinished( KDevelop::IProject* );
+    virtual bool closeProject( KDevelop::IProject* );
     virtual void closeAllProjects();
-    virtual bool configureProject( IProject* );
+    virtual bool configureProject( KDevelop::IProject* );
 //     void changeCurrentProject( ProjectBaseItem* );
 
 protected:
@@ -95,10 +96,10 @@ private:
     void initialize();
 
     // helper methods for closeProject()
-    void unloadUnusedProjectPlugins(IProject* proj);
+    void unloadUnusedProjectPlugins(KDevelop::IProject* proj);
     void disableProjectCloseAction();
-    void closeAllOpenedFiles(IProject* proj);
-    void initializePluginCleanup(IProject* proj);
+    void closeAllOpenedFiles(KDevelop::IProject* proj);
+    void initializePluginCleanup(KDevelop::IProject* proj);
 
 private:
     Q_PRIVATE_SLOT(d, void projectConfig( QObject* ) )

@@ -47,7 +47,8 @@
 #include "textdocument.h"
 #include "documentcontroller.h"
 
-namespace KDevelop {
+namespace KTechLab
+{
 
 class UiControllerPrivate {
 public:
@@ -56,45 +57,18 @@ public:
     {
         QMap<QString, Sublime::Position> desired;
 
-        desired["org.kdevelop.ClassBrowserView"] = Sublime::Left;
-        desired["org.kdevelop.DocumentsView"] = Sublime::Left;
-        desired["org.kdevelop.ProjectsView"] = Sublime::Left;
-        desired["org.kdevelop.FileManagerView"] = Sublime::Left;
-        desired["org.kdevelop.ProblemReporterView"] = Sublime::Bottom;
-        desired["org.kdevelop.OutputView"] = Sublime::Bottom;
-        desired["org.kdevelop.ContextBrowser"] = Sublime::Bottom;
-        desired["org.kdevelop.debugger.ConsoleView"] = Sublime::Bottom;
-        Sublime::Area* a =
-            new Sublime::Area(m_controller, "code", i18n("Code"));
+        desired["org.ktechlab.DocumentsView"] = Sublime::Left;
+        desired["org.ktechlab.ProjectsView"] = Sublime::Left;
+        desired["org.ktechlab.FileManagerView"] = Sublime::Left;
+        desired["org.ktechlab.ProblemReporterView"] = Sublime::Bottom;
+        desired["org.ktechlab.ContextBrowser"] = Sublime::Right;
+        Sublime::Area* a = new Sublime::Area(m_controller, "ktlDefault", i18n("KTechLab Default Area"));
         a->setDesiredToolViews(desired);
         controller->addDefaultArea(a);
 
-        desired.clear();
-        desired["org.kdevelop.debugger.VariablesView"] = Sublime::Left;
-        desired["org.kdevelop.debugger.BreakpointsView"] = Sublime::Bottom;
-        desired["org.kdevelop.debugger.StackView"] = Sublime::Bottom;
-        desired["org.kdevelop.debugger.ConsoleView"] = Sublime::Bottom;
-        a = new Sublime::Area(m_controller, "debug", i18n("Debug"));
-        a->setDesiredToolViews(desired);
-        controller->addDefaultArea(a);
-
-        desired.clear();
-        desired["org.kdevelop.QTestTestRunner"] = Sublime::Right;
-        desired["org.kdevelop.CoverageReport"] = Sublime::Right;
-        a = new Sublime::Area(m_controller, "test", i18n("Test"));
-        a->setDesiredToolViews(desired);
-        controller->addDefaultArea(a);        
-
-        if(!(Core::self()->setupFlags() & Core::NoUi)) 
-        {
-            defaultMainWindow = new MainWindow(controller);
-            controller->addMainWindow(defaultMainWindow);
-            activeSublimeWindow = defaultMainWindow;
-        }
-        else
-        {
-            activeSublimeWindow = defaultMainWindow = 0;
-        }
+        defaultMainWindow = new MainWindow(controller);
+        controller->addMainWindow(defaultMainWindow);
+        activeSublimeWindow = defaultMainWindow;
     }
 
     void widgetChanged(QWidget*, QWidget* now)
@@ -111,7 +85,7 @@ public:
     Core *core;
     MainWindow* defaultMainWindow;
 
-    QMap<IToolViewFactory*, Sublime::ToolDocument*> factoryDocuments;
+    QMap<KDevelop::IToolViewFactory*, Sublime::ToolDocument*> factoryDocuments;
 
     KSettings::Dialog* cfgDlg;
 
@@ -126,7 +100,7 @@ private:
 
 class UiToolViewFactory: public Sublime::ToolFactory {
 public:
-    UiToolViewFactory(IToolViewFactory *factory): m_factory(factory) {}
+    UiToolViewFactory(KDevelop::IToolViewFactory *factory): m_factory(factory) {}
     ~UiToolViewFactory() { delete m_factory; }
     virtual QWidget* create(Sublime::ToolDocument *doc, QWidget *parent = 0)
     {
@@ -143,7 +117,7 @@ public:
     QString id() const { return m_factory->id(); }
 
 private:
-    IToolViewFactory *m_factory;
+    KDevelop::IToolViewFactory *m_factory;
 };
 
 
@@ -151,7 +125,7 @@ class ViewSelectorItem: public QListWidgetItem {
 public:
     ViewSelectorItem(const QString &text, QListWidget *parent = 0, int type = Type)
         :QListWidgetItem(text, parent, type) {}
-    IToolViewFactory *factory;
+        KDevelop::IToolViewFactory *factory;
 };
 
 UiController::UiController(Core *core)
@@ -184,7 +158,7 @@ void UiController::switchToArea(const QString &areaName, SwitchMode switchMode)
 {
     Q_UNUSED( switchMode );
 
-    MainWindow *main = new MainWindow(this);
+    MainWindow *main = new MainWindow( this );
     // FIXME: what this is supposed to do?
     // Answer: Its notifying the mainwindow to reload its settings when one of
     // the KCM's changes its settings and it works
@@ -212,7 +186,7 @@ void UiController::switchToArea(const QString &areaName, SwitchMode switchMode)
 }
 
 
-void UiController::addToolView(const QString & name, IToolViewFactory *factory)
+void UiController::addToolView(const QString & name, KDevelop::IToolViewFactory *factory)
 {
     kDebug() ;
     Sublime::ToolDocument *doc = new Sublime::ToolDocument(name, this, new UiToolViewFactory(factory));
@@ -227,7 +201,7 @@ void UiController::addToolView(const QString & name, IToolViewFactory *factory)
     }
 }
 
-void KDevelop::UiController::raiseToolView(Sublime::View * view)
+void UiController::raiseToolView(Sublime::View * view)
 {
     foreach( Sublime::Area* area, allAreas() ) {
         if( area->toolViews().contains( view ) )
@@ -235,7 +209,7 @@ void KDevelop::UiController::raiseToolView(Sublime::View * view)
     }
 }
 
-void KDevelop::UiController::removeToolView(IToolViewFactory *factory)
+void UiController::removeToolView(KDevelop::IToolViewFactory *factory)
 {
     kDebug() ;
     //delete the tooldocument
@@ -292,7 +266,7 @@ void UiController::addNewToolView(MainWindow *mw)
     QListWidget *list = new QListWidget(dia);
 
     list->setSortingEnabled(true);
-    for (QMap<IToolViewFactory*, Sublime::ToolDocument*>::const_iterator it = d->factoryDocuments.begin();
+    for (QMap<KDevelop::IToolViewFactory*, Sublime::ToolDocument*>::const_iterator it = d->factoryDocuments.begin();
         it != d->factoryDocuments.end(); ++it)
     {
         ViewSelectorItem *item = new ViewSelectorItem(it.value()->title(), list);
@@ -427,8 +401,8 @@ void UiController::loadArea(Sublime::Area* area, Sublime::AreaIndex* areaIndex, 
                 continue;
 
 
-            IDocument* doc = Core::self()->documentControllerInternal()->openDocument(specifier,
-                KTextEditor::Cursor::invalid(), IDocumentController::DoNotActivate | IDocumentController::DoNotCreateView);
+            KDevelop::IDocument* doc = Core::self()->documentControllerInternal()->openDocument(specifier,
+                KTextEditor::Cursor::invalid(), KDevelop::IDocumentController::DoNotActivate | KDevelop::IDocumentController::DoNotCreateView);
             Sublime::Document *document = dynamic_cast<Sublime::Document*>(doc);
             if (document) {
                 Sublime::View* view = document->createView();
@@ -489,7 +463,7 @@ void UiController::loadAllAreas(KSharedConfig::Ptr config)
     /* Offer all toolviews to the default areas.  */
     foreach (Sublime::Area *area, defaultAreas())
     {
-        QMap<IToolViewFactory*, Sublime::ToolDocument*>::const_iterator i, e;
+        QMap<KDevelop::IToolViewFactory*, Sublime::ToolDocument*>::const_iterator i, e;
         for (i = d->factoryDocuments.begin(),
                  e = d->factoryDocuments.end(); i != e; ++i)
         {
@@ -531,7 +505,7 @@ void UiController::loadAllAreas(KSharedConfig::Ptr config)
 
             // At this point we know which toolviews the area wants.
             // Tender all tool views we have.
-            QMap<IToolViewFactory*, Sublime::ToolDocument*>::const_iterator i, e;
+            QMap<KDevelop::IToolViewFactory*, Sublime::ToolDocument*>::const_iterator i, e;
             for (i = d->factoryDocuments.begin(),
                      e = d->factoryDocuments.end(); i != e; ++i)
             {
@@ -552,7 +526,7 @@ void UiController::loadAllAreas(KSharedConfig::Ptr config)
     d->areasRestored = true;
 }
 
-void UiController::addToolViewIfWanted(IToolViewFactory* factory,
+void UiController::addToolViewIfWanted(KDevelop::IToolViewFactory* factory,
                            Sublime::ToolDocument* doc,
                            Sublime::Area* area)
 {
@@ -562,7 +536,7 @@ void UiController::addToolViewIfWanted(IToolViewFactory* factory,
     }
 }
 
-void UiController::addToolViewToArea(IToolViewFactory* factory,
+void UiController::addToolViewToArea(KDevelop::IToolViewFactory* factory,
                                      Sublime::ToolDocument* doc,
                                      Sublime::Area* area)
 {
@@ -581,11 +555,11 @@ void UiController::registerStatus(QObject* status)
 {
     Sublime::MainWindow* w = activeSublimeWindow();
     if (!w) return;
-    MainWindow* mw = qobject_cast<KDevelop::MainWindow*>(w);
+    MainWindow* mw = qobject_cast<MainWindow*>(w);
     if (!mw) return;
     mw->registerStatus(status);
 }
 
-}
+} // namespace KTechLab
 
 #include "uicontroller.moc"

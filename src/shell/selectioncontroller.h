@@ -21,17 +21,19 @@ Boston, MA 02110-1301, USA.
 #define SELECTIONCONTROLLER_H
 
 #include <interfaces/iselectioncontroller.h>
-#include "shellexport.h"
+#include "ktlshellexport.h"
 
 namespace KDevelop
 {
-
 class Context;
+} //KDevelop
 
+namespace KTechLab
+{
 /**
  * The main controller for running processes.
  */
-class KDEVPLATFORMSHELL_EXPORT SelectionController : public ISelectionController
+class KTLSHELL_EXPORT SelectionController : public KDevelop::ISelectionController
 {
     Q_OBJECT
 public:
@@ -42,7 +44,7 @@ public:
     /**
      * Provides the current selection, note that this might be 0
      */
-    virtual Context* currentSelection();
+    virtual KDevelop::Context* currentSelection();
 
 
     void initialize();
@@ -53,7 +55,7 @@ public Q_SLOTS:
      * updates the current selection
      * @param context the new selection
      */
-    virtual void updateSelection( Context* context );
+    virtual void updateSelection( KDevelop::Context* context );
 private:
     class SelectionControllerPrivate* const d;
 

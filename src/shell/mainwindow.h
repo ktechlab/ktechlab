@@ -28,21 +28,26 @@ Boston, MA 02110-1301, USA.
 #include "core.h"
 #include <sublime/mainwindow.h>
 
-#include "shellexport.h"
+#include "ktlshellexport.h"
 
 namespace KTextEditor { class View; }
 
+class KMenu;
+
 namespace KDevelop
 {
-
 class Context;
 class IDocument;
+} // namespace KDevelop
+
+namespace KTechLab
+{
 
 /**
-KDevelop main window.
+KTechLab main window.
 Provides methods to control the main window of an application.
 */
-class KDEVPLATFORMSHELL_EXPORT MainWindow: public Sublime::MainWindow {
+class KTLSHELL_EXPORT MainWindow: public Sublime::MainWindow {
     friend class UiController;
     Q_OBJECT
 public:
@@ -50,7 +55,7 @@ public:
     virtual ~MainWindow();
 
     //FIXME document this
-    virtual void fillContextMenu( KMenu *menu, const Context *context );
+    virtual void fillContextMenu( KMenu *menu, const KDevelop::Context *context );
 
     /*! @p status must implement KDevelop::IStatus */
     void registerStatus(QObject* status);
@@ -60,7 +65,7 @@ public Q_SLOTS:
 
 Q_SIGNALS:
     void finishedLoading();
-    void contextMenu( KMenu *menu, const Context *context );
+    void contextMenu( KMenu *menu, const KDevelop::Context *context );
 
 protected:
     //FIXME DOCUMENT!!!  queryClose() must call all of the Core cleanup() methods!
