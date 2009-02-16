@@ -12,17 +12,13 @@
 #define DOCMANAGER_H
 
 #include <KUrl>
-#include <Plasma/DataEngine>
 
 #include <QPointer>
 #include <QSet>
 #include <QLinkedList>
 
-class DocManager;
 //class DocManagerIface;
-class KTechlab;
 class Document;
-class DocumentEngine;
 
 /**
 @author David Saxton
@@ -48,11 +44,13 @@ public:
     */
     Document* getFocusedDocument() const;
     /**
-    * Get a unique name, e.g. Untitled (circuit) - n" depending on the types
-    * of Document and whether it is the first one or not
-    * @param type Document::DocumentType - type of Document
+    * Get a unique name, e.g. Untitled (circuit) - n" depending on the type
+    * of the Document and whether it is the first one or not.
+    * The type is used in the name "as is", so it needs to be localized
+    * to show a translated name.
+    * @param type QString - type of Document (localized!)
     */
-    QString untitledName( int type );
+    QString untitledName( const QString &type );
     /**
     * Checks to see if a document with the given URL is already open, and
     * returns a pointer to that Document if so - otherwises returns null
@@ -94,18 +92,13 @@ protected:
     // new files have been made
     // for the purpose of making
     // titles of the form Untitled (n)
-    int m_countCircuit;
-    int m_countFlowCode;
-    int m_countMechanics;
-    int m_countOther;
+    QHash<QString, int> m_count;
 
     QPointer<Document> p_connectedDocument;
 //  DocManagerIface *m_pIface;
     unsigned m_nextDocumentID;
 
 private:
-    Plasma::DataEngine* m_docEngine;
-
     DocManager();
     static DocManager * m_pSelf;
 };
