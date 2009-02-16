@@ -1,6 +1,0 @@
-File=bgconfig.kcfg
-ClassName=BGSettings
-Singleton=true
-UseEnumTypes=true
-SetUserTexts=true
-ItemAccessors=true
