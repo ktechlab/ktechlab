@@ -34,7 +34,7 @@ Boston, MA 02110-1301, USA.
 #include "core.h"
 #include "sessioncontroller.h"
 
-namespace KDevelop
+namespace KTechLab
 {
 const QString Session::cfgSessionNameEntry = "SessionName";
 
@@ -44,7 +44,7 @@ public:
     QUuid id;
     KSharedConfig::Ptr config;
     QString sessionDirectory;
-    KUrl pluginArea( const IPlugin* plugin )
+    KUrl pluginArea( const KDevelop::IPlugin* plugin )
     {
         QString name = Core::self()->pluginController()->pluginInfo( plugin ).pluginName();
         QFileInfo fi( sessionDirectory + '/' + name );
@@ -88,7 +88,7 @@ QString Session::name() const
     return d->config->group("").readEntry( cfgSessionNameEntry, "" );
 }
 
-KUrl Session::pluginDataArea( const IPlugin* p )
+KUrl Session::pluginDataArea( const KDevelop::IPlugin* p )
 {
     return d->pluginArea( p );
 }
@@ -117,5 +117,5 @@ void Session::setName( const QString& newname )
 }
 
 }
-#include "session.moc"
 
+#include "session.moc"

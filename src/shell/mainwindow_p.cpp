@@ -57,7 +57,7 @@ Boston, MA 02110-1301, USA.
 
 #include "mainwindow.h"
 
-namespace KDevelop {
+namespace KTechLab {
 
 bool MainWindowPrivate::s_quitRequested = false;
 
@@ -68,11 +68,11 @@ MainWindowPrivate::MainWindowPrivate(MainWindow *mainWindow)
 
 void MainWindowPrivate::setupGui()
 {
-    m_statusBar = new KDevelop::StatusBar(m_mainWindow);
+    m_statusBar = new StatusBar(m_mainWindow);
     m_mainWindow->setStatusBar(m_statusBar);
 }
 
-void MainWindowPrivate::addPlugin( IPlugin *plugin )
+void MainWindowPrivate::addPlugin( KDevelop::IPlugin *plugin )
 {
     kDebug() << "add plugin" << plugin << plugin->componentData().componentName();
     Q_ASSERT( plugin );
@@ -80,7 +80,7 @@ void MainWindowPrivate::addPlugin( IPlugin *plugin )
     m_mainWindow->guiFactory()->addClient( plugin );
 }
 
-void MainWindowPrivate::removePlugin( IPlugin *plugin )
+void MainWindowPrivate::removePlugin( KDevelop::IPlugin *plugin )
 {
     Q_ASSERT( plugin );
 
@@ -116,7 +116,7 @@ void MainWindowPrivate::changeActiveView(Sublime::View *view)
 
     kDebug() << "changing active view to" << view << "doc" << view->document() << "mw" << m_mainWindow;
 
-    IDocument *doc = dynamic_cast<KDevelop::IDocument*>(view->document());
+    KDevelop::IDocument *doc = dynamic_cast<KDevelop::IDocument*>(view->document());
     if (doc)
     {
         //activate part if it is not yet activated

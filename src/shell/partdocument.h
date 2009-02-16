@@ -16,19 +16,19 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.         *
  ***************************************************************************/
-#ifndef KDEV_PARTDOCUMENT_H
-#define KDEV_PARTDOCUMENT_H
+#ifndef KTL_PARTDOCUMENT_H
+#define KTL_PARTDOCUMENT_H
 
 #include <interfaces/idocument.h>
 #include <sublime/urldocument.h>
 
-#include "shellexport.h"
+#include "ktlshellexport.h"
 
 namespace KParts {
 class Part;
 }
 
-namespace KDevelop {
+namespace KTechLab {
 
 /**
 The generic document which represents KParts.
@@ -39,10 +39,10 @@ are incapable of loading the url.
 This document loads one KPart (read-only or read-write) per view
 and sets part widget to be a view widget.
 */
-class KDEVPLATFORMSHELL_EXPORT PartDocument: public Sublime::UrlDocument, public KDevelop::IDocument {
+class KTLSHELL_EXPORT PartDocument: public Sublime::UrlDocument, public KDevelop::IDocument {
     Q_OBJECT
 public:
-    PartDocument(const KUrl &url, ICore* core );
+    PartDocument(const KUrl &url, KDevelop::ICore* core );
     virtual ~PartDocument();
 
     virtual KUrl url() const;

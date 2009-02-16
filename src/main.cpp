@@ -11,10 +11,9 @@
 #include "ktechlab.h"
 #include "ktechlabideextension.h"
 #include "config.h"
-#include "shell/ktechlabcore.h"
-
-#include <shell/projectcontroller.h>
-#include <shell/documentcontroller.h>
+#include "shell/core.h"
+#include "shell/projectcontroller.h"
+#include "shell/documentcontroller.h"
 
 #include <KAboutData>
 #include <KCmdLineArgs>
@@ -72,8 +71,8 @@ int main(int argc, char **argv)
 
     KTechlabIDEExtension::init();
 
-    KTechlabCore::initialize();
-    KDevelop::Core *core = KTechlabCore::self();
+    KTechLab::Core::initialize();
+    KTechLab::Core *core = KTechLab::Core::self();
 
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     bool openProject = false;

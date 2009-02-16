@@ -23,20 +23,20 @@
 
 #include <QtCore/QList>
 
-#include "shellexport.h"
+#include "ktlshellexport.h"
 
-namespace KDevelop {
+namespace KTechLab {
 
-class KDEVPLATFORMSHELL_EXPORT Language: public ILanguage {
+class KTLSHELL_EXPORT Language: public KDevelop::ILanguage {
     Q_OBJECT
 public:
-    explicit Language(ILanguageSupport *support, QObject *parent = 0);
+    explicit Language(KDevelop::ILanguageSupport *support, QObject *parent = 0);
     virtual ~Language();
 
     virtual void activate();
     virtual void deactivate();
 
-    virtual ILanguageSupport *languageSupport();
+    virtual KDevelop::ILanguageSupport *languageSupport();
 
     /**
      * Every thread that does background-parsing should read-lock its language's parse-mutex while parsing.

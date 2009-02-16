@@ -31,7 +31,7 @@
 #include "projectcontroller.h"
 #include "plugincontroller.h"
 
-namespace KDevelop
+namespace KTechLab
 {
 
 OpenProjectPage::OpenProjectPage( QWidget* parent )
@@ -43,8 +43,8 @@ OpenProjectPage::OpenProjectPage( QWidget* parent )
 
     QStringList filters;
     QStringList allEntry;
-    allEntry << "*."+ShellExtension::getInstance()->projectFileExtension();
-    filters << "*."+ShellExtension::getInstance()->projectFileExtension() +'|'+ShellExtension::getInstance()->projectFileDescription();
+    allEntry << "*."+KDevelop::ShellExtension::getInstance()->projectFileExtension();
+    filters << "*."+KDevelop::ShellExtension::getInstance()->projectFileExtension() +'|'+KDevelop::ShellExtension::getInstance()->projectFileDescription();
     foreach(const KPluginInfo& info, PluginController::queryExtensionPlugins( "org.kdevelop.IProjectFileManager" ) )
     {
         QVariant filter = info.property("X-KDevelop-ProjectFilesFilter");

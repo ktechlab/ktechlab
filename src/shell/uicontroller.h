@@ -19,7 +19,7 @@
 #ifndef UICONTROLLER_H
 #define UICONTROLLER_H
 
-#include "shellexport.h"
+#include "ktlshellexport.h"
 
 #include <interfaces/iuicontroller.h>
 #include <sublime/controller.h>
@@ -31,12 +31,13 @@ namespace Sublime {
     class ToolDocument;
 }
 
-namespace KDevelop {
+namespace KTechLab
+{
 
 class Core;
 class MainWindow;
 
-class KDEVPLATFORMSHELL_EXPORT UiController: public Sublime::Controller, public IUiController {
+class KTLSHELL_EXPORT UiController: public Sublime::Controller, public KDevelop::IUiController {
     Q_OBJECT
 
 public:
@@ -59,8 +60,8 @@ public:
 
     virtual void switchToArea(const QString &areaName, SwitchMode switchMode);
 
-    virtual void addToolView(const QString &name, IToolViewFactory *factory);
-    virtual void removeToolView(IToolViewFactory *factory);
+    virtual void addToolView(const QString &name, KDevelop::IToolViewFactory *factory);
+    virtual void removeToolView(KDevelop::IToolViewFactory *factory);
 
     void addNewToolView(MainWindow *mw);
 
@@ -81,10 +82,10 @@ public:
     virtual void registerStatus(QObject* status);
 
 private:
-    void addToolViewIfWanted(IToolViewFactory* factory,
+    void addToolViewIfWanted(KDevelop::IToolViewFactory* factory,
                            Sublime::ToolDocument* doc,
                            Sublime::Area* area);
-    void addToolViewToArea(IToolViewFactory* factory,
+                           void addToolViewToArea(KDevelop::IToolViewFactory* factory,
                            Sublime::ToolDocument* doc,
                            Sublime::Area* area);
     void saveArea(Sublime::AreaIndex* area, KConfigGroup & group);
@@ -100,7 +101,7 @@ private:
     Q_PRIVATE_SLOT(d, void widgetChanged(QWidget*,QWidget*))
 };
 
-}
+} // namespace KTechLab
 
 #endif
 

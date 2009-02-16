@@ -36,7 +36,7 @@
 #include "plugincontroller.h"
 #include "core.h"
 
-namespace KDevelop
+namespace KTechLab
 {
 
 StatusBar::StatusBar(QWidget* parent)
@@ -49,7 +49,7 @@ StatusBar::StatusBar(QWidget* parent)
     connect(m_timer, SIGNAL(timeout()), SLOT(slotTimeout()));
     connect(Core::self()->pluginController(), SIGNAL(pluginLoaded(KDevelop::IPlugin*)), SLOT(pluginLoaded(KDevelop::IPlugin*)));
 
-    foreach (IPlugin* plugin, Core::self()->pluginControllerInternal()->allPluginsForExtension("IStatus", QStringList()))
+    foreach (KDevelop::IPlugin* plugin, Core::self()->pluginControllerInternal()->allPluginsForExtension("IStatus", QStringList()))
         registerStatus(plugin);
 
     registerStatus(Core::self()->languageController()->backgroundParser());
@@ -82,15 +82,15 @@ void StatusBar::viewStatusChanged(Sublime::View* view)
     changeItem(view->viewStatus(), 0);
 }
 
-void StatusBar::pluginLoaded(IPlugin* plugin)
+void StatusBar::pluginLoaded(KDevelop::IPlugin* plugin)
 {
-    if (qobject_cast<IStatus*>(plugin))
+    if (qobject_cast<KDevelop::IStatus*>(plugin))
         registerStatus(plugin);
 }
 
 void StatusBar::registerStatus(QObject* status)
 {
-    Q_ASSERT(qobject_cast<IStatus*>(status));
+    Q_ASSERT(qobject_cast<KDevelop::IStatus*>(status));
     connect(status, SIGNAL(clearMessage(KDevelop::IStatus*)), SLOT(clearMessage(KDevelop::IStatus*)));
     connect(status, SIGNAL(showMessage(KDevelop::IStatus*, const QString&, int)), SLOT(showMessage(KDevelop::IStatus*, const QString&, int)));
     connect(status, SIGNAL(hideProgress(KDevelop::IStatus*)), SLOT(hideProgress(KDevelop::IStatus*)));
@@ -133,7 +133,7 @@ void StatusBar::showErrorMessage(const QString& message, int timeout)
 
 void StatusBar::slotTimeout()
 {
-    QMutableMapIterator<IStatus*, Message> it = m_messages;
+    QMutableMapIterator<KDevelop::IStatus*, Message> it = m_messages;
 
     while (it.hasNext()) {
         it.next();
@@ -181,7 +181,7 @@ void StatusBar::updateMessage()
     }
 }
 
-void StatusBar::clearMessage( IStatus* status )
+void StatusBar::clearMessage( KDevelop::IStatus* status )
 {
     if (m_messages.contains(status)) {
         m_messages.remove(status);
@@ -189,7 +189,7 @@ void StatusBar::clearMessage( IStatus* status )
     }
 }
 
-void StatusBar::showMessage( IStatus* status, const QString & message, int timeout)
+void StatusBar::showMessage( KDevelop::IStatus* status, const QString & message, int timeout)
 {
     Message m;
     m.text = message;
@@ -200,7 +200,7 @@ void StatusBar::showMessage( IStatus* status, const QString & message, int timeo
     updateMessage();
 }
 
-void StatusBar::hideProgress( IStatus* status )
+void StatusBar::hideProgress( KDevelop::IStatus* status )
 {
     if (m_progressBars.contains(status)) {
         delete m_progressBars[status];
@@ -208,7 +208,7 @@ void StatusBar::hideProgress( IStatus* status )
     }
 }
 
-void StatusBar::showProgress( IStatus* status, int minimum, int maximum, int value)
+void StatusBar::showProgress( KDevelop::IStatus* status, int minimum, int maximum, int value)
 {
     QProgressBar* bar;
 

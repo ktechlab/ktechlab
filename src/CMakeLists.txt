@@ -1,6 +1,7 @@
 add_subdirectory(core)
 add_subdirectory(gui)
 add_subdirectory(shell)
+add_subdirectory(dataengines)
 
 #add_subdirectory(context)
 #add_subdirectory(flowparts)
@@ -13,6 +14,8 @@ add_subdirectory(shell)
 #add_subdirectory(math)
 
 include_directories(
+    ${KDE4_INCLUDES}
+    ${QT_INCLUDES}
     ${CMAKE_SOURCE_DIR}/src
     ${CMAKE_SOURCE_DIR}/src/drawparts
     ${CMAKE_SOURCE_DIR}/src/electronics
@@ -26,8 +29,6 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/src/micro
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_BINARY_DIR}
-    ${KDE4_INCLUDES}
-    ${QT_INCLUDES}
 )
 
 #####################################################################
@@ -47,9 +48,6 @@ set(ktechlablib_LIB_SRCS
 ########### next target ###############
 
 SET(ktechlab_SRCS
-    docmanager.cpp
-    projectmanager.cpp
-    ktechlab.cpp
     ktechlabideextension.cpp
     main.cpp
 )

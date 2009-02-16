@@ -20,7 +20,7 @@ namespace Ui
 
 class KUrl;
 
-namespace KDevelop
+namespace KTechLab
 {
 
 class ProjectInfoPage : public QWidget

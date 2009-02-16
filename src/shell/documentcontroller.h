@@ -24,14 +24,14 @@ along with this library; see the document COPYING.LIB.  If not, write to
 the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 Boston, MA 02110-1301, USA.
 */
-#ifndef KDEV_DOCUMENTCONTROLLER_H
-#define KDEV_DOCUMENTCONTROLLER_H
+#ifndef KTL_DOCUMENTCONTROLLER_H
+#define KTL_DOCUMENTCONTROLLER_H
 
 #include <QtCore/QList>
 
 #include <interfaces/idocumentcontroller.h>
 
-#include "shellexport.h"
+#include "ktlshellexport.h"
 
 namespace Sublime {
     class Document;
@@ -39,7 +39,7 @@ namespace Sublime {
     class AreaIndex;
 }
 
-namespace KDevelop {
+namespace KTechLab {
 
 class MainWindow;
 
@@ -51,9 +51,9 @@ class MainWindow;
  * Please note that this interface gives access to documents and not to their views.
  * It is possible that more than 1 view is shown in KDevelop for a document.
 */
-class KDEVPLATFORMSHELL_EXPORT DocumentController: public IDocumentController {
+class KTLSHELL_EXPORT DocumentController: public KDevelop::IDocumentController {
     Q_OBJECT
-    Q_CLASSINFO( "D-Bus Interface", "org.kdevelop.DocumentController" )
+    Q_CLASSINFO( "D-Bus Interface", "org.ktechlab.DocumentController" )
 public:
 
     /**Constructor.
@@ -70,26 +70,26 @@ public:
     /**Finds the first document object corresponding to a given url.
     @param url The Url of the document.
     @return The corresponding document, or null if not found.*/
-    virtual IDocument* documentForUrl( const KUrl & url ) const;
+    virtual KDevelop::IDocument* documentForUrl( const KUrl & url ) const;
 
     /**@return The list of open documents*/
-    virtual QList<IDocument*> openDocuments() const;
+    virtual QList<KDevelop::IDocument*> openDocuments() const;
 
     /**Refers to the document currently active or focused.
     @return The active document.*/
-    virtual IDocument* activeDocument() const;
+    virtual KDevelop::IDocument* activeDocument() const;
 
-    virtual void activateDocument( IDocument * document, const KTextEditor::Range& range = KTextEditor::Range::invalid() );
+    virtual void activateDocument( KDevelop::IDocument * document, const KTextEditor::Range& range = KTextEditor::Range::invalid() );
 
     virtual void registerDocumentForMimetype( const QString&, KDevelop::IDocumentFactory* );
 
     /// Request the document controller to save all documents.
     /// If the \a mode is not IDocument::Silent, ask the user which documents to save.
     /// Returns false if the user cancels the save dialog.
-    virtual bool saveAllDocuments(IDocument::DocumentSaveMode mode);
-    bool saveAllDocumentsForWindow(MainWindow* mw, IDocument::DocumentSaveMode mode);
+    virtual bool saveAllDocuments(KDevelop::IDocument::DocumentSaveMode mode);
+    bool saveAllDocumentsForWindow(MainWindow* mw, KDevelop::IDocument::DocumentSaveMode mode);
 
-    void notifyDocumentClosed(IDocument* doc);
+    void notifyDocumentClosed(KDevelop::IDocument* doc);
 
     void initialize();
 
@@ -99,18 +99,18 @@ public:
 
     QString documentType(Sublime::Document* document) const;
 
-    using IDocumentController::openDocument;
+    using KDevelop::IDocumentController::openDocument;
 
 public Q_SLOTS:
     /**Opens a new or existing document.
     @param url The full Url of the document to open. If it is empty, a dialog to choose the document will be opened.
     @param range The location information, if applicable.
     @param activationParams Indicates whether to fully activate the document.*/
-    virtual Q_SCRIPTABLE IDocument* openDocument( const KUrl &url,
+    virtual Q_SCRIPTABLE KDevelop::IDocument* openDocument( const KUrl &url,
             const KTextEditor::Range& range = KTextEditor::Range::invalid(),
             DocumentActivationParams activationParams = 0);
 
-    virtual Q_SCRIPTABLE IDocument* openDocumentFromText( const QString& data );
+    virtual Q_SCRIPTABLE KDevelop::IDocument* openDocumentFromText( const QString& data );
 
     virtual void closeDocument( const KUrl &url );
     void fileClose();
@@ -123,11 +123,11 @@ private Q_SLOTS:
     virtual void slotOpenDocument(const KUrl &url);
 
 private:
-    QList<IDocument*> documentsInWindow(MainWindow* mw) const;
-    QList<IDocument*> documentsExclusivelyInWindow(MainWindow* mw) const;
-    QList<IDocument*> modifiedDocuments(const QList<IDocument*>& list) const;
+    QList<KDevelop::IDocument*> documentsInWindow(MainWindow* mw) const;
+    QList<KDevelop::IDocument*> documentsExclusivelyInWindow(MainWindow* mw) const;
+    QList<KDevelop::IDocument*> modifiedDocuments(const QList<KDevelop::IDocument*>& list) const;
 
-    bool saveSomeDocuments(const QList<IDocument*>& list, IDocument::DocumentSaveMode mode);
+    bool saveSomeDocuments(const QList<KDevelop::IDocument*>& list, KDevelop::IDocument::DocumentSaveMode mode);
 
     void setupActions();
     Q_PRIVATE_SLOT(d, void removeDocument(Sublime::Document*))

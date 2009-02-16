@@ -58,7 +58,7 @@
 #include "projectcontroller.h"
 #include "uicontroller.h"
 
-namespace KDevelop
+namespace KTechLab
 {
 
 class ProjectPrivate
@@ -70,12 +70,12 @@ public:
     QString developerTempFile;
     QString projectTempFile;
     KTemporaryFile* tmp;
-    IPlugin* manager;
-    IPlugin* vcsPlugin;
-    ProjectFolderItem* topItem;
+    KDevelop::IPlugin* manager;
+    KDevelop::IPlugin* vcsPlugin;
+    KDevelop::ProjectFolderItem* topItem;
     QString name;
     KSharedConfig::Ptr m_cfg;
-    IProject *project;
+    KDevelop::IProject *project;
     QSet<KDevelop::IndexedString> fileSet;
     bool reloading;
     bool scheduleReload;
@@ -90,39 +90,39 @@ public:
         }
     }
 
-    QList<ProjectFileItem*> recurseFiles( ProjectBaseItem * projectItem )
+    QList<KDevelop::ProjectFileItem*> recurseFiles( KDevelop::ProjectBaseItem * projectItem )
     {
-        QList<ProjectFileItem*> files;
-        if ( ProjectFolderItem * folder = projectItem->folder() )
+        QList<KDevelop::ProjectFileItem*> files;
+        if ( KDevelop::ProjectFolderItem * folder = projectItem->folder() )
         {
-            QList<ProjectFolderItem*> folder_list = folder->folderList();
-            for ( QList<ProjectFolderItem*>::Iterator it = folder_list.begin(); it != folder_list.end(); ++it )
+            QList<KDevelop::ProjectFolderItem*> folder_list = folder->folderList();
+            for ( QList<KDevelop::ProjectFolderItem*>::Iterator it = folder_list.begin(); it != folder_list.end(); ++it )
             {
                 files += recurseFiles( ( *it ) );
             }
 
-            QList<ProjectTargetItem*> target_list = folder->targetList();
-            for ( QList<ProjectTargetItem*>::Iterator it = target_list.begin(); it != target_list.end(); ++it )
+            QList<KDevelop::ProjectTargetItem*> target_list = folder->targetList();
+            for ( QList<KDevelop::ProjectTargetItem*>::Iterator it = target_list.begin(); it != target_list.end(); ++it )
             {
                 files += recurseFiles( ( *it ) );
             }
 
             files += folder->fileList();
         }
-        else if ( ProjectTargetItem * target = projectItem->target() )
+        else if ( KDevelop::ProjectTargetItem * target = projectItem->target() )
         {
             files += target->fileList();
         }
-        else if ( ProjectFileItem * file = projectItem->file() )
+        else if ( KDevelop::ProjectFileItem * file = projectItem->file() )
         {
             files.append( file );
         }
         return files;
     }
 
-    QList<ProjectBaseItem*> itemsForUrlInternal( const KUrl& url, ProjectFolderItem* folder ) const
+    QList<KDevelop::ProjectBaseItem*> itemsForUrlInternal( const KUrl& url, KDevelop::ProjectFolderItem* folder ) const
     {
-        QList<ProjectBaseItem*> files;
+        QList<KDevelop::ProjectBaseItem*> files;
         if( !folder )
             return files;
 
@@ -132,7 +132,7 @@ public:
         }
 
         // Check top level files
-        foreach( ProjectFileItem* file, folder->fileList() )
+        foreach( KDevelop::ProjectFileItem* file, folder->fileList() )
         {
             if( file->url() == url )
             {
@@ -141,9 +141,9 @@ public:
         }
 
         // Check top level targets
-        foreach( ProjectTargetItem* target, folder->targetList() )
+        foreach( KDevelop::ProjectTargetItem* target, folder->targetList() )
         {
-            foreach( ProjectFileItem* file, target->fileList() )
+            foreach( KDevelop::ProjectFileItem* file, target->fileList() )
             {
                 if( file->url() == url )
                 {
@@ -152,19 +152,19 @@ public:
             }
         }
 
-        foreach( ProjectFolderItem* top, folder->folderList() )
+        foreach( KDevelop::ProjectFolderItem* top, folder->folderList() )
         {
             files += itemsForUrlInternal( url, top );
         }
         return files;
     }
-    QList<ProjectBaseItem*> itemsForUrl( const KUrl& url ) const
+    QList<KDevelop::ProjectBaseItem*> itemsForUrl( const KUrl& url ) const
     {
         // TODO: This is moderately efficient, but could be much faster with a
         // QHash<QString, ProjectFolderItem> member. Would it be worth it?
         KUrl u = topItem->url();
         if ( u.protocol() != url.protocol() || u.host() != url.host() )
-            return QList<ProjectBaseItem*>();
+            return QList<KDevelop::ProjectBaseItem*>();
     
         return itemsForUrlInternal( url, topItem );
     }
@@ -268,11 +268,11 @@ public:
         return false;
     }
 
-    IProjectFileManager* fetchFileManager(const KConfigGroup& projectGroup)
+    KDevelop::IProjectFileManager* fetchFileManager(const KConfigGroup& projectGroup)
     {
         if (manager)
         {
-            IProjectFileManager* iface = 0;
+            KDevelop::IProjectFileManager* iface = 0;
             iface = manager->extension<KDevelop::IProjectFileManager>();
             Q_ASSERT(iface);
             return iface;
@@ -282,11 +282,11 @@ public:
         QString managerSetting = projectGroup.readEntry( "Manager", "KDevGenericManager" );
 
         //Get our importer
-        IPluginController* pluginManager = Core::self()->pluginController();
+        KDevelop::IPluginController* pluginManager = Core::self()->pluginController();
         manager = pluginManager->pluginForExtension( "org.kdevelop.IProjectFileManager", managerSetting );
-        IProjectFileManager* iface = 0;
+        KDevelop::IProjectFileManager* iface = 0;
         if ( manager )
-            iface = manager->extension<IProjectFileManager>();
+            iface = manager->extension<KDevelop::IProjectFileManager>();
         else
         {
             KMessageBox::sorry( Core::self()->uiControllerInternal()->defaultMainWindow(),
@@ -307,7 +307,7 @@ public:
     void loadVersionControlPlugin(KConfigGroup& projectGroup)
     {
         // helper method for open()
-        IPluginController* pluginManager = Core::self()->pluginController();
+        KDevelop::IPluginController* pluginManager = Core::self()->pluginController();
         if( projectGroup.hasKey( "VersionControlSupport" ) )
         {
             QString vcsPluginName = projectGroup.readEntry("VersionControlSupport", "");
@@ -317,9 +317,9 @@ public:
             }
         } else 
         {
-            foreach( IPlugin* p, pluginManager->allPluginsForExtension( "org.kdevelop.IBasicVersionControl" ) )
+            foreach( KDevelop::IPlugin* p, pluginManager->allPluginsForExtension( "org.kdevelop.IBasicVersionControl" ) )
             {
-                IBasicVersionControl* iface = p->extension<KDevelop::IBasicVersionControl>();
+                KDevelop::IBasicVersionControl* iface = p->extension<KDevelop::IBasicVersionControl>();
                 if( iface && iface->isVersionControlled( topItem->url() ) )
                 {
                     vcsPlugin = p;
@@ -331,7 +331,7 @@ public:
 
     }
 
-    bool importTopItem(IProjectFileManager* fileManager)
+    bool importTopItem(KDevelop::IProjectFileManager* fileManager)
     {
         if (!fileManager)
         {
@@ -351,7 +351,7 @@ public:
 };
 
 Project::Project( QObject *parent )
-        : IProject( parent )
+        : KDevelop::IProject( parent )
         , d( new ProjectPrivate )
 {
     QDBusConnection::sessionBus().registerObject( "/org/kdevelop/Project", this, QDBusConnection::ExportScriptableSlots );
@@ -405,10 +405,10 @@ void Project::reloadModel()
     d->reloading = true;
     d->fileSet.clear();
 
-    ProjectModel* model = Core::self()->projectController()->projectModel();
+    KDevelop::ProjectModel* model = Core::self()->projectController()->projectModel();
     model->removeRow( d->topItem->row() );
 
-    IProjectFileManager* iface = d->manager->extension<IProjectFileManager>();
+    KDevelop::IProjectFileManager* iface = d->manager->extension<KDevelop::IProjectFileManager>();
     if (!d->importTopItem(iface))
     {
             d->reloading = false;
@@ -416,7 +416,7 @@ void Project::reloadModel()
             return;
     }
 
-    ImportProjectJob* importJob = new ImportProjectJob( d->topItem, iface );
+    KDevelop::ImportProjectJob* importJob = new KDevelop::ImportProjectJob( d->topItem, iface );
     connect(importJob, SIGNAL(finished(KJob*)), SLOT(reloadDone()));
     Core::self()->runController()->registerJob( importJob );
 }
@@ -432,7 +432,7 @@ bool Project::open( const KUrl& projectFileUrl_ )
         return false;
     d->folder = d->projectFileUrl.directory( KUrl::AppendTrailingSlash );
 
-    IProjectFileManager* iface = d->fetchFileManager(projectGroup);
+    KDevelop::IProjectFileManager* iface = d->fetchFileManager(projectGroup);
     if (!iface)
         return false;
 
@@ -441,7 +441,7 @@ bool Project::open( const KUrl& projectFileUrl_ )
         return false;
 
     d->loadVersionControlPlugin(projectGroup);
-    ImportProjectJob* importJob = new ImportProjectJob( d->topItem, iface );
+    KDevelop::ImportProjectJob* importJob = new KDevelop::ImportProjectJob( d->topItem, iface );
     connect( importJob, SIGNAL( result( KJob* ) ), this, SLOT( importDone( KJob* ) ) );
     Core::self()->runController()->registerJob( importJob );
     return true;
@@ -470,13 +470,13 @@ void Project::close()
 bool Project::inProject( const KUrl& url ) const
 {
     if( url.isLocalFile() && QFileInfo( url.path() ).isFile() )
-        return d->fileSet.contains( IndexedString( url ) );
+        return d->fileSet.contains( KDevelop::IndexedString( url ) );
     return ( !d->itemsForUrl( url ).isEmpty() );
 }
 
-ProjectFileItem* Project::fileAt( int num ) const
+KDevelop::ProjectFileItem* Project::fileAt( int num ) const
 {
-    QList<ProjectFileItem*> files;
+    QList<KDevelop::ProjectFileItem*> files;
     if ( d->topItem )
         files = d->recurseFiles( d->topItem );
 
@@ -485,39 +485,39 @@ ProjectFileItem* Project::fileAt( int num ) const
     return 0;
 }
 
-QList<ProjectFileItem *> KDevelop::Project::files() const
+QList<KDevelop::ProjectFileItem *> Project::files() const
 {
-    QList<ProjectFileItem *> files;
+    QList<KDevelop::ProjectFileItem *> files;
     if ( d->topItem )
         files = d->recurseFiles( d->topItem );
     return files;
 }
 
-QList<ProjectFileItem*> Project::filesForUrl(const KUrl& url) const
+QList<KDevelop::ProjectFileItem*> Project::filesForUrl(const KUrl& url) const
 {
-    QList<ProjectFileItem*> items;
-    foreach(ProjectBaseItem* item,  d->itemsForUrl( url ) )
+    QList<KDevelop::ProjectFileItem*> items;
+    foreach(KDevelop::ProjectBaseItem* item,  d->itemsForUrl( url ) )
     {
-        if( item->type() == ProjectBaseItem::File )
-            items << dynamic_cast<ProjectFileItem*>( item );
+        if( item->type() == KDevelop::ProjectBaseItem::File )
+            items << dynamic_cast<KDevelop::ProjectFileItem*>( item );
     }
     return items;
 }
 
-QList<ProjectFolderItem*> Project::foldersForUrl(const KUrl& url) const
+QList<KDevelop::ProjectFolderItem*> Project::foldersForUrl(const KUrl& url) const
 {
-    QList<ProjectFolderItem*> items;
-    foreach(ProjectBaseItem* item,  d->itemsForUrl( url ) )
+    QList<KDevelop::ProjectFolderItem*> items;
+    foreach(KDevelop::ProjectBaseItem* item,  d->itemsForUrl( url ) )
     {
-        if( item->type() == ProjectBaseItem::Folder )
-            items << dynamic_cast<ProjectFolderItem*>( item );
+        if( item->type() == KDevelop::ProjectBaseItem::Folder )
+            items << dynamic_cast<KDevelop::ProjectFolderItem*>( item );
     }
     return items;
 }
 
 int Project::fileCount() const
 {
-    QList<ProjectFileItem*> files;
+    QList<KDevelop::ProjectFileItem*> files;
     if ( d->topItem )
         files = d->recurseFiles( d->topItem );
     return files.count();
@@ -537,22 +537,22 @@ KUrl Project::urlRelativeToProject( const KUrl & relativeUrl ) const
     return relativeUrl;
 }
 
-IProjectFileManager* Project::projectFileManager() const
+KDevelop::IProjectFileManager* Project::projectFileManager() const
 {
-    return d->manager->extension<IProjectFileManager>();
+    return d->manager->extension<KDevelop::IProjectFileManager>();
 }
 
-IBuildSystemManager* Project::buildSystemManager() const
+KDevelop::IBuildSystemManager* Project::buildSystemManager() const
 {
-    return d->manager->extension<IBuildSystemManager>();
+    return d->manager->extension<KDevelop::IBuildSystemManager>();
 }
 
-IPlugin* Project::managerPlugin() const
+KDevelop::IPlugin* Project::managerPlugin() const
 {
   return d->manager;
 }
 
-void Project::setManagerPlugin( IPlugin* manager )
+void Project::setManagerPlugin( KDevelop::IPlugin* manager )
 {
     d->manager = manager;
 }
@@ -567,28 +567,28 @@ KUrl Project::developerFileUrl() const
     return d->developerFileUrl;
 }
 
-ProjectFolderItem* Project::projectItem() const
+KDevelop::ProjectFolderItem* Project::projectItem() const
 {
     return d->topItem;
 }
 
-IPlugin* Project::versionControlPlugin() const
+KDevelop::IPlugin* Project::versionControlPlugin() const
 {
     return d->vcsPlugin;
 }
 
 
-void Project::addToFileSet( const IndexedString& file )
+void Project::addToFileSet( const KDevelop::IndexedString& file )
 {
     d->fileSet.insert( file );
 }
 
-void Project::removeFromFileSet( const IndexedString& file )
+void Project::removeFromFileSet( const KDevelop::IndexedString& file )
 {
     d->fileSet.remove( file );
 }
 
-QSet<IndexedString> Project::fileSet() const
+QSet<KDevelop::IndexedString> Project::fileSet() const
 {
     return d->fileSet;
 }

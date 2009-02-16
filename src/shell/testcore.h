@@ -23,7 +23,7 @@
 #include "testshellexport.h"
 #include "core.h"
 
-namespace KDevelop
+namespace KTechLab
 {
 
 class SessionController;
@@ -55,12 +55,12 @@ class UiController;
  * @note Its important to call initialize and cleanup, else the controller's
  * won't work properly.
  */
-class KDEVPLATFORMTESTSHELL_EXPORT TestCore : public Core
+class KTLSHELL_EXPORT TestCore : public Core
 {
     Q_OBJECT
 public:
     TestCore();
-    void initialize( Core::Setup );
+    void initialize( );
     void setSessionController( SessionController* );
     void setPluginController( PluginController* );
     void setRunController( RunController* );

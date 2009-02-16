@@ -37,11 +37,14 @@ class KStatefulBrush;
 
 namespace KDevelop
 {
-
 class IPlugin;
 class IProject;
+} // KDevelop
 
-class RunController : public IRunController
+namespace KTechLab
+{
+
+class RunController : public KDevelop::IRunController
 {
     Q_OBJECT
 
@@ -53,10 +56,10 @@ public:
     virtual void unregisterJob(KJob *job);
     virtual QList<KJob*> currentJobs() const;
 
-    virtual KJob* execute(const IRun& run);
-    virtual IRun defaultRun() const;
+    virtual KJob* execute(const KDevelop::IRun& run);
+    virtual KDevelop::IRun defaultRun() const;
 
-    IRunProvider* findProvider(const QString& instrumentor);
+    KDevelop::IRunProvider* findProvider(const QString& instrumentor);
 
     void initialize();
 
@@ -97,12 +100,12 @@ private:
     KStatefulBrush errorBrush;
 };
 
-class RunJob : public OutputJob
+class RunJob : public KDevelop::OutputJob
 {
     Q_OBJECT
 
 public:
-    RunJob(RunController* controller, const IRun& run);
+    RunJob(RunController* controller, const KDevelop::IRun& run);
 
     virtual void start();
 
@@ -120,10 +123,10 @@ private Q_SLOTS:
 
 private:
     RunController* m_controller;
-    IRunProvider* m_provider;
-    IRun m_run;
+    KDevelop::IRunProvider* m_provider;
+    KDevelop::IRun m_run;
 };
 
-}
+} // KTechLab
 
 #endif

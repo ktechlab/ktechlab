@@ -28,18 +28,18 @@
 #include "projectcontroller.h"
 #include "core_p.h"
 
-namespace KDevelop
+namespace KTechLab
 {
 
 TestCore::TestCore()
  : Core( new CorePrivate(this) )
 {
-    KDevelop::Core::m_self = this;
+    Core::m_self = this;
 }
 
-void TestCore::initialize( Core::Setup mode )
+void TestCore::initialize( )
 {
-    d->initialize( mode );
+    d->initialize( );
 }
 
 void TestCore::setSessionController( SessionController* ctrl )

@@ -39,6 +39,10 @@ namespace KDevelop
 
 class IStatus;
 class IPlugin;
+}
+
+namespace KTechLab
+{
 
 /**
  * Status bar
@@ -80,14 +84,14 @@ private:
         int timeout;
     };
 
-    QMap<IStatus*, Message> m_messages;
-    QMap<IStatus*, QProgressBar*> m_progressBars;
+    QMap<KDevelop::IStatus*, Message> m_messages;
+    QMap<KDevelop::IStatus*, QProgressBar*> m_progressBars;
     QTimer* m_timer;
     QTime m_time;
     Sublime::View* m_currentView;
     QSignalMapper* m_errorRemovalMapper;
 };
 
-}
+} // namespace KTechLab
 
 #endif // KDEVSTATUSBAR_H

@@ -24,15 +24,15 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#ifndef KDEVPROJECT_H
-#define KDEVPROJECT_H
+#ifndef KTLPROJECT_H
+#define KTLPROJECT_H
 
 #include <kurl.h>
 
 #include <interfaces/iproject.h>
 #include <interfaces/istatus.h>
 
-#include "shellexport.h"
+#include "ktlshellexport.h"
 
 template<typename T> class QList;
 
@@ -40,10 +40,15 @@ class KJob;
 
 namespace KDevelop
 {
-
 class IProjectFileManager;
 class IBuildSystemManager;
 class ProjectFileItem;
+class ProjectFolderItem;
+} // namespace KDevelop
+
+namespace KTechLab
+{
+
 class PersistentHash;
 
 /**
@@ -51,7 +56,7 @@ class PersistentHash;
  *
  * Provide better descriptions
  */
-class KDEVPLATFORMSHELL_EXPORT Project : public IProject
+class KTLSHELL_EXPORT Project : public KDevelop::IProject
 {
     Q_OBJECT
 public:
@@ -67,12 +72,12 @@ public:
 
     /** Get a list of all files in the project */
     virtual int fileCount() const;
-    virtual ProjectFileItem* fileAt( int i ) const;
+    virtual KDevelop::ProjectFileItem* fileAt( int i ) const;
 
-    virtual QList<ProjectFileItem*> files() const;
+    virtual QList<KDevelop::ProjectFileItem*> files() const;
 
-    virtual QList<ProjectFileItem*> filesForUrl( const KUrl& ) const;
-    virtual QList<ProjectFolderItem*> foldersForUrl(const KUrl& ) const;
+    virtual QList<KDevelop::ProjectFileItem*> filesForUrl( const KUrl& ) const;
+    virtual QList<KDevelop::ProjectFolderItem*> foldersForUrl(const KUrl& ) const;
 
     QString projectTempFile() const;
     QString developerTempFile() const;
@@ -81,9 +86,9 @@ public:
     virtual KUrl projectFileUrl() const;
     virtual KSharedConfig::Ptr projectConfiguration() const;
 
-    virtual void addToFileSet( const IndexedString& );
-    virtual void removeFromFileSet( const IndexedString& );
-    virtual QSet<IndexedString> fileSet() const;
+    virtual void addToFileSet( const KDevelop::IndexedString& );
+    virtual void removeFromFileSet( const KDevelop::IndexedString& );
+    virtual QSet<KDevelop::IndexedString> fileSet() const;
 public Q_SLOTS:
     /**
      * @brief Open a project
@@ -113,32 +118,32 @@ public Q_SLOTS:
      *
      * @return the file manager for the project, if one exists; otherwise null
      */
-    IProjectFileManager* projectFileManager() const;
+    KDevelop::IProjectFileManager* projectFileManager() const;
 
     /**
      * Get the build system manager for the project
      *
      * @return the build system manager for the project, if one exists; otherwise null
      */
-    IBuildSystemManager* buildSystemManager() const;
+    KDevelop::IBuildSystemManager* buildSystemManager() const;
 
-    IPlugin* versionControlPlugin() const;
+    KDevelop::IPlugin* versionControlPlugin() const;
 
     /**
      * Get the plugin that manages the project
      * This can be used to get other interfaces like IBuildSystemManager
      */
-    IPlugin* managerPlugin() const;
+    KDevelop::IPlugin* managerPlugin() const;
 
     /**
      * Set the manager plugin for the project.
      */
-    void setManagerPlugin( IPlugin* manager );
+    void setManagerPlugin( KDevelop::IPlugin* manager );
 
     /**
      * With this the top-level project item can be retrieved
      */
-    ProjectFolderItem* projectItem() const;
+    KDevelop::ProjectFolderItem* projectItem() const;
 
     /**
      * Find the url relative to the project directory equivalent to @a absoluteUrl.
@@ -178,6 +183,6 @@ private:
 
     class ProjectPrivate* const d;
 };
-    
-} // namespace KDevelop
+
+} // namespace KTechLab
 #endif

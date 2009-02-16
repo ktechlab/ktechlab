@@ -1,37 +1,25 @@
-
-set(kdevplatform_SRCS
-   mainwindow.cpp
-   mainwindow_p.cpp
-   plugincontroller.cpp
-   shellextension.cpp
-   core.cpp
-   uicontroller.cpp
-   projectcontroller.cpp
-   project.cpp
-   partcontroller.cpp
-   #document.cpp
-   partdocument.cpp
-   textdocument.cpp
-   documentcontroller.cpp
-   languagecontroller.cpp
-   language.cpp
-   statusbar.cpp
-   runcontroller.cpp
-   sessioncontroller.cpp
-   session.cpp
-   savedialog.cpp
-   sessiondialog.cpp
-   sourceformattercontroller.cpp
-   completionsettings.cpp
-   openprojectpage.cpp
-   openprojectdialog.cpp
-   projectinfopage.cpp
-   selectioncontroller.cpp
-)
-
+include_directories( ${KDEVPLATFORM_INCLUDE_DIR} )
 set(ktlshell_LIB_SRCS
-    ktechlabcore.cpp
-    ${kdevplatform_SRCS}
+    core.cpp
+    uicontroller.cpp
+    plugincontroller.cpp
+    shellextension.cpp
+    mainwindow.cpp
+    mainwindow_p.cpp
+    documentcontroller.cpp
+    partcontroller.cpp
+    projectcontroller.cpp
+    project.cpp
+    savedialog.cpp
+    session.cpp
+    sessiondialog.cpp
+    sessioncontroller.cpp
+    textdocument.cpp
+    statusbar.cpp
+    partdocument.cpp
+    openprojectdialog.cpp
+    openprojectpage.cpp
+    projectinfopage.cpp
 )
 
 kde4_add_ui_files( ktlshell_LIB_SRCS
@@ -53,7 +41,7 @@ target_link_libraries(ktlshell
     ${KDE4_KPARTS_LIBS}
     ${KDE4_KTEXTEDITOR_LIBS}
 
-    #    ${KDEVPLATFORM_SHELL_LIBRARY}
+    ${KDEVPLATFORM_SHELL_LIBRARY}
 )
 
 #set_target_properties(ktlshell PROPERTIES VERSION )

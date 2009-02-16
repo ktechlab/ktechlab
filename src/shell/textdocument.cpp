@@ -54,7 +54,7 @@
 #include "plugincontroller.h"
 #include "documentcontroller.h"
 
-namespace KDevelop {
+namespace KTechLab {
 
 struct TextDocumentPrivate {
     TextDocumentPrivate(TextDocument *textDocument)
@@ -62,15 +62,15 @@ struct TextDocumentPrivate {
         , m_loaded(false)
     {
         document = 0;
-        state = IDocument::Clean;
+        state = KDevelop::IDocument::Clean;
     }
     QPointer<KTextEditor::Document> document;
-    IDocument::DocumentState state;
+    KDevelop::IDocument::DocumentState state;
 
 
     void newDocumentStatus(KTextEditor::Document *document)
     {
-        bool dirty = (state == IDocument::Dirty || state == IDocument::DirtyAndModified);
+        bool dirty = (state == KDevelop::IDocument::Dirty || state == KDevelop::IDocument::DirtyAndModified);
 
         setStatus(document, dirty);
     }
@@ -86,11 +86,11 @@ struct TextDocumentPrivate {
         menu->clear();
         v->defaultContextMenu(menu);
 
-        Context* c = new EditorContext( v, v->cursorPosition() );
-        QList<ContextMenuExtension> extensions = Core::self()->pluginController()->queryPluginsForContextMenuExtensions( c );
+        KDevelop::Context* c = new KDevelop::EditorContext( v, v->cursorPosition() );
+        QList<KDevelop::ContextMenuExtension> extensions = Core::self()->pluginController()->queryPluginsForContextMenuExtensions( c );
         menu->addSeparator();
 
-        ContextMenuExtension::populateMenu(menu, extensions);
+        KDevelop::ContextMenuExtension::populateMenu(menu, extensions);
     }
 
     void modifiedOnDisk(KTextEditor::Document *document, bool /*isModified*/,
@@ -117,18 +117,18 @@ struct TextDocumentPrivate {
 
         if (document->isModified())
             if (dirty) {
-                state = IDocument::DirtyAndModified;
+                state = KDevelop::IDocument::DirtyAndModified;
                 statusIcon = KIcon("edit-delete");
             } else {
-                state = IDocument::Modified;
+                state = KDevelop::IDocument::Modified;
                 statusIcon = KIcon("document-save");
             }
         else
             if (dirty) {
-                state = IDocument::Dirty;
+                state = KDevelop::IDocument::Dirty;
                 statusIcon = KIcon("document-revert");
             } else {
-                state = IDocument::Clean;
+                state = KDevelop::IDocument::Clean;
             }
 
         m_textDocument->notifyStateChanged();
@@ -147,7 +147,7 @@ struct TextDocumentPrivate {
             return;
         // Tell the editor integrator first
         m_loaded = true;
-        EditorIntegrator::addDocument( m_textDocument->textDocument() );
+        KDevelop::EditorIntegrator::addDocument( m_textDocument->textDocument() );
         m_textDocument->notifyLoaded();
     }
 
@@ -184,7 +184,7 @@ public:
 
 };
 
-TextDocument::TextDocument(const KUrl &url, ICore* core)
+TextDocument::TextDocument(const KUrl &url, Core* core)
     :PartDocument(url, core), d(new TextDocumentPrivate(this))
 {
     if (url.url().endsWith("kdevtmp"))
@@ -356,12 +356,12 @@ bool TextDocument::save(DocumentSaveMode mode)
     return false;
 }
 
-IDocument::DocumentState TextDocument::state() const
+KDevelop::IDocument::DocumentState TextDocument::state() const
 {
     return d->state;
 }
 
-KTextEditor::Cursor KDevelop::TextDocument::cursorPosition() const
+KTextEditor::Cursor TextDocument::cursorPosition() const
 {
     KTextEditor::View *view = d->document->activeView();
 
@@ -468,19 +468,17 @@ Sublime::View* TextDocument::newView(Sublime::Document* doc)
     return new TextView(this);
 }
 
-}
-
-KDevelop::TextView::TextView(TextDocument * doc)
+TextView::TextView(TextDocument * doc)
     : View(doc), d( new TextViewPrivate )
 {
 }
 
-KDevelop::TextView::~TextView()
+TextView::~TextView()
 {
     delete d;
 }
 
-QWidget * KDevelop::TextView::createWidget(QWidget * parent)
+QWidget * TextView::createWidget(QWidget * parent)
 {
     TextDocument* doc = static_cast<TextDocument*>(document());
     KTextEditor::View* view = static_cast<KTextEditor::View*>(doc->createViewWidget(parent));
@@ -501,12 +499,12 @@ QWidget * KDevelop::TextView::createWidget(QWidget * parent)
     return teWidget;
 }
 
-void KDevelop::TextView::editorDestroyed(QObject* obj) {
+void TextView::editorDestroyed(QObject* obj) {
     if(obj == d->editor)
         d->editor = 0;
 }
 
-QString KDevelop::TextView::viewState() const
+QString TextView::viewState() const
 {
     if( d->editor && d->editor->editorView() )
     {
@@ -519,23 +517,23 @@ QString KDevelop::TextView::viewState() const
     }
 }
 
-void KDevelop::TextView::setInitialRange(KTextEditor::Range range) {
+void TextView::setInitialRange(KTextEditor::Range range) {
     d->initialRange = range;
 }
 
-void KDevelop::TextView::setState(const QString & state)
+void TextView::setState(const QString & state)
 {
     static QRegExp re("Cursor=([\\d]+),([\\d]+)");
     if (d->editor && d->editor->editorView() && re.exactMatch(state))
         d->editor->editorView()->setCursorPosition(KTextEditor::Cursor(re.cap(1).toInt(), re.cap(2).toInt()));
 }
 
-QString KDevelop::TextDocument::documentType() const
+QString TextDocument::documentType() const
 {
     return "Text";
 }
 
-KTextEditor::View *KDevelop::TextView::textView() const
+KTextEditor::View *TextView::textView() const
 {  
     if (d->editor)
         return d->editor->editorView();
@@ -543,7 +541,7 @@ KTextEditor::View *KDevelop::TextView::textView() const
     return 0;
 }
 
-QString KDevelop::TextView::viewStatus() const
+QString TextView::viewStatus() const
 {
     if (d->editor)
         return d->editor->status();
@@ -551,12 +549,12 @@ QString KDevelop::TextView::viewStatus() const
     return QString();
 }
 
-void KDevelop::TextView::sendStatusChanged()
+void TextView::sendStatusChanged()
 {
     emit statusChanged(this);
 }
 
-KDevelop::TextEditorWidget::TextEditorWidget(QWidget* parent)
+TextEditorWidget::TextEditorWidget(QWidget* parent)
 : QWidget(parent), KXMLGUIClient(), d(new TextEditorWidgetPrivate)
 {
     d->widgetLayout = new QVBoxLayout(this);
@@ -571,19 +569,19 @@ KDevelop::TextEditorWidget::TextEditorWidget(QWidget* parent)
     d->widgetLayout->addWidget(d->statusBar);
 }
 
-KDevelop::TextEditorWidget::~TextEditorWidget()
+TextEditorWidget::~TextEditorWidget()
 {
     delete d;
 }
 
-void KDevelop::TextEditorWidget::viewStatusChanged(KTextEditor::View*, const KTextEditor::Cursor& newPosition)
+void TextEditorWidget::viewStatusChanged(KTextEditor::View*, const KTextEditor::Cursor& newPosition)
 {
     d->status = i18n(" Line: %1 Col: %2 ", KGlobal::locale()->formatNumber(newPosition.line() + 1, 0), KGlobal::locale()->formatNumber(newPosition.column() + 1, 0));
     d->statusLabel->setText(d->status);
     emit statusChanged();
 }
 
-void KDevelop::TextEditorWidget::setEditorView(KTextEditor::View* view)
+void TextEditorWidget::setEditorView(KTextEditor::View* view)
 {
     if (d->view)
     {
@@ -602,14 +600,16 @@ void KDevelop::TextEditorWidget::setEditorView(KTextEditor::View* view)
     setFocusProxy(view);
 }
 
-QString KDevelop::TextEditorWidget::status() const
+QString TextEditorWidget::status() const
 {
     return d->status;
 }
 
-KTextEditor::View* KDevelop::TextEditorWidget::editorView() const
+KTextEditor::View* TextEditorWidget::editorView() const
 {
     return d->view;
+}
+
 }
 
 #include "textdocument.moc"

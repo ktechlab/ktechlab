@@ -17,7 +17,7 @@
 #include "core.h"
 #include "plugincontroller.h"
 
-namespace KDevelop
+namespace KTechLab
 {
 
 ProjectInfoPage::ProjectInfoPage( QWidget* parent )

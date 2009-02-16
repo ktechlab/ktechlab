@@ -18,7 +18,7 @@ class KUrl;
 class KFileItem;
 class KFileWidget;
 
-namespace KDevelop
+namespace KTechLab
 {
 
 class OpenProjectPage : public QWidget

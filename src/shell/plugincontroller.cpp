@@ -53,7 +53,7 @@ Boston, MA 02110-1301, USA.
 #include "core.h"
 #include "shellextension.h"
 
-namespace KDevelop
+namespace KTechLab
 {
 
 static const QString pluginControllerGrp("Plugins");
@@ -79,7 +79,7 @@ public:
     QList<KPluginInfo> plugins;
 
     //map plugin infos to currently loaded plugins
-    typedef QMap<KPluginInfo, IPlugin*> InfoToPluginMap;
+    typedef QMap<KPluginInfo, KDevelop::IPlugin*> InfoToPluginMap;
     InfoToPluginMap loadedPlugins;
 
     // The plugin manager's mode. The mode is StartingUp until loadAllPlugins()
@@ -160,7 +160,7 @@ PluginController::~PluginController()
     delete d;
 }
 
-KPluginInfo PluginController::pluginInfo( const IPlugin* plugin ) const
+KPluginInfo PluginController::pluginInfo( const KDevelop::IPlugin* plugin ) const
 {
     for ( PluginControllerPrivate::InfoToPluginMap::ConstIterator it = d->loadedPlugins.begin();
           it != d->loadedPlugins.end(); ++it )
@@ -191,7 +191,7 @@ void PluginController::cleanup()
     d->cleanupMode = PluginControllerPrivate::CleanupDone;
 }
 
-IPlugin* PluginController::loadPlugin( const QString& pluginName )
+KDevelop::IPlugin* PluginController::loadPlugin( const QString& pluginName )
 {
     return loadPluginInternal( pluginName );
 }
@@ -200,7 +200,7 @@ void PluginController::initialize()
 {
     QMap<QString, bool> pluginMap;
     // Get the default from the ShellExtension
-    foreach( const QString& s, ShellExtension::getInstance()->defaultPlugins() )
+    foreach( const QString& s, KDevelop::ShellExtension::getInstance()->defaultPlugins() )
     {
         pluginMap.insert( s, true );
     }
@@ -246,14 +246,14 @@ void PluginController::initialize()
     grp.sync();
 }
 
-QList<IPlugin *> PluginController::loadedPlugins() const
+QList<KDevelop::IPlugin *> PluginController::loadedPlugins() const
 {
     return d->loadedPlugins.values();
 }
 
 bool PluginController::unloadPlugin( const QString & pluginId )
 {
-    IPlugin *thePlugin = plugin( pluginId );
+    KDevelop::IPlugin *thePlugin = plugin( pluginId );
     bool canUnload = d->canUnload( d->infoForId( pluginId ) );
     if( thePlugin && canUnload )
     {
@@ -263,7 +263,7 @@ bool PluginController::unloadPlugin( const QString & pluginId )
     return (canUnload && thePlugin);
 }
 
-void PluginController::unloadPlugin(IPlugin* plugin, PluginDeletion deletion)
+void PluginController::unloadPlugin(KDevelop::IPlugin* plugin, PluginDeletion deletion)
 {
     plugin->unload();
 
@@ -301,7 +301,7 @@ KPluginInfo PluginController::infoForPluginId( const QString &pluginId ) const
     return KPluginInfo();
 }
 
-IPlugin *PluginController::loadPluginInternal( const QString &pluginId )
+KDevelop::IPlugin *PluginController::loadPluginInternal( const QString &pluginId )
 {
     KPluginInfo info = infoForPluginId( pluginId );
     if ( !info.isValid() )
@@ -331,7 +331,8 @@ IPlugin *PluginController::loadPluginInternal( const QString &pluginId )
     }
 
     if( info.property("X-KDevelop-Mode") == "GUI"
-        && Core::self()->setupFlags() == Core::NoUi )
+//        && KTechlabCore::self()->setupFlags() == KTechlabCore::NoUi 
+    )
     {
         kWarning() << "Unable to load plugin named" << pluginId << ". Running in No-Ui mode, but the plugin says it needs a GUI";
         return 0;
@@ -340,7 +341,7 @@ IPlugin *PluginController::loadPluginInternal( const QString &pluginId )
     kDebug() << "Attempting to load '" << pluginId << "'";
     emit loadingPlugin( info.pluginName() );
     QString str_error;
-    IPlugin *plugin = 0;
+    KDevelop::IPlugin *plugin = 0;
     QStringList missingInterfaces;
     kDebug() << "Checking... " << info.name();
     if ( checkForDependencies( info, missingInterfaces ) )
@@ -351,14 +352,14 @@ IPlugin *PluginController::loadPluginInternal( const QString &pluginId )
         {
             kDebug() << "it is a kross plugin!!";
             QStringList interfaces=info.property( "X-KDevelop-Interfaces" ).toStringList();
-            plugin = KServiceTypeTrader::createInstanceFromQuery<IPlugin>( QLatin1String( "KDevelop/Plugin" ),
+            plugin = KServiceTypeTrader::createInstanceFromQuery<KDevelop::IPlugin>( QLatin1String( "KDevelop/Plugin" ),
                             QString::fromLatin1( "[X-KDE-PluginInfo-Name]=='KDevKrossManager'" ),
                             d->core, QVariantList() << interfaces << info.pluginName(), &str_error );
             kDebug() << "kross plugin:" << plugin;
         }
         else
         {
-            plugin = KServiceTypeTrader::createInstanceFromQuery<IPlugin>( QLatin1String( "KDevelop/Plugin" ),
+            plugin = KServiceTypeTrader::createInstanceFromQuery<KDevelop::IPlugin>( QLatin1String( "KDevelop/Plugin" ),
                     QString::fromLatin1( "[X-KDE-PluginInfo-Name]=='%1'" ).arg( pluginId ), d->core, QVariantList(), &str_error );
         }
         loadDependencies( info );
@@ -394,7 +395,7 @@ IPlugin *PluginController::loadPluginInternal( const QString &pluginId )
 }
 
 
-IPlugin* PluginController::plugin( const QString& pluginId )
+KDevelop::IPlugin* PluginController::plugin( const QString& pluginId )
 {
     KPluginInfo info = infoForPluginId( pluginId );
     if ( !info.isValid() )
@@ -458,7 +459,7 @@ void PluginController::loadDependencies( const KPluginInfo& info )
     }
 }
 
-IPlugin* PluginController::pluginForExtension( const QString& extension, const QString& pluginname)
+KDevelop::IPlugin* PluginController::pluginForExtension( const QString& extension, const QString& pluginname)
 {
     kDebug() << "Loading Plugin ("<< pluginname << ") for Extension:" << extension;
     QStringList constraints;
@@ -468,7 +469,7 @@ IPlugin* PluginController::pluginForExtension( const QString& extension, const Q
     return pluginForExtension(extension, constraints);
 }
 
-IPlugin *PluginController::pluginForExtension(const QString &extension, const QStringList &constraints)
+KDevelop::IPlugin *PluginController::pluginForExtension(const QString &extension, const QStringList &constraints)
 {
     kDebug() << "Finding Plugin for Extension:" << extension << "|" << constraints;
     KPluginInfo::List infos = queryExtensionPlugins(extension, constraints);
@@ -481,14 +482,14 @@ IPlugin *PluginController::pluginForExtension(const QString &extension, const QS
         return loadPluginInternal( infos.first().pluginName() );
 }
 
-QList<IPlugin*> PluginController::allPluginsForExtension(const QString &extension, const QStringList &constraints)
+QList<KDevelop::IPlugin*> PluginController::allPluginsForExtension(const QString &extension, const QStringList &constraints)
 {
     kDebug() << "Finding all Plugins for Extension:" << extension << "|" << constraints;
     KPluginInfo::List infos = queryExtensionPlugins(extension, constraints);
-    QList<IPlugin*> plugins;
+    QList<KDevelop::IPlugin*> plugins;
     foreach (const KPluginInfo &info, infos)
     {
-        IPlugin* plugin;
+        KDevelop::IPlugin* plugin;
         if( d->loadedPlugins.contains( info ) )
             plugin = d->loadedPlugins[ info ];
         else
@@ -517,12 +518,12 @@ QStringList PluginController::allPluginNames()
     return names;
 }
 
-QList<ContextMenuExtension> PluginController::queryPluginsForContextMenuExtensions( KDevelop::Context* context ) const
+QList<KDevelop::ContextMenuExtension> PluginController::queryPluginsForContextMenuExtensions( KDevelop::Context* context ) const
 {
-    QList<ContextMenuExtension> exts;
+    QList<KDevelop::ContextMenuExtension> exts;
     Q_FOREACH( const KPluginInfo& info, d->loadedPlugins.keys() )
     {
-        IPlugin* plug = d->loadedPlugins[info];
+        KDevelop::IPlugin* plug = d->loadedPlugins[info];
         exts << plug->contextMenuExtension( context );
     }
     return exts;
@@ -562,7 +563,7 @@ QList<KPluginInfo> PluginController::allPluginInfos() const
 
 void PluginController::updateLoadedPlugins()
 {
-    QStringList defaultPlugins = ShellExtension::getInstance()->defaultPlugins();
+    QStringList defaultPlugins = KDevelop::ShellExtension::getInstance()->defaultPlugins();
     KConfigGroup grp = Core::self()->activeSession()->config()->group( pluginControllerGrp );
     foreach( const KPluginInfo& info, d->plugins )
     {
@@ -590,7 +591,7 @@ void PluginController::resetToDefaults()
     cfg->deleteGroup( pluginControllerGrp );
     cfg->sync();
     KConfigGroup grp = cfg->group( pluginControllerGrp );
-    QStringList plugins = ShellExtension::getInstance()->defaultPlugins();
+    QStringList plugins = KDevelop::ShellExtension::getInstance()->defaultPlugins();
     if( plugins.isEmpty() ) 
     {
         foreach( const KPluginInfo& info, d->plugins )
