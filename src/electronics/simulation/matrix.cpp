@@ -59,30 +59,34 @@ void Matrix::swapRows(CUI a, CUI b)
 void Matrix::performLU()
 {
 	unsigned int n = m_mat->size_m();
-	if(n == 0) return;
+	if(n == 0 || max_k == n) return;
 
 	// Copy the affected segment to LU
+	unsigned tmp = n - max_k;
 	for(uint i = max_k; i < n; i++) {
-		for(uint j = max_k; j < n; j++) {
-			(*m_lu)[i][j] = (*m_mat)[i][j];
-		}
+		memcpy( (*m_lu )[i] + max_k,
+			(*m_mat)[i] + max_k,
+			(tmp) * sizeof(double));
 	}
 
 	// LU decompose the matrix, and store result back in matrix
-	for(uint k = 0; k < n-1; k++ ) {
+	for(uint k = 0; k < n-1; k++) {
 
 		double *const lu_K_K = &(*m_lu)[k][k];
 		unsigned foo = std::max(k, max_k) + 1;
 
 // detect singular matrixes...
-		if(std::abs(*lu_K_K) < 1e-10) {
-			if(*lu_K_K < 0.) *lu_K_K = -1e-10;
+		double lu_K_K_val = *lu_K_K;
+		if(std::abs(lu_K_K_val) < 1e-10) {
+			if(lu_K_K_val < 0.) *lu_K_K = -1e-10;
 			else *lu_K_K = 1e-10;
+
+			lu_K_K_val = *lu_K_K;
 		}
 // #############
 
 		for(uint i = foo; i < n; i++) {
-			(*m_lu)[i][k] /= *lu_K_K;
+			(*m_lu)[i][k] /= lu_K_K_val;
 		}
 
 		for(uint i = std::max(k, max_k) + 1; i < n; i++) {
@@ -107,8 +111,9 @@ void Matrix::fbSub(QuickVector *b)
 	// Forward substitution
 	for(uint i = 1; i < size; i++) {
 		double sum = 0;
+		const double *m_lu_i = (*m_lu)[i];
 		for(unsigned int j = 0; j < i; j++ ) {
-			sum += (*m_lu)[i][j] * m_y[j];
+			sum += m_lu_i[j] * m_y[j];
 		}
 		m_y[i] -= sum;
 	}
@@ -117,12 +122,15 @@ void Matrix::fbSub(QuickVector *b)
 	m_y[size - 1] /= (*m_lu)[size - 1][size - 1];
 	for(int i = size - 2; i >= 0; i-- ) {
 		double sum = 0;
+		const double *m_lu_i = (*m_lu)[i];
 		for(uint j = i + 1; j < size; j++) {
-			sum += (*m_lu)[i][j] * m_y[j];
+			sum += m_lu_i[j] * m_y[j];
 		}
 
-		m_y[i] -= sum;
-		m_y[i] /= (*m_lu)[i][i];
+		{
+			double foo = m_y[i] - sum;
+			m_y[i] = foo / (*m_lu)[i][i];
+		}
 	}
 
 // I think we don't need to reverse the mapping because we only permute rows, not columns. 
