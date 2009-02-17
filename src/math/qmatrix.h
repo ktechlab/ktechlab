@@ -41,11 +41,11 @@ public :
 
 	bool isSquare() const;
 
-	double *&operator[]( const int i) { return values[i]; }
-	const double *operator[]( const int i) const { return values[i]; }
+	inline double *&operator[](const int i) { return values[i]; }
+	inline const double *operator[](const int i) const { return values[i]; }
 
-	unsigned int size_m() const;
-	unsigned int size_n() const;
+	inline unsigned int size_m() const { return m; }
+	inline unsigned int size_n() const { return n; }
 
 // functions for some elementary row operations.
 // these are actually procedures because they operate on the current matrix rather than
