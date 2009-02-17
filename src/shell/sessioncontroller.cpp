@@ -147,7 +147,7 @@ void SessionController::loadDefaultSession()
     if( d->availableSessions.count() == 0 || !sessions().contains( name ) )
     {
         createSession( name );
-    }  
+    }
     loadSession( name );
 }
 
@@ -165,8 +165,8 @@ QString SessionController::cloneSession( const QString& sessionName )
 {
     Session* origSession = session( sessionName );
     QUuid id = QUuid::createUuid();
-    KIO::NetAccess::dircopy( KUrl( sessionDirectory() + '/' + origSession->id().toString() ), 
-                             KUrl( sessionDirectory() + '/' + id.toString() ), 
+    KIO::NetAccess::dircopy( KUrl( sessionDirectory() + '/' + origSession->id().toString() ),
+                             KUrl( sessionDirectory() + '/' + id.toString() ),
                              Core::self()->uiController()->activeMainWindow() );
     Session* newSession = new Session( id );
     d->availableSessions << newSession;

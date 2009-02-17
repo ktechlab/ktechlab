@@ -15,20 +15,15 @@
 #include <kcomponentdata.h>
 #include <QtCore/QPointer>
 
-namespace KDevelop
+namespace KTechLab
 {
 class RunController;
 class PartController;
 class LanguageController;
-class ProjectController;
 class SessionController;
 class SourceFormatterController;
 class SelectionController;
-}
-
-namespace KTechLab
-{
-
+class ProjectController;
 class PluginController;
 class UiController;
 class DocumentController;
@@ -42,8 +37,9 @@ public:
     void initialize();
     QPointer<PluginController> pluginController;
     QPointer<UiController> uiController;
-    QPointer<KDevelop::ProjectController> projectController;
+    QPointer<ProjectController> projectController;
     QPointer<DocumentController> documentController;
+    QPointer<PartController> partController;
 
     KComponentData m_componentData;
     Core *m_core;
