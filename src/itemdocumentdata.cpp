@@ -1065,6 +1065,14 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 			{
 				Connector *connector;
 					
+				// HACK // FIXME // TODO
+				// for some strange reason the lists in the ItemDocument class the ID lists for items 
+				// get out of sync, so some id's are considered to be registered, but in fact they 
+				// have no assiciated items; this causes stange bugs when insterting subcircuits in the circuit.
+				// this is just a temporary fix; someone should get to the real cause of this problem and fix
+				// ItemDocument
+				icnd->unregisterUID(id);
+				
 				// FIXME ICNDocument->type() used
 				// FIXME tons of dynamic_cast
 				if( icnd->type() == Document::dt_circuit ) {
