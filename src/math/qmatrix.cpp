@@ -44,21 +44,6 @@ bool QuickMatrix::isSquare() const {
 
 // ####################################
 
-// Ideally, this should be inlined, however I am reluctant to put code in the header files which may be included in numerous
-// object files locations.
-
-unsigned int QuickMatrix::size_m() const {
-	return m;
-}
-
-// ####################################
-
-unsigned int QuickMatrix::size_n() const {
-	return n;
-}
-
-// ####################################
-
 void QuickMatrix::allocator() {
 //	assert(!values);
 	assert(m);
