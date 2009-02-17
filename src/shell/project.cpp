@@ -165,7 +165,7 @@ public:
         KUrl u = topItem->url();
         if ( u.protocol() != url.protocol() || u.host() != url.host() )
             return QList<KDevelop::ProjectBaseItem*>();
-    
+
         return itemsForUrlInternal( url, topItem );
     }
 
@@ -202,13 +202,13 @@ public:
 
 
         developerFileUrl = KUrl( projectFileUrl.directory( KUrl::AppendTrailingSlash ) );
-        developerFileUrl.addPath(".kdev4");
+        developerFileUrl.addPath(".ktechlab");
         developerFileUrl.addPath( projectFileUrl.fileName() );
 
         statJob = KIO::stat( developerFileUrl, KIO::HideProgressInfo );
         if( !statJob->exec() )
         {
-            KUrl dir = KUrl( projectFileUrl.directory( KUrl::AppendTrailingSlash ) + ".kdev4");
+            KUrl dir = KUrl( projectFileUrl.directory( KUrl::AppendTrailingSlash ) + ".ktechlab");
             statJob = KIO::stat( dir, KIO::HideProgressInfo );
             if( !statJob->exec() )
             {
@@ -315,7 +315,7 @@ public:
             {
                 vcsPlugin = pluginManager->pluginForExtension( "org.kdevelop.IBasicVersionControl", vcsPluginName );
             }
-        } else 
+        } else
         {
             foreach( KDevelop::IPlugin* p, pluginManager->allPluginsForExtension( "org.kdevelop.IBasicVersionControl" ) )
             {
@@ -354,7 +354,7 @@ Project::Project( QObject *parent )
         : KDevelop::IProject( parent )
         , d( new ProjectPrivate )
 {
-    QDBusConnection::sessionBus().registerObject( "/org/kdevelop/Project", this, QDBusConnection::ExportScriptableSlots );
+    QDBusConnection::sessionBus().registerObject( "/org/ktechlab/Project", this, QDBusConnection::ExportScriptableSlots );
 
     d->project = this;
     d->manager = 0;
