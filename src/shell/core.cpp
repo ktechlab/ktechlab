@@ -24,7 +24,7 @@
 using namespace KTechLab;
 
 CorePrivate::CorePrivate( Core *core )
-: m_componentData( 
+: m_componentData(
     KAboutData( "ktechlab", "ktechlab", ki18n("KTechLab Platform"),
                 "1.0", ki18n("KDevelop shell implementation for KTechLab"),
                 KAboutData::License_LGPL_V2 ) ),
@@ -39,13 +39,24 @@ CorePrivate::~CorePrivate()
 
 void CorePrivate::initialize()
 {
-    if( !uiController )
+    if ( !uiController )
     {
         uiController = new UiController(m_core);
+    }
+    if ( !projectController ) {
+        projectController = new ProjectController(m_core);
     }
     if ( !documentController ) {
         documentController = new DocumentController(m_core);
     }
+    if ( !partController ) {
+        partController = new PartController( m_core, uiController->defaultMainWindow() );
+    }
+    if ( !pluginController ) {
+        pluginController = new PluginController(m_core);
+    }
+
+    uiController->defaultMainWindow()->show();
 }
 
 Core *Core::m_self = 0;
@@ -59,7 +70,7 @@ void Core::initialize( )
 {
     if ( m_self )
         return;
-    
+
     m_self = new Core();
     m_self->d->initialize( );
 }
@@ -76,12 +87,12 @@ KDevelop::IUiController* Core::uiController()
 
 KDevelop::IPluginController* Core::pluginController()
 {
-    return 0;
+    return d->pluginController;
 }
 
 KDevelop::IProjectController* Core::projectController()
 {
-    return 0;
+    return d->projectController;
 }
 
 KDevelop::ILanguageController* Core::languageController()
@@ -91,12 +102,12 @@ KDevelop::ILanguageController* Core::languageController()
 
 KParts::PartManager* Core::partController()
 {
-    return 0;
+    return d->partController;
 }
 
 KDevelop::IDocumentController* Core::documentController()
 {
-    return 0;
+    return d->documentController;
 }
 
 KDevelop::IRunController* Core::runController()
@@ -146,12 +157,12 @@ UiController *Core::uiControllerInternal()
 
 PartController *Core::partControllerInternal()
 {
-    return 0;
+    return d->partController;
 }
 
 ProjectController *Core::projectControllerInternal()
 {
-    return 0;
+    return d->projectController;
 }
 
 void Core::cleanup()
