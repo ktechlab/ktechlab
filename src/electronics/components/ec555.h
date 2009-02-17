@@ -22,24 +22,24 @@
 class EC555 : public Component
 {
 public:
-	EC555( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	EC555(ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~EC555();
 	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
+	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
 	static LibraryItem *libraryItem();
 	
 	virtual void stepNonLogic();
 	virtual bool doesStepNonLogic() const { return true; }
 	
 private:
-	Pin * ground;
-	Pin * trigger;
-	Pin * output;
-	Pin * reset;
-	Pin * control;
-	Pin * threshold;
-	Pin * discharge;
-	Pin * vcc;
+	Pin *ground;
+	Pin *trigger;
+	Pin *output;
+	Pin *reset;
+	Pin *control;
+	Pin *threshold;
+	Pin *discharge;
+	Pin *vcc;
 
 	Resistance *m_r1;
 	Resistance *m_r23;
@@ -47,9 +47,9 @@ private:
 	Resistance *m_po_source;
 	Resistance *m_r_discharge;
 	
-	bool old_com1;
-	bool old_com2;
-	bool old_q;
+	bool m_com1;
+	bool m_com2;
+	bool m_q;
 };
 
 #endif
