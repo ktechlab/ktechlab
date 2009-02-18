@@ -51,16 +51,15 @@ const int pairSep = 32;
 // Degrees per radian
 
 Component::Component( ICNDocument *icnDocument, bool newItem, const QString &id )
-        : CNItem( icnDocument, newItem, id ),
+        : CNItem(icnDocument, newItem, id),
         m_angleDegrees(0),
         b_flipped(false)
 {
     m_pCircuitDocument = dynamic_cast<CircuitDocument*>(icnDocument);
 
-    for ( int i=0; i<4; ++i )
-    {
-        m_pPNode[i] = 0l;
-        m_pNNode[i] = 0l;
+    for ( int i=0; i<4; ++i ) {
+        m_pPNode[i] = 0;
+        m_pNNode[i] = 0;
     }
 
     // Get configuration options
@@ -641,7 +640,7 @@ Diode *Component::createDiode( ECNode *n0, ECNode *n1 )
     return createDiode( n0->pin(), n1->pin() );
 }
 
-JFET *Component::createJFET( ECNode * D, ECNode * G, ECNode * S, int JFET_type )
+JFET *Component::createJFET(ECNode *D, ECNode *G, ECNode *S, int JFET_type)
 {
     return createJFET( D->pin(), G->pin(), S->pin(), JFET_type );
 }
@@ -656,12 +655,12 @@ LogicIn *Component::createLogicIn( ECNode *node )
     return createLogicIn( node->pin() );
 }
 
-LogicOut *Component::createLogicOut( ECNode *node, bool isHigh )
+LogicOut *Component::createLogicOut(ECNode *node, bool isHigh)
 {
-    return createLogicOut( node->pin(), isHigh );
+    return createLogicOut(node->pin(), isHigh);
 }
 
-MOSFET *Component::createMOSFET( ECNode * D, ECNode * G, ECNode * S, ECNode * B, int MOSFET_type )
+MOSFET *Component::createMOSFET(ECNode *D, ECNode *G, ECNode *S, ECNode *B, int MOSFET_type)
 {
     return createMOSFET( D->pin(), G->pin(), S->pin(), B ? B->pin() : 0, MOSFET_type );
 }
@@ -686,27 +685,30 @@ VCCS *Component::createVCCS( ECNode *n0, ECNode *n1, ECNode *n2, ECNode *n3, dou
     return createVCCS( n0->pin(), n1->pin(), n2->pin(), n3->pin(), gain );
 }
 
-VCVS *Component::createVCVS( ECNode *n0, ECNode *n1, ECNode *n2, ECNode *n3, double gain )
+VCVS *Component::createVCVS(ECNode *n0, ECNode *n1, ECNode *n2, ECNode *n3, double gain)
 {
-    return createVCVS( n0->pin(), n1->pin(), n2->pin(), n3->pin(), gain );
+    return createVCVS(n0->pin(), n1->pin(), n2->pin(), n3->pin(), gain);
 }
 
-VoltagePoint *Component::createVoltagePoint( ECNode *n0, double voltage )
+VoltagePoint *Component::createVoltagePoint(ECNode *n0, double voltage)
 {
     return createVoltagePoint( n0->pin(), voltage );
 }
 
-VoltageSignal *Component::createVoltageSignal( ECNode *n0, ECNode *n1, double voltage )
+VoltageSignal *Component::createVoltageSignal(ECNode *n0, ECNode *n1, double voltage)
 {
     return createVoltageSignal( n0->pin(), n1->pin(), voltage );
 }
 
-VoltageSource *Component::createVoltageSource( ECNode *n0, ECNode *n1, double voltage )
+VoltageSource *Component::createVoltageSource(ECNode *n0, ECNode *n1, double voltage)
 {
     return createVoltageSource( n0->pin(), n1->pin(), voltage );
 }
 
-BJT* Component::createBJT( Pin *cN, Pin *bN, Pin *eN, bool isNPN )
+// FIXME: MEMORY LEAK CENTRAL!!!
+// We don't have anything to clean up after these calls to 'new'!!!!!
+// this entire class is due for a redesign too. =( 
+BJT *Component::createBJT(Pin *cN, Pin *bN, Pin *eN, bool isNPN )
 {
     BJT *e = new BJT(isNPN);
 
@@ -775,7 +777,7 @@ CurrentSignal* Component::createCurrentSignal( Pin *n0, Pin *n1, double current 
     return e;
 }
 
-CurrentSource* Component::createCurrentSource( Pin *n0, Pin *n1, double current )
+CurrentSource *Component::createCurrentSource( Pin *n0, Pin *n1, double current )
 {
     CurrentSource *e = new CurrentSource(current);
 
@@ -799,21 +801,21 @@ Diode* Component::createDiode( Pin *n0, Pin *n1 )
     return e;
 }
 
-JFET * Component::createJFET( Pin * D, Pin * G, Pin * S, int JFET_type )
+JFET *Component::createJFET( Pin *D, Pin *G, Pin *S, int JFET_type )
 {
-    JFET * e = new JFET( (JFET::JFET_type) JFET_type );
+    JFET *e = new JFET( (JFET::JFET_type) JFET_type );
 
     QValueList<Pin*> pins;
     pins << D << G << S;
 
     ElementMapList::iterator it = handleElement( e, pins );
-    setInterDependent( it, pins );
+    setInterDependent(it, pins);
     return e;
 }
 
-Inductance* Component::createInductance( Pin *n0, Pin *n1, double inductance )
+Inductance *Component::createInductance(Pin *n0, Pin *n1, double inductance)
 {
-    Inductance *e = new Inductance( inductance, LINEAR_UPDATE_PERIOD );
+    Inductance *e = new Inductance(inductance, LINEAR_UPDATE_PERIOD);
 
     QValueList<Pin*> pins;
     pins << n0 << n1;
@@ -846,22 +848,22 @@ LogicOut *Component::createLogicOut( Pin *node, bool isHigh )
     return e;
 }
 
-MOSFET * Component::createMOSFET( Pin * D, Pin * G, Pin * S, Pin * B, int MOSFET_type )
+MOSFET *Component::createMOSFET(Pin *D, Pin *G, Pin *S, Pin *B, int MOSFET_type)
 {
-    MOSFET * e = new MOSFET( (MOSFET::MOSFET_type) MOSFET_type );
+    MOSFET *e = new MOSFET((MOSFET::MOSFET_type) MOSFET_type);
 
     QValueList<Pin*> pins;
     pins << D << G << S << B;
 
     /// \todo remove the following line removing body if null
-    pins.remove( 0 );
+    pins.remove(0);
 
-    ElementMapList::iterator it = handleElement( e, pins );
-    setInterDependent( it, pins );
+    ElementMapList::iterator it = handleElement(e, pins);
+    setInterDependent(it, pins);
     return e;
 }
 
-OpAmp * Component::createOpAmp( Pin * nonInverting, Pin * inverting, Pin * out )
+OpAmp *Component::createOpAmp( Pin * nonInverting, Pin * inverting, Pin * out )
 {
     OpAmp * e = new OpAmp();
 
@@ -873,7 +875,7 @@ OpAmp * Component::createOpAmp( Pin * nonInverting, Pin * inverting, Pin * out )
     return e;
 }
 
-Resistance* Component::createResistance( Pin *n0, Pin *n1, double resistance )
+Resistance *Component::createResistance( Pin *n0, Pin *n1, double resistance )
 {
     Resistance *e = new Resistance(resistance);
 
@@ -930,7 +932,7 @@ VCVS* Component::createVCVS( Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain )
     return e;
 }
 
-VoltagePoint* Component::createVoltagePoint( Pin *n0, double voltage )
+VoltagePoint *Component::createVoltagePoint( Pin *n0, double voltage )
 {
     VoltagePoint *e = new VoltagePoint(voltage);
 
@@ -942,7 +944,7 @@ VoltagePoint* Component::createVoltagePoint( Pin *n0, double voltage )
     return e;
 }
 
-VoltageSignal* Component::createVoltageSignal( Pin *n0, Pin *n1, double voltage )
+VoltageSignal *Component::createVoltageSignal( Pin *n0, Pin *n1, double voltage )
 {
     VoltageSignal *e = new VoltageSignal(LINEAR_UPDATE_PERIOD, voltage );
 
@@ -954,7 +956,7 @@ VoltageSignal* Component::createVoltageSignal( Pin *n0, Pin *n1, double voltage 
     return e;
 }
 
-VoltageSource* Component::createVoltageSource( Pin *n0, Pin *n1, double voltage )
+VoltageSource *Component::createVoltageSource( Pin *n0, Pin *n1, double voltage )
 {
     VoltageSource *e = new VoltageSource(voltage);
 
@@ -967,7 +969,7 @@ VoltageSource* Component::createVoltageSource( Pin *n0, Pin *n1, double voltage 
 }
 
 
-ElementMapList::iterator Component::handleElement( Element *e, const QValueList<Pin*> & pins )
+ElementMapList::iterator Component::handleElement(Element *e, const QValueList<Pin*> & pins)
 {
     if (!e)
         return m_elementMapList.end();
@@ -1003,7 +1005,7 @@ void Component::setInterCircuitDependent( ElementMapList::iterator it, const QVa
     {
         for ( QValueList<Pin*>::ConstIterator it2 = pins.begin(); it2 != end; ++it2 )
         {
-            (*it1)->addCircuitDependentPin( *it2 );
+            (*it1)->addCircuitDependentPin(*it2);
         }
     }
 
@@ -1072,63 +1074,56 @@ void Component::initElements( const uint stage )
 
     const ElementMapList::iterator end = m_elementMapList.end();
 
-    if ( stage == 1 ) {
-        for ( ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it )
+    if(stage == 1) {
+        for(ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it)
         {
             (*it).e->add_initial_dc();
         }
         return;
     }
 
-    for ( ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it )
+    for(ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it)
     {
-        ElementMap m = (*it);
+        ElementMap m = *it;
 
-        if ( m.n[3] ) {
-            m.e->setCNodes( m.n[0]->eqId(), m.n[1]->eqId(), m.n[2]->eqId(), m.n[3]->eqId() );
-        } else if ( m.n[2] ) {
-            m.e->setCNodes( m.n[0]->eqId(), m.n[1]->eqId(), m.n[2]->eqId() );
-        } else if ( m.n[1] ) {
-            m.e->setCNodes( m.n[0]->eqId(), m.n[1]->eqId() );
-        } else if ( m.n[0] ) {
-            m.e->setCNodes( m.n[0]->eqId() );
+        if(m.n[3]) {
+            m.e->setCNodes(m.n[0]->eqId(), m.n[1]->eqId(), m.n[2]->eqId(), m.n[3]->eqId());
+        } else if(m.n[2]) {
+            m.e->setCNodes(m.n[0]->eqId(), m.n[1]->eqId(), m.n[2]->eqId());
+        } else if(m.n[1]) {
+            m.e->setCNodes(m.n[0]->eqId(), m.n[1]->eqId());
+        } else if(m.n[0]) {
+            m.e->setCNodes(m.n[0]->eqId());
         }
     }
 }
 
-
-ECNode *Component::createPin( double x, double y, int orientation, const QString & name )
+ECNode *Component::createPin(double x, double y, int orientation, const QString &name)
 {
-    return dynamic_cast<ECNode*>( createNode( x, y, orientation, name, Node::ec_pin ) );
+    return dynamic_cast<ECNode*>(createNode(x, y, orientation, name, Node::ec_pin));
 }
 
-
 // static
-double Component::voltageLength( double v )
+double Component::voltageLength(double v)
 {
     double v_max = 1e+1;
     double v_min = 1e-1;
 
-    v = std::abs( v );
+    v = std::abs(v);
 
-    if ( v >= v_max )
-        return 1.0;
-    else if ( v <= v_min )
-        return 0.0;
-    else
-        return std::log( v / v_min ) / std::log( v_max / v_min );
+    if(v >= v_max) return 1.0;
+    else if(v <= v_min) return 0.0;
+    else return std::log(v / v_min) / std::log(v_max / v_min);
 }
 
-
 // static
-QColor Component::voltageColor( double v )
+QColor Component::voltageColor(double v)
 {
-    double prop = voltageLength( v );
+    double prop = voltageLength(v);
 
-    if ( v >= 0 )
-        return QColor( int(255*prop), int(166*prop), 0 );
-    else
-        return QColor( 0, int(136*prop), int(255*prop) );
+    if(v >= 0)
+        return QColor(int(255*prop), int(166*prop), 0 );
+    else return QColor(0, int(136*prop), int(255*prop));
 }
 
 
@@ -1136,7 +1131,7 @@ QColor Component::voltageColor( double v )
 ElementMap::ElementMap()
 {
     e = 0;
-    for ( int i = 0; i < 4; ++i )
+    for(int i = 0; i < 4; ++i)
         n[i] = 0;
 }
 //END class ElementMap
