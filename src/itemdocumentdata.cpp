@@ -1071,6 +1071,9 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 				// have no assiciated items; this causes stange bugs when insterting subcircuits in the circuit.
 				// this is just a temporary fix; someone should get to the real cause of this problem and fix
 				// ItemDocument
+                                if ( icnd->connectorWithID( id ) ) {
+                                    kdWarning() << "Unregistering connector with ID: " << id << ". This should not delete any of your connections!" << endl;
+                                }
 				icnd->unregisterUID(id);
 				
 				// FIXME ICNDocument->type() used
