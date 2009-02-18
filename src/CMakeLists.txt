@@ -97,9 +97,6 @@ install(FILES
 )
 install(FILES  ktechlab.desktop DESTINATION share/applnk/Development)
 install(FILES
-    x-circuit.desktop
-    x-flowcode.desktop
-    x-ktechlab.desktop
-    x-microbe.desktop
+    ktechlab.xml
 
-    DESTINATION share/mimelink/application)
+    DESTINATION ${XDG_MIME_INSTALL_DIR} )
