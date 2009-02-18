@@ -22,7 +22,7 @@
 const double epsilon = 1e-50;
 
 Matrix::Matrix(CUI n, CUI m)
-	: m_n(n)
+	: m_n(n), max_k(0)
 {
 	unsigned int size = m_n + m;
 
