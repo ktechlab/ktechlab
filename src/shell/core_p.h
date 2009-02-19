@@ -40,6 +40,7 @@ public:
     QPointer<ProjectController> projectController;
     QPointer<DocumentController> documentController;
     QPointer<PartController> partController;
+    QPointer<SessionController> sessionController;
 
     KComponentData m_componentData;
     Core *m_core;
