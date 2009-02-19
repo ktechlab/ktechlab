@@ -39,6 +39,9 @@ CorePrivate::~CorePrivate()
 
 void CorePrivate::initialize()
 {
+    if ( !sessionController ) {
+        sessionController = new SessionController(m_core);
+    }
     if ( !uiController )
     {
         uiController = new UiController(m_core);
@@ -56,7 +59,9 @@ void CorePrivate::initialize()
         pluginController = new PluginController(m_core);
     }
 
+    sessionController->initialize();
     uiController->defaultMainWindow()->show();
+    pluginController->initialize();
 }
 
 Core *Core::m_self = 0;
@@ -127,12 +132,12 @@ KDevelop::ISelectionController* Core::selectionController()
 
 SessionController* Core::sessionController()
 {
-    return 0;
+    return d->sessionController;
 }
 
 KDevelop::ISession* Core::activeSession()
 {
-    return 0;
+    return sessionController()->activeSession();
 }
 
 KComponentData Core::componentData() const
