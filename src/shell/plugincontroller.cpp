@@ -137,7 +137,7 @@ PluginController::PluginController(Core *core)
     setObjectName("PluginController");
     d->core = core;
     kDebug() << "Fetching plugin info which matches:" << QString( "[X-KDevelop-Version] == %1" ).arg(KDEVELOP_PLUGIN_VERSION);
-    d->plugins = KPluginInfo::fromServices( KServiceTypeTrader::self()->query( QLatin1String( "KDevelop/Plugin" ),
+    d->plugins = KPluginInfo::fromServices( KServiceTypeTrader::self()->query( QLatin1String( "KTechLab/Plugin" ),
         QString( "[X-KDevelop-Version] == %1" ).arg(KDEVELOP_PLUGIN_VERSION) ) );
     foreach( KPluginInfo p, d->plugins )
     {
@@ -330,13 +330,15 @@ KDevelop::IPlugin *PluginController::loadPluginInternal( const QString &pluginId
         return 0;
     }
 
+    /*
     if( info.property("X-KDevelop-Mode") == "GUI"
-//        && KTechlabCore::self()->setupFlags() == KTechlabCore::NoUi 
+        && KTechlabCore::self()->setupFlags() == KTechlabCore::NoUi 
     )
     {
         kWarning() << "Unable to load plugin named" << pluginId << ". Running in No-Ui mode, but the plugin says it needs a GUI";
         return 0;
     }
+    */
 
     kDebug() << "Attempting to load '" << pluginId << "'";
     emit loadingPlugin( info.pluginName() );
@@ -359,7 +361,7 @@ KDevelop::IPlugin *PluginController::loadPluginInternal( const QString &pluginId
         }
         else
         {
-            plugin = KServiceTypeTrader::createInstanceFromQuery<KDevelop::IPlugin>( QLatin1String( "KDevelop/Plugin" ),
+            plugin = KServiceTypeTrader::createInstanceFromQuery<KDevelop::IPlugin>( QLatin1String( "KTechLab/Plugin" ),
                     QString::fromLatin1( "[X-KDE-PluginInfo-Name]=='%1'" ).arg( pluginId ), d->core, QVariantList(), &str_error );
         }
         loadDependencies( info );
