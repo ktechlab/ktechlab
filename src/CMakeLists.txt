@@ -2,6 +2,7 @@ add_subdirectory(core)
 add_subdirectory(gui)
 add_subdirectory(shell)
 add_subdirectory(dataengines)
+add_subdirectory(plugins)
 
 #add_subdirectory(context)
 #add_subdirectory(flowparts)
