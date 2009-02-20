@@ -26,7 +26,6 @@ substitution, and a few other useful operations. Steps in using class:
 (3) Add the values to the matrix
 (4) Call performLU, and get the results with fbSub
 (5) Repeat 2, 3, 4 or 5 as necessary.
-@todo We need to allow createMap to work while the matrix has already been initalised
 @short Matrix manipulation class tailored for circuit equations
 @author David Saxton
 */
@@ -67,16 +66,16 @@ public:
 	/**
 	 * Sets the element matrix at row i, col j to value x
 	 */
-	double& g(CUI i, CUI j) {
+	double &g(CUI i, CUI j) {
 		const unsigned int mapped_i = m_inMap[i];
-		if ( mapped_i<max_k ) max_k = mapped_i;
+		if(mapped_i < max_k) max_k = mapped_i;
 
-		if ( j<max_k ) max_k = j;
+		if(j < max_k) max_k = j;
 
 		// I think I need the next line...
-		if ( max_k > 0 ) max_k--;
+		if(max_k > 0) max_k--;
 
-		return (*m_mat)[mapped_i][j];
+		return(*m_mat)[mapped_i][j];
 	}
 
 	/**
