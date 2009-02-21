@@ -22,6 +22,10 @@
 
 #include <Plasma/DataEngine>
 
+namespace KTechLab
+{
+    class Core;
+} // namespace KTechLab{
 
 /**
  * Handle all opened documents in KTechLab via this Engine.
@@ -53,12 +57,26 @@ class DocumentEngine : public Plasma::DataEngine
 
         /**
          * Update the internal data of a source named \param{name}
+         * List of sources, this DataEngine provides:
+         *
+         * opened
+         *  Some information from the DocumentController, including:
+         *  - documentCount:    the number of open documents
+         *  - documentList:     a QStringList containing a url for each open document
+         *
+         * Besides that, there are DataSources for each document in documentList providing
+         * all data that is needed to visualize a document.
          */
         bool updateSourceEvent( const QString &source );
 
     private:
         //keep track of opened documents which in fact are our sources
         QStringList m_sources;
+        //keep the pointer to our core
+        KTechLab::Core *m_core;
+        //we are disabled, if m_core isn't initialized (KTechLab isn't running)
+        //updateSourceEvent will return false in that case
+        bool m_disabled;
 };
 
 #endif
