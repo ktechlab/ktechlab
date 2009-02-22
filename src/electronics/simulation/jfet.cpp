@@ -21,7 +21,7 @@ const uint JFET::PinS = 2;
 JFETSettings::JFETSettings()
 {
 	V_Th = -2.0;
-	beta = 1e-4;		
+	beta = 1e-4;
 	I_S = 1e-14;
 	N = 1.0;
 	N_R = 2.0;
@@ -30,7 +30,6 @@ JFETSettings::JFETSettings()
 
 
 //BEGIN class JFETState
-
 JFETState::JFETState()
 {
 	reset();
@@ -99,17 +98,18 @@ void JFET::updateCurrents()
 	double V_D = p_cnode[PinD]->v;
 	double V_G = p_cnode[PinG]->v;
 	double V_S = p_cnode[PinS]->v;
-	
+
+// absolute voltages mean nothing to us, we can only use relative voltages. 
 	double V_GS = V_G - V_S;
 	double V_GD = V_G - V_D;
 
 	double I_GS, I_GD, I_DS, g_GS, g_GD, g_DS, g_m;
-	
+
 	calcIg(V_GS, V_GD,
 		&I_GS, &I_GD, &I_DS,
 		&g_GS, &g_GD, &g_DS,
 		&g_m );
-	
+
 	m_cnodeI[PinD] = I_GD - I_DS;
 	m_cnodeI[PinS] = I_GS + I_DS;
 	m_cnodeI[PinG] = -(m_cnodeI[PinD] + m_cnodeI[PinS]);
@@ -129,48 +129,44 @@ void JFET::update_dc()
 
 		b_i(i) += diff.I[i];
 	}
-	
+
 	m_os = m_ns;
 }
 
 void JFET::calc_eq()
 {
 	double N = m_jfetSettings.N;
-	
+
 	double V_D = p_cnode[PinD]->v;
 	double V_G = p_cnode[PinG]->v;
 	double V_S = p_cnode[PinS]->v;
-	
-	// GS diode
-	V_GS = diodeVoltage(V_G - V_S, V_GS, N, V_lim);
 
-	// GD diode
+	V_GS = diodeVoltage(V_G - V_S, V_GS, N, V_lim);
 	V_GD = diodeVoltage(V_G - V_D, V_GD, N, V_lim);
 
 	double I_GS, I_GD, I_DS, g_GS, g_GD, g_DS, g_m;
-	
 	calcIg(V_GS, V_GD,
 		&I_GS, &I_GD, &I_DS,
 		&g_GS, &g_GD, &g_DS,
-		&g_m );
+		&g_m);
+	// conductance. 
+	m_ns.A[PinG][PinG] =  g_GS + g_GD;
+	m_ns.A[PinG][PinD] = -g_GD;
+	m_ns.A[PinG][PinS] = -g_GS;
+
+	m_ns.A[PinD][PinG] = -g_GD + g_m;
+	m_ns.A[PinD][PinD] =  g_DS + g_GD;
+	m_ns.A[PinD][PinS] = -g_m  - g_DS;
+
+	m_ns.A[PinS][PinG] = -g_GS - g_m;
+	m_ns.A[PinS][PinD] = -g_DS;
+	m_ns.A[PinS][PinS] =  g_GS + g_DS + g_m;
 
 	// current sources
 	double IeqG = I_GS - (g_GS * V_GS);
 	double IeqD = I_GD - (g_GD * V_GD);
 	double IeqS = I_DS - (g_m  * V_GS) - (g_DS * (V_GS - V_GD));
-	
-	m_ns.A[PinG][PinG] =  g_GS + g_GD;
-	m_ns.A[PinG][PinD] = -g_GD;
-	m_ns.A[PinG][PinS] = -g_GS;
-	
-	m_ns.A[PinD][PinG] = -g_GD + g_m;
-	m_ns.A[PinD][PinD] =  g_DS + g_GD;
-	m_ns.A[PinD][PinS] = -g_m  - g_DS;
-	
-	m_ns.A[PinS][PinG] = -g_GS - g_m;
-	m_ns.A[PinS][PinD] = -g_DS;
-	m_ns.A[PinS][PinS] =  g_GS + g_DS + g_m;
-	
+
 	m_ns.I[PinG] = (-IeqG - IeqD) * m_pol;
 	m_ns.I[PinD] = ( IeqD - IeqS) * m_pol;
 	m_ns.I[PinS] = ( IeqG + IeqS) * m_pol;
@@ -182,31 +178,33 @@ void JFET::calcIg(double  V_GS, double  V_GD,
 		  double *g_GS, double *g_GD, double *g_DS,
 		  double *g_m) const
 {
-	// GS diode
+	double lambda = 0.001; // "channel length modulation parameter" (1/V)
 	double I_S  = m_jfetSettings.I_S;
 	double N    = m_jfetSettings.N;
 // FIXME: How were we supposed to use the parameter in the next line? 
 //	double N_R  = m_jfetSettings.N_R;
-	double g_tiny = (V_GS < (-10 * V_T * N)) ? I_S : 0;
 
+	// GS diode
+	double g_tiny = (V_GS < (-10 * V_T * N)) ? I_S : 0;
 	diodeJunction(V_GS, I_S, N, I_GS, g_GS);
 	*g_GS += g_tiny;
 	*I_GS += g_tiny * V_GS;
 
 	// GD diode
 	g_tiny = (V_GD < (-10 * V_T * N)) ? I_S : 0;
-
 	diodeJunction(V_GD, I_S, N, I_GD, g_GD);
 	*g_GD += g_tiny;
 	*I_GD += g_tiny * V_GD;
 
 	double V_Th = m_jfetSettings.V_Th;
-
 	double V_GST = V_GS - V_Th;
 	double V_GDT = V_GD - V_Th;
 	double V_DS  = V_GS - V_GD;
 
 	double beta = m_jfetSettings.beta;
+
+	double beta_mod = beta * (1 + lambda * V_DS);
+	double inv_beta_mod = beta * (1 - lambda * V_DS); 
 
 	switch(getOpRegion(V_DS, V_GST, V_GDT)) {
 	case NormalCutoff:
@@ -216,24 +214,36 @@ void JFET::calcIg(double  V_GS, double  V_GD,
 		*g_m  = 0;
 		break;
 	case NormalSaturation:
-		*I_DS = beta * V_GST * V_GST;
-		*g_DS = 0;
-		*g_m  = beta * 2 * V_GST;
+		{
+			double V_GST_2 = V_GST * V_GST;
+			*I_DS = beta_mod * V_GST_2;
+			*g_m  = beta_mod * 2 * V_GST;
+			*g_DS = beta * lambda * V_GST_2;
+		}
 		break;
 	case NormalLinear:
-		*I_DS = beta * V_DS * (2 * V_GST - V_DS);
-		*g_DS = beta * 2 * (V_GST - V_DS);
-		*g_m  = beta * 2 *  V_DS;
+		{
+			double term = 2 * V_GST - V_DS;
+			*I_DS = beta_mod * term * V_DS;
+			*g_m  = beta_mod * 2    * V_DS;
+			*g_DS = beta_mod * 2 * (V_GST - V_DS) + beta * lambda * V_DS * term;
+		}
 		break;
 	case InverseSaturation:
-		*I_DS = - beta * V_GDT * V_GDT;
-		*g_DS =   beta * 2 * V_GDT;
-		*g_m  = - beta * 2 * V_GDT;
+		{
+			double V_GDT_2 = V_GDT * V_GDT;
+			*I_DS = - inv_beta_mod * V_GDT_2;
+			*g_m  = - inv_beta_mod * 2 * V_GDT;
+			*g_DS =   inv_beta_mod * 2 * V_GDT + beta * lambda * V_GDT_2;
+		}
 		break;
 	case InverseLinear:
-		*I_DS = beta * V_DS * (2 * V_GDT + V_DS);
-		*g_DS = beta * 2 * V_GDT;
-		*g_m  = beta * 2 * V_DS;
+		{
+			double term = 2 * V_GDT + V_DS;
+			*I_DS = inv_beta_mod * V_DS * term;
+			*g_m  = inv_beta_mod * 2 * V_DS;
+			*g_DS = inv_beta_mod * 2 * V_GDT - beta * lambda * V_DS * term;
+		}
 		break;
 	}
 }
