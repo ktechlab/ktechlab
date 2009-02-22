@@ -19,11 +19,14 @@ typedef unsigned int uint;
 
 extern double T_K; ///< Temperature in Kelvin
 
-const double K = 1.3806504e-23; ///< Boltzmann's constant
+const double BOLTZMANN_CONSTANT = 1.3806504e-23; ///< Boltzmann's constant
 const double ELEMENTARY_CHARGE = 1.602176487e-19; ///< Charge on an electron
 
-///< Thermal voltage
-#define V_T (K * T_K / ELEMENTARY_CHARGE)
+/// Thermal Energy 
+#define E_T (BOLTZMANN_CONSTANT * T_K)
+
+/// Thermal voltage
+#define V_T (E_T / ELEMENTARY_CHARGE)
 
 // do we want this as a macro or as a function? 
 // double thermal_voltage(double temperature);
@@ -33,8 +36,8 @@ class CNode
 public:
 	CNode() : v(0.0), isGround(false), m_n(0) {}
 	CNode(const uint32_t n) : v(0.0), isGround(false), m_n(n) {}
-	void set_n(const uint n) { m_n = n; }
-	uint n() const { return m_n; }
+	inline void set_n(const uint n) { m_n = n; }
+	inline uint n() const { return m_n; }
 
 	/// Voltage on node. This is set from the last calculated voltage.
 	double v;
@@ -234,11 +237,11 @@ private:
 };
 
 // this function is called millions of times!! =0
-// kachegrind reports that it is about 1.22% of the total runtime. 
+// kachegrind reports that it is between 1.2- 3.2% of the total runtime.
 double &Element::A_g(uint i, uint j)
 {
 	if(p_cnode[i]->isGround || p_cnode[j]->isGround) return m_temp;
-	return p_eSet->matrix()->g( p_cnode[i]->n(), p_cnode[j]->n() );
+	return p_eSet->matrix()->g(p_cnode[i]->n(), p_cnode[j]->n());
 }
 
 double &Element::A_b(uint i, uint j)
@@ -264,7 +267,7 @@ double &Element::b_i(uint i)
 	return (*(p_eSet->b()))[p_cnode[i]->n()];
 }
 
-double & Element::b_v(uint i)
+double &Element::b_v(uint i)
 {
 	return (*(p_eSet->b()))[p_eSet->cnodeCount() + p_cbranch[i]->n()];
 }
