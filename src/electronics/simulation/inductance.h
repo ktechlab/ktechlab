@@ -26,7 +26,7 @@ class Inductance : public Reactive
 			m_euler, // Backward Euler
 			m_trap // Trapezoidal (currently unimplemented)
 		};
-		Inductance( double capacitance, double delta );
+		Inductance(const double inductance, const double delta);
 		virtual ~Inductance();
 	
 		virtual Type type() const { return Element_Inductance; }
