@@ -13,11 +13,6 @@
 #include <cmath>
 using namespace std;
 
-#ifndef MAX
-# define MAX(x,y) (((x) > (y)) ? (x) : (y))
-#endif
-
-
 //BEGIN class MOSFETSettings
 MOSFETSettings::MOSFETSettings()
 {
@@ -41,14 +36,11 @@ MOSFETSettings::MOSFETSettings()
 }
 //END class MOSFETSettings
 
-
-
 //BEGIN class MOSFETState
 MOSFETState::MOSFETState()
 {
 	reset();
 }
-
 
 void MOSFETState::reset()
 {
@@ -60,7 +52,6 @@ void MOSFETState::reset()
 		I[i] = 0.0;
 	}
 }
-
 
 MOSFETState MOSFETState::operator-( const MOSFETState & s ) const
 {
@@ -78,14 +69,11 @@ MOSFETState MOSFETState::operator-( const MOSFETState & s ) const
 }
 //END class MOSFETState
 
-
-
 //BEGIN class MOSFET
 const uint MOSFET::PinD = 0;
 const uint MOSFET::PinG = 1;
 const uint MOSFET::PinS = 2;
 const uint MOSFET::PinB = 3;
-
 
 MOSFET::MOSFET( MOSFET_type type )
 {
@@ -108,7 +96,6 @@ MOSFET::MOSFET( MOSFET_type type )
 	updateLim();
 }
 
-
 MOSFET::~MOSFET()
 {
 }
@@ -119,7 +106,6 @@ void MOSFET::add_initial_dc()
 	m_os.reset();
 	update_dc();
 }
-
 
 void MOSFET::updateCurrents()
 {
@@ -147,7 +133,6 @@ void MOSFET::updateCurrents()
 	m_cnodeI[PinB] = -I_BD - I_BS;
 	m_cnodeI[PinS] = +I_DS + I_BS;
 }
-
 
 void MOSFET::update_dc()
 {
