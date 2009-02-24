@@ -29,15 +29,31 @@ int main(int argc, char **argv)
 {
     KAboutData about( QString("ktechlab").toUtf8(),
                       QString("ktechlab").toUtf8(),
-                      ki18n("KTechlab"),
+                      ki18n("KTechLab"),
                       QString(VERSION).toUtf8(),
                       ki18n(description),
                       KAboutData::License_GPL,
-                      ki18n("(C) 2003-2008, The KTechlab developers"),
+                      ki18n("(C) 2003-2009, The KTechLab developers"),
                       ki18n(""),
                       QString("http://ktechlab.org").toUtf8(),
                       QString("ktechlab-devel@lists.sourceforge.net").toUtf8()
                     );
+    about.addAuthor( ki18n("Alan Grimes"),
+                     ki18n("Simulation"),
+                     ki18n("").toString().toUtf8()
+                   );
+    about.addAuthor( ki18n("Zoltan Pedrah"),
+                     ki18n(""),
+                     ki18n("").toString().toUtf8()
+                   );
+    about.addAuthor( ki18n("Juan De Vincenzo"),
+                     ki18n(""),
+                     ki18n("").toString().toUtf8()
+                   );
+    about.addAuthor( ki18n("Julian Bäume"),
+                     ki18n("KDE4 Port"),
+                     ki18n("julian@svg4all.de").toString().toUtf8()
+                   );
     about.addAuthor( ki18n("David Saxton"),
                      ki18n("Initial KDE3 Version, former Maintainer"),
                      ki18n("david@bluehaze.org").toString().toUtf8()
@@ -46,10 +62,6 @@ int main(int argc, char **argv)
                      ki18n(""),
                      ki18n("daniel.jc@gmail.com").toString().toUtf8()
                    );
-    about.addAuthor( ki18n("Julian Bäume"),
-                     ki18n("KDE4 Port"),
-                     ki18n("julian@svg4all.de").toString().toUtf8()
-                   );
     about.addCredit( ki18n("Couriousous"),
                      ki18n("JK flip-flop, asyncronous preset/reset in the D flip-flop.")
                    );
@@ -57,10 +69,10 @@ int main(int argc, char **argv)
                      ki18n("Rotary Switch")
                    );
     about.addCredit( ki18n("Ali Akcaagac"),
-                     ki18n("Glib friendliness.")
+                     ki18n("Glib friendliness in KDE3 version.")
                    );
     about.addCredit( ki18n("David Leggett"),
-                     ki18n("Website hosting and feedback during early development.")
+                     ki18n("former Website hosting and feedback during early development.")
                    );
 
     KCmdLineOptions options;
