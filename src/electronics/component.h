@@ -11,18 +11,17 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
-#include "cnitem.h"
-
 #include <qvaluelist.h>
+
+#include "cnitem.h"
+#include "ecnode.h"
 
 class ICNDocument;
 class CircuitDocument;
-class ECNode;
 class ECSubcircuit;
 class Element;
 class Node;
 class Pin;
-
 class BJT;
 class Capacitance;
 class CCCS;
@@ -48,7 +47,6 @@ class VoltageSource;
 typedef QValueList<ECNode*> ECNodeList;
 typedef QValueList<Element*> ElementList;
 typedef QValueList<Switch*> SwitchList;
-
 typedef QValueList< QValueList<Pin*> > PinListList;
 
 /**
@@ -58,13 +56,13 @@ class ElementMap
 {
 	public:
 		ElementMap();
-		
-		Element * e; // The element
-		Pin * n[4]; // The Pins associated with the CNodes in the element
-	
+
+		Element *e; // The element
+		Pin *n[4]; // The Pins associated with the CNodes in the element
+
 		/// @see Component::setInterCircuitDependent
 		PinListList interCircuitDependent;
-	
+
 		/// @see Component::setInterGroundDependent
 		PinListList interGroundDependent;
 };
@@ -146,68 +144,28 @@ class Component : public CNItem
 		 */
 		virtual void restoreFromItemData( const ItemData &itemData );
 	
-		BJT *		createBJT( Pin *c, Pin *b, Pin *e, bool isNPN = true );
-		BJT *		createBJT( ECNode *c, ECNode *b, ECNode *e, bool isNPN = true );
-	
+		BJT *createBJT(Pin *c, Pin *b, Pin *e, bool isNPN = true);
 		Capacitance *createCapacitance( Pin *n0, Pin *n1, double capacitance );
-		Capacitance *createCapacitance( ECNode *n0, ECNode *n1, double capacitance );
-	
-		CCCS *		createCCCS( Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain );
-		CCCS *		createCCCS( ECNode *n0, ECNode *n1, ECNode *n2, ECNode *n3, double gain );
-	
-		CCVS *		createCCVS( Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain );
-		CCVS *		createCCVS( ECNode *n0, ECNode *n1, ECNode *n2, ECNode *n3, double gain );
-	
-		CurrentSignal *createCurrentSignal( Pin *n0, Pin *n1, double current );
-		CurrentSignal *createCurrentSignal( ECNode *n0, ECNode *n1, double current );
-	
-		CurrentSource *createCurrentSource( Pin *n0, Pin *n1, double current );
-		CurrentSource *createCurrentSource( ECNode *n0, ECNode *n1, double current );
-	
-		Diode *		createDiode( Pin *n0, Pin *n1 );
-		Diode *		createDiode( ECNode *n0, ECNode *n1 );
-		
-		JFET *		createJFET( Pin * D, Pin * G, Pin * S, int JFET_type );
-		JFET *		createJFET( ECNode * D, ECNode * G, ECNode * S, int JFET_type );
-	
-		Inductance *	createInductance( Pin *n0, Pin *n1, double inductance );
-		Inductance *	createInductance( ECNode *n0, ECNode *n1, double inductance );
-	
-		LogicIn *	createLogicIn( Pin *node );
-		LogicIn *	createLogicIn( ECNode *node );
-	
-		LogicOut *	createLogicOut( Pin *node, bool isHigh );
-		LogicOut *	createLogicOut( ECNode *node, bool isHigh );
-		
-		MOSFET *	createMOSFET( Pin * D, Pin * G, Pin * S, Pin * B, int MOSFET_type );
-		MOSFET *	createMOSFET( ECNode * D, ECNode * G, ECNode * S, ECNode * B, int MOSFET_type );
-	
-		OpAmp *		createOpAmp( Pin * nonInverting, Pin * out, Pin * inverting );
-		OpAmp *		createOpAmp( ECNode * nonInverting, ECNode * out, ECNode * inverting );
-	
-		Resistance *	createResistance( Pin *n0, Pin *n1, double resistance );
-		Resistance *	createResistance( ECNode *n0, ECNode *n1, double resistance );
-	
-		Switch *	createSwitch( Pin *n0, Pin *n1, bool open );
-		Switch *	createSwitch( ECNode *n0, ECNode *n1, bool open );
-	
-		VCCS *		createVCCS( Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain );
-		VCCS *		createVCCS( ECNode *n0, ECNode *n1, ECNode *n2, ECNode *n3, double gain );
-	
-		VCVS *		createVCVS( Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain );
-		VCVS *		createVCVS( ECNode *n0, ECNode *n1, ECNode *n2, ECNode *n3, double gain );
-	
-		VoltagePoint *	createVoltagePoint( Pin *n0, double voltage );
-		VoltagePoint *	createVoltagePoint( ECNode *n0, double voltage );
-	
-		VoltageSignal *	createVoltageSignal( Pin *n0, Pin *n1, double voltage );
-		VoltageSignal *	createVoltageSignal( ECNode *n0, ECNode *n1, double voltage );
-	
+		CCCS *createCCCS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain);
+		CCVS *createCCVS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain);
+		CurrentSignal *createCurrentSignal(Pin *n0, Pin *n1, double current);
+		CurrentSource *createCurrentSource(Pin *n0, Pin *n1, double current);
+		Diode *createDiode(Pin *n0, Pin *n1);
+		JFET *createJFET(Pin *D, Pin *G, Pin *S, int JFET_type);
+		Inductance *createInductance( Pin *n0, Pin *n1, double inductance );
+		LogicIn *createLogicIn(Pin *node);
+		LogicOut *createLogicOut(Pin *node, bool isHigh);
+		MOSFET *createMOSFET(Pin *D, Pin *G, Pin *S, Pin *B, int MOSFET_type);
+		OpAmp *createOpAmp(Pin *nonInverting, Pin *out, Pin *inverting);
+		Resistance *createResistance(Pin *n0, Pin *n1, double resistance);
+		Switch *createSwitch(Pin *n0, Pin *n1, bool open);
+		VCCS *createVCCS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain);
+		VCVS *createVCVS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain );
+		VoltagePoint *createVoltagePoint(Pin *n0, double voltage);
+		VoltageSignal *createVoltageSignal(Pin *n0, Pin *n1, double voltage);
 		VoltageSource *	createVoltageSource( Pin *n0, Pin *n1, double voltage );
-		VoltageSource *	createVoltageSource( ECNode *n0, ECNode *n1, double voltage );
-	
 
-		ECNode* ecNodeWithID( const QString &ecNodeId  );
+		ECNode *ecNodeWithID(const QString&ecNodeId);
 	
 		/**
 		 * Safely delete an element - in this case, calls element->componentDeleted,
@@ -359,7 +317,7 @@ class Component : public CNItem
 		 * If any of the given pins are ground, then that will affect whether
 		 * any of the other pins can be ground.
 		 */
-		void setInterGroundDependent( ElementMapList::iterator it, const QValueList<Pin*> & pins );
+		void setInterGroundDependent( ElementMapList::iterator it, const QValueList<Pin*> &pins );
 		/**
 		 * List of ElementMaps; which contain information on the pins associated
 		 * with the element as well as the dependence between the pins for that
@@ -375,7 +333,7 @@ TODO: ammend this comment with a more complete justification for the design deci
 		/**
 		 * @return an iterator to the element in m_elementMapList
 		 */
-		ElementMapList::iterator handleElement( Element *e, const QValueList<Pin*> & pins );
+		ElementMapList::iterator handleElement( Element *e, const QValueList<Pin*> &pins );
 };
 
 #endif
