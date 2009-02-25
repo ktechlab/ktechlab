@@ -29,8 +29,7 @@ LibraryItem* VariableResistor::libraryItem() {
 	           i18n("Passive"),
 	           "variable_resistor.png",
 	           LibraryItem::lit_component,
-	           VariableResistor::construct
-	       );
+	           VariableResistor::construct);
 }
 
 VariableResistor::VariableResistor(ICNDocument* icnDocument, bool newItem, const QString& id)
@@ -79,6 +78,7 @@ VariableResistor::VariableResistor(ICNDocument* icnDocument, bool newItem, const
 }
 
 VariableResistor::~VariableResistor() {
+	delete m_pResistance;
 }
 
 void VariableResistor::dataChanged() {

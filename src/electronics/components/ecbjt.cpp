@@ -17,17 +17,15 @@
 #include <klocale.h>
 #include <qpainter.h>
 
-Item * ECBJT::constructNPN(ItemDocument * itemDocument, bool newItem, const char * id) {
+Item *ECBJT::constructNPN(ItemDocument *itemDocument, bool newItem, const char *id) {
 	return new ECBJT(true, (ICNDocument*)itemDocument, newItem, id);
 }
 
-
-Item * ECBJT::constructPNP(ItemDocument * itemDocument, bool newItem, const char * id) {
+Item *ECBJT::constructPNP(ItemDocument *itemDocument, bool newItem, const char *id) {
 	return new ECBJT(false, (ICNDocument*)itemDocument, newItem, id);
 }
 
-
-LibraryItem* ECBJT::libraryItemNPN() {
+LibraryItem *ECBJT::libraryItemNPN() {
 	return new LibraryItem(
 	           "ec/npnbjt",
 	           i18n("NPN"),
@@ -37,8 +35,7 @@ LibraryItem* ECBJT::libraryItemNPN() {
 	           ECBJT::constructNPN);
 }
 
-
-LibraryItem* ECBJT::libraryItemPNP() {
+LibraryItem *ECBJT::libraryItemPNP() {
 	return new LibraryItem(
 	           "ec/pnpbjt",
 	           i18n("PNP"),
@@ -48,15 +45,13 @@ LibraryItem* ECBJT::libraryItemPNP() {
 	           ECBJT::constructPNP);
 }
 
-
-ECBJT::ECBJT(bool isNPN, ICNDocument * icnDocument, bool newItem, const char * id)
+ECBJT::ECBJT(bool isNPN, ICNDocument *icnDocument, bool newItem, const char *id)
 		: Component(icnDocument, newItem, id ? id : (isNPN ? "npnbjt" : "pnpbjt")) {
 	m_bIsNPN = isNPN;
 
 	if (m_bIsNPN)
 		m_name = i18n("NPN Transistor");
-	else
-		m_name = i18n("PNP Transistor");
+	else	m_name = i18n("PNP Transistor");
 
 	setSize(-8, -8, 16, 16);
 
@@ -66,72 +61,47 @@ ECBJT::ECBJT(bool isNPN, ICNDocument * icnDocument, bool newItem, const char * i
 
 	BJTSettings s; // will be created with the default settings
 
-	Variant * v = createProperty("I_S", Variant::Type::Double);
+	Variant *v = createProperty("I_S", Variant::Type::Double);
 
 	v->setCaption(i18n("Saturation Current"));
-
 	v->setUnit("A");
-
 	v->setMinValue(1e-20);
-
 	v->setMaxValue(1e-0);
-
 	v->setValue(s.I_S);
-
 	v->setAdvanced(true);
 
 	v = createProperty("N_F", Variant::Type::Double);
-
 	v->setCaption(i18n("Forward Coefficient"));
-
 	v->setMinValue(1e0);
-
 	v->setMaxValue(1e1);
-
 	v->setValue(s.N_F);
-
 	v->setAdvanced(true);
 
 	v = createProperty("N_R", Variant::Type::Double);
-
 	v->setCaption(i18n("Reverse Coefficient"));
-
 	v->setMinValue(1e0);
-
 	v->setMaxValue(1e1);
-
 	v->setValue(s.N_R);
-
 	v->setAdvanced(true);
 
 	v = createProperty("B_F", Variant::Type::Double);
-
 	v->setCaption(i18n("Forward Beta"));
-
 	v->setMinValue(1e-1);
-
 	v->setMaxValue(1e3);
-
 	v->setValue(s.B_F);
-
 	v->setAdvanced(true);
 
 	v = createProperty("B_R", Variant::Type::Double);
-
 	v->setCaption(i18n("Reverse Beta"));
-
 	v->setMinValue(1e-1);
-
 	v->setMaxValue(1e3);
-
 	v->setValue(s.B_R);
-
 	v->setAdvanced(true);
 }
 
 ECBJT::~ECBJT() {
+	delete m_pBJT;
 }
-
 
 void ECBJT::dataChanged() {
 	BJTSettings s;
@@ -168,7 +138,6 @@ void ECBJT::drawShape(QPainter &p) {
 	}
 
 	p.setBrush(p.pen().color());
-
 	p.drawPolygon(pa);
 
 	deinitPainter(p);

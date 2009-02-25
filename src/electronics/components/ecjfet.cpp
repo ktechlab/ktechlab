@@ -106,6 +106,7 @@ ECJFET::ECJFET(int JFET_type, ICNDocument *icnDocument, bool newItem, const char
 }
 
 ECJFET::~ECJFET() {
+	delete m_pJFET;
 }
 
 void ECJFET::dataChanged() {

@@ -51,6 +51,7 @@ Inductor::Inductor(ICNDocument *icnDocument, bool newItem, const char *id)
 }
 
 Inductor::~Inductor() {
+	delete m_pInductance;
 }
 
 void Inductor::dataChanged() {

@@ -52,11 +52,11 @@ EC555::EC555(ICNDocument *icnDocument, bool newItem, const char *id)
 	// Pin 7
 	discharge = createPin(-40, -16, 0, "Dis")->pin();
 	addDisplayText("dis", QRect(-32, -24, 24, 16), "Dis");
-	
+
 	// Pin 6
 	threshold = createPin( -40, 0, 0, "Th" )->pin();
 	addDisplayText("th", QRect(-32, -8, 24, 16), "Th");
-	
+
 	// Pin 2
 	trigger = createPin(-40, 16, 0, "Trg")->pin();
 	addDisplayText("trg", QRect(-32, 8, 24, 16), "Trg");
@@ -83,7 +83,7 @@ EC555::EC555(ICNDocument *icnDocument, bool newItem, const char *id)
 	// Pin 3
 	output = createPin(40, 0, 180, "Out")->pin();
 	addDisplayText("out", QRect(8, -8, 16, 16), "Out");
-	
+
 	m_r1          = createResistance(vcc, control, 5e3);
 	m_r23         = createResistance(control, ground, 1e4);
 	m_po_sink     = createResistance(output, ground, 10);
@@ -94,6 +94,7 @@ EC555::EC555(ICNDocument *icnDocument, bool newItem, const char *id)
 
 EC555::~EC555()
 {
+	delete m_r23;
 }
 
 // TODO: This is simulation code not UI code, so it shouldn't be here.
