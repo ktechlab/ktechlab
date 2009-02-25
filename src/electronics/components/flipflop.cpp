@@ -63,40 +63,40 @@ LibraryItem* ECDFlipFlop::libraryItem()
 		i18n("Integrated Circuits"),
 		"ic3.png",
 		LibraryItem::lit_component,
-		ECDFlipFlop::construct );
+		ECDFlipFlop::construct);
 }
 
-ECDFlipFlop::ECDFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id )
-	: ClockedFlipFlop( icnDocument, newItem, id ? id : "d_flipflop" )
+ECDFlipFlop::ECDFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id)
+	: ClockedFlipFlop(icnDocument, newItem, id ? id : "d_flipflop")
 {
 	m_name = i18n("D-Type Flip-Flop");
-	
-	setSize( -32, -24, 64, 48 );
-	init2PinLeft( -8, 8 );
-	init2PinRight( -8, 8 );
+
+	setSize(-32, -24, 64, 48);
+	init2PinLeft(-8, 8);
+	init2PinRight(-8, 8);
 	initSymbolFromTrigger();
-	
+
 	m_prevD = false;
 	m_pSimulator = Simulator::self();
-	
+
 	m_bPrevClock = false;
-	m_pD = createLogicIn( m_pNNode[0] );
-	m_pClock = createLogicIn( m_pNNode[1] );
-	m_pQ = createLogicOut( m_pPNode[0], false );
-	m_pQBar = createLogicOut( m_pPNode[1], false );
-	
-	setp = createLogicIn( createPin( 0, -32, 90, "set" ) );
-	rstp = createLogicIn( createPin( 0, 32, 270, "rst" ) );
-	
+	m_pD = createLogicIn(m_pNNode[0]->pin());
+	m_pClock = createLogicIn(m_pNNode[1]->pin());
+	m_pQ = createLogicOut(m_pPNode[0]->pin(), false);
+	m_pQBar = createLogicOut(m_pPNode[1]->pin(), false);
+
+	setp = createLogicIn(createPin(0, -32, 90, "set")->pin());
+	rstp = createLogicIn(createPin(0, 32, 270, "rst")->pin());
+
 	// (The display text for D, >, Set, Rst is set in initSymbolFromTrigger
-	addDisplayText( "Q",	QRect( 12,	-16,	20, 16 ), "Q" );
-	addDisplayText( "Q'",	QRect( 12,	0,		20, 16 ), "Q'" );
-	
-	m_pD->setCallback( this, (CallbackPtr)(&ECDFlipFlop::inputChanged) );
-	m_pClock->setCallback( this, (CallbackPtr)(&ECDFlipFlop::clockChanged) );
-	setp->setCallback( this, (CallbackPtr)(&ECDFlipFlop::asyncChanged) );
-	rstp->setCallback( this, (CallbackPtr)(&ECDFlipFlop::asyncChanged) );
-	
+	addDisplayText( "Q",	QRect(12, -16, 20, 16), "Q");
+	addDisplayText( "Q'",	QRect(12,   0, 20, 16), "Q'");
+
+	m_pD->setCallback(this, (CallbackPtr)(&ECDFlipFlop::inputChanged));
+	m_pClock->setCallback(this, (CallbackPtr)(&ECDFlipFlop::clockChanged));
+	setp->setCallback(this, (CallbackPtr)(&ECDFlipFlop::asyncChanged));
+	rstp->setCallback(this, (CallbackPtr)(&ECDFlipFlop::asyncChanged));
+
 	inStateChanged(false);
 }
 
@@ -212,40 +212,40 @@ ECJKFlipFlop::ECJKFlipFlop( ICNDocument *icnDocument, bool newItem, const char *
 {
 	m_name = i18n("JK-Type Flip-Flop");
 	
-	setSize( -32, -32, 64, 64 );
-	init3PinLeft( -16, 0, 16 );
-	init2PinRight( -16, 16 );
+	setSize(-32, -32, 64, 64);
+	init3PinLeft(-16, 0, 16);
+	init2PinRight(-16, 16);
 	initSymbolFromTrigger();
-	
+
 	m_bPrevClock = false;
-	
-	createProperty( "trig", Variant::Type::Select );
-	property("trig")->setCaption( i18n("Trigger Edge") );
+
+	createProperty("trig", Variant::Type::Select);
+	property("trig")->setCaption(i18n("Trigger Edge"));
 	QStringMap allowed;
 	allowed["Rising"] = i18n("Rising");
 	allowed["Falling"] = i18n("Falling");
-	property("trig")->setAllowed( allowed );
+	property("trig")->setAllowed(allowed);
 	property("trig")->setValue("Rising");
 	m_edgeTrigger = Rising;
 	initSymbolFromTrigger();
-	
-	m_pJ = createLogicIn( m_pNNode[0] );
-	m_pClock = createLogicIn( m_pNNode[1] );
-	m_pK = createLogicIn( m_pNNode[2] );
-	
-	m_pQ = createLogicOut( m_pPNode[0], false );
-	m_pQBar = createLogicOut( m_pPNode[1], false );
 
-	setp = createLogicIn( createPin( 0, -40, 90, "set" ) );
-	rstp = createLogicIn( createPin( 0, 40, 270, "rst" ) );
+	m_pJ = createLogicIn(m_pNNode[0]->pin());
+	m_pClock = createLogicIn(m_pNNode[1]->pin());
+	m_pK = createLogicIn(m_pNNode[2]->pin());
+
+	m_pQ = createLogicOut(m_pPNode[0]->pin(), false);
+	m_pQBar = createLogicOut(m_pPNode[1]->pin(), false);
+
+	setp = createLogicIn(createPin(0, -40, 90, "set")->pin());
+	rstp = createLogicIn(createPin(0, 40, 270, "rst")->pin());
 	
-	addDisplayText( "Q",	QRect( 12,	-24,	20, 16 ), "Q" );
-	addDisplayText( "Q'",	QRect( 12,	8,		20, 16 ), "Q'" );
-		
-	m_pClock->setCallback( this, (CallbackPtr)(&ECJKFlipFlop::clockChanged) );
-	setp->setCallback( this, (CallbackPtr)(&ECJKFlipFlop::asyncChanged) );
-	rstp->setCallback( this, (CallbackPtr)(&ECJKFlipFlop::asyncChanged) );
-	
+	addDisplayText("Q",  QRect(12, -24, 20, 16), "Q");
+	addDisplayText("Q'", QRect(12,   8, 20, 16), "Q'");
+
+	m_pClock->setCallback(this, (CallbackPtr)(&ECJKFlipFlop::clockChanged));
+	setp->setCallback(this, (CallbackPtr)(&ECJKFlipFlop::asyncChanged));
+	rstp->setCallback(this, (CallbackPtr)(&ECJKFlipFlop::asyncChanged));
+
 	inStateChanged(false);
 }
 
@@ -345,38 +345,38 @@ LibraryItem* ECSRFlipFlop::libraryItem()
 		i18n("Integrated Circuits"),
 		"ic3.png",
 		LibraryItem::lit_component,
-		ECSRFlipFlop::construct );
+		ECSRFlipFlop::construct);
 }
 
-ECSRFlipFlop::ECSRFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, id ? id : "sr_flipflop" )
+ECSRFlipFlop::ECSRFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id)
+	: Component(icnDocument, newItem, id ? id : "sr_flipflop")
 {
 	m_name = i18n("SR Flip-Flop");
 	
-	setSize( -24, -24, 48, 48 );
+	setSize(-24, -24, 48, 48);
 
-	init2PinLeft( -8, 8 );
-	init2PinRight( -8, 8 );
+	init2PinLeft( -8, 8);
+	init2PinRight(-8, 8);
 	
-	m_pS = createLogicIn( m_pNNode[0] );
-	m_pR = createLogicIn( m_pNNode[1] );
-	m_pQ = createLogicOut( m_pPNode[0], true );
-	m_pQBar = createLogicOut( m_pPNode[1], false );
+	m_pS = createLogicIn(m_pNNode[0]->pin());
+	m_pR = createLogicIn(m_pNNode[1]->pin());
+	m_pQ = createLogicOut(m_pPNode[0]->pin(), true);
+	m_pQBar = createLogicOut(m_pPNode[1]->pin(), false);
 	
 	old_q1 = true;
 	old_q2 = false;
 	m_pQ->setHigh(old_q1);
 	m_pQBar->setHigh(old_q2);
 	
-	addDisplayText( "S", QRect( -24, -16, 20, 16 ), "S" );
-	addDisplayText( "R", QRect( -24, 0, 20, 16 ), "R" );
-	addDisplayText( "Q", QRect( 4, -16, 20, 16 ), "Q" );
-	addDisplayText( "Q'", QRect( 4, 0, 20, 16 ), "Q'" );
+	addDisplayText("S", QRect(-24, -16, 20, 16), "S");
+	addDisplayText("R", QRect(-24,   0, 20, 16), "R");
+	addDisplayText("Q", QRect(  4, -16, 20, 16), "Q");
+	addDisplayText("Q'", QRect( 4,   0, 20, 16), "Q'");
 	
-	m_pS->setCallback( this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged) );
-	m_pR->setCallback( this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged) );
-	m_pQ->setCallback( this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged) );
-	m_pQBar->setCallback( this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged) );
+	m_pS->setCallback( this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged));
+	m_pR->setCallback( this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged));
+	m_pQ->setCallback( this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged));
+	m_pQBar->setCallback(this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged));
 }
 
 ECSRFlipFlop::~ECSRFlipFlop()

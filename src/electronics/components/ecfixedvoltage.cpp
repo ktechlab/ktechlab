@@ -29,24 +29,23 @@ LibraryItem* ECFixedVoltage::libraryItem()
 		i18n("Sources"),
 		"voltage.png",
 		LibraryItem::lit_component,
-		ECFixedVoltage::construct );
+		ECFixedVoltage::construct);
 }
 
-ECFixedVoltage::ECFixedVoltage( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, id ? id : "fixed_voltage" )
+ECFixedVoltage::ECFixedVoltage(ICNDocument *icnDocument, bool newItem, const char *id)
+	: Component(icnDocument, newItem, id ? id : "fixed_voltage")
 {
 	m_name = i18n("Fixed Voltage");
-	setSize( -8, -8, 16, 16 );
+	setSize(-8, -8, 16, 16);
 	
 	init1PinRight();
-	m_pPNode[0]->setLength( 11 );
-	m_voltagePoint = createVoltagePoint( m_pPNode[0], 5.0 );
-	
-	addDisplayText( "voltage", QRect( -24, -20, width()+32, 12 ), "" );
-	
-	createProperty( "voltage", Variant::Type::Double );
+	m_pPNode[0]->setLength(11);
+	m_voltagePoint = createVoltagePoint(m_pPNode[0]->pin(), 5.0);
+
+	addDisplayText("voltage", QRect(-24, -20, width()+32, 12 ), "");
+	createProperty("voltage", Variant::Type::Double);
 	property("voltage")->setUnit("V");
-	property("voltage")->setCaption( i18n("Voltage") );
+	property("voltage")->setCaption(i18n("Voltage"));
 	property("voltage")->setMinValue(-1e15);
 	property("voltage")->setMaxValue(1e15);
 	property("voltage")->setValue(5.0);
@@ -59,7 +58,7 @@ ECFixedVoltage::~ECFixedVoltage()
 void ECFixedVoltage::dataChanged()
 {
 	const double voltage = dataDouble("voltage");
-	QString display = QString::number( voltage / getMultiplier(voltage), 'g', 3 ) + getNumberMag(voltage) + "V";
+	QString display = QString::number(voltage / getMultiplier(voltage), 'g', 3) + getNumberMag(voltage) + "V";
 	setDisplayText( "voltage", display );
 	m_voltagePoint->setVoltage(voltage);
 }

@@ -94,23 +94,21 @@ void ECSevenSegment::dataChanged()
 	b = color.blue() / 0x100;
 
 	bool commonCathode = dataString("diode-polarity") == "Common Cathode";
-	if ( commonCathode != m_bCommonCathode )
+	if(commonCathode != m_bCommonCathode)
 	{
 		m_bCommonCathode = commonCathode;
-		for ( int i=0; i<7; i++ )
+		for(int i = 0; i < 7; i++)
 		{
-			removeElement( m_diodes[i], false );
+			removeElement(m_diodes[i], false);
 			if (commonCathode)
-				m_diodes[i] = createDiode( m_nodes[i], m_nNode );
-			else
-				m_diodes[i] = createDiode( m_nNode, m_nodes[i] );
+				m_diodes[i] = createDiode(m_nodes[i]->pin(), m_nNode->pin());
+			else	m_diodes[i] = createDiode(m_nNode->pin(), m_nodes[i]->pin());
 		}
 	
-		removeElement( m_diodes[7], false );
+		removeElement(m_diodes[7], false);
 		if (commonCathode)
-			m_diodes[7] = createDiode( m_nodes[7], m_nNode );
-		else
-			m_diodes[7] = createDiode( m_nNode, m_nodes[7] );
+			m_diodes[7] = createDiode(m_nodes[7]->pin(), m_nNode->pin());
+		else	m_diodes[7] = createDiode(m_nNode->pin(), m_nodes[7]->pin());
 	}
 	
 	update();
@@ -119,9 +117,9 @@ void ECSevenSegment::dataChanged()
 
 void ECSevenSegment::stepNonLogic()
 {
-	if ( !m_diodes[0] ) return;
+	if(!m_diodes[0]) return;
 
-	for ( int i=0; i<8; i++ ) {
+	for(int i = 0; i < 8; i++) {
 		avg_brightness[i] += LED::brightness( m_diodes[i]->current() ) * LINEAR_UPDATE_PERIOD;
 	}
 	
