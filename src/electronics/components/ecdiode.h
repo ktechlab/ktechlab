@@ -20,14 +20,14 @@
 class ECDiode : public Component
 {
 public:
-	ECDiode( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECDiode(ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECDiode();
 	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
+	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
 	static LibraryItem *libraryItem();
 	
 protected:
-	void drawShape( QPainter & p );
+	void drawShape(QPainter &p);
 	void dataChanged();
 	Diode *m_diode;
 };

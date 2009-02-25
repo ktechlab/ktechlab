@@ -104,13 +104,11 @@ void RAM::inStateChanged( bool newState )
 			m_data[ m_wordSize * address + i ] = m_dataIn[i]->isHigh();
 	}
 	
-	if (oe)
-	{
-		for ( int i = 0; i < m_wordSize; ++i )
-			m_dataOut[i]->setHigh( m_data[ m_wordSize * address + i ] );
+	if(oe) {
+		for(int i = 0; i < m_wordSize; ++i)
+			m_dataOut[i]->setHigh(m_data[m_wordSize * address + i]);
 	}
 }
-
 
 void RAM::initPins()
 {
@@ -120,112 +118,101 @@ void RAM::initPins()
 	int newWordSize = dataInt("wordSize");
 	int newAddressSize = dataInt("addressSize");
 	
-	if ( newAddressSize == oldAddressSize &&
-			newWordSize == oldWordSize )
+	if(newAddressSize == oldAddressSize &&
+		newWordSize == oldWordSize)
 		return;
 	
 	QStringList leftPins; // Pins on left of IC
 	leftPins << "CS" << "OE" << "WE";
-	for ( int i = 0; i < newAddressSize; ++i )
-		leftPins << QString("A%1").arg( QString::number(i) );
+	for(int i = 0; i < newAddressSize; ++i)
+		leftPins << QString("A%1").arg(QString::number(i));
 	
 	QStringList rightPins; // Pins on right of IC
-	for ( unsigned i = newWordSize; i > 0; --i )
-		rightPins << QString("DI%1").arg( QString::number(i-1) );
-	for ( unsigned i = newWordSize; i > 0; --i )
-		rightPins << QString("DO%1").arg( QString::number(i-1) );
+	for(unsigned i = newWordSize; i > 0; --i )
+		rightPins << QString("DI%1").arg(QString::number(i - 1));
+	for(unsigned i = newWordSize; i > 0; --i)
+		rightPins << QString("DO%1").arg(QString::number(i - 1));
 	
 	// Make pin lists of consistent sizes
-	for ( unsigned i = leftPins.size(); i < rightPins.size(); ++i )
+	for(unsigned i = leftPins.size(); i < rightPins.size(); ++i)
 		leftPins.append("");
-	for ( unsigned i = rightPins.size(); i < leftPins.size(); ++i )
+	for(unsigned i = rightPins.size(); i < leftPins.size(); ++i)
 		rightPins.prepend("");
-	
+
 	QStringList pins = leftPins + rightPins;
-	
-	initDIPSymbol( pins, 72 );
+
+	initDIPSymbol(pins, 72);
 	initDIP(pins);
-	
+
 	ECNode *node;
-	
-	if (!m_pCS)
-	{
+
+	if(!m_pCS) {
 		node =  ecNodeWithID("CS");
-		m_pCS = createLogicIn(node);
-		m_pCS->setCallback( this, (CallbackPtr)(&RAM::inStateChanged) );
+		m_pCS = createLogicIn(node->pin());
+		m_pCS->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
 	}
-	
-	if (!m_pOE)
-	{
+
+	if(!m_pOE) {
 		node =  ecNodeWithID("OE");
-		m_pOE = createLogicIn(node);
-		m_pOE->setCallback( this, (CallbackPtr)(&RAM::inStateChanged) );
+		m_pOE = createLogicIn(node->pin());
+		m_pOE->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
 	}
-	
-	if (!m_pWE)
-	{
+
+	if(!m_pWE) {
 		node =  ecNodeWithID("WE");
-		m_pWE = createLogicIn(node);
-		m_pWE->setCallback( this, (CallbackPtr)(&RAM::inStateChanged) );
+		m_pWE = createLogicIn(node->pin());
+		m_pWE->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
 	}
-	
-	if ( newWordSize > oldWordSize )
-	{
+
+	if(newWordSize > oldWordSize) {
 		m_dataIn.resize(newWordSize);
 		m_dataOut.resize(newWordSize);
-		
-		for ( int i = oldWordSize; i < newWordSize; ++i )
-		{
-			node = ecNodeWithID( QString("DI%1").arg( QString::number(i) ) );
-			m_dataIn.insert( i, createLogicIn(node) );
-			m_dataIn[i]->setCallback( this, (CallbackPtr)(&RAM::inStateChanged) ); 
+
+		for(int i = oldWordSize; i < newWordSize; ++i) {
+			node = ecNodeWithID(QString("DI%1").arg( QString::number(i)));
+			m_dataIn.insert(i, createLogicIn(node->pin()));
+			m_dataIn[i]->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
 			
-			node = ecNodeWithID( QString("DO%1").arg( QString::number(i) ) );
-			m_dataOut.insert( i, createLogicOut(node, false) );
+			node = ecNodeWithID(QString("DO%1").arg( QString::number(i)));
+			m_dataOut.insert(i, createLogicOut(node->pin(), false));
 		}
-	}
-	else if ( newWordSize < oldWordSize )
-	{
-		for ( int i = newWordSize; i < oldWordSize; ++i )
+	} else if(newWordSize < oldWordSize) {
+		for(int i = newWordSize; i < oldWordSize; ++i)
 		{
-			QString id = QString("DO%1").arg( QString::number(i) );
+			QString id = QString("DO%1").arg(QString::number(i));
 			removeDisplayText(id);
-			removeElement( m_dataIn[i], false );
+			removeElement(m_dataIn[i], false);
 			removeNode(id);
-			
-			id = QString("DI%1").arg( QString::number(i) );
+
+			id = QString("DI%1").arg( QString::number(i));
 			removeDisplayText(id);
-			removeElement( m_dataOut[i], false );
+			removeElement(m_dataOut[i], false);
 			removeNode(id);
 		}
-		
+
 		m_dataIn.resize(newWordSize);
 		m_dataOut.resize(newWordSize);
 	}
-	
-	if ( newAddressSize > oldAddressSize )
-	{
+
+	if(newAddressSize > oldAddressSize) {
 		m_address.resize(newAddressSize);
-		
-		for ( int i = oldAddressSize; i < newAddressSize; ++i )
+
+		for(int i = oldAddressSize; i < newAddressSize; ++i)
 		{
-			node = ecNodeWithID( QString("A%1").arg( QString::number(i) ) );
-			m_address.insert( i, createLogicIn(node) );
-			m_address[i]->setCallback( this, (CallbackPtr)(&RAM::inStateChanged) );
+			node = ecNodeWithID(QString("A%1").arg(QString::number(i)));
+			m_address.insert(i, createLogicIn(node->pin()));
+			m_address[i]->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
 		}
-	}
-	else if ( newAddressSize < oldAddressSize )
-	{
-		for ( int i = newAddressSize; i < oldAddressSize; ++i )
+	} else if(newAddressSize < oldAddressSize) {
+		for(int i = newAddressSize; i < oldAddressSize; ++i)
 		{
-			QString id = QString("A%1").arg( QString::number(i) );
+			QString id = QString("A%1").arg( QString::number(i));
 			removeDisplayText(id);
-			removeElement( m_address[i], false );
+			removeElement(m_address[i], false);
 			removeNode(id);
 		}
-		
+
 		m_address.resize(newAddressSize);
 	}
 }
-
 

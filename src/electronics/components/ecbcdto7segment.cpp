@@ -53,42 +53,41 @@ LibraryItem* ECBCDTo7Segment::libraryItem()
 }
 
 ECBCDTo7Segment::ECBCDTo7Segment( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, id ? id : "bcd_to_seven_segment" )
+	: Component(icnDocument, newItem, id ? id : "bcd_to_seven_segment")
 {
 	m_name = i18n("BCD to Seven Segment");
-				
-	ALogic = BLogic = CLogic = DLogic = 0L;
-	ltLogic = rbLogic = enLogic = 0L;
+
+	ALogic = BLogic = CLogic = DLogic = 0;
+	ltLogic = rbLogic = enLogic = 0;
 	
-	for ( int i=0; i<7; i++ )
+	for(int i = 0; i < 7; i++)
 	{
-		outLogic[i] = 0L;
+		outLogic[i] = 0;
 		oldOut[i] = false;
 	}
 
-	QStringList pins = QStringList::split( ',', "A,B,C,D,,lt,rb,en,d,e,f,g,,a,b,c", true );
-	initDIPSymbol( pins, 48 );
+	QStringList pins = QStringList::split(',', "A,B,C,D,,lt,rb,en,d,e,f,g,,a,b,c", true);	initDIPSymbol(pins, 48);
 	initDIP(pins);
 	
-	ALogic = createLogicIn( ecNodeWithID("A") );
-	BLogic = createLogicIn( ecNodeWithID("B") );
-	CLogic = createLogicIn( ecNodeWithID("C") );
-	DLogic = createLogicIn( ecNodeWithID("D") );
-	ltLogic = createLogicIn( ecNodeWithID("lt") );
-	rbLogic = createLogicIn( ecNodeWithID("rb") );
-	enLogic = createLogicIn( ecNodeWithID("en") );
+	ALogic = createLogicIn(ecNodeWithID("A")->pin());
+	BLogic = createLogicIn(ecNodeWithID("B")->pin());
+	CLogic = createLogicIn(ecNodeWithID("C")->pin());
+	DLogic = createLogicIn(ecNodeWithID("D")->pin());
+	ltLogic = createLogicIn(ecNodeWithID("lt")->pin());
+	rbLogic = createLogicIn(ecNodeWithID("rb")->pin());
+	enLogic = createLogicIn(ecNodeWithID("en")->pin());
 	
-	ALogic->setCallback( this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged) );
-	BLogic->setCallback( this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged) );
-	CLogic->setCallback( this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged) );
-	DLogic->setCallback( this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged) );
-	ltLogic->setCallback( this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged) );
-	rbLogic->setCallback( this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged) );
-	enLogic->setCallback( this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged) );
+	ALogic->setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
+	BLogic->setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
+	CLogic->setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
+	DLogic->setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
+	ltLogic->setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
+	rbLogic->setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
+	enLogic->setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
 	
-	for ( uint i=0; i<7; ++i )
+	for (uint i = 0; i < 7; ++i)
 	{
-		outLogic[i] = createLogicOut( ecNodeWithID( QChar('a'+i) ), false );
+		outLogic[i] = createLogicOut(ecNodeWithID(QChar('a'+i))->pin(), false );
 		outLogic[i]->setCallback( this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged) );
 	}
 	inStateChanged(false);

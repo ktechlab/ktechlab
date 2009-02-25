@@ -26,7 +26,6 @@ Item* MatrixDisplay::construct( ItemDocument *itemDocument, bool newItem, const 
 	return new MatrixDisplay( (ICNDocument*)itemDocument, newItem, id );
 }
 
-
 LibraryItem* MatrixDisplay::libraryItem()
 {
 	return new LibraryItem(
@@ -38,7 +37,6 @@ LibraryItem* MatrixDisplay::libraryItem()
 		MatrixDisplay::construct );
 }
 
-
 MatrixDisplay::MatrixDisplay( ICNDocument *icnDocument, bool newItem, const char *id )
 	: Component( icnDocument, newItem, id ? id : "matrix_display" )
 {
@@ -47,9 +45,10 @@ MatrixDisplay::MatrixDisplay( ICNDocument *icnDocument, bool newItem, const char
 	
 	//BEGIN Reset members
 	for ( unsigned i = 0; i < max_md_height; i++ )
-		m_pRowNodes[i] = 0l;
+		m_pRowNodes[i] = 0;
+
 	for ( unsigned i = 0; i < max_md_width; i++ )
-		m_pColNodes[i] = 0l;
+		m_pColNodes[i] = 0;
 	
 	m_lastUpdatePeriod = 0.0;
 	m_r = m_g = m_b = 0.0;
@@ -84,56 +83,51 @@ MatrixDisplay::MatrixDisplay( ICNDocument *icnDocument, bool newItem, const char
 	property("diode-configuration")->setAdvanced(true);
 }
 
-
 MatrixDisplay::~MatrixDisplay()
 {
 }
 
-
 void MatrixDisplay::dataChanged()
 {
 	QColor color = dataColor("color");
-	m_r = double(color.red())	/ 0x100;
-	m_g = double(color.green())	/ 0x100;
-	m_b = double(color.blue())	/ 0x100;
+	m_r = double(color.red())   / 0x100;
+	m_g = double(color.green()) / 0x100;
+	m_b = double(color.blue())  / 0x100;
 	
 	int numRows = dataInt("0-rows");
 	int numCols = dataInt("1-cols");
 	
 	bool ledsChanged = (numRows != int(m_numRows)) || (numCols != int(m_numCols));
-	
-	if (ledsChanged)
-		initPins( numRows, numCols );
-	
+
+	if(ledsChanged) initPins(numRows, numCols);
+
 	bool rowCathode = dataString("diode-configuration") == "Row Cathode";
-	if ( (rowCathode != m_bRowCathode) || ledsChanged)
+	if((rowCathode != m_bRowCathode) || ledsChanged)
 	{
 		m_bRowCathode = rowCathode;
-		
-		for ( unsigned i = 0; i < m_numCols; i++ )
+
+		for(unsigned i = 0; i < m_numCols; i++)
 		{
-			for ( unsigned j = 0; j < m_numRows; j++ )
+			for(unsigned j = 0; j < m_numRows; j++)
 			{
-				removeElement( m_pDiodes[i][j], false );
-				if (rowCathode)
-					m_pDiodes[i][j] = createDiode( m_pColNodes[i], m_pRowNodes[j] );
-				else
-					m_pDiodes[i][j] = createDiode( m_pRowNodes[j], m_pColNodes[i] );
+				removeElement(m_pDiodes[i][j], false);
+				if(rowCathode)
+					m_pDiodes[i][j] = createDiode(m_pColNodes[i]->pin(), m_pRowNodes[j]->pin());
+				else	m_pDiodes[i][j] = createDiode(m_pRowNodes[j]->pin(), m_pColNodes[i]->pin());
 			}
 		}
 	}
 }
 
-
-void MatrixDisplay::initPins( unsigned numRows, unsigned numCols )
+void MatrixDisplay::initPins(unsigned numRows, unsigned numCols)
 {
-	if ( (numRows == m_numRows) && (numCols == m_numCols) )
+	if((numRows == m_numRows) && (numCols == m_numCols))
 		return;
 	
-	if ( numRows > max_md_height )
+	if(numRows > max_md_height)
 		numRows = max_md_height;
 	
-	if ( numCols > max_md_width )
+	if(numCols > max_md_width)
 		numCols = max_md_width;
 	
 	m_lastUpdatePeriod = 0.0;
@@ -168,31 +162,27 @@ void MatrixDisplay::initPins( unsigned numRows, unsigned numCols )
 			
 	}
 	//END Remove diodes
-	
-	
+
 	//BEGIN Create or destroy pins
 	if ( numCols >= m_numCols )
 	{
 		for ( unsigned i = m_numCols; i < numCols; i++ )
 			m_pColNodes[i] = createPin( 0, 0, 270, colPinID(i) );
-	}
-	else
-	{
+	} else {
 		for ( unsigned i = numCols; i < m_numCols; i++ )
 		{
 			removeNode( colPinID(i) );
 			m_pColNodes[i] = 0l;
 		}
 	}
+
 	m_numCols = numCols;
-	
+
 	if ( numRows >= m_numRows )
 	{
 		for ( unsigned i = m_numRows; i < numRows; i++ )
 			m_pRowNodes[i] = createPin( 0, 0, 0, rowPinID(i) );
-	}
-	else
-	{
+	} else {
 		for ( unsigned i = numRows; i < m_numRows; i++ )
 		{
 			removeNode( rowPinID(i) );
@@ -201,8 +191,7 @@ void MatrixDisplay::initPins( unsigned numRows, unsigned numCols )
 	}
 	m_numRows = numRows;
 	//END Create or destroy pins
-	
-	
+
 	//BEGIN Position pins et al
 	setSize( -int(numCols+1)*8, -int(numRows+1)*8, int(numCols+1)*16, int(numRows+1)*16, true );
 	
@@ -217,11 +206,10 @@ void MatrixDisplay::initPins( unsigned numRows, unsigned numCols )
 		m_nodeMap[rowPinID(i)].x = offsetX() - 8;
 		m_nodeMap[rowPinID(i)].y = offsetY() + 16 + 16*i;
 	}
-	
+
 	updateAttachedPositioning();
 	//END Position pins et al
 }
-
 
 QString MatrixDisplay::colPinID( int col ) const
 {

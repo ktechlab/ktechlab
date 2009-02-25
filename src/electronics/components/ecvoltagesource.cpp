@@ -33,30 +33,30 @@ LibraryItem* ECCell::libraryItem()
 		i18n("Sources"),
 		"cell.png",
 		LibraryItem::lit_component,
-		ECCell::construct );
+		ECCell::construct);
 }
 
-ECCell::ECCell( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, id ? id : "cell" )
+ECCell::ECCell(ICNDocument *icnDocument, bool newItem, const char *id)
+	: Component(icnDocument, newItem, id ? id : "cell")
 {
 	m_name = i18n("Battery");
-	setSize( -8, -8, 16, 16 );
+	setSize(-8, -8, 16, 16);
 	voltage = 0;
 
 	init1PinLeft();
 	init1PinRight();
-	
-	m_pNNode[0]->pin()->setGroundType( Pin::gt_medium );
-	m_voltageSource = createVoltageSource( m_pNNode[0], m_pPNode[0], voltage );
-	
-	createProperty( "voltage", Variant::Type::Double );
+
+	m_pNNode[0]->pin()->setGroundType(Pin::gt_medium);
+	m_voltageSource = createVoltageSource(m_pNNode[0]->pin(), m_pPNode[0]->pin(), voltage);
+
+	createProperty("voltage", Variant::Type::Double);
 	property("voltage")->setUnit("V");
-	property("voltage")->setCaption( i18n("Voltage") );
+	property("voltage")->setCaption(i18n("Voltage"));
 	property("voltage")->setMinValue(-1e12);
 	property("voltage")->setMaxValue(1e12);
 	property("voltage")->setValue(5.0);
-	
-	addDisplayText( "voltage", QRect( -16, -24, 32, 16 ), "" );
+
+	addDisplayText("voltage", QRect(-16, -24, 32, 16), "");
 }
 
 ECCell::~ECCell()

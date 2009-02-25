@@ -95,76 +95,75 @@ void Multiplexer::inStateChanged( bool /*state*/ )
 		if ( m_aLogic[i]->isHigh() )
 			pos += 1 << i;
 	}
-	m_output->setHigh( m_xLogic[pos]->isHigh() );
+	m_output->setHigh(m_xLogic[pos]->isHigh());
 }
 
 
-void Multiplexer::initPins( unsigned newAddressSize )
+void Multiplexer::initPins(unsigned newAddressSize)
 {
 	unsigned oldAddressSize = m_aLogic.size();
 	unsigned long long oldXLogicCount = m_xLogic.size();
 	unsigned long long newXLogicCount = 1 << newAddressSize;
-	
-	if ( newXLogicCount == oldXLogicCount )
-		return;
-	
+
+	if(newXLogicCount == oldXLogicCount) return;
+
 	QStringList pins;
-	
+
 	const int length = newAddressSize + newXLogicCount;
-	
-	for ( unsigned i=0; i<newAddressSize; ++i )
-		pins += "A"+QString::number(i);
-	for ( unsigned i=0; i<newXLogicCount; ++i )
-		pins += "X"+QString::number(i);
-	for ( int i=0; i<(length-(length%2))/2; ++i )
+
+	for(unsigned i = 0; i < newAddressSize; ++i)
+		pins += "A" + QString::number(i);
+	for(unsigned i = 0; i < newXLogicCount; ++i)
+		pins += "X" + QString::number(i);
+
+// WTF?? 
+	for ( int i = 0; i < (length - (length % 2)) / 2; ++i)
 		pins += "";
+
 	pins += "X";
-	for ( int i=0; i<((length+(length%2))/2)-1; ++i )
+
+// WTF???
+	for(int i = 0; i < ((length + (length % 2)) / 2) - 1; ++i )
 		pins += "";
-	
-	initDIPSymbol( pins, 64 );
+
+	initDIPSymbol(pins, 64);
 	initDIP(pins);
-	
+
 	ECNode *node;
-	
-	if (!m_output)
-	{
+
+	if(!m_output) {
 		node =  ecNodeWithID("X");
-		m_output = createLogicOut( node, false );
+		m_output = createLogicOut(node->pin(), false );
 	}
-	
-	if ( newXLogicCount > oldXLogicCount )
-	{
+
+	if(newXLogicCount > oldXLogicCount) {
 		m_xLogic.resize(newXLogicCount);
-		for ( unsigned i=oldXLogicCount; i<newXLogicCount; ++i )
-		{
-			node = ecNodeWithID("X"+QString::number(i));
-			m_xLogic.insert( i, createLogicIn(node) );
-			m_xLogic[i]->setCallback( this, (CallbackPtr)(&Multiplexer::inStateChanged) );
+		for(unsigned i = oldXLogicCount; i < newXLogicCount; ++i) {
+			node = ecNodeWithID("X" + QString::number(i));
+			m_xLogic.insert(i, createLogicIn(node->pin()));
+			m_xLogic[i]->setCallback(this, (CallbackPtr)(&Multiplexer::inStateChanged) );
 		}
-		
+
 		m_aLogic.resize(newAddressSize);
-		for ( unsigned i=oldAddressSize; i<newAddressSize; ++i )
+		for(unsigned i = oldAddressSize; i < newAddressSize; ++i)
 		{
-			node = ecNodeWithID("A"+QString::number(i));
-			m_aLogic.insert( i, createLogicIn(node) );
+			node = ecNodeWithID("A" + QString::number(i));
+			m_aLogic.insert(i, createLogicIn(node->pin()));
 			m_aLogic[i]->setCallback( this, (CallbackPtr)(&Multiplexer::inStateChanged) );
 		}
-	}
-	else
-	{
-		for ( unsigned i = newXLogicCount; i < oldXLogicCount; ++i )
+	} else {
+		for(unsigned i = newXLogicCount; i < oldXLogicCount; ++i)
 		{
-			QString id = "X"+QString::number(i);
+			QString id = "X" + QString::number(i);
 			removeDisplayText(id);
-			removeElement( m_xLogic[i], false );
+			removeElement(m_xLogic[i], false);
 			removeNode(id);
 		}
+
 		m_xLogic.resize(newXLogicCount);
-		
 		for ( unsigned i = newAddressSize; i < oldAddressSize; ++i )
 		{
-			QString id = "A"+QString::number(i);
+			QString id = "A" + QString::number(i);
 			removeDisplayText(id);
 			removeElement( m_aLogic[i], false );
 			removeNode(id);

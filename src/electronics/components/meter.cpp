@@ -211,21 +211,20 @@ LibraryItem* ECAmmeter::libraryItem()
 		i18n("Outputs"),
 		"ammeter.png",
 		LibraryItem::lit_component,
-		ECAmmeter::construct
-			);
+		ECAmmeter::construct);
 }
 
-ECAmmeter::ECAmmeter( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Meter( icnDocument, newItem, id ? id : "ammeter" )
+ECAmmeter::ECAmmeter(ICNDocument *icnDocument, bool newItem, const char *id)
+	: Meter(icnDocument, newItem, id ? id : "ammeter")
 {
 	m_name = i18n("Ammeter");
-	setSize( -16, -16, 32, 32 );
+	setSize(-16, -16, 32, 32);
 	m_unit = "A";
-	
+
 	init1PinLeft(0);
 	init1PinRight(0);
-	
-	m_voltageSource = createVoltageSource( m_pNNode[0], m_pPNode[0], 0. );
+
+	m_voltageSource = createVoltageSource( m_pNNode[0]->pin(), m_pPNode[0]->pin(), 0.);
 }
 
 ECAmmeter::~ECAmmeter()
@@ -240,9 +239,9 @@ double ECAmmeter::meterValue()
 
 
 //BEGIN class ECVoltmeter
-Item* ECVoltMeter::construct( ItemDocument *itemDocument, bool newItem, const char *id )
+Item* ECVoltMeter::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-	return new ECVoltMeter( (ICNDocument*)itemDocument, newItem, id );
+	return new ECVoltMeter((ICNDocument*)itemDocument, newItem, id);
 }
 
 LibraryItem* ECVoltMeter::libraryItem()
