@@ -12,6 +12,7 @@
 
 #include "ecnode.h"
 #include "libraryitem.h"
+#include "opamp.h"
 
 #include <klocale.h>
 #include <qpainter.h>
@@ -47,11 +48,12 @@ ECOpAmp::ECOpAmp(ICNDocument *icnDocument, bool newItem, const char *id)
 	
 	init2PinLeft(-8, 8);
 	init1PinRight();
-	createOpAmp(m_pNNode[0]->pin(), m_pPNode[0]->pin(), m_pNNode[1]->pin());
+	the_amp = createOpAmp(m_pNNode[0]->pin(), m_pPNode[0]->pin(), m_pNNode[1]->pin());
 }
 
 ECOpAmp::~ECOpAmp()
 {
+	delete the_amp;
 }
 
 void ECOpAmp::drawShape(QPainter &p)
