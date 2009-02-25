@@ -49,6 +49,7 @@ Resistor::Resistor(ICNDocument *icnDocument, bool newItem, const char *id)
 }
 
 Resistor::~Resistor() {
+	delete m_resistance;
 }
 
 void Resistor::dataChanged() {
