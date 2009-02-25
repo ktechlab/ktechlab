@@ -281,7 +281,7 @@ void ECRotoSwitch::setUpSwitches()
 		// kdDebug() << contactX <<", "<< contactY <<endl;
 
 		sp.node = createPin(contactX,-contactY,sp.pinAngle,QString("pin_%1").arg(i));
-		sp.posSwitch = createSwitch(m_inNode, sp.node, true);
+		sp.posSwitch = createSwitch(m_inNode->pin(), sp.node->pin(), true);
 		sp.isMomentary = false; //(map[i] == 'M');
 		m_positions.push_back(sp);
 	}

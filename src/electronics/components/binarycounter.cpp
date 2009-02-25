@@ -92,65 +92,62 @@ void BinaryCounter::initPins( unsigned numBits )
 	pins << "en" << ">" << "u/d" << "r";
 
 	{
-	int np = abs(4-int(numBits));
-	for ( int i = 0; i < np; i++ )
-		pins << " ";
+		int np = abs(4-int(numBits));
+		for(int i = 0; i < np; i++)
+			pins << " ";
 	}
 	
-	for ( int i = numBits-1; i >= 0; i-- )
-		pins << QChar('A'+i);
+	for(int i = numBits-1; i >= 0; i-- )
+		pins << QChar('A' + i);
 	
-	initDIPSymbol( pins, 64 );
+	initDIPSymbol(pins, 64);
 	initDIP(pins);
 	
-	if ( m_numBits < numBits )
+	if(m_numBits < numBits)
 	{
-		for ( unsigned i = m_numBits; i < numBits; i++ )
-			m_pLogicOut[i] = createLogicOut( ecNodeWithID( QChar('A'+i) ), false );
-	}
-	else
-	{
-		for ( unsigned i = numBits; i < m_numBits; i++ )
+		for(unsigned i = m_numBits; i < numBits; i++)
+			m_pLogicOut[i] = createLogicOut( ecNodeWithID(QChar('A' + i))->pin(), false );
+	} else {
+		for(unsigned i = numBits; i < m_numBits; i++)
 		{
-			QString id = QChar('A'+i);
-			removeElement( m_pLogicOut[i], false );
+			QString id = QChar('A' + i);
+			removeElement(m_pLogicOut[i], false);
 			removeDisplayText(id);
 			removeNode(id);
 		}
 	}
-	
+
 	m_numBits = numBits;
-	m_maxValue = (1<<m_numBits)-1;
-	
-	if (!m_bDoneLogicIn)
+	m_maxValue = (1 << m_numBits) - 1;
+
+	if(!m_bDoneLogicIn)
 	{
-		enLogic = createLogicIn( ecNodeWithID("en") );
-		inLogic = createLogicIn( ecNodeWithID(">") );
-		rLogic = createLogicIn( ecNodeWithID("r") );
-		udLogic = createLogicIn( ecNodeWithID("u/d") );
-	
-		enLogic->setCallback( this, (CallbackPtr)(&BinaryCounter::enStateChanged) );
-		inLogic->setCallback( this, (CallbackPtr)(&BinaryCounter::inStateChanged) );
+		enLogic = createLogicIn(ecNodeWithID("en")->pin() );
+		inLogic = createLogicIn(ecNodeWithID(">")->pin()  );
+		rLogic = createLogicIn( ecNodeWithID("r")->pin()  );
+		udLogic = createLogicIn(ecNodeWithID("u/d")->pin());
+
+		enLogic->setCallback(this, (CallbackPtr)(&BinaryCounter::enStateChanged));
+		inLogic->setCallback(this, (CallbackPtr)(&BinaryCounter::inStateChanged));
 		rLogic->setCallback( this, (CallbackPtr)(&BinaryCounter::rStateChanged) );
-		udLogic->setCallback( this, (CallbackPtr)(&BinaryCounter::udStateChanged) );
-		
+		udLogic->setCallback(this, (CallbackPtr)(&BinaryCounter::udStateChanged));
+
 		m_bDoneLogicIn = true;
 	}
 	
 	outputValue();
 }
 
-
-void BinaryCounter::inStateChanged( bool state )
+void BinaryCounter::inStateChanged(bool state)
 {
-	if ( (state != b_oldIn) && b_en && !b_reset && state == b_triggerHigh )
+	if((state != b_oldIn) && b_en && !b_reset && state == b_triggerHigh)
 	{
 		m_value += (b_ud) ? 1 : -1;
 		
-		if ( m_value < 0 )
+		if(m_value < 0)
 			m_value = m_maxValue;
 		
-		else if ( m_value > m_maxValue )
+		else if(m_value > m_maxValue)
 			m_value = 0;
 		
 		outputValue();
@@ -159,25 +156,21 @@ void BinaryCounter::inStateChanged( bool state )
 	b_oldIn = state;
 }
 
-
-void BinaryCounter::rStateChanged( bool state )
+void BinaryCounter::rStateChanged(bool state)
 {
 	b_reset = state;
-	if (b_reset)
-	{
+	if(b_reset) {
 		m_value = 0;
 		outputValue();
 	}
 }
 
-
-void BinaryCounter::enStateChanged( bool state )
+void BinaryCounter::enStateChanged(bool state)
 {
 	b_en = state;
 }
 
-
-void BinaryCounter::udStateChanged( bool state )
+void BinaryCounter::udStateChanged(bool state)
 {
 	b_ud = state;
 }

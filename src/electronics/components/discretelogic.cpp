@@ -35,38 +35,35 @@ LibraryItem* Inverter::libraryItem()
 		i18n("Logic"),
 		"not.png",
 		LibraryItem::lit_component,
-		Inverter::construct );
+		Inverter::construct);
 }
 
-Inverter::Inverter( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, id ? id : "not" )
+Inverter::Inverter(ICNDocument *icnDocument, bool newItem, const char *id)
+	: Component(icnDocument, newItem, id ? id : "not")
 {
 	m_name = i18n("Inverter");
-	setSize( -8, -8, 16, 16 );
+	setSize(-8, -8, 16, 16);
 
 	init1PinLeft();
 	init1PinRight();
+
+	m_pIn = createLogicIn(m_pNNode[0]->pin());
+	m_pOut = createLogicOut(m_pPNode[0]->pin(), true);
 	
-	m_pIn = createLogicIn(m_pNNode[0]);
-	m_pOut = createLogicOut( m_pPNode[0], true );
-	
-	m_pIn->setCallback( this, (CallbackPtr)(&Inverter::inStateChanged) );
+	m_pIn->setCallback(this, (CallbackPtr)(&Inverter::inStateChanged));
 	inStateChanged(false);
 }
-
 
 Inverter::~Inverter()
 {
 }
 
-
-void Inverter::inStateChanged( bool newState )
+void Inverter::inStateChanged(bool newState)
 {
-	(static_cast<LogicOut*>(m_pOut))->setHigh( !newState );
+	(static_cast<LogicOut*>(m_pOut))->setHigh(!newState);
 }
 
-
-void Inverter::drawShape( QPainter &p )
+void Inverter::drawShape(QPainter &p)
 {
 	initPainter(p);
 	int _x = (int)x()-8;
@@ -97,38 +94,35 @@ LibraryItem* Buffer::libraryItem()
 		i18n("Logic"),
 		"buffer.png",
 		LibraryItem::lit_component,
-		Buffer::construct );
+		Buffer::construct);
 }
 
-Buffer::Buffer( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, id ? id : "buffer" )
+Buffer::Buffer(ICNDocument *icnDocument, bool newItem, const char *id)
+	: Component(icnDocument, newItem, id ? id : "buffer")
 {
 	m_name = i18n("Buffer");
-	setSize( -8, -8, 16, 16 );
+	setSize(-8, -8, 16, 16);
 
 	init1PinLeft();
 	init1PinRight();
 	
-	m_pIn = createLogicIn(m_pNNode[0]);
-	m_pOut = createLogicOut( m_pPNode[0], true );
+	m_pIn = createLogicIn(m_pNNode[0]->pin());
+	m_pOut = createLogicOut( m_pPNode[0]->pin(), true );
 	
-	m_pIn->setCallback( this, (CallbackPtr)(&Buffer::inStateChanged) );
+	m_pIn->setCallback(this, (CallbackPtr)(&Buffer::inStateChanged));
 	inStateChanged(false);
 }
-
 
 Buffer::~Buffer()
 {
 }
 
-
-void Buffer::inStateChanged( bool newState )
+void Buffer::inStateChanged(bool newState)
 {
 	m_pOut->setHigh(newState);
 }
 
-
-void Buffer::drawShape( QPainter &p )
+void Buffer::drawShape(QPainter &p)
 {
 	initPainter(p);
 	int _x = (int)x()-8;
@@ -161,44 +155,40 @@ LibraryItem* ECLogicInput::libraryItem()
 		ECLogicInput::construct );
 }
 
-ECLogicInput::ECLogicInput( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, (id) ? id : "logic_input" )
+ECLogicInput::ECLogicInput(ICNDocument *icnDocument, bool newItem, const char *id)
+	: Component(icnDocument, newItem, (id) ? id : "logic_input")
 {
 	m_name = i18n("Logic Input");
-	setSize( -8, -8, 16, 16 );
+	setSize(-8, -8, 16, 16);
 	
 	b_state = false;
-	addButton( "button", QRect( -24, -8, 16, 16 ), "", true );
+	addButton("button", QRect(-24, -8, 16, 16), "", true);
 	
-	createProperty( "useToggle", Variant::Type::Bool );
-	property("useToggle")->setCaption( i18n("Use Toggle") );
+	createProperty("useToggle", Variant::Type::Bool);
+	property("useToggle")->setCaption(i18n("Use Toggle"));
 	property("useToggle")->setValue(true);
 
 	init1PinRight();
 	
-	m_pOut = createLogicOut( m_pPNode[0], false );
+	m_pOut = createLogicOut( m_pPNode[0]->pin(), false );
 }
-
 
 ECLogicInput::~ECLogicInput()
 {
 }
 
-
 void ECLogicInput::dataChanged()
 {
-	button("button")->setToggle( dataBool("useToggle") );
+	button("button")->setToggle(dataBool("useToggle"));
 }
 
-
-void ECLogicInput::drawShape( QPainter &p )
+void ECLogicInput::drawShape(QPainter &p)
 {
 	initPainter(p);
-	if (b_state)
-		p.setBrush( QColor( 255, 166, 0 ) );
-	else
-		p.setBrush( Qt::white );
-	p.drawEllipse( (int)x()-4, (int)y()-6, 12, 12 );
+	if(b_state) p.setBrush(QColor(255, 166, 0));
+	else p.setBrush( Qt::white );
+
+	p.drawEllipse((int)x() - 4, (int)y() - 6, 12, 12);
 	deinitPainter(p);
 }
 
@@ -225,37 +215,36 @@ LibraryItem* ECLogicOutput::libraryItem()
 		i18n("Logic"),
 		"logic_output.png",
 		LibraryItem::lit_component,
-		ECLogicOutput::construct );
+		ECLogicOutput::construct);
 }
 
-ECLogicOutput::ECLogicOutput( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, id ? id : "logic_output" )
+ECLogicOutput::ECLogicOutput(ICNDocument *icnDocument, bool newItem, const char *id)
+	: Component(icnDocument, newItem, id ? id : "logic_output")
 {
 	m_name = i18n("Logic Output");
-	setSize( -8, -8, 16, 16 );
-	
+	setSize(-8, -8, 16, 16);
+
 	init1PinLeft();
-	m_pIn = createLogicIn(m_pNNode[0]);
-	
+	m_pIn = createLogicIn(m_pNNode[0]->pin());
+
 	m_pSimulator = Simulator::self();
-	
+
 	m_lastDrawState = 0.0;
 	m_lastSwitchTime = m_lastDrawTime = m_pSimulator->time();
 	m_highTime = 0;
 	m_bLastState = false;
 	m_bDynamicContent = true;
-	
-	m_pIn->setCallback( this, (CallbackPtr)(&ECLogicOutput::inStateChanged) );
+
+	m_pIn->setCallback(this, (CallbackPtr)(&ECLogicOutput::inStateChanged));
 }
 
 ECLogicOutput::~ECLogicOutput()
 {
 }
 
-void ECLogicOutput::inStateChanged( bool newState )
+void ECLogicOutput::inStateChanged(bool newState)
 {
-	if ( m_bLastState == newState )
-		return;
+	if(m_bLastState == newState) return;
 	
 	unsigned long long newTime = m_pSimulator->time();
 	unsigned long long dt = newTime - m_lastSwitchTime;

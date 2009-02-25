@@ -312,56 +312,54 @@ MatrixDisplayDriver::MatrixDisplayDriver( ICNDocument *icnDocument, bool newItem
 	: Component( icnDocument, newItem, id ? id : "Matrix Display Driver" )
 {
 	m_name = i18n("Matrix Display Driver");
-	
+
 	m_prevCol = 0;
 	m_nextCol = 0;
 	m_scanCount = 2;
-	
-	createProperty( "diode-configuration", Variant::Type::Select );
-	property("diode-configuration")->setCaption( i18n("Configuration") );
+
+	createProperty("diode-configuration", Variant::Type::Select);
+	property("diode-configuration")->setCaption( i18n("Configuration"));
 	QStringMap allowed;
 	allowed["Row Cathode"] = i18n("Row Cathode");
 	allowed["Column Cathode"] = i18n("Column Cathode");
-	property("diode-configuration")->setAllowed( allowed );
+	property("diode-configuration")->setAllowed(allowed);
 	property("diode-configuration")->setValue("Row Cathode");
 	property("diode-configuration")->setAdvanced(true);
-	
-	QStringList pins = QStringList::split( ',', "D0,D1,D2,D3,D4,D5,D6,D7,,,,,,C4,C3,C2,C1,C0,,R0,R1,R2,R3,R4,R5,R6", true );
-	initDIPSymbol( pins, 64 );
+
+	QStringList pins = QStringList::split(',', "D0,D1,D2,D3,D4,D5,D6,D7,,,,,,C4,C3,C2,C1,C0,,R0,R1,R2,R3,R4,R5,R6", true);
+	initDIPSymbol(pins, 64);
 	initDIP(pins);
-	
-	m_pValueLogic.resize( 8, 0l );
-	for ( unsigned i = 0; i < 8; ++i )
-		m_pValueLogic[i] = createLogicIn( ecNodeWithID("D"+QString::number(i)) );
-	
-	m_pRowLogic.resize( 7, 0l );
-	for ( unsigned i = 0; i < 7; ++i )
+
+	m_pValueLogic.resize(8, 0);
+	for(unsigned i = 0; i < 8; ++i)
+		m_pValueLogic[i] = createLogicIn(ecNodeWithID("D" + QString::number(i))->pin() );
+
+	m_pRowLogic.resize(7, 0);
+	for(unsigned i = 0; i < 7; ++i)
 	{
-		m_pRowLogic[i] = createLogicOut( ecNodeWithID("R"+QString::number(i)), false );
+		m_pRowLogic[i] = createLogicOut(ecNodeWithID("R" + QString::number(i))->pin(), false);
 		m_pRowLogic[i]->setOutputLowConductance( 1.0 );
 		m_pRowLogic[i]->setOutputHighVoltage(5.0);
 	}
-	
-	m_pColLogic.resize( 5, 0l );
-	for ( unsigned i = 0; i < 5; ++i )
+
+	m_pColLogic.resize(5, 0);
+	for(unsigned i = 0; i < 5; ++i)
 	{
-		m_pColLogic[i] = createLogicOut( ecNodeWithID("C"+QString::number(i)), false );
+		m_pColLogic[i] = createLogicOut( ecNodeWithID("C" + QString::number(i))->pin(), false );
 		m_pColLogic[i]->setOutputHighVoltage(5.0);
 	}
 }
-
 
 MatrixDisplayDriver::~MatrixDisplayDriver()
 {
 }
 
-
 void MatrixDisplayDriver::stepNonLogic()
 {
-	if ( ++m_scanCount < 5 )
-		return;
+	if(++m_scanCount < 5) return;
+
 	m_scanCount = 0;
-	
+
 	m_pColLogic[m_prevCol]->setHigh(false);
 	m_pColLogic[m_nextCol]->setHigh(true);
 	
@@ -377,7 +375,6 @@ void MatrixDisplayDriver::stepNonLogic()
 	m_prevCol = m_nextCol;
 	
 	m_nextCol++;
-	if ( m_nextCol >= 5 )
-		m_nextCol = 0;
+	if ( m_nextCol >= 5 ) m_nextCol = 0;
 }
 
