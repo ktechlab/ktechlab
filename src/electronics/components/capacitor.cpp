@@ -52,6 +52,7 @@ Capacitor::Capacitor(ICNDocument *icnDocument, bool newItem, const char *id)
 }
 
 Capacitor::~Capacitor() {
+	delete m_capacitance;
 }
 
 void Capacitor::dataChanged() {
