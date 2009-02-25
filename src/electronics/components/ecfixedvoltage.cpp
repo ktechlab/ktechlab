@@ -53,6 +53,7 @@ ECFixedVoltage::ECFixedVoltage(ICNDocument *icnDocument, bool newItem, const cha
 
 ECFixedVoltage::~ECFixedVoltage()
 {
+	delete m_voltagePoint;
 }
 
 void ECFixedVoltage::dataChanged()

@@ -78,8 +78,8 @@ ECDiode::ECDiode(ICNDocument *icnDocument, bool newItem, const char *id)
 // 	property("R")->setAdvanced(true);
 }
 
-ECDiode::~ECDiode()
-{
+ECDiode::~ECDiode() {
+	delete m_diode;
 }
 
 void ECDiode::dataChanged()

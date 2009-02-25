@@ -79,6 +79,7 @@ ECVoltageSignal::ECVoltageSignal(ICNDocument *icnDocument, bool newItem, const c
 
 ECVoltageSignal::~ECVoltageSignal()
 {
+	delete m_voltageSignal;
 }
 
 void ECVoltageSignal::dataChanged()
