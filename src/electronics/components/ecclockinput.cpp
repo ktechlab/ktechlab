@@ -84,6 +84,9 @@ ECClockInput::ECClockInput( ICNDocument *icnDocument, bool newItem, const char *
 
 ECClockInput::~ECClockInput()
 {
+	delete m_pOut;
+
+// FIXME: MEMORY LEAK!!! 
 	for ( unsigned i = 0; i < 1000; i++ )
 	{
 		delete m_pComponentCallback[i];
