@@ -38,9 +38,11 @@ public:
     QPointer<PluginController> pluginController;
     QPointer<UiController> uiController;
     QPointer<ProjectController> projectController;
+    QPointer<LanguageController> languageController;
     QPointer<DocumentController> documentController;
     QPointer<PartController> partController;
     QPointer<SessionController> sessionController;
+    QPointer<SourceFormatterController> sourceFormatterController;
 
     KComponentData m_componentData;
     Core *m_core;
