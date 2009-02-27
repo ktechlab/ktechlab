@@ -20,6 +20,10 @@ set(ktlshell_LIB_SRCS
     openprojectdialog.cpp
     openprojectpage.cpp
     projectinfopage.cpp
+    languagecontroller.cpp
+    language.cpp
+    completionsettings.cpp
+    sourceformattercontroller.cpp
 )
 
 kde4_add_ui_files( ktlshell_LIB_SRCS

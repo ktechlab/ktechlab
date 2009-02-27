@@ -169,7 +169,7 @@ KDevelop::ISourceFormatter* SourceFormatterController::formatterForLanguage(cons
         KDevelop::IPlugin *p = m_plugins[language].first();
         if (!p)
             return 0;
-        m_currentPlugins[language] = p->extension<ISourceFormatter>();
+        m_currentPlugins[language] = p->extension<KDevelop::ISourceFormatter>();
     } else
         m_currentPlugins[language] = formatterByName(language, formatterName);
 
@@ -181,7 +181,7 @@ KDevelop::ISourceFormatter* SourceFormatterController::formatterByName(const QSt
     QList<KDevelop::IPlugin*> list = m_plugins[language];
     foreach(KDevelop::IPlugin *p, list) {
         if (p) {
-            KDevelop::ISourceFormatter *f = p->extension<ISourceFormatter>();
+            KDevelop::ISourceFormatter *f = p->extension<KDevelop::ISourceFormatter>();
             if (f && (f->name() == name))
                 return f;
         }
@@ -265,7 +265,7 @@ void SourceFormatterController::loadConfig()
 void SourceFormatterController::saveConfig()
 {
     // save current plugins
-    QHash<QString, ISourceFormatter*>::const_iterator it = m_currentPlugins.constBegin();
+    QHash<QString, KDevelop::ISourceFormatter*>::const_iterator it = m_currentPlugins.constBegin();
     for (; it != m_currentPlugins.constEnd(); ++it) {
         KDevelop::ISourceFormatter *f = it.value();
         if(f) {
