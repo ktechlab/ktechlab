@@ -294,7 +294,7 @@ void UiController::showSettingsDialog()
     kDebug() << "blacklist" << blacklist;
     if(!d->cfgDlg)
     {
-        d->cfgDlg = new KSettings::Dialog( QStringList() << "kdevplatform",
+        d->cfgDlg = new KSettings::Dialog( QStringList() << "ktechlab",
                                            activeMainWindow() );
         d->cfgDlg->setComponentBlacklist( blacklist );
     }

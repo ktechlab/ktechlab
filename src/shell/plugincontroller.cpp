@@ -360,7 +360,7 @@ KDevelop::IPlugin *PluginController::loadPluginInternal( const QString &pluginId
         {
             kDebug() << "it is a kross plugin!!";
             QStringList interfaces=info.property( "X-KDevelop-Interfaces" ).toStringList();
-            plugin = KServiceTypeTrader::createInstanceFromQuery<KDevelop::IPlugin>( QLatin1String( "KDevelop/Plugin" ),
+            plugin = KServiceTypeTrader::createInstanceFromQuery<KDevelop::IPlugin>( QLatin1String( "KTechLab/Plugin" ),
                             QString::fromLatin1( "[X-KDE-PluginInfo-Name]=='KDevKrossManager'" ),
                             d->core, QVariantList() << interfaces << info.pluginName(), &str_error );
             kDebug() << "kross plugin:" << plugin;

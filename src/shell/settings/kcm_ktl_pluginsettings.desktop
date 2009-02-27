@@ -1,0 +1,54 @@
+[Desktop Entry]
+Icon=preferences-plugin
+Type=Service
+ServiceTypes=KCModule
+
+X-KDE-ModuleType=Library
+X-KDE-Library=kcm_ktl_pluginsettings
+X-KDE-FactoryName=kcm_ktl_pluginsettings
+X-KDE-ParentApp=ktechlab
+X-KDE-ParentComponents=ktechlab
+X-KDE-CfgDlgHierarchy=GENERAL
+
+Name=Plugins
+Name[cs]=Moduly
+Name[de]=Module
+Name[el]=Πρόσθετα
+Name[es]=Complementos
+Name[fr]=Modules externes
+Name[ga]=Breiseáin
+Name[gl]=Extensións
+Name[ja]=プラグイン
+Name[lv]=Spraudņi
+Name[nds]=Modulen
+Name[pa]=ਪਲੱਗਇਨ
+Name[pt]='Plugins'
+Name[pt_BR]=Extensões
+Name[ro]=Module
+Name[sv]=Insticksprogram
+Name[tr]=Eklentiler
+Name[uk]=Додатки
+Name[x-test]=xxPluginsxx
+Name[zh_CN]=插件
+Name[zh_TW]=外掛程式
+Comment=Configure Plugins
+Comment[de]=Module einrichten
+Comment[el]=Ρύθμιση προσθέτων
+Comment[es]=Configurar complementos
+Comment[fr]=Configurer les modules externes
+Comment[ga]=Cumraigh Breiseáin
+Comment[gl]=Configura as extensión
+Comment[ja]=プラグインを設定します
+Comment[lv]=Konfigurē spraudņus
+Comment[nds]=Modulen instellen
+Comment[pa]=ਪਲੱਗਇਨ ਸੰਰਚਨਾ
+Comment[pt]=Configurar os 'Plugins'
+Comment[pt_BR]=Configurar as extensões
+Comment[ro]=Configurare module
+Comment[sv]=Anpassa insticksprogram
+Comment[tr]=Eklentileri Yapılandır
+Comment[uk]=Налаштування додатків
+Comment[x-test]=xxConfigure Pluginsxx
+Comment[zh_CN]=配置插件
+Comment[zh_TW]=設定外掛程式
+

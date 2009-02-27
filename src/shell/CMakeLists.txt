@@ -1,3 +1,5 @@
+add_subdirectory( settings )
+
 include_directories( ${KDEVPLATFORM_INCLUDE_DIR} )
 set(ktlshell_LIB_SRCS
     core.cpp
