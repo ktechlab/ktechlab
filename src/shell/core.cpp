@@ -8,13 +8,14 @@
  ***************************************************************************/
 #include "core.h"
 
+
 #include "mainwindow.h"
 #include "sessioncontroller.h"
 #include "uicontroller.h"
 #include "plugincontroller.h"
+#include "languagecontroller.h"
 #include "projectcontroller.h"
 #include "partcontroller.h"
-#include "languagecontroller.h"
 #include "documentcontroller.h"
 #include "runcontroller.h"
 #include "sourceformattercontroller.h"
@@ -49,6 +50,9 @@ void CorePrivate::initialize()
     if ( !projectController ) {
         projectController = new ProjectController(m_core);
     }
+    if ( !languageController ) {
+        languageController = new LanguageController(m_core);
+    }
     if ( !documentController ) {
         documentController = new DocumentController(m_core);
     }
@@ -58,9 +62,17 @@ void CorePrivate::initialize()
     if ( !pluginController ) {
         pluginController = new PluginController(m_core);
     }
+    if ( !sourceFormatterController ) {
+        sourceFormatterController = new SourceFormatterController(m_core);
+    }
 
     sessionController->initialize();
+
+    //create the GUI
+    uiController->initialize();
+    uiController->loadAllAreas(KGlobal::config());
     uiController->defaultMainWindow()->show();
+
     pluginController->initialize();
 }
 
@@ -102,7 +114,7 @@ KDevelop::IProjectController* Core::projectController()
 
 KDevelop::ILanguageController* Core::languageController()
 {
-    return 0;
+    return d->languageController;
 }
 
 KParts::PartManager* Core::partController()
@@ -122,7 +134,7 @@ KDevelop::IRunController* Core::runController()
 
 KDevelop::ISourceFormatterController* Core::sourceFormatterController()
 {
-    return 0;
+    return d->sourceFormatterController;
 }
 
 KDevelop::ISelectionController* Core::selectionController()
