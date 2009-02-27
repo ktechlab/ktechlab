@@ -278,7 +278,6 @@ KDevelop::IDocument* DocumentController::openDocument( const KUrl & inputUrl,
     KTextEditor::Cursor previousActivePosition;
     if(previousActiveDocument && previousActiveDocument->textDocument() && previousActiveDocument->textDocument()->activeView())
         previousActivePosition = previousActiveDocument->textDocument()->activeView()->cursorPosition();
-    
 
     UiController *uiController = Core::self()->uiControllerInternal();
     Sublime::Area *area = uiController->activeArea();
@@ -389,7 +388,7 @@ KDevelop::IDocument* DocumentController::openDocument( const KUrl & inputUrl,
             partView = sdoc->createView();
             addView = true;
         }
-        
+
         TextView* textView = dynamic_cast<TextView*>(partView);
         if(textView && textView->textView()) {
             applyRange = false;
@@ -400,12 +399,12 @@ KDevelop::IDocument* DocumentController::openDocument( const KUrl & inputUrl,
         }else if(textView) {
             textView->setInitialRange(range);
         }
-        
+
         if(addView) {
             //add view to the area
             area->addView(partView, uiController->activeSublimeWindow()->activeView());
         }
-        
+
         if (!activationParams.testFlag(IDocumentController::DoNotActivate))
         {
             uiController->activeSublimeWindow()->activateView(partView);
@@ -439,10 +438,10 @@ KDevelop::IDocument* DocumentController::openDocument( const KUrl & inputUrl,
         KTextEditor::Cursor activePosition;
         if(doc->textDocument() && doc->textDocument()->activeView())
             activePosition = doc->textDocument()->activeView()->cursorPosition();
-        
+
         emit documentJumpPerformed(doc, range.start(), previousActiveDocument, previousActivePosition);
     }
-    
+
     return doc;
 }
 
