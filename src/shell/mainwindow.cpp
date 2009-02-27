@@ -73,7 +73,7 @@ MainWindow::MainWindow( Sublime::Controller *parent, Qt::WFlags flags )
 
     if( !KDevelop::ShellExtension::getInstance()->xmlFile().isEmpty() )
     {
-        setXMLFile( KDevelop::ShellExtension::getInstance() ->xmlFile() );
+        setXMLFile( KDevelop::ShellExtension::getInstance()->xmlFile() );
     }
 
     connect(this->guiFactory(), SIGNAL(clientAdded(KXMLGUIClient*)),
