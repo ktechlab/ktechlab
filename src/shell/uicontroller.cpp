@@ -59,8 +59,8 @@ public:
 
         desired["org.ktechlab.DocumentsView"] = Sublime::Left;
         desired["org.ktechlab.ProjectsView"] = Sublime::Left;
-        desired["org.ktechlab.FileManagerView"] = Sublime::Left;
-        desired["org.ktechlab.ProblemReporterView"] = Sublime::Bottom;
+        desired["org.kdevelop.FileManagerView"] = Sublime::Left;
+        desired["org.kdevelop.ProblemReporterView"] = Sublime::Bottom;
         desired["org.ktechlab.ContextBrowser"] = Sublime::Right;
         Sublime::Area* a = new Sublime::Area(m_controller, "ktlDefault", i18n("KTechLab Default Area"));
         a->setDesiredToolViews(desired);
@@ -513,8 +513,9 @@ void UiController::loadAllAreas(KSharedConfig::Ptr config)
             }
         }
 
-        // FIXME: check that an area of this name exists.
-        if (!currentArea.isEmpty())
+        // if ( !currentArea.isEmpty() ) didn't check if an area already exists
+        // this one should do...
+        if ( area( w, currentArea ) )
             showArea(currentArea, mw);
         else
             // Force reload of the changes.
