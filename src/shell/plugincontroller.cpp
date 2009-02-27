@@ -137,8 +137,14 @@ PluginController::PluginController(Core *core)
     setObjectName("PluginController");
     d->core = core;
     kDebug() << "Fetching plugin info which matches:" << QString( "[X-KDevelop-Version] == %1" ).arg(KDEVELOP_PLUGIN_VERSION);
+    //load KTechLab plugins
     d->plugins = KPluginInfo::fromServices( KServiceTypeTrader::self()->query( QLatin1String( "KTechLab/Plugin" ),
         QString( "[X-KDevelop-Version] == %1" ).arg(KDEVELOP_PLUGIN_VERSION) ) );
+    //load KDevelop plugins
+    d->plugins.append(
+            KPluginInfo::fromServices( KServiceTypeTrader::self()->query( QLatin1String( "KDevelop/Plugin" ),
+                    QString( "[X-KDevelop-Version] == %1" ).arg(KDEVELOP_PLUGIN_VERSION) ) )
+            );
     foreach( KPluginInfo p, d->plugins )
     {
         if( p.pluginName().contains("nongui") )
@@ -359,9 +365,17 @@ KDevelop::IPlugin *PluginController::loadPluginInternal( const QString &pluginId
                             d->core, QVariantList() << interfaces << info.pluginName(), &str_error );
             kDebug() << "kross plugin:" << plugin;
         }
-        else
+        // our .desktop files should start with ktl prefix
+        // FIXME: is there a better way to achieve this? need to find out the ServiceType of the
+        // plugin...
+        else if ( info.entryPath().startsWith("ktl") )
         {
             plugin = KServiceTypeTrader::createInstanceFromQuery<KDevelop::IPlugin>( QLatin1String( "KTechLab/Plugin" ),
+                    QString::fromLatin1( "[X-KDE-PluginInfo-Name]=='%1'" ).arg( pluginId ), d->core, QVariantList(), &str_error );
+        }
+        else
+        {
+            plugin = KServiceTypeTrader::createInstanceFromQuery<KDevelop::IPlugin>( QLatin1String( "KDevelop/Plugin" ),
                     QString::fromLatin1( "[X-KDE-PluginInfo-Name]=='%1'" ).arg( pluginId ), d->core, QVariantList(), &str_error );
         }
         loadDependencies( info );

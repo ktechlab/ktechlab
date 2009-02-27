@@ -33,7 +33,7 @@
 
 #include "core.h"
 #include "language.h"
-#include "settings/ccpreferences.h"
+//#include "settings/ccpreferences.h"
 #include "completionsettings.h"
 
 namespace KTechLab {
@@ -161,7 +161,7 @@ KDevelop::ILanguage *LanguageController::language(const QString &name) const
         QList<KDevelop::IPlugin*> supports = Core::self()->pluginController()->
             allPluginsForExtension("ILanguageSupport", constraints);
         if(!supports.isEmpty()) {
-            KDevelop::ILanguageSupport *languageSupport = supports[0]->extension<ILanguageSupport>();
+            KDevelop::ILanguageSupport *languageSupport = supports[0]->extension<KDevelop::ILanguageSupport>();
             if(supports[0])
                 ret = d->addLanguageForSupport(languageSupport);
         }
@@ -211,7 +211,7 @@ QList<KDevelop::ILanguage*> LanguageController::languagesForUrl(const KUrl &url)
                 allPluginsForExtension("ILanguageSupport", constraints);
 
             foreach (KDevelop::IPlugin *support, supports) {
-                KDevelop::ILanguageSupport* languageSupport = support->extension<ILanguageSupport>();
+                KDevelop::ILanguageSupport* languageSupport = support->extension<KDevelop::ILanguageSupport>();
                 kDebug() << "language-support:" << languageSupport;
                 if(languageSupport)
                     return languages << d->addLanguageForSupport(languageSupport);
