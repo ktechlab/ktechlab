@@ -144,23 +144,35 @@ void RAM::initPins()
 	initDIPSymbol(pins, 72);
 	initDIP(pins);
 
-	ECNode *node;
+//	ECNode *node;
 
 	if(!m_pCS) {
-		node =  ecNodeWithID("CS");
-		m_pCS = createLogicIn(node->pin());
+		//node =  ecNodeWithID("CS");
+		//m_pCS = createLogicIn(node->pin());
+
+		m_pCS = new LogicIn(LogicIn::getConfig());
+		setup1pinElement(m_pCS, ecNodeWithID("CS")->pin());
+
 		m_pCS->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
 	}
 
 	if(!m_pOE) {
-		node =  ecNodeWithID("OE");
-		m_pOE = createLogicIn(node->pin());
+		//node =  ecNodeWithID("OE");
+		//m_pOE = createLogicIn(node->pin());
+
+		m_pOE = new LogicIn(LogicIn::getConfig());
+		setup1pinElement(m_pOE, ecNodeWithID("OE")->pin());
+
 		m_pOE->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
 	}
 
 	if(!m_pWE) {
-		node =  ecNodeWithID("WE");
-		m_pWE = createLogicIn(node->pin());
+//		node =  ecNodeWithID("WE");
+//		m_pWE = createLogicIn(node->pin());
+
+		m_pWE = new LogicIn(LogicIn::getConfig());
+		setup1pinElement(m_pWE, ecNodeWithID("WE")->pin());
+
 		m_pWE->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
 	}
 
@@ -169,12 +181,22 @@ void RAM::initPins()
 		m_dataOut.resize(newWordSize);
 
 		for(int i = oldWordSize; i < newWordSize; ++i) {
-			node = ecNodeWithID(QString("DI%1").arg( QString::number(i)));
-			m_dataIn.insert(i, createLogicIn(node->pin()));
+//			node = ecNodeWithID(QString("DI%1").arg( QString::number(i)));
+
+			LogicIn *inLogic = new LogicIn(LogicIn::getConfig());
+			setup1pinElement(inLogic, ecNodeWithID(QString("DI%1").arg( QString::number(i)))->pin());
+			m_dataIn.insert(i, inLogic);
+
+//			m_dataIn.insert(i, createLogicIn(node->pin()));
 			m_dataIn[i]->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
-			
-			node = ecNodeWithID(QString("DO%1").arg( QString::number(i)));
-			m_dataOut.insert(i, createLogicOut(node->pin(), false));
+
+//			node = ecNodeWithID(QString("DO%1").arg( QString::number(i)));
+
+			LogicOut *outLogic = new LogicOut(LogicIn::getConfig(), false);
+			setup1pinElement(outLogic, ecNodeWithID(QString("DO%1").arg( QString::number(i)))->pin());
+			m_dataOut.insert(i, outLogic);
+
+//			m_dataOut.insert(i, createLogicOut(node->pin(), false));
 		}
 	} else if(newWordSize < oldWordSize) {
 		for(int i = newWordSize; i < oldWordSize; ++i)
@@ -199,8 +221,13 @@ void RAM::initPins()
 
 		for(int i = oldAddressSize; i < newAddressSize; ++i)
 		{
-			node = ecNodeWithID(QString("A%1").arg(QString::number(i)));
-			m_address.insert(i, createLogicIn(node->pin()));
+//			node = ecNodeWithID(QString("A%1").arg(QString::number(i)));
+//			m_address.insert(i, createLogicIn(node->pin()));
+
+			LogicIn *inLogic = new LogicIn(LogicIn::getConfig());
+			setup1pinElement(inLogic, ecNodeWithID(QString("A%1").arg(QString::number(i)))->pin());
+			m_address.insert(i, inLogic);
+
 			m_address[i]->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
 		}
 	} else if(newAddressSize < oldAddressSize) {

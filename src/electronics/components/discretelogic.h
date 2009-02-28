@@ -65,7 +65,7 @@ private:
 class ECLogicInput : public Component
 {
 public:
-	ECLogicInput( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECLogicInput(ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECLogicInput();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

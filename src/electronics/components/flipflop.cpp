@@ -80,13 +80,35 @@ ECDFlipFlop::ECDFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id)
 	m_pSimulator = Simulator::self();
 
 	m_bPrevClock = false;
-	m_pD = createLogicIn(m_pNNode[0]->pin());
-	m_pClock = createLogicIn(m_pNNode[1]->pin());
-	m_pQ = createLogicOut(m_pPNode[0]->pin(), false);
-	m_pQBar = createLogicOut(m_pPNode[1]->pin(), false);
+//	m_pD = createLogicIn(m_pNNode[0]->pin());
 
-	setp = createLogicIn(createPin(0, -32, 90, "set")->pin());
-	rstp = createLogicIn(createPin(0, 32, 270, "rst")->pin());
+	m_pD = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(m_pD, m_pNNode[0]->pin());
+
+//	m_pClock = createLogicIn(m_pNNode[1]->pin());
+
+	m_pClock = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(m_pClock, m_pNNode[1]->pin());
+
+//	m_pQ = createLogicOut(m_pPNode[0]->pin(), false);
+
+	m_pQ = new LogicOut(LogicIn::getConfig(), true);
+	setup1pinElement(m_pQ, m_pPNode[0]->pin());
+
+//	m_pQBar = createLogicOut(m_pPNode[1]->pin(), false);
+
+	m_pQBar = new LogicOut(LogicIn::getConfig(), false);
+	setup1pinElement(m_pQBar, m_pPNode[1]->pin());
+
+	// setp = createLogicIn(createPin(0, -32, 90, "set")->pin());
+
+	setp = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(setp, createPin(0, -32, 90, "set")->pin());
+
+	// rstp = createLogicIn(createPin(0, 32, 270, "rst")->pin());
+
+	rstp = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(rstp, createPin(0, 32, 270, "rst")->pin());
 
 	// (The display text for D, >, Set, Rst is set in initSymbolFromTrigger
 	addDisplayText( "Q",	QRect(12, -16, 20, 16), "Q");
@@ -229,16 +251,34 @@ ECJKFlipFlop::ECJKFlipFlop( ICNDocument *icnDocument, bool newItem, const char *
 	m_edgeTrigger = Rising;
 	initSymbolFromTrigger();
 
-	m_pJ = createLogicIn(m_pNNode[0]->pin());
-	m_pClock = createLogicIn(m_pNNode[1]->pin());
-	m_pK = createLogicIn(m_pNNode[2]->pin());
+//	m_pJ = createLogicIn(m_pNNode[0]->pin());
+	m_pJ = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(m_pJ, m_pNNode[0]->pin());
 
-	m_pQ = createLogicOut(m_pPNode[0]->pin(), false);
-	m_pQBar = createLogicOut(m_pPNode[1]->pin(), false);
+//	m_pClock = createLogicIn(m_pNNode[1]->pin());
+	m_pClock = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(m_pClock, m_pNNode[1]->pin());
 
-	setp = createLogicIn(createPin(0, -40, 90, "set")->pin());
-	rstp = createLogicIn(createPin(0, 40, 270, "rst")->pin());
-	
+//	m_pK = createLogicIn(m_pNNode[2]->pin());
+	m_pK = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(m_pK, m_pNNode[2]->pin());
+
+//	m_pQ = createLogicOut(m_pPNode[0]->pin(), false);
+	m_pQ = new LogicOut(LogicIn::getConfig(), true);
+	setup1pinElement(m_pQ, m_pPNode[0]->pin());
+
+//	m_pQBar = createLogicOut(m_pPNode[1]->pin(), false);
+	m_pQBar = new LogicOut(LogicIn::getConfig(), false);
+	setup1pinElement(m_pQBar, m_pPNode[1]->pin());
+
+//	setp = createLogicIn(createPin(0, -40, 90, "set")->pin());
+	setp = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(setp, createPin(0, -40, 90, "set")->pin());
+
+//	rstp = createLogicIn(createPin(0, 40, 270, "rst")->pin());
+	rstp = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(rstp, createPin(0, 40, 270, "rst")->pin());
+
 	addDisplayText("Q",  QRect(12, -24, 20, 16), "Q");
 	addDisplayText("Q'", QRect(12,   8, 20, 16), "Q'");
 
@@ -258,27 +298,27 @@ void ECJKFlipFlop::initSymbolFromTrigger()
 	int offset = (m_edgeTrigger == Rising) ? 0 : 6;
 	
 	int w = 64-offset;
-	setSize( offset-32, -32, w, 64, true );
-	m_pNNode[0]->setLength( 8+offset );
-	m_pNNode[2]->setLength( 8+offset );
-	addDisplayText( "J",	QRect( offset-28,	-24,	20, 16 ), "J", true, Qt::AlignLeft );
-	addDisplayText( ">",	QRect( offset-28,	-8,		20, 16 ), ">", true, Qt::AlignLeft );
-	addDisplayText( "K",	QRect( offset-28,	8,		20, 16 ), "K", true, Qt::AlignLeft ); 
-	addDisplayText( "Set",	QRect( offset-28,	-28,	w-8, 16 ), "Set", true, Qt::AlignHCenter );
-	addDisplayText( "Rst",	QRect( offset-28,	12,		w-8, 16 ), "Rst", true, Qt::AlignHCenter );
+	setSize(offset - 32, -32, w, 64, true);
+	m_pNNode[0]->setLength(8 + offset);
+	m_pNNode[2]->setLength(8 + offset);
+	addDisplayText("J",   QRect(offset - 28,	-24,	20,  16), "J",   true, Qt::AlignLeft);
+	addDisplayText(">",   QRect(offset - 28,	-8,	20,  16), ">",   true, Qt::AlignLeft);
+	addDisplayText("K",   QRect(offset - 28,	8,	20,  16), "K",   true, Qt::AlignLeft);
+	addDisplayText("Set", QRect(offset - 28,	-28,	w-8, 16), "Set", true, Qt::AlignHCenter);
+	addDisplayText("Rst", QRect(offset - 28,	12,	w-8, 16), "Rst", true, Qt::AlignHCenter);
 	
 	updateAttachedPositioning();
 }
 
-void ECJKFlipFlop::drawShape( QPainter & p )
+void ECJKFlipFlop::drawShape(QPainter &p)
 {
-	Component::drawShape( p );
+	Component::drawShape(p);
 	
-	if ( m_edgeTrigger == Falling )
+	if(m_edgeTrigger == Falling)
 	{
-		initPainter( p );
-		p.drawEllipse( int(x()-32), int(y()-3), 6, 6 );
-		deinitPainter( p );
+		initPainter(p);
+		p.drawEllipse(int(x() - 32), int(y() - 3), 6, 6);
+		deinitPainter(p);
 	}
 }
 
@@ -358,11 +398,25 @@ ECSRFlipFlop::ECSRFlipFlop( ICNDocument *icnDocument, bool newItem, const char *
 	init2PinLeft( -8, 8);
 	init2PinRight(-8, 8);
 	
-	m_pS = createLogicIn(m_pNNode[0]->pin());
-	m_pR = createLogicIn(m_pNNode[1]->pin());
-	m_pQ = createLogicOut(m_pPNode[0]->pin(), true);
-	m_pQBar = createLogicOut(m_pPNode[1]->pin(), false);
-	
+//	m_pS = createLogicIn(m_pNNode[0]->pin());
+	m_pS = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(m_pS, m_pNNode[0]->pin());
+
+//	m_pR = createLogicIn(m_pNNode[1]->pin());
+	m_pR = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(m_pR, m_pNNode[1]->pin());
+
+//	m_pQ = createLogicOut(m_pPNode[0]->pin(), true);
+
+	m_pQ = new LogicOut(LogicIn::getConfig(), true);
+	setup1pinElement(m_pQ, m_pPNode[0]->pin());
+
+//	m_pQBar = createLogicOut(m_pPNode[1]->pin(), false);
+
+	m_pQBar = new LogicOut(LogicIn::getConfig(), false);
+	setup1pinElement(m_pQBar, m_pPNode[1]->pin());
+
+
 	old_q1 = true;
 	old_q2 = false;
 	m_pQ->setHigh(old_q1);
