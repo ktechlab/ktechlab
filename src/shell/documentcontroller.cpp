@@ -336,6 +336,9 @@ KDevelop::IDocument* DocumentController::openDocument( const KUrl & inputUrl,
         // Try to find a plugin that handles this mimetype
         QString constraint = QString("'%1' in [X-KDevelop-SupportedMimeTypes]").arg(mimeType->name());
         KPluginInfo::List plugins = KDevelop::IPluginController::queryPlugins( constraint );
+        plugins.append(
+                KDevelop::IPluginController::query( "KTechLab/Plugin", constraint )
+            );
 
         if( !plugins.isEmpty() )
         {
