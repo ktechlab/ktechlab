@@ -132,21 +132,30 @@ void MagnitudeComparator::initPins()
 	initDIPSymbol(pins, 88);
 	initDIP(pins);
 
-	ECNode *node;
+//	ECNode *node;
 
 	if(firstTime) {
 		m_cLogic.resize(3);
 		for(int i = 0; i < cascadingInputs; i++) {
-			node = ecNodeWithID(inNames[i]);
-			m_cLogic.insert(i, createLogicIn(node->pin()));
+//			node = ecNodeWithID(inNames[i]);
+//			m_cLogic.insert(i, createLogicIn(node->pin()));
+
+			LogicIn *inLogic = new LogicIn(LogicIn::getConfig());
+			setup1pinElement(inLogic, ecNodeWithID(inNames[i])->pin());
+			m_cLogic.insert(i, inLogic);
+
 			m_cLogic[i]->setCallback(this, (CallbackPtr)(&MagnitudeComparator::inStateChanged));
 		}
 
 		m_output.resize(3);
 		for(int i = 0; i < outputs; i++)
 		{
-			node = ecNodeWithID( outNames[i]);
-			m_output.insert(i, createLogicOut(node->pin(),false));
+//			node = ecNodeWithID( outNames[i]);
+//			m_output.insert(i, createLogicOut(node->pin(),false));
+
+			LogicOut *outLogic = new LogicOut(LogicIn::getConfig(), false);
+			setup1pinElement(outLogic, ecNodeWithID(outNames[i])->pin());
+			m_output.insert(i, outLogic);
 		}
 		firstTime = false;
 	}
@@ -156,16 +165,26 @@ void MagnitudeComparator::initPins()
 		m_aLogic.resize(newABLogicCount);
 		for(int i = m_oldABLogicCount; i < newABLogicCount; ++i)
 		{
-			node = ecNodeWithID("A" + QString::number(i));
-			m_aLogic.insert(i, createLogicIn(node->pin()));
+//			node = ecNodeWithID("A" + QString::number(i));
+//			m_aLogic.insert(i, createLogicIn(node->pin()));
+
+			LogicIn *inLogic = new LogicIn(LogicIn::getConfig());
+			setup1pinElement(inLogic, ecNodeWithID("A" + QString::number(i))->pin());
+			m_aLogic.insert(i, inLogic);
+
 			m_aLogic[i]->setCallback(this, (CallbackPtr)(&MagnitudeComparator::inStateChanged));
 		}
 
 		m_bLogic.resize(newABLogicCount);
 		for(int i = m_oldABLogicCount; i < newABLogicCount; ++i)
 		{
-			node = ecNodeWithID("B" + QString::number(i));
-			m_bLogic.insert(i, createLogicIn(node->pin()));
+//			node = ecNodeWithID("B" + QString::number(i));
+//			m_bLogic.insert(i, createLogicIn(node->pin()));
+
+			LogicIn *inLogic = new LogicIn(LogicIn::getConfig());
+			setup1pinElement(inLogic, ecNodeWithID("B" + QString::number(i))->pin());
+			m_bLogic.insert(i, inLogic);
+
 			m_bLogic[i]->setCallback(this, (CallbackPtr)(&MagnitudeComparator::inStateChanged));
 		}
 	} else {

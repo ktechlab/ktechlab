@@ -214,7 +214,7 @@ void ECCCVS::dataChanged()
 	m_ccvs->setGain(gain);
 }
 
-void ECCCVS::drawShape( QPainter &p )
+void ECCCVS::drawShape(QPainter &p)
 {
 	initPainter(p);
 	drawOutline(p);

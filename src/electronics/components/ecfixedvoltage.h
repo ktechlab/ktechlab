@@ -13,6 +13,8 @@
 
 #include "component.h"
 
+class VoltagePoint;
+
 /**
 @short Fixed voltage source
 @author David Saxton
@@ -20,14 +22,14 @@
 class ECFixedVoltage : public Component
 {
 public:
-	ECFixedVoltage( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECFixedVoltage(ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECFixedVoltage();
 	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
+	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
 	static LibraryItem *libraryItem();
 	
 private:
-	virtual void drawShape( QPainter &p );
+	virtual void drawShape(QPainter &p);
 	void dataChanged();
 	VoltagePoint *m_voltagePoint;
 };

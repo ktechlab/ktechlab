@@ -12,9 +12,7 @@
 #include "circuitdocument.h"
 #include "component.h"
 #include "src/core/ktlconfig.h"
-#include "ecnode.h"
 #include "itemdocumentdata.h"
-#include "node.h"
 #include "pin.h"
 #include "simulator.h"
 
@@ -27,14 +25,12 @@
 #include "diode.h"
 #include "jfet.h"
 #include "inductance.h"
-#include "logic.h"
 #include "mosfet.h"
 #include "opamp.h"
 #include "resistance.h"
 #include "switch.h"
 #include "vccs.h"
 #include "vcvs.h"
-#include "voltagepoint.h"
 #include "voltagesignal.h"
 #include "voltagesource.h"
 
@@ -132,7 +128,7 @@ void Component::removeElement(Element *element, bool setPinsInterIndependent) {
 		it = next;
 	}
 
-	if (setPinsInterIndependent)
+	if(setPinsInterIndependent)
 		rebuildPinInterDepedence();
 }
 
@@ -140,10 +136,10 @@ void Component::removeSwitch(Switch *sw) {
 	if (!sw) return;
 
 	emit switchDestroyed(sw);
+	m_switchList.remove(sw);
 
 	delete sw;
 
-	m_switchList.remove(sw);
 	m_pCircuitDocument->requestAssignCircuits();
 }
 
@@ -178,7 +174,7 @@ void Component::initPainter(QPainter &p) {
 }
 
 void Component::deinitPainter(QPainter &p) {
-	if (!b_flipped && (m_angleDegrees % 360 == 0))
+	if(!b_flipped && (m_angleDegrees % 360 == 0))
 		return;
 
 	p.restore();
@@ -218,13 +214,11 @@ void Component::setFlipped(bool flipped) {
 	emit orientationChanged();
 }
 
-
 void Component::itemPointsChanged() {
 	QPointArray transformedPoints = transMatrix(m_angleDegrees, b_flipped, 0, 0, false).map(m_itemPoints);
 // 	transformedPoints.translate( int(x()), int(y()) );
 	setPoints(transformedPoints);
 }
-
 
 void Component::restoreFromItemData(const ItemData &itemData) {
 	CNItem::restoreFromItemData(itemData);
@@ -232,7 +226,6 @@ void Component::restoreFromItemData(const ItemData &itemData) {
 	setAngleDegrees(int(itemData.angleDegrees));
 	setFlipped(itemData.flipped);
 }
-
 
 ItemData Component::itemData() const {
 	ItemData itemData = CNItem::itemData();
@@ -334,7 +327,7 @@ void Component::updateAttachedPositioning() {
 }
 
 
-void Component::drawPortShape(QPainter & p) {
+void Component::drawPortShape(QPainter &p) {
 	int h = height();
 	int w = width() - 1;
 	int _x = int(x() + offsetX());
@@ -378,17 +371,17 @@ void Component::drawPortShape(QPainter & p) {
 	p.drawArc(int(_x + w - roundSize), int(_y + slantIndent), int(roundSize), int(roundSize), 0, inner16);
 
 	// Bottom right
-	p.drawArc(int(_x + w - roundSize), int(_y - slantIndent + h - roundSize),	int(roundSize), int(roundSize), 270 << 4, inner16);
+	p.drawArc(int(_x + w - roundSize), int(_y - slantIndent + h - roundSize), int(roundSize), int(roundSize), 270 << 4, inner16);
 
 	deinitPainter(p);
 }
 
-void Component::initDIP(const QStringList & pins) {
+void Component::initDIP(const QStringList &pins) {
 	const int numPins = pins.size();
 	const int numSide = numPins / 2 + numPins % 2;
 
 	// Pins along left
-	for (int i = 0; i < numSide; i++) {
+	for(int i = 0; i < numSide; i++) {
 		if (!pins[i].isEmpty()) {
 			const int nodeX = -8 + offsetX();
 			const int nodeY = ((i + 1) << 4) + offsetY();
@@ -403,13 +396,13 @@ void Component::initDIP(const QStringList & pins) {
 	}
 
 	// Pins along right
-	for (int i = numSide; i < numPins; i++) {
-		if (!pins[i].isEmpty()) {
+	for(int i = numSide; i < numPins; i++) {
+		if(!pins[i].isEmpty()) {
 			const int nodeX = width() + 8 + offsetX();
 			const int nodeY = ((2 * numSide - i) << 4) + offsetY();
 			ECNode *node = ecNodeWithID(pins[i]);
 
-			if (node) {
+			if(node) {
 				m_nodeMap[pins[i]].x = nodeX;
 				m_nodeMap[pins[i]].y = nodeY;
 				m_nodeMap[pins[i]].orientation = 180;
@@ -432,8 +425,7 @@ void Component::initDIPSymbol(const QStringList & pins, int _width) {
 	p.setFont(font());
 
 	// Pins along left
-
-	for (int i = 0; i < numSide; i++) {
+	for(int i = 0; i < numSide; i++) {
 		if (!pins[i].isEmpty()) {
 			const QString text = *pins.at(i);
 
@@ -448,8 +440,8 @@ void Component::initDIPSymbol(const QStringList & pins, int _width) {
 	}
 
 	// Pins along right
-	for (int i = numSide; i < numPins; i++) {
-		if (!pins[i].isEmpty()) {
+	for(int i = numSide; i < numPins; i++) {
+		if(!pins[i].isEmpty()) {
 			const QString text = *pins.at(i);
 
 			const int _top = (2 * numSide - i) * 16 - 8 + offsetY();
@@ -466,23 +458,23 @@ void Component::initDIPSymbol(const QStringList & pins, int _width) {
 }
 
 void Component::init1PinLeft(int h1) {
-	if (h1 == -1) h1 = offsetY() + height() / 2;
+	if(h1 == -1) h1 = offsetY() + height() / 2;
 
 	m_pNNode[0] = createPin(offsetX() - 8, h1, 0, "n1");
 }
 
 void Component::init2PinLeft(int h1, int h2) {
-	if (h1 == -1) h1 = offsetY() + 8;
-	if (h2 == -1) h2 = offsetY() + height() - 8;
+	if(h1 == -1) h1 = offsetY() + 8;
+	if(h2 == -1) h2 = offsetY() + height() - 8;
 
 	m_pNNode[0] = createPin(offsetX() - 8, h1, 0, "n1");
 	m_pNNode[1] = createPin(offsetX() - 8, h2, 0, "n2");
 }
 
 void Component::init3PinLeft(int h1, int h2, int h3) {
-	if (h1 == -1) h1 = offsetY() + 8;
-	if (h2 == -1) h2 = offsetY() + height() / 2;
-	if (h3 == -1) h3 = offsetY() + height() - 8;
+	if(h1 == -1) h1 = offsetY() + 8;
+	if(h2 == -1) h2 = offsetY() + height() / 2;
+	if(h3 == -1) h3 = offsetY() + height() - 8;
 
 	m_pNNode[0] = createPin(offsetX() - 8, h1, 0, "n1");
 	m_pNNode[1] = createPin(offsetX() - 8, h2, 0, "n2");
@@ -490,10 +482,10 @@ void Component::init3PinLeft(int h1, int h2, int h3) {
 }
 
 void Component::init4PinLeft(int h1, int h2, int h3, int h4) {
-	if (h1 == -1) h1 = offsetY() + 8;
-	if (h2 == -1) h2 = offsetY() + 24;
-	if (h3 == -1) h3 = offsetY() + height() - 24;
-	if (h4 == -1) h4 = offsetY() + height() - 8;
+	if(h1 == -1) h1 = offsetY() + 8;
+	if(h2 == -1) h2 = offsetY() + 24;
+	if(h3 == -1) h3 = offsetY() + height() - 24;
+	if(h4 == -1) h4 = offsetY() + height() - 8;
 
 	m_pNNode[0] = createPin(offsetX() - 8, h1, 0, "n1");
 	m_pNNode[1] = createPin(offsetX() - 8, h2, 0, "n2");
@@ -502,24 +494,23 @@ void Component::init4PinLeft(int h1, int h2, int h3, int h4) {
 }
 
 void Component::init1PinRight(int h1) {
-	if (h1 == -1) h1 = offsetY() + height() / 2;
+	if(h1 == -1) h1 = offsetY() + height() / 2;
 
 	m_pPNode[0] = createPin(offsetX() + width() + 8, h1, 180, "p1");
 }
 
-
 void Component::init2PinRight(int h1, int h2) {
-	if (h1 == -1) h1 = offsetY() + 8;
-	if (h2 == -1) h2 = offsetY() + height() - 8;
+	if(h1 == -1) h1 = offsetY() + 8;
+	if(h2 == -1) h2 = offsetY() + height() - 8;
 
 	m_pPNode[0] = createPin(offsetX() + width() + 8, h1, 180, "p1");
 	m_pPNode[1] = createPin(offsetX() + width() + 8, h2, 180, "p2");
 }
 
 void Component::init3PinRight(int h1, int h2, int h3) {
-	if (h1 == -1) h1 = offsetY() + 8;
-	if (h2 == -1) h2 = offsetY() + height() / 2;
-	if (h3 == -1) h3 = offsetY() + height() - 8;
+	if(h1 == -1) h1 = offsetY() + 8;
+	if(h2 == -1) h2 = offsetY() + height() / 2;
+	if(h3 == -1) h3 = offsetY() + height() - 8;
 
 	m_pPNode[0] = createPin(offsetX() + width() + 8, h1, 180, "p1");
 	m_pPNode[1] = createPin(offsetX() + width() + 8, h2, 180, "p2");
@@ -527,10 +518,10 @@ void Component::init3PinRight(int h1, int h2, int h3) {
 }
 
 void Component::init4PinRight(int h1, int h2, int h3, int h4) {
-	if (h1 == -1) h1 = offsetY() + 8;
-	if (h2 == -1) h2 = offsetY() + 24;
-	if (h3 == -1) h3 = offsetY() + height() - 24;
-	if (h4 == -1) h4 = offsetY() + height() - 8;
+	if(h1 == -1) h1 = offsetY() + 8;
+	if(h2 == -1) h2 = offsetY() + 24;
+	if(h3 == -1) h3 = offsetY() + height() - 24;
+	if(h4 == -1) h4 = offsetY() + height() - 8;
 
 	m_pPNode[0] = createPin(offsetX() + width() + 8, h1, 180, "p1");
 	m_pPNode[1] = createPin(offsetX() + width() + 8, h2, 180, "p2");
@@ -538,9 +529,8 @@ void Component::init4PinRight(int h1, int h2, int h3, int h4) {
 	m_pPNode[3] = createPin(offsetX() + width() + 8, h4, 180, "p4");
 }
 
-
 ECNode* Component::ecNodeWithID(const QString &ecNodeId) {
-	if (!p_icnDocument) {
+	if(!p_icnDocument) {
 // 		kdDebug() << "Warning: ecNodeWithID("<<ecNodeId<<") does not exist\n";
 		return createPin(0, 0, 0, ecNodeId);
 	}
@@ -548,20 +538,28 @@ ECNode* Component::ecNodeWithID(const QString &ecNodeId) {
 	return dynamic_cast<ECNode*>(p_icnDocument->nodeWithID(nodeId(ecNodeId)));
 }
 
-
 void Component::slotUpdateConfiguration() {
 	const LogicConfig logicConfig = LogicIn::getConfig();
 	const ElementMapList::iterator end = m_elementMapList.end();
 
-	for (ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it) {
-		if (LogicIn * logicIn = dynamic_cast<LogicIn*>((*it).e))
+	for(ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it) {
+		if(LogicIn *logicIn = dynamic_cast<LogicIn*>((*it).e))
 			logicIn->setLogic(logicConfig);
 	}
+}
+
+void Component::setup1pinElement(Element *ele, Pin *a) {
+	QValueList<Pin*> pins;
+	pins << a;
+
+	ElementMapList::iterator it = handleElement(ele, pins);
+	setInterDependent(it, pins);
 }
 
 // FIXME: MEMORY LEAK CENTRAL!!!
 // We don't have anything to clean up after these calls to 'new'!!!!!
 // this entire class is due for a redesign too. =(
+
 BJT *Component::createBJT(Pin *cN, Pin *bN, Pin *eN, bool isNPN) {
 	BJT *e = new BJT(isNPN);
 
@@ -573,7 +571,7 @@ BJT *Component::createBJT(Pin *cN, Pin *bN, Pin *eN, bool isNPN) {
 	return e;
 }
 
-Capacitance* Component::createCapacitance(Pin *n0, Pin *n1, double capacitance) {
+Capacitance *Component::createCapacitance(Pin *n0, Pin *n1, double capacitance) {
 	Capacitance *e = new Capacitance(capacitance, LINEAR_UPDATE_PERIOD);
 
 	QValueList<Pin*> pins;
@@ -615,7 +613,7 @@ CCVS* Component::createCCVS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain) {
 	return e;
 }
 
-CurrentSignal* Component::createCurrentSignal(Pin *n0, Pin *n1, double current) {
+CurrentSignal *Component::createCurrentSignal(Pin *n0, Pin *n1, double current) {
 	CurrentSignal *e = new CurrentSignal(LINEAR_UPDATE_PERIOD, current);
 
 	QValueList<Pin*> pins;
@@ -670,27 +668,6 @@ Inductance *Component::createInductance(Pin *n0, Pin *n1, double inductance) {
 	return e;
 }
 
-LogicIn *Component::createLogicIn(Pin *node) {
-	LogicIn *e = new LogicIn(LogicIn::getConfig());
-
-	QValueList<Pin*> pins;
-	pins << node;
-
-	ElementMapList::iterator it = handleElement(e, pins);
-	return e;
-}
-
-LogicOut *Component::createLogicOut(Pin *node, bool isHigh) {
-	LogicOut *e = new LogicOut(LogicIn::getConfig(), isHigh);
-
-	QValueList<Pin*> pins;
-	pins << node;
-
-	ElementMapList::iterator it = handleElement(e, pins);
-	setInterDependent(it, pins);
-	return e;
-}
-
 MOSFET *Component::createMOSFET(Pin *D, Pin *G, Pin *S, Pin *B, int MOSFET_type) {
 	MOSFET *e = new MOSFET((MOSFET::MOSFET_type) MOSFET_type);
 
@@ -705,7 +682,7 @@ MOSFET *Component::createMOSFET(Pin *D, Pin *G, Pin *S, Pin *B, int MOSFET_type)
 	return e;
 }
 
-OpAmp *Component::createOpAmp(Pin * nonInverting, Pin * inverting, Pin * out) {
+OpAmp *Component::createOpAmp(Pin *nonInverting, Pin *inverting, Pin *out) {
 	OpAmp *e = new OpAmp();
 
 	QValueList<Pin*> pins;
@@ -727,7 +704,7 @@ Resistance *Component::createResistance(Pin *n0, Pin *n1, double resistance) {
 	return e;
 }
 
-Switch* Component::createSwitch(Pin *n0, Pin *n1, bool open) {
+Switch *Component::createSwitch(Pin *n0, Pin *n1, bool open) {
 	// Note that a Switch is not really an element (although in many cases it
 	// behaves very much like one).
 
@@ -739,7 +716,7 @@ Switch* Component::createSwitch(Pin *n0, Pin *n1, bool open) {
 	return e;
 }
 
-VCCS* Component::createVCCS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain) {
+VCCS *Component::createVCCS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain) {
 	VCCS *e = new VCCS(gain);
 
 	QValueList<Pin*> pins;
@@ -750,7 +727,7 @@ VCCS* Component::createVCCS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain) {
 	return e;
 }
 
-VCVS* Component::createVCVS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain) {
+VCVS *Component::createVCVS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain) {
 	VCVS *e = new VCVS(gain);
 
 	QValueList<Pin*> pins;
@@ -766,17 +743,6 @@ VCVS* Component::createVCVS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain) {
 	pins.clear();
 	pins << n2 << n3;
 	setInterGroundDependent(it, pins);
-	return e;
-}
-
-VoltagePoint *Component::createVoltagePoint(Pin *n0, double voltage) {
-	VoltagePoint *e = new VoltagePoint(voltage);
-
-	QValueList<Pin*> pins;
-	pins << n0;
-
-	ElementMapList::iterator it = handleElement(e, pins);
-	setInterDependent(it, pins);
 	return e;
 }
 
@@ -802,18 +768,16 @@ VoltageSource *Component::createVoltageSource(Pin *n0, Pin *n1, double voltage) 
 	return e;
 }
 
-ElementMapList::iterator Component::handleElement(Element *e, const QValueList<Pin*> & pins) {
-	if (!e) return m_elementMapList.end();
+ElementMapList::iterator Component::handleElement(Element *e, const QValueList<Pin*> &pins) {
+	if(!e) return m_elementMapList.end();
 
 	ElementMap em;
-
 	em.e = e;
 
 	int at = 0;
-
 	QValueList<Pin*>::ConstIterator end = pins.end();
 
-	for (QValueList<Pin*>::ConstIterator it = pins.begin(); it != end; ++it) {
+	for(QValueList<Pin*>::ConstIterator it = pins.begin(); it != end; ++it) {
 		(*it)->addElement(e);
 		em.n[at++] = *it;
 	}
@@ -832,8 +796,8 @@ void Component::setInterDependent(ElementMapList::iterator it, const QValueList<
 void Component::setInterCircuitDependent(ElementMapList::iterator it, const QValueList<Pin*> & pins) {
 	QValueList<Pin*>::ConstIterator end = pins.end();
 
-	for (QValueList<Pin*>::ConstIterator it1 = pins.begin(); it1 != end; ++it1) {
-		for (QValueList<Pin*>::ConstIterator it2 = pins.begin(); it2 != end; ++it2) {
+	for(QValueList<Pin*>::ConstIterator it1 = pins.begin(); it1 != end; ++it1) {
+		for(QValueList<Pin*>::ConstIterator it2 = pins.begin(); it2 != end; ++it2) {
 			(*it1)->addCircuitDependentPin(*it2);
 		}
 	}
@@ -844,8 +808,8 @@ void Component::setInterCircuitDependent(ElementMapList::iterator it, const QVal
 void Component::setInterGroundDependent(ElementMapList::iterator it, const QValueList<Pin*> & pins) {
 	QValueList<Pin*>::ConstIterator end = pins.end();
 
-	for (QValueList<Pin*>::ConstIterator it1 = pins.begin(); it1 != end; ++it1) {
-		for (QValueList<Pin*>::ConstIterator it2 = pins.begin(); it2 != end; ++it2) {
+	for(QValueList<Pin*>::ConstIterator it1 = pins.begin(); it1 != end; ++it1) {
+		for(QValueList<Pin*>::ConstIterator it2 = pins.begin(); it2 != end; ++it2) {
 			(*it1)->addGroundDependentPin(*it2);
 		}
 	}
@@ -853,26 +817,25 @@ void Component::setInterGroundDependent(ElementMapList::iterator it, const QValu
 	(*it).interGroundDependent.append(pins);
 }
 
-
 void Component::rebuildPinInterDepedence() {
 	setAllPinsInterIndependent();
 
 	// Rebuild dependencies
 	ElementMapList::iterator emlEnd = m_elementMapList.end();
 
-	for (ElementMapList::iterator it = m_elementMapList.begin(); it != emlEnd; ++it) {
+	for(ElementMapList::iterator it = m_elementMapList.begin(); it != emlEnd; ++it) {
 		// Many copies of the pin lists as these will be affected when we call setInter*Dependent
 		PinListList list = (*it).interCircuitDependent;
 
 		PinListList::iterator depEnd = list.end();
 
-		for (PinListList::iterator depIt = list.begin(); depIt != depEnd; ++depIt)
+		for(PinListList::iterator depIt = list.begin(); depIt != depEnd; ++depIt)
 			setInterCircuitDependent(it, *depIt);
 
 		list = (*it).interGroundDependent;
 		depEnd = list.end();
 
-		for (PinListList::iterator depIt = list.begin(); depIt != depEnd; ++depIt)
+		for(PinListList::iterator depIt = list.begin(); depIt != depEnd; ++depIt)
 			setInterGroundDependent(it, *depIt);
 	}
 }
@@ -880,11 +843,11 @@ void Component::rebuildPinInterDepedence() {
 void Component::setAllPinsInterIndependent() {
 	NodeInfoMap::iterator nmEnd = m_nodeMap.end();
 
-	for (NodeInfoMap::iterator it = m_nodeMap.begin(); it != nmEnd; ++it) {
+	for(NodeInfoMap::iterator it = m_nodeMap.begin(); it != nmEnd; ++it) {
 		PinVector pins = (static_cast<ECNode*>(it.data().node))->pins();
 		PinVector::iterator pinsEnd = pins.end();
 
-		for (PinVector::iterator pinsIt = pins.begin(); pinsIt != pinsEnd; ++pinsIt) {
+		for(PinVector::iterator pinsIt = pins.begin(); pinsIt != pinsEnd; ++pinsIt) {
 			if (*pinsIt)
 				(*pinsIt)->removeDependentPins();
 		}
@@ -892,28 +855,26 @@ void Component::setAllPinsInterIndependent() {
 }
 
 void Component::initElements(const uint stage) {
-	/// @todo this function is ugly and messy and needs tidying up
-
 	const ElementMapList::iterator end = m_elementMapList.end();
 
-	if (stage == 1) {
-		for (ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it) {
+	if(stage == 1) {
+		for(ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it) {
 			(*it).e->add_initial_dc();
 		}
 
 		return;
 	}
 
-	for (ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it) {
+	for(ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it) {
 		ElementMap m = *it;
 
-		if (m.n[3]) {
+		if(m.n[3]) {
 			m.e->setCNodes(m.n[0]->eqId(), m.n[1]->eqId(), m.n[2]->eqId(), m.n[3]->eqId());
-		} else if (m.n[2]) {
+		} else if(m.n[2]) {
 			m.e->setCNodes(m.n[0]->eqId(), m.n[1]->eqId(), m.n[2]->eqId());
-		} else if (m.n[1]) {
+		} else if(m.n[1]) {
 			m.e->setCNodes(m.n[0]->eqId(), m.n[1]->eqId());
-		} else if (m.n[0]) {
+		} else if(m.n[0]) {
 			m.e->setCNodes(m.n[0]->eqId());
 		}
 	}
@@ -925,13 +886,13 @@ ECNode *Component::createPin(double x, double y, int orientation, const QString 
 
 // static
 double Component::voltageLength(double v) {
-	double v_max = 1e+1;
+	double v_max = 1e1;
 	double v_min = 1e-1;
 
 	v = std::abs(v);
 
-	if (v >= v_max) return 1.0;
-	else if (v <= v_min) return 0.0;
+	if(v >= v_max) return 1.0;
+	else if(v <= v_min) return 0.0;
 	else return std::log(v / v_min) / std::log(v_max / v_min);
 }
 
@@ -939,7 +900,7 @@ double Component::voltageLength(double v) {
 QColor Component::voltageColor(double v) {
 	double prop = voltageLength(v);
 
-	if (v >= 0)
+	if(v >= 0)
 		return QColor(int(255 * prop), int(166 * prop), 0);
 	else return QColor(0, int(136 * prop), int(255 * prop));
 }
@@ -951,10 +912,7 @@ ElementMap::ElementMap() {
 	for(int i = 0; i < 4; ++i)
 		n[i] = 0;
 }
-
 //END class ElementMap
 
-
 #include "component.moc"
-
 
