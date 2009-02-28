@@ -53,28 +53,40 @@ SerialPortComponent::SerialPortComponent(ICNDocument *icnDocument, bool newItem,
 
 	m_pSerialPort = new SerialPort();
 
-	ECNode * pin = 0;
+	ECNode *pin = 0;
 
 	// Works
-	pin = createPin(-40,  32,   0, "CD");
+//	pin = createPin(-40,  32,   0, "CD");
 	addDisplayText("CD", QRect(-28, 24, 28, 16), "CD", true, Qt::AlignLeft | Qt::AlignVCenter);
-	m_pCD = createLogicOut(pin->pin(), false);
+//	m_pCD = createLogicOut(pin->pin(), false);
+
+	m_pCD = new LogicOut(LogicIn::getConfig(), false);
+	setup1pinElement(m_pCD, createPin(-40, 32, 0, "CD")->pin());
 
 	// Doesn't work
-// 	pin = createPin( -40,  16,   0, "RD" );
 	addDisplayText("RD", QRect(-28, 8, 28, 16), "RD", true, Qt::AlignLeft | Qt::AlignVCenter);
-// 	m_pRD = createLogicOut( pin, false  );
+
+//	m_pRD = new LogicOut(LogicIn::getConfig(), false);
+//	setup1pinElement(m_pRD, createPin( -40,  16,   0, "RD" )->pin());
 
 	// Works
-	pin = createPin(-40,   0,   0, "TD");
+//	pin = createPin(-40,   0,   0, "TD");
 	addDisplayText("TD", QRect(-28, -8, 28, 16), "TD", true, Qt::AlignLeft | Qt::AlignVCenter);
-	m_pTD = createLogicIn(pin->pin());
+//	m_pTD = createLogicIn(pin->pin());
+
+	m_pTD = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(m_pTD, createPin(-40, 0, 0, "TD")->pin());
+
 	m_pTD->setCallback(this, (CallbackPtr)(&SerialPortComponent::tdCallback));
 
 	// Works
-	pin = createPin(-40, -16,   0, "DTR");
+//	pin = createPin(-40, -16,   0, "DTR");
 	addDisplayText("DTR", QRect(-28, -24, 28, 16), "DTR", true, Qt::AlignLeft | Qt::AlignVCenter);
-	m_pDTR = createLogicIn(pin->pin());
+//	m_pDTR = createLogicIn(pin->pin());
+
+	m_pDTR = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(m_pDTR, createPin(-40, -16, 0, "DTR")->pin());
+
 	m_pDTR->setCallback(this, (CallbackPtr)(&SerialPortComponent::dtrCallback));
 
 	// N/A
@@ -95,14 +107,20 @@ SerialPortComponent::SerialPortComponent(ICNDocument *icnDocument, bool newItem,
 // 	m_pRTS->setCallback( this, (CallbackPtr)(&SerialPortComponent::rtsCallback) );
 
 	// Works
-	pin = createPin(40,  -8, 180, "CTS");
+//	pin = createPin(40,  -8, 180, "CTS");
 	addDisplayText("CTS", QRect(0, -16, 28, 16), "CTS", true, Qt::AlignRight | Qt::AlignVCenter);
-	m_pCTS = createLogicOut(pin->pin(), false);
+//	m_pCTS = createLogicOut(pin->pin(), false);
+
+	m_pCTS = new LogicOut(LogicIn::getConfig(), false);
+	setup1pinElement(m_pCTS, createPin(40,  -8, 180, "CTS")->pin());
 
 	// Works
-	pin = createPin(40, -24, 180, "RI");
+//	pin = createPin(40, -24, 180, "RI");
 	addDisplayText("RI", QRect(0, -32, 28, 16), "RI", true, Qt::AlignRight | Qt::AlignVCenter);
-	m_pRI = createLogicOut(pin->pin(), false);
+//	m_pRI = createLogicOut(pin->pin(), false);
+
+	m_pRI = new LogicOut(LogicIn::getConfig(), false);
+	setup1pinElement(m_pRI, createPin(40, -24, 180, "RI")->pin());
 
 	Variant * v = createProperty("port", Variant::Type::Combo);
 	v->setAllowed(SerialPort::ports(Port::ExistsAndRW));

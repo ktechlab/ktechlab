@@ -235,7 +235,10 @@ LogicProbe::LogicProbe(ICNDocument *icnDocument, bool newItem, const char *id)
 	m_name = i18n("Logic Probe");
 
 	init1PinRight();
-	m_pIn = createLogicIn(m_pPNode[0]->pin());
+//	m_pIn = createLogicIn(m_pPNode[0]->pin());
+
+	m_pIn = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(m_pIn, m_pPNode[0]->pin());
 
 	p_probeData = p_logicProbeData = static_cast<LogicProbeData*>(registerProbe(this));
 	property("color")->setValue(p_probeData->color());

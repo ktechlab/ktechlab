@@ -69,14 +69,42 @@ ECBCDTo7Segment::ECBCDTo7Segment( ICNDocument *icnDocument, bool newItem, const 
 	QStringList pins = QStringList::split(',', "A,B,C,D,,lt,rb,en,d,e,f,g,,a,b,c", true);	initDIPSymbol(pins, 48);
 	initDIP(pins);
 	
-	ALogic = createLogicIn(ecNodeWithID("A")->pin());
-	BLogic = createLogicIn(ecNodeWithID("B")->pin());
-	CLogic = createLogicIn(ecNodeWithID("C")->pin());
-	DLogic = createLogicIn(ecNodeWithID("D")->pin());
-	ltLogic = createLogicIn(ecNodeWithID("lt")->pin());
-	rbLogic = createLogicIn(ecNodeWithID("rb")->pin());
-	enLogic = createLogicIn(ecNodeWithID("en")->pin());
-	
+//	ALogic = createLogicIn(ecNodeWithID("A")->pin());
+
+	ALogic = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(ALogic, ecNodeWithID("A")->pin());
+
+//	BLogic = createLogicIn(ecNodeWithID("B")->pin());
+
+	BLogic = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(BLogic, ecNodeWithID("B")->pin());
+
+//	CLogic = createLogicIn(ecNodeWithID("C")->pin());
+
+	CLogic = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(CLogic, ecNodeWithID("C")->pin());
+
+//	DLogic = createLogicIn(ecNodeWithID("D")->pin());
+
+	DLogic = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(DLogic, ecNodeWithID("D")->pin());
+
+//	ltLogic = createLogicIn(ecNodeWithID("lt")->pin());
+
+	ltLogic = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(ltLogic, ecNodeWithID("lt")->pin());
+
+//	rbLogic = createLogicIn(ecNodeWithID("rb")->pin());
+
+	rbLogic = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(rbLogic, ecNodeWithID("rb")->pin());
+
+//	enLogic = createLogicIn(ecNodeWithID("en")->pin());
+
+	enLogic = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(enLogic, ecNodeWithID("en")->pin());
+
+
 	ALogic->setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
 	BLogic->setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
 	CLogic->setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
@@ -87,7 +115,10 @@ ECBCDTo7Segment::ECBCDTo7Segment( ICNDocument *icnDocument, bool newItem, const 
 	
 	for (uint i = 0; i < 7; ++i)
 	{
-		outLogic[i] = createLogicOut(ecNodeWithID(QChar('a'+i))->pin(), false );
+//		outLogic[i] = createLogicOut(ecNodeWithID(QChar('a'+i))->pin(), false);
+		outLogic[i] = new LogicOut(LogicIn::getConfig(), false);
+		setup1pinElement(outLogic[i], ecNodeWithID(QChar('a' + i))->pin());
+
 		outLogic[i]->setCallback( this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged) );
 	}
 	inStateChanged(false);

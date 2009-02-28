@@ -307,9 +307,8 @@ LibraryItem * MatrixDisplayDriver::libraryItem()
 		MatrixDisplayDriver::construct );
 }
 
-
-MatrixDisplayDriver::MatrixDisplayDriver( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, id ? id : "Matrix Display Driver" )
+MatrixDisplayDriver::MatrixDisplayDriver(ICNDocument *icnDocument, bool newItem, const char *id)
+	: Component(icnDocument, newItem, id ? id : "Matrix Display Driver")
 {
 	m_name = i18n("Matrix Display Driver");
 
@@ -331,21 +330,32 @@ MatrixDisplayDriver::MatrixDisplayDriver( ICNDocument *icnDocument, bool newItem
 	initDIP(pins);
 
 	m_pValueLogic.resize(8, 0);
-	for(unsigned i = 0; i < 8; ++i)
-		m_pValueLogic[i] = createLogicIn(ecNodeWithID("D" + QString::number(i))->pin() );
+	for(unsigned i = 0; i < 8; ++i) {
+	//	m_pValueLogic[i] = createLogicIn(ecNodeWithID("D" + QString::number(i))->pin());
+		m_pValueLogic[i] = new LogicIn(LogicIn::getConfig());
+		setup1pinElement(m_pValueLogic[i], ecNodeWithID("D" + QString::number(i))->pin());
+	}
 
 	m_pRowLogic.resize(7, 0);
 	for(unsigned i = 0; i < 7; ++i)
 	{
-		m_pRowLogic[i] = createLogicOut(ecNodeWithID("R" + QString::number(i))->pin(), false);
-		m_pRowLogic[i]->setOutputLowConductance( 1.0 );
+//		m_pRowLogic[i] = createLogicOut(ecNodeWithID("R" + QString::number(i))->pin(), false);
+
+		m_pRowLogic[i] = new LogicOut(LogicIn::getConfig(), false);
+		setup1pinElement(m_pRowLogic[i], ecNodeWithID("R" + QString::number(i))->pin());
+
+		m_pRowLogic[i]->setOutputLowConductance(1.0);
 		m_pRowLogic[i]->setOutputHighVoltage(5.0);
 	}
 
 	m_pColLogic.resize(5, 0);
 	for(unsigned i = 0; i < 5; ++i)
 	{
-		m_pColLogic[i] = createLogicOut( ecNodeWithID("C" + QString::number(i))->pin(), false );
+//		m_pColLogic[i] = createLogicOut(ecNodeWithID("C" + QString::number(i))->pin(), false);
+
+		m_pColLogic[i] = new LogicOut(LogicIn::getConfig(), false);
+		setup1pinElement(m_pColLogic[i], ecNodeWithID("C" + QString::number(i))->pin());
+
 		m_pColLogic[i]->setOutputHighVoltage(5.0);
 	}
 }
