@@ -33,33 +33,35 @@ PICComponentPin::PICComponentPin( PICComponent * picComponent, PicPin picPin )
 	
 	switch ( picPin.type )
 	{
-		case PicPin::type_input:
-		{
-			m_pLogicIn = picComponent->createLogicIn(picComponent->ecNodeWithID(picPin.pinID)->pin());
-			break;
-		}
-		case PicPin::type_bidir:
-		{
-			m_pLogicOut = picComponent->createLogicOut(picComponent->ecNodeWithID(picPin.pinID)->pin(), false);
-			m_gOutHigh = 0.004;
-			m_gOutLow = 0.004;
-			break;
-		}
-		case PicPin::type_open:
-		{
-			m_pLogicOut = picComponent->createLogicOut(picComponent->ecNodeWithID(picPin.pinID)->pin(), false);
-			m_pLogicOut->setOutputHighVoltage(0.0);
-			m_pLogicOut->setOutputHighConductance(0.0);
-			m_gOutHigh = 0.0;
-			m_gOutLow = 0.004;
-			break;
-		}
-		case PicPin::type_vss:
-		case PicPin::type_vdd:
-		case PicPin::type_mclr:
-		case PicPin::type_osc:
-		default:
-			break;
+	case PicPin::type_input:
+//		m_pLogicIn = picComponent->createLogicIn(picComponent->ecNodeWithID(picPin.pinID)->pin());
+		m_pLogicIn = new LogicIn(LogicIn::getConfig());
+		picComponent->setup1pinElement(m_pLogicIn, picComponent->ecNodeWithID(picPin.pinID)->pin());
+		break;
+	case PicPin::type_bidir:
+//		m_pLogicOut = picComponent->createLogicOut(picComponent->ecNodeWithID(picPin.pinID)->pin(), false);
+		m_pLogicOut = new LogicOut(LogicIn::getConfig(), false);
+		picComponent->setup1pinElement(m_pLogicOut, picComponent->ecNodeWithID(picPin.pinID)->pin());
+
+		m_gOutHigh = 0.004;
+		m_gOutLow = 0.004;
+		break;
+	case PicPin::type_open:
+//		m_pLogicOut = picComponent->createLogicOut(picComponent->ecNodeWithID(picPin.pinID)->pin(), false);
+		m_pLogicOut = new LogicOut(LogicIn::getConfig(), false);
+		picComponent->setup1pinElement(m_pLogicOut, picComponent->ecNodeWithID(picPin.pinID)->pin());
+
+		m_pLogicOut->setOutputHighVoltage(0.0);
+		m_pLogicOut->setOutputHighConductance(0.0);
+		m_gOutHigh = 0.0;
+		m_gOutLow = 0.004;
+		break;
+	case PicPin::type_vss:
+	case PicPin::type_vdd:
+	case PicPin::type_mclr:
+	case PicPin::type_osc:
+	default:
+		break;
 	}
 	
 	if (m_pLogicIn)

@@ -13,6 +13,10 @@
 
 #include "component.h"
 
+class LogicIn;
+class LogicOut;
+class VoltagePoint;
+
 const int max_ADDAC_bits = 32;
 
 /**

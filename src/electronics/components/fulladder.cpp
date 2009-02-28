@@ -46,23 +46,37 @@ FullAdder::FullAdder(ICNDocument *icnDocument, bool newItem, const char *id)
 	initDIPSymbol(pins, 48);
 	initDIP(pins);
 	
-	ECNode *node;
-	
-	node =  ecNodeWithID("S");
-	SLogic = createLogicOut(node->pin(), false);
-	
-	node = ecNodeWithID("C");
-	outLogic = createLogicOut(node->pin(), false);
-	
-	node = ecNodeWithID("A");
-	ALogic = createLogicIn(node->pin());
-	
-	node = ecNodeWithID("B");
-	BLogic = createLogicIn(node->pin());
-	
-	node = ecNodeWithID(">");
-	inLogic = createLogicIn(node->pin());
-	
+//	ECNode *node;
+//	node =  ecNodeWithID("S");
+//	SLogic = createLogicOut(node->pin(), false);
+
+	SLogic = new LogicOut(LogicIn::getConfig(), false);
+	setup1pinElement(SLogic, ecNodeWithID("S")->pin());
+
+//	node = ecNodeWithID("C");
+//	outLogic = createLogicOut(node->pin(), false);
+
+	outLogic = new LogicOut(LogicIn::getConfig(), false);
+	setup1pinElement(outLogic, ecNodeWithID("C")->pin());
+
+//	node = ecNodeWithID("A");
+//	ALogic = createLogicIn(node->pin());
+
+	ALogic = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(ALogic, ecNodeWithID("A")->pin());
+
+//	node = ecNodeWithID("B");
+//	BLogic = createLogicIn(node->pin());
+
+	BLogic = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(BLogic, ecNodeWithID("B")->pin());
+
+//	node = ecNodeWithID(">");
+//	inLogic = createLogicIn(node->pin());
+
+	inLogic = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(inLogic, ecNodeWithID(">")->pin());
+
 	ALogic->setCallback(this, (CallbackPtr)(&FullAdder::inStateChanged));
 	BLogic->setCallback(this, (CallbackPtr)(&FullAdder::inStateChanged));
 	inLogic->setCallback(this, (CallbackPtr)(&FullAdder::inStateChanged));

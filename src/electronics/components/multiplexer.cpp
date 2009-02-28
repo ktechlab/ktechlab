@@ -129,31 +129,41 @@ void Multiplexer::initPins(unsigned newAddressSize)
 	initDIPSymbol(pins, 64);
 	initDIP(pins);
 
-	ECNode *node;
+//	ECNode *node;
 
 	if(!m_output) {
-		node =  ecNodeWithID("X");
-		m_output = createLogicOut(node->pin(), false );
+//		node =  ecNodeWithID("X");
+//		m_output = createLogicOut(node->pin(), false );
+		m_output = new LogicOut(LogicIn::getConfig(), false);
+		setup1pinElement(m_output, ecNodeWithID("X")->pin());
 	}
 
 	if(newXLogicCount > oldXLogicCount) {
 		m_xLogic.resize(newXLogicCount);
 		for(unsigned i = oldXLogicCount; i < newXLogicCount; ++i) {
-			node = ecNodeWithID("X" + QString::number(i));
-			m_xLogic.insert(i, createLogicIn(node->pin()));
+//			node = ecNodeWithID("X" + QString::number(i));
+
+			LogicIn *inLogic = new LogicIn(LogicIn::getConfig());
+			setup1pinElement(inLogic, ecNodeWithID("X" + QString::number(i))->pin());
+			m_xLogic.insert(i, inLogic);
+
+//			m_xLogic.insert(i, createLogicIn(node->pin()));
 			m_xLogic[i]->setCallback(this, (CallbackPtr)(&Multiplexer::inStateChanged) );
 		}
 
 		m_aLogic.resize(newAddressSize);
-		for(unsigned i = oldAddressSize; i < newAddressSize; ++i)
-		{
-			node = ecNodeWithID("A" + QString::number(i));
-			m_aLogic.insert(i, createLogicIn(node->pin()));
+		for(unsigned i = oldAddressSize; i < newAddressSize; ++i) {
+//			node = ecNodeWithID("A" + QString::number(i));
+
+			LogicIn *inLogic = new LogicIn(LogicIn::getConfig());
+			setup1pinElement(inLogic, ecNodeWithID("A" + QString::number(i))->pin());
+			m_aLogic.insert(i, inLogic);
+
+//			m_aLogic.insert(i, createLogicIn(node->pin()));
 			m_aLogic[i]->setCallback( this, (CallbackPtr)(&Multiplexer::inStateChanged) );
 		}
 	} else {
-		for(unsigned i = newXLogicCount; i < oldXLogicCount; ++i)
-		{
+		for(unsigned i = newXLogicCount; i < oldXLogicCount; ++i) {
 			QString id = "X" + QString::number(i);
 			removeDisplayText(id);
 			removeElement(m_xLogic[i], false);
@@ -161,8 +171,7 @@ void Multiplexer::initPins(unsigned newAddressSize)
 		}
 
 		m_xLogic.resize(newXLogicCount);
-		for ( unsigned i = newAddressSize; i < oldAddressSize; ++i )
-		{
+		for(unsigned i = newAddressSize; i < oldAddressSize; ++i) {
 			QString id = "A" + QString::number(i);
 			removeDisplayText(id);
 			removeElement( m_aLogic[i], false );

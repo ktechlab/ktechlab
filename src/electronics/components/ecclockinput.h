@@ -19,9 +19,7 @@ using namespace std;
 
 class ComponentCallback;
 class Simulator;
-
-template <typename T>
-class LinkedList;
+class LogicOut;
 
 /**
 @short Boolean clock input
@@ -30,10 +28,10 @@ class LinkedList;
 class ECClockInput : public Component
 {
 public:
-	ECClockInput( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECClockInput(ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECClockInput();
 	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
+	static Item *construct( ItemDocument *itemDocument, bool newItem, const char *id);
 	static LibraryItem *libraryItem();
 	
 	void stepCallback();
@@ -42,7 +40,7 @@ public:
 	virtual bool doesStepNonLogic() const { return true; }
 	
 protected:
-	virtual void drawShape( QPainter &p );
+	virtual void drawShape(QPainter &p);
 	void dataChanged();
 	
 	uint m_time;
@@ -50,10 +48,10 @@ protected:
 	uint m_low_time;
 	uint m_period;
 	long long m_lastSetTime;
-	LogicOut * m_pOut;
+	LogicOut *m_pOut;
 	bool m_bSetStepCallbacks;
 	bool m_bLastStepCallbackOut;
-	Simulator * m_pSimulator;
+	Simulator *m_pSimulator;
 	list<ComponentCallback> * m_pComponentCallback[1000];
 };
 

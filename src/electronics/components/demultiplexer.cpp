@@ -124,26 +124,38 @@ void Demultiplexer::initPins( unsigned newAddressSize )
 	initDIPSymbol(pins, 64);
 	initDIP(pins);
 
-	ECNode *node;
-
 	if(!m_input) {
-		node =  ecNodeWithID("X");
-		m_input = createLogicIn(node->pin());
+//		node =  ecNodeWithID("X");
+//		m_input = createLogicIn(node->pin());
+
+		m_input = new LogicIn(LogicIn::getConfig());
+		setup1pinElement(m_input, ecNodeWithID("X")->pin());
+
 		m_input->setCallback(this, (CallbackPtr)(&Demultiplexer::inStateChanged));
 	}
 
 	if(newXLogicCount > oldXLogicCount) {
 		m_xLogic.resize(newXLogicCount);
 		for(unsigned i = oldXLogicCount; i < newXLogicCount; ++i) {
-			node = ecNodeWithID("X" + QString::number(i));
-			m_xLogic.insert(i, createLogicOut(node->pin(), false));
+//			node = ecNodeWithID("X" + QString::number(i));
+//			m_xLogic.insert(i, createLogicOut(node->pin(), false));
+
+			LogicOut *outLogic = new LogicOut(LogicIn::getConfig(), false);
+			setup1pinElement(outLogic, ecNodeWithID("X" + QString::number(i))->pin());
+			m_xLogic.insert(i, outLogic);
 		}
 
 		m_aLogic.resize(newAddressSize);
-		for(unsigned i = oldAddressSize; i < newAddressSize; ++i)
-		{
-			node = ecNodeWithID("A" + QString::number(i));
-			m_aLogic.insert(i, createLogicIn(node->pin()));
+		for(unsigned i = oldAddressSize; i < newAddressSize; ++i) {
+			// node = ecNodeWithID("A" + QString::number(i));
+
+			LogicIn *inLogic = new LogicIn(LogicIn::getConfig());
+			setup1pinElement(inLogic, ecNodeWithID("A" + QString::number(i))->pin());
+
+//			m_aLogic.insert(i, createLogicIn(node->pin()));
+
+			m_aLogic.insert(i, inLogic);
+
 			m_aLogic[i]->setCallback(this, (CallbackPtr)(&Demultiplexer::inStateChanged));
 		}
 	} else {
