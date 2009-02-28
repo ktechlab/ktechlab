@@ -89,11 +89,7 @@ void ADDAC::dataChanged()
 	m_range = dataDouble("range");
 	initPins();
 }
-
 //END class ADDAC
-
-
-
 
 //BEGIN class ADC
 ADC::ADC( ICNDocument *icnDocument, bool newItem, const char *id )
@@ -111,7 +107,6 @@ ADC::~ADC()
 {
 }
 
-
 void ADC::stepNonLogic()
 {
 	double floatBitValue = m_realNode->pin()->voltage() * (std::pow( 2, double(m_numBits) )-1.) / m_range;
@@ -128,7 +123,6 @@ void ADC::stepNonLogic()
 	for ( int i = 0; i<m_numBits; ++i )
 		m_logic[i]->setHigh( roundedBitValue & ( 1 << i ) );
 }
-
 
 void ADC::initPins()
 {
@@ -164,8 +158,11 @@ void ADC::initPins()
 
 	if(numBits > m_numBits) {
 		for(int i = m_numBits; i < numBits; ++i) {
-			ECNode *node = ecNodeWithID(QString::number(i));
-			m_logic[i] = createLogicOut(node->pin(), false);
+			//ECNode *node = ecNodeWithID(QString::number(i));
+			//m_logic[i] = createLogicOut(node->pin(), false);
+
+			m_logic[i] = new LogicOut(LogicIn::getConfig(), false);
+			setup1pinElement(m_logic[i], ecNodeWithID(QString::number(i))->pin());
 		}
 	} else {
 		for(int i = numBits; i < m_numBits; ++i) {
@@ -235,14 +232,21 @@ void DAC::initPins()
 	initDIPSymbol(pins, 64);
 	initDIP(pins);
 	
-	if(!m_voltagePoint)
-		m_voltagePoint = createVoltagePoint(ecNodeWithID("Out")->pin(), 0.);
+	if(!m_voltagePoint) {
+	//	m_voltagePoint = createVoltagePoint(ecNodeWithID("Out")->pin(), 0.);
+// TODO: implement I-out dacs too! =P 
+		m_voltagePoint = new VoltagePoint(0);
+		setup1pinElement(m_voltagePoint, ecNodeWithID("Out")->pin());
+	}
 	
 	if(numBits > m_numBits) {
 		for(int i = m_numBits; i < numBits; ++i)
 		{
-			ECNode *node = ecNodeWithID( QString::number(i));
-			m_logic[i] = createLogicIn(node->pin());
+//			ECNode *node = ecNodeWithID( QString::number(i));
+//			m_logic[i] = createLogicIn(node->pin());
+
+			m_logic[i] = new LogicIn(LogicIn::getConfig());
+			setup1pinElement(m_logic[i], ecNodeWithID(QString::number(i))->pin());
 		}
 	} else {
 		for(int i = numBits; i < m_numBits; ++i)

@@ -105,8 +105,12 @@ void BinaryCounter::initPins( unsigned numBits )
 	
 	if(m_numBits < numBits)
 	{
-		for(unsigned i = m_numBits; i < numBits; i++)
-			m_pLogicOut[i] = createLogicOut( ecNodeWithID(QChar('A' + i))->pin(), false );
+		for(unsigned i = m_numBits; i < numBits; i++) {
+//			m_pLogicOut[i] = createLogicOut(ecNodeWithID(QChar('A' + i))->pin(), false);
+
+			m_pLogicOut[i] = new LogicOut(LogicIn::getConfig(), false);
+			setup1pinElement(m_pLogicOut[i], ecNodeWithID(QChar('A' + i))->pin());
+		}
 	} else {
 		for(unsigned i = numBits; i < m_numBits; i++)
 		{
@@ -122,14 +126,28 @@ void BinaryCounter::initPins( unsigned numBits )
 
 	if(!m_bDoneLogicIn)
 	{
-		enLogic = createLogicIn(ecNodeWithID("en")->pin() );
-		inLogic = createLogicIn(ecNodeWithID(">")->pin()  );
-		rLogic = createLogicIn( ecNodeWithID("r")->pin()  );
-		udLogic = createLogicIn(ecNodeWithID("u/d")->pin());
+//		enLogic = createLogicIn(ecNodeWithID("en")->pin() );
 
+		enLogic = new LogicIn(LogicIn::getConfig());
+		setup1pinElement(enLogic, ecNodeWithID("en")->pin());
 		enLogic->setCallback(this, (CallbackPtr)(&BinaryCounter::enStateChanged));
+
+//		inLogic = createLogicIn(ecNodeWithID(">")->pin()  );
+
+		inLogic = new LogicIn(LogicIn::getConfig());
+		setup1pinElement(inLogic, ecNodeWithID(">")->pin());
 		inLogic->setCallback(this, (CallbackPtr)(&BinaryCounter::inStateChanged));
-		rLogic->setCallback( this, (CallbackPtr)(&BinaryCounter::rStateChanged) );
+
+//		rLogic  = createLogicIn( ecNodeWithID("r")->pin() );
+
+		rLogic = new LogicIn(LogicIn::getConfig());
+		setup1pinElement(rLogic, ecNodeWithID("r")->pin());
+		rLogic->setCallback(this, (CallbackPtr)(&BinaryCounter::rStateChanged));
+
+//		udLogic = createLogicIn(ecNodeWithID("u/d")->pin());
+
+		udLogic = new LogicIn(LogicIn::getConfig());
+		setup1pinElement(udLogic, ecNodeWithID("u/d")->pin());
 		udLogic->setCallback(this, (CallbackPtr)(&BinaryCounter::udStateChanged));
 
 		m_bDoneLogicIn = true;
