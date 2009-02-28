@@ -5,7 +5,8 @@
 #include <interfaces/iplugin.h>
 #include <QVariantList>
 
-class KTLCircuitPluginFactory;
+class KTLCircuitViewFactory;
+class KTLCircuitDocumentFactory;
 
 class KTLCircuitPlugin : public KDevelop::IPlugin
 {
@@ -16,7 +17,9 @@ public:
     virtual void unload();
 
 private:
-    KTLCircuitPluginFactory *factory;
+    void init();
+    KTLCircuitViewFactory *m_viewFactory;
+    KTLCircuitDocumentFactory *m_documentFactory;
 };
 
 #endif
