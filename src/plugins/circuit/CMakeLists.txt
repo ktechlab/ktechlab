@@ -1,11 +1,21 @@
 ########### next target ###############
+include_directories(
+   ${CMAKE_SOURCE_DIR}/src
+)
 
 set( ktlcircuit_PART_SRCS
    ktlcircuitplugin.cpp
+   circuitdocument.cpp
 )
 
 kde4_add_plugin(ktlcircuit ${ktlcircuit_PART_SRCS})
-target_link_libraries(ktlcircuit ${KDE4_KDECORE_LIBS} ${KDEVPLATFORM_INTERFACES_LIBRARY} ${KDE4_KTEXTEDITOR_LIBS})
+target_link_libraries(ktlcircuit
+   ${KDE4_KDECORE_LIBS}
+   ${KDE4_PLASMA_LIBS}
+   ktlshell
+   ${KDEVPLATFORM_INTERFACES_LIBRARY}
+   ${KDEVPLATFORM_SUBLIME_LIBRARY}
+   ${KDE4_KTEXTEDITOR_LIBS})
 
 install(TARGETS ktlcircuit DESTINATION ${PLUGIN_INSTALL_DIR} )
 
