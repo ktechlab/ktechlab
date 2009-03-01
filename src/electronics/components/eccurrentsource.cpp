@@ -44,7 +44,9 @@ ECCurrentSource::ECCurrentSource(ICNDocument *icnDocument, bool newItem, const c
 	init1PinRight(8);
 	m_pNNode[0]->pin()->setGroundType(Pin::gt_low);
 
-	m_currentSource = createCurrentSource(m_pNNode[0]->pin(), m_pPNode[0]->pin(), 0.);
+//	m_currentSource = createCurrentSource(m_pNNode[0]->pin(), m_pPNode[0]->pin(), 0.);
+	m_currentSource = new CurrentSource(0);
+	setup2pinElement(m_currentSource, m_pNNode[0]->pin(), m_pPNode[0]->pin());
 
 	createProperty("current", Variant::Type::Double);
 	property("current")->setCaption(i18n("Current"));

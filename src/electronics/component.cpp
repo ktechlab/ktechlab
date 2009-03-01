@@ -8,6 +8,13 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include <cmath>
+#include <kdebug.h>
+#include <qbitarray.h>
+#include <qpainter.h>
+#include <qwidget.h>
+#include <qwmatrix.h>
+
 #include "canvasitemparts.h"
 #include "circuitdocument.h"
 #include "component.h"
@@ -17,29 +24,14 @@
 #include "simulator.h"
 
 #include "bjt.h"
-#include "capacitance.h"
 #include "cccs.h"
 #include "ccvs.h"
-#include "currentsignal.h"
-#include "currentsource.h"
-#include "diode.h"
 #include "jfet.h"
-#include "inductance.h"
 #include "mosfet.h"
 #include "opamp.h"
-#include "resistance.h"
 #include "switch.h"
 #include "vccs.h"
 #include "vcvs.h"
-#include "voltagesignal.h"
-#include "voltagesource.h"
-
-#include <cmath>
-#include <kdebug.h>
-#include <qbitarray.h>
-#include <qpainter.h>
-#include <qwidget.h>
-#include <qwmatrix.h>
 
 const int dipWidth = 112;
 const int pairSep = 32;
@@ -83,7 +75,7 @@ void Component::removeElements(bool setPinsInterIndependent) {
 	for (ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it) {
 		Element *e = (*it).e;
 
-		if (e) {
+		if(e) {
 			emit elementDestroyed(e);
 			e->componentDeleted();
 		}
@@ -93,10 +85,10 @@ void Component::removeElements(bool setPinsInterIndependent) {
 
 	const SwitchList::iterator swEnd = m_switchList.end();
 
-	for (SwitchList::iterator it = m_switchList.begin(); it != swEnd; ++it) {
+	for(SwitchList::iterator it = m_switchList.begin(); it != swEnd; ++it) {
 		Switch *sw = *it;
 
-		if (!sw) continue;
+		if(!sw) continue;
 
 		emit switchDestroyed(sw);
 
@@ -110,7 +102,7 @@ void Component::removeElements(bool setPinsInterIndependent) {
 }
 
 void Component::removeElement(Element *element, bool setPinsInterIndependent) {
-	if (!element) return;
+	if(!element) return;
 
 	emit elementDestroyed(element);
 
@@ -188,9 +180,7 @@ void Component::setAngleDegrees(int degrees) {
 	if (m_angleDegrees == degrees) return;
 
 	updateConnectorPoints(false);
-
 	m_angleDegrees = degrees;
-
 	itemPointsChanged();
 	updateAttachedPositioning();
 	p_icnDocument->requestRerouteInvalidatedConnectors();
@@ -203,12 +193,9 @@ void Component::setFlipped(bool flipped) {
 	if(flipped == b_flipped) return;
 
 	updateConnectorPoints(false);
-
 	b_flipped = flipped;
-
 	itemPointsChanged();
 	updateAttachedPositioning();
-
 	p_icnDocument->requestRerouteInvalidatedConnectors();
 
 	emit orientationChanged();
@@ -254,12 +241,10 @@ QWMatrix Component::transMatrix(int angleDegrees, bool flipped, int x, int y, bo
 	return m;
 }
 
-
 void Component::finishedCreation() {
 	CNItem::finishedCreation();
 	updateAttachedPositioning();
 }
-
 
 void Component::updateAttachedPositioning() {
 	const double RPD = M_PI / 180.0;
@@ -293,7 +278,6 @@ void Component::updateAttachedPositioning() {
 			it.data().node->setOrientation(newDir);
 		}
 	}
-
 	//END Transform the nodes
 
 	//BEGIN Transform the GuiParts
@@ -322,10 +306,8 @@ void Component::updateAttachedPositioning() {
 		it.data()->setGuiPartSize(newPos.width(), newPos.height());
 		it.data()->setAngleDegrees(m_angleDegrees);
 	}
-
 	//END Transform the GuiParts
 }
-
 
 void Component::drawPortShape(QPainter &p) {
 	int h = height();
@@ -556,6 +538,14 @@ void Component::setup1pinElement(Element *ele, Pin *a) {
 	setInterDependent(it, pins);
 }
 
+void Component::setup2pinElement(Element *ele, Pin *a, Pin *b) {
+	QValueList<Pin*> pins;
+	pins << a << b;
+
+	ElementMapList::iterator it = handleElement(ele, pins);
+	setInterDependent(it, pins);
+}
+
 // FIXME: MEMORY LEAK CENTRAL!!!
 // We don't have anything to clean up after these calls to 'new'!!!!!
 // this entire class is due for a redesign too. =(
@@ -565,17 +555,6 @@ BJT *Component::createBJT(Pin *cN, Pin *bN, Pin *eN, bool isNPN) {
 
 	QValueList<Pin*> pins;
 	pins << bN << cN << eN;
-
-	ElementMapList::iterator it = handleElement(e, pins);
-	setInterDependent(it, pins);
-	return e;
-}
-
-Capacitance *Component::createCapacitance(Pin *n0, Pin *n1, double capacitance) {
-	Capacitance *e = new Capacitance(capacitance, LINEAR_UPDATE_PERIOD);
-
-	QValueList<Pin*> pins;
-	pins << n0 << n1;
 
 	ElementMapList::iterator it = handleElement(e, pins);
 	setInterDependent(it, pins);
@@ -613,55 +592,11 @@ CCVS* Component::createCCVS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain) {
 	return e;
 }
 
-CurrentSignal *Component::createCurrentSignal(Pin *n0, Pin *n1, double current) {
-	CurrentSignal *e = new CurrentSignal(LINEAR_UPDATE_PERIOD, current);
-
-	QValueList<Pin*> pins;
-	pins << n0 << n1;
-
-	ElementMapList::iterator it = handleElement(e, pins);
-	setInterDependent(it, pins);
-	return e;
-}
-
-CurrentSource *Component::createCurrentSource(Pin *n0, Pin *n1, double current) {
-	CurrentSource *e = new CurrentSource(current);
-
-	QValueList<Pin*> pins;
-	pins << n0 << n1;
-
-	ElementMapList::iterator it = handleElement(e, pins);
-	setInterDependent(it, pins);
-	return e;
-}
-
-Diode* Component::createDiode(Pin *n0, Pin *n1) {
-	Diode *e = new Diode();
-
-	QValueList<Pin*> pins;
-	pins << n0 << n1;
-
-	ElementMapList::iterator it = handleElement(e, pins);
-	setInterDependent(it, pins);
-	return e;
-}
-
 JFET *Component::createJFET(Pin *D, Pin *G, Pin *S, int JFET_type) {
 	JFET *e = new JFET((JFET::JFET_type) JFET_type);
 
 	QValueList<Pin*> pins;
 	pins << D << G << S;
-
-	ElementMapList::iterator it = handleElement(e, pins);
-	setInterDependent(it, pins);
-	return e;
-}
-
-Inductance *Component::createInductance(Pin *n0, Pin *n1, double inductance) {
-	Inductance *e = new Inductance(inductance, LINEAR_UPDATE_PERIOD);
-
-	QValueList<Pin*> pins;
-	pins << n0 << n1;
 
 	ElementMapList::iterator it = handleElement(e, pins);
 	setInterDependent(it, pins);
@@ -687,17 +622,6 @@ OpAmp *Component::createOpAmp(Pin *nonInverting, Pin *inverting, Pin *out) {
 
 	QValueList<Pin*> pins;
 	pins << nonInverting << inverting << out;
-
-	ElementMapList::iterator it = handleElement(e, pins);
-	setInterDependent(it, pins);
-	return e;
-}
-
-Resistance *Component::createResistance(Pin *n0, Pin *n1, double resistance) {
-	Resistance *e = new Resistance(resistance);
-
-	QValueList<Pin*> pins;
-	pins << n0 << n1;
 
 	ElementMapList::iterator it = handleElement(e, pins);
 	setInterDependent(it, pins);
@@ -743,28 +667,6 @@ VCVS *Component::createVCVS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain) {
 	pins.clear();
 	pins << n2 << n3;
 	setInterGroundDependent(it, pins);
-	return e;
-}
-
-VoltageSignal *Component::createVoltageSignal(Pin *n0, Pin *n1, double voltage) {
-	VoltageSignal *e = new VoltageSignal(LINEAR_UPDATE_PERIOD, voltage);
-
-	QValueList<Pin*> pins;
-	pins << n0 << n1;
-
-	ElementMapList::iterator it = handleElement(e, pins);
-	setInterDependent(it, pins);
-	return e;
-}
-
-VoltageSource *Component::createVoltageSource(Pin *n0, Pin *n1, double voltage) {
-	VoltageSource *e = new VoltageSource(voltage);
-
-	QValueList<Pin*> pins;
-	pins << n0 << n1;
-
-	ElementMapList::iterator it = handleElement(e, pins);
-	setInterDependent(it, pins);
 	return e;
 }
 

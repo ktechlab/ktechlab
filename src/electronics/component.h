@@ -22,23 +22,15 @@ class ECSubcircuit;
 class Element;
 class Pin;
 class BJT;
-class Capacitance;
 class CCCS;
 class CCVS;
-class CurrentSignal;
-class CurrentSource;
-class Diode;
 class JFET;
-class Inductance;
 class MOSFET;
 class OpAmp;
-class Resistance;
 class Switch;
 class Transformer;
 class VCCS;
 class VCVS;
-class VoltageSignal;
-class VoltageSource;
 
 typedef QValueList<ECNode*> ECNodeList;
 typedef QValueList<Element*> ElementList;
@@ -93,9 +85,7 @@ TODO: refactor the voltage indicator stuff to a new class.
 	/**
 	 * Angle of orientation
 	 */
-	int angleDegrees() const {
-		return m_angleDegrees;
-	}
+	int angleDegrees() const { return m_angleDegrees; }
 
 	/**
 	 * Sets the angle (in degrees)
@@ -131,9 +121,7 @@ TODO: refactor the voltage indicator stuff to a new class.
 	 * reinherit this function so that it returns true. Else your component
 	 * will not get called.
 	 */
-	virtual bool doesStepNonLogic() const {
-		return false;
-	}
+	virtual bool doesStepNonLogic() const {	return false; }
 
 	virtual void stepNonLogic() {};
 
@@ -156,24 +144,17 @@ TODO: refactor the voltage indicator stuff to a new class.
 
 	/// simplified element attachers
 	void setup1pinElement(Element *ele, Pin *a);
+	void setup2pinElement(Element *ele, Pin *a, Pin *b);
 
 	BJT *createBJT(Pin *c, Pin *b, Pin *e, bool isNPN = true);
-	Capacitance *createCapacitance(Pin *n0, Pin *n1, double capacitance);
 	CCCS *createCCCS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain);
 	CCVS *createCCVS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain);
-	CurrentSignal *createCurrentSignal(Pin *n0, Pin *n1, double current);
-	CurrentSource *createCurrentSource(Pin *n0, Pin *n1, double current);
-	Diode *createDiode(Pin *n0, Pin *n1);
 	JFET *createJFET(Pin *D, Pin *G, Pin *S, int JFET_type);
-	Inductance *createInductance(Pin *n0, Pin *n1, double inductance);
 	MOSFET *createMOSFET(Pin *D, Pin *G, Pin *S, Pin *B, int MOSFET_type);
 	OpAmp *createOpAmp(Pin *nonInverting, Pin *out, Pin *inverting);
-	Resistance *createResistance(Pin *n0, Pin *n1, double resistance);
 	Switch *createSwitch(Pin *n0, Pin *n1, bool open);
 	VCCS *createVCCS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain);
 	VCVS *createVCVS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain);
-	VoltageSignal *createVoltageSignal(Pin *n0, Pin *n1, double voltage);
-	VoltageSource *	createVoltageSource(Pin *n0, Pin *n1, double voltage);
 
 	ECNode *ecNodeWithID(const QString &ecNodeId);
 
@@ -225,9 +206,6 @@ public slots:
 	virtual void removeItem();
 
 protected:
-
-
-
 	/**
 	 * Removes all elements and switches.
 	 * @param setPinsInterIndependent whether to bother calling
@@ -250,23 +228,27 @@ TODO: refactor into "DB-X" connector class.
 	 * initPainter( QPainter &p );
 	 */
 	virtual void deinitPainter(QPainter &p);
+
 	/**
 	 * This creates a set of nodes with their internal IDs set to those in QStringList pins.
 	 * The pins are in a DIP arrangement, and are spaced width() apart.
 TODO: refactor DIP stuff to a new subclass. 
 	 */
 	void initDIP(const QStringList &pins);
+
 	/**
 	 * Creates the DIP symbol:
 	 * @li constructs rectangular shape
 	 * @li puts on text labels in appropriate positions from QStringList pins
 	 */
 	void initDIPSymbol(const QStringList &pins, int width);
+
 	/**
 	 * Create 1 pin on the left of the component, placed half way down if h1 is
 	 * -1 - else at the position of h1.
 	 */
 	void init1PinLeft(int h1 = -1);
+
 	/**
 	 * Create 2 pins on the left of the component, either spread out, or at the
 	 * given heights.
@@ -339,16 +321,19 @@ private:
 	 * Sets all pins independent of each other.
 	 */
 	void setAllPinsInterIndependent();
+
 	/**
 	 * The given pins will affect the simulation of each other. Therefore, they
 	 * will need to be simulated in the same circuit.
 	 */
 	void setInterCircuitDependent(ElementMapList::iterator it, const QValueList<Pin*> &pins);
+
 	/**
 	 * If any of the given pins are ground, then that will affect whether
 	 * any of the other pins can be ground.
 	 */
 	void setInterGroundDependent(ElementMapList::iterator it, const QValueList<Pin*> &pins);
+
 	/**
 	 * List of ElementMaps; which contain information on the pins associated
 	 * with the element as well as the dependence between the pins for that
@@ -356,11 +341,13 @@ private:
 	 * @see ElementMap
 	 */
 	ElementMapList m_elementMapList;
+
 	/**
 	 * The switches used by the component.
 	TODO: ammend this comment with a more complete justification for the design decision to put this here.
 	 */
 	SwitchList m_switchList;
+
 	/**
 	 * @return an iterator to the element in m_elementMapList
 	 */

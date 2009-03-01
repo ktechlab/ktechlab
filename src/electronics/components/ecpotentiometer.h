@@ -14,6 +14,7 @@
 #include "component.h"
 
 class QSlider;
+class Resistance;
 
 /**
 @short Potentiometer

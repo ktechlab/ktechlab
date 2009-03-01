@@ -24,17 +24,17 @@ Simple capacitor
 class Capacitor : public Component
 {
 public:
-	Capacitor( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	Capacitor(ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~Capacitor();
 	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
+	static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
 	static LibraryItem *libraryItem();
 	
 private:
 	void dataChanged();
-	virtual void drawShape( QPainter &p );
+	virtual void drawShape(QPainter &p);
 
-	Capacitance * m_capacitance;
+	Capacitance *m_capacitance;
 };
 
 #endif

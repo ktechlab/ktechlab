@@ -8,13 +8,16 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include <klocale.h>
+#include <qpainter.h>
+
+#include "simulator.h"
 #include "capacitance.h"
 #include "capacitor.h"
 #include "ecnode.h"
 #include "libraryitem.h"
 
-#include <klocale.h>
-#include <qpainter.h>
+
 
 Item* Capacitor::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
 	return new Capacitor((ICNDocument*)itemDocument, newItem, id);
@@ -39,7 +42,9 @@ Capacitor::Capacitor(ICNDocument *icnDocument, bool newItem, const char *id)
 	init1PinLeft();
 	init1PinRight();
 
-	m_capacitance = createCapacitance(m_pNNode[0]->pin(), m_pPNode[0]->pin(), 0.001);
+//	m_capacitance = createCapacitance(m_pNNode[0]->pin(), m_pPNode[0]->pin(), 0.001);
+	m_capacitance = new Capacitance(0.001, LINEAR_UPDATE_PERIOD);
+	setup2pinElement(m_capacitance, m_pNNode[0]->pin(), m_pPNode[0]->pin());
 
 	createProperty("Capacitance", Variant::Type::Double);
 	property("Capacitance")->setCaption(i18n("Capacitance"));

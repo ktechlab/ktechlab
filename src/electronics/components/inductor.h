@@ -13,6 +13,8 @@
 
 #include <component.h>
 
+class Inductance;
+
 /**
 @author David Saxton
 */
