@@ -17,21 +17,19 @@ Wire::Wire( Pin *startPin, Pin *endPin )
 {
 	assert(startPin);
 	assert(endPin);
-	
+
 	m_pStartPin = startPin;
 	m_pEndPin = endPin;
 	m_current = 0.;
 	m_bCurrentIsKnown = false;
-	
-	m_pStartPin->addOutputWire(this);
-	m_pEndPin->addInputWire(this);
-}
 
+	m_pStartPin->addWire(this);
+	m_pEndPin->addWire(this);
+}
 
 Wire::~Wire()
 {
 }
-
 
 bool Wire::calculateCurrent()
 {
@@ -47,35 +45,23 @@ bool Wire::calculateCurrent()
 		return true;
 	}
 	
-	if ( m_pStartPin->currentIsKnown() )
-	{
+	if(m_pStartPin->currentIsKnown()) {
+
 		double i = m_pStartPin->current();
 		bool ok = true;
 
-		const WireList outlist = m_pStartPin->outputWireList();
-		WireList::const_iterator end = outlist.end();
-		for ( WireList::const_iterator it = outlist.begin(); it != end && ok; ++it )
+		const WireList list = m_pStartPin->wireList();
+		WireList::const_iterator end = list.end();
+		for(WireList::const_iterator it = list.begin(); it != end && ok; ++it)
 		{
-			if ( *it && (Wire*)*it != this )
+			if(*it && (Wire*)*it != this)
 			{
-				if ( (*it)->currentIsKnown() )
+				if((*it)->currentIsKnown())
 					i -= (*it)->current();
 				else	ok = false;
 			}
 		}
 
-		const WireList inlist = m_pStartPin->inputWireList();
-		end = inlist.end();
-		for ( WireList::const_iterator it = inlist.begin(); it != end && ok; ++it )
-		{
-			if ( *it && (Wire*)*it != this )
-			{
-				if ( (*it)->currentIsKnown() )
-					i += (*it)->current();
-				else	ok = false;
-			}
-		}
-		
 		if (ok) {
 			m_current = i;
 			m_bCurrentIsKnown = true;
@@ -83,31 +69,20 @@ bool Wire::calculateCurrent()
 		}
 	}
 	
-	if ( m_pEndPin->currentIsKnown() )
-	{
+	if(m_pEndPin->currentIsKnown()) {
+
 		double i = -m_pEndPin->current();
 		bool ok = true;
-		const WireList outlist = m_pEndPin->outputWireList();
 
-		WireList::const_iterator end = outlist.end();
-		for ( WireList::const_iterator it = outlist.begin(); it != end && ok; ++it )
+
+		const WireList list = m_pEndPin->wireList();
+		WireList::const_iterator end = list.end();
+		for(WireList::const_iterator it = list.begin(); it != end && ok; ++it)
 		{
-			if ( *it && (Wire*)*it != this )
+			if(*it && (Wire*)*it != this)
 			{
-				if ( (*it)->currentIsKnown() )
+				if((*it)->currentIsKnown())
 					i += (*it)->current();
-				else ok = false;
-			}	
-		}
-
-		const WireList inlist = m_pEndPin->inputWireList();
-		end = inlist.end();
-		for ( WireList::const_iterator it = inlist.begin(); it != end && ok; ++it )
-		{
-			if ( *it && (Wire*)*it != this )
-			{
-				if ( (*it)->currentIsKnown() )
-					i -= (*it)->current();
 				else ok = false;
 			}	
 		}
@@ -123,7 +98,6 @@ bool Wire::calculateCurrent()
 	return false;
 }
 
-
 double Wire::voltage() const
 {
 	double temp;
@@ -134,10 +108,8 @@ double Wire::voltage() const
 	return m_pStartPin->voltage();
 }
 
-
 void Wire::setCurrentKnown( bool known )
 {
 	m_bCurrentIsKnown = known;
 	if (!known) m_current = 0.;
 }
-
