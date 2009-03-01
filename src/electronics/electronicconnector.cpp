@@ -15,7 +15,9 @@
 #include "ecnode.h"
 #include "wire.h"
 
-ElectronicConnector::ElectronicConnector(ECNode* startNode, ECNode* endNode, ICNDocument* _ICNDocument, const QString &id): Connector(_ICNDocument, id)
+ElectronicConnector::ElectronicConnector(ECNode *startNode, ECNode *endNode,
+			ICNDocument *_ICNDocument, const QString &id)
+		: Connector(_ICNDocument, id)
 {
 	m_startEcNode = startNode;
 	m_endEcNode = endNode;
@@ -27,16 +29,14 @@ ElectronicConnector::ElectronicConnector(ECNode* startNode, ECNode* endNode, ICN
 	}
 }
 
-
 ElectronicConnector::~ElectronicConnector()
 {
 }
 
-
 void ElectronicConnector::syncWiresWithNodes() {
 
-	ECNode * startEcNode = m_startEcNode;
-	ECNode * endEcNode = m_endEcNode;
+	ECNode *startEcNode = m_startEcNode;
+	ECNode *endEcNode = m_endEcNode;
 	
 	if (!startEcNode || !endEcNode) return;
 
@@ -64,7 +64,6 @@ void ElectronicConnector::syncWiresWithNodes() {
 
 //	m_bIsSyncingWires = false;
 // ####################################
-
 
 	if (newNumWires > oldNumWires) {
 		m_wires.resize(newNumWires);

@@ -21,7 +21,11 @@
 LEDPart::LEDPart(Component *pParent, const QString& strPNode, const QString& strNNode)
 	: m_pParent(pParent), m_strPNode(strPNode), m_strNNode(strNNode)
 {
-	m_pDiode = pParent->createDiode(pParent->ecNodeWithID(strPNode)->pin(), pParent->ecNodeWithID(strNNode)->pin());
+//	m_pDiode = pParent->createDiode(pParent->ecNodeWithID(strPNode)->pin(), pParent->ecNodeWithID(strNNode)->pin());
+	m_pDiode = new Diode();
+	pParent->setup2pinElement(m_pDiode,
+		pParent->ecNodeWithID(strPNode)->pin(),
+		pParent->ecNodeWithID(strNNode)->pin());
 
 	avg_brightness = 255;
 	lastUpdatePeriod = 0.;
@@ -172,9 +176,7 @@ void LEDBarGraphDisplay::initPins() {
 	// p_5--|6     9|--n_5
 	// p_6--|7     8|--n_6
 	//		 -------
-	//
 	// And this is the scheme used to create the nodes and diodes.
-	//
 
 	// Create the positive & negative pin names in an anticlockwise fashion
 	// as shown in the pin schematic above.

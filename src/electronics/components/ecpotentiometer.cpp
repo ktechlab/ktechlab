@@ -44,8 +44,14 @@ ECPotentiometer::ECPotentiometer(ICNDocument *icnDocument, bool newItem, const c
 
 	m_sliderProp = 0.0;
 	m_resistance = 5000.;
-	m_r1 = createResistance(createPin(-8, -24, 90, "n1")->pin(), m_p1->pin(), 1.);
-	m_r2 = createResistance(createPin(-8, 24, 270, "n2")->pin(), m_p1->pin(), 1.);
+
+//	m_r1 = createResistance(createPin(-8, -24, 90, "n1")->pin(), m_p1->pin(), 1.);
+	m_r1 = new Resistance(1);
+	setup2pinElement(m_r1, createPin(-8, -24, 90, "n1")->pin(), m_p1->pin());
+
+//	m_r2 = createResistance(createPin(-8, 24, 270, "n2")->pin(), m_p1->pin(), 1.);
+	m_r2 = new Resistance(1);
+	setup2pinElement(m_r2, createPin(-8, 24, 270, "n2")->pin(), m_p1->pin());
 
 	Slider * s = addSlider("slider", 0, 100, 5, 50, Qt::Vertical, QRect(0, -16, 16, 32));
 	m_pSlider = static_cast<QSlider*>(s->widget());
@@ -61,6 +67,8 @@ ECPotentiometer::ECPotentiometer(ICNDocument *icnDocument, bool newItem, const c
 
 ECPotentiometer::~ECPotentiometer()
 {
+	delete m_r1;
+	delete m_r2;
 }
 
 void ECPotentiometer::dataChanged()

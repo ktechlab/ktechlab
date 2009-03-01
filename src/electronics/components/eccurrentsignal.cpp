@@ -44,7 +44,10 @@ ECCurrentSignal::ECCurrentSignal(ICNDocument *icnDocument, bool newItem, const c
 	init1PinRight();
 
 	m_pNNode[0]->pin()->setGroundType(Pin::gt_low);
-	m_currentSignal = createCurrentSignal(m_pNNode[0]->pin(), m_pPNode[0]->pin(), 0.);
+//	m_currentSignal = createCurrentSignal(m_pNNode[0]->pin(), m_pPNode[0]->pin(), 0.);
+	m_currentSignal= new CurrentSignal(LINEAR_UPDATE_PERIOD, 0);
+	setup2pinElement(m_currentSignal, m_pNNode[0]->pin(), m_pPNode[0]->pin());
+
 	m_currentSignal->setStep(ElementSignal::st_sinusoidal, 50.);
 
 	createProperty("1-frequency", Variant::Type::Double);
