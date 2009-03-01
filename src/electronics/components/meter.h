@@ -13,6 +13,8 @@
 
 #include <component.h>
 
+class VoltageSource;
+
 /**
 @author David Saxton
 */
@@ -75,7 +77,7 @@ protected:
 class ECAmmeter : public Meter
 {
 public:
-	ECAmmeter( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECAmmeter(ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECAmmeter();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

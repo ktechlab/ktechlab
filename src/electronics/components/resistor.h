@@ -13,6 +13,8 @@
 
 #include "component.h"
 
+class Resistance;
+
 /**
 @short Simple resistor
 @author David Saxton
@@ -20,17 +22,17 @@
 class Resistor : public Component
 {
 	public:
-		Resistor( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		Resistor(ICNDocument *icnDocument, bool newItem, const char *id = 0);
 		~Resistor();
-	
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
+
+		static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
 		static LibraryItem *libraryItem();
-	
+
 	protected:
 		virtual void dataChanged();
-		virtual void drawShape( QPainter & p );
-	
-		Resistance * m_resistance;
+		virtual void drawShape(QPainter &p);
+
+		Resistance *m_resistance;
 };
 
 #endif

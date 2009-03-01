@@ -47,9 +47,14 @@ BiDirLED::BiDirLED( ICNDocument *icnDocument, bool newItem, const char *id )
 	init1PinRight();
 	setSize( -8, -24, 24, 40 );
 	
-	m_pDiode[0] = createDiode(m_pNNode[0]->pin(), m_pPNode[0]->pin());
-	m_pDiode[1] = createDiode(m_pPNode[0]->pin(), m_pNNode[0]->pin());
-	
+//	m_pDiode[0] = createDiode(m_pNNode[0]->pin(), m_pPNode[0]->pin());
+	m_pDiode[0] = new Diode();
+	setup2pinElement(m_pDiode[0], m_pNNode[0]->pin(), m_pPNode[0]->pin());
+
+//	m_pDiode[1] = createDiode(m_pPNode[0]->pin(), m_pNNode[0]->pin());
+	m_pDiode[1] = new Diode();
+	setup2pinElement(m_pDiode[1], m_pPNode[0]->pin(), m_pNNode[0]->pin());
+
 	avg_brightness[0] = avg_brightness[1] = 255;
 	lastUpdatePeriod = 0.;
 	r[0]=r[1]=g[0]=g[1]=b[0]=b[1]=0;
