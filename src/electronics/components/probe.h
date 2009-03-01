@@ -16,6 +16,7 @@
 class LogicProbeData;
 class ProbeData;
 class FloatingProbeData;
+class VoltageSource;
 
 /**
 @author David Saxton

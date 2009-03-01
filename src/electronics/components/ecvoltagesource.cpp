@@ -47,7 +47,9 @@ ECCell::ECCell(ICNDocument *icnDocument, bool newItem, const char *id)
 	init1PinRight();
 
 	m_pNNode[0]->pin()->setGroundType(Pin::gt_medium);
-	m_voltageSource = createVoltageSource(m_pNNode[0]->pin(), m_pPNode[0]->pin(), voltage);
+//	m_voltageSource = createVoltageSource(m_pNNode[0]->pin(), m_pPNode[0]->pin(), voltage);
+	m_voltageSource = new VoltageSource(voltage);
+	setup2pinElement(m_voltageSource, m_pNNode[0]->pin(), m_pPNode[0]->pin());
 
 	createProperty("voltage", Variant::Type::Double);
 	property("voltage")->setUnit("V");

@@ -71,7 +71,10 @@ void Switch::startBouncing() {
 
 // 	kdDebug() << k_funcinfo << endl;
 
-	m_pBounceResistance = m_pComponent->createResistance(m_pP1, m_pP2, 10000);
+//	m_pBounceResistance = m_pComponent->createResistance(m_pP1, m_pP2, 10000);
+	m_pBounceResistance = new Resistance(10000);
+	m_pComponent->setup2pinElement(m_pBounceResistance, m_pP1, m_pP2);
+
 	m_bounceStart = Simulator::self()->time();
 
 //FIXME: I broke the bounce feature when I cleaned this out of the simulator,

@@ -13,6 +13,8 @@
 
 #include "component.h"
 
+class VoltageSource;
+
 /**
 @short Electrical cell
 Simple electrical cell that simulates a PD and internal resistance

@@ -13,6 +13,8 @@
 
 #include "component.h"
 
+class CurrentSignal;
+
 /**
 @short Provides a current signal (sinusoidal, square, etc)
 @author David Saxton

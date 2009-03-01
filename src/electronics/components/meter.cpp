@@ -224,7 +224,9 @@ ECAmmeter::ECAmmeter(ICNDocument *icnDocument, bool newItem, const char *id)
 	init1PinLeft(0);
 	init1PinRight(0);
 
-	m_voltageSource = createVoltageSource( m_pNNode[0]->pin(), m_pPNode[0]->pin(), 0.);
+//	m_voltageSource = createVoltageSource( m_pNNode[0]->pin(), m_pPNode[0]->pin(), 0.);
+	m_voltageSource = new VoltageSource(0);
+	setup2pinElement(m_voltageSource, m_pNNode[0]->pin(), m_pPNode[0]->pin());
 }
 
 ECAmmeter::~ECAmmeter()

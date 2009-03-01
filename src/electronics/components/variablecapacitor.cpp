@@ -8,16 +8,17 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include <klocale.h>
+#include <qpainter.h>
+#include <qstyle.h>
+#include <kdebug.h>
+
+#include "simulator.h"
 #include "canvasitemparts.h"
 #include "capacitance.h"
 #include "variablecapacitor.h"
 #include "ecnode.h"
 #include "libraryitem.h"
-
-#include <klocale.h>
-#include <qpainter.h>
-#include <qstyle.h>
-#include <kdebug.h>
 
 Item* VariableCapacitor::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
 	return new VariableCapacitor((ICNDocument*)itemDocument, newItem, id);
@@ -57,7 +58,9 @@ VariableCapacitor::VariableCapacitor(ICNDocument* icnDocument, bool newItem, con
 	m_pNNode[0]->setLength(15);
 	m_pPNode[0]->setLength(15);
 
-	m_pCapacitance = createCapacitance(m_pNNode[0]->pin(), m_pPNode[0]->pin(), m_currCapacitance);
+//	m_pCapacitance = createCapacitance(m_pNNode[0]->pin(), m_pPNode[0]->pin(), m_currCapacitance);
+	m_pCapacitance = new Capacitance(m_currCapacitance, LINEAR_UPDATE_PERIOD);
+	setup2pinElement(m_pCapacitance, m_pNNode[0]->pin(), m_pPNode[0]->pin());
 
 	addDisplayText("capacitance", QRect(-8, -26, 16, 16), "", false);
 

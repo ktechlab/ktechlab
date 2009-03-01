@@ -84,12 +84,26 @@ EC555::EC555(ICNDocument *icnDocument, bool newItem, const char *id)
 	output = createPin(40, 0, 180, "Out")->pin();
 	addDisplayText("out", QRect(8, -8, 16, 16), "Out");
 
-	m_r1          = createResistance(vcc, control, 5e3);
-	m_r23         = createResistance(control, ground, 1e4);
-	m_po_sink     = createResistance(output, ground, 10);
-	m_po_source   = createResistance(output, vcc, 0);
+//	m_r1          = createResistance(vcc, control, 5e3);
+	m_r1 = new Resistance(5e3);
+	setup2pinElement(m_r1, vcc, control);
+
+//	m_r23         = createResistance(control, ground, 1e4);
+	m_r23 = new Resistance(1e4);
+	setup2pinElement(m_r23, control, ground);
+
+//	m_po_sink     = createResistance(output, ground, 10);
+	m_po_sink = new Resistance(10);
+	setup2pinElement(m_po_sink, output, ground);
+
+//	m_po_source   = createResistance(output, vcc, 0);
+	m_po_source = new Resistance(0.0);
+	setup2pinElement(m_po_source, output, vcc);
 	m_po_source->setConductance(0.);
-	m_r_discharge = createResistance(discharge, ground, 0.);
+
+//	m_r_discharge = createResistance(discharge, ground, 0.);
+	m_r_discharge = new Resistance(0.0);
+	setup2pinElement(m_r_discharge, discharge, ground);
 }
 
 EC555::~EC555()

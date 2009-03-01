@@ -42,7 +42,9 @@ ECDiode::ECDiode(ICNDocument *icnDocument, bool newItem, const char *id)
 	init1PinLeft();
 	init1PinRight();
 
-	m_diode = createDiode(m_pNNode[0]->pin(), m_pPNode[0]->pin());
+//	m_diode = createDiode(m_pNNode[0]->pin(), m_pPNode[0]->pin());
+	m_diode = new Diode();
+	setup2pinElement(m_diode, m_pNNode[0]->pin(), m_pPNode[0]->pin());
 
 	DiodeSettings ds; // it will have the default properties that we use
 

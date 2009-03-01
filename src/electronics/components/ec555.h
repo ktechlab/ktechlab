@@ -15,6 +15,8 @@
 
 #include <qstringlist.h>
 
+class Resistance;
+
 /**
 @short 555 IC
 @author David Saxton

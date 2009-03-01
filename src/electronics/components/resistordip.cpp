@@ -58,8 +58,10 @@ ResistorDIP::ResistorDIP( ICNDocument *icnDocument, bool newItem, const char *id
 
 ResistorDIP::~ResistorDIP()
 {
+	for(int i = 0; i < m_resistorCount; ++i) {
+		delete m_resistance[i];
+	}
 }
-
 
 void ResistorDIP::dataChanged()
 {
@@ -72,31 +74,34 @@ void ResistorDIP::dataChanged()
 	addDisplayText( "res", QRect( offsetX(), offsetY()-16, 32, 12 ), display );
 }
 
-
 void ResistorDIP::initPins()
 {
 	const int count = dataInt("count");
 	const double resistance = dataDouble("resistance");
 	
-	if ( count == m_resistorCount )
+	if(count == m_resistorCount)
 		return;
 	
 	if(count < m_resistorCount) {
-		for(int i=count; i<m_resistorCount; ++i) {
+		for(int i = count; i < m_resistorCount; ++i) {
 			removeElement(m_resistance[i], false);
 			m_resistance[i] = 0;
 			removeNode("n" + QString::number(i));
 			removeNode("p" + QString::number(i));
 		}
 	} else {
-		for ( int i=m_resistorCount; i<count; ++i ) {
-			const QString nid = "n"+QString::number(i);
-			const QString pid = "p"+QString::number(i);
-			m_resistance[i] = createResistance(
-				createPin(-24, 0, 0, nid)->pin(),
-				createPin(24, 0, 180, pid)->pin(), resistance);
+		for(int i = m_resistorCount; i < count; ++i) {
+//			m_resistance[i] = createResistance(
+//				createPin(-24, 0, 0, "n" + QString::number(i))->pin(),
+//				createPin(24, 0, 180, "p" + QString::number(i))->pin(), resistance);
+
+			m_resistance[i] = new Resistance(resistance);
+			setup2pinElement(m_resistance[i],
+				createPin(-24, 0, 0, "n" + QString::number(i))->pin(),
+				createPin(24, 0, 180, "p" + QString::number(i))->pin());
 		}
 	}
+
 	m_resistorCount = count;
 	
 	setSize(-16, -count * 8, 32, count * 16, true);

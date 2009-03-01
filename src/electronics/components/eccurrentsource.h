@@ -13,6 +13,8 @@
 
 #include "component.h"
 
+class CurrentSource;
+
 /**
 @short Fixed current source
 @author David Saxton
