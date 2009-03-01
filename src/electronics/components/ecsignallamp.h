@@ -32,6 +32,7 @@ public:
 	virtual bool doesStepNonLogic() const { return true; }
 	
 private:
+	Resistance *the_filament;
 	void drawShape( QPainter &p );
 	double avgPower;
 	uint advanceSinceUpdate;

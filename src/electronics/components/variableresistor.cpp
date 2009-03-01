@@ -50,7 +50,9 @@ VariableResistor::VariableResistor(ICNDocument* icnDocument, bool newItem, const
 
 	m_currResistance = m_minResistance + ((m_maxResistance - m_minResistance) / 2) ;
 
-	m_pResistance = createResistance(m_pPNode[0]->pin(), m_pNNode[0]->pin(), m_currResistance);
+//	m_pResistance = createResistance(m_pPNode[0]->pin(), m_pNNode[0]->pin(), m_currResistance);
+	m_pResistance = new Resistance(m_currResistance);
+	setup2pinElement(m_pResistance, m_pPNode[0]->pin(), m_pNNode[0]->pin());
 
 	createProperty("resistance", Variant::Type::Double);
 	property("resistance")->setCaption(i18n("Resistance"));

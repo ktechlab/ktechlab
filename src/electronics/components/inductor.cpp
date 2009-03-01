@@ -8,12 +8,13 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include <klocale.h>
+#include <qpainter.h>
+
 #include "inductance.h"
 #include "inductor.h"
 #include "libraryitem.h"
-
-#include <klocale.h>
-#include <qpainter.h>
+#include "simulator.h"
 
 Item* Inductor::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
 	return new Inductor((ICNDocument*)itemDocument, newItem, id);
@@ -38,7 +39,9 @@ Inductor::Inductor(ICNDocument *icnDocument, bool newItem, const char *id)
 	init1PinLeft();
 	init1PinRight();
 
-	m_pInductance = createInductance(m_pNNode[0]->pin(), m_pPNode[0]->pin(), 0.001);
+//	m_pInductance = createInductance(m_pNNode[0]->pin(), m_pPNode[0]->pin(), 0.001);
+	m_pInductance = new Inductance(0.001, LINEAR_UPDATE_PERIOD);
+	setup2pinElement(m_pInductance, m_pNNode[0]->pin(), m_pPNode[0]->pin());
 
 	createProperty("Inductance", Variant::Type::Double);
 	property("Inductance")->setCaption(i18n("Inductance"));

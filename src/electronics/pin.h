@@ -51,12 +51,11 @@ public:
 		gt_low = 15, // current sources
 		gt_never = 20 // everything else
 	};
-	Pin(ECNode * parent);
+
+	Pin(ECNode *parent);
 	~Pin();
 
-	ECNode * parentECNode() const {
-		return m_pECNode;
-	}
+	ECNode *parentECNode() const { return m_pECNode; }
 
 	/**
 	 * This function returns the pins that are directly connected to this pins:

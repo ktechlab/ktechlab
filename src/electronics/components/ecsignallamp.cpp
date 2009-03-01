@@ -8,15 +8,16 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include <klocale.h>
+#include <qpainter.h>
+#include <cmath>
+
 #include "ecnode.h"
 #include "ecsignallamp.h"
 #include "element.h"
 #include "libraryitem.h"
 #include "pin.h"
-
-#include <klocale.h>
-#include <qpainter.h>
-#include <cmath>
+#include "resistance.h"
 
 // TODO: resistance and power rating should be user definable properties.
 #define RESISTANCE 100
@@ -45,12 +46,14 @@ ECSignalLamp::ECSignalLamp(ICNDocument *icnDocument, bool newItem, const char *i
 {
 	m_name = i18n("Signal Lamp");
 	setSize(-8, -8, 16, 16);
-	
+
 	init1PinLeft();
 	init1PinRight();
-	
-	createResistance(m_pPNode[0]->pin(), m_pNNode[0]->pin(), RESISTANCE);
-	
+
+//	createResistance(m_pPNode[0]->pin(), m_pNNode[0]->pin(), RESISTANCE);
+	the_filament = new Resistance(RESISTANCE);
+	setup2pinElement(the_filament, m_pPNode[0]->pin(), m_pNNode[0]->pin());
+
 	advanceSinceUpdate = 0;
 	avgPower = 0.;
 	m_bDynamicContent = true;
@@ -58,6 +61,7 @@ ECSignalLamp::ECSignalLamp(ICNDocument *icnDocument, bool newItem, const char *i
 
 ECSignalLamp::~ECSignalLamp()
 {
+	delete the_filament;
 }
 
 void ECSignalLamp::stepNonLogic()

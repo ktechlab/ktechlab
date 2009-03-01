@@ -13,6 +13,8 @@
 
 #include "component.h"
 
+class Resistance;
+
 const int maxCount = 256;
 
 /**
@@ -37,7 +39,7 @@ protected:
 	void initPins();
 	
 	int m_resistorCount;
-	Resistance* m_resistance[maxCount];
+	Resistance *m_resistance[maxCount];
 };
 
 #endif
