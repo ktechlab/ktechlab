@@ -121,7 +121,6 @@ void Switch::stopBouncing() {
 		cd->requestAssignCircuits();
 }
 
-
 bool Switch::calculateCurrent() {
 	if (!m_pP1 || !m_pP2) return false;
 
@@ -131,59 +130,18 @@ bool Switch::calculateCurrent() {
 		return true;
 	}
 
-	Pin *pins[2] = { m_pP1, m_pP2 };
+	if(!(*m_pP1).calculateCurrentFromWires() || !(*m_pP2).calculateCurrentFromWires())
+		return false;
 
-	double current = 0.0;
-	bool currentKnown = false;
-	int pol;
-
-	for (unsigned i = 0; i < 2; ++i) {
-		pol = (i == 0) ? 1 : -1;
-
-		const WireList inputs = pins[i]->inputWireList();
-		const WireList outputs = pins[i]->outputWireList();
-
-		currentKnown = true;
-		current = 0.0;
-
-		WireList::const_iterator end = inputs.end();
-
-		for (WireList::const_iterator it = inputs.begin(); it != end; ++it) {
-			if (!(*it))
-				continue;
-
-			if (!(*it)->currentIsKnown()) {
-				currentKnown = false;
-				break;
-			}
-
-			current += (*it)->current();
-		}
-
-		if (!currentKnown) continue;
-
-		end = outputs.end();
-
-		for (WireList::const_iterator it = outputs.begin(); it != end; ++it) {
-			if (!(*it)) continue;
-
-			if (!(*it)->currentIsKnown()) {
-				currentKnown = false;
-				break;
-			}
-
-			current -= (*it)->current();
-		}
-
-		if (currentKnown) break;
-	}
-
-	if (!currentKnown) return false;
+// are we supposed to use + or - here? 
+	double current = (*m_pP1).current() + (*m_pP2).current();
 
 	m_pP1->setSwitchCurrentKnown(this);
 	m_pP2->setSwitchCurrentKnown(this);
-	m_pP1->mergeCurrent(-current * pol);
-	m_pP2->mergeCurrent(current * pol);
+
+// same question about the +es and -es.
+	m_pP1->mergeCurrent(current);
+	m_pP2->mergeCurrent(-current);
 
 	return true;
 }
