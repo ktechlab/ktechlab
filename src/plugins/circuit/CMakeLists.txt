@@ -6,6 +6,7 @@ include_directories(
 set( ktlcircuit_PART_SRCS
    ktlcircuitplugin.cpp
    circuitdocument.cpp
+   componentmodel.cpp
 )
 
 kde4_add_plugin(ktlcircuit ${ktlcircuit_PART_SRCS})
