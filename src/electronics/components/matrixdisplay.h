@@ -17,6 +17,8 @@
 const unsigned max_md_width = 100;
 const unsigned max_md_height = 20;
 
+class Diode;
+
 /**
 @author David Saxton
 */

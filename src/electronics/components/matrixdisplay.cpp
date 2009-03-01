@@ -111,9 +111,15 @@ void MatrixDisplay::dataChanged()
 			for(unsigned j = 0; j < m_numRows; j++)
 			{
 				removeElement(m_pDiodes[i][j], false);
-				if(rowCathode)
-					m_pDiodes[i][j] = createDiode(m_pColNodes[i]->pin(), m_pRowNodes[j]->pin());
-				else	m_pDiodes[i][j] = createDiode(m_pRowNodes[j]->pin(), m_pColNodes[i]->pin());
+				if(rowCathode) {
+//					m_pDiodes[i][j] = createDiode(m_pColNodes[i]->pin(), m_pRowNodes[j]->pin());
+					m_pDiodes[i][j] = new Diode();
+					setup2pinElement(m_pDiodes[i][j], m_pColNodes[i]->pin(), m_pRowNodes[j]->pin());
+				} else {
+//					m_pDiodes[i][j] = createDiode(m_pRowNodes[j]->pin(), m_pColNodes[i]->pin());
+					m_pDiodes[i][j] = new Diode();
+					setup2pinElement(m_pDiodes[i][j], m_pRowNodes[j]->pin(), m_pColNodes[i]->pin());
+				}
 			}
 		}
 	}

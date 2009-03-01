@@ -48,7 +48,10 @@ ECVoltageSignal::ECVoltageSignal(ICNDocument *icnDocument, bool newItem, const c
 	init1PinRight();
 	
 	m_pNNode[0]->pin()->setGroundType(Pin::gt_medium);
-	m_voltageSignal = createVoltageSignal(m_pNNode[0]->pin(), m_pPNode[0]->pin(), 0.);
+//	m_voltageSignal = createVoltageSignal(m_pNNode[0]->pin(), m_pPNode[0]->pin(), 0.);
+	m_voltageSignal = new VoltageSignal(LINEAR_UPDATE_PERIOD, 0);
+	setup2pinElement(m_voltageSignal, m_pNNode[0]->pin(), m_pPNode[0]->pin());
+
 	m_voltageSignal->setStep(ElementSignal::st_sinusoidal, 50.);
 	
 	createProperty( "frequency", Variant::Type::Double );

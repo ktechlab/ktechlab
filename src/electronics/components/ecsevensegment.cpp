@@ -93,16 +93,30 @@ void ECSevenSegment::dataChanged() {
 		for (int i = 0; i < 7; i++) {
 			removeElement(m_diodes[i], false);
 
-			if (commonCathode)
-				m_diodes[i] = createDiode(m_nodes[i]->pin(), m_nNode->pin());
-			else	m_diodes[i] = createDiode(m_nNode->pin(), m_nodes[i]->pin());
+			if (commonCathode) {
+//				m_diodes[i] = createDiode(m_nodes[i]->pin(), m_nNode->pin());
+				m_diodes[i] = new Diode();
+				setup2pinElement(m_diodes[i], m_nodes[i]->pin(), m_nNode->pin());
+
+			} else {
+//				m_diodes[i] = createDiode(m_nNode->pin(), m_nodes[i]->pin());
+				m_diodes[i] = new Diode();
+				setup2pinElement(m_diodes[i], m_nNode->pin(), m_nodes[i]->pin());
+			}
 		}
 
 		removeElement(m_diodes[7], false);
 
-		if (commonCathode)
-			m_diodes[7] = createDiode(m_nodes[7]->pin(), m_nNode->pin());
-		else	m_diodes[7] = createDiode(m_nNode->pin(), m_nodes[7]->pin());
+		if (commonCathode) {
+//			m_diodes[7] = createDiode(m_nodes[7]->pin(), m_nNode->pin());
+			m_diodes[7] = new Diode();
+			setup2pinElement(m_diodes[7], m_nodes[7]->pin(), m_nNode->pin());
+
+		} else {
+//			m_diodes[7] = createDiode(m_nNode->pin(), m_nodes[7]->pin());
+			m_diodes[7] = new Diode();
+			setup2pinElement(m_diodes[7], m_nNode->pin(), m_nodes[7]->pin());
+		}
 	}
 
 	update();

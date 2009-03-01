@@ -13,6 +13,8 @@
 
 #include "component.h"
 
+class VoltageSignal;
+
 /**
 @short Provides an alternating voltage source
 @author David Saxton
@@ -20,14 +22,14 @@
 class ECVoltageSignal : public Component
 {
 public:
-	ECVoltageSignal( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECVoltageSignal(ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECVoltageSignal();
 	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
+	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
 	static LibraryItem *libraryItem();
 	
 protected:
-	virtual void drawShape( QPainter &p );
+	virtual void drawShape(QPainter &p);
 	void dataChanged();
 	
 	VoltageSignal *m_voltageSignal;
