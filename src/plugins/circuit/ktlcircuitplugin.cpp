@@ -10,16 +10,49 @@
 #include "ktlcircuitplugin.h"
 
 #include "circuitdocument.h"
+#include "componentmodel.h"
 #include "shell/core.h"
 
+#include <interfaces/iuicontroller.h>
 #include <interfaces/idocumentcontroller.h>
 #include <KGenericFactory>
 #include <KAboutData>
-
-#include <QPushButton>
+#include <QTreeView>
+#include <QHeaderView>
 
 K_PLUGIN_FACTORY(KTLCircuitFactory, registerPlugin<KTLCircuitPlugin>(); )
 K_EXPORT_PLUGIN(KTLCircuitFactory(KAboutData("ktlcircuit","ktlcircuit", ki18n("KTechLab Circuits"), "0.1", ki18n("Managing, viewing, manipulating circuit files"), KAboutData::License_LGPL)))
+
+class KTLComponentViewFactory: public KDevelop::IToolViewFactory
+{
+public:
+    KTLComponentViewFactory( KTLCircuitPlugin *plugin )
+        : m_plugin(plugin)
+    {};
+
+    virtual QWidget * create( QWidget *parent )
+    {
+        QTreeView *componentView = new QTreeView( parent );
+        componentView->setModel( m_plugin->componentModel() );
+        componentView->header()->hide();
+        componentView->setAcceptDrops( false );
+        componentView->setDragEnabled( true );
+
+        return componentView;
+    };
+
+    virtual QString id() const
+    {
+        return "org.ktechlab.ComponentView";
+    };
+
+    virtual Qt::DockWidgetArea defaultPosition()
+    {
+        return Qt::LeftDockWidgetArea;
+    };
+private:
+    KTLCircuitPlugin * m_plugin;
+};
 
 class KTLCircuitDocumentFactory: public KDevelop::IDocumentFactory
 {
@@ -41,7 +74,8 @@ private:
 };
 
 KTLCircuitPlugin::KTLCircuitPlugin( QObject *parent, const QVariantList& args )
-    : KDevelop::IPlugin( KTLCircuitFactory::componentData(), parent )
+    : KDevelop::IPlugin( KTLCircuitFactory::componentData(), parent ),
+    m_componentModel( new ComponentModel() )
 {
 
     init();
@@ -49,6 +83,9 @@ KTLCircuitPlugin::KTLCircuitPlugin( QObject *parent, const QVariantList& args )
 
 void KTLCircuitPlugin::init()
 {
+    m_componentViewFactory = new KTLComponentViewFactory(this);
+    KTechLab::Core::self()->uiController()->addToolView( "Components", m_componentViewFactory );
+
     m_documentFactory = new KTLCircuitDocumentFactory(this);
     KTechLab::Core::self()->documentController()->registerDocumentForMimetype( "application/x-circuit", m_documentFactory );
 }
@@ -57,9 +94,21 @@ KTLCircuitPlugin::~KTLCircuitPlugin()
 {
 }
 
+ComponentModel * KTLCircuitPlugin::componentModel()
+{
+    return m_componentModel;
+}
+
+void KTLCircuitPlugin::registerComponent( const QString &component )
+{
+    //TODO: implement me!
+}
+
 void KTLCircuitPlugin::unload()
 {
+    delete m_componentViewFactory;
     delete m_documentFactory;
+    delete m_componentModel;
 }
 
 #include "ktlcircuitplugin.moc"
