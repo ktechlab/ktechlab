@@ -17,4 +17,9 @@ CircuitContainer::CircuitContainer( KDevelop::IDocument *document, QObject *pare
 
 }
 
+void CircuitContainer::setComponent( const QString &component )
+{
+    //TODO: implement me
+}
+
 // vim: sw=4 sts=4 et tw=100

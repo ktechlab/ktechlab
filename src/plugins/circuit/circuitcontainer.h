@@ -22,6 +22,8 @@ class CircuitContainer: public Plasma::DataContainer
     Q_OBJECT
 public:
     CircuitContainer( KDevelop::IDocument *document, QObject *parent=0 );
+
+    void setComponent( const QString &component );
 };
 
 #endif

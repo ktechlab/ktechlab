@@ -95,9 +95,11 @@ KTLCircuitPlugin::~KTLCircuitPlugin()
 {
 }
 
-Plasma::DataContainer * KTLCircuitPlugin::createDataContainer( KDevelop::IDocument *document )
+Plasma::DataContainer * KTLCircuitPlugin::createDataContainer( KDevelop::IDocument *document, const QString &component )
 {
-    return new CircuitContainer( document );
+    CircuitContainer *container = new CircuitContainer( document );
+    container->setComponent( component );
+    return container;
 }
 
 ComponentModel * KTLCircuitPlugin::componentModel()
