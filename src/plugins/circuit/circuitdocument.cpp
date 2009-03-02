@@ -10,19 +10,24 @@
 #include "circuitdocument.h"
 
 #include "shell/core.h"
+#include "circuitview.h"
+#include "circuitapplet.h"
 
 #include <KDebug>
 #include <KLocale>
-#include <Plasma/View>
-#include <Plasma/Containment>
 
 CircuitDocument::CircuitDocument( const KUrl &url, KTechLab::Core* core )
     :   KTechLab::PartDocument( url, core )
 {
 
+    init();
 }
 
 CircuitDocument::~CircuitDocument()
+{
+}
+
+void CircuitDocument::init()
 {
 }
 
@@ -33,8 +38,9 @@ QString CircuitDocument::documentType() const
 
 QWidget* CircuitDocument::createViewWidget( QWidget* parent )
 {
-    Plasma::View *view = new Plasma::View( new Plasma::Containment() );
-    kDebug() << "Created view: " << view << endl;
+    CircuitView *view = new CircuitView( parent );
+    view->addApplet( new CircuitApplet( view ), "default", "none", QVariantList() );
+
     return view;
 }
 
