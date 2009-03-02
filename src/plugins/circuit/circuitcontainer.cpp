@@ -12,14 +12,30 @@
 #include "circuitdocument.h"
 
 CircuitContainer::CircuitContainer( KDevelop::IDocument *document, QObject *parent )
-    :   Plasma::DataContainer(parent)
+    :   Plasma::DataContainer(parent),
+        m_document(dynamic_cast<CircuitDocument*>( document )) //do we really need dynamic_cast here? we know that this is a CircuitDocument*
 {
 
 }
 
 void CircuitContainer::setComponent( const QString &component )
 {
+    if ( component.isEmpty() ) {
+        setCircuitData();
+    } else {
+        setComponentData( component );
+    }
+}
+
+void CircuitContainer::setComponentData( const QString &component )
+{
     //TODO: implement me
+}
+
+void CircuitContainer::setCircuitData()
+{
+    setObjectName( m_document->url().prettyUrl() );
+    setData( "itemList", QVariant(m_document->items().keys()) );
 }
 
 // vim: sw=4 sts=4 et tw=100

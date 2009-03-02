@@ -17,6 +17,8 @@ namespace KDevelop
 class IDocument;
 } // namespace KDevelop
 
+class CircuitDocument;
+
 class CircuitContainer: public Plasma::DataContainer
 {
     Q_OBJECT
@@ -24,6 +26,12 @@ public:
     CircuitContainer( KDevelop::IDocument *document, QObject *parent=0 );
 
     void setComponent( const QString &component );
+
+private:
+    void setComponentData( const QString &component );
+    void setCircuitData();
+
+    CircuitDocument *m_document;
 };
 
 #endif
