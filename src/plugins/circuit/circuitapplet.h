@@ -14,6 +14,7 @@
 #include <Plasma/DataEngine>
 
 class QString;
+class QStringList;
 
 class CircuitApplet: public Plasma::Applet
 {
@@ -33,6 +34,7 @@ public slots:
 private:
     void setupData();
     QString m_circuitName;
+    QStringList m_components;
 };
 
 #endif

@@ -15,7 +15,6 @@ CircuitContainer::CircuitContainer( KDevelop::IDocument *document, QObject *pare
     :   Plasma::DataContainer(parent),
         m_document(dynamic_cast<CircuitDocument*>( document )) //do we really need dynamic_cast here? we know that this is a CircuitDocument*
 {
-    setData( I18N_NOOP("mime"), document->mimeType()->name() );
 }
 
 void CircuitContainer::setComponent( const QString &component )
@@ -35,7 +34,8 @@ void CircuitContainer::setComponentData( const QString &component )
         setData( I18N_NOOP("available"), false );
         return;
     }
-    setData( I18N_NOOP("available"), false );
+    setData( I18N_NOOP("available"), true );
+    setData( I18N_NOOP("mime"), "component" );
     setData( "item", QVariant(m_document->items()[component]) );
 }
 
@@ -44,6 +44,7 @@ void CircuitContainer::setCircuitData()
     setObjectName( m_document->url().prettyUrl() );
 
     setData( I18N_NOOP("available"), true );
+    setData( I18N_NOOP("mime"), m_document->mimeType()->name() );
     setData( "itemList", QVariant(m_document->items().keys()) );
 }
 
