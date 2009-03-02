@@ -19,20 +19,18 @@
 #include <kiconloader.h>
 #include <klocale.h>
 
-
-Item* ADC::construct( ItemDocument *itemDocument, bool newItem, const char *id )
+Item *ADC::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-	return new ADC( (ICNDocument*)itemDocument, newItem, id );
+	return new ADC((ICNDocument*)itemDocument, newItem, id);
 }
 
 
-Item* DAC::construct( ItemDocument *itemDocument, bool newItem, const char *id )
+Item *DAC::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-	return new DAC( (ICNDocument*)itemDocument, newItem, id );
+	return new DAC((ICNDocument*)itemDocument, newItem, id);
 }
 
-
-LibraryItem* ADC::libraryItem()
+LibraryItem *ADC::libraryItem()
 {
 	return new LibraryItem(
 		"ec/adc",
@@ -43,7 +41,6 @@ LibraryItem* ADC::libraryItem()
 		ADC::construct
 			);
 }
-
 
 LibraryItem* DAC::libraryItem()
 {
@@ -57,10 +54,9 @@ LibraryItem* DAC::libraryItem()
 			);
 }
 
-
 //BEGIN class ADDAC
-ADDAC::ADDAC( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, id )
+ADDAC::ADDAC(ICNDocument *icnDocument, bool newItem, const char *id)
+	: Component(icnDocument, newItem, id)
 {
 	m_numBits = 0;
 	m_range = 0;
@@ -82,7 +78,6 @@ ADDAC::ADDAC( ICNDocument *icnDocument, bool newItem, const char *id )
 ADDAC::~ADDAC()
 {
 }
-
 
 void ADDAC::dataChanged()
 {
@@ -120,8 +115,8 @@ void ADC::stepNonLogic()
 	}
 	
 	uint roundedBitValue = uint(roundBitValue);
-	for ( int i = 0; i<m_numBits; ++i )
-		m_logic[i]->setHigh( roundedBitValue & ( 1 << i ) );
+	for(int i = 0; i < m_numBits; ++i)
+		m_logic[i]->setHigh(roundedBitValue & (1 << i));
 }
 
 void ADC::initPins()
@@ -138,13 +133,13 @@ void ADC::initPins()
 	
 	QStringList pins;
 	
-	int inPos = (numBits-1+(numBits%2))/2;
-	for ( int i=0; i<inPos; ++i )
+	int inPos = (numBits - 1 + (numBits % 2)) / 2;
+	for(int i=0; i < inPos; ++i)
 		pins += "";
 	
 	pins += "In";
 	
-	for ( int i=inPos+1; i<numBits; ++i )
+	for(int i = inPos + 1; i < numBits; ++i)
 		pins += "";
 
 	for(int i = numBits - 1; i >= 0; --i)
@@ -158,8 +153,6 @@ void ADC::initPins()
 
 	if(numBits > m_numBits) {
 		for(int i = m_numBits; i < numBits; ++i) {
-			//ECNode *node = ecNodeWithID(QString::number(i));
-			//m_logic[i] = createLogicOut(node->pin(), false);
 
 			m_logic[i] = new LogicOut(LogicIn::getConfig(), false);
 			setup1pinElement(m_logic[i], ecNodeWithID(QString::number(i))->pin());
@@ -184,7 +177,7 @@ DAC::DAC(ICNDocument *icnDocument, bool newItem, const char *id)
 	m_name = i18n("DAC");
 	
 	for ( int i=0; i<max_ADDAC_bits; ++i )
-		m_logic[i] = 0l;
+		m_logic[i] = 0;
 	
 	m_voltagePoint = 0;
 }
@@ -242,9 +235,6 @@ void DAC::initPins()
 	if(numBits > m_numBits) {
 		for(int i = m_numBits; i < numBits; ++i)
 		{
-//			ECNode *node = ecNodeWithID( QString::number(i));
-//			m_logic[i] = createLogicIn(node->pin());
-
 			m_logic[i] = new LogicIn(LogicIn::getConfig());
 			setup1pinElement(m_logic[i], ecNodeWithID(QString::number(i))->pin());
 		}

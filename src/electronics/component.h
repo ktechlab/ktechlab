@@ -21,12 +21,9 @@ class CircuitDocument;
 class ECSubcircuit;
 class Element;
 class Pin;
-class BJT;
 class CCCS;
 class CCVS;
-class JFET;
 class MOSFET;
-class OpAmp;
 class Switch;
 class Transformer;
 class VCCS;
@@ -145,16 +142,16 @@ TODO: refactor the voltage indicator stuff to a new class.
 	/// simplified element attachers
 	void setup1pinElement(Element *ele, Pin *a);
 	void setup2pinElement(Element *ele, Pin *a, Pin *b);
+	void setup3pinElement(Element *ele, Pin *a, Pin *b, Pin *c);
 
-	BJT *createBJT(Pin *c, Pin *b, Pin *e, bool isNPN = true);
 	CCCS *createCCCS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain);
 	CCVS *createCCVS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain);
-	JFET *createJFET(Pin *D, Pin *G, Pin *S, int JFET_type);
-	MOSFET *createMOSFET(Pin *D, Pin *G, Pin *S, Pin *B, int MOSFET_type);
-	OpAmp *createOpAmp(Pin *nonInverting, Pin *out, Pin *inverting);
-	Switch *createSwitch(Pin *n0, Pin *n1, bool open);
 	VCCS *createVCCS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain);
 	VCVS *createVCVS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain);
+
+	MOSFET *createMOSFET(Pin *D, Pin *G, Pin *S, Pin *B, int MOSFET_type);
+	Switch *createSwitch(Pin *n0, Pin *n1, bool open);
+
 
 	ECNode *ecNodeWithID(const QString &ecNodeId);
 
