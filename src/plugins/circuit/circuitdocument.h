@@ -22,6 +22,23 @@ namespace KTechLab
 class Core;
 } // namespace KTechLab
 
+class CircuitDocument;
+typedef QMap<QString,QVariant> Item;
+typedef QMap<QString,Item> ItemMap;
+
+class CircuitDocumentPrivate
+{
+public:
+    CircuitDocumentPrivate( CircuitDocument *doc );
+
+    void reloadFromXml();
+
+    ItemMap items;
+
+private:
+    CircuitDocument *m_document;
+};
+
 /**
  * CircuitDocument handles circuit files. It provides access to 
  * visualisation and interaction
@@ -43,6 +60,7 @@ protected:
 
 private:
     void init();
+    CircuitDocumentPrivate *d;
 };
 
 #endif
