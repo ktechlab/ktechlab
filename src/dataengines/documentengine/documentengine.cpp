@@ -52,7 +52,7 @@ bool DocumentEngine::updateSourceEvent( const QString &source )
     foreach (KDevelop::IDocument *doc, docList) {
         urlList << doc->url().prettyUrl();
         // check if this document is requested as source, store pointer
-        if ( source == doc->url().prettyUrl() ) {
+        if ( source.startsWith( doc->url().prettyUrl() ) ) {
             document = doc;
         }
     }
@@ -75,9 +75,14 @@ bool DocumentEngine::updateSourceEvent( const QString &source )
         if ( plugins.isEmpty() ) {
             return false;
         }
-
         KTechLab::DocumentPlugin *plugin = qobject_cast<KTechLab::DocumentPlugin*>( plugins.first() );
-        addSource( plugin->createDataContainer( document ) );
+
+        QString component = source;
+        component.remove( document->url().prettyUrl() );
+        if ( component.startsWith("/") ) {
+            component.remove(0,1);
+        }
+        addSource( plugin->createDataContainer( document, component ) );
 
         return true;
     }
