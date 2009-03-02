@@ -23,20 +23,15 @@
 #include "pin.h"
 #include "simulator.h"
 
-#include "bjt.h"
 #include "cccs.h"
 #include "ccvs.h"
-#include "jfet.h"
 #include "mosfet.h"
-#include "opamp.h"
 #include "switch.h"
 #include "vccs.h"
 #include "vcvs.h"
 
 const int dipWidth = 112;
 const int pairSep = 32;
-
-// Degrees per radian
 
 Component::Component(ICNDocument *icnDocument, bool newItem, const QString &id)
 		: CNItem(icnDocument, newItem, id),
@@ -286,12 +281,10 @@ void Component::updateAttachedPositioning() {
 	if (b_flipped) m.scale(-1, 1);
 
 	m.rotate(m_angleDegrees);
-
 	m.setTransformationMode(QWMatrix::Areas);
 
 	const TextMap::iterator textMapEnd = m_textMap.end();
-
-	for (TextMap::iterator it = m_textMap.begin(); it != textMapEnd; ++it) {
+	for(TextMap::iterator it = m_textMap.begin(); it != textMapEnd; ++it) {
 		QRect newPos = m.mapRect(it.data()->recommendedRect());
 		it.data()->move(newPos.x() + x(), newPos.y() + y());
 		it.data()->setGuiPartSize(newPos.width(), newPos.height());
@@ -299,8 +292,7 @@ void Component::updateAttachedPositioning() {
 	}
 
 	const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
-
-	for (WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it) {
+	for(WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it) {
 		QRect newPos = m.mapRect(it.data()->recommendedRect());
 		it.data()->move(newPos.x() + x(), newPos.y() + y());
 		it.data()->setGuiPartSize(newPos.width(), newPos.height());
@@ -546,20 +538,18 @@ void Component::setup2pinElement(Element *ele, Pin *a, Pin *b) {
 	setInterDependent(it, pins);
 }
 
+void Component::setup3pinElement(Element *ele, Pin *a, Pin *b, Pin *c) {
+	QValueList<Pin*> pins;
+	pins << a << b << c;
+
+	ElementMapList::iterator it = handleElement(ele, pins);
+	setInterDependent(it, pins);
+}
+
+
 // FIXME: MEMORY LEAK CENTRAL!!!
 // We don't have anything to clean up after these calls to 'new'!!!!!
 // this entire class is due for a redesign too. =(
-
-BJT *Component::createBJT(Pin *cN, Pin *bN, Pin *eN, bool isNPN) {
-	BJT *e = new BJT(isNPN);
-
-	QValueList<Pin*> pins;
-	pins << bN << cN << eN;
-
-	ElementMapList::iterator it = handleElement(e, pins);
-	setInterDependent(it, pins);
-	return e;
-}
 
 CCCS* Component::createCCCS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain) {
 	CCCS *e = new CCCS(gain);
@@ -592,17 +582,6 @@ CCVS* Component::createCCVS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain) {
 	return e;
 }
 
-JFET *Component::createJFET(Pin *D, Pin *G, Pin *S, int JFET_type) {
-	JFET *e = new JFET((JFET::JFET_type) JFET_type);
-
-	QValueList<Pin*> pins;
-	pins << D << G << S;
-
-	ElementMapList::iterator it = handleElement(e, pins);
-	setInterDependent(it, pins);
-	return e;
-}
-
 MOSFET *Component::createMOSFET(Pin *D, Pin *G, Pin *S, Pin *B, int MOSFET_type) {
 	MOSFET *e = new MOSFET((MOSFET::MOSFET_type) MOSFET_type);
 
@@ -611,17 +590,6 @@ MOSFET *Component::createMOSFET(Pin *D, Pin *G, Pin *S, Pin *B, int MOSFET_type)
 
 	/// \todo remove the following line removing body if null
 	pins.remove(0);
-
-	ElementMapList::iterator it = handleElement(e, pins);
-	setInterDependent(it, pins);
-	return e;
-}
-
-OpAmp *Component::createOpAmp(Pin *nonInverting, Pin *inverting, Pin *out) {
-	OpAmp *e = new OpAmp();
-
-	QValueList<Pin*> pins;
-	pins << nonInverting << inverting << out;
 
 	ElementMapList::iterator it = handleElement(e, pins);
 	setInterDependent(it, pins);

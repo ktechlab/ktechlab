@@ -56,9 +56,9 @@ ECJFET::ECJFET(int JFET_type, ICNDocument *icnDocument, bool newItem, const char
 
 	setSize(-8, -8, 16, 16);
 
-	m_pJFET = createJFET(createPin(8, -16, 90, "D")->pin(),
-			createPin(-16, 0, 0, "G")->pin(),
-			createPin(8, 16, 270, "S")->pin(), JFET_type);
+	m_pJFET = new JFET((JFET::JFET_type) JFET_type);
+	setup3pinElement(m_pJFET, createPin(8, -16, 90, "D")->pin(),
+		createPin(-16, 0, 0, "G")->pin(), createPin(8, 16, 270, "S")->pin());
 
 	JFETSettings s; // will be created with the default settings
 
