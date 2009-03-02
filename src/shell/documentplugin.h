@@ -10,6 +10,8 @@
 #ifndef DOCUMENTPLUGIN_H
 #define DOCUMENTPLUGIN_H
 
+#include <QString>
+
 namespace Plasma
 {
 class DataContainer;
@@ -31,7 +33,7 @@ public:
     /**
      * create a Plasma::DataContainer for a given document
      */
-    virtual Plasma::DataContainer * createDataContainer( KDevelop::IDocument *document )=0;
+    virtual Plasma::DataContainer * createDataContainer( KDevelop::IDocument *document, const QString &component = QString() )=0;
 };
 
 } // namespace KTechLab{
