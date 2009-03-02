@@ -40,6 +40,7 @@ void CircuitApplet::setupData()
     }
 
     //FIXME: connect to the source and it's provided components
+    kDebug() << docEngine->query( m_circuitName );
 }
 
 void CircuitApplet::setCircuitName( const QString &name )

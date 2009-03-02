@@ -26,6 +26,7 @@ set(ktlshell_LIB_SRCS
     language.cpp
     completionsettings.cpp
     sourceformattercontroller.cpp
+    documentplugin.cpp
 )
 
 kde4_add_ui_files( ktlshell_LIB_SRCS
