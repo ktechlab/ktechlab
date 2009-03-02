@@ -48,7 +48,7 @@ bool DocumentEngine::updateSourceEvent( const QString &source )
     foreach (KDevelop::IDocument *doc, docList) {
         urlList << doc->url().prettyUrl();
         // check if this document is requested as source, store pointer
-        if ( source == doc->url().prettyUrl() ) {
+        if ( source.startsWith( doc->url().prettyUrl() ) ) {
             document = doc;
         }
     }
