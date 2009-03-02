@@ -2,6 +2,8 @@
 #ifndef KTLCIRCUITPLUGIN_H
 #define KTLCIRCUITPLUGIN_H
 
+#include "shell/documentplugin.h"
+
 #include <interfaces/iplugin.h>
 #include <QVariantList>
 
@@ -9,13 +11,18 @@ class KTLComponentViewFactory;
 class KTLCircuitDocumentFactory;
 class ComponentModel;
 
-class KTLCircuitPlugin : public KDevelop::IPlugin
+class KTLCircuitPlugin : public KDevelop::IPlugin, KTechLab::DocumentPlugin
 {
     Q_OBJECT
 public:
     KTLCircuitPlugin( QObject *parent, const QVariantList& args );
     virtual ~KTLCircuitPlugin();
     virtual void unload();
+
+    /**
+     * implementation for KTechLab::DocumentPlugin
+     */
+    virtual Plasma::DataSource * createDataSource( KDevelop::IDocument *document );
 
     /**
      * @return the component model representing all components
