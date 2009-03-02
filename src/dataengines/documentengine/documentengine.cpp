@@ -56,6 +56,9 @@ bool DocumentEngine::updateSourceEvent( const QString &source )
     if ( source == I18N_NOOP("opened") ) {
         setData( source, I18N_NOOP("documentCount"), QString::number( docList.count() ) );
         setData( source, I18N_NOOP("documentList"), urlList );
+        if ( docController->activeDocument() ) {
+            setData( source, I18N_NOOP("active"), docController->activeDocument()->url().prettyUrl() );
+        }
 
         return true;
     }
