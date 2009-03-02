@@ -94,6 +94,11 @@ KTLCircuitPlugin::~KTLCircuitPlugin()
 {
 }
 
+Plasma::DataSource * KTLCircuitPlugin::createDataSource( KDevelop::IDocument *document )
+{
+
+}
+
 ComponentModel * KTLCircuitPlugin::componentModel()
 {
     return m_componentModel;
