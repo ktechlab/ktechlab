@@ -63,6 +63,7 @@ class DocumentEngine : public Plasma::DataEngine
          *  Some information from the DocumentController, including:
          *  - documentCount:    the number of open documents
          *  - documentList:     a QStringList containing a url for each open document
+         *  - active:           the url of the active document (pretty formated)
          *
          * Besides that, there are DataSources for each document in documentList providing
          * all data that is needed to visualize a document.
