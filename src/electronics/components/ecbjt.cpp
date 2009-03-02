@@ -46,8 +46,8 @@ LibraryItem *ECBJT::libraryItemPNP() {
 }
 
 ECBJT::ECBJT(bool isNPN, ICNDocument *icnDocument, bool newItem, const char *id)
-		: Component(icnDocument, newItem, id ? id : (isNPN ? "npnbjt" : "pnpbjt")) {
-	m_bIsNPN = isNPN;
+		: Component(icnDocument, newItem, id ? id : (isNPN ? "npnbjt" : "pnpbjt")),
+	m_bIsNPN(isNPN) {
 
 	if (m_bIsNPN)
 		m_name = i18n("NPN Transistor");
@@ -55,9 +55,9 @@ ECBJT::ECBJT(bool isNPN, ICNDocument *icnDocument, bool newItem, const char *id)
 
 	setSize(-8, -8, 16, 16);
 
-	m_pBJT = createBJT(createPin(8, -16, 90, "c")->pin(),
-			createPin(-16, 0, 0, "b")->pin(),
-			createPin(8, 16, 270, "e")->pin(), m_bIsNPN);
+	m_pBJT = new BJT(m_bIsNPN);
+	setup3pinElement(m_pBJT, createPin(-16, 0, 0, "b")->pin(),
+		createPin(8, -16, 90, "c")->pin(), createPin(8, 16, 270, "e")->pin());
 
 	BJTSettings s; // will be created with the default settings
 
