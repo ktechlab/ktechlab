@@ -23,11 +23,12 @@ class Core;
 } // namespace KTechLab
 
 /**
-CircuitDocument handles circuit files. It provides visualisation, interaction
-and other information about .circuit files.
-@short Circuit Document
-@author Julian Bäume
-*/
+ * CircuitDocument handles circuit files. It provides access to 
+ * visualisation and interaction
+ * and other information about .circuit files.
+ * @short Circuit Document
+ * @author Julian Bäume
+ */
 class CircuitDocument : public KTechLab::PartDocument
 {
     Q_OBJECT
@@ -40,6 +41,8 @@ public:
 protected:
     virtual QWidget *createViewWidget( QWidget* parent = 0 );
 
+private:
+    void init();
 };
 
 #endif
