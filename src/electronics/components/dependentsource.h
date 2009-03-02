@@ -15,6 +15,8 @@
 
 class CCCS;
 class VCCS;
+class CCVS;
+class VCVS;
 
 /**
 @author David Saxton
