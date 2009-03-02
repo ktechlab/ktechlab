@@ -23,11 +23,8 @@
 #include "pin.h"
 #include "simulator.h"
 
-#include "cccs.h"
 #include "ccvs.h"
-#include "mosfet.h"
 #include "switch.h"
-#include "vccs.h"
 #include "vcvs.h"
 
 const int dipWidth = 112;
@@ -66,7 +63,6 @@ void Component::removeItem() {
 
 void Component::removeElements(bool setPinsInterIndependent) {
 	const ElementMapList::iterator end = m_elementMapList.end();
-
 	for (ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it) {
 		Element *e = (*it).e;
 
@@ -79,7 +75,6 @@ void Component::removeElements(bool setPinsInterIndependent) {
 	m_elementMapList.clear();
 
 	const SwitchList::iterator swEnd = m_switchList.end();
-
 	for(SwitchList::iterator it = m_switchList.begin(); it != swEnd; ++it) {
 		Switch *sw = *it;
 
@@ -104,7 +99,6 @@ void Component::removeElement(Element *element, bool setPinsInterIndependent) {
 	element->componentDeleted();
 
 	const ElementMapList::iterator end = m_elementMapList.end();
-
 	for (ElementMapList::iterator it = m_elementMapList.begin(); it != end;) {
 		ElementMapList::iterator next = it;
 		++next;
@@ -133,7 +127,6 @@ void Component::removeSwitch(Switch *sw) {
 void Component::setNodalCurrents() {
 
 	const ElementMapList::iterator end = m_elementMapList.end();
-
 	for (ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it) {
 		ElementMap m = (*it);
 
@@ -546,23 +539,19 @@ void Component::setup3pinElement(Element *ele, Pin *a, Pin *b, Pin *c) {
 	setInterDependent(it, pins);
 }
 
+void Component::setup4pinElement(Element *ele, Pin *a, Pin *b, Pin *c, Pin *d) {
+	QValueList<Pin*> pins;
+	pins << a << b << c << d;
+
+	ElementMapList::iterator it = handleElement(ele, pins);
+	setInterDependent(it, pins);
+}
 
 // FIXME: MEMORY LEAK CENTRAL!!!
 // We don't have anything to clean up after these calls to 'new'!!!!!
 // this entire class is due for a redesign too. =(
 
-CCCS* Component::createCCCS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain) {
-	CCCS *e = new CCCS(gain);
-
-	QValueList<Pin*> pins;
-	pins << n0 << n1 << n2 << n3;
-
-	ElementMapList::iterator it = handleElement(e, pins);
-	setInterDependent(it, pins);
-	return e;
-}
-
-CCVS* Component::createCCVS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain) {
+CCVS *Component::createCCVS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain) {
 	CCVS *e = new CCVS(gain);
 
 	QValueList<Pin*> pins;
@@ -582,43 +571,6 @@ CCVS* Component::createCCVS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain) {
 	return e;
 }
 
-MOSFET *Component::createMOSFET(Pin *D, Pin *G, Pin *S, Pin *B, int MOSFET_type) {
-	MOSFET *e = new MOSFET((MOSFET::MOSFET_type) MOSFET_type);
-
-	QValueList<Pin*> pins;
-	pins << D << G << S << B;
-
-	/// \todo remove the following line removing body if null
-	pins.remove(0);
-
-	ElementMapList::iterator it = handleElement(e, pins);
-	setInterDependent(it, pins);
-	return e;
-}
-
-Switch *Component::createSwitch(Pin *n0, Pin *n1, bool open) {
-	// Note that a Switch is not really an element (although in many cases it
-	// behaves very much like one).
-
-	Switch *e = new Switch(this, n0, n1, open ? Switch::Open : Switch::Closed);
-	m_switchList.append(e);
-	n0->addSwitch(e);
-	n1->addSwitch(e);
-	emit switchCreated(e);
-	return e;
-}
-
-VCCS *Component::createVCCS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain) {
-	VCCS *e = new VCCS(gain);
-
-	QValueList<Pin*> pins;
-	pins << n0 << n1 << n2 << n3;
-
-	ElementMapList::iterator it = handleElement(e, pins);
-	setInterDependent(it, pins);
-	return e;
-}
-
 VCVS *Component::createVCVS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain) {
 	VCVS *e = new VCVS(gain);
 
@@ -635,6 +587,18 @@ VCVS *Component::createVCVS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain) {
 	pins.clear();
 	pins << n2 << n3;
 	setInterGroundDependent(it, pins);
+	return e;
+}
+
+Switch *Component::createSwitch(Pin *n0, Pin *n1, bool open) {
+	// Note that a Switch is not really an element (although in many cases it
+	// behaves very much like one).
+
+	Switch *e = new Switch(this, n0, n1, open ? Switch::Open : Switch::Closed);
+	m_switchList.append(e);
+	n0->addSwitch(e);
+	n1->addSwitch(e);
+	emit switchCreated(e);
 	return e;
 }
 

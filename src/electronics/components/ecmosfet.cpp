@@ -17,20 +17,20 @@
 #include <klocale.h>
 #include <qpainter.h>
 
-Item * ECMOSFET::constructNEM(ItemDocument * itemDocument, bool newItem, const char * id) {
+Item *ECMOSFET::constructNEM(ItemDocument *itemDocument, bool newItem, const char *id) {
 	return new ECMOSFET(MOSFET::neMOSFET, (ICNDocument*)itemDocument, newItem, id ? id : "nemosfet");
 }
 
-Item * ECMOSFET::constructPEM(ItemDocument * itemDocument, bool newItem, const char * id) {
+Item *ECMOSFET::constructPEM(ItemDocument *itemDocument, bool newItem, const char *id) {
 	return new ECMOSFET(MOSFET::peMOSFET, (ICNDocument*)itemDocument, newItem, id ? id : "pemosfet");
 }
 
 #if 0
-Item * ECMOSFET::constructNDM(ItemDocument * itemDocument, bool newItem, const char * id) {
+Item *ECMOSFET::constructNDM(ItemDocument *itemDocument, bool newItem, const char *id) {
 	return new ECMOSFET(MOSFET::ndMOSFET, (ICNDocument*)itemDocument, newItem, id ? id : "ndmosfet");
 }
 
-Item * ECMOSFET::constructPDM(ItemDocument * itemDocument, bool newItem, const char * id) {
+Item *ECMOSFET::constructPDM(ItemDocument *itemDocument, bool newItem, const char *id) {
 	return new ECMOSFET(MOSFET::pdMOSFET, (ICNDocument*)itemDocument, newItem, id ? id : "pdmosfet");
 }
 
@@ -82,11 +82,9 @@ LibraryItem* ECMOSFET::libraryItemPDM() {
 	           LibraryItem::lit_component,
 	           ECMOSFET::constructPDM);
 }
-
 #endif
 
-
-ECMOSFET::ECMOSFET(int MOSFET_type, ICNDocument * icnDocument, bool newItem, const char * id)
+ECMOSFET::ECMOSFET(int MOSFET_type, ICNDocument *icnDocument, bool newItem, const char *id)
 		: Component(icnDocument, newItem, id) {
 	m_MOSFET_type = MOSFET_type;
 
@@ -103,7 +101,6 @@ ECMOSFET::ECMOSFET(int MOSFET_type, ICNDocument * icnDocument, bool newItem, con
 	}
 
 #if 0
-
 	case MOSFET::ndMOSFET: {
 		m_name = i18n("N-Channel Depletion MOSFET");
 		break;
@@ -113,19 +110,22 @@ ECMOSFET::ECMOSFET(int MOSFET_type, ICNDocument * icnDocument, bool newItem, con
 		m_name = i18n("P-Channel Depletion MOSFET");
 		break;
 	}
-
 #endif
+
 	}
 
 	setSize(-8, -16, 16, 32);
 
-	ECNode * NodeS = createPin(8, 24, 270, "s");
-	m_pMOSFET = createMOSFET(createPin(8, -24, 90, "d")->pin(),
+	ECNode *NodeS = createPin(8, 24, 270, "s");
+
+	m_pMOSFET = new MOSFET((MOSFET::MOSFET_type)m_MOSFET_type);
+	setup4pinElement(m_pMOSFET, createPin(8, -24, 90, "d")->pin(),
 				createPin(-16, 8, 0, "g")->pin(),
-				NodeS->pin(), NodeS->pin(), m_MOSFET_type);
+				NodeS->pin(), NodeS->pin());
+
 	m_bHaveBodyPin = false;
 
-	Variant * v = createProperty("bodyPin", Variant::Type::Bool);
+	Variant *v = createProperty("bodyPin", Variant::Type::Bool);
 	v->setCaption(i18n("mosfet body/bulk pin", "Body Pin"));
 	v->setValue(false);
 
@@ -170,8 +170,8 @@ ECMOSFET::ECMOSFET(int MOSFET_type, ICNDocument * icnDocument, bool newItem, con
 }
 
 ECMOSFET::~ECMOSFET() {
+	delete m_pMOSFET;
 }
-
 
 void ECMOSFET::dataChanged() {
 	bool haveBodyPin = dataBool("bodyPin");
@@ -181,18 +181,25 @@ void ECMOSFET::dataChanged() {
 
 		if (m_bHaveBodyPin) {
 			// Creating a body pin
-			ECNode * NodeB = createPin(16, 0, 180, "b");
 			removeElement(m_pMOSFET, false);
-			m_pMOSFET = createMOSFET(ecNodeWithID("d")->pin(),
+			delete m_pMOSFET;
+
+			m_pMOSFET = new MOSFET((MOSFET::MOSFET_type)m_MOSFET_type);
+			setup4pinElement(m_pMOSFET, ecNodeWithID("d")->pin(),
 				ecNodeWithID("g")->pin(), ecNodeWithID("s")->pin(),
-				NodeB->pin(), m_MOSFET_type);
+				createPin(16, 0, 180, "b")->pin());
+
 		} else {
 			// Removing a body pin
 			removeNode("b");
 			removeElement(m_pMOSFET, false);
-			m_pMOSFET = createMOSFET(ecNodeWithID("d")->pin(),
-				 ecNodeWithID("g")->pin(), ecNodeWithID("s")->pin(),
-				 ecNodeWithID("s")->pin(), m_MOSFET_type);
+			delete m_pMOSFET;
+
+		// Our class requires that we initialize four pins, even if we tie two of those pins together. 
+			m_pMOSFET = new MOSFET((MOSFET::MOSFET_type)m_MOSFET_type);
+			setup4pinElement(m_pMOSFET, ecNodeWithID("d")->pin(),
+				ecNodeWithID("g")->pin(), ecNodeWithID("s")->pin(),
+				ecNodeWithID("s")->pin());
 		}
 	}
 
@@ -200,22 +207,17 @@ void ECMOSFET::dataChanged() {
 	MOSFETSettings s;
 
 	s.I_S = dataDouble("I_S");
-
 	s.N_F = dataDouble("N_F");
-
 	s.N_R = dataDouble("N_R");
-
 	s.B_F = dataDouble("B_F");
-
 	s.B_R = dataDouble("B_R");
 
 	m_pMOSFET->setMOSFETSettings(s);
-
 #endif
 }
 
 
-void ECMOSFET::drawShape(QPainter & p) {
+void ECMOSFET::drawShape(QPainter &p) {
 	const int _x = int(x());
 	const int _y = int(y());
 
@@ -230,8 +232,7 @@ void ECMOSFET::drawShape(QPainter & p) {
 
 	if (m_bHaveBodyPin)
 		p.drawLine(_x + 8, _y + 11, _x + 8, _y + 16);
-	else
-		p.drawLine(_x + 8, _y, _x + 8, _y + 16);
+	else	p.drawLine(_x + 8, _y, _x + 8, _y + 16);
 
 	// Right top vertical line
 	p.drawLine(_x + 8, _y - 11, _x + 8, _y - 16);
@@ -279,3 +280,4 @@ void ECMOSFET::drawShape(QPainter & p) {
 
 	deinitPainter(p);
 }
+
