@@ -10,6 +10,10 @@
 #ifndef DOCUMENTPLUGIN_H
 #define DOCUMENTPLUGIN_H
 
+#include "ktlshellexport.h"
+
+#include <interfaces/iplugin.h>
+#include <QObject>
 #include <QString>
 
 namespace Plasma
@@ -25,9 +29,11 @@ class IDocument;
 namespace KTechLab
 {
 
-class DocumentPlugin
+class KTLSHELL_EXPORT DocumentPlugin: public KDevelop::IPlugin
 {
+    Q_OBJECT
 public:
+    DocumentPlugin( KComponentData data, QObject *parent = 0 );
     virtual ~DocumentPlugin() {};
 
     /**
@@ -36,7 +42,7 @@ public:
     virtual Plasma::DataContainer * createDataContainer( KDevelop::IDocument *document, const QString &component = QString() )=0;
 };
 
-} // namespace KTechLab{
+} // namespace KTechLab
 
 #endif
 

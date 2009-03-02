@@ -76,11 +76,7 @@ bool DocumentEngine::updateSourceEvent( const QString &source )
             return false;
         }
 
-        setData( source, I18N_NOOP("available"), true );
-        setData( source, I18N_NOOP("mime"), document->mimeType()->name() );
-
-        //FIXME: is this the right cast? can this be static, because we know the type
-        KTechLab::DocumentPlugin *plugin = dynamic_cast<KTechLab::DocumentPlugin*>( plugins.first() );
+        KTechLab::DocumentPlugin *plugin = qobject_cast<KTechLab::DocumentPlugin*>( plugins.first() );
         addSource( plugin->createDataContainer( document ) );
 
         return true;
