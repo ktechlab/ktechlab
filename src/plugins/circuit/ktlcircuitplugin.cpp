@@ -9,6 +9,7 @@
 
 #include "ktlcircuitplugin.h"
 
+#include "circuitcontainer.h"
 #include "circuitdocument.h"
 #include "componentmodel.h"
 #include "shell/core.h"
@@ -94,9 +95,9 @@ KTLCircuitPlugin::~KTLCircuitPlugin()
 {
 }
 
-Plasma::DataSource * KTLCircuitPlugin::createDataSource( KDevelop::IDocument *document )
+Plasma::DataContainer * KTLCircuitPlugin::createDataContainer( KDevelop::IDocument *document )
 {
-
+    return new CircuitContainer( document );
 }
 
 ComponentModel * KTLCircuitPlugin::componentModel()
