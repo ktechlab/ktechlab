@@ -28,7 +28,19 @@ void CircuitApplet::init()
 
 void CircuitApplet::dataUpdated( const QString &name, const Plasma::DataEngine::Data &data )
 {
+    Plasma::DataEngine *docEngine = dataEngine( "ktechlabdocument" );
 
+    if ( data["mime"].toString().endsWith("circuit") ) {
+        const QStringList &itemSources = data["itemList"].toStringList();
+        foreach ( const QString &source, itemSources ) {
+            if ( !m_components.contains(source) ) {
+                m_components << source;
+                docEngine->connectSource( m_circuitName + "/" + source, this );
+            }
+        }
+    } else if ( data["mime"].toString().endsWith("component") ) {
+        //TODO: implement component handling
+    }
 }
 
 void CircuitApplet::setupData()
@@ -39,8 +51,7 @@ void CircuitApplet::setupData()
         return;
     }
 
-    //FIXME: connect to the source and it's provided components
-    kDebug() << docEngine->query( m_circuitName );
+    docEngine->connectSource( m_circuitName, this );
 }
 
 void CircuitApplet::setCircuitName( const QString &name )
