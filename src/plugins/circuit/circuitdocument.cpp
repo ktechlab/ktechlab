@@ -15,9 +15,64 @@
 
 #include <KDebug>
 #include <KLocale>
+#include <QDomDocument>
+#include <QDomElement>
+#include <KMessageBox>
+#include <QFile>
+#include <QMap>
+#include <KIO/NetAccess>
+
+CircuitDocumentPrivate::CircuitDocumentPrivate( CircuitDocument *doc )
+    :   m_document(doc)
+{
+
+    reloadFromXml();
+}
+
+void CircuitDocumentPrivate::reloadFromXml()
+{
+    QString errorMessage, tempFile;
+    if ( !KIO::NetAccess::download( m_document->url(), tempFile, 0 ) ) {
+        errorMessage = KIO::NetAccess::lastErrorString();
+        KMessageBox::sorry( 0, i18n("Couldn't parse xml:\n%1").arg(errorMessage) );
+        return;
+    }
+    QFile file(tempFile);
+    if (!file.open(QIODevice::ReadOnly)) {
+        KMessageBox::sorry( 0, i18n("Couldn't parse xml:\n%1").arg(errorMessage) );
+        return;
+    }
+    QDomDocument doc( "KTechlab" );
+    if ( !doc.setContent( &file, &errorMessage ) ) {
+        KMessageBox::sorry( 0, i18n("Couldn't parse xml:\n%1").arg(errorMessage) );
+        file.close();
+        KIO::NetAccess::removeTempFile(tempFile);
+        return;
+    }
+    file.close();
+
+    QDomElement root = doc.documentElement();
+    QDomNode node = root.firstChild();
+    while ( !node.isNull() ) {
+        QDomElement element = node.toElement();
+        if ( !element.isNull() ) {
+            const QString tagName = element.tagName();
+            if ( tagName == "item" ) {
+                QDomNamedNodeMap attribs = element.attributes();
+                Item item;
+                for ( int i=0; i<attribs.count(); ++i ) {
+                    item[ attribs.item(i).nodeName() ] = attribs.item(i).nodeValue();
+                }
+                items[ element.attribute("id") ] = item;
+            }
+        }
+        node = node.nextSibling();
+    }
+}
 
 CircuitDocument::CircuitDocument( const KUrl &url, KTechLab::Core* core )
-    :   KTechLab::PartDocument( url, core )
+    :   KTechLab::PartDocument( url, core ),
+        d(new CircuitDocumentPrivate(this))
 {
 
     init();
