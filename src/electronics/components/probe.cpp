@@ -22,131 +22,117 @@
 #include <qpainter.h>
 
 //BEGIN class Probe
-Probe::Probe( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, id )
-{
-	p_probeData = 0l;
-	setSize( -16, -8, 32, 16 );
-	
-	createProperty( "color", Variant::Type::Color );
-	property("color")->setCaption( i18n("Color") );
-	property("color")->setValue( Qt::black );
+Probe::Probe(ICNDocument *icnDocument, bool newItem, const char *id)
+		: Component(icnDocument, newItem, id) {
+	p_probeData = 0;
+	setSize(-16, -8, 32, 16);
+
+	createProperty("color", Variant::Type::Color);
+	property("color")->setCaption(i18n("Color"));
+	property("color")->setValue(Qt::black);
 }
 
-
-Probe::~ Probe()
-{
+Probe::~ Probe() {
 	delete p_probeData;
 }
 
-
-void Probe::dataChanged()
-{
+void Probe::dataChanged() {
 	m_color = dataColor("color");
+
 	if (p_probeData)
 		p_probeData->setColor(m_color);
+
 	setChanged();
 }
+
 //END class Probe
 
-
-
 //BEGIN class FloatingProbe
-FloatingProbe::FloatingProbe( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Probe( icnDocument, newItem, id )
-{
+FloatingProbe::FloatingProbe(ICNDocument *icnDocument, bool newItem, const char *id)
+		: Probe(icnDocument, newItem, id) {
 	p_probeData = m_pFloatingProbeData = static_cast<FloatingProbeData*>(registerProbe(this));
-	property("color")->setValue( p_probeData->color() );
-	
-	createProperty( "scaling", Variant::Type::Select );
-	property("scaling")->setCaption( i18n("Scaling") );
+	property("color")->setValue(p_probeData->color());
+
+	createProperty("scaling", Variant::Type::Select);
+	property("scaling")->setCaption(i18n("Scaling"));
 	QStringMap allowed;
 	allowed["Linear"] = i18n("Linear");
 	allowed["Logarithmic"] = i18n("Logarithmic");
-	property("scaling")->setAllowed( allowed );
+	property("scaling")->setAllowed(allowed);
 	property("scaling")->setValue("Linear");
-	property("scaling")->setAdvanced( true );
-	
-	createProperty( "upper_abs_value", Variant::Type::Double );
-	property("upper_abs_value")->setCaption( i18n("Upper Absolute Value") );
+	property("scaling")->setAdvanced(true);
+
+	createProperty("upper_abs_value", Variant::Type::Double);
+	property("upper_abs_value")->setCaption(i18n("Upper Absolute Value"));
 	property("upper_abs_value")->setValue(10.0);
 	property("upper_abs_value")->setMinValue(0.0);
 	property("upper_abs_value")->setAdvanced(true);
-	
-	createProperty( "lower_abs_value", Variant::Type::Double );
-	property("lower_abs_value")->setCaption( i18n("Lower Absolute Value") );
+
+	createProperty("lower_abs_value", Variant::Type::Double);
+	property("lower_abs_value")->setCaption(i18n("Lower Absolute Value"));
 	property("lower_abs_value")->setValue(0.1);
 	property("lower_abs_value")->setMinValue(0.0);
 	property("lower_abs_value")->setAdvanced(true);
 }
 
-
-FloatingProbe::~FloatingProbe()
-{
+FloatingProbe::~FloatingProbe() {
 }
 
-
-void FloatingProbe::dataChanged()
-{
+void FloatingProbe::dataChanged() {
 	Probe::dataChanged();
-	
-	if ( dataString("scaling") == "Linear" )
-		m_pFloatingProbeData->setScaling( FloatingProbeData::Linear );
+
+	if (dataString("scaling") == "Linear")
+		m_pFloatingProbeData->setScaling(FloatingProbeData::Linear);
 	else
-		m_pFloatingProbeData->setScaling( FloatingProbeData::Logarithmic );
-	
-	m_pFloatingProbeData->setUpperAbsValue( dataDouble("upper_abs_value") );
-	m_pFloatingProbeData->setLowerAbsValue( dataDouble("lower_abs_value") );
+		m_pFloatingProbeData->setScaling(FloatingProbeData::Logarithmic);
+
+	m_pFloatingProbeData->setUpperAbsValue(dataDouble("upper_abs_value"));
+
+	m_pFloatingProbeData->setLowerAbsValue(dataDouble("lower_abs_value"));
 }
 
-
-void FloatingProbe::drawShape( QPainter &p )
-{
+void FloatingProbe::drawShape(QPainter &p) {
 	initPainter(p);
-	
-	int _x = int(x())-16;
-	int _y = int(y())-8;
-	
-	p.drawRect( _x, _y, 32, 16 );
-	
+
+	int _x = int(x()) - 16;
+	int _y = int(y()) - 8;
+
+	p.drawRect(_x, _y, 32, 16);
+
 	QPointArray bezier(4);
-	
-	bezier[0] = QPoint( _x+4, _y+10 );
-	bezier[1] = QPoint( _x+12, _y-6 );
-	bezier[2] = QPoint( _x+20, _y+24 );
-	bezier[3] = QPoint( _x+28, _y+4 );
-	
-	p.setPen( QPen( m_color, 2 ) );
+
+	bezier[0] = QPoint(_x + 4, _y + 10);
+	bezier[1] = QPoint(_x + 12, _y - 6);
+	bezier[2] = QPoint(_x + 20, _y + 24);
+	bezier[3] = QPoint(_x + 28, _y + 4);
+
+	p.setPen(QPen(m_color, 2));
 	p.drawCubicBezier(bezier);
-	
+
 	deinitPainter(p);
 }
+
 //END class FloatingProbe
 
-
-
 //BEGIN class VoltageProbe
-Item* VoltageProbe::construct( ItemDocument *itemDocument, bool newItem, const char *id )
-{
-	return new VoltageProbe( (ICNDocument*)itemDocument, newItem, id );
+Item* VoltageProbe::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
+	return new VoltageProbe((ICNDocument*)itemDocument, newItem, id);
 }
 
-LibraryItem* VoltageProbe::libraryItem()
-{
+LibraryItem* VoltageProbe::libraryItem() {
 	return new LibraryItem(
-			"ec/voltageprobe",
-	i18n("Voltage Probe"),
-	i18n("Outputs"),
-	"floatingprobe.png",
-	LibraryItem::lit_component,
-	VoltageProbe::construct );
+	           "ec/voltageprobe",
+	           i18n("Voltage Probe"),
+	           i18n("Outputs"),
+	           "floatingprobe.png",
+	           LibraryItem::lit_component,
+	           VoltageProbe::construct);
 }
 
-VoltageProbe::VoltageProbe( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FloatingProbe( icnDocument, newItem, id ? id : "voltageprobe" )
-{
+VoltageProbe::VoltageProbe(ICNDocument *icnDocument, bool newItem, const char *id)
+		: FloatingProbe(icnDocument, newItem, id ? id : "voltageprobe") {
 	m_name = i18n("Voltage Probe");
-	
+
 	property("upper_abs_value")->setUnit("V");
 	property("lower_abs_value")->setUnit("V");
 
@@ -156,39 +142,32 @@ VoltageProbe::VoltageProbe( ICNDocument *icnDocument, bool newItem, const char *
 	m_pPin2 = m_pPNode[0]->pin();
 }
 
-
-VoltageProbe::~VoltageProbe()
-{
+VoltageProbe::~VoltageProbe() {
 }
 
-
-void VoltageProbe::stepNonLogic()
-{
-	m_pFloatingProbeData->addDataPoint( m_pPin1->voltage() - m_pPin2->voltage() );
+void VoltageProbe::stepNonLogic() {
+	m_pFloatingProbeData->addDataPoint(m_pPin1->voltage() - m_pPin2->voltage());
 }
+
 //END class VoltageProbe
 
-
 //BEGIN class CurrentProbe
-Item* CurrentProbe::construct( ItemDocument *itemDocument, bool newItem, const char *id )
-{
-	return new CurrentProbe( (ICNDocument*)itemDocument, newItem, id );
+Item* CurrentProbe::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
+	return new CurrentProbe((ICNDocument*)itemDocument, newItem, id);
 }
 
-LibraryItem* CurrentProbe::libraryItem()
-{
+LibraryItem* CurrentProbe::libraryItem() {
 	return new LibraryItem(
-		"ec/currentprobe",
-		i18n("Current Probe"),
-		i18n("Outputs"),
-		"floatingprobe.png",
-		LibraryItem::lit_component,
-		CurrentProbe::construct);
+	           "ec/currentprobe",
+	           i18n("Current Probe"),
+	           i18n("Outputs"),
+	           "floatingprobe.png",
+	           LibraryItem::lit_component,
+	           CurrentProbe::construct);
 }
 
 CurrentProbe::CurrentProbe(ICNDocument *icnDocument, bool newItem, const char *id)
-	: FloatingProbe(icnDocument, newItem, id ? id : "currentprobe")
-{
+		: FloatingProbe(icnDocument, newItem, id ? id : "currentprobe") {
 	m_name = i18n("Current Probe");
 
 	property("upper_abs_value")->setUnit("A");
@@ -197,47 +176,41 @@ CurrentProbe::CurrentProbe(ICNDocument *icnDocument, bool newItem, const char *i
 	init1PinLeft(0);
 	init1PinRight(0);
 
-//	m_voltageSource = createVoltageSource(m_pNNode[0]->pin(), m_pPNode[0]->pin(), 0.);
 	m_voltageSource = new VoltageSource(0);
 	setup2pinElement(m_voltageSource, m_pNNode[0]->pin(), m_pPNode[0]->pin());
 }
 
-CurrentProbe::~CurrentProbe()
-{
+CurrentProbe::~CurrentProbe() {
 }
 
-void CurrentProbe::stepNonLogic()
-{
+void CurrentProbe::stepNonLogic() {
 	m_pFloatingProbeData->addDataPoint(-m_voltageSource->cbranchCurrent(0));
 }
+
 //END class CurrentProbe
 
 //BEGIN class LogicProbe
-Item* LogicProbe::construct(ItemDocument *itemDocument, bool newItem, const char *id)
-{
+Item* LogicProbe::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
 	return new LogicProbe((ICNDocument*)itemDocument, newItem, id);
 }
 
-LibraryItem* LogicProbe::libraryItem()
-{
+LibraryItem* LogicProbe::libraryItem() {
 	QStringList ids;
 	ids << "ec/probe" << "ec/logicprobe";
 	return new LibraryItem(
-		ids,
-		i18n("Logic Probe"),
-		i18n("Outputs"),
-		"logicprobe.png",
-		LibraryItem::lit_component,
-		LogicProbe::construct);
+	           ids,
+	           i18n("Logic Probe"),
+	           i18n("Outputs"),
+	           "logicprobe.png",
+	           LibraryItem::lit_component,
+	           LogicProbe::construct);
 }
 
 LogicProbe::LogicProbe(ICNDocument *icnDocument, bool newItem, const char *id)
-	: Probe(icnDocument, newItem, id ? id : "probe")
-{
+		: Probe(icnDocument, newItem, id ? id : "probe") {
 	m_name = i18n("Logic Probe");
 
 	init1PinRight();
-//	m_pIn = createLogicIn(m_pPNode[0]->pin());
 
 	m_pIn = new LogicIn(LogicIn::getConfig());
 	setup1pinElement(m_pIn, m_pPNode[0]->pin());
@@ -250,42 +223,37 @@ LogicProbe::LogicProbe(ICNDocument *icnDocument, bool newItem, const char *id)
 	logicCallback(false);
 }
 
-LogicProbe::~LogicProbe()
-{
+LogicProbe::~LogicProbe() {
 }
 
-void LogicProbe::logicCallback( bool value )
-{
-	p_logicProbeData->addDataPoint( LogicDataPoint( value, m_pSimulator->time() ) );
+void LogicProbe::logicCallback(bool value) {
+	p_logicProbeData->addDataPoint(LogicDataPoint(value, m_pSimulator->time()));
 }
 
-
-void LogicProbe::drawShape( QPainter &p )
-{
+void LogicProbe::drawShape(QPainter &p) {
 	initPainter(p);
-	
-	int _x = int(x())-16;
-	int _y = int(y())-8;
-	
-	p.drawRect( _x, _y, 32, 16 );
-	
-	p.setPen( QPen( m_color, 2 ) );
-	
-	p.drawLine( _x+4, _y+11, _x+6, _y+11 );
-	p.drawLine( _x+6, _y+11, _x+6, _y+4 );
-	p.drawLine( _x+6, _y+4, _x+10, _y+4 );
-	p.drawLine( _x+10, _y+4, _x+10, _y+11 );
-	p.drawLine( _x+10, _y+11, _x+16, _y+11 );
-	p.drawLine( _x+16, _y+11, _x+16, _y+4 );
-	p.drawLine( _x+16, _y+4, _x+23, _y+4 );
-	p.drawLine( _x+23, _y+4, _x+23, _y+11 );
-	p.drawLine( _x+23, _y+11, _x+28, _y+11 );
+
+	int _x = int(x()) - 16;
+	int _y = int(y()) - 8;
+
+	p.drawRect(_x, _y, 32, 16);
+
+	p.setPen(QPen(m_color, 2));
+
+	p.drawLine(_x + 4, _y + 11, _x + 6, _y + 11);
+	p.drawLine(_x + 6, _y + 11, _x + 6, _y + 4);
+	p.drawLine(_x + 6, _y + 4, _x + 10, _y + 4);
+	p.drawLine(_x + 10, _y + 4, _x + 10, _y + 11);
+	p.drawLine(_x + 10, _y + 11, _x + 16, _y + 11);
+	p.drawLine(_x + 16, _y + 11, _x + 16, _y + 4);
+	p.drawLine(_x + 16, _y + 4, _x + 23, _y + 4);
+	p.drawLine(_x + 23, _y + 4, _x + 23, _y + 11);
+	p.drawLine(_x + 23, _y + 11, _x + 28, _y + 11);
 // 	p.drawLine( _x+23, _y+11, _x+26, _y+11 );
 // 	p.drawLine( _x+26, _y+11, _x+26, _y+4 );
 // 	p.drawLine( _x+26, _y+4, _x+28, _y+4 );
-	
+
 	deinitPainter(p);
 }
 //END class LogicProbe
-
 

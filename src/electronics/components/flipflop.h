@@ -28,7 +28,6 @@ class ClockedFlipFlop : public CallbackClass, public Component
 		EdgeTrigger m_edgeTrigger;
 };
 
-
 /**
 @short Boolean D-Type Flip-Flop
 @author David Saxton
@@ -36,7 +35,7 @@ class ClockedFlipFlop : public CallbackClass, public Component
 class ECDFlipFlop : public ClockedFlipFlop
 {
 public:
-	ECDFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECDFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECDFlipFlop();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -71,7 +70,7 @@ protected:
 class ECJKFlipFlop : public ClockedFlipFlop
 {
 public:
-	ECJKFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECJKFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECJKFlipFlop();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -103,7 +102,7 @@ private:
 class ECSRFlipFlop : public CallbackClass, public Component
 {
 public:
-	ECSRFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECSRFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECSRFlipFlop();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
