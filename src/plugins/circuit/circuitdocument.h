@@ -55,6 +55,8 @@ public:
 
     virtual QString documentType() const;
 
+    ItemMap items() const { return d->items; };
+
 protected:
     virtual QWidget *createViewWidget( QWidget* parent = 0 );
 
