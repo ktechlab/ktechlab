@@ -23,9 +23,7 @@
 #include "pin.h"
 #include "simulator.h"
 
-#include "ccvs.h"
 #include "switch.h"
-#include "vcvs.h"
 
 const int dipWidth = 112;
 const int pairSep = 32;
@@ -547,53 +545,26 @@ void Component::setup4pinElement(Element *ele, Pin *a, Pin *b, Pin *c, Pin *d) {
 	setInterDependent(it, pins);
 }
 
-// FIXME: MEMORY LEAK CENTRAL!!!
-// We don't have anything to clean up after these calls to 'new'!!!!!
-// this entire class is due for a redesign too. =(
-
-CCVS *Component::createCCVS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain) {
-	CCVS *e = new CCVS(gain);
-
+void Component::setupSpcl4pinElement(Element *ele, Pin *a, Pin *b, Pin *c, Pin *d) {
 	QValueList<Pin*> pins;
-	pins << n0 << n1 << n2 << n3;
+	pins << a << b << c << d;
 
-	ElementMapList::iterator it = handleElement(e, pins);
+	ElementMapList::iterator it = handleElement(ele, pins);
 	setInterCircuitDependent(it, pins);
 
 	pins.clear();
-	pins << n0 << n1;
+	pins << a << b;
 	setInterGroundDependent(it, pins);
 
 	pins.clear();
-	pins << n2 << n3;
+	pins << c << d;
 	setInterGroundDependent(it, pins);
-
-	return e;
-}
-
-VCVS *Component::createVCVS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain) {
-	VCVS *e = new VCVS(gain);
-
-	QValueList<Pin*> pins;
-	pins << n0 << n1 << n2 << n3;
-
-	ElementMapList::iterator it = handleElement(e, pins);
-	setInterCircuitDependent(it, pins);
-
-	pins.clear();
-	pins << n0 << n1;
-	setInterGroundDependent(it, pins);
-
-	pins.clear();
-	pins << n2 << n3;
-	setInterGroundDependent(it, pins);
-	return e;
 }
 
 Switch *Component::createSwitch(Pin *n0, Pin *n1, bool open) {
 	// Note that a Switch is not really an element (although in many cases it
 	// behaves very much like one).
-
+// TODO: check for memory leaks; take a harder look at refactoring. 
 	Switch *e = new Switch(this, n0, n1, open ? Switch::Open : Switch::Closed);
 	m_switchList.append(e);
 	n0->addSwitch(e);
