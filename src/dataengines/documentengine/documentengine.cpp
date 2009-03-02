@@ -1,6 +1,10 @@
 #include "documentengine.h"
 #include "shell/core.h"
-#include "shell/documentcontroller.h"
+#include "shell/documentplugin.h"
+
+#include <interfaces/iplugin.h>
+#include <interfaces/iplugincontroller.h>
+#include <interfaces/idocumentcontroller.h>
 
 #include <KDebug>
 #include <Plasma/DataEngineManager>
@@ -64,9 +68,21 @@ bool DocumentEngine::updateSourceEvent( const QString &source )
     }
     // specific document is chosen
     if ( document ) {
+        //get a plugin to provide a DataSource for this document type
+        QStringList constraints;
+        constraints << QString("'%1' in [X-KDevelop-SupportedMimeTypes]").arg(document->mimeType()->name());
+        QList<KDevelop::IPlugin*> plugins = m_core->pluginController()->allPluginsForExtension( "KTLDocument", constraints );
+        if ( plugins.isEmpty() ) {
+            return false;
+        }
+
         setData( source, I18N_NOOP("available"), true );
         setData( source, I18N_NOOP("mime"), document->mimeType()->name() );
-        //setData( source, );
+
+        //FIXME: is this the right cast? can this be static, because we know the type
+        KTechLab::DocumentPlugin *plugin = dynamic_cast<KTechLab::DocumentPlugin*>( plugins.first() );
+        addSource( plugin->createDataContainer( document ) );
+
         return true;
     }
 
