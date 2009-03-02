@@ -7,34 +7,14 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#ifndef DOCUMENTPLUGIN_H
-#define DOCUMENTPLUGIN_H
+#include "circuitcontainer.h"
 
-namespace Plasma
-{
-class DataContainer;
-} // namespace Plasma
+#include "circuitdocument.h"
 
-namespace KDevelop
-{
-class IDocument;
-} // namespace KDevelop
-
-namespace KTechLab
+CircuitContainer::CircuitContainer( KDevelop::IDocument *document, QObject *parent )
+    :   Plasma::DataContainer(parent)
 {
 
-class DocumentPlugin
-{
-public:
-    virtual ~DocumentPlugin() {};
+}
 
-    /**
-     * create a Plasma::DataContainer for a given document
-     */
-    virtual Plasma::DataContainer * createDataContainer( KDevelop::IDocument *document )=0;
-};
-
-} // namespace KTechLab{
-
-#endif
-
+// vim: sw=4 sts=4 et tw=100
