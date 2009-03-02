@@ -13,6 +13,8 @@
 
 #include "component.h"
 
+class OpAmp;
+
 /**
 @short Operational Amplifier
 @author David Saxton
@@ -20,14 +22,14 @@
 class ECOpAmp : public Component
 {
 public:
-	ECOpAmp( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECOpAmp(ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECOpAmp();
 
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
+	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
 	static LibraryItem *libraryItem();
 
 protected:
-	virtual void drawShape( QPainter & p );
+	virtual void drawShape(QPainter &p);
 
 private:
 	OpAmp *the_amp;

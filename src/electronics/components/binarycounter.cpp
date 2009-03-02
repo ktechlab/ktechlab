@@ -68,11 +68,9 @@ BinaryCounter::BinaryCounter( ICNDocument *icnDocument, bool newItem, const char
 	property("bitcount")->setValue(4);
 }
 
-
 BinaryCounter::~BinaryCounter()
 {
 }
-
 
 void BinaryCounter::dataChanged()
 {
@@ -81,7 +79,6 @@ void BinaryCounter::dataChanged()
 	b_triggerHigh = dataString("trig") == "Rising";
 	setDisplayText( ">", b_triggerHigh ? "^>" : "_>" );
 }
-
 
 void BinaryCounter::initPins( unsigned numBits )
 {
@@ -106,8 +103,6 @@ void BinaryCounter::initPins( unsigned numBits )
 	if(m_numBits < numBits)
 	{
 		for(unsigned i = m_numBits; i < numBits; i++) {
-//			m_pLogicOut[i] = createLogicOut(ecNodeWithID(QChar('A' + i))->pin(), false);
-
 			m_pLogicOut[i] = new LogicOut(LogicIn::getConfig(), false);
 			setup1pinElement(m_pLogicOut[i], ecNodeWithID(QChar('A' + i))->pin());
 		}
@@ -126,25 +121,17 @@ void BinaryCounter::initPins( unsigned numBits )
 
 	if(!m_bDoneLogicIn)
 	{
-//		enLogic = createLogicIn(ecNodeWithID("en")->pin() );
-
 		enLogic = new LogicIn(LogicIn::getConfig());
 		setup1pinElement(enLogic, ecNodeWithID("en")->pin());
 		enLogic->setCallback(this, (CallbackPtr)(&BinaryCounter::enStateChanged));
-
-//		inLogic = createLogicIn(ecNodeWithID(">")->pin()  );
 
 		inLogic = new LogicIn(LogicIn::getConfig());
 		setup1pinElement(inLogic, ecNodeWithID(">")->pin());
 		inLogic->setCallback(this, (CallbackPtr)(&BinaryCounter::inStateChanged));
 
-//		rLogic  = createLogicIn( ecNodeWithID("r")->pin() );
-
 		rLogic = new LogicIn(LogicIn::getConfig());
 		setup1pinElement(rLogic, ecNodeWithID("r")->pin());
 		rLogic->setCallback(this, (CallbackPtr)(&BinaryCounter::rStateChanged));
-
-//		udLogic = createLogicIn(ecNodeWithID("u/d")->pin());
 
 		udLogic = new LogicIn(LogicIn::getConfig());
 		setup1pinElement(udLogic, ecNodeWithID("u/d")->pin());
@@ -193,10 +180,8 @@ void BinaryCounter::udStateChanged(bool state)
 	b_ud = state;
 }
 
-
 void BinaryCounter::outputValue()
 {
 	for ( unsigned i = 0; i < m_numBits; i++ )
 		m_pLogicOut[i]->setHigh( m_value & (1 << i) );
 }
-
