@@ -39,7 +39,9 @@ QString CircuitDocument::documentType() const
 QWidget* CircuitDocument::createViewWidget( QWidget* parent )
 {
     CircuitView *view = new CircuitView( parent );
-    view->addApplet( new CircuitApplet( view ), "default", "none", QVariantList() );
+    CircuitApplet *applet = new CircuitApplet( view );
+    applet->setCircuitName( this->url().prettyUrl() );
+    view->addApplet( applet, "default", "none", QVariantList() );
 
     return view;
 }

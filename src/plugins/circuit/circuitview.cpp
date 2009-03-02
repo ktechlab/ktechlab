@@ -2,6 +2,7 @@
  * Copyright 2007 Frerich Raabe <raabe@kde.org>
  * Copyright 2007 Aaron Seigo <aseigo@kde.org>
  * Copyright 2008 Aleix Pol <aleixpol@gmail.com>
+ * Copyright 2009 Julian Bäume <julian@svg4all.de>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions

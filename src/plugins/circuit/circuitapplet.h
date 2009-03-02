@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008 Julian Bäume <julian@svg4all.de>                   *
+ *   Copyright (C) 2009 Julian Bäume <julian@svg4all.de>                   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -22,10 +22,17 @@ public:
     CircuitApplet( QObject *parent, const QVariantList &args = QVariantList() );
     ~CircuitApplet();
 
+    void setCircuitName( const QString &name );
+    QString circuitName() const;
+
     void init();
 
 public slots:
     void dataUpdated( const QString &name, const Plasma::DataEngine::Data &data );
+
+private:
+    void setupData();
+    QString m_circuitName;
 };
 
 #endif
