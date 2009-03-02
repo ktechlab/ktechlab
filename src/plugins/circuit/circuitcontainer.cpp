@@ -15,10 +15,15 @@ CircuitContainer::CircuitContainer( KDevelop::IDocument *document, QObject *pare
     :   Plasma::DataContainer(parent),
         m_document(dynamic_cast<CircuitDocument*>( document )) //do we really need dynamic_cast here? we know that this is a CircuitDocument*
 {
+    setObjectName( "N/A" );
+    setData( I18N_NOOP("available"), false );
 }
 
 void CircuitContainer::setComponent( const QString &component )
 {
+    if ( !m_document ) {
+        return;
+    }
     if ( component.isEmpty() ) {
         setCircuitData();
     } else {
