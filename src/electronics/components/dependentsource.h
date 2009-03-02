@@ -13,19 +13,22 @@
 
 #include "component.h"
 
+class CCCS;
+class VCCS;
+
 /**
 @author David Saxton
 */
 class DependentSource : public Component
 {
-	public:
-		DependentSource( ICNDocument *icnDocument, bool newItem, const char *id );
-		~DependentSource();
+public:
+	DependentSource(ICNDocument *icnDocument, bool newItem, const char *id);
+	~DependentSource();
 
-	protected:
-		void drawOutline( QPainter & p );
-		void drawTopArrow( QPainter & p );
-		void drawBottomArrow( QPainter & p );
+protected:
+	void drawOutline( QPainter & p );
+	void drawTopArrow( QPainter & p );
+	void drawBottomArrow( QPainter & p );
 };
 
 /**
@@ -34,18 +37,18 @@ class DependentSource : public Component
 */
 class ECCCCS : public DependentSource
 {
-	public:
-		ECCCCS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~ECCCCS();
-	
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
-	
-	protected:
-		virtual void dataChanged();
-		virtual void drawShape( QPainter &p );
-	
-		CCCS *m_cccs;
+public:
+	ECCCCS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	~ECCCCS();
+
+	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
+	static LibraryItem *libraryItem();
+
+protected:
+	virtual void dataChanged();
+	virtual void drawShape( QPainter &p );
+
+	CCCS *m_cccs;
 };
 
 /**
@@ -54,18 +57,18 @@ class ECCCCS : public DependentSource
 */
 class ECCCVS : public DependentSource
 {
-	public:
-		ECCCVS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~ECCCVS();
-	
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
-	
-	protected:
-		virtual void dataChanged();
-		virtual void drawShape( QPainter &p );
-	
-		CCVS *m_ccvs;
+public:
+	ECCCVS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	~ECCCVS();
+
+	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
+	static LibraryItem *libraryItem();
+
+protected:
+	virtual void dataChanged();
+	virtual void drawShape( QPainter &p );
+
+	CCVS *m_ccvs;
 };
 
 /**
@@ -74,18 +77,18 @@ class ECCCVS : public DependentSource
 */
 class ECVCCS : public DependentSource
 {
-	public:
-		ECVCCS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~ECVCCS();
-	
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
-	
-	protected:
-		virtual void dataChanged();
-		virtual void drawShape( QPainter &p );
-	
-		VCCS *m_vccs;
+public:
+	ECVCCS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	~ECVCCS();
+
+	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
+	static LibraryItem *libraryItem();
+
+protected:
+	virtual void dataChanged();
+	virtual void drawShape( QPainter &p );
+
+	VCCS *m_vccs;
 };
 
 /**
@@ -94,18 +97,18 @@ class ECVCCS : public DependentSource
 */
 class ECVCVS : public DependentSource
 {
-	public:
-		ECVCVS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~ECVCVS();
-	
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
-	
-	protected:
-		virtual void dataChanged();
-		virtual void drawShape( QPainter &p );
-	
-		VCVS *m_vcvs;
+public:
+	ECVCVS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	~ECVCVS();
+
+	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
+	static LibraryItem *libraryItem();
+
+protected:
+	virtual void dataChanged();
+	virtual void drawShape( QPainter &p );
+
+	VCVS *m_vcvs;
 };
 
 #endif
