@@ -22,7 +22,7 @@ public:
     /**
      * implementation for KTechLab::DocumentPlugin
      */
-    virtual Plasma::DataSource * createDataSource( KDevelop::IDocument *document );
+    virtual Plasma::DataContainer * createDataContainer( KDevelop::IDocument *document );
 
     /**
      * @return the component model representing all components

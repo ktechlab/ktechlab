@@ -7,34 +7,22 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#ifndef DOCUMENTPLUGIN_H
-#define DOCUMENTPLUGIN_H
+#ifndef CIRCUITCONTAINER_H
+#define CIRCUITCONTAINER_H
 
-namespace Plasma
-{
-class DataContainer;
-} // namespace Plasma
+#include <Plasma/DataContainer>
 
 namespace KDevelop
 {
 class IDocument;
 } // namespace KDevelop
 
-namespace KTechLab
+class CircuitContainer: public Plasma::DataContainer
 {
-
-class DocumentPlugin
-{
+    Q_OBJECT
 public:
-    virtual ~DocumentPlugin() {};
-
-    /**
-     * create a Plasma::DataContainer for a given document
-     */
-    virtual Plasma::DataContainer * createDataContainer( KDevelop::IDocument *document )=0;
+    CircuitContainer( KDevelop::IDocument *document, QObject *parent=0 );
 };
-
-} // namespace KTechLab{
 
 #endif
 
