@@ -22,7 +22,7 @@ public:
     /**
      * implementation for KTechLab::DocumentPlugin
      */
-    virtual Plasma::DataContainer * createDataContainer( KDevelop::IDocument *document );
+    virtual Plasma::DataContainer * createDataContainer( KDevelop::IDocument *document, const QString &component = QString() );
 
     /**
      * @return the component model representing all components
