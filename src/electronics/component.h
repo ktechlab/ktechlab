@@ -21,12 +21,8 @@ class CircuitDocument;
 class ECSubcircuit;
 class Element;
 class Pin;
-class CCCS;
 class CCVS;
-class MOSFET;
 class Switch;
-class Transformer;
-class VCCS;
 class VCVS;
 
 typedef QValueList<ECNode*> ECNodeList;
@@ -140,19 +136,17 @@ TODO: refactor the voltage indicator stuff to a new class.
 	virtual void restoreFromItemData(const ItemData &itemData);
 
 	/// simplified element attachers
+// TODO: look into feasibility for using variable argument arrays for these and other
+// methods in this class. 
 	void setup1pinElement(Element *ele, Pin *a);
 	void setup2pinElement(Element *ele, Pin *a, Pin *b);
 	void setup3pinElement(Element *ele, Pin *a, Pin *b, Pin *c);
+	void setup4pinElement(Element *ele, Pin *a, Pin *b, Pin *c, Pin *d);
 
-	CCCS *createCCCS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain);
 	CCVS *createCCVS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain);
-	VCCS *createVCCS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain);
 	VCVS *createVCVS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain);
 
-	MOSFET *createMOSFET(Pin *D, Pin *G, Pin *S, Pin *B, int MOSFET_type);
 	Switch *createSwitch(Pin *n0, Pin *n1, bool open);
-
-
 	ECNode *ecNodeWithID(const QString &ecNodeId);
 
 	/**
