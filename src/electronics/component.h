@@ -21,9 +21,7 @@ class CircuitDocument;
 class ECSubcircuit;
 class Element;
 class Pin;
-class CCVS;
 class Switch;
-class VCVS;
 
 typedef QValueList<ECNode*> ECNodeList;
 typedef QValueList<Element*> ElementList;
@@ -142,9 +140,7 @@ TODO: refactor the voltage indicator stuff to a new class.
 	void setup2pinElement(Element *ele, Pin *a, Pin *b);
 	void setup3pinElement(Element *ele, Pin *a, Pin *b, Pin *c);
 	void setup4pinElement(Element *ele, Pin *a, Pin *b, Pin *c, Pin *d);
-
-	CCVS *createCCVS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain);
-	VCVS *createVCVS(Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain);
+	void setupSpcl4pinElement(Element *ele, Pin *a, Pin *b, Pin *c, Pin *d);
 
 	Switch *createSwitch(Pin *n0, Pin *n1, bool open);
 	ECNode *ecNodeWithID(const QString &ecNodeId);
@@ -210,7 +206,7 @@ protected:
 	 * (such as ParallelPortComponent and SerialPortComponent).
 TODO: refactor into "DB-X" connector class. 
 	 */
-	void drawPortShape(QPainter & p);
+	void drawPortShape(QPainter &p);
 	virtual void itemPointsChanged();
 	virtual void updateAttachedPositioning();
 	virtual void initPainter(QPainter &p);

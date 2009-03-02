@@ -149,6 +149,7 @@ ECCCCS::ECCCCS(ICNDocument *icnDocument, bool newItem, const char *id)
 }
 
 ECCCCS::~ECCCCS() {
+	delete m_cccs;
 }
 
 void ECCCCS::dataChanged() {
@@ -187,12 +188,16 @@ LibraryItem *ECCCVS::libraryItem() {
 ECCCVS::ECCCVS(ICNDocument *icnDocument, bool newItem, const char *id)
 		: DependentSource(icnDocument, newItem, id ? id : "ccvs") {
 	m_name = i18n("Current Controlled Voltage Source");
-	m_ccvs = createCCVS(m_pNNode[0]->pin(), m_pPNode[0]->pin(),
-	                    m_pNNode[1]->pin(), m_pPNode[1]->pin(), 1.);
+
+	m_ccvs = new CCVS(1);
+	setupSpcl4pinElement(m_ccvs, m_pNNode[0]->pin(), m_pPNode[0]->pin(),
+			m_pNNode[1]->pin(), m_pPNode[1]->pin());
+
 	m_pNNode[1]->pin()->setGroundType(Pin::gt_medium);
 }
 
 ECCCVS::~ECCCVS() {
+	delete m_ccvs;
 }
 
 void ECCCVS::dataChanged() {
@@ -239,6 +244,7 @@ ECVCCS::ECVCCS(ICNDocument *icnDocument, bool newItem, const char *id)
 }
 
 ECVCCS::~ECVCCS() {
+	delete m_vccs;
 }
 
 void ECVCCS::dataChanged() {
@@ -276,12 +282,16 @@ LibraryItem* ECVCVS::libraryItem() {
 ECVCVS::ECVCVS(ICNDocument *icnDocument, bool newItem, const char *id)
 		: DependentSource(icnDocument, newItem, id ? id : "vcvs") {
 	m_name = i18n("Voltage Controlled Voltage Source");
-	m_vcvs = createVCVS(m_pNNode[0]->pin(), m_pPNode[0]->pin(),
-	                    m_pNNode[1]->pin(), m_pPNode[1]->pin(), 1.);
+
+	m_vcvs = new VCVS(1);
+	setupSpcl4pinElement(m_vcvs, m_pNNode[0]->pin(), m_pPNode[0]->pin(),
+			m_pNNode[1]->pin(), m_pPNode[1]->pin());
+
 	m_pNNode[1]->pin()->setGroundType(Pin::gt_medium);
 }
 
 ECVCVS::~ECVCVS() {
+	delete m_vcvs;
 }
 
 void ECVCVS::dataChanged() {
