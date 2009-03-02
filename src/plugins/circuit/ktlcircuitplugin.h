@@ -4,14 +4,13 @@
 
 #include "shell/documentplugin.h"
 
-#include <interfaces/iplugin.h>
 #include <QVariantList>
 
 class KTLComponentViewFactory;
 class KTLCircuitDocumentFactory;
 class ComponentModel;
 
-class KTLCircuitPlugin : public KDevelop::IPlugin, KTechLab::DocumentPlugin
+class KTLCircuitPlugin : public KTechLab::DocumentPlugin
 {
     Q_OBJECT
 public:
