@@ -8,19 +8,18 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "pin.h"
-
 #include <cassert>
 #include <kdebug.h>
 
-Pin::Pin(ECNode *parent) {
+#include "pin.h"
+#include "switch.h"
+
+Pin::Pin(ECNode *parent) :
+	m_voltage(0), m_current(0), m_eqId(-2), m_bCurrentIsKnown(false),
+	m_groundType(Pin::gt_never)
+{
 	assert(parent);
 	m_pECNode = parent;
-	m_voltage = 0.;
-	m_current = 0.;
-	m_eqId = -2;
-	m_bCurrentIsKnown = false;
-	m_groundType = Pin::gt_never;
 }
 
 Pin::~Pin() {
@@ -43,18 +42,16 @@ PinList Pin::localConnectedPins() const {
 		else pins << (*it)->startPin();
 	}
 
-	pins += m_switchConnectedPins;
+	SwitchList::const_iterator endB = m_switchList.end();
+	for(SwitchList::const_iterator it = m_switchList.begin(); it != endB; ++it) {
+		assert(*it);
+
+		Pin *tmp = (*it)->otherPinIfClosed(this);
+
+		if(tmp) pins << tmp;
+	}
 
 	return pins;
-}
-
-void Pin::setSwitchConnected(Pin *pin, bool isConnected) {
-	if(!pin) return;
-
-	if(isConnected) {
-		if (!m_switchConnectedPins.contains(pin))
-			m_switchConnectedPins.append(pin);
-	} else	m_switchConnectedPins.remove(pin);
 }
 
 void Pin::addCircuitDependentPin(Pin *pin) {
@@ -72,6 +69,7 @@ void Pin::removeDependentPins() {
 	m_groundDependentPins.clear();
 }
 
+/// Element add and remove... What is this really for? 
 void Pin::addElement(Element *e) {
 	if (!e || m_elementList.contains(e))
 		return;
@@ -82,6 +80,8 @@ void Pin::addElement(Element *e) {
 void Pin::removeElement(Element *e) {
 	m_elementList.remove(e);
 }
+// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
 
 void Pin::addSwitch(Switch *sw) {
 	if(!sw || m_switchList.contains(sw))
@@ -112,7 +112,7 @@ bool Pin::calculateCurrentFromWires() {
 		if(!(*it)->currentIsKnown())
 			return false;
 
-		m_current += (*it)->current();
+		m_current += (*it)->currentFor(this);
 	}
 
 	m_bCurrentIsKnown = true;

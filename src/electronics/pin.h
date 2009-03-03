@@ -58,62 +58,40 @@ public:
 	ECNode *parentECNode() const { return m_pECNode; }
 
 	/**
-	 * This function returns the pins that are directly connected to this pins:
-	 * either at the ends of connected wires, or via switches.
-	 */
-	PinList localConnectedPins() const;
-	/**
-	 * Adds/removes the given pin to the list of ones that this pin is/isn't
-	 * connected to via a switch.
-	 */
-	void setSwitchConnected(Pin * pin, bool isConnected);
-	/**
 	 * After calculating the nodal voltages in the circuit, this function should
 	 * be called to tell the pin what its voltage is.
 	 */
-	void setVoltage(double v) {
-		m_voltage = v;
-	}
+	void setVoltage(double v) { m_voltage = v; }
 
 	/**
 	 * Returns the voltage as set by setVoltage.
 	 */
-	double voltage() const {
-		return m_voltage;
-	}
+	double voltage() const { return m_voltage; }
 
 	/**
 	 * After calculating nodal voltages, each component will be called to tell
 	 * its pins what the current flowing *into* the component is. This sets it
 	 * to zero in preparation to merging the current.
 	 */
-	void resetCurrent() {
-		m_current = 0.0;
-	}
+	void resetCurrent() { m_current = 0.0; }
 
 	/**
 	 * Adds the given current to that already flowing into the pin.
 	 * @see setCurrent
 	 */
-	void mergeCurrent(double i) {
-		m_current += i;
-	}
+	void mergeCurrent(double i) { m_current += i; }
 
 	/**
 	 * Returns the current as set by mergeCurrent.
 	 */
-	double current() const {
-		return m_current;
-	}
+	double current() const { return m_current; }
 
 	/**
 	 * In many cases (such as if this pin is a ground pin), the current
 	 * flowing into the pin has not been calculated, and so the value
 	 * returned by current() cannot be trusted.
 	 */
-	void setCurrentKnown(bool isKnown) {
-		m_bCurrentIsKnown = isKnown;
-	}
+	void setCurrentKnown(bool isKnown) { m_bCurrentIsKnown = isKnown; }
 
 	/**
 	 * Tell thie Pin that none of the currents from the switches have yet
@@ -151,17 +129,14 @@ public:
 	 * ground over other pins in the circuit. Lower gt = higher priority. It's
 	 * recommended to use Pin::GroundType.
 	 */
-	void setGroundType(GroundType gt) {
-		m_groundType = gt;
-	}
+	void setGroundType(GroundType gt) { m_groundType = gt; }
 
 	/**
 	 * Returns the priority for ground.
 	 */
-	int groundType() const {
-		return m_groundType;
-	}
+	int groundType() const { return m_groundType; }
 
+// ###  strange pin list stuff. 
 	/**
 	 * Adds a dependent pin - one whose voltages will (or might) affect the
 	 * voltage of this pin. This is set by Component.
@@ -180,34 +155,31 @@ public:
 	 * Returns the ids of the pins whose voltages will affect this pin.
 	 * @see void setDependentPins( QStringList ids )
 	 */
-	PinList circuitDependentPins() const {
-		return m_circuitDependentPins;
-	}
-
+	PinList circuitDependentPins() const { return m_circuitDependentPins; }
 	/**
 	 * Returns the ids of the pins whose voltages will affect this pin.
 	 * @see void setDependentPins( QStringList ids )
 	 */
-	PinList groundDependentPins() const {
-		return m_groundDependentPins;
-	}
+	PinList groundDependentPins() const { return m_groundDependentPins; }
+	/**
+	 * This function returns the pins that are directly connected to this pins:
+	 * either at the ends of connected wires, or via switches.
+	 */
+	PinList localConnectedPins() const;
+// ###
 
 	/**
 	 * Use this function to set the pin identifier for equations,
 	 * which should be done every time new pins are registered.
 	 */
-	void setEqId(int id) {
-		m_eqId = id;
-	}
-
+	void setEqId(int id) { m_eqId = id; }
 	/**
 	 * The equation identifier.
 	 * @see setEqId
 	 */
-	int eqId() const {
-		return m_eqId;
-	}
+	int eqId() const { return m_eqId; }
 
+// #########################
 	/**
 	 * Returns a list of elements that will affect this pin (e.g. if this
 	 * pin is part of a resistor, then that list will contain a pointer to a
@@ -216,7 +188,6 @@ public:
 	ElementList elements() const {
 		return m_elementList;
 	}
-
 	/**
 	 * Adds an element to the list of those that will affect this pin.
 	 */
@@ -225,6 +196,8 @@ public:
 	 * Removes an element from the list of those that will affect this pin.
 	 */
 	void removeElement(Element *e);
+// #########################
+
 	/**
 	 * Adds an switch to the list of those that will affect this pin.
 	 */
@@ -242,21 +215,22 @@ public:
 
 protected:
 	double m_voltage;
+
+// ###
 	double m_current;
+	bool m_bCurrentIsKnown;
+// ###
 
 	int m_eqId;
 	GroundType m_groundType;
 
-	bool m_bCurrentIsKnown;
-
 	PinList m_circuitDependentPins;
-	PinList m_groundDependentPins;
-	PinList m_switchConnectedPins;
+	PinList m_groundDependentPins; // for circuit partitioning. 
 
 	ElementList m_elementList;
 
 	WireList m_wireList;
-	ECNode *m_pECNode;
+	ECNode *m_pECNode;  /// we *ALWAYS* have an ECNode, and it never changes.
 
 	SwitchList m_switchList;
 	SwitchList m_unknownSwitchCurrents;
