@@ -44,6 +44,11 @@ public:
 	}
 
 	/**
+	Obtain the switch's other pin, if its closed. 
+	*/
+	Pin *otherPinIfClosed(const Pin *aPin);
+
+	/**
 	 * Tell the switch whether to bounce or not, for the given duration,
 	 * when the state is changed.
 	 */
