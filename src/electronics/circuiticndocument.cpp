@@ -350,7 +350,7 @@ void CircuitICNDocument::flushDeleteList()
 	for ( ECNodeMap::iterator it = m_ecNodeList.begin(); it != nlEnd; ++it )
 	{
 		( *it )->removeNullConnectors();
-		int conCount = ( *it )->connectorList().count();
+		int conCount = ( *it )->getAllConnectors().count();
 		if ( conCount == 2 && ! ( *it )->parentItem() )
 		{
 			if ( joinConnectors ( *it ) )
@@ -430,8 +430,8 @@ bool CircuitICNDocument::joinConnectors( ECNode *node )
 	ECNode *startNode, *endNode;
 	QPointList conPoints;
 
-	con1 = *node->connectorList().at(0);
-	con2 = *node->connectorList().at(1);
+	con1 = *node->getAllConnectors().at(0);
+	con2 = *node->getAllConnectors().at(1);
 
 	if ( con1 == con2 ) return false;
 
