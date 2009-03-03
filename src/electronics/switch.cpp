@@ -39,9 +39,7 @@ Switch::Switch(Component *parent, Pin *p1, Pin *p2, State state) {
 	setState(state);
 }
 
-Switch::~ Switch() {
-	if (m_pP1) m_pP1->setSwitchConnected(m_pP2, false);
-	if (m_pP2) m_pP2->setSwitchConnected(m_pP1, false);
+Switch::~Switch() {
 }
 
 void Switch::setState(State state) {
@@ -69,7 +67,7 @@ void Switch::startBouncing() {
 
 	if (!m_pComponent->circuitDocument()) return;
 
-// 	kdDebug() << k_funcinfo << endl;
+//	kdDebug() << k_funcinfo << endl;
 
 //	m_pBounceResistance = m_pComponent->createResistance(m_pP1, m_pP2, 10000);
 	m_pBounceResistance = new Resistance(10000);
@@ -82,7 +80,7 @@ void Switch::startBouncing() {
 // contaminate that many other classes.
 
 //	Simulator::self()->attachSwitch( this );
-// 	kdDebug() << "m_bounceStart="<<m_bounceStart<<" m_bouncePeriod_ms="<<m_bouncePeriod_ms<<endl;
+//	kdDebug() << "m_bounceStart="<<m_bounceStart<<" m_bouncePeriod_ms="<<m_bouncePeriod_ms<<endl;
 
 	// initialize random generator
 	srand(time(NULL));
@@ -108,17 +106,21 @@ void Switch::bounce() {
 	m_pBounceResistance->setConductance(g);
 }
 
+Pin *Switch::otherPinIfClosed(const Pin *aPin) {
+	if(m_state == Open) return 0;
+
+	if(m_pP1 == aPin) return m_pP2;
+	if(m_pP2 == aPin) return m_pP1;
+
+	return 0;
+}
+
 void Switch::stopBouncing() {
 //	Simulator::self()->detachSwitch( this );
 	m_pComponent->removeElement(m_pBounceResistance, true);
 	m_pBounceResistance = 0;
 
 	bool connected = (m_state == Closed);
-
-	if (m_pP1 && m_pP2) {
-		m_pP1->setSwitchConnected(m_pP2, connected);
-		m_pP2->setSwitchConnected(m_pP1, connected);
-	}
 
 	if (CircuitDocument *cd = m_pComponent->circuitDocument())
 		cd->requestAssignCircuits();
