@@ -12,6 +12,7 @@
 #define SIMULATOR_H
 
 #include <list>
+#include <queue>
 
 #include "circuit.h"
 #include "logic.h"
@@ -116,15 +117,8 @@ public:
 	 * Adds the given Circuit to the list of changed Circuits
 	 */
 	void addChangedCircuit(Circuit *changed) {
-		if(!m_pChangedCircuitStart) {
-			m_pChangedCircuitLast =
-				m_pChangedCircuitStart = changed;
-		} else {
-	//		assert(m_pChangedCircuitLast != changed);
 
-			m_pChangedCircuitLast->setNextChanged(changed, m_currentChain);
-			m_pChangedCircuitLast = changed;
-		}
+		circuitChains[m_currentChain].push(changed);
 	}
 
 	inline void addStepCallback(int at, ComponentCallback *ccb);
@@ -209,13 +203,8 @@ private:
 // At the very least we should move to using this exclusively, and remove the above. 
 	list<ComponentCallback> *m_componentCallbacks;
 
-	list<Circuit*> *m_ordinaryCircuits;
-
 // allow a variable number of callbacks be scheduled at each possible time. 
 	list<ComponentCallback *> *m_pStartStepCallback[LOGIC_UPDATE_RATE/LINEAR_UPDATE_RATE];
-
-	Circuit *m_pChangedCircuitStart;
-	Circuit *m_pChangedCircuitLast;
 
 	LogicOut *m_pChangedLogicStart;
 	LogicOut *m_pChangedLogicLast;
@@ -226,6 +215,9 @@ private:
 
 // looks like there are only ever two chains, 0 and 1, code elsewhere toggles between the two...
 	unsigned char m_currentChain;
+	queue<Circuit *> circuitChains[2];
+
+	list<Circuit*> *m_ordinaryCircuits;
 };
 
 inline void Simulator::addStepCallback(int at, ComponentCallback *ccb) {
