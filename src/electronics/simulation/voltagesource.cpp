@@ -35,6 +35,13 @@ void VoltageSource::setVoltage( const double v )
 	add_initial_dc();
 }
 
+/* FIXME:
+	Often times, you want to use one of these to set a voltage in a circuit but not pass
+current. This creates a singular matrix. Depending on how Matrix is set up, it might either cause the
+circuit to glitch out or will create a virtual one ohm resistor either into a component that shouldn't be conducting and draw/source that current from wherever it is avaliable. =P
+
+VoltageSignal also exhibits this problem.
+*/
 void VoltageSource::add_initial_dc()
 {
 	if (!b_status)
