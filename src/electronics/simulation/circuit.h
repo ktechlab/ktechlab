@@ -97,10 +97,6 @@ public:
 	*/
 	static int identifyGround(PinList nodeList, int *highest = 0);
 
-	void setNextChanged(Circuit *circuit, unsigned char chain) {
-		assert(circuit != this);
-		m_pNextChanged[chain] = circuit; }
-	Circuit *nextChanged(unsigned char chain) const { return m_pNextChanged[chain]; }
 	void setCanAddChanged(bool canAdd) { m_bCanAddChanged = canAdd; }
 	bool canAddChanged() const { return m_bCanAddChanged; }
 
@@ -132,10 +128,8 @@ protected:
 
 	bool m_bCanAddChanged;
 
-private:
-// FIXME: It seems like we're using circuits as nodes in two independent
-// [POORLY IMPLEMENTED] linked lists. This seems like a bad design decision....
-	Circuit *m_pNextChanged[2];
+//private:
+
 };
 
 #endif
