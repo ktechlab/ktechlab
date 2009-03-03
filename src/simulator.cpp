@@ -49,8 +49,7 @@ Simulator::Simulator()
 	m_pChangedLogicStart = new LogicOut(lc, false);
 	m_pChangedLogicLast  = m_pChangedLogicStart;
 
-	m_pChangedCircuitStart = new Circuit;
-	m_pChangedCircuitLast  = m_pChangedCircuitStart;
+//	m_pChangedCircuitLast = m_pChangedCircuitStart = new Circuit;
 
 	QTimer *stepTimer = new QTimer(this);
 	connect(stepTimer, SIGNAL(timeout()), this, SLOT(step()));
@@ -59,7 +58,7 @@ Simulator::Simulator()
 
 Simulator::~Simulator() {
 	delete m_pChangedLogicStart;
-	delete m_pChangedCircuitStart;
+//	delete m_pChangedCircuitStart;
 
 	delete m_gpsimProcessors;
 	delete m_components;
@@ -136,19 +135,10 @@ void Simulator::step() {
 			m_currentChain ^= 1;
 
 			// Update the non-logic circuits
-			if (Circuit *changed = m_pChangedCircuitStart->nextChanged(prevChain)) {
-				for (Circuit *circuit = changed; circuit; circuit = circuit->nextChanged(prevChain))
-					circuit->setCanAddChanged(true);
-
-				m_pChangedCircuitStart->setNextChanged(0, prevChain);
-				m_pChangedCircuitLast = m_pChangedCircuitStart;
-
-				do {
-					Circuit *next = changed->nextChanged(prevChain);
-					changed->setNextChanged(0, prevChain);
-					changed->doLogic();
-					changed = next;
-				} while (changed);
+			while(!(circuitChains[prevChain].empty())) {
+				Circuit *aCircuit = circuitChains[prevChain].front();
+				circuitChains[prevChain].pop();
+				aCircuit->doLogic();
 			}
 
 			// Call the logic callbacks
@@ -328,30 +318,23 @@ void Simulator::detachCircuit(Circuit *circuit) {
 
 	m_ordinaryCircuits->remove(circuit);
 
-	// Any changes to the code below will probably also apply to Simulator::removeLogicOutReferences
+	// we also need to flush the circuit out of our simulator queue,
+	// the best way to get it out of the queue is probably to roll the queue around...
 
-	if (m_pChangedCircuitLast == circuit) {
-		Circuit *previous_1 = 0;
-		Circuit *previous_2 = 0;
-
-		for (Circuit * circuit = m_pChangedCircuitStart; circuit;) {
-			if (previous_1)
-				previous_2 = previous_1;
-
-			previous_1 = circuit;
-			circuit = circuit->nextChanged(m_currentChain);
-		}
-
-		m_pChangedCircuitLast = previous_2;
+	unsigned queue_size = circuitChains[0].size();
+	for(unsigned i = 0; i < queue_size; i++) {
+		Circuit *aCircuit = circuitChains[0].front();
+		circuitChains[0].pop();
+		if(aCircuit != circuit) circuitChains[0].push(aCircuit);
+		// always roll around one complete time to leave the queue in the same order. 
 	}
 
-	for (unsigned chain = 0; chain < 2; ++chain) {
-		for (Circuit *prevChanged = m_pChangedCircuitStart; prevChanged; prevChanged = prevChanged->nextChanged(chain)) {
-			Circuit *nextChanged = prevChanged->nextChanged(chain);
-
-			if (nextChanged == circuit)
-				prevChanged->setNextChanged(nextChanged->nextChanged(chain), chain);
-		}
+	queue_size = circuitChains[1].size();
+	for(unsigned i = 0; i < queue_size; i++) {
+		Circuit *aCircuit = circuitChains[1].front();
+		circuitChains[1].pop();
+		if(aCircuit != circuit) circuitChains[1].push(aCircuit);
+		// always roll around one complete time to leave the queue in the same order. 
 	}
 }
 
