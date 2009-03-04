@@ -44,7 +44,7 @@ int main(int argc, char **argv)
                    );
     about.addAuthor( ki18n("Zoltan Padrah"),
                      ki18n("Developer"),
-                     ki18n("").toString().toUtf8()
+                     ki18n("zoltan_padrah@users.sourceforge.net").toString().toUtf8()
                    );
     about.addAuthor( ki18n("Juan De Vincenzo"),
                      ki18n(""),
