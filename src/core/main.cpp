@@ -34,8 +34,9 @@ int main(int argc, char **argv)
 	KAboutData::License_GPL, "(C) 2003-2009, The KTechLab developers", "", "http://ktechlab.org", "ktechlab-devel@lists.sourceforge.net" );
 	about.addAuthor( "Alan Grimes", "Developer" );
 	about.addAuthor( "Zoltan Padrah", "Developer" );
+	about.addCredit( "Julian Bäume", "Developer", "julian@svg4all.de" );
+	about.addCredit( "Lawrence Shafer", "Website, wiki and forum" );
 	about.addCredit( "Jason Lucas", "keeping the project up as a maintainer during the time David left" );
-	about.addCredit( "Julian Bäume", "some bug-fixes", "julian@svg4all.de" );
 	about.addCredit( "David Saxton", "former developer, project founder, former maintainer", "david@bluehaze.org" );
 	about.addCredit( "Daniel Clarke", "former developer", "daniel.jc@gmail.com" );
 	about.addCredit( "Couriousous", "JK flip-flop, asyncronous preset/reset in the D flip-flop." );
