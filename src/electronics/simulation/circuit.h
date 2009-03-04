@@ -32,7 +32,12 @@ class LogicCacheNode
 public:
 	LogicCacheNode();
 	~LogicCacheNode();
+	LogicCacheNode *addOrGetHigh();
+	LogicCacheNode *addOrGetLow();
+	QuickVector *getData() const;
+	void setData(const QuickVector *newData);
 
+private: 
 	LogicCacheNode *high;
 	LogicCacheNode *low;
 	QuickVector *data;
