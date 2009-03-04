@@ -30,14 +30,18 @@ static KCmdLineOptions options[] =
 
 int main(int argc, char **argv)
 {
-    KAboutData about("ktechlab", I18N_NOOP("KTechlab"), VERSION, description,
-	KAboutData::License_GPL, "(C) 2003-2005, The KTechlab developers", "", "http://ktechlab.org", "ktechlab-devel@lists.sourceforge.net" );
-    about.addAuthor( "David Saxton", 0, "david@bluehaze.org" );
-	about.addAuthor( "Daniel Clarke", 0, "daniel.jc@gmail.com" );
+    KAboutData about("ktechlab", I18N_NOOP("KTechLab"), VERSION, description,
+	KAboutData::License_GPL, "(C) 2003-2009, The KTechLab developers", "", "http://ktechlab.org", "ktechlab-devel@lists.sourceforge.net" );
+	about.addAuthor( "Alan Grimes", "Developer" );
+	about.addAuthor( "Zoltan Padrah", "Developer" );
+	about.addCredit( "Jason Lucas", "keeping the project up as a maintainer during the time David left" );
+	about.addCredit( "Julian Bäume", "some bug-fixes", "julian@svg4all.de" );
+	about.addCredit( "David Saxton", "former developer, project founder, former maintainer", "david@bluehaze.org" );
+	about.addCredit( "Daniel Clarke", "former developer", "daniel.jc@gmail.com" );
 	about.addCredit( "Couriousous", "JK flip-flop, asyncronous preset/reset in the D flip-flop." );
 	about.addCredit( "John Myers", "Rotary Switch" );
 	about.addCredit( "Ali Akcaagac", "Glib friendliness." );
-	about.addCredit( "David Leggett", "Website hosting and feedback during early development." );
+	about.addCredit( "David Leggett", "former Website hosting and feedback during early development." );
     KCmdLineArgs::init(argc, argv, &about);
     KCmdLineArgs::addCmdLineOptions(options);
     KApplication app;
