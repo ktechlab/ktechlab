@@ -14,6 +14,8 @@
 #include "elementset.h"
 #include "matrix.h"
 
+#include <stdint.h>
+
 class ElementSet;
 typedef unsigned int uint;
 
