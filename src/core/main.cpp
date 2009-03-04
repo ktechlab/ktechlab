@@ -33,7 +33,7 @@ int main(int argc, char **argv)
     KAboutData about("ktechlab", I18N_NOOP("KTechLab"), VERSION, description,
 	KAboutData::License_GPL, "(C) 2003-2009, The KTechLab developers", "", "http://ktechlab.org", "ktechlab-devel@lists.sourceforge.net" );
 	about.addAuthor( "Alan Grimes", "developer" );
-	about.addAuthor( "Zoltan Padrah", "developer" );
+	about.addAuthor( "Zoltan Padrah", "developer" , "zoltan_padrah@users.sourceforge.net");
 	about.addCredit( "Jason Lucas", "keeping the project up as a maintainer during the time David left" );
 	about.addCredit( "Julian Bäume", "some bug-fixes", "julian@svg4all.de" );
 	about.addCredit( "David Saxton", "former developer, project founder, former maintainer", "david@bluehaze.org" );
