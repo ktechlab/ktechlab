@@ -39,11 +39,11 @@ int main(int argc, char **argv)
                       QString("ktechlab-devel@lists.sourceforge.net").toUtf8()
                     );
     about.addAuthor( ki18n("Alan Grimes"),
-                     ki18n("Simulation"),
+                     ki18n("Developer, Simulation"),
                      ki18n("").toString().toUtf8()
                    );
-    about.addAuthor( ki18n("Zoltan Pedrah"),
-                     ki18n(""),
+    about.addAuthor( ki18n("Zoltan Padrah"),
+                     ki18n("Developer"),
                      ki18n("").toString().toUtf8()
                    );
     about.addAuthor( ki18n("Juan De Vincenzo"),
@@ -51,15 +51,23 @@ int main(int argc, char **argv)
                      ki18n("").toString().toUtf8()
                    );
     about.addAuthor( ki18n("Julian Bäume"),
-                     ki18n("KDE4 Port"),
+                     ki18n("Developer, KDE4 Port, GUI"),
                      ki18n("julian@svg4all.de").toString().toUtf8()
                    );
-    about.addAuthor( ki18n("David Saxton"),
+    about.addCredit( ki18n("Lawrence Shafer"),
+                     ki18n("Website, wiki and forum"),
+                     ki18n("").toString().toUtf8()
+                   );
+    about.addCredit( ki18n("Jason Lucas"),
+                     ki18n("keeping up the project during lack of developers"),
+                     ki18n("").toString().toUtf8()
+                   );
+    about.addCredit( ki18n("David Saxton"),
                      ki18n("Initial KDE3 Version, former Maintainer"),
                      ki18n("david@bluehaze.org").toString().toUtf8()
                    );
-    about.addAuthor( ki18n("Daniel Clarke"),
-                     ki18n(""),
+    about.addCredit( ki18n("Daniel Clarke"),
+                     ki18n("former developer"),
                      ki18n("daniel.jc@gmail.com").toString().toUtf8()
                    );
     about.addCredit( ki18n("Couriousous"),
