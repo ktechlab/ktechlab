@@ -35,6 +35,7 @@ int main(int argc, char **argv)
 	about.addAuthor( "Alan Grimes", "developer" );
 	about.addAuthor( "Zoltan Padrah", "developer" , "zoltan_padrah@users.sourceforge.net");
 	about.addCredit( "Jason Lucas", "keeping the project up as a maintainer during the time David left" );
+	about.addCredit( "Lawrence Shafer", "Website, wiki and forum" );
 	about.addCredit( "Julian Bäume", "some bug-fixes", "julian@svg4all.de" );
 	about.addCredit( "David Saxton", "former developer, project founder, former maintainer", "david@bluehaze.org" );
 	about.addCredit( "Daniel Clarke", "former developer", "daniel.jc@gmail.com" );
