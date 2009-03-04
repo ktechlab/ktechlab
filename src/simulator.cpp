@@ -80,7 +80,6 @@ void Simulator::step() {
 		// Update the non-logic parts of the simulation
 		{
 			list<Component*>::iterator components_end = m_components->end();
-
 			for (list<Component*>::iterator component = m_components->begin(); component != components_end; component++) {
 				(*component)->stepNonLogic();
 			}
@@ -88,7 +87,6 @@ void Simulator::step() {
 
 		{
 			list<Circuit*>::iterator circuits_end = m_ordinaryCircuits->end();
-
 			for (list<Circuit*>::iterator circuit = m_ordinaryCircuits->begin(); circuit != circuits_end; circuit++) {
 				(*circuit)->doNonLogic();
 			}
@@ -101,7 +99,6 @@ void Simulator::step() {
 			// Update the logic components
 			{
 				list<ComponentCallback>::iterator callbacks_end = m_componentCallbacks->end();
-
 				for (list<ComponentCallback>::iterator callback = m_componentCallbacks->begin(); callback != callbacks_end; callback++) {
 					callback->callback();
 				}
@@ -109,7 +106,6 @@ void Simulator::step() {
 
 			if (m_pStartStepCallback[m_llNumber]) {
 				list<ComponentCallback*>::iterator callbacks_end = m_pStartStepCallback[m_llNumber]->end();
-
 				for (list<ComponentCallback*>::iterator callback = m_pStartStepCallback[m_llNumber]->begin(); callback != callbacks_end; callback++) {
 					(*callback)->callback();
 					// should we delete the list entry?
@@ -123,7 +119,6 @@ void Simulator::step() {
 			// Update the gpsim processors
 			{
 				list<GpsimProcessor*>::iterator processors_end = m_gpsimProcessors->end();
-
 				for (list<GpsimProcessor*>::iterator processor = m_gpsimProcessors->begin(); processor != processors_end; processor++) {
 					(*processor)->executeNext();
 				}
@@ -138,7 +133,7 @@ void Simulator::step() {
 			while(!(circuitChains[prevChain].empty())) {
 				Circuit *aCircuit = circuitChains[prevChain].front();
 				circuitChains[prevChain].pop();
-				aCircuit->doLogic();
+				aCircuit->doLogic(); //????
 			}
 
 			// Call the logic callbacks
@@ -155,7 +150,7 @@ void Simulator::step() {
 
 					double v = changed->isHigh() ? changed->outputHighVoltage() : 0.0;
 
-					for (PinList::iterator it = changed->pinListBegin; it != changed->pinListEnd; ++it) {
+					for (PinList::iterator it = changed->pinList.begin(); it != changed->pinList.end(); ++it) {
 						if (Pin *pin = *it)
 							pin->setVoltage(v);
 					}
@@ -188,13 +183,10 @@ void Simulator::createLogicChain(LogicOut *logicOut, const LogicInList &logicInL
 
 	logicOut->setUseLogicChain(true);
 	logicOut->pinList = pinList;
-	logicOut->pinListBegin = logicOut->pinList.begin();
-	logicOut->pinListEnd = logicOut->pinList.end();
 
 	LogicIn *last = logicOut;
 
 	const LogicInList::const_iterator end = logicInList.end();
-
 	for (LogicInList::const_iterator it = logicInList.begin(); it != end; ++it) {
 		LogicIn *next = *it;
 		last->setNextLogic(next);
