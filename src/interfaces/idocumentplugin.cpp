@@ -7,13 +7,13 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "documentplugin.h"
+#include "idocumentplugin.h"
 
 #include <KComponentData>
 
 using namespace KTechLab;
 
-DocumentPlugin::DocumentPlugin( KComponentData data, QObject *parent)
+IDocumentPlugin::IDocumentPlugin( KComponentData data, QObject *parent)
     :   KDevelop::IPlugin( data, parent )
 {}
 
