@@ -6,7 +6,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
 
 find_package(KDE4 REQUIRED)
 find_package(Qt4 REQUIRED)
-find_package(KDevPlatform 1.0.0 REQUIRED)
+find_package(KDevPlatform 0.9.9 REQUIRED)
 find_package(GLIB REQUIRED)
 
 include( KDE4Defaults )
