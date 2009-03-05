@@ -129,8 +129,8 @@ void Component::setNodalCurrents() {
 		ElementMap m = (*it);
 
 		for (int i = 0; i < 4; i++) {
-			if (m.n[i]) {
-				m.n[i]->mergeCurrent(m.e->m_cnodeI[i]);
+			if(m.n[i]) {
+				m.n[i]->mergeCurrent(*(m.e->cnodeCurrent(i)));
 			}
 		}
 	}

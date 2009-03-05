@@ -184,11 +184,19 @@ public:
 	void componentDeleted();
 	void elementSetDeleted();
 
-	double m_cnodeI[8]; ///< Current flowing into the cnodes from the element
 	double cbranchCurrent(const int branch);
 	double cnodeVoltage(const int node);
 
+// we return a pointer so this is easy to spy on,
+// maybe a more sophisticated object oriented approach would be better... 
+	double *cnodeCurrent(const int node) {
+		return &(m_cnodeI[node]);
+	}
+
 protected:
+
+	double m_cnodeI[MAX_CNODES]; ///< Current flowing into the cnodes from the element
+
 	/**
 	 * Update the status, returning b_status
 	 */
