@@ -48,7 +48,7 @@ Element::~ Element()
 
 void Element::resetCurrents()
 {
-	for(int i = 0; i < 8; i++ )
+	for(int i = 0; i < MAX_CNODES; i++ )
 		m_cnodeI[i] = 0.0;
 }
 
