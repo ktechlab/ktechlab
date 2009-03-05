@@ -30,7 +30,7 @@ AC_TRY_COMPILE(
 #include <gpsim/gpsim_interface.h>
 #include <gpsim/breakpoints.h>
 #include <gpsim/gpsim_time.h>
-void func() { (void)cycles; (void)initialize_gpsim_core(); (void)load_symbol_file(0,0); }
+void func() { (void)cycles; (void)initialize_gpsim_core(); (void)load_symbol_file(0,0); exit_gpsim(0); }
 	],
 	[],
 	AC_MSG_RESULT( yes )
@@ -47,7 +47,7 @@ AC_TRY_COMPILE(
 #include <gpsim/gpsim_time.h>
 #include <gpsim/symbol.h>
 #include <gpsim/program_files.h>
-void func() { (void)cycles; (void)initialize_gpsim_core(); }
+void func() { (void)cycles; (void)initialize_gpsim_core(); exit_gpsim(0); }
 	],
 	[],
 	AC_MSG_RESULT( yes )
