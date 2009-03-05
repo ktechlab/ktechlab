@@ -22,6 +22,7 @@ class ECSubcircuit;
 class Element;
 class Pin;
 class Switch;
+class LogicIn;
 
 typedef QValueList<ECNode*> ECNodeList;
 typedef QValueList<Element*> ElementList;
@@ -36,14 +37,22 @@ class ElementMap {
 public:
 	ElementMap();
 
-	Element *e; // The element
-	Pin *n[4]; // The Pins associated with the CNodes in the element
-
+	void mergeCurrents();
+	bool compareElement(const Element *anElement) const;
+	void setElement(Element *anElement);
+	LogicIn *getLogicInOrNull();
+	void putPin(unsigned int slot, Pin *aPin);
+	void setupCNodes();
+	void setupMatrix();
 	/// @see Component::setInterCircuitDependent
 	PinListList interCircuitDependent;
 
 	/// @see Component::setInterGroundDependent
 	PinListList interGroundDependent;
+
+private:
+	Element *e; // The element
+	Pin *n[4]; // The Pins associated with the CNodes in the element
 };
 
 typedef QValueList<ElementMap> ElementMapList;
