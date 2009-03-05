@@ -1,5 +1,6 @@
 add_subdirectory(core)
 add_subdirectory(gui)
+add_subdirectory(interfaces)
 add_subdirectory(shell)
 add_subdirectory(dataengines)
 add_subdirectory(plugins)
