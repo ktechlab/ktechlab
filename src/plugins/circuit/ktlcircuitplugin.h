@@ -2,7 +2,7 @@
 #ifndef KTLCIRCUITPLUGIN_H
 #define KTLCIRCUITPLUGIN_H
 
-#include "shell/documentplugin.h"
+#include "interfaces/idocumentplugin.h"
 
 #include <QVariantList>
 
@@ -10,7 +10,7 @@ class KTLComponentViewFactory;
 class KTLCircuitDocumentFactory;
 class ComponentModel;
 
-class KTLCircuitPlugin : public KTechLab::DocumentPlugin
+class KTLCircuitPlugin : public KTechLab::IDocumentPlugin
 {
     Q_OBJECT
 public:

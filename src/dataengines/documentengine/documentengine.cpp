@@ -1,6 +1,6 @@
 #include "documentengine.h"
 #include "shell/core.h"
-#include "shell/documentplugin.h"
+#include "interfaces/idocumentplugin.h"
 
 #include <interfaces/iplugin.h>
 #include <interfaces/iplugincontroller.h>
@@ -75,7 +75,7 @@ bool DocumentEngine::updateSourceEvent( const QString &source )
         if ( plugins.isEmpty() ) {
             return false;
         }
-        KTechLab::DocumentPlugin *plugin = qobject_cast<KTechLab::DocumentPlugin*>( plugins.first() );
+        KTechLab::IDocumentPlugin *plugin = qobject_cast<KTechLab::IDocumentPlugin*>( plugins.first() );
 
         QString component = source;
         component.remove( document->url().prettyUrl() );
