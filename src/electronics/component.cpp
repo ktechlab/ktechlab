@@ -62,12 +62,8 @@ void Component::removeItem() {
 void Component::removeElements(bool setPinsInterIndependent) {
 	const ElementMapList::iterator end = m_elementMapList.end();
 	for (ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it) {
-		Element *e = (*it).e;
+		(*it).mergeCurrents();
 
-		if(e) {
-			emit elementDestroyed(e);
-			e->componentDeleted();
-		}
 	}
 
 	m_elementMapList.clear();
@@ -101,7 +97,7 @@ void Component::removeElement(Element *element, bool setPinsInterIndependent) {
 		ElementMapList::iterator next = it;
 		++next;
 
-		if ((*it).e == element)
+		if ((*it).compareElement(element))
 			m_elementMapList.remove(it);
 
 		it = next;
@@ -126,13 +122,7 @@ void Component::setNodalCurrents() {
 
 	const ElementMapList::iterator end = m_elementMapList.end();
 	for (ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it) {
-		ElementMap m = (*it);
-
-		for (int i = 0; i < 4; i++) {
-			if(m.n[i]) {
-				m.n[i]->mergeCurrent(*(m.e->cnodeCurrent(i)));
-			}
-		}
+		(*it).mergeCurrents();
 	}
 }
 
@@ -508,7 +498,7 @@ void Component::slotUpdateConfiguration() {
 	const ElementMapList::iterator end = m_elementMapList.end();
 
 	for(ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it) {
-		if(LogicIn *logicIn = dynamic_cast<LogicIn*>((*it).e))
+		if(LogicIn *logicIn = (*it).getLogicInOrNull())
 			logicIn->setLogic(logicConfig);
 	}
 }
@@ -577,14 +567,14 @@ ElementMapList::iterator Component::handleElement(Element *e, const QValueList<P
 	if(!e) return m_elementMapList.end();
 
 	ElementMap em;
-	em.e = e;
+	em.setElement(e);
 
 	int at = 0;
 	QValueList<Pin*>::ConstIterator end = pins.end();
 
 	for(QValueList<Pin*>::ConstIterator it = pins.begin(); it != end; ++it) {
 		(*it)->addElement(e);
-		em.n[at++] = *it;
+		em.putPin(at++, *it);
 	}
 
 	ElementMapList::iterator it = m_elementMapList.append(em);
@@ -600,7 +590,6 @@ void Component::setInterDependent(ElementMapList::iterator it, const QValueList<
 
 void Component::setInterCircuitDependent(ElementMapList::iterator it, const QValueList<Pin*> & pins) {
 	QValueList<Pin*>::ConstIterator end = pins.end();
-
 	for(QValueList<Pin*>::ConstIterator it1 = pins.begin(); it1 != end; ++it1) {
 		for(QValueList<Pin*>::ConstIterator it2 = pins.begin(); it2 != end; ++it2) {
 			(*it1)->addCircuitDependentPin(*it2);
@@ -612,7 +601,6 @@ void Component::setInterCircuitDependent(ElementMapList::iterator it, const QVal
 
 void Component::setInterGroundDependent(ElementMapList::iterator it, const QValueList<Pin*> & pins) {
 	QValueList<Pin*>::ConstIterator end = pins.end();
-
 	for(QValueList<Pin*>::ConstIterator it1 = pins.begin(); it1 != end; ++it1) {
 		for(QValueList<Pin*>::ConstIterator it2 = pins.begin(); it2 != end; ++it2) {
 			(*it1)->addGroundDependentPin(*it2);
@@ -664,24 +652,15 @@ void Component::initElements(const uint stage) {
 
 	if(stage == 1) {
 		for(ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it) {
-			(*it).e->add_initial_dc();
+			(*it).setupMatrix();
 		}
 
 		return;
 	}
 
 	for(ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it) {
-		ElementMap m = *it;
+		(*it).setupCNodes();
 
-		if(m.n[3]) {
-			m.e->setCNodes(m.n[0]->eqId(), m.n[1]->eqId(), m.n[2]->eqId(), m.n[3]->eqId());
-		} else if(m.n[2]) {
-			m.e->setCNodes(m.n[0]->eqId(), m.n[1]->eqId(), m.n[2]->eqId());
-		} else if(m.n[1]) {
-			m.e->setCNodes(m.n[0]->eqId(), m.n[1]->eqId());
-		} else if(m.n[0]) {
-			m.e->setCNodes(m.n[0]->eqId());
-		}
 	}
 }
 
@@ -716,6 +695,69 @@ ElementMap::ElementMap() {
 
 	for(int i = 0; i < 4; ++i)
 		n[i] = 0;
+}
+
+/*!
+    \fn ElementMap::mergeCurrents()
+ */
+void ElementMap::mergeCurrents() {
+	for (int i = 0; i < 4; i++) {
+		if (n[i]) {
+			n[i]->mergeCurrent(*(e->cnodeCurrent(i)));
+		}
+	}
+}
+
+/*!
+    \fn ElementMap::compareElement(Element *anElement);
+ */
+bool ElementMap::compareElement(const Element *anElement) const {
+	return e == anElement;
+}
+
+/*!
+    \fn ElementMap::getLogicInOrNull()
+ */
+LogicIn *ElementMap::getLogicInOrNull() {
+	return dynamic_cast<LogicIn*>(e);
+}
+
+/*!
+    \fn ElementMap::setElement(Element anElement)
+ */
+void ElementMap::setElement(Element *anElement) {
+	e = anElement;
+}
+
+/*!
+    \fn ElementMap::putPin(unsigned int slot, Pin *aPin)
+ */
+void ElementMap::putPin(unsigned int slot, Pin *aPin) {
+	assert(slot < 4);
+	n[slot] = aPin;
+}
+
+/*!
+    \fn ElementMap::setupCNodes()
+ */
+void ElementMap::setupCNodes() {
+	if (n[3]) {
+		e->setCNodes(n[0]->eqId(), n[1]->eqId(), n[2]->eqId(), n[3]->eqId());
+	} else if (n[2]) {
+		e->setCNodes(n[0]->eqId(), n[1]->eqId(), n[2]->eqId());
+	} else if (n[1]) {
+		e->setCNodes(n[0]->eqId(), n[1]->eqId());
+	} else if (n[0]) {
+		e->setCNodes(n[0]->eqId());
+	}
+}
+
+/*!
+    \fn ElementMap::setupMatrix()
+ */
+void ElementMap::setupMatrix() {
+	assert(e);
+	e->add_initial_dc();
 }
 //END class ElementMap
 
