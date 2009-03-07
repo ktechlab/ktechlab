@@ -13,6 +13,8 @@
 #include <QVariantList>
 #include "interfaces/component/icomponentplugin.h"
 
+class KTLSwitchesFactory;
+
 class KTLSwitchesPlugin : public KTechLab::IComponentPlugin
 {
     Q_OBJECT
@@ -23,6 +25,8 @@ public:
 
 private:
     void init();
+
+    KTLSwitchesFactory * m_componentFactory;
 };
 
 #endif

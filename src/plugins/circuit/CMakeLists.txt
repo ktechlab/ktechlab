@@ -6,7 +6,6 @@ include_directories(
 set( ktlcircuit_PART_SRCS
    ktlcircuitplugin.cpp
    circuitdocument.cpp
-   componentmodel.cpp
    circuitview.cpp
    circuitapplet.cpp
    circuitcontainer.cpp

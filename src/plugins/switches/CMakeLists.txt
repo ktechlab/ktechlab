@@ -5,6 +5,7 @@ include_directories(
 
 set( ktlswitches_PART_SRCS
    ktlswitchesplugin.cpp
+   rotaryswitch.cpp
 )
 
 kde4_add_plugin(ktlswitches ${ktlswitches_PART_SRCS})

@@ -11,7 +11,9 @@
 
 #include "circuitcontainer.h"
 #include "circuitdocument.h"
-#include "componentmodel.h"
+#include "interfaces/component/componentmodel.h"
+#include "interfaces/component/icomponentplugin.h"
+#include "interfaces/component/icomponent.h"
 #include "shell/core.h"
 
 #include <interfaces/iuicontroller.h>
@@ -107,9 +109,12 @@ ComponentModel * KTLCircuitPlugin::componentModel()
     return m_componentModel;
 }
 
-void KTLCircuitPlugin::registerComponent( const QString &component )
+void KTLCircuitPlugin::registerComponentFactory( KTechLab::IComponentFactory *factory )
 {
-    //TODO: implement me!
+    QList<KTechLab::ComponentMetaData> metaData = factory->allMetaData();
+    foreach (KTechLab::ComponentMetaData data, metaData) {
+        m_componentModel->setComponentData( data, factory );
+    }
 }
 
 void KTLCircuitPlugin::unload()

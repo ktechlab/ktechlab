@@ -29,6 +29,8 @@ class IDocument;
 namespace KTechLab
 {
 
+class IComponentFactory;
+
 class KTLINTERFACES_EXPORT IDocumentPlugin: public KDevelop::IPlugin
 {
     Q_OBJECT
@@ -40,6 +42,8 @@ public:
      * create a Plasma::DataContainer for a given document
      */
     virtual Plasma::DataContainer * createDataContainer( KDevelop::IDocument *document, const QString &component = QString() )=0;
+
+    virtual void registerComponentFactory( KTechLab::IComponentFactory * factory )=0;
 };
 
 } // namespace KTechLab

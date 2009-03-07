@@ -10,14 +10,21 @@
 #ifndef COMPONENTMODEL_H
 #define COMPONENTMODEL_H
 
+#include "icomponent.h"
+#include "icomponentplugin.h"
+#include "../ktlinterfacesexport.h"
+#include "../ktlinterfacesexport.h"
+
 #include <QAbstractItemModel>
+
+class IComponentFactory;
 
 /**
  * This class implements QAbstractItemModel to provide a tree of compoments sorted into groups like
  * logical compoments, discrete components and so on. Different component libraries/plugins should add the
  * compoments they provide to this list to make them available to the user.
  */
-class ComponentModel: public QAbstractItemModel
+class KTLINTERFACES_EXPORT ComponentModel: public QAbstractItemModel
 {
 Q_OBJECT
 public:
@@ -29,6 +36,8 @@ public:
     virtual int columnCount( const QModelIndex & parent = QModelIndex() ) const;
 
     virtual QVariant data( const QModelIndex & index, int role = Qt::DisplayRole ) const;
+
+    virtual void setComponentData( const KTechLab::ComponentMetaData & data, KTechLab::IComponentFactory * factory );
 
 };
 
