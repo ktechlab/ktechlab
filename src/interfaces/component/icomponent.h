@@ -12,10 +12,43 @@
 
 #include "../ktlinterfacesexport.h"
 
-class KTLINTERFACES_EXPORT IComponent
+#include <QString>
+#include <KIcon>
+
+namespace KTechLab
 {
 
+/**
+ * MetaData for a component
+ */
+struct ComponentMetaData
+{
+    /** unique name to identify the component */
+    QString name;
+    /** a title visible to the user */
+    QString title;
+    /** category for the component */
+    QString category;
+    // FIXME: I'm not sure if this is the right place
+    /** an icon shown to the user */
+    KIcon icon;
+    /** type of the component */
+    QString type;
 };
+
+/**
+ * Base class for all components for KTechLab.
+ */
+class KTLINTERFACES_EXPORT IComponent
+{
+public:
+    /**
+     * Pure virtual function should return meta-data with information how to handle this component
+     */
+    static ComponentMetaData metaData();
+};
+
+} // namespace KTechLab
 
 #endif
 

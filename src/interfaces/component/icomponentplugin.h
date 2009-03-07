@@ -18,12 +18,22 @@ namespace KTechLab
 {
 class IComponent;
 
+struct ComponentMetaData;
+
 class KTLINTERFACES_EXPORT IComponentFactory
 {
 public:
+    IComponentFactory();
     virtual ~IComponentFactory() {};
 
     virtual IComponent * create( const QString &name )=0;
+
+    QList<KTechLab::ComponentMetaData> allMetaData();
+protected:
+    void addSupportedComponent( const KTechLab::ComponentMetaData & data );
+
+private:
+    QList<KTechLab::ComponentMetaData> m_componentDataList;
 };
 
 class KTLINTERFACES_EXPORT IComponentPlugin: public KDevelop::IPlugin

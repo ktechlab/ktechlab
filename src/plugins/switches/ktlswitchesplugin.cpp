@@ -9,9 +9,13 @@
 
 #include "ktlswitchesplugin.h"
 
+#include "rotaryswitch.h"
 #include "shell/core.h"
 #include "interfaces/component/icomponent.h"
+#include "interfaces/component/icomponentplugin.h"
+#include "interfaces/idocumentplugin.h"
 
+#include <interfaces/iplugincontroller.h>
 #include <KGenericFactory>
 #include <KAboutData>
 
@@ -19,17 +23,24 @@ K_PLUGIN_FACTORY(KTLSwitchesPluginFactory, registerPlugin<KTLSwitchesPlugin>(); 
 K_EXPORT_PLUGIN(KTLSwitchesPluginFactory(KAboutData("ktlswitches","ktlswitches", ki18n("KTechLab Switch Components"), "0.1", ki18n("Provide a set of standard switch components"), KAboutData::License_LGPL)))
 
 
-class KTLSwitchesFactory: KTechLab::IComponentFactory
+class KTLSwitchesFactory: public KTechLab::IComponentFactory
 {
 public:
+    KTLSwitchesFactory()
+    {
+        addSupportedComponent( RotarySwitch::metaData() );
+    }
+
     virtual KTechLab::IComponent * create( const QString &name )
     {
         return 0;
     }
+
 };
 
 KTLSwitchesPlugin::KTLSwitchesPlugin( QObject *parent, const QVariantList& args )
-    : KTechLab::IComponentPlugin( KTLSwitchesPluginFactory::componentData(), parent )
+    :   KTechLab::IComponentPlugin( KTLSwitchesPluginFactory::componentData(), parent ),
+        m_componentFactory( new KTLSwitchesFactory() )
 {
 
     init();
@@ -37,7 +48,15 @@ KTLSwitchesPlugin::KTLSwitchesPlugin( QObject *parent, const QVariantList& args 
 
 void KTLSwitchesPlugin::init()
 {
-    KTechLab::Core::self()->pluginController();
+    QStringList constraints;
+    constraints << QString("'%1' in [X-KDevelop-SupportedMimeTypes]").arg("application/x-circuit");
+    QList<KDevelop::IPlugin*> plugins = KTechLab::Core::self()->pluginController()->allPluginsForExtension( "KTLDocument", constraints );
+    if (plugins.isEmpty()) {
+        return;
+    }
+    KTechLab::IDocumentPlugin *plugin = qobject_cast<KTechLab::IDocumentPlugin*>( plugins.first() );
+
+    plugin->registerComponentFactory( m_componentFactory );
 }
 
 KTLSwitchesPlugin::~KTLSwitchesPlugin()

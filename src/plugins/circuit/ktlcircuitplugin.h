@@ -6,6 +6,11 @@
 
 #include <QVariantList>
 
+namespace KTechLab
+{
+class IComponentFactory;
+} // namespace KTechLab
+
 class KTLComponentViewFactory;
 class KTLCircuitDocumentFactory;
 class ComponentModel;
@@ -28,10 +33,10 @@ public:
      */
     ComponentModel * componentModel();
     /**
-     * Register the @param{component} into the the model so users can see it in the component
-     * browser and drag it into their circuit.
+     * Register the component- @param{factory} to the plugin so it knows about all provided components
+     * and can provide the user with entries in the browser to drag it into their circuit.
      */
-    void registerComponent( const QString &component );
+    void registerComponentFactory( KTechLab::IComponentFactory *factory );
 
 private:
     void init();
