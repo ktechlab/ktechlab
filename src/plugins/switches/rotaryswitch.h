@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2005 by John Myers                                      *
- *   electronerd@electronerdia.net                                         *
+ *   Copyright (C) 2005 by John Myers <electronerd@electronerdia.net>      *
+ *   Copyright (C) 2009 by Julian Bäume <julian@svg4all.de>                *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -8,16 +8,15 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#ifndef ROTOSWITCH_H
-#define ROTOSWITCH_H
+#ifndef ROTARYSWITCH_H
+#define ROTARYSWITCH_H
 
-#include "component.h"
-#include <qvaluevector.h>
+#include "interfaces/component/icomponent.h"
 
 struct SwitchPosition
 {
-    ECNode* node;
-    Switch* posSwitch;
+//    ECNode* node;
+//    Switch* posSwitch;
     bool isMomentary;
     int pinAngle;
 };
@@ -26,24 +25,20 @@ struct SwitchPosition
  * A rotary switch
  * \author John Myers 
  */
-class ECRotoSwitch : public Component
+class RotarySwitch : public KTechLab::IComponent
 {
 public:
-    ECRotoSwitch( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-    ~ECRotoSwitch();
-    
-    static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-    static LibraryItem *libraryItem();
-    
-    virtual void buttonStateChanged( const QString &id, bool state );
+    RotarySwitch( );
+    virtual ~RotarySwitch();
+
+    static KTechLab::ComponentMetaData metaData();
+
     virtual void dataChanged();
-    
+
 private:
-    virtual void drawShape( QPainter &p );
-    
     int m_numPositions;
     int m_curPosition;
-    
+
     ///Half the total width of the component including pins
     static const int _pinOuterRadius = 64;
     ///The width of the pins
@@ -58,13 +53,11 @@ private:
     static const int _contactRadius = 2;
     ///The radius of the ring of positions
     static const int _contactRingRadius = _contactOuterRadius - _contactRadius;
-    
-    QValueVector<SwitchPosition> m_positions;
-    ECNode* m_inNode;
-    
+
+//    QValueVector<SwitchPosition> m_positions;
+//    ECNode* m_inNode;
+
 protected:
-    void setUpSwitches();
-protected:
-    void setActivePosition(int newPosition);
 };
-#endif //ROTOSWITCH_H
+#endif //ROTARYSWITCH_H
+

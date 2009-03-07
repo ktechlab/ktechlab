@@ -36,6 +36,9 @@ QVariant ComponentModel::data( const QModelIndex & index, int role ) const
     return QVariant();
 }
 
-
+void ComponentModel::setComponentData( const KTechLab::ComponentMetaData & data, KTechLab::IComponentFactory * factory )
+{
+    // TODO: implement me
+}
 
 // vim: sw=4 sts=4 et tw=100
