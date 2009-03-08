@@ -42,6 +42,10 @@ void CircuitDocumentPrivate::reloadFromXml()
         KMessageBox::sorry( 0, i18n("Couldn't parse xml:\n%1").arg(errorMessage) );
         return;
     }
+    if (file.size() == 0) {
+        //return in case the file is empty
+        return;
+    }
     QDomDocument doc( "KTechlab" );
     if ( !doc.setContent( &file, &errorMessage ) ) {
         KMessageBox::sorry( 0, i18n("Couldn't parse xml:\n%1").arg(errorMessage) );
