@@ -163,6 +163,19 @@ int ComponentModel::columnCount( const QModelIndex & parent ) const
     return 1;
 }
 
+Qt::ItemFlags ComponentModel::flags( const QModelIndex & index ) const
+{
+    if (!index.isValid()) {
+        return Qt::ItemFlags( Qt::NoItemFlags );
+    }
+
+    ComponentItem *item = static_cast<ComponentItem*>(index.internalPointer());
+    if ( item->metaData().name.isEmpty() ) {
+        return Qt::ItemFlags( Qt::ItemIsEnabled );
+    }
+    return Qt::ItemFlags( Qt::ItemIsSelectable | Qt::ItemIsDragEnabled | Qt::ItemIsEnabled );
+}
+
 QVariant ComponentModel::data( const QModelIndex & index, int role ) const
 {
     if (!index.isValid()) {
