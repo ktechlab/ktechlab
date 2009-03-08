@@ -19,6 +19,37 @@
 
 class IComponentFactory;
 
+class ComponentItem
+{
+public:
+    ComponentItem();
+    ~ComponentItem();
+
+    void addChild( ComponentItem * child );
+    void setParent( ComponentItem * parent );
+    ComponentItem * parent();
+
+    ComponentItem * child( int row );
+    ComponentItem * child( const QString &key );
+
+    void setMetaData( const KTechLab::ComponentMetaData & data );
+    void setFactory( KTechLab::IComponentFactory * factory );
+
+    int row();
+    int rowCount();
+    QList<ComponentItem*> children();
+
+    KTechLab::ComponentMetaData metaData() const;
+    KTechLab::IComponentFactory * factory() const;
+
+private:
+    KTechLab::IComponentFactory * m_factory;
+    KTechLab::ComponentMetaData m_metaData;
+
+    QMultiMap<QString,ComponentItem*> m_children;
+    ComponentItem * m_parent;
+};
+
 /**
  * This class implements QAbstractItemModel to provide a tree of compoments sorted into groups like
  * logical compoments, discrete components and so on. Different component libraries/plugins should add the
@@ -28,6 +59,8 @@ class KTLINTERFACES_EXPORT ComponentModel: public QAbstractItemModel
 {
 Q_OBJECT
 public:
+    ComponentModel();
+    virtual ~ComponentModel();
 
     virtual QModelIndex index( int row, int column, const QModelIndex & parent = QModelIndex() ) const;
     virtual QModelIndex parent( const QModelIndex & index ) const;
@@ -39,6 +72,8 @@ public:
 
     virtual void setComponentData( const KTechLab::ComponentMetaData & data, KTechLab::IComponentFactory * factory );
 
+private:
+    ComponentItem *m_rootItem;
 };
 
 #endif
