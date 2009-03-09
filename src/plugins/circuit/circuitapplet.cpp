@@ -8,14 +8,18 @@
  ***************************************************************************/
 
 #include "circuitapplet.h"
+#include "interfaces/component/componentmimedata.h"
 
 #include <Plasma/DataEngine>
+#include <QGraphicsSceneDragDropEvent>
+#include <KDebug>
 
 CircuitApplet::CircuitApplet( QObject *parent, const QVariantList &args )
     :   Plasma::Applet( parent, args )
 {
     setAspectRatioMode(Plasma::IgnoreAspectRatio);
     setBackgroundHints(DefaultBackground);
+    setAcceptDrops( true );
     init();
 }
 
@@ -24,6 +28,19 @@ CircuitApplet::~CircuitApplet()
 
 void CircuitApplet::init()
 {
+}
+
+void CircuitApplet::dropEvent( QGraphicsSceneDragDropEvent *event )
+{
+    if (!event->mimeData()->hasFormat("application/x-icomponent")) {
+        return;
+    }
+    const KTechLab::ComponentMimeData *mimeData = qobject_cast<const KTechLab::ComponentMimeData*>(event->mimeData());
+
+    //FIXME: implement me!
+    //do something with mimeData here. it should be added to the document using the document
+    //DataEngine and services. use mimeData->createComponent() to create a new component.
+    kDebug() << "Dropping item @"<< event->scenePos() << "type:" << mimeData->data("application/x-icomponent");
 }
 
 void CircuitApplet::dataUpdated( const QString &name, const Plasma::DataEngine::Data &data )
