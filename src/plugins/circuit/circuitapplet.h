@@ -15,6 +15,7 @@
 
 class QString;
 class QStringList;
+class QGraphicsSceneDragDropEvent;
 
 class CircuitApplet: public Plasma::Applet
 {
@@ -27,6 +28,8 @@ public:
     QString circuitName() const;
 
     void init();
+
+    virtual void dropEvent( QGraphicsSceneDragDropEvent *event );
 
 public slots:
     void dataUpdated( const QString &name, const Plasma::DataEngine::Data &data );
