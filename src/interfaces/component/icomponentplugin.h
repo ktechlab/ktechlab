@@ -11,14 +11,13 @@
 #define ICOMPONENTPLUGIN_H
 
 #include "../ktlinterfacesexport.h"
+#include "icomponent.h"
 
 #include <interfaces/iplugin.h>
 
 namespace KTechLab
 {
 class IComponent;
-
-struct ComponentMetaData;
 
 class KTLINTERFACES_EXPORT IComponentFactory
 {
