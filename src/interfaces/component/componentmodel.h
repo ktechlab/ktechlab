@@ -71,6 +71,12 @@ public:
     virtual Qt::ItemFlags flags( const QModelIndex & index ) const;
     virtual QVariant data( const QModelIndex & index, int role = Qt::DisplayRole ) const;
 
+    virtual QMimeData *mimeData( const QModelIndexList & indexes ) const;
+    virtual QStringList mimeTypes() const;
+
+    /**
+     * Add the ComponentMetaData and the corresponding factory to the model
+     */
     virtual void setComponentData( const KTechLab::ComponentMetaData & data, KTechLab::IComponentFactory * factory );
 
 private:
