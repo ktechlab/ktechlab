@@ -8,6 +8,7 @@
  ***************************************************************************/
 
 #include "componentmodel.h"
+#include "componentmimedata.h"
 
 //
 // BEGIN class ComponentItem
@@ -190,6 +191,30 @@ QVariant ComponentModel::data( const QModelIndex & index, int role ) const
     }
 
     return QVariant();
+}
+
+QMimeData *ComponentModel::mimeData( const QModelIndexList & indexes ) const
+{
+    KTechLab::ComponentMimeData *componentData = 0;
+
+    //we only want to drag one item at a time
+    QModelIndex index;
+    if ( indexes.size() == 1 ) {
+        index = indexes.first();
+    }
+    if (index.isValid()) {
+        ComponentItem *item = static_cast<ComponentItem*>(index.internalPointer());
+        componentData = new KTechLab::ComponentMimeData( item->metaData().name, item->factory() );
+
+        //register our mimeType
+        componentData->setData( "application/x-icomponent", item->metaData().name.toUtf8() );
+    }
+    return componentData;
+}
+
+QStringList ComponentModel::mimeTypes() const
+{
+    return QStringList()<<"application/x-icomponent";
 }
 
 void ComponentModel::setComponentData( const KTechLab::ComponentMetaData & data, KTechLab::IComponentFactory * factory )
