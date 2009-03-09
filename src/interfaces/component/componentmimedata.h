@@ -25,6 +25,7 @@ class IComponent;
  */
 class KTLINTERFACES_EXPORT ComponentMimeData: public QMimeData
 {
+Q_OBJECT
 public:
     ComponentMimeData( const QString &name, KTechLab::IComponentFactory *factory );
 
