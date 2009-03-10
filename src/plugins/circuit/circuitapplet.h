@@ -13,6 +13,11 @@
 #include <Plasma/Applet>
 #include <Plasma/DataEngine>
 
+namespace Plasma
+{
+class Theme;
+} // namespace Plasma
+
 class QString;
 class QStringList;
 class QGraphicsSceneDragDropEvent;
@@ -38,6 +43,8 @@ private:
     void setupData();
     QString m_circuitName;
     QStringList m_components;
+
+    Plasma::Theme *m_theme;
 };
 
 #endif

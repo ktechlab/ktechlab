@@ -11,11 +11,13 @@
 #include "interfaces/component/componentmimedata.h"
 
 #include <Plasma/DataEngine>
+#include <Plasma/Theme>
 #include <QGraphicsSceneDragDropEvent>
 #include <KDebug>
 
 CircuitApplet::CircuitApplet( QObject *parent, const QVariantList &args )
-    :   Plasma::Applet( parent, args )
+    :   Plasma::Applet( parent, args ),
+        m_theme( new Plasma::Theme() )
 {
     setAspectRatioMode(Plasma::IgnoreAspectRatio);
     setBackgroundHints(DefaultBackground);
@@ -24,10 +26,13 @@ CircuitApplet::CircuitApplet( QObject *parent, const QVariantList &args )
 }
 
 CircuitApplet::~CircuitApplet()
-{}
+{
+    delete m_theme;
+}
 
 void CircuitApplet::init()
 {
+    m_theme->setThemeName( "ktechlab" );
 }
 
 void CircuitApplet::dropEvent( QGraphicsSceneDragDropEvent *event )
@@ -56,6 +61,9 @@ void CircuitApplet::dataUpdated( const QString &name, const Plasma::DataEngine::
             }
         }
     } else if ( data["mime"].toString().endsWith("component") ) {
+        QVariantMap item = data[ "item" ].toMap();
+        kDebug()<< "finding path for" << "components/"+item[ "type" ].toString().replace("/","_")
+                << m_theme->imagePath( "components/"+item[ "type" ].toString().replace("/","_") );
         //TODO: implement component handling
     }
 }
