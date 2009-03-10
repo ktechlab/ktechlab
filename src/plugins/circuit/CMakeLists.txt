@@ -1,3 +1,5 @@
+add_subdirectory( themes )
+
 ########### next target ###############
 include_directories(
    ${CMAKE_SOURCE_DIR}/src
