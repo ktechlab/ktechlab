@@ -12,15 +12,18 @@
 
 #include <Plasma/DataEngine>
 #include <Plasma/Theme>
+#include <Plasma/FrameSvg>
 #include <QGraphicsSceneDragDropEvent>
+#include <QPainter>
 #include <KDebug>
 
 CircuitApplet::CircuitApplet( QObject *parent, const QVariantList &args )
     :   Plasma::Applet( parent, args ),
-        m_theme( new Plasma::Theme() )
+        m_theme( new Plasma::Theme() ),
+        m_bg( new Plasma::FrameSvg() )
 {
     setAspectRatioMode(Plasma::IgnoreAspectRatio);
-    setBackgroundHints(DefaultBackground);
+    setBackgroundHints(NoBackground);
     setAcceptDrops( true );
     init();
 }
@@ -32,7 +35,14 @@ CircuitApplet::~CircuitApplet()
 
 void CircuitApplet::init()
 {
-    m_theme->setThemeName( "ktechlab" );
+    m_theme->setThemeName( "default" );
+    KConfigGroup cg( KGlobal::config(), "circuit" );
+    m_componentTheme = cg.readEntry( "componentTheme", "din" );
+
+    if ( !m_theme->currentThemeHasImage( "ktechlab/circuit-background" ) ) {
+        kDebug() << "no background image for circuit found in theme" << m_theme->themeName();
+    }
+    m_bg.setImagePath( "ktechlab/circuit-background" );
 }
 
 void CircuitApplet::dropEvent( QGraphicsSceneDragDropEvent *event )
@@ -46,6 +56,15 @@ void CircuitApplet::dropEvent( QGraphicsSceneDragDropEvent *event )
     //do something with mimeData here. it should be added to the document using the document
     //DataEngine and services. use mimeData->createComponent() to create a new component.
     kDebug() << "Dropping item @"<< event->scenePos() << "type:" << mimeData->data("application/x-icomponent");
+}
+
+void CircuitApplet::paintInterface( QPainter *p, const QStyleOptionGraphicsItem *option, const QRect &contentsRect )
+{
+    //draw background
+    if ( m_bg.frameSize() != contentsRect.size() ) {
+        m_bg.resizeFrame( contentsRect.size() );
+    }
+    m_bg.paintFrame(p, QPointF( contentsRect.left(), contentsRect.top() ));
 }
 
 void CircuitApplet::dataUpdated( const QString &name, const Plasma::DataEngine::Data &data )
@@ -62,8 +81,8 @@ void CircuitApplet::dataUpdated( const QString &name, const Plasma::DataEngine::
         }
     } else if ( data["mime"].toString().endsWith("component") ) {
         QVariantMap item = data[ "item" ].toMap();
-        kDebug()<< "finding path for" << "components/"+item[ "type" ].toString().replace("/","_")
-                << m_theme->imagePath( "components/"+item[ "type" ].toString().replace("/","_") );
+        kDebug()<< "finding path for" << "ktechlab/components/"+m_componentTheme+"/"+item[ "type" ].toString().replace("/","_")
+                << m_theme->imagePath( "ktechlab/components/"+m_componentTheme+"/"+item[ "type" ].toString().replace("/","_") );
         //TODO: implement component handling
     }
 }

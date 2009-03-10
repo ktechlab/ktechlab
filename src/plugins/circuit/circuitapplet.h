@@ -12,6 +12,7 @@
 
 #include <Plasma/Applet>
 #include <Plasma/DataEngine>
+#include <Plasma/FrameSvg>
 
 namespace Plasma
 {
@@ -36,15 +37,21 @@ public:
 
     virtual void dropEvent( QGraphicsSceneDragDropEvent *event );
 
+    void paintInterface(QPainter *painter,
+            const QStyleOptionGraphicsItem *option,
+            const QRect& contentsRect);
+
 public slots:
     void dataUpdated( const QString &name, const Plasma::DataEngine::Data &data );
 
 private:
     void setupData();
     QString m_circuitName;
+    QString m_componentTheme;
     QStringList m_components;
 
     Plasma::Theme *m_theme;
+    Plasma::FrameSvg m_bg;
 };
 
 #endif
