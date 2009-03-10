@@ -44,11 +44,17 @@ public:
 public slots:
     void dataUpdated( const QString &name, const Plasma::DataEngine::Data &data );
 
+protected:
+    QString imagePathForComponent( const QVariantMap &map ) const;
+
 private:
     void setupData();
     QString m_circuitName;
     QString m_componentTheme;
-    QStringList m_components;
+    QMap<QString,QVariantMap> m_components;
+    QMap<QString,Plasma::Svg*> m_componentSvgs;
+
+    QSizeF m_componentSize;
 
     Plasma::Theme *m_theme;
     Plasma::FrameSvg m_bg;
