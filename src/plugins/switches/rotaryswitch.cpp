@@ -11,6 +11,7 @@
 #include "rotaryswitch.h"
 
 #include <KLocale>
+#include <KIconLoader>
 
 #include <KDebug>
 
@@ -18,11 +19,13 @@
 
 KTechLab::ComponentMetaData RotarySwitch::metaData()
 {
+    KIconLoader *iconLoader = KIconLoader::global();
+    iconLoader->addAppDir( "ktechlab" );
     KTechLab::ComponentMetaData data = {
         "ec/roto_switch",
         i18n("Rotary"),
         i18n("Switches"),
-        KIcon("rotary.png"),
+        KIcon( iconLoader->iconPath( "rotary", KIconLoader::User ) ),
         ""
         //LibraryItem::lit_component
     };
