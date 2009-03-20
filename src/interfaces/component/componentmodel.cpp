@@ -10,6 +10,8 @@
 #include "componentmodel.h"
 #include "componentmimedata.h"
 
+#include <KDebug>
+
 //
 // BEGIN class ComponentItem
 //
@@ -41,8 +43,7 @@ ComponentItem * ComponentItem::parent()
 
 ComponentItem * ComponentItem::child( int row )
 {
-    QString key = m_children.uniqueKeys().at( row );
-    return child( key );
+    return children().at( row );
 }
 
 ComponentItem * ComponentItem::child( const QString &key )
@@ -73,7 +74,7 @@ int ComponentItem::row()
 
 int ComponentItem::rowCount()
 {
-    return m_children.uniqueKeys().count();
+    return m_children.values().count();
 }
 
 QList<ComponentItem*> ComponentItem::children()
@@ -217,7 +218,7 @@ QStringList ComponentModel::mimeTypes() const
     return QStringList()<<"application/x-icomponent";
 }
 
-void ComponentModel::setComponentData( const KTechLab::ComponentMetaData & data, KTechLab::IComponentFactory * factory )
+void ComponentModel::insertComponentData( const KTechLab::ComponentMetaData & data, KTechLab::IComponentFactory * factory )
 {
     ComponentItem *item = new ComponentItem();
     item->setMetaData( data );
@@ -235,9 +236,17 @@ void ComponentModel::setComponentData( const KTechLab::ComponentMetaData & data,
                 ""
             };
         parent->setMetaData( fakeData );
+        //we are about to insert a new row, tell the model about it so views can be updated
+        beginInsertRows( index( rowCount(), 0, QModelIndex() ), 0, 0 );
         m_rootItem->addChild( parent );
+        endInsertRows();
+        kDebug() << "added category: " << data.category << " at " << index( parent->row(), 0, QModelIndex() );
     }
+    const QModelIndex parentIndex = index( parent->row(), 0, QModelIndex() );
+    //we are about to insert a new row, tell the model about it so views can be updated
+    beginInsertRows( parentIndex, rowCount( parentIndex ), 0 );
     parent->addChild( item );
+    endInsertRows();
 }
 
 // vim: sw=4 sts=4 et tw=100
