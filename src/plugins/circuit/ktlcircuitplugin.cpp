@@ -20,6 +20,7 @@
 #include <interfaces/idocumentcontroller.h>
 #include <KGenericFactory>
 #include <KAboutData>
+#include <KDebug>
 #include <QTreeView>
 #include <QHeaderView>
 
@@ -113,7 +114,7 @@ void KTLCircuitPlugin::registerComponentFactory( KTechLab::IComponentFactory *fa
 {
     QList<KTechLab::ComponentMetaData> metaData = factory->allMetaData();
     foreach (KTechLab::ComponentMetaData data, metaData) {
-        m_componentModel->setComponentData( data, factory );
+        m_componentModel->insertComponentData( data, factory );
     }
 }
 
