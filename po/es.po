@@ -3642,13 +3642,13 @@ msgstr "Formas de símbolos lógicos:"
 #: rc.cpp:415
 #, no-c-format
 msgid "Distinctive"
-msgstr "No normalizado"
+msgstr "Norma ASA"
 
 #. i18n: file ./gui/logicwidget.ui line 49
 #: rc.cpp:418
 #, no-c-format
 msgid "Rectangular"
-msgstr "Normalizado"
+msgstr "Norma DIN/UNE"
 
 #. i18n: file ./gui/logicwidget.ui line 63
 #: rc.cpp:421
