@@ -15,7 +15,6 @@
 
 #include <cmath>
 
-
 //BEGIN class Diode Settings
 DiodeSettings::DiodeSettings()
 {
@@ -30,7 +29,6 @@ void DiodeSettings::reset()
 // 	R = 0.001;
 }
 //END class Diode Settings
-
 
 //BEGIN class Diode
 Diode::Diode()
@@ -128,16 +126,19 @@ void Diode::calcIg(double V, double *I_D, double *g) const
 
 	double g_tiny = (V < -10 * V_T * N && V_B != 0) ? I_S : 0;
 	
-	if(V >= (-3 * N * V_T)) {
+	if(V >= 0) {
+		// diode is forward biased. 
 		diodeJunction(V, I_S, N, I_D, g);
 		*g += g_tiny;
 		*I_D += g_tiny * V;
 	} else if(V_B == 0 || V >= -V_B) {
+		// diode is rverse biased but not in breakdown.
 		double a = (3 * N * V_T) / (V * M_E);
 		a = a * a * a;
 		*I_D = (-I_S * (1 + a)) + (g_tiny * V);
 		*g   = ( I_S *  3 * a) / V + g_tiny;
 	} else {
+		// diode is in reverse breakdown. 
 		double a = exp(-(V_B + V) / N / V_T);
 		*I_D = (-I_S * a) + (g_tiny * V);
 		*g   = I_S * a / V_T / N + g_tiny;
