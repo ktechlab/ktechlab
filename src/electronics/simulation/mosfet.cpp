@@ -14,6 +14,9 @@
 
 using namespace std;
 
+#define BULK_THRESHOLD  0.37
+#define BULK_JUNCTION_POTENTIAL 0.87
+
 //BEGIN class MOSFETSettings
 MOSFETSettings::MOSFETSettings() {
 	I_S = 1e-14;
@@ -114,16 +117,16 @@ void MOSFET::updateCurrents() {
 	double V_DS = (V_D - V_S) * m_pol;
 
 //**************************************
-	double I_BS, I_BD, I_DS, g_BS, g_BD, g_DS, g_M;
+	double I_BS, I_BD, I_D, g_BS, g_BD, g_DS, g_M, g_mb;
 	calcIg(V_BS, V_DS, V_GS,
-	       &I_BS, &I_BD, &I_DS,
+	       &I_BS, &I_BD, &I_D,
 	       &g_BS, &g_BD, &g_DS,
-	       &g_M);
+	       &g_M, &g_mb);
 //**************************************
 
-	m_cnodeI[PinD] = -I_DS + I_BD;
+	m_cnodeI[PinD] = -I_D + I_BD;
 	m_cnodeI[PinB] = -I_BD - I_BS;
-	m_cnodeI[PinS] =  I_DS + I_BS;
+	m_cnodeI[PinS] =  I_D + I_BS;
 }
 
 void MOSFET::update_dc() {
@@ -144,20 +147,24 @@ void MOSFET::update_dc() {
 }
 
 void MOSFET::calc_eq() {
-	double N = m_mosfetSettings.N;
+//	double N = m_mosfetSettings.N;
 
-	double V_D = p_cnode[PinD]->v;
-	double V_G = p_cnode[PinG]->v;
-	double V_S = p_cnode[PinS]->v;
-	double V_B = p_cnode[PinB]->v;
+	double V_GS, V_DS, V_BS;
+
+	{
+		const double V_D = p_cnode[PinD]->v;
+		const double V_G = p_cnode[PinG]->v;
+		const double V_S = p_cnode[PinS]->v;
+		const double V_B = p_cnode[PinB]->v;
 
 // convert useless circuit voltages into component voltages. 
-	double V_GS = (V_G - V_S) * m_pol;
-	double V_DS = (V_D - V_S) * m_pol;
-	double V_BS = (V_B - V_S) * m_pol;
+		V_GS = (V_G - V_S) * m_pol;
+		V_DS = (V_D - V_S) * m_pol;
+		V_BS = (V_B - V_S) * m_pol;
+	}
 
 	// help convergence
-	if (V_DS >= 0) {
+/*	if (V_DS >= 0) {
 		V_GS = fetVoltage(V_GS, V_GS_prev, m_pol);
 		// recalculate V_DS, same for other similar lines
 		V_DS = V_GS - ((V_G - V_D) * m_pol);
@@ -171,25 +178,23 @@ void MOSFET::calc_eq() {
 
 		V_BS = diodeVoltage(V_BS - V_DS, V_BS_prev - V_DS_prev, N, V_lim) + V_DS;
 	}
+*/
 
 	V_GS_prev = V_GS;
 	V_BS_prev = V_BS;
 	V_DS_prev = V_DS;
 
 //*************************
-	double I_BS, I_BD, I_DS, g_BS, g_BD, g_DS, g_M;
+	double I_BS, I_BD, I_D, g_BS, g_BD, g_DS, g_M, g_mb;
 	calcIg(V_BS, V_DS, V_GS,
-	       &I_BS, &I_BD, &I_DS,
+	       &I_BS, &I_BD, &I_D,
 	       &g_BS, &g_BD, &g_DS,
-	       &g_M);
+	       &g_M, &g_mb);
 //************************
 
 	double I_BD_eq = I_BD - g_BD * (V_BS - V_DS);
 	double I_BS_eq = I_BS - g_BS * V_BS;
-
-	double sc = (V_DS >= 0) ? g_M : 0;
-	double dc = (V_DS <  0) ? g_M : 0;
-	double I_DS_eq = I_DS - (g_DS * V_DS) - (g_M * ((V_DS >= 0) ? V_GS : (V_GS - V_DS)));
+	double I_DS_eq = I_D - g_M  * V_GS - g_mb * V_BS - g_DS * V_DS;
 
 	m_ns.A[PinG][PinG] = 0;
 	m_ns.A[PinG][PinD] = 0;
@@ -197,14 +202,14 @@ void MOSFET::calc_eq() {
 	m_ns.A[PinG][PinB] = 0;
 
 	m_ns.A[PinD][PinG] =  g_M;
-	m_ns.A[PinD][PinD] =  g_DS + g_BD - dc;
-	m_ns.A[PinD][PinS] = -g_DS - sc;
-	m_ns.A[PinD][PinB] = -g_BD;
+	m_ns.A[PinD][PinD] =  g_DS + g_BD;
+	m_ns.A[PinD][PinS] = -g_DS - g_M - g_mb;
+	m_ns.A[PinD][PinB] =  g_mb - g_BD;
 
 	m_ns.A[PinS][PinG] = -g_M;
-	m_ns.A[PinS][PinD] = -g_DS + dc;
-	m_ns.A[PinS][PinS] =  g_BS + g_DS + sc;
-	m_ns.A[PinS][PinB] = -g_BS;
+	m_ns.A[PinS][PinD] = -g_DS;
+	m_ns.A[PinS][PinS] =  g_BS + g_DS + g_M + g_mb;
+	m_ns.A[PinS][PinB] = -g_BS - g_mb;
 
 	m_ns.A[PinB][PinG] = 0;
 	m_ns.A[PinB][PinD] = -g_BD;
@@ -218,41 +223,59 @@ void MOSFET::calc_eq() {
 }
 
 void MOSFET::calcIg(double V_BS, double V_DS, double V_GS,
-                    double *I_BS, double *I_BD, double *I_DS,
+                    double *I_BS, double *I_BD, double *I_D,
                     double *g_BS, double *g_BD, double *g_DS,
-                    double *g_M) const {
-	double I_S = m_mosfetSettings.I_S;
-	double N = m_mosfetSettings.N;
-	double beta = m_mosfetSettings.beta();
+                    double *g_M, double *g_mb) const {
+	const double I_S = m_mosfetSettings.I_S;
+	const double N = m_mosfetSettings.N;
+	const double length = m_mosfetSettings.L;
 
 	// BD and BS diodes
 	mosDiodeJunction(V_BS, I_S, N, I_BS, g_BS);
 	mosDiodeJunction(V_BS - V_DS, I_S, N, I_BD, g_BD);
 
 	// bias-dependent threshold voltage
-	double V_tst = ((V_DS >= 0) ? V_GS : V_GS - V_DS) - m_pol;
+	double V_tst = V_GS - V_T;
 
+	*I_D = 0;
 	*g_DS = 0;
-	*I_DS = 0;
 	*g_M  = 0;
+	*g_mb = 0;
 
 	if(V_tst > 0) {
-		double V_DS_abs = std::abs(V_DS);
+//		double V_DS_abs = std::abs(V_DS);
+		const double gate_length_term = (1 +  m_mosfetSettings.L * V_DS);
+		const double beta = m_mosfetSettings.beta();
 
-		if (V_tst <= V_DS_abs) {
+		if (V_tst < V_DS) {
 			// saturation region
-			*g_M  = beta * V_tst;
-			*I_DS = *g_M * V_tst / 2;
+			const double tmp = beta / 2 * length * V_tst * V_tst;
+
+			*I_D  = tmp * gate_length_term;
+			*g_DS = tmp * length;
+			*g_M  = beta * gate_length_term * V_tst;
+
+			if(V_BS < BULK_JUNCTION_POTENTIAL) {
+				*g_mb = *g_M *  BULK_THRESHOLD / (2 * sqrt( BULK_JUNCTION_POTENTIAL - V_BS));
+			} else *g_mb = 0; 
+
 		} else {
 			// linear region
-			*g_M  = beta * V_DS_abs;
-			*I_DS = *g_M * (V_tst - V_DS_abs / 2);
-			*g_DS = beta * (V_tst - V_DS_abs);
+			const double tmp = beta * gate_length_term;
+			const double tmp2 = (V_GS - V_T - V_DS / 2);
+
+			*I_D  = tmp * tmp2 * V_DS;
+			*g_DS = tmp * (V_GS - V_T - V_DS) + beta * length * V_DS * tmp2;
+			*g_M  = tmp * V_DS;
+
+			if(V_BS < BULK_JUNCTION_POTENTIAL) {
+				*g_mb = *g_M *  BULK_THRESHOLD / (2 * sqrt( BULK_JUNCTION_POTENTIAL - V_BS));
+			} else *g_mb = 0;
 		}
 	}
 
-	if(V_DS < 0)
-		*I_DS = -*I_DS;
+//	if(V_DS < 0)
+//		*I_D = -*I_D;
 }
 
 void MOSFET::setMOSFETSettings(const MOSFETSettings &settings) {
