@@ -129,6 +129,23 @@ ECMOSFET::ECMOSFET(int MOSFET_type, ICNDocument *icnDocument, bool newItem, cons
 	v->setCaption(i18n("mosfet body/bulk pin", "Body Pin"));
 	v->setValue(false);
 
+	// create a "test" MOSFETSettings, for init. values
+	MOSFETSettings s;
+	
+	// add the properties of MOSFET
+	Variant *v1 = createProperty("mosfetW", Variant::Type::Double);
+	v1->setCaption(i18n("mosfet channel width", "Channel width"));
+	v1->setValue( s.W );
+	v1->setAdvanced(true);
+	v1->setUnit( "m" );
+	
+	Variant *v2 = createProperty("mosfetL", Variant::Type::Double);
+	v2->setCaption(i18n("mosfet channel length", "Channel length"));
+	v2->setValue( s.L );
+	v2->setAdvanced(true);
+	v2->setUnit( "m" );
+
+	
 #if 0
 	MOSFETSettings s; // will be created with the default settings
 	v = createProperty("I_S", Variant::Type::Double);
@@ -203,17 +220,20 @@ void ECMOSFET::dataChanged() {
 		}
 	}
 
-#if 0
-	MOSFETSettings s;
 
+	MOSFETSettings s = m_pMOSFET->settings();
+#if 0
 	s.I_S = dataDouble("I_S");
 	s.N_F = dataDouble("N_F");
 	s.N_R = dataDouble("N_R");
 	s.B_F = dataDouble("B_F");
 	s.B_R = dataDouble("B_R");
-
-	m_pMOSFET->setMOSFETSettings(s);
 #endif
+	s.L = dataDouble("mosfetL");
+	s.W = dataDouble("mosfetW");
+	
+	m_pMOSFET->setMOSFETSettings(s);
+
 }
 
 
