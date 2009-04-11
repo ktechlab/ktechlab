@@ -80,9 +80,9 @@ public:
 
 protected:
 	void calcIg(double V_BS, double V_DS, double V_GS,
-	            double *I_BS, double *I_BD, double *I_DS,
+	            double *I_BS, double *I_BD, double *I_D,
 	            double *g_BS, double *g_BD, double *g_DS,
-	            double *g_M) const;
+	            double *g_M, double *g_mb) const;
 
 	void updateLim();
 	virtual void updateCurrents();

@@ -62,6 +62,23 @@ void NonLinear::diodeJunction(double V, double I_S, double N, double *I, double 
 	}
 }
 
+void NonLinear::mosDiodeJunction(double V, double I_S, double N, double *I, double *g) const
+{
+	double Vt = V_T * N;
+
+	if(V <= 0) {
+		*g = I_S / Vt;
+		*I = *g * V;
+	} else {
+		double e = exp(V / Vt);
+		*I = I_S * (e - 1);
+		*g = I_S * e / Vt;
+	}
+
+	*I += V * I_S;
+	*g += I_S;
+}
+
 double NonLinear::fetVoltage(double V, double V_prev, double Vth) const
 {
 	double V_tst_hi = 2 * fabs(V_prev - Vth) + 2.0;
@@ -133,21 +150,5 @@ double NonLinear::fetVoltageDS(double V, double V_prev) const
 	if(V > V_prev) return std::min(V, 4.0);
 	
 	return std::max(V, -0.5);
-}
-
-void NonLinear::mosDiodeJunction(double V, double I_S, double N, double *I, double *g) const
-{
-	double Vt = V_T * N;
-	if(V <= 0) {
-		*g = I_S / Vt;
-		*I = *g * V;
-	} else {
-		double e = exp(V / Vt);
-		*I = I_S * (e - 1);
-		*g = I_S * e / Vt;
-	}
-	
-	*I += V * I_S;
-	*g += I_S;
 }
 
