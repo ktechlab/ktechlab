@@ -141,10 +141,19 @@ PluginController::PluginController(Core *core)
     d->plugins = KPluginInfo::fromServices( KServiceTypeTrader::self()->query( QLatin1String( "KTechLab/Plugin" ),
         QString( "[X-KDevelop-Version] == %1" ).arg(KDEVELOP_PLUGIN_VERSION) ) );
     //load KDevelop plugins
+    #if QT_VERSION >= 0x040500
     d->plugins.append(
             KPluginInfo::fromServices( KServiceTypeTrader::self()->query( QLatin1String( "KDevelop/Plugin" ),
                     QString( "[X-KDevelop-Version] == %1" ).arg(KDEVELOP_PLUGIN_VERSION) ) )
             );
+    #else
+    // QList can't append QLists in versions < 4.5.0
+    // remove this code, as soon as we rely on Qt 4.5.0 or greater
+    foreach ( KPluginInfo p, KPluginInfo::fromServices( KServiceTypeTrader::self()->query( QLatin1String( "KDevelop/Plugin" ),
+                                        QString( "[X-KDevelop-Version] == %1" ).arg(KDEVELOP_PLUGIN_VERSION) ) ) ) {
+        d->plugins.append( p );
+    }
+    #endif
     foreach( KPluginInfo p, d->plugins )
     {
         if( p.pluginName().contains("nongui") )
