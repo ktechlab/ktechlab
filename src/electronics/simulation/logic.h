@@ -244,7 +244,6 @@ protected:
 // ###
 
 	Simulator *m_pSimulator;
-
 };
 
 #endif
