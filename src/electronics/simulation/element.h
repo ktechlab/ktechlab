@@ -11,18 +11,16 @@
 #ifndef ELEMENT_H
 #define ELEMENT_H
 
+#include <stdint.h>
+
 #include "elementset.h"
 #include "matrix.h"
-
-#include <stdint.h>
+#include "physics/physconst.h"
 
 class ElementSet;
 typedef unsigned int uint;
 
 extern double T_K; ///< Temperature in Kelvin
-
-const double BOLTZMANN_CONSTANT = 1.3806504e-23; ///< Boltzmann's constant
-const double ELEMENTARY_CHARGE = 1.602176487e-19; ///< Charge on an electron
 
 /// Thermal Energy 
 #define E_T (BOLTZMANN_CONSTANT * T_K)
