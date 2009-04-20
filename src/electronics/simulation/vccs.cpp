@@ -25,8 +25,7 @@ VCCS::~VCCS()
 {
 }
 
-
-void VCCS::setGain( const double g )
+void VCCS::setGain(const double g)
 {
 	if ( g == m_g ) return;
 	
@@ -47,9 +46,9 @@ void VCCS::add_initial_dc()
 	if (!b_status)
 		return;
 	
-	A_c( 0, 0 ) = +1.0;
+	A_c( 0, 0 ) =  1.0;
 	A_c( 0, 1 ) = -1.0;
-	A_b( 3, 0 ) = +1.0;
+	A_b( 3, 0 ) =  1.0;
 	A_b( 2, 0 ) = -1.0;
 	A_d( 0, 0 ) = -1.0 / m_g;
 	
@@ -60,7 +59,6 @@ void VCCS::add_initial_dc()
 	A_g( 3, 1 ) += m_g;
 #endif
 }
-
 
 void VCCS::updateCurrents()
 {
