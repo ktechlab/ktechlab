@@ -95,7 +95,7 @@ protected:
 	MOSFETState m_ns;
 	int m_pol;
 	double V_lim;
-	double V_GS_prev, V_DS_prev, V_BS_prev;
+
 	MOSFETSettings m_mosfetSettings;
 
 	static const uint PinD, PinG, PinS, PinB;

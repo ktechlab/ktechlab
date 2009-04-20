@@ -53,7 +53,7 @@ void MOSFETState::reset() {
 	}
 }
 
-MOSFETState MOSFETState::operator-(const MOSFETState & s) const {
+MOSFETState MOSFETState::operator-(const MOSFETState &s) const {
 	MOSFETState newState(*this);
 
 	for(unsigned i = 0; i < 4; ++i) {
@@ -89,8 +89,6 @@ MOSFET::MOSFET(MOSFET_type type) {
 		break;
 	}
 
-	V_GS_prev = V_DS_prev = V_BS_prev = 0.0;
-
 	m_numCNodes = 4;
 	updateLim();
 }
@@ -99,7 +97,6 @@ MOSFET::~MOSFET() {
 }
 
 void MOSFET::add_initial_dc() {
-	V_GS_prev = V_DS_prev = V_BS_prev = 0.0;
 	m_os.reset();
 	update_dc();
 }
@@ -163,27 +160,6 @@ void MOSFET::calc_eq() {
 		V_BS = (V_B - V_S) * m_pol;
 	}
 
-	// help convergence
-/*	if (V_DS >= 0) {
-		V_GS = fetVoltage(V_GS, V_GS_prev, m_pol);
-		// recalculate V_DS, same for other similar lines
-		V_DS = V_GS - ((V_G - V_D) * m_pol);
-		V_DS = fetVoltageDS(V_DS, V_DS_prev);
-		V_BS = diodeVoltage(V_BS, V_BS_prev, N, V_lim);
-	} else {
-		V_DS = V_GS - fetVoltage(V_GS - V_DS, V_GS_prev - V_DS_prev, m_pol);;
-
-		V_DS = -fetVoltageDS(-V_DS, -V_DS_prev);
-		V_GS = ((V_G - V_D) * m_pol) + V_DS;
-
-		V_BS = diodeVoltage(V_BS - V_DS, V_BS_prev - V_DS_prev, N, V_lim) + V_DS;
-	}
-*/
-
-	V_GS_prev = V_GS;
-	V_BS_prev = V_BS;
-	V_DS_prev = V_DS;
-
 //*************************
 	double I_BS, I_BD, I_D, g_BS, g_BD, g_DS, g_M, g_mb;
 	calcIg(V_BS, V_DS, V_GS,
@@ -243,7 +219,6 @@ void MOSFET::calcIg(double V_BS, double V_DS, double V_GS,
 	*g_mb = 0;
 
 	if(V_tst > 0) {
-//		double V_DS_abs = std::abs(V_DS);
 		const double gate_length_term = (1 +  m_mosfetSettings.L * V_DS);
 		const double beta = m_mosfetSettings.beta();
 
@@ -273,9 +248,6 @@ void MOSFET::calcIg(double V_BS, double V_DS, double V_GS,
 			} else *g_mb = 0;
 		}
 	}
-
-//	if(V_DS < 0)
-//		*I_D = -*I_D;
 }
 
 void MOSFET::setMOSFETSettings(const MOSFETSettings &settings) {
@@ -291,4 +263,5 @@ void MOSFET::updateLim() {
 	double N = m_mosfetSettings.N;
 	V_lim = diodeLimitedVoltage(I_S, N);
 }
+
 //END class MOSFET
