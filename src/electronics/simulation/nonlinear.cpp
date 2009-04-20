@@ -70,31 +70,32 @@ void NonLinear::diodeJunction(double V, double I_S, double N, double *I, double 
 		*I = -I_S * (1 + a);
 		*g =  I_S * 3 * a / V;
 	} else {
-		double e = exp(V / Vt);
+		double e = exp(V * ELEMENTARY_CHARGE / E_T);
 		*I = I_S * (e - 1);
-//		*g = I_S * e / Vt;
-		*g = *I / V;
+		*g = ELEMENTARY_CHARGE * *I / E_T;
 	}
 }
 
+/*
 /// Is this function really different from the one above? 
 void NonLinear::mosDiodeJunction(double V, double I_S, double N, double *I, double *g) const
 {
 	double Vt = V_T * N;
 
 	if(V <= 0) {
-		*g = I_S / Vt;
+		*g = (Vt + 1) / Vt;
 		*I = *g * V;
 	} else {
 		double e = exp(V / Vt);
 		*I = I_S * (e - 1);
-//		*g = I_S * e / Vt;
-		*g = *I / V;
+		*g = e / Vt + 1;
+//		*g = *I / V;
 	}
 
 	*I += V * I_S;
-//	*g += I_S;
+	*g *= I_S;
 }
+*/
 
 double NonLinear::fetVoltage(double V, double V_prev, double Vth) const
 {
