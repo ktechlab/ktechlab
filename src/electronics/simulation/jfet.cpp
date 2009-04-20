@@ -28,7 +28,6 @@ JFETSettings::JFETSettings()
 }
 //END class JFETSettings
 
-
 //BEGIN class JFETState
 JFETState::JFETState()
 {
