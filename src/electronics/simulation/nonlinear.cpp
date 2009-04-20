@@ -39,6 +39,20 @@ double NonLinear::diodeVoltage(double V, double V_prev, double N, double V_lim) 
 	return V;
 }
 
+double NonLinear::fetVoltageDS(double V, double V_prev) const
+{
+	if(V_prev >= 3.5) {
+		if(V > V_prev) return std::min(V, 3 * V_prev + 2);
+		else if(V < 3.5) return std::max(V, 2.5); // I think this is the pinch-off voltage. 
+
+		return V;
+	}
+	
+	if(V > V_prev) return std::min(V, 4.0);
+	
+	return std::max(V, -0.5);
+}
+
 double NonLinear::diodeLimitedVoltage(double I_S, double N) const
 {
 	double Vt = V_T * N;
@@ -58,10 +72,12 @@ void NonLinear::diodeJunction(double V, double I_S, double N, double *I, double 
 	} else {
 		double e = exp(V / Vt);
 		*I = I_S * (e - 1);
-		*g = I_S * e / Vt;
+//		*g = I_S * e / Vt;
+		*g = *I / V;
 	}
 }
 
+/// Is this function really different from the one above? 
 void NonLinear::mosDiodeJunction(double V, double I_S, double N, double *I, double *g) const
 {
 	double Vt = V_T * N;
@@ -72,11 +88,12 @@ void NonLinear::mosDiodeJunction(double V, double I_S, double N, double *I, doub
 	} else {
 		double e = exp(V / Vt);
 		*I = I_S * (e - 1);
-		*g = I_S * e / Vt;
+//		*g = I_S * e / Vt;
+		*g = *I / V;
 	}
 
 	*I += V * I_S;
-	*g += I_S;
+//	*g += I_S;
 }
 
 double NonLinear::fetVoltage(double V, double V_prev, double Vth) const
@@ -136,19 +153,5 @@ double NonLinear::fetVoltage(double V, double V_prev, double Vth) const
 	}
 
 	return Vth + 0.5;
-}
-
-double NonLinear::fetVoltageDS(double V, double V_prev) const
-{
-	if(V_prev >= 3.5) {
-		if(V > V_prev) return std::min(V, 3 * V_prev + 2);
-		else if(V < 3.5) return std::max(V, 2.5); // I think this is the pinch-off voltage. 
-
-		return V;
-	}
-	
-	if(V > V_prev) return std::min(V, 4.0);
-	
-	return std::max(V, -0.5);
 }
 
