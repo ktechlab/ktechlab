@@ -207,8 +207,11 @@ void MOSFET::calcIg(double V_BS, double V_DS, double V_GS,
 	const double length = m_mosfetSettings.L;
 
 	// BD and BS diodes
-	mosDiodeJunction(V_BS, I_S, N, I_BS, g_BS);
-	mosDiodeJunction(V_BS - V_DS, I_S, N, I_BD, g_BD);
+//	mosDiodeJunction(V_BS, I_S, N, I_BS, g_BS);
+//	mosDiodeJunction(V_BS - V_DS, I_S, N, I_BD, g_BD);
+
+	diodeJunction(V_BS,        I_S, N, I_BS, g_BS);
+	diodeJunction(V_BS - V_DS, I_S, N, I_BD, g_BD);
 
 	// bias-dependent threshold voltage
 	double V_tst = V_GS - V_T;
