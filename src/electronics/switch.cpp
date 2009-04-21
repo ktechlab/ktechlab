@@ -120,7 +120,7 @@ void Switch::stopBouncing() {
 	m_pComponent->removeElement(m_pBounceResistance, true);
 	m_pBounceResistance = 0;
 
-	bool connected = (m_state == Closed);
+//	bool connected = (m_state == Closed);
 
 	if (CircuitDocument *cd = m_pComponent->circuitDocument())
 		cd->requestAssignCircuits();
