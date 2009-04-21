@@ -12,11 +12,12 @@ noinst_LTLIBRARIES = libelectronics.la
 
 libelectronics_la_SOURCES = circuitdocument.cpp circuiticndocument.cpp \
 	component.cpp componentmodellibrary.cpp ecnode.cpp electronicconnector.cpp \
-	gpsimprocessor.cpp junctionnode.cpp pin.cpp pinnode.cpp port.cpp subcircuits.cpp \
-	switch.cpp wire.cpp
+	elementmap.cpp gpsimprocessor.cpp junctionnode.cpp pin.cpp pinnode.cpp port.cpp \
+	subcircuits.cpp switch.cpp wire.cpp
 
 libelectronics_la_LIBADD = \
 	$(top_builddir)/src/electronics/simulation/libelements.la $(top_builddir)/src/electronics/components/libcomponents.la
 
 noinst_HEADERS = circuiticndocument.h componentmodellibrary.h ecnode.h \
-	electronicconnector.h gpsimprocessor.h junctionnode.h pin.h pinnode.h port.h switch.h wire.h
+	electronicconnector.h elementmap.h gpsimprocessor.h junctionnode.h pin.h pinnode.h port.h \
+	switch.h wire.h
