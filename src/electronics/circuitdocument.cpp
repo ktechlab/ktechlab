@@ -298,8 +298,8 @@ void CircuitDocument::componentRemoved(Item *item) {
 	Simulator::self()->detachComponent(component);
 }
 
-// I think this is where the inf0z from cnodes/branches is moved into the midle-layer
-// pins/wires.
+/// I think this is where the inf0z from cnodes/branches is moved into the midle-layer
+/// pins/wires.
 void CircuitDocument::calculateConnectorCurrents() {
 	const CircuitList::iterator circuitEnd = m_circuitList.end();
 	for (CircuitList::iterator it = m_circuitList.begin(); it != circuitEnd; ++it)
@@ -371,7 +371,6 @@ void CircuitDocument::calculateConnectorCurrents() {
 		/*
 		make the ground pins work. Current engine doesn't treat ground explicitly.
 		*/
-
 		PinList::iterator groundPinsEnd = groundPins.end();
 		for (PinList::iterator it = groundPins.begin(); it != groundPinsEnd;) {
 			if ((*it)->calculateCurrentFromWires()) {
