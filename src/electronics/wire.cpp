@@ -121,3 +121,13 @@ void Wire::setCurrentKnown( bool known )
 	m_bCurrentIsKnown = known;
 	if (!known) m_current = 0.;
 }
+
+/*!
+    \fn Wire::method_1(const Pin aPin) const
+ */
+Pin *Wire::otherPin(const Pin *aPin) const
+{
+	if(aPin == m_pStartPin) return m_pEndPin;
+
+	return m_pStartPin;
+}
