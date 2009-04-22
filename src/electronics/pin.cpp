@@ -36,10 +36,7 @@ PinList Pin::localConnectedPins() const {
 	WireList::const_iterator end = m_wireList.end();
 	for(WireList::const_iterator it = m_wireList.begin(); it != end; ++it) {
 		if(!(*it)) continue;
-
-		if((*it)->startPin() == this)
-			pins << (*it)->endPin();
-		else pins << (*it)->startPin();
+		pins << (*it)->otherPin(this);
 	}
 
 	SwitchList::const_iterator endB = m_switchList.end();
