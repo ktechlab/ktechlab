@@ -32,12 +32,10 @@ void Resistance::setConductance(const double g) {
 	if (p_eSet)
 		p_eSet->setCacheInvalidated();
 
-	// Remove old resistance
-	m_g = -m_g;
+	m_g = g - m_g;
 	add_initial_dc();
 
-	m_g = g;
-	add_initial_dc();
+	m_g = g; 
 }
 
 void Resistance::setResistance(const double r) {
