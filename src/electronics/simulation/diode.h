@@ -57,10 +57,8 @@ public:
 	}
 
 	void setDiodeSettings(const DiodeSettings & settings);
-	/**
-	 * Returns the current flowing through the diode
-	 */
-	double current() const;
+
+	double current() const { return I_old; }
 
 protected:
 	virtual void updateCurrents();
@@ -71,6 +69,11 @@ protected:
 	double g_old, I_old;
 
 	DiodeSettings m_diodeSettings;
+
+private:
+	/**
+	 * Returns the current flowing through the diode
+	 */
 };
 
 #endif
