@@ -13,15 +13,15 @@
 
 #include "nonlinear.h"
 
-class DiodeSettings
-{
-	public:
-		DiodeSettings();
-		void reset();
-		
-		double I_S;	///< Diode saturation current
-		double N;	///< Emission coefficient
-		double V_B;	///< Reverse breakdown
+class DiodeSettings {
+
+public:
+	DiodeSettings();
+	void reset();
+
+	double I_S;	///< Diode saturation current
+	double N;	///< Emission coefficient
+	double V_B;	///< Reverse breakdown
 // 		double R;	///< Series resistance
 };
 
@@ -39,34 +39,38 @@ This simulates a diode. The simulated diode characteristics are:
 @short Simulates the electrical property of diode-ness
 @author David Saxton
 */
-class Diode : public NonLinear
-{
-	public:
-		Diode();
-		virtual ~Diode();
-	
-		virtual void update_dc();
-		virtual void add_initial_dc();
-		virtual Element::Type type() const { return Element_Diode; }
-		DiodeSettings settings() const { return m_diodeSettings; }
-		void setDiodeSettings( const DiodeSettings & settings );
-		/**
-		 * Returns the current flowing through the diode
-		 */
-		double current() const;
-	
-	protected:
-		virtual void updateCurrents();
-		void calc_eq();
-		void calcIg( double V, double * I, double * g ) const;
-		void updateLim();
-		
-		double g_new, g_old;
-		double I_new, I_old;
-		double V_prev;
-		double V_lim;
-	
-		DiodeSettings m_diodeSettings;
+
+class Diode : public NonLinear {
+
+public:
+	Diode();
+	virtual ~Diode();
+
+	virtual void update_dc();
+	virtual void add_initial_dc();
+	virtual Element::Type type() const {
+		return Element_Diode;
+	}
+
+	DiodeSettings settings() const {
+		return m_diodeSettings;
+	}
+
+	void setDiodeSettings(const DiodeSettings & settings);
+	/**
+	 * Returns the current flowing through the diode
+	 */
+	double current() const;
+
+protected:
+	virtual void updateCurrents();
+	void calc_eq(double *g_new, double *I_new);
+	void calcIg(double V, double *I, double *g) const;
+	void updateLim();
+
+	double g_old, I_old;
+
+	DiodeSettings m_diodeSettings;
 };
 
 #endif
