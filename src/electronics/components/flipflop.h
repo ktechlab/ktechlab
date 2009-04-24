@@ -16,75 +16,77 @@
 
 class Simulator;
 
-class ClockedFlipFlop : public CallbackClass, public Component
-{
-	public:
-		ClockedFlipFlop( ICNDocument *icnDocument, bool newItem, const char * id );
-	
-	protected:
-		enum EdgeTrigger { Rising, Falling };
-		virtual void dataChanged();
-		virtual void initSymbolFromTrigger() = 0;
-		EdgeTrigger m_edgeTrigger;
+class ClockedFlipFlop : public CallbackClass, public Component {
+public:
+	ClockedFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id);
+
+protected:
+// TODO: write code that implements functionality for level activtaed devices.
+	enum EdgeTrigger { Rising, Falling, Level };
+	virtual void dataChanged();
+	virtual void initSymbolFromTrigger() = 0;
+	EdgeTrigger m_edgeTrigger;
+
+	bool m_bPrevClock;
 };
 
 /**
 @short Boolean D-Type Flip-Flop
 @author David Saxton
 */
-class ECDFlipFlop : public ClockedFlipFlop
-{
+class ECDFlipFlop : public ClockedFlipFlop {
+
 public:
-	ECDFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	ECDFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECDFlipFlop();
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
+
+	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
 	static LibraryItem *libraryItem();
-	
+
 protected:
-	virtual void drawShape( QPainter & p );
+	virtual void drawShape(QPainter & p);
 	virtual void initSymbolFromTrigger();
-	void inputChanged( bool newState );
-	void inStateChanged( bool newState );
-	void asyncChanged(bool newState );
-	void clockChanged(bool newState );
-	
+	void inputChanged(bool newState);
+//	void inStateChanged(bool newState);
+	void asyncChanged(bool newState);
+	void clockChanged(bool newState);
+
 	LogicIn *m_pD;
 	LogicIn *m_pClock;
 	LogicOut *m_pQ;
 	LogicOut *m_pQBar;
 	LogicIn *setp;
 	LogicIn *rstp;
-	bool m_bPrevClock;
-	
-	bool m_prevD;
-	unsigned long long m_prevDChangeSimTime;
-	Simulator * m_pSimulator;
-};
 
+	bool m_prevD;
+
+	unsigned long long m_prevDChangeSimTime;
+	Simulator *m_pSimulator;
+};
 
 /**
 @short Boolean JK-Type Flip-Flop
 @author Couriousous
 */
-class ECJKFlipFlop : public ClockedFlipFlop
-{
+class ECJKFlipFlop : public ClockedFlipFlop {
+
 public:
-	ECJKFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	ECJKFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECJKFlipFlop();
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
+
+	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
 	static LibraryItem *libraryItem();
-	
+
 private:
-	virtual void drawShape( QPainter & p );
+	virtual void drawShape(QPainter &p);
 	virtual void initSymbolFromTrigger();
-	void inStateChanged( bool newState );
-	void asyncChanged(bool newState );
-	void clockChanged(bool newState );
-	
+	void asyncChanged(bool newState);
+	void clockChanged(bool newState);
+
+// TODO: think real hard about getting rid of this "hidden state" in favor of simply reading
+// the user visible output pins. 
 	bool prev_state;
-	bool m_bPrevClock;
+
 	LogicIn *m_pJ;
 	LogicIn *m_pClock;
 	LogicIn *m_pK;
@@ -94,28 +96,26 @@ private:
 	LogicOut *m_pQBar;
 };
 
-
 /**
 @short Boolean Set-Reset Flip-Flop
 @author David Saxton
 */
-class ECSRFlipFlop : public CallbackClass, public Component
-{
+class ECSRFlipFlop : public CallbackClass, public Component {
+// TODO: let user choose between NOR and NAND type.
+
 public:
-	ECSRFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	ECSRFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECSRFlipFlop();
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
+
+	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
 	static LibraryItem *libraryItem();
-	
+
 protected:
-	void inStateChanged( bool newState );
-	LogicIn * m_pS;
-	LogicIn * m_pR;
-	LogicOut * m_pQ;
-	LogicOut * m_pQBar;
-	bool old_q1;
-	bool old_q2;
+	void inStateChanged(bool newState);
+	LogicIn *m_pS;
+	LogicIn *m_pR;
+	LogicOut *m_pQ;
+	LogicOut *m_pQBar;
 };
 
 #endif
