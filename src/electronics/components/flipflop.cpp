@@ -273,7 +273,7 @@ void ECJKFlipFlop::drawShape(QPainter &p) {
 }
 
 void ECJKFlipFlop::clockChanged(bool newvalue) {
-	bool edge = (m_edgeTrigger == Falling) == (m_bPrevClock && !newState);
+	bool edge = (m_edgeTrigger == Falling) == (m_bPrevClock && !newvalue);
 	m_bPrevClock = newvalue;
 
 	bool j = m_pJ->isHigh();
