@@ -46,20 +46,13 @@ void Diode::add_initial_dc() {
 	update_dc();
 }
 
-double Diode::current() const {
-	if (!b_status) return 0.0;
-
-	double I, g;
-
-	calcIg(p_cnode[0]->v - p_cnode[1]->v, &I, &g);
-
-	return I;
-}
-
 void Diode::updateCurrents() {
 	if (!b_status) return;
 
-	m_cnodeI[1] = current();
+	double I, g;
+	calcIg(p_cnode[0]->v - p_cnode[1]->v, &I, &g);
+
+	m_cnodeI[1] = I;
 	m_cnodeI[0] = -m_cnodeI[1];
 }
 
@@ -101,19 +94,13 @@ void Diode::calcIg(double V, double *I_D, double *g) const {
 	double N   = m_diodeSettings.N;
 	double V_B = m_diodeSettings.V_B;
 
-	double g_tiny = (V < -10 * V_T * N && V_B != 0) ? I_S : 0;
+	double g_tiny = (V < -10 * V_T * N) ? I_S : 0;
 
-	if (V >= 0) {
-		// diode is forward biased.
+	if (V_B == 0 || V >= -V_B) {
+		// diode is operating normally.
 		diodeJunction(V, I_S, N, I_D, g);
 		*g += g_tiny;
 		*I_D += g_tiny * V;
-	} else if (V_B == 0 || V >= -V_B) {
-		// diode is rverse biased but not in breakdown.
-		double a = (3 * N * V_T) / (V * M_E);
-		a = a * a * a;
-		*I_D = (-I_S * (1 + a)) + (g_tiny * V);
-		*g   = (I_S *  3 * a) / V + g_tiny;
 	} else {
 		// diode is in reverse breakdown.
 		double a = exp(-(V_B + V) / N / V_T);
