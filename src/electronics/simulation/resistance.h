@@ -28,7 +28,7 @@ public:
 	void setConductance( const double g );
 	void setResistance( const double r );
 	
-	double resistance() { return 1/m_g; }
+	double resistance() { return 1 / m_g; }
 	double conductance() { return m_g; }
 
 protected:
