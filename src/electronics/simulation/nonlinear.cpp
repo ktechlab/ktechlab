@@ -70,10 +70,25 @@ void NonLinear::diodeJunction(double V, double I_S, double N, double *I, double 
 		*I = -I_S * (1 + a);
 		*g =  I_S * 3 * a / V;
 	} else {
-		double e = exp(V * ELEMENTARY_CHARGE / E_T);
+		double e = exp(V * ELEMENTARY_CHARGE / (N * E_T));
 		*I = I_S * (e - 1);
-		*g = ELEMENTARY_CHARGE * *I / E_T;
+// following needs to equal delta I / delta V
+
+// MNA text gives: but it doesn't work.
+//		*g = I_S / (N * E_T) * e;
+
+// came from a crappy textbook but seems to work OK.
+		*g = fabs((*I * ELEMENTARY_CHARGE) / E_T);
 	}
+
+	// clamp I and G to sane values:
+// I'm pretty sure part of our problems is absurdly large values reaching the matrix
+// and destroying information there. 
+
+//	if(*I > 1e9) *I = 1e9;
+//	else if(*I < -1e9) *I = -1e9;
+
+	if(*g > 1e9) *g = 1e9;
 }
 
 /*
