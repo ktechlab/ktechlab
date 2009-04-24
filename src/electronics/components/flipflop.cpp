@@ -21,8 +21,8 @@
 #include <qpainter.h>
 
 //BEGIN class ClockedFlipFlop
-ClockedFlipFlop::ClockedFlipFlop(ICNDocument *icnDocument, bool newItem, const char * id)
-		: Component(icnDocument, newItem, id) {
+ClockedFlipFlop::ClockedFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id)
+		: Component(icnDocument, newItem, id), m_bPrevClock(false) {
 	createProperty("trig", Variant::Type::Select);
 	property("trig")->setCaption(i18n("Trigger Edge"));
 	QStringMap allowed;
@@ -72,8 +72,6 @@ ECDFlipFlop::ECDFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id)
 	m_prevD = false;
 	m_pSimulator = Simulator::self();
 
-	m_bPrevClock = false;
-
 	m_pD = new LogicIn(LogicIn::getConfig());
 	setup1pinElement(m_pD, m_pNNode[0]->pin());
 
@@ -101,7 +99,7 @@ ECDFlipFlop::ECDFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id)
 	setp->setCallback(this, (CallbackPtr)(&ECDFlipFlop::asyncChanged));
 	rstp->setCallback(this, (CallbackPtr)(&ECDFlipFlop::asyncChanged));
 
-	inStateChanged(false);
+//	inStateChanged(false);
 }
 
 ECDFlipFlop::~ECDFlipFlop() {
@@ -113,10 +111,10 @@ void ECDFlipFlop::initSymbolFromTrigger() {
 	int w = 64 - offset;
 	setSize(offset - 32, -24, w, 48, true);
 	m_pNNode[0]->setLength(8 + offset);
-	addDisplayText("D",	QRect(offset - 28,	-16,	20, 16), "D", true, Qt::AlignLeft);
-	addDisplayText(">",	QRect(offset - 28,	0,	20, 16), ">", true, Qt::AlignLeft);
-	addDisplayText("Set",	QRect(offset - 28,	-20,	w - 8, 16), "Set", true, Qt::AlignHCenter);
-	addDisplayText("Rst",	QRect(offset - 28,	4,	w - 8, 16), "Rst", true, Qt::AlignHCenter);
+	addDisplayText("D",   QRect(offset - 28, -16,	 20, 16), "D",   true, Qt::AlignLeft);
+	addDisplayText(">",   QRect(offset - 28,   0,	 20, 16), ">",   true, Qt::AlignLeft);
+	addDisplayText("Set", QRect(offset - 28, -20, w - 8, 16), "Set", true, Qt::AlignHCenter);
+	addDisplayText("Rst", QRect(offset - 28,   4, w - 8, 16), "Rst", true, Qt::AlignHCenter);
 
 	updateAttachedPositioning();
 }
@@ -152,15 +150,12 @@ void ECDFlipFlop::inputChanged(bool newState) {
 }
 
 void ECDFlipFlop::clockChanged(bool newState) {
-	bool set = setp->isHigh();
-	bool rst = rstp->isHigh();
 
-	bool fallingEdge = m_bPrevClock && !newState;
-	bool edge = (m_edgeTrigger == Falling) ? fallingEdge : !fallingEdge;
+	bool edge = (m_edgeTrigger == Falling) == (m_bPrevClock && !newState);
 
 	m_bPrevClock = newState;
 
-	if (set || rst) return;
+	if(setp->isHigh() || rstp->isHigh()) return;
 
 	if (edge) {
 		// The D Flip-Flop takes the input before the edge fall/rise - not after
@@ -176,11 +171,11 @@ void ECDFlipFlop::clockChanged(bool newState) {
 	}
 }
 
-void ECDFlipFlop::inStateChanged(bool) {
+//void ECDFlipFlop::inStateChanged(bool) {
 	// Only called when the flipflop is created.
-	m_pQ->setHigh(false);
-	m_pQBar->setHigh(true);
-}
+//	m_pQ->setHigh(false);
+//	m_pQBar->setHigh(true);
+//}
 //END class ECDFlipFlop
 
 //BEGIN class ECJKFlipFlop
@@ -246,8 +241,6 @@ ECJKFlipFlop::ECJKFlipFlop(ICNDocument *icnDocument, bool newItem, const char *i
 	m_pClock->setCallback(this, (CallbackPtr)(&ECJKFlipFlop::clockChanged));
 	setp->setCallback(this, (CallbackPtr)(&ECJKFlipFlop::asyncChanged));
 	rstp->setCallback(this, (CallbackPtr)(&ECJKFlipFlop::asyncChanged));
-
-	inStateChanged(false);
 }
 
 ECJKFlipFlop::~ECJKFlipFlop() {
@@ -260,11 +253,11 @@ void ECJKFlipFlop::initSymbolFromTrigger() {
 	setSize(offset - 32, -32, w, 64, true);
 	m_pNNode[0]->setLength(8 + offset);
 	m_pNNode[2]->setLength(8 + offset);
-	addDisplayText("J",   QRect(offset - 28,	-24,	20,  16), "J",   true, Qt::AlignLeft);
-	addDisplayText(">",   QRect(offset - 28,	-8,	20,  16), ">",   true, Qt::AlignLeft);
-	addDisplayText("K",   QRect(offset - 28,	8,	20,  16), "K",   true, Qt::AlignLeft);
-	addDisplayText("Set", QRect(offset - 28,	-28,	w - 8, 16), "Set", true, Qt::AlignHCenter);
-	addDisplayText("Rst", QRect(offset - 28,	12,	w - 8, 16), "Rst", true, Qt::AlignHCenter);
+	addDisplayText("J", QRect(offset - 28, -24, 20, 16), "J", true, Qt::AlignLeft);
+	addDisplayText(">", QRect(offset - 28, -8, 20, 16), ">", true, Qt::AlignLeft);
+	addDisplayText("K", QRect(offset - 28,	8, 20,  16), "K", true, Qt::AlignLeft);
+	addDisplayText("Set", QRect(offset - 28, -28, w - 8, 16), "Set", true, Qt::AlignHCenter);
+	addDisplayText("Rst", QRect(offset - 28, 12, w - 8, 16), "Rst", true, Qt::AlignHCenter);
 
 	updateAttachedPositioning();
 }
@@ -280,25 +273,20 @@ void ECJKFlipFlop::drawShape(QPainter &p) {
 }
 
 void ECJKFlipFlop::clockChanged(bool newvalue) {
-	bool fallingEdge = (m_bPrevClock && !newvalue);
-	bool edge = (m_edgeTrigger == Falling) ? fallingEdge : !fallingEdge;
+	bool edge = (m_edgeTrigger == Falling) == (m_bPrevClock && !newState);
 	m_bPrevClock = newvalue;
 
 	bool j = m_pJ->isHigh();
 	bool k = m_pK->isHigh();
-	bool set = setp->isHigh();
-	bool rst = rstp->isHigh();
 
-	if (set || rst) return;
+	if(setp->isHigh() || rstp->isHigh()) return;
 
-// a JK flip-flop change state when clock do 1->0
 	if (edge && (j || k)) {
 		if (j && k) {
 			m_pQ->setHigh(!prev_state);
 			m_pQBar->setHigh(prev_state);
 			prev_state = !prev_state;
 		} else {
-			// (J=1 && K=0) || (J=0 && K=1)
 			m_pQ->setHigh(j);
 			m_pQBar->setHigh(k);
 			prev_state = j;
@@ -310,27 +298,21 @@ void ECJKFlipFlop::asyncChanged(bool) {
 	bool set = setp->isHigh();
 	bool rst = rstp->isHigh();
 
-	if (set || rst) {
+	if(set || rst) {
 		m_pQ->setHigh(set);
 		m_pQBar->setHigh(rst);
 		prev_state = set;
 	}
 }
 
-void ECJKFlipFlop::inStateChanged(bool) {
-	m_pQBar->setHigh(true);
-	m_pQ->setHigh(false);
-	prev_state = false;
-}
 //END class ECJKFlipFlop
-
 
 //BEGIN class ECSRFlipFlop
 Item* ECSRFlipFlop::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
 	return new ECSRFlipFlop((ICNDocument*)itemDocument, newItem, id);
 }
 
-LibraryItem* ECSRFlipFlop::libraryItem() {
+LibraryItem *ECSRFlipFlop::libraryItem() {
 	return new LibraryItem(
 	           "ec/sr_flipflop",
 	           i18n("SR Flip-Flop"),
@@ -361,10 +343,8 @@ ECSRFlipFlop::ECSRFlipFlop(ICNDocument *icnDocument, bool newItem, const char *i
 	m_pQBar = new LogicOut(LogicIn::getConfig(), false);
 	setup1pinElement(m_pQBar, m_pPNode[1]->pin());
 
-	old_q1 = true;
-	old_q2 = false;
-	m_pQ->setHigh(old_q1);
-	m_pQBar->setHigh(old_q2);
+	m_pQ->setHigh(true);
+	m_pQBar->setHigh(false);
 
 	addDisplayText("S", QRect(-24, -16, 20, 16), "S");
 	addDisplayText("R", QRect(-24,   0, 20, 16), "R");
@@ -385,50 +365,22 @@ ECSRFlipFlop::~ECSRFlipFlop() {
 }
 
 void ECSRFlipFlop::inStateChanged(bool) {
-	// Q = v_q1, Q-bar = v_q2
-	bool new_q1 = false;
-	bool new_q2 = false;
 
 	bool s = m_pS->isHigh();
 	bool r = m_pR->isHigh();
+
 	bool q1 = m_pQ->isHigh();
 	bool q2 = m_pQBar->isHigh();
 
-	// Easy ones to do :-)
+	m_pQ->setHigh(!(q2 || r));
+	m_pQBar->setHigh(!(q1 || s));
 
-	if (!q1) new_q2 = true;
+//I think that if we change our state, we trigger our own callback
+// so either we'll settle out or go nuts... we might need to set up a
+// de-loop counter that counts the number of times we were called for a given
+// logic update period and gives up after three or so. This case will only occour
+// if the part is abused, -- and it will be. =P
 
-	if (!q2) new_q1 = true;
-
-	if (q1 && q2) {
-		if (s && !r) {
-			new_q1 = true;
-			new_q2 = false;
-		} else if (!s && r) {
-			new_q1 = false;
-			new_q2 = true;
-		} else if (s && r) {
-			new_q1 = old_q1;
-			new_q2 = old_q2;
-		} else if (!s && !r) {
-			new_q1 = false;
-			new_q2 = false;
-		}
-	} else if (q1 && !q2) {
-		// Note: We only need to set the value of v_q2
-		if (r && !s) new_q2 = true;
-		else new_q2 = false;
-	} else if (!q1 && q2) {
-		// Note: We only need to set the value of v_q1
-		if (s && !r) new_q1 = true;
-		else new_q1 = false;
-	}
-
-	old_q1 = new_q1;
-	old_q2 = new_q2;
-
-	m_pQ->setHigh(new_q1);
-	m_pQBar->setHigh(new_q2);
 }
 //END class ECSRFlipFlop
 
