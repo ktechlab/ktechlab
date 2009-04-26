@@ -23,12 +23,14 @@ class CNItem;
 class ICNDocument;
 class Node;
 class NodeGroup;
-class Wire;
 
 typedef QValueList<ConnectorLine*> ConnectorLineList;
 typedef QValueList<QPoint> QPointList;
-typedef QValueVector<QGuardedPtr<Wire> > WireVector;
 
+// TODO: refactor these: 
+class Wire;
+typedef QValueVector<QGuardedPtr<Wire> > WireVector;
+// ###
 
 /**
 @short Represents a connection between two Nodes on a ICNDocument
@@ -47,10 +49,6 @@ public:
 	 * Node at start of connector (which refers to this as the output connector)
 	 */
 	virtual Node *startNode() const = 0;
-
-	/**
-	 * Node at end of connector (which refers to this as the input connector)
-	 */
 	virtual Node *endNode() const = 0;
 
 	/**
@@ -170,12 +168,13 @@ public:
 	/**
 	Methods relating to wire lists
 	*/
+// TODO: refactor these!
 	WireVector wires() const { return m_wires; }
 	unsigned numWires() const { return m_wires.size(); }
 	Wire *wire(unsigned num = 0) const {
 		return (num < m_wires.size()) ? m_wires[num] : 0;
 	}
-
+// ##### 
 	void updateConnectorLines(bool forceRedraw = false);
 
 	/**
@@ -198,12 +197,12 @@ signals:
 public slots:
 	void removeConnector(Node* = 0);
 
-//protected:
-//	bool m_bIsSyncingWires;
-
+// TODO: refactor this!!
 protected:
 	WireVector        m_wires;
-		
+// ###
+
+
 private:
 
 	bool b_semiHidden;
@@ -218,8 +217,8 @@ private:
 	ICNDocument *p_icnDocument;
 	ConRouter   *m_conRouter;
 
-	QString           m_id;
-	QRect             m_oldBoundRect;
+	QString     m_id;
+	QRect       m_oldBoundRect;
 
 	ConnectorLineList m_connectorLineList;
 };

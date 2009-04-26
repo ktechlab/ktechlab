@@ -76,7 +76,7 @@ bool CircuitICNDocument::canConnect( QCanvasItem *qcanvasItem1, QCanvasItem *qca
 }
 
 
-Connector * CircuitICNDocument::createConnector( Node *node, Connector *con, const QPoint &pos2, QPointList *pointList )
+Connector *CircuitICNDocument::createConnector( Node *node, Connector *con, const QPoint &pos2, QPointList *pointList )
 {
 	if(!canConnect( node, con ) ) return 0;
 	
@@ -103,7 +103,7 @@ Connector * CircuitICNDocument::createConnector( Node *node, Connector *con, con
 	con->hide();
 
 	// The actual new connector
-	Connector *new1 = newNode->createConnector(node);
+	Connector *new1 = newNode->createConnector(ecNode);
 	ecNode->addConnector(new1);
 	new1->setRoutePoints(*pointList,usedManual);
 
