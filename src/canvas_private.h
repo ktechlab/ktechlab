@@ -168,8 +168,6 @@ private:
 	QCanvasItem* ptr;
 };
 
-
-
 class QCanvasChunk
 {
 public:

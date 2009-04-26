@@ -474,11 +474,11 @@ void Connector::updateConnectorLines(bool forceRedraw) {
 	if (b_semiHidden) color = Qt::gray;
 	else if (isSelected()) color = QColor(101, 134, 192);
 	else if (!KTLConfig::showVoltageColor()) color = Qt::black;
-	else color = Component::voltageColor(wire() ? wire()->voltage() : 0.0);
+	else color = Component::voltageColor(m_wires.size() ? m_wires[0]->voltage() : 0.0);
 
 	int z = ICNDocument::Z::Connector + (isSelected() ? 5 : 0);
 
-	QPen pen(color, (numWires() > 1) ? 2 : 1);
+	QPen pen(color, (m_wires.size() > 1) ? 2 : 1);
 
 	bool animateWires = KTLConfig::animateWires();
 
