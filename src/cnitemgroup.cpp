@@ -11,6 +11,7 @@
 #include "cnitemgroup.h"
 #include "component.h"
 #include "connector.h"
+#include "connectorline.h"
 #include "flowpart.h"
 #include "icndocument.h"
 #include "node.h"
@@ -25,11 +26,9 @@ CNItemGroup::CNItemGroup( ICNDocument *icnDocument, const char *name)
 	m_currentLevel = -1;
 }
 
-
 CNItemGroup::~CNItemGroup()
 {
 }
-
 
 bool CNItemGroup::addItem( Item *item )
 {
