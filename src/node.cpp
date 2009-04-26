@@ -17,6 +17,7 @@
 #include <kdebug.h>
 
 #include <qpainter.h>
+#include "ktlcanvas.h"
 
 QColor Node::m_selectedColor = QColor( 101, 134, 192 );
 
@@ -24,8 +25,8 @@ Node::Node( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoin
 	: QObject(), QCanvasPolygon( icnDocument ? icnDocument->canvas() : 0 )
 {
 	m_length = 8;
-	p_nodeGroup = 0l;
-	p_parentItem = 0L;
+	p_nodeGroup = 0;
+	p_parentItem = 0;
 	b_deleted = false;
 	m_dir = dir;
 	m_type = type;

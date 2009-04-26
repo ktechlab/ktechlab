@@ -22,11 +22,12 @@
 
 #include <kdebug.h>
 
+#include "ktlcanvas.h"
+
 FlowICNDocument::FlowICNDocument( const QString &caption, const char *name)
 	: ICNDocument(caption, name )
 {
 }
-
 
 FlowICNDocument::~FlowICNDocument()
 {

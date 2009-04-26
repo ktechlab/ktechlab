@@ -29,6 +29,7 @@
 #include <cstdlib>
 #include <cmath>
 
+#include "ktlcanvas.h"
 
 //BEGIN class Connector
 Connector::Connector(ICNDocument *icnDocument, const QString &id)
