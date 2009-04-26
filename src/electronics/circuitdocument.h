@@ -29,7 +29,6 @@ class KActionMenu;
 typedef QValueList<Circuit*> CircuitList;
 typedef QValueList<Component*> ComponentList;
 typedef QValueList<QGuardedPtr<Connector> > ConnectorList;
-typedef QValueList<ECNode*> ECNodeList;
 typedef QValueList<Element*> ElementList;
 typedef QValueList<QGuardedPtr<Pin> > PinList;
 typedef QValueList<Switch*> SwitchList;
