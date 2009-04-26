@@ -114,16 +114,6 @@ public:
 	void setSemiHidden(bool semiHidden);
 
 	/**
-	 * Sets the container parent (i.e. the container of the parent item)
-	 */
-	void setParentContainer(const QString &cnItemId);
-
-	/**
-	 * Returns a pointer to the parent item container
-	 */
-	CNItem *parentContainer() const { return p_parentContainer; }
-
-	/**
 	 * @returns whether the points have been set by the user manually defining them
 	 */
 	bool usesManualPoints() const { return b_manualPoints; }
@@ -174,14 +164,15 @@ public:
 	Wire *wire(unsigned num = 0) const {
 		return (num < m_wires.size()) ? m_wires[num] : 0;
 	}
-// ##### 
-	void updateConnectorLines(bool forceRedraw = false);
-
 	/**
 	 * Modular offset of moving dots in connector, indicating current (in
 	 * pixels).
 	 */
 	double currentAnimationOffset() const { return m_currentAnimationOffset; }
+
+// ##### 
+	void updateConnectorLines(bool forceRedraw = false);
+
 
 	/**
 	 * Increases the currentAnimationOffset according to the current flowing in
@@ -210,10 +201,14 @@ private:
 	bool b_manualPoints;
 	bool b_pointsAdded;
 
+// TODO: refactor this: 
 	double m_currentAnimationOffset;
+// ###
 
+// DEAD CODE; never set to anything other than zero, never really used:
 	NodeGroup   *p_nodeGroup;
-	CNItem      *p_parentContainer;
+
+
 	ICNDocument *p_icnDocument;
 	ConRouter   *m_conRouter;
 
