@@ -68,14 +68,6 @@ Connector::~Connector() {
 //	m_wires.resize(0);
 }
 
-
-void Connector::setParentContainer(const QString &cnItemId) {
-// 	// We only allow the node to be parented once
-// 	if ( p_parentContainer || !ICNDocument->itemWithID(cnItemId) ) return;
-	p_parentContainer = p_icnDocument->cnItemWithID(cnItemId);
-}
-
-
 void Connector::removeConnector(Node*) {
 	if (b_deleted) return;
 
@@ -483,7 +475,6 @@ void Connector::updateConnectorLines(bool forceRedraw) {
 	bool animateWires = KTLConfig::animateWires();
 
 	ConnectorLineList::iterator end = m_connectorLineList.end();
-
 	for (ConnectorLineList::iterator it = m_connectorLineList.begin(); it != end; ++it) {
 		(*it)->setAnimateCurrent(animateWires);
 
