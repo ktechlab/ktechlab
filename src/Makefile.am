@@ -28,9 +28,9 @@ ktechlab_LDADD = $(top_builddir)/src/core/libcore.la \
 # which sources should be compiled for ktechlab
 ktechlab_SOURCES = asmformatter.cpp canvas.cpp canvasitemparts.cpp \
 	canvasmanipulator.cpp canvastip.cpp cells.cpp circuitview.cpp ciwidgetmgr.cpp cnitem.cpp \
-	cnitemgroup.cpp connector.cpp conrouter.cpp debugmanager.cpp docmanager.cpp \
-	docmanageriface.cpp docmanageriface.skel document.cpp documentiface.cpp documentiface.skel \
-	eventinfo.cpp filemetainfo.cpp flowcodedocument.cpp flowcodeview.cpp \
+	cnitemgroup.cpp connector.cpp connectorline.cpp conrouter.cpp debugmanager.cpp \
+	docmanager.cpp docmanageriface.cpp docmanageriface.skel document.cpp documentiface.cpp \
+	documentiface.skel eventinfo.cpp filemetainfo.cpp flowcodedocument.cpp flowcodeview.cpp \
 	flowcontainer.cpp fpnode.cpp icndocument.cpp icnview.cpp item.cpp itemdocument.cpp \
 	itemdocumentdata.cpp itemgroup.cpp iteminterface.cpp itemlibrary.cpp itemview.cpp \
 	katemdi.cpp ktechlab.cpp ktlcanvas.cpp libraryitem.cpp microsettings.cpp node.cpp \
@@ -93,3 +93,4 @@ katesyntaxdir = $(kde_datadir)/katepart/syntax
 katesyntax_DATA = microbe.xml
 
 _SOURCES = canvastip.h.cpp
+_SOURCES = canvastip.h.cpp connectorline.h

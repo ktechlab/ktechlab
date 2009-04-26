@@ -193,7 +193,6 @@ protected:
 	WireVector        m_wires;
 // ###
 
-
 private:
 
 	bool b_semiHidden;
@@ -219,31 +218,6 @@ private:
 };
 
 typedef QValueList<QGuardedPtr<Connector> > ConnectorList;
-
-//BEGIN ConnectorLine things
-
-class ConnectorLine : public QObject, public QCanvasLine {
-
-public:
-	/**
-	 * @param pixelOffset the number of pixels between the start of the
-	 * parent connector and the start of this wire. Used in current
-	 * animation.
-	 */
-	ConnectorLine(Connector *connector, int pixelOffset);
-	Connector *parent() const { return m_pConnector; }
-
-	void setAnimateCurrent(bool animateCurrent) { m_bAnimateCurrent = animateCurrent; }
-
-protected:
-	virtual void drawShape(QPainter &p);
-
-	Connector *m_pConnector;
-	int  m_pixelOffset;
-	bool m_bAnimateCurrent;
-};
-
-//END ConnectorLine things
 
 #endif
 

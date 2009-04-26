@@ -32,6 +32,7 @@
 #include <qtimer.h>
 
 #include "ktlcanvas.h"
+#include "connectorline.h"
 
 //BEGIN class ICNDocument
 ICNDocument::ICNDocument( const QString &caption, const char *name )
@@ -512,7 +513,7 @@ spend time figuring out which method to call...
 	else {
 		Connector * connector = dynamic_cast<Connector*>(qcanvasItem);
 		if (!connector) {
-			if ( ConnectorLine * cl = dynamic_cast<ConnectorLine*>(qcanvasItem) )
+			if(ConnectorLine *cl = dynamic_cast<ConnectorLine*>(qcanvasItem) )
 				connector = cl->parent();
 		}
 

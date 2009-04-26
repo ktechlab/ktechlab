@@ -8,28 +8,26 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "circuitdocument.h"
-#include "component.h"
+#include <cstdlib>
+#include <cmath>
+#include <kdebug.h>
+
 #include "connector.h"
 #include "conrouter.h"
 #include "cnitem.h"
-#include "junctionnode.h"
 #include "itemdocumentdata.h"
 #include "src/core/ktlconfig.h"
 #include "utils.h"
+#include "icndocument.h"
+#include "node.h"
 
 // ### to be refactored:
-#include "ecnode.h"
+#include "component.h"
 #include "wire.h"
 // ###
 
-#include <kdebug.h>
-#include <qpainter.h>
-
-#include <cstdlib>
-#include <cmath>
-
 #include "ktlcanvas.h"
+#include "connectorline.h"
 
 //BEGIN class Connector
 Connector::Connector(ICNDocument *icnDocument, const QString &id)
@@ -44,12 +42,13 @@ Connector::Connector(ICNDocument *icnDocument, const QString &id)
 	p_icnDocument  = icnDocument;
 	m_conRouter    = new ConRouter(p_icnDocument);
 
-	if ( !id.isEmpty() ) {
+	if (!id.isEmpty()) {
 		m_id = id;
-		if ( !p_icnDocument->registerUID(id) ) {
- 			kdDebug() << k_funcinfo << "Connector attempted to register given ID, but ID already in use: " << id << endl;
-                        m_id = p_icnDocument->generateUID( id );
-                        kdDebug() << "Creating a new one: " << m_id << endl;
+
+		if (!p_icnDocument->registerUID(id)) {
+			kdDebug() << k_funcinfo << "Connector attempted to register given ID, but ID already in use: " << id << endl;
+			m_id = p_icnDocument->generateUID(id);
+			kdDebug() << "Creating a new one: " << m_id << endl;
 		}
 	} else m_id = p_icnDocument->generateUID("connector");
 
@@ -58,7 +57,6 @@ Connector::Connector(ICNDocument *icnDocument, const QString &id)
 
 	setVisible(true);
 }
-
 
 Connector::~Connector() {
 	p_icnDocument->unregisterUID(id());
@@ -88,7 +86,6 @@ void Connector::removeConnector(Node*) {
 	p_icnDocument->appendDeleteList(this);
 }
 
-
 int getSlope(float x1, float y1, float x2, float y2) {
 	enum slope {
 		s_n = 0,//	.
@@ -100,6 +97,7 @@ int getSlope(float x1, float y1, float x2, float y2) {
 
 	if (x1 == x2) {
 		if (y1 == y2) return s_n;
+
 		return s_v;
 	} else if (y1 == y2) {
 		return s_h;
@@ -115,15 +113,12 @@ void Connector::updateDrawList() {
 
 	int prevX = (*m_conRouter->cellPointList()->begin()).x();
 	int prevY = (*m_conRouter->cellPointList()->begin()).y();
-
 	int prevX_canvas = toCanvas(prevX);
 	int prevY_canvas = toCanvas(prevY);
-
 	Cells *cells = p_icnDocument->cells();
-
 	bool bumpNow = false;
-	const QPointList::const_iterator cplEnd = m_conRouter->cellPointList()->end();
 
+	const QPointList::const_iterator cplEnd = m_conRouter->cellPointList()->end();
 	for (QPointList::const_iterator it = m_conRouter->cellPointList()->begin(); it != cplEnd; ++it) {
 		const int x = (*it).x();
 		const int y = (*it).y();
@@ -181,10 +176,11 @@ void Connector::updateDrawList() {
 	if (drawLineList.size() < 3) return;
 
 	const QPointList::iterator dllEnd = drawLineList.end();
-
 	QPointList::iterator previous = drawLineList.begin();
+
 	QPointList::iterator current = previous;
 	current++;
+
 	QPointList::const_iterator next = current;
 	next++;
 
@@ -214,7 +210,6 @@ void Connector::updateDrawList() {
 
 			if (p.x() < x1 || x1 == invalid) x1 = p.x();
 			if (p.x() > x2 || x2 == invalid) x2 = p.x();
-
 			if (p.y() < y1 || y1 == invalid) y1 = p.y();
 			if (p.y() > y2 || y2 == invalid) y2 = p.y();
 		}
@@ -260,15 +255,14 @@ void Connector::updateDrawList() {
 	//END build up ConnectorPoint list
 }
 
-
 void Connector::setSemiHidden(bool semiHidden) {
 	if (!canvas() || semiHidden == b_semiHidden)
 		return;
 
 	b_semiHidden = semiHidden;
+
 	updateConnectorLines();
 }
-
 
 void Connector::updateConnectorPoints(bool add) {
 	if (!canvas()) return;
@@ -286,6 +280,7 @@ void Connector::updateConnectorPoints(bool add) {
 	Cells * cells = p_icnDocument->cells();
 
 	const int mult = (add) ? 1 : -1;
+
 	const QPointList::iterator end = --m_conRouter->cellPointList()->end();
 
 	for (QPointList::iterator it = ++m_conRouter->cellPointList()->begin(); it != end; ++it) {
@@ -298,7 +293,7 @@ void Connector::updateConnectorPoints(bool add) {
 
 		p_icnDocument->addCPenalty(x    , y - 1, mult*ICNDocument::hs_connector / 2);
 		p_icnDocument->addCPenalty(x - 1, y    , mult*ICNDocument::hs_connector / 2);
-		p_icnDocument->addCPenalty(x    , y    , mult*ICNDocument::hs_connector    );
+		p_icnDocument->addCPenalty(x    , y    , mult*ICNDocument::hs_connector);
 		p_icnDocument->addCPenalty(x + 1, y    , mult*ICNDocument::hs_connector / 2);
 		p_icnDocument->addCPenalty(x    , y + 1, mult*ICNDocument::hs_connector / 2);
 
@@ -313,9 +308,10 @@ void Connector::setRoutePoints(QPointList pointList, bool setManual, bool checkE
 	updateConnectorPoints(false);
 
 	bool reversed = pointsAreReverse(pointList);
-	
+
 	// a little performance boost: don't call (start|end)Node 4 times
 	Node* l_endNode = endNode();
+
 	Node* l_startNode = startNode();
 
 	if (checkEndPoints) {
@@ -333,7 +329,6 @@ void Connector::setRoutePoints(QPointList pointList, bool setManual, bool checkE
 	b_manualPoints = setManual;
 	updateConnectorPoints(true);
 }
-
 
 bool Connector::pointsAreReverse(const QPointList &pointList) const {
 	if (!startNode() || !endNode()) {
@@ -354,14 +349,14 @@ bool Connector::pointsAreReverse(const QPointList &pointList) const {
 	double ney =   endNode()->y();
 
 	double dist_normal = (nsx - plsx) * (nsx - plsx)
-			   + (nsy - plsy) * (nsy - plsy)
-			   + (nex - plex) * (nex - plex)
-			   + (ney - pley) * (ney - pley);
+	                     + (nsy - plsy) * (nsy - plsy)
+	                     + (nex - plex) * (nex - plex)
+	                     + (ney - pley) * (ney - pley);
 
 	double dist_reverse = (nsx - plex) * (nsx - plex)
-			    + (nsy - pley) * (nsy - pley)
-			    + (nex - plsx) * (nex - plsx)
-			    + (ney - plsy) * (ney - plsy);
+	                      + (nsy - pley) * (nsy - pley)
+	                      + (nex - plsx) * (nex - plsx)
+	                      + (ney - plsy) * (ney - plsy);
 
 	return dist_reverse < dist_normal;
 }
@@ -377,11 +372,10 @@ void Connector::rerouteConnector() {
 	if (!startNode() || !endNode()) return;
 
 	updateConnectorPoints(false);
-
 	m_conRouter->mapRoute(int(startNode()->x()),
-			      int(startNode()->y()),
-			      int(endNode()->x()),
-                              int(endNode()->y()));
+	                      int(startNode()->y()),
+	                      int(endNode()->x()),
+	                      int(endNode()->y()));
 
 	b_manualPoints = false;
 	updateConnectorPoints(true);
@@ -411,6 +405,7 @@ ConnectorData Connector::connectorData() const {
 	}
 
 	connectorData.manualRoute = usesManualPoints();
+
 	connectorData.route = *m_conRouter->cellPointList();
 
 	if (startNode()->isChildNode()) {
@@ -446,7 +441,6 @@ void Connector::setSelected(bool yes) {
 
 	QCanvasPolygon::setSelected(yes);
 	updateConnectorLines();
-
 	emit selected(yes);
 }
 
@@ -471,12 +465,13 @@ void Connector::updateConnectorLines(bool forceRedraw) {
 		QCanvasPolygonalItem *item = static_cast<QCanvasPolygonalItem*>(*it);
 
 		bool changed = (item->z() != z)
-			    || (item->pen() != pen)
-			    || (item->isVisible() != isVisible());
+		               || (item->pen() != pen)
+		               || (item->isVisible() != isVisible());
 
 		if (!changed) {
 			if (forceRedraw)
 				canvas()->setChanged(item->boundingRect());
+
 			continue;
 		}
 
@@ -515,98 +510,6 @@ void Connector::incrementCurrentAnimation(double deltaTime) {
 	}
 }
 //END class Connector
-
-//BEGIN class ConnectorLine
-ConnectorLine::ConnectorLine(Connector * connector, int pixelOffset)
-		: QObject(connector), QCanvasLine(connector->canvas()) {
-	m_pConnector = connector;
-	m_pixelOffset = pixelOffset;
-}
-
-
-/**
- * @returns x, possibly moving it to the closest bound if it is out of bounds.
- */
-int boundify(int x, int bound1, int bound2) {
-	if (bound2 < bound1) {
-		// swap bounds
-		int temp = bound2;
-		bound2   = bound1;
-		bound1   = temp;
-	}
-
-	// now, have bound1 <= bound2
-	if (x < bound1)	     return bound1;
-	else if (x > bound2) return bound2;
-	else	return x;
-}
-
-void ConnectorLine::drawShape(QPainter & p) {
-	if (!m_bAnimateCurrent) {
-		QCanvasLine::drawShape(p);
-		return;
-	}
-
-	int ss = 3; // segment spacing
-	int sl = 13; // segment length (includes segment spacing)
-
-	int offset = int(m_pConnector->currentAnimationOffset() - m_pixelOffset);
-	offset = ((offset % sl) - sl) % sl;
-
-	int x1 = startPoint().x();
-	int y1 = startPoint().y();
-	int x2 = endPoint().x();
-	int y2 = endPoint().y();
-
-	QPen pen = p.pen();
-// 	pen.setStyle( Qt::DashDotLine );
-	p.setPen(pen);
-
-	if (x1 == x2) {
-		int _x = int(x() + x1);
-		int y_end = int(y() + y2);
-
-		if (y1 > y2) {
-			// up connector line
-			for (int _y = int(y() + y1 - offset); _y >= y_end; _y -= sl) {
-				int y_1 = boundify(_y, int(y() + y1), y_end);
-				int y_2 = boundify(_y - (sl - ss), int(y() + y1), y_end);
-				p.drawLine(_x, y_1, _x, y_2);
-			}
-		} else {
-			// down connector line
-			for (int _y = int(y() + y1 + offset); _y <= y_end; _y += sl) {
-				int y_1 = boundify(_y, int(y() + y1), y_end);
-				int y_2 = boundify(_y + (sl - ss), int(y() + y1), y_end);
-				p.drawLine(_x, y_1, _x, y_2);
-			}
-		}
-	} else {
-		// y1 == y2
-
-		int _y    = int(y() + y1);
-		int x_end = int(x() + x2);
-
-		if (x1 > x2) {
-			// left connector line
-			int x_start = int(x() + x1 - offset);
-
-			for (int _x = x_start; _x >= x_end; _x -= sl) {
-				int x_1 = boundify(_x, int(x() + x1), x_end);
-				int x_2 = boundify(_x - (sl - ss), int(x() + x1), x_end);
-				p.drawLine(x_1, _y, x_2, _y);
-			}
-		} else {
-			// right connector line
-			for (int _x = int(x() + x1 + offset); _x <= x_end; _x += sl) {
-				int x_1 = boundify(_x, int(x() + x1), x_end);
-				int x_2 = boundify(_x + (sl - ss), int(x() + x1), x_end);
-				p.drawLine(x_1, _y, x_2, _y);
-			}
-		}
-	}
-}
-//END class ConnectorLine
 
 #include "connector.moc"
 
