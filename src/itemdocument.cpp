@@ -48,7 +48,7 @@
 #include <cassert>
 
 #include "canvastip.h"
-
+#include "connectorline.h"
 
 //BEGIN class ItemDocument
 int ItemDocument::m_nextActionTicket = 0;
