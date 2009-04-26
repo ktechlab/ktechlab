@@ -22,11 +22,12 @@
 #include <qlayout.h>
 #include <qtimer.h>
 
+#include "ktlcanvas.h"
+
 const int minPrefixExp = -24;
 const int maxPrefixExp = 24;
 const int numPrefix = int((maxPrefixExp-minPrefixExp)/3)+1;
 const QString SIprefix[] = {"y","z","a","f","p","n",QChar(0xB5),"m","","k","M","G","T","P","E","Z","Y"};
-
 
 Item::Item( ItemDocument *itemDocument, bool newItem, const QString &id )
 	: QObject(), QCanvasPolygon( itemDocument ? itemDocument->canvas() : 0 )
@@ -52,7 +53,6 @@ Item::Item( ItemDocument *itemDocument, bool newItem, const QString &id )
 	m_pPropertyChangedTimer = new QTimer( this );
 	connect( m_pPropertyChangedTimer, SIGNAL(timeout()), this, SLOT(dataChanged()) );
 }
-
 
 Item::~Item()
 {

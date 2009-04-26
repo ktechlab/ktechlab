@@ -24,6 +24,8 @@
 #include <cmath>
 #include <termios.h>
 
+#include "ktlcanvas.h"
+
 Item* SerialPortComponent::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
 	return new SerialPortComponent((ICNDocument*)itemDocument, newItem, id);
 }

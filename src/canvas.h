@@ -346,10 +346,8 @@ class QCanvasRectangle : public QCanvasPolygonalItem
 		bool collidesWith( const QCanvasPolygonalItem*,
 				   const QCanvasRectangle*,
 				   const QCanvasEllipse* ) const;
-
 		int w, h;
 };
-
 
 class QCanvasPolygon : public QCanvasPolygonalItem
 {
@@ -366,7 +364,6 @@ class QCanvasPolygon : public QCanvasPolygonalItem
 		void drawShape(QPainter &);
 		QPointArray poly;
 };
-
 
 class QCanvasLine : public QCanvasPolygonalItem
 {

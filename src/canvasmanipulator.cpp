@@ -36,6 +36,8 @@
 #include <qpainter.h>
 #include <qtimer.h>
 
+#include "ktlcanvas.h"
+
 // FIXME: This source file is HUUUGE!!!, contains numerous clases, should be broken down. 
 
 
@@ -352,8 +354,6 @@ void CMManager::setRepeatedAddId( const QString & repeatedId )
 }
 //END class CMManager
 
-
-
 //BEGIN class CanvasManipulator
 CanvasManipulator::CanvasManipulator( ItemDocument *itemDocument, CMManager *cmManager )
 {
@@ -371,11 +371,9 @@ CanvasManipulator::CanvasManipulator( ItemDocument *itemDocument, CMManager *cmM
 	connect( itemDocument->canvas(), SIGNAL(resized( const QRect&, const QRect& )), this, SLOT(canvasResized( const QRect&, const QRect& )) );
 }
 
-
 CanvasManipulator::~CanvasManipulator()
 {
 }
-
 
 QPoint CanvasManipulator::snapPoint( QPoint point )
 {
