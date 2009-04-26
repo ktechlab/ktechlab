@@ -29,7 +29,6 @@
 #include <qbitarray.h>
 #include <qfile.h>
 
-
 // Converts the QBitArray into a string (e.g. "F289A9E") that can be stored in an xml file
 static QString toAsciiHex( QBitArray _data )
 {
@@ -1032,19 +1031,16 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 				continue;
 			
 			QString id = it.key();
-			Node *startNode = 0l;
-			Node *endNode = 0l;
-			
+			Node *startNode = 0;
+			Node *endNode = 0;
+
 			if ( it.data().startNodeIsChild )
 			{
 				CNItem *item = icnd->cnItemWithID( it.data().startNodeParent );
 				if (!item)
 					kdError() << k_funcinfo << "Unable to find node parent with id: "<<it.data().startNodeParent<<endl;
-				else
-					startNode = item->childNode( it.data().startNodeCId );
-			}
-			else
-				startNode = icnd->nodeWithID( it.data().startNodeId );
+				else startNode = item->childNode( it.data().startNodeCId );
+			} else startNode = icnd->nodeWithID( it.data().startNodeId );
 			
 			if ( it.data().endNodeIsChild )
 			{
@@ -1053,16 +1049,12 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 					kdError() << k_funcinfo << "Unable to find node parent with id: "<<it.data().endNodeParent<<endl;
 				else
 					endNode = item->childNode( it.data().endNodeCId );
-			}
-			else
-				endNode = icnd->nodeWithID( it.data().endNodeId );
+			} else	endNode = icnd->nodeWithID( it.data().endNodeId );
 			
 			if ( !startNode || !endNode )
 			{
 				kdError() << k_funcinfo << "End and start nodes for the connector do not both exist" << endl;
-			}
-			else
-			{
+			} else {
 				Connector *connector;
 					
 				// HACK // FIXME // TODO
@@ -1080,8 +1072,8 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 				// FIXME tons of dynamic_cast
 				if( icnd->type() == Document::dt_circuit ) {
 					connector = new ElectronicConnector( 
-								dynamic_cast<ECNode *>(startNode), 
-								dynamic_cast<ECNode *>(endNode), icnd, id );
+						dynamic_cast<ECNode *>(startNode),
+						dynamic_cast<ECNode *>(endNode), icnd, id );
 					(dynamic_cast<ECNode *>(startNode))->addConnector(connector);
 					(dynamic_cast<ECNode *>(endNode))->addConnector(connector);
 				} else {
