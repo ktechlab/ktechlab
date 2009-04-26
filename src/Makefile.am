@@ -26,25 +26,25 @@ ktechlab_LDADD = $(top_builddir)/src/core/libcore.la \
 	-lkutils
 
 # which sources should be compiled for ktechlab
-ktechlab_SOURCES = ktechlab.cpp node.cpp connector.cpp itemlibrary.cpp \
-	libraryitem.cpp projectmanager.cpp picitem.cpp variant.cpp canvasitemparts.cpp \
-	flowcontainer.cpp microsettings.cpp fpnode.cpp cells.cpp asmformatter.cpp conrouter.cpp \
-	nodegroup.cpp canvasmanipulator.cpp iteminterface.cpp itemgroup.cpp ciwidgetmgr.cpp \
-	filemetainfo.cpp resizeoverlay.cpp document.cpp view.cpp docmanager.cpp cnitem.cpp \
-	item.cpp cnitemgroup.cpp itemview.cpp itemdocument.cpp textview.cpp \
-	textdocument.cpp flowcodedocument.cpp icnview.cpp icndocument.cpp viewcontainer.cpp \
-	circuitview.cpp flowcodeview.cpp eventinfo.cpp oscilloscopedata.cpp \
-	itemdocumentdata.cpp docmanageriface.cpp documentiface.cpp viewiface.cpp \
-	docmanageriface.skel viewiface.skel documentiface.skel simulator.cpp katemdi.cpp \
-	debugmanager.cpp recentfilesaction.cpp variablelabel.cpp canvas.cpp
+ktechlab_SOURCES = asmformatter.cpp canvas.cpp canvasitemparts.cpp \
+	canvasmanipulator.cpp canvastip.cpp cells.cpp circuitview.cpp ciwidgetmgr.cpp cnitem.cpp \
+	cnitemgroup.cpp connector.cpp conrouter.cpp debugmanager.cpp docmanager.cpp \
+	docmanageriface.cpp docmanageriface.skel document.cpp documentiface.cpp documentiface.skel \
+	eventinfo.cpp filemetainfo.cpp flowcodedocument.cpp flowcodeview.cpp \
+	flowcontainer.cpp fpnode.cpp icndocument.cpp icnview.cpp item.cpp itemdocument.cpp \
+	itemdocumentdata.cpp itemgroup.cpp iteminterface.cpp itemlibrary.cpp itemview.cpp \
+	katemdi.cpp ktechlab.cpp libraryitem.cpp microsettings.cpp node.cpp nodegroup.cpp \
+	oscilloscopedata.cpp picitem.cpp projectmanager.cpp recentfilesaction.cpp resizeoverlay.cpp \
+	simulator.cpp textdocument.cpp textview.cpp variablelabel.cpp variant.cpp view.cpp \
+	viewcontainer.cpp viewiface.cpp viewiface.skel
 
 ktechlab_PCH = AUTO
 
 
 # these are the headers for your project
 noinst_HEADERS = asmformatter.h canvas.h canvas_private.h canvasitemparts.h \
-	canvasmanipulator.h cells.h circuitview.h ciwidgetmgr.h cnitem.h cnitemgroup.h connector.h \
-	conrouter.h debugmanager.h docmanager.h docmanageriface.h document.h \
+	canvasmanipulator.h canvastip.h cells.h circuitview.h ciwidgetmgr.h cnitem.h cnitemgroup.h \
+	connector.h conrouter.h debugmanager.h docmanager.h docmanageriface.h document.h \
 	documentiface.h eventinfo.h filemetainfo.h flowcodedocument.h flowcodeview.h fpnode.h \
 	icndocument.h icnview.h item.h itemdocument.h itemdocumentdata.h itemgroup.h \
 	iteminterface.h itemlibrary.h itemview.h katemdi.h ktechlab.h libraryitem.h \
@@ -92,3 +92,4 @@ EXTRA_DIST = $(mime_DATA)
 katesyntaxdir = $(kde_datadir)/katepart/syntax
 katesyntax_DATA = microbe.xml
 
+_SOURCES = canvastip.h.cpp

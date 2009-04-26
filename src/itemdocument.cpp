@@ -11,11 +11,10 @@
 #include "canvasitemparts.h"
 #include "canvasmanipulator.h"
 #include "cells.h"
-#include "circuitdocument.h"
 #include "connector.h"
 #include "cnitem.h"
 #include "drawpart.h"
-#include "ecnode.h"
+#include "node.h"
 #include "flowcodedocument.h"
 #include "icnview.h"
 #include "itemdocumentdata.h"
@@ -23,7 +22,6 @@
 #include "itemselector.h"
 #include "ktechlab.h"
 #include "core/ktlconfig.h"
-#include "pin.h"
 #include "resizeoverlay.h"
 #include "simulator.h"
 
@@ -36,21 +34,19 @@
 #include <kpopupmenu.h>
 #include <kprinter.h>
 
-#include <qapplication.h>
 #include <qcheckbox.h>
 #include <qclipboard.h>
 #include <qcursor.h>
 #include <qimage.h>
 #include <qpaintdevicemetrics.h>
-#include <qpainter.h>
 #include <qpicture.h>
 #include <qregexp.h> 
 #include <qsimplerichtext.h>
 #include <qtimer.h>
 
-#include <cmath>
 #include <cassert>
 
+#include "canvastip.h"
 
 //BEGIN class ItemDocument
 int ItemDocument::m_nextActionTicket = 0;
@@ -406,7 +402,6 @@ void ItemDocument::cut()
     copy();
     deleteSelection();
 }
-
 
 void ItemDocument::paste()
 {
@@ -1081,145 +1076,6 @@ ItemList ItemDocument::itemList( ) const
 //END class ItemDocument
 
 
-
-//BEGIN class CanvasTip
-CanvasTip::CanvasTip( ItemDocument *itemDocument, QCanvas *qcanvas )
-	: QCanvasRectangle( qcanvas )
-{
-	p_itemDocument = itemDocument;
-
-	setZ( ICNDocument::Z::Tip );
-}
-
-CanvasTip::~CanvasTip()
-{
-}
-
-void CanvasTip::displayVI( ECNode *node, const QPoint &pos )
-{
-	if ( !node || !updateVI() )
-		return;
-	
-	unsigned num = node->numPins();
-	
-	m_v.resize(num);
-	m_i.resize(num);
-	
-	for ( unsigned i = 0; i < num; i++ )
-	{
-		if ( Pin * pin = node->pin(i) )
-		{
-			m_v[i] = pin->voltage();
-			m_i[i] = pin->current();
-		}
-	}
-	
-	display(pos);
-}
-
-
-void CanvasTip::displayVI( Connector *connector, const QPoint &pos )
-{
-	if ( !connector || !updateVI())
-		return;
-	
-	unsigned num = connector->numWires();
-	
-	m_v.resize(num);
-	m_i.resize(num);
-	
-	for ( unsigned i = 0; i < num; i++ )
-	{
-		if ( Wire * wire = connector->wire(i) )
-		{
-			m_v[i] = wire->voltage();
-			m_i[i] = std::abs(wire->current());
-		}
-	}
-	
-	display(pos);
-}
-
-
-bool CanvasTip::updateVI()
-{
-	CircuitDocument *circuitDocument = dynamic_cast<CircuitDocument*>(p_itemDocument);
-	if ( !circuitDocument || !Simulator::self()->isSimulating() )
-		return false;
-	
-	circuitDocument->calculateConnectorCurrents();
-	return true;
-}
-
-
-void CanvasTip::display( const QPoint &pos )
-{
-	unsigned num = m_v.size();
-	
-	for ( unsigned i = 0; i < num; i++ ) {
-		if ( !std::isfinite(m_v[i]) || std::abs(m_v[i]) < 1e-9 )
-			m_v[i] = 0.;
-		
-		if ( !std::isfinite(m_i[i]) || std::abs(m_i[i]) < 1e-9 )
-			m_i[i] = 0.;
-	}
-	
-	move( pos.x()+20, pos.y()+4 );
-	
-	if ( num == 0 ) return;
-	
-	if ( num == 1 )
-		setText( displayText(0) );
-	else {
-		QString text;
-		for ( unsigned i = 0; i < num; i++ )
-			text += QString("%1: %2\n").arg( QString::number(i) ).arg( displayText(i) );
-		setText(text);
-	}
-}
-
-
-QString CanvasTip::displayText( unsigned num ) const
-{
-	if ( m_v.size() <= num )
-		return QString::null;
-	
-	return QString("%1%2V  %3%4A")
-			.arg( QString::number( m_v[num] / CNItem::getMultiplier(m_v[num]), 'g', 3 ) )
-			.arg( CNItem::getNumberMag( m_v[num] ) )
-			.arg( QString::number( m_i[num] / CNItem::getMultiplier(m_i[num]), 'g', 3 ) )
-			.arg( CNItem::getNumberMag( m_i[num] ) );
-}
-
-
-void CanvasTip::draw( QPainter &p )
-{
-	CircuitDocument *circuitDocument = dynamic_cast<CircuitDocument*>(p_itemDocument);
-	if ( !circuitDocument || !Simulator::self()->isSimulating() )
-		return;
-	
-	p.setBrush( QColor( 0xff, 0xff, 0xdc ) );
-	p.setPen( Qt::black );
-	p.drawRect( boundingRect() );
-	
-	QRect textRect = boundingRect();
-	textRect.setLeft( textRect.left() + 3 );
-	textRect.setTop( textRect.top() + 1 );
-	p.drawText( textRect, 0, m_text );
-}
-
-
-void CanvasTip::setText( const QString & text )
-{
-	m_text = text;
-	canvas()->setChanged( boundingRect() );
-	
-	QRect r = QFontMetrics( qApp->font() ).boundingRect( 0, 0, 0, 0, 0, m_text );
-	setSize( r.width() + 4, r.height() - 1 );
-}
-//END class CanvasTip
-
-
 //BEGIN class Canvas
 Canvas::Canvas( ItemDocument *itemDocument, const char * name )
 	: QCanvas( itemDocument, name )
@@ -1335,7 +1191,6 @@ void Canvas::drawForeground ( QPainter &p, const QRect & clip )
 	t->draw( &p, x+b, y+b, QRect(), firstView->colorGroup() );
 	delete t;
 }
-
 
 void Canvas::update()
 {
