@@ -9,23 +9,22 @@
  ***************************************************************************/
 
 #include "canvasmanipulator.h"
-#include "component.h"
 #include "connector.h"
 #include "conrouter.h"
 #include "cnitemgroup.h"
-#include "ecnode.h"
-#include "junctionnode.h"
-#include "flowcontainer.h"
-#include "fpnode.h"
-#include "junctionflownode.h"
 #include "icndocument.h"
 #include "icnview.h"
 #include "itemdocumentdata.h"
 #include "itemlibrary.h"
 #include "ktechlab.h"
 #include "nodegroup.h"
-#include "outputflownode.h"
+#include "node.h"
 #include "utils.h"
+
+// these don't belong:
+#include "flowcontainer.h"
+#include "outputflownode.h"
+// ###
 
 #include <kapplication.h>
 #include <kdebug.h>
