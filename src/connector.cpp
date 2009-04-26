@@ -32,7 +32,6 @@ Connector::Connector(ICNDocument *icnDocument, const QString &id)
 		: QObject(icnDocument),
 		QCanvasPolygon(icnDocument->canvas()) {
 	m_currentAnimationOffset = 0.0;
-	p_parentContainer = 0;
 	p_nodeGroup    = 0;
 	b_semiHidden   = false;
 	b_deleted      = false;
