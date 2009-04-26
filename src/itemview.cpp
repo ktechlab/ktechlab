@@ -38,6 +38,7 @@
 #include <cmath>
 
 #include "canvastip.h"
+#include "ktlcanvas.h"
 
 
 //BEGIN class ItemView

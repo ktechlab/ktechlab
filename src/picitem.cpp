@@ -22,6 +22,8 @@
 #include <klocale.h>
 #include <qpainter.h>
 
+#include "ktlcanvas.h"
+
 static const int InnerWidth = 88;
 static const int SidePadding = 24;
 static const int TopPadding = 36;

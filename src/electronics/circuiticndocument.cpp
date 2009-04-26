@@ -22,6 +22,8 @@
 
 #include <kdebug.h>
 
+#include "ktlcanvas.h"
+
 CircuitICNDocument::CircuitICNDocument( const QString &caption, const char *name)
 	: ICNDocument(caption, name )
 {

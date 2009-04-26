@@ -26,6 +26,8 @@
 #include <cstdlib>
 #include <cmath>
 
+#include "ktlcanvas.h"
+
 CNItem::CNItem( ICNDocument *icnDocument, bool newItem, const QString &id )
 	: Item( icnDocument, newItem, id ),
 	  CIWidgetMgr( icnDocument ? icnDocument->canvas() : 0, this ),
