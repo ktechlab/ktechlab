@@ -25,7 +25,6 @@ class Pin;
 class Switch;
 class LogicIn;
 
-typedef QValueList<ECNode*> ECNodeList;
 typedef QValueList<Element*> ElementList;
 typedef QValueList<Switch*> SwitchList;
 typedef QValueList< QValueList<Pin*> > PinListList;
