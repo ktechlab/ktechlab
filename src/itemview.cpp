@@ -37,6 +37,8 @@
 
 #include <cmath>
 
+#include "canvastip.h"
+
 
 //BEGIN class ItemView
 ItemView::ItemView( ItemDocument * itemDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name )

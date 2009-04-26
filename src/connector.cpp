@@ -13,12 +13,15 @@
 #include "connector.h"
 #include "conrouter.h"
 #include "cnitem.h"
-#include "ecnode.h"
 #include "junctionnode.h"
 #include "itemdocumentdata.h"
 #include "src/core/ktlconfig.h"
-#include "wire.h"
 #include "utils.h"
+
+// ### to be refactored:
+#include "ecnode.h"
+#include "wire.h"
+// ###
 
 #include <kdebug.h>
 #include <qpainter.h>
@@ -104,7 +107,6 @@ int getSlope(float x1, float y1, float x2, float y2) {
 	} else 	return s_d;
 }
 
-
 void Connector::updateDrawList() {
 	if (!startNode() || !endNode() || !canvas()) return;
 
@@ -124,7 +126,6 @@ void Connector::updateDrawList() {
 	for (QPointList::const_iterator it = m_conRouter->cellPointList()->begin(); it != cplEnd; ++it) {
 		const int x = (*it).x();
 		const int y = (*it).y();
-
 		const int numCon = cells->haveCell(x, y) ? cells->cell(x, y).numCon : 0;
 
 		const int y_canvas = toCanvas(y);
@@ -303,10 +304,7 @@ void Connector::updateConnectorPoints(bool add) {
 		if (cells->haveCell(x , y))
 			cells->cell(x, y).numCon += mult;
 	}
-
-// 	updateDrawList();
 }
-
 
 void Connector::setRoutePoints(QPointList pointList, bool setManual, bool checkEndPoints) {
 	if (!canvas())	return;
@@ -367,7 +365,6 @@ bool Connector::pointsAreReverse(const QPointList &pointList) const {
 	return dist_reverse < dist_normal;
 }
 
-
 void Connector::rerouteConnector() {
 	if (!isVisible()) return;
 
@@ -389,14 +386,12 @@ void Connector::rerouteConnector() {
 	updateConnectorPoints(true);
 }
 
-
 void Connector::translateRoute(int dx, int dy) {
 	updateConnectorPoints(false);
 	m_conRouter->translateRoute(dx, dy);
 	updateConnectorPoints(true);
 	updateDrawList();
 }
-
 
 void Connector::restoreFromConnectorData(const ConnectorData &connectorData) {
 	updateConnectorPoints(false);
@@ -405,7 +400,6 @@ void Connector::restoreFromConnectorData(const ConnectorData &connectorData) {
 	updateConnectorPoints(true);
 	updateDrawList();
 }
-
 
 ConnectorData Connector::connectorData() const {
 	ConnectorData connectorData;
@@ -416,7 +410,6 @@ ConnectorData Connector::connectorData() const {
 	}
 
 	connectorData.manualRoute = usesManualPoints();
-
 	connectorData.route = *m_conRouter->cellPointList();
 
 	if (startNode()->isChildNode()) {
@@ -440,14 +433,12 @@ ConnectorData Connector::connectorData() const {
 	return connectorData;
 }
 
-
 void Connector::setVisible(bool yes) {
 	if (!canvas() || isVisible() == yes) return;
 
 	QCanvasPolygon::setVisible(yes);
 	updateConnectorLines();
 }
-
 
 void Connector::setSelected(bool yes) {
 	if (!canvas() || isSelected() == yes) return;
@@ -457,7 +448,6 @@ void Connector::setSelected(bool yes) {
 
 	emit selected(yes);
 }
-
 
 void Connector::updateConnectorLines(bool forceRedraw) {
 	QColor color;
@@ -495,17 +485,14 @@ void Connector::updateConnectorLines(bool forceRedraw) {
 	}
 }
 
-
 QValueList<QPointList> Connector::splitConnectorPoints(const QPoint & pos) const {
 	return m_conRouter->splitPoints(pos);
 }
-
 
 QPointList Connector::connectorPoints(bool reverse) const {
 	bool doReverse = (reverse != pointsAreReverse(m_conRouter->pointList(false)));
 	return m_conRouter->pointList(doReverse);
 }
-
 
 void Connector::incrementCurrentAnimation(double deltaTime) {
 	// The values and equations used in this function have just been developed
@@ -527,7 +514,6 @@ void Connector::incrementCurrentAnimation(double deltaTime) {
 	}
 }
 //END class Connector
-
 
 //BEGIN class ConnectorLine
 ConnectorLine::ConnectorLine(Connector * connector, int pixelOffset)
@@ -553,7 +539,6 @@ int boundify(int x, int bound1, int bound2) {
 	else if (x > bound2) return bound2;
 	else	return x;
 }
-
 
 void ConnectorLine::drawShape(QPainter & p) {
 	if (!m_bAnimateCurrent) {
