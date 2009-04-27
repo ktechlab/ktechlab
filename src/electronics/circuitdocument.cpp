@@ -259,7 +259,7 @@ void CircuitDocument::requestAssignCircuits() {
 
 void CircuitDocument::connectorAdded(Connector * connector) {
 	if (connector) {
-		connect(connector, SIGNAL(numWiresChanged(unsigned)), this, SLOT(requestAssignCircuits()));
+//		connect(connector, SIGNAL(numWiresChanged(unsigned)), this, SLOT(requestAssignCircuits()));
 		connect(connector, SIGNAL(removed(Connector*)), this, SLOT(requestAssignCircuits()));
 	}
 }

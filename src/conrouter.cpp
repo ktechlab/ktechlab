@@ -171,15 +171,9 @@ void ConRouter::checkACell(int x, int y, Cell *prev, int prevX, int prevY, int n
 	if (!c->addedToLabels) {
 		c->addedToLabels = true;
 		Point point;
-		point.x = x;
-		point.y = y;
-		point.prevX = prevX;
-		point.prevY = prevY;
+		point.setXY(x,y);
 		TempLabelMap::iterator it = tempLabels.insert(std::make_pair(newScore, point));
 		c->point = &it->second;
-	} else {
-		c->point->prevX = prevX;
-		c->point->prevY = prevY;
 	}
 }
 
@@ -363,7 +357,7 @@ void ConRouter::mapRoute(int sx, int sy, int ex, int ey) {
 
 		while (tempLabels.size() > 0 && !cellsPtr->cell(scx, scy).permanent) {
 			TempLabelMap::iterator it = tempLabels.begin();
-			checkCell(it->second.x, it->second.y);
+			checkCell(it->second.getX(), it->second.getY());
 			tempLabels.erase(it);
 		}
 

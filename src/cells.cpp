@@ -11,84 +11,92 @@
 #include "cells.h"
 #include "utils.h"
 
-
 //BEGIN class Cells
-Cells::Cells( const QRect & canvasRect )
-{
-	init( canvasRect );
+Cells::Cells(const QRect & canvasRect) {
+	init(canvasRect);
 }
 
-
-Cells::~Cells()
-{
+Cells::~Cells() {
 	unsigned w = unsigned(m_cellsRect.width());
-	for ( uint i=0; i<w; i++ )
+
+	for (uint i = 0; i < w; i++)
 		delete [] m_cells[i];
+
 	delete [] m_cells;
 }
 
+Cells::Cells(const Cells & c) {
+	init(QRect(c.cellsRect().topLeft() * 8, c.cellsRect().size() * 8));
 
-Cells::Cells( const Cells & c )
-{
-	init( QRect( c.cellsRect().topLeft() * 8, c.cellsRect().size() * 8 ) );
-	
 	unsigned w = unsigned(m_cellsRect.width());
 	unsigned h = unsigned(m_cellsRect.height());
-	
-	for ( uint i=0; i<w; i++ )
-	{
-		for ( uint j=0; j<h; j++ )
-		{
-			m_cells[i][j] = c.cell( i, j );
+
+	for (uint i = 0; i < w; i++) {
+		for (uint j = 0; j < h; j++) {
+			m_cells[i][j] = c.cell(i, j);
 		}
 	}
 }
 
-
-void Cells::init( const QRect & canvasRect )
-{
-	m_cellsRect = QRect( roundDown( canvasRect.topLeft(), 8 ), canvasRect.size()/8 );
+void Cells::init(const QRect & canvasRect) {
+	m_cellsRect = QRect(roundDown(canvasRect.topLeft(), 8), canvasRect.size() / 8);
 	m_cellsRect = m_cellsRect.normalize();
-	
+
 	unsigned w = unsigned(m_cellsRect.width());
 	unsigned h = unsigned(m_cellsRect.height());
-	
+
 	typedef Cell* cellptr;
 	m_cells = new cellptr[w];
-	for ( uint i=0; i<w; ++i )
-	{
+
+	for (uint i = 0; i < w; ++i) {
 		m_cells[i] = new Cell[h];
 	}
 }
 
-
-void Cells::reset()
-{
+void Cells::reset() {
 	unsigned w = unsigned(m_cellsRect.width());
 	unsigned h = unsigned(m_cellsRect.height());
-	
-	for ( uint i=0; i<w; i++ )
-	{
-		for ( uint j=0; j<h; j++ )
+
+	for (uint i = 0; i < w; i++) {
+		for (uint j = 0; j < h; j++)
 			m_cells[i][j].reset();
 	}
 }
 //END class Cells
 
-
-
 //BEGIN class Point
-Point::Point()
+Point::Point() {
+	x = y = startCellPos;
+}
+
+/*!
+    \fn Point::setXY(short x, short y)
+ */
+void Point::setXY(short new_x, short new_y)
 {
-	x = y = prevX = prevY = startCellPos;
+	x = new_x;
+	y = new_y;
+}
+
+/*!
+    \fn Point::getX()
+ */
+short Point::getX()
+{
+	return x;
+}
+
+/*!
+    \fn Point::getY()
+ */
+short Point::getY()
+{
+	return y;
 }
 //END class Point
 
-
-
 //BEGIN class Cell
-Cell::Cell()
-{
+Cell::Cell() {
 	addedToLabels = false;
 	permanent = false;
 	CIpenalty = 0;
@@ -97,13 +105,9 @@ Cell::Cell()
 	bestScore = 0xffff; // Nice large value
 }
 
-
-void Cell::reset()
-{
+void Cell::reset() {
 	addedToLabels = false;
 	permanent = false;
 	bestScore = 0xffff; // Nice large value
 }
 //END class Cell
-
-
