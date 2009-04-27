@@ -277,7 +277,7 @@ void Connector::updateConnectorPoints(bool add) {
 	// We don't include the end points in the mapping
 	if (m_conRouter->cellPointList()->size() < 3) return;
 
-	Cells * cells = p_icnDocument->cells();
+	Cells *cells = p_icnDocument->cells();
 
 	const int mult = (add) ? 1 : -1;
 

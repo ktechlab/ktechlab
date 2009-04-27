@@ -164,15 +164,15 @@ public:
 	Wire *wire(unsigned num = 0) const {
 		return (num < m_wires.size()) ? m_wires[num] : 0;
 	}
+
 	/**
 	 * Modular offset of moving dots in connector, indicating current (in
 	 * pixels).
 	 */
 	double currentAnimationOffset() const { return m_currentAnimationOffset; }
+// ###
 
-// ##### 
 	void updateConnectorLines(bool forceRedraw = false);
-
 
 	/**
 	 * Increases the currentAnimationOffset according to the current flowing in
@@ -183,7 +183,10 @@ public:
 signals:
 	void removed(Connector *connector);
 	void selected(bool yes);
-	void numWiresChanged(unsigned newNum);
+
+// refactor yadda yadda yadda,
+//	void (unsigned newNum);
+// ###
 
 public slots:
 	void removeConnector(Node* = 0);
