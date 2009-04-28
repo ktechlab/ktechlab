@@ -94,3 +94,5 @@ katesyntax_DATA = microbe.xml
 
 _SOURCES = canvastip.h.cpp
 _SOURCES = canvastip.h.cpp connectorline.h
+_SOURCES = DIPComponent.h
+_SOURCES = DIPComponent.h dipcomponent.h
