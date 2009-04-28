@@ -42,7 +42,7 @@ LibraryItem* SerialPortComponent::libraryItem() {
 }
 
 SerialPortComponent::SerialPortComponent(ICNDocument *icnDocument, bool newItem, const char *id)
-		: Component(icnDocument, newItem, id ? id : "serial_port") {
+		: DSubCon(icnDocument, newItem, id ? id : "serial_port") {
 	m_name = i18n("Serial Port");
 
 	QPointArray pa(4);
@@ -186,7 +186,6 @@ void SerialPortComponent::dataChanged() {
 	initPort(dataString("port"), B200);
 }
 
-
 void SerialPortComponent::initPort(const QString & port, unsigned baudRate) {
 	if (port.isEmpty()) {
 		m_pSerialPort->closePort();
@@ -199,7 +198,6 @@ void SerialPortComponent::initPort(const QString & port, unsigned baudRate) {
 	}
 }
 
-
 void SerialPortComponent::stepNonLogic() {
 	m_pCD->setHigh(m_pSerialPort->pinState(SerialPort::CD));
 // 	m_pRD->setHigh( m_pSerialPort->pinState( SerialPort::RD ) );
@@ -207,26 +205,21 @@ void SerialPortComponent::stepNonLogic() {
 	m_pRI->setHigh(m_pSerialPort->pinState(SerialPort::RI));
 }
 
-
 void SerialPortComponent::tdCallback(bool isHigh) {
 	m_pSerialPort->setPinState(SerialPort::TD, isHigh);
 }
-
 
 void SerialPortComponent::dtrCallback(bool isHigh) {
 	m_pSerialPort->setPinState(SerialPort::DTR, isHigh);
 }
 
-
 void SerialPortComponent::dsrCallback(bool isHigh) {
 	m_pSerialPort->setPinState(SerialPort::DSR, isHigh);
 }
 
-
 void SerialPortComponent::rtsCallback(bool isHigh) {
 	m_pSerialPort->setPinState(SerialPort::RTS, isHigh);
 }
-
 
 void SerialPortComponent::drawShape(QPainter & p) {
 	drawPortShape(p);

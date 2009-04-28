@@ -12,14 +12,14 @@
 #define PARALLELPORTCOMPONENT_H
 
 #include "logic.h"
-#include "component.h"
+#include "dsubcon.h"
 
 class ParallelPort;
 
 /**
 @author David Saxton 
  */
-class ParallelPortComponent : public CallbackClass, public Component
+class ParallelPortComponent : public CallbackClass, public DSubCon
 {
 	public:
 		ParallelPortComponent( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
