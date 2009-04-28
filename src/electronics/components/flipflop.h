@@ -21,11 +21,12 @@ public:
 	ClockedFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id);
 
 protected:
-// TODO: write code that implements functionality for level activtaed devices.
-	enum EdgeTrigger { Rising, Falling, Level };
+	enum EdgeTrigger { Rising, Falling};
 	virtual void dataChanged();
 	virtual void initSymbolFromTrigger() = 0;
 	EdgeTrigger m_edgeTrigger;
+
+	LogicIn *m_pClock;
 
 	bool m_bPrevClock;
 };
@@ -40,7 +41,7 @@ public:
 	ECDFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECDFlipFlop();
 
-	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
+	static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
 	static LibraryItem *libraryItem();
 
 protected:
@@ -51,12 +52,11 @@ protected:
 	void asyncChanged(bool newState);
 	void clockChanged(bool newState);
 
-	LogicIn *m_pD;
-	LogicIn *m_pClock;
+	LogicIn  *m_pD;
 	LogicOut *m_pQ;
 	LogicOut *m_pQBar;
-	LogicIn *setp;
-	LogicIn *rstp;
+	LogicIn  *setp;
+	LogicIn  *rstp;
 
 	bool m_prevD;
 
@@ -74,7 +74,7 @@ public:
 	ECJKFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECJKFlipFlop();
 
-	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
+	static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
 	static LibraryItem *libraryItem();
 
 private:
@@ -88,7 +88,6 @@ private:
 	bool prev_state;
 
 	LogicIn *m_pJ;
-	LogicIn *m_pClock;
 	LogicIn *m_pK;
 	LogicIn *setp;
 	LogicIn *rstp;
