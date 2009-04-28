@@ -308,7 +308,7 @@ LibraryItem * MatrixDisplayDriver::libraryItem()
 }
 
 MatrixDisplayDriver::MatrixDisplayDriver(ICNDocument *icnDocument, bool newItem, const char *id)
-	: Component(icnDocument, newItem, id ? id : "Matrix Display Driver")
+	: DIPComponent(icnDocument, newItem, id ? id : "Matrix Display Driver")
 {
 	m_name = i18n("Matrix Display Driver");
 

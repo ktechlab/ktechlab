@@ -11,7 +11,7 @@
 #ifndef ECSUBCIRCUIT_H
 #define ECSUBCIRCUIT_H
 
-#include <component.h>
+#include <dipcomponent.h>
 
 #include <qvaluevector.h>
 
@@ -19,7 +19,7 @@
 "Container" component for subcircuits
 @author David Saxton
 */
-class ECSubcircuit : public Component
+class ECSubcircuit : public DIPComponent
 {
 Q_OBJECT
 public:

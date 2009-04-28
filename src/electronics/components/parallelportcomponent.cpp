@@ -135,7 +135,6 @@ ParallelPortComponent::ParallelPortComponent(ICNDocument *icnDocument, bool newI
 
 		m_pLogic[i + 16]->setCallback(this, (CallbackPtr)(&ParallelPortComponent::controlCallback));
 	}
-
 	//END Control register
 
 #if 0
@@ -147,9 +146,7 @@ ParallelPortComponent::ParallelPortComponent(ICNDocument *icnDocument, bool newI
 
 #endif
 	Variant *v = createProperty("port", Variant::Type::Combo);
-
 	v->setAllowed(ParallelPort::ports(Port::ExistsAndRW));
-
 	v->setCaption(i18n("Port"));
 }
 

@@ -16,7 +16,6 @@
 #include <qguardedptr.h>
 #include <qvaluelist.h>
 
-class Component;
 class Pin;
 class Simulator;
 
