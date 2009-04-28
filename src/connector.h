@@ -159,7 +159,6 @@ public:
 	Methods relating to wire lists
 	*/
 // TODO: refactor these!
-	WireVector wires() const { return m_wires; }
 	unsigned numWires() const { return m_wires.size(); }
 	Wire *wire(unsigned num = 0) const {
 		return (num < m_wires.size()) ? m_wires[num] : 0;
@@ -183,10 +182,6 @@ public:
 signals:
 	void removed(Connector *connector);
 	void selected(bool yes);
-
-// refactor yadda yadda yadda,
-//	void (unsigned newNum);
-// ###
 
 public slots:
 	void removeConnector(Node* = 0);

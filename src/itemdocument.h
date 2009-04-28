@@ -20,7 +20,6 @@
 
 class Canvas;
 class CanvasTip;
-class Connector;
 class CMManager;
 class Item;
 class ItemDocumentData;
@@ -35,7 +34,6 @@ typedef QGuardedPtr<Item> GuardedItem;
 typedef QMap< int, GuardedItem > IntItemMap;
 typedef QMap< QString, Item* > ItemMap;
 typedef QValueList<GuardedItem> ItemList;
-typedef QValueList<QPoint> QPointList;
 
 /**
 @author David Saxton
@@ -108,7 +106,7 @@ public:
 	 * canvas. If the id does not already exist, will return true; otherwise
 	 * the function will return false.
 	 */
-	bool registerUID(const QString & uid);
+	bool registerUID(const QString &uid);
 	/**
 	 * Generates a unique id based on a possibly unique component name.
 	 */
@@ -117,7 +115,7 @@ public:
 	 * Unlists the given id as one that is used.
 	 * @see registerUID
 	 */
-	virtual void unregisterUID(const QString & uid);
+	virtual void unregisterUID(const QString &uid);
 	/**
 	 * @return Whether or not the item is valid; i.e. is appropriate to the
 	 * document being edited, and does not have other special restrictions
@@ -135,11 +133,11 @@ public:
 	/**
 	 * Increases the "height" of the given list of items by "one".
 	 */
-	void raiseZ(const ItemList & itemList);
+	void raiseZ(const ItemList &itemList);
 	/**
 	 * Decreases the "height" of the given list of items by "one".
 	 */
-	void lowerZ(const ItemList & itemList);
+	void lowerZ(const ItemList &itemList);
 	/**
 	 * @return ItemGroup that is used as the select list for this document.
 	 */
@@ -151,11 +149,11 @@ public:
 	/**
 	 * Select a list of QCanvasItem's
 	 */
-	void select(const QCanvasItemList & list);
+	void select(const QCanvasItemList &list);
 	/**
 	 * Select a QCanvasItem
 	 */
-	void select(QCanvasItem * item);
+	void select(QCanvasItem *item);
 	/**
 	 * Unselects the item
 	 */
@@ -342,7 +340,7 @@ protected:
 	/**
 	 * Called from registerItem when a new item is added.
 	 */
-	virtual void itemAdded(Item * item);
+	virtual void itemAdded(Item *item);
 	virtual void handleNewView(View *view);
 	/**
 	 * Set to true to remove buttons and grid and so on from the canvas, set false to put them back
@@ -352,7 +350,7 @@ protected:
 	/**
 	 * Reinherit this if you want to add any options to the right-click context
 	 */
-	virtual void fillContextMenu(const QPoint & pos);
+	virtual void fillContextMenu(const QPoint &pos);
 	/**
 	 * Reads the background settings (grid-colour, underlying colour) from the Config settings,
 	 * and generates the background pixmap from those settings
