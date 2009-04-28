@@ -22,12 +22,14 @@
 #include "node.h"
 
 // ### to be refactored:
-#include "component.h"
 #include "wire.h"
 // ###
 
 #include "ktlcanvas.h"
 #include "connectorline.h"
+
+// including only this is fairly inoccuous.
+#include "voltageappearance.h" 
 
 //BEGIN class Connector
 Connector::Connector(ICNDocument *icnDocument, const QString &id)
@@ -251,7 +253,6 @@ void Connector::updateDrawList() {
 	}
 
 	updateConnectorLines();
-
 	//END build up ConnectorPoint list
 }
 
@@ -450,7 +451,7 @@ void Connector::updateConnectorLines(bool forceRedraw) {
 	if (b_semiHidden) color = Qt::gray;
 	else if (isSelected()) color = QColor(101, 134, 192);
 	else if (!KTLConfig::showVoltageColor()) color = Qt::black;
-	else color = Component::voltageColor(m_wires.size() ? m_wires[0]->voltage() : 0.0);
+	else color = voltageColor(m_wires.size() ? m_wires[0]->voltage() : 0.0);
 
 	int z = ICNDocument::Z::Connector + (isSelected() ? 5 : 0);
 
