@@ -47,17 +47,17 @@ protected:
 	void dsrCallback(bool isHigh);
 	void rtsCallback(bool isHigh);
 
-	LogicIn * m_pTD;
-	LogicIn * m_pDTR;
-// 		LogicIn * m_pDSR;
-// 		LogicIn * m_pRTS;
+	LogicIn *m_pTD;
+	LogicIn *m_pDTR;
+// 		LogicIn *m_pDSR;
+// 		LogicIn *m_pRTS;
 
-	LogicOut * m_pCD;
-// 		LogicOut * m_pRD;
-	LogicOut * m_pCTS;
-	LogicOut * m_pRI;
+	LogicOut *m_pCD;
+// 		LogicOut *m_pRD;
+	LogicOut *m_pCTS;
+	LogicOut *m_pRI;
 
-	SerialPort * m_pSerialPort;
+	SerialPort *m_pSerialPort;
 };
 
 #endif

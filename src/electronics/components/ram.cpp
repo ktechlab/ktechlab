@@ -33,15 +33,15 @@ LibraryItem* RAM::libraryItem()
 			);
 }
 
-RAM::RAM( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, id ? id : "ram" )
+RAM::RAM(ICNDocument *icnDocument, bool newItem, const char *id )
+	: DIPComponent( icnDocument, newItem, id ? id : "ram" )
 {
 	m_name = i18n("RAM");
 	
-	m_data = 0l;
-	m_pCS = 0l;
-	m_pOE = 0l;
-	m_pWE = 0l;
+	m_data = 0;
+	m_pCS = 0;
+	m_pOE = 0;
+	m_pWE = 0;
 	m_wordSize = 0;
 	m_addressSize = 0;
 	

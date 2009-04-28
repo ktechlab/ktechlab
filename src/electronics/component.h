@@ -49,12 +49,14 @@ public:
 TODO: refactor the voltage indicator stuff to a new class. 
 	 */
 	static QColor voltageColor(double v);
+
 	/**
 	 * @return a value between 0.0 and 1.0, representing a scaled version of
 	 * the absolute value of the voltage.
 	 * @see voltageColor
 	 */
 	static double voltageLength(double v);
+
 	/**
 	 * Angle of orientation
 	 */
@@ -64,6 +66,7 @@ TODO: refactor the voltage indicator stuff to a new class.
 	 * Sets the angle (in degrees)
 	 */
 	void setAngleDegrees(int degrees);
+
 	/**
 	 * Whether or not the item is flipped
 	 */
@@ -73,12 +76,14 @@ TODO: refactor the voltage indicator stuff to a new class.
 	 * Sets whether or not the item is flipped
 	 */
 	void setFlipped(bool flipped);
+
 	/**
 	 * After calculating nodal voltages, each component will be
 	 * called to tell its nodes what the current flowing *into*
 	 * the component is.
 	 */
 	void setNodalCurrents();
+
 	/**
 	 * @return pointer to the CircuitDocument that we're in.
 	* mainly used to deal with switches and the complexities those introduce in the current code.
@@ -186,25 +191,12 @@ protected:
 	virtual void itemPointsChanged();
 	virtual void updateAttachedPositioning();
 	virtual void initPainter(QPainter &p);
+
 	/**
 	 * Untranforms the painter from the matrix. This *must* be called after doing
 	 * initPainter( QPainter &p );
 	 */
 	virtual void deinitPainter(QPainter &p);
-
-	/**
-	 * This creates a set of nodes with their internal IDs set to those in QStringList pins.
-	 * The pins are in a DIP arrangement, and are spaced width() apart.
-TODO: refactor DIP stuff to a new subclass. 
-	 */
-	void initDIP(const QStringList &pins);
-
-	/**
-	 * Creates the DIP symbol:
-	 * @li constructs rectangular shape
-	 * @li puts on text labels in appropriate positions from QStringList pins
-	 */
-	void initDIPSymbol(const QStringList &pins, int width);
 
 	/**
 	 * Create 1 pin on the left of the component, placed half way down if h1 is

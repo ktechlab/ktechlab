@@ -35,7 +35,7 @@ LibraryItem* ECSevenSegment::libraryItem() {
 }
 
 ECSevenSegment::ECSevenSegment(ICNDocument *icnDocument, bool newItem, const char *id)
-		: Component(icnDocument, newItem, id ? id : "seven_segment") {
+		: DIPComponent(icnDocument, newItem, id ? id : "seven_segment") {
 	m_name = i18n("Seven Segment LED");
 	m_bDynamicContent = true;
 
