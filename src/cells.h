@@ -128,7 +128,7 @@ public:
 		return haveCell(roundDown(x, 8), roundDown(y, 8));
 	}
 
-	Cell & cell(int i, int j) const {
+	Cell &cell(int i, int j) const {
 		assert(i < m_cellsRect.right());
 		assert(j < m_cellsRect.bottom());
 		i -= m_cellsRect.left();
