@@ -36,7 +36,7 @@ LibraryItem* ECSubcircuit::libraryItem()
 }
 
 ECSubcircuit::ECSubcircuit( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, (id) ? id : "subcircuit" )
+	: DIPComponent( icnDocument, newItem, (id) ? id : "subcircuit" )
 {
 	m_name = i18n("Subcircuit");
 	

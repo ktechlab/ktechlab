@@ -11,7 +11,7 @@
 #ifndef MULTIPLEXER_H
 #define MULTIPLEXER_H
 
-#include "component.h"
+#include "dipcomponent.h"
 #include "logic.h"
 
 #include <qptrvector.h>
@@ -19,7 +19,7 @@
 /**
 @author David Saxton
 */
-class Multiplexer : public CallbackClass, public Component
+class Multiplexer : public CallbackClass, public DIPComponent
 {
 public:
 	Multiplexer( ICNDocument *icnDocument, bool newItem, const char *id = 0L );

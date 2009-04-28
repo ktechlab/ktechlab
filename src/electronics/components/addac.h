@@ -11,7 +11,7 @@
 #ifndef ADDAC_H
 #define ADDAC_H
 
-#include "component.h"
+#include "dipcomponent.h"
 
 class LogicIn;
 class LogicOut;
@@ -22,7 +22,7 @@ const int max_ADDAC_bits = 32;
 /**
 @author David Saxton
 */
-class ADDAC : public Component
+class ADDAC : public DIPComponent
 {
 public:
 	ADDAC( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
