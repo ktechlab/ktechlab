@@ -48,36 +48,56 @@ public:
 	 */
 	void reset();
 
-	/**
-	 * 'Penalty' of using the cell from CNItem.
-	 */
-	unsigned short CIpenalty;
-	/**
-	 * 'Penalty' of using the cell from Connector.
-	 */
-	unsigned short Cpenalty;
+	short getNumCon() const { return numCon; }
+	short getPrevX() const { return prevX; }
+	short getPrevY() const { return prevY; }
+
+	bool comparePrevX(const short x) const { return prevX == x; }
+	bool comparePrevY(const short y) const { return prevY == y; }
+
+	void setPrevXY(const short x, const short y) {
+		prevX = x; prevY = y; }
+
+	void addConnectors(const short connectors) { numCon += connectors; }
+
+	bool getAddedToLabels() const { return addedToLabels; }
+	void setAddedToLabels() { addedToLabels = true;  }
+
+	bool isPermanent() const { return permanent; }
+	void makePermanent() { permanent = true; }
+
+	short getCIPenalty() const { return CIpenalty; }
+	void addCIPenalty(short x) { CIpenalty += x; }
+
 	/**
 	 * Best (lowest) score so far, _the_ best if it is permanent.
 	 */
 	unsigned short bestScore;
+
+private:
+
 	/**
-	 * Which cell this came from, (startCellPos,startCellPos) if originating
-	 * cell.
+	 * 'Penalty' of using the cell from CNItem.
 	 */
-	short prevX, prevY;
+	unsigned short CIpenalty;
+
 	/**
 	 * Whether the score can be improved on.
 	 */
 	bool permanent;
+
 	/**
 	 * Whether the cell has already been added to the list of cells to
 	 * check.
 	 */
 	bool addedToLabels;
+
 	/**
-	 * Pointer to the point in the TempLabelMap.
+	 * Which cell this came from, (startCellPos,startCellPos) if originating
+	 * cell.
 	 */
-	Point *point;
+	short prevX, prevY;
+
 	/**
 	 * Number of connectors through that point.
 	 */

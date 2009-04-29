@@ -17,7 +17,6 @@
 #include <qvaluelist.h>
 
 class ICNDocument;
-
 class Cell;
 
 typedef QValueList<QPoint> QPointList;
