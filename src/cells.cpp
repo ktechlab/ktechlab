@@ -101,7 +101,7 @@ Cell::Cell() {
 	permanent = false;
 	CIpenalty = 0;
 	numCon = 0;
-	Cpenalty = 0;
+//	Cpenalty = 0;
 	bestScore = 0xffff; // Nice large value
 }
 

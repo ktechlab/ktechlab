@@ -142,16 +142,16 @@ void ConRouter::checkACell(int x, int y, Cell *prev, int prevX, int prevY, int n
 	if (!cellsPtr->haveCell(x, y))
 		return;
 
-	Cell * c = &cellsPtr->cell(x, y);
+	Cell *c = &cellsPtr->cell(x, y);
 
-	if (c->permanent)
+	if (c->isPermanent())
 		return;
 
-	int newScore = nextScore + c->CIpenalty + c->Cpenalty;
+	int newScore = nextScore + c->getCIPenalty(); // + c->Cpenalty;
 
 	// Check for changing direction
-	if	(x != prevX && prev->prevX == prevX) newScore += 5;
-	else if (y != prevY && prev->prevY == prevY) newScore += 5;
+	if ((x != prevX && prev->comparePrevX(prevX)) ||
+	    (y != prevY && prev->comparePrevY(prevY))) newScore += 5;
 
 	if (c->bestScore < newScore)
 		return;
@@ -165,21 +165,19 @@ void ConRouter::checkACell(int x, int y, Cell *prev, int prevX, int prevY, int n
 	        y != prevY) return;
 
 	c->bestScore = newScore;
-	c->prevX = prevX;
-	c->prevY = prevY;
+	c->setPrevXY(prevX,prevY);
 
-	if (!c->addedToLabels) {
-		c->addedToLabels = true;
+	if (!c->getAddedToLabels()) {
+		c->setAddedToLabels();
 		Point point;
 		point.setXY(x,y);
 		TempLabelMap::iterator it = tempLabels.insert(std::make_pair(newScore, point));
-		c->point = &it->second;
 	}
 }
 
 void ConRouter::checkCell(int x, int y) {
 	Cell *c = &cellsPtr->cell(x, y);
-	c->permanent = true;
+	c->makePermanent();
 
 	int nextScore = c->bestScore + 1;
 
@@ -344,10 +342,9 @@ void ConRouter::mapRoute(int sx, int sy, int ex, int ey) {
 
 		// Now to map out the shortest routes to the cells
 		Cell *const startCell = &cellsPtr->cell(ecx, ecy);
-		startCell->permanent = true;
+		startCell->makePermanent();
 		startCell->bestScore = 0;
-		startCell->prevX = startCellPos;
-		startCell->prevY = startCellPos;
+		startCell->setPrevXY(startCellPos, startCellPos);
 
 		tempLabels.clear();
 		checkCell(ecx, ecy);
@@ -355,7 +352,7 @@ void ConRouter::mapRoute(int sx, int sy, int ex, int ey) {
 		// Daniel: I changed it from a do while to a while otherwise
 		// in rare cases the iterator can end up as end().
 
-		while (tempLabels.size() > 0 && !cellsPtr->cell(scx, scy).permanent) {
+		while (tempLabels.size() > 0 && !cellsPtr->cell(scx, scy).isPermanent()) {
 			TempLabelMap::iterator it = tempLabels.begin();
 			checkCell(it->second.getX(), it->second.getY());
 			tempLabels.erase(it);
@@ -368,8 +365,8 @@ void ConRouter::mapRoute(int sx, int sy, int ex, int ey) {
 
 		do {
 			m_cellPointList.append(QPoint(x, y));
-			int newx = cellsPtr->cell(x, y).prevX;
-			int newy = cellsPtr->cell(x, y).prevY;
+			int newx = cellsPtr->cell(x, y).getPrevX();
+			int newy = cellsPtr->cell(x, y).getPrevY();
 
 			if (newx == x && newy == y) {
 				ok = false;
@@ -377,7 +374,10 @@ void ConRouter::mapRoute(int sx, int sy, int ex, int ey) {
 
 			x = newx;
 			y = newy;
-		} while (cellsPtr->haveCell(x, y) && (x != startCellPos) && (y != startCellPos) && ok);
+		} while (cellsPtr->haveCell(x, y)
+		     && (x != startCellPos)
+		     && (y != startCellPos)
+		     && ok);
 
 		// And append the last point...
 		m_cellPointList.append(QPoint(ecx, ecy));
@@ -410,13 +410,13 @@ bool ConRouter::checkLineRoute(int scx, int scy, int ecx, int ecy, int maxConSco
 
 	if (isHorizontal) {
 		for (int x = start; x != end; x += dd) {
-			if (std::abs(x - start) > 1 && std::abs(x - end) > 1 && (cells->cell(x, y).CIpenalty > maxCIScore || cells->cell(x, y).Cpenalty > maxConScore)) {
+			if (std::abs(x - start) > 1 && std::abs(x - end) > 1 && (cells->cell(x, y).getCIPenalty() > maxCIScore /* || cells->cell(x, y).Cpenalty > maxConScore */)) {
 				return false;
 			} else	m_cellPointList.append(QPoint(x, y));
 		}
 	} else {
 		for (int y = start; y != end; y += dd) {
-			if (std::abs(y - start) > 1 && std::abs(y - end) > 1 && (cells->cell(x, y).CIpenalty > maxCIScore || cells->cell(x, y).Cpenalty > maxConScore)) {
+			if (std::abs(y - start) > 1 && std::abs(y - end) > 1 && (cells->cell(x, y).getCIPenalty() > maxCIScore /*|| cells->cell(x, y).Cpenalty > maxConScore */)) {
 				return false;
 			} else {
 				m_cellPointList.append(QPoint(x, y));
