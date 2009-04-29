@@ -124,7 +124,7 @@ void Connector::updateDrawList() {
 	for (QPointList::const_iterator it = m_conRouter->cellPointList()->begin(); it != cplEnd; ++it) {
 		const int x = (*it).x();
 		const int y = (*it).y();
-		const int numCon = cells->haveCell(x, y) ? cells->cell(x, y).numCon : 0;
+		const int numCon = cells->haveCell(x, y) ? cells->cell(x, y).getNumCon() : 0;
 
 		const int y_canvas = toCanvas(y);
 		const int x_canvas = toCanvas(x);
@@ -283,7 +283,6 @@ void Connector::updateConnectorPoints(bool add) {
 	const int mult = (add) ? 1 : -1;
 
 	const QPointList::iterator end = --m_conRouter->cellPointList()->end();
-
 	for (QPointList::iterator it = ++m_conRouter->cellPointList()->begin(); it != end; ++it) {
 		int x = (*it).x();
 		int y = (*it).y();
@@ -292,14 +291,14 @@ void Connector::updateConnectorPoints(bool add) {
 		// so that other connectors still to calculate their points know to try
 		// and avoid this connector
 
-		p_icnDocument->addCPenalty(x    , y - 1, mult*ICNDocument::hs_connector / 2);
-		p_icnDocument->addCPenalty(x - 1, y    , mult*ICNDocument::hs_connector / 2);
-		p_icnDocument->addCPenalty(x    , y    , mult*ICNDocument::hs_connector);
-		p_icnDocument->addCPenalty(x + 1, y    , mult*ICNDocument::hs_connector / 2);
-		p_icnDocument->addCPenalty(x    , y + 1, mult*ICNDocument::hs_connector / 2);
+		p_icnDocument->addCPenalty(x, y - 1, mult*ICNDocument::hs_connector / 2);
+		p_icnDocument->addCPenalty(x - 1, y, mult*ICNDocument::hs_connector / 2);
+		p_icnDocument->addCPenalty(x, y, mult * ICNDocument::hs_connector);
+		p_icnDocument->addCPenalty(x + 1, y, mult*ICNDocument::hs_connector / 2);
+		p_icnDocument->addCPenalty(x, y + 1, mult*ICNDocument::hs_connector / 2);
 
 		if (cells->haveCell(x , y))
-			cells->cell(x, y).numCon += mult;
+			cells->cell(x, y).addConnectors(mult);
 	}
 }
 
