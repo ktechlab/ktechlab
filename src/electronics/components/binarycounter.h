@@ -26,28 +26,32 @@ The inputs are:
 
 @short 4 Bit Binary Counter
 @author David Saxton
+
+TODO: refactor and make a subclass of clockedFlipFLop (or clocked Logic, as proposed.
+
 */
-class BinaryCounter : public CallbackClass, public DIPComponent
-{
+
+class BinaryCounter : public CallbackClass, public DIPComponent {
+
 public:
-	BinaryCounter( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	BinaryCounter(ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~BinaryCounter();
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
+
+	static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
 	static LibraryItem *libraryItem();
-	
+
 protected:
-	void inStateChanged( bool state ); // Input
-	void rStateChanged( bool state ); // Reset
-	void enStateChanged( bool state ); // Enable
-	void udStateChanged( bool state ); // Up/Down
+	void inStateChanged(bool state);   // Input
+	void rStateChanged(bool state);   // Reset
+	void enStateChanged(bool state);   // Enable
+	void udStateChanged(bool state);   // Up/Down
 	void outputValue();
 	void dataChanged();
-	void initPins( unsigned numBits );
-	
+	void initPins(unsigned numBits);
+
 	LogicIn *enLogic, *inLogic, *rLogic, *udLogic;
-	LogicOut * m_pLogicOut[26];
-	
+	LogicOut *m_pLogicOut[26];
+
 	unsigned m_numBits;
 	bool b_triggerHigh;
 	bool b_en; // Enable

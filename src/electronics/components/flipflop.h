@@ -16,9 +16,9 @@
 
 class Simulator;
 
-class ClockedFlipFlop : public CallbackClass, public Component {
+class ClockedLogic : public CallbackClass, public Component {
 public:
-	ClockedFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id);
+	ClockedLogic(ICNDocument *icnDocument, bool newItem, const char *id);
 
 protected:
 	enum EdgeTrigger { Rising, Falling};
@@ -35,7 +35,7 @@ protected:
 @short Boolean D-Type Flip-Flop
 @author David Saxton
 */
-class ECDFlipFlop : public ClockedFlipFlop {
+class ECDFlipFlop : public ClockedLogic {
 
 public:
 	ECDFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id = 0);
@@ -48,7 +48,6 @@ protected:
 	virtual void drawShape(QPainter & p);
 	virtual void initSymbolFromTrigger();
 	void inputChanged(bool newState);
-//	void inStateChanged(bool newState);
 	void asyncChanged(bool newState);
 	void clockChanged(bool newState);
 
@@ -68,7 +67,7 @@ protected:
 @short Boolean JK-Type Flip-Flop
 @author Couriousous
 */
-class ECJKFlipFlop : public ClockedFlipFlop {
+class ECJKFlipFlop : public ClockedLogic {
 
 public:
 	ECJKFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id = 0);
@@ -84,7 +83,7 @@ private:
 	void clockChanged(bool newState);
 
 // TODO: think real hard about getting rid of this "hidden state" in favor of simply reading
-// the user visible output pins. 
+// the user visible output pins.
 	bool prev_state;
 
 	LogicIn *m_pJ;
