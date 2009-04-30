@@ -16,23 +16,6 @@
 #include <qrect.h>
 #include "utils.h"
 
-// what a stupid little class...
-class Point {
-
-public:
-	Point();
-	void setXY(short new_x, short new_y);
-	short getX();
-	short getY();
-
-private:
-	short x;
-	short y;
-};
-
-// Key = cell, data = previous cell, compare = score
-typedef std::multimap< unsigned short, Point > TempLabelMap;
-
 /**
 @short Used for mapping out connections
 */
@@ -51,30 +34,32 @@ public:
 	short getNumCon() const { return numCon; }
 	short getPrevX() const { return prevX; }
 	short getPrevY() const { return prevY; }
+	short getCIPenalty() const { return CIpenalty; }
+
+	short incBestScore() { return ++bestScore; };
 
 	bool comparePrevX(const short x) const { return prevX == x; }
 	bool comparePrevY(const short y) const { return prevY == y; }
+	bool getAddedToLabels() const { return addedToLabels; }
+	bool scoreIsWorse(short score) const { return score > bestScore; }
+	bool sameScoreAs(short score) const { return score == bestScore; }
+	bool isPermanent() const { return permanent; }
 
 	void setPrevXY(const short x, const short y) {
 		prevX = x; prevY = y; }
 
 	void addConnectors(const short connectors) { numCon += connectors; }
-
-	bool getAddedToLabels() const { return addedToLabels; }
 	void setAddedToLabels() { addedToLabels = true;  }
-
-	bool isPermanent() const { return permanent; }
 	void makePermanent() { permanent = true; }
-
-	short getCIPenalty() const { return CIpenalty; }
 	void addCIPenalty(short x) { CIpenalty += x; }
+	void resetBestScore() { bestScore = 0; }
+	void setBestScore(short aScore) { bestScore = aScore; }
 
+private:
 	/**
 	 * Best (lowest) score so far, _the_ best if it is permanent.
 	 */
 	unsigned short bestScore;
-
-private:
 
 	/**
 	 * 'Penalty' of using the cell from CNItem.
@@ -157,7 +142,7 @@ public:
 	}
 
 protected:
-	void init(const QRect & canvasRect);
+	void init(const QRect &canvasRect);
 	QRect m_cellsRect;
 	Cell **m_cells;
 

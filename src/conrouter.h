@@ -22,6 +22,24 @@ class Cell;
 typedef QValueList<QPoint> QPointList;
 typedef QValueList<QPointList> QPointListList;
 
+// what a stupid little class...
+class Point {
+
+public:
+	Point();
+	void setXY(short new_x, short new_y);
+	short getX();
+	short getY();
+
+private:
+	short x;
+	short y;
+};
+
+
+// Key = cell, data = previous cell, compare = score
+typedef std::multimap< unsigned short, Point > TempLabelMap;
+
 /**
 Abstraction for the routing of a connector.
 
@@ -32,7 +50,6 @@ otherwise indicated).
 
 @author David Saxton
 */
-
 class ConRouter {
 
 public:
@@ -94,9 +111,10 @@ protected:
 	/**
 	 * Check a line of the ICNDocument cells for a valid route
 	 */
-	bool checkLineRoute(int scx, int scy, int ecx, int ecy, int maxConScore, int maxCIScore);
+	bool checkLineRoute(int scx, int scy, int ecx, int ecy, int maxCIScore);
 	void checkACell(int x, int y, Cell *prev, int prevX, int prevY, int nextScore);
 	void checkCell(int x, int y);   // Gets the shortest route from the final cell
+
 	/**
 	 * Remove duplicated points from the route
 	 */

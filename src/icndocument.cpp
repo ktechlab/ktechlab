@@ -814,28 +814,4 @@ void ICNDocument::unregisterUID(const QString & uid) {
 }
 //END class ICNDocument
 
-DirCursor *DirCursor::m_self = 0;
-
-DirCursor::DirCursor() {
-	initCursors();
-}
-
-DirCursor::~DirCursor() {
-}
-
-DirCursor *DirCursor::self() {
-	if (!m_self) m_self = new DirCursor;
-
-	return m_self;
-}
-
-void DirCursor::initCursors() {
-// 	QCursor c(Qt::ArrowCursor);
-// 	QBitmap bitmap = *c.bitmap();
-// 	QBitmap mask = *c.mask();
-// 	QPixmap pm( bitmap->width(), bitmap->height() );
-// 	pm.setMask(mask);
-// 	pm = c.pi
-}
-
 #include "icndocument.moc"

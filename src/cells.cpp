@@ -12,7 +12,7 @@
 #include "utils.h"
 
 //BEGIN class Cells
-Cells::Cells(const QRect & canvasRect) {
+Cells::Cells(const QRect &canvasRect) {
 	init(canvasRect);
 }
 
@@ -25,7 +25,7 @@ Cells::~Cells() {
 	delete [] m_cells;
 }
 
-Cells::Cells(const Cells & c) {
+Cells::Cells(const Cells &c) {
 	init(QRect(c.cellsRect().topLeft() * 8, c.cellsRect().size() * 8));
 
 	unsigned w = unsigned(m_cellsRect.width());
@@ -38,14 +38,14 @@ Cells::Cells(const Cells & c) {
 	}
 }
 
-void Cells::init(const QRect & canvasRect) {
+void Cells::init(const QRect &canvasRect) {
 	m_cellsRect = QRect(roundDown(canvasRect.topLeft(), 8), canvasRect.size() / 8);
 	m_cellsRect = m_cellsRect.normalize();
 
 	unsigned w = unsigned(m_cellsRect.width());
 	unsigned h = unsigned(m_cellsRect.height());
 
-	typedef Cell* cellptr;
+	typedef Cell *cellptr;
 	m_cells = new cellptr[w];
 
 	for (uint i = 0; i < w; ++i) {
@@ -64,45 +64,11 @@ void Cells::reset() {
 }
 //END class Cells
 
-//BEGIN class Point
-Point::Point() {
-	x = y = startCellPos;
-}
-
-/*!
-    \fn Point::setXY(short x, short y)
- */
-void Point::setXY(short new_x, short new_y)
-{
-	x = new_x;
-	y = new_y;
-}
-
-/*!
-    \fn Point::getX()
- */
-short Point::getX()
-{
-	return x;
-}
-
-/*!
-    \fn Point::getY()
- */
-short Point::getY()
-{
-	return y;
-}
-//END class Point
-
 //BEGIN class Cell
 Cell::Cell() {
-	addedToLabels = false;
-	permanent = false;
+	reset();
 	CIpenalty = 0;
 	numCon = 0;
-//	Cpenalty = 0;
-	bestScore = 0xffff; // Nice large value
 }
 
 void Cell::reset() {
