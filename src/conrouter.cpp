@@ -85,7 +85,6 @@ QPointListList ConRouter::splitPoints(const QPoint &pos) const {
 
 	// Now add the points to the two lists
 	bool gotToSplit = false;
-
 	for (QPointList::const_iterator it = m_cellPointList.begin(); it != end; ++it) {
 		QPoint canvasPoint = toCanvas(&*it);
 
@@ -153,18 +152,18 @@ void ConRouter::checkACell(int x, int y, Cell *prev, int prevX, int prevY, int n
 	if ((x != prevX && prev->comparePrevX(prevX)) ||
 	    (y != prevY && prev->comparePrevY(prevY))) newScore += 5;
 
-	if (c->bestScore < newScore)
+	if (c->scoreIsWorse(newScore))
 		return;
 
 	// We only want to change the previous cell if the score is different,
 	// or the score is the same but this cell allows the connector
 	// to travel in the same direction
 
-	if (c->bestScore == newScore &&
+	if (c->sameScoreAs(newScore) &&
 	        x != prevX &&
 	        y != prevY) return;
 
-	c->bestScore = newScore;
+	c->setBestScore(newScore);
 	c->setPrevXY(prevX,prevY);
 
 	if (!c->getAddedToLabels()) {
@@ -179,7 +178,7 @@ void ConRouter::checkCell(int x, int y) {
 	Cell *c = &cellsPtr->cell(x, y);
 	c->makePermanent();
 
-	int nextScore = c->bestScore + 1;
+	int nextScore = c->incBestScore();
 
 	// Check the surrounding cells (up, left, right, down)
 	checkACell(x, y - 1, c, x, y, nextScore);
@@ -292,47 +291,31 @@ void ConRouter::mapRoute(int sx, int sy, int ex, int ey) {
 	// appropriate route.
 
 	// Connector configuration: Line
-	{
-		bool ok = checkLineRoute(scx, scy, ecx, ecy, 4 * ICNDocument::hs_connector, 0);
+	if (checkLineRoute(scx, scy, ecx, ecy, 4 * ICNDocument::hs_connector)) {
+		return;
+	} else {
+		m_cellPointList.clear();
+	}
 
-		if (ok) {
+	// Corner 1
+	if (!checkLineRoute(scx, scy, ecx, ecy, 2 * ICNDocument::hs_connector)) {
+		m_cellPointList.clear();
+	} else {
+		if (checkLineRoute(scx, scy, ecx, ecy, ICNDocument::hs_connector - 1)) {
 			return;
 		} else {
 			m_cellPointList.clear();
 		}
 	}
 
-	// Corner 1
-	{
-		bool ok = checkLineRoute(scx, scy, ecx, ecy, 2 * ICNDocument::hs_connector, 0);
-
-		if (!ok) {
-			m_cellPointList.clear();
-		} else {
-			ok = checkLineRoute(scx, scy, ecx, ecy, ICNDocument::hs_connector - 1, 0);
-
-			if (ok) {
-				return;
-			} else {
-				m_cellPointList.clear();
-			}
-		}
-	}
-
 	// Corner 2
-	{
-		bool ok = checkLineRoute(scx, scy, ecx, ecy, 2 * ICNDocument::hs_connector, 0);
-
-		if (!ok) {
-			m_cellPointList.clear();
+	if (!checkLineRoute(scx, scy, ecx, ecy, 2 * ICNDocument::hs_connector)) {
+		m_cellPointList.clear();
+	} else {
+		if(checkLineRoute(scx, scy, ecx, ecy, ICNDocument::hs_connector - 1)) {
+			return;
 		} else {
-			ok = checkLineRoute(scx, scy, ecx, ecy, ICNDocument::hs_connector - 1, 0);
-
-			if (ok) {
-				return;
-			} else {
-				m_cellPointList.clear();
-			}
+			m_cellPointList.clear();
 		}
 	}
 
@@ -343,7 +326,7 @@ void ConRouter::mapRoute(int sx, int sy, int ex, int ey) {
 		// Now to map out the shortest routes to the cells
 		Cell *const startCell = &cellsPtr->cell(ecx, ecy);
 		startCell->makePermanent();
-		startCell->bestScore = 0;
+		startCell->resetBestScore();
 		startCell->setPrevXY(startCellPos, startCellPos);
 
 		tempLabels.clear();
@@ -386,7 +369,7 @@ void ConRouter::mapRoute(int sx, int sy, int ex, int ey) {
 	removeDuplicatePoints();
 }
 
-bool ConRouter::checkLineRoute(int scx, int scy, int ecx, int ecy, int maxConScore, int maxCIScore) {
+bool ConRouter::checkLineRoute(int scx, int scy, int ecx, int ecy, int maxCIScore) {
 	if ((scx != ecx) && (scy != ecy))
 		return false;
 
@@ -447,3 +430,25 @@ void ConRouter::removeDuplicatePoints() {
 
 	m_cellPointList.remove(invalid);
 }
+
+//BEGIN class Point
+Point::Point() {
+	x = y = startCellPos;
+}
+
+void Point::setXY(short new_x, short new_y)
+{
+	x = new_x;
+	y = new_y;
+}
+
+short Point::getX()
+{
+	return x;
+}
+
+short Point::getY()
+{
+	return y;
+}
+//END class Point
