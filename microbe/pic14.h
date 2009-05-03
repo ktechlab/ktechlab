@@ -65,8 +65,6 @@ class PortPin
 		QString m_port;
 		int m_pin;
 };
-typedef QValueList<PortPin> PortPinList;
-
 
 /**
 @author Daniel Clarke
