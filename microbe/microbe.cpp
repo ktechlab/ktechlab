@@ -34,8 +34,10 @@
 #include <qfile.h>
 
 #include <iostream>
+
 using namespace std;
 
+typedef QMap<QString, QString> AliasMap;
 
 //BEGIN class Microbe
 Microbe::Microbe()

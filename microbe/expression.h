@@ -34,6 +34,16 @@ class PIC14;
 class BTreeNode;
 class Microbe;
 
+enum ExprType
+{
+	unset		= 1,
+	working		= 2,
+	number		= 3,
+	variable	= 4,
+	extpin		= 5,
+	keypad		= 6
+};
+
 /**
 @author Daniel Clarke
 @author David Saxton
