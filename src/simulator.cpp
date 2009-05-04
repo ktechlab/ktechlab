@@ -8,11 +8,11 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "component.h"
 #include "gpsimprocessor.h"
-#include "pin.h"
 #include "simulator.h"
 #include "switch.h"
+
+#include "component.h"
 
 #include <kstaticdeleter.h>
 #include <qtimer.h>
@@ -58,7 +58,6 @@ Simulator::Simulator()
 
 Simulator::~Simulator() {
 	delete m_pChangedLogicStart;
-//	delete m_pChangedCircuitStart;
 
 	delete m_gpsimProcessors;
 	delete m_components;
@@ -84,7 +83,7 @@ void Simulator::step() {
 				(*component)->stepNonLogic();
 			}
 		}
-
+// TODO: refactor various classes so the above and below can be combined; hopefully.
 		{
 			list<Circuit*>::iterator circuits_end = m_ordinaryCircuits->end();
 			for (list<Circuit*>::iterator circuit = m_ordinaryCircuits->begin(); circuit != circuits_end; circuit++) {
