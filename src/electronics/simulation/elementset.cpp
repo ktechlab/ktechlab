@@ -81,11 +81,11 @@ void ElementSet::setCacheInvalidated()
 
 void ElementSet::addElement( Element *e )
 {
-	if(!e || m_elementList.contains(e)) return;
-	e->setElementSet(this);
-	m_elementList.append(e);
-	if(e->isNonLinear()) {
-		b_containsNonLinear = true;
+	if(!e || m_elementList.find(e) != m_elementList.end()) return;
+		e->setElementSet(this);
+		m_elementList.insert(e);
+		if(e->isNonLinear()) {
+			b_containsNonLinear = true;
 		m_cnonLinearList.append( static_cast<NonLinear*>(e) );
 	}
 }
