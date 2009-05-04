@@ -41,8 +41,8 @@ public:
 	bool comparePrevX(const short x) const { return prevX == x; }
 	bool comparePrevY(const short y) const { return prevY == y; }
 	bool getAddedToLabels() const { return addedToLabels; }
-	bool scoreIsWorse(short score) const { return score > bestScore; }
-	bool sameScoreAs(short score) const { return score == bestScore; }
+	bool scoreIsWorse(const short score) const { return score > bestScore; }
+	bool sameScoreAs(const short score) const { return score == bestScore; }
 	bool isPermanent() const { return permanent; }
 
 	void setPrevXY(const short x, const short y) {
@@ -51,9 +51,9 @@ public:
 	void addConnectors(const short connectors) { numCon += connectors; }
 	void setAddedToLabels() { addedToLabels = true;  }
 	void makePermanent() { permanent = true; }
-	void addCIPenalty(short x) { CIpenalty += x; }
+	void addCIPenalty(const short x) { CIpenalty += x; }
 	void resetBestScore() { bestScore = 0; }
-	void setBestScore(short aScore) { bestScore = aScore; }
+	void setBestScore(const short aScore) { bestScore = aScore; }
 
 private:
 	/**
@@ -109,14 +109,14 @@ public:
 	/**
 	 * Returns the cell containing the given position on the canvas.
 	 */
-	Cell &cellContaining(int x, int y) const {
+	Cell &cellContaining(const int x, const int y) const {
 		return cell(roundDown(x, 8), roundDown(y, 8));
 	}
 
 	/**
 	 * @return if the given cell exists.
 	 */
-	bool haveCell(int i, int j) const {
+	bool haveCell(const int i, const int j) const {
 		if ((i < m_cellsRect.left()) || (i >= m_cellsRect.right()))
 			return false;
 
