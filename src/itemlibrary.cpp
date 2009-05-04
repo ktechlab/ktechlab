@@ -345,7 +345,7 @@ LibraryItem * ItemLibrary::libraryItem( QString type ) const
 }
 
 
-Item * ItemLibrary::createItem( const QString &id, ItemDocument *itemDocument, bool newItem, const char *newId, bool finishCreation  )
+Item *ItemLibrary::createItem( const QString &id, ItemDocument *itemDocument, bool newItem, const char *newId, bool finishCreation  )
 {
 	Item *item = 0;
 	if ( id.startsWith("sc/") )
