@@ -29,8 +29,6 @@ class QBitArray;
 class QTimer;
 
 typedef Variant Property;
-
-typedef Item*(*createItemPtr)( ItemDocument *itemDocument, bool newItem, const char *id );
 typedef QGuardedPtr<Item> GuardedItem;
 typedef QMap<QString, Variant*> VariantDataMap;
 typedef QValueList<GuardedItem> ItemList;
