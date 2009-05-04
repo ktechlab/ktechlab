@@ -18,7 +18,6 @@
 #include "physics/physconst.h"
 
 class ElementSet;
-typedef unsigned int uint;
 
 extern double T_K; ///< Temperature in Kelvin
 
