@@ -47,9 +47,7 @@ void Circuit::addPin(Pin *node) {
 }
 
 void Circuit::addElement(Element *element) {
-	if (m_elementList.contains(element)) return;
-
-	m_elementList.append(element);
+	m_elementList.insert(element);
 }
 
 bool Circuit::contains(Pin *node) {

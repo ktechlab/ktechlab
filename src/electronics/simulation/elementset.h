@@ -13,6 +13,7 @@
 
 //#include <vector>
 
+#include <set>
 #include <qvaluelist.h>
 
 class CBranch;
@@ -25,7 +26,7 @@ class Matrix;
 class NonLinear;
 class QuickVector;  // not exactly sure how these types of declarations work. 
 
-typedef QValueList<Element*> ElementList;
+typedef std::set<Element*> ElementList;
 typedef QValueList<NonLinear*> NonLinearList;
 
 /**

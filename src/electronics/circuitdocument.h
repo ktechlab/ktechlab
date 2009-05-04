@@ -30,7 +30,7 @@ class KActionMenu;
 
 typedef QValueList<Circuit*> CircuitList;
 typedef QValueList<Component*> ComponentList;
-typedef QValueList<Element*> ElementList;
+typedef std::set<Element*> ElementList;
 typedef std::set<QGuardedPtr<Pin> > PinList;
 typedef QValueList<Switch*> SwitchList;
 typedef QValueList<QGuardedPtr<Wire> > WireList;
@@ -43,16 +43,15 @@ public:
 	}
 
 	bool contains(Element *ele) const {
-		return elementList.contains(ele);
+		return elementList.find(ele) != elementList.end();
 	}
 
 	void addPin(Pin *node) {
-		// if (node && !contains(node))
-		pinList.insert(node);
+		if(node) pinList.insert(node);
 	}
 
 	void addElement(Element *ele) {
-		if (ele && !contains(ele)) elementList += ele;
+		if(ele) elementList.insert(ele);
 	}
 
 	unsigned numElements() const { return elementList.size(); }

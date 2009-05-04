@@ -16,7 +16,6 @@
 #include <cassert>
 #include <qguardedptr.h>
 #include "qstringlist.h"
-#include "qvaluelist.h"
 
 #include "elementset.h"
 
@@ -27,7 +26,7 @@ class Element;
 class LogicOut;
 
 typedef std::set<QGuardedPtr<Pin> > PinList;
-typedef QValueList<Element*> ElementList;
+typedef std::set<Element*> ElementList;
 
 class LogicCacheNode
 {
@@ -134,9 +133,6 @@ protected:
 	LogicOut **m_pLogicOut;
 
 	bool m_bCanAddChanged;
-
-//private:
-
 };
 
 #endif
