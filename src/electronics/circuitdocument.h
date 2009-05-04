@@ -11,6 +11,8 @@
 #ifndef CIRCUITDOCUMENT_H
 #define CIRCUITDOCUMENT_H
 
+#include <set>
+
 #include "circuiticndocument.h"
 
 class Circuit;
@@ -29,7 +31,7 @@ class KActionMenu;
 typedef QValueList<Circuit*> CircuitList;
 typedef QValueList<Component*> ComponentList;
 typedef QValueList<Element*> ElementList;
-typedef QValueList<QGuardedPtr<Pin> > PinList;
+typedef std::set<QGuardedPtr<Pin> > PinList;
 typedef QValueList<Switch*> SwitchList;
 typedef QValueList<QGuardedPtr<Wire> > WireList;
 
@@ -37,7 +39,7 @@ class Circuitoid {
 
 public:
 	bool contains(Pin *node) const {
-		return pinList.contains(node);
+		return pinList.find(node) != pinList.end();
 	}
 
 	bool contains(Element *ele) const {
@@ -45,7 +47,8 @@ public:
 	}
 
 	void addPin(Pin *node) {
-		if (node && !contains(node)) pinList += node;
+		// if (node && !contains(node))
+		pinList.insert(node);
 	}
 
 	void addElement(Element *ele) {

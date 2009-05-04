@@ -308,7 +308,7 @@ void CircuitDocument::calculateConnectorCurrents() {
 	PinList groundPins;
 
 	// Tell the Pins to reset their calculated currents to zero
-	m_pinList.remove((Pin*)0);
+//	m_pinList.erase((Pin*)0);
 
 	const PinList::iterator pinEnd = m_pinList.end();
 	for (PinList::iterator it = m_pinList.begin(); it != pinEnd; ++it) {
@@ -320,7 +320,7 @@ void CircuitDocument::calculateConnectorCurrents() {
 				n->setCurrentKnown(true);
 				// (and it has a current of 0 amps)
 			} else if (n->groundType() == Pin::gt_always) {
-				groundPins << n;
+				groundPins.insert(n);
 				n->setCurrentKnown(false);
 			} else {
 				// Child node that is non ground
@@ -345,7 +345,7 @@ void CircuitDocument::calculateConnectorCurrents() {
 	SwitchList switches = m_switchList;
 	WireList wires = m_wireList;
 	bool found = true;
-	while ((!wires.isEmpty() || !switches.isEmpty() || !groundPins.isEmpty()) && found) {
+	while ((!wires.empty() || !switches.empty() || !groundPins.empty()) && found) {
 		found = false;
 
 		WireList::iterator wiresEnd = wires.end();
@@ -377,7 +377,7 @@ void CircuitDocument::calculateConnectorCurrents() {
 				found = true;
 				PinList::iterator oldIt = it;
 				++it;
-				groundPins.remove(oldIt);
+				groundPins.erase(oldIt);
 			} else ++it;
 		}
 	}
@@ -401,7 +401,7 @@ void CircuitDocument::assignCircuits() {
 		ECNode* ecnode = *it;
 
 		for (unsigned i = 0; i < ecnode->numPins(); i++)
-			m_pinList << ecnode->pin(i);
+			m_pinList.insert(ecnode->pin(i));
 
 	}
 
@@ -420,7 +420,7 @@ void CircuitDocument::assignCircuits() {
 	PinList unassignedPins = m_pinList;
 	PinListList pinListList;
 
-	while (!unassignedPins.isEmpty()) {
+	while (!unassignedPins.empty()) {
 		PinList pinList;
 		getPartition(*unassignedPins.begin(), &pinList, &unassignedPins);
 		pinListList.append(pinList);
@@ -474,11 +474,11 @@ void CircuitDocument::assignCircuits() {
 void CircuitDocument::getPartition(Pin *pin, PinList *pinList, PinList *unassignedPins, bool onlyGroundDependent) {
 	if (!pin) return;
 
-	unassignedPins->remove(pin);
+	unassignedPins->erase(pin);
 
-	if (pinList->contains(pin)) return;
+//	if (pinList->contains(pin)) return;
 
-	pinList->append(pin);
+	if(!pinList->insert(pin).second) return;
 
 	const PinList localConnectedPins = pin->localConnectedPins();
 	const PinList::const_iterator end = localConnectedPins.end();
@@ -505,7 +505,7 @@ void CircuitDocument::splitIntoCircuits(PinList *pinList) {
 	typedef QValueList<PinList> PinListList;
 	PinListList pinListList;
 
-	while (!unassignedPins.isEmpty()) {
+	while (!unassignedPins.empty()) {
 		PinList tempPinList;
 		getPartition(*unassignedPins.begin(), &tempPinList, &unassignedPins, true);
 		pinListList.append(tempPinList);
@@ -515,7 +515,7 @@ void CircuitDocument::splitIntoCircuits(PinList *pinList) {
 	for (PinListList::iterator it = pinListList.begin(); it != nllEnd; ++it)
 		Circuit::identifyGround(*it);
 
-	while (!pinList->isEmpty()) {
+	while (!pinList->empty()) {
 		PinList::iterator end = pinList->end();
 		PinList::iterator it = pinList->begin();
 
@@ -555,7 +555,7 @@ void CircuitDocument::recursivePinAdd(Pin *pin, Circuitoid *circuitoid, PinList 
 	if (!pin) return;
 
 	if (pin->eqId() != -1)
-		unassignedPins->remove(pin);
+		unassignedPins->erase(pin);
 
 	if (circuitoid->contains(pin)) return;
 
@@ -590,8 +590,8 @@ bool CircuitDocument::tryAsLogicCircuit(Circuitoid *circuitoid) {
 	if (circuitoid->numElements() == 0) {
 		// This doesn't quite belong here...but whatever. Initialize all
 		// pins to voltage zero as they won't get set to zero otherwise
-		const PinList::const_iterator pinListEnd = circuitoid->pinList.constEnd();
-		for (PinList::const_iterator it = circuitoid->pinList.constBegin(); it != pinListEnd; ++it)
+		const PinList::const_iterator pinListEnd = circuitoid->pinList.end();
+		for (PinList::const_iterator it = circuitoid->pinList.begin(); it != pinListEnd; ++it)
 			(*it)->setVoltage(0.0);
 
 		// A logic circuit only requires there to be no non-logic components,
@@ -621,8 +621,8 @@ bool CircuitDocument::tryAsLogicCircuit(Circuitoid *circuitoid) {
 	else {
 		// We have ourselves stranded LogicIns...so lets set them all to low
 
-		const PinList::const_iterator pinListEnd = circuitoid->pinList.constEnd();
-		for (PinList::const_iterator it = circuitoid->pinList.constBegin(); it != pinListEnd; ++it)
+		const PinList::const_iterator pinListEnd = circuitoid->pinList.end();
+		for (PinList::const_iterator it = circuitoid->pinList.begin(); it != pinListEnd; ++it)
 			(*it)->setVoltage(0.0);
 
 		for (ElementList::const_iterator it = circuitoid->elementList.begin(); it != end; ++it) {
