@@ -169,15 +169,15 @@ public:
 	 * pixels).
 	 */
 	double currentAnimationOffset() const { return m_currentAnimationOffset; }
-// ###
-
-	void updateConnectorLines(bool forceRedraw = false);
 
 	/**
 	 * Increases the currentAnimationOffset according to the current flowing in
 	 * the connector and deltaTime.
 	 */
 	void incrementCurrentAnimation(double deltaTime);
+// ###
+
+	void updateConnectorLines(bool forceRedraw = false);
 
 signals:
 	void removed(Connector *connector);
@@ -214,8 +214,6 @@ private:
 
 	ConnectorLineList m_connectorLineList;
 };
-
-typedef QValueList<QGuardedPtr<Connector> > ConnectorList;
 
 #endif
 
