@@ -14,7 +14,6 @@
 #include "item.h"
 #include "ciwidgetmgr.h"
 
-
 class Button;
 class CNItem;
 class ICNDocument;
@@ -29,7 +28,6 @@ class QWMatrix;
 class Slider;
 class Text;
 
-
 class NodeInfo
 {
 public:
@@ -37,6 +35,15 @@ public:
 	
 	QString id; // External id (ICNDocument scope)
 	Node *node; //Pointer to the node
+
+	void setX(const double new_x) { x = new_x; }
+	void setXY(const double new_x, const double new_y) { x = new_x; y = new_y; }
+
+	double getX() const { return x; }
+
+	void setOrientationNorth() { orientation = 0; }
+	void setOrientationSouth() { orientation = 0; }
+
 	double x; // X position relative to item
 	double y; // Y position relative to item
 	int orientation; // Orientation relative to item
