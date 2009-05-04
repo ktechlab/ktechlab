@@ -11,6 +11,8 @@
 #ifndef PIN_H
 #define PIN_H
 
+#include <set>
+
 #include <qguardedptr.h>
 #include <qobject.h>
 #include <qvaluelist.h>
@@ -24,7 +26,7 @@ class Switch;
 class Wire;
 
 typedef QValueList<Element*> ElementList;
-typedef QValueList<QGuardedPtr<Pin> > PinList;
+typedef std::set<QGuardedPtr<Pin> > PinList;
 typedef QValueList<Switch*> SwitchList;
 typedef QValueList<QGuardedPtr<Wire> > WireList;
 

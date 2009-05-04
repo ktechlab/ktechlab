@@ -41,9 +41,9 @@ Circuit::~Circuit() {
 }
 
 void Circuit::addPin(Pin *node) {
-	if (m_pinList.contains(node)) return;
+//	if (m_pinList.contains(node)) return;
 
-	m_pinList.append(node);
+	m_pinList.insert(node);
 }
 
 void Circuit::addElement(Element *element) {
@@ -53,7 +53,7 @@ void Circuit::addElement(Element *element) {
 }
 
 bool Circuit::contains(Pin *node) {
-	return m_pinList.contains(node);
+	return m_pinList.find(node) != m_pinList.end();
 }
 
 // static function
@@ -78,7 +78,7 @@ int Circuit::identifyGround(PinList nodeList, int *highest) {
 	// Now to give all the Pins ids
 	PinListMap eqs;
 
-	while (!nodeList.isEmpty()) {
+	while (!nodeList.empty()) {
 		PinList associated;
 		PinList nodes;
 		Pin *node = *nodeList.begin();
@@ -163,7 +163,7 @@ void Circuit::init() {
 	PinListMap eqs;
 	PinList unassignedNodes = m_pinList;
 
-	while (!unassignedNodes.isEmpty()) {
+	while (!unassignedNodes.empty()) {
 		PinList associated;
 		PinList nodes;
 		Pin *node = *unassignedNodes.begin();
@@ -365,20 +365,20 @@ void Circuit::createMatrixMap() {
 }
 
 bool Circuit::recursivePinAdd(Pin *node, PinList *unassignedNodes, PinList *associated, PinList *nodes) {
-	if (!unassignedNodes->contains(node))
+	if (unassignedNodes->find(node) == unassignedNodes->end())
 		return false;
 
-	unassignedNodes->remove(node);
+	unassignedNodes->erase(node);
 	bool foundGround = node->eqId() == -1;
 
 	const PinList circuitDependentPins = node->circuitDependentPins();
 	const PinList::const_iterator dEnd = circuitDependentPins.end();
 	for (PinList::const_iterator it = circuitDependentPins.begin(); it != dEnd; ++it) {
-		if (!associated->contains(*it))
-			associated->append(*it);
+//		if (!associated->contains(*it))
+		associated->insert(*it);
 	}
 
-	nodes->append(node);
+	nodes->insert(node);
 
 	const PinList localConnectedPins = node->localConnectedPins();
 	const PinList::const_iterator end = localConnectedPins.end();

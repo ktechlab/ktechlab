@@ -36,7 +36,7 @@ PinList Pin::localConnectedPins() const {
 	WireList::const_iterator end = m_wireList.end();
 	for(WireList::const_iterator it = m_wireList.begin(); it != end; ++it) {
 		if(!(*it)) continue;
-		pins << (*it)->otherPin(this);
+		pins.insert( (*it)->otherPin(this));
 	}
 
 	SwitchList::const_iterator endB = m_switchList.end();
@@ -45,20 +45,20 @@ PinList Pin::localConnectedPins() const {
 
 		Pin *tmp = (*it)->otherPinIfClosed(this);
 
-		if(tmp) pins << tmp;
+		if(tmp) pins.insert(tmp);
 	}
 
 	return pins;
 }
 
 void Pin::addCircuitDependentPin(Pin *pin) {
-	if (pin && !m_circuitDependentPins.contains(pin))
-		m_circuitDependentPins.append(pin);
+//	if (pin && !m_circuitDependentPins.contains(pin))
+	m_circuitDependentPins.insert(pin);
 }
 
 void Pin::addGroundDependentPin(Pin *pin) {
-	if (pin && !m_groundDependentPins.contains(pin))
-		m_groundDependentPins.append(pin);
+//	if (pin && !m_groundDependentPins.contains(pin))
+	m_groundDependentPins.insert(pin);
 }
 
 void Pin::removeDependentPins() {
