@@ -15,6 +15,8 @@
 
 class QStringList;
 
+typedef Item *(*createItemPtr)(ItemDocument *doc, bool newItem, const char *id);
+
 /**
 This holds details of an item - id, name, category it is displayed in in its
 respective item selector, icon, function pointers to creating the item, etc.
