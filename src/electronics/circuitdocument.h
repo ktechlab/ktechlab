@@ -15,7 +15,7 @@
 
 class Circuit;
 class Component;
-class Connector;
+class ElectricalConnector;
 class ECNode;
 class Element;
 class CircuitICNDocument;
@@ -28,7 +28,6 @@ class KActionMenu;
 
 typedef QValueList<Circuit*> CircuitList;
 typedef QValueList<Component*> ComponentList;
-typedef QValueList<QGuardedPtr<Connector> > ConnectorList;
 typedef QValueList<Element*> ElementList;
 typedef QValueList<QGuardedPtr<Pin> > PinList;
 typedef QValueList<Switch*> SwitchList;
