@@ -43,6 +43,11 @@ public:
      */
     virtual Plasma::DataContainer * createDataContainer( KDevelop::IDocument *document, const QString &component = QString() )=0;
 
+    /**
+     * create a Plasma::DataContainer for a given component
+     */
+    Plasma::DataContainer * createComponentContainer( const QString &component );
+
     virtual void registerComponentFactory( KTechLab::IComponentFactory * factory )=0;
 };
 
