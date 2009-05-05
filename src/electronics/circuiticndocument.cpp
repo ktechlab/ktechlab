@@ -272,22 +272,10 @@ Connector *CircuitICNDocument::createConnector(const QString &startNodeId, const
 
 Node *CircuitICNDocument::nodeWithID(const QString &id) {
 	return m_ecNodeList[id];
-
-	/*
-		if ( m_ecNodeList.contains( id ) )
-			return m_ecNodeList[id];
-		else	return 0;
-	*/
 }
 
 ECNode *CircuitICNDocument::getEcNodeWithID(const QString &id) {
 	return m_ecNodeList[id];
-
-	/*
-		if ( m_ecNodeList.contains( id ) )
-			return m_ecNodeList[id];
-		else	return 0;
-	*/
 }
 
 void CircuitICNDocument::slotAssignNodeGroups() {
@@ -355,8 +343,7 @@ void CircuitICNDocument::flushDeleteList() {
 		}
 
 		int conCount = it->second->getAllConnectors().count();
-
-		if (conCount == 2 && !it->second->parentItem()) {
+		if(conCount == 2 && !it->second->parentItem()) {
 			if (joinConnectors(it->second))
 				doneJoin = true;
 		}
@@ -371,10 +358,10 @@ bool CircuitICNDocument::registerItem(QCanvasItem *qcanvasItem) {
 	if (!qcanvasItem) return false;
 
 	if (!ItemDocument::registerItem(qcanvasItem)) {
-		if (ECNode * node = dynamic_cast<ECNode*>(qcanvasItem)) {
+		if(ECNode *node = dynamic_cast<ECNode*>(qcanvasItem)) {
 			m_ecNodeList[ node->id()] = node;
 			emit nodeAdded((Node*)node);
-		} else if (Connector *connector = dynamic_cast<Connector*>(qcanvasItem)) {
+		} else if(Connector *connector = dynamic_cast<Connector*>(qcanvasItem)) {
 			m_connectorList.append(connector);
 			emit connectorAdded(connector);
 		} else {

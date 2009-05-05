@@ -189,11 +189,13 @@ void CircuitDocument::update() {
 	}
 
 	if (KTLConfig::showVoltageColor() || KTLConfig::showVoltageBars()) {
-		ECNodeMap::iterator end = m_ecNodeList.end();
 
+		ECNodeMap::iterator end = m_ecNodeList.end();
 		for (ECNodeMap::iterator it = m_ecNodeList.begin(); it != end; ++it) {
 			// static_cast<ECNode*>(*it)->setNodeChanged();
-			it->second->setNodeChanged();
+			if(it->second) { // << workaround!!! (FIXME)
+				it->second->setNodeChanged();
+			}
 		}
 	}
 }
@@ -400,9 +402,10 @@ void CircuitDocument::assignCircuits() {
 		// if ( ECNode * ecnode = dynamic_cast<ECNode*>(*it) )
 		ECNode* ecnode = it->second;
 
-		for (unsigned i = 0; i < ecnode->numPins(); i++)
-			m_pinList.insert(ecnode->pin(i));
-
+		if(ecnode) {
+			for (unsigned i = 0; i < ecnode->numPins(); i++)
+				m_pinList.insert(ecnode->pin(i));
+		}
 	}
 
 	m_wireList.clear();
