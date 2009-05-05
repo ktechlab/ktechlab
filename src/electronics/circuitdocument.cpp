@@ -33,7 +33,7 @@
 #include <qregexp.h>
 #include <qtimer.h>
 
-CircuitDocument::CircuitDocument(const QString & caption, const char *name)
+CircuitDocument::CircuitDocument(const QString &caption, const char *name)
 		: CircuitICNDocument(caption, name) {
 	m_pOrientationAction = new KActionMenu(i18n("Orientation"), "rotate", this);
 
@@ -156,7 +156,7 @@ void CircuitDocument::slotUpdateConfiguration() {
 
 	ECNodeMap::iterator nodeEnd = m_ecNodeList.end();
 	for (ECNodeMap::iterator it = m_ecNodeList.begin(); it != nodeEnd; ++it) {
-		ECNode * n = *it; // static_cast<ECNode*>(*it);
+		ECNode *n = it->second; // static_cast<ECNode*>(*it);
 		n->setShowVoltageBars(KTLConfig::showVoltageBars());
 		n->setShowVoltageColor(KTLConfig::showVoltageColor());
 	}
@@ -193,7 +193,7 @@ void CircuitDocument::update() {
 
 		for (ECNodeMap::iterator it = m_ecNodeList.begin(); it != end; ++it) {
 			// static_cast<ECNode*>(*it)->setNodeChanged();
-			(*it)->setNodeChanged();
+			it->second->setNodeChanged();
 		}
 	}
 }
@@ -398,7 +398,7 @@ void CircuitDocument::assignCircuits() {
 	const ECNodeMap::const_iterator nodeListEnd = m_ecNodeList.end();
 	for (ECNodeMap::const_iterator it = m_ecNodeList.begin(); it != nodeListEnd; ++it) {
 		// if ( ECNode * ecnode = dynamic_cast<ECNode*>(*it) )
-		ECNode* ecnode = *it;
+		ECNode* ecnode = it->second;
 
 		for (unsigned i = 0; i < ecnode->numPins(); i++)
 			m_pinList.insert(ecnode->pin(i));
@@ -694,7 +694,7 @@ int CircuitDocument::countExtCon(const ItemList &itemList) const {
 	const ItemList::const_iterator end = itemList.end();
 
 	for (ItemList::const_iterator it = itemList.begin(); it != end; ++it) {
-		Item * item = *it;
+		Item *item = *it;
 
 		if (item && item->type() == "ec/external_connection")
 			count++;

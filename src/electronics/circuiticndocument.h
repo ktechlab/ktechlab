@@ -12,11 +12,13 @@
 #ifndef CIRCUITICNDOCUMENT_H
 #define CIRCUITICNDOCUMENT_H
 
+#include <set>
+
 #include <icndocument.h>
 
 class ECNode;
 
-typedef QMap < QString, ECNode* > ECNodeMap;
+typedef std::map< QString, ECNode* > ECNodeMap;
 
 /**
 A document holding a circuit
