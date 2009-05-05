@@ -81,7 +81,7 @@ protected:
 	double V_lim;
 	JFETSettings m_jfetSettings;
 
-	static const uint PinD, PinG, PinS;
+	static const uint32_t PinD, PinG, PinS;
 };
 
 #endif

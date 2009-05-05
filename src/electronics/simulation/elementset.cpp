@@ -87,7 +87,7 @@ void ElementSet::addElement( Element *e )
 		m_elementList.insert(e);
 		if(e->isNonLinear()) {
 			b_containsNonLinear = true;
-		m_cnonLinearList.append( static_cast<NonLinear*>(e) );
+		m_cnonLinearList.insert( static_cast<NonLinear*>(e) );
 	}
 }
 
