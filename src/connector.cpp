@@ -68,7 +68,7 @@ Connector::~Connector() {
 	for (unsigned i = 0; i < m_wires.size(); i++)
 		delete m_wires[i];
 
-//	m_wires.resize(0);
+	m_wires.resize(0);
 }
 
 void Connector::removeConnector(Node*) {
@@ -450,7 +450,16 @@ void Connector::updateConnectorLines(bool forceRedraw) {
 	if (b_semiHidden) color = Qt::gray;
 	else if (isSelected()) color = QColor(101, 134, 192);
 	else if (!KTLConfig::showVoltageColor()) color = Qt::black;
-	else color = voltageColor(m_wires.size() ? m_wires[0]->voltage() : 0.0);
+	else if(m_wires.size()) {
+		if(m_wires[0]) {
+			color = voltageColor(m_wires[0]->voltage());
+		} else {
+			m_wires.resize(0);
+			color = Qt::black;
+		}
+	} else {
+		color = Qt::black;
+	}
 
 	int z = ICNDocument::Z::Connector + (isSelected() ? 5 : 0);
 
