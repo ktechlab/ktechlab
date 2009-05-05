@@ -8,6 +8,7 @@
  ***************************************************************************/
 
 #include "idocumentplugin.h"
+#include "component/componentcontainer.h"
 
 #include <KComponentData>
 
@@ -16,5 +17,10 @@ using namespace KTechLab;
 IDocumentPlugin::IDocumentPlugin( KComponentData data, QObject *parent)
     :   KDevelop::IPlugin( data, parent )
 {}
+
+Plasma::DataContainer * IDocumentPlugin::createComponentContainer( const QString &component )
+{
+    return new ComponentContainer( component );
+}
 
 // vim: sw=4 sts=4 et tw=100
