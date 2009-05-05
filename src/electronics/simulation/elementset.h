@@ -14,7 +14,7 @@
 //#include <vector>
 
 #include <set>
-#include <qvaluelist.h>
+//#include <qvaluelist.h>
 
 class CBranch;
 class Circuit;
@@ -27,7 +27,7 @@ class NonLinear;
 class QuickVector;  // not exactly sure how these types of declarations work. 
 
 typedef std::set<Element*> ElementList;
-typedef QValueList<NonLinear*> NonLinearList;
+typedef std::set<NonLinear*> NonLinearList;
 
 /**
 Steps in simulation of a set of elements:
@@ -120,14 +120,14 @@ private:
 	ElementList m_elementList;
 	NonLinearList m_cnonLinearList;
 
-	uint m_cb;
+	unsigned int m_cb;
 	CBranch **m_cbranches; // Pointer to an array of cbranches
 
-	uint m_cn;
+	unsigned int m_cn;
 	CNode **m_cnodes; // Pointer to an array of cnodes
 	CNode *m_ground;
 
-	uint m_clogic;
+	unsigned int m_clogic;
 	LogicIn **p_logicIn;
 
 	bool b_containsNonLinear;

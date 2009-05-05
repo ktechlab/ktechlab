@@ -68,10 +68,10 @@ MOSFETState MOSFETState::operator-(const MOSFETState &s) const {
 //END class MOSFETState
 
 //BEGIN class MOSFET
-const uint MOSFET::PinD = 0;
-const uint MOSFET::PinG = 1;
-const uint MOSFET::PinS = 2;
-const uint MOSFET::PinB = 3;
+const uint32_t MOSFET::PinD = 0;
+const uint32_t MOSFET::PinG = 1;
+const uint32_t MOSFET::PinS = 2;
+const uint32_t MOSFET::PinB = 3;
 
 MOSFET::MOSFET(MOSFET_type type) {
 	m_pol = 10;
