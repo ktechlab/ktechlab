@@ -57,26 +57,37 @@ bool DocumentEngine::updateSourceEvent( const QString &source )
         }
     }
 
+    //information about opened documents requested
     if ( source == I18N_NOOP("opened") ) {
-        setData( source, I18N_NOOP("documentCount"), QString::number( docList.count() ) );
+        setData( source,
+                 I18N_NOOP("documentCount"),
+                 QString::number( docList.count() )
+        );
         setData( source, I18N_NOOP("documentList"), urlList );
         if ( docController->activeDocument() ) {
-            setData( source, I18N_NOOP("active"), docController->activeDocument()->url().prettyUrl() );
+            setData( source,
+                     I18N_NOOP("active"),
+                     docController->activeDocument()->url().prettyUrl()
+            );
         }
 
         return true;
     }
+    //get a plugin to provide a DataSource for this document type
+    QStringList constraints;
+    constraints << QString("'%1' in [X-KDevelop-SupportedMimeTypes]").arg(
+            document->mimeType()->name() );
+    QList<KDevelop::IPlugin*> plugins =
+            m_core->pluginController()->allPluginsForExtension( "KTLDocument", constraints );
+    if ( plugins.isEmpty() ) {
+        return false;
+    }
+    //there should be only one plugin, so only try to load the first one
+    KTechLab::IDocumentPlugin *plugin =
+            qobject_cast<KTechLab::IDocumentPlugin*>( plugins.first() );
+
     // specific document is chosen
     if ( document ) {
-        //get a plugin to provide a DataSource for this document type
-        QStringList constraints;
-        constraints << QString("'%1' in [X-KDevelop-SupportedMimeTypes]").arg(document->mimeType()->name());
-        QList<KDevelop::IPlugin*> plugins = m_core->pluginController()->allPluginsForExtension( "KTLDocument", constraints );
-        if ( plugins.isEmpty() ) {
-            return false;
-        }
-        KTechLab::IDocumentPlugin *plugin = qobject_cast<KTechLab::IDocumentPlugin*>( plugins.first() );
-
         QString component = source;
         component.remove( document->url().prettyUrl() );
         if ( component.startsWith("/") ) {
@@ -85,6 +96,10 @@ bool DocumentEngine::updateSourceEvent( const QString &source )
         addSource( plugin->createDataContainer( document, component ) );
 
         return true;
+    }
+    // handle components
+    if ( source.startsWith( I18N_NOOP("component/") ) ) {
+        addSource( plugin->createComponentContainer( source ) );
     }
 
     return false;
