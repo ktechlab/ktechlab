@@ -13,9 +13,9 @@
 #include <cmath>
 using namespace std;
 
-const uint JFET::PinD = 0;
-const uint JFET::PinG = 1;
-const uint JFET::PinS = 2;
+const uint32_t JFET::PinD = 0;
+const uint32_t JFET::PinG = 1;
+const uint32_t JFET::PinS = 2;
 
 //BEGIN class JFETSettings
 JFETSettings::JFETSettings()

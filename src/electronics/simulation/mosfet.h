@@ -98,7 +98,7 @@ protected:
 
 	MOSFETSettings m_mosfetSettings;
 
-	static const uint PinD, PinG, PinS, PinB;
+	static const uint32_t PinD, PinG, PinS, PinB;
 };
 
 #endif
