@@ -154,9 +154,9 @@ QRect PinItem::boundingRect () const
 {
 	QRect r = m_textRect;
 	if ( onLeft )
-		r.setLeft( (int)x() - 10 );
+		r.setLeft( (int)x() - 25 );
 	else
-		r.setRight( (int)x() + PinLength + 10 );
+		r.setRight( (int)x() + PinLength + 25 );
 	
 	return r;
 }
