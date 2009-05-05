@@ -35,8 +35,8 @@ class CNode
 public:
 	CNode() : v(0.0), isGround(false), m_n(0) {}
 	CNode(const uint32_t n) : v(0.0), isGround(false), m_n(n) {}
-	inline void set_n(const uint n) { m_n = n; }
-	inline uint n() const { return m_n; }
+	inline void set_n(const uint32_t n) { m_n = n; }
+	inline uint32_t n() const { return m_n; }
 
 	/// Voltage on node. This is set from the last calculated voltage.
 	double v;
@@ -47,7 +47,7 @@ public:
 private:
 
 	/// CNode number
-	uint m_n;
+	uint32_t m_n;
 };
 
 class CBranch
@@ -55,15 +55,15 @@ class CBranch
 public:
 	CBranch() : i(0.0), m_n(0) {}
 	CBranch(const uint32_t n) : i(0.0), m_n(n) {}
-	void set_n(const uint n) { m_n = n; }
-	uint n() const { return m_n; }
+	void set_n(const uint32_t n) { m_n = n; }
+	uint32_t n() const { return m_n; }
 
 	/// Current flowing through branch. This is set from the last calculated current.
 	double i;
 
 private:
 	/// CBranch number
-	uint m_n;
+	uint32_t m_n;
 };
 
 const int MAX_CNODES = 4;
@@ -136,11 +136,11 @@ public:
 	/**
 	 * Returns a pointer to the given CNode
 	 */
-	CNode *cnode(const uint num) { return p_cnode[num]; }
+	CNode *cnode(const uint32_t num) { return p_cnode[num]; }
 	/**
 	 * Returns a pointer to the given CNode
 	 */
-	CBranch *cbranch(const uint num) { return p_cbranch[num]; }
+	CBranch *cbranch(const uint32_t num) { return p_cbranch[num]; }
 	/**
 	 * Returns the number of branches used by the element
 	 */
@@ -205,13 +205,13 @@ protected:
 	void resetCurrents();
 
 // TODO: give these more descriptive names
-	inline double &A_g(uint i, uint j);
-	inline double &A_b(uint i, uint j);
-	inline double &A_c(uint i, uint j);
-	inline double &A_d(uint i, uint j);
+	inline double &A_g(uint32_t i, uint32_t j);
+	inline double &A_b(uint32_t i, uint32_t j);
+	inline double &A_c(uint32_t i, uint32_t j);
+	inline double &A_d(uint32_t i, uint32_t j);
 	
-	inline double &b_i(uint i);
-	inline double &b_v(uint i);
+	inline double &b_i(uint32_t i);
+	inline double &b_v(uint32_t i);
 
 	ElementSet *p_eSet;
 
@@ -245,36 +245,36 @@ private:
 
 // this function is called millions of times!! =0
 // kachegrind reports that it is between 1.2- 3.2% of the total runtime.
-double &Element::A_g(uint i, uint j)
+double &Element::A_g(uint32_t i, uint32_t j)
 {
 	if(p_cnode[i]->isGround || p_cnode[j]->isGround) return m_temp;
 	return p_eSet->matrix()->g(p_cnode[i]->n(), p_cnode[j]->n());
 }
 
-double &Element::A_b(uint i, uint j)
+double &Element::A_b(uint32_t i, uint32_t j)
 {
 	if(p_cnode[i]->isGround) return m_temp;
 	return p_eSet->matrix()->b(p_cnode[i]->n(), p_cbranch[j]->n());
 }
 
-double &Element::A_c(uint i, uint j)
+double &Element::A_c(uint32_t i, uint32_t j)
 {
 	if(p_cnode[j]->isGround) return m_temp;
 	return p_eSet->matrix()->c(p_cbranch[i]->n(), p_cnode[j]->n());
 }
 
-double &Element::A_d(uint i, uint j)
+double &Element::A_d(uint32_t i, uint32_t j)
 {
 	return p_eSet->matrix()->d(p_cbranch[i]->n(), p_cbranch[j]->n());
 }
 
-double &Element::b_i(uint i)
+double &Element::b_i(uint32_t i)
 {
 	if(p_cnode[i]->isGround) return m_temp;
 	return (*(p_eSet->b()))[p_cnode[i]->n()];
 }
 
-double &Element::b_v(uint i)
+double &Element::b_v(uint32_t i)
 {
 	return (*(p_eSet->b()))[p_eSet->cnodeCount() + p_cbranch[i]->n()];
 }
