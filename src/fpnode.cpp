@@ -225,12 +225,10 @@ void FPNode::checkForRemoval( Connector *connector )
 	// for JunctionFlowNode this method is overridden!
 }
 
-
 void FPNode::removeNullConnectors()
 {
-	m_inFlowConnList.remove((FlowConnector*)0L);
+	m_inFlowConnList.remove((FlowConnector*)0);
 }
-
 
 QPoint FPNode::findConnectorDivergePoint( bool * found )
 {
