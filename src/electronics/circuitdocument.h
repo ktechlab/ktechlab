@@ -31,7 +31,7 @@ class KActionMenu;
 typedef QValueList<Circuit*> CircuitList;
 typedef QValueList<Component*> ComponentList;
 typedef std::set<Element*> ElementList;
-typedef std::set<QGuardedPtr<Pin> > PinList;
+typedef std::set<Pin *> PinList;
 typedef QValueList<Switch*> SwitchList;
 typedef QValueList<QGuardedPtr<Wire> > WireList;
 
