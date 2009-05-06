@@ -32,7 +32,7 @@ LogicIn::LogicIn(LogicConfig config)
 	m_config = config;
 	m_pCallbackFunction = 0;
 	m_numCNodes = 1;
-	m_bLastState = false;
+	m_bState = false;
 	m_pNextLogic = 0;
 	setLogic(getConfig());
 }
@@ -52,7 +52,7 @@ void LogicIn::check() {
 
 	bool newState;
 
-	if (m_bLastState) {
+	if (m_bState) {
 		// Was high, will still be high unless voltage is less than falling trigger
 		newState = p_cnode[0]->v > m_config.fallingTrigger;
 	} else {
@@ -60,12 +60,12 @@ void LogicIn::check() {
 		newState = p_cnode[0]->v > m_config.risingTrigger;
 	}
 
-	if (m_pCallbackFunction && (newState != m_bLastState)) {
-		m_bLastState = newState;
+	if (m_pCallbackFunction && (newState != m_bState)) {
+		m_bState = newState;
 		(m_pCallbackObject->*m_pCallbackFunction)(newState);
 	}
 
-	m_bLastState = newState;
+	m_bState = newState;
 }
 
 void LogicIn::setLogic(LogicConfig config) {
@@ -74,7 +74,7 @@ void LogicIn::setLogic(LogicConfig config) {
 }
 
 void LogicIn::setElementSet(ElementSet *c) {
-	if(c) m_pNextLogic = 0l;
+	if(c) m_pNextLogic = 0;
 	else m_cnodeI[0] = 0.;
 
 	Element::setElementSet(c);
@@ -201,8 +201,8 @@ void LogicOut::configChanged() {
 	m_old_v_out = m_v_out;
 
 	// NOTE Make sure that the next two lines are the same as those in setElementSet and setHigh
-	m_g_out = m_bLastState ? m_gHigh : m_gLow;
-	m_v_out = m_bLastState ? m_vHigh : 0.0;
+	m_g_out = m_bState ? m_gHigh : m_gLow;
+	m_v_out = m_bState ? m_vHigh : 0.0;
 
 	add_initial_dc();
 
@@ -233,14 +233,11 @@ void LogicOut::updateCurrents() {
 }
 
 void LogicOut::setHigh(bool high) {
-	if (high == m_bLastState)
+	if (high == m_bState)
 		return;
 
 	if (m_bUseLogicChain) {
-		m_bLastState = high;
-
-		for(LogicIn *logic = this; logic; logic = logic->nextLogic())
-			logic->setLastState(high);
+		setChain(high);
 
 		if (m_bCanAddChanged) {
 			Simulator::self()->addChangedLogic(this);
@@ -262,7 +259,7 @@ void LogicOut::setHigh(bool high) {
 	m_old_g_out = 0.;
 	m_old_v_out = 0.;
 
-	m_bLastState = high;
+	m_bState = high;
 
 	if (p_eSet && p_eSet->circuit()->canAddChanged()) {
 		Simulator::self()->addChangedCircuit(p_eSet->circuit());
@@ -271,3 +268,7 @@ void LogicOut::setHigh(bool high) {
 }
 //END class LogicOut
 
+void LogicIn::setChain(bool high) {
+	m_bState = high; 
+	if(m_pNextLogic) m_pNextLogic->setChain(high);
+}

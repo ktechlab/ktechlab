@@ -630,8 +630,8 @@ bool CircuitDocument::tryAsLogicCircuit(Circuitoid *circuitoid) {
 
 		for (ElementList::const_iterator it = circuitoid->elementList.begin(); it != end; ++it) {
 			LogicIn * logicIn = static_cast<LogicIn*>(*it);
-			logicIn->setNextLogic(0l);
-			logicIn->setElementSet(0l);
+			logicIn->setNextLogic(0);
+			logicIn->setElementSet(0);
 
 			if (logicIn->isHigh()) {
 				logicIn->setLastState(false);
