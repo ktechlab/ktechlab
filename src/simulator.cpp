@@ -157,6 +157,7 @@ void Simulator::step() {
 					LogicIn *logicCallback = changed;
 
 					while (logicCallback) {
+// FIXME: make sure logic callbacks are disconnected when the user cuts something from a live circuit, otherwise breaks here! 
 						logicCallback->callCallback();
 						logicCallback = logicCallback->nextLogic();
 					}
