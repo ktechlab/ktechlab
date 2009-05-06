@@ -35,7 +35,6 @@ public:
 	float lowImpedance;	///< Output impedance when low
 };
 
-
 class CallbackClass {};
 
 typedef void(CallbackClass::*CallbackPtr)(bool isHigh);
@@ -123,9 +122,9 @@ protected:
 
 	// TODO: fix this crap NO FUNCTION POINTERS
 	CallbackPtr m_pCallbackFunction;
-	CallbackClass * m_pCallbackObject;
+	CallbackClass *m_pCallbackObject;
 	bool m_bLastState;
-	LogicIn * m_pNextLogic;
+	LogicIn *m_pNextLogic;
 	LogicConfig m_config;
 };
 
@@ -177,42 +176,30 @@ public:
 	 * @returns the state that this is outputting (regardless of voltage level on logic)
 	 */
 	bool outputState() const {
-		return b_state;
+		return m_bLastState;
 	}
 
+
+
+/// SHODDY LINKED LIST STUFF!!! 
 	/**
 	 * Set whether or not this LogicOut is the head of a LogicChain (controls
 	 * itself and a bunch of LogicIns).
 	 */
 	void setUseLogicChain(bool use);
-	/**
-	 * When a LogicOut configured as the start of a LogicChain changes start, it
-	 * appends a pointer to itself to the list of change LogicOut, starting from
-	 * the Simulator. This functions enables appending the next changed LogicOut
-	 * to this one.
-	 */
-	void setNextChanged(LogicOut *logicOut, unsigned char chain) {
-		m_pNextChanged[chain] = logicOut;
-	}
 
-	/**
-	 * To avoid a pointer to this LogicOut being added twice in one
-	 * iteration due to the state changing twice, this LogicOut sets an
-	 * added flag to true after adding it to the list of changed. The flag
-	 * must be reset to false with this function (done by Simulator).
-	 */
-	void setCanAddChanged(bool canAdd) {
-		m_bCanAddChanged = canAdd;
-	}
+void setNextChanged(LogicOut *logicOut, unsigned char chain) {
+	m_pNextChanged[chain] = logicOut;
+}
+LogicOut *nextChanged(unsigned char chain) const {
+	return m_pNextChanged[chain];
+}
+void setCanAddChanged(bool canAdd) {
+// avoid being added twice. 
+	m_bCanAddChanged = canAdd;
+}
+///
 
-	/**
-	 * Returns the next LogicOut that has changed, when configured as the start
-	 * of a LogicChain.
-	 * @see setNextChanged
-	 */
-	LogicOut *nextChanged(unsigned char chain) const {
-		return m_pNextChanged[chain];
-	}
 
 // FIXME RED ALERT: THESE ARE ONLY ACCESSED BY SIMULATOR!!!
 	PinList pinList;
@@ -236,15 +223,12 @@ protected:
 	double m_v_out;
 	double m_old_g_out;
 	double m_old_v_out;
-	bool b_state;
-	bool m_bCanAddChanged;
 
 // ###  We also moonlight as a shoddy linked list implementation; woo hoo!! 
+	bool m_bCanAddChanged;
 	LogicOut *m_pNextChanged[2];
 	bool m_bUseLogicChain;
 // ###
-
-	Simulator *m_pSimulator;
 };
 
 #endif
