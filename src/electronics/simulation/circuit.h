@@ -14,7 +14,7 @@
 #include <set>
 
 #include <cassert>
-#include <qguardedptr.h>
+//#include <qguardedptr.h>
 #include "qstringlist.h"
 
 #include "elementset.h"
@@ -25,7 +25,7 @@ class Pin;
 class Element;
 class LogicOut;
 
-typedef std::set<QGuardedPtr<Pin> > PinList;
+typedef std::set<Pin *> PinList;
 typedef std::set<Element*> ElementList;
 
 class LogicCacheNode
