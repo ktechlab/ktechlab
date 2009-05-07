@@ -148,7 +148,6 @@ void Simulator::step() {
 					changed->setNextChanged(0, prevChain);
 
 					double v = changed->isHigh() ? changed->outputHighVoltage() : 0.0;
-
 					for (PinList::iterator it = changed->pinList.begin(); it != changed->pinList.end(); ++it) {
 						if (Pin *pin = *it)
 							pin->setVoltage(v);
