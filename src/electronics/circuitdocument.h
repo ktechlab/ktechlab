@@ -41,7 +41,7 @@ public:
 	bool addPin(Pin *node) {
 		if(node) return pinList.insert(node).second;
 
-		return true;
+		return false;
 	}
 
 	void addElement(Element *ele) {
