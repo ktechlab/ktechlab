@@ -20,9 +20,9 @@
 LogicConfig::LogicConfig() {
 	risingTrigger = 0.0;
 	fallingTrigger = 0.0;
-	output = 0.0;
-	highImpedance = 0.0;
-	lowImpedance = 0.0;
+	output = 5.0;
+	highImpedance = 0.0001;
+	lowImpedance = 0.0001;
 }
 //END class LogicConfig
 
@@ -101,20 +101,14 @@ LogicConfig LogicIn::getConfig() {
 LogicOut::LogicOut(LogicConfig config, bool _high)
 		: LogicIn(config) {
 	m_bCanAddChanged = true;
-	m_bOutputHighConductanceConst = false;
-	m_bOutputLowConductanceConst = false;
-	m_bOutputHighVoltageConst = false;
 	m_pNextChanged[0] = m_pNextChanged[1] = 0;
 	m_bUseLogicChain = false;
 	m_numCNodes = 1;
-	m_vHigh = m_gHigh = m_gLow = 0.0;
 	m_old_g_out = m_g_out = 0.0;
 	m_old_v_out = m_v_out = 0.0;
 	setHigh(_high);
 
-	// Although we already call this function in LogicIn's constructor, our
-	// virtual function will not have got called, so we have to call it again.
-	setLogic(getConfig());
+	configChanged();
 }
 
 LogicOut::~LogicOut() {
@@ -146,45 +140,33 @@ void LogicOut::setElementSet(ElementSet *c) {
 }
 
 void LogicOut::setOutputHighConductance(double g) {
-	m_bOutputHighConductanceConst = true;
+	double impedance = 1.0 / g;
 
-	if (g == m_gHigh) return;
+	if (impedance == m_config.highImpedance) return;
 
-	m_gHigh = g;
+	m_config.highImpedance = impedance;
 	configChanged();
 }
 
 void LogicOut::setOutputLowConductance(double g) {
-	m_bOutputLowConductanceConst = true;
+	double impedance = 1.0 / g;
 
-	if (g == m_gLow)
-		return;
+	if (impedance == m_config.lowImpedance) return;
 
-	m_gLow = g;
+	m_config.lowImpedance = impedance;
 	configChanged();
 }
 
 void LogicOut::setOutputHighVoltage(double v) {
-	m_bOutputHighVoltageConst = true;
 
-	if (v == m_vHigh)
-		return;
+	if (v == m_config.output) return;
 
-	m_vHigh = v;
+	m_config.output = v;
 	configChanged();
 }
 
 void LogicOut::setLogic(LogicConfig config) {
 	m_config = config;
-
-	if (!m_bOutputHighConductanceConst)
-		m_gHigh = 1.0 / config.highImpedance;
-
-	if (!m_bOutputLowConductanceConst)
-		m_gLow = (config.lowImpedance == 0.0) ? 0.0 : 1.0 / config.lowImpedance;
-
-	if (!m_bOutputHighVoltageConst)
-		m_vHigh = config.output;
 
 	configChanged();
 }
@@ -196,13 +178,12 @@ void LogicOut::configChanged() {
 		p_eSet->setCacheInvalidated();
 
 	// Re-add the DC stuff using the new values
-
 	m_old_g_out = m_g_out;
 	m_old_v_out = m_v_out;
 
 	// NOTE Make sure that the next two lines are the same as those in setElementSet and setHigh
-	m_g_out = m_bState ? m_gHigh : m_gLow;
-	m_v_out = m_bState ? m_vHigh : 0.0;
+	m_g_out = m_bState ? 1.0 / m_config.highImpedance : 1.0 / m_config.lowImpedance;
+	m_v_out = m_bState ? m_config.output : 0.0;
 
 	add_initial_dc();
 
@@ -251,8 +232,8 @@ void LogicOut::setHigh(bool high) {
 	m_old_v_out = m_v_out;
 
 	// NOTE Make sure that the next two lines are the same as those in setElementSet and setLogic
-	m_g_out = high ? m_gHigh : m_gLow;
-	m_v_out = high ? m_vHigh : 0.0;
+	m_g_out = high ? 1.0 / m_config.highImpedance : 1.0 / m_config.lowImpedance;
+	m_v_out = high ? m_config.output : 0.0;
 
 	add_initial_dc();
 
