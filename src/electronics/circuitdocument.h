@@ -38,16 +38,10 @@ typedef QValueList<QGuardedPtr<Wire> > WireList;
 class Circuitoid {
 
 public:
-	bool contains(Pin *node) const {
-		return pinList.find(node) != pinList.end();
-	}
+	bool addPin(Pin *node) {
+		if(node) return pinList.insert(node).second;
 
-	bool contains(Element *ele) const {
-		return elementList.find(ele) != elementList.end();
-	}
-
-	void addPin(Pin *node) {
-		if(node) pinList.insert(node);
+		return true;
 	}
 
 	void addElement(Element *ele) {
@@ -56,7 +50,16 @@ public:
 
 	unsigned numElements() const { return elementList.size(); }
 
-//private: 
+	ElementList::const_iterator getElementsEnd() const { return elementList.end(); }
+	ElementList::const_iterator getElementsBegin() const { return elementList.begin(); }
+
+	PinList::const_iterator getPinsEnd() const { return pinList.end(); }
+	PinList::const_iterator getPinsBegin() const { return pinList.begin(); }
+
+	PinList getPinList() { return pinList; }
+
+private:
+
 	PinList pinList;
 	ElementList elementList;
 };

@@ -560,9 +560,9 @@ void CircuitDocument::recursivePinAdd(Pin *pin, Circuitoid *circuitoid, PinList 
 	if (pin->eqId() != -1)
 		unassignedPins->erase(pin);
 
-	if (circuitoid->contains(pin)) return;
+	if (! circuitoid->addPin(pin)) return;
 
-	circuitoid->addPin(pin);
+//	circuitoid->addPin(pin);
 
 	if (pin->eqId() == -1) return;
 
@@ -593,8 +593,8 @@ bool CircuitDocument::tryAsLogicCircuit(Circuitoid *circuitoid) {
 	if (circuitoid->numElements() == 0) {
 		// This doesn't quite belong here...but whatever. Initialize all
 		// pins to voltage zero as they won't get set to zero otherwise
-		const PinList::const_iterator pinListEnd = circuitoid->pinList.end();
-		for (PinList::const_iterator it = circuitoid->pinList.begin(); it != pinListEnd; ++it)
+		const PinList::const_iterator pinListEnd = circuitoid->getPinsEnd();
+		for (PinList::const_iterator it = circuitoid->getPinsBegin(); it != pinListEnd; ++it)
 			(*it)->setVoltage(0.0);
 
 		// A logic circuit only requires there to be no non-logic components,
@@ -606,9 +606,9 @@ bool CircuitDocument::tryAsLogicCircuit(Circuitoid *circuitoid) {
 	LogicOut *out = 0;
 	uint logicInCount = 0;
 	uint logicOutCount = 0;
-	ElementList::const_iterator end = circuitoid->elementList.end();
 
-	for (ElementList::const_iterator it = circuitoid->elementList.begin(); it != end; ++it) {
+	ElementList::const_iterator end = circuitoid->getElementsEnd();
+	for (ElementList::const_iterator it = circuitoid->getElementsBegin(); it != end; ++it) {
 		if ((*it)->type() == Element::Element_LogicOut) {
 			logicOutCount++;
 			out = static_cast<LogicOut*>(*it);
@@ -620,16 +620,16 @@ bool CircuitDocument::tryAsLogicCircuit(Circuitoid *circuitoid) {
 
 	if (logicOutCount > 1) return false;
 	else if (logicOutCount == 1)
-		Simulator::self()->createLogicChain(out, logicInList, circuitoid->pinList);
+		Simulator::self()->createLogicChain(out, logicInList, circuitoid->getPinList());
 	else {
 		// We have ourselves stranded LogicIns...so lets set them all to low
 
-		const PinList::const_iterator pinListEnd = circuitoid->pinList.end();
-		for (PinList::const_iterator it = circuitoid->pinList.begin(); it != pinListEnd; ++it)
+		const PinList::const_iterator pinListEnd = circuitoid->getPinsEnd();
+		for (PinList::const_iterator it = circuitoid->getPinsBegin(); it != pinListEnd; ++it)
 			(*it)->setVoltage(0.0);
 
-		for (ElementList::const_iterator it = circuitoid->elementList.begin(); it != end; ++it) {
-			LogicIn * logicIn = static_cast<LogicIn*>(*it);
+		for (ElementList::const_iterator it = circuitoid->getElementsBegin(); it != end; ++it) {
+			LogicIn *logicIn = static_cast<LogicIn*>(*it);
 			logicIn->setNextLogic(0);
 			logicIn->setElementSet(0);
 
@@ -648,12 +648,12 @@ Circuit *CircuitDocument::createCircuit(Circuitoid *circuitoid) {
 
 	Circuit *circuit = new Circuit();
 
-	const PinList::const_iterator nEnd = circuitoid->pinList.end();
-	for (PinList::const_iterator it = circuitoid->pinList.begin(); it != nEnd; ++it)
+	const PinList::const_iterator nEnd = circuitoid->getPinsEnd();
+	for (PinList::const_iterator it = circuitoid->getPinsBegin(); it != nEnd; ++it)
 		circuit->addPin(*it);
 
-	const ElementList::const_iterator eEnd = circuitoid->elementList.end();
-	for (ElementList::const_iterator it = circuitoid->elementList.begin(); it != eEnd; ++it)
+	const ElementList::const_iterator eEnd = circuitoid->getElementsEnd();
+	for (ElementList::const_iterator it = circuitoid->getElementsBegin(); it != eEnd; ++it)
 		circuit->addElement(*it);
 
 	return circuit;
