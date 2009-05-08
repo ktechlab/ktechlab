@@ -33,7 +33,7 @@ typedef QValueList<Component*> ComponentList;
 typedef std::set<Element*> ElementList;
 typedef std::set<Pin *> PinList;
 typedef QValueList<Switch*> SwitchList;
-typedef QValueList<QGuardedPtr<Wire> > WireList;
+typedef std::set<Wire *> WireList;
 
 class Circuitoid {
 
