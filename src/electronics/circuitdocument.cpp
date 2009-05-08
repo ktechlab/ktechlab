@@ -338,7 +338,7 @@ void CircuitDocument::calculateConnectorCurrents() {
 		(*it)->setNodalCurrents();
 
 	// And now for the wires and switches...
-	m_wireList.remove((Wire*)0);
+//	m_wireList.remove((Wire*)0);
 
 	const WireList::iterator clEnd = m_wireList.end();
 	for (WireList::iterator it = m_wireList.begin(); it != clEnd; ++it)
@@ -356,7 +356,7 @@ void CircuitDocument::calculateConnectorCurrents() {
 				found = true;
 				WireList::iterator oldIt = it;
 				++it;
-				wires.remove(oldIt);
+				wires.erase(oldIt);
 			} else	++it;
 		}
 
@@ -413,7 +413,7 @@ void CircuitDocument::assignCircuits() {
 	const ConnectorList::const_iterator connectorListEnd = m_connectorList.end();
 	for (ConnectorList::const_iterator it = m_connectorList.begin(); it != connectorListEnd; ++it) {
 		for (unsigned i = 0; i < (*it)->numWires(); i++)
-			m_wireList << (*it)->wire(i);
+			m_wireList.insert((*it)->wire(i));
 	}
 
 	typedef QValueList<PinList> PinListList;
