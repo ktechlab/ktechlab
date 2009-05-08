@@ -13,7 +13,6 @@
 
 #include <set>
 
-#include <qguardedptr.h>
 #include <qobject.h>
 #include <qvaluelist.h>
 
@@ -28,7 +27,7 @@ class Wire;
 typedef std::set<Element*> ElementList;
 typedef std::set<Pin *> PinList;
 typedef QValueList<Switch*> SwitchList;
-typedef QValueList<QGuardedPtr<Wire> > WireList;
+typedef std::set<Wire *> WireList;
 
 /**
 @author David Saxton
