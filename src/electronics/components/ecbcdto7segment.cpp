@@ -8,6 +8,8 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include <cassert>
+
 #include "ecbcdto7segment.h"
 
 #include "logic.h"
@@ -17,11 +19,12 @@
 #include <klocale.h>
 
 // Values for a,b,c,d,e,f,g of common-anode 7 segment display
-static bool numbers[16][7] = { { 1, 1, 1, 1, 1, 1, 0 }, // 0
+static bool numbers[16][7] = { 
+	{ 1, 1, 1, 1, 1, 1, 0 }, // 0
 	{ 0, 1, 1, 0, 0, 0, 0 }, // 1
 	{ 1, 1, 0, 1, 1, 0, 1 }, // 2
 	{ 1, 1, 1, 1, 0, 0, 1 }, // 3
-	{ 0, 1, 1, 0 , 0, 1, 1 }, // 4
+	{ 0, 1, 1, 0, 0, 1, 1 }, // 4
 	{ 1, 0, 1, 1, 0, 1, 1 }, // 5
 	{ 1, 0, 1, 1, 1, 1, 1 }, // 6
 	{ 1, 1, 1, 0, 0, 0, 0 }, // 7
@@ -67,41 +70,26 @@ ECBCDTo7Segment::ECBCDTo7Segment(ICNDocument *icnDocument, bool newItem, const c
 	initDIPSymbol(pins, 48);
 	initDIP(pins);
 
-//	ALogic = createLogicIn(ecNodeWithID("A")->pin());
-
 	ALogic = new LogicIn(LogicIn::getConfig());
 	setup1pinElement(ALogic, ecNodeWithID("A")->pin());
-
-//	BLogic = createLogicIn(ecNodeWithID("B")->pin());
 
 	BLogic = new LogicIn(LogicIn::getConfig());
 	setup1pinElement(BLogic, ecNodeWithID("B")->pin());
 
-//	CLogic = createLogicIn(ecNodeWithID("C")->pin());
-
 	CLogic = new LogicIn(LogicIn::getConfig());
 	setup1pinElement(CLogic, ecNodeWithID("C")->pin());
-
-//	DLogic = createLogicIn(ecNodeWithID("D")->pin());
 
 	DLogic = new LogicIn(LogicIn::getConfig());
 	setup1pinElement(DLogic, ecNodeWithID("D")->pin());
 
-//	ltLogic = createLogicIn(ecNodeWithID("lt")->pin());
-
 	ltLogic = new LogicIn(LogicIn::getConfig());
 	setup1pinElement(ltLogic, ecNodeWithID("lt")->pin());
-
-//	rbLogic = createLogicIn(ecNodeWithID("rb")->pin());
 
 	rbLogic = new LogicIn(LogicIn::getConfig());
 	setup1pinElement(rbLogic, ecNodeWithID("rb")->pin());
 
-//	enLogic = createLogicIn(ecNodeWithID("en")->pin());
-
 	enLogic = new LogicIn(LogicIn::getConfig());
 	setup1pinElement(enLogic, ecNodeWithID("en")->pin());
-
 
 	ALogic->setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
 	BLogic->setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
@@ -133,8 +121,9 @@ void ECBCDTo7Segment::inStateChanged(bool) {
 	bool rb = rbLogic->isHigh(); // Ripple Blank
 	bool en = enLogic->isHigh(); // Enable (store)
 
-	int n = A + 2 * B + 4 * C + 8 * D;
-// 	if ( n > 9 ) n = 0;
+	unsigned char n = A | (B << 1) | (C << 2) | (D << 3);
+
+	assert(n < 16);
 
 	bool out[7];
 
