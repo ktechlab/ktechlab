@@ -20,13 +20,12 @@
 #include <qpainter.h>
 
 //BEGIN class MultiInputGate
-MultiInputGate::MultiInputGate(ICNDocument *icnDocument, bool newItem, const char *id, const QString & rectangularShapeText, bool invertedOutput, int baseWidth, bool likeOR)
+MultiInputGate::MultiInputGate(ICNDocument *icnDocument, bool newItem, const char *id, const QString &rectangularShapeText, int baseWidth, bool likeOR)
 		: Component(icnDocument, newItem, id) {
 	m_bLikeOR = likeOR;
 	m_bDoneInit = false;
 	m_numInputs = 0;
 	m_distinctiveWidth = baseWidth;
-	m_bInvertedOutput = invertedOutput;
 	m_rectangularShapeText = rectangularShapeText;
 
 	for (int i = 0; i < maxGateInput; ++i) {
@@ -37,9 +36,7 @@ MultiInputGate::MultiInputGate(ICNDocument *icnDocument, bool newItem, const cha
 	updateLogicSymbolShape();
 
 	updateInputs(2);
-
 	init1PinRight(16);
-//	m_pOut = createLogicOut(m_pPNode[0]->pin(), false);
 
 	m_pOut = new LogicOut(LogicIn::getConfig(), false);
 	setup1pinElement(m_pOut, m_pPNode[0]->pin());
@@ -53,16 +50,13 @@ MultiInputGate::MultiInputGate(ICNDocument *icnDocument, bool newItem, const cha
 	m_bDoneInit = true;
 }
 
-
 MultiInputGate::~MultiInputGate() {
 }
-
 
 void MultiInputGate::slotUpdateConfiguration() {
 	updateLogicSymbolShape();
 	Component::slotUpdateConfiguration();
 }
-
 
 void MultiInputGate::updateLogicSymbolShape() {
 	// Set the canvas changed for the old shape
@@ -77,7 +71,6 @@ void MultiInputGate::updateLogicSymbolShape() {
 	}
 
 	updateSymbolText();
-
 	updateAttachedPositioning();
 
 	if (p_itemDocument)
@@ -87,27 +80,23 @@ void MultiInputGate::updateLogicSymbolShape() {
 	setChanged();
 }
 
-
 void MultiInputGate::updateSymbolText() {
 	if (m_logicSymbolShape == Distinctive)
 		removeDisplayText("rect-shape-text");
 	else {
-		int w = 32 - (m_bInvertedOutput ? 6 : 0);
+		int w = 32 - (m_bInvertedOutput() ? 6 : 0);
 		QRect r(-16, 4 - height() / 2, w, height() - 4);
 		addDisplayText("rect-shape-text", r, m_rectangularShapeText, true, AlignTop | AlignHCenter);
 	}
 }
 
-
 int MultiInputGate::logicSymbolShapeToWidth() const {
 	return (m_logicSymbolShape == Distinctive) ? m_distinctiveWidth : 32;
 }
 
-
 void MultiInputGate::dataChanged() {
 	updateInputs(QMIN(maxGateInput, dataInt("numInput")));
 }
-
 
 void MultiInputGate::updateInputs(int newNum) {
 	if (newNum == m_numInputs) return;
@@ -121,7 +110,6 @@ void MultiInputGate::updateInputs(int newNum) {
 	QRect r(-newWidth / 2, -8 * newNum, newWidth, 16 * newNum);
 
 	setSize(r, true);
-
 	updateSymbolText();
 
 	const bool added = (newNum > m_numInputs);
@@ -156,7 +144,6 @@ void MultiInputGate::updateInputs(int newNum) {
 	updateAttachedPositioning();
 }
 
-
 void MultiInputGate::updateAttachedPositioning() {
 	// Check that our ndoes have been created before we attempt to use them
 	if (!m_nodeMap.contains("p1") || !m_nodeMap.contains("in" + QString::number(m_numInputs - 1)))
@@ -175,7 +162,7 @@ void MultiInputGate::updateAttachedPositioning() {
 		m_nodeMap["in"+QString::number(i)].y = _y + 16 * i;
 
 		// The curvy part at the base of OR-like logic gates means that the
-		// input needs need to be increased in length
+		// input needs to be increased in length
 
 		if (m_bLikeOR) {
 			int length = 8;
@@ -192,14 +179,13 @@ void MultiInputGate::updateAttachedPositioning() {
 		Component::updateAttachedPositioning();
 }
 
-
 void MultiInputGate::drawShape(QPainter & p) {
 	initPainter(p);
 
 	int _x = int(x() + offsetX());
 	int _y = int(y() + offsetY());
 
-	if (m_bInvertedOutput) {
+	if (m_bInvertedOutput()) {
 		p.drawRect(_x, _y, 32 - 6, height());
 		p.drawEllipse(_x + 32 - 6, int(y()) - 3, 6, 6);
 	} else {
@@ -209,7 +195,6 @@ void MultiInputGate::drawShape(QPainter & p) {
 	deinitPainter(p);
 }
 //END class MultiInputGate
-
 
 //BEGIN class ECXNor
 Item* ECXnor::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
@@ -227,7 +212,7 @@ LibraryItem* ECXnor::libraryItem() {
 }
 
 ECXnor::ECXnor(ICNDocument *icnDocument, bool newItem, const char *id)
-		: MultiInputGate(icnDocument, newItem, id ? id : "xnor", "=1", true, 48, true) {
+		: MultiInputGate(icnDocument, newItem, id ? id : "xnor", "=1", 48, true) {
 	m_name = i18n("XNOR gate");
 
 	inStateChanged(false);
@@ -273,7 +258,6 @@ void ECXnor::drawShape(QPainter &p) {
 }
 //END class ECXnor
 
-
 //BEGIN class ECXor
 Item* ECXor::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
 	return new ECXor((ICNDocument*)itemDocument, newItem, id);
@@ -290,7 +274,7 @@ LibraryItem* ECXor::libraryItem() {
 }
 
 ECXor::ECXor(ICNDocument *icnDocument, bool newItem, const char *id)
-		: MultiInputGate(icnDocument, newItem, id ? id : "xor", "=1", false, 48, true) {
+		: MultiInputGate(icnDocument, newItem, id ? id : "xor", "=1", 48, true) {
 	m_name = i18n("XOR gate");
 
 	inStateChanged(false);
@@ -332,9 +316,7 @@ void ECXor::drawShape(QPainter &p) {
 
 	deinitPainter(p);
 }
-
 //END class ECXor
-
 
 //BEGIN class ECOr
 Item* ECOr::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
@@ -352,7 +334,7 @@ LibraryItem* ECOr::libraryItem() {
 }
 
 ECOr::ECOr(ICNDocument *icnDocument, bool newItem, const char *id)
-		: MultiInputGate(icnDocument, newItem, id ? id : "or", QChar(0x2265) + QString("1"), false, 48, true) {
+		: MultiInputGate(icnDocument, newItem, id ? id : "or", QChar(0x2265) + QString("1"), 48, true) {
 	m_name = i18n("OR gate");
 
 	inStateChanged(false);
@@ -362,14 +344,15 @@ ECOr::~ECOr() {
 }
 
 void ECOr::inStateChanged(bool) {
-	bool allLow = true;
 
-	for (int i = 0; i < m_numInputs && allLow; ++i) {
-		if (inLogic[i]->isHigh())
-			allLow = false;
+	for (int i = 0; i < m_numInputs; ++i) {
+		if (inLogic[i]->isHigh()) {
+			m_pOut->setHigh(true);
+			return;
+		}
 	}
 
-	m_pOut->setHigh(!allLow);
+	m_pOut->setHigh(false);
 }
 
 void ECOr::drawShape(QPainter &p) {
@@ -395,9 +378,7 @@ void ECOr::drawShape(QPainter &p) {
 
 	deinitPainter(p);
 }
-
 //END class ECOr
-
 
 //BEGIN class ECNor
 Item* ECNor::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
@@ -415,7 +396,7 @@ LibraryItem* ECNor::libraryItem() {
 }
 
 ECNor::ECNor(ICNDocument *icnDocument, bool newItem, const char *id)
-		: MultiInputGate(icnDocument, newItem, id ? id : "nor", QChar(0x2265) + QString("1"), true, 48, true) {
+		: MultiInputGate(icnDocument, newItem, id ? id : "nor", QChar(0x2265) + QString("1"), 48, true) {
 	m_name = i18n("NOR Gate");
 
 	inStateChanged(false);
@@ -458,9 +439,7 @@ void ECNor::drawShape(QPainter &p) {
 
 	deinitPainter(p);
 }
-
 //END class ECNor
-
 
 //BEGIN class ECNand
 Item* ECNand::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
@@ -478,7 +457,7 @@ LibraryItem* ECNand::libraryItem() {
 }
 
 ECNand::ECNand(ICNDocument *icnDocument, bool newItem, const char *id)
-		: MultiInputGate(icnDocument, newItem, id ? id : "nand", "&", true, 32, false) {
+		: MultiInputGate(icnDocument, newItem, id ? id : "nand", "&", 32, false) {
 	m_name = i18n("NAND Gate");
 
 	inStateChanged(false);
@@ -488,7 +467,7 @@ ECNand::~ECNand() {
 }
 
 void ECNand::inStateChanged(bool) {
-	for (int i = 0; i < m_numInputs; ++i) {
+	for(int i = 0; i < m_numInputs; ++i) {
 		if (!inLogic[i]->isHigh()) {
 			m_pOut->setHigh(true);
 			return;
@@ -512,9 +491,7 @@ void ECNand::drawShape(QPainter &p) {
 	p.drawEllipse(_x + width() - 6, _y + (height() / 2) - 3, 6, 6);
 	deinitPainter(p);
 }
-
 //END class ECNand
-
 
 //BEGIN class ECAnd
 Item* ECAnd::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
@@ -534,7 +511,7 @@ LibraryItem* ECAnd::libraryItem() {
 }
 
 ECAnd::ECAnd(ICNDocument *icnDocument, bool newItem, const char *id)
-		: MultiInputGate(icnDocument, newItem, id ? id : "and", "&", false, 32, false) {
+		: MultiInputGate(icnDocument, newItem, id ? id : "and", "&", 32, false) {
 	m_name = i18n("AND Gate");
 
 	inStateChanged(false);
