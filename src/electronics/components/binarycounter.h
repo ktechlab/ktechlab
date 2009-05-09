@@ -43,8 +43,8 @@ public:
 protected:
 	void inStateChanged(bool state);   // Input
 	void rStateChanged(bool state);   // Reset
-	void enStateChanged(bool state);   // Enable
-	void udStateChanged(bool state);   // Up/Down
+//	void enStateChanged(bool state);   // Enable
+//	void udStateChanged(bool state);   // Up/Down
 	void outputValue();
 	void dataChanged();
 	void initPins(unsigned numBits);
@@ -54,12 +54,11 @@ protected:
 
 	unsigned m_numBits;
 	bool b_triggerHigh;
-	bool b_en; // Enable
-	bool b_ud; // Up/Down
+//	bool b_en; // Enable
+//	bool b_ud; // Up/Down
 	bool b_oldIn;
-	bool b_reset;
+//	bool b_reset;
 	long m_value;
-	long m_maxValue;
 	bool m_bDoneLogicIn;
 };
 
