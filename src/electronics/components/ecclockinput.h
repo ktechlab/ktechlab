@@ -42,17 +42,15 @@ public:
 protected:
 	virtual void drawShape(QPainter &p);
 	void dataChanged();
-	
-	uint m_time;
+
 	uint m_high_time;
 	uint m_low_time;
-	uint m_period;
 	long long m_lastSetTime;
 	LogicOut *m_pOut;
 	bool m_bSetStepCallbacks;
 	bool m_bLastStepCallbackOut;
 	Simulator *m_pSimulator;
-	list<ComponentCallback> * m_pComponentCallback[1000];
+	list<ComponentCallback> *m_pComponentCallback[1000];
 };
 
 #endif
