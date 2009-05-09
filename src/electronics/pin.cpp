@@ -24,9 +24,12 @@ Pin::Pin(ECNode *parent) :
 
 Pin::~Pin() {
 
+/* I don't think this is the right approach, this code segfaults anyway. =\ 
 	WireList::iterator end = m_wireList.end();
 	for (WireList::iterator it = m_wireList.begin(); it != end; ++it)
 		delete(Wire *)(*it);
+*/
+
 }
 
 PinList Pin::localConnectedPins() const {
@@ -65,7 +68,8 @@ void Pin::removeDependentPins() {
 
 /// Element add and remove... What is this really for? 
 void Pin::addElement(Element *e) {
-	if(e) m_elementList.insert(e);
+	assert(e);
+	m_elementList.insert(e);
 }
 
 void Pin::removeElement(Element *e) {
