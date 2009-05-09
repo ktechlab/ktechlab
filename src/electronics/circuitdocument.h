@@ -28,7 +28,7 @@ class Switch;
 class Wire;
 class KActionMenu;
 
-typedef QValueList<Circuit*> CircuitList;
+typedef std::set<Circuit*> CircuitList;
 typedef QValueList<Component*> ComponentList;
 typedef std::set<Element*> ElementList;
 typedef std::set<Pin *> PinList;
