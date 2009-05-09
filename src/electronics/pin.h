@@ -166,7 +166,11 @@ public:
 	 * This function returns the pins that are directly connected to this pins:
 	 * either at the ends of connected wires, or via switches.
 	 */
-	PinList localConnectedPins() const;
+	PinList localConnectedPins() //const
+;
+
+
+
 // ###
 
 	/**
@@ -230,11 +234,13 @@ protected:
 
 	ElementList m_elementList;
 
-	WireList m_wireList;
 	ECNode *m_pECNode;  /// we *ALWAYS* have an ECNode, and it never changes.
 
 	SwitchList m_switchList;
 	SwitchList m_unknownSwitchCurrents;
+
+private: 
+	WireList m_wireList;
 };
 
 #endif

@@ -55,14 +55,11 @@ void ElectronicConnector::syncWiresWithNodes() {
 	if (newNumWires == oldNumWires) return;
 
 // Critical section? ################3
-//	m_bIsSyncingWires = true;
 	if (isStartNodeJunction)
 		startEcNode->setNumPins(newNumWires);
 
 	if (isEndNodeJunction)
 		endEcNode->setNumPins(newNumWires);
-
-//	m_bIsSyncingWires = false;
 // ####################################
 
 	if (newNumWires > oldNumWires) {

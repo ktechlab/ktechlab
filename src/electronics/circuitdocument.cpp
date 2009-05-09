@@ -337,8 +337,6 @@ void CircuitDocument::calculateConnectorCurrents() {
 		(*it)->setNodalCurrents();
 
 	// And now for the wires and switches...
-//	m_wireList.remove((Wire*)0);
-
 	const WireList::iterator clEnd = m_wireList.end();
 	for (WireList::iterator it = m_wireList.begin(); it != clEnd; ++it)
 		(*it)->setCurrentKnown(false);
@@ -476,6 +474,8 @@ void CircuitDocument::assignCircuits() {
 
 void CircuitDocument::getPartition(Pin *pin, PinList *pinList, PinList *unassignedPins, bool onlyGroundDependent) {
 	if (!pin) return;
+
+assert(pin != (Pin *)0x40);
 
 	unassignedPins->erase(pin);
 
