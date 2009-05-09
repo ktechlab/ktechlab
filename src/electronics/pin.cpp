@@ -38,7 +38,7 @@ PinList Pin::localConnectedPins() const {
 
 	WireList::const_iterator end = m_wireList.end();
 	for(WireList::const_iterator it = m_wireList.begin(); it != end; ++it) {
-		assert(*it)
+		assert(*it);
 		pins.insert( (*it)->otherPin(this));
 	}
 
