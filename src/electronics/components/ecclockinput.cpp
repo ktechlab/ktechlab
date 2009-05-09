@@ -90,7 +90,7 @@ ECClockInput::~ECClockInput() {
 
 void ECClockInput::dataChanged() {
 	m_high_time = roundDouble(dataDouble("high-time") * LOGIC_UPDATE_RATE);
-	m_low_time = roundDouble(dataDouble("low-time") * LOGIC_UPDATE_RATE);
+	m_low_time = (dataDouble("low-time") * LOGIC_UPDATE_RATE);
 
 	const double frequency = 1. / (dataDouble("high-time") + dataDouble("low-time"));
 	QString display = QString::number(frequency / getMultiplier(frequency), 'g', 3) + getNumberMag(frequency) + "Hz";
@@ -106,7 +106,7 @@ void ECClockInput::dataChanged() {
 		else	m_pSimulator->attachComponentCallback(this, (VoidCallbackPtr)(&ECClockInput::stepLogic));
 	}
 
-	m_bLastStepCallbackOut = false;
+//	m_bLastStepCallbackOut = false;
 	m_lastSetTime = m_pSimulator->time();
 }
 
@@ -115,14 +115,17 @@ void ECClockInput::stepLogic() {
 }
 
 void ECClockInput::stepCallback() {
+	m_pOut->setHigh(!m_pOut->isHigh());
+/*
 	m_pOut->setHigh(m_bLastStepCallbackOut);
 	m_bLastStepCallbackOut = !m_bLastStepCallbackOut;
+*/
 }
 
 void ECClockInput::stepNonLogic() {
 	if (!m_bSetStepCallbacks) return;
 
-	bool addingHigh = !m_bLastStepCallbackOut;
+	bool addingHigh = m_pOut->isHigh();
 
 	long long lowerTime = m_pSimulator->time();
 	long long upperTime = lowerTime + TIME_INTERVAL;

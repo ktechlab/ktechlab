@@ -106,9 +106,9 @@ class LogicProbe : public CallbackClass, public Probe
 	protected:
 		virtual void drawShape( QPainter &p );
 		
-		LogicProbeData * p_logicProbeData;
-		LogicIn * m_pIn;
-		Simulator * m_pSimulator;
+		LogicProbeData *p_logicProbeData;
+		LogicIn *m_pIn;
+		Simulator *m_pSimulator;
 };
 
 #endif
