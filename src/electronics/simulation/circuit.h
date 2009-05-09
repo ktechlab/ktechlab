@@ -11,6 +11,7 @@
 #ifndef CIRCUIT_H
 #define CIRCUIT_H
 
+#include <vector> 
 #include <set>
 #include <cassert>
 
@@ -25,6 +26,7 @@ class LogicOut;
 
 typedef std::set<Pin *> PinList;
 typedef std::set<Element*> ElementList;
+typedef std::vector<LogicOut *> logicOutVec;
 
 class LogicCacheNode
 {
@@ -127,8 +129,9 @@ protected:
 	bool m_bCanCache;
 	LogicCacheNode *m_pLogicCacheBase;
 
-	unsigned m_logicOutCount;
-	LogicOut **m_pLogicOut;
+//	unsigned m_logicOutCount;
+//	LogicOut **m_pLogicOut;
+	logicOutVec m_pLogicOut;
 
 	bool m_bCanAddChanged;
 };
