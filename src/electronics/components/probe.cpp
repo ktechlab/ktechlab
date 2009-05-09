@@ -224,6 +224,7 @@ LogicProbe::LogicProbe(ICNDocument *icnDocument, bool newItem, const char *id)
 }
 
 LogicProbe::~LogicProbe() {
+	delete m_pIn;	
 }
 
 void LogicProbe::logicCallback(bool value) {
