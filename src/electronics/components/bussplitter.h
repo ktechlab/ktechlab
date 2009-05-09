@@ -24,19 +24,19 @@ class Wire;
 class BusSplitter : public Component
 {
 	public:
-		BusSplitter( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		BusSplitter(ICNDocument *icnDocument, bool newItem, const char *id = 0);
 		~BusSplitter();
 	
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
+		static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
 		static LibraryItem *libraryItem();
 	
 	protected:
-		QString outNodeID( unsigned node ) const;
+		QString outNodeID(unsigned node) const;
 		virtual void dataChanged();
-		virtual void drawShape( QPainter &p );
+		virtual void drawShape(QPainter &p);
 		
 		unsigned m_busSize;
-		QValueVector<QGuardedPtr<Wire> > m_pWires;
+		QValueVector<Wire *> m_pWires;
 		ECNode * m_pInNode;
 };
 

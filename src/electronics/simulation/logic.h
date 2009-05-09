@@ -70,7 +70,7 @@ public:
 	 * Note: this is defined as the voltage on the pin, as opposed to what the
 	 * state was set to (the two are not necessarily the same).
 	 */
-	bool isHigh() const {
+	inline bool isHigh() const {
 		return m_bState;
 	}
 
