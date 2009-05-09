@@ -36,6 +36,8 @@ public:
 	
 	void stepCallback();
 	void stepLogic();
+
+/// set the next callback based on the time remaining in the curren phase. 
 	virtual void stepNonLogic();
 	virtual bool doesStepNonLogic() const { return true; }
 	
@@ -45,10 +47,11 @@ protected:
 
 	uint m_high_time;
 	uint m_low_time;
+
 	long long m_lastSetTime;
 	LogicOut *m_pOut;
 	bool m_bSetStepCallbacks;
-	bool m_bLastStepCallbackOut;
+//	bool m_bLastStepCallbackOut;
 	Simulator *m_pSimulator;
 	list<ComponentCallback> *m_pComponentCallback[1000];
 };
