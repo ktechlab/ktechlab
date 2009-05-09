@@ -49,9 +49,8 @@ public slots:
 
 private:
 	/// pointers to the endnodes of the connectors
-	QGuardedPtr<ECNode> m_startEcNode;
-	QGuardedPtr<ECNode> m_endEcNode;
-	
+	ECNode *m_startEcNode;
+	ECNode *m_endEcNode;
 };
 
 #endif
