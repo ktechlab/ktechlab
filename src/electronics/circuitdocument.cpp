@@ -241,16 +241,14 @@ void CircuitDocument::fillContextMenu(const QPoint &pos) {
 
 void CircuitDocument::deleteCircuits() {
 	const CircuitList::iterator end = m_circuitList.end();
-
 	for (CircuitList::iterator it = m_circuitList.begin(); it != end; ++it) {
 		Simulator::self()->detachCircuit(*it);
 		delete *it;
 	}
 
-/*	m_circuitList.clear();
+	m_circuitList.clear();
 	m_pinList.clear();
 	m_wireList.clear();
-*/
 }
 
 void CircuitDocument::requestAssignCircuits() {
@@ -459,7 +457,7 @@ void CircuitDocument::assignCircuits() {
 		m_switchList += component->switchList();
 	}
 
-	circuitListEnd = m_circuitList.end();
+//	circuitListEnd = m_circuitList.end();
 	for (CircuitList::iterator it = m_circuitList.begin(); it != circuitListEnd; ++it)
 		(*it)->createMatrixMap();
 
@@ -469,7 +467,7 @@ void CircuitDocument::assignCircuits() {
 		if (component) component->initElements(1);
 	}
 
-	circuitListEnd = m_circuitList.end();
+//	circuitListEnd = m_circuitList.end();
 	for (CircuitList::iterator it = m_circuitList.begin(); it != circuitListEnd; ++it) {
 		(*it)->initCache();
 		Simulator::self()->attachCircuit(*it);
@@ -480,8 +478,6 @@ void CircuitDocument::getPartition(Pin *pin, PinList *pinList, PinList *unassign
 	if (!pin) return;
 
 	unassignedPins->erase(pin);
-
-//	if (pinList->contains(pin)) return;
 
 	if(!pinList->insert(pin).second) return;
 
@@ -529,8 +525,11 @@ void CircuitDocument::splitIntoCircuits(PinList *pinList) {
 
 		if (it == end) break;
 		else {
-			Circuitoid *circuitoid = new Circuitoid;
+			Circuitoid *circuitoid = new Circuitoid();
 			recursivePinAdd(*it, circuitoid, pinList);
+
+// BUG WORKAROUND; FIXME recursivePinAdd!!!
+			if(circuitoid->getElementsBegin() == circuitoid->getElementsEnd()) continue;
 
 			if (!tryAsLogicCircuit(circuitoid))
 				m_circuitList.insert(createCircuit(circuitoid));
@@ -562,31 +561,35 @@ void CircuitDocument::recursivePinAdd(Pin *pin, Circuitoid *circuitoid, PinList 
 	if (pin->eqId() != -1)
 		unassignedPins->erase(pin);
 
-	if (! circuitoid->addPin(pin)) return;
-
-//	circuitoid->addPin(pin);
+	if (!circuitoid->addPin(pin)) return;
 
 	if (pin->eqId() == -1) return;
 
-	const PinList localConnectedPins = pin->localConnectedPins();
-	const PinList::const_iterator end = localConnectedPins.end();
-	for (PinList::const_iterator it = localConnectedPins.begin(); it != end; ++it)
-		recursivePinAdd(*it, circuitoid, unassignedPins);
+	{
+		const PinList localConnectedPins = pin->localConnectedPins();
+		const PinList::const_iterator end = localConnectedPins.end();
+		for (PinList::const_iterator it = localConnectedPins.begin(); it != end; ++it)
+			recursivePinAdd(*it, circuitoid, unassignedPins);
+	}
 
-	const PinList groundDependentPins = pin->groundDependentPins();
-	const PinList::const_iterator gdEnd = groundDependentPins.end();
-	for (PinList::const_iterator it = groundDependentPins.begin(); it != gdEnd; ++it)
-		recursivePinAdd(*it, circuitoid, unassignedPins);
-
-	const PinList circuitDependentPins = pin->circuitDependentPins();
-	const PinList::const_iterator cdEnd = circuitDependentPins.end();
-	for (PinList::const_iterator it = circuitDependentPins.begin(); it != cdEnd; ++it)
-		recursivePinAdd(*it, circuitoid, unassignedPins);
-
-	const ElementList elements = pin->elements();
-	const ElementList::const_iterator eEnd = elements.end();
-	for (ElementList::const_iterator it = elements.begin(); it != eEnd; ++it)
-		circuitoid->addElement(*it);
+	{
+		const PinList groundDependentPins = pin->groundDependentPins();
+		const PinList::const_iterator gdEnd = groundDependentPins.end();
+		for (PinList::const_iterator it = groundDependentPins.begin(); it != gdEnd; ++it)
+			recursivePinAdd(*it, circuitoid, unassignedPins);
+	}
+	{
+		const PinList circuitDependentPins = pin->circuitDependentPins();
+		const PinList::const_iterator cdEnd = circuitDependentPins.end();
+		for (PinList::const_iterator it = circuitDependentPins.begin(); it != cdEnd; ++it)
+			recursivePinAdd(*it, circuitoid, unassignedPins);
+	}
+	{
+		const ElementList elements = pin->elements();
+		const ElementList::const_iterator eEnd = elements.end();
+		for (ElementList::const_iterator it = elements.begin(); it != eEnd; ++it)
+			circuitoid->addElement(*it);
+	}
 }
 
 bool CircuitDocument::tryAsLogicCircuit(Circuitoid *circuitoid) {
