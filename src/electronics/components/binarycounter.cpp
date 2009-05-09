@@ -39,12 +39,9 @@ BinaryCounter::BinaryCounter(ICNDocument *icnDocument, bool newItem, const char 
 
 	enLogic = inLogic = rLogic = udLogic = 0L;
 
-//	b_reset = false;
 	b_triggerHigh = true;
 	b_oldIn = false;
 	m_value = 0;
-//	b_en = false;
-//	b_ud = false;
 	m_numBits = 0;
 	m_bDoneLogicIn = false;
 
@@ -115,7 +112,6 @@ void BinaryCounter::initPins(unsigned numBits) {
 	if (!m_bDoneLogicIn) {
 		enLogic = new LogicIn(LogicIn::getConfig());
 		setup1pinElement(enLogic, ecNodeWithID("en")->pin());
-//		enLogic->setCallback(this, (CallbackPtr)(&BinaryCounter::enStateChanged));
 
 		inLogic = new LogicIn(LogicIn::getConfig());
 		setup1pinElement(inLogic, ecNodeWithID(">")->pin());
@@ -127,7 +123,6 @@ void BinaryCounter::initPins(unsigned numBits) {
 
 		udLogic = new LogicIn(LogicIn::getConfig());
 		setup1pinElement(udLogic, ecNodeWithID("u/d")->pin());
-//		udLogic->setCallback(this, (CallbackPtr)(&BinaryCounter::udStateChanged));
 
 		m_bDoneLogicIn = true;
 	}
@@ -155,17 +150,6 @@ void BinaryCounter::rStateChanged(bool state) {
 		outputValue();
 	}
 }
-
-/*
-void BinaryCounter::enStateChanged(bool state)
-{
-	b_en = state;
-}
-void BinaryCounter::udStateChanged(bool state)
-{
-	b_ud = state;
-}
-*/
 
 void BinaryCounter::outputValue() {
 	for (unsigned i = 0; i < m_numBits; i++)
