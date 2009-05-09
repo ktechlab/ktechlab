@@ -23,23 +23,22 @@ Pin::Pin(ECNode *parent) :
 }
 
 Pin::~Pin() {
-
-/* I don't think this is the right approach, this code segfaults anyway. =\ 
 	WireList::iterator end = m_wireList.end();
 	for (WireList::iterator it = m_wireList.begin(); it != end; ++it)
 		delete(Wire *)(*it);
-*/
-
 }
 
-PinList Pin::localConnectedPins() const {
-
+PinList Pin::localConnectedPins() //const 
+{
 	PinList pins;
 
-	WireList::const_iterator end = m_wireList.end();
-	for(WireList::const_iterator it = m_wireList.begin(); it != end; ++it) {
+	WireList::iterator end = m_wireList.end();
+	for(WireList::iterator it = m_wireList.begin(); it != end; ++it) {
 		assert(*it);
-		pins.insert( (*it)->otherPin(this));
+
+		Pin *op = (*it)->otherPin(this);
+
+		pins.insert(op);
 	}
 
 	SwitchList::const_iterator endB = m_switchList.end();
@@ -90,12 +89,15 @@ void Pin::removeSwitch(Switch *sw) {
 
 void Pin::addWire(Wire *wire) {
 	assert(wire);
+
 	m_wireList.insert(wire);
 }
 
-bool Pin::calculateCurrentFromWires() {
+void Pin::removeWire(Wire *aWire) {
+	m_wireList.erase(aWire);
+}
 
-//	m_wireList.remove((Wire*)0);
+bool Pin::calculateCurrentFromWires() {
 
 	m_current = 0.0;
 
