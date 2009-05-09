@@ -247,9 +247,10 @@ void CircuitDocument::deleteCircuits() {
 		delete *it;
 	}
 
-	m_circuitList.clear();
+/*	m_circuitList.clear();
 	m_pinList.clear();
 	m_wireList.clear();
+*/
 }
 
 void CircuitDocument::requestAssignCircuits() {
@@ -403,8 +404,11 @@ void CircuitDocument::assignCircuits() {
 		ECNode* ecnode = it->second;
 
 		if(ecnode) {
-			for (unsigned i = 0; i < ecnode->numPins(); i++)
-				m_pinList.insert(ecnode->pin(i));
+			for (unsigned i = 0; i < ecnode->numPins(); i++) {
+				Pin *foo = ecnode->pin(i);
+				assert(foo);
+				m_pinList.insert(foo);
+			}
 		}
 	}
 
@@ -437,9 +441,7 @@ void CircuitDocument::assignCircuits() {
 		splitIntoCircuits(&*it);
 
 	// Stage 3: Initialize the circuits
-	m_circuitList.remove(0l);
-	CircuitList::iterator circuitListEnd = m_circuitList.end();
-
+	const CircuitList::iterator circuitListEnd = m_circuitList.end();
 	for (CircuitList::iterator it = m_circuitList.begin(); it != circuitListEnd; ++it)
 		(*it)->init();
 
@@ -531,7 +533,7 @@ void CircuitDocument::splitIntoCircuits(PinList *pinList) {
 			recursivePinAdd(*it, circuitoid, pinList);
 
 			if (!tryAsLogicCircuit(circuitoid))
-				m_circuitList += createCircuit(circuitoid);
+				m_circuitList.insert(createCircuit(circuitoid));
 
 			delete circuitoid;
 		}

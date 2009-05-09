@@ -39,9 +39,13 @@ Matrix::Matrix(CUI n, CUI m)
 Matrix::~Matrix()
 {
 	delete   m_mat;
+	m_mat = 0;
 	delete   m_lu;
+	m_lu = 0;
 	delete[] m_y;
+	m_y = 0;
 	delete[] m_inMap;
+	m_inMap = 0;
 }
 
 void Matrix::swapRows(CUI a, CUI b)

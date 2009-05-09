@@ -11,7 +11,6 @@
 #ifndef WIRE_H
 #define WIRE_H
 
-#include <qguardedptr.h>
 #include <qobject.h>
 
 class Pin;
@@ -64,8 +63,8 @@ public:
 private:
 	double m_current;
 	bool m_bCurrentIsKnown;
-	QGuardedPtr<Pin> m_pStartPin;
-	QGuardedPtr<Pin> m_pEndPin;
+	Pin *m_pStartPin;
+	Pin *m_pEndPin;
 };
 
 #endif
