@@ -82,10 +82,6 @@ private:
 	void asyncChanged(bool newState);
 	void clockChanged(bool newState);
 
-// TODO: think real hard about getting rid of this "hidden state" in favor of simply reading
-// the user visible output pins.
-	bool prev_state;
-
 	LogicIn *m_pJ;
 	LogicIn *m_pK;
 	LogicIn *setp;
