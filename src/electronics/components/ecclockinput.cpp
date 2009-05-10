@@ -96,7 +96,7 @@ void ECClockInput::dataChanged() {
 	QString display = QString::number(frequency / getMultiplier(frequency), 'g', 3) + getNumberMag(frequency) + "Hz";
 	setDisplayText("freq", display);
 
-	bool setStepCallbacks = (m_low_time + m_high_time) > TIME_INTERVAL;
+	bool setStepCallbacks = (m_low_time + m_high_time) >= TIME_INTERVAL;
 	if (setStepCallbacks != m_bSetStepCallbacks) {
 
 		m_bSetStepCallbacks = setStepCallbacks;
@@ -106,7 +106,6 @@ void ECClockInput::dataChanged() {
 		else	m_pSimulator->attachComponentCallback(this, (VoidCallbackPtr)(&ECClockInput::stepLogic));
 	}
 
-//	m_bLastStepCallbackOut = false;
 	m_lastSetTime = m_pSimulator->time();
 }
 
@@ -116,10 +115,6 @@ void ECClockInput::stepLogic() {
 
 void ECClockInput::stepCallback() {
 	m_pOut->setHigh(!m_pOut->isHigh());
-/*
-	m_pOut->setHigh(m_bLastStepCallbackOut);
-	m_bLastStepCallbackOut = !m_bLastStepCallbackOut;
-*/
 }
 
 void ECClockInput::stepNonLogic() {
