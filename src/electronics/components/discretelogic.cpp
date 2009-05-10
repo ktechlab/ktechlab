@@ -149,7 +149,6 @@ ECLogicInput::ECLogicInput(ICNDocument *icnDocument, bool newItem, const char *i
 	m_name = i18n("Logic Input");
 	setSize(-8, -8, 16, 16);
 
-	b_state = false;
 	addButton("button", QRect(-24, -8, 16, 16), "", true);
 
 	createProperty("useToggle", Variant::Type::Bool);
@@ -158,7 +157,7 @@ ECLogicInput::ECLogicInput(ICNDocument *icnDocument, bool newItem, const char *i
 
 	init1PinRight();
 
-	m_pOut = new LogicOut(LogicIn::getConfig(), b_state);
+	m_pOut = new LogicOut(LogicIn::getConfig(), false);
 	setup1pinElement(m_pOut, m_pPNode[0]->pin());
 }
 
@@ -172,7 +171,7 @@ void ECLogicInput::dataChanged() {
 void ECLogicInput::drawShape(QPainter &p) {
 	initPainter(p);
 
-	if (b_state) p.setBrush(QColor(255, 166, 0));
+	if(m_pOut->isHigh()) p.setBrush(QColor(255, 166, 0));
 	else p.setBrush(Qt::white);
 
 	p.drawEllipse((int)x() - 4, (int)y() - 6, 12, 12);
@@ -181,8 +180,7 @@ void ECLogicInput::drawShape(QPainter &p) {
 }
 
 void ECLogicInput::buttonStateChanged(const QString &, bool state) {
-	b_state = state;
-	m_pOut->setHigh(b_state);
+	m_pOut->setHigh(state);
 }
 //END class ECLogicInput
 
