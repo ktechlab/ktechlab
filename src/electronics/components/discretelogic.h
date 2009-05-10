@@ -24,7 +24,7 @@ class Simulator;
 class Inverter : public CallbackClass, public Component {
 
 public:
-	Inverter(ICNDocument *icnDocument, bool newItem, const char *id = 0L);
+	Inverter(ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~Inverter();
 
 	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
@@ -34,8 +34,8 @@ protected:
 	void inStateChanged(bool newState);
 	virtual void drawShape(QPainter &p);
 
-	LogicIn * m_pIn;
-	LogicOut * m_pOut;
+	LogicIn *m_pIn;
+	LogicOut *m_pOut;
 };
 
 /**
@@ -79,8 +79,7 @@ public:
 private:
 	virtual void dataChanged();
 	virtual void drawShape(QPainter &p);
-	LogicOut * m_pOut;
-	bool b_state;
+	LogicOut *m_pOut;
 };
 
 /**
