@@ -51,7 +51,6 @@ protected:
 	long long m_lastSetTime;
 	LogicOut *m_pOut;
 	bool m_bSetStepCallbacks;
-//	bool m_bLastStepCallbackOut;
 	Simulator *m_pSimulator;
 	list<ComponentCallback> *m_pComponentCallback[1000];
 };
