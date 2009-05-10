@@ -11,7 +11,6 @@
 #ifndef NODEGROUP_H
 #define NODEGROUP_H
 
-#include <qguardedptr.h>
 #include <qobject.h>
 #include <qvaluelist.h>
 #include <qvaluevector.h>
@@ -26,7 +25,7 @@ class QTimer;
 
 typedef QValueList<int> IntList;
 typedef QValueList<NodeGroup*> NodeGroupList;
-typedef QValueList<QGuardedPtr<Node> > NodeList;
+typedef QValueList<Node *> NodeList;
 
 /**
 Controls a group of nodes who are not attached to any CNItems (poor things!)

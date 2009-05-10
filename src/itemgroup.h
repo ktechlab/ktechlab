@@ -11,7 +11,8 @@
 #ifndef ITEMGROUP_H
 #define ITEMGROUP_H
 
-#include <qguardedptr.h>
+#include <qobject.h>
+#include <qvaluelist.h>
 
 class Item;
 class ICNDocument;
@@ -21,7 +22,7 @@ class ItemGroup;
 class MechanicsDocument;
 class Variant;
 
-typedef QValueList<QGuardedPtr<Item> > ItemList;
+typedef QValueList<Item *> ItemList;
 
 class QCanvasItem;
 class QCanvasItemList;

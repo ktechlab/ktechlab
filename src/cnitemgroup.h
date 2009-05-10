@@ -27,9 +27,9 @@ class ICNDocument;
 class QCanvasItem;
 class QCanvasItemList;
 
-typedef QValueList<QGuardedPtr<Item> > ItemList;
-typedef QValueList<QGuardedPtr<Node> > NodeList;
-typedef QValueList<QGuardedPtr<Connector> > ConnectorList;
+typedef QValueList<Item *> ItemList;
+typedef QValueList<Node *> NodeList;
+typedef QValueList<Connector *> ConnectorList;
 
 /**
 @author David Saxton

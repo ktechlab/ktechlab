@@ -25,7 +25,7 @@ class Item;
 class MicroSettings;
 
 typedef QValueList<FlowPart*> FlowPartList;
-typedef QValueList<QGuardedPtr<Item> > ItemList;
+typedef QValueList<Item *> ItemList;
 
 /**
 "FlowCode" can possibly be considered a misnomer, as the output is actually Microbe.

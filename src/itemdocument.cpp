@@ -88,10 +88,12 @@ ItemDocument::~ItemDocument() {
 	m_bDeleted = true;
 
 	const ItemMap::iterator end = m_itemList.end();
+
 	for (ItemMap::iterator it = m_itemList.begin(); it != end; ++it)
 		delete *it;
 
 	m_itemList.clear();
+
 	cleanClearStack(m_undoStack);
 	cleanClearStack(m_redoStack);
 
@@ -176,14 +178,19 @@ bool ItemDocument::openURL(const KURL &url) {
 	// that have not fully initialized themselves.
 
 	m_bIsLoading = true;
+
 	bool wasSimulating = Simulator::self()->isSimulating();
 	Simulator::self()->slotSetSimulating(false);
 	data.restoreDocument(this);
 	Simulator::self()->slotSetSimulating(wasSimulating);
+
 	m_bIsLoading = false;
+
 	setURL(url);
 	clearHistory();
+
 	m_savedState = m_currentState;
+
 	setModified(false);
 
 	if (FlowCodeDocument *fcd = dynamic_cast<FlowCodeDocument*>(this)) {
@@ -196,16 +203,14 @@ bool ItemDocument::openURL(const KURL &url) {
 	// Load Z-position info
 	m_zOrder.clear();
 	ItemMap::iterator end = m_itemList.end();
-
 	for (ItemMap::iterator it = m_itemList.begin(); it != end; ++it) {
 		if (!*it || (*it)->parentItem())
 			continue;
-
+assert((*it)->itemDocument() == this);
 		m_zOrder[(*it)->baseZ()] = *it;
 	}
 
 	slotUpdateZOrdering();
-
 	return true;
 }
 
@@ -353,8 +358,11 @@ void ItemDocument::undo() {
 	if (m_currentState) m_redoStack.push(m_currentState);
 
 	idd->restoreDocument(this);
+
 	m_currentState = idd;
+
 	setModified(m_savedState != m_currentState);
+
 	emit undoRedoStateChanged();
 }
 
@@ -367,8 +375,11 @@ void ItemDocument::redo() {
 		m_undoStack.push(m_currentState);
 
 	idd->restoreDocument(this);
+
 	m_currentState = idd;
+
 	setModified(m_savedState != m_currentState);
+
 	emit undoRedoStateChanged();
 }
 
@@ -392,7 +403,6 @@ void ItemDocument::paste() {
 	data.generateUniqueIDs(this);
 //	data.translateContents( 64, 64 );
 	data.mergeWithDocument(this, true);
-
 	// Get rid of any garbage that shouldn't be around / merge connectors / etc
 	flushDeleteList();
 	requestStateSave();
@@ -486,15 +496,23 @@ void ItemDocument::distributeVertically() {
 	if (ICNDocument *icnd = dynamic_cast<ICNDocument*>(this))
 		icnd->requestRerouteInvalidatedConnectors();
 }
+
 // ###########################
 
 bool ItemDocument::registerUID(const QString &uid) {
 	return m_idList.insert(uid).second;
 }
 
-void ItemDocument::unregisterUID(const QString & uid) {
+void ItemDocument::unregisterUID(const QString &uid) {
 	m_idList.erase(uid);
 	m_itemList.remove(uid);
+
+	IntItemMap::iterator end = m_zOrder.end();
+	for (IntItemMap::iterator it = m_zOrder.begin(); it != end; ++it) {
+		if((*it)->id() == uid) { 
+			m_zOrder.remove(it);
+		}
+	}
 }
 
 QString ItemDocument::generateUID(QString name) {
@@ -532,6 +550,7 @@ void ItemDocument::fillContextMenu(const QPoint & pos) {
 	Q_UNUSED(pos);
 
 	ItemView *activeItemView = dynamic_cast<ItemView*>(activeView());
+
 	if (!KTechlab::self() || !activeItemView)
 		return;
 
@@ -631,14 +650,13 @@ void ItemDocument::processItemDocumentEvents() {
 	unsigned queuedEvents = m_queuedEvents;
 	m_queuedEvents = 0;
 
-	if (queuedEvents & ItemDocumentEvent::ResizeCanvasToItems)
+	if (queuedEvents &ItemDocumentEvent::ResizeCanvasToItems)
 		resizeCanvasToItems();
 
-	if (queuedEvents & ItemDocumentEvent::UpdateZOrdering)
+	if (queuedEvents &ItemDocumentEvent::UpdateZOrdering)
 		slotUpdateZOrdering();
 
-	ICNDocument * icnd = dynamic_cast<ICNDocument*>(this);
-
+	ICNDocument *icnd = dynamic_cast<ICNDocument*>(this);
 	if (icnd && (queuedEvents & ItemDocumentEvent::UpdateNodeGroups))
 		icnd->slotAssignNodeGroups();
 
@@ -651,6 +669,7 @@ void ItemDocument::resizeCanvasToItems() {
 
 	m_viewList.remove((View*)0);
 	const ViewList::iterator end = m_viewList.end();
+
 	for (ViewList::iterator it = m_viewList.begin(); it != end; ++it) {
 		ItemView * iv = static_cast<ItemView*>((View*) * it);
 		CVBEditor * cvbEditor = iv->cvbEditor();
@@ -670,8 +689,8 @@ void ItemDocument::resizeCanvasToItems() {
 	bound.setLeft(bound.left() - (bound.left() % 8));
 	bound.setTop(bound.top() - (bound.top() % 8));
 	m_pUpdateItemViewScrollbarsTimer->start(10, true);
-	bool changedSize = canvas()->rect() != bound;
 
+	bool changedSize = canvas()->rect() != bound;
 	if (changedSize) {
 		canvas()->resize(bound);
 		requestEvent(ItemDocumentEvent::ResizeCanvasToItems);
@@ -686,8 +705,8 @@ void ItemDocument::updateItemViewScrollbars() {
 
 	const ViewList::iterator end = m_viewList.end();
 	for (ViewList::iterator it = m_viewList.begin(); it != end; ++it) {
-		ItemView * itemView = static_cast<ItemView*>((View*) * it);
-		CVBEditor * cvbEditor = itemView->cvbEditor();
+		ItemView *itemView = static_cast<ItemView*>((View*) * it);
+		CVBEditor *cvbEditor = itemView->cvbEditor();
 
 		cvbEditor->setVScrollBarMode(((h*itemView->zoomLevel()) > cvbEditor->visibleHeight()) ? QScrollView::AlwaysOn : QScrollView::AlwaysOff);
 		cvbEditor->setHScrollBarMode(((w*itemView->zoomLevel()) > cvbEditor->visibleWidth()) ? QScrollView::AlwaysOn : QScrollView::AlwaysOff);
@@ -788,7 +807,6 @@ void ItemDocument::exportToImage() {
 	QString type;
 	QRect cropArea;
 	QPaintDevice *outputImage;
-
 	QString filter = exportDialog.currentFilter();
 	filter = filter.lower(); // gently soften the appearance of the letters.
 
@@ -894,7 +912,7 @@ void ItemDocument::raiseZ(const ItemList & itemList) {
 	IntItemMap::iterator it = --m_zOrder.end();
 
 	do {
-		Item *previousData = (previous == m_zOrder.end()) ? 0l : previous.data();
+		Item *previousData = (previous == m_zOrder.end()) ? 0 : previous.data();
 		Item *currentData = it.data();
 
 		if (currentData && previousData && itemList.contains(currentData) && !itemList.contains(previousData)) {
@@ -947,31 +965,30 @@ void ItemDocument::slotUpdateZOrdering() {
 	int atLevel = 0;
 
 	IntItemMap::iterator zEnd = m_zOrder.end();
-
 	for (IntItemMap::iterator it = m_zOrder.begin(); it != zEnd; ++it) {
-		Item * item = it.data();
+		Item *item = it.data();
+
+assert(item->itemDocument() == this); 
 
 		if (!item) continue;
-
-		toAdd.remove(item->id());
-
+			toAdd.remove(item->id());
 		if (!item->parentItem() && item->isMovable())
 			newZOrder[atLevel++] = item;
 	}
 
-	ItemMap::iterator addEnd = toAdd.end();
+	{
+		ItemMap::iterator addEnd = toAdd.end();
+		for (ItemMap::iterator it = toAdd.begin(); it != addEnd; ++it) {
+			Item *item = *it;
+assert(item->itemDocument() == this);
+			if (item->parentItem() || !item->isMovable())
+				continue;
 
-	for (ItemMap::iterator it = toAdd.begin(); it != addEnd; ++it) {
-		Item * item = *it;
-
-		if (item->parentItem() || !item->isMovable())
-			continue;
-
-		newZOrder[atLevel++] = item;
+			newZOrder[atLevel++] = item;
+		}
 	}
 
 	m_zOrder = newZOrder;
-	zEnd = m_zOrder.end();
 
 	for (IntItemMap::iterator it = m_zOrder.begin(); it != zEnd; ++it)
 		it.data()->updateZ(it.key());
@@ -979,7 +996,6 @@ void ItemDocument::slotUpdateZOrdering() {
 
 void ItemDocument::update() {
 	ItemMap::iterator end = m_itemList.end();
-
 	for (ItemMap::iterator it = m_itemList.begin(); it != end; ++it) {
 		if ((*it)->contentChanged())
 			(*it)->setChanged();
