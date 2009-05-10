@@ -274,16 +274,9 @@ void ECJKFlipFlop::clockChanged(bool newvalue) {
 
 	if(setp->isHigh() || rstp->isHigh()) return;
 
-	if (edge && (j || k)) {
-		if (j && k) {
-			m_pQ->setHigh(!prev_state);
-			m_pQBar->setHigh(prev_state);
-			prev_state = !prev_state;
-		} else {
-			m_pQ->setHigh(j);
-			m_pQBar->setHigh(k);
-			prev_state = j;
-		}
+	if(edge) {
+		m_pQ->setHigh((j && m_pQBar->isHigh()) || (!k && m_pQ->isHigh()));
+		m_pQBar->setHigh(!m_pQ->isHigh());
 	}
 }
 
@@ -294,7 +287,6 @@ void ECJKFlipFlop::asyncChanged(bool) {
 	if(set || rst) {
 		m_pQ->setHigh(set);
 		m_pQBar->setHigh(rst);
-		prev_state = set;
 	}
 }
 //END class ECJKFlipFlop
