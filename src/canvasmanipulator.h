@@ -48,7 +48,7 @@ class QWheelEvent;
 typedef CanvasManipulator*(*CreateManipulatorPtr)( ItemDocument *, CMManager * );
 typedef bool(*AcceptManipulationPtr)( uint eventState, uint cmState, uint itemType, uint cnItemType );
 typedef QValueList<NodeGroup*> NodeGroupList;
-typedef QValueList<QGuardedPtr<Connector> > ConnectorList;
+typedef QValueList<Connector *> ConnectorList;
 typedef QValueList<QPoint> QPointList;
 
 
@@ -79,14 +79,14 @@ public:
 	{
 		cms_repeated_add =	1 << 0,
 		cms_manual_route =	1 << 1,
-		cms_draw =			1 << 2
+		cms_draw =		1 << 2
 	};
 	enum ItemType
 	{
-		it_none =			1 << 0,
-		it_node =			1 << 1,
+		it_none =		1 << 0,
+		it_node =		1 << 1,
 		it_connector =		1 << 2,
-		it_pin =			1 << 3,
+		it_pin =		1 << 3,
 		it_canvas_item =	1 << 4,
 		it_mechanics_item =	1 << 5,
 		it_resize_handle =	1 << 6,

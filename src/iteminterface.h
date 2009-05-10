@@ -125,11 +125,11 @@ class ItemInterface : public QObject
 
 	private:
 		ItemInterface();
-		static ItemInterface * m_pSelf;
+		static ItemInterface *m_pSelf;
 	
 		QGuardedPtr<ItemDocument> p_cvb;
 		QGuardedPtr<ItemGroup> p_itemGroup;
-		QGuardedPtr<Item> p_lastItem;
+		Item *p_lastItem;
 		int m_currentActionTicket;
 };
 

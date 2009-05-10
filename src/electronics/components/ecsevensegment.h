@@ -21,7 +21,7 @@ class Diode;
 */
 class ECSevenSegment : public DIPComponent {
 public:
-	ECSevenSegment( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECSevenSegment( ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECSevenSegment();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

@@ -51,8 +51,8 @@ public:
 
 typedef QMap<QString, QString> StringMap;
 typedef QMap<QString, NodeInfo> NodeInfoMap; // Internal id, node info
-typedef QValueList<QGuardedPtr<Connector> > ConnectorList;
-typedef QMap<QString, QGuardedPtr<Text> > TextMap;
+typedef QValueList<Connector *> ConnectorList;
+typedef QMap<QString, Text *> TextMap;
 
 /**
 Essentially, all items that live on ICNDocument should inherit from this class.
@@ -179,7 +179,7 @@ protected:
 	 */
 	virtual void initPainter( QPainter &p );
 	
-	QGuardedPtr<ICNDocument> p_icnDocument;
+	ICNDocument *p_icnDocument;
 	TextMap m_textMap;
 	NodeInfoMap m_nodeMap;
 	QColor m_selectedCol;

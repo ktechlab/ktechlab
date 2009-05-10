@@ -23,8 +23,8 @@ class Node;
 class NodeGroup;
 
 typedef QMap< QString, Node* > NodeMap;
-typedef QValueList<QGuardedPtr<Connector> > ConnectorList;
-typedef QValueList<QGuardedPtr<Node> > NodeList;
+typedef QValueList<Connector *> ConnectorList;
+typedef QValueList<Node *> NodeList;
 typedef QValueList<NodeGroup*> NodeGroupList;
 typedef QValueList<QGuardedPtr<NodeGroup> > GuardedNodeGroupList;
 typedef QValueList<QPoint> QPointList;

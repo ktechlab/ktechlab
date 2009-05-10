@@ -119,7 +119,7 @@ class Text : public GuiPart
 		QString m_text;
 		int m_flags;
 };
-typedef QMap<QString, QGuardedPtr<Text> > TextMap;
+typedef QMap<QString, Text *> TextMap;
 
 
 /**

@@ -22,40 +22,42 @@ class Diode;
 /**
 @author David Saxton
 */
-class MatrixDisplay : public Component
-{
-	public:
-		MatrixDisplay( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~MatrixDisplay();
-	
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
-	
-		virtual void stepNonLogic();
-		virtual bool doesStepNonLogic() const { return true; }
-		
-	protected:
-		virtual void drawShape( QPainter &p );
-		virtual void dataChanged();
-		void initPins( unsigned numRows, unsigned numCols );
-		QString colPinID( int col ) const;
-		QString rowPinID( int row ) const;
-		
-		
-		QValueVector< QValueVector<double> > m_avgBrightness;
-		QValueVector< QValueVector<unsigned> > m_lastBrightness;
-		QValueVector< QValueVector<Diode*> > m_pDiodes;
-		
-		ECNode * m_pRowNodes[max_md_height];
-		ECNode * m_pColNodes[max_md_width];
-		
-		double m_lastUpdatePeriod;
-		
-		double m_r, m_g, m_b;
-		bool m_bRowCathode;
-		
-		unsigned m_numRows;
-		unsigned m_numCols;
+
+class MatrixDisplay : public Component {
+
+public:
+	MatrixDisplay(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	~MatrixDisplay();
+
+	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
+	static LibraryItem *libraryItem();
+
+	virtual void stepNonLogic();
+	virtual bool doesStepNonLogic() const {
+		return true;
+	}
+
+protected:
+	virtual void drawShape(QPainter &p);
+	virtual void dataChanged();
+	void initPins(unsigned numRows, unsigned numCols);
+	QString colPinID(int col) const;
+	QString rowPinID(int row) const;
+
+	QValueVector< QValueVector<double> > m_avgBrightness;
+	QValueVector< QValueVector<unsigned> > m_lastBrightness;
+	QValueVector< QValueVector<Diode*> > m_pDiodes;
+
+	ECNode *m_pRowNodes[max_md_height];
+	ECNode *m_pColNodes[max_md_width];
+
+	double m_lastUpdatePeriod;
+
+	double m_r, m_g, m_b;
+	bool m_bRowCathode;
+
+	unsigned m_numRows;
+	unsigned m_numCols;
 };
 
 #endif

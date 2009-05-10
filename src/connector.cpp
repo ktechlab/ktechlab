@@ -64,11 +64,6 @@ Connector::~Connector() {
 	p_icnDocument->unregisterUID(id());
 
 	delete m_conRouter;
-
-	for (unsigned i = 0; i < m_wires.size(); i++)
-		delete m_wires[i];
-
-	m_wires.resize(0);
 }
 
 void Connector::removeConnector(Node*) {

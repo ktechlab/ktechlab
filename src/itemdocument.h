@@ -12,6 +12,7 @@
 #define ITEMDOCUMENT_H
 
 #include <set>
+
 #include <document.h>
 #include <canvas.h>
 
@@ -30,10 +31,9 @@ class KActionMenu;
 class QCanvasItem;
 
 typedef QPtrStack<ItemDocumentData> IDDStack;
-typedef QGuardedPtr<Item> GuardedItem;
-typedef QMap< int, GuardedItem > IntItemMap;
-typedef QMap< QString, Item* > ItemMap;
-typedef QValueList<GuardedItem> ItemList;
+typedef QMap<int, Item *> IntItemMap;
+typedef QMap<QString, Item *> ItemMap;
+typedef QValueList<Item *> ItemList;
 
 /**
 @author David Saxton
@@ -44,9 +44,8 @@ class ItemDocument : public Document {
 public:
 	ItemDocument(const QString &caption, const char *name = 0);
 	~ItemDocument();
-
+/**/
 	class Z {
-
 	public:
 		enum {
 			Select			= 10000000,
@@ -369,7 +368,7 @@ protected:
 	CMManager	*m_cmManager;
 	CanvasTip	*m_canvasTip;
 
-	ItemList	 m_itemDeleteList;
+//	ItemList	 m_itemDeleteList;
 	ItemMap		 m_itemList;
 
 	QString		 m_fileExtensionInfo; // For displaying in the save file dialog

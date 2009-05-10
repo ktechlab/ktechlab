@@ -344,7 +344,7 @@ void FlowContainer::updateContainedVisibility() {
 	m_rectangularOverlay->setVisible(isVisible() && b_expanded);
 
 	NodeGroupList hidableNodeGroups;
-	p_icnDocument->getTranslatable(children(true) += GuardedItem(this), 0, 0, &hidableNodeGroups);
+	p_icnDocument->getTranslatable(children(true) += this, 0, 0, &hidableNodeGroups);
 
 	NodeGroupList::iterator hngEnd = hidableNodeGroups.end();
 	for (NodeGroupList::iterator it = hidableNodeGroups.begin(); it != hngEnd; ++it)
