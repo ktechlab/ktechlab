@@ -12,7 +12,6 @@
 #define CONNECTOR_H
 
 #include <canvas.h>
-#include <qguardedptr.h>
 #include <qvaluevector.h>
 
 class Cell;
@@ -29,7 +28,7 @@ typedef QValueList<QPoint> QPointList;
 
 // TODO: refactor these: 
 class Wire;
-typedef QValueVector<QGuardedPtr<Wire> > WireVector;
+typedef QValueVector<Wire *> WireVector;
 // ###
 
 /**

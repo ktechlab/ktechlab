@@ -41,8 +41,8 @@ public:
 	
 private:
 	/// the endnodes of the connector
-	QGuardedPtr<FPNode> m_startFpNode;
-	QGuardedPtr<FPNode> m_endFpNode;
+	FPNode *m_startFpNode;
+	FPNode *m_endFpNode;
 	
 };
 

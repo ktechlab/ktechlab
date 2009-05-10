@@ -14,7 +14,9 @@
 #include "node.h"
 
 class FlowPart;
+
 class FlowConnector;
+
 class FlowConnectorList;
 
 #include "flowconnectorlist.h"
@@ -28,19 +30,20 @@ typedef QValueList<FlowPart*> FlowPartList;
  * @short FlowPart node
  * @author David Saxton
  */
-class FPNode : public Node
-{
-Q_OBJECT
+
+class FPNode : public Node {
+	Q_OBJECT
+
 public:
-	FPNode( ICNDocument *_icnView, Node::node_type type, int dir, const QPoint &pos, QString *id = 0L );
-    ~FPNode();
-	
+	FPNode(ICNDocument *_icnView, Node::node_type type, int dir, const QPoint &pos, QString *id = 0L);
+	~FPNode();
+
 	/**
 	 * Returns a pointer to the FlowPart attached to this node if this node isInput, or
 	 * to the other end of the connector (if one exists) if it isOutput()
 	 */
 	virtual FlowPart *outputFlowPart() const;
-	/** 
+	/**
 	 * Returns a list of FlowParts attached to the node - either a single-item list containing
 	 * the FlowPart attached to this node if isOutput, or a list of FlowParts connected to the
 	 * input (?) connectors
@@ -51,7 +54,7 @@ public:
 	 * Sets the node's visibility, as well as updating the visibility of the
 	 * attached connectors as appropriate
 	 */
-	virtual void setVisible( bool yes );
+	virtual void setVisible(bool yes);
 
 	/**
 	 * Returns true if the node can accept input connections. This will depend
@@ -66,23 +69,23 @@ public:
 	/**
 	 * Removes a specific connector
 	 */
-	void removeConnector( Connector *connector );
+	void removeConnector(Connector *connector);
 	/**
 	 * Creates a new connector, sets this as the end node to the connector
 	 * (i.e. this node is the connector's input node), and returns a pointer
 	 * to the connector.
 	 */
-	Connector* createInputConnector( Node * startNode );
+	Connector* createInputConnector(Node * startNode);
 	/**
 	 * Registers an input connector (i.e. this is the end node) as connected
 	 * to this node.
 	 */
-	virtual void addInputConnector( Connector * const connector );
+	virtual void addInputConnector(Connector * const connector);
 	/**
 	 * Registers an input connector (i.e. this is the start node) as connected
 	 * to this node.
 	 */
-	virtual void addOutputConnector( Connector * const connector );
+	virtual void addOutputConnector(Connector * const connector);
 	/**
 	 * Returns the total number of connections to the node. This is the number
 	 * of input connectors, the number of output connectors, and the parent
@@ -90,7 +93,7 @@ public:
 	 * @param includeParentItem Count the parent item as a connector if it exists
 	 * @param includeHiddenConnectors hidden connectors are those as e.g. part of a subcircuit
 	 */
-	int numCon( bool includeParentItem, bool includeHiddenConnectors ) const;
+	int numCon(bool includeParentItem, bool includeHiddenConnectors) const;
 	/**
 	 * Returns true if this node is connected (or is the same as) the node given
 	 * by other connectors or nodes (although not through CNItems)
@@ -98,18 +101,20 @@ public:
 	 * being the connected nodes, and so can simply return if they are in there.
 	 * If it is null, it will assume that it is the first ndoe & will create a list
 	 */
-	bool isConnected( Node *node, NodeList *checkedNodes = 0L );
+	bool isConnected(Node *node, NodeList *checkedNodes = 0L);
 	/**
 	 * Removes all the NULL connectors
 	 */
 	void removeNullConnectors();
-	
-	
+
+
 	/**
-	 * Returns a list of the input connectors; implemented inline 
+	 * Returns a list of the input connectors; implemented inline
 	 */
-	ConnectorList inputConnectorList() const  {  
-			return (ConnectorList)(FlowConnectorList) m_inFlowConnList; 	}
+	ConnectorList inputConnectorList() const  {
+		return (ConnectorList)(FlowConnectorList) m_inFlowConnList;
+	}
+
 	/**
 	 * Returns a list of the output connectors
 	 */
@@ -118,47 +123,46 @@ public:
 	 * @return the list of all the connectors attached to the node
 	 */
 	virtual ConnectorList getAllConnectors() const ;
-	
+
 	/**
 	 * For a flownode: returns the first input connector, if it exist, or the fist outptut connector, if it exists.
 	 * For an electric node: returns the first connector
 	 * If the node isn't connected to anyithing, returns null ( 0 )
 	 * @return pointer to the desired connector
 	 */
-	virtual Connector* getAConnector() const ;
-	
-	
-public slots:	
-	
+	virtual Connector *getAConnector() const ;
+
+
+public slots:
+
 	/**
 	 * what is this? (verifies if the node can be removed; if it can, removes itself (?) )
 	 */
-	virtual void checkForRemoval( Connector *connector );
-	
+	virtual void checkForRemoval(Connector *connector);
+
 	/**
 	 * Draw shape. Note that this has to remain public.
 	 */
-	virtual void drawShape( QPainter & p ) = 0;
+	virtual void drawShape(QPainter &p) = 0;
 
 protected:
-	
+
 	/** If this node has precisely two connectors emerging from it, then this
 	 * function will trace the two connectors until the point where they
 	 * diverge; this point is returned. */
-	virtual QPoint findConnectorDivergePoint( bool * found );
-	
-	/** (please document this) registers some signals for the node and the new connector (?) 
+	virtual QPoint findConnectorDivergePoint(bool *found);
+
+	/** (please document this) registers some signals for the node and the new connector (?)
 	 * @return true of the operation was successful or false otherwise
 	 */
-	bool handleNewConnector( Connector * newConnector );
-	
+	bool handleNewConnector(Connector *newConnector);
+
 
 	FlowConnectorList m_inFlowConnList;
-	QGuardedPtr<FlowConnector> m_outputConnector;
+	FlowConnector *m_outputConnector;
 
 private:
 	bool m_isInput;
 };
-
 #endif
 
