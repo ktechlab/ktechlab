@@ -54,8 +54,10 @@ Connector::Connector(ICNDocument *icnDocument, const QString &id)
 		}
 	} else m_id = p_icnDocument->generateUID("connector");
 
-	p_icnDocument->registerItem(this);
-	p_icnDocument->requestRerouteInvalidatedConnectors();
+// FIXME: conditionally run this code if we're at the top of the initializer stack, otherwise subclasses must do it 
+// to preserve type information. 
+//	p_icnDocument->registerItem(this);
+//	p_icnDocument->requestRerouteInvalidatedConnectors();
 
 	setVisible(true);
 }

@@ -182,6 +182,7 @@ public:
 public slots:
 	void moveBy(double dx, double dy);
 	void removeNode(CNItem*) {
+// parameter is made available for subclasses. 
 		removeNode();
 	}
 
@@ -230,12 +231,11 @@ protected:
 
 	static QColor m_selectedColor;
 
+	bool b_deleted;
 private:
 // these fields are critical to saved circuit documents.
 	QString m_id;
 	QString m_childId;
-
-	bool b_deleted;
 };
 
 #endif
