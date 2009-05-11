@@ -121,7 +121,7 @@ bool ECNode::isConnected(Node *node, NodeList *checkedNodes) {
 
 	const ConnectorList::const_iterator inputEnd = m_connectorList.end();
 	for (ConnectorList::const_iterator it = m_connectorList.begin(); it != inputEnd; ++it) {
-		Connector *connector = *it;
+		ElectronicConnector *connector = *it;
 
 		if (connector) {
 			Node *startNode = connector->startNode();
@@ -143,7 +143,7 @@ bool ECNode::isConnected(Node *node, NodeList *checkedNodes) {
 	return false;
 }
 
-void ECNode::checkForRemoval(Connector *connector) {
+void ECNode::checkForRemoval(ElectronicConnector *connector) {
 	removeConnector(connector);
 	setNodeSelected(false);
 
@@ -162,10 +162,9 @@ void ECNode::setVisible(bool yes) {
 
 	QCanvasPolygon::setVisible(yes);
 
-	const ConnectorList::iterator inputEnd = m_connectorList.end();
-
-	for (ConnectorList::iterator it = m_connectorList.begin(); it != inputEnd; ++it) {
-		Connector *connector = *it;
+	const EConnectorList::iterator inputEnd = m_connectorList.end();
+	for (EConnectorList::iterator it = m_connectorList.begin(); it != inputEnd; ++it) {
+		 ElectronicConnector*connector = *it;
 
 		if (connector) {
 			if (isVisible())
@@ -230,14 +229,14 @@ QPoint ECNode::findConnectorDivergePoint(bool *found) {
 	return QPoint(0, 0);
 }
 
-void ECNode::addConnector(Connector *const connector) {
+void ECNode::addConnector(ElectronicConnector *const connector) {
 	if (!handleNewConnector(connector))
 		return;
 
 	m_connectorList.append(connector);
 }
 
-bool ECNode::handleNewConnector(Connector *connector) {
+bool ECNode::handleNewConnector(ElectronicConnector *connector) {
 	if (!connector)
 		return false;
 
@@ -248,7 +247,7 @@ bool ECNode::handleNewConnector(Connector *connector) {
 
 	connect(this, SIGNAL(removed(Node*)), connector, SLOT(removeConnector(Node*)));
 
-	connect(connector, SIGNAL(removed(Connector*)), this, SLOT(checkForRemoval(Connector*)));
+	connect(connector, SIGNAL(removed(ElectronicConnector*)), this, SLOT(checkForRemoval(ElectronicConnector*)));
 	connect(connector, SIGNAL(selected(bool)), this, SLOT(setNodeSelected(bool)));
 
 	if (!isChildNode())
@@ -257,16 +256,16 @@ bool ECNode::handleNewConnector(Connector *connector) {
 	return true;
 }
 
-Connector* ECNode::createConnector(Node * node) {
+ElectronicConnector* ECNode::createConnector(Node * node) {
 	// FIXME dynamic_cast used
-	Connector *connector = new ElectronicConnector(dynamic_cast<ECNode*>(node), dynamic_cast<ECNode*>(this), p_icnDocument);
+	ElectronicConnector *connector = new ElectronicConnector(dynamic_cast<ECNode*>(node), dynamic_cast<ECNode*>(this), p_icnDocument);
 	addConnector(connector);
 
 	return connector;
 }
 
 void ECNode::removeNullConnectors() {
-	m_connectorList.remove((Connector*)0);
+	m_connectorList.remove((ElectronicConnector*)0);
 }
 
 int ECNode::numCon(bool includeParentItem, bool includeHiddenConnectors) const {
@@ -285,7 +284,7 @@ int ECNode::numCon(bool includeParentItem, bool includeHiddenConnectors) const {
 	return count;
 }
 
-void ECNode::removeConnector(Connector *connector) {
+void ECNode::removeConnector(ElectronicConnector *connector) {
 	if (!connector) return;
 
 	ConnectorList::iterator it;
@@ -297,7 +296,7 @@ void ECNode::removeConnector(Connector *connector) {
 	}
 }
 
-Connector* ECNode::getAConnector() const {
+ElectronicConnector *ECNode::getAConnector() const {
 	if (! m_connectorList.isEmpty())
 		return *m_connectorList.begin();
 	else	return 0;
