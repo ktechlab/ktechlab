@@ -18,8 +18,6 @@
 #include "qstringlist.h"
 #include "elementset.h"
 
-class CircuitDocument;
-class Wire;
 class Pin;
 class Element;
 class LogicOut;
