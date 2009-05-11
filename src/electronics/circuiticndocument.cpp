@@ -11,7 +11,7 @@
 //
 #include "circuiticndocument.h"
 
-#include "connector.h"
+#include "electronicconnector.h"
 #include "conrouter.h"
 #include "cnitemgroup.h"
 #include "ecnode.h"
@@ -34,19 +34,19 @@ CircuitICNDocument::~CircuitICNDocument() {
 	const QCanvasItemList::Iterator end = all.end();
 
 	for (QCanvasItemList::Iterator it = all.begin(); it != end; ++it)
-		(*it)->setCanvas(0l);
+		(*it)->setCanvas(0);
 
 	// Remove all items from the canvas
 	selectAll();
 	deleteSelection();
 
 	// Delete anything that got through the above couple of lines
-	ConnectorList connectorsToDelete = m_connectorList;
+	EConnectorList connectorsToDelete = m_connectorList;
 
 	connectorsToDelete.clear();
 
-	const ConnectorList::iterator connectorListEnd = connectorsToDelete.end();
-	for (ConnectorList::iterator it = connectorsToDelete.begin(); it != connectorListEnd; ++it)
+	const EConnectorList::iterator connectorListEnd = connectorsToDelete.end();
+	for (EConnectorList::iterator it = connectorsToDelete.begin(); it != connectorListEnd; ++it)
 		delete *it;
 
 	deleteAllNodes();
@@ -185,7 +185,6 @@ Connector *CircuitICNDocument::createConnector(Connector *con1, Connector *con2,
 
 		newNode1->removeNode();
 		newNode2->removeNode();
-
 		flushDeleteList();
 
 		return 0;
@@ -321,7 +320,7 @@ void CircuitICNDocument::flushDeleteList() {
 			m_itemList.remove(item->id());
 		else if (ECNode *node = dynamic_cast<ECNode*>(qcanvasItem))
 			m_ecNodeList.erase(node->id());
-		else if (Connector *con = dynamic_cast<Connector*>(qcanvasItem))
+		else if (ElectronicConnector *con = dynamic_cast<ElectronicConnector*>(qcanvasItem))
 			m_connectorList.remove(con);
 		else	kdError() << k_funcinfo << "Unknown qcanvasItem! " << qcanvasItem << endl;
 
@@ -365,7 +364,7 @@ bool CircuitICNDocument::registerItem(QCanvasItem *qcanvasItem) {
 		if(ECNode *node = dynamic_cast<ECNode*>(qcanvasItem)) {
 			m_ecNodeList[ node->id()] = node;
 			emit nodeAdded((Node*)node);
-		} else if(Connector *connector = dynamic_cast<Connector*>(qcanvasItem)) {
+		} else if(ElectronicConnector *connector = dynamic_cast<ElectronicConnector*>(qcanvasItem)) {
 			m_connectorList.append(connector);
 			emit connectorAdded(connector);
 		} else {
