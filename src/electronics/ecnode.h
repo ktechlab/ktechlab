@@ -12,6 +12,7 @@
 #define ECNODE_H
 
 #include "node.h"
+#include "electronicconnector.h"
 
 #include <qvaluevector.h>
 
@@ -20,6 +21,7 @@ class Pin;
 class Switch;
 
 typedef QValueVector<Pin*> PinVector;
+typedef QValueList<ElectronicConnector *> EConnectorList;
 
 /**
 @short Electrical node with voltage / current / etc properties
@@ -109,13 +111,13 @@ public:
 	 * Registers an input connector (i.e. this is the end node) as connected
 	 * to this node.
 	 */
-	void addConnector(Connector *const connector);
+	void addConnector(ElectronicConnector *const connector);
 
 	/**
 	 * Creates a new connector, sets this as the end node to the connector
 	 * and returns a pointer to the connector.
 	 */
-	Connector *createConnector(Node *node);
+	ElectronicConnector *createConnector(Node *node);
 
 	/**
 	 * @return the list of all the connectors attached to the node
@@ -140,7 +142,7 @@ public:
 	/**
 	 * Removes a specific connector
 	 */
-	virtual void removeConnector(Connector *connector);
+	virtual void removeConnector(ElectronicConnector *connector);
 
 	/**
 	 * For an electric node: returns the first connector
@@ -154,7 +156,7 @@ signals:
 
 public slots:
 	// -- from node.h --
-	void checkForRemoval(Connector *connector);
+	void checkForRemoval(ElectronicConnector *connector);
 
 protected slots:
 	void removeElement(Element *e);
@@ -177,10 +179,10 @@ protected:
 	virtual QPoint findConnectorDivergePoint(bool *found);
 
 	/** The attached connectors to this electronic node. No directionality here */
-	ConnectorList m_connectorList;
+	EConnectorList m_connectorList;
 
 	/** (please document this) registers some signals for the node and the new connector (?) */
-	bool handleNewConnector(Connector *newConnector);
+	bool handleNewConnector(ElectronicConnector *newConnector);
 };
 
 #endif
