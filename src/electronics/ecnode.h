@@ -23,7 +23,7 @@ class Switch;
 class ElectronicConnector;
 
 typedef QValueVector<Pin*> PinVector;
-//typedef QValueList<ElectronicConnector *> EConnectorList;
+typedef QValueList<ElectronicConnector *> EConnectorList;
 
 /**
 @short Electrical node with voltage / current / etc properties

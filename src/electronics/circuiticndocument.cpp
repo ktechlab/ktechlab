@@ -102,16 +102,16 @@ Connector *CircuitICNDocument::createConnector(Node *node, Connector *con, const
 	con->hide();
 
 	// The actual new connector
-	Connector *new1 = newNode->createConnector(ecNode);
+	ElectronicConnector *new1 = newNode->createConnector(ecNode);
 	ecNode->addConnector(new1);
 	new1->setRoutePoints(*pointList, usedManual);
 
 	// The two connectors formed from the original one when split
-	Connector *new2 = newNode->createConnector(conStartNode);
+	ElectronicConnector *new2 = newNode->createConnector(conStartNode);
 	conStartNode->addConnector(new2);
 	new2->setRoutePoints(*oldConPoints.at(0), usedManual);
 
-	Connector *new3 = conEndNode->createConnector(newNode);
+	ElectronicConnector *new3 = conEndNode->createConnector(newNode);
 	newNode->addConnector(new3);
 	new3->setRoutePoints(*oldConPoints.at(1), usedManual);
 
@@ -156,19 +156,19 @@ Connector *CircuitICNDocument::createConnector(Connector *con1, Connector *con2,
 	ECNode *newNode1 = new JunctionNode(this, 0, pos1);
 	ECNode *newNode2 = new JunctionNode(this, 0, pos2);
 
-	Connector *con1a = newNode1->createConnector(node1a);
+	ElectronicConnector *con1a = newNode1->createConnector(node1a);
 	node1a->addConnector(con1a);
 
-	Connector *con1b = newNode1->createConnector(node1b);
+	ElectronicConnector *con1b = newNode1->createConnector(node1b);
 	node1b->addConnector(con1b);
 
-	Connector *newCon = newNode1->createConnector(newNode2);
+	ElectronicConnector *newCon = newNode1->createConnector(newNode2);
 	newNode2->addConnector(newCon);
 
-	Connector *con2a = node2a->createConnector(newNode2);
+	ElectronicConnector *con2a = node2a->createConnector(newNode2);
 	newNode2->addConnector(con2a);
 
-	Connector *con2b = node2b->createConnector(newNode2);
+	ElectronicConnector *con2b = node2b->createConnector(newNode2);
 	newNode2->addConnector(con2b);
 
 	if (!con1a || !con1b || !con2a || !con2b) {
@@ -239,16 +239,16 @@ Connector *CircuitICNDocument::createConnector(const QString &startNodeId, const
 
 	if (!startNode || !endNode) {
 		kdDebug() << "Either/both the connector start node and end node could not be found" << endl;
-		return 0L;
+		return 0;
 	}
 
-	if (!canConnect(startNode, endNode)) return 0l;
+	if (!canConnect(startNode, endNode)) return 0;
 
-	Connector *connector = endNode->createConnector(startNode);
+	ElectronicConnector *connector = endNode->createConnector(startNode);
 
 	if (!connector) {
 		kdError() << k_funcinfo << "End node did not create the connector" << endl;
-		return 0l;
+		return 0;
 	}
 
 	startNode->addConnector(connector);
@@ -431,7 +431,7 @@ bool CircuitICNDocument::joinConnectors(ECNode *node) {
 
 	if (!startNode || !endNode) return false;
 
-	Connector *newCon = endNode->createConnector(startNode);
+	ElectronicConnector *newCon = endNode->createConnector(startNode);
 
 	if (!newCon) return false;
 
