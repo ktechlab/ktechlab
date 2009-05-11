@@ -35,15 +35,11 @@ logic elements are updated.
 const int LOGIC_UPDATE_RATE = int(1e6);
 
 class Circuit;
-class CircuitDocument;
 class Component;
 class ComponentCallback;
-class ECNode;
 class GpsimProcessor;
 class LogicIn;
 class LogicOut;
-class Switch;
-class Wire;
 
 typedef QValueList<LogicIn*> LogicInList;
 typedef void(Component::*VoidCallbackPtr)();
