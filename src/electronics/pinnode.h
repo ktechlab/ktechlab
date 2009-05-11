@@ -31,7 +31,12 @@ public:
 	 *  draws the PinNode
 	 */
 	virtual void drawShape( QPainter &p );
-	
+	/**
+	 * Removes a specific connector
+	 */
+	virtual void removeConnector(Connector *connector) {
+		m_connectorList.remove(connector);
+	}
 protected:
 	virtual void initPoints();
 };
