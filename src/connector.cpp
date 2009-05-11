@@ -35,7 +35,6 @@
 Connector::Connector(ICNDocument *icnDocument, const QString &id)
 		: QObject(icnDocument),
 		QCanvasPolygon(icnDocument->canvas()) {
-	m_currentAnimationOffset = 0.0;
 	p_nodeGroup    = 0;
 	b_semiHidden   = false;
 	b_deleted      = false;
@@ -494,26 +493,6 @@ QValueList<QPointList> Connector::splitConnectorPoints(const QPoint & pos) const
 QPointList Connector::connectorPoints(bool reverse) const {
 	bool doReverse = (reverse != pointsAreReverse(m_conRouter->pointList(false)));
 	return m_conRouter->pointList(doReverse);
-}
-
-void Connector::incrementCurrentAnimation(double deltaTime) {
-	// The values and equations used in this function have just been developed
-	// empircally to be able to show a nice range of currents while still giving
-	// a good indication of the amount of current flowing
-
-	double I_min = 1e-4;
-	double sf    = 3.0; // scaling factor
-
-	for (unsigned i = 0; i < m_wires.size(); ++i) {
-		if (!m_wires[i]) continue;
-
-		double I = m_wires[i]->current();
-		double sign  = (I > 0) ? 1 : -1;
-		double I_abs = I * sign;
-		double prop  = (I_abs > I_min) ? std::log(I_abs / I_min) : 0.0;
-
-		m_currentAnimationOffset += deltaTime * sf * std::pow(prop, 1.3) * sign;
-	}
 }
 //END class Connector
 
