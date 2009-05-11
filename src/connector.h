@@ -14,12 +14,13 @@
 #include <canvas.h>
 #include <qvaluevector.h>
 
+#include "icndocument.h"
+
 class Cell;
 class ConnectorData;
 class ConnectorLine;
 class ConRouter;
 class CNItem;
-class ICNDocument;
 class Node;
 class NodeGroup;
 
@@ -190,8 +191,9 @@ protected:
 	WireVector        m_wires;
 // ###
 
-private:
+	ICNDocument *p_icnDocument;
 
+private:
 	bool b_semiHidden;
 	bool b_deleted;
 	bool b_manualPoints;
@@ -203,9 +205,6 @@ private:
 
 // DEAD CODE; never set to anything other than zero, never really used:
 	NodeGroup   *p_nodeGroup;
-
-
-	ICNDocument *p_icnDocument;
 	ConRouter   *m_conRouter;
 
 	QString     m_id;
