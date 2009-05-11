@@ -13,7 +13,7 @@
 #include "circuiticndocument.h"
 #include "circuitview.h"
 #include "component.h"
-#include "connector.h"
+#include "electronicconnector.h"
 #include "src/core/ktlconfig.h"
 #include "cnitemgroup.h"
 #include "documentiface.h"
@@ -48,8 +48,8 @@ CircuitDocument::CircuitDocument(const QString &caption, const char *name)
 	m_cmManager->addManipulatorInfo(CMItemResize::manipulatorInfo());
 	m_cmManager->addManipulatorInfo(CMItemDrag::manipulatorInfo());
 
-	connect(this, SIGNAL(connectorAdded(Connector*)), this, SLOT(requestAssignCircuits()));
-	connect(this, SIGNAL(connectorAdded(Connector*)), this, SLOT(connectorAdded(Connector*)));
+	connect(this, SIGNAL(connectorAdded(ElectronicConnector*)), this, SLOT(requestAssignCircuits()));
+	connect(this, SIGNAL(connectorAdded(ElectronicConnector*)), this, SLOT(connectorAdded(ElectronicConnector*)));
 
 	m_updateCircuitsTmr = new QTimer();
 	connect(m_updateCircuitsTmr, SIGNAL(timeout()), this, SLOT(assignCircuits()));
@@ -161,8 +161,8 @@ void CircuitDocument::slotUpdateConfiguration() {
 		n->setShowVoltageColor(KTLConfig::showVoltageColor());
 	}
 
-	ConnectorList::iterator connectorsEnd = m_connectorList.end();
-	for (ConnectorList::iterator it = m_connectorList.begin(); it != connectorsEnd; ++it)
+	EConnectorList::iterator connectorsEnd = m_connectorList.end();
+	for (EConnectorList::iterator it = m_connectorList.begin(); it != connectorsEnd; ++it)
 		(*it)->updateConnectorLines();
 
 	ComponentList::iterator componentsEnd = m_componentList.end();
@@ -181,8 +181,8 @@ void CircuitDocument::update() {
 			calculateConnectorCurrents();
 		}
 
-		ConnectorList::iterator end = m_connectorList.end();
-		for (ConnectorList::iterator it = m_connectorList.begin(); it != end; ++it) {
+		EConnectorList::iterator end = m_connectorList.end();
+		for(EConnectorList::iterator it = m_connectorList.begin(); it != end; ++it) {
 			(*it)->incrementCurrentAnimation(1.0 / double(KTLConfig::refreshRate()));
 			(*it)->updateConnectorLines(animWires);
 		}
@@ -258,10 +258,10 @@ void CircuitDocument::requestAssignCircuits() {
 	m_updateCircuitsTmr->start(0, true);
 }
 
-void CircuitDocument::connectorAdded(Connector * connector) {
+void CircuitDocument::connectorAdded(ElectronicConnector *connector) {
 	if (connector) {
 //		connect(connector, SIGNAL(numWiresChanged(unsigned)), this, SLOT(requestAssignCircuits()));
-		connect(connector, SIGNAL(removed(Connector*)), this, SLOT(requestAssignCircuits()));
+		connect(connector, SIGNAL(removed(ElectronicConnector*)), this, SLOT(requestAssignCircuits()));
 	}
 }
 
@@ -410,8 +410,8 @@ void CircuitDocument::assignCircuits() {
 
 	m_wireList.clear();
 
-	const ConnectorList::const_iterator connectorListEnd = m_connectorList.end();
-	for (ConnectorList::const_iterator it = m_connectorList.begin(); it != connectorListEnd; ++it) {
+	const EConnectorList::const_iterator connectorListEnd = m_connectorList.end();
+	for (EConnectorList::const_iterator it = m_connectorList.begin(); it != connectorListEnd; ++it) {
 		for (unsigned i = 0; i < (*it)->numWires(); i++)
 			m_wireList.insert((*it)->wire(i));
 	}

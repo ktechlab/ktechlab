@@ -17,10 +17,7 @@
 
 class Circuit;
 class Component;
-class ElectricalConnector;
-class ECNode;
 class Element;
-class CircuitICNDocument;
 class KTechlab;
 class Pin;
 class QTimer;
@@ -112,7 +109,7 @@ public slots:
 	void requestAssignCircuits();
 	void componentAdded(Item *item);
 	void componentRemoved(Item *item);
-	void connectorAdded(Connector *connector);
+	void connectorAdded(ElectronicConnector *connector);
 	virtual void slotUpdateConfiguration();
 
 protected:
