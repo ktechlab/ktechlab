@@ -19,7 +19,7 @@
 #include "icndocument.h"
 #include "ecnode.h"
 #include "pin.h"
-#include "connector.h"
+#include "electronicconnector.h"
 #include "circuitdocument.h"
 #include "simulator.h"
 #include "cnitem.h"
@@ -54,7 +54,7 @@ void CanvasTip::displayVI(ECNode *node, const QPoint &pos) {
 	display(pos);
 }
 
-void CanvasTip::displayVI(Connector *connector, const QPoint &pos) {
+void CanvasTip::displayVI(ElectronicConnector *connector, const QPoint &pos) {
 	if (!connector || !updateVI())
 		return;
 
@@ -64,7 +64,7 @@ void CanvasTip::displayVI(Connector *connector, const QPoint &pos) {
 	m_i.resize(num);
 
 	for (unsigned i = 0; i < num; i++) {
-		if (Wire * wire = connector->wire(i)) {
+		if (Wire *wire = connector->wire(i)) {
 			m_v[i] = wire->voltage();
 			m_i[i] = std::abs(wire->current());
 		}
