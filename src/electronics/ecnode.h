@@ -12,7 +12,7 @@
 #define ECNODE_H
 
 #include "node.h"
-#include "electronicconnector.h"
+//#include "electronicconnector.h"
 
 #include <qvaluevector.h>
 
@@ -20,8 +20,10 @@ class Element;
 class Pin;
 class Switch;
 
+class ElectronicConnector;
+
 typedef QValueVector<Pin*> PinVector;
-typedef QValueList<ElectronicConnector *> EConnectorList;
+//typedef QValueList<ElectronicConnector *> EConnectorList;
 
 /**
 @short Electrical node with voltage / current / etc properties
@@ -179,7 +181,8 @@ protected:
 	virtual QPoint findConnectorDivergePoint(bool *found);
 
 	/** The attached connectors to this electronic node. No directionality here */
-	EConnectorList m_connectorList;
+	//E
+	ConnectorList m_connectorList;
 
 	/** (please document this) registers some signals for the node and the new connector (?) */
 	bool handleNewConnector(ElectronicConnector *newConnector);
