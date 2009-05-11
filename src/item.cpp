@@ -31,8 +31,8 @@ const QString SIprefix[] = {"y", "z", "a", "f", "p", "n", QChar(0xB5), "m", "", 
 
 Item::Item(ItemDocument *itemDocument, bool newItem, const QString &id)
 		: QObject(), QCanvasPolygon(itemDocument ? itemDocument->canvas() : 0),
-		m_bDoneCreation(false), b_deleted(false), m_bDynamicContent(false),
-		m_bIsRaised(false), p_parentItem(0), p_itemDocument(itemDocument),
+		m_bIsRaised(false), m_bDoneCreation(false), b_deleted(false),
+		p_parentItem(0), m_bDynamicContent(false), p_itemDocument(itemDocument),
 		m_baseZ(-1) {
 
 	if (p_itemDocument) {
