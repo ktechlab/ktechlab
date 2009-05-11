@@ -814,15 +814,13 @@ void ItemDocumentData::restoreDocument(ItemDocument *itemDocument) {
 
 		{
 			ConnectorList removeConnectors = icnd->connectorList();
-			removeConnectors.remove((Connector*)0l);
+			removeConnectors.remove((Connector*)0);
 
 			const ConnectorDataMap::iterator end = m_connectorDataMap.end();
-
 			for (ConnectorDataMap::iterator it = m_connectorDataMap.begin(); it != end; ++it)
 				removeConnectors.remove(icnd->connectorWithID(it.key()));
 
 			const ConnectorList::iterator removeEnd = removeConnectors.end();
-
 			for (ConnectorList::iterator it = removeConnectors.begin(); it != removeEnd; ++it) {
 				if ((*it)->canvas())
 					(*it)->removeConnector();
@@ -935,8 +933,6 @@ void ItemDocumentData::mergeWithDocument(ItemDocument *itemDocument, bool select
 			if (!startNode || !endNode) {
 				kdError() << k_funcinfo << "End and start nodes for the connector do not both exist" << endl;
 			} else {
-				Connector *connector;
-
 				// HACK // FIXME // TODO
 				// for some strange reason the lists in the ItemDocument class the ID lists for items
 				// get out of sync, so some id's are considered to be registered, but in fact they
@@ -954,13 +950,13 @@ void ItemDocumentData::mergeWithDocument(ItemDocument *itemDocument, bool select
 				// FIXME tons of dynamic_cast
 
 				if (icnd->type() == Document::dt_circuit) {
-					connector = new ElectronicConnector(
+					ElectronicConnector *connector = new ElectronicConnector(
 					    dynamic_cast<ECNode *>(startNode),
 					    dynamic_cast<ECNode *>(endNode), icnd, id);
 					(dynamic_cast<ECNode *>(startNode))->addConnector(connector);
 					(dynamic_cast<ECNode *>(endNode))->addConnector(connector);
 				} else {
-					connector = new FlowConnector(
+					Connector *connector = new FlowConnector(
 					    dynamic_cast<FPNode *>(startNode),
 					    dynamic_cast<FPNode *>(endNode), icnd, id);
 					(dynamic_cast<FPNode *>(startNode))->addOutputConnector(connector);
@@ -980,7 +976,6 @@ void ItemDocumentData::mergeWithDocument(ItemDocument *itemDocument, bool select
 			}
 		}
 	}
-
 	//END Restore Connectors
 
 	// This is kind of hackish, but never mind
@@ -1199,7 +1194,7 @@ void SubcircuitData::initECSubcircuit(ECSubcircuit * ecSubcircuit) {
 	}
 
 	for (ConnectorDataMap::iterator it = m_connectorDataMap.begin(); it != connectorEnd; ++it) {
-		Connector *connector = (static_cast<ICNDocument*>(ecSubcircuit->itemDocument()))->connectorWithID(it.key());
+		ElectronicConnector *connector = (ElectronicConnector *)(static_cast<CircuitICNDocument*>(ecSubcircuit->itemDocument()))->connectorWithID(it.key());
 
 		if (connector) {
 			connector->updateConnectorPoints(false);
