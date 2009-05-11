@@ -8,7 +8,9 @@
 //
 // Copyright: See COPYING file that comes with this distribution
 //
-//
+
+#include <cmath>
+
 #include "electronicconnector.h"
 
 #include "junctionnode.h"
@@ -17,7 +19,7 @@
 
 ElectronicConnector::ElectronicConnector(ECNode *startNode, ECNode *endNode,
 			ICNDocument *_ICNDocument, const QString &id)
-		: Connector(_ICNDocument, id)
+		: Connector(_ICNDocument, id), m_currentAnimationOffset(0)
 {
 	m_startEcNode = startNode;
 	m_endEcNode = endNode;
@@ -87,5 +89,26 @@ void ElectronicConnector::syncWiresWithNodes() {
 	updateConnectorLines();
 //	emit numWiresChanged(newNumWires);
 }
+
+void ElectronicConnector::incrementCurrentAnimation(double deltaTime) {
+	// The values and equations used in this function have just been developed
+	// empircally to be able to show a nice range of currents while still giving
+	// a good indication of the amount of current flowing
+
+	double I_min = 1e-4;
+	double sf    = 3.0; // scaling factor
+
+	for (unsigned i = 0; i < m_wires.size(); ++i) {
+		if (!m_wires[i]) continue;
+
+		double I = m_wires[i]->current();
+		double sign  = (I > 0) ? 1 : -1;
+		double I_abs = I * sign;
+		double prop  = (I_abs > I_min) ? std::log(I_abs / I_min) : 0.0;
+
+		m_currentAnimationOffset += deltaTime * sf * std::pow(prop, 1.3) * sign;
+	}
+}
+
 
 #include "electronicconnector.moc"
