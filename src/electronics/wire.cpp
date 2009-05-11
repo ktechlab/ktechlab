@@ -16,8 +16,7 @@
 Wire::Wire(Pin *startPin, Pin *endPin) :
 	m_current(0), m_bCurrentIsKnown(false)
 {
-	assert(startPin);
-	assert(endPin);
+	assert(startPin && endPin);
 
 	m_pStartPin = startPin;
 	m_pEndPin = endPin;
@@ -30,6 +29,10 @@ Wire::~Wire()
 {
 	m_pStartPin->removeWire(this);
 	m_pEndPin->removeWire(this);
+
+	// make sure we're conspicuously invalid to help debugging, cuz 
+	// there are many dangling refferences to this class. =(
+	m_pStartPin = m_pEndPin = 0;
 }
 
 double Wire::currentFor(const Pin *aPin) const {
