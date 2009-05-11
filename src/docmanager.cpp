@@ -52,11 +52,9 @@ DocManager::DocManager()
 	m_pIface = new DocManagerIface(this);
 }
 
-
 DocManager::~DocManager()
 {
 }
-
 
 bool DocManager::closeAll()
 {
@@ -72,18 +70,16 @@ bool DocManager::closeAll()
 	return true;
 }
 
-
 void DocManager::gotoTextLine( const KURL &url, int line )
 {
 	TextDocument * doc = dynamic_cast<TextDocument*>( openURL(url) );
-	TextView * tv = doc ? doc->textView() : 0l;
+	TextView * tv = doc ? doc->textView() : 0;
 	
 	if ( !tv ) return;
 	
 	tv->gotoLine(line);
 	tv->setFocus();
 }
-
 
 Document* DocManager::openURL( const KURL &url, ViewArea *viewArea )
 {
@@ -143,18 +139,15 @@ Document *DocManager::getFocusedDocument() const
 	return (doc && !doc->isDeleted()) ? doc : 0l;
 }
 
-
 void DocManager::giveDocumentFocus( Document * toFocus, ViewArea * viewAreaForNew )
 {
 	if ( !toFocus ) return;
 	
 	if ( View * activeView = toFocus->activeView() )
 		KTechlab::self()->tabWidget()->showPage( activeView->viewContainer() );
-	
 	else if ( viewAreaForNew )
 		createNewView( toFocus, viewAreaForNew );
 }
-
 
 QString DocManager::untitledName( int type )
 {
@@ -164,8 +157,7 @@ QString DocManager::untitledName( int type )
 		{
 			if ( m_countCircuit>1 )
 				name = i18n("Untitled (Circuit %1)").arg(QString::number(m_countCircuit));
-			else
-				name = i18n("Untitled (Circuit)");
+			else	name = i18n("Untitled (Circuit)");
 			m_countCircuit++;
 			break;
 		}
@@ -173,8 +165,7 @@ QString DocManager::untitledName( int type )
 		{
 			if ( m_countFlowCode>1 )
 				name = i18n("Untitled (FlowCode %1)").arg(QString::number(m_countFlowCode));
-			else
-				name = i18n("Untitled (FlowCode)");
+			else	name = i18n("Untitled (FlowCode)");
 			m_countFlowCode++;
 			break;
 		}
@@ -182,8 +173,7 @@ QString DocManager::untitledName( int type )
 		{
 			if ( m_countMechanics>1 )
 				name = i18n("Untitled (Mechanics %1)").arg(QString::number(m_countMechanics));
-			else
-				name = i18n("Untitled (Mechanics)");
+			else	name = i18n("Untitled (Mechanics)");
 			m_countMechanics++;
 			break;
 		}
@@ -191,15 +181,13 @@ QString DocManager::untitledName( int type )
 		{
 			if ( m_countOther>1 )
 				name = i18n("Untitled (%1)").arg(QString::number(m_countOther));
-			else
-				name = i18n("Untitled");
+			else	name = i18n("Untitled");
 			m_countOther++;
 			break;
 		}
 	}
 	return name;
 }
-
 
 Document *DocManager::findDocument( const KURL &url ) const
 {
@@ -215,9 +203,8 @@ Document *DocManager::findDocument( const KURL &url ) const
 			return *it;
 	}
 	
-	return 0l;
+	return 0;
 }
-
 
 void DocManager::associateDocument( const KURL &url, Document *document )
 {
@@ -226,7 +213,6 @@ void DocManager::associateDocument( const KURL &url, Document *document )
 	
 	m_associatedDocuments[url] = document;
 }
-
 
 void DocManager::removeDocumentAssociations( Document *document )
 {
@@ -248,7 +234,6 @@ void DocManager::removeDocumentAssociations( Document *document )
 	while (doneErase);
 }
 
-
 void DocManager::handleNewDocument( Document *document, ViewArea *viewArea )
 {
 	if ( !document || m_documentList.contains(document) )
@@ -267,19 +252,16 @@ void DocManager::handleNewDocument( Document *document, ViewArea *viewArea )
 	createNewView( document, viewArea );
 }
 
-
 View *DocManager::createNewView( Document *document, ViewArea *viewArea )
 {
 	if (!document)
-		return 0l;
-	
-	View *view = 0l;
-	
+		return 0;
+
+	View *view = 0;
+
 	if (viewArea)
 		view = document->createView( viewArea->viewContainer(), viewArea->id() );
-	
-	else
-	{
+	else {
 		ViewContainer *viewContainer = new ViewContainer( document->caption() );
 		view = document->createView( viewContainer, 0 );
 		KTechlab::self()->addWindow(viewContainer);
@@ -287,7 +269,6 @@ View *DocManager::createNewView( Document *document, ViewArea *viewArea )
 	
 	return view;
 }
-
 
 void DocManager::documentDestroyed( QObject *obj )
 {
@@ -297,15 +278,12 @@ void DocManager::documentDestroyed( QObject *obj )
 	disableContextActions();
 }
 
-
 void DocManager::slotViewFocused( View *view )
 {
 	ViewContainer * vc = static_cast<ViewContainer*>(KTechlab::self()->tabWidget()->currentPage());
-	if (!vc)
-		view = 0l;
-	
-	if (!view)
-		return;
+	if (!vc) view = 0;
+
+	if (!view) return;
 	
 	// This function can get called with a view that is not in the current view
 	// container (such as when the user right clicks and then the popup is
@@ -318,13 +296,12 @@ void DocManager::slotViewFocused( View *view )
 	
 	if (p_focusedView)
 		slotViewUnfocused();
-	
+
 	p_focusedView = view;
-	
+
 	if ( TextView * textView = dynamic_cast<TextView*>((View*)p_focusedView) )
 		KTechlab::self()->factory()->addClient( textView->kateView() );
-	else
-		KTechlab::self()->factory()->addClient( p_focusedView );
+	else	KTechlab::self()->factory()->addClient( p_focusedView );
 	
 	Document *document = view->document();
 	
@@ -338,12 +315,11 @@ void DocManager::slotViewFocused( View *view )
 		ItemDocument *cvb = static_cast<ItemDocument*>(view->document());
 		ItemInterface::self()->slotItemDocumentChanged(cvb);
 	}
-	
+
 	KTechlab::self()->slotDocUndoRedoChanged();
 	KTechlab::self()->slotDocModifiedChanged();
 	KTechlab::self()->requestUpdateCaptions();
 }
-
 
 void DocManager::slotViewUnfocused()
 {
@@ -359,16 +335,15 @@ void DocManager::slotViewUnfocused()
 	if (p_connectedDocument)
 	{
 		disconnect( p_connectedDocument, SIGNAL(undoRedoStateChanged()), KTechlab::self(), SLOT(slotDocUndoRedoChanged()) );
-		p_connectedDocument = 0l;
+		p_connectedDocument = 0;
 	}
 	
 	ItemInterface::self()->slotItemDocumentChanged(0l);
-	p_focusedView = 0l;
+	p_focusedView = 0;
 	
 // 	KTechlab::self()->setCaption( 0 );
 	KTechlab::self()->requestUpdateCaptions();
 }
-
 
 void DocManager::disableContextActions()
 {
@@ -388,14 +363,12 @@ void DocManager::disableContextActions()
 	ktl->action("view_split_topbottom")->setEnabled(false);
 }
 
-
 TextDocument *DocManager::createTextDocument()
 {
 	TextDocument *document = TextDocument::constructTextDocument( untitledName(Document::dt_text) );
 	handleNewDocument(document);
 	return document;
 }
-
 
 CircuitDocument *DocManager::createCircuitDocument()
 {
@@ -406,7 +379,6 @@ CircuitDocument *DocManager::createCircuitDocument()
 	return document;
 }
 
-
 FlowCodeDocument *DocManager::createFlowCodeDocument()
 {
 	FlowCodeDocument *document = new FlowCodeDocument( untitledName(Document::dt_flowcode) );
@@ -415,7 +387,6 @@ FlowCodeDocument *DocManager::createFlowCodeDocument()
 		KTechlab::self()->showToolView( KTechlab::self()->toolView( FlowPartSelector::toolViewIdentifier() ) );
 	return document;
 }
-
 
 MechanicsDocument *DocManager::createMechanicsDocument()
 {
@@ -433,16 +404,15 @@ CircuitDocument *DocManager::openCircuitFile( const KURL &url, ViewArea *viewAre
 	
 	if ( !document->openURL(url) )
 	{
-		KMessageBox::sorry( 0l, i18n("Could not open Circuit file \"%1\"").arg(url.prettyURL()) );
+		KMessageBox::sorry( 0, i18n("Could not open Circuit file \"%1\"").arg(url.prettyURL()) );
 		document->deleteLater();
-		return 0l;
+		return 0;
 	}
 	
 	handleNewDocument( document, viewArea );
 	emit fileOpened(url);
 	return document;
 }
-
 
 FlowCodeDocument *DocManager::openFlowCodeFile( const KURL &url, ViewArea *viewArea )
 {
@@ -450,16 +420,15 @@ FlowCodeDocument *DocManager::openFlowCodeFile( const KURL &url, ViewArea *viewA
 	
 	if ( !document->openURL(url) )
 	{
-		KMessageBox::sorry( 0l, i18n("Could not open FlowCode file \"%1\"").arg(url.prettyURL()) );
+		KMessageBox::sorry( 0, i18n("Could not open FlowCode file \"%1\"").arg(url.prettyURL()) );
 		document->deleteLater();
-		return 0l;
+		return 0;
 	}
 	
 	handleNewDocument( document, viewArea );
 	emit fileOpened(url);
 	return document;
 }
-
 
 MechanicsDocument *DocManager::openMechanicsFile( const KURL &url, ViewArea *viewArea )
 {
@@ -484,19 +453,18 @@ TextDocument *DocManager::openTextFile( const KURL &url, ViewArea *viewArea )
 	TextDocument *document = TextDocument::constructTextDocument( url.fileName().remove(url.directory()) );
 	
 	if (!document)
-		return 0l;
+		return 0;
 	
 	if ( !document->openURL(url) )
 	{
-		KMessageBox::sorry( 0l, i18n("Could not open text file \"%1\"").arg(url.prettyURL()) );
+		KMessageBox::sorry( 0, i18n("Could not open text file \"%1\"").arg(url.prettyURL()) );
 		document->deleteLater();
-		return 0l;
+		return 0;
 	}
 	
 	handleNewDocument( document, viewArea );
 	emit fileOpened(url);
 	return document;
 }
-
 
 #include "docmanager.moc"
