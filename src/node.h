@@ -14,7 +14,6 @@
 #include <canvas.h>
 
 class CNItem;
-class Item;
 class ICNDocument;
 class ICNDocument;
 class Connector;
@@ -56,7 +55,7 @@ public:
 	 * wire-connection point at the top and the (component/flowpart)-end at the
 	 * bottom.
 	 */
-	Node(ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint &pos, QString *id = 0L);
+	Node(ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint &pos, QString *id = 0);
 	virtual ~Node();
 
 	/**
@@ -103,7 +102,6 @@ public:
 		return m_level;
 	}
 
-
 	/**
 	 * Sets the orientation of the node.
 	 */
@@ -136,7 +134,6 @@ public:
 
 	NodeData nodeData() const;
 
-
 	void setNodeGroup(NodeGroup *ng) {
 		p_nodeGroup = ng;
 	}
@@ -146,8 +143,7 @@ public:
 	}
 
 	/* interface common to ecnode and fpnode; these might be required by ItemDocumentData, ICNDocument  */
-
-	virtual bool isConnected(Node *node, NodeList *checkedNodes = 0L) = 0;
+	virtual bool isConnected(Node *node, NodeList *checkedNodes = 0) = 0;
 
 	virtual void removeConnector(Connector *connector) = 0;
 
@@ -185,7 +181,7 @@ public:
 
 public slots:
 	void moveBy(double dx, double dy);
-	void removeNode(Item*) {
+	void removeNode(CNItem*) {
 		removeNode();
 	}
 
@@ -212,7 +208,6 @@ protected:
 	 */
 	void deinitPainter(QPainter &p);
 
-
 	/** If this node has precisely two connectors emerging from it, then this
 	 * function will trace the two connectors until the point where they
 	 * diverge; this point is returned. */
@@ -230,7 +225,6 @@ protected:
 
 	ICNDocument *p_icnDocument;
 	CNItem *p_parentItem;
-
 
 	NodeGroup *p_nodeGroup;
 
