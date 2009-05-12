@@ -70,6 +70,8 @@ protected:
 
 	DiodeSettings m_diodeSettings;
 
+	double v_prev, v_lim;
+
 private:
 	/**
 	 * Returns the current flowing through the diode
