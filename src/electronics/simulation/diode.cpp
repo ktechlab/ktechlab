@@ -84,6 +84,8 @@ void Diode::calc_eq(double *g_new, double *I_new) {
 
 	double v = p_cnode[0]->v - p_cnode[1]->v;
 
+	v_prev = v = diodeVoltage(v, v_prev, m_diodeSettings.N, v_lim);
+
 	calcIg(v, I_new, g_new);
 
 	*I_new -= (v * *g_new);
@@ -119,6 +121,8 @@ void Diode::setDiodeSettings(const DiodeSettings &settings) {
 void Diode::updateLim() {
 	double I_S = m_diodeSettings.I_S;
 	double N = m_diodeSettings.N;
+
+	v_lim = diodeLimitedVoltage(I_S, N);
 }
 
 //END class Diode
