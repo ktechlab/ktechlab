@@ -39,6 +39,8 @@ LogicIn::LogicIn(LogicConfig config)
 
 LogicIn::~LogicIn() {
 	Simulator::self()->removeLogicInReferences(this);
+	m_pCallbackObject = 0;
+	m_pCallbackFunction = 0;
 }
 
 void LogicIn::setCallback(CallbackClass *object, CallbackPtr func) {
