@@ -59,6 +59,10 @@ Multiplexer::~Multiplexer() {
 	if (m_output) {
 		delete m_output;
 	}
+
+	for (unsigned i = 0; i < m_xLogic.size(); ++i) {
+		delete m_xLogic[i];
+	}
 }
 
 void Multiplexer::dataChanged() {
@@ -91,10 +95,6 @@ void Multiplexer::inStateChanged(bool /*state*/) {
 	for (unsigned i = 0; i < m_aLogic.size(); ++i) {
 		if (m_aLogic[i]->isHigh())
 			pos += 1 << i;
-	}
-
-	for (unsigned i = 0; i < m_xLogic.size(); ++i) {
-		delete m_xLogic[i];
 	}
 
 	m_output->setHigh(m_xLogic[pos]->isHigh());
