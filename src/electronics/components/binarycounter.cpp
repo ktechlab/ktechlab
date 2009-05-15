@@ -37,7 +37,7 @@ BinaryCounter::BinaryCounter(ICNDocument *icnDocument, bool newItem, const char 
 		: DIPComponent(icnDocument, newItem, id ? id : "binary_counter") {
 	m_name = i18n("Binary Counter");
 
-	enLogic = inLogic = rLogic = udLogic = 0L;
+	enLogic = inLogic = rLogic = udLogic = 0;
 
 	b_triggerHigh = true;
 	b_oldIn = false;
@@ -61,6 +61,14 @@ BinaryCounter::BinaryCounter(ICNDocument *icnDocument, bool newItem, const char 
 }
 
 BinaryCounter::~BinaryCounter() {
+	delete enLogic;
+	delete inLogic;
+	delete rLogic;
+	delete udLogic;
+
+	for (unsigned i = 0; i < m_numBits; i++) {
+		delete m_pLogicOut[i];
+	}
 }
 
 void BinaryCounter::dataChanged() {
