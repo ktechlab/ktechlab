@@ -182,9 +182,11 @@ public:
 void setNextChanged(LogicOut *logicOut, unsigned char chain) {
 	m_pNextChanged[chain] = logicOut;
 }
+
 LogicOut *nextChanged(unsigned char chain) const {
 	return m_pNextChanged[chain];
 }
+
 void setCanAddChanged(bool canAdd) {
 // avoid being added twice. 
 	m_bCanAddChanged = canAdd;
