@@ -19,6 +19,7 @@ NonLinear::NonLinear()
 {
 }
 
+// the simulator will break if you fail to clamp your voltage with this function. 
 double NonLinear::diodeVoltage(double V, double V_prev, double N, double V_lim) const
 {
 	double Vt = V_T * N;
@@ -80,15 +81,6 @@ void NonLinear::diodeJunction(double V, double I_S, double N, double *I, double 
 // came from a crappy textbook but seems to work OK.
 		*g = fabs((*I * ELEMENTARY_CHARGE) / E_T);
 	}
-
-	// clamp I and G to sane values:
-// I'm pretty sure part of our problems is absurdly large values reaching the matrix
-// and destroying information there. 
-
-//	if(*I > 1e9) *I = 1e9;
-//	else if(*I < -1e9) *I = -1e9;
-
-	if(*g > 1e9) *g = 1e9;
 }
 
 /*

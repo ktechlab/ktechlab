@@ -63,7 +63,7 @@ ElementSet::~ElementSet() {
 		if (*it)(*it)->elementSetDeleted();
 	}
 
-//	for (uint i = 0; i < m_cn; i++) delete m_cnodes[i];
+	for (uint i = 0; i < m_cn; i++) delete m_cnodes[i];
 	for (uint i = 0; i < m_cb; i++) delete m_cbranches[i];
 
 	delete[] m_cbranches;
