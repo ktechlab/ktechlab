@@ -62,7 +62,7 @@ LibraryItem* ECDFlipFlop::libraryItem() {
 }
 
 ECDFlipFlop::ECDFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id)
-		: ClockedLogic(icnDocument, newItem, id ? id : "d_flipflop") {
+		: ClockedLogic(icnDocument, newItem, id ? id : "d_flipflop"), m_prevDChangeSimTime(0) {
 	m_name = i18n("D-Type Flip-Flop");
 
 	setSize(-32, -24, 64, 48);
@@ -104,6 +104,12 @@ ECDFlipFlop::ECDFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id)
 }
 
 ECDFlipFlop::~ECDFlipFlop() {
+	delete m_pD;
+	delete m_pQ;
+	delete m_pQBar;
+	delete m_pClock;
+	delete setp;
+	delete rstp;
 }
 
 void ECDFlipFlop::initSymbolFromTrigger() {
@@ -237,6 +243,13 @@ ECJKFlipFlop::ECJKFlipFlop(ICNDocument *icnDocument, bool newItem, const char *i
 }
 
 ECJKFlipFlop::~ECJKFlipFlop() {
+	delete m_pJ;
+	delete m_pK;
+	delete m_pClock;
+	delete setp;
+	delete rstp;
+	delete m_pQ;
+	delete m_pQBar;
 }
 
 void ECJKFlipFlop::initSymbolFromTrigger() {

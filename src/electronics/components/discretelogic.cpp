@@ -54,6 +54,8 @@ Inverter::Inverter(ICNDocument *icnDocument, bool newItem, const char *id)
 }
 
 Inverter::~Inverter() {
+	delete m_pIn;
+	delete m_pOut;
 }
 
 void Inverter::inStateChanged(bool newState) {
@@ -162,6 +164,7 @@ ECLogicInput::ECLogicInput(ICNDocument *icnDocument, bool newItem, const char *i
 }
 
 ECLogicInput::~ECLogicInput() {
+	delete m_pOut;
 }
 
 void ECLogicInput::dataChanged() {
@@ -221,6 +224,7 @@ ECLogicOutput::ECLogicOutput(ICNDocument *icnDocument, bool newItem, const char 
 }
 
 ECLogicOutput::~ECLogicOutput() {
+	delete m_pIn;
 }
 
 void ECLogicOutput::inStateChanged(bool newState) {
