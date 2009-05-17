@@ -13,6 +13,7 @@
 #ifndef ELEMENTMAP_H
 #define ELEMENTMAP_H
 
+#include <set>
 #include <qvaluelist.h>
 
 #include "simulation/element.h"
@@ -20,7 +21,7 @@
 
 class LogicIn;
 
-typedef QValueList< QValueList<Pin*> > PinListList;
+typedef QValueList< PinList > PinListList;
 
 /**
 Contains vital information about the elements in the component.
