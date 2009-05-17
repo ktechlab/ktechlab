@@ -19,7 +19,7 @@
 class JunctionNode : public ECNode
 {
 public:
-	JunctionNode(ICNDocument* icnDocument, int dir, const QPoint& pos, QString* id = 0);
+	JunctionNode(ICNDocument* icnDocument, int dir, const QPoint& pos, QString* id = 0L);
 
 	~JunctionNode();
 
@@ -29,10 +29,7 @@ public:
 	/**
 	 *  draws the JunctionNode
 	 */
-    	virtual void drawShape(QPainter &p);
-	virtual void removeConnector(Connector *connector) {
-		m_connectorList.remove(connector);
-	}
+    	virtual void drawShape( QPainter &p );
 
 protected:
 	virtual void initPoints();
