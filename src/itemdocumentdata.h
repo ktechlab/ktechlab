@@ -11,6 +11,8 @@
 #ifndef ITEMDOCUMENTDATA_H
 #define ITEMDOCUMENTDATA_H
 
+#include <set>
+
 #include "item.h"
 #include "microsettings.h"
 
@@ -22,7 +24,7 @@ class KURL;
 class Node;
 class PinMapping;
 
-typedef QValueList<Connector *> ConnectorList;
+typedef std::set<Connector *> ConnectorList;
 typedef QValueList<Item *> ItemList;
 typedef QValueList<Node *> NodeList;
 typedef QMap< QString, PinMapping > PinMappingMap;
@@ -83,7 +85,6 @@ public:
 };
 
 typedef QMap< QString, ConnectorData > ConnectorDataMap;
-
 
 class NodeData {
 

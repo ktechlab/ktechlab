@@ -11,8 +11,9 @@
 #ifndef CANVASITEMGROUP_H
 #define CANVASITEMGROUP_H
 
-#include "itemgroup.h"
+#include <set>
 
+#include "itemgroup.h"
 
 class CNItem;
 class Item;
@@ -29,7 +30,7 @@ class QCanvasItemList;
 
 typedef QValueList<Item *> ItemList;
 typedef QValueList<Node *> NodeList;
-typedef QValueList<Connector *> ConnectorList;
+typedef std::set<Connector *> ConnectorList;
 
 /**
 @author David Saxton

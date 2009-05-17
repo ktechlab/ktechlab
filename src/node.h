@@ -11,6 +11,8 @@
 #ifndef NODE_H
 #define NODE_H
 
+#include <set>
+
 #include <canvas.h>
 
 class CNItem;
@@ -22,7 +24,7 @@ class NodeData;
 class NodeGroup;
 class QTimer;
 
-typedef QValueList<Connector *> ConnectorList;
+typedef std::set<Connector *> ConnectorList;
 typedef QValueList<Node *> NodeList;
 
 /**
@@ -172,7 +174,7 @@ public:
 	/**
 	 * Removes all the NULL connectors
 	 */
-	virtual void removeNullConnectors() = 0;
+//	virtual void removeNullConnectors() = 0;
 
 	/**
 	 * Draw shape. Note that this has to remain public.
