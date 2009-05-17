@@ -61,11 +61,12 @@ void Component::removeItem() {
 }
 
 void Component::removeElements(bool setPinsInterIndependent) {
+	/*
 	const ElementMapList::iterator end = m_elementMapList.end();
 	for (ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it) {
 		(*it).mergeCurrents();
-
 	}
+	*/
 
 	m_elementMapList.clear();
 
@@ -374,50 +375,61 @@ void Component::slotUpdateConfiguration() {
 }
 
 void Component::setup1pinElement(Element *ele, Pin *a) {
-	QValueList<Pin*> pins;
-	pins << a;
+	PinList pins;
+	pins.insert(a);
 
 	ElementMapList::iterator it = handleElement(ele, pins);
 	setInterDependent(it, pins);
 }
 
 void Component::setup2pinElement(Element *ele, Pin *a, Pin *b) {
-	QValueList<Pin*> pins;
-	pins << a << b;
+	PinList pins;
+	pins.insert(a);
+	pins.insert(b);
 
 	ElementMapList::iterator it = handleElement(ele, pins);
 	setInterDependent(it, pins);
 }
 
 void Component::setup3pinElement(Element *ele, Pin *a, Pin *b, Pin *c) {
-	QValueList<Pin*> pins;
-	pins << a << b << c;
+	PinList pins;
+	pins.insert(a);
+	pins.insert(b);
+	pins.insert(c);
 
 	ElementMapList::iterator it = handleElement(ele, pins);
 	setInterDependent(it, pins);
 }
 
 void Component::setup4pinElement(Element *ele, Pin *a, Pin *b, Pin *c, Pin *d) {
-	QValueList<Pin*> pins;
-	pins << a << b << c << d;
+	PinList pins;
+	pins.insert(a);
+	pins.insert(b);
+	pins.insert(c);
+	pins.insert(d);
 
 	ElementMapList::iterator it = handleElement(ele, pins);
 	setInterDependent(it, pins);
 }
 
 void Component::setupSpcl4pinElement(Element *ele, Pin *a, Pin *b, Pin *c, Pin *d) {
-	QValueList<Pin*> pins;
-	pins << a << b << c << d;
+	PinList pins;
+	pins.insert(a);
+	pins.insert(b);
+	pins.insert(c);
+	pins.insert(d);
 
 	ElementMapList::iterator it = handleElement(ele, pins);
 	setInterCircuitDependent(it, pins);
 
 	pins.clear();
-	pins << a << b;
+	pins.insert(a);
+	pins.insert(b);
 	setInterGroundDependent(it, pins);
 
 	pins.clear();
-	pins << c << d;
+	pins.insert(c);
+	pins.insert(d);
 	setInterGroundDependent(it, pins);
 }
 
@@ -433,16 +445,15 @@ Switch *Component::createSwitch(Pin *n0, Pin *n1, bool open) {
 	return e;
 }
 
-ElementMapList::iterator Component::handleElement(Element *e, const QValueList<Pin*> &pins) {
+ElementMapList::iterator Component::handleElement(Element *e, const PinList &pins) {
 	if(!e) return m_elementMapList.end();
 
 	ElementMap em;
 	em.setElement(e);
 
 	int at = 0;
-	QValueList<Pin*>::ConstIterator end = pins.end();
-
-	for(QValueList<Pin*>::ConstIterator it = pins.begin(); it != end; ++it) {
+	PinList::const_iterator end = pins.end();
+	for(PinList::const_iterator it = pins.begin(); it != end; ++it) {
 		(*it)->addElement(e);
 		em.putPin(at++, *it);
 	}
@@ -453,15 +464,15 @@ ElementMapList::iterator Component::handleElement(Element *e, const QValueList<P
 	return it;
 }
 
-void Component::setInterDependent(ElementMapList::iterator it, const QValueList<Pin*> & pins) {
+void Component::setInterDependent(ElementMapList::iterator it, const PinList & pins) {
 	setInterCircuitDependent(it, pins);
 	setInterGroundDependent(it, pins);
 }
 
-void Component::setInterCircuitDependent(ElementMapList::iterator it, const QValueList<Pin*> & pins) {
-	QValueList<Pin*>::ConstIterator end = pins.end();
-	for(QValueList<Pin*>::ConstIterator it1 = pins.begin(); it1 != end; ++it1) {
-		for(QValueList<Pin*>::ConstIterator it2 = pins.begin(); it2 != end; ++it2) {
+void Component::setInterCircuitDependent(ElementMapList::iterator it, const PinList &pins) {
+	PinList::iterator end = pins.end();
+	for(PinList::const_iterator it1 = pins.begin(); it1 != end; ++it1) {
+		for(PinList::const_iterator it2 = pins.begin(); it2 != end; ++it2) {
 			(*it1)->addCircuitDependentPin(*it2);
 		}
 	}
@@ -469,10 +480,10 @@ void Component::setInterCircuitDependent(ElementMapList::iterator it, const QVal
 	(*it).interCircuitDependent.append(pins);
 }
 
-void Component::setInterGroundDependent(ElementMapList::iterator it, const QValueList<Pin*> & pins) {
-	QValueList<Pin*>::ConstIterator end = pins.end();
-	for(QValueList<Pin*>::ConstIterator it1 = pins.begin(); it1 != end; ++it1) {
-		for(QValueList<Pin*>::ConstIterator it2 = pins.begin(); it2 != end; ++it2) {
+void Component::setInterGroundDependent(ElementMapList::iterator it, const PinList &pins) {
+	PinList::const_iterator end = pins.end();
+	for(PinList::const_iterator it1 = pins.begin(); it1 != end; ++it1) {
+		for(PinList::const_iterator it2 = pins.begin(); it2 != end; ++it2) {
 			(*it1)->addGroundDependentPin(*it2);
 		}
 	}
