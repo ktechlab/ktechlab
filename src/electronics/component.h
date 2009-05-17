@@ -29,7 +29,7 @@ class LogicIn;
 
 typedef std::set<Element*> ElementList;
 typedef QValueList<Switch*> SwitchList;
-typedef QValueList< QValueList<Pin*> > PinListList;
+typedef QValueList< PinList > PinListList;
 typedef QValueList<ElementMap> ElementMapList;
 
 /**
@@ -261,7 +261,7 @@ private:
 	 * @param it Which pins are inter-dependent needs to be recorded in case
 	 * this information is later needed in rebuildPinInterDependence.
 	 */
-	void setInterDependent(ElementMapList::iterator it, const QValueList<Pin*> &pins);
+	void setInterDependent(ElementMapList::iterator it, const PinList &pins);
 
 	/**
 	 * Sets all pins independent of each other.
@@ -272,13 +272,13 @@ private:
 	 * The given pins will affect the simulation of each other. Therefore, they
 	 * will need to be simulated in the same circuit.
 	 */
-	void setInterCircuitDependent(ElementMapList::iterator it, const QValueList<Pin*> &pins);
+	void setInterCircuitDependent(ElementMapList::iterator it, const PinList &pins);
 
 	/**
 	 * If any of the given pins are ground, then that will affect whether
 	 * any of the other pins can be ground.
 	 */
-	void setInterGroundDependent(ElementMapList::iterator it, const QValueList<Pin*> &pins);
+	void setInterGroundDependent(ElementMapList::iterator it, const PinList &pins);
 
 	/**
 	 * List of ElementMaps; which contain information on the pins associated
@@ -297,7 +297,7 @@ private:
 	/**
 	 * @return an iterator to the element in m_elementMapList
 	 */
-	ElementMapList::iterator handleElement(Element *e, const QValueList<Pin*> &pins);
+	ElementMapList::iterator handleElement(Element *e, const PinList &pins);
 };
 
 #endif
