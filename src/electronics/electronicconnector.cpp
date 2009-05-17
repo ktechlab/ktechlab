@@ -11,8 +11,8 @@
 
 #include <cmath>
 
+#include "circuiticndocument.h"
 #include "electronicconnector.h"
-
 #include "junctionnode.h"
 #include "ecnode.h"
 #include "wire.h"
