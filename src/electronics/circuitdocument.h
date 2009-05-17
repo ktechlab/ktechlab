@@ -17,7 +17,10 @@
 
 class Circuit;
 class Component;
+class ElectricalConnector;
+class ECNode;
 class Element;
+class CircuitICNDocument;
 class KTechlab;
 class Pin;
 class QTimer;
@@ -26,7 +29,7 @@ class Wire;
 class KActionMenu;
 
 typedef std::set<Circuit*> CircuitList;
-typedef QValueList<Component*> ComponentList;
+typedef std::set<Component*> ComponentList;
 typedef std::set<Element*> ElementList;
 typedef std::set<Pin *> PinList;
 typedef QValueList<Switch*> SwitchList;
@@ -109,7 +112,7 @@ public slots:
 	void requestAssignCircuits();
 	void componentAdded(Item *item);
 	void componentRemoved(Item *item);
-	void connectorAdded(ElectronicConnector *connector);
+	void connectorAdded(Connector *connector);
 	virtual void slotUpdateConfiguration();
 
 protected:
