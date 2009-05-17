@@ -90,16 +90,16 @@ public:
 	/**
 	 * Returns the number of Nodes in the CanvasGroup
 	 */
-	uint nodeCount() const { return m_nodeCount; }
+	uint nodeCount() const { return m_nodeList.size(); }
 	/**
 	 * Returns the number of Connectors in the CanvasGroup
 	 */
-	uint connectorCount() const { return m_connectorCount; }
+	uint connectorCount() const { return m_connectorList.size(); }
 	/**
 	 * Returns the total number of items in the group
 	 * (CNItems, Nodes, Connectors)
 	 */
-	uint count() const { return itemCount()+m_nodeCount+m_connectorCount; }
+	uint count() const { return itemCount() + m_nodeList.size() + m_connectorList.size(); }
 	/**
 	 * Sets the selected state of all items in the group
 	 */
@@ -218,8 +218,6 @@ private:
 	ICNDocument *p_icnDocument;
 	ConnectorList m_connectorList;
 	NodeList m_nodeList;
-	uint m_connectorCount;
-	uint m_nodeCount;
 	int m_currentLevel; // We can only accept CNItems of one level
 };
 
