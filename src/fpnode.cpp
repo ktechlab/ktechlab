@@ -211,7 +211,7 @@ void FPNode::checkForRemoval( Connector *connector )
 	removeConnector(connector);
 	setNodeSelected(false);
 	
-	removeNullConnectors();
+//	removeNullConnectors();
 	
 	if (!p_parentItem) {
 		int conCount = m_inFlowConnList.count();
@@ -223,10 +223,11 @@ void FPNode::checkForRemoval( Connector *connector )
 	// for JunctionFlowNode this method is overridden!
 }
 
+/*
 void FPNode::removeNullConnectors()
 {
 	m_inFlowConnList.remove((FlowConnector*)0);
-}
+}*/
 
 QPoint FPNode::findConnectorDivergePoint( bool * found )
 {
@@ -373,7 +374,7 @@ ConnectorList FPNode::outputConnectorList() const
 {  
 	ConnectorList out;
 	if( m_outputConnector)
-		out.append( (Connector *) m_outputConnector);	// un upcast between downcasts :o
+		out.insert((Connector *) m_outputConnector);	// un upcast between downcasts :o
 	return out;
 }
 
@@ -381,7 +382,7 @@ ConnectorList FPNode::getAllConnectors() const
 {
 	ConnectorList all = (ConnectorList)(FlowConnectorList)m_inFlowConnList;
 	if ( m_outputConnector )
-		all.append ( (Connector *) m_outputConnector );
+		all.insert( (Connector *) m_outputConnector );
 	return all;
 }
 

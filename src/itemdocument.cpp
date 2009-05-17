@@ -88,7 +88,6 @@ ItemDocument::~ItemDocument() {
 	m_bDeleted = true;
 
 	const ItemMap::iterator end = m_itemList.end();
-
 	for (ItemMap::iterator it = m_itemList.begin(); it != end; ++it)
 		delete *it;
 
@@ -990,8 +989,8 @@ assert(item->itemDocument() == this);
 
 	m_zOrder = newZOrder;
 
-	for (IntItemMap::iterator it = m_zOrder.begin(); it != zEnd; ++it)
-		it.data()->updateZ(it.key());
+//	for (IntItemMap::iterator it = m_zOrder.begin(); it != zEnd; ++it)
+//		it.data()->updateZ(it.key()); // valgrind says there's a FIXME here. =\ "invalid read of size 4"
 }
 
 void ItemDocument::update() {

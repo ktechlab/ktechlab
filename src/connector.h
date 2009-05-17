@@ -14,13 +14,12 @@
 #include <canvas.h>
 #include <qvaluevector.h>
 
-#include "icndocument.h"
-
 class Cell;
 class ConnectorData;
 class ConnectorLine;
 class ConRouter;
 class CNItem;
+class ICNDocument;
 class Node;
 class NodeGroup;
 
@@ -159,17 +158,22 @@ public:
 	Methods relating to wire lists
 	*/
 // TODO: refactor these!
-/*
 	unsigned numWires() const { return m_wires.size(); }
 	Wire *wire(unsigned num = 0) const {
 		return (num < m_wires.size()) ? m_wires[num] : 0;
 	}
-*/
+
 	/**
 	 * Modular offset of moving dots in connector, indicating current (in
 	 * pixels).
 	 */
-//	double currentAnimationOffset() const { return m_currentAnimationOffset; }
+	double currentAnimationOffset() const { return m_currentAnimationOffset; }
+
+	/**
+	 * Increases the currentAnimationOffset according to the current flowing in
+	 * the connector and deltaTime.
+	 */
+	void incrementCurrentAnimation(double deltaTime);
 // ###
 
 	void updateConnectorLines(bool forceRedraw = false);
@@ -193,6 +197,10 @@ private:
 	bool b_deleted;
 	bool b_manualPoints;
 	bool b_pointsAdded;
+
+// TODO: refactor this: 
+	double m_currentAnimationOffset;
+// ###
 
 // DEAD CODE; never set to anything other than zero, never really used:
 	NodeGroup   *p_nodeGroup;

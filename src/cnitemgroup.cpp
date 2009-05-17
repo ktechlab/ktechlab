@@ -67,18 +67,16 @@ bool CNItemGroup::addNode( Node *node )
 	return true;
 }
 
-
 bool CNItemGroup::addConnector( Connector *con )
 {
-	if ( !con || m_connectorList.contains(con) )
-		return false;
-	m_connectorList.prepend(con);
+	if(!con) return false;
+
+	m_connectorList.insert(con);
 	con->setSelected(true);
 	updateInfo();
 	emit connectorAdded(con);
 	return true;
 }
-
 
 bool CNItemGroup::addQCanvasItem( QCanvasItem *qcanvasItem )
 {
@@ -114,17 +112,14 @@ void CNItemGroup::setItems( QCanvasItemList list )
 	const QCanvasItemList::const_iterator end = list.end();
 	for ( QCanvasItemList::const_iterator it = list.begin(); it != end; ++it )
 	{
-		if ( Item * item = dynamic_cast<Item*>(*it) )
+		if ( Item *item = dynamic_cast<Item*>(*it) )
 			itemRemoveList.remove( item );
-		
-		else if ( Node * node = dynamic_cast<Node*>(*it) )
+		else if ( Node *node = dynamic_cast<Node*>(*it) )
 			nodeRemoveList.remove( node );
-		
-		else if ( Connector * con = dynamic_cast<Connector*>(*it) )
-			connectorRemoveList.remove( con );
-		
-		else if ( ConnectorLine * conLine = dynamic_cast<ConnectorLine*>(*it) )
-			connectorRemoveList.remove( conLine->parent() );
+		else if ( Connector *con = dynamic_cast<Connector*>(*it) )
+			connectorRemoveList.erase( con );
+		else if ( ConnectorLine *conLine = dynamic_cast<ConnectorLine*>(*it) )
+			connectorRemoveList.erase( conLine->parent() );
 	}
 	
 	{
@@ -193,8 +188,8 @@ void CNItemGroup::removeNode( Node *node )
 
 void CNItemGroup::removeConnector( Connector *con )
 {
-	if ( !con || !m_connectorList.contains(con) ) return;
-	m_connectorList.remove(con);
+	if(!con) return;
+	m_connectorList.erase(con);
 	con->setSelected(false);
 	updateInfo();
 	emit connectorRemoved(con);
@@ -258,13 +253,12 @@ ConnectorList CNItemGroup::connectors( bool excludeParented ) const
 	
 	ConnectorList translatableConnectors;
 	NodeGroupList translatableNodeGroups;
-	p_icnDocument->getTranslatable( items(false), 0l, &translatableConnectors, &translatableNodeGroups );
+	p_icnDocument->getTranslatable( items(false), 0, &translatableConnectors, &translatableNodeGroups );
 	
 	ConnectorList::iterator tcEnd = translatableConnectors.end();
 	for ( ConnectorList::iterator it = translatableConnectors.begin(); it != tcEnd; ++it )
 	{
-		if ( *it && !connectorList.contains(*it) )
-			connectorList << *it;
+		if ( *it) connectorList.insert(*it);
 	}
 	
 	NodeGroupList::iterator end = translatableNodeGroups.end();
@@ -278,8 +272,8 @@ ConnectorList CNItemGroup::connectors( bool excludeParented ) const
 			ConnectorList::const_iterator connectedEnd = connected.end();
 			for ( ConnectorList::const_iterator conIt = connected.begin(); conIt != connectedEnd; ++conIt )
 			{
-				if ( *conIt && !connectorList.contains(*conIt) )
-					connectorList << *conIt;
+				if ( *conIt)
+					connectorList.insert(*conIt);
 			}
 		}
 	}
@@ -580,19 +574,17 @@ void CNItemGroup::mergeGroup( ItemGroup *itemGroup )
 	}
 }
 
-
 void CNItemGroup::removeAllItems()
 {
 	while ( !m_itemList.isEmpty() )
 		removeItem(*m_itemList.begin());
 
-	while ( !m_connectorList.isEmpty() )
+	while ( !m_connectorList.empty() )
 		removeConnector(*m_connectorList.begin());
 
 	while ( !m_nodeList.isEmpty() )
 		removeNode(*m_nodeList.begin());
 }
-
 
 void CNItemGroup::deleteAllItems()
 {
@@ -626,7 +618,7 @@ void CNItemGroup::deleteAllItems()
 
 void CNItemGroup::updateInfo()
 {
-	m_connectorCount = m_connectorList.count();
+	m_connectorCount = m_connectorList.size();
 	m_nodeCount = m_nodeList.count();
 	
 	if ( m_itemList.isEmpty() )

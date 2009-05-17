@@ -39,9 +39,7 @@
 
 #include "ktlcanvas.h"
 
-
 // FIXME: This source file is HUUUGE!!!, contains numerous clases, should be broken down.
-
 
 //BEGIN class CMManager
 CMManager::CMManager(ItemDocument *itemDocument)
@@ -197,7 +195,7 @@ void CMManager::mouseMoveEvent(const EventInfo &eventInfo) {
 	if (m_canvasManipulator) {
 		if (m_canvasManipulator->mouseMoved(eventInfo)) {
 			delete m_canvasManipulator;
-			m_canvasManipulator = 0l;
+			m_canvasManipulator = 0;
 		}
 
 		ItemView *itemView = dynamic_cast<ItemView*>(p_itemDocument->activeView());
@@ -235,7 +233,6 @@ void CMManager::mouseMoveEvent(const EventInfo &eventInfo) {
 	} else if (item) {
 		item->mouseMoveEvent(eventInfo);
 	}
-
 	//END
 
 	updateCurrentResizeHandle(dynamic_cast<ResizeHandle*>(qcnItem));
@@ -1366,7 +1363,7 @@ bool CMSelect::mouseMoved(const EventInfo &eventInfo) {
 
 bool CMSelect::mouseReleased(const EventInfo &/*eventInfo*/) {
 	delete m_selectRectangle;
-	m_selectRectangle = 0l;
+	m_selectRectangle = 0;
 
 	return true;
 }
@@ -1582,19 +1579,15 @@ bool CMDraw::mouseReleased(const EventInfo &eventInfo) {
 	QString id;
 
 	switch ((DrawPart::DrawAction) p_cmManager->drawAction()) {
-
 	case DrawPart::da_rectangle:
 		id = "dp/rectangle";
 		break;
-
 	case DrawPart::da_image:
 		id = "dp/image";
 		break;
-
 	case DrawPart::da_ellipse:
 		id = "dp/ellipse";
 		break;
-
 	case DrawPart::da_text:
 		id = "dp/canvas_text";
 
@@ -1606,12 +1599,9 @@ bool CMDraw::mouseReleased(const EventInfo &eventInfo) {
 		break;
 	case DrawPart::da_line:
 		id = "dp/line";
-
 		break;
-
 	case DrawPart::da_arrow:
 		id = "dp/arrow";
-
 		break;
 	}
 
@@ -1659,7 +1649,6 @@ ManualConnectorDraw::ManualConnectorDraw(ICNDocument *_icnDocument, const QPoint
 
 ManualConnectorDraw::~ManualConnectorDraw() {
 	const QValueList<QCanvasLine*>::iterator end = m_connectorLines.end();
-
 	for (QValueList<QCanvasLine*>::iterator it = m_connectorLines.begin(); it != end; ++it)
 		delete *it;
 
@@ -1670,7 +1659,6 @@ void ManualConnectorDraw::setColor(const QColor & color) {
 	m_color = color;
 
 	const QValueList<QCanvasLine*>::iterator end = m_connectorLines.end();
-
 	for (QValueList<QCanvasLine*>::iterator it = m_connectorLines.begin(); it != end; ++it)
 		(*it)->setPen(m_color);
 }
