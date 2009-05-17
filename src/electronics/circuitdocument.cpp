@@ -13,7 +13,7 @@
 #include "circuiticndocument.h"
 #include "circuitview.h"
 #include "component.h"
-#include "electronicconnector.h"
+#include "connector.h"
 #include "src/core/ktlconfig.h"
 #include "cnitemgroup.h"
 #include "documentiface.h"
@@ -48,8 +48,8 @@ CircuitDocument::CircuitDocument(const QString &caption, const char *name)
 	m_cmManager->addManipulatorInfo(CMItemResize::manipulatorInfo());
 	m_cmManager->addManipulatorInfo(CMItemDrag::manipulatorInfo());
 
-	connect(this, SIGNAL(connectorAdded(ElectronicConnector*)), this, SLOT(requestAssignCircuits()));
-	connect(this, SIGNAL(connectorAdded(ElectronicConnector*)), this, SLOT(connectorAdded(ElectronicConnector*)));
+	connect(this, SIGNAL(connectorAdded(Connector*)), this, SLOT(requestAssignCircuits()));
+	connect(this, SIGNAL(connectorAdded(Connector*)), this, SLOT(connectorAdded(Connector*)));
 
 	m_updateCircuitsTmr = new QTimer();
 	connect(m_updateCircuitsTmr, SIGNAL(timeout()), this, SLOT(assignCircuits()));
@@ -161,8 +161,8 @@ void CircuitDocument::slotUpdateConfiguration() {
 		n->setShowVoltageColor(KTLConfig::showVoltageColor());
 	}
 
-	EConnectorList::iterator connectorsEnd = m_connectorList.end();
-	for (EConnectorList::iterator it = m_connectorList.begin(); it != connectorsEnd; ++it)
+	ConnectorList::iterator connectorsEnd = m_connectorList.end();
+	for (ConnectorList::iterator it = m_connectorList.begin(); it != connectorsEnd; ++it)
 		(*it)->updateConnectorLines();
 
 	ComponentList::iterator componentsEnd = m_componentList.end();
@@ -181,8 +181,8 @@ void CircuitDocument::update() {
 			calculateConnectorCurrents();
 		}
 
-		EConnectorList::iterator end = m_connectorList.end();
-		for(EConnectorList::iterator it = m_connectorList.begin(); it != end; ++it) {
+		ConnectorList::iterator end = m_connectorList.end();
+		for (ConnectorList::iterator it = m_connectorList.begin(); it != end; ++it) {
 			(*it)->incrementCurrentAnimation(1.0 / double(KTLConfig::refreshRate()));
 			(*it)->updateConnectorLines(animWires);
 		}
@@ -258,10 +258,10 @@ void CircuitDocument::requestAssignCircuits() {
 	m_updateCircuitsTmr->start(0, true);
 }
 
-void CircuitDocument::connectorAdded(ElectronicConnector *connector) {
+void CircuitDocument::connectorAdded(Connector * connector) {
 	if (connector) {
 //		connect(connector, SIGNAL(numWiresChanged(unsigned)), this, SLOT(requestAssignCircuits()));
-		connect(connector, SIGNAL(removed(ElectronicConnector*)), this, SLOT(requestAssignCircuits()));
+		connect(connector, SIGNAL(removed(Connector*)), this, SLOT(requestAssignCircuits()));
 	}
 }
 
@@ -284,8 +284,7 @@ void CircuitDocument::componentAdded(Item *item) {
 	// We don't attach the component to the Simulator just yet, as the
 	// Component's vtable is not yet fully constructed, and so Simulator can't
 	// tell whether or not it is a logic component
-	if (!m_toSimulateList.contains(component))
-		m_toSimulateList << component;
+	m_toSimulateList.insert(component);
 }
 
 void CircuitDocument::componentRemoved(Item *item) {
@@ -293,8 +292,8 @@ void CircuitDocument::componentRemoved(Item *item) {
 
 	if (!component) return;
 
-	m_componentList.remove(component);
-	m_toSimulateList.remove(component);
+	m_componentList.erase(component);
+	m_toSimulateList.erase(component);
 	requestAssignCircuits();
 	Simulator::self()->detachComponent(component);
 }
@@ -309,8 +308,6 @@ void CircuitDocument::calculateConnectorCurrents() {
 	PinList groundPins;
 
 	// Tell the Pins to reset their calculated currents to zero
-//	m_pinList.erase((Pin*)0);
-
 	const PinList::iterator pinEnd = m_pinList.end();
 	for (PinList::iterator it = m_pinList.begin(); it != pinEnd; ++it) {
 		if (Pin *n = dynamic_cast<Pin*>((Pin*) * it)) {
@@ -410,8 +407,8 @@ void CircuitDocument::assignCircuits() {
 
 	m_wireList.clear();
 
-	const EConnectorList::const_iterator connectorListEnd = m_connectorList.end();
-	for (EConnectorList::const_iterator it = m_connectorList.begin(); it != connectorListEnd; ++it) {
+	const ConnectorList::const_iterator connectorListEnd = m_connectorList.end();
+	for (ConnectorList::const_iterator it = m_connectorList.begin(); it != connectorListEnd; ++it) {
 		for (unsigned i = 0; i < (*it)->numWires(); i++)
 			m_wireList.insert((*it)->wire(i));
 	}
@@ -450,7 +447,7 @@ void CircuitDocument::assignCircuits() {
 
 		if (!component) continue;
 
-		m_componentList << component;
+		m_componentList.insert(component);
 		component->initElements(0);
 		m_switchList += component->switchList();
 	}
@@ -529,10 +526,9 @@ void CircuitDocument::splitIntoCircuits(PinList *pinList) {
 			recursivePinAdd(*it, circuitoid, pinList);
 
 // BUG WORKAROUND; FIXME recursivePinAdd!!!
-			if(circuitoid->getElementsBegin() == circuitoid->getElementsEnd()) continue;
-
-			if (!tryAsLogicCircuit(circuitoid))
+			if(circuitoid->getElementsBegin() != circuitoid->getElementsEnd() && !tryAsLogicCircuit(circuitoid)) { 
 				m_circuitList.insert(createCircuit(circuitoid));
+			}
 
 			delete circuitoid;
 		}
