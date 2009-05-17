@@ -80,6 +80,7 @@ public:
 	 * Adds the given current to that already flowing into the pin.
 	 * @see setCurrent
 	 */
+// FIXME: valgrind says we have an invalid write bug here, maybe a cleanup deleted... 
 	void mergeCurrent(double i) { m_current += i; }
 
 	/**
