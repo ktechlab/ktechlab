@@ -12,7 +12,6 @@
 #define ECNODE_H
 
 #include "node.h"
-//#include "electronicconnector.h"
 
 #include <qvaluevector.h>
 
@@ -21,10 +20,7 @@ class Pin;
 class Switch;
 class Item;
 
-class ElectronicConnector;
-
 typedef QValueVector<Pin*> PinVector;
-typedef QValueList<ElectronicConnector *> EConnectorList;
 
 /**
 @short Electrical node with voltage / current / etc properties
@@ -33,7 +29,6 @@ Seems to be used mostly for bus bundles and other multi-wire connections.
 
 @author David Saxton
 */
-
 class ECNode : public Node {
 	Q_OBJECT
 
@@ -114,13 +109,13 @@ public:
 	 * Registers an input connector (i.e. this is the end node) as connected
 	 * to this node.
 	 */
-	void addConnector(ElectronicConnector *const connector);
+	void addConnector(Connector *const connector);
 
 	/**
 	 * Creates a new connector, sets this as the end node to the connector
 	 * and returns a pointer to the connector.
 	 */
-	ElectronicConnector *createConnector(Node *node);
+	Connector *createConnector(Node *node);
 
 	/**
 	 * @return the list of all the connectors attached to the node
@@ -132,7 +127,7 @@ public:
 	/**
 	 * Removes all the NULL connectors
 	  */
-	virtual void removeNullConnectors();
+//	virtual void removeNullConnectors();
 
 	/**
 	 * Returns the total number of connections to the node. This is the number
@@ -145,7 +140,7 @@ public:
 	/**
 	 * Removes a specific connector
 	 */
-	virtual void removeConnector(ElectronicConnector *connector);
+	virtual void removeConnector(Connector *connector);
 
 	/**
 	 * For an electric node: returns the first connector
@@ -159,8 +154,11 @@ signals:
 
 public slots:
 	// -- from node.h --
-	void checkForRemoval(ElectronicConnector *connector);
-	void removeNode(Item *) { removeNode(); }
+	void checkForRemoval(Connector *connector);
+	void removeNode(Item*) {
+// parameter is made available for subclasses. 
+		removeNode();
+	}
 	void removeNode();
 protected slots:
 	void removeElement(Element *e);
@@ -183,11 +181,10 @@ protected:
 	virtual QPoint findConnectorDivergePoint(bool *found);
 
 	/** The attached connectors to this electronic node. No directionality here */
-	//E
 	ConnectorList m_connectorList;
 
 	/** (please document this) registers some signals for the node and the new connector (?) */
-	bool handleNewConnector(ElectronicConnector *newConnector);
+	bool handleNewConnector(Connector *newConnector);
 };
 
 #endif
