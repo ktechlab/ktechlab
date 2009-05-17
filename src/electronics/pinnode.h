@@ -20,7 +20,7 @@ An ECNode class with type() == ec_pin
 class PinNode : public ECNode
 {
 public:
-	PinNode(ICNDocument* icnDocument, int dir, const QPoint& pos, QString* id = 0L);
+	PinNode(ICNDocument* icnDocument, int dir, const QPoint& pos, QString* id = 0);
 
 	~PinNode();
 
@@ -31,12 +31,7 @@ public:
 	 *  draws the PinNode
 	 */
 	virtual void drawShape( QPainter &p );
-	/**
-	 * Removes a specific connector
-	 */
-	virtual void removeConnector(Connector *connector) {
-		m_connectorList.remove(connector);
-	}
+	
 protected:
 	virtual void initPoints();
 };
