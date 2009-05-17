@@ -8,8 +8,9 @@
 //
 // Copyright: See COPYING file that comes with this distribution
 //
-//
+
 #include "flowconnector.h"
+#include "flowicndocument.h"
 
 #include "fpnode.h"
 

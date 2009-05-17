@@ -126,11 +126,8 @@ ConnectorList CNItem::connectorList() {
 			ConnectorList::iterator end = nodeList.end();
 
 			for (ConnectorList::iterator it = nodeList.begin(); it != end; ++it) {
-				if (*it && !list.contains(*it)) {
-					list.append(*it);
-				}
+				if (*it) list.insert(*it);
 			}
-
 		}
 	}
 

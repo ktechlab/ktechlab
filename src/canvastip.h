@@ -18,7 +18,7 @@
 
 class ItemDocument;
 class ECNode;
-class ElectronicConnector;
+class Connector;
 
 /**
 @author David Saxton
@@ -31,7 +31,7 @@ public:
 	virtual ~CanvasTip();
 
 	void displayVI(ECNode *node, const QPoint &pos);
-	void displayVI(ElectronicConnector *connector, const QPoint &pos);
+	void displayVI(Connector *connector, const QPoint &pos);
 
 protected:
 	virtual void draw(QPainter &p);

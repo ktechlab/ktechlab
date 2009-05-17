@@ -54,7 +54,7 @@ void CanvasTip::displayVI(ECNode *node, const QPoint &pos) {
 	display(pos);
 }
 
-void CanvasTip::displayVI(ElectronicConnector *connector, const QPoint &pos) {
+void CanvasTip::displayVI(Connector *connector, const QPoint &pos) {
 	if (!connector || !updateVI())
 		return;
 

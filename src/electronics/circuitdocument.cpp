@@ -72,7 +72,7 @@ void CircuitDocument::slotInitItemActions() {
 	if (!KTechlab::self() || !activeCircuitView) return;
 
 	Component *item = dynamic_cast<Component*>(m_selectList->activeItem());
-	if (!item && m_selectList->count() > 0 || !m_selectList->itemsAreSameType())
+	if ((!item && m_selectList->count() > 0) || !m_selectList->itemsAreSameType())
 		return;
 
 	KAction * orientation_actions[] = {
@@ -214,17 +214,13 @@ void CircuitDocument::fillContextMenu(const QPoint &pos) {
 
 	Component *item = dynamic_cast<Component*>(selectList()->activeItem());
 
-	// NOTE: I negated this whole condition because I couldn't make out quite what the
-	//logic was --electronerd
-	if (!(!item && m_selectList->count() > 0 || !m_selectList->itemsAreSameType())) {
-		KAction * orientation_actions[] = {
+	if (item || (m_selectList->count() > 1 && m_selectList->itemsAreSameType())) {
+		KAction *orientation_actions[] = {
 			activeCircuitView->action("edit_orientation_0"),
 			activeCircuitView->action("edit_orientation_90"),
 			activeCircuitView->action("edit_orientation_180"),
 			activeCircuitView->action("edit_orientation_270")
 		};
-
-		if (!item) return;
 
 		for (unsigned i = 0; i < 4; ++ i) {
 			m_pOrientationAction->remove(orientation_actions[i]);

@@ -11,6 +11,8 @@
 #ifndef CNITEM_H
 #define CNITEM_H
 
+#include <set>
+
 #include "item.h"
 #include "ciwidgetmgr.h"
 
@@ -51,7 +53,7 @@ public:
 
 typedef QMap<QString, QString> StringMap;
 typedef QMap<QString, NodeInfo> NodeInfoMap; // Internal id, node info
-typedef QValueList<Connector *> ConnectorList;
+typedef std::set<Connector *> ConnectorList;
 typedef QMap<QString, Text *> TextMap;
 
 /**

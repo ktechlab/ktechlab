@@ -105,7 +105,7 @@ public:
 	/**
 	 * Removes all the NULL connectors
 	 */
-	void removeNullConnectors();
+//	void removeNullConnectors();
 
 
 	/**
