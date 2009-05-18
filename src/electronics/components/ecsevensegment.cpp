@@ -54,8 +54,8 @@ ECSevenSegment::ECSevenSegment(ICNDocument *icnDocument, bool newItem, const cha
 	property("diode-polarity")->setValue("Common Cathode");
 
 	for (int i = 0; i < 8; i++) {
-		m_diodes[i] = 0L;
-		m_nodes[i] = 0L;
+		m_diodes[i] = 0;
+		m_nodes[i] = 0;
 		avg_brightness[i] = 0.;
 		last_brightness[i] = 255;
 	}
@@ -94,12 +94,9 @@ void ECSevenSegment::dataChanged() {
 			removeElement(m_diodes[i], false);
 
 			if (commonCathode) {
-//				m_diodes[i] = createDiode(m_nodes[i]->pin(), m_nNode->pin());
 				m_diodes[i] = new Diode();
 				setup2pinElement(m_diodes[i], m_nodes[i]->pin(), m_nNode->pin());
-
 			} else {
-//				m_diodes[i] = createDiode(m_nNode->pin(), m_nodes[i]->pin());
 				m_diodes[i] = new Diode();
 				setup2pinElement(m_diodes[i], m_nNode->pin(), m_nodes[i]->pin());
 			}
@@ -108,12 +105,10 @@ void ECSevenSegment::dataChanged() {
 		removeElement(m_diodes[7], false);
 
 		if (commonCathode) {
-//			m_diodes[7] = createDiode(m_nodes[7]->pin(), m_nNode->pin());
 			m_diodes[7] = new Diode();
 			setup2pinElement(m_diodes[7], m_nodes[7]->pin(), m_nNode->pin());
 
 		} else {
-//			m_diodes[7] = createDiode(m_nNode->pin(), m_nodes[7]->pin());
 			m_diodes[7] = new Diode();
 			setup2pinElement(m_diodes[7], m_nNode->pin(), m_nodes[7]->pin());
 		}
@@ -126,10 +121,10 @@ void ECSevenSegment::stepNonLogic() {
 	if (!m_diodes[0]) return;
 
 	for (int i = 0; i < 8; i++) {
-		avg_brightness[i] += LED::brightness(m_diodes[i]->current()) * LINEAR_UPDATE_PERIOD;
+		avg_brightness[i] += LED::brightness(m_diodes[i]->current());
 	}
 
-	lastUpdatePeriod += LINEAR_UPDATE_PERIOD;
+	lastUpdatePeriod++;
 }
 
 void ECSevenSegment::drawShape(QPainter &p) {
@@ -199,7 +194,7 @@ void ECSevenSegment::drawShape(QPainter &p) {
 	_b = last_brightness[7];
 	p.setBrush(QBrush(QColor(uint(255 - (255 - _b)*(1 - r)), uint(255 - (255 - _b) * (1 - g)), uint(255 - (255 - _b) * (1 - b)))));
 	p.setPen(Qt::NoPen);
-	p.drawPie(x2 + 3, y3 - 2, 3, 3, 0, 16*360);
+	p.drawPie(x2 + 3, y3 - 2, 3, 3, 0, 16 * 360);
 
 	lastUpdatePeriod = 0.;
 

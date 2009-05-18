@@ -18,32 +18,35 @@
 @short Simulates a LED
 @author David Saxton
 */
-class LED : public ECDiode
-{
+
+class LED : public ECDiode {
+
 public:
-	LED( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	LED(ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~LED();
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
+
+	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
 	static LibraryItem *libraryItem();
-	
+
 	/**
 	 * Returns the brightness for the given current, from 255 (off) -> 0 (on)
 	 */
-	static uint brightness( double i );
-	
+	static uint brightness(double i);
+
 	virtual void dataChanged();
 	virtual void stepNonLogic();
-	virtual bool doesStepNonLogic() const { return true; }
-	
+	virtual bool doesStepNonLogic() const {
+		return true;
+	}
+
 private:
-	virtual void drawShape( QPainter &p );
-	
+	virtual void drawShape(QPainter &p);
+
 	double r, g, b;
-	
-	double avg_brightness;
+
+	uint avg_brightness;
 	uint last_brightness;
-	double lastUpdatePeriod;
+	uint lastUpdatePeriod;
 };
 
 #endif
