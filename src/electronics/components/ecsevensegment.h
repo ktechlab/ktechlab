@@ -35,8 +35,8 @@ private:
 	virtual void drawShape( QPainter &p );
 	
 	bool m_bCommonCathode;
-	double lastUpdatePeriod;
-	double avg_brightness[8];
+	uint lastUpdatePeriod;
+	uint avg_brightness[8];
 	uint last_brightness[8];
 	Diode *m_diodes[8];
 	ECNode *m_nodes[8];
