@@ -25,7 +25,7 @@ class Switch;
 class Wire;
 
 typedef std::set<Element*> ElementList;
-typedef std::set<Pin *> PinList;
+typedef std::set<Pin *> PinSet;
 typedef QValueList<Switch*> SwitchList;
 typedef std::set<Wire *> WireList;
 
@@ -157,17 +157,17 @@ public:
 	 * Returns the ids of the pins whose voltages will affect this pin.
 	 * @see void setDependentPins( QStringList ids )
 	 */
-	PinList circuitDependentPins() const { return m_circuitDependentPins; }
+	PinSet circuitDependentPins() const { return m_circuitDependentPins; }
 	/**
 	 * Returns the ids of the pins whose voltages will affect this pin.
 	 * @see void setDependentPins( QStringList ids )
 	 */
-	PinList groundDependentPins() const { return m_groundDependentPins; }
+	PinSet groundDependentPins() const { return m_groundDependentPins; }
 	/**
 	 * This function returns the pins that are directly connected to this pins:
 	 * either at the ends of connected wires, or via switches.
 	 */
-	PinList localConnectedPins() //const
+	PinSet localConnectedPins() //const
 ;
 
 
@@ -230,8 +230,8 @@ protected:
 	int m_eqId;
 	GroundType m_groundType;
 
-	PinList m_circuitDependentPins;
-	PinList m_groundDependentPins; // for circuit partitioning. 
+	PinSet m_circuitDependentPins;
+	PinSet m_groundDependentPins; // for circuit partitioning. 
 
 	ElementList m_elementList;
 

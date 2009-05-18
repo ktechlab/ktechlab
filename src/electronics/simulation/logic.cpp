@@ -34,7 +34,7 @@ LogicIn::LogicIn(LogicConfig config)
 	m_numCNodes = 1;
 	m_bState = false;
 	m_pNextLogic = 0;
-	setLogic(getConfig());
+	check();
 }
 
 LogicIn::~LogicIn() {

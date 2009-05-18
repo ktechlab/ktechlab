@@ -301,11 +301,11 @@ void CircuitDocument::calculateConnectorCurrents() {
 	for (CircuitList::iterator it = m_circuitList.begin(); it != circuitEnd; ++it)
 		(*it)->updateCurrents();
 
-	PinList groundPins;
+	PinSet groundPins;
 
 	// Tell the Pins to reset their calculated currents to zero
-	const PinList::iterator pinEnd = m_pinList.end();
-	for (PinList::iterator it = m_pinList.begin(); it != pinEnd; ++it) {
+	const PinSet::iterator pinEnd = m_pinList.end();
+	for (PinSet::iterator it = m_pinList.begin(); it != pinEnd; ++it) {
 		if (Pin *n = dynamic_cast<Pin*>((Pin*) * it)) {
 			n->resetCurrent();
 			n->setSwitchCurrentsUnknown();
@@ -363,11 +363,11 @@ void CircuitDocument::calculateConnectorCurrents() {
 		/*
 		make the ground pins work. Current engine doesn't treat ground explicitly.
 		*/
-		PinList::iterator groundPinsEnd = groundPins.end();
-		for (PinList::iterator it = groundPins.begin(); it != groundPinsEnd;) {
+		PinSet::iterator groundPinsEnd = groundPins.end();
+		for (PinSet::iterator it = groundPins.begin(); it != groundPinsEnd;) {
 			if ((*it)->calculateCurrentFromWires()) {
 				found = true;
-				PinList::iterator oldIt = it;
+				PinSet::iterator oldIt = it;
 				++it;
 				groundPins.erase(oldIt);
 			} else ++it;
@@ -409,15 +409,15 @@ void CircuitDocument::assignCircuits() {
 			m_wireList.insert((*it)->wire(i));
 	}
 
-	typedef QValueList<PinList> PinListList;
+	typedef QValueList<PinSet> PinSetList;
 
 	// Stage 1: Partition the circuit up into dependent areas (bar splitting
 	// at ground pins)
-	PinList unassignedPins = m_pinList;
-	PinListList pinListList;
+	PinSet unassignedPins = m_pinList;
+	PinSetList pinListList;
 
 	while (!unassignedPins.empty()) {
-		PinList pinList;
+		PinSet pinList;
 		getPartition(*unassignedPins.begin(), &pinList, &unassignedPins);
 		pinListList.append(pinList);
 	}
@@ -425,8 +425,8 @@ void CircuitDocument::assignCircuits() {
 // 	kdDebug () << "pinListList.size()="<<pinListList.size()<<endl;
 
 	// Stage 2: Split up each partition into circuits by ground pins
-	const PinListList::iterator nllEnd = pinListList.end();
-	for (PinListList::iterator it = pinListList.begin(); it != nllEnd; ++it)
+	const PinSetList::iterator nllEnd = pinListList.end();
+	for (PinSetList::iterator it = pinListList.begin(); it != nllEnd; ++it)
 		splitIntoCircuits(&*it);
 
 	// Stage 3: Initialize the circuits
@@ -465,7 +465,7 @@ void CircuitDocument::assignCircuits() {
 	}
 }
 
-void CircuitDocument::getPartition(Pin *pin, PinList *pinList, PinList *unassignedPins, bool onlyGroundDependent) {
+void CircuitDocument::getPartition(Pin *pin, PinSet *pinList, PinSet *unassignedPins, bool onlyGroundDependent) {
 	if (!pin) return;
 
 assert(pin != (Pin *)0x40);
@@ -474,44 +474,44 @@ assert(pin != (Pin *)0x40);
 
 	if(!pinList->insert(pin).second) return;
 
-	const PinList localConnectedPins = pin->localConnectedPins();
-	const PinList::const_iterator end = localConnectedPins.end();
-	for (PinList::const_iterator it = localConnectedPins.begin(); it != end; ++it)
+	const PinSet localConnectedPins = pin->localConnectedPins();
+	const PinSet::const_iterator end = localConnectedPins.end();
+	for (PinSet::const_iterator it = localConnectedPins.begin(); it != end; ++it)
 		getPartition(*it, pinList, unassignedPins, onlyGroundDependent);
 
-	const PinList groundDependentPins = pin->groundDependentPins();
-	const PinList::const_iterator dEnd = groundDependentPins.end();
-	for (PinList::const_iterator it = groundDependentPins.begin(); it != dEnd; ++it)
+	const PinSet groundDependentPins = pin->groundDependentPins();
+	const PinSet::const_iterator dEnd = groundDependentPins.end();
+	for (PinSet::const_iterator it = groundDependentPins.begin(); it != dEnd; ++it)
 		getPartition(*it, pinList, unassignedPins, onlyGroundDependent);
 
 	if (!onlyGroundDependent) {
-		PinList circuitDependentPins = pin->circuitDependentPins();
-		const PinList::const_iterator dEnd = circuitDependentPins.end();
+		PinSet circuitDependentPins = pin->circuitDependentPins();
+		const PinSet::const_iterator dEnd = circuitDependentPins.end();
 
-		for (PinList::const_iterator it = circuitDependentPins.begin(); it != dEnd; ++it)
+		for (PinSet::const_iterator it = circuitDependentPins.begin(); it != dEnd; ++it)
 			getPartition(*it, pinList, unassignedPins, onlyGroundDependent);
 	}
 }
 
-void CircuitDocument::splitIntoCircuits(PinList *pinList) {
+void CircuitDocument::splitIntoCircuits(PinSet *pinList) {
 	// First: identify ground
-	PinList unassignedPins = *pinList;
-	typedef QValueList<PinList> PinListList;
-	PinListList pinListList;
+	PinSet unassignedPins = *pinList;
+	typedef QValueList<PinSet> PinSetList;
+	PinSetList pinListList;
 
 	while (!unassignedPins.empty()) {
-		PinList tempPinList;
-		getPartition(*unassignedPins.begin(), &tempPinList, &unassignedPins, true);
-		pinListList.append(tempPinList);
+		PinSet tempPinSet;
+		getPartition(*unassignedPins.begin(), &tempPinSet, &unassignedPins, true);
+		pinListList.append(tempPinSet);
 	}
 
-	const PinListList::iterator nllEnd = pinListList.end();
-	for (PinListList::iterator it = pinListList.begin(); it != nllEnd; ++it)
+	const PinSetList::iterator nllEnd = pinListList.end();
+	for (PinSetList::iterator it = pinListList.begin(); it != nllEnd; ++it)
 		Circuit::identifyGround(*it);
 
 	while (!pinList->empty()) {
-		PinList::iterator end = pinList->end();
-		PinList::iterator it = pinList->begin();
+		PinSet::iterator end = pinList->end();
+		PinSet::iterator it = pinList->begin();
 
 		while (it != end && (*it)->eqId() == -1)
 			++it;
@@ -532,8 +532,8 @@ void CircuitDocument::splitIntoCircuits(PinList *pinList) {
 
 	// Remaining pins are ground; tell them about it
 	// TODO This is a bit hacky....
-	const PinList::iterator end = pinList->end();
-	for (PinList::iterator it = pinList->begin(); it != end; ++it) {
+	const PinSet::iterator end = pinList->end();
+	for (PinSet::iterator it = pinList->begin(); it != end; ++it) {
 		(*it)->setVoltage(0.0);
 
 		ElementList elements = (*it)->elements();
@@ -547,7 +547,7 @@ void CircuitDocument::splitIntoCircuits(PinList *pinList) {
 	}
 }
 
-void CircuitDocument::recursivePinAdd(Pin *pin, Circuitoid *circuitoid, PinList *unassignedPins) {
+void CircuitDocument::recursivePinAdd(Pin *pin, Circuitoid *circuitoid, PinSet *unassignedPins) {
 	if (!pin) return;
 
 	if (pin->eqId() != -1)
@@ -558,22 +558,22 @@ void CircuitDocument::recursivePinAdd(Pin *pin, Circuitoid *circuitoid, PinList 
 	if (pin->eqId() == -1) return;
 
 	{
-		const PinList localConnectedPins = pin->localConnectedPins();
-		const PinList::const_iterator end = localConnectedPins.end();
-		for (PinList::const_iterator it = localConnectedPins.begin(); it != end; ++it)
+		const PinSet localConnectedPins = pin->localConnectedPins();
+		const PinSet::const_iterator end = localConnectedPins.end();
+		for (PinSet::const_iterator it = localConnectedPins.begin(); it != end; ++it)
 			recursivePinAdd(*it, circuitoid, unassignedPins);
 	}
 
 	{
-		const PinList groundDependentPins = pin->groundDependentPins();
-		const PinList::const_iterator gdEnd = groundDependentPins.end();
-		for (PinList::const_iterator it = groundDependentPins.begin(); it != gdEnd; ++it)
+		const PinSet groundDependentPins = pin->groundDependentPins();
+		const PinSet::const_iterator gdEnd = groundDependentPins.end();
+		for (PinSet::const_iterator it = groundDependentPins.begin(); it != gdEnd; ++it)
 			recursivePinAdd(*it, circuitoid, unassignedPins);
 	}
 	{
-		const PinList circuitDependentPins = pin->circuitDependentPins();
-		const PinList::const_iterator cdEnd = circuitDependentPins.end();
-		for (PinList::const_iterator it = circuitDependentPins.begin(); it != cdEnd; ++it)
+		const PinSet circuitDependentPins = pin->circuitDependentPins();
+		const PinSet::const_iterator cdEnd = circuitDependentPins.end();
+		for (PinSet::const_iterator it = circuitDependentPins.begin(); it != cdEnd; ++it)
 			recursivePinAdd(*it, circuitoid, unassignedPins);
 	}
 	{
@@ -590,8 +590,8 @@ bool CircuitDocument::tryAsLogicCircuit(Circuitoid *circuitoid) {
 	if (circuitoid->numElements() == 0) {
 		// This doesn't quite belong here...but whatever. Initialize all
 		// pins to voltage zero as they won't get set to zero otherwise
-		const PinList::const_iterator pinListEnd = circuitoid->getPinsEnd();
-		for (PinList::const_iterator it = circuitoid->getPinsBegin(); it != pinListEnd; ++it)
+		const PinSet::const_iterator pinListEnd = circuitoid->getPinsEnd();
+		for (PinSet::const_iterator it = circuitoid->getPinsBegin(); it != pinListEnd; ++it)
 			(*it)->setVoltage(0.0);
 
 		// A logic circuit only requires there to be no non-logic components,
@@ -616,13 +616,14 @@ bool CircuitDocument::tryAsLogicCircuit(Circuitoid *circuitoid) {
 	}
 
 	if (logicOutCount > 1) return false;
-	else if (logicOutCount == 1)
-		Simulator::self()->createLogicChain(out, logicInList, circuitoid->getPinList());
-	else {
+	else if (logicOutCount == 1) {
+		Simulator::self()->createLogicChain(out, logicInList);
+		out->pinList = circuitoid->getPinSet();
+	} else {
 		// We have ourselves stranded LogicIns...so lets set them all to low
 
-		const PinList::const_iterator pinListEnd = circuitoid->getPinsEnd();
-		for (PinList::const_iterator it = circuitoid->getPinsBegin(); it != pinListEnd; ++it)
+		const PinSet::const_iterator pinListEnd = circuitoid->getPinsEnd();
+		for (PinSet::const_iterator it = circuitoid->getPinsBegin(); it != pinListEnd; ++it)
 			(*it)->setVoltage(0.0);
 
 		for (ElementList::const_iterator it = circuitoid->getElementsBegin(); it != end; ++it) {
@@ -645,8 +646,8 @@ Circuit *CircuitDocument::createCircuit(Circuitoid *circuitoid) {
 
 	Circuit *circuit = new Circuit();
 
-	const PinList::const_iterator nEnd = circuitoid->getPinsEnd();
-	for (PinList::const_iterator it = circuitoid->getPinsBegin(); it != nEnd; ++it)
+	const PinSet::const_iterator nEnd = circuitoid->getPinsEnd();
+	for (PinSet::const_iterator it = circuitoid->getPinsBegin(); it != nEnd; ++it)
 		circuit->addPin(*it);
 
 	const ElementList::const_iterator eEnd = circuitoid->getElementsEnd();
