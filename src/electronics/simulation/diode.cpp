@@ -71,8 +71,8 @@ void Diode::update_dc() {
 
 	tmp = I_new - I_old;
 
-	b_i(0) -= tmp;
-	b_i(1) += tmp;
+	b_i(0) += tmp;
+	b_i(1) -= tmp;
 
 	g_old = g_new;
 	I_old = I_new;
@@ -88,7 +88,8 @@ void Diode::calc_eq(double *g_new, double *I_new) {
 
 	calcIg(v, I_new, g_new);
 
-	*I_new -= (v * *g_new);
+	*I_new = -*I_new + (v * *g_new);
+
 }
 
 void Diode::calcIg(double V, double *I_D, double *g) const {
