@@ -22,7 +22,7 @@ class Pin;
 class Element;
 class LogicOut;
 
-typedef std::set<Pin *> PinList;
+typedef std::set<Pin *> PinSet;
 typedef std::set<Element*> ElementList;
 typedef std::vector<LogicOut *> logicOutVec;
 
@@ -99,7 +99,7 @@ public:
 	* @returns the number of ground nodes. If all nodes are at or below the
 	* 		gt_never threshold, then this will be zero.
 	*/
-	static int identifyGround(PinList nodeList, int *highest = 0);
+	static int identifyGround(PinSet nodeList, int *highest = 0);
 
 	void setCanAddChanged(bool canAdd) { m_bCanAddChanged = canAdd; }
 	bool canAddChanged() const { return m_bCanAddChanged; }
@@ -117,9 +117,9 @@ protected:
 	/**
 	* Returns true if any of the nodes are ground
 	*/
-	static bool recursivePinAdd(Pin *node, PinList *unassignedNodes, PinList *associated, PinList *nodes);
+	static bool recursivePinAdd(Pin *node, PinSet *unassignedNodes, PinSet *associated, PinSet *nodes);
 
-	PinList m_pinList;
+	PinSet m_pinList;
 	ElementList m_elementList;
 	ElementSet *m_elementSet;
 

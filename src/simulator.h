@@ -89,7 +89,7 @@ public:
 	/**
 	 * Initializes a new logic chain.
 	 */
-	void createLogicChain(LogicOut *logicOut, const LogicInList &logicInList, const PinList &pinList);
+	void createLogicChain(LogicOut *logicOut, const LogicInList &logicInList);
 	/**
 	 * Adds the given LogicOut to the list of changed LogicOuts
 	 */
@@ -110,6 +110,7 @@ public:
 	 * currently marked as changed.
 	 */
 	void removeLogicInReferences(LogicIn *logic);
+//	void removeLogicInReferences(LogicOut *logic);
 	/**
 	 * Adds the given Circuit to the list of changed Circuits
 	 */

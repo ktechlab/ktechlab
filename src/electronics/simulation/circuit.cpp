@@ -22,7 +22,7 @@
 #include "reactive.h"
 #include "wire.h"
 
-typedef std::multimap<int, PinList> PinListMap;
+typedef std::multimap<int, PinSet> PinSetMap;
 
 //BEGIN class Circuit
 Circuit::Circuit() : 
@@ -55,7 +55,7 @@ bool Circuit::contains(Pin *node) {
 }
 
 // static function
-int Circuit::identifyGround(PinList nodeList, int *highest) {
+int Circuit::identifyGround(PinSet nodeList, int *highest) {
 	// What this function does:
 	// We are given a list of pins. First, we divide them into groups of pins
 	// that are directly connected to each other (e.g. through wires or
@@ -74,11 +74,11 @@ int Circuit::identifyGround(PinList nodeList, int *highest) {
 		highest = &temp_highest;
 
 	// Now to give all the Pins ids
-	PinListMap eqs;
+	PinSetMap eqs;
 
 	while (!nodeList.empty()) {
-		PinList associated;
-		PinList nodes;
+		PinSet associated;
+		PinSet nodes;
 		Pin *node = *nodeList.begin();
 		recursivePinAdd(node, &nodeList, &associated, &nodes);
 
@@ -94,12 +94,12 @@ int Circuit::identifyGround(PinList nodeList, int *highest) {
 
 	int numGround = 0; // The number of node groups found with that priority
 
-	const PinListMap::iterator eqsEnd = eqs.end();
-	for (PinListMap::iterator it = eqs.begin(); it != eqsEnd; ++it) {
+	const PinSetMap::iterator eqsEnd = eqs.end();
+	for (PinSetMap::iterator it = eqs.begin(); it != eqsEnd; ++it) {
 		int highPri = Pin::gt_never; // The highest priority found in these group of nodes
-		const PinList::iterator send = it->second.end();
+		const PinSet::iterator send = it->second.end();
 
-		for (PinList::iterator sit = it->second.begin(); sit != send; ++sit) {
+		for (PinSet::iterator sit = it->second.begin(); sit != send; ++sit) {
 			if ((*sit)->groundType() < highPri)
 				highPri = (*sit)->groundType();
 		}
@@ -124,22 +124,22 @@ int Circuit::identifyGround(PinList nodeList, int *highest) {
 	// Now, we can give the nodes their cnode ids, or tell them they are ground
 	bool foundGround = false; // This is only used when we don't have a Always ground node
 
-	for (PinListMap::iterator it = eqs.begin(); it != eqsEnd; ++it) {
+	for (PinSetMap::iterator it = eqs.begin(); it != eqsEnd; ++it) {
 		bool ground = false;
-		const PinList::iterator send = it->second.end();
+		const PinSet::iterator send = it->second.end();
 
-		for (PinList::iterator sit = it->second.begin(); sit != send; ++sit) {
+		for (PinSet::iterator sit = it->second.begin(); sit != send; ++sit) {
 			ground |= (*sit)->groundType() <= (*highest);
 		}
 
 		if (ground && (!foundGround || *highest == Pin::gt_always)) {
-			for (PinList::iterator sit = it->second.begin(); sit != send; ++sit) {
+			for (PinSet::iterator sit = it->second.begin(); sit != send; ++sit) {
 				(*sit)->setEqId(-1);
 			}
 
 			foundGround = true;
 		} else {
-			for (PinList::iterator sit = it->second.begin(); sit != send; ++sit) {
+			for (PinSet::iterator sit = it->second.begin(); sit != send; ++sit) {
 				(*sit)->setEqId(0);
 			}
 		}
@@ -160,12 +160,12 @@ void Circuit::init() {
 
 	// Now to give all the Pins ids
 	unsigned groundCount = 0;
-	PinListMap eqs;
-	PinList unassignedNodes = m_pinList;
+	PinSetMap eqs;
+	PinSet unassignedNodes = m_pinList;
 
 	while (!unassignedNodes.empty()) {
-		PinList associated;
-		PinList nodes;
+		PinSet associated;
+		PinSet nodes;
 		Pin *node = *unassignedNodes.begin();
 
 		if (recursivePinAdd(node, &unassignedNodes, &associated, &nodes)) {
@@ -188,18 +188,18 @@ void Circuit::init() {
 	// Now, we can give the nodes their cnode ids, or tell them they are ground
 	QuickVector *x = m_elementSet->x();
 	int i = 0;
-	const PinListMap::iterator eqsEnd = eqs.end();
+	const PinSetMap::iterator eqsEnd = eqs.end();
 
-	for (PinListMap::iterator it = eqs.begin(); it != eqsEnd; ++it) {
+	for (PinSetMap::iterator it = eqs.begin(); it != eqsEnd; ++it) {
 		bool foundGround = false;
-		const PinList::iterator sEnd = it->second.end();
-		for (PinList::iterator sit = it->second.begin(); sit != sEnd; ++sit)
+		const PinSet::iterator sEnd = it->second.end();
+		for (PinSet::iterator sit = it->second.begin(); sit != sEnd; ++sit)
 			foundGround |= (*sit)->eqId() == -1;
 
 		if (foundGround) continue;
 
 		bool foundEnergyStoragePin = false;
-		for (PinList::iterator sit = it->second.begin(); sit != sEnd; ++sit) {
+		for (PinSet::iterator sit = it->second.begin(); sit != sEnd; ++sit) {
 			(*sit)->setEqId(i);
 
 			bool energyStorage = false;
@@ -356,25 +356,25 @@ void Circuit::createMatrixMap() {
 	m_elementSet->createMatrixMap();
 }
 
-bool Circuit::recursivePinAdd(Pin *node, PinList *unassignedNodes, PinList *associated, PinList *nodes) {
+bool Circuit::recursivePinAdd(Pin *node, PinSet *unassignedNodes, PinSet *associated, PinSet *nodes) {
 	if (unassignedNodes->find(node) == unassignedNodes->end())
 		return false;
 
 	unassignedNodes->erase(node);
 	bool foundGround = node->eqId() == -1;
 
-	const PinList circuitDependentPins = node->circuitDependentPins();
-	const PinList::const_iterator dEnd = circuitDependentPins.end();
-	for (PinList::const_iterator it = circuitDependentPins.begin(); it != dEnd; ++it) {
+	const PinSet circuitDependentPins = node->circuitDependentPins();
+	const PinSet::const_iterator dEnd = circuitDependentPins.end();
+	for (PinSet::const_iterator it = circuitDependentPins.begin(); it != dEnd; ++it) {
 //		if (!associated->contains(*it))
 		associated->insert(*it);
 	}
 
 	nodes->insert(node);
 
-	const PinList localConnectedPins = node->localConnectedPins();
-	const PinList::const_iterator end = localConnectedPins.end();
-	for (PinList::const_iterator it = localConnectedPins.begin(); it != end; ++it)
+	const PinSet localConnectedPins = node->localConnectedPins();
+	const PinSet::const_iterator end = localConnectedPins.end();
+	for (PinSet::const_iterator it = localConnectedPins.begin(); it != end; ++it)
 		foundGround |= recursivePinAdd(*it, unassignedNodes, associated, nodes);
 
 	return foundGround;
@@ -420,8 +420,8 @@ void Circuit::stepReactive() {
 void Circuit::updateNodalVoltages() {
 	CNode **_cnodes = m_elementSet->cnodes();
 
-	const PinList::iterator endIt = m_pinList.end();
-	for (PinList::iterator it = m_pinList.begin(); it != endIt; ++it) {
+	const PinSet::iterator endIt = m_pinList.end();
+	for (PinSet::iterator it = m_pinList.begin(); it != endIt; ++it) {
 		Pin * const node = *it;
 		int i = node->eqId();
 

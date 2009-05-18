@@ -148,7 +148,7 @@ void Simulator::step() {
 					changed->setNextChanged(0, prevChain);
 
 					double v = changed->isHigh() ? changed->outputHighVoltage() : 0.0;
-					for (PinList::iterator it = changed->pinList.begin(); it != changed->pinList.end(); ++it) {
+					for (PinSet::iterator it = changed->pinList.begin(); it != changed->pinList.end(); ++it) {
 						if (Pin *pin = *it)
 							pin->setVoltage(v);
 					}
@@ -175,13 +175,13 @@ void Simulator::slotSetSimulating(bool simulate) {
 	emit simulatingStateChanged(simulate);
 }
 
-void Simulator::createLogicChain(LogicOut *logicOut, const LogicInList &logicInList, const PinList &pinList) {
-	if (!logicOut) return;
+void Simulator::createLogicChain(LogicOut *logicOut, const LogicInList &logicInList) {
+	assert(logicOut);
 
 	bool state = logicOut->isHigh();
 
 	logicOut->setUseLogicChain(true);
-	logicOut->pinList = pinList;
+//	logicOut->pinList = pinList;
 
 	LogicIn *last = logicOut;
 
@@ -262,7 +262,6 @@ void Simulator::removeLogicInReferences(LogicIn *logicIn) {
 	if (!logicIn) return;
 
 	QValueList<LogicOut*>::iterator end = m_logicChainStarts.end();
-
 	for (QValueList<LogicOut*>::iterator it = m_logicChainStarts.begin(); it != end; ++it) {
 		LogicIn *logicCallback = *it;
 
