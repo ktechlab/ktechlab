@@ -18,7 +18,7 @@
 class Pin;
 class Simulator;
 
-typedef std::set<Pin *> PinList;
+typedef std::set<Pin *> PinSet;
 
 class LogicConfig {
 
@@ -195,7 +195,7 @@ void setCanAddChanged(bool canAdd) {
 
 
 // FIXME RED ALERT: THESE ARE ONLY ACCESSED BY SIMULATOR!!!
-	PinList pinList;
+	PinSet pinList;
 
 protected:
 	void configChanged();

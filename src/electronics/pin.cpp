@@ -28,9 +28,9 @@ Pin::~Pin() {
 		delete(Wire *)(*it);
 }
 
-PinList Pin::localConnectedPins() //const 
+PinSet Pin::localConnectedPins() //const 
 {
-	PinList pins;
+	PinSet pins;
 
 	WireList::iterator end = m_wireList.end();
 	for(WireList::iterator it = m_wireList.begin(); it != end; ++it) {

@@ -11,8 +11,8 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
+#include <list>
 #include <set>
-
 #include <qvaluelist.h>
 
 #include "cnitem.h"
@@ -27,9 +27,10 @@ class Pin;
 class Switch;
 class LogicIn;
 
+typedef std::list<Pin *> PinList;
 typedef std::set<Element*> ElementList;
 typedef QValueList<Switch*> SwitchList;
-typedef QValueList< PinList > PinListList;
+typedef QValueList< PinSet > PinSetList;
 typedef QValueList<ElementMap> ElementMapList;
 
 /**
@@ -261,7 +262,7 @@ private:
 	 * @param it Which pins are inter-dependent needs to be recorded in case
 	 * this information is later needed in rebuildPinInterDependence.
 	 */
-	void setInterDependent(ElementMapList::iterator it, const PinList &pins);
+	void setInterDependent(ElementMapList::iterator it, PinSet &pins);
 
 	/**
 	 * Sets all pins independent of each other.
@@ -272,13 +273,13 @@ private:
 	 * The given pins will affect the simulation of each other. Therefore, they
 	 * will need to be simulated in the same circuit.
 	 */
-	void setInterCircuitDependent(ElementMapList::iterator it, const PinList &pins);
+	void setInterCircuitDependent(ElementMapList::iterator it, PinSet &pins);
 
 	/**
 	 * If any of the given pins are ground, then that will affect whether
 	 * any of the other pins can be ground.
 	 */
-	void setInterGroundDependent(ElementMapList::iterator it, const PinList &pins);
+	void setInterGroundDependent(ElementMapList::iterator it, PinSet &pins);
 
 	/**
 	 * List of ElementMaps; which contain information on the pins associated
