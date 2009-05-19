@@ -39,7 +39,7 @@ void Capacitance::add_initial_dc()
 void Capacitance::updateCurrents()
 {
 	if (!b_status) return;
-	const double r_i = (p_cnode[0]->v - p_cnode[1]->v) * m_scaled_cap;
+	const double r_i = (p_cnode[0]->voltage() - p_cnode[1]->voltage()) * m_scaled_cap;
 	m_cnodeI[0] = -i_eq_old - r_i;
 	m_cnodeI[1] = -m_cnodeI[0];
 }
@@ -48,7 +48,7 @@ void Capacitance::time_step()
 {
 	if (!b_status) return;
 	
-	double v = p_cnode[0]->v - p_cnode[1]->v;
+	double v = p_cnode[0]->voltage() - p_cnode[1]->voltage();
 	double i_eq_new = 0.0, scaled_cap_new = 0.0;
 	
 	if ( m_method == Capacitance::m_euler ) {
