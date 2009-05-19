@@ -89,9 +89,9 @@ void BJT::updateCurrents()
 {
 	if (!b_status) return;
 	
-	double V_B = p_cnode[0]->v;
-	double V_C = p_cnode[1]->v;
-	double V_E = p_cnode[2]->v;
+	double V_B = p_cnode[0]->voltage();
+	double V_C = p_cnode[1]->voltage();
+	double V_E = p_cnode[2]->voltage();
 	
 	double V_BE = (V_B - V_E) * m_pol;
 	double V_BC = (V_B - V_C) * m_pol;
@@ -124,9 +124,9 @@ void BJT::update_dc()
 
 void BJT::calc_eq()
 {
-	double V_B = p_cnode[0]->v;
-	double V_C = p_cnode[1]->v;
-	double V_E = p_cnode[2]->v;
+	double V_B = p_cnode[0]->voltage();
+	double V_C = p_cnode[1]->voltage();
+	double V_E = p_cnode[2]->voltage();
 	
 	double V_BE = (V_B - V_E) * m_pol;
 	double V_BC = (V_B - V_C) * m_pol;
