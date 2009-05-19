@@ -11,20 +11,16 @@
 #include "matrix.h"
 
 #include <kdebug.h>
-
 #include <cassert>
-
 #include <cmath>
 #include <iostream>
-#include <vector>
 
 /// Minimum value before an entry is deemed "zero"
 const double epsilon = 1e-50;
 
-Matrix::Matrix(CUI n, CUI m)
-	: m_n(n), max_k(0)
+Matrix::Matrix(CUI size)
+	: max_k(0)
 {
-	unsigned int size = m_n + m;
 
 	m_mat = new QuickMatrix(size);
 	m_lu  = new QuickMatrix(size);

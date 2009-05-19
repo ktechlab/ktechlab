@@ -9,10 +9,10 @@ SUBDIRS =
 
 noinst_LTLIBRARIES = libtechmath.la
 
-libtechmath_la_SOURCES = qvector.cpp qmatrix.cpp
+libtechmath_la_SOURCES = matrix.cpp qmatrix.cpp qvector.cpp
 
 libtechmath_la_LIBADD =
 
 
-noinst_HEADERS = qvector.h qmatrix.h
+noinst_HEADERS = matrix.h qmatrix.h qvector.h
 libtechmath_la_LDFLAGS = -no-undefined

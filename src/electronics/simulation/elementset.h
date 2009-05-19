@@ -13,7 +13,7 @@
 
 #include <set>
 #include <cassert>
-#include "matrix.h"
+#include "math/matrix.h"
 
 class CBranch;
 class Circuit;
@@ -68,10 +68,10 @@ public:
 	void setCacheInvalidated();
 
 	inline bool AChanged() const { return p_A->isChanged();    }
-	inline double &Ag(CUI i, CUI j) { return p_A->g(i,j); }
-	inline double &Ab(CUI i, CUI j) { return p_A->b(i,j); }	
-	inline double &Ac(CUI i, CUI j) { return p_A->c(i,j); }
-	inline double &Ad(CUI i, CUI j) { return p_A->d(i,j); }
+	inline double &Ag(CUI i, CUI j) { return p_A->g(i, j); }
+	inline double &Ab(CUI i, CUI j) { return p_A->g(i, j + m_cn); }	
+	inline double &Ac(CUI i, CUI j) { return p_A->g(i + m_cn, j); }
+	inline double &Ad(CUI i, CUI j) { return p_A->g(i + m_cn, j + m_cn); }
 
 	inline bool bChanged() const { return p_b->isChanged();    }
 	inline void bUnchanged() const {      p_b->setUnchanged(); }
