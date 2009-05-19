@@ -12,6 +12,7 @@
 #define ELEMENTSET_H
 
 #include <set>
+#include <cassert>
 
 class CBranch;
 class Circuit;
@@ -105,13 +106,9 @@ public:
 	 * @returns true if anything changed
 	 */
 	bool doLinear(bool performLU);
-	CBranch **cbranches() const {
-		return m_cbranches;
-	}
 
-	CNode **cnodes() const {
-		return m_cnodes;
-	}
+	inline CBranch *cBranch(unsigned int i) { assert(i < m_cb); return m_cbranches[i]; }
+	inline CNode *cNode(    unsigned int i) { assert(i < m_cn); return m_cnodes[i];    }
 
 	CNode *ground() const {
 		return m_ground;
