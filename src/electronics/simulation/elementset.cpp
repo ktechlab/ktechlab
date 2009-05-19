@@ -50,7 +50,7 @@ ElementSet::ElementSet(Circuit *circuit, const int n, const int m)
 
 	m_ground = new CNode();
 
-	m_ground->isGround = true;
+	m_ground->setGround();
 	b_containsNonLinear = false;
 }
 
@@ -68,7 +68,7 @@ ElementSet::~ElementSet() {
 
 	delete[] m_cbranches;
 	delete[] m_cnodes;
-	delete[] p_logicIn;
+	if(p_logicIn) delete[] p_logicIn;
 	delete m_ground;
 
 	if (p_A) delete p_A;
@@ -111,6 +111,7 @@ void ElementSet::createMatrixMap() {
 			m_clogic++;
 	}
 
+	if(p_logicIn) delete[] p_logicIn;
 	p_logicIn = new LogicIn*[m_clogic];
 
 	int i = 0;
@@ -197,10 +198,10 @@ void ElementSet::updateInfo() {
 		const double v = (*p_x)[i];
 
 		if (std::isfinite(v)) {
-			m_cnodes[i]->v = v;
+			m_cnodes[i]->setVoltage(v);
 		} else {
 			(*p_x)[i] = 0.;
-			m_cnodes[i]->v = 0.;
+			m_cnodes[i]->setVoltage(0);
 		}
 	}
 
@@ -209,12 +210,11 @@ void ElementSet::updateInfo() {
 		const double I = (*p_x)[i + m_cn];
 
 		if (std::isfinite(I)) {
-			m_cbranches[i]->i = I;
+			m_cbranches[i]->setCurrent(I);
 		} else {
 // TODO: More advanced error checking, I think this is where our circuits stall out.
-
 			(*p_x)[i + m_cn] = 0.;
-			m_cbranches[i]->i = 0.;
+			m_cbranches[i]->setCurrent(0);
 		}
 	}
 

@@ -56,10 +56,10 @@ void LogicIn::check() {
 
 	if (m_bState) {
 		// Was high, will still be high unless voltage is less than falling trigger
-		newState = p_cnode[0]->v > m_config.fallingTrigger;
+		newState = p_cnode[0]->voltage() > m_config.fallingTrigger;
 	} else {
 		// Was low, will still be low unless voltage is more than rising trigger
-		newState = p_cnode[0]->v > m_config.risingTrigger;
+		newState = p_cnode[0]->voltage() > m_config.risingTrigger;
 	}
 
 	if (m_pCallbackFunction && (newState != m_bState)) {
@@ -212,7 +212,7 @@ void LogicOut::updateCurrents() {
 	if (!b_status)
 		return;
 
-	m_cnodeI[0] = (m_v_out - p_cnode[0]->v) * m_g_out;
+	m_cnodeI[0] = (m_v_out - p_cnode[0]->voltage()) * m_g_out;
 }
 
 void LogicOut::setHigh(bool high) {

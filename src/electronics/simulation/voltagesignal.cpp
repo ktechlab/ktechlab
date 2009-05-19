@@ -53,7 +53,7 @@ void VoltageSignal::time_step()
 void VoltageSignal::updateCurrents()
 {
 	if (!b_status) return;
-	m_cnodeI[1] = p_cbranch[0]->i;
+	m_cnodeI[1] = p_cbranch[0]->current();
 	m_cnodeI[0] = -m_cnodeI[1];
 }
 

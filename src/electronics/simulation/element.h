@@ -33,19 +33,23 @@ extern double T_K; ///< Temperature in Kelvin
 class CNode
 {
 public:
-	CNode() : v(0.0), isGround(false), m_n(0) {}
-	CNode(const uint32_t n) : v(0.0), isGround(false), m_n(n) {}
+	CNode() : v(0.0), m_isGround(false), m_n(0) {}
+	CNode(const uint32_t n) : v(0.0), m_isGround(false), m_n(n) {}
 	inline void set_n(const uint32_t n) { m_n = n; }
 	inline uint32_t n() const { return m_n; }
+	inline bool isGround() const { return m_isGround; }
+	inline double voltage() const { return v; }
 
+	inline void setVoltage(double volts) { if(!m_isGround) v = volts; }
+
+	void setGround(); 
+
+private:
 	/// Voltage on node. This is set from the last calculated voltage.
 	double v;
 
 	/// True for ground nodes. Obviously, you should ignore n and v if this is true
-	bool isGround;
-
-private:
-
+	bool m_isGround;
 	/// CNode number
 	uint32_t m_n;
 };
@@ -55,13 +59,15 @@ class CBranch
 public:
 	CBranch() : i(0.0), m_n(0) {}
 	CBranch(const uint32_t n) : i(0.0), m_n(n) {}
-	void set_n(const uint32_t n) { m_n = n; }
-	uint32_t n() const { return m_n; }
+	inline void set_n(const uint32_t n) { m_n = n; }
+	inline uint32_t n() const { return m_n; }
+	inline double current() const { return i; }
+	inline void setCurrent(double current) { i = current; }
 
+private:
 	/// Current flowing through branch. This is set from the last calculated current.
 	double i;
 
-private:
 	/// CBranch number
 	uint32_t m_n;
 };
@@ -247,19 +253,19 @@ private:
 // kachegrind reports that it is between 1.2- 3.2% of the total runtime.
 double &Element::A_g(uint32_t i, uint32_t j)
 {
-	if(p_cnode[i]->isGround || p_cnode[j]->isGround) return m_temp;
+	if(p_cnode[i]->isGround() || p_cnode[j]->isGround()) return m_temp;
 	return p_eSet->matrix()->g(p_cnode[i]->n(), p_cnode[j]->n());
 }
 
 double &Element::A_b(uint32_t i, uint32_t j)
 {
-	if(p_cnode[i]->isGround) return m_temp;
+	if(p_cnode[i]->isGround()) return m_temp;
 	return p_eSet->matrix()->b(p_cnode[i]->n(), p_cbranch[j]->n());
 }
 
 double &Element::A_c(uint32_t i, uint32_t j)
 {
-	if(p_cnode[j]->isGround) return m_temp;
+	if(p_cnode[j]->isGround()) return m_temp;
 	return p_eSet->matrix()->c(p_cbranch[i]->n(), p_cnode[j]->n());
 }
 
@@ -270,7 +276,7 @@ double &Element::A_d(uint32_t i, uint32_t j)
 
 double &Element::b_i(uint32_t i)
 {
-	if(p_cnode[i]->isGround) return m_temp;
+	if(p_cnode[i]->isGround()) return m_temp;
 	return (*(p_eSet->b()))[p_cnode[i]->n()];
 }
 
