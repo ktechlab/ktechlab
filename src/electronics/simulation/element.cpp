@@ -19,7 +19,6 @@ double T_K = 300.; ///< Temperature in Kelvin
 void CNode::setGround() {
 	v = 0;
 	m_n = -1;
-	m_isGround = true;
 }
 
 //BEGIN class Element
