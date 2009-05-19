@@ -9,7 +9,6 @@
  ***************************************************************************/
 
 #include "elementset.h"
-#include "matrix.h"
 #include "resistance.h"
 
 // #include <kdebug.h>

@@ -9,7 +9,6 @@
  ***************************************************************************/
 
 #include "elementset.h"
-#include "matrix.h"
 #include "ccvs.h"
 
 CCVS::CCVS( const double gain )

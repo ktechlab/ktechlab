@@ -11,7 +11,6 @@
 #include <vector>
 #include "diode.h"
 #include "elementset.h"
-#include "matrix.h"
 
 #include <cmath>
 

@@ -8,7 +8,6 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "matrix.h"
 #include "voltagesignal.h"
 #include "elementset.h"
 
