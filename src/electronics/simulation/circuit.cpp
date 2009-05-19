@@ -16,7 +16,6 @@
 #include "element.h"
 #include "elementset.h"
 #include "logic.h"
-#include "matrix.h"
 #include "nonlinear.h"
 #include "pin.h"
 #include "reactive.h"

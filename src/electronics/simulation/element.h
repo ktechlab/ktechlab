@@ -14,7 +14,6 @@
 #include <stdint.h>
 
 #include "elementset.h"
-#include "matrix.h"
 #include "physics/physconst.h"
 
 class ElementSet;
