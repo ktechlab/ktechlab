@@ -76,7 +76,7 @@ public:
 		return(*m_mat)[mapped_i][j];
 	}
 
-	double  g(CUI i, CUI j) const { return (*m_mat)[m_inMap[i]][j]; }
+	double  g(CUI i, CUI j) const { return m_mat->at(m_inMap[i], j); }
 
 	/**
 	 * Multiplies this matrix by the Vector rhs, and places the result
