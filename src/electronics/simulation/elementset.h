@@ -69,9 +69,6 @@ public:
 
 	inline bool AChanged() const { return p_A->isChanged();    }
 	inline double &Ag(CUI i, CUI j) { return p_A->g(i, j); }
-	inline double &Ab(CUI i, CUI j) { return p_A->g(i, j + m_cn); }	
-	inline double &Ac(CUI i, CUI j) { return p_A->g(i + m_cn, j); }
-	inline double &Ad(CUI i, CUI j) { return p_A->g(i + m_cn, j + m_cn); }
 
 	inline bool bChanged() const { return p_b->isChanged();    }
 	inline void bUnchanged() const {      p_b->setUnchanged(); }
@@ -145,6 +142,7 @@ private:
 
 	unsigned int m_cn;
 	CNode **m_cnodes; // Pointer to an array of cnodes
+
 	CNode *m_ground;
 
 	unsigned int m_clogic;
