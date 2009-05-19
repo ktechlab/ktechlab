@@ -24,13 +24,13 @@ class VoltageSource;
 class Probe : public Component
 {
 	public:
-		Probe( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		Probe( ICNDocument *icnDocument, bool newItem, const char *id = 0);
 		~Probe();
 	
 	protected:
 		virtual void dataChanged();
 		
-		ProbeData * p_probeData; // As obtained via registering with the oscilloscope
+		ProbeData *p_probeData; // As obtained via registering with the oscilloscope
 		QColor m_color;
 };
 
@@ -40,7 +40,7 @@ class Probe : public Component
 class FloatingProbe : public Probe
 {
 	public:
-		FloatingProbe( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		FloatingProbe( ICNDocument *icnDocument, bool newItem, const char *id = 0);
 		~FloatingProbe();
 	
 		virtual bool doesStepNonLogic() const { return true; }
@@ -49,7 +49,7 @@ class FloatingProbe : public Probe
 		virtual void dataChanged();
 		virtual void drawShape( QPainter &p );
 		
-		FloatingProbeData * m_pFloatingProbeData;
+		FloatingProbeData *m_pFloatingProbeData;
 };
 
 /**
@@ -58,7 +58,7 @@ class FloatingProbe : public Probe
 class VoltageProbe : public FloatingProbe
 {
 	public:
-		VoltageProbe( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		VoltageProbe( ICNDocument *icnDocument, bool newItem, const char *id = 0);
 		~VoltageProbe();
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -67,8 +67,8 @@ class VoltageProbe : public FloatingProbe
 		virtual void stepNonLogic();
 		
 	protected:
-		Pin * m_pPin1;
-		Pin * m_pPin2;
+		Pin *m_pPin1;
+		Pin *m_pPin2;
 };
 
 /**
@@ -77,7 +77,7 @@ class VoltageProbe : public FloatingProbe
 class CurrentProbe : public FloatingProbe
 {
 	public:
-		CurrentProbe( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		CurrentProbe( ICNDocument *icnDocument, bool newItem, const char *id = 0);
 		~CurrentProbe();
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -95,7 +95,7 @@ class CurrentProbe : public FloatingProbe
 class LogicProbe : public CallbackClass, public Probe
 {
 	public:
-		LogicProbe( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		LogicProbe( ICNDocument *icnDocument, bool newItem, const char *id = 0);
 		~LogicProbe();
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
