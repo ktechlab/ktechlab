@@ -22,7 +22,6 @@ Item* ECOpAmp::construct( ItemDocument *itemDocument, bool newItem, const char *
 	return new ECOpAmp( (ICNDocument*)itemDocument, newItem, id );
 }
 
-
 LibraryItem* ECOpAmp::libraryItem()
 {
 	return new LibraryItem(
@@ -33,7 +32,6 @@ LibraryItem* ECOpAmp::libraryItem()
 		LibraryItem::lit_component,
 		ECOpAmp::construct );
 }
-
 
 ECOpAmp::ECOpAmp(ICNDocument *icnDocument, bool newItem, const char *id)
 	: Component(icnDocument, newItem, id ? id : "opamp")
@@ -82,5 +80,4 @@ void ECOpAmp::drawShape(QPainter &p)
 	
 	deinitPainter(p);
 }
-
 
