@@ -418,16 +418,14 @@ void Circuit::stepReactive() {
 }
 
 void Circuit::updateNodalVoltages() {
-	CNode **_cnodes = m_elementSet->cnodes();
-
 	const PinSet::iterator endIt = m_pinList.end();
 	for (PinSet::iterator it = m_pinList.begin(); it != endIt; ++it) {
-		Pin * const node = *it;
+		Pin *const node = *it;
 		int i = node->eqId();
 
 		if (i == -1) node->setVoltage(0.);
 		else {
-			const double v = _cnodes[i]->voltage();
+			const double v = m_elementSet->cNode(i)->voltage();
 			node->setVoltage(std::isfinite(v) ? v : 0.);
 		}
 	}
