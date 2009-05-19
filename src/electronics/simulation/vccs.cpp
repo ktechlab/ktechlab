@@ -66,8 +66,7 @@ void VCCS::updateCurrents()
 		return;
 	
 	m_cnodeI[0] = m_cnodeI[1] = 0.;
-	m_cnodeI[3] = (p_cnode[0]->v-p_cnode[1]->v)*m_g;
+	m_cnodeI[3] = (p_cnode[0]->voltage() - p_cnode[1]->voltage()) * m_g;
 	m_cnodeI[2] = -m_cnodeI[3];
 }
-
 

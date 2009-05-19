@@ -94,9 +94,9 @@ void JFET::updateCurrents()
 {
 	if (!b_status) return;
 	
-	double V_D = p_cnode[PinD]->v;
-	double V_G = p_cnode[PinG]->v;
-	double V_S = p_cnode[PinS]->v;
+	double V_D = p_cnode[PinD]->voltage();
+	double V_G = p_cnode[PinG]->voltage();
+	double V_S = p_cnode[PinS]->voltage();
 
 // absolute voltages mean nothing to us, we can only use relative voltages. 
 	double V_GS = V_G - V_S;
@@ -136,9 +136,9 @@ void JFET::calc_eq()
 {
 	double N = m_jfetSettings.N;
 
-	double V_D = p_cnode[PinD]->v;
-	double V_G = p_cnode[PinG]->v;
-	double V_S = p_cnode[PinS]->v;
+	double V_D = p_cnode[PinD]->voltage();
+	double V_G = p_cnode[PinG]->voltage();
+	double V_S = p_cnode[PinS]->voltage();
 
 	V_GS = diodeVoltage(V_G - V_S, V_GS, N, V_lim);
 	V_GD = diodeVoltage(V_G - V_D, V_GD, N, V_lim);

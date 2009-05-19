@@ -25,7 +25,6 @@ void DiodeSettings::reset() {
 	N = 1.0;
 	V_B = 4.7;
 }
-
 //END class Diode Settings
 
 //BEGIN class Diode
@@ -50,7 +49,7 @@ void Diode::updateCurrents() {
 	if (!b_status) return;
 
 	double I, g;
-	calcIg(p_cnode[0]->v - p_cnode[1]->v, &I, &g);
+	calcIg(p_cnode[0]->voltage() - p_cnode[1]->voltage(), &I, &g);
 
 	m_cnodeI[1] = I;
 	m_cnodeI[0] = -m_cnodeI[1];
@@ -82,7 +81,7 @@ void Diode::calc_eq(double *g_new, double *I_new) {
 //	double N = m_diodeSettings.N;
 //	double V_B = m_diodeSettings.V_B;
 
-	double v = p_cnode[0]->v - p_cnode[1]->v;
+	double v = p_cnode[0]->voltage() - p_cnode[1]->voltage();
 
 	v_prev = v = diodeVoltage(v, v_prev, m_diodeSettings.N, v_lim);
 

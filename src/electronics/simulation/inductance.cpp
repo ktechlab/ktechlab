@@ -48,14 +48,14 @@ void Inductance::updateCurrents()
 {
 	if (!b_status) return;
 
-	m_cnodeI[0] = -(m_cnodeI[1] = p_cbranch[0]->i);
+	m_cnodeI[0] = -(m_cnodeI[1] = p_cbranch[0]->current());
 }
 
 void Inductance::time_step()
 {
 	if (!b_status) return;
 
-	double i = p_cbranch[0]->i;
+	double i = p_cbranch[0]->current();
 	double v_eq_new = 0.0, r_eq_new = 0.0;
 
 	if(m_method == Inductance::m_euler) {

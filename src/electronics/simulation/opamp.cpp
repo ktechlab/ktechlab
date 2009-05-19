@@ -19,7 +19,6 @@ OpAmp::OpAmp()
 	m_numCNodes = 3;
 }
 
-
 OpAmp::~OpAmp()
 {
 }
@@ -39,13 +38,10 @@ void OpAmp::add_initial_dc()
 	A_b( 1, 0 ) = 1;
 }
 
-
 void OpAmp::updateCurrents()
 {
 	if (!b_status) return;
 	m_cnodeI[0] = m_cnodeI[2] = 0.0;
-	m_cnodeI[1] = p_cbranch[0]->i;
+	m_cnodeI[1] = p_cbranch[0]->current();
 }
-
-
 

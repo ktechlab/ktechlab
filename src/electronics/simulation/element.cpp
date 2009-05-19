@@ -23,6 +23,12 @@ double thermal_voltage(double temperature)
 }
 */
 
+void CNode::setGround() {
+	v = 0; 
+	m_n = -1; 
+	m_isGround = true;
+}
+
 //BEGIN class Element
 Element::Element()
 {
@@ -123,7 +129,7 @@ bool Element::updateStatus()
 	// First, set status to false if all nodes in use are ground
 	b_status = false;
 	for(int i = 0; i < m_numCNodes; i++) {
-		b_status |= p_cnode[i] ? !p_cnode[i]->isGround : false;
+		b_status |= p_cnode[i] ? !p_cnode[i]->isGround() : false;
 	}
 	
 	// Set status to false if any of the nodes are not set
@@ -152,13 +158,13 @@ bool Element::updateStatus()
 double Element::cbranchCurrent( const int branch )
 {
 	if ( !b_status || branch<0 || branch>=m_numCBranches ) return 0.;
-	return (*p_cbranch)[branch].i;
+	return (*p_cbranch)[branch].current();
 }
 
 double Element::cnodeVoltage( const int node )
 {
 	if ( !b_status || node<0 || node>=m_numCNodes ) return 0.;
-	return (*p_cnode)[node].v;
+	return (*p_cnode)[node].voltage();
 }
 
 //END class Element
