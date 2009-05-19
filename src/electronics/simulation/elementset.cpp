@@ -27,7 +27,7 @@ ElementSet::ElementSet(Circuit *circuit, const int n, const int m)
 	p_logicIn = 0;
 
 	if (tmp) {
-		p_A = new Matrix(m_cn + m_cb);
+		p_A = new Matrix(tmp);
 		p_b = new QuickVector(tmp);
 		p_x = new QuickVector(tmp);
 	} else {
@@ -36,15 +36,13 @@ ElementSet::ElementSet(Circuit *circuit, const int n, const int m)
 	}
 
 	m_cnodes = new CNode*[m_cn];
-
 	for (uint i = 0; i < m_cn; i++) {
 		m_cnodes[i] = new CNode(i);
 	}
 
 	m_cbranches = new CBranch*[m_cb];
-
 	for (uint i = 0; i < m_cb; i++) {
-		m_cbranches[i] = new CBranch(i);
+		m_cbranches[i] = new CBranch(i + m_cn);
 	}
 
 	m_ground = new CNode();
