@@ -44,7 +44,6 @@ void Probe::dataChanged() {
 
 	setChanged();
 }
-
 //END class Probe
 
 //BEGIN class FloatingProbe
@@ -83,11 +82,9 @@ void FloatingProbe::dataChanged() {
 
 	if (dataString("scaling") == "Linear")
 		m_pFloatingProbeData->setScaling(FloatingProbeData::Linear);
-	else
-		m_pFloatingProbeData->setScaling(FloatingProbeData::Logarithmic);
+	else	m_pFloatingProbeData->setScaling(FloatingProbeData::Logarithmic);
 
 	m_pFloatingProbeData->setUpperAbsValue(dataDouble("upper_abs_value"));
-
 	m_pFloatingProbeData->setLowerAbsValue(dataDouble("lower_abs_value"));
 }
 
@@ -111,7 +108,6 @@ void FloatingProbe::drawShape(QPainter &p) {
 
 	deinitPainter(p);
 }
-
 //END class FloatingProbe
 
 //BEGIN class VoltageProbe
@@ -148,7 +144,6 @@ VoltageProbe::~VoltageProbe() {
 void VoltageProbe::stepNonLogic() {
 	m_pFloatingProbeData->addDataPoint(m_pPin1->voltage() - m_pPin2->voltage());
 }
-
 //END class VoltageProbe
 
 //BEGIN class CurrentProbe
@@ -186,7 +181,6 @@ CurrentProbe::~CurrentProbe() {
 void CurrentProbe::stepNonLogic() {
 	m_pFloatingProbeData->addDataPoint(-m_voltageSource->cbranchCurrent(0));
 }
-
 //END class CurrentProbe
 
 //BEGIN class LogicProbe
@@ -238,7 +232,6 @@ void LogicProbe::drawShape(QPainter &p) {
 	int _y = int(y()) - 8;
 
 	p.drawRect(_x, _y, 32, 16);
-
 	p.setPen(QPen(m_color, 2));
 
 	p.drawLine(_x + 4, _y + 11, _x + 6, _y + 11);
