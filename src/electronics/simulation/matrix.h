@@ -87,10 +87,10 @@ public:
 	double &c(CUI i, CUI j) { return g(i + m_n, j); }
 	double &d(CUI i, CUI j) { return g(i + m_n, j + m_n); }
 
-	double  b(CUI i, CUI j) const { return g(i, j + m_n); }
+/*	double  b(CUI i, CUI j) const { return g(i, j + m_n); }
 	double  c(CUI i, CUI j) const { return g(i + m_n, j); }
 	double  d(CUI i, CUI j) const { return g(i + m_n, j + m_n); }
-
+*/
 	/**
 	 * Multiplies this matrix by the Vector rhs, and places the result
 	 * in the vector pointed to by result. Will fail if wrong size.

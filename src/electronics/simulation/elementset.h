@@ -13,6 +13,7 @@
 
 #include <set>
 #include <cassert>
+#include "matrix.h"
 
 class CBranch;
 class Circuit;
@@ -20,9 +21,7 @@ class CNode;
 class Element;
 class ElementSet;
 class LogicIn;
-class Matrix;
 class NonLinear;
-class QuickVector;  // not exactly sure how these types of declarations work.
 
 typedef std::set<Element*> ElementList;
 typedef std::set<NonLinear*> NonLinearList;
@@ -67,27 +66,22 @@ public:
 
 	void addElement(Element *e);
 	void setCacheInvalidated();
-	/**
-	 * Returns the matrix in use. This is created once on the creation of the ElementSet
-	 * class, and deleted in the destructor, so the pointer returned will never change.
-	 */
-	Matrix *matrix() const {
-		return p_A;
-	}
 
-	/**
-	 * Returns the vector for b (i.e. the independent currents & voltages)
-	 */
-	QuickVector *b() const {
-		return p_b;
-	}
+	inline bool AChanged() const { return p_A->isChanged();    }
+	inline double &Ag(CUI i, CUI j) { return p_A->g(i,j); }
+	inline double &Ab(CUI i, CUI j) { return p_A->b(i,j); }	
+	inline double &Ac(CUI i, CUI j) { return p_A->c(i,j); }
+	inline double &Ad(CUI i, CUI j) { return p_A->d(i,j); }
 
-	/**
-	 * Returns the vector for x (i.e. the currents & voltages at the branches and nodes)
-	 */
-	QuickVector *x() const {
-		return p_x;
-	}
+	inline bool bChanged() const { return p_b->isChanged();    }
+	inline void bUnchanged() const {      p_b->setUnchanged(); }
+	inline double &bValue(unsigned int index) { return (*p_b)[index]; }
+
+	inline void setXLoc(CUI loc, double val) { (*p_x)[loc] = val; }
+	inline double &xValue(unsigned int index) { return (*p_x)[index]; }
+	void loadX(const QuickVector *other);
+	/** special function to cache our x vector, use only for that! */
+	inline QuickVector *xForCache() const { return p_x; }
 
 	/**
 	 * @return if we have any nonlinear elements (e.g. diodes, tranaistors).
@@ -117,16 +111,12 @@ public:
 	/**
 	 * Returns the number of nodes in the circuit (excluding ground 'nodes')
 	 */
-	int cnodeCount() const {
-		return m_cn;
-	}
+	inline unsigned int cnodeCount() const { return m_cn; }
 
 	/**
 	 * Returns the number of voltage sources in the circuit
 	 */
-	int cbranchCount() const {
-		return m_cb;
-	}
+	inline unsigned int cbranchCount() const { return m_cb; }
 
 	void createMatrixMap();
 

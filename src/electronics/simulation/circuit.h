@@ -34,7 +34,7 @@ public:
 	LogicCacheNode *addOrGetHigh();
 	LogicCacheNode *addOrGetLow();
 	QuickVector *getData() const;
-	void setData(const QuickVector *newData);
+	void setData(const ElementSet *newData);
 
 private: 
 	LogicCacheNode *high;

@@ -186,7 +186,7 @@ void Circuit::init() {
 	m_elementSet = new ElementSet(this, cnodeCount, branchCount);
 
 	// Now, we can give the nodes their cnode ids, or tell them they are ground
-	QuickVector *x = m_elementSet->x();
+//	QuickVector *x = m_elementSet->x();
 	int i = 0;
 	const PinSetMap::iterator eqsEnd = eqs.end();
 
@@ -225,12 +225,14 @@ void Circuit::init() {
 			double v = (*sit)->voltage();
 			if (energyStorage && !foundEnergyStoragePin) {
 				foundEnergyStoragePin = true;
-				(*x)[i] = v;
+//				(*x)[i] = v;
+				m_elementSet->setXLoc(i,v);
 				continue;
 			}
 
-			if (std::abs(v) > std::abs((*x)[i]))
-				(*x)[i] = v;
+			if (std::abs(v) > std::abs(m_elementSet->xValue(i)))
+//				(*x)[i] = v;
+				m_elementSet->setXLoc(i,v);
 		}
 		i++;
 	}
@@ -339,8 +341,8 @@ void Circuit::cacheAndUpdate() {
 	}
 
 	QuickVector *data = node->getData();
-	if (data && data->size() == m_elementSet->x()->size()) {
-		(*m_elementSet->x()) = *data;
+	if (data && data->size() == (m_elementSet->cnodeCount() + m_elementSet->cbranchCount())) {
+		m_elementSet->loadX(data);
 		m_elementSet->updateInfo();
 		return;
 	}
@@ -349,7 +351,7 @@ void Circuit::cacheAndUpdate() {
 		m_elementSet->doNonLinear(150, 1e-10, 1e-13);
 	else	m_elementSet->doLinear(true);
 
-	node->setData(m_elementSet->x());
+	node->setData(m_elementSet);
 }
 
 void Circuit::createMatrixMap() {
@@ -386,12 +388,12 @@ void Circuit::doNonLogic() {
 		return;
 
 	if (m_bCanCache) {
-		if (!m_elementSet->b()->isChanged() && !m_elementSet->matrix()->isChanged())
+		if (!m_elementSet->bChanged() && !m_elementSet->AChanged())
 			return;
 
 		cacheAndUpdate();
 		updateNodalVoltages();
-		m_elementSet->b()->setUnchanged();
+		m_elementSet->bUnchanged();
 
 		return;
 	}
@@ -488,8 +490,10 @@ QuickVector *LogicCacheNode::getData() const
 /*!
     \fn LogicCacheNode::setData(QuickVector *newData)
  */
-void LogicCacheNode::setData(const QuickVector *newData)
+void LogicCacheNode::setData(const ElementSet *aSet)
 {
+	const QuickVector *newData = aSet->xForCache();
+
 	if(data) {
 		if(data->size() == newData->size()) {
 			*data = *newData;
