@@ -427,7 +427,7 @@ void Circuit::updateNodalVoltages() {
 
 		if (i == -1) node->setVoltage(0.);
 		else {
-			const double v = _cnodes[i]->v;
+			const double v = _cnodes[i]->voltage();
 			node->setVoltage(std::isfinite(v) ? v : 0.);
 		}
 	}
