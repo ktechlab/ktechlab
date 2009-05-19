@@ -104,10 +104,10 @@ void MOSFET::add_initial_dc() {
 void MOSFET::updateCurrents() {
 	if (!b_status) return;
 
-	double V_D = p_cnode[PinD]->v;
-	double V_G = p_cnode[PinG]->v;
-	double V_S = p_cnode[PinS]->v;
-	double V_B = p_cnode[PinB]->v;
+	double V_D = p_cnode[PinD]->voltage();
+	double V_G = p_cnode[PinG]->voltage();
+	double V_S = p_cnode[PinS]->voltage();
+	double V_B = p_cnode[PinB]->voltage();
 
 	double V_GS = (V_G - V_S) * m_pol;
 	double V_BS = (V_B - V_S) * m_pol;
@@ -149,10 +149,10 @@ void MOSFET::calc_eq() {
 	double V_GS, V_DS, V_BS;
 
 	{
-		const double V_D = p_cnode[PinD]->v;
-		const double V_G = p_cnode[PinG]->v;
-		const double V_S = p_cnode[PinS]->v;
-		const double V_B = p_cnode[PinB]->v;
+		const double V_D = p_cnode[PinD]->voltage();
+		const double V_G = p_cnode[PinG]->voltage();
+		const double V_S = p_cnode[PinS]->voltage();
+		const double V_B = p_cnode[PinB]->voltage();
 
 // convert useless circuit voltages into component voltages. 
 		V_GS = (V_G - V_S) * m_pol;
