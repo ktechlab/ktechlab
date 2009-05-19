@@ -176,6 +176,12 @@ void ElementSet::doNonLinear(const int maxIterations, const double maxErrorV, co
 	delete p_x_prev;
 }
 
+void ElementSet::loadX(const QuickVector *other) {
+	assert(other->size() == p_x->size());
+	
+	*p_x = *other;
+}
+
 bool ElementSet::doLinear(bool performLU) {
 	if (b_containsNonLinear || (!p_b->isChanged() && ((performLU && !p_A->isChanged()) || !performLU)))
 		return false;

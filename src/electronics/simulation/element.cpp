@@ -91,7 +91,6 @@ void Element::setCNodes(const int n0, const int n1, const int n2, const int n3) 
 	}
 
 	p_cnode[0] = (n0 > -1) ? p_eSet->cNode(n0) :
-
 	             (n0 == -1 ? p_eSet->ground() : 0);
 	p_cnode[1] = (n1 > -1) ? p_eSet->cNode(n1) :
 	             (n1 == -1 ? p_eSet->ground() : 0);
@@ -158,6 +157,5 @@ double Element::cnodeVoltage(const int node) {
 
 	return (*p_cnode)[node].voltage();
 }
-
 //END class Element
 

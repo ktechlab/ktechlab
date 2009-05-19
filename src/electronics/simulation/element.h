@@ -254,35 +254,37 @@ private:
 double &Element::A_g(uint32_t i, uint32_t j)
 {
 	if(p_cnode[i]->isGround() || p_cnode[j]->isGround()) return m_temp;
-	return p_eSet->matrix()->g(p_cnode[i]->n(), p_cnode[j]->n());
+	return p_eSet->Ag(p_cnode[i]->n(), p_cnode[j]->n());
 }
 
 double &Element::A_b(uint32_t i, uint32_t j)
 {
 	if(p_cnode[i]->isGround()) return m_temp;
-	return p_eSet->matrix()->b(p_cnode[i]->n(), p_cbranch[j]->n());
+	return p_eSet->Ab(p_cnode[i]->n(), p_cbranch[j]->n());
 }
 
 double &Element::A_c(uint32_t i, uint32_t j)
 {
 	if(p_cnode[j]->isGround()) return m_temp;
-	return p_eSet->matrix()->c(p_cbranch[i]->n(), p_cnode[j]->n());
+	return p_eSet->Ac(p_cbranch[i]->n(), p_cnode[j]->n());
 }
 
 double &Element::A_d(uint32_t i, uint32_t j)
 {
-	return p_eSet->matrix()->d(p_cbranch[i]->n(), p_cbranch[j]->n());
+	return p_eSet->Ad(p_cbranch[i]->n(), p_cbranch[j]->n());
 }
 
 double &Element::b_i(uint32_t i)
 {
 	if(p_cnode[i]->isGround()) return m_temp;
-	return (*(p_eSet->b()))[p_cnode[i]->n()];
+//	return (*(p_eSet->b()))[p_cnode[i]->n()];
+	return p_eSet->bValue(p_cnode[i]->n());
 }
 
 double &Element::b_v(uint32_t i)
 {
-	return (*(p_eSet->b()))[p_eSet->cnodeCount() + p_cbranch[i]->n()];
+//	return (*(p_eSet->b()))[p_eSet->cnodeCount() + p_cbranch[i]->n()];
+	return p_eSet->bValue(p_eSet->cnodeCount() + p_cbranch[i]->n());
 }
 
 #endif
