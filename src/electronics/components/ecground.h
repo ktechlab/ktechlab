@@ -11,13 +11,13 @@
 #ifndef ECGROUND_H
 #define ECGROUND_H
 
-#include "component.h"
+#include "simplecomponent.h"
 
 /**
 @short Fixed voltage source
 @author David Saxton
 */
-class ECGround : public Component
+class ECGround : public SimpleComponent
 {
 public:
 	ECGround( ICNDocument *icnDocument, bool newItem, const char *id = 0L );

@@ -33,7 +33,7 @@ LibraryItem* BusSplitter::libraryItem() {
 const unsigned MAX_BUS_SIZE = 10000;
 
 BusSplitter::BusSplitter(ICNDocument *icnDocument, bool newItem, const char *id)
-		: Component(icnDocument, newItem, id ? id : "Bus") {
+		: SimpleComponent(icnDocument, newItem, id ? id : "Bus") {
 	m_name = i18n("Bus Splitter");
 
 	m_busSize = 0;

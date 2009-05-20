@@ -191,59 +191,6 @@ protected:
 	 */
 	virtual void deinitPainter(QPainter &p);
 
-	/**
-	 * Create 1 pin on the left of the component, placed half way down if h1 is
-	 * -1 - else at the position of h1.
-	 */
-	void init1PinLeft(int h1 = -1);
-
-	/**
-	 * Create 2 pins on the left of the component, either spread out, or at the
-	 * given heights.
-	 */
-	void init2PinLeft(int h1 = -1, int h2 = -1);
-
-	/**
-	 * Create 3 pins on the left of the component, either spread out, or at the
-	 * given heights.
-	 */
-	void init3PinLeft(int h1 = -1, int h2 = -1, int h3 = -1);
-
-	/**
-	 * Create 4 pins on the left of the component, either spread out, or at the
-	 * given heights.
-	 */
-	void init4PinLeft(int h1 = -1, int h2 = -1, int h3 = -1, int h4 = -1);
-
-	/**
-	 * Create 1 pin on the right of the component, placed half way down if h1 is
-	 * -1 - else at the position of h1.
-	 */
-	void init1PinRight(int h1 = -1);
-
-	/**
-	 * Create 2 pins on the right of the component, either spread out, or at the
-	 * given heights.
-	 */
-	void init2PinRight(int h1 = -1, int h2 = -1);
-
-	/**
-	 * Create 3 pins on the right of the component, either spread out, or at the
-	 * given heights.
-	 */
-	void init3PinRight(int h1 = -1, int h2 = -1, int h3 = -1);
-
-	/**
-	 * Create 4 pins on the right of the component, either spread out, or at the
-	 * given heights.
-	 */
-	void init4PinRight(int h1 = -1, int h2 = -1, int h3 = -1, int h4 = -1);
-
-	// Pointers to commonly used nodes
-// TODO: why do we have two sets of these?
-	ECNode *m_pPNode[4];
-	ECNode *m_pNNode[4];
-
 // TODO: only Switch cares about this, so either demote it to a member of class switch or
 // refactor it out alltogether.
 	CircuitDocument *m_pCircuitDocument;

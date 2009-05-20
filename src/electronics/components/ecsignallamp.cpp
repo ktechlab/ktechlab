@@ -42,7 +42,7 @@ LibraryItem* ECSignalLamp::libraryItem()
 }
 
 ECSignalLamp::ECSignalLamp(ICNDocument *icnDocument, bool newItem, const char *id)
-	: Component(icnDocument, newItem, id ? id : "signal_lamp")
+	: SimpleComponent(icnDocument, newItem, id ? id : "signal_lamp")
 {
 	m_name = i18n("Signal Lamp");
 	setSize(-8, -8, 16, 16);
