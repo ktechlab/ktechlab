@@ -11,13 +11,13 @@
 #ifndef PUSHSWITCH_H
 #define PUSHSWITCH_H
 
-#include "component.h"
+#include "simplecomponent.h"
 
 /**
 @short Push-to-Break switch component
 @author David Saxton
 */
-class ECPTBSwitch : public Component
+class ECPTBSwitch : public SimpleComponent
 {
 public:
 	ECPTBSwitch( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
@@ -40,7 +40,7 @@ private:
 @short Push-to-make switch
 @author David Saxton
 */
-class ECPTMSwitch : public Component
+class ECPTMSwitch : public SimpleComponent
 {
 public:
 	ECPTMSwitch( ICNDocument *icnDocument, bool newItem, const char *id = 0L );

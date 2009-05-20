@@ -11,7 +11,7 @@
 #ifndef ECCELL_H
 #define ECCELL_H
 
-#include "component.h"
+#include "simplecomponent.h"
 
 class VoltageSource;
 
@@ -20,7 +20,7 @@ class VoltageSource;
 Simple electrical cell that simulates a PD and internal resistance
 @author David Saxton
 */
-class ECCell : public Component
+class ECCell : public SimpleComponent
 {
 public:
 	ECCell( ICNDocument *icnDocument, bool newItem, const char *id = 0L );

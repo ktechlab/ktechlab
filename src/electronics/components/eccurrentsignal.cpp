@@ -35,7 +35,7 @@ LibraryItem* ECCurrentSignal::libraryItem()
 }
 
 ECCurrentSignal::ECCurrentSignal(ICNDocument *icnDocument, bool newItem, const char *id)
-	: Component(icnDocument, newItem, id ? id : "current_signal")
+	: SimpleComponent(icnDocument, newItem, id ? id : "current_signal")
 {
 	m_name = i18n("Current Signal");
 	setSize(-8, -8, 16, 16);

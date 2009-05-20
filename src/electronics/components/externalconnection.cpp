@@ -31,7 +31,7 @@ LibraryItem* ExternalConnection::libraryItem()
 }
 
 ExternalConnection::ExternalConnection( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, id ? id : "external_connection" )
+	: SimpleComponent( icnDocument, newItem, id ? id : "external_connection" )
 {
 	m_name = i18n("External Connection");
 	setSize( -8, -8, 16, 16 );

@@ -11,7 +11,7 @@
 #ifndef ECCURRENTSIGNAL_H
 #define ECCURRENTSIGNAL_H
 
-#include "component.h"
+#include "simplecomponent.h"
 
 class CurrentSignal;
 
@@ -19,10 +19,10 @@ class CurrentSignal;
 @short Provides a current signal (sinusoidal, square, etc)
 @author David Saxton
 */
-class ECCurrentSignal : public Component
+class ECCurrentSignal : public SimpleComponent
 {
 public:
-	ECCurrentSignal( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECCurrentSignal( ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECCurrentSignal();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

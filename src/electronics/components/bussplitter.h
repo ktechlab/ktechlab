@@ -11,7 +11,7 @@
 #ifndef BUSSPLITTER_H
 #define BUSSPLITTER_H
 
-#include "component.h"
+#include "simplecomponent.h"
 #include <qvaluevector.h>
 
 class Wire;
@@ -19,7 +19,7 @@ class Wire;
 /**
 @author David Saxton
 */
-class BusSplitter : public Component
+class BusSplitter : public SimpleComponent
 {
 	public:
 		BusSplitter(ICNDocument *icnDocument, bool newItem, const char *id = 0);

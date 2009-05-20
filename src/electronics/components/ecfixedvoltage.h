@@ -11,7 +11,7 @@
 #ifndef ECFIXEDVOLTAGE_H
 #define ECFIXEDVOLTAGE_H
 
-#include "component.h"
+#include "simplecomponent.h"
 
 class VoltagePoint;
 
@@ -19,7 +19,7 @@ class VoltagePoint;
 @short Fixed voltage source
 @author David Saxton
 */
-class ECFixedVoltage : public Component
+class ECFixedVoltage : public SimpleComponent
 {
 public:
 	ECFixedVoltage(ICNDocument *icnDocument, bool newItem, const char *id = 0);

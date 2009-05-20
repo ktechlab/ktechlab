@@ -11,7 +11,7 @@
 #ifndef DISCRETELOGIC_H
 #define DISCRETELOGIC_H
 
-#include "component.h"
+#include "simplecomponent.h"
 #include "logic.h"
 
 class Simulator;
@@ -21,7 +21,7 @@ class Simulator;
 @author David Saxton
 */
 
-class Inverter : public CallbackClass, public Component {
+class Inverter : public CallbackClass, public SimpleComponent {
 
 public:
 	Inverter(ICNDocument *icnDocument, bool newItem, const char *id = 0);
@@ -43,7 +43,7 @@ protected:
 @author David Saxton
 */
 
-class Buffer : public CallbackClass, public Component {
+class Buffer : public CallbackClass, public SimpleComponent {
 
 public:
 	Buffer(ICNDocument *icnDocument, bool newItem, const char *id = 0);
@@ -65,7 +65,7 @@ private:
 @author David Saxton
 */
 
-class ECLogicInput : public Component {
+class ECLogicInput : public SimpleComponent {
 
 public:
 	ECLogicInput(ICNDocument *icnDocument, bool newItem, const char *id = 0);
@@ -87,7 +87,7 @@ private:
 @author David Saxton
 */
 
-class ECLogicOutput : public CallbackClass, public Component {
+class ECLogicOutput : public CallbackClass, public SimpleComponent {
 
 public:
 	ECLogicOutput(ICNDocument *icnDocument, bool newItem, const char *id = 0);

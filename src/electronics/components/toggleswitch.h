@@ -11,16 +11,16 @@
 #ifndef TOGGLESWITCH_H
 #define TOGGLESWITCH_H
 
-#include "component.h"
+#include "simplecomponent.h"
 
 /**
 @short Double Pole Double Throw
 @author David Saxton
 */
-class ECDPDT : public Component
+class ECDPDT : public SimpleComponent
 {
 public:
-	ECDPDT( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECDPDT( ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECDPDT();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -43,7 +43,7 @@ private:
 @short Double Pole Single Throw
 @author David Saxton
 */
-class ECDPST : public Component
+class ECDPST : public SimpleComponent
 {
 public:
 	ECDPST( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
@@ -67,7 +67,7 @@ private:
 @short Single Pole Double Throw
 @author David Saxton
 */
-class ECSPDT : public Component
+class ECSPDT : public SimpleComponent
 {
 public:
 	ECSPDT( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
@@ -91,7 +91,7 @@ private:
 @short Single-Pole Single-Throw Switch
 @author David Saxton
 */
-class ECSPST : public Component
+class ECSPST : public SimpleComponent
 {
 public:
 	ECSPST( ICNDocument *icnDocument, bool newItem, const char *id = 0L );

@@ -11,7 +11,7 @@
 #ifndef ECOPAMP_H
 #define ECOPAMP_H
 
-#include "component.h"
+#include "simplecomponent.h"
 
 class OpAmp;
 
@@ -19,7 +19,7 @@ class OpAmp;
 @short Operational Amplifier
 @author David Saxton
 */
-class ECOpAmp : public Component
+class ECOpAmp : public SimpleComponent
 {
 public:
 	ECOpAmp(ICNDocument *icnDocument, bool newItem, const char *id = 0);
