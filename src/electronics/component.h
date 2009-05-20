@@ -122,9 +122,9 @@ public:
 	void setup4pinElement(Element *ele, Pin *a, Pin *b, Pin *c, Pin *d);
 	void setupSpcl4pinElement(Element *ele, Pin *a, Pin *b, Pin *c, Pin *d);
 
-	Switch *createSwitch(Pin *n0, Pin *n1, bool open);
 	ECNode *ecNodeWithID(const QString &ecNodeId);
 
+	Switch *createSwitch(Pin *n0, Pin *n1, bool open);
 	/**
 	 * Safely remove a switch.
 	 */
