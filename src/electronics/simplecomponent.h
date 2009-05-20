@@ -14,6 +14,7 @@
 #define SIMPLECOMPONENT_H
 
 #include "component.h"
+#include "pinnode.h"
 
 class SimpleComponent : public Component {
 public: 
@@ -73,8 +74,8 @@ protected:
 
 	// Pointers to commonly used nodes
 // It simplifies code greatly to have two lists... 
-	ECNode *m_pPNode[4];
-	ECNode *m_pNNode[4];
+	PinNode *m_pPNode[4];
+	PinNode *m_pNNode[4];
 
 };
 

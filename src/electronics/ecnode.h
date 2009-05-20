@@ -25,8 +25,6 @@ typedef QValueVector<Pin*> PinVector;
 /**
 @short Electrical node with voltage / current / etc properties
 
-Seems to be used mostly for bus bundles and other multi-wire connections. 
-
 @author David Saxton
 */
 class ECNode : public Node {
@@ -52,6 +50,7 @@ public:
 	/**
 	 * @return the number of pins in this node.
 	 * @see setNumPins
+		NOTE: only bus wires/junctions have multiple pins! 
 	 */
 	unsigned numPins() const {
 		return m_pins.size();
@@ -125,11 +124,6 @@ public:
 	}
 
 	/**
-	 * Removes all the NULL connectors
-	  */
-//	virtual void removeNullConnectors();
-
-	/**
 	 * Returns the total number of connections to the node. This is the number
 	 * of connectors and the parent
 	 * item connector if it exists and is requested.
@@ -176,7 +170,6 @@ protected:
 	/** If this node has precisely two connectors emerging from it, then this
 	 * function will trace the two connectors until the point where they
 	 * diverge; this point is returned.
-	 * TODO: find a meaning for this function, for an electronic node...
 	 */
 	virtual QPoint findConnectorDivergePoint(bool *found);
 
