@@ -63,7 +63,6 @@ public:
 	void addPin(Pin *node);
 	void addElement(Element *element);
 
-	bool contains(Pin *node);
 	bool containsNonLinear() const { return m_elementSet->containsNonLinear(); }
 
 	void init();
