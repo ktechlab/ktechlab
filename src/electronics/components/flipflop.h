@@ -11,12 +11,12 @@
 #ifndef FLIPFLOP_H
 #define FLIPFLOP_H
 
-#include "component.h"
+#include "simplecomponent.h"
 #include "logic.h"
 
 class Simulator;
 
-class ClockedLogic : public CallbackClass, public Component {
+class ClockedLogic : public CallbackClass, public SimpleComponent {
 public:
 	ClockedLogic(ICNDocument *icnDocument, bool newItem, const char *id);
 
@@ -94,7 +94,7 @@ private:
 @short Boolean Set-Reset Flip-Flop
 @author David Saxton
 */
-class ECSRFlipFlop : public CallbackClass, public Component {
+class ECSRFlipFlop : public CallbackClass, public SimpleComponent {
 // TODO: let user choose between NOR and NAND type.
 
 public:

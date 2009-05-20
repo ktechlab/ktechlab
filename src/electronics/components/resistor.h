@@ -11,7 +11,7 @@
 #ifndef RESISTOR_H
 #define RESISTOR_H
 
-#include "component.h"
+#include "simplecomponent.h"
 
 class Resistance;
 
@@ -19,7 +19,7 @@ class Resistance;
 @short Simple resistor
 @author David Saxton
 */
-class Resistor : public Component
+class Resistor : public SimpleComponent
 {
 	public:
 		Resistor(ICNDocument *icnDocument, bool newItem, const char *id = 0);

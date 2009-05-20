@@ -24,7 +24,7 @@
 
 //BEGIN class Meter
 Meter::Meter( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, id )
+	: SimpleComponent( icnDocument, newItem, id )
 {
 	b_timerStarted = false;
 	m_timeSinceUpdate = 0.;

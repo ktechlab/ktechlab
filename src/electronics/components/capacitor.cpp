@@ -33,7 +33,7 @@ LibraryItem* Capacitor::libraryItem() {
 }
 
 Capacitor::Capacitor(ICNDocument *icnDocument, bool newItem, const char *id)
-		: Component(icnDocument, newItem, id ? id : "capacitor") {
+		: SimpleComponent(icnDocument, newItem, id ? id : "capacitor") {
 	m_name = i18n("Capacitor");
 	setSize(-8, -8, 16, 16);
 

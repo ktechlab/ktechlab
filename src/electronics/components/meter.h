@@ -11,14 +11,14 @@
 #ifndef METER_H
 #define METER_H
 
-#include <component.h>
+#include <simplecomponent.h>
 
 class VoltageSource;
 
 /**
 @author David Saxton
 */
-class Meter : public Component
+class Meter : public SimpleComponent
 {
 public:
 	Meter( ICNDocument *icnDocument, bool newItem, const char *id );

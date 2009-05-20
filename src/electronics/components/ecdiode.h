@@ -11,13 +11,13 @@
 #ifndef ECDIODE_H
 #define ECDIODE_H
 
-#include "component.h"
+#include "simplecomponent.h"
 
 /**
 @short Simple diode
 @author David Saxton
 */
-class ECDiode : public Component
+class ECDiode : public SimpleComponent
 {
 public:
 	ECDiode(ICNDocument *icnDocument, bool newItem, const char *id = 0);

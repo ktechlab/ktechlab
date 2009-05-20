@@ -31,7 +31,7 @@ LibraryItem* Resistor::libraryItem() {
 }
 
 Resistor::Resistor(ICNDocument *icnDocument, bool newItem, const char *id)
-		: Component(icnDocument, newItem, id ? id : "resistor") {
+		: SimpleComponent(icnDocument, newItem, id ? id : "resistor") {
 	m_name = i18n("Resistor");
 	setSize(-16, -8, 32, 16);
 

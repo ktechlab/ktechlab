@@ -36,7 +36,7 @@ LibraryItem* Inverter::libraryItem() {
 }
 
 Inverter::Inverter(ICNDocument *icnDocument, bool newItem, const char *id)
-		: Component(icnDocument, newItem, id ? id : "not") {
+		: SimpleComponent(icnDocument, newItem, id ? id : "not") {
 	m_name = i18n("Inverter");
 	setSize(-8, -8, 16, 16);
 
@@ -93,7 +93,7 @@ LibraryItem* Buffer::libraryItem() {
 }
 
 Buffer::Buffer(ICNDocument *icnDocument, bool newItem, const char *id)
-		: Component(icnDocument, newItem, id ? id : "buffer") {
+		: SimpleComponent(icnDocument, newItem, id ? id : "buffer") {
 	m_name = i18n("Buffer");
 	setSize(-8, -8, 16, 16);
 
@@ -147,7 +147,7 @@ LibraryItem* ECLogicInput::libraryItem() {
 }
 
 ECLogicInput::ECLogicInput(ICNDocument *icnDocument, bool newItem, const char *id)
-		: Component(icnDocument, newItem, (id) ? id : "logic_input") {
+		: SimpleComponent(icnDocument, newItem, (id) ? id : "logic_input") {
 	m_name = i18n("Logic Input");
 	setSize(-8, -8, 16, 16);
 
@@ -203,7 +203,7 @@ LibraryItem* ECLogicOutput::libraryItem() {
 }
 
 ECLogicOutput::ECLogicOutput(ICNDocument *icnDocument, bool newItem, const char *id)
-		: Component(icnDocument, newItem, id ? id : "logic_output") {
+		: SimpleComponent(icnDocument, newItem, id ? id : "logic_output") {
 	m_name = i18n("Logic Output");
 	setSize(-8, -8, 16, 16);
 
