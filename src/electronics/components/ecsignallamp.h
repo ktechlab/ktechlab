@@ -11,7 +11,7 @@
 #ifndef ECSIGNALLAMP_H
 #define ECSIGNALLAMP_H
 
-#include "component.h"
+#include "simplecomponent.h"
 
 class Resistance;
 
@@ -19,7 +19,7 @@ class Resistance;
 @short Signal Lamp - glows when current flows
 @author David Saxton
 */
-class ECSignalLamp : public Component
+class ECSignalLamp : public SimpleComponent
 {
 public:
 	ECSignalLamp( ICNDocument *icnDocument, bool newItem, const char *id = 0);

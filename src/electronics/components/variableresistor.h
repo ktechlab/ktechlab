@@ -10,7 +10,7 @@
 #ifndef VARIABLERESISTOR_H
 #define VARIABLERESISTOR_H
 
-#include <component.h>
+#include "simplecomponent.h"
 
 class Resistance;
 class QSlider;
@@ -19,7 +19,7 @@ class QSlider;
 @author William Hillerby
 */
 
-class VariableResistor : public Component
+class VariableResistor : public SimpleComponent
 {
 	public:
 		VariableResistor( ICNDocument* icnDocument, bool newItem, const QString& id = 0L );

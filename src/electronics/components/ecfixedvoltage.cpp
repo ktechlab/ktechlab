@@ -33,7 +33,7 @@ LibraryItem* ECFixedVoltage::libraryItem()
 }
 
 ECFixedVoltage::ECFixedVoltage(ICNDocument *icnDocument, bool newItem, const char *id)
-	: Component(icnDocument, newItem, id ? id : "fixed_voltage")
+	: SimpleComponent(icnDocument, newItem, id ? id : "fixed_voltage")
 {
 	m_name = i18n("Fixed Voltage");
 	setSize(-8, -8, 16, 16);

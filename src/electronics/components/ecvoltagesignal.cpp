@@ -39,7 +39,7 @@ LibraryItem* ECVoltageSignal::libraryItem()
 }
 
 ECVoltageSignal::ECVoltageSignal(ICNDocument *icnDocument, bool newItem, const char *id)
-	: Component(icnDocument, newItem, id ? id : "voltage_signal")
+	: SimpleComponent(icnDocument, newItem, id ? id : "voltage_signal")
 {
 	m_name = i18n("Voltage Signal");
 	setSize(-8, -8, 16, 16);

@@ -11,14 +11,14 @@
 #ifndef INDUCTOR_H
 #define INDUCTOR_H
 
-#include <component.h>
+#include "simplecomponent.h"
 
 class Inductance;
 
 /**
 @author David Saxton
 */
-class Inductor : public Component
+class Inductor : public SimpleComponent
 {
 	public:
 		Inductor( ICNDocument *icnDocument, bool newItem, const char *id = 0L );

@@ -37,7 +37,7 @@ LibraryItem* ECPTBSwitch::libraryItem()
 }
 
 ECPTBSwitch::ECPTBSwitch( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, (id) ? id : "ptb_switch" )
+	: SimpleComponent( icnDocument, newItem, (id) ? id : "ptb_switch" )
 {
 	m_name = i18n("Push to Break");
 	setSize( -16, -16, 32, 24 );
@@ -127,7 +127,7 @@ LibraryItem* ECPTMSwitch::libraryItem()
 }
 
 ECPTMSwitch::ECPTMSwitch( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, (id) ? id : "ptm_switch" )
+	: SimpleComponent( icnDocument, newItem, (id) ? id : "ptm_switch" )
 {
 	m_name = i18n("Push to Make");
 	setSize( -16, -16, 32, 24 );

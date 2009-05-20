@@ -23,7 +23,7 @@
 
 //BEGIN class Probe
 Probe::Probe(ICNDocument *icnDocument, bool newItem, const char *id)
-		: Component(icnDocument, newItem, id) {
+		: SimpleComponent(icnDocument, newItem, id) {
 	p_probeData = 0;
 	setSize(-16, -8, 32, 16);
 

@@ -11,7 +11,7 @@
 #ifndef CAPACITOR_H
 #define CAPACITOR_H
 
-#include "component.h"
+#include "simplecomponent.h"
 
 class Capacitance;
 class ECNode;
@@ -21,7 +21,7 @@ class ECNode;
 Simple capacitor
 @author David Saxton
 */
-class Capacitor : public Component
+class Capacitor : public SimpleComponent
 {
 public:
 	Capacitor(ICNDocument *icnDocument, bool newItem, const char *id = 0);

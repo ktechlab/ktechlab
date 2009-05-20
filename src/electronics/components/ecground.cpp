@@ -33,7 +33,7 @@ LibraryItem* ECGround::libraryItem()
 }
 
 ECGround::ECGround( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, (id) ? id : "ground" )
+	: SimpleComponent( icnDocument, newItem, (id) ? id : "ground" )
 {
 	m_name = i18n("Ground");
 	setSize( -8, -8, 16, 16 );

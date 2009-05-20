@@ -32,7 +32,7 @@ LibraryItem* Inductor::libraryItem() {
 }
 
 Inductor::Inductor(ICNDocument *icnDocument, bool newItem, const char *id)
-		: Component(icnDocument, newItem, id ? id : "inductor") {
+		: SimpleComponent(icnDocument, newItem, id ? id : "inductor") {
 	m_name = i18n("Inductor");
 	setSize(-16, -8, 32, 16);
 

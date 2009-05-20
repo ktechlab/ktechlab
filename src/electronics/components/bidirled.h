@@ -11,14 +11,14 @@
 #ifndef BIDIRLED_H
 #define BIDIRLED_H
 
-#include <component.h>
+#include "simplecomponent.h"
 
 class Diode;
 
 /**
 @author David Saxton
 */
-class BiDirLED : public Component
+class BiDirLED : public SimpleComponent
 {
 	public:
 		BiDirLED(ICNDocument *icnDocument, bool newItem, const char *id = 0);

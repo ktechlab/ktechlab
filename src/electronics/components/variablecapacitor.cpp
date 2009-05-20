@@ -36,7 +36,7 @@ LibraryItem* VariableCapacitor::libraryItem() {
 }
 
 VariableCapacitor::VariableCapacitor(ICNDocument* icnDocument, bool newItem, const QString& id)
-		: Component(icnDocument, newItem, id ? id : "variable capacitor") {
+		: SimpleComponent(icnDocument, newItem, id ? id : "variable capacitor") {
 	m_name = i18n("Variable Capacitor");
 
 	// Top Left(x,y) from centre point, width, height.
