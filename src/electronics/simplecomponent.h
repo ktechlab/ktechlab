@@ -21,14 +21,6 @@ public:
 
 	~SimpleComponent();
 
-	/**
-	 * @return pointer to the CircuitDocument that we're in.
-	* mainly used to deal with switches and the complexities those introduce in the current code.
-	 */
-	CircuitDocument *circuitDocument() const {
-		return m_pCircuitDocument;
-	}
-
 protected: 
 
 	/**
@@ -84,9 +76,6 @@ protected:
 	ECNode *m_pPNode[4];
 	ECNode *m_pNNode[4];
 
-private: 
-
-	CircuitDocument *m_pCircuitDocument;
 };
 
 #endif 
