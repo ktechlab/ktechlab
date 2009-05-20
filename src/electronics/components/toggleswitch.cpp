@@ -37,7 +37,7 @@ LibraryItem* ECDPDT::libraryItem()
 
 
 ECDPDT::ECDPDT( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, id ? id : "dpdt_toggle" )
+	: SimpleComponent( icnDocument, newItem, id ? id : "dpdt_toggle" )
 {
 	m_name = i18n("DPDT Toggle");
 	setSize( -16, -32, 32, 64 );
@@ -59,7 +59,6 @@ ECDPDT::ECDPDT( ICNDocument *icnDocument, bool newItem, const char *id )
 	v->setValue(5e-3);
 
 	init4PinRight(-24, -8, 8, 24);
-
 	init2PinLeft(-16, 16);
 	
 	m_switch1 = createSwitch(m_pNNode[0]->pin(), m_pPNode[0]->pin(), false);
@@ -139,7 +138,7 @@ LibraryItem* ECDPST::libraryItem()
 }
 
 ECDPST::ECDPST( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, id ? id : "dpst_toggle" )
+	: SimpleComponent( icnDocument, newItem, id ? id : "dpst_toggle" )
 {
 	m_name = i18n("DPST Toggle");
 	setSize( -16, -16, 32, 32 );
@@ -233,7 +232,7 @@ LibraryItem* ECSPDT::libraryItem()
 
 
 ECSPDT::ECSPDT( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, id ? id : "spdt_toggle" )
+	: SimpleComponent( icnDocument, newItem, id ? id : "spdt_toggle" )
 {
 	m_name = i18n("SPDT Toggle");
 	setSize( -16, -16, 32, 32 );
@@ -325,7 +324,7 @@ LibraryItem* ECSPST::libraryItem()
 
 
 ECSPST::ECSPST( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, id ? id : "spst_toggle" )
+	: SimpleComponent( icnDocument, newItem, id ? id : "spst_toggle" )
 {
 	m_name = i18n("SPST Toggle");
 	setSize( -16, -8, 32, 16 );

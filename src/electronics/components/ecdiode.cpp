@@ -33,7 +33,7 @@ LibraryItem* ECDiode::libraryItem()
 }
 
 ECDiode::ECDiode(ICNDocument *icnDocument, bool newItem, const char *id)
-	: Component(icnDocument, newItem, id ? id : "diode")
+	: SimpleComponent(icnDocument, newItem, id ? id : "diode")
 {
 	m_name = i18n("Diode");
 

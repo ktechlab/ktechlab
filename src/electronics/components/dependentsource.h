@@ -11,7 +11,7 @@
 #ifndef DEPENDENTSOURCE_H
 #define DEPENDENTSOURCE_H
 
-#include "component.h"
+#include "simplecomponent.h"
 
 class CCCS;
 class VCCS;
@@ -21,7 +21,7 @@ class VCVS;
 /**
 @author David Saxton
 */
-class DependentSource : public Component
+class DependentSource : public SimpleComponent
 {
 public:
 	DependentSource(ICNDocument *icnDocument, bool newItem, const char *id);

@@ -41,7 +41,7 @@ LibraryItem* ECClockInput::libraryItem() {
 }
 
 ECClockInput::ECClockInput(ICNDocument *icnDocument, bool newItem, const char *id)
-		: Component(icnDocument, newItem, (id) ? id : "clock_input") {
+		: SimpleComponent(icnDocument, newItem, (id) ? id : "clock_input") {
 	m_name = i18n("Clock Input");
 	setSize(-16, -8, 32, 16);
 

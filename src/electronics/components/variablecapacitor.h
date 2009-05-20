@@ -11,7 +11,7 @@
 #ifndef VARIABLECAPACITOR_H
 #define VARIABLECAPACITOR_H
 
-#include "component.h"
+#include "simplecomponent.h"
 
 class Capacitance;
 class QSlider;
@@ -21,7 +21,7 @@ class QSlider;
 @author William Hillerby
 */
 
-class VariableCapacitor : public Component
+class VariableCapacitor : public SimpleComponent
 {
 	public:
     	VariableCapacitor( ICNDocument* icnDocument, bool newItem, const QString& id = 0L );

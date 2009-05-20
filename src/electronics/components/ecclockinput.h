@@ -15,7 +15,7 @@
 
 using namespace std;
 
-#include "component.h"
+#include "simplecomponent.h"
 
 class ComponentCallback;
 class Simulator;
@@ -25,7 +25,7 @@ class LogicOut;
 @short Boolean clock input
 @author David Saxton
 */
-class ECClockInput : public Component
+class ECClockInput : public SimpleComponent
 {
 public:
 	ECClockInput(ICNDocument *icnDocument, bool newItem, const char *id = 0);

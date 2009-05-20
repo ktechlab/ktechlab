@@ -11,7 +11,7 @@
 #ifndef PROBE_H
 #define PROBE_H
 
-#include <component.h>
+#include <simplecomponent.h>
 
 class LogicProbeData;
 class ProbeData;
@@ -21,7 +21,7 @@ class VoltageSource;
 /**
 @author David Saxton
 */
-class Probe : public Component
+class Probe : public SimpleComponent
 {
 	public:
 		Probe( ICNDocument *icnDocument, bool newItem, const char *id = 0);

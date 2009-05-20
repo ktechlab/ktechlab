@@ -34,7 +34,7 @@ LibraryItem* ECOpAmp::libraryItem()
 }
 
 ECOpAmp::ECOpAmp(ICNDocument *icnDocument, bool newItem, const char *id)
-	: Component(icnDocument, newItem, id ? id : "opamp")
+	: SimpleComponent(icnDocument, newItem, id ? id : "opamp")
 {
 	m_name = i18n("Operational Amplifier");
 	
