@@ -56,12 +56,6 @@ void Component::removeItem() {
 }
 
 void Component::removeElements(bool setPinsInterIndependent) {
-	/*
-	const ElementMapList::iterator end = m_elementMapList.end();
-	for (ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it) {
-		(*it).mergeCurrents();
-	}
-	*/
 
 	m_elementMapList.clear();
 
