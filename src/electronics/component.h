@@ -84,7 +84,9 @@ public:
 		return m_pCircuitDocument;
 	}
 
-	void initElements(const uint stage);
+	void initNodes();
+	void initMatrix();
+
 	virtual void finishedCreation();
 	/**
 	 * If reinherit (and use) the stepNonLogic function, then you must also
