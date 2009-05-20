@@ -34,7 +34,7 @@ LibraryItem* BiDirLED::libraryItem() {
 }
 
 BiDirLED::BiDirLED(ICNDocument *icnDocument, bool newItem, const char *id)
-		: Component(icnDocument, newItem, id ? id : "bidir_led") {
+		: SimpleComponent(icnDocument, newItem, id ? id : "bidir_led") {
 	m_name = i18n("Bidirectional LED");
 	m_bDynamicContent = true;
 

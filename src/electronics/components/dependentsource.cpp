@@ -23,7 +23,7 @@
 
 //BEGIN class DependentSource
 DependentSource::DependentSource(ICNDocument *icnDocument, bool newItem, const char *id)
-		: Component(icnDocument, newItem, id) {
+		: SimpleComponent(icnDocument, newItem, id) {
 	setSize(-16, -16, 32, 32);
 
 	init2PinLeft();

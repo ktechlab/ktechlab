@@ -21,7 +21,7 @@
 
 //BEGIN class MultiInputGate
 MultiInputGate::MultiInputGate(ICNDocument *icnDocument, bool newItem, const char *id, const QString &rectangularShapeText, int baseWidth, bool likeOR)
-		: Component(icnDocument, newItem, id) {
+		: SimpleComponent(icnDocument, newItem, id) {
 	m_bLikeOR = likeOR;
 	m_bDoneInit = false;
 	m_numInputs = 0;

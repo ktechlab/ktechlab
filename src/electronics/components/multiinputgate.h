@@ -11,7 +11,7 @@
 #ifndef MULTIINPUTGATE_H
 #define MULTIINPUTGATE_H
 
-#include "component.h"
+#include "simplecomponent.h"
 #include "logic.h"
 
 const int maxGateInput = 256;
@@ -19,7 +19,7 @@ const int maxGateInput = 256;
 /**
 @author David Saxton
 */
-class MultiInputGate : public CallbackClass, public Component {
+class MultiInputGate : public CallbackClass, public SimpleComponent {
 
 public:
 	/**

@@ -22,7 +22,7 @@
 
 //BEGIN class ClockedLogic
 ClockedLogic::ClockedLogic(ICNDocument *icnDocument, bool newItem, const char *id)
-		: Component(icnDocument, newItem, id), m_bPrevClock(false) {
+		: SimpleComponent(icnDocument, newItem, id), m_bPrevClock(false) {
 	createProperty("trig", Variant::Type::Select);
 	property("trig")->setCaption(i18n("Trigger Edge"));
 	QStringMap allowed;
@@ -320,7 +320,7 @@ LibraryItem *ECSRFlipFlop::libraryItem() {
 }
 
 ECSRFlipFlop::ECSRFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id)
-		: Component(icnDocument, newItem, id ? id : "sr_flipflop") {
+		: SimpleComponent(icnDocument, newItem, id ? id : "sr_flipflop") {
 	m_name = i18n("SR Flip-Flop");
 
 	setSize(-24, -24, 48, 48);

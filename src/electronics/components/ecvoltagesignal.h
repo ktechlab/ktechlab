@@ -11,7 +11,7 @@
 #ifndef ECVOLTAGESIGNAL_H
 #define ECVOLTAGESIGNAL_H
 
-#include "component.h"
+#include "simplecomponent.h"
 
 class VoltageSignal;
 
@@ -19,7 +19,7 @@ class VoltageSignal;
 @short Provides an alternating voltage source
 @author David Saxton
 */
-class ECVoltageSignal : public Component
+class ECVoltageSignal : public SimpleComponent
 {
 public:
 	ECVoltageSignal(ICNDocument *icnDocument, bool newItem, const char *id = 0);

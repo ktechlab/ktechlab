@@ -33,7 +33,7 @@ LibraryItem* VariableResistor::libraryItem() {
 }
 
 VariableResistor::VariableResistor(ICNDocument* icnDocument, bool newItem, const QString& id)
-		: Component(icnDocument, newItem, id ? id : "variable resistor") {
+		: SimpleComponent(icnDocument, newItem, id ? id : "variable resistor") {
 	m_name = i18n("Resistor");
 
 	// Top Left(x,y) from centre point, width, height.
