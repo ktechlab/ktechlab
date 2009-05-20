@@ -37,7 +37,7 @@ public:
 	LogicIn *getLogicInOrNull();
 	void putPin(unsigned int slot, Pin *aPin);
 	void setupCNodes();
-	void setupMatrix();
+
 	/// @see Component::setInterCircuitDependent
 	PinSetList interCircuitDependent;
 

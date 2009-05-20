@@ -445,16 +445,9 @@ void CircuitDocument::assignCircuits() {
 
 		m_componentList.insert(component);
 		component->initNodes();
+//		component->initMatrix();
+
 		m_switchList += component->switchList();
-	}
-
-	for (CircuitList::iterator it = m_circuitList.begin(); it != circuitListEnd; ++it)
-		(*it)->createMatrixMap();
-
-	for (ItemMap::const_iterator it = m_itemList.begin(); it != cilEnd; ++it) {
-		Component *component = dynamic_cast<Component*>(*it);
-
-		if (component) component->initMatrix();
 	}
 
 	for (CircuitList::iterator it = m_circuitList.begin(); it != circuitListEnd; ++it) {

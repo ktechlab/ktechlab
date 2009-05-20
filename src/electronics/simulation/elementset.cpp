@@ -24,7 +24,6 @@
 ElementSet::ElementSet(Circuit *circuit, const int n, const int m)
 		:  m_cb(m), m_cn(n), m_pCircuit(circuit) {
 	int tmp = m_cn + m_cb;
-	p_logicIn = 0;
 
 	if (tmp) {
 		p_A = new Matrix(tmp);
@@ -65,7 +64,6 @@ ElementSet::~ElementSet() {
 
 	delete[] m_cbranches;
 	delete[] m_cnodes;
-	if(p_logicIn) delete[] p_logicIn;
 	delete m_ground;
 
 	if (p_A) delete p_A;
@@ -94,29 +92,9 @@ void ElementSet::addElement(Element *e) {
 		b_containsNonLinear = true;
 		m_cnonLinearList.insert(static_cast<NonLinear*>(e));
 	}
-}
 
-void ElementSet::createMatrixMap() {
-// mapping nolonger done, overly ambitious optimization...
-
-	// And do our logic as well...
-
-	m_clogic = 0;
-	ElementList::iterator end = m_elementList.end();
-	for (ElementList::iterator it = m_elementList.begin(); it != end; ++it) {
-		if (dynamic_cast<LogicIn*>(*it))
-			m_clogic++;
-	}
-
-	if(p_logicIn) delete[] p_logicIn;
-	p_logicIn = new LogicIn*[m_clogic];
-
-	int i = 0;
-
-	for (ElementList::iterator it = m_elementList.begin(); it != end; ++it) {
-		if (LogicIn *in = dynamic_cast<LogicIn*>(*it))
-			p_logicIn[i++] = in;
-	}
+	if (LogicIn *in = dynamic_cast<LogicIn*>(e))
+		p_logicIn.insert(in);
 }
 
 void ElementSet::doNonLinear(const int maxIterations, const double maxErrorV, const double maxErrorI) {
@@ -222,8 +200,11 @@ void ElementSet::updateInfo() {
 	}
 
 	// Tell logic to check themselves
-	for (uint i = 0; i < m_clogic; ++i) {
-		p_logicIn[i]->check();
+	{
+	LogicInSet::iterator lend = p_logicIn.end();
+	for (LogicInSet::iterator i = p_logicIn.begin(); i != lend; ++i) {
+		(*i)->check();
+	}
 	}
 }
 
