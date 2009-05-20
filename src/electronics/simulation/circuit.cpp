@@ -125,8 +125,8 @@ int Circuit::identifyGround(PinSet nodeList, int *highest) {
 
 	for (PinSetMap::iterator it = eqs.begin(); it != eqsEnd; ++it) {
 		bool ground = false;
-		const PinSet::iterator send = it->second.end();
 
+		const PinSet::iterator send = it->second.end();
 		for (PinSet::iterator sit = it->second.begin(); sit != send; ++sit) {
 			ground |= (*sit)->groundType() <= (*highest);
 		}
@@ -147,13 +147,12 @@ int Circuit::identifyGround(PinSet nodeList, int *highest) {
 	return numGround;
 }
 
+/// Setup the simulator!!! 
 void Circuit::init() {
 	unsigned branchCount = 0;
 
 	const ElementList::iterator listEnd = m_elementList.end();
 	for (ElementList::iterator it = m_elementList.begin(); it != listEnd; ++it) {
-// WHY ARE WE SEGFAULTING HERE???
-		assert(*it);
 		branchCount += (*it)->numCBranches();
 	}
 
@@ -181,14 +180,14 @@ void Circuit::init() {
 	delete m_pLogicCacheBase;
 	m_pLogicCacheBase = 0;
 
+// ### ##########################################################
 	delete m_elementSet;
 	m_elementSet = new ElementSet(this, cnodeCount, branchCount);
+// ### ##########################################################
 
 	// Now, we can give the nodes their cnode ids, or tell them they are ground
-//	QuickVector *x = m_elementSet->x();
 	int i = 0;
 	const PinSetMap::iterator eqsEnd = eqs.end();
-
 	for (PinSetMap::iterator it = eqs.begin(); it != eqsEnd; ++it) {
 		bool foundGround = false;
 		const PinSet::iterator sEnd = it->second.end();
@@ -224,13 +223,11 @@ void Circuit::init() {
 			double v = (*sit)->voltage();
 			if (energyStorage && !foundEnergyStoragePin) {
 				foundEnergyStoragePin = true;
-//				(*x)[i] = v;
 				m_elementSet->setXLoc(i,v);
 				continue;
 			}
 
 			if (std::abs(v) > std::abs(m_elementSet->xValue(i)))
-//				(*x)[i] = v;
 				m_elementSet->setXLoc(i,v);
 		}
 		i++;
@@ -247,14 +244,12 @@ void Circuit::init() {
 
 	// And give the branch ids to the elements
 	i = 0;
-
 	for (ElementList::iterator it = m_elementList.begin(); it != listEnd; ++it) {
 		switch ((*it)->numCBranches()) {
 		case 0:
 			break;
 		case 1:
-			(*it)->setCBranches(i);
-			i += 1;
+			(*it)->setCBranches(i++);
 			break;
 		case 2:
 			(*it)->setCBranches(i, i + 1);

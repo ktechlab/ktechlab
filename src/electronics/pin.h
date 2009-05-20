@@ -12,10 +12,7 @@
 #define PIN_H
 
 #include <set>
-
 #include <qobject.h>
-#include <qvaluelist.h>
-
 #include "wire.h"
 
 class ECNode;
@@ -26,7 +23,7 @@ class Wire;
 
 typedef std::set<Element*> ElementList;
 typedef std::set<Pin *> PinSet;
-typedef QValueList<Switch*> SwitchList;
+typedef std::set<Switch*> SwitchSet;
 typedef std::set<Wire *> WireList;
 
 /**
@@ -100,7 +97,7 @@ public:
 	 * been merged.
 	 */
 	void setSwitchCurrentsUnknown() {
-		m_switchList.remove(0);
+//		m_switchList.remove(0);
 		m_unknownSwitchCurrents = m_switchList;
 	}
 
@@ -110,14 +107,14 @@ public:
 	 * @see setCurrentKnown
 	 */
 	bool currentIsKnown() const {
-		return m_bCurrentIsKnown && m_unknownSwitchCurrents.isEmpty();
+		return m_bCurrentIsKnown && m_unknownSwitchCurrents.empty();
 	}
 
 	/**
 	 * Tells the Pin that the current from the given switch has been merged.
 	 */
 	void setSwitchCurrentKnown(Switch *sw) {
-		m_unknownSwitchCurrents.remove(sw);
+		m_unknownSwitchCurrents.erase(sw);
 	}
 
 	/**
@@ -237,8 +234,8 @@ protected:
 
 	ECNode *m_pECNode;  /// we *ALWAYS* have an ECNode, and it never changes.
 
-	SwitchList m_switchList;
-	SwitchList m_unknownSwitchCurrents;
+	SwitchSet m_switchList;
+	SwitchSet m_unknownSwitchCurrents;
 
 private: 
 	WireList m_wireList;

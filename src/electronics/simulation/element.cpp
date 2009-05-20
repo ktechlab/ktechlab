@@ -100,10 +100,10 @@ void Element::setCNodes(const int n0, const int n1, const int n2, const int n3) 
 	updateStatus();
 }
 
-void Element::setCBranches(const int b0, const int b1, const int b2, const int b3) {
+void Element::setCBranches(const int b0, const int b1, const int b2) {
 	if (!p_eSet) {
 // 		cerr << "Element::setCBranches: can't set branches without circuit!"<<endl;
-		for (int i = 0; i < 4; i++) p_cbranch[i] = 0;
+		for (int i = 0; i < MAX_CBRANCHES; i++) p_cbranch[i] = 0;
 
 		return;
 	}
@@ -111,14 +111,12 @@ void Element::setCBranches(const int b0, const int b1, const int b2, const int b
 	p_cbranch[0] = (b0 > -1) ? p_eSet->cBranch(b0) : 0;
 	p_cbranch[1] = (b1 > -1) ? p_eSet->cBranch(b1) : 0;
 	p_cbranch[2] = (b2 > -1) ? p_eSet->cBranch(b2) : 0;
-	p_cbranch[3] = (b3 > -1) ? p_eSet->cBranch(b3) : 0;
+//	p_cbranch[3] = (b3 > -1) ? p_eSet->cBranch(b3) : 0;
 	updateStatus();
 }
 
 bool Element::updateStatus() {
 	// First, set status to false if all nodes in use are ground
-	b_status = false;
-
 	for (int i = 0; i < m_numCNodes; i++) {
 		b_status |= p_cnode[i] ? !p_cnode[i]->isGround() : false;
 	}
@@ -136,9 +134,7 @@ bool Element::updateStatus() {
 	// Finally, check for various pointers
 	if (!p_eSet) b_status = false;
 
-	if (!b_status) {
-		resetCurrents();
-	}
+	if (!b_status) resetCurrents();
 
 	// And return the status :-)
 // 	kdDebug() << "Element::updateStatus(): Setting b_status to "<<(b_status?"true":"false")<<" this="<<this<<endl;
