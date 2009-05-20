@@ -33,9 +33,9 @@ class BusSplitter : public SimpleComponent
 		virtual void dataChanged();
 		virtual void drawShape(QPainter &p);
 		
-		unsigned m_busSize;
-		QValueVector<Wire *> m_pWires;
-		ECNode * m_pInNode;
+		unsigned m_busSize;	
+		QValueVector<Wire *> m_pWires; // internal wires! =P
+		ECNode *m_pInNode; // Should be PinNode
 };
 
 #endif

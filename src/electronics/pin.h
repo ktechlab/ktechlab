@@ -97,7 +97,7 @@ public:
 	 * been merged.
 	 */
 	void setSwitchCurrentsUnknown() {
-//		m_switchList.remove(0);
+//		m_bCurrentIsKnown = false;
 		m_unknownSwitchCurrents = m_switchList;
 	}
 
