@@ -558,16 +558,16 @@ void Component::setAllPinsInterIndependent() {
 	}
 }
 
-void Component::initElements(const uint stage) {
+void Component::initMatrix() {
 	const ElementMapList::iterator end = m_elementMapList.end();
 
-	if(stage == 1) {
-		for(ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it) {
-			(*it).setupMatrix();
-		}
-
-		return;
+	for(ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it) {
+		(*it).setupMatrix();
 	}
+}
+
+void Component::initNodes() {
+	const ElementMapList::iterator end = m_elementMapList.end();
 
 	for(ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it) {
 		(*it).setupCNodes();

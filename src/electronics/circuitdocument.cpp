@@ -444,21 +444,19 @@ void CircuitDocument::assignCircuits() {
 		if (!component) continue;
 
 		m_componentList.insert(component);
-		component->initElements(0);
+		component->initNodes();
 		m_switchList += component->switchList();
 	}
 
-//	circuitListEnd = m_circuitList.end();
 	for (CircuitList::iterator it = m_circuitList.begin(); it != circuitListEnd; ++it)
 		(*it)->createMatrixMap();
 
 	for (ItemMap::const_iterator it = m_itemList.begin(); it != cilEnd; ++it) {
 		Component *component = dynamic_cast<Component*>(*it);
 
-		if (component) component->initElements(1);
+		if (component) component->initMatrix();
 	}
 
-//	circuitListEnd = m_circuitList.end();
 	for (CircuitList::iterator it = m_circuitList.begin(); it != circuitListEnd; ++it) {
 		(*it)->initCache();
 		Simulator::self()->attachCircuit(*it);
