@@ -68,13 +68,12 @@ void BusSplitter::dataChanged() {
 		m_pWires.resize(busSize);
 
 		for (unsigned i = m_busSize; i < unsigned(busSize); i++) {
-			Pin * pin = createPin(16, 0, 180, outNodeID(i))->pin();
+			Pin *pin = createPin(16, 0, 180, outNodeID(i))->pin();
 			m_pWires[i] = new Wire(m_pInNode->pin(i), pin);
 		}
 	} else {
 		for (unsigned i = busSize; i < unsigned(m_busSize); i++) {
 			removeNode(outNodeID(i));
-			delete m_pWires[i];
 		}
 
 		m_pWires.resize(busSize);
@@ -83,7 +82,7 @@ void BusSplitter::dataChanged() {
 	m_busSize = busSize;
 
 	// Position pins
-	setSize(0, -int(m_busSize + 1)*8, 8, int(m_busSize + 1)*16, true);
+	setSize(0, -int(m_busSize + 1) * 8, 8, int(m_busSize + 1) * 16, true);
 
 	for (int i = 0; i < int(m_busSize); i++)
 		m_nodeMap[ outNodeID(i)].y = 16 * i - int(m_busSize + 1) * 8 + 24;

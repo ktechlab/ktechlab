@@ -49,10 +49,6 @@ void Circuit::addElement(Element *element) {
 	m_elementList.insert(element);
 }
 
-bool Circuit::contains(Pin *node) {
-	return m_pinList.find(node) != m_pinList.end();
-}
-
 // static function
 int Circuit::identifyGround(PinSet nodeList, int *highest) {
 	// What this function does:
