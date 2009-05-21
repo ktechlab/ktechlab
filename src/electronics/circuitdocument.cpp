@@ -243,7 +243,6 @@ void CircuitDocument::deleteCircuits() {
 	}
 
 	m_circuitList.clear();
-	m_pinList.clear();
 	m_wireList.clear();
 }
 
@@ -297,29 +296,34 @@ void CircuitDocument::componentRemoved(Item *item) {
 /// I think this is where the inf0z from cnodes/branches is moved into the midle-layer
 /// pins/wires.
 void CircuitDocument::calculateConnectorCurrents() {
+
+	PinSet m_pinList;
+
 	const CircuitList::iterator circuitEnd = m_circuitList.end();
-	for (CircuitList::iterator it = m_circuitList.begin(); it != circuitEnd; ++it)
+	for (CircuitList::iterator it = m_circuitList.begin(); it != circuitEnd; ++it) {
 		(*it)->updateCurrents();
+		PinSet *foo = (*it)->getPins();
+		m_pinList.insert(foo->begin(), foo->end());
+	}
 
 	PinSet groundPins;
 
 	// Tell the Pins to reset their calculated currents to zero
 	const PinSet::iterator pinEnd = m_pinList.end();
 	for (PinSet::iterator it = m_pinList.begin(); it != pinEnd; ++it) {
-		if (Pin *n = dynamic_cast<Pin*>((Pin*) * it)) {
-			n->resetCurrent();
-			n->setSwitchCurrentsUnknown();
+		Pin *n = *it;
+		n->resetCurrent();
+		n->setSwitchCurrentsUnknown();
 
-			if (!n->parentECNode()->isChildNode()) {
-				n->setCurrentKnown(true);
-				// (and it has a current of 0 amps)
-			} else if (n->groundType() == Pin::gt_always) {
-				groundPins.insert(n);
-				n->setCurrentKnown(false);
-			} else {
-				// Child node that is non ground
-				n->setCurrentKnown(n->parentECNode()->numPins() < 2);
-			}
+		if (!n->parentECNode()->isChildNode()) {
+			n->setCurrentKnown(true);
+			// (and it has a current of 0 amps)
+		} else if (n->groundType() == Pin::gt_always) {
+			groundPins.insert(n);
+			n->setCurrentKnown(false);
+		} else {
+			// Child node that is non ground
+			n->setCurrentKnown(n->parentECNode()->numPins() < 2);
 		}
 	}
 
@@ -385,18 +389,17 @@ void CircuitDocument::assignCircuits() {
 	m_toSimulateList.clear();
 
 	// Stage 0: Build up pin and wire lists
-	m_pinList.clear();
+	PinSet unassignedPins;
 
 	const ECNodeMap::const_iterator nodeListEnd = m_ecNodeList.end();
 	for (ECNodeMap::const_iterator it = m_ecNodeList.begin(); it != nodeListEnd; ++it) {
-		// if ( ECNode * ecnode = dynamic_cast<ECNode*>(*it) )
-		ECNode* ecnode = it->second;
+		ECNode *ecnode = it->second;
 
 		if(ecnode) {
 			for (unsigned i = 0; i < ecnode->numPins(); i++) {
 				Pin *foo = ecnode->pin(i);
 				assert(foo);
-				m_pinList.insert(foo);
+				unassignedPins.insert(foo);
 			}
 		}
 	}
@@ -413,7 +416,6 @@ void CircuitDocument::assignCircuits() {
 
 	// Stage 1: Partition the circuit up into dependent areas (bar splitting
 	// at ground pins)
-	PinSet unassignedPins = m_pinList;
 	PinSetList pinListList;
 
 	while (!unassignedPins.empty()) {
@@ -445,7 +447,6 @@ void CircuitDocument::assignCircuits() {
 
 		m_componentList.insert(component);
 		component->initNodes();
-//		component->initMatrix();
 
 		m_switchList += component->switchList();
 	}
