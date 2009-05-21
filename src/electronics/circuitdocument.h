@@ -166,7 +166,6 @@ private:
 	ComponentList m_componentList; // List is built up during call to assignCircuits
 
 // hmm, we have one of these in circuit too....
-	PinSet m_pinList;
 	WireList m_wireList;
 	SwitchList m_switchList;
 };
