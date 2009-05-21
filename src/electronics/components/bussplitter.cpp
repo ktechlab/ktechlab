@@ -85,7 +85,7 @@ void BusSplitter::dataChanged() {
 	setSize(0, -int(m_busSize + 1) * 8, 8, int(m_busSize + 1) * 16, true);
 
 	for (int i = 0; i < int(m_busSize); i++)
-		m_nodeMap[ outNodeID(i)].y = 16 * i - int(m_busSize + 1) * 8 + 24;
+		m_nodeMap[outNodeID(i)].y = 16 * i - int(m_busSize + 1) * 8 + 24;
 
 	m_nodeMap["n1"].y = -int(m_busSize + 1) * 8 + 8;
 	updateAttachedPositioning();

@@ -61,6 +61,8 @@ public:
 	~Circuit();
 
 	void addPin(Pin *node);
+	PinSet *getPins() { return &m_pinList; }
+
 	void addElement(Element *element);
 
 	bool containsNonLinear() const { return m_elementSet->containsNonLinear(); }
