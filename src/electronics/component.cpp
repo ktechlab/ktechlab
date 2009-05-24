@@ -483,8 +483,8 @@ void Component::initNodes() {
 	}
 }
 
-ECNode *Component::createPin(double x, double y, int orientation, const QString &name) {
-	return dynamic_cast<ECNode*>(createNode(x, y, orientation, name, Node::ec_pin));
+PinNode *Component::createPin(double x, double y, int orientation, const QString &name) {
+	return dynamic_cast<PinNode*>(createNode(x, y, orientation, name, Node::ec_pin));
 }
 //END class Component
 
