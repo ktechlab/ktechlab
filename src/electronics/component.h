@@ -18,6 +18,7 @@
 #include "cnitem.h"
 #include "ecnode.h"
 #include "elementmap.h"
+#include "pinnode.h"
 
 class ICNDocument;
 class CircuitDocument;
@@ -45,7 +46,7 @@ public:
 	Component(ICNDocument *icnDocument, bool newItem, const QString &id);
 	virtual ~Component();
 
-	ECNode* createPin(double _x, double _y, int orientation, const QString &name);
+	PinNode* createPin(double _x, double _y, int orientation, const QString &name);
 
 //###
 
