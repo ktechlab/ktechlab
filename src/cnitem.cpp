@@ -36,10 +36,9 @@ CNItem::CNItem(ICNDocument *icnDocument, bool newItem, const QString &id)
 	setZ(ICNDocument::Z::Item);
 	setSelected(false);
 
-	m_brushCol = QColor(0xf7, 0xf7, 0xff);
 	m_selectedCol = QColor(101, 134, 192);
 
-	setBrush(m_brushCol);
+	setBrush(QColor(0xf7, 0xf7, 0xff));
 	setPen(Qt::black);
 }
 
