@@ -8,7 +8,6 @@
 //
 // Copyright: See COPYING file that comes with this distribution
 //
-//
 
 #include "simplecomponent.h"
 #include "circuitdocument.h"
@@ -25,8 +24,6 @@ SimpleComponent::SimpleComponent(ICNDocument *icnDocument, bool newItem, const Q
 }
 
 SimpleComponent::~SimpleComponent() {
-	
-
 }
 
 void SimpleComponent::init1PinLeft(int h1) {
@@ -100,3 +97,4 @@ void SimpleComponent::init4PinRight(int h1, int h2, int h3, int h4) {
 	m_pPNode[2] = createPin(offsetX() + width() + 8, h3, 180, "p3");
 	m_pPNode[3] = createPin(offsetX() + width() + 8, h4, 180, "p4");
 }
+

@@ -185,7 +185,7 @@ protected:
 	TextMap m_textMap;
 	NodeInfoMap m_nodeMap;
 	QColor m_selectedCol;
-	QColor m_brushCol;
+//	QColor m_brushCol;
 	bool b_pointsAdded;
 };
 typedef QValueList<CNItem*> CNItemList;

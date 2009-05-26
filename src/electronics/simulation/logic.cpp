@@ -96,6 +96,11 @@ LogicConfig LogicIn::getConfig() {
 	c.lowImpedance = KTLConfig::logicOutputLowImpedance();
 	return c;
 }
+
+void LogicIn::setChain(bool high) {
+	m_bState = high; 
+	if(m_pNextLogic) m_pNextLogic->setChain(high);
+}
 //END class LogicIn
 
 //BEGIN class LogicOut
@@ -250,7 +255,3 @@ void LogicOut::setHigh(bool high) {
 }
 //END class LogicOut
 
-void LogicIn::setChain(bool high) {
-	m_bState = high; 
-	if(m_pNextLogic) m_pNextLogic->setChain(high);
-}
