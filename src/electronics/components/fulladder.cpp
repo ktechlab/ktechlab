@@ -45,34 +45,18 @@ FullAdder::FullAdder(ICNDocument *icnDocument, bool newItem, const char *id)
 	QStringList pins = QStringList::split(',', "A,B,>,,S,C", true);
 	initDIPSymbol(pins, 48);
 	initDIP(pins);
-	
-//	ECNode *node;
-//	node =  ecNodeWithID("S");
-//	SLogic = createLogicOut(node->pin(), false);
 
 	SLogic = new LogicOut(LogicIn::getConfig(), false);
 	setup1pinElement(SLogic, ecNodeWithID("S")->pin());
 
-//	node = ecNodeWithID("C");
-//	outLogic = createLogicOut(node->pin(), false);
-
 	outLogic = new LogicOut(LogicIn::getConfig(), false);
 	setup1pinElement(outLogic, ecNodeWithID("C")->pin());
-
-//	node = ecNodeWithID("A");
-//	ALogic = createLogicIn(node->pin());
 
 	ALogic = new LogicIn(LogicIn::getConfig());
 	setup1pinElement(ALogic, ecNodeWithID("A")->pin());
 
-//	node = ecNodeWithID("B");
-//	BLogic = createLogicIn(node->pin());
-
 	BLogic = new LogicIn(LogicIn::getConfig());
 	setup1pinElement(BLogic, ecNodeWithID("B")->pin());
-
-//	node = ecNodeWithID(">");
-//	inLogic = createLogicIn(node->pin());
 
 	inLogic = new LogicIn(LogicIn::getConfig());
 	setup1pinElement(inLogic, ecNodeWithID(">")->pin());
@@ -86,18 +70,14 @@ FullAdder::~FullAdder()
 {
 }
 
-
 void FullAdder::inStateChanged( bool /*state*/ )
 {
 	const bool A = ALogic->isHigh();
 	const bool B = BLogic->isHigh();
 	const bool in = inLogic->isHigh();
 	
-	const bool out = (!A && B && in) || (A && !B && in) || (A && B);
-	const bool S = (!A && !B && in) || (!A && B && !in) || (A && !B && !in) || (A && B && in);
-	
-	SLogic->setHigh(S);
-	outLogic->setHigh(out);
+	SLogic->setHigh(A ^ B ^ in); // result
+	outLogic->setHigh((A ^ B && in) || (A && B));  // carry
 }
 
 
