@@ -16,7 +16,6 @@
 #include <kiconloader.h>
 #include <klocale.h>
 
-
 Item* FullAdder::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
 	return new FullAdder( (ICNDocument*)itemDocument, newItem, id );
@@ -30,8 +29,7 @@ LibraryItem* FullAdder::libraryItem()
 		i18n("Integrated Circuits"),
 		"ic1.png",
 		LibraryItem::lit_component,
-		FullAdder::construct
-			);
+		FullAdder::construct);
 }
 
 FullAdder::FullAdder(ICNDocument *icnDocument, bool newItem, const char *id)
