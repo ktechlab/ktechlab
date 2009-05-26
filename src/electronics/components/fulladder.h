@@ -20,7 +20,7 @@
 class FullAdder : public CallbackClass, public DIPComponent
 {
 public:
-	FullAdder( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	FullAdder( ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~FullAdder();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
