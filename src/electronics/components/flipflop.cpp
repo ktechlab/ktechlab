@@ -350,8 +350,8 @@ ECSRFlipFlop::ECSRFlipFlop(ICNDocument *icnDocument, bool newItem, const char *i
 
 	m_pS->setCallback(this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged));
 	m_pR->setCallback(this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged));
-	m_pQ->setCallback(this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged));
-	m_pQBar->setCallback(this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged));
+//	m_pQ->setCallback(this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged));
+//	m_pQBar->setCallback(this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged));
 }
 
 ECSRFlipFlop::~ECSRFlipFlop() {

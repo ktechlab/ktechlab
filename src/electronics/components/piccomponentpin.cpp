@@ -33,13 +33,11 @@ PICComponentPin::PICComponentPin(PICComponent * picComponent, PicPin picPin)
 	switch (picPin.type) {
 
 	case PicPin::type_input:
-//		m_pLogicIn = picComponent->createLogicIn(picComponent->ecNodeWithID(picPin.pinID)->pin());
 		m_pLogicIn = new LogicIn(LogicIn::getConfig());
 		picComponent->setup1pinElement(m_pLogicIn, picComponent->ecNodeWithID(picPin.pinID)->pin());
 		break;
 
 	case PicPin::type_bidir:
-//		m_pLogicOut = picComponent->createLogicOut(picComponent->ecNodeWithID(picPin.pinID)->pin(), false);
 		m_pLogicOut = new LogicOut(LogicIn::getConfig(), false);
 		picComponent->setup1pinElement(m_pLogicOut, picComponent->ecNodeWithID(picPin.pinID)->pin());
 
@@ -48,7 +46,6 @@ PICComponentPin::PICComponentPin(PICComponent * picComponent, PicPin picPin)
 		break;
 
 	case PicPin::type_open:
-//		m_pLogicOut = picComponent->createLogicOut(picComponent->ecNodeWithID(picPin.pinID)->pin(), false);
 		m_pLogicOut = new LogicOut(LogicIn::getConfig(), false);
 		picComponent->setup1pinElement(m_pLogicOut, picComponent->ecNodeWithID(picPin.pinID)->pin());
 
@@ -70,16 +67,16 @@ PICComponentPin::PICComponentPin(PICComponent * picComponent, PicPin picPin)
 	if (m_pLogicIn)
 		m_pLogicIn->setCallback(this, (CallbackPtr)(&PICComponentPin::logicCallback));
 
-	if (m_pLogicOut)
-		m_pLogicOut->setCallback(this, (CallbackPtr)(&PICComponentPin::logicCallback));
+/*	if (m_pLogicOut)
+		m_pLogicOut->setCallback(this, (CallbackPtr)(&PICComponentPin::logicCallback));*/
 }
 
 PICComponentPin::~PICComponentPin() {
 	if (m_pLogicIn)
 		m_pLogicIn->setCallback(0, (CallbackPtr)0);
 
-	if (m_pLogicOut)
-		m_pLogicOut->setCallback(0, (CallbackPtr)0);
+/*	if (m_pLogicOut)
+		m_pLogicOut->setCallback(0, (CallbackPtr)0);*/
 
 	delete m_pStimulusNode;
 }
