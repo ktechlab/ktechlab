@@ -440,7 +440,7 @@ void CircuitDocument::assignCircuits() {
 
 	const ItemMap::const_iterator cilEnd = m_itemList.end();
 	for (ItemMap::const_iterator it = m_itemList.begin(); it != cilEnd; ++it) {
-		Component *component = dynamic_cast<Component*>(*it);
+		Component *component = dynamic_cast<Component*>(it->second);
 
 		if (!component) continue;
 
