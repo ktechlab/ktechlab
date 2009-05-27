@@ -163,7 +163,7 @@ void FlowContainer::updateConnectorPoints(bool add) {
 
 	b_pointsAdded = add;
 
-	Cells *cells = p_icnDocument->cells();
+	Cells *cells = m_pFlowCodeDocument->cells();
 
 	if (!cells) return;
 
@@ -270,15 +270,15 @@ void FlowContainer::setExpanded(bool expanded) {
 	updateContainedVisibility();
 	updateAttachedPositioning();
 
-	p_itemDocument->setModified(true);
+	m_pFlowCodeDocument->setModified(true);
 	m_rectangularOverlay->setVisible(expanded);
 
 	setFullBounds(false);
 
 	if (m_ext_out)
-		p_icnDocument->requestRerouteInvalidatedConnectors();
+		m_pFlowCodeDocument->requestRerouteInvalidatedConnectors();
 
-	p_icnDocument->requestStateSave();
+	m_pFlowCodeDocument->requestStateSave();
 }
 
 void FlowContainer::postResize() {
@@ -344,7 +344,7 @@ void FlowContainer::updateContainedVisibility() {
 	m_rectangularOverlay->setVisible(isVisible() && b_expanded);
 
 	NodeGroupList hidableNodeGroups;
-	p_icnDocument->getTranslatable(children(true) += this, 0, 0, &hidableNodeGroups);
+	m_pFlowCodeDocument->getTranslatable(children(true) += this, 0, 0, &hidableNodeGroups);
 
 	NodeGroupList::iterator hngEnd = hidableNodeGroups.end();
 	for (NodeGroupList::iterator it = hidableNodeGroups.begin(); it != hngEnd; ++it)
