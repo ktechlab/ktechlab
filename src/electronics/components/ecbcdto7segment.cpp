@@ -100,11 +100,10 @@ ECBCDTo7Segment::ECBCDTo7Segment(ICNDocument *icnDocument, bool newItem, const c
 	enLogic->setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
 
 	for (uint i = 0; i < 7; ++i) {
-//		outLogic[i] = createLogicOut(ecNodeWithID(QChar('a'+i))->pin(), false);
 		outLogic[i] = new LogicOut(LogicIn::getConfig(), false);
 		setup1pinElement(outLogic[i], ecNodeWithID(QChar('a' + i))->pin());
 
-		outLogic[i]->setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
+//		outLogic[i]->setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
 	}
 
 	inStateChanged(false);
