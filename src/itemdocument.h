@@ -12,11 +12,10 @@
 #define ITEMDOCUMENT_H
 
 #include <set>
+#include <map>
 
 #include <document.h>
 #include <canvas.h>
-
-#include <qmap.h>
 #include <qptrstack.h>
 
 class Canvas;
@@ -31,8 +30,8 @@ class KActionMenu;
 class QCanvasItem;
 
 typedef QPtrStack<ItemDocumentData> IDDStack;
-typedef QMap<int, Item *> IntItemMap;
-typedef QMap<QString, Item *> ItemMap;
+typedef std::map<int, Item *> IntItemMap;
+typedef std::map<QString, Item *> ItemMap;
 typedef QValueList<Item *> ItemList;
 
 /**
@@ -364,13 +363,10 @@ protected:
 	void resizeCanvasToItems();
 
 	Canvas		*m_canvas;
-
 	CMManager	*m_cmManager;
 	CanvasTip	*m_canvasTip;
 
-//	ItemList	 m_itemDeleteList;
 	ItemMap		 m_itemList;
-
 	QString		 m_fileExtensionInfo; // For displaying in the save file dialog
 
 private:
@@ -380,7 +376,6 @@ private:
 	void cleanClearStack(IDDStack &stack);
 
 	static int	  m_nextActionTicket;
-
 	unsigned	  m_queuedEvents; // OR'ed together list of ItemDocumentEvent::type
 	unsigned	  m_nextIdNum;
 	int		  m_currentActionTicket;
@@ -392,7 +387,6 @@ private:
 	KActionMenu	 *m_pAlignmentAction;
 
 	IntItemMap	  m_zOrder;
-
 	std::set<QString> m_idList; // used to ensure unique IDs to try to make sure save files are valid.
 
 	QTimer		*m_pEventTimer;
@@ -402,7 +396,6 @@ private:
 	IDDStack	 m_redoStack;
 
 	friend class ICNView;
-
 	friend class ItemView;
 };
 
