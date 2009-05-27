@@ -37,7 +37,7 @@ ECNode::ECNode(ICNDocument *icnDocument, Node::node_type _type, int dir, const Q
 
 ECNode::~ECNode() {
 	if (m_pinPoint) {
-		m_pinPoint->setCanvas(0l);
+		m_pinPoint->setCanvas(0);
 		delete m_pinPoint;
 	}
 

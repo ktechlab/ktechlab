@@ -156,7 +156,7 @@ void CircuitDocument::slotUpdateConfiguration() {
 
 	ECNodeMap::iterator nodeEnd = m_ecNodeList.end();
 	for (ECNodeMap::iterator it = m_ecNodeList.begin(); it != nodeEnd; ++it) {
-		ECNode *n = it->second; // static_cast<ECNode*>(*it);
+		ECNode *n = it->second;
 		n->setShowVoltageBars(KTLConfig::showVoltageBars());
 		n->setShowVoltageColor(KTLConfig::showVoltageColor());
 	}
@@ -192,10 +192,8 @@ void CircuitDocument::update() {
 
 		ECNodeMap::iterator end = m_ecNodeList.end();
 		for (ECNodeMap::iterator it = m_ecNodeList.begin(); it != end; ++it) {
-			// static_cast<ECNode*>(*it)->setNodeChanged();
-			if(it->second) { // << workaround!!! (FIXME)
-				it->second->setNodeChanged();
-			}
+			assert(it->second);
+			it->second->setNodeChanged();
 		}
 	}
 }
@@ -394,14 +392,15 @@ void CircuitDocument::assignCircuits() {
 	const ECNodeMap::const_iterator nodeListEnd = m_ecNodeList.end();
 	for (ECNodeMap::const_iterator it = m_ecNodeList.begin(); it != nodeListEnd; ++it) {
 		ECNode *ecnode = it->second;
+		assert(ecnode);
 
-		if(ecnode) {
+//		if(ecnode) {
 			for (unsigned i = 0; i < ecnode->numPins(); i++) {
 				Pin *foo = ecnode->pin(i);
 				assert(foo);
 				unassignedPins.insert(foo);
 			}
-		}
+//		}
 	}
 
 	m_wireList.clear();
