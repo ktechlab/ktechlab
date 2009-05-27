@@ -496,8 +496,6 @@ void ItemDocument::distributeVertically() {
 		icnd->requestRerouteInvalidatedConnectors();
 }
 
-// ###########################
-
 bool ItemDocument::registerUID(const QString &uid) {
 	return m_idList.insert(uid).second;
 }
@@ -507,10 +505,18 @@ void ItemDocument::unregisterUID(const QString &uid) {
 	m_itemList.remove(uid);
 
 	IntItemMap::iterator end = m_zOrder.end();
-	for (IntItemMap::iterator it = m_zOrder.begin(); it != end; ++it) {
+	IntItemMap::iterator previous = m_zOrder.begin();
+	for (IntItemMap::iterator it = previous; it != end; ++it) {
 		if((*it)->id() == uid) { 
-			m_zOrder.remove(it);
+			if(it == m_zOrder.begin()) {
+				m_zOrder.remove(it);
+				it = m_zOrder.begin();
+			} else { 
+				m_zOrder.remove(it);
+				it = previous;
+			}
 		}
+		previous = it;
 	}
 }
 

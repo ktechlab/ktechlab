@@ -138,9 +138,8 @@ void CNItem::removeItem() {
 		return;
 
 	const TextMap::iterator textMapEnd = m_textMap.end();
-
 	for (TextMap::iterator it = m_textMap.begin(); it != textMapEnd; ++it)
-		it.data()->setCanvas(0l);
+		it.data()->setCanvas(0);
 
 	Item::removeItem();
 	updateConnectorPoints(false);
@@ -174,7 +173,6 @@ ItemData CNItem::itemData() const {
 	ItemData itemData = Item::itemData();
 
 	const WidgetMap::const_iterator end = m_widgetMap.end();
-
 	for (WidgetMap::const_iterator it = m_widgetMap.begin(); it != end; ++it) {
 		if (Slider *slider = dynamic_cast<Slider*>(*it))
 			itemData.sliderMap[slider->id()] = slider->value();
@@ -297,9 +295,7 @@ void CNItem::moveBy(double dx, double dy) {
 	if (dx == 0 && dy == 0) return;
 
 	updateConnectorPoints(false);
-
 	Item::moveBy(dx, dy);
-
 	setWidgetsPos(QPoint(int(x()), int(y())));
 }
 
@@ -379,14 +375,13 @@ void CNItem::drawShape(QPainter &p) {
 	if (!isVisible())
 		return;
 
-// 	initPainter(p);
+//	initPainter(p);
 	if (isSelected())
 		p.setPen(m_selectedCol);
 
 	p.drawPolygon(areaPoints());
 	p.drawPolyline(areaPoints());
-
-// 	deinitPainter(p);
+//	deinitPainter(p);
 }
 
 void CNItem::initPainter(QPainter &p) {

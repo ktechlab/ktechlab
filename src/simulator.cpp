@@ -51,7 +51,7 @@ Simulator::Simulator()
 
 //	m_pChangedCircuitLast = m_pChangedCircuitStart = new Circuit;
 
-	QTimer *stepTimer = new QTimer(this);
+	QTimer *stepTimer = new QTimer(this); // FIXME: memory leak. 
 	connect(stepTimer, SIGNAL(timeout()), this, SLOT(step()));
 	stepTimer->start(1);
 }
