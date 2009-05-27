@@ -28,14 +28,14 @@ NodeGroup::~NodeGroup() {
 	clearConList();
 
 	m_extNodeList.remove((Node*)0);
-
 	const NodeList::iterator xnEnd = m_extNodeList.end();
 	for (NodeList::iterator it = m_extNodeList.begin(); it != xnEnd; ++it)
 		(*it)->setNodeGroup(0);
 
 	m_extNodeList.clear();
-	m_nodeList.remove((Node*)0);
 
+
+	m_nodeList.remove((Node*)0);
 	const NodeList::iterator nEnd = m_nodeList.end();
 	for (NodeList::iterator it = m_nodeList.begin(); it != nEnd; ++it)
 		(*it)->setNodeGroup(0);
@@ -49,7 +49,7 @@ void NodeGroup::setVisible(bool visible) {
 
 	b_visible = visible;
 
-	m_nodeList.remove((Node*)0l);
+	m_nodeList.remove((Node*)0);
 
 	const NodeList::iterator nEnd = m_nodeList.end();
 

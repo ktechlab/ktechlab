@@ -34,7 +34,7 @@ CircuitICNDocument::~CircuitICNDocument() {
 	const QCanvasItemList::Iterator end = all.end();
 
 	for (QCanvasItemList::Iterator it = all.begin(); it != end; ++it)
-		(*it)->setCanvas(0l);
+		(*it)->setCanvas(0);
 
 	// Remove all items from the canvas
 	selectAll();
@@ -283,9 +283,10 @@ void CircuitICNDocument::slotAssignNodeGroups() {
 
 	const ECNodeMap::iterator end = m_ecNodeList.end();
 	for (ECNodeMap::iterator it = m_ecNodeList.begin(); it != end; ++it) {
-		NodeGroup *ng = createNodeGroup(it->second);
+		assert(it->second);
 
-		if (ng) ng->init();
+		NodeGroup *ng = createNodeGroup(it->second);
+		if(ng) ng->init();
 	}
 
 	// We've destroyed the old node groups, so any collapsed flowcontainers
@@ -334,12 +335,22 @@ void CircuitICNDocument::flushDeleteList() {
 // 	// Check connectors for merging
 	bool doneJoin = false;
 
+	{// we should *NOT* be seeing zeros here, but we have to remove them anyway.
+		ECNodeMap::iterator it = m_ecNodeList.begin();
+		const ECNodeMap::iterator nlEnd = m_ecNodeList.end();
+
+		while(it != nlEnd) {
+			if(!it->second) { 
+				ECNodeMap::iterator dud = it; 
+				it++;
+				m_ecNodeList.erase(dud);
+			} else it++;
+		}
+	}
+
 	const ECNodeMap::iterator nlEnd = m_ecNodeList.end();
 	for (ECNodeMap::iterator it = m_ecNodeList.begin(); it != nlEnd; ++it) {
-		if(!it->second) {
-			m_ecNodeList.erase(it);
-			continue;
-		}
+		assert(it->second);
 
 		int conCount = it->second->getAllConnectors().size();
 		if(conCount == 2 && !it->second->parentItem()) {
@@ -394,7 +405,8 @@ NodeList CircuitICNDocument::nodeList() const {
 void CircuitICNDocument::selectAllNodes() {
 	const ECNodeMap::iterator nodeEnd = m_ecNodeList.end();
 	for (ECNodeMap::iterator nodeIt = m_ecNodeList.begin(); nodeIt != nodeEnd; ++nodeIt) {
-		if (nodeIt->second) select(nodeIt->second);
+		assert(nodeIt->second);
+		select(nodeIt->second);
 	}
 }
 

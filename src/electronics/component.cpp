@@ -291,32 +291,26 @@ void Component::slotUpdateConfiguration() {
 	}
 }
 
-/// little utility function 
-PinSet *pinListToSet(PinList &aList) {
-	PinSet *newSet = new PinSet();
-	PinList::iterator end = aList.end();
-	for(PinList::iterator it = aList.begin(); it != end; it++) {
-		newSet->insert(*it);
-	}
-
-	return newSet;
-}
-
 void Component::setup1pinElement(Element *ele, Pin *a) {
 	PinList pins;
 	pins.push_back(a);
-
 	ElementMapList::iterator it = handleElement(ele, pins);
-	setInterDependent(it, *pinListToSet(pins));
+
+	PinSet pinz;
+	pinz.insert(a);
+	setInterDependent(it, pinz);
 }
 
 void Component::setup2pinElement(Element *ele, Pin *a, Pin *b) {
 	PinList pins;
 	pins.push_back(a);
 	pins.push_back(b);
-
 	ElementMapList::iterator it = handleElement(ele, pins);
-	setInterDependent(it, *pinListToSet(pins));
+
+	PinSet pinz;
+	pinz.insert(a);
+	pinz.insert(b);
+	setInterDependent(it, pinz);
 }
 
 void Component::setup3pinElement(Element *ele, Pin *a, Pin *b, Pin *c) {
@@ -324,9 +318,13 @@ void Component::setup3pinElement(Element *ele, Pin *a, Pin *b, Pin *c) {
 	pins.push_back(a);
 	pins.push_back(b);
 	pins.push_back(c);
-
 	ElementMapList::iterator it = handleElement(ele, pins);
-	setInterDependent(it, *pinListToSet(pins));
+
+	PinSet pinz; 
+	pinz.insert(a);
+	pinz.insert(b);
+	pinz.insert(c);
+	setInterDependent(it, pinz);
 }
 
 void Component::setup4pinElement(Element *ele, Pin *a, Pin *b, Pin *c, Pin *d) {
@@ -335,26 +333,33 @@ void Component::setup4pinElement(Element *ele, Pin *a, Pin *b, Pin *c, Pin *d) {
 	pins.push_back(b);
 	pins.push_back(c);
 	pins.push_back(d);
-
 	ElementMapList::iterator it = handleElement(ele, pins);
-	setInterDependent(it, *pinListToSet(pins));
+
+	PinSet pinz; 
+	pinz.insert(a);
+	pinz.insert(b);
+	pinz.insert(c);
+	pinz.insert(d);
+	setInterDependent(it, pinz);
 }
 
 void Component::setupSpcl4pinElement(Element *ele, Pin *a, Pin *b, Pin *c, Pin *d) {
-	PinList pins;
-	PinSet pinset;
 
+	PinList pins;
 	pins.push_back(a);
 	pins.push_back(b);
 	pins.push_back(c);
 	pins.push_back(d);
-
 	ElementMapList::iterator it = handleElement(ele, pins);
-	setInterCircuitDependent(it, *pinListToSet(pins));
 
+	PinSet pinset;
 	pinset.insert(a);
 	pinset.insert(b);
 	setInterGroundDependent(it, pinset);
+
+	pinset.insert(c);
+	pinset.insert(d);
+	setInterCircuitDependent(it, pinset);
 
 	pinset.clear();
 	pinset.insert(c);

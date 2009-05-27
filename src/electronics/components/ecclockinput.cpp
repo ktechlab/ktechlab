@@ -55,6 +55,7 @@ ECClockInput::ECClockInput(ICNDocument *icnDocument, bool newItem, const char *i
 		ComponentCallback *ccb = new ComponentCallback(this, (VoidCallbackPtr)(&ECClockInput::stepCallback));
 		m_pComponentCallback[i] = new list<ComponentCallback>;
 		m_pComponentCallback[i]->push_back(*ccb);
+		delete ccb;
 	}
 
 	init1PinRight();
@@ -80,10 +81,7 @@ ECClockInput::ECClockInput(ICNDocument *icnDocument, bool newItem, const char *i
 ECClockInput::~ECClockInput() {
 	delete m_pOut;
 
-// FIXME: MEMORY LEAK!!! Must go through each list and delete any elements in that list. 
-
 	for (unsigned i = 0; i < 1000; i++) {
-		
 		delete m_pComponentCallback[i];
 	}
 }
