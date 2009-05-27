@@ -53,12 +53,9 @@
 int ItemDocument::m_nextActionTicket = 0;
 
 ItemDocument::ItemDocument(const QString &caption, const char *name)
-		: Document(caption, name) {
-	m_queuedEvents = 0;
-	m_nextIdNum = 1;
-	m_savedState = 0;
-	m_currentState = 0;
-	m_bIsLoading = false;
+		: Document(caption, name),  m_queuedEvents(0), m_nextIdNum(1),
+		m_savedState(0), m_currentState(0), m_bIsLoading(false) {
+	m_zOrder.clear();
 
 	m_canvas = new Canvas(this, "canvas");
 	m_canvasTip = new CanvasTip(this, m_canvas);
@@ -89,7 +86,7 @@ ItemDocument::~ItemDocument() {
 
 	const ItemMap::iterator end = m_itemList.end();
 	for (ItemMap::iterator it = m_itemList.begin(); it != end; ++it)
-		delete *it;
+		delete it->second;
 
 	m_itemList.clear();
 
@@ -112,7 +109,7 @@ bool ItemDocument::registerItem(QCanvasItem *qcanvasItem) {
 	requestEvent(ItemDocument::ItemDocumentEvent::ResizeCanvasToItems);
 
 	if (Item *item = dynamic_cast<Item*>(qcanvasItem)) {
-		m_itemList[ item->id()] = item;
+		m_itemList[item->id()] = item;
 		connect(item, SIGNAL(selectionChanged()), this, SIGNAL(selectionChanged()));
 		itemAdded(item);
 		return true;
@@ -203,10 +200,10 @@ bool ItemDocument::openURL(const KURL &url) {
 	m_zOrder.clear();
 	ItemMap::iterator end = m_itemList.end();
 	for (ItemMap::iterator it = m_itemList.begin(); it != end; ++it) {
-		if (!*it || (*it)->parentItem())
+		if (!(it->second) || it->second->parentItem())
 			continue;
-assert((*it)->itemDocument() == this);
-		m_zOrder[(*it)->baseZ()] = *it;
+assert(it->second->itemDocument() == this);
+		m_zOrder[it->second->baseZ()] = it->second;
 	}
 
 	slotUpdateZOrdering();
@@ -408,9 +405,7 @@ void ItemDocument::paste() {
 }
 
 Item *ItemDocument::itemWithID(const QString &id) {
-	if (m_itemList.contains(id))
-		return m_itemList[id];
-	else	return 0;
+	return m_itemList[id];
 }
 
 void ItemDocument::unselectAll() {
@@ -502,21 +497,16 @@ bool ItemDocument::registerUID(const QString &uid) {
 
 void ItemDocument::unregisterUID(const QString &uid) {
 	m_idList.erase(uid);
-	m_itemList.remove(uid);
+	m_itemList.erase(uid);
 
 	IntItemMap::iterator end = m_zOrder.end();
-	IntItemMap::iterator previous = m_zOrder.begin();
-	for (IntItemMap::iterator it = previous; it != end; ++it) {
-		if((*it)->id() == uid) { 
-			if(it == m_zOrder.begin()) {
-				m_zOrder.remove(it);
-				it = m_zOrder.begin();
-			} else { 
-				m_zOrder.remove(it);
-				it = previous;
-			}
-		}
-		previous = it;
+	IntItemMap::iterator it = m_zOrder.begin();
+	while(it != end) {
+		if(it->second->id() == uid) { 
+			IntItemMap::iterator toRemove = it; 
+			it++;
+			m_zOrder.erase(toRemove);
+		} else it++;
 	}
 }
 
@@ -908,21 +898,21 @@ void ItemDocument::raiseZ() {
 }
 
 void ItemDocument::raiseZ(const ItemList & itemList) {
-	if (m_zOrder.isEmpty()) slotUpdateZOrdering();
+	if (m_zOrder.empty()) slotUpdateZOrdering();
 
-	if (m_zOrder.isEmpty()) return;
+	if (m_zOrder.empty()) return;
 
 	IntItemMap::iterator begin = m_zOrder.begin();
 	IntItemMap::iterator previous = m_zOrder.end();
 	IntItemMap::iterator it = --m_zOrder.end();
 
 	do {
-		Item *previousData = (previous == m_zOrder.end()) ? 0 : previous.data();
-		Item *currentData = it.data();
+		Item *previousData = (previous == m_zOrder.end()) ? 0 : previous->second;
+		Item *currentData = it->second;
 
 		if (currentData && previousData && itemList.contains(currentData) && !itemList.contains(previousData)) {
-			previous.data() = currentData;
-			it.data() = previousData;
+			previous->second = currentData;
+			it->second = previousData;
 		}
 
 		previous = it;
@@ -938,19 +928,19 @@ void ItemDocument::lowerZ() {
 }
 
 void ItemDocument::lowerZ(const ItemList &itemList) {
-	if (m_zOrder.isEmpty()) slotUpdateZOrdering();
+	if (m_zOrder.empty()) slotUpdateZOrdering();
 
-	if (m_zOrder.isEmpty()) return;
+	if (m_zOrder.empty()) return;
 
 	IntItemMap::iterator previous = m_zOrder.begin();
 	IntItemMap::iterator end = m_zOrder.end();
 	for (IntItemMap::iterator it = m_zOrder.begin(); it != end; ++it) {
-		Item *previousData = previous.data();
-		Item *currentData = it.data();
+		Item *previousData = previous->second;
+		Item *currentData = it->second;
 
 		if (currentData && previousData && itemList.contains(currentData) && !itemList.contains(previousData)) {
-			previous.data() = currentData;
-			it.data() = previousData;
+			previous->second = currentData;
+			it->second = previousData;
 		}
 
 		previous = it;
@@ -964,6 +954,21 @@ void ItemDocument::itemAdded(Item *) {
 }
 
 void ItemDocument::slotUpdateZOrdering() {
+
+	{ //begin WORKAROUND
+ // remove zeros, Where are these zeros coming from??? they shouldn't be here!!!
+		ItemMap::iterator end = m_itemList.end();
+		ItemMap::iterator it = m_itemList.begin();
+
+		while(it != end) {
+			if(!(it->second)) {
+				ItemMap::iterator toRemove = it; 
+				it++;
+				m_itemList.erase(toRemove);
+			} else it++;
+		}
+	} //END WORKAROUND
+
 	ItemMap toAdd = m_itemList;
 
 	IntItemMap newZOrder;
@@ -971,12 +976,12 @@ void ItemDocument::slotUpdateZOrdering() {
 
 	IntItemMap::iterator zEnd = m_zOrder.end();
 	for (IntItemMap::iterator it = m_zOrder.begin(); it != zEnd; ++it) {
-		Item *item = it.data();
+		Item *item = it->second;
 
-assert(item->itemDocument() == this); 
+assert(item && item->itemDocument() == this); 
 
-		if (!item) continue;
-			toAdd.remove(item->id());
+		toAdd.erase(item->id());
+
 		if (!item->parentItem() && item->isMovable())
 			newZOrder[atLevel++] = item;
 	}
@@ -984,8 +989,8 @@ assert(item->itemDocument() == this);
 	{
 		ItemMap::iterator addEnd = toAdd.end();
 		for (ItemMap::iterator it = toAdd.begin(); it != addEnd; ++it) {
-			Item *item = *it;
-assert(item->itemDocument() == this);
+			Item *item = it->second;
+assert(item && item->itemDocument() == this);
 			if (item->parentItem() || !item->isMovable())
 				continue;
 
@@ -995,15 +1000,15 @@ assert(item->itemDocument() == this);
 
 	m_zOrder = newZOrder;
 
-//	for (IntItemMap::iterator it = m_zOrder.begin(); it != zEnd; ++it)
-//		it.data()->updateZ(it.key()); // valgrind says there's a FIXME here. =\ "invalid read of size 4"
+	for (IntItemMap::iterator it = m_zOrder.begin(); it != zEnd; ++it)
+		it->second->updateZ(it->first); // valgrind says there's a FIXME here. =\ "invalid read of size 4"
 }
 
 void ItemDocument::update() {
 	ItemMap::iterator end = m_itemList.end();
 	for (ItemMap::iterator it = m_itemList.begin(); it != end; ++it) {
-		if ((*it)->contentChanged())
-			(*it)->setChanged();
+		if (it->second->contentChanged())
+			it->second->setChanged();
 	}
 }
 
@@ -1013,7 +1018,7 @@ ItemList ItemDocument::itemList() const {
 	ItemMap::const_iterator end = m_itemList.end();
 
 	for (ItemMap::const_iterator it = m_itemList.begin(); it != end; ++it)
-		l << it.data();
+		l << it->second;
 
 	return l;
 }
