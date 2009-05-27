@@ -92,11 +92,11 @@ void GuiPart::updateConnectorPoints(bool add) {
 
 	int mult = add ? 1 : -1;
 
-	int sx = roundDown(x(), 8);
-	int sy = roundDown(y(), 8);
+	int sx = fromCanvas(x());
+	int sy = fromCanvas(y());
 
-	int ex = roundDown(x() + width(), 8);
-	int ey = roundDown(y() + height(), 8);
+	int ex = fromCanvas(x() + width());
+	int ey = fromCanvas(y() + height());
 
 	for (int x = sx; x <= ex; ++x) {
 		for (int y = sy; y <= ey; ++y) {

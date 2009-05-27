@@ -110,7 +110,7 @@ public:
 	 * Returns the cell containing the given position on the canvas.
 	 */
 	Cell &cellContaining(const int x, const int y) const {
-		return cell(roundDown(x, 8), roundDown(y, 8));
+		return cell(fromCanvas(x), fromCanvas(y));
 	}
 
 	/**
@@ -130,7 +130,7 @@ public:
 	 * @return if there is a cell containg the given canvas point.
 	 */
 	bool haveCellContaing(int x, int y) const {
-		return haveCell(roundDown(x, 8), roundDown(y, 8));
+		return haveCell(fromCanvas(x), fromCanvas(y));
 	}
 
 	Cell &cell(int i, int j) const {

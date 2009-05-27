@@ -413,8 +413,8 @@ void CNItem::updateConnectorPoints(bool add) {
 
 	const QPoint start_UM = QPoint(int(x() + offsetX()) - 8, int(y() + offsetY()) - 8);
 	const QPoint end_UM = start_UM + QPoint(width() + 2 * 8, height() + 2 * 8);
-	const QPoint start_M = roundDown(m.map(start_UM), 8);
-	const QPoint end_M = roundDown(m.map(end_UM), 8);
+	const QPoint start_M = fromCanvas(m.map(start_UM));
+	const QPoint end_M = fromCanvas(m.map(end_UM));
 
 	int sx_M = start_M.x();
 	int ex_M = end_M.x();
