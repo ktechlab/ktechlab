@@ -140,7 +140,7 @@ void Component::deinitPainter(QPainter &p) {
 }
 
 void Component::setAngleDegrees(int degrees) {
-	if (!p_icnDocument) return;
+	if (!m_pCircuitDocument) return;
 
 	degrees = ((degrees % 360) + 360) % 360;
 
@@ -150,20 +150,20 @@ void Component::setAngleDegrees(int degrees) {
 	m_angleDegrees = degrees;
 	itemPointsChanged();
 	updateAttachedPositioning();
-	p_icnDocument->requestRerouteInvalidatedConnectors();
+	m_pCircuitDocument->requestRerouteInvalidatedConnectors();
 
 	emit orientationChanged();
 }
 
 void Component::setFlipped(bool flipped) {
-	if(!p_icnDocument) return;
+	if(!m_pCircuitDocument) return;
 	if(flipped == b_flipped) return;
 
 	updateConnectorPoints(false);
 	b_flipped = flipped;
 	itemPointsChanged();
 	updateAttachedPositioning();
-	p_icnDocument->requestRerouteInvalidatedConnectors();
+	m_pCircuitDocument->requestRerouteInvalidatedConnectors();
 
 	emit orientationChanged();
 }
@@ -273,12 +273,12 @@ void Component::updateAttachedPositioning() {
 }
 
 ECNode* Component::ecNodeWithID(const QString &ecNodeId) {
-	if(!p_icnDocument) {
+	if(!m_pCircuitDocument) {
 // 		kdDebug() << "Warning: ecNodeWithID("<<ecNodeId<<") does not exist\n";
 		return createPin(0, 0, 0, ecNodeId);
 	}
 
-	return dynamic_cast<ECNode*>(p_icnDocument->nodeWithID(nodeId(ecNodeId)));
+	return dynamic_cast<ECNode*>(m_pCircuitDocument->nodeWithID(nodeId(ecNodeId)));
 }
 
 void Component::slotUpdateConfiguration() {

@@ -19,9 +19,9 @@
 #include "ecnode.h"
 #include "elementmap.h"
 #include "pinnode.h"
+#include "circuitdocument.h"
 
 class ICNDocument;
-class CircuitDocument;
 class ECSubcircuit;
 class Element;
 class Pin;

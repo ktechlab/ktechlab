@@ -12,11 +12,11 @@
 #define FLOWPART_H
 
 #include "cnitem.h"
+#include "flowcodedocument.h"
 
 class ICNDocument;
 class Node;
 class FlowCode;
-class FlowCodeDocument;
 class FlowPart;
 class FPNode;
 class QPixmap;
