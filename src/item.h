@@ -342,7 +342,6 @@ protected:
 	QString m_type;
 	Item *p_parentItem; // If attached to a parent item
 	ItemList m_children;
-	ItemDocument *p_itemDocument;
 	QPointArray m_itemPoints; // The unorientated and unsized item points
 	QTimer * m_pPropertyChangedTimer; ///< Single show timer for one a property changes
 
@@ -355,6 +354,9 @@ protected:
 	bool m_bDynamicContent;
 	QRect m_sizeRect;
 	VariantDataMap m_variantData;
+
+private:
+	ItemDocument *p_itemDocument;
 };
 
 #endif

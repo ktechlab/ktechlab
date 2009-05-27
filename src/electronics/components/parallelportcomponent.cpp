@@ -165,7 +165,7 @@ void ParallelPortComponent::initPort(const QString &port) {
 	}
 
 	if (! m_pParallelPort->openPort(port)) {
-		p_itemDocument->canvas()->setMessage(i18n("Could not open port %1").arg(port));
+		m_pCircuitDocument->canvas()->setMessage(i18n("Could not open port %1").arg(port));
 		return;
 	}
 }

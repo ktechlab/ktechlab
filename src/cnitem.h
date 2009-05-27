@@ -180,13 +180,14 @@ protected:
 	 * Sets the right colour if selected, transforms the matrix of the painter
 	 */
 	virtual void initPainter( QPainter &p );
-	
-	ICNDocument *p_icnDocument;
+
 	TextMap m_textMap;
 	NodeInfoMap m_nodeMap;
 	QColor m_selectedCol;
-//	QColor m_brushCol;
 	bool b_pointsAdded;
+
+private:
+	ICNDocument *p_icnDocument;
 };
 typedef QValueList<CNItem*> CNItemList;
 
