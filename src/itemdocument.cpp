@@ -978,7 +978,7 @@ void ItemDocument::slotUpdateZOrdering() {
 	for (IntItemMap::iterator it = m_zOrder.begin(); it != zEnd; ++it) {
 		Item *item = it->second;
 
-assert(item && item->itemDocument() == this); 
+assert(item->itemDocument() == this); 
 
 		toAdd.erase(item->id());
 
@@ -1005,9 +1005,24 @@ assert(item && item->itemDocument() == this);
 }
 
 void ItemDocument::update() {
+
+	{ //begin WORKAROUND
+ // remove zeros, Where are these zeros coming from??? they shouldn't be here!!!
+		ItemMap::iterator end = m_itemList.end();
+		ItemMap::iterator it = m_itemList.begin();
+
+		while(it != end) {
+			if(!(it->second)) {
+				ItemMap::iterator toRemove = it; 
+				it++;
+				m_itemList.erase(toRemove);
+			} else it++;
+		}
+	} //END WORKAROUND
+
 	ItemMap::iterator end = m_itemList.end();
 	for (ItemMap::iterator it = m_itemList.begin(); it != end; ++it) {
-		assert(it->second);
+
 		if (it->second->contentChanged())
 			it->second->setChanged();
 	}
