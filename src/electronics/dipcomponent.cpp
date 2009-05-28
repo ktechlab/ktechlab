@@ -20,12 +20,12 @@ void DIPComponent::initDIP(const QStringList &pins) {
 
 	// Pins along left
 	for(int i = 0; i < numSide; i++) {
-		if (!pins[i].isEmpty()) {
+		if(!pins[i].isEmpty()) {
 			const int nodeX = -8 + offsetX();
 			const int nodeY = ((i + 1) << 4) + offsetY();
 			ECNode *node = ecNodeWithID(pins[i]);
 
-			if (node) {
+			if(node) {
 				m_nodeMap[pins[i]].setXY(nodeX, nodeY);
 				m_nodeMap[pins[i]].setOrientationNorth();
 			} else	createPin(nodeX, nodeY, 0, pins[i]);
@@ -53,7 +53,11 @@ void DIPComponent::initDIPSymbol(const QStringList &pins, int _width) {
 	const int numPins = pins.size();
 	const int numSide = (numPins + 1) >> 1;
 
-	setSize(-(_width - (_width % 16)) / 2, -(numSide + 1) * 8, _width, (numSide + 1) * 16, true);
+	setSize(-(_width >> 1) & ~7,
+		-(numSide + 1) << 3,
+		 _width,
+		 (numSide + 1) << 4,
+		true);
 
 	QWidget tmpWidget;
 	QPainter p(&tmpWidget);
