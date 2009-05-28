@@ -190,9 +190,20 @@ void CircuitDocument::update() {
 
 	if (KTLConfig::showVoltageColor() || KTLConfig::showVoltageBars()) {
 
+	{// we should *NOT* be seeing zeros here, but we have to remove them anyway.
+// FIXME; workaround code!! 
+		ECNodeMap::iterator it = m_ecNodeList.begin();
+		const ECNodeMap::iterator nlEnd = m_ecNodeList.end();
+		while(it != nlEnd) {
+			if(!it->second) { 
+				ECNodeMap::iterator dud = it; 
+				it++;
+				m_ecNodeList.erase(dud);
+			} else it++;
+	}}
+
 		ECNodeMap::iterator end = m_ecNodeList.end();
 		for (ECNodeMap::iterator it = m_ecNodeList.begin(); it != end; ++it) {
-			assert(it->second);
 			it->second->setNodeChanged();
 		}
 	}
@@ -389,18 +400,29 @@ void CircuitDocument::assignCircuits() {
 	// Stage 0: Build up pin and wire lists
 	PinSet unassignedPins;
 
+
+	{// we should *NOT* be seeing zeros here, but we have to remove them anyway.
+// FIXME; workaround code!! 
+		ECNodeMap::iterator it = m_ecNodeList.begin();
+		const ECNodeMap::iterator nlEnd = m_ecNodeList.end();
+		while(it != nlEnd) {
+			if(!it->second) { 
+				ECNodeMap::iterator dud = it; 
+				it++;
+				m_ecNodeList.erase(dud);
+			} else it++;
+	}}
+
 	const ECNodeMap::const_iterator nodeListEnd = m_ecNodeList.end();
 	for (ECNodeMap::const_iterator it = m_ecNodeList.begin(); it != nodeListEnd; ++it) {
 		ECNode *ecnode = it->second;
-		assert(ecnode);
+//		assert(ecnode);
 
-//		if(ecnode) {
-			for (unsigned i = 0; i < ecnode->numPins(); i++) {
-				Pin *foo = ecnode->pin(i);
-				assert(foo);
-				unassignedPins.insert(foo);
-			}
-//		}
+		for (unsigned i = 0; i < ecnode->numPins(); i++) {
+			Pin *foo = ecnode->pin(i);
+			assert(foo);
+			unassignedPins.insert(foo);
+		}
 	}
 
 	m_wireList.clear();
