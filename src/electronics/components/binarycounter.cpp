@@ -89,9 +89,9 @@ void BinaryCounter::initPins(unsigned numBits) {
 	{
 		int np = int(numBits) - 4;
 
-		if (np > 0) {
-			for (int i = 0; i < np; i++)
-				pins << " ";
+		if(np > 0) {
+			for(int i = 0; i < np; i++)
+				pins << "";
 		}
 	}
 
