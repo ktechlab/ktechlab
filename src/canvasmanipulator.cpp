@@ -1105,8 +1105,10 @@ bool CMItemResize::mouseMoved(const EventInfo &eventInfo) {
 	// Shift pressed == snap to grid
 
 	if (eventInfo.shiftPressed) {
-		_x = snapToCanvas(_x);
-		_y = snapToCanvas(_y);
+//		_x = snapToCanvas(_x);
+//		_y = snapToCanvas(_y);
+		_x = toCanvas(_x);
+		_y = toCanvas(_y);
 	}
 
 	p_resizeHandle->moveRH(_x, _y);

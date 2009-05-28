@@ -1007,6 +1007,7 @@ assert(item && item->itemDocument() == this);
 void ItemDocument::update() {
 	ItemMap::iterator end = m_itemList.end();
 	for (ItemMap::iterator it = m_itemList.begin(); it != end; ++it) {
+		assert(it->second);
 		if (it->second->contentChanged())
 			it->second->setChanged();
 	}
