@@ -424,23 +424,19 @@ void ItemView::createDragItem(QDragEnterEvent * e) {
 	m_pDragItem = itemLibrary()->createItem(text, p_itemDocument, true);
 
 	if (CNItem * cnItem = dynamic_cast<CNItem*>(m_pDragItem))
-		cnItem->move(snapToCanvas(p.x()), snapToCanvas(p.y()));
+		cnItem->move(toCanvas(p.x()), toCanvas(p.y()));
 	else m_pDragItem->move(p.x(), p.y());
 
 	m_pDragItem->show();
 }
 
-
 void ItemView::removeDragItem() {
 	if (!m_pDragItem) return;
 
 	m_pDragItem->removeItem();
-
 	p_itemDocument->flushDeleteList();
-
-	m_pDragItem = 0l;
+	m_pDragItem = 0;
 }
-
 
 void ItemView::dragMoveEvent(QDragMoveEvent * e) {
 	if (!m_pDragItem) return;
@@ -448,23 +444,20 @@ void ItemView::dragMoveEvent(QDragMoveEvent * e) {
 	QPoint p = mousePosToCanvasPos(e->pos());
 
 	if (CNItem * cnItem = dynamic_cast<CNItem*>(m_pDragItem))
-		cnItem->move(snapToCanvas(p.x()), snapToCanvas(p.y()));
+		cnItem->move(toCanvas(p.x()), toCanvas(p.y()));
 	else	m_pDragItem->move(p.x(), p.y());
 }
-
 
 void ItemView::dragLeaveEvent(QDragLeaveEvent *) {
 	removeDragItem();
 }
 
-
-void ItemView::enterEvent(QEvent * e) {
+void ItemView::enterEvent(QEvent *e) {
 	Q_UNUSED(e);
 	startUpdatingStatus();
 }
 
-
-void ItemView::leaveEvent(QEvent * e) {
+void ItemView::leaveEvent(QEvent *e) {
 	Q_UNUSED(e);
 	stopUpdatingStatus();
 
@@ -478,7 +471,6 @@ void ItemView::leaveEvent(QEvent * e) {
 		p_itemDocument->m_canvasTip->setVisible(false);
 }
 
-
 void ItemView::slotUpdateConfiguration() {
 // 	m_CVBEditor->setEraseColor( KTLConfig::bgColor() );
 	m_CVBEditor->setEraseColor(Qt::white);
@@ -487,33 +479,28 @@ void ItemView::slotUpdateConfiguration() {
 		startUpdatingStatus();
 }
 
-
 void ItemView::startUpdatingStatus() {
 	m_pUpdateStatusTmr->stop();
 	m_pUpdateStatusTmr->start(int(1000. / KTLConfig::refreshRate()));
 }
 
-
 void ItemView::stopUpdatingStatus() {
 	m_pUpdateStatusTmr->stop();
 }
 
-
 void ItemView::updateStatus() {
 	QPoint pos = mousePosToCanvasPos(m_CVBEditor->mapFromGlobal(QCursor::pos()));
 
-	ItemDocument * itemDocument = static_cast<ItemDocument*>(document());
+	ItemDocument *itemDocument = static_cast<ItemDocument*>(document());
 
 	if (!itemDocument) return;
 
-	CMManager * cmManager = itemDocument->m_cmManager;
-
-	CanvasTip * canvasTip = itemDocument->m_canvasTip;
+	CMManager *cmManager = itemDocument->m_cmManager;
+	CanvasTip *canvasTip = itemDocument->m_canvasTip;
 
 	bool displayTip = false;
 
 	QCursor cursor = Qt::ArrowCursor;
-
 	QString statusbar;
 
 	if (cmManager->cmState() & CMManager::cms_repeated_add) {
@@ -524,26 +511,20 @@ void ItemView::updateStatus() {
 		statusbar = i18n("Click and hold to start drawing.");
 	} else if (cmManager->currentManipulator()) {
 		switch (cmManager->currentManipulator()->type()) {
-
 		case CanvasManipulator::RepeatedItemAdd:
 			cursor = Qt::CrossCursor;
 			statusbar = i18n("Left click to add. Right click to resume normal editing");
 			break;
-
 		case CanvasManipulator::ManualConnector:
 			statusbar = i18n("Right click to cancel the connector");
 			// no break
-
 		case CanvasManipulator::AutoConnector:
 			cursor = Qt::CrossCursor;
 			break;
-
 		case CanvasManipulator::ItemMove:
-
 		case CanvasManipulator::MechItemMove:
 			cursor = Qt::SizeAllCursor;
 			break;
-
 		case CanvasManipulator::Draw:
 			cursor = Qt::CrossCursor;
 			break;
@@ -619,7 +600,6 @@ void CVBEditor::updateWorldMatrix() {
 	setWorldMatrix(m);
 }
 
-
 void CVBEditor::contentsWheelEvent(QWheelEvent * e) {
 	QWheelEvent ce(viewport()->mapFromGlobal(e->globalPos()),
 	               e->globalPos(), e->delta(), e->state());
@@ -634,14 +614,10 @@ void CVBEditor::contentsWheelEvent(QWheelEvent * e) {
 		return;
 
 	b_ignoreEvents = true;
-
 	QCanvasView::wheelEvent(e);
-
 	b_ignoreEvents = false;
-
 #endif
 }
-
 
 bool CVBEditor::event(QEvent * e) {
 	if (!b_passEventsToView) {
@@ -651,9 +627,7 @@ bool CVBEditor::event(QEvent * e) {
 			return false;
 
 		b_ignoreEvents = isWheel;
-
 		bool accepted = QCanvasView::event(e);
-
 		b_ignoreEvents = false;
 
 		return accepted;

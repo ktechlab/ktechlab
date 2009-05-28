@@ -32,7 +32,7 @@ QPointList ConRouter::pointList(bool reverse) const {
 		bool notDone = m_cellPointList.size() > 0;
 
 		for (QPointList::const_iterator it = m_cellPointList.fromLast(); notDone; --it) {
-			pointList.append(toCanvas(&*it));
+			pointList.append(toCanvas(*it));
 
 			if (it == m_cellPointList.begin()) notDone = false;
 		}
@@ -40,7 +40,7 @@ QPointList ConRouter::pointList(bool reverse) const {
 		const QPointList::const_iterator end = m_cellPointList.end();
 
 		for (QPointList::const_iterator it = m_cellPointList.begin(); it != end; ++it) {
-			pointList.append(toCanvas(&*it));
+			pointList.append(toCanvas(*it));
 		}
 	}
 
@@ -48,7 +48,7 @@ QPointList ConRouter::pointList(bool reverse) const {
 }
 
 QPointListList ConRouter::splitPoints(const QPoint &pos) const {
-	const QPoint split = fromCanvas(&pos);
+	const QPoint split = fromCanvas(pos);
 
 	QValueList<QPointList> list;
 
@@ -86,7 +86,7 @@ QPointListList ConRouter::splitPoints(const QPoint &pos) const {
 	// Now add the points to the two lists
 	bool gotToSplit = false;
 	for (QPointList::const_iterator it = m_cellPointList.begin(); it != end; ++it) {
-		QPoint canvasPoint = toCanvas(&*it);
+		QPoint canvasPoint = toCanvas(*it);
 
 		if (*it == split) {
 			gotToSplit = true;

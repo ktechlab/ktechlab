@@ -455,11 +455,11 @@ void ICNDocument::createCellMap() {
 }
 
 int ICNDocument::gridSnap(int pos) {
-	return snapToCanvas(pos);
+	return toCanvas(pos);
 }
 
 QPoint ICNDocument::gridSnap(const QPoint &pos) {
-	return QPoint(snapToCanvas(pos.x()), snapToCanvas(pos.y()));
+	return QPoint(toCanvas(pos.x()), toCanvas(pos.y()));
 }
 
 void ICNDocument::appendDeleteList(QCanvasItem *qcanvasItem) {
@@ -625,7 +625,7 @@ Item* ICNDocument::addItem(const QString &id, const QPoint &p, bool newItem) {
 		y = 16;
 
 	if (CNItem *cnItem = dynamic_cast<CNItem*>(item)) {
-		cnItem->move(snapToCanvas(p.x()), snapToCanvas(p.y()));
+		cnItem->move(toCanvas(p.x()), toCanvas(p.y()));
 
 		if (container) container->addChild(cnItem);
 
