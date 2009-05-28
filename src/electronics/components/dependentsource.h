@@ -21,34 +21,34 @@ class VCVS;
 /**
 @author David Saxton
 */
-class DependentSource : public SimpleComponent
-{
+class DependentSource : public SimpleComponent {
+
 public:
 	DependentSource(ICNDocument *icnDocument, bool newItem, const char *id);
 	~DependentSource();
 
 protected:
-	void drawOutline( QPainter & p );
-	void drawTopArrow( QPainter & p );
-	void drawBottomArrow( QPainter & p );
+	void drawOutline(QPainter &p);
+	void drawTopArrow(QPainter &p);
+	void drawBottomArrow(QPainter &p);
 };
 
 /**
 @short Current Controlled Current Source
 @author David Saxton
 */
-class ECCCCS : public DependentSource
-{
+class ECCCCS : public DependentSource {
+
 public:
-	ECCCCS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECCCCS(ICNDocument *icnDocument, bool newItem, const char *id = 0L);
 	~ECCCCS();
 
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
+	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
 	static LibraryItem *libraryItem();
 
 protected:
 	virtual void dataChanged();
-	virtual void drawShape( QPainter &p );
+	virtual void drawShape(QPainter &p);
 
 	CCCS *m_cccs;
 };
@@ -57,18 +57,18 @@ protected:
 @short Current Controlled Voltage Source
 @author David Saxton
 */
-class ECCCVS : public DependentSource
-{
+class ECCCVS : public DependentSource {
+
 public:
-	ECCCVS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECCCVS(ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECCCVS();
 
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
+	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
 	static LibraryItem *libraryItem();
 
 protected:
 	virtual void dataChanged();
-	virtual void drawShape( QPainter &p );
+	virtual void drawShape(QPainter &p);
 
 	CCVS *m_ccvs;
 };
@@ -77,18 +77,18 @@ protected:
 @short Voltage Controlled Current Source
 @author David Saxton
 */
-class ECVCCS : public DependentSource
-{
+class ECVCCS : public DependentSource {
+
 public:
-	ECVCCS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECVCCS(ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECVCCS();
 
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
+	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
 	static LibraryItem *libraryItem();
 
 protected:
 	virtual void dataChanged();
-	virtual void drawShape( QPainter &p );
+	virtual void drawShape(QPainter &p);
 
 	VCCS *m_vccs;
 };
@@ -97,18 +97,18 @@ protected:
 @short Voltage Controlled Voltage Source
 @author David Saxton
 */
-class ECVCVS : public DependentSource
-{
+class ECVCVS : public DependentSource {
+
 public:
-	ECVCVS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECVCVS(ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECVCVS();
 
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
+	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
 	static LibraryItem *libraryItem();
 
 protected:
 	virtual void dataChanged();
-	virtual void drawShape( QPainter &p );
+	virtual void drawShape(QPainter &p);
 
 	VCVS *m_vcvs;
 };
