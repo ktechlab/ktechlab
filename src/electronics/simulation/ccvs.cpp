@@ -32,30 +32,37 @@ void CCVS::setGain( const double g )
 		p_eSet->setCacheInvalidated();
 	
 	m_g = g;
-	add_initial_dc();
+
+//	add_initial_dc();
+	if(b_status) A_d(0, 0) = -m_g;
 }
 
 void CCVS::add_initial_dc()
 {
 	if (!b_status) return;
+
+	A_b(0, 0) += 1;
+	A_b(1, 0) -= 1;
+	A_b(2, 1) -= 1;
+	A_b(3, 1) += 1;
 	
-	A_b( 0, 0 ) = 1;
-	A_c( 0, 0 ) = 1;
-	A_b( 1, 0 ) = -1;
-	A_c( 0, 1 ) = -1;
-	A_b( 2, 1 ) = 1;
-	A_c( 1, 2 ) = 1;
-	A_b( 3, 1 ) = -1;
-	A_c( 1, 3 ) = -1;
-	A_d( 1, 0 ) = -m_g;
+	A_c(1, 0) += 1;
+	A_c(1, 1) -= 1;
+	A_c(0, 2) += 1;
+	A_c(0, 3) -= 1;
+
+	A_d(0, 0) = -m_g;
 }
 
 void CCVS::updateCurrents()
 {
 	if (!b_status) return;
+// CONTROL SIDE
 	m_cnodeI[1] = p_cbranch[0]->current();
 	m_cnodeI[0] = -m_cnodeI[1];
-	m_cnodeI[3] = p_cbranch[0]->current();
+
+// DPENDANT SIDE 
+	m_cnodeI[3] = p_cbranch[1]->current();
 	m_cnodeI[2] = -m_cnodeI[3];
 }
 
