@@ -113,7 +113,7 @@ bool Wire::calculateCurrent()
 double Wire::voltage() const
 {
 	double temp;
-	if( (temp=m_pStartPin->voltage() - m_pEndPin->voltage()) ) {
+	if((temp = m_pStartPin->voltage() - m_pEndPin->voltage()) ) {
 		kdError() << "Wire voltage error: " << temp << endl;
 	}
 

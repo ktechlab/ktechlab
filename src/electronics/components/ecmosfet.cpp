@@ -212,7 +212,7 @@ void ECMOSFET::dataChanged() {
 			removeElement(m_pMOSFET, false);
 			delete m_pMOSFET;
 
-		// Our class requires that we initialize four pins, even if we tie two of those pins together. 
+		// Our class requires that we initialize a four pin element, even if we tie two of those pins together. 
 			m_pMOSFET = new MOSFET((MOSFET::MOSFET_type)m_MOSFET_type);
 			setup4pinElement(m_pMOSFET, ecNodeWithID("d")->pin(),
 				ecNodeWithID("g")->pin(), ecNodeWithID("s")->pin(),
