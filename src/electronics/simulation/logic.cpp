@@ -183,18 +183,11 @@ void LogicOut::configChanged() {
 	if (p_eSet)
 		p_eSet->setCacheInvalidated();
 
-	// Re-add the DC stuff using the new values
-	m_old_g_out = m_g_out;
-	m_old_v_out = m_v_out;
-
 	// NOTE Make sure that the next two lines are the same as those in setElementSet and setHigh
 	m_g_out = m_bState ? 1.0 / m_config.highImpedance : 1.0 / m_config.lowImpedance;
 	m_v_out = m_bState ? m_config.output : 0.0;
 
 	add_initial_dc();
-
-	m_old_g_out = 0.;
-	m_old_v_out = 0.;
 
 	check();
 }
@@ -205,6 +198,9 @@ void LogicOut::add_initial_dc() {
 
 	A_g(0, 0) += m_g_out - m_old_g_out;
 	b_i(0) += m_g_out * m_v_out - m_old_g_out * m_old_v_out;
+
+	m_old_g_out = m_g_out;
+	m_old_v_out = m_v_out;
 }
 
 void LogicOut::updateCurrents() {
@@ -234,17 +230,11 @@ void LogicOut::setHigh(bool high) {
 		return;
 	}
 
-	m_old_g_out = m_g_out;
-	m_old_v_out = m_v_out;
-
 	// NOTE Make sure that the next two lines are the same as those in setElementSet and setLogic
 	m_g_out = high ? 1.0 / m_config.highImpedance : 1.0 / m_config.lowImpedance;
 	m_v_out = high ? m_config.output : 0.0;
 
 	add_initial_dc();
-
-	m_old_g_out = 0.;
-	m_old_v_out = 0.;
 
 	m_bState = high;
 
