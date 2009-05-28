@@ -268,7 +268,7 @@ void ItemGroup::slotDistributeHorizontally()
 	{
 		Item * item = it->second;
 		double new_x = at - item->offsetX() + avg_spacing;
-		item->move(toCanvas(new_x), item->y() );
+		item->move( snapToCanvas(new_x), item->y() );
 		at = new_x + item->width() + item->offsetX();
 	}
 	
@@ -314,7 +314,7 @@ void ItemGroup::slotDistributeVertically()
 	{
 		Item * item = it->second;
 		double new_y = at - item->offsetY() + avg_spacing;
-		item->move( item->x(), toCanvas(new_y) );
+		item->move( item->x(), snapToCanvas(new_y) );
 		at = new_y + item->height() + item->offsetY();
 	}
 	
