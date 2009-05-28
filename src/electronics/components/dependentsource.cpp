@@ -140,7 +140,7 @@ ECCCCS::ECCCCS(ICNDocument *icnDocument, bool newItem, const char *id)
 	m_name = i18n("Current Controlled Currrent Source");
 
 	m_cccs = new CCCS(1);
-	setup4pinElement(m_cccs, m_pNNode[0]->pin(), m_pPNode[0]->pin(),
+	setupSpcl4pinElement(m_cccs, m_pNNode[0]->pin(), m_pPNode[0]->pin(),
 	                 m_pNNode[1]->pin(), m_pPNode[1]->pin());
 
 	m_pNNode[1]->pin()->setGroundType(Pin::gt_medium);
@@ -235,7 +235,7 @@ ECVCCS::ECVCCS(ICNDocument *icnDocument, bool newItem, const char *id)
 	m_name = i18n("Voltage Controlled Current Source");
 
 	m_vccs = new VCCS(1);
-	setup4pinElement(m_vccs, m_pNNode[0]->pin(), m_pPNode[0]->pin(),
+	setupSpcl4pinElement(m_vccs, m_pNNode[0]->pin(), m_pPNode[0]->pin(),
 	                 m_pNNode[1]->pin(), m_pPNode[1]->pin());
 
 	m_pNNode[1]->pin()->setGroundType(Pin::gt_medium);
