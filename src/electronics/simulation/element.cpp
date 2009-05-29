@@ -83,13 +83,13 @@ void Element::setCNodes(const int n0, const int n1, const int n2, const int n3) 
 	}
 
 	p_cnode[0] = (n0 > -1) ? p_eSet->cNode(n0) :
-	             (n0 == -1 ? p_eSet->ground() : 0);
+	             (n0 == -1 ? p_eSet->cNode(-1) : 0);
 	p_cnode[1] = (n1 > -1) ? p_eSet->cNode(n1) :
-	             (n1 == -1 ? p_eSet->ground() : 0);
+	             (n1 == -1 ? p_eSet->cNode(-1) : 0);
 	p_cnode[2] = (n2 > -1) ? p_eSet->cNode(n2) :
-	             (n2 == -1 ? p_eSet->ground() : 0);
+	             (n2 == -1 ? p_eSet->cNode(-1) : 0);
 	p_cnode[3] = (n3 > -1) ? p_eSet->cNode(n3) :
-	             (n3 == -1 ? p_eSet->ground() : 0);
+	             (n3 == -1 ? p_eSet->cNode(-1) : 0);
 	updateStatus();
 }
 
