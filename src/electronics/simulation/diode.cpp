@@ -45,13 +45,8 @@ void Diode::add_initial_dc() {
 }
 
 void Diode::updateCurrents() {
-	if (!b_status) return;
-
-	double I, g;
-	calcIg(p_cnode[0]->voltage() - p_cnode[1]->voltage(), &I, &g);
-
-	p_cnode[0]->setCurrent(-I);
-	p_cnode[1]->setCurrent( I);
+	p_cnode[0]->setCurrent(-I_old);
+	p_cnode[1]->setCurrent( I_old);
 }
 
 void Diode::update_dc() {
@@ -87,7 +82,6 @@ void Diode::calc_eq(double *g_new, double *I_new) {
 	calcIg(v, I_new, g_new);
 
 	*I_new = -*I_new + (v * *g_new);
-
 }
 
 void Diode::calcIg(double V, double *I_D, double *g) const {
@@ -123,6 +117,5 @@ void Diode::updateLim() {
 
 	v_lim = diodeLimitedVoltage(I_S, N);
 }
-
 //END class Diode
 
