@@ -45,8 +45,8 @@ public:
 	void setGround(); 
 
 	inline void resetCurrent() { i = 0.0; }
-	inline void sinkCurrent(const double current) { i -= current; } // classical currents 
-	inline void sourceCurrent(const double current) { i += current; }
+	inline void sinkCurrent(const double current) { i = -current; } // classical currents 
+	inline void sourceCurrent(const double current) { i = current; }
 	inline double current() const { return i; }
 	inline void setCurrent(const double ampres) { i = ampres; }
 

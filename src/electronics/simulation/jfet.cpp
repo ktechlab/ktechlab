@@ -92,26 +92,9 @@ void JFET::add_initial_dc()
 
 void JFET::updateCurrents()
 {
-	if (!b_status) return;
-	
-	double V_D = p_cnode[PinD]->voltage();
-	double V_G = p_cnode[PinG]->voltage();
-	double V_S = p_cnode[PinS]->voltage();
-
-// absolute voltages mean nothing to us, we can only use relative voltages. 
-	double V_GS = V_G - V_S;
-	double V_GD = V_G - V_D;
-
-	double I_GS, I_GD, I_DS, g_GS, g_GD, g_DS, g_m;
-
-	calcIg(V_GS, V_GD,
-		&I_GS, &I_GD, &I_DS,
-		&g_GS, &g_GD, &g_DS,
-		&g_m );
-
-	p_cnode[PinD]->setCurrent(I_GD - I_DS);
-	p_cnode[PinS]->setCurrent(I_GS + I_DS);
-	p_cnode[PinS]->setCurrent(-(p_cnode[PinD]->current() + p_cnode[PinS]->current() ));
+	p_cnode[PinD]->sourceCurrent(I_GD - I_DS);
+	p_cnode[PinS]->sourceCurrent(I_GS + I_DS);
+	p_cnode[PinS]->sinkCurrent(p_cnode[PinD]->current() + p_cnode[PinS]->current());
 }
 
 
@@ -143,7 +126,7 @@ void JFET::calc_eq()
 	V_GS = diodeVoltage(V_G - V_S, V_GS, N, V_lim);
 	V_GD = diodeVoltage(V_G - V_D, V_GD, N, V_lim);
 
-	double I_GS, I_GD, I_DS, g_GS, g_GD, g_DS, g_m;
+	double g_GS, g_GD, g_DS, g_m;
 	calcIg(V_GS, V_GD,
 		&I_GS, &I_GD, &I_DS,
 		&g_GS, &g_GD, &g_DS,

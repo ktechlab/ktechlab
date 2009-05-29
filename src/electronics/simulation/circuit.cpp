@@ -424,7 +424,7 @@ void Circuit::updateCurrents() {
 
 	ElementList::iterator listEnd = m_elementList.end();
 	for (ElementList::iterator it = m_elementList.begin(); it != listEnd; ++it) {
-		if(*it) (*it)->updateCurrents();
+		(*it)->updateCurrents();
 	}
 }
 
