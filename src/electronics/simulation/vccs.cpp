@@ -67,7 +67,7 @@ void VCCS::updateCurrents()
 
 	double i = (p_cnode[0]->voltage() - p_cnode[1]->voltage()) * m_g;
 
-	p_cnode[2]->setCurrent(-i);
-	p_cnode[3]->setCurrent( i);
+	p_cnode[2]->sinkCurrent(i);
+	p_cnode[3]->sourceCurrent(i);
 }
 

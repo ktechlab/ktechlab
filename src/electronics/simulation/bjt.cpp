@@ -86,23 +86,9 @@ void BJT::add_initial_dc()
 
 void BJT::updateCurrents()
 {
-	if (!b_status) return;
-	
-	double V_B = p_cnode[0]->voltage();
-	double V_C = p_cnode[1]->voltage();
-	double V_E = p_cnode[2]->voltage();
-	
-	double V_BE = (V_B - V_E) * m_pol;
-	double V_BC = (V_B - V_C) * m_pol;
-// ####
-	double I_BE, I_BC, I_T, g_BE, g_BC, g_IF, g_IR;
-	calcIg(V_BE, V_BC, &I_BE, &I_BC, &I_T, &g_BE, &g_BC, &g_IF, &g_IR);
-// ####
-
-	p_cnode[1]->setCurrent(I_BC - I_T);
-	p_cnode[2]->setCurrent(I_BE + I_T);
-
-	p_cnode[0]->setCurrent(-(p_cnode[1]->current() + p_cnode[2]->current()));
+	p_cnode[1]->sourceCurrent(I_BC - I_T);
+	p_cnode[2]->sourceCurrent(I_BE + I_T);
+	p_cnode[0]->sinkCurrent(p_cnode[1]->current() + p_cnode[2]->current());
 }
 
 void BJT::update_dc()
@@ -137,7 +123,7 @@ void BJT::calc_eq()
 	V_BC_prev = V_BC = diodeVoltage(V_BC, V_BC_prev, m_bjtSettings.N_R, V_BC_lim);
 
 // #####	
-	double I_BE, I_BC, I_T, g_BE, g_BC, g_IF, g_IR;
+	double g_BE, g_BC, g_IF, g_IR;
 	calcIg(V_BE, V_BC, &I_BE, &I_BC, &I_T, &g_BE, &g_BC, &g_IF, &g_IR);
 // #####
 
