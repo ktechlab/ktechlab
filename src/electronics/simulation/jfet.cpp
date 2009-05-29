@@ -94,9 +94,8 @@ void JFET::updateCurrents()
 {
 	p_cnode[PinD]->sourceCurrent(I_GD - I_DS);
 	p_cnode[PinS]->sourceCurrent(I_GS + I_DS);
-	p_cnode[PinS]->sinkCurrent(p_cnode[PinD]->current() + p_cnode[PinS]->current());
+	p_cnode[PinG]->sinkCurrent(p_cnode[PinD]->current() + p_cnode[PinS]->current());
 }
-
 
 void JFET::update_dc()
 {
