@@ -481,8 +481,6 @@ void CircuitDocument::assignCircuits() {
 void CircuitDocument::getPartition(Pin *pin, PinSet *pinList, PinSet *unassignedPins, bool onlyGroundDependent) {
 	if (!pin) return;
 
-assert(pin != (Pin *)0x40);
-
 	unassignedPins->erase(pin);
 
 	if(!pinList->insert(pin).second) return;
@@ -600,17 +598,7 @@ void CircuitDocument::recursivePinAdd(Pin *pin, Circuitoid *circuitoid, PinSet *
 bool CircuitDocument::tryAsLogicCircuit(Circuitoid *circuitoid) {
 	if (!circuitoid) return false;
 
-	if (circuitoid->numElements() == 0) {
-		// This doesn't quite belong here...but whatever. Initialize all
-		// pins to voltage zero as they won't get set to zero otherwise
-		const PinSet::const_iterator pinListEnd = circuitoid->getPinsEnd();
-		for (PinSet::const_iterator it = circuitoid->getPinsBegin(); it != pinListEnd; ++it)
-			(*it)->setVoltage(0.0);
 
-		// A logic circuit only requires there to be no non-logic components,
-		// and at most one LogicOut - so this qualifies
-		return true;
-	}
 
 	LogicInList logicInList;
 	LogicOut *out = 0;
@@ -642,7 +630,7 @@ bool CircuitDocument::tryAsLogicCircuit(Circuitoid *circuitoid) {
 		for (ElementList::const_iterator it = circuitoid->getElementsBegin(); it != end; ++it) {
 			LogicIn *logicIn = static_cast<LogicIn*>(*it);
 			logicIn->setNextLogic(0);
-			logicIn->setElementSet(0);
+//			logicIn->setElementSet(0);
 
 			if (logicIn->isHigh()) {
 				logicIn->setLastState(false);
