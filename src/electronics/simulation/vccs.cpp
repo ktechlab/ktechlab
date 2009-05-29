@@ -60,11 +60,14 @@ void VCCS::add_initial_dc()
 
 void VCCS::updateCurrents()
 {
-	if (!b_status)
-		return;
-	
-	m_cnodeI[0] = m_cnodeI[1] = 0.;
-	m_cnodeI[3] = (p_cnode[0]->voltage() - p_cnode[1]->voltage()) * m_g;
-	m_cnodeI[2] = -m_cnodeI[3];
+	if (!b_status) return;
+
+	p_cnode[0]->setCurrent(0.0);
+	p_cnode[1]->setCurrent(0.0);
+
+	double i = (p_cnode[0]->voltage() - p_cnode[1]->voltage()) * m_g;
+
+	p_cnode[2]->setCurrent(-i);
+	p_cnode[3]->setCurrent( i);
 }
 

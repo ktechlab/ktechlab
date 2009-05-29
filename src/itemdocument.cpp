@@ -54,7 +54,7 @@ int ItemDocument::m_nextActionTicket = 0;
 
 ItemDocument::ItemDocument(const QString &caption, const char *name)
 		: Document(caption, name),  m_queuedEvents(0), m_nextIdNum(1),
-		m_savedState(0), m_currentState(0), m_bIsLoading(false) {
+		m_bIsLoading(false), m_savedState(0), m_currentState(0) {
 	m_zOrder.clear();
 
 	m_canvas = new Canvas(this, "canvas");

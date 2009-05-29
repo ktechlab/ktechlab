@@ -19,11 +19,9 @@ VoltageSignal::VoltageSignal( const double delta, const double voltage )
 	m_numCBranches = 1;
 }
 
-
 VoltageSignal::~VoltageSignal()
 {
 }
-
 
 void VoltageSignal::setVoltage( const double v )
 {
@@ -35,12 +33,11 @@ void VoltageSignal::add_initial_dc()
 	if (!b_status)
 		return;
 	
-	A_b( 0, 0 ) = -1;
-	A_c( 0, 0 ) = -1;
-	A_b( 1, 0 ) = 1;
-	A_c( 0, 1 ) = 1;
+	A_b(0, 0) = -1;
+	A_c(0, 0) = -1;
+	A_b(1, 0) =  1;
+	A_c(0, 1) =  1;
 }
-
 
 void VoltageSignal::time_step()
 {
@@ -48,12 +45,13 @@ void VoltageSignal::time_step()
 	b_v( 0 ) =  m_voltage*advance(m_delta);
 }
 
-
 void VoltageSignal::updateCurrents()
 {
 	if (!b_status) return;
-	m_cnodeI[1] = p_cbranch[0]->current();
-	m_cnodeI[0] = -m_cnodeI[1];
-}
 
+	const double i = p_cbranch[0]->current();
+
+	p_cnode[0]->setCurrent(-i);
+	p_cnode[1]->setCurrent( i);
+}
 

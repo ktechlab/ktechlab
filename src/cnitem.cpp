@@ -31,8 +31,7 @@
 CNItem::CNItem(ICNDocument *icnDocument, bool newItem, const QString &id)
 		: Item(icnDocument, newItem, id),
 		CIWidgetMgr(icnDocument ? icnDocument->canvas() : 0, this),
-		p_icnDocument(icnDocument),
-		b_pointsAdded(false) {
+		 b_pointsAdded(false), p_icnDocument(icnDocument) {
 	setZ(ICNDocument::Z::Item);
 	setSelected(false);
 
