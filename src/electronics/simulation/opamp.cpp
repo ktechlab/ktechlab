@@ -12,32 +12,26 @@
 #include "opamp.h"
 
 OpAmp::OpAmp()
-	: Element::Element()
-{
+		: Element::Element() {
 	m_numCBranches = 1;
 	m_numCNodes = 3;
 }
 
-OpAmp::~OpAmp()
-{
+OpAmp::~OpAmp() {
 }
 
-void OpAmp::add_initial_dc()
-{
+void OpAmp::add_initial_dc() {
 	if (!b_status) return;
 
 	// Non-inverting input
-	A_c( 0, 0 ) = 1;
-
-	// Inverting input
-	A_c( 0, 2 ) = -1;
-
+	A_c(0, 0) = 1;
 	// Output
-	A_b( 1, 0 ) = 1;
+	A_b(1, 0) = 1;
+	// Inverting input
+	A_c(0, 2) = -1;
 }
 
-void OpAmp::updateCurrents()
-{
+void OpAmp::updateCurrents() {
 	if (!b_status) return;
 
 	p_cnode[0]->setCurrent(0.0);

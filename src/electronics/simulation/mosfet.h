@@ -94,6 +94,7 @@ protected:
 	MOSFETState m_ns;
 	int m_pol;
 	double V_lim;
+	double I_BS, I_BD, I_D; // so we don't have to recompute to read out current.
 
 	MOSFETSettings m_mosfetSettings;
 

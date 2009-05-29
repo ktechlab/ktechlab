@@ -102,28 +102,9 @@ void MOSFET::add_initial_dc() {
 }
 
 void MOSFET::updateCurrents() {
-	if (!b_status) return;
-
-	double V_D = p_cnode[PinD]->voltage();
-	double V_G = p_cnode[PinG]->voltage();
-	double V_S = p_cnode[PinS]->voltage();
-	double V_B = p_cnode[PinB]->voltage();
-
-	double V_GS = (V_G - V_S) * m_pol;
-	double V_BS = (V_B - V_S) * m_pol;
-	double V_DS = (V_D - V_S) * m_pol;
-
-//**************************************
-	double I_BS, I_BD, I_D, g_BS, g_BD, g_DS, g_M, g_mb;
-	calcIg(V_BS, V_DS, V_GS,
-	       &I_BS, &I_BD, &I_D,
-	       &g_BS, &g_BD, &g_DS,
-	       &g_M, &g_mb);
-//**************************************
-
-	p_cnode[PinD]->setCurrent(-I_D  + I_BD);
-	p_cnode[PinB]->setCurrent(-I_BD - I_BS);
-	p_cnode[PinS]->setCurrent( I_D  + I_BS);
+	p_cnode[PinD]->sourceCurrent(-I_D  + I_BD);
+	p_cnode[PinB]->sinkCurrent(I_BD + I_BS);
+	p_cnode[PinS]->sourceCurrent( I_D  + I_BS);
 }
 
 void MOSFET::update_dc() {
@@ -161,7 +142,7 @@ void MOSFET::calc_eq() {
 	}
 
 //*************************
-	double I_BS, I_BD, I_D, g_BS, g_BD, g_DS, g_M, g_mb;
+	double g_BS, g_BD, g_DS, g_M, g_mb;
 	calcIg(V_BS, V_DS, V_GS,
 	       &I_BS, &I_BD, &I_D,
 	       &g_BS, &g_BD, &g_DS,
