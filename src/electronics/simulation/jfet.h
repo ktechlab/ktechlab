@@ -77,6 +77,7 @@ protected:
 	JFETState m_ns;
 	int m_pol;
 	double V_GS, V_GD;
+	double I_GS, I_GD, I_DS; // so we don't have to recompute to update currents. 
 	double V_lim;
 	JFETSettings m_jfetSettings;
 

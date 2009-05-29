@@ -55,7 +55,7 @@ void Resistance::updateCurrents() {
 
 	const double i = (p_cnode[0]->voltage() - p_cnode[1]->voltage()) * m_g;
 
-	p_cnode[0]->setCurrent(-i);
-	p_cnode[1]->setCurrent( i);
+	p_cnode[0]->sinkCurrent(i);
+	p_cnode[1]->sourceCurrent(i);
 }
 
