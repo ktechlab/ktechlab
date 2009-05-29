@@ -85,7 +85,7 @@ public:
 	 * @return if we have any nonlinear elements (e.g. diodes, tranaistors).
 	 */
 	bool containsNonLinear() const {
-		return b_containsNonLinear;
+		return !m_cnonLinearList.empty();
 	}
 
 	/**
@@ -100,11 +100,9 @@ public:
 	bool doLinear(bool performLU);
 
 	inline CBranch *cBranch(unsigned int i) { assert(i < m_cb); return m_cbranches[i]; }
-	inline CNode *cNode(    unsigned int i) { assert(i < m_cn); return m_cnodes[i];    }
-
-	CNode *ground() const {
-		return m_ground;
-	}
+	inline CNode *cNode(int i) {
+		if(i == -1) return m_ground;
+		return m_cnodes[i]; }
 
 	/**
 	 * Returns the number of nodes in the circuit (excluding ground 'nodes')
@@ -141,12 +139,9 @@ private:
 
 	unsigned int m_cn;
 	CNode **m_cnodes; // Pointer to an array of cnodes
-
 	CNode *m_ground;
 
 	LogicInSet p_logicIn;
-
-	bool b_containsNonLinear;
 	Circuit *m_pCircuit;
 };
 #endif
