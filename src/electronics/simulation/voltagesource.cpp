@@ -57,8 +57,10 @@ void VoltageSource::add_initial_dc()
 void VoltageSource::updateCurrents()
 {
 	if (!b_status) return;
-	m_cnodeI[0] = p_cbranch[0]->current();
-	m_cnodeI[1] = -m_cnodeI[0];
-}
 
+	double i = p_cbranch[0]->current();
+
+	p_cnode[0]->setCurrent( i);
+	p_cnode[1]->setCurrent(-i);
+}
 

@@ -76,7 +76,6 @@ void LogicIn::setLogic(LogicConfig config) {
 
 void LogicIn::setElementSet(ElementSet *c) {
 	if(c) m_pNextLogic = 0;
-	else m_cnodeI[0] = 0.;
 
 	Element::setElementSet(c);
 }
@@ -205,14 +204,13 @@ void LogicOut::add_initial_dc() {
 
 void LogicOut::updateCurrents() {
 	if (m_bUseLogicChain) {
-		m_cnodeI[0] = 0.0;
+		p_cnode[0]->setCurrent(0.0);
 		return;
 	}
 
-	if (!b_status)
-		return;
+	if (!b_status) return;
 
-	m_cnodeI[0] = (m_v_out - p_cnode[0]->voltage()) * m_g_out;
+	p_cnode[0]->setCurrent((m_v_out - p_cnode[0]->voltage()) * m_g_out);
 }
 
 void LogicOut::setHigh(bool high) {

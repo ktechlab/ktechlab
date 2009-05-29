@@ -24,15 +24,14 @@ OpAmp::~OpAmp()
 
 void OpAmp::add_initial_dc()
 {
-	if (!b_status)
-		return;
-	
+	if (!b_status) return;
+
 	// Non-inverting input
 	A_c( 0, 0 ) = 1;
-	
+
 	// Inverting input
 	A_c( 0, 2 ) = -1;
-	
+
 	// Output
 	A_b( 1, 0 ) = 1;
 }
@@ -40,7 +39,9 @@ void OpAmp::add_initial_dc()
 void OpAmp::updateCurrents()
 {
 	if (!b_status) return;
-	m_cnodeI[0] = m_cnodeI[2] = 0.0;
-	m_cnodeI[1] = p_cbranch[0]->current();
+
+	p_cnode[0]->setCurrent(0.0);
+	p_cnode[1]->setCurrent(p_cbranch[0]->current());
+	p_cnode[2]->setCurrent(0.0);
 }
 
