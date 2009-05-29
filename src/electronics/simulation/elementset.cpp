@@ -45,9 +45,7 @@ ElementSet::ElementSet(Circuit *circuit, const int n, const int m)
 	}
 
 	m_ground = new CNode();
-
 	m_ground->setGround();
-	b_containsNonLinear = false;
 }
 
 ElementSet::~ElementSet() {
@@ -67,7 +65,7 @@ ElementSet::~ElementSet() {
 	delete m_ground;
 
 	if (p_A) delete p_A;
-	p_A = 0;  // Why are we getting a double free fault? 
+	p_A = 0; 
 	if (p_b) delete p_b;
 	p_b = 0;
 	if (p_x) delete p_x;
@@ -89,7 +87,6 @@ void ElementSet::addElement(Element *e) {
 	m_elementList.insert(e);
 
 	if (e->isNonLinear()) {
-		b_containsNonLinear = true;
 		m_cnonLinearList.insert(static_cast<NonLinear*>(e));
 	}
 
@@ -158,7 +155,7 @@ void ElementSet::loadX(const QuickVector *other) {
 }
 
 bool ElementSet::doLinear(bool performLU) {
-	if (b_containsNonLinear || (!p_b->isChanged() && ((performLU && !p_A->isChanged()) || !performLU)))
+	if (!m_cnonLinearList.empty() || (!p_b->isChanged() && ((performLU && !p_A->isChanged()) || !performLU)))
 		return false;
 
 	if (performLU)
