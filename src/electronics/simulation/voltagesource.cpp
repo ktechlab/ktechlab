@@ -11,26 +11,24 @@
 #include "voltagesource.h"
 #include "elementset.h"
 
-VoltageSource::VoltageSource( const double voltage )
-	: Element::Element()
-{
+VoltageSource::VoltageSource(const double voltage)
+		: Element::Element() {
 	m_v = voltage;
 	m_numCBranches = 1;
 	m_numCNodes = 2;
 }
 
-VoltageSource::~VoltageSource()
-{
+VoltageSource::~VoltageSource() {
 }
 
-void VoltageSource::setVoltage( const double v )
-{
-	if ( m_v == v ) return;
-	
+void VoltageSource::setVoltage(const double v) {
+	if (m_v == v) return;
+
 	if (p_eSet)
 		p_eSet->setCacheInvalidated();
-	
+
 	m_v = v;
+
 	add_initial_dc();
 }
 
@@ -41,26 +39,24 @@ circuit to glitch out or will create a virtual one ohm resistor either into a co
 
 VoltageSignal also exhibits this problem.
 */
-void VoltageSource::add_initial_dc()
-{
+void VoltageSource::add_initial_dc() {
 	if (!b_status)
 		return;
-	
-	A_b( 0, 0 ) = -1;
-	A_c( 0, 0 ) = -1;
-	A_b( 1, 0 ) = 1;
-	A_c( 0, 1 ) = 1;
-	
-	b_v( 0 ) = m_v;
+
+	A_b(0, 0) = -1;
+	A_c(0, 0) = -1;
+	A_b(1, 0) = 1;
+	A_c(0, 1) = 1;
+
+	b_v(0) = m_v;
 }
 
-void VoltageSource::updateCurrents()
-{
+void VoltageSource::updateCurrents() {
 	if (!b_status) return;
 
 	double i = p_cbranch[0]->current();
 
-	p_cnode[0]->setCurrent( i);
-	p_cnode[1]->setCurrent(-i);
+	p_cnode[0]->sourceCurrent(i);
+	p_cnode[1]->sinkCurrent(i);
 }
 

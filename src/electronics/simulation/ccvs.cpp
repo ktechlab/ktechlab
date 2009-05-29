@@ -59,12 +59,12 @@ void CCVS::updateCurrents()
 	if (!b_status) return;
 // CONTROL SIDE
 	double i = p_cbranch[0]->current();
-	p_cnode[0]->setCurrent(-i);
-	p_cnode[1]->setCurrent( i);
+	p_cnode[0]->sinkCurrent(i);
+	p_cnode[1]->sourceCurrent(i);
 
 // DPENDANT SIDE 
 	i = p_cbranch[1]->current();
-	p_cnode[2]->setCurrent(-i);
-	p_cnode[3]->setCurrent( i);
+	p_cnode[2]->sinkCurrent(i);
+	p_cnode[3]->sourceCurrent(i);
 }
 
