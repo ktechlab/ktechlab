@@ -50,8 +50,8 @@ void Diode::updateCurrents() {
 	double I, g;
 	calcIg(p_cnode[0]->voltage() - p_cnode[1]->voltage(), &I, &g);
 
-	m_cnodeI[1] = I;
-	m_cnodeI[0] = -m_cnodeI[1];
+	p_cnode[0]->setCurrent(-I);
+	p_cnode[1]->setCurrent( I);
 }
 
 void Diode::update_dc() {

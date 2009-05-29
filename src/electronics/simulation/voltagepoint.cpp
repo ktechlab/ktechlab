@@ -44,6 +44,6 @@ void VoltagePoint::add_initial_dc() {
 void VoltagePoint::updateCurrents() {
 	if (!b_status) return;
 
-	m_cnodeI[0] = p_cbranch[0]->current();
+	p_cnode[0]->setCurrent(p_cbranch[0]->current());
 }
 

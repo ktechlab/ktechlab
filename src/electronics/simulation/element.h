@@ -32,21 +32,25 @@ extern double T_K; ///< Temperature in Kelvin
 class CNode
 {
 public:
-	CNode() : v(0.0), m_n(0) {}
-	CNode(const int32_t n) : v(0.0), m_n(n) {}
+	CNode() : v(0.0), i(0.0), m_n(0) {}
+	CNode(const int32_t n) : v(0.0), i(0.0), m_n(n) {}
 
 	inline void set_n(const uint32_t n) { m_n = n; }
-	inline uint32_t n()     const { return m_n; }
+	inline uint32_t n() const { return m_n; }
 
 	inline double voltage() const { return v; }
 	inline void setVoltage(double volts) { if(m_n > -1) v = volts; }
 
-	inline bool isGround()  const { return m_n == -1; }
+	inline bool isGround() const { return m_n == -1; }
 	void setGround(); 
+
+	inline double current() const { return i; }
+	inline void setCurrent(const double ampres) { i = ampres; }
 
 private:
 	/// Voltage on node. This is set from the last calculated voltage.
 	double v;
+	double i; // gonna refactor this from element.
 
 	/// CNode number
 	int32_t m_n;
@@ -186,23 +190,15 @@ public:
 	double cbranchCurrent(const int branch);
 	double cnodeVoltage(const int node);
 
-	double cnodeCurrent(const int node) {
-		return m_cnodeI[node];
-	}
+	double cnodeCurrent(const int node) { 
+		if(b_status) return p_cnode[node]->current();
+		else return 0.0; }
 
 protected:
-
-	double m_cnodeI[MAX_CNODES]; ///< Current flowing into the cnodes from the element
-
 	/**
 	 * Update the status, returning b_status
 	 */
 	virtual bool updateStatus();
-
-	/**
-	 * Resets all calculated currents in the nodes to 0
-	 */
-	void resetCurrents();
 
 // TODO: give these more descriptive names
 	inline double &A_g(uint32_t i, uint32_t j);

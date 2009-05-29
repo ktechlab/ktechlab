@@ -30,8 +30,6 @@ Element::Element() {
 	for (int i = 0; i < MAX_CNODES; i++)
 		p_cnode[i] = 0;
 
-	resetCurrents();
-
 	for (int i = 0; i < MAX_CBRANCHES; i++)
 		p_cbranch[i] = 0;
 
@@ -40,11 +38,6 @@ Element::Element() {
 }
 
 Element::~ Element() {
-}
-
-void Element::resetCurrents() {
-	for (int i = 0; i < MAX_CNODES; i++)
-		m_cnodeI[i] = 0.0;
 }
 
 void Element::setElementSet(ElementSet *c) {
@@ -133,8 +126,6 @@ bool Element::updateStatus() {
 
 	// Finally, check for various pointers
 	if (!p_eSet) b_status = false;
-
-	if (!b_status) resetCurrents();
 
 	// And return the status :-)
 // 	kdDebug() << "Element::updateStatus(): Setting b_status to "<<(b_status?"true":"false")<<" this="<<this<<endl;
