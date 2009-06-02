@@ -18,6 +18,7 @@
 class CNItem;
 class ICNDocument;
 class ICNDocument;
+class Item;
 class Connector;
 class Node;
 class NodeData;
@@ -183,7 +184,8 @@ public:
 
 public slots:
 	void moveBy(double dx, double dy);
-	void removeNode(CNItem*) {
+	
+	void removeNode(Item*) {
 // parameter is made available for subclasses. 
 		removeNode();
 	}
