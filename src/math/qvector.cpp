@@ -112,8 +112,7 @@ void QuickVector::fillWithZeros() {
 QuickVector &QuickVector::operator-(const QuickVector &y) const {
 //	if(y.m != m) abort();
 
-	QuickVector *ret;
-	ret = new QuickVector(m);
+	QuickVector *ret = new QuickVector(m);
 
 	for(unsigned int i = 0; i < m; i++) ret->values[i] = values[i] - y.values[i];
 

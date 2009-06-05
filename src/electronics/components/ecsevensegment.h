@@ -19,21 +19,26 @@ class Diode;
 @short Seven segment display component
 @author David Saxton
 */
+
 class ECSevenSegment : public DIPComponent {
+
 public:
-	ECSevenSegment( ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	ECSevenSegment(ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECSevenSegment();
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
+
+	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
 	static LibraryItem *libraryItem();
-	
+
 	virtual void stepNonLogic();
-	virtual bool doesStepNonLogic() const { return true; }
+	virtual bool doesStepNonLogic() const {
+		return true;
+	}
+
 	virtual void dataChanged();
-	
+
 private:
-	virtual void drawShape( QPainter &p );
-	
+	virtual void drawShape(QPainter &p);
+
 	bool m_bCommonCathode;
 	uint lastUpdatePeriod;
 	uint avg_brightness[8];
@@ -41,7 +46,7 @@ private:
 	Diode *m_diodes[8];
 	ECNode *m_nodes[8];
 	ECNode *m_nNode;
-	double r, g, b;
+	float r, g, b;
 };
 
 #endif
