@@ -367,7 +367,7 @@ void QuickMatrix::dumpToAux() const {
 
 void QuickMatrix::fillWithZero() {
 	for(unsigned int j = 0; j < m; j++) {
-		memset(values[j], 0, n*sizeof(double)); // fastest method. =)
+		memset(values[j], 0, n * sizeof(double)); // fastest method. =)
 	}
 }
 
