@@ -11,7 +11,7 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-#include <math/qmatrix.h>
+#include "qmatrix.h"
 
 /**
 This class performs matrix storage, lu decomposition, forward and backward
