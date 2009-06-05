@@ -410,11 +410,8 @@ void Circuit::updateNodalVoltages() {
 		Pin *const node = *it;
 		int i = node->eqId();
 
-		if (i == -1) node->setVoltage(0.);
-		else {
-			const double v = m_elementSet->cNode(i)->voltage();
-			node->setVoltage(std::isfinite(v) ? v : 0.);
-		}
+		const double v = m_elementSet->cNode(i)->voltage();
+		node->setVoltage(std::isfinite(v) ? v : 0.);
 	}
 }
 
