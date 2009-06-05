@@ -25,7 +25,6 @@ public:
 	double I[3];
 };
 
-
 class JFETSettings
 {
 public:
@@ -37,7 +36,6 @@ public:
 	double N;	///< gate pn emission coeffecient
 	double N_R;	///< Isr emission coefficient
 };
-
 
 /**
 @author David Saxton

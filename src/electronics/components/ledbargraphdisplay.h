@@ -23,49 +23,52 @@
 
 const unsigned int max_LED_rows = 24;
 
-class LEDPart
-{
-	public:
-		LEDPart( Component *pParent, const QString& strPNode, const QString& strNNode );
-		~LEDPart();
-		
-		void setDiodeSettings( const DiodeSettings& ds );
-		void setColor( const QColor &color );
-		void step();
-		
-		void draw( QPainter &p, int x, int y, int w, int h );
-		
-	private:
-		Component *m_pParent;
-		Diode *m_pDiode;
-		DiodeSettings ds;
-		QString m_strPNode, m_strNNode;
-		
-		double r, g, b;
-		double lastUpdatePeriod;
-		double avg_brightness;
-		uint last_brightness;	
+class LEDPart {
+
+public:
+	LEDPart(Component *pParent, const QString& strPNode, const QString& strNNode);
+	~LEDPart();
+
+	void setDiodeSettings(const DiodeSettings& ds);
+	void setColor(const QColor &color);
+	void step();
+
+	void draw(QPainter &p, int x, int y, int w, int h);
+
+private:
+	Component *m_pParent;
+	Diode *m_pDiode;
+	DiodeSettings ds;
+	QString m_strPNode, m_strNNode;
+
+	float r, g, b;
+	double lastUpdatePeriod;
+	double avg_brightness;
+	uint last_brightness;
 };
 
-class LEDBarGraphDisplay : public DIPComponent
-{
-	public:
-		LEDBarGraphDisplay( ICNDocument* icnDocument, bool newItem, const QString& id = 0L );
-		~LEDBarGraphDisplay();
-		
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
-	
-	private:
-		void initPins();
-		void dataChanged();
-		
-		virtual void stepNonLogic();
-		virtual bool doesStepNonLogic() const { return true; }
-		virtual void drawShape( QPainter &p );
+class LEDBarGraphDisplay : public DIPComponent {
 
-		LEDPart* m_LEDParts[max_LED_rows];
-		unsigned int m_numRows;
+public:
+	LEDBarGraphDisplay(ICNDocument* icnDocument, bool newItem, const QString& id = 0);
+	~LEDBarGraphDisplay();
+
+	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
+	static LibraryItem *libraryItem();
+
+private:
+	void initPins();
+	void dataChanged();
+
+	virtual void stepNonLogic();
+	virtual bool doesStepNonLogic() const {
+		return true;
+	}
+
+	virtual void drawShape(QPainter &p);
+
+	LEDPart* m_LEDParts[max_LED_rows];
+	unsigned int m_numRows;
 };
 
 #endif

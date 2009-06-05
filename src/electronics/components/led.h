@@ -42,7 +42,7 @@ public:
 private:
 	virtual void drawShape(QPainter &p);
 
-	double r, g, b;
+	float r, g, b;
 
 	uint avg_brightness;
 	uint last_brightness;
