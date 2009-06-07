@@ -4,7 +4,7 @@
 // Description: 
 //
 //
-// Author: David Saxton, Alan Grimes <agrimes@speakeasy.net>, (C) 2009
+// Author: Alan Grimes <agrimes@speakeasy.net>, (C) 2009
 //
 // Copyright: See COPYING file that comes with this distribution
 //
@@ -12,7 +12,7 @@
 
 #include <iostream>
 #include <cmath>
-#include "matrix.h"
+#include "../src/math/matrix.h"
 
 using namespace std;
 
