@@ -33,7 +33,11 @@ int main(int argc, char **argv) {
 
 // TODO randomize matrix and vector.
 
+	A->identity();
 
+	for(unsigned i = 0; i < size; i++) {
+		b->atPut(i, i);
+	}
 
 // create LU for A. 
 	A->performLU();
