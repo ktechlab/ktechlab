@@ -32,6 +32,4 @@ libcomponents_la_SOURCES = ecdiode.cpp ecsevensegment.cpp eckeypad.cpp \
 libcomponents_la_PCH = AUTO
 
 
-libcomponents_la_LIBADD =\
-	$(top_builddir)/src/electronics/simulation/libelements.la
 _SOURCES = ecsipo.h
