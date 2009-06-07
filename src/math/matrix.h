@@ -64,6 +64,8 @@ public:
 	 */
 	void displayLU();
 
+	void identity() { *m_mat = 1; }
+
 	double &g(CUI i, CUI j) {
 		const unsigned int mapped_i = m_inMap[i];
 		if(mapped_i < max_k) max_k = mapped_i;
