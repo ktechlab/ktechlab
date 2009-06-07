@@ -13,17 +13,14 @@ INCLUDES = -I$(top_srcdir)/doc -I$(top_srcdir)/microbe -I$(top_srcdir)/src \
 	-I$(top_srcdir)/src/mechanics -I$(top_srcdir)/src/micro $(all_includes)
 
 # the library search path. 
-ktechlab_LDFLAGS = $(KDE_RPATH) $(all_libraries)
 
 # the libraries to link against.
 ktechlab_LDADD = $(top_builddir)/src/core/libcore.la \
-	$(top_builddir)/src/drawparts/libdrawparts.la $(top_builddir)/src/electronics/components/libcomponents.la \
-	$(top_builddir)/src/electronics/simulation/libelements.la $(top_builddir)/src/electronics/libelectronics.la \
-	$(top_builddir)/src/flowparts/libflowparts.la $(top_builddir)/src/gui/itemeditor/libitemeditor.la \
-	$(top_builddir)/src/gui/libgui.la $(top_builddir)/src/languages/liblanguages.la \
-	$(top_builddir)/src/math/libtechmath.la $(top_builddir)/src/mechanics/libmechanics.la \
-	$(top_builddir)/src/micro/libmicro.la $(LIB_GPSIM) $(LIB_KDEPRINT) $(LIB_KFILE) -lkhtml -lktexteditor \
-	-lkutils
+	$(top_builddir)/src/drawparts/libdrawparts.la $(top_builddir)/src/electronics/libelectronics.la \
+	$(top_builddir)/src/flowparts/libflowparts.la $(top_builddir)/src/gui/libgui.la \
+	$(top_builddir)/src/languages/liblanguages.la $(top_builddir)/src/math/libtechmath.la \
+	$(top_builddir)/src/mechanics/libmechanics.la $(top_builddir)/src/micro/libmicro.la $(LIB_GPSIM) $(LIB_KDEPRINT) \
+	$(LIB_KFILE) -lkhtml -lktexteditor -lkutils
 
 # which sources should be compiled for ktechlab
 ktechlab_SOURCES = asmformatter.cpp canvas.cpp canvasitemparts.cpp \

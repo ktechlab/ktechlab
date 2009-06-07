@@ -47,6 +47,7 @@
         <ktechlab/>
         <microbasic/>
         <utest/>
+        <mathtest/>
       </runarguments>
       <globaldebugarguments/>
       <globalcwd/>
@@ -56,10 +57,12 @@
       <debugarguments>
         <ktechlab/>
         <utest/>
+        <mathtest/>
       </debugarguments>
       <cwd>
         <ktechlab>/home/atg/source/ktechlab-svn/ktechlab/trunk/debug/./src</ktechlab>
         <utest>/home/atg/source/ktechlab-svn/ktechlab/trunk/debug/./src</utest>
+        <mathtest>/home/atg/source/ktechlab/trunk/debug/./src</mathtest>
       </cwd>
     </run>
     <make>
