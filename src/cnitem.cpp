@@ -18,11 +18,10 @@
 #include "outputflownode.h"
 #include "junctionflownode.h"
 #include "itemdocumentdata.h"
-#include <kdebug.h>
 
+#include <kdebug.h>
 #include <qbitarray.h>
 #include <qpainter.h>
-
 #include <cstdlib>
 #include <cmath>
 

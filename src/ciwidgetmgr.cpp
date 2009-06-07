@@ -20,7 +20,6 @@ CIWidgetMgr::CIWidgetMgr( QCanvas *canvas, CNItem *item )
 	p_canvas = canvas;
 }
 
-
 CIWidgetMgr::~CIWidgetMgr()
 {
 	// QCanvas deletes our items for us. Actually, it pretty much insists on deleting them,
