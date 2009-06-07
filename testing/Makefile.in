@@ -334,6 +334,7 @@ INCLUDES =
 #>- METASOURCES = AUTO
 mathtest_SOURCES = mathtest.cpp
 mathtest_LDADD = $(top_builddir)/src/math/libtechmath.la
+mathtest_LDFLAGS = $(KDE_RPATH) $(all_libraries)
 #>- all: all-am
 #>+ 1
 all: docs-am  all-am
@@ -608,7 +609,7 @@ uninstall-am: uninstall-info-am
 .NOEXPORT:
 
 #>+ 2
-KDE_DIST=qvector.cpp qvector.h Makefile.in qmatrix.cpp matrix.h Makefile.am matrix.cpp qmatrix.h 
+KDE_DIST=Makefile.am Makefile.in 
 
 #>+ 2
 docs-am:
