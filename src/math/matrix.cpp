@@ -214,7 +214,7 @@ assert(max_k == size); // sanity check, it doesn't pay to misuse this function. 
 	for(unsigned int i = 0; i < size; i++) {
 		for(unsigned int j = 0; j < size; j++) {
 			double sum = (j >= i) ? m_lu->at(i,j) : 0;
-			for(unsigned int k = 0; k < i; k++) 
+			for(unsigned int k = 0; k < i && k <= j; k++) 
 				sum += m_lu->at(i,k) * m_lu->at(k, j);
 
 			A_check->atPut(i, j, -sum);
