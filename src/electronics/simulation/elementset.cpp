@@ -112,6 +112,10 @@ void ElementSet::doNonLinear(const int maxIterations, const double maxErrorV, co
 
 // we burn most of our CPU cycles when we make these calls.
 		p_A->performLU();
+
+// if this test fails, the calculation engine under the simulator is broken =( -- and it is.
+assert(p_A->validateLU() < 1e-6); 
+
 		p_A->fbSub(p_x);
 // #########################
 
@@ -158,8 +162,11 @@ bool ElementSet::doLinear(bool performLU) {
 	if (!m_cnonLinearList.empty() || (!p_b->isChanged() && ((performLU && !p_A->isChanged()) || !performLU)))
 		return false;
 
-	if (performLU)
+	if (performLU) {
 		p_A->performLU();
+// if this test fails, the calculation engine under the simulator is broken =( -- and it is.
+assert(p_A->validateLU() < 1e-6); 
+	}
 
 	*p_x = *p_b;   // <<< why does this code work, when I try it, I always get the default shallow copy.
 
@@ -227,7 +234,6 @@ void ElementSet::displayEquations() {
 	}
 
 	std::cout << "A_LU:" << std::endl;
-
-	p_A->displayLU();
+	p_A->displayLU(std::cout);
 }
 
