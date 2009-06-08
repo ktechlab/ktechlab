@@ -211,11 +211,10 @@ double QuickMatrix::rowsum(CUI m) {
 
 // ####################################
 
-double QuickMatrix::absrowsum(CUI m) {
-	if(m >= m) return NAN;
+double QuickMatrix::absrowsum(CUI m_sel) {
+	if(m_sel >= m) return NAN;
 
-	double *arow = values[m];
-
+	double *arow = values[m_sel];
 	double sum = 0.0;
 
 // iterate over n columns. 
