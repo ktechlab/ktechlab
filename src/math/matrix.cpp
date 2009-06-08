@@ -10,10 +10,11 @@
 
 #include "matrix.h"
 
-#include <kdebug.h>
 #include <cassert>
 #include <cmath>
-#include <iostream>
+#include <cstring>
+
+#include <iostream> 
 
 /// Minimum value before an entry is deemed "zero"
 const double epsilon = 1e-50;
@@ -21,7 +22,6 @@ const double epsilon = 1e-50;
 Matrix::Matrix(CUI size)
 	: max_k(0)
 {
-
 	m_mat = new QuickMatrix(size);
 	m_lu  = new QuickMatrix(size);
 
@@ -63,14 +63,14 @@ void Matrix::performLU()
 
 	// Copy the affected segment to LU
 	unsigned tmp = n - max_k;
-	for(uint i = max_k; i < n; i++) {
+	for(unsigned int i = max_k; i < n; i++) {
 		memcpy( (*m_lu )[i] + max_k,
 			(*m_mat)[i] + max_k,
 			(tmp) * sizeof(double));
 	}
 
 	// LU decompose the matrix, and store result back in matrix
-	for(uint k = 0; k < n-1; k++) {
+	for(unsigned int k = 0; k < n-1; k++) {
 
 		double *const lu_K_K = &(*m_lu)[k][k];
 		unsigned foo = std::max(k, max_k) + 1;
@@ -85,11 +85,11 @@ void Matrix::performLU()
 		}
 // #############
 
-		for(uint i = foo; i < n; i++) {
+		for(unsigned int i = foo; i < n; i++) {
 			(*m_lu)[i][k] /= lu_K_K_val;
 		}
 
-		for(uint i = std::max(k, max_k) + 1; i < n; i++) {
+		for(unsigned int i = std::max(k, max_k) + 1; i < n; i++) {
 			const double lu_I_K = (*m_lu)[i][k];
 			if(std::abs(lu_I_K) > 1e-12) {
 				m_lu->partialSAF(k, i, foo, -lu_I_K);
@@ -104,12 +104,12 @@ void Matrix::fbSub(QuickVector *b)
 {
 	unsigned int size = m_mat->size_m();
 
-	for(uint i = 0; i < size; i++) {
+	for(unsigned int i = 0; i < size; i++) {
 		m_y[m_inMap[i]] = (*b)[i];
 	}
 
 	// Forward substitution
-	for(uint i = 1; i < size; i++) {
+	for(unsigned int i = 1; i < size; i++) {
 		double sum = 0;
 		const double *m_lu_i = (*m_lu)[i];
 		for(unsigned int j = 0; j < i; j++ ) {
@@ -123,7 +123,7 @@ void Matrix::fbSub(QuickVector *b)
 	for(int i = size - 2; i >= 0; i-- ) {
 		double sum = 0;
 		const double *m_lu_i = (*m_lu)[i];
-		for(uint j = i + 1; j < size; j++) {
+		for(unsigned int j = i + 1; j < size; j++) {
 			sum += m_lu_i[j] * m_y[j];
 		}
 
@@ -134,7 +134,7 @@ void Matrix::fbSub(QuickVector *b)
 	}
 
 // I think we don't need to reverse the mapping because we only permute rows, not columns. 
-	for(uint i = 0; i < size; i++ )
+	for(unsigned int i = 0; i < size; i++ )
 		(*b)[i] = m_y[i];
 }
 
@@ -144,58 +144,103 @@ void Matrix::multiply(const QuickVector *rhs, QuickVector *result)
 	result->fillWithZeros();
 
 	unsigned int size = m_mat->size_m();
-	for(uint _i = 0; _i < size; _i++) {
-		uint i = m_inMap[_i];
+	for(unsigned int _i = 0; _i < size; _i++) {
+		unsigned int i = m_inMap[_i];
 /* hmm, we should move the resolution of pointers involving i out of the inner loop but
 there doesn't appear to be a way to obtain direct pointers into our classes inner structures.
-While it is a good safety feature of our classes, it doesn't facilitate optimization in this
+uintWhile it is a good safety feature of our classes, it doesn't facilitate optimization in this
 instance... Furthermore, our matrix class has an accelerator for this operation however it is
 ignorant of row permutations and it allocates new memory for the result matrix, breaking the
 interface of this method. 
 */
-		for(uint j = 0; j < size; j++) {
+		for(unsigned int j = 0; j < size; j++) {
 			result->atAdd(_i, (*m_mat)[i][j] * (*rhs)[j]);
 		}
 	}
 }
 
-void Matrix::displayMatrix()
+void Matrix::displayMatrix(std::ostream &outstream) const
 {
-	uint n = m_mat->size_m();
-	for(uint _i = 0; _i < n; _i++) {
+	unsigned int n = m_mat->size_m();
+	for(unsigned int _i = 0; _i < n; _i++) {
 
-		uint i = m_inMap[_i];
-		for(uint j = 0; j < n; j++) {
-			if(j > 0 && (*m_mat)[i][j] >= 0 ) kdDebug() << "+";
-			kdDebug() << (*m_mat)[i][j] << "("<<j<<")";
+		unsigned int i = m_inMap[_i];
+		for(unsigned int j = 0; j < n; j++) {
+			if(j > 0 && (*m_mat)[i][j] >= 0 ) outstream << "+";
+			outstream << (*m_mat)[i][j] << "("<<j<<")";
 		}
-		kdDebug()  << endl;
+		outstream << std::endl;
 	}
 }
 
-void Matrix::displayLU()
+void Matrix::displayLU(std::ostream &outstream) const
 {
-	uint n = m_mat->size_m();
-	for(uint _i = 0; _i < n; _i++) {
-		uint i = m_inMap[_i];
+	unsigned int n = m_mat->size_m();
+	for(unsigned int _i = 0; _i < n; _i++) {
+		unsigned int i = m_inMap[_i];
 
-		for(uint j = 0; j < n; j++ ) {
-			if ( j > 0 && (*m_lu)[i][j] >= 0 ) std::cout << "+";
-			std::cout << (*m_lu)[i][j] << "(" << j << ")";
+		for(unsigned int j = 0; j < n; j++ ) {
+			if ( j > 0 && (*m_lu)[i][j] >= 0 ) outstream << "+";
+			outstream << (*m_lu)[i][j] << "(" << j << ")";
 		}
-		std::cout << std::endl;
+		outstream << std::endl;
 	}
 
-	std::cout << "m_inMap:    ";
-	for(uint i = 0; i < n; i++ ) {
-		std::cout << i << "->" << m_inMap[i] << "  ";
+	outstream << "m_inMap:    ";
+	for(unsigned int i = 0; i < n; i++ ) {
+		outstream << i << "->" << m_inMap[i] << "  ";
 	}
 
-	std::cout << std::endl;
-	/*cout << "m_outMap:   ";
-	for(uint i = 0; i < n; i++) {
-		cout << i << "->" << m_outMap[i] << "  ";
+	outstream << std::endl;
+}
+
+/*!
+    \fn Matrix::validateLU()
+
+check the validity of LU factorization.
+It's an expensive procedure only for debugging.
+
+CAUTION: SUSPECT BUGS IN THIS FUNCTION JUST AS QUICKLY AS BUGS IN THE ABOVE. 
+ */
+double Matrix::validateLU() const 
+{
+	unsigned int size = m_mat->size_m();
+
+assert(max_k == size); // sanity check, it doesn't pay to misuse this function. =P 
+
+	QuickMatrix *A_check = new QuickMatrix(size);
+
+// Try to make a copy of A from m_lu
+	for(unsigned int i = 0; i < size; i++) {
+		for(unsigned int j = 0; j < size; j++) {
+			double sum = (j >= i) ? m_lu->at(i,j) : 0;
+			for(unsigned int k = 0; k < i; k++) 
+				sum += m_lu->at(i,k) * m_lu->at(k, j);
+
+			A_check->atPut(i, j, -sum);
+		}
 	}
-	cout << endl;*/
+
+// see whether it's actually a copy. =P 
+	*A_check += m_mat;  // betchya were wondering why we put the -sum there instead of the +. ;) 
+
+	double error = 0;
+	for(unsigned int i = 0; i < size; i++) {
+		error += A_check->absrowsum(i);
+	}
+
+	if(error > 1e-6) {
+// TIP: copy output into ooffice spreadsheet, make sure to select "space" as the delimiter
+		std::cout << "A" << std::endl;
+		m_mat->dumpToAux();
+		std::cout << "LU" << std::endl; 
+		m_lu->dumpToAux();
+		std::cout << "errors" << std::endl;
+ 		A_check->dumpToAux();
+	}
+
+// clean things up and return
+	delete A_check;
+	return error;
 }
 

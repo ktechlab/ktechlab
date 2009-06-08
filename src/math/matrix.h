@@ -11,6 +11,8 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
+#include <ostream>
+
 #include "qmatrix.h"
 
 /**
@@ -58,11 +60,11 @@ public:
 	/**
 	 * Prints the matrix to stdout
 	 */
-	void displayMatrix();
+	void displayMatrix(std::ostream &outstream) const;
 	/**
 	 * Prints the LU-decomposed matrix to stdout
 	 */
-	void displayLU();
+	void displayLU(std::ostream &outstream) const;
 
 	void identity() { *m_mat = 1; max_k = 0; }
 
@@ -85,6 +87,7 @@ public:
 	 * in the vector pointed to by result. Will fail if wrong size.
 	 */
 	void multiply(const QuickVector *rhs, QuickVector *result );
+	double validateLU() const;
 
 private:
 	/**
