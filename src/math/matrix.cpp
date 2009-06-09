@@ -48,6 +48,7 @@ void Matrix::swapRows(CUI a, CUI b)
 {
 	if(a == b) return;
 	m_mat->swapRows(a, b);
+	m_lu->swapRows(a, b);
 
 	const int old = m_inMap[a];
 	m_inMap[a] = m_inMap[b];
@@ -71,6 +72,21 @@ void Matrix::performLU()
 
 	// LU decompose the matrix, and store result back in matrix
 	for(unsigned int k = 0; k < n-1; k++) {
+
+		// do row permutations; 
+		if(k >= max_k) {
+			double max = std::abs(m_lu->at(k,k));
+			double row = k;
+			for(int j = k + 1; j < n; j++) {
+				double val = std::abs(m_lu->at(j,k));
+				if(val > max) {
+					max = val;
+					row = j;
+				}
+			}
+
+			if(row != k) swapRows(k,row);
+		}
 
 		double *const lu_K_K = &(*m_lu)[k][k];
 		unsigned foo = std::max(k, max_k) + 1;
@@ -206,7 +222,7 @@ double Matrix::validateLU() const
 {
 	unsigned int size = m_mat->size_m();
 
-assert(max_k == size); // sanity check, it doesn't pay to misuse this function. =P 
+//assert(max_k == size); // sanity check, it doesn't pay to misuse this function. =P 
 
 	QuickMatrix *A_check = new QuickMatrix(size);
 
