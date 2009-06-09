@@ -76,8 +76,8 @@ void Matrix::performLU()
 		// do row permutations; 
 		if(k >= max_k) {
 			double max = std::abs(m_lu->at(k,k));
-			double row = k;
-			for(int j = k + 1; j < n; j++) {
+			unsigned int row = k;
+			for(unsigned int j = k + 1; j < n; j++) {
 				double val = std::abs(m_lu->at(j,k));
 				if(val > max) {
 					max = val;
