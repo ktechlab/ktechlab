@@ -121,7 +121,7 @@ void Matrix::fbSub(QuickVector *b)
 	unsigned int size = m_mat->size_m();
 
 	for(unsigned int i = 0; i < size; i++) {
-		m_y[m_inMap[i]] = (*b)[i];
+		m_y[i] = (*b)[m_inMap[i]];
 	}
 
 	// Forward substitution
