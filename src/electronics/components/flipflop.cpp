@@ -369,11 +369,9 @@ void ECSRFlipFlop::inStateChanged(bool) {
 	bool s = m_pS->isHigh();
 	bool r = m_pR->isHigh();
 
-	bool q1 = m_pQ->isHigh();
-	bool q2 = m_pQBar->isHigh();
-
-	m_pQ->setHigh(!(q2 || r));
-	m_pQBar->setHigh(!(q1 || s));
+	m_pQ->setHigh(!(m_pQBar->isHigh() || r));
+	m_pQBar->setHigh(!(m_pQ->isHigh() || s));
+	m_pQ->setHigh(!(m_pQBar->isHigh() || r));
 
 //I think that if we change our state, we trigger our own callback
 // so either we'll settle out or go nuts... we might need to set up a
