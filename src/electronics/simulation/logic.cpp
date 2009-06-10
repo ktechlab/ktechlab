@@ -182,7 +182,7 @@ void LogicOut::configChanged() {
 	if (p_eSet)
 		p_eSet->setCacheInvalidated();
 
-	// NOTE Make sure that the next two lines are the same as those in setElementSet and setHigh
+	// NOTE Make sure that the next two lines are the same as those in setHigh
 	m_g_out = m_bState ? 1.0 / m_config.highImpedance : 1.0 / m_config.lowImpedance;
 	m_v_out = m_bState ? m_config.output : 0.0;
 
@@ -196,7 +196,7 @@ void LogicOut::add_initial_dc() {
 		return;
 
 	A_g(0, 0) += m_g_out - m_old_g_out; // must remove old value before changing. 
-	b_i(0) += m_g_out * m_v_out; // we own this variable so we simply write the new value.
+	b_i(0) = m_v_out * m_g_out; // we own this variable so we simply write the new value.
 
 	m_old_g_out = m_g_out;
 	m_old_v_out = m_v_out;
@@ -228,7 +228,7 @@ void LogicOut::setHigh(bool high) {
 		return;
 	}
 
-	// NOTE Make sure that the next two lines are the same as those in setElementSet and setLogic
+	// NOTE Make sure that the next two lines are the same as those in setLogic
 	m_g_out = high ? 1.0 / m_config.highImpedance : 1.0 / m_config.lowImpedance;
 	m_v_out = high ? m_config.output : 0.0;
 
