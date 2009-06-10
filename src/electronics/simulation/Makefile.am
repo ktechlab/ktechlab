@@ -9,3 +9,4 @@ libelements_la_SOURCES = cccs.cpp ccvs.cpp circuit.cpp currentsource.cpp \
 noinst_HEADERS = cccs.h ccvs.h circuit.h currentsource.h diode.h element.h \
 	elementset.h logic.h vccs.h vcvs.h voltagesource.h capacitance.h resistance.h \
 	elementsignal.h nonlinear.h reactive.h bjt.h opamp.h inductance.h jfet.h mosfet.h
+libelements_la_LIBADD = $(top_builddir)/src/math/libtechmath.la
