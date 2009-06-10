@@ -195,8 +195,8 @@ void LogicOut::add_initial_dc() {
 	if (!b_status)
 		return;
 
-	A_g(0, 0) += m_g_out - m_old_g_out;
-	b_i(0) += m_g_out * m_v_out - m_old_g_out * m_old_v_out;
+	A_g(0, 0) += m_g_out - m_old_g_out; // must remove old value before changing. 
+	b_i(0) += m_g_out * m_v_out; // we own this variable so we simply write the new value.
 
 	m_old_g_out = m_g_out;
 	m_old_v_out = m_v_out;
