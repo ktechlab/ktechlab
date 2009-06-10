@@ -183,7 +183,7 @@ void LogicOut::configChanged() {
 		p_eSet->setCacheInvalidated();
 
 	// NOTE Make sure that the next two lines are the same as those in setHigh
-	m_g_out = m_bState ? 1.0 / m_config.highImpedance : 1.0 / m_config.lowImpedance;
+	m_g_out = 1.0 / (m_bState ? m_config.highImpedance : m_config.lowImpedance);
 	m_v_out = m_bState ? m_config.output : 0.0;
 
 	add_initial_dc();
@@ -199,10 +199,17 @@ void LogicOut::add_initial_dc() {
 // we have a thevian equivalent source that supplies v_out and has an equivalent impedance of 1/g_out. 
 // fix the following so that it always behaves that way... 
 	double delta_conductance = m_g_out - m_old_g_out;
-//	A_g(0, 0) = 1;
-	A_c(0, 0) += delta_conductance; // must remove old value before changing. 
-	A_b(0, 0) -= delta_conductance;
-//	A_d(0, 0) = 1;
+
+//****
+// confidence in next line: 1% 
+//	A_g(0, 0) -= delta_conductance;
+// confidence in next line: 50% 
+	A_b(0, 0) = 1;
+// confidence in next line: 60%
+	A_c(0, 0) = 1;
+// confidence in next line: 85% -- following line should remain commented.
+	A_d(0, 0) -= delta_conductance;
+//****
 
 	b_v(0) = m_v_out; // we own this variable so we simply write the new value.
 
@@ -237,7 +244,7 @@ void LogicOut::setHigh(bool high) {
 	}
 
 	// NOTE Make sure that the next two lines are the same as those in setLogic
-	m_g_out = high ? 1.0 / m_config.highImpedance : 1.0 / m_config.lowImpedance;
+	m_g_out = 1.0 / (high ? m_config.highImpedance : m_config.lowImpedance);
 	m_v_out = high ? m_config.output : 0.0;
 
 	add_initial_dc();
