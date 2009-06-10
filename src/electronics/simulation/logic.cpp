@@ -110,7 +110,8 @@ LogicOut::LogicOut(LogicConfig config, bool _high)
 	m_bUseLogicChain = false;
 	m_numCNodes = 1;
 	m_old_g_out = m_g_out = 0.0;
-	m_old_v_out = m_v_out = 0.0;
+	//m_old_v_out = 
+	m_v_out = 0.0;
 	setHigh(_high);
 
 	configChanged();
@@ -199,7 +200,7 @@ void LogicOut::add_initial_dc() {
 	b_i(0) = m_v_out * m_g_out; // we own this variable so we simply write the new value.
 
 	m_old_g_out = m_g_out;
-	m_old_v_out = m_v_out;
+//	m_old_v_out = m_v_out;
 }
 
 void LogicOut::updateCurrents() {
