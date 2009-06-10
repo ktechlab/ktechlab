@@ -193,25 +193,25 @@ void setCanAddChanged(bool canAdd) {
 }
 // **** 
 
-
 // FIXME RED ALERT: THESE ARE ONLY ACCESSED BY SIMULATOR!!!
 	PinSet pinList;
 
 protected:
+
 	void configChanged();
 	virtual void updateCurrents();
 	virtual void add_initial_dc();
 
-	double m_g_out;
-	double m_v_out;
+	double m_g_out, m_v_out;
 	double m_old_g_out;
-	double m_old_v_out;
 
 // ###  We also moonlight as a shoddy linked list implementation; woo hoo!! 
 	bool m_bCanAddChanged;
 	LogicOut *m_pNextChanged[2];
 	bool m_bUseLogicChain;
 // ###
+//private: 
+//	bool m_bOutState;  // state which is insensitive to circuit conditions. 
 };
 
 #endif
