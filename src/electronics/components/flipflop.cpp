@@ -350,8 +350,11 @@ ECSRFlipFlop::ECSRFlipFlop(ICNDocument *icnDocument, bool newItem, const char *i
 
 	m_pS->setCallback(this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged));
 	m_pR->setCallback(this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged));
-//	m_pQ->setCallback(this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged));
-//	m_pQBar->setCallback(this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged));
+
+// this type of flip-flop is sensitive to whether the load on the output overcomes its output drive.
+// we also sometimes need two iterations to settle out our state...
+	m_pQ->setCallback(this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged));
+	m_pQBar->setCallback(this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged));
 }
 
 ECSRFlipFlop::~ECSRFlipFlop() {
