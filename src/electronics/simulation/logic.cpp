@@ -108,9 +108,8 @@ LogicOut::LogicOut(LogicConfig config, bool _high)
 	m_bCanAddChanged = true;
 	m_pNextChanged[0] = m_pNextChanged[1] = 0;
 	m_bUseLogicChain = false;
-	m_numCNodes = 1;
+	m_numCBranches = 1;
 	m_old_g_out = m_g_out = 0.0;
-	//m_old_v_out = 
 	m_v_out = 0.0;
 	setHigh(_high);
 
@@ -196,8 +195,16 @@ void LogicOut::add_initial_dc() {
 	if (!b_status)
 		return;
 
-	A_g(0, 0) += m_g_out - m_old_g_out; // must remove old value before changing. 
-	b_i(0) = m_v_out * m_g_out; // we own this variable so we simply write the new value.
+// FIXME: figure out correct matrix initialization.
+// we have a thevian equivalent source that supplies v_out and has an equivalent impedance of 1/g_out. 
+// fix the following so that it always behaves that way... 
+	double delta_conductance = m_g_out - m_old_g_out;
+//	A_g(0, 0) = 1;
+	A_c(0, 0) += delta_conductance; // must remove old value before changing. 
+	A_b(0, 0) -= delta_conductance;
+//	A_d(0, 0) = 1;
+
+	b_v(0) = m_v_out; // we own this variable so we simply write the new value.
 
 	m_old_g_out = m_g_out;
 //	m_old_v_out = m_v_out;
