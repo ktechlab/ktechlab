@@ -62,6 +62,13 @@ void Matrix::performLU()
 	unsigned int n = m_mat->size_m();
 	if(n == 0 || max_k == n) return;
 
+	if(n == 1) {
+// degenerate case
+		m_lu->atPut(0, 0, m_mat->at(0, 0));
+		max_k = 1; 
+		return;
+	}
+
 	// Copy the affected segment to LU
 	unsigned tmp = n - max_k;
 	for(unsigned int i = max_k; i < n; i++) {
@@ -75,10 +82,10 @@ void Matrix::performLU()
 
 		// do row permutations; 
 		if(k >= max_k) {
-			double max = std::abs(m_lu->at(k,k));
+			double max = std::abs(m_mat->at(k,k));
 			unsigned int row = k;
 			for(unsigned int j = k + 1; j < n; j++) {
-				double val = std::abs(m_lu->at(j,k));
+				double val = std::abs(m_mat->at(j,k));
 				if(val > max) {
 					max = val;
 					row = j;
@@ -245,14 +252,15 @@ double Matrix::validateLU() const
 		error += A_check->absrowsum(i);
 	}
 
-	if(error > 1e-6) {
+	if(error > 1e-6 || !std::isfinite(error) ) {
 // TIP: copy output into ooffice spreadsheet, make sure to select "space" as the delimiter
 		std::cout << "A" << std::endl;
 		m_mat->dumpToAux();
 		std::cout << "LU" << std::endl; 
 		m_lu->dumpToAux();
 		std::cout << "errors" << std::endl;
- 		A_check->dumpToAux();
+		A_check->dumpToAux();
+		std::cout << "Total Error: " << error << std::endl;
 	}
 
 // clean things up and return
