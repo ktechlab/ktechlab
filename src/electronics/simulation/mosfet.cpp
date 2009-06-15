@@ -191,13 +191,13 @@ void MOSFET::calcIg(double V_BS, double V_DS, double V_GS,
 //	mosDiodeJunction(V_BS, I_S, N, I_BS, g_BS);
 //	mosDiodeJunction(V_BS - V_DS, I_S, N, I_BD, g_BD);
 
-	diodeJunction(V_BS,        I_S, N, I_BS, g_BS);
-	diodeJunction(V_BS - V_DS, I_S, N, I_BD, g_BD);
+	diodeJunction(std::max(V_BS, V_lim)       , I_S, N, I_BS, g_BS);
+	diodeJunction(std::max(V_BS - V_DS, V_lim), I_S, N, I_BD, g_BD);
 
 	// bias-dependent threshold voltage
 	double V_tst = V_GS - V_T;
 
-	*I_D = 0;
+	*I_D  = 0;
 	*g_DS = 0;
 	*g_M  = 0;
 	*g_mb = 0;
