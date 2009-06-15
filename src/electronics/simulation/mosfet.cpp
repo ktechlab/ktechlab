@@ -21,7 +21,7 @@ using namespace std;
 MOSFETSettings::MOSFETSettings() {
 	I_S = 1e-14;
 	N = 1.0;
-	K_P = 2e-5;
+	K_P = 6e-5;
 	L = 1e-4;
 	W = 1e-4;
 
@@ -191,11 +191,11 @@ void MOSFET::calcIg(double V_BS, double V_DS, double V_GS,
 //	mosDiodeJunction(V_BS, I_S, N, I_BS, g_BS);
 //	mosDiodeJunction(V_BS - V_DS, I_S, N, I_BD, g_BD);
 
-	diodeJunction(std::max(V_BS, V_lim)       , I_S, N, I_BS, g_BS);
+	diodeJunction(std::max(V_BS,        V_lim), I_S, N, I_BS, g_BS);
 	diodeJunction(std::max(V_BS - V_DS, V_lim), I_S, N, I_BD, g_BD);
 
 	// bias-dependent threshold voltage
-	double V_tst = V_GS - V_T;
+	const double V_tst = V_GS - V_T;
 
 	*I_D  = 0;
 	*g_DS = 0;
@@ -203,34 +203,28 @@ void MOSFET::calcIg(double V_BS, double V_DS, double V_GS,
 	*g_mb = 0;
 
 	if(V_tst > 0) {
-		const double gate_length_term = (1 +  m_mosfetSettings.L * V_DS);
+		const double gate_length_term = (1 +  length * V_DS);
 		const double beta = m_mosfetSettings.beta();
 
 		if (V_tst < V_DS) {
 			// saturation region
-			const double tmp = beta / 2 * length * V_tst * V_tst;
+			const double tmp = beta / 2 * V_tst * V_tst;
 
 			*I_D  = tmp * gate_length_term;
 			*g_DS = tmp * length;
 			*g_M  = beta * gate_length_term * V_tst;
-
-			if(V_BS < BULK_JUNCTION_POTENTIAL) {
-				*g_mb = *g_M *  BULK_THRESHOLD / (2 * sqrt( BULK_JUNCTION_POTENTIAL - V_BS));
-			} else *g_mb = 0; 
 
 		} else {
 			// linear region
 			const double tmp = beta * gate_length_term;
 			const double tmp2 = (V_GS - V_T - V_DS / 2);
 
-			*I_D  = tmp * tmp2 * V_DS;
+			*I_D  = beta * tmp2 * V_DS;
 			*g_DS = tmp * (V_GS - V_T - V_DS) + beta * length * V_DS * tmp2;
 			*g_M  = tmp * V_DS;
-
-			if(V_BS < BULK_JUNCTION_POTENTIAL) {
-				*g_mb = *g_M *  BULK_THRESHOLD / (2 * sqrt( BULK_JUNCTION_POTENTIAL - V_BS));
-			} else *g_mb = 0;
 		}
+
+		*g_mb = *g_M * BULK_THRESHOLD / (2 * sqrt(BULK_JUNCTION_POTENTIAL - V_BS));
 	}
 }
 
