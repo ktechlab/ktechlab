@@ -202,8 +202,8 @@ protected:
 	virtual void updateCurrents();
 	virtual void add_initial_dc();
 
-	double m_g_out, m_v_out;
-	double m_old_g_out;
+	double m_r_out, m_v_out;
+	double m_old_r_out, m_old_x;
 
 // ###  We also moonlight as a shoddy linked list implementation; woo hoo!! 
 	bool m_bCanAddChanged;
