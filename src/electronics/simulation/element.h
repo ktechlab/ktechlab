@@ -245,24 +245,28 @@ private:
 
 // this function is called millions of times!! =0
 // kachegrind reports that it is between 1.2- 3.2% of the total runtime.
+/// access the cnode part of the matrix
 double &Element::A_g(uint32_t i, uint32_t j)
 {
 	if(p_cnode[i]->isGround() || p_cnode[j]->isGround()) return m_temp;
 	return p_eSet->Ag(p_cnode[i]->n(), p_cnode[j]->n());
 }
 
+/// access the cnode::cbranch part of the matrix
 double &Element::A_b(uint32_t i, uint32_t j)
 {
 	if(p_cnode[i]->isGround()) return m_temp;
 	return p_eSet->Ag(p_cnode[i]->n(), p_cbranch[j]->n());
 }
 
+/// access the cbranch::cnode part of the matrix
 double &Element::A_c(uint32_t i, uint32_t j)
 {
 	if(p_cnode[j]->isGround()) return m_temp;
 	return p_eSet->Ag(p_cbranch[i]->n(), p_cnode[j]->n());
 }
 
+/// access the cbranch part of the matrix. 
 double &Element::A_d(uint32_t i, uint32_t j)
 {
 	return p_eSet->Ag(p_cbranch[i]->n(), p_cbranch[j]->n());
