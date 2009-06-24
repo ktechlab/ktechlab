@@ -9,8 +9,8 @@ INCLUDES = -I$(top_srcdir)/doc -I$(top_srcdir)/microbe -I$(top_srcdir)/src \
 	-I$(top_srcdir)/src/core -I$(top_srcdir)/src/drawparts -I$(top_srcdir)/src/electronics \
 	-I$(top_srcdir)/src/electronics/components -I$(top_srcdir)/src/electronics/models \
 	-I$(top_srcdir)/src/electronics/simulation -I$(top_srcdir)/src/flowparts -I$(top_srcdir)/src/gui \
-	-I$(top_srcdir)/src/gui/itemeditor -I$(top_srcdir)/src/languages -I$(top_srcdir)/src/math \
-	-I$(top_srcdir)/src/mechanics -I$(top_srcdir)/src/micro $(all_includes)
+	-I$(top_srcdir)/src/gui/itemeditor -I$(top_srcdir)/src/languages -I$(top_srcdir)/src/mechanics \
+	-I$(top_srcdir)/src/micro $(all_includes)
 
 # the library search path. 
 
@@ -18,9 +18,9 @@ INCLUDES = -I$(top_srcdir)/doc -I$(top_srcdir)/microbe -I$(top_srcdir)/src \
 ktechlab_LDADD = $(top_builddir)/src/core/libcore.la \
 	$(top_builddir)/src/drawparts/libdrawparts.la $(top_builddir)/src/electronics/libelectronics.la \
 	$(top_builddir)/src/flowparts/libflowparts.la $(top_builddir)/src/gui/libgui.la \
-	$(top_builddir)/src/languages/liblanguages.la $(top_builddir)/src/math/libtechmath.la \
-	$(top_builddir)/src/mechanics/libmechanics.la $(top_builddir)/src/micro/libmicro.la $(LIB_GPSIM) $(LIB_KDEPRINT) \
-	$(LIB_KFILE) -lkhtml -lktexteditor -lkutils
+	$(top_builddir)/src/languages/liblanguages.la $(top_builddir)/src/mechanics/libmechanics.la \
+	$(top_builddir)/src/micro/libmicro.la $(LIB_GPSIM) $(LIB_KDEPRINT) $(LIB_KFILE) -lkhtml -lktexteditor \
+	-lkutils
 
 # which sources should be compiled for ktechlab
 ktechlab_SOURCES = asmformatter.cpp canvas.cpp canvasitemparts.cpp \
@@ -76,7 +76,7 @@ rcdir = $(kde_datadir)/ktechlab
 rc_DATA = ktechlabui.rc ktechlabcircuitui.rc \
 	ktechlabflowcodeui.rc ktechlabitemviewui.rc ktechlabmechanicsui.rc ktechlabtextui.rc ktechlabkateui.rc
  
-SUBDIRS = contexthelp core drawparts electronics flowparts gui languages math \
+SUBDIRS = contexthelp core drawparts math electronics flowparts gui languages \
 	mechanics micro
 
 #iconsdir = $(kde_datadir)/ktechlab/icons
@@ -89,7 +89,4 @@ EXTRA_DIST = $(mime_DATA)
 katesyntaxdir = $(kde_datadir)/katepart/syntax
 katesyntax_DATA = microbe.xml
 
-_SOURCES = canvastip.h.cpp
-_SOURCES = canvastip.h.cpp connectorline.h
-_SOURCES = DIPComponent.h
-_SOURCES = DIPComponent.h dipcomponent.h
+_SOURCES = canvastip.h.cpp connectorline.h DIPComponent.h dipcomponent.h
