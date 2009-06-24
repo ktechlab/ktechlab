@@ -31,7 +31,6 @@ ClockedLogic::ClockedLogic(ICNDocument *icnDocument, bool newItem, const char *i
 	property("trig")->setAllowed(allowed);
 	property("trig")->setValue("Rising");
 	m_edgeTrigger = Rising;
-
 }
 
 void ClockedLogic::dataChanged() {
@@ -259,11 +258,11 @@ void ECJKFlipFlop::initSymbolFromTrigger() {
 	setSize(offset - 32, -32, w, 64, true);
 	m_pNNode[0]->setLength(8 + offset);
 	m_pNNode[2]->setLength(8 + offset);
-	addDisplayText("J", QRect(offset - 28, -24, 20, 16), "J", true, Qt::AlignLeft);
-	addDisplayText(">", QRect(offset - 28, -8, 20, 16), ">", true, Qt::AlignLeft);
-	addDisplayText("K", QRect(offset - 28,	8, 20,  16), "K", true, Qt::AlignLeft);
+	addDisplayText("J",   QRect(offset - 28, -24,    20, 16), "J",   true, Qt::AlignLeft);
+	addDisplayText(">",   QRect(offset - 28,  -8,    20, 16), ">",   true, Qt::AlignLeft);
+	addDisplayText("K",   QRect(offset - 28,   8,    20, 16), "K",   true, Qt::AlignLeft);
 	addDisplayText("Set", QRect(offset - 28, -28, w - 8, 16), "Set", true, Qt::AlignHCenter);
-	addDisplayText("Rst", QRect(offset - 28, 12, w - 8, 16), "Rst", true, Qt::AlignHCenter);
+	addDisplayText("Rst", QRect(offset - 28,  12, w - 8, 16), "Rst", true, Qt::AlignHCenter);
 
 	updateAttachedPositioning();
 }
@@ -343,10 +342,10 @@ ECSRFlipFlop::ECSRFlipFlop(ICNDocument *icnDocument, bool newItem, const char *i
 	m_pQ->setHigh(true);
 	m_pQBar->setHigh(false);
 
-	addDisplayText("S", QRect(-24, -16, 20, 16), "S");
-	addDisplayText("R", QRect(-24,   0, 20, 16), "R");
-	addDisplayText("Q", QRect(4, -16, 20, 16), "Q");
-	addDisplayText("Q'", QRect(4,   0, 20, 16), "Q'");
+	addDisplayText("S",  QRect(-24, -16, 20, 16), "S");
+	addDisplayText("R",  QRect(-24,   0, 20, 16), "R");
+	addDisplayText("Q",  QRect(4,   -16, 20, 16), "Q");
+	addDisplayText("Q'", QRect(4,     0, 20, 16), "Q'");
 
 	m_pS->setCallback(this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged));
 	m_pR->setCallback(this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged));

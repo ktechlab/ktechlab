@@ -151,8 +151,12 @@ void ECSevenSegment::drawShape(QPainter &p) {
 	if (lastUpdatePeriod != 0.) {
 		for (uint i = 0; i < 8; ++i) {
 			last_brightness[i] = (uint)(avg_brightness[i] / lastUpdatePeriod);
+	
+			avg_brightness[i] = 0;
 		}
 	}
+
+	lastUpdatePeriod = 0.;
 
 	double _b;
 
@@ -196,12 +200,6 @@ void ECSevenSegment::drawShape(QPainter &p) {
 	p.setBrush(QBrush(QColor(uint(255 - (255 - _b)*(1 - r)), uint(255 - (255 - _b) * (1 - g)), uint(255 - (255 - _b) * (1 - b)))));
 	p.setPen(Qt::NoPen);
 	p.drawPie(x2 + 3, y3 - 2, 3, 3, 0, 16 * 360);
-
-	lastUpdatePeriod = 0.;
-
-	for (uint i = 0; i < 8; ++i) {
-		avg_brightness[i] = 0.;
-	}
 
 	deinitPainter(p);
 }
