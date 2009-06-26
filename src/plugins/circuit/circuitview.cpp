@@ -91,7 +91,7 @@ void CircuitView::addApplet( Plasma::Applet *applet, const QString &containment,
     m_containment->setLocation(m_location);
     setScene(m_containment->scene());
 
-    m_containment->addApplet( applet );
+    m_containment->addApplet( applet, QPointF(-1,-1), false );
     applet->setFlag(QGraphicsItem::ItemIsMovable, false);
 
     setSceneRect(applet->geometry());

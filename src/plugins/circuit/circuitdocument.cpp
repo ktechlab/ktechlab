@@ -98,9 +98,9 @@ QString CircuitDocument::documentType() const
 QWidget* CircuitDocument::createViewWidget( QWidget* parent )
 {
     CircuitView *view = new CircuitView( parent );
-    CircuitApplet *applet = new CircuitApplet( view );
-    applet->setCircuitName( this->url().prettyUrl() );
-    view->addApplet( applet, "default", "none", QVariantList() );
+    QVariantMap args;
+    args.insert( "circuitName", this->url().prettyUrl() );
+    view->addApplet( "plasma_containment_ktlcircuit", "default", "none", QVariantList() << args );
 
     return view;
 }
