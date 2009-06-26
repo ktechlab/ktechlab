@@ -1,0 +1,17 @@
+[Desktop Entry]
+Name=KTechLab Circuit Containment
+Comment=A Containment grouping Component-Applets together
+Type=Service
+ServiceTypes=Plasma/Containment
+ 
+X-KDE-Library=plasma_containment_ktlcircuit
+X-KDE-ParentApp=ktechlab
+X-KDE-PluginInfo-Author=Julian Bäume
+X-KDE-PluginInfo-Email=julian@svg4all.de
+X-KDE-PluginInfo-Name=plasma_containment_ktlcircuit
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=http://www.ktechlab.org/
+X-KDE-PluginInfo-Category=
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
