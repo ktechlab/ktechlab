@@ -161,6 +161,16 @@ QuickVector &QuickVector::operator *=(const QuickVector &y) {
 
 // ###################################
 
+QuickVector &QuickVector::operator *=(const double y) {
+//	if(y.m != m) return NULL;
+
+	for(unsigned int i = 0; i < m; i++) values[i] *= y;
+	changed = true;
+	return *this;
+}
+
+// ###################################
+
 QuickVector &QuickVector::operator +=(const QuickVector &y) {
 //	if(y.m != m) return NULL;
 
