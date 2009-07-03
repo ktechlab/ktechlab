@@ -14,7 +14,7 @@
     </keywords>
     <projectdirectory>.</projectdirectory>
     <absoluteprojectpath>false</absoluteprojectpath>
-    <description/>
+    <description></description>
     <ignoreparts>
       <part>kdevbookmarks</part>
       <part>kdevctags2</part>
@@ -28,7 +28,7 @@
     <secondaryLanguages/>
     <versioncontrol>kdevsubversion</versioncontrol>
     <projectname>ktechlab</projectname>
-    <defaultencoding/>
+    <defaultencoding></defaultencoding>
   </general>
   <kdevautoproject>
     <general>
@@ -60,7 +60,7 @@
         <mathtest/>
       </debugarguments>
       <cwd>
-        <ktechlab>/home/atg/source/ktechlab-svn/ktechlab/trunk/debug/./src</ktechlab>
+        <ktechlab>debug/./src</ktechlab>
         <utest>/home/atg/source/ktechlab-svn/ktechlab/trunk/debug/./src</utest>
         <mathtest>/home/atg/source/ktechlab/trunk/debug/./src</mathtest>
       </cwd>
@@ -93,20 +93,20 @@
         <envvars/>
       </optimized>
       <debug>
-        <configargs>--enable-debug=full --prefix=/usr --enable-pch=yes --without-arts</configargs>
+        <configargs>--enable-debug=full --enable-pch=yes --without-arts</configargs>
         <builddir>debug</builddir>
         <ccompiler>kdevgccoptions</ccompiler>
         <cxxcompiler>kdevgppoptions</cxxcompiler>
         <f77compiler>kdevpgf77options</f77compiler>
         <cxxflags>-O0 -ggdb -pedantic</cxxflags>
-        <topsourcedir/>
-        <cppflags/>
-        <ldflags/>
-        <ccompilerbinary/>
-        <cxxcompilerbinary/>
-        <f77compilerbinary/>
+        <topsourcedir></topsourcedir>
+        <cppflags></cppflags>
+        <ldflags></ldflags>
+        <ccompilerbinary></ccompilerbinary>
+        <cxxcompilerbinary></cxxcompilerbinary>
+        <f77compilerbinary></f77compilerbinary>
         <cflags>-Werror -pedantic-errors -ggdb</cflags>
-        <f77flags/>
+        <f77flags></f77flags>
         <envvars/>
       </debug>
       <default>
@@ -174,16 +174,16 @@
   </kdevdoctreeview>
   <kdevdebugger>
     <general>
-      <dbgshell/>
+      <dbgshell></dbgshell>
       <programargs/>
-      <gdbpath/>
+      <gdbpath></gdbpath>
       <breakonloadinglibs>true</breakonloadinglibs>
       <separatetty>false</separatetty>
       <floatingtoolbar>false</floatingtoolbar>
       <runappinappdirectory>true</runappinappdirectory>
-      <configGdbScript/>
-      <runShellScript/>
-      <runGdbScript/>
+      <configGdbScript></configGdbScript>
+      <runShellScript></runShellScript>
+      <runGdbScript></runGdbScript>
       <raiseGDBOnStart>false</raiseGDBOnStart>
     </general>
     <display>
@@ -256,7 +256,7 @@
     </codecompletion>
     <references/>
     <creategettersetter>
-      <prefixGet/>
+      <prefixGet></prefixGet>
       <prefixSet>set</prefixSet>
       <prefixVariable>m_,_</prefixVariable>
       <parameterName>theValue</parameterName>
