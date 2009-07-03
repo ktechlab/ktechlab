@@ -21,6 +21,5 @@ libelectronics_la_LIBADD = \
 
 noinst_HEADERS = circuiticndocument.h componentmodellibrary.h dipcomponent.h \
 	ecnode.h electronicconnector.h elementmap.h gpsimprocessor.h junctionnode.h \
-	pin.h pinnode.h port.h simplecomponent.h switch.h wire.h
-_SOURCES = dsubcon.h
-_SOURCES = voltageappearance.h
+	pin.h pinnode.h port.h simplecomponent.h switch.h wire.h dsubcon.h \
+	voltageappearance.h
