@@ -25,66 +25,80 @@
 #include "qvector.h"
 #endif
 
+/**
+ * @class QuickMatrix
+ * @short a class to store a matrix and allow some special operations on it
+ * 
+ **/
 class QuickMatrix {
 public :
-	 QuickMatrix(CUI m_in, CUI n_in);
-	 QuickMatrix(CUI m_in);
-	 QuickMatrix(const QuickMatrix *old); // ye olde copy constructor.
-	~QuickMatrix();
+    // constructor/destructor
+    QuickMatrix(CUI m_in, CUI n_in);
+    QuickMatrix(CUI m_in);
+    QuickMatrix(const QuickMatrix *old); // ye olde copy constructor.
+    ~QuickMatrix();
 
-// accessors
-// we use accessors so that we can provide range checking.
-// we use Smalltalk style naming conventions.
-	double at(CUI m_a, CUI n_a) const;
-	bool atPut(CUI m_a, CUI n_a, const double val);
-	bool atAdd(CUI m_a, CUI n_a, const double val); // just give a negative val to subtract. =)
+    // accessors
+        // we use accessors so that we can provide range checking.
+        // we use Smalltalk style naming conventions.
+    double at(CUI m_a, CUI n_a) const;
+    bool atPut(CUI m_a, CUI n_a, const double val);
+    bool atAdd(CUI m_a, CUI n_a, const double val); // just give a negative val to subtract. =)
 
-	bool isSquare() const;
+    inline unsigned int size_m() const { return m; }
+    inline unsigned int size_n() const { return n; }
 
-	inline double *&operator[](const int i) { return values[i]; }
-	inline const double *operator[](const int i) const { return values[i]; }
+    // operators
+        // FIXME I don't like these operators; thely look very error-prone
+    inline double *&operator[](const int i) { return values[i]; }
+    inline const double *operator[](const int i) const { return values[i]; }
 
-	inline unsigned int size_m() const { return m; }
-	inline unsigned int size_n() const { return n; }
+        // Matrix arithmetic.
+        // FIXME The declaration of some operators is incorrect. Should return reference instead of pointer
+    QuickMatrix *operator +=(const QuickMatrix *othermat);
+    QuickMatrix *operator *=(const double y);
+    QuickMatrix *operator =(const double y); // sets the diagonal to a constant.
+   // QuickMatrix *operator =(const QuickMatrix *oldmat);
+    QuickMatrix *operator *(const QuickMatrix *operandmat) const;
 
-// functions for some elementary row operations.
-// these are actually procedures because they operate on the current matrix rather than
-// producing a results matrix.  
-	bool scaleRow(CUI m_a, const double scalor);
-		// changes B by adding A.
-	bool addRowToRow(CUI m_a, CUI m_b);
-		// changes B by adding the result of A times a scalor 
-	bool scaleAndAdd(CUI m_a, CUI m_b, const double scalor);
-	bool partialScaleAndAdd(CUI m_a, CUI m_b, const double scalor);
-	bool partialSAF(CUI m_a, CUI m_b, CUI from, const double scalor);
-	bool swapRows(CUI m_a, CUI m_b);
+    QuickVector *operator *(const QuickVector *operandvec) const;
 
-// functions that accelerate certain types of
-// operations that would otherwise require millions of at()'s
-	double multstep(CUI row, CUI pos, CUI col) const;
-	double multRowCol(CUI row, CUI col, CUI lim) const;
+    // status info
+    bool isSquare() const;
+    double rowsum(CUI m);
+    double absrowsum(CUI m);
 
-	QuickMatrix *transposeSquare() const; // Multiplies self by transpose.
-	QuickVector *transposeMult(const QuickVector *operandvec) const;
+    // functions for some elementary row operations.
+        // these are actually procedures because they operate on the current matrix rather than
+        // producing a results matrix.  
+    bool scaleRow(CUI m_a, const double scalor);
+        // changes B by adding A.
+    bool addRowToRow(CUI m_a, CUI m_b);
+        // changes B by adding the result of A times a scalor 
+    bool scaleAndAdd(CUI m_a, CUI m_b, const double scalor);
+    bool partialScaleAndAdd(CUI m_a, CUI m_b, const double scalor);
+    bool partialSAF(CUI m_a, CUI m_b, CUI from, const double scalor);
+    bool swapRows(CUI m_a, CUI m_b);
 
-// utility functions:
-	void fillWithRandom();
-	void fillWithZero();
-	double rowsum(CUI m);
-	double absrowsum(CUI m);
-	QuickVector *normalizeRows();
+    // functions that accelerate certain types of
+    // operations that would otherwise require millions of at()'s
+    double multstep(CUI row, CUI pos, CUI col) const;
+    double multRowCol(CUI row, CUI col, CUI lim) const;
 
-// Matrix arithmetic.
-	QuickMatrix *operator +=(const QuickMatrix *othermat);
-	QuickMatrix *operator *=(const double y);
-	QuickMatrix *operator =(const double y); // sets the diagonal to a constant.
-//	QuickMatrix *operator =(const QuickMatrix *oldmat);
-	QuickMatrix *operator *(const QuickMatrix *operandmat) const;
+    QuickMatrix *transposeSquare() const; 
 
-	QuickVector *operator *(const QuickVector *operandvec) const;
+    // Multiplies self by transpose.
+    QuickVector *transposeMult(const QuickVector *operandvec) const;
 
-// debugging
-	void dumpToAux() const;
+    // utility functions:
+    void fillWithRandom();  ///< no implementation?
+    void fillWithZero();
+
+    QuickVector *normalizeRows();
+
+
+    // debugging
+    void dumpToAux() const;
 
 private :
 // We don't have a default matrix size so therefore we lock the default constructor. 
