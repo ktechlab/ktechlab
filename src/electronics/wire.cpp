@@ -114,7 +114,7 @@ double Wire::voltage() const
 {
 	double temp;
 	if((temp = m_pStartPin->voltage() - m_pEndPin->voltage()) ) {
-		kdError() << "Wire voltage error: " << temp << endl;
+		kdError() << k_funcinfo << "Wire voltage error: " << temp << endl;
 	}
 
 	return m_pStartPin->voltage();
