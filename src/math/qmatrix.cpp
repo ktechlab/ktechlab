@@ -38,22 +38,53 @@ using namespace std;
 
 // ####################################
 
-bool QuickMatrix::isSquare() const {
-	return m == n;
-} 
+    QuickMatrix::QuickMatrix(CUI m_in, CUI n_in)
+	: m(m_in), n(n_in) {
+	allocator();
+	fillWithZero();
+}
+
+// ####################################
+
+QuickMatrix::QuickMatrix(CUI m_in) {
+    QuickMatrix(m_in, m_in);
+}
+
+// ####################################
+
+QuickMatrix::QuickMatrix(const QuickMatrix *old)
+ {
+    QuickMatrix(old->m, old->n);
+    for(unsigned int j = 0; j < m; j++) {
+            memcpy(values[j], old->values[j], n*sizeof(double)); // fastest method. =)
+    }
+}
+
+// ####################################
+
+QuickMatrix::~QuickMatrix() {
+	for(unsigned int i = 0; i < m; i++) delete[] values[i];
+	delete[] values;
+}
 
 // ####################################
 
 void QuickMatrix::allocator() {
 //	assert(!values);
-	assert(m);
-	assert(n);
+    assert(m);
+    assert(n);
 
-	values = new double*[m];
-	for(unsigned int i = 0; i < m; i++) {
-		values[i] = new double[n];
-	}
+    values = new double*[m];
+    for(unsigned int i = 0; i < m; i++) {
+        values[i] = new double[n];
+    }
 }
+
+// ####################################
+
+bool QuickMatrix::isSquare() const {
+	return m == n;
+} 
 
 // ####################################
 
@@ -87,40 +118,6 @@ QuickVector *QuickMatrix::transposeMult(const QuickVector *operandvec) const {
 	}
 
 	return ret;
-}
-
-// ####################################
-
-QuickMatrix::QuickMatrix(CUI m_in, CUI n_in)
-	: m(m_in), n(n_in) {
-	allocator();
-	fillWithZero();
-}
-
-// ####################################
-
-QuickMatrix::QuickMatrix(CUI m_in)
-	: m(m_in), n(m_in) {
-	allocator();
-	fillWithZero();
-}
-
-// ####################################
-
-QuickMatrix::QuickMatrix(const QuickMatrix *old)
-	: m(old->m), n(old->n) {
-	allocator();
-
-	for(unsigned int j = 0; j < m; j++) {
-		memcpy(values[j], old->values[j], n*sizeof(double)); // fastest method. =)
-	}
-}
-
-// ####################################
-
-QuickMatrix::~QuickMatrix() {
-	for(unsigned int i = 0; i < m; i++) delete[] values[i];
-	delete[] values;
 }
 
 // ####################################
@@ -249,7 +246,7 @@ bool QuickMatrix::partialScaleAndAdd(CUI m_a, CUI m_b, const double scalor) {
 	double *brow = values[m_b];
 
 // iterate over n - m_a columns.
-	for(unsigned int j = m_a; j < n; j++)
+	for(unsigned int j = m_a; j < n; j++) // FIXME BUG: j is on X coord. , m_a is on Y, but they are compared. WTF?
 		brow[j] += arow[j] * scalor;
 
 	return true;
@@ -353,6 +350,18 @@ QuickMatrix *QuickMatrix::operator *(const QuickMatrix *operandmat) const {
 }
 
 // ###################################
+// sets the diagonal to a constant.
+QuickMatrix *QuickMatrix::operator =(const double y) {
+    fillWithZero();
+    unsigned int size = n;
+    if(size > m) size = m;
+
+    for(unsigned int i = 0; i < size; i++) values[i][i] = y;
+    return this;
+}
+
+
+// ###################################
 
 void QuickMatrix::dumpToAux() const {
 	for(unsigned int j = 0; j < m; j++) {
@@ -370,14 +379,4 @@ void QuickMatrix::fillWithZero() {
 	}
 }
 
-// ###################################
-// sets the diagonal to a constant.
-QuickMatrix *QuickMatrix::operator =(const double y) {
-	fillWithZero();
-	unsigned int size = n;
-	if(size > m) size = m;
-
-	for(unsigned int i = 0; i < size; i++) values[i][i] = y;
-	return this;
-}
 
