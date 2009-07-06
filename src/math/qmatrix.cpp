@@ -38,23 +38,27 @@ using namespace std;
 
 // ####################################
 
-    QuickMatrix::QuickMatrix(CUI m_in, CUI n_in)
+QuickMatrix::QuickMatrix(CUI m_in, CUI n_in)
 	: m(m_in), n(n_in) {
-	allocator();
-	fillWithZero();
+    allocator();
+    fillWithZero();
 }
 
 // ####################################
 
-QuickMatrix::QuickMatrix(CUI m_in) {
-    QuickMatrix(m_in, m_in);
+QuickMatrix::QuickMatrix(CUI m_in) 
+        : m(m_in), n(m_in) {
+    allocator();
+    fillWithZero();
 }
 
 // ####################################
 
 QuickMatrix::QuickMatrix(const QuickMatrix *old)
  {
-    QuickMatrix(old->m, old->n);
+    m = old->m;
+    n = old->n;
+    allocator();
     for(unsigned int j = 0; j < m; j++) {
             memcpy(values[j], old->values[j], n*sizeof(double)); // fastest method. =)
     }
