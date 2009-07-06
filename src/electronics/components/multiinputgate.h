@@ -33,8 +33,9 @@ public:
 	 * base when the shape is distinctive).
 	 */
 	MultiInputGate(ICNDocument *icnDocument, bool newItem, const char *id,
-	               const QString & rectangularShapeText,
-	               int baseWidth, bool likeOR);
+                        const QString & rectangularShapeText,
+                        bool invertedOutput,
+                        int baseWidth, bool likeOR);
 	~MultiInputGate();
 
 protected:
@@ -71,7 +72,7 @@ protected:
 	LogicOut *m_pOut;
 	LogicSymbolShape m_logicSymbolShape;
 	QString m_rectangularShapeText;
-	virtual bool m_bInvertedOutput() const = 0;
+	const bool m_bInvertedOutput;  // will be initialized by the constructor from a given parameter
 	bool m_bLikeOR;
 
 private:
@@ -100,7 +101,6 @@ public:
 protected:
 	void inStateChanged(bool newState);
 	virtual void drawShape(QPainter &p);
-	virtual bool m_bInvertedOutput() const { return true; }
 };
 
 /**
@@ -120,7 +120,6 @@ public:
 protected:
 	void inStateChanged(bool newState);
 	virtual void drawShape(QPainter &p);
-	virtual bool m_bInvertedOutput() const { return false; }
 };
 
 /**
@@ -140,7 +139,6 @@ public:
 protected:
 	void inStateChanged(bool newState);
 	virtual void drawShape(QPainter &p);
-	virtual bool m_bInvertedOutput() const { return false; }
 };
 
 /**
@@ -160,7 +158,6 @@ public:
 protected:
 	void inStateChanged(bool newState);
 	virtual void drawShape(QPainter &p);
-	virtual bool m_bInvertedOutput() const { return true; }
 };
 
 /**
@@ -180,7 +177,6 @@ public:
 protected:
 	void inStateChanged(bool newState);
 	virtual void drawShape(QPainter &p);
-	virtual bool m_bInvertedOutput() const { return true; }
 };
 
 /**
@@ -200,6 +196,5 @@ public:
 protected:
 	void inStateChanged(bool newState);
 	virtual void drawShape(QPainter &p);
-	virtual bool m_bInvertedOutput() const { return false; }
 };
 #endif
