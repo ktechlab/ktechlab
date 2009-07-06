@@ -20,8 +20,10 @@
 #include <qpainter.h>
 
 //BEGIN class MultiInputGate
-MultiInputGate::MultiInputGate(ICNDocument *icnDocument, bool newItem, const char *id, const QString &rectangularShapeText, int baseWidth, bool likeOR)
-		: SimpleComponent(icnDocument, newItem, id) {
+MultiInputGate::MultiInputGate(ICNDocument *icnDocument, bool newItem, const char *id, const QString &rectangularShapeText, bool invertedOutput, int baseWidth, bool likeOR)
+                        :   SimpleComponent(icnDocument, newItem, id),
+                            m_bInvertedOutput(invertedOutput) {
+    
 	m_bLikeOR = likeOR;
 	m_bDoneInit = false;
 	m_numInputs = 0;
@@ -89,7 +91,7 @@ void MultiInputGate::updateSymbolText() {
 	if (m_logicSymbolShape == Distinctive)
 		removeDisplayText("rect-shape-text");
 	else {
-		int w = 32 - (m_bInvertedOutput() ? 6 : 0);
+		int w = 32 - (m_bInvertedOutput ? 6 : 0);
 		QRect r(-16, 4 - height() / 2, w, height() - 4);
 		addDisplayText("rect-shape-text", r, m_rectangularShapeText, true, AlignTop | AlignHCenter);
 	}
@@ -189,7 +191,7 @@ void MultiInputGate::drawShape(QPainter & p) {
 	int _x = int(x() + offsetX());
 	int _y = int(y() + offsetY());
 
-	if (m_bInvertedOutput()) {
+	if (m_bInvertedOutput) {
 		p.drawRect(_x, _y, 32 - 6, height());
 		p.drawEllipse(_x + 32 - 6, int(y()) - 3, 6, 6);
 	} else {
@@ -216,7 +218,7 @@ LibraryItem* ECXnor::libraryItem() {
 }
 
 ECXnor::ECXnor(ICNDocument *icnDocument, bool newItem, const char *id)
-		: MultiInputGate(icnDocument, newItem, id ? id : "xnor", "=1", 48, true) {
+                      : MultiInputGate(icnDocument, newItem, id ? id : "xnor", "=1", true, 48, true) {
 	m_name = i18n("XNOR gate");
 
 	inStateChanged(false);
@@ -278,7 +280,7 @@ LibraryItem* ECXor::libraryItem() {
 }
 
 ECXor::ECXor(ICNDocument *icnDocument, bool newItem, const char *id)
-		: MultiInputGate(icnDocument, newItem, id ? id : "xor", "=1", 48, true) {
+                       : MultiInputGate(icnDocument, newItem, id ? id : "xor", "=1", false, 48, true) {
 	m_name = i18n("XOR gate");
 
 	inStateChanged(false);
@@ -338,7 +340,7 @@ LibraryItem* ECOr::libraryItem() {
 }
 
 ECOr::ECOr(ICNDocument *icnDocument, bool newItem, const char *id)
-		: MultiInputGate(icnDocument, newItem, id ? id : "or", QChar(0x2265) + QString("1"), 48, true) {
+               : MultiInputGate(icnDocument, newItem, id ? id : "or", QChar(0x2265) + QString("1"), false, 48, true) {
 	m_name = i18n("OR gate");
 
 	inStateChanged(false);
@@ -400,7 +402,7 @@ LibraryItem* ECNor::libraryItem() {
 }
 
 ECNor::ECNor(ICNDocument *icnDocument, bool newItem, const char *id)
-		: MultiInputGate(icnDocument, newItem, id ? id : "nor", QChar(0x2265) + QString("1"), 48, true) {
+                    : MultiInputGate(icnDocument, newItem, id ? id : "nor", QChar(0x2265) + QString("1"), true, 48, true) {
 	m_name = i18n("NOR Gate");
 
 	inStateChanged(false);
@@ -461,7 +463,7 @@ LibraryItem* ECNand::libraryItem() {
 }
 
 ECNand::ECNand(ICNDocument *icnDocument, bool newItem, const char *id)
-		: MultiInputGate(icnDocument, newItem, id ? id : "nand", "&", 32, false) {
+                   : MultiInputGate(icnDocument, newItem, id ? id : "nand", "&", true, 32, false) {
 	m_name = i18n("NAND Gate");
 
 	inStateChanged(false);
@@ -515,7 +517,7 @@ LibraryItem* ECAnd::libraryItem() {
 }
 
 ECAnd::ECAnd(ICNDocument *icnDocument, bool newItem, const char *id)
-		: MultiInputGate(icnDocument, newItem, id ? id : "and", "&", 32, false) {
+                      : MultiInputGate(icnDocument, newItem, id ? id : "and", "&", false, 32, false) {
 	m_name = i18n("AND Gate");
 
 	inStateChanged(false);
