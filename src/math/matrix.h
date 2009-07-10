@@ -89,6 +89,7 @@ public:
 	void multiply(const QuickVector *rhs, QuickVector *result );
 	double validateLU() const;
 
+    bool validate() const;
 private:
 	/**
 	 * Swaps around the rows in the (a) the matrix; and (b) the mappings
