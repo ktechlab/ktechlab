@@ -110,6 +110,11 @@ void ElementSet::doNonLinear(const int maxIterations, const double maxErrorV, co
 
 		*p_x = *p_b;  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
+if(!p_A->validate()) {
+std::cout << "ERROR: invalid matrix!!!" << std::endl;
+break;
+}
+
 // we burn most of our CPU cycles when we make these calls.
 		p_A->performLU();
 
@@ -159,7 +164,7 @@ void ElementSet::loadX(const QuickVector *other) {
 }
 
 bool ElementSet::doLinear(bool performLU) {
-	if (!m_cnonLinearList.empty() || (!p_b->isChanged() && ((performLU && !p_A->isChanged()) || !performLU)))
+	if(!m_cnonLinearList.empty() || !p_b->isChanged() || !performLU || !p_A->validate())
 		return false;
 
 	if (performLU) {
