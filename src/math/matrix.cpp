@@ -17,7 +17,7 @@
 #include <iostream> 
 
 /// Minimum value before an entry is deemed "zero"
-const double epsilon = 1e-50;
+const double epsilon = 1e-40;
 
 Matrix::Matrix(CUI size)
 	: max_k(0)
@@ -268,3 +268,30 @@ double Matrix::validateLU() const
 	return error;
 }
 
+/*!
+    \fn Matrix::validate()
+If this here function fails, the matrix is no good and 
+no further computation should be done. This method should be used before performLU.
+ */
+bool Matrix::validate() const
+{
+	unsigned int n = m_mat->size_m();
+
+	for(int j = 0; j < n; j++) {
+		bool isValid = false;
+		for(int i = 0; i < n; i++) {
+			const double val = m_mat->at(i,j);
+
+			if(!std::isfinite(val)) return false;
+
+			if(std::abs(val) > epsilon) {
+				isValid = true; 
+				break; 
+			}
+		}
+
+		if(!isValid) return false;
+	}
+
+	return true;
+}
