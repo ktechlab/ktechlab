@@ -164,7 +164,7 @@ void ElementSet::loadX(const QuickVector *other) {
 }
 
 bool ElementSet::doLinear(bool performLU) {
-	if(!m_cnonLinearList.empty() || !p_b->isChanged() || !performLU || !p_A->validate())
+	if(!m_cnonLinearList.empty() || !p_b->isChanged() || !p_A->validate())
 		return false;
 
 	if (performLU) {
