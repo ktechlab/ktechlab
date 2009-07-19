@@ -31,76 +31,82 @@ substitution, and a few other useful operations. Steps in using class:
 @short Matrix manipulation class tailored for circuit equations
 @author David Saxton
 */
+// TODO clean up and update documentation, as the upper statements aren't valid anymore
+
 class Matrix
 {
 public:
-	/**
-	 * Creates a size x size square matrix m, with all values zero,
-	 * and a right side vector x of size m+n
-	 */
-	Matrix(CUI size);
-	~Matrix();
+        /**
+        * Creates a size x size square matrix m, with all values zero,
+        * and a right side vector x of size m+n
+        */
+        Matrix(CUI size);
 
-	/**
-	 * Returns true if the matrix is changed since last calling performLU()
-	 * - i.e. if we do need to call performLU again.
-	 */
-	inline bool isChanged() const { return max_k < m_mat->size_m(); }
-	/**
-	 * Performs LU decomposition. Going along the rows,
-	 * the value of the decomposed LU matrix depends only on
-	 * the previous values.
-	 */
-	void performLU();
-	/**
-	 * Applies the right side vector (x) to the decomposed matrix,
-	 * with the solution returned in x.
-	 */
-	void fbSub(QuickVector *x);
-	/**
-	 * Prints the matrix to stdout
-	 */
-	void displayMatrix(std::ostream &outstream) const;
-	/**
-	 * Prints the LU-decomposed matrix to stdout
-	 */
-	void displayLU(std::ostream &outstream) const;
+        /**
+        * Destructor
+        */
+        ~Matrix();
 
-	void identity() { *m_mat = 1; max_k = 0; }
+        /**
+        * Returns true if the matrix is changed since last calling performLU()
+        * - i.e. if we do need to call performLU again.
+        */
+        inline bool isChanged() const { return max_k < m_mat->size_m(); }
+        /**
+        * Performs LU decomposition. Going along the rows,
+        * the value of the decomposed LU matrix depends only on
+        * the previous values.
+        */
+        void performLU();
+        /**
+        * Applies the right side vector (x) to the decomposed matrix,
+        * with the solution returned in x.
+        */
+        void fbSub(QuickVector *x);
+        /**
+        * Prints the matrix to stdout
+        */
+        void displayMatrix(std::ostream &outstream) const;
+        /**
+        * Prints the LU-decomposed matrix to stdout
+        */
+        void displayLU(std::ostream &outstream) const;
 
-	double &g(CUI i, CUI j) {
-		const unsigned int mapped_i = m_inMap[i];
-		if(mapped_i < max_k) max_k = mapped_i;
+        void identity() { *m_mat = 1; max_k = 0; }
 
-		if(j < max_k) max_k = j;
+        double &g(CUI i, CUI j) {
+                const unsigned int mapped_i = m_inMap[i];
+                if(mapped_i < max_k) max_k = mapped_i;
 
-		// I think I need the next line...
-		if(max_k > 0) max_k--;
+                if(j < max_k) max_k = j;
 
-		return(*m_mat)[mapped_i][j];
-	}
+                // I think I need the next line...
+                if(max_k > 0) max_k--;
 
-	double  g(CUI i, CUI j) const { return m_mat->at(m_inMap[i], j); }
+                return(*m_mat)[mapped_i][j];
+        }
 
-	/**
-	 * Multiplies this matrix by the Vector rhs, and places the result
-	 * in the vector pointed to by result. Will fail if wrong size.
-	 */
-	void multiply(const QuickVector *rhs, QuickVector *result );
-	double validateLU() const;
+        double  g(CUI i, CUI j) const { return m_mat->at(m_inMap[i], j); }
+
+        /**
+        * Multiplies this matrix by the Vector rhs, and places the result
+        * in the vector pointed to by result. Will fail if wrong size.
+        */
+        void multiply(const QuickVector *rhs, QuickVector *result );
+        double validateLU() const;
 
     bool validate() const;
 private:
-	/**
-	 * Swaps around the rows in the (a) the matrix; and (b) the mappings
-	 */
-	void swapRows(CUI a, CUI b);
-	unsigned int max_k; // optimization variable, allows partial L_U re-do. 
-	int *m_inMap; // Rowwise permutation mapping from external reference to internal storage
+        /**
+        * Swaps around the rows in the (a) the matrix; and (b) the mappings
+        */
+        void swapRows(CUI a, CUI b);
+        unsigned int max_k; // optimization variable, allows partial L_U re-do. 
+        int *m_inMap; // Rowwise permutation mapping from external reference to internal storage
 
-	QuickMatrix *m_mat;
-	QuickMatrix *m_lu;
-	double *m_y; // Avoids recreating it lots of times
+        QuickMatrix *m_mat;
+        QuickMatrix *m_lu;
+        double *m_y; // Avoids recreating it lots of times
 };
 
 #endif
