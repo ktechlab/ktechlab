@@ -193,8 +193,8 @@ void setCanAddChanged(bool canAdd) {
 }
 // **** 
 
-// FIXME RED ALERT: THESE ARE ONLY ACCESSED BY SIMULATOR!!!
-	PinSet pinList;
+// FIXME RED ALERT: THESE ARE ONLY ACCESSED BY circuitDocument and SIMULATOR!!!
+	PinSet logicPinList;
 
 protected:
 
