@@ -174,10 +174,10 @@ public:
 
 /// SHODDY LINKED LIST STUFF!!! 
 	/**
-	 * Set whether or not this LogicOut is the head of a LogicChain (controls
-	 * itself and a bunch of LogicIns).
+	* We have two modes, a fast mode based on internal logic chains and a slow mode based on the 
+	* analog simulator. Calling this function puts us in fast mode, use only if there are no analog considerations. 
 	 */
-	void setUseLogicChain(bool use);
+	void setUseLogicChain();
 
 void setNextChanged(LogicOut *logicOut, unsigned char chain) {
 	m_pNextChanged[chain] = logicOut;
