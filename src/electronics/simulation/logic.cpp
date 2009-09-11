@@ -128,10 +128,9 @@ LogicOut::~LogicOut() {
 	theSimulator->removeLogicOutReferences(this);
 }
 
-void LogicOut::setUseLogicChain(bool use) {
-	m_bUseLogicChain = use;
-
-	if (use) setElementSet(0);
+void LogicOut::setUseLogicChain() {
+	m_bUseLogicChain = true;
+	setElementSet(0);
 }
 
 void LogicOut::setElementSet(ElementSet *c) {
