@@ -180,7 +180,7 @@ void Simulator::createLogicChain(LogicOut *logicOut, const LogicInList &logicInL
 
 	bool state = logicOut->isHigh();
 
-	logicOut->setUseLogicChain(true);
+	logicOut->setUseLogicChain();
 //	logicOut->pinList = pinList;
 
 	LogicIn *last = logicOut;
