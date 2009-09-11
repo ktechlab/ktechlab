@@ -320,6 +320,9 @@ LibraryItem *ECSRFlipFlop::libraryItem() {
 
 ECSRFlipFlop::ECSRFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id)
 		: SimpleComponent(icnDocument, newItem, id ? id : "sr_flipflop") {
+
+	m_pol = false;
+
 	m_name = i18n("SR Flip-Flop");
 
 	setSize(-24, -24, 48, 48);

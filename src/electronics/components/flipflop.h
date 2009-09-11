@@ -113,7 +113,7 @@ protected:
 
 // NOR = FALSE; NAND = TRUE. 
 // when NAND mode, both inputs are inverted. 
-	bool *m_pol; // polarity. 
+	bool m_pol; // polarity. 
 };
 
 #endif
