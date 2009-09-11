@@ -365,8 +365,8 @@ ECSRFlipFlop::~ECSRFlipFlop() {
 
 void ECSRFlipFlop::inStateChanged(bool) {
 
-	bool s = m_pS->isHigh();
-	bool r = m_pR->isHigh();
+	bool s = m_pS->isHigh() ^ m_pol;
+	bool r = m_pR->isHigh() ^ m_pol;
 
 	m_pQ->setHigh(!(m_pQBar->isHigh() || r));
 	m_pQBar->setHigh(!(m_pQ->isHigh() || s));
