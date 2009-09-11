@@ -598,26 +598,20 @@ void CircuitDocument::recursivePinAdd(Pin *pin, Circuitoid *circuitoid, PinSet *
 bool CircuitDocument::tryAsLogicCircuit(Circuitoid *circuitoid) {
 	if (!circuitoid) return false;
 
-
-
 	LogicInList logicInList;
 	LogicOut *out = 0;
-	uint logicInCount = 0;
-	uint logicOutCount = 0;
 
 	ElementList::const_iterator end = circuitoid->getElementsEnd();
 	for (ElementList::const_iterator it = circuitoid->getElementsBegin(); it != end; ++it) {
 		if ((*it)->type() == Element::Element_LogicOut) {
-			logicOutCount++;
+			if(out) return false; 
 			out = static_cast<LogicOut*>(*it);
 		} else if ((*it)->type() == Element::Element_LogicIn) {
-			logicInCount++;
 			logicInList += static_cast<LogicIn*>(*it);
 		} else return false;
 	}
 
-	if (logicOutCount > 1) return false;
-	else if (logicOutCount == 1) {
+	if(out) {
 		Simulator::self()->createLogicChain(out, logicInList);
 		out->logicPinList = circuitoid->getPinSet();
 	} else {
