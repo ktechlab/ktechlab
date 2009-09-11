@@ -110,6 +110,10 @@ protected:
 	LogicIn *m_pR;
 	LogicOut *m_pQ;
 	LogicOut *m_pQBar;
+
+// NOR = FALSE; NAND = TRUE. 
+// when NAND mode, both inputs are inverted. 
+	bool *m_pol; // polarity. 
 };
 
 #endif
