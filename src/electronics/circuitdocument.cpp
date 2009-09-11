@@ -619,7 +619,7 @@ bool CircuitDocument::tryAsLogicCircuit(Circuitoid *circuitoid) {
 	if (logicOutCount > 1) return false;
 	else if (logicOutCount == 1) {
 		Simulator::self()->createLogicChain(out, logicInList);
-		out->pinList = circuitoid->getPinSet();
+		out->logicPinList = circuitoid->getPinSet();
 	} else {
 		// We have ourselves stranded LogicIns...so lets set them all to low
 
