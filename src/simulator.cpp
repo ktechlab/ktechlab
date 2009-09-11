@@ -148,7 +148,7 @@ void Simulator::step() {
 					changed->setNextChanged(0, prevChain);
 
 					double v = changed->isHigh() ? changed->outputHighVoltage() : 0.0;
-					for (PinSet::iterator it = changed->pinList.begin(); it != changed->pinList.end(); ++it) {
+					for (PinSet::iterator it = changed->logicPinList.begin(); it != changed->logicPinList.end(); ++it) {
 						if (Pin *pin = *it)
 							pin->setVoltage(v);
 					}
@@ -181,7 +181,6 @@ void Simulator::createLogicChain(LogicOut *logicOut, const LogicInList &logicInL
 	bool state = logicOut->isHigh();
 
 	logicOut->setUseLogicChain();
-//	logicOut->pinList = pinList;
 
 	LogicIn *last = logicOut;
 
