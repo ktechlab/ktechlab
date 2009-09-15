@@ -23,7 +23,7 @@
 MultiInputGate::MultiInputGate(ICNDocument *icnDocument, bool newItem, const char *id, const QString &rectangularShapeText, bool invertedOutput, int baseWidth, bool likeOR)
                         :   SimpleComponent(icnDocument, newItem, id),
                             m_bInvertedOutput(invertedOutput) {
-    
+
 	m_bLikeOR = likeOR;
 	m_bDoneInit = false;
 	m_numInputs = 0;
