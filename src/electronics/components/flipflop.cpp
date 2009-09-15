@@ -10,10 +10,8 @@
 
 #include "ecnode.h"
 #include "flipflop.h"
-#include "icndocument.h"
 #include "logic.h"
 #include "libraryitem.h"
-#include "node.h"
 #include "simulator.h"
 
 #include <kiconloader.h>
@@ -325,6 +323,10 @@ ECSRFlipFlop::ECSRFlipFlop(ICNDocument *icnDocument, bool newItem, const char *i
 
 	m_name = i18n("SR Flip-Flop");
 
+	createProperty("polarity", Variant::Type::Bool);
+	property("polarity")->setCaption(i18n("NAND type"));
+	property("polarity")->setValue(false);
+
 	setSize(-24, -24, 48, 48);
 
 	init2PinLeft(-8, 8);
@@ -364,6 +366,11 @@ ECSRFlipFlop::~ECSRFlipFlop() {
 	delete m_pR;
 	delete m_pQ;
 	delete m_pQBar;
+}
+
+void ECSRFlipFlop::dataChanged() {
+	m_pol = dataBool("polarity");
+	inStateChanged(bool);
 }
 
 void ECSRFlipFlop::inStateChanged(bool) {
