@@ -105,6 +105,8 @@ public:
 	static LibraryItem *libraryItem();
 
 protected:
+	virtual void dataChanged();
+
 	void inStateChanged(bool newState);
 	LogicIn *m_pS;
 	LogicIn *m_pR;
