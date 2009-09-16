@@ -94,7 +94,9 @@ public:
 // ### crappy linked list! =(
 /**
  * Returns a pointer to the next LogicIn in the chain. */
+//
 LogicIn *nextLogic() const { return m_pNextLogic; }
+//
 void setNextLogic(LogicIn *next) { m_pNextLogic = next; }
 // ### 
 
@@ -109,6 +111,7 @@ void setNextLogic(LogicIn *next) { m_pNextLogic = next; }
 protected:
 
 // evil linked list stuff: 
+//
 void setChain(bool high);
 // ### 
 
@@ -123,6 +126,7 @@ void setChain(bool high);
 
 private: 
 /// FIXME: crappy linked list implementation. 
+//
 LogicIn *m_pNextLogic;
 /// ###
 };
@@ -177,19 +181,14 @@ public:
 	* We have two modes, a fast mode based on internal logic chains and a slow mode based on the 
 	* analog simulator. Calling this function puts us in fast mode, use only if there are no analog considerations. 
 	 */
-	void setUseLogicChain();
+void setUseLogicChain();
 
 void setNextChanged(LogicOut *logicOut, unsigned char chain) {
 	m_pNextChanged[chain] = logicOut;
 }
 
 LogicOut *nextChanged(unsigned char chain) const {
-	return m_pNextChanged[chain];
-}
-
-void setCanAddChanged(bool canAdd) {
-// avoid being added twice. 
-	m_bCanAddChanged = canAdd;
+	return m_pNextChanged[chain & 1];
 }
 // **** 
 
@@ -206,12 +205,10 @@ protected:
 	double m_old_r_out, m_old_x;
 
 // ###  We also moonlight as a shoddy linked list implementation; woo hoo!! 
-	bool m_bCanAddChanged;
 	LogicOut *m_pNextChanged[2];
 	bool m_bUseLogicChain;
 // ###
-//private: 
-//	bool m_bOutState;  // state which is insensitive to circuit conditions. 
+
 };
 
 #endif

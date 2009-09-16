@@ -370,7 +370,7 @@ ECSRFlipFlop::~ECSRFlipFlop() {
 
 void ECSRFlipFlop::dataChanged() {
 	m_pol = dataBool("polarity");
-	inStateChanged(bool);
+	inStateChanged(false);
 }
 
 void ECSRFlipFlop::inStateChanged(bool) {
