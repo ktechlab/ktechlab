@@ -110,7 +110,6 @@ void LogicIn::setChain(bool high) {
 LogicOut::LogicOut(LogicConfig config, bool _high)
 		: LogicIn(config) {
 	m_pNextChanged[0] = m_pNextChanged[1] = 0;
-	m_bUseLogicChain = false;
 	m_numCBranches = 1;
 	m_old_r_out = m_r_out = 0.0;
 	m_old_x = m_v_out = 0.0;
@@ -131,15 +130,9 @@ LogicOut::~LogicOut() {
 	theSimulator->removeLogicOutReferences(this);
 }
 
-void LogicOut::setUseLogicChain() {
-	m_bUseLogicChain = true;
-	setElementSet(0);
-}
-
 void LogicOut::setElementSet(ElementSet *c) {
 
 	if (c) {
-		m_bUseLogicChain = false;
 		m_pNextChanged[0] = m_pNextChanged[1] = 0;
 	}
 
@@ -181,10 +174,10 @@ void LogicOut::setLogic(LogicConfig config) {
 }
 
 void LogicOut::configChanged() {
-	if (m_bUseLogicChain) return;
 
 	if (p_eSet)
 		p_eSet->setCacheInvalidated();
+	else return;
 
 	// NOTE Make sure that the next two lines are the same as those in setHigh
 	m_r_out = m_bState ? m_config.highImpedance : m_config.lowImpedance;
@@ -213,7 +206,7 @@ void LogicOut::add_initial_dc() {
 }
 
 void LogicOut::updateCurrents() {
-	if (m_bUseLogicChain) {
+	if (!p_eSet) {
 		p_cnode[0]->setCurrent(0.0);
 		return;
 	}
@@ -227,7 +220,7 @@ void LogicOut::setHigh(bool high) {
 	if (high == m_bState)
 		return;
 
-	if (m_bUseLogicChain) {
+	if (!p_eSet) {
 		setChain(high);
 		Simulator::self()->addChangedLogic(this);
 		return;
