@@ -32,6 +32,7 @@ LogicIn::LogicIn(LogicConfig config)
 	m_pCallbackFunction = 0;
 	m_numCNodes = 1;
 	m_bState = false;
+//
 	m_pNextLogic = 0;
 	check();
 }
@@ -75,6 +76,7 @@ void LogicIn::setLogic(LogicConfig config) {
 }
 
 void LogicIn::setElementSet(ElementSet *c) {
+//
 	if(c) m_pNextLogic = 0;
 
 	Element::setElementSet(c);
@@ -96,16 +98,17 @@ LogicConfig LogicIn::getConfig() {
 	return c;
 }
 
+/**/
 void LogicIn::setChain(bool high) {
 	m_bState = high; 
 	if(m_pNextLogic) m_pNextLogic->setChain(high);
 }
+
 //END class LogicIn
 
 //BEGIN class LogicOut
 LogicOut::LogicOut(LogicConfig config, bool _high)
 		: LogicIn(config) {
-	m_bCanAddChanged = true;
 	m_pNextChanged[0] = m_pNextChanged[1] = 0;
 	m_bUseLogicChain = false;
 	m_numCBranches = 1;
@@ -226,12 +229,7 @@ void LogicOut::setHigh(bool high) {
 
 	if (m_bUseLogicChain) {
 		setChain(high);
-
-		if (m_bCanAddChanged) {
-			Simulator::self()->addChangedLogic(this);
-			m_bCanAddChanged = false;
-		}
-
+		Simulator::self()->addChangedLogic(this);
 		return;
 	}
 
