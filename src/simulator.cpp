@@ -49,8 +49,6 @@ Simulator::Simulator()
 	m_pChangedLogicStart = new LogicOut(lc, false);
 	m_pChangedLogicLast  = m_pChangedLogicStart;
 
-//	m_pChangedCircuitLast = m_pChangedCircuitStart = new Circuit;
-
 	QTimer *stepTimer = new QTimer(this); // FIXME: memory leak. 
 	connect(stepTimer, SIGNAL(timeout()), this, SLOT(step()));
 	stepTimer->start(1);
@@ -137,8 +135,6 @@ void Simulator::step() {
 
 			// Call the logic callbacks
 			if (LogicOut *changed = m_pChangedLogicStart->nextChanged(prevChain)) {
-				for (LogicOut *out = changed; out; out = out->nextChanged(prevChain))
-					out->setCanAddChanged(true);
 
 				m_pChangedLogicStart->setNextChanged(0, prevChain);
 				m_pChangedLogicLast = m_pChangedLogicStart;
@@ -205,7 +201,6 @@ void Simulator::createLogicChain(LogicOut *logicOut, const LogicInList &logicInL
 	}
 
 	addChangedLogic(logicOut);
-	logicOut->setCanAddChanged(false);
 
 	if (!m_logicChainStarts.contains(logicOut))
 		m_logicChainStarts << logicOut;
