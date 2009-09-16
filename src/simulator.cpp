@@ -274,7 +274,8 @@ void Simulator::removeLogicOutReferences(LogicOut *logic) {
 		LogicOut *previous_1 = 0;
 		LogicOut *previous_2 = 0;
 
-		for (LogicOut *logic = m_pChangedLogicStart; logic;) {
+		LogicOut *logic = m_pChangedLogicStart;
+		while(logic) {
 			if (previous_1)
 				previous_2 = previous_1;
 
