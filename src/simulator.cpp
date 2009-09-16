@@ -172,14 +172,12 @@ void Simulator::slotSetSimulating(bool simulate) {
 }
 
 void Simulator::createLogicChain(LogicOut *logicOut, const LogicInList &logicInList) {
+
 	assert(logicOut);
-
 	bool state = logicOut->isHigh();
-
-	logicOut->setUseLogicChain();
+	logicOut->setElementSet(0);
 
 	LogicIn *last = logicOut;
-
 	const LogicInList::const_iterator end = logicInList.end();
 	for (LogicInList::const_iterator it = logicInList.begin(); it != end; ++it) {
 		LogicIn *next = *it;

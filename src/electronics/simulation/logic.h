@@ -61,6 +61,7 @@ public:
 	 * Set logic values from the LogicConfig.
 	 */
 	virtual void setLogic(LogicConfig config);
+
 	/**
 	 * Check if the input state has changed, to see if we need to callback.
 	 */
@@ -177,23 +178,18 @@ public:
 	void setHigh(bool high);
 
 /// SHODDY LINKED LIST STUFF!!! 
-	/**
-	* We have two modes, a fast mode based on internal logic chains and a slow mode based on the 
-	* analog simulator. Calling this function puts us in fast mode, use only if there are no analog considerations. 
-	 */
-void setUseLogicChain();
-
+/**
+* We have two modes, a fast mode based on internal logic chains and a slow mode based on the 
+* analog simulator. Calling this function puts us in fast mode, use only if there are no analog considerations. 
+ */
 void setNextChanged(LogicOut *logicOut, unsigned char chain) {
-	m_pNextChanged[chain] = logicOut;
-}
+m_pNextChanged[chain] = logicOut;}
 
 LogicOut *nextChanged(unsigned char chain) const {
-	return m_pNextChanged[chain & 1];
-}
-// **** 
-
+return m_pNextChanged[chain & 1];}
 // FIXME RED ALERT: THESE ARE ONLY ACCESSED BY circuitDocument and SIMULATOR!!!
-	PinSet logicPinList;
+PinSet logicPinList;
+// **** 
 
 protected:
 
@@ -206,9 +202,7 @@ protected:
 
 // ###  We also moonlight as a shoddy linked list implementation; woo hoo!! 
 	LogicOut *m_pNextChanged[2];
-	bool m_bUseLogicChain;
 // ###
-
 };
 
 #endif
