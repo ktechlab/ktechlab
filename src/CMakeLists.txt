@@ -66,8 +66,8 @@ kde4_add_executable(ktechlab ${ktechlab_SRCS})
 target_link_libraries( ktechlab 
    ${KDE4_KDEUI_LIBS}
    ${KDE4_KIO_LIBS}
+   ${KDEVPLATFORM_SHELL_LIBRARY}
    # ktechlablib
-   ktlshell
    gui
 #  languages gui micro flowparts
 #  mechanics electronics elements components drawparts
