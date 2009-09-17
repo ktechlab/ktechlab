@@ -99,6 +99,7 @@ public:
 LogicIn *nextLogic() const { return m_pNextLogic; }
 //
 void setNextLogic(LogicIn *next) { m_pNextLogic = next; }
+void setChain(bool high);
 // ### 
 
 	/**
@@ -111,15 +112,9 @@ void setNextLogic(LogicIn *next) { m_pNextLogic = next; }
 
 protected:
 
-// evil linked list stuff: 
-//
-void setChain(bool high);
-// ### 
-
 	virtual void updateCurrents();
 	virtual void add_initial_dc();
 
-	// TODO: fix this crap NO FUNCTION POINTERS
 	CallbackPtr m_pCallbackFunction;
 	CallbackClass *m_pCallbackObject;
 	bool m_bState;
@@ -201,7 +196,7 @@ protected:
 	double m_old_r_out, m_old_x;
 
 // ###  We also moonlight as a shoddy linked list implementation; woo hoo!! 
-	LogicOut *m_pNextChanged[2];
+LogicOut *m_pNextChanged[2];
 // ###
 };
 
