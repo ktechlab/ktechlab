@@ -110,12 +110,11 @@ public:
 	 * currently marked as changed.
 	 */
 	void removeLogicInReferences(LogicIn *logic);
-//	void removeLogicInReferences(LogicOut *logic);
+
 	/**
 	 * Adds the given Circuit to the list of changed Circuits
 	 */
 	void addChangedCircuit(Circuit *changed) {
-
 		circuitChains[m_currentChain].push(changed);
 	}
 
