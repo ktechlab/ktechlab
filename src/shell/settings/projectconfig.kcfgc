@@ -1,8 +1,0 @@
-File=projectconfig.kcfg
-ClassName=ProjectSettings
-Singleton=true
-UseEnumTypes=true
-SetUserTexts=true
-ItemAccessors=true
-Inherits=KTechLab::SessionConfigSkeleton
-IncludeFiles=sessionconfigskeleton.h

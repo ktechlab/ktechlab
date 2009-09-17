@@ -10,11 +10,11 @@
 #include "ktlpassiveplugin.h"
 
 #include "resistor.h"
-#include "shell/core.h"
 #include "interfaces/component/icomponent.h"
 #include "interfaces/component/icomponentplugin.h"
 #include "interfaces/idocumentplugin.h"
 
+#include <shell/core.h>
 #include <interfaces/iplugincontroller.h>
 #include <KGenericFactory>
 #include <KAboutData>
@@ -50,7 +50,7 @@ void KTLPassivePlugin::init()
 {
     QStringList constraints;
     constraints << QString("'%1' in [X-KDevelop-SupportedMimeTypes]").arg("application/x-circuit");
-    QList<KDevelop::IPlugin*> plugins = KTechLab::Core::self()->pluginController()->allPluginsForExtension( "KTLDocument", constraints );
+    QList<KDevelop::IPlugin*> plugins = KDevelop::Core::self()->pluginController()->allPluginsForExtension( "KTLDocument", constraints );
     if (plugins.isEmpty()) {
         return;
     }

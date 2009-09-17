@@ -4,7 +4,7 @@ Comment=A Containment grouping Component-Applets together
 Type=Service
 ServiceTypes=Plasma/Containment
  
-X-KDE-Library=plasma_containment_ktlcircuit
+X-KDE-Library=ktlcircuit
 X-KDE-ParentApp=ktechlab
 X-KDE-PluginInfo-Author=Julian Bäume
 X-KDE-PluginInfo-Email=julian@svg4all.de

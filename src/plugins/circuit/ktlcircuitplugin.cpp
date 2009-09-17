@@ -67,7 +67,7 @@ public:
 
     virtual KDevelop::IDocument * create( const KUrl &url, KDevelop::ICore *core )
     {
-        KTechLab::Core *ktlCore = dynamic_cast<KTechLab::Core*>(core);
+        KDevelop::Core *ktlCore = dynamic_cast<KDevelop::Core*>(core);
         if ( ktlCore )
             return new CircuitDocument( url, ktlCore );
 
@@ -88,10 +88,10 @@ KTLCircuitPlugin::KTLCircuitPlugin( QObject *parent, const QVariantList& args )
 void KTLCircuitPlugin::init()
 {
     m_componentViewFactory = new KTLComponentViewFactory(this);
-    KTechLab::Core::self()->uiController()->addToolView( "Components", m_componentViewFactory );
+    KDevelop::Core::self()->uiController()->addToolView( "Components", m_componentViewFactory );
 
     m_documentFactory = new KTLCircuitDocumentFactory(this);
-    KTechLab::Core::self()->documentController()->registerDocumentForMimetype( "application/x-circuit", m_documentFactory );
+    KDevelop::Core::self()->documentController()->registerDocumentForMimetype( "application/x-circuit", m_documentFactory );
 }
 
 KTLCircuitPlugin::~KTLCircuitPlugin()
