@@ -182,12 +182,11 @@ void Simulator::createLogicChain(LogicOut *logicOut, const LogicInList &logicInL
 	for (LogicInList::const_iterator it = logicInList.begin(); it != end; ++it) {
 		LogicIn *next = *it;
 		last->setNextLogic(next);
-		last->setLastState(state);
 		last = next;
 	}
 
 	last->setNextLogic(0);
-	last->setLastState(state);
+	logicOut->setChain(state);
 
 	// Mark it as changed, if it isn't already changed...
 	LogicOut *changed = m_pChangedLogicStart->nextChanged(m_currentChain);
