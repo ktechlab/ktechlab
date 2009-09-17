@@ -27,11 +27,9 @@ LogicConfig::LogicConfig() {
 
 //BEGIN class LogicIn
 LogicIn::LogicIn(LogicConfig config)
-		: Element::Element() {
-	m_config = config;
-	m_pCallbackFunction = 0;
+		: Element::Element(), m_pCallbackFunction(0),
+	m_bState(false), m_config(config) {
 	m_numCNodes = 1;
-	m_bState = false;
 //
 	m_pNextLogic = 0;
 	check();
