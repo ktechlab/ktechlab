@@ -15,6 +15,7 @@ target_link_libraries(plasma_engine_document
    ${KDE4_KDECORE_LIBS}
    ${KDE4_PLASMA_LIBS}
    ${KDEVPLATFORM_INTERFACES_LIBRARY}
+   ${KDEVPLATFORM_SHELL_LIBRARY}
    ktlinterfaces
    ktlshell
 )

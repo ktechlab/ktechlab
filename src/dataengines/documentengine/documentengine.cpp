@@ -1,7 +1,7 @@
 #include "documentengine.h"
-#include "shell/core.h"
 #include "interfaces/idocumentplugin.h"
 
+#include <shell/core.h>
 #include <interfaces/iplugin.h>
 #include <interfaces/iplugincontroller.h>
 #include <interfaces/idocumentcontroller.h>
@@ -12,7 +12,7 @@
 
 DocumentEngine::DocumentEngine( QObject* parent, const QVariantList& args )
     :   Plasma::DataEngine( parent, args ),
-        m_core( KTechLab::Core::self() ),
+        m_core( KDevelop::Core::self() ),
         m_disabled( false )
 {
     if ( !m_core ) {

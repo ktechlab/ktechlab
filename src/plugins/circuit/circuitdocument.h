@@ -10,17 +10,17 @@
 #ifndef CIRCUITDOCUMENT_H
 #define CIRCUITDOCUMENT_H
 
-#include "shell/partdocument.h"
+#include <shell/partdocument.h>
 
 namespace Sublime
 {
 class Document;
 } // namespace Sublime
 
-namespace KTechLab
+namespace KDevelop
 {
 class Core;
-} // namespace KTechLab
+} // namespace KDevelop
 
 class CircuitDocument;
 typedef QMap<QString,QVariant> Item;
@@ -46,11 +46,11 @@ private:
  * @short Circuit Document
  * @author Julian Bäume
  */
-class CircuitDocument : public KTechLab::PartDocument
+class CircuitDocument : public KDevelop::PartDocument
 {
     Q_OBJECT
 public:
-    CircuitDocument( const KUrl &url, KTechLab::Core* core );
+    CircuitDocument( const KUrl &url, KDevelop::Core* core );
     virtual ~CircuitDocument();
 
     virtual QString documentType() const;

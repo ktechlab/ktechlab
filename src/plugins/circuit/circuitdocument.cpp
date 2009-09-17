@@ -9,10 +9,10 @@
 
 #include "circuitdocument.h"
 
-#include "shell/core.h"
 #include "circuitview.h"
 #include "circuitapplet.h"
 
+#include <shell/core.h>
 #include <KDebug>
 #include <KLocale>
 #include <QDomDocument>
@@ -74,8 +74,8 @@ void CircuitDocumentPrivate::reloadFromXml()
     }
 }
 
-CircuitDocument::CircuitDocument( const KUrl &url, KTechLab::Core* core )
-    :   KTechLab::PartDocument( url, core ),
+CircuitDocument::CircuitDocument( const KUrl &url, KDevelop::Core* core )
+    :   KDevelop::PartDocument( url, core ),
         d(new CircuitDocumentPrivate(this))
 {
 
