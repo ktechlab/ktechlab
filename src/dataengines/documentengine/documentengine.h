@@ -22,10 +22,10 @@
 
 #include <Plasma/DataEngine>
 
-namespace KTechLab
+namespace KDevelop
 {
     class Core;
-} // namespace KTechLab{
+} // namespace KDevelop
 
 /**
  * Handle all opened documents in KTechLab via this Engine.
@@ -74,7 +74,7 @@ class DocumentEngine : public Plasma::DataEngine
         //keep track of opened documents which in fact are our sources
         QStringList m_sources;
         //keep the pointer to our core
-        KTechLab::Core *m_core;
+        KDevelop::Core *m_core;
         //we are disabled, if m_core isn't initialized (KTechLab isn't running)
         //updateSourceEvent will return false in that case
         bool m_disabled;

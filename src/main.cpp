@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2003-2005 by David Saxton <david@bluehaze.org>          *
- *   Copyright (C) 2008 by Julian Bäume <julian@svg4all.de>                *
+ *   Copyright (C) 2008-2009 by Julian Bäume <julian@svg4all.de>                *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -11,9 +11,10 @@
 #include "ktechlab.h"
 #include "ktechlabideextension.h"
 #include "config.h"
-#include "shell/core.h"
-#include "shell/projectcontroller.h"
-#include "shell/documentcontroller.h"
+
+#include <shell/core.h>
+#include <shell/projectcontroller.h>
+#include <shell/documentcontroller.h>
 
 #include <KAboutData>
 #include <KCmdLineArgs>
@@ -91,8 +92,8 @@ int main(int argc, char **argv)
 
     KTechlabIDEExtension::init();
 
-    KTechLab::Core::initialize();
-    KTechLab::Core *core = KTechLab::Core::self();
+    KDevelop::Core::initialize();
+    KDevelop::Core *core = KDevelop::Core::self();
 
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     bool openProject = false;

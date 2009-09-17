@@ -15,7 +15,7 @@ target_link_libraries(ktlpassive
    ${KDE4_KDECORE_LIBS}
    ${KDE4_PLASMA_LIBS}
    ktlinterfaces
-   ktlshell
+   ${KDEVPLATFORM_SHELL_LIBRARY}
    ${KDEVPLATFORM_INTERFACES_LIBRARY}
    )
 
