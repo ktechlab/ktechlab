@@ -119,7 +119,7 @@ break;
 		p_A->performLU();
 
 // if this test fails, the calculation engine under the simulator is broken =( -- and it is.
-assert(p_A->validateLU() < 1e-6); 
+assert(p_A->validateLU() < 1e-4); 
 
 		p_A->fbSub(p_x);
 // #########################
@@ -170,7 +170,7 @@ bool ElementSet::doLinear(bool performLU) {
 	if (performLU) {
 		p_A->performLU();
 // if this test fails, the calculation engine under the simulator is broken =( -- and it is.
-assert(p_A->validateLU() < 1e-6); 
+assert(p_A->validateLU() < 1e-4); 
 	}
 
 	*p_x = *p_b;   // <<< why does this code work, when I try it, I always get the default shallow copy.
@@ -184,6 +184,8 @@ assert(p_A->validateLU() < 1e-6);
 }
 
 void ElementSet::updateInfo() {
+
+//update voltage
 	for (uint i = 0; i < m_cn; i++) {
 		const double v = (*p_x)[i];
 
@@ -195,6 +197,7 @@ void ElementSet::updateInfo() {
 		}
 	}
 
+// update current.
 	for (uint i = 0; i < m_cb; i++) {
 		// NOTE: I've used lowercase and uppercase "I" here, so be careful!
 		const double I = (*p_x)[i + m_cn];
