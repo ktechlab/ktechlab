@@ -46,17 +46,12 @@ Simulator::Simulator()
 
 	LogicConfig lc;
 
-	m_pChangedLogicStart = new LogicOut(lc, false);
-	m_pChangedLogicLast  = m_pChangedLogicStart;
-
 	QTimer *stepTimer = new QTimer(this); // FIXME: memory leak. 
 	connect(stepTimer, SIGNAL(timeout()), this, SLOT(step()));
 	stepTimer->start(1);
 }
 
 Simulator::~Simulator() {
-	delete m_pChangedLogicStart;
-
 	delete m_gpsimProcessors;
 	delete m_components;
 	delete m_componentCallbacks;
@@ -122,7 +117,9 @@ void Simulator::step() {
 			}
 #endif
 
-			// why do we change this here instead of later?
+			// We call this here because stuff like add changed logic uses the current state,
+			// so we make the current state the next state and then use the previous state
+			// which is the state we were in above this line, make sense? 
 			int prevChain = m_currentChain;
 			m_currentChain ^= 1;
 
@@ -134,15 +131,11 @@ void Simulator::step() {
 			}
 
 			// Call the logic callbacks
-			if (LogicOut *changed = m_pChangedLogicStart->nextChanged(prevChain)) {
+			QValueList<LogicOut*>::iterator end = m_logicChainStarts.end();
+			for(QValueList<LogicOut*>::iterator it = m_logicChainStarts.begin(); it != end ;it++) {
+				LogicOut *changed = *it;
 
-				m_pChangedLogicStart->setNextChanged(0, prevChain);
-				m_pChangedLogicLast = m_pChangedLogicStart;
-
-				do {
-					LogicOut *next = changed->nextChanged(prevChain);
-					changed->setNextChanged(0, prevChain);
-
+				if(changed->isChanged(prevChain)) {
 					double v = changed->isHigh() ? changed->outputHighVoltage() : 0.0;
 					for (PinSet::iterator it = changed->logicPinList.begin(); it != changed->logicPinList.end(); ++it) {
 						if (Pin *pin = *it)
@@ -157,8 +150,8 @@ void Simulator::step() {
 						logicCallback = logicCallback->nextLogic();
 					}
 
-					changed = next;
-				} while (changed);
+					changed->clearChanged(prevChain);
+				} 
 			}
 		}
 	}
@@ -187,15 +180,6 @@ void Simulator::createLogicChain(LogicOut *logicOut, const LogicInList &logicInL
 
 	last->setNextLogic(0);
 	logicOut->setChain(state);
-
-	// Mark it as changed, if it isn't already changed...
-	LogicOut *changed = m_pChangedLogicStart->nextChanged(m_currentChain);
-
-	while (changed) {
-		if (changed == logicOut) return;
-
-		changed = changed->nextChanged(m_currentChain);
-	}
 
 	addChangedLogic(logicOut);
 
@@ -267,32 +251,6 @@ void Simulator::removeLogicInReferences(LogicIn *logicIn) {
 
 void Simulator::removeLogicOutReferences(LogicOut *logic) {
 	m_logicChainStarts.remove(logic);
-
-	// Any changes to the code below will probably also apply to Simulator::detachCircuit
-	if (m_pChangedLogicLast == logic) {
-		LogicOut *previous_1 = 0;
-		LogicOut *previous_2 = 0;
-
-		LogicOut *logic = m_pChangedLogicStart;
-		while(logic) {
-			if (previous_1)
-				previous_2 = previous_1;
-
-			previous_1 = logic;
-			logic = logic->nextChanged(m_currentChain);
-		}
-
-		m_pChangedLogicLast = previous_2;
-	}
-
-	for (unsigned chain = 0; chain < 2; ++chain) {
-		for (LogicOut *prevChanged = m_pChangedLogicStart; prevChanged; prevChanged = prevChanged->nextChanged(chain)) {
-			LogicOut *nextChanged = prevChanged->nextChanged(chain);
-
-			if (nextChanged == logic)
-				prevChanged->setNextChanged(nextChanged->nextChanged(chain), chain);
-		}
-	}
 }
 
 void Simulator::detachCircuit(Circuit *circuit) {
@@ -302,7 +260,6 @@ void Simulator::detachCircuit(Circuit *circuit) {
 
 	// we also need to flush the circuit out of our simulator queue,
 	// the best way to get it out of the queue is probably to roll the queue around...
-
 	unsigned queue_size = circuitChains[0].size();
 	for(unsigned i = 0; i < queue_size; i++) {
 		Circuit *aCircuit = circuitChains[0].front();
