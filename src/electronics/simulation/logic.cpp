@@ -30,7 +30,7 @@ LogicIn::LogicIn(LogicConfig config)
 		: Element::Element(), m_pCallbackFunction(0),
 	m_bState(false), m_config(config) {
 	m_numCNodes = 1;
-//
+
 	m_pNextLogic = 0;
 	check();
 }
@@ -74,9 +74,7 @@ void LogicIn::setLogic(LogicConfig config) {
 }
 
 void LogicIn::setElementSet(ElementSet *c) {
-//
 	if(c) m_pNextLogic = 0;
-
 	Element::setElementSet(c);
 }
 
@@ -101,37 +99,33 @@ void LogicIn::setChain(bool high) {
 	m_bState = high; 
 	if(m_pNextLogic) m_pNextLogic->setChain(high);
 }
-
 //END class LogicIn
 
 //BEGIN class LogicOut
 LogicOut::LogicOut(LogicConfig config, bool _high)
 		: LogicIn(config) {
-	m_pNextChanged[0] = m_pNextChanged[1] = 0;
+
 	m_numCBranches = 1;
 	m_old_r_out = m_r_out = 0.0;
 	m_old_x = m_v_out = 0.0;
 	setHigh(_high);
 
 	configChanged();
+	isSetChanged[0] = true;
+	isSetChanged[1] = false;
 }
 
 LogicOut::~LogicOut() {
-
-	// Note that although this function will get called in the destructor of
-	// LogicIn, we must call it here as well as it needs to be called before
-	// removeLogicOutReferences(this) is called.
-
 	Simulator *theSimulator = Simulator::self();
 
-	theSimulator->removeLogicInReferences(this);
+//	theSimulator->removeLogicInReferences(this);
 	theSimulator->removeLogicOutReferences(this);
 }
 
 void LogicOut::setElementSet(ElementSet *c) {
 
 	if (c) {
-		m_pNextChanged[0] = m_pNextChanged[1] = 0;
+		isSetChanged[0] = isSetChanged[1] = false;
 	}
 
 	m_old_x = m_old_r_out = 0.0;
@@ -229,7 +223,6 @@ void LogicOut::setHigh(bool high) {
 	m_v_out = high ? m_config.output : 0.0;
 
 	add_initial_dc();
-
 	m_bState = high;
 
 	if (p_eSet && p_eSet->circuit()->canAddChanged()) {
