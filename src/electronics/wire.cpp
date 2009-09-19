@@ -10,6 +10,7 @@
 
 #include "pin.h"
 #include "wire.h"
+#include "simulator.h"
 #include <cassert>
 #include <kdebug.h>
 
@@ -118,7 +119,7 @@ bool Wire::calculateCurrent()
 double Wire::voltage() const
 {
 	double temp;
-	if((temp = m_pStartPin->voltage() - m_pEndPin->voltage()) ) {
+	if((temp = m_pStartPin->voltage() - m_pEndPin->voltage()) && Simulator::self()->isSimulating()) {
 		kdError() << k_funcinfo << "Wire voltage error: " << temp << endl;
 	}
 	
