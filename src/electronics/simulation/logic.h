@@ -172,16 +172,14 @@ public:
 	 */
 	void setHigh(bool high);
 
-/// SHODDY LINKED LIST STUFF!!! 
 /**
 * We have two modes, a fast mode based on internal logic chains and a slow mode based on the 
 * analog simulator. Calling this function puts us in fast mode, use only if there are no analog considerations. 
  */
-void setNextChanged(LogicOut *logicOut, unsigned char chain) {
-m_pNextChanged[chain] = logicOut;}
+	void setChanged(unsigned char chain) { isSetChanged[chain & 1] = true; }
+	void clearChanged(unsigned char chain) { isSetChanged[chain & 1] = false; }
+	bool isChanged(unsigned char chain ) { return isSetChanged[chain & 1]; }
 
-LogicOut *nextChanged(unsigned char chain) const {
-return m_pNextChanged[chain & 1];}
 // FIXME RED ALERT: THESE ARE ONLY ACCESSED BY circuitDocument and SIMULATOR!!!
 PinSet logicPinList;
 // **** 
@@ -195,9 +193,7 @@ protected:
 	double m_r_out, m_v_out;
 	double m_old_r_out, m_old_x;
 
-// ###  We also moonlight as a shoddy linked list implementation; woo hoo!! 
-LogicOut *m_pNextChanged[2];
-// ###
+	bool isSetChanged[2];
 };
 
 #endif
