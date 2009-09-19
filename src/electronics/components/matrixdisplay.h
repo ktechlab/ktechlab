@@ -23,6 +23,12 @@ class Diode;
 @author David Saxton
 */
 
+typedef struct {
+	double m_avgBrightness;
+	unsigned m_lastBrightness;
+	Diode *m_pDiode;
+} MatrixDisplayCell;
+
 class MatrixDisplay : public Component {
 
 public:
@@ -44,9 +50,11 @@ protected:
 	QString colPinID(int col) const;
 	QString rowPinID(int row) const;
 
-	QValueVector< QValueVector<double> > m_avgBrightness;
-	QValueVector< QValueVector<unsigned> > m_lastBrightness;
-	QValueVector< QValueVector<Diode*> > m_pDiodes;
+//	QValueVector< QValueVector<double> > m_avgBrightness;
+//	QValueVector< QValueVector<unsigned> > m_lastBrightness;
+//	QValueVector< QValueVector<Diode*> > m_pDiodes;
+
+	QValueVector< QValueVector<MatrixDisplayCell> > m_LEDs;
 
 	ECNode *m_pRowNodes[max_md_height];
 	ECNode *m_pColNodes[max_md_width];

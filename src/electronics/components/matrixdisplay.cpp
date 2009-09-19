@@ -110,16 +110,14 @@ void MatrixDisplay::dataChanged()
 		{
 			for(unsigned j = 0; j < m_numRows; j++)
 			{
-				removeElement(m_pDiodes[i][j], false);
+
+// do we really need to refresh the diode here? 
+				removeElement(m_LEDs[i][j].m_pDiode, false);
+				m_LEDs[i][j].m_pDiode = new Diode();
+
 				if(rowCathode) {
-//					m_pDiodes[i][j] = createDiode(m_pColNodes[i]->pin(), m_pRowNodes[j]->pin());
-					m_pDiodes[i][j] = new Diode();
-					setup2pinElement(m_pDiodes[i][j], m_pColNodes[i]->pin(), m_pRowNodes[j]->pin());
-				} else {
-//					m_pDiodes[i][j] = createDiode(m_pRowNodes[j]->pin(), m_pColNodes[i]->pin());
-					m_pDiodes[i][j] = new Diode();
-					setup2pinElement(m_pDiodes[i][j], m_pRowNodes[j]->pin(), m_pColNodes[i]->pin());
-				}
+					setup2pinElement(m_LEDs[i][j].m_pDiode, m_pColNodes[i]->pin(), m_pRowNodes[j]->pin());
+				} else	setup2pinElement(m_LEDs[i][j].m_pDiode, m_pRowNodes[j]->pin(), m_pColNodes[i]->pin());
 			}
 		}
 	}
@@ -146,26 +144,23 @@ void MatrixDisplay::initPins(unsigned numRows, unsigned numCols)
 	for ( unsigned i = 0; i < m_numCols; i++ )
 	{
 		for ( unsigned j = 0; j < m_numRows; j++ )
-			removeElement( m_pDiodes[i][j], false );
+			removeElement(m_LEDs[i][j].m_pDiode, false );
 	}
 	
-	m_avgBrightness.resize(numCols);
-	m_lastBrightness.resize(numCols);
-	m_pDiodes.resize(numCols);
+	m_LEDs.resize(numCols);
 	
 	for ( unsigned i = 0; i < numCols; i++ )
 	{
-		m_avgBrightness[i].resize(numRows);
-		m_lastBrightness[i].resize(numRows);
-		m_pDiodes[i].resize(numRows);
-		
+		m_LEDs[i].resize(numRows);
+
 		for ( unsigned j = 0; j < numRows; j++ )
 		{
-			m_avgBrightness[i][j] = 0.0;
-			m_lastBrightness[i][j] = 255;
-			m_pDiodes[i][j] = 0l;
+			MatrixDisplayCell *tmp = &m_LEDs[i][j];
+
+			tmp->m_avgBrightness = 0.0;
+			tmp->m_lastBrightness = 255;
+			tmp->m_pDiode = 0;
 		}
-			
 	}
 	//END Remove diodes
 
@@ -231,7 +226,7 @@ void MatrixDisplay::stepNonLogic()
 	for ( unsigned i = 0; i < m_numCols; i++ )
 	{
 		for ( unsigned j = 0; j < m_numRows; j++ )
-			m_avgBrightness[i][j] += LED::brightness( m_pDiodes[i][j]->current() ) * LINEAR_UPDATE_PERIOD;
+			m_LEDs[i][j].m_avgBrightness += LED::brightness(m_LEDs[i][j].m_pDiode->current() ) * LINEAR_UPDATE_PERIOD;
 	}
 	
 	m_lastUpdatePeriod += LINEAR_UPDATE_PERIOD;
@@ -257,9 +252,9 @@ void MatrixDisplay::drawShape( QPainter &p )
 		for ( int j = 0; j < int(m_numRows); j++ )
 		{
 			if ( m_lastUpdatePeriod > minUpdatePeriod )
-				m_lastBrightness[i][j] = unsigned(m_avgBrightness[i][j]/m_lastUpdatePeriod);
+				m_LEDs[i][j].m_lastBrightness = unsigned(m_LEDs[i][j].m_avgBrightness/m_lastUpdatePeriod);
 			
-			double _b = m_lastBrightness[i][j];
+			double _b = m_LEDs[i][j].m_lastBrightness;
 			
 			QColor brush = QColor( uint(255-(255-_b)*(1-m_r)), uint(255-(255-_b)*(1-m_g)), uint(255-(255-_b)*(1-m_b)) );
 			p.setBrush(brush);
@@ -275,7 +270,7 @@ void MatrixDisplay::drawShape( QPainter &p )
 		for ( unsigned i = 0; i < m_numCols; i++ )
 		{
 			for ( unsigned j = 0; j < m_numRows; j++ )
-				m_avgBrightness[i][j] = 0.0;
+				m_LEDs[i][j].m_avgBrightness = 0.0;
 		}
 	}
 	

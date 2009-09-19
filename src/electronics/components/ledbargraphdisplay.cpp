@@ -18,6 +18,7 @@
 #include <qstyle.h>
 #include <kdebug.h>
 
+//BEGIN LEDPart
 LEDPart::LEDPart(Component *pParent, const QString& strPNode, const QString& strNNode)
 	: m_pParent(pParent), m_strPNode(strPNode), m_strNNode(strNNode)
 {
@@ -70,7 +71,9 @@ void LEDPart::draw(QPainter &p, int x, int y, int w, int h) {
 	p.setBrush(QColor(uint(255 - (255 - _b)*(1 - r)), uint(255 - (255 - _b)*(1 - g)), uint(255 - (255 - _b)*(1 - b))));
 	p.drawRect(x, y, w, h);
 }
+//END LEDPart
 
+//BEGIN LEDBarGraphDisplay
 Item* LEDBarGraphDisplay::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
 	return new LEDBarGraphDisplay((ICNDocument*)itemDocument, newItem, id);
 }
@@ -233,4 +236,5 @@ void LEDBarGraphDisplay::drawShape(QPainter &p) {
 
 	deinitPainter(p);
 }
+//END LEDBarGraphDisplay
 
