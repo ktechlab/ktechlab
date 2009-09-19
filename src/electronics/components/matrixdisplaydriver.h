@@ -17,26 +17,27 @@
 /**
 @author David Saxton
  */
-class MatrixDisplayDriver : public DIPComponent
-{
-	public:
-		MatrixDisplayDriver( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~MatrixDisplayDriver();
-	
-		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem *libraryItem();
-	
-		virtual void stepNonLogic();
-		virtual bool doesStepNonLogic() const { return true; }
-		
-	protected:
-		QValueVector<LogicIn*> m_pValueLogic;
-		QValueVector<LogicOut*> m_pRowLogic;
-		QValueVector<LogicOut*> m_pColLogic;
-		
-		unsigned m_prevCol;
-		unsigned m_nextCol;
-		unsigned m_scanCount;
+
+class MatrixDisplayDriver : public DIPComponent {
+
+public:
+    MatrixDisplayDriver(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+    ~MatrixDisplayDriver();
+
+    static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
+    virtual void stepNonLogic();
+    virtual bool doesStepNonLogic() const {
+        return true;
+    }
+
+protected:
+    QValueVector<LogicIn*> m_pValueLogic;
+    QValueVector<LogicOut*> m_pRowLogic;
+    QValueVector<LogicOut*> m_pColLogic;
+
+    unsigned m_Col;
 };
 
 #endif
