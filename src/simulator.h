@@ -94,9 +94,7 @@ public:
 	 * Adds the given LogicOut to the list of changed LogicOuts
 	 */
 	void addChangedLogic(LogicOut *changed) {
-		m_pChangedLogicLast->setNextChanged(changed, m_currentChain);
-		m_pChangedLogicLast = changed;
-	}
+		changed->setChanged(m_currentChain); }
 
 	/**
 	 * Remove pointers to the given LogicOut, called when it is deleted for
@@ -202,9 +200,6 @@ private:
 
 // allow a variable number of callbacks be scheduled at each possible time. 
 	list<ComponentCallback *> *m_pStartStepCallback[LOGIC_UPDATE_RATE/LINEAR_UPDATE_RATE];
-
-	LogicOut *m_pChangedLogicStart;
-	LogicOut *m_pChangedLogicLast;
 
 	Simulator();
 	unsigned long m_llNumber; // simulation clock; Exists only to support the time() callback.
