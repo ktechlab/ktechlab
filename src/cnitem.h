@@ -44,7 +44,7 @@ public:
 	double getX() const { return x; }
 
 	void setOrientationNorth() { orientation = 0; }
-	void setOrientationSouth() { orientation = 0; }
+	void setOrientationSouth() { orientation = 180; }
 
 	double x; // X position relative to item
 	double y; // Y position relative to item
