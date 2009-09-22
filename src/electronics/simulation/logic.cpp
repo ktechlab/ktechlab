@@ -111,25 +111,19 @@ LogicOut::LogicOut(LogicConfig config, bool _high)
 	setHigh(_high);
 
 	configChanged();
-	isSetChanged[0] = true;
-	isSetChanged[1] = false;
+	isSetChanged = true;
 }
 
 LogicOut::~LogicOut() {
 	Simulator *theSimulator = Simulator::self();
-
-//	theSimulator->removeLogicInReferences(this);
 	theSimulator->removeLogicOutReferences(this);
 }
 
 void LogicOut::setElementSet(ElementSet *c) {
 
-	if (c) {
-		isSetChanged[0] = isSetChanged[1] = false;
-	}
+	if (c) isSetChanged = false;
 
 	m_old_x = m_old_r_out = 0.0;
-
 	LogicIn::setElementSet(c);
 }
 
