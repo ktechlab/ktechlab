@@ -135,22 +135,21 @@ void Simulator::step() {
 			for(QValueList<LogicOut*>::iterator it = m_logicChainStarts.begin(); it != end ;it++) {
 				LogicOut *changed = *it;
 
-				if(changed->isChanged(prevChain)) {
+				if(changed->isChanged()) {
 					double v = changed->isHigh() ? changed->outputHighVoltage() : 0.0;
 					for (PinSet::iterator it = changed->logicPinList.begin(); it != changed->logicPinList.end(); ++it) {
 						if (Pin *pin = *it)
 							pin->setVoltage(v);
 					}
 
-					LogicIn *logicCallback = changed;
+					changed->clearChanged();
 
+					LogicIn *logicCallback = changed;
 					while (logicCallback) {
 // FIXME: make sure logic callbacks are disconnected when the user cuts something from a live circuit, otherwise breaks here! 
 						logicCallback->callCallback();
 						logicCallback = logicCallback->nextLogic();
 					}
-
-					changed->clearChanged(prevChain);
 				} 
 			}
 		}

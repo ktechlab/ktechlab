@@ -94,7 +94,7 @@ public:
 	 * Adds the given LogicOut to the list of changed LogicOuts
 	 */
 	void addChangedLogic(LogicOut *changed) {
-		changed->setChanged(m_currentChain); }
+		changed->setChanged(); }
 
 	/**
 	 * Remove pointers to the given LogicOut, called when it is deleted for
@@ -207,7 +207,7 @@ private:
 
 // looks like there are only ever two chains, 0 and 1, code elsewhere toggles between the two...
 	unsigned char m_currentChain;
-	queue<Circuit *> circuitChains[2];
+	queue<Circuit *> circuitChains[2];  // <<< fairly bad design. 
 
 	list<Circuit*> *m_ordinaryCircuits;
 };
