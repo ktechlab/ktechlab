@@ -208,7 +208,7 @@ void LogicOut::setHigh(bool high) {
 
 	if (!p_eSet) {
 		setChain(high);
-		Simulator::self()->addChangedLogic(this);
+		isSetChanged = true;
 		return;
 	}
 
