@@ -176,9 +176,9 @@ public:
 * We have two modes, a fast mode based on internal logic chains and a slow mode based on the 
 * analog simulator. Calling this function puts us in fast mode, use only if there are no analog considerations. 
  */
-	void setChanged(unsigned char chain) { isSetChanged[chain & 1] = true; }
-	void clearChanged(unsigned char chain) { isSetChanged[chain & 1] = false; }
-	bool isChanged(unsigned char chain ) { return isSetChanged[chain & 1]; }
+	void setChanged() { isSetChanged = true; }
+	void clearChanged() { isSetChanged = false; }
+	bool isChanged() { return isSetChanged; }
 
 // FIXME RED ALERT: THESE ARE ONLY ACCESSED BY circuitDocument and SIMULATOR!!!
 PinSet logicPinList;
@@ -193,7 +193,7 @@ protected:
 	double m_r_out, m_v_out;
 	double m_old_r_out, m_old_x;
 
-	bool isSetChanged[2];
+	bool isSetChanged;
 };
 
 #endif
