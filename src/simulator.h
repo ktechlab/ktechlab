@@ -13,6 +13,7 @@
 
 #include <list>
 #include <queue>
+#include <set>
 
 #include <qobject.h>
 
@@ -90,11 +91,6 @@ public:
 	 * Initializes a new logic chain.
 	 */
 	void createLogicChain(LogicOut *logicOut, const LogicInList &logicInList);
-	/**
-	 * Adds the given LogicOut to the list of changed LogicOuts
-	 */
-	void addChangedLogic(LogicOut *changed) {
-		changed->setChanged(); }
 
 	/**
 	 * Remove pointers to the given LogicOut, called when it is deleted for
@@ -108,13 +104,6 @@ public:
 	 * currently marked as changed.
 	 */
 	void removeLogicInReferences(LogicIn *logic);
-
-	/**
-	 * Adds the given Circuit to the list of changed Circuits
-	 */
-	void addChangedCircuit(Circuit *changed) {
-		circuitChains[m_currentChain].push(changed);
-	}
 
 	inline void addStepCallback(int at, ComponentCallback *ccb);
 	/**
@@ -186,7 +175,7 @@ private:
 	static Simulator *m_pSelf;
 
 	///List of LogicOuts that are at the start of a LogicChain
-	QValueList<LogicOut*> m_logicChainStarts;
+	std::set<LogicOut*> m_logicChainStarts;
 	list<GpsimProcessor*> *m_gpsimProcessors;
 
 // doesn't look too appropriate.
@@ -204,10 +193,6 @@ private:
 	Simulator();
 	unsigned long m_llNumber; // simulation clock; Exists only to support the time() callback.
 	long long m_stepNumber;
-
-// looks like there are only ever two chains, 0 and 1, code elsewhere toggles between the two...
-	unsigned char m_currentChain;
-	queue<Circuit *> circuitChains[2];  // <<< fairly bad design. 
 
 	list<Circuit*> *m_ordinaryCircuits;
 };
