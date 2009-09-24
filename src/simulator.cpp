@@ -31,7 +31,7 @@ Simulator *Simulator::self() {
 }
 
 Simulator::Simulator()
-		:  m_bIsSimulating(true), m_stepNumber(0), m_currentChain(0) {
+		:  m_bIsSimulating(true), m_stepNumber(0) {
 	m_gpsimProcessors = new list<GpsimProcessor*>;
 	m_componentCallbacks = new list<ComponentCallback>;
 	m_components	   = new list<Component*>;
@@ -116,23 +116,23 @@ void Simulator::step() {
 				}
 			}
 #endif
-
-			// We call this here because stuff like add changed logic uses the current state,
-			// so we make the current state the next state and then use the previous state
-			// which is the state we were in above this line, make sense? 
-			int prevChain = m_currentChain;
-			m_currentChain ^= 1;
-
 			// Update the non-logic circuits
-			while(!(circuitChains[prevChain].empty())) {
-				Circuit *aCircuit = circuitChains[prevChain].front();
-				circuitChains[prevChain].pop();
-				aCircuit->doLogic(); //????
+			{
+			list<Circuit*>::iterator end = m_ordinaryCircuits->end();
+			for(list<Circuit*>::iterator it = m_ordinaryCircuits->begin(); it != end; it++) {
+				Circuit *changed = *it;
+
+				if(changed->isChanged()) {
+					changed->clearChanged();
+					changed->doLogic();
+				}
+			}
 			}
 
 			// Call the logic callbacks
-			QValueList<LogicOut*>::iterator end = m_logicChainStarts.end();
-			for(QValueList<LogicOut*>::iterator it = m_logicChainStarts.begin(); it != end ;it++) {
+			{
+			std::set<LogicOut*>::iterator end = m_logicChainStarts.end();
+			for(std::set<LogicOut*>::iterator it = m_logicChainStarts.begin(); it != end ;it++) {
 				LogicOut *changed = *it;
 
 				if(changed->isChanged()) {
@@ -143,14 +143,9 @@ void Simulator::step() {
 					}
 
 					changed->clearChanged();
-
-					LogicIn *logicCallback = changed;
-					while (logicCallback) {
-// FIXME: make sure logic callbacks are disconnected when the user cuts something from a live circuit, otherwise breaks here! 
-						logicCallback->callCallback();
-						logicCallback = logicCallback->nextLogic();
-					}
-				} 
+					changed->callCallbacks();
+				}
+			}
 			}
 		}
 	}
@@ -180,10 +175,9 @@ void Simulator::createLogicChain(LogicOut *logicOut, const LogicInList &logicInL
 	last->setNextLogic(0);
 	logicOut->setChain(state);
 
-	addChangedLogic(logicOut);
+	logicOut->setChanged();
 
-	if (!m_logicChainStarts.contains(logicOut))
-		m_logicChainStarts << logicOut;
+	m_logicChainStarts.insert(logicOut);
 }
 
 void Simulator::attachGpsimProcessor(GpsimProcessor *cpu) {
@@ -226,17 +220,14 @@ void Simulator::attachCircuit(Circuit *circuit) {
 
 	m_ordinaryCircuits->push_back(circuit);
 
-	if ( circuit->canAddChanged() ) {
-		addChangedCircuit(circuit);
-		circuit->setCanAddChanged(false);
-	}
+	circuit->setChanged();
 }
 
 void Simulator::removeLogicInReferences(LogicIn *logicIn) {
 	if (!logicIn) return;
 
-	QValueList<LogicOut*>::iterator end = m_logicChainStarts.end();
-	for (QValueList<LogicOut*>::iterator it = m_logicChainStarts.begin(); it != end; ++it) {
+	std::set<LogicOut*>::iterator end = m_logicChainStarts.end();
+	for(std::set<LogicOut*>::iterator it = m_logicChainStarts.begin(); it != end; ++it) {
 		LogicIn *logicCallback = *it;
 
 		while (logicCallback) {
@@ -249,33 +240,12 @@ void Simulator::removeLogicInReferences(LogicIn *logicIn) {
 }
 
 void Simulator::removeLogicOutReferences(LogicOut *logic) {
-	m_logicChainStarts.remove(logic);
+	m_logicChainStarts.erase(logic);
 }
 
 void Simulator::detachCircuit(Circuit *circuit) {
-	if (!circuit) return;
-
 	m_ordinaryCircuits->remove(circuit);
-
-	// we also need to flush the circuit out of our simulator queue,
-	// the best way to get it out of the queue is probably to roll the queue around...
-	unsigned queue_size = circuitChains[0].size();
-	for(unsigned i = 0; i < queue_size; i++) {
-		Circuit *aCircuit = circuitChains[0].front();
-		circuitChains[0].pop();
-		if(aCircuit != circuit) circuitChains[0].push(aCircuit);
-		// always roll around one complete time to leave the queue in the same order. 
-	}
-
-	queue_size = circuitChains[1].size();
-	for(unsigned i = 0; i < queue_size; i++) {
-		Circuit *aCircuit = circuitChains[1].front();
-		circuitChains[1].pop();
-		if(aCircuit != circuit) circuitChains[1].push(aCircuit);
-		// always roll around one complete time to leave the queue in the same order. 
-	}
 }
-
 //END class Simulator
 
 #include "simulator.moc"
