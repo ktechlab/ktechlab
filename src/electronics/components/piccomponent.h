@@ -11,13 +11,12 @@
 #ifndef PICCOMPONENT_H
 #define PICCOMPONENT_H
 
+#include <qmap.h>
+
 #include "config.h"
 #ifndef NO_GPSIM
 
 #include "dipcomponent.h"
-
-#include <qguardedptr.h>
-#include <qmap.h>
 
 class Document;
 class ECNode;
@@ -85,7 +84,7 @@ protected:
 	 */
 	void initPIC(bool forceReload);
 
-	QGuardedPtr<GpsimProcessor> m_pGpsim;
+	GpsimProcessor *m_pGpsim;
 	QString m_picFile; ///< The input program that the user selected
 	QString m_symbolFile; ///< The symbol file that was generated from m_picFile
 	bool m_bLoadingProgram; ///< True between createSymbolFile being called and the file being created

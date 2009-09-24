@@ -16,230 +16,202 @@
 #include <cmath>
 #include <klocale.h>
 
-Item* RAM::construct( ItemDocument *itemDocument, bool newItem, const char *id )
-{
-	return new RAM( (ICNDocument*)itemDocument, newItem, id );
+Item* RAM::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
+    return new RAM((ICNDocument*)itemDocument, newItem, id);
 }
 
-LibraryItem* RAM::libraryItem()
-{
-	return new LibraryItem(
-		"ec/ram",
-		i18n("RAM"),
-		i18n("Integrated Circuits"),
-		"ic2.png",
-		LibraryItem::lit_component,
-		RAM::construct
-			);
+LibraryItem* RAM::libraryItem() {
+    return new LibraryItem(
+               "ec/ram",
+               i18n("RAM"),
+               i18n("Integrated Circuits"),
+               "ic2.png",
+               LibraryItem::lit_component,
+               RAM::construct
+           );
 }
 
-RAM::RAM(ICNDocument *icnDocument, bool newItem, const char *id )
-	: DIPComponent( icnDocument, newItem, id ? id : "ram" )
-{
-	m_name = i18n("RAM");
-	
-	m_data = 0;
-	m_pCS = 0;
-	m_pOE = 0;
-	m_pWE = 0;
-	m_wordSize = 0;
-	m_addressSize = 0;
-	
-	createProperty( "wordSize", Variant::Type::Int );
-	property("wordSize")->setCaption( i18n("Word Size") );
-	property("wordSize")->setMinValue(1);
-	property("wordSize")->setMaxValue(64);
-	property("wordSize")->setValue(2);
-	
-	createProperty( "addressSize", Variant::Type::Int );
-	property("addressSize")->setCaption( i18n("Address Size") );
-	property("addressSize")->setMinValue(1);
-	property("addressSize")->setMaxValue(24);
-	property("addressSize")->setValue(4);
-	
-	m_data = createProperty( "data", Variant::Type::Raw )->value().asBitArray();
+RAM::RAM(ICNDocument *icnDocument, bool newItem, const char *id)
+        : DIPComponent(icnDocument, newItem, id ? id : "ram") {
+    m_name = i18n("RAM");
+
+    m_data = 0;
+    m_pCS = 0;
+    m_pOE = 0;
+    m_pWE = 0;
+    m_wordSize = 0;
+    m_addressSize = 0;
+
+    createProperty("wordSize", Variant::Type::Int);
+    property("wordSize")->setCaption(i18n("Word Size"));
+    property("wordSize")->setMinValue(1);
+    property("wordSize")->setMaxValue(64);
+    property("wordSize")->setValue(2);
+
+    createProperty("addressSize", Variant::Type::Int);
+    property("addressSize")->setCaption(i18n("Address Size"));
+    property("addressSize")->setMinValue(1);
+    property("addressSize")->setMaxValue(24);
+    property("addressSize")->setValue(4);
+
+    m_data = createProperty("data", Variant::Type::Raw)->value().asBitArray();
 }
 
-RAM::~RAM()
-{
+RAM::~RAM() {
 }
 
+void RAM::dataChanged() {
+    m_wordSize = dataInt("wordSize");
+    m_addressSize = dataInt("addressSize");
 
-void RAM::dataChanged()
-{
-	m_wordSize = dataInt("wordSize");
-	m_addressSize = dataInt("addressSize");
-	
-	int newSize = int( m_wordSize * std::pow( 2., m_addressSize ) );
-	m_data.resize(newSize);
-	
-	initPins();
+    int newSize = int(m_wordSize * std::pow(2., m_addressSize));
+    m_data.resize(newSize);
+
+    initPins();
 }
 
+void RAM::inStateChanged(bool newState) {
+    Q_UNUSED(newState);
 
-void RAM::inStateChanged( bool newState )
-{
-	Q_UNUSED(newState);
-	
-	bool cs = m_pCS->isHigh();
-	bool oe = m_pOE->isHigh();
-	bool we = m_pWE->isHigh();
-	
-	if ( !cs || !oe )
-	{
-		for ( int i = 0; i < m_wordSize; ++i )
-			m_dataOut[i]->setHigh(false);
-	}
-	
-	if ( !cs || (!oe && !we) )
-		return;
-	
-	unsigned address = 0;
-	for ( int i = 0; i < m_addressSize; ++i )
-		address += (m_address[i]->isHigh() ? 1 : 0) << i;
-	
-	if (we)
-	{
-		for ( int i = 0; i < m_wordSize; ++i )
-			m_data[ m_wordSize * address + i ] = m_dataIn[i]->isHigh();
-	}
-	
-	if(oe) {
-		for(int i = 0; i < m_wordSize; ++i)
-			m_dataOut[i]->setHigh(m_data[m_wordSize * address + i]);
-	}
+    bool cs = m_pCS->isHigh();
+    bool oe = m_pOE->isHigh();
+    bool we = m_pWE->isHigh();
+
+    if (!cs || !oe) {
+        for (int i = 0; i < m_wordSize; ++i)
+            m_dataOut[i]->setHigh(false);
+    }
+
+    if (!cs || (!oe && !we))
+        return;
+
+    unsigned address = 0;
+
+    for (int i = 0; i < m_addressSize; ++i)
+        address += (m_address[i]->isHigh() ? 1 : 0) << i;
+
+    if (we) {
+        for (int i = 0; i < m_wordSize; ++i)
+            m_data[ m_wordSize * address + i ] = m_dataIn[i]->isHigh();
+    }
+
+    if (oe) {
+        for (int i = 0; i < m_wordSize; ++i)
+            m_dataOut[i]->setHigh(m_data[m_wordSize * address + i]);
+    }
 }
 
-void RAM::initPins()
-{
-	int oldWordSize = m_dataIn.size();
-	int oldAddressSize = m_address.size();
-	
-	int newWordSize = dataInt("wordSize");
-	int newAddressSize = dataInt("addressSize");
-	
-	if(newAddressSize == oldAddressSize &&
-		newWordSize == oldWordSize)
-		return;
-	
-	QStringList leftPins; // Pins on left of IC
-	leftPins << "CS" << "OE" << "WE";
-	for(int i = 0; i < newAddressSize; ++i)
-		leftPins << QString("A%1").arg(QString::number(i));
-	
-	QStringList rightPins; // Pins on right of IC
-	for(unsigned i = newWordSize; i > 0; --i )
-		rightPins << QString("DI%1").arg(QString::number(i - 1));
-	for(unsigned i = newWordSize; i > 0; --i)
-		rightPins << QString("DO%1").arg(QString::number(i - 1));
-	
-	// Make pin lists of consistent sizes
-	for(unsigned i = leftPins.size(); i < rightPins.size(); ++i)
-		leftPins.append("");
-	for(unsigned i = rightPins.size(); i < leftPins.size(); ++i)
-		rightPins.prepend("");
+void RAM::initPins() {
+    int oldWordSize = m_dataIn.size();
+    int oldAddressSize = m_address.size();
 
-	QStringList pins = leftPins + rightPins;
+    int newWordSize = dataInt("wordSize");
+    int newAddressSize = dataInt("addressSize");
 
-	initDIPSymbol(pins, 72);
-	initDIP(pins);
+    if (newAddressSize == oldAddressSize &&
+            newWordSize == oldWordSize)
+        return;
 
-//	ECNode *node;
+    QStringList leftPins; // Pins on left of IC
 
-	if(!m_pCS) {
-		//node =  ecNodeWithID("CS");
-		//m_pCS = createLogicIn(node->pin());
+    leftPins << "CS" << "OE" << "WE";
 
-		m_pCS = new LogicIn(LogicIn::getConfig());
-		setup1pinElement(m_pCS, ecNodeWithID("CS")->pin());
+    for (int i = 0; i < newAddressSize; ++i)
+        leftPins << QString("A%1").arg(QString::number(i));
 
-		m_pCS->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
-	}
+    QStringList rightPins; // Pins on right of IC
 
-	if(!m_pOE) {
-		//node =  ecNodeWithID("OE");
-		//m_pOE = createLogicIn(node->pin());
+    for (unsigned i = newWordSize; i > 0; --i)
+        rightPins << QString("DI%1").arg(QString::number(i - 1));
 
-		m_pOE = new LogicIn(LogicIn::getConfig());
-		setup1pinElement(m_pOE, ecNodeWithID("OE")->pin());
+    for (unsigned i = newWordSize; i > 0; --i)
+        rightPins << QString("DO%1").arg(QString::number(i - 1));
 
-		m_pOE->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
-	}
+    // Make pin lists of consistent sizes
+    for (unsigned i = leftPins.size(); i < rightPins.size(); ++i)
+        leftPins.append("");
 
-	if(!m_pWE) {
-//		node =  ecNodeWithID("WE");
-//		m_pWE = createLogicIn(node->pin());
+    for (unsigned i = rightPins.size(); i < leftPins.size(); ++i)
+        rightPins.prepend("");
 
-		m_pWE = new LogicIn(LogicIn::getConfig());
-		setup1pinElement(m_pWE, ecNodeWithID("WE")->pin());
+    QStringList pins = leftPins + rightPins;
 
-		m_pWE->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
-	}
+    initDIPSymbol(pins, 72);
+    initDIP(pins);
 
-	if(newWordSize > oldWordSize) {
-		m_dataIn.resize(newWordSize);
-		m_dataOut.resize(newWordSize);
+    if (!m_pCS) {
+        m_pCS = new LogicIn(LogicIn::getConfig());
+        setup1pinElement(m_pCS, ecNodeWithID("CS")->pin());
 
-		for(int i = oldWordSize; i < newWordSize; ++i) {
-//			node = ecNodeWithID(QString("DI%1").arg( QString::number(i)));
+        m_pCS->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
+    }
 
-			LogicIn *inLogic = new LogicIn(LogicIn::getConfig());
-			setup1pinElement(inLogic, ecNodeWithID(QString("DI%1").arg( QString::number(i)))->pin());
-			m_dataIn.insert(i, inLogic);
+    if (!m_pOE) {
+        m_pOE = new LogicIn(LogicIn::getConfig());
+        setup1pinElement(m_pOE, ecNodeWithID("OE")->pin());
 
-//			m_dataIn.insert(i, createLogicIn(node->pin()));
-			m_dataIn[i]->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
+        m_pOE->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
+    }
 
-//			node = ecNodeWithID(QString("DO%1").arg( QString::number(i)));
+    if (!m_pWE) {
+        m_pWE = new LogicIn(LogicIn::getConfig());
+        setup1pinElement(m_pWE, ecNodeWithID("WE")->pin());
 
-			LogicOut *outLogic = new LogicOut(LogicIn::getConfig(), false);
-			setup1pinElement(outLogic, ecNodeWithID(QString("DO%1").arg( QString::number(i)))->pin());
-			m_dataOut.insert(i, outLogic);
+        m_pWE->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
+    }
 
-//			m_dataOut.insert(i, createLogicOut(node->pin(), false));
-		}
-	} else if(newWordSize < oldWordSize) {
-		for(int i = newWordSize; i < oldWordSize; ++i)
-		{
-			QString id = QString("DO%1").arg(QString::number(i));
-			removeDisplayText(id);
-			removeElement(m_dataIn[i], false);
-			removeNode(id);
+    if (newWordSize > oldWordSize) {
+        m_dataIn.resize(newWordSize);
+        m_dataOut.resize(newWordSize);
 
-			id = QString("DI%1").arg( QString::number(i));
-			removeDisplayText(id);
-			removeElement(m_dataOut[i], false);
-			removeNode(id);
-		}
+        for (int i = oldWordSize; i < newWordSize; ++i) {
 
-		m_dataIn.resize(newWordSize);
-		m_dataOut.resize(newWordSize);
-	}
+            LogicIn *inLogic = new LogicIn(LogicIn::getConfig());
+            setup1pinElement(inLogic, ecNodeWithID(QString("DI%1").arg(QString::number(i)))->pin());
+            m_dataIn.insert(i, inLogic);
 
-	if(newAddressSize > oldAddressSize) {
-		m_address.resize(newAddressSize);
+            m_dataIn[i]->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
 
-		for(int i = oldAddressSize; i < newAddressSize; ++i)
-		{
-//			node = ecNodeWithID(QString("A%1").arg(QString::number(i)));
-//			m_address.insert(i, createLogicIn(node->pin()));
+            LogicOut *outLogic = new LogicOut(LogicIn::getConfig(), false);
+            setup1pinElement(outLogic, ecNodeWithID(QString("DO%1").arg(QString::number(i)))->pin());
+            m_dataOut.insert(i, outLogic);
+        }
+    } else if (newWordSize < oldWordSize) {
+        for (int i = newWordSize; i < oldWordSize; ++i) {
+            QString id = QString("DO%1").arg(QString::number(i));
+            removeDisplayText(id);
+            removeElement(m_dataIn[i], false);
+            removeNode(id);
 
-			LogicIn *inLogic = new LogicIn(LogicIn::getConfig());
-			setup1pinElement(inLogic, ecNodeWithID(QString("A%1").arg(QString::number(i)))->pin());
-			m_address.insert(i, inLogic);
+            id = QString("DI%1").arg(QString::number(i));
+            removeDisplayText(id);
+            removeElement(m_dataOut[i], false);
+            removeNode(id);
+        }
 
-			m_address[i]->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
-		}
-	} else if(newAddressSize < oldAddressSize) {
-		for(int i = newAddressSize; i < oldAddressSize; ++i)
-		{
-			QString id = QString("A%1").arg( QString::number(i));
-			removeDisplayText(id);
-			removeElement(m_address[i], false);
-			removeNode(id);
-		}
+        m_dataIn.resize(newWordSize);
+        m_dataOut.resize(newWordSize);
+    }
 
-		m_address.resize(newAddressSize);
-	}
+    if (newAddressSize > oldAddressSize) {
+        m_address.resize(newAddressSize);
+
+        for (int i = oldAddressSize; i < newAddressSize; ++i) {
+            LogicIn *inLogic = new LogicIn(LogicIn::getConfig());
+            setup1pinElement(inLogic, ecNodeWithID(QString("A%1").arg(QString::number(i)))->pin());
+            m_address.insert(i, inLogic);
+
+            m_address[i]->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
+        }
+    } else if (newAddressSize < oldAddressSize) {
+        for (int i = newAddressSize; i < oldAddressSize; ++i) {
+            QString id = QString("A%1").arg(QString::number(i));
+            removeDisplayText(id);
+            removeElement(m_address[i], false);
+            removeNode(id);
+        }
+
+        m_address.resize(newAddressSize);
+    }
 }
 

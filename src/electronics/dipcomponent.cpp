@@ -79,7 +79,7 @@ void DIPComponent::initDIPSymbol(const QStringList &pins, int _width) {
 		}
 	}
 
-	// Pins along right
+	// Labels along right
 	for(int i = numSide; i < numPins; i++) {
 		if(!pins[i].isEmpty()) {
 			const QString text = *pins.at(i);
