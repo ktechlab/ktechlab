@@ -15,7 +15,6 @@
 #define SYMBOLVIEWER_H
 
 #include <klistview.h>
-#include <qguardedptr.h>
 
 class KComboBox;
 class RegisterInfo;
@@ -71,9 +70,9 @@ class SymbolViewer : public QWidget
 		void selectRadix( int selectIndex );
 		
 	protected:
-		QGuardedPtr<GpsimProcessor> m_pGpsim;
-		RegisterSet * m_pCurrentContext;
-		KListView * m_pSymbolList;
+		GpsimProcessor *m_pGpsim;
+		RegisterSet *m_pCurrentContext;
+		KListView *m_pSymbolList;
 		Radix m_valueRadix;
 
 	private:
