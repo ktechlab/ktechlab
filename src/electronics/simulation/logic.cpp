@@ -99,6 +99,20 @@ void LogicIn::setChain(bool high) {
 	m_bState = high; 
 	if(m_pNextLogic) m_pNextLogic->setChain(high);
 }
+
+void LogicIn::callCallback() {
+	if (m_pCallbackFunction)
+		(m_pCallbackObject->*m_pCallbackFunction)(m_bState);
+
+	if(m_pNextLogic) m_pNextLogic->callCallbacks();
+}
+
+void LogicIn::callCallbacks() {
+	if (m_pCallbackFunction)
+		(m_pCallbackObject->*m_pCallbackFunction)(m_bState);
+
+	if(m_pNextLogic) m_pNextLogic->callCallbacks();
+}
 //END class LogicIn
 
 //BEGIN class LogicOut
@@ -219,10 +233,7 @@ void LogicOut::setHigh(bool high) {
 	add_initial_dc();
 	m_bState = high;
 
-	if (p_eSet && p_eSet->circuit()->canAddChanged()) {
-		Simulator::self()->addChangedCircuit(p_eSet->circuit());
-		p_eSet->circuit()->setCanAddChanged(false);
-	}
+	if(p_eSet) p_eSet->circuit()->setChanged();
 }
 //END class LogicOut
 
