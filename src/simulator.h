@@ -12,7 +12,6 @@
 #define SIMULATOR_H
 
 #include <list>
-#include <queue>
 #include <set>
 
 #include <qobject.h>
