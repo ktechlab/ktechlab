@@ -31,7 +31,6 @@ LogicIn::LogicIn(LogicConfig config)
 	m_bState(false), m_config(config) {
 	m_numCNodes = 1;
 
-	m_pNextLogic = 0;
 	check();
 }
 
@@ -74,14 +73,7 @@ void LogicIn::setLogic(LogicConfig config) {
 }
 
 void LogicIn::setElementSet(ElementSet *c) {
-	if(c) m_pNextLogic = 0;
 	Element::setElementSet(c);
-}
-
-void LogicIn::add_initial_dc() {
-}
-
-void LogicIn::updateCurrents() {
 }
 
 LogicConfig LogicIn::getConfig() {
@@ -94,24 +86,9 @@ LogicConfig LogicIn::getConfig() {
 	return c;
 }
 
-/**/
-void LogicIn::setChain(bool high) {
-	m_bState = high; 
-	if(m_pNextLogic) m_pNextLogic->setChain(high);
-}
-
 void LogicIn::callCallback() {
 	if (m_pCallbackFunction)
 		(m_pCallbackObject->*m_pCallbackFunction)(m_bState);
-
-	if(m_pNextLogic) m_pNextLogic->callCallbacks();
-}
-
-void LogicIn::callCallbacks() {
-	if (m_pCallbackFunction)
-		(m_pCallbackObject->*m_pCallbackFunction)(m_bState);
-
-	if(m_pNextLogic) m_pNextLogic->callCallbacks();
 }
 //END class LogicIn
 
@@ -184,7 +161,6 @@ void LogicOut::configChanged() {
 	m_v_out = m_bState ? m_config.output : 0.0;
 
 	add_initial_dc();
-
 	check();
 }
 
@@ -220,8 +196,10 @@ void LogicOut::setHigh(bool high) {
 	if (high == m_bState)
 		return;
 
+	m_bState = high;
+
 	if (!p_eSet) {
-		setChain(high);
+		setChain();
 		isSetChanged = true;
 		return;
 	}
@@ -231,9 +209,43 @@ void LogicOut::setHigh(bool high) {
 	m_v_out = high ? m_config.output : 0.0;
 
 	add_initial_dc();
-	m_bState = high;
 
 	p_eSet->circuit()->setChanged();
 }
-//END class LogicOut
 
+/*!
+    \fn LogicOut::void setDependents(const LogicInList &logicInList)
+ */
+void LogicOut::setDependents(LogicInList &logicInList)
+{
+	dependents.erase(dependents.begin(), dependents.end());	
+
+	std::list<LogicIn*>::iterator end = logicInList.end();
+	for(std::list<LogicIn*>::iterator it = logicInList.begin(); it != end; it++) {
+		dependents.push_back(*it);
+	}
+}
+
+/*!
+    \fn LogicOut::callCallbacks()
+ */
+void LogicOut::callCallbacks()
+{
+	std::list<LogicIn*>::iterator end = dependents.end();
+	for(std::list<LogicIn*>::iterator it = dependents.begin(); it != end; it++) {
+		(*it)->callCallback();
+	}
+}
+
+/*!
+    \fn LogicOut::setChain()
+// ensure all dependants have the same state. 
+ */
+void LogicOut::setChain()
+{
+	std::list<LogicIn*>::iterator end = dependents.end();
+	for(std::list<LogicIn*>::iterator it = dependents.begin(); it != end; it++) {
+		(*it)->setState(m_bState);
+	}
+}
+//END class LogicOut

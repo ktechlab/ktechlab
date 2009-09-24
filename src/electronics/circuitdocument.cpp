@@ -551,7 +551,7 @@ void CircuitDocument::splitIntoCircuits(PinSet *pinList) {
 		const ElementList::iterator eEnd = elements.end();
 		for (ElementList::iterator it = elements.begin(); it != eEnd; ++it) {
 			if (LogicIn *logicIn = dynamic_cast<LogicIn*>(*it)) {
-				logicIn->setLastState(false);
+				logicIn->setState(false);
 				logicIn->callCallback();
 			}
 		}
@@ -607,27 +607,25 @@ bool CircuitDocument::tryAsLogicCircuit(Circuitoid *circuitoid) {
 			if(out) return false; 
 			out = static_cast<LogicOut*>(*it);
 		} else if ((*it)->type() == Element::Element_LogicIn) {
-			logicInList += static_cast<LogicIn*>(*it);
+			logicInList.push_back(static_cast<LogicIn*>(*it));
 		} else return false;
 	}
 
 	if(out) {
-		Simulator::self()->createLogicChain(out, logicInList);
+		out->setDependents(logicInList);
+		Simulator::self()->createLogicChain(out);
 		out->logicPinList = circuitoid->getPinSet();
 	} else {
 		// We have ourselves stranded LogicIns...so lets set them all to low
-
 		const PinSet::const_iterator pinListEnd = circuitoid->getPinsEnd();
 		for (PinSet::const_iterator it = circuitoid->getPinsBegin(); it != pinListEnd; ++it)
 			(*it)->setVoltage(0.0);
 
 		for (ElementList::const_iterator it = circuitoid->getElementsBegin(); it != end; ++it) {
 			LogicIn *logicIn = static_cast<LogicIn*>(*it);
-			logicIn->setNextLogic(0);
-//			logicIn->setElementSet(0);
 
 			if (logicIn->isHigh()) {
-				logicIn->setLastState(false);
+				logicIn->setState(false);
 				logicIn->callCallback();
 			}
 		}

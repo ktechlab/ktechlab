@@ -158,23 +158,11 @@ void Simulator::slotSetSimulating(bool simulate) {
 	emit simulatingStateChanged(simulate);
 }
 
-void Simulator::createLogicChain(LogicOut *logicOut, const LogicInList &logicInList) {
-
+void Simulator::createLogicChain(LogicOut *logicOut) {
 	assert(logicOut);
-	bool state = logicOut->isHigh();
+
 	logicOut->setElementSet(0);
-
-	LogicIn *last = logicOut;
-	const LogicInList::const_iterator end = logicInList.end();
-	for (LogicInList::const_iterator it = logicInList.begin(); it != end; ++it) {
-		LogicIn *next = *it;
-		last->setNextLogic(next);
-		last = next;
-	}
-
-	last->setNextLogic(0);
-	logicOut->setChain(state);
-
+	logicOut->setChain();
 	logicOut->setChanged();
 
 	m_logicChainStarts.insert(logicOut);
@@ -228,14 +216,7 @@ void Simulator::removeLogicInReferences(LogicIn *logicIn) {
 
 	std::set<LogicOut*>::iterator end = m_logicChainStarts.end();
 	for(std::set<LogicOut*>::iterator it = m_logicChainStarts.begin(); it != end; ++it) {
-		LogicIn *logicCallback = *it;
-
-		while (logicCallback) {
-			if (logicCallback->nextLogic() == logicIn)
-				logicCallback->setNextLogic(logicCallback->nextLogic()->nextLogic());
-
-			logicCallback = logicCallback->nextLogic();
-		}
+		(*it)->removeDependent(logicIn);
 	}
 }
 
