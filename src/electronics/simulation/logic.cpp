@@ -233,7 +233,7 @@ void LogicOut::setHigh(bool high) {
 	add_initial_dc();
 	m_bState = high;
 
-	if(p_eSet) p_eSet->circuit()->setChanged();
+	p_eSet->circuit()->setChanged();
 }
 //END class LogicOut
 
