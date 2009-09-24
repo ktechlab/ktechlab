@@ -61,43 +61,36 @@
 #include <kurldrag.h>
 #include <kwin.h>
 
-KTechlab * KTechlab::m_pSelf = 0l;
+KTechlab *KTechlab::m_pSelf = 0;
 
 KTechlab::KTechlab()
 	: KateMDI::MainWindow( 0, "KTechlab" )
 {
 	m_pSelf = this;
-	
+
 	QTime ct;
 	ct.start();
-	
+
 	m_bIsShown = false;
-	m_pContainerDropSource = 0l;
-	m_pContainerDropReceived = 0l;
-	m_pContextMenuContainer = 0l;
-	m_pFocusedContainer = 0l;
-	m_pToolBarOverlayLabel = 0l;
-	
-	if ( QFontInfo( m_itemFont ).pixelSize() > 11 )
-	{
-		// It has to be > 11, not > 12, as (I think) pixelSize() rounds off the actual size
-		m_itemFont.setPixelSize(12);
-	}
-	
+	m_pContainerDropSource = 0;
+	m_pContainerDropReceived = 0;
+	m_pContextMenuContainer = 0;
+	m_pFocusedContainer = 0;
+	m_pToolBarOverlayLabel = 0;
+
 	m_pUpdateCaptionsTimer = new QTimer( this );
 	connect( m_pUpdateCaptionsTimer, SIGNAL(timeout()), this, SLOT(slotUpdateCaptions()) );
-	
+
 	setMinimumSize( 400, 400 );
-	
+
 	setupTabWidget();
 	setupToolDocks();
 	setupActions();
 	setupView();
 	readProperties( KGlobal::config() );
-	
-// 	kdDebug() << "Constructor time: " << ct.elapsed() << endl;
-}
 
+//	kdDebug() << "Constructor time: " << ct.elapsed() << endl;
+}
 
 KTechlab::~KTechlab()
 {
@@ -188,16 +181,16 @@ void KTechlab::setupToolDocks()
 	KateMDI::ToolView * tv = 0l;
 	
 	tv = createToolView( ProjectManager::toolViewIdentifier(),
-						 KMultiTabBar::Left,
-						 loader->loadIcon( "attach", KIcon::Small ),
-						 i18n("Project") );
+				 KMultiTabBar::Left,
+				 loader->loadIcon( "attach", KIcon::Small ),
+				 i18n("Project") );
 	ProjectManager::self( tv );
 	
 	pm.load( locate( "appdata", "icons/circuit.png" ) );
 	tv = createToolView( ComponentSelector::toolViewIdentifier(),
-						 KMultiTabBar::Left,
-						 pm,
-						 i18n("Components") );
+				 KMultiTabBar::Left,
+				 pm,
+				 i18n("Components") );
 	ComponentSelector::self(tv);
 	
 	// Create an instance of the subcircuits interface, now that we have created the component selector
@@ -206,44 +199,44 @@ void KTechlab::setupToolDocks()
 	
 	pm.load( locate( "appdata", "icons/flowcode.png" ) );
 	tv = createToolView( FlowPartSelector::toolViewIdentifier(),
-						 KMultiTabBar::Left,
-						 pm,
-						 i18n("Flow Parts") );
+				 KMultiTabBar::Left,
+				 pm,
+				 i18n("Flow Parts") );
 	FlowPartSelector::self(tv);
 	
 #ifdef MECHANICS
 	pm.load( locate( "appdata", "icons/mechanics.png" ) );
 	tv = createToolView( MechanicsSelector::toolViewIdentifier(),
-						 KMultiTabBar::Left,
-						 pm,
-						 i18n("Mechanics") );
+				 KMultiTabBar::Left,
+				 pm,
+				 i18n("Mechanics") );
 	MechanicsSelector::self(tv);
 #endif
 	
 	pm.load( locate( "appdata", "icons/item.png" ) );
 	tv = createToolView( ItemEditor::toolViewIdentifier(),
-						 KMultiTabBar::Right,
-						 pm,
-						 i18n("Item Editor") );
+				 KMultiTabBar::Right,
+				 pm,
+				 i18n("Item Editor") );
 	ItemEditor::self(tv);
 	
 	tv = createToolView( ContextHelp::toolViewIdentifier(),
-						 KMultiTabBar::Right,
-						 loader->loadIcon( "contents", KIcon::Small ),
-						 i18n("Context Help") );
+				KMultiTabBar::Right,
+				loader->loadIcon( "contents", KIcon::Small ),
+				i18n("Context Help") );
 	ContextHelp::self(tv);
 	
 	tv = createToolView( LanguageManager::toolViewIdentifier(),
-						 KMultiTabBar::Bottom,
-						 loader->loadIcon( "log", KIcon::Small ),
-						 i18n("Messages") );
-	LanguageManager::self( tv );
+				 KMultiTabBar::Bottom,
+				 loader->loadIcon( "log", KIcon::Small ),
+				 i18n("Messages") );
+	LanguageManager::self(tv);
 	
 #ifndef NO_GPSIM
 	tv = createToolView( SymbolViewer::toolViewIdentifier(),
-						 KMultiTabBar::Right,
-						 loader->loadIcon( "blockdevice", KIcon::Small ),
-						 i18n("Symbol Viewer") );
+				 KMultiTabBar::Right,
+				 loader->loadIcon( "blockdevice", KIcon::Small ),
+				 i18n("Symbol Viewer") );
 	SymbolViewer::self(tv);
 #endif
 	

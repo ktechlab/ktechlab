@@ -41,7 +41,7 @@ class GpsimProcessor;
 class LogicIn;
 class LogicOut;
 
-typedef QValueList<LogicIn*> LogicInList;
+typedef std::list<LogicIn*> LogicInList;
 typedef void(Component::*VoidCallbackPtr)();
 
 class ComponentCallback {
@@ -89,7 +89,7 @@ public:
 	/**
 	 * Initializes a new logic chain.
 	 */
-	void createLogicChain(LogicOut *logicOut, const LogicInList &logicInList);
+	void createLogicChain(LogicOut *logicOut);
 
 	/**
 	 * Remove pointers to the given LogicOut, called when it is deleted for

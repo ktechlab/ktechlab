@@ -66,14 +66,13 @@ public:
 	 * Check if the input state has changed, to see if we need to callback.
 	 */
 	void check();
+
 	/**
 	 * Returns whether the pin is 'high', as defined for the logic type
 	 * Note: this is defined as the voltage on the pin, as opposed to what the
 	 * state was set to (the two are not necessarily the same).
 	 */
-	inline bool isHigh() const {
-		return m_bState;
-	}
+	inline bool isHigh() const { return m_bState; }
 
 	/**
 	 * When the logic state on this LogicIn changes, the function passed in this
@@ -88,18 +87,7 @@ public:
 	/**
 	 * If this belongs to a logic chain, then this will be called from the chain.
 	 */
-	void setLastState(bool state) {
-		m_bState = state;
-	}
-
-// ### crappy linked list! =(
-/**
- * Returns a pointer to the next LogicIn in the chain. */
-LogicIn *nextLogic() const { return m_pNextLogic; }
-void setNextLogic(LogicIn *next) { m_pNextLogic = next; }
-void setChain(bool high);
-void callCallbacks();
-// ### 
+	void setState(bool state) { m_bState = state; }
 
 	/**
 	 * Calls the callback function, if there is one.
@@ -108,19 +96,16 @@ void callCallbacks();
 
 protected:
 
-	virtual void updateCurrents();
-	virtual void add_initial_dc();
+	virtual void updateCurrents() {};
+	virtual void add_initial_dc() {};
 
 	CallbackPtr m_pCallbackFunction;
 	CallbackClass *m_pCallbackObject;
 	bool m_bState;
 	LogicConfig m_config;
-
-private: 
-/// FIXME: crappy linked list implementation. 
-LogicIn *m_pNextLogic;
-/// ###
 };
+
+typedef std::list<LogicIn*> LogicInList;
 
 /**
 @short Logic output/input
@@ -133,9 +118,7 @@ public:
 
 	virtual void setLogic(LogicConfig config);
 	virtual void setElementSet(ElementSet *c);
-	virtual Type type() const {
-		return Element_LogicOut;
-	}
+	virtual Type type() const { return Element_LogicOut; }
 
 	/**
 	 * Call this function to override the logic-high output impedance as set by
@@ -159,8 +142,7 @@ public:
 	 * Returns the voltage that this will output when high.
 	 */
 	double outputHighVoltage() const {
-		return m_config.output;
-	}
+		return m_config.output; }
 
 	/**
 	 * Sets the pin to be high/low
@@ -173,11 +155,16 @@ public:
  */
 	void setChanged() { isSetChanged = true; }
 	void clearChanged() { isSetChanged = false; }
-	inline bool isChanged() { return isSetChanged; }
+	inline bool isChanged() const { return isSetChanged; }
 
 // FIXME RED ALERT: THESE ARE ONLY ACCESSED BY circuitDocument and SIMULATOR!!!
 PinSet logicPinList;
 // **** 
+
+	void removeDependent(LogicIn *foo) { dependents.remove(foo); }
+	void setDependents(LogicInList &logicInList);
+	void callCallbacks();
+	void setChain();
 
 protected:
 
@@ -189,6 +176,9 @@ protected:
 	double m_old_r_out, m_old_x;
 
 	bool isSetChanged;
+
+private: 
+	LogicInList dependents;
 };
 
 #endif
