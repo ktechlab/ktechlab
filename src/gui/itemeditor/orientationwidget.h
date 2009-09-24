@@ -10,7 +10,6 @@
 #ifndef ORIENTATIONWIDGET_H
 #define ORIENTATIONWIDGET_H
 
-#include <qguardedptr.h>
 #include <qwidget.h>
 
 class CNItem;
@@ -50,9 +49,9 @@ class OrientationWidget : public QWidget
 		void initFromFlowPart( FlowPart * flowPart );
 	
 		QPushButton *m_toolBtn[2][4];
-		QGuardedPtr<FlowPart> m_pFlowPart;
+		FlowPart *m_pFlowPart;
 		Component *m_pComponent;
-		QGuardedPtr<CNItem> m_pCNItem; // Either the flowpart or component
+		CNItem *m_pCNItem; // Either the flowpart or component
 		bool m_bHaveSameOrientation; // Whether the items had the same orientation when last updated
 };
 

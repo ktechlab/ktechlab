@@ -14,7 +14,6 @@
 #define PROPERTYEDITOR_H
 
 #include <qvariant.h>
-#include <qguardedptr.h>
 #include <qdict.h>
 
 #include <klistview.h>
@@ -117,12 +116,10 @@ protected:
 	void resizeEvent(QResizeEvent *ev);
 	void showDefaultsButton(bool show);
 
-	int baseRowHeight() const {
-		return m_baseRowHeight;
-	}
+	int baseRowHeight() const { return m_baseRowHeight; }
 
-	QGuardedPtr<ItemGroup> m_pItemGroup;
-	QGuardedPtr<PropertySubEditor> m_currentEditor;
+	ItemGroup *m_pItemGroup;
+	PropertySubEditor *m_currentEditor;
 	PropertyEditorItem *m_editItem;
 	PropertyEditorItem *m_topItem; //The top item is used to control the drawing of every branches.
 	KPushButton *m_defaults; // "Revert to defaults" button
