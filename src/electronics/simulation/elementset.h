@@ -61,10 +61,6 @@ public:
 		return m_pCircuit;
 	}
 
-// part of effort to remove *circuit()
-	bool canAddChanged();
-//###
-
 	void addElement(Element *e);
 	void setCacheInvalidated();
 
