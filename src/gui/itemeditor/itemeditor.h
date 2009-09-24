@@ -11,7 +11,6 @@
 #define ITEMEDITOR_H
 
 #include <qwidget.h>
-#include <qguardedptr.h>
 
 class ComponentModelWidget;
 class CNItem;
