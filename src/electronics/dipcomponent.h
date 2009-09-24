@@ -27,7 +27,6 @@ protected:
 	/**
 	 * This creates a set of nodes with their internal IDs set to those in QStringList pins.
 	 * The pins are in a DIP arrangement, and are spaced width() apart.
-TODO: refactor DIP stuff to a new subclass. 
 	 */
 	void initDIP(const QStringList &pins);
 

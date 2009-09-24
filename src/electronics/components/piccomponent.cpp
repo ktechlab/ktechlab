@@ -29,7 +29,6 @@
 #include <kiconloader.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <qguardedptr.h>
 #include <qstringlist.h>
 
 #include "gpsim/ioports.h"
