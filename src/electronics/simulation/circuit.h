@@ -101,8 +101,9 @@ public:
 	*/
 	static int identifyGround(PinSet nodeList, int *highest = 0);
 
-	void setCanAddChanged(bool canAdd) { m_bCanAddChanged = canAdd; }
-	bool canAddChanged() const { return m_bCanAddChanged; }
+	void setChanged() { isSetChanged = true; }
+	void clearChanged() { isSetChanged = false; }
+	inline bool isChanged() { return isSetChanged; }
 
 protected:
 	void cacheAndUpdate();
@@ -129,7 +130,8 @@ protected:
 
 	logicOutVec m_pLogicOut;
 
-	bool m_bCanAddChanged;
+private: 
+	bool isSetChanged;
 };
 
 #endif
