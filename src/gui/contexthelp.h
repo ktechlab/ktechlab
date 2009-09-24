@@ -13,7 +13,6 @@
 
 #include "src/gui/contexthelpwidget.h"
 
-#include <qguardedptr.h>
 #include <ktextedit.h>
 
 class Item;
