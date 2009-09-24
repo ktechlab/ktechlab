@@ -95,20 +95,16 @@ public:
 // ### crappy linked list! =(
 /**
  * Returns a pointer to the next LogicIn in the chain. */
-//
 LogicIn *nextLogic() const { return m_pNextLogic; }
-//
 void setNextLogic(LogicIn *next) { m_pNextLogic = next; }
 void setChain(bool high);
+void callCallbacks();
 // ### 
 
 	/**
 	 * Calls the callback function, if there is one.
 	 */
-	void callCallback() {
-		if (m_pCallbackFunction)
-			(m_pCallbackObject->*m_pCallbackFunction)(m_bState);
-	}
+	void callCallback();
 
 protected:
 
@@ -122,7 +118,6 @@ protected:
 
 private: 
 /// FIXME: crappy linked list implementation. 
-//
 LogicIn *m_pNextLogic;
 /// ###
 };
@@ -178,7 +173,7 @@ public:
  */
 	void setChanged() { isSetChanged = true; }
 	void clearChanged() { isSetChanged = false; }
-	bool isChanged() { return isSetChanged; }
+	inline bool isChanged() { return isSetChanged; }
 
 // FIXME RED ALERT: THESE ARE ONLY ACCESSED BY circuitDocument and SIMULATOR!!!
 PinSet logicPinList;
