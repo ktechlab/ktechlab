@@ -67,39 +67,11 @@ public:
 	double voltage() const { return m_voltage; }
 
 	/**
-	 * After calculating nodal voltages, each component will be called to tell
-	 * its pins what the current flowing *into* the component is. This sets it
-	 * to zero in preparation to merging the current.
-	 */
-	void resetCurrent() { m_current = 0.0; }
-
-	/**
-	 * Adds the given current to that already flowing into the pin.
-	 * @see setCurrent
-	 */
-// FIXME: valgrind says we have an invalid write bug here, maybe a cleanup deleted... 
-	void mergeCurrent(double i) { m_current += i; }
-
-	/**
-	 * Returns the current as set by mergeCurrent.
-	 */
-	double current() const { return m_current; }
-
-	/**
-	 * In many cases (such as if this pin is a ground pin), the current
-	 * flowing into the pin has not been calculated, and so the value
-	 * returned by current() cannot be trusted.
-	 */
-	void setCurrentKnown(bool isKnown) { m_bCurrentIsKnown = isKnown; }
-
-	/**
 	 * Tell thie Pin that none of the currents from the switches have yet
 	 * been merged.
 	 */
 	void setSwitchCurrentsUnknown() {
-//		m_bCurrentIsKnown = false;
-		m_unknownSwitchCurrents = m_switchList;
-	}
+		m_unknownSwitchCurrents = m_switchList; }
 
 	/**
 	 * This returns the value given by setCurrentKnown AND'd with whether
@@ -107,7 +79,7 @@ public:
 	 * @see setCurrentKnown
 	 */
 	bool currentIsKnown() const {
-		return m_bCurrentIsKnown && m_unknownSwitchCurrents.empty();
+		return (m_wireList.size() < 2) && m_unknownSwitchCurrents.empty();
 	}
 
 	/**
@@ -121,7 +93,7 @@ public:
 	 * Tries to calculate the Pin current from the input / output wires.
 	 * @return whether was successful.
 	 */
-	bool calculateCurrentFromWires();
+	double calculateCurrentFromWires(Wire *aWire = (Wire *)0) const;
 
 	/**
 	 * Sets the "ground type" - i.e. the priority that this pin has for being
@@ -164,13 +136,9 @@ public:
 	 * This function returns the pins that are directly connected to this pins:
 	 * either at the ends of connected wires, or via switches.
 	 */
-	PinSet localConnectedPins() //const
-;
-
-
+	PinSet localConnectedPins();
 
 // ###
-
 	/**
 	 * Use this function to set the pin identifier for equations,
 	 * which should be done every time new pins are registered.
@@ -218,11 +186,6 @@ public:
 
 protected:
 	double m_voltage;
-
-// ###
-	double m_current;
-	bool m_bCurrentIsKnown;
-// ###
 
 	int m_eqId;
 	GroundType m_groundType;
