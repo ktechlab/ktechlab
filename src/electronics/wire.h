@@ -42,6 +42,8 @@ public:
 	 */
 	void setCurrentKnown( bool known );
 
+	void setCurrent(double current ) { m_current = current; m_bCurrentIsKnown = true;}
+
 	/**
 	 * Returns the current flowing through the connector.
 	 * This only applies for electronic connectors

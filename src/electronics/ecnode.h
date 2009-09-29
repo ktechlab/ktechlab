@@ -53,15 +53,12 @@ public:
 		NOTE: only bus wires/junctions have multiple pins! 
 	 */
 	unsigned numPins() const {
-		return m_pins.size();
-	}
+		return m_pins.size(); }
 
 	/**
 	 * @return the pins in the node, as a vector
 	 */
-	PinVector pins() const {
-		return m_pins;
-	}
+	PinVector pins() const { return m_pins; }
 
 	/**
 	 * @param num number of the
@@ -72,20 +69,16 @@ public:
 	}
 
 	bool showVoltageBars() const {
-		return m_bShowVoltageBars;
-	}
+		return m_bShowVoltageBars; }
 
 	void setShowVoltageBars(const bool show) {
-		m_bShowVoltageBars = show;
-	}
+		m_bShowVoltageBars = show; }
 
 	bool showVoltageColor() const {
-		return m_bShowVoltageColor;
-	}
+		return m_bShowVoltageColor; }
 
 	void setShowVoltageColor(bool show) {
-		m_bShowVoltageColor = show;
-	}
+		m_bShowVoltageColor = show; }
 
 	void setNodeChanged();
 

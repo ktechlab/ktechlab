@@ -27,11 +27,16 @@ ElementMap::ElementMap() {
     \fn ElementMap::mergeCurrents()
  */
 void ElementMap::mergeCurrents() {
+
 	for (int i = 0; i < 4; i++) {
-		if (n[i]) {
-// FIXME: Valgrind sez we are reading invalid memory here!
-// probably a cleanup deleted issue. 
-			n[i]->mergeCurrent(e->cnodeCurrent(i));
+		double current = 0; 
+		if(n[i]) {
+			WireList wires = n[i]->wireList(); 
+			if(wires.size() == 1) {
+
+// FIXME: should probably set currents unknown if we can't compute it from our ecnode. 
+			(*(wires.begin()))->setCurrent(e->cnodeCurrent(i));
+			}
 		}
 	}
 }

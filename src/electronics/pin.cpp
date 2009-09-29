@@ -15,8 +15,7 @@
 #include "switch.h"
 
 Pin::Pin(ECNode *parent) :
-	m_voltage(0), m_current(0), m_bCurrentIsKnown(false), m_eqId(-2),
-	m_groundType(Pin::gt_never)
+	m_voltage(0), m_eqId(-2), m_groundType(Pin::gt_never)
 {
 	assert(parent);
 	m_pECNode = parent;
@@ -96,21 +95,20 @@ void Pin::removeWire(Wire *aWire) {
 	m_wireList.erase(aWire);
 }
 
-bool Pin::calculateCurrentFromWires() {
+double Pin::calculateCurrentFromWires(Wire *aWire) const {
 
-	m_current = 0.0;
+	double current = 0;
 
 	WireList::const_iterator end = m_wireList.end();
 	for(WireList::const_iterator it = m_wireList.begin(); it != end; ++it) {
 
 // might have to do some vodo to figure out which end of the wire we're on and add/subtract as appropriate.
 		if(!(*it)->currentIsKnown())
-			return false;
+			return 0;
 
-		m_current += (*it)->currentFor(this);
+		if(*it != aWire) 
+			current += (*it)->currentFor(this);
 	}
 
-	m_bCurrentIsKnown = true;
-	return true;
+	return current;
 }
-
