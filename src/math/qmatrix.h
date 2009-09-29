@@ -130,7 +130,7 @@ public :
      * @return sum of the elements on the given row
      */
     double rowsum(CUI m);   // FIXME look at implementation; it will always return NAN, because m >= m
-    
+
     /**
      * @param m number of row == Y coordinate of row elements
      * @return sum of the module of elements on the given row
@@ -147,11 +147,7 @@ public :
      * @return true, if the operation was successful (row number in range), false otherwise
      */
     bool scaleRow(CUI m_a, const double scalor);
-    
-        // changes B by adding A.
-        // FIXME no implementation
-    bool addRowToRow(CUI m_a, CUI m_b);
-        // changes B by adding the result of A times a scalor 
+
     /**
      * Add one row multiplied with a constant to another row. So: a[m_a][i] = a[m_a][i] + scalor * a[m_b][i], for all j
      * @param m_a row index 1 == Y coord. 1
@@ -160,10 +156,10 @@ public :
      * @return true, if the operation was successful (row number in range), false otherwise
      */
     bool scaleAndAdd(CUI m_a, CUI m_b, const double scalor);
-    
+
     // FIXME bug in the body of this method, see note there
     bool partialScaleAndAdd(CUI m_a, CUI m_b, const double scalor);
-    
+
     /**
      * Add one row multiplied with a constant to another row. So: a[m_a][i] = a[m_a][i] + scalor * a[m_b][i], 
      * for \c from <= \c j \c < \c n
@@ -201,18 +197,18 @@ public :
     double multRowCol(CUI row, CUI col, CUI lim) const;
 
     /**
-     * Allocates a new matrix and calculates some values there... but it's not clear for me, what it calculates...
+     * Allocates a new matrix. This creates a square matrix from a rectangular matrix. It is useful for
+data analysis where you might have M values for N variables. 
      * @return @todo document
      */
-    // FIXME what is this method storing in the new matrix?
     QuickMatrix *transposeSquare() const; 
 
     // Multiplies self by transpose.
     QuickVector *transposeMult(const QuickVector *operandvec) const;
 
     // utility functions:
-    void fillWithRandom();  ///< no implementation?
-    
+//    void fillWithRandom();  ///< no implementation?
+
     /**
      * Fills the matrix with zeroes
      */
