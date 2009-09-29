@@ -44,18 +44,20 @@ double Wire::currentFor(const Pin *aPin) const {
 
 bool Wire::calculateCurrent()
 {
-	if ( m_pStartPin->currentIsKnown() && m_pStartPin->numWires() < 2 ) {
-		m_current = m_pStartPin->current();
+	if(m_pStartPin->currentIsKnown() && m_pStartPin->numWires() < 2 ) {
+		m_current = m_pStartPin->calculateCurrentFromWires(this);
 		m_bCurrentIsKnown = true;
 		return true;
 	}
 	
-	if ( m_pEndPin->currentIsKnown() && m_pEndPin->numWires() < 2 ) {
-		m_current = -m_pEndPin->current();
+	if(m_pEndPin->currentIsKnown() && m_pEndPin->numWires() < 2 ) {
+		m_current = -m_pEndPin->calculateCurrentFromWires(this);
 		m_bCurrentIsKnown = true;
 		return true;
 	}
-	
+
+
+/*
 	if(m_pStartPin->currentIsKnown()) {
 
 		double i = m_pStartPin->current();
@@ -106,6 +108,7 @@ bool Wire::calculateCurrent()
 			return true;
 		}
 	}
+*/
 
 	m_bCurrentIsKnown = false;
 	return false;

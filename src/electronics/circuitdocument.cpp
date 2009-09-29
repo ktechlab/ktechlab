@@ -237,8 +237,6 @@ void CircuitDocument::fillContextMenu(const QPoint &pos) {
 		}
 
 		QPtrList<KAction> orientation_actionlist;
-
-		// 	orientation_actionlist.prepend( new KActionSeparator() );
 		orientation_actionlist.append(m_pOrientationAction);
 		KTechlab::self()->plugActionList("orientation_actionlist", orientation_actionlist);
 	}
@@ -252,7 +250,6 @@ void CircuitDocument::deleteCircuits() {
 	}
 
 	m_circuitList.clear();
-	m_wireList.clear();
 }
 
 void CircuitDocument::requestAssignCircuits() {
@@ -321,18 +318,10 @@ void CircuitDocument::calculateConnectorCurrents() {
 	const PinSet::iterator pinEnd = m_pinList.end();
 	for (PinSet::iterator it = m_pinList.begin(); it != pinEnd; ++it) {
 		Pin *n = *it;
-		n->resetCurrent();
 		n->setSwitchCurrentsUnknown();
 
-		if (!n->parentECNode()->isChildNode()) {
-			n->setCurrentKnown(true);
-			// (and it has a current of 0 amps)
-		} else if (n->groundType() == Pin::gt_always) {
+ 		if (n->parentECNode()->isChildNode()  && n->groundType() == Pin::gt_always) {
 			groundPins.insert(n);
-			n->setCurrentKnown(false);
-		} else {
-			// Child node that is non ground
-			n->setCurrentKnown(n->parentECNode()->numPins() < 2);
 		}
 	}
 
@@ -342,26 +331,10 @@ void CircuitDocument::calculateConnectorCurrents() {
 	for (ComponentList::iterator it = m_componentList.begin(); it != componentEnd; ++it)
 		(*it)->setNodalCurrents();
 
-	// And now for the wires and switches...
-	const WireList::iterator clEnd = m_wireList.end();
-	for (WireList::iterator it = m_wireList.begin(); it != clEnd; ++it)
-		(*it)->setCurrentKnown(false);
-
 	SwitchList switches = m_switchList;
-	WireList wires = m_wireList;
 	bool found = true;
-	while ((!wires.empty() || !switches.empty() || !groundPins.empty()) && found) {
+	while ((!switches.empty() || !groundPins.empty()) && found) {
 		found = false;
-
-		WireList::iterator wiresEnd = wires.end();
-		for (WireList::iterator it = wires.begin(); it != wiresEnd;) {
-			if ((*it)->calculateCurrent()) {
-				found = true;
-				WireList::iterator oldIt = it;
-				++it;
-				wires.erase(oldIt);
-			} else	++it;
-		}
 
 		SwitchList::iterator switchesEnd = switches.end();
 		for (SwitchList::iterator it = switches.begin(); it != switchesEnd;) {
@@ -400,9 +373,8 @@ void CircuitDocument::assignCircuits() {
 	// Stage 0: Build up pin and wire lists
 	PinSet unassignedPins;
 
-
 	{// we should *NOT* be seeing zeros here, but we have to remove them anyway.
-// FIXME; workaround code!! 
+// FIXME; workaround code!!
 		ECNodeMap::iterator it = m_ecNodeList.begin();
 		const ECNodeMap::iterator nlEnd = m_ecNodeList.end();
 		while(it != nlEnd) {
@@ -423,14 +395,6 @@ void CircuitDocument::assignCircuits() {
 			assert(foo);
 			unassignedPins.insert(foo);
 		}
-	}
-
-	m_wireList.clear();
-
-	const ConnectorList::const_iterator connectorListEnd = m_connectorList.end();
-	for (ConnectorList::const_iterator it = m_connectorList.begin(); it != connectorListEnd; ++it) {
-		for (unsigned i = 0; i < (*it)->numWires(); i++)
-			m_wireList.insert((*it)->wire(i));
 	}
 
 	typedef QValueList<PinSet> PinSetList;
