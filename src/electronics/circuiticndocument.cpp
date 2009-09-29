@@ -260,10 +260,6 @@ Connector *CircuitICNDocument::createConnector(const QString &startNodeId, const
 
 	if (pointList) connector->setRoutePoints(*pointList, true);
 
-	// FIXME WTF is going on here? Redundant/meaningless code?
-//	ConnectorList connectorList;
-//	connectorList.append(connector);
-
 	setModified(true);
 	requestRerouteInvalidatedConnectors();
 
