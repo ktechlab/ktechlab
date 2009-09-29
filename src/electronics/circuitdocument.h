@@ -76,10 +76,10 @@ class CircuitDocument : public CircuitICNDocument {
 	Q_OBJECT
 
 public:
-	CircuitDocument(const QString &caption, const char *name = 0L);
+	CircuitDocument(const QString &caption, const char *name = 0);
 	~CircuitDocument();
 
-	virtual View *createView(ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l);
+	virtual View *createView(ViewContainer *viewContainer, uint viewAreaId, const char *name = 0);
 
 	void calculateConnectorCurrents();
 	/**
@@ -166,7 +166,6 @@ private:
 	ComponentList m_componentList; // List is built up during call to assignCircuits
 
 // hmm, we have one of these in circuit too....
-	WireList m_wireList;
 	SwitchList m_switchList;
 };
 
