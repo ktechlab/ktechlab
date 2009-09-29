@@ -11,6 +11,7 @@
 #define ITEMEDITOR_H
 
 #include <qwidget.h>
+#include <qguardedptr.h>
 
 class ComponentModelWidget;
 class CNItem;
@@ -30,46 +31,46 @@ namespace KateMDI { class ToolView; }
 /**
 @author Daniel Clarke
 @author David Saxton
-*/
+ */
 class ItemEditor : public QWidget
 {
-	Q_OBJECT
-	public:
-		static ItemEditor * self( KateMDI::ToolView * parent = 0l );
-		~ItemEditor();
-		static QString toolViewIdentifier() { return "ItemEditor"; }
+    Q_OBJECT
+    public:
+        static ItemEditor * self( KateMDI::ToolView * parent = 0l );
+        ~ItemEditor();
+        static QString toolViewIdentifier() { return "ItemEditor"; }
 	
-	public slots:
+    public slots:
 		/**
-		 * Update the Properties Editor
-		 */
-		void slotUpdate( ItemGroup * itemGroup );
+     * Update the Properties Editor
+                 */
+        void slotUpdate( ItemGroup * itemGroup );
 		/**
-		 * Updates various widgets (orientation and component-model ).
-		 */
-		void slotUpdate( Item * item );
+         * Updates various widgets (orientation and component-model ).
+                 */
+        void slotUpdate( Item * item );
 		/**
-		 * Clear the properties editor and orientation widget
-		 */
-		void slotClear();
-		void slotMultipleSelected();
+         * Clear the properties editor and orientation widget
+                 */
+        void slotClear();
+        void slotMultipleSelected();
 		/**
-		 * Updates the merge / reset data parts (e.g. enabling or disabling the
-		 * "Merge" button)
-		 */
-		void itemGroupUpdated( ItemGroup * itemGroup );
+         * Updates the merge / reset data parts (e.g. enabling or disabling the
+         * "Merge" button)
+                 */
+        void itemGroupUpdated( ItemGroup * itemGroup );
 	
-	protected:
-		void updateNameLabel( Item * item );
+    protected:
+        void updateNameLabel( Item * item );
 		
-		PropertyEditor * m_pPropertyEditor;
-		QLabel * m_pNameLabel;
-		OrientationWidget * m_pOrientationWidget;
-		ComponentModelWidget * m_pComponentModelWidget;
+        PropertyEditor * m_pPropertyEditor;
+        QLabel * m_pNameLabel;
+        OrientationWidget * m_pOrientationWidget;
+        ComponentModelWidget * m_pComponentModelWidget;
 		
-	private:
-		static ItemEditor * m_pSelf;
-		ItemEditor( KateMDI::ToolView * parent );
+    private:
+        static ItemEditor * m_pSelf;
+        ItemEditor( KateMDI::ToolView * parent );
 };
 
 
