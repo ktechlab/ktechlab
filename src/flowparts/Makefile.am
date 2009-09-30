@@ -8,7 +8,7 @@ noinst_HEADERS = callsub.h delay.h end.h flowconnector.h flowconnectorlist.h \
 	outputflownode.h pinmapping.h readport.h repeat.h setpin.h start.h sub.h testpin.h \
 	unary.h varassignment.h varcomparison.h while.h writeport.h
 libflowparts_la_SOURCES = 	keypad.cpp 	setpin.cpp 	writeport.cpp callsub.cpp \
-	count.cpp delay.cpp embed.cpp end.cpp flowconnector.cpp flowconnectorlist.cpp \
+	count.cpp delay.cpp embed.cpp end.cpp flowconnector.cpp \
 	flowicndocument.cpp flowpart.cpp forloop.cpp inputbutton.cpp inputflownode.cpp \
 	interrupt.cpp junctionflownode.cpp keypad.cpp outputflownode.cpp pinmapping.cpp \
 	pulse.cpp readport.cpp repeat.cpp sevenseg.cpp start.cpp sub.cpp testpin.cpp \
