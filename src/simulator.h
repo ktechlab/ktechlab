@@ -117,16 +117,7 @@ public:
 	 * Remove the given processor from the simulation loop
 	 */
 	void detachGpsimProcessor(GpsimProcessor *cpu);
-	/**
-	 * Attach the component callback to the simulator. This will be called
-	 * during the logic update loop, at LOGIC_UPDATE_RATE times per second (so
-	 * make sure the function passed is an efficient one!).
-	 */
-	void attachComponentCallback(Component *component, VoidCallbackPtr function);
-	/**
-	 * Removes the callbacks for the given component from the simulator.
-	 */
-	void detachComponentCallbacks(Component &component);
+
 	/**
 	 * Attach the component to the simulator.
 	 */
@@ -182,9 +173,6 @@ private:
 // Which is every component that has special UI-related code that needs to be called every time the simulator steps.
 // this is not to be confused with elements which have nonLinear and Reactive components. =P
 	list<Component*> *m_components;
-
-// At the very least we should move to using this exclusively, and remove the above. 
-	list<ComponentCallback> *m_componentCallbacks;
 
 // allow a variable number of callbacks be scheduled at each possible time. 
 	list<ComponentCallback *> *m_pStartStepCallback[LOGIC_UPDATE_RATE/LINEAR_UPDATE_RATE];
