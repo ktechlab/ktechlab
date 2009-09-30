@@ -100,10 +100,6 @@ void ECClockInput::stepLogic() {
 	m_pOut->setHigh(m_pSimulator->time() > m_low_time);
 }
 
-void ECClockInput::stepCallback() {
-	m_pOut->setHigh(!m_pOut->isHigh());
-}
-
 void ECClockInput::stepNonLogic() {
 
 	bool addingHigh = m_pOut->isHigh();
