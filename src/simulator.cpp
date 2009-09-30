@@ -33,7 +33,6 @@ Simulator *Simulator::self() {
 Simulator::Simulator()
 		:  m_bIsSimulating(true), m_stepNumber(0) {
 	m_gpsimProcessors = new list<GpsimProcessor*>;
-	m_componentCallbacks = new list<ComponentCallback>;
 	m_components	   = new list<Component*>;
 	m_ordinaryCircuits = new list<Circuit*>;
 
@@ -54,7 +53,6 @@ Simulator::Simulator()
 Simulator::~Simulator() {
 	delete m_gpsimProcessors;
 	delete m_components;
-	delete m_componentCallbacks;
 	delete m_ordinaryCircuits;
 }
 
@@ -86,15 +84,7 @@ void Simulator::step() {
 
 		// Update the logic parts of our simulation
 		const unsigned max = unsigned(LOGIC_UPDATE_RATE / LINEAR_UPDATE_RATE);
-
 		for (m_llNumber = 0; m_llNumber < max; ++m_llNumber) {
-			// Update the logic components
-			{
-				list<ComponentCallback>::iterator callbacks_end = m_componentCallbacks->end();
-				for (list<ComponentCallback>::iterator callback = m_componentCallbacks->begin(); callback != callbacks_end; callback++) {
-					callback->callback();
-				}
-			}
 
 			if (m_pStartStepCallback[m_llNumber]) {
 				list<ComponentCallback*>::iterator callbacks_end = m_pStartStepCallback[m_llNumber]->end();
@@ -176,10 +166,6 @@ void Simulator::detachGpsimProcessor(GpsimProcessor *cpu) {
 	m_gpsimProcessors->remove(cpu);
 }
 
-void Simulator::attachComponentCallback(Component *component, VoidCallbackPtr function) {
-	m_componentCallbacks->push_back(ComponentCallback(component, function));
-}
-
 void Simulator::attachComponent(Component *component) {
 	if (!component || !component->doesStepNonLogic())
 		return;
@@ -189,18 +175,6 @@ void Simulator::attachComponent(Component *component) {
 
 void Simulator::detachComponent(Component *component) {
 	m_components->remove(component);
-	detachComponentCallbacks(*component);
-}
-
-static Component *compx;
-
-bool pred1(ComponentCallback &x) {
-	return x.component() == compx;
-}
-
-void Simulator::detachComponentCallbacks(Component &component) {
-	compx = &component;
-	m_componentCallbacks->remove_if(pred1);
 }
 
 void Simulator::attachCircuit(Circuit *circuit) {
