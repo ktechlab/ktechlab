@@ -70,14 +70,14 @@ void Simulator::step() {
 		// Update the non-logic parts of the simulation
 		{
 			list<Component*>::iterator components_end = m_components->end();
-			for (list<Component*>::iterator component = m_components->begin(); component != components_end; component++) {
+			for (list<Component*>::iterator component = m_components->begin(); component != components_end; ++component) {
 				(*component)->stepNonLogic();
 			}
 		}
 // TODO: refactor various classes so the above and below can be combined; hopefully.
 		{
 			list<Circuit*>::iterator circuits_end = m_ordinaryCircuits->end();
-			for (list<Circuit*>::iterator circuit = m_ordinaryCircuits->begin(); circuit != circuits_end; circuit++) {
+			for (list<Circuit*>::iterator circuit = m_ordinaryCircuits->begin(); circuit != circuits_end; ++circuit) {
 				(*circuit)->doNonLogic();
 			}
 		}
@@ -101,7 +101,7 @@ void Simulator::step() {
 			// Update the gpsim processors
 			{
 				list<GpsimProcessor*>::iterator processors_end = m_gpsimProcessors->end();
-				for (list<GpsimProcessor*>::iterator processor = m_gpsimProcessors->begin(); processor != processors_end; processor++) {
+				for (list<GpsimProcessor*>::iterator processor = m_gpsimProcessors->begin(); processor != processors_end; ++processor) {
 					(*processor)->executeNext();
 				}
 			}
@@ -109,7 +109,7 @@ void Simulator::step() {
 			// Update the non-logic circuits
 			{
 			list<Circuit*>::iterator end = m_ordinaryCircuits->end();
-			for(list<Circuit*>::iterator it = m_ordinaryCircuits->begin(); it != end; it++) {
+			for(list<Circuit*>::iterator it = m_ordinaryCircuits->begin(); it != end; ++it) {
 				Circuit *changed = *it;
 
 				if(changed->isChanged()) {
@@ -122,7 +122,8 @@ void Simulator::step() {
 			// Call the logic callbacks
 			{
 			std::set<LogicOut*>::iterator end = m_logicChainStarts.end();
-			for(std::set<LogicOut*>::iterator it = m_logicChainStarts.begin(); it != end ;it++) {
+// WARNING: it makes a huge performance difference whether the ++ is before or after the iterator!!!!! 
+			for(std::set<LogicOut*>::iterator it = m_logicChainStarts.begin(); it != end ;++it) {
 				LogicOut *changed = *it;
 
 				if(changed->isChanged()) {
