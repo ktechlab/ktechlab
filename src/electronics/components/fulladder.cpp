@@ -70,12 +70,12 @@ FullAdder::~FullAdder()
 
 void FullAdder::inStateChanged( bool /*state*/ )
 {
-	const bool A = ALogic->isHigh();
-	const bool B = BLogic->isHigh();
-	const bool in = inLogic->isHigh();
+	unsigned char A = ALogic->isHigh() 
+		+ BLogic->isHigh() 
+		+ inLogic->isHigh();
 	
-	SLogic->setHigh(A ^ B ^ in); // result
-	outLogic->setHigh((A ^ B && in) || (A && B));  // carry
+	SLogic->setHigh(A & 1); // result
+	outLogic->setHigh(A >> 1);  // carry
 }
 
 
