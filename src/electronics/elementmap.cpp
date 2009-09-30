@@ -29,7 +29,6 @@ ElementMap::ElementMap() {
 void ElementMap::mergeCurrents() {
 
 	for (int i = 0; i < 4; i++) {
-		double current = 0; 
 		if(n[i]) {
 			WireList wires = n[i]->wireList(); 
 			if(wires.size() == 1) {
@@ -88,6 +87,5 @@ void ElementMap::setupCNodes() {
 
 	e->add_initial_dc();
 }
-
 //END class ElementMap
 
