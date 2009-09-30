@@ -47,7 +47,7 @@ void CanvasTip::displayVI(ECNode *node, const QPoint &pos) {
 	for (unsigned i = 0; i < num; i++) {
 		if (Pin *pin = node->pin(i)) {
 			m_v[i] = pin->voltage();
-			m_i[i] = pin->current();
+			m_i[i] = pin->calculateCurrentFromWires();
 		}
 	}
 
