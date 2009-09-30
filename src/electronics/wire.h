@@ -25,12 +25,6 @@ public:
 	~Wire();
 
 	/**
-	 * Attempts to calculate the current that is flowing through
-	 * the connector. Returns true if successfuly, otherwise returns false
-	 */
-	bool calculateCurrent();
-
-	/**
 	 * Returns true if the current flowing through the connector is known
 	 */
 	bool currentIsKnown() const { return m_bCurrentIsKnown; }
@@ -40,7 +34,7 @@ public:
 	 * cases - such as this node being ground - it is not known, and so the
 	 * value returned by current() cannot be relied on.
 	 */
-	void setCurrentKnown( bool known );
+	void setCurrentKnown(bool known);
 
 	void setCurrent(double current ) { m_current = current; m_bCurrentIsKnown = true;}
 
@@ -48,7 +42,9 @@ public:
 	 * Returns the current flowing through the connector.
 	 * This only applies for electronic connectors
 	 */
-	double current() const { return m_current; }
+	double current() { if(!m_bCurrentIsKnown) calculateCurrent();
+				return m_current; }
+
 	double currentFor(const Pin *aPin) const;
 
 	/**
@@ -57,12 +53,15 @@ public:
 	 */
 	double voltage() const;
 
-//	Pin *startPin() const { return m_pStartPin; }
-//	Pin *endPin() const { return m_pEndPin; }
-
 	Pin *otherPin(const Pin *aPin) const;
 
 private:
+	/**
+	 * Attempts to calculate the current that is flowing through
+	 * the connector. Returns true if successfuly, otherwise returns false
+	 */
+	bool calculateCurrent();
+
 	double m_current;
 	bool m_bCurrentIsKnown;
 	Pin *m_pStartPin;
