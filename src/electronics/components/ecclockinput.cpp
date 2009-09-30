@@ -48,7 +48,6 @@ ECClockInput::ECClockInput(ICNDocument *icnDocument, bool newItem, const char *i
 	m_lastSetTime = 0;
 	m_high_time = 0;
 	m_low_time  = 0;
-	m_bSetStepCallbacks = true;
 	m_pSimulator = Simulator::self();
 
 	for (unsigned i = 0; i < 1000; i++) {
@@ -94,16 +93,6 @@ void ECClockInput::dataChanged() {
 	QString display = QString::number(frequency / getMultiplier(frequency), 'g', 3) + getNumberMag(frequency) + "Hz";
 	setDisplayText("freq", display);
 
-	bool setStepCallbacks = (m_low_time + m_high_time) >= TIME_INTERVAL;
-	if (setStepCallbacks != m_bSetStepCallbacks) {
-
-		m_bSetStepCallbacks = setStepCallbacks;
-
-		if (setStepCallbacks)
-			m_pSimulator->detachComponentCallbacks(*this);
-		else	m_pSimulator->attachComponentCallback(this, (VoidCallbackPtr)(&ECClockInput::stepLogic));
-	}
-
 	m_lastSetTime = m_pSimulator->time();
 }
 
@@ -116,7 +105,6 @@ void ECClockInput::stepCallback() {
 }
 
 void ECClockInput::stepNonLogic() {
-	if (!m_bSetStepCallbacks) return;
 
 	bool addingHigh = m_pOut->isHigh();
 
