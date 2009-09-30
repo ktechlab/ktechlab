@@ -193,14 +193,13 @@ protected:
 	PinSet m_circuitDependentPins;
 	PinSet m_groundDependentPins; // for circuit partitioning. 
 
-	ElementList m_elementList;
-
 	ECNode *m_pECNode;  /// we *ALWAYS* have an ECNode, and it never changes.
 
 	SwitchSet m_switchList;
 	SwitchSet m_unknownSwitchCurrents;
 
-private: 
+private:
+	ElementList m_elementList;
 	WireList m_wireList;
 };
 
