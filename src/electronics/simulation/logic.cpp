@@ -221,7 +221,7 @@ void LogicOut::setDependents(LogicInList &logicInList)
 	dependents.erase(dependents.begin(), dependents.end());	
 
 	std::list<LogicIn*>::iterator end = logicInList.end();
-	for(std::list<LogicIn*>::iterator it = logicInList.begin(); it != end; it++) {
+	for(std::list<LogicIn*>::iterator it = logicInList.begin(); it != end; ++it) {
 		dependents.push_back(*it);
 	}
 }
@@ -232,7 +232,7 @@ void LogicOut::setDependents(LogicInList &logicInList)
 void LogicOut::callCallbacks()
 {
 	std::list<LogicIn*>::iterator end = dependents.end();
-	for(std::list<LogicIn*>::iterator it = dependents.begin(); it != end; it++) {
+	for(std::list<LogicIn*>::iterator it = dependents.begin(); it != end; ++it) {
 		(*it)->callCallback();
 	}
 }
@@ -244,7 +244,8 @@ void LogicOut::callCallbacks()
 void LogicOut::setChain()
 {
 	std::list<LogicIn*>::iterator end = dependents.end();
-	for(std::list<LogicIn*>::iterator it = dependents.begin(); it != end; it++) {
+// WARNING: it makes a huge performance difference if the ++ is before or after the iterator!! 
+	for(std::list<LogicIn*>::iterator it = dependents.begin(); it != end; ++it) {
 		(*it)->setState(m_bState);
 	}
 }

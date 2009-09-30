@@ -34,6 +34,7 @@ public:
 	static Item *construct( ItemDocument *itemDocument, bool newItem, const char *id);
 	static LibraryItem *libraryItem();
 	
+	void stepCallback();
 	void stepLogic();
 
 /// set the next callback based on the time remaining in the curren phase. 
