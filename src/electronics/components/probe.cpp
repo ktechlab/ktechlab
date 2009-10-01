@@ -176,6 +176,7 @@ CurrentProbe::CurrentProbe(ICNDocument *icnDocument, bool newItem, const char *i
 }
 
 CurrentProbe::~CurrentProbe() {
+	delete m_voltageSource;
 }
 
 void CurrentProbe::stepNonLogic() {
