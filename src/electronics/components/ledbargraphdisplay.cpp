@@ -38,6 +38,7 @@ LEDPart::~LEDPart() {
 	m_pParent->removeNode(m_strPNode);
 	m_pParent->removeNode(m_strNNode);
 	m_pParent->removeElement(m_pDiode, false);
+	delete m_pDiode;
 }
 
 void LEDPart::setDiodeSettings(const DiodeSettings& ds) {
