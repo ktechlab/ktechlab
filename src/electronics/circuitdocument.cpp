@@ -13,7 +13,7 @@
 #include "circuiticndocument.h"
 #include "circuitview.h"
 #include "component.h"
-#include "connector.h"
+#include "electronicconnector.h"
 #include "src/core/ktlconfig.h"
 #include "cnitemgroup.h"
 #include "documentiface.h"
@@ -163,7 +163,7 @@ void CircuitDocument::slotUpdateConfiguration() {
 
 	ConnectorList::iterator connectorsEnd = m_connectorList.end();
 	for (ConnectorList::iterator it = m_connectorList.begin(); it != connectorsEnd; ++it)
-		(*it)->updateConnectorLines();
+		dynamic_cast<ElectronicConnector*>(*it)->updateConnectorLines();
 
 	ComponentList::iterator componentsEnd = m_componentList.end();
 	for (ComponentList::iterator it = m_componentList.begin(); it != componentsEnd; ++it)
@@ -183,8 +183,10 @@ void CircuitDocument::update() {
 
 		ConnectorList::iterator end = m_connectorList.end();
 		for (ConnectorList::iterator it = m_connectorList.begin(); it != end; ++it) {
-			(*it)->incrementCurrentAnimation(1.0 / double(KTLConfig::refreshRate()));
-			(*it)->updateConnectorLines(animWires);
+			ElectronicConnector *econn;
+assert(econn = dynamic_cast<ElectronicConnector*>(*it));
+			econn->incrementCurrentAnimation(1.0 / double(KTLConfig::refreshRate()));
+			econn->updateConnectorLines(animWires);
 		}
 	}
 
@@ -195,11 +197,13 @@ void CircuitDocument::update() {
 		ECNodeMap::iterator it = m_ecNodeList.begin();
 		const ECNodeMap::iterator nlEnd = m_ecNodeList.end();
 		while(it != nlEnd) {
-			if(!it->second) { 
+assert(it->second);
+/*			if(!it->second) { 
 				ECNodeMap::iterator dud = it; 
 				it++;
 				m_ecNodeList.erase(dud);
-			} else it++;
+			} else */ 
+it++;
 	}}
 
 		ECNodeMap::iterator end = m_ecNodeList.end();
@@ -378,11 +382,14 @@ void CircuitDocument::assignCircuits() {
 		ECNodeMap::iterator it = m_ecNodeList.begin();
 		const ECNodeMap::iterator nlEnd = m_ecNodeList.end();
 		while(it != nlEnd) {
-			if(!it->second) { 
+assert(it->second);
+/*			if(!it->second) { 
 				ECNodeMap::iterator dud = it; 
 				it++;
 				m_ecNodeList.erase(dud);
-			} else it++;
+			} else 
+*/
+it++;
 	}}
 
 	const ECNodeMap::const_iterator nodeListEnd = m_ecNodeList.end();
@@ -461,8 +468,8 @@ void CircuitDocument::getPartition(Pin *pin, PinSet *pinList, PinSet *unassigned
 
 	if (!onlyGroundDependent) {
 		PinSet circuitDependentPins = pin->circuitDependentPins();
-		const PinSet::const_iterator dEnd = circuitDependentPins.end();
 
+		const PinSet::const_iterator dEnd = circuitDependentPins.end();
 		for (PinSet::const_iterator it = circuitDependentPins.begin(); it != dEnd; ++it)
 			getPartition(*it, pinList, unassignedPins, onlyGroundDependent);
 	}
@@ -621,8 +628,8 @@ void CircuitDocument::createSubcircuit() {
 		if (!dynamic_cast<Component*>((Item*)*it))
 			*it = 0;
 	}
-
 	itemList.remove((Item*)0);
+
 	if (itemList.isEmpty()) {
 		KMessageBox::sorry(activeView(), i18n("No components were found in the selection."));
 		return;
