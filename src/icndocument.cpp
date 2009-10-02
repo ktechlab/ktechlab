@@ -54,7 +54,6 @@ ICNDocument::~ICNDocument() {
 	GuardedNodeGroupList ngToDelete = m_nodeGroupList;
 	m_nodeGroupList.clear();
 	const GuardedNodeGroupList::iterator nglEnd = ngToDelete.end();
-
 	for (GuardedNodeGroupList::iterator it = ngToDelete.begin(); it != nglEnd; ++it)
 		delete(NodeGroup *)(*it);
 
@@ -258,7 +257,7 @@ Connector *ICNDocument::createConnector(Node *startNode, Node *endNode, QPointLi
 	// Check if we need to swap the ends around, and create the connector
 	// FIXME: dynamic_cast used
 
-	if (dynamic_cast<OutputFlowNode*>(endNode) != 0l)
+	if (dynamic_cast<OutputFlowNode*>(endNode) != 0)
 		con = createConnector(endNode->id(), startNode->id(), pointList);
 	else    con = createConnector(startNode->id(), endNode->id(), pointList);
 
@@ -700,8 +699,7 @@ void ICNDocument::rerouteInvalidatedConnectors() {
 
 				if(!nodeGroup)
 					connectorRerouteList.insert(connector);
-				else if(nodeGroup)
-					nodeGroupRerouteList.append(nodeGroup);
+				else	nodeGroupRerouteList.append(nodeGroup);
 			}
 		}
 	}
