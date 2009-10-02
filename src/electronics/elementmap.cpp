@@ -32,9 +32,13 @@ void ElementMap::mergeCurrents() {
 		if(n[i]) {
 			WireList wires = n[i]->wireList(); 
 			if(wires.size() == 1) {
-
-// FIXME: should probably set currents unknown if we can't compute it from our ecnode. 
-			(*(wires.begin()))->setCurrent(e->cnodeCurrent(i));
+				(*(wires.begin()))->setCurrent(e->cnodeCurrent(i));
+			} else { // inform wires that they don't know their current 
+				// and have to figure it out for themselves.
+				WireList::iterator end = wires.end();
+				for(WireList::iterator it = wires.begin(); it != end; ++it) {
+					(*it)->setCurrentKnown(false);
+				}
 			}
 		}
 	}
