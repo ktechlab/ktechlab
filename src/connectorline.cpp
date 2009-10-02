@@ -13,7 +13,7 @@
 #include <qpainter.h>
 
 #include "connectorline.h"
-#include "connector.h"
+#include "electronicconnector.h"
 
 //BEGIN class ConnectorLine
 ConnectorLine::ConnectorLine(Connector *connector, int pixelOffset)
@@ -39,7 +39,7 @@ int boundify(int x, int bound1, int bound2) {
 	else	return x;
 }
 
-void ConnectorLine::drawShape(QPainter & p) {
+void ConnectorLine::drawShape(QPainter &p) {
 	if (!m_bAnimateCurrent) {
 		QCanvasLine::drawShape(p);
 		return;
@@ -48,7 +48,7 @@ void ConnectorLine::drawShape(QPainter & p) {
 	int ss = 3; // segment spacing
 	int sl = 13; // segment length (includes segment spacing)
 
-	int offset = int(m_pConnector->currentAnimationOffset() - m_pixelOffset);
+	int offset = int(dynamic_cast<ElectronicConnector *>(m_pConnector)->currentAnimationOffset() - m_pixelOffset);
 	offset = ((offset % sl) - sl) % sl;
 
 	int x1 = startPoint().x();
@@ -81,7 +81,6 @@ void ConnectorLine::drawShape(QPainter & p) {
 		}
 	} else {
 		// y1 == y2
-
 		int _y    = int(y() + y1);
 		int x_end = int(x() + x2);
 

@@ -35,8 +35,6 @@ typedef QValueVector<Wire *> WireVector;
 @short Represents a connection between two Nodes on a ICNDocument
 @author David Saxton
 */
-
-
 class Connector : public QObject, public QCanvasPolygon {
 	Q_OBJECT
 
@@ -154,27 +152,6 @@ public:
 	void translateRoute(int dx, int dy);
 	virtual void setVisible(bool yes);
 
-	/**
-	Methods relating to wire lists
-	*/
-// TODO: refactor these!
-	Wire *wire(unsigned num = 0) const {
-		return (num < m_wires.size()) ? m_wires[num] : 0;
-	}
-
-	/**
-	 * Modular offset of moving dots in connector, indicating current (in
-	 * pixels).
-	 */
-	double currentAnimationOffset() const { return m_currentAnimationOffset; }
-
-	/**
-	 * Increases the currentAnimationOffset according to the current flowing in
-	 * the connector and deltaTime.
-	 */
-	void incrementCurrentAnimation(double deltaTime);
-// ###
-
 	void updateConnectorLines(bool forceRedraw = false);
 
 signals:
@@ -184,8 +161,9 @@ signals:
 public slots:
 	void removeConnector(Node* = 0);
 
-// TODO: refactor this!!
 protected:
+
+// TODO: refactor this!!
 	WireVector        m_wires;
 // ###
 
@@ -197,11 +175,7 @@ private:
 	bool b_manualPoints;
 	bool b_pointsAdded;
 
-// TODO: refactor this: 
-	double m_currentAnimationOffset;
-// ###
-
-// DEAD CODE; never set to anything other than zero, never really used:
+// DEAD CODE ??
 	NodeGroup   *p_nodeGroup;
 	ConRouter   *m_conRouter;
 
