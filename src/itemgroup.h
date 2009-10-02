@@ -128,14 +128,9 @@ protected:
 	
 	ItemList m_itemList;
 	bool b_itemsAreSameType;
-	ItemDocument * p_view;
-	
-	ICNDocument *p_icnDocument;
-	MechanicsDocument *p_mechanicsDocument;
-	Item *m_activeItem;
-	
-private slots:
-	void getViewPtrs();
+	ItemDocument *p_view;
+
+	Item *m_activeItem;	
 };
 
 #endif
