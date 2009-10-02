@@ -359,7 +359,7 @@ bool Connector::pointsAreReverse(const QPointList &pointList) const {
 void Connector::rerouteConnector() {
 	if (!isVisible()) return;
 
-	if (nodeGroup()) {
+	if (p_nodeGroup) {
 		kdWarning() << k_funcinfo << "Connector is controlled by a NodeGroup! Use that to reroute the connector" << endl;
 		return;
 	}
@@ -400,7 +400,6 @@ ConnectorData Connector::connectorData() const {
 	}
 
 	connectorData.manualRoute = usesManualPoints();
-
 	connectorData.route = *m_conRouter->cellPointList();
 
 	if (startNode()->isChildNode()) {

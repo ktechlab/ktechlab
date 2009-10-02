@@ -55,16 +55,19 @@ void CanvasTip::displayVI(ECNode *node, const QPoint &pos) {
 }
 
 void CanvasTip::displayVI(Connector *connector, const QPoint &pos) {
-	if (!connector || !updateVI())
-		return;
+	if(!updateVI()) return;
 
-	unsigned num = connector->numWires();
+	ElectronicConnector *econnector = dynamic_cast<ElectronicConnector*>(connector);
+
+	if(!econnector) return; 
+
+	unsigned num = econnector->numWires();
 
 	m_v.resize(num);
 	m_i.resize(num);
 
 	for (unsigned i = 0; i < num; i++) {
-		if (Wire *wire = connector->wire(i)) {
+		if (Wire *wire = econnector->wire(i)) {
 			m_v[i] = wire->voltage();
 			m_i[i] = std::abs(wire->current());
 		}
