@@ -35,8 +35,7 @@ static bool numbers[16][7] = {
 	{ 1, 0, 0, 1, 1, 1, 0 }, // C
 	{ 0, 1, 1, 1, 1, 0, 1 }, // d
 	{ 1, 0, 0, 1, 1, 1, 1 }, // E
-	{ 1, 0, 0, 0, 1, 1, 1 }
-}; // F
+	{ 1, 0, 0, 0, 1, 1, 1 }}; // F
 
 Item* ECBCDTo7Segment::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
 	return new ECBCDTo7Segment((ICNDocument*)itemDocument, newItem, id);
@@ -59,11 +58,6 @@ ECBCDTo7Segment::ECBCDTo7Segment(ICNDocument *icnDocument, bool newItem, const c
 
 	ALogic = BLogic = CLogic = DLogic = 0;
 	ltLogic = rbLogic = enLogic = 0;
-
-	for (int i = 0; i < 7; i++) {
-		outLogic[i] = 0;
-		oldOut[i] = false;
-	}
 
 	QStringList pins = QStringList::split(',', "A,B,C,D,,lt,rb,en,d,e,f,g,,a,b,c", true);
 
@@ -116,29 +110,19 @@ void ECBCDTo7Segment::inStateChanged(bool) {
 			 (CLogic->isHigh() << 2) |
 			 (DLogic->isHigh() << 3);
 
-	bool out[7];
-
 	if(!ltLogic->isHigh()) { 
 		if(!rbLogic->isHigh()) {
 			if(enLogic->isHigh()) { // Enable (store)
 				for (int i = 0; i < 7; i++) {
-					out[i] = numbers[n][i];
-					oldOut[i] = out[i];
-				}
-			} else {
-				for (int i = 0; i < 7; i++) {
-					out[i] = oldOut[i];
+					outLogic[i]->setHigh(numbers[n][i]);
 				}
 			}
 		} else { // Ripple Blank
 			for (int i = 0; i < 7; i++) 
-				out[i] = false;
+				outLogic[i]->setHigh(false);
 		}
 	} else { // Lamp test
 		for (int i = 0; i < 7; i++)
-			out[i] = true;
+			outLogic[i]->setHigh(true);
 	}
-
-	for (int i = 0; i < 7; i++)
-		outLogic[i]->setHigh(out[i]);
 }

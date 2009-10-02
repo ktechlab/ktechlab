@@ -21,7 +21,7 @@
 class ECBCDTo7Segment : public CallbackClass, public DIPComponent
 {
 public:
-	ECBCDTo7Segment( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECBCDTo7Segment( ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECBCDTo7Segment();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -32,9 +32,6 @@ private:
 	LogicIn *ALogic, *BLogic, *CLogic, *DLogic;
 	LogicIn *ltLogic, *rbLogic, *enLogic;
 	LogicOut *outLogic[7];
-	
-	// Old values
-	bool oldOut[7];
 };
 
 #endif
