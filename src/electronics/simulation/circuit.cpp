@@ -417,7 +417,7 @@ void Circuit::updateNodalVoltages() {
 
 void Circuit::updateCurrents() {
 
-	assert(m_elementList.find((Element*)0) == m_elementList.end() );
+//	assert(m_elementList.find((Element*)0) == m_elementList.end() );
 
 	ElementList::iterator listEnd = m_elementList.end();
 	for (ElementList::iterator it = m_elementList.begin(); it != listEnd; ++it) {

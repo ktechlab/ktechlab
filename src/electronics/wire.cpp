@@ -56,60 +56,6 @@ bool Wire::calculateCurrent()
 		return true;
 	}
 
-
-/*
-	if(m_pStartPin->currentIsKnown()) {
-
-		double i = m_pStartPin->current();
-		bool ok = true;
-
-		const WireList list = m_pStartPin->wireList();
-		WireList::const_iterator end = list.end();
-		for(WireList::const_iterator it = list.begin(); it != end && ok; ++it)
-		{
-			if(*it && (Wire*)*it != this)
-			{
-				if((*it)->currentIsKnown())
-					i -= (*it)->current();
-				else	ok = false;
-			}
-		}
-
-		if (ok) {
-			m_current = i;
-			m_bCurrentIsKnown = true;
-			return true;
-		}
-	}
-
-// FIXME: this code gets glitchy around grounds and when it is several nodes removed from nearest
-// part because of cleanups in Pin class. The algorithm and data structures need to be reviewed.
-
-	if(m_pEndPin->currentIsKnown()) {
-
-		double i = -m_pEndPin->current();
-		bool ok = true;
-
-		const WireList list = m_pEndPin->wireList();
-		WireList::const_iterator end = list.end();
-		for(WireList::const_iterator it = list.begin(); it != end && ok; ++it)
-		{
-			if(*it && (Wire*)*it != this)
-			{
-				if((*it)->currentIsKnown())
-					i += (*it)->current();
-				else ok = false;
-			}	
-		}
-
-		if (ok) {
-			m_current = i;
-			m_bCurrentIsKnown = true;
-			return true;
-		}
-	}
-*/
-
 	m_bCurrentIsKnown = false;
 	return false;
 }
