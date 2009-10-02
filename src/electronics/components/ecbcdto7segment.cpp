@@ -102,8 +102,6 @@ ECBCDTo7Segment::ECBCDTo7Segment(ICNDocument *icnDocument, bool newItem, const c
 	for (uint i = 0; i < 7; ++i) {
 		outLogic[i] = new LogicOut(LogicIn::getConfig(), false);
 		setup1pinElement(outLogic[i], ecNodeWithID(QChar('a' + i))->pin());
-
-//		outLogic[i]->setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
 	}
 
 	inStateChanged(false);
@@ -112,44 +110,35 @@ ECBCDTo7Segment::ECBCDTo7Segment(ICNDocument *icnDocument, bool newItem, const c
 ECBCDTo7Segment::~ECBCDTo7Segment() {}
 
 void ECBCDTo7Segment::inStateChanged(bool) {
-	bool A = ALogic->isHigh();
-	bool B = BLogic->isHigh();
-	bool C = CLogic->isHigh();
-	bool D = DLogic->isHigh();
-	bool lt = ltLogic->isHigh(); // Lamp test
-	bool rb = rbLogic->isHigh(); // Ripple Blank
-	bool en = enLogic->isHigh(); // Enable (store)
 
-	unsigned char n = A | (B << 1) | (C << 2) | (D << 3);
-
-	assert(n < 16);
+	unsigned char n = ALogic->isHigh() | 
+			 (BLogic->isHigh() << 1) |
+			 (CLogic->isHigh() << 2) |
+			 (DLogic->isHigh() << 3);
 
 	bool out[7];
 
-	if (lt) { // Lamp test
-		if (rb) { // Ripple blanking
-			if (en) { // Enable (store)
-				for (int i = 0; i < 7; i++) {
-					out[i] = oldOut[i];
-				}
-			} else {
+	if(!ltLogic->isHigh()) { 
+		if(!rbLogic->isHigh()) {
+			if(enLogic->isHigh()) { // Enable (store)
 				for (int i = 0; i < 7; i++) {
 					out[i] = numbers[n][i];
 					oldOut[i] = out[i];
 				}
+			} else {
+				for (int i = 0; i < 7; i++) {
+					out[i] = oldOut[i];
+				}
 			}
-		} else {
-			for (int i = 0; i < 7; i++) {
+		} else { // Ripple Blank
+			for (int i = 0; i < 7; i++) 
 				out[i] = false;
-			}
 		}
-	} else {
-		for (int i = 0; i < 7; i++) {
+	} else { // Lamp test
+		for (int i = 0; i < 7; i++)
 			out[i] = true;
-		}
 	}
 
-	for (int i = 0; i < 7; i++) {
+	for (int i = 0; i < 7; i++)
 		outLogic[i]->setHigh(out[i]);
-	}
 }
