@@ -57,15 +57,13 @@ public:
 	 * i.e. Any elements added to the circuit will not be deleted.
 	 */
 	~ElementSet();
-	Circuit *circuit() const {
-		return m_pCircuit;
-	}
+	Circuit *circuit() const { return m_pCircuit; }
 
 	void addElement(Element *e);
 	void setCacheInvalidated();
 
-	inline bool AChanged() const { return p_A->isChanged();    }
-	inline double &Ag(CUI i, CUI j) { return p_A->g(i, j); }
+	inline bool AChanged() const {    return p_A->isChanged(); }
+	inline double &Ag(CUI i, CUI j) { return p_A->g(i, j);     }
 
 	inline bool bChanged() const { return p_b->isChanged();    }
 	inline void bUnchanged() const {      p_b->setUnchanged(); }
@@ -80,9 +78,7 @@ public:
 	/**
 	 * @return if we have any nonlinear elements (e.g. diodes, tranaistors).
 	 */
-	bool containsNonLinear() const {
-		return !m_cnonLinearList.empty();
-	}
+	bool containsNonLinear() const { return !m_cnonLinearList.empty(); }
 
 	/**
 	 * Solves for nonlinear elements, or just does linear if it doesn't contain
@@ -100,15 +96,7 @@ public:
 		if(i == -1) return m_ground;
 		return m_cnodes[i]; }
 
-	/**
-	 * Returns the number of nodes in the circuit (excluding ground 'nodes')
-	 */
-	inline unsigned int cnodeCount() const { return m_cn; }
-
-	/**
-	 * Returns the number of voltage sources in the circuit
-	 */
-	inline unsigned int cbranchCount() const { return m_cb; }
+	inline unsigned int vectorsize() const { return m_cn + m_cb; }
 
 	/**
 	 * Displays the matrix equations Ax=b and J(dx)=-r
