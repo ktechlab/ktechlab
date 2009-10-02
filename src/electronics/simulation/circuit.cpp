@@ -324,20 +324,20 @@ void Circuit::cacheAndUpdate() {
 
 	LogicCacheNode *node = m_pLogicCacheBase;
 
-	for (unsigned i = 0; i < m_pLogicOut.size(); i++) {
+	for(unsigned i = 0; i < m_pLogicOut.size(); i++) {
 		if (m_pLogicOut[i]->isHigh()) {
 			node = node->addOrGetHigh();
 		} else 	node = node->addOrGetLow();
 	}
 
 	QuickVector *data = node->getData();
-	if (data && data->size() == (m_elementSet->cnodeCount() + m_elementSet->cbranchCount())) {
+	if (data && data->size() == m_elementSet->vectorsize()) {
 		m_elementSet->loadX(data);
 		m_elementSet->updateInfo();
 		return;
 	}
 
-	if (m_elementSet->containsNonLinear())
+	if(m_elementSet->containsNonLinear())
 		m_elementSet->doNonLinear(150, 1e-10, 1e-13);
 	else	m_elementSet->doLinear(true);
 
