@@ -370,13 +370,11 @@ void CNItem::drawShape(QPainter &p) {
 	if (!isVisible())
 		return;
 
-//	initPainter(p);
 	if (isSelected())
 		p.setPen(m_selectedCol);
 
 	p.drawPolygon(areaPoints());
 	p.drawPolyline(areaPoints());
-//	deinitPainter(p);
 }
 
 void CNItem::initPainter(QPainter &p) {
@@ -500,7 +498,7 @@ void CNItem::setDisplayText(const QString &id, const QString &display) {
 	}
 
 	it.data()->setText(display);
-	updateAttachedPositioning();
+//	updateAttachedPositioning();
 }
 
 void CNItem::removeDisplayText(const QString &id) {
