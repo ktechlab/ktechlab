@@ -19,41 +19,6 @@
 #include <kiconloader.h>
 #include <klocale.h>
 
-Item *ADC::construct(ItemDocument *itemDocument, bool newItem, const char *id)
-{
-	return new ADC((ICNDocument*)itemDocument, newItem, id);
-}
-
-
-Item *DAC::construct(ItemDocument *itemDocument, bool newItem, const char *id)
-{
-	return new DAC((ICNDocument*)itemDocument, newItem, id);
-}
-
-LibraryItem *ADC::libraryItem()
-{
-	return new LibraryItem(
-		"ec/adc",
-		i18n("Analog-Digital"),
-		i18n("Integrated Circuits"),
-		"ic1.png",
-		LibraryItem::lit_component,
-		ADC::construct
-			);
-}
-
-LibraryItem* DAC::libraryItem()
-{
-	return new LibraryItem(
-		"ec/dac",
-		i18n("Digital-Analog"),
-		i18n("Integrated Circuits"),
-		"ic1.png",
-		LibraryItem::lit_component,
-		DAC::construct
-			);
-}
-
 //BEGIN class ADDAC
 ADDAC::ADDAC(ICNDocument *icnDocument, bool newItem, const char *id)
 	: DIPComponent(icnDocument, newItem, id)
@@ -87,19 +52,35 @@ void ADDAC::dataChanged()
 //END class ADDAC
 
 //BEGIN class ADC
+Item *ADC::construct(ItemDocument *itemDocument, bool newItem, const char *id)
+{
+	return new ADC((ICNDocument*)itemDocument, newItem, id);
+}
+
+LibraryItem *ADC::libraryItem()
+{
+	return new LibraryItem(
+		"ec/adc",
+		i18n("Analog-Digital"),
+		i18n("Integrated Circuits"),
+		"ic1.png",
+		LibraryItem::lit_component,
+		ADC::construct);
+}
+
+ADC::~ADC()
+{
+}
+
 ADC::ADC( ICNDocument *icnDocument, bool newItem, const char *id )
 	: ADDAC( icnDocument, newItem, id ? id : "adc" )
 {
 	m_name = i18n("ADC");
 	
 	for ( int i=0; i<max_ADDAC_bits; ++i )
-		m_logic[i] = 0l;
+		m_logic[i] = 0;
 	
-	m_realNode = 0l;
-}
-
-ADC::~ADC()
-{
+	m_realNode = 0;
 }
 
 void ADC::stepNonLogic()
@@ -171,6 +152,23 @@ void ADC::initPins()
 //END class ADC
 
 //BEGIN class DAC
+Item *DAC::construct(ItemDocument *itemDocument, bool newItem, const char *id)
+{
+	return new DAC((ICNDocument*)itemDocument, newItem, id);
+}
+
+LibraryItem* DAC::libraryItem()
+{
+	return new LibraryItem(
+		"ec/dac",
+		i18n("Digital-Analog"),
+		i18n("Integrated Circuits"),
+		"ic1.png",
+		LibraryItem::lit_component,
+		DAC::construct
+			);
+}
+
 DAC::DAC(ICNDocument *icnDocument, bool newItem, const char *id)
 	: ADDAC(icnDocument, newItem, id ? id : "dac")
 {

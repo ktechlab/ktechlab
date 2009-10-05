@@ -37,8 +37,7 @@ LibraryItem* ParallelPortComponent::libraryItem() {
 	           i18n("Connections"),
 	           "ic1.png",
 	           LibraryItem::lit_component,
-	           ParallelPortComponent::construct
-	       );
+	           ParallelPortComponent::construct);
 }
 
 ParallelPortComponent::ParallelPortComponent(ICNDocument *icnDocument, bool newItem, const char *id)
@@ -160,7 +159,7 @@ void ParallelPortComponent::initPort(const QString &port) {
 	}
 
 	if (! m_pParallelPort->openPort(port)) {
-		m_pCircuitDocument->canvas()->setMessage(i18n("Could not open port %1").arg(port));
+		p_itemDocument->canvas()->setMessage(i18n("Could not open port %1").arg(port));
 		return;
 	}
 }
