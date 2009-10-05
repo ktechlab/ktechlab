@@ -128,7 +128,7 @@ void Demultiplexer::initPins(unsigned newAddressSize) {
 
 	if (!m_input) {
 
-		m_input = new LogicIn(LogicIn::getConfig());
+		m_input = new LogicIn(LogicConfig());
 		setup1pinElement(m_input, ecNodeWithID("X")->pin());
 
 		m_input->setCallback(this, (CallbackPtr)(&Demultiplexer::inStateChanged));
@@ -138,7 +138,7 @@ void Demultiplexer::initPins(unsigned newAddressSize) {
 		m_xLogic.resize(newXLogicCount);
 		for (unsigned i = oldXLogicCount; i < newXLogicCount; ++i) {
 
-			LogicOut *outLogic = new LogicOut(LogicIn::getConfig(), false);
+			LogicOut *outLogic = new LogicOut(LogicConfig(), false);
 			setup1pinElement(outLogic, ecNodeWithID("X" + QString::number(i))->pin());
 			m_xLogic.insert(i, outLogic);
 		}
@@ -147,7 +147,7 @@ void Demultiplexer::initPins(unsigned newAddressSize) {
 		for (unsigned i = oldAddressSize; i < newAddressSize; ++i) {
 			// node = ecNodeWithID("A" + QString::number(i));
 
-			LogicIn *inLogic = new LogicIn(LogicIn::getConfig());
+			LogicIn *inLogic = new LogicIn(LogicConfig());
 			setup1pinElement(inLogic, ecNodeWithID("A" + QString::number(i))->pin());
 
 			m_aLogic.insert(i, inLogic);
