@@ -131,7 +131,7 @@ void Multiplexer::initPins(unsigned newAddressSize) {
 	initDIP(pins);
 
 	if (!m_output) {
-		m_output = new LogicOut(LogicIn::getConfig(), false);
+		m_output = new LogicOut(LogicConfig(), false);
 		setup1pinElement(m_output, ecNodeWithID("X")->pin());
 	}
 
@@ -140,7 +140,7 @@ void Multiplexer::initPins(unsigned newAddressSize) {
 
 		for (unsigned i = oldXLogicCount; i < newXLogicCount; ++i) {
 
-			LogicIn *inLogic = new LogicIn(LogicIn::getConfig());
+			LogicIn *inLogic = new LogicIn(LogicConfig());
 			setup1pinElement(inLogic, ecNodeWithID("X" + QString::number(i))->pin());
 			m_xLogic.insert(i, inLogic);
 
@@ -151,7 +151,7 @@ void Multiplexer::initPins(unsigned newAddressSize) {
 
 		for (unsigned i = oldAddressSize; i < newAddressSize; ++i) {
 
-			LogicIn *inLogic = new LogicIn(LogicIn::getConfig());
+			LogicIn *inLogic = new LogicIn(LogicConfig());
 			setup1pinElement(inLogic, ecNodeWithID("A" + QString::number(i))->pin());
 			m_aLogic.insert(i, inLogic);
 
