@@ -22,7 +22,11 @@ typedef std::set<Pin *> PinSet;
 
 class LogicConfig {
 
-public:
+public:	
+/**
+	 * Reads the LogicConfig values in from KTLConfig, and returns them in a
+	 * nice object form.
+	 */
 	LogicConfig();
 
 	double risingTrigger;	///< Trigger on rising edge
@@ -79,11 +83,7 @@ public:
 	 * function will be called. At most one Callback can be added per LogicIn.
 	 */
 	void setCallback(CallbackClass * object, CallbackPtr func);
-	/**
-	 * Reads the LogicConfig values in from KTLConfig, and returns them in a
-	 * nice object form.
-	 */
-	static LogicConfig getConfig();
+
 	/**
 	 * If this belongs to a logic chain, then this will be called from the chain.
 	 */
