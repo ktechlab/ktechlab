@@ -46,9 +46,7 @@ public:
 	/**
 	 * @return Pointer to the VariantMap used for internal data storage
 	 */
-	VariantDataMap *variantMap() {
-		return &m_variantData;
-	}
+	VariantDataMap *variantMap() { return &m_variantData; }
 
 	double dataDouble(const QString & id) const;
 	int dataInt(const QString & id) const;
@@ -63,17 +61,13 @@ public:
 	/**
 	 * Whether or not we can resize the item
 	 */
-	virtual bool canResize() const {
-		return false;
-	}
+	virtual bool canResize() const { return false; }
 
 	/**
 	 * Returns whether the CNItem allows itself to be moved on the canvas.
 	 * Most do, but some (such as the PicItem) don't allow this
 	 */
-	virtual bool isMovable() const {
-		return true;
-	}
+	virtual bool isMovable() const { return true; }
 
 	/**
 	 * Returns whether or not what the item is displaying has (possibly) changed
@@ -83,20 +77,13 @@ public:
 	 * constructor or reinherit this to return true when the contents of the
 	 * item have changed since this function was last called.
 	 */
-	virtual bool contentChanged() const {
-		return m_bDynamicContent;
-	}
+	virtual bool contentChanged() const { return m_bDynamicContent; }
 
 	/**
 	 * Returns a identifier for the CNItem, which is unique on the ICNDocument
 	 */
-	QString id() const {
-		return m_id;
-	}
-
-	QString type() const {
-		return m_type;
-	}
+	QString id() const { return m_id; }
+	QString type() const { return m_type; }
 
 	/**
 	 * @return the font used for drawing items. This is taken to be the
@@ -126,13 +113,9 @@ public:
 	/**
 	 * The parent item for this item, or NULL if none
 	 */
-	Item *parentItem() const {
-		return p_parentItem;
-	}
+	Item *parentItem() const { return p_parentItem; }
 
-	ItemDocument *itemDocument() const {
-		return p_itemDocument;
-	}
+	ItemDocument *itemDocument() const { return p_itemDocument; }
 
 	/**
 	 * Returns the number of items away from the top item this is
@@ -147,9 +130,7 @@ public:
 	/**
 	 * @Returns whether raised or not
 	 */
-	bool isRaised() const {
-		return m_bIsRaised;
-	}
+	bool isRaised() const { return m_bIsRaised; }
 
 	/**
 	 * Sets this item to the given baseZ level, and calls this function for the
@@ -160,9 +141,7 @@ public:
 	/**
 	 * Returns the item's position in the overall z-stack of items.
 	 */
-	int baseZ() const {
-		return m_baseZ;
-	}
+	int baseZ() const { return m_baseZ; }
 
 	/**
 	 * Adds a child. Calls the virtual function childAdded.
@@ -200,33 +179,19 @@ public:
 	/**
 	 * @returns the m_sizeRect rectangble that contains the item points
 	 */
-	QRect sizeRect() const {
-		return m_sizeRect;
-	}
+	QRect sizeRect() const { return m_sizeRect; }
 
 	/**
 	 * Reinherit this function if you want to determine what the minimum size is
 	 * that this item can be resized to.
 	 */
-	virtual QSize minimumSize() const {
-		return QSize(0, 0);
-	}
+	virtual QSize minimumSize() const { return QSize(0, 0); }
 
-	int offsetX() const {
-		return m_sizeRect.x();
-	}
+	int offsetX() const { return m_sizeRect.x(); }
+	int offsetY() const { return m_sizeRect.y(); }
 
-	int offsetY() const {
-		return m_sizeRect.y();
-	}
-
-	int width() const {
-		return m_sizeRect.width();
-	}
-
-	int height() const {
-		return m_sizeRect.height();
-	}
+	int width() const { return m_sizeRect.width(); }
+	int height() const { return m_sizeRect.height(); }
 
 	virtual bool mousePressEvent(const EventInfo &eventInfo);
 	virtual bool mouseReleaseEvent(const EventInfo &eventInfo);
@@ -238,9 +203,7 @@ public:
 	/**
 	 * Returns the name of the CNItem, e.g. "Resistor"
 	 */
-	QString name() const {
-		return m_name;
-	}
+	QString name() const { return m_name; }
 
 	/**
 	 * Modifies the exponent of the number so that it appears readable:
@@ -354,8 +317,6 @@ protected:
 	bool m_bDynamicContent;
 	QRect m_sizeRect;
 	VariantDataMap m_variantData;
-
-private:
 	ItemDocument *p_itemDocument;
 };
 
