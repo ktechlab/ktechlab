@@ -80,8 +80,8 @@ void MultiInputGate::updateLogicSymbolShape() {
 	updateSymbolText();
 	updateAttachedPositioning();
 
-	if (m_pCircuitDocument)
-		m_pCircuitDocument->requestEvent(ItemDocument::ItemDocumentEvent::RerouteInvalidatedConnectors);
+	if (p_itemDocument)
+		p_itemDocument->requestEvent(ItemDocument::ItemDocumentEvent::RerouteInvalidatedConnectors);
 
 	// Set the canvas changed for the new shape
 	setChanged();
