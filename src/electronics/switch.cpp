@@ -65,7 +65,7 @@ void Switch::startBouncing() {
 		return;
 	}
 
-	if (!m_pComponent->circuitDocument()) return;
+	if (!m_pComponent->itemDocument()) return;
 
 //	kdDebug() << k_funcinfo << endl;
 
@@ -120,9 +120,7 @@ void Switch::stopBouncing() {
 	m_pComponent->removeElement(m_pBounceResistance, true);
 	m_pBounceResistance = 0;
 
-//	bool connected = (m_state == Closed);
-
-	if (CircuitDocument *cd = m_pComponent->circuitDocument())
+	if (CircuitDocument *cd = dynamic_cast<CircuitDocument*>(m_pComponent->itemDocument() ))
 		cd->requestAssignCircuits();
 }
 
