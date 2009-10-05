@@ -22,71 +22,68 @@ const int max_ADDAC_bits = 32;
 /**
 @author David Saxton
 */
-class ADDAC : public DIPComponent
-{
+class ADDAC : public DIPComponent {
 public:
-	ADDAC( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
-	~ADDAC();
-protected:
-	void dataChanged();
-	/**
-	 * Add / remove pins according to the number of outputs the user has requested
-	 */
-	virtual void initPins() = 0;
+    ADDAC(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+    ~ADDAC();
 
-	int m_numBits;
-	double m_range;
+protected:
+    void dataChanged();
+    /**
+     * Add / remove pins according to the number of outputs the user has requested
+     */
+    virtual void initPins() = 0;
+
+    int m_numBits;
+    double m_range;
 };
 
 /**
 @author David Saxton
  */
-class ADC : public ADDAC
-{
+class ADC : public ADDAC {
 public:
-	ADC( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
-	~ADC();
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
-	
-	virtual void stepNonLogic();
-	virtual bool doesStepNonLogic() const { return true; }
+    ADC(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+    ~ADC();
 
-	protected:
+    static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
-	/**
-	 * Add / remove pins according to the number of outputs the user has requested
-	 */
-	virtual void initPins();
+    virtual void stepNonLogic();
+    virtual bool doesStepNonLogic() const { return true; }
 
-	LogicOut *m_logic[max_ADDAC_bits];
-	ECNode *m_realNode;
+protected:
+    /**
+     * Add / remove pins according to the number of outputs the user has requested
+     */
+    virtual void initPins();
+
+    LogicOut *m_logic[max_ADDAC_bits];
+    ECNode *m_realNode;
 };
 
 /**
 @author David Saxton
  */
-class DAC : public ADDAC
-{
+class DAC : public ADDAC {
 public:
-	DAC( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
-	~DAC();
+    DAC(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+    ~DAC();
 
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+    static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
 
-	virtual void stepNonLogic();
-	virtual bool doesStepNonLogic() const { return true; }
+    virtual void stepNonLogic();
+    virtual bool doesStepNonLogic() const { return true; }
 
 protected:
-	/**
-	 * Add / remove pins according to the number of outputs the user has requested
-	 */
-	virtual void initPins();
+    /**
+     * Add / remove pins according to the number of outputs the user has requested
+     */
+    virtual void initPins();
 
-	LogicIn *m_logic[max_ADDAC_bits];
-	VoltagePoint *m_voltagePoint;
+    LogicIn *m_logic[max_ADDAC_bits];
+    VoltagePoint *m_voltagePoint;
 };
 
 #endif

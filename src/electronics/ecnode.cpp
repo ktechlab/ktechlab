@@ -114,7 +114,7 @@ void ECNode::removeSwitch(Switch *sw) {
 		m_pins[i]->removeSwitch(sw);
 }
 
-// -- functionality from node.cpp --
+// -- functionality from node.cpp -- TODO: refactor to pinnode. 
 bool ECNode::isConnected(Node *node, NodeList *checkedNodes) {
 	if (this == node)
 		return true;
