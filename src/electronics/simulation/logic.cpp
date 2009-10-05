@@ -17,11 +17,11 @@
 
 //BEGIN class LogicConfig
 LogicConfig::LogicConfig() {
-	risingTrigger = 0.0;
-	fallingTrigger = 0.0;
-	output = 5.0;
-	highImpedance = 0.0001;
-	lowImpedance = 0.0001;
+	risingTrigger = KTLConfig::logicRisingTrigger();
+	fallingTrigger = KTLConfig::logicFallingTrigger();
+	output = KTLConfig::logicOutputHigh();
+	highImpedance = KTLConfig::logicOutputHighImpedance();
+	lowImpedance = KTLConfig::logicOutputLowImpedance();
 }
 //END class LogicConfig
 
@@ -74,16 +74,6 @@ void LogicIn::setLogic(LogicConfig config) {
 
 void LogicIn::setElementSet(ElementSet *c) {
 	Element::setElementSet(c);
-}
-
-LogicConfig LogicIn::getConfig() {
-	LogicConfig c;
-	c.risingTrigger = KTLConfig::logicRisingTrigger();
-	c.fallingTrigger = KTLConfig::logicFallingTrigger();
-	c.output = KTLConfig::logicOutputHigh();
-	c.highImpedance = KTLConfig::logicOutputHighImpedance();
-	c.lowImpedance = KTLConfig::logicOutputLowImpedance();
-	return c;
 }
 
 void LogicIn::callCallback() {
