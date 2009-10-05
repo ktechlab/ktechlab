@@ -47,9 +47,7 @@ public:
 	virtual ~Component();
 
 	PinNode* createPin(double _x, double _y, int orientation, const QString &name);
-
 //###
-
 	/**
 	 * Angle of orientation
 	 */
@@ -76,14 +74,6 @@ public:
 	 * the component is.
 	 */
 	void setNodalCurrents();
-
-	/**
-	 * @return pointer to the CircuitDocument that we're in.
-	* mainly used to deal with switches and the complexities those introduce in the current code.
-	 */
-	CircuitDocument *circuitDocument() const {
-		return dynamic_cast<CircuitDocument *>(p_itemDocument);
-	}
 
 	void initNodes();
 
@@ -192,9 +182,6 @@ protected:
 	 */
 	virtual void deinitPainter(QPainter &p);
 
-// TODO: only Switch cares about this, so either demote it to a member of class switch or
-// refactor it out alltogether.
-//	CircuitDocument *m_pCircuitDocument;
 	int m_angleDegrees;
 	bool b_flipped;
 
