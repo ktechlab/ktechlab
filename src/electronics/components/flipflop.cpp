@@ -70,22 +70,22 @@ ECDFlipFlop::ECDFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id)
 	m_prevD = false;
 	m_pSimulator = Simulator::self();
 
-	m_pD = new LogicIn(LogicIn::getConfig());
+	m_pD = new LogicIn(LogicConfig());
 	setup1pinElement(m_pD, m_pNNode[0]->pin());
 
-	m_pQ = new LogicOut(LogicIn::getConfig(), true);
+	m_pQ = new LogicOut(LogicConfig(), true);
 	setup1pinElement(m_pQ, m_pPNode[0]->pin());
 
-	m_pClock = new LogicIn(LogicIn::getConfig());
+	m_pClock = new LogicIn(LogicConfig());
 	setup1pinElement(m_pClock, m_pNNode[1]->pin());
 
-	m_pQBar = new LogicOut(LogicIn::getConfig(), false);
+	m_pQBar = new LogicOut(LogicConfig(), false);
 	setup1pinElement(m_pQBar, m_pPNode[1]->pin());
 
-	setp = new LogicIn(LogicIn::getConfig());
+	setp = new LogicIn(LogicConfig());
 	setup1pinElement(setp, createPin(0, -32, 90, "set")->pin());
 
-	rstp = new LogicIn(LogicIn::getConfig());
+	rstp = new LogicIn(LogicConfig());
 	setup1pinElement(rstp, createPin(0, 32, 270, "rst")->pin());
 
 	// (The display text for D, >, Set, Rst is set in initSymbolFromTrigger
@@ -210,25 +210,25 @@ ECJKFlipFlop::ECJKFlipFlop(ICNDocument *icnDocument, bool newItem, const char *i
 
 	initSymbolFromTrigger();
 
-	m_pJ = new LogicIn(LogicIn::getConfig());
+	m_pJ = new LogicIn(LogicConfig());
 	setup1pinElement(m_pJ, m_pNNode[0]->pin());
 
-	m_pQ = new LogicOut(LogicIn::getConfig(), true);
+	m_pQ = new LogicOut(LogicConfig(), true);
 	setup1pinElement(m_pQ, m_pPNode[0]->pin());
 
-	m_pClock = new LogicIn(LogicIn::getConfig());
+	m_pClock = new LogicIn(LogicConfig());
 	setup1pinElement(m_pClock, m_pNNode[1]->pin());
 
-	m_pQBar = new LogicOut(LogicIn::getConfig(), false);
+	m_pQBar = new LogicOut(LogicConfig(), false);
 	setup1pinElement(m_pQBar, m_pPNode[1]->pin());
 
-	m_pK = new LogicIn(LogicIn::getConfig());
+	m_pK = new LogicIn(LogicConfig());
 	setup1pinElement(m_pK, m_pNNode[2]->pin());
 
-	setp = new LogicIn(LogicIn::getConfig());
+	setp = new LogicIn(LogicConfig());
 	setup1pinElement(setp, createPin(0, -40, 90, "set")->pin());
 
-	rstp = new LogicIn(LogicIn::getConfig());
+	rstp = new LogicIn(LogicConfig());
 	setup1pinElement(rstp, createPin(0, 40, 270, "rst")->pin());
 
 	addDisplayText("Q",  QRect(12, -24, 20, 16), "Q");
@@ -332,16 +332,16 @@ ECSRFlipFlop::ECSRFlipFlop(ICNDocument *icnDocument, bool newItem, const char *i
 	init2PinLeft(-8, 8);
 	init2PinRight(-8, 8);
 
-	m_pS = new LogicIn(LogicIn::getConfig());
+	m_pS = new LogicIn(LogicConfig());
 	setup1pinElement(m_pS, m_pNNode[0]->pin());
 
-	m_pR = new LogicIn(LogicIn::getConfig());
+	m_pR = new LogicIn(LogicConfig());
 	setup1pinElement(m_pR, m_pNNode[1]->pin());
 
-	m_pQ = new LogicOut(LogicIn::getConfig(), true);
+	m_pQ = new LogicOut(LogicConfig(), true);
 	setup1pinElement(m_pQ, m_pPNode[0]->pin());
 
-	m_pQBar = new LogicOut(LogicIn::getConfig(), false);
+	m_pQBar = new LogicOut(LogicConfig(), false);
 	setup1pinElement(m_pQBar, m_pPNode[1]->pin());
 
 	m_pQ->setHigh(true);

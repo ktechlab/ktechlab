@@ -140,21 +140,21 @@ void RAM::initPins() {
     initDIP(pins);
 
     if (!m_pCS) {
-        m_pCS = new LogicIn(LogicIn::getConfig());
+        m_pCS = new LogicIn(LogicConfig());
         setup1pinElement(m_pCS, ecNodeWithID("CS")->pin());
 
         m_pCS->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
     }
 
     if (!m_pOE) {
-        m_pOE = new LogicIn(LogicIn::getConfig());
+        m_pOE = new LogicIn(LogicConfig());
         setup1pinElement(m_pOE, ecNodeWithID("OE")->pin());
 
         m_pOE->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
     }
 
     if (!m_pWE) {
-        m_pWE = new LogicIn(LogicIn::getConfig());
+        m_pWE = new LogicIn(LogicConfig());
         setup1pinElement(m_pWE, ecNodeWithID("WE")->pin());
 
         m_pWE->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
@@ -166,13 +166,13 @@ void RAM::initPins() {
 
         for (int i = oldWordSize; i < newWordSize; ++i) {
 
-            LogicIn *inLogic = new LogicIn(LogicIn::getConfig());
+            LogicIn *inLogic = new LogicIn(LogicConfig());
             setup1pinElement(inLogic, ecNodeWithID(QString("DI%1").arg(QString::number(i)))->pin());
             m_dataIn.insert(i, inLogic);
 
             m_dataIn[i]->setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
 
-            LogicOut *outLogic = new LogicOut(LogicIn::getConfig(), false);
+            LogicOut *outLogic = new LogicOut(LogicConfig(), false);
             setup1pinElement(outLogic, ecNodeWithID(QString("DO%1").arg(QString::number(i)))->pin());
             m_dataOut.insert(i, outLogic);
         }
@@ -197,7 +197,7 @@ void RAM::initPins() {
         m_address.resize(newAddressSize);
 
         for (int i = oldAddressSize; i < newAddressSize; ++i) {
-            LogicIn *inLogic = new LogicIn(LogicIn::getConfig());
+            LogicIn *inLogic = new LogicIn(LogicConfig());
             setup1pinElement(inLogic, ecNodeWithID(QString("A%1").arg(QString::number(i)))->pin());
             m_address.insert(i, inLogic);
 

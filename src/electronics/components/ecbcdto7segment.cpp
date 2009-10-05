@@ -64,25 +64,25 @@ ECBCDTo7Segment::ECBCDTo7Segment(ICNDocument *icnDocument, bool newItem, const c
 	initDIPSymbol(pins, 48);
 	initDIP(pins);
 
-	ALogic = new LogicIn(LogicIn::getConfig());
+	ALogic = new LogicIn(LogicConfig());
 	setup1pinElement(ALogic, ecNodeWithID("A")->pin());
 
-	BLogic = new LogicIn(LogicIn::getConfig());
+	BLogic = new LogicIn(LogicConfig());
 	setup1pinElement(BLogic, ecNodeWithID("B")->pin());
 
-	CLogic = new LogicIn(LogicIn::getConfig());
+	CLogic = new LogicIn(LogicConfig());
 	setup1pinElement(CLogic, ecNodeWithID("C")->pin());
 
-	DLogic = new LogicIn(LogicIn::getConfig());
+	DLogic = new LogicIn(LogicConfig());
 	setup1pinElement(DLogic, ecNodeWithID("D")->pin());
 
-	ltLogic = new LogicIn(LogicIn::getConfig());
+	ltLogic = new LogicIn(LogicConfig());
 	setup1pinElement(ltLogic, ecNodeWithID("lt")->pin());
 
-	rbLogic = new LogicIn(LogicIn::getConfig());
+	rbLogic = new LogicIn(LogicConfig());
 	setup1pinElement(rbLogic, ecNodeWithID("rb")->pin());
 
-	enLogic = new LogicIn(LogicIn::getConfig());
+	enLogic = new LogicIn(LogicConfig());
 	setup1pinElement(enLogic, ecNodeWithID("en")->pin());
 
 	ALogic->setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
@@ -94,7 +94,7 @@ ECBCDTo7Segment::ECBCDTo7Segment(ICNDocument *icnDocument, bool newItem, const c
 	enLogic->setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
 
 	for (uint i = 0; i < 7; ++i) {
-		outLogic[i] = new LogicOut(LogicIn::getConfig(), false);
+		outLogic[i] = new LogicOut(LogicConfig(), false);
 		setup1pinElement(outLogic[i], ecNodeWithID(QChar('a' + i))->pin());
 	}
 

@@ -207,7 +207,7 @@ LogicProbe::LogicProbe(ICNDocument *icnDocument, bool newItem, const char *id)
 
 	init1PinRight();
 
-	m_pIn = new LogicIn(LogicIn::getConfig());
+	m_pIn = new LogicIn(LogicConfig());
 	setup1pinElement(m_pIn, m_pPNode[0]->pin());
 
 	p_probeData = p_logicProbeData = static_cast<LogicProbeData*>(registerProbe(this));
