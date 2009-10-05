@@ -30,7 +30,7 @@
 CNItem::CNItem(ICNDocument *icnDocument, bool newItem, const QString &id)
 		: Item(icnDocument, newItem, id),
 		CIWidgetMgr(icnDocument ? icnDocument->canvas() : 0, this),
-		 b_pointsAdded(false), p_icnDocument(icnDocument) {
+		 b_pointsAdded(false) {
 	setZ(ICNDocument::Z::Item);
 	setSelected(false);
 
@@ -117,7 +117,7 @@ ConnectorList CNItem::connectorList() {
 
 	const NodeInfoMap::iterator nodeMapEnd = m_nodeMap.end();
 	for (NodeInfoMap::iterator it = m_nodeMap.begin(); it != nodeMapEnd; ++it) {
-		Node *node = p_icnDocument->nodeWithID(it.data().id);
+		Node *node = dynamic_cast<ICNDocument*>(p_itemDocument)->nodeWithID(it.data().id);
 		if (node) {
 			ConnectorList nodeList = node->getAllConnectors();
 			ConnectorList::iterator end = nodeList.end();
@@ -194,19 +194,19 @@ Node* CNItem::createNode(double _x, double _y, int orientation, const QString &n
 	// TODO get rid of this switch statement...
 	switch (type) {
 	case Node::ec_pin:
-		node = new PinNode(p_icnDocument, orientation, QPoint(0, 0));
+		node = new PinNode(dynamic_cast<ICNDocument*>(p_itemDocument), orientation, QPoint(0, 0));
 		break;
 	case Node::ec_junction:
-		node = new JunctionNode(p_icnDocument, orientation, QPoint(0, 0));
+		node = new JunctionNode(dynamic_cast<ICNDocument*>(p_itemDocument), orientation, QPoint(0, 0));
 		break;
 	case Node::fp_junction:
-		node = new JunctionFlowNode(p_icnDocument, orientation, QPoint(0, 0));
+		node = new JunctionFlowNode(dynamic_cast<ICNDocument*>(p_itemDocument), orientation, QPoint(0, 0));
 		break;
 	case Node::fp_in:
-		node = new InputFlowNode(p_icnDocument, orientation, QPoint(0, 0));
+		node = new InputFlowNode(dynamic_cast<ICNDocument*>(p_itemDocument), orientation, QPoint(0, 0));
 		break;
 	case Node::fp_out:
-		node = new OutputFlowNode(p_icnDocument, orientation, QPoint(0, 0));
+		node = new OutputFlowNode(dynamic_cast<ICNDocument*>(p_itemDocument), orientation, QPoint(0, 0));
 		break;
 	}
 
@@ -221,21 +221,18 @@ Node* CNItem::createNode(double _x, double _y, int orientation, const QString &n
 	info.y = _y;
 	info.orientation = orientation;
 	m_nodeMap[name] = info;
-	updateAttachedPositioning();
 
 	return node;
 }
 
 bool CNItem::removeNode(const QString &name) {
-	NodeInfoMap::iterator it = m_nodeMap.find(name);
 
-	if (it == m_nodeMap.end()) {
-		return false;
-	}
+	NodeInfoMap::iterator it = m_nodeMap.find(name);
+	if(it == m_nodeMap.end()) return false;
 
 	it.data().node->removeNode();
 
-	p_icnDocument->flushDeleteList();
+	p_itemDocument->flushDeleteList();
 	m_nodeMap.erase(it);
 	return true;
 }
@@ -247,7 +244,7 @@ Node *CNItem::getClosestNode(const QPoint &pos) {
 
 	const NodeInfoMap::iterator end = m_nodeMap.end();
 	for (NodeInfoMap::iterator it = m_nodeMap.begin(); it != end; ++it) {
-		Node *node = p_icnDocument->nodeWithID(it.data().id);
+		Node *node = dynamic_cast<ICNDocument*>(p_itemDocument)->nodeWithID(it.data().id);
 
 		if (node) {
 			// Calculate the distance
@@ -395,7 +392,7 @@ void CNItem::updateConnectorPoints(bool add) {
 		return;
 
 	b_pointsAdded = add;
-	Cells *cells = p_icnDocument->cells();
+	Cells *cells = dynamic_cast<ICNDocument*>(p_itemDocument)->cells();
 
 	if (!cells)
 		return;
@@ -528,7 +525,7 @@ QString CNItem::nodeId(const QString &internalNodeId) {
 }
 
 Node *CNItem::childNode(const QString &childId) {
-	return p_icnDocument->nodeWithID(nodeId(childId));
+	return dynamic_cast<ICNDocument*>(p_itemDocument)->nodeWithID(nodeId(childId));
 }
 
 NodeInfo::NodeInfo() {
