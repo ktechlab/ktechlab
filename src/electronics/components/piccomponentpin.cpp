@@ -33,12 +33,12 @@ PICComponentPin::PICComponentPin(PICComponent * picComponent, PicPin picPin)
 	switch (picPin.type) {
 
 	case PicPin::type_input:
-		m_pLogicIn = new LogicIn(LogicIn::getConfig());
+		m_pLogicIn = new LogicIn(LogicConfig());
 		picComponent->setup1pinElement(m_pLogicIn, picComponent->ecNodeWithID(picPin.pinID)->pin());
 		break;
 
 	case PicPin::type_bidir:
-		m_pLogicOut = new LogicOut(LogicIn::getConfig(), false);
+		m_pLogicOut = new LogicOut(LogicConfig(), false);
 		picComponent->setup1pinElement(m_pLogicOut, picComponent->ecNodeWithID(picPin.pinID)->pin());
 
 		m_gOutHigh = 0.004;
@@ -46,7 +46,7 @@ PICComponentPin::PICComponentPin(PICComponent * picComponent, PicPin picPin)
 		break;
 
 	case PicPin::type_open:
-		m_pLogicOut = new LogicOut(LogicIn::getConfig(), false);
+		m_pLogicOut = new LogicOut(LogicConfig(), false);
 		picComponent->setup1pinElement(m_pLogicOut, picComponent->ecNodeWithID(picPin.pinID)->pin());
 
 		m_pLogicOut->setOutputHighVoltage(0.0);

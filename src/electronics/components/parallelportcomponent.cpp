@@ -67,7 +67,7 @@ ParallelPortComponent::ParallelPortComponent(ICNDocument *icnDocument, bool newI
 		pin = createPin(-40, -80 + 16 * i, 0, id);
 		addDisplayText(id, QRect(-28, -88 + 16 * i, 28, 16), name, true, Qt::AlignLeft | Qt::AlignVCenter);
 
-		m_pLogic[i] = new LogicOut(LogicIn::getConfig(), false);
+		m_pLogic[i] = new LogicOut(LogicConfig(), false);
 		setup1pinElement(m_pLogic[i], createPin(-40, -80 + 16 * i, 0, id)->pin());
 
 //		m_pLogic[i]->setCallback(this, (CallbackPtr)(&ParallelPortComponent::dataCallback));
@@ -96,7 +96,7 @@ ParallelPortComponent::ParallelPortComponent(ICNDocument *icnDocument, bool newI
 			addDisplayText(id, QRect(-28, -24 + 16*i, 28, 16), name, true, Qt::AlignLeft | Qt::AlignVCenter);
 		}
 
-		m_pLogic[i + 8] = new LogicOut(LogicIn::getConfig(), false);
+		m_pLogic[i + 8] = new LogicOut(LogicConfig(), false);
 
 		setup1pinElement(m_pLogic[i+8], pin->pin());
 	}
@@ -124,7 +124,7 @@ ParallelPortComponent::ParallelPortComponent(ICNDocument *icnDocument, bool newI
 			addDisplayText(id, QRect(0, -96 + i * 16, 28, 16), name, true, Qt::AlignRight | Qt::AlignVCenter);
 		}
 
-		m_pLogic[i + 16] = new LogicOut(LogicIn::getConfig(), false);
+		m_pLogic[i + 16] = new LogicOut(LogicConfig(), false);
 
 		setup1pinElement(m_pLogic[i + 16], pin->pin());
 

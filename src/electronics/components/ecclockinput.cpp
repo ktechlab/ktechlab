@@ -59,7 +59,7 @@ ECClockInput::ECClockInput(ICNDocument *icnDocument, bool newItem, const char *i
 
 	init1PinRight();
 
-	m_pOut = new LogicOut(LogicIn::getConfig(), false);
+	m_pOut = new LogicOut(LogicConfig(), false);
 	setup1pinElement(m_pOut, m_pPNode[0]->pin());
 
 	createProperty("low-time", Variant::Type::Double);

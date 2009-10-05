@@ -154,7 +154,7 @@ void ADC::initPins()
 	if(numBits > m_numBits) {
 		for(int i = m_numBits; i < numBits; ++i) {
 
-			m_logic[i] = new LogicOut(LogicIn::getConfig(), false);
+			m_logic[i] = new LogicOut(LogicConfig(), false);
 			setup1pinElement(m_logic[i], ecNodeWithID(QString::number(i))->pin());
 		}
 	} else {
@@ -235,7 +235,7 @@ void DAC::initPins()
 	if(numBits > m_numBits) {
 		for(int i = m_numBits; i < numBits; ++i)
 		{
-			m_logic[i] = new LogicIn(LogicIn::getConfig());
+			m_logic[i] = new LogicIn(LogicConfig());
 			setup1pinElement(m_logic[i], ecNodeWithID(QString::number(i))->pin());
 		}
 	} else {
