@@ -15,8 +15,6 @@
 SimpleComponent::SimpleComponent(ICNDocument *icnDocument, bool newItem, const QString &id) 
 	: Component(icnDocument, newItem, id) {
 
-	m_pCircuitDocument = dynamic_cast<CircuitDocument*>(icnDocument);
-
 	for (int i = 0; i < 4; ++i) {
 		m_pPNode[i] = 0;
 		m_pNNode[i] = 0;
