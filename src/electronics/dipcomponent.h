@@ -8,7 +8,6 @@
 //
 // Copyright: See COPYING file that comes with this distribution
 //
-//
 
 #ifndef DIPCOMPONENT_H
 #define DIPCOMPONENT_H
