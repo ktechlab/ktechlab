@@ -33,7 +33,6 @@ Component::Component(ICNDocument *icnDocument, bool newItem, const QString &id)
 		: CNItem(icnDocument, newItem, id),
 		m_angleDegrees(0),
 		b_flipped(false) {
-	m_pCircuitDocument = dynamic_cast<CircuitDocument*>(icnDocument);
 
 	// Get configuration options
 	slotUpdateConfiguration();
@@ -106,7 +105,7 @@ void Component::removeSwitch(Switch *sw) {
 
 	delete sw;
 
-	m_pCircuitDocument->requestAssignCircuits();
+	dynamic_cast<CircuitDocument*>(p_itemDocument)->requestAssignCircuits();
 }
 
 void Component::setNodalCurrents() {
@@ -140,7 +139,7 @@ void Component::deinitPainter(QPainter &p) {
 }
 
 void Component::setAngleDegrees(int degrees) {
-	if (!m_pCircuitDocument) return;
+	if (!p_itemDocument) return;
 
 	degrees = ((degrees % 360) + 360) % 360;
 
@@ -150,20 +149,19 @@ void Component::setAngleDegrees(int degrees) {
 	m_angleDegrees = degrees;
 	itemPointsChanged();
 	updateAttachedPositioning();
-	m_pCircuitDocument->requestRerouteInvalidatedConnectors();
+	dynamic_cast<CircuitDocument*>(p_itemDocument)->requestRerouteInvalidatedConnectors();
 
 	emit orientationChanged();
 }
 
 void Component::setFlipped(bool flipped) {
-	if(!m_pCircuitDocument) return;
-	if(flipped == b_flipped) return;
+	if(!p_itemDocument || (flipped == b_flipped)) return;
 
 	updateConnectorPoints(false);
 	b_flipped = flipped;
 	itemPointsChanged();
 	updateAttachedPositioning();
-	m_pCircuitDocument->requestRerouteInvalidatedConnectors();
+	dynamic_cast<CircuitDocument*>(p_itemDocument)->requestRerouteInvalidatedConnectors();
 
 	emit orientationChanged();
 }
@@ -273,12 +271,13 @@ void Component::updateAttachedPositioning() {
 }
 
 ECNode* Component::ecNodeWithID(const QString &ecNodeId) {
-	if(!m_pCircuitDocument) {
+	if(!p_itemDocument) {
 // 		kdDebug() << "Warning: ecNodeWithID("<<ecNodeId<<") does not exist\n";
 		return createPin(0, 0, 0, ecNodeId);
 	}
 
-	return dynamic_cast<ECNode*>(m_pCircuitDocument->nodeWithID(nodeId(ecNodeId)));
+	return dynamic_cast<ECNode*>(
+		dynamic_cast<CircuitDocument*>(p_itemDocument)->nodeWithID(nodeId(ecNodeId)));
 }
 
 void Component::slotUpdateConfiguration() {
