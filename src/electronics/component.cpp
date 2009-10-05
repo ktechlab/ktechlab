@@ -282,7 +282,7 @@ ECNode* Component::ecNodeWithID(const QString &ecNodeId) {
 }
 
 void Component::slotUpdateConfiguration() {
-	const LogicConfig logicConfig = LogicIn::getConfig();
+	const LogicConfig logicConfig; // = LogicIn::getConfig();
 	const ElementMapList::iterator end = m_elementMapList.end();
 
 	for(ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it) {
