@@ -317,14 +317,14 @@ MatrixDisplayDriver::MatrixDisplayDriver(ICNDocument *icnDocument, bool newItem,
     m_pValueLogic.resize(8, 0);
 
     for(unsigned i = 0; i < 8; ++i) {
-        m_pValueLogic[i] = new LogicIn(LogicIn::getConfig());
+        m_pValueLogic[i] = new LogicIn(LogicConfig());
         setup1pinElement(m_pValueLogic[i], ecNodeWithID("D" + QString::number(i))->pin());
     }
 
     m_pRowLogic.resize(7, 0);
 
     for(unsigned i = 0; i < 7; ++i) {
-        m_pRowLogic[i] = new LogicOut(LogicIn::getConfig(), false);
+        m_pRowLogic[i] = new LogicOut(LogicConfig(), false);
         setup1pinElement(m_pRowLogic[i], ecNodeWithID("R" + QString::number(i))->pin());
 
         m_pRowLogic[i]->setOutputLowConductance(1.0);
@@ -334,7 +334,7 @@ MatrixDisplayDriver::MatrixDisplayDriver(ICNDocument *icnDocument, bool newItem,
     m_pColLogic.resize(5, 0);
 
     for(unsigned i = 0; i < 5; ++i) {
-        m_pColLogic[i] = new LogicOut(LogicIn::getConfig(), false);
+        m_pColLogic[i] = new LogicOut(LogicConfig(), false);
         setup1pinElement(m_pColLogic[i], ecNodeWithID("C" + QString::number(i))->pin());
 
         m_pColLogic[i]->setOutputHighVoltage(5.0);
