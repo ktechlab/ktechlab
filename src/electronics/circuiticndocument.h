@@ -126,18 +126,6 @@ protected:
     // virtual void deleteAllNodeGroups();
 
 private:
-// temporary emergency code. =( 
-void removeBuggyEntries() {ECNodeMap::iterator it = m_ecNodeList.begin();
-const ECNodeMap::iterator nlEnd = m_ecNodeList.end();
-while(it != nlEnd) {
-if(!it->second) { 
-ECNodeMap::iterator dud = it; 
-++it;
-m_ecNodeList.erase(dud);
-} else ++it;
-}}
-// ###
-
     /// the list of nodes contained by the document
     ECNodeMap m_ecNodeList;
 };
