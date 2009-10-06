@@ -317,6 +317,8 @@ void CircuitICNDocument::flushDeleteList() {
 		delete qcanvasItem;
 	}
 
+	m_itemDeleteList.clear();
+
 // 	// Check connectors for merging
 	bool doneJoin = false;
 
