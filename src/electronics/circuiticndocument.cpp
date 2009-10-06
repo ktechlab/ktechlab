@@ -234,6 +234,7 @@ Connector *CircuitICNDocument::createConnector(Connector *con1, Connector *con2,
 }
 
 Connector *CircuitICNDocument::createConnector(const QString &startNodeId, const QString &endNodeId, QPointList *pointList) {
+
 	ECNode *startNode = m_ecNodeList[startNodeId];
 	ECNode *endNode = m_ecNodeList[endNodeId];
 
@@ -264,7 +265,10 @@ Connector *CircuitICNDocument::createConnector(const QString &startNodeId, const
 }
 
 Node *CircuitICNDocument::nodeWithID(const QString &id) {
-	return m_ecNodeList[id];
+
+	ECNodeMap::const_iterator it = m_ecNodeList.find(id);
+	if(it == m_ecNodeList.end()) return 0;
+	else return it->second;
 }
 
 void CircuitICNDocument::slotAssignNodeGroups() {
@@ -272,8 +276,6 @@ void CircuitICNDocument::slotAssignNodeGroups() {
 
 	const ECNodeMap::iterator end = m_ecNodeList.end();
 	for (ECNodeMap::iterator it = m_ecNodeList.begin(); it != end; ++it) {
-assert(it->second);
-
 		NodeGroup *ng = createNodeGroup(it->second);
 		if(ng) ng->init();
 	}
@@ -324,9 +326,6 @@ void CircuitICNDocument::flushDeleteList() {
 // 	// Check connectors for merging
 	bool doneJoin = false;
 
-//FIXME
-//removeBuggyEntries();
-
 	const ECNodeMap::iterator nlEnd = m_ecNodeList.end();
 	for (ECNodeMap::iterator it = m_ecNodeList.begin(); it != nlEnd; ++it) {
 		assert(it->second);
@@ -348,8 +347,7 @@ bool CircuitICNDocument::registerItem(QCanvasItem *qcanvasItem) {
 
 	if (!ItemDocument::registerItem(qcanvasItem)) {
 		if(ECNode *node = dynamic_cast<ECNode*>(qcanvasItem)) {
-// assertion of node implied by if statement. 
-			m_ecNodeList[node->id()] = node;
+			m_ecNodeList.insert(std::pair< QString, ECNode* >(node->id(), node));
 			emit nodeAdded((Node*)node);
 		} else if(Connector *connector = dynamic_cast<Connector*>(qcanvasItem)) {
 			m_connectorList.insert(connector);
@@ -398,7 +396,6 @@ bool CircuitICNDocument::joinConnectors(ECNode *node) {
 //	node->removeNullConnectors();
 
 	// an electronic node can be removed if it has exactly 2 connectors connected to it
-
 	int conCount = node->getAllConnectors().size();
 	if (conCount != 2) return false;
 
@@ -458,7 +455,6 @@ void CircuitICNDocument::loadDisplayConfig()
 	ECNodeMap::iterator nodeEnd = m_ecNodeList.end();
 	for (ECNodeMap::iterator it = m_ecNodeList.begin(); it != nodeEnd; ++it) {
 		ECNode *n = it->second;
-assert(n);
 		n->setShowVoltageBars(KTLConfig::showVoltageBars());
 		n->setShowVoltageColor(KTLConfig::showVoltageColor());
 	}
@@ -471,7 +467,6 @@ void CircuitICNDocument::setNodesChanged()
 {
 	ECNodeMap::iterator end = m_ecNodeList.end();
 	for (ECNodeMap::iterator it = m_ecNodeList.begin(); it != end; ++it) {
-assert(it->second);
 		it->second->setNodeChanged();
 	}
 }
@@ -484,8 +479,6 @@ void CircuitICNDocument::getAllPins(PinSet &allPins)
 	const ECNodeMap::const_iterator nodeListEnd = m_ecNodeList.end();
 	for (ECNodeMap::const_iterator it = m_ecNodeList.begin(); it != nodeListEnd; ++it) {
 		ECNode *ecnode = it->second;
-assert(ecnode);
-
 		for (unsigned i = 0; i < ecnode->numPins(); i++) {
 			Pin *foo = ecnode->pin(i);
 assert(foo);
