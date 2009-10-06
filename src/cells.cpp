@@ -74,6 +74,6 @@ Cell::Cell() {
 void Cell::reset() {
 	addedToLabels = false;
 	permanent = false;
-	bestScore = 0xffff; // Nice large value
+	resetBestScore();
 }
 //END class Cell
