@@ -32,28 +32,29 @@ public:
 	void reset();
 
 	short getNumCon() const { return numCon; }
-	short getPrevX() const { return prevX; }
-	short getPrevY() const { return prevY; }
+	void addConnectors(const short connectors) { numCon += connectors; }
+
 	short getCIPenalty() const { return CIpenalty; }
+	void addCIPenalty(const short x) { CIpenalty += x; }
 
 	short incBestScore() { return ++bestScore; };
-
-	bool comparePrevX(const short x) const { return prevX == x; }
-	bool comparePrevY(const short y) const { return prevY == y; }
-	bool getAddedToLabels() const { return addedToLabels; }
 	bool scoreIsWorse(const short score) const { return score > bestScore; }
 	bool sameScoreAs(const short score) const { return score == bestScore; }
-	bool isPermanent() const { return permanent; }
+	void resetBestScore() { bestScore = 0; }
+	void setBestScore(const short aScore) { bestScore = aScore; }
 
+	short getPrevX() const { return prevX; }
+	short getPrevY() const { return prevY; }
+	bool comparePrevX(const short x) const { return prevX == x; }
+	bool comparePrevY(const short y) const { return prevY == y; }
 	void setPrevXY(const short x, const short y) {
 		prevX = x; prevY = y; }
 
-	void addConnectors(const short connectors) { numCon += connectors; }
 	void setAddedToLabels() { addedToLabels = true;  }
+	bool getAddedToLabels() const { return addedToLabels; }
+
+	bool isPermanent() const { return permanent; }
 	void makePermanent() { permanent = true; }
-	void addCIPenalty(const short x) { CIpenalty += x; }
-	void resetBestScore() { bestScore = 0; }
-	void setBestScore(const short aScore) { bestScore = aScore; }
 
 private:
 	/**
