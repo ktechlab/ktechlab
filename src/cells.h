@@ -40,7 +40,7 @@ public:
 	short incBestScore() { return ++bestScore; };
 	bool scoreIsWorse(const short score) const { return score > bestScore; }
 	bool sameScoreAs(const short score) const { return score == bestScore; }
-	void resetBestScore() { bestScore = 0; }
+	void resetBestScore() { bestScore = 0xFFFF; }
 	void setBestScore(const short aScore) { bestScore = aScore; }
 
 	short getPrevX() const { return prevX; }
@@ -103,9 +103,7 @@ public:
 	 */
 	void reset();
 
-	QRect cellsRect() const {
-		return m_cellsRect;
-	}
+	QRect cellsRect() const { return m_cellsRect; }
 
 	/**
 	 * Returns the cell containing the given position on the canvas.
@@ -135,8 +133,8 @@ public:
 	}
 
 	Cell &cell(int i, int j) const {
-		assert(i < m_cellsRect.right());
-		assert(j < m_cellsRect.bottom());
+assert(i < m_cellsRect.right());
+assert(j < m_cellsRect.bottom());
 		i -= m_cellsRect.left();
 		j -= m_cellsRect.top();
 		return m_cells[i][j];
@@ -149,7 +147,7 @@ protected:
 
 private:
 	Cells(const Cells &);
-	Cells & operator= (const Cells &);
+//	Cells & operator= (const Cells &);
 };
 
 #endif
