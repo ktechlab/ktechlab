@@ -20,29 +20,31 @@ void DIPComponent::initDIP(const QStringList &pins) {
 
 	// Pins along left
 	for(int i = 0; i < numSide; i++) {
-		if(!pins[i].isEmpty()) {
+		QString aPin = pins[i];
+		if(!aPin.isEmpty() && aPin.length()) {
 			const int nodeX = -8 + offsetX();
 			const int nodeY = ((i + 1) << 4) + offsetY();
-			PinNode *node = dynamic_cast<PinNode*>(ecNodeWithID(pins[i]));
+			PinNode *node = dynamic_cast<PinNode*>(ecNodeWithID(aPin));
 
 			if(node) {
 				m_nodeMap[pins[i]].setXY(nodeX, nodeY);
 				m_nodeMap[pins[i]].setOrientationNorth();
-			} else	createPin(nodeX, nodeY, 0, pins[i]);
+			} else	createPin(nodeX, nodeY, 0, aPin);
 		}
 	}
 
 	// Pins along right
 	for(int i = numSide; i < numPins; i++) {
-		if(!pins[i].isEmpty()) {
+		QString aPin = pins[i];
+		if(!aPin.isEmpty() && aPin.length()) {
 			const int nodeX = width() + 8 + offsetX();
 			const int nodeY = ((2 * numSide - i) << 4) + offsetY();
-			PinNode *node = dynamic_cast<PinNode*>(ecNodeWithID(pins[i]));
+			PinNode *node = dynamic_cast<PinNode*>(ecNodeWithID(aPin));
 
 			if(node) {
 				m_nodeMap[pins[i]].setXY(nodeX, nodeY);
 				m_nodeMap[pins[i]].setOrientationSouth();
-			} else	createPin(nodeX, nodeY, 180, pins[i]);
+			} else	createPin(nodeX, nodeY, 180, aPin);
 		}
 	}
 }
