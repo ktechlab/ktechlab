@@ -154,12 +154,7 @@ View *CircuitDocument::createView(ViewContainer *viewContainer, uint viewAreaId,
 void CircuitDocument::slotUpdateConfiguration() {
 	CircuitICNDocument::slotUpdateConfiguration();
 
-	ECNodeMap::iterator nodeEnd = m_ecNodeList.end();
-	for (ECNodeMap::iterator it = m_ecNodeList.begin(); it != nodeEnd; ++it) {
-		ECNode *n = it->second;
-		n->setShowVoltageBars(KTLConfig::showVoltageBars());
-		n->setShowVoltageColor(KTLConfig::showVoltageColor());
-	}
+	loadDisplayConfig();
 
 	ConnectorList::iterator connectorsEnd = m_connectorList.end();
 	for (ConnectorList::iterator it = m_connectorList.begin(); it != connectorsEnd; ++it)
@@ -191,25 +186,7 @@ assert(econn = dynamic_cast<ElectronicConnector*>(*it));
 	}
 
 	if (KTLConfig::showVoltageColor() || KTLConfig::showVoltageBars()) {
-
-	{// we should *NOT* be seeing zeros here, but we have to remove them anyway.
-// FIXME; workaround code!! 
-		ECNodeMap::iterator it = m_ecNodeList.begin();
-		const ECNodeMap::iterator nlEnd = m_ecNodeList.end();
-		while(it != nlEnd) {
-assert(it->second);
-/*			if(!it->second) { 
-				ECNodeMap::iterator dud = it; 
-				it++;
-				m_ecNodeList.erase(dud);
-			} else */ 
-it++;
-	}}
-
-		ECNodeMap::iterator end = m_ecNodeList.end();
-		for (ECNodeMap::iterator it = m_ecNodeList.begin(); it != end; ++it) {
-			it->second->setNodeChanged();
-		}
+		setNodesChanged();
 	}
 }
 
@@ -318,7 +295,6 @@ void CircuitDocument::calculateConnectorCurrents() {
 
 	PinSet groundPins;
 
-	// Tell the Pins to reset their calculated currents to zero
 	const PinSet::iterator pinEnd = m_pinList.end();
 	for (PinSet::iterator it = m_pinList.begin(); it != pinEnd; ++it) {
 		Pin *n = *it;
@@ -376,33 +352,7 @@ void CircuitDocument::assignCircuits() {
 
 	// Stage 0: Build up pin and wire lists
 	PinSet unassignedPins;
-
-	{// we should *NOT* be seeing zeros here, but we have to remove them anyway.
-// FIXME; workaround code!!
-		ECNodeMap::iterator it = m_ecNodeList.begin();
-		const ECNodeMap::iterator nlEnd = m_ecNodeList.end();
-		while(it != nlEnd) {
-assert(it->second);
-/*			if(!it->second) { 
-				ECNodeMap::iterator dud = it; 
-				it++;
-				m_ecNodeList.erase(dud);
-			} else 
-*/
-it++;
-	}}
-
-	const ECNodeMap::const_iterator nodeListEnd = m_ecNodeList.end();
-	for (ECNodeMap::const_iterator it = m_ecNodeList.begin(); it != nodeListEnd; ++it) {
-		ECNode *ecnode = it->second;
-//		assert(ecnode);
-
-		for (unsigned i = 0; i < ecnode->numPins(); i++) {
-			Pin *foo = ecnode->pin(i);
-			assert(foo);
-			unassignedPins.insert(foo);
-		}
-	}
+	getAllPins(unassignedPins);
 
 	typedef QValueList<PinSet> PinSetList;
 

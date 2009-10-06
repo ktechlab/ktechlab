@@ -37,9 +37,6 @@ FullAdder::FullAdder(ICNDocument *icnDocument, bool newItem, const char *id)
 {
 	m_name = i18n("Adder");
 
-	ALogic = BLogic = inLogic = 0;
-	outLogic = SLogic = 0;
-
 	QStringList pins = QStringList::split(',', "A,B,>,,S,C", true);
 	initDIPSymbol(pins, 48);
 	initDIP(pins);
@@ -66,6 +63,11 @@ FullAdder::FullAdder(ICNDocument *icnDocument, bool newItem, const char *id)
 
 FullAdder::~FullAdder()
 {
+	delete SLogic;
+	delete outLogic;
+	delete ALogic;
+	delete BLogic;
+	delete inLogic;
 }
 
 void FullAdder::inStateChanged( bool /*state*/ )
