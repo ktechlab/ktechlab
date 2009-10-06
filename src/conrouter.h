@@ -24,7 +24,6 @@ typedef QValueList<QPointList> QPointListList;
 
 // what a stupid little class...
 class Point {
-
 public:
 	Point();
 	void setXY(short new_x, short new_y);
@@ -35,7 +34,6 @@ private:
 	short x;
 	short y;
 };
-
 
 // Key = cell, data = previous cell, compare = score
 typedef std::multimap< unsigned short, Point > TempLabelMap;
@@ -85,7 +83,7 @@ public:
 	/**
 	 * Returns the list of canvas points
 	 */
-	QPointList pointList(bool reverse) const;
+	QPointList pointList(bool reverse = false) const;
 
 	/**
 	 * Returns a pointer to the internall cellPointList
