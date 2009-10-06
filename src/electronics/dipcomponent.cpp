@@ -21,7 +21,7 @@ void DIPComponent::initDIP(const QStringList &pins) {
 	// Pins along left
 	for(int i = 0; i < numSide; i++) {
 		QString aPin = pins[i];
-		if(!aPin.isEmpty() && aPin.length()) {
+		if(!aPin.isEmpty()) {
 			const int nodeX = -8 + offsetX();
 			const int nodeY = ((i + 1) << 4) + offsetY();
 			PinNode *node = dynamic_cast<PinNode*>(ecNodeWithID(aPin));
@@ -36,7 +36,7 @@ void DIPComponent::initDIP(const QStringList &pins) {
 	// Pins along right
 	for(int i = numSide; i < numPins; i++) {
 		QString aPin = pins[i];
-		if(!aPin.isEmpty() && aPin.length()) {
+		if(!aPin.isEmpty()) {
 			const int nodeX = width() + 8 + offsetX();
 			const int nodeY = ((2 * numSide - i) << 4) + offsetY();
 			PinNode *node = dynamic_cast<PinNode*>(ecNodeWithID(aPin));
@@ -47,6 +47,8 @@ void DIPComponent::initDIP(const QStringList &pins) {
 			} else	createPin(nodeX, nodeY, 180, aPin);
 		}
 	}
+
+	updateAttachedPositioning();
 }
 
 void DIPComponent::initDIPSymbol(const QStringList &pins, int _width) {
