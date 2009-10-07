@@ -28,7 +28,6 @@ typedef QMap< QString, Node* > NodeMap;
 typedef std::set<Connector *> ConnectorList;
 typedef QValueList<Node *> NodeList;
 typedef QValueList<NodeGroup*> NodeGroupList;
-typedef QValueList<QGuardedPtr<NodeGroup> > GuardedNodeGroupList;
 typedef QValueList<QPoint> QPointList;
 
 // Refactor:
@@ -47,7 +46,7 @@ public:
 
 	virtual ~ICNDocument();
 
-	enum hit_score {
+	enum  {
 		hs_none = 0,
 		hs_connector = 4,
 		hs_item = 1000
@@ -110,34 +109,13 @@ public:
 	/**
 	 * Returns a pointer to the 2-dimension array of ICNDocument cells.
 	 */
-	Cells *cells() const {
-		return m_cells;
-	}
+	Cells *cells() const { return m_cells; }
 
 	/**
 	 * Adds score to the cells at the given cell referece
 	 */
 	void addCPenalty(int x, int y, int score);
-	/**
-	 * If there are two connectors joined to a node, then they can be merged
-	 * into one connector. The node will not be removed.
-	 * @param node The node between the two connectors
-	 * @param noCreate If true, no new connectors will be created
-	 * @returns true if it was successful in merging the connectors
-	 */
-	// bool joinConnectors( Node *node );
-	/**
-	 * Snaps a coordinate in the document to the grid
-	 * @param pos The coordinate
-	 * @return The snapped to grid coordinate
-	 */
-	static int gridSnap(int pos);   /// Returns 'pos' when snapped to grid
-	/**
-	 * Snaps a point to the grid
-	 * @param pos The point
-	 * @return The adjusted coordinate
-	 */
-	static QPoint gridSnap(const QPoint &pos);
+
 	/**
 	 * Returns true if the CNItem is valid - e.g. will return true for a
 	 * component in a circuit, but not in a pic program
@@ -159,16 +137,13 @@ public:
 	/**
 	 * @return all the connectors from the document
 	 */
-	const ConnectorList &connectorList() const {
-		return m_connectorList;
-	}
+	const ConnectorList &connectorList() const { return m_connectorList; }
 
 	/**
 	 * @return all the nodegroups from the document
 	 */
-	const GuardedNodeGroupList &nodeGroupList() const {
-		return m_nodeGroupList;
-	}
+	const NodeGroupList &nodeGroupList() const {
+		return m_nodeGroupList; }
 
 	/**
 	 * @return the selected items from the document
@@ -303,7 +278,7 @@ protected:
 
 private:
 	Cells *m_cells;
-	GuardedNodeGroupList m_nodeGroupList;
+	NodeGroupList m_nodeGroupList;
 };
 
 #endif
