@@ -8,6 +8,8 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include <map>
+
 #include "canvasmanipulator.h"
 #include "connector.h"
 #include "conrouter.h"
@@ -51,10 +53,10 @@ ICNDocument::ICNDocument(const QString &caption, const char *name)
 ICNDocument::~ICNDocument() {
 	m_bDeleted = true;
 
-	GuardedNodeGroupList ngToDelete = m_nodeGroupList;
+	NodeGroupList ngToDelete = m_nodeGroupList;
 	m_nodeGroupList.clear();
-	const GuardedNodeGroupList::iterator nglEnd = ngToDelete.end();
-	for (GuardedNodeGroupList::iterator it = ngToDelete.begin(); it != nglEnd; ++it)
+	const NodeGroupList::iterator nglEnd = ngToDelete.end();
+	for (NodeGroupList::iterator it = ngToDelete.begin(); it != nglEnd; ++it)
 		delete(NodeGroup *)(*it);
 
 	delete m_cells;
@@ -82,7 +84,6 @@ CNItem* ICNDocument::cnItemWithID(const QString &id) {
 
 Connector *ICNDocument::connectorWithID(const QString &id) {
 	const ConnectorList::iterator end = m_connectorList.end();
-
 	for (ConnectorList::iterator it = m_connectorList.begin(); it != end; ++it) {
 		if ((*it)->id() == id) return *it;
 	}
@@ -90,6 +91,8 @@ Connector *ICNDocument::connectorWithID(const QString &id) {
 	return 0;
 }
 
+// TODO: should probably use a nested instance, don't want all this complexity here. 
+// also should generalize for subcircuits... 
 FlowContainer *ICNDocument::flowContainer(const QPoint &pos) {
 	QCanvasItemList collisions = m_canvas->collisions(pos);
 	FlowContainer *flowContainer = 0;
@@ -107,6 +110,7 @@ FlowContainer *ICNDocument::flowContainer(const QPoint &pos) {
 
 	return flowContainer;
 }
+// ###
 
 bool ICNDocument::canConnect(QCanvasItem *qcanvasItem1, QCanvasItem *qcanvasItem2) const {
 	// Rough outline of what can and can't connect:
@@ -117,11 +121,16 @@ bool ICNDocument::canConnect(QCanvasItem *qcanvasItem1, QCanvasItem *qcanvasItem
 	// * In all connections between nodes, must have at least one input and one
 	//   output node at the ends.
 
-	Node *startNode = dynamic_cast<Node*>(qcanvasItem1);
-	Node *endNode   = dynamic_cast<Node*>(qcanvasItem2);
+	Node *start[3];
+	start[0] = dynamic_cast<Node*>(qcanvasItem1);
+	start[2] = start[1] = 0;
 
-	if ((startNode && startNode->numCon(true, false) > 2)
-	        || (endNode && endNode->numCon(true, false) > 2))
+	Node *end[3];
+	end[0]   = dynamic_cast<Node*>(qcanvasItem2);
+	end[2] = end[1] = 0;
+
+	if ((start[0] && start[0]->numCon(true, false) > 2)
+	        || (end[0] && end[0]->numCon(true, false) > 2))
 		return false;
 
 	Connector *startConnector = dynamic_cast<Connector*>(qcanvasItem1);
@@ -137,37 +146,19 @@ bool ICNDocument::canConnect(QCanvasItem *qcanvasItem1, QCanvasItem *qcanvasItem
 		return false;
 
 	//BEGIN Change connectors to nodes
-	Node *startNode1 = 0;
-	Node *startNode2 = 0;
-
 	if (startConnector) {
-		startNode1 = startConnector->startNode();
-		startNode2 = startConnector->endNode();
+		start[1] = startConnector->startNode();
+		start[2] = startConnector->endNode();
 
-		if (!startNode1 || !startNode2) return false;
-	} else if (!startNode) return false;
+		if (!start[1] || !start[2]) return false;
+	} 
+// =================================
+	if(endConnector) {
+		end[1] = endConnector->startNode();
+		end[2] = endConnector->endNode();
 
-	Node *endNode1 = 0;
-	Node *endNode2 = 0;
-
-	if (endConnector) {
-		endNode1 = endConnector->startNode();
-		endNode2 = endConnector->endNode();
-
-		if (!endNode1 || !endNode2) return false;
-	} else if (!endNode) return false;
-
-	Node * start[3];
-
-	start[0] = startNode;
-	start[1] = startNode1;
-	start[2] = startNode2;
-
-	Node *end[3];
-
-	end[0] = endNode;
-	end[1] = endNode1;
-	end[2] = endNode2;
+		if(!end[1] || !end[2]) return false;
+	}
 	//END Change connectors to nodes
 
 	//BEGIN Check nodes aren't already connected
@@ -180,6 +171,8 @@ bool ICNDocument::canConnect(QCanvasItem *qcanvasItem1, QCanvasItem *qcanvasItem
 	//END Check nodes aren't already connected together
 
 	//BEGIN Simple level check
+// NOTE: this is just added complextiy, it might be a better idea to simply have nested documents
+// especially considering that we have to spend this and the following section dealing with the issue. 
 	for (unsigned i = 0; i < 3; i++) {
 		for (unsigned j = 0; j < 3; j++) {
 			if (start[i] && end[j] && start[i]->level() != end[j]->level())
@@ -192,12 +185,12 @@ bool ICNDocument::canConnect(QCanvasItem *qcanvasItem1, QCanvasItem *qcanvasItem
 	CNItem *startParentItem[3];
 
 	for (unsigned i = 0; i < 3; i++)
-		startParentItem[i] = start[i] ? start[i]->parentItem() : 0l;
+		startParentItem[i] = start[i] ? start[i]->parentItem() : 0;
 
 	CNItem *endParentItem[3];
 
 	for (unsigned i = 0; i < 3; i++)
-		endParentItem[i]   = end[i]   ? end[i]->parentItem()   : 0l;
+		endParentItem[i]   = end[i]   ? end[i]->parentItem()   : 0;
 
 	Item *container[6] = {0};
 
@@ -248,7 +241,7 @@ Connector *ICNDocument::createConnector(Node *startNode, Node *endNode, QPointLi
 		addAllItemConnectorPoints();
 		ConRouter cr(this);
 		cr.mapRoute(int(startNode->x()), int(startNode->y()), int(endNode->x()), int(endNode->y()));
-		autoPoints = cr.pointList(false);
+		autoPoints = cr.pointList();
 		pointList = &autoPoints;
 	}
 
@@ -258,8 +251,8 @@ Connector *ICNDocument::createConnector(Node *startNode, Node *endNode, QPointLi
 	// FIXME: dynamic_cast used
 
 	if (dynamic_cast<OutputFlowNode*>(endNode) != 0)
-		con = createConnector(endNode->id(), startNode->id(), pointList);
-	else    con = createConnector(startNode->id(), endNode->id(), pointList);
+		con = createConnector(endNode->id(  ), startNode->id(), pointList);
+	else    con = createConnector(startNode->id(), endNode->id(  ), pointList);
 
 	bool startInGroup = deleteNodeGroup(startNode);
 	bool endInGroup = deleteNodeGroup(endNode);
@@ -280,11 +273,11 @@ NodeGroup* ICNDocument::createNodeGroup(Node *node) {
 
 	if(node->isChildNode()) return 0;
 
-	const GuardedNodeGroupList::iterator end = m_nodeGroupList.end();
-	for (GuardedNodeGroupList::iterator it = m_nodeGroupList.begin(); it != end; ++it) {
-		if (*it && (*it)->contains(node)) {
+	const NodeGroupList::iterator end = m_nodeGroupList.end();
+	for (NodeGroupList::iterator it = m_nodeGroupList.begin(); it != end; ++it) {
+assert(*it);
+		if( (*it)->contains(node))
 			return *it;
-		}
 	}
 
 	NodeGroup *group = new NodeGroup(this);
@@ -297,8 +290,8 @@ NodeGroup* ICNDocument::createNodeGroup(Node *node) {
 bool ICNDocument::deleteNodeGroup(Node *node) {
 	if (!node || node->isChildNode()) return false;
 
-	const GuardedNodeGroupList::iterator end = m_nodeGroupList.end();
-	for (GuardedNodeGroupList::iterator it = m_nodeGroupList.begin(); it != end; ++it) {
+	const NodeGroupList::iterator end = m_nodeGroupList.end();
+	for(NodeGroupList::iterator it = m_nodeGroupList.begin(); it != end; ++it) {
 		if (*it && (*it)->contains(node)) {
 			delete *it;
 			m_nodeGroupList.remove(it);
@@ -314,41 +307,28 @@ void ICNDocument::slotRequestAssignNG() {
 }
 
 void ICNDocument::slotAssignNodeGroups() {
-	const GuardedNodeGroupList::iterator nglEnd = m_nodeGroupList.end();
-
-	for (GuardedNodeGroupList::iterator it = m_nodeGroupList.begin(); it != nglEnd; ++it)
+	const NodeGroupList::iterator nglEnd = m_nodeGroupList.end();
+	for (NodeGroupList::iterator it = m_nodeGroupList.begin(); it != nglEnd; ++it)
 		delete *it;
 
 	m_nodeGroupList.clear();
 }
 
-void ICNDocument::getTranslatable(const ItemList &itemList, ConnectorList *fixedConnectors, ConnectorList *translatableConnectors, 					  NodeGroupList *translatableNodeGroups) {
-	ConnectorList tempCL1;
-
-	if (!fixedConnectors)
-		fixedConnectors = &tempCL1;
-
-	ConnectorList tempCL2;
-
-	if (!translatableConnectors)
-		translatableConnectors = &tempCL2;
-
-	NodeGroupList tempNGL;
-
-	if (!translatableNodeGroups)
-		translatableNodeGroups = &tempNGL;
+void ICNDocument::getTranslatable(const ItemList &itemList, 
+				ConnectorList *fixedConnectors, 
+				ConnectorList *translatableConnectors,
+				NodeGroupList *translatableNodeGroups) {
 
 	// We record the connectors attached to the items, and
 	// the number of times an item in the list is connected to
 	// it - i.e. 1 or 2. For those with 2, it is safe to update their
 	// route as it simply involves shifting the route
-	typedef QMap< Connector*, int > ConnectorMap;
+	typedef std::map< Connector*, int > ConnectorMap;
 
 	ConnectorMap fixedConnectorMap;
 
 	// This list of nodes is built up, used for later in determining fixed NodeGroups
 	NodeList itemNodeList;
-
 	{
 		const ItemList::const_iterator itemListEnd = itemList.end();
 		for (ItemList::const_iterator it = itemList.begin(); it != itemListEnd; ++it) {
@@ -364,18 +344,22 @@ void ICNDocument::getTranslatable(const ItemList &itemList, ConnectorList *fixed
 			}
 
 			ConnectorList conList = cnItem->connectorList();
-//			conList.remove((Connector*)0);
 
 			const ConnectorList::iterator clEnd = conList.end();
 			for (ConnectorList::iterator clit = conList.begin(); clit != clEnd; ++clit) {
 				ConnectorMap::iterator cit = fixedConnectorMap.find(*clit);
 
 				if (cit != fixedConnectorMap.end()) {
-					cit.data()++;
+					(*cit).second++;
 				} else	fixedConnectorMap[*clit] = 1;
 			}
 		}
 	}
+
+	NodeGroupList tempNGL;
+	if (!translatableNodeGroups)
+	     translatableNodeGroups = &tempNGL;
+	else translatableNodeGroups->clear();
 
 	// We now look through the NodeGroups to see if we have all the external
 	// nodes for a given nodeGroup - if so, then the connectors in the fixed
@@ -383,14 +367,10 @@ void ICNDocument::getTranslatable(const ItemList &itemList, ConnectorList *fixed
 	ConnectorList fixedNGConnectors;
 
 	{
-		translatableNodeGroups->clear();
-
-		const GuardedNodeGroupList::const_iterator end = m_nodeGroupList.end();
-		for (GuardedNodeGroupList::const_iterator it = m_nodeGroupList.begin(); it != end; ++it) {
+		const NodeGroupList::const_iterator end = m_nodeGroupList.end();
+		for (NodeGroupList::const_iterator it = m_nodeGroupList.begin(); it != end; ++it) {
 			NodeGroup *ng = *it;
-
-			if (!ng) continue;
-
+assert(ng);
 			NodeList externalNodeList = ng->externalNodeList();
 
 			const NodeList::iterator itemNodeListEnd = itemNodeList.end();
@@ -410,21 +390,28 @@ void ICNDocument::getTranslatable(const ItemList &itemList, ConnectorList *fixed
 		}
 	}
 
-	translatableConnectors->clear();
+	ConnectorList tempCL1;
+	if (!fixedConnectors)
+		fixedConnectors = &tempCL1;
+
+	ConnectorList tempCL2;
+	if (!translatableConnectors) 
+	     translatableConnectors = &tempCL2;
+	else translatableConnectors->clear();
 
 	const ConnectorMap::iterator fcEnd = fixedConnectorMap.end();
 	for (ConnectorMap::iterator it = fixedConnectorMap.begin(); it != fcEnd; ++it) {
 		// We allow it to be fixed if it is connected to two of the CNItems in the
 		// select list, or is connected to itself (hence only appears to be connected to one,
 		// but is fixed anyway
-		Node *startNode = it.key()->endNode();
-		Node *endNode = it.key()->startNode();
+		Node *startNode = (*it).first->endNode();
+		Node *endNode   = (*it).first->startNode();
 
-		if ((it.data() > 1)
+		if (((*it).second > 1)
 		        || (startNode && endNode && startNode->parentItem() == endNode->parentItem())) {
-			translatableConnectors->insert(const_cast<Connector*>(it.key()));
-		} else if (fixedNGConnectors.find(it.key()) == fixedNGConnectors.end()) {
-			fixedConnectors->insert(it.key());
+			translatableConnectors->insert(const_cast<Connector*>((*it).first));
+		} else if (fixedNGConnectors.find((*it).first) == fixedNGConnectors.end()) {
+			fixedConnectors->insert((*it).first);
 		}
 	}
 }
@@ -449,16 +436,9 @@ void ICNDocument::createCellMap() {
 	delete m_cells;
 
 	m_cells = new Cells(canvas()->rect());
+
 	for (ConnectorList::iterator it = m_connectorList.begin(); it != conEnd; ++it)
 		(*it)->updateConnectorPoints(true);
-}
-
-int ICNDocument::gridSnap(int pos) {
-	return snapToCanvas(pos);
-}
-
-QPoint ICNDocument::gridSnap(const QPoint &pos) {
-	return QPoint(snapToCanvas(pos.x()), snapToCanvas(pos.y()));
 }
 
 void ICNDocument::appendDeleteList(QCanvasItem *qcanvasItem) {
@@ -476,9 +456,10 @@ void ICNDocument::appendDeleteList(QCanvasItem *qcanvasItem) {
 	else if (Item *item = dynamic_cast<Item*>(qcanvasItem))
 		item->removeItem();
 	else {
-		Connector * connector = dynamic_cast<Connector*>(qcanvasItem);
+		Connector *connector = dynamic_cast<Connector*>(qcanvasItem);
 
 		if (!connector) {
+// do we really have to disambiguate connectors and connector lines here? 
 			if (ConnectorLine *cl = dynamic_cast<ConnectorLine*>(qcanvasItem))
 				connector = cl->parent();
 		}
@@ -522,7 +503,7 @@ void ICNDocument::copy() {
 	// We only want to copy the connectors who have all ends attached to something in the selection
 	ConnectorList connectorList = m_selectList->connectors(false);
 
-	typedef QMap< Node*, ConnectorList > NCLMap;
+	typedef std::map<Node*, ConnectorList> NCLMap;
 
 	NCLMap nclMap;
 
@@ -544,10 +525,10 @@ void ICNDocument::copy() {
 	// Remove those connectors (and nodes) which are dangling on an orphan node
 	NCLMap::iterator nclEnd = nclMap.end();
 	for (NCLMap::iterator it = nclMap.begin(); it != nclEnd; ++it) {
-		if (it.data().size() > 1)
-			nodeList.append(it.key());
-		else if (it.data().size() > 0)
-			connectorList.erase(*it.data().begin());
+		if ((*it).second.size() > 1)
+			nodeList.append((*it).first);
+		else if ((*it).second.size() > 0)
+			connectorList.erase(*(*it).second.begin());
 	}
 
 	data.addItems(m_selectList->items(false));
@@ -563,14 +544,14 @@ void ICNDocument::selectAll() {
 
 	const ItemMap::iterator itemEnd = m_itemList.end();
 	for (ItemMap::iterator itemIt = m_itemList.begin(); itemIt != itemEnd; ++itemIt) {
-		assert(itemIt->second);
+assert(itemIt->second);
 		select(itemIt->second);
 	}
 
 	const ConnectorList::iterator conEnd = m_connectorList.end();
 	for (ConnectorList::iterator connectorIt = m_connectorList.begin(); connectorIt != conEnd; ++connectorIt) {
-
-		if (*connectorIt) select(*connectorIt);
+assert(*connectorIt);
+		select(*connectorIt);
 	}
 }
 
@@ -594,39 +575,44 @@ Item* ICNDocument::addItem(const QString &id, const QPoint &p, bool newItem) {
 
 	Item *item = itemLibrary()->createItem(id, this, newItem);
 
-	if (!item) return 0;
+/* WTF?? tried to pull a non-existing item out of the library... 
+	 this is not an assert because we could be loading a circuit from an incompatible version
+	 and we don't want to completely fail.*/
+	if (!item) return 0; 
 
 	// Look through the CNItems at the given point (sorted by z-coordinate) for
 	// a container item.
+// TODO: ICNDocument should not know about flow containers. 
 	FlowContainer *container = 0;
-
 	const QCanvasItemList::iterator pcEnd = preCollisions.end();
 	for (QCanvasItemList::iterator it = preCollisions.begin(); it != pcEnd && !container; ++it) {
 		if (FlowContainer *flowContainer = dynamic_cast<FlowContainer*>(*it))
 			container = flowContainer;
 	}
+// ###
 
 	// We want to check it is not a special item first as
 	// isValidItem may prompt the user about his bad choice
 	if (!isValidItem(item)) {
 		item->removeItem();
 		flushDeleteList();
-		return 0L;
+		return 0;
 	}
 
 	int x = int(p.x());
-	int y = int(p.y());
-
 	if (x < 16 || x > (canvas()->width()))
 		x = 16;
 
+	int y = int(p.y());
 	if (y < 16 || y > (canvas()->height()))
 		y = 16;
 
 	if (CNItem *cnItem = dynamic_cast<CNItem*>(item)) {
 		cnItem->move(snapToCanvas(p.x()), snapToCanvas(p.y()));
 
+//### more flowcode specific code. =( 
 		if (container) container->addChild(cnItem);
+//### 
 
 	} else item->move(x, y);
 
@@ -660,36 +646,36 @@ void ICNDocument::rerouteInvalidatedConnectors() {
 	NodeGroupList nodeGroupRerouteList;
 
 	const ConnectorList::iterator connectorListEnd = m_connectorList.end();
-	for (ConnectorList::iterator it = m_connectorList.begin(); it != connectorListEnd; ++it) {
+	for(ConnectorList::iterator it = m_connectorList.begin(); it != connectorListEnd; ++it) {
 		Connector *connector = *it;
 
-		if (connector && connector->isVisible() && connector->startNode() && connector->endNode()) {
+		if(connector && connector->isVisible() && connector->startNode() && connector->endNode()) {
 			// Perform a series of tests to see if the connector needs rerouting
 			bool needsRerouting = false;
 
 			// Test to see if we actually have any points
 			const QPointList pointList = connector->connectorPoints();
-			if (pointList.isEmpty()) needsRerouting = true;
+			if(pointList.isEmpty()) needsRerouting = true;
 
 			// Test to see if the route doesn't match up with the node positions at either end
-			if (!needsRerouting) {
+			if(!needsRerouting) {
 				const QPoint listStart = pointList.first();
 				const QPoint listEnd = pointList.last();
 				const QPoint nodeStart = QPoint(int(connector->startNode()->x()), int(connector->startNode()->y()));
 				const QPoint nodeEnd = QPoint(int(connector->endNode()->x()), int(connector->endNode()->y()));
-				if (((listStart != nodeStart) || (listEnd != nodeEnd)) &&
+				if(((listStart != nodeStart) || (listEnd != nodeEnd)) &&
 				        ((listStart != nodeEnd) || (listEnd != nodeStart))) {
 					needsRerouting = true;
 				}
 			}
 
 			// Test to see if the route intersects any Items (we ignore if it is a manual route)
-			if (!needsRerouting && !connector->usesManualPoints()) {
+			if(!needsRerouting && !connector->usesManualPoints()) {
 
 				const QCanvasItemList collisions = connector->collisions(true);
 				const QCanvasItemList::const_iterator collisionsEnd = collisions.end();
-				for (QCanvasItemList::const_iterator collisionsIt = collisions.begin(); (collisionsIt != collisionsEnd) && !needsRerouting; ++collisionsIt) {
-					if (dynamic_cast<Item*>(*collisionsIt))
+				for(QCanvasItemList::const_iterator collisionsIt = collisions.begin(); (collisionsIt != collisionsEnd) && !needsRerouting; ++collisionsIt) {
+					if(dynamic_cast<Item*>(*collisionsIt))
 						needsRerouting = true;
 				}
 			}
@@ -706,7 +692,6 @@ void ICNDocument::rerouteInvalidatedConnectors() {
 
 	// To allow proper rerouting, we want to start with clean routes for all of the invalidated connectors
 	const NodeGroupList::iterator nodeGroupRerouteEnd = nodeGroupRerouteList.end();
-
 	for (NodeGroupList::iterator it = nodeGroupRerouteList.begin(); it != nodeGroupRerouteEnd; ++it) {
 		const ConnectorList contained = (*it)->connectorList();
 		const ConnectorList::const_iterator end = contained.end();
@@ -716,7 +701,6 @@ void ICNDocument::rerouteInvalidatedConnectors() {
 	}
 
 	const ConnectorList::iterator connectorRerouteEnd = connectorRerouteList.end();
-
 	for (ConnectorList::iterator it = connectorRerouteList.begin(); it != connectorRerouteEnd; ++it)
 		(*it)->updateConnectorPoints(false);
 
@@ -728,7 +712,10 @@ void ICNDocument::rerouteInvalidatedConnectors() {
 		(*it)->rerouteConnector();
 
 	for (ConnectorList::iterator it = m_connectorList.begin(); it != connectorListEnd; ++it) {
-		if (*it)(*it)->updateDrawList();
+// should be an assertion check here. we don't want null values anywhere. 
+//		if(*it) 
+assert(*it);
+		(*it)->updateDrawList();
 	}
 }
 
@@ -766,8 +753,6 @@ ConnectorList ICNDocument::getCommonConnectors(const ItemList &list) {
 		}
 	}
 
-//	connectorList.remove((Connector*)0);
-
 	return connectorList;
 }
 
@@ -791,8 +776,8 @@ NodeList ICNDocument::getCommonNodes(const ItemList &list) {
 
 			if (ng) {
 				NodeList intNodeList = ng->internalNodeList();
+// This looks like another place where we're adding complextity by trying to handle two layers of documents at once. 
 				const NodeList::iterator intNodeListEnd = intNodeList.end();
-
 				for (NodeList::iterator it = intNodeList.begin(); it != intNodeListEnd; ++it) {
 					Node *intNode = *it;
 
