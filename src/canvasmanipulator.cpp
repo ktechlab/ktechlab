@@ -490,12 +490,11 @@ void ConnectorDraw::grabEndStuff(QCanvasItem * endItem, const QPoint & pos, bool
 	if (!endItem)
 		return;
 
-	CNItem * cnItem = dynamic_cast<CNItem*>(endItem);
+	CNItem *cnItem = dynamic_cast<CNItem*>(endItem);
 
 	if (cnItem && !posIsExact)
 		p_endNode = cnItem->getClosestNode(pos);
-	else
-		p_endNode = dynamic_cast<Node*>(endItem);
+	else	p_endNode = dynamic_cast<Node*>(endItem);
 
 	if (p_endNode && p_endNode->numCon(true, false) > 2) {
 		p_endConnector = toConnector(p_endNode);
@@ -545,7 +544,7 @@ bool CMAutoConnector::mousePressedInitial(const EventInfo &eventInfo) {
 	p_startNode = dynamic_cast<Node*>(eventInfo.qcanvasItemClickedOn);
 
 	if (p_startNode) {
-		m_eventInfo.pos = m_prevPos = p_icnDocument->gridSnap(QPoint((int)p_startNode->x(), (int)p_startNode->y()));
+		m_eventInfo.pos = m_prevPos = snapToCanvas(QPoint((int)p_startNode->x(), (int)p_startNode->y()));
 
 		if (p_startNode->numCon(true, false) > 2) {
 			p_startConnector = toConnector(p_startNode);
@@ -571,8 +570,8 @@ bool CMAutoConnector::mousePressedInitial(const EventInfo &eventInfo) {
 bool CMAutoConnector::mouseMoved(const EventInfo &eventInfo) {
 	const QPoint pos = eventInfo.pos;
 
-	int newX = p_icnDocument->gridSnap(pos.x());
-	int newY = p_icnDocument->gridSnap(pos.y());
+	int newX = snapToCanvas(pos.x());
+	int newY = snapToCanvas(pos.y());
 
 	bool movedFlag = false;
 
@@ -625,7 +624,7 @@ bool CMAutoConnector::mouseReleased(const EventInfo &eventInfo) {
 
 	if (p_startConnector) {
 		if (p_endConnector) {
-			if (!p_icnDocument->createConnector(p_endConnector, p_startConnector, p_icnDocument->gridSnap(pos), startConnectorPoint))
+			if (!p_icnDocument->createConnector(p_endConnector, p_startConnector, snapToCanvas(pos), startConnectorPoint))
 				return true;
 		} else if (p_endNode) {
 			if (!p_icnDocument->createConnector(p_endNode, p_startConnector, startConnectorPoint))
@@ -633,7 +632,7 @@ bool CMAutoConnector::mouseReleased(const EventInfo &eventInfo) {
 		} else	return true;
 	} else if (p_startNode) {
 		if (p_endConnector) {
-			if (!p_icnDocument->createConnector(p_startNode, p_endConnector, p_icnDocument->gridSnap(pos)))
+			if (!p_icnDocument->createConnector(p_startNode, p_endConnector, snapToCanvas(pos)))
 				return true;
 		} else if (p_endNode) {
 			if (!p_icnDocument->createConnector(p_startNode, p_endNode))
@@ -707,11 +706,10 @@ bool CMManualConnector::mousePressedInitial(const EventInfo &eventInfo) {
 bool CMManualConnector::mousePressedRepeat(const EventInfo &eventInfo) {
 	m_eventInfo = eventInfo;
 
-	if (eventInfo.isRightClick) {
+	if (eventInfo.isRightClick)
 		return true;
-	}
 
-	m_manualConnectorDraw->mouseClicked(p_icnDocument->gridSnap(m_eventInfo.pos));
+	m_manualConnectorDraw->mouseClicked(snapToCanvas(m_eventInfo.pos));
 
 	return false;
 }
@@ -721,8 +719,8 @@ bool CMManualConnector::mouseMoved(const EventInfo &eventInfo) {
 		return true;
 
 	const QPoint pos = eventInfo.pos;
-	int newX = p_icnDocument->gridSnap(pos.x());
-	int newY = p_icnDocument->gridSnap(pos.y());
+	int newX = snapToCanvas(pos.x());
+	int newY = snapToCanvas(pos.y());
 	bool movedFlag = false;
 
 	if (newX != m_prevPos.x()) {
@@ -763,7 +761,7 @@ bool CMManualConnector::mouseMoved(const EventInfo &eventInfo) {
 bool CMManualConnector::mouseReleased(const EventInfo &eventInfo) {
 	if (!m_manualConnectorDraw) return true;
 
-	QPoint pos = p_icnDocument->gridSnap(eventInfo.pos);
+	QPoint pos = snapToCanvas(eventInfo.pos);
 
 	grabEndStuff(m_manualConnectorDraw->mouseClicked(pos), pos, true);
 
@@ -779,7 +777,7 @@ bool CMManualConnector::mouseReleased(const EventInfo &eventInfo) {
 
 	if (p_startConnector) {
 		if (p_endConnector) {
-			if (!p_icnDocument->createConnector(p_endConnector, p_startConnector, p_icnDocument->gridSnap(pos), startConnectorPoint, &list))
+			if (!p_icnDocument->createConnector(p_endConnector, p_startConnector, snapToCanvas(pos), startConnectorPoint, &list))
 				return true;
 		} else { // if (p_endNode)
 			if (!p_icnDocument->createConnector(p_endNode, p_startConnector, startConnectorPoint, &list))
@@ -787,7 +785,7 @@ bool CMManualConnector::mouseReleased(const EventInfo &eventInfo) {
 		}
 	} else if (p_startNode) {
 		if (p_endConnector) {
-			if (!p_icnDocument->createConnector(p_startNode, p_endConnector, p_icnDocument->gridSnap(pos), &list))
+			if (!p_icnDocument->createConnector(p_startNode, p_endConnector, snapToCanvas(pos), &list))
 				return true;
 		} else { // if (p_endNode)
 			if (!p_icnDocument->createConnector(p_startNode, p_endNode, &list))
