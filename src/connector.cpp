@@ -107,13 +107,13 @@ void Connector::updateDrawList() {
 
 	QPointList drawLineList;
 
-	int prevX = (*m_conRouter->cellPointList()->begin()).x();
-	int prevY = (*m_conRouter->cellPointList()->begin()).y();
-	int prevX_canvas = toCanvas(prevX);
-	int prevY_canvas = toCanvas(prevY);
+	int prevX_canvas = toCanvas((*m_conRouter->cellPointList()->begin()).x());
+	int prevY_canvas = toCanvas((*m_conRouter->cellPointList()->begin()).y());
 	Cells *cells = p_icnDocument->cells();
 	bool bumpNow = false;
 
+// this is the code for "humping" connectors over other connectors.
+// vertical connector is always the one that humps over the horizontal connector. 
 	const QPointList::const_iterator cplEnd = m_conRouter->cellPointList()->end();
 	for (QPointList::const_iterator it = m_conRouter->cellPointList()->begin(); it != cplEnd; ++it) {
 		const int x = (*it).x();
@@ -121,45 +121,33 @@ void Connector::updateDrawList() {
 		const int numCon = cells->haveCell(x, y) ? cells->cell(x, y).getNumCon() : 0;
 
 		const int y_canvas = toCanvas(y);
-		const int x_canvas = toCanvas(x);
+		int x_canvas = toCanvas(x);
 
-		const bool bumpNext = (prevX == x
+		const bool bumpNext = (prevX_canvas == x_canvas
 		                       && numCon > 1
 		                       && std::abs(y_canvas - startNode()->y()) > 8
-		                       && std::abs(y_canvas - endNode()->y())   > 8);
+		                       && std::abs(y_canvas - endNode(  )->y()) > 8);
 
-		int x0 = prevX_canvas;
-		int x2 = x_canvas;
-		int x1 = (x0 + x2) / 2;
+		int x1 = (prevX_canvas + x_canvas) / 2;
 
-		int y0 = prevY_canvas;
-		int y3 = y_canvas;
-		int y1 = (y0 == y3) ? y0 : ((y0 < y3) ? y0 + 3 : y0 - 3);
-		int y2 = (y0 == y3) ? y3 : ((y0 < y3) ? y3 - 3 : y3 + 3);
+		int y1 = (prevY_canvas == y_canvas) ? prevY_canvas : ((prevY_canvas < y_canvas) ? prevY_canvas + 3 : prevY_canvas - 3);
+		int y2 = (prevY_canvas == y_canvas) ? y_canvas     : ((prevY_canvas < y_canvas) ? y_canvas     - 3 : y_canvas     + 3);
 
-		if (bumpNow)  x0 += 3;
-		if (bumpNext) x2 += 3;
+		if(bumpNow)  prevX_canvas += 3;
+		if(bumpNext) x_canvas += 3;
 
-		if (!bumpNow && !bumpNext) {
-			drawLineList += QPoint(x0, y0);
-			drawLineList += QPoint(x2, y3);
-		} else if (bumpNow) {
-			drawLineList += QPoint(x0, y0);
+		drawLineList += QPoint(prevX_canvas, prevY_canvas);
+
+		if(!bumpNow) {
 			drawLineList += QPoint(x1, y1);
-			drawLineList += QPoint(x2, y3);
-		} else if (bumpNext) {
-			drawLineList += QPoint(x0, y0);
+		} else if(!bumpNext) {
 			drawLineList += QPoint(x1, y2);
-			drawLineList += QPoint(x2, y3);
-		} else {
-			drawLineList += QPoint(x0, y0);
+		} else { 
 			drawLineList += QPoint(x1, y1);
 			drawLineList += QPoint(x1, y2);
-			drawLineList += QPoint(x2, y3);
 		}
 
-		prevX = x;
-		prevY = y;
+		drawLineList += QPoint(x_canvas, y_canvas);
 
 		prevY_canvas = y_canvas;
 		prevX_canvas = x_canvas;
@@ -168,39 +156,34 @@ void Connector::updateDrawList() {
 
 	// Now, remove redundant points (i.e. those that are either repeated or are
 	// in the same direction as the previous points)
-
+// turning points into lines. 
 	if (drawLineList.size() < 3) return;
 
-	const QPointList::iterator dllEnd = drawLineList.end();
 	QPointList::iterator previous = drawLineList.begin();
-
 	QPointList::iterator current = previous;
 	current++;
-
-	QPointList::const_iterator next = current;
+	QPointList::iterator next = current;
 	next++;
 
-	int invalid = -(1 << 30);
-
-	while (previous != dllEnd && current != dllEnd && next != dllEnd) {
+	const QPointList::iterator dllEnd = drawLineList.end();
+	while(previous != dllEnd && current != dllEnd && next != dllEnd) {
 		const int slope1 = getSlope((*previous).x(), (*previous).y(), (*current).x(), (*current).y());
-		const int slope2  = getSlope((*current).x(), (*current).y(), (*next).x(), (*next).y());
+		const int slope2 = getSlope((*current ).x(), (*current ).y(), (*next   ).x(), (*next   ).y());
 
 		if (slope1 == slope2 || slope1 == 0 || slope2 == 0) {
-			*current = QPoint(invalid, invalid);
-		} else 	previous = current;
+			drawLineList.remove(current); // current position was redundant. 
+		} else previous = current; // keep current, and look at next. 
 
-		current++;
-		next++;
+		current = next;
+		++next;
 	}
 
-	drawLineList.remove(QPoint(invalid, invalid));
-
 	// Find the bounding rect
-	{
+	{	
+		const int invalid = -(1 << 30);
 		int x1 = invalid, y1 = invalid, x2 = invalid, y2 = invalid;
-		const QPointList::iterator end = drawLineList.end();
 
+		const QPointList::iterator end = drawLineList.end();
 		for (QPointList::iterator it = drawLineList.begin(); it != end; ++it) {
 			const QPoint p = *it;
 
@@ -228,8 +211,8 @@ void Connector::updateDrawList() {
 	if (drawLineList.size() > 1) {
 		QPoint prev = drawLineList.first();
 		int pixelOffset = 0;
-		const QPointList::iterator end = drawLineList.end();
 
+		const QPointList::iterator end = drawLineList.end();
 		for (QPointList::iterator it = ++drawLineList.begin(); it != end; ++it) {
 			const QPoint next = *it;
 
@@ -284,11 +267,11 @@ void Connector::updateConnectorPoints(bool add) {
 		// so that other connectors still to calculate their points know to try
 		// and avoid this connector
 
-		p_icnDocument->addCPenalty(x, y - 1, mult*ICNDocument::hs_connector / 2);
-		p_icnDocument->addCPenalty(x - 1, y, mult*ICNDocument::hs_connector / 2);
-		p_icnDocument->addCPenalty(x, y, mult * ICNDocument::hs_connector);
-		p_icnDocument->addCPenalty(x + 1, y, mult*ICNDocument::hs_connector / 2);
-		p_icnDocument->addCPenalty(x, y + 1, mult*ICNDocument::hs_connector / 2);
+		p_icnDocument->addCPenalty(x, y - 1, mult * ICNDocument::hs_connector / 2);
+		p_icnDocument->addCPenalty(x - 1, y, mult * ICNDocument::hs_connector / 2);
+		p_icnDocument->addCPenalty(x,     y, mult * ICNDocument::hs_connector    );
+		p_icnDocument->addCPenalty(x + 1, y, mult * ICNDocument::hs_connector / 2);
+		p_icnDocument->addCPenalty(x, y + 1, mult * ICNDocument::hs_connector / 2);
 
 		if (cells->haveCell(x , y))
 			cells->cell(x, y).addConnectors(mult);
@@ -304,7 +287,6 @@ void Connector::setRoutePoints(QPointList pointList, bool setManual, bool checkE
 
 	// a little performance boost: don't call (start|end)Node 4 times
 	Node* l_endNode = endNode();
-
 	Node* l_startNode = startNode();
 
 	if (checkEndPoints) {
@@ -342,14 +324,14 @@ bool Connector::pointsAreReverse(const QPointList &pointList) const {
 	double ney =   endNode()->y();
 
 	double dist_normal = (nsx - plsx) * (nsx - plsx)
-	                     + (nsy - plsy) * (nsy - plsy)
-	                     + (nex - plex) * (nex - plex)
-	                     + (ney - pley) * (ney - pley);
+	                   + (nsy - plsy) * (nsy - plsy)
+	                   + (nex - plex) * (nex - plex)
+	                   + (ney - pley) * (ney - pley);
 
 	double dist_reverse = (nsx - plex) * (nsx - plex)
-	                      + (nsy - pley) * (nsy - pley)
-	                      + (nex - plsx) * (nex - plsx)
-	                      + (ney - plsy) * (ney - plsy);
+	                    + (nsy - pley) * (nsy - pley)
+	                    + (nex - plsx) * (nex - plsx)
+	                    + (ney - plsy) * (ney - plsy);
 
 	return dist_reverse < dist_normal;
 }
@@ -444,6 +426,7 @@ void Connector::updateConnectorLines(bool forceRedraw) {
 	if (b_semiHidden) color = Qt::gray;
 	else if (isSelected()) color = QColor(101, 134, 192);
 	else 
+// CONDEMNED CODE
 /**/
 if (!KTLConfig::showVoltageColor()) color = Qt::black;
 else if(m_wires.size()) {
@@ -451,13 +434,14 @@ if(m_wires[0]) color = voltageColor(m_wires[0]->voltage());
 else {	m_wires.resize(0);
 	color = Qt::black;}
 } else 
+// ### 
 	{
 		color = Qt::black;
 	}
 
 	int z = ICNDocument::Z::Connector + (isSelected() ? 5 : 0);
 
-	QPen pen(color, (m_wires.size() > 1) ? 2 : 1);
+QPen pen(color, (m_wires.size() > 1) ? 2 : 1);
 //	QPen pen(color, 1);
 
 	bool animateWires = KTLConfig::animateWires();
@@ -485,12 +469,12 @@ else {	m_wires.resize(0);
 	}
 }
 
-QValueList<QPointList> Connector::splitConnectorPoints(const QPoint & pos) const {
+QValueList<QPointList> Connector::splitConnectorPoints(const QPoint &pos) const {
 	return m_conRouter->splitPoints(pos);
 }
 
 QPointList Connector::connectorPoints(bool reverse) const {
-	bool doReverse = (reverse != pointsAreReverse(m_conRouter->pointList(false)));
+	bool doReverse = (reverse != pointsAreReverse(m_conRouter->pointList()));
 	return m_conRouter->pointList(doReverse);
 }
 //END class Connector
