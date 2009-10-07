@@ -50,4 +50,9 @@ inline int snapToCanvas(const double x) {
 	return snapToCanvas(int(x));
 }
 
+inline QPoint snapToCanvas(const QPoint &pos) {
+	return QPoint(snapToCanvas(pos.x()), snapToCanvas(pos.y()));
+}
+
 #endif
+
