@@ -32,7 +32,7 @@ Node::Node(ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint
 	p_icnDocument = icnDocument;
 	m_level = 0;
 
-	if (p_icnDocument) {
+	if(p_icnDocument) {
 		if (id) {
 			m_id = *id;
 
@@ -56,25 +56,23 @@ Node::~Node() {
 		p_icnDocument->unregisterUID(id());
 }
 
+// TODO: move to a nested document model to remove all this "level" complexity from both here and 
+// ICNDocument. 
 void Node::setLevel(const int level) {
 	m_level = level;
 }
 
-void Node::setLength(int length) {
-	if (m_length == length)
-		return;
+void Node::setLength(const int length) {
+	if (m_length == length) return;
 
 	m_length = length;
-
 	initPoints();
 }
 
-void Node::setOrientation(int dir) {
-	if (m_dir == dir)
-		return;
+void Node::setOrientation(const int dir) {
+	if (m_dir == dir) return;
 
 	m_dir = dir;
-
 	initPoints();
 }
 
@@ -88,7 +86,7 @@ void Node::initPoints() {
 	setPoints(pa);
 }
 
-void Node::setVisible(bool yes) {
+void Node::setVisible(const bool yes) {
 	if (isVisible() == yes) return;
 
 	QCanvasPolygon::setVisible(yes);
@@ -109,15 +107,15 @@ void Node::setParentItem(CNItem *parentItem) {
 }
 
 void Node::removeNode() {
-	if (b_deleted) return;
+	if(b_deleted) return;
 
 	b_deleted = true;
 	emit removed(this);
 	p_icnDocument->appendDeleteList(this);
 }
 
-void Node::moveBy(double dx, double dy) {
-	if (dx == 0 && dy == 0) return;
+void Node::moveBy(const double dx, const double dy) {
+	if(dx == 0 && dy == 0) return;
 
 	QCanvasPolygon::moveBy(dx, dy);
 
@@ -131,23 +129,22 @@ NodeData Node::nodeData() const {
 	return data;
 }
 
-void Node::setNodeSelected(bool yes) {
-	if (isSelected() == yes)
-		return;
+// again, do we really want to know about the UI here? 
+// is there a more elegant way to do this?
+void Node::setNodeSelected(const bool yes) {
+	if (isSelected() == yes) return;
 
 	QCanvasItem::setSelected(yes);
-
 	setPen(yes ? m_selectedColor : Qt::black);
-
 	setBrush(yes ? m_selectedColor : Qt::black);
 }
 
-void Node::initPainter(QPainter & p) {
+void Node::initPainter(QPainter &p) {
 	p.translate(int(x()), int(y()));
 	p.rotate(m_dir);
 }
 
-void Node::deinitPainter(QPainter & p) {
+void Node::deinitPainter(QPainter &p) {
 	p.rotate(-m_dir);
 	p.translate(-int(x()), -int(y()));
 }

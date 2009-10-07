@@ -32,7 +32,6 @@ typedef QValueList<Node *> NodeList;
 @short A standard node that can be associated with a Connector or a CNItem
 @author David Saxton
 */
-
 class Node : public QObject, public QCanvasPolygon {
 	Q_OBJECT
 
@@ -49,8 +48,7 @@ public:
 		ec_junction,
 		fp_in,
 		fp_out,
-		fp_junction
-	};
+		fp_junction};
 
 	/**
 	 * @param dir the direction of the node; 0 degrees for left, 90 degrees for
@@ -65,30 +63,24 @@ public:
 	 * Sets the node's visibility, as well as updating the visibility of the
 	 * attached connectors as appropriate
 	 */
-	virtual void setVisible(bool yes);
+	virtual void setVisible(const bool yes);
 	/**
 	 * Returns the global id, that is unique to the node
 	 * amongst all the nodes on the canvas
 	 */
-	const QString id() const {
-		return m_id;
-	}
+	const QString id() const { return m_id; }
 
 	/**
 	 * Returns the id that is internal to the CNItem to which the
 	 * node belongs to. Returns a null QString if no parentitem
 	 */
-	const QString childId() const {
-		return m_childId;
-	}
+	const QString childId() const { return m_childId; }
 
 	/**
 	 * Use this function to set the child-id, that is unique to the node
 	 * amongst the other nodes associated with its parent CNItem
 	 */
-	void setChildId(const QString &id) {
-		m_childId = id;
-	}
+	void setChildId(const QString &id) { m_childId = id; }
 
 	/**
 	 * Sets the "level" of the node. By default, the level is 0. The level of
@@ -101,19 +93,17 @@ public:
 	 * Returns the level of the nodes
 	 * @see setLevel
 	 */
-	int level() const {
-		return m_level;
-	}
+	int level() const { return m_level; }
 
 	/**
 	 * Sets the orientation of the node.
 	 */
-	void setOrientation(int dir);
+	void setOrientation(const int dir);
 	/**
 	 * Changes the lenght of the node. By default, this is 8. Some node types
 	 * (such as junctions) do not make use of this value.
 	 */
-	void setLength(int length);
+	void setLength(const int length);
 	/**
 	 * Associates a CNItem with the node - ie the node belongs to the CNItem,
 	 * and hence gets deleted when the CNItem gets deleted.s
@@ -123,27 +113,19 @@ public:
 	 * Returns true if the node is part of a CNItem
 	 * (i.e. not between multiple connectors)
 	 */
-	bool isChildNode() const {
-		return (p_parentItem != 0);
-	}
+	bool isChildNode() const { return (p_parentItem != 0); }
 
 	/**
 	 * Returns a pointer to the CNItem to which the node belongs,
 	 * or Null if it doesn't.
 	 */
-	CNItem *parentItem() const {
-		return p_parentItem;
-	}
+	CNItem *parentItem() const { return p_parentItem; }
 
 	NodeData nodeData() const;
 
-	void setNodeGroup(NodeGroup *ng) {
-		p_nodeGroup = ng;
-	}
+	void setNodeGroup(NodeGroup *ng) { p_nodeGroup = ng; }
 
-	NodeGroup *nodeGroup() const {
-		return p_nodeGroup;
-	}
+	NodeGroup *nodeGroup() const { return p_nodeGroup; }
 
 	/* interface common to ecnode and fpnode; these might be required by ItemDocumentData, ICNDocument  */
 	virtual bool isConnected(Node *node, NodeList *checkedNodes = 0) = 0;
@@ -173,25 +155,19 @@ public:
 	virtual Connector* getAConnector() const = 0;
 
 	/**
-	 * Removes all the NULL connectors
-	 */
-//	virtual void removeNullConnectors() = 0;
-
-	/**
 	 * Draw shape. Note that this has to remain public.
 	 */
 	virtual void drawShape(QPainter &p) = 0;
 
 public slots:
-	void moveBy(double dx, double dy);
+	void moveBy(const double dx, const double dy);
 	
 	void removeNode(Item*) {
 // parameter is made available for subclasses. 
-		removeNode();
-	}
+		removeNode(); }
 
 	void removeNode();
-	void setNodeSelected(bool yes);
+	void setNodeSelected(const bool yes);
 
 signals:
 	void moved(Node *node);
@@ -233,6 +209,8 @@ protected:
 
 	NodeGroup *p_nodeGroup;
 
+// TODO: do we want this class to know about being selected/deselected? 
+// static members are weird.. Also, this is not configurable, as written. 
 	static QColor m_selectedColor;
 
 	bool b_deleted;
