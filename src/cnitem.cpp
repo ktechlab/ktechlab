@@ -498,7 +498,7 @@ void CNItem::setDisplayText(const QString &id, const QString &display) {
 	}
 
 	it.data()->setText(display);
-//	updateAttachedPositioning();
+	updateAttachedPositioning();
 }
 
 void CNItem::removeDisplayText(const QString &id) {
