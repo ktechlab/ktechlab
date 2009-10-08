@@ -95,8 +95,13 @@ void Demultiplexer::inStateChanged(bool /*state*/) {
 			pos += 1 << i;
 	}
 
-	for (unsigned i = 0; i < m_xLogic.size(); ++i)
-		m_xLogic[i]->setHigh((pos == i) && m_input->isHigh());
+	if(m_input->isHigh()) {
+		for (unsigned i = 0; i < m_xLogic.size(); ++i)
+			m_xLogic[i]->setHigh((pos == i));
+	} else {
+		for (unsigned i = 0; i < m_xLogic.size(); ++i)
+			m_xLogic[i]->setHigh(false);
+	}
 }
 
 void Demultiplexer::initPins(unsigned newAddressSize) {
