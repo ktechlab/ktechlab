@@ -27,13 +27,13 @@ ktechlab_SOURCES = asmformatter.cpp canvas.cpp canvasitemparts.cpp \
 	canvasmanipulator.cpp canvastip.cpp cells.cpp circuitview.cpp ciwidgetmgr.cpp cnitem.cpp \
 	cnitemgroup.cpp connector.cpp connectorline.cpp conrouter.cpp debugmanager.cpp \
 	docmanager.cpp docmanageriface.cpp docmanageriface.skel document.cpp documentiface.cpp \
-	documentiface.skel eventinfo.cpp filemetainfo.cpp flowcodedocument.cpp flowcodeview.cpp \
-	flowcontainer.cpp icndocument.cpp icnview.cpp item.cpp itemdocument.cpp \
-	itemdocumentdata.cpp itemgroup.cpp iteminterface.cpp itemlibrary.cpp itemview.cpp \
-	katemdi.cpp ktechlab.cpp ktlcanvas.cpp libraryitem.cpp microsettings.cpp node.cpp \
-	nodegroup.cpp oscilloscopedata.cpp picitem.cpp projectmanager.cpp \
-	recentfilesaction.cpp resizeoverlay.cpp simulator.cpp textdocument.cpp textview.cpp \
-	variablelabel.cpp variant.cpp view.cpp viewcontainer.cpp viewiface.cpp viewiface.skel
+	documentiface.skel eventinfo.cpp filemetainfo.cpp flowcodeview.cpp flowcontainer.cpp \
+	icndocument.cpp icnview.cpp item.cpp itemdocument.cpp itemdocumentdata.cpp \
+	itemgroup.cpp iteminterface.cpp itemlibrary.cpp itemview.cpp katemdi.cpp ktechlab.cpp \
+	ktlcanvas.cpp libraryitem.cpp microsettings.cpp node.cpp nodegroup.cpp \
+	oscilloscopedata.cpp picitem.cpp projectmanager.cpp recentfilesaction.cpp resizeoverlay.cpp \
+	simulator.cpp textdocument.cpp textview.cpp variablelabel.cpp variant.cpp view.cpp \
+	viewcontainer.cpp viewiface.cpp viewiface.skel
 
 ktechlab_PCH = AUTO
 
@@ -42,9 +42,9 @@ ktechlab_PCH = AUTO
 noinst_HEADERS = asmformatter.h canvas.h canvas_private.h canvasitemparts.h \
 	canvasmanipulator.h canvastip.h cells.h circuitview.h ciwidgetmgr.h cnitem.h cnitemgroup.h \
 	connector.h conrouter.h debugmanager.h docmanager.h docmanageriface.h document.h \
-	documentiface.h eventinfo.h filemetainfo.h flowcodedocument.h flowcodeview.h \
-	icndocument.h icnview.h item.h itemdocument.h itemdocumentdata.h itemgroup.h \
-	iteminterface.h itemlibrary.h itemview.h katemdi.h ktechlab.h ktlcanvas.h libraryitem.h \
+	documentiface.h eventinfo.h filemetainfo.h flowcodeview.h icndocument.h icnview.h \
+	item.h itemdocument.h itemdocumentdata.h itemgroup.h iteminterface.h \
+	itemlibrary.h itemview.h katemdi.h ktechlab.h ktlcanvas.h libraryitem.h \
 	microsettings.h node.h nodegroup.h oscilloscopedata.h picitem.h projectmanager.h \
 	property.h recentfilesaction.h resizeoverlay.h simulator.h textdocument.h \
 	textview.h utils.h variablelabel.h view.h viewcontainer.h viewiface.h
