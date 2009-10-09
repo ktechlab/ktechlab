@@ -28,7 +28,7 @@ ktechlab_SOURCES = asmformatter.cpp canvas.cpp canvasitemparts.cpp \
 	cnitemgroup.cpp connector.cpp connectorline.cpp conrouter.cpp debugmanager.cpp \
 	docmanager.cpp docmanageriface.cpp docmanageriface.skel document.cpp documentiface.cpp \
 	documentiface.skel eventinfo.cpp filemetainfo.cpp flowcodedocument.cpp flowcodeview.cpp \
-	flowcontainer.cpp fpnode.cpp icndocument.cpp icnview.cpp item.cpp itemdocument.cpp \
+	flowcontainer.cpp icndocument.cpp icnview.cpp item.cpp itemdocument.cpp \
 	itemdocumentdata.cpp itemgroup.cpp iteminterface.cpp itemlibrary.cpp itemview.cpp \
 	katemdi.cpp ktechlab.cpp ktlcanvas.cpp libraryitem.cpp microsettings.cpp node.cpp \
 	nodegroup.cpp oscilloscopedata.cpp picitem.cpp projectmanager.cpp \
@@ -42,7 +42,7 @@ ktechlab_PCH = AUTO
 noinst_HEADERS = asmformatter.h canvas.h canvas_private.h canvasitemparts.h \
 	canvasmanipulator.h canvastip.h cells.h circuitview.h ciwidgetmgr.h cnitem.h cnitemgroup.h \
 	connector.h conrouter.h debugmanager.h docmanager.h docmanageriface.h document.h \
-	documentiface.h eventinfo.h filemetainfo.h flowcodedocument.h flowcodeview.h fpnode.h \
+	documentiface.h eventinfo.h filemetainfo.h flowcodedocument.h flowcodeview.h \
 	icndocument.h icnview.h item.h itemdocument.h itemdocumentdata.h itemgroup.h \
 	iteminterface.h itemlibrary.h itemview.h katemdi.h ktechlab.h ktlcanvas.h libraryitem.h \
 	microsettings.h node.h nodegroup.h oscilloscopedata.h picitem.h projectmanager.h \
