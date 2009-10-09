@@ -136,8 +136,6 @@ void Connector::updateDrawList() {
 		if(bumpNow)  prevX_canvas += 3;
 		if(bumpNext) x_canvas += 3;
 
-		drawLineList += QPoint(prevX_canvas, prevY_canvas);
-
 		if(!bumpNow) {
 			drawLineList += QPoint(x1, y1);
 		} else if(!bumpNext) {
