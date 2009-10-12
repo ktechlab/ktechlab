@@ -160,14 +160,18 @@ public:
 	virtual void drawShape(QPainter &p) = 0;
 
 public slots:
-	void moveBy(const double dx, const double dy);
+        /*
+         * These slots have to match the exact signature of the signals connected it,
+         * or else the Qt signal/slot mechanism won't work (and get lots of regressions)
+         */
+	void moveBy(double dx, double dy);
 	
 	void removeNode(Item*) {
 // parameter is made available for subclasses. 
 		removeNode(); }
 
 	void removeNode();
-	void setNodeSelected(const bool yes);
+	void setNodeSelected(bool yes);
 
 signals:
 	void moved(Node *node);
