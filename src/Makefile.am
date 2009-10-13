@@ -24,14 +24,14 @@ ktechlab_LDADD = $(top_builddir)/src/core/libcore.la \
 
 # which sources should be compiled for ktechlab
 ktechlab_SOURCES = asmformatter.cpp canvas.cpp canvasitemparts.cpp \
-	canvasmanipulator.cpp canvastip.cpp cells.cpp circuitview.cpp ciwidgetmgr.cpp cnitem.cpp \
-	cnitemgroup.cpp connector.cpp connectorline.cpp conrouter.cpp debugmanager.cpp \
-	docmanager.cpp docmanageriface.cpp docmanageriface.skel document.cpp documentiface.cpp \
-	documentiface.skel eventinfo.cpp filemetainfo.cpp flowcodeview.cpp flowcontainer.cpp \
-	icndocument.cpp icnview.cpp item.cpp itemdocument.cpp itemdocumentdata.cpp \
-	itemgroup.cpp iteminterface.cpp itemlibrary.cpp itemview.cpp katemdi.cpp ktechlab.cpp \
-	ktlcanvas.cpp libraryitem.cpp microsettings.cpp node.cpp nodegroup.cpp \
-	oscilloscopedata.cpp picitem.cpp projectmanager.cpp recentfilesaction.cpp resizeoverlay.cpp \
+	canvasmanipulator.cpp canvastip.cpp cells.cpp ciwidgetmgr.cpp cnitem.cpp cnitemgroup.cpp \
+	connector.cpp connectorline.cpp conrouter.cpp debugmanager.cpp docmanager.cpp \
+	docmanageriface.cpp docmanageriface.skel document.cpp documentiface.cpp documentiface.skel \
+	eventinfo.cpp filemetainfo.cpp flowcodeview.cpp flowcontainer.cpp icndocument.cpp \
+	icnview.cpp item.cpp itemdocument.cpp itemdocumentdata.cpp itemgroup.cpp \
+	iteminterface.cpp itemlibrary.cpp itemview.cpp katemdi.cpp ktechlab.cpp ktlcanvas.cpp \
+	libraryitem.cpp microsettings.cpp node.cpp nodegroup.cpp oscilloscopedata.cpp \
+	picitem.cpp projectmanager.cpp recentfilesaction.cpp resizeoverlay.cpp \
 	simulator.cpp textdocument.cpp textview.cpp variablelabel.cpp variant.cpp view.cpp \
 	viewcontainer.cpp viewiface.cpp viewiface.skel
 
@@ -40,8 +40,8 @@ ktechlab_PCH = AUTO
 
 # these are the headers for your project
 noinst_HEADERS = asmformatter.h canvas.h canvas_private.h canvasitemparts.h \
-	canvasmanipulator.h canvastip.h cells.h circuitview.h ciwidgetmgr.h cnitem.h cnitemgroup.h \
-	connector.h conrouter.h debugmanager.h docmanager.h docmanageriface.h document.h \
+	canvasmanipulator.h canvastip.h cells.h ciwidgetmgr.h cnitem.h cnitemgroup.h connector.h \
+	conrouter.h debugmanager.h docmanager.h docmanageriface.h document.h \
 	documentiface.h eventinfo.h filemetainfo.h flowcodeview.h icndocument.h icnview.h \
 	item.h itemdocument.h itemdocumentdata.h itemgroup.h iteminterface.h \
 	itemlibrary.h itemview.h katemdi.h ktechlab.h ktlcanvas.h libraryitem.h \
