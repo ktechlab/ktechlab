@@ -29,27 +29,17 @@ NodeGroup::NodeGroup(ICNDocument *icnDocument, const char *name)
 NodeGroup::~NodeGroup() {
 	clearConList();
 
-//m_extNodeList.remove((Node*)0);
 	const NodeList::iterator xnEnd = m_extNodeList.end();
 	for (NodeList::iterator it = m_extNodeList.begin(); it != xnEnd; ++it)
 		(*it)->setNodeGroup(0);
 
 	m_extNodeList.clear();
-
-//m_nodeList.remove((Node*)0);
-	const NodeList::iterator nEnd = m_nodeList.end();
-	for (NodeList::iterator it = m_nodeList.begin(); it != nEnd; ++it)
-		(*it)->setNodeGroup(0);
-
-	m_nodeList.clear();
 }
 
 void NodeGroup::setVisible(bool visible) {
 	if (b_visible == visible) return;
 
 	b_visible = visible;
-
-//m_nodeList.remove((Node*)0);
 
 	const NodeList::iterator nEnd = m_nodeList.end();
 	for (NodeList::iterator it = m_nodeList.begin(); it != nEnd; ++it)
@@ -68,7 +58,6 @@ void NodeGroup::addNode(Node *node, bool checkSurrouding) {
 		ConnectorList con = node->getAllConnectors();
 		ConnectorList::iterator end = con.end();
 		for(ConnectorList::iterator it = con.begin(); it != end; ++it) {
-assert(*it);
 assert((*it)->startNode() != (*it)->endNode());
 			if((*it)->startNode() != node)
 				addNode((*it)->startNode(), true);
@@ -82,8 +71,6 @@ assert((*it)->startNode() != (*it)->endNode());
 void NodeGroup::translate(int dx, int dy) {
 	if ((dx == 0) && (dy == 0))
 		return;
-
-//	m_nodeList.remove((Node*)0);
 
 	const ConnectorList::iterator conEnd = m_conList.end();
 	for(ConnectorList::iterator it = m_conList.begin(); it != conEnd; ++it) {
@@ -107,7 +94,6 @@ void NodeGroup::updateRoutes() {
 
 	const ConnectorList::iterator conEnd = m_conList.end();
 	for (ConnectorList::iterator it = m_conList.begin(); it != conEnd; ++it) {
-assert(*it);
 		(*it)->updateConnectorPoints(false);
 	}
 
@@ -163,7 +149,6 @@ NodeList NodeGroup::findRoute(Node *startNode, Node *endNode) {
 	const IntList::iterator end = il.end();
 	for (IntList::iterator it = il.begin(); it != end; ++it) {
 		Node *node = getNodePtr(*it);
-assert(node);
 		nl += node;
 	}
 
@@ -206,7 +191,6 @@ IntList NodeGroup::findRoute(IntList used, int currentNode, int endNode, bool *s
 Connector *NodeGroup::findCommonConnector(Node *n1, Node *n2) const {
 	if(!n1 || !n2 || n1 == n2)
 		return 0;
-//assert(n1 && n2 && n1 != n2);
 
 	ConnectorList n1Con = n1->getAllConnectors();
 	ConnectorList n2Con = n2->getAllConnectors();
@@ -233,7 +217,6 @@ void NodeGroup::findBestPair(NodeList *list, Node **n1, Node **n2) const {
 		NodeList::iterator it2 = it1;
 
 		for(++it2; it2 != end; ++it2) {
-assert(*it1 != *it2);
 
 			if(canRoute(*it1, *it2)) {
 // Try and find any that are aligned horizontally 
@@ -287,7 +270,6 @@ assert(*it1 != *it2);
 		kdError() << "NodeGroup::findBestPair: Could not find a routable pair of nodes!" << endl;
 }
 
-
 bool NodeGroup::canRoute(Node *n1, Node *n2) const {
 	if(!n1 || !n2) return false;
 
@@ -296,7 +278,6 @@ bool NodeGroup::canRoute(Node *n1, Node *n2) const {
 	getReachable(&reachable, getNodePos(n1));
 	return reachable.contains(getNodePos(n2));
 }
-
 
 void NodeGroup::getReachable(IntList *reachable, int node) const {
 	if (!reachable || reachable->contains(node))
@@ -324,7 +305,7 @@ void NodeGroup::resetRoutedMap() {
 	const ConnectorList::iterator end = m_conList.end();
 	for(ConnectorList::iterator it = m_conList.begin(); it != end; ++it) {
 		Connector *con = *it;
-assert(con);
+
 		int n1 = getNodePos(con->startNode());
 		int n2 = getNodePos(con->endNode());
 
@@ -383,7 +364,7 @@ assert(n);
 	return -1;
 }
 
-Node* NodeGroup::getNodePtr(unsigned int n) const {
+Node *NodeGroup::getNodePtr(unsigned int n) const {
 	const int a = m_nodeList.size();
 	if(n < a) return m_nodeList[n];
 
@@ -398,7 +379,6 @@ void NodeGroup::clearConList() {
 	for(ConnectorList::iterator it = m_conList.begin(); it != end; ++it) {
 		Connector *con = *it;
 
-assert(con);
 		con->setNodeGroup(0);
 		disconnect(con, SIGNAL(removed(Connector*)), this, SLOT(connectorRemoved(Connector*)));
 	}
@@ -453,7 +433,7 @@ assert(con->startNode() != con->endNode());
 	{
 	NodeList::iterator xnEnd = m_extNodeList.end();
 	for (NodeList::iterator it = m_extNodeList.begin(); it != xnEnd; ++it) {
-// 		connect( *it, SIGNAL(moved(Node*)), this, SLOT(extNodeMoved()) );
+//connect( *it, SIGNAL(moved(Node*)), this, SLOT(extNodeMoved()) );
 		connect(*it, SIGNAL(removed(Node*)), this, SLOT(nodeRemoved(Node*)));
 	}
 	}
@@ -479,3 +459,4 @@ void NodeGroup::addExtNode(Node *node) {
 }
 
 #include "nodegroup.moc"
+
