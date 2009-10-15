@@ -237,8 +237,9 @@ Connector *CircuitICNDocument::createConnector(Connector *con1, Connector *con2,
 
 Connector *CircuitICNDocument::createConnector(const QString &startNodeId, const QString &endNodeId, QPointList *pointList) {
 
-	ECNode *startNode = m_ecNodeList[startNodeId];
-	ECNode *endNode = m_ecNodeList[endNodeId];
+// must call this function to avoide creating fake nodes. 
+	ECNode *startNode = dynamic_cast<ECNode*>(nodeWithID(startNodeId));
+	ECNode *endNode   = dynamic_cast<ECNode*>(nodeWithID(endNodeId  ));
 
 	if(!startNode || !endNode) {
 		kdDebug() << "Either/both the connector start node and end node could not be found" << endl;
@@ -396,8 +397,6 @@ assert(nodeIt->second);
 bool CircuitICNDocument::joinConnectors(ECNode *node) {
 	// We don't want to destroy the node if it has a parent
 	if (node->parentItem()) return false;
-
-//	node->removeNullConnectors();
 
 	// an electronic node can be removed if it has exactly 2 connectors connected to it
 	int conCount = node->getAllConnectors().size();
