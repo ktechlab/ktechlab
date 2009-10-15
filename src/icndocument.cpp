@@ -53,11 +53,11 @@ ICNDocument::ICNDocument(const QString &caption, const char *name)
 ICNDocument::~ICNDocument() {
 	m_bDeleted = true;
 
-	NodeGroupList ngToDelete = m_nodeGroupList;
+	const NodeGroupList::iterator nglEnd = m_nodeGroupList.end();
+	for (NodeGroupList::iterator it = m_nodeGroupList.begin(); it != nglEnd; ++it)
+		delete(NodeGroup*)(*it);
+
 	m_nodeGroupList.clear();
-	const NodeGroupList::iterator nglEnd = ngToDelete.end();
-	for (NodeGroupList::iterator it = ngToDelete.begin(); it != nglEnd; ++it)
-		delete(NodeGroup *)(*it);
 
 	delete m_cells;
 	m_cells = 0l;

@@ -54,9 +54,11 @@ CircuitICNDocument::~CircuitICNDocument() {
 
 void CircuitICNDocument::deleteAllNodes() {
 
-	const ECNodeMap::iterator nodeListEnd = m_ecNodeList.end();
-	for (ECNodeMap::iterator it = m_ecNodeList.begin(); it != nodeListEnd; ++it)
-		delete it->second;
+	const NodeGroupList::iterator nglEnd = m_nodeGroupList.end();
+	for (NodeGroupList::iterator it = m_nodeGroupList.begin(); it != nglEnd; ++it)
+		delete(NodeGroup*)(*it);
+
+	m_nodeGroupList.clear();
 
 	m_ecNodeList.clear();
 	const ECNodeMap::iterator nodeListEnd = nodesToDelete.end();
@@ -94,7 +96,7 @@ Connector *CircuitICNDocument::createConnector(Node *node, Connector *con, const
 		addAllItemConnectorPoints();
 		ConRouter cr(this);
 		cr.mapRoute(int(node->x()), int(node->y()), pos2.x(), pos2.y());
-		autoPoints = cr.pointList(false);
+		autoPoints = cr.pointList();
 		pointList = &autoPoints;
 	}
 
@@ -200,7 +202,7 @@ Connector *CircuitICNDocument::createConnector(Connector *con1, Connector *con2,
 		addAllItemConnectorPoints();
 		ConRouter cr(this);
 		cr.mapRoute(pos1.x(), pos1.y(), pos2.x(), pos2.y());
-		autoPoints = cr.pointList(false);
+		autoPoints = cr.pointList();
 		pointList = &autoPoints;
 	}
 
@@ -325,7 +327,7 @@ void CircuitICNDocument::flushDeleteList() {
 
 	m_itemDeleteList.clear();
 
-// 	// Check connectors for merging
+	// Check connectors for merging
 	bool doneJoin = false;
 
 	const ECNodeMap::iterator nlEnd = m_ecNodeList.end();
