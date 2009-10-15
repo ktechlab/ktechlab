@@ -81,6 +81,7 @@ void Matrix::performLU()
 	for(unsigned int k = 0; k < n-1; k++) {
 
 		// do row permutations; 
+		unsigned foo;
 		if(k >= max_k) {
 			double max = std::abs(m_mat->at(k,k));
 			unsigned int row = k;
@@ -93,10 +94,13 @@ void Matrix::performLU()
 			}
 
 			if(row != k) swapRows(k,row);
-		}
+
+			foo = k; 
+		} else foo = max_k;
+
+		foo++;
 
 		double *const lu_K_K = &(*m_lu)[k][k];
-		unsigned foo = std::max(k, max_k) + 1;
 
 // detect singular matrixes...
 		double lu_K_K_val = *lu_K_K; // have a local copy of the data at the pointer. 
@@ -252,7 +256,7 @@ double Matrix::validateLU() const
 		error += A_check->absrowsum(i);
 	}
 
-	if(error > 1e-6 || !std::isfinite(error) ) {
+	if(error > 1e-4 || !std::isfinite(error) ) {
 // TIP: copy output into ooffice spreadsheet, make sure to select "space" as the delimiter
 		std::cout << "A" << std::endl;
 		m_mat->dumpToAux();
