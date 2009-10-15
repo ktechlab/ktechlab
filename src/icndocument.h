@@ -273,9 +273,10 @@ protected:
 	// OVERLOADED
 	QCanvasItemList m_itemDeleteList; // List of canvas items to be deleted
 
+	NodeGroupList m_nodeGroupList;
 private:
 	Cells *m_cells;
-	NodeGroupList m_nodeGroupList;
+
 };
 
 #endif
