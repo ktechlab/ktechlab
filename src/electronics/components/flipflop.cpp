@@ -70,43 +70,26 @@ ECDFlipFlop::ECDFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id)
 	m_prevD = false;
 	m_pSimulator = Simulator::self();
 
-	m_pD = new LogicIn(LogicConfig());
-	setup1pinElement(m_pD, m_pNNode[0]->pin());
+	setup1pinElement(&m_pD, m_pNNode[0]->pin());
+	setup1pinElement(&m_pQ, m_pPNode[0]->pin());
+	m_pQ.setHigh(true);
 
-	m_pQ = new LogicOut(LogicConfig(), true);
-	setup1pinElement(m_pQ, m_pPNode[0]->pin());
-
-	m_pClock = new LogicIn(LogicConfig());
-	setup1pinElement(m_pClock, m_pNNode[1]->pin());
-
-	m_pQBar = new LogicOut(LogicConfig(), false);
-	setup1pinElement(m_pQBar, m_pPNode[1]->pin());
-
-	setp = new LogicIn(LogicConfig());
-	setup1pinElement(setp, createPin(0, -32, 90, "set")->pin());
-
-	rstp = new LogicIn(LogicConfig());
-	setup1pinElement(rstp, createPin(0, 32, 270, "rst")->pin());
+	setup1pinElement(&m_pClock, m_pNNode[1]->pin());
+	setup1pinElement(&m_pQBar, m_pPNode[1]->pin());
+	setup1pinElement(&setp, createPin(0, -32, 90, "set")->pin());
+	setup1pinElement(&rstp, createPin(0, 32, 270, "rst")->pin());
 
 	// (The display text for D, >, Set, Rst is set in initSymbolFromTrigger
-	addDisplayText("Q",	QRect(12, -16, 20, 16), "Q");
-	addDisplayText("Q'",	QRect(12,   0, 20, 16), "Q'");
+	addDisplayText("Q",  QRect(12, -16, 20, 16), "Q");
+	addDisplayText("Q'", QRect(12,   0, 20, 16), "Q'");
 
-	m_pD->setCallback(this, (CallbackPtr)(&ECDFlipFlop::inputChanged));
-	m_pClock->setCallback(this, (CallbackPtr)(&ECDFlipFlop::clockChanged));
-	setp->setCallback(this, (CallbackPtr)(&ECDFlipFlop::asyncChanged));
-	rstp->setCallback(this, (CallbackPtr)(&ECDFlipFlop::asyncChanged));
-
-//	inStateChanged(false);
+	m_pD.setCallback(this, (CallbackPtr)(&ECDFlipFlop::inputChanged));
+	m_pClock.setCallback(this, (CallbackPtr)(&ECDFlipFlop::clockChanged));
+	setp.setCallback(this, (CallbackPtr)(&ECDFlipFlop::asyncChanged));
+	rstp.setCallback(this, (CallbackPtr)(&ECDFlipFlop::asyncChanged));
 }
 
 ECDFlipFlop::~ECDFlipFlop() {
-	delete m_pD;
-	delete m_pQ;
-	delete m_pQBar;
-	delete m_pClock;
-	delete setp;
-	delete rstp;
 }
 
 void ECDFlipFlop::initSymbolFromTrigger() {
@@ -134,12 +117,12 @@ void ECDFlipFlop::drawShape(QPainter &p) {
 }
 
 void ECDFlipFlop::asyncChanged(bool) {
-	bool set = setp->isHigh();
-	bool rst = rstp->isHigh();
+	bool set = setp.isHigh();
+	bool rst = rstp.isHigh();
 
 	if (set || rst) {
-		m_pQ->setHigh(set);
-		m_pQBar->setHigh(rst);
+		m_pQ.setHigh(set);
+		m_pQBar.setHigh(rst);
 	}
 }
 
@@ -159,7 +142,7 @@ void ECDFlipFlop::clockChanged(bool newState) {
 
 	m_bPrevClock = newState;
 
-	if(setp->isHigh() || rstp->isHigh()) return;
+	if(setp.isHigh() || rstp.isHigh()) return;
 
 	if (edge) {
 		// The D Flip-Flop takes the input before the edge fall/rise - not after
@@ -170,20 +153,14 @@ void ECDFlipFlop::clockChanged(bool newState) {
 		unsigned long long simTime = m_pSimulator->time();
 		bool d = (simTime == m_prevDChangeSimTime) ? !m_prevD : m_prevD;
 
-		m_pQ->setHigh(d);
-		m_pQBar->setHigh(!d);
+		m_pQ.setHigh(d);
+		m_pQBar.setHigh(!d);
 	}
 }
-
-//void ECDFlipFlop::inStateChanged(bool) {
-	// Only called when the flipflop is created.
-//	m_pQ->setHigh(false);
-//	m_pQBar->setHigh(true);
-//}
 //END class ECDFlipFlop
 
 //BEGIN class ECJKFlipFlop
-Item* ECJKFlipFlop::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
+Item *ECJKFlipFlop::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
 	return new ECJKFlipFlop((ICNDocument*)itemDocument, newItem, id);
 }
 
@@ -210,43 +187,25 @@ ECJKFlipFlop::ECJKFlipFlop(ICNDocument *icnDocument, bool newItem, const char *i
 
 	initSymbolFromTrigger();
 
-	m_pJ = new LogicIn(LogicConfig());
-	setup1pinElement(m_pJ, m_pNNode[0]->pin());
+	setup1pinElement(&m_pJ, m_pNNode[0]->pin());
+	setup1pinElement(&m_pQ, m_pPNode[0]->pin());
+	m_pQ.setState(true);
 
-	m_pQ = new LogicOut(LogicConfig(), true);
-	setup1pinElement(m_pQ, m_pPNode[0]->pin());
-
-	m_pClock = new LogicIn(LogicConfig());
-	setup1pinElement(m_pClock, m_pNNode[1]->pin());
-
-	m_pQBar = new LogicOut(LogicConfig(), false);
-	setup1pinElement(m_pQBar, m_pPNode[1]->pin());
-
-	m_pK = new LogicIn(LogicConfig());
-	setup1pinElement(m_pK, m_pNNode[2]->pin());
-
-	setp = new LogicIn(LogicConfig());
-	setup1pinElement(setp, createPin(0, -40, 90, "set")->pin());
-
-	rstp = new LogicIn(LogicConfig());
-	setup1pinElement(rstp, createPin(0, 40, 270, "rst")->pin());
+	setup1pinElement(&m_pClock, m_pNNode[1]->pin());
+	setup1pinElement(&m_pQBar, m_pPNode[1]->pin());
+	setup1pinElement(&m_pK, m_pNNode[2]->pin());
+	setup1pinElement(&setp, createPin(0, -40, 90, "set")->pin());
+	setup1pinElement(&rstp, createPin(0, 40, 270, "rst")->pin());
 
 	addDisplayText("Q",  QRect(12, -24, 20, 16), "Q");
 	addDisplayText("Q'", QRect(12,   8, 20, 16), "Q'");
 
-	m_pClock->setCallback(this, (CallbackPtr)(&ECJKFlipFlop::clockChanged));
-	setp->setCallback(this, (CallbackPtr)(&ECJKFlipFlop::asyncChanged));
-	rstp->setCallback(this, (CallbackPtr)(&ECJKFlipFlop::asyncChanged));
+	m_pClock.setCallback(this, (CallbackPtr)(&ECJKFlipFlop::clockChanged));
+	setp.setCallback(this, (CallbackPtr)(&ECJKFlipFlop::asyncChanged));
+	rstp.setCallback(this, (CallbackPtr)(&ECJKFlipFlop::asyncChanged));
 }
 
 ECJKFlipFlop::~ECJKFlipFlop() {
-	delete m_pJ;
-	delete m_pK;
-	delete m_pClock;
-	delete setp;
-	delete rstp;
-	delete m_pQ;
-	delete m_pQBar;
 }
 
 void ECJKFlipFlop::initSymbolFromTrigger() {
@@ -279,24 +238,24 @@ void ECJKFlipFlop::clockChanged(bool newvalue) {
 	bool edge = (m_edgeTrigger == Falling) == (m_bPrevClock && !newvalue);
 	m_bPrevClock = newvalue;
 
-	bool j = m_pJ->isHigh();
-	bool k = m_pK->isHigh();
-
-	if(setp->isHigh() || rstp->isHigh()) return;
+	if(setp.isHigh() || rstp.isHigh()) return;
 
 	if(edge) {
-		m_pQ->setHigh((j && m_pQBar->isHigh()) || (!k && m_pQ->isHigh()));
-		m_pQBar->setHigh(!m_pQ->isHigh());
+		bool j = m_pJ.isHigh();
+		bool k = m_pK.isHigh();
+
+		m_pQ.setHigh((j && m_pQBar.isHigh()) || (!k && m_pQ.isHigh()));
+		m_pQBar.setHigh(!m_pQ.isHigh());
 	}
 }
 
 void ECJKFlipFlop::asyncChanged(bool) {
-	bool set = setp->isHigh();
-	bool rst = rstp->isHigh();
+	bool set = setp.isHigh();
+	bool rst = rstp.isHigh();
 
 	if(set || rst) {
-		m_pQ->setHigh(set);
-		m_pQBar->setHigh(rst);
+		m_pQ.setHigh(set);
+		m_pQBar.setHigh(rst);
 	}
 }
 //END class ECJKFlipFlop
@@ -332,41 +291,29 @@ ECSRFlipFlop::ECSRFlipFlop(ICNDocument *icnDocument, bool newItem, const char *i
 	init2PinLeft(-8, 8);
 	init2PinRight(-8, 8);
 
-	m_pS = new LogicIn(LogicConfig());
-	setup1pinElement(m_pS, m_pNNode[0]->pin());
+	setup1pinElement(&m_pS, m_pNNode[0]->pin());
+	setup1pinElement(&m_pR, m_pNNode[1]->pin());
+	setup1pinElement(&m_pQ, m_pPNode[0]->pin());
+	setup1pinElement(&m_pQBar, m_pPNode[1]->pin());
 
-	m_pR = new LogicIn(LogicConfig());
-	setup1pinElement(m_pR, m_pNNode[1]->pin());
-
-	m_pQ = new LogicOut(LogicConfig(), true);
-	setup1pinElement(m_pQ, m_pPNode[0]->pin());
-
-	m_pQBar = new LogicOut(LogicConfig(), false);
-	setup1pinElement(m_pQBar, m_pPNode[1]->pin());
-
-	m_pQ->setHigh(true);
-	m_pQBar->setHigh(false);
+	m_pQ.setHigh(true);
+	m_pQBar.setHigh(false);
 
 	addDisplayText("S",  QRect(-24, -16, 20, 16), "S");
 	addDisplayText("R",  QRect(-24,   0, 20, 16), "R");
 	addDisplayText("Q",  QRect(4,   -16, 20, 16), "Q");
 	addDisplayText("Q'", QRect(4,     0, 20, 16), "Q'");
 
-	m_pS->setCallback(this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged));
-	m_pR->setCallback(this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged));
+	m_pS.setCallback(this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged));
+	m_pR.setCallback(this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged));
 
 // this type of flip-flop is sensitive to whether the load on the output overcomes its output drive.
 // we also sometimes need two iterations to settle out our state...
-	m_pQ->setCallback(this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged));
-	m_pQBar->setCallback(this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged));
+	m_pQ.setCallback(this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged));
+	m_pQBar.setCallback(this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged));
 }
 
-ECSRFlipFlop::~ECSRFlipFlop() {
-	delete m_pS;
-	delete m_pR;
-	delete m_pQ;
-	delete m_pQBar;
-}
+ECSRFlipFlop::~ECSRFlipFlop() {}
 
 void ECSRFlipFlop::dataChanged() {
 	m_pol = dataBool("polarity");
@@ -375,12 +322,12 @@ void ECSRFlipFlop::dataChanged() {
 
 void ECSRFlipFlop::inStateChanged(bool) {
 
-	bool s = m_pS->isHigh() ^ m_pol;
-	bool r = m_pR->isHigh() ^ m_pol;
+	bool s = m_pS.isHigh() ^ m_pol;
+	bool r = m_pR.isHigh() ^ m_pol;
 
-	m_pQ->setHigh(!(m_pQBar->isHigh() || r));
-	m_pQBar->setHigh(!(m_pQ->isHigh() || s));
-	m_pQ->setHigh(!(m_pQBar->isHigh() || r));
+	m_pQ.setHigh(!(m_pQBar.isHigh() || r));
+	m_pQBar.setHigh(!(m_pQ.isHigh() || s));
+	m_pQ.setHigh(!(m_pQBar.isHigh() || r));
 
 //I think that if we change our state, we trigger our own callback
 // so either we'll settle out or go nuts... we might need to set up a
