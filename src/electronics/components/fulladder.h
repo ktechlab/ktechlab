@@ -29,8 +29,8 @@ public:
 protected:
 	void inStateChanged( bool newState );
 	
-	LogicIn *ALogic, *BLogic, *inLogic;
-	LogicOut *outLogic, *SLogic;
+	LogicIn ALogic, BLogic, inLogic;
+	LogicOut outLogic, SLogic;
 };
 
 #endif
