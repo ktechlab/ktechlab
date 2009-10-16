@@ -32,16 +32,15 @@ LibraryItem* Inductor::libraryItem() {
 }
 
 Inductor::Inductor(ICNDocument *icnDocument, bool newItem, const char *id)
-		: SimpleComponent(icnDocument, newItem, id ? id : "inductor") {
+		: SimpleComponent(icnDocument, newItem, id ? id : "inductor"),
+		m_pInductance(0.001, LINEAR_UPDATE_PERIOD) {
 	m_name = i18n("Inductor");
 	setSize(-16, -8, 32, 16);
 
 	init1PinLeft();
 	init1PinRight();
 
-//	m_pInductance = createInductance(m_pNNode[0]->pin(), m_pPNode[0]->pin(), 0.001);
-	m_pInductance = new Inductance(0.001, LINEAR_UPDATE_PERIOD);
-	setup2pinElement(*m_pInductance, m_pNNode[0]->pin(), m_pPNode[0]->pin());
+	setup2pinElement(m_pInductance, m_pNNode[0]->pin(), m_pPNode[0]->pin());
 
 	createProperty("Inductance", Variant::Type::Double);
 	property("Inductance")->setCaption(i18n("Inductance"));
