@@ -12,6 +12,7 @@
 #define ECCURRENTSIGNAL_H
 
 #include "simplecomponent.h"
+#include "currentsignal.h"
 
 class CurrentSignal;
 
@@ -32,7 +33,7 @@ protected:
 	virtual void drawShape( QPainter &p );
 	void dataChanged();
 	
-	CurrentSignal *m_currentSignal;
+	CurrentSignal m_currentSignal;
 };
 
 #endif

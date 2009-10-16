@@ -22,8 +22,6 @@
 LEDPart::LEDPart(Component *pParent, const QString& strPNode, const QString& strNNode)
 	: m_pParent(pParent), m_strPNode(strPNode), m_strNNode(strNNode)
 {
-//	m_pDiode = pParent->createDiode(pParent->ecNodeWithID(strPNode)->pin(), pParent->ecNodeWithID(strNNode)->pin());
-	m_pDiode = new Diode();
 	pParent->setup2pinElement(m_pDiode,
 		pParent->ecNodeWithID(strPNode)->pin(),
 		pParent->ecNodeWithID(strNNode)->pin());
@@ -37,12 +35,11 @@ LEDPart::LEDPart(Component *pParent, const QString& strPNode, const QString& str
 LEDPart::~LEDPart() {
 	m_pParent->removeNode(m_strPNode);
 	m_pParent->removeNode(m_strNNode);
-	m_pParent->removeElement(m_pDiode, false);
-	delete m_pDiode;
+	m_pParent->removeElement(&m_pDiode, false);
 }
 
 void LEDPart::setDiodeSettings(const DiodeSettings& ds) {
-	m_pDiode->setDiodeSettings(ds);
+	m_pDiode.setDiodeSettings(ds);
 }
 
 void LEDPart::setColor(const QColor &color) {
@@ -52,7 +49,7 @@ void LEDPart::setColor(const QColor &color) {
 }
 
 void LEDPart::step() {
-	avg_brightness += LED::brightness(m_pDiode->current()) * LINEAR_UPDATE_PERIOD;
+	avg_brightness += LED::brightness(m_pDiode.current()) * LINEAR_UPDATE_PERIOD;
 	lastUpdatePeriod += LINEAR_UPDATE_PERIOD;
 }
 
@@ -98,7 +95,7 @@ LEDBarGraphDisplay::LEDBarGraphDisplay(ICNDocument* icnDocument, bool newItem, c
 	m_numRows = 0;
 
 	for (unsigned i = 0; i < max_LED_rows; i++)
-		m_LEDParts[i] = 0l;
+		m_LEDParts[i] = 0;
 
 	// Create a Row property.
 	createProperty("rows", Variant::Type::Int);
@@ -137,6 +134,12 @@ LEDBarGraphDisplay::LEDBarGraphDisplay(ICNDocument* icnDocument, bool newItem, c
 }
 
 LEDBarGraphDisplay::~LEDBarGraphDisplay() {
+
+// FIXME: why does this crash?
+/*
+	for (unsigned i = 0; i < m_numRows; i++)
+		delete m_LEDParts[i];
+*/
 }
 
 void LEDBarGraphDisplay::dataChanged() {
@@ -209,7 +212,7 @@ void LEDBarGraphDisplay::initPins() {
 		// Remove excess LED parts.
 		for (unsigned i = numRows; i < m_numRows; i++) {
 			delete m_LEDParts[i];
-			m_LEDParts[i] = 0l;
+			m_LEDParts[i] = 0;
 		}
 	}
 
