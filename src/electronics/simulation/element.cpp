@@ -25,7 +25,6 @@ void CNode::setGround() {
 Element::Element() {
 	b_status = false;
 	p_eSet = 0;
-	b_componentDeleted = false;
 
 	for (int i = 0; i < MAX_CNODES; i++)
 		p_cnode[i] = 0;
@@ -37,11 +36,9 @@ Element::Element() {
 	m_numCNodes = 0;
 }
 
-Element::~ Element() {
-}
+Element::~ Element() {}
 
 void Element::setElementSet(ElementSet *c) {
-	assert(!b_componentDeleted);
 	assert(!p_eSet);
 
 	if (!c) return elementSetDeleted();
@@ -52,7 +49,6 @@ void Element::setElementSet(ElementSet *c) {
 }
 
 void Element::componentDeleted() {
-	b_componentDeleted = true;
 	b_status = false;
 
 	p_eSet = 0;
@@ -61,8 +57,6 @@ void Element::componentDeleted() {
 }
 
 void Element::elementSetDeleted() {
-	if (b_componentDeleted) return delete this;
-
 	b_status = false;
 
 //	kdDebug() << "Element::elementSetDeleted(): Setting b_status to false, this=" << this << endl;
@@ -100,7 +94,6 @@ void Element::setCBranches(const int b0, const int b1, const int b2) {
 	p_cbranch[0] = (b0 > -1) ? p_eSet->cBranch(b0) : 0;
 	p_cbranch[1] = (b1 > -1) ? p_eSet->cBranch(b1) : 0;
 	p_cbranch[2] = (b2 > -1) ? p_eSet->cBranch(b2) : 0;
-//	p_cbranch[3] = (b3 > -1) ? p_eSet->cBranch(b3) : 0;
 	updateStatus();
 }
 
