@@ -13,11 +13,6 @@
 #include "libraryitem.h"
 #include "pin.h"
 
-#include "cccs.h"
-#include "ccvs.h"
-#include "vccs.h"
-#include "vcvs.h"
-
 #include <klocale.h>
 #include <qpainter.h>
 
@@ -136,19 +131,17 @@ LibraryItem* ECCCCS::libraryItem() {
 }
 
 ECCCCS::ECCCCS(ICNDocument *icnDocument, bool newItem, const char *id)
-		: DependentSource(icnDocument, newItem, id ? id : "cccs") {
+		: DependentSource(icnDocument, newItem, id ? id : "cccs"),
+		m_cccs(1) {
 	m_name = i18n("Current Controlled Currrent Source");
 
-	m_cccs = new CCCS(1);
 	setupSpcl4pinElement(m_cccs, m_pNNode[0]->pin(), m_pPNode[0]->pin(),
 	                 m_pNNode[1]->pin(), m_pPNode[1]->pin());
 
 	m_pNNode[1]->pin()->setGroundType(Pin::gt_medium);
 }
 
-ECCCCS::~ECCCCS() {
-	delete m_cccs;
-}
+ECCCCS::~ECCCCS() {}
 
 void ECCCCS::dataChanged() {
 	double gain = dataDouble("gain");
@@ -156,7 +149,7 @@ void ECCCCS::dataChanged() {
 	QString display = QString::number(gain / getMultiplier(gain), 'g', 3) + getNumberMag(gain) + QChar(' ');
 	setDisplayText("gain", display);
 
-	m_cccs->setGain(gain);
+	m_cccs.setGain(gain);
 }
 
 void ECCCCS::drawShape(QPainter &p) {
@@ -184,19 +177,17 @@ LibraryItem *ECCCVS::libraryItem() {
 }
 
 ECCCVS::ECCCVS(ICNDocument *icnDocument, bool newItem, const char *id)
-		: DependentSource(icnDocument, newItem, id ? id : "ccvs") {
+		: DependentSource(icnDocument, newItem, id ? id : "ccvs"),
+		m_ccvs(1) {
 	m_name = i18n("Current Controlled Voltage Source");
 
-	m_ccvs = new CCVS(1);
 	setupSpcl4pinElement(m_ccvs, m_pNNode[0]->pin(), m_pPNode[0]->pin(),
 			m_pNNode[1]->pin(), m_pPNode[1]->pin());
 
 	m_pNNode[1]->pin()->setGroundType(Pin::gt_medium);
 }
 
-ECCCVS::~ECCCVS() {
-	delete m_ccvs;
-}
+ECCCVS::~ECCCVS() {}
 
 void ECCCVS::dataChanged() {
 	double gain = dataDouble("gain");
@@ -204,7 +195,7 @@ void ECCCVS::dataChanged() {
 	QString display = QString::number(gain / getMultiplier(gain), 'g', 3) + getNumberMag(gain) + QChar(' ');
 	setDisplayText("gain", display);
 
-	m_ccvs->setGain(gain);
+	m_ccvs.setGain(gain);
 }
 
 void ECCCVS::drawShape(QPainter &p) {
@@ -231,19 +222,17 @@ LibraryItem* ECVCCS::libraryItem() {
 }
 
 ECVCCS::ECVCCS(ICNDocument *icnDocument, bool newItem, const char *id)
-		: DependentSource(icnDocument, newItem, id ? id : "vccs") {
+		: DependentSource(icnDocument, newItem, id ? id : "vccs"),
+		m_vccs(1) {
 	m_name = i18n("Voltage Controlled Current Source");
 
-	m_vccs = new VCCS(1);
 	setupSpcl4pinElement(m_vccs, m_pNNode[0]->pin(), m_pPNode[0]->pin(),
 	                 m_pNNode[1]->pin(), m_pPNode[1]->pin());
 
 	m_pNNode[1]->pin()->setGroundType(Pin::gt_medium);
 }
 
-ECVCCS::~ECVCCS() {
-	delete m_vccs;
-}
+ECVCCS::~ECVCCS() {}
 
 void ECVCCS::dataChanged() {
 	double gain = dataDouble("gain");
@@ -251,7 +240,7 @@ void ECVCCS::dataChanged() {
 	QString display = QString::number(gain / getMultiplier(gain), 'g', 3) + getNumberMag(gain) + QChar(' ');
 	setDisplayText("gain", display);
 
-	m_vccs->setGain(gain);
+	m_vccs.setGain(gain);
 }
 
 void ECVCCS::drawShape(QPainter &p) {
@@ -278,19 +267,17 @@ LibraryItem* ECVCVS::libraryItem() {
 }
 
 ECVCVS::ECVCVS(ICNDocument *icnDocument, bool newItem, const char *id)
-		: DependentSource(icnDocument, newItem, id ? id : "vcvs") {
+		: DependentSource(icnDocument, newItem, id ? id : "vcvs"),
+		m_vcvs(1) {
 	m_name = i18n("Voltage Controlled Voltage Source");
 
-	m_vcvs = new VCVS(1);
 	setupSpcl4pinElement(m_vcvs, m_pNNode[0]->pin(), m_pPNode[0]->pin(),
 			m_pNNode[1]->pin(), m_pPNode[1]->pin());
 
 	m_pNNode[1]->pin()->setGroundType(Pin::gt_medium);
 }
 
-ECVCVS::~ECVCVS() {
-	delete m_vcvs;
-}
+ECVCVS::~ECVCVS() {}
 
 void ECVCVS::dataChanged() {
 	double gain = dataDouble("gain");
@@ -298,7 +285,7 @@ void ECVCVS::dataChanged() {
 	QString display = QString::number(gain / getMultiplier(gain), 'g', 3) + getNumberMag(gain) + QChar(' ');
 	setDisplayText("gain", display);
 
-	m_vcvs->setGain(gain);
+	m_vcvs.setGain(gain);
 }
 
 void ECVCVS::drawShape(QPainter &p) {

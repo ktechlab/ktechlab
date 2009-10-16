@@ -328,13 +328,13 @@ void Component::setup3pinElement(Element &ele, Pin *a, Pin *b, Pin *c) {
 	setInterDependent(it, pinz);
 }
 
-void Component::setup4pinElement(Element *ele, Pin *a, Pin *b, Pin *c, Pin *d) {
+void Component::setup4pinElement(Element &ele, Pin *a, Pin *b, Pin *c, Pin *d) {
 	PinList pins;
 	pins.push_back(a);
 	pins.push_back(b);
 	pins.push_back(c);
 	pins.push_back(d);
-	ElementMapList::iterator it = handleElement(ele, pins);
+	ElementMapList::iterator it = handleElement(&ele, pins);
 
 	PinSet pinz; 
 	pinz.insert(a);
@@ -344,14 +344,14 @@ void Component::setup4pinElement(Element *ele, Pin *a, Pin *b, Pin *c, Pin *d) {
 	setInterDependent(it, pinz);
 }
 
-void Component::setupSpcl4pinElement(Element *ele, Pin *a, Pin *b, Pin *c, Pin *d) {
+void Component::setupSpcl4pinElement(Element &ele, Pin *a, Pin *b, Pin *c, Pin *d) {
 
 	PinList pins;
 	pins.push_back(a);
 	pins.push_back(b);
 	pins.push_back(c);
 	pins.push_back(d);
-	ElementMapList::iterator it = handleElement(ele, pins);
+	ElementMapList::iterator it = handleElement(&ele, pins);
 
 	PinSet pinset;
 	pinset.insert(a);
