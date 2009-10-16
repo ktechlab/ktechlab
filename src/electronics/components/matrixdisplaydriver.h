@@ -11,13 +11,13 @@
 #ifndef MATRIXDISPLAYDRIVER_H
 #define MATRIXDISPLAYDRIVER_H
 
-#include "matrixdisplay.h"
+#include <vector>
 #include "dipcomponent.h"
+#include "logic.h";
 
 /**
 @author David Saxton
  */
-
 class MatrixDisplayDriver : public DIPComponent {
 
 public:
@@ -28,14 +28,12 @@ public:
     static LibraryItem *libraryItem();
 
     virtual void stepNonLogic();
-    virtual bool doesStepNonLogic() const {
-        return true;
-    }
+    virtual bool doesStepNonLogic() const { return true; }
 
 protected:
-    QValueVector<LogicIn*> m_pValueLogic;
-    QValueVector<LogicOut*> m_pRowLogic;
-    QValueVector<LogicOut*> m_pColLogic;
+    std::vector<LogicIn> m_pValueLogic;
+    std::vector<LogicOut> m_pRowLogic;
+    std::vector<LogicOut> m_pColLogic;
 
     unsigned m_Col;
 };
