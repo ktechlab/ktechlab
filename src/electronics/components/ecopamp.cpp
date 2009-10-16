@@ -47,7 +47,7 @@ ECOpAmp::ECOpAmp(ICNDocument *icnDocument, bool newItem, const char *id)
 	init2PinLeft(-8, 8);
 	init1PinRight();
 
-	setup3pinElement(&the_amp, m_pNNode[0]->pin(), m_pPNode[0]->pin(), m_pNNode[1]->pin());
+	setup3pinElement(the_amp, m_pNNode[0]->pin(), m_pPNode[0]->pin(), m_pNNode[1]->pin());
 }
 
 ECOpAmp::~ECOpAmp() {}

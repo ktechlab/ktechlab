@@ -9,7 +9,6 @@
  ***************************************************************************/
 
 #include "ecjfet.h"
-#include "jfet.h"
 #include "libraryitem.h"
 
 #include <kiconloader.h>
@@ -47,7 +46,7 @@ LibraryItem *ECJFET::libraryItemPJFET() {
 }
 
 ECJFET::ECJFET(int JFET_type, ICNDocument *icnDocument, bool newItem, const char *id)
-		: Component(icnDocument, newItem, id) {
+		: Component(icnDocument, newItem, id), m_pJFET((JFET::JFET_type) JFET_type) {
 	m_JFET_type = JFET_type;
 
 	if (JFET_type == JFET::nJFET)
@@ -56,13 +55,12 @@ ECJFET::ECJFET(int JFET_type, ICNDocument *icnDocument, bool newItem, const char
 
 	setSize(-8, -8, 16, 16);
 
-	m_pJFET = new JFET((JFET::JFET_type) JFET_type);
 	setup3pinElement(m_pJFET, createPin(8, -16, 90, "D")->pin(),
 		createPin(-16, 0, 0, "G")->pin(), createPin(8, 16, 270, "S")->pin());
 
 	JFETSettings s; // will be created with the default settings
 
-	m_pJFET->setJFETSettings(s);
+	m_pJFET.setJFETSettings(s);
 
 	Variant *v = createProperty("V_Th", Variant::Type::Double);
 	v->setCaption(i18n("Threshold voltage"));
@@ -105,9 +103,7 @@ ECJFET::ECJFET(int JFET_type, ICNDocument *icnDocument, bool newItem, const char
 	v->setAdvanced(true);
 }
 
-ECJFET::~ECJFET() {
-	delete m_pJFET;
-}
+ECJFET::~ECJFET() {}
 
 void ECJFET::dataChanged() {
 	JFETSettings s;
@@ -117,7 +113,7 @@ void ECJFET::dataChanged() {
 	s.N    = dataDouble("N");
 	s.N_R  = dataDouble("N_R");
 
-	m_pJFET->setJFETSettings(s);
+	m_pJFET.setJFETSettings(s);
 }
 
 
