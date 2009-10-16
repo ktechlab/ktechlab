@@ -314,49 +314,39 @@ MatrixDisplayDriver::MatrixDisplayDriver(ICNDocument *icnDocument, bool newItem,
     initDIPSymbol(pins, 64);
     initDIP(pins);
 
-    m_pValueLogic.resize(8, 0);
+    m_pValueLogic.resize(8);
+    for(unsigned i = 0; i < 8; ++i)
+        setup1pinElement(&m_pValueLogic[i], ecNodeWithID("D" + QString::number(i))->pin());
 
-    for(unsigned i = 0; i < 8; ++i) {
-        m_pValueLogic[i] = new LogicIn(LogicConfig());
-        setup1pinElement(m_pValueLogic[i], ecNodeWithID("D" + QString::number(i))->pin());
-    }
-
-    m_pRowLogic.resize(7, 0);
-
+    m_pRowLogic.resize(7);
     for(unsigned i = 0; i < 7; ++i) {
-        m_pRowLogic[i] = new LogicOut(LogicConfig(), false);
-        setup1pinElement(m_pRowLogic[i], ecNodeWithID("R" + QString::number(i))->pin());
-
-        m_pRowLogic[i]->setOutputLowConductance(1.0);
-        m_pRowLogic[i]->setOutputHighVoltage(5.0);
+        setup1pinElement(&m_pRowLogic[i], ecNodeWithID("R" + QString::number(i))->pin());
+        m_pRowLogic[i].setOutputLowConductance(1.0);
+        m_pRowLogic[i].setOutputHighVoltage(5.0);
     }
 
-    m_pColLogic.resize(5, 0);
-
+    m_pColLogic.resize(5);
     for(unsigned i = 0; i < 5; ++i) {
-        m_pColLogic[i] = new LogicOut(LogicConfig(), false);
-        setup1pinElement(m_pColLogic[i], ecNodeWithID("C" + QString::number(i))->pin());
-
-        m_pColLogic[i]->setOutputHighVoltage(5.0);
+        setup1pinElement(&m_pColLogic[i], ecNodeWithID("C" + QString::number(i))->pin());
+        m_pColLogic[i].setOutputHighVoltage(5.0);
     }
 }
 
-MatrixDisplayDriver::~MatrixDisplayDriver() {
-}
+MatrixDisplayDriver::~MatrixDisplayDriver() {}
 
 void MatrixDisplayDriver::stepNonLogic() {
 
-    m_pColLogic[m_Col]->setHigh(true);
+    m_pColLogic[m_Col].setHigh(true);
     m_Col = ++m_Col % 5;
-    m_pColLogic[m_Col]->setHigh(false); // enable drain. ??? 
+    m_pColLogic[m_Col].setHigh(false); // enable drain. ??? 
 
     char value = 0;
     for (unsigned i = 0; i < 8; ++i)
-        value |= (m_pValueLogic[i]->isHigh()) ? (1 << i) : 0;
+        value |= (m_pValueLogic[i].isHigh()) ? (1 << i) : 0;
 
 	char display_byte = characterMap[value][m_Col];
 	for (unsigned row = 0; row < 7; row++) {
-        	m_pRowLogic[row]->setHigh(display_byte & 1);
+        	m_pRowLogic[row].setHigh(display_byte & 1);
 		display_byte = display_byte >> 1;
 	}
 }

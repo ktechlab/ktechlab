@@ -41,43 +41,27 @@ FullAdder::FullAdder(ICNDocument *icnDocument, bool newItem, const char *id)
 	initDIPSymbol(pins, 48);
 	initDIP(pins);
 
-	SLogic = new LogicOut(LogicConfig(), false);
-	setup1pinElement(SLogic, ecNodeWithID("S")->pin());
+	setup1pinElement(&SLogic,  ecNodeWithID("S")->pin());
+	setup1pinElement(&outLogic, ecNodeWithID("C")->pin());
+	setup1pinElement(&ALogic,  ecNodeWithID("A")->pin());
+	setup1pinElement(&BLogic,  ecNodeWithID("B")->pin());
+	setup1pinElement(&inLogic, ecNodeWithID(">")->pin());
 
-	outLogic = new LogicOut(LogicConfig(), false);
-	setup1pinElement(outLogic, ecNodeWithID("C")->pin());
-
-	ALogic = new LogicIn(LogicConfig());
-	setup1pinElement(ALogic, ecNodeWithID("A")->pin());
-
-	BLogic = new LogicIn(LogicConfig());
-	setup1pinElement(BLogic, ecNodeWithID("B")->pin());
-
-	inLogic = new LogicIn(LogicConfig());
-	setup1pinElement(inLogic, ecNodeWithID(">")->pin());
-
-	ALogic->setCallback(this, (CallbackPtr)(&FullAdder::inStateChanged));
-	BLogic->setCallback(this, (CallbackPtr)(&FullAdder::inStateChanged));
-	inLogic->setCallback(this, (CallbackPtr)(&FullAdder::inStateChanged));
+	ALogic.setCallback(this, (CallbackPtr)(&FullAdder::inStateChanged));
+	BLogic.setCallback(this, (CallbackPtr)(&FullAdder::inStateChanged));
+	inLogic.setCallback(this, (CallbackPtr)(&FullAdder::inStateChanged));
 }
 
-FullAdder::~FullAdder()
-{
-	delete SLogic;
-	delete outLogic;
-	delete ALogic;
-	delete BLogic;
-	delete inLogic;
-}
+FullAdder::~FullAdder() {}
 
 void FullAdder::inStateChanged( bool /*state*/ )
 {
-	unsigned char A = ALogic->isHigh() 
-		+ BLogic->isHigh() 
-		+ inLogic->isHigh();
+	unsigned char A = ALogic.isHigh() 
+		+ BLogic.isHigh() 
+		+ inLogic.isHigh();
 	
-	SLogic->setHigh(A & 1); // result
-	outLogic->setHigh(A >> 1);  // carry
+	SLogic.setHigh(A & 1); // result
+	outLogic.setHigh(A >> 1);  // carry
 }
 
 
