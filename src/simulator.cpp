@@ -100,8 +100,16 @@ void Simulator::step() {
 #ifndef NO_GPSIM
 			// Update the gpsim processors
 			{
+                            unsigned int clockNumber; // current clock count in inner loop
+                            unsigned int clockTotal; // max. clocks for the given gpsim processor
+                            
+                            // for each processor... 
 				list<GpsimProcessor*>::iterator processors_end = m_gpsimProcessors->end();
 				for (list<GpsimProcessor*>::iterator processor = m_gpsimProcessors->begin(); processor != processors_end; ++processor) {
+                                    // .. get the number of steps it should execute ...
+                                    clockTotal = (*processor)->stepsPerMicrosecond();
+                                    for( clockNumber = 0; clockNumber < clockTotal; clockNumber++)
+                                        // ... and run them
 					(*processor)->executeNext();
 				}
 			}

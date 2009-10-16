@@ -135,6 +135,8 @@ GpsimProcessor::GpsimProcessor( QString symbolFile, QObject *parent )
 		Simulator::self()->attachGpsimProcessor(this);
 		DebugManager::self()->registerGpsim(this);
 	}
+        
+        m_stepsPerMicrosecond = 1;
 }
 
 
@@ -435,6 +437,16 @@ void GpsimProcessor::compileMicrobe( const QString &filename, QObject *receiver,
 			connect( pc, SIGNAL(failed()), receiver, failMember );
 	}
 }
+
+void GpsimProcessor::setStepsPerMicrosecond(const unsigned int steps){
+    m_stepsPerMicrosecond = steps;
+}
+
+unsigned int GpsimProcessor::stepsPerMicrosecond(){
+    return m_stepsPerMicrosecond;
+}
+
+
 //END class GpsimProcessor
 
 
