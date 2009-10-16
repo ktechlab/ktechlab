@@ -13,10 +13,10 @@
 
 #include "simplecomponent.h"
 
-class CCCS;
-class VCCS;
-class CCVS;
-class VCVS;
+#include "cccs.h"
+#include "ccvs.h"
+#include "vccs.h"
+#include "vcvs.h"
 
 /**
 @author David Saxton
@@ -50,7 +50,7 @@ protected:
 	virtual void dataChanged();
 	virtual void drawShape(QPainter &p);
 
-	CCCS *m_cccs;
+	CCCS m_cccs;
 };
 
 /**
@@ -63,14 +63,14 @@ public:
 	ECCCVS(ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECCCVS();
 
-	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
+	static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
 	static LibraryItem *libraryItem();
 
 protected:
 	virtual void dataChanged();
 	virtual void drawShape(QPainter &p);
 
-	CCVS *m_ccvs;
+	CCVS m_ccvs;
 };
 
 /**
@@ -90,7 +90,7 @@ protected:
 	virtual void dataChanged();
 	virtual void drawShape(QPainter &p);
 
-	VCCS *m_vccs;
+	VCCS m_vccs;
 };
 
 /**
@@ -110,7 +110,7 @@ protected:
 	virtual void dataChanged();
 	virtual void drawShape(QPainter &p);
 
-	VCVS *m_vcvs;
+	VCVS m_vcvs;
 };
 
 #endif

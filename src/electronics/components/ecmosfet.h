@@ -12,8 +12,7 @@
 #define ECMOSFET_H
 
 #include "component.h"
-
-class MOSFET;
+#include "mosfet.h"
 
 /**
 @short Simulates a MOSFET
@@ -40,6 +39,6 @@ class ECMOSFET : public Component
 		
 		bool m_bHaveBodyPin;
 		int m_MOSFET_type;
-		MOSFET * m_pMOSFET;
+		MOSFET m_pMOSFET;
 };
 #endif
