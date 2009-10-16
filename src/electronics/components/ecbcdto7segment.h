@@ -29,8 +29,8 @@ public:
 	
 private:
 	void inStateChanged( bool newState );
-	LogicIn *ALogic, *BLogic, *CLogic, *DLogic;
-	LogicIn *ltLogic, *rbLogic, *enLogic;
+	LogicIn ALogic, BLogic, CLogic, DLogic;
+	LogicIn ltLogic, rbLogic, enLogic;
 	LogicOut *outLogic[7];
 };
 
