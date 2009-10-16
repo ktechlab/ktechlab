@@ -17,17 +17,18 @@
 @short Fixed voltage source
 @author David Saxton
 */
-class ECGround : public SimpleComponent
-{
+
+class ECGround : public SimpleComponent {
+
 public:
-	ECGround( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~ECGround();
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
-	
+    ECGround(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+    ~ECGround();
+
+    static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
 private:
-	virtual void drawShape( QPainter &p );
+    virtual void drawShape(QPainter &p);
 };
 
 #endif
