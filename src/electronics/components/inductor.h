@@ -18,20 +18,20 @@ class Inductance;
 /**
 @author David Saxton
 */
-class Inductor : public SimpleComponent
-{
-	public:
-		Inductor( ICNDocument *icnDocument, bool newItem, const char *id = 0);
-		~Inductor();
-	
-		static Item * construct( ItemDocument * itemDocument, bool newItem, const char * id );
-		static LibraryItem * libraryItem();
-	
-	private:
-		void dataChanged();
-		virtual void drawShape( QPainter & p );
+class Inductor : public SimpleComponent {
 
-		Inductance *m_pInductance;
+public:
+    Inductor(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+    ~Inductor();
+
+    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
+private:
+    void dataChanged();
+    virtual void drawShape(QPainter &p);
+
+    Inductance m_pInductance;
 };
 
 #endif

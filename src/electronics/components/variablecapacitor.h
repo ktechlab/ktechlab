@@ -36,7 +36,7 @@ class VariableCapacitor : public SimpleComponent
 		void dataChanged();
 		virtual void drawShape( QPainter &p );
 
-		Capacitance * m_pCapacitance;
+		Capacitance m_pCapacitance;
 		QSlider * m_pSlider;
 		
 		double m_minCapacitance;
