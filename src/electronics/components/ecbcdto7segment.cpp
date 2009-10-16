@@ -48,50 +48,33 @@ LibraryItem* ECBCDTo7Segment::libraryItem() {
 	           i18n("Integrated Circuits"),
 	           "ic2.png",
 	           LibraryItem::lit_component,
-	           ECBCDTo7Segment::construct
-	       );
+	           ECBCDTo7Segment::construct);
 }
 
 ECBCDTo7Segment::ECBCDTo7Segment(ICNDocument *icnDocument, bool newItem, const char *id)
 		: DIPComponent(icnDocument, newItem, id ? id : "bcd_to_seven_segment") {
 	m_name = i18n("BCD to Seven Segment");
 
-	ALogic = BLogic = CLogic = DLogic = 0;
-	ltLogic = rbLogic = enLogic = 0;
-
 	QStringList pins = QStringList::split(',', "A,B,C,D,,lt,rb,en,d,e,f,g,,a,b,c", true);
 
 	initDIPSymbol(pins, 48);
 	initDIP(pins);
 
-	ALogic = new LogicIn(LogicConfig());
-	setup1pinElement(ALogic, ecNodeWithID("A")->pin());
+	setup1pinElement(&ALogic, ecNodeWithID("A")->pin());
+	setup1pinElement(&BLogic, ecNodeWithID("B")->pin());
+	setup1pinElement(&CLogic, ecNodeWithID("C")->pin());
+	setup1pinElement(&DLogic, ecNodeWithID("D")->pin());
+	setup1pinElement(&ltLogic, ecNodeWithID("lt")->pin());
+	setup1pinElement(&rbLogic, ecNodeWithID("rb")->pin());
+	setup1pinElement(&enLogic, ecNodeWithID("en")->pin());
 
-	BLogic = new LogicIn(LogicConfig());
-	setup1pinElement(BLogic, ecNodeWithID("B")->pin());
-
-	CLogic = new LogicIn(LogicConfig());
-	setup1pinElement(CLogic, ecNodeWithID("C")->pin());
-
-	DLogic = new LogicIn(LogicConfig());
-	setup1pinElement(DLogic, ecNodeWithID("D")->pin());
-
-	ltLogic = new LogicIn(LogicConfig());
-	setup1pinElement(ltLogic, ecNodeWithID("lt")->pin());
-
-	rbLogic = new LogicIn(LogicConfig());
-	setup1pinElement(rbLogic, ecNodeWithID("rb")->pin());
-
-	enLogic = new LogicIn(LogicConfig());
-	setup1pinElement(enLogic, ecNodeWithID("en")->pin());
-
-	ALogic->setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
-	BLogic->setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
-	CLogic->setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
-	DLogic->setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
-	ltLogic->setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
-	rbLogic->setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
-	enLogic->setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
+	ALogic.setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
+	BLogic.setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
+	CLogic.setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
+	DLogic.setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
+	ltLogic.setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
+	rbLogic.setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
+	enLogic.setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
 
 	for (uint i = 0; i < 7; ++i) {
 		outLogic[i] = new LogicOut(LogicConfig(), false);
@@ -105,14 +88,14 @@ ECBCDTo7Segment::~ECBCDTo7Segment() {}
 
 void ECBCDTo7Segment::inStateChanged(bool) {
 
-	unsigned char n = ALogic->isHigh() | 
-			 (BLogic->isHigh() << 1) |
-			 (CLogic->isHigh() << 2) |
-			 (DLogic->isHigh() << 3);
+	unsigned char n = ALogic.isHigh() | 
+			 (BLogic.isHigh() << 1) |
+			 (CLogic.isHigh() << 2) |
+			 (DLogic.isHigh() << 3);
 
-	if(!ltLogic->isHigh()) { 
-		if(!rbLogic->isHigh()) {
-			if(enLogic->isHigh()) { // Enable (store)
+	if(!ltLogic.isHigh()) { 
+		if(!rbLogic.isHigh()) {
+			if(enLogic.isHigh()) { // Enable (store)
 				for (int i = 0; i < 7; i++) {
 					outLogic[i]->setHigh(numbers[n][i]);
 				}
