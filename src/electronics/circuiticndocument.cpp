@@ -33,7 +33,6 @@ CircuitICNDocument::~CircuitICNDocument() {
 	// Go to hell, QCanvas. I'm in charge of what gets deleted.
 	QCanvasItemList all = m_canvas->allItems();
 	const QCanvasItemList::Iterator end = all.end();
-
 	for (QCanvasItemList::Iterator it = all.begin(); it != end; ++it)
 		(*it)->setCanvas(0);
 
