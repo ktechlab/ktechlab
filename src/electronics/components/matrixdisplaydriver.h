@@ -13,7 +13,7 @@
 
 #include <vector>
 #include "dipcomponent.h"
-#include "logic.h";
+#include "logic.h"
 
 /**
 @author David Saxton
