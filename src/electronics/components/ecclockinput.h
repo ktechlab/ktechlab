@@ -16,10 +16,10 @@
 using namespace std;
 
 #include "simplecomponent.h"
+#include "logic.h"
 
 class ComponentCallback;
 class Simulator;
-class LogicOut;
 
 /**
 @short Boolean clock input
@@ -49,7 +49,7 @@ protected:
 	uint m_low_time;
 
 	long long m_lastSetTime;
-	LogicOut *m_pOut;
+	LogicOut m_pOut;
 	Simulator *m_pSimulator;
 	list<ComponentCallback> *m_pComponentCallback[1000];
 };
