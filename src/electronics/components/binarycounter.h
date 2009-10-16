@@ -45,7 +45,7 @@ protected:
 	void dataChanged();
 	void initPins(unsigned numBits);
 
-	LogicIn *enLogic, *inLogic, *rLogic, *udLogic;
+	LogicIn enLogic, inLogic, rLogic, udLogic;
 	LogicOut *m_pLogicOut[26];
 
 	unsigned m_numBits;
