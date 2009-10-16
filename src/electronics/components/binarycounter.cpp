@@ -37,8 +37,6 @@ BinaryCounter::BinaryCounter(ICNDocument *icnDocument, bool newItem, const char 
 		: DIPComponent(icnDocument, newItem, id ? id : "binary_counter") {
 	m_name = i18n("Binary Counter");
 
-	enLogic = inLogic = rLogic = udLogic = 0;
-
 	b_triggerHigh = true;
 	b_oldIn = false;
 	m_value = 0;
@@ -61,11 +59,6 @@ BinaryCounter::BinaryCounter(ICNDocument *icnDocument, bool newItem, const char 
 }
 
 BinaryCounter::~BinaryCounter() {
-	delete enLogic;
-	delete inLogic;
-	delete rLogic;
-	delete udLogic;
-
 	for (unsigned i = 0; i < m_numBits; i++) {
 		delete m_pLogicOut[i];
 	}
@@ -118,19 +111,13 @@ void BinaryCounter::initPins(unsigned numBits) {
 	m_numBits = numBits;
 
 	if (!m_bDoneLogicIn) {
-		enLogic = new LogicIn(LogicConfig());
-		setup1pinElement(enLogic, ecNodeWithID("en")->pin());
+		setup1pinElement(&enLogic, ecNodeWithID("en")->pin());
+		setup1pinElement(&udLogic, ecNodeWithID("u/d")->pin());
+		setup1pinElement(&inLogic, ecNodeWithID(">")->pin());
+		setup1pinElement(&rLogic, ecNodeWithID("r")->pin());
 
-		inLogic = new LogicIn(LogicConfig());
-		setup1pinElement(inLogic, ecNodeWithID(">")->pin());
-		inLogic->setCallback(this, (CallbackPtr)(&BinaryCounter::inStateChanged));
-
-		rLogic = new LogicIn(LogicConfig());
-		setup1pinElement(rLogic, ecNodeWithID("r")->pin());
-		rLogic->setCallback(this, (CallbackPtr)(&BinaryCounter::rStateChanged));
-
-		udLogic = new LogicIn(LogicConfig());
-		setup1pinElement(udLogic, ecNodeWithID("u/d")->pin());
+		inLogic.setCallback(this, (CallbackPtr)(&BinaryCounter::inStateChanged));
+		rLogic.setCallback(this, (CallbackPtr)(&BinaryCounter::rStateChanged));
 
 		m_bDoneLogicIn = true;
 	}
@@ -139,8 +126,8 @@ void BinaryCounter::initPins(unsigned numBits) {
 }
 
 void BinaryCounter::inStateChanged(bool state) {
-	if ((state != b_oldIn) && enLogic->isHigh() && !rLogic->isHigh() && state == b_triggerHigh) {
-		if (udLogic->isHigh()) m_value++;
+	if ((state != b_oldIn) && enLogic.isHigh() && !rLogic.isHigh() && state == b_triggerHigh) {
+		if (udLogic.isHigh()) m_value++;
 		else m_value--;
 
 		m_value &= (1 << m_numBits) - 1;

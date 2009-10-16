@@ -12,6 +12,7 @@
 #define ECOPAMP_H
 
 #include "simplecomponent.h"
+#include "opamp.h"
 
 class OpAmp;
 
@@ -32,7 +33,7 @@ protected:
 	virtual void drawShape(QPainter &p);
 
 private:
-	OpAmp *the_amp;
+	OpAmp the_amp;
 };
 
 #endif
