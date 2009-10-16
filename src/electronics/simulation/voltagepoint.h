@@ -20,7 +20,7 @@
 class VoltagePoint : public Element
 {
 public:
-	VoltagePoint( const double voltage );
+	VoltagePoint(const double voltage = 5);
 	virtual ~VoltagePoint();
 	
 	virtual Type type() const { return Element_VoltagePoint; }
