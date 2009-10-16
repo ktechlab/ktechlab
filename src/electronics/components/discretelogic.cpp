@@ -43,8 +43,8 @@ Inverter::Inverter(ICNDocument *icnDocument, bool newItem, const char *id)
 	init1PinLeft();
 	init1PinRight();
 
-	setup1pinElement(&m_pIn, m_pNNode[0]->pin());
-	setup1pinElement(&m_pOut, m_pPNode[0]->pin());
+	setup1pinElement(m_pIn, m_pNNode[0]->pin());
+	setup1pinElement(m_pOut, m_pPNode[0]->pin());
 
 	m_pOut.setState(true);
 	m_pIn.setCallback(this, (CallbackPtr)(&Inverter::inStateChanged));
@@ -96,8 +96,8 @@ Buffer::Buffer(ICNDocument *icnDocument, bool newItem, const char *id)
 	init1PinLeft();
 	init1PinRight();
 
-	setup1pinElement(&m_pIn, m_pNNode[0]->pin());
-	setup1pinElement(&m_pOut, m_pPNode[0]->pin());
+	setup1pinElement(m_pIn, m_pNNode[0]->pin());
+	setup1pinElement(m_pOut, m_pPNode[0]->pin());
 
 	m_pIn.setCallback(this, (CallbackPtr)(&Buffer::inStateChanged));
 	inStateChanged(false);
@@ -152,7 +152,7 @@ ECLogicInput::ECLogicInput(ICNDocument *icnDocument, bool newItem, const char *i
 
 	init1PinRight();
 
-	setup1pinElement(&m_pOut, m_pPNode[0]->pin());
+	setup1pinElement(m_pOut, m_pPNode[0]->pin());
 }
 
 ECLogicInput::~ECLogicInput() {
@@ -200,7 +200,7 @@ ECLogicOutput::ECLogicOutput(ICNDocument *icnDocument, bool newItem, const char 
 
 	init1PinLeft();
 
-	setup1pinElement(&m_pIn, m_pNNode[0]->pin());
+	setup1pinElement(m_pIn, m_pNNode[0]->pin());
 
 	m_lastDrawState = 0.0;
 	m_lastSwitchTime = m_lastDrawTime = Simulator::self()->time();

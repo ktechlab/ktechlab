@@ -39,7 +39,7 @@ ECFixedVoltage::ECFixedVoltage(ICNDocument *icnDocument, bool newItem, const cha
     init1PinRight();
     m_pPNode[0]->setLength(11);
 
-    setup1pinElement(&m_voltagePoint, m_pPNode[0]->pin());
+    setup1pinElement(m_voltagePoint, m_pPNode[0]->pin());
 
     addDisplayText("voltage", QRect(-24, -20, width() + 32, 12), "");
     createProperty("voltage", Variant::Type::Double);

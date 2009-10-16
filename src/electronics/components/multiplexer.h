@@ -14,32 +14,33 @@
 #include "dipcomponent.h"
 #include "logic.h"
 
-#include <qptrvector.h>
+#include <vector>
 
 /**
 @author David Saxton
 */
-class Multiplexer : public CallbackClass, public DIPComponent
-{
+
+class Multiplexer : public CallbackClass, public DIPComponent {
+
 public:
-	Multiplexer( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~Multiplexer();
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
-	
+    Multiplexer(ICNDocument *icnDocument, bool newItem, const char *id = 0L);
+    ~Multiplexer();
+
+    static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
 protected:
-	void dataChanged();
-	/**
-	 * Add / remove pins according to the number of inputs the user has requested
-	 */
-	void initPins( unsigned addressSize );
-	
-	void inStateChanged( bool newState );
-	
-	QPtrVector<LogicIn> m_aLogic;
-	QPtrVector<LogicIn> m_xLogic;
-	LogicOut * m_output;
+    void dataChanged();
+    /**
+     * Add / remove pins according to the number of inputs the user has requested
+     */
+    void initPins(unsigned addressSize);
+
+    void inStateChanged(bool newState);
+
+    std::vector<LogicIn> m_aLogic;
+    std::vector<LogicIn> m_xLogic;
+    LogicOut m_output;
 };
 
 #endif

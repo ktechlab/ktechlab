@@ -35,8 +35,8 @@ protected:
 	int m_oldABLogicCount;
 	bool firstTime;
 
-	std::vector<LogicIn *> m_aLogic;
-	std::vector<LogicIn *> m_bLogic;
+	std::vector<LogicIn> m_aLogic;
+	std::vector<LogicIn> m_bLogic;
 
 	LogicIn *m_cLogic[3];
 	LogicOut *m_output[3];

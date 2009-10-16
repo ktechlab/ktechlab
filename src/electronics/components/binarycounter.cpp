@@ -97,7 +97,7 @@ void BinaryCounter::initPins(unsigned numBits) {
 	if (m_numBits < numBits) {
 		for (unsigned i = m_numBits; i < numBits; i++) {
 			m_pLogicOut[i] = new LogicOut(LogicConfig(), false);
-			setup1pinElement(m_pLogicOut[i], ecNodeWithID(QChar('A' + i))->pin());
+			setup1pinElement(*(m_pLogicOut[i]), ecNodeWithID(QChar('A' + i))->pin());
 		}
 	} else {
 		for (unsigned i = numBits; i < m_numBits; i++) {
@@ -111,10 +111,10 @@ void BinaryCounter::initPins(unsigned numBits) {
 	m_numBits = numBits;
 
 	if (!m_bDoneLogicIn) {
-		setup1pinElement(&enLogic, ecNodeWithID("en")->pin());
-		setup1pinElement(&udLogic, ecNodeWithID("u/d")->pin());
-		setup1pinElement(&inLogic, ecNodeWithID(">")->pin());
-		setup1pinElement(&rLogic, ecNodeWithID("r")->pin());
+		setup1pinElement(enLogic, ecNodeWithID("en")->pin());
+		setup1pinElement(udLogic, ecNodeWithID("u/d")->pin());
+		setup1pinElement(inLogic, ecNodeWithID(">")->pin());
+		setup1pinElement(rLogic, ecNodeWithID("r")->pin());
 
 		inLogic.setCallback(this, (CallbackPtr)(&BinaryCounter::inStateChanged));
 		rLogic.setCallback(this, (CallbackPtr)(&BinaryCounter::rStateChanged));
