@@ -13,7 +13,7 @@
 
 #include "simplecomponent.h"
 
-class VoltagePoint;
+#include "voltagepoint.h"
 
 /**
 @short Fixed voltage source
@@ -31,7 +31,7 @@ public:
 private:
 	virtual void drawShape(QPainter &p);
 	void dataChanged();
-	VoltagePoint *m_voltagePoint;
+	VoltagePoint m_voltagePoint;
 };
 
 #endif
