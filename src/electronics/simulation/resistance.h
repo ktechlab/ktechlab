@@ -17,26 +17,26 @@
 @short Resistance
 @author David saxton
 */
-class Resistance : public Element
-{
+class Resistance : public Element {
+
 public:
-	Resistance( const double resistance );
-	virtual ~Resistance();
-	
-	virtual Type type() const { return Element_Resistance; }
-	
-	void setConductance( const double g );
-	void setResistance( const double r );
-	
-	double resistance() { return 1 / m_g; }
-	double conductance() { return m_g; }
+    Resistance(const double resistance = 1);
+    virtual ~Resistance();
+
+    virtual Type type() const { return Element_Resistance; }
+
+    void setConductance(const double g);
+    void setResistance(const double r);
+
+    double resistance() { return 1 / m_g; }
+    double conductance() { return m_g; }
 
 protected:
-	virtual void updateCurrents();
-	virtual void add_initial_dc();
-	
+    virtual void updateCurrents();
+    virtual void add_initial_dc();
+
 private:
-	double m_g; // Conductance
+    double m_g; // Conductance
 };
 
 #endif
