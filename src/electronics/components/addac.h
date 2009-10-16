@@ -12,6 +12,7 @@
 #define ADDAC_H
 
 #include "dipcomponent.h"
+#include "voltagepoint.h"
 
 class LogicIn;
 class LogicOut;
@@ -83,7 +84,7 @@ protected:
     virtual void initPins();
 
     LogicIn *m_logic[max_ADDAC_bits];
-    VoltagePoint *m_voltagePoint;
+    VoltagePoint m_voltagePoint;
 };
 
 #endif

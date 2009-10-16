@@ -15,7 +15,7 @@
 #include "logic.h"
 
 #include <qbitarray.h>
-#include <qptrvector.h>
+#include <vector>
 
 /**
 @author David Saxton
@@ -35,16 +35,16 @@ protected:
 	void inStateChanged(bool newState);
 
 	QBitArray m_data;
-	LogicIn *m_pCS; // Chip select
-	LogicIn *m_pOE; // Output enable
-	LogicIn *m_pWE; // Write enable
+	LogicIn m_pCS; // Chip select
+	LogicIn m_pOE; // Output enable
+	LogicIn m_pWE; // Write enable
 
 	int m_wordSize;
 	int m_addressSize;
 
-	QPtrVector<LogicIn> m_address;
-	QPtrVector<LogicIn> m_dataIn;
-	QPtrVector<LogicOut> m_dataOut;
+	std::vector<LogicIn> m_address;
+	std::vector<LogicIn> m_dataIn;
+	std::vector<LogicOut> m_dataOut;
 };
 #endif
 
