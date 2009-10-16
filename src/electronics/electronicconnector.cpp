@@ -36,10 +36,12 @@ ElectronicConnector::ElectronicConnector(ECNode *startNode, ECNode *endNode,
 
 ElectronicConnector::~ElectronicConnector()
 {
-/* Something else is deleting wires, FIXME, figure out what the deal is. 
+/* Something else is deleting wires, FIXME, figure out what the deal is. */
+    // CircuitICNDocument::flushDelecteList deletes the wires ?
+    //
 	for (unsigned i = 0; i < m_wires.size(); i++)
 		delete m_wires[i];
-*/
+
 	m_wires.resize(0);
 }
 
