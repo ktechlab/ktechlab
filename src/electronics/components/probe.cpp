@@ -74,8 +74,7 @@ FloatingProbe::FloatingProbe(ICNDocument *icnDocument, bool newItem, const char 
 	property("lower_abs_value")->setAdvanced(true);
 }
 
-FloatingProbe::~FloatingProbe() {
-}
+FloatingProbe::~FloatingProbe() {}
 
 void FloatingProbe::dataChanged() {
 	Probe::dataChanged();
@@ -138,8 +137,7 @@ VoltageProbe::VoltageProbe(ICNDocument *icnDocument, bool newItem, const char *i
 	m_pPin2 = m_pPNode[0]->pin();
 }
 
-VoltageProbe::~VoltageProbe() {
-}
+VoltageProbe::~VoltageProbe() {}
 
 void VoltageProbe::stepNonLogic() {
 	m_pFloatingProbeData->addDataPoint(m_pPin1->voltage() - m_pPin2->voltage());
@@ -162,7 +160,8 @@ LibraryItem* CurrentProbe::libraryItem() {
 }
 
 CurrentProbe::CurrentProbe(ICNDocument *icnDocument, bool newItem, const char *id)
-		: FloatingProbe(icnDocument, newItem, id ? id : "currentprobe") {
+		: FloatingProbe(icnDocument, newItem, id ? id : "currentprobe"),
+		 m_voltageSource(0) {
 	m_name = i18n("Current Probe");
 
 	property("upper_abs_value")->setUnit("A");
@@ -171,16 +170,13 @@ CurrentProbe::CurrentProbe(ICNDocument *icnDocument, bool newItem, const char *i
 	init1PinLeft(0);
 	init1PinRight(0);
 
-	m_voltageSource = new VoltageSource(0);
-	setup2pinElement(m_voltageSource, m_pNNode[0]->pin(), m_pPNode[0]->pin());
+	setup2pinElement(&m_voltageSource, m_pNNode[0]->pin(), m_pPNode[0]->pin());
 }
 
-CurrentProbe::~CurrentProbe() {
-	delete m_voltageSource;
-}
+CurrentProbe::~CurrentProbe() {}
 
 void CurrentProbe::stepNonLogic() {
-	m_pFloatingProbeData->addDataPoint(-m_voltageSource->cbranchCurrent(0));
+	m_pFloatingProbeData->addDataPoint(-m_voltageSource.cbranchCurrent(0));
 }
 //END class CurrentProbe
 
@@ -207,23 +203,19 @@ LogicProbe::LogicProbe(ICNDocument *icnDocument, bool newItem, const char *id)
 
 	init1PinRight();
 
-	m_pIn = new LogicIn(LogicConfig());
-	setup1pinElement(m_pIn, m_pPNode[0]->pin());
+	setup1pinElement(&m_pIn, m_pPNode[0]->pin());
 
 	p_probeData = p_logicProbeData = static_cast<LogicProbeData*>(registerProbe(this));
 	property("color")->setValue(p_probeData->color());
 
-	m_pSimulator = Simulator::self();
-	m_pIn->setCallback(this, (CallbackPtr)(&LogicProbe::logicCallback));
+	m_pIn.setCallback(this, (CallbackPtr)(&LogicProbe::logicCallback));
 	logicCallback(false);
 }
 
-LogicProbe::~LogicProbe() {
-	delete m_pIn;	
-}
+LogicProbe::~LogicProbe() {}
 
 void LogicProbe::logicCallback(bool value) {
-	p_logicProbeData->addDataPoint(LogicDataPoint(value, m_pSimulator->time()));
+	p_logicProbeData->addDataPoint(LogicDataPoint(value, Simulator::self()->time()));
 }
 
 void LogicProbe::drawShape(QPainter &p) {
