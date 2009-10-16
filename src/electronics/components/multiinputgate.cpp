@@ -40,8 +40,7 @@ MultiInputGate::MultiInputGate(ICNDocument *icnDocument, bool newItem, const cha
 	updateInputs(2);
 	init1PinRight(16);
 
-	m_pOut = new LogicOut(LogicConfig(), false);
-	setup1pinElement(m_pOut, m_pPNode[0]->pin());
+	setup1pinElement(&m_pOut, m_pPNode[0]->pin());
 
 	createProperty("numInput", Variant::Type::Int);
 	property("numInput")->setCaption(i18n("Number Inputs"));
@@ -53,8 +52,6 @@ MultiInputGate::MultiInputGate(ICNDocument *icnDocument, bool newItem, const cha
 }
 
 MultiInputGate::~MultiInputGate() {
-	delete m_pOut;
-
 	for (int i = 0; i < m_numInputs; ++i) {
 		delete inLogic[i];
 	}
@@ -235,7 +232,7 @@ void ECXnor::inStateChanged(bool) {
 			highCount++;
 	}
 
-	m_pOut->setHigh(highCount != 1);
+	m_pOut.setHigh(highCount != 1);
 }
 
 void ECXnor::drawShape(QPainter &p) {
@@ -297,7 +294,7 @@ void ECXor::inStateChanged(bool) {
 			highCount++;
 	}
 
-	m_pOut->setHigh(highCount == 1);
+	m_pOut.setHigh(highCount == 1);
 }
 
 void ECXor::drawShape(QPainter &p) {
@@ -353,12 +350,12 @@ void ECOr::inStateChanged(bool) {
 
 	for (int i = 0; i < m_numInputs; ++i) {
 		if (inLogic[i]->isHigh()) {
-			m_pOut->setHigh(true);
+			m_pOut.setHigh(true);
 			return;
 		}
 	}
 
-	m_pOut->setHigh(false);
+	m_pOut.setHigh(false);
 }
 
 void ECOr::drawShape(QPainter &p) {
@@ -419,7 +416,7 @@ void ECNor::inStateChanged(bool) {
 			allLow = false;
 	}
 
-	m_pOut->setHigh(allLow);
+	m_pOut.setHigh(allLow);
 }
 
 void ECNor::drawShape(QPainter &p) {
@@ -475,12 +472,12 @@ ECNand::~ECNand() {
 void ECNand::inStateChanged(bool) {
 	for(int i = 0; i < m_numInputs; ++i) {
 		if (!inLogic[i]->isHigh()) {
-			m_pOut->setHigh(true);
+			m_pOut.setHigh(true);
 			return;
 		}
 	}
 
-	m_pOut->setHigh(false);
+	m_pOut.setHigh(false);
 }
 
 void ECNand::drawShape(QPainter &p) {
@@ -529,12 +526,12 @@ ECAnd::~ECAnd() {
 void ECAnd::inStateChanged(bool) {
 	for(int i = 0; i < m_numInputs; ++i) {
 		if(!inLogic[i]->isHigh()) {
-			m_pOut->setHigh(false);
+			m_pOut.setHigh(false);
 			return;
 		}
 	}
 
-	m_pOut->setHigh(true);
+	m_pOut.setHigh(true);
 }
 
 void ECAnd::drawShape(QPainter &p) {
