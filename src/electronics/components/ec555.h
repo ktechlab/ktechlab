@@ -12,6 +12,7 @@
 #define EC555_H
 
 #include "component.h"
+#include "resistance.h"
 
 #include <qstringlist.h>
 
@@ -43,11 +44,11 @@ private:
 	Pin *discharge;
 	Pin *vcc;
 
-	Resistance *m_r1;
-	Resistance *m_r23;
-	Resistance *m_po_sink;
-	Resistance *m_po_source;
-	Resistance *m_r_discharge;
+	Resistance m_r1;
+	Resistance m_r23;
+	Resistance m_po_sink;
+	Resistance m_po_source;
+	Resistance m_r_discharge;
 	
 	bool m_com1;
 	bool m_com2;
