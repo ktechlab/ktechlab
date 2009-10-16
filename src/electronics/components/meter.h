@@ -13,7 +13,7 @@
 
 #include <simplecomponent.h>
 
-class VoltageSource;
+#include "voltagesource.h"
 
 /**
 @author David Saxton
@@ -87,7 +87,7 @@ protected:
 	virtual double meterValue();
 
 private:
-	VoltageSource *m_voltageSource;
+	VoltageSource m_voltageSource;
 };
 
 /**

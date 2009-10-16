@@ -12,7 +12,6 @@
 #include "ecnode.h"
 #include "ecpotentiometer.h"
 #include "libraryitem.h"
-#include "resistance.h"
 
 #include <klocale.h>
 #include <qpainter.h>
@@ -40,17 +39,12 @@ ECPotentiometer::ECPotentiometer(ICNDocument *icnDocument, bool newItem, const c
 	m_name = i18n("Potentiometer");
 	setSize(-16, -16, 40, 32);
 
-	m_p1 = createPin(32, 0, 180, "p1");
+	ECNode *m_p1 = createPin(32, 0, 180, "p1");
 
 	m_sliderProp = 0.0;
 	m_resistance = 5000.;
 
-//	m_r1 = createResistance(createPin(-8, -24, 90, "n1")->pin(), m_p1->pin(), 1.);
-	m_r1 = new Resistance(1);
 	setup2pinElement(m_r1, createPin(-8, -24, 90, "n1")->pin(), m_p1->pin());
-
-//	m_r2 = createResistance(createPin(-8, 24, 270, "n2")->pin(), m_p1->pin(), 1.);
-	m_r2 = new Resistance(1);
 	setup2pinElement(m_r2, createPin(-8, 24, 270, "n2")->pin(), m_p1->pin());
 
 	Slider * s = addSlider("slider", 0, 100, 5, 50, Qt::Vertical, QRect(0, -16, 16, 32));
@@ -65,11 +59,7 @@ ECPotentiometer::ECPotentiometer(ICNDocument *icnDocument, bool newItem, const c
 	addDisplayText("res", QRect(-56, -8, 40, 16), "");
 }
 
-ECPotentiometer::~ECPotentiometer()
-{
-	delete m_r1;
-	delete m_r2;
-}
+ECPotentiometer::~ECPotentiometer() {}
 
 void ECPotentiometer::dataChanged()
 {
@@ -86,10 +76,10 @@ void ECPotentiometer::sliderValueChanged( const QString &id, int newValue )
 	if ( id != "slider" )
 		return;
 	
-	m_sliderProp = (newValue-50.0)/100.0;
+	m_sliderProp = (newValue-50.0) / 100.0;
 	
-	m_r1->setResistance( m_resistance*(double)newValue/100. );
-	m_r2->setResistance( m_resistance*(double)(100.-newValue)/100. );
+	m_r1.setResistance( m_resistance*(double)newValue / 100. );
+	m_r2.setResistance( m_resistance*(double)(100.-newValue) / 100. );
 }
 
 void ECPotentiometer::drawShape( QPainter &p )
@@ -108,16 +98,16 @@ void ECPotentiometer::drawShape( QPainter &p )
 	int space = m_pSlider->style().pixelMetric( QStyle::PM_SliderSpaceAvailable, m_pSlider );
 	int base_y = _y + int( space * m_sliderProp );
 	
-	pa.translate( _x+16, base_y );
+	pa.translate( _x + 16, base_y );
 	
-	QColor c = m_p1->isSelected() ? m_selectedCol : black;
-	
-	p.setPen(c);
-	p.setBrush(c);
+//	QColor c = m_p1->isSelected() ? m_selectedCol : black;
+// FIXME ^ > 	
+//	p.setPen(c);
+//	p.setBrush(c);
 	p.drawPolygon(pa);
 	
-	p.drawLine( _x+20, base_y, _x+24, base_y );
-	p.drawLine( _x+24, base_y, _x+24, _y );
+	p.drawLine( _x + 20, base_y, _x + 24, base_y );
+	p.drawLine( _x + 24, base_y, _x + 24, _y );
 	
 	deinitPainter(p);
 }

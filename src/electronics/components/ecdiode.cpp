@@ -8,7 +8,6 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "diode.h"
 #include "ecdiode.h"
 #include "ecnode.h"
 #include "libraryitem.h"
@@ -42,8 +41,6 @@ ECDiode::ECDiode(ICNDocument *icnDocument, bool newItem, const char *id)
 	init1PinLeft();
 	init1PinRight();
 
-//	m_diode = createDiode(m_pNNode[0]->pin(), m_pPNode[0]->pin());
-	m_diode = new Diode();
 	setup2pinElement(m_diode, m_pNNode[0]->pin(), m_pPNode[0]->pin());
 
 	DiodeSettings ds; // it will have the default properties that we use
@@ -80,9 +77,7 @@ ECDiode::ECDiode(ICNDocument *icnDocument, bool newItem, const char *id)
 // 	property("R")->setAdvanced(true);
 }
 
-ECDiode::~ECDiode() {
-	delete m_diode;
-}
+ECDiode::~ECDiode() {}
 
 void ECDiode::dataChanged()
 {
@@ -93,9 +88,8 @@ void ECDiode::dataChanged()
 	ds.N = dataDouble("N");
 //	ds.R = dataDouble("R");
 
-	m_diode->setDiodeSettings(ds);
+	m_diode.setDiodeSettings(ds);
 }
-
 
 void ECDiode::drawShape(QPainter &p)
 {

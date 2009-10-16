@@ -60,7 +60,7 @@ VariableCapacitor::VariableCapacitor(ICNDocument* icnDocument, bool newItem, con
 
 //	m_pCapacitance = createCapacitance(m_pNNode[0]->pin(), m_pPNode[0]->pin(), m_currCapacitance);
 	m_pCapacitance = new Capacitance(m_currCapacitance, LINEAR_UPDATE_PERIOD);
-	setup2pinElement(m_pCapacitance, m_pNNode[0]->pin(), m_pPNode[0]->pin());
+	setup2pinElement(*m_pCapacitance, m_pNNode[0]->pin(), m_pPNode[0]->pin());
 
 	addDisplayText("capacitance", QRect(-8, -26, 16, 16), "", false);
 

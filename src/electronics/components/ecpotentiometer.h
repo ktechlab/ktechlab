@@ -12,33 +12,33 @@
 #define ECPOTENTIOMETER_H
 
 #include "component.h"
+#include "resistance.h"
 
 class QSlider;
-class Resistance;
 
 /**
 @short Potentiometer
 @author David Saxton
 */
-class ECPotentiometer : public Component
-{
+class ECPotentiometer : public Component {
+
 public:
-	ECPotentiometer( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~ECPotentiometer();
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
-	
-	virtual void sliderValueChanged( const QString &id, int newValue );
-	
+    ECPotentiometer(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+    ~ECPotentiometer();
+
+    static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
+    static LibraryItem *libraryItem();
+
+    virtual void sliderValueChanged(const QString &id, int newValue);
+
 private:
-	void dataChanged();
-	virtual void drawShape( QPainter &p );
-	
-	ECNode * m_p1;
-	Resistance *m_r1, *m_r2;
-	double m_resistance;
-	double m_sliderProp;
-	QSlider * m_pSlider;
+    void dataChanged();
+    virtual void drawShape(QPainter &p);
+
+// ECNode *m_p1;
+    Resistance m_r1, m_r2;
+    double m_resistance;
+    double m_sliderProp;
+    QSlider *m_pSlider;
 };
 #endif

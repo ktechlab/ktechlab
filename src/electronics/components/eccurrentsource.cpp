@@ -8,8 +8,6 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-
-#include "currentsource.h"
 #include "eccurrentsource.h"
 #include "ecnode.h"
 #include "libraryitem.h"
@@ -44,8 +42,6 @@ ECCurrentSource::ECCurrentSource(ICNDocument *icnDocument, bool newItem, const c
 	init1PinRight(8);
 	m_pNNode[0]->pin()->setGroundType(Pin::gt_low);
 
-//	m_currentSource = createCurrentSource(m_pNNode[0]->pin(), m_pPNode[0]->pin(), 0.);
-	m_currentSource = new CurrentSource(0);
 	setup2pinElement(m_currentSource, m_pNNode[0]->pin(), m_pPNode[0]->pin());
 
 	createProperty("current", Variant::Type::Double);
@@ -66,7 +62,7 @@ ECCurrentSource::~ECCurrentSource()
 void ECCurrentSource::dataChanged()
 {
 	double current = dataDouble("current");
-	m_currentSource->setCurrent(current);
+	m_currentSource.setCurrent(current);
 	
 	QString display = QString::number( current / getMultiplier(current), 'g', 3 ) + getNumberMag(current) + "A";
 	setDisplayText("current", display );
