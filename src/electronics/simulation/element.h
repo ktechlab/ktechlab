@@ -236,8 +236,6 @@ protected:
 	bool b_status;
 
 private:
-	bool b_componentDeleted;
-
 	// TODO: this is never initialized, and is only returned as a default value
 	// for several functions, maybe named constand 0 or 1 should be used? 
 	double m_temp;

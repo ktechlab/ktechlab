@@ -73,10 +73,13 @@ ECSevenSegment::ECSevenSegment(ICNDocument *icnDocument, bool newItem, const cha
 	m_nodes[7] = ecNodeWithID(QChar(0xB7));
 
 	m_bCommonCathode = false; // Force update
+
+for (int i = 0; i < 8; i++) {
+m_diodes[i] = new Diode();}
+
 }
 
-ECSevenSegment::~ECSevenSegment() {
-}
+ECSevenSegment::~ECSevenSegment() {}
 
 void ECSevenSegment::dataChanged() {
 	QColor color = dataColor("0-color");
@@ -89,27 +92,12 @@ void ECSevenSegment::dataChanged() {
 	if (commonCathode != m_bCommonCathode) {
 		m_bCommonCathode = commonCathode;
 
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < 8; i++) {
 			removeElement(m_diodes[i], false);
 
-			if (commonCathode) {
-				m_diodes[i] = new Diode();
+			if (commonCathode)
 				setup2pinElement(*(m_diodes[i]), m_nodes[i]->pin(), m_nNode->pin());
-			} else {
-				m_diodes[i] = new Diode();
-				setup2pinElement(*(m_diodes[i]), m_nNode->pin(), m_nodes[i]->pin());
-			}
-		}
-
-		removeElement(m_diodes[7], false);
-
-		if (commonCathode) {
-			m_diodes[7] = new Diode();
-			setup2pinElement(*(m_diodes[7]), m_nodes[7]->pin(), m_nNode->pin());
-
-		} else {
-			m_diodes[7] = new Diode();
-			setup2pinElement(*(m_diodes[7]), m_nNode->pin(), m_nodes[7]->pin());
+			else	setup2pinElement(*(m_diodes[i]), m_nNode->pin(), m_nodes[i]->pin());
 		}
 	}
 
