@@ -58,17 +58,13 @@ SerialPortComponent::SerialPortComponent(ICNDocument *icnDocument, bool newItem,
 	ECNode *pin = 0;
 
 	// Works
-//	pin = createPin(-40,  32,   0, "CD");
 	addDisplayText("CD", QRect(-28, 24, 28, 16), "CD", true, Qt::AlignLeft | Qt::AlignVCenter);
-//	m_pCD = createLogicOut(pin->pin(), false);
 
-	m_pCD = new LogicOut(LogicConfig(), false);
 	setup1pinElement(m_pCD, createPin(-40, 32, 0, "CD")->pin());
 
 	// Doesn't work
 	addDisplayText("RD", QRect(-28, 8, 28, 16), "RD", true, Qt::AlignLeft | Qt::AlignVCenter);
 
-//	m_pRD = new LogicOut(LogicConfig(), false);
 //	setup1pinElement(m_pRD, createPin( -40,  16,   0, "RD" )->pin());
 
 	// Works
@@ -76,20 +72,18 @@ SerialPortComponent::SerialPortComponent(ICNDocument *icnDocument, bool newItem,
 	addDisplayText("TD", QRect(-28, -8, 28, 16), "TD", true, Qt::AlignLeft | Qt::AlignVCenter);
 //	m_pTD = createLogicIn(pin->pin());
 
-	m_pTD = new LogicIn(LogicConfig());
 	setup1pinElement(m_pTD, createPin(-40, 0, 0, "TD")->pin());
 
-	m_pTD->setCallback(this, (CallbackPtr)(&SerialPortComponent::tdCallback));
+	m_pTD.setCallback(this, (CallbackPtr)(&SerialPortComponent::tdCallback));
 
 	// Works
 //	pin = createPin(-40, -16,   0, "DTR");
 	addDisplayText("DTR", QRect(-28, -24, 28, 16), "DTR", true, Qt::AlignLeft | Qt::AlignVCenter);
 //	m_pDTR = createLogicIn(pin->pin());
 
-	m_pDTR = new LogicIn(LogicConfig());
 	setup1pinElement(m_pDTR, createPin(-40, -16, 0, "DTR")->pin());
 
-	m_pDTR->setCallback(this, (CallbackPtr)(&SerialPortComponent::dtrCallback));
+	m_pDTR.setCallback(this, (CallbackPtr)(&SerialPortComponent::dtrCallback));
 
 	// N/A
 	pin = createPin(-40, -32,   0, "GND");
@@ -113,7 +107,6 @@ SerialPortComponent::SerialPortComponent(ICNDocument *icnDocument, bool newItem,
 	addDisplayText("CTS", QRect(0, -16, 28, 16), "CTS", true, Qt::AlignRight | Qt::AlignVCenter);
 //	m_pCTS = createLogicOut(pin->pin(), false);
 
-	m_pCTS = new LogicOut(LogicConfig(), false);
 	setup1pinElement(m_pCTS, createPin(40,  -8, 180, "CTS")->pin());
 
 	// Works
@@ -121,10 +114,9 @@ SerialPortComponent::SerialPortComponent(ICNDocument *icnDocument, bool newItem,
 	addDisplayText("RI", QRect(0, -32, 28, 16), "RI", true, Qt::AlignRight | Qt::AlignVCenter);
 //	m_pRI = createLogicOut(pin->pin(), false);
 
-	m_pRI = new LogicOut(LogicConfig(), false);
 	setup1pinElement(m_pRI, createPin(40, -24, 180, "RI")->pin());
 
-	Variant * v = createProperty("port", Variant::Type::Combo);
+	Variant *v = createProperty("port", Variant::Type::Combo);
 	v->setAllowed(SerialPort::ports(Port::ExistsAndRW));
 	v->setCaption(i18n("Port"));
 
@@ -199,10 +191,10 @@ void SerialPortComponent::initPort(const QString & port, unsigned baudRate) {
 }
 
 void SerialPortComponent::stepNonLogic() {
-	m_pCD->setHigh(m_pSerialPort->pinState(SerialPort::CD));
+	m_pCD.setHigh(m_pSerialPort->pinState(SerialPort::CD));
 // 	m_pRD->setHigh( m_pSerialPort->pinState( SerialPort::RD ) );
-	m_pCTS->setHigh(m_pSerialPort->pinState(SerialPort::CTS));
-	m_pRI->setHigh(m_pSerialPort->pinState(SerialPort::RI));
+	m_pCTS.setHigh(m_pSerialPort->pinState(SerialPort::CTS));
+	m_pRI.setHigh(m_pSerialPort->pinState(SerialPort::RI));
 }
 
 void SerialPortComponent::tdCallback(bool isHigh) {

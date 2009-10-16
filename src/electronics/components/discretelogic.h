@@ -14,13 +14,10 @@
 #include "simplecomponent.h"
 #include "logic.h"
 
-class Simulator;
-
 /**
 @short Boolean NOT
 @author David Saxton
 */
-
 class Inverter : public CallbackClass, public SimpleComponent {
 
 public:
@@ -34,15 +31,14 @@ protected:
 	void inStateChanged(bool newState);
 	virtual void drawShape(QPainter &p);
 
-	LogicIn *m_pIn;
-	LogicOut *m_pOut;
+	LogicIn m_pIn;
+	LogicOut m_pOut;
 };
 
 /**
 @short Buffer
 @author David Saxton
 */
-
 class Buffer : public CallbackClass, public SimpleComponent {
 
 public:
@@ -56,15 +52,14 @@ private:
 	void inStateChanged(bool newState);
 	virtual void drawShape(QPainter &p);
 
-	LogicIn *m_pIn;
-	LogicOut *m_pOut;
+	LogicIn m_pIn;
+	LogicOut m_pOut;
 };
 
 /**
 @short Boolean logic input
 @author David Saxton
 */
-
 class ECLogicInput : public SimpleComponent {
 
 public:
@@ -79,14 +74,13 @@ public:
 private:
 	virtual void dataChanged();
 	virtual void drawShape(QPainter &p);
-	LogicOut *m_pOut;
+	LogicOut m_pOut;
 };
 
 /**
 @short Boolean logic output
 @author David Saxton
 */
-
 class ECLogicOutput : public CallbackClass, public SimpleComponent {
 
 public:
@@ -106,8 +100,7 @@ protected:
 	bool m_bLastState;
 
 	double m_lastDrawState;
-	LogicIn *m_pIn;
-	Simulator *m_pSimulator;
+	LogicIn m_pIn;
 };
 
 #endif
