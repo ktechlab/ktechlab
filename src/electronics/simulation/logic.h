@@ -52,7 +52,7 @@ output high/low, also according to the predetermined logic type / voltages.
 class LogicIn : public Element {
 
 public:
-	LogicIn(LogicConfig config);
+	LogicIn(LogicConfig config = LogicConfig());
 	virtual ~LogicIn();
 
 	virtual Type type() const {
@@ -113,7 +113,7 @@ typedef std::list<LogicIn*> LogicInList;
 class LogicOut : public LogicIn {
 
 public:
-	LogicOut(LogicConfig config, bool _high);
+	LogicOut(LogicConfig config = LogicConfig(), bool _high = false);
 	virtual ~LogicOut();
 
 	virtual void setLogic(LogicConfig config);
