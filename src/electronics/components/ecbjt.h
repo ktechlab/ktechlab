@@ -12,8 +12,7 @@
 #define ECBJT_H
 
 #include "component.h"
-
-class BJT;
+#include "bjt.h"
 
 /**
 @short Simulates a BJT
@@ -22,7 +21,7 @@ class BJT;
 class ECBJT : public Component
 {
 	public:
-		ECBJT( bool isNPN, ICNDocument *icnDocument, bool newItem, const char * id = 0L );
+		ECBJT( bool isNPN, ICNDocument *icnDocument, bool newItem, const char * id = 0);
 		~ECBJT();
 	
 		static Item * constructNPN( ItemDocument * itemDocument, bool newItem, const char * id );
@@ -35,7 +34,7 @@ class ECBJT : public Component
 		virtual void drawShape( QPainter &p );
 		
 		bool m_bIsNPN;
-		BJT * m_pBJT;
+		BJT m_pBJT;
 };
 
 #endif

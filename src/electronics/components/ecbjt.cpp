@@ -8,7 +8,6 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "bjt.h"
 #include "ecbjt.h"
 #include "ecnode.h"
 #include "libraryitem.h"
@@ -47,7 +46,7 @@ LibraryItem *ECBJT::libraryItemPNP() {
 
 ECBJT::ECBJT(bool isNPN, ICNDocument *icnDocument, bool newItem, const char *id)
 		: Component(icnDocument, newItem, id ? id : (isNPN ? "npnbjt" : "pnpbjt")),
-	m_bIsNPN(isNPN) {
+	m_bIsNPN(isNPN), m_pBJT(m_bIsNPN) {
 
 	if (m_bIsNPN)
 		m_name = i18n("NPN Transistor");
@@ -55,7 +54,6 @@ ECBJT::ECBJT(bool isNPN, ICNDocument *icnDocument, bool newItem, const char *id)
 
 	setSize(-8, -8, 16, 16);
 
-	m_pBJT = new BJT(m_bIsNPN);
 	setup3pinElement(m_pBJT, createPin(-16, 0, 0, "b")->pin(),
 		createPin(8, -16, 90, "c")->pin(), createPin(8, 16, 270, "e")->pin());
 
@@ -99,9 +97,7 @@ ECBJT::ECBJT(bool isNPN, ICNDocument *icnDocument, bool newItem, const char *id)
 	v->setAdvanced(true);
 }
 
-ECBJT::~ECBJT() {
-	delete m_pBJT;
-}
+ECBJT::~ECBJT() {}
 
 void ECBJT::dataChanged() {
 	BJTSettings s;
@@ -111,7 +107,7 @@ void ECBJT::dataChanged() {
 	s.B_F = dataDouble("B_F");
 	s.B_R = dataDouble("B_R");
 
-	m_pBJT->setBJTSettings(s);
+	m_pBJT.setBJTSettings(s);
 }
 
 
