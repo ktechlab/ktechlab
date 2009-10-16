@@ -26,7 +26,7 @@ protected:
 	virtual void initSymbolFromTrigger() = 0;
 	EdgeTrigger m_edgeTrigger;
 
-	LogicIn *m_pClock;
+	LogicIn m_pClock;
 
 	bool m_bPrevClock;
 };
@@ -51,11 +51,11 @@ protected:
 	void asyncChanged(bool newState);
 	void clockChanged(bool newState);
 
-	LogicIn  *m_pD;
-	LogicOut *m_pQ;
-	LogicOut *m_pQBar;
-	LogicIn  *setp;
-	LogicIn  *rstp;
+	LogicIn  m_pD;
+	LogicOut m_pQ;
+	LogicOut m_pQBar;
+	LogicIn  setp;
+	LogicIn  rstp;
 
 	bool m_prevD;
 
@@ -82,12 +82,12 @@ private:
 	void asyncChanged(bool newState);
 	void clockChanged(bool newState);
 
-	LogicIn *m_pJ;
-	LogicIn *m_pK;
-	LogicIn *setp;
-	LogicIn *rstp;
-	LogicOut *m_pQ;
-	LogicOut *m_pQBar;
+	LogicIn m_pJ;
+	LogicIn m_pK;
+	LogicIn setp;
+	LogicIn rstp;
+	LogicOut m_pQ;
+	LogicOut m_pQBar;
 };
 
 /**
@@ -108,10 +108,10 @@ protected:
 	virtual void dataChanged();
 
 	void inStateChanged(bool newState);
-	LogicIn *m_pS;
-	LogicIn *m_pR;
-	LogicOut *m_pQ;
-	LogicOut *m_pQBar;
+	LogicIn m_pS;
+	LogicIn m_pR;
+	LogicOut m_pQ;
+	LogicOut m_pQBar;
 
 // NOR = FALSE; NAND = TRUE. 
 // when NAND mode, both inputs are inverted. 
