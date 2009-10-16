@@ -15,6 +15,7 @@
 
 #include <qvariant.h>
 #include <qdict.h>
+#include <qguardedptr.h>
 
 #include <klistview.h>
 
@@ -118,8 +119,8 @@ protected:
 
 	int baseRowHeight() const { return m_baseRowHeight; }
 
-	ItemGroup *m_pItemGroup;
-	PropertySubEditor *m_currentEditor;
+	QGuardedPtr<ItemGroup> m_pItemGroup;
+	QGuardedPtr<PropertySubEditor> m_currentEditor;
 	PropertyEditorItem *m_editItem;
 	PropertyEditorItem *m_topItem; //The top item is used to control the drawing of every branches.
 	KPushButton *m_defaults; // "Revert to defaults" button
