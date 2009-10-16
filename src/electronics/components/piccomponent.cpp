@@ -108,6 +108,13 @@ PICComponent::PICComponent(ICNDocument *icnDocument, bool newItem, const char *i
 	createProperty("lastPackage", Variant::Type::String);
 	property("lastPackage")->setHidden(true);
 
+
+        // property used to select clock speed
+        createProperty("clock_mhz", Variant::Type::Select );
+        property("clock_mhz")->setCaption(i18n("Clock Mhz"));
+        property("clock_mhz")->setAllowed( QStringList::split( ',', "4,8,12,16,20" ) );
+        property("clock_mhz")->setValue("4");
+        
 // 	//HACK This is to enable loading with pre-0.3 files (which didn't set a "lastPackage"
 // 	// property). This will allow a P16F84 PIC to be initialized (which agrees with pre-0.3
 // 	// behaviour), but it will also load it if
@@ -128,6 +135,12 @@ PICComponent::~PICComponent() {
 }
 
 void PICComponent::dataChanged() {
+    // set the number of steps
+    if( m_pGpsim )
+        m_pGpsim->setStepsPerMicrosecond( dataInt("clock_mhz") / 4 );
+    //else
+    //    kdWarning() << k_funcinfo << " m_pGpsim == 0, can't set its property\n";
+        // do the rest
 	initPIC(false);
 }
 
@@ -373,6 +386,8 @@ void PICComponent::slotCODCreationSucceeded() {
 	}
 
 	slotUpdateBtns();
+        // set the simulatoin speed for the gpsim; maybe move to its constructor?
+        m_pGpsim->setStepsPerMicrosecond( dataInt("clock_mhz") / 4 );
 }
 
 void PICComponent::slotCODCreationFailed() {
