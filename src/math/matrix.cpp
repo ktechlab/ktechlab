@@ -44,6 +44,19 @@ Matrix::~Matrix()
 	m_inMap = 0;
 }
 
+double& Matrix::g(CUI i, CUI j) 
+{
+    const unsigned int mapped_i = m_inMap[i];
+    if(mapped_i < max_k) max_k = mapped_i;
+
+    if(j < max_k) max_k = j;
+
+        // I think I need the next line...
+    if(max_k > 0) max_k--;
+
+    return(*m_mat)[mapped_i][j];
+}
+        
 void Matrix::swapRows(CUI a, CUI b)
 {
 	if(a == b) return;
