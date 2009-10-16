@@ -70,14 +70,14 @@ ECDFlipFlop::ECDFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id)
 	m_prevD = false;
 	m_pSimulator = Simulator::self();
 
-	setup1pinElement(&m_pD, m_pNNode[0]->pin());
-	setup1pinElement(&m_pQ, m_pPNode[0]->pin());
+	setup1pinElement(m_pD, m_pNNode[0]->pin());
+	setup1pinElement(m_pQ, m_pPNode[0]->pin());
 	m_pQ.setHigh(true);
 
-	setup1pinElement(&m_pClock, m_pNNode[1]->pin());
-	setup1pinElement(&m_pQBar, m_pPNode[1]->pin());
-	setup1pinElement(&setp, createPin(0, -32, 90, "set")->pin());
-	setup1pinElement(&rstp, createPin(0, 32, 270, "rst")->pin());
+	setup1pinElement(m_pClock, m_pNNode[1]->pin());
+	setup1pinElement(m_pQBar, m_pPNode[1]->pin());
+	setup1pinElement(setp, createPin(0, -32, 90, "set")->pin());
+	setup1pinElement(rstp, createPin(0, 32, 270, "rst")->pin());
 
 	// (The display text for D, >, Set, Rst is set in initSymbolFromTrigger
 	addDisplayText("Q",  QRect(12, -16, 20, 16), "Q");
@@ -187,15 +187,15 @@ ECJKFlipFlop::ECJKFlipFlop(ICNDocument *icnDocument, bool newItem, const char *i
 
 	initSymbolFromTrigger();
 
-	setup1pinElement(&m_pJ, m_pNNode[0]->pin());
-	setup1pinElement(&m_pQ, m_pPNode[0]->pin());
+	setup1pinElement(m_pJ, m_pNNode[0]->pin());
+	setup1pinElement(m_pQ, m_pPNode[0]->pin());
 	m_pQ.setState(true);
 
-	setup1pinElement(&m_pClock, m_pNNode[1]->pin());
-	setup1pinElement(&m_pQBar, m_pPNode[1]->pin());
-	setup1pinElement(&m_pK, m_pNNode[2]->pin());
-	setup1pinElement(&setp, createPin(0, -40, 90, "set")->pin());
-	setup1pinElement(&rstp, createPin(0, 40, 270, "rst")->pin());
+	setup1pinElement(m_pClock, m_pNNode[1]->pin());
+	setup1pinElement(m_pQBar, m_pPNode[1]->pin());
+	setup1pinElement(m_pK, m_pNNode[2]->pin());
+	setup1pinElement(setp, createPin(0, -40, 90, "set")->pin());
+	setup1pinElement(rstp, createPin(0, 40, 270, "rst")->pin());
 
 	addDisplayText("Q",  QRect(12, -24, 20, 16), "Q");
 	addDisplayText("Q'", QRect(12,   8, 20, 16), "Q'");
@@ -291,10 +291,10 @@ ECSRFlipFlop::ECSRFlipFlop(ICNDocument *icnDocument, bool newItem, const char *i
 	init2PinLeft(-8, 8);
 	init2PinRight(-8, 8);
 
-	setup1pinElement(&m_pS, m_pNNode[0]->pin());
-	setup1pinElement(&m_pR, m_pNNode[1]->pin());
-	setup1pinElement(&m_pQ, m_pPNode[0]->pin());
-	setup1pinElement(&m_pQBar, m_pPNode[1]->pin());
+	setup1pinElement(m_pS, m_pNNode[0]->pin());
+	setup1pinElement(m_pR, m_pNNode[1]->pin());
+	setup1pinElement(m_pQ, m_pPNode[0]->pin());
+	setup1pinElement(m_pQBar, m_pPNode[1]->pin());
 
 	m_pQ.setHigh(true);
 	m_pQBar.setHigh(false);

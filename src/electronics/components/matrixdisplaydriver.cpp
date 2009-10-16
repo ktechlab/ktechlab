@@ -316,18 +316,18 @@ MatrixDisplayDriver::MatrixDisplayDriver(ICNDocument *icnDocument, bool newItem,
 
     m_pValueLogic.resize(8);
     for(unsigned i = 0; i < 8; ++i)
-        setup1pinElement(&m_pValueLogic[i], ecNodeWithID("D" + QString::number(i))->pin());
+        setup1pinElement(m_pValueLogic[i], ecNodeWithID("D" + QString::number(i))->pin());
 
     m_pRowLogic.resize(7);
     for(unsigned i = 0; i < 7; ++i) {
-        setup1pinElement(&m_pRowLogic[i], ecNodeWithID("R" + QString::number(i))->pin());
+        setup1pinElement(m_pRowLogic[i], ecNodeWithID("R" + QString::number(i))->pin());
         m_pRowLogic[i].setOutputLowConductance(1.0);
         m_pRowLogic[i].setOutputHighVoltage(5.0);
     }
 
     m_pColLogic.resize(5);
     for(unsigned i = 0; i < 5; ++i) {
-        setup1pinElement(&m_pColLogic[i], ecNodeWithID("C" + QString::number(i))->pin());
+        setup1pinElement(m_pColLogic[i], ecNodeWithID("C" + QString::number(i))->pin());
         m_pColLogic[i].setOutputHighVoltage(5.0);
     }
 }

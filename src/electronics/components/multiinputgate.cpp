@@ -40,7 +40,7 @@ MultiInputGate::MultiInputGate(ICNDocument *icnDocument, bool newItem, const cha
 	updateInputs(2);
 	init1PinRight(16);
 
-	setup1pinElement(&m_pOut, m_pPNode[0]->pin());
+	setup1pinElement(m_pOut, m_pPNode[0]->pin());
 
 	createProperty("numInput", Variant::Type::Int);
 	property("numInput")->setCaption(i18n("Number Inputs"));
@@ -124,7 +124,7 @@ void MultiInputGate::updateInputs(int newNum) {
 			inNode[i] = node;
 
 			inLogic[i] = new LogicIn(LogicConfig());
-			setup1pinElement(inLogic[i], node->pin());
+			setup1pinElement(*(inLogic[i]), node->pin());
 
 			inLogic[i]->setCallback(this, (CallbackPtr)(&MultiInputGate::inStateChanged));
 		}

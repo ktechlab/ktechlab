@@ -36,8 +36,6 @@ Multiplexer::Multiplexer(ICNDocument *icnDocument, bool newItem, const char *id)
 		: DIPComponent(icnDocument, newItem, id ? id : "multiplexer") {
 	m_name = i18n("Multiplexer");
 
-	m_output = 0;
-
 	createProperty("addressSize", Variant::Type::Int);
 	property("addressSize")->setCaption(i18n("Address Size"));
 	property("addressSize")->setMinValue(1);
@@ -51,19 +49,7 @@ Multiplexer::Multiplexer(ICNDocument *icnDocument, bool newItem, const char *id)
 	property("numInput")->setHidden(true);
 }
 
-Multiplexer::~Multiplexer() {
-	for (unsigned i = 0; i < m_aLogic.size(); ++i) {
-		delete m_aLogic[i];
-	}
-
-	if (m_output) {
-		delete m_output;
-	}
-
-	for (unsigned i = 0; i < m_xLogic.size(); ++i) {
-		delete m_xLogic[i];
-	}
-}
+Multiplexer::~Multiplexer() {}
 
 void Multiplexer::dataChanged() {
 	if (hasProperty("numInput") && dataInt("numInput") != -1) {
@@ -93,11 +79,11 @@ void Multiplexer::inStateChanged(bool /*state*/) {
 	unsigned long long pos = 0;
 
 	for (unsigned i = 0; i < m_aLogic.size(); ++i) {
-		if (m_aLogic[i]->isHigh())
+		if (m_aLogic[i].isHigh())
 			pos += 1 << i;
 	}
 
-	m_output->setHigh(m_xLogic[pos]->isHigh());
+	m_output.setHigh(m_xLogic[pos].isHigh());
 }
 
 void Multiplexer::initPins(unsigned newAddressSize) {
@@ -130,38 +116,27 @@ void Multiplexer::initPins(unsigned newAddressSize) {
 	initDIPSymbol(pins, 64);
 	initDIP(pins);
 
-	if (!m_output) {
-		m_output = new LogicOut(LogicConfig(), false);
-		setup1pinElement(m_output, ecNodeWithID("X")->pin());
-	}
+	setup1pinElement(m_output, ecNodeWithID("X")->pin());
 
 	if (newXLogicCount > oldXLogicCount) {
 		m_xLogic.resize(newXLogicCount);
 
 		for (unsigned i = oldXLogicCount; i < newXLogicCount; ++i) {
-
-			LogicIn *inLogic = new LogicIn(LogicConfig());
-			setup1pinElement(inLogic, ecNodeWithID("X" + QString::number(i))->pin());
-			m_xLogic.insert(i, inLogic);
-
-			m_xLogic[i]->setCallback(this, (CallbackPtr)(&Multiplexer::inStateChanged));
+			setup1pinElement(m_xLogic[i], ecNodeWithID("X" + QString::number(i))->pin());
+			m_xLogic[i].setCallback(this, (CallbackPtr)(&Multiplexer::inStateChanged));
 		}
 
 		m_aLogic.resize(newAddressSize);
 
 		for (unsigned i = oldAddressSize; i < newAddressSize; ++i) {
-
-			LogicIn *inLogic = new LogicIn(LogicConfig());
-			setup1pinElement(inLogic, ecNodeWithID("A" + QString::number(i))->pin());
-			m_aLogic.insert(i, inLogic);
-
-			m_aLogic[i]->setCallback(this, (CallbackPtr)(&Multiplexer::inStateChanged));
+			setup1pinElement(m_aLogic[i], ecNodeWithID("A" + QString::number(i))->pin());
+			m_aLogic[i].setCallback(this, (CallbackPtr)(&Multiplexer::inStateChanged));
 		}
 	} else {
 		for (unsigned i = newXLogicCount; i < oldXLogicCount; ++i) {
 			QString id = "X" + QString::number(i);
 			removeDisplayText(id);
-			removeElement(m_xLogic[i], false);
+			removeElement(&(m_xLogic[i]), false);
 			removeNode(id);
 		}
 
@@ -170,7 +145,7 @@ void Multiplexer::initPins(unsigned newAddressSize) {
 		for (unsigned i = newAddressSize; i < oldAddressSize; ++i) {
 			QString id = "A" + QString::number(i);
 			removeDisplayText(id);
-			removeElement(m_aLogic[i], false);
+			removeElement(&(m_aLogic[i]), false);
 			removeNode(id);
 		}
 
