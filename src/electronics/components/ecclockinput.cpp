@@ -59,8 +59,7 @@ ECClockInput::ECClockInput(ICNDocument *icnDocument, bool newItem, const char *i
 
 	init1PinRight();
 
-	m_pOut = new LogicOut(LogicConfig(), false);
-	setup1pinElement(m_pOut, m_pPNode[0]->pin());
+	setup1pinElement(&m_pOut, m_pPNode[0]->pin());
 
 	createProperty("low-time", Variant::Type::Double);
 	property("low-time")->setUnit("S");
@@ -78,8 +77,6 @@ ECClockInput::ECClockInput(ICNDocument *icnDocument, bool newItem, const char *i
 }
 
 ECClockInput::~ECClockInput() {
-	delete m_pOut;
-
 	for (unsigned i = 0; i < 1000; i++) {
 		delete m_pComponentCallback[i];
 	}
@@ -97,16 +94,16 @@ void ECClockInput::dataChanged() {
 }
 
 void ECClockInput::stepLogic() {
-	m_pOut->setHigh(m_pSimulator->time() > m_low_time);
+	m_pOut.setHigh(m_pSimulator->time() > m_low_time);
 }
 
 void ECClockInput::stepCallback() {
-	m_pOut->setHigh(!m_pOut->isHigh());
+	m_pOut.setHigh(!m_pOut.isHigh());
 }
 
 void ECClockInput::stepNonLogic() {
 
-	bool addingHigh = m_pOut->isHigh();
+	bool addingHigh = m_pOut.isHigh();
 
 	long long lowerTime = m_pSimulator->time();
 	long long upperTime = lowerTime + TIME_INTERVAL;
