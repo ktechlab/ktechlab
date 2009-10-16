@@ -90,7 +90,7 @@ void ResistorDIP::initPins() {
 //    createPin(24, 0, 180, "p" + QString::number(i))->pin(), resistance);
 
             m_resistance[i] = new Resistance(resistance);
-            setup2pinElement(m_resistance[i],
+            setup2pinElement(*(m_resistance[i]),
                              createPin(-24, 0, 0, "n" + QString::number(i))->pin(),
                              createPin(24, 0, 180, "p" + QString::number(i))->pin());
         }

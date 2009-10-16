@@ -17,7 +17,6 @@
 #include "element.h"
 #include "libraryitem.h"
 #include "pin.h"
-#include "resistance.h"
 
 // TODO: resistance and power rating should be user definable properties.
 #define RESISTANCE 100
@@ -51,7 +50,7 @@ ECSignalLamp::ECSignalLamp(ICNDocument *icnDocument, bool newItem, const char *i
 	init1PinRight();
 
 //	createResistance(m_pPNode[0]->pin(), m_pNNode[0]->pin(), RESISTANCE);
-	the_filament = new Resistance(RESISTANCE);
+	the_filament.setResistance(RESISTANCE);
 	setup2pinElement(the_filament, m_pPNode[0]->pin(), m_pNNode[0]->pin());
 
 	advanceSinceUpdate = 0;
@@ -59,10 +58,7 @@ ECSignalLamp::ECSignalLamp(ICNDocument *icnDocument, bool newItem, const char *i
 	m_bDynamicContent = true;
 }
 
-ECSignalLamp::~ECSignalLamp()
-{
-	delete the_filament;
-}
+ECSignalLamp::~ECSignalLamp() {}
 
 void ECSignalLamp::stepNonLogic()
 {

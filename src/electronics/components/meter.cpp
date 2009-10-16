@@ -14,7 +14,6 @@
 #include "libraryitem.h"
 #include "meter.h"
 #include "variant.h"
-#include "voltagesource.h"
 #include "pin.h"
 #include "simulator.h"
 
@@ -214,9 +213,8 @@ ECAmmeter::ECAmmeter(ICNDocument *icnDocument, bool newItem, const char *id)
 	init1PinLeft(0);
 	init1PinRight(0);
 
-//	m_voltageSource = createVoltageSource( m_pNNode[0]->pin(), m_pPNode[0]->pin(), 0.);
-	m_voltageSource = new VoltageSource(0);
 	setup2pinElement(m_voltageSource, m_pNNode[0]->pin(), m_pPNode[0]->pin());
+	m_voltageSource.setVoltage(0);
 }
 
 ECAmmeter::~ECAmmeter()
@@ -225,7 +223,7 @@ ECAmmeter::~ECAmmeter()
 
 double ECAmmeter::meterValue()
 {
-	return -m_voltageSource->cbranchCurrent(0);
+	return -m_voltageSource.cbranchCurrent(0);
 }
 //END class ECAmmeter
 

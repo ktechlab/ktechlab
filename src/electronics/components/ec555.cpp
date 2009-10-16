@@ -88,11 +88,11 @@ EC555::EC555(ICNDocument *icnDocument, bool newItem, const char *id)
 	m_po_source.setConductance(0);
 	m_r_discharge.setResistance(0.0001);
 
-	setup2pinElement(&m_r1, vcc, control);
-	setup2pinElement(&m_r23, control, ground);
-	setup2pinElement(&m_po_sink, output, ground);
-	setup2pinElement(&m_po_source, output, vcc);
-	setup2pinElement(&m_r_discharge, discharge, ground);
+	setup2pinElement(m_r1, vcc, control);
+	setup2pinElement(m_r23, control, ground);
+	setup2pinElement(m_po_sink, output, ground);
+	setup2pinElement(m_po_source, output, vcc);
+	setup2pinElement(m_r_discharge, discharge, ground);
 }
 
 EC555::~EC555() {}

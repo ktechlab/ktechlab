@@ -21,7 +21,7 @@ class Inductance;
 class Inductor : public SimpleComponent
 {
 	public:
-		Inductor( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		Inductor( ICNDocument *icnDocument, bool newItem, const char *id = 0);
 		~Inductor();
 	
 		static Item * construct( ItemDocument * itemDocument, bool newItem, const char * id );
@@ -31,7 +31,7 @@ class Inductor : public SimpleComponent
 		void dataChanged();
 		virtual void drawShape( QPainter & p );
 
-		Inductance * m_pInductance;
+		Inductance *m_pInductance;
 };
 
 #endif
