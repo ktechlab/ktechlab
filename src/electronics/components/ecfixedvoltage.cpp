@@ -17,61 +17,51 @@
 #include <klocale.h>
 #include <qpainter.h>
 
-Item* ECFixedVoltage::construct( ItemDocument *itemDocument, bool newItem, const char *id )
-{
-	return new ECFixedVoltage( (ICNDocument*)itemDocument, newItem, id );
+Item* ECFixedVoltage::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
+    return new ECFixedVoltage((ICNDocument*)itemDocument, newItem, id);
 }
-LibraryItem* ECFixedVoltage::libraryItem()
-{
-	return new LibraryItem(
-		"ec/fixed_voltage",
-		i18n("Fixed Voltage"),
-		i18n("Sources"),
-		"voltage.png",
-		LibraryItem::lit_component,
-		ECFixedVoltage::construct);
+
+LibraryItem* ECFixedVoltage::libraryItem() {
+    return new LibraryItem(
+               "ec/fixed_voltage",
+               i18n("Fixed Voltage"),
+               i18n("Sources"),
+               "voltage.png",
+               LibraryItem::lit_component,
+               ECFixedVoltage::construct);
 }
 
 ECFixedVoltage::ECFixedVoltage(ICNDocument *icnDocument, bool newItem, const char *id)
-	: SimpleComponent(icnDocument, newItem, id ? id : "fixed_voltage")
-{
-	m_name = i18n("Fixed Voltage");
-	setSize(-8, -8, 16, 16);
-	
-	init1PinRight();
-	m_pPNode[0]->setLength(11);
+        : SimpleComponent(icnDocument, newItem, id ? id : "fixed_voltage") {
+    m_name = i18n("Fixed Voltage");
+    setSize(-8, -8, 16, 16);
 
-//	m_voltagePoint = createVoltagePoint(m_pPNode[0]->pin(), 5.0);
+    init1PinRight();
+    m_pPNode[0]->setLength(11);
 
-	m_voltagePoint = new VoltagePoint(5.0);
-	setup1pinElement(m_voltagePoint, m_pPNode[0]->pin());
+    setup1pinElement(&m_voltagePoint, m_pPNode[0]->pin());
 
-	addDisplayText("voltage", QRect(-24, -20, width()+32, 12 ), "");
-	createProperty("voltage", Variant::Type::Double);
-	property("voltage")->setUnit("V");
-	property("voltage")->setCaption(i18n("Voltage"));
-	property("voltage")->setMinValue(-1e15);
-	property("voltage")->setMaxValue(1e15);
-	property("voltage")->setValue(5.0);
+    addDisplayText("voltage", QRect(-24, -20, width() + 32, 12), "");
+    createProperty("voltage", Variant::Type::Double);
+    property("voltage")->setUnit("V");
+    property("voltage")->setCaption(i18n("Voltage"));
+    property("voltage")->setMinValue(-1e15);
+    property("voltage")->setMaxValue(1e15);
+    property("voltage")->setValue(5.0);
 }
 
-ECFixedVoltage::~ECFixedVoltage()
-{
-	delete m_voltagePoint;
+ECFixedVoltage::~ECFixedVoltage() {}
+
+void ECFixedVoltage::dataChanged() {
+    const double voltage = dataDouble("voltage");
+    QString display = QString::number(voltage / getMultiplier(voltage), 'g', 3) + getNumberMag(voltage) + "V";
+    setDisplayText("voltage", display);
+    m_voltagePoint.setVoltage(voltage);
 }
 
-void ECFixedVoltage::dataChanged()
-{
-	const double voltage = dataDouble("voltage");
-	QString display = QString::number(voltage / getMultiplier(voltage), 'g', 3) + getNumberMag(voltage) + "V";
-	setDisplayText( "voltage", display );
-	m_voltagePoint->setVoltage(voltage);
-}
-
-void ECFixedVoltage::drawShape( QPainter &p )
-{
-	initPainter( p );
-	p.drawEllipse( int(x()-4), int(y()-4), 9, 9 );
-	deinitPainter( p );
+void ECFixedVoltage::drawShape(QPainter &p) {
+    initPainter(p);
+    p.drawEllipse(int(x() - 4), int(y() - 4), 9, 9);
+    deinitPainter(p);
 }
 
