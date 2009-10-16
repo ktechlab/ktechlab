@@ -28,17 +28,17 @@ class Pin;
 class Switch;
 class LogicIn;
 
-typedef std::list<Pin *> PinList;
+typedef std::list<Pin*> PinList;
 typedef std::set<Element*> ElementList;
+
 typedef QValueList<Switch*> SwitchList;
-typedef QValueList< PinSet > PinSetList;
+typedef QValueList<PinSet> PinSetList;
 typedef QValueList<ElementMap> ElementMapList;
 
 /**
 @short Base class for all electrical components
 @author David Saxton
 */
-
 class Component : public CNItem {
 	Q_OBJECT
 
@@ -107,7 +107,7 @@ public:
 	/// simplified element attachers
 // TODO: look into feasibility for using variable argument arrays for these and other
 // methods in this class. 
-	void setup1pinElement(Element *ele, Pin *a);
+	void setup1pinElement(Element &ele, Pin *a);
 	void setup2pinElement(Element *ele, Pin *a, Pin *b);
 	void setup3pinElement(Element *ele, Pin *a, Pin *b, Pin *c);
 	void setup4pinElement(Element *ele, Pin *a, Pin *b, Pin *c, Pin *d);
@@ -124,9 +124,7 @@ public:
 	/**
 	 * @return the list of switches that this component uses.
 	 */
-	SwitchList switchList() const {
-		return m_switchList;
-	}
+	SwitchList switchList() const { return m_switchList; }
 
 	/**
 	 * Safely delete an element - in this case, calls element->componentDeleted,

@@ -128,17 +128,17 @@ void Demultiplexer::initPins(unsigned newAddressSize) {
 	initDIPSymbol(pins, 64);
 	initDIP(pins);
 
-	setup1pinElement(&m_input, ecNodeWithID("X")->pin());
+	setup1pinElement(m_input, ecNodeWithID("X")->pin());
 
 	if (newXLogicCount > oldXLogicCount) {
 		m_xLogic.resize(newXLogicCount);
 		for (unsigned i = oldXLogicCount; i < newXLogicCount; ++i) {
-			setup1pinElement(&m_xLogic[i], ecNodeWithID("X" + QString::number(i))->pin());
+			setup1pinElement(m_xLogic[i], ecNodeWithID("X" + QString::number(i))->pin());
 		}
 
 		m_aLogic.resize(newAddressSize);
 		for (unsigned i = oldAddressSize; i < newAddressSize; ++i) {
-			setup1pinElement(&m_aLogic[i], ecNodeWithID("A" + QString::number(i))->pin());
+			setup1pinElement(m_aLogic[i], ecNodeWithID("A" + QString::number(i))->pin());
 			m_aLogic[i].setCallback(this, (CallbackPtr)(&Demultiplexer::inStateChanged));
 		}
 	} else {

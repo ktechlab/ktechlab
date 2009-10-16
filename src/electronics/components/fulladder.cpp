@@ -41,11 +41,11 @@ FullAdder::FullAdder(ICNDocument *icnDocument, bool newItem, const char *id)
 	initDIPSymbol(pins, 48);
 	initDIP(pins);
 
-	setup1pinElement(&SLogic,  ecNodeWithID("S")->pin());
-	setup1pinElement(&outLogic, ecNodeWithID("C")->pin());
-	setup1pinElement(&ALogic,  ecNodeWithID("A")->pin());
-	setup1pinElement(&BLogic,  ecNodeWithID("B")->pin());
-	setup1pinElement(&inLogic, ecNodeWithID(">")->pin());
+	setup1pinElement(SLogic,  ecNodeWithID("S")->pin());
+	setup1pinElement(outLogic, ecNodeWithID("C")->pin());
+	setup1pinElement(ALogic,  ecNodeWithID("A")->pin());
+	setup1pinElement(BLogic,  ecNodeWithID("B")->pin());
+	setup1pinElement(inLogic, ecNodeWithID(">")->pin());
 
 	ALogic.setCallback(this, (CallbackPtr)(&FullAdder::inStateChanged));
 	BLogic.setCallback(this, (CallbackPtr)(&FullAdder::inStateChanged));

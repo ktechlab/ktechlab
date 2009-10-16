@@ -17,14 +17,12 @@
 
 #include <kdebug.h>
 
-PICComponentPin::PICComponentPin(PICComponent * picComponent, PicPin picPin)
+PICComponentPin::PICComponentPin(PICComponent *picComponent, PicPin picPin)
 		: m_id(picPin.pinID) {
 	m_gOutHigh = 0.0;
 	m_gOutLow = 0.0;
 	m_picPin = picPin;
 	m_pPICComponent = picComponent;
-	m_pLogicOut = 0;
-	m_pLogicIn = 0;
 	m_pIOPIN = 0;
 	m_pStimulusNode = 0;
 	Zth = 0.0;
@@ -33,12 +31,10 @@ PICComponentPin::PICComponentPin(PICComponent * picComponent, PicPin picPin)
 	switch (picPin.type) {
 
 	case PicPin::type_input:
-		m_pLogicIn = new LogicIn(LogicConfig());
 		picComponent->setup1pinElement(m_pLogicIn, picComponent->ecNodeWithID(picPin.pinID)->pin());
 		break;
 
 	case PicPin::type_bidir:
-		m_pLogicOut = new LogicOut(LogicConfig(), false);
 		picComponent->setup1pinElement(m_pLogicOut, picComponent->ecNodeWithID(picPin.pinID)->pin());
 
 		m_gOutHigh = 0.004;
@@ -46,11 +42,10 @@ PICComponentPin::PICComponentPin(PICComponent * picComponent, PicPin picPin)
 		break;
 
 	case PicPin::type_open:
-		m_pLogicOut = new LogicOut(LogicConfig(), false);
 		picComponent->setup1pinElement(m_pLogicOut, picComponent->ecNodeWithID(picPin.pinID)->pin());
 
-		m_pLogicOut->setOutputHighVoltage(0.0);
-		m_pLogicOut->setOutputHighConductance(0.0);
+		m_pLogicOut.setOutputHighVoltage(0.0);
+		m_pLogicOut.setOutputHighConductance(0.0);
 		m_gOutHigh = 0.0;
 		m_gOutLow = 0.004;
 		break;
@@ -64,20 +59,11 @@ PICComponentPin::PICComponentPin(PICComponent * picComponent, PicPin picPin)
 		break;
 	}
 
-	if (m_pLogicIn)
-		m_pLogicIn->setCallback(this, (CallbackPtr)(&PICComponentPin::logicCallback));
-
-/*	if (m_pLogicOut)
-		m_pLogicOut->setCallback(this, (CallbackPtr)(&PICComponentPin::logicCallback));*/
+	m_pLogicIn.setCallback(this, (CallbackPtr)(&PICComponentPin::logicCallback));
+	m_pLogicOut.setCallback(this, (CallbackPtr)(&PICComponentPin::logicCallback));
 }
 
 PICComponentPin::~PICComponentPin() {
-	if (m_pLogicIn)
-		m_pLogicIn->setCallback(0, (CallbackPtr)0);
-
-/*	if (m_pLogicOut)
-		m_pLogicOut->setCallback(0, (CallbackPtr)0);*/
-
 	delete m_pStimulusNode;
 }
 
@@ -104,10 +90,8 @@ void PICComponentPin::attach(IOPIN * iopin) {
 	m_pStimulusNode->attach_stimulus(this);
 
 	// We need to tell the iopin whether or not we are high
-	if (m_pLogicOut)
-		logicCallback(m_pLogicOut->isHigh());
-	else if (m_pLogicIn)
-		logicCallback(m_pLogicIn->isHigh());
+	logicCallback(m_pLogicOut.isHigh());
+	logicCallback(m_pLogicIn.isHigh());
 }
 
 double PICComponentPin::get_Vth() {
@@ -122,16 +106,16 @@ double PICComponentPin::get_Vth() {
 void PICComponentPin::set_nodeVoltage(double v) {
 	Q_UNUSED(v);
 
-	if (!m_pLogicOut || !m_pIOPIN)
+	if(!m_pIOPIN)
 		return;
 
 	if (m_pIOPIN->get_direction() == IOPIN::DIR_INPUT) {
-		m_pLogicOut->setOutputHighConductance(0.0);
-		m_pLogicOut->setOutputLowConductance(0.0);
+		m_pLogicOut.setOutputHighConductance(0.0);
+		m_pLogicOut.setOutputLowConductance(0.0);
 	} else {
-		m_pLogicOut->setHigh(m_pIOPIN->getDrivingState());
-		m_pLogicOut->setOutputHighConductance(m_gOutHigh);
-		m_pLogicOut->setOutputLowConductance(m_gOutLow);
+		m_pLogicOut.setHigh(m_pIOPIN->getDrivingState());
+		m_pLogicOut.setOutputHighConductance(m_gOutHigh);
+		m_pLogicOut.setOutputLowConductance(m_gOutLow);
 	}
 }
 
@@ -153,8 +137,7 @@ void PICComponentPin::logicCallback(bool state) {
 }
 
 void PICComponentPin::resetOutput() {
-	if (m_pLogicOut)
-		m_pLogicOut->setHigh(false);
+	m_pLogicOut.setHigh(false);
 }
 #endif
 
