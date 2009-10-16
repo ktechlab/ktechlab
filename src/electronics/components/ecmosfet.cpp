@@ -10,7 +10,6 @@
 
 #include "ecmosfet.h"
 #include "libraryitem.h"
-#include "mosfet.h"
 
 #include <kdebug.h>
 #include <kiconloader.h>
@@ -85,7 +84,8 @@ LibraryItem* ECMOSFET::libraryItemPDM() {
 #endif
 
 ECMOSFET::ECMOSFET(int MOSFET_type, ICNDocument *icnDocument, bool newItem, const char *id)
-		: Component(icnDocument, newItem, id) {
+		: Component(icnDocument, newItem, id),
+		m_pMOSFET((MOSFET::MOSFET_type)MOSFET_type) {
 	m_MOSFET_type = MOSFET_type;
 
 	switch ((MOSFET::MOSFET_type) m_MOSFET_type) {
@@ -118,7 +118,6 @@ ECMOSFET::ECMOSFET(int MOSFET_type, ICNDocument *icnDocument, bool newItem, cons
 
 	ECNode *NodeS = createPin(8, 24, 270, "s");
 
-	m_pMOSFET = new MOSFET((MOSFET::MOSFET_type)m_MOSFET_type);
 	setup4pinElement(m_pMOSFET, createPin(8, -24, 90, "d")->pin(),
 				createPin(-16, 8, 0, "g")->pin(),
 				NodeS->pin(), NodeS->pin());
@@ -186,9 +185,7 @@ ECMOSFET::ECMOSFET(int MOSFET_type, ICNDocument *icnDocument, bool newItem, cons
 #endif
 }
 
-ECMOSFET::~ECMOSFET() {
-	delete m_pMOSFET;
-}
+ECMOSFET::~ECMOSFET() {}
 
 void ECMOSFET::dataChanged() {
 	bool haveBodyPin = dataBool("bodyPin");
@@ -198,10 +195,8 @@ void ECMOSFET::dataChanged() {
 
 		if (m_bHaveBodyPin) {
 			// Creating a body pin
-			removeElement(m_pMOSFET, false);
-			delete m_pMOSFET;
+			removeElement(&m_pMOSFET, false);
 
-			m_pMOSFET = new MOSFET((MOSFET::MOSFET_type)m_MOSFET_type);
 			setup4pinElement(m_pMOSFET, ecNodeWithID("d")->pin(),
 				ecNodeWithID("g")->pin(), ecNodeWithID("s")->pin(),
 				createPin(16, 0, 180, "b")->pin());
@@ -209,11 +204,9 @@ void ECMOSFET::dataChanged() {
 		} else {
 			// Removing a body pin
 			removeNode("b");
-			removeElement(m_pMOSFET, false);
-			delete m_pMOSFET;
+			removeElement(&m_pMOSFET, false);
 
 		// Our class requires that we initialize a four pin element, even if we tie two of those pins together. 
-			m_pMOSFET = new MOSFET((MOSFET::MOSFET_type)m_MOSFET_type);
 			setup4pinElement(m_pMOSFET, ecNodeWithID("d")->pin(),
 				ecNodeWithID("g")->pin(), ecNodeWithID("s")->pin(),
 				ecNodeWithID("s")->pin());
@@ -221,7 +214,7 @@ void ECMOSFET::dataChanged() {
 	}
 
 
-	MOSFETSettings s = m_pMOSFET->settings();
+	MOSFETSettings s = m_pMOSFET.settings();
 #if 0
 	s.I_S = dataDouble("I_S");
 	s.N_F = dataDouble("N_F");
@@ -232,10 +225,8 @@ void ECMOSFET::dataChanged() {
 	s.L = dataDouble("mosfetL");
 	s.W = dataDouble("mosfetW");
 	
-	m_pMOSFET->setMOSFETSettings(s);
-
+	m_pMOSFET.setMOSFETSettings(s);
 }
-
 
 void ECMOSFET::drawShape(QPainter &p) {
 	const int _x = int(x());
@@ -258,9 +249,7 @@ void ECMOSFET::drawShape(QPainter &p) {
 	p.drawLine(_x + 8, _y - 11, _x + 8, _y - 16);
 
 	QPen pen = p.pen();
-
 	pen.setWidth(2);
-
 	p.setPen(pen);
 
 	// Back line

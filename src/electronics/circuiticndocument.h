@@ -120,11 +120,6 @@ protected:
      */
     virtual void deleteAllNodes();
 
-    /**
-     *        deletes all node groups in the nodeGroupList. Should be overridden.
-     */
-    // virtual void deleteAllNodeGroups();
-
 private:
     /// the list of nodes contained by the document
     ECNodeMap m_ecNodeList;
