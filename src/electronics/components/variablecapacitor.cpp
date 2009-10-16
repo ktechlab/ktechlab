@@ -15,7 +15,6 @@
 
 #include "simulator.h"
 #include "canvasitemparts.h"
-#include "capacitance.h"
 #include "variablecapacitor.h"
 #include "ecnode.h"
 #include "libraryitem.h"
@@ -133,7 +132,7 @@ void VariableCapacitor::sliderValueChanged(const QString &id, int newValue) {
 	m_currCapacitance = m_minCapacitance + (newValue * m_tickValue);
 
 	// Set the new capacitance value.
-	m_pCapacitance->setCapacitance(m_currCapacitance);
+	m_pCapacitance.setCapacitance(m_currCapacitance);
 
 	// Update property.
 	property("currcapacitance")->setValue(m_currCapacitance);
