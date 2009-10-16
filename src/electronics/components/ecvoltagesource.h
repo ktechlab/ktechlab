@@ -13,7 +13,7 @@
 
 #include "simplecomponent.h"
 
-class VoltageSource;
+#include "voltagesource.h"
 
 /**
 @short Electrical cell
@@ -23,7 +23,7 @@ Simple electrical cell that simulates a PD and internal resistance
 class ECCell : public SimpleComponent
 {
 public:
-	ECCell( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECCell( ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECCell();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -32,8 +32,7 @@ public:
 private:
 	void dataChanged();
 	virtual void drawShape( QPainter &p );
-	VoltageSource *m_voltageSource;
-	double voltage;
+	VoltageSource m_voltageSource;
 };
 
 #endif

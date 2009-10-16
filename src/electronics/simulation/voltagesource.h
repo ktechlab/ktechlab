@@ -17,21 +17,25 @@
 CNode n0 is the negative terminal, CNode n1 is the positive terminal
 @short Voltage Source
 */
-class VoltageSource : public Element
-{
+
+class VoltageSource : public Element {
+
 public:
-	VoltageSource( const double voltage );
-	virtual ~VoltageSource();
-	
-	virtual Type type() const { return Element_VoltageSource; }
-	void setVoltage( const double v );
+    VoltageSource(const double voltage = 5);
+    virtual ~VoltageSource();
+
+    virtual Type type() const {
+        return Element_VoltageSource;
+    }
+
+    void setVoltage(const double v);
 
 protected:
-	virtual void updateCurrents();
-	virtual void add_initial_dc();
-	
+    virtual void updateCurrents();
+    virtual void add_initial_dc();
+
 private:
-	double m_v; // Voltage
+    double m_v; // Voltage
 };
 
 #endif
