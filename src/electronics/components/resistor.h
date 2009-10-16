@@ -12,8 +12,7 @@
 #define RESISTOR_H
 
 #include "simplecomponent.h"
-
-class Resistance;
+#include "resistance.h"
 
 /**
 @short Simple resistor
@@ -32,7 +31,7 @@ class Resistor : public SimpleComponent
 		virtual void dataChanged();
 		virtual void drawShape(QPainter &p);
 
-		Resistance *m_resistance;
+		Resistance m_resistance;
 };
 
 #endif
