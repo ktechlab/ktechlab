@@ -69,7 +69,7 @@ protected:
 	LogicIn *inLogic[maxGateInput];
 	ECNode *inNode[maxGateInput];
 // ###
-	LogicOut *m_pOut;
+	LogicOut m_pOut;
 	LogicSymbolShape m_logicSymbolShape;
 	QString m_rectangularShapeText;
 	const bool m_bInvertedOutput;  // will be initialized by the constructor from a given parameter

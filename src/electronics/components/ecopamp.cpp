@@ -47,14 +47,10 @@ ECOpAmp::ECOpAmp(ICNDocument *icnDocument, bool newItem, const char *id)
 	init2PinLeft(-8, 8);
 	init1PinRight();
 
-	the_amp = new OpAmp();
-	setup3pinElement(the_amp, m_pNNode[0]->pin(), m_pPNode[0]->pin(), m_pNNode[1]->pin());
+	setup3pinElement(&the_amp, m_pNNode[0]->pin(), m_pPNode[0]->pin(), m_pNNode[1]->pin());
 }
 
-ECOpAmp::~ECOpAmp()
-{
-	delete the_amp;
-}
+ECOpAmp::~ECOpAmp() {}
 
 void ECOpAmp::drawShape(QPainter &p)
 {
@@ -80,4 +76,3 @@ void ECOpAmp::drawShape(QPainter &p)
 	
 	deinitPainter(p);
 }
-
