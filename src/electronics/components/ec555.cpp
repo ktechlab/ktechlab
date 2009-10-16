@@ -82,27 +82,20 @@ EC555::EC555(ICNDocument *icnDocument, bool newItem, const char *id)
 	output = createPin(40, 0, 180, "Out")->pin();
 	addDisplayText("out", QRect(8, -8, 16, 16), "Out");
 
-	m_r1 = new Resistance(5e3);
-	setup2pinElement(m_r1, vcc, control);
+	m_r1.setResistance(5e3);
+	m_r23.setResistance(1e4);
+	m_po_sink.setResistance(10);
+	m_po_source.setConductance(0);
+	m_r_discharge.setResistance(0.0001);
 
-	m_r23 = new Resistance(1e4);
-	setup2pinElement(m_r23, control, ground);
-
-	m_po_sink = new Resistance(10);
-	setup2pinElement(m_po_sink, output, ground);
-
-	m_po_source = new Resistance(0.0);
-	setup2pinElement(m_po_source, output, vcc);
-	m_po_source->setConductance(0.);
-
-	m_r_discharge = new Resistance(0.0);
-	setup2pinElement(m_r_discharge, discharge, ground);
+	setup2pinElement(&m_r1, vcc, control);
+	setup2pinElement(&m_r23, control, ground);
+	setup2pinElement(&m_po_sink, output, ground);
+	setup2pinElement(&m_po_source, output, vcc);
+	setup2pinElement(&m_r_discharge, discharge, ground);
 }
 
-EC555::~EC555()
-{
-	delete m_r23;
-}
+EC555::~EC555() {}
 
 // TODO: This is simulation code not UI code, so it shouldn't be here.
 // Would it be better to simulate the appropriate elements, ie comparator, voltage divider,
@@ -124,27 +117,21 @@ void EC555::stepNonLogic()
 	bool reset_asserted = v_reset >= v_reset_t;
 	bool r     = (reset_asserted && m_com1);
 
-	if ( v_vcc - v_ground >= 2.5 ) {
-		if(m_com2 && r) {
-			m_q = true;
-		} else if(!(r || m_com2)) {
-			m_q = false;
-		}
-	} else {
-		m_q = false;
-	}
+	if(v_vcc - v_ground >= 2.5 ) {
+		m_q = m_com2 && r;
+	} else m_q = false;
 
-	m_r_discharge->setConductance(0.);
+	m_r_discharge.setConductance(0.);
 	
 	if(m_q) {
-		m_po_source->setResistance(10.);
-		m_po_sink->setConductance(0.);
+		m_po_source.setResistance(10.);
+		m_po_sink.setConductance(0.);
 	} else {
-		m_po_source->setConductance(0.);
-		m_po_sink->setResistance(10.);
+		m_po_source.setConductance(0.);
+		m_po_sink.setResistance(10.);
 
-		if ( v_ground+0.7 <= v_vcc ) {
-			m_r_discharge->setResistance(10.);
+		if(v_ground + 0.7 <= v_vcc ) {
+			m_r_discharge.setResistance(10.);
 		}
 	}
 }
