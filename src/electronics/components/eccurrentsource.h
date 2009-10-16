@@ -12,6 +12,7 @@
 #define ECCURRENTSOURCE_H
 
 #include "simplecomponent.h"
+#include "currentsource.h"
 
 class CurrentSource;
 
@@ -24,15 +25,15 @@ class ECCurrentSource : public SimpleComponent
 public:
 	ECCurrentSource( ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECCurrentSource();
-	
+
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
+
 private:
 	virtual void drawShape( QPainter &p );
 	void dataChanged();
-	
-	CurrentSource *m_currentSource;
+
+	CurrentSource m_currentSource;
 };
 
 #endif

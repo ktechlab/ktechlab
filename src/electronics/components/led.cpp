@@ -58,7 +58,7 @@ void LED::dataChanged() {
 }
 
 void LED::stepNonLogic() {
-	avg_brightness   += brightness(m_diode->current());
+	avg_brightness += brightness(m_diode.current());
 	lastUpdatePeriod++;
 }
 

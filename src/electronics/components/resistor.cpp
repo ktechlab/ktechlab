@@ -38,7 +38,7 @@ Resistor::Resistor(ICNDocument *icnDocument, bool newItem, const char *id)
 	init1PinLeft();
 	init1PinRight();
 
-	setup2pinElement(&m_resistance, m_pPNode[0]->pin(), m_pNNode[0]->pin());
+	setup2pinElement(m_resistance, m_pPNode[0]->pin(), m_pNNode[0]->pin());
 
 	createProperty("resistance", Variant::Type::Double);
 	property("resistance")->setCaption(i18n("Resistance"));

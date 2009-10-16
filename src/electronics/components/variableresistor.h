@@ -11,6 +11,7 @@
 #define VARIABLERESISTOR_H
 
 #include "simplecomponent.h"
+#include "resistance.h"
 
 class Resistance;
 class QSlider;
@@ -34,7 +35,7 @@ class VariableResistor : public SimpleComponent
 		void dataChanged();
 		virtual void drawShape( QPainter &p );
 		
-		Resistance *m_pResistance;
+		Resistance m_pResistance;
 		QSlider *m_pSlider;
 		double m_minResistance;
 		double m_maxResistance;

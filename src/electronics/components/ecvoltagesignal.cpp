@@ -15,7 +15,6 @@
 #include "libraryitem.h"
 #include "pin.h"
 #include "simulator.h"
-#include "voltagesignal.h"
 
 #include <cmath>
 #include <klocale.h>
@@ -39,7 +38,8 @@ LibraryItem* ECVoltageSignal::libraryItem()
 }
 
 ECVoltageSignal::ECVoltageSignal(ICNDocument *icnDocument, bool newItem, const char *id)
-	: SimpleComponent(icnDocument, newItem, id ? id : "voltage_signal")
+	: SimpleComponent(icnDocument, newItem, id ? id : "voltage_signal"), 
+	m_voltageSignal(LINEAR_UPDATE_PERIOD, 0)
 {
 	m_name = i18n("Voltage Signal");
 	setSize(-8, -8, 16, 16);
@@ -48,11 +48,8 @@ ECVoltageSignal::ECVoltageSignal(ICNDocument *icnDocument, bool newItem, const c
 	init1PinRight();
 	
 	m_pNNode[0]->pin()->setGroundType(Pin::gt_medium);
-
-	m_voltageSignal = new VoltageSignal(LINEAR_UPDATE_PERIOD, 0);
 	setup2pinElement(m_voltageSignal, m_pNNode[0]->pin(), m_pPNode[0]->pin());
-
-	m_voltageSignal->setStep(ElementSignal::st_sinusoidal, 50.);
+	m_voltageSignal.setStep(ElementSignal::st_sinusoidal, 50.);
 	
 	createProperty( "frequency", Variant::Type::Double );
 	property("frequency")->setCaption( i18n("Frequency") );
@@ -80,10 +77,7 @@ ECVoltageSignal::ECVoltageSignal(ICNDocument *icnDocument, bool newItem, const c
 	property("peak-rms")->setValue("Peak");
 }
 
-ECVoltageSignal::~ECVoltageSignal()
-{
-	delete m_voltageSignal;
-}
+ECVoltageSignal::~ECVoltageSignal() {}
 
 void ECVoltageSignal::dataChanged()
 {
@@ -91,15 +85,15 @@ void ECVoltageSignal::dataChanged()
 	const double frequency = dataDouble("frequency");
 	bool rms = dataString("peak-rms") == "RMS";
 
-	m_voltageSignal->setStep(ElementSignal::st_sinusoidal, frequency );
+	m_voltageSignal.setStep(ElementSignal::st_sinusoidal, frequency );
 	if (rms) {
 		QString display = QString::number( voltage / getMultiplier(voltage), 'g', 3 ) + getNumberMag(voltage) + "V RMS";
 		setDisplayText( "voltage", display );
-		m_voltageSignal->setVoltage(voltage* M_SQRT2);
+		m_voltageSignal.setVoltage(voltage* M_SQRT2);
 	} else {
 		QString display = QString::number( voltage / getMultiplier(voltage), 'g', 3 ) + getNumberMag(voltage) + "V Peak";
 		setDisplayText( "voltage", display );
-		m_voltageSignal->setVoltage(voltage);
+		m_voltageSignal.setVoltage(voltage);
 	}
 }
 

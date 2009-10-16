@@ -12,6 +12,7 @@
 #define ECVOLTAGESIGNAL_H
 
 #include "simplecomponent.h"
+#include "voltagesignal.h"
 
 class VoltageSignal;
 
@@ -32,7 +33,7 @@ protected:
 	virtual void drawShape(QPainter &p);
 	void dataChanged();
 	
-	VoltageSignal *m_voltageSignal;
+	VoltageSignal m_voltageSignal;
 };
 
 #endif

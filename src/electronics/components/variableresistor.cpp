@@ -9,7 +9,6 @@
 
 #include "variableresistor.h"
 #include "canvasitemparts.h"
-#include "resistance.h"
 #include "ecnode.h"
 #include "libraryitem.h"
 
@@ -49,9 +48,6 @@ VariableResistor::VariableResistor(ICNDocument* icnDocument, bool newItem, const
 	m_maxResistance = 1.0;
 
 	m_currResistance = m_minResistance + ((m_maxResistance - m_minResistance) / 2) ;
-
-//	m_pResistance = createResistance(m_pPNode[0]->pin(), m_pNNode[0]->pin(), m_currResistance);
-	m_pResistance = new Resistance(m_currResistance);
 	setup2pinElement(m_pResistance, m_pPNode[0]->pin(), m_pNNode[0]->pin());
 
 	createProperty("resistance", Variant::Type::Double);
@@ -79,9 +75,7 @@ VariableResistor::VariableResistor(ICNDocument* icnDocument, bool newItem, const
 
 }
 
-VariableResistor::~VariableResistor() {
-	delete m_pResistance;
-}
+VariableResistor::~VariableResistor() {}
 
 void VariableResistor::dataChanged() {
 
@@ -115,7 +109,7 @@ void VariableResistor::sliderValueChanged(const QString &id, int newValue) {
 	m_currResistance = m_minResistance + (newValue * m_tickValue);
 
 	// Set the new capacitance value.
-	m_pResistance->setResistance(m_currResistance);
+	m_pResistance.setResistance(m_currResistance);
 
 	// Update property.
 	property("resistance")->setValue(m_currResistance);

@@ -12,8 +12,8 @@
 #define CAPACITOR_H
 
 #include "simplecomponent.h"
+#include "capacitance.h"
 
-class Capacitance;
 class ECNode;
 
 /**
@@ -34,7 +34,7 @@ private:
 	void dataChanged();
 	virtual void drawShape(QPainter &p);
 
-	Capacitance *m_capacitance;
+	Capacitance m_capacitance;
 };
 
 #endif
