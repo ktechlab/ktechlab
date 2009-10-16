@@ -58,10 +58,10 @@ void MagnitudeComparator::inStateChanged() {
 		m_output[i]->setHigh(false);
 
 	for (i = m_oldABLogicCount - 1; i >= 0; i--) {
-		if (m_aLogic[i]->isHigh() && !m_bLogic[i]->isHigh()) {
+		if (m_aLogic[i].isHigh() && !m_bLogic[i].isHigh()) {
 			m_output[0]->setHigh(true);
 			return;
-		} else if (!m_aLogic[i]->isHigh() && m_bLogic[i]->isHigh()) {
+		} else if (!m_aLogic[i].isHigh() && m_bLogic[i].isHigh()) {
 			m_output[1]->setHigh(true);
 			return;
 		}
@@ -126,7 +126,7 @@ void MagnitudeComparator::initPins() {
 	if (firstTime) {
 		for (int i = 0; i < 3; i++) {
 			LogicIn *inLogic = new LogicIn(LogicConfig());
-			setup1pinElement(inLogic, ecNodeWithID(inNames[i])->pin());
+			setup1pinElement(*inLogic, ecNodeWithID(inNames[i])->pin());
 			m_cLogic[i] = inLogic;
 
 			m_cLogic[i]->setCallback(this, (CallbackPtr)(&MagnitudeComparator::inStateChanged));
@@ -134,7 +134,7 @@ void MagnitudeComparator::initPins() {
 
 		for (int i = 0; i < 3; i++) {
 			LogicOut *outLogic = new LogicOut(LogicConfig(), false);
-			setup1pinElement(outLogic, ecNodeWithID(outNames[i])->pin());
+			setup1pinElement(*outLogic, ecNodeWithID(outNames[i])->pin());
 			m_output[i] = outLogic;
 		}
 
@@ -142,24 +142,22 @@ void MagnitudeComparator::initPins() {
 	}
 
 	if (newABLogicCount > m_oldABLogicCount) {
+		m_aLogic.resize(newABLogicCount);
 		for (int i = m_oldABLogicCount; i < newABLogicCount; ++i) {
-			LogicIn *inLogic = new LogicIn(LogicConfig());
-			setup1pinElement(inLogic, ecNodeWithID("A" + QString::number(i))->pin());
-			m_aLogic.push_back(inLogic);
-			m_aLogic[i]->setCallback(this, (CallbackPtr)(&MagnitudeComparator::inStateChanged));
+			setup1pinElement(m_aLogic[i], ecNodeWithID("A" + QString::number(i))->pin());
+			m_aLogic[i].setCallback(this, (CallbackPtr)(&MagnitudeComparator::inStateChanged));
 		}
 
+		m_bLogic.resize(newABLogicCount);
 		for (int i = m_oldABLogicCount; i < newABLogicCount; ++i) {
-			LogicIn *inLogic = new LogicIn(LogicConfig());
-			setup1pinElement(inLogic, ecNodeWithID("B" + QString::number(i))->pin());
-			m_bLogic.push_back(inLogic);
-			m_bLogic[i]->setCallback(this, (CallbackPtr)(&MagnitudeComparator::inStateChanged));
+			setup1pinElement(m_bLogic[i], ecNodeWithID("B" + QString::number(i))->pin());
+			m_bLogic[i].setCallback(this, (CallbackPtr)(&MagnitudeComparator::inStateChanged));
 		}
 	} else {
 		for (int i = newABLogicCount; i < m_oldABLogicCount; ++i) {
 			QString id = "A" + QString::number(i);
 			removeDisplayText(id);
-			removeElement(m_aLogic[i], false);
+			removeElement(&m_aLogic[i], false);
 			removeNode(id);
 		}
 
@@ -168,7 +166,7 @@ void MagnitudeComparator::initPins() {
 		for (int i = newABLogicCount; i < m_oldABLogicCount; ++i) {
 			QString id = "B" + QString::number(i);
 			removeDisplayText(id);
-			removeElement(m_bLogic[i], false);
+			removeElement(&m_bLogic[i], false);
 			removeNode(id);
 		}
 

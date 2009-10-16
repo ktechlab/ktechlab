@@ -270,6 +270,7 @@ void Component::updateAttachedPositioning() {
 	//END Transform the GuiParts
 }
 
+/**/
 ECNode* Component::ecNodeWithID(const QString &ecNodeId) {
 	if(!p_itemDocument) {
 // 		kdDebug() << "Warning: ecNodeWithID("<<ecNodeId<<") does not exist\n";
@@ -279,6 +280,7 @@ ECNode* Component::ecNodeWithID(const QString &ecNodeId) {
 	return dynamic_cast<ECNode*>(
 		dynamic_cast<CircuitDocument*>(p_itemDocument)->nodeWithID(nodeId(ecNodeId)));
 }
+
 
 void Component::slotUpdateConfiguration() {
 	const LogicConfig logicConfig; // = LogicIn::getConfig();
@@ -290,10 +292,10 @@ void Component::slotUpdateConfiguration() {
 	}
 }
 
-void Component::setup1pinElement(Element *ele, Pin *a) {
+void Component::setup1pinElement(Element &ele, Pin *a) {
 	PinList pins;
 	pins.push_back(a);
-	ElementMapList::iterator it = handleElement(ele, pins);
+	ElementMapList::iterator it = handleElement(&ele, pins);
 
 	PinSet pinz;
 	pinz.insert(a);
@@ -429,7 +431,6 @@ void Component::rebuildPinInterDepedence() {
 
 	// Rebuild dependencies
 	ElementMapList::iterator emlEnd = m_elementMapList.end();
-
 	for(ElementMapList::iterator it = m_elementMapList.begin(); it != emlEnd; ++it) {
 		// Many copies of the pin lists as these will be affected when we call setInter*Dependent
 		PinSetList list = (*it).interCircuitDependent;
@@ -448,7 +449,6 @@ void Component::rebuildPinInterDepedence() {
 
 void Component::setAllPinsInterIndependent() {
 	NodeInfoMap::iterator nmEnd = m_nodeMap.end();
-
 	for(NodeInfoMap::iterator it = m_nodeMap.begin(); it != nmEnd; ++it) {
 		PinVector pins = (static_cast<ECNode*>(it.data().node))->pins();
 		PinVector::iterator pinsEnd = pins.end();
@@ -462,7 +462,6 @@ void Component::setAllPinsInterIndependent() {
 
 void Component::initNodes() {
 	const ElementMapList::iterator end = m_elementMapList.end();
-
 	for(ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it) {
 		(*it).setupCNodes();
 	}

@@ -13,7 +13,6 @@
 #include "logic.h"
 #include "libraryitem.h"
 #include "pin.h"
-#include "voltagepoint.h"
 
 #include <cmath>
 #include <kiconloader.h>
@@ -136,7 +135,7 @@ void ADC::initPins()
 		for(int i = m_numBits; i < numBits; ++i) {
 
 			m_logic[i] = new LogicOut(LogicConfig(), false);
-			setup1pinElement(m_logic[i], ecNodeWithID(QString::number(i))->pin());
+			setup1pinElement(*(m_logic[i]), ecNodeWithID(QString::number(i))->pin());
 		}
 	} else {
 		for(int i = numBits; i < m_numBits; ++i) {
@@ -193,7 +192,7 @@ void DAC::stepNonLogic()
 // 	double valueAsDouble = double(value);
 // 	double powChange = std::pow( double(m_numBits), 2 )-1.;
 // 	m_voltagePoint->setVoltage( m_range * valueAsDouble / powChange );
-	m_voltagePoint->setVoltage( m_range * double(value) / (std::pow( 2, double(m_numBits) )-1.) );
+	m_voltagePoint.setVoltage( m_range * double(value) / (std::pow( 2, double(m_numBits) )-1.) );
 }
 
 void DAC::initPins()
@@ -223,18 +222,13 @@ void DAC::initPins()
 	initDIPSymbol(pins, 64);
 	initDIP(pins);
 	
-	if(!m_voltagePoint) {
-	//	m_voltagePoint = createVoltagePoint(ecNodeWithID("Out")->pin(), 0.);
-// TODO: implement I-out dacs too! =P 
-		m_voltagePoint = new VoltagePoint(0);
-		setup1pinElement(m_voltagePoint, ecNodeWithID("Out")->pin());
-	}
+	setup1pinElement(m_voltagePoint, ecNodeWithID("Out")->pin());
 	
 	if(numBits > m_numBits) {
 		for(int i = m_numBits; i < numBits; ++i)
 		{
 			m_logic[i] = new LogicIn(LogicConfig());
-			setup1pinElement(m_logic[i], ecNodeWithID(QString::number(i))->pin());
+			setup1pinElement(*(m_logic[i]), ecNodeWithID(QString::number(i))->pin());
 		}
 	} else {
 		for(int i = numBits; i < m_numBits; ++i)
