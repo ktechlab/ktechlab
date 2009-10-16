@@ -35,7 +35,7 @@ public:
 
 private:
 	Component *m_pParent;
-	Diode *m_pDiode;
+	Diode m_pDiode;
 	DiodeSettings ds;
 	QString m_strPNode, m_strNNode;
 

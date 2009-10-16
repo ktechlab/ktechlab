@@ -8,7 +8,6 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "currentsignal.h"
 #include "eccurrentsignal.h"
 #include "ecnode.h"
 #include "libraryitem.h"
@@ -35,7 +34,8 @@ LibraryItem* ECCurrentSignal::libraryItem()
 }
 
 ECCurrentSignal::ECCurrentSignal(ICNDocument *icnDocument, bool newItem, const char *id)
-	: SimpleComponent(icnDocument, newItem, id ? id : "current_signal")
+	: SimpleComponent(icnDocument, newItem, id ? id : "current_signal"),
+	m_currentSignal(LINEAR_UPDATE_PERIOD, 0)	
 {
 	m_name = i18n("Current Signal");
 	setSize(-8, -8, 16, 16);
@@ -44,11 +44,8 @@ ECCurrentSignal::ECCurrentSignal(ICNDocument *icnDocument, bool newItem, const c
 	init1PinRight();
 
 	m_pNNode[0]->pin()->setGroundType(Pin::gt_low);
-//	m_currentSignal = createCurrentSignal(m_pNNode[0]->pin(), m_pPNode[0]->pin(), 0.);
-	m_currentSignal= new CurrentSignal(LINEAR_UPDATE_PERIOD, 0);
 	setup2pinElement(m_currentSignal, m_pNNode[0]->pin(), m_pPNode[0]->pin());
-
-	m_currentSignal->setStep(ElementSignal::st_sinusoidal, 50.);
+	m_currentSignal.setStep(ElementSignal::st_sinusoidal, 50.);
 
 	createProperty("1-frequency", Variant::Type::Double);
 	property("1-frequency")->setCaption(i18n("Frequency"));
@@ -81,8 +78,8 @@ void ECCurrentSignal::dataChanged()
 	QString display = QString::number( current / getMultiplier(current), 'g', 3 ) + getNumberMag(current) + "A";
 	setDisplayText( "current", display );
 	
-	m_currentSignal->setStep(ElementSignal::st_sinusoidal, frequency );
-	m_currentSignal->setCurrent(current);
+	m_currentSignal.setStep(ElementSignal::st_sinusoidal, frequency );
+	m_currentSignal.setCurrent(current);
 }
 
 void ECCurrentSignal::drawShape( QPainter &p )

@@ -170,7 +170,7 @@ CurrentProbe::CurrentProbe(ICNDocument *icnDocument, bool newItem, const char *i
 	init1PinLeft(0);
 	init1PinRight(0);
 
-	setup2pinElement(&m_voltageSource, m_pNNode[0]->pin(), m_pPNode[0]->pin());
+	setup2pinElement(m_voltageSource, m_pNNode[0]->pin(), m_pPNode[0]->pin());
 }
 
 CurrentProbe::~CurrentProbe() {}

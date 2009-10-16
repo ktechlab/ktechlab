@@ -59,9 +59,7 @@ ECSevenSegment::ECSevenSegment(ICNDocument *icnDocument, bool newItem, const cha
 	}
 
 	m_nNode = 0;
-
 	lastUpdatePeriod = 0.;
-
 	QStringList pins = QStringList::split(',', "g,f,e,d," + QString(QChar(0xB7)) + ",c,b,a");
 
 	initDIPSymbol(pins, 64);
@@ -96,10 +94,10 @@ void ECSevenSegment::dataChanged() {
 
 			if (commonCathode) {
 				m_diodes[i] = new Diode();
-				setup2pinElement(m_diodes[i], m_nodes[i]->pin(), m_nNode->pin());
+				setup2pinElement(*(m_diodes[i]), m_nodes[i]->pin(), m_nNode->pin());
 			} else {
 				m_diodes[i] = new Diode();
-				setup2pinElement(m_diodes[i], m_nNode->pin(), m_nodes[i]->pin());
+				setup2pinElement(*(m_diodes[i]), m_nNode->pin(), m_nodes[i]->pin());
 			}
 		}
 
@@ -107,11 +105,11 @@ void ECSevenSegment::dataChanged() {
 
 		if (commonCathode) {
 			m_diodes[7] = new Diode();
-			setup2pinElement(m_diodes[7], m_nodes[7]->pin(), m_nNode->pin());
+			setup2pinElement(*(m_diodes[7]), m_nodes[7]->pin(), m_nNode->pin());
 
 		} else {
 			m_diodes[7] = new Diode();
-			setup2pinElement(m_diodes[7], m_nNode->pin(), m_nodes[7]->pin());
+			setup2pinElement(*(m_diodes[7]), m_nNode->pin(), m_nodes[7]->pin());
 		}
 	}
 
@@ -162,12 +160,18 @@ void ECSevenSegment::drawShape(QPainter &p) {
 
 	// Top
 	_b = last_brightness[0];
-	p.setPen(QPen(QColor(uint(255 - (255 - _b) * (1 - r)), uint(255 - (255 - _b) * (1 - g)), uint(255 - (255 - _b)*(1 - b))), 2));
+	p.setPen(QPen(QColor(uint(255 - (255 - _b) * (1 - r)), 
+			     uint(255 - (255 - _b) * (1 - g)), 
+			     uint(255 - (255 - _b) * (1 - b))
+			    ), 2));
+
 	p.drawLine(x1 + 3 + ds, y1, x2 - 3 + ds, y1);
 
 	// Top right
 	_b = last_brightness[1];
-	p.setPen(QPen(QColor(uint(255 - (255 - _b) * (1 - r)), uint(255 - (255 - _b) * (1 - g)), uint(255 - (255 - _b) * (1 - b))), 2));
+	p.setPen(QPen(QColor(uint(255 - (255 - _b) * (1 - r)), 
+			     uint(255 - (255 - _b) * (1 - g)), 
+			     uint(255 - (255 - _b) * (1 - b))), 2));
 	p.drawLine(x2 + 0 + ds, y1 + 3, x2 + 0, y2 - 3);
 
 	// Bottom right
