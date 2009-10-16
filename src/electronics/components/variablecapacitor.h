@@ -12,8 +12,8 @@
 #define VARIABLECAPACITOR_H
 
 #include "simplecomponent.h"
+#include "capacitance.h"
 
-class Capacitance;
 class QSlider;
 
 /**
