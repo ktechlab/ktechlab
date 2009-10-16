@@ -115,8 +115,8 @@ void MatrixDisplay::dataChanged() {
                 m_LEDs[i][j].m_pDiode = new Diode();
 
                 if (rowCathode) {
-                    setup2pinElement(m_LEDs[i][j].m_pDiode, m_pColNodes[i]->pin(), m_pRowNodes[j]->pin());
-                } else setup2pinElement(m_LEDs[i][j].m_pDiode, m_pRowNodes[j]->pin(), m_pColNodes[i]->pin());
+                       setup2pinElement(*(m_LEDs[i][j].m_pDiode), m_pColNodes[i]->pin(), m_pRowNodes[j]->pin());
+                } else setup2pinElement(*(m_LEDs[i][j].m_pDiode), m_pRowNodes[j]->pin(), m_pColNodes[i]->pin());
             }
         }
     }

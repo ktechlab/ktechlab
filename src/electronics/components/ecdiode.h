@@ -12,6 +12,7 @@
 #define ECDIODE_H
 
 #include "simplecomponent.h"
+#include "diode.h"
 
 /**
 @short Simple diode
@@ -29,7 +30,7 @@ public:
 protected:
 	void drawShape(QPainter &p);
 	void dataChanged();
-	Diode *m_diode;
+	Diode m_diode;
 };
 
 #endif

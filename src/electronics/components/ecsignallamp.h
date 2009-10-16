@@ -12,8 +12,7 @@
 #define ECSIGNALLAMP_H
 
 #include "simplecomponent.h"
-
-class Resistance;
+#include "resistance.h"
 
 /**
 @short Signal Lamp - glows when current flows
@@ -32,7 +31,7 @@ public:
 	virtual bool doesStepNonLogic() const { return true; }
 	
 private:
-	Resistance *the_filament;
+	Resistance the_filament;
 	void drawShape( QPainter &p );
 	double avgPower;
 	uint advanceSinceUpdate;

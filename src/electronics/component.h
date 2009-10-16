@@ -29,8 +29,6 @@ class Switch;
 class LogicIn;
 
 typedef std::list<Pin*> PinList;
-typedef std::set<Element*> ElementList;
-
 typedef QValueList<Switch*> SwitchList;
 typedef QValueList<PinSet> PinSetList;
 typedef QValueList<ElementMap> ElementMapList;
@@ -108,7 +106,7 @@ public:
 // TODO: look into feasibility for using variable argument arrays for these and other
 // methods in this class. 
 	void setup1pinElement(Element &ele, Pin *a);
-	void setup2pinElement(Element *ele, Pin *a, Pin *b);
+	void setup2pinElement(Element &ele, Pin *a, Pin *b);
 	void setup3pinElement(Element *ele, Pin *a, Pin *b, Pin *c);
 	void setup4pinElement(Element *ele, Pin *a, Pin *b, Pin *c, Pin *d);
 	void setupSpcl4pinElement(Element *ele, Pin *a, Pin *b, Pin *c, Pin *d);
