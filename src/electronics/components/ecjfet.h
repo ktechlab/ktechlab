@@ -12,8 +12,7 @@
 #define ECJFET_H
 
 #include "component.h"
-
-class JFET;
+#include "jfet.h"
 
 /**
 @short Simulates a JFET
@@ -35,7 +34,7 @@ protected:
 	virtual void drawShape(QPainter &p);
 
 	int m_JFET_type;
-	JFET *m_pJFET;
+	JFET m_pJFET;
 };
 
 #endif
