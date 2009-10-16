@@ -314,12 +314,12 @@ void Component::setup2pinElement(Element &ele, Pin *a, Pin *b) {
 	setInterDependent(it, pinz);
 }
 
-void Component::setup3pinElement(Element *ele, Pin *a, Pin *b, Pin *c) {
+void Component::setup3pinElement(Element &ele, Pin *a, Pin *b, Pin *c) {
 	PinList pins;
 	pins.push_back(a);
 	pins.push_back(b);
 	pins.push_back(c);
-	ElementMapList::iterator it = handleElement(ele, pins);
+	ElementMapList::iterator it = handleElement(&ele, pins);
 
 	PinSet pinz; 
 	pinz.insert(a);
