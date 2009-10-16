@@ -36,7 +36,8 @@ LibraryItem* VariableCapacitor::libraryItem() {
 }
 
 VariableCapacitor::VariableCapacitor(ICNDocument* icnDocument, bool newItem, const QString& id)
-		: SimpleComponent(icnDocument, newItem, id ? id : "variable capacitor") {
+		: SimpleComponent(icnDocument, newItem, id ? id : "variable capacitor"),
+		m_pCapacitance(m_currCapacitance, LINEAR_UPDATE_PERIOD) {
 	m_name = i18n("Variable Capacitor");
 
 	// Top Left(x,y) from centre point, width, height.
@@ -58,9 +59,7 @@ VariableCapacitor::VariableCapacitor(ICNDocument* icnDocument, bool newItem, con
 	m_pNNode[0]->setLength(15);
 	m_pPNode[0]->setLength(15);
 
-//	m_pCapacitance = createCapacitance(m_pNNode[0]->pin(), m_pPNode[0]->pin(), m_currCapacitance);
-	m_pCapacitance = new Capacitance(m_currCapacitance, LINEAR_UPDATE_PERIOD);
-	setup2pinElement(*m_pCapacitance, m_pNNode[0]->pin(), m_pPNode[0]->pin());
+	setup2pinElement(m_pCapacitance, m_pNNode[0]->pin(), m_pPNode[0]->pin());
 
 	addDisplayText("capacitance", QRect(-8, -26, 16, 16), "", false);
 
