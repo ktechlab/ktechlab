@@ -12,8 +12,7 @@
 #define INDUCTOR_H
 
 #include "simplecomponent.h"
-
-class Inductance;
+#include "inductance.h"
 
 /**
 @author David Saxton
