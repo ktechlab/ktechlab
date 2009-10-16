@@ -14,7 +14,7 @@
 #include "dipcomponent.h"
 #include "logic.h"
 
-#include <qptrvector.h>
+#include <vector>
 
 /**
 @author David Saxton
@@ -22,7 +22,7 @@
 class Demultiplexer : public CallbackClass,  public DIPComponent
 {
 public:
-	Demultiplexer( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	Demultiplexer( ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~Demultiplexer();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -37,9 +37,9 @@ protected:
 	
 	void inStateChanged( bool newState );
 	
-	QPtrVector<LogicIn> m_aLogic;
-	QPtrVector<LogicOut> m_xLogic;
-	LogicIn * m_input;
+	std::vector<LogicIn> m_aLogic;
+	std::vector<LogicOut> m_xLogic;
+	LogicIn m_input;
 };
 
 #endif

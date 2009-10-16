@@ -32,10 +32,12 @@ LibraryItem* Demultiplexer::libraryItem() {
 }
 
 Demultiplexer::Demultiplexer(ICNDocument *icnDocument, bool newItem, const char *id)
-		: DIPComponent(icnDocument, newItem, id ? id : "demultiplexer") {
-	m_name = i18n("Demultiplexer");
-	m_input = 0;
+		: DIPComponent(icnDocument, newItem, id ? id : "demultiplexer"), 
+		m_input(LogicConfig()) {
 
+	m_input.setCallback(this, (CallbackPtr)(&Demultiplexer::inStateChanged));
+
+	m_name = i18n("Demultiplexer");
 	createProperty("addressSize", Variant::Type::Int);
 	property("addressSize")->setCaption(i18n("Address Size"));
 	property("addressSize")->setMinValue(1);
@@ -50,17 +52,13 @@ Demultiplexer::Demultiplexer(ICNDocument *icnDocument, bool newItem, const char 
 }
 
 Demultiplexer::~Demultiplexer() {
-
-	if (m_input) {
-		delete m_input;
-	}
-
-	for (unsigned i = 0; i < m_aLogic.size(); ++i) {
+/*	for (unsigned i = 0; i < m_aLogic.size(); ++i) {
 		delete m_aLogic[i];
 	}
 
 	for (unsigned i = 0; i < m_xLogic.size(); ++i)
 		delete m_xLogic[i];
+*/
 }
 
 void Demultiplexer::dataChanged() {
@@ -88,19 +86,18 @@ void Demultiplexer::dataChanged() {
 }
 
 void Demultiplexer::inStateChanged(bool /*state*/) {
-	unsigned long long pos = 0;
+	if(m_input.isHigh()) {
+		unsigned long long pos = 0;
+		for (unsigned i = 0; i < m_aLogic.size(); ++i) {
+			if (m_aLogic[i].isHigh())
+				pos |= 1 << i;
+		}
 
-	for (unsigned i = 0; i < m_aLogic.size(); ++i) {
-		if (m_aLogic[i]->isHigh())
-			pos += 1 << i;
-	}
-
-	if(m_input->isHigh()) {
 		for (unsigned i = 0; i < m_xLogic.size(); ++i)
-			m_xLogic[i]->setHigh((pos == i));
+			m_xLogic[i].setHigh((pos == i));
 	} else {
 		for (unsigned i = 0; i < m_xLogic.size(); ++i)
-			m_xLogic[i]->setHigh(false);
+			m_xLogic[i].setHigh(false);
 	}
 }
 
@@ -131,38 +128,24 @@ void Demultiplexer::initPins(unsigned newAddressSize) {
 	initDIPSymbol(pins, 64);
 	initDIP(pins);
 
-	if (!m_input) {
-
-		m_input = new LogicIn(LogicConfig());
-		setup1pinElement(m_input, ecNodeWithID("X")->pin());
-
-		m_input->setCallback(this, (CallbackPtr)(&Demultiplexer::inStateChanged));
-	}
+	setup1pinElement(&m_input, ecNodeWithID("X")->pin());
 
 	if (newXLogicCount > oldXLogicCount) {
 		m_xLogic.resize(newXLogicCount);
 		for (unsigned i = oldXLogicCount; i < newXLogicCount; ++i) {
-
-			LogicOut *outLogic = new LogicOut(LogicConfig(), false);
-			setup1pinElement(outLogic, ecNodeWithID("X" + QString::number(i))->pin());
-			m_xLogic.insert(i, outLogic);
+			setup1pinElement(&m_xLogic[i], ecNodeWithID("X" + QString::number(i))->pin());
 		}
 
 		m_aLogic.resize(newAddressSize);
 		for (unsigned i = oldAddressSize; i < newAddressSize; ++i) {
-			// node = ecNodeWithID("A" + QString::number(i));
-
-			LogicIn *inLogic = new LogicIn(LogicConfig());
-			setup1pinElement(inLogic, ecNodeWithID("A" + QString::number(i))->pin());
-
-			m_aLogic.insert(i, inLogic);
-			m_aLogic[i]->setCallback(this, (CallbackPtr)(&Demultiplexer::inStateChanged));
+			setup1pinElement(&m_aLogic[i], ecNodeWithID("A" + QString::number(i))->pin());
+			m_aLogic[i].setCallback(this, (CallbackPtr)(&Demultiplexer::inStateChanged));
 		}
 	} else {
 		for (unsigned i = newXLogicCount; i < oldXLogicCount; ++i) {
 			QString id = "X" + QString::number(i);
 			removeDisplayText(id);
-			removeElement(m_xLogic[i], false);
+			removeElement(&m_xLogic[i], false);
 			removeNode(id);
 		}
 
@@ -171,7 +154,7 @@ void Demultiplexer::initPins(unsigned newAddressSize) {
 		for (unsigned i = newAddressSize; i < oldAddressSize; ++i) {
 			QString id = "A" + QString::number(i);
 			removeDisplayText(id);
-			removeElement(m_aLogic[i], false);
+			removeElement(&m_aLogic[i], false);
 			removeNode(id);
 		}
 
