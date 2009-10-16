@@ -356,6 +356,17 @@ class GpsimProcessor : public QObject
 		static void compileMicrobe( const QString &filename, QObject *receiver, const char * successMember, const char * failMember = 0l );
 		//END convenience functions for PIC files
 		
+                /**
+                 * set the numer of steps exectued in one simulator time unit
+                 * @param steps number of steps
+                 */
+                void setStepsPerMicrosecond(const unsigned int steps);
+                
+                /**
+                 * @return the number of steps that should be executed in 1 simulator step
+                 */
+                unsigned int stepsPerMicrosecond();
+                
 	signals:
 		/**
 		 * Emitted when the running status of gpsim changes.
@@ -385,6 +396,9 @@ class GpsimProcessor : public QObject
 		
 	private:
 		bool m_bIsRunning;
+                
+                /// how many steps should the simulator perform in one ktechlab simulator iteration
+                unsigned int m_stepsPerMicrosecond;
 };
 
 #endif
