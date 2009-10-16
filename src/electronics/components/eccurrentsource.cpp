@@ -33,7 +33,8 @@ LibraryItem* ECCurrentSource::libraryItem()
 }
 
 ECCurrentSource::ECCurrentSource(ICNDocument *icnDocument, bool newItem, const char *id)
-	: SimpleComponent(icnDocument, newItem, id ? id : "current_source")
+	: SimpleComponent(icnDocument, newItem, id ? id : "current_source") ,
+                          m_currentSource(0.02)
 {
 	m_name = i18n("Current Source");
 	setSize(-16, -8, 24, 24);
