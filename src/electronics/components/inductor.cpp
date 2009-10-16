@@ -11,7 +11,6 @@
 #include <klocale.h>
 #include <qpainter.h>
 
-#include "inductance.h"
 #include "inductor.h"
 #include "libraryitem.h"
 #include "simulator.h"
@@ -52,9 +51,7 @@ Inductor::Inductor(ICNDocument *icnDocument, bool newItem, const char *id)
 	addDisplayText("inductance", QRect(-8, -24, 16, 16), "", false);
 }
 
-Inductor::~Inductor() {
-	delete m_pInductance;
-}
+Inductor::~Inductor() {}
 
 void Inductor::dataChanged() {
 	double inductance = dataDouble("Inductance");
@@ -62,7 +59,7 @@ void Inductor::dataChanged() {
 	QString display = QString::number(inductance / getMultiplier(inductance), 'g', 3) + getNumberMag(inductance) + "H";
 	setDisplayText("inductance", display);
 
-	m_pInductance->setInductance(inductance);
+	m_pInductance.setInductance(inductance);
 }
 
 void Inductor::drawShape(QPainter &p) {
