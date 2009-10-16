@@ -87,18 +87,10 @@ public:
          * @param i 
          * @param j 
          * @return 
+         * 
+         * It seems this function is used to get / set elements in the matrix
          */
-        double &g(CUI i, CUI j) {
-                const unsigned int mapped_i = m_inMap[i];
-                if(mapped_i < max_k) max_k = mapped_i;
-
-                if(j < max_k) max_k = j;
-
-                // I think I need the next line...
-                if(max_k > 0) max_k--;
-
-                return(*m_mat)[mapped_i][j];
-        }
+        double &g(CUI i, CUI j);
 
         /**
          * @todo DOCUMENT THIS 2
@@ -106,7 +98,9 @@ public:
          * @param j 
          * @return 
          */
+        /*
         double  g(CUI i, CUI j) const { return m_mat->at(m_inMap[i], j); }
+        */
 
         /**
         * Multiplies this matrix by the Vector rhs, and places the result
