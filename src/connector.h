@@ -162,16 +162,14 @@ protected:
 // ###
 
 	ICNDocument *p_icnDocument;
-
+	bool b_deleted;
 private:
 	/**
 	 * Looks at the set of canvas points and tries to determine whether they are
 	 * in the reverse order from start to end node
 	 */
 	bool pointsAreReverse(const QPointList &pointList) const;
-
 	bool b_semiHidden;
-	bool b_deleted;
 	bool b_manualPoints;
 	bool b_pointsAdded;
 
