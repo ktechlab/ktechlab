@@ -48,6 +48,7 @@ PinSet Pin::localConnectedPins() //const
 	return pins;
 }
 
+/**/
 void Pin::addCircuitDependentPin(Pin *pin) {
 	if(pin) m_circuitDependentPins.insert(pin);
 }
@@ -109,3 +110,20 @@ double Pin::calculateCurrentFromWires(Wire *aWire) const {
 
 	return current;
 }
+
+/*!
+    \fn Pin::setCurrentIfOneWire(double current)
+ */
+void Pin::setCurrentIfOneWire(double current)
+{
+	if(m_wireList.size() == 1) {
+		(*(m_wireList.begin()))->setCurrent(current);
+	} else { // inform wires that they don't know their current 
+		// and have to figure it out for themselves.
+		WireList::iterator end = m_wireList.end();
+		for(WireList::iterator it = m_wireList.begin(); it != end; ++it) {
+			(*it)->setCurrentKnown(false);
+		}
+	}
+}
+
