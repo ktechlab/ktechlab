@@ -14,12 +14,9 @@
 #include "pin.h"
 #include "switch.h"
 
-Pin::Pin(ECNode *parent) :
+Pin::Pin() :
 	m_voltage(0), m_eqId(-2), m_groundType(Pin::gt_never)
-{
-	assert(parent);
-	m_pECNode = parent;
-}
+{}
 
 Pin::~Pin() {
 	WireList::iterator end = m_wireList.end();

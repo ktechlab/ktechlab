@@ -15,7 +15,6 @@
 #include <qobject.h>
 #include "wire.h"
 
-class ECNode;
 class Element;
 class Pin;
 class Switch;
@@ -50,10 +49,8 @@ public:
 		gt_never = 20 // everything else
 	};
 
-	Pin(ECNode *parent);
+	Pin();
 	~Pin();
-
-	ECNode *parentECNode() const { return m_pECNode; }
 
 	/**
 	 * After calculating the nodal voltages in the circuit, this function should
@@ -192,8 +189,6 @@ protected:
 
 	PinSet m_circuitDependentPins;
 	PinSet m_groundDependentPins; // for circuit partitioning. 
-
-	ECNode *m_pECNode;  /// we *ALWAYS* have an ECNode, and it never changes.
 
 	SwitchSet m_switchList;
 	SwitchSet m_unknownSwitchCurrents;
