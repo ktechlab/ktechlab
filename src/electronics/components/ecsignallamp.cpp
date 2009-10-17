@@ -16,7 +16,6 @@
 #include "ecsignallamp.h"
 #include "element.h"
 #include "libraryitem.h"
-#include "pin.h"
 
 // TODO: resistance and power rating should be user definable properties.
 #define RESISTANCE 100

@@ -13,7 +13,6 @@
 #include "ecnode.h"
 #include "voltagesource.h"
 #include "libraryitem.h"
-#include "pin.h"
 
 #include <klocale.h>
 #include <qpainter.h>

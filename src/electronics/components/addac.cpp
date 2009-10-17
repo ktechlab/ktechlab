@@ -12,7 +12,6 @@
 #include "ecnode.h"
 #include "logic.h"
 #include "libraryitem.h"
-#include "pin.h"
 
 #include <cmath>
 #include <kiconloader.h>
