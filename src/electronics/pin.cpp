@@ -37,6 +37,8 @@ PinSet Pin::localConnectedPins() //const
 		pins.insert(op);
 	}
 
+/* TODO: This code is currently essential to allowing switches to close. In the future, we will probably
+want to put a wire inside switch or make Switch behave more like an intermittent wire. */
 	SwitchSet::const_iterator endB = m_switchList.end();
 	for(SwitchSet::const_iterator it = m_switchList.begin(); it != endB; ++it) {
 		assert(*it);
@@ -73,6 +75,7 @@ void Pin::removeElement(Element *e) {
 }
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
+/**/
 void Pin::addSwitch(Switch *sw) {
 	assert(sw);
 
@@ -82,6 +85,7 @@ void Pin::addSwitch(Switch *sw) {
 void Pin::removeSwitch(Switch *sw) {
 	m_switchList.erase(sw);
 }
+
 
 void Pin::addWire(Wire *wire) {
 	assert(wire);
@@ -93,6 +97,11 @@ void Pin::removeWire(Wire *aWire) {
 	m_wireList.erase(aWire);
 }
 
+bool Pin::currentIsKnown() const {
+	return ((m_wireList.size() == 2 && m_elementList.empty())
+		|| (m_wireList.size() < 2 && !m_elementList.empty()));
+}
+
 double Pin::calculateCurrentFromWires(Wire *aWire) const {
 
 	double current = 0;
@@ -101,11 +110,15 @@ double Pin::calculateCurrentFromWires(Wire *aWire) const {
 	for(WireList::const_iterator it = m_wireList.begin(); it != end; ++it) {
 
 // might have to do some vodo to figure out which end of the wire we're on and add/subtract as appropriate.
-		if(!(*it)->currentIsKnown())
-			return 0;
+		if(*it != aWire) { 
 
-		if(*it != aWire) 
+// TODO: throw an exception here, means that this pin should be moved 
+// to the bottom of the working list and tried again after others are checked. 
+			if(!(*it)->currentIsKnown())
+				return 0;
+
 			current += (*it)->currentFor(this);
+		}
 	}
 
 	return current;
@@ -114,16 +127,18 @@ double Pin::calculateCurrentFromWires(Wire *aWire) const {
 /*!
     \fn Pin::setCurrentIfOneWire(double current)
  */
-void Pin::setCurrentIfOneWire(double current)
+bool Pin::setCurrentIfOneWire(double current)
 {
 	if(m_wireList.size() == 1) {
 		(*(m_wireList.begin()))->setCurrent(current);
+		return true;
 	} else { // inform wires that they don't know their current 
 		// and have to figure it out for themselves.
 		WireList::iterator end = m_wireList.end();
 		for(WireList::iterator it = m_wireList.begin(); it != end; ++it) {
 			(*it)->setCurrentKnown(false);
 		}
+		return false;
 	}
 }
 

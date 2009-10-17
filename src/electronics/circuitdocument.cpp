@@ -298,7 +298,6 @@ void CircuitDocument::calculateConnectorCurrents() {
 	const PinSet::iterator pinEnd = m_pinList.end();
 	for (PinSet::iterator it = m_pinList.begin(); it != pinEnd; ++it) {
 		Pin *n = *it;
-		n->setSwitchCurrentsUnknown();
 
  		if(n->groundType() == Pin::gt_always) {
 			groundPins.insert(n);
