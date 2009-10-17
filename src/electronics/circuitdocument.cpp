@@ -341,6 +341,22 @@ void CircuitDocument::calculateConnectorCurrents() {
 	}
 }
 
+/*!
+    \fn CircuitDocument::getAllPins(PinSet allPins)
+ */
+void CircuitDocument::getAllPins(PinSet &allPins)
+{
+	const ECNodeMap::const_iterator nodeListEnd = m_ecNodeList.end();
+	for (ECNodeMap::const_iterator it = m_ecNodeList.begin(); it != nodeListEnd; ++it) {
+		ECNode *ecnode = it->second;
+		for (unsigned i = 0; i < ecnode->numPins(); i++) {
+			Pin *foo = ecnode->pin(i);
+assert(foo);
+			allPins.insert(foo);
+		}
+	}
+}
+
 void CircuitDocument::assignCircuits() {
 	// Now we can finally add the unadded components to the Simulator
 	const ComponentList::iterator toSimulateEnd = m_toSimulateList.end();

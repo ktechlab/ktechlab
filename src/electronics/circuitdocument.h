@@ -25,11 +25,13 @@ class KTechlab;
 class QTimer;
 class Switch;
 class KActionMenu;
+class Pin;
 
 typedef std::set<Circuit*> CircuitList;
 typedef std::set<Component*> ComponentList;
 typedef std::set<Element*> ElementList;
 typedef QValueList<Switch*> SwitchList;
+typedef std::set<Pin *> PinSet;
 
 class Circuitoid {
 
@@ -84,6 +86,8 @@ public:
 	int countExtCon(const ItemList &cnItemList) const;
 
 	virtual void update();
+
+    void getAllPins(PinSet &allPins);
 
 public slots:
 	/**
