@@ -24,14 +24,12 @@ class CircuitICNDocument;
 class KTechlab;
 class QTimer;
 class Switch;
-class Wire;
 class KActionMenu;
 
 typedef std::set<Circuit*> CircuitList;
 typedef std::set<Component*> ComponentList;
 typedef std::set<Element*> ElementList;
 typedef QValueList<Switch*> SwitchList;
-typedef std::set<Wire *> WireList;
 
 class Circuitoid {
 
