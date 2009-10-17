@@ -3,12 +3,12 @@
 //
 // Description: 
 //
-//
 // Author: David Saxton, Alan Grimes, Zoltan Padrah <zoltan.padrah@gmail.com>, (C) 2008
 //
 // Copyright: See COPYING file that comes with this distribution
 //
 
+#include <cassert>
 #include <cmath>
 
 #include "circuiticndocument.h"
@@ -34,7 +34,18 @@ ElectronicConnector::ElectronicConnector(ECNode *startNode, ECNode *endNode,
 	}
 }
 
-ElectronicConnector::~ElectronicConnector() {}
+ElectronicConnector::~ElectronicConnector() {
+// double check to make sure both our nodes know we're outa here. 
+	m_startEcNode->removeConnector(this);
+	m_endEcNode->removeConnector(this);
+
+/* Even though we segfault here, we MUST be able to delete wires from this class! 
+Therefore we need to make sure our list of wires is accurate before we go into self destruct. 
+*/
+	unsigned size = m_wires.size();
+	for (unsigned i = 0; i < size; i++)
+		delete m_wires[i];
+}
 
 void ElectronicConnector::syncWiresWithNodes() {
 
@@ -92,7 +103,7 @@ void ElectronicConnector::incrementCurrentAnimation(double deltaTime) {
 	double sf    = 3.0; // scaling factor
 
 	for (unsigned i = 0; i < m_wires.size(); ++i) {
-		if (!m_wires[i]) continue;
+assert(m_wires[i]);
 
 		double I = m_wires[i]->current();
 		double sign  = (I > 0) ? 1 : -1;
@@ -102,6 +113,5 @@ void ElectronicConnector::incrementCurrentAnimation(double deltaTime) {
 		m_currentAnimationOffset += deltaTime * sf * std::pow(prop, 1.3) * sign;
 	}
 }
-
 
 #include "electronicconnector.moc"

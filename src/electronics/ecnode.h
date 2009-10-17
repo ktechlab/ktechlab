@@ -155,7 +155,6 @@ protected:
 	bool m_bShowVoltageBars;
 	bool m_bShowVoltageColor;
 
-	QCanvasRectangle *m_pinPoint;
 	PinVector m_pins;
 
 	// -- functionality from node.h --
