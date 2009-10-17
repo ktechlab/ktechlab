@@ -12,7 +12,6 @@
 #define PIN_H
 
 #include <set>
-#include <qobject.h>
 #include "wire.h"
 
 class Element;
@@ -28,7 +27,7 @@ typedef std::set<Wire *> WireList;
 /**
 @author David Saxton
 */
-class Pin : public QObject {
+class Pin {
 
 public:
 	/**
