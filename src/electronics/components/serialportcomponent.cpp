@@ -14,7 +14,6 @@
 #include "ecnode.h"
 #include "itemdocument.h"
 #include "libraryitem.h"
-#include "pin.h"
 #include "resistance.h"
 
 #include <kdebug.h>

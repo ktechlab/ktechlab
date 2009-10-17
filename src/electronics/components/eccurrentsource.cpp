@@ -11,7 +11,6 @@
 #include "eccurrentsource.h"
 #include "ecnode.h"
 #include "libraryitem.h"
-#include "pin.h"
 
 #include <klocale.h>
 #include <qpainter.h>
@@ -54,7 +53,6 @@ ECCurrentSource::ECCurrentSource(ICNDocument *icnDocument, bool newItem, const c
 	
 	addDisplayText("current", QRect(-16, -16, 24, 0), "");
 }
-
 
 ECCurrentSource::~ECCurrentSource()
 {
