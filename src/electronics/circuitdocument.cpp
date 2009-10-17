@@ -487,9 +487,9 @@ void CircuitDocument::splitIntoCircuits(PinSet *pinList) {
 	}
 }
 
+// WARNING: Circuit also has one of these. 
 void CircuitDocument::recursivePinAdd(Pin *pin, Circuitoid *circuitoid, PinSet *unassignedPins) {
-	if (!pin) return;
-
+assert(pin);
 	if (pin->eqId() != -1)
 		unassignedPins->erase(pin);
 
@@ -508,12 +508,6 @@ void CircuitDocument::recursivePinAdd(Pin *pin, Circuitoid *circuitoid, PinSet *
 		const PinSet groundDependentPins = pin->groundDependentPins();
 		const PinSet::const_iterator gdEnd = groundDependentPins.end();
 		for (PinSet::const_iterator it = groundDependentPins.begin(); it != gdEnd; ++it)
-			recursivePinAdd(*it, circuitoid, unassignedPins);
-	}
-	{
-		const PinSet circuitDependentPins = pin->circuitDependentPins();
-		const PinSet::const_iterator cdEnd = circuitDependentPins.end();
-		for (PinSet::const_iterator it = circuitDependentPins.begin(); it != cdEnd; ++it)
 			recursivePinAdd(*it, circuitoid, unassignedPins);
 	}
 	{
