@@ -127,7 +127,7 @@ public:
 	 * Returns the ids of the pins whose voltages will affect this pin.
 	 * @see void setDependentPins( QStringList ids )
 	 */
-	PinSet groundDependentPins() const { return m_groundDependentPins; }
+	PinSet &groundDependentPins() { return m_groundDependentPins; }
 	/**
 	 * This function returns the pins that are directly connected to this pins:
 	 * either at the ends of connected wires, or via switches.
@@ -152,9 +152,7 @@ public:
 	 * pin is part of a resistor, then that list will contain a pointer to a
 	 * Resistance element)
 	 */
-	ElementList elements() const {
-		return m_elementList;
-	}
+	ElementList &elements() { return m_elementList; }
 	/**
 	 * Adds an element to the list of those that will affect this pin.
 	 */
@@ -177,22 +175,19 @@ public:
 	void addWire(Wire *wire);
 	void removeWire(Wire *wire);
 
-	WireList wireList() const { return m_wireList; }
-	int numWires() const { return m_wireList.size(); }
+    void setCurrentIfOneWire(double current);
 
-protected:
+private:
 	double m_voltage;
 
 	int m_eqId;
 	GroundType m_groundType;
 
-	PinSet m_circuitDependentPins;
-	PinSet m_groundDependentPins; // for circuit partitioning. 
-
 	SwitchSet m_switchList;
 	SwitchSet m_unknownSwitchCurrents;
 
-private:
+	PinSet m_circuitDependentPins;
+	PinSet m_groundDependentPins; // for circuit partitioning. 
 	ElementList m_elementList;
 	WireList m_wireList;
 };

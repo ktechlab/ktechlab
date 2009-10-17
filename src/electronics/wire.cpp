@@ -49,13 +49,13 @@ double Wire::currentFor(const Pin *aPin) const {
 
 bool Wire::calculateCurrent()
 {
-	if(m_pStartPin->currentIsKnown() && m_pStartPin->numWires() < 2 ) {
+	if(m_pStartPin->currentIsKnown()) {
 		m_current = m_pStartPin->calculateCurrentFromWires(this);
 		m_bCurrentIsKnown = true;
 		return true;
 	}
 	
-	if(m_pEndPin->currentIsKnown() && m_pEndPin->numWires() < 2 ) {
+	if(m_pEndPin->currentIsKnown()) {
 		m_current = -m_pEndPin->calculateCurrentFromWires(this);
 		m_bCurrentIsKnown = true;
 		return true;
