@@ -128,29 +128,22 @@ bool Switch::calculateCurrent() {
 	if (!m_pP1 || !m_pP2) return false;
 
 	if (state() == Open) {
-		m_pP1->setSwitchCurrentKnown(this);
-		m_pP2->setSwitchCurrentKnown(this);
+		m_pP1->setCurrentIfOneWire(0);
+		m_pP2->setCurrentIfOneWire(0);
 		return true;
 	} 
 
+	if(m_pP1->currentIsKnown()) {
+		m_pP2->setCurrentIfOneWire(m_pP1->calculateCurrentFromWires());
+		return true;
+	} 
+
+	if(m_pP2->currentIsKnown()) {
+		m_pP1->setCurrentIfOneWire(m_pP2->calculateCurrentFromWires());
+		return true;
+	}
+
 	return false;
-
-/*
-	if(!(*m_pP1).calculateCurrentFromWires() || !(*m_pP2).calculateCurrentFromWires())
-		return false;
-
-
-// are we supposed to use + or - here? 
-	double current = (*m_pP1).current() + (*m_pP2).current();
-
-	m_pP1->setSwitchCurrentKnown(this);
-	m_pP2->setSwitchCurrentKnown(this);
-
-// same question about the +es and -es.
-	m_pP1->mergeCurrent(current);
-	m_pP2->mergeCurrent(-current);
-*/
-
 }
 
 #include "switch.moc"
