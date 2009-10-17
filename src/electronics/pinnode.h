@@ -33,6 +33,7 @@ public:
 	virtual void drawShape( QPainter &p );
 	
 protected:
+	QCanvasRectangle *m_pinPoint;
 	virtual void initPoints();
 };
 
