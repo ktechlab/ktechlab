@@ -11,7 +11,6 @@
 #include "ecnode.h"
 #include "libraryitem.h"
 #include "logic.h"
-#include "pin.h"
 #include "probe.h" //HACK: This has to be included before the oscilloscope headers
 #include "oscilloscope.h"
 #include "oscilloscopedata.h"

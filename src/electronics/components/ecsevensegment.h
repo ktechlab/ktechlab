@@ -19,7 +19,6 @@ class Diode;
 @short Seven segment display component
 @author David Saxton
 */
-
 class ECSevenSegment : public DIPComponent {
 
 public:

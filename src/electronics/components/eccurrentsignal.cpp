@@ -11,7 +11,6 @@
 #include "eccurrentsignal.h"
 #include "ecnode.h"
 #include "libraryitem.h"
-#include "pin.h"
 #include "simulator.h"
 
 #include <klocale.h>

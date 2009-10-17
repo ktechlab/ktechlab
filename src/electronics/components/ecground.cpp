@@ -9,10 +9,8 @@
  ***************************************************************************/
 
 #include "ecground.h"
-
 #include "ecnode.h"
 #include "libraryitem.h"
-#include "pin.h"
 
 #include <klocale.h>
 #include <qpainter.h>

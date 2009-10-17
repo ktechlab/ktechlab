@@ -9,9 +9,7 @@
  ***************************************************************************/
 
 #include "ecfixedvoltage.h"
-
 #include "ecnode.h"
-#include "voltagepoint.h"
 #include "libraryitem.h"
 
 #include <klocale.h>

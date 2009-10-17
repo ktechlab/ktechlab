@@ -14,7 +14,6 @@
 #include "libraryitem.h"
 #include "meter.h"
 #include "variant.h"
-#include "pin.h"
 #include "simulator.h"
 
 #include <cmath>
