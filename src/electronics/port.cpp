@@ -31,11 +31,9 @@ Port::Port()
 {
 }
 
-
 Port::~Port()
 {
 }
-
 
 QStringList Port::ports( unsigned probeResult )
 {
@@ -46,8 +44,6 @@ QStringList Port::ports( unsigned probeResult )
 #endif
 }
 //END class Port
-
-
 
 //BEGIN class SerialPort
 SerialPort::SerialPort()
@@ -249,8 +245,6 @@ QStringList SerialPort::ports( unsigned probeResult )
 }
 //END class SerialPort
 
-
-
 //BEGIN class ParallelPort
 // I wasn't able to find any documentation on programming the parallel port
 // in Darwin, so I've just functionally neutered this section.  Apparently
@@ -297,11 +291,9 @@ ParallelPort::ParallelPort()
 	reset();
 }
 
-
 ParallelPort::~ParallelPort()
 {
 }
-
 
 void ParallelPort::reset()
 {
@@ -312,7 +304,6 @@ void ParallelPort::reset()
 	m_outputPins = INPUT_MODE_BIT | IRQ_MODE_BIT;
 	m_inputPins = STATUS_PINS | INPUT_MODE_BIT | IRQ_MODE_BIT;
 }
-
 
 //BEGIN Pin-oriented operations
 void ParallelPort::setPinState( int pins, bool state )
@@ -326,7 +317,6 @@ void ParallelPort::setPinState( int pins, bool state )
 	if ( pins & CONTROL_PINS )
 		setControlState( (pins & CONTROL_PINS) >> 16, state );
 }
-
 
 int ParallelPort::pinState( int pins )
 {
@@ -347,19 +337,16 @@ int ParallelPort::pinState( int pins )
 	return value;
 }
 
-
 void ParallelPort::setDataState( uchar pins, bool state )
 {
 	uchar value = readFromRegister( Data );
 	
-	if ( state )
+	if(state)
 		value |= pins;
-	else
-		value &= ~pins;
+	else	value &= ~pins;
 	
-	writeToData( value );
+	writeToData(value);
 }
-
 
 void ParallelPort::setControlState( uchar pins, bool state )
 {
@@ -367,14 +354,11 @@ void ParallelPort::setControlState( uchar pins, bool state )
 	
 	if ( state )
 		value |= pins;
-	else
-		value &= ~pins;
+	else	value &= ~pins;
 	
 	writeToControl( value );
 }
 //END Pin-oriented operations
-
-
 
 //BEGIN Register-oriented operations
 uchar ParallelPort::readFromRegister( Register reg )
@@ -382,7 +366,7 @@ uchar ParallelPort::readFromRegister( Register reg )
 #ifdef DARWIN
 	return 0;
 #endif
-	
+
 	if ( m_file == -1 )
 		return 0;
 	
@@ -390,44 +374,38 @@ uchar ParallelPort::readFromRegister( Register reg )
 	uchar value = 0;
 	if ( ioctl( m_file, IOCTL_REG_READ[reg], &value ) )
 		kdError() << k_funcinfo << "errno=" << errno << endl;
-	else
-		m_reg[reg] = value;
+	else	m_reg[reg] = value;
 	return value;
 }
-
 
 void ParallelPort::writeToRegister( Register reg, uchar value )
 {
 #ifdef DARWIN
 	return;
 #endif
-	
+
 	if ( m_file == -1 )
 		return;
 	
 // 	outb( value ^ INVERT_MASK[reg], m_lpBase + reg );
 	if ( ioctl( m_file, IOCTL_REG_WRITE[reg], & value ) )
 		kdError() << k_funcinfo << "errno=" << errno << endl;
-	else
-		m_reg[reg] = value;
+	else	m_reg[reg] = value;
 }
-
 
 void ParallelPort::writeToData( uchar value )
 {
 	writeToRegister( Data, value );
 }
 
-
 void ParallelPort::writeToControl( uchar value )
 {
 	// Set all inputs to ones
 	value |= ((m_inputPins & CONTROL_PINS) >> 16);
-	
+
 	writeToRegister( Control, value );
 }
 //END Register-oriented operations
-
 
 //BEGIN Changing pin directions
 void ParallelPort::setDataDirection( Direction dir )
@@ -436,16 +414,13 @@ void ParallelPort::setDataDirection( Direction dir )
 	{
 		m_inputPins |= DATA_PINS;
 		m_outputPins &= ~DATA_PINS;
-	}
-	else
-	{
+	} else {
 		m_inputPins &= DATA_PINS;
 		m_outputPins |= ~DATA_PINS;
 	}
 	
 	setPinState( INPUT_MODE_BIT, dir == Input );
 }
-
 
 void ParallelPort::setControlDirection( int pins, Direction dir )
 {
@@ -455,9 +430,7 @@ void ParallelPort::setControlDirection( int pins, Direction dir )
 	{
 		m_inputPins |= pins;
 		m_outputPins &= ~pins;
-	}
-	else
-	{
+	} else {
 		m_inputPins &= pins;
 		m_outputPins |= ~pins;
 	}
@@ -465,7 +438,6 @@ void ParallelPort::setControlDirection( int pins, Direction dir )
 	setControlState( 0, true );
 }
 //END Changing pin directions
-
 
 Port::ProbeResult ParallelPort::probe( const QString & port )
 {
@@ -487,7 +459,6 @@ Port::ProbeResult ParallelPort::probe( const QString & port )
 	close(file);
 	return Port::ExistsAndRW;
 }
-
 
 QStringList ParallelPort::ports( unsigned probeResult )
 {
