@@ -113,8 +113,7 @@ public:
 	 * @return the list of all the connectors attached to the node
 	 */
 	virtual ConnectorList getAllConnectors() const {
-		return m_connectorList;
-	}
+		return m_connectorList; }
 
 	/**
 	 * Returns the total number of connections to the node. This is the number
@@ -144,8 +143,8 @@ public slots:
 	void checkForRemoval(Connector *connector);
 	void removeNode(Item*) {
 // parameter is made available for subclasses. 
-		removeNode();
-	}
+		removeNode(); }
+
 	void removeNode();
 protected slots:
 	void removeElement(Element *e);

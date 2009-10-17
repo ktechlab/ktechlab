@@ -32,7 +32,7 @@ ECNode::ECNode(ICNDocument *icnDocument, Node::node_type _type, int dir, const Q
 		icnDocument->registerItem(this);
 
 	m_pins.resize(1);
-	m_pins[0] = new Pin(this);
+	m_pins[0] = new Pin();
 }
 
 ECNode::~ECNode() {
@@ -56,7 +56,7 @@ void ECNode::setNumPins(unsigned num) {
 		m_pins.resize(num);
 
 		for (unsigned i = oldNum; i < num; i++)
-			m_pins[i] = new Pin(this);
+			m_pins[i] = new Pin();
 	} else {
 		for (unsigned i = num; i < oldNum; i++)
 			delete m_pins[i];
@@ -97,13 +97,19 @@ void ECNode::setParentItem(CNItem *parentItem) {
 }
 
 void ECNode::removeNode() {
-	if (b_deleted) return;
+	if(b_deleted) return;
 
 	b_deleted = true;
 	emit removed(this);
 	p_icnDocument->appendDeleteList(this);
 }
 
+/* 
+TODO: Do we really need to know about elements and switches at all here? =(  
+All we want to care about are components and electronic connectors.
+
+We only want to know about Pins so we can display voltage information, we don't really want to deliver their mail. =\ 
+*/
 void ECNode::removeElement(Element *e) {
 	for (unsigned i = 0; i < m_pins.size(); i++)
 		m_pins[i]->removeElement(e);
@@ -114,17 +120,14 @@ void ECNode::removeSwitch(Switch *sw) {
 		m_pins[i]->removeSwitch(sw);
 }
 
-// -- functionality from node.cpp -- TODO: refactor to pinnode. 
 bool ECNode::isConnected(Node *node, NodeList *checkedNodes) {
-	if (this == node)
-		return true;
+	if(this == node) return true;
 
 	bool firstNode = !checkedNodes;
 
-	if (firstNode)
+	if(firstNode)
 		checkedNodes = new NodeList();
-
-	else if (checkedNodes->contains(this))
+	else if(checkedNodes->contains(this))
 		return false;
 
 	checkedNodes->append(this);
@@ -133,22 +136,25 @@ bool ECNode::isConnected(Node *node, NodeList *checkedNodes) {
 	for (ConnectorList::const_iterator it = m_connectorList.begin(); it != inputEnd; ++it) {
 		Connector *connector = *it;
 
-		if (connector) {
-			Node *startNode = connector->startNode();
-
-			if (startNode && startNode->isConnected(node, checkedNodes)) {
-				if (firstNode) {
-					delete checkedNodes;
-				}
-
-				return true;
-			}
+assert(connector);
+		Node *aNode = connector->startNode();
+assert(aNode);
+		if(aNode->isConnected(node, checkedNodes)) {
+			if (firstNode)
+				delete checkedNodes;
+			return true;
 		}
+
+		aNode = connector->endNode();
+assert(aNode);
+		if(aNode->isConnected(node, checkedNodes)) {
+			if (firstNode)
+				delete checkedNodes;
+			return true;
+		}		
 	}
 
-	if (firstNode) {
-		delete checkedNodes;
-	}
+	if(firstNode) delete checkedNodes;
 
 	return false;
 }
@@ -157,14 +163,8 @@ void ECNode::checkForRemoval(Connector *connector) {
 	removeConnector(connector);
 	setNodeSelected(false);
 
-//	removeNullConnectors();
-
-	if (!p_parentItem) {
-		int conCount = m_connectorList.size();
-
-		if (conCount <= 1)
-			removeNode();
-	}
+	if(!p_parentItem && m_connectorList.empty())
+		removeNode();
 }
 
 void ECNode::setVisible(bool yes) {
@@ -173,31 +173,27 @@ void ECNode::setVisible(bool yes) {
 	QCanvasPolygon::setVisible(yes);
 
 	const ConnectorList::iterator inputEnd = m_connectorList.end();
-
 	for (ConnectorList::iterator it = m_connectorList.begin(); it != inputEnd; ++it) {
 		Connector *connector = *it;
 
-		if (connector) {
-			if (isVisible())
-				connector->setVisible(true);
-			else {
-				Node *node = connector->startNode();
-				connector->setVisible(node && node->isVisible());
-			}
-		}
+		if(isVisible())
+			connector->setVisible(true);
+		else	connector->setVisible(connector->startNode()->isVisible());
 	}
 }
 
+// I think this function tries to fix the case where a connector runs on top of another connector that it is 
+// attached to. I think this should be moved up in the class heirarchy. 
+// FIXME: Figure out where this function should be used and make sure it's used there! =( 
 QPoint ECNode::findConnectorDivergePoint(bool *found) {
-	// FIXME someone should check that this function is OK ... I just don't understand what it does
 	bool temp;
 
-	if (!found)
+	if(!found)
 		found = &temp;
 
 	*found = false;
 
-	if (numCon(false, false) != 2)
+	if(numCon(false, false) != 2)
 		return QPoint(0, 0);
 
 	QPointList p1;
@@ -213,10 +209,7 @@ QPoint ECNode::findConnectorDivergePoint(bool *found) {
 	for (ConnectorList::const_iterator it = connectors.begin(); it != end && !gotP2; ++it) {
 		at++;
 
-		if (!(*it) || !(*it)->canvas())
-			continue;
-
-		if (gotP1) {
+		if(gotP1) {
 			p2 = (*it)->connectorPoints(at < inSize);
 			gotP2 = true;
 		} else {
@@ -230,10 +223,10 @@ QPoint ECNode::findConnectorDivergePoint(bool *found) {
 
 	unsigned maxLength = p1.size() > p2.size() ? p1.size() : p2.size();
 
-	for (unsigned i = 1; i < maxLength; ++i) {
+	for(unsigned i = 1; i < maxLength; ++i) {
 		if (p1[i] != p2[i]) {
 			*found = true;
-			return p1[i-1];
+			return p1[i - 1];
 		}
 	}
 
@@ -249,11 +242,7 @@ void ECNode::addConnector(Connector *const connector) {
 
 bool ECNode::handleNewConnector(Connector *connector) {
 
-	assert(connector);
-/*
-	if (!connector)
-		return false;
-*/
+assert(connector);
 
 	if (m_connectorList.find(connector) != m_connectorList.end()) {
 		kdWarning() << k_funcinfo << " Already have connector = " << connector << endl;
@@ -271,7 +260,7 @@ bool ECNode::handleNewConnector(Connector *connector) {
 	return true;
 }
 
-Connector* ECNode::createConnector(Node * node) {
+Connector* ECNode::createConnector(Node *node) {
 	// FIXME dynamic_cast used
 	Connector *connector = new ElectronicConnector(dynamic_cast<ECNode*>(node), dynamic_cast<ECNode*>(this), p_icnDocument);
 	addConnector(connector);
@@ -279,23 +268,16 @@ Connector* ECNode::createConnector(Node * node) {
 	return connector;
 }
 
-/*
-void ECNode::removeNullConnectors() {
-	m_connectorList.remove((Connector*)0);
-}
-*/
-
 int ECNode::numCon(bool includeParentItem, bool includeHiddenConnectors) const {
 	unsigned count = 0;
-	const ConnectorList connectors = m_connectorList;
-	ConnectorList::const_iterator end = connectors.end();
 
-	for (ConnectorList::const_iterator it = connectors.begin(); it != end; ++it) {
-		if (*it && (includeHiddenConnectors || (*it)->canvas()))
+	ConnectorList::const_iterator end = m_connectorList.end();
+	for(ConnectorList::const_iterator it = m_connectorList.begin(); it != end; ++it) {
+		if(includeHiddenConnectors || (*it)->canvas())
 			count++;
 	}
 
-	if (isChildNode() && includeParentItem)
+	if(isChildNode() && includeParentItem)
 		count++;
 
 	return count;
@@ -310,10 +292,10 @@ void ECNode::removeConnector(Connector *connector) {
 	}
 }
 
-Connector* ECNode::getAConnector() const {
-	if (! m_connectorList.empty())
+Connector *ECNode::getAConnector() const {
+	if(!m_connectorList.empty())
 		return *m_connectorList.begin();
-	else	return 0;
+	else	return 0; // this can only happen on pin nodes, or nodes associated with an item.
 }
 
 #include "ecnode.moc"

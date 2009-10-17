@@ -300,7 +300,7 @@ void CircuitDocument::calculateConnectorCurrents() {
 		Pin *n = *it;
 		n->setSwitchCurrentsUnknown();
 
- 		if (n->parentECNode()->isChildNode()  && n->groundType() == Pin::gt_always) {
+ 		if(n->groundType() == Pin::gt_always) {
 			groundPins.insert(n);
 		}
 	}
@@ -555,6 +555,7 @@ bool CircuitDocument::tryAsLogicCircuit(Circuitoid *circuitoid) {
 	return true;
 }
 
+// TODO: refactor to constructor of Circuit. 
 Circuit *CircuitDocument::createCircuit(Circuitoid *circuitoid) {
 	if (!circuitoid) return 0;
 
