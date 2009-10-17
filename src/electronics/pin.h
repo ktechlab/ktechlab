@@ -122,7 +122,7 @@ public:
 	 * Returns the ids of the pins whose voltages will affect this pin.
 	 * @see void setDependentPins( QStringList ids )
 	 */
-	PinSet circuitDependentPins() const { return m_circuitDependentPins; }
+	PinSet &circuitDependentPins() { return m_circuitDependentPins; }
 	/**
 	 * Returns the ids of the pins whose voltages will affect this pin.
 	 * @see void setDependentPins( QStringList ids )
