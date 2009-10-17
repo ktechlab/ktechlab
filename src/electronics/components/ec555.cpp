@@ -9,11 +9,8 @@
  ***************************************************************************/
 
 #include "ec555.h"
-
 #include "ecnode.h"
 #include "libraryitem.h"
-#include "pin.h"
-#include "resistance.h"
 
 #include <kiconloader.h>
 #include <klocale.h>
