@@ -11,15 +11,12 @@
 #ifndef WIRE_H
 #define WIRE_H
 
-#include <qobject.h>
-
 class Pin;
 
 /**
 @author David Saxton
 */
-class Wire : public QObject
-{
+class Wire {
 public:
 	Wire( Pin *startPin, Pin *endPin );
 	~Wire();
