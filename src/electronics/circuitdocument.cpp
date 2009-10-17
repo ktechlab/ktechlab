@@ -415,7 +415,7 @@ void CircuitDocument::assignCircuits() {
 	}
 }
 
-void CircuitDocument::getPartition(Pin *pin, PinSet *pinList, PinSet *unassignedPins, bool onlyGroundDependent) {
+void CircuitDocument::getPartition(Pin *pin, PinSet *pinList, PinSet *unassignedPins) {
 	if (!pin) return;
 
 	unassignedPins->erase(pin);
@@ -425,20 +425,12 @@ void CircuitDocument::getPartition(Pin *pin, PinSet *pinList, PinSet *unassigned
 	const PinSet localConnectedPins = pin->localConnectedPins();
 	const PinSet::const_iterator end = localConnectedPins.end();
 	for (PinSet::const_iterator it = localConnectedPins.begin(); it != end; ++it)
-		getPartition(*it, pinList, unassignedPins, onlyGroundDependent);
+		getPartition(*it, pinList, unassignedPins);
 
 	const PinSet groundDependentPins = pin->groundDependentPins();
 	const PinSet::const_iterator dEnd = groundDependentPins.end();
 	for (PinSet::const_iterator it = groundDependentPins.begin(); it != dEnd; ++it)
-		getPartition(*it, pinList, unassignedPins, onlyGroundDependent);
-
-	if (!onlyGroundDependent) {
-		PinSet circuitDependentPins = pin->circuitDependentPins();
-
-		const PinSet::const_iterator dEnd = circuitDependentPins.end();
-		for (PinSet::const_iterator it = circuitDependentPins.begin(); it != dEnd; ++it)
-			getPartition(*it, pinList, unassignedPins, onlyGroundDependent);
-	}
+		getPartition(*it, pinList, unassignedPins);
 }
 
 void CircuitDocument::splitIntoCircuits(PinSet *pinList) {
@@ -449,7 +441,7 @@ void CircuitDocument::splitIntoCircuits(PinSet *pinList) {
 
 	while (!unassignedPins.empty()) {
 		PinSet tempPinSet;
-		getPartition(*unassignedPins.begin(), &tempPinSet, &unassignedPins, true);
+		getPartition(*unassignedPins.begin(), &tempPinSet, &unassignedPins);
 		pinListList.append(tempPinSet);
 	}
 
