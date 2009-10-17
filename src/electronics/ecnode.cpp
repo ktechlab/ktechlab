@@ -24,7 +24,6 @@
 ECNode::ECNode(ICNDocument *icnDocument, Node::node_type _type, int dir, const QPoint &pos, QString *_id)
 		: Node(icnDocument, _type, dir, pos, _id) {
 
-	m_pinPoint = 0;
 	m_bShowVoltageBars = KTLConfig::showVoltageBars();
 	m_bShowVoltageColor = KTLConfig::showVoltageColor();
 
@@ -36,9 +35,10 @@ ECNode::ECNode(ICNDocument *icnDocument, Node::node_type _type, int dir, const Q
 }
 
 ECNode::~ECNode() {
-	if (m_pinPoint) {
-		m_pinPoint->setCanvas(0);
-		delete m_pinPoint;
+	// delete all our connectors. 
+	ConnectorList::const_iterator end = m_connectorList.end();
+	for(ConnectorList::const_iterator it = m_connectorList.begin(); it != end; ++it) {
+		removeConnector(*it);	
 	}
 
 	for (unsigned i = 0; i < m_pins.size(); i++)
@@ -285,8 +285,6 @@ int ECNode::numCon(bool includeParentItem, bool includeHiddenConnectors) const {
 }
 
 void ECNode::removeConnector(Connector *connector) {
-	assert(connector);
-
 	if(m_connectorList.find(connector) != m_connectorList.end()) {
 		connector->removeConnector();
 		m_connectorList.erase(connector);
