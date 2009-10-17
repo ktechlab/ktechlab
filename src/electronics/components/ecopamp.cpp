@@ -9,10 +9,8 @@
  ***************************************************************************/
 
 #include "ecopamp.h"
-
 #include "ecnode.h"
 #include "libraryitem.h"
-#include "opamp.h"
 
 #include <klocale.h>
 #include <qpainter.h>
