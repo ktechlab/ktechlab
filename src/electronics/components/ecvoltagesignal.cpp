@@ -13,7 +13,6 @@
 #include "ecnode.h"
 #include "ecvoltagesignal.h"
 #include "libraryitem.h"
-#include "pin.h"
 #include "simulator.h"
 
 #include <cmath>
