@@ -50,6 +50,8 @@ PinNode::PinNode(ICNDocument* icnDocument, int dir, const QPoint& pos, QString* 
 }
 
 PinNode::~PinNode() {
+	m_pinPoint->setCanvas(0);
+	delete m_pinPoint;
 }
 
 void PinNode::drawShape(QPainter & p) {
