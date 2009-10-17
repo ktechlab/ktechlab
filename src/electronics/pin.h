@@ -63,27 +63,11 @@ public:
 	double voltage() const { return m_voltage; }
 
 	/**
-	 * Tell thie Pin that none of the currents from the switches have yet
-	 * been merged.
-	 */
-	void setSwitchCurrentsUnknown() {
-		m_unknownSwitchCurrents = m_switchList; }
-
-	/**
 	 * This returns the value given by setCurrentKnown AND'd with whether
 	 * we know the current from each switch attached to this pin.
 	 * @see setCurrentKnown
 	 */
-	bool currentIsKnown() const {
-		return (m_wireList.size() < 2) && m_unknownSwitchCurrents.empty();
-	}
-
-	/**
-	 * Tells the Pin that the current from the given switch has been merged.
-	 */
-	void setSwitchCurrentKnown(Switch *sw) {
-		m_unknownSwitchCurrents.erase(sw);
-	}
+	bool currentIsKnown() const;
 
 	/**
 	 * Tries to calculate the Pin current from the input / output wires.
@@ -175,7 +159,7 @@ public:
 	void addWire(Wire *wire);
 	void removeWire(Wire *wire);
 
-    void setCurrentIfOneWire(double current);
+    bool setCurrentIfOneWire(double current);
 
 private:
 	double m_voltage;
@@ -184,7 +168,6 @@ private:
 	GroundType m_groundType;
 
 	SwitchSet m_switchList;
-	SwitchSet m_unknownSwitchCurrents;
 
 	PinSet m_circuitDependentPins;
 	PinSet m_groundDependentPins; // for circuit partitioning. 
