@@ -473,20 +473,4 @@ void CircuitICNDocument::setNodesChanged()
 	}
 }
 
-/*!
-    \fn CircuitICNDocument::getAllPins(PinSet allPins)
- */
-void CircuitICNDocument::getAllPins(PinSet &allPins)
-{
-	const ECNodeMap::const_iterator nodeListEnd = m_ecNodeList.end();
-	for (ECNodeMap::const_iterator it = m_ecNodeList.begin(); it != nodeListEnd; ++it) {
-		ECNode *ecnode = it->second;
-		for (unsigned i = 0; i < ecnode->numPins(); i++) {
-			Pin *foo = ecnode->pin(i);
-assert(foo);
-			allPins.insert(foo);
-		}
-	}
-}
-
 #include "circuiticndocument.moc"
