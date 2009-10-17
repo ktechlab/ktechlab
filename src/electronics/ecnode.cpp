@@ -64,6 +64,7 @@ void ECNode::setNumPins(unsigned num) {
 		m_pins.resize(num);
 	}
 
+// FIXME: we segfault when we reduce the size of a bus component because this signal isn't being received. =( 
 	emit numPinsChanged(num);
 }
 
