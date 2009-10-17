@@ -17,10 +17,8 @@
 #include <icndocument.h>
 
 class ECNode;
-class Pin;
 
 typedef std::map< QString, ECNode* > ECNodeMap;
-typedef std::set<Pin *> PinSet;
 
 /**
 A document holding a circuit
@@ -85,7 +83,6 @@ public:
      */
     virtual void flushDeleteList();
 
-
     /**
      * registers (adds to the document) an item (a connector or a node)
      * @param qcanvasItem the item to be registered
@@ -95,10 +92,8 @@ public:
     virtual void unregisterUID(const QString & uid);
     virtual NodeList nodeList() const;
 
-
     void loadDisplayConfig();
     void setNodesChanged();
-    void getAllPins(PinSet &allPins);
 
 protected:
 
@@ -120,7 +115,6 @@ protected:
      */
     virtual void deleteAllNodes();
 
-private:
     /// the list of nodes contained by the document
     ECNodeMap m_ecNodeList;
 };
