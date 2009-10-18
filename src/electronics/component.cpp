@@ -54,25 +54,8 @@ void Component::removeItem() {
 	CNItem::removeItem();
 }
 
-void Component::removeElements(bool setPinsInterIndependent) {
-
+void Component::removeElements() {
 	m_elementMapList.clear();
-
-	const SwitchList::iterator swEnd = m_switchList.end();
-	for(SwitchList::iterator it = m_switchList.begin(); it != swEnd; ++it) {
-		Switch *sw = *it;
-
-		if(!sw) continue;
-
-		emit switchDestroyed(sw);
-
-		delete sw;
-	}
-
-	m_switchList.clear();
-
-	if (setPinsInterIndependent)
-		setAllPinsInterIndependent();
 }
 
 void Component::removeElement(Element *element, bool setPinsInterIndependent) {
@@ -95,17 +78,6 @@ void Component::removeElement(Element *element, bool setPinsInterIndependent) {
 
 	if(setPinsInterIndependent)
 		rebuildPinInterDepedence();
-}
-
-void Component::removeSwitch(Switch *sw) {
-	if (!sw) return;
-
-	emit switchDestroyed(sw);
-	m_switchList.remove(sw);
-
-	delete sw;
-
-	dynamic_cast<CircuitDocument*>(p_itemDocument)->requestAssignCircuits();
 }
 
 void Component::setNodalCurrents() {
@@ -281,7 +253,6 @@ ECNode* Component::ecNodeWithID(const QString &ecNodeId) {
 		dynamic_cast<CircuitDocument*>(p_itemDocument)->nodeWithID(nodeId(ecNodeId)));
 }
 
-
 void Component::slotUpdateConfiguration() {
 	const LogicConfig logicConfig; // = LogicIn::getConfig();
 	const ElementMapList::iterator end = m_elementMapList.end();
@@ -366,17 +337,6 @@ void Component::setupSpcl4pinElement(Element &ele, Pin *a, Pin *b, Pin *c, Pin *
 	pinset.insert(c);
 	pinset.insert(d);
 	setInterGroundDependent(it, pinset);
-}
-
-Switch *Component::createSwitch(Pin *n0, Pin *n1, bool open) {
-	// Note that a Switch is not really an element (although in many cases it
-	// behaves very much like one).
-// TODO: check for memory leaks; take a harder look at refactoring. 
-	Switch *e = new Switch(this, n0, n1, open ? Switch::Open : Switch::Closed);
-	m_switchList.append(e);
-
-	emit switchCreated(e);
-	return e;
 }
 
 ElementMapList::iterator Component::handleElement(Element *e, const PinList &pins) {

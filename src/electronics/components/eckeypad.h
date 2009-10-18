@@ -13,6 +13,8 @@
 
 #include "component.h"
 
+class Switch;
+
 /**
 @short 4x3 PTM Keypad
 @author David Saxton
