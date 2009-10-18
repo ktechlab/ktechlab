@@ -11,32 +11,29 @@
 #include "currentsource.h"
 #include "elementset.h"
 
-CurrentSource::CurrentSource( const double current )
+CurrentSource::CurrentSource(const double current )
 	: Element::Element()
 {
 	m_i = current;
 	m_numCNodes = 2;
 }
 
-
 CurrentSource::~CurrentSource()
 {
 }
 
-
 void CurrentSource::setCurrent( const double i )
 {
-	if ( i == m_i ) return;
+	if(i == m_i) return;
 
 	if (p_eSet)
 		p_eSet->setCacheInvalidated();
 	
 	// Remove the old current
-	m_i = -m_i;
+	m_i = -m_i + i;
 	add_initial_dc();
-	
+
 	m_i = i;
-	add_initial_dc();
 }
 
 void CurrentSource::add_initial_dc()
@@ -44,8 +41,8 @@ void CurrentSource::add_initial_dc()
 	if (!b_status)
 		return;
 	
-	b_i( 0 ) -= m_i;
-	b_i( 1 ) += m_i;
+	b_i(0) -= m_i;
+	b_i(1) += m_i;
 }
 
 void CurrentSource::updateCurrents()
