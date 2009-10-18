@@ -37,9 +37,7 @@ public:
 	 * immediately to that given.
 	 */
 	void setState(State state);
-	State state() const {
-		return m_state;
-	}
+	State state() const { return m_state; }
 
 	/**
 	Obtain the switch's other pin, if its closed. 
@@ -56,14 +54,6 @@ public:
 	 * Called from the simulator.
 	 */
 	void bounce();
-	/**
-	 * Attempts to calculate the current that is flowing through the switch.
-	 * (If all the connectors at one of the ends know their currents, then
-	 * this switch will give the current to the pins at either end).
-	 * @return whether it was successful.
-	 * @see CircuitDocument::calculateConnectorCurrents
-	 */
-	bool calculateCurrent();
 
 protected slots:
 	/**
