@@ -93,7 +93,6 @@ void ECNode::setParentItem(CNItem *parentItem) {
 
 	if (Component *component = dynamic_cast<Component*>(parentItem)) {
 		connect(component, SIGNAL(elementDestroyed(Element*)), this, SLOT(removeElement(Element*)));
-		connect(component, SIGNAL(switchDestroyed(Switch*)), this, SLOT(removeSwitch(Switch*)));
 	}
 }
 
@@ -114,11 +113,6 @@ We only want to know about Pins so we can display voltage information, we don't 
 void ECNode::removeElement(Element *e) {
 	for (unsigned i = 0; i < m_pins.size(); i++)
 		m_pins[i]->removeElement(e);
-}
-
-void ECNode::removeSwitch(Switch *sw) {
-	for (unsigned i = 0; i < m_pins.size(); i++)
-		m_pins[i]->removeSwitch(sw);
 }
 
 bool ECNode::isConnected(Node *node, NodeList *checkedNodes) {

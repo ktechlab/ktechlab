@@ -17,7 +17,6 @@
 
 class Element;
 class Pin;
-class Switch;
 class Item;
 
 typedef QValueVector<Pin*> PinVector;
@@ -148,7 +147,6 @@ public slots:
 	void removeNode();
 protected slots:
 	void removeElement(Element *e);
-	void removeSwitch(Switch *sw);
 
 protected:
 // caches, also allows for context-dependant setting. 

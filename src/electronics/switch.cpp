@@ -19,7 +19,6 @@
 #include "component.h"
 #include "ecnode.h"
 #include "pin.h"
-#include "resistance.h"
 #include "simulator.h"
 #include "switch.h"
 
@@ -27,10 +26,11 @@ Switch::Switch(Component *parent, Pin *p1, Pin *p2, State state) {
 	m_bouncePeriod_ms = 5;
 	m_bBounce = false;
 	m_bounceStart = 0;
-	m_pBounceResistance = 0;
 	m_pP1 = p1;
 	m_pP2 = p2;
 	m_pComponent = parent;
+	m_pJumper = 0;
+
 	m_pStopBouncingTimer = new QTimer(this);
 	connect(m_pStopBouncingTimer, SIGNAL(timeout()), this, SLOT(stopBouncing()));
 
@@ -39,8 +39,7 @@ Switch::Switch(Component *parent, Pin *p1, Pin *p2, State state) {
 	setState(state);
 }
 
-Switch::~Switch() {
-}
+Switch::~Switch() {}
 
 void Switch::setState(State state) {
 	if (m_state == state) return;
@@ -60,7 +59,7 @@ void Switch::setBounce(bool bounce, int msec) {
 }
 
 void Switch::startBouncing() {
-	if (m_pBounceResistance) {
+	if(m_pStopBouncingTimer->isActive()) {
 		// Already active?
 		return;
 	}
@@ -69,9 +68,8 @@ void Switch::startBouncing() {
 
 //	kdDebug() << k_funcinfo << endl;
 
-//	m_pBounceResistance = m_pComponent->createResistance(m_pP1, m_pP2, 10000);
-	m_pBounceResistance = new Resistance(10000);
-	m_pComponent->setup2pinElement(*m_pBounceResistance, m_pP1, m_pP2);
+	m_pBounceResistance.setResistance(10000);
+	m_pComponent->setup2pinElement(m_pBounceResistance, m_pP1, m_pP2);
 
 	m_bounceStart = Simulator::self()->time();
 
@@ -103,7 +101,7 @@ void Switch::bounce() {
 
 	// 4th power of the conductance seems to give a nice distribution
 	g = pow(g, 4);
-	m_pBounceResistance->setConductance(g);
+	m_pBounceResistance.setConductance(g);
 }
 
 Pin *Switch::otherPinIfClosed(const Pin *aPin) {
@@ -117,8 +115,16 @@ Pin *Switch::otherPinIfClosed(const Pin *aPin) {
 
 void Switch::stopBouncing() {
 //	Simulator::self()->detachSwitch( this );
-	m_pComponent->removeElement(m_pBounceResistance, true);
-	m_pBounceResistance = 0;
+	m_pComponent->removeElement(&m_pBounceResistance, true);
+
+	if(m_state == Open && m_pJumper) {
+		delete m_pJumper;
+		m_pJumper = 0;
+	}
+
+	if(m_state == Closed && !m_pJumper) {
+		m_pJumper = new Wire(m_pP1, m_pP2);
+	}
 
 	if (CircuitDocument *cd = dynamic_cast<CircuitDocument*>(m_pComponent->itemDocument() ))
 		cd->requestAssignCircuits();
@@ -133,6 +139,15 @@ bool Switch::calculateCurrent() {
 		return true;
 	} 
 
+/*
+TODO: Do something with the new wire-based architecture to set everything to the right current, maybe even to the tool-tip as well. 
+	if(m_pJumper) {
+		m_pJumper->
+	}
+*/
+
+// must be bouncing... do we need to do anything here? 
+/*
 	if(m_pP1->currentIsKnown()) {
 		m_pP2->setCurrentIfOneWire(m_pP1->calculateCurrentFromWires());
 		return true;
@@ -142,7 +157,7 @@ bool Switch::calculateCurrent() {
 		m_pP1->setCurrentIfOneWire(m_pP2->calculateCurrentFromWires());
 		return true;
 	}
-
+*/
 	return false;
 }
 

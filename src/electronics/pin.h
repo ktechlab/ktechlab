@@ -16,12 +16,10 @@
 
 class Element;
 class Pin;
-class Switch;
 class Wire;
 
 typedef std::set<Element*> ElementList;
 typedef std::set<Pin *> PinSet;
-typedef std::set<Switch*> SwitchSet;
 typedef std::set<Wire *> WireList;
 
 /**
@@ -147,15 +145,6 @@ public:
 	void removeElement(Element *e);
 // #########################
 
-	/**
-	 * Adds an switch to the list of those that will affect this pin.
-	 */
-	void addSwitch(Switch *e);
-	/**
-	 * Removes an switch from the list of those that will affect this pin.
-	 */
-	void removeSwitch(Switch *e);
-
 	void addWire(Wire *wire);
 	void removeWire(Wire *wire);
 
@@ -166,8 +155,6 @@ private:
 
 	int m_eqId;
 	GroundType m_groundType;
-
-	SwitchSet m_switchList;
 
 	PinSet m_circuitDependentPins;
 	PinSet m_groundDependentPins; // for circuit partitioning. 
