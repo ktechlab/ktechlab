@@ -130,36 +130,5 @@ void Switch::stopBouncing() {
 		cd->requestAssignCircuits();
 }
 
-bool Switch::calculateCurrent() {
-	if (!m_pP1 || !m_pP2) return false;
-
-	if (state() == Open) {
-		m_pP1->setCurrentIfOneWire(0);
-		m_pP2->setCurrentIfOneWire(0);
-		return true;
-	} 
-
-/*
-TODO: Do something with the new wire-based architecture to set everything to the right current, maybe even to the tool-tip as well. 
-	if(m_pJumper) {
-		m_pJumper->
-	}
-*/
-
-// must be bouncing... do we need to do anything here? 
-/*
-	if(m_pP1->currentIsKnown()) {
-		m_pP2->setCurrentIfOneWire(m_pP1->calculateCurrentFromWires());
-		return true;
-	} 
-
-	if(m_pP2->currentIsKnown()) {
-		m_pP1->setCurrentIfOneWire(m_pP2->calculateCurrentFromWires());
-		return true;
-	}
-*/
-	return false;
-}
-
 #include "switch.moc"
 

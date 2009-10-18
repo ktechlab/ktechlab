@@ -24,7 +24,6 @@
 #include "pin.h"
 #include "simulator.h"
 #include "subcircuits.h"
-#include "switch.h"
 
 #include <kdebug.h>
 #include <kinputdialog.h>
@@ -299,9 +298,8 @@ void CircuitDocument::calculateConnectorCurrents() {
 	for (PinSet::iterator it = m_pinList.begin(); it != pinEnd; ++it) {
 		Pin *n = *it;
 
- 		if(n->groundType() == Pin::gt_always) {
+ 		if(n->groundType() == Pin::gt_always)
 			groundPins.insert(n);
-		}
 	}
 
 	// Tell the components to update their ECNode's currents' from the elements
@@ -310,21 +308,9 @@ void CircuitDocument::calculateConnectorCurrents() {
 	for (ComponentList::iterator it = m_componentList.begin(); it != componentEnd; ++it)
 		(*it)->setNodalCurrents();
 
-	SwitchList switches = m_switchList;
 	bool found = true;
-	while ((!switches.empty() || !groundPins.empty()) && found) {
+	while (!groundPins.empty() && found) {
 		found = false;
-
-		SwitchList::iterator switchesEnd = switches.end();
-		for (SwitchList::iterator it = switches.begin(); it != switchesEnd;) {
-			if ((*it)->calculateCurrent()) {
-				found = true;
-				SwitchList::iterator oldIt = it;
-				++it;
-				switches.remove(oldIt);
-			} else ++it;
-		}
-
 		/*
 		make the ground pins work. Current engine doesn't treat ground explicitly.
 		*/
@@ -393,7 +379,6 @@ void CircuitDocument::assignCircuits() {
 	for (CircuitList::iterator it = m_circuitList.begin(); it != circuitListEnd; ++it)
 		(*it)->init();
 
-	m_switchList.clear();
 	m_componentList.clear();
 
 	const ItemMap::const_iterator cilEnd = m_itemList.end();
@@ -404,8 +389,6 @@ void CircuitDocument::assignCircuits() {
 
 		m_componentList.insert(component);
 		component->initNodes();
-
-		m_switchList += component->switchList();
 	}
 
 	for (CircuitList::iterator it = m_circuitList.begin(); it != circuitListEnd; ++it) {
