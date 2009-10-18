@@ -12,24 +12,23 @@
 #define SWITCH_H
 
 #include <qobject.h>
+#include "resistance.h"
 
 class CircuitDocument;
 class Component;
 class Pin;
-class Resistance;
 class QTimer;
+class Wire;
 
 /**
 @author David Saxton
 */
-
 class Switch : public QObject {
 	Q_OBJECT
 public:
 	enum State {
 		Open,
-		Closed
-	};
+		Closed };
 
 	Switch(Component *parent, Pin *p1, Pin *p2, State state);
 	~Switch();
@@ -80,9 +79,16 @@ protected:
 	bool m_bBounce;
 	int m_bouncePeriod_ms;
 	unsigned long long m_bounceStart; // Simulator time that bouncing started
-	Resistance *m_pBounceResistance;
+	Resistance m_pBounceResistance;
+	Wire *m_pJumper;
+
+// ***
 	State m_state;
+// ***
 	Component *m_pComponent;
+
+// because we aren't a component, we can't own our pins, 
+// because we aren't an element, we can't pretend pins don't exist. =(
 	Pin *m_pP1;
 	Pin *m_pP2;
 	QTimer *m_pStopBouncingTimer;
