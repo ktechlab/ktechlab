@@ -374,8 +374,7 @@ Switch *Component::createSwitch(Pin *n0, Pin *n1, bool open) {
 // TODO: check for memory leaks; take a harder look at refactoring. 
 	Switch *e = new Switch(this, n0, n1, open ? Switch::Open : Switch::Closed);
 	m_switchList.append(e);
-	n0->addSwitch(e);
-	n1->addSwitch(e);
+
 	emit switchCreated(e);
 	return e;
 }
