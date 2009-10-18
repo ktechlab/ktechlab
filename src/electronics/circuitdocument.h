@@ -23,14 +23,12 @@ class Element;
 class CircuitICNDocument;
 class KTechlab;
 class QTimer;
-class Switch;
 class KActionMenu;
 class Pin;
 
 typedef std::set<Circuit*> CircuitList;
 typedef std::set<Component*> ComponentList;
 typedef std::set<Element*> ElementList;
-typedef QValueList<Switch*> SwitchList;
 typedef std::set<Pin *> PinSet;
 
 class Circuitoid {
@@ -164,9 +162,6 @@ private:
 	CircuitList m_circuitList;
 	ComponentList m_toSimulateList;
 	ComponentList m_componentList; // List is built up during call to assignCircuits
-
-// hmm, we have one of these in circuit too....
-	SwitchList m_switchList;
 };
 
 #endif
