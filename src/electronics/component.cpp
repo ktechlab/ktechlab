@@ -327,16 +327,19 @@ void Component::setupSpcl4pinElement(Element &ele, Pin *a, Pin *b, Pin *c, Pin *
 	PinSet pinset;
 	pinset.insert(a);
 	pinset.insert(b);
-	setInterGroundDependent(it, pinset);
+	setInterGroundDependent(pinset);
+	(*it).interGroundDependent.push_back(pinset);
 
 	pinset.insert(c);
 	pinset.insert(d);
-	setInterCircuitDependent(it, pinset);
+	setInterCircuitDependent(pinset);
+	(*it).interCircuitDependent.push_back(pinset);
 
 	pinset.clear();
 	pinset.insert(c);
 	pinset.insert(d);
-	setInterGroundDependent(it, pinset);
+	setInterGroundDependent(pinset);
+	(*it).interGroundDependent.push_back(pinset);
 }
 
 ElementMapList::iterator Component::handleElement(Element *e, const PinList &pins) {
@@ -359,11 +362,13 @@ ElementMapList::iterator Component::handleElement(Element *e, const PinList &pin
 }
 
 void Component::setInterDependent(ElementMapList::iterator it, PinSet &pins) {
-	setInterCircuitDependent(it, pins);
-	setInterGroundDependent(it, pins);
+	setInterCircuitDependent(pins);
+	(*it).interCircuitDependent.push_back(pins);
+	setInterGroundDependent(pins);
+	(*it).interGroundDependent.push_back(pins);
 }
 
-void Component::setInterCircuitDependent(ElementMapList::iterator it, PinSet &pins) {
+void Component::setInterCircuitDependent(PinSet &pins) {
 	PinSet::const_iterator end = pins.end();
 	for(PinSet::const_iterator it1 = pins.begin(); it1 != end; ++it1) {
 		for(PinSet::const_iterator it2 = pins.begin(); it2 != end; ++it2) {
@@ -371,10 +376,10 @@ void Component::setInterCircuitDependent(ElementMapList::iterator it, PinSet &pi
 		}
 	}
 
-	(*it).interCircuitDependent.push_back(pins);
+//	(*it).interCircuitDependent.push_back(pins);
 }
 
-void Component::setInterGroundDependent(ElementMapList::iterator it, PinSet &pins) {
+void Component::setInterGroundDependent(PinSet &pins) {
 	PinSet::const_iterator end = pins.end();
 	for(PinSet::const_iterator it1 = pins.begin(); it1 != end; ++it1) {
 		for(PinSet::const_iterator it2 = pins.begin(); it2 != end; ++it2) {
@@ -382,7 +387,7 @@ void Component::setInterGroundDependent(ElementMapList::iterator it, PinSet &pin
 		}
 	}
 
-	(*it).interGroundDependent.push_back(pins);
+//	(*it).interGroundDependent.push_back(pins);
 }
 
 void Component::rebuildPinInterDepedence() {
@@ -392,17 +397,13 @@ void Component::rebuildPinInterDepedence() {
 	ElementMapList::iterator emlEnd = m_elementMapList.end();
 	for(ElementMapList::iterator it = m_elementMapList.begin(); it != emlEnd; ++it) {
 		// Many copies of the pin lists as these will be affected when we call setInter*Dependent
-		PinSetList list = (*it).interCircuitDependent;
+		PinSetList::iterator depEnd = (*it).interCircuitDependent.end();
+		for(PinSetList::iterator depIt = (*it).interCircuitDependent.begin(); depIt != depEnd; ++depIt)
+			setInterCircuitDependent(*depIt);
 
-		PinSetList::iterator depEnd = list.end();
-		for(PinSetList::iterator depIt = list.begin(); depIt != depEnd; ++depIt)
-			setInterCircuitDependent(it, *depIt);
-
-		list = (*it).interGroundDependent;
-		depEnd = list.end();
-
-		for(PinSetList::iterator depIt = list.begin(); depIt != depEnd; ++depIt)
-			setInterGroundDependent(it, *depIt);
+		depEnd = (*it).interGroundDependent.end();
+		for(PinSetList::iterator depIt = (*it).interGroundDependent.begin(); depIt != depEnd; ++depIt)
+			setInterGroundDependent(*depIt);
 	}
 }
 
