@@ -13,6 +13,8 @@
 
 #include "simplecomponent.h"
 
+class Switch;
+
 /**
 @short Double Pole Double Throw
 @author David Saxton
