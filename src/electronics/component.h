@@ -182,13 +182,13 @@ private:
 	 * The given pins will affect the simulation of each other. Therefore, they
 	 * will need to be simulated in the same circuit.
 	 */
-	void setInterCircuitDependent(ElementMapList::iterator it, PinSet &pins);
+	void setInterCircuitDependent(PinSet &pins);
 
 	/**
 	 * If any of the given pins are ground, then that will affect whether
 	 * any of the other pins can be ground.
 	 */
-	void setInterGroundDependent(ElementMapList::iterator it, PinSet &pins);
+	void setInterGroundDependent(PinSet &pins);
 
 	/**
 	 * List of ElementMaps; which contain information on the pins associated
