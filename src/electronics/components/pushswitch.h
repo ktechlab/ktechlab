@@ -13,6 +13,8 @@
 
 #include "simplecomponent.h"
 
+class Switch;
+
 /**
 @short Push-to-Break switch component
 @author David Saxton
@@ -20,7 +22,7 @@
 class ECPTBSwitch : public SimpleComponent
 {
 public:
-	ECPTBSwitch( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECPTBSwitch( ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECPTBSwitch();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

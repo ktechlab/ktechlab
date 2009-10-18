@@ -25,11 +25,9 @@ class ICNDocument;
 class ECSubcircuit;
 class Element;
 class Pin;
-class Switch;
 class LogicIn;
 
 typedef std::list<Pin*> PinList;
-typedef QValueList<Switch*> SwitchList;
 typedef QValueList<PinSet> PinSetList;
 typedef QValueList<ElementMap> ElementMapList;
 
@@ -113,17 +111,6 @@ public:
 
 	ECNode *ecNodeWithID(const QString &ecNodeId);
 
-	Switch *createSwitch(Pin *n0, Pin *n1, bool open);
-	/**
-	 * Safely remove a switch.
-	 */
-	void removeSwitch(Switch *sw);
-
-	/**
-	 * @return the list of switches that this component uses.
-	 */
-	SwitchList switchList() const { return m_switchList; }
-
 	/**
 	 * Safely delete an element - in this case, calls element->componentDeleted,
 	 * and removes it from the element list.
@@ -145,16 +132,6 @@ signals:
 	 */
 	void elementDestroyed(Element *element);
 
-	/**
-	 * Emitted when a switch. is created
-	 */
-	void switchCreated(Switch *sw);
-
-	/**
-	 * Emitted when a switch is destroyed.
-	 */
-	void switchDestroyed(Switch *sw);
-
 public slots:
 	virtual void slotUpdateConfiguration();
 	virtual void removeItem();
@@ -166,7 +143,7 @@ protected:
 	 * setPinsInterIndependent. This is false when calling from the
 	 * destructor, or when the dependency information is the same.
 	 */
-	void removeElements(bool setPinsInterIndependent = false);
+	void removeElements();
 
 	virtual void itemPointsChanged();
 	virtual void updateAttachedPositioning();
@@ -220,12 +197,6 @@ private:
 	 * @see ElementMap
 	 */
 	ElementMapList m_elementMapList;
-
-	/**
-	 * The switches used by the component.
-	TODO: ammend this comment with a more complete justification for the design decision to put this here.
-	 */
-	SwitchList m_switchList;
 
 	/**
 	 * @return an iterator to the element in m_elementMapList

@@ -35,7 +35,6 @@ LibraryItem* ECDPDT::libraryItem()
 		ECDPDT::construct );
 }
 
-
 ECDPDT::ECDPDT( ICNDocument *icnDocument, bool newItem, const char *id )
 	: SimpleComponent( icnDocument, newItem, id ? id : "dpdt_toggle" )
 {
@@ -61,15 +60,19 @@ ECDPDT::ECDPDT( ICNDocument *icnDocument, bool newItem, const char *id )
 	init4PinRight(-24, -8, 8, 24);
 	init2PinLeft(-16, 16);
 	
-	m_switch1 = createSwitch(m_pNNode[0]->pin(), m_pPNode[0]->pin(), false);
-	m_switch2 = createSwitch(m_pNNode[0]->pin(), m_pPNode[1]->pin(), true );
-	m_switch3 = createSwitch(m_pNNode[1]->pin(), m_pPNode[2]->pin(), false);
-	m_switch4 = createSwitch(m_pNNode[1]->pin(), m_pPNode[3]->pin(), true );
+	m_switch1 = new Switch(this, m_pNNode[0]->pin(), m_pPNode[0]->pin(), Switch::Closed);
+	m_switch2 = new Switch(this, m_pNNode[0]->pin(), m_pPNode[1]->pin(), Switch::Open);
+	m_switch3 = new Switch(this, m_pNNode[1]->pin(), m_pPNode[2]->pin(), Switch::Closed);
+	m_switch4 = new Switch(this, m_pNNode[1]->pin(), m_pPNode[3]->pin(), Switch::Open);
 	pressed = false;
 }
 
 ECDPDT::~ECDPDT()
 {
+	delete m_switch1;
+	delete m_switch2;
+	delete m_switch3;
+	delete m_switch4;
 }
 
 void ECDPDT::dataChanged()
@@ -85,7 +88,6 @@ void ECDPDT::dataChanged()
 	m_switch4->setBounce( bounce, bouncePeriod_ms );
 }
 
-
 void ECDPDT::drawShape( QPainter &p )
 {
 	initPainter(p);
@@ -94,17 +96,17 @@ void ECDPDT::drawShape( QPainter &p )
 	int _y = (int)y()-32;
 	const int radius = 2;
 	
-	p.drawEllipse( _x,						_y+15,	2*radius, 2*radius );
-	p.drawEllipse( _x,						_y+47,	2*radius, 2*radius );
-	p.drawEllipse( _x+width()-2*radius+1,	_y+7,	2*radius, 2*radius );
-	p.drawEllipse( _x+width()-2*radius+1,	_y+23,	2*radius, 2*radius );
-	p.drawEllipse( _x+width()-2*radius+1,	_y+39,	2*radius, 2*radius );
-	p.drawEllipse( _x+width()-2*radius+1,	_y+55,	2*radius, 2*radius );
+	p.drawEllipse(_x,			_y+15,	2*radius, 2*radius);
+	p.drawEllipse(_x,			_y+47,	2*radius, 2*radius);
+	p.drawEllipse(_x+width()-2*radius+1,	_y+7,	2*radius, 2*radius);
+	p.drawEllipse(_x+width()-2*radius+1,	_y+23,	2*radius, 2*radius);
+	p.drawEllipse(_x+width()-2*radius+1,	_y+39,	2*radius, 2*radius);
+	p.drawEllipse(_x+width()-2*radius+1,	_y+55,	2*radius, 2*radius);
 	
 	const int dy = pressed ? 6 : -6;
 	
-	p.drawLine( _x+2*radius, _y+16,	_x+width()-2*radius+2,	_y+16+dy );
-	p.drawLine( _x+2*radius, _y+48,	_x+width()-2*radius+2,	_y+48+dy );
+	p.drawLine(_x+2*radius, _y+16,	_x+width()-2*radius+2,	_y+16+dy);
+	p.drawLine(_x+2*radius, _y+48,	_x+width()-2*radius+2,	_y+48+dy);
 	
 	deinitPainter(p);
 }
@@ -118,7 +120,6 @@ void ECDPDT::buttonStateChanged( const QString &, bool state )
 	m_switch4->setState( state ? Switch::Closed : Switch::Open );
 }
 //END class ECDPDT
-
 
 //BEGIN class ECDPST
 Item* ECDPST::construct( ItemDocument *itemDocument, bool newItem, const char *id )
@@ -162,13 +163,15 @@ ECDPST::ECDPST( ICNDocument *icnDocument, bool newItem, const char *id )
 	init2PinLeft( -8, 8);
 	init2PinRight(-8, 8);
 
-	m_switch1 = createSwitch(m_pPNode[0]->pin(), m_pNNode[0]->pin(), true);
-	m_switch2 = createSwitch(m_pPNode[1]->pin(), m_pNNode[1]->pin(), true);
+	m_switch1 = new Switch(this, m_pPNode[0]->pin(), m_pNNode[0]->pin(), Switch::Open);
+	m_switch2 = new Switch(this, m_pPNode[1]->pin(), m_pNNode[1]->pin(), Switch::Open);
 	pressed = false;
 }
 
 ECDPST::~ECDPST()
 {
+	delete m_switch1;
+	delete m_switch2;
 }
 
 void ECDPST::dataChanged()
@@ -182,7 +185,6 @@ void ECDPST::dataChanged()
 	m_switch2->setBounce(bounce, bouncePeriod_ms);
 }
 
-
 void ECDPST::drawShape( QPainter &p )
 {
 	initPainter(p);
@@ -191,10 +193,10 @@ void ECDPST::drawShape( QPainter &p )
 	int _y = (int)y()-16;
 	const int radius = 2;
 	
-	p.drawEllipse( _x,						_y+6,	2*radius, 2*radius );
-	p.drawEllipse( _x,						_y+22,	2*radius, 2*radius );
-	p.drawEllipse( _x+width()-2*radius+1,	_y+6,	2*radius, 2*radius );
-	p.drawEllipse( _x+width()-2*radius+1,	_y+22,	2*radius, 2*radius );
+	p.drawEllipse(_x,			_y+6,	2*radius, 2*radius);
+	p.drawEllipse(_x,			_y+22,	2*radius, 2*radius);
+	p.drawEllipse(_x+width()-2*radius+1,	_y+6,	2*radius, 2*radius);
+	p.drawEllipse(_x+width()-2*radius+1,	_y+22,	2*radius, 2*radius);
 	
 	const int dy = pressed ? 6 : 0;
 	
@@ -212,7 +214,6 @@ void ECDPST::buttonStateChanged( const QString &, bool state )
 }
 //END class ECDPST
 
-
 //BEGIN class ECSPDT
 Item* ECSPDT::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -229,7 +230,6 @@ LibraryItem* ECSPDT::libraryItem()
 		LibraryItem::lit_component,
 		ECSPDT::construct );
 }
-
 
 ECSPDT::ECSPDT( ICNDocument *icnDocument, bool newItem, const char *id )
 	: SimpleComponent( icnDocument, newItem, id ? id : "spdt_toggle" )
@@ -256,14 +256,16 @@ ECSPDT::ECSPDT( ICNDocument *icnDocument, bool newItem, const char *id )
 	init1PinLeft(0);
 	init2PinRight(-8, 8);
 
-	m_switch1 = createSwitch(m_pNNode[0]->pin(), m_pPNode[0]->pin(), false);
-	m_switch2 = createSwitch(m_pNNode[0]->pin(), m_pPNode[1]->pin(), true );
+	m_switch1 = new Switch(this, m_pNNode[0]->pin(), m_pPNode[0]->pin(), Switch::Closed);
+	m_switch2 = new Switch(this, m_pNNode[0]->pin(), m_pPNode[1]->pin(), Switch::Open);
 
 	pressed = false;
 }
 
 ECSPDT::~ECSPDT()
 {
+	delete m_switch1;
+	delete m_switch2;
 }
 
 void ECSPDT::dataChanged()
@@ -302,7 +304,6 @@ void ECSPDT::buttonStateChanged( const QString &, bool state )
 	m_switch2->setState( state ? Switch::Closed : Switch::Open );
 }
 //END class ECSPDT
-
 
 //BEGIN class ECSPST
 Item* ECSPST::construct( ItemDocument *itemDocument, bool newItem, const char *id )
@@ -351,11 +352,12 @@ ECSPST::ECSPST( ICNDocument *icnDocument, bool newItem, const char *id )
 	init1PinLeft();
 	init1PinRight();
 
-	m_switch = createSwitch(m_pNNode[0]->pin(), m_pPNode[0]->pin(), !pressed);
+	m_switch = new Switch(this, m_pNNode[0]->pin(), m_pPNode[0]->pin(), pressed ? Switch::Closed : Switch::Open);
 }
 
 ECSPST::~ECSPST()
 {
+	delete m_switch;
 }
 
 void ECSPST::dataChanged()
