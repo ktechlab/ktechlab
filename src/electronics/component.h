@@ -28,7 +28,7 @@ class Pin;
 class LogicIn;
 
 typedef std::list<Pin*> PinList;
-typedef QValueList<PinSet> PinSetList;
+typedef std::list<PinSet> PinSetList;
 typedef QValueList<ElementMap> ElementMapList;
 
 /**
