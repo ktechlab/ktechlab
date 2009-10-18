@@ -37,16 +37,6 @@ PinSet Pin::localConnectedPins() //const
 		pins.insert(op);
 	}
 
-/* TODO: This code is currently essential to allowing switches to close. In the future, we will probably
-want to put a wire inside switch or make Switch behave more like an intermittent wire. */
-	SwitchSet::const_iterator endB = m_switchList.end();
-	for(SwitchSet::const_iterator it = m_switchList.begin(); it != endB; ++it) {
-		assert(*it);
-
-		Pin *tmp = (*it)->otherPinIfClosed(this);
-		if(tmp) pins.insert(tmp);
-	}
-
 	return pins;
 }
 
@@ -74,18 +64,6 @@ void Pin::removeElement(Element *e) {
 	m_elementList.erase(e);
 }
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-/**/
-void Pin::addSwitch(Switch *sw) {
-	assert(sw);
-
-	m_switchList.insert(sw);
-}
-
-void Pin::removeSwitch(Switch *sw) {
-	m_switchList.erase(sw);
-}
-
 
 void Pin::addWire(Wire *wire) {
 	assert(wire);
