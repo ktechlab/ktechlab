@@ -61,12 +61,13 @@ ECPTBSwitch::ECPTBSwitch( ICNDocument *icnDocument, bool newItem, const char *id
 	init1PinLeft(0);
 	init1PinRight(0);
 
-	m_switch = createSwitch( m_pPNode[0]->pin(), m_pNNode[0]->pin(), false );
+	m_switch = new Switch(this,  m_pPNode[0]->pin(), m_pNNode[0]->pin(), Switch::Closed);
 	pressed = false;
 }
 
 ECPTBSwitch::~ECPTBSwitch()
 {
+	delete m_switch;
 }
 
 void ECPTBSwitch::dataChanged()
@@ -151,12 +152,13 @@ ECPTMSwitch::ECPTMSwitch( ICNDocument *icnDocument, bool newItem, const char *id
 	init1PinLeft(0);
 	init1PinRight(0);
 	
-	m_switch = createSwitch(m_pPNode[0]->pin(), m_pNNode[0]->pin(), true);
+	m_switch = new Switch(this, m_pPNode[0]->pin(), m_pNNode[0]->pin(), Switch::Closed);
 	pressed = false;
 }
 
 ECPTMSwitch::~ECPTMSwitch()
 {
+	delete m_switch;
 }
 
 void ECPTMSwitch::dataChanged()
