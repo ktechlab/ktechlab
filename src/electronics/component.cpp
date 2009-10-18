@@ -371,7 +371,7 @@ void Component::setInterCircuitDependent(ElementMapList::iterator it, PinSet &pi
 		}
 	}
 
-	(*it).interCircuitDependent.append(pins);
+	(*it).interCircuitDependent.push_back(pins);
 }
 
 void Component::setInterGroundDependent(ElementMapList::iterator it, PinSet &pins) {
@@ -382,7 +382,7 @@ void Component::setInterGroundDependent(ElementMapList::iterator it, PinSet &pin
 		}
 	}
 
-	(*it).interGroundDependent.append(pins);
+	(*it).interGroundDependent.push_back(pins);
 }
 
 void Component::rebuildPinInterDepedence() {

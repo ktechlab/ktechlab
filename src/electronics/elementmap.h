@@ -13,15 +13,14 @@
 #ifndef ELEMENTMAP_H
 #define ELEMENTMAP_H
 
-#include <set>
-#include <qvaluelist.h>
+#include <list>
 
 #include "simulation/element.h"
 #include "pin.h"
 
 class LogicIn;
 
-typedef QValueList< PinSet > PinSetList;
+typedef std::list< PinSet > PinSetList;
 
 /**
 Contains vital information about the elements in the component.
