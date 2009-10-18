@@ -123,7 +123,7 @@ void ECKeyPad::initPins(unsigned numCols) {
             Pin *row = ecNodeWithID("row_" + QString::number(i))->pin();
 
             for (unsigned j = m_numCols; j < numCols; j++)
-                m_switch[i][j] = createSwitch(cols[j]->pin(), row, true);
+                m_switch[i][j] = new Switch(this, cols[j]->pin(), &(*row), Switch::Open);
         }
     } else {
         // Remove columns
@@ -137,7 +137,7 @@ void ECKeyPad::initPins(unsigned numCols) {
 
         for (unsigned i = 0; i < 4; i++) {
             for (unsigned j = m_numCols; j < numCols; j++)
-                removeSwitch(m_switch[i][j]);
+                delete m_switch[i][j];
         }
     }
 
