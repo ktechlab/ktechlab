@@ -8,14 +8,16 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "pin.h"
-#include "wire.h"
-#include "simulator.h"
+#include <cmath>
 #include <cassert>
 #include <kdebug.h>
 
+#include "pin.h"
+#include "wire.h"
+#include "simulator.h"
+
 Wire::Wire(Pin *startPin, Pin *endPin) :
-	m_current(0), m_bCurrentIsKnown(false)
+	m_current(FP_NAN), m_bCurrentIsKnown(false)
 {
 	assert(startPin && endPin);
 
@@ -49,6 +51,10 @@ double Wire::currentFor(const Pin *aPin) const {
 
 bool Wire::calculateCurrent()
 {
+	if(m_bCurrentIsKnown) return true;
+
+/*else return false;*/
+
 	if(m_pStartPin->currentIsKnown()) {
 		m_current = m_pStartPin->calculateCurrentFromWires(this);
 		m_bCurrentIsKnown = true;
@@ -63,6 +69,7 @@ bool Wire::calculateCurrent()
 
 	m_bCurrentIsKnown = false;
 	return false;
+
 }
 
 double Wire::voltage() const
@@ -78,8 +85,8 @@ double Wire::voltage() const
 void Wire::setCurrentKnown( bool known )
 {
 	m_bCurrentIsKnown = known;
-	if (!known)
-		m_current = 0.;
+	if (!known) m_current = FP_NAN;
+
 }
 
 /*!
