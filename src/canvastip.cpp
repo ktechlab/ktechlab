@@ -40,13 +40,13 @@ void CanvasTip::displayVI(ECNode *node, const QPoint &pos) {
 
 	unsigned num = node->numPins();
 
-	m_v.resize(num);
-	m_i.resize(num);
+	info.resize(num);
 
 	for (unsigned i = 0; i < num; i++) {
 		if (Pin *pin = &node->pin(i)) {
-			m_v[i] = pin->voltage();
-			m_i[i] = pin->calculateCurrentFromWires();
+			info[i].V = pin->voltage();
+			info[i].I = std::abs(pin->calculateCurrentFromWires());
+			info[i].id = pin->eqId();
 		}
 	}
 
@@ -62,13 +62,17 @@ void CanvasTip::displayVI(Connector *connector, const QPoint &pos) {
 
 	unsigned num = econnector->numWires();
 
-	m_v.resize(num);
-	m_i.resize(num);
+	info.resize(num);
 
 	for (unsigned i = 0; i < num; i++) {
 		if (Wire *wire = econnector->wire(i)) {
-			m_v[i] = wire->voltage();
-			m_i[i] = std::abs(wire->current());
+			info[i].V = wire->voltage();
+#ifdef BULLSHIT
+			info[i].I = std::abs(wire->current());
+#else 
+			info[i].I = wire->currentIsKnown() ? std::abs(wire->current()) : FP_NAN;
+#endif
+			info[i].id = -2;
 		}
 	}
 
@@ -87,8 +91,9 @@ bool CanvasTip::updateVI() {
 }
 
 void CanvasTip::display(const QPoint &pos) {
-	unsigned num = m_v.size();
+	unsigned num = info.size();
 
+#ifdef BULLSHIT
 	for (unsigned i = 0; i < num; i++) {
 		if (!std::isfinite(m_v[i]) || std::abs(m_v[i]) < 1e-9)
 			m_v[i] = 0.;
@@ -96,6 +101,7 @@ void CanvasTip::display(const QPoint &pos) {
 		if (!std::isfinite(m_i[i]) || std::abs(m_i[i]) < 1e-9)
 			m_i[i] = 0.;
 	}
+#endif
 
 	move(pos.x() + 20, pos.y() + 4);
 
@@ -113,14 +119,25 @@ void CanvasTip::display(const QPoint &pos) {
 }
 
 QString CanvasTip::displayText(unsigned num) const {
-	if (m_v.size() <= num)
+	if(info.size() <= num)
 		return QString::null;
 
+	if(info[0].id != -2) {
+		 
+	return QString("%1%2V  %3%4A #%5")
+	       .arg(QString::number(info[num].V / CNItem::getMultiplier(info[num].V), 'g', 3))
+	       .arg(CNItem::getNumberMag(info[num].V))
+	       .arg(QString::number(info[num].I / CNItem::getMultiplier(info[num].I), 'g', 3))
+	       .arg(CNItem::getNumberMag(info[num].I))
+		.arg(QString::number(info[num].id));
+	}
+
+
 	return QString("%1%2V  %3%4A")
-	       .arg(QString::number(m_v[num] / CNItem::getMultiplier(m_v[num]), 'g', 3))
-	       .arg(CNItem::getNumberMag(m_v[num]))
-	       .arg(QString::number(m_i[num] / CNItem::getMultiplier(m_i[num]), 'g', 3))
-	       .arg(CNItem::getNumberMag(m_i[num]));
+	       .arg(QString::number(info[num].V / CNItem::getMultiplier(info[num].V), 'g', 3))
+	       .arg(CNItem::getNumberMag(info[num].V))
+	       .arg(QString::number(info[num].I / CNItem::getMultiplier(info[num].I), 'g', 3))
+	       .arg(CNItem::getNumberMag(info[num].I));
 }
 
 void CanvasTip::draw(QPainter &p) {
@@ -141,7 +158,7 @@ void CanvasTip::draw(QPainter &p) {
 	p.drawText(textRect, 0, m_text);
 }
 
-void CanvasTip::setText(const QString & text) {
+void CanvasTip::setText(const QString &text) {
 	m_text = text;
 	canvas()->setChanged(boundingRect());
 
