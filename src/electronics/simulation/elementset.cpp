@@ -105,18 +105,20 @@ void ElementSet::doNonLinear(const int maxIterations, const double maxErrorV, co
 			(*it)->update_dc();
 
 		*p_x = *p_b;  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
+#ifdef BITCHY
 if(!p_A->validate()) {
 std::cout << "ERROR: invalid matrix!!!" << std::endl;
 break;
 }
+#endif
 
 // we burn most of our CPU cycles when we make these calls.
 		p_A->performLU();
 
+#ifdef BITCHY
 // if this test fails, the calculation engine under the simulator is broken =( -- and it is.
-//assert(p_A->validateLU() < 1e-4); 
-
+assert(p_A->validateLU() < 1e-4); 
+#endif
 		p_A->fbSub(p_x);
 // #########################
 
@@ -166,7 +168,9 @@ bool ElementSet::doLinear(bool performLU) {
 	if (performLU) {
 		p_A->performLU();
 // if this test fails, the calculation engine under the simulator is broken =( -- and it is.
-//assert(p_A->validateLU() < 1e-4); 
+#ifdef BITCHY
+assert(p_A->validateLU() < 1e-4); 
+#endif
 	}
 
 	*p_x = *p_b;   // <<< why does this code work, when I try it, I always get the default shallow copy.

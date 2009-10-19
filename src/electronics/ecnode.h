@@ -21,6 +21,8 @@ class Item;
 
 typedef std::vector<Pin> PinVector;
 
+const unsigned MAX_BUS_SIZE = 128;
+
 /**
 @short Electrical node with voltage / current / etc properties
 
