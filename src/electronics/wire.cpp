@@ -17,7 +17,7 @@
 #include "simulator.h"
 
 Wire::Wire(Pin *startPin, Pin *endPin) :
-	m_current(FP_NAN), m_bCurrentIsKnown(false)
+	m_current(NAN), m_bCurrentIsKnown(false)
 {
 	assert(startPin && endPin);
 
@@ -85,7 +85,7 @@ double Wire::voltage() const
 void Wire::setCurrentKnown( bool known )
 {
 	m_bCurrentIsKnown = known;
-	if (!known) m_current = FP_NAN;
+	if (!known) m_current = NAN;
 
 }
 

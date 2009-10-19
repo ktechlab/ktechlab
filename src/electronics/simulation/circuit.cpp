@@ -160,9 +160,8 @@ void Circuit::init() {
 	while (!unassignedNodes.empty()) {
 		PinSet associated;
 		PinSet nodes;
-		Pin *node = *unassignedNodes.begin();
 
-		if (recursivePinAdd(node, &unassignedNodes, &associated, &nodes)) {
+		if (recursivePinAdd(*unassignedNodes.begin(), &unassignedNodes, &associated, &nodes)) {
 			groundCount++;
 		}
 
@@ -200,8 +199,8 @@ void Circuit::init() {
 			const ElementList elements = (*sit)->elements();
 			ElementList::const_iterator elementsEnd = elements.end();
 			for (ElementList::const_iterator it = elements.begin(); it != elementsEnd; ++it) {
-				if (!*it) continue;
-
+assert(*it);
+// HACK ALERT!!! -- special knowledge of specific elements used. 
 				if (((*it)->type() == Element::Element_Capacitance)
 				        || ((*it)->type() == Element::Element_Inductance)) {
 					energyStorage = true;
@@ -344,6 +343,7 @@ void Circuit::cacheAndUpdate() {
 	node->setData(m_elementSet);
 }
 
+// WARNING: circuitdocument also has one of these. 
 bool Circuit::recursivePinAdd(Pin *node, PinSet *unassignedNodes, PinSet *associated, PinSet *nodes) {
 	if (unassignedNodes->find(node) == unassignedNodes->end())
 		return false;
