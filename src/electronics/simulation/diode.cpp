@@ -21,22 +21,23 @@ DiodeSettings::DiodeSettings() {
 
 void DiodeSettings::reset() {
 	I_S = 1e-15;
-	N = 1.0;
+	N = 1.0; // stacking factor??? 
 	V_B = 4.7;
+// The data sheets don't say much, lets assume 1 milli-ohm for a semiconductor diode.
+	SR = 0.001; 
 }
 //END class Diode Settings
 
 //BEGIN class Diode
 Diode::Diode()
-		: NonLinear() {
+	: NonLinear() {
 	m_numCNodes = 2;
 	g_old = I_old = 0.0;
 
 	updateLim();
 }
 
-Diode::~Diode() {
-}
+Diode::~Diode() {}
 
 void Diode::add_initial_dc() {
 	g_old = I_old = 0.0;
@@ -62,13 +63,19 @@ void Diode::update_dc() {
 	A_g(0, 1) -= tmp;
 	A_g(1, 0) -= tmp;
 
+	g_old = g_new;
+
+// ### 
 	tmp = I_new - I_old;
 
-	b_i(0) += tmp;
-	b_i(1) -= tmp;
+	b_i(0) -= tmp;
+	b_i(1) += tmp;
 
-	g_old = g_new;
+//	b_i(0) = -I_new;
+//	b_i(1) = I_new;
+
 	I_old = I_new;
+// ### 
 }
 
 void Diode::calc_eq(double *g_new, double *I_new) {
@@ -81,21 +88,26 @@ void Diode::calc_eq(double *g_new, double *I_new) {
 
 	calcIg(v, I_new, g_new);
 
-	*I_new = -*I_new + (v * *g_new);
+	*I_new = *I_new - (v * *g_new);
 }
 
 void Diode::calcIg(double V, double *I_D, double *g) const {
 	double I_S = m_diodeSettings.I_S;
 	double N   = m_diodeSettings.N;
 	double V_B = m_diodeSettings.V_B;
+	double SR  = m_diodeSettings.SR;
 
 	double g_tiny = (V < -10 * V_T * N) ? I_S : 0;
 
 	if (V_B == 0 || V >= -V_B) {
 		// diode is operating normally.
 		diodeJunction(V, I_S, N, I_D, g);
-		*g += g_tiny;
-		*I_D += g_tiny * V;
+
+//		*g = std::isfinite(*g) ? *g / (1 + SR * *g) : 1 / SR;
+
+//		*g += g_tiny;
+//		*I_D += g_tiny * V;
+
 	} else {
 		// diode is in reverse breakdown.
 		double a = exp(-(V_B + V) / N / V_T);
