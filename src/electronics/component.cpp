@@ -315,6 +315,7 @@ void Component::setup4pinElement(Element &ele, Pin &a, Pin &b, Pin &c, Pin &d) {
 	setInterDependent(it, pinz);
 }
 
+/*
 void Component::setupSpcl4pinElement(Element &ele, Pin &a, Pin &b, Pin &c, Pin &d) {
 
 	PinList pins;
@@ -340,7 +341,7 @@ void Component::setupSpcl4pinElement(Element &ele, Pin &a, Pin &b, Pin &c, Pin &
 	pinset.insert(&d);
 	setInterGroundDependent(pinset);
 	(*it).interGroundDependent.push_back(pinset);
-}
+} */
 
 ElementMapList::iterator Component::handleElement(Element *e, const PinList &pins) {
 	if(!e) return m_elementMapList.end();

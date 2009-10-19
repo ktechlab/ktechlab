@@ -134,8 +134,8 @@ ECCCCS::ECCCCS(ICNDocument *icnDocument, bool newItem, const char *id)
 		m_cccs(1) {
 	m_name = i18n("Current Controlled Currrent Source");
 
-	setupSpcl4pinElement(m_cccs, m_pNNode[0]->pin(), m_pPNode[0]->pin(),
-	                 m_pNNode[1]->pin(), m_pPNode[1]->pin());
+	setup4pinElement(m_cccs, m_pNNode[0]->pin(), m_pPNode[0]->pin(),
+			 m_pNNode[1]->pin(), m_pPNode[1]->pin());
 
 	m_pNNode[1]->pin().setGroundType(Pin::gt_medium);
 }
@@ -180,8 +180,8 @@ ECCCVS::ECCCVS(ICNDocument *icnDocument, bool newItem, const char *id)
 		m_ccvs(1) {
 	m_name = i18n("Current Controlled Voltage Source");
 
-	setupSpcl4pinElement(m_ccvs, m_pNNode[0]->pin(), m_pPNode[0]->pin(),
-			m_pNNode[1]->pin(), m_pPNode[1]->pin());
+	setup4pinElement(m_ccvs, m_pNNode[0]->pin(), m_pPNode[0]->pin(),
+			 m_pNNode[1]->pin(), m_pPNode[1]->pin());
 
 	m_pNNode[1]->pin().setGroundType(Pin::gt_medium);
 }
@@ -225,8 +225,8 @@ ECVCCS::ECVCCS(ICNDocument *icnDocument, bool newItem, const char *id)
 		m_vccs(1) {
 	m_name = i18n("Voltage Controlled Current Source");
 
-	setupSpcl4pinElement(m_vccs, m_pNNode[0]->pin(), m_pPNode[0]->pin(),
-	                 m_pNNode[1]->pin(), m_pPNode[1]->pin());
+	setup4pinElement(m_vccs, m_pNNode[0]->pin(), m_pPNode[0]->pin(),
+			 m_pNNode[1]->pin(), m_pPNode[1]->pin());
 
 	m_pNNode[1]->pin().setGroundType(Pin::gt_medium);
 }
@@ -270,8 +270,8 @@ ECVCVS::ECVCVS(ICNDocument *icnDocument, bool newItem, const char *id)
 		m_vcvs(1) {
 	m_name = i18n("Voltage Controlled Voltage Source");
 
-	setupSpcl4pinElement(m_vcvs, m_pNNode[0]->pin(), m_pPNode[0]->pin(),
-			m_pNNode[1]->pin(), m_pPNode[1]->pin());
+	setup4pinElement(m_vcvs, m_pNNode[0]->pin(), m_pPNode[0]->pin(),
+			 m_pNNode[1]->pin(), m_pPNode[1]->pin());
 
 	m_pNNode[1]->pin().setGroundType(Pin::gt_medium);
 }
