@@ -42,11 +42,6 @@ protected:
 	void diodeJunction(double v, double I_S, double N, double *I, double *g) const;
 
 	/**
-	* Current and conductance for a MOS diode junction.
-	*/
-//	void mosDiodeJunction(double V, double I_S, double N, double *I, double *g) const;
-
-	/**
 	* Limits the drain-source voltage to prevent divergence in the
 	* nonlinear iterations.
 	*/
