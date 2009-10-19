@@ -21,7 +21,6 @@
 #include "ecnode.h"
 #include "itemdocumentdata.h"
 #include "ktechlab.h"
-#include "pin.h"
 #include "simulator.h"
 #include "subcircuits.h"
 
@@ -335,9 +334,7 @@ void CircuitDocument::getAllPins(PinSet &allPins)
 	for (ECNodeMap::const_iterator it = m_ecNodeList.begin(); it != nodeListEnd; ++it) {
 		ECNode *ecnode = it->second;
 		for (unsigned i = 0; i < ecnode->numPins(); i++) {
-			Pin *foo = ecnode->pin(i);
-assert(foo);
-			allPins.insert(foo);
+			allPins.insert(&ecnode->pin(i));
 		}
 	}
 }

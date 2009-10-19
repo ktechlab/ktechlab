@@ -16,7 +16,6 @@
 #include "connector.h"
 #include "ecnode.h"
 #include "electronicconnector.h"
-#include "pin.h"
 
 #include <kdebug.h>
 #include <qpainter.h>
@@ -31,7 +30,6 @@ ECNode::ECNode(ICNDocument *icnDocument, Node::node_type _type, int dir, const Q
 		icnDocument->registerItem(this);
 
 	m_pins.resize(1);
-	m_pins[0] = new Pin();
 }
 
 ECNode::~ECNode() {
@@ -41,10 +39,7 @@ ECNode::~ECNode() {
 		removeConnector(*it);	
 	}
 
-	for (unsigned i = 0; i < m_pins.size(); i++)
-		delete m_pins[i];
-
-	m_pins.resize(0);
+//	m_pins.resize(0);
 }
 
 void ECNode::setNumPins(unsigned num) {
@@ -52,17 +47,7 @@ void ECNode::setNumPins(unsigned num) {
 
 	if (num == oldNum) return;
 
-	if (num > oldNum) {
-		m_pins.resize(num);
-
-		for (unsigned i = oldNum; i < num; i++)
-			m_pins[i] = new Pin();
-	} else {
-		for (unsigned i = num; i < oldNum; i++)
-			delete m_pins[i];
-
-		m_pins.resize(num);
-	}
+	m_pins.resize(num);
 
 // FIXME: we segfault when we reduce the size of a bus component because this signal isn't being received. =( 
 	emit numPinsChanged(num);
@@ -112,7 +97,7 @@ We only want to know about Pins so we can display voltage information, we don't 
 */
 void ECNode::removeElement(Element *e) {
 	for (unsigned i = 0; i < m_pins.size(); i++)
-		m_pins[i]->removeElement(e);
+		m_pins[i].removeElement(e);
 }
 
 bool ECNode::isConnected(Node *node, NodeList *checkedNodes) {

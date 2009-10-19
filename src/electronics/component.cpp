@@ -263,81 +263,81 @@ void Component::slotUpdateConfiguration() {
 	}
 }
 
-void Component::setup1pinElement(Element &ele, Pin *a) {
+void Component::setup1pinElement(Element &ele, Pin &a) {
 	PinList pins;
-	pins.push_back(a);
+	pins.push_back(&a);
 	ElementMapList::iterator it = handleElement(&ele, pins);
 
 	PinSet pinz;
-	pinz.insert(a);
+	pinz.insert(&a);
 	setInterDependent(it, pinz);
 }
 
-void Component::setup2pinElement(Element &ele, Pin *a, Pin *b) {
+void Component::setup2pinElement(Element &ele, Pin &a, Pin &b) {
 	PinList pins;
-	pins.push_back(a);
-	pins.push_back(b);
+	pins.push_back(&a);
+	pins.push_back(&b);
 	ElementMapList::iterator it = handleElement(&ele, pins);
 
 	PinSet pinz;
-	pinz.insert(a);
-	pinz.insert(b);
+	pinz.insert(&a);
+	pinz.insert(&b);
 	setInterDependent(it, pinz);
 }
 
-void Component::setup3pinElement(Element &ele, Pin *a, Pin *b, Pin *c) {
+void Component::setup3pinElement(Element &ele, Pin &a, Pin &b, Pin &c) {
 	PinList pins;
-	pins.push_back(a);
-	pins.push_back(b);
-	pins.push_back(c);
+	pins.push_back(&a);
+	pins.push_back(&b);
+	pins.push_back(&c);
 	ElementMapList::iterator it = handleElement(&ele, pins);
 
 	PinSet pinz; 
-	pinz.insert(a);
-	pinz.insert(b);
-	pinz.insert(c);
+	pinz.insert(&a);
+	pinz.insert(&b);
+	pinz.insert(&c);
 	setInterDependent(it, pinz);
 }
 
-void Component::setup4pinElement(Element &ele, Pin *a, Pin *b, Pin *c, Pin *d) {
+void Component::setup4pinElement(Element &ele, Pin &a, Pin &b, Pin &c, Pin &d) {
 	PinList pins;
-	pins.push_back(a);
-	pins.push_back(b);
-	pins.push_back(c);
-	pins.push_back(d);
+	pins.push_back(&a);
+	pins.push_back(&b);
+	pins.push_back(&c);
+	pins.push_back(&d);
 	ElementMapList::iterator it = handleElement(&ele, pins);
 
 	PinSet pinz; 
-	pinz.insert(a);
-	pinz.insert(b);
-	pinz.insert(c);
-	pinz.insert(d);
+	pinz.insert(&a);
+	pinz.insert(&b);
+	pinz.insert(&c);
+	pinz.insert(&d);
 	setInterDependent(it, pinz);
 }
 
-void Component::setupSpcl4pinElement(Element &ele, Pin *a, Pin *b, Pin *c, Pin *d) {
+void Component::setupSpcl4pinElement(Element &ele, Pin &a, Pin &b, Pin &c, Pin &d) {
 
 	PinList pins;
-	pins.push_back(a);
-	pins.push_back(b);
-	pins.push_back(c);
-	pins.push_back(d);
+	pins.push_back(&a);
+	pins.push_back(&b);
+	pins.push_back(&c);
+	pins.push_back(&d);
 	ElementMapList::iterator it = handleElement(&ele, pins);
 
 	PinSet pinset;
-	pinset.insert(a);
-	pinset.insert(b);
+	pinset.insert(&a);
+	pinset.insert(&b);
 	setInterGroundDependent(pinset);
 	(*it).interGroundDependent.push_back(pinset);
 
-	pinset.insert(c);
-	pinset.insert(d);
+	pinset.insert(&c);
+	pinset.insert(&d);
 	setInterCircuitDependent(pinset);
 	(*it).interCircuitDependent.push_back(pinset);
 
 	pinset.clear();
-	pinset.insert(c);
-	pinset.insert(d);
+	pinset.insert(&c);
+	pinset.insert(&d);
 	setInterGroundDependent(pinset);
 	(*it).interGroundDependent.push_back(pinset);
 }
@@ -391,7 +391,7 @@ void Component::setInterGroundDependent(PinSet &pins) {
 }
 
 void Component::rebuildPinInterDepedence() {
-	setAllPinsInterIndependent();
+	setAllPinsIndependent();
 
 	// Rebuild dependencies
 	ElementMapList::iterator emlEnd = m_elementMapList.end();
@@ -407,15 +407,15 @@ void Component::rebuildPinInterDepedence() {
 	}
 }
 
-void Component::setAllPinsInterIndependent() {
+void Component::setAllPinsIndependent() {
 	NodeInfoMap::iterator nmEnd = m_nodeMap.end();
 	for(NodeInfoMap::iterator it = m_nodeMap.begin(); it != nmEnd; ++it) {
-		PinVector pins = (static_cast<ECNode*>(it.data().node))->pins();
-		PinVector::iterator pinsEnd = pins.end();
 
-		for(PinVector::iterator pinsIt = pins.begin(); pinsIt != pinsEnd; ++pinsIt) {
-			if (*pinsIt)
-				(*pinsIt)->removeDependentPins();
+		PinVector *pins = &(static_cast<ECNode*>(it.data().node))->pins();
+
+		PinVector::iterator pinsEnd = pins->end();
+		for(PinVector::iterator pinsIt = pins->begin(); pinsIt != pinsEnd; ++pinsIt) {
+			(*pinsIt).removeDependentPins();
 		}
 	}
 }

@@ -12,21 +12,19 @@
 #define MATRIXDISPLAY_H
 
 #include <component.h>
-#include <qvaluevector.h>
+#include <vector>
+#include "diode.h"
 
 const unsigned max_md_width = 100;
 const unsigned max_md_height = 20;
 
-class Diode;
-
 /**
 @author David Saxton
 */
-
 typedef struct {
 	double m_avgBrightness;
 	unsigned m_lastBrightness;
-	Diode *m_pDiode;
+	Diode m_pDiode;
 } MatrixDisplayCell;
 
 class MatrixDisplay : public Component {
@@ -50,11 +48,7 @@ protected:
 	QString colPinID(int col) const;
 	QString rowPinID(int row) const;
 
-//	QValueVector< QValueVector<double> > m_avgBrightness;
-//	QValueVector< QValueVector<unsigned> > m_lastBrightness;
-//	QValueVector< QValueVector<Diode*> > m_pDiodes;
-
-	QValueVector< QValueVector<MatrixDisplayCell> > m_LEDs;
+	std::vector< std::vector<MatrixDisplayCell> > m_LEDs;
 
 	ECNode *m_pRowNodes[max_md_height];
 	ECNode *m_pColNodes[max_md_width];
