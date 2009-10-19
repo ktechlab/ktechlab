@@ -39,6 +39,11 @@ MatrixDisplay::MatrixDisplay(ICNDocument *icnDocument, bool newItem, const char 
     m_name = i18n("Matrix Display");
     m_bDynamicContent = true;
 
+// HACK WARNING HACK WARNING. 
+// We like to keep pointers to these values but the underlying libraries LOVE to re-organize the underlying storage on us. =(
+// BIG TROUBLE. =(((( 
+	m_LEDs.reserve(max_md_width);
+
     //BEGIN Reset members
     for (unsigned i = 0; i < max_md_height; i++)
         m_pRowNodes[i] = 0;
@@ -92,7 +97,13 @@ void MatrixDisplay::dataChanged() {
 
     bool ledsChanged = (numRows != int(m_numRows)) || (numCols != int(m_numCols));
 
-    if (ledsChanged) initPins(numRows, numCols);
+    if (ledsChanged) { 
+        for (unsigned i = 0; i < m_numCols; i++)
+            for (unsigned j = 0; j < m_numRows; j++)  // must remove elements before re-organizing storage. 
+                removeElement(&(m_LEDs[i][j].m_pDiode), (i == (m_numCols - 1)) && (j == (m_numRows - 1))); 
+
+        initPins(numRows, numCols);
+        }
 
     bool rowCathode = dataString("diode-configuration") == "Row Cathode";
 
@@ -101,7 +112,6 @@ void MatrixDisplay::dataChanged() {
 
         for (unsigned i = 0; i < m_numCols; i++) {
             for (unsigned j = 0; j < m_numRows; j++) {
-                removeElement(&(m_LEDs[i][j].m_pDiode), (i == (m_numCols - 1)) && (j == (m_numRows - 1)));
 
                 if (rowCathode) {
                     setup2pinElement(m_LEDs[i][j].m_pDiode, m_pColNodes[i]->pin(), m_pRowNodes[j]->pin());
@@ -250,7 +260,7 @@ void MatrixDisplay::drawShape(QPainter &p) {
                 m_LEDs[i][j].m_lastBrightness = unsigned(m_LEDs[i][j].m_avgBrightness / m_lastUpdatePeriod);
 
             double _b = m_LEDs[i][j].m_lastBrightness;
-
+// FIXME: we find ourselves with RGB out of range errors after resizing. 
             QColor brush = QColor(uint(255 - (255 - _b) * (1 - m_r)),
                                   uint(255 - (255 - _b) * (1 - m_g)),
                                   uint(255 - (255 - _b) * (1 - m_b)));
