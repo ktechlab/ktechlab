@@ -120,10 +120,10 @@ void ECKeyPad::initPins(unsigned numCols) {
             cols[j] = createPin(0, 64, 270, "col_" + QString::number(j));
 
         for (unsigned i = 0; i < 4; i++) {
-            Pin *row = ecNodeWithID("row_" + QString::number(i))->pin();
+            Pin *row = &ecNodeWithID("row_" + QString::number(i))->pin();
 
             for (unsigned j = m_numCols; j < numCols; j++)
-                m_switch[i][j] = new Switch(this, cols[j]->pin(), &(*row), Switch::Open);
+                m_switch[i][j] = new Switch(this, cols[j]->pin(), *row, Switch::Open);
         }
     } else {
         // Remove columns

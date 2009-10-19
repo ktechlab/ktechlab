@@ -150,15 +150,15 @@ void MechanicsDocument::flushDeleteList()
 	for ( ItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it )
 	{
 		if ( *it && m_itemDeleteList.contains(*it) > 1 )
-			*it = 0l;
+			*it = 0;
 	}
-	m_itemDeleteList.remove(QGuardedPtr<Item>(0l));
+	m_itemDeleteList.remove((Item *)0);
 	
 	end = m_itemDeleteList.end();
 	for ( ItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it )
 	{
 		m_itemList.erase( (*it)->id() );
-		(*it)->setCanvas(0l);
+		(*it)->setCanvas(0);
 		delete *it;
 	}
 }

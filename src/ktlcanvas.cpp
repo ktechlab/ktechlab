@@ -114,20 +114,25 @@ void Canvas::drawForeground(QPainter &p, const QRect & clip) {
 
 	QSimpleRichText *t = new QSimpleRichText(m_message, QApplication::font());
 
-	int w = t->width();
-	int h = t->height();
-	int x = rect().left() + 15;
-	int y = rect().top() + 15;
-	int b = 10; // text padding
+	const int w = t->width();
+	const int h = t->height();
+	const int x = rect().left() + 15;
+	const int y = rect().top() + 15;
+	const int b = 10; // text padding
 
-	if (w + 2*b >= minSize.width() || h + 2*b >= minSize.height()) {
+	if (w + 2 * b >= minSize.width() || h + 2 * b >= minSize.height()) {
 		delete t;
 		return;
 	}
 
 	p.setBrush(firstView->colorGroup().background());
 
-	p.drawRoundRect(x, y, w + 2*b, h + 2*b, (8*200) / (w + 2*b), (8*200) / (h + 2*b));
+	p.drawRoundRect(x, y,
+			w + 2 * b,
+			h + 2 * b,
+			(8 * 200) / (w + 2 * b),
+			(8 * 200) / (h + 2 * b));
+
 	t->draw(&p, x + b, y + b, QRect(), firstView->colorGroup());
 	delete t;
 }
@@ -136,6 +141,5 @@ void Canvas::update() {
 	p_itemDocument->update();
 	QCanvas::update();
 }
-
 //END class Canvas
 

@@ -41,7 +41,7 @@ ECCell::ECCell(ICNDocument *icnDocument, bool newItem, const char *id)
     init1PinLeft();
     init1PinRight();
 
-    m_pNNode[0]->pin()->setGroundType(Pin::gt_medium);
+    m_pNNode[0]->pin().setGroundType(Pin::gt_medium);
 
     setup2pinElement(m_voltageSource, m_pNNode[0]->pin(), m_pPNode[0]->pin());
 

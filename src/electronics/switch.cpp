@@ -18,16 +18,15 @@
 #include "circuitdocument.h"
 #include "component.h"
 #include "ecnode.h"
-#include "pin.h"
 #include "simulator.h"
 #include "switch.h"
 
-Switch::Switch(Component *parent, Pin *p1, Pin *p2, State state) {
+Switch::Switch(Component *parent, Pin &p1, Pin &p2, State state) {
 	m_bouncePeriod_ms = 5;
 	m_bBounce = false;
 	m_bounceStart = 0;
-	m_pP1 = p1;
-	m_pP2 = p2;
+	m_pP1 = &p1;
+	m_pP2 = &p2;
 	m_pComponent = parent;
 	m_pJumper = 0;
 
@@ -69,7 +68,7 @@ void Switch::startBouncing() {
 //	kdDebug() << k_funcinfo << endl;
 
 	m_pBounceResistance.setResistance(10000);
-	m_pComponent->setup2pinElement(m_pBounceResistance, m_pP1, m_pP2);
+	m_pComponent->setup2pinElement(m_pBounceResistance, *m_pP1, *m_pP2);
 
 	m_bounceStart = Simulator::self()->time();
 

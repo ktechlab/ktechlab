@@ -40,7 +40,7 @@ ECCurrentSource::ECCurrentSource(ICNDocument *icnDocument, bool newItem, const c
 
 	init1PinLeft(8);
 	init1PinRight(8);
-	m_pNNode[0]->pin()->setGroundType(Pin::gt_low);
+	m_pNNode[0]->pin().setGroundType(Pin::gt_low);
 
 	setup2pinElement(m_currentSource, m_pNNode[0]->pin(), m_pPNode[0]->pin());
 
