@@ -53,6 +53,7 @@ double NonLinear::fetVoltageDS(double V, double V_prev) const
 	return std::max(V, -0.5);
 }
 
+// obtain the diode limit voltage.
 double NonLinear::diodeLimitedVoltage(double I_S, double N) const
 {
 	double Vt = V_T * N;
@@ -72,36 +73,9 @@ void NonLinear::diodeJunction(double V, double I_S, double N, double *I, double 
 	} else {
 		double e = exp(V * ELEMENTARY_CHARGE / (N * E_T));
 		*I = I_S * (e - 1);
-// following needs to equal delta I / delta V
-
-// MNA text gives: but it doesn't work.
-//		*g = I_S / (N * E_T) * e;
-
-// came from a crappy textbook but seems to work OK.
-		*g = fabs((*I * ELEMENTARY_CHARGE) / E_T);
+		*g = I_S * ELEMENTARY_CHARGE / (N * E_T) * e;
 	}
 }
-
-/*
-/// Is this function really different from the one above? 
-void NonLinear::mosDiodeJunction(double V, double I_S, double N, double *I, double *g) const
-{
-	double Vt = V_T * N;
-
-	if(V <= 0) {
-		*g = (Vt + 1) / Vt;
-		*I = *g * V;
-	} else {
-		double e = exp(V / Vt);
-		*I = I_S * (e - 1);
-		*g = e / Vt + 1;
-//		*g = *I / V;
-	}
-
-	*I += V * I_S;
-	*g *= I_S;
-}
-*/
 
 double NonLinear::fetVoltage(double V, double V_prev, double Vth) const
 {

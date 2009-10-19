@@ -30,8 +30,6 @@ LibraryItem* BusSplitter::libraryItem() {
 	           BusSplitter::construct);
 }
 
-const unsigned MAX_BUS_SIZE = 10000;
-
 BusSplitter::BusSplitter(ICNDocument *icnDocument, bool newItem, const char *id)
 		: SimpleComponent(icnDocument, newItem, id ? id : "Bus") {
 	m_name = i18n("Bus Splitter");
@@ -53,11 +51,12 @@ BusSplitter::~BusSplitter() {
 void BusSplitter::dataChanged() {
 	unsigned busSize = dataInt("size");
 
+/* // the properties above enforce these limits. 
 	if (busSize < 1)
 		busSize = 1;
-
 	else if (busSize > MAX_BUS_SIZE)
 		busSize = MAX_BUS_SIZE;
+*/
 
 	if (busSize == m_busSize)
 		return;
