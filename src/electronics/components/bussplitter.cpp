@@ -68,8 +68,8 @@ void BusSplitter::dataChanged() {
 		m_pWires.resize(busSize);
 
 		for (unsigned i = m_busSize; i < unsigned(busSize); i++) {
-			Pin *pin = createPin(16, 0, 180, outNodeID(i))->pin();
-			m_pWires[i] = new Wire(m_pInNode->pin(i), pin);
+			Pin *pin = &createPin(16, 0, 180, outNodeID(i))->pin();
+			m_pWires[i] = new Wire(&(m_pInNode->pin(i)), pin);
 		}
 	} else {
 		for (unsigned i = busSize; i < unsigned(m_busSize); i++) {

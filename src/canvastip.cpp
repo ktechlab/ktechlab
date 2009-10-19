@@ -18,7 +18,6 @@
 #include "canvastip.h"
 #include "icndocument.h"
 #include "ecnode.h"
-#include "pin.h"
 #include "electronicconnector.h"
 #include "circuitdocument.h"
 #include "simulator.h"
@@ -45,7 +44,7 @@ void CanvasTip::displayVI(ECNode *node, const QPoint &pos) {
 	m_i.resize(num);
 
 	for (unsigned i = 0; i < num; i++) {
-		if (Pin *pin = node->pin(i)) {
+		if (Pin *pin = &node->pin(i)) {
 			m_v[i] = pin->voltage();
 			m_i[i] = pin->calculateCurrentFromWires();
 		}
@@ -149,7 +148,6 @@ void CanvasTip::setText(const QString & text) {
 	QRect r = QFontMetrics(qApp->font()).boundingRect(0, 0, 0, 0, 0, m_text);
 	setSize(r.width() + 4, r.height() - 1);
 }
-
 //END class CanvasTip
 
 

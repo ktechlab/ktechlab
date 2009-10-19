@@ -12,14 +12,14 @@
 #define ECNODE_H
 
 #include "node.h"
+#include "pin.h"
 
-#include <qvaluevector.h>
+#include <vector>
 
 class Element;
-class Pin;
 class Item;
 
-typedef QValueVector<Pin*> PinVector;
+typedef std::vector<Pin> PinVector;
 
 /**
 @short Electrical node with voltage / current / etc properties
@@ -57,15 +57,13 @@ public:
 	/**
 	 * @return the pins in the node, as a vector
 	 */
-	PinVector pins() const { return m_pins; }
+	PinVector &pins() { return m_pins; }
 
 	/**
 	 * @param num number of the
 	 * @return pointer to a pin in this node, given by num
 	 */
-	Pin *pin(unsigned num = 0) const {
-		return (num < m_pins.size()) ? m_pins[num] : 0;
-	}
+	Pin &pin(unsigned num = 0) { return m_pins[num]; }
 
 	bool showVoltageBars() const {
 		return m_bShowVoltageBars; }

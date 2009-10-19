@@ -45,8 +45,8 @@ void ConnectorLine::drawShape(QPainter &p) {
 		return;
 	}
 
-	int ss = 3; // segment spacing
-	int sl = 13; // segment length (includes segment spacing)
+	const int ss = 3; // segment spacing
+	const int sl = 13; // segment length (includes segment spacing)
 
 	int offset = int(dynamic_cast<ElectronicConnector *>(m_pConnector)->currentAnimationOffset() - m_pixelOffset);
 	offset = ((offset % sl) - sl) % sl;

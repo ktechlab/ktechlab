@@ -85,10 +85,10 @@ void ElectronicConnector::syncWiresWithNodes() {
 
     if (newNumWires > oldNumWires) {
         m_wires.resize(newNumWires);
-
+// FIXME: check this code against new scheme for storing pins directly in a vector. 
         for (unsigned i = oldNumWires; i < newNumWires; i++) {
-            if (startEcNode->pin(i) && endEcNode->pin(i))
-                m_wires[i] = new Wire(startEcNode->pin(i), endEcNode->pin(i));
+            if (&startEcNode->pin(i) && &endEcNode->pin(i))
+                m_wires[i] = new Wire(&startEcNode->pin(i), &endEcNode->pin(i));
         }
     } else {
         for (unsigned i = newNumWires; i < oldNumWires; i++)

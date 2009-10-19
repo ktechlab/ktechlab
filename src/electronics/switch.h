@@ -30,7 +30,7 @@ public:
 		Open,
 		Closed };
 
-	Switch(Component *parent, Pin *p1, Pin *p2, State state);
+	Switch(Component *parent, Pin &p1, Pin &p2, State state);
 	~Switch();
 	/**
 	 * If bouncing has been set to true, then the state will not switch

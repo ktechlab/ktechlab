@@ -9,7 +9,6 @@
  ***************************************************************************/
 
 #include "colorcombo.h"
-#include "diode.h"
 #include "led.h"
 #include "ecnode.h"
 #include "libraryitem.h"
@@ -51,6 +50,7 @@ MatrixDisplay::MatrixDisplay(ICNDocument *icnDocument, bool newItem, const char 
     m_r = m_g = m_b = 0.0;
     m_bRowCathode = true;
     m_numRows = m_numCols = 0;
+
     //END Reset members
 
     createProperty("0-rows", Variant::Type::Int);
@@ -79,15 +79,7 @@ MatrixDisplay::MatrixDisplay(ICNDocument *icnDocument, bool newItem, const char 
     property("diode-configuration")->setAdvanced(true);
 }
 
-MatrixDisplay::~MatrixDisplay() {
-
-    for (unsigned i = 0; i < m_numCols; i++) {
-        for (unsigned j = 0; j < m_numRows; j++) {
-//            removeElement(m_LEDs[i][j].m_pDiode, false);
-		delete m_LEDs[i][j].m_pDiode;
-        }
-    }
-}
+MatrixDisplay::~MatrixDisplay() {}
 
 void MatrixDisplay::dataChanged() {
     QColor color = dataColor("color");
@@ -109,14 +101,11 @@ void MatrixDisplay::dataChanged() {
 
         for (unsigned i = 0; i < m_numCols; i++) {
             for (unsigned j = 0; j < m_numRows; j++) {
-
-// do we really need to refresh the diode here?
-                removeElement(m_LEDs[i][j].m_pDiode, false);
-                m_LEDs[i][j].m_pDiode = new Diode();
+                removeElement(&(m_LEDs[i][j].m_pDiode), (i == (m_numCols - 1)) && (j == (m_numRows - 1)));
 
                 if (rowCathode) {
-                       setup2pinElement(*(m_LEDs[i][j].m_pDiode), m_pColNodes[i]->pin(), m_pRowNodes[j]->pin());
-                } else setup2pinElement(*(m_LEDs[i][j].m_pDiode), m_pRowNodes[j]->pin(), m_pColNodes[i]->pin());
+                    setup2pinElement(m_LEDs[i][j].m_pDiode, m_pColNodes[i]->pin(), m_pRowNodes[j]->pin());
+                } else setup2pinElement(m_LEDs[i][j].m_pDiode, m_pRowNodes[j]->pin(), m_pColNodes[i]->pin());
             }
         }
     }
@@ -126,67 +115,86 @@ void MatrixDisplay::initPins(unsigned numRows, unsigned numCols) {
     if ((numRows == m_numRows) && (numCols == m_numCols))
         return;
 
-    if (numRows > max_md_height)
-        numRows = max_md_height;
-
-    if (numCols > max_md_width)
-        numCols = max_md_width;
-
     m_lastUpdatePeriod = 0.0;
 
-    //BEGIN Remove diodes
-    // All the diodes are going to be readded from dataChanged (where this
-    // function is called from), so easiest just to delete the diodes now and
-    // resize.
-
-    for (unsigned i = 0; i < m_numCols; i++) {
-        for (unsigned j = 0; j < m_numRows; j++)
-            removeElement(m_LEDs[i][j].m_pDiode, false);
-    }
-
-    m_LEDs.resize(numCols);
-
-    for (unsigned i = 0; i < numCols; i++) {
-        m_LEDs[i].resize(numRows);
-
-        for (unsigned j = 0; j < numRows; j++) {
-            MatrixDisplayCell *tmp = &m_LEDs[i][j];
-
-            tmp->m_avgBrightness = 0.0;
-            tmp->m_lastBrightness = 255;
-            tmp->m_pDiode = 0;
-        }
-    }
-    //END Remove diodes
-
     //BEGIN Create or destroy pins
+// FIXME: Very Very broken. =( -- breaks on resize above initial size... 
+
     if (numCols >= m_numCols) {
-        for (unsigned i = m_numCols; i < numCols; i++)
+        m_LEDs.resize(numCols);
+
+        for (unsigned i = m_numCols; i < numCols; i++) {
+
+            if (numRows == m_numRows) {
+                std::vector<MatrixDisplayCell> *foo = &m_LEDs[i];
+                foo->resize(numRows);
+
+                for (unsigned j = 0; j < numRows; j++) {
+                    MatrixDisplayCell *tmp = &(*foo)[j];
+
+                    tmp->m_avgBrightness = 0.0;
+                    tmp->m_lastBrightness = 255;
+                }
+            }
+
             m_pColNodes[i] = createPin(0, 0, 270, colPinID(i));
+        }
     } else {
         for (unsigned i = numCols; i < m_numCols; i++) {
+            std::vector<MatrixDisplayCell> *tmp = &m_LEDs[i];
+
+            for (unsigned j = 0; j < m_numRows; j++) {
+                removeElement(&((*tmp)[j].m_pDiode), false);
+            }
+
             removeNode(colPinID(i));
             m_pColNodes[i] = 0;
         }
+
+        m_LEDs.resize(numCols);
     }
 
     m_numCols = numCols;
 
     if (numRows >= m_numRows) {
-        for (unsigned i = m_numRows; i < numRows; i++)
+
+        for (unsigned j = 0; j < m_numCols; j++)
+            m_LEDs[j].resize(numRows);
+
+        for (unsigned i = m_numRows; i < numRows; i++) {
+
+            for (unsigned j = 0; j < m_numCols; j++) {
+                MatrixDisplayCell *tmp = &(m_LEDs[j][i]);
+
+                tmp->m_avgBrightness = 0.0;
+                tmp->m_lastBrightness = 255;
+            }
+
             m_pRowNodes[i] = createPin(0, 0, 0, rowPinID(i));
+        }
     } else {
+
         for (unsigned i = numRows; i < m_numRows; i++) {
+            for (unsigned j = 0; j < m_numCols; j++) {
+                removeElement(&(m_LEDs[j][i].m_pDiode), false);
+            }
+
             removeNode(rowPinID(i));
             m_pRowNodes[i] = 0;
         }
+
+        for (unsigned j = 0; j < m_numCols; j++)
+            m_LEDs[j].resize(numRows);
     }
 
     m_numRows = numRows;
     //END Create or destroy pins
 
     //BEGIN Position pins et al
-    setSize(-int(numCols + 1)*8, -int(numRows + 1)*8, int(numCols + 1)*16, int(numRows + 1)*16, true);
+    setSize(-int(numCols + 1) * 8,
+            -int(numRows + 1) * 8,
+            int(numCols + 1) * 16,
+            int(numRows + 1) * 16, true);
 
     for (int i = 0; i < int(m_numCols); i++) {
         m_nodeMap[colPinID(i)].x = offsetX() + 16 + 16 * i;
@@ -212,8 +220,10 @@ QString MatrixDisplay::rowPinID(int row) const {
 
 void MatrixDisplay::stepNonLogic() {
     for (unsigned i = 0; i < m_numCols; i++) {
+        std::vector<MatrixDisplayCell> *tmp = &m_LEDs[i];
+
         for (unsigned j = 0; j < m_numRows; j++)
-            m_LEDs[i][j].m_avgBrightness += LED::brightness(m_LEDs[i][j].m_pDiode->current()) * LINEAR_UPDATE_PERIOD;
+            m_LEDs[i][j].m_avgBrightness += LED::brightness((*tmp)[j].m_pDiode.current()) * LINEAR_UPDATE_PERIOD;
     }
 
     m_lastUpdatePeriod += LINEAR_UPDATE_PERIOD;
@@ -224,6 +234,7 @@ void MatrixDisplay::drawShape(QPainter &p) {
         p.setPen(m_selectedCol);
 
     p.drawRect(boundingRect());
+
     initPainter(p);
 
     const int _x = int(x() + offsetX());
@@ -240,11 +251,14 @@ void MatrixDisplay::drawShape(QPainter &p) {
 
             double _b = m_LEDs[i][j].m_lastBrightness;
 
-            QColor brush = QColor(uint(255 - (255 - _b) * (1 - m_r)), uint(255 - (255 - _b) * (1 - m_g)), uint(255 - (255 - _b) * (1 - m_b)));
+            QColor brush = QColor(uint(255 - (255 - _b) * (1 - m_r)),
+                                  uint(255 - (255 - _b) * (1 - m_g)),
+                                  uint(255 - (255 - _b) * (1 - m_b)));
 
             p.setBrush(brush);
             p.setPen(Qt::NoPen);
-            p.drawEllipse(_x + 10 + i*16, _y + 10 + j*16, 12, 12);
+            p.drawEllipse(_x + 10 + i * 16,
+			  _y + 10 + j * 16, 12, 12);
         }
     }
 
