@@ -48,7 +48,6 @@ class Inductance : public Reactive
 		Method m_method; // Method of integration
 		
 		double scaled_inductance;
-		double v_eq_old;
 };
 
 #endif
