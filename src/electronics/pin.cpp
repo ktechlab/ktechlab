@@ -20,8 +20,10 @@ Pin::Pin() :
 
 Pin::~Pin() {
 	WireList::iterator end = m_wireList.end();
-	for (WireList::iterator it = m_wireList.begin(); it != end; ++it)
-		delete(Wire *)(*it);
+
+	while(!m_wireList.empty()) {
+		delete (Wire *)(*(m_wireList.begin()));
+	}
 }
 
 PinSet Pin::localConnectedPins() //const 
