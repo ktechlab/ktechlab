@@ -137,7 +137,7 @@ ECCCCS::ECCCCS(ICNDocument *icnDocument, bool newItem, const char *id)
 	setupSpcl4pinElement(m_cccs, m_pNNode[0]->pin(), m_pPNode[0]->pin(),
 	                 m_pNNode[1]->pin(), m_pPNode[1]->pin());
 
-	m_pNNode[1]->pin()->setGroundType(Pin::gt_medium);
+	m_pNNode[1]->pin().setGroundType(Pin::gt_medium);
 }
 
 ECCCCS::~ECCCCS() {}
@@ -183,7 +183,7 @@ ECCCVS::ECCCVS(ICNDocument *icnDocument, bool newItem, const char *id)
 	setupSpcl4pinElement(m_ccvs, m_pNNode[0]->pin(), m_pPNode[0]->pin(),
 			m_pNNode[1]->pin(), m_pPNode[1]->pin());
 
-	m_pNNode[1]->pin()->setGroundType(Pin::gt_medium);
+	m_pNNode[1]->pin().setGroundType(Pin::gt_medium);
 }
 
 ECCCVS::~ECCCVS() {}
@@ -228,7 +228,7 @@ ECVCCS::ECVCCS(ICNDocument *icnDocument, bool newItem, const char *id)
 	setupSpcl4pinElement(m_vccs, m_pNNode[0]->pin(), m_pPNode[0]->pin(),
 	                 m_pNNode[1]->pin(), m_pPNode[1]->pin());
 
-	m_pNNode[1]->pin()->setGroundType(Pin::gt_medium);
+	m_pNNode[1]->pin().setGroundType(Pin::gt_medium);
 }
 
 ECVCCS::~ECVCCS() {}
@@ -273,7 +273,7 @@ ECVCVS::ECVCVS(ICNDocument *icnDocument, bool newItem, const char *id)
 	setupSpcl4pinElement(m_vcvs, m_pNNode[0]->pin(), m_pPNode[0]->pin(),
 			m_pNNode[1]->pin(), m_pPNode[1]->pin());
 
-	m_pNNode[1]->pin()->setGroundType(Pin::gt_medium);
+	m_pNNode[1]->pin().setGroundType(Pin::gt_medium);
 }
 
 ECVCVS::~ECVCVS() {}
