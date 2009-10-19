@@ -83,7 +83,7 @@ ADC::ADC( ICNDocument *icnDocument, bool newItem, const char *id )
 
 void ADC::stepNonLogic()
 {
-	double floatBitValue = m_realNode->pin()->voltage() * (std::pow( 2, double(m_numBits) )-1.) / m_range;
+	double floatBitValue = m_realNode->pin().voltage() * (std::pow( 2, double(m_numBits) )-1.) / m_range;
 	double roundBitValue = std::floor( floatBitValue + 0.5 );
 	
 	if ( roundBitValue < 0 )

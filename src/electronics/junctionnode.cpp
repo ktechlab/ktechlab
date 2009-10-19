@@ -22,11 +22,10 @@ JunctionNode::JunctionNode(ICNDocument* icnDocument, int dir, const QPoint& pos,
 JunctionNode::~JunctionNode() {
 }
 
-void JunctionNode::drawShape(QPainter & p) {
+void JunctionNode::drawShape(QPainter &p) {
 	initPainter(p);
 
-	double v = pin() ? pin()->voltage() : 0.0;
-	QColor color = voltageColor(v);
+	QColor color = voltageColor(pin().voltage());
 
 	QPen pen = p.pen();
 
@@ -41,7 +40,6 @@ void JunctionNode::drawShape(QPainter & p) {
 
 	deinitPainter(p);
 }
-
 
 void JunctionNode::initPoints() {
 	setPoints(QPointArray(QRect(-4, -4, 8, 8)));

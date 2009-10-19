@@ -103,11 +103,11 @@ public:
 	/// simplified element attachers
 // TODO: look into feasibility for using variable argument arrays for these and other
 // methods in this class. 
-	void setup1pinElement(Element &ele, Pin *a);
-	void setup2pinElement(Element &ele, Pin *a, Pin *b);
-	void setup3pinElement(Element &ele, Pin *a, Pin *b, Pin *c);
-	void setup4pinElement(Element &ele, Pin *a, Pin *b, Pin *c, Pin *d);
-	void setupSpcl4pinElement(Element &ele, Pin *a, Pin *b, Pin *c, Pin *d);
+	void setup1pinElement(Element &ele, Pin &a);
+	void setup2pinElement(Element &ele, Pin &a, Pin &b);
+	void setup3pinElement(Element &ele, Pin &a, Pin &b, Pin &c);
+	void setup4pinElement(Element &ele, Pin &a, Pin &b, Pin &c, Pin &d);
+	void setupSpcl4pinElement(Element &ele, Pin &a, Pin &b, Pin &c, Pin &d);
 
 	ECNode *ecNodeWithID(const QString &ecNodeId);
 
@@ -176,7 +176,7 @@ private:
 	/**
 	 * Sets all pins independent of each other.
 	 */
-	void setAllPinsInterIndependent();
+	void setAllPinsIndependent();
 
 	/**
 	 * The given pins will affect the simulation of each other. Therefore, they

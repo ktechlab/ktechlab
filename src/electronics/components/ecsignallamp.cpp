@@ -61,7 +61,7 @@ ECSignalLamp::~ECSignalLamp() {}
 
 void ECSignalLamp::stepNonLogic()
 {
-	const double voltage = m_pPNode[0]->pin()->voltage()-m_pNNode[0]->pin()->voltage();
+	const double voltage = m_pPNode[0]->pin().voltage()-m_pNNode[0]->pin().voltage();
 	avgPower = fabs(avgPower * advanceSinceUpdate +
 			(voltage * voltage / RESISTANCE)) /
 			++advanceSinceUpdate;

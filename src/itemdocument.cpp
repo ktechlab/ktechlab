@@ -496,7 +496,9 @@ bool ItemDocument::registerUID(const QString &uid) {
 }
 
 void ItemDocument::unregisterUID(const QString &uid) {
+//assert(
 	m_idList.erase(uid);
+//);
 	m_itemList.erase(uid);
 
 	IntItemMap::iterator end = m_zOrder.end();
@@ -504,9 +506,9 @@ void ItemDocument::unregisterUID(const QString &uid) {
 	while(it != end) {
 		if(it->second->id() == uid) { 
 			IntItemMap::iterator toRemove = it; 
-			it++;
+			++it;
 			m_zOrder.erase(toRemove);
-		} else it++;
+		} else ++it;
 	}
 }
 
@@ -520,7 +522,6 @@ QString ItemDocument::generateUID(QString name) {
 	return idAttempt;
 }
 
-// FIXME: popup menu doesn't seem to work these days. =(
 void ItemDocument::canvasRightClick(const QPoint &pos, QCanvasItem* item) {
 	if (item) {
 		if (dynamic_cast<CNItem*>(item) &&

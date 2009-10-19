@@ -87,7 +87,7 @@ SerialPortComponent::SerialPortComponent(ICNDocument *icnDocument, bool newItem,
 	// N/A
 	pin = createPin(-40, -32,   0, "GND");
 	addDisplayText("GND", QRect(-28, -40, 28, 16), "GND", true, Qt::AlignLeft | Qt::AlignVCenter);
-	pin->pin()->setGroundType(Pin::gt_always);
+	pin->pin().setGroundType(Pin::gt_always);
 
 	// Doesn't work
 // 	pin = createPin(  40,  24, 180, "DSR" );
