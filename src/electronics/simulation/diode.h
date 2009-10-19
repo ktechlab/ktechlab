@@ -22,9 +22,8 @@ public:
 	double I_S;	///< Diode saturation current
 	double N;	///< Emission coefficient
 	double V_B;	///< Reverse breakdown
-// 		double R;	///< Series resistance
+	double SR;	///< Series resistance
 };
-
 
 /**
 This simulates a diode. The simulated diode characteristics are:
@@ -39,7 +38,6 @@ This simulates a diode. The simulated diode characteristics are:
 @short Simulates the electrical property of diode-ness
 @author David Saxton
 */
-
 class Diode : public NonLinear {
 
 public:
