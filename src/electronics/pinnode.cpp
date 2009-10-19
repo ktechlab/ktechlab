@@ -57,7 +57,7 @@ PinNode::~PinNode() {
 void PinNode::drawShape(QPainter & p) {
 	initPainter(p);
 
-	double v = pin() ? pin()->voltage() : 0.0;
+	double v = pin().voltage();
 	QColor color = voltageColor(v);
 	QPen pen = p.pen();
 
@@ -79,7 +79,7 @@ void PinNode::drawShape(QPainter & p) {
 	int length = calcLength(v);
 	if ((numPins() == 1) && m_bShowVoltageBars && length != 0) {
 		// we can assume that v != 0 as length != 0
-		double i = pin()->calculateCurrentFromWires();
+		double i = pin().calculateCurrentFromWires();
 		double iProp = calcIProp(i);
 		int thickness = calcThickness(iProp);
 

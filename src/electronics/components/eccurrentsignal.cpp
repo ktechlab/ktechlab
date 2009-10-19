@@ -42,7 +42,7 @@ ECCurrentSignal::ECCurrentSignal(ICNDocument *icnDocument, bool newItem, const c
 	init1PinLeft();
 	init1PinRight();
 
-	m_pNNode[0]->pin()->setGroundType(Pin::gt_low);
+	m_pNNode[0]->pin().setGroundType(Pin::gt_low);
 	setup2pinElement(m_currentSignal, m_pNNode[0]->pin(), m_pPNode[0]->pin());
 	m_currentSignal.setStep(ElementSignal::st_sinusoidal, 50.);
 

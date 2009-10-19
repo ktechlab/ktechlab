@@ -93,7 +93,6 @@ int getSlope(float x1, float y1, float x2, float y2) {
 
 	if (x1 == x2) {
 		if (y1 == y2) return s_n;
-
 		return s_v;
 	} else if (y1 == y2) {
 		return s_h;

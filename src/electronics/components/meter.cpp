@@ -259,7 +259,7 @@ ECVoltMeter::~ECVoltMeter()
 
 double ECVoltMeter::meterValue()
 {
-	return m_pNNode[0]->pin()->voltage() - m_pPNode[0]->pin()->voltage();
+	return m_pNNode[0]->pin().voltage() - m_pPNode[0]->pin().voltage();
 }
 //END class ECVoltMeter
 

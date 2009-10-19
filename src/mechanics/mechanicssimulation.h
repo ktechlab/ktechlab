@@ -11,7 +11,6 @@
 #ifndef MECHANICSSIMULATION_H
 #define MECHANICSSIMULATION_H
 
-#include <qguardedptr.h>
 #include <qobject.h>
 #include <qvaluelist.h>
 
@@ -68,10 +67,9 @@ protected slots:
 	void slotAdvance();
 	
 protected:
-	QGuardedPtr<MechanicsDocument> p_mechanicsDocument;
+	MechanicsDocument *p_mechanicsDocument;
 	QTimer *m_advanceTmr;
 };
-
 
 /**
 Rigid body with mass, inertia, etc. Collection of mechanics items with

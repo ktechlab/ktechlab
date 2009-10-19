@@ -13,7 +13,6 @@
 
 #include "language.h"
 
-#include <qguardedptr.h>
 #include <qobject.h>
 #include <qstring.h>
 #include <qstringlist.h>

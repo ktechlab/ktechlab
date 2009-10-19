@@ -30,7 +30,7 @@ typedef QValueList<Node *> NodeList;
 typedef QValueList<NodeGroup*> NodeGroupList;
 typedef QValueList<QPoint> QPointList;
 
-// Refactor:
+// TODO Refactor:
 class FlowContainer;
 // ###
 

@@ -132,8 +132,8 @@ VoltageProbe::VoltageProbe(ICNDocument *icnDocument, bool newItem, const char *i
 
 	init1PinLeft();
 	init1PinRight();
-	m_pPin1 = m_pNNode[0]->pin();
-	m_pPin2 = m_pPNode[0]->pin();
+	m_pPin1 = &m_pNNode[0]->pin();
+	m_pPin2 = &m_pPNode[0]->pin();
 }
 
 VoltageProbe::~VoltageProbe() {}
