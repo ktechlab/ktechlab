@@ -20,10 +20,15 @@ class ItemDocument;
 class ECNode;
 class Connector;
 
+typedef struct { 
+	double I; 
+	double V;
+	int id;
+} electrical_info;
+
 /**
 @author David Saxton
 */
-
 class CanvasTip : public QCanvasRectangle {
 
 public:
@@ -40,8 +45,8 @@ protected:
 	void display(const QPoint &pos);
 	QString displayText(unsigned num) const;
 
-	QValueVector<double> m_v;
-	QValueVector<double> m_i;
+	QValueVector<electrical_info> info;
+
 	ItemDocument *p_itemDocument;
 	QString m_text;
 };
