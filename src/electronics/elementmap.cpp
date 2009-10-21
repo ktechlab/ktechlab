@@ -28,9 +28,11 @@ ElementMap::ElementMap() {
  */
 void ElementMap::mergeCurrents() {
 
+// TODO: refactor out so that we don't re-do pins that have multiple elements!
+
 	for (int i = 0; i < 4; i++) {
 		if(n[i]) {
-			n[i]->setCurrentIfOneWire(e->cnodeCurrent(i));
+			n[i]->setCurrentIfOneWire();
 		}
 	}
 }

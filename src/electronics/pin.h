@@ -148,7 +148,7 @@ public:
 	void addWire(Wire *wire);
 	void removeWire(Wire *wire);
 
-    bool setCurrentIfOneWire(double current);
+    bool setCurrentIfOneWire();
 
 private:
 	double m_voltage;
