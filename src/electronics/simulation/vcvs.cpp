@@ -45,8 +45,8 @@ void VCVS::add_initial_dc()
 	if (!b_status)
 		return;
 	
-	A_c( 0, 0 ) -= m_g;
-	A_c( 0, 1 ) += m_g;
+	A_c( 0, 0 ) = -m_g;
+	A_c( 0, 1 ) = m_g;
 	A_b( 2, 0 ) = 1;
 	A_c( 0, 2 ) = 1;
 	A_b( 3, 0 ) = -1;
