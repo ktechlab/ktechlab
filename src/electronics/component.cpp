@@ -255,8 +255,8 @@ ECNode* Component::ecNodeWithID(const QString &ecNodeId) {
 
 void Component::slotUpdateConfiguration() {
 	const LogicConfig logicConfig; // = LogicIn::getConfig();
-	const ElementMapList::iterator end = m_elementMapList.end();
 
+	const ElementMapList::iterator end = m_elementMapList.end();
 	for(ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it) {
 		if(LogicIn *logicIn = (*it).getLogicInOrNull())
 			logicIn->setLogic(logicConfig);
@@ -315,34 +315,6 @@ void Component::setup4pinElement(Element &ele, Pin &a, Pin &b, Pin &c, Pin &d) {
 	setInterDependent(it, pinz);
 }
 
-/*
-void Component::setupSpcl4pinElement(Element &ele, Pin &a, Pin &b, Pin &c, Pin &d) {
-
-	PinList pins;
-	pins.push_back(&a);
-	pins.push_back(&b);
-	pins.push_back(&c);
-	pins.push_back(&d);
-	ElementMapList::iterator it = handleElement(&ele, pins);
-
-	PinSet pinset;
-	pinset.insert(&a);
-	pinset.insert(&b);
-	setInterGroundDependent(pinset);
-	(*it).interGroundDependent.push_back(pinset);
-
-	pinset.insert(&c);
-	pinset.insert(&d);
-	setInterCircuitDependent(pinset);
-	(*it).interCircuitDependent.push_back(pinset);
-
-	pinset.clear();
-	pinset.insert(&c);
-	pinset.insert(&d);
-	setInterGroundDependent(pinset);
-	(*it).interGroundDependent.push_back(pinset);
-} */
-
 ElementMapList::iterator Component::handleElement(Element *e, const PinList &pins) {
 	if(!e) return m_elementMapList.end();
 
@@ -376,8 +348,6 @@ void Component::setInterCircuitDependent(PinSet &pins) {
 			(*it1)->addCircuitDependentPin(*it2);
 		}
 	}
-
-//	(*it).interCircuitDependent.push_back(pins);
 }
 
 void Component::setInterGroundDependent(PinSet &pins) {
@@ -387,8 +357,6 @@ void Component::setInterGroundDependent(PinSet &pins) {
 			(*it1)->addGroundDependentPin(*it2);
 		}
 	}
-
-//	(*it).interGroundDependent.push_back(pins);
 }
 
 void Component::rebuildPinInterDepedence() {

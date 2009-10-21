@@ -119,6 +119,8 @@ void Switch::stopBouncing() {
 	if(m_state == Open && m_pJumper) {
 		delete m_pJumper;
 		m_pJumper = 0;
+		m_pP1->setVoltage(0);
+		m_pP2->setVoltage(0);
 	}
 
 	if(m_state == Closed && !m_pJumper) {
