@@ -107,13 +107,25 @@ double Pin::calculateCurrentFromWires(Wire *aWire) const {
 /*!
     \fn Pin::setCurrentIfOneWire(double current)
  */
-bool Pin::setCurrentIfOneWire(double current)
+bool Pin::setCurrentIfOneWire()
 {
 	if(m_wireList.size() == 1) {
-		(*(m_wireList.begin()))->setCurrent(current);
+/*		double current = 0;
+
+		ElementList::iterator end = m_elementList.end();
+
+		for(ElementList::iterator it = m_elementList.begin(); it != end;++it) {
+			current += (*it)->updateCurrents();
+		}*/
+
+		if(m_elementList.empty() == false)
+			(*(m_wireList.begin()))->setCurrent(
+				(*(m_elementList.begin()))->elementSet()->cNode(m_eqId)->current());
+		else (*(m_wireList.begin()))->setCurrent(0);
 		return true;
 	} else { // inform wires that they don't know their current 
 		// and have to figure it out for themselves.
+// TODO: if we only have ONE unknown wire, we can still compute currents... =P 
 		WireList::iterator end = m_wireList.end();
 		for(WireList::iterator it = m_wireList.begin(); it != end; ++it) {
 			(*it)->setCurrentKnown(false);
