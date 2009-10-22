@@ -10,10 +10,7 @@
 
 #include <cmath>
 #include <kdebug.h>
-#include <qbitarray.h>
 #include <qpainter.h>
-#include <qwidget.h>
-#include <qwmatrix.h>
 
 #include "canvasitemparts.h"
 #include "circuitdocument.h"
@@ -22,11 +19,6 @@
 #include "itemdocumentdata.h"
 #include "pin.h"
 #include "simulator.h"
-
-#include "switch.h"
-
-const int dipWidth = 112;
-const int pairSep = 32;
 
 //BEGIN class Component
 Component::Component(ICNDocument *icnDocument, bool newItem, const QString &id)
@@ -71,7 +63,7 @@ void Component::removeElement(Element *element, bool setPinsInterIndependent) {
 		++next;
 
 		if ((*it).compareElement(element))
-			m_elementMapList.remove(it);
+			m_elementMapList.erase(it);
 
 		it = next;
 	}
@@ -328,7 +320,8 @@ ElementMapList::iterator Component::handleElement(Element *e, const PinList &pin
 		em.putPin(at++, *it);
 	}
 
-	ElementMapList::iterator it = m_elementMapList.append(em);
+	m_elementMapList.push_front(em);
+	ElementMapList::iterator it = m_elementMapList.begin();
 
 	emit elementCreated(e);
 	return it;
