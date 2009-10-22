@@ -13,10 +13,8 @@
 
 #include <list>
 #include <set>
-#include <qvaluelist.h>
 
 #include "cnitem.h"
-#include "ecnode.h"
 #include "elementmap.h"
 #include "pinnode.h"
 #include "circuitdocument.h"
@@ -29,7 +27,7 @@ class LogicIn;
 
 typedef std::list<Pin*> PinList;
 typedef std::list<PinSet> PinSetList;
-typedef QValueList<ElementMap> ElementMapList;
+typedef std::list<ElementMap> ElementMapList;
 
 /**
 @short Base class for all electrical components
