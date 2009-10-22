@@ -282,23 +282,24 @@ void CircuitDocument::componentRemoved(Item *item) {
 /// pins/wires.
 void CircuitDocument::calculateConnectorCurrents() {
 
-	PinSet m_pinList;
+	PinSet groundPins;
 
 	const CircuitList::iterator circuitEnd = m_circuitList.end();
 	for (CircuitList::iterator it = m_circuitList.begin(); it != circuitEnd; ++it) {
+// WRONG
+// when we do this here, it mashes everything together. Have to figure out how to clear a pin and do exactly those elements 
+// connected at that pin. 
 		(*it)->updateCurrents();
+
 		PinSet *foo = (*it)->getPins();
-		m_pinList.insert(foo->begin(), foo->end());
-	}
-
-	PinSet groundPins;
-
-	const PinSet::iterator pinEnd = m_pinList.end();
-	for (PinSet::iterator it = m_pinList.begin(); it != pinEnd; ++it) {
-		Pin *n = *it;
-
- 		if(n->groundType() == Pin::gt_always)
-			groundPins.insert(n);
+	
+		const PinSet::iterator pinEnd = foo->end();
+		for (PinSet::iterator it = foo->begin(); it != pinEnd; ++it) {
+			Pin *n = *it;
+	
+ 			if(n->groundType() == Pin::gt_always)
+				groundPins.insert(n);
+		}
 	}
 
 	// Tell the components to update their ECNode's currents' from the elements
@@ -307,12 +308,13 @@ void CircuitDocument::calculateConnectorCurrents() {
 	for (ComponentList::iterator it = m_componentList.begin(); it != componentEnd; ++it)
 		(*it)->setNodalCurrents();
 
+	/*
+	make the ground pins work. Current engine doesn't treat ground explicitly.
+	*/
 	bool found = true;
 	while (!groundPins.empty() && found) {
 		found = false;
-		/*
-		make the ground pins work. Current engine doesn't treat ground explicitly.
-		*/
+
 		PinSet::iterator groundPinsEnd = groundPins.end();
 		for (PinSet::iterator it = groundPins.begin(); it != groundPinsEnd;) {
 			if ((*it)->calculateCurrentFromWires()) {
@@ -320,7 +322,7 @@ void CircuitDocument::calculateConnectorCurrents() {
 				PinSet::iterator oldIt = it;
 				++it;
 				groundPins.erase(oldIt);
-			} else ++it;
+			} else ++it; 
 		}
 	}
 }
