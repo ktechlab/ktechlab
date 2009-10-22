@@ -12,11 +12,11 @@
 #define ITEMDOCUMENTDATA_H
 
 #include <set>
+#include <qbitarray.h>
+#include <qdom.h>
 
 #include "item.h"
 #include "microsettings.h"
-
-#include <qdom.h>
 
 class Connector;
 class ECSubcircuit;
