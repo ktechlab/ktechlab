@@ -118,9 +118,11 @@ bool Pin::setCurrentIfOneWire()
 			current += (*it)->updateCurrents();
 		}*/
 
-		if(m_elementList.empty() == false)
+		ElementSet *es = (*(m_elementList.begin()))->elementSet();
+
+		if(es && m_elementList.empty() == false)
 			(*(m_wireList.begin()))->setCurrent(
-				(*(m_elementList.begin()))->elementSet()->cNode(m_eqId)->current());
+				es->cNode(m_eqId)->current());
 		else (*(m_wireList.begin()))->setCurrent(0);
 		return true;
 	} else { // inform wires that they don't know their current 
