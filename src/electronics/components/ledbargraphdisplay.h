@@ -13,7 +13,6 @@
 #include "dipcomponent.h"
 #include "diode.h"
 
-#include <qvaluevector.h>
 #include <qstringlist.h>
 
 /**

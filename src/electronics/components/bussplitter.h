@@ -12,7 +12,7 @@
 #define BUSSPLITTER_H
 
 #include "simplecomponent.h"
-#include <qvaluevector.h>
+#include <vector>
 
 class Wire;
 
@@ -21,21 +21,21 @@ class Wire;
 */
 class BusSplitter : public SimpleComponent
 {
-	public:
-		BusSplitter(ICNDocument *icnDocument, bool newItem, const char *id = 0);
-		~BusSplitter();
+public:
+	BusSplitter(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	~BusSplitter();
+
+	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
+	static LibraryItem *libraryItem();
+
+protected:
+	QString outNodeID(unsigned node) const;
+	virtual void dataChanged();
+	virtual void drawShape(QPainter &p);
 	
-		static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
-		static LibraryItem *libraryItem();
-	
-	protected:
-		QString outNodeID(unsigned node) const;
-		virtual void dataChanged();
-		virtual void drawShape(QPainter &p);
-		
-		unsigned m_busSize;	
-		QValueVector<Wire *> m_pWires; // internal wires! =P
-		ECNode *m_pInNode; // Should be PinNode
+	unsigned m_busSize;	
+	std::vector<Wire *> m_pWires; // internal wires! =P
+	ECNode *m_pInNode; // Should be PinNode
 };
 
 #endif
