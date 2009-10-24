@@ -14,7 +14,6 @@
 #include "circuit.h"
 #include "circuitdocument.h"
 #include "element.h"
-#include "elementset.h"
 #include "logic.h"
 #include "nonlinear.h"
 #include "pin.h"
@@ -290,7 +289,6 @@ void Circuit::initCache() {
 		case Element::Element_VoltageSource:
 			break;
 		case Element::Element_LogicOut:
-//			m_logicOutCount++;
 			break;
 		case Element::Element_CurrentSignal:
 		case Element::Element_VoltageSignal:
@@ -416,9 +414,6 @@ void Circuit::updateNodalVoltages() {
 }
 
 void Circuit::updateCurrents() {
-
-//	assert(m_elementList.find((Element*)0) == m_elementList.end() );
-
 	ElementList::iterator listEnd = m_elementList.end();
 	for (ElementList::iterator it = m_elementList.begin(); it != listEnd; ++it) {
 		(*it)->updateCurrents();
