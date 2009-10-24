@@ -19,7 +19,6 @@
 #include "pinnode.h"
 #include "circuitdocument.h"
 
-class ICNDocument;
 class ECSubcircuit;
 class Element;
 class Pin;
