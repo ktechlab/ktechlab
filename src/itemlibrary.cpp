@@ -41,7 +41,6 @@
 
 #include <cassert>
 
-
 //BEGIN Item includes
 #ifdef MECHANICS
 #include "chassiscircular2.h"
@@ -126,12 +125,9 @@
 #include "variableresistor.h"
 #include "ecvoltagesignal.h"
 #include "ecvoltagesource.h"
-
 //END Item includes
 
-
 QString ItemLibrary::m_emptyItemDescription = QString::null;
-
 
 ItemLibrary::ItemLibrary()
 {
@@ -145,11 +141,10 @@ ItemLibrary::ItemLibrary()
 	loadItemDescriptions();
 }
 
-
 ItemLibrary::~ItemLibrary()
 {
-// 	kdDebug() << "m_itemDescriptions[\"en_US\"].size()="<<m_itemDescriptions["en_US"].size()<<endl;
-	
+//	kdDebug() << "m_itemDescriptions[\"en_US\"].size()="<<m_itemDescriptions["en_US"].size()<<endl;
+
 	const LibraryItemList::iterator end = m_items.end();
 	for ( LibraryItemList::iterator it = m_items.begin(); it != end; ++it )
 	{
@@ -157,7 +152,6 @@ ItemLibrary::~ItemLibrary()
 	}
 	m_items.clear();
 }
-
 
 void ItemLibrary::addFlowParts()
 {
@@ -193,7 +187,6 @@ void ItemLibrary::addFlowParts()
 	addLibraryItem( End::libraryItem() );
 	addLibraryItem( Start::libraryItem() );
 }
-
 
 void ItemLibrary::addComponents()
 {
@@ -237,7 +230,7 @@ void ItemLibrary::addComponents()
 	addLibraryItem( ECLogicInput::libraryItem() );
 	
 	// Outputs
-// 	addLibraryItem( FrequencyMeter::libraryItem() );
+	addLibraryItem( FrequencyMeter::libraryItem() );
 	addLibraryItem( CurrentProbe::libraryItem() );
 	addLibraryItem( VoltageProbe::libraryItem() );
 	addLibraryItem( LogicProbe::libraryItem() );
@@ -261,15 +254,15 @@ void ItemLibrary::addComponents()
 	addLibraryItem( ECPTMSwitch::libraryItem() );
 	
 	// Nonlinear
-// 	addLibraryItem( ECMOSFET::libraryItemPDM() );
-// 	addLibraryItem( ECMOSFET::libraryItemNDM() );
-	addLibraryItem( ECMOSFET::libraryItemPEM() );
-	addLibraryItem( ECMOSFET::libraryItemNEM() );
-	addLibraryItem( ECJFET::libraryItemPJFET() );
-	addLibraryItem( ECJFET::libraryItemNJFET() );
-	addLibraryItem( ECBJT::libraryItemPNP() );
-	addLibraryItem( ECBJT::libraryItemNPN() );
-	addLibraryItem( ECDiode::libraryItem() );
+//	addLibraryItem(ECMOSFET::libraryItemPDM() );
+//	addLibraryItem(ECMOSFET::libraryItemNDM() );
+	addLibraryItem(ECMOSFET::libraryItemPEM() );
+	addLibraryItem(ECMOSFET::libraryItemNEM() );
+	addLibraryItem(ECJFET::libraryItemPJFET() );
+	addLibraryItem(ECJFET::libraryItemNJFET() );
+	addLibraryItem(ECBJT::libraryItemPNP() );
+	addLibraryItem(ECBJT::libraryItemNPN() );
+	addLibraryItem(ECDiode::libraryItem() );
 	
 	// Discrete
 //	addLibraryItem( VoltageRegulator::libraryItem() );
@@ -280,7 +273,7 @@ void ItemLibrary::addComponents()
 	addLibraryItem( Inductor::libraryItem() );
 	addLibraryItem( Capacitor::libraryItem() );
 	addLibraryItem( Resistor::libraryItem() );
-		
+
 	// Dependent Sources
 	addLibraryItem( ECVCVS::libraryItem() );
 	addLibraryItem( ECVCCS::libraryItem() );
@@ -294,12 +287,11 @@ void ItemLibrary::addComponents()
 	addLibraryItem( ECGround::libraryItem() );
 	addLibraryItem( ECFixedVoltage::libraryItem() );
 	addLibraryItem( ECCell::libraryItem() );
-		
+
 	// Other
 	addLibraryItem( ECSubcircuit::libraryItem() );
 	addLibraryItem( PIC_IC::libraryItem() );
 }
-
 
 void ItemLibrary::addDrawParts()
 {
@@ -311,7 +303,6 @@ void ItemLibrary::addDrawParts()
 	addLibraryItem( DPEllipse::libraryItem() );
 }
 
-
 void ItemLibrary::addMechanics()
 {
 #ifdef MECHANICS
@@ -319,12 +310,10 @@ void ItemLibrary::addMechanics()
 #endif
 }
 
-
 void ItemLibrary::addLibraryItem( LibraryItem *item )
 {
 	m_items.append(item);
 }
-
 
 LibraryItem * ItemLibrary::libraryItem( QString type ) const
 {
@@ -341,9 +330,8 @@ LibraryItem * ItemLibrary::libraryItem( QString type ) const
 		if ( (*it)->allIDs().contains( type ) )
 			return *it;
 	}
-	return 0l;
+	return 0;
 }
-
 
 Item *ItemLibrary::createItem( const QString &id, ItemDocument *itemDocument, bool newItem, const char *newId, bool finishCreation  )
 {
@@ -379,7 +367,6 @@ Item *ItemLibrary::createItem( const QString &id, ItemDocument *itemDocument, bo
 
 	return item;
 }
-
 
 QImage ItemLibrary::componentImage( Component * component, const uint maxSize )
 {
@@ -423,7 +410,6 @@ QImage ItemLibrary::componentImage( Component * component, const uint maxSize )
 	maskPainter.setPen( Qt::color1 );
 	maskPainter.setBrush( Qt::color1 );
 	
-	
 	QPainter p(&pm);
 	p.translate( -bound.x(), -bound.y() );
 	p.setPen( component->pen() );
@@ -453,7 +439,6 @@ QImage ItemLibrary::componentImage( Component * component, const uint maxSize )
 	maskPainter.setBrush( Qt::color1 );
 	
 	QWMatrix transMatrix; // Matrix to apply to the image
-	
 	
 	NodeInfoMap nodes = component->nodeMap();
 	const NodeInfoMap::iterator nodesEnd = nodes.end();
@@ -527,7 +512,6 @@ QPixmap ItemLibrary::itemIconFull( const QString &id )
 	return QPixmap();
 }
 
-
 bool ItemLibrary::saveDescriptions( const QString & language )
 {
 	QString url = itemDescriptionsFile( language );
@@ -553,7 +537,6 @@ bool ItemLibrary::saveDescriptions( const QString & language )
 	return true;
 }
 
-
 bool ItemLibrary::haveDescription( QString type, const QString & language ) const
 {
 	if ( type.startsWith("/") )
@@ -569,7 +552,6 @@ bool ItemLibrary::haveDescription( QString type, const QString & language ) cons
 	
 	return ! m_itemDescriptions[ language ][ type ].isEmpty();
 }
-
 
 QString ItemLibrary::description( QString type, const QString & language ) const
 {
@@ -592,12 +574,10 @@ QString ItemLibrary::description( QString type, const QString & language ) const
 	return current;
 }
 
-
 QString ItemLibrary::emptyItemDescription( const QString & language ) const
 {
 	return m_emptyItemDescription.arg( KGlobal::locale()->twoAlphaToLanguageName( language ) );
 }
-
 
 bool ItemLibrary::setDescription( QString type, const QString & description, const QString & language )
 {
@@ -611,7 +591,6 @@ bool ItemLibrary::setDescription( QString type, const QString & description, con
 	return saveDescriptions( language );
 }
 
-
 void ItemLibrary::setItemDescriptionsDirectory( QString dir )
 {
 	if ( !dir.isEmpty() && !dir.endsWith("/") )
@@ -624,7 +603,6 @@ void ItemLibrary::setItemDescriptionsDirectory( QString dir )
 	conf->writePathEntry( "ItemDescriptionsDirectory", dir );
 	conf->setGroup( prevGroup );
 }
-
 
 QString ItemLibrary::itemDescriptionsDirectory() const
 {
@@ -641,7 +619,6 @@ QString ItemLibrary::itemDescriptionsDirectory() const
 	return dir;
 }
 
-
 QString ItemLibrary::itemDescriptionsFile( const QString & language ) const
 {
 	QString dir( itemDescriptionsDirectory() );
@@ -652,7 +629,6 @@ QString ItemLibrary::itemDescriptionsFile( const QString & language ) const
 	
 	return url;
 }
-
 
 void ItemLibrary::loadItemDescriptions()
 {
