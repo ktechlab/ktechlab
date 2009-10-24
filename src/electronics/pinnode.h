@@ -4,10 +4,9 @@
 // Description: 
 //
 //
-//
 // Copyright: See COPYING file that comes with this distribution
 //
-//
+
 #ifndef PINNODE_H
 #define PINNODE_H
 
@@ -30,11 +29,15 @@ public:
 	/**
 	 *  draws the PinNode
 	 */
-	virtual void drawShape( QPainter &p );
+	virtual void drawShape(QPainter &p);
 	
 protected:
 	QCanvasRectangle *m_pinPoint;
 	virtual void initPoints();
 };
+
+inline double calcIProp(const double i);
+inline int calcThickness(const double prop);
+inline int calcLength(double v);
 
 #endif
