@@ -270,14 +270,13 @@ Connector *ICNDocument::createConnector(Node *startNode, Node *endNode, QPointLi
 	return con;
 }
 
-NodeGroup* ICNDocument::createNodeGroup(Node *node) {
+NodeGroup *ICNDocument::createNodeGroup(Node *node) {
 	assert(node);
 
 	if(node->isChildNode()) return 0;
 
 	const NodeGroupList::iterator end = m_nodeGroupList.end();
 	for (NodeGroupList::iterator it = m_nodeGroupList.begin(); it != end; ++it) {
-assert(*it);
 		if( (*it)->contains(node))
 			return *it;
 	}
@@ -373,7 +372,6 @@ void ICNDocument::getTranslatable(const ItemList &itemList,
 		for (NodeGroupList::const_iterator it = m_nodeGroupList.begin(); it != end; ++it) {
 
 			NodeGroup *ng = *it;
-assert(ng);
 			NodeList externalNodeList = ng->externalNodeList();
 
 			const NodeList::iterator itemNodeListEnd = itemNodeList.end();
@@ -472,7 +470,6 @@ void ICNDocument::appendDeleteList(QCanvasItem *qcanvasItem) {
 		else kdWarning() << k_funcinfo << "unrecognised QCanvasItem " << qcanvasItem << endl;
 	}
 }
-
 
 bool ICNDocument::registerItem(QCanvasItem *qcanvasItem) {
 	if (!qcanvasItem) return false;
