@@ -70,7 +70,7 @@ void CanvasTip::displayVI(Connector *connector, const QPoint &pos) {
 #ifdef BULLSHIT
 			info[i].I = std::abs(wire->current());
 #else 
-			info[i].I = wire->currentIsKnown() ? std::abs(wire->current()) : FP_NAN;
+			info[i].I = wire->currentIsKnown() ? std::abs(wire->current()) : NAN;
 #endif
 			info[i].id = -2;
 		}
