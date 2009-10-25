@@ -39,4 +39,7 @@ protected:
 	bool m_bAnimateCurrent;
 };
 
+int boundify(int x, int bound1, int bound2);
+
+
 #endif
