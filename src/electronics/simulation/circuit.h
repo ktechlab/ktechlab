@@ -20,6 +20,7 @@
 
 class Pin;
 class Element;
+class ElementSet;
 class LogicOut;
 
 typedef std::set<Pin *> PinSet;
