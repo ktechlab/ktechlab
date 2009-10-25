@@ -3,12 +3,11 @@
 //
 // Description:
 //
-//
 // Author: David Saxton, Alan Grimes <agrimes@speakeasy.net>, (C) 2009
 //
 // Copyright: See COPYING file that comes with this distribution
 //
-//
+
 
 #include <cmath>
 
@@ -67,11 +66,7 @@ void CanvasTip::displayVI(Connector *connector, const QPoint &pos) {
 	for (unsigned i = 0; i < num; i++) {
 		if (Wire *wire = econnector->wire(i)) {
 			info[i].V = wire->voltage();
-#ifdef BULLSHIT
 			info[i].I = std::abs(wire->current());
-#else 
-			info[i].I = wire->currentIsKnown() ? std::abs(wire->current()) : NAN;
-#endif
 			info[i].id = -2;
 		}
 	}
@@ -131,7 +126,6 @@ QString CanvasTip::displayText(unsigned num) const {
 	       .arg(CNItem::getNumberMag(info[num].I))
 		.arg(QString::number(info[num].id));
 	}
-
 
 	return QString("%1%2V  %3%4A")
 	       .arg(QString::number(info[num].V / CNItem::getMultiplier(info[num].V), 'g', 3))
