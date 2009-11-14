@@ -34,9 +34,6 @@ class NodeInfo
 {
 public:
 	NodeInfo();
-	
-	QString id; // External id (ICNDocument scope)
-	Node *node; //Pointer to the node
 
 	void setX(const double new_x) { x = new_x; }
 	void setXY(const double new_x, const double new_y) { x = new_x; y = new_y; }
@@ -46,8 +43,13 @@ public:
 	void setOrientationNorth() { orientation = 0; }
 	void setOrientationSouth() { orientation = 180; }
 
+	QString id; // External id (ICNDocument scope)
+
+	Node *node; //Pointer to the node
+
 	double x; // X position relative to item
 	double y; // Y position relative to item
+
 	int orientation; // Orientation relative to item
 };
 
@@ -185,9 +187,6 @@ protected:
 	NodeInfoMap m_nodeMap;
 	QColor m_selectedCol;
 	bool b_pointsAdded;
-
-private:
-	ICNDocument *p_icnDocument;
 };
 typedef QValueList<CNItem*> CNItemList;
 
