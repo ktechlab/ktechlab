@@ -13,7 +13,6 @@
 #include <kdebug.h>
 
 #include "connector.h"
-#include "conrouter.h"
 #include "cnitem.h"
 #include "itemdocumentdata.h"
 #include "src/core/ktlconfig.h"
@@ -33,7 +32,7 @@
 
 //BEGIN class Connector
 Connector::Connector(ICNDocument *icnDocument, const QString &id)
-		: QObject(icnDocument),
+		: QObject(icnDocument), m_conRouter(icnDocument),
 		QCanvasPolygon(icnDocument->canvas()) {
 	p_nodeGroup    = 0;
 	b_semiHidden   = false;
@@ -41,7 +40,7 @@ Connector::Connector(ICNDocument *icnDocument, const QString &id)
 	b_pointsAdded  = false;
 	b_manualPoints = false;
 	p_icnDocument  = icnDocument;
-	m_conRouter    = new ConRouter(p_icnDocument);
+//	m_conRouter    = new ConRouter(p_icnDocument);
 
 	if (!id.isEmpty()) {
 		m_id = id;
@@ -62,7 +61,7 @@ Connector::Connector(ICNDocument *icnDocument, const QString &id)
 Connector::~Connector() {
 	p_icnDocument->unregisterUID(id());
 
-	delete m_conRouter;
+//	delete m_conRouter;
 }
 
 void Connector::removeConnector(Node*) {
@@ -106,15 +105,15 @@ void Connector::updateDrawList() {
 
 	QPointList drawLineList;
 
-	int prevX_canvas = toCanvas((*m_conRouter->cellPointList()->begin()).x());
-	int prevY_canvas = toCanvas((*m_conRouter->cellPointList()->begin()).y());
+	int prevX_canvas = toCanvas((*m_conRouter.cellPointList()->begin()).x());
+	int prevY_canvas = toCanvas((*m_conRouter.cellPointList()->begin()).y());
 	Cells *cells = p_icnDocument->cells();
 	bool bumpNow = false;
 
 // this is the code for "humping" connectors over other connectors.
 // vertical connector is always the one that humps over the horizontal connector. 
-	const QPointList::const_iterator cplEnd = m_conRouter->cellPointList()->end();
-	for (QPointList::const_iterator it = m_conRouter->cellPointList()->begin(); it != cplEnd; ++it) {
+	const QPointList::const_iterator cplEnd = m_conRouter.cellPointList()->end();
+	for (QPointList::const_iterator it = m_conRouter.cellPointList()->begin(); it != cplEnd; ++it) {
 		const int x = (*it).x();
 		const int y = (*it).y();
 		const int numCon = cells->haveCell(x, y) ? cells->cell(x, y).getNumCon() : 0;
@@ -249,14 +248,14 @@ void Connector::updateConnectorPoints(bool add) {
 	b_pointsAdded = add;
 
 	// We don't include the end points in the mapping
-	if (m_conRouter->cellPointList()->size() < 3) return;
+	if (m_conRouter.cellPointList()->size() < 3) return;
 
 	Cells *cells = p_icnDocument->cells();
 
 	const int mult = (add) ? 1 : -1;
 
-	const QPointList::iterator end = --m_conRouter->cellPointList()->end();
-	for (QPointList::iterator it = ++m_conRouter->cellPointList()->begin(); it != end; ++it) {
+	const QPointList::iterator end = --m_conRouter.cellPointList()->end();
+	for (QPointList::iterator it = ++m_conRouter.cellPointList()->begin(); it != end; ++it) {
 		int x = (*it).x();
 		int y = (*it).y();
 
@@ -296,7 +295,7 @@ void Connector::setRoutePoints(QPointList pointList, bool setManual, bool checkE
 		}
 	}
 
-	m_conRouter->setPoints(pointList, reversed);
+	m_conRouter.setPoints(pointList, reversed);
 
 	b_manualPoints = setManual;
 	updateConnectorPoints(true);
@@ -344,7 +343,7 @@ void Connector::rerouteConnector() {
 	if (!startNode() || !endNode()) return;
 
 	updateConnectorPoints(false);
-	m_conRouter->mapRoute(int(startNode()->x()),
+	m_conRouter.mapRoute(int(startNode()->x()),
 	                      int(startNode()->y()),
 	                      int(endNode()->x()),
 	                      int(endNode()->y()));
@@ -355,7 +354,7 @@ void Connector::rerouteConnector() {
 
 void Connector::translateRoute(int dx, int dy) {
 	updateConnectorPoints(false);
-	m_conRouter->translateRoute(dx, dy);
+	m_conRouter.translateRoute(dx, dy);
 	updateConnectorPoints(true);
 	updateDrawList();
 }
@@ -363,12 +362,12 @@ void Connector::translateRoute(int dx, int dy) {
 void Connector::restoreFromConnectorData(const ConnectorData &connectorData) {
 	updateConnectorPoints(false);
 	b_manualPoints = connectorData.manualRoute;
-	m_conRouter->setRoutePoints(connectorData.route);
+	m_conRouter.setRoutePoints(connectorData.route);
 	updateConnectorPoints(true);
 	updateDrawList();
 }
 
-ConnectorData Connector::connectorData() const {
+ConnectorData Connector::connectorData() {
 	ConnectorData connectorData;
 
 	if (!startNode() || !endNode()) {
@@ -377,7 +376,7 @@ ConnectorData Connector::connectorData() const {
 	}
 
 	connectorData.manualRoute = usesManualPoints();
-	connectorData.route = *m_conRouter->cellPointList();
+	connectorData.route = *m_conRouter.cellPointList();
 
 	if (startNode()->isChildNode()) {
 		connectorData.startNodeIsChild = true;
@@ -467,12 +466,12 @@ QPen pen(color, (m_wires.size() > 1) ? 2 : 1);
 }
 
 QValueList<QPointList> Connector::splitConnectorPoints(const QPoint &pos) const {
-	return m_conRouter->splitPoints(pos);
+	return m_conRouter.splitPoints(pos);
 }
 
-QPointList Connector::connectorPoints(bool reverse) const {
-	bool doReverse = (reverse != pointsAreReverse(m_conRouter->pointList()));
-	return m_conRouter->pointList(doReverse);
+QPointList Connector::connectorPoints(const bool reverse) const {
+	bool doReverse = (reverse != pointsAreReverse(m_conRouter.pointList()));
+	return m_conRouter.pointList(doReverse);
 }
 //END class Connector
 
