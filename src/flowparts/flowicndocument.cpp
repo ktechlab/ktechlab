@@ -181,7 +181,7 @@ Connector * FlowICNDocument::createConnector(Node *node, Connector *con, const Q
 		addAllItemConnectorPoints();
 		ConRouter cr(this);
 		cr.mapRoute(int(node->x()), int(node->y()), pos2.x(), pos2.y());
-		autoPoints = cr.pointList(false);
+		autoPoints = cr.pointList();
 		pointList = &autoPoints;
 	}
 
