@@ -45,12 +45,12 @@
 CMManager::CMManager(ItemDocument *itemDocument)
 		: QObject() {
 	b_allowItemScroll = true;
-	p_lastMouseOverResizeHandle = 0l;
-	m_canvasManipulator = 0l;
+	p_lastMouseOverResizeHandle = 0;
+	m_canvasManipulator = 0;
 	p_itemDocument = itemDocument;
 	m_cmState = 0;
-	p_lastMouseOverItem = 0l;
-	p_lastItemClicked = 0l;
+	p_lastMouseOverItem = 0;
+	p_lastItemClicked = 0;
 	m_drawAction = -1;
 	m_allowItemScrollTmr = new QTimer(this);
 	connect(m_allowItemScrollTmr, SIGNAL(timeout()), this, SLOT(slotAllowItemScroll()));
@@ -64,7 +64,6 @@ CMManager::~CMManager() {
 	delete m_canvasManipulator;
 
 	const ManipulatorInfoList::iterator end = m_manipulatorInfoList.end();
-
 	for (ManipulatorInfoList::iterator it = m_manipulatorInfoList.begin(); it != end; ++it) {
 		delete *it;
 	}
@@ -80,7 +79,7 @@ void CMManager::addManipulatorInfo(ManipulatorInfo *eventInfo) {
 
 void CMManager::cancelCurrentManipulation() {
 	delete m_canvasManipulator;
-	m_canvasManipulator = 0l;
+	m_canvasManipulator = 0;
 	setRepeatedAddId();
 }
 
@@ -88,7 +87,7 @@ void CMManager::mousePressEvent(EventInfo eventInfo) {
 	if (m_canvasManipulator) {
 		if (m_canvasManipulator->mousePressedRepeat(eventInfo)) {
 			delete m_canvasManipulator;
-			m_canvasManipulator = 0l;
+			m_canvasManipulator = 0;
 		}
 
 		return;
@@ -147,10 +146,7 @@ void CMManager::mousePressEvent(EventInfo eventInfo) {
 		}
 	}
 
-// 	uint highestScore=0;
-// 	ManipulatorInfo *best=0l;
 	const ManipulatorInfoList::iterator end = m_manipulatorInfoList.end();
-
 	for (ManipulatorInfoList::iterator it = m_manipulatorInfoList.begin(); it != end && !m_canvasManipulator; ++it) {
 		if ((*it)->m_acceptManipulationPtr(eventState, m_cmState, itemType, cnItemType)) {
 			m_canvasManipulator = (*it)->m_createManipulatorPtr(p_itemDocument, this);
@@ -177,14 +173,12 @@ void CMManager::mouseDoubleClickEvent(const EventInfo &eventInfo) {
 	}
 
 	Item *item = dynamic_cast<Item*>(eventInfo.qcanvasItemClickedOn);
-
 	if (item) {
 		item->mouseDoubleClickEvent(eventInfo);
 		return;
 	}
 
 	Widget *widget = dynamic_cast<Widget*>(eventInfo.qcanvasItemClickedOn);
-
 	if (widget) {
 		widget->parent()->mouseDoubleClickEvent(eventInfo);
 		return;
@@ -301,7 +295,6 @@ void CMManager::setDrawAction(int drawAction) {
 		return;
 
 	m_drawAction = drawAction;
-
 	setCMState(cms_draw, (m_drawAction != -1));
 }
 
@@ -331,7 +324,6 @@ CanvasManipulator::CanvasManipulator(ItemDocument *itemDocument, CMManager *cmMa
 	p_icnDocument = dynamic_cast<ICNDocument*>(itemDocument);
 	p_mechanicsDocument = dynamic_cast<MechanicsDocument*>(itemDocument);
 	p_canvas = p_itemDocument->canvas();
-// 	b_connectorsAllowedRouting = true;
 	p_selectList = p_itemDocument->selectList();
 	p_cnItemSelectList = dynamic_cast<CNItemGroup*>(p_selectList);
 	p_mechItemSelectList = dynamic_cast<MechanicsGroup*>(p_selectList);
@@ -392,16 +384,13 @@ bool CMRepeatedItemAdd::mousePressedInitial(const EventInfo &eventInfo) {
 	return false;
 }
 
-
 bool CMRepeatedItemAdd::mouseMoved(const EventInfo &/*eventInfo*/) {
 	return false;
 }
 
-
 bool CMRepeatedItemAdd::mouseReleased(const EventInfo &/*eventInfo*/) {
 	return false;
 }
-
 
 CMRightClick::CMRightClick(ItemDocument *itemDocument, CMManager *cmManager)
 		: CanvasManipulator(itemDocument, cmManager) {
@@ -426,18 +415,15 @@ bool CMRightClick::acceptManipulation(uint eventState, uint /*cmState*/, uint /*
 	return eventState & CMManager::es_right_click;
 }
 
-
 bool CMRightClick::mousePressedInitial(const EventInfo &eventInfo) {
 	m_eventInfo = eventInfo;
 	p_itemDocument->canvasRightClick(eventInfo.globalPos, eventInfo.qcanvasItemClickedOn);
 	return true;
 }
 
-
 bool CMRightClick::mouseMoved(const EventInfo &/*eventInfo*/) {
 	return true;
 }
-
 
 bool CMRightClick::mouseReleased(const EventInfo &/*eventInfo*/) {
 	return true;
@@ -569,10 +555,8 @@ bool CMAutoConnector::mousePressedInitial(const EventInfo &eventInfo) {
 
 bool CMAutoConnector::mouseMoved(const EventInfo &eventInfo) {
 	const QPoint pos = eventInfo.pos;
-
 	int newX = snapToCanvas(pos.x());
 	int newY = snapToCanvas(pos.y());
-
 	bool movedFlag = false;
 
 	if (newX != m_prevPos.x()) {
@@ -641,7 +625,6 @@ bool CMAutoConnector::mouseReleased(const EventInfo &eventInfo) {
 	} else return true;
 
 	p_itemDocument->requestStateSave();
-
 	return true;
 }
 //END class CMAutoConnector
@@ -649,14 +632,14 @@ bool CMAutoConnector::mouseReleased(const EventInfo &eventInfo) {
 //BEGIN class CMManualConnector
 CMManualConnector::CMManualConnector(ItemDocument *itemDocument, CMManager *cmManager)
 		: ConnectorDraw(itemDocument, cmManager) {
-	m_manualConnectorDraw = 0l;
+	m_manualConnectorDraw = 0;
 }
 
 CMManualConnector::~CMManualConnector() {
 	delete m_manualConnectorDraw;
 }
 
-CanvasManipulator* CMManualConnector::construct(ItemDocument *itemDocument, CMManager *cmManager) {
+CanvasManipulator *CMManualConnector::construct(ItemDocument *itemDocument, CMManager *cmManager) {
 	return new CMManualConnector(itemDocument, cmManager);
 }
 
@@ -797,7 +780,6 @@ bool CMManualConnector::mouseReleased(const EventInfo &eventInfo) {
 
 	return true;
 }
-
 //END class CMManualConnector
 
 //BEGIN class CMItemMove
@@ -963,7 +945,7 @@ bool CMItemMove::mouseMoved(const EventInfo &eventInfo) {
 		QRect merged = oldRect | newRect;
 	}
 
-	if ((dx != 0) || (dy != 0)) {
+	if((dx != 0) || (dy != 0)) {
 		const ConnectorList::iterator frEnd = m_translatableConnectors.end();
 
 		for (ConnectorList::iterator it = m_translatableConnectors.begin(); it != frEnd; ++it)
@@ -1053,7 +1035,6 @@ bool CMItemMove::mouseReleased(const EventInfo &eventInfo) {
 	return true;
 }
 
-
 bool CMItemMove::mousePressedRepeat(const EventInfo & info) {
 	if (info.isRightClick)
 		p_cnItemSelectList->slotRotateCW();
@@ -1062,7 +1043,6 @@ bool CMItemMove::mousePressedRepeat(const EventInfo & info) {
 
 	return false;
 }
-
 //END class CMItemMove
 
 CMItemResize::CMItemResize(ItemDocument *itemDocument, CMManager *cmManager)
@@ -1191,7 +1171,6 @@ bool CMMechItemMove::mousePressedInitial(const EventInfo &eventInfo) {
 
 	return false;
 }
-
 
 bool CMMechItemMove::mouseMoved(const EventInfo &eventInfo) {
 	const QPoint pos = eventInfo.pos;
@@ -1742,7 +1721,6 @@ QPointList ManualConnectorDraw::pointList() {
 //BEGIN class ManipulatorInfo
 ManipulatorInfo::ManipulatorInfo() {
 }
-
 //END class ManipulatorInfo
 
 #include "canvasmanipulator.moc"
