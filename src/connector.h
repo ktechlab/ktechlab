@@ -14,10 +14,11 @@
 #include <canvas.h>
 #include <qvaluevector.h>
 
+#include "conrouter.h"
+
 class Cell;
 class ConnectorData;
 class ConnectorLine;
-class ConRouter;
 class CNItem;
 class ICNDocument;
 class Node;
@@ -51,7 +52,7 @@ public:
 	/**
 	 * @returns connector data describing this connector
 	 */
-	ConnectorData connectorData() const;
+	ConnectorData connectorData();
 
 	/**
 	 * Restore the state of the connector (route, etc) from the saved data
@@ -131,7 +132,7 @@ public:
 	 * end node if reverse is false
 	 * @param reverse whether or not to reverse the points from start node to end node
 	 */
-	QPointList connectorPoints(bool reverse = false) const;
+	QPointList connectorPoints(const bool reverse = false) const;
 
 	/**
 	 * Reroute the connector. Note that if this connector is controlled by a
@@ -175,13 +176,15 @@ private:
 
 // DEAD CODE ??
 	NodeGroup   *p_nodeGroup;
-	ConRouter   *m_conRouter;
+	ConRouter   m_conRouter;
 
 	QString     m_id;
 	QRect       m_oldBoundRect;
 
 	ConnectorLineList m_connectorLineList;
 };
+
+int getSlope(float x1, float y1, float x2, float y2);
 
 #endif
 
