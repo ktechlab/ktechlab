@@ -27,12 +27,12 @@ QString KTechlabIDEExtension::xmlFile() {
 }
 
 KDevelop::AreaParams KTechlabIDEExtension::defaultArea() {
-    KDevelop::AreaParams params = {"ktlDefault",i18n("KTechLab Default Area")};
+    KDevelop::AreaParams params = {"ktlcircuit",i18n("Circuit")};
     return params;
 }
 
 QString KTechlabIDEExtension::projectFileExtension() {
-    return i18n("ktechlab");
+    return i18n("*.ktechlab");
 }
 
 QString KTechlabIDEExtension::projectFileDescription() {

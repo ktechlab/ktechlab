@@ -18,17 +18,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.      *
  ******************************************************************************/
 
-#include "ktechlab.h"
+#include "mainwindow.h"
 
 #include "newfiledlg.h"
-#include "document.h"
-#include "docmanager.h"
-#include "projectmanager.h"
 
 #include <QMenu>
 #include <QLayout>
 #include <QListView>
 #include <QSplitter>
+#include <QMimeData>
 
 #include <KApplication>
 #include <KMessageBox>
@@ -46,10 +44,16 @@
 
 #include <sublime/area.h>
 #include <sublime/controller.h>
+#include <interfaces/iplugincontroller.h>
 #include <sublime/tooldocument.h>
+#include <shell/core.h>
+#include <shell/projectcontroller.h>
+#include <shell/documentcontroller.h>
 
-KTechlab::KTechlab( Sublime::Controller *controller, Qt::WindowFlags flags )
-: Sublime::MainWindow( controller, flags )
+using namespace KTechLab;
+
+MainWindow::MainWindow( Sublime::Controller *controller, Qt::WindowFlags flags )
+: KDevelop::MainWindow( controller, flags )
 {
     createActions();
     createMenus();
@@ -61,26 +65,32 @@ KTechlab::KTechlab( Sublime::Controller *controller, Qt::WindowFlags flags )
     setupGUI( Default );
 }
 
-KTechlab::~KTechlab()
+MainWindow::~MainWindow()
 {
 }
 
-KTabWidget * KTechlab::tabWidget()
+KTabWidget * MainWindow::tabWidget()
 {
     return 0;
 }
 
-void KTechlab::load( KUrl url )
+/*
+ * TODO: put this logic into some kind of controller
+ */
+void MainWindow::load( const KUrl &url )
 {
     if ( !url.isValid() )
         return;
 
     if ( url.url().endsWith( ".ktechlab", Qt::CaseInsensitive ) )
     {
+        // FIXME: create an IProject (i.e. KTechlab::Project) to open the url,
+        // since this will prevent KTechLab from crashing...
+
         // This is a ktechlab project; it has to be handled separetly from a
         // normal file.
 
-        ProjectManager::self()->slotOpenProject( url );
+        KDevelop::Core::self()->projectController()->openProject( url );
         return;
     }
 
@@ -104,53 +114,74 @@ void KTechlab::load( KUrl url )
     // set our caption
     setCaption( url.url() );
 
+    //get interface for extension
+    QStringList constraints;
+    constraints << QString("'%1' in [X-KDevelop-SupportedMimeTypes]").arg(
+            "application/x-circuit" );
+
     // load in the file (target is always local)
-    DocManager::self()->openUrl( target );
+    KDevelop::Core *core = KDevelop::Core::self();
+    Q_ASSERT( core != 0 );
+    KDevelop::IPluginController *pc = core->pluginController();
+    Q_ASSERT( pc != 0 );
+    QList<KPluginInfo> plugins =
+            pc->queryExtensionPlugins( "KTLDocument", constraints );
+
+    foreach (KPluginInfo p, plugins) {
+        qDebug() << p.name();
+    }
+    //KDevelop::PartDocument * document = new CircuitDocument( url, KDevelop::Core::self() );
 
     // and remove the temp file
     KIO::NetAccess::removeTempFile( target );
 }
 
-void KTechlab::init()
+void MainWindow::init()
 {
     Sublime::Document *componentView = new Sublime::ToolDocument( "ComponentView", controller(),
             new Sublime::SimpleToolWidgetFactory<QListView>( "ComponentView" ) );
 
-    m_mainArea = new Sublime::Area( controller(), "mainArea" );
+    m_mainArea = new Sublime::Area( controller(), "ktlcircuit", i18n("Circuit") );
     m_mainArea->addToolView( componentView->createView(), Sublime::Left );
+    m_mainArea->setIconName( "ktechlab_circuit" );
+    controller()->addDefaultArea( m_mainArea );
+
+    controller()->showArea(m_mainArea,this);
+
+    setupAreaSelector();
 }
 
-void KTechlab::slotFileNewAssembly()
+void MainWindow::slotFileNewAssembly()
 {
     kDebug() << "triggered()";
 }
 
-void KTechlab::slotFileNewC()
+void MainWindow::slotFileNewC()
 {
     kDebug() << "triggered()";
 }
 
-void KTechlab::slotFileNewCircuit()
+void MainWindow::slotFileNewCircuit()
 {
     kDebug() << "triggered()";
 }
 
-void KTechlab::slotFileNewFlowCode()
+void MainWindow::slotFileNewFlowCode()
 {
     kDebug() << "triggered()";
 }
 
-void KTechlab::slotFileNewMechanics()
+void MainWindow::slotFileNewMechanics()
 {
     kDebug() << "triggered()";
 }
 
-void KTechlab::slotFileNewMicrobe()
+void MainWindow::slotFileNewMicrobe()
 {
     kDebug() << "triggered()";
 }
 
-void KTechlab::slotFileNew()
+void MainWindow::slotFileNew()
 {
     NewFileDlg newFileDlg( this );
 
@@ -162,7 +193,7 @@ void KTechlab::slotFileNew()
     }
 }
 
-void KTechlab::slotFileOpen()
+void MainWindow::slotFileOpen()
 {
     KUrl file = KFileDialog::getOpenUrl( KUrl("kfiledialog:///<keyword>"), "*", this );
 
@@ -170,67 +201,66 @@ void KTechlab::slotFileOpen()
         load( file );
 }
 
-void KTechlab::slotFileOpenRecent()
+void MainWindow::slotFileOpenRecent()
 {
 }
 
-void KTechlab::slotFileSave()
+void MainWindow::slotFileSave()
 {
 }
 
-void KTechlab::slotFileSaveAs()
+void MainWindow::slotFileSaveAs()
 {
 }
 
-void KTechlab::slotFilePrint()
+void MainWindow::slotFilePrint()
 {
 }
 
-void KTechlab::slotFileQuit()
+void MainWindow::slotFileQuit()
 {
     KApplication::kApplication()->quit();
 }
 
-void KTechlab::slotViewClose()
+void MainWindow::slotViewClose()
 {
 }
 
-void KTechlab::slotUndo()
+void MainWindow::slotUndo()
 {
 }
 
-void KTechlab::slotRedo()
+void MainWindow::slotRedo()
 {
 }
 
-void KTechlab::slotCut()
+void MainWindow::slotCut()
 {
 }
 
-void KTechlab::slotCopy()
+void MainWindow::slotCopy()
 {
 }
 
-void KTechlab::slotPaste()
+void MainWindow::slotPaste()
 {
 }
 
-void KTechlab::slotComponentRotateCCW()
+void MainWindow::slotComponentRotateCCW()
 {}
 
-void KTechlab::slotComponentRotateCW()
+void MainWindow::slotComponentRotateCW()
 {}
 
-void KTechlab::setupActions()
+void MainWindow::setupActions()
 {
 }
 
-void KTechlab::createMenus()
+void MainWindow::createMenus()
 {
-    fileMenu = menuBar()->addMenu( i18n("&File") );
 }
 
-void KTechlab::createActions()
+void MainWindow::createActions()
 {
     KStandardAction::open( this, SLOT(slotFileOpen()), actionCollection() );
     KStandardAction::openRecent( this, SLOT(slotFileOpenRecent()), actionCollection() );
@@ -300,15 +330,15 @@ void KTechlab::createActions()
     connect( action, SIGNAL(triggered()), this, SLOT(slotComponentRotateCCW()) );
 }
 
-void KTechlab::createToolBars()
+void MainWindow::createToolBars()
 {
 }
 
-void KTechlab::createStatusBar()
+void MainWindow::createStatusBar()
 {
 }
 
-void KTechlab::readSettings()
+void MainWindow::readSettings()
 {
 }
 
