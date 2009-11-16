@@ -12,7 +12,7 @@ set( ktlinterfaces_LIB_SRCS
 kde4_add_library( ktlinterfaces SHARED ${ktlinterfaces_LIB_SRCS} )
 
 target_link_libraries( ktlinterfaces
-   ${KDEVPLATFORM_INTERFACES_LIBRARY}
+   ${KDEVPLATFORM_INTERFACES_LIBRARIES}
    ${KDE4_PLASMA_LIBS}
    )
 

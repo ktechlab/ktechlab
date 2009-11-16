@@ -8,13 +8,15 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "ktechlab.h"
+#include "mainwindow.h"
 #include "ktechlabideextension.h"
 #include "config.h"
 
+#include <sublime/controller.h>
 #include <shell/core.h>
 #include <shell/projectcontroller.h>
 #include <shell/documentcontroller.h>
+#include <interfaces/iuicontroller.h>
 
 #include <KAboutData>
 #include <KCmdLineArgs>
@@ -94,6 +96,22 @@ int main(int argc, char **argv)
 
     KDevelop::Core::initialize();
     KDevelop::Core *core = KDevelop::Core::self();
+
+    QList<Sublime::MainWindow*> windows = core->uiController()->controller()->mainWindows();
+    while ( !windows.isEmpty() ) {
+        Sublime::MainWindow* w = windows.takeLast();
+        w->close();
+    }
+
+    KTechLab::MainWindow *mw = new KTechLab::MainWindow( core->uiController()->controller() );
+    core->uiController()->controller()->addMainWindow( mw );
+    mw->init();
+    mw->show();
+    windows = core->uiController()->controller()->mainWindows();
+    while ( !windows.isEmpty() ) {
+        Sublime::MainWindow* w = windows.takeLast();
+        kDebug() << w;
+    }
 
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     bool openProject = false;

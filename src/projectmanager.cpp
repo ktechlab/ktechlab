@@ -8,12 +8,12 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "core/ktlconfig.h"
+#include <core/ktlconfig.h>
 #include "docmanager.h"
 #include "document.h"
 //#include "language.h"
 #include "languagemanager.h"
-#include "ktechlab.h"
+#include "mainwindow.h"
 //#include "microselectwidget.h"
 //#include "programmerdlg.h"
 #include "projectdlgs.h"
