@@ -14,10 +14,9 @@ kde4_add_plugin(plasma_engine_document
 target_link_libraries(plasma_engine_document
    ${KDE4_KDECORE_LIBS}
    ${KDE4_PLASMA_LIBS}
-   ${KDEVPLATFORM_INTERFACES_LIBRARY}
-   ${KDEVPLATFORM_SHELL_LIBRARY}
+   ${KDEVPLATFORM_INTERFACES_LIBRARIES}
+   ${KDEVPLATFORM_SHELL_LIBRARIES}
    ktlinterfaces
-   ktlshell
 )
 
 install(TARGETS plasma_engine_document

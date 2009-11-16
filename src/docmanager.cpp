@@ -12,7 +12,7 @@
 //#include "docmanageriface.h"
 //#include "iteminterface.h"
 //#include "itemselector.h"
-#include "ktechlab.h"
+#include "mainwindow.h"
 //#include "core/ktlconfig.h"
 #include "document.h"
 
@@ -139,7 +139,7 @@ void DocManager::handleNewDocument( Document *document )
 {
 //     document->setDCOPID(m_nextDocumentID++);
 
-    KTechlab *w = dynamic_cast<KTechlab *>( KApplication::activeWindow() );
+    KTechLab::MainWindow *w = dynamic_cast<KTechLab::MainWindow *>( KApplication::activeWindow() );
     if ( w )
     {
         connect( document, SIGNAL(modifiedStateChanged()), w, SLOT(slotDocModifiedChanged()) );
@@ -162,7 +162,7 @@ void DocManager::documentDestroyed( QObject *obj )
 
 void DocManager::disableContextActions()
 {
-    KTechlab * ktl = dynamic_cast<KTechlab *>( KApplication::activeWindow() );
+    KTechLab::MainWindow* ktl = dynamic_cast<KTechLab::MainWindow *>( KApplication::activeWindow() );
     if ( !ktl )
         return;
 

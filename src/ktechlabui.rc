@@ -2,16 +2,7 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
 <gui name="ktechlab" version="0.5">
     <MenuBar>
-        <Menu>
-            <text context="@title:menu">File</text>
-            <DefineGroup name="new_operations" />
-            <Action name="new_file" />
-            <Action name="newfile_asm" />
-            <Action name="newfile_c" />
-            <Action name="ktechlab_circuit" />
-            <Merge />
-        </Menu>
-    </MenuBar>    
+   </MenuBar>
     <ToolBar name="mainToolBar">
         <text>Main Toolbar</text>
         <Action name="new_file" />

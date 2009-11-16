@@ -3,6 +3,7 @@ add_subdirectory(gui)
 add_subdirectory(interfaces)
 add_subdirectory(dataengines)
 add_subdirectory(plugins)
+add_subdirectory(kdevplugins)
 
 #add_subdirectory(context)
 #add_subdirectory(flowparts)
@@ -50,6 +51,7 @@ set(ktechlablib_LIB_SRCS
 
 SET(ktechlab_SRCS
     ktechlabideextension.cpp
+    mainwindow.cpp
     main.cpp
 )
 
@@ -66,7 +68,7 @@ kde4_add_executable(ktechlab ${ktechlab_SRCS})
 target_link_libraries( ktechlab 
    ${KDE4_KDEUI_LIBS}
    ${KDE4_KIO_LIBS}
-   ${KDEVPLATFORM_SHELL_LIBRARY}
+   ${KDEVPLATFORM_SHELL_LIBRARIES}
    # ktechlablib
    gui
 #  languages gui micro flowparts
