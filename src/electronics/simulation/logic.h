@@ -101,8 +101,10 @@ protected:
 
 	CallbackPtr m_pCallbackFunction;
 	CallbackClass *m_pCallbackObject;
-	bool m_bState;
 	LogicConfig m_config;
+
+private :
+	bool m_bState;
 };
 
 typedef std::list<LogicIn*> LogicInList;
@@ -113,6 +115,12 @@ typedef std::list<LogicIn*> LogicInList;
 class LogicOut : public LogicIn {
 
 public:
+	enum States {
+		LOW,
+		HIGH,
+		Z};
+
+
 	LogicOut(LogicConfig config = LogicConfig(), bool _high = false);
 	virtual ~LogicOut();
 
@@ -165,6 +173,7 @@ PinSet logicPinList;
 	void setDependents(LogicInList &logicInList);
 	void callCallbacks();
 	void setChain();
+    void setZ();
 
 protected:
 
@@ -178,6 +187,8 @@ protected:
 	bool isSetChanged;
 
 private: 
+	States out_state;
+
 	LogicInList dependents;
 };
 
