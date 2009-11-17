@@ -182,7 +182,8 @@ protected:
 	virtual void add_initial_dc();
 
 	double m_r_out, m_v_out;
-	double m_old_r_out, m_old_x;
+//	double m_old_r_out;
+	double m_old_x;
 
 	bool isSetChanged;
 
