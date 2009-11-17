@@ -12,10 +12,13 @@
 #define RAM_H
 
 #include "dipcomponent.h"
-#include "logic.h"
+//#include "logic.h"
 
 #include <qbitarray.h>
 #include <vector>
+
+class LogicIn;
+class LogicOut;
 
 /**
 @author David Saxton
@@ -42,9 +45,12 @@ protected:
 	int m_wordSize;
 	int m_addressSize;
 
-	std::vector<LogicIn> m_address;
-	std::vector<LogicIn> m_dataIn;
-	std::vector<LogicOut> m_dataOut;
+// Here's one of the places where the STL really bytes us. We want to store the objects directly in the container, but
+// then we need to be able to store manipluate refferences directly to them elsewhere... C++ reorganizes our 
+// storage at whim so we don't seem to have a choice here but to use pointer arrays and deal with the problems that causes. 
+	std::vector<LogicIn *> m_address;
+	std::vector<LogicIn *> m_dataIn;
+	std::vector<LogicOut *> m_dataOut;
 };
 #endif
 
