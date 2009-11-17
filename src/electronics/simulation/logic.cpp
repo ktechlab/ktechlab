@@ -87,7 +87,8 @@ LogicOut::LogicOut(LogicConfig config, bool _high)
 		: LogicIn(config) {
 
 	m_numCBranches = 1;
-	m_old_r_out = m_r_out = 0.0;
+//	m_old_r_out = 
+	m_r_out = 0.0;
 	m_old_x = m_v_out = 0.0;
 	setHigh(_high);
 
@@ -104,7 +105,8 @@ void LogicOut::setElementSet(ElementSet *c) {
 
 	if (c) isSetChanged = false;
 
-	m_old_x = m_old_r_out = 0.0;
+//	m_old_r_out = 
+	m_old_x = 0.0;
 	LogicIn::setElementSet(c);
 }
 
@@ -170,16 +172,22 @@ void LogicOut::add_initial_dc() {
 	if (!b_status)
 		return;
 
-	double delta_resistance = m_r_out - m_old_r_out;
+//	double delta_resistance = m_r_out - m_old_r_out;
+
+// FIXME FIXME BROKEN BROKEN FIXME FIXME!!!
+//	double delta_x = 1 + (1 / (1 + m_r_out)) - m_old_x;
+
+// ignores the series resistence of the source but otherwise correct. 
 	double delta_x = 1 - m_old_x;
+// ###
 
 	A_b(0, 0) -= delta_x;
 	A_c(0, 0) += delta_x;
-	A_d(0, 0) += delta_resistance;
+//	A_d(0, 0) += delta_resistance;
 
 	b_v(0) = m_v_out; // we own this variable so we simply write the new value.
 
-	m_old_r_out = m_r_out;
+//	m_old_r_out = m_r_out;
 	m_old_x = 1;
 }
 
