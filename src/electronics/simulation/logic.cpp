@@ -28,7 +28,7 @@ LogicConfig::LogicConfig() {
 //BEGIN class LogicIn
 LogicIn::LogicIn(LogicConfig config)
 		: Element::Element(), m_pCallbackFunction(0),
-	m_bState(false), m_config(config) {
+	m_config(config), m_bState(false) {
 	m_numCNodes = 1;
 
 	check();
@@ -146,12 +146,24 @@ void LogicOut::configChanged() {
 		p_eSet->setCacheInvalidated();
 	else return;
 
-	// NOTE Make sure that the next two lines are the same as those in setHigh
-	m_r_out = m_bState ? m_config.highImpedance : m_config.lowImpedance;
-	m_v_out = m_bState ? m_config.output : 0.0;
+	switch (out_state) {
+	case HIGH :
+		m_r_out = m_config.highImpedance;
+		m_v_out = m_config.output;
+		setState(true);
+		break;
+	case LOW : 
+		m_r_out	= m_config.lowImpedance;
+		m_v_out	= 0.0;
+		setState(false);
+		break;
+	case Z :
+		m_r_out = 1e6;
+		m_v_out = 2.5;
+		break;
+	};
 
 	add_initial_dc();
-	check();
 }
 
 void LogicOut::add_initial_dc() {
@@ -183,12 +195,13 @@ void LogicOut::updateCurrents() {
 }
 
 void LogicOut::setHigh(bool high) {
-	if (high == m_bState)
+	if (high == (out_state == HIGH))
 		return;
 
-	m_bState = high;
+	out_state = high ? HIGH : LOW;
 
 	if (!p_eSet) {
+		setState(high);
 		setChain();
 		isSetChanged = true;
 		return;
@@ -236,7 +249,23 @@ void LogicOut::setChain()
 	std::list<LogicIn*>::iterator end = dependents.end();
 // WARNING: it makes a huge performance difference if the ++ is before or after the iterator!! 
 	for(std::list<LogicIn*>::iterator it = dependents.begin(); it != end; ++it) {
-		(*it)->setState(m_bState);
+		(*it)->setState(out_state == HIGH);
 	}
+}
+
+/*!
+    \fn LogicOut::setZ()
+Set output to high impedance mode. 
+ */
+void LogicOut::setZ()
+{
+	if(out_state == Z) return;
+
+	out_state = Z;
+
+	m_r_out = 1e6;
+	m_v_out = 2.5;
+
+	add_initial_dc();
 }
 //END class LogicOut
