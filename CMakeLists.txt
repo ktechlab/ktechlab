@@ -2,7 +2,7 @@ project( ktechlab )
 set( VERSION 0.5.0 )
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
-
+cmake_minimum_required(VERSION 2.6)
 
 find_package(KDE4 4.2.0 REQUIRED)
 find_package(Qt4 REQUIRED)
