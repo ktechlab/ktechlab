@@ -83,8 +83,6 @@ install(TARGETS ktechlab DESTINATION bin)
 
 ########### install files ###############
 
-install( FILES  profile.config  DESTINATION ${DATA_INSTALL_DIR}/kdevplatform/profiles/ktechlab )
-
 install(FILES  microbe.xml DESTINATION share/apps/katepart/syntax)
 install(FILES
     ktechlabrc

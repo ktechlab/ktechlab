@@ -11,7 +11,7 @@ kde4_add_kcfg_files(core_STAT_SRCS ${core_KCFG_SRCS})
 
 install(FILES  ktechlab.kcfg DESTINATION share/config.kcfg)
 
-
+install( FILES  profile.config  DESTINATION ${DATA_INSTALL_DIR}/kdevplatform/profiles/ktechlab )
 
 #original Makefile.am contents follow:
 
