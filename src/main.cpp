@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2003-2005 by David Saxton <david@bluehaze.org>          *
- *   Copyright (C) 2008-2009 by Julian Bäume <julian@svg4all.de>                *
+ *   Copyright (C) 2008-2009 by Julian Bäume <julian@svg4all.de>           *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -96,22 +96,6 @@ int main(int argc, char **argv)
 
     KDevelop::Core::initialize();
     KDevelop::Core *core = KDevelop::Core::self();
-
-    QList<Sublime::MainWindow*> windows = core->uiController()->controller()->mainWindows();
-    while ( !windows.isEmpty() ) {
-        Sublime::MainWindow* w = windows.takeLast();
-        w->close();
-    }
-
-    KTechLab::MainWindow *mw = new KTechLab::MainWindow( core->uiController()->controller() );
-    core->uiController()->controller()->addMainWindow( mw );
-    mw->init();
-    mw->show();
-    windows = core->uiController()->controller()->mainWindows();
-    while ( !windows.isEmpty() ) {
-        Sublime::MainWindow* w = windows.takeLast();
-        kDebug() << w;
-    }
 
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     bool openProject = false;
