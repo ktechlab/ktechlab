@@ -32,7 +32,7 @@ KDevelop::AreaParams KTechlabIDEExtension::defaultArea() {
 }
 
 QString KTechlabIDEExtension::projectFileExtension() {
-    return i18n("*.ktechlab");
+    return i18n("ktechlab");
 }
 
 QString KTechlabIDEExtension::projectFileDescription() {
