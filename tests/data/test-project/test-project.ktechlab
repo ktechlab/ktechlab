@@ -1,0 +1,27 @@
+<!DOCTYPE KTechlab>
+<project>
+ <item url="test.circuit" type="File" name="test.circuit" >
+  <linker output-map-file="0" library-dir="" other="" linker-script="" hex-format="inhx32" />
+  <processing output="test.hex" micro="P16F84" />
+ </item>
+ <item url="./" type="Program" name="test-project" >
+  <linker output-map-file="0" library-dir="" other="" linker-script="" hex-format="inhx32" />
+  <processing output="./" micro="P16F84" />
+  <item url="test.c" type="File" name="test.c" >
+   <linker output-map-file="0" library-dir="" other="" linker-script="" hex-format="inhx32" />
+   <processing output="test.o" micro="P16F84" />
+  </item>
+  <item url="test.asm" type="File" name="test.asm" >
+   <linker output-map-file="0" library-dir="" other="" linker-script="" hex-format="inhx32" />
+   <processing output="test.o" micro="P16F84" />
+  </item>
+ </item>
+ <item url="test.flowcode" type="File" name="test.flowcode" >
+  <linker output-map-file="0" library-dir="" other="" linker-script="" hex-format="inhx32" />
+  <processing output="test.hex" micro="P16F84" />
+ </item>
+ <item url="test.microbe" type="File" name="test.microbe" >
+  <linker output-map-file="0" library-dir="" other="" linker-script="" hex-format="inhx32" />
+  <processing output="test.hex" micro="P16F84" />
+ </item>
+</project>

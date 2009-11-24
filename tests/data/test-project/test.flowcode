@@ -1,0 +1,21 @@
+<!DOCTYPE KTechlab>
+<document type="flowcode" >
+ <item x="396" y="324" z="1" orientation="0" type="flow/end" id="END" />
+ <item x="396" y="212" z="0" orientation="0" type="flow/start" id="START" />
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="END" route="49,29,49,30,49,31,49,32,49,33,49,34,49,35,49,36,49,37,49,38," end-node-cid="stdinput" start-node-parent="START" start-node-cid="stdoutput" id="connector" end-node-is-child="1" />
+ <micro id="P16F84" >
+  <pin type="input" id="RA0" state="off" />
+  <pin type="input" id="RA1" state="off" />
+  <pin type="input" id="RA2" state="off" />
+  <pin type="input" id="RA3" state="off" />
+  <pin type="input" id="RA4" state="off" />
+  <pin type="input" id="RB0" state="off" />
+  <pin type="input" id="RB1" state="off" />
+  <pin type="input" id="RB2" state="off" />
+  <pin type="input" id="RB3" state="off" />
+  <pin type="input" id="RB4" state="off" />
+  <pin type="input" id="RB5" state="off" />
+  <pin type="input" id="RB6" state="off" />
+  <pin type="input" id="RB7" state="off" />
+ </micro>
+</document>
