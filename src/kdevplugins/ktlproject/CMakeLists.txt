@@ -3,7 +3,6 @@ include_directories(
 )
 
 set( ktlproject_SRCS
-  ktlproject.cpp
   ktlprojectmanager.cpp
 )
 
@@ -18,6 +17,5 @@ install( TARGETS ktlproject DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 install( FILES
   ktlproject.desktop
-
   DESTINATION ${SERVICES_INSTALL_DIR}
 )
