@@ -36,26 +36,43 @@ using namespace KDevelop;
 class KDevelop::KTLProjectManagerPrivate
 {
   public:
-  /**
-  * Find sub-project represented by @param item in @param document
-  * @param document - the QDomDocument representing the project
-  * @param item - the ProjectFolderItem representing the sub-project
-  * @return a QDomElement representing @param item in @param document
-  */
-  QDomElement findElementInDocument( ProjectFolderItem *item )
-  {
-    QDomNodeList items = projectDomDocument.elementsByTagName("item");
-    QDomElement child;
-    for ( uint i=0;
-          i < items.length() && child.attribute( "name", QString() ) != item->folderName();
-          ++i )
+    /**
+    * Find sub-project represented by @param item in the projects DOM document.
+    * This will return the root-node (i.e. documentElement) if sub-project
+    * is not found.
+    * @param item - the ProjectFolderItem representing the sub-project
+    * @return a QDomElement representing @param item in the DOM document or the document element
+    */
+    QDomElement findElementInDocument( ProjectFolderItem *item )
     {
-      child = items.item(i).toElement();
-    }
-    return child;
-  }
+      QDomElement child = projectDomDocument.documentElement();
+      if (item->isProjectRoot())
+        return child;
 
-  QDomDocument projectDomDocument;
+      QDomNodeList items = projectDomDocument.elementsByTagName("item");
+      for ( uint i=0;
+            i < items.length() && child.attribute( "name", QString() ) != item->folderName();
+            ++i )
+      {
+        child = items.item(i).toElement();
+      }
+      return child;
+    }
+    void writeProjectToDisk()
+    {
+      QFile file( projectFile.toLocalFile() );
+      if ( !file.open( QIODevice::ReadWrite ) )
+      {
+        KMessageBox::sorry( 0l, i18n("Could not open %1 for writing").arg(projectFile.toLocalFile()) );
+        return;
+      }
+      file.write( projectDomDocument.toByteArray() );
+      file.close();
+    }
+
+    QDomDocument projectDomDocument;
+    IProject *project;
+    KUrl projectFile;
 };
 
 K_PLUGIN_FACTORY(KTLProjectManagerFactory, registerPlugin<KTLProjectManager>(); )
@@ -78,7 +95,20 @@ ProjectFileItem* KTLProjectManager::addFile( const KUrl& folder, ProjectFolderIt
     return 0;
 
   ProjectFileItem *item = new ProjectFileItem( parent->project(), folder, parent );
+  QString relativeFileName =
+    KUrl::relativePath( parent->project()->projectFileUrl().directory(), folder.directory() );
+  relativeFileName.append(folder.fileName());
 
+  kDebug() << "adding file with relative url: " << relativeFileName;
+  QDomElement itemElement = d->projectDomDocument.createElement("item");
+  itemElement.setAttribute("url", relativeFileName );
+  itemElement.setAttribute("name", item->fileName() );
+  itemElement.setAttribute("type", "File");
+
+  QDomElement folderElement = d->findElementInDocument( parent );
+  folderElement.appendChild( itemElement );
+
+  d->writeProjectToDisk();
   return item;
 }
 
@@ -102,13 +132,13 @@ ProjectFolderItem* KTLProjectManager::import( IProject* project )
   ProjectFolderItem *rootItem = new KTLFolderItem( project, project->folder() );
   rootItem->setProjectRoot(true);
 
-  KUrl projectFile = rootItem->project()->folder();
-  projectFile.addPath(rootItem->project()->name()+".ktechlab");
+  d->projectFile = rootItem->project()->folder();
+  d->projectFile.addPath(rootItem->project()->name()+".ktechlab");
 
-  QFile file( projectFile.toLocalFile() );
+  QFile file( d->projectFile.toLocalFile() );
   if ( !file.open( QIODevice::ReadOnly ) )
   {
-    KMessageBox::sorry( 0l, i18n("Could not open %1 for reading").arg(projectFile.toLocalFile()) );
+    KMessageBox::sorry( 0l, i18n("Could not open %1 for reading").arg(d->projectFile.toLocalFile()) );
     return 0;
   }
 
@@ -119,7 +149,7 @@ ProjectFolderItem* KTLProjectManager::import( IProject* project )
     KMessageBox::sorry( 0l, i18n("Couldn't parse xml:\n%1").arg(errorMessage) );
     return 0;
   }
-
+  file.close();
   return rootItem;
 }
 
@@ -127,14 +157,7 @@ QList<ProjectFolderItem*> KTLProjectManager::parse( ProjectFolderItem *item )
 {
   QList<ProjectFolderItem*> result;
 
-  QDomElement root;
-  if ( item->isProjectRoot() )
-  {
-    root = d->projectDomDocument.documentElement();
-  } else
-  {
-    root = d->findElementInDocument( item );
-  }
+  QDomElement root = d->findElementInDocument( item );
 
   QDomNode node = root.firstChild();
   while ( !node.isNull() )
@@ -151,6 +174,7 @@ QList<ProjectFolderItem*> KTLProjectManager::parse( ProjectFolderItem *item )
         if ( type == "File" )
         {
           ProjectFileItem *child = new ProjectFileItem(item->project(), itemUrl, item);
+          kDebug() << "Created file:" << child->fileName();
         } else if ( !type.isEmpty() )
         {
           itemUrl.addPath(name);
