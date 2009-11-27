@@ -33,11 +33,37 @@
 
 using namespace KDevelop;
 
+class KDevelop::KTLProjectManagerPrivate
+{
+  public:
+  /**
+  * Find sub-project represented by @param item in @param document
+  * @param document - the QDomDocument representing the project
+  * @param item - the ProjectFolderItem representing the sub-project
+  * @return a QDomElement representing @param item in @param document
+  */
+  QDomElement findElementInDocument( ProjectFolderItem *item )
+  {
+    QDomNodeList items = projectDomDocument.elementsByTagName("item");
+    QDomElement child;
+    for ( uint i=0;
+          i < items.length() && child.attribute( "name", QString() ) != item->folderName();
+          ++i )
+    {
+      child = items.item(i).toElement();
+    }
+    return child;
+  }
+
+  QDomDocument projectDomDocument;
+};
+
 K_PLUGIN_FACTORY(KTLProjectManagerFactory, registerPlugin<KTLProjectManager>(); )
 K_EXPORT_PLUGIN(KTLProjectManagerFactory(KAboutData("ktlprojectmanager","ktlprojectmanager",ki18n("KTechLab Project Manager"), "0.1", ki18n("A plugin to support KTechLab project management"), KAboutData::License_GPL)))
 
 KTLProjectManager::KTLProjectManager( QObject *parent, const QVariantList &args )
-  : IPlugin( KTLProjectManagerFactory::componentData(), parent ), IProjectFileManager( )
+  : IPlugin( KTLProjectManagerFactory::componentData(), parent ), IProjectFileManager( ),
+  d( new KTLProjectManagerPrivate() )
 {
     KDEV_USE_EXTENSION_INTERFACE( IProjectFileManager )
 }
@@ -76,45 +102,38 @@ ProjectFolderItem* KTLProjectManager::import( IProject* project )
   ProjectFolderItem *rootItem = new KTLFolderItem( project, project->folder() );
   rootItem->setProjectRoot(true);
 
+  KUrl projectFile = rootItem->project()->folder();
+  projectFile.addPath(rootItem->project()->name()+".ktechlab");
+
+  QFile file( projectFile.toLocalFile() );
+  if ( !file.open( QIODevice::ReadOnly ) )
+  {
+    KMessageBox::sorry( 0l, i18n("Could not open %1 for reading").arg(projectFile.toLocalFile()) );
+    return 0;
+  }
+
+  d->projectDomDocument = QDomDocument( "KTechlab" );
+  QString errorMessage;
+  if ( !d->projectDomDocument.setContent( &file, &errorMessage ) )
+  {
+    KMessageBox::sorry( 0l, i18n("Couldn't parse xml:\n%1").arg(errorMessage) );
+    return 0;
+  }
+
   return rootItem;
 }
 
 QList<ProjectFolderItem*> KTLProjectManager::parse( ProjectFolderItem *item )
 {
   QList<ProjectFolderItem*> result;
-  KUrl projectFile = item->project()->folder();
-  projectFile.addPath(item->project()->name()+".ktechlab");
-
-  QFile file( projectFile.toLocalFile() );
-  if ( !file.open( QIODevice::ReadOnly ) )
-  {
-    KMessageBox::sorry( 0l, i18n("Could not open %1 for reading").arg(projectFile.toLocalFile()) );
-    return result;
-  }
-
-  QDomDocument document( "KTechlab" );
-  QString errorMessage;
-  if ( !document.setContent( &file, &errorMessage ) )
-  {
-    KMessageBox::sorry( 0l, i18n("Couldn't parse xml:\n%1").arg(errorMessage) );
-    return result;
-  }
 
   QDomElement root;
   if ( item->isProjectRoot() )
   {
-    root = document.documentElement();
+    root = d->projectDomDocument.documentElement();
   } else
   {
-    QDomNodeList items = document.elementsByTagName("item");
-    QDomElement child;
-    for ( uint i=0;
-          i < items.length() && child.attribute( "name", QString() ) != item->folderName();
-          ++i )
-    {
-      child = items.item(i).toElement();
-    }
-    root = child;
+    root = d->findElementInDocument( item );
   }
 
   QDomNode node = root.firstChild();
