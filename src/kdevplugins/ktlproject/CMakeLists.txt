@@ -3,6 +3,7 @@ include_directories(
 )
 
 set( ktlproject_SRCS
+  ktlfolderitem.cpp
   ktlprojectmanager.cpp
 )
 

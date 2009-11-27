@@ -59,7 +59,7 @@ class KTLProjectManager : public IPlugin, public IProjectFileManager
     /**
     *
     */
-    virtual QList< ProjectFolderItem* > parse ( ProjectFolderItem* dom );
+    virtual QList< ProjectFolderItem* > parse ( KDevelop::ProjectFolderItem* item );
 
     /**
     *
