@@ -28,6 +28,8 @@
 namespace KDevelop
 {
 
+class KTLProjectManagerPrivate;
+
 class KTLProjectManager : public IPlugin, public IProjectFileManager
 {
   Q_OBJECT
@@ -90,6 +92,9 @@ class KTLProjectManager : public IPlugin, public IProjectFileManager
     *
     */
     virtual void createActionsForMainWindow ( Sublime::MainWindow* window, QString& xmlFile, KActionCollection& actions );
+
+  private:
+    KTLProjectManagerPrivate *d;
 };
 
 }
