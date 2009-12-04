@@ -19,11 +19,13 @@
 #include <KGenericFactory>
 #include <KAboutData>
 
+using namespace KTechLab;
+
 K_PLUGIN_FACTORY(KTLPassivePluginFactory, registerPlugin<KTLPassivePlugin>(); )
 K_EXPORT_PLUGIN(KTLPassivePluginFactory(KAboutData("ktlpassive","ktlpassive", ki18n("KTechLab Passive Components"), "0.1", ki18n("Provide a set of standard passive components"), KAboutData::License_LGPL)))
 
 
-class KTLPassiveFactory: public KTechLab::IComponentFactory
+class KTechLab::KTLPassiveFactory: public IComponentFactory
 {
 public:
     KTLPassiveFactory()
@@ -31,7 +33,7 @@ public:
         addSupportedComponent( Resistor::metaData() );
     }
 
-    virtual KTechLab::IComponent * create( const QString &name )
+    virtual IComponent * create( const QString &name )
     {
         return 0;
     }
@@ -39,7 +41,7 @@ public:
 };
 
 KTLPassivePlugin::KTLPassivePlugin( QObject *parent, const QVariantList& args )
-    :   KTechLab::IComponentPlugin( KTLPassivePluginFactory::componentData(), parent ),
+    :   IComponentPlugin( KTLPassivePluginFactory::componentData(), parent ),
         m_componentFactory( new KTLPassiveFactory() )
 {
 
@@ -48,19 +50,16 @@ KTLPassivePlugin::KTLPassivePlugin( QObject *parent, const QVariantList& args )
 
 void KTLPassivePlugin::init()
 {
-    QStringList constraints;
-    constraints << QString("'%1' in [X-KDevelop-SupportedMimeTypes]").arg("application/x-circuit");
-    QList<KDevelop::IPlugin*> plugins = KDevelop::Core::self()->pluginController()->allPluginsForExtension( "KTLDocument", constraints );
-    if (plugins.isEmpty()) {
-        return;
+    IDocumentPlugin *plugin = documentPlugin();
+    if (!plugin) {
+      return;
     }
-    KTechLab::IDocumentPlugin *plugin = qobject_cast<KTechLab::IDocumentPlugin*>( plugins.first() );
-
     plugin->registerComponentFactory( m_componentFactory );
 }
 
 KTLPassivePlugin::~KTLPassivePlugin()
 {
+    delete m_componentFactory;
 }
 
 void KTLPassivePlugin::unload()

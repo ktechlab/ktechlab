@@ -14,13 +14,15 @@
 
 #include <KDebug>
 
+using namespace KTechLab;
+
 //BEGIN class Resistor
 
-KTechLab::ComponentMetaData Resistor::metaData()
+ComponentMetaData Resistor::metaData()
 {
     KIconLoader *iconLoader = KIconLoader::global();
     iconLoader->addAppDir( "ktechlab" );
-    KTechLab::ComponentMetaData data = {
+    ComponentMetaData data = {
         "ec/resistor",
         i18n("Resistor"),
         i18n("Passive"),

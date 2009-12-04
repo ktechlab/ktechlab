@@ -24,10 +24,12 @@
 #include <QTreeView>
 #include <QHeaderView>
 
+using namespace KTechLab;
+
 K_PLUGIN_FACTORY(KTLCircuitFactory, registerPlugin<KTLCircuitPlugin>(); )
 K_EXPORT_PLUGIN(KTLCircuitFactory(KAboutData("ktlcircuit","ktlcircuit", ki18n("KTechLab Circuits"), "0.1", ki18n("Managing, viewing, manipulating circuit files"), KAboutData::License_LGPL)))
 
-class KTLComponentViewFactory: public KDevelop::IToolViewFactory
+class KTechLab::KTLComponentViewFactory: public KDevelop::IToolViewFactory
 {
 public:
     KTLComponentViewFactory( KTLCircuitPlugin *plugin )
@@ -58,7 +60,7 @@ private:
     KTLCircuitPlugin * m_plugin;
 };
 
-class KTLCircuitDocumentFactory: public KDevelop::IDocumentFactory
+class KTechLab::KTLCircuitDocumentFactory: public KDevelop::IDocumentFactory
 {
 public:
     KTLCircuitDocumentFactory( KTLCircuitPlugin *plugin )
@@ -103,7 +105,7 @@ KTLCircuitPlugin::~KTLCircuitPlugin()
     delete m_componentModel;
 }
 
-Plasma::DataContainer * KTLCircuitPlugin::createDataContainer( KDevelop::IDocument *document, const QString &component )
+DataContainer * KTLCircuitPlugin::createDataContainer( KDevelop::IDocument *document, const QString &component )
 {
     CircuitContainer *container = new CircuitContainer( document );
     container->setComponent( component );
@@ -115,10 +117,11 @@ ComponentModel * KTLCircuitPlugin::componentModel()
     return m_componentModel;
 }
 
-void KTLCircuitPlugin::registerComponentFactory( KTechLab::IComponentFactory *factory )
+void KTLCircuitPlugin::registerComponentFactory( IComponentFactory *factory )
 {
-    QList<KTechLab::ComponentMetaData> metaData = factory->allMetaData();
-    foreach (KTechLab::ComponentMetaData data, metaData) {
+    QList<ComponentMetaData> metaData = factory->allMetaData();
+    kDebug(9500) << "registering" << metaData.size() << "components";
+    foreach (ComponentMetaData data, metaData) {
         m_componentModel->insertComponentData( data, factory );
     }
 }

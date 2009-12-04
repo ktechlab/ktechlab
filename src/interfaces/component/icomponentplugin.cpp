@@ -9,22 +9,27 @@
 
 #include "icomponentplugin.h"
 #include "icomponent.h"
+#include "../idocumentplugin.h"
 
+#include <shell/core.h>
+#include <interfaces/iplugincontroller.h>
+#include <interfaces/iplugin.h>
 #include <KComponentData>
+#include <KDebug>
 
 using namespace KTechLab;
 
 IComponentFactory::IComponentFactory()
-    :   m_componentDataList( QList<KTechLab::ComponentMetaData>() )
+    :   m_componentDataList( QList<ComponentMetaData>() )
 {
 }
 
-QList<KTechLab::ComponentMetaData> IComponentFactory::allMetaData()
+QList<ComponentMetaData> IComponentFactory::allMetaData()
 {
     return m_componentDataList;
 }
 
-void IComponentFactory::addSupportedComponent( const KTechLab::ComponentMetaData & data )
+void IComponentFactory::addSupportedComponent( const ComponentMetaData & data )
 {
     m_componentDataList.append( data );
 }
@@ -33,6 +38,20 @@ IComponentPlugin::IComponentPlugin( KComponentData data, QObject *parent )
     :   KDevelop::IPlugin( data, parent )
 {
 
+}
+
+
+IDocumentPlugin* IComponentPlugin::documentPlugin() const
+{
+    QStringList constraints;
+    constraints << QString("'%1' in [X-KDevelop-SupportedMimeTypes]").arg("application/x-circuit");
+    QList<KDevelop::IPlugin*> plugins = KDevelop::Core::self()->pluginController()->allPluginsForExtension( "org.kdevelop.idocument", constraints );
+    if (plugins.isEmpty()) {
+        kWarning() << "No plugin found to load KTechLab Documents";
+        return 0;
+    }
+    IDocumentPlugin *plugin = qobject_cast<IDocumentPlugin*>( plugins.first() );
+    return plugin;
 }
 
 // vim: sw=4 sts=4 et tw=100
