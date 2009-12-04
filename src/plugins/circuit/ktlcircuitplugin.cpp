@@ -120,7 +120,7 @@ ComponentModel * KTLCircuitPlugin::componentModel()
 void KTLCircuitPlugin::registerComponentFactory( IComponentFactory *factory )
 {
     QList<ComponentMetaData> metaData = factory->allMetaData();
-    kDebug(9500) << "registering" << metaData.size() << "components";
+    kDebug() << "registering" << metaData.size() << "components";
     foreach (ComponentMetaData data, metaData) {
         m_componentModel->insertComponentData( data, factory );
     }
