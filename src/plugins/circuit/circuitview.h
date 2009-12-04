@@ -27,9 +27,8 @@
 #ifndef CIRCUITVIEW_H
 #define CIRCUITVIEW_H
 
-#include <Plasma/Corona>
-
 #include <QGraphicsView>
+#include <QVariantList>
 
 class CircuitView : public QGraphicsView
 {
@@ -38,7 +37,7 @@ class CircuitView : public QGraphicsView
 public:
     explicit CircuitView( QWidget *parent = 0 );
 
-    void addApplet( Plasma::Applet *applet, const QString& containment,
+    void addApplet( QGraphicsView *applet, const QString& containment,
                     const QString& wallpaper, const QVariantList &args = QVariantList() );
 
     void addApplet( const QString &name, const QString& containment,
@@ -51,11 +50,7 @@ private slots:
     void appletRemoved();
 
 private:
-    Plasma::Corona m_corona;
-    Plasma::FormFactor m_formfactor;
-    Plasma::Location m_location;
-    Plasma::Containment *m_containment;
-    Plasma::Applet *m_applet;
+
 };
 
 #endif

@@ -6,6 +6,7 @@ include_directories(
 )
 
 set( ktlcircuit_PART_SRCS
+   theme.cpp
    ktlcircuitplugin.cpp
    circuitdocument.cpp
    circuitview.cpp
@@ -31,7 +32,6 @@ install(TARGETS ktlcircuit DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 install( FILES
    ktlcircuit.desktop
-   plasma-containment-ktlcircuit.desktop
 
    DESTINATION ${SERVICES_INSTALL_DIR} )
 #install( FILES ktlcircuit.rc DESTINATION ${DATA_INSTALL_DIR}/ktlcircuit )

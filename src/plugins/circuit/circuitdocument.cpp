@@ -22,6 +22,8 @@
 #include <QMap>
 #include <KIO/NetAccess>
 
+using namespace KTechLab;
+
 CircuitDocumentPrivate::CircuitDocumentPrivate( CircuitDocument *doc )
     :   m_document(doc)
 {

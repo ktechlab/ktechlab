@@ -10,22 +10,20 @@
 #ifndef CIRCUITAPPLET_H
 #define CIRCUITAPPLET_H
 
-#include <Plasma/Containment>
-#include <Plasma/DataEngine>
-#include <Plasma/FrameSvg>
-
-namespace Plasma
-{
-class Theme;
-} // namespace Plasma
+#include <QGraphicsView>
+#include <QVariantList>
 
 class QString;
 class QStringList;
 class QGraphicsSceneDragDropEvent;
 
-class ComponentApplet;
+namespace KTechLab
+{
 
-class CircuitApplet: public Plasma::Containment
+class ComponentApplet;
+class Theme;
+
+class CircuitApplet: public QGraphicsView
 {
     Q_OBJECT
 public:
@@ -41,7 +39,7 @@ public:
             const QRect& contentsRect);
 
 public slots:
-    void dataUpdated( const QString &name, const Plasma::DataEngine::Data &data );
+    void dataUpdated( const QString &name, const QVariantList &data );
 
 private:
     void setCircuitName( const QString &name );
@@ -54,9 +52,9 @@ private:
 
     QSizeF m_componentSize;
 
-    Plasma::Theme *m_theme;
-    Plasma::FrameSvg m_bg;
+    Theme *m_theme;
 };
 
+}
 #endif
 

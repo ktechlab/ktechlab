@@ -19,11 +19,12 @@
 #include <KGenericFactory>
 #include <KAboutData>
 
+using namespace KTechLab;
+
 K_PLUGIN_FACTORY(KTLSwitchesPluginFactory, registerPlugin<KTLSwitchesPlugin>(); )
 K_EXPORT_PLUGIN(KTLSwitchesPluginFactory(KAboutData("ktlswitches","ktlswitches", ki18n("KTechLab Switch Components"), "0.1", ki18n("Provide a set of standard switch components"), KAboutData::License_LGPL)))
 
-
-class KTLSwitchesFactory: public KTechLab::IComponentFactory
+class KTechLab::KTLSwitchesFactory: public KTechLab::IComponentFactory
 {
 public:
     KTLSwitchesFactory()
@@ -39,7 +40,7 @@ public:
 };
 
 KTLSwitchesPlugin::KTLSwitchesPlugin( QObject *parent, const QVariantList& args )
-    :   KTechLab::IComponentPlugin( KTLSwitchesPluginFactory::componentData(), parent ),
+    :   IComponentPlugin( KTLSwitchesPluginFactory::componentData(), parent ),
         m_componentFactory( new KTLSwitchesFactory() )
 {
 
@@ -48,19 +49,16 @@ KTLSwitchesPlugin::KTLSwitchesPlugin( QObject *parent, const QVariantList& args 
 
 void KTLSwitchesPlugin::init()
 {
-    QStringList constraints;
-    constraints << QString("'%1' in [X-KDevelop-SupportedMimeTypes]").arg("application/x-circuit");
-    QList<KDevelop::IPlugin*> plugins = KDevelop::Core::self()->pluginController()->allPluginsForExtension( "KTLDocument", constraints );
-    if (plugins.isEmpty()) {
-        return;
+    IDocumentPlugin *plugin = documentPlugin();
+    if (!plugin) {
+      return;
     }
-    KTechLab::IDocumentPlugin *plugin = qobject_cast<KTechLab::IDocumentPlugin*>( plugins.first() );
-
     plugin->registerComponentFactory( m_componentFactory );
 }
 
 KTLSwitchesPlugin::~KTLSwitchesPlugin()
 {
+    delete m_componentFactory;
 }
 
 void KTLSwitchesPlugin::unload()

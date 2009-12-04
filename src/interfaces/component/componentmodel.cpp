@@ -12,6 +12,7 @@
 
 #include <KDebug>
 
+using namespace KTechLab;
 //
 // BEGIN class ComponentItem
 //
@@ -54,12 +55,12 @@ ComponentItem * ComponentItem::child( const QString &key )
     return 0;
 }
 
-void ComponentItem::setMetaData( const KTechLab::ComponentMetaData & data )
+void ComponentItem::setMetaData( const ComponentMetaData & data )
 {
     m_metaData = data;
 }
 
-void ComponentItem::setFactory( KTechLab::IComponentFactory * factory )
+void ComponentItem::setFactory( IComponentFactory * factory )
 {
     m_factory = factory;
 }

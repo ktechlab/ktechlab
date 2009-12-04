@@ -10,38 +10,38 @@
 #ifndef COMPONENTAPPLET_H
 #define COMPONENTAPPLET_H
 
-#include <Plasma/Applet>
-#include <Plasma/Svg>
-#include <Plasma/DataEngine>
+#include <QGraphicsView>
+#include <QGraphicsSvgItem>
 
-namespace Plasma
+namespace KTechLab
 {
-class Theme;
-} // namespace Plasma
 
-class ComponentApplet: public Plasma::Applet
+class Theme;
+
+class ComponentApplet: public QGraphicsView
 {
     Q_OBJECT
 
 public:
-    ComponentApplet( QObject *parent, Plasma::Theme *theme = 0, const QVariantList &args = QVariantList() );
+    ComponentApplet( QObject *parent, Theme *theme = 0, const QVariantList &args = QVariantList() );
 
     void paintInterface(QPainter *painter,
             const QStyleOptionGraphicsItem *option,
             const QRect& contentsRect);
 
 public slots:
-    void dataUpdated( const QString &name, const Plasma::DataEngine::Data &data );
+    void dataUpdated( const QString &name, const QVariantMap &data );
 
 protected:
     QString imagePathForComponent( const QVariantMap &map ) const;
 
 private:
-    Plasma::Svg m_icon;
-    Plasma::Theme *m_theme;
+    QGraphicsSvgItem m_icon;
+    Theme *m_theme;
 
     QVariantMap m_itemData;
 };
 
+}
 #endif
 
