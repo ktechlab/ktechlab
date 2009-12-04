@@ -13,20 +13,24 @@
 
 #include "interfaces/component/icomponent.h"
 
+namespace KTechLab
+{
+
 /**
  * A standard resistor
  * \author Julian Bäume
  */
-class Resistor : public KTechLab::IComponent
+class Resistor : public IComponent
 {
 public:
     Resistor( );
     virtual ~Resistor();
 
-    static KTechLab::ComponentMetaData metaData();
+    static ComponentMetaData metaData();
 
     virtual void dataChanged();
 
 };
+}
 #endif //RESISTOR_H
 

@@ -14,27 +14,26 @@
 #include <Plasma/Containment>
 #include <KDebug>
 
-ComponentApplet::ComponentApplet( QObject *parent, Plasma::Theme *theme, const QVariantList &args )
-        :   Plasma::Applet( parent, args ),
-            m_theme( theme )
+using namespace KTechLab;
+
+ComponentApplet::ComponentApplet( QObject *parent, Theme *theme, const QVariantList &args )
+  : m_theme( theme )
 {
-    setAspectRatioMode(Plasma::IgnoreAspectRatio);
-    setBackgroundHints(DefaultBackground);
     setAcceptDrops( false );
 }
 
 void ComponentApplet::paintInterface( QPainter *p, const QStyleOptionGraphicsItem *option, const QRect &contentsRect )
 {
-    m_icon.paint(p, QPointF(0,0));
+//    m_icon.paint(p, QPointF(0,0));
 }
 
-void ComponentApplet::dataUpdated( const QString &name, const Plasma::DataEngine::Data &data )
+void ComponentApplet::dataUpdated( const QString &name, const QVariantMap &data )
 {
     kDebug() << "been here!";
     if ( data["mime"].toString().endsWith("component") ) {
         m_itemData = data[ "item" ].toMap();
 
-        m_icon.setImagePath( imagePathForComponent( m_itemData ) );
+//        m_icon.setImagePath( imagePathForComponent( m_itemData ) );
 
         //updated component, so repaint
         update();
@@ -43,7 +42,7 @@ void ComponentApplet::dataUpdated( const QString &name, const Plasma::DataEngine
 
 QString ComponentApplet::imagePathForComponent( const QVariantMap &map ) const
 {
-    if ( !containment() ) {
+/*    if ( !containment() ) {
         kWarning() << "Couldn't get the applets containment";
         return m_theme ? m_theme->imagePath( "ktechlab/components/unknown" ) : "";
     }
@@ -55,7 +54,7 @@ QString ComponentApplet::imagePathForComponent( const QVariantMap &map ) const
     }
     kDebug()<< "finding path for" << "ktechlab/components/"+componentTheme+"/"+map[ "type" ].toString().replace("/","_")
             << path;
-    return path;
+    return path;*/
 }
 
 #include "componentapplet.moc"

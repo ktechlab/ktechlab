@@ -9,7 +9,6 @@
 namespace KTechLab
 {
 class IComponentFactory;
-} // namespace KTechLab
 
 class KTLComponentViewFactory;
 class KTLCircuitDocumentFactory;
@@ -26,7 +25,7 @@ public:
     /**
      * implementation for KTechLab::DocumentPlugin
      */
-    virtual Plasma::DataContainer * createDataContainer( KDevelop::IDocument *document, const QString &component = QString() );
+    virtual DataContainer * createDataContainer( KDevelop::IDocument *document, const QString &component = QString() );
 
     /**
      * @return the component model representing all components
@@ -45,6 +44,8 @@ private:
 
     ComponentModel *m_componentModel;
 };
+
+} // namespace KTechLab
 
 #endif
 

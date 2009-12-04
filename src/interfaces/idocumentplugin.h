@@ -11,15 +11,11 @@
 #define DOCUMENTPLUGIN_H
 
 #include "ktlinterfacesexport.h"
+#include "datacontainer.h"
 
 #include <interfaces/iplugin.h>
 #include <QObject>
 #include <QString>
-
-namespace Plasma
-{
-class DataContainer;
-} // namespace Plasma
 
 namespace KDevelop
 {
@@ -39,14 +35,14 @@ public:
     virtual ~IDocumentPlugin() {};
 
     /**
-     * create a Plasma::DataContainer for a given document
+     * create a DataContainer for a given document
      */
-    virtual Plasma::DataContainer * createDataContainer( KDevelop::IDocument *document, const QString &component = QString() )=0;
+    virtual DataContainer * createDataContainer( KDevelop::IDocument *document, const QString &component = QString() )=0;
 
     /**
-     * create a Plasma::DataContainer for a given component
+     * create a DataContainer for a given component
      */
-    Plasma::DataContainer * createComponentContainer( const QString &component );
+    DataContainer * createComponentContainer( const QString &component );
 
     virtual void registerComponentFactory( KTechLab::IComponentFactory * factory )=0;
 };

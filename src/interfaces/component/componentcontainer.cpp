@@ -2,6 +2,8 @@
 
 #include <KUrl>
 
+using namespace KTechLab;
+
 ComponentContainer::ComponentContainer( const QString &component )
 {
     m_component = component;

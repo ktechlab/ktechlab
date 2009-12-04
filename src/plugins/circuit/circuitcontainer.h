@@ -10,16 +10,19 @@
 #ifndef CIRCUITCONTAINER_H
 #define CIRCUITCONTAINER_H
 
-#include <Plasma/DataContainer>
+#include <interfaces/datacontainer.h>
 
 namespace KDevelop
 {
 class IDocument;
 } // namespace KDevelop
 
+namespace KTechLab
+{
+
 class CircuitDocument;
 
-class CircuitContainer: public Plasma::DataContainer
+class CircuitContainer: public DataContainer
 {
     Q_OBJECT
 public:
@@ -34,5 +37,6 @@ private:
     CircuitDocument *m_document;
 };
 
+}
 #endif
 

@@ -18,7 +18,7 @@ IDocumentPlugin::IDocumentPlugin( KComponentData data, QObject *parent)
     :   KDevelop::IPlugin( data, parent )
 {}
 
-Plasma::DataContainer * IDocumentPlugin::createComponentContainer( const QString &component )
+DataContainer * IDocumentPlugin::createComponentContainer( const QString &component )
 {
     return new ComponentContainer( component );
 }

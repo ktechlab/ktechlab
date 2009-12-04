@@ -13,6 +13,9 @@
 #include <QVariantList>
 #include "interfaces/component/icomponentplugin.h"
 
+namespace KTechLab
+{
+
 class KTLSwitchesFactory;
 
 class KTLSwitchesPlugin : public KTechLab::IComponentPlugin
@@ -29,5 +32,6 @@ private:
     KTLSwitchesFactory * m_componentFactory;
 };
 
+}
 #endif
 

@@ -22,6 +22,9 @@ namespace KDevelop
 class Core;
 } // namespace KDevelop
 
+namespace KTechLab
+{
+
 class CircuitDocument;
 typedef QMap<QString,QVariant> Item;
 typedef QMap<QString,Item> ItemMap;
@@ -65,5 +68,6 @@ private:
     CircuitDocumentPrivate *d;
 };
 
+}
 #endif
 

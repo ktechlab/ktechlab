@@ -18,6 +18,7 @@
 namespace KTechLab
 {
 class IComponent;
+class IDocumentPlugin;
 
 class KTLINTERFACES_EXPORT IComponentFactory
 {
@@ -27,18 +28,21 @@ public:
 
     virtual IComponent * create( const QString &name )=0;
 
-    QList<KTechLab::ComponentMetaData> allMetaData();
+    QList<ComponentMetaData> allMetaData();
 protected:
-    void addSupportedComponent( const KTechLab::ComponentMetaData & data );
+    void addSupportedComponent( const ComponentMetaData & data );
 
 private:
-    QList<KTechLab::ComponentMetaData> m_componentDataList;
+    QList<ComponentMetaData> m_componentDataList;
 };
 
 class KTLINTERFACES_EXPORT IComponentPlugin: public KDevelop::IPlugin
 {
 public:
     IComponentPlugin( KComponentData data, QObject *parent = 0 );
+
+protected:
+    IDocumentPlugin *documentPlugin() const;
 };
 
 } // namespace KTechLab

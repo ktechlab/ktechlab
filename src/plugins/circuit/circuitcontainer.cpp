@@ -11,8 +11,10 @@
 
 #include "circuitdocument.h"
 
+using namespace KTechLab;
+
 CircuitContainer::CircuitContainer( KDevelop::IDocument *document, QObject *parent )
-    :   Plasma::DataContainer(parent),
+    :   DataContainer(parent),
         m_document(dynamic_cast<CircuitDocument*>( document )) //do we really need dynamic_cast here? we know that this is a CircuitDocument*
 {
     setObjectName( "N/A" );

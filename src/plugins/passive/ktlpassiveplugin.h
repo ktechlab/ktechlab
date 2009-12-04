@@ -13,9 +13,12 @@
 #include <QVariantList>
 #include "interfaces/component/icomponentplugin.h"
 
+namespace KTechLab
+{
+
 class KTLPassiveFactory;
 
-class KTLPassivePlugin : public KTechLab::IComponentPlugin
+class KTLPassivePlugin : public IComponentPlugin
 {
     Q_OBJECT
 public:
@@ -28,6 +31,8 @@ private:
 
     KTLPassiveFactory * m_componentFactory;
 };
+
+}
 
 #endif
 

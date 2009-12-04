@@ -17,6 +17,9 @@
 
 #include <QAbstractItemModel>
 
+namespace KTechLab
+{
+
 class IComponentFactory;
 
 class ComponentItem
@@ -32,19 +35,19 @@ public:
     ComponentItem * child( int row );
     ComponentItem * child( const QString &key );
 
-    void setMetaData( const KTechLab::ComponentMetaData & data );
-    void setFactory( KTechLab::IComponentFactory * factory );
+    void setMetaData( const ComponentMetaData & data );
+    void setFactory( IComponentFactory * factory );
 
     int row();
     int rowCount();
     QList<ComponentItem*> children();
 
-    KTechLab::ComponentMetaData metaData() const;
-    KTechLab::IComponentFactory * factory() const;
+    ComponentMetaData metaData() const;
+    IComponentFactory * factory() const;
 
 private:
-    KTechLab::IComponentFactory * m_factory;
-    KTechLab::ComponentMetaData m_metaData;
+    IComponentFactory * m_factory;
+    ComponentMetaData m_metaData;
 
     QMultiMap<QString,ComponentItem*> m_children;
     ComponentItem * m_parent;
@@ -83,5 +86,6 @@ private:
     ComponentItem *m_rootItem;
 };
 
+}
 #endif
 

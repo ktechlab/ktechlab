@@ -2,10 +2,15 @@
 #define COMPONENTCONTAINER_H
 
 #include "../ktlinterfacesexport.h"
-#include <Plasma/DataContainer>
+#include <QObject>
+#include <datacontainer.h>
 
-class KTLINTERFACES_EXPORT ComponentContainer : public Plasma::DataContainer
+namespace KTechLab
 {
+
+class KTLINTERFACES_EXPORT ComponentContainer : public DataContainer
+{
+  Q_OBJECT
 public:
     ComponentContainer( const QString &component = QString() );
 
@@ -13,4 +18,5 @@ private:
     QString m_component;
 };
 
+}
 #endif // COMPONENTCONTAINER_H
