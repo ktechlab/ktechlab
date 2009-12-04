@@ -96,6 +96,11 @@ void KTLCircuitPlugin::init()
 
 KTLCircuitPlugin::~KTLCircuitPlugin()
 {
+    // it crashes, when we delete this. I guess,
+    // it has been deleted before, somewhere else.
+    //delete m_componentViewFactory;
+    delete m_documentFactory;
+    delete m_componentModel;
 }
 
 Plasma::DataContainer * KTLCircuitPlugin::createDataContainer( KDevelop::IDocument *document, const QString &component )
@@ -120,9 +125,7 @@ void KTLCircuitPlugin::registerComponentFactory( KTechLab::IComponentFactory *fa
 
 void KTLCircuitPlugin::unload()
 {
-    delete m_componentViewFactory;
-    delete m_documentFactory;
-    delete m_componentModel;
+    KDevelop::Core::self()->uiController()->removeToolView(m_componentViewFactory);
 }
 
 #include "ktlcircuitplugin.moc"
