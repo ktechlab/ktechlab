@@ -6,11 +6,11 @@ include_directories(
 )
 
 set( ktlcircuit_PART_SRCS
+   circuitscene.cpp
    theme.cpp
    ktlcircuitplugin.cpp
    circuitdocument.cpp
    circuitview.cpp
-   circuitapplet.cpp
    circuitcontainer.cpp
    componentapplet.cpp
 )
