@@ -20,8 +20,6 @@ class Theme;
 
 class ComponentItem: public QGraphicsItem
 {
-    Q_OBJECT
-
 public:
     ComponentItem( QObject *parent, Theme *theme = 0, const QVariantList &args = QVariantList() );
 

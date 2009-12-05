@@ -12,7 +12,7 @@ set( ktlcircuit_PART_SRCS
    circuitdocument.cpp
    circuitview.cpp
    circuitcontainer.cpp
-   componentapplet.cpp
+   componentitem.cpp
 )
 
 kde4_add_plugin(ktlcircuit ${ktlcircuit_PART_SRCS})
