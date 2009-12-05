@@ -7,27 +7,25 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "componentapplet.h"
+#include "componentitem.h"
 
 #include <QVariantMap>
-#include <Plasma/Theme>
-#include <Plasma/Containment>
 #include <KDebug>
 
 using namespace KTechLab;
 
-ComponentApplet::ComponentApplet( QObject *parent, Theme *theme, const QVariantList &args )
+ComponentItem::ComponentItem( QObject *parent, Theme *theme, const QVariantList &args )
   : m_theme( theme )
 {
     setAcceptDrops( false );
 }
 
-void ComponentApplet::paintInterface( QPainter *p, const QStyleOptionGraphicsItem *option, const QRect &contentsRect )
+void ComponentItem::paintInterface( QPainter *p, const QStyleOptionGraphicsItem *option, const QRect &contentsRect )
 {
 //    m_icon.paint(p, QPointF(0,0));
 }
 
-void ComponentApplet::dataUpdated( const QString &name, const QVariantMap &data )
+void ComponentItem::dataUpdated( const QString &name, const QVariantMap &data )
 {
     kDebug() << "been here!";
     if ( data["mime"].toString().endsWith("component") ) {
@@ -40,7 +38,7 @@ void ComponentApplet::dataUpdated( const QString &name, const QVariantMap &data 
     }
 }
 
-QString ComponentApplet::imagePathForComponent( const QVariantMap &map ) const
+QString ComponentItem::imagePathForComponent( const QVariantMap &map ) const
 {
 /*    if ( !containment() ) {
         kWarning() << "Couldn't get the applets containment";

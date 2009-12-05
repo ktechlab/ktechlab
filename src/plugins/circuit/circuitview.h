@@ -31,7 +31,7 @@
 namespace KTechLab
 {
 
-class ComponentApplet;
+class ComponentItem;
 class Theme;
 
 /**

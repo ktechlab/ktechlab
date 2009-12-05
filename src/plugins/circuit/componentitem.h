@@ -18,12 +18,12 @@ namespace KTechLab
 
 class Theme;
 
-class ComponentApplet: public QGraphicsView
+class ComponentItem: public QGraphicsItem
 {
     Q_OBJECT
 
 public:
-    ComponentApplet( QObject *parent, Theme *theme = 0, const QVariantList &args = QVariantList() );
+    ComponentItem( QObject *parent, Theme *theme = 0, const QVariantList &args = QVariantList() );
 
     void paintInterface(QPainter *painter,
             const QStyleOptionGraphicsItem *option,

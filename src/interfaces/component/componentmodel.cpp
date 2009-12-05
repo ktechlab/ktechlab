@@ -83,12 +83,12 @@ QList<ComponentItem*> ComponentItem::children()
     return m_children.values();
 }
 
-KTechLab::ComponentMetaData ComponentItem::metaData() const
+ComponentMetaData ComponentItem::metaData() const
 {
     return m_metaData;
 }
 
-KTechLab::IComponentFactory * ComponentItem::factory() const
+IComponentFactory * ComponentItem::factory() const
 {
     return m_factory;
 }
@@ -197,7 +197,7 @@ QVariant ComponentModel::data( const QModelIndex & index, int role ) const
 
 QMimeData *ComponentModel::mimeData( const QModelIndexList & indexes ) const
 {
-    KTechLab::ComponentMimeData *componentData = 0;
+    ComponentMimeData *componentData = 0;
 
     //we only want to drag one item at a time
     QModelIndex index;
@@ -206,7 +206,7 @@ QMimeData *ComponentModel::mimeData( const QModelIndexList & indexes ) const
     }
     if (index.isValid()) {
         ComponentItem *item = static_cast<ComponentItem*>(index.internalPointer());
-        componentData = new KTechLab::ComponentMimeData( item->metaData().name, item->factory() );
+        componentData = new ComponentMimeData( item->metaData().name, item->factory() );
 
         //register our mimeType
         componentData->setData( "application/x-icomponent", item->metaData().name.toUtf8() );
@@ -219,7 +219,7 @@ QStringList ComponentModel::mimeTypes() const
     return QStringList()<<"application/x-icomponent";
 }
 
-void ComponentModel::insertComponentData( const KTechLab::ComponentMetaData & data, KTechLab::IComponentFactory * factory )
+void ComponentModel::insertComponentData( const ComponentMetaData & data, IComponentFactory * factory )
 {
     ComponentItem *item = new ComponentItem();
     item->setMetaData( data );
@@ -228,7 +228,7 @@ void ComponentModel::insertComponentData( const KTechLab::ComponentMetaData & da
     ComponentItem *parent = m_rootItem->child( data.category );
     if (!parent) {
         parent = new ComponentItem();
-        KTechLab::ComponentMetaData fakeData =
+        ComponentMetaData fakeData =
             {
                 "",
                 data.category,
