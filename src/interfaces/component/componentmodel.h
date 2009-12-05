@@ -79,7 +79,7 @@ public:
     /**
      * Add the ComponentMetaData and the corresponding factory to the model
      */
-    virtual void insertComponentData( const KTechLab::ComponentMetaData & data, KTechLab::IComponentFactory * factory );
+    virtual void insertComponentData( const ComponentMetaData & data, IComponentFactory * factory );
 
 private:
     ComponentItem *m_rootItem;
