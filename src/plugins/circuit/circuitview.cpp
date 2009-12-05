@@ -53,21 +53,5 @@ void CircuitView::init()
     setAcceptDrops( true );
 }
 
-void CircuitView::resizeEvent(QResizeEvent *event)
-{
-
-}
-
-void CircuitView::closeEvent(QCloseEvent *event)
-{
-    Q_UNUSED(event)
-}
-
-void CircuitView::sceneRectChanged(const QRectF &rect)
-{
-    Q_UNUSED(rect)
-
-}
-
 #include "circuitview.moc"
 

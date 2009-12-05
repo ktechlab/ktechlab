@@ -51,15 +51,6 @@ public:
     ~CircuitView();
 
     void init();
-
-    void paintInterface(QPainter *painter,
-            const QStyleOptionGraphicsItem *option,
-            const QRect& contentsRect);
-
-private slots:
-    void sceneRectChanged( const QRectF &rect );
-    void resizeEvent( QResizeEvent *event );
-    void closeEvent( QCloseEvent *event );
 };
 
 }
