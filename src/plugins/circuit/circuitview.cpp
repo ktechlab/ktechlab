@@ -25,42 +25,32 @@
 
 #include "circuitview.h"
 
-#include "circuitdocument.h"
-
-#include <QApplication>
-#include <QIcon>
-#include <QResizeEvent>
-
-#include <KIconLoader>
-#include <KStandardDirs>
-#include "circuitapplet.h"
-
 using namespace KTechLab;
 
 CircuitView::CircuitView( QWidget *parent )
     : QGraphicsView(parent)
 {
+    init();
+}
+
+
+CircuitView::CircuitView ( QGraphicsScene* scene, QWidget* parent )
+    : QGraphicsView ( scene, parent )
+{
+    init();
+}
+
+CircuitView::~CircuitView()
+{
+}
+
+void CircuitView::init()
+{
     setFrameStyle(QFrame::NoFrame);
-
-    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     setAlignment(Qt::AlignLeft | Qt::AlignTop);
-}
-
-void CircuitView::addApplet(const QString &name, const QString &containment,
-                         const QString& wallpaper, const QVariantList &args)
-{
-
-}
-
-void CircuitView::addApplet( QGraphicsView *applet, const QString &containment,
-                         const QString& wallpaper, const QVariantList &args)
-{
-
-}
-
-void CircuitView::appletRemoved()
-{
+    setAcceptDrops( true );
 }
 
 void CircuitView::resizeEvent(QResizeEvent *event)

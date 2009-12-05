@@ -26,6 +26,7 @@ namespace KTechLab
 {
 
 class CircuitDocument;
+class CircuitScene;
 typedef QMap<QString,QVariant> Item;
 typedef QMap<QString,Item> ItemMap;
 
@@ -33,10 +34,12 @@ class CircuitDocumentPrivate
 {
 public:
     CircuitDocumentPrivate( CircuitDocument *doc );
+    ~CircuitDocumentPrivate();
 
     void reloadFromXml();
 
     ItemMap items;
+    CircuitScene *circuit;
 
 private:
     CircuitDocument *m_document;
