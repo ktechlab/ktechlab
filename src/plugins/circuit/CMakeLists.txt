@@ -18,7 +18,6 @@ set( ktlcircuit_PART_SRCS
 kde4_add_plugin(ktlcircuit ${ktlcircuit_PART_SRCS})
 target_link_libraries(ktlcircuit
    ${KDE4_KDECORE_LIBS}
-   ${KDE4_PLASMA_LIBS}
    ktlinterfaces
    ${KDEVPLATFORM_SHELL_LIBRARIES}
    ${KDEVPLATFORM_INTERFACES_LIBRARIES}

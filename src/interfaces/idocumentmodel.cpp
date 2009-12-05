@@ -18,27 +18,25 @@
 
 */
 
-#ifndef DATACONTAINER_H
-#define DATACONTAINER_H
-#include "ktlinterfacesexport.h"
-#include <QObject>
+#include "idocumentmodel.h"
+#include "component/icomponent.h"
 
-namespace KTechLab
+using namespace KTechLab;
+
+IDocumentModel::IDocumentModel ( QObject* parent )
+    : QAbstractTableModel ( parent )
 {
-
-class DataContainerPrivate;
-
-class KTLINTERFACES_EXPORT DataContainer : public QObject
-{
-  Q_OBJECT
-public:
-    DataContainer ( QObject* parent = 0 );
-
-    void setData( const QString &name, const QVariant &data );
-
-private:
-    DataContainerPrivate *d;
-};
 
 }
-#endif // DATACONTAINER_H
+
+IDocumentModel::~IDocumentModel()
+{
+
+}
+
+void IDocumentModel::addComponent ( const IComponent& component )
+{
+
+}
+
+#include "idocumentmodel.moc"

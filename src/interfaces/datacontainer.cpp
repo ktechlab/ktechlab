@@ -19,12 +19,31 @@
 */
 
 #include "datacontainer.h"
+#include <QVariant>
+#include <QMap>
 
 using namespace KTechLab;
 
-DataContainer::DataContainer ( QObject* parent ) : Plasma::DataContainer ( parent )
+class KTechLab::DataContainerPrivate
+{
+public:
+    DataContainerPrivate()
+    {
+    };
+
+    QMap<QString,QVariant> data;
+};
+
+DataContainer::DataContainer ( QObject* parent )
+    : QObject ( parent ),
+    d( new DataContainerPrivate() )
 {
 
+}
+
+void DataContainer::setData ( const QString& name, const QVariant& data )
+{
+    d->data.insert( name, data );
 }
 
 #include "datacontainer.moc"
