@@ -18,7 +18,7 @@ CircuitContainer::CircuitContainer( KDevelop::IDocument *document, QObject *pare
         m_document(dynamic_cast<CircuitDocument*>( document )) //do we really need dynamic_cast here? we know that this is a CircuitDocument*
 {
     setObjectName( "N/A" );
-    setData( I18N_NOOP("available"), false );
+    setData( "available", false );
 }
 
 void CircuitContainer::setComponent( const QString &component )
@@ -38,11 +38,11 @@ void CircuitContainer::setComponentData( const QString &component )
     setObjectName( m_document->url().prettyUrl() + "/" + component );
 
     if ( !m_document->items().contains( component ) ) {
-        setData( I18N_NOOP("available"), false );
+        setData( "available", false );
         return;
     }
-    setData( I18N_NOOP("available"), true );
-    setData( I18N_NOOP("mime"), "component" );
+    setData( "available", true );
+    setData( "mime", "component" );
     setData( "item", QVariant(m_document->items()[component]) );
 }
 
@@ -50,8 +50,8 @@ void CircuitContainer::setCircuitData()
 {
     setObjectName( m_document->url().prettyUrl() );
 
-    setData( I18N_NOOP("available"), true );
-    setData( I18N_NOOP("mime"), m_document->mimeType()->name() );
+    setData( "available", true );
+    setData( "mime", m_document->mimeType()->name() );
     setData( "itemList", QVariant(m_document->items().keys()) );
 }
 
