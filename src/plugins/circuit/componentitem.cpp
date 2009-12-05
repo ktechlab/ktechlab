@@ -55,6 +55,4 @@ QString ComponentItem::imagePathForComponent( const QVariantMap &map ) const
     return path;*/
 }
 
-#include "componentapplet.moc"
-
 // vim: sw=4 sts=4 et tw=100
