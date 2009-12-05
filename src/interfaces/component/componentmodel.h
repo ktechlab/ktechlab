@@ -13,7 +13,6 @@
 #include "icomponent.h"
 #include "icomponentplugin.h"
 #include "../ktlinterfacesexport.h"
-#include "../ktlinterfacesexport.h"
 
 #include <QAbstractItemModel>
 

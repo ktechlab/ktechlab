@@ -21,13 +21,13 @@
 #ifndef CIRCUITSCENE_H
 #define CIRCUITSCENE_H
 
-#include "componentapplet.h"
+
 #include <QGraphicsScene>
 #include <QVariantList>
 
 namespace KTechLab
 {
-
+class ComponentItem;
 class Theme;
 
 class CircuitScene : public QGraphicsScene
@@ -40,6 +40,8 @@ class CircuitScene : public QGraphicsScene
 
   protected:
     virtual void dropEvent ( QGraphicsSceneDragDropEvent* event );
+//    virtual void dragEnterEvent ( QGraphicsSceneDragDropEvent* event );
+//    virtual void dragLeaveEvent ( QGraphicsSceneDragDropEvent* event );
 
   private:
     QSizeF m_componentSize;
@@ -49,7 +51,7 @@ class CircuitScene : public QGraphicsScene
     void setupData();
     QString m_circuitName;
     QString m_componentTheme;
-    QMap<QString,ComponentApplet*> m_components;
+    QMap<QString,ComponentItem*> m_components;
 
     Theme *m_theme;
 };
