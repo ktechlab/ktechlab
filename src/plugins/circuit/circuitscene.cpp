@@ -68,6 +68,23 @@ void CircuitScene::dropEvent ( QGraphicsSceneDragDropEvent* event )
     kDebug() << "Dropping item @"<< event->scenePos() << "type:" << mimeData->data("application/x-icomponent");
 }
 
+
+void CircuitScene::dragEnterEvent ( QGraphicsSceneDragDropEvent* event )
+{
+    if (!event->mimeData()->hasFormat("application/x-icomponent")) {
+        return;
+    }
+    const ComponentMimeData *mimeData = qobject_cast<const ComponentMimeData*>(event->mimeData());
+
+    kDebug() << "dragging type:" << mimeData->data("application/x-icomponent");
+}
+
+void CircuitScene::dragLeaveEvent ( QGraphicsSceneDragDropEvent* event )
+{
+    QGraphicsScene::dragLeaveEvent ( event );
+}
+
+
 void CircuitScene::setupData()
 {
     //Plasma::DataEngine *docEngine = dataEngine( "ktechlabdocument" );
