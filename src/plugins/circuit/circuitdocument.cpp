@@ -112,4 +112,4 @@ QWidget* CircuitDocument::createViewWidget( QWidget* parent )
     return view;
 }
 
-#include "circuitdocument.moc"
+//#include "circuitdocument.moc"
