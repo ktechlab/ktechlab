@@ -1,5 +1,4 @@
 /*
- * Copyright 2007 Aaron Seigo <aseigo@kde.org
  * Copyright 2009 Julian Bäume <julian@svg4all.de>
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,30 +27,41 @@
 #define CIRCUITVIEW_H
 
 #include <QGraphicsView>
-#include <QVariantList>
 
+namespace KTechLab
+{
+
+class ComponentApplet;
+class Theme;
+
+/**
+ * A @class QGraphicsView widget, displaying a @class KTechLab::CircuitScene
+ * representing a @class KTechLab::CircuitDocument. This class does nothing special,
+ * yet, but defining some standard values and initial behaviour of the View.
+ *
+ * @author Julian Bäume
+ */
 class CircuitView : public QGraphicsView
 {
     Q_OBJECT
 
 public:
-    explicit CircuitView( QWidget *parent = 0 );
+    CircuitView( QWidget *parent = 0 );
+    CircuitView ( QGraphicsScene* scene, QWidget* parent = 0 );
+    ~CircuitView();
 
-    void addApplet( QGraphicsView *applet, const QString& containment,
-                    const QString& wallpaper, const QVariantList &args = QVariantList() );
+    void init();
 
-    void addApplet( const QString &name, const QString& containment,
-                    const QString& wallpaper, const QVariantList &args = QVariantList() );
+    void paintInterface(QPainter *painter,
+            const QStyleOptionGraphicsItem *option,
+            const QRect& contentsRect);
 
 private slots:
     void sceneRectChanged( const QRectF &rect );
     void resizeEvent( QResizeEvent *event );
     void closeEvent( QCloseEvent *event );
-    void appletRemoved();
-
-private:
-
 };
 
+}
 #endif
 

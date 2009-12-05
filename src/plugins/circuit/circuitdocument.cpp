@@ -10,7 +10,7 @@
 #include "circuitdocument.h"
 
 #include "circuitview.h"
-#include "circuitapplet.h"
+#include "circuitscene.h"
 
 #include <shell/core.h>
 #include <KDebug>
@@ -27,8 +27,15 @@ using namespace KTechLab;
 CircuitDocumentPrivate::CircuitDocumentPrivate( CircuitDocument *doc )
     :   m_document(doc)
 {
-
+    QVariantMap args;
+    args.insert( "circuitName", doc->url().prettyUrl() );
+    circuit = new CircuitScene( doc, QVariantList() << args );
     reloadFromXml();
+}
+
+CircuitDocumentPrivate::~CircuitDocumentPrivate()
+{
+    delete circuit;
 }
 
 void CircuitDocumentPrivate::reloadFromXml()
@@ -86,6 +93,7 @@ CircuitDocument::CircuitDocument( const KUrl &url, KDevelop::Core* core )
 
 CircuitDocument::~CircuitDocument()
 {
+    delete d;
 }
 
 void CircuitDocument::init()
@@ -99,10 +107,7 @@ QString CircuitDocument::documentType() const
 
 QWidget* CircuitDocument::createViewWidget( QWidget* parent )
 {
-    CircuitView *view = new CircuitView( parent );
-    QVariantMap args;
-    args.insert( "circuitName", this->url().prettyUrl() );
-    view->addApplet( "plasma_containment_ktlcircuit", "default", "none", QVariantList() << args );
+    CircuitView *view = new CircuitView( d->circuit, parent);
 
     return view;
 }
