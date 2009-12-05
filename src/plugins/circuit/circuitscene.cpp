@@ -52,12 +52,13 @@ CircuitScene::~CircuitScene()
 
 QString CircuitScene::circuitName() const
 {
-
+    return m_circuitName;
 }
 
 void CircuitScene::dropEvent ( QGraphicsSceneDragDropEvent* event )
 {
     if (!event->mimeData()->hasFormat("application/x-icomponent")) {
+        kDebug() << "Dropped unknown data";
         return;
     }
     const ComponentMimeData *mimeData = qobject_cast<const ComponentMimeData*>(event->mimeData());
