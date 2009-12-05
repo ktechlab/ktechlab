@@ -78,7 +78,7 @@ bool DocumentEngine::updateSourceEvent( const QString &source )
     constraints << QString("'%1' in [X-KDevelop-SupportedMimeTypes]").arg(
             document->mimeType()->name() );
     QList<KDevelop::IPlugin*> plugins =
-            m_core->pluginController()->allPluginsForExtension( "KTLDocument", constraints );
+            m_core->pluginController()->allPluginsForExtension( "org.kdevelop.idocument", constraints );
     if ( plugins.isEmpty() ) {
         return false;
     }
