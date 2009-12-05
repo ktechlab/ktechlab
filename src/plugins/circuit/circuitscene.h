@@ -35,13 +35,14 @@ class CircuitScene : public QGraphicsScene
   public:
     CircuitScene ( QObject* parent = 0, const QVariantList &args = QVariantList() );
     ~CircuitScene();
+
   public slots:
     void dataUpdated( const QString &name, const QVariantList &data );
 
   protected:
     virtual void dropEvent ( QGraphicsSceneDragDropEvent* event );
-//    virtual void dragEnterEvent ( QGraphicsSceneDragDropEvent* event );
-//    virtual void dragLeaveEvent ( QGraphicsSceneDragDropEvent* event );
+    virtual void dragEnterEvent ( QGraphicsSceneDragDropEvent* event );
+    virtual void dragLeaveEvent ( QGraphicsSceneDragDropEvent* event );
 
   private:
     QSizeF m_componentSize;
