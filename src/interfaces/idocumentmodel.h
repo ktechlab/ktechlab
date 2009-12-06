@@ -36,8 +36,10 @@ public:
     IDocumentModel ( QObject* parent = 0 );
     ~IDocumentModel();
 
-public slots:
-    void addComponent( const IComponent &component );
+    virtual QVariantMap components() const;
+    virtual QVariant component( const QString &id ) const;
+    virtual void addComponent( const QVariantMap &component );
+
 signals:
     void dataUpdated( const QString &name, const QVariantList &data );
 };

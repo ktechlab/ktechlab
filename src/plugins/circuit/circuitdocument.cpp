@@ -11,6 +11,7 @@
 
 #include "circuitview.h"
 #include "circuitscene.h"
+#include "circuitmodel.h"
 
 #include <shell/core.h>
 #include <KDebug>
@@ -25,17 +26,17 @@
 using namespace KTechLab;
 
 CircuitDocumentPrivate::CircuitDocumentPrivate( CircuitDocument *doc )
-    :   m_document(doc)
+    :   circuitModel( new CircuitModel() ),
+        m_document(doc)
 {
-    QVariantMap args;
-    args.insert( "circuitName", doc->url().prettyUrl() );
-    circuit = new CircuitScene( doc, QVariantList() << args );
     reloadFromXml();
+    circuitScene = new CircuitScene( doc, circuitModel );
 }
 
 CircuitDocumentPrivate::~CircuitDocumentPrivate()
 {
-    delete circuit;
+    delete circuitScene;
+    delete circuitModel;
 }
 
 void CircuitDocumentPrivate::reloadFromXml()
@@ -72,11 +73,11 @@ void CircuitDocumentPrivate::reloadFromXml()
             const QString tagName = element.tagName();
             if ( tagName == "item" ) {
                 QDomNamedNodeMap attribs = element.attributes();
-                Item item;
+                QVariantMap item;
                 for ( int i=0; i<attribs.count(); ++i ) {
                     item[ attribs.item(i).nodeName() ] = attribs.item(i).nodeValue();
                 }
-                items[ element.attribute("id") ] = item;
+                circuitModel->addComponent( item );
             }
         }
         node = node.nextSibling();
@@ -100,6 +101,11 @@ void CircuitDocument::init()
 {
 }
 
+QMap< QString, QVariant > CircuitDocument::items() const
+{
+    return d->circuitModel->components();
+}
+
 QString CircuitDocument::documentType() const
 {
     return "Circuit";
@@ -107,7 +113,7 @@ QString CircuitDocument::documentType() const
 
 QWidget* CircuitDocument::createViewWidget( QWidget* parent )
 {
-    CircuitView *view = new CircuitView( d->circuit, parent);
+    CircuitView *view = new CircuitView( d->circuitScene, parent);
 
     return view;
 }

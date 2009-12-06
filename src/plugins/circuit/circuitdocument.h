@@ -27,8 +27,7 @@ namespace KTechLab
 
 class CircuitDocument;
 class CircuitScene;
-typedef QMap<QString,QVariant> Item;
-typedef QMap<QString,Item> ItemMap;
+class CircuitModel;
 
 class CircuitDocumentPrivate
 {
@@ -38,11 +37,12 @@ public:
 
     void reloadFromXml();
 
-    ItemMap items;
-    CircuitScene *circuit;
+    CircuitScene *circuitScene;
+    CircuitModel *circuitModel;
 
 private:
     CircuitDocument *m_document;
+
 };
 
 /**
@@ -61,7 +61,7 @@ public:
 
     virtual QString documentType() const;
 
-    ItemMap items() const { return d->items; };
+    QVariantMap items() const;
 
 protected:
     virtual QWidget *createViewWidget( QWidget* parent = 0 );

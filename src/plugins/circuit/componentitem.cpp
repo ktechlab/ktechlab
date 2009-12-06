@@ -8,34 +8,35 @@
  ***************************************************************************/
 
 #include "componentitem.h"
+#include "theme.h"
 
 #include <QVariantMap>
+#include <QSvgRenderer>
 #include <KDebug>
 
 using namespace KTechLab;
 
-ComponentItem::ComponentItem( QObject *parent, Theme *theme, const QVariantList &args )
-  : m_theme( theme )
+ComponentItem::ComponentItem ( const QVariantMap& data, Theme *theme, QGraphicsItem* parentItem )
+    : QGraphicsSvgItem ( parentItem ),
+      m_renderer( new QSvgRenderer() ),
+      m_theme( theme )
 {
-    setAcceptDrops( false );
+    m_renderer->load( m_theme->findFile( data.value("type").toString() ) );
+    QPointF pos(data.value("x").toReal(),data.value("y").toReal());
+    setPos(mapFromScene(pos));
+    setSharedRenderer(m_renderer);
 }
 
-void ComponentItem::paintInterface( QPainter *p, const QStyleOptionGraphicsItem *option, const QRect &contentsRect )
+ComponentItem::~ComponentItem()
 {
-//    m_icon.paint(p, QPointF(0,0));
+    delete m_renderer;
 }
 
 void ComponentItem::dataUpdated( const QString &name, const QVariantMap &data )
 {
     kDebug() << "been here!";
-    if ( data["mime"].toString().endsWith("component") ) {
-        m_itemData = data[ "item" ].toMap();
-
-//        m_icon.setImagePath( imagePathForComponent( m_itemData ) );
-
-        //updated component, so repaint
-        update();
-    }
+    //updated component, so repaint
+    update();
 }
 
 QString ComponentItem::imagePathForComponent( const QVariantMap &map ) const
