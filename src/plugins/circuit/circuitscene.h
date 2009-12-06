@@ -21,7 +21,6 @@
 #ifndef CIRCUITSCENE_H
 #define CIRCUITSCENE_H
 
-
 #include <QGraphicsScene>
 #include <QVariantList>
 
@@ -29,11 +28,12 @@ namespace KTechLab
 {
 class ComponentItem;
 class Theme;
+class CircuitModel;
 
 class CircuitScene : public QGraphicsScene
 {
   public:
-    CircuitScene ( QObject* parent = 0, const QVariantList &args = QVariantList() );
+    CircuitScene ( QObject* parent = 0, CircuitModel *model = 0 );
     ~CircuitScene();
 
   public slots:
@@ -53,7 +53,7 @@ class CircuitScene : public QGraphicsScene
     QString m_circuitName;
     QString m_componentTheme;
     QMap<QString,ComponentItem*> m_components;
-
+    CircuitModel *m_model;
     Theme *m_theme;
 };
 

@@ -18,14 +18,11 @@ namespace KTechLab
 
 class Theme;
 
-class ComponentItem: public QGraphicsItem
+class ComponentItem: public QGraphicsSvgItem
 {
 public:
-    ComponentItem( QObject *parent, Theme *theme = 0, const QVariantList &args = QVariantList() );
-
-    void paintInterface(QPainter *painter,
-            const QStyleOptionGraphicsItem *option,
-            const QRect& contentsRect);
+    ComponentItem ( const QVariantMap& data, Theme *theme, QGraphicsItem* parentItem = 0 );
+    ~ComponentItem();
 
 public slots:
     void dataUpdated( const QString &name, const QVariantMap &data );
@@ -34,10 +31,8 @@ protected:
     QString imagePathForComponent( const QVariantMap &map ) const;
 
 private:
-    QGraphicsSvgItem m_icon;
+    QSvgRenderer *m_renderer;
     Theme *m_theme;
-
-    QVariantMap m_itemData;
 };
 
 }

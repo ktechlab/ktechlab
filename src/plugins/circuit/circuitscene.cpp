@@ -21,27 +21,25 @@
 #include "circuitscene.h"
 #include "theme.h"
 #include "interfaces/component/componentmimedata.h"
+#include "componentitem.h"
 
 #include <QGraphicsSceneDragDropEvent>
 #include <KDebug>
+#include "circuitmodel.h"
 
 using namespace KTechLab;
 
 
-CircuitScene::CircuitScene ( QObject* parent, const QVariantList& args )
+CircuitScene::CircuitScene ( QObject* parent, CircuitModel *model )
  : QGraphicsScene ( parent ),
+   m_model( model ),
    m_theme( new Theme() )
 {
-    foreach ( QVariant arg, args ) {
-        if ( arg.canConvert(QVariant::Map) && arg.toMap().contains( "circuitName" ) ) {
-            setCircuitName( arg.toMap().value( "circuitName" ).toString() );
-        }
-    }
-    m_theme->setThemeName( "default" );
 //    KConfigGroup cg = config( "circuit" );
 //    m_componentTheme = cg.readEntry( "componentTheme", "din" );
 
 //    m_componentSize = QSizeF( cg.readEntry("componentWidth", "64").toInt(), cg.readEntry("componentHeight", "64").toInt() );
+    setupData();
 }
 
 
@@ -88,13 +86,15 @@ void CircuitScene::dragLeaveEvent ( QGraphicsSceneDragDropEvent* event )
 
 void CircuitScene::setupData()
 {
-    //Plasma::DataEngine *docEngine = dataEngine( "ktechlabdocument" );
-//    if ( !docEngine ) {
-        kWarning() << "No document engine found" << endl;
+    if (!m_model)
         return;
-//    }
 
-    //docEngine->connectSource( m_circuitName, this );
+    foreach (QVariant component, m_model->components())
+    {
+        if (component.canConvert(QVariant::Map)) {
+            addItem( new ComponentItem( component.toMap(), m_theme ) );
+        }
+    }
 }
 
 void CircuitScene::dataUpdated( const QString &name, const QVariantList &data )
@@ -119,7 +119,7 @@ void CircuitScene::dataUpdated( const QString &name, const QVariantList &data )
     //kDebug() << "Difference between components and applets" << (m_components.size() - applets().size());
 }
 
-void KTechLab::CircuitScene::setCircuitName ( const QString& name )
+void CircuitScene::setCircuitName ( const QString& name )
 {
     //if name didn't change, do nothing
     if ( m_circuitName == name ) {

@@ -34,7 +34,17 @@ IDocumentModel::~IDocumentModel()
 
 }
 
-void IDocumentModel::addComponent ( const IComponent& component )
+QVariant IDocumentModel::component ( const QString& id ) const
+{
+    return QVariant();
+}
+
+QVariantMap IDocumentModel::components() const
+{
+    return QVariantMap();
+}
+
+void IDocumentModel::addComponent ( const QVariantMap &component )
 {
 
 }
