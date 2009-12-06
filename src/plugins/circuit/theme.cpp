@@ -21,11 +21,53 @@
 #include "theme.h"
 
 #include <QString>
+#include <QStringList>
+#include <KDebug>
+#include <KStandardDirs>
 
 using namespace KTechLab;
 
+Theme::Theme ( QObject* parent ) : QObject ( parent )
+{
+    m_dataDirs = KGlobal::dirs()->findDirs("data","ktechlab/themes/");
+    kDebug() << "Found theme directories:" << m_dataDirs;
+    m_name = defaultTheme();
+}
+
+QString Theme::defaultTheme()
+{
+    return "din";
+}
+
+QString Theme::findFile ( const QString& item )
+{
+    QString file;
+    QStringList fileList;
+    const QString filterBase("ktechlab/themes/%1/components/%2.svgz");
+    // find at default location
+    QString filter = QString(filterBase)
+            .arg(m_name)
+            .arg(QString(item).replace("/","_")
+        );
+    //find unkown for theme
+    fileList << KGlobal::dirs()->findAllResources( "data", filter );
+    filter = QString("ktechlab/themes/%1/components/%2.svgz")
+                .arg(m_name)
+                .arg("unknown");
+    fileList << KGlobal::dirs()->findAllResources( "data", filter );
+    //find global unknown
+    filter = QString("ktechlab/themes/components/%1.svgz").arg("unknown");
+    fileList << KGlobal::dirs()->findAllResources( "data", filter );
+    if (!fileList.isEmpty()) {
+        file = fileList.first();
+    }
+    kDebug() << "Found file for" << item << ":" << file;
+    return file;
+}
 
 void KTechLab::Theme::setThemeName ( const QString& name )
 {
-
+    m_name = name;
 }
+
+#include "theme.moc"

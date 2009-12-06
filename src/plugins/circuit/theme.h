@@ -20,16 +20,27 @@
 
 #ifndef THEME_H
 #define THEME_H
+#include <QObject>
+
+#include <QStringList>
 
 class QString;
 
 namespace KTechLab
 {
 
-class Theme
+class Theme : public QObject
 {
+    Q_OBJECT
 public:
+    Theme ( QObject* parent = 0 );
+
+    QString findFile( const QString &item );
     void setThemeName ( const QString &name );
+    QString defaultTheme();
+private:
+    QString m_name;
+    QStringList m_dataDirs;
 };
 
 }
