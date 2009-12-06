@@ -1,6 +1,5 @@
 /*
-    <one line to give the program's name and a brief idea of what it does.>
-    Copyright (C) <year>  <name of author>
+    Copyright (C) 2009  Julian Bäume
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -36,8 +35,15 @@ Theme::Theme ( QObject* parent ) : QObject ( parent )
 
 QString Theme::defaultTheme()
 {
-    //TODO: read default from config file
-    //and/or use KLocale to make a better guess
+    /* TODO: read default from config file
+    and/or use KLocale to make a better guess
+    since this is a string, translators should be
+    able to just translate this
+
+    when still on plasma, I used something like:
+        KConfigGroup cg = config( "circuit" );
+        m_componentTheme = cg.readEntry( "componentTheme", "din" );
+    */
     return "din";
 }
 

@@ -35,9 +35,6 @@ CircuitScene::CircuitScene ( QObject* parent, CircuitModel *model )
    m_model( model ),
    m_theme( new Theme() )
 {
-//    KConfigGroup cg = config( "circuit" );
-//    m_componentTheme = cg.readEntry( "componentTheme", "din" );
-
 //    m_componentSize = QSizeF( cg.readEntry("componentWidth", "64").toInt(), cg.readEntry("componentHeight", "64").toInt() );
     setupData();
 }
