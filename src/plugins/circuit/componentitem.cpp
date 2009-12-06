@@ -39,21 +39,4 @@ void ComponentItem::dataUpdated( const QString &name, const QVariantMap &data )
     update();
 }
 
-QString ComponentItem::imagePathForComponent( const QVariantMap &map ) const
-{
-/*    if ( !containment() ) {
-        kWarning() << "Couldn't get the applets containment";
-        return m_theme ? m_theme->imagePath( "ktechlab/components/unknown" ) : "";
-    }
-    QString componentTheme = containment()->config( "circuit" ).readEntry( "componentTheme", "din" );
-    QString path = m_theme ? m_theme->imagePath( "ktechlab/components/"+componentTheme+"/"+map[ "type" ].toString().replace("/","_") ) : "";
-    if ( path.isEmpty() ) {
-        //default to unknown component
-        path = m_theme ? m_theme->imagePath( "ktechlab/components/unknown" ) : "";
-    }
-    kDebug()<< "finding path for" << "ktechlab/components/"+componentTheme+"/"+map[ "type" ].toString().replace("/","_")
-            << path;
-    return path;*/
-}
-
 // vim: sw=4 sts=4 et tw=100
