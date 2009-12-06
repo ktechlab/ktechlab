@@ -49,14 +49,13 @@ QString Theme::findFile ( const QString& item )
     // find at default location
     QString filter = QString(filterBase)
             .arg(m_name)
-            .arg(QString(item).replace("/","_")
-        );
+            .arg(QString(item).replace("/","_"));
     fileList << KGlobal::dirs()->findAllResources( "data", filter );
 
     //find in default theme at default location
     filter = QString(filterBase)
             .arg(defaultTheme())
-            .arg(QString(item).replace("/","_");
+            .arg(QString(item).replace("/","_"));
     fileList << KGlobal::dirs()->findAllResources( "data", filter );
 
     //find unkown for theme
