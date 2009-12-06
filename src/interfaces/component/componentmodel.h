@@ -20,37 +20,7 @@ namespace KTechLab
 {
 
 class IComponentFactory;
-
-class ComponentItem
-{
-public:
-    ComponentItem();
-    ~ComponentItem();
-
-    void addChild( ComponentItem * child );
-    void setParent( ComponentItem * parent );
-    ComponentItem * parent();
-
-    ComponentItem * child( int row );
-    ComponentItem * child( const QString &key );
-
-    void setMetaData( const ComponentMetaData & data );
-    void setFactory( IComponentFactory * factory );
-
-    int row();
-    int rowCount();
-    QList<ComponentItem*> children();
-
-    ComponentMetaData metaData() const;
-    IComponentFactory * factory() const;
-
-private:
-    IComponentFactory * m_factory;
-    ComponentMetaData m_metaData;
-
-    QMultiMap<QString,ComponentItem*> m_children;
-    ComponentItem * m_parent;
-};
+class ComponentItem;
 
 /**
  * This class implements QAbstractItemModel to provide a tree of compoments sorted into groups like
