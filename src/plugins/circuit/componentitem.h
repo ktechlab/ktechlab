@@ -27,9 +27,6 @@ public:
 public slots:
     void dataUpdated( const QString &name, const QVariantMap &data );
 
-protected:
-    QString imagePathForComponent( const QVariantMap &map ) const;
-
 private:
     QSvgRenderer *m_renderer;
     Theme *m_theme;
