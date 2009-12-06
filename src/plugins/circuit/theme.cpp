@@ -36,6 +36,8 @@ Theme::Theme ( QObject* parent ) : QObject ( parent )
 
 QString Theme::defaultTheme()
 {
+    //TODO: read default from config file
+    //and/or use KLocale to make a better guess
     return "din";
 }
 
@@ -49,15 +51,24 @@ QString Theme::findFile ( const QString& item )
             .arg(m_name)
             .arg(QString(item).replace("/","_")
         );
-    //find unkown for theme
     fileList << KGlobal::dirs()->findAllResources( "data", filter );
+
+    //find in default theme at default location
+    filter = QString(filterBase)
+            .arg(defaultTheme())
+            .arg(QString(item).replace("/","_");
+    fileList << KGlobal::dirs()->findAllResources( "data", filter );
+
+    //find unkown for theme
     filter = QString("ktechlab/themes/%1/components/%2.svgz")
                 .arg(m_name)
                 .arg("unknown");
     fileList << KGlobal::dirs()->findAllResources( "data", filter );
+
     //find global unknown
     filter = QString("ktechlab/themes/components/%1.svgz").arg("unknown");
     fileList << KGlobal::dirs()->findAllResources( "data", filter );
+
     if (!fileList.isEmpty()) {
         file = fileList.first();
     }
