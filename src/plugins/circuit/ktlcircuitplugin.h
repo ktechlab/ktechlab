@@ -23,7 +23,7 @@ public:
     virtual void unload();
 
     /**
-     * implementation for KTechLab::DocumentPlugin
+     * implementation for \class KTechLab::IDocumentPlugin
      */
     virtual DataContainer * createDataContainer( KDevelop::IDocument *document, const QString &component = QString() );
 
