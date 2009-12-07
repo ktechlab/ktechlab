@@ -39,6 +39,24 @@ QVariantMap CircuitModel::components() const
     return m_components;
 }
 
+QVariantMap CircuitModel::component ( const QString& id )
+{
+    return m_components.value(id).toMap();
+}
+
+void CircuitModel::addConnector ( const QVariantMap& connector )
+{
+    if ( connector.contains( "id" ) )
+        m_connectors.insert( connector.value("id").toString(), connector );
+}
+
+
+QVariantMap CircuitModel::connectors() const
+{
+    return m_connectors;
+}
+
+
 QVariant CircuitModel::data ( const QModelIndex& index, int role ) const
 {
     return QVariant();

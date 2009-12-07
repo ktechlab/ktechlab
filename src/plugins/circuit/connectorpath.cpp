@@ -18,20 +18,32 @@
 
 */
 
-#include "idocumentmodel.h"
-#include "component/icomponent.h"
+#include "connectorpath.h"
+
+#include <KDebug>
+#include <QStringList>
 
 using namespace KTechLab;
 
-IDocumentModel::IDocumentModel ( QObject* parent )
-    : QAbstractTableModel ( parent )
+
+KTechLab::ConnectorPath::ConnectorPath ( const QVariantMap& path )
+    : QPainterPath ( )
 {
+    QStringList route = path.value( "route" ).toString().split(',');
+    //remove last entry, if it is empty
+    if (route.last().isEmpty())
+        route.removeLast();
 
+    QStringListIterator it(route);
+    QPointF p;
+    p.setX(it.next().toDouble()*8);
+    p.setY(it.next().toDouble()*8);
+    moveTo( p );
+    while (it.hasNext())
+    {
+        p.setX(it.next().toDouble());
+        p.setY(it.next().toDouble());
+        p*=8;
+        lineTo( p );
+    }
 }
-
-IDocumentModel::~IDocumentModel()
-{
-
-}
-
-#include "idocumentmodel.moc"

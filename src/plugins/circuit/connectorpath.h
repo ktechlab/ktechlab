@@ -18,20 +18,20 @@
 
 */
 
-#include "idocumentmodel.h"
-#include "component/icomponent.h"
+#ifndef CONNECTORPATH_H
+#define CONNECTORPATH_H
 
-using namespace KTechLab;
+#include <QPainterPath>
+#include <QVariantMap>
 
-IDocumentModel::IDocumentModel ( QObject* parent )
-    : QAbstractTableModel ( parent )
+namespace KTechLab
 {
 
-}
-
-IDocumentModel::~IDocumentModel()
+class ConnectorPath : public QPainterPath
 {
+public:
+    ConnectorPath( const QVariantMap &path );
+};
 
 }
-
-#include "idocumentmodel.moc"
+#endif // CONNECTORPATH_H

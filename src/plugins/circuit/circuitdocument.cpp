@@ -71,13 +71,15 @@ void CircuitDocumentPrivate::reloadFromXml()
         QDomElement element = node.toElement();
         if ( !element.isNull() ) {
             const QString tagName = element.tagName();
+            QDomNamedNodeMap attribs = element.attributes();
+            QVariantMap item;
+            for ( int i=0; i<attribs.count(); ++i ) {
+                item[ attribs.item(i).nodeName() ] = attribs.item(i).nodeValue();
+            }
             if ( tagName == "item" ) {
-                QDomNamedNodeMap attribs = element.attributes();
-                QVariantMap item;
-                for ( int i=0; i<attribs.count(); ++i ) {
-                    item[ attribs.item(i).nodeName() ] = attribs.item(i).nodeValue();
-                }
                 circuitModel->addComponent( item );
+            } else if ( tagName == "connector" ) {
+                circuitModel->addConnector( item );
             }
         }
         node = node.nextSibling();
