@@ -33,6 +33,9 @@ public:
 
     virtual void addComponent ( const QVariantMap& component );
     virtual QVariantMap components() const;
+    virtual QVariantMap component( const QString &id );
+    virtual void addConnector ( const QVariantMap& connector );
+    virtual QVariantMap connectors() const;
     virtual QVariant data ( const QModelIndex& index, int role = Qt::DisplayRole ) const;
     virtual int columnCount ( const QModelIndex& parent = QModelIndex() ) const;
     virtual int rowCount ( const QModelIndex& parent = QModelIndex() ) const;
@@ -40,6 +43,7 @@ public:
 
 private:
     QVariantMap m_components;
+    QVariantMap m_connectors;
 };
 
 }
