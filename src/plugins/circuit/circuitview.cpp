@@ -49,7 +49,6 @@ void CircuitView::init()
     setFrameStyle(QFrame::NoFrame);
     setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-    setAlignment(Qt::AlignLeft | Qt::AlignTop);
     setAcceptDrops( true );
 }
 
