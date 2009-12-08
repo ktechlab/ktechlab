@@ -31,6 +31,11 @@ public:
     {
     };
 
+    void insert( const QString &name, const QVariant &varData )
+    {
+        data.insert( name, varData );
+    };
+
     QMap<QString,QVariant> data;
 };
 
@@ -43,7 +48,7 @@ DataContainer::DataContainer ( QObject* parent )
 
 void DataContainer::setData ( const QString& name, const QVariant& data )
 {
-    d->data.insert( name, data );
+    d->insert( name, data );
 }
 
 #include "datacontainer.moc"
