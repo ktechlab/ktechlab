@@ -21,6 +21,8 @@ ComponentItem::ComponentItem ( const QVariantMap& data, Theme *theme, QGraphicsI
       m_renderer( new QSvgRenderer() ),
       m_theme( theme )
 {
+    // may be the renderer should provided by the Theme. Then different renderers for
+    // the same component can be shared
     m_renderer->load( m_theme->findFirstFile( data.value("fileName").toString() ) );
     QPointF pos(data.value("x").toReal(),data.value("y").toReal());
     setPos(mapFromScene(pos) );
