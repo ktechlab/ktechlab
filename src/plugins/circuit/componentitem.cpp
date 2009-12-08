@@ -21,14 +21,19 @@ ComponentItem::ComponentItem ( const QVariantMap& data, Theme *theme, QGraphicsI
       m_renderer( new QSvgRenderer() ),
       m_theme( theme )
 {
+    setAcceptHoverEvents(true);
     // may be the renderer should provided by the Theme. Then different renderers for
     // the same component can be shared
     m_renderer->load( m_theme->findFirstFile( data.value("fileName").toString() ) );
-    QPointF pos(data.value("x").toReal(),data.value("y").toReal());
-    setPos(mapFromScene(pos) );
-    //move center of svg object to (0,0) (from item's perspective
-    moveBy( -m_renderer->viewBoxF().width()/2, -m_renderer->viewBoxF().height()/2 );
     setSharedRenderer(m_renderer);
+    // move to position in the scene.
+    QPoint pos(data.value("x").toInt(),data.value("y").toInt());
+    // coordinates from circuit file represent the center
+    // of the component, so we have to move it -QPoint(32,32)
+    // to compensate the SVG viewBox and -QPoint(4,4) to compensate
+    // the raster of the kde3 version
+    pos -= QPoint(36,36);
+    setPos( pos );
 }
 
 ComponentItem::~ComponentItem()
