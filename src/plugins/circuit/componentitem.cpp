@@ -21,7 +21,7 @@ ComponentItem::ComponentItem ( const QVariantMap& data, Theme *theme, QGraphicsI
       m_renderer( new QSvgRenderer() ),
       m_theme( theme )
 {
-    m_renderer->load( m_theme->findFile( data.value("type").toString() ) );
+    m_renderer->load( m_theme->findFirstFile( data.value("fileName").toString() ) );
     QPointF pos(data.value("x").toReal(),data.value("y").toReal());
     setPos(mapFromScene(pos) );
     //move center of svg object to (0,0) (from item's perspective

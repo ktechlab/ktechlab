@@ -20,11 +20,14 @@
 
 #include "circuitscene.h"
 #include "theme.h"
+#include "ktlcircuitplugin.h"
 #include "interfaces/component/componentmimedata.h"
 #include "componentitem.h"
 
 #include <QGraphicsSceneDragDropEvent>
 #include <KDebug>
+#include <interfaces/iplugincontroller.h>
+#include <shell/core.h>
 #include "circuitmodel.h"
 #include "connectorpath.h"
 
