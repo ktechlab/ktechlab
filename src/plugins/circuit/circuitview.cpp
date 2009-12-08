@@ -49,6 +49,7 @@ void CircuitView::init()
     setFrameStyle(QFrame::NoFrame);
     setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    setRenderHints(QPainter::Antialiasing);
     setAcceptDrops( true );
 }
 
