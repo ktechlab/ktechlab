@@ -25,6 +25,7 @@
 
 namespace KTechLab
 {
+class KTLCircuitPlugin;
 
 class CircuitModel : public IDocumentModel
 {
@@ -44,6 +45,7 @@ public:
 private:
     QVariantMap m_components;
     QVariantMap m_connectors;
+    KTLCircuitPlugin *m_circuitPlugin;
 };
 
 }

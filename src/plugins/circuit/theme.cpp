@@ -47,37 +47,40 @@ QString Theme::defaultTheme()
     return "din";
 }
 
-QString Theme::findFile ( const QString& item )
+QString Theme::findFirstFile ( const QString& fileName )
 {
+    if (fileName.isEmpty())
+        return findFirstFile("unknown.svgz");
+
     QString file;
     QStringList fileList;
-    const QString filterBase("ktechlab/themes/%1/components/%2.svgz");
+    const QString filterBase("ktechlab/themes/%1/components/%2");
     // find at default location
     QString filter = QString(filterBase)
             .arg(m_name)
-            .arg(QString(item).replace("/","_"));
+            .arg(QString(fileName));
     fileList << KGlobal::dirs()->findAllResources( "data", filter );
 
     //find in default theme at default location
     filter = QString(filterBase)
             .arg(defaultTheme())
-            .arg(QString(item).replace("/","_"));
+            .arg(QString(fileName));
     fileList << KGlobal::dirs()->findAllResources( "data", filter );
 
     //find unkown for theme
-    filter = QString("ktechlab/themes/%1/components/%2.svgz")
+    filter = QString("ktechlab/themes/%1/components/%2")
                 .arg(m_name)
-                .arg("unknown");
+                .arg("unknown.svgz");
     fileList << KGlobal::dirs()->findAllResources( "data", filter );
 
     //find global unknown
-    filter = QString("ktechlab/themes/components/%1.svgz").arg("unknown");
+    filter = QString("ktechlab/themes/components/%1").arg("unknown.svgz");
     fileList << KGlobal::dirs()->findAllResources( "data", filter );
 
     if (!fileList.isEmpty()) {
         file = fileList.first();
     }
-    kDebug() << "Found file for" << item << ":" << file;
+    kDebug() << "Found file for" << fileName << ":" << file;
     return file;
 }
 

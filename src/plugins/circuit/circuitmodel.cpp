@@ -19,19 +19,36 @@
 */
 
 #include "circuitmodel.h"
+#include "ktlcircuitplugin.h"
+
+#include <interfaces/iplugincontroller.h>
+#include <shell/core.h>
+#include <KDebug>
 
 using namespace KTechLab;
 
 CircuitModel::CircuitModel ( QObject* parent )
     : IDocumentModel ( parent )
 {
-
+    QStringList constraints;
+    constraints << QString("'%1' in [X-KDevelop-SupportedMimeTypes]").arg("application/x-circuit");
+    QList<KDevelop::IPlugin*> plugins = KDevelop::Core::self()->pluginController()->allPluginsForExtension( "org.kdevelop.idocument", constraints );
+    if (plugins.isEmpty()) {
+        kError() << "No plugin found to load KTechLab Documents";
+    } else {
+        m_circuitPlugin = qobject_cast<KTLCircuitPlugin*>( plugins.first() );
+    }
 }
 
 void CircuitModel::addComponent ( const QVariantMap& component )
 {
-    if ( component.contains( "id" ) )
-        m_components.insert( component.value("id").toString(), component );
+    if ( component.contains( "id" ) ) {
+        QVariantMap map(component);
+        map.insert( "fileName",
+                    m_circuitPlugin->fileNameForComponent( map.value("type").toString() )
+                );
+        m_components.insert( component.value("id").toString(), map );
+    }
 }
 
 QVariantMap CircuitModel::components() const

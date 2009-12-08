@@ -29,6 +29,7 @@ namespace KTechLab
 class ComponentItem;
 class Theme;
 class CircuitModel;
+class KTLCircuitPlugin;
 
 class CircuitScene : public QGraphicsScene
 {

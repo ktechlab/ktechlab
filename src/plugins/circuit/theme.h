@@ -56,15 +56,16 @@ public:
      * the graphical representation of the \param item for this
      * theme.
      * \p It will search the following locations in this order:
-     * \li ktechlab/themes/NAME/ITEM.svgz
-     * \li ktechlab/themes/DEFAULT_THEME/ITEM.svgz
+     * \li ktechlab/themes/NAME/components/fileName
+     * \li ktechlab/themes/DEFAULT_THEME/components/fileName
      * \li ktechlab/themes/NAME/unknown.svgz
      * \li ktechlab/themes/unknown.svgz
      *
-     * \param item - the type of the searched item
-     * \return the filename containing the graphic
+     * and return the first match.
+     * \param fileName - the type of the searched item
+     * \return the path to the first file containing the graphic
      */
-    QString findFile( const QString &item );
+    QString findFirstFile( const QString &fileName );
     /**
      * \short Set a name for the theme
      * \param name - new name for the theme
