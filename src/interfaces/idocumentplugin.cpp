@@ -23,4 +23,11 @@ DataContainer * IDocumentPlugin::createComponentContainer( const QString &compon
     return new ComponentContainer( component );
 }
 
+
+QString IDocumentPlugin::fileNameForComponent ( const QString& component )
+{
+    return QString(component).replace('/','_').append(".svgz");
+}
+
+#include "idocumentplugin.moc"
 // vim: sw=4 sts=4 et tw=100
