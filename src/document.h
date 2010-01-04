@@ -223,14 +223,9 @@ protected:
 	virtual void handleNewView( View *view );
 
 	bool b_modified;
-	View* m_pActiveView;
 	DocumentType m_type;
 	ViewList m_viewList;
-	QString m_caption;
-	bool m_bAddToProjectOnSave;
 	DocumentIface * m_pDocumentIface;
-	unsigned m_dcopID;
-	unsigned m_nextViewID;
 
 	// Set to true by the document et subclasses destructors, used to avoid
 	// doing stuff that might lead to crash when being deleted.
@@ -238,6 +233,11 @@ protected:
 
 private:
 	KUrl m_url;
+	QPointer<View> m_pActiveView;
+	QString		  m_caption;
+	bool		  m_bAddToProjectOnSave;
+	unsigned 	  m_dcopID;
+	unsigned 	  m_nextViewID;
 };
 
 #endif
