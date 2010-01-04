@@ -61,8 +61,8 @@ public:
 	 * Creates a connector from node1 to node2. If pointList is non-null, then the
 	 * connector will be assigned those points
 	 */
-	virtual Connector *createConnector(Node *node1, Node *node2, QPointList *pointList = 0)
-		{ return ICNDocument::createConnector(node1,node2, pointList); }
+//	virtual Connector *createConnector(Node *node1, Node *node2, QPointList *pointList = 0)
+//		{ return ICNDocument::createConnector(node1,node2, pointList); }
 	
 	/**
 	 * Returns a pointer to a node on the canvas with the given id,
