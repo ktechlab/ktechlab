@@ -14,7 +14,7 @@
 
 #include <connector.h>
 
-class FPNode;
+#include "fpnode.h"
 
 /**
 	@author David Saxton, Alan Grimes, Zoltan Padrah <zoltan.padrah@gmail.com>
@@ -32,14 +32,12 @@ public:
 	/**
 	 * Node at start of connector (which refers to this as the output connector)
 	 */
-	virtual Node *startNode() const { return (Node *)startFpNode(); }
-	FPNode *startFpNode() const { return m_startFpNode; }
+	virtual Node *startNode() const { return m_startFpNode; }
 
 	/**
 	 * Node at end of connector (which refers to this as the input connector)
 	 */
-	virtual Node *endNode() const { return (Node *)endFpNode(); }
-	FPNode *endFpNode() const { return m_endFpNode; }
+	virtual Node *endNode() const { return m_endFpNode; }
 	
 private:
 	/// the endnodes of the connector
