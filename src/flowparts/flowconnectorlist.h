@@ -15,8 +15,6 @@
 class Connector;
 class FlowConnector;
 
-// #include "flowconnector.h"
-
 // these typedef's shoud go in a separate header one day
 typedef QValueList< QGuardedPtr<Connector> > ConnectorList;
 
