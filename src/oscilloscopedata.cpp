@@ -78,6 +78,13 @@ uint64_t LogicProbeData::findPos( uint64_t time) const
 			bottom = pos;
 			pos += (top - bottom) >> 1;
 		}
+		// try to avoid infinite loop when top-bottom==1
+		if(top - bottom == 1){
+			if(datatime >= time)
+				bottom = top;
+			else
+				top = bottom;
+		}
 
 	} while (top != bottom && pos != bottom);
 

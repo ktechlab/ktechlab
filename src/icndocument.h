@@ -281,6 +281,8 @@ protected:
 	
 	Cells *m_cells;
 	GuardedNodeGroupList m_nodeGroupList;
+
+	// this should be overridden in {Flow|Circuit}ICNDocument
 	ConnectorList m_connectorList;
 	CNItemGroup *m_selectList; // Selected objects
 	
