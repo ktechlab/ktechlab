@@ -115,7 +115,7 @@ uint64_t FloatingProbeData::findPos( uint64_t time) const
 
 uint64_t FloatingProbeData::toTime(uint64_t at) const
 {
-	return uint64_t(m_resetTime + (at*LOGIC_UPDATE_RATE/LINEAR_UPDATE_RATE));
+	return uint64_t(m_resetTime + (at * LOGIC_UPDATE_RATE * LINEAR_UPDATE_PERIOD));
 }
 
 void FloatingProbeData::setScaling( Scaling scaling)

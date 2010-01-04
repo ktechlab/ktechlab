@@ -155,23 +155,23 @@ class CircuitDocumentIface : public ICNDocumentIface
 {
 	K_DCOP
 
-	public:
-		CircuitDocumentIface( CircuitDocument * document );
-		
-	k_dcop:
-		void setOrientation0();
-		void setOrientation90();
-		void setOrientation180();
-		void setOrientation270();
-		void rotateCounterClockwise();
-		void rotateClockwise();
-		void flipHorizontally();
-		void flipVertically();
-		void displayEquations();
-		void createSubcircuit();
-		
-	protected:
-		CircuitDocument * m_pCircuitDocument;
+public:
+	CircuitDocumentIface( CircuitDocument * document );
+
+k_dcop:
+	void setOrientation0();
+	void setOrientation90();
+	void setOrientation180();
+	void setOrientation270();
+	void rotateCounterClockwise();
+	void rotateClockwise();
+	void flipHorizontally();
+	void flipVertically();
+	void displayEquations();
+	void createSubcircuit();
+
+protected:
+	CircuitDocument * m_pCircuitDocument;
 };
 
 class FlowCodeDocumentIface : public ICNDocumentIface

@@ -24,7 +24,7 @@ class ECNode;
 class ElectronicConnector : public Connector
 {
 	Q_OBJECT
-			
+
 public:
     ElectronicConnector(ECNode* startNode, ECNode* endNode, ICNDocument* _ICNDocument, QString* id = 0);
 
@@ -48,7 +48,7 @@ public slots:
 	 * connector for each pin up to that minimum.
 	 */
 	void syncWiresWithNodes();
-	
+
 private:
 	/// pointers to the endnodes of the connectors
 	QGuardedPtr<ECNode> m_startEcNode;
@@ -57,3 +57,4 @@ private:
 };
 
 #endif
+
