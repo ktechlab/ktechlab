@@ -69,7 +69,6 @@ class ECNode : public Node
 		void setShowVoltageColor( bool show ) { m_bShowVoltageColor = show; }
 		void setNodeChanged();
 		
-		// -- the moved interface from node.h; some methods are changed --
 		/**
 		 * Returns true if this node is connected (or is the same as) the node given
 		 * by other connectors or nodes (although not through CNItems)
@@ -93,14 +92,23 @@ class ECNode : public Node
 		 * and returns a pointer to the connector.
 		 */
 		Connector* createConnector( Node * node);
+		
+		// TODO oups, the following two methods do the same thing. Only one is needed.
 		/**
 		 * Returns a list of the attached connectors; implemented inline 
 	 	*/
 		ConnectorList connectorList() const { return m_connectorList; }
+		
+		/**
+		 * @return the list of all the connectors attached to the node
+		 */
+		virtual ConnectorList getAllConnectors() const { return m_connectorList; }
+		
 		/**
 		 * Removes all the NULL connectors
 	 	 */
 		virtual void removeNullConnectors();
+		
 		/**
 		 * Returns the total number of connections to the node. This is the number
 		 * of connectors and the parent
@@ -114,11 +122,6 @@ class ECNode : public Node
 		 */
 		virtual void removeConnector( Connector *connector );
 
-		/**
-		 * @return the list of all the connectors attached to the node
-		 */
-		virtual ConnectorList getAllConnectors() const { return m_connectorList; }
-	
 		/**
 		 * For an electric node: returns the first connector
 		 * If the node isn't connected to anyithing, returns null ( 0 )
