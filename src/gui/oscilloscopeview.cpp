@@ -388,7 +388,7 @@ void OscilloscopeView::drawFloatingData(QPainter &p)
 		while ( at < maxAt) {
 			at++;
 
-			uint64_t nextTime = prevTime + uint64_t(LOGIC_UPDATE_RATE/LINEAR_UPDATE_RATE);
+			uint64_t nextTime = prevTime + uint64_t(LOGIC_UPDATE_RATE * LINEAR_UPDATE_PERIOD);
 
 			double v = (*data)[(at>0)?at:0];
 			int nextY = v_to_y;

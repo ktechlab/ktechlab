@@ -102,9 +102,8 @@ void Component::removeElements( bool setPinsInterIndependent )
     const SwitchList::iterator swEnd = m_switchList.end();
     for ( SwitchList::iterator it = m_switchList.begin(); it != swEnd; ++it )
     {
-        Switch * sw = *it;
-        if ( !sw )
-            continue;
+        Switch *sw = *it;
+        if ( !sw ) continue;
 
         emit switchDestroyed( sw );
         delete sw;
@@ -140,18 +139,15 @@ void Component::removeElement( Element * element, bool setPinsInterIndependent )
         rebuildPinInterDepedence();
 }
 
-
-void Component::removeSwitch( Switch * sw )
+void Component::removeSwitch( Switch *sw )
 {
-    if ( !sw )
-        return;
+    if ( !sw ) return;
 
     emit switchDestroyed( sw );
     delete sw;
     m_switchList.remove(sw);
     m_pCircuitDocument->requestAssignCircuits();
 }
-
 
 void Component::setNodalCurrents()
 {
@@ -504,9 +500,6 @@ void Component::initDIPSymbol( const QStringList & pins, int _width )
     updateAttachedPositioning();
 }
 
-
-// 	QString createNode( double _x, double _y, int shape, int orientation, const QString &name, int type, bool isInput = true );
-
 void Component::init1PinLeft( int h1 )
 {
     if ( h1 == -1 ) h1 = offsetY()+height()/2;
@@ -727,7 +720,7 @@ BJT* Component::createBJT( Pin *cN, Pin *bN, Pin *eN, bool isNPN )
 
 Capacitance* Component::createCapacitance( Pin *n0, Pin *n1, double capacitance )
 {
-    Capacitance *e = new Capacitance( capacitance, 1./LINEAR_UPDATE_RATE );
+    Capacitance *e = new Capacitance( capacitance, LINEAR_UPDATE_PERIOD );
 
     QValueList<Pin*> pins;
     pins << n0 << n1;
@@ -772,7 +765,7 @@ CCVS* Component::createCCVS( Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain )
 
 CurrentSignal* Component::createCurrentSignal( Pin *n0, Pin *n1, double current )
 {
-    CurrentSignal *e = new CurrentSignal( 1./LINEAR_UPDATE_RATE, current );
+    CurrentSignal *e = new CurrentSignal( LINEAR_UPDATE_PERIOD, current );
 
     QValueList<Pin*> pins;
     pins << n0 << n1;
@@ -820,7 +813,7 @@ JFET * Component::createJFET( Pin * D, Pin * G, Pin * S, int JFET_type )
 
 Inductance* Component::createInductance( Pin *n0, Pin *n1, double inductance )
 {
-    Inductance *e = new Inductance( inductance, 1./LINEAR_UPDATE_RATE );
+    Inductance *e = new Inductance( inductance, LINEAR_UPDATE_PERIOD );
 
     QValueList<Pin*> pins;
     pins << n0 << n1;
@@ -951,7 +944,7 @@ VoltagePoint* Component::createVoltagePoint( Pin *n0, double voltage )
 
 VoltageSignal* Component::createVoltageSignal( Pin *n0, Pin *n1, double voltage )
 {
-    VoltageSignal *e = new VoltageSignal( 1./LINEAR_UPDATE_RATE, voltage );
+    VoltageSignal *e = new VoltageSignal(LINEAR_UPDATE_PERIOD, voltage );
 
     QValueList<Pin*> pins;
     pins << n0 << n1;
@@ -1104,7 +1097,7 @@ void Component::initElements( const uint stage )
 }
 
 
-ECNode * Component::createPin( double x, double y, int orientation, const QString & name )
+ECNode *Component::createPin( double x, double y, int orientation, const QString & name )
 {
     return dynamic_cast<ECNode*>( createNode( x, y, orientation, name, Node::ec_pin ) );
 }
