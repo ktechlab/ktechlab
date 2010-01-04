@@ -44,18 +44,20 @@ public:
 	 * to the intersection of the two new connectors. If pointList is non-null, then the new connector
 	 * from the node will be assigned those points
 	 */
-	virtual Connector * createConnector( Node *node, Connector *con, const QPoint &pos2, QPointList *pointList = 0L );	
+	virtual Connector *createConnector( Node *node, Connector *con, const QPoint &pos2, QPointList *pointList = 0);
 	/**
 	 * Splits con1 and con2 into two new connectors each at points pos1 and pos2, and creates a new connector
 	 * between the two points of intersection given by pos1 and pos2. If pointList is non-null, then the new
 	 * connector between the two points will be assigned those points
 	 */
-	virtual Connector * createConnector( Connector *con1, Connector *con2, const QPoint &pos1, const QPoint &pos2, QPointList *pointList = 0L );	
+	virtual Connector *createConnector( Connector *con1, Connector *con2, const QPoint &pos1, const QPoint &pos2, QPointList *pointList = 0L );
 	/**
 	 * Creates a connector between two nodes, and returns a pointer to it
 	 * and adds the operation to the undo list
 	 */
-	virtual Connector* createConnector( const QString &startNodeId, const QString &endNodeId, QPointList *pointList = 0L );		
+	virtual Connector *createConnector( const QString &startNodeId, const QString &endNodeId, QPointList *pointList = 0);
+
+
 	/**
 	 * Returns a pointer to a node on the canvas with the given id,
 	 * or NULL if no such node exists
@@ -73,7 +75,6 @@ public:
 	 * the appendDeleteList( QCanvasItem *qcanvasItem ) function.
 	 */
 	virtual void flushDeleteList();
-	
 
 	/**
 	 * registers (adds to the document) an item (a connector or a node)
@@ -81,10 +82,7 @@ public:
 	 * @return true if succeeded, false if it didn't
 	 */
 	virtual bool registerItem( QCanvasItem *qcanvasItem );
-	
-	
 	virtual void unregisterUID( const QString & uid );
-	
 	virtual NodeList nodeList() const;
 protected:
 	
