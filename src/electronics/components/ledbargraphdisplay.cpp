@@ -47,17 +47,15 @@ void LEDPart::setDiodeSettings( const DiodeSettings& ds )
 
 void LEDPart::setColor( const QColor &color )
 {
-	r = color.red();
-	g = color.green();
-	b = color.blue();
-	r /= 0x100;	g /= 0x100;	b /= 0x100;
+	r = color.red()   / 0x100;
+	g = color.green() / 0x100;
+	b = color.blue()  / 0x100;
 }
 
 void LEDPart::step()
 {
-	double interval = 1./LINEAR_UPDATE_RATE;
-	avg_brightness += LED::brightness( m_pDiode->current() ) * interval;
-	lastUpdatePeriod += interval;
+	avg_brightness += LED::brightness( m_pDiode->current() ) * LINEAR_UPDATE_PERIOD;
+	lastUpdatePeriod += LINEAR_UPDATE_PERIOD;
 }
 
 void LEDPart::draw( QPainter &p, int x, int y, int w, int h )

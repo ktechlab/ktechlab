@@ -72,7 +72,7 @@ class ElementMap
 typedef QValueList<ElementMap> ElementMapList;
 
 /**
-@short Bass class for all electrical components
+@short Base class for all electrical components
 @author David Saxton
 */
 class Component : public CNItem
@@ -119,7 +119,7 @@ class Component : public CNItem
 		/**
 		 * @return pointer to the CircuitDocument that we're in.
 		 */
-		CircuitDocument * circuitDocument() const { return m_pCircuitDocument; }
+		CircuitDocument *circuitDocument() const { return m_pCircuitDocument; }
 		void initElements( const uint stage );
 		virtual void finishedCreation();
 		/**
@@ -146,56 +146,56 @@ class Component : public CNItem
 		 */
 		virtual void restoreFromItemData( const ItemData &itemData );
 	
-		BJT *			createBJT( Pin *c, Pin *b, Pin *e, bool isNPN = true );
-		BJT *			createBJT( ECNode *c, ECNode *b, ECNode *e, bool isNPN = true );
+		BJT *		createBJT( Pin *c, Pin *b, Pin *e, bool isNPN = true );
+		BJT *		createBJT( ECNode *c, ECNode *b, ECNode *e, bool isNPN = true );
 	
-		Capacitance *	createCapacitance( Pin *n0, Pin *n1, double capacitance );
-		Capacitance *	createCapacitance( ECNode *n0, ECNode *n1, double capacitance );
+		Capacitance *createCapacitance( Pin *n0, Pin *n1, double capacitance );
+		Capacitance *createCapacitance( ECNode *n0, ECNode *n1, double capacitance );
 	
-		CCCS *			createCCCS( Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain );
-		CCCS *			createCCCS( ECNode *n0, ECNode *n1, ECNode *n2, ECNode *n3, double gain );
+		CCCS *		createCCCS( Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain );
+		CCCS *		createCCCS( ECNode *n0, ECNode *n1, ECNode *n2, ECNode *n3, double gain );
 	
-		CCVS *			createCCVS( Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain );
-		CCVS *			createCCVS( ECNode *n0, ECNode *n1, ECNode *n2, ECNode *n3, double gain );
+		CCVS *		createCCVS( Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain );
+		CCVS *		createCCVS( ECNode *n0, ECNode *n1, ECNode *n2, ECNode *n3, double gain );
 	
-		CurrentSignal *	createCurrentSignal( Pin *n0, Pin *n1, double current );
-		CurrentSignal *	createCurrentSignal( ECNode *n0, ECNode *n1, double current );
+		CurrentSignal *createCurrentSignal( Pin *n0, Pin *n1, double current );
+		CurrentSignal *createCurrentSignal( ECNode *n0, ECNode *n1, double current );
 	
-		CurrentSource *	createCurrentSource( Pin *n0, Pin *n1, double current );
-		CurrentSource *	createCurrentSource( ECNode *n0, ECNode *n1, double current );
+		CurrentSource *createCurrentSource( Pin *n0, Pin *n1, double current );
+		CurrentSource *createCurrentSource( ECNode *n0, ECNode *n1, double current );
 	
-		Diode *			createDiode( Pin *n0, Pin *n1 );
-		Diode *			createDiode( ECNode *n0, ECNode *n1 );
+		Diode *		createDiode( Pin *n0, Pin *n1 );
+		Diode *		createDiode( ECNode *n0, ECNode *n1 );
 		
-		JFET *			createJFET( Pin * D, Pin * G, Pin * S, int JFET_type );
-		JFET *			createJFET( ECNode * D, ECNode * G, ECNode * S, int JFET_type );
+		JFET *		createJFET( Pin * D, Pin * G, Pin * S, int JFET_type );
+		JFET *		createJFET( ECNode * D, ECNode * G, ECNode * S, int JFET_type );
 	
 		Inductance *	createInductance( Pin *n0, Pin *n1, double inductance );
 		Inductance *	createInductance( ECNode *n0, ECNode *n1, double inductance );
 	
-		LogicIn *		createLogicIn( Pin *node );
-		LogicIn *		createLogicIn( ECNode *node );
+		LogicIn *	createLogicIn( Pin *node );
+		LogicIn *	createLogicIn( ECNode *node );
 	
-		LogicOut *		createLogicOut( Pin *node, bool isHigh );
-		LogicOut *		createLogicOut( ECNode *node, bool isHigh );
+		LogicOut *	createLogicOut( Pin *node, bool isHigh );
+		LogicOut *	createLogicOut( ECNode *node, bool isHigh );
 		
-		MOSFET *		createMOSFET( Pin * D, Pin * G, Pin * S, Pin * B, int MOSFET_type );
-		MOSFET *		createMOSFET( ECNode * D, ECNode * G, ECNode * S, ECNode * B, int MOSFET_type );
+		MOSFET *	createMOSFET( Pin * D, Pin * G, Pin * S, Pin * B, int MOSFET_type );
+		MOSFET *	createMOSFET( ECNode * D, ECNode * G, ECNode * S, ECNode * B, int MOSFET_type );
 	
-		OpAmp *			createOpAmp( Pin * nonInverting, Pin * out, Pin * inverting );
-		OpAmp *			createOpAmp( ECNode * nonInverting, ECNode * out, ECNode * inverting );
+		OpAmp *		createOpAmp( Pin * nonInverting, Pin * out, Pin * inverting );
+		OpAmp *		createOpAmp( ECNode * nonInverting, ECNode * out, ECNode * inverting );
 	
 		Resistance *	createResistance( Pin *n0, Pin *n1, double resistance );
 		Resistance *	createResistance( ECNode *n0, ECNode *n1, double resistance );
 	
-		Switch *		createSwitch( Pin *n0, Pin *n1, bool open );
-		Switch *		createSwitch( ECNode *n0, ECNode *n1, bool open );
+		Switch *	createSwitch( Pin *n0, Pin *n1, bool open );
+		Switch *	createSwitch( ECNode *n0, ECNode *n1, bool open );
 	
-		VCCS *			createVCCS( Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain );
-		VCCS *			createVCCS( ECNode *n0, ECNode *n1, ECNode *n2, ECNode *n3, double gain );
+		VCCS *		createVCCS( Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain );
+		VCCS *		createVCCS( ECNode *n0, ECNode *n1, ECNode *n2, ECNode *n3, double gain );
 	
-		VCVS *			createVCVS( Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain );
-		VCVS *			createVCVS( ECNode *n0, ECNode *n1, ECNode *n2, ECNode *n3, double gain );
+		VCVS *		createVCVS( Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain );
+		VCVS *		createVCVS( ECNode *n0, ECNode *n1, ECNode *n2, ECNode *n3, double gain );
 	
 		VoltagePoint *	createVoltagePoint( Pin *n0, double voltage );
 		VoltagePoint *	createVoltagePoint( ECNode *n0, double voltage );
@@ -328,9 +328,12 @@ class Component : public CNItem
 		void rebuildPinInterDepedence();
 	
 		// Pointers to commonly used nodes
-		ECNode * m_pPNode[4];
-		ECNode * m_pNNode[4];
-	
+// TODO: why do we have two sets of these? 
+		ECNode *m_pPNode[4];
+		ECNode *m_pNNode[4];
+
+// TODO: only Switch cares about this, so either demote it to a member of class switch or
+// refactor it out alltogether. 
 		QGuardedPtr<CircuitDocument> m_pCircuitDocument;
 		int m_angleDegrees;
 		bool b_flipped;
@@ -366,6 +369,7 @@ class Component : public CNItem
 		ElementMapList m_elementMapList;
 		/**
 		 * The switches used by the component.
+TODO: ammend this comment with a more complete justification for the design decision to put this here.
 		 */
 		SwitchList m_switchList;
 		/**
