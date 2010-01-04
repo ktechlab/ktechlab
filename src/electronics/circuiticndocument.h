@@ -51,7 +51,7 @@ public:
 	 * between the two points of intersection given by pos1 and pos2. If pointList is non-null, then the new
 	 * connector between the two points will be assigned those points
 	 */
-	virtual Connector * createConnector( Connector *con1, Connector *con2, const QPoint &pos1, const QPoint &pos2, QPointList *pointList = 0L );	
+	virtual Connector *createConnector( Connector *con1, Connector *con2, const QPoint &pos1, const QPoint &pos2, QPointList *pointList = 0L );
 	/**
 	 * Creates a connector between two nodes, and returns a pointer to it
 	 * and adds the operation to the undo list
@@ -61,8 +61,8 @@ public:
 	 * Creates a connector from node1 to node2. If pointList is non-null, then the
 	 * connector will be assigned those points
 	 */
-	virtual Connector * createConnector( Node *node1, Node *node2, QPointList *pointList = 0L )
-			{ return ICNDocument::createConnector(node1,node2, pointList); }
+	virtual Connector *createConnector(Node *node1, Node *node2, QPointList *pointList = 0)
+		{ return ICNDocument::createConnector(node1,node2, pointList); }
 	
 	/**
 	 * Returns a pointer to a node on the canvas with the given id,
