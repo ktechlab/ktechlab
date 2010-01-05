@@ -158,6 +158,14 @@ void ECNode::checkForRemoval(ElectronicConnector *connector) {
 	}
 }
 
+void ECNode::removeNode() {
+	if (b_deleted) return;
+
+	b_deleted = true;
+	emit removed(this);
+	p_icnDocument->appendDeleteList(this);
+}
+
 void ECNode::setVisible(bool yes) {
 	if (isVisible() == yes) return;
 
