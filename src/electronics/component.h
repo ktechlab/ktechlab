@@ -85,7 +85,6 @@ public:
 	}
 
 	void initNodes();
-	void initMatrix();
 
 	virtual void finishedCreation();
 	/**

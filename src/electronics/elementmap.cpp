@@ -69,6 +69,8 @@ void ElementMap::putPin(unsigned int slot, Pin *aPin) {
     \fn ElementMap::setupCNodes()
  */
 void ElementMap::setupCNodes() {
+	assert(e);
+
 	if (n[3]) {
 		e->setCNodes(n[0]->eqId(), n[1]->eqId(), n[2]->eqId(), n[3]->eqId());
 	} else if (n[2]) {
@@ -78,13 +80,7 @@ void ElementMap::setupCNodes() {
 	} else if (n[0]) {
 		e->setCNodes(n[0]->eqId());
 	}
-}
 
-/*!
-    \fn ElementMap::setupMatrix()
- */
-void ElementMap::setupMatrix() {
-	assert(e);
 	e->add_initial_dc();
 }
 
