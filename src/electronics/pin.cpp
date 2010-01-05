@@ -13,8 +13,7 @@
 #include <cassert>
 #include <kdebug.h>
 
-Pin::Pin( ECNode * parent )
-{
+Pin::Pin(ECNode *parent) {
 	assert(parent);
 	m_pECNode = parent;
 	m_voltage = 0.;
@@ -24,151 +23,98 @@ Pin::Pin( ECNode * parent )
 	m_groundType = Pin::gt_never;
 }
 
+Pin::~Pin() {
 
-Pin::~Pin()
-{
-	WireList::iterator end = m_inputWireList.end();
-	for ( WireList::iterator it = m_inputWireList.begin(); it != end; ++it )
-		delete (Wire *)(*it);
-	
-	end = m_outputWireList.end();
-	for ( WireList::iterator it = m_outputWireList.begin(); it != end; ++it )
-		delete (Wire *)(*it);
+	WireList::iterator end = m_wireList.end();
+	for (WireList::iterator it = m_wireList.begin(); it != end; ++it)
+		delete(Wire *)(*it);
 }
 
+PinList Pin::localConnectedPins() const {
 
-PinList Pin::localConnectedPins( ) const
-{
-// 	kdDebug() << k_funcinfo << "Input wires: "<<m_inputWireList.size()<<"   Output wires: " << m_outputWireList.size() << "   Switch connected: " << m_switchConnectedPins.size() << endl;
-	
 	PinList pins;
-	
-	WireList::const_iterator end = m_inputWireList.end();
-	for ( WireList::const_iterator it = m_inputWireList.begin(); it != end; ++it )
-	{
-		if (*it)
-			pins << (*it)->startPin();
-	}
-	
-	end = m_outputWireList.end();
-	for ( WireList::const_iterator it = m_outputWireList.begin(); it != end; ++it )
-	{
-		if (*it)
+
+	WireList::const_iterator end = m_wireList.end();
+	for(WireList::const_iterator it = m_wireList.begin(); it != end; ++it) {
+		if(!(*it)) continue;
+
+		if((*it)->startPin() == this)
 			pins << (*it)->endPin();
+		else pins << (*it)->startPin();
 	}
-	
+
 	pins += m_switchConnectedPins;
-	
+
 	return pins;
 }
 
+void Pin::setSwitchConnected(Pin *pin, bool isConnected) {
+	if(!pin) return;
 
-void Pin::setSwitchConnected( Pin * pin, bool isConnected )
-{
-	if (!pin)
-		return;
-	
-	if (isConnected)
-	{
-		if ( !m_switchConnectedPins.contains(pin) )
+	if(isConnected) {
+		if (!m_switchConnectedPins.contains(pin))
 			m_switchConnectedPins.append(pin);
-	}
-	else
-		m_switchConnectedPins.remove(pin);
+	} else	m_switchConnectedPins.remove(pin);
 }
 
-
-void Pin::addCircuitDependentPin( Pin * pin )
-{
-	if ( pin && !m_circuitDependentPins.contains(pin) )
+void Pin::addCircuitDependentPin(Pin *pin) {
+	if (pin && !m_circuitDependentPins.contains(pin))
 		m_circuitDependentPins.append(pin);
 }
 
-
-void Pin::addGroundDependentPin( Pin * pin )
-{
-	if ( pin && !m_groundDependentPins.contains(pin) )
+void Pin::addGroundDependentPin(Pin *pin) {
+	if (pin && !m_groundDependentPins.contains(pin))
 		m_groundDependentPins.append(pin);
 }
 
-
-void Pin::removeDependentPins()
-{
+void Pin::removeDependentPins() {
 	m_circuitDependentPins.clear();
 	m_groundDependentPins.clear();
 }
 
-
-void Pin::addElement( Element * e )
-{
-	if ( !e || m_elementList.contains(e) )
+void Pin::addElement(Element *e) {
+	if (!e || m_elementList.contains(e))
 		return;
+
 	m_elementList.append(e);
 }
 
-
-void Pin::removeElement( Element * e )
-{
+void Pin::removeElement(Element *e) {
 	m_elementList.remove(e);
 }
 
-
-void Pin::addSwitch( Switch * sw )
-{
-	if ( !sw || m_switchList.contains( sw ) )
+void Pin::addSwitch(Switch *sw) {
+	if(!sw || m_switchList.contains(sw))
 		return;
+
 	m_switchList << sw;
 }
 
-
-void Pin::removeSwitch( Switch * sw )
-{
-	m_switchList.remove( sw );
+void Pin::removeSwitch(Switch *sw) {
+	m_switchList.remove(sw);
 }
 
-
-void Pin::addInputWire( Wire * wire )
-{
-	if ( wire && !m_inputWireList.contains(wire) )
-		m_inputWireList << wire;
+void Pin::addWire(Wire *wire) {
+	if(wire && !m_wireList.contains(wire))
+		m_wireList << wire;
 }
 
+bool Pin::calculateCurrentFromWires() {
 
-void Pin::addOutputWire( Wire * wire )
-{
-	if ( wire && !m_outputWireList.contains(wire) )
-		m_outputWireList << wire;
-}
+	m_wireList.remove((Wire*)0);
 
-
-bool Pin::calculateCurrentFromWires()
-{
-	m_inputWireList.remove( (Wire*)0l );
-	m_outputWireList.remove( (Wire*)0l );
-	
-	const WireList inputs = m_inputWireList;
-	const WireList outputs = m_outputWireList;
-		
 	m_current = 0.0;
-		
-	WireList::const_iterator end = inputs.end();
-	for ( WireList::const_iterator it = inputs.begin(); it != end; ++it )
-	{
-		if ( !(*it)->currentIsKnown() )
+
+	WireList::const_iterator end = m_wireList.end();
+	for(WireList::const_iterator it = m_wireList.begin(); it != end; ++it) {
+
+// might have to do some vodo to figure out which end of the wire we're on and add/subtract as appropriate.
+		if(!(*it)->currentIsKnown())
 			return false;
-			
-		m_current -= (*it)->current();
-	}
-		
-	end = outputs.end();
-	for ( WireList::const_iterator it = outputs.begin(); it != end; ++it )
-	{
-		if ( !(*it)->currentIsKnown() )
-			return false;
-			
+
 		m_current += (*it)->current();
 	}
-	
+
 	m_bCurrentIsKnown = true;
 	return true;
 }
