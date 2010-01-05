@@ -11,9 +11,7 @@
 #ifndef BUSSPLITTER_H
 #define BUSSPLITTER_H
 
-#include <component.h>
-
-#include <qguardedptr.h>
+#include "component.h"
 #include <qvaluevector.h>
 
 class Wire;

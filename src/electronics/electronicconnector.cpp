@@ -31,6 +31,10 @@ ElectronicConnector::ElectronicConnector(ECNode *startNode, ECNode *endNode,
 
 ElectronicConnector::~ElectronicConnector()
 {
+	for (unsigned i = 0; i < m_wires.size(); i++)
+		delete m_wires[i];
+
+	m_wires.resize(0);
 }
 
 void ElectronicConnector::syncWiresWithNodes() {

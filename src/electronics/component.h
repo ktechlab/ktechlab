@@ -244,7 +244,7 @@ protected:
 
 // TODO: only Switch cares about this, so either demote it to a member of class switch or
 // refactor it out alltogether.
-	QGuardedPtr<CircuitDocument> m_pCircuitDocument;
+	CircuitDocument *m_pCircuitDocument;
 	int m_angleDegrees;
 	bool b_flipped;
 
