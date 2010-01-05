@@ -86,8 +86,7 @@ void DependentSource::drawTopArrow(QPainter &p) {
 	if (p.pen().color() == m_selectedCol)
 		p.setPen(Qt::black);
 
-	if (p.brush().color() == m_brushCol)
-		p.setBrush(Qt::black);
+	p.setBrush(Qt::black);
 
 	p.drawLine(_x + 8, _y + 24, _x + 24, _y + 24);
 
@@ -107,8 +106,7 @@ void DependentSource::drawBottomArrow(QPainter &p) {
 	if (p.pen().color() == m_selectedCol)
 		p.setPen(Qt::black);
 
-	if (p.brush().color() == m_brushCol)
-		p.setBrush(Qt::black);
+	p.setBrush(Qt::black);
 
 	p.drawLine(_x + 11, _y + 40, _x + 21, _y + 40);
 
