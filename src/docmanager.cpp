@@ -47,95 +47,321 @@ DocManager::DocManager()
 //  m_pIface = new DocManagerIface(this);
 }
 
-
 DocManager::~DocManager()
 {
 }
-
 
 bool DocManager::closeAll()
 {
     return true;
 }
 
-bool DocManager::openUrl( const KUrl &url )
+void DocManager::gotoTextLine( const KURL &url, int line )
+{
+	TextDocument * doc = dynamic_cast<TextDocument*>( openURL(url) );
+	TextView * tv = doc ? doc->textView() : 0;
+	
+	if ( !tv ) return;
+	
+	tv->gotoLine(line);
+	tv->setFocus();
+}
+
+Document* DocManager::openURL( const KURL &url, ViewArea *viewArea )
+{
+	if ( url.isEmpty() ) return 0;
+	
+	if ( url.isLocalFile() )
+	{
+		QFile file(url.path());
+		if ( file.open(IO_ReadOnly) == false )
+		{
+			KMessageBox::sorry( 0l, i18n("Could not open '%1'").arg( url.prettyURL() ) );
+			return 0l;
+		}
+		file.close();
+	}
+	
+	// If the currently active view area is empty, and we were not given a view area
+	// to open into, then use the empty view area
+	if ( !viewArea )
+	{
+		ViewContainer * currentVC = static_cast<ViewContainer*>( KTechlab::self()->tabWidget()->currentPage() );
+		if ( currentVC )
+		{
+			ViewArea * va = currentVC->viewArea( currentVC->activeViewArea() );
+			if ( !va->view() )
+				viewArea = va;
+		}
+	}
+	
+	// If the document is already open, and a specific view area hasn't been
+	// specified, then just return that document - otherwise, create a new
+	// view in the viewarea
+	Document *document = findDocument(url);
+	if ( document ) {
+		if ( viewArea )
+			createNewView( document, viewArea );
+		else	giveDocumentFocus( document, viewArea );
+		return document;
+	}
+	
+	QString fileName = url.fileName();
+	QString extension = fileName.right( fileName.length() - fileName.findRev('.') );
+	
+	if ( extension == ".circuit" )
+		return openCircuitFile( url, viewArea );
+	else if ( extension == ".flowcode" )
+		return openFlowCodeFile( url, viewArea );
+	else if ( extension == ".mechanics" )
+		return openMechanicsFile( url, viewArea );
+	else	return openTextFile( url, viewArea );
+}
+
+
+Document *DocManager::getFocusedDocument() const
 {
     if ( url.isEmpty() )
         return false;
 
-    if ( url.isLocalFile() )
-    {
-        QFile file(url.path());
-        if ( !file.open(QIODevice::ReadOnly) )
-        {
-            KMessageBox::sorry( 0l, i18n("Could not open '%1'").arg( url.prettyUrl() ) );
-            return false;
-        }
-        file.close();
-    }
-
-    // If the document is already open then just return that document
-    // otherwise, create a new view in the viewarea
-    Document *document = findDocument(url);
-    if ( document )
-    {
-       return true;
-    }
-
-    QString fileName = url.fileName();
-    QString extension = fileName.right( fileName.length() - fileName.lastIndexOf('.') );
-    kDebug() << "open: " << url << endl;
-
-    //FIXME: register document within DocumentEngine
-
-    return true;
+void DocManager::giveDocumentFocus( Document * toFocus, ViewArea * viewAreaForNew )
+{
+	if ( !toFocus ) return;
+	
+	if ( View * activeView = toFocus->activeView() )
+		KTechlab::self()->tabWidget()->showPage( activeView->viewContainer() );
+	else if ( viewAreaForNew )
+		createNewView( toFocus, viewAreaForNew );
 }
 
-QString DocManager::untitledName( const QString &type )
+QString DocManager::untitledName( int type )
+{
+	QString name;
+	switch(type) {
+	case Document::dt_circuit:
+		{
+			if ( m_countCircuit>1 )
+				name = i18n("Untitled (Circuit %1)").arg(QString::number(m_countCircuit));
+			else	name = i18n("Untitled (Circuit)");
+			m_countCircuit++;
+			break;
+		}
+	case Document::dt_flowcode:
+		{
+			if ( m_countFlowCode>1 )
+				name = i18n("Untitled (FlowCode %1)").arg(QString::number(m_countFlowCode));
+			else	name = i18n("Untitled (FlowCode)");
+			m_countFlowCode++;
+			break;
+		}
+	case Document::dt_mechanics:
+		{
+			if ( m_countMechanics>1 )
+				name = i18n("Untitled (Mechanics %1)").arg(QString::number(m_countMechanics));
+			else	name = i18n("Untitled (Mechanics)");
+			m_countMechanics++;
+			break;
+		}
+	default:
+		{
+			if ( m_countOther>1 )
+				name = i18n("Untitled (%1)").arg(QString::number(m_countOther));
+			else	name = i18n("Untitled");
+			m_countOther++;
+			break;
+		}
+	}
+	return name;
+}
+
+Document *DocManager::findDocument( const KURL &url ) const
+{
+	// First, look in the associated documents
+	if ( m_associatedDocuments.contains(url) )
+		return m_associatedDocuments[url];
+	
+	// Not found, so look in the known documents
+	const DocumentList::const_iterator end = m_documentList.end();
+	for ( DocumentList::const_iterator it = m_documentList.begin(); it != end; ++it )
+	{
+		if ( (*it)->url() == url )
+			return *it;
+	}
+	
+	return 0;
+}
+
+void DocManager::associateDocument( const KURL &url, Document *document )
 {
     QString name = i18n("Untitled");
 
-    int count;
-    //handle empty types..
-    if ( type.isEmpty() ) {
-        count = m_count["Other"];
-        m_count["Other"]++;
-    } else {
-        count = m_count[type];
-        m_count[type]++;
-    }
-
-    if ( count > 1 ) {
-        name += QString("(%1 %2)").arg( type )
-                                .arg( QString::number( count ) );
-    } else {
-        name += type.isEmpty() ? QString() : QString("(%1)").arg( type );
-    }
-
-    return name;
-}
-
-
-Document* DocManager::getFocusedDocument() const
+void DocManager::removeDocumentAssociations( Document *document )
 {
-    return 0;
+	bool doneErase;
+	do
+	{
+		doneErase = false;
+		const URLDocumentMap::iterator end = m_associatedDocuments.end();
+		for ( URLDocumentMap::iterator it = m_associatedDocuments.begin(); it != end; ++it )
+		{
+			if ( it.data() == document )
+			{
+				doneErase = true;
+				m_associatedDocuments.erase(it);
+				break;
+			}
+		}
+	}
+	while (doneErase);
 }
 
+void DocManager::handleNewDocument( Document *document, ViewArea *viewArea )
+{
+	if ( !document || m_documentList.contains(document) )
+		return;
+	
+	m_documentList.append(document);
+	document->setDCOPID(m_nextDocumentID++);
+	
+	connect( document, SIGNAL(modifiedStateChanged()), KTechlab::self(), SLOT(slotDocModifiedChanged()) );
+	connect( document, SIGNAL(fileNameChanged(const KURL&)), KTechlab::self(), SLOT(slotDocModifiedChanged()) );
+	connect( document, SIGNAL(fileNameChanged(const KURL&)), KTechlab::self(), SLOT(addRecentFile(const KURL&)) );
+	connect( document, SIGNAL(destroyed(QObject* )), this, SLOT(documentDestroyed(QObject* )) );
+	connect( document, SIGNAL(viewFocused(View* )), this, SLOT(slotViewFocused(View* )) );
+	connect( document, SIGNAL(viewUnfocused()), this, SLOT(slotViewUnfocused()) );
+	
+	createNewView( document, viewArea );
+}
 
-void DocManager::associateDocument( const KUrl &url, Document *document )
+View *DocManager::createNewView( Document *document, ViewArea *viewArea )
+{
+	if (!document)
+		return 0;
+
+	View *view = 0;
+
+	if (viewArea)
+		view = document->createView( viewArea->viewContainer(), viewArea->id() );
+	else {
+		ViewContainer *viewContainer = new ViewContainer( document->caption() );
+		view = document->createView( viewContainer, 0 );
+		KTechlab::self()->addWindow(viewContainer);
+	}
+	
+	return view;
+}
+
+void DocManager::documentDestroyed( QObject *obj )
 {
     if (!document)
         return;
 
+void DocManager::slotViewFocused( View *view )
+{
+	ViewContainer * vc = static_cast<ViewContainer*>(KTechlab::self()->tabWidget()->currentPage());
+	if (!vc) view = 0;
+
+	if (!view) return;
+	
+	// This function can get called with a view that is not in the current view
+	// container (such as when the user right clicks and then the popup is
+	// destroyed - not too sure why, but this is the easiest way to fix it).
+	if ( view->viewContainer() != vc )
+		view = vc->activeView();
+	
+	if ( !view || (View*)p_focusedView == view )
+		return;
+	
+	if (p_focusedView)
+		slotViewUnfocused();
+
+	p_focusedView = view;
+
+	if ( TextView * textView = dynamic_cast<TextView*>((View*)p_focusedView) )
+		KTechlab::self()->factory()->addClient( textView->kateView() );
+	else	KTechlab::self()->factory()->addClient( p_focusedView );
+	
+	Document *document = view->document();
+	
+	connect( document, SIGNAL(undoRedoStateChanged()), KTechlab::self(), SLOT(slotDocUndoRedoChanged()) );
+	p_connectedDocument = document;
+		
+	if ( document->type() == Document::dt_circuit ||
+			   document->type() == Document::dt_flowcode ||
+			   document->type() == Document::dt_mechanics )
+	{
+		ItemDocument *cvb = static_cast<ItemDocument*>(view->document());
+		ItemInterface::self()->slotItemDocumentChanged(cvb);
+	}
+
+	KTechlab::self()->slotDocUndoRedoChanged();
+	KTechlab::self()->slotDocModifiedChanged();
+	KTechlab::self()->requestUpdateCaptions();
 }
 
+void DocManager::slotViewUnfocused()
+{
+	if ( !KTechlab::self() )
+		return;
+	
+	KTechlab::self()->removeGUIClients();
+	disableContextActions();
+	
+	if (!p_focusedView)
+		return;
+	
+	if (p_connectedDocument)
+	{
+		disconnect( p_connectedDocument, SIGNAL(undoRedoStateChanged()), KTechlab::self(), SLOT(slotDocUndoRedoChanged()) );
+		p_connectedDocument = 0;
+	}
+	
+	ItemInterface::self()->slotItemDocumentChanged(0l);
+	p_focusedView = 0;
+	
+// 	KTechlab::self()->setCaption( 0 );
+	KTechlab::self()->requestUpdateCaptions();
+}
 
-void DocManager::removeDocumentAssociations( Document *document )
+void DocManager::disableContextActions()
+{
+	KTechlab * ktl = KTechlab::self();
+	if ( !ktl ) return;
+	
+	ktl->action("file_save")->setEnabled(false);
+	ktl->action("file_save_as")->setEnabled(false);
+	ktl->action("file_close")->setEnabled(false);
+	ktl->action("file_print")->setEnabled(false);
+	ktl->action("edit_undo")->setEnabled(false);
+	ktl->action("edit_redo")->setEnabled(false);
+	ktl->action("edit_cut")->setEnabled(false);
+	ktl->action("edit_copy")->setEnabled(false);
+	ktl->action("edit_paste")->setEnabled(false);
+	ktl->action("view_split_leftright")->setEnabled(false);
+	ktl->action("view_split_topbottom")->setEnabled(false);
+}
+
+TextDocument *DocManager::createTextDocument()
+{
+	TextDocument *document = TextDocument::constructTextDocument( untitledName(Document::dt_text) );
+	handleNewDocument(document);
+	return document;
+}
+
+CircuitDocument *DocManager::createCircuitDocument()
+{
+	CircuitDocument *document = new CircuitDocument( untitledName(Document::dt_circuit) );
+	handleNewDocument(document);
+	if ( KTLConfig::raiseItemSelectors() )
+		KTechlab::self()->showToolView( KTechlab::self()->toolView( ComponentSelector::toolViewIdentifier() ) );
+	return document;
+}
+
+FlowCodeDocument *DocManager::createFlowCodeDocument()
 {
 }
 
-
-void DocManager::handleNewDocument( Document *document )
+MechanicsDocument *DocManager::createMechanicsDocument()
 {
 //     document->setDCOPID(m_nextDocumentID++);
 
@@ -150,9 +376,39 @@ void DocManager::handleNewDocument( Document *document )
     connect( document, SIGNAL(viewFocused(View* )), this, SLOT(slotViewFocused(View* )) );
     connect( document, SIGNAL(viewUnfocused()), this, SLOT(slotViewUnfocused()) );
 
+CircuitDocument *DocManager::openCircuitFile( const KURL &url, ViewArea *viewArea )
+{
+	CircuitDocument *document = new CircuitDocument( url.fileName().remove(url.directory()) );
+	
+	if ( !document->openURL(url) )
+	{
+		KMessageBox::sorry( 0, i18n("Could not open Circuit file \"%1\"").arg(url.prettyURL()) );
+		document->deleteLater();
+		return 0;
+	}
+	
+	handleNewDocument( document, viewArea );
+	emit fileOpened(url);
+	return document;
 }
 
-void DocManager::documentDestroyed( QObject *obj )
+FlowCodeDocument *DocManager::openFlowCodeFile( const KURL &url, ViewArea *viewArea )
+{
+	FlowCodeDocument *document = new FlowCodeDocument( url.fileName().remove(url.directory()) );
+	
+	if ( !document->openURL(url) )
+	{
+		KMessageBox::sorry( 0, i18n("Could not open FlowCode file \"%1\"").arg(url.prettyURL()) );
+		document->deleteLater();
+		return 0;
+	}
+	
+	handleNewDocument( document, viewArea );
+	emit fileOpened(url);
+	return document;
+}
+
+MechanicsDocument *DocManager::openMechanicsFile( const KURL &url, ViewArea *viewArea )
 {
     Document *doc = static_cast<Document*>(obj);
     removeDocumentAssociations(doc);
@@ -162,21 +418,21 @@ void DocManager::documentDestroyed( QObject *obj )
 
 void DocManager::disableContextActions()
 {
-    KTechLab::MainWindow* ktl = dynamic_cast<KTechLab::MainWindow *>( KApplication::activeWindow() );
-    if ( !ktl )
-        return;
-
-    ktl->action("file_save")->setEnabled(false);
-    ktl->action("file_save_as")->setEnabled(false);
-    ktl->action("file_close")->setEnabled(false);
-    ktl->action("file_print")->setEnabled(false);
-    ktl->action("edit_undo")->setEnabled(false);
-    ktl->action("edit_redo")->setEnabled(false);
-    ktl->action("edit_cut")->setEnabled(false);
-    ktl->action("edit_copy")->setEnabled(false);
-    ktl->action("edit_paste")->setEnabled(false);
-    ktl->action("view_split_leftright")->setEnabled(false);
-    ktl->action("view_split_topbottom")->setEnabled(false);
+	TextDocument *document = TextDocument::constructTextDocument( url.fileName().remove(url.directory()) );
+	
+	if (!document)
+		return 0;
+	
+	if ( !document->openURL(url) )
+	{
+		KMessageBox::sorry( 0, i18n("Could not open text file \"%1\"").arg(url.prettyURL()) );
+		document->deleteLater();
+		return 0;
+	}
+	
+	handleNewDocument( document, viewArea );
+	emit fileOpened(url);
+	return document;
 }
 
 #include "docmanager.moc"
