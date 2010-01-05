@@ -37,19 +37,19 @@ LibraryItem* ECSignalLamp::libraryItem()
 		i18n("Outputs"),
 		"signal_lamp.png",
 		LibraryItem::lit_component,
-		ECSignalLamp::construct );
+		ECSignalLamp::construct);
 }
 
-ECSignalLamp::ECSignalLamp( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, id ? id : "signal_lamp" )
+ECSignalLamp::ECSignalLamp(ICNDocument *icnDocument, bool newItem, const char *id)
+	: Component(icnDocument, newItem, id ? id : "signal_lamp")
 {
 	m_name = i18n("Signal Lamp");
-	setSize( -8, -8, 16, 16 );
+	setSize(-8, -8, 16, 16);
 	
 	init1PinLeft();
 	init1PinRight();
 	
-	createResistance( m_pPNode[0], m_pNNode[0], RESISTANCE );
+	createResistance(m_pPNode[0]->pin(), m_pNNode[0]->pin(), RESISTANCE);
 	
 	advanceSinceUpdate = 0;
 	avgPower = 0.;

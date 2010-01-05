@@ -35,21 +35,21 @@ LibraryItem* ECVoltageSignal::libraryItem()
 		i18n("Sources"),
 		"voltagesignal.png",
 		LibraryItem::lit_component,
-		ECVoltageSignal::construct );
+		ECVoltageSignal::construct);
 }
 
-ECVoltageSignal::ECVoltageSignal( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, id ? id : "voltage_signal" )
+ECVoltageSignal::ECVoltageSignal(ICNDocument *icnDocument, bool newItem, const char *id)
+	: Component(icnDocument, newItem, id ? id : "voltage_signal")
 {
 	m_name = i18n("Voltage Signal");
-	setSize( -8, -8, 16, 16 );
+	setSize(-8, -8, 16, 16);
 	
 	init1PinLeft();
 	init1PinRight();
 	
-	m_pNNode[0]->pin()->setGroundType( Pin::gt_medium );
-	m_voltageSignal = createVoltageSignal( m_pNNode[0], m_pPNode[0], 0. );
-	m_voltageSignal->setStep(ElementSignal::st_sinusoidal, 50. );
+	m_pNNode[0]->pin()->setGroundType(Pin::gt_medium);
+	m_voltageSignal = createVoltageSignal(m_pNNode[0]->pin(), m_pPNode[0]->pin(), 0.);
+	m_voltageSignal->setStep(ElementSignal::st_sinusoidal, 50.);
 	
 	createProperty( "frequency", Variant::Type::Double );
 	property("frequency")->setCaption( i18n("Frequency") );
@@ -58,22 +58,22 @@ ECVoltageSignal::ECVoltageSignal( ICNDocument *icnDocument, bool newItem, const 
 	property("frequency")->setMaxValue(1e3);
 	property("frequency")->setValue(50.0);
 	
-	createProperty( "voltage", Variant::Type::Double );
-	property("voltage")->setCaption( i18n("Voltage Range") );
+	createProperty("voltage", Variant::Type::Double);
+	property("voltage")->setCaption( i18n("Voltage Range"));
 	property("voltage")->setUnit("V");	
 	property("voltage")->setMinValue(-1e12);
 	property("voltage")->setMaxValue(1e12);
 	property("voltage")->setValue(5.0);
 
-	addDisplayText( "~", QRect( -8, -8, 16, 16 ), "~" );
-	addDisplayText( "voltage", QRect( -16, -24, 32, 16 ), "" );
+	addDisplayText("~", QRect(-8, -8, 16, 16), "~");
+	addDisplayText("voltage", QRect( -16, -24, 32, 16 ), "");
 
-	createProperty( "peak-rms", Variant::Type::Select );
-	property("peak-rms")->setCaption( i18n("Output") );
+	createProperty("peak-rms", Variant::Type::Select);
+	property("peak-rms")->setCaption(i18n("Output"));
 	QStringMap allowed;
 	allowed["Peak"] = i18n("Peak");
 	allowed["RMS"] = i18n("RMS");
-	property("peak-rms")->setAllowed( allowed );
+	property("peak-rms")->setAllowed(allowed);
 	property("peak-rms")->setValue("Peak");
 }
 

@@ -34,39 +34,38 @@ LibraryItem* FullAdder::libraryItem()
 			);
 }
 
-FullAdder::FullAdder( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, (id) ? id : "adder" )
+FullAdder::FullAdder(ICNDocument *icnDocument, bool newItem, const char *id)
+	: Component(icnDocument, newItem, (id) ? id : "adder")
 {
 	m_name = i18n("Adder");
 
-	ALogic = BLogic = inLogic = 0l;
-	outLogic = SLogic = 0l;
+	ALogic = BLogic = inLogic = 0;
+	outLogic = SLogic = 0;
 
-	QStringList pins = QStringList::split( ',', "A,B,>,,S,C", true );
-	initDIPSymbol( pins, 48 );
+	QStringList pins = QStringList::split(',', "A,B,>,,S,C", true);
+	initDIPSymbol(pins, 48);
 	initDIP(pins);
 	
 	ECNode *node;
 	
 	node =  ecNodeWithID("S");
-	SLogic = createLogicOut( node, false );
+	SLogic = createLogicOut(node->pin(), false);
 	
 	node = ecNodeWithID("C");
-	outLogic = createLogicOut( node, false );
+	outLogic = createLogicOut(node->pin(), false);
 	
 	node = ecNodeWithID("A");
-	ALogic = createLogicIn(node);
+	ALogic = createLogicIn(node->pin());
 	
 	node = ecNodeWithID("B");
-	BLogic = createLogicIn(node);
+	BLogic = createLogicIn(node->pin());
 	
 	node = ecNodeWithID(">");
-	inLogic = createLogicIn(node);
+	inLogic = createLogicIn(node->pin());
 	
-	
-	ALogic->setCallback( this, (CallbackPtr)(&FullAdder::inStateChanged) );
-	BLogic->setCallback( this, (CallbackPtr)(&FullAdder::inStateChanged) );
-	inLogic->setCallback( this, (CallbackPtr)(&FullAdder::inStateChanged) );
+	ALogic->setCallback(this, (CallbackPtr)(&FullAdder::inStateChanged));
+	BLogic->setCallback(this, (CallbackPtr)(&FullAdder::inStateChanged));
+	inLogic->setCallback(this, (CallbackPtr)(&FullAdder::inStateChanged));
 }
 
 FullAdder::~FullAdder()

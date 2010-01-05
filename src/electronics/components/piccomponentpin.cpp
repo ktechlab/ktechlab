@@ -24,10 +24,10 @@ PICComponentPin::PICComponentPin( PICComponent * picComponent, PicPin picPin )
 	m_gOutLow = 0.0;
 	m_picPin = picPin;
 	m_pPICComponent = picComponent;
-	m_pLogicOut = 0l;
-	m_pLogicIn = 0l;
-	m_pIOPIN = 0l;
-	m_pStimulusNode = 0l;
+	m_pLogicOut = 0;
+	m_pLogicIn = 0;
+	m_pIOPIN = 0;
+	m_pStimulusNode = 0;
 	Zth = 0.0;
 	Vth = 0.0;
 	
@@ -35,19 +35,19 @@ PICComponentPin::PICComponentPin( PICComponent * picComponent, PicPin picPin )
 	{
 		case PicPin::type_input:
 		{
-			m_pLogicIn = picComponent->createLogicIn( picComponent->ecNodeWithID(picPin.pinID) );
+			m_pLogicIn = picComponent->createLogicIn(picComponent->ecNodeWithID(picPin.pinID)->pin());
 			break;
 		}
 		case PicPin::type_bidir:
 		{
-			m_pLogicOut = picComponent->createLogicOut( picComponent->ecNodeWithID(picPin.pinID), false );
+			m_pLogicOut = picComponent->createLogicOut(picComponent->ecNodeWithID(picPin.pinID)->pin(), false);
 			m_gOutHigh = 0.004;
 			m_gOutLow = 0.004;
 			break;
 		}
 		case PicPin::type_open:
 		{
-			m_pLogicOut = picComponent->createLogicOut( picComponent->ecNodeWithID(picPin.pinID), false );
+			m_pLogicOut = picComponent->createLogicOut(picComponent->ecNodeWithID(picPin.pinID)->pin(), false);
 			m_pLogicOut->setOutputHighVoltage(0.0);
 			m_pLogicOut->setOutputHighConductance(0.0);
 			m_gOutHigh = 0.0;
