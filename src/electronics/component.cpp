@@ -558,20 +558,11 @@ void Component::setAllPinsInterIndependent() {
 	}
 }
 
-void Component::initMatrix() {
-	const ElementMapList::iterator end = m_elementMapList.end();
-
-	for(ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it) {
-		(*it).setupMatrix();
-	}
-}
-
 void Component::initNodes() {
 	const ElementMapList::iterator end = m_elementMapList.end();
 
 	for(ElementMapList::iterator it = m_elementMapList.begin(); it != end; ++it) {
 		(*it).setupCNodes();
-
 	}
 }
 

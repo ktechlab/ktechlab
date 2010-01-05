@@ -90,7 +90,6 @@ public:
 	void displayEquations();
 	void updateCurrents();
 
-	void createMatrixMap();
 	/**
 	* This will identify the ground node and non-ground nodes in the given set.
 	* Ground will be given the eqId -1, non-ground of 0.

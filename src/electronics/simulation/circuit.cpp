@@ -348,10 +348,6 @@ void Circuit::cacheAndUpdate() {
 	node->setData(m_elementSet);
 }
 
-void Circuit::createMatrixMap() {
-	m_elementSet->createMatrixMap();
-}
-
 bool Circuit::recursivePinAdd(Pin *node, PinSet *unassignedNodes, PinSet *associated, PinSet *nodes) {
 	if (unassignedNodes->find(node) == unassignedNodes->end())
 		return false;
@@ -362,7 +358,6 @@ bool Circuit::recursivePinAdd(Pin *node, PinSet *unassignedNodes, PinSet *associ
 	const PinSet circuitDependentPins = node->circuitDependentPins();
 	const PinSet::const_iterator dEnd = circuitDependentPins.end();
 	for (PinSet::const_iterator it = circuitDependentPins.begin(); it != dEnd; ++it) {
-//		if (!associated->contains(*it))
 		associated->insert(*it);
 	}
 
