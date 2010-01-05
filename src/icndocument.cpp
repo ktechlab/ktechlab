@@ -363,7 +363,8 @@ void ICNDocument::getTranslatable(const ItemList &itemList, ConnectorList *fixed
 			}
 
 			ConnectorList conList = cnItem->connectorList();
-			conList.remove((Connector*)0l);
+//			conList.remove((Connector*)0);
+
 			const ConnectorList::iterator clEnd = conList.end();
 			for (ConnectorList::iterator clit = conList.begin(); clit != clEnd; ++clit) {
 				ConnectorMap::iterator cit = fixedConnectorMap.find(*clit);
@@ -403,7 +404,7 @@ void ICNDocument::getTranslatable(const ItemList &itemList, ConnectorList *fixed
 				const ConnectorList::const_iterator ngConnectorListEnd = ngConnectorList.end();
 				for (ConnectorList::const_iterator ngclIt = ngConnectorList.begin(); ngclIt != ngConnectorListEnd; ++ngclIt) {
 					if (*ngclIt)
-						fixedNGConnectors += *ngclIt;
+						fixedNGConnectors.insert(*ngclIt);
 				}
 			}
 		}
@@ -420,9 +421,9 @@ void ICNDocument::getTranslatable(const ItemList &itemList, ConnectorList *fixed
 
 		if ((it.data() > 1)
 		        || (startNode && endNode && startNode->parentItem() == endNode->parentItem())) {
-			translatableConnectors->append(const_cast<Connector*>(it.key()));
-		} else if (!fixedNGConnectors.contains(it.key()) && !fixedConnectors->contains(it.key())) {
-			fixedConnectors->append(it.key());
+			translatableConnectors->insert(const_cast<Connector*>(it.key()));
+		} else if (fixedNGConnectors.find(it.key()) == fixedNGConnectors.end()) {
+			fixedConnectors->insert(it.key());
 		}
 	}
 }
@@ -500,7 +501,7 @@ bool ICNDocument::registerItem(QCanvasItem *qcanvasItem) {
 			kdError() << k_funcinfo << "BUG: this member should have been overridden!" << endl;
 
 		} else if (Connector *connector = dynamic_cast<Connector*>(qcanvasItem)) {
-			m_connectorList.append(connector);
+			m_connectorList.insert(connector);
 			emit connectorAdded(connector);
 		} else {
 			kdError() << k_funcinfo << "Unrecognised item" << endl;
@@ -530,12 +531,12 @@ void ICNDocument::copy() {
 		Node *startNode = (*it)->startNode();
 
 		if (startNode && !startNode->isChildNode())
-			nclMap[startNode].append(*it);
-		
+			nclMap[startNode].insert(*it);
+
 		Node *endNode = (*it)->endNode();
 
 		if (endNode && !endNode->isChildNode())
-			nclMap[endNode].append(*it);
+			nclMap[endNode].insert(*it);
 	}
 	
 	NodeList nodeList;
@@ -546,7 +547,7 @@ void ICNDocument::copy() {
 		if (it.data().size() > 1)
 			nodeList.append(it.key());
 		else if (it.data().size() > 0)
-			connectorList.remove(it.data().at(0));
+			connectorList.erase(*it.data().begin());
 	}
 
 	data.addItems(m_selectList->items(false));
@@ -693,14 +694,13 @@ void ICNDocument::rerouteInvalidatedConnectors() {
 						needsRerouting = true;
 				}
 			}
-			
-			if (needsRerouting)
-			{
+
+			if(needsRerouting) {
 				NodeGroup *nodeGroup = connector->nodeGroup();
 
-				if (!nodeGroup && !connectorRerouteList.contains(connector))
-					connectorRerouteList.append(connector);
-				else if (nodeGroup && !nodeGroupRerouteList.contains(nodeGroup))
+				if(!nodeGroup)
+					connectorRerouteList.insert(connector);
+				else if(nodeGroup)
 					nodeGroupRerouteList.append(nodeGroup);
 			}
 		}
@@ -764,11 +764,11 @@ ConnectorList ICNDocument::getCommonConnectors(const ItemList &list) {
 		Connector *con = *it;
 
 		if (!con || !nodeList.contains(con->startNode()) || !nodeList.contains(con->endNode())) {
-			*it = 0;
+			connectorList.erase(it);
 		}
 	}
 
-	connectorList.remove((Connector*)0);
+//	connectorList.remove((Connector*)0);
 
 	return connectorList;
 }
