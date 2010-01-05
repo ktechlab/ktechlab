@@ -29,6 +29,7 @@ typedef QValueList<QGuardedPtr<Connector> > ConnectorList;
 typedef QValueList<QGuardedPtr<Node> > NodeList;
 typedef QValueList<NodeGroup*> NodeGroupList;
 typedef QValueList<QGuardedPtr<NodeGroup> > GuardedNodeGroupList;
+typedef QValueList<QPoint> QPointList;
 
 /**
 @author David Saxton
