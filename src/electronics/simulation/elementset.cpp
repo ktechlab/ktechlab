@@ -22,15 +22,13 @@
 #include <iostream>
 #include <cassert>
 
-ElementSet::ElementSet( Circuit * circuit, const int n, const int m )
+ElementSet::ElementSet(Circuit *circuit, const int n, const int m)
 	:  m_cb(m), m_cn(n), m_pCircuit(circuit)
 {
-
 	int tmp = m_cn + m_cb;
-
 	p_logicIn = 0;
 
-	if( tmp) {
+	if(tmp) {
 		p_A = new Matrix( m_cn, m_cb );
 		p_b = new QuickVector(tmp);
 		p_x = new QuickVector(tmp);
@@ -64,14 +62,10 @@ ElementSet::~ElementSet()
 		// themselves). So be very careful it you plan to do anything with the (*it) pointer
 		if (*it) (*it)->elementSetDeleted();
 	}
-	for ( uint i=0; i<m_cn; i++ )
-	{
-		delete m_cnodes[i];
-	}
-	for ( uint i=0; i<m_cb; i++ )
-	{
-		delete m_cbranches[i];
-	}
+
+	for(uint i = 0; i < m_cn; i++) delete m_cnodes[i];
+	for(uint i = 0; i < m_cb; i++) delete m_cbranches[i];
+
 	delete[] m_cbranches;
 	delete[] m_cnodes;
 	delete[] p_logicIn;
@@ -81,25 +75,21 @@ ElementSet::~ElementSet()
 	if(p_x) delete p_x;
 }
 
-
 void ElementSet::setCacheInvalidated()
 {
 	m_pCircuit->setCacheInvalidated();
 }
 
-
 void ElementSet::addElement( Element *e )
 {
-	if ( !e || m_elementList.contains(e) ) return;
+	if(!e || m_elementList.contains(e)) return;
 	e->setElementSet(this);
 	m_elementList.append(e);
-	if ( e->isNonLinear() )
-	{
+	if(e->isNonLinear()) {
 		b_containsNonLinear = true;
 		m_cnonLinearList.append( static_cast<NonLinear*>(e) );
 	}
 }
-
 
 void ElementSet::createMatrixMap()
 {
@@ -109,7 +99,7 @@ void ElementSet::createMatrixMap()
 	
 	m_clogic = 0;
 	ElementList::iterator end = m_elementList.end();
-	for ( ElementList::iterator it = m_elementList.begin(); it != end; ++it )
+	for(ElementList::iterator it = m_elementList.begin(); it != end; ++it)
 	{
 		if ( dynamic_cast<LogicIn*>(*it) )
 			m_clogic++;
@@ -119,7 +109,7 @@ void ElementSet::createMatrixMap()
 	int i=0;
 	for ( ElementList::iterator it = m_elementList.begin(); it != end; ++it )
 	{
-		if ( LogicIn * in = dynamic_cast<LogicIn*>(*it) )
+		if(LogicIn *in = dynamic_cast<LogicIn*>(*it))
 			p_logicIn[i++] = in;
 	}
 }
@@ -131,38 +121,40 @@ void ElementSet::doNonLinear( int maxIterations, double maxErrorV, double maxErr
 
 	// And now tell the cnodes and cbranches about their new voltages & currents
 	updateInfo();
-	
+
 	const NonLinearList::iterator end = m_cnonLinearList.end();
-	
+
 	int k = 0;
 	do {
 		// Tell the nonlinear elements to update its J, A and b from the newly calculated x
-		for ( NonLinearList::iterator it = m_cnonLinearList.begin(); it != end; ++it )
+		for(NonLinearList::iterator it = m_cnonLinearList.begin(); it != end; ++it)
 			(*it)->update_dc();
 
 		*p_x = *p_b;  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
+// we burn most of our CPU cycles when we make these calls.
 		p_A->performLU();
 		p_A->fbSub(p_x);
+// #########################
+
 		updateInfo();
 		
 		// Now, check for convergence
 		bool converged = true;
-		for ( unsigned i = 0; i < m_cn; ++i )
+		for(unsigned i = 0; i < m_cn; ++i)
 		{
-			double diff = std::abs( (*p_x_prev)[i] - (*p_x)[i] );
-			if ( diff > maxErrorI )
-			{
+			double diff = std::abs((*p_x_prev)[i] - (*p_x)[i]);
+			if(diff > maxErrorI) {
 				converged = false;
 				break;
 			}
 		}
-		if ( converged ) {
-			for ( unsigned i = m_cn; i < m_cn+m_cb; ++i )
+
+		if(converged) {
+			for(unsigned i = m_cn; i < m_cn+m_cb; ++i)
 			{
-				double diff = std::abs( (*p_x_prev)[i] - (*p_x)[i] );
-				if ( diff > maxErrorV )
-				{
+				double diff = std::abs((*p_x_prev)[i] - (*p_x)[i]);
+				if(diff > maxErrorV) {
 					converged = false;
 					break;
 				}
@@ -171,11 +163,11 @@ void ElementSet::doNonLinear( int maxIterations, double maxErrorV, double maxErr
 
 		*p_x_prev = *p_x; // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-		if ( converged ) break;
-	}
-	while ( ++k < maxIterations );
-}
+		if(converged) break;
+	} while(++k < maxIterations);
 
+	delete p_x_prev;
+}
 
 bool ElementSet::doLinear( bool performLU )
 {
@@ -186,7 +178,6 @@ bool ElementSet::doLinear( bool performLU )
 		p_A->performLU();
 
 	*p_x = *p_b;   // <<< why does this code work, when I try it, I always get the default shallow copy.
-
 
 	p_A->fbSub(p_x);
 	updateInfo();

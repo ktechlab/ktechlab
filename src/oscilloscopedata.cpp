@@ -94,13 +94,18 @@ uint64_t LogicProbeData::findPos( uint64_t time) const
 
 
 //BEGIN class FloatingProbeData
-FloatingProbeData::FloatingProbeData( int id)
+FloatingProbeData::FloatingProbeData(int id)
 	: ProbeData(id)
 {
 	m_data = new vector<float>;
 	m_scaling = Linear;
 	m_upperAbsValue = 10.0;
 	m_lowerAbsValue = 0.1;
+}
+
+FloatingProbeData::~FloatingProbeData()
+{
+	delete m_data;
 }
 
 void FloatingProbeData::eraseData()
