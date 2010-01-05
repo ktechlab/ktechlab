@@ -93,8 +93,8 @@ int Circuit::identifyGround(PinList nodeList, int *highest) {
 	*highest = Pin::gt_never; // The highest priority found so far
 
 	int numGround = 0; // The number of node groups found with that priority
-	const PinListMap::iterator eqsEnd = eqs.end();
 
+	const PinListMap::iterator eqsEnd = eqs.end();
 	for (PinListMap::iterator it = eqs.begin(); it != eqsEnd; ++it) {
 		int highPri = Pin::gt_never; // The highest priority found in these group of nodes
 		const PinList::iterator send = it->second.end();
