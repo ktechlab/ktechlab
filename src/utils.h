@@ -23,27 +23,19 @@ inline QPoint roundDown(const QPoint &p, int roundness) {
 }
 
 inline int toCanvas(int pos) {
-	return (pos << 3) + 4;
+	return (pos << 3); // + 4;
 }
 
 inline int fromCanvas(int pos) {
 //	return roundDown(pos - 4, 8);
-	return (pos - 4) >> 3;
+	return (pos + 4) >> 3;
 }
 
-inline QPoint toCanvas(const QPoint *pos) {
-	return QPoint(toCanvas(pos->x()), toCanvas(pos->y()));
-}
-
-inline QPoint fromCanvas(const QPoint *pos) {
-	return QPoint(fromCanvas(pos->x()), fromCanvas(pos->y()));
-}
-
-inline QPoint toCanvas(const QPoint & pos) {
+inline QPoint toCanvas(const QPoint &pos) {
 	return QPoint(toCanvas(pos.x()), toCanvas(pos.y()));
 }
 
-inline QPoint fromCanvas(const QPoint & pos) {
+inline QPoint fromCanvas(const QPoint &pos) {
 	return QPoint(fromCanvas(pos.x()), fromCanvas(pos.y()));
 }
 
@@ -53,15 +45,6 @@ inline int roundDouble(double x) {
 
 inline double qpoint_distance(const QPoint &p1, const QPoint &p2) {
 	return hypot(p1.x() - p2.x(), p1.y() - p2.y());
-}
-
-inline int snapToCanvas(int x) {
-//	return toCanvas(roundDown(x, 8));
-	return ((x + 4) & ~7);
-}
-
-inline int snapToCanvas(double x) {
-	return snapToCanvas(int(x));
 }
 
 #endif
