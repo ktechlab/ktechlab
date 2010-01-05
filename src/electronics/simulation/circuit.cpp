@@ -330,36 +330,25 @@ void Circuit::initCache() {
 
 void Circuit::setCacheInvalidated() {
 	if (m_pLogicCacheBase) {
-		delete m_pLogicCacheBase->high;
-		m_pLogicCacheBase->high = 0;
-
-		delete m_pLogicCacheBase->low;
-		m_pLogicCacheBase->low = 0;
-
-		delete m_pLogicCacheBase->data;
-		m_pLogicCacheBase->data = 0;
+		delete m_pLogicCacheBase;
+		m_pLogicCacheBase = 0; 
 	}
 }
 
 void Circuit::cacheAndUpdate() {
-	LogicCacheNode * node = m_pLogicCacheBase;
+	if(!m_pLogicCacheBase) m_pLogicCacheBase = new LogicCacheNode();
+
+	LogicCacheNode *node = m_pLogicCacheBase;
 
 	for (unsigned i = 0; i < m_logicOutCount; i++) {
 		if (m_pLogicOut[i]->outputState()) {
-			if (!node->high)
-				node->high = new LogicCacheNode;
-
-			node = node->high;
-		} else {
-			if (!node->low)
-				node->low = new LogicCacheNode;
-
-			node = node->low;
-		}
+			node = node->addOrGetHigh();
+		} else 	node = node->addOrGetLow();
 	}
 
-	if (node->data) {
-		(*m_elementSet->x()) = *node->data;
+	QuickVector *data = node->getData();
+	if (data && data->size() == m_elementSet->x()->size()) {
+		(*m_elementSet->x()) = *data;
 		m_elementSet->updateInfo();
 		return;
 	}
@@ -368,11 +357,7 @@ void Circuit::cacheAndUpdate() {
 		m_elementSet->doNonLinear(150, 1e-10, 1e-13);
 	else	m_elementSet->doLinear(true);
 
-	if(node->data) node->data = m_elementSet->x();
-	else node->data = new QuickVector(m_elementSet->x());
-
-//	node->data = new Vector( m_elementSet->x()->size() );
-//	*node->data = *m_elementSet->x();
+	node->setData(m_elementSet->x());
 }
 
 void Circuit::createMatrixMap() {
@@ -478,10 +463,49 @@ LogicCacheNode::LogicCacheNode() {
 }
 
 LogicCacheNode::~LogicCacheNode() {
-	delete low;
-	delete high;
+	if(low)  delete low;
+	if(high) delete high;
+	if(data) delete data;
+}
 
-	if (data) delete data;
+/*!
+    \fn LogicCacheNode::addOrGetHigh()
+ */
+LogicCacheNode *LogicCacheNode::addOrGetHigh()
+{
+	if(high) return high;
+	return high = new LogicCacheNode();
+}
+
+/*!
+    \fn LogicCacheNode::addOrGetLow()
+ */
+LogicCacheNode *LogicCacheNode::addOrGetLow()
+{
+	if(low) return low;
+	return low = new LogicCacheNode();
+}
+
+/*!
+    \fn LogicCacheNode::*GetData()
+ */
+QuickVector *LogicCacheNode::getData() const
+{
+	return data;
+}
+
+/*!
+    \fn LogicCacheNode::setData(QuickVector *newData)
+ */
+void LogicCacheNode::setData(const QuickVector *newData)
+{
+	if(data) {
+		if(data->size() == newData->size()) {
+			*data = *newData;
+			return;
+		} else delete data;
+	}
+
+	data = new QuickVector(newData);
 }
 //END class LogicCacheNode
-
