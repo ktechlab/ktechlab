@@ -636,7 +636,6 @@ Item* ICNDocument::addItem(const QString &id, const QPoint &p, bool newItem) {
 void ICNDocument::addAllItemConnectorPoints() {
 	// FIXME The next line crashes sometimes??!
 	const ItemMap::iterator ciEnd = m_itemList.end();
-
 	for (ItemMap::iterator it = m_itemList.begin(); it != ciEnd; ++it) {
 		if (CNItem *cnItem = dynamic_cast<CNItem*>(*it))
 			cnItem->updateConnectorPoints(true);
