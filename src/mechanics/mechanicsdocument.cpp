@@ -42,7 +42,6 @@ MechanicsDocument::MechanicsDocument( const QString &caption, const char *name )
 	requestStateSave();
 }
 
-
 MechanicsDocument::~MechanicsDocument()
 {
 	m_bDeleted = true;
@@ -60,35 +59,29 @@ View *MechanicsDocument::createView( ViewContainer *viewContainer, uint viewArea
 	return itemView;
 }
 
-
 ItemGroup *MechanicsDocument::selectList() const
 {
 	return m_selectList;
 }
-
-
-
 
 bool MechanicsDocument::isValidItem( const QString &itemId )
 {
 	return itemId.startsWith("mech/") || itemId.startsWith("dp/");
 }
 
-
 bool MechanicsDocument::isValidItem( Item *item )
 {
 	return item && ((dynamic_cast<MechanicsItem*>(item)) || (dynamic_cast<DrawPart*>(item)));
 }
 
-
 Item* MechanicsDocument::addItem( const QString &id, const QPoint &p, bool newItem )
 {
 	if ( !isValidItem(id) )
-		return 0l;
+		return 0;
 	
 	Item *item = itemLibrary()->createItem( id, this, newItem );
 	if (!item)
-		return 0L;
+		return 0;
 	
 	QRect rect = item->boundingRect();
 	
@@ -106,7 +99,6 @@ Item* MechanicsDocument::addItem( const QString &id, const QPoint &p, bool newIt
 	requestStateSave();
 	return item;
 }
-
 
 void MechanicsDocument::deleteSelection()
 {
@@ -131,12 +123,10 @@ void MechanicsDocument::deleteSelection()
 	requestStateSave();
 }
 
-
 bool MechanicsDocument::registerItem( QCanvasItem *qcanvasItem )
 {
 	return ItemDocument::registerItem(qcanvasItem);
 }
-
 
 void MechanicsDocument::appendDeleteList( QCanvasItem *qcanvasItem )
 {
@@ -146,13 +136,12 @@ void MechanicsDocument::appendDeleteList( QCanvasItem *qcanvasItem )
 	}
 	
 	m_itemDeleteList.append(mechItem);
-	m_itemList.remove( mechItem->id() );
+	m_itemList.erase( mechItem->id() );
 	
 	disconnect( mechItem, SIGNAL(selectionChanged()), this, SIGNAL(selectionChanged()) );
 	
 	mechItem->removeItem();
 }
-
 
 void MechanicsDocument::flushDeleteList()
 {
@@ -168,28 +157,25 @@ void MechanicsDocument::flushDeleteList()
 	end = m_itemDeleteList.end();
 	for ( ItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it )
 	{
-		m_itemList.remove( (*it)->id() );
+		m_itemList.erase( (*it)->id() );
 		(*it)->setCanvas(0l);
 		delete *it;
 	}
 }
-
 
 MechanicsItem* MechanicsDocument::mechanicsItemWithID( const QString &id )
 {
 	return dynamic_cast<MechanicsItem*>(itemWithID(id));
 }
 
-
 void MechanicsDocument::selectAll()
 {
 	const ItemMap::iterator end = m_itemList.end();
 	for ( ItemMap::iterator it = m_itemList.begin(); it != end; ++it )
 	{
-		select(*it);
+		select(it->second);
 	}
 }
-
 
 void MechanicsDocument::copy()
 {
