@@ -21,7 +21,7 @@
 
 class LogicIn;
 
-typedef QValueList< PinList > PinListList;
+typedef QValueList< PinSet > PinSetList;
 
 /**
 Contains vital information about the elements in the component.
@@ -39,10 +39,10 @@ public:
 	void setupCNodes();
 	void setupMatrix();
 	/// @see Component::setInterCircuitDependent
-	PinListList interCircuitDependent;
+	PinSetList interCircuitDependent;
 
 	/// @see Component::setInterGroundDependent
-	PinListList interGroundDependent;
+	PinSetList interGroundDependent;
 
 private:
 	Element *e; // The element
