@@ -27,7 +27,7 @@ void DIPComponent::initDIP(const QStringList &pins) {
 
 			if (node) {
 				m_nodeMap[pins[i]].setXY(nodeX, nodeY);
-				m_nodeMap[pins[i]].orientationNorth();
+				m_nodeMap[pins[i]].setOrientationNorth();
 			} else	createPin(nodeX, nodeY, 0, pins[i]);
 		}
 	}
@@ -41,7 +41,7 @@ void DIPComponent::initDIP(const QStringList &pins) {
 
 			if(node) {
 				m_nodeMap[pins[i]].setXY(nodeX, nodeY);
-				m_nodeMap[pins[i]].orientationSouth();
+				m_nodeMap[pins[i]].setOrientationSouth();
 			} else	createPin(nodeX, nodeY, 180, pins[i]);
 		}
 	}
