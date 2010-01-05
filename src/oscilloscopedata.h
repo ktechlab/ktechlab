@@ -150,8 +150,9 @@ class FloatingProbeData : public ProbeData
 	public:
 		enum Scaling { Linear, Logarithmic };
 		
-		FloatingProbeData( int id);
-		
+		FloatingProbeData(int id);
+		~FloatingProbeData();
+
 		/**
 		 * Appends the data point to the set of data.
 		 */

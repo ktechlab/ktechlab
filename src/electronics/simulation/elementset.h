@@ -128,8 +128,9 @@ private:
 
 	uint m_clogic;
 	LogicIn **p_logicIn;
+
 	bool b_containsNonLinear;
-	Circuit * m_pCircuit;
+	Circuit *m_pCircuit;
 };
 
 #endif
