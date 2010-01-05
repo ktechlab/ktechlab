@@ -44,24 +44,24 @@ ECPTBSwitch::ECPTBSwitch( ICNDocument *icnDocument, bool newItem, const char *id
 	
 	addButton( "button", QRect( -16, 8, 32, 20 ), "" );
 	
-	createProperty( "button_text", Variant::Type::String );
-	property("button_text")->setCaption( i18n("Button Text") );
-	
-	Variant * v = createProperty( "bounce", Variant::Type::Bool );
-	v->setCaption( i18n("Bounce") );
+	createProperty( "button_text", Variant::Type::String);
+	property("button_text")->setCaption( i18n("Button Text"));
+
+	Variant *v = createProperty("bounce", Variant::Type::Bool);
+	v->setCaption(i18n("Bounce"));
 	v->setAdvanced(true);
 	v->setValue(false);
-	
-	v = createProperty( "bounce_period", Variant::Type::Double );
-	v->setCaption( i18n("Bounce Period") );
+
+	v = createProperty("bounce_period", Variant::Type::Double);
+	v->setCaption(i18n("Bounce Period"));
 	v->setAdvanced(true);
 	v->setUnit("s");
 	v->setValue(5e-3);
-	
+
 	init1PinLeft(0);
 	init1PinRight(0);
-	
-	m_switch = createSwitch( m_pPNode[0], m_pNNode[0], false );
+
+	m_switch = createSwitch( m_pPNode[0]->pin(), m_pNNode[0]->pin(), false );
 	pressed = false;
 }
 
@@ -69,18 +69,16 @@ ECPTBSwitch::~ECPTBSwitch()
 {
 }
 
-
 void ECPTBSwitch::dataChanged()
 {
-	button("button")->setText( dataString("button_text") );
-	
+	button("button")->setText(dataString("button_text"));
+
 	bool bounce = dataBool("bounce");
-	int bouncePeriod_ms = int(dataDouble("bounce_period")*1e3);
-	m_switch->setBounce( bounce, bouncePeriod_ms );
+	int bouncePeriod_ms = int(dataDouble("bounce_period") * 1e3);
+	m_switch->setBounce(bounce, bouncePeriod_ms);
 }
 
-
-void ECPTBSwitch::drawShape( QPainter &p )
+void ECPTBSwitch::drawShape(QPainter &p)
 {
 	initPainter(p);
 	
@@ -136,15 +134,15 @@ ECPTMSwitch::ECPTMSwitch( ICNDocument *icnDocument, bool newItem, const char *id
 	
 	addButton( "button", QRect( -16, 8, 32, 20 ), "" );
 	
-	createProperty( "button_text", Variant::Type::String );
-	property("button_text")->setCaption( i18n("Button Text") );
+	createProperty("button_text", Variant::Type::String);
+	property("button_text")->setCaption( i18n("Button Text"));
 	
-	Variant * v = createProperty( "bounce", Variant::Type::Bool );
+	Variant *v = createProperty("bounce", Variant::Type::Bool);
 	v->setCaption("Bounce");
 	v->setAdvanced(true);
 	v->setValue(false);
 	
-	v = createProperty( "bounce_period", Variant::Type::Double );
+	v = createProperty("bounce_period", Variant::Type::Double);
 	v->setCaption("Bounce Period");
 	v->setAdvanced(true);
 	v->setUnit("s");
@@ -153,27 +151,24 @@ ECPTMSwitch::ECPTMSwitch( ICNDocument *icnDocument, bool newItem, const char *id
 	init1PinLeft(0);
 	init1PinRight(0);
 	
-	m_switch = createSwitch( m_pPNode[0], m_pNNode[0], true );
+	m_switch = createSwitch(m_pPNode[0]->pin(), m_pNNode[0]->pin(), true);
 	pressed = false;
 }
-
 
 ECPTMSwitch::~ECPTMSwitch()
 {
 }
 
-
 void ECPTMSwitch::dataChanged()
 {
-	button("button")->setText( dataString("button_text") );
-	
+	button("button")->setText(dataString("button_text"));
+
 	bool bounce = dataBool("bounce");
-	int bouncePeriod_ms = int(dataDouble("bounce_period")*1e3);
-	m_switch->setBounce( bounce, bouncePeriod_ms );
+	int bouncePeriod_ms = int(dataDouble("bounce_period") * 1e3);
+	m_switch->setBounce(bounce, bouncePeriod_ms);
 }
 
-
-void ECPTMSwitch::drawShape( QPainter &p )
+void ECPTMSwitch::drawShape(QPainter &p)
 {
 	initPainter(p);
 	

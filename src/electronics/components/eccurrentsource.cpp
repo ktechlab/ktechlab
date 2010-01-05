@@ -34,26 +34,26 @@ LibraryItem* ECCurrentSource::libraryItem()
 		ECCurrentSource::construct );
 }
 
-ECCurrentSource::ECCurrentSource( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, id ? id : "current_source" )
+ECCurrentSource::ECCurrentSource(ICNDocument *icnDocument, bool newItem, const char *id)
+	: Component(icnDocument, newItem, id ? id : "current_source")
 {
 	m_name = i18n("Current Source");
-	setSize( -16, -8, 24, 24 );
+	setSize(-16, -8, 24, 24);
 
 	init1PinLeft(8);
 	init1PinRight(8);
-	m_pNNode[0]->pin()->setGroundType( Pin::gt_low );
-	
-	m_currentSource = createCurrentSource( m_pNNode[0], m_pPNode[0], 0. );
-	
-	createProperty( "current", Variant::Type::Double );
-	property("current")->setCaption( i18n("Current") );
+	m_pNNode[0]->pin()->setGroundType(Pin::gt_low);
+
+	m_currentSource = createCurrentSource(m_pNNode[0]->pin(), m_pPNode[0]->pin(), 0.);
+
+	createProperty("current", Variant::Type::Double);
+	property("current")->setCaption(i18n("Current"));
 	property("current")->setUnit("A");
 	property("current")->setMinValue(-1e12);
 	property("current")->setMaxValue(1e12);
 	property("current")->setValue(0.02);
 	
-	addDisplayText("current", QRect( -16, -16, 24, 0 ), "" );
+	addDisplayText("current", QRect(-16, -16, 24, 0), "");
 }
 
 

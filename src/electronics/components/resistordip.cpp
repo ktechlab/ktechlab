@@ -81,38 +81,35 @@ void ResistorDIP::initPins()
 	if ( count == m_resistorCount )
 		return;
 	
-	if ( count < m_resistorCount )
-	{
-		for ( int i=count; i<m_resistorCount; ++i )
-		{
-			removeElement( m_resistance[i], false );
-			m_resistance[i] = 0l;
-			removeNode( "n"+QString::number(i) );
-			removeNode( "p"+QString::number(i) );
+	if(count < m_resistorCount) {
+		for(int i=count; i<m_resistorCount; ++i) {
+			removeElement(m_resistance[i], false);
+			m_resistance[i] = 0;
+			removeNode("n" + QString::number(i));
+			removeNode("p" + QString::number(i));
 		}
-	}
-	else
-	{
-		for ( int i=m_resistorCount; i<count; ++i )
-		{
+	} else {
+		for ( int i=m_resistorCount; i<count; ++i ) {
 			const QString nid = "n"+QString::number(i);
 			const QString pid = "p"+QString::number(i);
-			m_resistance[i] = createResistance( createPin( -24, 0, 0, nid ), createPin( 24, 0, 180, pid ), resistance );
+			m_resistance[i] = createResistance(
+				createPin(-24, 0, 0, nid)->pin(),
+				createPin(24, 0, 180, pid)->pin(), resistance);
 		}
 	}
 	m_resistorCount = count;
 	
-	setSize( -16, -count*8, 32, count*16, true );
+	setSize(-16, -count * 8, 32, count * 16, true);
 	updateDIPNodePositions();
 }
 
 
 void ResistorDIP::updateDIPNodePositions()
 {
-	for ( int i=0; i<m_resistorCount; ++i )
+	for(int i = 0; i < m_resistorCount; ++i)
 	{
-		m_nodeMap["n"+QString::number(i)].y = offsetY() + 8 + 16*i;
-		m_nodeMap["p"+QString::number(i)].y = offsetY() + 8 + 16*i;
+		m_nodeMap["n" + QString::number(i)].y = offsetY() + 8 + 16 * i;
+		m_nodeMap["p" + QString::number(i)].y = offsetY() + 8 + 16 * i;
 	}
 	updateAttachedPositioning();
 }
