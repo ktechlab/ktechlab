@@ -51,6 +51,11 @@ MultiInputGate::MultiInputGate(ICNDocument *icnDocument, bool newItem, const cha
 }
 
 MultiInputGate::~MultiInputGate() {
+	delete m_pOut;
+
+	for (int i = 0; i < m_numInputs; ++i) {
+		delete inLogic[i];
+	}
 }
 
 void MultiInputGate::slotUpdateConfiguration() {
@@ -118,7 +123,6 @@ void MultiInputGate::updateInputs(int newNum) {
 		for (int i = m_numInputs; i < newNum; ++i) {
 			ECNode *node = createPin(0, 0, 0, "in" + QString::number(i));
 			inNode[i] = node;
-//			inLogic[i] = createLogicIn(node->pin());
 
 			inLogic[i] = new LogicIn(LogicIn::getConfig());
 			setup1pinElement(inLogic[i], node->pin());
