@@ -31,7 +31,7 @@ void ElementMap::mergeCurrents() {
 		if (n[i]) {
 // FIXME: Valgrind sez we are reading invalid memory here!
 // probably a cleanup deleted issue. 
-			n[i]->mergeCurrent(*(e->cnodeCurrent(i)));
+			n[i]->mergeCurrent(e->cnodeCurrent(i));
 		}
 	}
 }

@@ -19,7 +19,6 @@ VCCS::VCCS( const double gain )
 	m_numCNodes = 4;
 }
 
-
 VCCS::~VCCS()
 {
 }
