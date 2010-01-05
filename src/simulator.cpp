@@ -179,7 +179,7 @@ void Simulator::slotSetSimulating(bool simulate) {
 void Simulator::createLogicChain(LogicOut *logicOut, const LogicInList &logicInList, const PinList &pinList) {
 	if (!logicOut) return;
 
-	bool state = logicOut->outputState();
+	bool state = logicOut->isHigh();
 
 	logicOut->setUseLogicChain(true);
 	logicOut->pinList = pinList;
