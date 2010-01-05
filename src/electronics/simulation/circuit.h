@@ -129,8 +129,6 @@ protected:
 	bool m_bCanCache;
 	LogicCacheNode *m_pLogicCacheBase;
 
-//	unsigned m_logicOutCount;
-//	LogicOut **m_pLogicOut;
 	logicOutVec m_pLogicOut;
 
 	bool m_bCanAddChanged;

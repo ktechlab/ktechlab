@@ -13,15 +13,14 @@
 #include <cassert>
 #include <kdebug.h>
 
-Wire::Wire(Pin *startPin, Pin *endPin)
+Wire::Wire(Pin *startPin, Pin *endPin) :
+	m_current(0), m_bCurrentIsKnown(false)
 {
 	assert(startPin);
 	assert(endPin);
 
 	m_pStartPin = startPin;
 	m_pEndPin = endPin;
-	m_current = 0.;
-	m_bCurrentIsKnown = false;
 
 	m_pStartPin->addWire(this);
 	m_pEndPin->addWire(this);
@@ -29,6 +28,8 @@ Wire::Wire(Pin *startPin, Pin *endPin)
 
 Wire::~Wire()
 {
+	m_pStartPin->removeWire(this);
+	m_pEndPin->removeWire(this);
 }
 
 double Wire::currentFor(const Pin *aPin) const {
