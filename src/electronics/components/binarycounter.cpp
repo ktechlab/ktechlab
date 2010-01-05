@@ -37,7 +37,7 @@ LibraryItem* BinaryCounter::libraryItem()
 }
 
 BinaryCounter::BinaryCounter( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, id ? id : "binary_counter" )
+	: DIPComponent( icnDocument, newItem, id ? id : "binary_counter" )
 {
 	m_name = i18n("Binary Counter");
 

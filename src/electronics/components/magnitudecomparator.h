@@ -10,7 +10,7 @@
 #ifndef MAGNITUDECOMPARATOR_H
 #define MAGNITUDECOMPARATOR_H
 
-#include "component.h"
+#include "dipcomponent.h"
 #include "logic.h"
 
 #include <qbitarray.h>
@@ -19,7 +19,7 @@
 /**
 @author Fredy Yanardi
  */
-class MagnitudeComparator : public CallbackClass, public Component
+class MagnitudeComparator : public CallbackClass, public DIPComponent
 {
 	public:
 		MagnitudeComparator( ICNDocument *icnDocument, bool newItem, const char *id = 0L );

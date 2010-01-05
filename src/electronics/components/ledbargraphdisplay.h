@@ -10,7 +10,7 @@
 #ifndef LEDBARGRAPHDISPLAY_H
 #define LEDBARGRAPHDISPLAY_H
 
-#include <component.h>
+#include "dipcomponent.h"
 #include "diode.h"
 
 #include <qvaluevector.h>
@@ -47,7 +47,7 @@ class LEDPart
 		uint last_brightness;	
 };
 
-class LEDBarGraphDisplay : public Component
+class LEDBarGraphDisplay : public DIPComponent
 {
 	public:
 		LEDBarGraphDisplay( ICNDocument* icnDocument, bool newItem, const QString& id = 0L );
