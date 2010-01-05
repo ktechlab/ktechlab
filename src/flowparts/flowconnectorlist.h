@@ -12,11 +12,13 @@
 #ifndef FLOWCONNECTORLIST_H
 #define FLOWCONNECTORLIST_H
 
+#include <set>
+
 class Connector;
 class FlowConnector;
 
 // these typedef's shoud go in a separate header one day
-typedef QValueList<Connector *> ConnectorList;
+typedef std::set<Connector *> ConnectorList;
 
 /**
  * @short a list of connector between FlowNodes
@@ -66,14 +68,14 @@ public :
 		FlowConnectorList::iterator it, end = flowList.end();
 
 		for (it = flowList.begin(); it != end; it++)
-			list.append((Connector *)*it);
+			list.insert((Connector *)*it);
 	}
 
 	FlowConnectorList(const std::list<T> & l) : flowList(l) {
 		FlowConnectorList::iterator it, end = flowList.end();
 
 		for (it = flowList.begin(); it != end; it++)
-			list.append((Connector *) *it);
+			list.insert((Connector *) *it);
 	}
 
 	~FlowConnectorList() { }	// leak check ?
@@ -84,7 +86,7 @@ public :
 		FlowConnectorList::iterator it, end = flowList.end();
 
 		for (it = flowList.begin(); it != end; it++)
-			list.append((Connector *) *it);
+			list.insert((Connector *) *it);
 
 		return flowList;
 	}
@@ -95,7 +97,7 @@ public :
 		FlowConnectorList::iterator it, end = flowList.end();
 
 		for (it = flowList.begin(); it != end; it++)
-			list.append((Connector *) *it);
+			list.insert((Connector *) *it);
 
 		return flowList;
 	}
@@ -142,7 +144,7 @@ public :
 	}
 
 	uint remove(const T &x) {
-		list.remove((Connector *)x);
+		list.erase((Connector *)x);
 		return flowList.remove(x);
 	}
 
@@ -152,7 +154,7 @@ public :
 	}
 
 	QValueList<T> & operator<< (const T & x) {
-		list << (Connector *)x;
+		list.insert((Connector *)x);
 		return flowList << x;
 	}
 
@@ -165,12 +167,12 @@ public :
 	}
 
 	void push_front(const T & x) {
-		list.push_front((Connector *)x);
+		list.insert((Connector *)x);
 		flowList.push_front(x);
 	}
 
 	void push_back(const T & x) {
-		list.push_back((Connector *)x);
+		list.insert((Connector *)x);
 		flowList.push_back(x);
 	}
 
@@ -201,17 +203,19 @@ public :
 	}
 
 	void pop_front() {
+		list.erase((Connector *)flowList.front());
 		flowList.pop_front();
-		list.pop_front();
+//		list.pop_front();
 	}
 
 	void pop_back() {
+		list.erase((Connector *)flowList.back());
 		flowList.pop_back();
-		list.pop_back();
+//		list.pop_back();
 	}
 
 	void insert(iterator pos, size_type n, const T &x) { 	// O(n)
-		list.insert(convertIterator(pos) , n, (Connector *)x);
+		list.insert((Connector *)x);
 		flowList.insert(pos, n, x);
 	}
 
@@ -223,7 +227,7 @@ public :
 		const_iterator end = l.end();
 
 		for (const_iterator it = l.begin(); it != end; it++)
-			list.append((Connector *)*it);
+			list.insert((Connector *)*it);
 
 		return flowList += l;
 	}
@@ -241,18 +245,18 @@ public :
 	}
 
 	iterator append(const T & x) {
-		list.append((Connector *)x);
+		list.insert((Connector *)x);
 		return flowList.append(x);
 	}
 
 	iterator prepend(const T & x) {
-		list.prepend((Connector *)x);
+		list.insert((Connector *)x);
 		return flowList.prepend(x);
 	}
 
 	iterator remove(iterator it) {
 		// -> O(n)
-		list.remove(convertIterator(it));
+		list.erase(convertIterator(it));
 		return flowList.remove(it);
 	}
 
@@ -317,7 +321,7 @@ public :
 	}
 
 	QValueList<T> & operator+= (const T & x) {
-		list += (Connector *) x;
+		list.insert((Connector *) x);
 		return flowList += x;
 	}
 
