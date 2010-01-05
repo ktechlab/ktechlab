@@ -56,7 +56,7 @@ LibraryItem* DAC::libraryItem()
 
 //BEGIN class ADDAC
 ADDAC::ADDAC(ICNDocument *icnDocument, bool newItem, const char *id)
-	: Component(icnDocument, newItem, id)
+	: DIPComponent(icnDocument, newItem, id)
 {
 	m_numBits = 0;
 	m_range = 0;

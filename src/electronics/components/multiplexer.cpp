@@ -36,7 +36,7 @@ LibraryItem* Multiplexer::libraryItem()
 }
 
 Multiplexer::Multiplexer( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, id ? id : "multiplexer" )
+	: DIPComponent( icnDocument, newItem, id ? id : "multiplexer" )
 {
 	m_name = i18n("Multiplexer");
 	

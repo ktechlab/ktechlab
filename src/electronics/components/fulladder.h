@@ -11,13 +11,13 @@
 #ifndef ECFullAdder_H
 #define ECFullAdder_H
 
-#include "component.h"
+#include "dipcomponent.h"
 #include "logic.h"
 
 /**
 @author David Saxton
 */
-class FullAdder : public CallbackClass, public Component
+class FullAdder : public CallbackClass, public DIPComponent
 {
 public:
 	FullAdder( ICNDocument *icnDocument, bool newItem, const char *id = 0L );

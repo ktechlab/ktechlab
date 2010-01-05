@@ -36,7 +36,7 @@ LibraryItem* Demultiplexer::libraryItem()
 }
 
 Demultiplexer::Demultiplexer( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, id ? id : "demultiplexer" )
+	: DIPComponent( icnDocument, newItem, id ? id : "demultiplexer" )
 {
 	m_name = i18n("Demultiplexer");
 	

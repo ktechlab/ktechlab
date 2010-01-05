@@ -35,7 +35,7 @@ LibraryItem* FullAdder::libraryItem()
 }
 
 FullAdder::FullAdder(ICNDocument *icnDocument, bool newItem, const char *id)
-	: Component(icnDocument, newItem, (id) ? id : "adder")
+	: DIPComponent(icnDocument, newItem, (id) ? id : "adder")
 {
 	m_name = i18n("Adder");
 

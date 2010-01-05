@@ -11,7 +11,7 @@
 #ifndef EC4BITCOUNTER_H
 #define EC4BITCOUNTER_H
 
-#include "component.h"
+#include "dipcomponent.h"
 #include "logic.h"
 
 /**
@@ -27,7 +27,7 @@ The inputs are:
 @short 4 Bit Binary Counter
 @author David Saxton
 */
-class BinaryCounter : public CallbackClass, public Component
+class BinaryCounter : public CallbackClass, public DIPComponent
 {
 public:
 	BinaryCounter( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
