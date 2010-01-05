@@ -438,7 +438,7 @@ void ICNDocument::addCPenalty(int x, int y, int score) {
 void ICNDocument::createCellMap() {
 	const ItemMap::iterator ciEnd = m_itemList.end();
 	for (ItemMap::iterator it = m_itemList.begin(); it != ciEnd; ++it) {
-		if (CNItem *cnItem = dynamic_cast<CNItem*>(*it))
+		if (CNItem *cnItem = dynamic_cast<CNItem*>(it->second))
 			cnItem->updateConnectorPoints(false);
 	}
 	const ConnectorList::iterator conEnd = m_connectorList.end();
@@ -565,8 +565,8 @@ void ICNDocument::selectAll() {
 
 	const ItemMap::iterator itemEnd = m_itemList.end();
 	for (ItemMap::iterator itemIt = m_itemList.begin(); itemIt != itemEnd; ++itemIt) {
-
-		if (*itemIt) select(*itemIt);
+		assert(itemIt->second);
+		select(itemIt->second);
 	}
 	const ConnectorList::iterator conEnd = m_connectorList.end();
 	for (ConnectorList::iterator connectorIt = m_connectorList.begin(); connectorIt != conEnd; ++connectorIt) {
@@ -581,15 +581,14 @@ Item* ICNDocument::addItem(const QString &id, const QPoint &p, bool newItem) {
 	// First, we need to tell all containers to go to full bounding so that
 	// we can detect a "collision" with them
 	const ItemMap::iterator end = m_itemList.end();
-
 	for (ItemMap::iterator it = m_itemList.begin(); it != end; ++it) {
-		if (FlowContainer *flowContainer = dynamic_cast<FlowContainer*>(*it))
+		if (FlowContainer *flowContainer = dynamic_cast<FlowContainer*>(it->second))
 			flowContainer->setFullBounds(true);
 	}
 	QCanvasItemList preCollisions = canvas()->collisions(p);
 
 	for (ItemMap::iterator it = m_itemList.begin(); it != end; ++it) {
-		if (FlowContainer *flowContainer = dynamic_cast<FlowContainer*>(*it))
+		if (FlowContainer *flowContainer = dynamic_cast<FlowContainer*>(it->second))
 			flowContainer->setFullBounds(false);
 	}
 
@@ -639,7 +638,7 @@ Item* ICNDocument::addItem(const QString &id, const QPoint &p, bool newItem) {
 void ICNDocument::addAllItemConnectorPoints() {
 	const ItemMap::iterator ciEnd = m_itemList.end();
 	for (ItemMap::iterator it = m_itemList.begin(); it != ciEnd; ++it) {
-		if (CNItem *cnItem = dynamic_cast<CNItem*>(*it))
+		if (CNItem *cnItem = dynamic_cast<CNItem*>(it->second))
 			cnItem->updateConnectorPoints(true);
 	}
 }

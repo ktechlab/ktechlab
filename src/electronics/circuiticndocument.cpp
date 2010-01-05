@@ -295,7 +295,7 @@ void CircuitICNDocument::slotAssignNodeGroups() {
 	// containing new node groups need to update them to make them invisible.
 	const ItemMap::const_iterator itemListEnd = m_itemList.end();
 	for (ItemMap::const_iterator it = m_itemList.begin(); it != itemListEnd; ++it) {
-		if (FlowContainer * fc = dynamic_cast<FlowContainer*>(*it))
+		if (FlowContainer *fc = dynamic_cast<FlowContainer*>(it->second))
 			fc->updateContainedVisibility();
 	}
 }
@@ -321,7 +321,7 @@ void CircuitICNDocument::flushDeleteList() {
 		m_selectList->removeQCanvasItem(*it);
 
 		if (Item *item = dynamic_cast<Item*>(qcanvasItem))
-			m_itemList.remove(item->id());
+			m_itemList.erase(item->id());
 		else if (ECNode *node = dynamic_cast<ECNode*>(qcanvasItem))
 			m_ecNodeList.erase(node->id());
 		else if (Connector *con = dynamic_cast<Connector*>(qcanvasItem))

@@ -281,9 +281,8 @@ void FlowICNDocument::slotAssignNodeGroups() {
 	// We've destroyed the old node groups, so any collapsed flowcontainers
 	// containing new node groups need to update them to make them invisible.
 	const ItemMap::const_iterator itemListEnd = m_itemList.end();
-
 	for (ItemMap::const_iterator it = m_itemList.begin(); it != itemListEnd; ++it) {
-		if (FlowContainer * fc = dynamic_cast<FlowContainer*>(*it))
+		if (FlowContainer * fc = dynamic_cast<FlowContainer*>(it->second))
 			fc->updateContainedVisibility();
 	}
 }
@@ -291,7 +290,6 @@ void FlowICNDocument::slotAssignNodeGroups() {
 void FlowICNDocument::flushDeleteList() {
 	// Remove duplicate items in the delete list
 	QCanvasItemList::iterator end = m_itemDeleteList.end();
-
 	for (QCanvasItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it) {
 		if (*it && m_itemDeleteList.contains(*it) > 1) {
 			*it = 0;
@@ -306,7 +304,7 @@ void FlowICNDocument::flushDeleteList() {
 		m_selectList->removeQCanvasItem(*it);
 
 		if (Item *item = dynamic_cast<Item*>(qcanvasItem))
-			m_itemList.remove(item->id());
+			m_itemList.erase(item->id());
 		else if (FPNode * node = dynamic_cast<FPNode*>(qcanvasItem))
 			m_flowNodeList.remove(node->id());
 		else if (Connector * con = dynamic_cast<Connector*>(qcanvasItem))
