@@ -68,9 +68,9 @@ void ECSubcircuit::setNumExtCon( unsigned numExtCon )
 	const NodeInfoMap::iterator nodeMapEnd = m_nodeMap.end();
 	for ( NodeInfoMap::iterator it = m_nodeMap.begin(); it != nodeMapEnd; ++it )
 	{
-		p_icnDocument->appendDeleteList( p_icnDocument->nodeWithID(it.data().id) );
+		m_pCircuitDocument->appendDeleteList(m_pCircuitDocument->nodeWithID(it.data().id) );
 	}
-	p_icnDocument->flushDeleteList();
+	m_pCircuitDocument->flushDeleteList();
 	m_nodeMap.clear();
 	
 	QStringList pins;
