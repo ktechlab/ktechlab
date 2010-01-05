@@ -11,17 +11,15 @@
 #ifndef ECSEVENSEGMENT_H
 #define ECSEVENSEGMENT_H
 
-#include "component.h"
+#include "dipcomponent.h"
 
 class Diode;
-class ECNode;
 
 /**
 @short Seven segment display component
 @author David Saxton
 */
-class ECSevenSegment : public Component
-{
+class ECSevenSegment : public DIPComponent {
 public:
 	ECSevenSegment( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ECSevenSegment();

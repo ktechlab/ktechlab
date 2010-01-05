@@ -11,14 +11,14 @@
 #ifndef ECBCDTO7SEGMENT_H
 #define ECBCDTO7SEGMENT_H
 
-#include "component.h"
+#include "dipcomponent.h"
 #include "logic.h"
 
 /**
 @short Converts a BCD input to 7-Segment Output
 @author David Saxton
 */
-class ECBCDTo7Segment : public CallbackClass, public Component
+class ECBCDTo7Segment : public CallbackClass, public DIPComponent
 {
 public:
 	ECBCDTo7Segment( ICNDocument *icnDocument, bool newItem, const char *id = 0L );

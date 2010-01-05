@@ -12,11 +12,12 @@
 #define MATRIXDISPLAYDRIVER_H
 
 #include "matrixdisplay.h"
+#include "dipcomponent.h"
 
 /**
 @author David Saxton
  */
-class MatrixDisplayDriver : public Component
+class MatrixDisplayDriver : public DIPComponent
 {
 	public:
 		MatrixDisplayDriver( ICNDocument *icnDocument, bool newItem, const char *id = 0L );

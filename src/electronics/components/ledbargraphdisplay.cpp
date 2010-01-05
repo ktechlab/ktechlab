@@ -87,7 +87,7 @@ LibraryItem* LEDBarGraphDisplay::libraryItem() {
 }
 
 LEDBarGraphDisplay::LEDBarGraphDisplay(ICNDocument* icnDocument, bool newItem, const QString& id)
-		: Component(icnDocument, newItem, id ? id : "bar_graph_display") {
+		: DIPComponent(icnDocument, newItem, id ? id : "bar_graph_display") {
 	m_name = i18n("Bar Graph Display");
 	m_bDynamicContent = true;
 
