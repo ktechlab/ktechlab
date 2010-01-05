@@ -28,9 +28,7 @@ The inputs are:
 @author David Saxton
 
 TODO: refactor and make a subclass of clockedFlipFLop (or clocked Logic, as proposed.
-
 */
-
 class BinaryCounter : public CallbackClass, public DIPComponent {
 
 public:
@@ -43,8 +41,6 @@ public:
 protected:
 	void inStateChanged(bool state);   // Input
 	void rStateChanged(bool state);   // Reset
-//	void enStateChanged(bool state);   // Enable
-//	void udStateChanged(bool state);   // Up/Down
 	void outputValue();
 	void dataChanged();
 	void initPins(unsigned numBits);
@@ -54,10 +50,7 @@ protected:
 
 	unsigned m_numBits;
 	bool b_triggerHigh;
-//	bool b_en; // Enable
-//	bool b_ud; // Up/Down
 	bool b_oldIn;
-//	bool b_reset;
 	long m_value;
 	bool m_bDoneLogicIn;
 };
