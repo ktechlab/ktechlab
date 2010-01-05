@@ -98,9 +98,11 @@ void BJT::updateCurrents()
 	double I_BE, I_BC, I_T, g_BE, g_BC, g_IF, g_IR;
 	calcIg(V_BE, V_BC, &I_BE, &I_BC, &I_T, &g_BE, &g_BC, &g_IF, &g_IR);
 // ####
-	m_cnodeI[1] = I_BC - I_T;
-	m_cnodeI[2] = I_BE + I_T;
-	m_cnodeI[0] = -(m_cnodeI[1] + m_cnodeI[2]);
+
+	p_cnode[1]->setCurrent(I_BC - I_T);
+	p_cnode[2]->setCurrent(I_BE + I_T);
+
+	p_cnode[0]->setCurrent(-(p_cnode[1]->current() + p_cnode[2]->current()));
 }
 
 void BJT::update_dc()

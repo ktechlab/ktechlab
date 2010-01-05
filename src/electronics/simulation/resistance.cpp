@@ -53,8 +53,9 @@ void Resistance::add_initial_dc() {
 void Resistance::updateCurrents() {
 	if (!b_status) return;
 
-	const double v = p_cnode[0]->voltage() - p_cnode[1]->voltage();
+	const double i = (p_cnode[0]->voltage() - p_cnode[1]->voltage()) * m_g;
 
-	m_cnodeI[1] = v * m_g;
-	m_cnodeI[0] = -m_cnodeI[1];
+	p_cnode[0]->setCurrent(-i);
+	p_cnode[1]->setCurrent( i);
 }
+

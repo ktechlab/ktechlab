@@ -109,9 +109,9 @@ void JFET::updateCurrents()
 		&g_GS, &g_GD, &g_DS,
 		&g_m );
 
-	m_cnodeI[PinD] = I_GD - I_DS;
-	m_cnodeI[PinS] = I_GS + I_DS;
-	m_cnodeI[PinG] = -(m_cnodeI[PinD] + m_cnodeI[PinS]);
+	p_cnode[PinD]->setCurrent(I_GD - I_DS);
+	p_cnode[PinS]->setCurrent(I_GS + I_DS);
+	p_cnode[PinS]->setCurrent(-(p_cnode[PinD]->current() + p_cnode[PinS]->current() ));
 }
 
 
