@@ -53,9 +53,13 @@ void CCCS::add_initial_dc()
 void CCCS::updateCurrents()
 {
 	if (!b_status) return;
-	m_cnodeI[1] = p_cbranch[0]->current();
-	m_cnodeI[0] = -m_cnodeI[1];
-	m_cnodeI[3] = p_cbranch[1]->current();
-	m_cnodeI[2] = -m_cnodeI[3];
+
+	double i = p_cbranch[0]->current();
+	p_cnode[0]->setCurrent(-i);
+	p_cnode[1]->setCurrent( i);
+
+	i = p_cbranch[1]->current();
+	p_cnode[2]->setCurrent(-i);
+	p_cnode[3]->setCurrent( i);
 }
 

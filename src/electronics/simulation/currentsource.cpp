@@ -51,6 +51,6 @@ void CurrentSource::add_initial_dc()
 
 void CurrentSource::updateCurrents()
 {
-	m_cnodeI[0] = -m_i;
-	m_cnodeI[1] = m_i;
+	p_cnode[0]->setCurrent(-m_i);
+	p_cnode[1]->setCurrent( m_i);
 }

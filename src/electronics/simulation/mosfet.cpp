@@ -121,9 +121,9 @@ void MOSFET::updateCurrents() {
 	       &g_M, &g_mb);
 //**************************************
 
-	m_cnodeI[PinD] = -I_D + I_BD;
-	m_cnodeI[PinB] = -I_BD - I_BS;
-	m_cnodeI[PinS] =  I_D + I_BS;
+	p_cnode[PinD]->setCurrent(-I_D  + I_BD);
+	p_cnode[PinB]->setCurrent(-I_BD - I_BS);
+	p_cnode[PinS]->setCurrent( I_D  + I_BS);
 }
 
 void MOSFET::update_dc() {
