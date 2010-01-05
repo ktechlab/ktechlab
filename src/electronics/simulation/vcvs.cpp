@@ -53,13 +53,16 @@ void VCVS::add_initial_dc()
 	A_c( 0, 3 ) = -1;
 }
 
-
 void VCVS::updateCurrents()
 {
 	if (!b_status) return;
-	m_cnodeI[0] = m_cnodeI[1] = 0.;
-	m_cnodeI[3] = p_cbranch[0]->current();
-	m_cnodeI[2] = -m_cnodeI[3];
-}
 
+	p_cnode[0]->setCurrent(0.0);
+	p_cnode[1]->setCurrent(0.0);
+
+	double i = p_cbranch[0]->current();
+
+	p_cnode[2]->setCurrent(-i);
+	p_cnode[3]->setCurrent( i);
+}
 
