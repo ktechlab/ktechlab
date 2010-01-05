@@ -25,6 +25,7 @@ class NonLinear;
 
 typedef std::set<Element*> ElementList;
 typedef std::set<NonLinear*> NonLinearList;
+typedef std::set<LogicIn*> LogicInSet;
 
 /**
 Steps in simulation of a set of elements:
@@ -115,8 +116,6 @@ public:
 	 */
 	inline unsigned int cbranchCount() const { return m_cb; }
 
-	void createMatrixMap();
-
 	/**
 	 * Displays the matrix equations Ax=b and J(dx)=-r
 	 */
@@ -145,8 +144,7 @@ private:
 
 	CNode *m_ground;
 
-	unsigned int m_clogic;
-	LogicIn **p_logicIn;
+	LogicInSet p_logicIn;
 
 	bool b_containsNonLinear;
 	Circuit *m_pCircuit;
