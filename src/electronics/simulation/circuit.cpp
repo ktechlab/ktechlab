@@ -25,13 +25,11 @@
 typedef std::multimap<int, PinList> PinListMap;
 
 //BEGIN class Circuit
-Circuit::Circuit() {
-	m_bCanAddChanged = true;
-	m_logicOutCount = 0;
-	m_bCanCache = false;
-	m_pLogicOut = 0;
+Circuit::Circuit() : 
+		m_bCanCache(false), m_bCanAddChanged(true), m_logicOutCount(0), m_pLogicOut(0) {
 	m_elementSet = new ElementSet(this, 0, 0); // why do we do this?
 	m_pLogicCacheBase = new LogicCacheNode;
+	m_elementList.clear();
 }
 
 Circuit::~Circuit() {
@@ -42,11 +40,12 @@ Circuit::~Circuit() {
 
 void Circuit::addPin(Pin *node) {
 //	if (m_pinList.contains(node)) return;
-
+	assert(node);
 	m_pinList.insert(node);
 }
 
 void Circuit::addElement(Element *element) {
+	assert(element);
 	m_elementList.insert(element);
 }
 
@@ -150,9 +149,11 @@ int Circuit::identifyGround(PinList nodeList, int *highest) {
 
 void Circuit::init() {
 	unsigned branchCount = 0;
-	const ElementList::iterator listEnd = m_elementList.end();
 
+	const ElementList::iterator listEnd = m_elementList.end();
 	for (ElementList::iterator it = m_elementList.begin(); it != listEnd; ++it) {
+// WHY ARE WE SEGFAULTING HERE???
+		assert(*it);
 		branchCount += (*it)->numCBranches();
 	}
 
@@ -413,7 +414,6 @@ void Circuit::doNonLogic() {
 
 void Circuit::stepReactive() {
 	ElementList::iterator listEnd = m_elementList.end();
-
 	for (ElementList::iterator it = m_elementList.begin(); it != listEnd; ++it) {
 		Element * const e = *it;
 
@@ -439,10 +439,12 @@ void Circuit::updateNodalVoltages() {
 }
 
 void Circuit::updateCurrents() {
-	ElementList::iterator listEnd = m_elementList.end();
 
+	assert(m_elementList.find((Element*)0) == m_elementList.end() );
+
+	ElementList::iterator listEnd = m_elementList.end();
 	for (ElementList::iterator it = m_elementList.begin(); it != listEnd; ++it) {
-		(*it)->updateCurrents();
+		if(*it) (*it)->updateCurrents();
 	}
 }
 

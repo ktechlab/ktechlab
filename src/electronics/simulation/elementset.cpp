@@ -56,7 +56,6 @@ ElementSet::ElementSet(Circuit *circuit, const int n, const int m)
 
 ElementSet::~ElementSet() {
 	const ElementList::iterator end = m_elementList.end();
-
 	for (ElementList::iterator it = m_elementList.begin(); it != end; ++it) {
 		// Note: By calling setElementSet(0l), we might have deleted it (the Element will commit
 		// suicide when both the the ElementSet and Component to which it belongs have deleted
@@ -64,7 +63,7 @@ ElementSet::~ElementSet() {
 		if (*it)(*it)->elementSetDeleted();
 	}
 
-	for (uint i = 0; i < m_cn; i++) delete m_cnodes[i];
+//	for (uint i = 0; i < m_cn; i++) delete m_cnodes[i];
 	for (uint i = 0; i < m_cb; i++) delete m_cbranches[i];
 
 	delete[] m_cbranches;
@@ -73,8 +72,11 @@ ElementSet::~ElementSet() {
 	delete m_ground;
 
 	if (p_A) delete p_A;
+	p_A = 0;  // Why are we getting a double free fault? 
 	if (p_b) delete p_b;
+	p_b = 0;
 	if (p_x) delete p_x;
+	p_x = 0;
 }
 
 bool ElementSet::canAddChanged() {
@@ -86,7 +88,7 @@ void ElementSet::setCacheInvalidated() {
 }
 
 void ElementSet::addElement(Element *e) {
-	if (!e || m_elementList.find(e) != m_elementList.end()) return;
+	assert(e);
 
 	e->setElementSet(this);
 	m_elementList.insert(e);
@@ -104,7 +106,6 @@ void ElementSet::createMatrixMap() {
 
 	m_clogic = 0;
 	ElementList::iterator end = m_elementList.end();
-
 	for (ElementList::iterator it = m_elementList.begin(); it != end; ++it) {
 		if (dynamic_cast<LogicIn*>(*it))
 			m_clogic++;
