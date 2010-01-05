@@ -76,7 +76,7 @@ void Matrix::performLU()
 		unsigned foo = std::max(k, max_k) + 1;
 
 // detect singular matrixes...
-		double lu_K_K_val = *lu_K_K;
+		double lu_K_K_val = *lu_K_K; // have a local copy of the data at the pointer. 
 		if(std::abs(lu_K_K_val) < 1e-10) {
 			if(lu_K_K_val < 0.) *lu_K_K = -1e-10;
 			else *lu_K_K = 1e-10;
