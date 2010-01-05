@@ -6,9 +6,6 @@
 #include <math.h>
 
 inline int roundDown(const int x, const int roundness) {
-// this code rounds down, but the program doesn't work if we use this version.
-//	return x - (x % roundness);
-
 //FIXME: What is this function really supposed to do?
 // must be important because it's called millions of times!
 	if (x < 0)
@@ -30,7 +27,8 @@ inline int toCanvas(int pos) {
 }
 
 inline int fromCanvas(int pos) {
-	return roundDown(pos - 4, 8);
+//	return roundDown(pos - 4, 8);
+	return (pos - 4) >> 3;
 }
 
 inline QPoint toCanvas(const QPoint *pos) {
@@ -58,7 +56,8 @@ inline double qpoint_distance(const QPoint &p1, const QPoint &p2) {
 }
 
 inline int snapToCanvas(int x) {
-	return toCanvas(roundDown(x, 8));
+//	return toCanvas(roundDown(x, 8));
+	return ((x + 4) & ~7);
 }
 
 inline int snapToCanvas(double x) {
