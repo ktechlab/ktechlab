@@ -193,7 +193,7 @@ void SerialPortComponent::initPort(const QString & port, unsigned baudRate) {
 	}
 
 	if (! m_pSerialPort->openPort(port, baudRate)) {
-		p_itemDocument->canvas()->setMessage(i18n("Could not open port %1").arg(port));
+		m_pCircuitDocument->canvas()->setMessage(i18n("Could not open port %1").arg(port));
 		return;
 	}
 }

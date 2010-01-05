@@ -9,7 +9,7 @@
  ***************************************************************************/
 
 #include "ecnode.h"
-#include "icndocument.h"
+#include "circuitdocument.h"
 #include "libraryitem.h"
 #include "logic.h"
 #include "multiinputgate.h"
@@ -78,8 +78,8 @@ void MultiInputGate::updateLogicSymbolShape() {
 	updateSymbolText();
 	updateAttachedPositioning();
 
-	if (p_itemDocument)
-		p_itemDocument->requestEvent(ItemDocument::ItemDocumentEvent::RerouteInvalidatedConnectors);
+	if (m_pCircuitDocument)
+		m_pCircuitDocument->requestEvent(ItemDocument::ItemDocumentEvent::RerouteInvalidatedConnectors);
 
 	// Set the canvas changed for the new shape
 	setChanged();

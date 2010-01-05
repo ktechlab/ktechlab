@@ -134,7 +134,7 @@ void FlowPart::setCaption(const QString &caption) {
 	bool hasSideConnectors = m_flowSymbol == FlowPart::ps_decision;
 
 	if (hasSideConnectors && (width != this->width()))
-		p_icnDocument->requestRerouteInvalidatedConnectors();
+		m_pFlowCodeDocument->requestRerouteInvalidatedConnectors();
 
 	initSymbol(m_flowSymbol, width);
 	m_caption = caption;
@@ -341,7 +341,7 @@ QString FlowPart::gotoCode(const QString& internalNodeId) {
 }
 
 FlowPart* FlowPart::outputPart(const QString& internalNodeId) {
-	Node *node = p_icnDocument->nodeWithID(nodeId(internalNodeId));
+	Node *node = m_pFlowCodeDocument->nodeWithID(nodeId(internalNodeId));
 
 	FPNode *fpnode = dynamic_cast<FPNode*>(node);
 	// FIXME dynamic_cast used to replace fpnode::type() call
@@ -354,7 +354,7 @@ FlowPart* FlowPart::outputPart(const QString& internalNodeId) {
 }
 
 FlowPartList FlowPart::inputParts(const QString& id) {
-	Node *node = p_icnDocument->nodeWithID(id);
+	Node *node = m_pFlowCodeDocument->nodeWithID(id);
 
 	if (FPNode *fpNode = dynamic_cast<FPNode*>(node))
 		return fpNode->inputFlowParts();
@@ -367,7 +367,7 @@ FlowPartList FlowPart::inputParts() {
 
 	const NodeInfoMap::iterator nEnd = m_nodeMap.end();
 	for (NodeInfoMap::iterator it = m_nodeMap.begin(); it != nEnd; ++it) {
-		Node *node = p_icnDocument->nodeWithID(it.data().id);
+		Node *node = m_pFlowCodeDocument->nodeWithID(it.data().id);
 		FlowPartList newList;
 
 		if (FPNode *fpNode = dynamic_cast<FPNode*>(node))
@@ -778,7 +778,7 @@ void FlowPart::setOrientation(uint orientation) {
 
 	m_orientation = orientation;
 	updateNodePositions();
-	p_icnDocument->requestRerouteInvalidatedConnectors();
+	m_pFlowCodeDocument->requestRerouteInvalidatedConnectors();
 }
 
 uint FlowPart::allowedOrientations() const {
