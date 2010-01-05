@@ -43,19 +43,8 @@ public:
 	virtual ~Component();
 
 	ECNode* createPin(double _x, double _y, int orientation, const QString &name);
-	/**
-	 * Converts the voltage level to a colour - this is used in drawing
-	 * wires and pins.
-TODO: refactor the voltage indicator stuff to a new class. 
-	 */
-	static QColor voltageColor(double v);
 
-	/**
-	 * @return a value between 0.0 and 1.0, representing a scaled version of
-	 * the absolute value of the voltage.
-	 * @see voltageColor
-	 */
-	static double voltageLength(double v);
+//###
 
 	/**
 	 * Angle of orientation

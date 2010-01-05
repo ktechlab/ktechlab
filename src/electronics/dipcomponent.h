@@ -18,7 +18,6 @@
 /**
 base class for DIP type components
 */
-
 class DIPComponent : public Component {
 public: 
 	DIPComponent(ICNDocument *icnDocument, bool newItem, const char *id)
@@ -38,8 +37,6 @@ TODO: refactor DIP stuff to a new subclass.
 	 * @li puts on text labels in appropriate positions from QStringList pins
 	 */
 	void initDIPSymbol(const QStringList &pins, int width);
-
-
 };
 
 #endif

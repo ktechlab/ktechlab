@@ -19,8 +19,6 @@ class Cells;
 class CNItem;
 class CNItemGroup;
 class Connector;
-class ECNode;
-class FlowContainer;
 class Node;
 class NodeGroup;
 
@@ -30,6 +28,10 @@ typedef QValueList<QGuardedPtr<Node> > NodeList;
 typedef QValueList<NodeGroup*> NodeGroupList;
 typedef QValueList<QGuardedPtr<NodeGroup> > GuardedNodeGroupList;
 typedef QValueList<QPoint> QPointList;
+
+// Refactor:
+class FlowContainer;
+// ###
 
 /**
 @author David Saxton
@@ -192,6 +194,8 @@ public:
 	/**
 	 * Returns the flowcontainer at the given position at the highest level that
 	 * is not in the current select list, or 0l if there isn't one
+
+TODO: Refactor!!
 	 */
 	FlowContainer *flowContainer( const QPoint &pos );
 	/**
