@@ -12,45 +12,39 @@
 #include "voltagepoint.h"
 #include "elementset.h"
 
-VoltagePoint::VoltagePoint( const double voltage )
-	: Element::Element()
-{
+VoltagePoint::VoltagePoint(const double voltage)
+		: Element::Element() {
 	m_voltage = -voltage;
 	m_numCBranches = 1;
 	m_numCNodes = 1;
 }
 
-
-VoltagePoint::~VoltagePoint()
-{
+VoltagePoint::~VoltagePoint() {
 }
 
+void VoltagePoint::setVoltage(const double v) {
+	if (-v == m_voltage) return;
 
-void VoltagePoint::setVoltage( const double v )
-{
-	if ( -v == m_voltage ) return;
-	
 	if (p_eSet)
 		p_eSet->setCacheInvalidated();
-	
+
 	m_voltage = -v;
+
 	add_initial_dc();
 }
 
-void VoltagePoint::add_initial_dc()
-{
+void VoltagePoint::add_initial_dc() {
 	if (!b_status) return;
-	
-	A_b( 0, 0 ) = -1;
-	A_c( 0, 0 ) = -1;
-	
-	b_v( 0 ) = m_voltage;
+
+	A_b(0, 0) = -1;
+	A_c(0, 0) = -1;
+
+	b_v(0) = m_voltage;
 }
 
-
-void VoltagePoint::updateCurrents()
-{
+void VoltagePoint::updateCurrents() {
 	if (!b_status) return;
+
 	m_cnodeI[0] = p_cbranch[0]->i;
 }
 

@@ -15,9 +15,6 @@
 
 #include "element.h"
 
-//#include <qguardedptr.h>
-//#include <qvaluelist.h>
-
 class Pin;
 class Simulator;
 
@@ -28,11 +25,11 @@ class LogicConfig {
 public:
 	LogicConfig();
 
-	float risingTrigger;	///< Trigger on rising edge
-	float fallingTrigger;	///< Trigger on falling edge
-	float output;		///< Output voltage
-	float highImpedance;	///< Output impedance when high
-	float lowImpedance;	///< Output impedance when low
+	double risingTrigger;	///< Trigger on rising edge
+	double fallingTrigger;	///< Trigger on falling edge
+	double output;		///< Output voltage
+	double highImpedance;	///< Output impedance when high
+	double lowImpedance;	///< Output impedance when low
 };
 
 class CallbackClass {};
@@ -96,20 +93,9 @@ public:
 
 // ### crappy linked list! =(
 /**
- * Returns a pointer to the next LogicIn in the chain.
- */
-
-void setChain(bool high);
-
-/**/
-LogicIn *nextLogic() const {
-	return m_pNextLogic;
-}
-
-void setNextLogic(LogicIn * next) {
-	m_pNextLogic = next;
-}
-
+ * Returns a pointer to the next LogicIn in the chain. */
+LogicIn *nextLogic() const { return m_pNextLogic; }
+void setNextLogic(LogicIn *next) { m_pNextLogic = next; }
 // ### 
 
 	/**
@@ -121,6 +107,11 @@ void setNextLogic(LogicIn * next) {
 	}
 
 protected:
+
+// evil linked list stuff: 
+void setChain(bool high);
+// ### 
+
 	virtual void updateCurrents();
 	virtual void add_initial_dc();
 
@@ -128,12 +119,12 @@ protected:
 	CallbackPtr m_pCallbackFunction;
 	CallbackClass *m_pCallbackObject;
 	bool m_bState;
+	LogicConfig m_config;
 
+private: 
 /// FIXME: crappy linked list implementation. 
 LogicIn *m_pNextLogic;
 /// ###
-
-	LogicConfig m_config;
 };
 
 /**
@@ -173,7 +164,7 @@ public:
 	 * Returns the voltage that this will output when high.
 	 */
 	double outputHighVoltage() const {
-		return m_vHigh;
+		return m_config.output;
 	}
 
 	/**
@@ -208,16 +199,6 @@ protected:
 	void configChanged();
 	virtual void updateCurrents();
 	virtual void add_initial_dc();
-
-	// Pre-initalized levels from config
-	double m_gHigh;
-	double m_gLow;
-	double m_vHigh;
-
-	// Whether to use the user-defined logic values
-	bool m_bOutputHighConductanceConst;
-	bool m_bOutputLowConductanceConst;
-	bool m_bOutputHighVoltageConst;
 
 	double m_g_out;
 	double m_v_out;
