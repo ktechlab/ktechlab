@@ -9,7 +9,6 @@
  ***************************************************************************/
 
 #include "inductance.h"
-#include "matrix.h"
 
 Inductance::Inductance(const double inductance, const double delta)
 	: Reactive(delta)
