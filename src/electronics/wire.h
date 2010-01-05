@@ -44,7 +44,9 @@ class Wire : public QObject
 		 * Returns the current flowing through the connector.
 		 * This only applies for electronic connectors
 		 */
-		double current() const { return m_current; } 
+		double current() const { return m_current; }
+		double currentFor(const Pin *aPin) const; 
+
 		/**
 		 * Returns the voltage at the connector. This is an average of the
 		 * voltages at either end.
