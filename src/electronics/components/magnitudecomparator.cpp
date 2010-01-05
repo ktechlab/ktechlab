@@ -26,8 +26,7 @@ LibraryItem *MagnitudeComparator::libraryItem() {
 	           i18n("Integrated Circuits"),
 	           "ic1.png",
 	           LibraryItem::lit_component,
-	           MagnitudeComparator::construct
-	       );
+	           MagnitudeComparator::construct);
 }
 
 MagnitudeComparator::MagnitudeComparator(ICNDocument *icnDocument, bool newItem, const char *id)
@@ -41,8 +40,6 @@ MagnitudeComparator::MagnitudeComparator(ICNDocument *icnDocument, bool newItem,
 	property("numInput")->setValue(4);
 
 	m_oldABLogicCount = 0;
-	cascadingInputs = 3;
-	outputs = 3;
 
 	firstTime = true;
 }
@@ -50,11 +47,9 @@ MagnitudeComparator::MagnitudeComparator(ICNDocument *icnDocument, bool newItem,
 MagnitudeComparator::~MagnitudeComparator() {
 }
 
-
 void MagnitudeComparator::dataChanged() {
 	initPins();
 }
-
 
 void MagnitudeComparator::inStateChanged() {
 	int i;
@@ -62,7 +57,6 @@ void MagnitudeComparator::inStateChanged() {
 	for (i = 0; i < 3; i++)
 		m_output[i]->setHigh(false);
 
-// 	for ( i = dataInt("numInput")-1; i >= 0; i-- ) {
 	for (i = m_oldABLogicCount - 1; i >= 0; i--) {
 		if (m_aLogic[i]->isHigh() && !m_bLogic[i]->isHigh()) {
 			m_output[0]->setHigh(true);
@@ -110,18 +104,15 @@ void MagnitudeComparator::initPins() {
 		leftPins << "";
 
 	QStringList rightPins;
-
 	space = -space;
 
 	for (int i = 0; i < space; i++)
 		rightPins << "";
 
 	QString inNames[] = { "I: A>B", "I: A<B", "I: A=B" };
-
 	rightPins << inNames[2] << inNames[1] << inNames[0];
 
 	QString outNames[] = { "O: A>B", "O: A<B", "O: A=B" };
-
 	rightPins << outNames[2] << outNames[1] << outNames[0];
 
 	for (int i = 0; i < space; i++)
@@ -130,63 +121,38 @@ void MagnitudeComparator::initPins() {
 	QStringList pins = leftPins + rightPins;
 
 	initDIPSymbol(pins, 88);
-
 	initDIP(pins);
 
-//	ECNode *node;
-
 	if (firstTime) {
-		m_cLogic.resize(3);
-
-		for (int i = 0; i < cascadingInputs; i++) {
-//			node = ecNodeWithID(inNames[i]);
-//			m_cLogic.insert(i, createLogicIn(node->pin()));
-
+		for (int i = 0; i < 3; i++) {
 			LogicIn *inLogic = new LogicIn(LogicIn::getConfig());
 			setup1pinElement(inLogic, ecNodeWithID(inNames[i])->pin());
-			m_cLogic.insert(i, inLogic);
+			m_cLogic[i] = inLogic;
 
 			m_cLogic[i]->setCallback(this, (CallbackPtr)(&MagnitudeComparator::inStateChanged));
 		}
 
-		m_output.resize(3);
-
-		for (int i = 0; i < outputs; i++) {
-//			node = ecNodeWithID( outNames[i]);
-//			m_output.insert(i, createLogicOut(node->pin(),false));
-
+		for (int i = 0; i < 3; i++) {
 			LogicOut *outLogic = new LogicOut(LogicIn::getConfig(), false);
 			setup1pinElement(outLogic, ecNodeWithID(outNames[i])->pin());
-			m_output.insert(i, outLogic);
+			m_output[i] = outLogic;
 		}
 
 		firstTime = false;
 	}
 
 	if (newABLogicCount > m_oldABLogicCount) {
-		m_aLogic.resize(newABLogicCount);
-
 		for (int i = m_oldABLogicCount; i < newABLogicCount; ++i) {
-//			node = ecNodeWithID("A" + QString::number(i));
-//			m_aLogic.insert(i, createLogicIn(node->pin()));
-
 			LogicIn *inLogic = new LogicIn(LogicIn::getConfig());
 			setup1pinElement(inLogic, ecNodeWithID("A" + QString::number(i))->pin());
-			m_aLogic.insert(i, inLogic);
-
+			m_aLogic.push_back(inLogic);
 			m_aLogic[i]->setCallback(this, (CallbackPtr)(&MagnitudeComparator::inStateChanged));
 		}
 
-		m_bLogic.resize(newABLogicCount);
-
 		for (int i = m_oldABLogicCount; i < newABLogicCount; ++i) {
-//			node = ecNodeWithID("B" + QString::number(i));
-//			m_bLogic.insert(i, createLogicIn(node->pin()));
-
 			LogicIn *inLogic = new LogicIn(LogicIn::getConfig());
 			setup1pinElement(inLogic, ecNodeWithID("B" + QString::number(i))->pin());
-			m_bLogic.insert(i, inLogic);
-
+			m_bLogic.push_back(inLogic);
 			m_bLogic[i]->setCallback(this, (CallbackPtr)(&MagnitudeComparator::inStateChanged));
 		}
 	} else {
