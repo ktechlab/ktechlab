@@ -20,31 +20,31 @@
 /**
 @author David Saxton
 */
-class RAM : public CallbackClass, public DIPComponent
-{
-	public:
-		RAM( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~RAM();
-	
-		static Item * construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem * libraryItem();
-	
-	protected:
-		void initPins();
-		virtual void dataChanged();
-		void inStateChanged( bool newState );
-	
-		QBitArray m_data;
-		LogicIn * m_pCS; // Chip select
-		LogicIn * m_pOE; // Output enable
-		LogicIn * m_pWE; // Write enable
-		
-		int m_wordSize;
-		int m_addressSize;
-		
-		QPtrVector<LogicIn> m_address;
-		QPtrVector<LogicIn> m_dataIn;
-		QPtrVector<LogicOut> m_dataOut;
-};
+class RAM : public CallbackClass, public DIPComponent {
 
+public:
+	RAM(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	~RAM();
+
+	static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+	static LibraryItem *libraryItem();
+
+protected:
+	void initPins();
+	virtual void dataChanged();
+	void inStateChanged(bool newState);
+
+	QBitArray m_data;
+	LogicIn *m_pCS; // Chip select
+	LogicIn *m_pOE; // Output enable
+	LogicIn *m_pWE; // Write enable
+
+	int m_wordSize;
+	int m_addressSize;
+
+	QPtrVector<LogicIn> m_address;
+	QPtrVector<LogicIn> m_dataIn;
+	QPtrVector<LogicOut> m_dataOut;
+};
 #endif
+

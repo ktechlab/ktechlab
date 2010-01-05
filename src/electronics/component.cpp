@@ -231,7 +231,6 @@ void Component::updateAttachedPositioning() {
 
 	//BEGIN Transform the nodes
 	const NodeInfoMap::iterator end = m_nodeMap.end();
-
 	for (NodeInfoMap::iterator it = m_nodeMap.begin(); it != end; ++it) {
 		if (!it.data().node)
 			kdError() << k_funcinfo << "Node in nodemap is null" << endl;

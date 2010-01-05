@@ -181,7 +181,7 @@ protected:
 	FPNode *m_stdInput;
 	FPNode *m_stdOutput;
 	FPNode *m_altOutput;
-	QGuardedPtr<FlowCodeDocument> m_pFlowCodeDocument;
+	FlowCodeDocument *m_pFlowCodeDocument;
 	
 	virtual void postResize();
 	void updateNodePositions();
