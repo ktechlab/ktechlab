@@ -8,6 +8,9 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include <cmath>
+#include <map>
+
 #include "circuit.h"
 #include "circuitdocument.h"
 #include "element.h"
@@ -19,14 +22,11 @@
 #include "reactive.h"
 #include "wire.h"
 
-#include <cmath>
-#include <map>
-
 typedef std::multimap<int, PinList> PinListMap;
 
 //BEGIN class Circuit
 Circuit::Circuit() : 
-		m_bCanCache(false), m_bCanAddChanged(true), m_logicOutCount(0), m_pLogicOut(0) {
+		m_bCanCache(false), m_bCanAddChanged(true) {
 	m_elementSet = new ElementSet(this, 0, 0); // why do we do this?
 	m_pLogicCacheBase = new LogicCacheNode;
 	m_elementList.clear();
@@ -34,8 +34,9 @@ Circuit::Circuit() :
 
 Circuit::~Circuit() {
 	delete m_elementSet;
+	m_elementSet = 0;
 	delete m_pLogicCacheBase;
-	delete[] m_pLogicOut;
+	m_pLogicCacheBase = 0;
 }
 
 void Circuit::addPin(Pin *node) {
@@ -273,10 +274,8 @@ void Circuit::initCache() {
 	m_elementSet->updateInfo();
 
 	m_bCanCache = true;
-	m_logicOutCount = 0;
 
-	delete[] m_pLogicOut;
-	m_pLogicOut = 0;
+	m_pLogicOut.clear();
 
 	delete m_pLogicCacheBase;
 	m_pLogicCacheBase = 0;
@@ -300,7 +299,7 @@ void Circuit::initCache() {
 		case Element::Element_VoltageSource:
 			break;
 		case Element::Element_LogicOut:
-			m_logicOutCount++;
+//			m_logicOutCount++;
 			break;
 		case Element::Element_CurrentSignal:
 		case Element::Element_VoltageSignal:
@@ -313,13 +312,9 @@ void Circuit::initCache() {
 
 	if (!m_bCanCache) return;
 
-	m_pLogicOut = new LogicOut*[m_logicOutCount];
-
-	unsigned i = 0;
-
 	for (ElementList::iterator it = m_elementList.begin(); it != end && m_bCanCache; ++it) {
 		if ((*it)->type() == Element::Element_LogicOut)
-			m_pLogicOut[i++] = static_cast<LogicOut*>(*it);
+			m_pLogicOut.push_back(static_cast<LogicOut*>(*it));
 	}
 
 	m_pLogicCacheBase = new LogicCacheNode;
@@ -337,7 +332,7 @@ void Circuit::cacheAndUpdate() {
 
 	LogicCacheNode *node = m_pLogicCacheBase;
 
-	for (unsigned i = 0; i < m_logicOutCount; i++) {
+	for (unsigned i = 0; i < m_pLogicOut.size(); i++) {
 		if (m_pLogicOut[i]->isHigh()) {
 			node = node->addOrGetHigh();
 		} else 	node = node->addOrGetLow();
