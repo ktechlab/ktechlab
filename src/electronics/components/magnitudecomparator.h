@@ -10,40 +10,36 @@
 #ifndef MAGNITUDECOMPARATOR_H
 #define MAGNITUDECOMPARATOR_H
 
+#include <vector>
+
 #include "dipcomponent.h"
 #include "logic.h"
-
-#include <qbitarray.h>
-#include <qptrvector.h>
 
 /**
 @author Fredy Yanardi
  */
-class MagnitudeComparator : public CallbackClass, public DIPComponent
-{
-	public:
-		MagnitudeComparator( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~MagnitudeComparator();
-	
-		static Item * construct( ItemDocument *itemDocument, bool newItem, const char *id );
-		static LibraryItem * libraryItem();
-	
-	protected:
-		void initPins();
-		virtual void dataChanged();
-		void inStateChanged();
-		
-		int m_oldABLogicCount;
-		int cascadingInputs;
-		int outputs;
-		bool firstTime;
-	
-		QBitArray m_data;
-		
-		QPtrVector<LogicIn> m_aLogic;
-		QPtrVector<LogicIn> m_bLogic;
-		QPtrVector<LogicIn> m_cLogic;
-		QPtrVector<LogicOut> m_output;
+class MagnitudeComparator : public CallbackClass, public DIPComponent {
+
+public:
+	MagnitudeComparator(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	~MagnitudeComparator();
+
+	static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
+	static LibraryItem *libraryItem();
+
+protected:
+	void initPins();
+	virtual void dataChanged();
+	void inStateChanged();
+
+	int m_oldABLogicCount;
+	bool firstTime;
+
+	std::vector<LogicIn *> m_aLogic;
+	std::vector<LogicIn *> m_bLogic;
+
+	LogicIn *m_cLogic[3];
+	LogicOut *m_output[3];
 };
 
 #endif

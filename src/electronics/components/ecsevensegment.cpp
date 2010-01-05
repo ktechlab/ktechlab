@@ -39,8 +39,6 @@ ECSevenSegment::ECSevenSegment(ICNDocument *icnDocument, bool newItem, const cha
 	m_name = i18n("Seven Segment LED");
 	m_bDynamicContent = true;
 
-	QStringList pins = QStringList::split(',', "g,f,e,d," + QString(QChar(0xB7)) + ",c,b,a");
-
 	createProperty("0-color", Variant::Type::Color);
 	property("0-color")->setCaption(i18n("Color"));
 	property("0-color")->setColorScheme(ColorCombo::LED);
@@ -63,6 +61,9 @@ ECSevenSegment::ECSevenSegment(ICNDocument *icnDocument, bool newItem, const cha
 	m_nNode = 0;
 
 	lastUpdatePeriod = 0.;
+
+	QStringList pins = QStringList::split(',', "g,f,e,d," + QString(QChar(0xB7)) + ",c,b,a");
+
 	initDIPSymbol(pins, 64);
 	initDIP(pins);
 
