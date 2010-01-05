@@ -30,7 +30,7 @@ Simulator *Simulator::self() {
 }
 
 Simulator::Simulator()
-		:  m_stepNumber(0), m_currentChain(0), m_bIsSimulating(true) {
+		:  m_bIsSimulating(true), m_stepNumber(0), m_currentChain(0) {
 	m_gpsimProcessors = new list<GpsimProcessor*>;
 	m_componentCallbacks = new list<ComponentCallback>;
 	m_components	   = new list<Component*>;

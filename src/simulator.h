@@ -32,23 +32,14 @@ logic elements are updated.
 const int LOGIC_UPDATE_RATE = int(1e6);
 
 class Circuit;
-
 class CircuitDocument;
-
 class Component;
-
 class ComponentCallback;
-
 class ECNode;
-
 class GpsimProcessor;
-
 class LogicIn;
-
 class LogicOut;
-
 class Switch;
-
 class Wire;
 
 typedef QValueList<ECNode*> ECNodeList;
@@ -207,7 +198,10 @@ private:
 // Which is every component that has special UI-related code that needs to be called every time the simulator steps.
 // this is not to be confused with elements which have nonLinear and Reactive components. =P
 	list<Component*> *m_components;
+
+// At the very least we should move to using this exclusively, and remove the above. 
 	list<ComponentCallback> *m_componentCallbacks;
+
 	list<Circuit*> *m_ordinaryCircuits;
 
 // allow a variable number of callbacks be scheduled at each possible time. 
