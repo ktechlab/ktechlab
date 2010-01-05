@@ -20,6 +20,8 @@
 
 #include <klocale.h>
 
+#include "ktlcanvas.h"
+
 MechanicsDocument::MechanicsDocument( const QString &caption, const char *name )
 	: ItemDocument( caption, name )
 {

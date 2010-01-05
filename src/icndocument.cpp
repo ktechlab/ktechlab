@@ -31,6 +31,7 @@
 #include <qclipboard.h>
 #include <qtimer.h>
 
+#include "ktlcanvas.h"
 
 //BEGIN class ICNDocument
 ICNDocument::ICNDocument( const QString &caption, const char *name )

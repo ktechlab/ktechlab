@@ -24,6 +24,8 @@
 #include <cmath>
 #include <termios.h>
 
+#include "ktlcanvas.h"
+
 Item* ParallelPortComponent::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
 	return new ParallelPortComponent( (ICNDocument*)itemDocument, newItem, id );
