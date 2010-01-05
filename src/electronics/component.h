@@ -183,12 +183,6 @@ protected:
 	 */
 	void removeElements(bool setPinsInterIndependent = false);
 
-	/**
-	 * Convenience functionality provided for components in a port shape
-	 * (such as ParallelPortComponent and SerialPortComponent).
-TODO: refactor into "DB-X" connector class. 
-	 */
-	void drawPortShape(QPainter &p);
 	virtual void itemPointsChanged();
 	virtual void updateAttachedPositioning();
 	virtual void initPainter(QPainter &p);
