@@ -28,6 +28,7 @@
 const int dipWidth = 112;
 const int pairSep = 32;
 
+//BEGIN class Component
 Component::Component(ICNDocument *icnDocument, bool newItem, const QString &id)
 		: CNItem(icnDocument, newItem, id),
 		m_angleDegrees(0),
@@ -688,78 +689,7 @@ QColor Component::voltageColor(double v) {
 		return QColor(int(255 * prop), int(166 * prop), 0);
 	else return QColor(0, int(136 * prop), int(255 * prop));
 }
-
-//BEGIN class ElementMap
-ElementMap::ElementMap() {
-	e = 0;
-
-	for(int i = 0; i < 4; ++i)
-		n[i] = 0;
-}
-
-/*!
-    \fn ElementMap::mergeCurrents()
- */
-void ElementMap::mergeCurrents() {
-	for (int i = 0; i < 4; i++) {
-		if (n[i]) {
-			n[i]->mergeCurrent(*(e->cnodeCurrent(i)));
-		}
-	}
-}
-
-/*!
-    \fn ElementMap::compareElement(Element *anElement);
- */
-bool ElementMap::compareElement(const Element *anElement) const {
-	return e == anElement;
-}
-
-/*!
-    \fn ElementMap::getLogicInOrNull()
- */
-LogicIn *ElementMap::getLogicInOrNull() {
-	return dynamic_cast<LogicIn*>(e);
-}
-
-/*!
-    \fn ElementMap::setElement(Element anElement)
- */
-void ElementMap::setElement(Element *anElement) {
-	e = anElement;
-}
-
-/*!
-    \fn ElementMap::putPin(unsigned int slot, Pin *aPin)
- */
-void ElementMap::putPin(unsigned int slot, Pin *aPin) {
-	assert(slot < 4);
-	n[slot] = aPin;
-}
-
-/*!
-    \fn ElementMap::setupCNodes()
- */
-void ElementMap::setupCNodes() {
-	if (n[3]) {
-		e->setCNodes(n[0]->eqId(), n[1]->eqId(), n[2]->eqId(), n[3]->eqId());
-	} else if (n[2]) {
-		e->setCNodes(n[0]->eqId(), n[1]->eqId(), n[2]->eqId());
-	} else if (n[1]) {
-		e->setCNodes(n[0]->eqId(), n[1]->eqId());
-	} else if (n[0]) {
-		e->setCNodes(n[0]->eqId());
-	}
-}
-
-/*!
-    \fn ElementMap::setupMatrix()
- */
-void ElementMap::setupMatrix() {
-	assert(e);
-	e->add_initial_dc();
-}
-//END class ElementMap
+//END class Component
 
 #include "component.moc"
 
