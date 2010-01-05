@@ -279,7 +279,9 @@ Connector *ICNDocument::createConnector(Node *startNode, Node *endNode, QPointLi
 }
 
 NodeGroup* ICNDocument::createNodeGroup(Node *node) {
-	if (!node || node->isChildNode()) return 0;
+	assert(node);
+
+	if(node->isChildNode()) return 0;
 
 	const GuardedNodeGroupList::iterator end = m_nodeGroupList.end();
 	for (GuardedNodeGroupList::iterator it = m_nodeGroupList.begin(); it != end; ++it) {

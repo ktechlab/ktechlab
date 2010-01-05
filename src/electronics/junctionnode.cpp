@@ -9,23 +9,18 @@
 //
 //
 #include "junctionnode.h"
-
 #include "pin.h"
 #include "component.h"
-
 #include "voltageappearance.h"
 
 #include <qpainter.h>
-
 
 JunctionNode::JunctionNode(ICNDocument* icnDocument, int dir, const QPoint& pos, QString* id):
 		ECNode(icnDocument, Node::ec_junction, dir, pos, id) {
 }
 
-
 JunctionNode::~JunctionNode() {
 }
-
 
 void JunctionNode::drawShape(QPainter & p) {
 	initPainter(p);
