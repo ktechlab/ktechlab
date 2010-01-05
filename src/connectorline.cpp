@@ -15,8 +15,6 @@
 #include "connectorline.h"
 #include "connector.h"
 
-#include "electronicconnector.h"
-
 //BEGIN class ConnectorLine
 ConnectorLine::ConnectorLine(Connector *connector, int pixelOffset)
 		: QObject(connector), QCanvasLine(connector->canvas()) {
@@ -49,14 +47,8 @@ void ConnectorLine::drawShape(QPainter & p) {
 
 	int ss = 3; // segment spacing
 	int sl = 13; // segment length (includes segment spacing)
-	int offset = 0;
-	
-	if(ElectronicConnector *connector = dynamic_cast<ElectronicConnector *>(m_pConnector)) {
-		offset = int(connector->currentAnimationOffset() - m_pixelOffset);
-	} else {
-		offset = int(-m_pixelOffset);
-	}
 
+	int offset = int(m_pConnector->currentAnimationOffset() - m_pixelOffset);
 	offset = ((offset % sl) - sl) % sl;
 
 	int x1 = startPoint().x();

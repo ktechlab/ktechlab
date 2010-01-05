@@ -11,6 +11,8 @@
 #ifndef ICNDOCUMENT_H
 #define ICNDOCUMENT_H
 
+#include <set>
+
 #include "itemdocument.h"
 
 #include <qmap.h>
@@ -23,7 +25,7 @@ class Node;
 class NodeGroup;
 
 typedef QMap< QString, Node* > NodeMap;
-typedef QValueList<Connector *> ConnectorList;
+typedef std::set<Connector *> ConnectorList;
 typedef QValueList<Node *> NodeList;
 typedef QValueList<NodeGroup*> NodeGroupList;
 typedef QValueList<QGuardedPtr<NodeGroup> > GuardedNodeGroupList;
