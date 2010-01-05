@@ -13,7 +13,6 @@
 #include "elementset.h"
 #include "element.h"
 #include "logic.h"
-#include "matrix.h"
 #include "nonlinear.h"
 
 #include <kdebug.h>
@@ -28,7 +27,7 @@ ElementSet::ElementSet(Circuit *circuit, const int n, const int m)
 	p_logicIn = 0;
 
 	if (tmp) {
-		p_A = new Matrix(m_cn, m_cb);
+		p_A = new Matrix(m_cn + m_cb);
 		p_b = new QuickVector(tmp);
 		p_x = new QuickVector(tmp);
 	} else {

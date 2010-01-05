@@ -11,7 +11,6 @@
 #ifndef JFET_H
 #define JFET_H
 
-#include "matrix.h"
 #include "nonlinear.h"
 
 class JFETState
@@ -20,7 +19,7 @@ public:
 	JFETState();
 	void reset();
 
-	JFETState operator-( const JFETState & s ) const;
+	JFETState operator-(const JFETState &s) const;
 
 	double A[3][3];
 	double I[3];

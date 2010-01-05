@@ -9,7 +9,6 @@
  ***************************************************************************/
 
 #include "elementset.h"
-#include "matrix.h"
 #include "vcvs.h"
 
 VCVS::VCVS( const double gain )

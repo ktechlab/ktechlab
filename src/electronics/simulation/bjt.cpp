@@ -10,7 +10,6 @@
 
 #include "bjt.h"
 #include "elementset.h"
-#include "matrix.h"
 
 #include <cmath>
 using namespace std;
