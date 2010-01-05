@@ -24,13 +24,13 @@
 Document::Document( const QString &caption, const char *name )
 	: QObject( KTechlab::self(), name ),
 	b_modified(false),
-	m_pActiveView(0l),
+	m_pDocumentIface(0),
+	m_bDeleted(false),
+	m_pActiveView(0),
 	m_caption(caption),
 	m_bAddToProjectOnSave(false),
-	m_pDocumentIface(0l),
 	m_dcopID(0),
-	m_nextViewID(0),
-	m_bDeleted(false)
+	m_nextViewID(0)
 {
 	connect( KTechlab::self(), SIGNAL(configurationChanged()), this, SLOT(slotUpdateConfiguration()) );
 }
