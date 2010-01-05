@@ -15,13 +15,13 @@
 
 #include "element.h"
 
-#include <qguardedptr.h>
-#include <qvaluelist.h>
+//#include <qguardedptr.h>
+//#include <qvaluelist.h>
 
 class Pin;
 class Simulator;
 
-typedef std::set<QGuardedPtr<Pin> > PinList;
+typedef std::set<Pin *> PinList;
 
 class LogicConfig {
 
