@@ -85,13 +85,13 @@ void Pin::removeSwitch(Switch *sw) {
 }
 
 void Pin::addWire(Wire *wire) {
-	if(wire && !m_wireList.contains(wire))
-		m_wireList << wire;
+	assert(wire);
+	m_wireList.insert(wire);
 }
 
 bool Pin::calculateCurrentFromWires() {
 
-	m_wireList.remove((Wire*)0);
+//	m_wireList.remove((Wire*)0);
 
 	m_current = 0.0;
 
