@@ -25,7 +25,7 @@ class Pin;
 class Switch;
 class Wire;
 
-typedef QValueList<Element*> ElementList;
+typedef std::set<Element*> ElementList;
 typedef std::set<QGuardedPtr<Pin> > PinList;
 typedef QValueList<Switch*> SwitchList;
 typedef QValueList<QGuardedPtr<Wire> > WireList;

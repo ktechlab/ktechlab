@@ -44,7 +44,6 @@ PinList Pin::localConnectedPins() const {
 		assert(*it);
 
 		Pin *tmp = (*it)->otherPinIfClosed(this);
-
 		if(tmp) pins.insert(tmp);
 	}
 
@@ -52,13 +51,11 @@ PinList Pin::localConnectedPins() const {
 }
 
 void Pin::addCircuitDependentPin(Pin *pin) {
-//	if (pin && !m_circuitDependentPins.contains(pin))
-	m_circuitDependentPins.insert(pin);
+	if(pin) m_circuitDependentPins.insert(pin);
 }
 
 void Pin::addGroundDependentPin(Pin *pin) {
-//	if (pin && !m_groundDependentPins.contains(pin))
-	m_groundDependentPins.insert(pin);
+	if(pin) m_groundDependentPins.insert(pin);
 }
 
 void Pin::removeDependentPins() {
@@ -68,14 +65,11 @@ void Pin::removeDependentPins() {
 
 /// Element add and remove... What is this really for? 
 void Pin::addElement(Element *e) {
-	if (!e || m_elementList.contains(e))
-		return;
-
-	m_elementList.append(e);
+	if(e) m_elementList.insert(e);
 }
 
 void Pin::removeElement(Element *e) {
-	m_elementList.remove(e);
+	m_elementList.erase(e);
 }
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 

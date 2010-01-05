@@ -11,6 +11,8 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
+#include <set>
+
 #include <qvaluelist.h>
 
 #include "cnitem.h"
@@ -25,7 +27,7 @@ class Pin;
 class Switch;
 class LogicIn;
 
-typedef QValueList<Element*> ElementList;
+typedef std::set<Element*> ElementList;
 typedef QValueList<Switch*> SwitchList;
 typedef QValueList< QValueList<Pin*> > PinListList;
 typedef QValueList<ElementMap> ElementMapList;
