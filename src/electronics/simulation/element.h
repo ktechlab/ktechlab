@@ -48,8 +48,6 @@ private:
 	/// Voltage on node. This is set from the last calculated voltage.
 	double v;
 
-	/// True for ground nodes. Obviously, you should ignore n and v if this is true
-//	bool m_isGround;
 	/// CNode number
 	int32_t m_n;
 };
@@ -72,7 +70,7 @@ private:
 };
 
 const int MAX_CNODES = 4;
-const int MAX_CBRANCHES = 4;
+const int MAX_CBRANCHES = 3;
 
 /// Default node number that represents no node (remember that
 /// Ground node is -1, and the rest are numbered from 0 to n-1
@@ -136,8 +134,7 @@ public:
 	 */
 	void setCBranches(const int b0 = noBranch,
 			  const int b1 = noBranch,
-			  const int b2 = noBranch,
-			  const int b3 = noBranch);
+			  const int b2 = noBranch);
 	/**
 	 * Returns a pointer to the given CNode
 	 */
@@ -189,10 +186,8 @@ public:
 	double cbranchCurrent(const int branch);
 	double cnodeVoltage(const int node);
 
-// we return a pointer so this is easy to spy on,
-// maybe a more sophisticated object oriented approach would be better... 
-	double *cnodeCurrent(const int node) {
-		return &(m_cnodeI[node]);
+	double cnodeCurrent(const int node) {
+		return m_cnodeI[node];
 	}
 
 protected:
@@ -276,13 +271,11 @@ double &Element::A_d(uint32_t i, uint32_t j)
 double &Element::b_i(uint32_t i)
 {
 	if(p_cnode[i]->isGround()) return m_temp;
-//	return (*(p_eSet->b()))[p_cnode[i]->n()];
 	return p_eSet->bValue(p_cnode[i]->n());
 }
 
 double &Element::b_v(uint32_t i)
 {
-//	return (*(p_eSet->b()))[p_eSet->cnodeCount() + p_cbranch[i]->n()];
 	return p_eSet->bValue(p_cbranch[i]->n());
 }
 
