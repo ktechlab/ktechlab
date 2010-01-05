@@ -20,8 +20,8 @@
 #include <klocale.h>
 #include <qpainter.h>
 
-//BEGIN class ClockedFlipFlop
-ClockedFlipFlop::ClockedFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id)
+//BEGIN class ClockedLogic
+ClockedLogic::ClockedLogic(ICNDocument *icnDocument, bool newItem, const char *id)
 		: Component(icnDocument, newItem, id), m_bPrevClock(false) {
 	createProperty("trig", Variant::Type::Select);
 	property("trig")->setCaption(i18n("Trigger Edge"));
@@ -31,9 +31,10 @@ ClockedFlipFlop::ClockedFlipFlop(ICNDocument *icnDocument, bool newItem, const c
 	property("trig")->setAllowed(allowed);
 	property("trig")->setValue("Rising");
 	m_edgeTrigger = Rising;
+
 }
 
-void ClockedFlipFlop::dataChanged() {
+void ClockedLogic::dataChanged() {
 	EdgeTrigger t = (dataString("trig") == "Rising") ? Rising : Falling;
 
 	if (t == m_edgeTrigger)
@@ -43,7 +44,7 @@ void ClockedFlipFlop::dataChanged() {
 
 	initSymbolFromTrigger();
 }
-//END class ClockedFlipFlop
+//END class ClockedLogic
 
 //BEGIN class ECDFlipFlop
 Item* ECDFlipFlop::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
@@ -61,7 +62,7 @@ LibraryItem* ECDFlipFlop::libraryItem() {
 }
 
 ECDFlipFlop::ECDFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id)
-		: ClockedFlipFlop(icnDocument, newItem, id ? id : "d_flipflop") {
+		: ClockedLogic(icnDocument, newItem, id ? id : "d_flipflop") {
 	m_name = i18n("D-Type Flip-Flop");
 
 	setSize(-32, -24, 64, 48);
@@ -75,11 +76,11 @@ ECDFlipFlop::ECDFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id)
 	m_pD = new LogicIn(LogicIn::getConfig());
 	setup1pinElement(m_pD, m_pNNode[0]->pin());
 
-	m_pClock = new LogicIn(LogicIn::getConfig());
-	setup1pinElement(m_pClock, m_pNNode[1]->pin());
-
 	m_pQ = new LogicOut(LogicIn::getConfig(), true);
 	setup1pinElement(m_pQ, m_pPNode[0]->pin());
+
+	m_pClock = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(m_pClock, m_pNNode[1]->pin());
 
 	m_pQBar = new LogicOut(LogicIn::getConfig(), false);
 	setup1pinElement(m_pQBar, m_pPNode[1]->pin());
@@ -194,7 +195,7 @@ LibraryItem* ECJKFlipFlop::libraryItem() {
 }
 
 ECJKFlipFlop::ECJKFlipFlop(ICNDocument *icnDocument, bool newItem, const char *id)
-		: ClockedFlipFlop(icnDocument, newItem, id ? id : "jk_flipflop") {
+		: ClockedLogic(icnDocument, newItem, id ? id : "jk_flipflop") {
 	m_name = i18n("JK-Type Flip-Flop");
 
 	setSize(-32, -32, 64, 64);
@@ -204,30 +205,22 @@ ECJKFlipFlop::ECJKFlipFlop(ICNDocument *icnDocument, bool newItem, const char *i
 
 	m_bPrevClock = false;
 
-	createProperty("trig", Variant::Type::Select);
-	property("trig")->setCaption(i18n("Trigger Edge"));
-	QStringMap allowed;
-	allowed["Rising"] = i18n("Rising");
-	allowed["Falling"] = i18n("Falling");
-	property("trig")->setAllowed(allowed);
-	property("trig")->setValue("Rising");
-	m_edgeTrigger = Rising;
 	initSymbolFromTrigger();
 
 	m_pJ = new LogicIn(LogicIn::getConfig());
 	setup1pinElement(m_pJ, m_pNNode[0]->pin());
 
-	m_pClock = new LogicIn(LogicIn::getConfig());
-	setup1pinElement(m_pClock, m_pNNode[1]->pin());
-
-	m_pK = new LogicIn(LogicIn::getConfig());
-	setup1pinElement(m_pK, m_pNNode[2]->pin());
-
 	m_pQ = new LogicOut(LogicIn::getConfig(), true);
 	setup1pinElement(m_pQ, m_pPNode[0]->pin());
 
+	m_pClock = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(m_pClock, m_pNNode[1]->pin());
+
 	m_pQBar = new LogicOut(LogicIn::getConfig(), false);
 	setup1pinElement(m_pQBar, m_pPNode[1]->pin());
+
+	m_pK = new LogicIn(LogicIn::getConfig());
+	setup1pinElement(m_pK, m_pNNode[2]->pin());
 
 	setp = new LogicIn(LogicIn::getConfig());
 	setup1pinElement(setp, createPin(0, -40, 90, "set")->pin());
@@ -304,11 +297,10 @@ void ECJKFlipFlop::asyncChanged(bool) {
 		prev_state = set;
 	}
 }
-
 //END class ECJKFlipFlop
 
 //BEGIN class ECSRFlipFlop
-Item* ECSRFlipFlop::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
+Item *ECSRFlipFlop::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
 	return new ECSRFlipFlop((ICNDocument*)itemDocument, newItem, id);
 }
 
@@ -380,7 +372,6 @@ void ECSRFlipFlop::inStateChanged(bool) {
 // de-loop counter that counts the number of times we were called for a given
 // logic update period and gives up after three or so. This case will only occour
 // if the part is abused, -- and it will be. =P
-
 }
 //END class ECSRFlipFlop
 
