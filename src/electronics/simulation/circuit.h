@@ -11,6 +11,8 @@
 #ifndef CIRCUIT_H
 #define CIRCUIT_H
 
+#include <set>
+
 #include <cassert>
 #include <qguardedptr.h>
 #include "qstringlist.h"
@@ -24,7 +26,7 @@ class Pin;
 class Element;
 class LogicOut;
 
-typedef QValueList<QGuardedPtr<Pin> > PinList;
+typedef std::set<QGuardedPtr<Pin> > PinList;
 typedef QValueList<Element*> ElementList;
 
 class LogicCacheNode

@@ -11,6 +11,8 @@
 #ifndef LOGIC_H
 #define LOGIC_H
 
+#include <set>
+
 #include "element.h"
 
 #include <qguardedptr.h>
@@ -19,7 +21,7 @@
 class Pin;
 class Simulator;
 
-typedef QValueList<QGuardedPtr<Pin> > PinList;
+typedef std::set<QGuardedPtr<Pin> > PinList;
 
 class LogicConfig {
 
