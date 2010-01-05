@@ -41,8 +41,8 @@ PinSet Pin::localConnectedPins() //const
 		pins.insert(op);
 	}
 
-	SwitchList::const_iterator endB = m_switchList.end();
-	for(SwitchList::const_iterator it = m_switchList.begin(); it != endB; ++it) {
+	SwitchSet::const_iterator endB = m_switchList.end();
+	for(SwitchSet::const_iterator it = m_switchList.begin(); it != endB; ++it) {
 		assert(*it);
 
 		Pin *tmp = (*it)->otherPinIfClosed(this);
@@ -77,14 +77,13 @@ void Pin::removeElement(Element *e) {
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 void Pin::addSwitch(Switch *sw) {
-	if(!sw || m_switchList.contains(sw))
-		return;
+	assert(sw);
 
-	m_switchList << sw;
+	m_switchList.insert(sw);
 }
 
 void Pin::removeSwitch(Switch *sw) {
-	m_switchList.remove(sw);
+	m_switchList.erase(sw);
 }
 
 void Pin::addWire(Wire *wire) {
