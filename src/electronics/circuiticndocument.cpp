@@ -11,7 +11,7 @@
 //
 #include "circuiticndocument.h"
 
-#include "electronicconnector.h"
+#include "connector.h"
 #include "conrouter.h"
 #include "cnitemgroup.h"
 #include "ecnode.h"
@@ -34,19 +34,19 @@ CircuitICNDocument::~CircuitICNDocument() {
 	const QCanvasItemList::Iterator end = all.end();
 
 	for (QCanvasItemList::Iterator it = all.begin(); it != end; ++it)
-		(*it)->setCanvas(0);
+		(*it)->setCanvas(0l);
 
 	// Remove all items from the canvas
 	selectAll();
 	deleteSelection();
 
 	// Delete anything that got through the above couple of lines
-	EConnectorList connectorsToDelete = m_connectorList;
+	ConnectorList connectorsToDelete = m_connectorList;
 
 	connectorsToDelete.clear();
 
-	const EConnectorList::iterator connectorListEnd = connectorsToDelete.end();
-	for (EConnectorList::iterator it = connectorsToDelete.begin(); it != connectorListEnd; ++it)
+	const ConnectorList::iterator connectorListEnd = connectorsToDelete.end();
+	for (ConnectorList::iterator it = connectorsToDelete.begin(); it != connectorListEnd; ++it)
 		delete *it;
 
 	deleteAllNodes();
@@ -106,16 +106,16 @@ Connector *CircuitICNDocument::createConnector(Node *node, Connector *con, const
 	con->hide();
 	
 	// The actual new connector
-	ElectronicConnector *new1 = newNode->createConnector(ecNode);
+	Connector *new1 = newNode->createConnector(ecNode);
 	ecNode->addConnector(new1);
 	new1->setRoutePoints(*pointList, usedManual);
 
 	// The two connectors formed from the original one when split
-	ElectronicConnector *new2 = newNode->createConnector(conStartNode);
+	Connector *new2 = newNode->createConnector(conStartNode);
 	conStartNode->addConnector(new2);
 	new2->setRoutePoints(*oldConPoints.at(0), usedManual);
 
-	ElectronicConnector *new3 = conEndNode->createConnector(newNode);
+	Connector *new3 = conEndNode->createConnector(newNode);
 	newNode->addConnector(new3);
 	new3->setRoutePoints(*oldConPoints.at(1), usedManual);
 
@@ -160,19 +160,19 @@ Connector *CircuitICNDocument::createConnector(Connector *con1, Connector *con2,
 	ECNode *newNode1 = new JunctionNode(this, 0, pos1);
 	ECNode *newNode2 = new JunctionNode(this, 0, pos2);
 
-	ElectronicConnector *con1a = newNode1->createConnector(node1a);
+	Connector *con1a = newNode1->createConnector(node1a);
 	node1a->addConnector(con1a);
 
-	ElectronicConnector *con1b = newNode1->createConnector(node1b);
+	Connector *con1b = newNode1->createConnector(node1b);
 	node1b->addConnector(con1b);
 
-	ElectronicConnector *newCon = newNode1->createConnector(newNode2);
+	Connector *newCon = newNode1->createConnector(newNode2);
 	newNode2->addConnector(newCon);
 
-	ElectronicConnector *con2a = node2a->createConnector(newNode2);
+	Connector *con2a = node2a->createConnector(newNode2);
 	newNode2->addConnector(con2a);
 
-	ElectronicConnector *con2b = node2b->createConnector(newNode2);
+	Connector *con2b = node2b->createConnector(newNode2);
 	newNode2->addConnector(con2b);
 
 	if (!con1a || !con1b || !con2a || !con2b) {
@@ -187,6 +187,7 @@ Connector *CircuitICNDocument::createConnector(Connector *con1, Connector *con2,
 
 		newNode1->removeNode();
 		newNode2->removeNode();
+
 		flushDeleteList();
 
 		return 0;
@@ -242,16 +243,16 @@ Connector *CircuitICNDocument::createConnector(const QString &startNodeId, const
 
 	if (!startNode || !endNode) {
 		kdDebug() << "Either/both the connector start node and end node could not be found" << endl;
-		return 0;
+		return 0L;
 	}
 
-	if (!canConnect(startNode, endNode)) return 0;
+	if (!canConnect(startNode, endNode)) return 0l;
 
-	ElectronicConnector *connector = endNode->createConnector(startNode);
+	Connector *connector = endNode->createConnector(startNode);
 
 	if (!connector) {
 		kdError() << k_funcinfo << "End node did not create the connector" << endl;
-		return 0;
+		return 0l;
 	}
 	startNode->addConnector(connector);
 
@@ -322,8 +323,8 @@ void CircuitICNDocument::flushDeleteList() {
 			m_itemList.remove(item->id());
 		else if (ECNode *node = dynamic_cast<ECNode*>(qcanvasItem))
 			m_ecNodeList.erase(node->id());
-		else if (ElectronicConnector *con = dynamic_cast<ElectronicConnector*>(qcanvasItem))
-			m_connectorList.remove(con);
+		else if (Connector *con = dynamic_cast<Connector*>(qcanvasItem))
+			m_connectorList.erase(con);
 		else	kdError() << k_funcinfo << "Unknown qcanvasItem! " << qcanvasItem << endl;
 
 		else
@@ -341,13 +342,12 @@ void CircuitICNDocument::flushDeleteList() {
 
 	const ECNodeMap::iterator nlEnd = m_ecNodeList.end();
 	for (ECNodeMap::iterator it = m_ecNodeList.begin(); it != nlEnd; ++it) {
-		if(it->second) it->second->removeNullConnectors();
-		else {
+		if(!it->second) {
 			m_ecNodeList.erase(it);
 			continue;
 		}
 
-		int conCount = it->second->getAllConnectors().count();
+		int conCount = it->second->getAllConnectors().size();
 		if(conCount == 2 && !it->second->parentItem()) {
 			if (joinConnectors(it->second))
 				doneJoin = true;
@@ -366,8 +366,9 @@ bool CircuitICNDocument::registerItem(QCanvasItem *qcanvasItem) {
 		if(ECNode *node = dynamic_cast<ECNode*>(qcanvasItem)) {
 			m_ecNodeList[ node->id()] = node;
 			emit nodeAdded((Node*)node);
-		} else if(ElectronicConnector *connector = dynamic_cast<ElectronicConnector*>(qcanvasItem)) {
-			m_connectorList.append(connector);
+		} else if(Connector *connector = dynamic_cast<Connector*>(qcanvasItem)) {
+//			assert(
+			m_connectorList.insert(connector); //.second);
 			emit connectorAdded(connector);
 		} else {
 			kdError() << k_funcinfo << "Unrecognised item" << endl;
@@ -407,19 +408,24 @@ bool CircuitICNDocument::joinConnectors(ECNode *node) {
 	// We don't want to destroy the node if it has a parent
 	if (node->parentItem()) return false;
 
-	node->removeNullConnectors();
-	
+//	node->removeNullConnectors();
+
 	// an electronic node can be removed if it has exactly 2 connectors connected to it
-	
-	int conCount = node->getAllConnectors().count();
+
+	int conCount = node->getAllConnectors().size();
 	if (conCount != 2) return false;
 
 	Connector *con1, *con2;
 	ECNode *startNode, *endNode;
 	QPointList conPoints;
 
-	con1 = *node->getAllConnectors().at(0);
-	con2 = *node->getAllConnectors().at(1);
+	{
+		std::set<Connector *>::iterator it = node->getAllConnectors().begin();
+
+		con1 = *it;
+		it++;
+		con2 = *it;
+	}
 
 	if (con1 == con2) return false;
 
@@ -437,7 +443,7 @@ bool CircuitICNDocument::joinConnectors(ECNode *node) {
 
 	if (!startNode || !endNode) return false;
 
-	ElectronicConnector *newCon = endNode->createConnector(startNode);
+	Connector *newCon = endNode->createConnector(startNode);
 
 	if (!newCon) return false;
 

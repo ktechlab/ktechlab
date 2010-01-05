@@ -14,13 +14,11 @@
 
 #include <set>
 
-#include "icndocument.h"
+#include <icndocument.h>
 
 class ECNode;
-class ElectronicConnector;
 
 typedef std::map< QString, ECNode* > ECNodeMap;
-typedef QValueList<ElectronicConnector *> EConnectorList;
 
 /**
 A document holding a circuit
@@ -98,10 +96,7 @@ public:
 	virtual void unregisterUID ( const QString & uid );
 	
 	virtual NodeList nodeList() const;
-
-signals:
-	void connectorAdded(ElectronicConnector *con);
-
+	
 protected:
 	
 	/**
@@ -130,7 +125,6 @@ protected:
 	
 	/// the list of nodes contained by the document
 	ECNodeMap m_ecNodeList;
-	EConnectorList m_connectorList;
 };
 
 #endif
