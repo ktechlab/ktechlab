@@ -13,6 +13,8 @@
 #include "pin.h"
 #include "component.h"
 
+#include "voltageappearance.h"
+
 #include <qpainter.h>
 
 
@@ -29,14 +31,14 @@ void JunctionNode::drawShape(QPainter & p) {
 	initPainter(p);
 
 	double v = pin() ? pin()->voltage() : 0.0;
-	QColor voltageColor = Component::voltageColor(v);
+	QColor color = voltageColor(v);
 
 	QPen pen = p.pen();
 
 	if (isSelected())
 		pen = m_selectedColor;
 	else if (m_bShowVoltageColor)
-		pen = voltageColor;
+		pen = color;
 
 	p.setPen(pen);
 	p.setBrush(pen.color());
