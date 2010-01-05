@@ -22,7 +22,6 @@
 #include <klocale.h>
 #include <qpainter.h>
 
-
 //BEGIN class Meter
 Meter::Meter( ICNDocument *icnDocument, bool newItem, const char *id )
 	: Component( icnDocument, newItem, id )
@@ -50,11 +49,9 @@ Meter::Meter( ICNDocument *icnDocument, bool newItem, const char *id )
 	property("1-maxValue")->setValue(1e3);
 }
 
-
 Meter::~Meter()
 {
 }
-
 
 void Meter::dataChanged()
 {
@@ -92,12 +89,10 @@ void Meter::stepNonLogic()
 	}
 }
 
-
 bool Meter::contentChanged() const
 {
 	return (m_prevProp != calcProp( m_old_value ));
 }
-
 
 void Meter::drawShape( QPainter &p )
 {
@@ -124,7 +119,6 @@ void Meter::drawShape( QPainter &p )
 	deinitPainter(p);
 }
 
-
 double Meter::calcProp( double v ) const
 {
 	double abs_value = std::abs( v );
@@ -134,15 +128,13 @@ double Meter::calcProp( double v ) const
 		prop = 0.0;
 	else if ( abs_value >= m_maxValue )
 		prop = 1.0;
-	else
-		prop = std::log10( abs_value/m_minValue ) / std::log10( m_maxValue/m_minValue );
+	else	prop = std::log10( abs_value/m_minValue ) / std::log10( m_maxValue/m_minValue );
 	
 	if ( m_old_value>0 )
 		prop *= -1;
 	
 	return prop;
 }
-
 
 QString Meter::displayText()
 {
@@ -156,7 +148,6 @@ QString Meter::displayText()
 	return QString::number( value/CNItem::getMultiplier(value), 'g', 3 ) + CNItem::getNumberMag(value) + m_unit;
 }
 //END class Meter
-
 
 //BEGIN class FrequencyMeter
 Item* FrequencyMeter::construct( ItemDocument *itemDocument, bool newItem, const char *id )
@@ -193,7 +184,6 @@ double FrequencyMeter::meterValue()
 	return 0;
 }
 //END class FrequencyMeter
-
 
 //BEGIN class ECAmmeter
 Item* ECAmmeter::construct( ItemDocument *itemDocument, bool newItem, const char *id )
@@ -238,7 +228,6 @@ double ECAmmeter::meterValue()
 	return -m_voltageSource->cbranchCurrent(0);
 }
 //END class ECAmmeter
-
 
 //BEGIN class ECVoltmeter
 Item* ECVoltMeter::construct(ItemDocument *itemDocument, bool newItem, const char *id)
