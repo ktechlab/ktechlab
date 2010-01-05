@@ -21,46 +21,51 @@ class Pin;
 */
 class Wire : public QObject
 {
-	public:
-		Wire( Pin * startPin, Pin * endPin );
-		~Wire();
+public:
+	Wire( Pin *startPin, Pin *endPin );
+	~Wire();
 
-		/**
-		 * Attempts to calculate the current that is flowing through
-		 * the connector. Returns true if successfuly, otherwise returns false
-		 */
-		bool calculateCurrent();
-		/**
-		 * Returns true if the current flowing through the connector is known
-		 */
-		bool currentIsKnown() const { return m_bCurrentIsKnown; }
-		/**
-		 * Set whether the actual current flowing into this node is known (in some
-		 * cases - such as this node being ground - it is not known, and so the
-		 * value returned by current() cannot be relied on.
-		 */
-		void setCurrentKnown( bool known );
-		/**
-		 * Returns the current flowing through the connector.
-		 * This only applies for electronic connectors
-		 */
-		double current() const { return m_current; }
-		double currentFor(const Pin *aPin) const; 
+	/**
+	 * Attempts to calculate the current that is flowing through
+	 * the connector. Returns true if successfuly, otherwise returns false
+	 */
+	bool calculateCurrent();
 
-		/**
-		 * Returns the voltage at the connector. This is an average of the
-		 * voltages at either end.
-		 */
-		double voltage() const;
-		
-		Pin * startPin() const { return m_pStartPin; }
-		Pin * endPin() const { return m_pEndPin; }
-		
-	protected:
-		double m_current;
-		bool m_bCurrentIsKnown;
-		QGuardedPtr<Pin> m_pStartPin;
-		QGuardedPtr<Pin> m_pEndPin;
+	/**
+	 * Returns true if the current flowing through the connector is known
+	 */
+	bool currentIsKnown() const { return m_bCurrentIsKnown; }
+
+	/**
+	 * Set whether the actual current flowing into this node is known (in some
+	 * cases - such as this node being ground - it is not known, and so the
+	 * value returned by current() cannot be relied on.
+	 */
+	void setCurrentKnown( bool known );
+
+	/**
+	 * Returns the current flowing through the connector.
+	 * This only applies for electronic connectors
+	 */
+	double current() const { return m_current; }
+	double currentFor(const Pin *aPin) const;
+
+	/**
+	 * Returns the voltage at the connector. This is an average of the
+	 * voltages at either end.
+	 */
+	double voltage() const;
+
+//	Pin *startPin() const { return m_pStartPin; }
+//	Pin *endPin() const { return m_pEndPin; }
+
+	Pin *otherPin(const Pin *aPin) const;
+
+private:
+	double m_current;
+	bool m_bCurrentIsKnown;
+	QGuardedPtr<Pin> m_pStartPin;
+	QGuardedPtr<Pin> m_pEndPin;
 };
 
 #endif
