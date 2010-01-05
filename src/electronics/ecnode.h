@@ -19,6 +19,7 @@
 class Element;
 class Pin;
 class Switch;
+class Item;
 
 class ElectronicConnector;
 
@@ -159,7 +160,8 @@ signals:
 public slots:
 	// -- from node.h --
 	void checkForRemoval(ElectronicConnector *connector);
-
+	void removeNode(Item *) { removeNode(); }
+	void removeNode();
 protected slots:
 	void removeElement(Element *e);
 	void removeSwitch(Switch *sw);

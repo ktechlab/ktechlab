@@ -21,7 +21,10 @@ ElectronicConnector::ElectronicConnector(ECNode *startNode, ECNode *endNode,
 {
 	m_startEcNode = startNode;
 	m_endEcNode = endNode;
-	
+
+	p_icnDocument->registerItem(this);
+	p_icnDocument->requestRerouteInvalidatedConnectors();
+
 	if( startNode && endNode ) {
 		connect(startNode, SIGNAL(numPinsChanged(unsigned)), this, SLOT(syncWiresWithNodes()));
 		connect(endNode, SIGNAL(numPinsChanged(unsigned)), this, SLOT(syncWiresWithNodes()));
@@ -31,9 +34,10 @@ ElectronicConnector::ElectronicConnector(ECNode *startNode, ECNode *endNode,
 
 ElectronicConnector::~ElectronicConnector()
 {
+/* Something else is deleting wires, FIXME, figure out what the deal is. 
 	for (unsigned i = 0; i < m_wires.size(); i++)
 		delete m_wires[i];
-
+*/
 	m_wires.resize(0);
 }
 

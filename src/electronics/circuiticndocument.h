@@ -98,7 +98,10 @@ public:
 	virtual void unregisterUID ( const QString & uid );
 	
 	virtual NodeList nodeList() const;
-	
+
+signals:
+	void connectorAdded(ElectronicConnector *con);
+
 protected:
 	
 	/**

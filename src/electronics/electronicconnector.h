@@ -22,10 +22,8 @@
 	An electronic connector, connecting 2 ECNodes.
 */
 class ElectronicConnector : public Connector
-{
-	Q_OBJECT
-
-public:
+{ Q_OBJECT
+public: 
     ElectronicConnector(ECNode* startNode, ECNode* endNode, ICNDocument* _ICNDocument, const QString &id = QString() );
 
     ~ElectronicConnector();
@@ -39,6 +37,10 @@ public:
      * Node at end of connector (which refers to this as the input connector)
      */
     virtual Node* endNode() const { return m_endEcNode; }
+
+signals :
+	void removed(ECNode *node);
+	void removed(ElectronicConnector *connector);
 
 public slots:
 	/**
