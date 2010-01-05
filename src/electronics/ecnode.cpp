@@ -121,7 +121,8 @@ bool ECNode::isConnected(Node *node, NodeList *checkedNodes) {
 
 	const ConnectorList::const_iterator inputEnd = m_connectorList.end();
 	for (ConnectorList::const_iterator it = m_connectorList.begin(); it != inputEnd; ++it) {
-		ElectronicConnector *connector = *it;
+		//Electronic
+		Connector *connector = *it;
 
 		if (connector) {
 			Node *startNode = connector->startNode();
@@ -162,9 +163,9 @@ void ECNode::setVisible(bool yes) {
 
 	QCanvasPolygon::setVisible(yes);
 
-	const EConnectorList::iterator inputEnd = m_connectorList.end();
-	for (EConnectorList::iterator it = m_connectorList.begin(); it != inputEnd; ++it) {
-		 ElectronicConnector*connector = *it;
+	const ConnectorList::iterator inputEnd = m_connectorList.end();
+	for (ConnectorList::iterator it = m_connectorList.begin(); it != inputEnd; ++it) {
+		 Connector*connector = *it;
 
 		if (connector) {
 			if (isVisible())
@@ -296,7 +297,7 @@ void ECNode::removeConnector(ElectronicConnector *connector) {
 	}
 }
 
-ElectronicConnector *ECNode::getAConnector() const {
+Connector *ECNode::getAConnector() const {
 	if (! m_connectorList.isEmpty())
 		return *m_connectorList.begin();
 	else	return 0;
