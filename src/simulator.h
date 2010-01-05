@@ -43,7 +43,6 @@ class LogicOut;
 class Switch;
 class Wire;
 
-typedef QValueList<ECNode*> ECNodeList;
 typedef QValueList<LogicIn*> LogicInList;
 typedef void(Component::*VoidCallbackPtr)();
 
