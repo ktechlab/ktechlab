@@ -13,7 +13,7 @@
 #include <cassert>
 #include <kdebug.h>
 
-Wire::Wire( Pin * startPin, Pin * endPin )
+Wire::Wire(Pin *startPin, Pin *endPin)
 {
 	assert(startPin);
 	assert(endPin);
@@ -29,6 +29,12 @@ Wire::Wire( Pin * startPin, Pin * endPin )
 
 Wire::~Wire()
 {
+}
+
+double Wire::currentFor(const Pin *aPin) const {
+	if(aPin == m_pStartPin) return m_current;
+	if(aPin == m_pEndPin ) return -m_current;
+	return 0;
 }
 
 bool Wire::calculateCurrent()
@@ -72,12 +78,14 @@ bool Wire::calculateCurrent()
 			return true;
 		}
 	}
-	
+
+// FIXME: this code gets glitchy around grounds and when it is several nodes removed from nearest
+// part because of cleanups in Pin class. The algorithm and data structures need to be reviewed.
+
 	if(m_pEndPin->currentIsKnown()) {
 
 		double i = -m_pEndPin->current();
 		bool ok = true;
-
 
 		const WireList list = m_pEndPin->wireList();
 		WireList::const_iterator end = list.end();
