@@ -74,7 +74,7 @@ public:
 	 * state was set to (the two are not necessarily the same).
 	 */
 	bool isHigh() const {
-		return m_bLastState;
+		return m_bState;
 	}
 
 	/**
@@ -91,29 +91,33 @@ public:
 	 * If this belongs to a logic chain, then this will be called from the chain.
 	 */
 	void setLastState(bool state) {
-		m_bLastState = state;
+		m_bState = state;
 	}
 
-	/**
-	 * Returns a pointer to the next LogicIn in the chain.
-	 */
-	LogicIn * nextLogic() const {
-		return m_pNextLogic;
-	}
+// ### crappy linked list! =(
+/**
+ * Returns a pointer to the next LogicIn in the chain.
+ */
 
-	/**
-	 * Sets the next LogicIn in the chain.
-	 */
-	void setNextLogic(LogicIn * next) {
-		m_pNextLogic = next;
-	}
+void setChain(bool high);
+
+/**/
+LogicIn *nextLogic() const {
+	return m_pNextLogic;
+}
+
+void setNextLogic(LogicIn * next) {
+	m_pNextLogic = next;
+}
+
+// ### 
 
 	/**
 	 * Calls the callback function, if there is one.
 	 */
 	void callCallback() {
 		if (m_pCallbackFunction)
-			(m_pCallbackObject->*m_pCallbackFunction)(m_bLastState);
+			(m_pCallbackObject->*m_pCallbackFunction)(m_bState);
 	}
 
 protected:
@@ -123,8 +127,12 @@ protected:
 	// TODO: fix this crap NO FUNCTION POINTERS
 	CallbackPtr m_pCallbackFunction;
 	CallbackClass *m_pCallbackObject;
-	bool m_bLastState;
-	LogicIn *m_pNextLogic;
+	bool m_bState;
+
+/// FIXME: crappy linked list implementation. 
+LogicIn *m_pNextLogic;
+/// ###
+
 	LogicConfig m_config;
 };
 
@@ -172,14 +180,6 @@ public:
 	 * Sets the pin to be high/low
 	 */
 	void setHigh(bool high);
-	/**
-	 * @returns the state that this is outputting (regardless of voltage level on logic)
-	 */
-	bool outputState() const {
-		return m_bLastState;
-	}
-
-
 
 /// SHODDY LINKED LIST STUFF!!! 
 	/**
@@ -198,7 +198,7 @@ void setCanAddChanged(bool canAdd) {
 // avoid being added twice. 
 	m_bCanAddChanged = canAdd;
 }
-///
+// **** 
 
 
 // FIXME RED ALERT: THESE ARE ONLY ACCESSED BY SIMULATOR!!!
