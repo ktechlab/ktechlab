@@ -15,6 +15,7 @@
 
 #include "cnitem.h"
 #include "ecnode.h"
+#include "elementmap.h"
 
 class ICNDocument;
 class CircuitDocument;
@@ -28,33 +29,6 @@ typedef QValueList<ECNode*> ECNodeList;
 typedef QValueList<Element*> ElementList;
 typedef QValueList<Switch*> SwitchList;
 typedef QValueList< QValueList<Pin*> > PinListList;
-
-/**
-Contains vital information about the elements in the component.
-*/
-class ElementMap {
-
-public:
-	ElementMap();
-
-	void mergeCurrents();
-	bool compareElement(const Element *anElement) const;
-	void setElement(Element *anElement);
-	LogicIn *getLogicInOrNull();
-	void putPin(unsigned int slot, Pin *aPin);
-	void setupCNodes();
-	void setupMatrix();
-	/// @see Component::setInterCircuitDependent
-	PinListList interCircuitDependent;
-
-	/// @see Component::setInterGroundDependent
-	PinListList interGroundDependent;
-
-private:
-	Element *e; // The element
-	Pin *n[4]; // The Pins associated with the CNodes in the element
-};
-
 typedef QValueList<ElementMap> ElementMapList;
 
 /**
