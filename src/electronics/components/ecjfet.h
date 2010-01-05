@@ -21,21 +21,21 @@ class JFET;
  */
 class ECJFET : public Component
 {
-	public:
-		ECJFET( int JFET_type, ICNDocument *icnDocument, bool newItem, const char * id = 0L );
-		~ECJFET();
-	
-		static Item * constructNJFET( ItemDocument * itemDocument, bool newItem, const char * id );
-		static Item * constructPJFET( ItemDocument * itemDocument, bool newItem, const char * id );
-		static LibraryItem * libraryItemNJFET();
-		static LibraryItem * libraryItemPJFET();
-	
-	protected:
-		virtual void dataChanged();
-		virtual void drawShape( QPainter &p );
-		
-		int m_JFET_type;
-		JFET * m_pJFET;
+public:
+	ECJFET(int JFET_type, ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	~ECJFET();
+
+	static Item *constructNJFET(ItemDocument *itemDocument, bool newItem, const char *id);
+	static Item *constructPJFET(ItemDocument *itemDocument, bool newItem, const char *id);
+	static LibraryItem *libraryItemNJFET();
+	static LibraryItem *libraryItemPJFET();
+
+protected:
+	virtual void dataChanged();
+	virtual void drawShape(QPainter &p);
+
+	int m_JFET_type;
+	JFET *m_pJFET;
 };
 
 #endif

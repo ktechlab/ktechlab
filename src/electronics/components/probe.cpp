@@ -169,7 +169,6 @@ void VoltageProbe::stepNonLogic()
 //END class VoltageProbe
 
 
-
 //BEGIN class CurrentProbe
 Item* CurrentProbe::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -179,47 +178,42 @@ Item* CurrentProbe::construct( ItemDocument *itemDocument, bool newItem, const c
 LibraryItem* CurrentProbe::libraryItem()
 {
 	return new LibraryItem(
-			"ec/currentprobe",
-	i18n("Current Probe"),
-	i18n("Outputs"),
-	"floatingprobe.png",
-	LibraryItem::lit_component,
-	CurrentProbe::construct );
+		"ec/currentprobe",
+		i18n("Current Probe"),
+		i18n("Outputs"),
+		"floatingprobe.png",
+		LibraryItem::lit_component,
+		CurrentProbe::construct);
 }
 
-CurrentProbe::CurrentProbe( ICNDocument *icnDocument, bool newItem, const char *id )
-	: FloatingProbe( icnDocument, newItem, id ? id : "currentprobe" )
+CurrentProbe::CurrentProbe(ICNDocument *icnDocument, bool newItem, const char *id)
+	: FloatingProbe(icnDocument, newItem, id ? id : "currentprobe")
 {
 	m_name = i18n("Current Probe");
-	
+
 	property("upper_abs_value")->setUnit("A");
 	property("lower_abs_value")->setUnit("A");
 
 	init1PinLeft(0);
 	init1PinRight(0);
-	
-	m_voltageSource = createVoltageSource( m_pNNode[0], m_pPNode[0], 0. );
-}
 
+	m_voltageSource = createVoltageSource(m_pNNode[0]->pin(), m_pPNode[0]->pin(), 0.);
+}
 
 CurrentProbe::~CurrentProbe()
 {
 }
 
-
 void CurrentProbe::stepNonLogic()
 {
-	m_pFloatingProbeData->addDataPoint( -m_voltageSource->cbranchCurrent(0) );
+	m_pFloatingProbeData->addDataPoint(-m_voltageSource->cbranchCurrent(0));
 }
 //END class CurrentProbe
 
-
-
-
 //BEGIN class LogicProbe
-Item* LogicProbe::construct( ItemDocument *itemDocument, bool newItem, const char *id )
+Item* LogicProbe::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
-	return new LogicProbe( (ICNDocument*)itemDocument, newItem, id );
+	return new LogicProbe((ICNDocument*)itemDocument, newItem, id);
 }
 
 LibraryItem* LogicProbe::libraryItem()
@@ -232,30 +226,28 @@ LibraryItem* LogicProbe::libraryItem()
 		i18n("Outputs"),
 		"logicprobe.png",
 		LibraryItem::lit_component,
-		LogicProbe::construct );
+		LogicProbe::construct);
 }
 
-LogicProbe::LogicProbe( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Probe( icnDocument, newItem, id ? id : "probe" )
+LogicProbe::LogicProbe(ICNDocument *icnDocument, bool newItem, const char *id)
+	: Probe(icnDocument, newItem, id ? id : "probe")
 {
 	m_name = i18n("Logic Probe");
-	
+
 	init1PinRight();
-	m_pIn = createLogicIn( m_pPNode[0] );
-	
+	m_pIn = createLogicIn(m_pPNode[0]->pin());
+
 	p_probeData = p_logicProbeData = static_cast<LogicProbeData*>(registerProbe(this));
-	property("color")->setValue( p_probeData->color() );
-	
+	property("color")->setValue(p_probeData->color());
+
 	m_pSimulator = Simulator::self();
-	m_pIn->setCallback( this, (CallbackPtr)(&LogicProbe::logicCallback) );
+	m_pIn->setCallback(this, (CallbackPtr)(&LogicProbe::logicCallback));
 	logicCallback(false);
 }
-
 
 LogicProbe::~LogicProbe()
 {
 }
-
 
 void LogicProbe::logicCallback( bool value )
 {

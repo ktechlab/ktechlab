@@ -137,15 +137,16 @@ LibraryItem* ECCCCS::libraryItem()
 		i18n("Sources"),
 		"cccs.png",
 		LibraryItem::lit_component,
-		ECCCCS::construct );
+		ECCCCS::construct);
 }
 
-ECCCCS::ECCCCS( ICNDocument *icnDocument, bool newItem, const char *id )
-	: DependentSource( icnDocument, newItem, id ? id : "cccs" )
+ECCCCS::ECCCCS(ICNDocument *icnDocument, bool newItem, const char *id)
+	: DependentSource(icnDocument, newItem, id ? id : "cccs")
 {
 	m_name = i18n("Current Controlled Currrent Source");
-	m_cccs = createCCCS( m_pNNode[0], m_pPNode[0], m_pNNode[1], m_pPNode[1], 1. );
-	m_pNNode[1]->pin()->setGroundType( Pin::gt_medium );
+	m_cccs = createCCCS(m_pNNode[0]->pin(), m_pPNode[0]->pin(),
+			    m_pNNode[1]->pin(), m_pPNode[1]->pin(), 1.);
+	m_pNNode[1]->pin()->setGroundType(Pin::gt_medium);
 }
 
 ECCCCS::~ECCCCS()
@@ -176,10 +177,10 @@ void ECCCCS::drawShape( QPainter &p )
 //BEGIN class ECCCVS
 Item* ECCCVS::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
-	return new ECCCVS( (ICNDocument*)itemDocument, newItem, id );
+	return new ECCCVS((ICNDocument*)itemDocument, newItem, id);
 }
 
-LibraryItem* ECCCVS::libraryItem()
+LibraryItem *ECCCVS::libraryItem()
 {
 	return new LibraryItem(
 		QString("ec/ccvs"),
@@ -187,15 +188,16 @@ LibraryItem* ECCCVS::libraryItem()
 		i18n("Sources"),
 		"ccvs.png",
 		LibraryItem::lit_component,
-		ECCCVS::construct );
+		ECCCVS::construct);
 }
 
-ECCCVS::ECCCVS( ICNDocument *icnDocument, bool newItem, const char *id )
-	: DependentSource( icnDocument, newItem, id ? id : "ccvs" )
+ECCCVS::ECCCVS(ICNDocument *icnDocument, bool newItem, const char *id)
+	: DependentSource(icnDocument, newItem, id ? id : "ccvs")
 {
 	m_name = i18n("Current Controlled Voltage Source");
-	m_ccvs = createCCVS( m_pNNode[0], m_pPNode[0], m_pNNode[1], m_pPNode[1], 1. );
-	m_pNNode[1]->pin()->setGroundType( Pin::gt_medium );
+	m_ccvs = createCCVS(m_pNNode[0]->pin(), m_pPNode[0]->pin(),
+			    m_pNNode[1]->pin(), m_pPNode[1]->pin(), 1.);
+	m_pNNode[1]->pin()->setGroundType(Pin::gt_medium);
 }
 
 ECCCVS::~ECCCVS()
@@ -206,8 +208,8 @@ void ECCCVS::dataChanged()
 {
 	double gain = dataDouble("gain");
 	
-	QString display = QString::number( gain / getMultiplier(gain), 'g', 3 ) + getNumberMag(gain) + QChar(' ');
-	setDisplayText( "gain", display );
+	QString display = QString::number(gain / getMultiplier(gain), 'g', 3) + getNumberMag(gain) + QChar(' ');
+	setDisplayText("gain", display);
 	
 	m_ccvs->setGain(gain);
 }
@@ -236,15 +238,16 @@ LibraryItem* ECVCCS::libraryItem()
 		i18n("Sources"),
 		"vccs.png",
 		LibraryItem::lit_component,
-		ECVCCS::construct );
+		ECVCCS::construct);
 }
 
-ECVCCS::ECVCCS( ICNDocument *icnDocument, bool newItem, const char *id )
-	: DependentSource( icnDocument, newItem, id ? id : "vccs" )
+ECVCCS::ECVCCS(ICNDocument *icnDocument, bool newItem, const char *id)
+	: DependentSource(icnDocument, newItem, id ? id : "vccs")
 {
 	m_name = i18n("Voltage Controlled Current Source");
-	m_vccs = createVCCS( m_pNNode[0], m_pPNode[0], m_pNNode[1], m_pPNode[1], 1. );
-	m_pNNode[1]->pin()->setGroundType( Pin::gt_medium );
+	m_vccs = createVCCS(m_pNNode[0]->pin(), m_pPNode[0]->pin(),
+			    m_pNNode[1]->pin(), m_pPNode[1]->pin(), 1.);
+	m_pNNode[1]->pin()->setGroundType(Pin::gt_medium);
 }
 
 ECVCCS::~ECVCCS()
@@ -255,8 +258,8 @@ void ECVCCS::dataChanged()
 {
 	double gain = dataDouble("gain");
 	
-	QString display = QString::number( gain / getMultiplier(gain), 'g', 3 ) + getNumberMag(gain) + QChar(' ');
-	setDisplayText( "gain", display );
+	QString display = QString::number(gain / getMultiplier(gain), 'g', 3) + getNumberMag(gain) + QChar(' ');
+	setDisplayText("gain", display);
 	
 	m_vccs->setGain(gain);
 }
@@ -285,15 +288,16 @@ LibraryItem* ECVCVS::libraryItem()
 		i18n("Sources"),
 		"vcvs.png",
 		LibraryItem::lit_component,
-		ECVCVS::construct );
+		ECVCVS::construct);
 }
 
-ECVCVS::ECVCVS( ICNDocument *icnDocument, bool newItem, const char *id )
-	: DependentSource( icnDocument, newItem, id ? id : "vcvs" )
+ECVCVS::ECVCVS(ICNDocument *icnDocument, bool newItem, const char *id)
+	: DependentSource(icnDocument, newItem, id ? id : "vcvs")
 {
 	m_name = i18n("Voltage Controlled Voltage Source");
-	m_vcvs = createVCVS( m_pNNode[0], m_pPNode[0], m_pNNode[1], m_pPNode[1], 1. );
-	m_pNNode[1]->pin()->setGroundType( Pin::gt_medium );
+	m_vcvs = createVCVS(m_pNNode[0]->pin(), m_pPNode[0]->pin(),
+			    m_pNNode[1]->pin(), m_pPNode[1]->pin(), 1.);
+	m_pNNode[1]->pin()->setGroundType(Pin::gt_medium);
 }
 
 ECVCVS::~ECVCVS()
@@ -304,8 +308,8 @@ void ECVCVS::dataChanged()
 {
 	double gain = dataDouble("gain");
 	
-	QString display = QString::number( gain / getMultiplier(gain), 'g', 3 ) + getNumberMag(gain) + QChar(' ');
-	setDisplayText( "gain", display );
+	QString display = QString::number(gain / getMultiplier(gain), 'g', 3) + getNumberMag(gain) + QChar(' ');
+	setDisplayText("gain", display);
 	
 	m_vcvs->setGain(gain);
 }

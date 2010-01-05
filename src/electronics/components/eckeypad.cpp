@@ -124,42 +124,36 @@ void ECKeyPad::initPins( unsigned numCols )
 	if ( numCols > m_numCols )
 	{
 		// Adding columns
-		
-		for ( unsigned i = 0; i < 4; i++ )
+		for(unsigned i = 0; i < 4; i++)
 		{
-			for ( unsigned j = m_numCols; j < numCols; j++ )
-				addButton( buttonID(i,j), QRect( 0, 0, 20, 20 ), text[i][j] );
+			for(unsigned j = m_numCols; j < numCols; j++)
+				addButton(buttonID(i, j), QRect(0, 0, 20, 20), text[i][j]);
 		}
 		
 		ECNode * cols[9];
 	
-		for ( unsigned j = m_numCols; j < numCols; j++ )
-			cols[j] = createPin( 0, 64, 270, "col_" + QString::number(j) );
+		for(unsigned j = m_numCols; j < numCols; j++)
+			cols[j] = createPin(0, 64, 270, "col_" + QString::number(j));
 	
-		for ( unsigned i = 0; i < 4; i++ )
+		for(unsigned i = 0; i < 4; i++ )
 		{
-			ECNode * row = ecNodeWithID("row_"+QString::number(i));
-			for ( unsigned j = m_numCols; j < numCols; j++ )
-				m_switch[i][j] = createSwitch( cols[j], row, true );
+			Pin *row = ecNodeWithID("row_" + QString::number(i))->pin();
+			for(unsigned j = m_numCols; j < numCols; j++)
+				m_switch[i][j] = createSwitch(cols[j]->pin(), row, true);
 		}
-	}
-	else
-	{
+	} else {
 		// Remove columns
-		
-		for ( unsigned i = 0; i < 4; i++ )
-		{
-			for ( unsigned j = numCols; j < m_numCols; j++ )
-				removeWidget( buttonID(i,j) );
+		for(unsigned i = 0; i < 4; i++) {
+			for(unsigned j = numCols; j < m_numCols; j++)
+				removeWidget(buttonID(i,j));
 		}
-	
-		for ( unsigned j = numCols; j < m_numCols; j++ )
-			removeNode( "col_" + QString::number(j) );
-	
-		for ( unsigned i = 0; i < 4; i++ )
-		{
-			for ( unsigned j = m_numCols; j < numCols; j++ )
-				removeSwitch( m_switch[i][j] );	
+
+		for(unsigned j = numCols; j < m_numCols; j++)
+			removeNode("col_" + QString::number(j));
+
+		for(unsigned i = 0; i < 4; i++) {
+			for(unsigned j = m_numCols; j < numCols; j++)
+				removeSwitch( m_switch[i][j]);
 		}
 	}
 	

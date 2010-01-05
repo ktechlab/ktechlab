@@ -115,7 +115,7 @@ ADC::~ADC()
 void ADC::stepNonLogic()
 {
 	double floatBitValue = m_realNode->pin()->voltage() * (std::pow( 2, double(m_numBits) )-1.) / m_range;
-	double roundBitValue = std::floor( floatBitValue+0.5 );
+	double roundBitValue = std::floor( floatBitValue + 0.5 );
 	
 	if ( roundBitValue < 0 )
 	{
@@ -152,66 +152,54 @@ void ADC::initPins()
 	
 	for ( int i=inPos+1; i<numBits; ++i )
 		pins += "";
-	
-	for ( int i=numBits-1; i>=0; --i )
+
+	for(int i = numBits - 1; i >= 0; --i)
 		pins += QString::number(i);
-	
-	initDIPSymbol( pins, 64 );
+
+	initDIPSymbol(pins, 64);
 	initDIP(pins);
-	
-	if (!m_realNode)
+
+	if(!m_realNode)
 		m_realNode =  ecNodeWithID("In");
-	
-	
-	if ( numBits > m_numBits )
-	{
-		for ( int i=m_numBits; i<numBits; ++i )
-		{
-			ECNode *node = ecNodeWithID( QString::number(i) );
-			m_logic[i] = createLogicOut( node, false );
+
+	if(numBits > m_numBits) {
+		for(int i = m_numBits; i < numBits; ++i) {
+			ECNode *node = ecNodeWithID(QString::number(i));
+			m_logic[i] = createLogicOut(node->pin(), false);
 		}
-	}
-	else
-	{
-		for ( int i=numBits; i<m_numBits; ++i )
-		{
+	} else {
+		for(int i = numBits; i < m_numBits; ++i) {
 			QString id = QString::number(i);
 			removeDisplayText(id);
-			removeElement( m_logic[i], false );
+			removeElement(m_logic[i], false);
 			removeNode(id);
-			m_logic[i] = 0l;
+			m_logic[i] = 0;
 		}
 	}
-	
 	m_numBits = numBits;
 }
 //END class ADC
 
-
-
-
 //BEGIN class DAC
-DAC::DAC( ICNDocument *icnDocument, bool newItem, const char *id )
-	: ADDAC( icnDocument, newItem, id ? id : "dac" )
+DAC::DAC(ICNDocument *icnDocument, bool newItem, const char *id)
+	: ADDAC(icnDocument, newItem, id ? id : "dac")
 {
 	m_name = i18n("DAC");
 	
 	for ( int i=0; i<max_ADDAC_bits; ++i )
 		m_logic[i] = 0l;
 	
-	m_voltagePoint = 0l;
+	m_voltagePoint = 0;
 }
-
 
 DAC::~DAC()
 {
 }
 
-
 void DAC::stepNonLogic()
 {
 	uint value = 0;
-	for ( int i=0; i<m_numBits; ++i )
+	for ( int i=0; i < m_numBits; ++i )
 		value |= ( m_logic[i]->isHigh() ? 1 : 0 ) << i;
 	
 // 	double valueAsDouble = double(value);
@@ -220,56 +208,50 @@ void DAC::stepNonLogic()
 	m_voltagePoint->setVoltage( m_range * double(value) / (std::pow( 2, double(m_numBits) )-1.) );
 }
 
-
 void DAC::initPins()
 {
 	int numBits = dataInt("numBits");
 	
-	if ( numBits < 2 )
-		numBits = 2;
-	else if ( numBits > max_ADDAC_bits )
+	if(numBits < 2) numBits = 2;
+	else if(numBits > max_ADDAC_bits)
 		numBits = max_ADDAC_bits;
 	
-	if ( numBits == m_numBits )
-		return;
+	if(numBits == m_numBits) return;
 	
 	QStringList pins;
 	
-	for ( int i=0; i<numBits; ++i )
+	for(int i = 0; i < numBits; ++i)
 		pins += QString::number(i);
 	
-	int inPos = (numBits+1+(numBits%2))/2;
-	for ( int i=numBits-1; i>=inPos; --i )
+	int inPos = (numBits + 1 + (numBits % 2)) / 2;
+	for(int i = numBits - 1; i >= inPos; --i)
 		pins += "";
-	
+
 	pins += "Out";
-	
-	for ( int i=inPos-2; i>=0; --i )
+
+	for(int i = inPos - 2; i >= 0; --i)
 		pins += "";
 	
-	initDIPSymbol( pins, 64 );
+	initDIPSymbol(pins, 64);
 	initDIP(pins);
 	
-	if (!m_voltagePoint)
-		m_voltagePoint = createVoltagePoint( ecNodeWithID("Out"), 0. );
+	if(!m_voltagePoint)
+		m_voltagePoint = createVoltagePoint(ecNodeWithID("Out")->pin(), 0.);
 	
-	if ( numBits > m_numBits )
-	{
-		for ( int i=m_numBits; i<numBits; ++i )
+	if(numBits > m_numBits) {
+		for(int i = m_numBits; i < numBits; ++i)
 		{
-			ECNode *node = ecNodeWithID( QString::number(i) );
-			m_logic[i] = createLogicIn(node);
+			ECNode *node = ecNodeWithID( QString::number(i));
+			m_logic[i] = createLogicIn(node->pin());
 		}
-	}
-	else
-	{
-		for ( int i=numBits; i<m_numBits; ++i )
+	} else {
+		for(int i = numBits; i < m_numBits; ++i)
 		{
 			QString id = QString::number(i);
 			removeDisplayText(id);
-			removeElement( m_logic[i], false );
+			removeElement(m_logic[i], false);
 			removeNode(id);
-			m_logic[i] = 0l;
+			m_logic[i] = 0;
 		}
 	}
 	

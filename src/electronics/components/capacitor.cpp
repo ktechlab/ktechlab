@@ -16,72 +16,66 @@
 #include <klocale.h>
 #include <qpainter.h>
 
-Item* Capacitor::construct( ItemDocument *itemDocument, bool newItem, const char *id )
-{
-	return new Capacitor( (ICNDocument*)itemDocument, newItem, id );
+Item* Capacitor::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
+	return new Capacitor((ICNDocument*)itemDocument, newItem, id);
 }
 
-LibraryItem* Capacitor::libraryItem()
-{
+LibraryItem* Capacitor::libraryItem() {
 	return new LibraryItem(
-		"ec/capacitor",
-		i18n("Capacitor"),
-		i18n("Passive"),
-		"capacitor.png",
-		LibraryItem::lit_component,
-		Capacitor::construct
-			);
+	           "ec/capacitor",
+	           i18n("Capacitor"),
+	           i18n("Passive"),
+	           "capacitor.png",
+	           LibraryItem::lit_component,
+	           Capacitor::construct
+	       );
 }
 
-Capacitor::Capacitor( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, id ? id : "capacitor" )
-{
+Capacitor::Capacitor(ICNDocument *icnDocument, bool newItem, const char *id)
+		: Component(icnDocument, newItem, id ? id : "capacitor") {
 	m_name = i18n("Capacitor");
-	setSize( -8, -8, 16, 16 );
-	
+	setSize(-8, -8, 16, 16);
+
 	init1PinLeft();
 	init1PinRight();
-	
-	m_capacitance = createCapacitance( m_pNNode[0], m_pPNode[0], 0.001 );
-	
-	createProperty( "Capacitance", Variant::Type::Double );
-	property("Capacitance")->setCaption( i18n("Capacitance") );
+
+	m_capacitance = createCapacitance(m_pNNode[0]->pin(), m_pPNode[0]->pin(), 0.001);
+
+	createProperty("Capacitance", Variant::Type::Double);
+	property("Capacitance")->setCaption(i18n("Capacitance"));
 	property("Capacitance")->setUnit("F");
 	property("Capacitance")->setMinValue(1e-12);
 	property("Capacitance")->setMaxValue(1e12);
 	property("Capacitance")->setValue(1e-3);
-	
-	addDisplayText( "capacitance", QRect( -8, -24, 16, 16 ), "", false );
+
+	addDisplayText("capacitance", QRect(-8, -24, 16, 16), "", false);
 }
 
-Capacitor::~Capacitor()
-{
+Capacitor::~Capacitor() {
 }
 
-void Capacitor::dataChanged()
-{
+void Capacitor::dataChanged() {
 	double capacitance = dataDouble("Capacitance");
-	
-	QString display = QString::number( capacitance / getMultiplier(capacitance), 'g', 3 ) + getNumberMag(capacitance) + "F";
-	setDisplayText( "capacitance", display );
-	
+
+	QString display = QString::number(capacitance / getMultiplier(capacitance), 'g', 3) + getNumberMag(capacitance) + "F";
+	setDisplayText("capacitance", display);
+
 	m_capacitance->setCapacitance(capacitance);
 }
 
-void Capacitor::drawShape( QPainter &p )
-{
+void Capacitor::drawShape(QPainter &p) {
 	initPainter(p);
-	
-	int _y = (int)y()-8;
-	int _x = (int)x()-8;
-	
+
+	int _y = (int)y() - 8;
+	int _x = (int)x() - 8;
+
 	QPen pen;
 	pen.setWidth(1);
-	pen.setColor( p.pen().color() );
+	pen.setColor(p.pen().color());
 	p.setPen(pen);
-	p.drawRect( _x, _y, 5, 16 );
-	p.drawRect( _x+11, _y, 5, 16 );
-	
+	p.drawRect(_x, _y, 5, 16);
+	p.drawRect(_x + 11, _y, 5, 16);
+
 	deinitPainter(p);
 }
 

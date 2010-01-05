@@ -29,26 +29,25 @@ MultiInputGate::MultiInputGate( ICNDocument *icnDocument, bool newItem, const ch
 	m_distinctiveWidth = baseWidth;
 	m_bInvertedOutput = invertedOutput;
 	m_rectangularShapeText = rectangularShapeText;
-	
-	for ( int i=0; i<maxGateInput; ++i )
-	{
-		inLogic[i] = 0l;
-		inNode[i] = 0l;
+
+	for(int i = 0; i<maxGateInput; ++i) {
+		inLogic[i] = 0;
+		inNode[i]  = 0;
 	}
-	
+
 	updateLogicSymbolShape();
-	
+
 	updateInputs(2);
-	
+
 	init1PinRight(16);
-	m_pOut = createLogicOut( m_pPNode[0], false );
-	
-	createProperty( "numInput", Variant::Type::Int );
-	property("numInput")->setCaption( i18n("Number Inputs") );
+	m_pOut = createLogicOut(m_pPNode[0]->pin(), false);
+
+	createProperty("numInput", Variant::Type::Int);
+	property("numInput")->setCaption(i18n("Number Inputs"));
 	property("numInput")->setMinValue(2);
 	property("numInput")->setMaxValue(maxGateInput);
 	property("numInput")->setValue(2);
-	
+
 	m_bDoneInit = true;
 }
 
@@ -116,50 +115,45 @@ void MultiInputGate::dataChanged()
 }
 
 
-void MultiInputGate::updateInputs( int newNum )
+void MultiInputGate::updateInputs(int newNum)
 {
-	if ( newNum == m_numInputs )
-		return;
-	
-	if ( newNum < 2 )
-		newNum = 2;
-	else if ( newNum > maxGateInput )
+	if(newNum == m_numInputs) return;
+
+	if(newNum < 2) newNum = 2;
+	else if(newNum > maxGateInput)
 		newNum = maxGateInput;
-	
+
 	int newWidth = logicSymbolShapeToWidth();
-	
-	QRect r( -newWidth/2, -8*newNum, newWidth, 16*newNum );
-	setSize( r, true );
+
+	QRect r(-newWidth / 2, -8 * newNum, newWidth, 16 * newNum);
+	setSize(r, true);
 	updateSymbolText();
-	
-	const bool added = ( newNum > m_numInputs );
-	if (added)
-	{
-		for ( int i = m_numInputs; i<newNum; ++i )
+
+	const bool added = (newNum > m_numInputs);
+	if(added) {
+		for(int i = m_numInputs; i<newNum; ++i)
 		{
-			ECNode *node = createPin( 0, 0, 0, "in"+QString::number(i) );
+			ECNode *node = createPin(0, 0, 0, "in" + QString::number(i));
 			inNode[i] = node;
-			inLogic[i] = createLogicIn(node);
-			inLogic[i]->setCallback( this, (CallbackPtr)(&MultiInputGate::inStateChanged) );
+			inLogic[i] = createLogicIn(node->pin());
+			inLogic[i]->setCallback(this, (CallbackPtr)(&MultiInputGate::inStateChanged));
 		}
-	}
-	else
-	{
-		for ( int i=newNum; i<m_numInputs; ++i )
+	} else {
+		for(int i = newNum; i < m_numInputs; ++i)
 		{
-			removeNode("in"+QString::number(i));
-			removeElement( inLogic[i], false );
-			inNode[i] = 0l;
-			inLogic[i] = 0l;
+			removeNode("in" + QString::number(i));
+			removeElement(inLogic[i], false);
+			inNode[i] = 0;
+			inLogic[i] = 0;
 		}
 	}
-	
+
 	m_numInputs = newNum;
-	
+
 	// We can't call a pure-virtual function if we haven't finished our constructor yet...
-	if (m_bDoneInit)
+	if(m_bDoneInit)
 		inStateChanged(!added);
-	
+
 	updateAttachedPositioning();
 }
 

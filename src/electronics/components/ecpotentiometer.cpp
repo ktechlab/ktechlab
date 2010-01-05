@@ -31,32 +31,32 @@ LibraryItem* ECPotentiometer::libraryItem()
 		i18n("Passive"),
 		"potentiometer.png",
 		LibraryItem::lit_component,
-		ECPotentiometer::construct );
+		ECPotentiometer::construct);
 }
 
-ECPotentiometer::ECPotentiometer( ICNDocument *icnDocument, bool newItem, const char *id )
-	: Component( icnDocument, newItem, id ? id : "potentiometer" )
+ECPotentiometer::ECPotentiometer(ICNDocument *icnDocument, bool newItem, const char *id)
+	: Component(icnDocument, newItem, id ? id : "potentiometer")
 {
 	m_name = i18n("Potentiometer");
-	setSize( -16, -16, 40, 32 );
-	
-	m_p1 = createPin( 32, 0, 180, "p1" );
-	
+	setSize(-16, -16, 40, 32);
+
+	m_p1 = createPin(32, 0, 180, "p1");
+
 	m_sliderProp = 0.0;
 	m_resistance = 5000.;
-	m_r1 = createResistance( createPin( -8, -24, 90, "n1" ), m_p1, 1. );
-	m_r2 = createResistance( createPin( -8, 24, 270, "n2" ), m_p1, 1. );
-	
-	Slider * s = addSlider( "slider", 0, 100, 5, 50, Qt::Vertical, QRect( 0, -16, 16, 32 ) );
+	m_r1 = createResistance(createPin(-8, -24, 90, "n1")->pin(), m_p1->pin(), 1.);
+	m_r2 = createResistance(createPin(-8, 24, 270, "n2")->pin(), m_p1->pin(), 1.);
+
+	Slider * s = addSlider("slider", 0, 100, 5, 50, Qt::Vertical, QRect(0, -16, 16, 32));
 	m_pSlider = static_cast<QSlider*>(s->widget());
-	
-	createProperty( "resistance", Variant::Type::Double );
-	property("resistance")->setCaption( i18n("Resistance") );
-	property("resistance")->setUnit( QChar(0x3a9) );
+
+	createProperty("resistance", Variant::Type::Double);
+	property("resistance")->setCaption(i18n("Resistance"));
+	property("resistance")->setUnit(QChar(0x3a9));
 	property("resistance")->setMinValue(1e-6);
 	property("resistance")->setValue(1e5);
-	
-	addDisplayText( "res", QRect( -56, -8, 40, 16 ), "" );
+
+	addDisplayText("res", QRect(-56, -8, 40, 16), "");
 }
 
 ECPotentiometer::~ECPotentiometer()
