@@ -298,11 +298,9 @@ void Circuit::initCache() {
 		case Element::Element_VoltagePoint:
 		case Element::Element_VoltageSource:
 			break;
-
 		case Element::Element_LogicOut:
 			m_logicOutCount++;
 			break;
-
 		case Element::Element_CurrentSignal:
 		case Element::Element_VoltageSignal:
 		case Element::Element_Capacitance:
@@ -339,7 +337,7 @@ void Circuit::cacheAndUpdate() {
 	LogicCacheNode *node = m_pLogicCacheBase;
 
 	for (unsigned i = 0; i < m_logicOutCount; i++) {
-		if (m_pLogicOut[i]->outputState()) {
+		if (m_pLogicOut[i]->isHigh()) {
 			node = node->addOrGetHigh();
 		} else 	node = node->addOrGetLow();
 	}
@@ -507,3 +505,4 @@ void LogicCacheNode::setData(const QuickVector *newData)
 	data = new QuickVector(newData);
 }
 //END class LogicCacheNode
+

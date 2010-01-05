@@ -12,11 +12,9 @@
 #define CIRCUIT_H
 
 #include <set>
-
 #include <cassert>
-//#include <qguardedptr.h>
-#include "qstringlist.h"
 
+#include "qstringlist.h"
 #include "elementset.h"
 
 class CircuitDocument;
