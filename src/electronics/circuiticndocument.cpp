@@ -369,7 +369,7 @@ void CircuitICNDocument::flushDeleteList()
 	for ( ECNodeMap::iterator it = m_ecNodeList.begin(); it != nlEnd; ++it )
 	{
 		( *it )->removeNullConnectors();
-		int conCount = ( *it )->connectorList().count();
+		int conCount = ( *it )->getAllConnectors().count();
 		if ( conCount == 2 && ! ( *it )->parentItem() )
 		{
 			if ( joinConnectors ( *it ) )
@@ -456,13 +456,12 @@ bool CircuitICNDocument::joinConnectors( ECNode *node )
 	Connector *con1, *con2;
 	ECNode *startNode, *endNode;
 	QPointList conPoints;
-	
-	con1 = * node->connectorList().at(0);
-	con2 = * node->connectorList().at(1);
-	if ( con1 == con2 ) {
-		return false;
-	}
-	
+
+	con1 = *node->getAllConnectors().at(0);
+	con2 = *node->getAllConnectors().at(1);
+
+	if ( con1 == con2 ) return false;
+
 	// we don't know on which end of the connectors is our node, so we must check both ends
 	// HACK // TODO // dynamic_cast used, because Connector doesn't know about ECNode, only Node
 	if( con1->startNode() == node )
