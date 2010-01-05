@@ -63,7 +63,7 @@ double NonLinear::diodeLimitedVoltage(double I_S, double N) const
 void NonLinear::diodeJunction(double V, double I_S, double N, double *I, double *g) const
 {
 	double Vt = V_T * N;	
-	
+
 	if (V < -3 * Vt) {
 		double a = 3 * Vt / (V * M_E);
 		a  = a * a * a;

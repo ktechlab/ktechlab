@@ -15,7 +15,7 @@
 #include "switch.h"
 
 Pin::Pin(ECNode *parent) :
-	m_voltage(0), m_current(0), m_eqId(-2), m_bCurrentIsKnown(false),
+	m_voltage(0), m_current(0), m_bCurrentIsKnown(false), m_eqId(-2),
 	m_groundType(Pin::gt_never)
 {
 	assert(parent);
@@ -81,7 +81,6 @@ void Pin::removeElement(Element *e) {
 	m_elementList.remove(e);
 }
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
 
 void Pin::addSwitch(Switch *sw) {
 	if(!sw || m_switchList.contains(sw))
