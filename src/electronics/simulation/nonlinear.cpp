@@ -8,7 +8,6 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "matrix.h"
 #include "nonlinear.h"
 
 #include <cmath>

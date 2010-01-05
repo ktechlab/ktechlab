@@ -9,7 +9,6 @@
  ***************************************************************************/
 
 #include "elementset.h"
-#include "matrix.h"
 #include "opamp.h"
 
 OpAmp::OpAmp()

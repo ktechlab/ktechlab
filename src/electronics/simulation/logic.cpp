@@ -12,7 +12,6 @@
 #include "circuit.h"
 #include "elementset.h"
 #include "logic.h"
-#include "matrix.h"
 #include "simulator.h"
 #include "src/core/ktlconfig.h"
 

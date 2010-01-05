@@ -9,7 +9,6 @@
  ***************************************************************************/
 
 #include "elementset.h"
-#include "matrix.h"
 #include "cccs.h"
 
 CCCS::CCCS( const double gain )
