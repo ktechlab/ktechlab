@@ -1,0 +1,28 @@
+add_subdirectory( themes )
+
+########### next target ###############
+include_directories(
+   ${CMAKE_SOURCE_DIR}/src
+)
+
+set( ktlbasic_ec_PART_SRCS
+   ktlbasicecplugin.cpp
+)
+
+kde4_add_plugin(ktlbasic_ec ${ktlbasic_ec_PART_SRCS})
+target_link_libraries(ktlbasic_ec
+   ${KDE4_KDECORE_LIBS}
+   ${KDE4_PLASMA_LIBS}
+   ktlinterfaces
+   ${KDEVPLATFORM_SHELL_LIBRARIES}
+   ${KDEVPLATFORM_INTERFACES_LIBRARIES}
+   )
+
+install(TARGETS ktlbasic_ec DESTINATION ${PLUGIN_INSTALL_DIR} )
+
+
+########### install files ###############
+
+install( FILES ktlbasic_ec.desktop DESTINATION ${SERVICES_INSTALL_DIR} )
+#install( FILES ktlbasic_ec.rc DESTINATION ${DATA_INSTALL_DIR}/ktechlab/components/basic_ec.rc )
+
