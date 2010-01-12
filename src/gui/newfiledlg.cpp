@@ -9,7 +9,7 @@
  ***************************************************************************/
 
 #include "config.h"
-#include "document.h"
+//#include "document.h"
 //#include "microinfo.h"
 #include "newfiledlg.h"
 #include "ui_newfilewidget.h"
@@ -95,36 +95,6 @@ void NewFileDlg::accept()
     m_bAccepted = true;
 
     const QString fileText = m_pNewFileWidget->typeIconView->currentItem()->text();
-
-    if ( fileText.contains(".flowcode") )
-        m_fileType = Document::dt_flowcode;
-
-    else if ( fileText.contains(".circuit") )
-        m_fileType = Document::dt_circuit;
-
-    else if ( fileText.contains(".mechanics") )
-        m_fileType = Document::dt_mechanics;
-
-    else if ( fileText.contains(".asm") )
-    {
-        m_fileType = Document::dt_text;
-//         m_codeType = TextDocument::ct_asm;
-    }
-
-    else if ( fileText.contains(".basic") || fileText.contains(".microbe") )
-    {
-        m_fileType = Document::dt_text;
-//         m_codeType = TextDocument::ct_microbe;
-    }
-
-    else if (fileText.contains(".c") )
-    {
-        m_fileType = Document::dt_text;
-//         m_codeType = TextDocument::ct_c;
-    }
-
-    else
-        m_fileType = Document::dt_text;
 
     m_bAddToProject = m_pNewFileWidget->addToProjectCheck->isChecked();
 
