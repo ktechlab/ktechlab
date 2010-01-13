@@ -24,5 +24,5 @@ install(TARGETS ktlbasic_ec DESTINATION ${PLUGIN_INSTALL_DIR} )
 ########### install files ###############
 
 install( FILES ktlbasic_ec.desktop DESTINATION ${SERVICES_INSTALL_DIR} )
-#install( FILES ktlbasic_ec.rc DESTINATION ${DATA_INSTALL_DIR}/ktechlab/components/basic_ec.rc )
+install( FILES ktlbasic_ec.rc DESTINATION ${DATA_INSTALL_DIR}/ktechlab/components/ )
 

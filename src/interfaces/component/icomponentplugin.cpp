@@ -15,6 +15,7 @@
 #include <interfaces/iplugincontroller.h>
 #include <interfaces/iplugin.h>
 #include <KComponentData>
+#include <KSharedConfig>    
 #include <KDebug>
 
 using namespace KTechLab;
@@ -34,12 +35,21 @@ void IComponentFactory::addSupportedComponent( const ComponentMetaData & data )
     m_componentDataList.append( data );
 }
 
+void IComponentFactory::loadComponentsFromFile ( const QString& file )
+{
+    KSharedConfig::Ptr config = KSharedConfig::openConfig( file, KConfig::CascadeConfig );
+
+    foreach( const QString name, config->groupList() ){
+        kDebug() << "adding component: " << name;
+        addSupportedComponent( IComponent::metaData( name, *config ) );
+    }
+}
+
 IComponentPlugin::IComponentPlugin( KComponentData data, QObject *parent )
     :   KDevelop::IPlugin( data, parent )
 {
 
 }
-
 
 IDocumentPlugin* IComponentPlugin::documentPlugin() const
 {
