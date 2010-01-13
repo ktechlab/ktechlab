@@ -1,0 +1,17 @@
+[ec_resistor]
+name=ec/resistor
+title=Resistor
+title[de]=Widerstand
+category=Passive
+category[de]=Passiv
+icon=resistor
+type=
+
+[ec_rotoswitch]
+name=ec/rotoswitch
+title=Rotary
+title[de]=Drehschalter
+category=Switches
+category[de]=Schalter
+icon=rotary
+type=

@@ -15,6 +15,7 @@
 #include <QString>
 #include <KIcon>
 
+class KConfig;
 namespace KTechLab
 {
 
@@ -46,6 +47,10 @@ public:
      * Pure virtual function should return meta-data with information how to handle this component
      */
     static ComponentMetaData metaData();
+    /**
+     * Read ComponentMetaData for a component with a given \param name from a KConfig object.
+     */
+    static ComponentMetaData metaData( const QString &name, const KConfig &metaData );
 };
 
 } // namespace KTechLab
