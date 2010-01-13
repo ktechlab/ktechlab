@@ -57,6 +57,16 @@ protected:
      */
     void addSupportedComponent( const ComponentMetaData & data );
 
+    /**
+     * Load all components found in the file referenced by \param file.
+     * This will add each components meta-data found in the file to the
+     * internal list.
+     *
+     * \param file - file-name containing the components
+     * including their meta-data
+     */
+    void loadComponentsFromFile( const QString &file );
+
 private:
     QList<ComponentMetaData> m_componentDataList;
 };

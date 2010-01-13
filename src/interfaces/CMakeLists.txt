@@ -4,6 +4,7 @@ set( ktlinterfaces_LIB_SRCS idocumentmodel.cpp
    datacontainer.cpp
    idocumentplugin.cpp
    component/icomponentplugin.cpp
+   component/icomponent.cpp
    component/componentmodel.cpp
    component/componentcontainer.cpp
    component/componentmimedata.cpp

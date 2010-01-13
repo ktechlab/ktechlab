@@ -17,6 +17,7 @@
 #include <interfaces/iplugincontroller.h>
 #include <KGenericFactory>
 #include <KAboutData>
+#include <KStandardDirs>
 
 using namespace KTechLab;
 
@@ -29,6 +30,10 @@ class KTechLab::KTLBasicECFactory: public IComponentFactory
 public:
     KTLBasicECFactory()
     {
+        QString file;
+        file = KGlobal::dirs()->findResource("data","ktechlab/components/ktlbasic_ec.rc");
+        kDebug() << "Found component meta-data file: " << file;
+        loadComponentsFromFile( file );
     }
 
     virtual IComponent * create( const QString &name )
