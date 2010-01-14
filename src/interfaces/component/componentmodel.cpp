@@ -258,11 +258,15 @@ void ComponentModel::insertComponentData( const ComponentMetaData & data, ICompo
     ComponentItem *parent = m_rootItem->child( data.category );
     if (!parent) {
         parent = new ComponentItem();
+        /* Use fakeData to store entries for different categories
+         * that can't be dragged but are needed to bring some
+         * structure into the component selector widget
+         */
         ComponentMetaData fakeData =
             {
                 "",
                 data.category,
-                "",
+                data.category,
                 KIcon(),
                 ""
             };
