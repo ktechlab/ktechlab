@@ -1,6 +1,6 @@
 /*
     Manage KTechLab project files.
-    Copyright (C) 2009  Julian Bäume <julian@svg4all.de>
+    Copyright (C) 2009-2010  Julian Bäume <julian@svg4all.de>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -29,6 +29,7 @@
 #include <KActionCollection>
 #include <sublime/mainwindow.h>
 #include <QFile>
+#include <QStack>
 #include <QXmlSimpleReader>
 
 using namespace KDevelop;
@@ -43,20 +44,36 @@ class KDevelop::KTLProjectManagerPrivate
     * @param item - the ProjectFolderItem representing the sub-project
     * @return a QDomElement representing @param item in the DOM document or the document element
     */
-    QDomElement findElementInDocument( ProjectFolderItem *item )
+    QDomElement findElementInDocument( ProjectBaseItem *item, const QString &name )
     {
-      QDomElement child = projectDomDocument.documentElement();
-      if (item->isProjectRoot())
-        return child;
+        QStack<QString> domPath;
+        domPath.push( name );
+        //TODO: can this be done without dynamic_cast?
+        ProjectFolderItem *wItem = dynamic_cast<ProjectFolderItem*>( item->parent() );
+        if (!wItem) {
+            //this must be the project root
+            return projectDomDocument.documentElement();
+        }
+        while (!wItem->isProjectRoot()){
+            domPath.push( wItem->folderName() );
+            //TODO: can this be done without dynamic_cast?
+            wItem = dynamic_cast<ProjectFolderItem*>( wItem->parent() );
+        };
 
-      QDomNodeList items = projectDomDocument.elementsByTagName("item");
-      for ( uint i=0;
-            i < items.length() && child.attribute( "name", QString() ) != item->folderName();
-            ++i )
-      {
-        child = items.item(i).toElement();
-      }
-      return child;
+        QDomElement child = projectDomDocument.documentElement();
+        while ( !domPath.isEmpty() ){
+            QString nextFolder = domPath.pop();
+            QDomElement d = child.firstChildElement("item");
+            while (!d.isNull() && d.attribute("name") != nextFolder){
+                if (d.attribute("name") == ""){
+                    kWarning() << "no, this shouldn't happen";
+                    return QDomElement();
+                }
+                d = d.nextSiblingElement("item");
+            }
+            child = d;
+        }
+        return child;
     }
     void writeProjectToDisk()
     {
@@ -66,8 +83,32 @@ class KDevelop::KTLProjectManagerPrivate
         KMessageBox::sorry( 0l, i18n("Could not open %1 for writing").arg(projectFile.toLocalFile()) );
         return;
       }
+      file.resize(0);
       file.write( projectDomDocument.toByteArray() );
       file.close();
+    }
+    void removeItemFromDocument( ProjectBaseItem *item, const QString &name )
+    {
+        QDomElement child = findElementInDocument( item, name );
+        child.parentNode().removeChild(child);
+    }
+    void updateItemFromDocument( ProjectBaseItem *item, const QString &name )
+    {
+        QDomElement child = findElementInDocument( item, name );
+        KUrl folder;
+        if (item->folder())
+            folder = item->folder()->url();
+        if (item->file())
+            folder = item->file()->url();
+
+        QString relativeFileName =
+            KUrl::relativePath( projectFile.directory(), folder.directory() );
+        relativeFileName.append(folder.fileName());
+        QDomElement newNode = child.cloneNode().toElement();
+        newNode.setAttribute("name",folder.fileName());
+        newNode.setAttribute("url",relativeFileName);
+
+        child.parentNode().replaceChild( newNode, child );
     }
 
     QDomDocument projectDomDocument;
@@ -96,7 +137,7 @@ ProjectFileItem* KTLProjectManager::addFile( const KUrl& folder, ProjectFolderIt
 
   ProjectFileItem *item = new ProjectFileItem( parent->project(), folder, parent );
   QString relativeFileName =
-    KUrl::relativePath( parent->project()->projectFileUrl().directory(), folder.directory() );
+    KUrl::relativePath( d->projectFile.directory(), folder.directory() );
   relativeFileName.append(folder.fileName());
 
   kDebug() << "adding file with relative url: " << relativeFileName;
@@ -105,7 +146,7 @@ ProjectFileItem* KTLProjectManager::addFile( const KUrl& folder, ProjectFolderIt
   itemElement.setAttribute("name", item->fileName() );
   itemElement.setAttribute("type", "File");
 
-  QDomElement folderElement = d->findElementInDocument( parent );
+  QDomElement folderElement = d->findElementInDocument( parent, parent->folderName() );
   folderElement.appendChild( itemElement );
 
   d->writeProjectToDisk();
@@ -118,7 +159,7 @@ ProjectFolderItem* KTLProjectManager::addFolder( const KUrl& folder, ProjectFold
     return 0;
 
   ProjectFolderItem *item = new ProjectFolderItem( parent->project(), folder, parent );
-
+    //TODO: implement me
   return item;
 }
 
@@ -157,7 +198,7 @@ QList<ProjectFolderItem*> KTLProjectManager::parse( ProjectFolderItem *item )
 {
   QList<ProjectFolderItem*> result;
 
-  QDomElement root = d->findElementInDocument( item );
+  QDomElement root = d->findElementInDocument( item, item->folderName() );
 
   QDomNode node = root.firstChild();
   while ( !node.isNull() )
@@ -191,31 +232,70 @@ QList<ProjectFolderItem*> KTLProjectManager::parse( ProjectFolderItem *item )
 
 bool KTLProjectManager::reload( ProjectFolderItem* item )
 {
-  return false;
+    ProjectFolderItem *folder = item->folder();
+    if (!folder)
+        return false;
+
+    folder->removeRows( 0, folder->rowCount() );
+    QList<ProjectFolderItem*> folders = parse(folder);
+    //recursively reload subfolders
+    foreach(ProjectFolderItem *f, folders){
+        reload(f);
+    }
+    return true;
 }
 
 bool KTLProjectManager::removeFile( ProjectFileItem* file )
 {
-  return file->project()->inProject( file->url() );
+    //TODO: can this be done without dynamic_cast?
+    ProjectFolderItem *parent = dynamic_cast<ProjectFolderItem*>(file->parent());
+    if (!parent)
+        return false;
+
+    kDebug() << "removing:" << file->fileName();
+    d->removeItemFromDocument( file, file->fileName() );
+    parent->removeRow( file->row() );
+    d->writeProjectToDisk();
+    return true;
 }
 
 bool KTLProjectManager::removeFolder( ProjectFolderItem* folder )
 {
-  return folder->project()->inProject( folder->url() );
+    //remove all children, is this needed?
+    foreach(ProjectFileItem *item, folder->fileList()){
+        removeFile(item);
+    }
+    foreach(ProjectFolderItem *item, folder->folderList()){
+        removeFolder(item);
+    }
+
+    d->removeItemFromDocument( folder, folder->folderName() );
+    folder->parent()->removeRow( folder->row() );
+    d->writeProjectToDisk();
+    return true;
 }
 
 bool KTLProjectManager::renameFile( ProjectFileItem* oldFile, const KUrl& newFile )
 {
-  return false;
+    QString oldFileName = oldFile->fileName();
+    oldFile->setUrl(newFile);
+    d->updateItemFromDocument( oldFile, oldFileName );
+    d->writeProjectToDisk();
+    return true;
 }
 
 bool KTLProjectManager::renameFolder( ProjectFolderItem* oldFolder, const KUrl& newFolder )
 {
-  return false;
+    QString oldFolderName = oldFolder->folderName();
+    oldFolder->setUrl(newFolder);
+    d->updateItemFromDocument( oldFolder, oldFolderName );
+    d->writeProjectToDisk();
+    return true;
 }
 
 void KTLProjectManager::createActionsForMainWindow( Sublime::MainWindow* window, QString& xmlFile, KActionCollection& actions )
 {
+    //TODO: implement me
   IPlugin::createActionsForMainWindow( window, xmlFile, actions );
 }
 
