@@ -1,15 +1,12 @@
-//
 // C++ Implementation: junctionnode
 //
 // Description:
 //
 //
-//
 // Copyright: See COPYING file that comes with this distribution
-//
-//
+
+
 #include "junctionnode.h"
-#include "pin.h"
 #include "component.h"
 #include "voltageappearance.h"
 
