@@ -21,6 +21,8 @@
 #ifndef QVECTOR_H
 #define QVECTOR_H
 
+#include "mathexport.h"
+
 /** 
  * \def CUI 
  * Constant Unsigned Int
@@ -49,7 +51,7 @@
  * \li dupming the elements of the vector to the standard output
  */
 
-class QuickVector {
+class MATH_EXPORT QuickVector {
 public :
     // constructor
     /**
