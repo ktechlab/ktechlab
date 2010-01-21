@@ -81,7 +81,7 @@ public:
         /**
          * Set the matrix to identity
          */
-        void identity() { *m_mat = 1; max_k = 0; }
+        void identity();
 
         /**
          * @todo DOCUMENT THIS
