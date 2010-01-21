@@ -10,9 +10,10 @@
 //
 //
 
+#include "matrix.h"
 #include <iostream>
 #include <cmath>
-#include "../src/math/matrix.h"
+#include <QTest>
 
 using namespace std;
 
