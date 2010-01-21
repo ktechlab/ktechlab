@@ -14,6 +14,7 @@
 #include <ostream>
 
 #include "qmatrix.h"
+#include "mathexport.h"
 
 /**
 This class performs matrix storage, lu decomposition, forward and backward
@@ -33,7 +34,7 @@ substitution, and a few other useful operations. Steps in using class:
 */
 // TODO clean up and update documentation, as the upper statements aren't valid anymore
 
-class Matrix
+class MATH_EXPORT Matrix
 {
 public:
        /**

@@ -18,6 +18,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include "qvector.h"
 #include <cstdlib> // for null 
 #include <cmath>
 #include <cassert>
@@ -25,10 +26,6 @@
 #include <iostream>
 
 using namespace std;
-
-#ifndef QVECTOR_H
-#include "qvector.h"
-#endif
 
 /*
 #ifndef BADRNG_H
