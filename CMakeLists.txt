@@ -14,6 +14,8 @@ include( MacroLibrary )
 
 MACRO_OPTIONAL_FIND_PACKAGE( GPSim )
 
+set(KDE4_BUILD_TESTS "ON" CACHE "BOOL" "Enable building of tests" FORCE )
+
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
 set( CMAKE_REQUIRED_FLAGS
@@ -41,6 +43,7 @@ add_subdirectory( src )
 add_subdirectory( icons )
 add_subdirectory( examples )
 add_subdirectory( doc )
+add_subdirectory( tests )
 
 ########### install files ###############
 
