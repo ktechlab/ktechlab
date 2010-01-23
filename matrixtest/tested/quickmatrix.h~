@@ -36,7 +36,6 @@
  * 
  * In some places the existence/range check condition is insufficient...
  **/
- 
 class QuickMatrix {
 public :
     // constructor/destructor

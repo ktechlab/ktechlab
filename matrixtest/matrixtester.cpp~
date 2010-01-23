@@ -2,9 +2,8 @@
 #include "tested/quickmatrix.h"
 #include "tested/quickvector.h"
 
-#include "Eigen/Core"
+
 #include "Eigen/LU"
-#include "Eigen/Array"
 
 #include <QtTest/QtTest>
 
