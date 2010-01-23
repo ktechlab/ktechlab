@@ -1,0 +1,67 @@
+<!DOCTYPE KTechlab>
+<document type="circuit" >
+ <item x="172" y="284" z="0" type="ec/ammeter" id="ammeter" flip="0" angle="0" >
+  <data value="0.001" type="number" id="0-minValue" />
+  <data value="1000" type="number" id="1-maxValue" />
+ </item>
+ <item x="324" y="164" z="1" type="ec/bar_graph_display" id="bar_graph_display" flip="0" angle="0" >
+  <data value="1e-15" type="number" id="I_S" />
+  <data value="1" type="number" id="N" />
+  <data value="4.7" type="number" id="V_B" />
+  <data value="7" type="number" id="rows" />
+  <data value="#f62a2a" type="color" id="color" />
+ </item>
+ <item x="244" y="68" z="2" type="ec/bidir_led" id="bidir_led" flip="0" angle="0" >
+  <data value="#f62a2a" type="color" id="0-color1" />
+  <data value="#f62a2a" type="color" id="0-color2" />
+ </item>
+ <item x="324" y="260" z="3" type="ec/currentprobe" id="currentprobe" flip="0" angle="0" >
+  <data value="Linear" type="string" id="scaling" />
+  <data value="0.1" type="number" id="lower_abs_value" />
+  <data value="10" type="number" id="upper_abs_value" />
+  <data value="#004188" type="color" id="color" />
+ </item>
+ <item x="116" y="68" z="4" type="ec/led" id="led" flip="0" angle="0" >
+  <data value="1e-15" type="number" id="I_S" />
+  <data value="1" type="number" id="N" />
+  <data value="4.7" type="number" id="V_B" />
+  <data value="#f62a2a" type="color" id="0-color" />
+ </item>
+ <item x="228" y="172" z="5" type="ec/matrix_display" id="matrix_display" flip="0" angle="0" >
+  <data value="Row Cathode" type="string" id="diode-configuration" />
+  <data value="7" type="number" id="0-rows" />
+  <data value="5" type="number" id="1-cols" />
+  <data value="#f62a2a" type="color" id="color" />
+ </item>
+ <item x="244" y="292" z="6" type="ec/probe" id="probe" flip="0" angle="0" >
+  <data value="#b5002f" type="color" id="color" />
+ </item>
+ <item x="108" y="148" z="7" type="ec/seven_segment" id="seven_segment" flip="0" angle="0" >
+  <data value="Common Cathode" type="string" id="diode-polarity" />
+  <data value="#f62a2a" type="color" id="0-color" />
+ </item>
+ <item x="180" y="68" z="8" type="ec/signal_lamp" id="signal_lamp" flip="0" angle="0" />
+ <item x="324" y="292" z="9" type="ec/voltageprobe" id="voltageprobe" flip="0" angle="0" >
+  <data value="Linear" type="string" id="scaling" />
+  <data value="0.1" type="number" id="lower_abs_value" />
+  <data value="10" type="number" id="upper_abs_value" />
+  <data value="#539316" type="color" id="color" />
+ </item>
+ <item x="100" y="284" z="10" type="ec/voltmeter" id="voltmeter" flip="0" angle="0" >
+  <data value="0.001" type="number" id="0-minValue" />
+  <data value="1000" type="number" id="1-maxValue" />
+ </item>
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="signal_lamp" route="16,8,17,8,18,8,19,8,20,8," end-node-cid="n1" start-node-parent="led" start-node-cid="p1" id="connector" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="bidir_led" route="24,8,25,8,26,8,27,8,28,8," end-node-cid="n1" start-node-parent="signal_lamp" start-node-cid="p1" id="connector__50" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="bar_graph_display" route="32,8,33,8,34,8,35,8,36,8,37,8,38,8,39,8,40,8,41,8,42,8,43,8,44,8,44,9,44,10,44,11,44,12,44,13,44,14,43,14," end-node-cid="n_0" start-node-parent="bidir_led" start-node-cid="p1" id="connector__51" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="ammeter" route="15,35,16,35,17,35,18,35," end-node-cid="n1" start-node-parent="voltmeter" start-node-cid="p1" id="connector__52" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="voltageprobe" route="33,36,34,36,35,36,36,36,37,36," end-node-cid="n1" start-node-parent="probe" start-node-cid="p1" id="connector__53" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1" route="43,26,44,26,44,27,44,28,44,29,44,30,44,31,44,32," start-node-parent="bar_graph_display" start-node-cid="n_6" id="connector__55" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1" route="43,36,44,36,44,35,44,34,44,33,44,32," start-node-parent="voltageprobe" start-node-cid="p1" id="connector__56" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node1" end-node-parent="currentprobe" route="44,32,43,32," end-node-cid="p1" id="connector__57" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="matrix_display" route="37,26,36,26,36,27,36,28,36,29,36,30,36,31,35,31,34,31,33,31,32,31,32,30," end-node-cid="col_4" start-node-parent="bar_graph_display" start-node-cid="p_6" id="connector__58" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="seven_segment" route="21,15,20,15,19,15,18,15," end-node-cid="a" start-node-parent="matrix_display" start-node-cid="row_0" id="connector__59" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="led" route="8,15,7,15,7,14,7,13,7,12,7,11,7,10,7,9,7,8,8,8,9,8,10,8,11,8,12,8," end-node-cid="n1" start-node-parent="seven_segment" start-node-cid="g" id="connector__60" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="matrix_display" route="24,35,25,35,26,35,26,34,26,33,26,32,26,31,26,30," end-node-cid="col_1" start-node-parent="ammeter" start-node-cid="p1" id="connector__62" end-node-is-child="1" />
+ <node x="356" y="260" id="node1" />
+</document>

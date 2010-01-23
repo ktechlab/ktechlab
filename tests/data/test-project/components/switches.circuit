@@ -1,0 +1,77 @@
+<!DOCTYPE KTechlab>
+<document type="circuit" >
+ <item x="220" y="268" z="0" type="ec/dpdt_toggle" id="dpdt_toggle" flip="0" angle="0" >
+  <data value="" type="string" id="button_text" />
+  <data value="0.005" type="number" id="bounce_period" />
+  <data value="0" type="bool" id="bounce" />
+  <button id="button" state="0" />
+ </item>
+ <item x="212" y="180" z="1" type="ec/dpst_toggle" id="dpst_toggle" flip="0" angle="0" >
+  <data value="" type="string" id="button_text" />
+  <data value="0.005" type="number" id="bounce_period" />
+  <data value="0" type="bool" id="bounce" />
+  <button id="button" state="0" />
+ </item>
+ <item x="372" y="124" z="2" type="ec/keypad" id="keypad" flip="0" angle="0" >
+  <data value="0.005" type="number" id="bounce_period" />
+  <data value="3" type="number" id="numCols" />
+  <data value="0" type="bool" id="bounce" />
+  <data value="0" type="bool" id="useToggles" />
+  <button id="b_0_0" state="0" />
+  <button id="b_0_1" state="0" />
+  <button id="b_0_2" state="0" />
+  <button id="b_1_0" state="0" />
+  <button id="b_1_1" state="0" />
+  <button id="b_1_2" state="0" />
+  <button id="b_2_0" state="0" />
+  <button id="b_2_1" state="0" />
+  <button id="b_2_2" state="0" />
+  <button id="b_3_0" state="0" />
+  <button id="b_3_1" state="0" />
+  <button id="b_3_2" state="0" />
+ </item>
+ <item x="204" y="100" z="3" type="ec/ptb_switch" id="ptb_switch" flip="0" angle="0" >
+  <data value="" type="string" id="button_text" />
+  <data value="0.005" type="number" id="bounce_period" />
+  <data value="0" type="bool" id="bounce" />
+  <button id="button" state="0" />
+ </item>
+ <item x="140" y="100" z="4" type="ec/ptm_switch" id="ptm_switch" flip="0" angle="0" >
+  <data value="" type="string" id="button_text" />
+  <data value="0.005" type="number" id="bounce_period" />
+  <data value="0" type="bool" id="bounce" />
+  <button id="button" state="0" />
+ </item>
+ <item x="380" y="292" z="5" type="ec/roto_switch" id="roto_switch" flip="0" angle="0" >
+  <data value="0.005" type="number" id="bounce_period" />
+  <data value="0" type="number" id="cur_position" />
+  <data value="6" type="number" id="num_positions" />
+  <data value="0" type="bool" id="bounce" />
+  <button id="go_left" state="0" />
+  <button id="go_right" state="0" />
+ </item>
+ <item x="124" y="260" z="6" type="ec/spdt_toggle" id="spdt_toggle" flip="0" angle="0" >
+  <data value="" type="string" id="button_text" />
+  <data value="0.005" type="number" id="bounce_period" />
+  <data value="0" type="bool" id="bounce" />
+  <button id="button" state="0" />
+ </item>
+ <item x="124" y="172" z="7" type="ec/spst_toggle" id="spst_toggle" flip="0" angle="0" >
+  <data value="" type="string" id="button_text" />
+  <data value="0.005" type="number" id="bounce_period" />
+  <data value="0" type="bool" id="bounce" />
+  <button id="button" state="0" />
+ </item>
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="spdt_toggle" route="24,35,23,35,23,34,23,33,22,33,21,33,20,33,19,33,18,33," end-node-cid="p2" start-node-parent="dpdt_toggle" start-node-cid="n2" id="connector" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1" route="18,21,19,21,20,21,21,21," start-node-parent="spst_toggle" start-node-cid="p1" id="connector__44" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1" route="23,21,22,21,21,21," start-node-parent="dpst_toggle" start-node-cid="n1" id="connector__45" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" end-node-id="node1" start-node-id="node1__43" route="21,12,21,13,21,14,21,15,21,16,21,17,21,18,21,19,21,20,21,21," id="connector__46" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node1__43" end-node-parent="ptm_switch" route="21,12,20,12," end-node-cid="p1" id="connector__47" end-node-is-child="1" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node1__43" end-node-parent="ptb_switch" route="21,12,22,12," end-node-cid="n1" id="connector__48" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__49" route="30,36,31,36,31,35,31,34,31,33,31,32,31,31,31,30," start-node-parent="dpdt_toggle" start-node-cid="p4" id="connector__50" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__49" route="29,23,30,23,31,23,31,24,31,25,31,26,31,27,31,28,31,29,31,30," start-node-parent="dpst_toggle" start-node-cid="p2" id="connector__51" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node1__49" end-node-parent="dpdt_toggle" route="31,30,30,30," end-node-cid="p1" id="connector__52" end-node-is-child="1" />
+ <node x="172" y="172" id="node1" />
+ <node x="172" y="100" id="node1__43" />
+ <node x="252" y="244" id="node1__49" />
+</document>

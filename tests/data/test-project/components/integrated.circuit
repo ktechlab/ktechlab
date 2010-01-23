@@ -1,0 +1,61 @@
+<!DOCTYPE KTechlab>
+<document type="circuit" >
+ <item x="564" y="100" z="3" type="ec/555" id="555" flip="0" angle="0" />
+ <item x="380" y="476" z="13" type="ec/matrix_display_driver" id="Matrix Display Driver" flip="0" angle="0" >
+  <data value="Row Cathode" type="string" id="diode-configuration" />
+ </item>
+ <item x="108" y="396" z="10" type="ec/adc" id="adc" flip="0" angle="0" >
+  <data value="2" type="number" id="numBits" />
+  <data value="5" type="number" id="range" />
+ </item>
+ <item x="116" y="228" z="5" type="ec/adder" id="adder" flip="0" angle="0" />
+ <item x="500" y="500" z="14" type="ec/bcd_to_seven_segment" id="bcd_to_seven_segment" flip="0" angle="0" />
+ <item x="260" y="396" z="12" type="ec/binary_counter" id="binary_counter" flip="0" angle="0" >
+  <data value="Falling" type="string" id="trig" />
+  <data value="4" type="number" id="bitcount" />
+ </item>
+ <item x="420" y="92" z="2" type="ec/d_flipflop" id="d_flipflop" flip="0" angle="0" >
+  <data value="Rising" type="string" id="trig" />
+ </item>
+ <item x="108" y="460" z="11" type="ec/dac" id="dac" flip="0" angle="0" >
+  <data value="2" type="number" id="numBits" />
+  <data value="5" type="number" id="range" />
+ </item>
+ <item x="364" y="236" z="7" type="ec/demultiplexer" id="demultiplexer" flip="0" angle="0" >
+  <data value="1" type="number" id="addressSize" />
+ </item>
+ <item x="132" y="84" z="0" type="ec/jk_flipflop" id="jk_flipflop" flip="0" angle="0" >
+  <data value="Rising" type="string" id="trig" />
+ </item>
+ <item x="500" y="276" z="8" type="ec/magnitudecomparator" id="magnitudecomparator" flip="0" angle="0" >
+  <data value="4" type="number" id="numInput" />
+ </item>
+ <item x="236" y="236" z="6" type="ec/multiplexer" id="multiplexer" flip="0" angle="0" >
+  <data value="1" type="number" id="addressSize" />
+ </item>
+ <item x="108" y="324" z="9" type="ec/opamp" id="opamp" flip="0" angle="0" />
+ <item x="684" y="116" z="4" type="ec/ram" id="ram" flip="0" angle="0" >
+  <data value="4" type="number" id="addressSize" />
+  <data value="2" type="number" id="wordSize" />
+  <data value="" type="raw" id="data" />
+ </item>
+ <item x="276" y="84" z="1" type="ec/sr_flipflop" id="sr_flipflop" flip="0" angle="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="sr_flipflop" route="21,8,22,8,22,9,23,9,24,9,25,9,26,9,27,9,28,9,29,9,30,9," end-node-cid="n1" start-node-parent="jk_flipflop" start-node-cid="p1" id="connector" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="d_flipflop" route="38,11,39,11,39,12,40,12,41,12,42,12,43,12,44,12,45,12,46,12,47,12," end-node-cid="n2" start-node-parent="sr_flipflop" start-node-cid="p2" id="connector__114" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="555" route="52,7,52,6,53,6,54,6,55,6,56,6,57,6,58,6,59,6,60,6,61,6,62,6,63,6,64,6,65,6,66,6,67,6,68,6,68,7," end-node-cid="Vcc" start-node-parent="d_flipflop" start-node-cid="set" id="connector__115" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="ram" route="75,12,76,12,77,12,78,12,79,12,80,12," end-node-cid="WE" start-node-parent="555" start-node-cid="Out" id="connector__116" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="555" route="69,29,70,29,71,29,72,29,72,28,72,27,72,26,72,25,72,24,72,23,72,22,72,21,72,20,72,19,72,18,72,17," end-node-cid="CV" start-node-parent="magnitudecomparator" start-node-cid="O: A>B" id="connector__117" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="demultiplexer" route="56,27,55,27,55,28,54,28,53,28,52,28,51,28,50,28," end-node-cid="X0" start-node-parent="magnitudecomparator" start-node-cid="A0" id="connector__118" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="multiplexer" route="40,28,39,28,39,29,38,29,37,29,36,29,35,29,34,29," end-node-cid="X" start-node-parent="demultiplexer" start-node-cid="A0" id="connector__119" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="adder" route="24,27,23,27,23,26,22,26,21,26,20,26,19,26,18,26," end-node-cid="C" start-node-parent="multiplexer" start-node-cid="A0" id="connector__120" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="opamp" route="10,30,9,30,9,31,9,32,9,33,9,34,9,35,9,36,9,37,9,38,9,39,10,39," end-node-cid="n1" start-node-parent="adder" start-node-cid=">" id="connector__121" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="adc" route="16,40,17,40,18,40,19,40,19,41,19,42,19,43,19,44,19,45,19,46,19,47,19,48,18,48," end-node-cid="0" start-node-parent="opamp" start-node-cid="p1" id="connector__122" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1" route="27,52,26,52,25,52,24,52,23,52,22,52,21,52,20,52,19,52," start-node-parent="binary_counter" start-node-cid="r" id="connector__124" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1" route="18,50,19,50,19,51,19,52," start-node-parent="adc" start-node-cid="1" id="connector__125" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node1" end-node-parent="dac" route="19,52,19,53,19,54,19,55,19,56,18,56," end-node-cid="Out" id="connector__126" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="Matrix Display Driver" route="37,52,38,52,38,51,39,51,40,51,41,51,42,51," end-node-cid="D2" start-node-parent="binary_counter" start-node-cid="D" id="connector__127" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="Matrix Display Driver" route="37,46,38,46,38,47,39,47,40,47,41,47,42,47," end-node-cid="D0" start-node-parent="binary_counter" start-node-cid="A" id="connector__128" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="bcd_to_seven_segment" route="52,51,53,51,53,52,53,53,53,54,53,55,54,55,55,55,56,55,57,55,58,55," end-node-cid="A" start-node-parent="Matrix Display Driver" start-node-cid="R4" id="connector__129" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="magnitudecomparator" route="66,55,67,55,68,55,69,55,70,55,70,54,70,53,70,52,70,51,70,50,70,49,70,48,70,47,70,46,70,45,70,44,70,43,70,42,70,41,70,40,70,39,69,39," end-node-cid="I: A=B" start-node-parent="bcd_to_seven_segment" start-node-cid="c" id="connector__130" end-node-is-child="1" />
+ <node x="156" y="420" id="node1" />
+</document>
