@@ -1,0 +1,7 @@
+build/*
+*.[oa]
+*~
+*.moc
+Makefile
+!*.pro
+test-1
