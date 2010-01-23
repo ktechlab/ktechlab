@@ -8,8 +8,8 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#ifndef KTL_MATRIX_H
-#define KTL_MATRIX_H
+#ifndef MATRIX_H
+#define MATRIX_H
 
 #include <ostream>
 
