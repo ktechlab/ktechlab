@@ -1,7 +1,21 @@
+#include "tested/matrix.h"
+#include "tested/quickmatrix.h"
+#include "tested/quickvector.h"
+
+#include "Eigen/Core"
+#include "Eigen/LU"
+#include "Eigen/Array"
+
 #include <QtTest/QtTest>
 
-#include "Eigen/LU"
-// #include "tested/matrix.h"
+
+#ifdef CUI 
+#warning CUI defined!
+#endif
+
+
+
+
 
  class MyFirstTest : public QObject
  {

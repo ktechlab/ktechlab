@@ -18,8 +18,8 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef QVECTOR_H
-#define QVECTOR_H
+#ifndef QUICKVECTOR_H
+#define QUICKVECTOR_H
 
 /** 
  * \def CUI 
@@ -195,4 +195,5 @@ private :
     double *values;
 };
 
-#endif
+#endif // QUICKVECTOR
+

@@ -8,12 +8,12 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#ifndef MATRIX_H
-#define MATRIX_H
+#ifndef KTL_MATRIX_H
+#define KTL_MATRIX_H
 
 #include <ostream>
 
-#include "qmatrix.h"
+#include "quickmatrix.h"
 
 /**
 This class performs matrix storage, lu decomposition, forward and backward

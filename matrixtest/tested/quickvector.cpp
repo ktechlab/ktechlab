@@ -21,14 +21,12 @@
 #include <cstdlib> // for null 
 #include <cmath>
 #include <cassert>
-#include <kdebug.h>
+// #include <kdebug.h>
 #include <iostream>
 
 using namespace std;
 
-#ifndef QVECTOR_H
-#include "qvector.h"
-#endif
+#include "quickvector.h"
 
 /*
 #ifndef BADRNG_H

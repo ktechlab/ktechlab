@@ -26,9 +26,7 @@
 
 using namespace std;
 
-#ifndef QMATRIX_H
-#include "qmatrix.h"
-#endif
+#include "quickmatrix.h"
 
 /*
 #ifndef BADRNG_H

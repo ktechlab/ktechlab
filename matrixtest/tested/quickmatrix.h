@@ -18,12 +18,10 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef QMATRIX_H
-#define QMATRIX_H
+#ifndef QUICKMATRIX_H
+#define QUICKMATRIX_H
 
-#ifndef QVECTOR_H
-#include "qvector.h"
-#endif
+#include "quickvector.h"
 
 // FIXME if we want to optimize memory allocations, we should not allocate
 // memory in methods, but pass the needed data structure to it as a parameter
@@ -38,6 +36,7 @@
  * 
  * In some places the existence/range check condition is insufficient...
  **/
+ 
 class QuickMatrix {
 public :
     // constructor/destructor
@@ -234,3 +233,4 @@ private :
 };
 
 #endif
+
