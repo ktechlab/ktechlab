@@ -354,8 +354,6 @@ void CircuitDocument::assignCircuits() {
 	PinSet unassignedPins;
 	getAllPins(unassignedPins);
 
-	typedef QValueList<PinSet> PinSetList;
-
 	// Stage 1: Partition the circuit up into dependent areas (bar splitting
 	// at ground pins)
 	PinSetList pinListList;
@@ -363,7 +361,7 @@ void CircuitDocument::assignCircuits() {
 	while (!unassignedPins.empty()) {
 		PinSet pinList;
 		getPartition(*unassignedPins.begin(), &pinList, &unassignedPins);
-		pinListList.append(pinList);
+		pinListList.push_back(pinList);
 	}
 
 // 	kdDebug () << "pinListList.size()="<<pinListList.size()<<endl;
@@ -417,13 +415,12 @@ void CircuitDocument::getPartition(Pin *pin, PinSet *pinList, PinSet *unassigned
 void CircuitDocument::splitIntoCircuits(PinSet *pinList) {
 	// First: identify ground
 	PinSet unassignedPins = *pinList;
-	typedef QValueList<PinSet> PinSetList;
 	PinSetList pinListList;
 
 	while (!unassignedPins.empty()) {
 		PinSet tempPinSet;
 		getPartition(*unassignedPins.begin(), &tempPinSet, &unassignedPins);
-		pinListList.append(tempPinSet);
+		pinListList.push_back(tempPinSet);
 	}
 
 	const PinSetList::iterator nllEnd = pinListList.end();
