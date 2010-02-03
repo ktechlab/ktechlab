@@ -93,4 +93,5 @@ class KTLProjectManager : public IPlugin, public IProjectFileManager
 };
 
 }
+
 #endif // KTLPROJECTMANAGER_H
