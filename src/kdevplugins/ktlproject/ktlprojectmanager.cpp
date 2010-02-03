@@ -39,6 +39,7 @@ K_EXPORT_PLUGIN(KTLProjectManagerFactory(KAboutData("ktlprojectmanager","ktlproj
 KTLProjectManager::KTLProjectManager( QObject *parent, const QVariantList &args )
   : IPlugin( KTLProjectManagerFactory::componentData(), parent ), IProjectFileManager( )
 {
+    KDEV_USE_EXTENSION_INTERFACE( IProjectFileManager )
 }
 
 KTLProjectManager::~KTLProjectManager()
