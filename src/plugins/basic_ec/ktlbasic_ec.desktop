@@ -11,9 +11,9 @@ X-KDE-PluginInfo-Author=Julian Bäume
 X-KDE-PluginInfo-Version=0.1
 X-KDE-PluginInfo-License=LGPL
 X-KDevelop-Version=7
-X-KDevelop-Category=Global
-X-KDevelop-Mode=NoGUI
+X-KDevelop-Category=Project
+X-KDevelop-Mode=GUI
 X-KDevelop-SupportedMimeTypes=application/x-circuit
-X-KDevelop-Interfaces=KTLComponent
-X-KDevelop-Requires=KTLCircuit
+X-KDevelop-IRequired=org.kdevelop.IDocument
+X-KDevelop-Interfaces=org.ktechlab.IComponent
 
