@@ -15,7 +15,7 @@
 #include <interfaces/iplugincontroller.h>
 #include <interfaces/iplugin.h>
 #include <KComponentData>
-#include <KSharedConfig>    
+#include <KSharedConfig>
 #include <KDebug>
 
 using namespace KTechLab;
@@ -53,15 +53,13 @@ IComponentPlugin::IComponentPlugin( KComponentData data, QObject *parent )
 
 IDocumentPlugin* IComponentPlugin::documentPlugin() const
 {
-    QStringList constraints;
-    constraints << QString("'%1' in [X-KDevelop-SupportedMimeTypes]").arg("application/x-circuit");
-    QList<KDevelop::IPlugin*> plugins = KDevelop::Core::self()->pluginController()->allPluginsForExtension( "org.kdevelop.idocument", constraints );
-    if (plugins.isEmpty()) {
-        kWarning() << "No plugin found to load KTechLab Documents";
+    KDevelop::IPlugin* plugin = KDevelop::Core::self()->pluginController()->pluginForExtension( "org.kdevelop.IDocument", "ktlcircuit" );
+    if (!plugin) {
+        kError() << "No plugin found to load KTechLab Documents";
         return 0;
     }
-    IDocumentPlugin *plugin = qobject_cast<IDocumentPlugin*>( plugins.first() );
-    return plugin;
+    IDocumentPlugin *p = plugin->extension<IDocumentPlugin>();
+    return p;
 }
 
 // vim: sw=4 sts=4 et tw=100
