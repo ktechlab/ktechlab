@@ -1,6 +1,8 @@
 include_directories( ${KDEVPLATFORM_INCLUDE_DIR} )
 
-set( ktlinterfaces_LIB_SRCS idocumentmodel.cpp
+set( ktlinterfaces_LIB_SRCS
+   iconrouter.cpp
+   idocumentmodel.cpp
    datacontainer.cpp
    idocumentplugin.cpp
    component/icomponentplugin.cpp
