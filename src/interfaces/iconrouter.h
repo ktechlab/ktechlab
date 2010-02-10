@@ -48,6 +48,8 @@ public:
 
     /**
      * What this class is all about - finding a route, from p1 to p2.
+     * This is the default way to map a route. Override this method
+     * to provide an implementation for the routing algorithm.
      * \param p1 - starting point of the route
      * \param p2 - end-point of the route
      */
@@ -55,8 +57,10 @@ public:
 
     /**
      * What this class is all about - finding a route, from (sx,sy) to (ex,ey).
+     * The default implementation calls mapRoute(QPointF(sx,sy),QPointF(ex,ey)).
+     * This method is provided for convenience.
      */
-    virtual void mapRoute( qreal sx, qreal sy, qreal ex, qreal ey)=0;
+    virtual void mapRoute( qreal sx, qreal sy, qreal ex, qreal ey);
 
     /**
      * Set the model for the document to provide necessary information to
