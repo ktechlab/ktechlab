@@ -34,6 +34,12 @@ IConRouter::IConRouter()
 IConRouter::~IConRouter()
 {}
 
+
+void IConRouter::mapRoute(qreal sx, qreal sy, qreal ex, qreal ey)
+{
+    mapRoute(QPointF(sx,sy),QPointF(ex,ey));
+}
+
 QPainterPath IConRouter::paintedRoute() const
 {
     QPainterPath p;
