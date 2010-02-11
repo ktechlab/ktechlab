@@ -16,7 +16,10 @@
 #include "utils.h"
 
 /**
-@short Used for mapping out connections
+ * @short Used for mapping out connections
+ * In this implementation a \class Cell represents 8x8 pixels in the scene to
+ * reduce complexity. An instance of this class stores the costs needed to
+ * route through this area of the scene.
 */
 const short startCellPos = -(1 << 14);
 
@@ -26,7 +29,7 @@ public:
     Cell();
     /**
      * Resets bestScore, prevX, prevY, addedToLabels, it, permanent for
-     * each cell.
+     * the cell.
      */
     void reset();
 
@@ -126,7 +129,10 @@ private:
 };
 
 /**
-@author David Saxton
+ * This class represents a grid (2 dimensional array) of \class Cell instances.
+ * In this implementation a \class Cell represents 8x8 pixels in the scene to
+ * reduce complexity.
+ * @author David Saxton
 */
 class Cells {
 
