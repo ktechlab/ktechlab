@@ -185,7 +185,8 @@ void AutomaticRouter::checkCell(int x, int y) {
 
 bool AutomaticRouter::checkLineRoute(int scx, int scy, int ecx, int ecy, int maxCIScore)
 {
-    if ((scx != ecx) && (scy != ecy))
+    //no straight route possible -> return false
+    if ((scx != ecx) || (scy != ecy))
         return false;
 
     const bool isHorizontal = scy == ecy;
