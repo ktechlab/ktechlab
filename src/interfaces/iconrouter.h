@@ -53,7 +53,7 @@ public:
      * \param p1 - starting point of the route
      * \param p2 - end-point of the route
      */
-    virtual void mapRoute( const QPointF &p1, const QPointF &p2 )=0;
+    virtual void mapRoute( QPointF p1, QPointF p2 )=0;
 
     /**
      * What this class is all about - finding a route, from (sx,sy) to (ex,ey).
@@ -81,13 +81,13 @@ public:
      * Get the list of points representing the route
      * \returns the list of points representing the route
      */
-    QList<QPointF> route() const;
+    virtual QList<QPointF> route() const;
 
     /**
      * Provide a list of points representing the route.
      * \param route - the points on the route
      */
-    void setRoute( const QList<QPointF> &route );
+    virtual void setRoute( const QList<QPointF> &route );
 
 protected:
     QList<QPointF> m_route;

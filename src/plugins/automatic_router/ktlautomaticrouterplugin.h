@@ -40,7 +40,7 @@ class AutomaticRouter : public KDevelop::IPlugin, public KTechLab::IConRouter
 public:
     AutomaticRouter(QObject* parent = 0, const QVariantList& args = QVariantList());
 
-    virtual void mapRoute(const QPointF& p1, const QPointF& p2);
+    virtual void mapRoute(QPointF p1, QPointF p2);
     virtual void mapRoute(qreal sx, qreal sy, qreal ex, qreal ey);
 
 private:
