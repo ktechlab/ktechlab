@@ -46,7 +46,7 @@ void AutomaticRouter::createCells()
     m_cells = new Cells(rect);
 }
 
-void AutomaticRouter::mapRoute(const QPointF& p1, const QPointF& p2)
+void AutomaticRouter::mapRoute(QPointF p1, QPointF p2)
 {
     if (!m_cells)
         createCells();
