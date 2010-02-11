@@ -48,11 +48,14 @@ void AutomaticRouter::createCells()
 
 void AutomaticRouter::mapRoute(QPointF p1, QPointF p2)
 {
+    p1 = snapToCanvas(p1.toPoint()) / 8;
+    p2 = snapToCanvas(p2.toPoint()) / 8;
     if (!m_cells)
         createCells();
 
-    if ( !m_cells->haveCell(p1.x(), p1.y()) || !m_cells->haveCell(p2.x(), p2.y()) )
+    if ( !m_cells->haveCell(p1.x(), p1.y()) || !m_cells->haveCell(p2.x(), p2.y()) ) {
         return;
+    }
 
     m_route.clear();
 
@@ -104,7 +107,7 @@ void AutomaticRouter::mapRoute(QPointF p1, QPointF p2)
 
         bool ok = true;
         do {
-            m_route.append(QPointF(x,y));
+            m_route.append(QPointF(x,y)*8);
             int newx = m_cells->cell(x, y).getPrevX();
             int newy = m_cells->cell(x, y).getPrevY();
 
@@ -120,7 +123,7 @@ void AutomaticRouter::mapRoute(QPointF p1, QPointF p2)
         && ok);
 
         // And append the last point...
-        m_route.append(p2);
+        m_route.append(p2*8);
     }
 
     removeDuplicatePoints();
@@ -208,14 +211,14 @@ bool AutomaticRouter::checkLineRoute(int scx, int scy, int ecx, int ecy, int max
             if (std::abs(x - start) > 1 && std::abs(x - end) > 1
                 && (cells->cell(x, y).getCIPenalty() > maxCIScore)) {
                 return false;
-            } else  m_route.append(QPoint(x, y));
+            } else  m_route.append(QPoint(x, y)*8);
         }
     } else {
         for (qreal y = start; y != end; y += dd) {
             if (std::abs(y - start) > 1 && std::abs(y - end) > 1
                 && (cells->cell(x, y).getCIPenalty() > maxCIScore)) {
                 return false;
-            } else m_route.append(QPointF(x, y));
+            } else m_route.append(QPointF(x, y)*8);
         }
     }
 
