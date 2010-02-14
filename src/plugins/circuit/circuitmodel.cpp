@@ -42,6 +42,10 @@ CircuitModel::CircuitModel ( QObject* parent )
 
 void CircuitModel::addComponent ( const QVariantMap& component )
 {
+    if ( !m_circuitPlugin ) {
+        kError() << "No plugin found to load KTechLab Documents";
+        return;
+    }
     if ( component.contains( "id" ) ) {
         QVariantMap map(component);
         map.insert( "fileName",
