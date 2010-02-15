@@ -146,7 +146,7 @@ QList<ProjectFolderItem*> KTLProjectManager::parse( ProjectFolderItem *item )
   return result;
 }
 
-bool KTLProjectManager::reload( ProjectFolderItem* item )
+bool KTLProjectManager::reload( ProjectBaseItem* item )
 {
   return false;
 }
