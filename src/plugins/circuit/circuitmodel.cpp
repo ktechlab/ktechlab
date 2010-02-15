@@ -31,12 +31,12 @@ CircuitModel::CircuitModel ( QObject* parent )
     : IDocumentModel ( parent )
 {
     QStringList constraints;
-    KDevelop::IPlugin* plugin = KDevelop::Core::self()->pluginController()->pluginForExtension( "org.kdevelop.IDocument", "ktlcircuit" );
-    if (!plugin) {
-        m_circuitPlugin = 0;
+    constraints << QString("'%1' in [X-KDevelop-SupportedMimeTypes]").arg("application/x-circuit");
+    QList<KDevelop::IPlugin*> plugins = KDevelop::Core::self()->pluginController()->allPluginsForExtension( "org.kdevelop.idocument", constraints );
+    if (plugins.isEmpty()) {
         kError() << "No plugin found to load KTechLab Documents";
     } else {
-        m_circuitPlugin = plugin->extension<KTLCircuitPlugin>();
+        m_circuitPlugin = qobject_cast<KTLCircuitPlugin*>( plugins.first() );
     }
 }
 
