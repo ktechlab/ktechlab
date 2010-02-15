@@ -20,6 +20,7 @@ class Theme;
 
 class ComponentItem: public QGraphicsSvgItem
 {
+    Q_OBJECT
 public:
     ComponentItem ( const QVariantMap& data, Theme *theme, QGraphicsItem* parentItem = 0 );
     ~ComponentItem();
@@ -27,9 +28,24 @@ public:
 public slots:
     void dataUpdated( const QString &name, const QVariantMap &data );
 
+signals:
+    void dataChanged( const QString &name, const QVariantMap &data );
+
+protected:
+    virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
+    virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
+    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    virtual void keyPressEvent(QKeyEvent* event);
+
 private:
     QSvgRenderer *m_renderer;
     Theme *m_theme;
+
+    //used to keep state of dragging
+    bool m_dragged;
+    QPointF m_posBeforeDrag;
 };
 
 }

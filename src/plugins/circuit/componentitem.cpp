@@ -13,6 +13,9 @@
 #include <QVariantMap>
 #include <QSvgRenderer>
 #include <KDebug>
+#include <QGraphicsSceneMouseEvent>
+#include <QApplication>
+#include <QKeyEvent>
 
 using namespace KTechLab;
 
@@ -22,9 +25,14 @@ ComponentItem::ComponentItem ( const QVariantMap& data, Theme *theme, QGraphicsI
       m_theme( theme )
 {
     setAcceptHoverEvents(true);
+    setFlags(
+        QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemIsSelectable |
+        QGraphicsItem::ItemIsMovable
+    );
     // may be the renderer should provided by the Theme. Then different renderers for
     // the same component can be shared
-    m_renderer->load( m_theme->findFirstFile( data.value("fileName").toString() ) );
+    QString fileName = m_theme->findFirstFile( data.value("fileName").toString() );
+    m_renderer->load( fileName );
     setSharedRenderer(m_renderer);
     // move to position in the scene.
     QPoint pos(data.value("x").toInt(),data.value("y").toInt());
@@ -34,6 +42,9 @@ ComponentItem::ComponentItem ( const QVariantMap& data, Theme *theme, QGraphicsI
     // the raster of the kde3 version
     pos -= QPoint(36,36);
     setPos( pos );
+
+    connect(this,SIGNAL(dataChanged(QString,QVariantMap)),
+            this,SLOT(dataUpdated(QString,QVariantMap)));
 }
 
 ComponentItem::~ComponentItem()
@@ -43,9 +54,84 @@ ComponentItem::~ComponentItem()
 
 void ComponentItem::dataUpdated( const QString &name, const QVariantMap &data )
 {
-    kDebug() << "been here!";
+    kDebug() << name << "changed to:" << data;
     //updated component, so repaint
     update();
 }
 
+void ComponentItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
+{
+    if (event->button() != Qt::LeftButton) {
+        event->ignore();
+        return;
+    }
+
+    setCursor(Qt::ClosedHandCursor);
+    event->accept();
+}
+
+void ComponentItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
+{
+    if (QLineF(event->screenPos(), event->buttonDownScreenPos(Qt::LeftButton))
+        .length() < QApplication::startDragDistance()) {
+        event->ignore();
+        return;
+    }
+
+    if (!m_dragged && !m_posBeforeDrag.isNull()) {
+        //dragging has been aborted
+        event->ignore();
+        return;
+    } else if (!m_dragged && boundingRect().contains( event->buttonDownPos(Qt::LeftButton) )){
+        //begin dragging
+        m_posBeforeDrag = scenePos();
+        m_dragged = true;
+        setFocus(Qt::MouseFocusReason);
+    } else if ( m_dragged ){
+        setPos(event->scenePos() - event->buttonDownPos(Qt::LeftButton));
+        event->accept();
+    }
+}
+
+void ComponentItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
+{
+    setCursor(Qt::ArrowCursor);
+    if (!m_dragged){
+        //reset all dragging related members
+        m_posBeforeDrag = QPointF();
+        event->ignore();
+        return;
+    }
+
+    QVariantMap data;
+    data.insert("position",scenePos());
+    emit dataChanged( "position", data);
+    m_dragged = false;
+    m_posBeforeDrag = QPointF();
+    event->accept();
+}
+
+void ComponentItem::keyPressEvent(QKeyEvent* event)
+{
+    if (event->key() == Qt::Key_Escape && m_dragged){
+        setPos(m_posBeforeDrag);
+        m_dragged = false;
+        event->accept();
+    } else {
+        event->ignore();
+    }
+}
+
+void ComponentItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
+{
+    setCursor(Qt::OpenHandCursor);
+    event->accept();
+}
+void ComponentItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
+{
+    setCursor(Qt::ArrowCursor);
+    event->accept();
+}
+
+#include "componentitem.moc"
 // vim: sw=4 sts=4 et tw=100
