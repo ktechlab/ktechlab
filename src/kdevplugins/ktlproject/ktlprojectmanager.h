@@ -64,7 +64,7 @@ class KTLProjectManager : public IPlugin, public IProjectFileManager
     /**
     *
     */
-    virtual bool reload ( ProjectBaseItem* item );
+    virtual bool reload ( ProjectFolderItem* item );
 
     /**
     *
