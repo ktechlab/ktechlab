@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 2.6)
 
 find_package(KDE4 4.2.0 REQUIRED)
 find_package(Qt4 REQUIRED)
-find_package(KDevPlatform 0.9.98 REQUIRED)
+find_package(KDevPlatform 0.9.9 REQUIRED)
 find_package(GLIB REQUIRED)
 
 include( KDE4Defaults )
