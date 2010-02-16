@@ -10,8 +10,8 @@
 #ifndef COMPONENTAPPLET_H
 #define COMPONENTAPPLET_H
 
-#include <QGraphicsView>
 #include <QGraphicsSvgItem>
+#include <QDomDocument>
 
 namespace KTechLab
 {
@@ -40,8 +40,16 @@ protected:
     virtual void keyPressEvent(QKeyEvent* event);
 
 private:
+
+    /**
+     * Add all pins defined in the svg file to this item.
+     * Information is extracted from the DOM.
+     */
+    void initPins();
+
     QSvgRenderer *m_renderer;
     Theme *m_theme;
+    QDomDocument m_svgDocument;
 
     //used to keep state of dragging
     bool m_dragged;
