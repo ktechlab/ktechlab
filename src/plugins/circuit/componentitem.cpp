@@ -115,7 +115,7 @@ void ComponentItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
 void ComponentItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
-    if (QLineF(event->screenPos(), event->buttonDownScreenPos(Qt::LeftButton))
+    if (!m_dragged && QLineF(event->screenPos(), event->buttonDownScreenPos(Qt::LeftButton))
         .length() < QApplication::startDragDistance()) {
         event->ignore();
         return;
