@@ -51,6 +51,7 @@ void CircuitView::init()
     setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     setRenderHints(QPainter::Antialiasing);
     setAcceptDrops( true );
+    setDragMode( QGraphicsView::RubberBandDrag );
 }
 
 #include "circuitview.moc"
