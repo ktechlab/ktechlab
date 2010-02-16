@@ -16,6 +16,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QApplication>
 #include <QKeyEvent>
+#include <QFile>
 
 using namespace KTechLab;
 
@@ -29,9 +30,21 @@ ComponentItem::ComponentItem ( const QVariantMap& data, Theme *theme, QGraphicsI
         QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemIsSelectable |
         QGraphicsItem::ItemIsMovable
     );
+
+    QString fileName = m_theme->findFirstFile( data.value("fileName").toString() );
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly))
+        return;
+    if (!m_svgDocument.setContent(&file)) {
+        file.close();
+        return;
+    }
+    file.close();
+
+    initPins();
+
     // may be the renderer should provided by the Theme. Then different renderers for
     // the same component can be shared
-    QString fileName = m_theme->findFirstFile( data.value("fileName").toString() );
     m_renderer->load( fileName );
     setSharedRenderer(m_renderer);
     // move to position in the scene.
@@ -57,6 +70,36 @@ void ComponentItem::dataUpdated( const QString &name, const QVariantMap &data )
     kDebug() << name << "changed to:" << data;
     //updated component, so repaint
     update();
+}
+
+void ComponentItem::initPins()
+{
+    QDomNode pinsNode;
+    QDomNodeList list = m_svgDocument.elementsByTagName("g");
+    for (int i=0;i<list.count();i++){
+        QDomNamedNodeMap attrs = list.item(i).attributes();
+        if (attrs.contains("id") &&
+            attrs.namedItem("id").toAttr().value() == QString("pins")){
+            pinsNode = list.item(i);
+            break;
+        }
+    }
+    if (pinsNode.isNull() || !pinsNode.hasChildNodes()){
+        kWarning() << "No pins definition found for this component";
+        return;
+    }
+    QDomElement pin = pinsNode.firstChildElement();
+    while (!pin.isNull()) {
+        QRectF pinRect;
+        double r = pin.attribute("r").toDouble();
+        pinRect.setLeft(pin.attribute("cx").toDouble()-r);
+        pinRect.setTop(pin.attribute("cy").toDouble()-r);
+        pinRect.setWidth(r*2);
+        pinRect.setHeight(r*2);
+        QGraphicsEllipseItem *pinItem = new QGraphicsEllipseItem(pinRect, this, scene());
+        pinItem->hide();
+        pin = pin.nextSiblingElement();
+    }
 }
 
 void ComponentItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
