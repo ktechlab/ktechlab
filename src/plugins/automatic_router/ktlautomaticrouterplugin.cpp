@@ -27,7 +27,7 @@
 #include <KDebug>
 #include <QPointF>
 #include <cmath>
-#include <interfaces/idocumentmodel.h>
+#include <interfaces/idocumentscene.h>
 
 K_PLUGIN_FACTORY(KTLAutomaticRouterFactory, registerPlugin<AutomaticRouter>(); )
 K_EXPORT_PLUGIN(KTLAutomaticRouterFactory(KAboutData("ktlautomatic_router","ktlautomatic_router", ki18n("KTechLab Automatic Router"), "0.1", ki18n("Automatic Routing in Circuit files"), KAboutData::License_LGPL)))
@@ -41,9 +41,12 @@ AutomaticRouter::AutomaticRouter(QObject* parent, const QVariantList& args)
 
 void AutomaticRouter::createCells()
 {
-    QRect rect(-300,-300,600,600);
-    //rect = m_documentModel->
-    m_cells = new Cells(rect);
+    if (!m_documentScene)
+        return;
+
+    QRectF rect;
+    rect = m_documentScene->sceneRect();
+    m_cells = new Cells(rect.toRect());
 }
 
 void AutomaticRouter::mapRoute(QPointF p1, QPointF p2)
