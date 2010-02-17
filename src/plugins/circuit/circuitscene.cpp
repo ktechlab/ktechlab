@@ -45,6 +45,7 @@ CircuitScene::CircuitScene ( QObject* parent, CircuitModel *model )
 CircuitScene::~CircuitScene()
 {
     qDeleteAll( m_components.values() );
+    delete m_theme;
 }
 
 QString CircuitScene::circuitName() const
