@@ -26,8 +26,6 @@
 
 #include <QGraphicsSceneDragDropEvent>
 #include <KDebug>
-#include <interfaces/iplugincontroller.h>
-#include <shell/core.h>
 #include "circuitmodel.h"
 #include "connectorpath.h"
 
@@ -35,7 +33,7 @@ using namespace KTechLab;
 
 
 CircuitScene::CircuitScene ( QObject* parent, CircuitModel *model )
- : QGraphicsScene ( parent ),
+ : IDocumentScene ( parent ),
    m_model( model ),
    m_theme( new Theme() )
 {
