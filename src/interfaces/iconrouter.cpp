@@ -28,7 +28,7 @@
 using namespace KTechLab;
 
 IConRouter::IConRouter()
-    : m_documentModel(0)
+    : m_documentScene(0)
 {}
 
 IConRouter::~IConRouter()
@@ -70,12 +70,12 @@ void IConRouter::setRoute(const QList< QPointF >& route)
     m_route = route;
 }
 
-void IConRouter::setDocumentModel(IDocumentModel* model)
+void IConRouter::setDocumentScene(const KTechLab::IDocumentScene* scene)
 {
-    if (!m_documentModel){
+    if (!m_documentScene){
         //this can happen, but in debug-mode, we should inform about it
-        kDebug() << "Overwriting documentModel";
+        kDebug() << "Overwriting documentScene";
     }
 
-    m_documentModel = model;
+    m_documentScene = scene;
 }

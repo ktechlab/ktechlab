@@ -34,7 +34,7 @@ class QPainterPath;
 namespace KTechLab
 {
 
-class IDocumentModel;
+class IDocumentScene;
 /**
  * \short Abstraction for the routing of a connection
  * This is a base-class to provide a list of points that need to be connected
@@ -63,12 +63,13 @@ public:
     virtual void mapRoute( qreal sx, qreal sy, qreal ex, qreal ey);
 
     /**
-     * Set the model for the document to provide necessary information to
+     * Set the scene for the document to provide necessary information to
      * calculate the route. This way the router can take components into
-     * account.
-     * \param model - the model to set
+     * account. The scene will also provide mechanisms for collision
+     * detection.
+     * \param scene - the scene to set
      */
-    void setDocumentModel( IDocumentModel *model );
+    void setDocumentScene( const IDocumentScene *scene );
 
     /**
      * Get the route in a paintable format. This can be directly used
@@ -91,7 +92,7 @@ public:
 
 protected:
     QList<QPointF> m_route;
-    IDocumentModel *m_documentModel;
+    const IDocumentScene *m_documentScene;
 };
 
 }
