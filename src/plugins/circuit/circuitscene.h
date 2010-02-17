@@ -21,7 +21,7 @@
 #ifndef CIRCUITSCENE_H
 #define CIRCUITSCENE_H
 
-#include <QGraphicsScene>
+#include <interfaces/idocumentscene.h>
 #include <QVariantList>
 
 namespace KTechLab
@@ -31,7 +31,7 @@ class Theme;
 class CircuitModel;
 class KTLCircuitPlugin;
 
-class CircuitScene : public QGraphicsScene
+class CircuitScene : public IDocumentScene
 {
   public:
     CircuitScene ( QObject* parent = 0, CircuitModel *model = 0 );
