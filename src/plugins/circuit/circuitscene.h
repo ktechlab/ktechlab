@@ -35,7 +35,7 @@ class CircuitScene : public IDocumentScene
 {
   public:
     CircuitScene ( QObject* parent = 0, CircuitModel *model = 0 );
-    ~CircuitScene();
+    virtual ~CircuitScene();
 
   public slots:
     void dataUpdated( const QString &name, const QVariantList &data );
