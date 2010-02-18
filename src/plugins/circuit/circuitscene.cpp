@@ -136,3 +136,5 @@ void CircuitScene::setCircuitName ( const QString& name )
     m_circuitName = name;
     setupData();
 }
+
+#include "circuitscene.moc"
