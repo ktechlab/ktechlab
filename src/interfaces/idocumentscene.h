@@ -72,6 +72,7 @@ protected:
      * Make sure to call this method, in case you override it.
      */
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
 
     /**
      * Fetch a plugin implementing \class KTechLab::IConRouter and return it.
@@ -81,6 +82,7 @@ protected:
 
 private:
     QGraphicsPathItem* m_routePath;
+    QPointF m_startPos;
 };
 
 }
