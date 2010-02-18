@@ -33,6 +33,7 @@ class KTLCircuitPlugin;
 
 class CircuitScene : public IDocumentScene
 {
+  Q_OBJECT
   public:
     CircuitScene ( QObject* parent = 0, CircuitModel *model = 0 );
     virtual ~CircuitScene();
