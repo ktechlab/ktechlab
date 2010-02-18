@@ -167,13 +167,13 @@ void ComponentItem::keyPressEvent(QKeyEvent* event)
 
 void ComponentItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
 {
-    setCursor(Qt::OpenHandCursor);
-    event->accept();
+    QGraphicsSvgItem::hoverEnterEvent(event);
 }
 void ComponentItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 {
     setCursor(Qt::ArrowCursor);
     event->accept();
+    QGraphicsSvgItem::hoverLeaveEvent(event);
 }
 
 #include "componentitem.moc"
