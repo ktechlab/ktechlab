@@ -51,8 +51,8 @@ void AutomaticRouter::createCells()
 
 void AutomaticRouter::mapRoute(QPointF p1, QPointF p2)
 {
-    p1 = snapToCanvas(p1.toPoint()) / 8;
-    p2 = snapToCanvas(p2.toPoint()) / 8;
+    p1 = p1.toPoint() / 8;
+    p2 = p2.toPoint() / 8;
     if (!m_cells)
         createCells();
 
