@@ -17,6 +17,7 @@
 #include <QApplication>
 #include <QKeyEvent>
 #include <QFile>
+#include "pinitem.h"
 
 using namespace KTechLab;
 
@@ -96,8 +97,7 @@ void ComponentItem::initPins()
         pinRect.setTop(pin.attribute("cy").toDouble()-r);
         pinRect.setWidth(r*2);
         pinRect.setHeight(r*2);
-        QGraphicsEllipseItem *pinItem = new QGraphicsEllipseItem(pinRect, this, scene());
-        pinItem->hide();
+        PinItem *pinItem = new PinItem(pinRect, this, scene());
         pin = pin.nextSiblingElement();
     }
 }
@@ -108,7 +108,6 @@ void ComponentItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
         event->ignore();
         return;
     }
-
     setCursor(Qt::ClosedHandCursor);
     event->accept();
 }
