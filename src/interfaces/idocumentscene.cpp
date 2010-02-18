@@ -55,11 +55,18 @@ void IDocumentScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
             event->ignore();
             return;
         }
-                cr->mapRoute(event->buttonDownScenePos(Qt::LeftButton), event->scenePos());
-                m_routePath = addPath(cr->paintedRoute());
-                event->accept();
-    } else {
-        QGraphicsScene::mouseMoveEvent(event);
+        cr->mapRoute(m_startPos, event->scenePos());
+        m_routePath = addPath(cr->paintedRoute());
+        event->accept();
+    }
+    QGraphicsScene::mouseMoveEvent(event);
+}
+
+void IDocumentScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
+{
+    QGraphicsScene::mousePressEvent(event);
+    if (!event->isAccepted()){
+        abortRouting();
     }
 }
 
@@ -69,6 +76,7 @@ void IDocumentScene::startRouting(const QPointF& pos)
     if (!cr) {
         return;
     }
+    m_startPos = pos;
     cr->mapRoute(pos,pos);
     m_routePath = addPath(cr->paintedRoute());
 }
