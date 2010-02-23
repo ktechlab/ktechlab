@@ -1,6 +1,6 @@
-#include "tested/matrix.h"
-#include "tested/quickmatrix.h"
-#include "tested/quickvector.h"
+#include <matrix.h>
+#include <quickmatrix.h>
+#include <quickvector.h>
 
 #include "Eigen/Core"
 #include "Eigen/LU"
