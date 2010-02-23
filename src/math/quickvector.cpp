@@ -21,6 +21,7 @@
 #include <cstdlib> // for null 
 #include <cmath>
 #include <cassert>
+#include <cstring>
 // #include <kdebug.h>
 #include <iostream>
 
