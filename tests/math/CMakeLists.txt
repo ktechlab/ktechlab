@@ -5,14 +5,14 @@ include_directories(
 
 find_package( Eigen2 )
 
-set( mathtest_SRCS
-#	mathtest.cpp
-   matrixtester.cpp
-)
+if( EIGEN2_FOUND )
+   set( mathtest_SRCS
+      matrixtester.cpp
+   )
+   kde4_add_unit_test( mathtest TESTNAME mathtest ${mathtest_SRCS} )
 
-kde4_add_unit_test( mathtest TESTNAME mathtest ${mathtest_SRCS} )
-
-target_link_libraries( mathtest
+   target_link_libraries( mathtest
 	ktlmath
 	${QT_QTTEST_LIBRARY}
-)
+)endif( EIGEN2_FOUND )
+
