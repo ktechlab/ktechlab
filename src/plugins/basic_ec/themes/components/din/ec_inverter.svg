@@ -79,22 +79,22 @@
   <g
      id="pins">
     <circle
-       cx="8"
+       cx="16"
        cy="32"
        r="2"
-       id="pin1"
+       id="n1"
        style="fill:none;stroke:#000000;stroke-opacity:0"
-       sodipodi:cx="8"
+       sodipodi:cx="16"
        sodipodi:cy="32"
        sodipodi:rx="2"
        sodipodi:ry="2" />
     <circle
-       cx="56"
+       cx="48"
        cy="32"
        r="2"
-       id="pin2"
+       id="p1"
        style="fill:none;stroke:#000000;stroke-opacity:0"
-       sodipodi:cx="56"
+       sodipodi:cx="48"
        sodipodi:cy="32"
        sodipodi:rx="2"
        sodipodi:ry="2" />
