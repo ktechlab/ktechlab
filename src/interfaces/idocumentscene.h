@@ -37,6 +37,8 @@ class IConRouter;
  * class using a plugin implementing the \class KTechLab::IConRouter interface.
  * The routing plugin can get information from the scene to find better routes within
  * this scene.
+ *
+ * This class also implements some standard behaviour for key events.
  * \author Julian Bäume <julian@svg4all.de>
  */
 class KTLINTERFACES_EXPORT IDocumentScene : public QGraphicsScene
