@@ -1,6 +1,6 @@
 /*
     <one line to give the program's name and a brief idea of what it does.>
-    Copyright (C) <year>  <name of author>
+    Copyright (C) 2010 Julian Bäume <julian@svg4all.de>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,24 +18,34 @@
 
 */
 
-#ifndef CONNECTORPATH_H
-#define CONNECTORPATH_H
+#include "connectoritem.h"
+#include <QPen>
 
-#include <QPainterPath>
-#include <QVariantMap>
+using namespace KTechLab;
 
-namespace KTechLab
+ConnectorItem::ConnectorItem(QGraphicsItem* parent, QGraphicsScene* scene)
+    : QGraphicsPathItem(parent, scene)
 {
-
-/**
- * \short Small class to represent the path of a connector
- * This class will just parse a string to represent a path.
- */
-class ConnectorPath : public QPainterPath
-{
-public:
-    ConnectorPath( const QVariantMap &path );
-};
-
+    setAcceptHoverEvents(true);
 }
-#endif // CONNECTORPATH_H
+
+void ConnectorItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
+{
+    setPen(QPen(Qt::darkYellow));
+}
+
+void ConnectorItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
+{
+    setPen(QPen(Qt::black));
+}
+
+void ConnectorItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
+{
+    QGraphicsItem::mousePressEvent(event);
+}
+
+void ConnectorItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
+{
+    QGraphicsItem::mouseReleaseEvent(event);
+}
+
