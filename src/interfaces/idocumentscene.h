@@ -75,6 +75,11 @@ protected:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
 
     /**
+     * handle default key events like delete
+     */
+    virtual void keyPressEvent(QKeyEvent* event);
+
+    /**
      * Fetch a plugin implementing \class KTechLab::IConRouter and return it.
      * \returns a plugin capable of mapping a route
      */
