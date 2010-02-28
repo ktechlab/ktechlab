@@ -20,7 +20,7 @@
 #ifndef PINITEM_H
 #define PINITEM_H
 
-#include <qgraphicsitem.h>
+#include <QGraphicsEllipseItem>
 
 namespace KTechLab
 {
