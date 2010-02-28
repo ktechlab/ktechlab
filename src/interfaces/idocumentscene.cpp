@@ -19,11 +19,11 @@
 
 #include "idocumentscene.h"
 #include "iconrouter.h"
+#include "component/connectoritem.h"
 #include <interfaces/icore.h>
 #include <interfaces/iplugincontroller.h>
 #include <KDebug>
 #include <QGraphicsSceneMouseEvent>
-#include <QGraphicsPathItem>
 #include <QKeyEvent>
 
 using namespace KTechLab;
@@ -57,7 +57,9 @@ void IDocumentScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
             return;
         }
         cr->mapRoute(m_startPos, event->scenePos());
-        m_routePath = addPath(cr->paintedRoute());
+        m_routePath = new ConnectorItem();
+        m_routePath->setPath(cr->paintedRoute());
+        addItem(m_routePath);
         event->accept();
     }
     QGraphicsScene::mouseMoveEvent(event);
