@@ -21,6 +21,7 @@
 #ifndef CONNECTORITEM_H
 #define CONNECTORITEM_H
 
+#include "../ktlinterfacesexport.h"
 #include <QGraphicsPathItem>
 
 namespace KTechLab {
@@ -29,7 +30,7 @@ namespace KTechLab {
  * \short Small class to implement mouse-interaction for Connectors
  * This will handle some basic interaction with the user.
  */
-class ConnectorItem : public QGraphicsPathItem
+class KTLINTERFACES_EXPORT ConnectorItem : public QGraphicsPathItem
 {
 public:
     ConnectorItem(QGraphicsItem* parent = 0, QGraphicsScene* scene = 0);

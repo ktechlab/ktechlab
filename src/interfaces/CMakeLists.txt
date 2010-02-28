@@ -11,6 +11,7 @@ set( ktlinterfaces_LIB_SRCS
    component/componentmodel.cpp
    component/componentcontainer.cpp
    component/componentmimedata.cpp
+   component/connectoritem.cpp
    )
 
 kde4_add_library( ktlinterfaces SHARED ${ktlinterfaces_LIB_SRCS} )
