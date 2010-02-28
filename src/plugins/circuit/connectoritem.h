@@ -34,11 +34,14 @@ class ConnectorItem : public QGraphicsPathItem
 public:
     ConnectorItem(QGraphicsItem* parent = 0, QGraphicsScene* scene = 0);
 
+
 protected:
     virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
     virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
-    virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
+
+    virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = 0);
+    virtual QVariant itemChange(GraphicsItemChange change, const QVariant& value);
 };
 
 }

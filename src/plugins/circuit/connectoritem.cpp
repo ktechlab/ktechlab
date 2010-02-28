@@ -20,6 +20,9 @@
 
 #include "connectoritem.h"
 #include <QPen>
+#include <QGraphicsSceneMouseEvent>
+#include <QStyleOption>
+#include <QGraphicsScene>
 
 using namespace KTechLab;
 
@@ -27,25 +30,52 @@ ConnectorItem::ConnectorItem(QGraphicsItem* parent, QGraphicsScene* scene)
     : QGraphicsPathItem(parent, scene)
 {
     setAcceptHoverEvents(true);
+    setFlag(ItemIsSelectable,true);
 }
 
 void ConnectorItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
 {
-    setPen(QPen(Qt::darkYellow));
+    if (!isSelected()){
+        setPen(QPen(Qt::darkYellow));
+        event->accept();
+    }
 }
 
 void ConnectorItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 {
-    setPen(QPen(Qt::black));
-}
-
-void ConnectorItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
-{
-    QGraphicsItem::mousePressEvent(event);
+    if (!isSelected()){
+        setPen(QPen(Qt::black));
+        event->accept();
+    }
 }
 
 void ConnectorItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
-    QGraphicsItem::mouseReleaseEvent(event);
+    if (event->button() == Qt::LeftButton){
+        scene()->clearSelection();
+        setSelected(true);
+        event->accept();
+    }
 }
 
+QVariant ConnectorItem::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant& value)
+{
+    if (change == ItemSelectedHasChanged && value.toBool()){
+        setPen(QPen(Qt::darkYellow));
+    } else if (change == ItemSelectedHasChanged && !value.toBool()){
+        setPen(QPen(Qt::black));
+    }
+    return QGraphicsItem::itemChange(change, value);
+}
+
+void KTechLab::ConnectorItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
+{
+    //This is quite ugly. we copy the whole object, because it's const
+    //may be, we should just paint the path on our own.
+    QStyleOptionGraphicsItem *cOption = new QStyleOptionGraphicsItem(*option);
+    //reset selected state, since we handle painting of selection-related visualisation
+    cOption->state &= ~QStyle::State_Selected;
+
+    QGraphicsPathItem::paint(painter, cOption, widget);
+    delete cOption;
+}
