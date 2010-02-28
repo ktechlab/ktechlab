@@ -6,6 +6,7 @@ include_directories(
 )
 
 set( ktlcircuit_PART_SRCS
+   connectoritem.cpp
    pinitem.cpp
    connectorpath.cpp
    circuitmodel.cpp

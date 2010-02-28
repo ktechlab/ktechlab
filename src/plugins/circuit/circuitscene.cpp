@@ -28,6 +28,7 @@
 #include <KDebug>
 #include "circuitmodel.h"
 #include "connectorpath.h"
+#include "connectoritem.h"
 
 using namespace KTechLab;
 
@@ -98,8 +99,9 @@ void CircuitScene::setupData()
     foreach (QVariant connector, m_model->connectors())
     {
         if (connector.canConvert(QVariant::Map)) {
-            ConnectorPath p( connector.toMap() );
-            addPath( p );
+            ConnectorItem *connectorItem = new ConnectorItem();
+            connectorItem->setPath( ConnectorPath( connector.toMap() ) );
+            addItem( connectorItem );
         }
     }
 }
