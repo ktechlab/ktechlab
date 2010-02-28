@@ -22,13 +22,13 @@
 #include "theme.h"
 #include "ktlcircuitplugin.h"
 #include "interfaces/component/componentmimedata.h"
+#include "interfaces/component/connectoritem.h"
 #include "componentitem.h"
 
 #include <QGraphicsSceneDragDropEvent>
 #include <KDebug>
 #include "circuitmodel.h"
 #include "connectorpath.h"
-#include "connectoritem.h"
 
 using namespace KTechLab;
 
