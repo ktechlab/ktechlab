@@ -24,6 +24,7 @@
 #include <KDebug>
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsPathItem>
+#include <QKeyEvent>
 
 using namespace KTechLab;
 
@@ -69,6 +70,18 @@ void IDocumentScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
         abortRouting();
     }
 }
+
+void IDocumentScene::keyPressEvent(QKeyEvent* event)
+{
+    if (event->key() == Qt::Key_Delete){
+        foreach(QGraphicsItem *item,selectedItems()){
+            removeItem(item);
+            delete (item);
+            item = 0;
+        }
+    }
+}
+
 
 void IDocumentScene::startRouting(const QPointF& pos)
 {
