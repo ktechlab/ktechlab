@@ -1,11 +1,11 @@
-include_directories(
-   ${CMAKE_SOURCE_DIR}/src/math/
-   ${EIGEN2_INCLUDE_DIR}
-)
-
 find_package( Eigen2 )
 
 if( EIGEN2_FOUND )
+   include_directories(
+      ${CMAKE_SOURCE_DIR}/src/math/
+      ${EIGEN2_INCLUDE_DIR}
+   )
+
    set( mathtest_SRCS
       matrixtester.cpp
    )
@@ -14,5 +14,6 @@ if( EIGEN2_FOUND )
    target_link_libraries( mathtest
 	ktlmath
 	${QT_QTTEST_LIBRARY}
-)endif( EIGEN2_FOUND )
+)
+endif( EIGEN2_FOUND )
 
