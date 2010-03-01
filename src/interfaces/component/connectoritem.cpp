@@ -52,7 +52,8 @@ void ConnectorItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 void ConnectorItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
     if (event->button() == Qt::LeftButton){
-        scene()->clearSelection();
+        if (event->modifiers() != Qt::ControlModifier)
+            scene()->clearSelection();
         setSelected(true);
         event->accept();
     }

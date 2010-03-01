@@ -18,6 +18,7 @@
 #include <QKeyEvent>
 #include <QFile>
 #include "pinitem.h"
+#include <QGraphicsScene>
 
 using namespace KTechLab;
 
@@ -138,6 +139,11 @@ void ComponentItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 void ComponentItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
     setCursor(Qt::ArrowCursor);
+    if (event->button() == Qt::LeftButton){
+        if (event->modifiers() != Qt::ControlModifier)
+            scene()->clearSelection();
+        setSelected(true);
+    }
     if (!m_dragged){
         //reset all dragging related members
         m_posBeforeDrag = QPointF();
