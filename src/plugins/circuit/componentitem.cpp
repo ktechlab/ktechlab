@@ -115,8 +115,9 @@ void ComponentItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 
 void ComponentItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
-    setCursor(Qt::ArrowCursor);
-    if (event->button() == Qt::LeftButton){
+    if (   event->button() == Qt::LeftButton
+        && contains(event->scenePos())
+        && contains(event->buttonDownScenePos(Qt::LeftButton)) ){
         if (event->modifiers() != Qt::ControlModifier)
             scene()->clearSelection();
         setSelected(true);
