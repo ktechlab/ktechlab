@@ -31,6 +31,7 @@ ConnectorItem::ConnectorItem(QGraphicsItem* parent, QGraphicsScene* scene)
 {
     setAcceptHoverEvents(true);
     setFlag(ItemIsSelectable,true);
+    setZValue(-1);
 }
 
 void ConnectorItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
