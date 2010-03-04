@@ -47,6 +47,7 @@ void PinItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
 {
     this->setOpacity(1);
     event->accept();
+    QGraphicsEllipseItem::hoverEnterEvent(event);
 }
 
 void PinItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
@@ -55,6 +56,7 @@ void PinItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
     //and it won't receive any events if hidden
     this->setOpacity(0.01);
     event->accept();
+    QGraphicsEllipseItem::hoverLeaveEvent(event);
 }
 
 void PinItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
