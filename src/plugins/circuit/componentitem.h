@@ -25,6 +25,8 @@ public:
     ComponentItem ( const QVariantMap& data, Theme *theme, QGraphicsItem* parentItem = 0 );
     ~ComponentItem();
 
+    virtual QPainterPath shape() const;
+
 public slots:
     void dataUpdated( const QString &name, const QVariantMap &data );
 
@@ -49,6 +51,8 @@ private:
     QSvgRenderer *m_renderer;
     Theme *m_theme;
     QDomDocument m_svgDocument;
+
+    QPainterPath m_shape;
 };
 
 }
