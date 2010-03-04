@@ -26,6 +26,7 @@ public:
     ~ComponentItem();
 
     virtual QPainterPath shape() const;
+    virtual QVariant itemChange(GraphicsItemChange change, const QVariant& value);
 
 public slots:
     void dataUpdated( const QString &name, const QVariantMap &data );
@@ -53,6 +54,7 @@ private:
     QDomDocument m_svgDocument;
 
     QPainterPath m_shape;
+    QPointF m_oldPos;
 };
 
 }
