@@ -105,35 +105,12 @@ void ComponentItem::initPins()
 
 void ComponentItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
-    if (event->button() != Qt::LeftButton) {
-        event->ignore();
-        return;
-    }
-    setCursor(Qt::ClosedHandCursor);
-    event->accept();
+    QGraphicsSvgItem::mousePressEvent(event);
 }
 
 void ComponentItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
-    if (!m_dragged && QLineF(event->screenPos(), event->buttonDownScreenPos(Qt::LeftButton))
-        .length() < QApplication::startDragDistance()) {
-        event->ignore();
-        return;
-    }
-
-    if (!m_dragged && !m_posBeforeDrag.isNull()) {
-        //dragging has been aborted
-        event->ignore();
-        return;
-    } else if (!m_dragged && boundingRect().contains( event->buttonDownPos(Qt::LeftButton) )){
-        //begin dragging
-        m_posBeforeDrag = scenePos();
-        m_dragged = true;
-        setFocus(Qt::MouseFocusReason);
-    } else if ( m_dragged ){
-        setPos(event->scenePos() - event->buttonDownPos(Qt::LeftButton));
-        event->accept();
-    }
+    QGraphicsSvgItem::mouseMoveEvent(event);
 }
 
 void ComponentItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
@@ -143,31 +120,9 @@ void ComponentItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
         if (event->modifiers() != Qt::ControlModifier)
             scene()->clearSelection();
         setSelected(true);
-    }
-    if (!m_dragged){
-        //reset all dragging related members
-        m_posBeforeDrag = QPointF();
-        event->ignore();
-        return;
-    }
-
-    QVariantMap data;
-    data.insert("position",scenePos());
-    emit dataChanged( "position", data);
-    m_dragged = false;
-    m_posBeforeDrag = QPointF();
-    event->accept();
-}
-
-void ComponentItem::keyPressEvent(QKeyEvent* event)
-{
-    if (event->key() == Qt::Key_Escape && m_dragged){
-        setPos(m_posBeforeDrag);
-        m_dragged = false;
         event->accept();
-    } else {
-        event->ignore();
     }
+    QGraphicsSvgItem::mouseReleaseEvent(event);
 }
 
 void ComponentItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
@@ -176,8 +131,6 @@ void ComponentItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
 }
 void ComponentItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 {
-    setCursor(Qt::ArrowCursor);
-    event->accept();
     QGraphicsSvgItem::hoverLeaveEvent(event);
 }
 
