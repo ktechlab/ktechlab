@@ -29,8 +29,8 @@ ComponentItem::ComponentItem ( const QVariantMap& data, Theme *theme, QGraphicsI
 {
     setAcceptHoverEvents(true);
     setFlags(
-        QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemIsSelectable |
-        QGraphicsItem::ItemIsMovable
+        ItemIsFocusable | ItemIsSelectable |
+        ItemIsMovable
     );
 
     QString fileName = m_theme->findFirstFile( data.value("fileName").toString() );
