@@ -58,6 +58,7 @@ ComponentItem::ComponentItem ( const QVariantMap& data, Theme *theme, QGraphicsI
     pos -= QPoint(36,36);
     setPos( pos );
 
+    m_shape.addRect(m_renderer->boundsOnElement("icon"));
     connect(this,SIGNAL(dataChanged(QString,QVariantMap)),
             this,SLOT(dataUpdated(QString,QVariantMap)));
 }
@@ -133,6 +134,11 @@ void ComponentItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
 void ComponentItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 {
     QGraphicsSvgItem::hoverLeaveEvent(event);
+}
+
+QPainterPath ComponentItem::shape() const
+{
+    return m_shape;
 }
 
 #include "componentitem.moc"
