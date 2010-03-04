@@ -30,7 +30,7 @@ ComponentItem::ComponentItem ( const QVariantMap& data, Theme *theme, QGraphicsI
     setAcceptHoverEvents(true);
     setFlags(
         ItemIsFocusable | ItemIsSelectable |
-        ItemIsMovable
+        ItemIsMovable | ItemSendsScenePositionChanges
     );
 
     QString fileName = m_theme->findFirstFile( data.value("fileName").toString() );
@@ -106,6 +106,7 @@ void ComponentItem::initPins()
 
 void ComponentItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
+    m_oldPos = pos();
     QGraphicsSvgItem::mousePressEvent(event);
 }
 
@@ -124,6 +125,9 @@ void ComponentItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
         setSelected(true);
         event->accept();
     }
+    if (pos() != m_oldPos){
+        itemChange(ItemScenePositionHasChanged,pos());
+    }
     QGraphicsSvgItem::mouseReleaseEvent(event);
 }
 
@@ -134,6 +138,14 @@ void ComponentItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
 void ComponentItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 {
     QGraphicsSvgItem::hoverLeaveEvent(event);
+}
+
+QVariant ComponentItem::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant& value)
+{
+    if (change == ItemScenePositionHasChanged){
+        kDebug() << change << value;
+    }
+    return QGraphicsItem::itemChange(change, value);
 }
 
 QPainterPath ComponentItem::shape() const
