@@ -37,7 +37,7 @@ ConnectorItem::ConnectorItem(QGraphicsItem* parent, QGraphicsScene* scene)
 void ConnectorItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
 {
     if (!isSelected()){
-        setPen(QPen(Qt::darkYellow));
+        setPen(scene()->palette().highlight().color());
         event->accept();
     }
     QGraphicsPathItem::hoverEnterEvent(event);
@@ -46,7 +46,7 @@ void ConnectorItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
 void ConnectorItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 {
     if (!isSelected()){
-        setPen(QPen(Qt::black));
+        setPen(scene()->palette().windowText().color());
         event->accept();
     }
     QGraphicsPathItem::hoverLeaveEvent(event);
@@ -65,9 +65,9 @@ void ConnectorItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 QVariant ConnectorItem::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant& value)
 {
     if (change == ItemSelectedHasChanged && value.toBool()){
-        setPen(QPen(Qt::darkYellow));
+        setPen(scene()->palette().highlight().color());
     } else if (change == ItemSelectedHasChanged && !value.toBool()){
-        setPen(QPen(Qt::black));
+        setPen(scene()->palette().windowText().color());
     }
     return QGraphicsItem::itemChange(change, value);
 }
