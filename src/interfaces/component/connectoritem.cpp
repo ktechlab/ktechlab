@@ -39,6 +39,7 @@ void ConnectorItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
         setPen(QPen(Qt::darkYellow));
         event->accept();
     }
+    QGraphicsPathItem::hoverEnterEvent(event);
 }
 
 void ConnectorItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
@@ -47,6 +48,7 @@ void ConnectorItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
         setPen(QPen(Qt::black));
         event->accept();
     }
+    QGraphicsPathItem::hoverLeaveEvent(event);
 }
 
 void ConnectorItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
