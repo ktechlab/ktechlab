@@ -126,6 +126,8 @@ void ComponentItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
         event->accept();
     }
     if (pos() != m_oldPos){
+        QPoint p = pos().toPoint() / 8;
+        setPos(p * 8);
         itemChange(ItemScenePositionHasChanged,pos());
     }
     QGraphicsSvgItem::mouseReleaseEvent(event);
