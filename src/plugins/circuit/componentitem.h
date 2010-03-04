@@ -37,7 +37,6 @@ protected:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-    virtual void keyPressEvent(QKeyEvent* event);
 
 private:
 
@@ -50,10 +49,6 @@ private:
     QSvgRenderer *m_renderer;
     Theme *m_theme;
     QDomDocument m_svgDocument;
-
-    //used to keep state of dragging
-    bool m_dragged;
-    QPointF m_posBeforeDrag;
 };
 
 }
