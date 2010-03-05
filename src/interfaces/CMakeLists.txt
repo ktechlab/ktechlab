@@ -1,6 +1,7 @@
 include_directories( ${KDEVPLATFORM_INCLUDE_DIR} )
 
 set( ktlinterfaces_LIB_SRCS
+   component/connector.cpp
    idocumentscene.cpp
    iconrouter.cpp
    idocumentmodel.cpp
@@ -12,6 +13,7 @@ set( ktlinterfaces_LIB_SRCS
    component/componentcontainer.cpp
    component/componentmimedata.cpp
    component/connectoritem.cpp
+   component/node.cpp
    )
 
 kde4_add_library( ktlinterfaces SHARED ${ktlinterfaces_LIB_SRCS} )

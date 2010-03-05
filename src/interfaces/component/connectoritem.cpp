@@ -23,15 +23,54 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QStyleOption>
 #include <QGraphicsScene>
+#include "connector.h"
 
 using namespace KTechLab;
 
 ConnectorItem::ConnectorItem(QGraphicsItem* parent, QGraphicsScene* scene)
+    : QGraphicsPathItem(parent, scene),
+      m_connector(0)
+{
+    init();
+}
+
+ConnectorItem::ConnectorItem(const Connector& connector, QGraphicsItem* parent, QGraphicsScene* scene)
     : QGraphicsPathItem(parent, scene)
+{
+    init();
+    setConnector(connector);
+}
+
+ConnectorItem::ConnectorItem(const QVariantMap& connectorData, QGraphicsItem* parent, QGraphicsScene* scene)
+    : QGraphicsPathItem(parent, scene)
+{
+    init();
+    m_connector = new Connector(connectorData);
+    setPath(m_connector->route());
+}
+
+void ConnectorItem::init()
 {
     setAcceptHoverEvents(true);
     setFlag(ItemIsSelectable,true);
     setZValue(-1);
+}
+
+ConnectorItem::~ConnectorItem()
+{
+    delete m_connector;
+    m_connector = 0;
+}
+
+void ConnectorItem::setConnector(const Connector& connector)
+{
+    if (m_connector){
+        delete m_connector;
+        m_connector = 0;
+    }
+
+    m_connector = new Connector(connector);
+    setPath(m_connector->route());
 }
 
 void ConnectorItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)

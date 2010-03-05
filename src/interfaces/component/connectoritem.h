@@ -25,6 +25,7 @@
 #include <QGraphicsPathItem>
 
 namespace KTechLab {
+class Connector;
 
 /**
  * \short Small class to implement mouse-interaction for Connectors
@@ -34,8 +35,11 @@ class KTLINTERFACES_EXPORT ConnectorItem : public QGraphicsPathItem
 {
 public:
     ConnectorItem(QGraphicsItem* parent = 0, QGraphicsScene* scene = 0);
+    ConnectorItem(const Connector& connector, QGraphicsItem* parent = 0, QGraphicsScene* scene = 0);
+    ConnectorItem(const QVariantMap& connectorData, QGraphicsItem* parent = 0, QGraphicsScene* scene = 0);
+    virtual ~ConnectorItem();
 
-
+    void setConnector(const Connector& connector);
 protected:
     virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
     virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
@@ -43,6 +47,10 @@ protected:
 
     virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = 0);
     virtual QVariant itemChange(GraphicsItemChange change, const QVariant& value);
+
+private:
+    void init();
+    Connector *m_connector;
 };
 
 }

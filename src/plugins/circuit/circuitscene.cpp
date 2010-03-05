@@ -28,7 +28,6 @@
 #include <QGraphicsSceneDragDropEvent>
 #include <KDebug>
 #include "circuitmodel.h"
-#include "connectorpath.h"
 
 using namespace KTechLab;
 
@@ -99,8 +98,7 @@ void CircuitScene::setupData()
     foreach (QVariant connector, m_model->connectors())
     {
         if (connector.canConvert(QVariant::Map)) {
-            ConnectorItem *connectorItem = new ConnectorItem();
-            connectorItem->setPath( ConnectorPath( connector.toMap() ) );
+            ConnectorItem *connectorItem = new ConnectorItem(connector.toMap());
             addItem( connectorItem );
         }
     }
