@@ -26,7 +26,7 @@
 using namespace KTechLab;
 
 PinItem::PinItem(const QRectF& rect, QGraphicsItem* parent, QGraphicsScene* scene)
-    : QGraphicsEllipseItem(rect, parent, scene),
+    : Node(parent, scene),
     m_circuit(0)
 {
     setAcceptHoverEvents(true);
