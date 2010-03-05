@@ -48,5 +48,3 @@ bool Node::isValid() const
 {
     return scene() != 0;
 }
-
-#include "node.moc"
