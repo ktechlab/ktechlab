@@ -99,7 +99,7 @@ void ComponentItem::initPins()
         pinRect.setTop(pin.attribute("cy").toDouble()-r);
         pinRect.setWidth(r*2);
         pinRect.setHeight(r*2);
-        PinItem *pinItem = new PinItem(pinRect, this, scene());
+        new PinItem(pinRect, this, scene());
         pin = pin.nextSiblingElement();
     }
 }
