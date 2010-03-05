@@ -30,6 +30,7 @@ PinItem::PinItem(const QRectF& rect, QGraphicsItem* parent, QGraphicsScene* scen
     m_circuit(0)
 {
     setAcceptHoverEvents(true);
+    setRect(rect);
     //set opacity to nearly 0, because 0 will hide the item
     //and it won't receive any events if hidden
     this->setOpacity(0.01);
