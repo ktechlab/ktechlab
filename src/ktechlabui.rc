@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<gui name="ktechlab" version="0.5">
+  <MenuBar>
+    <Menu name="project">
+      <text context="@title:menu">&amp;Project</text>
+      <DefineGroup name="project_new"/>
+      <Separator/>
+      <Action name="project_open"/>
+      <Action name="project_open_recent"/>
+      <Action name="project_open_for_file"/>
+      <Separator/>
+
+      <Merge />
+      <Separator />
+      <Action name="project_open_config" />
+
+      <Separator/>
+      <Action name="project_close"/>
+      <Action name="project_close_all"/>
+    </Menu>
+  </MenuBar>
+  <ToolBar name="mainToolBar">
+        <text>Main Toolbar</text>
+        <Action name="new_file" />
+        <Action name="Open" />
+        <Action name="Save" />
+        <Action name="switch_area" />
+        <Seperator />
+        <Action name="Undo" />
+        <Action name="Redo" />
+        <Action name="Cut" />
+        <Action name="Copy" />
+        <Action name="Paste" />
+    </ToolBar>
+</gui>

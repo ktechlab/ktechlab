@@ -1,0 +1,1003 @@
+<!-- item: **********************************Bucles**************************************** -->
+
+<!-- item: **********************************E/S**************************************** -->
+
+<!-- item: **********************************Variables**************************************** -->
+
+<!-- item: *********************************CONEXIONES*************************************** -->
+
+<!-- item: *********************************LÓGICA*************************************** -->
+
+<!-- item: *********************************SALIDAS*************************************** -->
+
+<!-- item: *******************************CIRCUITOS INTEGRADOS************************************* -->
+
+<!-- item: *******************************COMÚN************************************* -->
+
+<!-- item: *******************************FUNCIONES************************************* -->
+
+<!-- item: *****************************INTERRUPTORES*********************************** -->
+
+<!-- item: *************************COMPONENTES DISCRETOS******************************* -->
+
+<!-- item: *************************ELEMENTOS PASIVOS******************************* -->
+
+<!-- item: ***********************COMPONENTES*************************** -->
+
+<!-- item: ***********************DIAGRAMA DE FLUJO*************************** -->
+
+<!-- item: ***********************FUENTES*************************** -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+Fuentes de alimentación de los circuitos eléctricos u electrónicos. También incluye
+las fuentes de señales y las fuentes dependientes de otras magnitudes</body></html>
+<!-- item: PIC_IC -->
+
+<!-- item: Passive -->
+Elementos pasivos
+<!-- item: dp/arrow -->
+Seleccione la línea para posicionar los extremos
+<!-- item: dp/ellipse -->
+
+<!-- item: dp/image -->
+Visualiza una imagen.
+<!-- item: dp/line -->
+Seleccione la línea para posicionar los extremos
+<!-- item: dp/rectangle -->
+
+<!-- item: dp/text -->
+Doble pulsación sobre el elemento de texto para establecer el texto
+<!-- item: ec/555 -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>El circuito integrado 555 posee diferentes aplicaciones, entre las que destacan las de multivibrador astable, multivibrador monoestable y detector de impulsos.</p>
+<p><b>Descripción de los terminales:</b></p>
+<ul type="disc">
+<li><span style="font-weight:600">Dis</span>: descarga.</li>
+<li><span style="font-weight:600">Th</span>: tensión umbral.</li>
+<li><span style="font-weight:600">Trg</span>: disparo.</li>
+<li><span style="font-weight:600">CV</span>. control del voltaje.</li>
+<li><span style="font-weight:600">Out</span>: salida.</li>
+<li><span style="font-weight:600">Res</span>: puesta a cero.</li>
+<li><span style="font-weight:600">+/-</span>: terminales de alimentación.</li>
+</ul>
+
+<p><span style="font-weight:600">Ejemplos:</span></p>
+<ul type="disc"><li><a href="ktechlab-example:///555/internals.circuit">Circuito interno</a></li>
+<li><a href="ktechlab-example:///555/square-wave.circuit">Astable</a></li></ul>
+
+<p>
+</p>Vea <A HREF="http://es.wikipedia.org/wiki/Circuito_integrado_555">CI 555</A> en Wikipedia.
+</body></html>
+<!-- item: ec/ac_current -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Fuente de corriente alterna. Proporciona una corriente senoidal alterna independiente de la carga a la que se conecte.</p>
+</p>Vea <A HREF="http://es.wikipedia.org/wiki/Corriente_alterna">corriente alterna</A> en Wikipedia.
+</body></html>
+<!-- item: ec/adc -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Convierte una señal analógica en una salida digital para un rango y número de bits determinado.</p>
+<p>
+</p>Vea <A HREF="http://es.wikipedia.org/wiki/Convertidor_anal%C3%B3gico-digital">conversión A/D</A> en Wikipedia.
+</body></html>
+<!-- item: ec/adder -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Realiza la suma aritmética, S, de los bits A y B. > y C son los acarreos de entrada y de salida respectivamente.</p>
+<p>Su tabla de funcionamiento es la siguiente:</p>
+<center>
+<TABLE BORDER="1">
+<TR><TH>><TH>A<TH>B<TH>C<TH>S
+<TR><TD><center>0</center><TD><center>0</center><TD><center>0</center><TD><center>0</center><TD><center>0</center>
+<TR><TD><center>0</center><TD><center>0</center><TD><center>1</center><TD><center>0</center><TD><center>1</center>
+<TR><TD><center>0</center><TD><center>1</center><TD><center>0</center><TD><center>0</center><TD><center>1</center>
+<TR><TD><center>0</center><TD><center>1</center><TD><center>1</center><TD><center>1</center><TD><center>0</center>
+<TR><TD><center>1</center><TD><center>0</center><TD><center>0</center><TD><center>0</center><TD><center>1</center>
+<TR><TD><center>1</center><TD><center>0</center><TD><center>1</center><TD><center>1</center><TD><center>0</center>
+<TR><TD><center>1</center><TD><center>1</center><TD><center>0</center><TD><center>1</center><TD><center>0</center>
+<TR><TD><center>1</center><TD><center>1</center><TD><center>1</center><TD><center>1</center><TD><center>1</center>
+</TABLE>
+</center>
+<p>
+</p>Vea <A HREF="http://es.wikipedia.org/wiki/Sumador">sumador</A> en Wikipedia.
+</body></html>
+<!-- item: ec/ammeter -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Aparato para medir la corriente que circula por una rama. Sitúe este componente en serie con el circuito cuya corriente desea conocer.</p>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/Amper%C3%ADmetro">amperímetro</A> en Wikipedia.
+</body></html>
+<!-- item: ec/and -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Proporciona a su salida un 1 lógico, nivel alto, sólo en el caso de que todas sus entradas estén a 1 lógico, y 0 lógico en caso contrario.</p>
+<p>Tabla de verdad:</p>
+<center>
+<TABLE BORDER="1">
+<TR><TH>A<TH>B<TH>F
+<TR><TD><center>0</center><TD><center>0</center><TD><center>0</center>
+<TR><TD><center>0</center><TD><center>1</center><TD><center>0</center>
+<TR><TD><center>1</center><TD><center>0</center><TD><center>0</center>
+<TR><TD><center>1</center><TD><center>1</center><TD><center>1</center>
+</TABLE>
+</center>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/Puerta_l%C3%B3gica">puerta lógica</A> en Wikipedia.
+</body></html>
+<!-- item: ec/bar_graph_display -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Visualizador que consiste en una fila o columna de LEDs rectangulares.</p>
+<p>Suelen usarse para indicar niveles. Por ejemplo, la temperatura ambiente o representar las subidas y bajadas del audio de un amplificador de música.</p>
+</body></html>
+<!-- item: ec/battery -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Una batería, al igual que una pila, suministra una diferencia de potencial o voltaje fijo entre sus polos. Idealmente esta diferencia de potencial es independiente de la carga a la que se conecte.</p>
+</p>Vea <A HREF="http://es.wikipedia.org/wiki/Bater%C3%ADa_(electricidad)">batería</A> en Wikipedia.
+</body></html>
+<!-- item: ec/bcd_to_seven_segment -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Decodifica un número binario proporcionado en la entrada a un formato representable por un visualizador de siete segmentos del tipo cátodo común.</p>
+<p><b>Descripción de los terminales:</b></p>
+<ul type="disc">
+<li>a...g: salidas al visualizador.</li>
+<li>ABCD: entradas del valor binario.</li>
+<li>lt: &quot;<i>Lamp Test</i>&quot;, prueba de segmentos.</li>
+<li>rb: &quot;<i>Ripple Blanking</i>&quot;, propagación del cero.</li>
+<li>en: &quot;<i>Enable</i>&quot;, activación.
+</ul>
+<p>
+<p>Su tabla de funcionamiento es la siguiente:</p>
+<center>
+<TABLE BORDER="1">
+<TR><TH>lt<TH>rb<TH>en<TH>D C B A<TH> Visualizador
+<TR><TD><center>0</center><TD><center>X</center><TD><center>X</center><TD>X   X   X   X<TD><center>8</center>
+<TR><TD><center>1</center><TD><center>1</center><TD><center>1</center><TD>X   X   X   X<TD><center>Último dato</center>
+<TR><TD><center>1</center><TD><center>0</center><TD><center>X</center><TD>X   X   X   X<TD><center>Apagado</center>
+<TR><TD><center>1</center><TD><center>1</center><TD><center>0</center><TD>d   c   b   a<TD><center>0 a F</center>
+</TABLE>
+</center></p>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/Decodificador">decodificador</A> en Wikipedia.
+</body></html>
+<!-- item: ec/bidir_led -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>LED bicolor. Se compone de dos LEDs conectados en anti-paralelo, proporcionando un color en función de la dirección en que circule la corriente.</p>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/Led">led</A> en Wikipedia.
+</body></html>
+<!-- item: ec/binary_counter -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Dispositivo que realiza el cómputo ascendente o descendente de los impulsos recibidos por la entrada de reloj.</p>
+<p>Por defecto aparece como un contador de 4 bits, esto es, de módulo 16 (de 0 a 15), pero puede ser variado en el editor de elementos, al igual que el flanco activo de la entrada de reloj.</p>
+<center>
+<p>Su tabla de funcionamiento, para 4 bits y por flanco ascendente, es la siguiente:</p>
+<TABLE BORDER="1">
+<TR><TH>en<TH>^><TH>u/d<TH>r<TH>D C B A
+<TR><TD><center>X</center><TD><center>X</center><TD><center>X</center><TD><center>1</center><TD>0   0   0   0
+<TR><TD><center>0</center><TD><center>X</center><TD><center>X</center><TD><center>0</center><TD>d   c   b   a
+<TR><TD><center>1</center><TD><center>↑</center><TD><center>0</center><TD><center>0</center><TD><i>Count down</i>
+<TR><TD><center>1</center><TD><center>↑</center><TD><center>1</center><TD><center>0</center><TD><i><center>Count up</center></i>
+</TABLE>
+</center>
+<p>
+<p>Notas:
+<ul type="disc">
+<li>dcba: sin cambio</li>
+<li><i>Count down</i>: cuenta descendente</li>
+<li><i>Count up</i>: cuenta ascendente</li>
+<li>↑: flanco ascendente</li>
+<li>X: indiferente (0 ó 1)</li>
+</ul>
+</p>Vea <A HREF="http://es.wikipedia.org/wiki/Contador">contador</A> en Wikipedia.
+</body></html>
+<!-- item: ec/buffer -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Proporciona a su salida el mismo nivel lógico que exista en su entrada. También se le denominapuerta seguidora.</p>
+<p>Este dispositivo evita el <span style="font-style:italic">efecto de carga</span> en un circuito. Un ejemplo de buffer es un seguidor de tensión (un amplificador operacional funcionando como seguidor) que consigue que el voltaje y la corriente no disminuyan en el circuito, ya que toma el voltaje de la fuente de alimentación del operacional y no de la señal que se está introduciendo. Si una señal llega con poca corriente, el buffer compensará esa pérdida.</p>
+<p>Desde el punto de vista lógico no varía el valor de la señal. Si es '1' (ó '0') a la entrada del buffer a la salida sigue siendo '1' (ó '0').</p>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/Puerta_l%C3%B3gica">puerta lógica</A> en Wikipedia.
+</body></html>
+<!-- item: ec/bus -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Una barra o bus une varias conexiones. Se utiliza para simplificar el cableado de los circuitos.</p>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/Bus_(inform%C3%A1tica)">bus</A> en Wikipedia.
+</body></html>
+<!-- item: ec/capacitor -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Elemento que almacena energía en forma de campo eléctrico. Esta propiedad describe la <span style="font-style:italic">capacidad</span> del condensador o <span style="font-style:italic">capacitancia</span>.</p>
+<p>La diferencia de potencial o voltaje entre las armaduras del condensador y la capacitancia están relacionados mediante la fórmula:</p><center><span style="font-style:italic">Carga = Capacitancia * Voltaje</span></center></p>
+<p><span style="font-weight:600">Ejemplos:</span></p>
+<ul type="disc"><li><a href="ktechlab-example:///basic/capacitor.circuit">Circuito de carga y descarga</a></li>
+<li><a href="ktechlab-example:///basic/lrc.circuit">Circuito tanque</a></li></ul>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/Condensador_el%C3%A9ctrico">condensador</A> en Wikipedia.
+</body></html>
+<!-- item: ec/cccs -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Fuente dependiente de corriente controlada por corriente (FCCC). Su valor viene dado por i = g * i<sub>c</sub>, donde g es la ganancia e i<sub>c</sub> la corriente de control que se haga circular por la resistencia.</p>En el siguiente ejemplo por RL circula una corriente de i = 2 * 20 = 40 mA.</p> <center><img SRC="fccc.png" ALIGN="middle"></center></p>
+</body></html>
+<!-- item: ec/ccvs -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Fuente dependiente de voltaje controlada por corriente (FVCC). Su valor viene dado por v = r * i<sub>c</sub>, donde r es la ganancia e i<sub>c</sub> la corriente de control que se haga circular por la resistencia. </p>
+<p>Para su conexión, consulte la ayuda en contexto para la FCCC.</p> 
+</body></html>
+<!-- item: ec/clock_input -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Generador de ondas cuadradas cuya salida varía cíclicamente entre los niveles alto y bajo. La duración de dichos niveles, y por lo tanto la frecuencia de la señal, pueden variarse desde la barra de editor de elementos que aparece al seleccionarlo.</p>
+</body></html>
+<!-- item: ec/current_source -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Fuente de alimentación de corriente continua que proporciona una intensidad de corriente fija. Idealmente esta intensidad es independiente de la carga a la que se conecte.</p>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/Fuente_el%C3%A9ctrica">fuente eléctrica</A> en Wikipedia.
+</body></html>
+<!-- item: ec/currentprobe -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Muestra en el osciloscopio la corriente en el punto indicado por la sonda del medidor.</p>
+</body></html>
+<!-- item: ec/d_flipflop -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>El valor de la salida<span style="font-weight:600"> Q</span> se establece como el mismo que la entrada síncrona<span style="font-weight:600"> D</span> cuando se recibe una señal de reloj. Además posee dos entradas asíncronas: <i>Rst</i>, de puesta a 0, y <i>Set</i>, de puesta a 1.</p>
+<p>Su tabla de funcionamiento es la siguiente:</p>
+<center>
+<TABLE BORDER="1">
+<TR><TH>Set<TH>Rst<TH>><TH>D<TH>Q<sub>n+1</sub><TH>Q'<sub>n+1</sub>
+<TR><TD><center>1</center><TD><center>1</center><TD><center>X</center><TD><center>X</center><TD><center>1</center><TD><center>1</center>
+<TR><TD><center>1</center><TD><center>0</center><TD><center>X</center><TD><center>X</center><TD><center>1</center><TD><center>0</center>
+<TR><TD><center>0</center><TD><center>1</center><TD><center>X</center><TD><center>X</center><TD><center>0</center><TD><center>1</center>
+<TR><TD><center>0</center><TD><center>0</center><TD><center>X</center><TD><center>X</center><TD><center>Q<sub>n</sub></center><TD><center>Q'<sub>n</sub></center>
+<TR><TD><center>0</center><TD><center>0</center><TD><center>↑</center><TD><center>0</center><TD><center>0</center><TD><center>1</center>
+<TR><TD><center>0</center><TD><center>0</center><TD><center>↑</center><TD><center>1</center><TD><center>1</center><TD><center>0</center>
+</TABLE>
+</center>
+<p>Notas:
+<ul type="disc">
+<li>Q<sub>n+1</sub>: estado actual</li>
+<li>Q<sub>n</sub>: estado anterior</li>
+<li>↑: flanco ascendente</li>
+<li>Set=Rst=1: estado no deseado</li>
+<li>X: indiferente (0 ó 1)</li>
+</ul>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/Biestable_JK#Biestable_D">biestable D</A> en Wikipedia.
+</body></html>
+<!-- item: ec/dac -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Convierte una entrada digital en una señal de salida analógica para un rango y número de bits determinado.</p>
+<p>Vea <a href="http://es.wikipedia.org/wiki/Convertidor_digital-anal%C3%B3gico"> conversión D/A en Wikipedia.</a></p>
+</body></html>
+<!-- item: ec/demultiplexer -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Realiza la acción opuesta a un multiplexor. Reparte los datos de la entrada<span style="font-weight:600"> X</span> a la salida<span style="font-weight:600"> Xi</span> seleccionada por las entradas de control <span style="font-weight:600">Ai</span>.</p>
+<p>Su tabla de funcionamiento, para el demultiplexador de cuatro canales, es la siguiente:</p>
+<p align="center"><table border=1 >
+<tr><td>
+<p><span style="font-weight:600">A1</span></p></td><td>
+<p><span style="font-weight:600">A0</span></p></td><td>
+<p><span style="font-weight:600">X3</span></p></td><td>
+<p><span style="font-weight:600">X2</span></p></td><td>
+<p><span style="font-weight:600">X1</span></p></td><td>
+<p><span style="font-weight:600">X0 </span></p></td></tr>
+<tr><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">X</p></td></tr>
+<tr><td>
+<p align="center">0</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">X</p></td><td>
+<p align="center">0</p></td></tr>
+<tr><td>
+<p align="center">1</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">X</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td></tr>
+<tr><td>
+<p align="center">1</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">X</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td></tr>
+</table>
+</p>
+<p></p>
+<p>Vea <a href="http://es.wikipedia.org/wiki/Multiplexor">multiplexor</a> en Wikipedia.</p>
+</body></html>
+<!-- item: ec/diode -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Permite a la corriente fluir con polarización directa, esto es, en la dirección indicada por la flecha, con potencial del ánodo superior al del cátodo, cuando cierta diferencia de voltaje ha sido alcanzada. El valor por defecto del voltaje de ruptura es de 4,7 V, que deberá tenerse en cuenta si se va a polarizar inversamente con tensiones superiores.</p>
+<p><span style="font-weight:600">Ejemplos:</span></p>
+<ul type="disc"><li><a href="ktechlab-example:///diodes/half-wave-rectifier.circuit">Rectificador de media onda</a></li>
+<li><a href="ktechlab-example:///diodes/full-wave-rectifier.circuit">Rectificador de doble onda</a></li></ul>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/Diodo">diodo</A> en Wikipedia.
+</body></html>
+<!-- item: ec/dpdt_toggle -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Conmutador doble, también denominado dos &quot;<span style="font-style:italic">polos</span>&quot; y dos &quot;<span style="font-style:italic">direcciones</span>&quot;<span style="font-weight:600"> DPDD</span>. Se usa con frecuencia la abreviatura inglesa &quot;<span style="font-style:italic">double pole double throw</span>&quot; <span style="font-weight:600">DPDT</span>.</p>
+<p>Cuando se conectan entre si una salida normalmente abierta con otra normalmente cerrada se denomina <span style="font-style:italic">conmutador de cruce</span>.</p>
+<p><span style="font-weight:600">Ejemplos:</span></p>
+<ul type="disc"><li><a href="ktechlab-example:///basic/3-way-switch.circuit">Punto de luz conmutado desde 3 puntos</a></li></ul>
+<p>Vea <a href="http://es.wikipedia.org/wiki/Conmutador_(dispositivo)">conmutador</a> en Wikipedia.</p>
+<p></p>
+</body></html>
+<!-- item: ec/dpst_toggle -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Interruptor doble, también denominado de dos &quot;<span style="font-style:italic">polos</span>&quot; y una &quot;<span style="font-style:italic">dirección</span>&quot;<span style="font-weight:600"> DPUD</span> (en inglés &quot;double<span style="font-style:italic"> pole single throw</span>&quot; <span style="font-weight:600">DPST)</span>. </p>
+<p>Vea <a href="http://es.wikipedia.org/wiki/Interruptor">interruptor</a> en Wikipedia.</p>
+</body></html>
+<!-- item: ec/external_connection -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Punto para conectar el circuito a una entidad externa, como por ejemplo un componente mecánico o a las entradas y salidas de un subcircuito.</p>
+</body></html>
+<!-- item: ec/fixed_voltage -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Proporciona un punto fijo de alimentación de voltaje en continua. Es equivalente al polo de una pila cuando el otro está conectado a masa.</p>
+</p>Vea <A HREF="http://es.wikipedia.org/wiki/Pila_voltaica">pila</A> en Wikipedia.
+</body></html>
+<!-- item: ec/ground -->
+Punto de masa. Es un punto de referencia al que se le asigna por convenio un potencial de 0 V. El potencial de cualquier otro punto se referencia con respecto al de masa.
+<!-- item: ec/inductor -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Una <span style="font-style:italic">bobina</span> o <span style="font-style:italic">inductor</span> es un componente pasivo que por la autoinducción almacena energía en forma de campo magnético.</p>
+<p><span style="font-weight:600">Ejemplos:</span></p>
+<ul type="disc"><li><a href="ktechlab-example:///basic/lrc.circuit">Circuito tanque</a></li></ul>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/Inductor">inductor</A> en Wikipedia.
+</body></html>
+<!-- item: ec/inverter -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Proporciona a su salida el valor lógico inverso, complementado o negado, que exista en su entrada. También se le denomina puerta lógica inversora, puerta <span style="font-weight:600"> NO</span> o, en inglés, <span style="font-weight:600">NOT</span>.</p>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/Puerta_l%C3%B3gica">puerta lógica</A> en Wikipedia.
+</body></html>
+<!-- item: ec/jk_flipflop -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Sus entradas síncronas J y K controlan la salida según la tabla de funcionamiento. Además posee dos entradas asíncronas: <i>Rst</i>, de puesta a 0, y <i>Set</i>, de puesta a 1.</p>
+<p>Su tabla de funcionamiento es la siguiente:</p>
+<center>
+<TABLE BORDER="1">
+<TR><TH>Set<TH>Rst<TH>><TH>J<TH>K<TH>Q<sub>n+1</sub><TH>Q'<sub>n+1</sub>
+<TR><TD><center>1</center><TD><center>1</center><TD><center>X</center><TD><center>X</center><TD><center>X</center><TD><center>1</center><TD><center>1</center>
+<TR><TD><center>0</center><TD><center>1</center><TD><center>X</center><TD><center>X</center><TD><center>X</center><TD><center>0</center><TD><center>1</center>
+<TR><TD><center>1</center><TD><center>0</center><TD><center>X</center><TD><center>X</center><TD><center>X</center><TD><center>1</center><TD><center>0</center>
+<TR><TD><center>0</center><TD><center>0</center><TD><center>X</center><TD><center>X</center><TD><center>X</center><TD><center>Q<sub>n</sub></center><TD><center>Q'<sub>n</sub></center>
+<TR><TD><center>0</center><TD><center>0</center><TD><center>↑</center><TD><center>0</center><TD><center>0</center><TD><center>Q<sub>n</sub></center><TD><center>Q'<sub>n</sub></center>
+<TR><TD><center>0</center><TD><center>0</center><TD><center>↑</center><TD><center>0</center><TD><center>1</center><TD><center>0</center><TD><center>1</center>
+<TR><TD><center>0</center><TD><center>0</center><TD><center>↑</center><TD><center>1</center><TD><center>0</center><TD><center>1</center><TD><center>0</center>
+<TR><TD><center>0</center><TD><center>0</center><TD><center>↑</center><TD><center>1</center><TD><center>1</center><TD><center>Q'<sub>n</sub></center><TD><center>Q<sub>n</sub></center>
+</TABLE>
+</center>
+<p>Notas:
+<ul type="disc">
+<li>Q<sub>n+1</sub>: estado actual</li>
+<li>Q<sub>n</sub>: estado anterior</li>
+<li>↑: flanco ascendente</li>
+<li>Set=Rst=1: estado no deseado</li>
+<li>X: indiferente (0 ó 1)</li>
+</ul>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/Biestable_JK#Biestable_JK">biestable JK</A> en Wikipedia.
+</body></html>
+<!-- item: ec/keypad -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Proporciona una matriz numérica de pulsadores normalmente abiertos, con 4 filas y una cantidad configurable de columnas.</p>
+</body></html>
+<!-- item: ec/led -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Diodo emisor de luz.</p>
+</p>Vea <A HREF="http://es.wikipedia.org/wiki/Led">led</A> en Wikipedia.
+</body></html>
+<!-- item: ec/logic_input -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Proporciona un estado lógico ajustable por el usuario.<br><br>Pulse para obtener un estado lógico alto y vuelva a pulsar para volver a un estado lógico bajo.</p>
+</body></html>
+<!-- item: ec/logic_output -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Muestra el valor lógico del punto al que sea conectado.</p>
+</body></html>
+<!-- item: ec/magnitudecomparator -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Compara dos números binarios, <span style="font-weight:600">A</span> y <span style="font-weight:600">B</span> e indica sin son, iguales o cual de ellos es mayor. Dispone de 3 entradas<span style="font-weight:600"> I</span>  para conexión en cascada.</p>
+<p>Su tabla de funcionamiento, para el el comparador de di-bits, es la siguiente:</p>
+<p align="center"><table border=1 >
+<tr><td>
+<p><span style="font-weight:600">A1,B1</span></p></td><td>
+<p><span style="font-weight:600">A0,B0</span></p></td><td>
+<p><span style="font-weight:600">I:A&gt;B</span></p></td><td>
+<p><span style="font-weight:600">I:A&lt;B</span></p></td><td>
+<p><span style="font-weight:600">I:A=B</span></p></td><td>
+<p><span style="font-weight:600">O:A&gt;B</span></p></td><td>
+<p><span style="font-weight:600">O:A&lt;B</span></p></td><td>
+<p><span style="font-weight:600">O:A=B </span></p></td></tr>
+<tr><td>
+<p align="center">A1&gt;B1</p></td><td>
+<p align="center">X</p></td><td>
+<p align="center">X</p></td><td>
+<p align="center">X</p></td><td>
+<p align="center">X</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td></tr>
+<tr><td>
+<p align="center">A1&lt;B1</p></td><td>
+<p align="center">X</p></td><td>
+<p align="center">X</p></td><td>
+<p align="center">X</p></td><td>
+<p align="center">X</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">0</p></td></tr>
+<tr><td>
+<p align="center">A1=B1</p></td><td>
+<p align="center">A0&gt;B0</p></td><td>
+<p align="center">X</p></td><td>
+<p align="center">X</p></td><td>
+<p align="center">X</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td></tr>
+<tr><td>
+<p align="center">A1=B1</p></td><td>
+<p align="center">A1&lt;B0</p></td><td>
+<p align="center">X</p></td><td>
+<p align="center">X</p></td><td>
+<p align="center">X</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">0</p></td></tr>
+<tr><td>
+<p align="center">A1=B1</p></td><td>
+<p align="center">A0=B0</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">0</p></td></tr>
+<tr><td>
+<p align="center">A1=B1</p></td><td>
+<p align="center">A0=B0</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">1</p></td></tr>
+<tr><td>
+<p align="center">A1=B1</p></td><td>
+<p align="center">A0=B0</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">0</p></td></tr>
+<tr><td>
+<p align="center">A1=B1</p></td><td>
+<p align="center">A0=B0</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">1</p></td></tr>
+<tr><td>
+<p align="center">A1=B1</p></td><td>
+<p align="center">A0=B0</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td></tr>
+<tr><td>
+<p align="center">A1=B1</p></td><td>
+<p align="center">A0=B0</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">1</p></td></tr>
+<tr><td>
+<p align="center">A1=B1</p></td><td>
+<p align="center">A0=B0</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td></tr>
+<tr><td>
+<p align="center">A1=B1</p></td><td>
+<p align="center">A0=B0</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">1</p></td></tr>
+</table>
+</p>
+<p></p>
+<p>Vea <a href="http://es.wikipedia.org/wiki/Circuito_comparador">comparador</a> en Wikipedia.</p>
+</body></html>
+<!-- item: ec/matrix_display -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Matriz de LEDs con número configurable de filas y columnas.</p>
+<p>
+</p>Vea <A HREF="http://es.wikipedia.org/wiki/Display#Visualizador_de_matriz">visualizador matricial</A> en Wikipedia.
+</body></html>
+<!-- item: ec/matrix_display_driver -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Controlador para visualizador matricial de 5x7 leds. Visualiza el valor ASCII presente en sus entradas Di.</p>
+<p>
+</p>Vea <A HREF="http://es.wikipedia.org/wiki/Display#Visualizador_de_matriz">visualizador matricial</A> en Wikipedia.
+</body></html>
+<!-- item: ec/multiplexer -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Conmuta los datos de entrada a una única salida. El canal de entrada <span style="font-weight:600">Xi</span> es seleccionado por las entradas de control<span style="font-weight:600"> Ai</span>. Es un circuito usado para el control de un flujo de información que equivale a un conmutador rotatorio. </p>
+<p>Su tabla de funcionamiento, para el multiplexador de ocho canales, es la siguiente:</p>
+<p align="center"><table border=1 >
+<tr><td>
+<p><span style="font-weight:600">A2</span></p></td><td>
+<p><span style="font-weight:600">A1</span></p></td><td>
+<p><span style="font-weight:600">A0</span></p></td><td>
+<p><span style="font-weight:600">X </span></p></td></tr>
+<tr><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">X0</p></td></tr>
+<tr><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">X1</p></td></tr>
+<tr><td>
+<p align="center">0</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">X2</p></td></tr>
+<tr><td>
+<p align="center">0</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">X3</p></td></tr>
+<tr><td>
+<p align="center">1</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">X4</p></td></tr>
+<tr><td>
+<p align="center">1</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">X5</p></td></tr>
+<tr><td>
+<p align="center">1</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">0</p></td><td>
+<p align="center">X6</p></td></tr>
+<tr><td>
+<p align="center">1</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">1</p></td><td>
+<p align="center">X7</p></td></tr>
+</table>
+</p>
+<p></p>
+<p>Vea <a href="http://es.wikipedia.org/wiki/Multiplexor">multiplexor</a> en Wikipedia.</p>
+</body></html>
+<!-- item: ec/nand -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Proporciona a su salida un 0 lógico, nivel bajo, sólo en el caso de que todas sus entradas estén a 1 lógico, y 1 lógico en caso contrario. Realiza la función inversa de la AND.</p>
+<p>Tabla de verdad:</p>
+<center>
+<TABLE BORDER="1">
+<TR><TH>A<TH>B<TH>F
+<TR><TD><center>0</center><TD><center>0</center><TD><center>1</center>
+<TR><TD><center>0</center><TD><center>1</center><TD><center>1</center>
+<TR><TD><center>1</center><TD><center>0</center><TD><center>1</center>
+<TR><TD><center>1</center><TD><center>1</center><TD><center>0</center>
+</TABLE>
+</center>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/Puerta_l%C3%B3gica">puerta lógica</A> en Wikipedia.
+</body></html>
+<!-- item: ec/nemosfet -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Transistor de metal-oxido-semiconductor de efecto campo de enriquecimiento (o acumulación) de canal n.</p>
+<p><span style="font-weight:600">Ejemplos:</span></p>
+<ul type="disc"><li><a href="ktechlab-example:///mosfets/inverter.circuit">Inversor</a></li>
+<li><a href="ktechlab-example:///mosfets/or.circuit">OR</a></li>
+<li><a href="ktechlab-example:///mosfets/and.circuit">AND</a></li>
+<li><a href="ktechlab-example:///mosfets/nor.circuit">NOR</a></li>
+<li><a href="ktechlab-example:///mosfets/nand.circuit">NAND</a></li></ul>
+</p>Vea <A HREF="http://es.wikipedia.org/wiki/MOSFET">MOSFET</A> en Wikipedia.
+</body></html>
+<!-- item: ec/njfet -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Transistor de unión de efecto campo de canal n.</p>
+<p><span style="font-weight:600">Ejemplos:</span></p>
+<ul type="disc"><li><a href="ktechlab-example:///jfets/inverter.circuit">Inversor</a></li></ul>
+</p>Vea <A HREF="http://es.wikipedia.org/wiki/JFET">JFET</A> en Wikipedia.
+</body></html>
+<!-- item: ec/nor -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Proporciona a su salida un un 1 lógico, nivel alto, sólo en el caso de que todas sus entradas estén a 0 lógico, y 0 lógico en caso contrario. Realiza la función inversa de la OR.</p>
+<p>Tabla de verdad:</p>
+<center>
+<TABLE BORDER="1">
+<TR><TH>A<TH>B<TH>F
+<TR><TD><center>0</center><TD><center>0</center><TD><center>1</center>
+<TR><TD><center>0</center><TD><center>1</center><TD><center>0</center>
+<TR><TD><center>1</center><TD><center>0</center><TD><center>0</center>
+<TR><TD><center>1</center><TD><center>1</center><TD><center>0</center>
+</TABLE>
+</center>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/Puerta_l%C3%B3gica">puerta lógica</A> en Wikipedia.
+</body></html>
+<!-- item: ec/npnbjt -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Transistor de unión bipolar NPN.</p>
+<p><span style="font-weight:600">Ejemplos:</span></p>
+<ul type="disc"><li><a href="ktechlab-example:///transistors/inverter.circuit">Inversor</a></li>
+<li><a href="ktechlab-example:///transistors/nor.circuit">NOR</a></li>
+<li><a href="ktechlab-example:///transistors/nand.circuit">NAND</a></li>
+<li><a href="ktechlab-example:///transistors/astable-multivibrator.circuit">Astable</a></li>
+<li><a href="ktechlab-example:///transistors/scmitt-trigger.circuit">Disparador Scmitt</a></li>
+<li><a href="ktechlab-example:///transistors/switch.circuit">Conmutador</a></ul>
+</p>Vea <A HREF="http://es.wikipedia.org/wiki/Transistor_de_uni%C3%B3n_bipolar">transistor de unión bipolar</A> en Wikipedia.
+</body></html>
+<!-- item: ec/opamp -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p align="justify">Un <span style="font-weight:600">amplificador operacional amplifier</span> (Amp. Op.) es un circuito integrado amplificador universal, cuyo comportamiento puede ser configurado a partir de los componentes externos. Su gran flexibilidad se logra debido a su alta ganancia de bucle abierto <span style="font-style:italic">A</span><span style="vertical-align:sub">0</span> que permite amplificar la diferencia de potencial presente en sus entradas. La <a href="ktechlab-help:///transferfunction">función de transferencia</a> es:</p>
+<p align="center"><img src=opamp.png ></p>
+<p align="center"><img src=tf_op.png ></p>
+<p align="justify">La ganancia en lazo abierto <span style="font-style:italic">A</span><span style="vertical-align:sub">0</span> es el valor de la ganancia <a href="ktechlab-help:///complex">compleja</a> <span style="font-style:italic;text-decoration:underline">A</span> para el caso de f = 0Hz (voltaje de c.c.) cuyo valor ideal es infinito, en la práctica varía dependiendo del dispositivo entre 10<span style="vertical-align:super">5</span> y 10<span style="vertical-align:super">7</span>.</p>
+<p align="justify">Su funcionamiento se consigue mediante <a href="ktechlab-help:///feedback">realimentando</a> l salida con la entrada mediante componentes discretos. De este modo, el <a href="ktechlab-help:///controlloop"> lazo de control</a> es cerrado, lo que debería eliminar la desviación de control, por lo que el voltaje U<span style="vertical-align:sub">E </span>. De esto se deduce que, con muy pocas excepciones, ambas entradas de un circuito Amp. Op. han de tener el mismo <a href="ktechlab-help:///potential">potencial</a>. Este hecho es muy útil para el cálculo y el diagnóstico de errores.</p>
+<p align="justify">En muchos caso el Amp. Op. se puede considerar como ideal y operando en el rango <a href="ktechlab-help:///linear">lineal</a>:</p>
+<ul type="disc"><li><span style="font-style:italic">A = A</span><span style="vertical-align:sub">0</span> = &#8734;</li>
+<li>R<span style="vertical-align:sub">E+ </span>= R<span style="vertical-align:sub">E- </span>= &#8734;&#937;</li>
+<li>R<span style="vertical-align:sub">A</span> = 0&#937;</li></ul>
+<p align="justify">Las características reales de un  Amp. Op. pueden ser consultadas en su <a href="ktechlab-help:///datasheet">hoja de datos</a>.</p>
+<p><span style="font-weight:600">Circuitos de ejemplo:</span></p>
+<ul type="disc"><li><a href="ktechlab-example:///opamps/inverting-amplifier.circuit">Amplificador inversor</a>    </li>
+<li><a href="ktechlab-example:///opamps/noninverting-amplifier.circuit">Amplificador no inversor</a>    </li>
+<li><a href="ktechlab-example:///opamps/decoupler.circuit">Seguidor de tensión</a>    </li>
+<li><a href="ktechlab-example:///opamps/instrumentation-amplifier.circuit">Amplificador de instrumentación</a>    </li>
+<!--
+<li><a href="ktechlab-example:///opamps/pid_controller.circuit">PID controller</a>    </li>
+<li><a href="ktechlab-example:///opamps/analog-computer.circuit">Analog computer</a>    </li>
+<li><a href="ktechlab-example:///opamps/active-filter.circuit">Filtro activo</a>    </li>
+<li><a href="ktechlab-example:///opamps/comperator.circuit">Comparador</a>    </li>
+<li><a href="ktechlab-example:///opamps/schmitt-trigger">Disparador Schmitt</a></li>
+-->
+</ul>
+<p>
+</p>Vea <A HREF="http://es.wikipedia.org/wiki/Amplificador_operacional">amplificador operacional</A> en Wikipedia.
+</body></html>
+<!-- item: ec/or -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Proporciona a su salida un un 0 lógico, nivel bajo, sólo en el caso de que todas sus entradas estén a 0 lógico, y 1 lógico en caso contrario. </p>
+<p>Tabla de verdad:</p>
+<center>
+<TABLE BORDER="1">
+<TR><TH>A<TH>B<TH>F
+<TR><TD><center>0</center><TD><center>0</center><TD><center>0</center>
+<TR><TD><center>0</center><TD><center>1</center><TD><center>1</center>
+<TR><TD><center>1</center><TD><center>0</center><TD><center>1</center>
+<TR><TD><center>1</center><TD><center>1</center><TD><center>1</center>
+</TABLE>
+</center>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/Puerta_l%C3%B3gica">puerta lógica</A> en Wikipedia.
+</body></html>
+<!-- item: ec/parallel_port -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Interfaz de conexión al puerto paralelo estándar de entrada y salida para impresoras de tipo Centronics. El significado de los pines se divide en tres registros.<br /><br /><span style="font-weight:600">Pines de Datos </span><br /><br />Pueden configurarse tanto como entradas como salidas. Se designan por:</p>
+<ul type="disc"><li><span style="font-weight:600">D</span><span style="font-style:italic;font-weight:600">[0..7]</span></li></ul>
+<p><br /><span style="font-weight:600">Pines de Estado</span><br /><br />Son de solo lectura:</p>
+<ul type="disc"><li><span style="font-weight:600">ERR</span> - Error</li>
+<li><span style="font-weight:600">ON</span> - Online, En linea</li>
+<li><span style="font-weight:600">PE</span> - Paper End, Fin de papel</li>
+<li><span style="font-weight:600">ACK</span> - Acknowledge, Reconociendo</li>
+<li><span style="font-weight:600">BUSY</span> - Busy, Ocupado</li></ul>
+<p><br /><span style="font-weight:600">Pines de Control</span></p>
+<ul type="disc"><li><span style="font-weight:600">STR</span> - Strobe</li>
+<li><span style="font-weight:600">AUT</span> - Auto Feed, Alimentación automática</li>
+<li><span style="font-weight:600">INIT</span> - Init, Inicio</li>
+<li><span style="font-weight:600">SEL</span> - Select, Seleccionar</li></ul>
+<p><br />El resto de los pines van a masa.</p>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/Puerto_paralelo">puerto paralelo</A> en Wikipedia.
+</body></html>
+<!-- item: ec/pemosfet -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Transistor de metal-oxido-semiconductor de efecto campo de enriquecimiento (o acumulación) de canal p.</p>
+<p><span style="font-weight:600">Ejemplos:</span></p>
+<ul type="disc"><li><a href="ktechlab-example:///mosfets/inverter.circuit">Inversor</a></li>
+<li><a href="ktechlab-example:///mosfets/or.circuit">OR</a></li>
+<li><a href="ktechlab-example:///mosfets/and.circuit">AND</a></li>
+<li><a href="ktechlab-example:///mosfets/nor.circuit">NOR</a></li>
+<li><a href="ktechlab-example:///mosfets/nand.circuit">NAND</a></li></ul>
+</p>Vea <A HREF="http://es.wikipedia.org/wiki/MOSFET">MOSFET</A> en Wikipedia.
+</body></html>
+<!-- item: ec/pic -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Los microcontroldores PIC permiten la simulación de un programa escrito en uno de los siguientes formatos:<ul><li>Ensamblador (.asm)</li><li>Diagrama de flujo (.flowcode)</li><li>Fichero de símbolos (.cod)</li><li>Microbe (.microbe, .basic)</li><li>Fuente en C (.c)</li></ul>Al situar el componente en un archivo tipo circuito, aparecerá un cuadro con la leyenda "(Programa no cargado)". Introduzca la ruta al programa en el editor de elementos que aparece al seleccionar el PIC. Si abre un circuito con PIC, mediante un doble clic sobre el mismo se abrirá el fichero con el programa fuente sociado. Si dicho programa está en ensamblador, al abrirlo, automáticamente se asocierá a la simulación. El programa podrá ser supervisado utilizando las herremientas de depuración.<br><br><b>Significado de los botones:</b><ul><li><b>Play</b>: ejecuta el programa para PIC  desde su inicio o a partir del punto en el que fue detenido.</li><li><b>Pausa</b>: detiene la simulción en el punto de ejecución actual.</li><li><b>Paro</b>: inicializa la simulación.</li><li><b>Recarga</b>: vuelve a cargar el programa desde el archivo y reinicia gpsim.</li></ul></p>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/Microcontrolador_PIC">microcontrolador PIC</A> en Wikipedia.
+</body></html>
+<!-- item: ec/pjfet -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Transistor de unión de efecto campo de canal p.</p>
+</p>Vea <A HREF="http://es.wikipedia.org/wiki/JFET">JFET</A> en Wikipedia.
+</body></html>
+<!-- item: ec/pnpbjt -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Transistor de unión  bipolar PNP.</p>
+</p>Vea <A HREF="http://es.wikipedia.org/wiki/Transistor_de_uni%C3%B3n_bipolar">transistor de unión bipolar</A> en Wikipedia.
+</body></html>
+<!-- item: ec/potentiometer -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Es un<span style="font-style:italic"> resistor</span> al que se le puede variar su valor resistivo. Consiste en una resistencia conectada a las patillas de los extremos, con una patilla central conectada a un punto ajustable a lo largo de la resistencia, cuya regulación permite cambiar el valor resistivo del potenciómetro.</p> 
+<p>El valor se cambian situando el cursor sobre el elemento gris de la patilla central y moviendo la rueda central del ratón o bien arrastrando sobre dicho elemento.</p>
+</p>Vea <A HREF="http://es.wikipedia.org/wiki/Potenci%C3%B3metro">potenciómetro</A> en Wikipedia.
+</body></html>
+<!-- item: ec/probe -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Aparato para visualizar de forma dinámica los valores lógicos. Conecte este dispositivo al punto del circuito donde se desee medir dichos valores. La salida será mostrada en el osciloscopio.</p>
+</body></html>
+<!-- item: ec/ptb_switch -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Pulsador normalmente cerrado (NC). Deja el circuito cerrado hasta que se pulse sobre él.</p>
+</p>Vea <A HREF="http://es.wikipedia.org/wiki/Pulsador">pulsador</A> en Wikipedia.
+</body></html>
+<!-- item: ec/ptm_switch -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Pulsador normalmente abierto (NA). Deja el circuito abierto hasta que se pulse sobre él.</p>
+</p>Vea <A HREF="http://es.wikipedia.org/wiki/Pulsador">pulsador</A> en Wikipedia.
+</body></html>
+<!-- item: ec/ram -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>La memoria de acceso aleatorio, RAM, almacena los datos como una colección de palabras, cada una de ellas de acuerdo con el tamaño en bits de los datos seleccionado.</p>
+<p>Para leer los datos, establezca el<span style="font-weight:600"> CS</span> (<span style="font-style:italic">Selecionar Chip</span>) y de la <span style="font-weight:600">OE</span> (<span style="font-style:italic">Habilitar salida</span>) de las patillas en alta, y seleccione la palabra con la dirección de pins <span style="font-style:italic">A*</span>. La palabra se emite en las patillas de salida de datos: <span style="font-style:italic">DO*</span>.</p>
+<p>Para escribir los datos, establezca el <span style="font-weight:600">CS</span> (<span style="font-style:italic">Selecionar Chip</span>) y <span style="font-weight:600">WE</span> (<span style="font-style:italic">Habilitar escritura</span>) de las patillas en alta, y seleccione la palabra con la dirección de pins <span style="font-style:italic">A*</span>. La palabra se escribe en las patillas de entrada de datos: <span style="font-style:italic">DI*</span>.</p>
+<p><span style="font-style:italic">El tamaño de la memoria</span> viene determinado por el número N de bits de direccionamiento, por lo que el número total de palabras que pueden almacenarse en la RAM es de 2<sup>N</sup>.</p>
+<p>
+</p>Vea <A HREF="http://es.wikipedia.org/wiki/RAM">RAM</A> en Wikipedia.
+</body></html>
+<!-- item: ec/resistor -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Una resistencia o resistor, limita el flujo de corriente, de acuerdo con la ley de Ohm:
+<p><center><img SRC="ohm.png" ALIGN="middle"></center></p><br>
+<p>
+<p align="center"><img src=ohm_unit.png ></p>
+<p align="justify">Por lo tanto su valor es una medida del mal comportamiento al paso de la corriente. En la práctica, también se necesita otra medida que nos indique un buen comportamiento al paso de la corriente. Con este fin, la inversa de la resistencia nos genera una nueva dimensión, la <span style="font-style:italic">susceptancia</span> :</p>
+<p align="center"><img src=siemens.png ></p>
+<p align="center"><img src=siemens_unit.png ></p>
+<p align="justify">Para una mejor comprensión resulta una buena idea ilustrar el significado práctico de tales fórmulas con palabras del siguiente modo::</p>
+<p align="justify">&quot;A una resistencia de 1 Ohm, a la que se le aplica una diferencia de potencial de 1 Voltio, demanda una intensidad de corriente eléctrica de 1 Amperio.&quot;</p>
+<p><span style="font-weight:600">Ejemplos:</span></p>
+<ul type="disc"><li><a href="ktechlab-example:///basic/resistors-series.circuit">Conexión serie</a></li>
+<li><a href="ktechlab-example:///basic/resistors-parallel.circuit">Conexión paralelo</a></li>
+<li><a href="ktechlab-example:///basic/voltage-divider.circuit">Divisor de tensión</a></li></ul>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/Resistor">resistor</A> y <A HREF="http://es.wikipedia.org/wiki/Resistencia_el%C3%A9ctrica">resistencia eléctrica</A>en Wikipedia.
+</body></html>
+<!-- item: ec/resistordip -->
+Conjunto de resistencias, dos como mínimo, con los mismos valores en un encapsulado rectangular con dos hileras paralelas de pines (DIP).
+<!-- item: ec/roto_switch -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Permite conmutar entre múltiples posiciones.</p>
+</p>Vea <A HREF="http://es.wikipedia.org/wiki/Conmutador_(dispositivo)">conmutador</A> en Wikipedia.
+</body></html>
+<!-- item: ec/serial_port -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Interfaz de conexión al puerto serie RS-232. El significado de los terminales pin es: </p>
+<ul type="disc"><li><span style="font-weight:600">CD</span> - Carrier Detect (control; salida)</li>
+<li><span style="font-weight:600">RD</span> - Received Data (data; salida)</li>
+<li><span style="font-weight:600">TD</span> - Transmitted Data (data; entrada)</li>
+<li><span style="font-weight:600">DTR</span> - Data Terminal Ready (control; entrada)</li>
+<li><span style="font-weight:600">GND</span> - Signal Ground (masa)</li>
+<li><span style="font-weight:600">DSR</span> - Data Set Ready (control; entrada)</li>
+<li><span style="font-weight:600">RTS</span> - Request to Send (control; entrada)</li>
+<li><span style="font-weight:600">CTS</span> - Clear to Send (control; salida)</li>
+<li><span style="font-weight:600">RI</span> - Ring Indicator (control; salida)</li></ul>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/Puerto_serie">puerto serie</A> en Wikipedia.
+</body></html>
+<!-- item: ec/seven_segment -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Consta de ocho LEDs, siete en forma de segmentos y uno redondo para el punto decimal. Puede ser configurado para tener común el cátodo o el ánodo.</p>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/Visualizador_de_siete_segmentos">visualizador de siete segmentos</A> en Wikipedia.
+</body></html>
+<!-- item: ec/signal_lamp -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Lámpara de tipo incandescente con filamento resistivo de 100 ohmios.</p>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/L%C3%A1mpara_incandescente">lámpara</A> en Wikipedia.
+</body></html>
+<!-- item: ec/spdt_toggle -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Conmutador de hotel, también denominado de un &quot;<span style="font-style:italic">polo</span>&quot; y dos &quot;<span style="font-style:italic">direcciones</span>&quot;<span style="font-weight:600"> UPDD</span> (en inglés &quot;<span style="font-style:italic">single pole double throw</span>&quot; <span style="font-weight:600">SPDT)</span>. </p>
+<p><span style="font-weight:600">Ejemplos:</span></p>
+<ul type="disc"><li><a href="ktechlab-example:///basic/2-way-switch.circuit">Punto de luz conmutado desde 2 puntos</a></li>
+<li><a href="ktechlab-example:///basic/3-way-switch.circuit">Punto de luz conmutado desde 3 puntos</a></li></ul>
+<p>Vea <a href="http://es.wikipedia.org/wiki/Conmutador_(dispositivo)">conmutador</a> en Wikipedia.</p>
+</body></html>
+<!-- item: ec/spst_toggle -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Interruptor simple, también denominado de un &quot;<span style="font-style:italic">polo</span>&quot; y una &quot;<span style="font-style:italic">dirección</span>&quot;<span style="font-weight:600"> UPUD</span> (en inglés &quot;<span style="font-style:italic">single pole single track</span>&quot; <span style="font-weight:600">SPST)</span>. </p>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/Interruptor">interruptor</A> en Wikipedia.
+</body></html>
+<!-- item: ec/sr_flipflop -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>El valor de la salida se establece en 1 lógico, nivel alto, al recibir un nivel alto en la entrada <span style="font-weight:600">S</span> (&quot;<span style="font-style:italic">set</span>&quot;) y en 0 lógico, nivel bajo, al recibir un nivel alto en la entrada <span style="font-weight:600">R</span> (&quot;<span style="font-style:italic">reset</span>&quot;).</p>
+<p>Su tabla de funcionamiento es la siguiente:</p>
+<center>
+<TABLE BORDER="1">
+<TR><TH>S<TH>R<TH>Q<sub>n+1</sub><TH>Q'<sub>n+1</sub>
+<TR><TD><center>0</center><TD><center>0</center><TD><center>Q<sub>n</sub></center><TD><center>Q'<sub>n</sub></center>
+<TR><TD><center>0</center><TD><center>1</center><TD><center>0</center><TD><center>1</center>
+<TR><TD><center>1</center><TD><center>0</center><TD><center>1</center><TD><center>0</center>
+<TR><TD><center>1</center><TD><center>1</center><TD><center>?</center><TD><center>?</center>
+</TABLE>
+</center>
+<p>Notas:
+<ul type="disc">
+<li>Q<sub>n+1</sub>: estado actual</li>
+<li>Q<sub>n</sub>: estado anterior</li>
+<li>?: no definido</li>
+<li>S=R=1: estado no deseado</li>
+</ul>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/Biestable_JK#Biestable_RS">biestable RS</A> en Wikipedia.
+</body></html>
+<!-- item: ec/subcircuit -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Subcircuitos diseñados por el usuario.
+</body></html>
+<!-- item: ec/variablecapacitor -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Es un condensador cuya capacidad puede variarse situando el cursor sobre el elemento gris de la patilla central y moviendo la rueda central del ratón, arrastrando sobre dicho elemento o directamente en la barra de editor de elementos que aparece una vez seleccionado el componente.</p>
+</p>Vea <A HREF="http://es.wikipedia.org/wiki/Condensador_variable">condensador variable</A> en Wikipedia.
+</body></html>
+<!-- item: ec/variableresistor -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Es un<span style="font-style:italic"> resistor</span> al que le puede variar manualmente el valor de su resistencia. El valor se cambia situando el cursor sobre el elemento gris de la patilla central y moviendo la rueda central del ratón, arrastrando sobre dicho elemento o directamente en la barra de editor de elementos que aparece una vez seleccionado el componente.<p> En la práctica, puede ser un <span style="font-style:italic">potenciómetro</span>, o un <span style="font-style:italic">trimmer</span> ajustable o un <span style="font-style:italic">reostato</span>, todos de ajuste manual. </p>
+<p>También puede simular el funcionamiento de un transductor resistivo, esto es, cualquier componente cuya resistencia puede variar a partir de una magnitud física. Por ejemplo, la LDR, cuya resistencia varía con la cantidad de luz que recibe, la NTC, cuya resistencia varía con la temperatura, etc.</p>
+</p>Vea <A HREF="http://es.wikipedia.org/wiki/Transductor">transductor</A> en Wikipedia.
+</body></html>
+<!-- item: ec/vccs -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Fuente dependiente de corriente controlada por voltaje (FCCV). Su valor viene dado por i = g * v<sub>c</sub>, donde g es la ganancia y v<sub>c</sub> el voltaje de control que tenga la resistencia.</p> 
+<p>Para su conexión, consulte la ayuda en contexto para la FCCC.</p>
+</body></html>
+<!-- item: ec/vcvs -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Fuente dependiente de voltaje controlada por voltaje (FVCV). Su valor viene dado por v = g * v<sub>c</sub>, donde g es la ganancia y v<sub>c</sub> el voltaje de control que tenga la resistencia.</p>
+<p>Para su conexión, consulte la ayuda en contexto para la FCCC.</p>
+</body></html>
+<!-- item: ec/voltage_signal -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Fuente de voltaje en alterna. Proporciona una tensión senoidal alterna independiente de la carga a la que se conecte. Desde el editor de elementos puede seleccionar su salida al valor de pico (<I>Peak</I>) o al eficaz (<I>RMS</I>).</p>
+</p>Vea <A HREF="http://es.wikipedia.org/wiki/Corriente_alterna">corriente alterna</A> en Wikipedia.
+</body></html>
+<!-- item: ec/voltageprobe -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Muestra en el osciloscopio el voltaje de ese punto respecto a la masa.</p>
+</body></html>
+<!-- item: ec/voltmeter -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Aparato para medir la diferencia de potencial entre dos puntos. Sitúe este componente en paralelo con el elemento o los puntos del circuito cuya diferencia de potencial desea conocer.</p>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/Volt%C3%ADmetro">voltímetro</A> en Wikipedia.
+</body></html>
+<!-- item: ec/xnor -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Proporciona a su salida un 1 lógico, nivel alto, sólo en el caso de que sus dos entradas sean iguales y 0 lógico en caso contrario. Realiza la función inversa de la XOR. La función lógica viene dada por:</p><p> <center>F = AB+ A'B'</center>
+<p>Tabla de verdad:</p>
+<center>
+<TABLE BORDER="1">
+<TR><TH>A<TH>B<TH>F
+<TR><TD><center>0</center><TD><center>0</center><TD><center>1</center>
+<TR><TD><center>0</center><TD><center>1</center><TD><center>0</center>
+<TR><TD><center>1</center><TD><center>0</center><TD><center>0</center>
+<TR><TD><center>1</center><TD><center>1</center><TD><center>1</center>
+</TABLE>
+</center>
+<p>Para realizar esta función con más de dos variables consulte la ayuda en contexto de la XOR.</p>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/Puerta_l%C3%B3gica">puerta lógica</A> en Wikipedia.
+</body></html>
+<!-- item: ec/xor -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Proporciona a su salida un 1 lógico, nivel alto, sólo en el caso de que sus dos entradas sean distintas y 0 lógico en caso contrario. La función lógica viene dada por:</p><p> <center>F = A⊕B = AB'+ A'B</center>
+<p>Tabla de verdad:</p>
+<center>
+<TABLE BORDER="1">
+<TR><TH>A<TH>B<TH>F
+<TR><TD><center>0</center><TD><center>0</center><TD><center>0</center>
+<TR><TD><center>0</center><TD><center>1</center><TD><center>1</center>
+<TR><TD><center>1</center><TD><center>0</center><TD><center>1</center>
+<TR><TD><center>1</center><TD><center>1</center><TD><center>0</center>
+</TABLE>
+</center>
+<p>Para realizar esta función con más de dos variables deberán conectarse en cascada tantas puertas de dos entradas como sea necesario. El aumento del número de entradas sólo proporciona a su salida un 1 lógico en el caso de que esté a 1 una sola entrada. En el siguiente montaje las funciones F1 y F2 son distintas:</p>
+<p><center>F1 = AB'C'+A'BC'+A'B'C</center></p>
+<p><center>F2 = A⊕B⊕C</center></p>
+<center><img SRC="xor3.png" ALIGN="middle"></center></p>
+<p>Vea <A HREF="http://es.wikipedia.org/wiki/Puerta_l%C3%B3gica">puerta lógica</A> en Wikipedia.
+</body></html>
+<!-- item: flow/callsub -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+Salta a la subrutina indicada y al finalizar la misma, el código continuará ejecutándose desde este punto.</p>
+</body></html>
+<!-- item: flow/delay -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Retrasa la ejecución del programa durante un período fijo de tiempo.</p>
+</body></html>
+<!-- item: flow/embed -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Permite modificar el código incrustado haciendo doble click en el elemento seleccionado.	</p>
+</body></html>
+<!-- item: flow/end -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Marca el fin del programa y pone el microcontrolador en estado suspendido.</p> 
+<p>No es necesario incluirlo para la correcta ejecución del programa, pero se aconseja su inclusión en la programación.</p>
+</body></html>
+<!-- item: flow/forloop -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>El código del bucle se repite tantas veces como indique el parámetro que hace de índice. Por defecto, este índice se incrementa en 1 en cada ciclo. Se puede cambiar este incremento para que el salto del parámetro índice sea mayor.</p>
+<p>El ciclo &quot;Desde&quot; termina cuando el índice es igual al valor final. Conviene asegurarse de que ese hecho se va a producir por que si no se crearía un bucle infinito.<br /><br /></p>
+</body></html>
+<!-- item: flow/keypad -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Detecta el caracter de una tecla pulsada en un teclado conectado al PIC.</p>
+</body></html>
+<!-- item: flow/readport -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Asigna el valor de un puerto a una variable.</p>
+</body></html>
+<!-- item: flow/repeat -->
+Ejecuta el código del bucle iterativamente hasta que la condición dada es falsa. La condición se comprueba al final del bucle.<br><br>Esta es la diferencia con respecto a un bucle  "Mientras", en el cual se comprueba la condición antes de que el código del bucle se ejecute.
+<!-- item: flow/setpin -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Establecer el estado de un terminal pin en un puerto a alta o baja. El pin debe ser configurado como salida.</p>
+</body></html>
+<!-- item: flow/sevenseg -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Salida a un visualizador de siete segmentos.</p>
+</body></html>
+<!-- item: flow/start -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Marca el inicio de la secuencia de ejecución del programa.</p>
+</body></html>
+<!-- item: flow/sub -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Marca el inicio de una subrutina. Se llega a este punto mediante una <span style="font-style:italic">llamada a subrutina</span> o &quot;<span style="font-style:italic">call sub</span>&quot;.</p>
+</body></html>
+<!-- item: flow/testpin -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Rama condicional dependiendo del estado en alta / baja de un pin.</p>
+</body></html>
+<!-- item: flow/unary -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Operación lógica sobre una única variable. Pueden ser:</p>
+<ul type="disc"><li><span style="font-weight:600">Girar a la izquierda</span>: desplaza los bits de la variable hacia  izquierda (desechando los bits de final).</li>
+<li><span style="font-weight:600">Girar a la derecha</span>: desplaza los bits de la variable hacia  ila derecha (desechando los bits iniciales).</li>
+<li><span style="font-weight:600">Incrementar </span>:aumenta el valor de la variable en 1. Si la variabel tiene un valor de 255 devuelve 0.</li>
+<li><span style="font-weight:600">Disminuir</span>: disminuye el valor de una variable en 1. Un valor de 0 devuelve 255.</li></ul>
+</body></html>
+<!-- item: flow/varassignment -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Asigna el valor de una expresión a una variable. La expresión puede tomar muchas formas. Por ejemplo:</p>
+<ul type="disc"><li><span style="font-weight:600">x = 2</span></li>
+<li><span style="font-weight:600">x = y + 3</span></li>
+<li><span style="font-weight:600">x = y + z</span></li>
+<li><span style="font-weight:600">x = 2 * y</span></li></ul>
+<p></p>
+</body></html>
+<!-- item: flow/varcomparison -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Mediante la comparación de dos valores se produce un salto condicional. Las comparaciones son:</p>
+<ul type="disc"><li><span style="font-weight:600">x == y</span> - Igual a: verdadero si x tiene el mismo valor que y.</li>
+<li><span style="font-weight:600">x &lt; y </span>- Menor que: verdadero si x es menor que y.</li>
+<li><span style="font-weight:600">x &gt; y</span> - Mayor que: verdadero si x es mayor que y.</li>
+<li><span style="font-weight:600">x &lt;= y</span> - Menor o igual que: verdadero si x es menor o igual a y.</li>
+<li><span style="font-weight:600">x &gt;= y</span> - Mayor o igual que: verdadero si x es mayor o igual a y.</li>
+<li><span style="font-weight:600">x != y</span> - distinto de: verdadero si x no tiene el mismo valor que y.</li></ul>
+</body></html>
+<!-- item: flow/while -->
+Ejecuta el código del bucle iterativamente hasta que la condición dada es falsa. La condición se comprueba antes de iniciar el bucle.<br><br>Esta es la diferencia con respecto a un bucle  "Repite", en el cual se comprueba la condición al final del bucle.
+<!-- item: flow/writeport -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>Establece el estado de los pines del puerto en alta / baja según un valor dado. </p>
+</body></html>

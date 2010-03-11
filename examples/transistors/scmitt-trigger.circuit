@@ -1,0 +1,85 @@
+<!DOCTYPE KTechlab>
+<document type="circuit" >
+ <item x="92" y="28" z="0" type="ec/fixed_voltage" id="fixed_voltage" flip="0" angle="0" >
+  <data value="5" type="number" id="voltage" />
+ </item>
+ <item x="228" y="292" z="1" type="ec/ground" id="ground" flip="0" angle="270" />
+ <item x="148" y="148" z="2" type="ec/npnbjt" id="npnbjt" flip="0" angle="0" >
+  <data value="100" type="number" id="B_F" />
+  <data value="1" type="number" id="B_R" />
+  <data value="1e-16" type="number" id="I_S" />
+  <data value="1" type="number" id="N_F" />
+  <data value="1" type="number" id="N_R" />
+ </item>
+ <item x="348" y="116" z="3" type="ec/npnbjt" id="npnbjt__61" flip="0" angle="0" >
+  <data value="100" type="number" id="B_F" />
+  <data value="1" type="number" id="B_R" />
+  <data value="1e-16" type="number" id="I_S" />
+  <data value="1" type="number" id="N_F" />
+  <data value="1" type="number" id="N_R" />
+ </item>
+ <item x="156" y="84" z="4" type="ec/resistor" id="resistor" flip="0" angle="90" >
+  <data value="500" type="number" id="resistance" />
+ </item>
+ <item x="252" y="116" z="5" type="ec/resistor" id="resistor__62" flip="0" angle="0" >
+  <data value="100" type="number" id="resistance" />
+ </item>
+ <item x="356" y="60" z="6" type="ec/resistor" id="resistor__63" flip="0" angle="90" >
+  <data value="500" type="number" id="resistance" />
+ </item>
+ <item x="156" y="220" z="7" type="ec/resistor" id="resistor__64" flip="0" angle="90" >
+  <data value="50" type="number" id="resistance" />
+ </item>
+ <item x="308" y="220" z="8" type="ec/resistor" id="resistor__65" flip="0" angle="90" >
+  <data value="500" type="number" id="resistance" />
+ </item>
+ <item x="44" y="148" z="9" type="ec/voltage_signal" id="voltage_signal" flip="0" angle="0" >
+  <data value="1" type="number" id="frequency" />
+  <data value="5" type="number" id="voltage" />
+ </item>
+ <item x="428" y="92" z="10" type="ec/voltmeter" id="voltmeter" flip="0" angle="0" >
+  <data value="1" type="number" id="0-minValue" />
+  <data value="5" type="number" id="1-maxValue" />
+ </item>
+ <item x="100" y="188" z="12" type="ec/voltmeter" id="voltmeter__116" flip="0" angle="0" >
+  <data value="1" type="number" id="0-minValue" />
+  <data value="5" type="number" id="1-maxValue" />
+ </item>
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__70" route="38,24,38,23,38,22,38,21,38,20,38,19,38,18,38,17,38,16,38,15,38,14," start-node-parent="resistor__65" start-node-cid="n1" id="connector" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__144" route="9,23,8,23,8,22,8,21,8,20,8,19,8,18," start-node-parent="voltmeter__116" start-node-cid="n1" id="connector__145" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__144" route="7,18,8,18," start-node-parent="voltage_signal" start-node-cid="p1" id="connector__146" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="0" start-node-id="node1__144" end-node-parent="npnbjt" route="8,18,9,18,10,18,11,18,12,18,13,18,14,18,15,18,16,18," end-node-cid="b" id="connector__147" end-node-is-child="1" />
+ <connector start-node-is-child="0" manual-route="0" start-node-id="node1__149" end-node-parent="resistor__64" route="19,31,19,30," end-node-cid="p1" id="connector__152" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__153" route="3,18,2,18,2,19,2,20,2,21,2,22,2,23,2,24,2,25,2,26,2,27,2,28,2,29,2,30,2,31,3,31,4,31,5,31,6,31,7,31,8,31,9,31,10,31,11,31,12,31,13,31,14,31,15,31,16,31," start-node-parent="voltage_signal" start-node-cid="n1" id="connector__154" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__153" route="15,23,16,23,16,24,16,25,16,26,16,27,16,28,16,29,16,30,16,31," start-node-parent="voltmeter__116" start-node-cid="p1" id="connector__155" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="0" end-node-id="node1__149" start-node-id="node1__153" route="16,31,17,31,18,31,19,31," id="connector__156" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__157" route="56,11,57,11,57,12,57,13,57,14,57,15,57,16,57,17,57,18,57,19,57,20,57,21,57,22,57,23,57,24,57,25,57,26,57,27,57,28,57,29,57,30,57,31,56,31,55,31,54,31,53,31,52,31,51,31,50,31,49,31,48,31,47,31,46,31,45,31,44,31,43,31,42,31,41,31,40,31,39,31,38,31," start-node-parent="voltmeter" start-node-cid="p1" id="connector__158" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__157" route="38,30,38,31," start-node-parent="resistor__65" start-node-cid="p1" id="connector__159" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__162" route="28,34,28,33,28,32,28,31," start-node-parent="ground" start-node-cid="p1" id="connector__163" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="0" end-node-id="node1__162" start-node-id="node1__157" route="38,31,37,31,36,31,35,31,34,31,33,31,32,31,31,31,30,31,29,31,28,31," id="connector__164" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="0" end-node-id="node1__149" start-node-id="node1__162" route="28,31,27,31,26,31,25,31,24,31,23,31,22,31,21,31,20,31,19,31," id="connector__165" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1" route="28,14,27,14,26,14,25,14,24,14,23,14,22,14,21,14,20,14,19,14," start-node-parent="resistor__62" start-node-cid="n1" id="connector__73" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1" route="19,16,19,15,19,14," start-node-parent="npnbjt" start-node-cid="c" id="connector__74" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node1" end-node-parent="resistor" route="19,14,19,13," end-node-cid="p1" id="connector__75" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__67" route="44,4,44,3,43,3,42,3,41,3,40,3,39,3,38,3,37,3,36,3,35,3,34,3,33,3,32,3,31,3,30,3,29,3,28,3,27,3,26,3,25,3,24,3,23,3,22,3,21,3,20,3,19,3,18,3," start-node-parent="resistor__63" start-node-cid="n1" id="connector__76" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__67" route="19,7,19,6,19,5,19,4,19,3,18,3," start-node-parent="resistor" start-node-cid="n1" id="connector__77" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node1__67" end-node-parent="fixed_voltage" route="18,3,17,3,16,3,15,3,14,3,13,3," end-node-cid="p1" id="connector__78" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__68" route="50,11,49,11,48,11,47,11,46,11,45,11,44,11," start-node-parent="voltmeter" start-node-cid="n1" id="connector__79" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__68" route="44,10,44,11," start-node-parent="resistor__63" start-node-cid="p1" id="connector__80" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node1__68" end-node-parent="npnbjt__61" route="44,11,44,12," end-node-cid="c" id="connector__81" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__69" route="19,24,19,23,19,22," start-node-parent="resistor__64" start-node-cid="n1" id="connector__82" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__69" route="44,16,44,17,44,18,44,19,44,20,44,21,44,22,43,22,42,22,41,22,40,22,39,22,38,22,37,22,36,22,35,22,34,22,33,22,32,22,31,22,30,22,29,22,28,22,27,22,26,22,25,22,24,22,23,22,22,22,21,22,20,22,19,22," start-node-parent="npnbjt__61" start-node-cid="e" id="connector__83" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node1__69" end-node-parent="npnbjt" route="19,22,19,21,19,20," end-node-cid="e" id="connector__84" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__70" route="34,14,35,14,36,14,37,14,38,14," start-node-parent="resistor__62" start-node-cid="p1" id="connector__85" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node1__70" end-node-parent="npnbjt__61" route="38,14,39,14,40,14,41,14," end-node-cid="b" id="connector__86" end-node-is-child="1" />
+ <node x="156" y="116" id="node1" />
+ <node x="68" y="148" id="node1__144" />
+ <node x="156" y="252" id="node1__149" />
+ <node x="132" y="252" id="node1__153" />
+ <node x="308" y="252" id="node1__157" />
+ <node x="228" y="252" id="node1__162" />
+ <node x="148" y="28" id="node1__67" />
+ <node x="356" y="92" id="node1__68" />
+ <node x="156" y="180" id="node1__69" />
+ <node x="308" y="116" id="node1__70" />
+</document>

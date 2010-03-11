@@ -1,0 +1,24 @@
+<!DOCTYPE KTechlab>
+<document type="circuit" >
+ <item x="44" y="76" z="0" type="ec/battery" id="cell" flip="0" angle="270" >
+  <data value="9" type="number" id="voltage" />
+ </item>
+ <item x="420" y="84" z="3" type="ec/signal_lamp" id="signal_lamp" flip="0" angle="90" />
+ <item x="164" y="44" z="1" type="ec/spdt_toggle" id="spdt_toggle" flip="0" angle="0" >
+  <data value="" type="string" id="button_text" />
+  <data value="0.005" type="number" id="bounce_period" />
+  <data value="0" type="bool" id="bounce" />
+  <button id="button" state="0" />
+ </item>
+ <item x="308" y="44" z="2" type="ec/spdt_toggle" id="spdt_toggle__5" flip="1" angle="0" >
+  <data value="" type="string" id="button_text" />
+  <data value="0.005" type="number" id="bounce_period" />
+  <data value="0" type="bool" id="bounce" />
+  <button id="button" state="0" />
+ </item>
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="spdt_toggle" route="35,4,34,4,33,4,32,4,31,4,30,4,29,4,28,4,27,4,26,4,25,4,24,4,23,4," end-node-cid="p1" start-node-parent="spdt_toggle__5" start-node-cid="p1" id="connector" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="cell" route="17,5,16,5,15,5,14,5,13,5,12,5,11,5,10,5,9,5,8,5,7,5,6,5,5,5,5,6,5,7," end-node-cid="p1" start-node-parent="spdt_toggle" start-node-cid="n1" id="connector__10" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="spdt_toggle__5" route="52,8,52,7,52,6,52,5,51,5,50,5,49,5,48,5,47,5,46,5,45,5,44,5,43,5,42,5,41,5," end-node-cid="n1" start-node-parent="signal_lamp" start-node-cid="n1" id="connector__13" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="cell" route="52,12,52,13,51,13,50,13,49,13,48,13,47,13,46,13,45,13,44,13,43,13,42,13,41,13,40,13,39,13,38,13,37,13,36,13,35,13,34,13,33,13,32,13,31,13,30,13,29,13,28,13,27,13,26,13,25,13,24,13,23,13,22,13,21,13,20,13,19,13,18,13,17,13,16,13,15,13,14,13,13,13,12,13,11,13,10,13,9,13,8,13,7,13,6,13,5,13,5,12,5,11," end-node-cid="n1" start-node-parent="signal_lamp" start-node-cid="p1" id="connector__14" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="spdt_toggle__5" route="23,6,24,6,25,6,26,6,27,6,28,6,29,6,30,6,31,6,32,6,33,6,34,6,35,6," end-node-cid="p2" start-node-parent="spdt_toggle" start-node-cid="p2" id="connector__9" end-node-is-child="1" />
+</document>

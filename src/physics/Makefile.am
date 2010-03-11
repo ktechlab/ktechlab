@@ -1,0 +1,2 @@
+INCLUDES = $(all_includes) -I$(top_srcdir)/doc -I$(top_srcdir)/microbe -I$(top_srcdir)/src -I$(top_srcdir)/src/core -I$(top_srcdir)/src/drawparts -I$(top_srcdir)/src/electronics -I$(top_srcdir)/src/electronics/components -I$(top_srcdir)/src/electronics/models -I$(top_srcdir)/src/electronics/simulation -I$(top_srcdir)/src/flowparts -I$(top_srcdir)/src/gui -I$(top_srcdir)/src/gui/itemeditor -I$(top_srcdir)/src/languages -I$(top_srcdir)/src/math -I$(top_srcdir)/src/mechanics -I$(top_srcdir)/src/micro
+METASOURCES = AUTO

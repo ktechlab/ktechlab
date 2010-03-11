@@ -1,0 +1,121 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="KTechlabText" version="10">
+	<MenuBar>
+		<Menu name="file">
+			<text>&amp;File</text>
+			<!-- Why do we have both actions defined? Because Kate changed the name
+				 for KDE 3.5. Only one of them will show up in the user interface,
+				 depending on the version of KDE that the user has installed. -->
+			<Action name="file_export" group="save_merge"/>
+			<Action name="file_export_html" group="save_merge"/>
+		</Menu>
+		
+		<Menu name="edit">
+			<text>&amp;Edit</text>
+  			<Action name="edit_select_all" group="edit_select_merge" />
+			<Action name="edit_deselect" group="edit_select_merge" />
+			<Action name="set_verticalSelect" group="edit_select_merge" />
+			<Separator group="edit_select_merge" />
+			<Action name="set_insert" group="edit_select_merge" />
+			<Separator group="edit_select_merge" />
+			<Action name="edit_find" group="edit_find_merge" />
+			<Action name="edit_find_next" group="edit_find_merge" />
+			<Action name="edit_find_prev" group="edit_find_merge" />
+			<Action name="edit_replace" group="edit_find_merge" />
+			<Separator group="edit_find_merge" />
+			<Action name="go_goto_line" group="edit_find_merge"/>
+		</Menu>
+		
+		<Menu name="view">
+			<text>&amp;View</text>
+			<Action name="switch_to_cmd_line" group="view_operations" />
+			<Separator group="view_operations" />
+			<Action name="view_schemas" group="view_operations" />
+			<Separator group="view_operations" />
+			<Action name="view_dynamic_word_wrap" group="view_operations" />
+			<Action name="dynamic_word_wrap_indicators" group="view_operations" />
+			<Action name="view_word_wrap_marker" group="view_operations" />
+			<Separator group="view_operations" />
+			<Action name="view_border" group="view_operations" />
+			<Action name="view_line_numbers" group="view_operations" />
+			<Action name="view_scrollbar_marks" group="view_operations" />
+			<Separator group="view_operations" />
+			<Action name="view_folding_markers" group="view_operations" />
+			<Menu name="codefolding" group="view_operations"><text>&amp;Code Folding</text>
+				<Action name="folding_toplevel" group="view_operations" />
+				<Action name="folding_expandtoplevel" group="view_operations" />
+				<Action name="folding_collapselocal" group="view_operations" />
+				<Action name="folding_expandlocal" group="view_operations" />
+			</Menu>
+<!-- 			<Separator group="view_operations" /> -->
+		</Menu>
+		
+		<Menu name="tools">
+			<text>&amp;Tools</text>
+			<Separator/>
+			<Action name="tools_toggle_write_lock" group="tools_operations" />
+			<Separator group="tools_operations" />
+			<Action name="set_filetype" group="tools_operations" />
+			<Action name="set_highlight" group="tools_operations" />
+			<Action name="tools_indentation" group="tools_operations" />
+			<Action name="set_encoding" group="tools_operations" />
+			<Action name="set_eol" group="tools_operations" />
+<!-- 			<Separator group="tools_operations" /> -->
+<!-- 			<Action name="tools_spelling" group="tools_operations" /> -->
+<!-- 			<Action name="tools_spelling_from_cursor" group="tools_operations" /> -->
+<!-- 			<Action name="tools_spelling_selection" group="tools_operations" /> -->
+			<Separator group="tools_operations" />
+			<Action name="tools_indent" group="tools_operations" />
+			<Action name="tools_unindent" group="tools_operations" />
+			<Action name="tools_cleanIndent" group="tools_operations" />
+			<Action name="tools_align" group="tools_operations" />
+			<Separator group="tools_operations" />
+			<Action name="tools_comment" group="tools_operations" />
+			<Action name="tools_uncomment" group="tools_operations" />
+<!-- 			<Separator group="tools_operations" /> -->
+<!-- 			<Action name="tools_uppercase" group="tools_operations" /> -->
+<!-- 			<Action name="tools_lowercase" group="tools_operations" /> -->
+<!-- 			<Action name="tools_capitalize" group="tools_operations" /> -->
+			<Separator group="tools_operations" />
+			<Action name="tools_join_lines" group="tools_operations" />
+			<Action name="tools_apply_wordwrap" group="tools_operations" />
+			<Separator/>
+			<Action name="tools_to_microbe"/>
+			<Action name="tools_to_assembly"/>
+			<Action name="tools_to_hex"/>
+			<Action name="tools_to_pic"/>
+			<Separator/>
+			<Action name="format_asm"/>
+		</Menu>
+		
+		<Menu name="settings">
+			<text>&amp;Settings</text>
+			<Action name="set_confdlg" group="configure_merge" />
+		</Menu>
+		
+		<Action name="bookmarks" group="bookmarks_merge"/>
+	</MenuBar>
+	
+	<!--<Menu name="ktexteditor_popup">
+		<Action name="edit_undo" group="popup_operations" />
+		<Action name="edit_redo" group="popup_operations" />
+		<Separator group="popup_operations" />
+		<Action name="edit_cut" group="popup_operations" />
+		<Action name="edit_copy" group="popup_operations" />
+		<Action name="edit_paste" group="popup_operations" />
+		<Separator group="popup_operations" />
+		<Action name="edit_select_all" group="popup_operations" />
+		<Action name="edit_deselect" group="popup_operations" />
+		<Separator group="popup_operations" />
+		<Action name="bookmarks" group="popup_operations" />
+		<Separator group="popup_operations" />
+	</Menu>-->
+	
+	<ToolBar name="toolsToolBar">
+		<text>Main Toolbar</text>
+		<Action name="incFontSizes" />
+		<Action name="decFontSizes" />
+		<Action name="program_convert"/>
+	</ToolBar>
+</kpartgui>
+
