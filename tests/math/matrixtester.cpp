@@ -197,9 +197,111 @@ private slots:
        }
    }
  
-   void cleanupTestCase(){ 
+   void test1x1_0(){
+        // to make this test verbose
+        // #define TEST1X1_VERBOSE
+
+        Matrix m(1);
+        m.g(0,0) = 1;
+
+        QuickVector v(1);
+        v.atPut(0, 1);
+
+        #ifdef TEST1X1_VERBOSE
+        std::cout <<"v = \n";
+        v.dumpToAux();
+        std::cout << "\n";
+        #endif
+
+        // FIXME the matrix solver doesn't complain if the LU has not been performed since last change
+        m.performLU();
+
+        m.fbSub(&v);
+
+        #ifdef TEST1X1_VERBOSE
+        std::cout << "matirx LU:\n";
+        m.displayLU(std::cout);
+        std::cout << "\nmatrix = \n";
+        m.displayMatrix(std::cout);
+        std::cout << "\nresult = \n";
+        v.dumpToAux();
+        std::cout << "\n";
+        #endif
+
+        QVERIFY( v.at(0) == 1 );
+    }
+
+    void test1x1_1(){
+        Eigen::MatrixXd m(1,1);
+        m << 1 ;
+        Eigen::VectorXd v(1);
+        v << 1;
+        solveTest(m,v);
+    }
+
+    void test2x2_1(){
+        Eigen::MatrixXd t(2,2);
+        t(0,0) = 1;
+        t(0,1) = 0;
+        t(1,0) = 0;
+        t(1,1) = 1;
+
+        Eigen::VectorXd v(2);
+        v(0) = 0;
+        v(1) = 0;
+        solveTest(t, v);
+
+        v(0) = 1;
+        v(1) = 1;
+        solveTest(t, v);
+
+        v(0) = 0;
+        v(1) = 1;
+        solveTest(t, v);
+
+        v(0) = 1;
+        v(1) = 0;
+        solveTest(t, v);
+
+        t(1,0) = 1;
+        solveTest(t, v);
+
+        t(0,0) = 0;
+        t(0,1) = 1;
+        t(1,0) = 1;
+        t(1,1) = 0;
+        solveTest(t, v);
+
+    }
+
+    void testFuzzySparse(){
+        const int maxcol = 7;
+        const int maxrow = 7;
+        Eigen::MatrixXd m(maxrow,maxcol);
+        Eigen::VectorXd v(maxrow);
+        v.setRandom();
+
+        int row, col;
+        srand( time(NULL) );
+        // nonz = number of nonzero elements
+        for(int nonz=1;nonz<10; nonz++){
+            // fill m with nonz nonzero elements
+        m.setZero(maxrow,maxcol);
+        for(int i=0; i<nonz; i++){
+            do {
+            row = (int) (5.0*rand()/RAND_MAX);
+            col = (int) (5.0*rand()/RAND_MAX);
+            } while( m(row, col) != 0 );
+            m( row, col) = 1;
+        }
+            // got m, now test
+        solveTest(m, v);
+        }
+    }
+
+    void cleanupTestCase(){ 
         qDebug("called after myFirstTest and mySecondTest"); 
-     }
+    }
 };
  
 QTEST_MAIN(MatrixTester)
