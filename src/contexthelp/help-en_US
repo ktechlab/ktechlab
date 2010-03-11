@@ -1,0 +1,263 @@
+<!-- item: PIC_IC -->
+
+<!-- item: complex -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>This help item does not yet exist for the Amerikanisches Englisch language. Help out with KTechlab by creating one via the &quot;Edit&quot; button!</p>
+</body></html>
+<!-- item: datasheet -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p align="justify">Technical specifications of electric components are listed in so called <span style="font-weight:600">datasheets</span>. These are provided by the manufacturers and can normally be obtained from their homepages. A good search engine for common datasheets is:</p>
+<p align="justify"><a href="http://www.datasheetarchive.com">www.datasheetarchive.com</a></p>
+</body></html>
+<!-- item: dp/arrow -->
+Select the line to position the end points
+<!-- item: dp/ellipse -->
+
+<!-- item: dp/line -->
+Select the line to position the end points
+<!-- item: dp/rectangle -->
+
+<!-- item: dp/text -->
+Doubleclick the Text Item to set the text
+<!-- item: ec/555 -->
+Common timer IC
+<!-- item: ec/ac_current -->
+Provides a variety of current signals
+<!-- item: ec/adc -->
+Converts an analog signal into a digital output.
+<!-- item: ec/adder -->
+
+<!-- item: ec/ammeter -->
+Place this in series in the circuit to measure the current flowing.
+<!-- item: ec/and -->
+The output is high if and only if all of the inputs are high.
+<!-- item: ec/battery -->
+Provides a potential-difference.
+<!-- item: ec/bcd_to_seven_segment -->
+Converts a binary-coded-input to a form displayable by a seven segment display.<br><br>Normal operation: <i>lt</i> (Lamp Test) and the <i>rb</i> (Ripple Blanking) are held high, <i>en</i> (Enable) is held low.
+<!-- item: ec/bidir_led -->
+Bidrectional Light Emitting Diode
+<!-- item: ec/binary_counter -->
+Holds an internal count, which changes when the clock input <i>&gt;</i> pin is pulsed.<br><br>Normal operation: <i>en</i> (Enable) and <i>u/d</i> (Up/Down) are held high, <i>r</i> (Reset) is low.
+<!-- item: ec/buffer -->
+Cleans the logic input, with the output high or low depending on input trigger levels.
+<!-- item: ec/bus -->
+Merges several connections into one.
+<!-- item: ec/capacitor -->
+Stores electrical charge.<br><br>The voltage across the capacitor and capacitance are related by <i>Charge = Capacitance x Voltage</i>.
+<!-- item: ec/cccs -->
+
+<!-- item: ec/ccvs -->
+
+<!-- item: ec/clock_input -->
+A square-wave generator, outputing logical high/low at repeating time intervals.
+<!-- item: ec/current_source -->
+Provides a fixed current source.
+<!-- item: ec/currentprobe -->
+Displays the current at the probe point on the oscilloscope.
+<!-- item: ec/d_flipflop -->
+The output state is set from the input state when the clock is pulsed.
+<!-- item: ec/dac -->
+Converts a digital input to an analog output signal.
+<!-- item: ec/demultiplexer -->
+Seperates the input data stream into components. The value of the input is passed to the "X" output selected by the binary number given by the "A" inputs.
+<!-- item: ec/diode -->
+Allows current to flow in the direction indicated by the arrow when a certain voltage difference has been reached.
+<!-- item: ec/dpdt_toggle -->
+Double-Pole Double-Throw switch.
+<!-- item: ec/dpst_toggle -->
+Double-Pole Single-Throw switch.
+<!-- item: ec/external_connection -->
+Point to connect the circuit to an external entity - e.g. a mechanical component or as part of a subcircuit.
+<!-- item: ec/fixed_voltage -->
+Provides a fixed voltage point to connect components to.
+<!-- item: ec/ground -->
+Ground (0V) point
+<!-- item: ec/inductor -->
+
+<!-- item: ec/inverter -->
+The output is the logical inverse of the logic-input state.
+<!-- item: ec/jk_flipflop -->
+The output state is set according to J and K when the clock is pulsed.
+<!-- item: ec/keypad -->
+Provides a numeric array of Push-to-Make switches, with 4 rows and a configurable number of columns.
+<!-- item: ec/led -->
+Light Emitting Diode
+<!-- item: ec/logic_input -->
+Provides a user-adjustable logic state.<br><br>Click to pulse high, or drag the mouse off to keep the output high.
+<!-- item: ec/logic_output -->
+Shows the logic-state of the input.
+<!-- item: ec/magnitudecomparator -->
+Compares two binary numbers and generates output to indicate which binary number has the greater magnitude. It has 3 cascading inputs:<ul><li>I: A &gt; B</li><li>I: A &lt; B</li><li>I: A = B</li></ul>and 3 outputs:<ul><li>O: A &gt; B</li><li>O: A &lt; B</li><li>O: A = B</li></ul>
+<!-- item: ec/matrix_display -->
+A matrix display of LEDs with a configurable number of columns and rows.
+<!-- item: ec/matrix_display_driver -->
+
+<!-- item: ec/multiplexer -->
+Combines the input data stream into one single stream. The value of the input selected by the "A" inputs is passed to the output.
+<!-- item: ec/nand -->
+The output is low only when all of the inputs are high.
+<!-- item: ec/nemosfet -->
+
+<!-- item: ec/njfet -->
+
+<!-- item: ec/nor -->
+The output is high when all inputs are low.
+<!-- item: ec/npnbjt -->
+
+<!-- item: ec/opamp -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p align="justify">An <span style="font-weight:600">operational amplifier</span> (opamp) is an integrated universal amplifier which's behaviour can simply be configured by external components. Those high flexibility is achieved due to it's high open loop gain <span style="font-style:italic">A</span><span style="vertical-align:sub">0</span> which amplifies the difference of the input potentials. The <a href="ktechlab-help:///transferfunction">transfer function</a> is:</p>
+<p align="center"><img src=opamp.png ></p>
+<p align="center"><img src=tf_op.png ></p>
+<p align="justify">The open loop gain <span style="font-style:italic">A</span><span style="vertical-align:sub">0</span> is the value of the <a href="ktechlab-help:///complex">complex</a> gain <span style="font-style:italic;text-decoration:underline">A</span> in case of f = 0Hz (d.c. voltage) and is ideally infinite, in praxis depending on type 10<span style="vertical-align:super">5</span> to 10<span style="vertical-align:super">7</span>.</p>
+<p align="justify">The whiched behaviour is achived by <a href="ktechlab-help:///feedback">feedback</a> of output to the input using discrete components. This way a <a href="ktechlab-help:///controlloop">control loop</a> is closed, which should eliminate control deviation, thus the input voltage U<span style="vertical-align:sub">E </span> here. From this it follows that, except for few exceptions, both inputs of a working opamp circuit must have equal <a href="ktechlab-help:///potential">potential</a>. This realisation is very useful for calculation and error diagnostics!</p>
+<p align="justify">In most cases opamps can assumed to be ideal and <a href="ktechlab-help:///linear">linear</a> in operating range:</p>
+<ul type="disc"><li><span style="font-style:italic">A = A</span><span style="vertical-align:sub">0</span> = &#8734;</li>
+<li>R<span style="vertical-align:sub">E+ </span>= R<span style="vertical-align:sub">E- </span>= &#8734;&#937;</li>
+<li>R<span style="vertical-align:sub">A</span> = 0&#937;</li></ul>
+<p align="justify">Characteristics of real opamps are listened in it's <a href="ktechlab-help:///datasheet">datasheet</a>.</p>
+<p><span style="font-weight:600">Applications:</span></p>
+<ul type="disc"><li><a href="ktechlab-example:///opamps/inverting-amplifier.circuit">Inverting amplifier</a>    </li>
+<li><a href="ktechlab-example:///opamps/noninverting-amplifier.circuit">Noninverting amplifier</a>    </li>
+<li><a href="ktechlab-example:///opamps/decoupler.circuit">Decoupler</a>    </li>
+<li><a href="ktechlab-example:///opamps/instrumentation-amplifier.circuit">Instrumentation amplifier</a>    </li>
+<li><a href="ktechlab-example:///opamps/pid_controller.circuit">PID controller</a>    </li>
+<li><a href="ktechlab-example:///opamps/analog-computer.circuit">Analog computer</a>    </li>
+<li><a href="ktechlab-example:///opamps/active-filter.circuit">Active filter</a>    </li>
+<li><a href="ktechlab-example:///opamps/comperator.circuit">Comperator</a>    </li>
+<li><a href="ktechlab-example:///opamps/schmitt-trigger">Schmitt-Trigger</a></li></ul>
+</body></html>
+<!-- item: ec/or -->
+The output is high when at least one of the inputs is high; or low when all of the inputs are off
+<!-- item: ec/parallel_port -->
+The pins are divided into 3 registers.<br><br><b>Data Pins</b><br><br>The data pins can be configured as either all input or all output. They are:<ul><li><b>D<i>[0..7]</i></b></li></ul><br><b>Status Pins</b><br><br>The status pins are read-only. They area:<ul><li><b>ERR</b> - Error</li><li><b>ON</b> - Online</li><li><b>PE</b> - Paper End</li><li><b>ACK</b> - Acknowledge</li><li><b>BUSY</b> - Busy</li></ul><br><b>Control Pins</b><ul><li><b>STR</b> - Strobe</li><li><b>AUT</b> - Auto Feed</li><li><b>INIT</b> - Init</li><li><b>SEL</b> - Select</li></ul><br>The remaining pins are all ground.
+<!-- item: ec/pemosfet -->
+
+<!-- item: ec/pic -->
+The PIC component allows the simulation of a PIC program.<br><br>The loadable PIC program must be one of the following formats:<ul><li>Assembly (.asm)</li><li>FlowCode (.flowcode)</li><li>Symbol file (.cod)</li><li>Microbe (.microbe, .basic)</li><li>C source (.c)</li></ul>Doubleclick on the PIC component to open up the program source file.<br><br>If the program source file is of type assembly, then the the opened text file will automatically be linked to the simulation. You can control the program from the text document using the debug controls.<br><br>Explanation of buttons:<ul><li>Play - Run the PIC program from the point at which it was paused, or from the start otherwise.</li><li>Pause - Pause the simulation at the current execution point.</li><li>Stop - Reset all parts of the simulation.</li><li>Reload - Reread the PIC program from disk and restart gpsim.</li></ul>
+<!-- item: ec/pjfet -->
+
+<!-- item: ec/pnpbjt -->
+
+<!-- item: ec/potentiometer -->
+Consists of a resistor connected to the end pins, with a central pin connected at an adjustable point along the resistor
+<!-- item: ec/probe -->
+Connect this probe the the point in the circuit to measure the logic value. The output will be displayed in the Oscilloscope view.
+<!-- item: ec/ptb_switch -->
+
+<!-- item: ec/ptm_switch -->
+
+<!-- item: ec/ram -->
+This RAM stores data as a collection of words; each of which contains <i>word size</i> bits of data.<br><br>To read data, set the CS (<i>chip select</i>) and the OE (<i>output enable</i>) pins high, and select the word using the address pins <i>A*</i>. The word is outputted on the data-out pins: <i>DO*</i>.<br><br>To write data, set the CS (<i>chip select</i>) and the WE (<i>write enable</i>) pins high, and select the address to write to with the <i>A*</i> pins. Write to the selected word using the data-in pins: <i>DI*</i>.<br><br>The <i>Address Size</i> is the number of bits that determine an address; so the total number of words stored will be 2^<sup><i>Address Size</i></sup>.
+<!-- item: ec/resistor -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p align="justify">A <span style="font-weight:600">resistor</span> limits flow of current, obeying Ohms Law which says, that current and voltage are proportional each other. By define proportional coefficient to 1 we get the unit:</p>
+<p align="center"><img src=ohm.png ></p>
+<p align="center"><img src=ohm_unit.png ></p>
+<p align="justify">Thus these value is a measure how worse a resistor conduct the current. In practice an other measure has established how good current is conducted. For this purpose the reciprocal is generated an a new dimension, the <span style="font-style:italic">susceptance</span> is introduced:</p>
+<p align="center"><img src=siemens.png ></p>
+<p align="center"><img src=siemens_unit.png ></p>
+<p align="justify">For better understanding it is allways a good idea to illustrate the practical meaning of such formulas by explaining them in words. That is very easy here:</p>
+<p align="justify">&quot;A resistor then has a value of 1 Ohm, if an applied voltage of 1 Volt causes a current of 1 Ampere.&quot;</p>
+<p><span style="font-weight:600">Examples:</span></p>
+<ul type="disc"><li><a href="ktechlab-example:///basic/resistors-series.circuit">Series connection</a></li>
+<li><a href="ktechlab-example:///basic/resistors-parallel.circuit">Parallel connection</a></li></ul>
+</body></html>
+<!-- item: ec/resistordip -->
+Set of resistors with identical values in a Dual Inline Package.
+<!-- item: ec/roto_switch -->
+Rotary Switch
+<!-- item: ec/serial_port -->
+Interface to a serial port. The pins are:<br><ul><li><b>CD</b> - Carrier Detect (control; output)</li><li><b>RD</b> - Received Data (data; output)</li><li><b>TD</b> - Transmitted Data (data; input)</li><li><b>DTR</b> - Data Terminal Ready (control; input)</li><li><b>GND</b> - Signal Ground (ground)</li><li><b>DSR</b> - Data Set Ready (control; input)</li><li><b>RTS</b> - Request to Send (control; input)</li><li><b>CTS</b> - Clear to Send (control; output)</li><li><b>RI</b> - Ring Indicator (control; output)</li></ul>
+<!-- item: ec/seven_segment -->
+A seven segment display with a decimal point. This can be configured to either have a common cathode or a common anode.
+<!-- item: ec/signal_lamp -->
+A simple filament signal lamp, with a 100 ohms series resistance.
+<!-- item: ec/spdt_toggle -->
+Single-Pole Double-Throw switch.
+<!-- item: ec/spst_toggle -->
+Single-Pole Single-Throw switch.
+<!-- item: ec/sr_flipflop -->
+The output is made high by holding <i>set</i> high, and low by holding <i>reset</i> high.
+<!-- item: ec/subcircuit -->
+
+<!-- item: ec/variablecapacitor -->
+Stores electrical charge.<br><br>The voltage across the capacitor and capacitance are related by <i>Charge = Capacitance x Voltage</i>.
+<!-- item: ec/variableresistor -->
+Limits the flow of current, obeying Ohms Law
+<!-- item: ec/vccs -->
+
+<!-- item: ec/vcvs -->
+
+<!-- item: ec/voltage_signal -->
+Provides a variety of voltage signals.
+<!-- item: ec/voltageprobe -->
+Displays the voltage at the probe point on the oscilloscope.
+<!-- item: ec/voltmeter -->
+Place this in parallel in the circuit to meaure the voltage between two points.
+<!-- item: ec/xnor -->
+Exclusive NOR gate. Output is low when exactly one input is high.
+<!-- item: ec/xor -->
+Exclusive OR gate. Output is high when exactly one input is high.
+<!-- item: feedback -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>This help item does not yet exist for the Amerikanisches Englisch language. Help out with KTechlab by creating one via the &quot;Edit&quot; button!</p>
+</body></html>
+<!-- item: flow/callsub -->
+Call a subroutine. When the subroutine returns, the code will continue execution from this point.
+<!-- item: flow/delay -->
+Delay the program execution for a fixed period of time.
+<!-- item: flow/embed -->
+Doubleclick on the item to edit the embedded code.
+<!-- item: flow/end -->
+End the program execution, putting the IC into sleep. Unlike Start, however, this FlowPart is not necessary for proper program execution
+<!-- item: flow/forloop -->
+The code contained in the foor loop is repeatedly executed. By default, the variable used will be incremented every time. This can be changed by entering a value other than 1 into Step.<br><br>The for loop will exit when the value contained in the variable is equal to the end value.
+<!-- item: flow/keypad -->
+Gets a key from a keypad connected to the PIC.
+<!-- item: flow/readport -->
+Assign the value of a port to a variable.
+<!-- item: flow/repeat -->
+Repeatedly execute code, until the given condition is false. The condition is checked after the code has been executed.<br><br>This is different from "While", which checks for the condition to be true before the code is executed.
+<!-- item: flow/setpin -->
+Set a pin on a port high or low. The pin needs to be set as an output pin.
+<!-- item: flow/sevenseg -->
+Output to a Seven Segment display.
+<!-- item: flow/start -->
+Determines the initial program execution point.
+<!-- item: flow/sub -->
+Defines the starting point of a subroutine. Call this subroutine using "Call Sub"
+<!-- item: flow/testpin -->
+Conditional branch point, depending on the high/low state of a pin.
+<!-- item: flow/unary -->
+A unary operation involves only one variable. Suppo operations are:<br><ul><li><b>Rotate Left</b> rotates the binary bits of the variable left (discarding the end bits).</li><li><b>Rotate Right</b> rotates the binary bits right (discarding the start bits).</li><li><b>Increment</b> increases the value of the variable by 1. A value of 255 wraps around to 0.</li><li><b>Decrement</b> decreases the value of a variable by 1. A value of 0 wraps around to 255.</li></ul>
+<!-- item: flow/varassignment -->
+Assigns the evaluation of an expression to a variable. The expression can take many forms. For example:<ul><li><b>x = 2</b></li><li><b>x = y + 3</b></li><li><b>x = y + z</b></li><li><b>x = 2 * y</b></ul>
+<!-- item: flow/varcomparison -->
+Conditional branch point, depending on the comparison of two values. The supported comparisons are:<ul><li><b>x == y</b> - Equality: true if x has the same value as y.</li><li><b>x &lt; y</b> - Less than: true if x is smaller than y.</li><li><b>x &gt; y</b> - Greater than: true if x is bigger than y.</li><li><b>x &lt;= y</b> - Less than or equal: true if x is less than or equal to y.</li><li><b>x &gt;= y</b> - Greater than or equal: true if x is greater than or equal to y.</li><li><b>x != y</b> - Does not equal: true if x does not have the same value as y.</li></ul>
+<!-- item: flow/while -->
+Repeatedly execute code, until the given condition is false. The condition is checked before the code has been executed.<br><br>This is different from "Repeat", which checks for the condition to be true after the code is executed.
+<!-- item: flow/writeport -->
+Sets the port's pins state to high/low from the given value. Only pins that have been configured as output pins will take on the value assigned to them.
+<!-- item: linear -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p>This help item does not yet exist for the Amerikanisches Englisch language. Help out with KTechlab by creating one via the &quot;Edit&quot; button!</p>
+</body></html>
+<!-- item: storage -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p><span style="font-weight:600">Storage elements</span> here are elements with the possibility to store electric or mechanic energy and to give it back later.</p>
+<p>In electrotechnology this are:</p>
+<ul type="disc"><li>Capacitor</li>
+<li>Inductor</li></ul>
+<p>And in the mechanics:</p>
+<ul type="disc"><li>Mass</li>
+<li>Spring</li></ul>
+</body></html>
+<!-- item: transferfunction -->
+<html><head><meta name="qrichtext" content="1" /></head><body>
+<p align="justify">A <span style="font-weight:600">transfer-function</span> is a mathematical model of a system. Generally it is given by the division of the resulting output signal to an adequate input signal. By multiplicating this transfer function with any input signal, the input information disappears and we get the output signal.</p>
+<p align="justify">In the simplest case of a <a href="ktechlab-help:///linear">linear</a> <a href="ktechlab-help:///system">SISO system</a> without <a href="ktechlab-help:///storage">storage elements</a> the transfer function reduces to a scalar gain. Here any input signal is practical because system behaviour is independent from it.</p>
+<p align="justify">By adding storage elements the scalar gain becomes a <a href="ktechlab-help:///complex">complex</a> gain in frequency domain. This includes information about frequency dependent gain and phase shift in static (i.e. steady state) case. In order to describe dynamic (i.e. transient) behaviour as well we use the transfer function in complex variable domain which also contains information about damping procedure. The adequate input signal here is a dirac impulse which consist of superposition of <span style="font-style:italic">all</span> frequencies in equal amplitude and thus can worm all needed information out of the system.</p>
+<p align="justify">This realisation also has very practical meaning, by the way. Given that in practice a shot looks like a dirac impulse in spectrum we can fire a gun in a cathedral for example and record the echo. Now we have the transfer function of the cathedral. When <a href="ktechlab-help:///convolution">convolve</a> this with any audio recording it will sound like played in the cathedral.</p>
+</body></html>

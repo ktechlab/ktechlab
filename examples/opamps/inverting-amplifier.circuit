@@ -1,0 +1,95 @@
+<!DOCTYPE KTechlab>
+<document type="circuit" >
+ <item width="0" x="80" y="155" z="10" offset-x="0" offset-y="0" height="48" type="dp/arrow" id="arrow" flip="0" angle="0" >
+  <data value="FlatCap" type="string" id="cap-style" />
+  <data value="SolidLine" type="string" id="line-style" />
+  <data value="20" type="number" id="HeadAngle" />
+  <data value="1" type="number" id="line-width" />
+  <data value="#000080" type="color" id="line-color" />
+ </item>
+ <item width="0" x="423" y="155" z="11" offset-x="0" offset-y="0" height="48" type="dp/arrow" id="arrow__77" flip="0" angle="0" >
+  <data value="FlatCap" type="string" id="cap-style" />
+  <data value="SolidLine" type="string" id="line-style" />
+  <data value="20" type="number" id="HeadAngle" />
+  <data value="1" type="number" id="line-width" />
+  <data value="#000080" type="color" id="line-color" />
+ </item>
+ <item width="48" x="168" y="92" z="6" offset-x="0" offset-y="0" height="24" type="dp/text" id="canvas_text" flip="0" angle="0" >
+  <data value="R1" type="string" id="text" />
+  <data value="#ffffff" type="color" id="background-color" />
+  <data value="#000000" type="color" id="frame-color" />
+  <data value="#000000" type="color" id="text-color" />
+  <data value="0" type="bool" id="background" />
+ </item>
+ <item width="215" x="490" y="69" z="14" offset-x="0" offset-y="0" height="159" type="dp/text" id="canvas_text__14" flip="0" angle="0" >
+  <data value="Advantages:
+------------------
++ Gain &lt; 1 possible
+
+
+Disadvantages:
+-----------------------
+- Need for negative supply
+- Low input impedance (equals R1)" type="string" id="text" />
+  <data value="#ffffff" type="color" id="background-color" />
+  <data value="#000000" type="color" id="frame-color" />
+  <data value="#000000" type="color" id="text-color" />
+  <data value="1" type="bool" id="background" />
+ </item>
+ <item width="56" x="261" y="36" z="7" offset-x="0" offset-y="0" height="24" type="dp/text" id="canvas_text__57" flip="0" angle="0" >
+  <data value="R2" type="string" id="text" />
+  <data value="#ffffff" type="color" id="background-color" />
+  <data value="#000000" type="color" id="frame-color" />
+  <data value="#000000" type="color" id="text-color" />
+  <data value="0" type="bool" id="background" />
+ </item>
+ <item width="56" x="40" y="164" z="12" offset-x="0" offset-y="0" height="24" type="dp/text" id="canvas_text__78" flip="0" angle="0" >
+  <data value="U1" type="string" id="text" />
+  <data value="#ffffff" type="color" id="background-color" />
+  <data value="#000000" type="color" id="frame-color" />
+  <data value="#000000" type="color" id="text-color" />
+  <data value="0" type="bool" id="background" />
+ </item>
+ <item width="56" x="411" y="164" z="13" offset-x="0" offset-y="0" height="24" type="dp/text" id="canvas_text__79" flip="0" angle="0" >
+  <data value="U2" type="string" id="text" />
+  <data value="#ffffff" type="color" id="background-color" />
+  <data value="#000000" type="color" id="frame-color" />
+  <data value="#000000" type="color" id="text-color" />
+  <data value="0" type="bool" id="background" />
+ </item>
+ <item x="116" y="180" z="8" type="ec/battery" id="cell" flip="0" angle="270" >
+  <data value="5" type="number" id="voltage" />
+ </item>
+ <item x="252" y="188" z="3" type="ec/ground" id="ground" flip="0" angle="270" />
+ <item x="396" y="228" z="5" type="ec/ground" id="ground__54" flip="0" angle="270" />
+ <item x="116" y="228" z="9" type="ec/ground" id="ground__68" flip="0" angle="270" />
+ <item x="292" y="148" z="2" type="ec/opamp" id="opamp" flip="1" angle="180" />
+ <item x="196" y="140" z="0" type="ec/variableresistor" id="variable resistor" flip="0" angle="0" >
+  <data value="100000" type="number" id="maximum resistance" />
+  <data value="10000" type="number" id="minimum resistance" />
+  <data value="53200" type="number" id="resistance" />
+  <slider value="48" id="slider" />
+ </item>
+ <item x="292" y="84" z="1" type="ec/variableresistor" id="variable resistor__17" flip="0" angle="0" >
+  <data value="100000" type="number" id="maximum resistance" />
+  <data value="10000" type="number" id="minimum resistance" />
+  <data value="53200" type="number" id="resistance" />
+  <slider value="48" id="slider" />
+ </item>
+ <item x="396" y="180" z="4" type="ec/voltmeter" id="voltmeter" flip="0" angle="90" >
+  <data value="0.001" type="number" id="0-minValue" />
+  <data value="1000" type="number" id="1-maxValue" />
+ </item>
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="cell" route="21,17,20,17,19,17,18,17,17,17,16,17,15,17,14,17,14,18,14,19,14,20," end-node-cid="p1" start-node-parent="variable resistor" start-node-cid="n1" id="connector" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="ground" route="33,19,32,19,31,19,31,20,31,21," end-node-cid="p1" start-node-parent="opamp" start-node-cid="n1" id="connector__31" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1" route="33,10,32,10,31,10,31,11,31,12,31,13,31,14,31,15,31,16,31,17," start-node-parent="variable resistor__17" start-node-cid="n1" id="connector__41" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1" route="27,17,28,17,29,17,30,17,31,17," start-node-parent="variable resistor" start-node-cid="p1" id="connector__42" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node1" end-node-parent="opamp" route="31,17,32,17,33,17," end-node-cid="n2" id="connector__43" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="cell" route="14,26,14,25,14,24," end-node-cid="n1" start-node-parent="ground__68" start-node-cid="p1" id="connector__70" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="ground__54" route="49,25,49,26," end-node-cid="p1" start-node-parent="voltmeter" start-node-cid="p1" id="connector__72" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__73" route="49,19,49,18,48,18,47,18,46,18,45,18,44,18,43,18,42,18,41,18," start-node-parent="voltmeter" start-node-cid="n1" id="connector__74" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__73" route="39,18,40,18,41,18," start-node-parent="opamp" start-node-cid="p1" id="connector__75" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node1__73" end-node-parent="variable resistor__17" route="41,18,41,17,41,16,41,15,41,14,41,13,41,12,41,11,41,10,40,10,39,10," end-node-cid="p1" id="connector__76" end-node-is-child="1" />
+ <node x="252" y="140" id="node1" />
+ <node x="332" y="148" id="node1__73" />
+</document>
