@@ -73,7 +73,87 @@ class MatrixTester : public QObject
         return ret;
     }
  
- 
+    // create matrix and vector from eigen expression, then perform solving
+    // and check the results
+    void solveTest(Eigen::MatrixXd &em, Eigen::VectorXd &ev){
+        Matrix *pm = matrixFromEigen(em);
+        QVERIFY( pm != 0 );
+        // FIXME can't get the size of our matrix
+        // QVERIFY( pm ?? , em->size() );
+
+        // for debugging this method/function
+        // #define DEBUG_SOLVETEST
+
+        #ifdef DEBUG_SOLVETEST
+        std::cout << "pm = ";
+        pm->displayMatrix(std::cout);
+        std::cout << "\n";
+        #endif
+
+        QuickVector *pv = vectorFromEigen(ev);
+        QVERIFY( pv != 0 );
+        QVERIFY( pv->size() == (unsigned int)ev.size() );
+
+        #ifdef DEBUG_SOLVETEST
+        std::cout << "pv = ";
+        pv->dumpToAux();
+        std::cout << "\n";
+        #endif
+
+        Eigen::LU<Eigen::MatrixXd> eLU(em);
+        pm->performLU();
+
+        // solve
+        Eigen::VectorXd esol( em.cols() );
+        eLU.solve(ev, &esol);
+
+        pm->fbSub(pv);
+
+        #ifdef DEBUG_SOLVETEST
+        std::cout << "pv(solved) = ";
+        pv->dumpToAux();
+        std::cout << "\n";
+        #endif
+
+        double diff = differenceOfVectors(esol, pv);
+        if( diff > SOLVE_ERROR) {
+            qDebug("solving test failed. dumping matrixes:\n");
+            std::cout << "Eigen stuff: \nem, matrix =\n" << em
+                << "\nev other side vector = \n" << ev
+                << "\nesol unknown vector = \n" << esol
+                << "\nCurrent matrixes:\npm matrix = \n";
+            pm->displayMatrix(std::cout);
+            std::cout << "\npv(sol) solution of equation = \n";
+            pv->dumpToAux();
+            //           std::cout << "\ndiff = " << diff << "\n";
+        }
+        QVERIFY(diff < SOLVE_ERROR);
+
+        // multiply back, just for fun
+        QuickVector res( em.rows() );
+        pm->multiply(pv, &res);
+
+        Eigen::VectorXd eres = em * esol;
+        diff = differenceOfVectors(eres, res);
+        if( diff > MULTIPLY_ERROR ) {
+            qDebug("solving test, multiplying the result back failed. \
+                Dumping matrixes");
+            std::cout << "Eigen stuff: \nem, matrix =\n" << em
+                << "\nev other side vector = \n" << ev
+                << "\nesol unknown vector = \n" << esol
+                << "\nCurrent matrixes:\npm matrix = \n";
+            pm->displayMatrix(std::cout);
+            std::cout << "\npv(sol) solution of equation = \n";
+            pv->dumpToAux();
+            //            std::cout << "\ndiff = " << diff << "\n";
+
+        }
+        QVERIFY(diff < MULTIPLY_ERROR);
+
+        delete pm;
+        delete pv;
+    }
+
 private slots:
  
     void initTestCase() { 
