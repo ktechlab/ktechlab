@@ -1,0 +1,11 @@
+#!/bin/bash
+for i in $(ls *.svg)
+do
+  file=$(echo "../"$(echo $i | awk -F . '{print $1}' )".png")
+  echo "Exporting "$i" to "$file
+  rm -f $file
+  inkscape -w 16 -h 16 -e $file $i > /dev/null
+done;
+
+#rm ../gpasm-22.png
+#inkscape -w 22 -h 22 -e ../gpasm-22.png gpasm.svg

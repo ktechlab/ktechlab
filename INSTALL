@@ -1,0 +1,58 @@
+Basic Installation
+==================
+
+   These are generic installation instructions.
+
+cmake doesn't produce any output into the source directory, by default. 
+Instead it uses extra build directories for that. (This makes the 
+make clean procedure obsolete, because you only have to remove the build dir)
+
+To compile this project, simply create a build dir:
+
+mkdir build
+
+#cd into the build dir
+cd build
+
+#run cmake to do the "configure magic" 
+#(yes, the two dots point to the source dir)
+cmake ..
+
+#make
+make
+
+#and make install
+make install
+
+
+Compilers and Options
+=====================
+
+Compiler options can be set via ccmake or directly as a command-line option
+for cmake. The most easy way would be to use ccmake.
+
+To compile in debug symbols use:
+
+cmake -DCMAKE_BUILD_TYPE=debug ..
+
+Installation Names
+==================
+
+   By default, `make install' will install the package's files in
+`/usr/local/bin', `/usr/local/man', etc.  You can specify an
+installation prefix other than `/usr/local' by giving `cmake' the
+option `-DCMAKE_INSTALL_PREFIX=PATH'.
+
+Optional Features
+=================
+
+{TODO}
+
+Operation Controls
+==================
+
+Some interesting cmake variables include:
+
+	-DCMAKE_VERBOSE_MAKEFILE=ON
+		This makes cmake to create verbose Makefiles to see options given
+		to gcc and friends

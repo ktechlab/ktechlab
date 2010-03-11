@@ -1,0 +1,51 @@
+<!DOCTYPE KTechlab>
+<document type="circuit" >
+ <item x="108" y="132" z="3" type="ec/ammeter" id="ammeter" flip="0" angle="0" >
+  <data value="0.001" type="number" id="0-minValue" />
+  <data value="0.1" type="number" id="1-maxValue" />
+ </item>
+ <item x="156" y="44" z="2" type="ec/diode" id="diode" flip="0" angle="0" >
+  <data value="1e-15" type="number" id="I_S" />
+  <data value="1" type="number" id="N" />
+  <data value="4.7" type="number" id="V_B" />
+ </item>
+ <item x="108" y="44" z="4" type="ec/diode" id="diode__11" flip="0" angle="0" >
+  <data value="1e-15" type="number" id="I_S" />
+  <data value="1" type="number" id="N" />
+  <data value="4.7" type="number" id="V_B" />
+ </item>
+ <item x="108" y="76" z="5" type="ec/diode" id="diode__14" flip="0" angle="0" >
+  <data value="1e-15" type="number" id="I_S" />
+  <data value="1" type="number" id="N" />
+  <data value="4.7" type="number" id="V_B" />
+ </item>
+ <item x="156" y="76" z="6" type="ec/diode" id="diode__17" flip="0" angle="0" >
+  <data value="1e-15" type="number" id="I_S" />
+  <data value="1" type="number" id="N" />
+  <data value="4.7" type="number" id="V_B" />
+ </item>
+ <item x="212" y="92" z="1" type="ec/resistor" id="resistor" flip="0" angle="90" >
+  <data value="1000" type="number" id="resistance" />
+ </item>
+ <item x="36" y="68" z="0" type="ec/voltage_signal" id="voltage_signal" flip="0" angle="270" >
+  <data value="1" type="number" id="frequency" />
+  <data value="5" type="number" id="voltage" />
+ </item>
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__46" route="4,10,4,11,4,12,5,12,6,12,7,12,8,12,9,12,10,12,11,12,12,12,13,12,14,12,15,12,16,12,16,11,16,10,16,9," start-node-parent="voltage_signal" start-node-cid="n1" id="connector" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="resistor" route="16,16,17,16,18,16,19,16,20,16,21,16,22,16,23,16,24,16,25,16,26,16,26,15,26,14," end-node-cid="p1" start-node-parent="ammeter" start-node-cid="p1" id="connector__10" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1" route="4,6,4,5,4,4,4,3,4,2,5,2,6,2,7,2,8,2,9,2,10,2,11,2,12,2,13,2,14,2,15,2,16,2,16,3,16,4,16,5," start-node-parent="voltage_signal" start-node-cid="p1" id="connector__21" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1" route="15,5,16,5," start-node-parent="diode__11" start-node-cid="p1" id="connector__22" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="0" start-node-id="node1" end-node-parent="diode" route="16,5,17,5," end-node-cid="n1" id="connector__23" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__34" route="26,8,26,7,25,7,24,7,23,7,22,7," start-node-parent="resistor" start-node-cid="n1" id="connector__35" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__34" route="21,5,22,5,22,6,22,7," start-node-parent="diode" start-node-cid="p1" id="connector__36" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="0" start-node-id="node1__34" end-node-parent="diode__17" route="22,7,22,8,22,9,21,9," end-node-cid="p1" id="connector__37" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__42" route="10,16,9,16,9,15,9,14,9,13,9,12,9,11,9,10,9,9,9,8,9,7,10,7," start-node-parent="ammeter" start-node-cid="n1" id="connector__43" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="0" end-node-id="node1__42" route="11,9,10,9,10,8,10,7," start-node-parent="diode__14" start-node-cid="n1" id="connector__44" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="0" start-node-id="node1__42" end-node-parent="diode__11" route="10,7,10,6,10,5,11,5," end-node-cid="n1" id="connector__45" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__46" route="17,9,16,9," start-node-parent="diode__17" start-node-cid="n1" id="connector__47" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node1__46" end-node-parent="diode__14" route="16,9,15,9," end-node-cid="p1" id="connector__48" end-node-is-child="1" />
+ <node x="132" y="44" id="node1" />
+ <node x="180" y="60" id="node1__34" />
+ <node x="84" y="60" id="node1__42" />
+ <node x="132" y="76" id="node1__46" />
+</document>

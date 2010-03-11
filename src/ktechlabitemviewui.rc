@@ -1,0 +1,38 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="KTechlabItemView" version="9">
+	<MenuBar>
+		<Menu name="file">
+			<text>&amp;File</text>
+			<Action name="file_export_image" group="save_merge"/>
+		</Menu>
+		
+		<Menu name="edit">
+			<text>&amp;Edit</text>
+			<Action name="edit_select_all"/>
+			<Separator/>
+			<Action name="edit_delete"/>
+		</Menu>
+		
+		<Menu name="view">
+			<text>&amp;View</text>
+			<Action name="view_zoom_in"/>
+			<Action name="view_zoom_out"/>
+			<Action name="view_actual_size"/>
+		</Menu>
+		
+		<Menu name="tools">
+			<text>&amp;Tools</text>
+			<Separator/>
+			<Action name="edit_raise"/>
+			<Action name="edit_lower"/>
+		</Menu>
+	</MenuBar>
+	
+<!-- 	<ToolBar name="mainToolBar"> -->
+ 	<ToolBar name="toolsToolBar">
+		<text>Tools</text>
+		<Action name="view_zoom_in" />
+		<Action name="view_zoom_out" />
+	</ToolBar>
+</kpartgui>
+
