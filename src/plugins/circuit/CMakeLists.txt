@@ -13,7 +13,6 @@ set( ktlcircuit_PART_SRCS
    ktlcircuitplugin.cpp
    circuitdocument.cpp
    circuitview.cpp
-   circuitcontainer.cpp
    componentitem.cpp
 )
 
