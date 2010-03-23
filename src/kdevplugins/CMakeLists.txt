@@ -1,3 +1,1 @@
-add_subdirectory(plugincontroller)
-
 add_subdirectory(ktlproject)
