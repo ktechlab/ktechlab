@@ -9,7 +9,6 @@
 
 #include "ktlcircuitplugin.h"
 
-#include "circuitcontainer.h"
 #include "circuitdocument.h"
 #include "interfaces/component/componentmodel.h"
 #include "interfaces/component/icomponentplugin.h"
@@ -103,13 +102,6 @@ KTLCircuitPlugin::~KTLCircuitPlugin()
     //delete m_componentViewFactory;
     delete m_documentFactory;
     delete m_componentModel;
-}
-
-DataContainer * KTLCircuitPlugin::createDataContainer( KDevelop::IDocument *document, const QString &component )
-{
-    CircuitContainer *container = new CircuitContainer( document );
-    container->setComponent( component );
-    return container;
 }
 
 ComponentModel * KTLCircuitPlugin::componentModel()
