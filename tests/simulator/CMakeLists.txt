@@ -12,7 +12,8 @@ kde4_add_unit_test(
 
 target_link_libraries( 
     circuitcreate
-    ktlcircuit
+    ktlinterfaces
+    ktlcircuit_lib
     ${QT_QTTEST_LIBRARY} 
     ${KDEVPLATFORM_TESTS_LIBRARIES}
 )
