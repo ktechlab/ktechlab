@@ -30,9 +30,9 @@
 #include <variable.h>
 // #include <pic14.h>
 
-#include <qmap.h>
-#include <qstring.h>
-#include <qstringlist.h>
+#include <QMap>
+#include <QString>
+#include <QStringList>
 
 class QString;
 class BTreeBase;
@@ -41,11 +41,11 @@ class Code;
 class PIC14;
 class PortPin;
 
-typedef QValueList<Variable> VariableList;
+typedef QList<Variable> VariableList;
 
 class SourceLine;
 
-typedef QValueList<SourceLine> SourceLineList;
+typedef QList<SourceLine> SourceLineList;
 
 /**
 Represents a source line, with the convention of line number starting at zero.
