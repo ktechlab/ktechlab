@@ -15,7 +15,7 @@
 #include "ui_newfilewidget.h"
 //#include "microlibrary.h"
 //#include "microselectwidget.h"
-#include "projectmanager.h"
+//#include "projectmanager.h"
 //#include "textdocument.h"
 
 #include <KComboBox>
