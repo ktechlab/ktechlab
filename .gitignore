@@ -1,7 +1,9 @@
 build
+build-doxygen
 # backup files:
 *~
 #*/*~
 #*/*/*~
 #*/*/*/*~
 #*/*/*/*/*~
+*.bak
