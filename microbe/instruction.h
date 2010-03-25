@@ -1,6 +1,7 @@
 /***************************************************************************
  *   Copyright (C) 2004-2005 by Daniel Clarke <daniel.jc@gmail.com>        *
  *                      2005 by David Saxton <david@bluehaze.org>          *
+ *                      2005 by Julian Bäume <julian@svg4all.de>           *
  *									   *
  *   24-04-2007                                                            *
  *   Modified to add pic 16f877,16f627 and 16f628 			   *
@@ -26,10 +27,10 @@
 #ifndef INSTRUCTION_H
 #define INSTRUCTION_H
 
-#include <qmap.h>
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qvaluelist.h>
+#include <QMap>
+#include <QString>
+#include <QStringList>
+#include <QList>
 
 class Code;
 class CodeIterator;
@@ -37,7 +38,7 @@ class CodeConstIterator;
 class Instruction;
 class PIC14;
 
-typedef QValueList<Instruction*> InstructionList;
+typedef QList<Instruction*> InstructionList;
 
 /**
 Abstraction for a Register - should be used instead of a register name. Contains

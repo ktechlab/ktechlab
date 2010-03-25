@@ -27,10 +27,10 @@
 #include "microbe.h"
 #include "pic14.h"
 
-#include <kaboutdata.h>
-#include <kcmdlineargs.h>
-#include <klocale.h>
-#include <qfile.h>
+#include <KAboutData>
+#include <KCmdLineArgs>
+#include <KLocale>
+#include <QFile>
 
 #include <iostream>
 #include <fstream>
