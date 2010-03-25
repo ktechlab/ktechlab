@@ -89,7 +89,6 @@ install(FILES
     ktechlabrc
     ktechlabui.rc
     ktechlabcircuitui.rc
-    ktechlabflowcodeui.rc
     ktechlabitemviewui.rc
     ktechlabmechanicsui.rc
     ktechlabtextui.rc
