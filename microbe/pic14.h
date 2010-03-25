@@ -29,9 +29,9 @@
 #include "expression.h"
 #include "microbe.h"
 
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qvaluelist.h>
+#include <QString>
+#include <QStringList>
+#include <QList>
 
 class Code;
 class Microbe;
