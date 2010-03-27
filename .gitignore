@@ -1,1 +1,8 @@
 build
+qtcreator-build
+*~
+CMakeLists.txt.user
+*.kdev*
+.*.swp
+*.bak
+
