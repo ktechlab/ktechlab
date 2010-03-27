@@ -1,5 +1,6 @@
 build
 qtcreator-build
+build-doxygen
 *~
 CMakeLists.txt.user
 *.kdev*
