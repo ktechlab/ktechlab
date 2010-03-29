@@ -1,9 +1,8 @@
 build
+qtcreator-build
 build-doxygen
-# backup files:
 *~
-#*/*~
-#*/*/*~
-#*/*/*/*~
-#*/*/*/*/*~
+CMakeLists.txt.user
+*.kdev*
+.*.swp
 *.bak
