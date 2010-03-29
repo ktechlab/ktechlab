@@ -367,6 +367,7 @@ private slots:
         for(int nonz=1;nonz<10; nonz++){
             // fill m with nonz nonzero elements
         m.setZero(maxrow,maxcol);
+        m.setZero();
         for(int i=0; i<nonz; i++){
             do {
             row = (int) (5.0*rand()/RAND_MAX);
