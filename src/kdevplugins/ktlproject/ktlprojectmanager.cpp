@@ -42,6 +42,7 @@ class KDevelop::KTLProjectManagerPrivate
     * This will return the root-node (i.e. documentElement) if sub-project
     * is not found.
     * @param item - the ProjectFolderItem representing the sub-project
+    * @param name - the value of the name attribute of the element to look for
     * @return a QDomElement representing @param item in the DOM document or the document element
     */
     QDomElement findElementInDocument( ProjectBaseItem *item, const QString &name )
