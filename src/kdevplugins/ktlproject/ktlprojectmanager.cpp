@@ -124,7 +124,7 @@ KTLProjectManager::KTLProjectManager( QObject *parent, const QVariantList &args 
   : IPlugin( KTLProjectManagerFactory::componentData(), parent ), IProjectFileManager( ),
   d( new KTLProjectManagerPrivate() )
 {
-    KDEV_USE_EXTENSION_INTERFACE( IProjectFileManager )
+    KDEV_USE_EXTENSION_INTERFACE( KDevelop::IProjectFileManager )
 }
 
 KTLProjectManager::~KTLProjectManager()
