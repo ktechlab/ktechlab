@@ -1,20 +1,12 @@
 
-set (KDE4_BUILD_TESTS ON)
-
 include_directories(
-    ${CMAKE_SOURCE_DIR}/src
+    ${KDEVPLATFORM_INCLUDE_DIR}
+    ${CMAKE_CURRENT_BUILD_DIR}
 )
 
-kde4_add_unit_test( 
-    circuitcreate 
-    circuitcreate.cpp
-)
+kde4_add_unit_test( basictest basictest.cpp )
 
-target_link_libraries( 
-    circuitcreate
-    ktlinterfaces
-    ktlcircuit_lib
-    ${QT_QTTEST_LIBRARY} 
+target_link_libraries( basictest
+    ${QT_QTTEST_LIBRARY}
     ${KDEVPLATFORM_TESTS_LIBRARIES}
 )
-
