@@ -16,8 +16,6 @@ set( ktlcircuit_PART_SRCS
    componentitem.cpp
 )
 
-kde4_add_library( ktlcircuit_lib ${ktlcircuit_PART_SRCS})
-
 kde4_add_plugin(ktlcircuit ${ktlcircuit_PART_SRCS})
 target_link_libraries(ktlcircuit
    ${KDE4_KDECORE_LIBS}
