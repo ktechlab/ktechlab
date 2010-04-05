@@ -22,6 +22,8 @@ namespace KDevelop
 class Core;
 } // namespace KDevelop
 
+#define EMPTY_CIRCUIT_DOCUMENT_URL i18n("Untitled")
+
 namespace KTechLab
 {
 
@@ -36,6 +38,7 @@ public:
     ~CircuitDocumentPrivate();
 
     void reloadFromXml();
+    bool isEmptyDocumentUrl(KUrl url);
 
     CircuitScene *circuitScene;
     CircuitModel *circuitModel;

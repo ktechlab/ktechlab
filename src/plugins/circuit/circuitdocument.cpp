@@ -1,5 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2009 Julian Bäume <julian@svg4all.de>                   *
+ *            (C) 2010 Zoltan Padrah <zoltan_padrah@users.sourceforge.net> *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -29,7 +30,10 @@ CircuitDocumentPrivate::CircuitDocumentPrivate( CircuitDocument *doc )
     :   circuitModel( new CircuitModel() ),
         m_document(doc)
 {
-    reloadFromXml();
+    // load only from xml file if the url is not a special url, denoting
+    // empty documents
+    if(!isEmptyDocumentUrl(m_document->url()))
+        reloadFromXml();
     circuitScene = new CircuitScene( doc, circuitModel );
 }
 
@@ -37,6 +41,10 @@ CircuitDocumentPrivate::~CircuitDocumentPrivate()
 {
     delete circuitScene;
     delete circuitModel;
+}
+
+bool CircuitDocumentPrivate::isEmptyDocumentUrl(KUrl url){
+    return (url.prettyUrl().compare( EMPTY_CIRCUIT_DOCUMENT_URL ) == 0);
 }
 
 void CircuitDocumentPrivate::reloadFromXml()
