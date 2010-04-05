@@ -43,7 +43,8 @@ CircuitDocumentPrivate::~CircuitDocumentPrivate()
     delete circuitModel;
 }
 
-bool CircuitDocumentPrivate::isEmptyDocumentUrl(KUrl url){
+bool CircuitDocumentPrivate::isEmptyDocumentUrl(KUrl url)
+{
     return (url.prettyUrl().compare( EMPTY_CIRCUIT_DOCUMENT_URL ) == 0);
 }
 
