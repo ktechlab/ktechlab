@@ -71,11 +71,12 @@ void KTLProjectTest::addSubProject()
         QSKIP("no project seems to be loaded", SkipSingle);
 
     KDevelop::IProjectFileManager* manager = m_project->projectFileManager();
+
     KUrl folderUrl = m_project->folder();
     folderUrl.addPath("addTestFolder");
     m_testFolderItem = manager->addFolder(folderUrl, m_project->projectItem());
     QVERIFY( m_testFolderItem != 0 );
-    //QVERIFY( QFile(folderUrl.toLocalFile()).exists() );
+    QVERIFY( QFile(folderUrl.toLocalFile()).exists() );
     QVERIFY( m_project->inProject(folderUrl) );
 }
 
@@ -89,7 +90,7 @@ void KTLProjectTest::renameSubProject()
     folderUrl.addPath("renameTestFolder");
     QVERIFY( manager->renameFolder(m_testFolderItem,folderUrl) );
 
-    //QVERIFY( QFile(folderUrl.toLocalFile()).exists() );
+    QVERIFY( QFile(folderUrl.toLocalFile()).exists() );
     QVERIFY( m_project->inProject(folderUrl) );
 }
 
@@ -101,10 +102,52 @@ void KTLProjectTest::removeSubProject()
     KDevelop::IProjectFileManager* manager = m_project->projectFileManager();
     QVERIFY( manager->removeFolder(m_testFolderItem) );
 
-    //QVERIFY( !QFile(folderUrl.toLocalFile()).exists() );
     KUrl folderUrl = m_project->folder();
     folderUrl.addPath("renameTestFolder");
+    QVERIFY( !QFile(folderUrl.toLocalFile()).exists() );
     QVERIFY( !m_project->inProject(folderUrl) );
+}
+
+void KTLProjectTest::addFile()
+{
+    if (!m_project)
+        QSKIP("no project seems to be loaded", SkipSingle);
+
+    KDevelop::IProjectFileManager* manager = m_project->projectFileManager();
+    KUrl newFile = m_project->folder();
+    newFile.addPath("unittest.circuit");
+
+    m_testFileItem = manager->addFile(newFile, m_project->projectItem());
+    QVERIFY( !QFile(newFile.toLocalFile()).exists() );
+    QVERIFY( m_project->inProject(newFile) );
+}
+
+void KTLProjectTest::renameFile()
+{
+    if (!m_project)
+        QSKIP("no project seems to be loaded", SkipSingle);
+
+    KDevelop::IProjectFileManager* manager = m_project->projectFileManager();
+    KUrl newFile = m_project->folder();
+    newFile.addPath("renameunittest.circuit");
+    QVERIFY( manager->renameFile(m_testFileItem, newFile) );
+
+    QVERIFY( QFile(newFile.toLocalFile()).exists() );
+    QVERIFY( m_project->inProject(newFile) );
+}
+
+void KTLProjectTest::removeFile()
+{
+    if (!m_project)
+        QSKIP("no project seems to be loaded", SkipSingle);
+
+    KDevelop::IProjectFileManager* manager = m_project->projectFileManager();
+    QVERIFY( manager->removeFile(m_testFileItem) );
+
+    KUrl fileUrl = m_project->folder();
+    fileUrl.addPath("renameunittest.circuit");
+    QVERIFY( !QFile(fileUrl.toLocalFile()).exists() );
+    QVERIFY( !m_project->inProject(fileUrl) );
 }
 
 QTEST_KDEMAIN(KTLProjectTest, GUI)
