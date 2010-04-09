@@ -28,6 +28,7 @@ namespace KDevelop
     class TestCore;
     class IProject;
     class ProjectFolderItem;
+    class ProjectFileItem;
 }
 
 namespace KTechLab
@@ -43,12 +44,16 @@ private slots:
     void addSubProject();
     void renameSubProject();
     void removeSubProject();
+    void addFile();
+    void renameFile();
+    void removeFile();
     void cleanupTestCase();
 
 private:
     KDevelop::TestCore* m_core;
     KDevelop::IProject* m_project;
     KDevelop::ProjectFolderItem* m_testFolderItem;
+    KDevelop::ProjectFileItem* m_testFileItem;
 };
 }
 #endif // KTLPROJECTTEST_H
