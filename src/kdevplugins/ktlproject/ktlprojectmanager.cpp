@@ -165,9 +165,27 @@ ProjectFolderItem* KTLProjectManager::addFolder( const KUrl& folder, ProjectFold
 {
   if (!folder.isValid() && folder.isLocalFile())
     return 0;
+  //create folder on disk
+  QDir newFolder(folder.directory());
+  if (newFolder.exists()){
+      newFolder.mkdir(folder.fileName());
+  }
 
+  // add file to project
   ProjectFolderItem *item = new ProjectFolderItem( parent->project(), folder, parent );
-    //TODO: implement me
+  QString relativeFileName =
+    KUrl::relativePath( d->projectFile.directory(), newFolder.absolutePath() );
+
+  QDomElement itemElement = d->projectDomDocument.createElement("item");
+  itemElement.setAttribute("url", relativeFileName );
+  itemElement.setAttribute("name", item->folderName() );
+  itemElement.setAttribute("type", "Program");
+
+  QDomElement folderElement = d->findElementInDocument( parent, parent->folderName() );
+  folderElement.appendChild( itemElement );
+
+  d->writeProjectToDisk();
+
   return item;
 }
 
