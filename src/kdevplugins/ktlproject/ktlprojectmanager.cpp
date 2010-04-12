@@ -149,7 +149,6 @@ ProjectFileItem* KTLProjectManager::addFile( const KUrl& folder, ProjectFolderIt
     KUrl::relativePath( d->projectFile.directory(), folder.directory() );
   relativeFileName.append(folder.fileName());
 
-  kDebug() << "adding file with relative url: " << relativeFileName;
   QDomElement itemElement = d->projectDomDocument.createElement("item");
   itemElement.setAttribute("url", relativeFileName );
   itemElement.setAttribute("name", item->fileName() );
@@ -268,7 +267,6 @@ bool KTLProjectManager::removeFile( ProjectFileItem* file )
     if (!parent)
         return false;
 
-    kDebug() << "removing:" << file->fileName();
     d->removeItemFromDocument( file, file->fileName() );
     parent->removeRow( file->row() );
     d->writeProjectToDisk();
