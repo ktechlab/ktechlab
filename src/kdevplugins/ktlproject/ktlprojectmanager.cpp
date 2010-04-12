@@ -134,7 +134,7 @@ KTLProjectManager::~KTLProjectManager()
 
 ProjectFileItem* KTLProjectManager::addFile( const KUrl& folder, ProjectFolderItem* parent )
 {
-  if (!folder.isValid())
+  if (!folder.isValid() && folder.isLocalFile())
     return 0;
   //create file on disk
   QFile newFile(folder.toLocalFile());
@@ -164,7 +164,7 @@ ProjectFileItem* KTLProjectManager::addFile( const KUrl& folder, ProjectFolderIt
 
 ProjectFolderItem* KTLProjectManager::addFolder( const KUrl& folder, ProjectFolderItem* parent )
 {
-  if (!folder.isValid())
+  if (!folder.isValid() && folder.isLocalFile())
     return 0;
 
   ProjectFolderItem *item = new ProjectFolderItem( parent->project(), folder, parent );
