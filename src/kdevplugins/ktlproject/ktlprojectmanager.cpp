@@ -31,6 +31,7 @@
 #include <QFile>
 #include <QStack>
 #include <QXmlSimpleReader>
+#include <QDir>
 
 using namespace KDevelop;
 
@@ -135,7 +136,14 @@ ProjectFileItem* KTLProjectManager::addFile( const KUrl& folder, ProjectFolderIt
 {
   if (!folder.isValid())
     return 0;
+  //create file on disk
+  QFile newFile(folder.toLocalFile());
+  if (!newFile.exists()){
+      newFile.open(QIODevice::ReadWrite);
+      newFile.close();
+  }
 
+  // add file to project
   ProjectFileItem *item = new ProjectFileItem( parent->project(), folder, parent );
   QString relativeFileName =
     KUrl::relativePath( d->projectFile.directory(), folder.directory() );
@@ -248,6 +256,13 @@ bool KTLProjectManager::reload( ProjectFolderItem* item )
 
 bool KTLProjectManager::removeFile( ProjectFileItem* file )
 {
+    KUrl url = file->url();
+    //remove file from disk
+    QFile localFile(url.toLocalFile());
+    if (!localFile.exists() || !localFile.remove())
+        kWarning() << "Couldn't remove file: " << url.toLocalFile();
+
+    //remove file from project
     //TODO: can this be done without dynamic_cast?
     ProjectFolderItem *parent = dynamic_cast<ProjectFolderItem*>(file->parent());
     if (!parent)
@@ -270,6 +285,10 @@ bool KTLProjectManager::removeFolder( ProjectFolderItem* folder )
         removeFolder(item);
     }
 
+    QDir dir(folder->url().directory());
+    if (!dir.rmdir(folder->url().toLocalFile()))
+        return false;
+
     d->removeItemFromDocument( folder, folder->folderName() );
     folder->parent()->removeRow( folder->row() );
     d->writeProjectToDisk();
@@ -278,15 +297,26 @@ bool KTLProjectManager::removeFolder( ProjectFolderItem* folder )
 
 bool KTLProjectManager::renameFile( ProjectFileItem* oldFile, const KUrl& newFile )
 {
+    KUrl oldFileUrl = oldFile->url();
+    QFile file(oldFileUrl.toLocalFile());
+    if (!file.rename(newFile.toLocalFile()))
+        return false;
+
     QString oldFileName = oldFile->fileName();
     oldFile->setUrl(newFile);
     d->updateItemFromDocument( oldFile, oldFileName );
     d->writeProjectToDisk();
+
     return true;
 }
 
 bool KTLProjectManager::renameFolder( ProjectFolderItem* oldFolder, const KUrl& newFolder )
 {
+    KUrl oldFolderUrl = oldFolder->url();
+    QDir folder(oldFolderUrl.directory());
+    if (!folder.rename(oldFolder->folderName(), newFolder.fileName()))
+        return false;
+
     QString oldFolderName = oldFolder->folderName();
     oldFolder->setUrl(newFolder);
     d->updateItemFromDocument( oldFolder, oldFolderName );
