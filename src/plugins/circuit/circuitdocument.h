@@ -30,6 +30,7 @@ namespace KTechLab
 class CircuitDocument;
 class CircuitScene;
 class CircuitModel;
+class IDocumentModel;
 
 class CircuitDocumentPrivate
 {
@@ -63,6 +64,8 @@ public:
     virtual ~CircuitDocument();
 
     virtual QString documentType() const;
+
+    IDocumentModel *model() const;
 
     QVariantMap items() const;
 
