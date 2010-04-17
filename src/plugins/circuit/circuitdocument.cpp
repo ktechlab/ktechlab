@@ -14,6 +14,8 @@
 #include "circuitscene.h"
 #include "circuitmodel.h"
 
+#include "interfaces/idocumentmodel.h"
+
 #include <shell/core.h>
 #include <KDebug>
 #include <KLocale>
@@ -127,6 +129,11 @@ QWidget* CircuitDocument::createViewWidget( QWidget* parent )
     CircuitView *view = new CircuitView( d->circuitScene, parent);
 
     return view;
+}
+
+IDocumentModel* CircuitDocument::model() const
+{
+    return d->circuitModel;
 }
 
 //#include "circuitdocument.moc"
