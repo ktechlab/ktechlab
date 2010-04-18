@@ -21,10 +21,14 @@
 #include "addcomponents.h"
 
 #include "plugins/circuit/circuitmodel.h"
+#include "plugins/circuit/circuitdocument.h"
+#include "interfaces/idocumentplugin.h"
 
 #include <interfaces/iplugin.h>
 #include <interfaces/iplugincontroller.h>
 #include <interfaces/idocumentcontroller.h>
+#include <interfaces/ipartcontroller.h>
+// #include <interfaces/idocumentfactory.h>
 
 #include <tests/autotestshell.h>
 #include <tests/testcore.h>
@@ -79,24 +83,97 @@ void AddComponentsTest::openDocument(){
     
     QVERIFY( QFile(circuitUrl.toLocalFile()).exists() );
 
-    m_core->documentController()->openDocument( circuitUrl, "ktlcircuit");
+    KDevelop::IDocument * newdoc = 
+        m_core->documentController()->openDocument( circuitUrl, "ktlcircuit");
     
     int openDocuments = m_core->documentController()->openDocuments().size() ;
     
     qDebug() << "open document count: " << openDocuments ;
     QVERIFY( openDocuments == 1 );
+    
+    qDebug() << "mime comment: " << newdoc->mimeType()->comment() ;
+
+    qDebug() << "trying to close document...";
+    
+    m_core->documentController()->closeAllDocuments();
+    
+    openDocuments = m_core->documentController()->openDocuments().size() ;
+    
+    qDebug() << "open document count: " << openDocuments ;
+    QVERIFY( openDocuments == 0 );
+
+}
+
+
+void AddComponentsTest::getPluginObject(){
+  
+    QStringList constraints;
+
+    constraints << QString("'%1' in [X-KDevelop-SupportedMimeTypes]")
+        .arg("application/x-circuit");
+
+    QList<KDevelop::IPlugin*> plugins =
+        KDevelop::Core::self()->pluginController()
+            ->allPluginsForExtension( "org.kdevelop.IDocument", constraints );
+
+    QVERIFY( ! plugins.isEmpty()) ;
+
+    IDocumentPlugin *plugin = qobject_cast<IDocumentPlugin*>( plugins.first() );
+
+    qDebug() << plugin;
 }
 
 void AddComponentsTest::addResistor(){
-/*  
-  
-            
+
+    // suppose we have no open documents
+    QVERIFY( m_core->documentController()->openDocuments().size() == 0);
+
+    //is there a better way to create a document ?
+    KDevelop::IDocumentFactory * fact =
+       m_core->documentController()->factory("application/x-circuit");
+   
+    qDebug() << "factory = " << fact ;
+   
+    KUrl emptyDoc( i18n("Untitled") ); 
+   
+    KDevelop::IDocument *mydoc = fact->create( emptyDoc, m_core);
+   
+    qDebug() << "document: " << mydoc ;
+    
+    // QVERIFY( m_core->documentController()->openDocuments().size() == 1);
+   
+
+   
+    
+    // something like this would be better
+    /*
+    KDevelop::IDocument * newdoc = 
+            m_core->documentController()
+                ->openDocument( emptyDoc , "ktlcircuit" );
+    
+    qDebug() << "newdoc: " << newdoc ;
+    */
+
+    qDebug() << "document mime comment: " << mydoc->mimeType()->patterns() ;
+
+    /*
+    CircuitDocument *doc = dynamic_cast<CircuitDocument *>( mydoc );
+    QVERIFY( doc );
+    
+    CircuitModel * model = dynamic_cast<CircuitModel *>( doc->model() );
+    QVERIFY( model );
+    
     QVariantMap r1; // = new QVariantMap();
     r1.insert("type", QString("ec_resistor"));
     r1.insert("id","resistor1");
-            
+        
     model->addComponent(r1); // take that !
-  */
+    */
+    
+    // clean up a little
+    m_core->documentController()->closeAllDocuments();
+    
+    QVERIFY( m_core->documentController()->openDocuments().size() == 0);
 }
 
 QTEST_KDEMAIN(AddComponentsTest , GUI)
