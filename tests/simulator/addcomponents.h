@@ -41,6 +41,7 @@ private slots:
     void cleanupTestCase();
 
     void listPlugins();
+    void getPluginObject();
     void openDocument();
     void addResistor();
 
