@@ -23,15 +23,88 @@
 
 using namespace KTechLab;
 
+class KTechLab::IDocumentModelPrivate {
+
+public:
+    QVariantMap components;
+    QVariantMap connectors;
+};
+
 IDocumentModel::IDocumentModel ( QObject* parent )
-    : QAbstractTableModel ( parent )
+    : QAbstractTableModel ( parent ),
+      d(new IDocumentModelPrivate())
 {
 
 }
 
 IDocumentModel::~IDocumentModel()
 {
+    delete d;
+}
 
+QVariant IDocumentModel::data(const QModelIndex& index, int role) const
+{
+    return QVariant();
+}
+
+int IDocumentModel::columnCount(const QModelIndex& parent) const
+{
+    if ( !parent.isValid() )
+        return d->components.size();
+
+    return 0;
+}
+
+int IDocumentModel::rowCount(const QModelIndex& parent) const
+{
+    if ( !parent.isValid() )
+        return d->components.size();
+
+    return 0;
+}
+
+bool IDocumentModel::setData(const QModelIndex& index, const QVariant& value, int role)
+{
+    return QAbstractItemModel::setData(index, value, role);
+}
+
+
+bool IDocumentModel::addComponent(const QVariantMap& component)
+{
+    if (!component.contains("id"))
+        return false;
+
+    d->components.insert( component.value("id").toString(), component);
+    return true;
+}
+
+QVariantMap IDocumentModel::component(const QString& key) const
+{
+    return d->components.value(key).toMap();
+}
+
+QVariantMap IDocumentModel::components() const
+{
+    return d->components;
+}
+
+bool IDocumentModel::addConnector(const QVariantMap& connector)
+{
+    if ( !connector.contains( "id" ) )
+        return false;
+
+    d->connectors.insert( connector.value("id").toString(), connector );
+    return true;
+}
+
+QVariantMap IDocumentModel::connector(const QString& key) const
+{
+    return d->connectors.value(key).toMap();
+}
+
+QVariantMap IDocumentModel::connectors() const
+{
+    return d->connectors;
 }
 
 #include "idocumentmodel.moc"
