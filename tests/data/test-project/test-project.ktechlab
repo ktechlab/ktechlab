@@ -43,15 +43,14 @@
  <item url="./" type="Program" name="test-project">
   <linker output-map-file="0" other="" linker-script="" hex-format="inhx32" library-dir=""/>
   <processing output="./" micro="P16F84"/>
-  <item url="test.c" type="File" name="test.c">
+  <item url="test-project/test.c" type="File" name="test.c">
    <linker output-map-file="0" other="" linker-script="" hex-format="inhx32" library-dir=""/>
    <processing output="test.o" micro="P16F84"/>
   </item>
-  <item url="test.asm" type="File" name="test.asm">
+  <item url="test-project/test.asm" type="File" name="test.asm">
    <linker output-map-file="0" other="" linker-script="" hex-format="inhx32" library-dir=""/>
    <processing output="test.o" micro="P16F84"/>
   </item>
-  <item url="./mytest.c" type="File" name="mytest.c"/>
  </item>
  <item url="test.flowcode" type="File" name="test.flowcode">
   <linker output-map-file="0" other="" linker-script="" hex-format="inhx32" library-dir=""/>
