@@ -10,7 +10,7 @@
 #ifndef CIRCUITDOCUMENT_H
 #define CIRCUITDOCUMENT_H
 
-#include <shell/partdocument.h>
+#include <interfaces/icomponentdocument.h>
 
 namespace Sublime
 {
@@ -52,18 +52,27 @@ private:
  * @short Circuit Document
  * @author Julian Bäume
  */
-class CircuitDocument : public KDevelop::PartDocument
+class CircuitDocument : public IComponentDocument
 {
     Q_OBJECT
 public:
     CircuitDocument( const KUrl &url, KDevelop::Core* core );
     virtual ~CircuitDocument();
 
+    /**
+     * see \ref Sublime::UrlDocument
+     */
     virtual QString documentType() const;
 
-    QVariantMap items() const;
+    /**
+     * see \ref KTechLab::IComponentDocument
+     */
+    virtual IDocumentModel* documentModel() const;
 
 protected:
+    /**
+     * see \ref KDevelop::PartDocument
+     */
     virtual QWidget *createViewWidget( QWidget* parent = 0 );
 
 private:
