@@ -98,7 +98,7 @@ void CircuitDocumentPrivate::reloadFromXml()
 }
 
 CircuitDocument::CircuitDocument( const KUrl &url, KDevelop::Core* core )
-    :   KDevelop::PartDocument( url, core ),
+    :   IComponentDocument( url, core ),
         d(new CircuitDocumentPrivate(this))
 {
 
@@ -114,14 +114,14 @@ void CircuitDocument::init()
 {
 }
 
-QMap< QString, QVariant > CircuitDocument::items() const
-{
-    return d->circuitModel->components();
-}
-
 QString CircuitDocument::documentType() const
 {
     return "Circuit";
+}
+
+IDocumentModel* CircuitDocument::documentModel() const
+{
+    return d->circuitModel;
 }
 
 QWidget* CircuitDocument::createViewWidget( QWidget* parent )
@@ -136,4 +136,4 @@ IDocumentModel* CircuitDocument::model() const
     return d->circuitModel;
 }
 
-//#include "circuitdocument.moc"
+#include "circuitdocument.moc"
