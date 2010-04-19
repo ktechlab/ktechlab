@@ -146,7 +146,7 @@ ProjectFileItem* KTLProjectManager::addFile( const KUrl& folder, ProjectFolderIt
   // add file to project
   ProjectFileItem *item = new ProjectFileItem( parent->project(), folder, parent );
   QString relativeFileName =
-    KUrl::relativePath( d->projectFile.directory(), folder.directory() );
+    KUrl::relativePath( d->projectFile.directory(), folder.directory(KUrl::AppendTrailingSlash) );
   relativeFileName.append(folder.fileName());
 
   QDomElement itemElement = d->projectDomDocument.createElement("item");
