@@ -13,7 +13,10 @@
 
 //BEGIN class Cells
 Cells::Cells(const QRect &canvasRect) {
-    init(canvasRect);
+    QRect rect(canvasRect);
+    rect.setHeight(rect.height()+32);
+    rect.setWidth(rect.width()+32);
+    init(rect);
 }
 
 Cells::~Cells() {
