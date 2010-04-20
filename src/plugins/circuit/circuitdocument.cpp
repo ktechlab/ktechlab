@@ -131,9 +131,5 @@ QWidget* CircuitDocument::createViewWidget( QWidget* parent )
     return view;
 }
 
-IDocumentModel* CircuitDocument::model() const
-{
-    return d->circuitModel;
-}
 
 #include "circuitdocument.moc"
