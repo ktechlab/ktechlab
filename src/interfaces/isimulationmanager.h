@@ -19,7 +19,7 @@ namespace KTechLab {
     class IComponentDocument;
 
     /**
-     * A simulation manager interface. 
+     * \brief A simulation manager interface.
      * This interface provides access to all the simulation-related
      * services.
      */
