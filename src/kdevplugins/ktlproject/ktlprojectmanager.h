@@ -1,6 +1,6 @@
 /*
     Manage KTechLab project files.
-    Copyright (C) 2009  Julian Bäume <julian@svg4all.de>
+    Copyright (C) 2009-2010 Julian Bäume <julian@svg4all.de>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -27,6 +27,8 @@
 
 namespace KDevelop
 {
+
+class KTLProjectManagerPrivate;
 
 class KTLProjectManager : public IPlugin, public IProjectFileManager
 {
@@ -90,6 +92,9 @@ class KTLProjectManager : public IPlugin, public IProjectFileManager
     *
     */
     virtual void createActionsForMainWindow ( Sublime::MainWindow* window, QString& xmlFile, KActionCollection& actions );
+
+  private:
+    KTLProjectManagerPrivate *d;
 };
 
 }

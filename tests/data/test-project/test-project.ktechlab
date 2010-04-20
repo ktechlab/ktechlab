@@ -1,63 +1,63 @@
 <!DOCTYPE KTechlab>
 <project>
- <item url="test.circuit" type="File" name="test.circuit" >
-  <linker output-map-file="0" library-dir="" other="" linker-script="" hex-format="inhx32" />
-  <processing output="test.hex" micro="P16F84" />
+ <item url="test.circuit" type="File" name="test.circuit">
+  <linker output-map-file="0" other="" linker-script="" hex-format="inhx32" library-dir=""/>
+  <processing output="test.hex" micro="P16F84"/>
  </item>
- <item url="./" type="Program" name="components" >
-  <linker output-map-file="0" library-dir="" other="" linker-script="" hex-format="inhx32" />
-  <processing output="./" micro="P16F84" />
-  <item url="components/sources.circuit" type="File" name="sources.circuit" >
-   <linker output-map-file="0" library-dir="" other="" linker-script="" hex-format="inhx32" />
-   <processing output="test.hex" micro="P16F84" />
+ <item url="./" type="Program" name="components">
+  <linker output-map-file="0" other="" linker-script="" hex-format="inhx32" library-dir=""/>
+  <processing output="./" micro="P16F84"/>
+  <item url="components/sources.circuit" type="File" name="sources.circuit">
+   <linker output-map-file="0" other="" linker-script="" hex-format="inhx32" library-dir=""/>
+   <processing output="test.hex" micro="P16F84"/>
   </item>
-  <item url="components/passive.circuit" type="File" name="passive.circuit" >
-   <linker output-map-file="0" library-dir="" other="" linker-script="" hex-format="inhx32" />
-   <processing output="test.hex" micro="P16F84" />
+  <item url="components/passive.circuit" type="File" name="passive.circuit">
+   <linker output-map-file="0" other="" linker-script="" hex-format="inhx32" library-dir=""/>
+   <processing output="test.hex" micro="P16F84"/>
   </item>
-  <item url="components/logic.circuit" type="File" name="logic.circuit" >
-   <linker output-map-file="0" library-dir="" other="" linker-script="" hex-format="inhx32" />
-   <processing output="test.hex" micro="P16F84" />
+  <item url="components/logic.circuit" type="File" name="logic.circuit">
+   <linker output-map-file="0" other="" linker-script="" hex-format="inhx32" library-dir=""/>
+   <processing output="test.hex" micro="P16F84"/>
   </item>
-  <item url="components/switches.circuit" type="File" name="switches.circuit" >
-   <linker output-map-file="0" library-dir="" other="" linker-script="" hex-format="inhx32" />
-   <processing output="test.hex" micro="P16F84" />
+  <item url="components/switches.circuit" type="File" name="switches.circuit">
+   <linker output-map-file="0" other="" linker-script="" hex-format="inhx32" library-dir=""/>
+   <processing output="test.hex" micro="P16F84"/>
   </item>
-  <item url="components/outputs.circuit" type="File" name="outputs.circuit" >
-   <linker output-map-file="0" library-dir="" other="" linker-script="" hex-format="inhx32" />
-   <processing output="test.hex" micro="P16F84" />
+  <item url="components/outputs.circuit" type="File" name="outputs.circuit">
+   <linker output-map-file="0" other="" linker-script="" hex-format="inhx32" library-dir=""/>
+   <processing output="test.hex" micro="P16F84"/>
   </item>
-  <item url="components/discrete.circuit" type="File" name="discrete.circuit" >
-   <linker output-map-file="0" library-dir="" other="" linker-script="" hex-format="inhx32" />
-   <processing output="test.hex" micro="P16F84" />
+  <item url="components/discrete.circuit" type="File" name="discrete.circuit">
+   <linker output-map-file="0" other="" linker-script="" hex-format="inhx32" library-dir=""/>
+   <processing output="test.hex" micro="P16F84"/>
   </item>
-  <item url="components/connections.circuit" type="File" name="connections.circuit" >
-   <linker output-map-file="0" library-dir="" other="" linker-script="" hex-format="inhx32" />
-   <processing output="test.hex" micro="P16F84" />
+  <item url="components/connections.circuit" type="File" name="connections.circuit">
+   <linker output-map-file="0" other="" linker-script="" hex-format="inhx32" library-dir=""/>
+   <processing output="test.hex" micro="P16F84"/>
   </item>
-  <item url="components/integrated.circuit" type="File" name="integrated.circuit" >
-   <linker output-map-file="0" library-dir="" other="" linker-script="" hex-format="inhx32" />
-   <processing output="test.hex" micro="P16F84" />
-  </item>
- </item>
- <item url="./" type="Program" name="test-project" >
-  <linker output-map-file="0" library-dir="" other="" linker-script="" hex-format="inhx32" />
-  <processing output="./" micro="P16F84" />
-  <item url="test.c" type="File" name="test.c" >
-   <linker output-map-file="0" library-dir="" other="" linker-script="" hex-format="inhx32" />
-   <processing output="test.o" micro="P16F84" />
-  </item>
-  <item url="test.asm" type="File" name="test.asm" >
-   <linker output-map-file="0" library-dir="" other="" linker-script="" hex-format="inhx32" />
-   <processing output="test.o" micro="P16F84" />
+  <item url="components/integrated.circuit" type="File" name="integrated.circuit">
+   <linker output-map-file="0" other="" linker-script="" hex-format="inhx32" library-dir=""/>
+   <processing output="test.hex" micro="P16F84"/>
   </item>
  </item>
- <item url="test.flowcode" type="File" name="test.flowcode" >
-  <linker output-map-file="0" library-dir="" other="" linker-script="" hex-format="inhx32" />
-  <processing output="test.hex" micro="P16F84" />
+ <item url="./" type="Program" name="test-project">
+  <linker output-map-file="0" other="" linker-script="" hex-format="inhx32" library-dir=""/>
+  <processing output="./" micro="P16F84"/>
+  <item url="test-project/test.c" type="File" name="test.c">
+   <linker output-map-file="0" other="" linker-script="" hex-format="inhx32" library-dir=""/>
+   <processing output="test.o" micro="P16F84"/>
+  </item>
+  <item url="test-project/test.asm" type="File" name="test.asm">
+   <linker output-map-file="0" other="" linker-script="" hex-format="inhx32" library-dir=""/>
+   <processing output="test.o" micro="P16F84"/>
+  </item>
  </item>
- <item url="test.microbe" type="File" name="test.microbe" >
-  <linker output-map-file="0" library-dir="" other="" linker-script="" hex-format="inhx32" />
-  <processing output="test.hex" micro="P16F84" />
+ <item url="test.flowcode" type="File" name="test.flowcode">
+  <linker output-map-file="0" other="" linker-script="" hex-format="inhx32" library-dir=""/>
+  <processing output="test.hex" micro="P16F84"/>
+ </item>
+ <item url="test.microbe" type="File" name="test.microbe">
+  <linker output-map-file="0" other="" linker-script="" hex-format="inhx32" library-dir=""/>
+  <processing output="test.hex" micro="P16F84"/>
  </item>
 </project>
