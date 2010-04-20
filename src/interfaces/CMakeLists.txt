@@ -5,7 +5,6 @@ set( ktlinterfaces_LIB_SRCS
    idocumentscene.cpp
    iconrouter.cpp
    idocumentmodel.cpp
-   datacontainer.cpp
    idocumentplugin.cpp
    icomponentdocument.cpp
    component/icomponentplugin.cpp
