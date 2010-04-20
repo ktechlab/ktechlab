@@ -40,7 +40,7 @@ IDocumentScene::~IDocumentScene()
     delete m_routePath;
 }
 
-bool IDocumentScene::isRouting()
+bool IDocumentScene::isRouting() const
 {
     return m_routePath != 0;
 }
