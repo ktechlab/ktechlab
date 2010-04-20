@@ -17,7 +17,7 @@
 
 namespace KTechLab {
     /**
-     * common interface for all the models used by a simulator
+     * \brief common interface for all the models used by a simulator
      */
     class IElement : public QObject {
       Q_OBJECT
