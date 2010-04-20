@@ -19,8 +19,8 @@ namespace KTechLab {
     class IElement;
 
   /**
-   * A general interface for a simulator. One simulator can simulate exactly
-   * one document.
+   * \brief A general interface for a simulator. 
+   * One simulator can simulate exactly one document.
    */
   class ISimulator : public QObject {
         Q_OBJECT
