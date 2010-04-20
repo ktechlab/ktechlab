@@ -1,11 +1,19 @@
-include_directories( ${CMAKE_SOURCE_DIR}/src/math/ )
-set( mathtest_SRCS
-   mathtest.cpp
-)
+find_package( Eigen2 )
 
-kde4_add_unit_test( mathtest TESTNAME mathtest ${mathtest_SRCS} )
+if( EIGEN2_FOUND )
+   include_directories(
+      ${CMAKE_SOURCE_DIR}/src/math/
+      ${EIGEN2_INCLUDE_DIR}
+   )
 
-target_link_libraries( mathtest
+   set( mathtest_SRCS
+      matrixtester.cpp
+   )
+   kde4_add_unit_test( mathtest TESTNAME mathtest ${mathtest_SRCS} )
+
+   target_link_libraries( mathtest
 	ktlmath
 	${QT_QTTEST_LIBRARY}
 )
+endif( EIGEN2_FOUND )
+

@@ -8,7 +8,6 @@
  ***************************************************************************/
 
 #include "idocumentplugin.h"
-#include "component/componentcontainer.h"
 
 #include <KComponentData>
 
@@ -17,12 +16,6 @@ using namespace KTechLab;
 IDocumentPlugin::IDocumentPlugin( KComponentData data, QObject *parent)
     :   KDevelop::IPlugin( data, parent )
 {}
-
-DataContainer * IDocumentPlugin::createComponentContainer( const QString &component )
-{
-    return new ComponentContainer( component );
-}
-
 
 QString IDocumentPlugin::fileNameForComponent ( const QString& component )
 {

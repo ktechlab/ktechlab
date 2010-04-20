@@ -1,6 +1,5 @@
 /*
-    Folders are sub-projects (can be programmes or libraries) in KTechLab
-    Copyright (C) 2009-2010 Julian Bäume <julian@svg4all.de>
+    Copyright (C) 2010 Julian Bäume <julian@svg4all.de>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,23 +17,13 @@
 
 */
 
-#ifndef KTLFOLDERITEM_H
-#define KTLFOLDERITEM_H
+#include "icomponentdocument.h"
 
-#include <project/projectmodel.h>
+using namespace KTechLab;
 
-namespace KDevelop
+IComponentDocument::IComponentDocument(const KUrl& url, KDevelop::ICore* core, const QString& preferredPart)
+    : PartDocument(url, core, preferredPart)
 {
-/**
-* Folders in KTechLab act as sub-projects. They can be of type program or library.
-* This will affect the build-chain.
-*/
-class KTLFolderItem : public ProjectFolderItem
-{
-  public:
-    KTLFolderItem ( IProject* , const KUrl& dir, QStandardItem* parent = 0 );
-};
-
 }
 
-#endif // KTLFOLDERITEM_H
+#include "icomponentdocument.moc"

@@ -11,7 +11,6 @@
 #define DOCUMENTPLUGIN_H
 
 #include "ktlinterfacesexport.h"
-#include "datacontainer.h"
 
 #include <interfaces/iplugin.h>
 #include <QObject>
@@ -42,17 +41,6 @@ public:
     IDocumentPlugin( KComponentData data, QObject *parent = 0 );
     virtual ~IDocumentPlugin() {};
 
-    /**
-     * create a DataContainer for a given document
-     * FIXME:provide better documentation
-     */
-    virtual DataContainer * createDataContainer( KDevelop::IDocument *document, const QString &component = QString() )=0;
-
-    /**
-     * create a DataContainer for a given component
-     * FIXME:provide better documentation
-     */
-    DataContainer * createComponentContainer( const QString &component );
     /**
      * Find the name of the file containing the graphical representation of
      * the given component. The default implementation will simply normalize the
