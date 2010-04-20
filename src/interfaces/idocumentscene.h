@@ -54,7 +54,7 @@ public:
      *
      * \returns true, if the user is routing, false otherwise
      */
-    bool isRouting();
+    bool isRouting() const;
 
     /**
     * Start the routing process at point \param pos
