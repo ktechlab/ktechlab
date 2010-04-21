@@ -53,6 +53,7 @@ SET(ktechlab_SRCS
     ktechlabideextension.cpp
     mainwindow.cpp
     main.cpp
+    simulationmanager.cpp
 )
 
 #kde4_automoc( ${ktechlab_SRCS} )
@@ -70,6 +71,7 @@ target_link_libraries( ktechlab
    ${KDE4_KIO_LIBS}
    ${KDEVPLATFORM_SHELL_LIBRARIES}
    # ktechlablib
+   ktlinterfaces
    gui
 #  languages gui micro flowparts
 #  mechanics electronics elements components drawparts
