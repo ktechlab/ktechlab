@@ -9,6 +9,7 @@
  ***************************************************************************/
 
 #include "mainwindow.h"
+#include "simulationmanager.h"
 #include "ktechlabideextension.h"
 #include "config.h"
 
@@ -96,6 +97,8 @@ int main(int argc, char **argv)
 
     KDevelop::Core::initialize();
     KDevelop::Core *core = KDevelop::Core::self();
+
+    KTechLab::SimulationManager::initialize();
 
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     bool openProject = false;
