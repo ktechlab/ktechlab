@@ -13,13 +13,15 @@
 #ifndef IELEMENT_H
 #define IELEMENT_H
 
+#include "ktlinterfacesexport.h"
+
 #include <QObject>
 
 namespace KTechLab {
     /**
      * \brief common interface for all the models used by a simulator
      */
-    class IElement : public QObject {
+    class KTLINTERFACES_EXPORT IElement : public QObject {
       Q_OBJECT
 
       public:
