@@ -11,6 +11,8 @@
 #ifndef ISIMULATIONMANAGER_H
 #define ISIMULATIONMANAGER_H
 
+#include "ktlinterfacesexport.h"
+
 #include <QObject>
 
 namespace KTechLab {
@@ -23,7 +25,7 @@ namespace KTechLab {
      * This interface provides access to all the simulation-related
      * services.
      */
-    class ISimulationManager : public QObject {
+    class KTLINTERFACES_EXPORT ISimulationManager : public QObject {
 
         Q_OBJECT
 

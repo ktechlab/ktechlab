@@ -11,6 +11,8 @@
 #ifndef ISIMULATOR_H
 #define ISIMULATOR_H
 
+#include "ktlinterfacesexport.h"
+
 #include <QObject>
 #include <QVariantMap>
 
@@ -22,7 +24,7 @@ namespace KTechLab {
    * \brief A general interface for a simulator. 
    * One simulator can simulate exactly one document.
    */
-  class ISimulator : public QObject {
+    class KTLINTERFACES_EXPORT ISimulator : public QObject {
         Q_OBJECT
     public:
         virtual ~ISimulator();
