@@ -1,5 +1,5 @@
 /***************************************************************************
- *    SimulationManager implmentation                                      *
+ *    SimulationManager implementation                                      *
  *       A controller for simulations in KTechLab                          *
  *    Copyright (c) 2010 Zoltan Padrah                                     *
  *                                                                         *
@@ -13,6 +13,8 @@
 
 #include "interfaces/isimulationmanager.h"
 
+#include <QMap>
+
 namespace KTechLab {
 
     class SimulationManagerPrivate;
@@ -25,7 +27,7 @@ class SimulationManager : public ISimulationManager {
   public:
     /** method to create the single instance of the simulation manager */
     static void initialize();
-    
+
     /** destructor */
     virtual ~SimulationManager();
 
