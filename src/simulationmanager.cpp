@@ -50,6 +50,9 @@ ISimulator *SimulationManager::createSimulatorForDocument(
     return NULL;
 }
 
+void SimulationManager::registerSimulatorFactory(ISimulatorFactory *factory){
+}
+
 void SimulationManager::registerElementFactory(IElementFactory *factory){
 }
 
