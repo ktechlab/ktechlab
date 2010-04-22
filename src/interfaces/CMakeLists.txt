@@ -10,6 +10,7 @@ set( ktlinterfaces_LIB_SRCS idocumentmodel.cpp
    ielement.cpp
    ielementfactory.cpp
    isimulator.cpp
+   isimulatorfactory.cpp
    isimulationmanager.cpp
    )
 
