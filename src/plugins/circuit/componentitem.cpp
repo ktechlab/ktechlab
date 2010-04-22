@@ -126,9 +126,13 @@ void ComponentItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
         event->accept();
     }
     if (pos() != m_oldPos){
+        //TODO: make grid configurable
+        //align to grid
         QPoint p = pos().toPoint() / 8;
-        setPos(p * 8);
-        itemChange(ItemScenePositionHasChanged,pos());
+        p*=8;
+        setPos(p);
+        if (p != m_oldPos)
+            itemChange(ItemScenePositionHasChanged,pos());
     }
     QGraphicsSvgItem::mouseReleaseEvent(event);
 }
