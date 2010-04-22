@@ -20,12 +20,20 @@ namespace KTechLab {
 
     class IElementFactory;
     class ISimulator;
+    class ISimulatorFactory;
     class IComponentDocument;
 
     /**
      * \brief A simulation manager interface.
      * This interface provides access to all the simulation-related
      * services.
+     * Things that the simulation manager does:
+     * \li registers factories for ISimulators for given simulation type
+     * \li registers factories for IElements for given simulation type
+     * \li creates ISimulators for IDocuments
+     * \li creates IElements for ISimulators
+     * \li keep track of all simulation types
+     * \li keep track of all ISimulator instances
      */
     class KTLINTERFACES_EXPORT ISimulationManager : public QObject {
 
@@ -60,6 +68,13 @@ namespace KTechLab {
              */
             virtual ISimulator *simulatorForDocument(IComponentDocument *document,
                                                     QString *simulationType) = 0;
+
+            /**
+             * registed a ISimulatorFactory. All the needed data 
+             * should be provided by the factory
+             * \param factory the simulator factory to register
+             */
+            virtual void registerSimulatorFactory(ISimulatorFactory *factory) = 0;
 
             /**
              * register an IElementFactory in the simulation manager

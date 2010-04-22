@@ -22,10 +22,10 @@ namespace KTechLab {
     class IElement;
 
 /**
- * \brief common interface for all the simulator factories
+ * \brief common interface for all the component model (element) factories
  * The main purpose of the \ref IElement factores is to register 
  * themselves on the \ref ISimulationManager and then create 
- * \ref ISimulator -s as needed
+ * IElements as needed
  * 
  * One factory type can support only one simulation type and 
  * only one document type
