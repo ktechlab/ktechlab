@@ -8,6 +8,7 @@ set( ktlinterfaces_LIB_SRCS idocumentmodel.cpp
    component/componentmodel.cpp
    component/componentmimedata.cpp
    ielement.cpp
+   ielementfactory.cpp
    isimulator.cpp
    isimulationmanager.cpp
    )
