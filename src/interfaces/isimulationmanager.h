@@ -14,9 +14,11 @@
 #include "ktlinterfacesexport.h"
 
 #include <QObject>
+#include <QList>
 
 namespace KTechLab {
 
+    class IElementFactory;
     class ISimulator;
     class IComponentDocument;
 
@@ -35,13 +37,56 @@ namespace KTechLab {
 
             virtual ~ISimulationManager();
 
-            /** @return an existing simulator for a document or NULL if there is 
-             * no simulator associated with the respective document */
-            virtual ISimulator *simulatorForDocument(IComponentDocument *document) = 0;
-
-            /** @return a new simulator suitable for a given component document */
+            /** 
+             * Create a simulator for a document for a given simulation type
+             * \param document the document for which the simulator is created
+             * \param simulationType the preferred type of simulator. If the parameter is
+             *      NULL, an arbitrary simulator is returned
+             * \return a new simulator suitable for a given component document
+             */
             virtual ISimulator *createSimulatorForDocument
-                                    (IComponentDocument *document) = 0;
+                (IComponentDocument *document,
+                 QString *simulationType) = 0;
+
+            /** 
+             * Return an aleardy created simulator for a given document
+             * \param document the document for which the simulator should be created
+             * \param simulationType a string describimg the type of the simulation
+             *      or NULL in case if doesn't matter
+             * \return an existing simulator for a document or NULL if there is
+             * no simulator associated with the respective document.
+             *  If there is no simulationType specified and more candidate simulators
+             *  are available, it returns an arbityrary one
+             */
+            virtual ISimulator *simulatorForDocument(IComponentDocument *document,
+                                                    QString *simulationType) = 0;
+
+            /**
+             * register an IElementFactory in the simulation manager
+             */
+            virtual void registerElementFactory(IElementFactory *factory) = 0;
+
+            /**
+             * \return a list of all document mimetypes for which at least one registered
+             * factory exists
+             */
+            virtual QList<QString> allRegisteredDocumentMimeTypeNames() =0;
+            /**
+             * \return a list of factories that support creation of models for different
+             *  simulation types
+             */
+            virtual QList<IElementFactory> factoriesForSimulationType(QString *simulationType) = 0;
+
+            /**
+             * \return all the IElement factories that have been registered 
+             */
+            virtual QList<IElementFactory> allRegisteredFactories() = 0;
+
+            /**
+             * @return all the simulation types for which at least one factory is registered
+             */
+            virtual QList<QString> allRegisteredSimulationTypes() = 0;
+
         protected:
             ISimulationManager();
 
