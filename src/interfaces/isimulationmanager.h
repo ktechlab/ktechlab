@@ -75,12 +75,12 @@ namespace KTechLab {
              * \return a list of factories that support creation of models for different
              *  simulation types
              */
-            virtual QList<IElementFactory> factoriesForSimulationType(QString *simulationType) = 0;
+            virtual QList<IElementFactory*> factoriesForSimulationType(QString *simulationType) = 0;
 
             /**
              * \return all the IElement factories that have been registered 
              */
-            virtual QList<IElementFactory> allRegisteredFactories() = 0;
+            virtual QList<IElementFactory*> allRegisteredFactories() = 0;
 
             /**
              * @return all the simulation types for which at least one factory is registered
