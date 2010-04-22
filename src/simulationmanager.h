@@ -33,20 +33,21 @@ class SimulationManager : public ISimulationManager {
      * no simulator associated with the respective document */
     virtual ISimulator *simulatorForDocument(IComponentDocument *document,
                                              QString *simulationType);
-    
+
     /** @return a new simulator suitable for a given component document */
     virtual ISimulator *createSimulatorForDocument(IComponentDocument *document,
                                     QString *simulationType);
 
-    virtual void registerElementFactory(IElementFactory *factory) = 0;
+    virtual void registerElementFactory(IElementFactory *factory);
 
-    virtual QList<QString> allRegisteredDocumentMimeTypeNames() =0;
-    
-    virtual QList<IElementFactory> factoriesForSimulationType(QString *simulationType) = 0;
-    
-    virtual QList<IElementFactory> allRegisteredFactories() = 0;
+    virtual QList<QString> allRegisteredDocumentMimeTypeNames();
 
-    virtual QList<QString> allRegisteredSimulationTypes() = 0;
+    virtual QList<IElementFactory*> factoriesForSimulationType(
+                                            QString *simulationType);
+
+    virtual QList<IElementFactory*> allRegisteredFactories();
+
+    virtual QList<QString> allRegisteredSimulationTypes();
 
 
   protected:

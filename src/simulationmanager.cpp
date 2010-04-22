@@ -50,21 +50,22 @@ ISimulator *SimulationManager::createSimulatorForDocument(
     return NULL;
 }
 
-void registerElementFactory(IElementFactory *factory){
+void SimulationManager::registerElementFactory(IElementFactory *factory){
 }
 
 QList<QString> SimulationManager::allRegisteredDocumentMimeTypeNames(){
   QList<QString> ret;
   return ret;
 }
-    
-QList<IElementFactory> SimulationManager::factoriesForSimulationType(QString *simulationType){
-  QList<IElementFactory> ret;
+
+QList<IElementFactory*> SimulationManager::factoriesForSimulationType
+                                                (QString *simulationType){
+  QList<IElementFactory*> ret;
   return ret;
 }
-    
-QList<IElementFactory> SimulationManager::allRegisteredFactories(){
-  QList<IElementFactory> ret;
+
+QList<IElementFactory*> SimulationManager::allRegisteredFactories(){
+  QList<IElementFactory*> ret;
   return ret;
 }
 
