@@ -8,8 +8,9 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  ***************************************************************************/
- 
+
 #include "simulationmanager.h"
+#include "interfaces/ielementfactory.h"
 
 using namespace KTechLab;
 
@@ -36,13 +37,38 @@ SimulationManager::~SimulationManager(){
 }
 
 ISimulator *SimulationManager::simulatorForDocument(
-                        IComponentDocument *document){
+                        IComponentDocument *document,
+                        QString *simulationType){
     // TODO implement
     return NULL;
 }
 
 ISimulator *SimulationManager::createSimulatorForDocument(
-                        IComponentDocument *document){
+                        IComponentDocument *document,
+                        QString *simulationType){
     // TODO implment
     return NULL;
+}
+
+void registerElementFactory(IElementFactory *factory){
+}
+
+QList<QString> SimulationManager::allRegisteredDocumentMimeTypeNames(){
+  QList<QString> ret;
+  return ret;
+}
+    
+QList<IElementFactory> SimulationManager::factoriesForSimulationType(QString *simulationType){
+  QList<IElementFactory> ret;
+  return ret;
+}
+    
+QList<IElementFactory> SimulationManager::allRegisteredFactories(){
+  QList<IElementFactory> ret;
+  return ret;
+}
+
+QList<QString> SimulationManager::allRegisteredSimulationTypes(){
+  QList<QString> ret;
+  return ret;
 }
