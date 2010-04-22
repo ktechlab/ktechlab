@@ -1,6 +1,6 @@
 /***************************************************************************
  *    IElement interface implementation                                    *
- *       A commone interface for all compoent models in ktechlab           *
+ *       A common interface for all component models in KTechLab           *
  *    Copyright (c) 2010 Zoltan Padrah                                     *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -13,9 +13,5 @@
 
 using namespace KTechLab;
 
-/*
-IElement::IElement(){
-}
-*/
 IElement::~IElement(){
 }

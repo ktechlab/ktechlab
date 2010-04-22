@@ -41,7 +41,7 @@ public:
      * \return the type simulation where this factory can create IElements
      */
     virtual QString *simulationType() = 0;
-    
+
     /**
      * \return the name of the document mimetype, for which the factory can 
      * create IElements
@@ -53,7 +53,7 @@ public:
      * create components
      */
     virtual QList<QString> *supportedComponentTypeIds() = 0;
-    
+
     /**
      * create a component model, for a gein component type
      * \param type the type of the component
