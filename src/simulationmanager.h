@@ -38,6 +38,8 @@ class SimulationManager : public ISimulationManager {
     virtual ISimulator *createSimulatorForDocument(IComponentDocument *document,
                                     QString *simulationType);
 
+    virtual void registerSimulatorFactory(ISimulatorFactory *factory);
+
     virtual void registerElementFactory(IElementFactory *factory);
 
     virtual QList<QString> allRegisteredDocumentMimeTypeNames();
