@@ -8,7 +8,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  ***************************************************************************/
- 
+
 #include "isimulationmanager.h"
 
 using namespace KTechLab;
@@ -27,5 +27,3 @@ ISimulationManager::~ISimulationManager(){
 ISimulationManager *ISimulationManager::self(){
     return m_self;
 }
-
-// #include "isimulationmanager.moc"
