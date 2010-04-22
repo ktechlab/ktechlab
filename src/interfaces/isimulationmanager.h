@@ -71,6 +71,9 @@ public:
     virtual ISimulator *simulatorForDocument(IComponentDocument *document,
                                             QString *simulationType) = 0;
 
+    // TODO add method to create IElements for given document and simulationType
+
+    // TODO add method to unregister {element, simulator}factories
     /**
      * registed a ISimulatorFactory. All the needed data
      * should be provided by the factory

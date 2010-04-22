@@ -12,19 +12,53 @@
 #include "simulationmanager.h"
 #include "interfaces/ielementfactory.h"
 
+#include "QMap"
+
 using namespace KTechLab;
 
+// ----- private data for simulation manager ------
 class KTechLab::SimulationManagerPrivate {
+
+/*
+there is:
+- simulation type
+- document type
+- component type
+- simulator factory
+- element factory
+
+mappings:
+(simulation type, document type) -> simulator factory
+(simulation type, document type, element type) -> element factory
+*/
+    class SimulatorMapKey {
+      public:
+        QString simulationType;
+        QString documentType;
+    };
+
+    class ElementMapKey {
+      public:
+        QString simulationType;
+        QString documentType;
+        QString elementType;
+    };
+
+    QMap<SimulatorMapKey, ISimulatorFactory*> simulatorFactoryMap;
+    QMap<ElementMapKey, IElementFactory*> elementFactoryMap;
 };
+
+
+// ---- the simulation manager class -------
 
 // the static instance
 SimulationManager *SimulationManager::m_self = 0;
 
 void SimulationManager::initialize(){
-  
+
     if( m_self )
         return;
-    
+
     m_self = new SimulationManager();
 }
 
@@ -51,28 +85,34 @@ ISimulator *SimulationManager::createSimulatorForDocument(
 }
 
 void SimulationManager::registerSimulatorFactory(ISimulatorFactory *factory){
+    // TODO implement
 }
 
 void SimulationManager::registerElementFactory(IElementFactory *factory){
+    // TODO implement
 }
 
 QList<QString> SimulationManager::allRegisteredDocumentMimeTypeNames(){
+    // TODO implement
   QList<QString> ret;
   return ret;
 }
 
 QList<IElementFactory*> SimulationManager::factoriesForSimulationType
                                                 (QString *simulationType){
+    // TODO implement
   QList<IElementFactory*> ret;
   return ret;
 }
 
 QList<IElementFactory*> SimulationManager::allRegisteredFactories(){
+    // TODO implement
   QList<IElementFactory*> ret;
   return ret;
 }
 
 QList<QString> SimulationManager::allRegisteredSimulationTypes(){
+    // TODO implement
   QList<QString> ret;
   return ret;
 }
