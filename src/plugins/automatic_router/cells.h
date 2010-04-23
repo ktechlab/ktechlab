@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2003-2006 by David Saxton                               *
- *   david@bluehaze.org                                                    *
+ *   Copyright (C) 2003-2006 by David Saxton <david@bluehaze.org>          *
+ *   Copyright (C) 2010 by Julian Bäume <julian@svg4all.de>                *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
