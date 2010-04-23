@@ -48,32 +48,18 @@ public:
     virtual ~ISimulationManager();
 
     /**
-     * Create a simulator for a document for a given simulation type
+     * Return an aleardy created simulator of a given type for a given 
+     * document, or create a new one if it doesn't exist
      * \param document the document for which the simulator is created
      * \param simulationType the preferred type of simulator. If the parameter is
      *      NULL, an arbitrary simulator is returned
      * \return a new simulator suitable for a given component document
      */
-    virtual ISimulator *createSimulatorForDocument(
-                                IComponentDocument *document,
-                                QString *simulationType) = 0;
+    virtual ISimulator *simulatorForDocument(
+                            IComponentDocument *document,
+                            const QString &simulationType = QString()) = 0;
 
-    /**
-     * Return an aleardy created simulator for a given document
-     * \param document the document for which the simulator should be created
-     * \param simulationType a string describimg the type of the simulation
-     *      or NULL in case if doesn't matter
-     * \return an existing simulator for a document or NULL if there is
-     * no simulator associated with the respective document.
-     *  If there is no simulationType specified and more candidate simulators
-     *  are available, it returns an arbityrary one
-     */
-    virtual ISimulator *simulatorForDocument(IComponentDocument *document,
-                                            QString *simulationType) = 0;
 
-    // TODO add method to create IElements for given document and simulationType
-
-    // TODO add method to unregister {element, simulator}factories
     /**
      * registed a ISimulatorFactory. All the needed data
      * should be provided by the factory
@@ -82,31 +68,46 @@ public:
     virtual void registerSimulatorFactory(ISimulatorFactory *factory) = 0;
 
     /**
+     * unregisted a ISimulatorFactory. it should do nothing if the factory
+     * is not registered or the parameter is null
+     * \param factory the simulator factory to unregister
+     */
+    virtual void unregisterSimulatorFactory(ISimulatorFactory *factory) = 0;
+
+    /**
      * register an IElementFactory in the simulation manager
+     * \param factory the factory to register
      */
     virtual void registerElementFactory(IElementFactory *factory) = 0;
+
+    /**
+     * unregister an IElementFactory in the simulation manager
+     * \param factory to register. it should be no problem if the factory is
+     * null or it's not registered
+     */
+    virtual void unregisterElementFactory(IElementFactory *factory) = 0;
 
     /**
      * \return a list of all document mimetypes for which at least one registered
      * factory exists
      */
-    virtual QList<QString> allRegisteredDocumentMimeTypeNames() =0;
+    virtual QList<QString> registeredDocumentMimeTypeNames() =0;
+
 
     /**
-     * \return a list of factories that support creation of models for different
-     *  simulation types
+     * \return all the IElement factories that have been registered for a given
+     *      simulation type or for all simulation types
+     * \param simuationType the type of simulation for which the factory list is
+     *      queried; this parameter can be optional -- in that case all the factories
+     *      are returned
      */
-    virtual QList<IElementFactory*> factoriesForSimulationType(QString *simulationType) = 0;
-
-    /**
-     * \return all the IElement factories that have been registered
-     */
-    virtual QList<IElementFactory*> allRegisteredFactories() = 0;
+    virtual QList<IElementFactory*> registeredFactories(
+                                    const QString &simulationType = QString()) = 0;
 
     /**
      * @return all the simulation types for which at least one factory is registered
      */
-    virtual QList<QString> allRegisteredSimulationTypes() = 0;
+    virtual QList<QString> registeredSimulationTypes() = 0;
 
 protected:
     ISimulationManager();

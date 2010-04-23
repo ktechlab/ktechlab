@@ -72,15 +72,8 @@ SimulationManager::~SimulationManager(){
 
 ISimulator *SimulationManager::simulatorForDocument(
                         IComponentDocument *document,
-                        QString *simulationType){
+                        const QString &simulationType){
     // TODO implement
-    return NULL;
-}
-
-ISimulator *SimulationManager::createSimulatorForDocument(
-                        IComponentDocument *document,
-                        QString *simulationType){
-    // TODO implment
     return NULL;
 }
 
@@ -88,30 +81,32 @@ void SimulationManager::registerSimulatorFactory(ISimulatorFactory *factory){
     // TODO implement
 }
 
+void SimulationManager::unregisterSimulatorFactory(ISimulatorFactory *factory){
+    // TODO implement
+}
+
 void SimulationManager::registerElementFactory(IElementFactory *factory){
     // TODO implement
 }
 
-QList<QString> SimulationManager::allRegisteredDocumentMimeTypeNames(){
+void SimulationManager::unregisterElementFactory(IElementFactory *factory){
+    // TODO implement
+}
+
+QList<QString> SimulationManager::registeredDocumentMimeTypeNames(){
     // TODO implement
   QList<QString> ret;
   return ret;
 }
 
-QList<IElementFactory*> SimulationManager::factoriesForSimulationType
-                                                (QString *simulationType){
+QList<IElementFactory*> SimulationManager::registeredFactories(
+                            const QString &simulationType){
     // TODO implement
   QList<IElementFactory*> ret;
   return ret;
 }
 
-QList<IElementFactory*> SimulationManager::allRegisteredFactories(){
-    // TODO implement
-  QList<IElementFactory*> ret;
-  return ret;
-}
-
-QList<QString> SimulationManager::allRegisteredSimulationTypes(){
+QList<QString> SimulationManager::registeredSimulationTypes(){
     // TODO implement
   QList<QString> ret;
   return ret;
