@@ -70,12 +70,12 @@ void AutomaticRouter::mapRoute(QPointF p1, QPointF p2)
     // appropriate route.
 
     // Connector configuration: Line
-    if (checkLineRoute(p1.x(), p1.y(), p2.x(), p2.y(), 4 * 4 /*ICNDocument::hs_connector*/)) {
+    if (checkLineRoute(p1.x(), p1.y(), p2.x(), p2.y(), 4 * Cells::ScoreConnector)) {
         return;
     } else m_route.clear();
 
-    if (checkLineRoute(p1.x(), p1.y(), p2.x(), p2.y(), 2 * 4 /*ICNDocument::hs_connector*/)) {
-        if (checkLineRoute(p1.x(), p1.y(), p2.x(), p2.y(), 4 /*ICNDocument::hs_connector*/ - 1)) {
+    if (checkLineRoute(p1.x(), p1.y(), p2.x(), p2.y(), 2 * Cells::ScoreConnector)) {
+        if (checkLineRoute(p1.x(), p1.y(), p2.x(), p2.y(), Cells::ScoreConnector - 1)) {
             return;
         } else m_route.clear();
     } else m_route.clear();
