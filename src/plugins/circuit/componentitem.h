@@ -10,15 +10,15 @@
 #ifndef COMPONENTAPPLET_H
 #define COMPONENTAPPLET_H
 
-#include <QGraphicsSvgItem>
 #include <QDomDocument>
+#include <interfaces/component/icomponentitem.h>
 
 namespace KTechLab
 {
 
 class Theme;
 
-class ComponentItem: public QGraphicsSvgItem
+class ComponentItem: public IComponentItem
 {
     Q_OBJECT
 public:

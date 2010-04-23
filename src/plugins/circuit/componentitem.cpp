@@ -23,16 +23,10 @@
 using namespace KTechLab;
 
 ComponentItem::ComponentItem ( const QVariantMap& data, Theme *theme, QGraphicsItem* parentItem )
-    : QGraphicsSvgItem ( parentItem ),
+    : IComponentItem( parentItem ),
       m_renderer( new QSvgRenderer() ),
       m_theme( theme )
 {
-    setAcceptHoverEvents(true);
-    setFlags(
-        ItemIsFocusable | ItemIsSelectable |
-        ItemIsMovable | ItemSendsScenePositionChanges
-    );
-
     QString fileName = m_theme->findFirstFile( data.value("fileName").toString() );
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly))
@@ -107,24 +101,16 @@ void ComponentItem::initPins()
 void ComponentItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     m_oldPos = pos();
-    QGraphicsSvgItem::mousePressEvent(event);
+    IComponentItem::mousePressEvent(event);
 }
 
 void ComponentItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
-    QGraphicsSvgItem::mouseMoveEvent(event);
+    IComponentItem::mouseMoveEvent(event);
 }
 
 void ComponentItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
-    if (   event->button() == Qt::LeftButton
-        && contains(event->scenePos())
-        && contains(event->buttonDownScenePos(Qt::LeftButton)) ){
-        if (event->modifiers() != Qt::ControlModifier)
-            scene()->clearSelection();
-        setSelected(true);
-        event->accept();
-    }
     if (pos() != m_oldPos){
         //TODO: make grid configurable
         //align to grid
@@ -134,16 +120,16 @@ void ComponentItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
         if (p != m_oldPos)
             itemChange(ItemScenePositionHasChanged,pos());
     }
-    QGraphicsSvgItem::mouseReleaseEvent(event);
+    IComponentItem::mouseReleaseEvent(event);
 }
 
 void ComponentItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
 {
-    QGraphicsSvgItem::hoverEnterEvent(event);
+    IComponentItem::hoverEnterEvent(event);
 }
 void ComponentItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 {
-    QGraphicsSvgItem::hoverLeaveEvent(event);
+    IComponentItem::hoverLeaveEvent(event);
 }
 
 QVariant ComponentItem::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant& value)
