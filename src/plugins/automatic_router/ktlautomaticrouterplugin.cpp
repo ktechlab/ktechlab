@@ -1,5 +1,4 @@
 /*
-    <one line to give the program's name and a brief idea of what it does.>
     Copyright (C) 2003-2004  David Saxton <david@bluehaze.org>
     Copyright (C) 2010 Julian Bäume <julian@svg4all.de>
 
