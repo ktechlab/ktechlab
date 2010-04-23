@@ -55,6 +55,8 @@ void AutomaticRouter::mapRoute(QPointF p1, QPointF p2)
     if (!m_cells)
         createCells();
 
+    m_cells->update(m_documentScene, QRectF(p1,p2));
+
     if ( !m_cells->haveCell(p1.x(), p1.y()) || !m_cells->haveCell(p2.x(), p2.y()) ) {
         return;
     }

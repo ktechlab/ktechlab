@@ -10,6 +10,11 @@
 
 #include "cells.h"
 #include "utils.h"
+#include <interfaces/idocumentscene.h>
+#include <interfaces/component/icomponentitem.h>
+#include <interfaces/component/connectoritem.h>
+#include <QGraphicsSvgItem>
+#include <KDebug>
 
 //BEGIN class Cells
 Cells::Cells(const QRect &canvasRect) {
@@ -65,6 +70,53 @@ void Cells::reset() {
             m_cells[i][j].reset();
     }
 }
+
+void Cells::update(const KTechLab::IDocumentScene* scene, const QRectF &region)
+{
+    QRectF updateRegion = region.normalized();
+    if (updateRegion.isNull())
+        updateRegion = scene->sceneRect();
+
+    foreach (QGraphicsItem* item, scene->items(updateRegion)) {
+        KTechLab::IComponentItem* component = 0;
+        KTechLab::ConnectorItem* connector = 0;
+        int score = Cells::ScoreNone;
+        QPainterPath shape = item->mapToScene(item->shape());
+        QRect rect = shape.boundingRect().toRect();
+        rect.setSize(rect.size() / 8);
+        rect.moveTopLeft(rect.topLeft() / 8);
+        if ((component = dynamic_cast<KTechLab::IComponentItem*>(item))) {
+            score = Cells::ScoreItem;
+            //blur the surroundings of an item
+            for (int x = rect.x()-1; x < rect.x()+rect.width()+1; ++x) {
+                //update above rect
+                int y = rect.y()-1;
+                if (cell(x,y).getCIPenalty() < 5*Cells::ScoreConnector)
+                    cell(x,y).addCIPenalty(5*Cells::ScoreConnector);
+                //update below rect
+                y += rect.height()+2;
+                if (cell(x,y).getCIPenalty() < 5*Cells::ScoreConnector)
+                    cell(x,y).addCIPenalty(5*Cells::ScoreConnector);
+            }
+            for (int y = rect.y(); y < rect.y()+rect.height(); ++y) {
+                int x = rect.x()-1;
+                if (cell(x,y).getCIPenalty() < 5*Cells::ScoreConnector)
+                    cell(x,y).addCIPenalty(5*Cells::ScoreConnector);
+                x += rect.width()+2;
+                if (cell(x,y).getCIPenalty() < 5*Cells::ScoreConnector)
+                    cell(x,y).addCIPenalty(5*Cells::ScoreConnector);
+            }
+        }
+        if ((connector = dynamic_cast<KTechLab::ConnectorItem*>(item))) {
+            score = Cells::ScoreConnector;
+        }
+        for (int x = rect.x(); x < rect.x()+rect.width(); ++x)
+            for (int y = rect.y(); y < rect.y()+rect.height(); ++y)
+                if (shape.contains(QPoint(x*8,y*8)) && cell(x,y).getCIPenalty() < score)
+                    cell(x,y).addCIPenalty(score);
+    }
+}
+
 //END class Cells
 
 //BEGIN class Cell
