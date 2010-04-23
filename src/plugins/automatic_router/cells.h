@@ -15,6 +15,10 @@
 #include <QRect>
 #include "utils.h"
 
+namespace KTechLab{
+    class IDocumentScene;
+}
+
 /**
  * @short Used for mapping out connections
  * In this implementation a \class Cell represents 8x8 pixels in the scene to
@@ -192,6 +196,15 @@ public:
         j -= m_cellsRect.top();
         return m_cells[i][j];
     }
+    /**
+     * Update the internal representation of the scene.
+     * If a region is provided, only the items contained in that region
+     * are considered in the update.
+     *
+     * @param scene - the documents scene containing all components
+     * @param region - the region that is to be considered
+     */
+    void update(const KTechLab::IDocumentScene* scene, const QRectF &region = QRectF());
 
 protected:
     void init(const QRect &canvasRect);
