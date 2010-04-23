@@ -139,6 +139,16 @@ class Cells {
 public:
     Cells(const QRect &canvasRect);
     ~Cells();
+
+    /**
+     * Scores for different type of items on the scene
+     */
+    enum {
+        ScoreNone = 0,
+        ScoreConnector = 4,
+        ScoreItem = 1000
+    };
+
     /**
      * Resets bestScore, prevX, prevY, addedToLabels, it, permanent for each cell
      */
