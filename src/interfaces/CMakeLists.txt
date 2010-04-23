@@ -12,6 +12,7 @@ set( ktlinterfaces_LIB_SRCS
    component/componentmodel.cpp
    component/componentmimedata.cpp
    component/connectoritem.cpp
+   component/icomponentitem.cpp
    component/node.cpp
    )
 
