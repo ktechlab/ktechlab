@@ -34,7 +34,8 @@ PinItem::PinItem(const QRectF& rect, QGraphicsItem* parent, QGraphicsScene* scen
     setBrush(QBrush(Qt::SolidPattern));
     //set opacity to nearly 0, because 0 will hide the item
     //and it won't receive any events if hidden
-    this->setOpacity(0.01);
+    if (parent)
+        this->setOpacity(0.01);
 }
 
 bool PinItem::fetchCircuit()
@@ -56,7 +57,8 @@ void PinItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 {
     //set opacity to nearly 0, because 0 will hide the item
     //and it won't receive any events if hidden
-    this->setOpacity(0.01);
+    if (parentItem())
+        this->setOpacity(0.01);
     event->accept();
     QGraphicsEllipseItem::hoverLeaveEvent(event);
 }
@@ -71,7 +73,8 @@ void PinItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
     if (!m_circuit->isRouting()){
         const QPointF &center = mapToScene(rect().center());
         m_circuit->startRouting(center);
-        setOpacity(0.01);
+        if (parentItem())
+            setOpacity(0.01);
         event->accept();
     } else {
         m_circuit->finishRouting();
