@@ -29,10 +29,10 @@ public:
     virtual QVariant itemChange(GraphicsItemChange change, const QVariant& value);
 
 public slots:
-    void dataUpdated( const QString &name, const QVariantMap &data );
+    virtual void updateData( const QString &name, const QVariantMap &data );
 
 signals:
-    void dataChanged( const QString &name, const QVariantMap &data );
+    void dataUpdated( const QString &name, const QVariantMap &data );
 
 protected:
     virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event);

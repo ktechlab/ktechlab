@@ -36,7 +36,7 @@ public:
     ~IDocumentModel();
 
 signals:
-    void dataUpdated( const QString &name, const QVariantList &data );
+    void dataUpdated( const QString &name, const QVariantMap &data );
 };
 
 }

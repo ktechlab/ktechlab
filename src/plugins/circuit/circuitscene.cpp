@@ -104,7 +104,7 @@ void CircuitScene::setupData()
     }
 }
 
-void CircuitScene::dataUpdated( const QString &name, const QVariantList &data )
+void CircuitScene::updateData( const QString& name, const QVariantMap& data )
 {
     //Plasma::DataEngine *docEngine = dataEngine( "ktechlabdocument" );
     //kDebug() << "isContainment() ==" << isContainment();
