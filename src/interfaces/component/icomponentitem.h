@@ -25,14 +25,55 @@
 
 namespace KTechLab {
 
+class IDocumentModel;
+
+/**
+ * \short Components that are shown on a scene
+ *
+ * This is a base-class for components which are rendered onto \ref IDocumentScene.
+ * Each component needs an id which is unique within a document. Each component needs
+ * to notify the model after it has been altered by user-interaction.
+ */
 class KTLINTERFACES_EXPORT IComponentItem : public QGraphicsSvgItem
 {
 public:
     IComponentItem(QGraphicsItem* parentItem = 0);
     ~IComponentItem();
 
+    /**
+     * Set the document model for this component. This will be used to notify
+     * the model about changes and to retrieve information about itself.
+     */
+    void setDocumentModel(IDocumentModel* model);
+    /**
+     * Get the document model.
+     */
+    IDocumentModel* documentModel() const;
+
+    /**
+     * Get the id of this component.
+     */
+    QString id() const;
+
+public slots:
+    /**
+     * Inform the component, that some data has been changed, so it can
+     * update it's data and take appropriate action.
+     *
+     * @param name - tell, which data has been changed
+     * @param data - some data that is important for the object to know
+     */
+    virtual void updateData( const QString &name, const QVariantMap &data );
+
+signals:
+    void dataUpdated( const QString &name, const QVariantMap &data );
+
 protected:
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    virtual QVariant itemChange(GraphicsItemChange change, const QVariant& value);
+
+    IDocumentModel *m_document;
+    QString m_id;
 };
 
 }

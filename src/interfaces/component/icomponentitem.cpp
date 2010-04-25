@@ -20,11 +20,14 @@
 #include "icomponentitem.h"
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
+#include <KDebug>
+#include <idocumentmodel.h>
 
 using namespace KTechLab;
 
 IComponentItem::IComponentItem(QGraphicsItem* parentItem)
-    : QGraphicsSvgItem(parentItem)
+    : QGraphicsSvgItem(parentItem),
+      m_document(0)
 {
     setAcceptHoverEvents(true);
     setFlags(
@@ -49,4 +52,44 @@ void IComponentItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
         event->accept();
     }
     QGraphicsSvgItem::mouseReleaseEvent(event);
+}
+
+QString IComponentItem::id() const
+{
+    if (!m_id.isEmpty())
+        return m_id;
+    if (data(0).toMap().contains("id")) {
+        return data(0).toMap().value("id").toString();
+    }
+
+    kWarning() << "no id for IComponentItem:" << this;
+    return QString();
+}
+
+void IComponentItem::setDocumentModel(IDocumentModel* model)
+{
+    m_document = model;
+}
+
+IDocumentModel* IComponentItem::documentModel() const
+{
+    return m_document;
+}
+
+QVariant KTechLab::IComponentItem::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant& value)
+{
+    if (change == QGraphicsItem::ItemScenePositionHasChanged && m_document){
+        QPointF p = value.toPointF();
+        QVariantMap newData = data(0).toMap();
+        newData.insert("x", p.x());
+        newData.insert("y", p.y());
+        setData(0, newData);
+        m_document->updateData( "position", newData);
+    }
+    return QGraphicsItem::itemChange(change, value);
+}
+
+void IComponentItem::updateData(const QString& name, const QVariantMap& data)
+{
+
 }
