@@ -80,6 +80,8 @@ void CircuitDocumentPrivate::reloadFromXml()
                 circuitModel->addComponent( item );
             } else if ( tagName == "connector" ) {
                 circuitModel->addConnector( item );
+            } else if ( tagName == "node" ) {
+                circuitModel->addNode( item );
             }
         }
         node = node.nextSibling();

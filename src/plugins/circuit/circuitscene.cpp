@@ -28,6 +28,7 @@
 #include <QGraphicsSceneDragDropEvent>
 #include <KDebug>
 #include "circuitmodel.h"
+#include "pinitem.h"
 
 using namespace KTechLab;
 
@@ -92,7 +93,9 @@ void CircuitScene::setupData()
     foreach (QVariant component, m_model->components())
     {
         if (component.canConvert(QVariant::Map)) {
-            addItem( new ComponentItem( component.toMap(), m_theme ) );
+            ComponentItem* item = new ComponentItem( component.toMap(), m_theme );
+            addItem( item );
+            m_components.insert(item->id(), item);
         }
     }
     foreach (QVariant connector, m_model->connectors())
@@ -100,6 +103,15 @@ void CircuitScene::setupData()
         if (connector.canConvert(QVariant::Map)) {
             ConnectorItem *connectorItem = new ConnectorItem(connector.toMap());
             addItem( connectorItem );
+        }
+    }
+    foreach (QVariant pins, m_model->nodes()){
+        if (pins.canConvert(QVariant::Map)) {
+            QPointF p(pins.toMap().value("x").toDouble(),pins.toMap().value("y").toDouble());
+            p -= QPointF(6,6);
+            QRectF rect(p, QSize(4,4));
+            PinItem* item = new PinItem(rect, 0, this);
+            item->setId(pins.toMap().value("id").toString());
         }
     }
 }

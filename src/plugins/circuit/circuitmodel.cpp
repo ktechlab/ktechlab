@@ -77,6 +77,25 @@ QVariantMap CircuitModel::connectors() const
     return m_connectors;
 }
 
+void CircuitModel::addNode(const QVariantMap& node)
+{
+    if ( node.contains( "id" ) )
+        m_nodes.insert( node.value("id").toString(), node );
+}
+
+QVariantMap CircuitModel::node(const QString& id)
+{
+    if ( m_nodes.contains( id ) )
+        return m_nodes.value(id).toMap();
+
+    return QVariantMap();
+}
+
+QVariantMap CircuitModel::nodes() const
+{
+    return m_nodes;
+}
+
 
 QVariant CircuitModel::data ( const QModelIndex& index, int role ) const
 {
