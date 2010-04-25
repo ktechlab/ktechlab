@@ -22,6 +22,7 @@
 
 #include "ktlinterfacesexport.h"
 #include <QtGui/QGraphicsScene>
+#include <QVariantMap>
 
 class QGraphicsSceneMouseEvent;
 

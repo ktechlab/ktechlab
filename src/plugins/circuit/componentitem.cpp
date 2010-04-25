@@ -53,8 +53,8 @@ ComponentItem::ComponentItem ( const QVariantMap& data, Theme *theme, QGraphicsI
     setPos( pos );
 
     m_shape.addRect(m_renderer->boundsOnElement("icon"));
-    connect(this,SIGNAL(dataChanged(QString,QVariantMap)),
-            this,SLOT(dataUpdated(QString,QVariantMap)));
+    connect(this,SIGNAL(dataUpdated(QString,QVariantMap)),
+            this,SLOT(updateData(QString,QVariantMap)));
 }
 
 ComponentItem::~ComponentItem()
@@ -62,7 +62,7 @@ ComponentItem::~ComponentItem()
     delete m_renderer;
 }
 
-void ComponentItem::dataUpdated( const QString &name, const QVariantMap &data )
+void ComponentItem::updateData( const QString &name, const QVariantMap &data )
 {
     kDebug() << name << "changed to:" << data;
     //updated component, so repaint
