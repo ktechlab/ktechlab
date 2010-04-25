@@ -112,6 +112,11 @@ void IDocumentScene::finishRouting()
     m_routePath = 0;
 }
 
+void IDocumentScene::updateData(const QString& name, const QVariantMap& value)
+{
+
+}
+
 IConRouter *IDocumentScene::fetchRouter() const
 {
     KDevelop::IPlugin *plugin = KDevelop::ICore::self()->pluginController()->pluginForExtension("org.ktechlab.IConRouter", "ktlautomatic_router");
