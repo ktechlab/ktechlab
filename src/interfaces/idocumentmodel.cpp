@@ -34,4 +34,9 @@ IDocumentModel::~IDocumentModel()
 
 }
 
+void IDocumentModel::updateData(const QString& name, const QVariantMap& data)
+{
+
+}
+
 #include "idocumentmodel.moc"
