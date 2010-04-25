@@ -39,7 +39,7 @@ class CircuitScene : public IDocumentScene
     virtual ~CircuitScene();
 
   public slots:
-    void dataUpdated( const QString &name, const QVariantList &data );
+    virtual void updateData( const QString &name, const QVariantMap &data );
 
   protected:
     virtual void dropEvent ( QGraphicsSceneDragDropEvent* event );
