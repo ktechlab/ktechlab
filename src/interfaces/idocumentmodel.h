@@ -35,6 +35,9 @@ public:
     IDocumentModel ( QObject* parent = 0 );
     ~IDocumentModel();
 
+public slots:
+    virtual void updateData( const QString &name, const QVariantMap &data );
+
 signals:
     void dataUpdated( const QString &name, const QVariantMap &data );
 };

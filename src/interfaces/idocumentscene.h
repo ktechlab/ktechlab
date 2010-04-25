@@ -69,6 +69,10 @@ public:
     * Finish the routing process and therefore place the route.
     */
     void finishRouting();
+
+public slots:
+    virtual void updateData( const QString &name, const QVariantMap &value );
+
 protected:
     /**
      * This method tracks mouse movement during the routing process.
