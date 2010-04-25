@@ -19,6 +19,7 @@
 #include <QFile>
 #include "pinitem.h"
 #include <QGraphicsScene>
+#include <interfaces/idocumentmodel.h>
 
 using namespace KTechLab;
 
@@ -27,6 +28,7 @@ ComponentItem::ComponentItem ( const QVariantMap& data, Theme *theme, QGraphicsI
       m_renderer( new QSvgRenderer() ),
       m_theme( theme )
 {
+    setData(0, data);
     QString fileName = m_theme->findFirstFile( data.value("fileName").toString() );
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly))
@@ -93,7 +95,9 @@ void ComponentItem::initPins()
         pinRect.setTop(pin.attribute("cy").toDouble()-r);
         pinRect.setWidth(r*2);
         pinRect.setHeight(r*2);
-        new PinItem(pinRect, this, scene());
+        PinItem* p = new PinItem(pinRect, this, scene());
+        p->setId(pin.attribute("id"));
+        p->setParentId(id());
         pin = pin.nextSiblingElement();
     }
 }
@@ -137,7 +141,7 @@ QVariant ComponentItem::itemChange(QGraphicsItem::GraphicsItemChange change, con
     if (change == ItemScenePositionHasChanged){
         kDebug() << change << value;
     }
-    return QGraphicsItem::itemChange(change, value);
+    return IComponentItem::itemChange(change, value);
 }
 
 QPainterPath ComponentItem::shape() const
