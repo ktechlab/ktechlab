@@ -14,6 +14,7 @@
 #include <cassert>
 #include <QRect>
 #include "utils.h"
+#include <QColor>
 
 namespace KTechLab{
     class IDocumentScene;
@@ -195,6 +196,16 @@ public:
         i -= m_cellsRect.left();
         j -= m_cellsRect.top();
         return m_cells[i][j];
+    }
+
+    QColor colorForScenePoint( QPointF p ) const {
+        if (!haveCellContaing(p.x(),p.y()))
+            return QColor(Qt::transparent);
+
+        int penalty = cellContaining(p.x(),p.y()).getCIPenalty();
+        QColor c(Qt::red);
+        c.setAlpha(qMin(penalty,200));
+        return c;
     }
     /**
      * Update the internal representation of the scene.
