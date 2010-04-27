@@ -129,4 +129,20 @@ IConRouter *IDocumentScene::fetchRouter() const
     return cr;
 }
 
+void IDocumentScene::drawForeground(QPainter* painter, const QRectF& rect)
+{
+    if (views().isEmpty())
+        return;
+
+    IConRouter *cr = fetchRouter();
+
+    QPixmap pixmap = cr->visualizedData(rect);
+    if (pixmap.isNull())
+        return;
+
+    painter->save();
+    painter->drawPixmap(rect, pixmap, rect);
+    painter->restore();
+}
+
 #include "idocumentscene.moc"

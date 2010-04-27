@@ -90,6 +90,41 @@ public:
      */
     virtual void setRoute( const QList<QPointF> &route );
 
+    /**
+     * Provide a \ref QPixmap that visualizes the internal data
+     * of the routing algorithm.
+     *
+     * This can be useful to debug or understand the underlying
+     * routing algorithm. Since this method will be called quite
+     * frequently by the scene, make sure the pixmap is created
+     * and cached in the plugin.
+     *
+     * The rectangle region can be provided to only visualize parts
+     * of the scene. The region-rect might not intersect with your
+     * scene-rect, so you might want to return a null-pixmap in that case.
+     *
+     * Parts of the code to implement this method could look like:
+     * \code
+        if (region.isNull())
+            region = sceneRect;
+        if (!region.intersects(sceneRect))
+            return QPixmap();
+
+        QRectF dataRegion = region.intersected(sceneRect);
+        QPixmap pic(region.size().toSize());
+        pic.fill(Qt::transparent);
+        QPainter p(&pic);
+        //only draw the interesting part of the visualizedData onto the result
+        p.drawPixmap(dataRegion, m_visualizedData, dataRegion);
+     * \endcode
+     *
+     *
+     * \param region - a \ref QRectF describing the region of interest
+     * \returns a \ref QPixmap visualizing the internal data,
+     *          the default implementation will return a null-pixmap
+     */
+    virtual QPixmap visualizedData( const QRectF &region = QRectF() ) const;
+
 protected:
     QList<QPointF> m_route;
     const IDocumentScene *m_documentScene;
