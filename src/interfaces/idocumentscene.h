@@ -92,6 +92,7 @@ protected:
      */
     virtual IConRouter *fetchRouter() const;
 
+    virtual void drawForeground(QPainter* painter, const QRectF& rect);
 private:
     QGraphicsPathItem* m_routePath;
     QPointF m_startPos;
