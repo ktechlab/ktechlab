@@ -43,16 +43,22 @@ void AutomaticRouter::createCells()
     if (!m_documentScene)
         return;
 
+    connect(m_documentScene,SIGNAL(sceneRectChanged(const QRectF&)),
+            this,SLOT(updateScene(const QRectF&)));
     QRectF rect;
     rect = m_documentScene->sceneRect();
+    //TODO: make it possible to just resize the Cells
+    delete m_cells;
     m_cells = new Cells(rect.toRect());
+    m_cells->update(m_documentScene, rect);
+    m_cellsNeedUpdate = false;
 }
 
 void AutomaticRouter::mapRoute(QPointF p1, QPointF p2)
 {
     p1 = p1.toPoint() / 8;
     p2 = p2.toPoint() / 8;
-    if (!m_cells)
+    if (!m_cells || m_cellsNeedUpdate)
         createCells();
 
     m_cells->update(m_documentScene, QRectF(p1,p2));
@@ -242,6 +248,11 @@ void AutomaticRouter::removeDuplicatePoints() {
     }
 
     m_route.removeAll(invalid);
+}
+
+void AutomaticRouter::updateScene(const QRectF& rect)
+{
+    m_cellsNeedUpdate = true;
 }
 
 #include "ktlautomaticrouterplugin.moc"
