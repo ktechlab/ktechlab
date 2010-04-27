@@ -79,3 +79,9 @@ void IConRouter::setDocumentScene(const KTechLab::IDocumentScene* scene)
 
     m_documentScene = scene;
 }
+
+QPixmap KTechLab::IConRouter::visualizedData(const QRectF &region) const
+{
+    Q_UNUSED(region);
+    return QPixmap();
+}
