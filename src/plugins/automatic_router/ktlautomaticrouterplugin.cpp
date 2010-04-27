@@ -52,6 +52,23 @@ void AutomaticRouter::createCells()
     m_cells = new Cells(rect.toRect());
     m_cells->update(m_documentScene, rect);
     m_cellsNeedUpdate = false;
+
+    m_visualizedData = QPixmap(rect.size().toSize());
+    m_visualizedData.fill(QColor(Qt::transparent));
+    updateVisualization();
+}
+
+void AutomaticRouter::updateVisualization()
+{
+    QRectF rect = m_documentScene->sceneRect();
+    QPainter p;
+    p.begin(&m_visualizedData);
+    for (int y = 0; y < rect.height(); ++y)
+        for (int x = 0; x < rect.width(); ++x){
+            p.setPen(m_cells->colorForScenePoint(QPoint(x,y)));
+            p.drawPoint(x,y);
+        }
+    p.end();
 }
 
 void AutomaticRouter::mapRoute(QPointF p1, QPointF p2)
@@ -248,6 +265,23 @@ void AutomaticRouter::removeDuplicatePoints() {
     }
 
     m_route.removeAll(invalid);
+}
+
+QPixmap AutomaticRouter::visualizedData(const QRectF& region) const
+{
+    if (!m_cells)
+        return QPixmap();
+
+    QRectF sceneRect = m_documentScene->sceneRect();
+    if (!region.intersects(sceneRect))
+        return QPixmap();
+
+    QRectF dataRegion = region.intersected(sceneRect);
+    QPixmap pic(region.size().toSize());
+    pic.fill(Qt::transparent);
+    QPainter p(&pic);
+    p.drawPixmap(dataRegion, m_visualizedData, dataRegion);
+    return pic;
 }
 
 void AutomaticRouter::updateScene(const QRectF& rect)
