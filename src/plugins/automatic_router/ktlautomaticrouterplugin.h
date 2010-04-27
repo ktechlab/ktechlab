@@ -43,6 +43,9 @@ public:
     virtual void mapRoute(QPointF p1, QPointF p2);
     virtual void mapRoute(qreal sx, qreal sy, qreal ex, qreal ey);
 
+protected slots:
+    virtual void updateScene(const QRectF& rect);
+
 private:
     /**
     * Check a line of the ICNDocument cells for a valid route
@@ -62,6 +65,8 @@ private:
     TempLabelMap m_tempLabels;
     qreal m_lcx;
     qreal m_lcy;
+
+    bool m_cellsNeedUpdate;
 };
 
 #endif // KTLAUTOMATICROUTERPLUGIN_H
