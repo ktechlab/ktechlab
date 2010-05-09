@@ -23,12 +23,14 @@
 #include "plugins/circuit/circuitmodel.h"
 #include "plugins/circuit/circuitdocument.h"
 #include "interfaces/idocumentplugin.h"
+#include "interfaces/isimulationmanager.h"
+#include "simulationmanager.h"
 
+#include <interfaces/idocumentcontroller.h>
+// #include <interfaces/idocumentfactory.h>
 #include <interfaces/iplugin.h>
 #include <interfaces/iplugincontroller.h>
-#include <interfaces/idocumentcontroller.h>
 #include <interfaces/ipartcontroller.h>
-// #include <interfaces/idocumentfactory.h>
 
 #include <tests/autotestshell.h>
 #include <tests/testcore.h>
@@ -52,6 +54,12 @@ void AddComponentsTest::initTestCase()
     QVERIFY( m_core );
     
     m_core->initialize( KDevelop::Core::Default );
+    
+    // simulation manager
+    SimulationManager::initialize();
+    
+    m_simManager = ISimulationManager::self();
+    QVERIFY( m_simManager );
 }
 
 void AddComponentsTest::cleanupTestCase()
@@ -104,6 +112,11 @@ void AddComponentsTest::openDocument(){
 
 }
 
+void AddComponentsTest::seeSimulationManagerStatus(){
+    qDebug() << m_simManager->registeredDocumentMimeTypeNames();
+    qDebug() << m_simManager->registeredFactories();
+    qDebug() << m_simManager->registeredSimulationTypes() ;
+}
 
 void AddComponentsTest::getPluginObject(){
   

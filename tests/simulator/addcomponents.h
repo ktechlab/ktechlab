@@ -32,6 +32,8 @@ namespace KDevelop
 namespace KTechLab
 {
 
+  class ISimulationManager;
+
 class AddComponentsTest : public QObject
 {
 Q_OBJECT
@@ -41,12 +43,14 @@ private slots:
     void cleanupTestCase();
 
     void listPlugins();
+    void seeSimulationManagerStatus();
     void getPluginObject();
     void openDocument();
     void addResistor();
 
 private:
     KDevelop::TestCore* m_core;
+    KTechLab::ISimulationManager *m_simManager;
 };
 
 }
