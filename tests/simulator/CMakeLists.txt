@@ -12,7 +12,10 @@ target_link_libraries( basictest
     ${KDEVPLATFORM_TESTS_LIBRARIES}
 )
 
-kde4_add_unit_test( addcomponents addcomponents.cpp )
+kde4_add_unit_test( addcomponents
+    addcomponents.cpp
+    ${CMAKE_SOURCE_DIR}/src/simulationmanager.cpp
+)
 
 target_link_libraries( addcomponents
     ktlinterfaces
