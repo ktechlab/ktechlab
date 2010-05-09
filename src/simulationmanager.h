@@ -20,7 +20,7 @@ namespace KTechLab {
     class SimulationManagerPrivate;
 
     /**
-    * \brief Implementation of SimulationManager interface
+    * \brief Implementation of ISimulationManager interface
     */
 class SimulationManager : public ISimulationManager {
 
