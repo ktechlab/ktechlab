@@ -47,6 +47,7 @@ private slots:
     void getPluginObject();
     void openDocument();
     void addResistor();
+    void elementFactoryTest();
 
 private:
     KDevelop::TestCore* m_core;
