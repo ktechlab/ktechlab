@@ -211,7 +211,7 @@ void SimulationManager::registerElementFactory(IElementFactory *factory){
     key.simulationType = factory->simulationType();
     key.documentType = factory->supportedDocumentMimeTypeName();
     // iterate through the component IDs
-    QList<QString> * list = factory->supportedComponentTypeIds();
+    const QList<QString> * list = factory->supportedComponentTypeIds();
     for (int i = 0; i < list->size(); ++i) {
       key.elementType = list->at(i);
       kDebug() << "registering IElement of type: " << key.toString() << "\n";
@@ -227,7 +227,7 @@ void SimulationManager::unregisterElementFactory(IElementFactory *factory){
     key.simulationType = factory->simulationType();
     key.documentType = factory->supportedDocumentMimeTypeName();
     // iterate through the component IDs
-    QList<QString> *list = factory->supportedComponentTypeIds();
+    const QList<QString> *list = factory->supportedComponentTypeIds();
     for (int i = 0; i < list->size(); ++i) {
         key.elementType = list->at(i);
         kDebug() << "unregistering IElement of type: " << key.toString() << "\n";
