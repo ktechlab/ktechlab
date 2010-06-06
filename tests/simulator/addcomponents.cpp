@@ -19,6 +19,7 @@
 */
 
 #include "addcomponents.h"
+#include "dummyfactory.h"
 
 #include "plugins/circuit/circuitmodel.h"
 #include "plugins/circuit/circuitdocument.h"
@@ -113,9 +114,65 @@ void AddComponentsTest::openDocument(){
 }
 
 void AddComponentsTest::seeSimulationManagerStatus(){
+    qDebug() << "status: \n";
     qDebug() << m_simManager->registeredDocumentMimeTypeNames();
     qDebug() << m_simManager->registeredFactories();
     qDebug() << m_simManager->registeredSimulationTypes() ;
+}
+    
+void AddComponentsTest::elementFactoryTest(){
+    qDebug() << "starting\n";
+    
+    // qDebug() << "before adding factory: \n";
+    QVERIFY( m_simManager->registeredDocumentMimeTypeNames().size() == 0);
+    QVERIFY( m_simManager->registeredSimulationTypes().size() == 0);
+    QVERIFY( m_simManager->registeredFactories().size()== 0 );
+  
+    DummyElementFactory *f = new DummyElementFactory();
+    m_simManager->registerElementFactory(f);
+    
+    // qDebug() << "\n\nafter added factory: \n";
+    QVERIFY( m_simManager->registeredFactories().size() == 1);
+    
+    // try to create a dummu
+    IElementFactory *fgot;
+    // no such simulation...
+    QList<IElementFactory *> flist = m_simManager->registeredFactories("foobar");
+    QVERIFY( flist.size() == 0 );
+    // this one should exist
+    flist = m_simManager->registeredFactories("dummy-simulation");
+    QVERIFY( flist.size() == 1 );
+        // make sure it's not corrupted
+    fgot = flist.first();
+    QVERIFY( fgot->supportedDocumentMimeTypeName() == "dummy-mimetype");
+    
+    // try to create a dummy
+    
+        // nonexistent
+    IElement *elem = fgot->createElement("whatever");
+    QVERIFY( !elem );
+        // existent
+    elem = fgot->createElement("dummy-element");
+    QVERIFY( elem );
+    DummyElement *delem = dynamic_cast<DummyElement*>(elem);
+    QVERIFY( delem );
+    
+    // call a method of it
+    delem->dummyMethod();
+    
+    m_simManager->unregisterElementFactory(f);
+    
+    //qDebug() << "\n\nafter removed factory: \n";
+    QVERIFY( m_simManager->registeredDocumentMimeTypeNames().size() == 0);
+    QVERIFY( m_simManager->registeredSimulationTypes().size() == 0);
+    QVERIFY( m_simManager->registeredFactories().size() == 0 );
+    
+    // cleanup
+    delete f;
+    delete delem;
+    
+    qDebug() << "done\n";
+
 }
 
 void AddComponentsTest::getPluginObject(){
