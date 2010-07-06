@@ -85,6 +85,11 @@ class KTLProjectManager : public IPlugin, public IProjectFileManager
     *
     */
     virtual bool renameFolder ( ProjectFolderItem* oldFolder, const KUrl& newFolder );
+    
+    /**
+    *
+    */
+     virtual bool reload(ProjectFolderItem* item);
 
     /**
     *
