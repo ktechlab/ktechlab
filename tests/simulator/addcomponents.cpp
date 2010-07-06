@@ -210,12 +210,12 @@ void AddComponentsTest::addResistor(){
     KDevelop::IDocument *mydoc = fact->create( emptyDoc, m_core);
    
     qDebug() << "document: " << mydoc ;
-    
-    // QVERIFY( m_core->documentController()->openDocuments().size() == 1);
-   
 
-   
+    // add document to the controller
+    m_core->documentController()->openDocument(mydoc);
     
+    QVERIFY( m_core->documentController()->openDocuments().size() == 1);
+   
     // something like this would be better
     /*
     KDevelop::IDocument * newdoc = 
@@ -245,6 +245,10 @@ void AddComponentsTest::addResistor(){
     
     // this not 
     QVERIFY( model->components().contains("r1") == false );
+    
+    // create a simulator for the document
+    ISimulator *sim = m_simManager->simulatorForDocument(doc);
+    QVERIFY( sim );
     
     // clean up a little
     m_core->documentController()->closeAllDocuments();
