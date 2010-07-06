@@ -33,6 +33,7 @@
 #include <QDebug>
 
 using namespace KTechLab;
+using namespace KDevelop;
 
 void BasicTest::initTestCase()
 {

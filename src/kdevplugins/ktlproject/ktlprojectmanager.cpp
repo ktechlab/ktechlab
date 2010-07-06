@@ -171,6 +171,11 @@ bool KTLProjectManager::renameFolder( ProjectFolderItem* oldFolder, const KUrl& 
   return false;
 }
 
+bool KTLProjectManager::reload(ProjectFolderItem* item)
+{
+  return false;
+}
+
 void KTLProjectManager::createActionsForMainWindow( Sublime::MainWindow* window, QString& xmlFile, KActionCollection& actions )
 {
   IPlugin::createActionsForMainWindow( window, xmlFile, actions );

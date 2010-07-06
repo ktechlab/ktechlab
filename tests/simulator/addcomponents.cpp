@@ -45,6 +45,7 @@
 #include <iostream>
 
 using namespace KTechLab;
+using namespace KDevelop;
 
 void AddComponentsTest::initTestCase()
 {
