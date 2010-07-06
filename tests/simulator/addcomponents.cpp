@@ -227,19 +227,24 @@ void AddComponentsTest::addResistor(){
 
     qDebug() << "document mime comment: " << mydoc->mimeType()->patterns() ;
 
-    /*
-    CircuitDocument *doc = dynamic_cast<CircuitDocument *>( mydoc );
-    QVERIFY( doc );
     
-    CircuitModel * model = dynamic_cast<CircuitModel *>( doc->model() );
+    IComponentDocument *doc = dynamic_cast<IComponentDocument*>( mydoc );
+     QVERIFY( doc );
+    
+    IDocumentModel* model = dynamic_cast<IDocumentModel*>( doc->documentModel() );
     QVERIFY( model );
-    
-    QVariantMap r1; // = new QVariantMap();
-    r1.insert("type", QString("ec_resistor"));
-    r1.insert("id","resistor1");
         
-    model->addComponent(r1); // take that !
-    */
+    QVariantMap* r1 = new QVariantMap();
+    r1->insert("type", QString("ec_resistor"));
+    r1->insert("id","resistor1");
+        
+    model->addComponent(*r1); // take that !
+    
+    // this should exist
+    QVERIFY( model->components().contains("resistor1") );
+    
+    // this not 
+    QVERIFY( model->components().contains("r1") == false );
     
     // clean up a little
     m_core->documentController()->closeAllDocuments();
