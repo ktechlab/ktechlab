@@ -1,0 +1,17 @@
+[Desktop Entry]
+Type=Service
+Exec=blubb
+Comment=This plugin provides simulator for electronic circuits to KTechLab
+Name=KTechLab Electronic Simulator
+GenericName=KTechLab Electronic Simulator
+ServiceTypes=KTechLab/Plugin
+X-KDE-Library=ktlsimulator
+X-KDE-PluginInfo-Name=ktlsimulator
+X-KDE-PluginInfo-Author=Zoltan Padrah
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-License=LGPL
+X-KDevelop-Version=9
+X-KDevelop-Category=Project
+X-KDevelop-Mode=GUI
+X-KDevelop-SupportedMimeTypes=application/x-circuit
+X-KDevelop-IRequired=org.kdevelop.IDocument
