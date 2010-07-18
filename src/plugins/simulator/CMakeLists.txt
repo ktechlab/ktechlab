@@ -1,7 +1,14 @@
 # building of the simulator plugin
 
+include_directories(
+   ${CMAKE_SOURCE_DIR}/src
+   ${CMAKE_SOURCE_DIR}/interfaces
+)
+
 set( ktlsimulator_PART_SRCS
    simulatorplugin.cpp
+   simulatorfactory.cpp
+   circuittransientsimulator.cpp
 )
 
 kde4_add_plugin( ktlsimulator ${ktlsimulator_PART_SRCS} )
