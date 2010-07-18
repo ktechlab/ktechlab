@@ -135,6 +135,8 @@ void IDocumentScene::drawForeground(QPainter* painter, const QRectF& rect)
         return;
 
     IConRouter *cr = fetchRouter();
+    if (!cr)
+	return;
 
     QPixmap pixmap = cr->visualizedData(rect);
     if (pixmap.isNull())
