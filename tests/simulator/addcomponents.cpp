@@ -76,18 +76,14 @@ void AddComponentsTest::listPlugins(){
     QVERIFY( m_core->pluginController() );
 
     KDevelop::IPlugin * ktlcircuit = 
-        m_core->pluginController()
-        ->loadPlugin("ktlcircuit");
+        m_core->pluginController()->loadPlugin("ktlcircuit");
 
     QVERIFY( ktlcircuit );
     
     KDevelop::IPlugin * ktlsimulator =
-        m_core->pluginController()
-        ->loadPlugin("ktlsimulator");
+        m_core->pluginController()->loadPlugin("ktlsimulator");
 
     QVERIFY( ktlsimulator );
-
-    qDebug() << ktlcircuit ;
 
 }
 
@@ -107,8 +103,7 @@ void AddComponentsTest::openDocument(){
     qDebug() << "open document count: " << openDocuments ;
     QVERIFY( openDocuments == 1 );
     
-    qDebug() << "mime comment: " << newdoc->mimeType()->comment() ;
-
+    qDebug() << "mime name: " << newdoc->mimeType()->name() ;
     qDebug() << "trying to close document...";
     
     m_core->documentController()->closeAllDocuments();
@@ -121,17 +116,16 @@ void AddComponentsTest::openDocument(){
 }
 
 void AddComponentsTest::seeSimulationManagerStatus(){
-    // we might have the simulator loaded..
-    m_core->pluginController()->unloadPlugin("ktlsimulator");
-    
     qDebug() << "status: \n";
-    qDebug() << m_simManager->registeredDocumentMimeTypeNames();
-    qDebug() << m_simManager->registeredFactories();
-    qDebug() << m_simManager->registeredSimulationTypes() ;
+    qDebug() << "mime types names: " << m_simManager->registeredDocumentMimeTypeNames();
+    qDebug() << "registered factores: " << m_simManager->registeredFactories();
+    qDebug() << "simulation types: " << m_simManager->registeredSimulationTypes() ;
 }
     
 void AddComponentsTest::elementFactoryTest(){
     qDebug() << "starting\n";
+
+    m_core->pluginController()->unloadPlugin("ktlsimulator");
     
     // qDebug() << "before adding factory: \n";
     QVERIFY( m_simManager->registeredDocumentMimeTypeNames().size() == 0);
@@ -141,7 +135,6 @@ void AddComponentsTest::elementFactoryTest(){
     DummyElementFactory *f = new DummyElementFactory();
     m_simManager->registerElementFactory(f);
     
-    // qDebug() << "\n\nafter added factory: \n";
     QVERIFY( m_simManager->registeredFactories().size() == 1);
     
     // try to create a dummu
@@ -200,7 +193,8 @@ void AddComponentsTest::getPluginObject(){
 
     IDocumentPlugin *plugin = qobject_cast<IDocumentPlugin*>( plugins.first() );
 
-    qDebug() << plugin;
+    QVERIFY( plugin );
+    qDebug() << "circuit plugin not null\n";
 }
 
 void AddComponentsTest::addResistor(){
@@ -208,16 +202,30 @@ void AddComponentsTest::addResistor(){
     // suppose we have no open documents
     QVERIFY( m_core->documentController()->openDocuments().size() == 0);
 
-    //is there a better way to create a document ?
-    KDevelop::IDocumentFactory * fact =
-       m_core->documentController()->factory("application/x-circuit");
-   
-    qDebug() << "factory = " << fact ;
-   
-    KUrl emptyDoc( i18n("Untitled") ); 
+    // load simulation plugin
+    IPlugin *simplugin = m_core->pluginController()->loadPlugin("ktlsimulator");
+    QVERIFY( simplugin );
 
+    // see the situation
+    seeSimulationManagerStatus();
+
+    //is there a better way to create a document ?
+    //KDevelop::IDocumentFactory * fact =
+    //        m_core->documentController()->factory("application/x-circuit");
+   
+    //qDebug() << "factory = " << fact ;
+   
+    QTemporaryFile tempFile(QDir::tempPath() + "/circuitXXXXXX.circuit");
+    tempFile.setAutoRemove(false);
+    bool tempOK = tempFile.open();
+    QVERIFY( tempOK );
+
+    tempFile.close();
+
+    KUrl docUrl( tempFile.fileName() );
     
-    KDevelop::IDocument *mydoc = fact->create( emptyDoc, m_core);
+    KDevelop::IDocument *mydoc = m_core->documentController()->openDocument(docUrl);
+        //fact->create( docUrl, m_core);
    
     qDebug() << "document: " << mydoc ;
 
@@ -235,7 +243,7 @@ void AddComponentsTest::addResistor(){
     qDebug() << "newdoc: " << newdoc ;
     */
 
-    qDebug() << "document mime comment: " << mydoc->mimeType()->patterns() ;
+    qDebug() << "document mimetype name: " << mydoc->mimeType()->name() ;
 
     
     IComponentDocument *doc = dynamic_cast<IComponentDocument*>( mydoc );
@@ -262,6 +270,8 @@ void AddComponentsTest::addResistor(){
     
     // clean up a little
     m_core->documentController()->closeAllDocuments();
+
+    tempFile.remove();
     
     QVERIFY( m_core->documentController()->openDocuments().size() == 0);
 }
