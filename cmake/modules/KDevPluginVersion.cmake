@@ -8,3 +8,7 @@ if(KDEV_IPLUGIN_H)
 		"\\1" KDEV_PLUGIN_VERSION ${KDEV_PLUGIN_VERSION})
 endif(KDEV_IPLUGIN_H)
 
+if(NOT DEFINED KDEV_PLUGIN_VERSION)
+	message(WARNING "KDEVELOP plugin version cannot be determined, guessing..." )
+	set(KDEV_PLUGIN_VERSION "9")
+endif(NOT DEFINED KDEV_PLUGIN_VERSION)
