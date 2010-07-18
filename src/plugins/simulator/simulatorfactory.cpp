@@ -14,7 +14,7 @@
 
 using namespace KTechLab;
 
-// empty constructor
+// constructor
 SimulatorFactory::SimulatorFactory() :
     m_simType("transient") ,
     m_documentType( "application/x-circuit" )
