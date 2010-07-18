@@ -19,6 +19,8 @@
 
 namespace KTechLab {
 
+    class SimulatorFactory;
+    
 /**
  * Plugin for the electronic simulator
  * The plugin only registers the simulator and element (model) factories
@@ -33,6 +35,8 @@ class SimulatorPlugin : public KDevelop::IPlugin
         virtual ~SimulatorPlugin();
         // called at unloading of the plugin
         virtual void unload();
+    private:
+        SimulatorFactory *m_simFact;
 };
 
 }
