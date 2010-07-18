@@ -39,8 +39,10 @@ public:
 
     /**
      * create circuit simulator
+     * @param doc document for which a simulator is needed
+     * @return the simulator associated with the document
      */
-    virtual ISimulator *create(IComponentDocument *);
+    virtual ISimulator *create(IComponentDocument *doc);
 
     private:
         QString m_simType;

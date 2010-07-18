@@ -11,9 +11,26 @@
 
 #include "circuittransientsimulator.h"
 
-#include "kdebug.h"
+#include "interfaces/icomponentdocument.h"
+#include "interfaces/idocumentmodel.h"
+
+
+#include <kdebug.h>
 
 using namespace KTechLab;
+
+CircuitTransientSimulator::CircuitTransientSimulator(IComponentDocument* doc):
+    ISimulator(doc)
+{
+    // check for the correct document type
+    if(doc->documentType() != "Circuit")
+    {
+        kError() << "BUG: trying to simulate a non-circuit document as a circuit!\n";
+        // FIXME what to do here? save all and exit?
+    }
+    m_doc = doc->documentModel();
+    // TODO connect the dataUpdated from the document model to the simulator
+}
 
 void CircuitTransientSimulator::start()
 {

@@ -16,9 +16,26 @@
 
 namespace KTechLab {
 
+    // referenced classes
+    class IComponentDocument;
+    class IDocumentModel;
+    
+/**
+ * simulator for electronic circuits, in time domain
+ */
 class CircuitTransientSimulator : public ISimulator
 {
-   virtual void start();
+    Q_OBJECT
+public:
+    /**
+     * create a simulator and associate it with a document
+     */
+    CircuitTransientSimulator(IComponentDocument *doc);
+
+    /**
+     * start the simulation
+     */
+    virtual void start();
 
     /**
      * pause the simulation. if it's paused, do nothing
@@ -51,6 +68,8 @@ public slots:
      */
     virtual void componentParameterChanged(QVariantMap * component = NULL);
 
+private:
+    IDocumentModel *m_doc;
 };
 
 }
