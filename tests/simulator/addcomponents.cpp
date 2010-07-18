@@ -80,6 +80,12 @@ void AddComponentsTest::listPlugins(){
         ->loadPlugin("ktlcircuit");
 
     QVERIFY( ktlcircuit );
+    
+    KDevelop::IPlugin * ktlsimulator =
+        m_core->pluginController()
+        ->loadPlugin("ktlsimulator");
+
+    QVERIFY( ktlsimulator );
 
     qDebug() << ktlcircuit ;
 
