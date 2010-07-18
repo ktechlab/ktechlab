@@ -36,8 +36,8 @@ QString& KTechLab::SimulatorFactory::supportedDocumentMimeTypeName()
     return m_documentType;
 }
 
-KTechLab::ISimulator* KTechLab::SimulatorFactory::create(IComponentDocument* )
+KTechLab::ISimulator* KTechLab::SimulatorFactory::create(IComponentDocument* doc )
 {
-    return new CircuitTransientSimulator();
+    return new CircuitTransientSimulator(doc);
 }
 
