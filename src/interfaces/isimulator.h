@@ -19,6 +19,7 @@
 namespace KTechLab {
 
     class IElement;
+    class IComponentDocument;
 
 /**
  * \brief A general interface for a simulator.
@@ -28,6 +29,15 @@ class KTLINTERFACES_EXPORT ISimulator : public QObject {
     Q_OBJECT
 
 public:
+    /**
+     * create a simulator associated with a document
+     * @param doc the document associated with the simulator
+     */
+    ISimulator(IComponentDocument *doc);
+
+    /**
+     * destroy the simulator
+     */
     virtual ~ISimulator();
 
     // control methods

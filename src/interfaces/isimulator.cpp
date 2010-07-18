@@ -14,5 +14,11 @@
 
 using namespace KTechLab;
 
+ISimulator::ISimulator(IComponentDocument* doc)
+{
+    Q_UNUSED( doc );
+}
+
+
 ISimulator::~ISimulator(){
 }
