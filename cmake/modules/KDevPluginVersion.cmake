@@ -12,3 +12,10 @@ if(NOT DEFINED KDEV_PLUGIN_VERSION)
 	message(WARNING "KDEVELOP plugin version cannot be determined, guessing..." )
 	set(KDEV_PLUGIN_VERSION "9")
 endif(NOT DEFINED KDEV_PLUGIN_VERSION)
+
+macro(ktl_install_desktop DESKTOP_FILE)
+	configure_file( ${DESKTOP_FILE}.in ${DESKTOP_FILE} )
+	install( FILES
+		${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE}
+		DESTINATION ${SERVICES_INSTALL_DIR} )
+endmacro(ktl_install_desktop)
