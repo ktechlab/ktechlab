@@ -10,6 +10,9 @@
  ***************************************************************************/
 
 #include "simulatorplugin.h"
+#include "simulatorfactory.h"
+
+#include "interfaces/isimulationmanager.h"
 
 #include <kpluginfactory.h>
 #include <kdebug.h>
@@ -28,13 +31,16 @@ SimulatorPlugin::SimulatorPlugin(QObject* parent, const QVariantList& args):
 {
     kDebug() << "SimulatorPlugin created\n";
     // create factories
+    m_simFact = new SimulatorFactory();
     // register factories
+    ISimulationManager::self()->registerSimulatorFactory(m_simFact);
 }
 
 void SimulatorPlugin::unload()
 {
     kDebug() << "unload\n";
     // unregister the factories
+    ISimulationManager::self()->unregisterSimulatorFactory(m_simFact);
 }
 
 SimulatorPlugin::~SimulatorPlugin()
