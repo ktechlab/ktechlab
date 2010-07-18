@@ -29,8 +29,9 @@ install(TARGETS ktlcircuitplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 ########### install files ###############
 
+configure_file( ktlcircuit.desktop.in ktlcircuit.desktop )
 install( FILES
-   ktlcircuit.desktop
+   ${CMAKE_CURRENT_BINARY_DIR}/ktlcircuit.desktop
 
    DESTINATION ${SERVICES_INSTALL_DIR} )
 #install( FILES ktlcircuit.rc DESTINATION ${DATA_INSTALL_DIR}/ktlcircuit )
