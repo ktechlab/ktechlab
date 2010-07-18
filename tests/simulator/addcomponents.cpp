@@ -121,6 +121,9 @@ void AddComponentsTest::openDocument(){
 }
 
 void AddComponentsTest::seeSimulationManagerStatus(){
+    // we might have the simulator loaded..
+    m_core->pluginController()->unloadPlugin("ktlsimulator");
+    
     qDebug() << "status: \n";
     qDebug() << m_simManager->registeredDocumentMimeTypeNames();
     qDebug() << m_simManager->registeredFactories();
@@ -212,7 +215,8 @@ void AddComponentsTest::addResistor(){
     qDebug() << "factory = " << fact ;
    
     KUrl emptyDoc( i18n("Untitled") ); 
-   
+
+    
     KDevelop::IDocument *mydoc = fact->create( emptyDoc, m_core);
    
     qDebug() << "document: " << mydoc ;
@@ -253,7 +257,7 @@ void AddComponentsTest::addResistor(){
     QVERIFY( model->components().contains("r1") == false );
     
     // create a simulator for the document
-    ISimulator *sim = m_simManager->simulatorForDocument(doc);
+    ISimulator *sim = m_simManager->simulatorForDocument(doc, "transient");
     QVERIFY( sim );
     
     // clean up a little
