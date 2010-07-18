@@ -28,7 +28,6 @@ install(TARGETS ktlbasic_ec DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 ########### install files ###############
 
-configure_file( ktlbasic_ec.desktop.in ktlbasic_ec.desktop )
-install( FILES ${CMAKE_CURRENT_BINARY_DIR}/ktlbasic_ec.desktop DESTINATION ${SERVICES_INSTALL_DIR} )
+ktl_install_desktop( ktlbasic_ec.desktop )
 install( FILES ktlbasic_ec.rc DESTINATION ${DATA_INSTALL_DIR}/ktechlab/components/ )
 
