@@ -209,45 +209,27 @@ void AddComponentsTest::addResistor(){
     // see the situation
     seeSimulationManagerStatus();
 
-    //is there a better way to create a document ?
-    //KDevelop::IDocumentFactory * fact =
-    //        m_core->documentController()->factory("application/x-circuit");
-   
-    //qDebug() << "factory = " << fact ;
-   
+    // create a temporary file
     QTemporaryFile tempFile(QDir::tempPath() + "/circuitXXXXXX.circuit");
     tempFile.setAutoRemove(false);
+    // open it
     bool tempOK = tempFile.open();
     QVERIFY( tempOK );
-
-    tempFile.close();
-
+    
+    // get the URL of the file
     KUrl docUrl( tempFile.fileName() );
-    
-    KDevelop::IDocument *mydoc = m_core->documentController()->openDocument(docUrl);
-        //fact->create( docUrl, m_core);
-   
-    qDebug() << "document: " << mydoc ;
 
-    // add document to the controller
-    m_core->documentController()->openDocument(mydoc);
-    
+    // open that URL
+    KDevelop::IDocument *mydoc = m_core->documentController()->openDocument(docUrl);
+    QVERIFY( mydoc );
     QVERIFY( m_core->documentController()->openDocuments().size() == 1);
-   
-    // something like this would be better
-    /*
-    KDevelop::IDocument * newdoc = 
-            m_core->documentController()
-                ->openDocument( emptyDoc , "ktlcircuit" );
-    
-    qDebug() << "newdoc: " << newdoc ;
-    */
 
     qDebug() << "document mimetype name: " << mydoc->mimeType()->name() ;
-
+    
+    QVERIFY( mydoc->mimeType()->name().compare("application/x-circuit") == 0 );
     
     IComponentDocument *doc = dynamic_cast<IComponentDocument*>( mydoc );
-     QVERIFY( doc );
+    QVERIFY( doc );
     
     IDocumentModel* model = dynamic_cast<IDocumentModel*>( doc->documentModel() );
     QVERIFY( model );
