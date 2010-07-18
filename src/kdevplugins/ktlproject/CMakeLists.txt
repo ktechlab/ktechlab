@@ -15,7 +15,8 @@ target_link_libraries( ktlproject
 
 install( TARGETS ktlproject DESTINATION ${PLUGIN_INSTALL_DIR} )
 
+configure_file( ktlproject.desktop.in ktlproject.desktop )
 install( FILES
-  ktlproject.desktop
+  ${CMAKE_CURRENT_BINARY_DIR}/ktlproject.desktop
   DESTINATION ${SERVICES_INSTALL_DIR}
 )
