@@ -52,7 +52,7 @@ public:
      * \return the list of all component type IDs for which this factory can
      * create components
      */
-    virtual const QList<QString> *supportedComponentTypeIds() const = 0;
+    virtual const QList<QString> supportedComponentTypeIds() const = 0;
 
     /**
      * create a component model, for a gein component type
