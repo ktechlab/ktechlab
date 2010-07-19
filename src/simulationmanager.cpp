@@ -211,9 +211,9 @@ void SimulationManager::registerElementFactory(IElementFactory *factory){
     key.simulationType = factory->simulationType();
     key.documentType = factory->supportedDocumentMimeTypeName();
     // iterate through the component IDs
-    const QList<QString> * list = factory->supportedComponentTypeIds();
-    for (int i = 0; i < list->size(); ++i) {
-      key.elementType = list->at(i);
+    const QList<QString> list = factory->supportedComponentTypeIds();
+    for (int i = 0; i < list.size(); ++i) {
+      key.elementType = list.at(i);
       kDebug() << "registering IElement of type: " << key.toString() << "\n";
       d->elementFactoryMap.insert( key, factory );
     }
@@ -227,9 +227,9 @@ void SimulationManager::unregisterElementFactory(IElementFactory *factory){
     key.simulationType = factory->simulationType();
     key.documentType = factory->supportedDocumentMimeTypeName();
     // iterate through the component IDs
-    const QList<QString> *list = factory->supportedComponentTypeIds();
-    for (int i = 0; i < list->size(); ++i) {
-        key.elementType = list->at(i);
+    const QList<QString> list = factory->supportedComponentTypeIds();
+    for (int i = 0; i < list.size(); ++i) {
+        key.elementType = list.at(i);
         kDebug() << "unregistering IElement of type: " << key.toString() << "\n";
         if( d->elementFactoryMap.value(key) != factory )
             kWarning() << "for this element, no this factory is registered.\n";

@@ -52,9 +52,9 @@ class DummyElementFactory : public IElementFactory {
      * create components
      */
     // FIXME element vs component
-    virtual const QList<QString> *supportedComponentTypeIds() const {
+    virtual const QList<QString> supportedComponentTypeIds() const {
 
-        return &m_componentList;
+        return m_componentList;
     }
 
     /**
