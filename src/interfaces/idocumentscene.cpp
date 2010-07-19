@@ -117,16 +117,26 @@ void IDocumentScene::updateData(const QString& name, const QVariantMap& value)
 
 }
 
-IConRouter *IDocumentScene::fetchRouter() const
+IConRouter *IDocumentScene::fetchRouter()
 {
-    KDevelop::IPlugin *plugin = KDevelop::ICore::self()->pluginController()->pluginForExtension("org.ktechlab.IConRouter", "ktlautomatic_router");
-    if (!plugin) {
+    KDevelop::IPluginController *pc = KDevelop::ICore::self()->pluginController();
+    IConRouter* router = pc->extensionForPlugin<IConRouter>("org.ktechlab.IConRouter", "ktlautomatic_router");
+    if (!router) {
         kWarning() << "No Plugin found for extension: org.ktechlab.IConRouter";
         return 0;
     }
-    IConRouter *cr = plugin->extension<IConRouter>();
-    cr->setDocumentScene(this);
-    return cr;
+    router->setDocumentScene(this);
+    return router;
+}
+
+QSharedPointer< IRoutingInformation > IDocumentScene::routingInfo() const
+{
+    return m_routingInfo;
+}
+
+void IDocumentScene::setRoutingInfo(QSharedPointer< IRoutingInformation > info)
+{
+    m_routingInfo = info;
 }
 
 void IDocumentScene::drawForeground(QPainter* painter, const QRectF& rect)

@@ -132,3 +132,5 @@ void Cell::reset() {
     resetBestScore();
 }
 //END class Cell
+
+#include "cells.moc"

@@ -32,8 +32,7 @@ K_PLUGIN_FACTORY(KTLAutomaticRouterFactory, registerPlugin<AutomaticRouter>(); )
 K_EXPORT_PLUGIN(KTLAutomaticRouterFactory(KAboutData("ktlautomatic_router","ktlautomatic_router", ki18n("KTechLab Automatic Router"), "0.1", ki18n("Automatic Routing in Circuit files"), KAboutData::License_LGPL)))
 
 AutomaticRouter::AutomaticRouter(QObject* parent, const QVariantList& args)
-    : IPlugin( KTLAutomaticRouterFactory::componentData(), parent),
-      m_cells(0)
+    : IPlugin( KTLAutomaticRouterFactory::componentData(), parent)
 {
     KDEV_USE_EXTENSION_INTERFACE( KTechLab::IConRouter )
 }
@@ -45,42 +44,55 @@ void AutomaticRouter::createCells()
 
     connect(m_documentScene,SIGNAL(sceneRectChanged(const QRectF&)),
             this,SLOT(updateScene(const QRectF&)));
-    QRectF rect;
-    rect = m_documentScene->sceneRect();
-    //TODO: make it possible to just resize the Cells
-    delete m_cells;
-    m_cells = new Cells(rect.toRect());
-    m_cells->update(m_documentScene, rect);
-    m_cellsNeedUpdate = false;
 
-    m_visualizedData = QPixmap(rect.size().toSize());
-    m_visualizedData.fill(QColor(Qt::transparent));
+
     updateVisualization();
 }
 
 void AutomaticRouter::updateVisualization()
 {
     QRectF rect = m_documentScene->sceneRect();
+    Cells* cells = qobject_cast< Cells* >( m_documentScene->routingInfo().data() );
+    if (!cells){
+        kWarning() << "Routing information doesn't match";
+        return;
+    }
     QPainter p;
     p.begin(&m_visualizedData);
     for (int y = 0; y < rect.height(); ++y)
         for (int x = 0; x < rect.width(); ++x){
-            p.setPen(m_cells->colorForScenePoint(QPoint(x,y)));
+            p.setPen(cells->colorForScenePoint(QPoint(x,y)));
             p.drawPoint(x,y);
         }
     p.end();
+}
+
+void AutomaticRouter::generateRoutingInfo(KTechLab::IDocumentScene* scene)
+{
+    QRectF rect;
+    rect = scene->sceneRect();
+    Cells* cells = new Cells(rect.toRect());
+    cells->update(scene, rect);
+    scene->setRoutingInfo(QSharedPointer<Cells>(cells));
+    m_cellsNeedUpdate = false;
+
+    m_visualizedData = QPixmap(rect.size().toSize());
+    m_visualizedData.fill(QColor(Qt::transparent));
 }
 
 void AutomaticRouter::mapRoute(QPointF p1, QPointF p2)
 {
     p1 = p1.toPoint() / 8;
     p2 = p2.toPoint() / 8;
-    if (!m_cells || m_cellsNeedUpdate)
-        createCells();
+    Cells* cells = qobject_cast< Cells* >( m_documentScene->routingInfo().data() );
+    if (!cells){
+        kWarning() << "Routing information doesn't match";
+        return;
+    }
 
-    m_cells->update(m_documentScene, QRectF(p1,p2));
+    cells->update(m_documentScene, QRectF(p1,p2));
 
-    if ( !m_cells->haveCell(p1.x(), p1.y()) || !m_cells->haveCell(p2.x(), p2.y()) ) {
+    if ( !cells->haveCell(p1.x(), p1.y()) || !cells->haveCell(p2.x(), p2.y()) ) {
         return;
     }
 
@@ -109,10 +121,10 @@ void AutomaticRouter::mapRoute(QPointF p1, QPointF p2)
 
     // It seems we must resort to brute-force route-checking
     {
-        m_cells->reset();
+        cells->reset();
 
         // Now to map out the shortest routes to the cells
-        Cell *startCell = &m_cells->cell(p2.x(), p2.y());
+        Cell *startCell = &cells->cell(p2.x(), p2.y());
         startCell->makePermanent();
         startCell->resetBestScore();
         startCell->setPrevXY(startCellPos, startCellPos);
@@ -123,7 +135,7 @@ void AutomaticRouter::mapRoute(QPointF p1, QPointF p2)
         // Daniel: I changed it from a do while to a while otherwise
         // in rare cases the iterator can end up as end().
 
-        while (m_tempLabels.size() > 0 && !m_cells->cell(p1.x(), p1.y()).isPermanent()) {
+        while (m_tempLabels.size() > 0 && !cells->cell(p1.x(), p1.y()).isPermanent()) {
             TempLabelMap::iterator it = m_tempLabels.begin();
             checkCell(it->second.x(), it->second.y());
             m_tempLabels.erase(it);
@@ -135,8 +147,8 @@ void AutomaticRouter::mapRoute(QPointF p1, QPointF p2)
         bool ok = true;
         do {
             m_route.append(QPointF(x,y)*8);
-            int newx = m_cells->cell(x, y).getPrevX();
-            int newy = m_cells->cell(x, y).getPrevY();
+            int newx = cells->cell(x, y).getPrevX();
+            int newy = cells->cell(x, y).getPrevY();
 
             if (newx == x && newy == y)
                 ok = false;
@@ -144,7 +156,7 @@ void AutomaticRouter::mapRoute(QPointF p1, QPointF p2)
                 x = newx;
                 y = newy;
             }
-        } while (m_cells->haveCell(x, y)
+        } while (cells->haveCell(x, y)
         && (x != startCellPos)
         && (y != startCellPos)
         && ok);
@@ -163,10 +175,15 @@ void AutomaticRouter::mapRoute(qreal sx, qreal sy, qreal ex, qreal ey)
 
 void AutomaticRouter::checkACell(int x, int y, Cell *prev, int prevX, int prevY, int nextScore) {
     //      if ( !p_icnDocument->isValidCellReference(x,y) ) return;
-    if(!m_cells->haveCell(x, y))
+    Cells* cells = qobject_cast< Cells* >( m_documentScene->routingInfo().data() );
+    if (!cells) {
+        kWarning() << "Routing information doesn't match";
+        return;
+    }
+    if(!cells->haveCell(x, y))
         return;
 
-    Cell *c = &m_cells->cell(x, y);
+    Cell *c = &cells->cell(x, y);
 
     if(c->isPermanent())
         return;
@@ -198,7 +215,12 @@ void AutomaticRouter::checkACell(int x, int y, Cell *prev, int prevX, int prevY,
 }
 
 void AutomaticRouter::checkCell(int x, int y) {
-    Cell *c = &m_cells->cell(x, y);
+    Cells* cells = qobject_cast< Cells* >( m_documentScene->routingInfo().data() );
+    if (!cells){
+        kWarning() << "Routing information doesn't match";
+        return;
+    }
+    Cell *c = &cells->cell(x, y);
     c->makePermanent();
 
     int nextScore = c->incBestScore();
@@ -232,7 +254,10 @@ bool AutomaticRouter::checkLineRoute(int scx, int scy, int ecx, int ecy, int max
         x = scx;
     }
 
-    Cells *cells = m_cells;
+    Cells* cells = qobject_cast< Cells* >( m_documentScene->routingInfo().data() );
+    if (!cells) {
+        kError() << "Routing information doesn't match";
+    }
 
     if (isHorizontal) {
         for (qreal x = start; x != end; x += dd) {
@@ -269,7 +294,8 @@ void AutomaticRouter::removeDuplicatePoints() {
 
 QPixmap AutomaticRouter::visualizedData(const QRectF& region) const
 {
-    if (!m_cells)
+    Cells* cells = qobject_cast< Cells* >( m_documentScene->routingInfo().data() );
+    if (!cells)
         return QPixmap();
 
     QRectF sceneRect = m_documentScene->sceneRect();

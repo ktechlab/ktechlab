@@ -47,6 +47,7 @@ public:
 
 protected slots:
     virtual void updateScene(const QRectF& rect);
+    virtual void generateRoutingInfo(KTechLab::IDocumentScene* scene);
 
 private:
     /**
@@ -64,7 +65,6 @@ private:
     void createCells();
     void updateVisualization();
 
-    Cells *m_cells;
     TempLabelMap m_tempLabels;
     qreal m_lcx;
     qreal m_lcy;
