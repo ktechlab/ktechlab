@@ -34,7 +34,9 @@ class QPainterPath;
 namespace KTechLab
 {
 
+class IRoutingInformation;
 class IDocumentScene;
+
 /**
  * \short Abstraction for the routing of a connection
  * This is a base-class to provide a list of points that need to be connected
@@ -69,7 +71,7 @@ public:
      * detection.
      * \param scene - the scene to set
      */
-    void setDocumentScene( const IDocumentScene *scene );
+    void setDocumentScene( IDocumentScene *scene );
 
     /**
      * Get the route in a paintable format. This can be directly used
@@ -126,8 +128,10 @@ public:
     virtual QPixmap visualizedData( const QRectF &region = QRectF() ) const;
 
 protected:
+    virtual void generateRoutingInfo( IDocumentScene *scene )=0;
     QList<QPointF> m_route;
-    const IDocumentScene *m_documentScene;
+    QSharedPointer<IRoutingInformation> m_routingInfo;
+    IDocumentScene* m_documentScene;
 };
 
 }
