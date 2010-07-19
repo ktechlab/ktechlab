@@ -126,6 +126,7 @@ void AddComponentsTest::elementFactoryTest(){
     qDebug() << "starting\n";
 
     m_core->pluginController()->unloadPlugin("ktlsimulator");
+    m_core->pluginController()->unloadPlugin("ktlbasicec");
     
     // qDebug() << "before adding factory: \n";
     QVERIFY( m_simManager->registeredDocumentMimeTypeNames().size() == 0);
@@ -205,6 +206,8 @@ void AddComponentsTest::addResistor(){
     // load simulation plugin
     IPlugin *simplugin = m_core->pluginController()->loadPlugin("ktlsimulator");
     QVERIFY( simplugin );
+    IPlugin *basic_ec = m_core->pluginController()->loadPlugin("ktlbasicec");
+    QVERIFY( basic_ec );
 
     // see the situation
     seeSimulationManagerStatus();
