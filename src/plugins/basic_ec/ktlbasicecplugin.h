@@ -10,13 +10,15 @@
 #ifndef KTLBASICECPLUGIN_H
 #define KTLBASICECPLUGIN_H
 
-#include <QVariantList>
 #include "interfaces/component/icomponentplugin.h"
+
+#include <QVariantList>
 
 namespace KTechLab
 {
 
 class KTLBasicECFactory;
+class KTLBasicECPluginPrivate;
 
 class KTLBasicECPlugin : public IComponentPlugin
 {
@@ -30,6 +32,8 @@ private:
     void init();
 
     KTLBasicECFactory * m_componentFactory;
+
+    KTLBasicECPluginPrivate * d;
 };
 
 }
