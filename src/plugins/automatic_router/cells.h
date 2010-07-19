@@ -15,6 +15,7 @@
 #include <QRect>
 #include "utils.h"
 #include <QColor>
+#include <interfaces/iroutinginformation.h>
 
 namespace KTechLab{
     class IDocumentScene;
@@ -139,8 +140,8 @@ private:
  * reduce complexity.
  * @author David Saxton
 */
-class Cells {
-
+class Cells : public KTechLab::IRoutingInformation {
+    Q_OBJECT
 public:
     Cells(const QRect &canvasRect);
     ~Cells();

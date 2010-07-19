@@ -24,11 +24,11 @@
 #include <QPointF>
 #include <QPainterPath>
 #include <KDebug>
+#include "idocumentscene.h"
 
 using namespace KTechLab;
 
 IConRouter::IConRouter()
-    : m_documentScene(0)
 {}
 
 IConRouter::~IConRouter()
@@ -70,14 +70,12 @@ void IConRouter::setRoute(const QList< QPointF >& route)
     m_route = route;
 }
 
-void IConRouter::setDocumentScene(const KTechLab::IDocumentScene* scene)
+void IConRouter::setDocumentScene(IDocumentScene* scene)
 {
-    if (!m_documentScene){
-        //this can happen, but in debug-mode, we should inform about it
-        kDebug() << "Overwriting documentScene";
-    }
-
     m_documentScene = scene;
+    if (scene->routingInfo().isNull()){
+        generateRoutingInfo( scene );
+    }
 }
 
 QPixmap KTechLab::IConRouter::visualizedData(const QRectF &region) const

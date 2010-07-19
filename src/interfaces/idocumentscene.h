@@ -29,6 +29,7 @@ class QGraphicsSceneMouseEvent;
 namespace KTechLab {
 
 class IConRouter;
+class IRoutingInformation;
 
 /**
  * \short A QGraphicsScene with icons connectable through (complex) routed connections
@@ -70,6 +71,21 @@ public:
     */
     void finishRouting();
 
+    /**
+     * Get the routing information stored by the routing plugin.
+     *
+     * Each scene can store routing information provided by the
+     * plugin for later usage.
+     */
+    QSharedPointer<IRoutingInformation> routingInfo() const;
+    /**
+     * Set the routing information to be stored.
+     *
+     * Each scene can store routing information provided by the
+     * plugin for later usage.
+     */
+    void setRoutingInfo( QSharedPointer<IRoutingInformation> info );
+
 public slots:
     virtual void updateData( const QString &name, const QVariantMap &value );
 
@@ -90,11 +106,12 @@ protected:
      * Fetch a plugin implementing \class KTechLab::IConRouter and return it.
      * \returns a plugin capable of mapping a route
      */
-    virtual IConRouter *fetchRouter() const;
+    virtual IConRouter *fetchRouter();
 
     virtual void drawForeground(QPainter* painter, const QRectF& rect);
 private:
     QGraphicsPathItem* m_routePath;
+    QSharedPointer<IRoutingInformation> m_routingInfo;
     QPointF m_startPos;
 };
 
