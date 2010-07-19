@@ -8,13 +8,15 @@
  ***************************************************************************/
 
 #include "ktlbasicecplugin.h"
+#include "genericelementfactory.h"
+#include "elements/resistance.h"
 
 #include "interfaces/component/icomponent.h"
 #include "interfaces/component/icomponentplugin.h"
+#include "interfaces/isimulationmanager.h"
 #include "interfaces/idocumentplugin.h"
 
 #include <shell/core.h>
-#include <interfaces/iplugincontroller.h>
 #include <KGenericFactory>
 #include <KAboutData>
 #include <KStandardDirs>
@@ -43,9 +45,25 @@ public:
 
 };
 
+class KTechLab::KTLBasicECPluginPrivate
+{
+        DECLARE_ELEMENT_FACTORY_MEMBER( Resistance );
+
+    public:
+        KTLBasicECPluginPrivate(){
+            REGISTER_ELEMENT_FACTORY( Resistance );
+        }
+
+        void unload(){
+            UNREGISTER_ELEMENT_FACTORY( Resistance );
+        }
+};
+
+
 KTLBasicECPlugin::KTLBasicECPlugin( QObject *parent, const QVariantList& args )
     :   IComponentPlugin( KTLBasicECPluginFactory::componentData(), parent ),
-        m_componentFactory( new KTLBasicECFactory() )
+        m_componentFactory( new KTLBasicECFactory() ),
+        d( new KTLBasicECPluginPrivate() )
 {
 
     init();
@@ -62,12 +80,14 @@ void KTLBasicECPlugin::init()
 
 KTLBasicECPlugin::~KTLBasicECPlugin()
 {
+    delete d;
     delete m_componentFactory;
 }
 
 void KTLBasicECPlugin::unload()
 {
     //me be, we should unregister our components at the circuit-plugin
+    d->unload();
 }
 
 #include "ktlbasicecplugin.moc"
