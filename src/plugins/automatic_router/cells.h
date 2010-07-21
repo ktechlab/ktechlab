@@ -13,6 +13,7 @@
 
 #include <cassert>
 #include <QRect>
+#include <QPixmap>
 #include "utils.h"
 #include <QColor>
 #include <interfaces/iroutinginformation.h>
@@ -218,12 +219,17 @@ public:
      */
     void update(const KTechLab::IDocumentScene* scene, const QRectF &region = QRectF());
 
+    const QPixmap& visualizedData() const;
+    void updateVisualization();
+
 protected:
     void init(const QRect &canvasRect);
     QRect m_cellsRect;
     Cell **m_cells;
 
 private:
+    QPixmap m_visualizedData;
+    QRect m_sceneRect;
     Cells(const Cells &);
 //      Cells & operator= (const Cells &);
 };

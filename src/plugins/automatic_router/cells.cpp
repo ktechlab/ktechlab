@@ -14,6 +14,7 @@
 #include <interfaces/component/icomponentitem.h>
 #include <interfaces/component/connectoritem.h>
 #include <QGraphicsSvgItem>
+#include <QPainter>
 #include <KDebug>
 
 //BEGIN class Cells
@@ -47,6 +48,9 @@ Cells::Cells(const Cells &c) {
 }
 
 void Cells::init(const QRect &canvasRect) {
+    m_sceneRect = canvasRect;
+    m_visualizedData = QPixmap(m_sceneRect.size());
+    m_visualizedData.fill(QColor(Qt::transparent));
     m_cellsRect = QRect(fromCanvas(canvasRect.topLeft()), canvasRect.size() / 8);
     m_cellsRect = m_cellsRect.normalized();
 
@@ -115,7 +119,26 @@ void Cells::update(const KTechLab::IDocumentScene* scene, const QRectF &region)
                 if (shape.contains(QPoint(x*8,y*8)) && cell(x,y).getCIPenalty() < score)
                     cell(x,y).addCIPenalty(score);
     }
+    updateVisualization();
 }
+
+void Cells::updateVisualization()
+{
+    Cells* cells = this;
+    QPainter p;
+    p.begin(&m_visualizedData);
+    for (int y = 0; y < m_sceneRect.height(); ++y)
+        for (int x = 0; x < m_sceneRect.width(); ++x) {
+            p.setPen(cells->colorForScenePoint(QPoint(x,y)+m_sceneRect.topLeft()));
+            p.drawPoint(x,y);
+        }
+    p.end();
+}
+const QPixmap& Cells::visualizedData() const
+{
+    return m_visualizedData;
+}
+
 
 //END class Cells
 
