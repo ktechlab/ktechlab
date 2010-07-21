@@ -139,6 +139,40 @@ const QPixmap& Cells::visualizedData() const
     return m_visualizedData;
 }
 
+Cell& Cells::cell(int i, int j) const {
+    assert(i < m_cellsRect.right());
+    assert(j < m_cellsRect.bottom());
+    i -= m_cellsRect.left();
+    j -= m_cellsRect.top();
+    return m_cells[i][j];
+}
+bool Cells::haveCell(const int i, const int j) const {
+    if ((i < m_cellsRect.left()) || (i >= m_cellsRect.right()))
+        return false;
+
+    if ((j < m_cellsRect.top()) || (j >= m_cellsRect.bottom()))
+        return false;
+
+    return true;
+}
+bool Cells::haveCellContaing(int x, int y) const {
+    return haveCell(fromCanvas(x), fromCanvas(y));
+}
+Cell& Cells::cellContaining(const int x, const int y) const {
+    return cell(fromCanvas(x), fromCanvas(y));
+}
+QRect Cells::cellsRect() const {
+    return m_cellsRect;
+}
+QColor Cells::colorForScenePoint(QPointF p) const {
+    if (!haveCellContaing(p.x(),p.y()))
+        return QColor(Qt::transparent);
+
+    int penalty = cellContaining(p.x(),p.y()).getCIPenalty();
+    QColor c(Qt::red);
+    c.setAlpha(qMin(penalty,200));
+    return c;
+}
 
 //END class Cells
 
@@ -154,6 +188,7 @@ void Cell::reset() {
     permanent = false;
     resetBestScore();
 }
+
 //END class Cell
 
 #include "cells.moc"

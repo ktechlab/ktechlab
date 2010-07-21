@@ -161,54 +161,26 @@ public:
      */
     void reset();
 
-    QRect cellsRect() const {
-        return m_cellsRect;
-    }
+    QRect cellsRect() const ;
 
     /**
      * Returns the cell containing the given position on the canvas.
      */
-    Cell &cellContaining(const int x, const int y) const {
-        return cell(fromCanvas(x), fromCanvas(y));
-    }
+    Cell &cellContaining(const int x, const int y) const ;
 
     /**
      * @return if the given cell exists.
      */
-    bool haveCell(const int i, const int j) const {
-        if ((i < m_cellsRect.left()) || (i >= m_cellsRect.right()))
-            return false;
-
-        if ((j < m_cellsRect.top()) || (j >= m_cellsRect.bottom()))
-            return false;
-
-        return true;
-    }
+    bool haveCell(const int i, const int j) const ;
 
     /**
      * @return if there is a cell containg the given canvas point.
      */
-    bool haveCellContaing(int x, int y) const {
-        return haveCell(fromCanvas(x), fromCanvas(y));
-    }
+    bool haveCellContaing(int x, int y) const ;
 
-    Cell &cell(int i, int j) const {
-        assert(i < m_cellsRect.right());
-        assert(j < m_cellsRect.bottom());
-        i -= m_cellsRect.left();
-        j -= m_cellsRect.top();
-        return m_cells[i][j];
-    }
+    Cell &cell(int i, int j) const ;
 
-    QColor colorForScenePoint( QPointF p ) const {
-        if (!haveCellContaing(p.x(),p.y()))
-            return QColor(Qt::transparent);
-
-        int penalty = cellContaining(p.x(),p.y()).getCIPenalty();
-        QColor c(Qt::red);
-        c.setAlpha(qMin(penalty,200));
-        return c;
-    }
+    QColor colorForScenePoint( QPointF p ) const ;
     /**
      * Update the internal representation of the scene.
      * If a region is provided, only the items contained in that region
