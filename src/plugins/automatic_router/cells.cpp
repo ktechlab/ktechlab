@@ -98,7 +98,7 @@ void Cells::update(const KTechLab::IDocumentScene* scene, const QRectF &region)
                 if (cell(x,y).getCIPenalty() < 5*Cells::ScoreConnector)
                     cell(x,y).addCIPenalty(5*Cells::ScoreConnector);
                 //update below rect
-                y += rect.height()+2;
+                y += rect.height()+1;
                 if (cell(x,y).getCIPenalty() < 5*Cells::ScoreConnector)
                     cell(x,y).addCIPenalty(5*Cells::ScoreConnector);
             }
@@ -106,7 +106,7 @@ void Cells::update(const KTechLab::IDocumentScene* scene, const QRectF &region)
                 int x = rect.x()-1;
                 if (cell(x,y).getCIPenalty() < 5*Cells::ScoreConnector)
                     cell(x,y).addCIPenalty(5*Cells::ScoreConnector);
-                x += rect.width()+2;
+                x += rect.width()+1;
                 if (cell(x,y).getCIPenalty() < 5*Cells::ScoreConnector)
                     cell(x,y).addCIPenalty(5*Cells::ScoreConnector);
             }
@@ -116,7 +116,7 @@ void Cells::update(const KTechLab::IDocumentScene* scene, const QRectF &region)
         }
         for (int x = rect.x(); x < rect.x()+rect.width(); ++x)
             for (int y = rect.y(); y < rect.y()+rect.height(); ++y)
-                if (shape.contains(QPoint(x*8,y*8)) && cell(x,y).getCIPenalty() < score)
+                if (cell(x,y).getCIPenalty() < score)
                     cell(x,y).addCIPenalty(score);
     }
     updateVisualization();
