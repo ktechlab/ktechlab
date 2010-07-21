@@ -62,14 +62,11 @@ private:
 
     void checkACell(int x, int y, Cell *prev, int prevX, int prevY, int nextScore);
     void checkCell(int x, int y);   // Gets the shortest route from the final cell
-    void createCells();
-    void updateVisualization();
 
     TempLabelMap m_tempLabels;
     qreal m_lcx;
     qreal m_lcy;
 
-    QPixmap m_visualizedData;
     bool m_cellsNeedUpdate;
 };
 

@@ -37,28 +37,6 @@ AutomaticRouter::AutomaticRouter(QObject* parent, const QVariantList& args)
     KDEV_USE_EXTENSION_INTERFACE( KTechLab::IConRouter )
 }
 
-void AutomaticRouter::createCells()
-{
-}
-
-void AutomaticRouter::updateVisualization()
-{
-    QRectF rect = m_documentScene->sceneRect();
-    Cells* cells = qobject_cast< Cells* >( m_documentScene->routingInfo().data() );
-    if (!cells){
-        kWarning() << "Routing information doesn't match";
-        return;
-    }
-    QPainter p;
-    p.begin(&m_visualizedData);
-    for (int y = 0; y < rect.height(); ++y)
-        for (int x = 0; x < rect.width(); ++x){
-            p.setPen(cells->colorForScenePoint(QPoint(x,y)+rect.topLeft()));
-            p.drawPoint(x,y);
-        }
-    p.end();
-}
-
 void AutomaticRouter::generateRoutingInfo(KTechLab::IDocumentScene* scene)
 {
     QRectF rect;
@@ -68,9 +46,6 @@ void AutomaticRouter::generateRoutingInfo(KTechLab::IDocumentScene* scene)
     scene->setRoutingInfo(QSharedPointer<Cells>(cells));
     m_cellsNeedUpdate = false;
 
-    m_visualizedData = QPixmap(rect.size().toSize());
-    m_visualizedData.fill(QColor(Qt::transparent));
-    updateVisualization();
 }
 
 void AutomaticRouter::mapRoute(QPointF p1, QPointF p2)
@@ -301,7 +276,7 @@ QPixmap AutomaticRouter::visualizedData(const QRectF& region) const
     QPixmap pic(region.size().toSize());
     pic.fill(Qt::transparent);
     QPainter p(&pic);
-    p.drawPixmap(targetRegion, m_visualizedData, dataRegion);
+    p.drawPixmap(targetRegion, cells->visualizedData(), dataRegion);
     return pic;
 }
 
