@@ -39,14 +39,6 @@ AutomaticRouter::AutomaticRouter(QObject* parent, const QVariantList& args)
 
 void AutomaticRouter::createCells()
 {
-    if (!m_documentScene)
-        return;
-
-    connect(m_documentScene,SIGNAL(sceneRectChanged(const QRectF&)),
-            this,SLOT(updateScene(const QRectF&)));
-
-
-    updateVisualization();
 }
 
 void AutomaticRouter::updateVisualization()
@@ -61,7 +53,7 @@ void AutomaticRouter::updateVisualization()
     p.begin(&m_visualizedData);
     for (int y = 0; y < rect.height(); ++y)
         for (int x = 0; x < rect.width(); ++x){
-            p.setPen(cells->colorForScenePoint(QPoint(x,y)));
+            p.setPen(cells->colorForScenePoint(QPoint(x,y)+rect.topLeft()));
             p.drawPoint(x,y);
         }
     p.end();
@@ -78,6 +70,7 @@ void AutomaticRouter::generateRoutingInfo(KTechLab::IDocumentScene* scene)
 
     m_visualizedData = QPixmap(rect.size().toSize());
     m_visualizedData.fill(QColor(Qt::transparent));
+    updateVisualization();
 }
 
 void AutomaticRouter::mapRoute(QPointF p1, QPointF p2)
@@ -90,7 +83,7 @@ void AutomaticRouter::mapRoute(QPointF p1, QPointF p2)
         return;
     }
 
-    cells->update(m_documentScene, QRectF(p1,p2));
+    //cells->update(m_documentScene, QRectF(p1,p2));
 
     if ( !cells->haveCell(p1.x(), p1.y()) || !cells->haveCell(p2.x(), p2.y()) ) {
         return;
@@ -303,10 +296,12 @@ QPixmap AutomaticRouter::visualizedData(const QRectF& region) const
         return QPixmap();
 
     QRectF dataRegion = region.intersected(sceneRect);
+    QRectF targetRegion(dataRegion);
+    dataRegion.moveTopLeft(QPointF(0,0));
     QPixmap pic(region.size().toSize());
     pic.fill(Qt::transparent);
     QPainter p(&pic);
-    p.drawPixmap(dataRegion, m_visualizedData, dataRegion);
+    p.drawPixmap(targetRegion, m_visualizedData, dataRegion);
     return pic;
 }
 
