@@ -141,6 +141,7 @@ void IDocumentScene::setRoutingInfo(QSharedPointer< IRoutingInformation > info)
 
 void IDocumentScene::drawForeground(QPainter* painter, const QRectF& rect)
 {
+/*
     if (views().isEmpty())
         return;
 
@@ -155,6 +156,7 @@ void IDocumentScene::drawForeground(QPainter* painter, const QRectF& rect)
     painter->save();
     painter->drawPixmap(rect, pixmap, rect);
     painter->restore();
+*/
 }
 
 #include "idocumentscene.moc"
