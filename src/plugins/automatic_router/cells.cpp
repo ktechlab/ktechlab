@@ -125,14 +125,12 @@ void Cells::update(const KTechLab::IDocumentScene* scene, const QRectF &region)
 void Cells::updateVisualization()
 {
     Cells* cells = this;
-    QPainter p;
-    p.begin(&m_visualizedData);
+    QImage i(m_sceneRect.size(),QImage::Format_ARGB32);
     for (int y = 0; y < m_sceneRect.height(); ++y)
         for (int x = 0; x < m_sceneRect.width(); ++x) {
-            p.setPen(cells->colorForScenePoint(QPoint(x,y)+m_sceneRect.topLeft()));
-            p.drawPoint(x,y);
+            i.setPixel(x,y,cells->colorForScenePoint(QPoint(x,y)+m_sceneRect.topLeft()).toRgb().rgba());
         }
-    p.end();
+    m_visualizedData = QPixmap::fromImage(i);
 }
 const QPixmap& Cells::visualizedData() const
 {
