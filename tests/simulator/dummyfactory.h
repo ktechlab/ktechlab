@@ -35,7 +35,7 @@ class DummyElementFactory : public IElementFactory {
     /**
      * \return the type simulation where this factory can create IElements
      */
-    virtual const QString &simulationType() const {
+    virtual const QString simulationType() const {
       return m_simType;
     }
 
@@ -43,7 +43,7 @@ class DummyElementFactory : public IElementFactory {
      * \return the name of the document mimetype, for which the factory can
      * create IElements
      */
-    virtual const QString &supportedDocumentMimeTypeName() const {
+    virtual const QString supportedDocumentMimeTypeName() const {
       return m_docMimetype;
     }
 

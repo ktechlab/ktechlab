@@ -40,13 +40,13 @@ public:
     /**
      * \return the type simulation where this factory can create IElements
      */
-    virtual const QString &simulationType() const = 0;
+    virtual const QString simulationType() const = 0;
 
     /**
      * \return the name of the document mimetype, for which the factory can 
      * create IElements
      */
-    virtual const QString &supportedDocumentMimeTypeName() const = 0;
+    virtual const QString supportedDocumentMimeTypeName() const = 0;
 
     /**
      * \return the list of all component type IDs for which this factory can
