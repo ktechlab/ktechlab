@@ -18,7 +18,6 @@ namespace KTechLab
 {
 
 class KTLBasicECFactory;
-class KTLBasicECPluginPrivate;
 
 class KTLBasicECPlugin : public IComponentPlugin
 {
@@ -33,7 +32,6 @@ private:
 
     KTLBasicECFactory * m_componentFactory;
 
-    KTLBasicECPluginPrivate * d;
 };
 
 }
