@@ -9,6 +9,7 @@ set( ktlbasic_ec_PART_SRCS
    ktlbasicecplugin.cpp
    genericelementfactory.cpp
    elements/resistance.cpp
+   elements/capacitance.cpp
 )
 
 kde4_add_plugin(ktlbasic_ec ${ktlbasic_ec_PART_SRCS})
