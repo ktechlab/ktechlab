@@ -62,10 +62,10 @@ class GenericElementFactory : public IElementFactory {
             m_supportedComponents.append(id);
         }
 
-        virtual const QString &simulationType() const {
+        virtual const QString simulationType() const {
             return m_simType;
         }
-        virtual const QString &supportedDocumentMimeTypeName() const {
+        virtual const QString supportedDocumentMimeTypeName() const {
             return m_docMimeType;
         }
         virtual const QList<QString> supportedComponentTypeIds() const {
