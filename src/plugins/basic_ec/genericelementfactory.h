@@ -56,17 +56,17 @@ template <class ElementType>
 class GenericElementFactory : public IElementFactory {
     public:
         GenericElementFactory(QString id) :
-            simType("transient"),
-            docMimeType("application/x-circuit")
+            m_simType("transient"),
+            m_docMimeType("application/x-circuit")
         {
             m_supportedComponents.append(id);
         }
 
         virtual const QString &simulationType() const {
-            return simType;
+            return m_simType;
         }
         virtual const QString &supportedDocumentMimeTypeName() const {
-            return docMimeType;
+            return m_docMimeType;
         }
         virtual const QList<QString> supportedComponentTypeIds() const {
             return m_supportedComponents;
@@ -81,8 +81,8 @@ class GenericElementFactory : public IElementFactory {
         }
     private:
         QList<QString> m_supportedComponents;
-        QString simType;
-        QString docMimeType;
+        QString m_simType;
+        QString m_docMimeType;
 
 };
 
