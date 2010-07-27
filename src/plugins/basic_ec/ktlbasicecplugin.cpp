@@ -10,6 +10,7 @@
 #include "ktlbasicecplugin.h"
 #include "genericelementfactory.h"
 #include "elements/resistance.h"
+#include "elements/capacitance.h"
 
 #include "interfaces/component/icomponent.h"
 #include "interfaces/component/icomponentplugin.h"
@@ -45,6 +46,11 @@ public:
 
 };
 
+DECLARE_ELEMENT_FACTORY(
+    BasicElementFactory,
+    SUPPORT_ELEMENT(Resistance)
+    SUPPORT_ELEMENT(Capacitance)
+    );
 
 
 KTLBasicECPlugin::KTLBasicECPlugin( QObject *parent, const QVariantList& args )
@@ -62,16 +68,20 @@ void KTLBasicECPlugin::init()
       return;
     }
     plugin->registerComponentFactory( m_componentFactory );
+    m_basicElementFactory = new BasicElementFactory();
+    ISimulationManager::self()->registerElementFactory(m_basicElementFactory);
 }
 
 KTLBasicECPlugin::~KTLBasicECPlugin()
 {
     delete m_componentFactory;
+    delete m_basicElementFactory;
 }
 
 void KTLBasicECPlugin::unload()
 {
     //me be, we should unregister our components at the circuit-plugin
+    ISimulationManager::self()->unregisterElementFactory(m_basicElementFactory);
 }
 
 #include "ktlbasicecplugin.moc"

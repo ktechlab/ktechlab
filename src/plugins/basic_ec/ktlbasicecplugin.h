@@ -18,6 +18,7 @@ namespace KTechLab
 {
 
 class KTLBasicECFactory;
+class BasicElementFactory;
 
 class KTLBasicECPlugin : public IComponentPlugin
 {
@@ -31,7 +32,8 @@ private:
     void init();
 
     KTLBasicECFactory * m_componentFactory;
-
+    
+    BasicElementFactory * m_basicElementFactory;
 };
 
 }
