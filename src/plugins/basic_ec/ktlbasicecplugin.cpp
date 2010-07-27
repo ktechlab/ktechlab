@@ -8,7 +8,6 @@
  ***************************************************************************/
 
 #include "ktlbasicecplugin.h"
-#include "genericelementfactory.h"
 #include "elements/resistance.h"
 #include "elements/capacitance.h"
 
@@ -16,6 +15,7 @@
 #include "interfaces/component/icomponentplugin.h"
 #include "interfaces/isimulationmanager.h"
 #include "interfaces/idocumentplugin.h"
+#include "interfaces/genericelementfactory.h"
 
 #include <shell/core.h>
 #include <KGenericFactory>

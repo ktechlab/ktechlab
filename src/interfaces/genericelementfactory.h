@@ -12,7 +12,7 @@
 #ifndef GENERIC_ELEMENT_FACTORY
 #define GENERIC_ELEMENT_FACTORY
 
-#include "interfaces/ielementfactory.h"
+#include "ielementfactory.h"
 
 #include <kdebug.h>
 

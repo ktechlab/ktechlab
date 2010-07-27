@@ -12,6 +12,7 @@ set( ktlinterfaces_LIB_SRCS idocumentmodel.cpp
    isimulator.cpp
    isimulatorfactory.cpp
    isimulationmanager.cpp
+   genericelementfactory.cpp
    )
 
 kde4_add_library( ktlinterfaces SHARED ${ktlinterfaces_LIB_SRCS} )
