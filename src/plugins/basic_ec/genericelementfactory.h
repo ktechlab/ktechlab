@@ -17,6 +17,114 @@
 #include <kdebug.h>
 
 /**
+ * Macro that declares an @ref IElementFactory class, with a given name and a list of
+ * @ref IElement classes that the factory can create
+ *
+ * @param CLASSNAME the name of the declared, new class 
+ * @param ELEMENT_DECLARATIONS a list of @ref SUPPORT_ELEMENT macros, separated
+ *      with whitespaces only. The SUPPORT_ELEMENT macros take as arguments
+ *      the name of the supported classes
+ * 
+ * Example:
+ * @code
+ *  DECLARE_ELEMENT_FACTORY(
+ *      BasicElementFactory,
+ *      SUPPORT_ELEMENT(Resistance)
+ *      SUPPORT_ELEMENT( No_coma_between_supported_elements )
+ *      SUPPORT_ELEMENT(Capacitance)
+ *      );
+ * @endcode
+ *
+ */
+#define DECLARE_ELEMENT_FACTORY(CLASSNAME, ELEMENT_DECLARATIONS) \
+    DECLARE_ELEMENT_FACTORY_IN_NAMESPACE( KTechLab, CLASSNAME, ELEMENT_DECLARATIONS)
+    
+/**
+ * support macro, to be used as second parameter of @ref DECLARE_ELEMENT_FACTORY or
+ * @ref DECLARE_ELEMENT_FACTORY_IN_NAMESPACE . More calls to this macro should be
+ * separated with whitespace.
+ * 
+ * @param CLASSNAME the name of the class, supported by the factory
+ *
+ */
+#define SUPPORT_ELEMENT(CLASSNAME)                      \
+    if( create ){                                       \
+        if( type == #CLASSNAME )                        \
+            return new CLASSNAME();                     \
+    } else {                                            \
+        m_supportedComponents.append( #CLASSNAME );     \
+    }  
+
+
+/**
+ * Macro that declares an @ref IElementFactory class, within a given namespace
+ * and with a given name and a list of
+ * @ref IElement classes that the factory can create
+ *
+ * @param NAMESPACE the namespace where the class should reside
+ * @param CLASSNAME the name of the declared, new class
+ * @param ELEMENT_DECLARATIONS a list of @ref SUPPORT_ELEMENT macros, separated
+ *      with whitespaces only. The SUPPORT_ELEMENT macros take as arguments
+ *      the name of the supported classes
+ *
+ * Example:
+ * @code
+ *  DECLARE_ELEMENT_FACTORY_IN_NAMESPACE(
+ *      KTechLab,
+ *      BasicElementFactory,
+ *      SUPPORT_ELEMENT(Resistance)
+ *      SUPPORT_ELEMENT( No_coma_between_supported_elements )
+ *      SUPPORT_ELEMENT(Capacitance)
+ *      );
+ * @endcode
+ *
+ */
+#define DECLARE_ELEMENT_FACTORY_IN_NAMESPACE(NAMESPACE, CLASSNAME, ELEMENT_DECLARATIONS) \
+    class NAMESPACE::CLASSNAME : public IElementFactory {                   \
+        public:                                                             \
+            CLASSNAME() :                                                   \
+                m_simType("transient"),                                     \
+                m_docMimeType("application/x-circuit")                      \
+            {                                                               \
+                m_supportedComponents.clear();                              \
+                createOrRegister(false, "");                                \
+            }                                                               \
+            virtual const QString simulationType() const {                  \
+                return m_simType;                                           \
+            }                                                               \
+            virtual const QString supportedDocumentMimeTypeName() const {   \
+                return m_docMimeType;                                       \
+            }                                                               \
+            virtual const QList<QString> supportedComponentTypeIds() const{ \
+                return m_supportedComponents;                               \
+            }                                                               \
+            virtual IElement * createElement(QString type){                 \
+                return createOrRegister(true, type);                        \
+            }                                                               \
+        private:                                                            \
+            IElement * createOrRegister(bool create, QString type){         \
+                if(!create){  /* register */                                \
+                    /* error check */                                       \
+                    if( m_supportedComponents.size() != 0){                 \
+                        kWarning() << "re-registering everything? why?\n";  \
+                    }                                                       \
+                    m_supportedComponents.clear();                          \
+                }                                                           \
+                ELEMENT_DECLARATIONS                                        \
+                if(create){                                                 \
+                    kError() << "requested unknown element type: "          \
+                            << type << "\n";                                \
+                    return NULL;                                            \
+                }                                                           \
+                return NULL;                                                \
+            }                                                               \
+            QList<QString> m_supportedComponents;                           \
+            QString m_simType;                                              \
+            QString m_docMimeType;                                          \
+    }                                                                      
+
+
+/**
  * Macro for declaring an element factory
  * It declares a variable having the name "m_factory" and the ELEMENT_TYPE
  * concatenated.
