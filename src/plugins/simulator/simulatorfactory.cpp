@@ -27,11 +27,12 @@ SimulatorFactory::~SimulatorFactory()
 
 }
 
-QString& SimulatorFactory::simulationType(){
+QString SimulatorFactory::simulationType() const
+{
     return m_simType;
 }
 
-QString& KTechLab::SimulatorFactory::supportedDocumentMimeTypeName()
+QString KTechLab::SimulatorFactory::supportedDocumentMimeTypeName() const
 {
     return m_documentType;
 }
@@ -41,3 +42,4 @@ KTechLab::ISimulator* KTechLab::SimulatorFactory::create(IComponentDocument* doc
     return new CircuitTransientSimulator(doc);
 }
 
+#include "simulatorfactory.moc"

@@ -41,20 +41,20 @@ class KTLINTERFACES_EXPORT ISimulatorFactory : public QObject {
     /**
      * \return the type simulation where this factory can create ISimulators
      */
-      virtual QString &simulationType() = 0;
+    virtual QString simulationType() const = 0;
 
     /**
      * \return the name of the document mimetype, for which the factory can
      * create ISimulators
      */
-      virtual QString &supportedDocumentMimeTypeName() = 0;
+    virtual QString supportedDocumentMimeTypeName() const = 0;
 
      /**
       * \return a new simulator for a given document, and the supported 
       *     simulation type
       * The document should be of the same type as the supported one
       */
-     virtual ISimulator *create(IComponentDocument *) = 0;
+    virtual ISimulator *create(IComponentDocument *) = 0;
 
 };
 
