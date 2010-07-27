@@ -7,7 +7,6 @@ include_directories(
 
 set( ktlbasic_ec_PART_SRCS
    ktlbasicecplugin.cpp
-   genericelementfactory.cpp
    elements/resistance.cpp
    elements/capacitance.cpp
 )
