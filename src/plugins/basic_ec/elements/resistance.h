@@ -11,7 +11,10 @@
 
 #include "interfaces/ielement.h"
 
-using namespace KTechLab;
+namespace KTechLab {
 
-class Resistance : public IElement {
+class Resistance : public IElement
+{
 };
+
+}
