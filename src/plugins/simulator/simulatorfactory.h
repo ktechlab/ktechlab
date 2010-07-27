@@ -30,12 +30,12 @@ public:
     /**
      * Get the simulation type. In this case, simulation is "transient"
      */
-    virtual QString &simulationType();
+    virtual QString simulationType() const;
 
     /**
      * Document  type: only for circuits
      */
-    virtual QString &supportedDocumentMimeTypeName();
+    virtual QString supportedDocumentMimeTypeName() const;
 
     /**
      * create circuit simulator
