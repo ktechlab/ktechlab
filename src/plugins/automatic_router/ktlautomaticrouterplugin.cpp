@@ -276,7 +276,7 @@ QPixmap AutomaticRouter::visualizedData(const QRectF& region) const
     QPixmap pic(region.size().toSize());
     pic.fill(Qt::transparent);
     QPainter p(&pic);
-    p.drawPixmap(targetRegion, cells->visualizedData(), dataRegion);
+    p.drawImage(targetRegion, cells->visualizedData(), dataRegion);
     return pic;
 }
 

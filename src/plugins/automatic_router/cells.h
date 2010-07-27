@@ -191,8 +191,8 @@ public:
      */
     void update(const KTechLab::IDocumentScene* scene, const QRectF &region = QRectF());
 
-    const QPixmap& visualizedData() const;
-    void updateVisualization();
+    const QImage& visualizedData() const;
+    void updateVisualization(const QRectF& region = QRectF());
 
 protected:
     void init(const QRect &canvasRect);
@@ -200,7 +200,7 @@ protected:
     Cell **m_cells;
 
 private:
-    QPixmap m_visualizedData;
+    QImage m_visualizedData;
     QRect m_sceneRect;
     Cells(const Cells &);
 //      Cells & operator= (const Cells &);

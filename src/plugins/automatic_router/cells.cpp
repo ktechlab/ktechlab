@@ -49,8 +49,8 @@ Cells::Cells(const Cells &c) {
 
 void Cells::init(const QRect &canvasRect) {
     m_sceneRect = canvasRect;
-    m_visualizedData = QPixmap(m_sceneRect.size());
-    m_visualizedData.fill(QColor(Qt::transparent));
+    m_visualizedData = QImage(m_sceneRect.size(),QImage::Format_ARGB32);
+    m_visualizedData.fill(QColor(Qt::transparent).rgba());
     m_cellsRect = QRect(fromCanvas(canvasRect.topLeft()), canvasRect.size() / 8);
     m_cellsRect = m_cellsRect.normalized();
 
@@ -122,17 +122,20 @@ void Cells::update(const KTechLab::IDocumentScene* scene, const QRectF &region)
     updateVisualization();
 }
 
-void Cells::updateVisualization()
+void Cells::updateVisualization(const QRectF &region)
 {
+    if (region.isNull()) {
+        region = m_sceneRect;
+    }
+
     Cells* cells = this;
-    QImage i(m_sceneRect.size(),QImage::Format_ARGB32);
-    for (int y = 0; y < m_sceneRect.height(); ++y)
-        for (int x = 0; x < m_sceneRect.width(); ++x) {
-            i.setPixel(x,y,cells->colorForScenePoint(QPoint(x,y)+m_sceneRect.topLeft()).toRgb().rgba());
+    QImage& i = m_visualizedData;
+    for (int y = region.top(); y < region.right(); ++y)
+        for (int x = region.left(); x < region.bottom(); ++x) {
+            i.setPixel(x,y,cells->colorForScenePoint(QPoint(x,y)-m_sceneRect.topLeft()).toRgb().rgba());
         }
-    m_visualizedData = QPixmap::fromImage(i);
 }
-const QPixmap& Cells::visualizedData() const
+const QImage& Cells::visualizedData() const
 {
     return m_visualizedData;
 }
