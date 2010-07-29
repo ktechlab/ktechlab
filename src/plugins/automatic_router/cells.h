@@ -190,9 +190,13 @@ public:
      * @param region - the region that is to be considered
      */
     void update(const KTechLab::IDocumentScene* scene, const QRectF &region = QRectF());
+    bool updateNeeded();
 
     const QImage& visualizedData() const;
     void updateVisualization(const QRectF& region = QRectF());
+
+public slots:
+    void updateSceneRect(const QRectF &rect);
 
 protected:
     void init(const QRect &canvasRect);
@@ -202,6 +206,7 @@ protected:
 private:
     QImage m_visualizedData;
     QRect m_sceneRect;
+    bool m_needUpdate;
     Cells(const Cells &);
 //      Cells & operator= (const Cells &);
 };
