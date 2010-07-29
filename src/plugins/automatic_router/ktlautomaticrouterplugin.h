@@ -43,11 +43,13 @@ public:
     virtual void mapRoute(QPointF p1, QPointF p2);
     virtual void mapRoute(qreal sx, qreal sy, qreal ex, qreal ey);
 
-    virtual QPixmap visualizedData(const QRectF& region = QRectF()) const;
-
 protected slots:
     virtual void updateScene(const QRectF& rect);
     virtual void generateRoutingInfo(KTechLab::IDocumentScene* scene);
+
+protected:
+    virtual void paintRaster(QPainter* p, const QRectF& region) const;
+    virtual void paintRoutingInfo(QPainter* p, const QRectF& target, const QRectF& source) const;
 
 private:
     /**

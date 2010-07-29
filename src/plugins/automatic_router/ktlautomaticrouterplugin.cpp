@@ -43,6 +43,7 @@ void AutomaticRouter::generateRoutingInfo(KTechLab::IDocumentScene* scene)
     rect = scene->sceneRect();
     Cells* cells = new Cells(rect.toRect());
     cells->update(scene, rect);
+    connect(scene,SIGNAL(sceneRectChanged(QRectF)),cells,SLOT(updateSceneRect(QRectF)));
     scene->setRoutingInfo(QSharedPointer<Cells>(cells));
     m_cellsNeedUpdate = false;
 
@@ -50,21 +51,23 @@ void AutomaticRouter::generateRoutingInfo(KTechLab::IDocumentScene* scene)
 
 void AutomaticRouter::mapRoute(QPointF p1, QPointF p2)
 {
-    p1 = p1.toPoint() / 8;
-    p2 = p2.toPoint() / 8;
     Cells* cells = qobject_cast< Cells* >( m_documentScene->routingInfo().data() );
     if (!cells){
         kWarning() << "Routing information doesn't match";
         return;
     }
 
-    //cells->update(m_documentScene, QRectF(p1,p2));
+    if (cells->updateNeeded())
+        cells->update(m_documentScene, QRectF(p1,p2));
+
+    p1 = p1.toPoint() / 8;
+    p2 = p2.toPoint() / 8;
+
+    m_route.clear();
 
     if ( !cells->haveCell(p1.x(), p1.y()) || !cells->haveCell(p2.x(), p2.y()) ) {
         return;
     }
-
-    m_route.clear();
 
     m_lcx = p2.x();
     m_lcy = p2.y();
@@ -260,24 +263,23 @@ void AutomaticRouter::removeDuplicatePoints() {
     m_route.removeAll(invalid);
 }
 
-QPixmap AutomaticRouter::visualizedData(const QRectF& region) const
+void AutomaticRouter::paintRaster(QPainter* p, const QRectF& region) const
+{
+    //region is not aligned to the grid, so we need to adjust
+    int offX = (int)region.x() % 8;
+    int offY = (int)region.y() % 8;
+    for (int y = 0; y < region.height()+8; y+=8)
+        for (int x = 0; x < region.width()+8; x+=8)
+            p->drawPoint(QPoint(x-offX,y-offY));
+}
+
+void AutomaticRouter::paintRoutingInfo(QPainter* p, const QRectF& target, const QRectF& source) const
 {
     Cells* cells = qobject_cast< Cells* >( m_documentScene->routingInfo().data() );
     if (!cells)
-        return QPixmap();
+        return;
 
-    QRectF sceneRect = m_documentScene->sceneRect();
-    if (!region.intersects(sceneRect))
-        return QPixmap();
-
-    QRectF dataRegion = region.intersected(sceneRect);
-    QRectF targetRegion(dataRegion);
-    dataRegion.moveTopLeft(QPointF(0,0));
-    QPixmap pic(region.size().toSize());
-    pic.fill(Qt::transparent);
-    QPainter p(&pic);
-    p.drawImage(targetRegion, cells->visualizedData(), dataRegion);
-    return pic;
+    p->drawImage(target, cells->visualizedData(), source);
 }
 
 void AutomaticRouter::updateScene(const QRectF& rect)
