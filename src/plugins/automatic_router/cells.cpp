@@ -20,8 +20,8 @@
 //BEGIN class Cells
 Cells::Cells(const QRect &canvasRect) {
     QRect rect(canvasRect);
-    rect.setHeight(rect.height()+32);
-    rect.setWidth(rect.width()+32);
+    rect.setHeight(rect.height()+64);
+    rect.setWidth(rect.width()+64);
     init(rect);
 }
 
@@ -51,7 +51,7 @@ void Cells::init(const QRect &canvasRect) {
     m_sceneRect = canvasRect;
     m_visualizedData = QImage(m_sceneRect.size(),QImage::Format_ARGB32);
     m_visualizedData.fill(QColor(Qt::transparent).rgba());
-    m_cellsRect = QRect(fromCanvas(canvasRect.topLeft()), canvasRect.size() / 8);
+    m_cellsRect = QRect(fromCanvas(canvasRect.topLeft()), canvasRect.size() / 8 + QSize(1,1));
     m_cellsRect = m_cellsRect.normalized();
 
     unsigned w = unsigned(m_cellsRect.width());
@@ -87,8 +87,8 @@ void Cells::update(const KTechLab::IDocumentScene* scene, const QRectF &region)
         int score = Cells::ScoreNone;
         QPainterPath shape = item->mapToScene(item->shape());
         QRect rect = shape.boundingRect().toRect();
-        rect.setSize(rect.size() / 8);
-        rect.moveTopLeft(rect.topLeft() / 8);
+        rect.setSize(rect.size() / 8 + QSize(1,1));
+        rect.moveTopLeft(rect.topLeft() / 8 - QPoint(1,1));
         if ((component = dynamic_cast<KTechLab::IComponentItem*>(item))) {
             score = Cells::ScoreItem;
             //blur the surroundings of an item
@@ -102,7 +102,7 @@ void Cells::update(const KTechLab::IDocumentScene* scene, const QRectF &region)
                 if (cell(x,y).getCIPenalty() < 5*Cells::ScoreConnector)
                     cell(x,y).addCIPenalty(5*Cells::ScoreConnector);
             }
-            for (int y = rect.y(); y < rect.y()+rect.height(); ++y) {
+            for (int y = rect.y(); y < rect.y()+rect.height()+1; ++y) {
                 int x = rect.x()-1;
                 if (cell(x,y).getCIPenalty() < 5*Cells::ScoreConnector)
                     cell(x,y).addCIPenalty(5*Cells::ScoreConnector);
@@ -110,16 +110,26 @@ void Cells::update(const KTechLab::IDocumentScene* scene, const QRectF &region)
                 if (cell(x,y).getCIPenalty() < 5*Cells::ScoreConnector)
                     cell(x,y).addCIPenalty(5*Cells::ScoreConnector);
             }
+            for (int x = rect.x(); x < rect.x()+rect.width(); ++x)
+                for (int y = rect.y(); y < rect.y()+rect.height(); ++y) {
+                    cell(x,y).addCIPenalty(score);
+                }
         }
+        // doesn't work, yet. needs fixing
         if ((connector = dynamic_cast<KTechLab::ConnectorItem*>(item))) {
             score = Cells::ScoreConnector;
+            for (int x = rect.x(); x < rect.x()+rect.width(); ++x)
+                for (int y = rect.y(); y < rect.y()+rect.height(); ++y)
+                    if (shape.contains(QPoint(x*8,y*8)) && cell(x,y).getCIPenalty() < score)
+                        cell(x,y).addCIPenalty(score);
         }
-        for (int x = rect.x(); x < rect.x()+rect.width(); ++x)
-            for (int y = rect.y(); y < rect.y()+rect.height(); ++y)
-                if (cell(x,y).getCIPenalty() < score)
-                    cell(x,y).addCIPenalty(score);
     }
     updateVisualization();
+    m_needUpdate = false;
+}
+bool Cells::updateNeeded()
+{
+    return m_needUpdate;
 }
 
 void Cells::updateVisualization(const QRectF &region)
@@ -131,14 +141,28 @@ void Cells::updateVisualization(const QRectF &region)
     QImage& i = m_visualizedData;
     for (int y = dataRegion.y(); y < dataRegion.y()+dataRegion.height(); ++y)
         for (int x = dataRegion.x(); x < dataRegion.x()+dataRegion.width(); ++x) {
-            QPoint poi(QPoint(x,y)-dataRegion.topLeft());
+            QPoint poi(QPoint(x,y));
             QColor c = colorForScenePoint(poi);
-            i.setPixel(poi,c.rgba());
+            i.setPixel(poi-dataRegion.topLeft(),c.rgba());
         }
 }
 const QImage& Cells::visualizedData() const
 {
     return m_visualizedData;
+}
+
+void Cells::updateSceneRect(const QRectF& rect)
+{
+    unsigned w = unsigned(m_cellsRect.width());
+    for (uint i = 0; i < w; i++)
+        delete [] m_cells[i];
+    delete [] m_cells;
+
+    QRect canvasRect(rect.toRect());
+    canvasRect.setSize(canvasRect.size()+QSize(64,64));
+    init(canvasRect);
+
+    m_needUpdate = true;
 }
 
 Cell& Cells::cell(int i, int j) const {

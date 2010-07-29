@@ -29,6 +29,7 @@
 using namespace KTechLab;
 
 IConRouter::IConRouter()
+    : m_visualize(VisualizeRaster)
 {}
 
 IConRouter::~IConRouter()
@@ -80,6 +81,38 @@ void IConRouter::setDocumentScene(IDocumentScene* scene)
 
 QPixmap KTechLab::IConRouter::visualizedData(const QRectF &region) const
 {
-    Q_UNUSED(region);
-    return QPixmap();
+    if (!m_visualize)
+        return QPixmap();
+
+    QRectF sceneRect = m_documentScene->sceneRect();
+
+    QRectF dataRegion = region.intersected(sceneRect);
+    QRectF targetRegion(dataRegion);
+
+    dataRegion.moveLeft(dataRegion.left()-sceneRect.left());
+    dataRegion.moveTop(dataRegion.top()-sceneRect.top());
+    targetRegion.moveLeft(targetRegion.left()-region.left());
+    targetRegion.moveTop(targetRegion.top()-region.top());
+
+    QPixmap pic(region.size().toSize());
+    pic.fill(Qt::transparent);
+    QPainter p(&pic);
+    if (m_visualize & IConRouter::VisualizeRaster)
+        paintRaster(&p, region);
+    if (dataRegion.isValid() && m_visualize & IConRouter::VisualizeRoutingInformation)
+        paintRoutingInfo(&p, targetRegion, dataRegion);
+    return pic;
+}
+
+void IConRouter::paintRoutingInfo(QPainter* p, const QRectF& target, const QRectF& source) const
+{
+    Q_UNUSED(p)
+    Q_UNUSED(target)
+    Q_UNUSED(source)
+}
+
+void IConRouter::paintRaster(QPainter* p, const QRectF& region) const
+{
+    Q_UNUSED(p)
+    Q_UNUSED(region)
 }

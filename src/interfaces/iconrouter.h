@@ -45,6 +45,14 @@ class IDocumentScene;
 class KTLINTERFACES_EXPORT IConRouter
 {
 public:
+
+    enum VisualizeOption {
+        NoVisualization = 0x0, /** No visualization at all */
+        VisualizeRaster = 0x01, /** Visualize a raster that is used internally */
+        VisualizeRoutingInformation = 0x02 /** Visualize internal routing information */
+    };
+    Q_DECLARE_FLAGS(VisualizeOptions,VisualizeOption)
+
     IConRouter();
     virtual ~IConRouter();
 
@@ -102,37 +110,62 @@ public:
      * and cached in the plugin.
      *
      * The rectangle region can be provided to only visualize parts
-     * of the scene. The region-rect might not intersect with your
-     * scene-rect, so you might want to return a null-pixmap in that case.
+     * of the scene.
      *
-     * Parts of the code to implement this method could look like:
-     * \code
-        if (region.isNull())
-            region = sceneRect;
-        if (!region.intersects(sceneRect))
-            return QPixmap();
-
-        QRectF dataRegion = region.intersected(sceneRect);
-        QPixmap pic(region.size().toSize());
-        pic.fill(Qt::transparent);
-        QPainter p(&pic);
-        //only draw the interesting part of the visualizedData onto the result
-        p.drawPixmap(dataRegion, m_visualizedData, dataRegion);
-     * \endcode
-     *
+     * This method will provide fore-ground data for a raster, that
+     * visualizes the internal structure of the scene and other internal
+     * values, that are used to calculate the route. Each of this data
+     * can be switched on and off individually by setting visualization flags
+     * using \ref setVisualizationFlags.
      *
      * \param region - a \ref QRectF describing the region of interest
      * \returns a \ref QPixmap visualizing the internal data,
      *          the default implementation will return a null-pixmap
      */
-    virtual QPixmap visualizedData( const QRectF &region = QRectF() ) const;
+    QPixmap visualizedData( const QRectF &region = QRectF() ) const;
 
 protected:
+    /**
+     * Paint a raster used internally by the routing plugin.
+     * This can help the user when positioning the components.
+     *
+     * The default implementation does nothing.
+     *
+     * \param p - the QPainter that should be painted on
+     * \param region - the region of interest
+     */
+    virtual void paintRaster(QPainter* p, const QRectF& region) const;
+    /**
+     * Paint internal routing information. This can be anything that visualizes,
+     * which data is the base for the routing decisions. The region of interest can
+     * be larger than the actual \ref IDocumentScene::sceneRect, so only the intersecting
+     * part of the region needs to be painted. The two parameters are rects with the same
+     * size, but different relation points. The \param target rect defines the position
+     * relative to the region of interest. The \param source rect defines the position
+     * relative to the scene rect. If your data is in the same koordinate system as the
+     * scene, the two rects will be equal.
+     *
+     * The default implementation does nothing.
+     *
+     * \param target - position of the intersecting part relative to the region of interest
+     * \param source - position of the intersecting part relative to the scene rect
+     *
+     * You can use that in \ref QPainter::drawPixmap or \ref QPainter::drawImage to
+     * paint a region from the scene rect into a region of the region of interest.
+     */
+    virtual void paintRoutingInfo(QPainter* p, const QRectF& target, const QRectF& source) const;
+    /**
+     */
     virtual void generateRoutingInfo( IDocumentScene *scene )=0;
     QList<QPointF> m_route;
     QSharedPointer<IRoutingInformation> m_routingInfo;
     IDocumentScene* m_documentScene;
+
+private:
+    VisualizeOptions m_visualize;
 };
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(IConRouter::VisualizeOptions)
 
 }
 

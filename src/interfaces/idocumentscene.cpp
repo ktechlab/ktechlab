@@ -38,6 +38,7 @@ IDocumentScene::IDocumentScene(QObject* parent)
 IDocumentScene::~IDocumentScene()
 {
     delete m_routePath;
+    m_routingInfo.clear();
 }
 
 bool IDocumentScene::isRouting() const
@@ -81,6 +82,9 @@ void IDocumentScene::keyPressEvent(QKeyEvent* event)
             delete (item);
             item = 0;
         }
+    }
+    if (event->key() == Qt::Key_F5){
+        update(sceneRect());
     }
 }
 
@@ -148,12 +152,12 @@ void IDocumentScene::drawForeground(QPainter* painter, const QRectF& rect)
     if (!cr)
         return;
 
-    QPixmap pixmap = cr->visualizedData(rect);
+    const QPixmap& pixmap = cr->visualizedData(rect);
     if (pixmap.isNull())
         return;
 
     painter->save();
-    painter->drawPixmap(rect, pixmap, rect);
+    painter->drawPixmap(rect, pixmap, QRectF(QPointF(0,0),rect.size()));
     painter->restore();
 }
 
