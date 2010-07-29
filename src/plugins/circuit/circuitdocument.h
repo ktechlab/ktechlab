@@ -69,6 +69,11 @@ public:
      */
     virtual IDocumentModel* documentModel() const;
 
+    /**
+     * see \ref KTechLab::IComponentDocument
+     */
+    virtual IDocumentScene* documentScene() const;
+
 protected:
     /**
      * see \ref KDevelop::PartDocument
