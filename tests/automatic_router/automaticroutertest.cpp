@@ -24,6 +24,7 @@
 #include <tests/testcore.h>
 #include <interfaces/iplugincontroller.h>
 #include <interfaces/irouterplugin.h>
+#include <interfaces/iroutinginformation.h>
 #include <plugins/circuit/circuitscene.h>
 #include <interfaces/idocumentcontroller.h>
 #include <interfaces/icomponentdocument.h>
@@ -42,6 +43,7 @@ void KTechLab::AutomaticRouterTest::initTestCase()
     QVERIFY( m_router );
     initDocumentScenes();
     m_router->setDocumentScene(m_testScenes.value("test.circuit"));
+    m_currentScene = m_testScenes.value("test.circuit");
 }
 void AutomaticRouterTest::cleanupTestCase()
 {
@@ -61,9 +63,9 @@ void AutomaticRouterTest::mapLineRoute()
 {
     QPointF p1(360, 104);
     QPointF p2(360, 64);
-    m_router->mapRoute(p1,p2);
+    m_currentScene->routingInfo()->mapRoute(p1,p2);
 
-    foreach(const QPointF &p, m_router->route()){
+    foreach(const QPointF &p, m_currentScene->routingInfo()->route()){
         QVERIFY( p.x() == 360 );
     }
 
@@ -71,18 +73,18 @@ void AutomaticRouterTest::mapLineRoute()
     // so the route should be empty
     p1 = QPointF(0,0);
     p2 = QPointF(100,0);
-    m_router->mapRoute(p1,p2);
-    QVERIFY(m_router->route().isEmpty());
+    m_currentScene->routingInfo()->mapRoute(p1,p2);
+    QVERIFY(m_currentScene->routingInfo()->route().isEmpty());
 }
 
 void AutomaticRouterTest::visualizeData()
 {
-    QRectF sceneRect = m_testScenes.value("test.circuit")->sceneRect();
-    QImage i = m_router->visualizedData(sceneRect).toImage();
+    QRectF sceneRect = m_currentScene->sceneRect();
+    QImage i = m_currentScene->routingInfo()->visualizedData(sceneRect).toImage();
     QVERIFY( i.size() == sceneRect.size() );
-    i = m_router->visualizedData(sceneRect.adjusted(50,15,-50,-15)).toImage();
+    i = m_currentScene->routingInfo()->visualizedData(sceneRect.adjusted(50,15,-50,-15)).toImage();
     QVERIFY( i.size() == sceneRect.adjusted(50,15,-50,-15).size() );
-    i = m_router->visualizedData(sceneRect.adjusted(-50,-15,50,15)).toImage();
+    i = m_currentScene->routingInfo()->visualizedData(sceneRect.adjusted(-50,-15,50,15)).toImage();
     QVERIFY( i.size() == sceneRect.adjusted(-50,-15,50,15).size() );
     // TODO: compare images pixel-wise
 }

@@ -77,7 +77,7 @@ public:
      * Each scene can store routing information provided by the
      * plugin for later usage.
      */
-    QSharedPointer<IRoutingInformation> routingInfo() const;
+    QSharedPointer<IRoutingInformation> routingInfo();
     /**
      * Set the routing information to be stored.
      *
@@ -106,7 +106,7 @@ protected:
      * Fetch a plugin implementing \class KTechLab::IRouterPlugin and return it.
      * \returns a plugin capable of mapping a route
      */
-    virtual IRouterPlugin *fetchRouter();
+    virtual void fetchRouter();
 
     virtual void drawForeground(QPainter* painter, const QRectF& rect);
 private:
