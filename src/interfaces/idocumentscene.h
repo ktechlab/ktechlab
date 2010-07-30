@@ -28,7 +28,7 @@ class QGraphicsSceneMouseEvent;
 
 namespace KTechLab {
 
-class IConRouter;
+class IRouterPlugin;
 class IRoutingInformation;
 
 /**
@@ -103,10 +103,10 @@ protected:
     virtual void keyPressEvent(QKeyEvent* event);
 
     /**
-     * Fetch a plugin implementing \class KTechLab::IConRouter and return it.
+     * Fetch a plugin implementing \class KTechLab::IRouterPlugin and return it.
      * \returns a plugin capable of mapping a route
      */
-    virtual IConRouter *fetchRouter();
+    virtual IRouterPlugin *fetchRouter();
 
     virtual void drawForeground(QPainter* painter, const QRectF& rect);
 private:

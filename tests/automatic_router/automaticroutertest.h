@@ -36,7 +36,7 @@ namespace KTechLab
 {
 
 class IDocumentScene;
-class IConRouter;
+class IRouterPlugin;
 
 class AutomaticRouterTest : public QObject
 {
@@ -52,7 +52,7 @@ private:
 
     QMap<QString,IDocumentScene*> m_testScenes;
     KDevelop::TestCore* m_core;
-    IConRouter* m_router;
+    IRouterPlugin* m_router;
 };
 }
 #endif // AUTOMATICROUTERTEST_H

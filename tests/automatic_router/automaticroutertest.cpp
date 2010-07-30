@@ -23,7 +23,7 @@
 #include <tests/autotestshell.h>
 #include <tests/testcore.h>
 #include <interfaces/iplugincontroller.h>
-#include <interfaces/iconrouter.h>
+#include <interfaces/irouterplugin.h>
 #include <plugins/circuit/circuitscene.h>
 #include <interfaces/idocumentcontroller.h>
 #include <interfaces/icomponentdocument.h>
@@ -38,7 +38,7 @@ void KTechLab::AutomaticRouterTest::initTestCase()
     m_core->initialize( KDevelop::Core::Default );
 
     QVERIFY( m_core->pluginController() );
-    m_router = m_core->pluginController()->extensionForPlugin<IConRouter>("org.ktechlab.IConRouter", "ktlautomatic_router");
+    m_router = m_core->pluginController()->extensionForPlugin<IRouterPlugin>("org.ktechlab.IRouterPlugin", "ktlautomatic_router");
     QVERIFY( m_router );
     initDocumentScenes();
     m_router->setDocumentScene(m_testScenes.value("test.circuit"));

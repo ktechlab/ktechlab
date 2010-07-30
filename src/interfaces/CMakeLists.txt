@@ -3,7 +3,7 @@ include_directories( ${KDEVPLATFORM_INCLUDE_DIR} )
 set( ktlinterfaces_LIB_SRCS
    component/connector.cpp
    idocumentscene.cpp
-   iconrouter.cpp
+   irouterplugin.cpp
    idocumentmodel.cpp
    idocumentplugin.cpp
    icomponentdocument.cpp

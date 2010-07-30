@@ -22,7 +22,7 @@
 #define KTLAUTOMATICROUTERPLUGIN_H
 
 #include <kdevplatform/interfaces/iplugin.h>
-#include <interfaces/iconrouter.h>
+#include <interfaces/irouterplugin.h>
 #include <kdevplatform/interfaces/iextension.h>
 #include <QVariantList>
 #include <map>
@@ -33,10 +33,10 @@ class Cell;
 // Key = cell, data = previous cell, compare = score
 typedef std::multimap< unsigned short, QPointF > TempLabelMap;
 
-class AutomaticRouter : public KDevelop::IPlugin, public KTechLab::IConRouter
+class AutomaticRouter : public KDevelop::IPlugin, public KTechLab::IRouterPlugin
 {
     Q_OBJECT
-    Q_INTERFACES( KTechLab::IConRouter )
+    Q_INTERFACES( KTechLab::IRouterPlugin )
 public:
     AutomaticRouter(QObject* parent = 0, const QVariantList& args = QVariantList());
 
