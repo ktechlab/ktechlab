@@ -51,6 +51,7 @@ private:
     void initDocumentScenes();
 
     QMap<QString,IDocumentScene*> m_testScenes;
+    IDocumentScene* m_currentScene;
     KDevelop::TestCore* m_core;
     IRouterPlugin* m_router;
 };

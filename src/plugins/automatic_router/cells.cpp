@@ -10,6 +10,7 @@
 
 #include "cells.h"
 #include "utils.h"
+#include <cmath>
 #include <interfaces/idocumentscene.h>
 #include <interfaces/component/icomponentitem.h>
 #include <interfaces/component/connectoritem.h>
@@ -18,8 +19,11 @@
 #include <KDebug>
 
 //BEGIN class Cells
-Cells::Cells(const QRect &canvasRect) {
-    QRect rect(canvasRect);
+
+Cells::Cells(KTechLab::IDocumentScene* scene, QObject* parent)
+    : KTechLab::IRoutingInformation(scene,parent)
+{
+    QRect rect(scene->sceneRect().toRect());
     rect.setHeight(rect.height()+64);
     rect.setWidth(rect.width()+64);
     init(rect);
@@ -146,10 +150,6 @@ void Cells::updateVisualization(const QRectF &region)
             i.setPixel(poi-dataRegion.topLeft(),c.rgba());
         }
 }
-const QImage& Cells::visualizedData() const
-{
-    return m_visualizedData;
-}
 
 void Cells::updateSceneRect(const QRectF& rect)
 {
@@ -200,6 +200,219 @@ QColor Cells::colorForScenePoint(QPointF p) const {
     return c;
 }
 
+void Cells::paintRaster(QPainter* p, const QRectF& region) const
+{
+    //region is not aligned to the grid, so we need to adjust
+    int offX = (int)region.x() % 8;
+    int offY = (int)region.y() % 8;
+    for (int y = 0; y < region.height()+8; y+=8)
+        for (int x = 0; x < region.width()+8; x+=8)
+            p->drawPoint(QPoint(x-offX,y-offY));
+}
+
+void Cells::paintRoutingInfo(QPainter* p, const QRectF& target, const QRectF& source) const
+{
+    p->drawImage(target, m_visualizedData, source);
+}
+
+void Cells::mapRoute(QPointF p1, QPointF p2)
+{
+    if (updateNeeded())
+        update(m_documentScene, QRectF(p1,p2));
+
+    p1 = p1.toPoint() / 8;
+    p2 = p2.toPoint() / 8;
+
+    m_route.clear();
+
+    if ( !haveCell(p1.x(), p1.y()) || !haveCell(p2.x(), p2.y()) ) {
+        return;
+    }
+
+    m_lcx = p2.x();
+    m_lcy = p2.y();
+
+    // First, lets try some common connector routes (which will not necesssarily
+    // be shortest, but they will be neat, and cut down on overall CPU usage)
+    // If that fails, we will resort to a shortest-route algorithm to find an
+    // appropriate route.
+
+    // Connector configuration: Line
+    if (checkLineRoute(p1.x(), p1.y(), p2.x(), p2.y(), 4 * Cells::ScoreConnector)) {
+        return;
+    } else m_route.clear();
+
+    if (checkLineRoute(p1.x(), p1.y(), p2.x(), p2.y(), 2 * Cells::ScoreConnector)) {
+        if (checkLineRoute(p1.x(), p1.y(), p2.x(), p2.y(), Cells::ScoreConnector - 1)) {
+            return;
+        } else m_route.clear();
+    } else m_route.clear();
+
+    // more basic routes??? (TODO)
+
+    // It seems we must resort to brute-force route-checking
+    {
+        reset();
+
+        // Now to map out the shortest routes to the cells
+        Cell *startCell = &cell(p2.x(), p2.y());
+        startCell->makePermanent();
+        startCell->resetBestScore();
+        startCell->setPrevXY(startCellPos, startCellPos);
+
+        m_tempLabels.clear();
+        checkCell(p2.x(), p2.y());
+
+        // Daniel: I changed it from a do while to a while otherwise
+        // in rare cases the iterator can end up as end().
+
+        while (m_tempLabels.size() > 0 && !cell(p1.x(), p1.y()).isPermanent()) {
+            TempLabelMap::iterator it = m_tempLabels.begin();
+            checkCell(it->second.x(), it->second.y());
+            m_tempLabels.erase(it);
+        }
+
+        // Now, retrace the shortest route from the endcell to get out points :)
+        int x = p1.x(), y = p1.y();
+
+        bool ok = true;
+        do {
+            m_route.append(QPointF(x,y)*8);
+            int newx = cell(x, y).getPrevX();
+            int newy = cell(x, y).getPrevY();
+
+            if (newx == x && newy == y)
+                ok = false;
+            else {
+                x = newx;
+                y = newy;
+            }
+        } while (haveCell(x, y)
+                 && (x != startCellPos)
+                 && (y != startCellPos)
+                 && ok);
+
+        // And append the last point...
+        m_route.append(p2*8);
+    }
+
+    removeDuplicatePoints();
+}
+
+void Cells::mapRoute(qreal sx, qreal sy, qreal ex, qreal ey)
+{
+    mapRoute(QPointF(sx,sy),QPointF(ex,ey));
+}
+
+void Cells::checkACell(int x, int y, Cell *prev, int prevX, int prevY, int nextScore) {
+    //      if ( !p_icnDocument->isValidCellReference(x,y) ) return;
+    if (!haveCell(x, y))
+        return;
+
+    Cell *c = &cell(x, y);
+
+    if (c->isPermanent())
+        return;
+
+    int newScore = nextScore + c->getCIPenalty(); // + c->Cpenalty;
+
+    // Check for changing direction
+    if ((x != prevX && prev->comparePrevX(prevX)) ||
+            (y != prevY && prev->comparePrevY(prevY))) newScore += 5;
+
+    if (c->scoreIsWorse(newScore))
+        return;
+
+    // We only want to change the previous cell if the score is different,
+    // or the score is the same but this cell allows the connector
+    // to travel in the same direction
+    if (c->sameScoreAs(newScore) &&
+            x != prevX &&
+            y != prevY) return;
+
+    c->setBestScore(newScore);
+    c->setPrevXY(prevX, prevY);
+
+    if (!c->getAddedToLabels()) {
+        c->setAddedToLabels();
+        QPointF point(x,y);
+        TempLabelMap::iterator it = m_tempLabels.insert(std::make_pair(newScore, point));
+    }
+}
+
+void Cells::checkCell(int x, int y) {
+    Cell *c = &cell(x, y);
+    c->makePermanent();
+
+    int nextScore = c->incBestScore();
+
+    // Check the surrounding cells (up, left, right, down)
+    checkACell(x - 1, y, c, x, y, nextScore);
+    checkACell(x + 1, y, c, x, y, nextScore);
+    checkACell(x, y + 1, c, x, y, nextScore);
+    checkACell(x, y - 1, c, x, y, nextScore);
+}
+
+bool Cells::checkLineRoute(int scx, int scy, int ecx, int ecy, int maxCIScore)
+{
+    //no straight route possible -> return false
+    if ((scx != ecx) || (scy != ecy))
+        return false;
+
+    const bool isHorizontal = scy == ecy;
+
+    int start = 0, end = 0, x = 0, y = 0, dd = 0;
+
+    if (isHorizontal) {
+        dd = (scx < ecx) ? 1 : -1;
+        start = scx;
+        end = ecx + dd;
+        y = scy;
+    } else {
+        dd = (scy < ecy) ? 1 : -1;
+        start = scy;
+        end = ecy + dd;
+        x = scx;
+    }
+
+    if (isHorizontal) {
+        for (qreal x = start; x != end; x += dd) {
+            if (std::abs(x - start) > 1 && std::abs(x - end) > 1
+                    && (cell(x, y).getCIPenalty() > maxCIScore)) {
+                return false;
+            } else  m_route.append(QPoint(x, y)*8);
+        }
+    } else {
+        for (qreal y = start; y != end; y += dd) {
+            if (std::abs(y - start) > 1 && std::abs(y - end) > 1
+                    && (cell(x, y).getCIPenalty() > maxCIScore)) {
+                return false;
+            } else m_route.append(QPointF(x, y)*8);
+        }
+    }
+
+    removeDuplicatePoints();
+
+    return true;
+}
+
+void Cells::removeDuplicatePoints() {
+    const QPointF invalid(-(1 << 30), -(1 << 30));
+
+    QList<QPointF>::const_iterator end = m_route.constEnd();
+    for (QList<QPointF>::iterator it = m_route.begin(); it != end; ++it) {
+        if (m_route.count(*it) > 1)
+            *it = invalid;
+    }
+
+    m_route.removeAll(invalid);
+}
+
+void Cells::updateScene(const QRectF& rect)
+{
+    m_cellsNeedUpdate = true;
+}
+
 //END class Cells
 
 //BEGIN class Cell
@@ -218,3 +431,4 @@ void Cell::reset() {
 //END class Cell
 
 #include "cells.moc"
+// kate: indent-mode cstyle; space-indent on; indent-width 0; 

@@ -19,6 +19,7 @@
 
 #include "idocumentscene.h"
 #include "irouterplugin.h"
+#include "iroutinginformation.h"
 #include "component/connectoritem.h"
 #include <interfaces/icore.h>
 #include <interfaces/iplugincontroller.h>
@@ -30,9 +31,9 @@ using namespace KTechLab;
 
 IDocumentScene::IDocumentScene(QObject* parent)
     : QGraphicsScene(parent),
-      m_routePath( 0 )
+      m_routePath( 0 ),
+      m_routingInfo( 0 )
 {
-
 }
 
 IDocumentScene::~IDocumentScene()
@@ -52,14 +53,13 @@ void IDocumentScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
         removeItem(m_routePath);
         delete m_routePath;
         m_routePath = 0;
-        IRouterPlugin *cr = fetchRouter();
-        if (!cr) {
+        if (!routingInfo()) {
             event->ignore();
             return;
         }
-        cr->mapRoute(m_startPos, event->scenePos());
+        m_routingInfo->mapRoute(m_startPos, event->scenePos());
         m_routePath = new ConnectorItem();
-        m_routePath->setPath(cr->paintedRoute());
+        m_routePath->setPath(m_routingInfo->paintedRoute());
         addItem(m_routePath);
         event->accept();
     }
@@ -91,13 +91,12 @@ void IDocumentScene::keyPressEvent(QKeyEvent* event)
 
 void IDocumentScene::startRouting(const QPointF& pos)
 {
-    IRouterPlugin *cr = fetchRouter();
-    if (!cr) {
+    if (!routingInfo()) {
         return;
     }
     m_startPos = pos;
-    cr->mapRoute(pos,pos);
-    m_routePath = addPath(cr->paintedRoute());
+    m_routingInfo->mapRoute(pos,pos);
+    m_routePath = addPath(m_routingInfo->paintedRoute());
 }
 
 void IDocumentScene::abortRouting()
@@ -121,20 +120,22 @@ void IDocumentScene::updateData(const QString& name, const QVariantMap& value)
 
 }
 
-IRouterPlugin *IDocumentScene::fetchRouter()
+void IDocumentScene::fetchRouter()
 {
     KDevelop::IPluginController *pc = KDevelop::ICore::self()->pluginController();
     IRouterPlugin* router = pc->extensionForPlugin<IRouterPlugin>("org.ktechlab.IRouterPlugin", "ktlautomatic_router");
     if (!router) {
         kWarning() << "No Plugin found for extension: org.ktechlab.IRouterPlugin";
-        return 0;
+        return;
     }
     router->setDocumentScene(this);
-    return router;
 }
 
-QSharedPointer< IRoutingInformation > IDocumentScene::routingInfo() const
+QSharedPointer< IRoutingInformation > IDocumentScene::routingInfo()
 {
+    if (!m_routingInfo)
+        fetchRouter();
+
     return m_routingInfo;
 }
 
@@ -148,11 +149,10 @@ void IDocumentScene::drawForeground(QPainter* painter, const QRectF& rect)
     if (views().isEmpty())
         return;
 
-    IRouterPlugin *cr = fetchRouter();
-    if (!cr)
+    if (!routingInfo())
         return;
 
-    const QPixmap& pixmap = cr->visualizedData(rect);
+    const QPixmap& pixmap = m_routingInfo->visualizedData(rect);
     if (pixmap.isNull())
         return;
 
