@@ -4,6 +4,7 @@ set( ktlinterfaces_LIB_SRCS
    component/connector.cpp
    idocumentscene.cpp
    irouterplugin.cpp
+   iroutinginformation.cpp
    idocumentmodel.cpp
    idocumentplugin.cpp
    icomponentdocument.cpp
