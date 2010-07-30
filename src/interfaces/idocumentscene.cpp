@@ -83,9 +83,6 @@ void IDocumentScene::keyPressEvent(QKeyEvent* event)
             item = 0;
         }
     }
-    if (event->key() == Qt::Key_F5){
-        update(sceneRect());
-    }
 }
 
 
