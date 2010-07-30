@@ -19,8 +19,8 @@
 
 */
 
-#ifndef ICONROUTER_H
-#define ICONROUTER_H
+#ifndef IROUTERPLUGIN_H
+#define IROUTERPLUGIN_H
 
 #include "ktlinterfacesexport.h"
 
@@ -42,7 +42,7 @@ class IDocumentScene;
  * This is a base-class to provide a list of points that need to be connected
  * in order to draw a connection between 2 pins of a component.
  */
-class KTLINTERFACES_EXPORT IConRouter
+class KTLINTERFACES_EXPORT IRouterPlugin
 {
 public:
 
@@ -53,8 +53,8 @@ public:
     };
     Q_DECLARE_FLAGS(VisualizeOptions,VisualizeOption)
 
-    IConRouter();
-    virtual ~IConRouter();
+    IRouterPlugin();
+    virtual ~IRouterPlugin();
 
     /**
      * What this class is all about - finding a route, from p1 to p2.
@@ -155,6 +155,9 @@ protected:
      */
     virtual void paintRoutingInfo(QPainter* p, const QRectF& target, const QRectF& source) const;
     /**
+     * Create internal routing information and attach it to the scene.
+     *
+     * \param scene - routing information is created for this scene
      */
     virtual void generateRoutingInfo( IDocumentScene *scene )=0;
     QList<QPointF> m_route;
@@ -165,11 +168,11 @@ private:
     VisualizeOptions m_visualize;
 };
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(IConRouter::VisualizeOptions)
+Q_DECLARE_OPERATORS_FOR_FLAGS(IRouterPlugin::VisualizeOptions)
 
 }
 
-KDEV_DECLARE_EXTENSION_INTERFACE_NS( KTechLab, IConRouter, "org.ktechlab.IConRouter" )
-Q_DECLARE_INTERFACE( KTechLab::IConRouter, "org.ktechlab.IConRouter" )
+KDEV_DECLARE_EXTENSION_INTERFACE_NS( KTechLab, IRouterPlugin, "org.ktechlab.IRouterPlugin" )
+Q_DECLARE_INTERFACE( KTechLab::IRouterPlugin, "org.ktechlab.IRouterPlugin" )
 
-#endif // ICONROUTER_H
+#endif // IROUTERPLUGIN_H

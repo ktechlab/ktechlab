@@ -19,7 +19,7 @@
 
 */
 
-#include "iconrouter.h"
+#include "irouterplugin.h"
 
 #include <QPointF>
 #include <QPainterPath>
@@ -28,20 +28,20 @@
 
 using namespace KTechLab;
 
-IConRouter::IConRouter()
+IRouterPlugin::IRouterPlugin()
     : m_visualize(VisualizeRaster)
 {}
 
-IConRouter::~IConRouter()
+IRouterPlugin::~IRouterPlugin()
 {}
 
 
-void IConRouter::mapRoute(qreal sx, qreal sy, qreal ex, qreal ey)
+void IRouterPlugin::mapRoute(qreal sx, qreal sy, qreal ex, qreal ey)
 {
     mapRoute(QPointF(sx,sy),QPointF(ex,ey));
 }
 
-QPainterPath IConRouter::paintedRoute() const
+QPainterPath IRouterPlugin::paintedRoute() const
 {
     QPainterPath p;
     if (m_route.size() < 2)
@@ -56,12 +56,12 @@ QPainterPath IConRouter::paintedRoute() const
     return p;
 }
 
-QList< QPointF > IConRouter::route() const
+QList< QPointF > IRouterPlugin::route() const
 {
     return m_route;
 }
 
-void IConRouter::setRoute(const QList< QPointF >& route)
+void IRouterPlugin::setRoute(const QList< QPointF >& route)
 {
     if (m_route.size()>0) {
         //this can happen, but in debug-mode, we should inform about it
@@ -71,7 +71,7 @@ void IConRouter::setRoute(const QList< QPointF >& route)
     m_route = route;
 }
 
-void IConRouter::setDocumentScene(IDocumentScene* scene)
+void IRouterPlugin::setDocumentScene(IDocumentScene* scene)
 {
     m_documentScene = scene;
     if (scene->routingInfo().isNull()){
@@ -79,7 +79,7 @@ void IConRouter::setDocumentScene(IDocumentScene* scene)
     }
 }
 
-QPixmap KTechLab::IConRouter::visualizedData(const QRectF &region) const
+QPixmap KTechLab::IRouterPlugin::visualizedData(const QRectF &region) const
 {
     if (!m_visualize)
         return QPixmap();
@@ -97,21 +97,21 @@ QPixmap KTechLab::IConRouter::visualizedData(const QRectF &region) const
     QPixmap pic(region.size().toSize());
     pic.fill(Qt::transparent);
     QPainter p(&pic);
-    if (m_visualize & IConRouter::VisualizeRaster)
+    if (m_visualize & IRouterPlugin::VisualizeRaster)
         paintRaster(&p, region);
-    if (dataRegion.isValid() && m_visualize & IConRouter::VisualizeRoutingInformation)
+    if (dataRegion.isValid() && m_visualize & IRouterPlugin::VisualizeRoutingInformation)
         paintRoutingInfo(&p, targetRegion, dataRegion);
     return pic;
 }
 
-void IConRouter::paintRoutingInfo(QPainter* p, const QRectF& target, const QRectF& source) const
+void IRouterPlugin::paintRoutingInfo(QPainter* p, const QRectF& target, const QRectF& source) const
 {
     Q_UNUSED(p)
     Q_UNUSED(target)
     Q_UNUSED(source)
 }
 
-void IConRouter::paintRaster(QPainter* p, const QRectF& region) const
+void IRouterPlugin::paintRaster(QPainter* p, const QRectF& region) const
 {
     Q_UNUSED(p)
     Q_UNUSED(region)

@@ -18,7 +18,7 @@
 */
 
 #include "idocumentscene.h"
-#include "iconrouter.h"
+#include "irouterplugin.h"
 #include "component/connectoritem.h"
 #include <interfaces/icore.h>
 #include <interfaces/iplugincontroller.h>
@@ -52,7 +52,7 @@ void IDocumentScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
         removeItem(m_routePath);
         delete m_routePath;
         m_routePath = 0;
-        IConRouter *cr = fetchRouter();
+        IRouterPlugin *cr = fetchRouter();
         if (!cr) {
             event->ignore();
             return;
@@ -91,7 +91,7 @@ void IDocumentScene::keyPressEvent(QKeyEvent* event)
 
 void IDocumentScene::startRouting(const QPointF& pos)
 {
-    IConRouter *cr = fetchRouter();
+    IRouterPlugin *cr = fetchRouter();
     if (!cr) {
         return;
     }
@@ -121,12 +121,12 @@ void IDocumentScene::updateData(const QString& name, const QVariantMap& value)
 
 }
 
-IConRouter *IDocumentScene::fetchRouter()
+IRouterPlugin *IDocumentScene::fetchRouter()
 {
     KDevelop::IPluginController *pc = KDevelop::ICore::self()->pluginController();
-    IConRouter* router = pc->extensionForPlugin<IConRouter>("org.ktechlab.IConRouter", "ktlautomatic_router");
+    IRouterPlugin* router = pc->extensionForPlugin<IRouterPlugin>("org.ktechlab.IRouterPlugin", "ktlautomatic_router");
     if (!router) {
-        kWarning() << "No Plugin found for extension: org.ktechlab.IConRouter";
+        kWarning() << "No Plugin found for extension: org.ktechlab.IRouterPlugin";
         return 0;
     }
     router->setDocumentScene(this);
@@ -148,7 +148,7 @@ void IDocumentScene::drawForeground(QPainter* painter, const QRectF& rect)
     if (views().isEmpty())
         return;
 
-    IConRouter *cr = fetchRouter();
+    IRouterPlugin *cr = fetchRouter();
     if (!cr)
         return;
 
