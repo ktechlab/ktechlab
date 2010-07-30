@@ -26,8 +26,8 @@ using namespace KTechLab;
 
 IRoutingInformation::IRoutingInformation(IDocumentScene* scene, QObject* parent)
     : QObject(parent),
-      m_visualize(VisualizeRaster),
-      m_documentScene(scene)
+      m_documentScene(scene),
+      m_visualize(VisualizeRaster)
 {
 
 }
