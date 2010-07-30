@@ -34,7 +34,7 @@ K_EXPORT_PLUGIN(KTLAutomaticRouterFactory(KAboutData("ktlautomatic_router","ktla
 AutomaticRouter::AutomaticRouter(QObject* parent, const QVariantList& args)
     : IPlugin( KTLAutomaticRouterFactory::componentData(), parent)
 {
-    KDEV_USE_EXTENSION_INTERFACE( KTechLab::IConRouter )
+    KDEV_USE_EXTENSION_INTERFACE( KTechLab::IRouterPlugin )
 }
 
 void AutomaticRouter::generateRoutingInfo(KTechLab::IDocumentScene* scene)
