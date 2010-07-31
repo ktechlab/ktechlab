@@ -52,7 +52,7 @@ ConnectorItem::ConnectorItem(const QVariantMap& connectorData, QGraphicsItem* pa
 void ConnectorItem::init()
 {
     setAcceptHoverEvents(true);
-    setFlag(ItemIsSelectable,true);
+    setFlags(ItemIsSelectable | ItemIsMovable);
     setZValue(-1);
 }
 

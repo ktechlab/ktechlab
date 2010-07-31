@@ -32,7 +32,7 @@ IComponentItem::IComponentItem(QGraphicsItem* parentItem)
     setAcceptHoverEvents(true);
     setFlags(
         ItemIsFocusable | ItemIsSelectable |
-        ItemIsMovable | ItemSendsScenePositionChanges
+        ItemIsMovable
     );
 }
 
