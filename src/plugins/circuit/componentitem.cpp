@@ -102,31 +102,6 @@ void ComponentItem::initPins()
     }
 }
 
-void ComponentItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
-{
-    m_oldPos = pos();
-    IComponentItem::mousePressEvent(event);
-}
-
-void ComponentItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
-{
-    IComponentItem::mouseMoveEvent(event);
-}
-
-void ComponentItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
-{
-    if (pos() != m_oldPos){
-        //TODO: make grid configurable
-        //align to grid
-        QPoint p = pos().toPoint() / 8;
-        p*=8;
-        setPos(p);
-        if (p != m_oldPos)
-            itemChange(ItemScenePositionHasChanged,pos());
-    }
-    IComponentItem::mouseReleaseEvent(event);
-}
-
 void ComponentItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
 {
     IComponentItem::hoverEnterEvent(event);
