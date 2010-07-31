@@ -32,7 +32,8 @@ using namespace KTechLab;
 IDocumentScene::IDocumentScene(QObject* parent)
     : QGraphicsScene(parent),
       m_routePath( 0 ),
-      m_routingInfo( 0 )
+      m_routingInfo( 0 ),
+      m_movingSelection(false)
 {
 }
 
@@ -72,6 +73,27 @@ void IDocumentScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
     if (!event->isAccepted()){
         abortRouting();
     }
+    if (!selectedItems().isEmpty()){
+        m_oldSelectionPos = selectedItems().first()->pos();
+        m_movingSelection = true;
+    }
+}
+
+void IDocumentScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
+{
+    QGraphicsScene::mouseReleaseEvent(event);
+    if (isRouting())
+        return;
+    if (!selectedItems().isEmpty() && m_movingSelection){
+        if (selectedItems().first()->pos() != m_oldSelectionPos){
+            bool moved = alignToGrid(selectedItems().first()->pos()) != m_oldSelectionPos;
+            foreach (QGraphicsItem* item, selectedItems()){
+                item->setPos(alignToGrid(item->pos()));
+            }
+            rerouteConnectors(selectedItems());
+        }
+        m_movingSelection = false;
+    }
 }
 
 void IDocumentScene::keyPressEvent(QKeyEvent* event)
@@ -85,6 +107,13 @@ void IDocumentScene::keyPressEvent(QKeyEvent* event)
     }
 }
 
+QPointF IDocumentScene::alignToGrid(const QPointF& point)
+{
+    if (m_routingInfo)
+        return m_routingInfo->alignToGrid(point);
+
+    return point;
+}
 
 void IDocumentScene::startRouting(const QPointF& pos)
 {
@@ -115,6 +144,10 @@ void IDocumentScene::finishRouting()
 void IDocumentScene::updateData(const QString& name, const QVariantMap& value)
 {
 
+}
+
+void IDocumentScene::rerouteConnectors(QList< QGraphicsItem* > items)
+{
 }
 
 void IDocumentScene::fetchRouter()

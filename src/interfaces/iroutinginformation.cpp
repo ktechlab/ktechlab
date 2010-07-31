@@ -32,6 +32,11 @@ IRoutingInformation::IRoutingInformation(IDocumentScene* scene, QObject* parent)
 
 }
 
+QPointF IRoutingInformation::alignToGrid(const QPointF& point)
+{
+    return point;
+}
+
 void IRoutingInformation::mapRoute(qreal sx, qreal sy, qreal ex, qreal ey)
 {
     mapRoute(QPointF(sx,sy),QPointF(ex,ey));
