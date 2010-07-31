@@ -161,6 +161,7 @@ public:
         ScoreItem = 1000
     };
 
+    virtual QPointF alignToGrid(const QPointF& point);
     virtual void mapRoute(QPointF p1, QPointF p2);
     virtual void mapRoute(qreal sx, qreal sy, qreal ex, qreal ey);
 
