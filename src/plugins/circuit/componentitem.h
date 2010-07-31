@@ -37,9 +37,6 @@ signals:
 protected:
     virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
     virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
-    virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
-    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
-    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
 private:
 
@@ -54,7 +51,6 @@ private:
     QDomDocument m_svgDocument;
 
     QPainterPath m_shape;
-    QPointF m_oldPos;
 };
 
 }
