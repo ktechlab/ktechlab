@@ -91,11 +91,32 @@ public slots:
 
 protected:
     /**
+     * Take a list of items and check if they need to be re-routed.
+     * If re-routing is nessessary, it will be performed.
+     *
+     * \param items - the list containing items, that need checking
+     */
+    void rerouteConnectors(QList< QGraphicsItem* > items);
+
+    /**
      * This method tracks mouse movement during the routing process.
      * Make sure to call this method, in case you override it.
      */
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
     virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
+    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
+
+    /**
+     * Align a given \param point to a grid.
+     *
+     * The scene will automatically align all graphic-items to a grid
+     * that is provided by the routing plugin. You can override this
+     * method to change this behaviour.
+     *
+     * \param point - the point to be aligned
+     * \returns the aligned point
+     */
+    virtual QPointF alignToGrid( const QPointF& point );
 
     /**
      * handle default key events like delete
@@ -113,6 +134,8 @@ private:
     QGraphicsPathItem* m_routePath;
     QSharedPointer<IRoutingInformation> m_routingInfo;
     QPointF m_startPos;
+    QPointF m_oldSelectionPos;
+    bool m_movingSelection;
 };
 
 }

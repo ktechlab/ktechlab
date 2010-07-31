@@ -56,6 +56,15 @@ public:
     IRoutingInformation(IDocumentScene* scene = 0, QObject* parent = 0);
 
     /**
+     * Align the \param point to the internal grid if there is one.
+     *
+     * The default returns the point itself.
+     *
+     * \returns - the point aligned to the interal grid
+     */
+    virtual QPointF alignToGrid(const QPointF& point);
+
+    /**
      * What this class is all about - finding a route, from p1 to p2.
      * This is the default way to map a route. Override this method
      * to provide an implementation for the routing algorithm.

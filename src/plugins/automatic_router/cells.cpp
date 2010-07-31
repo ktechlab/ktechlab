@@ -79,6 +79,12 @@ void Cells::reset() {
     }
 }
 
+QPointF Cells::alignToGrid(const QPointF& point)
+{
+    QPoint result(point.toPoint() / 8);
+    return result * 8;
+}
+
 void Cells::update(const KTechLab::IDocumentScene* scene, const QRectF &region)
 {
     QRectF updateRegion = region.normalized();
