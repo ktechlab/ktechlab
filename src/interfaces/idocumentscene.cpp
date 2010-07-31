@@ -89,6 +89,7 @@ void IDocumentScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
             bool moved = alignToGrid(selectedItems().first()->pos()) != m_oldSelectionPos;
             foreach (QGraphicsItem* item, selectedItems()){
                 item->setPos(alignToGrid(item->pos()));
+                //TODO: update model
             }
             rerouteConnectors(selectedItems());
         }
