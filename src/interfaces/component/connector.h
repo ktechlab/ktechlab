@@ -59,6 +59,14 @@ public:
     virtual ~Connector();
 
     /**
+     * Check the connection to a given node.
+     *
+     * \param node - check if this connector connects to this node
+     * \returns true, if the given node is either start- or end-node
+     */
+    bool connectsTo(const Node* node) const;
+
+    /**
      * Set the path to a specific route
      */
     void setRoute(const QPainterPath& route);
