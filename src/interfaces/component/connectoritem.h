@@ -39,7 +39,18 @@ public:
     ConnectorItem(const QVariantMap& connectorData, QGraphicsItem* parent = 0, QGraphicsScene* scene = 0);
     virtual ~ConnectorItem();
 
+    /**
+     * Set the connector representing this item.
+     *
+     * \param connector - the connector
+     */
     void setConnector(const Connector& connector);
+    /**
+     * Get the connector, this item represents.
+     *
+     * \returns the connector
+     */
+    Connector* connector() const;
 protected:
     virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
     virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
