@@ -26,6 +26,7 @@
 namespace KTechLab {
 
 class IDocumentModel;
+class Node;
 
 /**
  * \short Components that are shown on a scene
@@ -55,6 +56,14 @@ public:
      */
     QString id() const;
 
+    /**
+     * Check whether the given node belongs to this item.
+     *
+     * \param node - the Node to check
+     * \returns true, if the node is child of this item
+     */
+    bool hasNode(const Node* node) const;
+
 public slots:
     /**
      * Inform the component, that some data has been changed, so it can
@@ -71,6 +80,13 @@ signals:
 protected:
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     virtual QVariant itemChange(GraphicsItemChange change, const QVariant& value);
+    /**
+     * Check all child-items for a given id and return true if it's found.
+     *
+     * \param id - the id to look for
+     * \returns true, if child-item with this id is found
+     */
+    bool haveChildNode( const QString& id ) const;
 
     IDocumentModel *m_document;
     QString m_id;

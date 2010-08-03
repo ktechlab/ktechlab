@@ -22,6 +22,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <KDebug>
 #include <idocumentmodel.h>
+#include "node.h"
 
 using namespace KTechLab;
 
@@ -64,6 +65,24 @@ QString IComponentItem::id() const
 
     kWarning() << "no id for IComponentItem:" << this;
     return QString();
+}
+
+bool IComponentItem::hasNode(const Node* node) const
+{
+    if (!node->isValid() || id() != node->parentId())
+        return false;
+
+    return haveChildNode(node->id());
+}
+
+bool IComponentItem::haveChildNode(const QString& id) const
+{
+    foreach (const QGraphicsItem* item, childItems()){
+        //TODO: make this a qgraphicsitem_cast
+        const Node* n = dynamic_cast<const Node*>(item);
+        if (n && n->id() == id)
+            return true;
+    }
 }
 
 void IComponentItem::setDocumentModel(IDocumentModel* model)
