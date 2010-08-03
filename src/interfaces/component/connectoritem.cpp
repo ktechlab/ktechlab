@@ -73,6 +73,11 @@ void ConnectorItem::setConnector(const Connector& connector)
     setPath(m_connector->route());
 }
 
+Connector* ConnectorItem::connector() const
+{
+    return m_connector;
+}
+
 void ConnectorItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
 {
     if (!isSelected()){
