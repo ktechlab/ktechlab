@@ -146,6 +146,31 @@ Connector::~Connector()
     delete d;
 }
 
+bool Connector::connectsTo(const KTechLab::Node* node) const
+{
+    if (!node->isValid())
+        return false;
+
+    bool found = false;
+    //// stand-alone nodes
+    // test start node
+    found |= d->data.value("start-node-is-child") == 0 &&
+             d->data.value("start-node-id") == node->id();
+    //test end node
+    found |= d->data.value("end-node-is-child") == 0 &&
+             d->data.value("end-node-id") == node->id();
+    //// child-nodes of items
+    // test start node
+    found |= d->data.value("start-node-is-child") == 1 &&
+             d->data.value("start-node-parent") == node->parentId() &&
+             d->data.value("start-node-cid") == node->id();
+    // test end node
+    found |= d->data.value("end-node-is-child") == 1 &&
+             d->data.value("end-node-parent") == node->parentId() &&
+             d->data.value("end-node-cid") == node->id();
+    return found;
+}
+
 void Connector::setRoute(const QPainterPath& route)
 {
     d->setRoute(route);
