@@ -25,6 +25,8 @@
 #include <QGraphicsPathItem>
 
 namespace KTechLab {
+
+class IDocumentScene;
 class Connector;
 class Node;
 
@@ -38,9 +40,25 @@ class Node;
 class KTLINTERFACES_EXPORT ConnectorItem : public QGraphicsPathItem
 {
 public:
-    ConnectorItem(QGraphicsItem* parent = 0, QGraphicsScene* scene = 0);
-    ConnectorItem(const Connector& connector, QGraphicsItem* parent = 0, QGraphicsScene* scene = 0);
-    ConnectorItem(const QVariantMap& connectorData, QGraphicsItem* parent = 0, QGraphicsScene* scene = 0);
+    /**
+     * Construct a new connector within the given scene. The scene is
+     * mandatory, because this is where all routing takes place and the
+     * ConnectorItem needs information from the scene like the \ref Node
+     * instances it is connected to.
+     *
+     * \param scene - the scene, that belongs to the document, the Connector
+     * is used in
+     * \param parent - a parent item, used as described in \ref QGraphicsScene
+     * documentation
+     */
+    ConnectorItem(IDocumentScene* scene, QGraphicsItem* parent = 0);
+    /**
+     * Construct a new connector within the given scene. The connector data
+     * is used to create an instance of the internal representation of the connection.
+     *
+     * See \ref ConnectorItem(IDocumentScene*, QGraphicsItem*)
+     */
+    ConnectorItem(const QVariantMap& connectorData, IDocumentScene* scene, QGraphicsItem* parent = 0);
     virtual ~ConnectorItem();
 
     /**
@@ -85,6 +103,7 @@ private:
     Connector *m_connector;
     const Node* m_startNode;
     const Node* m_endNode;
+    IDocumentScene* m_scene;
 };
 
 }

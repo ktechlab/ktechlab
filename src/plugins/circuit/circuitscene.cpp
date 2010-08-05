@@ -29,6 +29,7 @@
 #include <KDebug>
 #include "circuitmodel.h"
 #include "pinitem.h"
+#include <interfaces/component/connector.h>
 
 using namespace KTechLab;
 
@@ -98,13 +99,6 @@ void CircuitScene::setupData()
             m_components.insert(item->id(), item);
         }
     }
-    foreach (QVariant connector, m_model->connectors())
-    {
-        if (connector.canConvert(QVariant::Map)) {
-            ConnectorItem *connectorItem = new ConnectorItem(connector.toMap());
-            addItem( connectorItem );
-        }
-    }
     foreach (QVariant pins, m_model->nodes()){
         if (pins.canConvert(QVariant::Map)) {
             QPointF p(pins.toMap().value("x").toDouble(),pins.toMap().value("y").toDouble());
@@ -115,6 +109,13 @@ void CircuitScene::setupData()
             m_pins.insert(item->id(),item);
         }
     }
+    foreach (QVariant connector, m_model->connectors())
+    {
+        if (connector.canConvert(QVariant::Map)) {
+            ConnectorItem *connectorItem = new ConnectorItem(connector.toMap(),this);
+        }
+    }
+
 }
 
 void CircuitScene::updateData( const QString& name, const QVariantMap& data )
