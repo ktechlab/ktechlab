@@ -51,6 +51,8 @@ ConnectorItem::ConnectorItem(const QVariantMap& connectorData, QGraphicsItem* pa
 
 void ConnectorItem::init()
 {
+    m_startNode = 0;
+    m_endNode = 0;
     setAcceptHoverEvents(true);
     setFlags(ItemIsSelectable | ItemIsMovable);
     setZValue(-1);
@@ -76,6 +78,23 @@ void ConnectorItem::setConnector(const Connector& connector)
 Connector* ConnectorItem::connector() const
 {
     return m_connector;
+}
+
+void ConnectorItem::setStartNode(const Node* node)
+{
+    m_startNode = node;
+}
+void ConnectorItem::setEndNode(const Node* node)
+{
+    m_endNode = node;
+}
+const Node* ConnectorItem::endNode() const
+{
+    return m_endNode;
+}
+const Node* ConnectorItem::startNode() const
+{
+    return m_startNode;
 }
 
 void ConnectorItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
