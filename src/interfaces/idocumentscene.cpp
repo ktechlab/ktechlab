@@ -26,6 +26,8 @@
 #include <KDebug>
 #include <QGraphicsSceneMouseEvent>
 #include <QKeyEvent>
+#include "component/connector.h"
+#include "component/node.h"
 
 using namespace KTechLab;
 
@@ -59,7 +61,7 @@ void IDocumentScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
             return;
         }
         m_routingInfo->mapRoute(m_startPos, event->scenePos());
-        m_routePath = new ConnectorItem();
+        m_routePath = new ConnectorItem(this);
         m_routePath->setPath(m_routingInfo->paintedRoute());
         addItem(m_routePath);
         event->accept();
