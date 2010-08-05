@@ -30,6 +30,8 @@ class KTechLab::ConnectorPrivate
 {
 public:
     ConnectorPrivate(const QVariantMap& connectorData){
+        startNode = 0;
+        endNode = 0;
         data = connectorData;
         parseRoute(data.value( "route" ).toString());
     };
@@ -37,11 +39,13 @@ public:
     void parseRoute(const QString pathString);
 
     void setRoute(const QPainterPath& path);
-    void setEndNode(const Node& node);
-    void setStartNode(const Node& node);
+    void setEndNode(const Node* node);
+    void setStartNode(const Node* node);
 
     QVariantMap data;
     QPainterPath route;
+    const Node* startNode;
+    const Node* endNode;
 };
 
 void ConnectorPrivate::setRoute(const QPainterPath& path)
@@ -53,7 +57,7 @@ void ConnectorPrivate::setRoute(const QPainterPath& path)
         QPainterPath::Element e = path.elementAt(i);
         pathString += e.x/8 + ',' + e.y/8 + ',';
     }
-            data.insert("route",pathString);
+    data.insert("route",pathString);
 }
 void ConnectorPrivate::parseRoute(const QString pathString)
 {
@@ -84,47 +88,49 @@ void ConnectorPrivate::parseRoute(const QString pathString)
     }
 }
 
-void ConnectorPrivate::setStartNode(const Node& node)
+void ConnectorPrivate::setStartNode(const Node* node)
 {
-    if (!node.isValid()){
-        kError() << "Invalid node set as start node:" << node.id();
+    if (!node || !node->isValid()){
+        kError() << "Invalid node set as start node:" << node->id();
         return;
     }
+    startNode = node;
 
     data.remove("start-node-id");
     data.remove("start-node-cid");
     data.remove("start-node-parent");
     data.remove("start-node-is-child");
-    QString parentId = node.parentId();
+    QString parentId = node->parentId();
     if (parentId.isEmpty()){
         data.insert("start-node-is-child", 1);
         data.insert("start-node-parent", parentId);
-        data.insert("start-node-cid", node.id());
+        data.insert("start-node-cid", node->id());
     } else {
         data.insert("start-node-is-child", 0);
-        data.insert("start-node-id", node.id());
+        data.insert("start-node-id", node->id());
     }
 }
 
-void ConnectorPrivate::setEndNode(const Node& node)
+void ConnectorPrivate::setEndNode(const Node* node)
 {
-    if (!node.isValid()){
-        kError() << "Invalid node set as end node:" << node.id();
+    if (!node || !node->isValid()){
+        kError() << "Invalid node set as end node:" << node->id();
         return;
     }
+    endNode = node;
 
     data.remove("end-node-id");
     data.remove("end-node-cid");
     data.remove("end-node-parent");
     data.remove("end-node-is-child");
-    QString parentId = node.parentId();
+    QString parentId = node->parentId();
     if (parentId.isEmpty()){
         data.insert("end-node-is-child", 1);
         data.insert("end-node-parent", parentId);
-        data.insert("end-node-cid", node.id());
+        data.insert("end-node-cid", node->id());
     } else {
         data.insert("end-node-is-child", 0);
-        data.insert("end-node-id", node.id());
+        data.insert("end-node-id", node->id());
     }
 }
 
@@ -176,14 +182,22 @@ void Connector::setRoute(const QPainterPath& route)
     d->setRoute(route);
 }
 
-void Connector::setStartNode(const Node& node)
+void Connector::setStartNode(const Node* node)
 {
     d->setStartNode(node);
 }
+const Node* Connector::startNode() const
+{
+    return d->startNode;
+}
 
-void Connector::setEndNode(const Node& node)
+void Connector::setEndNode(const Node* node)
 {
     d->setEndNode(node);
+}
+const Node* Connector::endNode() const
+{
+    return d->endNode;
 }
 
 QPainterPath Connector::route() const
