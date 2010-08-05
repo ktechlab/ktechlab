@@ -28,6 +28,8 @@ class QGraphicsSceneMouseEvent;
 
 namespace KTechLab {
 
+class Node;
+class IComponentItem;
 class IRouterPlugin;
 class IRoutingInformation;
 
@@ -70,6 +72,9 @@ public:
     * Finish the routing process and therefore place the route.
     */
     void finishRouting();
+
+    virtual IComponentItem* itemById(const QString& id) const =0;
+    virtual Node* node(const QString& id) const =0;
 
     /**
      * Get the routing information stored by the routing plugin.
