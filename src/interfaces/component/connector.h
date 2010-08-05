@@ -73,11 +73,27 @@ public:
     /**
     * Set the node, where the route starts
     */
-    void setStartNode(const Node& node);
+    void setStartNode(const Node* node);
+    /**
+     * Get information about the start node. Keep in mind,
+     * that this only contains data about the document, not
+     * the scene.
+     *
+     * \returns 0 if start node isn't set up, yet. the node otherwise
+     */
+    const Node* startNode() const;
     /**
     * Set the node, where the route ends
     */
-    void setEndNode(const Node& node);
+    void setEndNode(const Node* node);
+    /**
+     * Get information about the end node. Keep in mind,
+     * that this only contains data about the document, not
+     * the scene.
+     *
+     * \returns 0 if start node isn't set up, yet. the node otherwise
+     */
+    const Node* endNode() const;
     /**
      * Get a path representing the route of the connector
      */
