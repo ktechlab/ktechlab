@@ -64,6 +64,14 @@ public:
      */
     bool hasNode(const Node* node) const;
 
+    /**
+     * Get a connector node belonging to this component item.
+     *
+     * \param id - the id of the node
+     * \returns the node, 0 if no such node exists
+     */
+    const Node* node(const QString& id) const;
+
 public slots:
     /**
      * Inform the component, that some data has been changed, so it can
@@ -80,13 +88,6 @@ signals:
 protected:
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     virtual QVariant itemChange(GraphicsItemChange change, const QVariant& value);
-    /**
-     * Check all child-items for a given id and return true if it's found.
-     *
-     * \param id - the id to look for
-     * \returns true, if child-item with this id is found
-     */
-    bool haveChildNode( const QString& id ) const;
 
     IDocumentModel *m_document;
     QString m_id;
