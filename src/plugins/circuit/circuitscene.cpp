@@ -112,6 +112,7 @@ void CircuitScene::setupData()
             QRectF rect(p, QSize(4,4));
             PinItem* item = new PinItem(rect, 0, this);
             item->setId(pins.toMap().value("id").toString());
+            m_pins.insert(item->id(),item);
         }
     }
 }
@@ -136,6 +137,16 @@ void CircuitScene::updateData( const QString& name, const QVariantMap& data )
         }
     }*/
     //kDebug() << "Difference between components and applets" << (m_components.size() - applets().size());
+}
+
+IComponentItem* CircuitScene::itemById(const QString& id) const
+{
+    return m_components.value(id);
+}
+
+Node* CircuitScene::node(const QString& id) const
+{
+    return m_pins.value(id);
 }
 
 void CircuitScene::setCircuitName ( const QString& name )
