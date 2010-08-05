@@ -72,17 +72,19 @@ bool IComponentItem::hasNode(const Node* node) const
     if (!node->isValid() || id() != node->parentId())
         return false;
 
-    return haveChildNode(node->id());
+    return this->node(node->id()) != 0;
 }
 
-bool IComponentItem::haveChildNode(const QString& id) const
+const Node* IComponentItem::node(const QString& id) const
 {
     foreach (const QGraphicsItem* item, childItems()){
         //TODO: make this a qgraphicsitem_cast
         const Node* n = dynamic_cast<const Node*>(item);
-        if (n && n->id() == id)
-            return true;
+        if (n && n->id() == id){
+            return n;
+        }
     }
+    return 0;
 }
 
 void IComponentItem::setDocumentModel(IDocumentModel* model)
