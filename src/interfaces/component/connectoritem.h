@@ -26,10 +26,14 @@
 
 namespace KTechLab {
 class Connector;
+class Node;
 
 /**
  * \short Small class to implement mouse-interaction for Connectors
  * This will handle some basic interaction with the user.
+ * It is also used to provide access to the underlying data-structures
+ * and keep track of other \ref QGraphicItem instances used to
+ * define this connection.
  */
 class KTLINTERFACES_EXPORT ConnectorItem : public QGraphicsPathItem
 {
@@ -51,6 +55,23 @@ public:
      * \returns the connector
      */
     Connector* connector() const;
+    /**
+     * Set the node, where the connector starts.
+     */
+    void setStartNode(const Node* node);
+    /**
+     * Set the node, where the connector ends.
+     */
+    void setEndNode(const Node* node);
+    /**
+     * Get the node, where the connector starts.
+     */
+    const Node* startNode() const;
+    /**
+     * Get the node, where the connector ends.
+     */
+    const Node* endNode() const;
+
 protected:
     virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
     virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
@@ -62,6 +83,8 @@ protected:
 private:
     void init();
     Connector *m_connector;
+    const Node* m_startNode;
+    const Node* m_endNode;
 };
 
 }
