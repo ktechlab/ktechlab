@@ -151,6 +151,16 @@ void IDocumentScene::updateData(const QString& name, const QVariantMap& value)
 
 void IDocumentScene::rerouteConnectors(QList< QGraphicsItem* > items)
 {
+    items = this->items();
+    foreach (QGraphicsItem* item, items){
+        ConnectorItem* c = dynamic_cast<ConnectorItem*>(item);
+        if (!c)
+            continue;
+        QPointF start = c->startNode()->scenePos();
+        QPointF end = c->endNode()->scenePos();
+        m_routingInfo->mapRoute(start,end);
+        c->setPath(m_routingInfo->paintedRoute());
+    }
 }
 
 void IDocumentScene::fetchRouter()
