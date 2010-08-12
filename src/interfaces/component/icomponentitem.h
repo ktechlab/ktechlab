@@ -72,6 +72,13 @@ public:
      */
     const Node* node(const QString& id) const;
 
+    /**
+     * Get a list of all nodes belonging to this item.
+     *
+     * \returns a list of nodes
+     */
+    QList<const Node*> nodes() const;
+
 public slots:
     /**
      * Inform the component, that some data has been changed, so it can
