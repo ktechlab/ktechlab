@@ -68,7 +68,7 @@ void ConnectorItem::init()
     m_startNode = 0;
     m_endNode = 0;
     setAcceptHoverEvents(true);
-    setFlags(ItemIsSelectable | ItemIsMovable);
+    setFlags(ItemIsSelectable);
     setZValue(-1);
 }
 
