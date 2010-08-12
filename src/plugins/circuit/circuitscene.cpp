@@ -140,7 +140,7 @@ void CircuitScene::updateData( const QString& name, const QVariantMap& data )
     //kDebug() << "Difference between components and applets" << (m_components.size() - applets().size());
 }
 
-IComponentItem* CircuitScene::itemById(const QString& id) const
+IComponentItem* CircuitScene::item(const QString& id) const
 {
     return m_components.value(id);
 }

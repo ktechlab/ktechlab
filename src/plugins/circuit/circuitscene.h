@@ -39,7 +39,7 @@ class CircuitScene : public IDocumentScene
     CircuitScene ( QObject* parent = 0, CircuitModel *model = 0 );
     virtual ~CircuitScene();
 
-    virtual IComponentItem* itemById(const QString& id) const;
+    virtual IComponentItem* item(const QString& id) const;
     virtual Node* node(const QString& id) const;
 
   public slots:
