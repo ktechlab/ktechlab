@@ -73,7 +73,7 @@ public:
     */
     void finishRouting();
 
-    virtual IComponentItem* itemById(const QString& id) const =0;
+    virtual IComponentItem* item(const QString& id) const =0;
     virtual Node* node(const QString& id) const =0;
 
     /**
