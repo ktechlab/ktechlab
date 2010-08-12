@@ -19,6 +19,7 @@
 #include <KDebug>
 
 //BEGIN class Cells
+#include <interfaces/component/node.h>
 
 Cells::Cells(KTechLab::IDocumentScene* scene, QObject* parent)
     : KTechLab::IRoutingInformation(scene,parent)
@@ -97,41 +98,48 @@ void Cells::update(const KTechLab::IDocumentScene* scene, const QRectF &region)
         int score = Cells::ScoreNone;
         QPainterPath shape = item->mapToScene(item->shape());
         QRect rect = shape.boundingRect().toRect();
-        rect.setSize(rect.size() / 8 + QSize(1,1));
-        rect.moveTopLeft(rect.topLeft() / 8 - QPoint(1,1));
+        rect.setSize(rect.size() / 8 + QSize(1,3));
+        rect.moveTopLeft(rect.topLeft() / 8 - QPoint(1,2));
         if ((component = dynamic_cast<KTechLab::IComponentItem*>(item))) {
             score = Cells::ScoreItem;
             //blur the surroundings of an item
-            for (int x = rect.x()-1; x < rect.x()+rect.width()+1; ++x) {
+            for (int x = rect.x(); x < rect.x()+rect.width(); ++x) {
                 //update above rect
-                int y = rect.y()-1;
-                if (cell(x,y).getCIPenalty() < 5*Cells::ScoreConnector)
-                    cell(x,y).addCIPenalty(5*Cells::ScoreConnector);
+                int y = rect.y();
+                cell(x,y).addCIPenalty(5*Cells::ScoreConnector);
                 //update below rect
-                y += rect.height()+1;
-                if (cell(x,y).getCIPenalty() < 5*Cells::ScoreConnector)
-                    cell(x,y).addCIPenalty(5*Cells::ScoreConnector);
+                y += rect.height()-1;
+                cell(x,y).addCIPenalty(5*Cells::ScoreConnector);
             }
-            for (int y = rect.y(); y < rect.y()+rect.height()+1; ++y) {
-                int x = rect.x()-1;
-                if (cell(x,y).getCIPenalty() < 5*Cells::ScoreConnector)
-                    cell(x,y).addCIPenalty(5*Cells::ScoreConnector);
-                x += rect.width()+1;
-                if (cell(x,y).getCIPenalty() < 5*Cells::ScoreConnector)
-                    cell(x,y).addCIPenalty(5*Cells::ScoreConnector);
+            for (int y = rect.y()+1; y < rect.y()+rect.height()-1; ++y) {
+                //update left of rect
+                int x = rect.x();
+                cell(x,y).addCIPenalty(5*Cells::ScoreConnector);
+                //update right of rect
+                x += rect.width()-1;
+                cell(x,y).addCIPenalty(5*Cells::ScoreConnector);
             }
-            for (int x = rect.x(); x < rect.x()+rect.width(); ++x)
-                for (int y = rect.y(); y < rect.y()+rect.height(); ++y) {
+            //update item-rect
+            for (int x = rect.x()+1; x < rect.x()+rect.width()-1; ++x)
+                for (int y = rect.y()+1; y < rect.y()+rect.height()-1; ++y) {
                     cell(x,y).addCIPenalty(score);
                 }
+            //reduce score at nodes to provide a local minimum that leads to
+            //routing directly into this cell
+            foreach(const KTechLab::Node* node, component->nodes()) {
+                QPoint nodeCell((node->scenePos()/8).toPoint()-QPoint(1,1));
+                cell(nodeCell.x(),nodeCell.y()).addCIPenalty(-5*Cells::ScoreConnector);
+            }
         }
-        // doesn't work, yet. needs fixing
         if ((connector = dynamic_cast<KTechLab::ConnectorItem*>(item))) {
             score = Cells::ScoreConnector;
-            for (int x = rect.x(); x < rect.x()+rect.width(); ++x)
-                for (int y = rect.y(); y < rect.y()+rect.height(); ++y)
-                    if (shape.contains(QPoint(x*8,y*8)) && cell(x,y).getCIPenalty() < score)
-                        cell(x,y).addCIPenalty(score);
+            const QPainterPath& path = connector->path();
+            for (int i=0; i < path.elementCount(); ++i) {
+                Q_ASSERT((path.elementAt(i).isLineTo() || i==0) && (path.elementAt(i).isMoveTo() || i!=0));
+                QPointF p(path.elementAt(i).x,path.elementAt(i).y);
+                p -= QPointF(1,1);
+                cell(p.x()/8,p.y()/8).addCIPenalty(score);
+            }
         }
     }
     updateVisualization();
