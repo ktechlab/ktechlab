@@ -86,6 +86,16 @@ const Node* IComponentItem::node(const QString& id) const
     }
     return 0;
 }
+QList<const Node*> IComponentItem::nodes() const
+{
+    QList<const Node*> list;
+    foreach (const QGraphicsItem* item, childItems()){
+        //TODO: make this a qgraphicsitem_cast
+        const Node* n = dynamic_cast<const Node*>(item);
+        if (n) list.append(n);
+    }
+    return list;
+}
 
 void IComponentItem::setDocumentModel(IDocumentModel* model)
 {
