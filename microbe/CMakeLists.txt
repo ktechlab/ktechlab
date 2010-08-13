@@ -16,6 +16,16 @@ include_directories(
 )
 
 set( microbe_SRCS
+	microbe.cpp
+	parser.cpp
+	expression.cpp
+	btreenode.cpp
+	btreebase.cpp
+	traverser.cpp
+	variable.cpp
+	optimizer.cpp
+	instruction.cpp
+	pic14.cpp
 	main.cpp
 )
 
@@ -24,6 +34,7 @@ qt4_automoc( ${microbe_SRCS} )
 add_executable( microbe ${microbe_SRCS} )
 target_link_libraries( microbe
 	${QT_LIBRARIES}
-	${KDE4_LIBRARIES}
+	kio
 )
 
+install(TARGETS microbe DESTINATION bin)
