@@ -28,6 +28,13 @@ namespace KTechLab {
             virtual ~IElement();
 
             // TODO add methods
+
+            // list of pins
+            /*
+            int pinCount() const ;
+
+            IPin *pin(int number) const;
+            */
     };
 }
 
