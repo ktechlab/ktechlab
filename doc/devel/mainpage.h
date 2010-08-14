@@ -19,6 +19,9 @@ Various terms used in this document are described here.
 \li Circuit: a set of components and connectors
 \li Simulator: class that simulates the behaviour of a circuit
 
+--
+\li CNode: component node, used in simulation, equivalend of pins?
+
 \section src_org Organization of the source code
 
 KTechLab internally is based on KDevPlatform.
