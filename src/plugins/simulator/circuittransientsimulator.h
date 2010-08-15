@@ -12,7 +12,7 @@
 #ifndef CIRCUITTRANSIENTSIMULATOR_H
 #define CIRCUITTRANSIENTSIMULATOR_H
 
-#include "interfaces/isimulator.h"
+#include "interfaces/simulator/isimulator.h"
 
 namespace KTechLab {
 

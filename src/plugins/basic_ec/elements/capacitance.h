@@ -13,7 +13,7 @@
 #ifndef CAPACITANCE_H
 #define CAPACITANCE_H
 
-#include "interfaces/ielement.h"
+#include "interfaces/simulator/ielement.h"
 
 namespace KTechLab {
 

@@ -12,8 +12,8 @@
 #include "simulationmanager.h"
 
 #include "interfaces/icomponentdocument.h"
-#include "interfaces/ielementfactory.h"
-#include "interfaces/isimulatorfactory.h"
+#include "interfaces/simulator/ielementfactory.h"
+#include "interfaces/simulator/isimulatorfactory.h"
 
 #include "kdebug.h"
 

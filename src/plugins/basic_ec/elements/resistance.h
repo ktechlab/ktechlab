@@ -9,7 +9,7 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "interfaces/ielement.h"
+#include "interfaces/simulator/ielement.h"
 
 namespace KTechLab {
 

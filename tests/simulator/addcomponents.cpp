@@ -24,7 +24,7 @@
 #include "plugins/circuit/circuitmodel.h"
 #include "plugins/circuit/circuitdocument.h"
 #include "interfaces/idocumentplugin.h"
-#include "interfaces/isimulationmanager.h"
+#include "interfaces/simulator/isimulationmanager.h"
 #include "simulationmanager.h"
 
 #include <interfaces/idocumentcontroller.h>
