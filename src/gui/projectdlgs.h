@@ -11,7 +11,7 @@
 #ifndef PROJECTDLGS_H
 #define PROJECTDLGS_H
 
-#include <kdialogbase.h>
+#include <KDialog>
 
 class CreateSubprojectWidget;
 class LinkerOptions;
@@ -27,7 +27,7 @@ A standard dialog for getting project details from the user for a new project
 @short Dialog for new project details
 @author David Saxton
 */
-class NewProjectDlg : public KDialogBase
+class NewProjectDlg : public KDialog
 {
 	Q_OBJECT
 	public:
@@ -37,18 +37,18 @@ class NewProjectDlg : public KDialogBase
 		 * Called when the 'Cancel' button is pressed.
 		 */
 		void reject();
-    
+
   	  	/**
 		 * Called when the 'OK' button is pressed.
 		 * User entered values are read in
 		 */
 		void accept();
-		
+
 		bool accepted() const { return m_bAccepted; }
 		QString projectName() const { return m_projectName; }
 		QString projectLocation() const { return m_projectLocation; }
 		QString location() const { return m_location; }
-    
+
 	public slots:
    		 /**
 		 * Called when the projectName or projectLocation edit boxes are edited.
@@ -69,13 +69,13 @@ class NewProjectDlg : public KDialogBase
 /**
 @author David Saxton
 */
-class CreateSubprojectDlg : public KDialogBase
+class CreateSubprojectDlg : public KDialog
 {
 	Q_OBJECT
 	public:
 		CreateSubprojectDlg( QWidget *parent = 0 );
 		~CreateSubprojectDlg();
-		
+
 		// The following values should agree with the positions in the combo box
 		enum Type
 		{
@@ -92,15 +92,15 @@ class CreateSubprojectDlg : public KDialogBase
 		 * in.
 		 */
 		void accept();
-		
+
 		bool accepted() const { return m_bAccepted; }
-		Type type() const { return m_type; }
+		QString type() const { return m_type; }
 		QString targetFile() const { return m_targetFile; }
 
 	protected:
 		CreateSubprojectWidget * m_pWidget;
 		bool m_bAccepted;
-		Type m_type;
+		QString m_type;
 		QString m_targetFile;
 };
 
@@ -108,7 +108,7 @@ class CreateSubprojectDlg : public KDialogBase
 /**
 @author David Saxton
 */
-class LinkerOptionsDlg : public KDialogBase
+class LinkerOptionsDlg : public KDialog
 {
 	Q_OBJECT
 	public:
@@ -124,7 +124,7 @@ class LinkerOptionsDlg : public KDialogBase
 		 * in.
 		 */
 		void accept();
-		
+
 	protected:
 		LinkerOptions * m_pLinkerOptions;
 		LinkerOptionsWidget * m_pWidget;
@@ -135,7 +135,7 @@ class LinkerOptionsDlg : public KDialogBase
 /**
 @author David Saxton
 */
-class ProcessingOptionsDlg : public KDialogBase
+class ProcessingOptionsDlg : public KDialog
 {
 	public:
 		ProcessingOptionsDlg( ProjectItem * projectItem, QWidget *parent = 0 );
@@ -150,7 +150,7 @@ class ProcessingOptionsDlg : public KDialogBase
 		 * in.
 		 */
 		void accept();
-		
+
 	protected:
 		ProjectItem * m_pProjectItem;
 		ProcessingOptionsWidget * m_pWidget;

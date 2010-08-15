@@ -1,0 +1,22 @@
+<!DOCTYPE KTechlab>
+<document type="circuit" >
+ <item x="212" y="108" z="0" type="ec/battery" id="cell" flip="0" angle="0" >
+  <data value="5" type="number" id="voltage" />
+ </item>
+ <item x="332" y="108" z="3" type="ec/led" id="led" flip="0" angle="0" >
+  <data value="1e-15" type="number" id="I_S" />
+  <data value="1" type="number" id="N" />
+  <data value="4.7" type="number" id="V_B" />
+  <data value="#f62a2a" type="color" id="0-color" />
+ </item>
+ <item x="268" y="68" z="1" type="ec/resistor" id="resistor" flip="0" angle="0" >
+  <data value="300" type="number" id="resistance" />
+ </item>
+ <item x="396" y="68" z="2" type="ec/resistor" id="resistor__34" flip="0" angle="0" >
+  <data value="300" type="number" id="resistance" />
+ </item>
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="resistor" route="28,13,29,13,29,12,29,11,29,10,29,9,29,8,30,8," end-node-cid="n1" start-node-parent="cell" start-node-cid="p1" id="connector" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="cell" route="52,8,53,8,53,9,53,10,53,11,53,12,53,13,53,14,53,15,53,16,52,16,51,16,50,16,49,16,48,16,47,16,46,16,45,16,44,16,43,16,42,16,41,16,40,16,39,16,38,16,37,16,36,16,35,16,34,16,33,16,32,16,31,16,30,16,29,16,28,16,27,16,26,16,25,16,24,16,23,16,23,15,23,14,23,13,24,13," end-node-cid="n1" start-node-parent="resistor__34" start-node-cid="p1" id="connector__18" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="led" route="36,8,37,8,37,9,37,10,37,11,37,12,37,13,38,13,39,13," end-node-cid="n1" start-node-parent="resistor" start-node-cid="p1" id="connector__48" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="0" end-node-parent="resistor__34" route="43,13,44,13,45,13,45,12,45,11,45,10,45,9,45,8,46,8," end-node-cid="n1" start-node-parent="led" start-node-cid="p1" id="connector__50" end-node-is-child="1" />
+</document>

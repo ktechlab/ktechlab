@@ -1,0 +1,49 @@
+<!DOCTYPE KTechlab>
+<document type="circuit" >
+ <item x="92" y="-4" z="0" type="ec/diode" id="diode" flip="0" angle="0" >
+  <data value="1e-15" type="number" id="I_S" />
+  <data value="1" type="number" id="N" />
+  <data value="4.7" type="number" id="V_B" />
+ </item>
+ <item x="92" y="52" z="1" type="ec/nemosfet" id="nemosfet" flip="0" angle="0" >
+  <data value="0" type="bool" id="bodyPin" />
+ </item>
+ <item x="284" y="-4" z="2" type="ec/njfet" id="njfet" flip="0" angle="0" >
+  <data value="1e-14" type="number" id="I_S" />
+  <data value="1" type="number" id="N" />
+  <data value="2" type="number" id="N_R" />
+  <data value="-2" type="number" id="V_Th" />
+  <data value="0.0001" type="number" id="beta" />
+ </item>
+ <item x="156" y="-4" z="3" type="ec/npnbjt" id="npnbjt" flip="0" angle="0" >
+  <data value="100" type="number" id="B_F" />
+  <data value="1" type="number" id="B_R" />
+  <data value="1e-16" type="number" id="I_S" />
+  <data value="1" type="number" id="N_F" />
+  <data value="1" type="number" id="N_R" />
+ </item>
+ <item x="156" y="44" z="4" type="ec/pemosfet" id="pemosfet" flip="0" angle="0" >
+  <data value="0" type="bool" id="bodyPin" />
+ </item>
+ <item x="220" y="52" z="5" type="ec/pjfet" id="pjfet" flip="0" angle="0" >
+  <data value="1e-14" type="number" id="I_S" />
+  <data value="1" type="number" id="N" />
+  <data value="2" type="number" id="N_R" />
+  <data value="-2" type="number" id="V_Th" />
+  <data value="0.0001" type="number" id="beta" />
+ </item>
+ <item x="220" y="-4" z="6" type="ec/pnpbjt" id="pnpbjt" flip="0" angle="0" >
+  <data value="100" type="number" id="B_F" />
+  <data value="1" type="number" id="B_R" />
+  <data value="1e-16" type="number" id="I_S" />
+  <data value="1" type="number" id="N_F" />
+  <data value="1" type="number" id="N_R" />
+ </item>
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="npnbjt" route="13,-1,14,-1,15,-1,16,-1,17,-1," end-node-cid="b" start-node-parent="diode" start-node-cid="p1" id="connector" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="pnpbjt" route="20,-3,20,-4,21,-4,22,-4,22,-3,22,-2,22,-1,23,-1,24,-1,25,-1," end-node-cid="b" start-node-parent="npnbjt" start-node-cid="c" id="connector__20" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="njfet" route="28,1,28,2,29,2,30,2,30,1,30,0,30,-1,31,-1,32,-1,33,-1," end-node-cid="G" start-node-parent="pnpbjt" start-node-cid="e" id="connector__21" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="pjfet" route="36,1,36,2,36,3,36,4,36,5,36,6,36,7,36,8,36,9,35,9,34,9,33,9,32,9,31,9,30,9,29,9,28,9,28,8," end-node-cid="S" start-node-parent="njfet" start-node-cid="S" id="connector__22" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="pemosfet" route="25,6,24,6,24,7,24,8,24,9,23,9,22,9,21,9,20,9,20,8," end-node-cid="s" start-node-parent="pjfet" start-node-cid="G" id="connector__23" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="pemosfet" route="12,9,12,10,13,10,14,10,14,9,14,8,14,7,14,6,15,6,16,6,17,6," end-node-cid="g" start-node-parent="nemosfet" start-node-cid="s" id="connector__24" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="diode" route="9,7,8,7,8,6,8,5,8,4,8,3,8,2,8,1,8,0,8,-1,9,-1," end-node-cid="n1" start-node-parent="nemosfet" start-node-cid="g" id="connector__25" end-node-is-child="1" />
+</document>
