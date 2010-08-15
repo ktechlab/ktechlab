@@ -8,12 +8,13 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#ifndef MATRIX_H
-#define MATRIX_H
+#ifndef KTL_MATRIX_H
+#define KTL_MATRIX_H
 
 #include <ostream>
 
-#include "qmatrix.h"
+#include "quickmatrix.h"
+#include "mathexport.h"
 
 /**
 This class performs matrix storage, lu decomposition, forward and backward
@@ -33,7 +34,7 @@ substitution, and a few other useful operations. Steps in using class:
 */
 // TODO clean up and update documentation, as the upper statements aren't valid anymore
 
-class Matrix
+class MATH_EXPORT Matrix
 {
 public:
        /**
@@ -80,7 +81,7 @@ public:
         /**
          * Set the matrix to identity
          */
-        void identity() { *m_mat = 1; max_k = 0; }
+        void identity();
 
         /**
          * @todo DOCUMENT THIS

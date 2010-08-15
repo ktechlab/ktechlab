@@ -1,0 +1,60 @@
+<!DOCTYPE KTechlab>
+<document type="circuit" >
+ <item x="188" y="180" z="6" type="ec/cccs" id="cccs" flip="0" angle="0" >
+  <data value="1" type="number" id="gain" />
+ </item>
+ <item x="276" y="180" z="7" type="ec/ccvs" id="ccvs" flip="0" angle="0" >
+  <data value="1" type="number" id="gain" />
+ </item>
+ <item x="348" y="68" z="0" type="ec/battery" id="cell" flip="0" angle="0" >
+  <data value="5" type="number" id="voltage" />
+ </item>
+ <item x="188" y="60" z="5" type="ec/ac_current" id="current_signal" flip="0" angle="0" >
+  <data value="0.02" type="number" id="1-current" />
+  <data value="50" type="number" id="1-frequency" />
+ </item>
+ <item x="356" y="116" z="3" type="ec/current_source" id="current_source" flip="0" angle="0" >
+  <data value="0.02" type="number" id="current" />
+ </item>
+ <item x="268" y="68" z="1" type="ec/fixed_voltage" id="fixed_voltage" flip="0" angle="0" >
+  <data value="5" type="number" id="voltage" />
+ </item>
+ <item x="276" y="116" z="2" type="ec/ground" id="ground" flip="0" angle="270" />
+ <item x="356" y="180" z="8" type="ec/vccs" id="vccs" flip="0" angle="0" >
+  <data value="1" type="number" id="gain" />
+ </item>
+ <item x="428" y="180" z="9" type="ec/vcvs" id="vcvs" flip="0" angle="0" >
+  <data value="1" type="number" id="gain" />
+ </item>
+ <item x="188" y="116" z="4" type="ec/voltage_signal" id="voltage_signal" flip="0" angle="0" >
+  <data value="Peak" type="string" id="peak-rms" />
+  <data value="50" type="number" id="frequency" />
+  <data value="5" type="number" id="voltage" />
+ </item>
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="vcvs" route="47,21,48,21,49,21,50,21," end-node-cid="n1" start-node-parent="vccs" start-node-cid="p1" id="connector" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1" route="41,8,40,8,40,9,40,10,40,11," start-node-parent="cell" start-node-cid="n1" id="connector__28" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" end-node-id="node1" start-node-id="node1__27" route="36,11,37,11,38,11,39,11,40,11," id="connector__30" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node1__27" end-node-parent="fixed_voltage" route="36,11,36,10,36,9,36,8,35,8," end-node-cid="p1" id="connector__32" end-node-is-child="1" />
+ <connector start-node-is-child="0" manual-route="1" end-node-id="node1__33" start-node-id="node1__27" route="36,11,35,11,34,11," id="connector__34" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node1__33" end-node-parent="ground" route="34,11,34,12," end-node-cid="p1" id="connector__35" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__36" route="25,7,26,7,27,7,27,8,27,9,27,10,27,11," start-node-parent="current_signal" start-node-cid="p1" id="connector__38" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" end-node-id="node1__33" start-node-id="node1__36" route="27,11,28,11,29,11,30,11,31,11,32,11,33,11,34,11," id="connector__39" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__40" route="25,14,26,14,27,14," start-node-parent="voltage_signal" start-node-cid="p1" id="connector__41" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" end-node-id="node1__36" start-node-id="node1__40" route="27,14,27,13,27,12,27,11," id="connector__42" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__43" route="31,21,30,21,29,21,28,21,27,21," start-node-parent="ccvs" start-node-cid="n1" id="connector__44" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__43" route="26,21,27,21," start-node-parent="cccs" start-node-cid="p1" id="connector__45" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" end-node-id="node1__40" start-node-id="node1__43" route="27,21,27,20,27,19,27,18,27,17,27,16,27,15,27,14," id="connector__46" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__47" route="37,21,38,21,39,21,40,21," start-node-parent="ccvs" start-node-cid="p1" id="connector__49" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__47" route="41,21,40,21," start-node-parent="vccs" start-node-cid="n1" id="connector__50" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" end-node-id="node1__47" start-node-id="node1__48" route="40,15,40,16,40,17,40,18,40,19,40,20,40,21," id="connector__51" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node1__48" end-node-parent="current_source" route="40,15,41,15," end-node-cid="n1" id="connector__52" end-node-is-child="1" />
+ <connector start-node-is-child="0" manual-route="1" end-node-id="node1" start-node-id="node1__48" route="40,15,40,14,40,13,40,12,40,11," id="connector__53" end-node-is-child="0" />
+ <node x="324" y="92" id="node1" />
+ <node x="292" y="92" id="node1__27" />
+ <node x="276" y="92" id="node1__33" />
+ <node x="220" y="92" id="node1__36" />
+ <node x="220" y="116" id="node1__40" />
+ <node x="220" y="172" id="node1__43" />
+ <node x="324" y="172" id="node1__47" />
+ <node x="324" y="124" id="node1__48" />
+</document>

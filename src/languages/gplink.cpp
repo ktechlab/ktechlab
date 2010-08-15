@@ -11,42 +11,16 @@
 #include "gplink.h"
 #include "languagemanager.h"
 #include "logview.h"
-#include "microinfo.h"
-#include "microlibrary.h"
-#include "src/core/ktlconfig.h"
 
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kprocess.h>
-#include <kdebug.h>
-
-#include <qfile.h>
 
 Gplink::Gplink( ProcessChain *processChain )
 	: ExternalLanguage( processChain, "Gpasm" )
 {
 	m_successfulMessage = i18n("*** Linking successful ***");
 	m_failedMessage = i18n("*** Linking failed ***");
-	
-	// search for SDCC
-	
-	m_sdccLibDir = "";
-#define SEARCH_FOR_SDCC(dir) 			\
-	{ 					\
-		QFile f(dir); 			\
-		if( f.exists() ) 		\
-			m_sdccLibDir = dir; 	\
-	}
-	
-	// consider adding more paths here, if necessary
-	SEARCH_FOR_SDCC( "/usr/local/share/sdcc/lib" )
-	SEARCH_FOR_SDCC( "/usr/share/sdcc/lib" )
-	SEARCH_FOR_SDCC( "/usr/sdcc/lib" )
-	SEARCH_FOR_SDCC( "/opt/sdcc/lib" )
-#undef SEARCH_FOR_SDCC
-	if( m_sdccLibDir == "")
-		kdError() << k_funcinfo << "SDCC lib not found";
-	
 }
 
 
@@ -100,31 +74,6 @@ void Gplink::processInput( ProcessOptions options )
 	end = options.m_linkLibraries.end();
 	for ( QStringList::const_iterator it = options.m_linkLibraries.begin(); it != end; ++it )
 		*m_languageProcess << ( *it );
-	
-	// if selected to automatically link to SDCC libraries, add some options.
-	if( KTLConfig::gplink_link_shared() ) 
-	{	
-		// set up the include directory
-		MicroInfo * info = MicroLibrary::self()->microInfoWithID( options.m_picID );
-		if ( ! info )
-		{
-			// be program won't link anyway, but the user can't say that the program didn't try
-			kdError() << k_funcinfo << "Couldn't find the requested PIC" << options.m_picID << endl;
-			kdWarning() << k_funcinfo << "Supposing that the pic is pic12 or pic14" << endl;
-			*m_languageProcess << "-I" << m_sdccLibDir + "/pic" ;
-		}
-		else
-		{
-			if ( info->instructionSet()->set() == AsmInfo::PIC16 )
-				*m_languageProcess << "-I" << m_sdccLibDir + "/pic16" ;
-			else
-				*m_languageProcess << "-I" << m_sdccLibDir + "/pic" ;
-		
-			// to pic to link against
-			*m_languageProcess << options.m_picID.lower().replace ( "p","pic" ) + ".lib";
-		}
-		*m_languageProcess << "libsdcc.lib";
-	}
 	
 	if ( !start() )
 	{
