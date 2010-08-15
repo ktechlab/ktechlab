@@ -1,6 +1,6 @@
 include_directories( ${KDEVPLATFORM_INCLUDE_DIR} )
 
-set( ktlinterfaces_LIB_SRCS
+set( ktlinterfaces_LIB_SRCS 
    idocumentmodel.cpp
    idocumentplugin.cpp
    icomponentdocument.cpp
@@ -14,6 +14,7 @@ set( ktlinterfaces_LIB_SRCS
    simulator/isimulator.cpp
    simulator/isimulatorfactory.cpp
    simulator/isimulationmanager.cpp
+   simulator/iwire.cpp
    simulator/genericelementfactory.cpp
    )
 
