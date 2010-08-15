@@ -13,7 +13,7 @@
 #ifndef IELEMENT_H
 #define IELEMENT_H
 
-#include "ktlinterfacesexport.h"
+#include "../ktlinterfacesexport.h"
 
 #include <QObject>
 

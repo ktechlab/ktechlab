@@ -13,7 +13,7 @@
 #define CIRCUIT_SIMULATORFACTORY_H
 
 
-#include "interfaces/isimulatorfactory.h"
+#include "interfaces/simulator/isimulatorfactory.h"
 
 
 namespace KTechLab {

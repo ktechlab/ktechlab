@@ -12,7 +12,7 @@
 #include "simulatorplugin.h"
 #include "simulatorfactory.h"
 
-#include "interfaces/isimulationmanager.h"
+#include "interfaces/simulator/isimulationmanager.h"
 
 #include <kpluginfactory.h>
 #include <kdebug.h>

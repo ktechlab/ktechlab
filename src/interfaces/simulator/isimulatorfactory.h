@@ -12,7 +12,7 @@
 #ifndef ISIMULATORFACTORY_H
 #define ISIMULATORFACTORY_H
 
-#include "ktlinterfacesexport.h"
+#include "../ktlinterfacesexport.h"
 
 
 #include <QObject>

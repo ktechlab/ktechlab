@@ -11,7 +11,7 @@
 #ifndef ISIMULATIONMANAGER_H
 #define ISIMULATIONMANAGER_H
 
-#include "ktlinterfacesexport.h"
+#include "../ktlinterfacesexport.h"
 
 #include <QObject>
 #include <QList>
