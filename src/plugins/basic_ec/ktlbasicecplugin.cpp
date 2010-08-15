@@ -13,9 +13,9 @@
 
 #include "interfaces/component/icomponent.h"
 #include "interfaces/component/icomponentplugin.h"
-#include "interfaces/isimulationmanager.h"
+#include "interfaces/simulator/isimulationmanager.h"
 #include "interfaces/idocumentplugin.h"
-#include "interfaces/genericelementfactory.h"
+#include "interfaces/simulator/genericelementfactory.h"
 
 #include <shell/core.h>
 #include <KGenericFactory>

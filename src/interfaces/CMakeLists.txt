@@ -7,12 +7,12 @@ set( ktlinterfaces_LIB_SRCS idocumentmodel.cpp
    component/icomponent.cpp
    component/componentmodel.cpp
    component/componentmimedata.cpp
-   ielement.cpp
-   ielementfactory.cpp
-   isimulator.cpp
-   isimulatorfactory.cpp
-   isimulationmanager.cpp
-   genericelementfactory.cpp
+   simulator/ielement.cpp
+   simulator/ielementfactory.cpp
+   simulator/isimulator.cpp
+   simulator/isimulatorfactory.cpp
+   simulator/isimulationmanager.cpp
+   simulator/genericelementfactory.cpp
    )
 
 kde4_add_library( ktlinterfaces SHARED ${ktlinterfaces_LIB_SRCS} )
@@ -24,4 +24,3 @@ target_link_libraries( ktlinterfaces
    )
 
 install( TARGETS ktlinterfaces ${INSTALL_TARGETS_DEFAULT_ARGS} )
-

@@ -5,8 +5,8 @@
 #ifndef DUMMYFACTORY_H_
 #define DUMMYFACTORY_H_
 
-#include "interfaces/ielement.h"
-#include "interfaces/ielementfactory.h"
+#include "interfaces/simulator/ielement.h"
+#include "interfaces/simulator/ielementfactory.h"
 
 #include <iostream>
 

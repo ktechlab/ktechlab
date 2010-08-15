@@ -11,7 +11,7 @@
 #ifndef SIMULATIONMANAGER_H
 #define SIMULATIONMANAGER_H
 
-#include "interfaces/isimulationmanager.h"
+#include "interfaces/simulator/isimulationmanager.h"
 
 #include <QMap>
 
