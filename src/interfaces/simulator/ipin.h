@@ -22,6 +22,8 @@
 #ifndef IPIN_H
 #define IPIN_H
 
+#include "../ktlinterfacesexport.h"
+
 #include <QObject>
 
 namespace KTechLab {
@@ -40,7 +42,7 @@ class QVariantMap;
     It's different from CNode as that one is used in the simplified
     model of the circuit
  */
-class IPin : public QObject
+class KTLINTERFACES_EXPORT IPin : public QObject
 {
     Q_OBJECT
     public:
