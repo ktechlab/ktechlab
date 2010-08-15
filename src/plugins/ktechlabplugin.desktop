@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=ServiceType
+X-KDE-ServiceType=KTechLab/Plugin
+X-KDE-Derived=KDevelop/Plugin
+Name=KTechLab Plugin
+

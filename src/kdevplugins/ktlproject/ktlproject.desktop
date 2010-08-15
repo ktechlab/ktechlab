@@ -1,0 +1,19 @@
+[Desktop Entry]
+Type=Service
+Exec=blubb
+Comment=This plugin handles KTechLab projects
+Name=KTechLab Project Manager
+GenericName=KTechLab Project Manager
+ServiceTypes=KTechLab/Plugin
+X-KDE-Library=ktlproject
+X-KDE-PluginInfo-Name=ktlprojectmanager
+X-KDE-PluginInfo-Author=Julian Bäume
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-License=LGPL
+X-KDevelop-Version=9
+X-KDevelop-Category=Project
+X-KDevelop-Mode=GUI
+X-KDevelop-SupportedMimeTypes=application/x-ktechlab
+X-KDevelop-Interfaces=org.kdevelop.IProjectFileManager
+X-KDevelop-ProjectFilesFilter=*.ktechlab
+X-KDevelop-ProjectFilesFilterDescription=KTechLab Project Files

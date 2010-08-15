@@ -1,0 +1,38 @@
+add_subdirectory( themes )
+
+########### next target ###############
+include_directories(
+   ${CMAKE_SOURCE_DIR}/src
+)
+
+set( ktlcircuit_PART_SRCS
+   pinitem.cpp
+   circuitmodel.cpp
+   circuitscene.cpp
+   theme.cpp
+   ktlcircuitplugin.cpp
+   circuitdocument.cpp
+   circuitview.cpp
+   componentitem.cpp
+)
+
+kde4_add_plugin(ktlcircuit ${ktlcircuit_PART_SRCS})
+target_link_libraries(ktlcircuit
+   ${KDE4_KDECORE_LIBS}
+   ktlinterfaces
+   ${KDEVPLATFORM_SHELL_LIBRARIES}
+   ${KDEVPLATFORM_INTERFACES_LIBRARIES}
+   ${KDEVPLATFORM_SUBLIME_LIBRARIES}
+   ${KDE4_KTEXTEDITOR_LIBS})
+
+install(TARGETS ktlcircuit DESTINATION ${PLUGIN_INSTALL_DIR} )
+
+
+########### install files ###############
+
+install( FILES
+   ktlcircuit.desktop
+
+   DESTINATION ${SERVICES_INSTALL_DIR} )
+#install( FILES ktlcircuit.rc DESTINATION ${DATA_INSTALL_DIR}/ktlcircuit )
+

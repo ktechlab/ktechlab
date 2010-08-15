@@ -60,6 +60,9 @@ void CircuitICNDocument::deleteAllNodes() {
 	m_nodeGroupList.clear();
 
 	m_ecNodeList.clear();
+	const ECNodeMap::iterator nodeListEnd = nodesToDelete.end();
+	for ( ECNodeMap::iterator it = nodesToDelete.begin(); it != nodeListEnd; ++it )
+		delete *it;	
 }
 
 bool CircuitICNDocument::canConnect(QCanvasItem *qcanvasItem1, QCanvasItem *qcanvasItem2) const {
@@ -85,6 +88,7 @@ Connector *CircuitICNDocument::createConnector(Node *node, Connector *con, const
 
 	const bool usedManual = con->usesManualPoints();
 	ECNode *newNode = new JunctionNode(this, 0, pos2);
+
 	QPointList autoPoints;
 
 	if (!pointList) {
@@ -97,7 +101,7 @@ Connector *CircuitICNDocument::createConnector(Node *node, Connector *con, const
 
 	QValueList<QPointList> oldConPoints = con->splitConnectorPoints(pos2);
 	con->hide();
-
+	
 	// The actual new connector
 	Connector *new1 = newNode->createConnector(ecNode);
 	ecNode->addConnector(new1);
@@ -117,15 +121,15 @@ Connector *CircuitICNDocument::createConnector(Node *node, Connector *con, const
 	new1->updateDrawList();
 	new2->updateDrawList();
 	new3->updateDrawList();
-
+	
 	// Now it's safe to remove the connector...
 	con->removeConnector();
 	flushDeleteList();
-
+	
 	deleteNodeGroup(conStartNode);
 	deleteNodeGroup(conEndNode);
 	createNodeGroup(newNode)->init();
-
+	
 	return new1;
 }
 
@@ -192,8 +196,8 @@ Connector *CircuitICNDocument::createConnector(Connector *con1, Connector *con2,
 	con2b->setRoutePoints(*oldCon2Points.at(1), con2UsedManual);
 
 	QPointList autoPoints;
-
-	if (!pointList) {
+	if (!pointList)
+	{
 		addAllItemConnectorPoints();
 		ConRouter cr(this);
 		cr.mapRoute(pos1.x(), pos1.y(), pos2.x(), pos2.y());
@@ -222,7 +226,6 @@ Connector *CircuitICNDocument::createConnector(Connector *con1, Connector *con2,
 	deleteNodeGroup(node1b);
 	deleteNodeGroup(node2a);
 	deleteNodeGroup(node2b);
-
 	NodeGroup *ng = createNodeGroup(newNode1);
 
 	ng->addNode(newNode2, true);
@@ -250,7 +253,6 @@ Connector *CircuitICNDocument::createConnector(const QString &startNodeId, const
 		kdError() << k_funcinfo << "End node did not create the connector" << endl;
 		return 0;
 	}
-
 	startNode->addConnector(connector);
 
 	flushDeleteList(); // Delete any connectors that might have been removed by the nodes
@@ -297,6 +299,7 @@ void CircuitICNDocument::flushDeleteList() {
 			*it = 0;
 		}
 	}
+	m_itemDeleteList.remove ( 0l );
 
 	m_itemDeleteList.remove(0);
 
@@ -314,7 +317,10 @@ void CircuitICNDocument::flushDeleteList() {
 			m_connectorList.erase(con);
 		else	kdError() << k_funcinfo << "Unknown qcanvasItem! " << qcanvasItem << endl;
 
-		qcanvasItem->setCanvas(0);
+		else
+			kdError() << k_funcinfo << "Unknown qcanvasItem! "<<qcanvasItem << endl;
+
+		qcanvasItem->setCanvas ( 0l );
 
 		delete qcanvasItem;
 	}
@@ -355,9 +361,9 @@ bool CircuitICNDocument::registerItem(QCanvasItem *qcanvasItem) {
 			return false;
 		}
 	}
-
+	
 	requestRerouteInvalidatedConnectors();
-
+	
 	return true;
 }
 
@@ -468,4 +474,3 @@ void CircuitICNDocument::setNodesChanged()
 }
 
 #include "circuiticndocument.moc"
-

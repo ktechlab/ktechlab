@@ -1,0 +1,49 @@
+<!DOCTYPE KTechlab>
+<document type="circuit" >
+ <item x="276" y="60" z="0" type="ec/and" id="and" flip="0" angle="0" >
+  <data value="2" type="number" id="numInput" />
+ </item>
+ <item x="156" y="92" z="1" type="ec/buffer" id="buffer" flip="0" angle="0" />
+ <item x="156" y="60" z="2" type="ec/clock_input" id="clock_input" flip="0" angle="0" >
+  <data value="0.5" type="number" id="high-time" />
+  <data value="0.5" type="number" id="low-time" />
+ </item>
+ <item x="92" y="60" z="3" type="ec/logic_input" id="logic_input" flip="0" angle="0" >
+  <data value="1" type="bool" id="useToggle" />
+  <button id="button" state="0" />
+ </item>
+ <item x="100" y="92" z="4" type="ec/logic_output" id="logic_output" flip="0" angle="0" />
+ <item x="348" y="60" z="5" type="ec/nand" id="nand" flip="0" angle="0" >
+  <data value="2" type="number" id="numInput" />
+ </item>
+ <item x="276" y="116" z="6" type="ec/nor" id="nor" flip="0" angle="0" >
+  <data value="2" type="number" id="numInput" />
+ </item>
+ <item x="220" y="60" z="7" type="ec/inverter" id="not" flip="0" angle="0" />
+ <item x="420" y="60" z="8" type="ec/or" id="or" flip="0" angle="0" >
+  <data value="2" type="number" id="numInput" />
+ </item>
+ <item x="428" y="116" z="9" type="ec/xnor" id="xnor" flip="0" angle="0" >
+  <data value="2" type="number" id="numInput" />
+ </item>
+ <item x="356" y="116" z="10" type="ec/xor" id="xor" flip="0" angle="0" >
+  <data value="2" type="number" id="numInput" />
+ </item>
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="and" route="29,7,30,7,30,6,31,6," end-node-cid="in0" start-node-parent="not" start-node-cid="p1" id="connector" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1" route="10,11,9,11,9,12,9,13,9,14,10,14,11,14,12,14,13,14,14,14,15,14,15,13,15,12,15,11," start-node-parent="logic_output" start-node-cid="n1" id="connector__25" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1" route="13,7,14,7,15,7,15,8,15,9,15,10,15,11," start-node-parent="logic_input" start-node-cid="p1" id="connector__26" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node1" end-node-parent="buffer" route="15,11,16,11,17,11," end-node-cid="n1" id="connector__27" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__28" route="22,7,23,7,24,7," start-node-parent="clock_input" start-node-cid="p1" id="connector__30" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" start-node-id="node1__28" end-node-parent="not" route="24,7,25,7," end-node-cid="n1" id="connector__31" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="nand" route="37,7,38,7,38,8,39,8,40,8," end-node-cid="in1" start-node-parent="and" start-node-cid="p1" id="connector__32" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="or" route="46,7,47,7,47,6,48,6," end-node-cid="in0" start-node-parent="nand" start-node-cid="p1" id="connector__33" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="xnor" route="48,14,49,14,49,13," end-node-cid="in0" start-node-parent="xor" start-node-cid="p1" id="connector__34" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="or" route="57,14,58,14,58,13,58,12,58,11,58,10,58,9,58,8,58,7,57,7,56,7," end-node-cid="p1" start-node-parent="xnor" start-node-cid="p1" id="connector__35" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-parent="xor" route="38,14,39,14,39,15,40,15," end-node-cid="in1" start-node-parent="nor" start-node-cid="p1" id="connector__36" end-node-is-child="1" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__41" route="30,15,29,15,28,15,27,15,26,15,25,15,24,15,24,14,24,13,24,12,24,11," start-node-parent="nor" start-node-cid="in1" id="connector__42" end-node-is-child="0" />
+ <connector start-node-is-child="1" manual-route="1" end-node-id="node1__41" route="21,11,22,11,23,11,24,11," start-node-parent="buffer" start-node-cid="p1" id="connector__43" end-node-is-child="0" />
+ <connector start-node-is-child="0" manual-route="1" end-node-id="node1__28" start-node-id="node1__41" route="24,11,24,10,24,9,24,8,24,7," id="connector__44" end-node-is-child="0" />
+ <node x="124" y="92" id="node1" />
+ <node x="196" y="60" id="node1__28" />
+ <node x="196" y="92" id="node1__41" />
+</document>

@@ -299,11 +299,4 @@
 			<default/>
 		</entry>
 	</group>
-	
-	<group name="Gplink">
-		<entry name="gplink_link_shared" type="Bool">
-			<label>Check this if SDCC uses shared libs for compiling (newer SDCC does so)</label>
-			<default>true</default>
-		</entry>
-	</group>
 </kcfg>
