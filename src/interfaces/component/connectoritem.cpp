@@ -129,16 +129,6 @@ void ConnectorItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
     QGraphicsPathItem::hoverLeaveEvent(event);
 }
 
-void ConnectorItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
-{
-    if (event->button() == Qt::LeftButton){
-        if (event->modifiers() != Qt::ControlModifier)
-            scene()->clearSelection();
-        setSelected(true);
-        event->accept();
-    }
-}
-
 QVariant ConnectorItem::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant& value)
 {
     if (change == ItemSelectedHasChanged && value.toBool()){

@@ -42,19 +42,6 @@ IComponentItem::~IComponentItem()
 
 }
 
-void IComponentItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
-{
-    if (   event->button() == Qt::LeftButton
-        && contains(event->scenePos())
-        && contains(event->buttonDownScenePos(Qt::LeftButton)) ){
-        if (event->modifiers() != Qt::ControlModifier)
-            scene()->clearSelection();
-        setSelected(true);
-        event->accept();
-    }
-    QGraphicsSvgItem::mouseReleaseEvent(event);
-}
-
 QString IComponentItem::id() const
 {
     if (!m_id.isEmpty())
