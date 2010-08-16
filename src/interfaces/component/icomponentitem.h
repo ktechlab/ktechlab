@@ -93,7 +93,6 @@ signals:
     void dataUpdated( const QString &name, const QVariantMap &data );
 
 protected:
-    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     virtual QVariant itemChange(GraphicsItemChange change, const QVariant& value);
 
     IDocumentModel *m_document;
