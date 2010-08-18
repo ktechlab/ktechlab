@@ -69,9 +69,9 @@ public:
     */
     void abortRouting();
     /**
-    * Finish the routing process and therefore place the route.
+    * Finish the routing process and therefore place the route to \param pos.
     */
-    void finishRouting();
+    void finishRouting(const QPointF &pos);
 
     virtual IComponentItem* item(const QString& id) const =0;
     virtual Node* node(const QString& id) const =0;

@@ -78,6 +78,7 @@ void PinItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
             setOpacity(0.01);
         event->accept();
     } else {
-        m_circuit->finishRouting();
+        const QPointF &center = mapToScene(rect().center());
+        m_circuit->finishRouting(center);
     }
 }
