@@ -16,6 +16,7 @@ namespace KTechLab {
 /**
 \brief Model for an ideal resistance
 
+This class corresponds 1 to 1 to the Resistor component
 */
 class Resistance : public IElement
 {
