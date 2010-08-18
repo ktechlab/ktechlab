@@ -50,6 +50,11 @@ class Resistance : public IElement
         \return the value of the conductance of the resistance, in Siemens
         */
         double conductance() const ;
+
+        /**
+         fill the matrix coefficients in the MNA matrix
+         */
+        virtual void fillMatrixCoefficients();
         
     private:
         double m_g; ///< conductance the resistance

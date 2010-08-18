@@ -15,7 +15,11 @@
 
 using namespace KTechLab;
 
-Resistance::Resistance(const double resistance): IElement()
+  /*      IElement(QVariantMap * parentInModel, IElementSet * elementSet,
+                     int numNodes, int numVoltageSources); */
+                     
+Resistance::Resistance(const double resistance):
+    IElement(NULL, NULL, 1, 1) // FIXME create proper constructor
 {
     if( resistance < 0 ){
         kError() << "BUG: negative value for a resistance?!\n";
@@ -86,4 +90,13 @@ double Resistance::resistance() const
 double Resistance::conductance() const
 {
     return m_g;
+}
+
+void KTechLab::Resistance::fillMatrixCoefficients()
+{
+    // copied from the original
+    A_g(0, 0) += m_g;
+    A_g(1, 1) += m_g;
+    A_g(0, 1) -= m_g;
+    A_g(1, 0) -= m_g;
 }
