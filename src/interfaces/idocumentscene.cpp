@@ -138,7 +138,7 @@ void IDocumentScene::abortRouting()
     m_routePath = 0;
 }
 
-void IDocumentScene::finishRouting()
+void IDocumentScene::finishRouting(const QPointF& pos)
 {
     // this item is still part of the scene, we just forget about it, here
     m_routePath = 0;
