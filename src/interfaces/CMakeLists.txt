@@ -10,6 +10,7 @@ set( ktlinterfaces_LIB_SRCS
    component/componentmimedata.cpp
    simulator/ipin.cpp 
    simulator/ielement.cpp
+   simulator/ielementset.cpp 
    simulator/ielementfactory.cpp
    simulator/isimulator.cpp
    simulator/isimulatorfactory.cpp
