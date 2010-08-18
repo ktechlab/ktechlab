@@ -97,11 +97,11 @@ class KTLINTERFACES_EXPORT IWire : public QObject
         /**
           \return the start pin of the wire
           */
-        IPin * start() const;
+        IPin * startPin() const;
         /**
           \return the end pin of the wire
           */
-        IPin * end() const;
+        IPin * endPin() const;
         
     private:
         /** start pin of the wire */
