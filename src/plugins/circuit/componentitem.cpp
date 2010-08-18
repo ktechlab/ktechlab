@@ -49,9 +49,7 @@ ComponentItem::ComponentItem ( const QVariantMap& data, Theme *theme, QGraphicsI
     QPoint pos(data.value("x").toInt(),data.value("y").toInt());
     // coordinates from circuit file represent the center
     // of the component, so we have to move it -QPoint(32,32)
-    // to compensate the SVG viewBox and -QPoint(4,4) to compensate
-    // the raster of the kde3 version
-    pos -= QPoint(36,36);
+    pos -= QPoint(32,32);
     setPos( pos );
 
     m_shape.addRect(m_renderer->boundsOnElement("icon"));

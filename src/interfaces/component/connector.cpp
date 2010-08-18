@@ -55,7 +55,7 @@ void ConnectorPrivate::setRoute(const QPainterPath& path)
     QString pathString;
     for (int i=0; i<path.elementCount(); ++i){
         QPainterPath::Element e = path.elementAt(i);
-        pathString += e.x/8 + ',' + e.y/8 + ',';
+        pathString += (e.x-4)/8 + ',' + (e.y-4)/8 + ',';
     }
     data.insert("route",pathString);
 }
@@ -78,12 +78,12 @@ void ConnectorPrivate::parseRoute(const QString pathString)
 
     QStringList::const_iterator it = routeList.constBegin();
     QPointF p;
-    p.setX((*it++).toDouble()*8);
-    p.setY((*it++).toDouble()*8);
+    p.setX((*it++).toDouble()*8+4);
+    p.setY((*it++).toDouble()*8+4);
     route.moveTo(p);
     while (it != routeList.constEnd()){
-        p.setX((*it++).toDouble()*8);
-        p.setY((*it++).toDouble()*8);
+        p.setX((*it++).toDouble()*8+4);
+        p.setY((*it++).toDouble()*8+4);
         route.lineTo(p);
     }
 }

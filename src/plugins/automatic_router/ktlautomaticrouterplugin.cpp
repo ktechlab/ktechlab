@@ -28,7 +28,12 @@
 #include <interfaces/idocumentscene.h>
 
 K_PLUGIN_FACTORY(KTLAutomaticRouterFactory, registerPlugin<AutomaticRouter>(); )
-K_EXPORT_PLUGIN(KTLAutomaticRouterFactory(KAboutData("ktlautomatic_router","ktlautomatic_router", ki18n("KTechLab Automatic Router"), "0.1", ki18n("Automatic Routing in Circuit files"), KAboutData::License_LGPL)))
+K_EXPORT_PLUGIN(KTLAutomaticRouterFactory(
+    KAboutData("ktlautomatic_router","ktlautomatic_router",
+               ki18n("KTechLab Automatic Router"), "0.1",
+               ki18n("Automatic Routing in Circuit files"),
+               KAboutData::License_LGPL))
+)
 
 AutomaticRouter::AutomaticRouter(QObject* parent, const QVariantList& args)
     : IPlugin( KTLAutomaticRouterFactory::componentData(), parent)
@@ -38,9 +43,8 @@ AutomaticRouter::AutomaticRouter(QObject* parent, const QVariantList& args)
 
 void AutomaticRouter::generateRoutingInfo(KTechLab::IDocumentScene* scene)
 {
-    QRectF rect;
     Cells* cells = new Cells(scene,this);
-    cells->update(scene, rect);
+    cells->update(scene);
     connect(scene,SIGNAL(sceneRectChanged(QRectF)),cells,SLOT(updateSceneRect(QRectF)));
     scene->setRoutingInfo(QSharedPointer<Cells>(cells));
 }
