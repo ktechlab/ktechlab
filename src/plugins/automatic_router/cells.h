@@ -20,6 +20,8 @@
 
 namespace KTechLab{
     class IDocumentScene;
+class ConnectorItem;
+class IComponentItem;
 }
 
 /**
@@ -192,19 +194,20 @@ public:
     QColor colorForScenePoint( QPointF p ) const ;
     /**
      * Update the internal representation of the scene.
-     * If a region is provided, only the items contained in that region
-     * are considered in the update.
      *
      * @param scene - the documents scene containing all components
-     * @param region - the region that is to be considered
      */
-    void update(const KTechLab::IDocumentScene* scene, const QRectF &region = QRectF());
+    void update(const KTechLab::IDocumentScene* scene);
     bool updateNeeded();
 
     void updateVisualization(const QRectF& region = QRectF());
 
 public slots:
-    void updateSceneRect(const QRectF &rect);
+    void updateSceneRect(const QRectF &rect = QRectF());
+    void addComponents(QList< KTechLab::IComponentItem* > components);
+    void removeComponents(QList< KTechLab::IComponentItem* > components);
+    void addConnectors(QList< KTechLab::ConnectorItem* > connectors);
+    void removeConnectors(QList< KTechLab::ConnectorItem* > connectors);
 
 protected slots:
     virtual void updateScene(const QRectF& rect);
@@ -212,11 +215,11 @@ protected slots:
 protected:
     virtual void paintRaster(QPainter* p, const QRectF& region) const;
     virtual void paintRoutingInfo(QPainter* p, const QRectF& target, const QRectF& source) const;
+
+private:
     void init(const QRect &canvasRect);
     QRect m_cellsRect;
     Cell **m_cells;
-
-private:
     QImage m_visualizedData;
     QRect m_sceneRect;
     bool m_needUpdate;
@@ -235,6 +238,8 @@ private:
 
     void checkACell(int x, int y, Cell *prev, int prevX, int prevY, int nextScore);
     void checkCell(int x, int y);   // Gets the shortest route from the final cell
+    inline void addCIPenalty(const QPainterPath& path, int score);
+    inline void addCIPenalty(const KTechLab::IComponentItem* item, int score);
 
     TempLabelMap m_tempLabels;
     qreal m_lcx;
