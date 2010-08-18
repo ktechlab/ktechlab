@@ -63,12 +63,12 @@ double KTechLab::IWire::current() const
     return m_current;
 }
 
-KTechLab::IPin* KTechLab::IWire::start() const
+KTechLab::IPin* KTechLab::IWire::startPin() const
 {
     return m_start;
 }
 
-KTechLab::IPin* KTechLab::IWire::end() const
+KTechLab::IPin* KTechLab::IWire::endPin() const
 {
     return m_end;
 }
