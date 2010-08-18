@@ -20,7 +20,8 @@ Various terms used in this document are described here.
 \li Simulator: class that simulates the behaviour of a circuit
 
 --
-\li CNode: component node, used in simulation, equivalent of pins?
+\li CNode: component node, used in simulation, might stand for many Pins;
+    CNode:Pin -> 1:many
 
 \li Circuit Model: the storage place for the description of the structure and status of a circuut
 
@@ -75,6 +76,89 @@ When an electronic circuit is simulated, the following processes take place:
 
 The CircuitModel, subclass of IDocumentModel, currently consists of a set of components and connectors,
 both having the type of QVariantMap.
+
+Models of components have the base type IElement. This interfaces has references to
+IPins, and IPins are connected with IWires.
+
+CNode and CBranch are used in the internal workings of the simulator, so those
+are not supposed to be exported from the simulator plugin.
+
+Relationships:
+\li Component:IElement -- 1:many
+\li IElement:IPin -- 1:many
+\li IPin:CNode -- many:1
+
+During one time step, in the simulation of a circuit the following steps
+have to be taken:
+\li if the circuit model is changed, the simulator data structures
+    (IPins, IWires and IElements) have to be rebuilt.
+    Next, the number of nodes is reduced, due to connections.
+    Here the CNodes and CBranches are used.
+    Some nodes are marked pure digital, others are analogic.
+    Finally, the circuit equations are created from the IElements.
+\li the simulation time is incremented
+\li the circuit equations are created from the IElements
+\li next, the digital logic is stepped once, and the resulting voltages
+    are saved
+\li the digital values are stored in the matrix and the matrix equations
+    are solved for the currents and voltages
+\li if the circuit contains nonlinear or reactive elements, the process of
+    stepping analog components and solving of the matrix has to be repeated.
+\li having the currents and the voltages from CNodes and CBranches known,
+    by using Kirchoff's equations, the voltages and currents in
+    IPins and IWires have to be calculated
+\li the final voltages and currents are stored in the circuit model
+
+The simulation usese the Modified Nodal Analysis. See as reference:
+\li http://en.wikipedia.org/wiki/Modified_nodal_analysis
+\li http://qucs.sourceforge.net/tech/technical.html
+
+Theoretical part, shamelessly copied from the the second link
+(http://qucs.sourceforge.net/tech/node14.html):
+
+Suppose a circuit has
+\li N nodes
+\li M independent voltage sources
+
+The structure of the circuit equation matrix:
+\code
+[ A ] * [ x ] = [ z ]
+
+or
+
+[ G B ] * [ v ] = [ i ]
+[ C D ]   [ j ]   [ e ]
+\endcode
+
+The matixes are:
+\li A - (N+M)*(N+M) matrix, consists only of known quantities
+\li x -  (N+M)*1 vector, holds the unknown quantities
+            (node voltages and
+            the currents through the independent voltage sources)
+\li z - is an (N+M)*1 vector that holds only known quantities
+
+The A matrix consists of:
+\li G - N*N matrix, determined by the interconnections between the circuit elements
+\li B - N*M matrix, determined by the connection of the voltage sources
+\li C - M*N matrix, determined by the connection of the voltage sources
+        (B and C are closely related, particularly when only independent sources are considered)
+\li D - M*M matrix, is zero if only independent sources are considered
+
+The x matrix, storing the unkown values, consists of:
+\li v - 1*N, matrix of unknown voltages in the nodes
+\li j - 1*M, matrix of unknown currents through the voltage sources
+
+The z matrix consists of:
+\li i - 1*N matrix with each element of the matrix corresponding to a particular node.
+        The value of each element of i is determined by the sum of current sources
+        pointing into the corresponding node.
+        If there are no current sources connected to the node, the value is zero.
+\li e - 1*M matrix with each element of the matrix equal in value
+        to the corresponding independent voltage source.
+
+In the implementation,
+the e part of the matrix z is called v.
+
 
 \section new_elements Adding support for new Elements (component models)
 
