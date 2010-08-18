@@ -19,15 +19,11 @@
 #include <KDebug>
 
 //BEGIN class Cells
-#include <interfaces/component/node.h>
 
 Cells::Cells(KTechLab::IDocumentScene* scene, QObject* parent)
     : KTechLab::IRoutingInformation(scene,parent)
 {
-    QRect rect(scene->sceneRect().toRect());
-    rect.setHeight(rect.height()+64);
-    rect.setWidth(rect.width()+64);
-    init(rect);
+    init(scene->sceneRect().toRect());
 }
 
 Cells::~Cells() {
@@ -40,7 +36,7 @@ Cells::~Cells() {
 }
 
 Cells::Cells(const Cells &c) {
-    init(QRect(c.cellsRect().topLeft() * 8, c.cellsRect().size() * 8));
+    init(c.m_sceneRect);
 
     unsigned w = unsigned(m_cellsRect.width());
     unsigned h = unsigned(m_cellsRect.height());
@@ -56,8 +52,8 @@ void Cells::init(const QRect &canvasRect) {
     m_sceneRect = canvasRect;
     m_visualizedData = QImage(m_sceneRect.size(),QImage::Format_ARGB32);
     m_visualizedData.fill(QColor(Qt::transparent).rgba());
-    m_cellsRect = QRect(fromCanvas(canvasRect.topLeft()), canvasRect.size() / 8 + QSize(1,1));
-    m_cellsRect = m_cellsRect.normalized();
+    m_cellsRect = QRect(mapToCells(m_sceneRect.topLeft()), mapToCells(m_sceneRect.size()));
+    m_cellsRect.adjust(-1,-1,1,1);
 
     unsigned w = unsigned(m_cellsRect.width());
     unsigned h = unsigned(m_cellsRect.height());
@@ -82,64 +78,25 @@ void Cells::reset() {
 
 QPointF Cells::alignToGrid(const QPointF& point)
 {
-    QPoint result(point.toPoint() / 8);
-    return result * 8;
+    QPoint result(mapToCells(point.toPoint()));
+    return mapFromCells(result);
 }
 
-void Cells::update(const KTechLab::IDocumentScene* scene, const QRectF &region)
+void Cells::update(const KTechLab::IDocumentScene* scene)
 {
-    QRectF updateRegion = region.normalized();
-    if (updateRegion.isNull())
-        updateRegion = scene->sceneRect();
+    QRectF updateRegion = scene->sceneRect();
 
     foreach (QGraphicsItem* item, scene->items(updateRegion)) {
         KTechLab::IComponentItem* component = 0;
         KTechLab::ConnectorItem* connector = 0;
         int score = Cells::ScoreNone;
-        QPainterPath shape = item->mapToScene(item->shape());
-        QRect rect = shape.boundingRect().toRect();
-        rect.setSize(rect.size() / 8 + QSize(1,3));
-        rect.moveTopLeft(rect.topLeft() / 8 - QPoint(1,2));
         if ((component = dynamic_cast<KTechLab::IComponentItem*>(item))) {
             score = Cells::ScoreItem;
-            //blur the surroundings of an item
-            for (int x = rect.x(); x < rect.x()+rect.width(); ++x) {
-                //update above rect
-                int y = rect.y();
-                cell(x,y).addCIPenalty(5*Cells::ScoreConnector);
-                //update below rect
-                y += rect.height()-1;
-                cell(x,y).addCIPenalty(5*Cells::ScoreConnector);
-            }
-            for (int y = rect.y()+1; y < rect.y()+rect.height()-1; ++y) {
-                //update left of rect
-                int x = rect.x();
-                cell(x,y).addCIPenalty(5*Cells::ScoreConnector);
-                //update right of rect
-                x += rect.width()-1;
-                cell(x,y).addCIPenalty(5*Cells::ScoreConnector);
-            }
-            //update item-rect
-            for (int x = rect.x()+1; x < rect.x()+rect.width()-1; ++x)
-                for (int y = rect.y()+1; y < rect.y()+rect.height()-1; ++y) {
-                    cell(x,y).addCIPenalty(score);
-                }
-            //reduce score at nodes to provide a local minimum that leads to
-            //routing directly into this cell
-            foreach(const KTechLab::Node* node, component->nodes()) {
-                QPoint nodeCell((node->scenePos()/8).toPoint()-QPoint(1,1));
-                cell(nodeCell.x(),nodeCell.y()).addCIPenalty(-5*Cells::ScoreConnector);
-            }
+            addCIPenalty(component, score);
         }
         if ((connector = dynamic_cast<KTechLab::ConnectorItem*>(item))) {
             score = Cells::ScoreConnector;
-            const QPainterPath& path = connector->path();
-            for (int i=0; i < path.elementCount(); ++i) {
-                Q_ASSERT((path.elementAt(i).isLineTo() || i==0) && (path.elementAt(i).isMoveTo() || i!=0));
-                QPointF p(path.elementAt(i).x,path.elementAt(i).y);
-                p -= QPointF(1,1);
-                cell(p.x()/8,p.y()/8).addCIPenalty(score);
-            }
+            addCIPenalty(connector->path(),score);
         }
     }
     updateVisualization();
@@ -173,33 +130,37 @@ void Cells::updateSceneRect(const QRectF& rect)
     delete [] m_cells;
 
     QRect canvasRect(rect.toRect());
-    canvasRect.setSize(canvasRect.size()+QSize(64,64));
+    if (canvasRect.isEmpty())
+        canvasRect = m_documentScene->sceneRect().toRect();
+    canvasRect.setSize(canvasRect.size());
     init(canvasRect);
-
-    m_needUpdate = true;
+    update(m_documentScene);
+    //m_needUpdate = true;
 }
 
 Cell& Cells::cell(int i, int j) const {
-    assert(i < m_cellsRect.right());
-    assert(j < m_cellsRect.bottom());
+    assert(i < m_cellsRect.x()+m_cellsRect.width());
+    assert(j < m_cellsRect.y()+m_cellsRect.height());
     i -= m_cellsRect.left();
     j -= m_cellsRect.top();
     return m_cells[i][j];
 }
 bool Cells::haveCell(const int i, const int j) const {
-    if ((i < m_cellsRect.left()) || (i >= m_cellsRect.right()))
+    if ((i < m_cellsRect.left()) || (i >= m_cellsRect.x()+m_cellsRect.width()))
         return false;
 
-    if ((j < m_cellsRect.top()) || (j >= m_cellsRect.bottom()))
+    if ((j < m_cellsRect.top()) || (j >= m_cellsRect.y()+m_cellsRect.height()))
         return false;
 
     return true;
 }
 bool Cells::haveCellContaing(int x, int y) const {
-    return haveCell(fromCanvas(x), fromCanvas(y));
+    QPoint p(mapToCells(QPoint(x,y)));
+    return haveCell(p.x(), p.y());
 }
 Cell& Cells::cellContaining(const int x, const int y) const {
-    return cell(fromCanvas(x), fromCanvas(y));
+    QPoint p(mapToCells(QPoint(x,y)));
+    return cell(p.x(), p.y());
 }
 QRect Cells::cellsRect() const {
     return m_cellsRect;
@@ -209,16 +170,22 @@ QColor Cells::colorForScenePoint(QPointF p) const {
         return QColor(Qt::transparent);
 
     int penalty = cellContaining(p.x(),p.y()).getCIPenalty();
-    QColor c(Qt::red);
-    c.setAlpha(qMin(penalty,200));
+    QColor c;
+    if(penalty < 0){
+        c.setBlue(255);
+        penalty *= -1;
+    } else {
+        c.setRed(255);
+    }
+    c.setAlpha(qMax(-200,qMin(penalty,200)));
     return c;
 }
 
 void Cells::paintRaster(QPainter* p, const QRectF& region) const
 {
     //region is not aligned to the grid, so we need to adjust
-    int offX = (int)region.x() % 8;
-    int offY = (int)region.y() % 8;
+    int offX = (int)region.x() % 8 + 4;
+    int offY = (int)region.y() % 8 + 4;
     for (int y = 0; y < region.height()+8; y+=8)
         for (int x = 0; x < region.width()+8; x+=8)
             p->drawPoint(QPoint(x-offX,y-offY));
@@ -232,10 +199,10 @@ void Cells::paintRoutingInfo(QPainter* p, const QRectF& target, const QRectF& so
 void Cells::mapRoute(QPointF p1, QPointF p2)
 {
     if (updateNeeded())
-        update(m_documentScene, QRectF(p1,p2));
+        update(m_documentScene);
 
-    p1 = p1.toPoint() / 8;
-    p2 = p2.toPoint() / 8;
+    p1 = mapToCells(p1).toPoint();
+    p2 = mapToCells(p2).toPoint();
 
     m_route.clear();
 
@@ -291,7 +258,7 @@ void Cells::mapRoute(QPointF p1, QPointF p2)
 
         bool ok = true;
         do {
-            m_route.append(QPointF(x,y)*8);
+            m_route.append(mapFromCells(QPointF(x,y)));
             int newx = cell(x, y).getPrevX();
             int newy = cell(x, y).getPrevY();
 
@@ -307,7 +274,7 @@ void Cells::mapRoute(QPointF p1, QPointF p2)
                  && ok);
 
         // And append the last point...
-        m_route.append(p2*8);
+        m_route.append(mapFromCells(p2));
     }
 
     removeDuplicatePoints();
@@ -332,7 +299,7 @@ void Cells::checkACell(int x, int y, Cell *prev, int prevX, int prevY, int nextS
 
     // Check for changing direction
     if ((x != prevX && prev->comparePrevX(prevX)) ||
-            (y != prevY && prev->comparePrevY(prevY))) newScore += 5;
+        (y != prevY && prev->comparePrevY(prevY))) newScore += 5;
 
     if (c->scoreIsWorse(newScore))
         return;
@@ -394,14 +361,14 @@ bool Cells::checkLineRoute(int scx, int scy, int ecx, int ecy, int maxCIScore)
             if (std::abs(x - start) > 1 && std::abs(x - end) > 1
                     && (cell(x, y).getCIPenalty() > maxCIScore)) {
                 return false;
-            } else  m_route.append(QPoint(x, y)*8);
+            } else  m_route.append(mapFromCells(QPoint(x, y)));
         }
     } else {
         for (qreal y = start; y != end; y += dd) {
             if (std::abs(y - start) > 1 && std::abs(y - end) > 1
                     && (cell(x, y).getCIPenalty() > maxCIScore)) {
                 return false;
-            } else m_route.append(QPointF(x, y)*8);
+            } else m_route.append(mapFromCells(QPointF(x, y)));
         }
     }
 
@@ -425,6 +392,82 @@ void Cells::removeDuplicatePoints() {
 void Cells::updateScene(const QRectF& rect)
 {
     m_cellsNeedUpdate = true;
+}
+
+inline void Cells::addCIPenalty(const QPainterPath& path, int score)
+{
+    for (int i=0; i < path.elementCount(); ++i) {
+        Q_ASSERT((path.elementAt(i).isLineTo() || i==0) && (path.elementAt(i).isMoveTo() || i!=0));
+        QPointF p(path.elementAt(i).x,path.elementAt(i).y);
+        p = mapToCells(p);
+        cell(p.x(),p.y()).addCIPenalty(score);
+    }
+    updateVisualization(path.boundingRect());
+}
+
+inline void Cells::addCIPenalty(const KTechLab::IComponentItem* item, int score)
+{
+    // score < 0 -> we actually don't add, but subtract the score
+    int factor = score < 0 ? -1 : 1;
+    QPainterPath shape = item->mapToScene(item->shape());
+    QRect rect = shape.boundingRect().toRect();
+    //transform to internal raster
+    rect.setSize(mapToCells(rect.size())-QSize(1,1));
+    rect.moveTopLeft(mapToCells(rect.topLeft())+QPoint(1,1));
+
+    //blur the surroundings of an item
+    for (int x = rect.x()-1; x < rect.x()+rect.width()+1; ++x) {
+        //update above rect
+        int y = rect.y()-1;
+        cell(x,y).addCIPenalty(5*factor*Cells::ScoreConnector);
+        //update below rect
+        y += rect.height()+1;
+        cell(x,y).addCIPenalty(5*factor*Cells::ScoreConnector);
+    }
+    for (int y = rect.y(); y < rect.y()+rect.height(); ++y) {
+        //update left of rect
+        int x = rect.x()-1;
+        cell(x,y).addCIPenalty(5*factor*Cells::ScoreConnector);
+        //update right of rect
+        x += rect.width()+1;
+        cell(x,y).addCIPenalty(5*factor*Cells::ScoreConnector);
+    }
+    //update item-rect
+    for (int x = rect.x(); x < rect.x()+rect.width(); ++x)
+        for (int y = rect.y(); y < rect.y()+rect.height(); ++y) {
+            cell(x,y).addCIPenalty(score);
+        }
+    updateVisualization(item->boundingRect());
+}
+
+void Cells::addComponents(QList< KTechLab::IComponentItem* > components)
+{
+    int score = Cells::ScoreItem;
+    foreach(KTechLab::IComponentItem* item, components) {
+        addCIPenalty(item,score);
+    }
+}
+void Cells::removeComponents(QList< KTechLab::IComponentItem* > components)
+{
+    int score = -Cells::ScoreItem;
+    foreach(KTechLab::IComponentItem* item, components) {
+        addCIPenalty(item,score);
+    }
+}
+void Cells::addConnectors(QList< KTechLab::ConnectorItem* > connectors)
+{
+    int score = Cells::ScoreConnector;
+    foreach(KTechLab::ConnectorItem* connector, connectors) {
+        addCIPenalty(connector->path(),score);
+    }
+}
+
+void Cells::removeConnectors(QList< KTechLab::ConnectorItem* > connectors)
+{
+    int score = -Cells::ScoreConnector;
+    foreach(const KTechLab::ConnectorItem* c,connectors) {
+        addCIPenalty(c->path(),score);
+    }
 }
 
 //END class Cells
