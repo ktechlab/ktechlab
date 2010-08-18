@@ -97,7 +97,7 @@ public:
     /**
      * \return all the IElement factories that have been registered for a given
      *      simulation type or for all simulation types
-     * \param simuationType the type of simulation for which the factory list is
+     * \param simulationType the type of simulation for which the factory list is
      *      queried; this parameter can be optional -- in that case all the factories
      *      are returned
      */

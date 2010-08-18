@@ -46,7 +46,7 @@ class KTLINTERFACES_EXPORT IPin : public QObject
 {
     Q_OBJECT
     public:
-        /**
+        /*
           create an IPin, unassociated to anything
           */
         // IPin();
@@ -65,7 +65,8 @@ class KTLINTERFACES_EXPORT IPin : public QObject
 
         // related to the model
         /**
-          \return the element corresponding in the model to this pin
+          \return the element corresponding in the model to this pin:
+            a component or a connector
           */
         QVariantMap * parentInModel() const ;        
 
