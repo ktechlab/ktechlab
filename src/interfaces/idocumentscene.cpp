@@ -53,17 +53,12 @@ bool IDocumentScene::isRouting() const
 void IDocumentScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
     if (m_routePath){
-        removeItem(m_routePath);
-        delete m_routePath;
-        m_routePath = 0;
         if (!routingInfo()) {
             event->ignore();
             return;
         }
         m_routingInfo->mapRoute(m_startPos, event->scenePos());
-        m_routePath = new ConnectorItem(this);
         m_routePath->setPath(m_routingInfo->paintedRoute());
-        addItem(m_routePath);
         event->accept();
     }
     QGraphicsScene::mouseMoveEvent(event);
@@ -125,7 +120,8 @@ void IDocumentScene::startRouting(const QPointF& pos)
     }
     m_startPos = pos;
     m_routingInfo->mapRoute(pos,pos);
-    m_routePath = addPath(m_routingInfo->paintedRoute());
+    m_routePath = new ConnectorItem(this);
+    m_routePath->setPath(m_routingInfo->paintedRoute());
 }
 
 void IDocumentScene::abortRouting()
@@ -140,6 +136,8 @@ void IDocumentScene::abortRouting()
 
 void IDocumentScene::finishRouting(const QPointF& pos)
 {
+    m_routingInfo->mapRoute(m_startPos,pos);
+    m_routePath->setPath(m_routingInfo->paintedRoute());
     // this item is still part of the scene, we just forget about it, here
     m_routePath = 0;
 }
