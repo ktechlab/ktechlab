@@ -51,6 +51,8 @@ public:
      * @return the IElement associated with a component
      */
     virtual IElement *getModelForComponent(QVariantMap *component);
+
+    // TODO set the real:simuated time ratio and the max. time step
 //
 public slots:
     /**

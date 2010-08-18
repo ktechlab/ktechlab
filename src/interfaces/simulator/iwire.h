@@ -46,6 +46,8 @@ class KTLINTERFACES_EXPORT IWire : public QObject
           from the model
           \param start the starting pin of the wire
           \param end the end pin of the wire
+          \param parentInModel the parent of the wire in the circuit model,
+            which should be a connector 
           */
         IWire( IPin *start, IPin *end, QVariantMap *parentInModel);
         /**
