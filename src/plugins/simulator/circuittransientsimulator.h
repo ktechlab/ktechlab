@@ -68,8 +68,15 @@ public slots:
      * The optional parameter indicates the model for which the change
      * occured. It is 0 (NULL) in case of the component is not specified.
      */
+
     virtual void componentParameterChanged(QVariantMap * component = NULL);
 
+    /**
+      Slot to be activated when some time has passed and the simulation time
+      should advance
+      */
+    virtual void simulationTimerTicked();
+    
 private:
     IDocumentModel *m_doc;
 };
