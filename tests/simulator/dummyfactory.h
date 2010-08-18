@@ -14,8 +14,13 @@ namespace KTechLab{
 
 class DummyElement : public IElement {
   public:
+    DummyElement() : IElement(0,0,1,1){
+    }
     void dummyMethod(){
         std::cout << "dummyMethod called\n";
+    }
+    virtual void fillMatrixCoefficients(){
+        std::cout << "dummies have no coefficients\n";
     }
 };
 

@@ -11,3 +11,19 @@
 
 #include "capacitance.h"
 
+KTechLab::Capacitance::Capacitance() :
+    IElement(NULL, NULL, 1, 1)
+{
+    // TODO implement
+}
+
+KTechLab::Capacitance::Capacitance(QVariantMap* parentInModel, KTechLab::IElementSet* elementSet):
+    IElement(parentInModel, elementSet, 1, 1)
+{
+    // TODO implement
+}
+
+void KTechLab::Capacitance::fillMatrixCoefficients()
+{
+    // TODO implement
+}
