@@ -57,15 +57,47 @@ IElement* CircuitTransientSimulator::getModelForComponent(QVariantMap* component
 void CircuitTransientSimulator::componentParameterChanged(QVariantMap* component)
 {
     kDebug() << "componentParameterChanged signaled\n";
-
+    /*
+    the circuit state values have to be reset here, and the new state
+    has to be recalculated
+    */
 }
 
 void CircuitTransientSimulator::documentStructureChanged()
 {
     kDebug() << "documentStructureChanged\n";
-
+    /*
+    in case of document structure change, the simulator data
+    structures should be updated
+    - generate Pins and Elements from Components
+    - based on Connectors, connect the Pins with Wires; possibly create
+        new Pins, if needed (between 2 connectors)
+    - split the Circuit into smaller connected units, for example ElementSets
+    - for each ElementSet:
+        - group the connected Pins in CNodes
+        - count the number of node in an ElementSet
+        - count the number of independent sources in element set
+        - allocate matrix for equations
+        - define voltage and current-solution chains in order to
+            find all the voltages and currents
+        - define chanins to find voltages and currents on all Pins and Wires
+    */
 }
 
+void CircuitTransientSimulator::simulationTimerTicked()
+{
+    kDebug() << "simulationTimerTicked\n";
+    /*
+    general algorithm for circuit simulation:
+    - notify the elements about the new simulation time
+    - run all the logic circuits
+    - for all ElementSets
+        - while not converged:
+            - ask for coefficients (A and z matrix)
+            - solve equations
+            - back-substitute the results
+    */
+}
 
 
 
