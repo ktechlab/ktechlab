@@ -22,6 +22,7 @@
 
 #include "../ktlinterfacesexport.h"
 #include <QGraphicsSvgItem>
+#include "../idocumentscene.h"
 
 namespace KTechLab {
 
@@ -78,6 +79,9 @@ public:
      * \returns a list of nodes
      */
     QList<const Node*> nodes() const;
+
+    enum { Type = KTechLab::GraphicsItems::ComponentItemType };
+    virtual int type() const { return Type; };
 
 public slots:
     /**

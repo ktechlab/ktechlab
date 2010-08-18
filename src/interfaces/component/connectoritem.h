@@ -23,6 +23,7 @@
 
 #include "../ktlinterfacesexport.h"
 #include <QGraphicsPathItem>
+#include "../idocumentscene.h"
 
 namespace KTechLab {
 
@@ -89,6 +90,9 @@ public:
      * Get the node, where the connector ends.
      */
     const Node* endNode() const;
+
+    enum { Type = KTechLab::GraphicsItems::ConnectorItemType };
+    virtual int type() const { return Type; };
 
 protected:
     virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
