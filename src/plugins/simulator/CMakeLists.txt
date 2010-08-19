@@ -8,6 +8,7 @@ include_directories(
 set( ktlsimulator_PART_SRCS
    simulatorplugin.cpp
    simulatorfactory.cpp
+   elementset.cpp
    circuittransientsimulator.cpp
 )
 
