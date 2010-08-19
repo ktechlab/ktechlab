@@ -159,6 +159,13 @@ The z matrix consists of:
 In the implementation,
 the e part of the matrix z is called v.
 
+The equation A*x = b is stored in matrixes, contained in an IElementSet.
+The IElementSet allocates A,x and b matrixes of the needed size, and
+assigns rows and columns for all IElements.
+This way the base type IElement provides methods to translate
+the number of the IPins
+belonging to the element into positions in the matrixes.
+
 
 \section new_elements Adding support for new Elements (component models)
 
