@@ -65,6 +65,11 @@ public:
         * with the solution returned in x.
         */
         void fbSub(QuickVector *x);
+       /**
+        * Applies the right side vector b to the decomposed matrix,
+        * with the solution returned in y.
+        */
+        void fbSub(const QuickVector *b, QuickVector *x);
 
        /**
         * Prints the matrix to an output stream
