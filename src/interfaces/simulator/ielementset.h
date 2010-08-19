@@ -21,6 +21,8 @@
 #ifndef IELEMENTSET_H
 #define IELEMENTSET_H
 
+#include "../ktlinterfacesexport.h"
+
 #include <QObject>
 
 namespace KTechLab {
@@ -37,7 +39,7 @@ class IElement;
     
     The implmenetation of this interface can be found in the simulator.
 */
-class IElementSet : public QObject
+class KTLINTERFACES_EXPORT IElementSet : public QObject
 {
     Q_OBJECT
 
