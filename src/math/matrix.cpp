@@ -140,7 +140,13 @@ void Matrix::performLU()
 	max_k = n;
 }
 
-void Matrix::fbSub(QuickVector *b)
+void Matrix::fbSub(QuickVector *x)
+{
+    fbSub(x, x);
+}
+
+
+void Matrix::fbSub(const QuickVector* b, QuickVector* x)
 {
 	unsigned int size = m_mat->size_m();
 
@@ -175,7 +181,7 @@ void Matrix::fbSub(QuickVector *b)
 
 // I think we don't need to reverse the mapping because we only permute rows, not columns. 
 	for(unsigned int i = 0; i < size; i++ )
-		(*b)[i] = m_y[i];
+		(*x)[i] = m_y[i];
 }
 
 void Matrix::multiply(const QuickVector *rhs, QuickVector *result)
