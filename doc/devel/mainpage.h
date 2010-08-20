@@ -166,6 +166,49 @@ This way the base type IElement provides methods to translate
 the number of the IPins
 belonging to the element into positions in the matrixes.
 
+\section component_map Key / Value pairs used in component models
+
+In the document model there are components and connectors.
+Both are are stored as QVariantMap.
+This section describes the stucture of these QVariantMaps.
+Generally, the QVariantMap returned by
+IDocumentModel::components() and
+IDocumentModel::connectors()
+is a map ID -> QVariantMap, where
+ID is idenfidier of the component, and the value is
+a QVariantMap describing the component and connector.
+
+The following subsections document the QVariantMaps used in different types
+of documents.
+
+\subsection circuit_qvariantmaps Circuit document
+
+\subsubsection circuit_generic_maps Generic components
+
+\li angle: 0, 90, 180, 270: the angle of rotation of a component
+\li fileName: the name of the graphics, representing the component
+\li flip: 0 or 1
+\li id: the ID of the component
+\li type: the type of the component
+\li x: X coordinate of the component
+\li y: Z coordinate of the component
+\li z: Z coordinate of the component, this represents the drawing order
+
+\subsubsection circuit_connector_maps Connectors
+
+\li
+\li end-node-cid
+\li end-node-is-child: 0 or 1
+\li end-node-parent
+\li id
+\li manual-route: 0 or 1
+\li route: string or point coordinates
+\li start-node-cid: 0 or 1
+\li start-node-parent
+
+\subsection flowcode_qvariantmaps Flowcode documents
+
+TODO
 
 \section new_elements Adding support for new Elements (component models)
 
