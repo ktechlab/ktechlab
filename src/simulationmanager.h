@@ -46,7 +46,8 @@ class SimulationManager : public ISimulationManager {
     virtual QList<QString> registeredDocumentMimeTypeNames();
     
     virtual QList<IElementFactory*> registeredFactories(
-                        const QString &simulationType = QString());
+                        const QString &simulationType = QString(),
+                        const QString &elementType = QString()  );
 
     virtual QList<QString> registeredSimulationTypes();
 
