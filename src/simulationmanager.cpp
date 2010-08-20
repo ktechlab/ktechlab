@@ -251,7 +251,8 @@ QList<QString> SimulationManager::registeredDocumentMimeTypeNames(){
 }
 
 QList<IElementFactory*> SimulationManager::registeredFactories(
-                            const QString &simulationType){
+                            const QString &simulationType,
+                            const QString &elementType){
 
     //
     QList<IElementFactory*> keyList =
@@ -263,12 +264,20 @@ QList<IElementFactory*> SimulationManager::registeredFactories(
             // all simulation types
             if( ! ret.contains( fact) )
                 ret.append( fact);
-        } else {
-            // only the selected ones
-            if( fact->simulationType() == simulationType )
-                if( ! ret.contains( fact) )
-                    ret.append( fact);
-        }
+        } else 
+            if( fact->simulationType() == simulationType ){
+                if( elementType.isEmpty() ){
+                    // only the selected ones, any element
+                    if( ! ret.contains( fact) )
+                        ret.append( fact);
+                } else {
+                    // have to select the if it can create a specific element
+                    if( fact->supportedComponentTypeIds().contains(elementType) )
+                        if( ! ret.contains( fact ) )
+                            ret.append( fact );
+                }
+            }
+        
     }
     return ret;
 }
