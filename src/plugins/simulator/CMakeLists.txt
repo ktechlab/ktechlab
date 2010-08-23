@@ -6,6 +6,7 @@ include_directories(
 )
 
 set( ktlsimulator_PART_SRCS
+   pingroup.cpp
    simulatorplugin.cpp
    simulatorfactory.cpp
    elementset.cpp
