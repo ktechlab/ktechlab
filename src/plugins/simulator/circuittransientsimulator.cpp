@@ -16,6 +16,8 @@
 
 
 #include <kdebug.h>
+#include <interfaces/simulator/isimulationmanager.h>
+#include <interfaces/simulator/ielementfactory.h>
 
 using namespace KTechLab;
 
@@ -82,7 +84,89 @@ void CircuitTransientSimulator::documentStructureChanged()
             find all the voltages and currents
         - define chanins to find voltages and currents on all Pins and Wires
     */
+    recreateElementList();
+    recreateWireList();
+    splitPinsInGroups();
+    /*
+    splitDocumentInCircuits(); 
+    foreach(Circuit *c, m_circuits){ // what kind of abstraction?
+        stepSimulation();
+        createElementSet();
+        solveElementSet();
+    }
+    */
 }
+
+void CircuitTransientSimulator::recreateElementList()
+{
+    // clear the list
+    foreach(IElement *element, m_allElementList){
+        delete element;
+    }
+    m_allElementList.clear();
+    m_idToElement.clear();
+    // cache a pointer
+    ISimulationManager *simMng = ISimulationManager::self();
+
+    QVariantMap allComponents = m_doc->components();
+    foreach(QVariant componentVariant, m_doc->components() ){
+        if( componentVariant.type() != QVariant::Map){
+            kError() << "BUG: this component is not a QVariantMap: " << componentVariant << "\n";
+            // FIXME error handling
+        }
+        QVariantMap componentVarMap = componentVariant.toMap();
+        // get the type of the component
+        if(! componentVarMap.contains("type") ){
+            kError() << "BUG: a component doesn't have a \"type\" field!\n";
+            // FIXME error handling
+        }
+        QString compType = componentVarMap.value("type").toString();
+
+        QList<IElementFactory*> elemFactList = simMng->registeredFactories("transient", compType);
+        if( elemFactList.isEmpty() ){
+            kError() << "cannot create simulation model for the component type \""
+                + compType + "\": unknown component type\n";
+            // FIXME error handling
+        }
+        // pick a factory
+        IElement *element = elemFactList.first()->createElement(compType);
+        // place in the list
+        m_allElementList.append(element);
+            // is the following line efficient?
+        m_idToElement.insert(m_doc->components().key(componentVariant),
+                             element);
+        kDebug() << componentVarMap << "\n";
+    }
+    kDebug() << "created " << m_allElementList.count() << " elements\n";
+}
+
+void CircuitTransientSimulator::recreateWireList()
+{
+    QVariantMap allConnectors = m_doc->connectors();
+    // clear the list
+    foreach(IWire *wire, m_allWireList){
+        delete wire;
+    }
+    m_allWireList.clear();
+    m_idToWire.clear();
+    // repopulate the list
+    // TODO implment
+    //
+    kDebug() << "created " << m_allWireList.count() << " wires\n";
+}
+
+void CircuitTransientSimulator::splitPinsInGroups()
+{
+    // clean up
+    foreach(PinGroup group, m_pinGroups){
+        delete group;
+    }
+    m_pinGroups.clear();
+    // repopulate the list
+    // TODO implement
+    kDebug() << "created " << m_pinGroups.count() << " pin groups\n";
+}
+
 
 void CircuitTransientSimulator::simulationTimerTicked()
 {
