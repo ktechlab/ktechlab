@@ -16,6 +16,10 @@
 
 namespace KTechLab {
 
+class PinGroup;
+
+class IWire;
+
     // referenced classes
     class IComponentDocument;
     class IDocumentModel;
@@ -78,7 +82,27 @@ public slots:
     virtual void simulationTimerTicked();
     
 private:
+    /** create a list of elements to be simulated, based on the document model */
+    void recreateElementList();
+    /** creata a list of wires to be simulated, based on the document model */
+    void recreateWireList();
+    /** split the groups into connected groups */
+    void splitPinsInGroups();
+    
+    /// the document model associated with the simulator
     IDocumentModel *m_doc;
+    
+    /// list of all elements in the document
+    QList<IElement*> m_allElementList;
+    /// list of all wires in the document
+    QList<IWire *> m_allWireList;
+    /// map of string ID to element
+    QMap<QString, IElement*> m_idToElement;
+    /// map of string ID to wire
+    QMap<QString, IWire *> m_idToWire;
+    
+    /// list of all the groups of pins
+    QList<PinGroup *> m_pinGroups;
 };
 
 }
