@@ -106,7 +106,8 @@ public:
      */
     virtual QList<IElementFactory*> registeredFactories(
                             const QString &simulationType = QString(),
-                            const QString &elementType = QString() ) = 0;
+                            const QString &elementType = QString(),
+                            const QString &documentType = QString() ) = 0;
 
     /**
      * @return all the simulation types for which at least one factory is registered
