@@ -25,9 +25,9 @@
 
 #include <QObject>
 
-namespace KTechLab {
+#include <qvariant.h>
 
-class QVariantMap;
+namespace KTechLab {
 
 class IPin;
 
