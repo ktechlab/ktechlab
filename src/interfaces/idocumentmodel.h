@@ -100,6 +100,33 @@ public:
     virtual QVariantMap connector( const QString &key ) const;
 
     /**
+     * Add an individual node to the model, represented by a \ref QVariantMap.
+     * Nodes are used as endpoints for connectors, and they don't belong
+     * to any component.
+     * A node must at least have
+     * a field "id" which has to be unique. Adding a connector with an id that
+     * already is in the model is not possible.
+     *
+     * @param node - A \ref QVariantMap containing all data for the node
+     */
+    virtual void addNode( const QVariantMap& node );
+    /**
+    * Get a \ref QVariantMap containing all nodes mapped from id
+    * to a \ref QVariantMap containing all the data for the node.
+    *
+    * @return all nodes
+    */
+    virtual QVariantMap nodes() const;
+    /**
+    * Get a \ref QVariantMap containing all the data for the node specified
+    * by the given key.
+    *
+    * @param key - the id of the node
+    * @return a \ref QVariantMap containing the data
+    */
+    virtual QVariantMap node( const QString& id );
+    
+    /**
      * Get the data at a given field in the matrix.
      *
      * @param index - the \ref QModelIndex representing the field in the matrix

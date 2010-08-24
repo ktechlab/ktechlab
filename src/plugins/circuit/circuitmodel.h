@@ -42,14 +42,9 @@ public:
     virtual int rowCount ( const QModelIndex& parent = QModelIndex() ) const;
     virtual bool setData ( const QModelIndex& index, const QVariant& value, int role = Qt::EditRole );
 
-    void addNode( const QVariantMap& node );
-    QVariantMap nodes() const;
-    QVariantMap node( const QString& id );
-
 private:
     QVariantMap m_components;
     QVariantMap m_connectors;
-    QVariantMap m_nodes;
     KTLCircuitPlugin *m_circuitPlugin;
 };
 
