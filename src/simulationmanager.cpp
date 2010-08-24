@@ -252,9 +252,21 @@ QList<QString> SimulationManager::registeredDocumentMimeTypeNames(){
 
 QList<IElementFactory*> SimulationManager::registeredFactories(
                             const QString &simulationType,
-                            const QString &elementType){
+                            const QString &elementType,
+                            const QString &documentType){
 
-    //
+    // if all 3 values are defined
+    if( (!simulationType.isEmpty()) &&
+        (!elementType.isEmpty()) &&
+        (!documentType.isEmpty()) )
+    {
+        ElementMapKey key;
+        key.simulationType = simulationType;
+        key.elementType = elementType;
+        key.documentType = documentType;
+        return d->elementFactoryMap.values(key);
+    }
+    // if max 2, then iterate all over
     QList<IElementFactory*> keyList =
                                 d->elementFactoryMap.values();
     QList<IElementFactory*> ret;
