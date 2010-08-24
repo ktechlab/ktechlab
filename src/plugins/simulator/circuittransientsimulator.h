@@ -88,6 +88,13 @@ private:
     void recreateWireList();
     /** split the groups into connected groups */
     void splitPinsInGroups();
+    // utilitary methods
+    /** convert a variant containing string containing a boolean (0/1) value
+        to boolean. Has error checking */
+    bool variantToBool(const QVariant &variant, bool &success);
+    /** convert a variant containing a string to a string.
+        Has error checking */
+    QString variantToString(const QVariant &string, bool &success);
     
     /// the document model associated with the simulator
     IDocumentModel *m_doc;
