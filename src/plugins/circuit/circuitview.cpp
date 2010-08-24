@@ -1,5 +1,5 @@
 /*
- * Copyright 2009 Julian Bäume <julian@svg4all.de>
+ * Copyright 2009-2010 Julian Bäume <julian@svg4all.de>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -51,6 +51,7 @@ void CircuitView::init()
     setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     setRenderHints(QPainter::Antialiasing);
     setAcceptDrops( true );
+    setDragMode( QGraphicsView::RubberBandDrag );
 }
 
 #include "circuitview.moc"

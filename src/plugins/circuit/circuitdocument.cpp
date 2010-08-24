@@ -1,6 +1,5 @@
 /***************************************************************************
  *   Copyright (C) 2009 Julian Bäume <julian@svg4all.de>                   *
- *            (C) 2010 Zoltan Padrah <zoltan_padrah@users.sourceforge.net> *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -13,8 +12,6 @@
 #include "circuitview.h"
 #include "circuitscene.h"
 #include "circuitmodel.h"
-
-#include "interfaces/idocumentmodel.h"
 
 #include <shell/core.h>
 #include <KDebug>
@@ -32,10 +29,7 @@ CircuitDocumentPrivate::CircuitDocumentPrivate( CircuitDocument *doc )
     :   circuitModel( new CircuitModel() ),
         m_document(doc)
 {
-    // load only from xml file if the url is not a special url, denoting
-    // empty documents
-    if(!isEmptyDocumentUrl(m_document->url()))
-        reloadFromXml();
+    reloadFromXml();
     circuitScene = new CircuitScene( doc, circuitModel );
 }
 
@@ -43,11 +37,6 @@ CircuitDocumentPrivate::~CircuitDocumentPrivate()
 {
     delete circuitScene;
     delete circuitModel;
-}
-
-bool CircuitDocumentPrivate::isEmptyDocumentUrl(KUrl url)
-{
-    return (url.prettyUrl().compare( EMPTY_CIRCUIT_DOCUMENT_URL ) == 0);
 }
 
 void CircuitDocumentPrivate::reloadFromXml()
@@ -91,6 +80,8 @@ void CircuitDocumentPrivate::reloadFromXml()
                 circuitModel->addComponent( item );
             } else if ( tagName == "connector" ) {
                 circuitModel->addConnector( item );
+            } else if ( tagName == "node" ) {
+                circuitModel->addNode( item );
             }
         }
         node = node.nextSibling();
@@ -130,6 +121,5 @@ QWidget* CircuitDocument::createViewWidget( QWidget* parent )
 
     return view;
 }
-
 
 #include "circuitdocument.moc"
