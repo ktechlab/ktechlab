@@ -28,6 +28,7 @@ class KTechLab::IDocumentModelPrivate {
 public:
     QVariantMap components;
     QVariantMap connectors;
+    QVariantMap nodes;
 };
 
 IDocumentModel::IDocumentModel ( QObject* parent )
@@ -104,6 +105,27 @@ QVariantMap IDocumentModel::connectors() const
 {
     return d->connectors;
 }
+
+
+void IDocumentModel::addNode(const QVariantMap& node)
+{
+    if ( node.contains( "id" ) )
+        d->nodes.insert( node.value("id").toString(), node );
+}
+
+QVariantMap IDocumentModel::node(const QString& id)
+{
+    if ( d->nodes.contains( id ) )
+        return d->nodes.value(id).toMap();
+
+    return QVariantMap();
+}
+
+QVariantMap IDocumentModel::nodes() const
+{
+    return d->nodes;
+}
+
 
 void IDocumentModel::updateData(const QString& name, const QVariantMap& data)
 {
