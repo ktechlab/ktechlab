@@ -34,7 +34,7 @@ public:
 
     virtual void addComponent ( const QVariantMap& component );
     virtual QVariantMap components() const;
-    virtual QVariantMap component( const QString &id );
+    virtual QVariantMap component( const QString &id ) const ;
     virtual void addConnector ( const QVariantMap& connector );
     virtual QVariantMap connectors() const;
     virtual QVariant data ( const QModelIndex& index, int role = Qt::DisplayRole ) const;

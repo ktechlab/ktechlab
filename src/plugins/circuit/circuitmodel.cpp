@@ -60,7 +60,7 @@ QVariantMap CircuitModel::components() const
     return m_components;
 }
 
-QVariantMap CircuitModel::component ( const QString& id )
+QVariantMap CircuitModel::component ( const QString& id ) const
 {
     return m_components.value(id).toMap();
 }
