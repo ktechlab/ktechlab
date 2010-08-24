@@ -51,6 +51,12 @@ KTechLab::IPin* KTechLab::IElement::pin(int number) const
     return m_pins.at(number);
 }
 
+IPin* IElement::pinByName(QString nodeName)
+{
+    // FIXME implement
+}
+
+
 int KTechLab::IElement::numNodes() const
 {
     return m_numNodes;
