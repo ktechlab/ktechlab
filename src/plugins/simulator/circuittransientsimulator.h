@@ -16,6 +16,8 @@
 
 namespace KTechLab {
 
+class IPin;
+
 class PinGroup;
 
 class IWire;
@@ -123,6 +125,11 @@ private:
     QMap<QString, IElement*> m_idToElement;
     /// map of string ID to wire
     QMap<QString, IWire *> m_idToWire;
+
+    /// list of pins not associated to any element
+    QList<IPin*> m_nodeList;
+    /// map of string ID to nodes
+    QMap<QString, IPin*> m_idToNode;
     
     /// list of all the groups of pins
     QList<PinGroup *> m_pinGroups;

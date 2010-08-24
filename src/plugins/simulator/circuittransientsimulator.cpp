@@ -21,6 +21,8 @@
 #include "pingroup.h"
 #include "interfaces/simulator/ielement.h"
 #include "interfaces/simulator/iwire.h"
+#include "interfaces/simulator/ipin.h"
+
 
 using namespace KTechLab;
 
@@ -155,24 +157,132 @@ bool CircuitTransientSimulator::recreateElementList()
             // is the following line efficient?
         m_idToElement.insert(m_doc->components().key(componentVariant),
                              element);
-        kDebug() << componentVarMap << "\n";
+        kDebug() << "created model for: " << componentVarMap << "\n";
     }
     kDebug() << "created " << m_allElementList.count() << " elements\n";
+    return true;
 }
 
 bool CircuitTransientSimulator::recreateNodeList()
 {
-    QVariantMap allConnectors = m_doc->connectors();
+    // clear the existing list of nodes
+    qDeleteAll(m_nodeList);
+    m_nodeList.clear();
+    m_idToNode.clear();
+    // for each node...
+    QVariantMap allNodes = m_doc->nodes();
+    foreach(QString id, allNodes.keys()){
+        QVariant nodeVariant = allNodes.value(id);
+        if( nodeVariant.type() != QVariant::Map){
+            kError() << "node variant doesn't contain variant map!\n";
+            return false;
+        }
+        QVariantMap nodeMap = nodeVariant.toMap();
+        // create the node
+        IPin *pin = new IPin(nodeMap, id);
+        // insert in the list
+        m_nodeList.append(pin);
+        m_idToNode.insert(id, pin);
+    }
+    // some statistics
+    kDebug() << "created " << m_nodeList.count() << " nodes\n";
+    return true;
 }
 
 bool CircuitTransientSimulator::recreateWireList()
 {
+    bool error;
     // clear the list
     qDeleteAll(m_allWireList);
     m_allWireList.clear();
     m_idToWire.clear();
     // repopulate the list
-    // TODO implment
+    QVariantMap allConnectors = m_doc->connectors();
+    foreach(QString id, allConnectors.keys()){
+        // test for conversion
+        QVariant connectorVariant = allConnectors.value(id);
+        if( connectorVariant.type() != QVariant::Map){
+            kError() << "connector variant doesn't contain variant map!\n";
+            return false;
+        }
+        QVariantMap connectorMap = connectorVariant.toMap();
+        // get the endpoints
+        IPin *startPin = 0;
+        IPin *endPin = 0;
+        bool startIsChild = variantToBool(connectorMap.value("start-node-is-child"), error);
+        if( error ){
+            kError() << "can't get start-node-is-child property\n";
+            return false;
+        }
+        if( startIsChild ){
+            QString startParent = variantToString(connectorMap.value("start-node-parent"), error);
+            if( error ){
+                kError() << "can't get start-node-parent property\n";
+                return false;
+            }
+            QString startParentNodeID = variantToString(connectorMap.value("start-node-cid"), error);
+            if( error ){
+                kError() << "can't get start-node-cid property\n";
+                return false;
+            }
+            startPin = m_idToElement.value(startParent)->pinByName(startParentNodeID);
+            if( startPin == 0){
+                kError() << "can't get specified pin id '" << startParentNodeID <<
+                    "' on element with id '" << startParent << "'\n";
+                return false;
+            }
+        } else {
+            QString startNodeID = variantToString(connectorMap.value("start-node-id"), error);
+            if(error){
+                kError() << "can't get start-node-id property\n";
+                return false;
+            }
+            if(! m_idToNode.contains(startNodeID)){
+                kError() << "node list doesn't contain ID " << startNodeID << "\n";
+                return false;
+            }
+            startPin = m_idToNode.value(startNodeID);
+        }
+        bool endIsChild = variantToBool(connectorMap.value("end-node-is-child"), error);
+        if( error ){
+            kError() << "can't get end-node-is-child property\n";
+            return false;
+        }        
+        if(endIsChild){
+            QString endParent = variantToString(connectorMap.value("end-node-parent"), error);
+            if( error ){
+                kError() << "can't get start-node-parent property\n";
+                return false;
+            }
+            QString endParentNodeID = variantToString(connectorMap.value("end-node-cid"), error);
+            if( error ){
+                kError() << "can't get start-node-cid property\n";
+                return false;
+            }
+            endPin = m_idToElement.value(endParent)->pinByName(endParentNodeID);
+            if( endPin == 0){
+                kError() << "can't get specified pin id '" << endParentNodeID <<
+                    "' on element with id '" << endParent << "'\n";
+                return false;
+            }            
+        } else {
+            QString endNodeID = variantToString(connectorMap.value("end-node-id"), error);
+            if(error){
+                kError() << "can't get start-node-id property\n";
+                return false;
+            }
+            if(! m_idToNode.contains(endNodeID)){
+                kError() << "node list doesn't contain ID " << endNodeID << "\n";
+                return false;
+            }
+            endPin = m_idToNode.value(endNodeID);
+        }
+        // create the wire
+        IWire *wire = new IWire(startPin, endPin, connectorMap);
+        // add the wire to the list
+        m_allWireList.append(wire);
+        m_idToWire.insert(id, wire);
+    }
     //
     kDebug() << "created " << m_allWireList.count() << " wires\n";
 }
