@@ -19,11 +19,14 @@
 */
 
 #include "iwire.h"
+
 #include "ipin.h"
 
-#include "kdebug.h"
+#include <kdebug.h>
 
-KTechLab::IWire::IWire(KTechLab::IPin* start, KTechLab::IPin* end, KTechLab::QVariantMap* parentInModel)
+using namespace KTechLab;
+
+IWire::IWire(IPin* start, IPin* end, QVariantMap* parentInModel)
 {
     m_start = start;
     m_end = end;
@@ -38,7 +41,7 @@ KTechLab::IWire::~IWire()
     m_parentInModel = 0;
 }
 
-KTechLab::QVariantMap* KTechLab::IWire::parentInModel() const
+QVariantMap* KTechLab::IWire::parentInModel() const
 {
     return m_parentInModel;
 }

@@ -25,12 +25,12 @@
 #include "../ktlinterfacesexport.h"
 
 #include <QObject>
+#include <qvariant.h>
 
 namespace KTechLab {
 
 class IElement;
 class IWire;
-class QVariantMap;
 
 /**
     \brief Interface class between the model and the simulator
