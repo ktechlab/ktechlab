@@ -75,6 +75,13 @@ class IPin;
               */
             IPin *pin(int number) const;
 
+            /**
+             \return the pin that is identified by a given name;
+                if the pin doesn't exist, return NULL
+             \param nodeName the name of the node, in the element (ex. VCC, GND)
+             */
+            IPin* pinByName(QString nodeName);
+
             // for the simulation model
 
             /**
