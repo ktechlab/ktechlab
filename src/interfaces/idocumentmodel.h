@@ -58,7 +58,7 @@ public:
      * @param component - A \ref QVariantMap containing all data for the component
      * @return true if the component was added to the model
      */
-    virtual bool addComponent ( const QVariantMap& component );
+    virtual void addComponent ( const QVariantMap& component );
     /**
      * Get a \ref QVariantMap containing all components mapped from id
      * to a \ref QVariantMap containing all the data for the component.
@@ -82,7 +82,7 @@ public:
     * @param component - A \ref QVariantMap containing all data for the component
     * @return true if the component was added to the model
     */
-    virtual bool addConnector ( const QVariantMap& connector );
+    virtual void addConnector ( const QVariantMap& connector );
     /**
     * Get a \ref QVariantMap containing all connectors mapped from id
     * to a \ref QVariantMap containing all the data for the connector.
@@ -129,13 +129,17 @@ public:
      * @param role - the role which is responsible for setting the data
      * @return true, if the data was set successful
      */
-    virtual bool setData ( const QModelIndex& index, const QVariant& value, int role = Qt::EditRole );
+     virtual bool setData ( const QModelIndex& index, const QVariant& value, int role = Qt::EditRole );
+
+public slots:
+    virtual void updateData( const QString &name, const QVariantMap &data );
 
 signals:
     void dataUpdated( const QString &name, const QVariantList &data );
 
 private:
     IDocumentModelPrivate* d;
+
 };
 
 }

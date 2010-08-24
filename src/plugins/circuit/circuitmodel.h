@@ -32,9 +32,24 @@ class CircuitModel : public IDocumentModel
 public:
     CircuitModel ( QObject* parent = 0 );
 
-    virtual bool addComponent ( const QVariantMap& component );
+    virtual void addComponent ( const QVariantMap& component );
+    virtual QVariantMap components() const;
+    virtual QVariantMap component( const QString &id );
+    virtual void addConnector ( const QVariantMap& connector );
+    virtual QVariantMap connectors() const;
+    virtual QVariant data ( const QModelIndex& index, int role = Qt::DisplayRole ) const;
+    virtual int columnCount ( const QModelIndex& parent = QModelIndex() ) const;
+    virtual int rowCount ( const QModelIndex& parent = QModelIndex() ) const;
+    virtual bool setData ( const QModelIndex& index, const QVariant& value, int role = Qt::EditRole );
+
+    void addNode( const QVariantMap& node );
+    QVariantMap nodes() const;
+    QVariantMap node( const QString& id );
 
 private:
+    QVariantMap m_components;
+    QVariantMap m_connectors;
+    QVariantMap m_nodes;
     KTLCircuitPlugin *m_circuitPlugin;
 };
 

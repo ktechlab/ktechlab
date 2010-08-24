@@ -69,13 +69,12 @@ bool IDocumentModel::setData(const QModelIndex& index, const QVariant& value, in
 }
 
 
-bool IDocumentModel::addComponent(const QVariantMap& component)
+void IDocumentModel::addComponent(const QVariantMap& component)
 {
     if (!component.contains("id"))
-        return false;
+        return;
 
     d->components.insert( component.value("id").toString(), component);
-    return true;
 }
 
 QVariantMap IDocumentModel::component(const QString& key) const
@@ -88,13 +87,12 @@ QVariantMap IDocumentModel::components() const
     return d->components;
 }
 
-bool IDocumentModel::addConnector(const QVariantMap& connector)
+void IDocumentModel::addConnector(const QVariantMap& connector)
 {
     if ( !connector.contains( "id" ) )
-        return false;
+        return;
 
     d->connectors.insert( connector.value("id").toString(), connector );
-    return true;
 }
 
 QVariantMap IDocumentModel::connector(const QString& key) const
@@ -105,6 +103,11 @@ QVariantMap IDocumentModel::connector(const QString& key) const
 QVariantMap IDocumentModel::connectors() const
 {
     return d->connectors;
+}
+
+void IDocumentModel::updateData(const QString& name, const QVariantMap& data)
+{
+
 }
 
 #include "idocumentmodel.moc"

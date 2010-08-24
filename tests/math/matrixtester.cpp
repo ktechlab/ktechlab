@@ -8,8 +8,6 @@
 
 #include <QtTest/QtTest>
 
-#include <math.h>
-
 // using namespace Eigen;
 
 #define     VERY_SMALL_THRESHOLD    1e-12
@@ -65,39 +63,13 @@ class MatrixTester : public QObject
  
     // compare an eigen vector to quickvector
     double differenceOfVectors(const Eigen::VectorXd &eig, const QuickVector &our){
-      if( (unsigned int)eig.size() != (unsigned int)our.size()){
+        if( eig.size() != our.size()){
             qDebug("test case broken. comparing vectors of different size!");
             return 1e12;
         }
-
         double ret = 0;
-        for(unsigned int x=0; x<our.size(); x++){
-
-            if( isnan( eig(x) ) )
-                qWarning("NaN value in vector");
-            else
-                if( isnan( our.at(x) )  ){
-                    qCritical("illegal NaN value in solution vector");
-                    return 2e12;
-                }
-
-            if( isinf( eig(x) ) )
-                qWarning("Inf value in vector");
-            else
-                if( isinf( our.at(x) ) ){
-                    qCritical("illegal Inf value in solution vector");
-                    return 3e12;
-                }
-
+        for(int x=0; x<our.size(); x++)
             ret += abs( our.at(x) - eig(x));
-        }
-
-        if( ret < 0 ){
-            qDebug("we have a problem with absolute difference");
-            std::cout << "eig: " << eig << "\n";
-            std::cout << "our: \n" ;
-            our.dumpToAux();
-        }
         return ret;
     }
  
@@ -143,13 +115,7 @@ class MatrixTester : public QObject
         std::cout << "\n";
         #endif
 
-        double diff ;
-        diff = differenceOfVectors(esol, pv);
-
-        #ifdef DEBUG_SOLVETEST
-        std::cout << "diff = " << diff << "\n";
-        #endif
-
+        double diff = differenceOfVectors(esol, pv);
         if( diff > SOLVE_ERROR) {
             qDebug("solving test failed. dumping matrixes:\n");
             std::cout << "Eigen stuff: \nem, matrix =\n" << em
@@ -400,7 +366,6 @@ private slots:
         // nonz = number of nonzero elements
         for(int nonz=1;nonz<10; nonz++){
             // fill m with nonz nonzero elements
-//        m.setZero(maxrow,maxcol);
         m.setZero();
         for(int i=0; i<nonz; i++){
             do {

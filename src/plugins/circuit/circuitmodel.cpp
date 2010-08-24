@@ -40,16 +40,83 @@ CircuitModel::CircuitModel ( QObject* parent )
     }
 }
 
-bool CircuitModel::addComponent ( const QVariantMap& component )
+void CircuitModel::addComponent ( const QVariantMap& component )
 {
     if ( !m_circuitPlugin ) {
         kError() << "No plugin found to load KTechLab Documents";
-        return false;
+        return;
     }
-
-    QVariantMap map(component);
-    map.insert( "fileName",
-                m_circuitPlugin->fileNameForComponent( map.value("type").toString() )
-            );
-    return IDocumentModel::addComponent( map );
+    if ( component.contains( "id" ) ) {
+        QVariantMap map(component);
+        map.insert( "fileName",
+                    m_circuitPlugin->fileNameForComponent( map.value("type").toString() )
+                );
+        m_components.insert( component.value("id").toString(), map );
+    }
 }
+
+QVariantMap CircuitModel::components() const
+{
+    return m_components;
+}
+
+QVariantMap CircuitModel::component ( const QString& id )
+{
+    return m_components.value(id).toMap();
+}
+
+void CircuitModel::addConnector ( const QVariantMap& connector )
+{
+    if ( connector.contains( "id" ) )
+        m_connectors.insert( connector.value("id").toString(), connector );
+}
+
+
+QVariantMap CircuitModel::connectors() const
+{
+    return m_connectors;
+}
+
+void CircuitModel::addNode(const QVariantMap& node)
+{
+    if ( node.contains( "id" ) )
+        m_nodes.insert( node.value("id").toString(), node );
+}
+
+QVariantMap CircuitModel::node(const QString& id)
+{
+    if ( m_nodes.contains( id ) )
+        return m_nodes.value(id).toMap();
+
+    return QVariantMap();
+}
+
+QVariantMap CircuitModel::nodes() const
+{
+    return m_nodes;
+}
+
+
+QVariant CircuitModel::data ( const QModelIndex& index, int role ) const
+{
+    return QVariant();
+}
+
+int CircuitModel::columnCount ( const QModelIndex& parent ) const
+{
+    return 1;
+}
+
+int CircuitModel::rowCount ( const QModelIndex& parent ) const
+{
+    if ( !parent.isValid() )
+        return m_components.size();
+
+    return 0;
+}
+
+bool CircuitModel::setData ( const QModelIndex& index, const QVariant& value, int role )
+{
+    return QAbstractItemModel::setData ( index, value, role );
+}
+

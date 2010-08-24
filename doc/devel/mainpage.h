@@ -31,6 +31,7 @@ Various terms used in this document are described here.
 
 KTechLab internally is based on KDevPlatform.
 See http://www.kdevelop.org/mediawiki/index.php/KDevelop_4#Platform_Information .
+
 The source code has similar layout as the above mentioned platform.
 It uses plugins.
 
