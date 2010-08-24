@@ -87,7 +87,7 @@ KTechLab::IElement* KTechLab::IPin::parent() const
     return m_parent;
 }
 
-KTechLab::QVariantMap* KTechLab::IPin::parentInModel() const
+QVariantMap* KTechLab::IPin::parentInModel() const
 {
     return m_parentInModel;
 }
