@@ -18,6 +18,9 @@
 #include <kdebug.h>
 #include <interfaces/simulator/isimulationmanager.h>
 #include <interfaces/simulator/ielementfactory.h>
+#include "pingroup.h"
+#include "interfaces/simulator/ielement.h"
+#include "interfaces/simulator/iwire.h"
 
 using namespace KTechLab;
 
@@ -100,9 +103,7 @@ void CircuitTransientSimulator::documentStructureChanged()
 void CircuitTransientSimulator::recreateElementList()
 {
     // clear the list
-    foreach(IElement *element, m_allElementList){
-        delete element;
-    }
+    qDeleteAll(m_allElementList);
     m_allElementList.clear();
     m_idToElement.clear();
     // cache a pointer
@@ -144,9 +145,7 @@ void CircuitTransientSimulator::recreateWireList()
 {
     QVariantMap allConnectors = m_doc->connectors();
     // clear the list
-    foreach(IWire *wire, m_allWireList){
-        delete wire;
-    }
+    qDeleteAll(m_allWireList);
     m_allWireList.clear();
     m_idToWire.clear();
     // repopulate the list
@@ -158,9 +157,7 @@ void CircuitTransientSimulator::recreateWireList()
 void CircuitTransientSimulator::splitPinsInGroups()
 {
     // clean up
-    foreach(PinGroup group, m_pinGroups){
-        delete group;
-    }
+    qDeleteAll(m_pinGroups);
     m_pinGroups.clear();
     // repopulate the list
     // TODO implement
