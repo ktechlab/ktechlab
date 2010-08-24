@@ -123,7 +123,7 @@ void CircuitTransientSimulator::recreateElementList()
         }
         QString compType = componentVarMap.value("type").toString();
 
-        QList<IElementFactory*> elemFactList = simMng->registeredFactories("transient", compType);
+        QList<IElementFactory*> elemFactList = simMng->registeredFactories("transient", compType, "application/x-circuit");
         if( elemFactList.isEmpty() ){
             kError() << "cannot create simulation model for the component type \""
                 + compType + "\": unknown component type\n";
