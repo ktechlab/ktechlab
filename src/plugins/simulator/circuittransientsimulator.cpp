@@ -87,9 +87,23 @@ void CircuitTransientSimulator::documentStructureChanged()
             find all the voltages and currents
         - define chanins to find voltages and currents on all Pins and Wires
     */
-    recreateElementList();
-    recreateWireList();
-    splitPinsInGroups();
+    m_canBeSimulated = false;
+    if( ! recreateElementList() ){
+        kError() << "failed to recreate element list\n";
+        return;
+    }
+    if( ! recreateNodeList() ){
+        kError() << "failed to recreate node list\n";
+        return;
+    }
+    if( ! recreateWireList() ){
+        kError() << "failed to recreated the wire list\n";
+        return;
+    }
+    if( ! splitPinsInGroups() ){
+        kError() << "failed to split pins in groups\n";
+        return;
+    }
     /*
     splitDocumentInCircuits(); 
     foreach(Circuit *c, m_circuits){ // what kind of abstraction?
@@ -98,9 +112,10 @@ void CircuitTransientSimulator::documentStructureChanged()
         solveElementSet();
     }
     */
+    m_canBeSimulated = true;
 }
 
-void CircuitTransientSimulator::recreateElementList()
+bool CircuitTransientSimulator::recreateElementList()
 {
     // clear the list
     qDeleteAll(m_allElementList);
@@ -113,13 +128,13 @@ void CircuitTransientSimulator::recreateElementList()
     foreach(QVariant componentVariant, m_doc->components() ){
         if( componentVariant.type() != QVariant::Map){
             kError() << "BUG: this component is not a QVariantMap: " << componentVariant << "\n";
-            // FIXME error handling
+            return false;
         }
         QVariantMap componentVarMap = componentVariant.toMap();
         // get the type of the component
         if(! componentVarMap.contains("type") ){
             kError() << "BUG: a component doesn't have a \"type\" field!\n";
-            // FIXME error handling
+            return false;
         }
         QString compType = componentVarMap.value("type").toString();
 
@@ -127,7 +142,11 @@ void CircuitTransientSimulator::recreateElementList()
         if( elemFactList.isEmpty() ){
             kError() << "cannot create simulation model for the component type \""
                 + compType + "\": unknown component type\n";
-            // FIXME error handling
+            return false;
+        }
+        if( elemFactList.size() > 1){
+            kWarning() << "more than one model factory for component type " << compType
+                << ", selecting first one \n";
         }
         // pick a factory
         IElement *element = elemFactList.first()->createElement(compType);
@@ -141,9 +160,13 @@ void CircuitTransientSimulator::recreateElementList()
     kDebug() << "created " << m_allElementList.count() << " elements\n";
 }
 
-void CircuitTransientSimulator::recreateWireList()
+bool CircuitTransientSimulator::recreateNodeList()
 {
     QVariantMap allConnectors = m_doc->connectors();
+}
+
+bool CircuitTransientSimulator::recreateWireList()
+{
     // clear the list
     qDeleteAll(m_allWireList);
     m_allWireList.clear();
@@ -154,7 +177,7 @@ void CircuitTransientSimulator::recreateWireList()
     kDebug() << "created " << m_allWireList.count() << " wires\n";
 }
 
-void CircuitTransientSimulator::splitPinsInGroups()
+bool CircuitTransientSimulator::splitPinsInGroups()
 {
     // clean up
     qDeleteAll(m_pinGroups);

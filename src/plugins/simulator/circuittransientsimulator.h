@@ -82,12 +82,23 @@ public slots:
     virtual void simulationTimerTicked();
     
 private:
-    /** create a list of elements to be simulated, based on the document model */
-    void recreateElementList();
-    /** creata a list of wires to be simulated, based on the document model */
-    void recreateWireList();
-    /** split the groups into connected groups */
-    void splitPinsInGroups();
+    /** create a list of elements to be simulated, based on the document model
+     \return true if it's successful and false un faliure
+     */
+    bool recreateElementList();
+    /** creata a list of wires to be simulated, based on the document model
+     \return true if it's successful and false un faliure
+     */
+    bool recreateWireList();
+    /** split the groups into connected groups
+     \return true if it's successful and false un faliure
+     */
+    bool splitPinsInGroups();
+    /** creates a list of pins that don't belong to any element
+     \return true if it's successful and false un faliure
+     */
+    bool recreateNodeList();
+
     // utilitary methods
     /** convert a variant containing string containing a boolean (0/1) value
         to boolean. Has error checking */
@@ -98,6 +109,11 @@ private:
     
     /// the document model associated with the simulator
     IDocumentModel *m_doc;
+
+    /** flag to indicate if the creation of internal data structures was successful.
+        the flag is used by simulationTimerTicked, in order to try to simulate,
+        or not */
+    bool m_canBeSimulated;
     
     /// list of all elements in the document
     QList<IElement*> m_allElementList;
