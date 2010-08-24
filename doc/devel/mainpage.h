@@ -166,6 +166,25 @@ This way the base type IElement provides methods to translate
 the number of the IPins
 belonging to the element into positions in the matrixes.
 
+\subsubsection sim_obj_hierarchy Object allocation hierarchy in the simulator
+
+Inside the simulator, many objects are created and
+many objects hold pointers to other objects.
+However, it must be clearly defined, which object creates
+a new object of a given type and role,
+and the same creator object should destruct the created object.
+This subsection presents such relations between the classes.
+
+CircuitTransientSimulator:
+\li m_allElementList: all elements in the simulation
+\li m_allWireList: all wires in the simulation
+\li m_pinGroups: all PinGroup objects
+
+IElement:
+\li m_pins: the pins of the specific element
+
+
+
 \section component_map Key / Value pairs used in component models
 
 In the document model there are components and connectors.
