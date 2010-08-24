@@ -216,14 +216,16 @@ of documents.
 
 \subsubsection circuit_connector_maps Connectors
 
-\li
 \li end-node-cid
+\li end-node-id (if end-node-is-child == 0)
 \li end-node-is-child: 0 or 1
 \li end-node-parent
 \li id
 \li manual-route: 0 or 1
 \li route: string or point coordinates
-\li start-node-cid: 0 or 1
+\li start-node-id (if start-node-is-child == 0)
+\li start-node-is-child: 0 or 1
+\li start-node-cid: 
 \li start-node-parent
 
 \subsection flowcode_qvariantmaps Flowcode documents
