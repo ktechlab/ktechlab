@@ -26,11 +26,11 @@
 
 using namespace KTechLab;
 
-IWire::IWire(IPin* start, IPin* end, QVariantMap* parentInModel)
+IWire::IWire(IPin* start, IPin* end, QVariantMap& parentInModel) :
+    m_parentInModel(parentInModel)
 {
     m_start = start;
     m_end = end;
-    m_parentInModel = parentInModel;
     // TODO implement
 }
 
@@ -38,10 +38,9 @@ KTechLab::IWire::~IWire()
 {
     m_start = 0;
     m_end = 0;
-    m_parentInModel = 0;
 }
 
-QVariantMap* KTechLab::IWire::parentInModel() const
+QVariantMap& KTechLab::IWire::parentInModel() const
 {
     return m_parentInModel;
 }

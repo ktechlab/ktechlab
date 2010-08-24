@@ -49,7 +49,7 @@ class KTLINTERFACES_EXPORT IWire : public QObject
           \param parentInModel the parent of the wire in the circuit model,
             which should be a connector 
           */
-        IWire( IPin *start, IPin *end, QVariantMap *parentInModel);
+        IWire( IPin *start, IPin *end, QVariantMap &parentInModel);
         /**
           destructor
           */
@@ -87,7 +87,7 @@ class KTLINTERFACES_EXPORT IWire : public QObject
         /**
           \return the component from the model, correspoding to this wire
           */
-        QVariantMap * parentInModel() const;
+        QVariantMap &parentInModel() const;
         /**
           transfer the current / voltage value of this wire to the model
           */
@@ -113,7 +113,7 @@ class KTLINTERFACES_EXPORT IWire : public QObject
         /** value of the current */
         double m_current;
         /** parent of the wire in the model */
-        QVariantMap *m_parentInModel;
+        QVariantMap &m_parentInModel;
 };
 
 }
