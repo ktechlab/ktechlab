@@ -48,6 +48,7 @@ private slots:
     void openDocument();
     void addResistor();
     void elementFactoryTest();
+    void openTestCircuit();
 
 private:
     KDevelop::TestCore* m_core;

@@ -261,5 +261,37 @@ void AddComponentsTest::addResistor(){
     QVERIFY( m_core->documentController()->openDocuments().size() == 0);
 }
 
+void AddComponentsTest::openTestCircuit()
+{
+    QString testFilePath(PROJECTS_SOURCE_DIR);
+    testFilePath.append("/test-project/test.circuit");
+    qDebug() << "file name: " << testFilePath << "\n";
+    KUrl testUrl(testFilePath);
+        // test if the test is valid
+    QFile testFile(testFilePath);
+    QVERIFY( testFile.exists() );
+        // open the file
+    KDevelop::IDocument *testdoc = m_core->documentController()->openDocument(testUrl);
+    QVERIFY(testdoc);
+        // cast to component document
+    IComponentDocument *compDoc = dynamic_cast<IComponentDocument*>(testdoc);
+    QVERIFY(compDoc);
+        // get the model
+    IDocumentModel *model = compDoc->documentModel();
+    QVERIFY( model );
+        // dump the model
+    QVariantMap components = model->components();
+    qDebug() << "components in the test file:\n";
+    foreach(QVariant modelVariant, components){
+        qDebug() << modelVariant << "\n";
+    }
+    QVariantMap connectors = model->connectors();
+    foreach(QVariant modelVariant, connectors){
+        qDebug() << modelVariant << "\n";
+    }
+    
+}
+
+
 QTEST_KDEMAIN(AddComponentsTest , GUI)
 #include "addcomponents.moc"
