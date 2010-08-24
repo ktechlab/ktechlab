@@ -180,5 +180,49 @@ void CircuitTransientSimulator::simulationTimerTicked()
     */
 }
 
+bool CircuitTransientSimulator::variantToBool(const QVariant& variant, bool &success)
+{
+    if(variant.isValid()){
+        kError() << "cannot convert invalid variant to bool!\n";
+        success = false;
+        return false;
+    }
+    if(variant.type() != QVariant::String){
+        // XML for the looser: everything is a string...
+        kError() << "cannot convert non-string variant to bool: "
+            << variant << "\n";
+        success = false;
+        return false;
+    }
+    if(variant.toString() == "0"){
+        success = true;
+        return false;
+    }
+    if(variant.toString() == "1"){
+        success = true;
+        return true;
+    }
+    // got here, so it must be junk
+    kError() << "junk instead of boolean value: " << variant << "\n";
+    success = true;
+    return false;
+}
 
+QString CircuitTransientSimulator::variantToString(const QVariant& string, bool& success)
+{
+    if(string.isValid()){
+        kError() << "cannot convert invalid variant to string!\n";
+        success = false;
+        return false;
+    }
+    if(string.type() != QVariant::String){
+        // XML for the loose: everything is a string...
+        kError() << "cannot convert non-string variant to bool: "
+            << string << "\n";
+        success = false;
+        return QString();
+    }
+    success = true;
+    return string.toString();
+}
 
