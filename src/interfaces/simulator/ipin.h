@@ -57,7 +57,7 @@ class KTLINTERFACES_EXPORT IPin : public QObject
                 a component or a connector
             \param pinName the name of the pin in the model
           */
-        IPin(QVariantMap *parentInModel, QString pinName);
+        IPin(const QVariantMap &parentInModel, QString pinName);
         /**
           virtual destructor
           */
@@ -68,7 +68,7 @@ class KTLINTERFACES_EXPORT IPin : public QObject
           \return the element corresponding in the model to this pin:
             a component or a connector
           */
-        QVariantMap * parentInModel() const ;        
+        const QVariantMap & parentInModel() const ;
 
         /**
           set the voltage and current from this node into the model
@@ -133,7 +133,7 @@ class KTLINTERFACES_EXPORT IPin : public QObject
         /** the name of the pin, used in the data transfer to model */
         QString m_name;
         /** the component/connector from where this pin came */
-        QVariantMap *m_parentInModel;
+        const QVariantMap &m_parentInModel;
         /** the parent of this element, if it doesn't correspond
             to a junction node */
         IElement *m_parent;
