@@ -295,12 +295,17 @@ bool CircuitTransientSimulator::splitPinsInGroups()
     // repopulate the list
     // TODO implement
     kDebug() << "created " << m_pinGroups.count() << " pin groups\n";
+    return false;
 }
 
 
 void CircuitTransientSimulator::simulationTimerTicked()
 {
-    kDebug() << "simulationTimerTicked\n";
+    // kDebug() << "simulationTimerTicked\n";
+    if( ! m_canBeSimulated ){
+        // kDebug() << "shouldn't do anything\n";
+        return;
+    }
     /*
     general algorithm for circuit simulation:
     - notify the elements about the new simulation time
