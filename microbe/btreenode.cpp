@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2004-2005 by Daniel Clarke                              *
- *   daniel.jc@gmail.com                                               *
+ *   daniel.jc@gmail.com                                                   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -23,44 +23,44 @@
 
 BTreeNode::BTreeNode()
 {
-	m_parent = 0L;
-	m_left = 0L;
-	m_right = 0L;
-	m_type = unset;
+    m_parent = 0L;
+    m_left = 0L;
+    m_right = 0L;
+    m_type = unset;
 }
 
 BTreeNode::BTreeNode(BTreeNode *p, BTreeNode *l, BTreeNode *r)
 {
-	m_parent = p;
-	m_left = l;
-	m_right = r;
+    m_parent = p;
+    m_left = l;
+    m_right = r;
 }
 
 BTreeNode::~BTreeNode()
 {
-	// Must not delete children as might be unlinking!!! deleteChildren();
+    // Must not delete children as might be unlinking!!! deleteChildren();
 }
 
 void BTreeNode::deleteChildren()
 {
-	if(m_left)
-	{
-		m_left->deleteChildren();
-		delete m_left;
-	}
-	if(m_right)
-	{
-		m_right->deleteChildren();
-		delete m_right;
-	}
-	
-	m_left = 0L;
-	m_right = 0L;
-	
-	return;
+    if (m_left)
+    {
+        m_left->deleteChildren();
+        delete m_left;
+    }
+    if (m_right)
+    {
+        m_right->deleteChildren();
+        delete m_right;
+    }
+
+    m_left = 0L;
+    m_right = 0L;
+
+    return;
 }
 
 // void BTreeNode::printTree()
 // {
-// 	
+//
 // }

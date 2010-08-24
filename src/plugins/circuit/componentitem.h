@@ -10,26 +10,51 @@
 #ifndef COMPONENTAPPLET_H
 #define COMPONENTAPPLET_H
 
-#include <QGraphicsView>
-#include <QGraphicsSvgItem>
+#include <QDomDocument>
+#include <interfaces/component/icomponentitem.h>
 
 namespace KTechLab
 {
 
 class Theme;
 
-class ComponentItem: public QGraphicsSvgItem
+class ComponentItem: public IComponentItem
 {
+    Q_OBJECT
 public:
     ComponentItem ( const QVariantMap& data, Theme *theme, QGraphicsItem* parentItem = 0 );
     ~ComponentItem();
 
+    virtual QPainterPath shape() const;
+    virtual QVariant itemChange(GraphicsItemChange change, const QVariant& value);
+
 public slots:
+    virtual void updateData( const QString &name, const QVariantMap &data );
+
+signals:
     void dataUpdated( const QString &name, const QVariantMap &data );
 
+protected:
+    virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
+    virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
+    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+
 private:
+
+    /**
+     * Add all pins defined in the svg file to this item.
+     * Information is extracted from the DOM.
+     */
+    void initPins();
+
     QSvgRenderer *m_renderer;
     Theme *m_theme;
+    QDomDocument m_svgDocument;
+
+    QPainterPath m_shape;
+    QPointF m_oldPos;
 };
 
 }

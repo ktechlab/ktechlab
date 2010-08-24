@@ -22,20 +22,19 @@
 #include "theme.h"
 #include "ktlcircuitplugin.h"
 #include "interfaces/component/componentmimedata.h"
+#include "interfaces/component/connectoritem.h"
 #include "componentitem.h"
 
 #include <QGraphicsSceneDragDropEvent>
 #include <KDebug>
-#include <interfaces/iplugincontroller.h>
-#include <shell/core.h>
 #include "circuitmodel.h"
-#include "connectorpath.h"
+#include "pinitem.h"
 
 using namespace KTechLab;
 
 
 CircuitScene::CircuitScene ( QObject* parent, CircuitModel *model )
- : QGraphicsScene ( parent ),
+ : IDocumentScene ( parent ),
    m_model( model ),
    m_theme( new Theme() )
 {
@@ -47,6 +46,7 @@ CircuitScene::CircuitScene ( QObject* parent, CircuitModel *model )
 CircuitScene::~CircuitScene()
 {
     qDeleteAll( m_components.values() );
+    delete m_theme;
 }
 
 QString CircuitScene::circuitName() const
@@ -93,19 +93,30 @@ void CircuitScene::setupData()
     foreach (QVariant component, m_model->components())
     {
         if (component.canConvert(QVariant::Map)) {
-            addItem( new ComponentItem( component.toMap(), m_theme ) );
+            ComponentItem* item = new ComponentItem( component.toMap(), m_theme );
+            addItem( item );
+            m_components.insert(item->id(), item);
         }
     }
     foreach (QVariant connector, m_model->connectors())
     {
         if (connector.canConvert(QVariant::Map)) {
-            ConnectorPath p( connector.toMap() );
-            addPath( p );
+            ConnectorItem *connectorItem = new ConnectorItem(connector.toMap());
+            addItem( connectorItem );
+        }
+    }
+    foreach (QVariant pins, m_model->nodes()){
+        if (pins.canConvert(QVariant::Map)) {
+            QPointF p(pins.toMap().value("x").toDouble(),pins.toMap().value("y").toDouble());
+            p -= QPointF(6,6);
+            QRectF rect(p, QSize(4,4));
+            PinItem* item = new PinItem(rect, 0, this);
+            item->setId(pins.toMap().value("id").toString());
         }
     }
 }
 
-void CircuitScene::dataUpdated( const QString &name, const QVariantList &data )
+void CircuitScene::updateData( const QString& name, const QVariantMap& data )
 {
     //Plasma::DataEngine *docEngine = dataEngine( "ktechlabdocument" );
     //kDebug() << "isContainment() ==" << isContainment();
@@ -137,3 +148,5 @@ void CircuitScene::setCircuitName ( const QString& name )
     m_circuitName = name;
     setupData();
 }
+
+#include "circuitscene.moc"

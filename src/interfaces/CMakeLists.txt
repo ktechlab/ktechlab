@@ -1,6 +1,12 @@
-include_directories( ${KDEVPLATFORM_INCLUDE_DIR} )
+include_directories(
+    ${KDEVPLATFORM_INCLUDE_DIR}
+    ${CMAKE_SOURCE_DIR}/src
+    )
 
-set( ktlinterfaces_LIB_SRCS 
+set( ktlinterfaces_LIB_SRCS
+   component/connector.cpp
+   idocumentscene.cpp
+   iconrouter.cpp
    idocumentmodel.cpp
    idocumentplugin.cpp
    icomponentdocument.cpp
@@ -8,6 +14,10 @@ set( ktlinterfaces_LIB_SRCS
    component/icomponent.cpp
    component/componentmodel.cpp
    component/componentmimedata.cpp
+   component/connectoritem.cpp
+   component/icomponentitem.cpp
+   component/node.cpp
+   
    simulator/ipin.cpp 
    simulator/ielement.cpp
    simulator/ielementset.cpp 

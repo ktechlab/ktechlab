@@ -1,6 +1,6 @@
 /*
-    <one line to give the program's name and a brief idea of what it does.>
-    Copyright (C) <year>  <name of author>
+    The graphical representation of a circuit.
+    Copyright (C) 2009-2010  Julian Bäume <julian@svg4all.de>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 #ifndef CIRCUITSCENE_H
 #define CIRCUITSCENE_H
 
-#include <QGraphicsScene>
+#include <interfaces/idocumentscene.h>
 #include <QVariantList>
 
 namespace KTechLab
@@ -31,14 +31,15 @@ class Theme;
 class CircuitModel;
 class KTLCircuitPlugin;
 
-class CircuitScene : public QGraphicsScene
+class CircuitScene : public IDocumentScene
 {
+  Q_OBJECT
   public:
     CircuitScene ( QObject* parent = 0, CircuitModel *model = 0 );
-    ~CircuitScene();
+    virtual ~CircuitScene();
 
   public slots:
-    void dataUpdated( const QString &name, const QVariantList &data );
+    virtual void updateData( const QString &name, const QVariantMap &data );
 
   protected:
     virtual void dropEvent ( QGraphicsSceneDragDropEvent* event );

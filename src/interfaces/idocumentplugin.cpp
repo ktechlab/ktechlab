@@ -19,7 +19,7 @@ IDocumentPlugin::IDocumentPlugin( KComponentData data, QObject *parent)
 
 QString IDocumentPlugin::fileNameForComponent ( const QString& component )
 {
-    return QString(component).replace('/','_').append(".svgz");
+    return QString(component).replace('/','_').append(".svg");
 }
 
 #include "idocumentplugin.moc"

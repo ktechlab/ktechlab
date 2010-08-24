@@ -22,15 +22,12 @@ namespace KDevelop
 class Core;
 } // namespace KDevelop
 
-#define EMPTY_CIRCUIT_DOCUMENT_URL i18n("Untitled")
-
 namespace KTechLab
 {
 
 class CircuitDocument;
 class CircuitScene;
 class CircuitModel;
-class IDocumentModel;
 
 class CircuitDocumentPrivate
 {
@@ -39,7 +36,6 @@ public:
     ~CircuitDocumentPrivate();
 
     void reloadFromXml();
-    bool isEmptyDocumentUrl(KUrl url);
 
     CircuitScene *circuitScene;
     CircuitModel *circuitModel;
@@ -68,8 +64,6 @@ public:
      */
     virtual QString documentType() const;
 
-    QVariantMap items() const;
-    
     /**
      * see \ref KTechLab::IComponentDocument
      */
