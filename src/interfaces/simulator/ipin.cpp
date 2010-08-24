@@ -36,14 +36,15 @@ KTechLab::IPin::IPin()
 }
 */
 
-IPin::IPin(QVariantMap* parentInModel, QString pinName): QObject()
+IPin::IPin(const QVariantMap& parentInModel, QString pinName):
+    QObject(), m_parentInModel(parentInModel)
 {
     m_name = pinName;
     // TODO implement
     m_currentIn = 0;
     m_voltage = 0;
     m_parent = NULL;
-    m_parentInModel = parentInModel;
+//    m_parentInModel = &parentInModel;
     m_wires.clear();
 }
 
@@ -53,7 +54,6 @@ KTechLab::IPin::~IPin()
     m_currentIn = 0;
     m_voltage = 0;
     m_parent = NULL;
-    m_parentInModel = NULL;
     m_wires.clear();
 }
 
@@ -87,7 +87,7 @@ KTechLab::IElement* KTechLab::IPin::parent() const
     return m_parent;
 }
 
-QVariantMap* KTechLab::IPin::parentInModel() const
+const QVariantMap& KTechLab::IPin::parentInModel() const
 {
     return m_parentInModel;
 }
