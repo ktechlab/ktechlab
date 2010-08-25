@@ -1,7 +1,7 @@
 //
 // C++ Implementation: voltageappearance
 //
-// Description: 
+// Description:
 //
 //
 // Author: David Saxton, Alan Grimes <agrimes@speakeasy.net>, (C) 2009

@@ -20,13 +20,13 @@ class ElementSet;
 
 extern double T_K; ///< Temperature in Kelvin
 
-/// Thermal Energy 
+/// Thermal Energy
 #define E_T (BOLTZMANN_CONSTANT * T_K)
 
 /// Thermal voltage
 #define V_T (E_T / ELEMENTARY_CHARGE)
 
-// do we want this as a macro or as a function? 
+// do we want this as a macro or as a function?
 // double thermal_voltage(double temperature);
 
 class CNode
@@ -42,19 +42,19 @@ public:
 	inline void setVoltage(double volts) { if(m_n > -1) v = volts; }
 
 	inline bool isGround() const { return m_n == -1; }
-	void setGround(); 
+	void setGround();
 
 	inline void resetCurrent() { i = 0.0; }
-	inline void sinkCurrent(const double current) { i = -current; } // classical currents 
+	inline void sinkCurrent(const double current) { i = -current; } // classical currents
 	inline void sourceCurrent(const double current) { i = current; }
 	inline double current() const { return i; }
 	inline void setCurrent(const double ampres) { i = ampres; }
 
 private:
 	/// Voltage on node. This is set from the last calculated voltage.
-	/// current is a read-out varriable. 
+	/// current is a read-out varriable.
 	double i, v;
-// FIXME/WARNING: current won't be correct when Cnode is shared between elements! =( 
+// FIXME/WARNING: current won't be correct when Cnode is shared between elements! =(
 
 	/// CNode number
 	int32_t m_n;
@@ -194,7 +194,7 @@ public:
 	double cbranchCurrent(const int branch);
 	double cnodeVoltage(const int node);
 
-	double cnodeCurrent(const int node) { 
+	double cnodeCurrent(const int node) {
 		if(b_status) return p_cnode[node]->current();
 		else return 0.0; }
 
@@ -237,7 +237,7 @@ protected:
 
 private:
 	// TODO: this is never initialized, and is only returned as a default value
-	// for several functions, maybe named constand 0 or 1 should be used? 
+	// for several functions, maybe named constand 0 or 1 should be used?
 	double m_temp;
 };
 
@@ -264,7 +264,7 @@ double &Element::A_c(uint32_t i, uint32_t j)
 	return p_eSet->Ag(p_cbranch[i]->n(), p_cnode[j]->n());
 }
 
-/// access the cbranch part of the matrix. 
+/// access the cbranch part of the matrix.
 double &Element::A_d(uint32_t i, uint32_t j)
 {
 	return p_eSet->Ag(p_cbranch[i]->n(), p_cbranch[j]->n());

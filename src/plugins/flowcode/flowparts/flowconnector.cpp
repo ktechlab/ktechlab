@@ -1,7 +1,7 @@
 //
 // C++ Implementation: flowconnector
 //
-// Description: 
+// Description:
 //
 //
 // Author: David Saxton, Alan Grimes, Zoltan Padrah <zoltan.padrah@gmail.com>, (C) 2008
@@ -14,7 +14,7 @@
 
 #include "fpnode.h"
 
-FlowConnector::FlowConnector(FPNode* startNode, FPNode* endNode, ICNDocument* _ICNDocument, const QString &id) : 
+FlowConnector::FlowConnector(FPNode* startNode, FPNode* endNode, ICNDocument* _ICNDocument, const QString &id) :
 	Connector(_ICNDocument, id)
 {
 	m_startFpNode = startNode;

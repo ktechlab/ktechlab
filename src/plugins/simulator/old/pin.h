@@ -85,7 +85,7 @@ public:
 	 */
 	int groundType() const { return m_groundType; }
 
-// ###  strange pin list stuff. 
+// ###  strange pin list stuff.
 	/**
 	 * Adds a dependent pin - one whose voltages will (or might) affect the
 	 * voltage of this pin. This is set by Component.
@@ -157,7 +157,7 @@ private:
 	GroundType m_groundType;
 
 	PinSet m_circuitDependentPins;
-	PinSet m_groundDependentPins; // for circuit partitioning. 
+	PinSet m_groundDependentPins; // for circuit partitioning.
 	ElementList m_elementList;
 	WireList m_wireList;
 };

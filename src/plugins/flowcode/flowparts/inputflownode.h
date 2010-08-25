@@ -1,7 +1,7 @@
 //
 // C++ Interface: inputflownode
 //
-// Description: 
+// Description:
 //
 //
 // Copyright: See COPYING file that comes with this distribution

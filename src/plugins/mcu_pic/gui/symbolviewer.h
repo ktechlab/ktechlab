@@ -58,7 +58,7 @@ class SymbolViewer : public QWidget
 		void readProperties( KConfig * config );
 		
 		void setContext( GpsimProcessor * gpsim );
-		/** 
+		/**
 		 * Converts the value to a string for display according to the currently
 		 * selected radix.
 		 */

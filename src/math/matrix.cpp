@@ -14,7 +14,7 @@
 #include <cmath>
 #include <cstring>
 
-#include <iostream> 
+#include <iostream>
 
 /// Minimum value before an entry is deemed "zero"
 const double epsilon = 1e-40;
@@ -44,7 +44,7 @@ Matrix::~Matrix()
 	m_inMap = 0;
 }
 
-double& Matrix::g(CUI i, CUI j) 
+double& Matrix::g(CUI i, CUI j)
 {
     const unsigned int mapped_i = m_inMap[i];
     if(mapped_i < max_k) max_k = mapped_i;
@@ -56,7 +56,7 @@ double& Matrix::g(CUI i, CUI j)
 
     return(*m_mat)[mapped_i][j];
 }
-        
+
 void Matrix::swapRows(CUI a, CUI b)
 {
 	if(a == b) return;
@@ -78,7 +78,7 @@ void Matrix::performLU()
 	if(n == 1) {
 // degenerate case
 		m_lu->atPut(0, 0, m_mat->at(0, 0));
-		max_k = 1; 
+		max_k = 1;
 		return;
 	}
 
@@ -93,7 +93,7 @@ void Matrix::performLU()
 	// LU decompose the matrix, and store result back in matrix
 	for(unsigned int k = 0; k < n-1; k++) {
 
-		// do row permutations; 
+		// do row permutations;
 		unsigned foo;
 		if(k >= max_k) {
 			double max = std::abs(m_mat->at(k,k));
@@ -108,7 +108,7 @@ void Matrix::performLU()
 
 			if(row != k) swapRows(k,row);
 
-			foo = k; 
+			foo = k;
 		} else foo = max_k;
 
 		foo++;
@@ -116,7 +116,7 @@ void Matrix::performLU()
 		double *const lu_K_K = &(*m_lu)[k][k];
 
 // detect singular matrixes...
-		double lu_K_K_val = *lu_K_K; // have a local copy of the data at the pointer. 
+		double lu_K_K_val = *lu_K_K; // have a local copy of the data at the pointer.
 		if(std::abs(lu_K_K_val) < 1e-10) {
 			if(lu_K_K_val < 0.) *lu_K_K = -1e-10;
 			else *lu_K_K = 1e-10;
@@ -179,7 +179,7 @@ void Matrix::fbSub(const QuickVector* b, QuickVector* x)
 		}
 	}
 
-// I think we don't need to reverse the mapping because we only permute rows, not columns. 
+// I think we don't need to reverse the mapping because we only permute rows, not columns.
 	for(unsigned int i = 0; i < size; i++ )
 		(*x)[i] = m_y[i];
 }
@@ -197,7 +197,7 @@ there doesn't appear to be a way to obtain direct pointers into our classes inne
 uintWhile it is a good safety feature of our classes, it doesn't facilitate optimization in this
 instance... Furthermore, our matrix class has an accelerator for this operation however it is
 ignorant of row permutations and it allocates new memory for the result matrix, breaking the
-interface of this method. 
+interface of this method.
 */
 		for(unsigned int j = 0; j < size; j++) {
 			result->atAdd(_i, (*m_mat)[i][j] * (*rhs)[j]);
@@ -246,13 +246,13 @@ void Matrix::displayLU(std::ostream &outstream) const
 check the validity of LU factorization.
 It's an expensive procedure only for debugging.
 
-CAUTION: SUSPECT BUGS IN THIS FUNCTION JUST AS QUICKLY AS BUGS IN THE ABOVE. 
+CAUTION: SUSPECT BUGS IN THIS FUNCTION JUST AS QUICKLY AS BUGS IN THE ABOVE.
  */
-double Matrix::validateLU() const 
+double Matrix::validateLU() const
 {
 	unsigned int size = m_mat->size_m();
 
-//assert(max_k == size); // sanity check, it doesn't pay to misuse this function. =P 
+//assert(max_k == size); // sanity check, it doesn't pay to misuse this function. =P
 
 	QuickMatrix *A_check = new QuickMatrix(size);
 
@@ -260,15 +260,15 @@ double Matrix::validateLU() const
 	for(unsigned int i = 0; i < size; i++) {
 		for(unsigned int j = 0; j < size; j++) {
 			double sum = (j >= i) ? m_lu->at(i,j) : 0;
-			for(unsigned int k = 0; k < i && k <= j; k++) 
+			for(unsigned int k = 0; k < i && k <= j; k++)
 				sum += m_lu->at(i,k) * m_lu->at(k, j);
 
 			A_check->atPut(i, j, -sum);
 		}
 	}
 
-// see whether it's actually a copy. =P 
-	*A_check += m_mat;  // betchya were wondering why we put the -sum there instead of the +. ;) 
+// see whether it's actually a copy. =P
+	*A_check += m_mat;  // betchya were wondering why we put the -sum there instead of the +. ;)
 
 	double error = 0;
 	for(unsigned int i = 0; i < size; i++) {
@@ -279,7 +279,7 @@ double Matrix::validateLU() const
 // TIP: copy output into ooffice spreadsheet, make sure to select "space" as the delimiter
 		std::cout << "A" << std::endl;
 		m_mat->dumpToAux();
-		std::cout << "LU" << std::endl; 
+		std::cout << "LU" << std::endl;
 		m_lu->dumpToAux();
 		std::cout << "errors" << std::endl;
 		A_check->dumpToAux();
@@ -293,7 +293,7 @@ double Matrix::validateLU() const
 
 /*!
     \fn Matrix::validate()
-If this here function fails, the matrix is no good and 
+If this here function fails, the matrix is no good and
 no further computation should be done. This method should be used before performLU.
  */
 bool Matrix::validate() const
@@ -308,8 +308,8 @@ bool Matrix::validate() const
 			if(!std::isfinite(val)) return false;
 
 			if(std::abs(val) > epsilon) {
-				isValid = true; 
-				break; 
+				isValid = true;
+				break;
 			}
 		}
 

@@ -1,7 +1,7 @@
 //
 // C++ Implementation: outputflownode
 //
-// Description: 
+// Description:
 //
 //
 // Author: David Saxton <david@bluehaze.org>, (C) 2008

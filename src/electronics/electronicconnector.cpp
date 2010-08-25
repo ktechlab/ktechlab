@@ -34,20 +34,20 @@ ElectronicConnector::ElectronicConnector(ECNode *startNode, ECNode *endNode,
 }
 
 ElectronicConnector::~ElectronicConnector() {
-// Our nodes should have been notified that we've been deleted. 
+// Our nodes should have been notified that we've been deleted.
 	assert(b_deleted);
 
-/* 
-I think what's going on here is that even though we create wires, they're *always* put under the control of Pins. 
+/*
+I think what's going on here is that even though we create wires, they're *always* put under the control of Pins.
 Therefore, it is the pins that are responsible for deleting them. As long as the assertion above always passes, then we
-know we've done our job and told both of our ECNodes that we're gone and the pins have been told to remove our wires. 
+know we've done our job and told both of our ECNodes that we're gone and the pins have been told to remove our wires.
 
 Whether things actually work that way is another matter.
 */
 
     /* Even though we segfault here, we MUST be able to delete wires from this class!
     Therefore we need to make sure our list of wires is accurate before we go into self destruct.
- 
+
     unsigned size = m_wires.size();
 
     for (unsigned i = 0; i < size; i++)
@@ -85,7 +85,7 @@ void ElectronicConnector::syncWiresWithNodes() {
 
     if (newNumWires > oldNumWires) {
         m_wires.resize(newNumWires);
-// FIXME: check this code against new scheme for storing pins directly in a vector. 
+// FIXME: check this code against new scheme for storing pins directly in a vector.
         for (unsigned i = oldNumWires; i < newNumWires; i++) {
             if (&startEcNode->pin(i) && &endEcNode->pin(i))
                 m_wires[i] = new Wire(&startEcNode->pin(i), &endEcNode->pin(i));

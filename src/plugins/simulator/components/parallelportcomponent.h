@@ -17,7 +17,7 @@
 class ParallelPort;
 
 /**
-@author David Saxton 
+@author David Saxton
  */
 class ParallelPortComponent : public CallbackClass, public DSubCon
 {

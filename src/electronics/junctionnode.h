@@ -1,7 +1,7 @@
 //
 // C++ Interface: junctionnode
 //
-// Description: 
+// Description:
 //
 //
 //

@@ -184,7 +184,7 @@ public slots:
 	 */
 	void rotateBy( double dtheta );
 	void parentMoved();
-	 
+	
 signals:
 	/**
 	 * Emitted when this item moves (translates or rotates)

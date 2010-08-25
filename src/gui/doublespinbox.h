@@ -89,7 +89,7 @@ class DoubleSpinBox : public QSpinBox
 		 */
 		void checkIfChanged();
 		/**
-		 * Sets the suffix from m_queuedSuffix. Called from QTimer::singleShot 
+		 * Sets the suffix from m_queuedSuffix. Called from QTimer::singleShot
 		 * to avoid strange recursion problems.
 		 */
 		void setQueuedSuffix();

@@ -1,7 +1,7 @@
 //
 // C++ Interface: simplecomponent
 //
-// Description: 
+// Description:
 //
 //
 // Author: David Saxton, Alan Grimes <agrimes@speakeasy.net>, (C) 2009
@@ -17,12 +17,12 @@
 #include "pinnode.h"
 
 class SimpleComponent : public Component {
-public: 
+public:
 	SimpleComponent(ICNDocument *icnDocument, bool newItem, const QString &id);
 
 	~SimpleComponent();
 
-protected: 
+protected:
 
 	/**
 	 * Create 1 pin on the left of the component, placed half way down if h1 is
@@ -73,10 +73,10 @@ protected:
 	void init4PinRight(int h1 = -1, int h2 = -1, int h3 = -1, int h4 = -1);
 
 	// Pointers to commonly used nodes
-// It simplifies code greatly to have two lists... 
+// It simplifies code greatly to have two lists...
 	PinNode *m_pPNode[4];
 	PinNode *m_pNNode[4];
 
 };
 
-#endif 
+#endif

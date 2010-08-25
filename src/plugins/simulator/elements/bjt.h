@@ -77,7 +77,7 @@ protected:
 	int m_pol;
 	double V_BE_prev, V_BC_prev;
 	double V_BE_lim, V_BC_lim;
-	double I_BE, I_BC, I_T; // so we don't have to recompute for current reads. 
+	double I_BE, I_BC, I_T; // so we don't have to recompute for current reads.
 
 	BJTSettings m_bjtSettings;
 };

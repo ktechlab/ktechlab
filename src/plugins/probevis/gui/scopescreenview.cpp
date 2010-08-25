@@ -80,7 +80,7 @@ void ScopeScreenView::drawContents(QPainter * p)
 		// Set the pen colour according to the colour the user has selected for the probe
 		p->setPen( probe->color() );
 		
-		llong at = probe->findPos(timeOffset); 
+		llong at = probe->findPos(timeOffset);
 		const llong maxAt = probe->insertPos();
 		llong prevTime = probe->toTime(at);
 		

@@ -87,7 +87,7 @@ LogicOut::LogicOut(LogicConfig config, bool _high)
 		: LogicIn(config) {
 
 	m_numCBranches = 1;
-//	m_old_r_out = 
+//	m_old_r_out =
 	m_r_out = 0.0;
 	m_old_x = m_v_out = 0.0;
 	setHigh(_high);
@@ -105,7 +105,7 @@ void LogicOut::setElementSet(ElementSet *c) {
 
 	if (c) isSetChanged = false;
 
-//	m_old_r_out = 
+//	m_old_r_out =
 	m_old_x = 0.0;
 	LogicIn::setElementSet(c);
 }
@@ -154,7 +154,7 @@ void LogicOut::configChanged() {
 		m_v_out = m_config.output;
 		setState(true);
 		break;
-	case LOW : 
+	case LOW :
 		m_r_out	= m_config.lowImpedance;
 		m_v_out	= 0.0;
 		setState(false);
@@ -177,7 +177,7 @@ void LogicOut::add_initial_dc() {
 // FIXME FIXME BROKEN BROKEN FIXME FIXME!!!
 //	double delta_x = 1 + (1 / (1 + m_r_out)) - m_old_x;
 
-// ignores the series resistence of the source but otherwise correct. 
+// ignores the series resistence of the source but otherwise correct.
 	double delta_x = 1 - m_old_x;
 // ###
 
@@ -250,12 +250,12 @@ void LogicOut::callCallbacks()
 
 /*!
     \fn LogicOut::setChain()
-// ensure all dependants have the same state. 
+// ensure all dependants have the same state.
  */
 void LogicOut::setChain()
 {
 	std::list<LogicIn*>::iterator end = dependents.end();
-// WARNING: it makes a huge performance difference if the ++ is before or after the iterator!! 
+// WARNING: it makes a huge performance difference if the ++ is before or after the iterator!!
 	for(std::list<LogicIn*>::iterator it = dependents.begin(); it != end; ++it) {
 		(*it)->setState(out_state == HIGH);
 	}
@@ -263,7 +263,7 @@ void LogicOut::setChain()
 
 /*!
     \fn LogicOut::setZ()
-Set output to high impedance mode. 
+Set output to high impedance mode.
  */
 void LogicOut::setZ()
 {

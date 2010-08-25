@@ -1,7 +1,7 @@
 //
 // C++ Interface: dsubcon
 //
-// Description: 
+// Description:
 //
 //
 // Author: David Saxton, Alan Grimes <agrimes@speakeasy.net>, (C) 2009
@@ -28,7 +28,7 @@ public:
 	 * Convenience functionality provided for components in a port shape
 	 * (such as ParallelPortComponent and SerialPortComponent).
 	 */
-protected: 
+protected:
 	void drawPortShape(QPainter &p);
 };
 

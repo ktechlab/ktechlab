@@ -51,7 +51,7 @@ BusSplitter::~BusSplitter() {
 void BusSplitter::dataChanged() {
 	unsigned busSize = dataInt("size");
 
-/* // the properties above enforce these limits. 
+/* // the properties above enforce these limits.
 	if (busSize < 1)
 		busSize = 1;
 	else if (busSize > MAX_BUS_SIZE)

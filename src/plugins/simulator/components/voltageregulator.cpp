@@ -31,7 +31,7 @@ LibraryItem* VoltageRegulator::libraryItem()
 	i18n("Passive"),
 	"voltage_regulator.png",
 	LibraryItem::lit_component,
-	VoltageRegulator::construct 
+	VoltageRegulator::construct
 						  );
 }
 

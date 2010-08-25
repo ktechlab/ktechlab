@@ -33,7 +33,7 @@ ECNode::ECNode(ICNDocument *icnDocument, Node::node_type _type, int dir, const Q
 }
 
 ECNode::~ECNode() {
-	// delete all our connectors. 
+	// delete all our connectors.
 	ConnectorList::const_iterator end = m_connectorList.end();
 	for(ConnectorList::const_iterator it = m_connectorList.begin(); it != end; ++it) {
 		removeConnector(*it);	
@@ -49,7 +49,7 @@ void ECNode::setNumPins(unsigned num) {
 
 	m_pins.resize(num);
 
-// FIXME: we segfault when we reduce the size of a bus component because this signal isn't being received. =( 
+// FIXME: we segfault when we reduce the size of a bus component because this signal isn't being received. =(
 	emit numPinsChanged(num);
 }
 
@@ -89,11 +89,11 @@ void ECNode::removeNode() {
 	p_icnDocument->appendDeleteList(this);
 }
 
-/* 
-TODO: Do we really need to know about elements and switches at all here? =(  
+/*
+TODO: Do we really need to know about elements and switches at all here? =(
 All we want to care about are components and electronic connectors.
 
-We only want to know about Pins so we can display voltage information, we don't really want to deliver their mail. =\ 
+We only want to know about Pins so we can display voltage information, we don't really want to deliver their mail. =\
 */
 void ECNode::removeElement(Element *e) {
 	for (unsigned i = 0; i < m_pins.size(); i++)
@@ -162,9 +162,9 @@ void ECNode::setVisible(bool yes) {
 	}
 }
 
-// I think this function tries to fix the case where a connector runs on top of another connector that it is 
-// attached to. I think this should be moved up in the class heirarchy. 
-// FIXME: Figure out where this function should be used and make sure it's used there! =( 
+// I think this function tries to fix the case where a connector runs on top of another connector that it is
+// attached to. I think this should be moved up in the class heirarchy.
+// FIXME: Figure out where this function should be used and make sure it's used there! =(
 QPoint ECNode::findConnectorDivergePoint(bool *found) {
 	bool temp;
 

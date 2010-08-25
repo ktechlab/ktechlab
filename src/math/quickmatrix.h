@@ -33,10 +33,10 @@
  * \li store a matrix
  * \li scale row, column or entire matrix
  * \li <>
- * 
+ *
  * In some places the existence/range check condition is insufficient...
  **/
- 
+
 class QuickMatrix {
 public :
     // constructor/destructor
@@ -57,7 +57,7 @@ public :
      * ye olde copy constructor.
      * @param old original matrix, from which the copy is made
      */
-    QuickMatrix(const QuickMatrix *old); 
+    QuickMatrix(const QuickMatrix *old);
 
     /**
      * Standard destructor
@@ -123,7 +123,7 @@ public :
      * @return true, if the matrix is square, false in other cases
      */
     bool isSquare() const;
-    
+
     /**
      * @param m number of row == Y coordinate of row elements
      * @return sum of the elements on the given row
@@ -138,7 +138,7 @@ public :
 
     // functions for some elementary row operations.
         // these are actually procedures because they operate on the current matrix rather than
-        // producing a results matrix.  
+        // producing a results matrix.
     /**
      * multiply all the elements on a given row with a constant
      * @param m_a the row number == Y coord. of elements
@@ -160,7 +160,7 @@ public :
     bool partialScaleAndAdd(CUI m_a, CUI m_b, const double scalor);
 
     /**
-     * Add one row multiplied with a constant to another row. So: a[m_a][i] = a[m_a][i] + scalor * a[m_b][i], 
+     * Add one row multiplied with a constant to another row. So: a[m_a][i] = a[m_a][i] + scalor * a[m_b][i],
      * for \c from <= \c j \c < \c n
      * @param m_a row index 1 == Y coord. 1
      * @param m_b row index 2 == Y coord. 2
@@ -169,7 +169,7 @@ public :
      * @return true, if the operation was successful (row number in range), false otherwise
      */
     bool partialSAF(CUI m_a, CUI m_b, CUI from, const double scalor);
-    
+
     /**
      * Swap two rows in the matrix, identified by their indexes
      * @param m_a row index 1 == Y coord. 1
@@ -185,10 +185,10 @@ public :
      * note: no error checking performed
      */
     double multstep(CUI row, CUI pos, CUI col) const;
-    
+
     /**
      * calculates an element of matrix multiplication (see implmentation)
-     * @param row start row 
+     * @param row start row
      * @param col start column
      * @param lim number of elements to add
      * @return sum a[row][j]*a[j][col], for j=0..lim-1
@@ -197,10 +197,10 @@ public :
 
     /**
      * Allocates a new matrix. This creates a square matrix from a rectangular matrix. It is useful for
-data analysis where you might have M values for N variables. 
+data analysis where you might have M values for N variables.
      * @return @todo document
      */
-    QuickMatrix *transposeSquare() const; 
+    QuickMatrix *transposeSquare() const;
 
     // Multiplies self by transpose.
     QuickVector *transposeMult(const QuickVector *operandvec) const;
@@ -223,7 +223,7 @@ data analysis where you might have M values for N variables.
     void dumpToAux() const;
 
 private :
-    // We don't have a default matrix size so therefore we lock the default constructor. 
+    // We don't have a default matrix size so therefore we lock the default constructor.
 	QuickMatrix() {};
 
 	void allocator();

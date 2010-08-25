@@ -85,7 +85,7 @@ public:
 	~RigidBody();
 	
 	/**
-	 * 
+	 *
 	 */
 	void advance( int phase, double delta );
 	/**

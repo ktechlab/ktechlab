@@ -22,7 +22,7 @@
 Simulator *Simulator::m_pSelf = 0;
 static KStaticDeleter<Simulator> staticSimulatorDeleter;
 
-// FIXME: our global simulator is not cleaned up on shutdown. 
+// FIXME: our global simulator is not cleaned up on shutdown.
 Simulator *Simulator::self() {
 	if (!m_pSelf)
 		staticSimulatorDeleter.setObject(m_pSelf, new Simulator());
@@ -36,7 +36,7 @@ Simulator::Simulator()
 	m_components	   = new list<Component*>;
 	m_ordinaryCircuits = new list<Circuit*>;
 
-// use integer math for these, update period is double. 
+// use integer math for these, update period is double.
 	unsigned max = unsigned(LOGIC_UPDATE_RATE / LINEAR_UPDATE_RATE);
 
 	for (unsigned i = 0; i < max; i++) {
@@ -45,7 +45,7 @@ Simulator::Simulator()
 
 	LogicConfig lc;
 
-	QTimer *stepTimer = new QTimer(this); // FIXME: memory leak. 
+	QTimer *stepTimer = new QTimer(this); // FIXME: memory leak.
 	connect(stepTimer, SIGNAL(timeout()), this, SLOT(step()));
 	stepTimer->start(1);
 }
@@ -102,8 +102,8 @@ void Simulator::step() {
 			{
                             unsigned int clockNumber; // current clock count in inner loop
                             unsigned int clockTotal; // max. clocks for the given gpsim processor
-                            
-                            // for each processor... 
+
+                            // for each processor...
 				list<GpsimProcessor*>::iterator processors_end = m_gpsimProcessors->end();
 				for (list<GpsimProcessor*>::iterator processor = m_gpsimProcessors->begin(); processor != processors_end; ++processor) {
                                     // .. get the number of steps it should execute ...
@@ -130,7 +130,7 @@ void Simulator::step() {
 			// Call the logic callbacks
 			{
 			std::set<LogicOut*>::iterator end = m_logicChainStarts.end();
-// WARNING: it makes a huge performance difference whether the ++ is before or after the iterator!!!!! 
+// WARNING: it makes a huge performance difference whether the ++ is before or after the iterator!!!!!
 			for(std::set<LogicOut*>::iterator it = m_logicChainStarts.begin(); it != end ;++it) {
 				LogicOut *changed = *it;
 

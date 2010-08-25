@@ -159,7 +159,7 @@ double DoubleSpinBox::getMult()
 	
 	QChar siExp = text[ text.length()-1 ];
 	
-	if ( siExp.isLetter() || siExp.isSymbol() ) 
+	if ( siExp.isLetter() || siExp.isSymbol() )
 		return CNItem::getMultiplier((QString)siExp);
 	
 	else

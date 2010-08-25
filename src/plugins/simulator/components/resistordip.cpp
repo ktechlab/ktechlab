@@ -53,7 +53,7 @@ ResistorDIP::ResistorDIP(ICNDocument *icnDocument, bool newItem, const char *id)
 }
 
 ResistorDIP::~ResistorDIP() {
-    for (int i = 0; i < m_resistorCount; ++i) 
+    for (int i = 0; i < m_resistorCount; ++i)
         delete m_resistance[i];
 }
 

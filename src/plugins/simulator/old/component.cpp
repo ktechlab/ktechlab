@@ -284,7 +284,7 @@ void Component::setup3pinElement(Element &ele, Pin &a, Pin &b, Pin &c) {
 	pins.push_back(&c);
 	ElementMapList::iterator it = handleElement(&ele, pins);
 
-	PinSet pinz; 
+	PinSet pinz;
 	pinz.insert(&a);
 	pinz.insert(&b);
 	pinz.insert(&c);
@@ -299,7 +299,7 @@ void Component::setup4pinElement(Element &ele, Pin &a, Pin &b, Pin &c, Pin &d) {
 	pins.push_back(&d);
 	ElementMapList::iterator it = handleElement(&ele, pins);
 
-	PinSet pinz; 
+	PinSet pinz;
 	pinz.insert(&a);
 	pinz.insert(&b);
 	pinz.insert(&c);

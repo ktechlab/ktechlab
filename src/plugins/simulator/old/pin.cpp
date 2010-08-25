@@ -26,7 +26,7 @@ Pin::~Pin() {
 	}
 }
 
-PinSet Pin::localConnectedPins() //const 
+PinSet Pin::localConnectedPins() //const
 {
 	PinSet pins;
 
@@ -56,7 +56,7 @@ void Pin::removeDependentPins() {
 	m_groundDependentPins.clear();
 }
 
-/// Element add and remove... What is this really for? 
+/// Element add and remove... What is this really for?
 void Pin::addElement(Element *e) {
 	assert(e);
 	m_elementList.insert(e);
@@ -90,10 +90,10 @@ double Pin::calculateCurrentFromWires(Wire *aWire) const {
 	for(WireList::const_iterator it = m_wireList.begin(); it != end; ++it) {
 
 // might have to do some vodo to figure out which end of the wire we're on and add/subtract as appropriate.
-		if(*it != aWire) { 
+		if(*it != aWire) {
 
-// TODO: throw an exception here, means that this pin should be moved 
-// to the bottom of the working list and tried again after others are checked. 
+// TODO: throw an exception here, means that this pin should be moved
+// to the bottom of the working list and tried again after others are checked.
 			if(!(*it)->currentIsKnown())
 				return 0;
 
@@ -125,9 +125,9 @@ bool Pin::setCurrentIfOneWire()
 				es->cNode(m_eqId)->current());
 		else (*(m_wireList.begin()))->setCurrent(0);
 		return true;
-	} else { // inform wires that they don't know their current 
+	} else { // inform wires that they don't know their current
 		// and have to figure it out for themselves.
-// TODO: if we only have ONE unknown wire, we can still compute currents... =P 
+// TODO: if we only have ONE unknown wire, we can still compute currents... =P
 		WireList::iterator end = m_wireList.end();
 		for(WireList::iterator it = m_wireList.begin(); it != end; ++it) {
 			(*it)->setCurrentKnown(false);

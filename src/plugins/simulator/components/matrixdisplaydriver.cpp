@@ -338,7 +338,7 @@ void MatrixDisplayDriver::stepNonLogic() {
 
     m_pColLogic[m_Col].setHigh(true);
     m_Col = ++m_Col % 5;
-    m_pColLogic[m_Col].setHigh(false); // enable drain. ??? 
+    m_pColLogic[m_Col].setHigh(false); // enable drain. ???
 
     char value = 0;
     for (unsigned i = 0; i < 8; ++i)

@@ -17,8 +17,8 @@ class QTimer;
 ///Screen-type Oscilloscope data view
 /**
 An Oscilloscope screen, as opposed to a paper tape (the current Oscilloscope)
- 
-	@author John Myers 
+
+	@author John Myers
 */
 class ScopeScreenView : public ScopeViewBase
 {

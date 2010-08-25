@@ -69,7 +69,7 @@ Information from: 2006 CODATA
 /**
 	Electron mass, (kg)
 
-The mass of ye olde electron. 
+The mass of ye olde electron.
 
 Why do we multiply a gram by a thousand and then divide it by 10^31 in this case? sheesh!
 
@@ -104,14 +104,14 @@ See Maxwell's equations.
 
 The magnetic constant ?0 is related to two other defined constants, the electric constant ?0 and the speed of light in vacuum c0 according to the identity:[9]
 
-    {c_0}^2 \, \epsilon_0 \, \mu_0 = 1. 
+    {c_0}^2 \, \epsilon_0 \, \mu_0 = 1.
 */
 #define MAGNETIC_CONSTANT (4.0e-7 * M_PI)
 
 /**
 	Permittivity of Free Space (Farad/Meter)
 
-Wikipedia quote: 
+Wikipedia quote:
 Permittivity is a physical quantity that describes how an electric field affects, and is affected by a dielectric medium, and is determined by the ability of a material to polarize in response to the field, and thereby reduce the total electric field inside the material. Thus, permittivity relates to a material's ability to transmit (or "permit") an electric field.
 
 It is directly related to electric susceptibility. For example, in a capacitor, an increased permittivity allows the same charge to be stored with a smaller electric field (and thus a smaller voltage), leading to an increased capacitance.
@@ -122,7 +122,7 @@ In SI units, permittivity is measured in farads per meter (F/m). The constant va
 
 */
 
-// TODO: check to minimize computational drift. 
+// TODO: check to minimize computational drift.
 #define BASE_PERMITTIVITY (1 / (MAGNETIC_CONSTANT * LIGHTSPEED * LIGHTSPEED))
 
 

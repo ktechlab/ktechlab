@@ -37,7 +37,7 @@ LibraryItem* ECVoltageSignal::libraryItem()
 }
 
 ECVoltageSignal::ECVoltageSignal(ICNDocument *icnDocument, bool newItem, const char *id)
-	: SimpleComponent(icnDocument, newItem, id ? id : "voltage_signal"), 
+	: SimpleComponent(icnDocument, newItem, id ? id : "voltage_signal"),
 	m_voltageSignal(LINEAR_UPDATE_PERIOD, 0)
 {
 	m_name = i18n("Voltage Signal");

@@ -15,18 +15,18 @@
 /**
 @author William Hillerby
  */
- 
+
  /** @todo FOA Discrete, Liner, Non-Linear and arrange items in itemlib.h and libItem() */
 
 /*
 		
 A voltage regulator is an integrated circuit whose function is to keep a voltage at a specific level. Some regulators are
-adjustable, others are not. Voltage regulators come in both positive and negative voltages. They have three pins, the input, 
+adjustable, others are not. Voltage regulators come in both positive and negative voltages. They have three pins, the input,
 output and reference. The input is usually on the left side of the square and is where the unregulated input voltage is applied.
 The reference is usually on the bottom of the square and is where the reference voltage is applied. For fixed regulators, this
 reference is usually ground. For variable regulators, this reference is usually a small variable voltage just above ground. The
 last connection is the output, and is usually located on the right side of the square. This is where the regulated output voltage
-is taken from. On most schematics, the connections are numbered and labeled. 
+is taken from. On most schematics, the connections are numbered and labeled.
 
 */
 		
