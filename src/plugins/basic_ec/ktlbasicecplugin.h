@@ -32,7 +32,7 @@ private:
     void init();
 
     KTLBasicECFactory * m_componentFactory;
-    
+
     BasicElementFactory * m_basicElementFactory;
 };
 

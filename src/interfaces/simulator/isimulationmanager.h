@@ -48,7 +48,7 @@ public:
     virtual ~ISimulationManager();
 
     /**
-     * Return an aleardy created simulator of a given type for a given 
+     * Return an aleardy created simulator of a given type for a given
      * document, or create a new one if it doesn't exist
      * \param document the document for which the simulator is created
      * \param simulationType the preferred type of simulator. If the parameter is

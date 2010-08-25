@@ -50,7 +50,7 @@ class KTLINTERFACES_EXPORT ISimulatorFactory : public QObject {
     virtual QString supportedDocumentMimeTypeName() const = 0;
 
      /**
-      * \return a new simulator for a given document, and the supported 
+      * \return a new simulator for a given document, and the supported
       *     simulation type
       * The document should be of the same type as the supported one
       */

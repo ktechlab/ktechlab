@@ -28,7 +28,7 @@
 namespace KTechLab {
 
 class IElement;
-    
+
 /**
     \brief Storage for MNA equations of several elements
 
@@ -36,7 +36,7 @@ class IElement;
     number of nodes and voltage sources in each element, the IElementSet
     dynamically allocates matrixes after all components are added,
     and distrubutes positions in the matrix to the IElements.
-    
+
     The implmenetation of this interface can be found in the simulator.
 */
 class KTLINTERFACES_EXPORT IElementSet : public QObject
@@ -75,7 +75,7 @@ class KTLINTERFACES_EXPORT IElementSet : public QObject
          \param element the element that is added to the IElementSet
         */
         virtual void addElement(IElement *element) = 0;
-        
+
         /**
          Remove an element from the IElementSet.
          This method possibly invalidates the status of internal data
@@ -93,11 +93,11 @@ class KTLINTERFACES_EXPORT IElementSet : public QObject
          */
         virtual void solveEquations() = 0;
 
-        
+
         // access to the equation matrixes
-        
+
         #define CUI const unsigned int
-        
+
         /// access to G, node::node sub-matrix.
         ///implementation provided in the simulator
         virtual double & A_g(CUI i, CUI j) = 0 ;
@@ -125,7 +125,7 @@ class KTLINTERFACES_EXPORT IElementSet : public QObject
         ///     the independent voltage sources
         ///implementation provided in the simulator
         virtual double x_j(CUI i) = 0 ;
-        
+
         #undef CUI
 
     protected:
@@ -134,7 +134,7 @@ class KTLINTERFACES_EXPORT IElementSet : public QObject
 
         /// the number of nodes in the element set
         int m_numNodes;
-        
+
         /// the number of independent voltage sources in the element set
         int m_numVoltageSources;
 };

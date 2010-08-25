@@ -46,7 +46,7 @@ private:
 };
 
 /**
- * CircuitDocument handles circuit files. It provides access to 
+ * CircuitDocument handles circuit files. It provides access to
  * visualisation and interaction
  * and other information about .circuit files.
  * @short Circuit Document

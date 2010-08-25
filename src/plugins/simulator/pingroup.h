@@ -67,7 +67,7 @@ class PinGroup : public QObject
         PinGroup(
             QList<IPin*> pins,
             QList<IWire*> wires,
-            IPin * startPin     
+            IPin * startPin
             );
         /**
          destrcutor
@@ -96,14 +96,14 @@ class PinGroup : public QObject
          \param voltage the voltage on the entire group
          */
         void setVoltage(double voltage);
-        
+
         /**
          calculates the currents through all the wires inside the group.
          This method supposes that all the currents flowing into the pins,
          from their parent elements, is known.
          */
         void calculateInternalCurrents();
-        
+
     private:
         QList<IPin*> m_pins;
         QList<IWire*> m_wires;
