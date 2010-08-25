@@ -125,7 +125,7 @@ public:
     * @return a \ref QVariantMap containing the data
     */
     virtual QVariantMap node( const QString& id );
-    
+
     /**
      * Get the data at a given field in the matrix.
      *

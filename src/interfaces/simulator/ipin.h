@@ -74,7 +74,7 @@ class KTLINTERFACES_EXPORT IPin : public QObject
           set the voltage and current from this node into the model
           */
         void transferStatusToModel();
-        
+
         // state related methods
         /**
           set the voltage of this pin, in Volts
@@ -121,14 +121,14 @@ class KTLINTERFACES_EXPORT IPin : public QObject
           \param wire the wire that will be connected
           */
         void connectWire(IWire * wire);
-        
+
         /**
           disconnect one or all wires from the pin
           \param wire the wire to disconnect. If the wire is null,
                 then all wires should be disconnected
           */
         void disconnectWire(IWire * wire = NULL);
-        
+
     private:
         /** the name of the pin, used in the data transfer to model */
         QString m_name;

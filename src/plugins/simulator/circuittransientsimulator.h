@@ -25,7 +25,7 @@ class IWire;
     // referenced classes
     class IComponentDocument;
     class IDocumentModel;
-    
+
 /**
  * simulator for electronic circuits, in time domain
  */
@@ -82,7 +82,7 @@ public slots:
       should advance
       */
     virtual void simulationTimerTicked();
-    
+
 private:
     /** create a list of elements to be simulated, based on the document model
      \return true if it's successful and false un faliure
@@ -108,7 +108,7 @@ private:
     /** convert a variant containing a string to a string.
         Has error checking */
     QString variantToString(const QVariant &string, bool &success);
-    
+
     /// the document model associated with the simulator
     IDocumentModel *m_doc;
 
@@ -116,7 +116,7 @@ private:
         the flag is used by simulationTimerTicked, in order to try to simulate,
         or not */
     bool m_canBeSimulated;
-    
+
     /// list of all elements in the document
     QList<IElement*> m_allElementList;
     /// list of all wires in the document
@@ -130,7 +130,7 @@ private:
     QList<IPin*> m_nodeList;
     /// map of string ID to nodes
     QMap<QString, IPin*> m_idToNode;
-    
+
     /// list of all the groups of pins
     QList<PinGroup *> m_pinGroups;
 };

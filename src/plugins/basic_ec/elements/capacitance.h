@@ -22,7 +22,7 @@ class Capacitance : public IElement
     public:
     Capacitance();
     Capacitance(QVariantMap* parentInModel, IElementSet* elementSet);
-    
+
     virtual void fillMatrixCoefficients();
 };
 

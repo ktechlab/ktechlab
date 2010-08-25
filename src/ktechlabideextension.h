@@ -16,13 +16,13 @@ class KTechlabIDEExtension : public KDevelop::ShellExtension
 {
 public:
     static void init();
-    
+
     virtual QString xmlFile();
     virtual KDevelop::AreaParams defaultArea();
     virtual QString projectFileExtension();
     virtual QString projectFileDescription();
     virtual QStringList defaultPlugins();
-    
+
 protected:
     KTechlabIDEExtension();
 };

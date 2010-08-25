@@ -20,7 +20,7 @@
 namespace KTechLab {
 
     class SimulatorFactory;
-    
+
 /**
  * Plugin for the electronic simulator
  * The plugin only registers the simulator and element (model) factories

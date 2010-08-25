@@ -66,7 +66,7 @@ SET(ktechlab_SRCS
 
 kde4_add_executable(ktechlab ${ktechlab_SRCS})
 
-target_link_libraries( ktechlab 
+target_link_libraries( ktechlab
    ${KDE4_KDEUI_LIBS}
    ${KDE4_KIO_LIBS}
    ${KDEVPLATFORM_SHELL_LIBRARIES}

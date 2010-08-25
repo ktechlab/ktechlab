@@ -128,7 +128,7 @@ void SimulationManager::initialize(){
     m_self = new SimulationManager();
 }
 
-SimulationManager::SimulationManager() : 
+SimulationManager::SimulationManager() :
     d( new SimulationManagerPrivate()){
 }
 
@@ -276,7 +276,7 @@ QList<IElementFactory*> SimulationManager::registeredFactories(
             // all simulation types
             if( ! ret.contains( fact) )
                 ret.append( fact);
-        } else 
+        } else
             if( fact->simulationType() == simulationType ){
                 if( elementType.isEmpty() ){
                     // only the selected ones, any element
@@ -289,7 +289,7 @@ QList<IElementFactory*> SimulationManager::registeredFactories(
                             ret.append( fact );
                 }
             }
-        
+
     }
     return ret;
 }
