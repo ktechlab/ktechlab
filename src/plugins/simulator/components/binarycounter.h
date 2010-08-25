@@ -50,7 +50,7 @@ protected:
 
 	unsigned m_numBits;
 	bool b_triggerHigh;
-	bool b_oldIn;  // <<< maybe we should inherit "clocked logic" or something... 
+	bool b_oldIn;  // <<< maybe we should inherit "clocked logic" or something...
 	unsigned m_value;
 	bool m_bDoneLogicIn;
 };

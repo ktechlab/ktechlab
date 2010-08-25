@@ -45,7 +45,7 @@ TestPin::TestPin( ICNDocument *icnDocument, bool newItem, const char *id )
 	property("pin")->setValue("RA0");
 	
 	addDisplayText( "output_false", QRect( offsetX()+width(), 2, 40, 20 ), "Low" );
-	addDisplayText( "output_true", QRect( 0, offsetY()+height(), 50, 20 ), "High" ); 
+	addDisplayText( "output_true", QRect( 0, offsetY()+height(), 50, 20 ), "High" );
 }
 
 

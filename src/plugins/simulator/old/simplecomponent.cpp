@@ -1,7 +1,7 @@
 //
 // C++ Implementation: simplecomponent
 //
-// Description: 
+// Description:
 //
 //
 // Author: David Saxton, Alan Grimes <agrimes@speakeasy.net>, (C) 2009
@@ -12,7 +12,7 @@
 #include "simplecomponent.h"
 #include "circuitdocument.h"
 
-SimpleComponent::SimpleComponent(ICNDocument *icnDocument, bool newItem, const QString &id) 
+SimpleComponent::SimpleComponent(ICNDocument *icnDocument, bool newItem, const QString &id)
 	: Component(icnDocument, newItem, id) {
 
 	for (int i = 0; i < 4; ++i) {

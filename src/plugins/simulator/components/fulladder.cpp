@@ -56,8 +56,8 @@ FullAdder::~FullAdder() {}
 
 void FullAdder::inStateChanged( bool /*state*/ )
 {
-	unsigned char A = ALogic.isHigh() 
-		+ BLogic.isHigh() 
+	unsigned char A = ALogic.isHigh()
+		+ BLogic.isHigh()
 		+ inLogic.isHigh();
 	
 	SLogic.setHigh(A & 1); // result

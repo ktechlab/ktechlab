@@ -99,7 +99,7 @@ public:
 
 	/// simplified element attachers
 // TODO: look into feasibility for using variable argument arrays for these and other
-// methods in this class. 
+// methods in this class.
 	void setup1pinElement(Element &ele, Pin &a);
 	void setup2pinElement(Element &ele, Pin &a, Pin &b);
 	void setup3pinElement(Element &ele, Pin &a, Pin &b, Pin &c);

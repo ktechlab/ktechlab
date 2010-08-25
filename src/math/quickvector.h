@@ -23,8 +23,8 @@
 
 #include "mathexport.h"
 
-/** 
- * \def CUI 
+/**
+ * \def CUI
  * Constant Unsigned Int
  */
 #ifndef CUI
@@ -61,7 +61,7 @@ public :
     QuickVector(CUI m_in);
 
     /// ye olde copy constructor.
-    QuickVector(const QuickVector *old); 
+    QuickVector(const QuickVector *old);
 
     /// simple destructor
     ~QuickVector();
@@ -69,8 +69,8 @@ public :
     /**
      * @return the size of the vector
      */
-    inline unsigned int size() const { 
-        return m; 
+    inline unsigned int size() const {
+        return m;
     }
 
 
@@ -120,17 +120,17 @@ public :
     // accessors by index, as operators
     /**
      * get element at position i
-     * @param i the index of the element to get 
-     * @return the element from the 
+     * @param i the index of the element to get
+     * @return the element from the
      */
     // FIXME what about these operators?
-    inline double &operator[]( const int i) { 
-        changed = true; 
-        return values[i]; 
+    inline double &operator[]( const int i) {
+        changed = true;
+        return values[i];
     }
 
-    inline double operator[]( const int i) const { 
-        return values[i]; 
+    inline double operator[]( const int i) const {
+        return values[i];
     }
 
     // Vector arithmetic.
@@ -149,7 +149,7 @@ public :
     QuickVector &operator*=(const double y);
 
     /**
-     * multiply all the values in the current vector with the corresponding values in vector \c y : a[i] = a[i] * y[i] 
+     * multiply all the values in the current vector with the corresponding values in vector \c y : a[i] = a[i] * y[i]
      * and set the \c changed flag
      * the size of the 2 vectors is asserted equal
      * @param y vector with new values
@@ -158,7 +158,7 @@ public :
     QuickVector &operator*=(const QuickVector &y);
 
     /**
-     * add to all the values in the current vector the corresponding values in vector \c y : a[i] = a[i] + y[i] 
+     * add to all the values in the current vector the corresponding values in vector \c y : a[i] = a[i] + y[i]
      * and set the \c changed flag
      * the size of the 2 vectors is asserted equal
      * @param y vector with new values

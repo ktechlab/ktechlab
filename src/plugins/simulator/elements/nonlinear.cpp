@@ -18,7 +18,7 @@ NonLinear::NonLinear()
 {
 }
 
-// the simulator will break if you fail to clamp your voltage with this function. 
+// the simulator will break if you fail to clamp your voltage with this function.
 double NonLinear::diodeVoltage(double V, double V_prev, double N, double V_lim) const
 {
 	double Vt = V_T * N;
@@ -43,7 +43,7 @@ double NonLinear::fetVoltageDS(double V, double V_prev) const
 {
 	if(V_prev >= 3.5) {
 		if(V > V_prev) return std::min(V, 3 * V_prev + 2);
-		else if(V < 3.5) return std::max(V, 2.5); // I think this is the pinch-off voltage. 
+		else if(V < 3.5) return std::max(V, 2.5); // I think this is the pinch-off voltage.
 
 		return V;
 	}
@@ -60,7 +60,7 @@ double NonLinear::diodeLimitedVoltage(double I_S, double N) const
 	return Vt * log(Vt / M_SQRT2 / I_S);
 }
 
-/// combined function for current and conductance. 
+/// combined function for current and conductance.
 void NonLinear::diodeJunction(double V, double I_S, double N, double *I, double *g) const
 {
 	double Vt = V_T * N;	

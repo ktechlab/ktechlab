@@ -99,7 +99,7 @@ typedef QMap< QString, PinMapping > PinMappingMap;
 typedef QMap< QString, PinSettingsList > PortList;
 
 /**
-This class stores PIC settings that are specific to the PIC program being devloped. 
+This class stores PIC settings that are specific to the PIC program being devloped.
 This includes such things as port settings and variable settings.
 This is different from PIC info, which includes stuff such as PIC pin names
 
@@ -143,7 +143,7 @@ public:
 	PinSettings* pinWithID( const QString &id );
 	/**
 	 * Returns the initial port state (on/off) for the given port.
-	 * Each pin state occupies one bit of the returned integer. 
+	 * Each pin state occupies one bit of the returned integer.
 	 */
 	int portState( const QString &port );
 	/**
@@ -156,7 +156,7 @@ public:
 	void setPortType( const QString &port, int type );
 	/**
 	 * Returns the initial port type (intput/output) for the given port.
-	 * Each pin type occupies one bit of the returned integer. 
+	 * Each pin type occupies one bit of the returned integer.
 	 */
 	int portType( const QString &port );
 	/**

@@ -90,19 +90,19 @@ public:
 
         /**
          * @todo DOCUMENT THIS
-         * @param i 
-         * @param j 
-         * @return 
-         * 
+         * @param i
+         * @param j
+         * @return
+         *
          * It seems this function is used to get / set elements in the matrix
          */
         double &g(CUI i, CUI j);
 
         /**
          * @todo DOCUMENT THIS 2
-         * @param i 
-         * @param j 
-         * @return 
+         * @param i
+         * @param j
+         * @return
          */
         /*
         double  g(CUI i, CUI j) const { return m_mat->at(m_inMap[i], j); }
@@ -121,17 +121,17 @@ public:
          * check the validity of LU factorization.
          * It's an expensive procedure only for debugging.
          * @return sum of absolute error between the original matrix and the decomposition
-         * 
-         * CAUTION: SUSPECT BUGS IN THIS FUNCTION JUST AS QUICKLY AS BUGS IN THE ABOVE. 
+         *
+         * CAUTION: SUSPECT BUGS IN THIS FUNCTION JUST AS QUICKLY AS BUGS IN THE ABOVE.
          */
         double validateLU() const;
 
         /**
          * @fn Matrix::validate()
-         * If this here function fails, the matrix is no good and 
+         * If this here function fails, the matrix is no good and
          * no further computation should be done. This method should be used before performLU.
          * @return true, if the matrix is valid, false otherwise
-         */ 
+         */
         bool validate() const;
 
 private:
@@ -139,7 +139,7 @@ private:
         * Swaps around the rows in the (a) the matrix; and (b) the mappings
         */
         void swapRows(CUI a, CUI b);
-        unsigned int max_k; // optimization variable, allows partial L_U re-do. 
+        unsigned int max_k; // optimization variable, allows partial L_U re-do.
         int *m_inMap; // Rowwise permutation mapping from external reference to internal storage
 
         QuickMatrix *m_mat;

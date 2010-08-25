@@ -18,7 +18,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include <cstdlib> // for null 
+#include <cstdlib> // for null
 #include <cmath>
 #include <cassert>
 #include <cstring>
@@ -53,7 +53,7 @@ QuickVector::QuickVector(const QuickVector *old)
 	assert(m);
 	values = new double[m];
 
-	for(unsigned int j = 0; j < m; j++) 
+	for(unsigned int j = 0; j < m; j++)
 		values[j] = old->values[j];
 }
 

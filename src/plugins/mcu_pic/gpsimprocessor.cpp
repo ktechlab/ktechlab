@@ -135,7 +135,7 @@ GpsimProcessor::GpsimProcessor( QString symbolFile, QObject *parent )
 		Simulator::self()->attachGpsimProcessor(this);
 		DebugManager::self()->registerGpsim(this);
 	}
-        
+
         m_stepsPerMicrosecond = 1;
 }
 
@@ -250,7 +250,7 @@ void GpsimProcessor::executeNext()
 	else
 	{
 		m_pPicProcessor->step_one(false); // Don't know what the false is for; gpsim ignores its value anyway
- 
+
 		// Some instructions take more than one cycle to execute, so ignore next cycle if this was the case
 		if ( (get_cycles().get() - beforeExecuteCount) > 1 )
 			m_bCanExecuteNextCycle = false;
@@ -279,7 +279,7 @@ void GpsimProcessor::reset()
 
 MicroInfo * GpsimProcessor::microInfo( ) const
 {
-	if ( !m_pPicProcessor ) 
+	if ( !m_pPicProcessor )
 		return 0l;
 	
 	return MicroLibrary::self()->microInfoWithID( m_pPicProcessor->name().c_str() );

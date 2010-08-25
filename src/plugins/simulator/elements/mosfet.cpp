@@ -135,7 +135,7 @@ void MOSFET::calc_eq() {
 		const double V_S = p_cnode[PinS]->voltage();
 		const double V_B = p_cnode[PinB]->voltage();
 
-// convert useless circuit voltages into component voltages. 
+// convert useless circuit voltages into component voltages.
 		V_GS = (V_G - V_S) * m_pol;
 		V_DS = (V_D - V_S) * m_pol;
 		V_BS = (V_B - V_S) * m_pol;

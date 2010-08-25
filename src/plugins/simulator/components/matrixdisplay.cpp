@@ -39,9 +39,9 @@ MatrixDisplay::MatrixDisplay(ICNDocument *icnDocument, bool newItem, const char 
     m_name = i18n("Matrix Display");
     m_bDynamicContent = true;
 
-// HACK WARNING HACK WARNING. 
+// HACK WARNING HACK WARNING.
 // We like to keep pointers to these values but the underlying libraries LOVE to re-organize the underlying storage on us. =(
-// BIG TROUBLE. =(((( 
+// BIG TROUBLE. =((((
 	m_LEDs.reserve(max_md_width);
 
     //BEGIN Reset members
@@ -97,10 +97,10 @@ void MatrixDisplay::dataChanged() {
 
     bool ledsChanged = (numRows != int(m_numRows)) || (numCols != int(m_numCols));
 
-    if (ledsChanged) { 
+    if (ledsChanged) {
         for (unsigned i = 0; i < m_numCols; i++)
-            for (unsigned j = 0; j < m_numRows; j++)  // must remove elements before re-organizing storage. 
-                removeElement(&(m_LEDs[i][j].m_pDiode), (i == (m_numCols - 1)) && (j == (m_numRows - 1))); 
+            for (unsigned j = 0; j < m_numRows; j++)  // must remove elements before re-organizing storage.
+                removeElement(&(m_LEDs[i][j].m_pDiode), (i == (m_numCols - 1)) && (j == (m_numRows - 1)));
 
         initPins(numRows, numCols);
         }
@@ -128,7 +128,7 @@ void MatrixDisplay::initPins(unsigned numRows, unsigned numCols) {
     m_lastUpdatePeriod = 0.0;
 
     //BEGIN Create or destroy pins
-// FIXME: Very Very broken. =( -- breaks on resize above initial size... 
+// FIXME: Very Very broken. =( -- breaks on resize above initial size...
 
     if (numCols >= m_numCols) {
         m_LEDs.resize(numCols);
@@ -260,7 +260,7 @@ void MatrixDisplay::drawShape(QPainter &p) {
                 m_LEDs[i][j].m_lastBrightness = unsigned(m_LEDs[i][j].m_avgBrightness / m_lastUpdatePeriod);
 
             double _b = m_LEDs[i][j].m_lastBrightness;
-// FIXME: we find ourselves with RGB out of range errors after resizing. 
+// FIXME: we find ourselves with RGB out of range errors after resizing.
             QColor brush = QColor(uint(255 - (255 - _b) * (1 - m_r)),
                                   uint(255 - (255 - _b) * (1 - m_g)),
                                   uint(255 - (255 - _b) * (1 - m_b)));

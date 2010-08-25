@@ -91,7 +91,7 @@ MicroSettings::MicroSettings( MicroInfo * microInfo )
 		const int numPins = pinIDs.size();
 		for ( int i=0; i<numPins; i++ )
 		{
-			PinSettings *pinSettings = new PinSettings( PinSettings::pt_input, PinSettings::ps_off, pinIDs[i], *it ); 
+			PinSettings *pinSettings = new PinSettings( PinSettings::pt_input, PinSettings::ps_off, pinIDs[i], *it );
 			m_pinSettingsList.append(pinSettings);
 			portPins.append(pinSettings);
 		}
@@ -221,7 +221,7 @@ MicroData MicroSettings::microData() const
 	{
 		if ( it.data().permanent )
 			data.variableMap[it.key()] = it.data().valueAsString();
-	} 
+	}
 	
 	return data;
 }

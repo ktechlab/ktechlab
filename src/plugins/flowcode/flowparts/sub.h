@@ -30,6 +30,6 @@ public:
 	
 protected:
 	void dataChanged();
-}; 
+};
 
 #endif

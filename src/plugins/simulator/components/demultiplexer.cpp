@@ -32,7 +32,7 @@ LibraryItem* Demultiplexer::libraryItem() {
 }
 
 Demultiplexer::Demultiplexer(ICNDocument *icnDocument, bool newItem, const char *id)
-		: DIPComponent(icnDocument, newItem, id ? id : "demultiplexer"), 
+		: DIPComponent(icnDocument, newItem, id ? id : "demultiplexer"),
 		m_input(LogicConfig()) {
 
 	m_input.setCallback(this, (CallbackPtr)(&Demultiplexer::inStateChanged));

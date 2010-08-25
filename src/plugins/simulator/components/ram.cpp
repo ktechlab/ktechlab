@@ -46,7 +46,7 @@ RAM::RAM(ICNDocument *icnDocument, bool newItem, const char *id)
     property("addressSize")->setMaxValue(24);
     property("addressSize")->setValue(4);
 
-    m_data = createProperty("data", Variant::Type::Raw)->value().asBitArray();    
+    m_data = createProperty("data", Variant::Type::Raw)->value().asBitArray();
 
     m_pWE.setCallback(this, (CallbackPtr)(&RAM::inStateChanged));
     m_pOE.setCallback(this, (CallbackPtr)(&RAM::inStateChanged));

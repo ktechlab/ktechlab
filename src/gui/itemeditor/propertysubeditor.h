@@ -17,7 +17,7 @@ class Variant;
 typedef Variant Property;
 
 //! The base class for all editors used in PropertyEditor.
- 
+
 class PropertySubEditor : public QWidget
 {
 	Q_OBJECT

@@ -46,7 +46,7 @@ class MicroSettingsDlg : public KDialogBase
 		 * in use, and Acceptable otherwise.
 		 */
 		QValidator::State validatePinMapName( QString & pinMapName ) const;
-    
+
 	public slots:
 		/**
 		 * Saves the port details in the given row to the MicroSettings class.

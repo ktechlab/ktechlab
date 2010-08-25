@@ -51,7 +51,7 @@ public:
 	/**
 	 * @return the number of pins in this node.
 	 * @see setNumPins
-		NOTE: only bus wires/junctions have multiple pins! 
+		NOTE: only bus wires/junctions have multiple pins!
 	 */
 	unsigned numPins() const {
 		return m_pins.size(); }
@@ -141,7 +141,7 @@ public slots:
 	// -- from node.h --
 	void checkForRemoval(Connector *connector);
 	void removeNode(Item*) {
-// parameter is made available for subclasses. 
+// parameter is made available for subclasses.
 		removeNode(); }
 
 	void removeNode();
@@ -149,7 +149,7 @@ protected slots:
 	void removeElement(Element *e);
 
 protected:
-// caches, also allows for context-dependant setting. 
+// caches, also allows for context-dependant setting.
 	bool m_bShowVoltageBars;
 	bool m_bShowVoltageColor;
 

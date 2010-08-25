@@ -1,7 +1,7 @@
 //
 // C++ Interface: dipcomponent
 //
-// Description: 
+// Description:
 //
 //
 // Author: David Saxton, Alan Grimes <agrimes@speakeasy.net>, (C) 2009
@@ -18,11 +18,11 @@
 base class for DIP type components
 */
 class DIPComponent : public Component {
-public: 
+public:
 	DIPComponent(ICNDocument *icnDocument, bool newItem, const char *id)
 		: Component(icnDocument, newItem, id) { }
 
-protected: 
+protected:
 	/**
 	 * This creates a set of nodes with their internal IDs set to those in QStringList pins.
 	 * The pins are in a DIP arrangement, and are spaced width() apart.

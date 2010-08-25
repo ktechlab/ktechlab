@@ -104,7 +104,7 @@ class ContextHelp : public ContextHelpWidget
         static LinkType extractLinkType( const KURL & url );
 		/**
          * Adjusts the appearance of links depending on their LinkType (e.g
-         * external links are given an "external" icon, and new help links are 
+         * external links are given an "external" icon, and new help links are
          * colored in red.
                  */
         static void addLinkTypeAppearances( QString * html );

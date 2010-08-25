@@ -19,7 +19,7 @@
 #include <klocale.h>
 
 // Values for a,b,c,d,e,f,g of common-anode 7 segment display
-static bool numbers[16][7] = { 
+static bool numbers[16][7] = {
 	{ 1, 1, 1, 1, 1, 1, 0 }, // 0
 	{ 0, 1, 1, 0, 0, 0, 0 }, // 1
 	{ 1, 1, 0, 1, 1, 0, 1 }, // 2
@@ -88,12 +88,12 @@ ECBCDTo7Segment::~ECBCDTo7Segment() {}
 
 void ECBCDTo7Segment::inStateChanged(bool) {
 
-	unsigned char n = ALogic.isHigh() | 
+	unsigned char n = ALogic.isHigh() |
 			 (BLogic.isHigh() << 1) |
 			 (CLogic.isHigh() << 2) |
 			 (DLogic.isHigh() << 3);
 
-	if(!ltLogic.isHigh()) { 
+	if(!ltLogic.isHigh()) {
 		if(!rbLogic.isHigh()) {
 			if(enLogic.isHigh()) { // Enable (store)
 				for (int i = 0; i < 7; i++) {
@@ -101,7 +101,7 @@ void ECBCDTo7Segment::inStateChanged(bool) {
 				}
 			}
 		} else { // Ripple Blank
-			for (int i = 0; i < 7; i++) 
+			for (int i = 0; i < 7; i++)
 				outLogic[i]->setHigh(false);
 		}
 	} else { // Lamp test

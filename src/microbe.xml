@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <language name="Microbe" version="0.01" section="Sources" extensions="*.microbe;*.basic" mimetypes="application/x-microbe">
-  <highlighting>   
+  <highlighting>
     <list name="keywords">
-      
+
       <item> asm </item>
- 
+
 	  <item> high </item>
 	  <item> low </item>
-      
+
       <item> for </item>
       <item> to </item>
       <item> step </item>
-      
+
       <item> if </item>
       <item> then </item>
       <item> else </item>
-      
+
       <item> while </item>
-     
+
       <item> alias </item>
       <item> repeat </item>
       <item> until </item>
@@ -106,7 +106,7 @@
         <RegExpr attribute="Comment" context="#pop" String="^\s*#\s*endif" endRegion="Outscoped"/>
       </context>
       <context attribute="Function" lineEndContext="#stay" name="Procedure call">
-      
+
       </context>
     </contexts>
     <itemDatas>
@@ -136,4 +136,4 @@
     <keywords casesensitive="1" />
   </general>
 </language>
-    
+

@@ -1,7 +1,7 @@
 //
 // C++ Interface: elementmap
 //
-// Description: 
+// Description:
 //
 //
 // Author: Alan Grimes <agrimes@speakeasy.net>, (C) 2009

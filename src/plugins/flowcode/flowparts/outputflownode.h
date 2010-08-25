@@ -1,7 +1,7 @@
 //
 // C++ Interface: outputflownode
 //
-// Description: 
+// Description:
 //
 //
 // Copyright: See COPYING file that comes with this distribution

@@ -28,7 +28,7 @@
 #include <kinputdialog.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <kparts/browserextension.h> 
+#include <kparts/browserextension.h>
 #include <kpopupmenu.h>
 #include <krun.h>
 #include <kdirselectdialog.h>

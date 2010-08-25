@@ -37,7 +37,7 @@ public:
 	void stepCallback();
 	void stepLogic();
 
-/// set the next callback based on the time remaining in the curren phase. 
+/// set the next callback based on the time remaining in the curren phase.
 	virtual void stepNonLogic();
 	virtual bool doesStepNonLogic() const { return true; }
 	

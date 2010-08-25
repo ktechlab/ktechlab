@@ -11,7 +11,7 @@
 #ifndef CIRCUIT_H
 #define CIRCUIT_H
 
-#include <vector> 
+#include <vector>
 #include <set>
 #include <cassert>
 
@@ -37,7 +37,7 @@ public:
 	QuickVector *getData() const;
 	void setData(const ElementSet *newData);
 
-private: 
+private:
 	LogicCacheNode *high;
 	LogicCacheNode *low;
 	QuickVector *data;
@@ -131,7 +131,7 @@ protected:
 
 	logicOutVec m_pLogicOut;
 
-private: 
+private:
 	bool isSetChanged;
 };
 

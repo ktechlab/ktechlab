@@ -62,7 +62,7 @@ void CCVS::updateCurrents()
 	p_cnode[0]->sinkCurrent(i);
 	p_cnode[1]->sourceCurrent(i);
 
-// DPENDANT SIDE 
+// DPENDANT SIDE
 	i = p_cbranch[1]->current();
 	p_cnode[2]->sinkCurrent(i);
 	p_cnode[3]->sourceCurrent(i);

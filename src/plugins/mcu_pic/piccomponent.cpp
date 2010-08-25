@@ -114,7 +114,7 @@ PICComponent::PICComponent(ICNDocument *icnDocument, bool newItem, const char *i
         property("clock_mhz")->setCaption(i18n("Clock Mhz"));
         property("clock_mhz")->setAllowed( QStringList::split( ',', "4,8,12,16,20" ) );
         property("clock_mhz")->setValue("4");
-        
+
 // 	//HACK This is to enable loading with pre-0.3 files (which didn't set a "lastPackage"
 // 	// property). This will allow a P16F84 PIC to be initialized (which agrees with pre-0.3
 // 	// behaviour), but it will also load it if

@@ -1,7 +1,7 @@
 //
 // C++ Implementation: inputflownode
 //
-// Description: 
+// Description:
 //
 //
 //
