@@ -27,7 +27,7 @@ class IPin;
        \brief common interface for all the models used by a simulator
 
        This is a base class for all the component models, used in simulation
-       
+
      */
     class KTLINTERFACES_EXPORT IElement : public QObject {
       Q_OBJECT
@@ -56,12 +56,12 @@ class IPin;
              \return the parent of the element, in the model of the circuit
              */
             QVariantMap * parentInModel() const;
-            
+
             /**
              \return the IElementSet to which this element belongs
              */
             IElementSet * elementSet() const;
-            
+
             // list of pins
             /**
              \return the number of pins of the element
@@ -96,11 +96,11 @@ class IPin;
             /**
               \return the number of the nodes used in the model of the element
               */
-            int numNodes() const; 
+            int numNodes() const;
 
                 // for less typing
             #define CUI const unsigned int
-            
+
             /**
              set the ID of a given node. By this method, the position of a
              node in the common matrix is defined.
@@ -143,7 +143,7 @@ class IPin;
                 [0..numVoltageSources()-1]
              */
             unsigned int voltageSourceID(CUI sourceNumber);
-            
+
         protected:
             // math related, matrix access
 
@@ -186,28 +186,28 @@ class IPin;
         private:
             /// parent in the circuit model
             QVariantMap * m_parentInModel;
-            
+
             /// the elementSet where the element belongs
             IElementSet *m_elemSet;
-            
+
             /// number of nodes in the model
             int m_numNodes;
-            
+
             /// number of voltage sources in the model
             int m_numVoltageSources;
-            
+
             /// number of pins of this element
             int m_numPins;
-            
+
             /// the list of pins associated with this element
             QList<IPin*> m_pins;
-            
+
             /** an array of node IDs storing the position of the element's
                 nodes in the MNA equation matrix.
                 Simple array is used, as access to this matrix is
                 speed-critical */
             int *m_nodeIDs;
-            
+
             /** array of source IDs storing the position of the element's
                 voltage sources in the MNA equation matrix.
                 Simple array is used, as access to this matrix is

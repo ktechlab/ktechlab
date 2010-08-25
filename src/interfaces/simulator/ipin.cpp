@@ -110,7 +110,7 @@ void KTechLab::IPin::disconnectWire(IWire* wire)
             m_wires.indexOf(wire) );
     } else
         kError() << "tried to remove not connected wire " << wire << "\n";
-    
+
 }
 
 void KTechLab::IPin::transferStatusToModel()

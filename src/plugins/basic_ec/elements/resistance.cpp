@@ -17,7 +17,7 @@ using namespace KTechLab;
 
   /*      IElement(QVariantMap * parentInModel, IElementSet * elementSet,
                      int numNodes, int numVoltageSources); */
-                     
+
 Resistance::Resistance(const double resistance):
     IElement(NULL, NULL, 1, 1) // FIXME create proper constructor
 {

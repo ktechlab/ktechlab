@@ -22,7 +22,7 @@ using namespace KTechLab;
 K_PLUGIN_FACTORY(SimulatorPluginFactory,
                  registerPlugin<SimulatorPlugin>();
                 )
-                
+
 K_EXPORT_PLUGIN(SimulatorPluginFactory("ktlsimulator", "ktlsimulator"))
 
 

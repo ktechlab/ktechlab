@@ -35,7 +35,7 @@ class Resistance : public IElement
         \param g the new resistance, expressed by conductance, in Siemens
         */
         void setConductance(const double g);
-        
+
         /**
         set the resistance of the resistance, in Ohms
         \param r new value of the resistance, in Ohms
@@ -55,7 +55,7 @@ class Resistance : public IElement
          fill the matrix coefficients in the MNA matrix
          */
         virtual void fillMatrixCoefficients();
-        
+
     private:
         double m_g; ///< conductance the resistance
 };

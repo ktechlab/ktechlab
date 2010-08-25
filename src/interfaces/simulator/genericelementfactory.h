@@ -20,11 +20,11 @@
  * Macro that declares an @ref IElementFactory class, with a given name and a list of
  * @ref IElement classes that the factory can create
  *
- * @param CLASSNAME the name of the declared, new class 
+ * @param CLASSNAME the name of the declared, new class
  * @param ELEMENT_DECLARATIONS a list of @ref SUPPORT_ELEMENT macros, separated
  *      with whitespaces only. The SUPPORT_ELEMENT macros take as arguments
  *      the name of the supported classes
- * 
+ *
  * Example:
  * @code
  *  DECLARE_ELEMENT_FACTORY(
@@ -38,12 +38,12 @@
  */
 #define DECLARE_ELEMENT_FACTORY(CLASSNAME, ELEMENT_DECLARATIONS) \
     DECLARE_ELEMENT_FACTORY_IN_NAMESPACE( KTechLab, CLASSNAME, ELEMENT_DECLARATIONS)
-    
+
 /**
  * support macro, to be used as second parameter of @ref DECLARE_ELEMENT_FACTORY or
  * @ref DECLARE_ELEMENT_FACTORY_IN_NAMESPACE . More calls to this macro should be
  * separated with whitespace.
- * 
+ *
  * @param CLASSNAME the name of the class, supported by the factory
  *
  */
@@ -53,7 +53,7 @@
             return new CLASSNAME();                     \
     } else {                                            \
         m_supportedComponents.append( #CLASSNAME );     \
-    }  
+    }
 
 
 /**
@@ -121,7 +121,7 @@
             QList<QString> m_supportedComponents;                           \
             QString m_simType;                                              \
             QString m_docMimeType;                                          \
-    }                                                                      
+    }
 
 
 #endif // GENERIC_ELEMENT_FACTORY

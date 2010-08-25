@@ -17,10 +17,10 @@ set( ktlinterfaces_LIB_SRCS
    component/connectoritem.cpp
    component/icomponentitem.cpp
    component/node.cpp
-   
-   simulator/ipin.cpp 
+
+   simulator/ipin.cpp
    simulator/ielement.cpp
-   simulator/ielementset.cpp 
+   simulator/ielementset.cpp
    simulator/ielementfactory.cpp
    simulator/isimulator.cpp
    simulator/isimulatorfactory.cpp

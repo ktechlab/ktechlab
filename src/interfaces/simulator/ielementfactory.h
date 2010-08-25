@@ -23,11 +23,11 @@ namespace KTechLab {
 
 /**
  * \brief common interface for all the component model (element) factories
- * The main purpose of the \ref IElement factores is to register 
- * themselves on the \ref ISimulationManager and then create 
+ * The main purpose of the \ref IElement factores is to register
+ * themselves on the \ref ISimulationManager and then create
  * IElements as needed
- * 
- * One factory type can support only one simulation type and 
+ *
+ * One factory type can support only one simulation type and
  * only one document type
  */
 class KTLINTERFACES_EXPORT IElementFactory : public QObject {
@@ -43,7 +43,7 @@ public:
     virtual const QString simulationType() const = 0;
 
     /**
-     * \return the name of the document mimetype, for which the factory can 
+     * \return the name of the document mimetype, for which the factory can
      * create IElements
      */
     virtual const QString supportedDocumentMimeTypeName() const = 0;
@@ -57,7 +57,7 @@ public:
     /**
      * create a component model, for a gein component type
      * \param type the type of the component
-     * \return the model of the componen, of NULL, if the component is not 
+     * \return the model of the componen, of NULL, if the component is not
      * supported
      */
     virtual IElement * createElement(QString type) = 0;

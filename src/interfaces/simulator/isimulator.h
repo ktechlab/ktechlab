@@ -48,20 +48,20 @@ public:
     virtual void start() = 0;
 
     /**
-     * pause the simulation. if it's paused, do nothing 
+     * pause the simulation. if it's paused, do nothing
      */
     virtual void pause() = 0;
 
     /**
-     * change the state of paused/running of the simulator 
+     * change the state of paused/running of the simulator
      */
     virtual void tooglePause() = 0;
 
     /**
-     * @return the IElement associated with a component 
+     * @return the IElement associated with a component
      */
     virtual IElement *getModelForComponent(QVariantMap *component) = 0;
-// 
+//
 public slots:
     /**
      * Slot activate in case of the document structure has changed.

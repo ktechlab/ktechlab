@@ -95,7 +95,7 @@ class ElementSet : public IElementSet
         virtual double x_j(CUI i);
 
         #undef CUI
-        
+
     private:
         Matrix *m_a;
         QuickVector *m_x;

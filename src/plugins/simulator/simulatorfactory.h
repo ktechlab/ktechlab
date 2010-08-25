@@ -24,7 +24,7 @@ class SimulatorFactory : public ISimulatorFactory {
 public:
 
     SimulatorFactory();
-    
+
     virtual ~SimulatorFactory();
 
     /**
@@ -47,7 +47,7 @@ public:
     private:
         QString m_simType;
         QString m_documentType;;
-    
+
 };
 
 }

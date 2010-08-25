@@ -15,7 +15,7 @@
 #include <interfaces/iplugincontroller.h>
 #include <interfaces/iplugin.h>
 #include <KComponentData>
-#include <KSharedConfig>    
+#include <KSharedConfig>
 #include <KDebug>
 
 using namespace KTechLab;

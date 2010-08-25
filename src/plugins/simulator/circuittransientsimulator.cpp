@@ -107,7 +107,7 @@ void CircuitTransientSimulator::documentStructureChanged()
         return;
     }
     /*
-    splitDocumentInCircuits(); 
+    splitDocumentInCircuits();
     foreach(Circuit *c, m_circuits){ // what kind of abstraction?
         stepSimulation();
         createElementSet();
@@ -247,7 +247,7 @@ bool CircuitTransientSimulator::recreateWireList()
         if( error ){
             kError() << "can't get end-node-is-child property\n";
             return false;
-        }        
+        }
         if(endIsChild){
             QString endParent = variantToString(connectorMap.value("end-node-parent"), error);
             if( error ){
@@ -264,7 +264,7 @@ bool CircuitTransientSimulator::recreateWireList()
                 kError() << "can't get specified pin id '" << endParentNodeID <<
                     "' on element with id '" << endParent << "'\n";
                 return false;
-            }            
+            }
         } else {
             QString endNodeID = variantToString(connectorMap.value("end-node-id"), error);
             if(error){
