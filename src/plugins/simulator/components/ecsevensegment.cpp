@@ -147,8 +147,8 @@ void ECSevenSegment::drawShape(QPainter &p) {
 
 	// Top
 	_b = last_brightness[0];
-	p.setPen(QPen(QColor(uint(255 - (255 - _b) * (1 - r)), 
-			     uint(255 - (255 - _b) * (1 - g)), 
+	p.setPen(QPen(QColor(uint(255 - (255 - _b) * (1 - r)),
+			     uint(255 - (255 - _b) * (1 - g)),
 			     uint(255 - (255 - _b) * (1 - b))
 			    ), 2));
 
@@ -156,8 +156,8 @@ void ECSevenSegment::drawShape(QPainter &p) {
 
 	// Top right
 	_b = last_brightness[1];
-	p.setPen(QPen(QColor(uint(255 - (255 - _b) * (1 - r)), 
-			     uint(255 - (255 - _b) * (1 - g)), 
+	p.setPen(QPen(QColor(uint(255 - (255 - _b) * (1 - r)),
+			     uint(255 - (255 - _b) * (1 - g)),
 			     uint(255 - (255 - _b) * (1 - b))), 2));
 	p.drawLine(x2 + 0 + ds, y1 + 3, x2 + 0, y2 - 3);
 

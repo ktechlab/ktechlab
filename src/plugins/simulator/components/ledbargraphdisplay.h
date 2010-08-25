@@ -18,8 +18,8 @@
 /**
 @author William Hillerby
 @short Simulates an LED Bar Graph Display
-TODO: refactor this so that the same basic code can be used in LED and matrixDisplay too. 
-caveat: matrix display requires a slowed response time to function properly. We want to get the LED code right once and forever. 
+TODO: refactor this so that the same basic code can be used in LED and matrixDisplay too.
+caveat: matrix display requires a slowed response time to function properly. We want to get the LED code right once and forever.
 */
 const unsigned int max_LED_rows = 24;
 class LEDPart {

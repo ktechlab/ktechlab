@@ -361,12 +361,12 @@ class GpsimProcessor : public QObject
                  * @param steps number of steps
                  */
                 void setStepsPerMicrosecond(const unsigned int steps);
-                
+
                 /**
                  * @return the number of steps that should be executed in 1 simulator step
                  */
                 unsigned int stepsPerMicrosecond();
-                
+
 	signals:
 		/**
 		 * Emitted when the running status of gpsim changes.
@@ -396,7 +396,7 @@ class GpsimProcessor : public QObject
 		
 	private:
 		bool m_bIsRunning;
-                
+
                 /// how many steps should the simulator perform in one ktechlab simulator iteration
                 unsigned int m_stepsPerMicrosecond;
 };

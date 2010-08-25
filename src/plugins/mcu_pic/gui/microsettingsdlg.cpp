@@ -75,7 +75,7 @@ MicroSettingsDlg::MicroSettingsDlg( MicroSettings * microSettings, QWidget *pare
 		groupBoxLayout->setAlignment( Qt::AlignTop );
 		
 		// TODO: replace this with i18n( "the type", "Type (TRIS register):" );
-		groupBoxLayout->addWidget( new QLabel( i18n("Type (TRIS register):"), groupBox ), 0, 0 ); 
+		groupBoxLayout->addWidget( new QLabel( i18n("Type (TRIS register):"), groupBox ), 0, 0 );
 		groupBoxLayout->addWidget( new QLabel( i18n("State (PORT register):"), groupBox ), 1, 0 );
 
 		m_portTypeEdit[row] = new KLineEdit( portType, groupBox );

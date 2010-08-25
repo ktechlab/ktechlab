@@ -57,7 +57,7 @@ protected:
     PicPin m_picPin;
     IOPIN *m_pIOPIN;
 
-// TODO: consider splitting this class into input and bi-dir pins for 
+// TODO: consider splitting this class into input and bi-dir pins for
 // sake of simplicity.
     LogicOut m_pLogicOut;
     LogicIn m_pLogicIn;

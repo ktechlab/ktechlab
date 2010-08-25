@@ -1,7 +1,7 @@
 //
 // C++ Interface: flowconnector
 //
-// Description: 
+// Description:
 //
 //
 // Author: David Saxton, Alan Grimes, Zoltan Padrah <zoltan.padrah@gmail.com>, (C) 2008

@@ -10,7 +10,7 @@
 
 #include "oscilloscopedata.h"
 #include "oscilloscope.h"
- 
+
 //BEGIN class ProbeData
 ProbeData::ProbeData( int id)
 	: m_id(id), m_drawPosition(0.5),
@@ -62,7 +62,7 @@ uint64_t LogicProbeData::findPos( uint64_t time) const
 
 	// binary search
 
-// TODO: test and debug this code. 
+// TODO: test and debug this code.
 	unsigned int top = pos;
 	pos >>=1;
 	unsigned int bottom = 0;

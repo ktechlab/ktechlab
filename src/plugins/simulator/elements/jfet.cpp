@@ -130,7 +130,7 @@ void JFET::calc_eq()
 		&I_GS, &I_GD, &I_DS,
 		&g_GS, &g_GD, &g_DS,
 		&g_m);
-	// conductance. 
+	// conductance.
 	m_ns.A[PinG][PinG] =  g_GS + g_GD;
 	m_ns.A[PinG][PinD] = -g_GD;
 	m_ns.A[PinG][PinS] = -g_GS;
@@ -162,7 +162,7 @@ void JFET::calcIg(double  V_GS, double  V_GD,
 	double lambda = 0.001; // "channel length modulation parameter" (1/V)
 	double I_S  = m_jfetSettings.I_S;
 	double N    = m_jfetSettings.N;
-// FIXME: How were we supposed to use the parameter in the next line? 
+// FIXME: How were we supposed to use the parameter in the next line?
 //	double N_R  = m_jfetSettings.N_R;
 
 	// GS diode
@@ -185,13 +185,13 @@ void JFET::calcIg(double  V_GS, double  V_GD,
 	double beta = m_jfetSettings.beta;
 
 	double beta_mod = beta * (1 + lambda * V_DS);
-	double inv_beta_mod = beta * (1 - lambda * V_DS); 
+	double inv_beta_mod = beta * (1 - lambda * V_DS);
 
 	switch(getOpRegion(V_DS, V_GST, V_GDT)) {
 	case NormalCutoff:
 	case InverseCutoff:
 		*I_DS = 0;
-		*g_DS = 0;  // g_xx here indicates the conductance of a channel. 
+		*g_DS = 0;  // g_xx here indicates the conductance of a channel.
 		*g_m  = 0;
 		break;
 	case NormalSaturation:

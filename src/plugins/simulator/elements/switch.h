@@ -40,7 +40,7 @@ public:
 	State state() const { return m_state; }
 
 	/**
-	Obtain the switch's other pin, if its closed. 
+	Obtain the switch's other pin, if its closed.
 	*/
 	Pin *otherPinIfClosed(const Pin *aPin);
 
@@ -77,7 +77,7 @@ protected:
 // ***
 	Component *m_pComponent;
 
-// because we aren't a component, we can't own our pins, 
+// because we aren't a component, we can't own our pins,
 // because we aren't an element, we can't pretend pins don't exist. =(
 	Pin *m_pP1;
 	Pin *m_pP2;

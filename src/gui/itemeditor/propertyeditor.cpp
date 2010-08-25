@@ -36,7 +36,7 @@
 PropertyEditor::PropertyEditor(QWidget * parent, const char * name)
         : KListView(parent, name)
         , m_items(101, false)
-        , justClickedItem(false) 
+        , justClickedItem(false)
 	, m_currentEditor(0) {
     m_items.setAutoDelete(false);
 

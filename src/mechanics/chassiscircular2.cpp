@@ -101,7 +101,7 @@ void ChassisCircular2::drawShape( QPainter &p )
 	const double _x = int(sizeRect().x() + x());
 	const double _y = int(sizeRect().y() + y());
 	const double w = sizeRect().width();
-	const double h = sizeRect().height(); 
+	const double h = sizeRect().height();
 	
 	initPainter(p);
 	p.setBrush( QColor( 255, 246, 210 ) );

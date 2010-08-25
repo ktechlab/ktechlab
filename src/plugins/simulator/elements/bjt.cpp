@@ -132,7 +132,7 @@ void BJT::calc_eq()
 	m_ns.A[1][1] =  g_BC + g_IR;
 	m_ns.A[2][2] =  g_BE + g_IF;
 
-// off-diags. 
+// off-diags.
 	m_ns.A[0][1] = -g_BC;
 	m_ns.A[0][2] = -g_BE;
 

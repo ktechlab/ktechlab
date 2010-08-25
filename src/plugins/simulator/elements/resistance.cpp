@@ -34,7 +34,7 @@ void Resistance::setConductance(const double g) {
 	m_g = g - m_g;
 	add_initial_dc();
 
-	m_g = g; 
+	m_g = g;
 }
 
 void Resistance::setResistance(const double r) {

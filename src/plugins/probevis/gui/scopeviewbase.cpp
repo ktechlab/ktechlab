@@ -18,7 +18,7 @@
 
 #include "scopeviewbase.h"
 
-//for testing 
+//for testing
 //#include <valgrind/callgrind.h>
 
 ScopeViewBase::ScopeViewBase(QWidget *parent, const char *name)

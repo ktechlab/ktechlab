@@ -236,7 +236,7 @@ Connector *CircuitICNDocument::createConnector(Connector *con1, Connector *con2,
 
 Connector *CircuitICNDocument::createConnector(const QString &startNodeId, const QString &endNodeId, QPointList *pointList) {
 
-// must call this function to avoide creating fake nodes. 
+// must call this function to avoide creating fake nodes.
 	ECNode *startNode = dynamic_cast<ECNode*>(nodeWithID(startNodeId));
 	ECNode *endNode   = dynamic_cast<ECNode*>(nodeWithID(endNodeId  ));
 

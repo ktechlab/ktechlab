@@ -210,7 +210,7 @@ Doble pulsación sobre el elemento de texto para establecer el texto
 <!-- item: ec/ccvs -->
 <html><head><meta name="qrichtext" content="1" /></head><body>
 <p>Fuente dependiente de voltaje controlada por corriente (FVCC). Su valor viene dado por v = r * i<sub>c</sub>, donde r es la ganancia e i<sub>c</sub> la corriente de control que se haga circular por la resistencia. </p>
-<p>Para su conexión, consulte la ayuda en contexto para la FCCC.</p> 
+<p>Para su conexión, consulte la ayuda en contexto para la FCCC.</p>
 </body></html>
 <!-- item: ec/clock_input -->
 <html><head><meta name="qrichtext" content="1" /></head><body>
@@ -732,7 +732,7 @@ Punto de masa. Es un punto de referencia al que se le asigna por convenio un pot
 </body></html>
 <!-- item: ec/potentiometer -->
 <html><head><meta name="qrichtext" content="1" /></head><body>
-<p>Es un<span style="font-style:italic"> resistor</span> al que se le puede variar su valor resistivo. Consiste en una resistencia conectada a las patillas de los extremos, con una patilla central conectada a un punto ajustable a lo largo de la resistencia, cuya regulación permite cambiar el valor resistivo del potenciómetro.</p> 
+<p>Es un<span style="font-style:italic"> resistor</span> al que se le puede variar su valor resistivo. Consiste en una resistencia conectada a las patillas de los extremos, con una patilla central conectada a un punto ajustable a lo largo de la resistencia, cuya regulación permite cambiar el valor resistivo del potenciómetro.</p>
 <p>El valor se cambian situando el cursor sobre el elemento gris de la patilla central y moviendo la rueda central del ratón o bien arrastrando sobre dicho elemento.</p>
 </p>Vea <A HREF="http://es.wikipedia.org/wiki/Potenci%C3%B3metro">potenciómetro</A> en Wikipedia.
 </body></html>
@@ -859,7 +859,7 @@ Conjunto de resistencias, dos como mínimo, con los mismos valores en un encapsu
 </body></html>
 <!-- item: ec/vccs -->
 <html><head><meta name="qrichtext" content="1" /></head><body>
-<p>Fuente dependiente de corriente controlada por voltaje (FCCV). Su valor viene dado por i = g * v<sub>c</sub>, donde g es la ganancia y v<sub>c</sub> el voltaje de control que tenga la resistencia.</p> 
+<p>Fuente dependiente de corriente controlada por voltaje (FCCV). Su valor viene dado por i = g * v<sub>c</sub>, donde g es la ganancia y v<sub>c</sub> el voltaje de control que tenga la resistencia.</p>
 <p>Para su conexión, consulte la ayuda en contexto para la FCCC.</p>
 </body></html>
 <!-- item: ec/vcvs -->
@@ -930,7 +930,7 @@ Salta a la subrutina indicada y al finalizar la misma, el código continuará ej
 </body></html>
 <!-- item: flow/end -->
 <html><head><meta name="qrichtext" content="1" /></head><body>
-<p>Marca el fin del programa y pone el microcontrolador en estado suspendido.</p> 
+<p>Marca el fin del programa y pone el microcontrolador en estado suspendido.</p>
 <p>No es necesario incluirlo para la correcta ejecución del programa, pero se aconseja su inclusión en la programación.</p>
 </body></html>
 <!-- item: flow/forloop -->

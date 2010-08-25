@@ -16,7 +16,7 @@ Inductance::Inductance(const double inductance, const double delta)
 	m_inductance = inductance;
 	scaled_inductance = 0.0;
 	m_numCNodes = 2;
-	m_numCBranches = 1; // DC short-circuit. 
+	m_numCBranches = 1; // DC short-circuit.
 	setMethod(Inductance::m_euler);
 }
 
@@ -66,7 +66,7 @@ void Inductance::time_step()
 	} else if ( m_method == Inductance::m_trap ) {
 		// TODO Implement + test trapezoidal method
 		r_eq_new = 2.0 * m_inductance / m_delta;
-// We need to update v_eq_new here but I don't know if this is the right code. 
+// We need to update v_eq_new here but I don't know if this is the right code.
 		v_eq_new = -i * r_eq_new;
 	}
 

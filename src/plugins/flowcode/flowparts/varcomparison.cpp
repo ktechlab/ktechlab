@@ -56,7 +56,7 @@ VarComparison::VarComparison( ICNDocument *icnDocument, bool newItem, const char
 	property("2var2")->setValue("0");
 	
 	addDisplayText( "output_false", QRect( offsetX()+width(), 2, 40, 20 ), "No" );
-	addDisplayText( "output_true", QRect( 0, offsetY()+height(), 50, 20 ), "Yes" ); 
+	addDisplayText( "output_true", QRect( 0, offsetY()+height(), 50, 20 ), "Yes" );
 }
 
 VarComparison::~VarComparison()

@@ -206,7 +206,7 @@ void ECMOSFET::dataChanged() {
 			removeNode("b");
 			removeElement(&m_pMOSFET, false);
 
-		// Our class requires that we initialize a four pin element, even if we tie two of those pins together. 
+		// Our class requires that we initialize a four pin element, even if we tie two of those pins together.
 			setup4pinElement(m_pMOSFET, ecNodeWithID("d")->pin(),
 				ecNodeWithID("g")->pin(), ecNodeWithID("s")->pin(),
 				ecNodeWithID("s")->pin());

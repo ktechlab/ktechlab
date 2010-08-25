@@ -20,7 +20,7 @@
 #include <kdebug.h>
 #include <kglobal.h>
 #include <kiconloader.h>
-#include <klocale.h> 
+#include <klocale.h>
 #include <knuminput.h>
 #include <qbutton.h>
 #include <qlabel.h>

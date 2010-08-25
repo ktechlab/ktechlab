@@ -30,15 +30,15 @@ Wire::Wire(Pin *startPin, Pin *endPin) :
 
 Wire::~Wire()
 {
-// if this fails, we've already been deleted. Because the memory allocation subsystem isn't fine-grained, we 
-// don't immediately segfault when the caller tries to call us, but rather further down when we try to de-refference 
-// the pins which we zeroed out below. This assertion should be left in place until the underlying bug is fixed. 
+// if this fails, we've already been deleted. Because the memory allocation subsystem isn't fine-grained, we
+// don't immediately segfault when the caller tries to call us, but rather further down when we try to de-refference
+// the pins which we zeroed out below. This assertion should be left in place until the underlying bug is fixed.
 assert(m_pStartPin && m_pEndPin);
 
 	m_pStartPin->removeWire(this);
 	m_pEndPin->removeWire(this);
 
-	// make sure we're conspicuously invalid to help debugging, cuz 
+	// make sure we're conspicuously invalid to help debugging, cuz
 	// there are many dangling refferences to this class. =(
 	m_pStartPin = m_pEndPin = 0;
 }

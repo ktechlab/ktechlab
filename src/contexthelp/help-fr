@@ -11,7 +11,7 @@ Sélectionnez la ligne de position des points finaux
 <!-- item: dp/rectangle -->
 
 <!-- item: dp/text -->
-Double cliquez sur le champ pour insérer le texte. 
+Double cliquez sur le champ pour insérer le texte.
 <!-- item: ec/555 -->
 CI de base de temps commune
 <!-- item: ec/ac_current -->
@@ -29,7 +29,7 @@ A display of square LEDs with a configurable number of rows.
 <!-- item: ec/battery -->
 Génère une tension
 <!-- item: ec/bcd_to_seven_segment -->
-Transforme un nombre binaire en un forme affichable par un afficheur à sept segments.<br><br>Les opération régulière : <i>lt</i> (Test de lampes) et <i>rb</i> (Clignotement) sont maintenue haute, <i>en</i> (Autorisation) est mainenue bas. 
+Transforme un nombre binaire en un forme affichable par un afficheur à sept segments.<br><br>Les opération régulière : <i>lt</i> (Test de lampes) et <i>rb</i> (Clignotement) sont maintenue haute, <i>en</i> (Autorisation) est mainenue bas.
 <!-- item: ec/bidir_led -->
 Diode Electro-luminécente bidirectionnelle
 <!-- item: ec/binary_counter -->
@@ -49,7 +49,7 @@ Fusionne plusieur connection en une.
 <!-- item: ec/clock_input -->
 Un générateur d'onde carrée, la sortie est au niveau Haut/Bas à interval régulier.
 <!-- item: ec/current_source -->
-Génère un courant fixe. 
+Génère un courant fixe.
 <!-- item: ec/currentprobe -->
 Displays the current at the probe point on the oscilloscope.
 <!-- item: ec/d_flipflop -->
@@ -59,13 +59,13 @@ Converti une entrée numérique en une sortie analogique
 <!-- item: ec/demultiplexer -->
 Sépare les composant d'un flux de données. La valeur de l'entrées est transmise à la sortie "X" sélectionné par le nombre binaire indiqué par les entrées "A"
 <!-- item: ec/diode -->
-Permet au courant de circuler dans le sens de la fléche quand une certaine tension a été atteind. 
+Permet au courant de circuler dans le sens de la fléche quand une certaine tension a été atteind.
 <!-- item: ec/dpdt_toggle -->
-Commutateur à double pole et double commande. 
+Commutateur à double pole et double commande.
 <!-- item: ec/dpst_toggle -->
-Commutateur à double pole et mono commande. 
+Commutateur à double pole et mono commande.
 <!-- item: ec/external_connection -->
-Point de connexion vers une entitée externe - Par exemple un omposant émcanique ou un sous circuits. 
+Point de connexion vers une entitée externe - Par exemple un omposant émcanique ou un sous circuits.
 <!-- item: ec/fixed_voltage -->
 Fourni un noeud avec une tension fixe à connecter aux composants.
 <!-- item: ec/ground -->
@@ -77,17 +77,17 @@ La sortie est l'inverse logique de l'entrée.
 <!-- item: ec/jk_flipflop -->
 L'implusion de l'horloge génère un état de sortie suivant l'état des entrées J et K
 <!-- item: ec/keypad -->
-Fournie une matrice de bouton poussoir, avec 4 lignes et un nombre configurable de colonnes. 
+Fournie une matrice de bouton poussoir, avec 4 lignes et un nombre configurable de colonnes.
 <!-- item: ec/led -->
 Diode Electro-luminecente
 <!-- item: ec/logic_input -->
-Fourni un état logique réglable par l'utilisateur.<br><br>Cliquez pour générer une impulsion haute, ou glissez la sourie pour garder la sortie haute. 
+Fourni un état logique réglable par l'utilisateur.<br><br>Cliquez pour générer une impulsion haute, ou glissez la sourie pour garder la sortie haute.
 <!-- item: ec/logic_output -->
-Affiche l'état logique de la sortie. 
+Affiche l'état logique de la sortie.
 <!-- item: ec/magnitudecomparator -->
 Compares two binary numbers and generates output to indicate which binary number has the greater magnitude. It has 3 cascading inputs:<ul><li>I: A &gt; B</li><li>I: A &lt; B</li><li>I: A = B</li></ul>and 3 outputs:<ul><li>O: A &gt; B</li><li>O: A &lt; B</li><li>O: A = B</li></ul>
 <!-- item: ec/matrix_display -->
-Un afficheur matriciel de LED avec un nombre configurable de lignes et de colonnes. 
+Un afficheur matriciel de LED avec un nombre configurable de lignes et de colonnes.
 <!-- item: ec/matrix_display_driver -->
 
 <!-- item: ec/multiplexer -->
@@ -99,7 +99,7 @@ La sortie est basse seulement quand toutes les entrées sont hautes.
 <!-- item: ec/njfet -->
 
 <!-- item: ec/nor -->
-La sortie est haute quand toutes les sorties sont basses. 
+La sortie est haute quand toutes les sorties sont basses.
 <!-- item: ec/npnbjt -->
 
 <!-- item: ec/opamp -->
@@ -117,9 +117,9 @@ The PIC component allows the simulation of a PIC program.<br><br>The loadable PI
 <!-- item: ec/pnpbjt -->
 
 <!-- item: ec/potentiometer -->
-Correspond à une résistance connectée aux bornes de sorties, avec une borne centrale connectée à point de contact réglable le long de la résistance. 
+Correspond à une résistance connectée aux bornes de sorties, avec une borne centrale connectée à point de contact réglable le long de la résistance.
 <!-- item: ec/probe -->
-Affiche le niveau haut/bas à l'emplacement de la sonde sur l'oscilloscope 
+Affiche le niveau haut/bas à l'emplacement de la sonde sur l'oscilloscope
 <!-- item: ec/ptb_switch -->
 
 <!-- item: ec/ptm_switch -->
@@ -135,9 +135,9 @@ Rotary Switch
 <!-- item: ec/serial_port -->
 Interface to a serial port. The pins are:<br><ul><li><b>CD</b> - Carrier Detect (control; output)</li><li><b>RD</b> - Received Data (data; output)</li><li><b>TD</b> - Transmitted Data (data; input)</li><li><b>DTR</b> - Data Terminal Ready (control; input)</li><li><b>GND</b> - Signal Ground (ground)</li><li><b>DSR</b> - Data Set Ready (control; input)</li><li><b>RTS</b> - Request to Send (control; input)</li><li><b>CTS</b> - Clear to Send (control; output)</li><li><b>RI</b> - Ring Indicator (control; output)</li></ul>
 <!-- item: ec/seven_segment -->
-Un afficheur sept segment avec un point décimal. Il peut être configuré pour avoir soit une cathode ou une anode commune. 
+Un afficheur sept segment avec un point décimal. Il peut être configuré pour avoir soit une cathode ou une anode commune.
 <!-- item: ec/signal_lamp -->
-Une simple lampe à filament de signalisation, avec une résistance série de 100 ohms. 
+Une simple lampe à filament de signalisation, avec une résistance série de 100 ohms.
 <!-- item: ec/spdt_toggle -->
 Commutateur simple pole et double commande
 <!-- item: ec/spst_toggle -->
@@ -161,9 +161,9 @@ Affiche la tension à l'emplacement de la sonde sur l'oscilloscope
 <!-- item: ec/voltmeter -->
 Placez-le en paralléle sur le circuit pour mesurer la tension entre deux points.
 <!-- item: ec/xnor -->
-Port NOR exclusive. La sortie est basse si et seulement si une seule entrée haute. 
+Port NOR exclusive. La sortie est basse si et seulement si une seule entrée haute.
 <!-- item: ec/xor -->
-Porte OU exclusif. La sortie est haute si et seulement si une entrée est haute. 
+Porte OU exclusif. La sortie est haute si et seulement si une entrée est haute.
 <!-- item: flow/callsub -->
 Appel d'un sous-programme. A la sortie du sous-programme, l'execution continura à partir de ce point.
 <!-- item: flow/delay -->
@@ -171,17 +171,17 @@ Retarde l'execution du programme pour un période donnée.
 <!-- item: flow/embed -->
 Double-cliquez sur l'élement pour éditer le code embarqué.
 <!-- item: flow/end -->
-Achève l'execution du programme, met le CI en veille. Au contraire de Start, ce composant Flow n'est pas obligatoire pour l'execution d'un programme. 
+Achève l'execution du programme, met le CI en veille. Au contraire de Start, ce composant Flow n'est pas obligatoire pour l'execution d'un programme.
 <!-- item: flow/forloop -->
-L'éxécution du code contenue dans la boucle For est répété. Par défaut, la variable utilisée sera incrémentée à chaque répétition. Ceci peut être changé en entrant une valeur autre que 1 dans Step.<br><br>La boucle For s'arretera quand la valeur de la variable sera égale à la valeur de fin. 
+L'éxécution du code contenue dans la boucle For est répété. Par défaut, la variable utilisée sera incrémentée à chaque répétition. Ceci peut être changé en entrant une valeur autre que 1 dans Step.<br><br>La boucle For s'arretera quand la valeur de la variable sera égale à la valeur de fin.
 <!-- item: flow/keypad -->
 Gets a key from a keypad connected to the PIC.
 <!-- item: flow/readport -->
 Assigne une valeur d'un port à une variable
 <!-- item: flow/repeat -->
-Execute un code infiniment, jusqu'a qu'un condition donnée soit fausse. La condition est vérifié aprés l'éxecuton du code. <br><br>Ceci est différent de "While", qui vérifie la validité de la condition avant l'execution du code; 
+Execute un code infiniment, jusqu'a qu'un condition donnée soit fausse. La condition est vérifié aprés l'éxecuton du code. <br><br>Ceci est différent de "While", qui vérifie la validité de la condition avant l'execution du code;
 <!-- item: flow/setpin -->
-Affecter un niveau Haut/bas sur une borne d'un port. La borne doit être configuré en sortie. 
+Affecter un niveau Haut/bas sur une borne d'un port. La borne doit être configuré en sortie.
 <!-- item: flow/sevenseg -->
 Sortie d'un afficheur sept segments
 <!-- item: flow/start -->
@@ -197,6 +197,6 @@ Affect l'évaluation d'une expression à une variable. L'expression peut prendre
 <!-- item: flow/varcomparison -->
 Branchement conditionnelle, depend de la comparaison de deux variables. Les comparaison possibles sont : <ul><li><b>x == y</b> - Egalité : vrai si x a la même valeur que y.</li><li><b>x &lt; y</b> - Moins que : Vrai si x est inférieur à y.</li><li><b>< &gt; y</b> - Plus que ; vrai si x est suppérieur à y.</li><li><b>x &lt;= y</b>Plus ou égale que : vrai si x est inférieur ou égale à y.</li><li><b>x &gt;= y</b> - Plus grand ou égale que ; vrai si x est suppérieur ou égale à y.</li><li><b>x != y</b> - Différent de : vrai si x n'a pas la même valeur que y.</li></ul>
 <!-- item: flow/while -->
-Répète l'éxécution du code tant que la condition est fausse. La condition est vérifié avant que le code soit éxecuté.<br><br>Ceci est différent de "Repeat", qui ne vérifie la véracité de la condition qu'après l'éxecution du code. 
+Répète l'éxécution du code tant que la condition est fausse. La condition est vérifié avant que le code soit éxecuté.<br><br>Ceci est différent de "Repeat", qui ne vérifie la véracité de la condition qu'après l'éxecution du code.
 <!-- item: flow/writeport -->
-Met les bornes du port à l'état Haut/Bas depuis une valeur donnée. Seuls les bornes qui ont été configuré comme sorties prendrons la valeur qui leur est assigné. 
+Met les bornes du port à l'état Haut/Bas depuis une valeur donnée. Seuls les bornes qui ont été configuré comme sorties prendrons la valeur qui leur est assigné.

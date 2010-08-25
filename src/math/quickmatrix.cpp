@@ -44,7 +44,7 @@ QuickMatrix::QuickMatrix(CUI m_in, CUI n_in)
 
 // ####################################
 
-QuickMatrix::QuickMatrix(CUI m_in) 
+QuickMatrix::QuickMatrix(CUI m_in)
         : m(m_in), n(m_in) {
     allocator();
     fillWithZero();
@@ -86,7 +86,7 @@ void QuickMatrix::allocator() {
 
 bool QuickMatrix::isSquare() const {
 	return m == n;
-} 
+}
 
 // ####################################
 
@@ -187,7 +187,7 @@ bool QuickMatrix::scaleRow(CUI m_a, const double scalor) {
 
 	double *arow = values[m_a];
 
-// iterate over n columns. 
+// iterate over n columns.
 	for(unsigned int j = 0; j < n; j++) arow[j] *= scalor;
 
 	return true;
@@ -202,7 +202,7 @@ double QuickMatrix::rowsum(CUI m) {
 
 	double sum = 0.0;
 
-// iterate over n columns. 
+// iterate over n columns.
 	for(unsigned int j = 0; j < n; j++) sum += arow[j];
 
 	return sum;
@@ -216,7 +216,7 @@ double QuickMatrix::absrowsum(CUI m_sel) {
 	double *arow = values[m_sel];
 	double sum = 0.0;
 
-// iterate over n columns. 
+// iterate over n columns.
 	for(unsigned int j = 0; j < n; j++) sum += fabs(arow[j]);
 
 	return sum;
@@ -231,7 +231,7 @@ bool QuickMatrix::scaleAndAdd(CUI m_a, CUI m_b, const double scalor) {
 	const double *arow = values[m_a];
 	double *brow = values[m_b];
 
-// iterate over n columns. 
+// iterate over n columns.
 	for(unsigned int j = 0; j < n; j++)
 		brow[j] += arow[j] * scalor;
 
@@ -342,7 +342,7 @@ QuickMatrix *QuickMatrix::operator *(const QuickMatrix *operandmat) const {
 	for(unsigned int i = 0; i < m; i++) {
 		for(unsigned int j = 0; j < operandmat->n; j++) {
 			double sum = 0;
-			for(unsigned int k = 0; k < n; k++) 
+			for(unsigned int k = 0; k < n; k++)
 				sum += values[i][k] * operandmat->values[k][j];
 			ret->values[i][j] = sum;
 		}
@@ -370,7 +370,7 @@ void QuickMatrix::dumpToAux() const {
 		for(unsigned int i = 0; i < n; i++)
 			cout << values[j][i] << ' ';
 		cout << endl;
-	} 
+	}
 }
 
 // ###################################

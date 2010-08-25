@@ -65,7 +65,7 @@ void ECSubcircuit::setNumExtCon(unsigned numExtCon) {
 
     p_itemDocument->flushDeleteList();
     m_nodeMap.clear();
- 
+
    QStringList pins;
 
     for (unsigned i = 0; i < numExtCon; ++i) {

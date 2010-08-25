@@ -258,7 +258,7 @@ void RichTextEditor::alignmentChanged( int a )
 
 void RichTextEditor::verticalAlignmentChanged()
 {
-// 	QTextEdit::VerticalAlignment a = 
+// 	QTextEdit::VerticalAlignment a =
 // 	if ( a == KTextEdit::AlignNormal )
 // 		m_pTextVerticalAlignment->setIcon( "text" );
 // 	else if ( a == KTextEdit::AlignSuperScript )

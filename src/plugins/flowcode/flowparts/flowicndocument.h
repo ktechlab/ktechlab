@@ -1,7 +1,7 @@
 //
 // C++ Interface: flowicndocument
 //
-// Description: 
+// Description:
 //
 //
 // Author: Zoltan P <zoltan.padrah@gmail.com>, (C) 2008

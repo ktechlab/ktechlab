@@ -174,7 +174,7 @@ private:
 // this is not to be confused with elements which have nonLinear and Reactive components. =P
 	list<Component*> *m_components;
 
-// allow a variable number of callbacks be scheduled at each possible time. 
+// allow a variable number of callbacks be scheduled at each possible time.
 	list<ComponentCallback *> *m_pStartStepCallback[LOGIC_UPDATE_RATE/LINEAR_UPDATE_RATE];
 
 	Simulator();

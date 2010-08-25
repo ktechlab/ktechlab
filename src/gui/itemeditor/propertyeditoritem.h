@@ -13,7 +13,7 @@
 #ifndef PROPERTYEDITORITEM_H
 #define PROPERTYEDITORITEM_H
 
-#include <klistview.h> 
+#include <klistview.h>
 #include <qasciidict.h>
 #include <qptrlist.h>
 #include <qdict.h>

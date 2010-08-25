@@ -67,7 +67,7 @@ protected:
 	virtual void outputtedError( const QString &/*message*/ ) {};
 	/**
 	 * Called when the process exits (called before any signals are emitted,
-	 * etc). If you reinherit this function, you should return whether 
+	 * etc). If you reinherit this function, you should return whether
 	 * everything is OK.
 	 */
 	virtual bool processExited( bool successfully ) { return successfully; }

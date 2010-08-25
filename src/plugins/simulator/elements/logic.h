@@ -158,8 +158,8 @@ public:
 	void setHigh(bool high);
 
 /**
-* We have two modes, a fast mode based on internal logic chains and a slow mode based on the 
-* analog simulator. Calling this function puts us in fast mode, use only if there are no analog considerations. 
+* We have two modes, a fast mode based on internal logic chains and a slow mode based on the
+* analog simulator. Calling this function puts us in fast mode, use only if there are no analog considerations.
  */
 	void setChanged() { isSetChanged = true; }
 	void clearChanged() { isSetChanged = false; }
@@ -167,7 +167,7 @@ public:
 
 // FIXME RED ALERT: THESE ARE ONLY ACCESSED BY circuitDocument and SIMULATOR!!!
 PinSet logicPinList;
-// **** 
+// ****
 
 	void removeDependent(LogicIn *foo) { dependents.remove(foo); }
 	void setDependents(LogicInList &logicInList);
@@ -187,7 +187,7 @@ protected:
 
 	bool isSetChanged;
 
-private: 
+private:
 	States out_state;
 
 	LogicInList dependents;

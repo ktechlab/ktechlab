@@ -362,7 +362,7 @@ void FlowCode::tidyCode()
 					asmEmbedAllowed = true;
 				}
 				break;
-			} 
+			}
 			case '/':
 			{
 				newCode += '/';
@@ -406,7 +406,7 @@ void FlowCode::tidyCode()
 			{
 				if ( !comment ) level--;
 				
-				if (asmEmbed && asmEmbedLevel == level) 
+				if (asmEmbed && asmEmbedLevel == level)
 				{
 					asmEmbed = false;
 					newCode += "\n";

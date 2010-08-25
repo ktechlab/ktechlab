@@ -65,7 +65,7 @@ ElementSet::~ElementSet() {
 	delete m_ground;
 
 	if (p_A) delete p_A;
-	p_A = 0; 
+	p_A = 0;
 	if (p_b) delete p_b;
 	p_b = 0;
 	if (p_x) delete p_x;
@@ -117,7 +117,7 @@ break;
 
 #ifdef BITCHY
 // if this test fails, the calculation engine under the simulator is broken =( -- and it is.
-assert(p_A->validateLU() < 1e-4); 
+assert(p_A->validateLU() < 1e-4);
 #endif
 		p_A->fbSub(p_x);
 // #########################
@@ -169,7 +169,7 @@ bool ElementSet::doLinear(bool performLU) {
 		p_A->performLU();
 // if this test fails, the calculation engine under the simulator is broken =( -- and it is.
 #ifdef BITCHY
-assert(p_A->validateLU() < 1e-4); 
+assert(p_A->validateLU() < 1e-4);
 #endif
 	}
 
