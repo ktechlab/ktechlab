@@ -25,35 +25,36 @@
 
 namespace KTechLab {
 
+class PinGroup;
+
+class IPin;
+
+class IWire;
+
 class Matrix;
 class QuickVector;
 
 /**
  \brief implementation of IElementSet interface
+
+ For introduction, see \ref IElementSet
+ 
+ At construction time, the following are created:
+ \li the list of elements in the set
+ \li the IDs for the equations and voltage sources
+ \li the matrixes that will store the equations
+
  */
 class ElementSet : public IElementSet
 {
     public:
         /** constructor */
-        ElementSet();
+        ElementSet(IElement *start,
+                   QList<IElement*> elements,
+                   QList<PinGroup*> pinGroups);
+                   
         /** destructor */
         virtual ~ElementSet();
-
-        /**
-         Add a new element to this elementSet.
-         This method possibly invalidates the status of internal data
-         structures.
-         \param element the element that is added to the IElementSet
-        */
-        virtual void addElement(IElement* element);
-
-        /**
-         Remove an element from the IElementSet.
-         This method possibly invalidates the status of internal data
-         structures.
-         \param element the element that is removed from IElementSet
-         */
-        virtual void removeElement(IElement* element);
 
         /**
          Try to solve the equations of the contained set of elements.

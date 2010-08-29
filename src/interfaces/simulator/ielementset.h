@@ -32,10 +32,9 @@ class IElement;
 /**
     \brief Storage for MNA equations of several elements
 
-    Because elements first have to be created in order to know the
-    number of nodes and voltage sources in each element, the IElementSet
-    dynamically allocates matrixes after all components are added,
-    and distrubutes positions in the matrix to the IElements.
+    An IElementSet contains a fixed set of Elements in its lifetime.
+    The set of elements is extracted as a connected
+    subgraph of the graph passed to the constructor.
 
     The implmenetation of this interface can be found in the simulator.
 */
@@ -45,7 +44,9 @@ class KTLINTERFACES_EXPORT IElementSet : public QObject
 
     public:
         /**
-         create a new IElementSet with no elements inside
+         create an empty element set.
+         A nonempty element set can be created by calling the constructor
+         of any class implementing the IElementSet interface.
          */
         IElementSet();
         /**
@@ -67,22 +68,6 @@ class KTLINTERFACES_EXPORT IElementSet : public QObject
          \return the list of elements associated with this IElementSet
          */
         QList<IElement *> elements() const ;
-
-        /**
-         Add a new element to this elementSet.
-         This method possibly invalidates the status of internal data
-         structures.
-         \param element the element that is added to the IElementSet
-        */
-        virtual void addElement(IElement *element) = 0;
-
-        /**
-         Remove an element from the IElementSet.
-         This method possibly invalidates the status of internal data
-         structures.
-         \param element the element that is removed from IElementSet
-         */
-        virtual void removeElement(IElement *element) = 0;
 
         /**
          Try to solve the equations of the contained set of elements.
