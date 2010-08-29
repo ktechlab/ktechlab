@@ -37,6 +37,12 @@ bool KTechLab::PinGroup::containsPin(IPin* pin) const
  // TODO implement
 }
 
+const QList< IPin* > PinGroup::pins() const
+{
+ // TODO implement
+}
+
+
 bool KTechLab::PinGroup::containsWire(IWire* wire) const
 {
  // TODO implement
