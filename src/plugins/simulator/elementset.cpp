@@ -33,7 +33,27 @@ KTechLab::ElementSet::ElementSet(IElement *start,
     : IElementSet()
 {
     // TODO implement
+
+    buildElementList();
+    allocateMatrixes();
+    assignNodeAndSourceIds();
 }
+
+void ElementSet::buildElementList()
+{
+    // TODO implement
+}
+
+void ElementSet::allocateMatrixes()
+{
+    // TODO implement
+}
+
+void ElementSet::assignNodeAndSourceIds()
+{
+    // TODO implement
+}
+
 
 KTechLab::ElementSet::~ElementSet()
 {

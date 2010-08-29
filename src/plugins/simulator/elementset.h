@@ -98,6 +98,12 @@ class ElementSet : public IElementSet
         #undef CUI
 
     private:
+        /// build the list of elements in the ElementSet
+        void buildElementList();
+        /// create the matrix for calculations
+        void allocateMatrixes();
+        /// assing IDs for nodes and voltage sources
+        void assignNodeAndSourceIds();
         Matrix *m_a;
         QuickVector *m_x;
         QuickVector *m_b;
