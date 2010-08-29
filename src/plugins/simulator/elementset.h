@@ -52,7 +52,7 @@ class ElementSet : public IElementSet
         ElementSet(IElement *start,
                    QList<IElement*> elements,
                    QList<PinGroup*> pinGroups);
-                   
+
         /** destructor */
         virtual ~ElementSet();
 
@@ -104,6 +104,7 @@ class ElementSet : public IElementSet
         void allocateMatrixes();
         /// assing IDs for nodes and voltage sources
         void assignNodeAndSourceIds();
+
         Matrix *m_a;
         QuickVector *m_x;
         QuickVector *m_b;
