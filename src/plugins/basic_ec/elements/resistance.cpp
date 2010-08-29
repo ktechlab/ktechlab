@@ -92,6 +92,12 @@ double Resistance::conductance() const
     return m_g;
 }
 
+void Resistance::actOnSimulationStep(double currentTime)
+{
+    // FIXME implement
+}
+
+
 void KTechLab::Resistance::fillMatrixCoefficients()
 {
     // copied from the original

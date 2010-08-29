@@ -83,7 +83,12 @@ class IPin;
             IPin* pinByName(QString nodeName);
 
             // for the simulation model
-
+            /**
+             on each simulation step, this method is called once.
+             The IElement should act in any way it  wants.
+             This method must be overridden in derived classes.
+             */
+            virtual void actOnSimulationStep(double currentTime) = 0;
             /**
              place the values of MNA coefficients in the matrixes.
              should be owerridden by the specific types of elements
