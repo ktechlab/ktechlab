@@ -16,6 +16,8 @@
 
 namespace KTechLab {
 
+class ElementSet;
+
 class IPin;
 
 class PinGroup;
@@ -92,15 +94,24 @@ private:
      \return true if it's successful and false un faliure
      */
     bool recreateWireList();
-    /** split the groups into connected groups
-     \return true if it's successful and false un faliure
-     */
-    bool splitPinsInGroups();
     /** creates a list of pins that don't belong to any element
      \return true if it's successful and false un faliure
      */
     bool recreateNodeList();
-
+    /** creates a list containing all the pins in the current document
+     \return true, if it's successful and false on faliure
+     */
+    bool createAllPinList();
+    /** split the groups into connected groups
+     \return true if it's successful and false un faliure
+     */
+    bool splitPinsInGroups();
+    /** split the document in ElementSets, so the matrixes of these
+     ElementSets can be solved independently
+     \return true, if succeeds, false otherwise
+     */
+    bool splitDocumentInElementSets();
+    
     // utilitary methods
     /** convert a variant containing string containing a boolean (0/1) value
         to boolean. Has error checking */
@@ -117,22 +128,30 @@ private:
         or not */
     bool m_canBeSimulated;
 
-    /// list of all elements in the document
+    /// list of all elements in the document; it's the primary reference to the elements
     QList<IElement*> m_allElementList;
-    /// list of all wires in the document
+    /// list of all wires in the document; it's the primary reference to the wires
     QList<IWire *> m_allWireList;
     /// map of string ID to element
     QMap<QString, IElement*> m_idToElement;
     /// map of string ID to wire
     QMap<QString, IWire *> m_idToWire;
 
-    /// list of pins not associated to any element
+    /** list of pins not associated to any element;
+        it's the primary reference to unassociated nodes */
     QList<IPin*> m_nodeList;
     /// map of string ID to nodes
     QMap<QString, IPin*> m_idToNode;
 
+    /** list of all nodes in the document;
+        these pointers are not primary */
+    QList<IPin*> m_allPinList;
+    
     /// list of all the groups of pins
     QList<PinGroup *> m_pinGroups;
+
+    /** list of all ElementSets in the document */
+    QList<ElementSet*> m_allElementSetsList;
 };
 
 }
