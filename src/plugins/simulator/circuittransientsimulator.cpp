@@ -173,7 +173,7 @@ bool CircuitTransientSimulator::recreateElementList()
                              element);
         kDebug() << "created model for: " << componentVarMap << "\n";
     }
-    kDebug() << "created " << m_allElementList.count() << " elements\n";
+    kDebug() << "created " << m_allElementList.size() << " elements\n";
     return true;
 }
 
@@ -199,7 +199,7 @@ bool CircuitTransientSimulator::recreateNodeList()
         m_idToNode.insert(id, pin);
     }
     // some statistics
-    kDebug() << "created " << m_nodeList.count() << " nodes\n";
+    kDebug() << "created " << m_nodeList.size() << " nodes\n";
     return true;
 }
 
@@ -298,7 +298,7 @@ bool CircuitTransientSimulator::recreateWireList()
         m_idToWire.insert(id, wire);
     }
     //
-    kDebug() << "created " << m_allWireList.count() << " wires\n";
+    kDebug() << "created " << m_allWireList.size() << " wires\n";
     return true;
 }
 
@@ -316,7 +316,7 @@ bool CircuitTransientSimulator::createAllPinList()
         m_allPinList.append(pin);
     }
     // stats
-    kDebug() << "in total " << m_allPinList.count() << " pins are in the document\n";
+    kDebug() << "in total " << m_allPinList.size() << " pins are in the document\n";
     return true;
 }
 
@@ -330,7 +330,7 @@ bool CircuitTransientSimulator::splitPinsInGroups()
     QMap<IPin*, PinGroup*> pinInGroup;
     IPin *currentPin;
     pinInGroup.clear();
-    int pinNumber = m_allPinList.count();
+    int pinNumber = m_allPinList.size();
     for(int i=0; i<pinNumber; i++){
         currentPin = m_allPinList.at(i);
         if(!pinInGroup.contains(currentPin)){
@@ -357,7 +357,7 @@ bool CircuitTransientSimulator::splitPinsInGroups()
         }
     }
     // status
-    kDebug() << "created " << m_pinGroups.count() << " pin groups\n";
+    kDebug() << "created " << m_pinGroups.size() << " pin groups\n";
     return true;
 }
 
@@ -370,7 +370,7 @@ bool CircuitTransientSimulator::splitDocumentInElementSets()
     QMap<IElement*, ElementSet*> elementInSet;
     elementInSet.clear();
     IElement *currElement;
-    int numberOfElements = m_allElementList.count();
+    int numberOfElements = m_allElementList.size();
     for(int i=0; i<numberOfElements; i++){
         currElement = m_allElementList.at(i);
         if( !elementInSet.contains(currElement) ){
@@ -398,7 +398,7 @@ bool CircuitTransientSimulator::splitDocumentInElementSets()
         }
     }
     // stats
-    kDebug() << "created " << m_allElementSetsList.count() << " element sets\n";
+    kDebug() << "created " << m_allElementSetsList.size() << " element sets\n";
     return true;
 }
 
