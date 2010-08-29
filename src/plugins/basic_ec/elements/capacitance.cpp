@@ -23,6 +23,11 @@ KTechLab::Capacitance::Capacitance(QVariantMap* parentInModel, KTechLab::IElemen
     // TODO implement
 }
 
+void KTechLab::Capacitance::actOnSimulationStep(double currentTime)
+{
+    // FIXME implement
+}
+
 void KTechLab::Capacitance::fillMatrixCoefficients()
 {
     // TODO implement
