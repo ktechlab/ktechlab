@@ -37,6 +37,10 @@ CircuitTransientSimulator::CircuitTransientSimulator(IComponentDocument* doc):
         // FIXME what to do here? save all and exit?
     }
     m_doc = doc->documentModel();
+    // TODO get the simulation values from somewhere
+    m_timeInSimulation = 0;
+    m_stepsPerTick = 2;
+    m_timeStepPerTick = 1e-6; // 1 us
     // TODO connect the dataUpdated from the document model to the simulator
 }
 
