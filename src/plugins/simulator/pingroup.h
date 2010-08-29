@@ -80,11 +80,12 @@ class PinGroup : public QObject
          \param pin the pin about which the information is queried
          */
         bool containsPin(IPin *pin) const;
+
         /**
          \return the list of pins in the group
          */
         const QList<IPin*> pins() const;
-        
+
         /**
          \return true, if a wire can be found in this group,
             false otherwise
