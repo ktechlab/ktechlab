@@ -128,6 +128,18 @@ private:
         or not */
     bool m_canBeSimulated;
 
+    /** the simulation time quantity that passes between two
+        simulation steps.
+
+        Lowering this value can fix convergence problems, but it decreases
+        simulation speed
+        */
+    double m_timeStepPerTick;
+    /** number of steps to take in one tick
+        */
+    int m_stepsPerTick;
+    /** the current time in simulation */
+    double m_timeInSimulation;
     /// list of all elements in the document; it's the primary reference to the elements
     QList<IElement*> m_allElementList;
     /// list of all wires in the document; it's the primary reference to the wires
