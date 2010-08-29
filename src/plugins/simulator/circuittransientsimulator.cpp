@@ -22,6 +22,7 @@
 #include "interfaces/simulator/ielement.h"
 #include "interfaces/simulator/iwire.h"
 #include "interfaces/simulator/ipin.h"
+#include "elementset.h"
 
 
 using namespace KTechLab;
@@ -99,15 +100,24 @@ void CircuitTransientSimulator::documentStructureChanged()
         return;
     }
     if( ! recreateWireList() ){
-        kError() << "failed to recreated the wire list\n";
+        kError() << "failed to recreate the wire list\n";
+        return;
+    }
+    if( ! createAllPinList() ){
+        kError() << "failed to recreate the list of all pins\n";
         return;
     }
     if( ! splitPinsInGroups() ){
         kError() << "failed to split pins in groups\n";
         return;
     }
+    if( ! splitDocumentInElementSets() ){
+        kError() << "failed to split document in element sets\n";
+        return;
+    }
     /*
-    splitDocumentInCircuits();
+    search for logic nodes
+    
     foreach(Circuit *c, m_circuits){ // what kind of abstraction?
         stepSimulation();
         createElementSet();
@@ -285,6 +295,25 @@ bool CircuitTransientSimulator::recreateWireList()
     }
     //
     kDebug() << "created " << m_allWireList.count() << " wires\n";
+    return true;
+}
+
+bool CircuitTransientSimulator::createAllPinList()
+{
+    m_allPinList.clear();
+    // pins belonging to elements
+    foreach(IElement *elem, m_allElementList){
+        int n = elem->pinCount();
+        for(int i = 0; i<n; i++)
+                m_allPinList.append(elem->pin(i));
+    }
+    // pins not belonging to the element
+    foreach(IPin *pin, m_nodeList){
+        m_allPinList.append(pin);
+    }
+    // stats
+    kDebug() << "in total " << m_allPinList.count() << " pins are in the document\n";
+    return true;
 }
 
 bool CircuitTransientSimulator::splitPinsInGroups()
@@ -293,11 +322,81 @@ bool CircuitTransientSimulator::splitPinsInGroups()
     qDeleteAll(m_pinGroups);
     m_pinGroups.clear();
     // repopulate the list
-    // TODO implement
+        // mark all pins, initially none
+    QMap<IPin*, PinGroup*> pinInGroup;
+    IPin *currentPin;
+    pinInGroup.clear();
+    int pinNumber = m_allPinList.count();
+    for(int i=0; i<pinNumber; i++){
+        currentPin = m_allPinList.at(i);
+        if(!pinInGroup.contains(currentPin)){
+            // pin is not in any group, create a new one
+            PinGroup *group = new PinGroup(m_allPinList, m_allWireList, currentPin);
+            // add the pingroup to the list
+            m_pinGroups.append(group);
+            // mark all pins that belong to the group
+            QList<IPin*> pinsInNewGroup = group->pins();
+            foreach(IPin *otherPin, pinsInNewGroup){
+                if(pinInGroup.contains(otherPin)){
+                    kError() << "BUG: a pin cannot belong to two groups!\n";
+                    return false;
+                }
+                pinInGroup.insert(otherPin, group);
+            }
+        }
+    }
+    // check for all pins
+    foreach(IPin *pin, m_allPinList){
+        if( ! pinInGroup.contains(pin) ){
+            kError() << "BUG: found pin without a group!\n";
+            return false;
+        }
+    }
+    // status
     kDebug() << "created " << m_pinGroups.count() << " pin groups\n";
-    return false;
+    return true;
 }
 
+bool CircuitTransientSimulator::splitDocumentInElementSets()
+{
+    // cleanup..
+    qDeleteAll(m_allElementSetsList);
+    m_allElementSetsList.clear();
+    // split ...
+    QMap<IElement*, ElementSet*> elementInSet;
+    elementInSet.clear();
+    IElement *currElement;
+    int numberOfElements = m_allElementList.count();
+    for(int i=0; i<numberOfElements; i++){
+        currElement = m_allElementList.at(i);
+        if( !elementInSet.contains(currElement) ){
+            // create a new set
+            ElementSet *newSet = new ElementSet(currElement,
+                                                m_allElementList,
+                                                m_pinGroups);
+            m_allElementSetsList.append(newSet);
+            //
+            QList<IElement*> elementsInNewSet = newSet->elements();
+            foreach(IElement* e, elementsInNewSet ){
+                if( elementInSet.contains(e) ){
+                    kError() << "BUG: Element in two ElementSets. Impossible!\n";
+                    return false;
+                }
+                elementInSet.insert(e, newSet);
+            }
+        }
+    }
+    // check for unassigned elements
+    foreach(IElement *e, m_allElementList){
+        if(! elementInSet.contains(e) ){
+            kDebug() << "BUG: Element not assigned to any element set\n";
+            return false;
+        }
+    }
+    // stats
+    kDebug() << "created " << m_allElementSetsList.count() << " element sets\n";
+    return true;
+}
 
 void CircuitTransientSimulator::simulationTimerTicked()
 {
