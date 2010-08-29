@@ -52,6 +52,10 @@ class Resistance : public IElement
         double conductance() const ;
 
         /**
+         action to be taken on a new simulation step
+         */
+        virtual void actOnSimulationStep(double currentTime);
+        /**
          fill the matrix coefficients in the MNA matrix
          */
         virtual void fillMatrixCoefficients();

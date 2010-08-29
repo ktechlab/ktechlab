@@ -19,6 +19,9 @@ class DummyElement : public IElement {
     void dummyMethod(){
         std::cout << "dummyMethod called\n";
     }
+    virtual void actOnSimulationStep(double time){
+        std::cout << "dummies dont' act on simulation step\n";
+    }
     virtual void fillMatrixCoefficients(){
         std::cout << "dummies have no coefficients\n";
     }
