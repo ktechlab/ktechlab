@@ -409,16 +409,26 @@ void CircuitTransientSimulator::simulationTimerTicked()
         // kDebug() << "shouldn't do anything\n";
         return;
     }
-    /*
-    general algorithm for circuit simulation:
-    - notify the elements about the new simulation time
-    - run all the logic circuits
-    - for all ElementSets
-        - while not converged:
-            - ask for coefficients (A and z matrix)
-            - solve equations
-            - back-substitute the results
-    */
+    for(int step=0; step<m_stepsPerTick; ++step){
+        // advance the time
+        m_timeInSimulation += m_timeStepPerTick;
+        // notify the elements about the new simulation step
+        for(int i=0; i<m_allElementList.size(); ++i){
+            m_allElementList[i]->actOnSimulationStep(m_timeInSimulation);
+        }
+        // solve the new equations
+        for(int i=0; i<m_allElementSetsList.size(); ++i){
+            m_allElementSetsList[i]->solveEquations();
+        }
+        // calculate the remaining unkonwn quantities
+        for(int i=0; i<m_pinGroups.size(); ++i){
+            m_pinGroups[i]->calculateInternalCurrents();
+        }
+    }
+    // save the results into the model
+    for(int i=0; i<m_allPinList.size(); ++i){
+        m_allPinList[i]->transferStatusToModel();
+    }
 }
 
 bool CircuitTransientSimulator::variantToBool(const QVariant& variant, bool &success)
