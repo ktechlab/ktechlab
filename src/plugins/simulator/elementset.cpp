@@ -22,23 +22,20 @@
 
 #include "math/matrix.h"
 #include "math/quickmatrix.h"
+#include <interfaces/simulator/ielement.h>
+#include "pingroup.h"
 
-KTechLab::ElementSet::ElementSet()
+using namespace KTechLab;
+
+KTechLab::ElementSet::ElementSet(IElement *start,
+                   QList<IElement*> elements,
+                   QList<PinGroup*> pinGroups)
+    : IElementSet()
 {
     // TODO implement
 }
 
 KTechLab::ElementSet::~ElementSet()
-{
-    // TODO implement
-}
-
-void KTechLab::ElementSet::addElement(KTechLab::IElement* element)
-{
-    // TODO implement
-}
-
-void KTechLab::ElementSet::removeElement(KTechLab::IElement* element)
 {
     // TODO implement
 }
