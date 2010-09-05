@@ -321,6 +321,12 @@ bool Matrix::validate() const
 	return true;
 }
 
+void Matrix::fillWithZeroes()
+{
+    max_k = 0;
+    m_mat->fillWithZero();
+}
+
 void Matrix::identity()
 {
 	*m_mat = 1; max_k = 0;
