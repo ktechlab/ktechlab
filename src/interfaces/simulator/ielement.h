@@ -109,7 +109,7 @@ class IPin;
             int numNodes() const;
 
                 // for less typing
-            #define CUI const unsigned int
+            #define CI const int
 
             /**
              set the ID of a given node. By this method, the position of a
@@ -125,13 +125,13 @@ class IPin;
                 IElementSet::x_v
                 where an ID of a node is required.
              */
-            void setNodeID(CUI nodeNumber, CUI position);
+            void setNodeID(CI nodeNumber, CI position);
             /**
              \return the ID of a given node
              \param nodeNumber the number of a node belonging to this element,
                 in the range [0..numNodes()-1]
              */
-            unsigned int nodeID(CUI nodeNumber) const;
+            int nodeID(CI nodeNumber) const;
             /**
              Set the ID of a given voltge source. By this method, the position
              of a voltage source in the common matrix is defined.
@@ -146,13 +146,13 @@ class IPin;
                 IElementSet::x_i
                 when an ID of a voltage source is required.
              */
-            void setVoltageSourceID(CUI sourceNumber, CUI position);
+            void setVoltageSourceID(CI sourceNumber, CI position);
             /**
              \return the ID of a voltage source in the model, of a given number
              \param sourceNumber the number of the voltage source, in the range
                 [0..numVoltageSources()-1]
              */
-            unsigned int voltageSourceID(CUI sourceNumber);
+            int voltageSourceID(CI sourceNumber);
 
         protected:
             // math related, matrix access
@@ -175,23 +175,23 @@ class IPin;
                 the associated IElementSet's methods, direct pointers
                 should be cached in the IElement interfcace
                 */
-            double & A_g(CUI i, CUI j);
+            double & A_g(CI i, CI j);
             /// access to B, node::branch, \see IElement::A_g
-            double & A_b(CUI i, CUI j);
+            double & A_b(CI i, CI j);
             /// access to C, branch::node, \see IElement::A_g
-            double & A_c(CUI i, CUI j);
+            double & A_c(CI i, CI j);
             /// access to D, branch::branch, \see IElement::A_g
-            double & A_d(CUI i, CUI j);
+            double & A_d(CI i, CI j);
 
             /** access to the column vector I, of current sources connected the nodes,
                 \see IElement::A_g */
-            double & b_i(CUI i);
+            double & b_i(CI i);
             /** access to the column vector V, of the independent voltage sources,
                 \see IElement::A_g
                 */
-            double & b_v(CUI i);
+            double & b_v(CI i);
 
-            #undef CUI
+            #undef CI
 
         private:
             /// parent in the circuit model

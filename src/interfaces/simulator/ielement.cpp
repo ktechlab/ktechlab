@@ -12,6 +12,7 @@
 #include "ielement.h"
 
 #include "ielementset.h"
+#include "kdebug.h"
 
 using namespace KTechLab;
 
@@ -25,10 +26,13 @@ IElement::IElement(QVariantMap* parentInModel,
     m_parentInModel = parentInModel;
     // TODO implement: allocate nodeIDs, m_a*, m_b* matrixes
     // elementSet.addElement(this);
+    m_nodeIDs = new int[m_numNodes];
+    m_voltageSourceIDs = new int[m_numVoltageSources];
 }
 
 IElement::~IElement(){
-    // TODO delete everything allocated
+    delete [] m_nodeIDs;
+    delete [] m_voltageSourceIDs;
 }
 
 QVariantMap* KTechLab::IElement::parentInModel() const
@@ -54,6 +58,8 @@ KTechLab::IPin* KTechLab::IElement::pin(int number) const
 IPin* IElement::pinByName(QString nodeName)
 {
     // FIXME implement
+    qFatal("unimplemented\n");
+    return NULL;
 }
 
 const QList< IPin* > IElement::pins() const
@@ -73,61 +79,95 @@ int IElement::numVoltageSources() const
 }
 
 
-unsigned int KTechLab::IElement::nodeID(const unsigned int nodeNumber) const
+int KTechLab::IElement::nodeID(const int nodeNumber) const
 {
-    // TODO implement
+    // TODO optimize
+    if((nodeNumber < 0) || (nodeNumber >= m_numNodes)){
+        qFatal("BUG: trying to get id of invalid node number: %d\n", nodeNumber);
+        return -1;
+    }
+    return m_nodeIDs[nodeNumber];
 }
 
-void KTechLab::IElement::setNodeID(const unsigned int nodeNumber,
-                                   const unsigned int position)
+void KTechLab::IElement::setNodeID(const int nodeNumber,
+                                   const int position)
 {
-    // TODO implement
+    // TODO optimize
+    if((nodeNumber < 0) || (nodeNumber >= m_numNodes)){
+        qFatal("BUG: trying to set the id of invalid node number: %d\n", nodeNumber);
+    }
+    if(position < 0){
+        qFatal("BUG: trying to assign negative position in the matrix: %d\n", position);
+    }
+    m_nodeIDs[nodeNumber] = position;
 }
 
 
-unsigned int KTechLab::IElement::voltageSourceID(const unsigned int sourceNumber)
+int KTechLab::IElement::voltageSourceID(const int sourceNumber)
 {
-    // TODO implement
+    // TODO optimize
+    if((sourceNumber < 0) || (sourceNumber >= m_numVoltageSources)){
+        qFatal("BUG: trying to get id of invalid voltage source number: %d\n", sourceNumber);
+        return -1;
+    }
+    return m_voltageSourceIDs[sourceNumber];
 }
 
-void KTechLab::IElement::setVoltageSourceID(const unsigned int sourceNumber,
-                                            const unsigned int position)
+void KTechLab::IElement::setVoltageSourceID(const int sourceNumber,
+                                            const int position)
 {
-    // TODO implement
+    // TODO optimize
+    if((sourceNumber < 0) || (sourceNumber >= m_numVoltageSources)){
+        qFatal("BUG: trying to set id of invalid voltage source number: %d\n", sourceNumber);
+    }
+    if(position < 0){
+        qFatal("BUG: trying to set invalid position: %d\n", position);
+    }
+    m_voltageSourceIDs[sourceNumber] = position;
 }
 
-double& KTechLab::IElement::A_g(const unsigned int i,
-                                const unsigned int j)
+double& KTechLab::IElement::A_g(const int i,
+                                const int j)
 {
-    // TODO add checks and implement
+    // TODO add checks and optimize
     // this looks inefficient: indirect call, virtual method call, and another forwarding
     return m_elemSet->A_g(m_nodeIDs[i], m_nodeIDs[j]);
     // better:
     //return (double &)(m_ag[i][j]);
 }
 
-double& KTechLab::IElement::A_b(const unsigned int i, const unsigned int j)
+double& KTechLab::IElement::A_b(const int i, const int j)
 {
-    // TODO implement
+    // TODO optimize
+    Q_ASSERT( (i<m_numNodes) && (j<m_numVoltageSources) );
+    return m_elemSet->A_b(m_nodeIDs[i], m_voltageSourceIDs[j]);
 }
 
-double& KTechLab::IElement::A_c(const unsigned int i, const unsigned int j)
+double& KTechLab::IElement::A_c(const int i, const int j)
 {
-    // TODO implement
+    // TODO optimize
+    Q_ASSERT( (i<m_numVoltageSources) && (j<m_numNodes) );
+    return m_elemSet->A_c(m_voltageSourceIDs[i], m_nodeIDs[j]);
 }
 
-double& KTechLab::IElement::A_d(const unsigned int i, const unsigned int j)
+double& KTechLab::IElement::A_d(const int i, const int j)
 {
-    // TODO implement
+    // TODO optimize
+    Q_ASSERT( (i<m_numVoltageSources) && (j<m_numVoltageSources) );
+    return m_elemSet->A_d(m_voltageSourceIDs[i], m_voltageSourceIDs[j]);
 }
 
-double& KTechLab::IElement::b_i(const unsigned int i)
+double& KTechLab::IElement::b_i(const int i)
 {
-    // TODO implement
+    // TODO optimize
+    Q_ASSERT(i<m_numNodes);
+    return m_elemSet->b_i(m_nodeIDs[i]);
 }
 
-double& KTechLab::IElement::b_v(const unsigned int i)
+double& KTechLab::IElement::b_v(const int i)
 {
-    // TODO implement
+    // TODO optimize
+    Q_ASSERT(i<m_numVoltageSources);
+    return m_elemSet->b_v(m_voltageSourceIDs[i]);
 }
 
