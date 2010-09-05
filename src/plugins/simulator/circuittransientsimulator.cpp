@@ -335,7 +335,7 @@ bool CircuitTransientSimulator::splitPinsInGroups()
         currentPin = m_allPinList.at(i);
         if(!pinInGroup.contains(currentPin)){
             // pin is not in any group, create a new one
-            PinGroup *group = new PinGroup(m_allPinList, m_allWireList, currentPin);
+            PinGroup *group = new PinGroup(currentPin);
             // add the pingroup to the list
             m_pinGroups.append(group);
             // mark all pins that belong to the group

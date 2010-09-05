@@ -27,41 +27,38 @@
 
 using namespace KTechLab;
 
-KTechLab::PinGroup::PinGroup(QList< IPin* > pins, QList< IWire* > wires, IPin* startPin)
+KTechLab::PinGroup::PinGroup(IPin* startPin)
 {
-    // build auxiliaty maps
-    QMap<IPin*, IWire*> pinToWire;
-    foreach(IWire* wire, wires){
-        pinToWire.insertMulti(wire->startPin(), wire);
-        pinToWire.insertMulti(wire->endPin(), wire);
-    }
-
-    QMap<IPin*, IPin*> edges;
-    edges.clear();
-    foreach(IWire *wire, wires){
-        edges.insertMulti(wire->startPin(), wire->endPin());
-    }
-
-    m_pins.clear();
-    m_wires.clear();
-
-    // this is a breath-first traversing of a graph
-    m_pins.append(startPin);
+    QSet<IPin*> takenPins;
     QLinkedList<IPin*> toBeInspected;
+    IPin *currentPin;
+    IPin *toBeAddedPin;
+
+    takenPins.clear();
+    takenPins.insert(startPin);
     toBeInspected.clear();
     toBeInspected.append(startPin);
     while( ! toBeInspected.isEmpty() ){
-        IPin * currentPin = toBeInspected.takeFirst();
-        QList<IPin*> currentAdiacent = edges.values(currentPin);
-        foreach(IPin * otherPin, currentAdiacent){
-            toBeInspected.append(otherPin);
-            m_pins.append(otherPin);
-        }
-        /* get the wires. because we want all the wires, if any end of a wire is
-        inside of the selected pins, the wire should be taken */
-        QList<IWire*> linkedWires = pinToWire.values(currentPin);
-        foreach(IWire *wire, linkedWires){
-            m_wires.append(wire);
+        currentPin = toBeInspected.takeFirst();
+        foreach(IWire *wire, currentPin->connections() ){
+            // get the other end
+            toBeAddedPin = 0;
+            if( wire->startPin() == currentPin)
+                toBeAddedPin = wire->endPin();
+            if( wire->endPin() == currentPin)
+                toBeAddedPin = wire->startPin();
+            if( !toBeAddedPin ){
+                kError() << "BUG: found inconsistency in data structures: "
+                    << "a wire marked connected to a pin doesn't have that pin as any endpoint\n";
+                    return;
+            }
+            if( !takenPins.contains(toBeAddedPin) ){
+                // add the other pin
+                takenPins.insert(toBeAddedPin);
+                toBeInspected.append(toBeAddedPin);
+                m_pins.append(toBeAddedPin);
+                m_wires.append(wire);
+            }
         }
     }
     // some debug
