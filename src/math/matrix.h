@@ -86,6 +86,11 @@ public:
         void displayLU(std::ostream &outstream) const;
 
         /**
+         * fill the matrix with zeroes
+         */
+        void fillWithZeroes();
+
+        /**
          * Set the matrix to identity
          */
         void identity();
