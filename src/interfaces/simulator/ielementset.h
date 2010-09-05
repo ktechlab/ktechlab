@@ -105,11 +105,11 @@ class KTLINTERFACES_EXPORT IElementSet : public QObject
 
         /// access to the column vector V, of the unknown node voltages
         ///implementation provided in the simulator
-        virtual double x_v(CUI i) = 0 ;
+        virtual double & x_v(CUI i) = 0 ;
         /// access to the column vector J, of the current through
         ///     the independent voltage sources
         ///implementation provided in the simulator
-        virtual double x_j(CUI i) = 0 ;
+        virtual double & x_j(CUI i) = 0 ;
 
         #undef CUI
 
@@ -118,10 +118,10 @@ class KTLINTERFACES_EXPORT IElementSet : public QObject
         QList<IElement*> m_elements;
 
         /// the number of nodes in the element set
-        int m_numNodes;
+        unsigned int m_numNodes;
 
         /// the number of independent voltage sources in the element set
-        int m_numVoltageSources;
+        unsigned int m_numVoltageSources;
 };
 
 }
