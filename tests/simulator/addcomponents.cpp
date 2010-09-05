@@ -50,6 +50,8 @@ using namespace KDevelop;
 void AddComponentsTest::initTestCase()
 {
     qDebug("creating KDevelop environment");
+    // simulation manager
+    SimulationManager::initialize();
     AutoTestShell::init();
     m_core = new KDevelop::TestCore();
     
@@ -57,8 +59,6 @@ void AddComponentsTest::initTestCase()
     
     m_core->initialize( KDevelop::Core::Default );
     
-    // simulation manager
-    SimulationManager::initialize();
     
     m_simManager = ISimulationManager::self();
     QVERIFY( m_simManager );

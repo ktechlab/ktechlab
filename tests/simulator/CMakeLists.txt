@@ -18,6 +18,7 @@ target_link_libraries( basictest
 
 kde4_add_unit_test( addcomponents
     addcomponents.cpp
+    ${CMAKE_SOURCE_DIR}/src/interfaces/simulator/isimulationmanager.cpp
     ${CMAKE_SOURCE_DIR}/src/simulationmanager.cpp
 )
 
