@@ -27,16 +27,10 @@
 
 using namespace KTechLab;
 
-CircuitTransientSimulator::CircuitTransientSimulator(IComponentDocument* doc):
+CircuitTransientSimulator::CircuitTransientSimulator(IDocumentModel* doc):
     ISimulator(doc)
 {
-    // check for the correct document type
-    if(doc->documentType() != "Circuit")
-    {
-        kError() << "BUG: trying to simulate a non-circuit document as a circuit!\n";
-        // FIXME what to do here? save all and exit?
-    }
-    m_doc = doc->documentModel();
+    m_doc = doc;
     // TODO get the simulation values from somewhere
     m_timeInSimulation = 0;
     m_stepsPerTick = 2;

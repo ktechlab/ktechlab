@@ -11,6 +11,7 @@
 
 #include "simulatorfactory.h"
 #include "circuittransientsimulator.h"
+#include <interfaces/icomponentdocument.h>
 
 using namespace KTechLab;
 
@@ -39,7 +40,12 @@ QString KTechLab::SimulatorFactory::supportedDocumentMimeTypeName() const
 
 KTechLab::ISimulator* KTechLab::SimulatorFactory::create(IComponentDocument* doc )
 {
-    return new CircuitTransientSimulator(doc);
+    if(doc->documentType() != "Circuit"){
+        qFatal("trying to simulate a document of type %s as a Circuit!\n",
+               (const char *)(doc->documentType().toAscii().data()));
+        return NULL;
+    }
+    return new CircuitTransientSimulator(doc->documentModel());
 }
 
 #include "simulatorfactory.moc"
