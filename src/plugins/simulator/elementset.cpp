@@ -24,6 +24,10 @@
 #include "math/quickmatrix.h"
 #include <interfaces/simulator/ielement.h>
 #include "pingroup.h"
+#include <qset.h>
+#include <qlinkedlist.h>
+#include <interfaces/simulator/ipin.h>
+#include <kdebug.h>
 
 using namespace KTechLab;
 
@@ -32,75 +36,173 @@ KTechLab::ElementSet::ElementSet(IElement *start,
                    QList<PinGroup*> pinGroups)
     : IElementSet()
 {
-    // TODO implement
-
-    buildElementList();
+    // FIXME proper error handling
+    buildElementList(start, elements, pinGroups);
     allocateMatrixes();
     assignNodeAndSourceIds();
 }
 
-void ElementSet::buildElementList()
+void ElementSet::buildElementList(IElement *start, QList<IElement*> elements,
+                   QList<PinGroup*> pinGroups )
 {
-    // TODO implement
+    m_pinToGroup.clear();
+    foreach(PinGroup *group, pinGroups){
+        foreach(IPin *pin, group->pins()){
+            m_pinToGroup.insert(pin, group);
+        }
+    }
+
+    m_pinToElement.clear();
+    foreach(IElement *elem, elements){
+        foreach(IPin *pin, elem->pins()){
+            m_pinToElement.insert(pin, elem);
+        }
+    }
+
+    // breath first on all the elements
+    QSet<IElement*> takenElements;
+    QSet<PinGroup*> takenGroups;
+    QLinkedList<IElement*> toBeTaken;
+
+    takenElements.clear();
+    takenElements.insert(start);
+    takenGroups.clear();
+    toBeTaken.clear();
+    toBeTaken.append(start);
+
+    m_elements.clear();
+    m_pinGroups.clear();
+
+    while( !toBeTaken.isEmpty() ){
+        IElement *currentElement = toBeTaken.takeFirst();
+        // for all pins of the current element...
+        int pinCount = currentElement->pinCount();
+        for(int currentPin = 0; currentPin < pinCount; ++currentPin){
+            PinGroup *group = m_pinToGroup.value(currentElement->pin(currentPin));
+            // for all pins in the group of the current pin...
+            foreach(IPin *otherPin, group->pins()){
+                // get the other element
+                IElement *otherElement = m_pinToElement.value(otherPin);
+                if( !takenElements.contains(otherElement) ){
+                    // take the other element
+                    takenElements.insert(otherElement);
+                    toBeTaken.append(otherElement);
+                    // own data structures
+                    m_elements.append(otherElement);
+                    if( !takenGroups.contains(group) ){
+                        // insert the group, if it's not taken already
+                        takenGroups.insert(group);
+                        m_pinGroups.append(group);
+                    }
+                }
+            }
+        }
+    }
+    // statistics
+    kDebug() << "created elementset with " << m_elements.size() << " elements and "
+        << m_pinGroups.size() << " pin groups\n";
 }
 
 void ElementSet::allocateMatrixes()
 {
-    // TODO implement
+    m_numNodes = 0;
+    m_numVoltageSources = 0;
+    foreach(IElement *elem, m_elements){
+        m_numNodes += elem->numNodes();
+        m_numVoltageSources += elem->numVoltageSources();
+    }
+    // status
+    qDebug() << "nodes: " << m_numNodes << " ; voltage sources: " << m_numVoltageSources << "\n";
+    //
+    m_a = new Matrix(m_numNodes + m_numVoltageSources);
+    m_b = new QuickVector(m_numNodes + m_numVoltageSources);
+    m_x = new QuickVector(m_numNodes + m_numVoltageSources);
 }
 
 void ElementSet::assignNodeAndSourceIds()
 {
-    // TODO implement
+    // nodes: 0 .. numNodes-1
+    // sources: numNodes .. numNodes + numSources - 1
+    int nextNodeId = 0;
+    int nextSourceId = m_numNodes;
+    foreach(IElement *elem, m_elements){
+        // nodes
+        for(int pinNr = 0; pinNr < elem->pinCount(); ++pinNr){
+            elem->setNodeID(pinNr, nextNodeId);
+            ++nextNodeId;
+        }
+        //
+        for(int sourceNr = 0; sourceNr < elem->numVoltageSources(); ++sourceNr){
+            elem->setVoltageSourceID(sourceNr, nextSourceId);
+            ++nextSourceId;
+        }
+    }
 }
 
 
 KTechLab::ElementSet::~ElementSet()
 {
-    // TODO implement
+    delete m_a;
+    delete m_b;
+    delete m_x;
 }
 
 void KTechLab::ElementSet::solveEquations()
 {
-    // TODO implement
+    m_a->fillWithZeroes();
+    m_b->fillWithZeros();
+    m_x->fillWithZeros();
+    foreach(IElement *elem, m_elements){
+        elem->fillMatrixCoefficients();
+    }
+    m_a->performLU();
+    m_a->fbSub(m_b,m_x);
 }
 
 double& KTechLab::ElementSet::A_g(const unsigned int i, const unsigned int j)
 {
-    // TODO implement
+    Q_ASSERT((i<m_numNodes) && (j<m_numNodes));
+    return m_a->g(i,j);
 }
 
 double& KTechLab::ElementSet::A_b(const unsigned int i, const unsigned int j)
 {
-    // TODO implement
+    Q_ASSERT((i<m_numNodes) && (j<m_numVoltageSources));
+    return m_a->g(i,j+m_numNodes);
 }
 
 double& KTechLab::ElementSet::A_c(const unsigned int i, const unsigned int j)
 {
-    // TODO implement
+    Q_ASSERT((i<m_numVoltageSources) && (j<m_numNodes));
+    return m_a->g(i+m_numNodes,j);
 }
 
 double& KTechLab::ElementSet::A_d(const unsigned int i, const unsigned int j)
 {
-    // TODO implement
+    Q_ASSERT((i<m_numVoltageSources) && (j<m_numVoltageSources));
+    return m_a->g(i+m_numNodes, j+m_numNodes);
 }
 
 double& KTechLab::ElementSet::b_i(const unsigned int i)
 {
-    // TODO implement
+    Q_ASSERT(i<m_numNodes);
+    return (*m_b)[i];
 }
 
 double& KTechLab::ElementSet::b_v(const unsigned int i)
 {
-    // TODO implement
+    Q_ASSERT(i<m_numVoltageSources);
+    return (*m_b)[i]; // m_numNodes);
 }
 
-double KTechLab::ElementSet::x_j(const unsigned int i)
+double& KTechLab::ElementSet::x_j(const unsigned int i)
 {
-    // TODO implement
+    Q_ASSERT(i<m_numVoltageSources);
+    return (*m_x)[i+m_numNodes];
 }
 
-double KTechLab::ElementSet::x_v(const unsigned int i)
+double& KTechLab::ElementSet::x_v(const unsigned int i)
 {
-    // TODO implement
+    Q_ASSERT(i<m_numNodes);
+    return (*m_x)[i];
 }

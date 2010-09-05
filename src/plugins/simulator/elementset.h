@@ -22,8 +22,15 @@
 #define ELEMENTSET_H
 
 #include "interfaces/simulator/ielementset.h"
+#include <qmap.h>
 
 namespace KTechLab {
+
+class QuickVector;
+
+class Matrix;
+
+class PinGroup;
 
 class PinGroup;
 
@@ -44,6 +51,13 @@ class QuickVector;
  \li the IDs for the equations and voltage sources
  \li the matrixes that will store the equations
 
+ An interesting subject is the optimisation of matrixes holding the
+ equations of an ElementSet.
+ There are two approaces:
+ \li store the equations as dense matrixes, and use direct pointers to the storage
+ \li store the equations as sparse matrixes and don't use direct pointers
+
+ Currently the first approach is implemented.
  */
 class ElementSet : public IElementSet
 {
@@ -89,21 +103,35 @@ class ElementSet : public IElementSet
 
         /// access to the column vector V, of the unknown node voltages
         ///implementation provided in the simulator
-        virtual double x_v(CUI i);
+        virtual double & x_v(CUI i);
         /// access to the column vector J, of the current through
         ///     the independent voltage sources
         ///implementation provided in the simulator
-        virtual double x_j(CUI i);
+        virtual double & x_j(CUI i);
 
         #undef CUI
 
     private:
         /// build the list of elements in the ElementSet
-        void buildElementList();
+        void buildElementList(IElement *start, QList<IElement*> elements,
+                   QList<PinGroup*> pinGroups );
         /// create the matrix for calculations
         void allocateMatrixes();
-        /// assing IDs for nodes and voltage sources
+        /** assing IDs for nodes and voltage sources
+
+         m_pinGroup[i] == node i; all the rest is for elements
+         */
         void assignNodeAndSourceIds();
+
+        QList<PinGroup *> m_pinGroups;
+
+        // TODO move these maps in the circuit simulator, because they will look the same for each element set
+
+        /// map IPin -> PinGroup
+        QMap<IPin*, PinGroup*> m_pinToGroup;
+
+        /// map IPin -> IElement
+        QMap<IPin*, IElement*> m_pinToElement;
 
         Matrix *m_a;
         QuickVector *m_x;
