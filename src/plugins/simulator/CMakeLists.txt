@@ -17,6 +17,7 @@ kde4_add_plugin( ktlsimulator ${ktlsimulator_PART_SRCS} )
 
 target_link_libraries( ktlsimulator
     ktlinterfaces
+    ktlmath
     ${KDE4_KDECORE_LIBS}
     ${KDEVPLATFORM_INTERFACES_LIBRARIES}
     )
