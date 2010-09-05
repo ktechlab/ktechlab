@@ -24,6 +24,7 @@ Cells::Cells(KTechLab::IDocumentScene* scene, QObject* parent)
     : KTechLab::IRoutingInformation(scene,parent)
 {
     init(scene->sceneRect().toRect());
+    update();
 }
 
 Cells::~Cells() {
@@ -82,11 +83,11 @@ QPointF Cells::alignToGrid(const QPointF& point)
     return mapFromCells(result);
 }
 
-void Cells::update(const KTechLab::IDocumentScene* scene)
+void Cells::update()
 {
-    QRectF updateRegion = scene->sceneRect();
+    QRectF updateRegion = m_documentScene->sceneRect();
 
-    foreach (QGraphicsItem* item, scene->items(updateRegion)) {
+    foreach (QGraphicsItem* item, m_documentScene->items(updateRegion)) {
         KTechLab::IComponentItem* component = 0;
         KTechLab::ConnectorItem* connector = 0;
         int score = Cells::ScoreNone;
@@ -100,11 +101,6 @@ void Cells::update(const KTechLab::IDocumentScene* scene)
         }
     }
     updateVisualization();
-    m_needUpdate = false;
-}
-bool Cells::updateNeeded()
-{
-    return m_needUpdate;
 }
 
 void Cells::updateVisualization(const QRectF &region)
@@ -134,8 +130,7 @@ void Cells::updateSceneRect(const QRectF& rect)
         canvasRect = m_documentScene->sceneRect().toRect();
     canvasRect.setSize(canvasRect.size());
     init(canvasRect);
-    update(m_documentScene);
-    //m_needUpdate = true;
+    update();
 }
 
 Cell& Cells::cell(int i, int j) const {
@@ -198,9 +193,6 @@ void Cells::paintRoutingInfo(QPainter* p, const QRectF& target, const QRectF& so
 
 void Cells::mapRoute(QPointF p1, QPointF p2)
 {
-    if (updateNeeded())
-        update(m_documentScene);
-
     p1 = mapToCells(p1).toPoint();
     p2 = mapToCells(p2).toPoint();
 
@@ -387,11 +379,6 @@ void Cells::removeDuplicatePoints() {
     }
 
     m_route.removeAll(invalid);
-}
-
-void Cells::updateScene(const QRectF& rect)
-{
-    m_cellsNeedUpdate = true;
 }
 
 inline void Cells::addCIPenalty(const QPainterPath& path, int score)

@@ -192,13 +192,6 @@ public:
     Cell &cell(int i, int j) const ;
 
     QColor colorForScenePoint( QPointF p ) const ;
-    /**
-     * Update the internal representation of the scene.
-     *
-     * @param scene - the documents scene containing all components
-     */
-    void update(const KTechLab::IDocumentScene* scene);
-    bool updateNeeded();
 
     void updateVisualization(const QRectF& region = QRectF());
 
@@ -209,20 +202,20 @@ public slots:
     void addConnectors(QList< KTechLab::ConnectorItem* > connectors);
     void removeConnectors(QList< KTechLab::ConnectorItem* > connectors);
 
-protected slots:
-    virtual void updateScene(const QRectF& rect);
-
 protected:
     virtual void paintRaster(QPainter* p, const QRectF& region) const;
     virtual void paintRoutingInfo(QPainter* p, const QRectF& target, const QRectF& source) const;
 
 private:
+    /**
+     * Update the internal representation
+     */
+    void update();
     void init(const QRect &canvasRect);
     QRect m_cellsRect;
     Cell **m_cells;
     QImage m_visualizedData;
     QRect m_sceneRect;
-    bool m_needUpdate;
     Cells(const Cells &);
 //      Cells & operator= (const Cells &);
 
@@ -244,8 +237,6 @@ private:
     TempLabelMap m_tempLabels;
     qreal m_lcx;
     qreal m_lcy;
-
-    bool m_cellsNeedUpdate;
 };
 
 #endif

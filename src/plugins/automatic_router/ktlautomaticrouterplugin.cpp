@@ -44,7 +44,6 @@ AutomaticRouter::AutomaticRouter(QObject* parent, const QVariantList& args)
 void AutomaticRouter::generateRoutingInfo(KTechLab::IDocumentScene* scene)
 {
     Cells* cells = new Cells(scene,this);
-    cells->update(scene);
     connect(scene,SIGNAL(sceneRectChanged(QRectF)),cells,SLOT(updateSceneRect(QRectF)));
     scene->setRoutingInfo(QSharedPointer<Cells>(cells));
 }
