@@ -49,15 +49,29 @@ class MatrixTester : public QObject
         #endif
         return ret;
     }
- 
+
+    #define testForValidNumbers(a,b)                    \
+                if( isnan(a) || isinf(a) ||             \
+                    isnan(b) || isinf(b)){              \
+                        if( !(isnan(a) && isnan(b)) )   \
+                            if( !(isinf(a) && isinf(b) ) ){ \
+                                qDebug() << "got " << a << " and " << b << " in matrix!\n"; \
+                                return 1e12;                            \
+                            }                           \
+                }
+    
     // compare 2 matrxies. take the sum of absolute values of diffrences
     double differenceOfMatrixes(const Eigen::MatrixXd &eig, KTechLab::Matrix &our){
                     // FIXME can't make "our" constant, as no there is no "get" api 
         // if( (eig.cols() != our. ??? // TODO no API to get matrxi size!
         double ret = 0;
         for(int x = 0; x<eig.cols(); x++)
-            for(int y=0; y<eig.rows(); y++)
+            for(int y=0; y<eig.rows(); y++){
+                double a = our.g(x,y);
+                double b = eig(x,y);
+                testForValidNumbers(a,b);
                 ret += abs( our.g(x,y) - eig(x,y));
+            }
         return ret;
     }
  
@@ -68,8 +82,12 @@ class MatrixTester : public QObject
             return 1e12;
         }
         double ret = 0;
-        for(int x=0; x<our.size(); x++)
+        for(int x=0; x<our.size(); x++){
+            double a  = our.at(x);
+            double b = eig(x);
+            testForValidNumbers(a,b);
             ret += abs( our.at(x) - eig(x));
+        }
         return ret;
     }
  
@@ -115,8 +133,7 @@ class MatrixTester : public QObject
         std::cout << "\n";
         #endif
 
-        double diff;
-        diff = differenceOfVectors(esol, pv);
+        double diff = differenceOfVectors(esol, pv);
         if( diff > SOLVE_ERROR) {
             qDebug("solving test failed. dumping matrixes:\n");
             std::cout << "Eigen stuff: \nem, matrix =\n" << em
