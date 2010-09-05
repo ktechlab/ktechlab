@@ -38,7 +38,7 @@ public:
     /**
      * create a simulator and associate it with a document
      */
-    CircuitTransientSimulator(IComponentDocument *doc);
+    CircuitTransientSimulator(IDocumentModel *doc);
 
     /**
      * start the simulation

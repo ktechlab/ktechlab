@@ -18,6 +18,8 @@
 
 namespace KTechLab {
 
+class IDocumentModel;
+
     class IElement;
     class IComponentDocument;
 
@@ -33,7 +35,7 @@ public:
      * create a simulator associated with a document
      * @param doc the document associated with the simulator
      */
-    ISimulator(IComponentDocument *doc);
+    ISimulator(IDocumentModel *doc);
 
     /**
      * destroy the simulator
