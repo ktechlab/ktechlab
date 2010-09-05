@@ -28,6 +28,8 @@ using namespace std;
 
 #include "quickmatrix.h"
 
+using namespace KTechLab;
+
 /*
 #ifndef BADRNG_H
 #include "badrng.h"
