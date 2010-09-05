@@ -29,4 +29,19 @@ target_link_libraries( addcomponents
     ${KDEVPLATFORM_TESTS_LIBRARIES}
 )
 
+kde4_add_unit_test( directsimulatortest
+   directsimulatortest.cpp
+#    ${CMAKE_SOURCE_DIR}/src/interfaces/idocumentmodel.cpp
+#    ${CMAKE_SOURCE_DIR}/src/interfaces/simulator/isimulator.cpp
+   ${CMAKE_SOURCE_DIR}/src/plugins/simulator/circuittransientsimulator.cpp
+   ${CMAKE_SOURCE_DIR}/src/plugins/simulator/pingroup.cpp
+   ${CMAKE_SOURCE_DIR}/src/plugins/simulator/elementset.cpp
+)
+
+target_link_libraries( directsimulatortest
+    ktlinterfaces
+    ktlmath
+    ${QT_QTTEST_LIBRARY}
+    ${KDEVPLATFORM_TESTS_LIBRARIES}
+)
 add_definitions( "-DPROJECTS_SOURCE_DIR=\\\"${CMAKE_SOURCE_DIR}/tests/data\\\"" )
