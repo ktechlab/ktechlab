@@ -23,6 +23,8 @@
 
 #include "quickvector.h"
 
+namespace KTechLab {
+
 // FIXME if we want to optimize memory allocations, we should not allocate
 // memory in methods, but pass the needed data structure to it as a parameter
 
@@ -231,6 +233,8 @@ private :
 	unsigned int m, n;
 	double **values;
 };
+
+}
 
 #endif
 

@@ -16,6 +16,8 @@
 #include "quickmatrix.h"
 #include "mathexport.h"
 
+namespace KTechLab {
+
 /**
 This class performs matrix storage, lu decomposition, forward and backward
 substitution, and a few other useful operations. Steps in using class:
@@ -146,5 +148,7 @@ private:
         QuickMatrix *m_lu;
         double *m_y; // Avoids recreating it lots of times
 };
+
+}
 
 #endif

@@ -23,6 +23,8 @@
 
 #include "mathexport.h"
 
+namespace KTechLab {
+
 /**
  * \def CUI
  * Constant Unsigned Int
@@ -196,6 +198,8 @@ private :
     /// pointer to the actual values
     double *values;
 };
+
+}
 
 #endif // QUICKVECTOR
 

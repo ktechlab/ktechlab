@@ -16,6 +16,8 @@
 
 #include <iostream>
 
+using namespace KTechLab;
+
 /// Minimum value before an entry is deemed "zero"
 const double epsilon = 1e-40;
 
