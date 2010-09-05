@@ -21,21 +21,21 @@ class MatrixTester : public QObject
     Q_OBJECT
 
      // create a new vector from eigen one
-     QuickVector * vectorFromEigen(const Eigen::VectorXd & eig){
-        QuickVector *ret = new QuickVector( eig.size() );
+     KTechLab::QuickVector * vectorFromEigen(const Eigen::VectorXd & eig){
+        KTechLab::QuickVector *ret = new KTechLab::QuickVector( eig.size() );
         for(int i=0; i<eig.size(); i++)
             ret->atPut(i, eig[i]);
         return ret;
      }
  
     // create a new matrix from an eigen matrix
-    Matrix * matrixFromEigen(const Eigen::MatrixXd & eig){
+    KTechLab::Matrix * matrixFromEigen(const Eigen::MatrixXd & eig){
         if( eig.rows() != eig.cols() ){
             qDebug("Broken testcase! matrix not square!\n");
             return NULL;
         }
  
-        Matrix *ret = new Matrix(eig.rows()) ;
+        KTechLab::Matrix *ret = new KTechLab::Matrix(eig.rows()) ;
         for(int x=0; x<eig.cols(); x++)
             for(int y=0; y<eig.rows(); y++)
                 ret->g(x,y) = eig(x,y);
@@ -51,7 +51,7 @@ class MatrixTester : public QObject
     }
  
     // compare 2 matrxies. take the sum of absolute values of diffrences
-    double differenceOfMatrixes(const Eigen::MatrixXd &eig, Matrix &our){
+    double differenceOfMatrixes(const Eigen::MatrixXd &eig, KTechLab::Matrix &our){
                     // FIXME can't make "our" constant, as no there is no "get" api 
         // if( (eig.cols() != our. ??? // TODO no API to get matrxi size!
         double ret = 0;
@@ -62,7 +62,7 @@ class MatrixTester : public QObject
     }
  
     // compare an eigen vector to quickvector
-    double differenceOfVectors(const Eigen::VectorXd &eig, const QuickVector &our){
+    double differenceOfVectors(const Eigen::VectorXd &eig, const KTechLab::QuickVector &our){
         if( eig.size() != our.size()){
             qDebug("test case broken. comparing vectors of different size!");
             return 1e12;
@@ -76,7 +76,7 @@ class MatrixTester : public QObject
     // create matrix and vector from eigen expression, then perform solving
     // and check the results
     void solveTest(Eigen::MatrixXd &em, Eigen::VectorXd &ev){
-        Matrix *pm = matrixFromEigen(em);
+        KTechLab::Matrix *pm = matrixFromEigen(em);
         QVERIFY( pm != 0 );
         // FIXME can't get the size of our matrix
         // QVERIFY( pm ?? , em->size() );
@@ -90,7 +90,7 @@ class MatrixTester : public QObject
         std::cout << "\n";
         #endif
 
-        QuickVector *pv = vectorFromEigen(ev);
+        KTechLab::QuickVector *pv = vectorFromEigen(ev);
         QVERIFY( pv != 0 );
         QVERIFY( pv->size() == (unsigned int)ev.size() );
 
@@ -115,7 +115,8 @@ class MatrixTester : public QObject
         std::cout << "\n";
         #endif
 
-        double diff = differenceOfVectors(esol, pv);
+        double diff;
+        diff = differenceOfVectors(esol, pv);
         if( diff > SOLVE_ERROR) {
             qDebug("solving test failed. dumping matrixes:\n");
             std::cout << "Eigen stuff: \nem, matrix =\n" << em
@@ -130,7 +131,7 @@ class MatrixTester : public QObject
         QVERIFY(diff < SOLVE_ERROR);
 
         // multiply back, just for fun
-        QuickVector res( em.rows() );
+        KTechLab::QuickVector res( em.rows() );
         pm->multiply(pv, &res);
 
         Eigen::VectorXd eres = em * esol;
@@ -179,7 +180,7 @@ private slots:
         for( int i = 1; i < 10 ; i++ ) {
             Eigen::MatrixXd ref = Eigen::MatrixXd::Random(i,i);
  
-            Matrix * tested = matrixFromEigen( ref );
+            KTechLab::Matrix * tested = matrixFromEigen( ref );
             QVERIFY( tested != NULL );
  
             double dif =  differenceOfMatrixes( ref, *tested );
@@ -200,18 +201,18 @@ private slots:
             // create matrix
             Eigen::MatrixXd refM = Eigen::MatrixXd::Random(i,i);
  
-            Matrix * testedM = matrixFromEigen( refM );
+            KTechLab::Matrix * testedM = matrixFromEigen( refM );
             QVERIFY( testedM != NULL );
  
             // create vector
             Eigen::VectorXd refV = Eigen::VectorXd::Random(i);
-            QuickVector * testedV = vectorFromEigen( refV );
+            KTechLab::QuickVector * testedV = vectorFromEigen( refV );
             QVERIFY( testedV != NULL );
  
             // multiply them
             Eigen::VectorXd refRes = refM * refV;
  
-            QuickVector * testedRes = new QuickVector(i);
+            KTechLab::QuickVector * testedRes = new KTechLab::QuickVector(i);
             QVERIFY( testedRes != NULL );
             testedM->multiply( testedV, testedRes );
  
@@ -243,7 +244,7 @@ private slots:
             // create matrix
             Eigen::MatrixXd refM = Eigen::MatrixXd::Random(i,i);
  
-            Matrix * testedM = matrixFromEigen( refM );
+            KTechLab::Matrix * testedM = matrixFromEigen( refM );
             QVERIFY( testedM != NULL );
  
             // create vector
@@ -255,7 +256,7 @@ private slots:
             for(int j = 0; j < 5; j++) {
                 // get some vectors
                 Eigen::VectorXd refV = Eigen::VectorXd::Random(i);
-                QuickVector * testedV = vectorFromEigen( refV );
+                KTechLab::QuickVector * testedV = vectorFromEigen( refV );
                 QVERIFY( testedV != NULL );
  
                 // solve the eq.
@@ -281,10 +282,10 @@ private slots:
         // to make this test verbose
         // #define TEST1X1_VERBOSE
 
-        Matrix m(1);
+        KTechLab::Matrix m(1);
         m.g(0,0) = 1;
 
-        QuickVector v(1);
+        KTechLab::QuickVector v(1);
         v.atPut(0, 1);
 
         #ifdef TEST1X1_VERBOSE
