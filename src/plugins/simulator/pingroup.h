@@ -63,10 +63,11 @@ class PinGroup : public QObject
          Creates a group of connected pins on a graph formed by
          a set of pins and a set of wires,
          starting from a given pin.
+
+         Note: the wires and pins must from a tree, so no loop of wires
+         should exist
          */
         PinGroup(
-            QList<IPin*> pins,
-            QList<IWire*> wires,
             IPin * startPin
             );
         /**
