@@ -31,6 +31,7 @@
 #include <qtest_kde.h>
 
 #include <QDebug>
+#include <simulationmanager.h>
 
 using namespace KTechLab;
 using namespace KDevelop;
@@ -38,6 +39,7 @@ using namespace KDevelop;
 void BasicTest::initTestCase()
 {
     qDebug("creating KDevelop environment");
+    SimulationManager::initialize();
     AutoTestShell::init();
     m_core = new KDevelop::TestCore();
     
