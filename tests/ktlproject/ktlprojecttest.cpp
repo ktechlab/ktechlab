@@ -31,12 +31,14 @@
 #include <QDebug>
 #include <project/interfaces/iprojectfilemanager.h>
 #include <project/projectmodel.h>
+#include <src/simulationmanager.h>
 
 using namespace KTechLab;
 
 void KTLProjectTest::initTestCase()
 {
     qDebug("creating KDevelop environment");
+    SimulationManager::initialize();
     KDevelop::AutoTestShell::init();
     m_core = new KDevelop::TestCore();
     m_core->initialize( KDevelop::Core::Default );
