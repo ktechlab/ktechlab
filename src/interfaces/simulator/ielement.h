@@ -82,6 +82,11 @@ class IPin;
              */
             IPin* pinByName(QString nodeName);
 
+            /**
+             \return the list of pins of the element
+             */
+            const QList<IPin*> pins() const;
+
             // for the simulation model
             /**
              on each simulation step, this method is called once.
