@@ -6,7 +6,10 @@ include_directories(
     ${CMAKE_CURRENT_BUILD_DIR}
 )
 
-kde4_add_unit_test( ktlprojecttest ktlprojecttest.cpp )
+kde4_add_unit_test( ktlprojecttest ktlprojecttest.cpp
+    ${CMAKE_SOURCE_DIR}/src/simulationmanager.cpp
+    ${CMAKE_SOURCE_DIR}/src/interfaces/simulator/isimulationmanager.cpp
+)
 
 target_link_libraries( ktlprojecttest
     ${QT_QTTEST_LIBRARY}
