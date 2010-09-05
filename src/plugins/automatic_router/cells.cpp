@@ -139,8 +139,8 @@ void Cells::updateSceneRect(const QRectF& rect)
 }
 
 Cell& Cells::cell(int i, int j) const {
-    assert(i < m_cellsRect.x()+m_cellsRect.width());
-    assert(j < m_cellsRect.y()+m_cellsRect.height());
+    Q_ASSERT(i < m_cellsRect.x()+m_cellsRect.width());
+    Q_ASSERT(j < m_cellsRect.y()+m_cellsRect.height());
     i -= m_cellsRect.left();
     j -= m_cellsRect.top();
     return m_cells[i][j];
