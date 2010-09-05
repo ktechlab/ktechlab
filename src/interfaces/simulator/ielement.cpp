@@ -56,6 +56,11 @@ IPin* IElement::pinByName(QString nodeName)
     // FIXME implement
 }
 
+const QList< IPin* > IElement::pins() const
+{
+    return m_pins;
+}
+
 
 int KTechLab::IElement::numNodes() const
 {
