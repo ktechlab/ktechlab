@@ -20,16 +20,32 @@
 
 #include "directsimulatortest.h"
 
+#include <simulationmanager.h>
 #include <interfaces/idocumentmodel.h>
+#include <interfaces/simulator/isimulationmanager.h>
+#include <interfaces/simulator/genericelementfactory.h>
 #include <plugins/simulator/circuittransientsimulator.h>
+#include <plugins/basic_ec/elements/resistance.h>
+#include <plugins/basic_ec/elements/capacitance.h>
 
 #include <QtTest/QtTest>
 
 using namespace KTechLab;
 
 
+DECLARE_ELEMENT_FACTORY(
+    TestElementFactory,
+    SUPPORT_ELEMENT(Resistance)
+    SUPPORT_ELEMENT(Capacitance)
+    );
+
+TestElementFactory *fact;
+
 void KTechLab::DirectSimulatorTest::initTestCase()
 {
+    SimulationManager::initialize();
+    fact = new TestElementFactory();
+    ISimulationManager::self()->registerElementFactory(fact);
     model = new IDocumentModel;
     transSim = new CircuitTransientSimulator(model);
     simulator = transSim;
@@ -39,12 +55,15 @@ void KTechLab::DirectSimulatorTest::cleanupTestCase()
 {
     delete model;
     delete simulator;
+    ISimulationManager::self()->unregisterElementFactory(fact);
+    delete fact;
 }
 
 void KTechLab::DirectSimulatorTest::addResistor()
 {
     QVariantMap r1;
-    r1.insert("type", "Resistor");
+    r1.insert("id", "R1");
+    r1.insert("type", "Resistance");
     model->addComponent(r1);
 
     simulator->documentStructureChanged();

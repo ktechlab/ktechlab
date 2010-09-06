@@ -31,11 +31,13 @@ target_link_libraries( addcomponents
 
 kde4_add_unit_test( directsimulatortest
    directsimulatortest.cpp
-#    ${CMAKE_SOURCE_DIR}/src/interfaces/idocumentmodel.cpp
-#    ${CMAKE_SOURCE_DIR}/src/interfaces/simulator/isimulator.cpp
+   ${CMAKE_SOURCE_DIR}/src/interfaces/simulator/isimulator.cpp
+   ${CMAKE_SOURCE_DIR}/src/simulationmanager.cpp
    ${CMAKE_SOURCE_DIR}/src/plugins/simulator/circuittransientsimulator.cpp
    ${CMAKE_SOURCE_DIR}/src/plugins/simulator/pingroup.cpp
    ${CMAKE_SOURCE_DIR}/src/plugins/simulator/elementset.cpp
+   ${CMAKE_SOURCE_DIR}/src/plugins/basic_ec/elements/capacitance.cpp
+   ${CMAKE_SOURCE_DIR}/src/plugins/basic_ec/elements/resistance.cpp
 )
 
 target_link_libraries( directsimulatortest
