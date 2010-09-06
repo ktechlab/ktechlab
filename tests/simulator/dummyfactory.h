@@ -14,7 +14,7 @@ namespace KTechLab{
 
 class DummyElement : public IElement {
   public:
-    DummyElement() : IElement(0,0,1,1){
+    DummyElement() : IElement(QVariantMap(), 0, 0){
     }
     void dummyMethod(){
         std::cout << "dummyMethod called\n";
@@ -71,7 +71,7 @@ class DummyElementFactory : public IElementFactory {
      * \return the model of the componen, of NULL, if the component is not
      * supported
      */
-    virtual IElement * createElement(QString type){
+    virtual IElement * createElement(QString type, QVariantMap parent = QVariantMap()){
       if( type == "dummy-element" )
         return new DummyElement();
       return NULL;

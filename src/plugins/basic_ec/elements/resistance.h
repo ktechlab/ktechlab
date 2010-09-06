@@ -23,10 +23,10 @@ class Resistance : public IElement
     public:
         /**
         constructor
-        \param resistance value of the resistance, in ohms
-            1 Ohm, by default
+        \param parentInModel the description of the associated resistor component,
+            from the document model
         */
-        Resistance(const double resistance = 1);
+        Resistance(QVariantMap parentInModel);
         /** destructor */
         virtual ~Resistance();
 

@@ -159,7 +159,7 @@ bool CircuitTransientSimulator::recreateElementList()
                 << ", selecting first one \n";
         }
         // pick a factory
-        IElement *element = elemFactList.first()->createElement(compType);
+        IElement *element = elemFactList.first()->createElement(compType, componentVarMap);
         // place in the list
         m_allElementList.append(element);
             // is the following line efficient?

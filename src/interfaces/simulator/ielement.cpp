@@ -16,18 +16,15 @@
 
 using namespace KTechLab;
 
-IElement::IElement(QVariantMap* parentInModel,
-                   IElementSet* elementSet,
+IElement::IElement(QVariantMap parentInModel,
                    int numNodes, int numVoltageSources)
 {
     m_numNodes = numNodes;
     m_numVoltageSources = numVoltageSources;
-    m_elemSet = elementSet;
     m_parentInModel = parentInModel;
-    // TODO implement: allocate nodeIDs, m_a*, m_b* matrixes
-    // elementSet.addElement(this);
     m_nodeIDs = new int[m_numNodes];
     m_voltageSourceIDs = new int[m_numVoltageSources];
+    // TODO implement: allocate nodeIDs, m_a*, m_b* matrixes
 }
 
 IElement::~IElement(){
@@ -35,9 +32,14 @@ IElement::~IElement(){
     delete [] m_voltageSourceIDs;
 }
 
-QVariantMap* KTechLab::IElement::parentInModel() const
+QVariantMap KTechLab::IElement::parentInModel() const
 {
     return m_parentInModel;
+}
+
+void IElement::setElementSet(IElementSet *elemSet)
+{
+    m_elemSet = elemSet;
 }
 
 IElementSet * IElement::elementSet() const
