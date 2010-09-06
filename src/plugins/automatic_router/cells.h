@@ -18,6 +18,7 @@
 #include <QColor>
 #include <interfaces/iroutinginformation.h>
 
+class QGraphicsItem;
 namespace KTechLab{
     class IDocumentScene;
 class ConnectorItem;
@@ -201,6 +202,7 @@ public slots:
     void removeComponents(QList< KTechLab::IComponentItem* > components);
     void addConnectors(QList< KTechLab::ConnectorItem* > connectors);
     void removeConnectors(QList< KTechLab::ConnectorItem* > connectors);
+    void removeGraphicsItem(QGraphicsItem* item);
 
 protected:
     virtual void paintRaster(QPainter* p, const QRectF& region) const;
