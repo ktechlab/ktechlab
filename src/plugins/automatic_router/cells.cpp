@@ -91,11 +91,10 @@ void Cells::update()
         KTechLab::IComponentItem* component = 0;
         KTechLab::ConnectorItem* connector = 0;
         int score = Cells::ScoreNone;
-        if ((component = dynamic_cast<KTechLab::IComponentItem*>(item))) {
+        if ((component = qgraphicsitem_cast<KTechLab::IComponentItem*>(item))) {
             score = Cells::ScoreItem;
             addCIPenalty(component, score);
-        }
-        if ((connector = dynamic_cast<KTechLab::ConnectorItem*>(item))) {
+        } else if ((connector = qgraphicsitem_cast<KTechLab::ConnectorItem*>(item))) {
             score = Cells::ScoreConnector;
             addCIPenalty(connector->path(),score);
         }
@@ -386,8 +385,7 @@ inline void Cells::addCIPenalty(const QPainterPath& path, int score)
     for (int i=0; i < path.elementCount(); ++i) {
         Q_ASSERT((path.elementAt(i).isLineTo() || i==0) && (path.elementAt(i).isMoveTo() || i!=0));
         QPointF p(path.elementAt(i).x,path.elementAt(i).y);
-        p = mapToCells(p);
-        cell(p.x(),p.y()).addCIPenalty(score);
+        cellContaining(p.x(),p.y()).addCIPenalty(score);
     }
     updateVisualization(path.boundingRect());
 }
@@ -456,6 +454,23 @@ void Cells::removeConnectors(QList< KTechLab::ConnectorItem* > connectors)
         addCIPenalty(c->path(),score);
     }
 }
+
+void Cells::removeGraphicsItem(QGraphicsItem* item)
+{
+    KTechLab::IComponentItem* component = 0;
+    KTechLab::ConnectorItem* connector = 0;
+    int score = Cells::ScoreNone;
+    kDebug() << "removing: " << item;
+    if ((component = qgraphicsitem_cast<KTechLab::IComponentItem*>(item))) {
+        score = -Cells::ScoreItem;
+        addCIPenalty(component, score);
+    }
+    if ((connector = qgraphicsitem_cast<KTechLab::ConnectorItem*>(item))) {
+        score = -Cells::ScoreConnector;
+        addCIPenalty(connector->path(),score);
+    }
+}
+
 
 //END class Cells
 
