@@ -28,6 +28,7 @@
 #include <QKeyEvent>
 #include "component/connector.h"
 #include "component/node.h"
+#include "component/icomponentitem.h"
 
 using namespace KTechLab;
 
@@ -71,9 +72,29 @@ void IDocumentScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
         abortRouting();
     }
     if (!selectedItems().isEmpty()){
-        m_oldSelectionPos = selectedItems().first()->pos();
+        QList<IComponentItem*> componentList= filterItemList<IComponentItem>(selectedItems());
+        if (componentList.isEmpty())
+            return;
+
+        m_needReroutingList.clear();
+        m_oldSelectionPos = componentList.first()->pos();
+        foreach(IComponentItem* item, componentList) {
+            m_needReroutingList << filterItemList<ConnectorItem>(item->collidingItems());
+        }
+        //FIXME: tell routingInfo we moved, but actually haven't, yet
+        emit componentsAboutToMove(componentList);
         m_movingSelection = true;
     }
+}
+
+template<class T> inline QList<T*> IDocumentScene::filterItemList(QList<QGraphicsItem*> list) const
+{
+    QList<T*> result;
+    foreach(QGraphicsItem* item, list) {
+        T* tItem = qgraphicsitem_cast<T*>(item);
+        if (tItem) result << tItem;
+    }
+    return result;
 }
 
 void IDocumentScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
@@ -82,13 +103,29 @@ void IDocumentScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
     if (isRouting())
         return;
     if (!selectedItems().isEmpty() && m_movingSelection){
-        if (selectedItems().first()->pos() != m_oldSelectionPos){
-            bool moved = alignToGrid(selectedItems().first()->pos()) != m_oldSelectionPos;
+        QList<IComponentItem*> selectedComponents = filterItemList<IComponentItem>(selectedItems());
+        if (selectedComponents.first()->pos() != m_oldSelectionPos){
+            bool moved = alignToGrid(selectedComponents.first()->pos()) != m_oldSelectionPos;
             foreach (QGraphicsItem* item, selectedItems()){
                 item->setPos(alignToGrid(item->pos()));
                 //TODO: update model
             }
-            rerouteConnectors(selectedItems());
+            emit componentsMoved(selectedComponents);
+            if (moved) {
+                QSet<ConnectorItem*> scheduledConnectors;
+                foreach (ConnectorItem* c, m_needReroutingList) {
+                    scheduledConnectors << c;
+                }
+                foreach(IComponentItem* item, selectedComponents) {
+                    foreach(ConnectorItem* c, filterItemList<ConnectorItem>(item->collidingItems())){
+                        scheduledConnectors << c;
+                    }
+                }
+                rerouteConnectors(scheduledConnectors.toList());
+            }
+        } else {
+            //FIXME: this is needed, because routingInfo thinks we moved, but actually haven't
+            emit componentsMoved(selectedComponents);
         }
         m_movingSelection = false;
     }
@@ -98,9 +135,9 @@ void IDocumentScene::keyPressEvent(QKeyEvent* event)
 {
     if (event->key() == Qt::Key_Delete){
         foreach(QGraphicsItem *item,selectedItems()){
+            emit itemRemoved(item);
             removeItem(item);
-            delete (item);
-            item = 0;
+            delete item;
         }
     }
 }
@@ -147,18 +184,16 @@ void IDocumentScene::updateData(const QString& name, const QVariantMap& value)
 
 }
 
-void IDocumentScene::rerouteConnectors(QList< QGraphicsItem* > items)
+void IDocumentScene::rerouteConnectors(QList< ConnectorItem* > items)
 {
-    items = this->items();
-    foreach (QGraphicsItem* item, items){
-        ConnectorItem* c = dynamic_cast<ConnectorItem*>(item);
-        if (!c)
-            continue;
+    emit aboutToReroute(items);
+    foreach (ConnectorItem* c, items){
         QPointF start = c->startNode()->scenePos();
         QPointF end = c->endNode()->scenePos();
         m_routingInfo->mapRoute(start,end);
         c->setPath(m_routingInfo->paintedRoute());
     }
+    emit rerouted(items);
 }
 
 void IDocumentScene::fetchRouter()
