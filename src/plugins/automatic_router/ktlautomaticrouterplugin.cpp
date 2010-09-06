@@ -45,6 +45,14 @@ void AutomaticRouter::generateRoutingInfo(KTechLab::IDocumentScene* scene)
 {
     Cells* cells = new Cells(scene,this);
     connect(scene,SIGNAL(sceneRectChanged(QRectF)),cells,SLOT(updateSceneRect(QRectF)));
+    connect(scene,SIGNAL(componentsAboutToMove(QList<KTechLab::IComponentItem*>)),
+            cells,SLOT(removeComponents(QList<KTechLab::IComponentItem*>)));
+    connect(scene,SIGNAL(componentsMoved(QList<KTechLab::IComponentItem*>)),
+            cells,SLOT(addComponents(QList<KTechLab::IComponentItem*>)));
+    connect(scene,SIGNAL(aboutToReroute(QList<KTechLab::ConnectorItem*>)),
+            cells,SLOT(removeConnectors(QList<KTechLab::ConnectorItem*>)));
+    connect(scene,SIGNAL(itemRemoved(QGraphicsItem*)),
+            cells,SLOT(removeGraphicsItem(QGraphicsItem*)));
     scene->setRoutingInfo(QSharedPointer<Cells>(cells));
 }
 
