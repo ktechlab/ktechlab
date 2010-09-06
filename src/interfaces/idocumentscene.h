@@ -23,13 +23,22 @@
 #include "ktlinterfacesexport.h"
 #include <QtGui/QGraphicsScene>
 #include <QVariantMap>
+#include <QGraphicsItem>
 
 class QGraphicsSceneMouseEvent;
 
 namespace KTechLab {
 
+struct GraphicsItems {
+    enum {
+        ConnectorItemType = QGraphicsItem::UserType+1,
+        ComponentItemType = QGraphicsItem::UserType+2
+    };
+};
+
 class Node;
 class IComponentItem;
+class ConnectorItem;
 class IRouterPlugin;
 class IRoutingInformation;
 
@@ -91,6 +100,28 @@ public:
      */
     void setRoutingInfo( QSharedPointer<IRoutingInformation> info );
 
+signals:
+    /**
+     * Emitted, when the scene is about to reroute some ConnectorItems.
+     */
+    void aboutToReroute(QList<KTechLab::ConnectorItem*>);
+    /**
+     * Emitted, when the scene rerouted some ConnectorItems.
+     */
+    void rerouted(QList<KTechLab::ConnectorItem*>);
+    /**
+     * Emitted, when some components are about to be moved.
+     */
+    void componentsAboutToMove(QList<KTechLab::IComponentItem*>);
+    /**
+     * Emitted, when some components have been moved.
+     */
+    void componentsMoved(QList<KTechLab::IComponentItem*>);
+    /**
+     * Emitted, when some item is removed from the scene.
+     */
+    void itemRemoved( QGraphicsItem* );
+
 public slots:
     virtual void updateData( const QString &name, const QVariantMap &value );
 
@@ -101,7 +132,7 @@ protected:
      *
      * \param items - the list containing items, that need checking
      */
-    void rerouteConnectors(QList< QGraphicsItem* > items);
+    void rerouteConnectors(QList< ConnectorItem* > items);
 
     /**
      * This method tracks mouse movement during the routing process.
@@ -136,8 +167,10 @@ protected:
 
     virtual void drawForeground(QPainter* painter, const QRectF& rect);
 private:
+    template<class T> inline QList<T*> filterItemList(QList<QGraphicsItem*> list) const;
     QGraphicsPathItem* m_routePath;
     QSharedPointer<IRoutingInformation> m_routingInfo;
+    QList<ConnectorItem*> m_needReroutingList;
     QPointF m_startPos;
     QPointF m_oldSelectionPos;
     bool m_movingSelection;
