@@ -37,14 +37,11 @@ class IPin;
              create an element corresponding to a component in the model,
              in a given IElementSet
              \param parentInModel the component associated to this IElement
-             \param elementSet the set of elements to which the new element
-                belongs. All the elements in an IElementSet have a common
-                MNA equation.
              \param numNodes number of the nodes of the element
              \param numVoltageSources number of the voltage sources
                 in the model
              */
-            IElement(QVariantMap * parentInModel, IElementSet * elementSet,
+            IElement(QVariantMap parentInModel,
                      int numNodes, int numVoltageSources);
             /**
               virtual destructor
@@ -55,7 +52,14 @@ class IPin;
             /**
              \return the parent of the element, in the model of the circuit
              */
-            QVariantMap * parentInModel() const;
+            QVariantMap parentInModel() const;
+
+            /**
+             set the element set where this element belongs
+             \param elemSet the IElementSet where this element belongs.
+             All the elements in an IElementSet have a common MNA equation.
+             */
+            void setElementSet(IElementSet *elemSet);
 
             /**
              \return the IElementSet to which this element belongs
@@ -195,7 +199,7 @@ class IPin;
 
         private:
             /// parent in the circuit model
-            QVariantMap * m_parentInModel;
+            QVariantMap m_parentInModel;
 
             /// the elementSet where the element belongs
             IElementSet *m_elemSet;

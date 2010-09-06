@@ -16,6 +16,7 @@
 
 
 #include <QObject>
+#include <qvariant.h>
 
 namespace KTechLab {
 
@@ -60,7 +61,7 @@ public:
      * \return the model of the componen, of NULL, if the component is not
      * supported
      */
-    virtual IElement * createElement(QString type) = 0;
+    virtual IElement * createElement(QString type, QVariantMap parentInModel) = 0;
 };
 
 }
