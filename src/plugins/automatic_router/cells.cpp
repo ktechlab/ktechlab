@@ -113,7 +113,7 @@ void Cells::updateVisualization(const QRectF &region)
         for (int x = dataRegion.x(); x < dataRegion.x()+dataRegion.width(); ++x) {
             QPoint poi = QPoint(x,y);
             QColor c = colorForScenePoint(poi);
-            i.setPixel(poi-dataRegion.topLeft(),c.rgba());
+            i.setPixel(poi-m_sceneRect.topLeft(),c.rgba());
         }
 }
 
@@ -424,7 +424,7 @@ inline void Cells::addCIPenalty(const KTechLab::IComponentItem* item, int score)
         for (int y = rect.y(); y < rect.y()+rect.height(); ++y) {
             cell(x,y).addCIPenalty(score);
         }
-    updateVisualization(item->boundingRect());
+    updateVisualization(item->mapRectToScene(item->boundingRect()));
 }
 
 void Cells::addComponents(QList< KTechLab::IComponentItem* > components)
