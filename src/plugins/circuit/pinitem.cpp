@@ -31,7 +31,7 @@ PinItem::PinItem(const QRectF& rect, QGraphicsItem* parent, QGraphicsScene* scen
 {
     setAcceptHoverEvents(true);
     setPos(rect.topLeft());
-    setRect(QRectF(QPointF(0,0),rect.size()));
+    setRect(QRectF(QPointF(-rect.width()/2,-rect.height()/2),rect.size()));
     setBrush(QBrush(Qt::SolidPattern));
     //set opacity to nearly 0, because 0 will hide the item
     //and it won't receive any events if hidden

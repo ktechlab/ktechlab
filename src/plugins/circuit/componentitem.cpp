@@ -89,8 +89,8 @@ void ComponentItem::initPins()
     while (!pin.isNull()) {
         QRectF pinRect;
         double r = pin.attribute("r").toDouble();
-        pinRect.setLeft(pin.attribute("cx").toDouble()-r);
-        pinRect.setTop(pin.attribute("cy").toDouble()-r);
+        pinRect.setLeft(pin.attribute("cx").toDouble());
+        pinRect.setTop(pin.attribute("cy").toDouble());
         pinRect.setWidth(r*2);
         pinRect.setHeight(r*2);
         PinItem* p = new PinItem(pinRect, this, scene());
