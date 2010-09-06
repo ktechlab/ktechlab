@@ -111,7 +111,7 @@ void Cells::updateVisualization(const QRectF &region)
     QImage& i = m_visualizedData;
     for (int y = dataRegion.y(); y < dataRegion.y()+dataRegion.height(); ++y)
         for (int x = dataRegion.x(); x < dataRegion.x()+dataRegion.width(); ++x) {
-            QPoint poi(QPoint(x,y));
+            QPoint poi = QPoint(x,y);
             QColor c = colorForScenePoint(poi);
             i.setPixel(poi-dataRegion.topLeft(),c.rgba());
         }
@@ -119,6 +119,9 @@ void Cells::updateVisualization(const QRectF &region)
 
 void Cells::updateSceneRect(const QRectF& rect)
 {
+    if (m_documentScene->isRouting())
+        return;
+
     unsigned w = unsigned(m_cellsRect.width());
     for (uint i = 0; i < w; i++)
         delete [] m_cells[i];
@@ -127,7 +130,6 @@ void Cells::updateSceneRect(const QRectF& rect)
     QRect canvasRect(rect.toRect());
     if (canvasRect.isEmpty())
         canvasRect = m_documentScene->sceneRect().toRect();
-    canvasRect.setSize(canvasRect.size());
     init(canvasRect);
     update();
 }
