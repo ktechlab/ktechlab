@@ -11,14 +11,17 @@
 
 #include "capacitance.h"
 
+using namespace KTechLab;
+
+/*
 KTechLab::Capacitance::Capacitance() :
     IElement(NULL, NULL, 1, 1)
 {
     // TODO implement
 }
-
-KTechLab::Capacitance::Capacitance(QVariantMap* parentInModel, KTechLab::IElementSet* elementSet):
-    IElement(parentInModel, elementSet, 1, 1)
+*/
+KTechLab::Capacitance::Capacitance(QVariantMap parentInModel) :
+    IElement(parentInModel, 2, 0)
 {
     // TODO implement
 }
