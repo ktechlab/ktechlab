@@ -102,7 +102,6 @@ void CircuitScene::setupData()
     foreach (QVariant pins, m_model->nodes()){
         if (pins.canConvert(QVariant::Map)) {
             QPointF p(pins.toMap().value("x").toDouble(),pins.toMap().value("y").toDouble());
-            p -= QPointF(6,6);
             QRectF rect(p, QSize(4,4));
             PinItem* item = new PinItem(rect, 0, this);
             item->setId(pins.toMap().value("id").toString());
