@@ -462,7 +462,7 @@ void Cells::removeGraphicsItem(QGraphicsItem* item)
     KTechLab::IComponentItem* component = 0;
     KTechLab::ConnectorItem* connector = 0;
     int score = Cells::ScoreNone;
-    kDebug() << "removing: " << item;
+
     if ((component = qgraphicsitem_cast<KTechLab::IComponentItem*>(item))) {
         score = -Cells::ScoreItem;
         addCIPenalty(component, score);
