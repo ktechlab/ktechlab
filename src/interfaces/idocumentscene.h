@@ -110,9 +110,9 @@ signals:
      */
     void aboutToReroute(QList<KTechLab::ConnectorItem*>);
     /**
-     * Emitted, when the scene rerouted some ConnectorItems.
+     * Emitted, when the scene routed some ConnectorItems.
      */
-    void rerouted(QList<KTechLab::ConnectorItem*>);
+    void routed(QList<KTechLab::ConnectorItem*>);
     /**
      * Emitted, when some components are about to be moved.
      */
