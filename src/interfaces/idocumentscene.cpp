@@ -150,15 +150,17 @@ QPointF IDocumentScene::alignToGrid(const QPointF& point)
     return point;
 }
 
-void IDocumentScene::startRouting(const QPointF& pos)
+ConnectorItem* IDocumentScene::startRouting(const QPointF& pos)
 {
     if (!routingInfo()) {
-        return;
+        kError() << "Can't start routing without routing plugin";
+        return 0;
     }
     m_startPos = pos;
     m_routingInfo->mapRoute(pos,pos);
     m_routePath = new ConnectorItem(this);
     m_routePath->setPath(m_routingInfo->paintedRoute());
+    return m_routePath;
 }
 
 void IDocumentScene::abortRouting()
@@ -171,12 +173,16 @@ void IDocumentScene::abortRouting()
     m_routePath = 0;
 }
 
-void IDocumentScene::finishRouting(const QPointF& pos)
+ConnectorItem* IDocumentScene::finishRouting(const QPointF& pos)
 {
+    ConnectorItem* c = m_routePath;
+
     m_routingInfo->mapRoute(m_startPos,pos);
     m_routePath->setPath(m_routingInfo->paintedRoute());
     // this item is still part of the scene, we just forget about it, here
     m_routePath = 0;
+
+    return c;
 }
 
 void IDocumentScene::updateData(const QString& name, const QVariantMap& value)
