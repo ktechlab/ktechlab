@@ -51,10 +51,10 @@ Cells::Cells(const Cells &c) {
 
 void Cells::init(const QRect &canvasRect) {
     m_sceneRect = canvasRect;
-    m_visualizedData = QImage(m_sceneRect.size(),QImage::Format_ARGB32);
+    m_visualizedData = QImage(m_sceneRect.size() + QSize(4,4),QImage::Format_ARGB32);
     m_visualizedData.fill(QColor(Qt::transparent).rgba());
     m_cellsRect = QRect(mapToCells(m_sceneRect.topLeft()), mapToCells(m_sceneRect.size()));
-    m_cellsRect.adjust(-1,-1,1,1);
+    m_cellsRect.adjust(-1,-1,2,2);
 
     unsigned w = unsigned(m_cellsRect.width());
     unsigned h = unsigned(m_cellsRect.height());
