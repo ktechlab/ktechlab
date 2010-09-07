@@ -229,7 +229,7 @@ void IDocumentScene::setRoutingInfo(QSharedPointer< IRoutingInformation > info)
     m_routingInfo = info;
 }
 
-void IDocumentScene::drawForeground(QPainter* painter, const QRectF& rect)
+void IDocumentScene::drawBackground(QPainter* painter, const QRectF& rect)
 {
     if (views().isEmpty())
         return;
