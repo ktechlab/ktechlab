@@ -181,6 +181,9 @@ ConnectorItem* IDocumentScene::finishRouting(const QPointF& pos)
     m_routePath->setPath(m_routingInfo->paintedRoute());
     // this item is still part of the scene, we just forget about it, here
     m_routePath = 0;
+    QList< ConnectorItem* > items;
+    items << c;
+    emit routed(items);
 
     return c;
 }
@@ -199,7 +202,7 @@ void IDocumentScene::rerouteConnectors(QList< ConnectorItem* > items)
         m_routingInfo->mapRoute(start,end);
         c->setPath(m_routingInfo->paintedRoute());
     }
-    emit rerouted(items);
+    emit routed(items);
 }
 
 void IDocumentScene::fetchRouter()
