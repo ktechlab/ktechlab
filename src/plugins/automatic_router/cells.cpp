@@ -124,6 +124,7 @@ void Cells::updateSceneRect(const QRectF& rect)
     if (m_documentScene->isRouting())
         return;
 
+    //FIXME: this doesn't scale, takes very long for larger scenes
     unsigned w = unsigned(m_cellsRect.width());
     for (uint i = 0; i < w; i++)
         delete [] m_cells[i];
