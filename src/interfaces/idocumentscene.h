@@ -71,16 +71,20 @@ public:
 
     /**
     * Start the routing process at point \param pos
+    *
+    * \returns the connector item that represents the connection
     */
-    void startRouting(const QPointF &pos);
+    ConnectorItem* startRouting(const QPointF &pos);
     /**
     * Abort the routing process.
     */
     void abortRouting();
     /**
     * Finish the routing process and therefore place the route to \param pos.
+    *
+    * \returns the connector item that represents the connection
     */
-    void finishRouting(const QPointF &pos);
+    ConnectorItem* finishRouting(const QPointF &pos);
 
     virtual IComponentItem* item(const QString& id) const =0;
     virtual Node* node(const QString& id) const =0;
@@ -168,7 +172,7 @@ protected:
     virtual void drawForeground(QPainter* painter, const QRectF& rect);
 private:
     template<class T> inline QList<T*> filterItemList(QList<QGraphicsItem*> list) const;
-    QGraphicsPathItem* m_routePath;
+    ConnectorItem* m_routePath;
     QSharedPointer<IRoutingInformation> m_routingInfo;
     QList<ConnectorItem*> m_needReroutingList;
     QPointF m_startPos;

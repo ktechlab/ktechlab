@@ -22,6 +22,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <KDebug>
 #include <qdrag.h>
+#include <interfaces/component/connectoritem.h>
 
 using namespace KTechLab;
 
@@ -73,12 +74,14 @@ void PinItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
     }
     if (!m_circuit->isRouting()){
         const QPointF &center = mapToScene(rect().center());
-        m_circuit->startRouting(center);
+        ConnectorItem* c = m_circuit->startRouting(center);
+        c->setStartNode(this);
         if (parentItem())
             setOpacity(0.01);
         event->accept();
     } else {
         const QPointF &center = mapToScene(rect().center());
-        m_circuit->finishRouting(center);
+        ConnectorItem* c = m_circuit->finishRouting(center);
+        c->setEndNode(this);
     }
 }
