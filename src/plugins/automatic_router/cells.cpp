@@ -108,6 +108,8 @@ void Cells::updateVisualization(const QRectF &region)
     if (region.isNull())
         dataRegion = m_sceneRect;
 
+    dataRegion &= m_sceneRect;
+
     QImage& i = m_visualizedData;
     for (int y = dataRegion.y(); y < dataRegion.y()+dataRegion.height(); ++y)
         for (int x = dataRegion.x(); x < dataRegion.x()+dataRegion.width(); ++x) {
