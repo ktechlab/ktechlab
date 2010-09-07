@@ -185,8 +185,8 @@ void Cells::paintRaster(QPainter* p, const QRectF& region) const
     //region is not aligned to the grid, so we need to adjust
     int offX = (int)region.x() % 8 + 4;
     int offY = (int)region.y() % 8 + 4;
-    for (int y = 0; y < region.height()+8; y+=8)
-        for (int x = 0; x < region.width()+8; x+=8)
+    for (int y = 0; y < region.height()+12; y+=8)
+        for (int x = 0; x < region.width()+12; x+=8)
             p->drawPoint(QPoint(x-offX,y-offY));
 }
 
