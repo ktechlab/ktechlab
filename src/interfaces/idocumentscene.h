@@ -169,7 +169,7 @@ protected:
      */
     virtual void fetchRouter();
 
-    virtual void drawForeground(QPainter* painter, const QRectF& rect);
+    virtual void drawBackground(QPainter* painter, const QRectF& rect);
 private:
     template<class T> inline QList<T*> filterItemList(QList<QGraphicsItem*> list) const;
     ConnectorItem* m_routePath;
