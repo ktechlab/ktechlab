@@ -68,7 +68,7 @@ void ConnectorItem::init()
     m_startNode = 0;
     m_endNode = 0;
     setAcceptHoverEvents(true);
-    setFlags(ItemIsSelectable);
+    setFlags(ItemIsSelectable | ItemSendsGeometryChanges);
     setZValue(-1);
 }
 
@@ -135,6 +135,8 @@ QVariant ConnectorItem::itemChange(QGraphicsItem::GraphicsItemChange change, con
         setPen(scene()->palette().highlight().color());
     } else if (change == ItemSelectedHasChanged && !value.toBool()){
         setPen(scene()->palette().windowText().color());
+    } else if (change == ItemPositionChange) {
+        return QPointF(0,0);
     }
     return QGraphicsItem::itemChange(change, value);
 }
