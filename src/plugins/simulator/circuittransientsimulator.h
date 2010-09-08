@@ -85,6 +85,11 @@ public slots:
       */
     virtual void simulationTimerTicked();
 
+    /**
+     Print all the equations in the 
+     */
+    void dumpDebugInfo() const;
+
 private:
     /** create a list of elements to be simulated, based on the document model
      \return true if it's successful and false un faliure
@@ -111,7 +116,7 @@ private:
      \return true, if succeeds, false otherwise
      */
     bool splitDocumentInElementSets();
-    
+
     // utilitary methods
     /** convert a variant containing string containing a boolean (0/1) value
         to boolean. Has error checking */
