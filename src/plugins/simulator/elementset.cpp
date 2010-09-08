@@ -71,6 +71,7 @@ void ElementSet::buildElementList(IElement *start, QList<IElement*> elements,
     toBeTaken.append(start);
 
     m_elements.clear();
+    m_elements.append(start);
     m_pinGroups.clear();
 
     while( !toBeTaken.isEmpty() ){
@@ -97,6 +98,10 @@ void ElementSet::buildElementList(IElement *start, QList<IElement*> elements,
                 }
             }
         }
+    }
+    // assign the element set to the elements
+    foreach(IElement *elem, m_elements){
+        elem->setElementSet(this);
     }
     // statistics
     kDebug() << "created elementset with " << m_elements.size() << " elements and "
