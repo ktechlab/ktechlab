@@ -51,6 +51,17 @@ bool IDocumentScene::isRouting() const
     return m_routePath != 0;
 }
 
+QSet< QGraphicsItem* > IDocumentScene::movingItems() const
+{
+    QSet<QGraphicsItem*> set;
+    if (m_movingSelection)
+        foreach(IComponentItem* item, filterItemList<IComponentItem>(selectedItems())){
+            set << item;
+        }
+
+    return set;
+}
+
 void IDocumentScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
     if (m_routePath){
