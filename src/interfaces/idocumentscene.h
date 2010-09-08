@@ -22,8 +22,6 @@
 
 #include "ktlinterfacesexport.h"
 
-#include "interfaces/iroutinginformation.h"
-
 #include <QtGui/QGraphicsScene>
 #include <QVariantMap>
 #include <QGraphicsItem>
