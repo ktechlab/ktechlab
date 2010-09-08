@@ -88,6 +88,14 @@ void Cells::update()
     QRectF updateRegion = m_documentScene->sceneRect();
 
     foreach (QGraphicsItem* item, m_documentScene->items(updateRegion)) {
+        //TODO: remove this, once updateSceneRect got fixed
+        //work around the fact, that items get added twice, when update is
+        //called and we are moving items around, because they are "removed"
+        //when moving starts and added again after being dropped
+        if (m_documentScene->movingItems().contains(item)) {
+            kDebug() << "not adding moving item: " << item;
+            continue;
+        }
         KTechLab::IComponentItem* component = 0;
         KTechLab::ConnectorItem* connector = 0;
         int score = Cells::ScoreNone;
