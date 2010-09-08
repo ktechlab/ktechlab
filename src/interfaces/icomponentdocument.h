@@ -26,6 +26,8 @@
 namespace KTechLab
 {
 
+class IDocumentScene;
+
 class IDocumentModel;
 
 /**
@@ -45,6 +47,14 @@ public:
      * @return the IDocumentModel for this document
      */
     virtual IDocumentModel* documentModel() const =0;
+
+    /**
+     * Return the scene of the document. This is, where all
+     * routing takes place.
+     *
+     * \return the IDocumentScene for this document
+     */
+    virtual IDocumentScene* documentScene() const =0;
 };
 
 }

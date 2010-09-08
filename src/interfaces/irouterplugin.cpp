@@ -1,6 +1,7 @@
 /*
-    Copyright (C) 2003-2004  David Saxton <david@bluehaze.org>
-    Copyright (C) 2010 Julian Bäume <julian@svg4all.de>
+    Abstraction for the routing of a connection
+    Copyright (C) 2003-2004 by David Saxton <david@bluehaze.org>
+    Copyright (C) 2010  Julian Bäume <julian@svg4all.de>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,23 +19,22 @@
 
 */
 
-#ifndef KTLAUTOMATICROUTERPLUGIN_H
-#define KTLAUTOMATICROUTERPLUGIN_H
+#include "irouterplugin.h"
 
-#include <kdevplatform/interfaces/iplugin.h>
-#include <interfaces/irouterplugin.h>
-#include <kdevplatform/interfaces/iextension.h>
-#include <QVariantList>
+#include <QPointF>
+#include <QPainterPath>
+#include <KDebug>
+#include "idocumentscene.h"
 
-class AutomaticRouter : public KDevelop::IPlugin, public KTechLab::IRouterPlugin
+using namespace KTechLab;
+
+IRouterPlugin::IRouterPlugin()
+{}
+
+IRouterPlugin::~IRouterPlugin()
+{}
+
+void IRouterPlugin::setDocumentScene(IDocumentScene* scene)
 {
-    Q_OBJECT
-    Q_INTERFACES( KTechLab::IRouterPlugin )
-public:
-    AutomaticRouter(QObject* parent = 0, const QVariantList& args = QVariantList());
-
-protected slots:
-    virtual void generateRoutingInfo(KTechLab::IDocumentScene* scene);
-};
-
-#endif // KTLAUTOMATICROUTERPLUGIN_H
+    generateRoutingInfo( scene );
+}

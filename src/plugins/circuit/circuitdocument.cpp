@@ -114,6 +114,10 @@ IDocumentModel* CircuitDocument::documentModel() const
 {
     return d->circuitModel;
 }
+IDocumentScene* CircuitDocument::documentScene() const
+{
+    return d->circuitScene;
+}
 
 QWidget* CircuitDocument::createViewWidget( QWidget* parent )
 {
