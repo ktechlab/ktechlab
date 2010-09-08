@@ -22,10 +22,12 @@
 
 #include "../ktlinterfacesexport.h"
 #include <QGraphicsSvgItem>
+#include "../idocumentscene.h"
 
 namespace KTechLab {
 
 class IDocumentModel;
+class Node;
 
 /**
  * \short Components that are shown on a scene
@@ -55,6 +57,32 @@ public:
      */
     QString id() const;
 
+    /**
+     * Check whether the given node belongs to this item.
+     *
+     * \param node - the Node to check
+     * \returns true, if the node is child of this item
+     */
+    bool hasNode(const Node* node) const;
+
+    /**
+     * Get a connector node belonging to this component item.
+     *
+     * \param id - the id of the node
+     * \returns the node, 0 if no such node exists
+     */
+    const Node* node(const QString& id) const;
+
+    /**
+     * Get a list of all nodes belonging to this item.
+     *
+     * \returns a list of nodes
+     */
+    QList<const Node*> nodes() const;
+
+    enum { Type = KTechLab::GraphicsItems::ComponentItemType };
+    virtual int type() const { return Type; };
+
 public slots:
     /**
      * Inform the component, that some data has been changed, so it can
@@ -69,7 +97,6 @@ signals:
     void dataUpdated( const QString &name, const QVariantMap &data );
 
 protected:
-    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     virtual QVariant itemChange(GraphicsItemChange change, const QVariant& value);
 
     IDocumentModel *m_document;

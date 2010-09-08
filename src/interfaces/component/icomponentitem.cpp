@@ -22,6 +22,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <KDebug>
 #include <idocumentmodel.h>
+#include "node.h"
 
 using namespace KTechLab;
 
@@ -32,26 +33,13 @@ IComponentItem::IComponentItem(QGraphicsItem* parentItem)
     setAcceptHoverEvents(true);
     setFlags(
         ItemIsFocusable | ItemIsSelectable |
-        ItemIsMovable | ItemSendsScenePositionChanges
+        ItemIsMovable
     );
 }
 
 IComponentItem::~IComponentItem()
 {
 
-}
-
-void IComponentItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
-{
-    if (   event->button() == Qt::LeftButton
-        && contains(event->scenePos())
-        && contains(event->buttonDownScenePos(Qt::LeftButton)) ){
-        if (event->modifiers() != Qt::ControlModifier)
-            scene()->clearSelection();
-        setSelected(true);
-        event->accept();
-    }
-    QGraphicsSvgItem::mouseReleaseEvent(event);
 }
 
 QString IComponentItem::id() const
@@ -64,6 +52,36 @@ QString IComponentItem::id() const
 
     kWarning() << "no id for IComponentItem:" << this;
     return QString();
+}
+
+bool IComponentItem::hasNode(const Node* node) const
+{
+    if (!node->isValid() || id() != node->parentId())
+        return false;
+
+    return this->node(node->id()) != 0;
+}
+
+const Node* IComponentItem::node(const QString& id) const
+{
+    foreach (const QGraphicsItem* item, childItems()){
+        //TODO: make this a qgraphicsitem_cast
+        const Node* n = dynamic_cast<const Node*>(item);
+        if (n && n->id() == id){
+            return n;
+        }
+    }
+    return 0;
+}
+QList<const Node*> IComponentItem::nodes() const
+{
+    QList<const Node*> list;
+    foreach (const QGraphicsItem* item, childItems()){
+        //TODO: make this a qgraphicsitem_cast
+        const Node* n = dynamic_cast<const Node*>(item);
+        if (n) list.append(n);
+    }
+    return list;
 }
 
 void IComponentItem::setDocumentModel(IDocumentModel* model)

@@ -14,4 +14,4 @@ X-KDevelop-Version=9
 X-KDevelop-Category=Project
 X-KDevelop-Mode=GUI
 X-KDevelop-SupportedMimeTypes=application/x-circuit,application/x-flowcode
-X-KDevelop-Interfaces=org.ktechlab.IConRouter
+X-KDevelop-Interfaces=org.ktechlab.IRouterPlugin
