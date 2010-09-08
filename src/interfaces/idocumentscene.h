@@ -90,6 +90,13 @@ public:
     virtual Node* node(const QString& id) const =0;
 
     /**
+     * Provide a set of items, that are moving at this moment.
+     *
+     * Note: for now, only ComponentItems can be moved and will be in this list
+     */
+    QSet<QGraphicsItem*> movingItems() const;
+
+    /**
      * Get the routing information stored by the routing plugin.
      *
      * Each scene can store routing information provided by the
