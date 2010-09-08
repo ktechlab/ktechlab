@@ -111,6 +111,12 @@ class ElementSet : public IElementSet
 
         #undef CUI
 
+        /**
+         Debug method, that prints the equations in this ElementSet to
+         standard output
+         */
+        void dumpEquations() const;
+
     private:
         /// build the list of elements in the ElementSet
         void buildElementList(IElement *start, QList<IElement*> elements,
