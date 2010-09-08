@@ -471,3 +471,12 @@ QString CircuitTransientSimulator::variantToString(const QVariant& string, bool&
     return string.toString();
 }
 
+void KTechLab::CircuitTransientSimulator::dumpDebugInfo() const
+{
+    qDebug() << "\n------\n";
+    qDebug() << "equations for " << m_allElementSetsList.size() << " elementSets:\n";
+    foreach(ElementSet *set, m_allElementSetsList){
+        set->dumpEquations();
+    }
+    qDebug() << "\n--!!--\n";
+}

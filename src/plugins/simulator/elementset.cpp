@@ -29,6 +29,8 @@
 #include <interfaces/simulator/ipin.h>
 #include <kdebug.h>
 
+#include <iostream>
+
 using namespace KTechLab;
 
 KTechLab::ElementSet::ElementSet(IElement *start,
@@ -210,4 +212,15 @@ double& KTechLab::ElementSet::x_v(const unsigned int i)
 {
     Q_ASSERT(i<m_numNodes);
     return (*m_x)[i];
+}
+
+void KTechLab::ElementSet::dumpEquations() const
+{
+    qDebug() << "\n----\nElementSet equation: A*x = b, where:\nA = \n" ;
+    m_a->displayMatrix(std::cout);
+    qDebug() << "b = \n";
+    m_b->dumpToAux();
+    qDebug() << "x = \n";
+    m_x->dumpToAux();
+    qDebug() << "\n--!--\n";
 }
