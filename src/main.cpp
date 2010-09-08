@@ -95,10 +95,10 @@ int main(int argc, char **argv)
 
     KTechlabIDEExtension::init();
 
+    KTechLab::SimulationManager::initialize();
+
     KDevelop::Core::initialize();
     KDevelop::Core *core = KDevelop::Core::self();
-
-    KTechLab::SimulationManager::initialize();
 
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     bool openProject = false;
