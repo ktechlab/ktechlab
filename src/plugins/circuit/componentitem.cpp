@@ -49,9 +49,7 @@ ComponentItem::ComponentItem ( const QVariantMap& data, Theme *theme, QGraphicsI
     QPoint pos(data.value("x").toInt(),data.value("y").toInt());
     // coordinates from circuit file represent the center
     // of the component, so we have to move it -QPoint(32,32)
-    // to compensate the SVG viewBox and -QPoint(4,4) to compensate
-    // the raster of the kde3 version
-    pos -= QPoint(36,36);
+    pos -= QPoint(32,32);
     setPos( pos );
 
     m_shape.addRect(m_renderer->boundsOnElement("icon"));
@@ -91,8 +89,8 @@ void ComponentItem::initPins()
     while (!pin.isNull()) {
         QRectF pinRect;
         double r = pin.attribute("r").toDouble();
-        pinRect.setLeft(pin.attribute("cx").toDouble()-r);
-        pinRect.setTop(pin.attribute("cy").toDouble()-r);
+        pinRect.setLeft(pin.attribute("cx").toDouble());
+        pinRect.setTop(pin.attribute("cy").toDouble());
         pinRect.setWidth(r*2);
         pinRect.setHeight(r*2);
         PinItem* p = new PinItem(pinRect, this, scene());
@@ -100,31 +98,6 @@ void ComponentItem::initPins()
         p->setParentId(id());
         pin = pin.nextSiblingElement();
     }
-}
-
-void ComponentItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
-{
-    m_oldPos = pos();
-    IComponentItem::mousePressEvent(event);
-}
-
-void ComponentItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
-{
-    IComponentItem::mouseMoveEvent(event);
-}
-
-void ComponentItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
-{
-    if (pos() != m_oldPos){
-        //TODO: make grid configurable
-        //align to grid
-        QPoint p = pos().toPoint() / 8;
-        p*=8;
-        setPos(p);
-        if (p != m_oldPos)
-            itemChange(ItemScenePositionHasChanged,pos());
-    }
-    IComponentItem::mouseReleaseEvent(event);
 }
 
 void ComponentItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)

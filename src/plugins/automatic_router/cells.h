@@ -18,8 +18,11 @@
 #include <QColor>
 #include <interfaces/iroutinginformation.h>
 
+class QGraphicsItem;
 namespace KTechLab{
     class IDocumentScene;
+class ConnectorItem;
+class IComponentItem;
 }
 
 /**
@@ -135,6 +138,11 @@ private:
     unsigned short numCon;
 };
 
+#include <map>
+
+// Key = cell, data = previous cell, compare = score
+typedef std::multimap< unsigned short, QPointF > TempLabelMap;
+
 /**
  * This class represents a grid (2 dimensional array) of \class Cell instances.
  * In this implementation a \class Cell represents 8x8 pixels in the scene to
@@ -144,7 +152,7 @@ private:
 class Cells : public KTechLab::IRoutingInformation {
     Q_OBJECT
 public:
-    Cells(const QRect &canvasRect);
+    Cells(KTechLab::IDocumentScene* scene, QObject* parent = 0);
     ~Cells();
 
     /**
@@ -155,6 +163,10 @@ public:
         ScoreConnector = 4,
         ScoreItem = 1000
     };
+
+    virtual QPointF alignToGrid(const QPointF& point);
+    virtual void mapRoute(QPointF p1, QPointF p2);
+    virtual void mapRoute(qreal sx, qreal sy, qreal ex, qreal ey);
 
     /**
      * Resets bestScore, prevX, prevY, addedToLabels, it, permanent for each cell
@@ -181,30 +193,52 @@ public:
     Cell &cell(int i, int j) const ;
 
     QColor colorForScenePoint( QPointF p ) const ;
-    /**
-     * Update the internal representation of the scene.
-     * If a region is provided, only the items contained in that region
-     * are considered in the update.
-     *
-     * @param scene - the documents scene containing all components
-     * @param region - the region that is to be considered
-     */
-    void update(const KTechLab::IDocumentScene* scene, const QRectF &region = QRectF());
 
-    const QPixmap& visualizedData() const;
-    void updateVisualization();
+    void updateVisualization(const QRectF& region = QRectF());
+
+public slots:
+    void updateSceneRect(const QRectF &rect = QRectF());
+    void addComponents(QList< KTechLab::IComponentItem* > components);
+    void removeComponents(QList< KTechLab::IComponentItem* > components);
+    void addConnectors(QList< KTechLab::ConnectorItem* > connectors);
+    void removeConnectors(QList< KTechLab::ConnectorItem* > connectors);
+    void removeGraphicsItem(QGraphicsItem* item);
 
 protected:
+    virtual void paintRaster(QPainter* p, const QRectF& region) const;
+    virtual void paintRoutingInfo(QPainter* p, const QRectF& target, const QRectF& source) const;
+
+private:
+    /**
+     * Update the internal representation
+     */
+    void update();
     void init(const QRect &canvasRect);
     QRect m_cellsRect;
     Cell **m_cells;
-
-private:
-    QPixmap m_visualizedData;
+    QImage m_visualizedData;
     QRect m_sceneRect;
     Cells(const Cells &);
 //      Cells & operator= (const Cells &);
+
+    /**
+     * Check a line of the ICNDocument cells for a valid route
+     */
+    bool checkLineRoute(int scx, int scy, int ecx, int ecy, int maxCIScore);
+
+    /**
+     * Remove duplicated points from the route
+     */
+    void removeDuplicatePoints();
+
+    void checkACell(int x, int y, Cell *prev, int prevX, int prevY, int nextScore);
+    void checkCell(int x, int y);   // Gets the shortest route from the final cell
+    inline void addCIPenalty(const QPainterPath& path, int score);
+    inline void addCIPenalty(const KTechLab::IComponentItem* item, int score);
+
+    TempLabelMap m_tempLabels;
+    qreal m_lcx;
+    qreal m_lcy;
 };
 
 #endif
-
