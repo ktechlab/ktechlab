@@ -245,7 +245,6 @@ void IDocumentScene::setRoutingInfo(QSharedPointer< IRoutingInformation > info)
 
 void IDocumentScene::drawBackground(QPainter* painter, const QRectF& rect)
 {
-/*
     if (views().isEmpty())
         return;
 
@@ -259,7 +258,6 @@ void IDocumentScene::drawBackground(QPainter* painter, const QRectF& rect)
     painter->save();
     painter->drawPixmap(rect, pixmap, QRectF(QPointF(0,0),rect.size()));
     painter->restore();
-*/
 }
 
 #include "idocumentscene.moc"
