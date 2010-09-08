@@ -5,6 +5,7 @@
 #include <qpoint.h>
 #include <math.h>
 
+class QSize;
 inline int roundDown(const int x, const int roundness) {
 //FIXME: What is this function really supposed to do?
 // must be important because it's called millions of times!
@@ -53,6 +54,24 @@ inline int snapToCanvas(const double x) {
 inline QPoint snapToCanvas(const QPoint &pos) {
 	return QPoint(snapToCanvas(pos.x()), snapToCanvas(pos.y()));
 }
+
+template<class T> inline T mapToCells(const T& value)
+{
+    return (value - T(4,4)) / 8;
+}
+template<class T> inline T mapFromCells(const T& value)
+{
+    return value * 8 + T(4,4);
+}
+template<> inline QSize mapToCells(const QSize& value)
+{
+    return value / 8;
+}
+template<> inline QSize mapFromCells(const QSize& value)
+{
+    return value * 8;
+}
+
 
 #endif
 

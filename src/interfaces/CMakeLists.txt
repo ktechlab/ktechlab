@@ -6,7 +6,8 @@ include_directories(
 set( ktlinterfaces_LIB_SRCS
    component/connector.cpp
    idocumentscene.cpp
-   iconrouter.cpp
+   irouterplugin.cpp
+   iroutinginformation.cpp
    idocumentmodel.cpp
    idocumentplugin.cpp
    icomponentdocument.cpp
