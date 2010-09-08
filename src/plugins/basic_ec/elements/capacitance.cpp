@@ -11,6 +11,8 @@
 
 #include "capacitance.h"
 
+#include <QStringList>
+
 using namespace KTechLab;
 
 /*
@@ -21,7 +23,8 @@ KTechLab::Capacitance::Capacitance() :
 }
 */
 KTechLab::Capacitance::Capacitance(QVariantMap parentInModel) :
-    IElement(parentInModel, 2, 0)
+    IElement(parentInModel, 2, 2, 0,
+             QString("A,B").split(",") )
 {
     // TODO implement
 }

@@ -13,8 +13,9 @@
 namespace KTechLab{
 
 class DummyElement : public IElement {
+    QVariantMap m_inexistentParent;
   public:
-    DummyElement() : IElement(QVariantMap(), 0, 0){
+    DummyElement() : IElement(m_inexistentParent, 0, 0, 0, QList<QString>() ){
     }
     void dummyMethod(){
         std::cout << "dummyMethod called\n";

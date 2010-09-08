@@ -13,18 +13,36 @@
 
 #include "ielementset.h"
 #include "kdebug.h"
+#include "ipin.h"
 
 using namespace KTechLab;
 
-IElement::IElement(QVariantMap parentInModel,
-                   int numNodes, int numVoltageSources)
+IElement::IElement(QVariantMap & parentInModel,
+                   int numPins, int numNodes, int numVoltageSources,
+                   QList<QString> pinNames
+                   ) :
+    m_numPins(numPins), m_numNodes(numNodes), m_numVoltageSources(numVoltageSources),
+    m_parentInModel(parentInModel),
+    m_pins()
 {
-    m_numNodes = numNodes;
-    m_numVoltageSources = numVoltageSources;
-    m_parentInModel = parentInModel;
+    if( numPins != pinNames.size() ){
+        kError() << "BUG: tried to created IElement with " << numPins << " pins, but with "
+            << pinNames.size() << " pin names!\n";
+        qFatal("number of pin names is differeent from number of pins!\n");
+    }
+    // create the pins
+    m_pins.clear();
+    for(int i=0; i<m_numPins; ++i)
+        m_pins.append(new IPin(parentInModel, pinNames.at(i)));
+    // mappings
     m_nodeIDs = new int[m_numNodes];
+    // the node IDs are not defined, mark them invalid
+    for(int i=0; i<m_numNodes; ++i)
+        m_nodeIDs[i] = -1;
     m_voltageSourceIDs = new int[m_numVoltageSources];
-    // TODO implement: allocate nodeIDs, m_a*, m_b* matrixes
+    for(int i=0; i<m_numVoltageSources; ++i)
+        m_voltageSourceIDs[i] = -1;
+    // TODO implement: allocate m_a*, m_b* matrixes
 }
 
 IElement::~IElement(){

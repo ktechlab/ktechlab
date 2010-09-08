@@ -13,13 +13,16 @@
 
 #include "kdebug.h"
 
+#include <QStringList>
+
 using namespace KTechLab;
 
   /*      IElement(QVariantMap * parentInModel, IElementSet * elementSet,
                      int numNodes, int numVoltageSources); */
 
 Resistance::Resistance(QVariantMap parentInModel) :
-    IElement(parentInModel, 2, 0)
+    IElement(parentInModel, 2, 2, 0,
+             QString("A,B").split(",")) // it's a little hacky, but it works
 {
     double resistance = 1; // 1 ohm, be default
     // FIXME, get the data for the resistance, from the model
