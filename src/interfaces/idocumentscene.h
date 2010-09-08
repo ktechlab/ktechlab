@@ -23,12 +23,23 @@
 #include "ktlinterfacesexport.h"
 #include <QtGui/QGraphicsScene>
 #include <QVariantMap>
+#include <QGraphicsItem>
 
 class QGraphicsSceneMouseEvent;
 
 namespace KTechLab {
 
-class IConRouter;
+struct GraphicsItems {
+    enum {
+        ConnectorItemType = QGraphicsItem::UserType+1,
+        ComponentItemType = QGraphicsItem::UserType+2
+    };
+};
+
+class Node;
+class IComponentItem;
+class ConnectorItem;
+class IRouterPlugin;
 class IRoutingInformation;
 
 /**
@@ -60,16 +71,30 @@ public:
 
     /**
     * Start the routing process at point \param pos
+    *
+    * \returns the connector item that represents the connection
     */
-    void startRouting(const QPointF &pos);
+    ConnectorItem* startRouting(const QPointF &pos);
     /**
     * Abort the routing process.
     */
     void abortRouting();
     /**
-    * Finish the routing process and therefore place the route.
+    * Finish the routing process and therefore place the route to \param pos.
+    *
+    * \returns the connector item that represents the connection
     */
-    void finishRouting();
+    ConnectorItem* finishRouting(const QPointF &pos);
+
+    virtual IComponentItem* item(const QString& id) const =0;
+    virtual Node* node(const QString& id) const =0;
+
+    /**
+     * Provide a set of items, that are moving at this moment.
+     *
+     * Note: for now, only ComponentItems can be moved and will be in this list
+     */
+    QSet<QGraphicsItem*> movingItems() const;
 
     /**
      * Get the routing information stored by the routing plugin.
@@ -77,7 +102,7 @@ public:
      * Each scene can store routing information provided by the
      * plugin for later usage.
      */
-    QSharedPointer<IRoutingInformation> routingInfo() const;
+    QSharedPointer<IRoutingInformation> routingInfo();
     /**
      * Set the routing information to be stored.
      *
@@ -86,16 +111,59 @@ public:
      */
     void setRoutingInfo( QSharedPointer<IRoutingInformation> info );
 
+signals:
+    /**
+     * Emitted, when the scene is about to reroute some ConnectorItems.
+     */
+    void aboutToReroute(QList<KTechLab::ConnectorItem*>);
+    /**
+     * Emitted, when the scene routed some ConnectorItems.
+     */
+    void routed(QList<KTechLab::ConnectorItem*>);
+    /**
+     * Emitted, when some components are about to be moved.
+     */
+    void componentsAboutToMove(QList<KTechLab::IComponentItem*>);
+    /**
+     * Emitted, when some components have been moved.
+     */
+    void componentsMoved(QList<KTechLab::IComponentItem*>);
+    /**
+     * Emitted, when some item is removed from the scene.
+     */
+    void itemRemoved( QGraphicsItem* );
+
 public slots:
     virtual void updateData( const QString &name, const QVariantMap &value );
 
 protected:
+    /**
+     * Take a list of items and check if they need to be re-routed.
+     * If re-routing is nessessary, it will be performed.
+     *
+     * \param items - the list containing items, that need checking
+     */
+    void rerouteConnectors(QList< ConnectorItem* > items);
+
     /**
      * This method tracks mouse movement during the routing process.
      * Make sure to call this method, in case you override it.
      */
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
     virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
+    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
+
+    /**
+     * Align a given \param point to a grid.
+     *
+     * The scene will automatically align all graphic-items to a grid
+     * that is provided by the routing plugin. You can override this
+     * method to change this behaviour.
+     *
+     * \param point - the point to be aligned
+     * \returns the aligned point
+     */
+    virtual QPointF alignToGrid( const QPointF& point );
 
     /**
      * handle default key events like delete
@@ -103,16 +171,20 @@ protected:
     virtual void keyPressEvent(QKeyEvent* event);
 
     /**
-     * Fetch a plugin implementing \class KTechLab::IConRouter and return it.
+     * Fetch a plugin implementing \class KTechLab::IRouterPlugin and return it.
      * \returns a plugin capable of mapping a route
      */
-    virtual IConRouter *fetchRouter();
+    virtual void fetchRouter();
 
-    virtual void drawForeground(QPainter* painter, const QRectF& rect);
+    virtual void drawBackground(QPainter* painter, const QRectF& rect);
 private:
-    QGraphicsPathItem* m_routePath;
+    template<class T> inline QList<T*> filterItemList(QList<QGraphicsItem*> list) const;
+    ConnectorItem* m_routePath;
     QSharedPointer<IRoutingInformation> m_routingInfo;
+    QList<ConnectorItem*> m_needReroutingList;
     QPointF m_startPos;
+    QPointF m_oldSelectionPos;
+    bool m_movingSelection;
 };
 
 }

@@ -29,6 +29,7 @@
 #include <KDebug>
 #include "circuitmodel.h"
 #include "pinitem.h"
+#include <interfaces/component/connector.h>
 
 using namespace KTechLab;
 
@@ -98,22 +99,22 @@ void CircuitScene::setupData()
             m_components.insert(item->id(), item);
         }
     }
-    foreach (QVariant connector, m_model->connectors())
-    {
-        if (connector.canConvert(QVariant::Map)) {
-            ConnectorItem *connectorItem = new ConnectorItem(connector.toMap());
-            addItem( connectorItem );
-        }
-    }
     foreach (QVariant pins, m_model->nodes()){
         if (pins.canConvert(QVariant::Map)) {
             QPointF p(pins.toMap().value("x").toDouble(),pins.toMap().value("y").toDouble());
-            p -= QPointF(6,6);
             QRectF rect(p, QSize(4,4));
             PinItem* item = new PinItem(rect, 0, this);
             item->setId(pins.toMap().value("id").toString());
+            m_pins.insert(item->id(),item);
         }
     }
+    foreach (QVariant connector, m_model->connectors())
+    {
+        if (connector.canConvert(QVariant::Map)) {
+            ConnectorItem *connectorItem = new ConnectorItem(connector.toMap(),this);
+        }
+    }
+
 }
 
 void CircuitScene::updateData( const QString& name, const QVariantMap& data )
@@ -136,6 +137,16 @@ void CircuitScene::updateData( const QString& name, const QVariantMap& data )
         }
     }*/
     //kDebug() << "Difference between components and applets" << (m_components.size() - applets().size());
+}
+
+IComponentItem* CircuitScene::item(const QString& id) const
+{
+    return m_components.value(id);
+}
+
+Node* CircuitScene::node(const QString& id) const
+{
+    return m_pins.value(id);
 }
 
 void CircuitScene::setCircuitName ( const QString& name )
