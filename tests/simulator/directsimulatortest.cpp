@@ -49,6 +49,7 @@ void KTechLab::DirectSimulatorTest::initTestCase()
     model = new IDocumentModel;
     transSim = new CircuitTransientSimulator(model);
     simulator = transSim;
+    model = 0;
 }
 
 void KTechLab::DirectSimulatorTest::cleanupTestCase()
@@ -57,6 +58,21 @@ void KTechLab::DirectSimulatorTest::cleanupTestCase()
     delete simulator;
     ISimulationManager::self()->unregisterElementFactory(fact);
     delete fact;
+}
+
+void DirectSimulatorTest::init()
+{
+    // clean up the model
+    /* HACK the model has no methods to remove
+        components from it, so the model is recreated
+        every time before a new test case
+        */
+    if(model)
+        delete model;
+
+    model = new IDocumentModel;
+    transSim = new CircuitTransientSimulator(model);
+    simulator = transSim;
 }
 
 void KTechLab::DirectSimulatorTest::addResistor()
@@ -68,7 +84,21 @@ void KTechLab::DirectSimulatorTest::addResistor()
 
     simulator->documentStructureChanged();
     transSim->simulationTimerTicked();
+    transSim->dumpDebugInfo();
 }
+
+void DirectSimulatorTest::addCapacitor()
+{
+    QVariantMap c1;
+    c1.insert("id", "C1");
+    c1.insert("type", "Capacitance");
+    model->addComponent(c1);
+
+    simulator->documentStructureChanged();
+    transSim->simulationTimerTicked();
+    transSim->dumpDebugInfo();
+}
+
 
 QTEST_MAIN(DirectSimulatorTest)
 #include "directsimulatortest.moc"
