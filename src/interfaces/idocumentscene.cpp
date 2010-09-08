@@ -206,6 +206,9 @@ void IDocumentScene::updateData(const QString& name, const QVariantMap& value)
 
 void IDocumentScene::rerouteConnectors(QList< ConnectorItem* > items)
 {
+    if (!m_routingInfo)
+        return;
+
     emit aboutToReroute(items);
     foreach (ConnectorItem* c, items){
         QPointF start = c->startNode()->scenePos();
