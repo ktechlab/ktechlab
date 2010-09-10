@@ -29,6 +29,8 @@
 #include <interfaces/simulator/ipin.h>
 #include <kdebug.h>
 
+#include <iostream>
+
 using namespace KTechLab;
 
 KTechLab::ElementSet::ElementSet(IElement *start,
@@ -71,6 +73,7 @@ void ElementSet::buildElementList(IElement *start, QList<IElement*> elements,
     toBeTaken.append(start);
 
     m_elements.clear();
+    m_elements.append(start);
     m_pinGroups.clear();
 
     while( !toBeTaken.isEmpty() ){
@@ -97,6 +100,10 @@ void ElementSet::buildElementList(IElement *start, QList<IElement*> elements,
                 }
             }
         }
+    }
+    // assign the element set to the elements
+    foreach(IElement *elem, m_elements){
+        elem->setElementSet(this);
     }
     // statistics
     kDebug() << "created elementset with " << m_elements.size() << " elements and "
@@ -205,4 +212,15 @@ double& KTechLab::ElementSet::x_v(const unsigned int i)
 {
     Q_ASSERT(i<m_numNodes);
     return (*m_x)[i];
+}
+
+void KTechLab::ElementSet::dumpEquations() const
+{
+    qDebug() << "\n----\nElementSet equation: A*x = b, where:\nA = \n" ;
+    m_a->displayMatrix(std::cout);
+    qDebug() << "b = \n";
+    m_b->dumpToAux();
+    qDebug() << "x = \n";
+    m_x->dumpToAux();
+    qDebug() << "\n--!--\n";
 }

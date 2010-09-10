@@ -39,7 +39,10 @@ class DirectSimulatorTest : public QObject
         void initTestCase();
         void cleanupTestCase();
 
+        void init();
+
         void addResistor();
+        void addCapacitor();
 
     private:
         IDocumentModel *model;
