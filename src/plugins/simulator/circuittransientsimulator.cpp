@@ -159,7 +159,7 @@ bool CircuitTransientSimulator::recreateElementList()
                 << ", selecting first one \n";
         }
         // pick a factory
-        IElement *element = elemFactList.first()->createElement(compType);
+        IElement *element = elemFactList.first()->createElement(compType, componentVarMap);
         // place in the list
         m_allElementList.append(element);
             // is the following line efficient?
@@ -471,3 +471,12 @@ QString CircuitTransientSimulator::variantToString(const QVariant& string, bool&
     return string.toString();
 }
 
+void KTechLab::CircuitTransientSimulator::dumpDebugInfo() const
+{
+    qDebug() << "\n------\n";
+    qDebug() << "equations for " << m_allElementSetsList.size() << " elementSets:\n";
+    foreach(ElementSet *set, m_allElementSetsList){
+        set->dumpEquations();
+    }
+    qDebug() << "\n--!!--\n";
+}

@@ -13,21 +13,36 @@
 
 #include "ielementset.h"
 #include "kdebug.h"
+#include "ipin.h"
 
 using namespace KTechLab;
 
-IElement::IElement(QVariantMap* parentInModel,
-                   IElementSet* elementSet,
-                   int numNodes, int numVoltageSources)
+IElement::IElement(QVariantMap & parentInModel,
+                   int numPins, int numNodes, int numVoltageSources,
+                   QList<QString> pinNames
+                   ) :
+    m_numPins(numPins), m_numNodes(numNodes), m_numVoltageSources(numVoltageSources),
+    m_parentInModel(parentInModel),
+    m_pins()
 {
-    m_numNodes = numNodes;
-    m_numVoltageSources = numVoltageSources;
-    m_elemSet = elementSet;
-    m_parentInModel = parentInModel;
-    // TODO implement: allocate nodeIDs, m_a*, m_b* matrixes
-    // elementSet.addElement(this);
+    if( numPins != pinNames.size() ){
+        kError() << "BUG: tried to created IElement with " << numPins << " pins, but with "
+            << pinNames.size() << " pin names!\n";
+        qFatal("number of pin names is differeent from number of pins!\n");
+    }
+    // create the pins
+    m_pins.clear();
+    for(int i=0; i<m_numPins; ++i)
+        m_pins.append(new IPin(parentInModel, pinNames.at(i)));
+    // mappings
     m_nodeIDs = new int[m_numNodes];
+    // the node IDs are not defined, mark them invalid
+    for(int i=0; i<m_numNodes; ++i)
+        m_nodeIDs[i] = -1;
     m_voltageSourceIDs = new int[m_numVoltageSources];
+    for(int i=0; i<m_numVoltageSources; ++i)
+        m_voltageSourceIDs[i] = -1;
+    // TODO implement: allocate m_a*, m_b* matrixes
 }
 
 IElement::~IElement(){
@@ -35,9 +50,14 @@ IElement::~IElement(){
     delete [] m_voltageSourceIDs;
 }
 
-QVariantMap* KTechLab::IElement::parentInModel() const
+QVariantMap KTechLab::IElement::parentInModel() const
 {
     return m_parentInModel;
+}
+
+void IElement::setElementSet(IElementSet *elemSet)
+{
+    m_elemSet = elemSet;
 }
 
 IElementSet * IElement::elementSet() const

@@ -37,15 +37,13 @@ class IPin;
              create an element corresponding to a component in the model,
              in a given IElementSet
              \param parentInModel the component associated to this IElement
-             \param elementSet the set of elements to which the new element
-                belongs. All the elements in an IElementSet have a common
-                MNA equation.
              \param numNodes number of the nodes of the element
              \param numVoltageSources number of the voltage sources
                 in the model
              */
-            IElement(QVariantMap * parentInModel, IElementSet * elementSet,
-                     int numNodes, int numVoltageSources);
+            IElement(QVariantMap & parentInModel,
+                     int numPins, int numNodes, int numVoltageSources,
+                     QList<QString> pinNames);
             /**
               virtual destructor
               */
@@ -55,7 +53,14 @@ class IPin;
             /**
              \return the parent of the element, in the model of the circuit
              */
-            QVariantMap * parentInModel() const;
+            QVariantMap parentInModel() const;
+
+            /**
+             set the element set where this element belongs
+             \param elemSet the IElementSet where this element belongs.
+             All the elements in an IElementSet have a common MNA equation.
+             */
+            void setElementSet(IElementSet *elemSet);
 
             /**
              \return the IElementSet to which this element belongs
@@ -193,24 +198,25 @@ class IPin;
 
             #undef CI
 
-        private:
-            /// parent in the circuit model
-            QVariantMap * m_parentInModel;
-
-            /// the elementSet where the element belongs
-            IElementSet *m_elemSet;
+            /// number of pins of this element
+            const int m_numPins;
 
             /// number of nodes in the model
-            int m_numNodes;
+            const int m_numNodes;
 
             /// number of voltage sources in the model
-            int m_numVoltageSources;
+            const int m_numVoltageSources;
 
-            /// number of pins of this element
-            int m_numPins;
+            /// parent in the circuit model
+            QVariantMap & m_parentInModel;
 
             /// the list of pins associated with this element
             QList<IPin*> m_pins;
+
+        private:
+
+            /// the elementSet where the element belongs
+            IElementSet *m_elemSet;
 
             /** an array of node IDs storing the position of the element's
                 nodes in the MNA equation matrix.
