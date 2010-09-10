@@ -34,6 +34,8 @@ KTechLab::PinGroup::PinGroup(IPin* startPin)
     IPin *currentPin;
     IPin *toBeAddedPin;
 
+    m_pins.append(startPin);
+
     takenPins.clear();
     takenPins.insert(startPin);
     toBeInspected.clear();

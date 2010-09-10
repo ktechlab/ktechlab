@@ -20,8 +20,8 @@ namespace KTechLab {
 class Capacitance : public IElement
 {
     public:
-    Capacitance();
-    Capacitance(QVariantMap* parentInModel, IElementSet* elementSet);
+    // Capacitance();
+    Capacitance(QVariantMap parentInModel);
 
     virtual void actOnSimulationStep(double currentTime);
     virtual void fillMatrixCoefficients();

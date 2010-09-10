@@ -203,12 +203,13 @@ of documents.
 
 \subsection circuit_qvariantmaps Circuit document
 
+\li id: the ID of the component or connector
+
 \subsubsection circuit_generic_maps Generic components
 
 \li angle: 0, 90, 180, 270: the angle of rotation of a component
 \li fileName: the name of the graphics, representing the component
 \li flip: 0 or 1
-\li id: the ID of the component
 \li type: the type of the component
 \li x: X coordinate of the component
 \li y: Z coordinate of the component
@@ -220,7 +221,6 @@ of documents.
 \li end-node-id (if end-node-is-child == 0)
 \li end-node-is-child: 0 or 1
 \li end-node-parent
-\li id
 \li manual-route: 0 or 1
 \li route: string or point coordinates
 \li start-node-id (if start-node-is-child == 0)

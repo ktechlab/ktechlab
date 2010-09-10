@@ -50,7 +50,7 @@
 #define SUPPORT_ELEMENT(CLASSNAME)                      \
     if( create ){                                       \
         if( type == #CLASSNAME )                        \
-            return new CLASSNAME();                     \
+            return new CLASSNAME(parentInModel);        \
     } else {                                            \
         m_supportedComponents.append( #CLASSNAME );     \
     }
@@ -80,7 +80,8 @@
  *
  */
 #define DECLARE_ELEMENT_FACTORY_IN_NAMESPACE(NAMESPACE, CLASSNAME, ELEMENT_DECLARATIONS) \
-    class NAMESPACE::CLASSNAME : public IElementFactory {                   \
+    namespace NAMESPACE {                                                   \
+    class CLASSNAME : public KTechLab::IElementFactory {                    \
         public:                                                             \
             CLASSNAME() :                                                   \
                 m_simType("transient"),                                     \
@@ -98,11 +99,13 @@
             virtual const QList<QString> supportedComponentTypeIds() const{ \
                 return m_supportedComponents;                               \
             }                                                               \
-            virtual IElement * createElement(QString type){                 \
-                return createOrRegister(true, type);                        \
+            virtual IElement * createElement(QString type,                  \
+                                        QVariantMap parentInModel){         \
+                return createOrRegister(true, type, parentInModel);         \
             }                                                               \
         private:                                                            \
-            IElement * createOrRegister(bool create, QString type){         \
+            IElement * createOrRegister(bool create, QString type,          \
+                            QVariantMap parentInModel = QVariantMap()){     \
                 if(!create){  /* register */                                \
                     /* error check */                                       \
                     if( m_supportedComponents.size() != 0){                 \
@@ -121,6 +124,7 @@
             QList<QString> m_supportedComponents;                           \
             QString m_simType;                                              \
             QString m_docMimeType;                                          \
+        };                                                                  \
     }
 
 

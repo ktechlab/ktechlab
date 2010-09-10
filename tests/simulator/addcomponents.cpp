@@ -153,10 +153,10 @@ void AddComponentsTest::elementFactoryTest(){
     // try to create a dummy
     
         // nonexistent
-    IElement *elem = fgot->createElement("whatever");
+    IElement *elem = fgot->createElement("whatever", QVariantMap());
     QVERIFY( !elem );
         // existent
-    elem = fgot->createElement("dummy-element");
+    elem = fgot->createElement("dummy-element", QVariantMap());
     QVERIFY( elem );
     DummyElement *delem = dynamic_cast<DummyElement*>(elem);
     QVERIFY( delem );
