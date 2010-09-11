@@ -48,10 +48,14 @@ Currently the following plugins exist:
 \li ktlproject: KTechLab project plugin. The only project plugin.
 \li basic_ec: set of basic electronic components
 \li circuit: support for the Circuit document type
+\li automatic_router: layout connections between components
 \li flowcode: support for the FlowCode document type -- currently not functional
 \li mcu_pic: support for PICs -- currently not functional
 \li probevis: probe visualisation -- currently not functional
 \li simulator support for simulating circuits
+
+The plugins can be categorized like in this map:
+\image html pluginmap.svg Plugin map
 
 The following subsections describe various aspects of the program.
 
