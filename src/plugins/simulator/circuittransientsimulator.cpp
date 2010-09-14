@@ -187,7 +187,7 @@ bool CircuitTransientSimulator::recreateNodeList()
         }
         QVariantMap nodeMap = nodeVariant.toMap();
         // create the node
-        IPin *pin = new IPin(nodeMap, id);
+        IPin *pin = new IPin(nodeMap, id, NULL);
         // insert in the list
         m_nodeList.append(pin);
         m_idToNode.insert(id, pin);
