@@ -36,6 +36,7 @@ IElement::IElement(QVariantMap & parentInModel,
     for(int i=0; i<m_numPins; ++i){
         IPin *newPin = new IPin(parentInModel, pinNames.at(i), this);
         m_pins.append(newPin);
+        m_nameToPin.insert(pinNames.at(i), newPin);
     }
     // mappings
     m_nodeIDs = new int[m_numNodes];
@@ -80,9 +81,7 @@ KTechLab::IPin* KTechLab::IElement::pin(int number) const
 
 IPin* IElement::pinByName(QString nodeName)
 {
-    // FIXME implement
-    qFatal("unimplemented\n");
-    return NULL;
+    return m_nameToPin.value(nodeName);
 }
 
 const QList< IPin* > IElement::pins() const
