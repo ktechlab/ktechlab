@@ -25,26 +25,14 @@
 
 using namespace KTechLab;
 
-/*
-KTechLab::IPin::IPin()
-{
-    m_currentIn = 0;
-    m_voltage = 0;
-    m_parent = NULL;
-    m_parentInModel = NULL;
-    m_wires.clear();
-}
-*/
-
-IPin::IPin(const QVariantMap& parentInModel, QString pinName):
+IPin::IPin(const QVariantMap& parentInModel, QString pinName, IElement *parent):
     QObject(), m_parentInModel(parentInModel)
 {
     m_name = pinName;
     // TODO implement
     m_currentIn = 0;
     m_voltage = 0;
-    m_parent = NULL;
-//    m_parentInModel = &parentInModel;
+    m_parent = parent;
     m_wires.clear();
 }
 
@@ -77,12 +65,7 @@ double KTechLab::IPin::currentIn() const
     return m_currentIn;
 }
 
-void IPin::setParent(IElement* parent)
-{
-    m_parent = parent;
-}
-
-KTechLab::IElement* KTechLab::IPin::parent() const
+const KTechLab::IElement* KTechLab::IPin::parent() const
 {
     return m_parent;
 }
@@ -117,4 +100,5 @@ void KTechLab::IPin::transferStatusToModel()
 {
     // TODO implement
     // m_parentInModel->
+    qWarning() << "IPin::transferStatusToModel: Not implemented";
 }
