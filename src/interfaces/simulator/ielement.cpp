@@ -153,6 +153,7 @@ double& KTechLab::IElement::A_g(const int i,
 {
     // TODO add checks and optimize
     // this looks inefficient: indirect call, virtual method call, and another forwarding
+    Q_ASSERT( (i<m_numNodes) && (j<m_numNodes) );
     return m_elemSet->A_g(m_nodeIDs[i], m_nodeIDs[j]);
     // better:
     //return (double &)(m_ag[i][j]);
