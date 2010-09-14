@@ -27,6 +27,7 @@
 #include <plugins/simulator/circuittransientsimulator.h>
 #include <plugins/basic_ec/elements/resistance.h>
 #include <plugins/basic_ec/elements/capacitance.h>
+#include <plugins/basic_ec/elements/voltagesource.h>
 
 #include <QtTest/QtTest>
 
@@ -37,6 +38,7 @@ DECLARE_ELEMENT_FACTORY(
     TestElementFactory,
     SUPPORT_ELEMENT(Resistance)
     SUPPORT_ELEMENT(Capacitance)
+    SUPPORT_ELEMENT(VoltageSource)
     );
 
 TestElementFactory *fact;
@@ -99,6 +101,55 @@ void DirectSimulatorTest::addCapacitor()
     transSim->dumpDebugInfo();
 }
 
+void DirectSimulatorTest::addVoltageSource()
+{
+    QVariantMap v1;
+    v1.insert("id", "V1");
+    v1.insert("type", "VoltageSource");
+    model->addComponent(v1);
+
+    simulator->documentStructureChanged();
+    transSim->simulationTimerTicked();
+    transSim->dumpDebugInfo();
+}
+
+void DirectSimulatorTest::resistorAndSource()
+{
+    QVariantMap v1;
+    v1.insert("id", "V1");
+    v1.insert("type", "VoltageSource");
+
+    QVariantMap r1;
+    r1.insert("id", "R1");
+    r1.insert("type", "Resistance");
+
+    QVariantMap con1;
+    con1.insert("id", "con1");
+    con1.insert("start-node-is-child", "1");
+    con1.insert("start-node-parent", "R1");
+    con1.insert("start-node-cid", "p1");
+    con1.insert("end-node-is-child", "1");
+    con1.insert("end-node-parent", "V1");
+    con1.insert("end-node-cid", "p1");
+
+    QVariantMap con2;
+    con2.insert("id", "con2");
+    con2.insert("start-node-is-child", "1");
+    con2.insert("start-node-parent", "R1");
+    con2.insert("start-node-cid", "n1");
+    con2.insert("end-node-is-child", "1");
+    con2.insert("end-node-parent", "V1");
+    con2.insert("end-node-cid", "n1");
+
+    model->addComponent(v1);
+    model->addComponent(r1);
+    model->addConnector(con1);
+    model->addConnector(con2);
+
+    simulator->documentStructureChanged();
+    transSim->simulationTimerTicked();
+    transSim->dumpDebugInfo();
+}
 
 QTEST_MAIN(DirectSimulatorTest)
 #include "directsimulatortest.moc"
