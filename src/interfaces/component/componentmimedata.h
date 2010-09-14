@@ -27,16 +27,25 @@ class KTLINTERFACES_EXPORT ComponentMimeData: public QMimeData
 {
 Q_OBJECT
 public:
-    ComponentMimeData( const QString &name, KTechLab::IComponentFactory *factory );
+    ComponentMimeData( const QByteArray& name, KTechLab::IComponentFactory* factory );
 
     /**
      * Let the ComponentFactory create a new component and return it.
      */
     KTechLab::IComponent * createComponent();
 
+    /**
+     * get a name for this component
+     */
+    QByteArray name() const;
+    /**
+     * Get a string representation of the type of this component
+     */
+    QByteArray type() const;
+
 private:
     KTechLab::IComponentFactory *m_componentFactory;
-    QString m_componentName;
+    QByteArray m_componentName;
 };
 
 } // namespace KTechLab
