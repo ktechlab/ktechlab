@@ -215,6 +215,9 @@ class IPin;
 
         private:
 
+            /// the name of the pins
+            QMap<QString, IPin*> m_nameToPin;
+
             /// the elementSet where the element belongs
             IElementSet *m_elemSet;
 
