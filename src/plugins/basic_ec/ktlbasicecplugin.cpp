@@ -10,6 +10,7 @@
 #include "ktlbasicecplugin.h"
 #include "elements/resistance.h"
 #include "elements/capacitance.h"
+#include "elements/voltagesource.h"
 
 #include "interfaces/component/icomponent.h"
 #include "interfaces/component/icomponentplugin.h"
@@ -50,6 +51,7 @@ DECLARE_ELEMENT_FACTORY(
     BasicElementFactory,
     SUPPORT_ELEMENT(Resistance)
     SUPPORT_ELEMENT(Capacitance)
+    SUPPORT_ELEMENT(VoltageSource)
     );
 
 
