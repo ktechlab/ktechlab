@@ -24,6 +24,7 @@
 #include <interfaces/iplugincontroller.h>
 #include <shell/core.h>
 #include <KDebug>
+#include <interfaces/component/componentmimedata.h>
 
 using namespace KTechLab;
 
@@ -40,19 +41,36 @@ CircuitModel::CircuitModel ( QObject* parent )
     }
 }
 
+QVariantMap CircuitModel::createComponent(const KTechLab::ComponentMimeData* data, QPointF pos)
+{
+    QVariantMap comp;
+    comp.insert("type", data->type());
+    comp.insert("x", pos.x());
+    comp.insert("y", pos.y());
+    comp.insert("id", generateUid(data->name()));
+    addComponent(comp);
+
+    return component(comp.value("id").toString());
+}
+
 void CircuitModel::addComponent ( const QVariantMap& component )
 {
     if ( !m_circuitPlugin ) {
         kError() << "No plugin found to load KTechLab Documents";
         return;
     }
-    if ( component.contains( "id" ) ) {
+    if ( isValidComponent(component) ) {
         QVariantMap map(component);
         map.insert( "fileName",
                     m_circuitPlugin->fileNameForComponent( map.value("type").toString() )
                 );
         m_components.insert( component.value("id").toString(), map );
     }
+}
+
+bool CircuitModel::isValidComponent(const QVariantMap& c)
+{
+    return c.contains("id");
 }
 
 QVariantMap CircuitModel::components() const
