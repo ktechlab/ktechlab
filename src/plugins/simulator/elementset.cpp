@@ -181,43 +181,50 @@ double& KTechLab::ElementSet::A_g(const unsigned int i, const unsigned int j)
 
 double& KTechLab::ElementSet::A_b(const unsigned int i, const unsigned int j)
 {
-    Q_ASSERT((i<m_numNodes) && (j<m_numVoltageSources));
-    return m_a->g(i,j+m_numNodes);
+    /*
+    qDebug() << "i = " << i << " j = " << j << " nodes: " << m_numNodes <<
+        " sources: " << m_numVoltageSources ;
+        */
+    Q_ASSERT((i < m_numNodes) &&
+             (m_numNodes <= j) && (j < m_numNodes + m_numVoltageSources));
+    return m_a->g(i,j);
 }
 
 double& KTechLab::ElementSet::A_c(const unsigned int i, const unsigned int j)
 {
-    Q_ASSERT((i<m_numVoltageSources) && (j<m_numNodes));
-    return m_a->g(i+m_numNodes,j);
+    Q_ASSERT((m_numNodes <= i) && (i< m_numNodes + m_numVoltageSources) &&
+             (j<m_numNodes));
+    return m_a->g(i,j);
 }
 
 double& KTechLab::ElementSet::A_d(const unsigned int i, const unsigned int j)
 {
-    Q_ASSERT((i<m_numVoltageSources) && (j<m_numVoltageSources));
-    return m_a->g(i+m_numNodes, j+m_numNodes);
+    Q_ASSERT((m_numNodes <= i) && (i < m_numNodes + m_numVoltageSources) &&
+             (m_numNodes <= j) && (j < m_numNodes + m_numVoltageSources) );
+    return m_a->g(i, j);
 }
 
 double& KTechLab::ElementSet::b_i(const unsigned int i)
 {
-    Q_ASSERT(i<m_numNodes);
+    Q_ASSERT(i < m_numNodes);
     return (*m_b)[i];
 }
 
 double& KTechLab::ElementSet::b_v(const unsigned int i)
 {
-    Q_ASSERT(i<m_numVoltageSources);
+    Q_ASSERT((m_numNodes <= i) && (i < m_numNodes + m_numVoltageSources));
     return (*m_b)[i]; // m_numNodes);
 }
 
 double& KTechLab::ElementSet::x_j(const unsigned int i)
 {
-    Q_ASSERT(i<m_numVoltageSources);
-    return (*m_x)[i+m_numNodes];
+    Q_ASSERT((m_numNodes <= i) && (i < m_numNodes + m_numVoltageSources));
+    return (*m_x)[i];
 }
 
 double& KTechLab::ElementSet::x_v(const unsigned int i)
 {
-    Q_ASSERT(i<m_numNodes);
+    Q_ASSERT(i < m_numNodes);
     return (*m_x)[i];
 }
 
