@@ -40,6 +40,7 @@ KTechLab::ElementSet::ElementSet(IElement *start,
 {
     // FIXME proper error handling
     buildElementList(start, elements, pinGroups);
+    assignGround();
     allocateMatrixes();
     assignNodeAndSourceIds();
 }
@@ -108,6 +109,12 @@ void ElementSet::buildElementList(IElement *start, QList<IElement*> elements,
     // statistics
     kDebug() << "created elementset with " << m_elements.size() << " elements and "
         << m_pinGroups.size() << " pin groups\n";
+}
+
+void ElementSet::assignGround()
+{
+    qDebug() << "ElementSet::assignGround: FIXME: implement\n";
+    // FIXME implement
 }
 
 void ElementSet::allocateMatrixes()
