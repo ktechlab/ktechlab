@@ -24,7 +24,7 @@ KTechLab::Capacitance::Capacitance() :
 */
 KTechLab::Capacitance::Capacitance(QVariantMap parentInModel) :
     IElement(parentInModel, 2, 2, 0,
-             QString("A,B").split(",") )
+             QString("n1,p1").split(",") )
 {
     // TODO implement
 }
