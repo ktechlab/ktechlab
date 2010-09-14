@@ -199,7 +199,7 @@ bool CircuitTransientSimulator::recreateNodeList()
 
 bool CircuitTransientSimulator::recreateWireList()
 {
-    bool error;
+    bool success;
     // clear the list
     qDeleteAll(m_allWireList);
     m_allWireList.clear();
@@ -217,19 +217,20 @@ bool CircuitTransientSimulator::recreateWireList()
         // get the endpoints
         IPin *startPin = 0;
         IPin *endPin = 0;
-        bool startIsChild = variantToBool(connectorMap.value("start-node-is-child"), error);
-        if( error ){
+        bool startIsChild = variantToBool(connectorMap.value("start-node-is-child"), success);
+        // kDebug() << "startIsChild: " << startIsChild;
+        if( !success ){
             kError() << "can't get start-node-is-child property\n";
             return false;
         }
         if( startIsChild ){
-            QString startParent = variantToString(connectorMap.value("start-node-parent"), error);
-            if( error ){
+            QString startParent = variantToString(connectorMap.value("start-node-parent"), success);
+            if( !success ){
                 kError() << "can't get start-node-parent property\n";
                 return false;
             }
-            QString startParentNodeID = variantToString(connectorMap.value("start-node-cid"), error);
-            if( error ){
+            QString startParentNodeID = variantToString(connectorMap.value("start-node-cid"), success);
+            if( !success ){
                 kError() << "can't get start-node-cid property\n";
                 return false;
             }
@@ -240,8 +241,8 @@ bool CircuitTransientSimulator::recreateWireList()
                 return false;
             }
         } else {
-            QString startNodeID = variantToString(connectorMap.value("start-node-id"), error);
-            if(error){
+            QString startNodeID = variantToString(connectorMap.value("start-node-id"), success);
+            if(!success){
                 kError() << "can't get start-node-id property\n";
                 return false;
             }
@@ -251,19 +252,19 @@ bool CircuitTransientSimulator::recreateWireList()
             }
             startPin = m_idToNode.value(startNodeID);
         }
-        bool endIsChild = variantToBool(connectorMap.value("end-node-is-child"), error);
-        if( error ){
+        bool endIsChild = variantToBool(connectorMap.value("end-node-is-child"), success);
+        if( !success ){
             kError() << "can't get end-node-is-child property\n";
             return false;
         }
         if(endIsChild){
-            QString endParent = variantToString(connectorMap.value("end-node-parent"), error);
-            if( error ){
+            QString endParent = variantToString(connectorMap.value("end-node-parent"), success);
+            if( !success ){
                 kError() << "can't get start-node-parent property\n";
                 return false;
             }
-            QString endParentNodeID = variantToString(connectorMap.value("end-node-cid"), error);
-            if( error ){
+            QString endParentNodeID = variantToString(connectorMap.value("end-node-cid"), success);
+            if( !success ){
                 kError() << "can't get start-node-cid property\n";
                 return false;
             }
@@ -274,8 +275,8 @@ bool CircuitTransientSimulator::recreateWireList()
                 return false;
             }
         } else {
-            QString endNodeID = variantToString(connectorMap.value("end-node-id"), error);
-            if(error){
+            QString endNodeID = variantToString(connectorMap.value("end-node-id"), success);
+            if(!success){
                 kError() << "can't get start-node-id property\n";
                 return false;
             }
@@ -287,6 +288,9 @@ bool CircuitTransientSimulator::recreateWireList()
         }
         // create the wire
         IWire *wire = new IWire(startPin, endPin, connectorMap);
+        // connect the nodes to the wire
+        startPin->connectWire(wire);
+        endPin->connectWire(wire);
         // add the wire to the list
         m_allWireList.append(wire);
         m_idToWire.insert(id, wire);
@@ -398,7 +402,7 @@ bool CircuitTransientSimulator::splitDocumentInElementSets()
 
 void CircuitTransientSimulator::simulationTimerTicked()
 {
-    // kDebug() << "simulationTimerTicked\n";
+    kDebug() << "simulationTimerTicked\n";
     if( ! m_canBeSimulated ){
         // kDebug() << "shouldn't do anything\n";
         return;
@@ -425,9 +429,9 @@ void CircuitTransientSimulator::simulationTimerTicked()
     }
 }
 
-bool CircuitTransientSimulator::variantToBool(const QVariant& variant, bool &success)
+bool CircuitTransientSimulator::variantToBool(const QVariant variant, bool &success)
 {
-    if(variant.isValid()){
+    if(!variant.isValid()){
         kError() << "cannot convert invalid variant to bool!\n";
         success = false;
         return false;
@@ -449,13 +453,13 @@ bool CircuitTransientSimulator::variantToBool(const QVariant& variant, bool &suc
     }
     // got here, so it must be junk
     kError() << "junk instead of boolean value: " << variant << "\n";
-    success = true;
+    success = false;
     return false;
 }
 
 QString CircuitTransientSimulator::variantToString(const QVariant& string, bool& success)
 {
-    if(string.isValid()){
+    if(!string.isValid()){
         kError() << "cannot convert invalid variant to string!\n";
         success = false;
         return false;
