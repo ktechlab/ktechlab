@@ -43,6 +43,8 @@ class DirectSimulatorTest : public QObject
 
         void addResistor();
         void addCapacitor();
+        void addVoltageSource();
+        void resistorAndSource();
 
     private:
         IDocumentModel *model;
