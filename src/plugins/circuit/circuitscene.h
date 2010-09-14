@@ -47,8 +47,7 @@ class CircuitScene : public IDocumentScene
 
   protected:
     virtual void dropEvent ( QGraphicsSceneDragDropEvent* event );
-    virtual void dragEnterEvent ( QGraphicsSceneDragDropEvent* event );
-    virtual void dragLeaveEvent ( QGraphicsSceneDragDropEvent* event );
+    virtual void dragMoveEvent ( QGraphicsSceneDragDropEvent* event );
 
   private:
     QSizeF m_componentSize;
