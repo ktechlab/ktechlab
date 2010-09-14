@@ -30,6 +30,7 @@
 #include <kdebug.h>
 
 #include <iostream>
+#include <math.h>
 
 using namespace KTechLab;
 
@@ -131,6 +132,7 @@ void ElementSet::allocateMatrixes()
     m_a = new Matrix(m_numNodes + m_numVoltageSources);
     m_b = new QuickVector(m_numNodes + m_numVoltageSources);
     m_x = new QuickVector(m_numNodes + m_numVoltageSources);
+    m_x_prev = new QuickVector(m_numNodes + m_numVoltageSources);
 }
 
 void ElementSet::assignNodeAndSourceIds()
@@ -159,18 +161,59 @@ KTechLab::ElementSet::~ElementSet()
     delete m_a;
     delete m_b;
     delete m_x;
+    delete m_x_prev;
 }
 
 void KTechLab::ElementSet::solveEquations()
 {
-    m_a->fillWithZeroes();
-    m_b->fillWithZeros();
+    double diff;
+    bool converged = false;
+    QuickVector *tmp;
+
+    const double maxErrorV = 1e-6;
+    const double maxErrorI = 1e-9;
+
+    // fill the current one with zeroes, due to the interchange
     m_x->fillWithZeros();
-    foreach(IElement *elem, m_elements){
-        elem->fillMatrixCoefficients();
+
+    while(!converged){
+        // interchange
+        tmp = m_x;
+        m_x = m_x_prev;
+        m_x_prev = tmp;
+        // fill in
+        m_a->fillWithZeroes();
+        m_b->fillWithZeros();
+        m_x->fillWithZeros();
+        foreach(IElement *elem, m_elements){
+            elem->fillMatrixCoefficients();
+        }
+        m_a->performLU();
+        m_a->fbSub(m_b,m_x);
+        // test for convergence, 
+        diff = 0;
+        for(int i=0; i < m_numVoltageSources; ++i){
+            if( (isinf( m_x->at(i)) != isinf( m_x_prev->at(i)) ) ||
+                (isinf( m_x->at(i)) != isinf( m_x_prev->at(i)) ) )
+                    diff += maxErrorI;
+            else
+                diff += qAbs<double>( m_x->at(i) - m_x_prev->at(i) );
+        }
+        if( diff >= maxErrorI )
+            continue;   // still not converged
+
+        diff = 0;
+        for(int i=m_numNodes; i < m_numNodes + m_numVoltageSources; ++i){
+            if( (isinf( m_x->at(i)) != isinf( m_x_prev->at(i)) ) ||
+                (isinf( m_x->at(i)) != isinf( m_x_prev->at(i)) ) )
+                    diff += maxErrorV;
+            else
+                diff += qAbs<double>( m_x->at(i) - m_x_prev->at(i) );
+        }
+        if( diff >= maxErrorV )
+            continue;   // not converged
+        converged = true;
     }
-    m_a->performLU();
-    m_a->fbSub(m_b,m_x);
 }
 
 double& KTechLab::ElementSet::A_g(const unsigned int i, const unsigned int j)
