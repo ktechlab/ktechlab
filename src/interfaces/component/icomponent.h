@@ -25,7 +25,7 @@ namespace KTechLab
 struct ComponentMetaData
 {
     /** unique name to identify the component */
-    QString name;
+    QByteArray name;
     /** a title visible to the user */
     QString title;
     /** category for the component */
@@ -34,7 +34,7 @@ struct ComponentMetaData
     /** an icon shown to the user */
     KIcon icon;
     /** type of the component */
-    QString type;
+    QByteArray type;
 };
 
 /**

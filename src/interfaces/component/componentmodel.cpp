@@ -239,14 +239,14 @@ QMimeData *ComponentModel::mimeData( const QModelIndexList & indexes ) const
         componentData = new ComponentMimeData( item->metaData().name, item->factory() );
 
         //register our mimeType
-        componentData->setData( "application/x-icomponent", item->metaData().name.toUtf8() );
+        componentData->setData( "ktechlab/x-icomponent", item->metaData().name );
     }
     return componentData;
 }
 
 QStringList ComponentModel::mimeTypes() const
 {
-    return QStringList()<<"application/x-icomponent";
+    return QStringList()<<"ktechlab/x-icomponent";
 }
 
 void ComponentModel::insertComponentData( const ComponentMetaData & data, IComponentFactory * factory )
