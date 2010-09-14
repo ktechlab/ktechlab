@@ -132,4 +132,16 @@ void IDocumentModel::updateData(const QString& name, const QVariantMap& data)
 
 }
 
+QString IDocumentModel::generateUid(const QString& name) {
+    QString cleanName = name;
+    cleanName.remove(QRegExp("__[0-9]*")); //Change 'node__13' to 'node', for example
+    QString idAttempt = cleanName;
+
+    while (m_ids.contains(idAttempt))
+        idAttempt = cleanName + "__" + QString::number(m_nextIdNum++);
+
+    m_ids.insert(idAttempt);
+    return idAttempt;
+}
+
 #include "idocumentmodel.moc"

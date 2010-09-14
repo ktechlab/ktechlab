@@ -22,6 +22,7 @@
 
 #include "ktlinterfacesexport.h"
 #include <QAbstractItemModel>
+#include <QSet>
 
 namespace KTechLab
 {
@@ -164,9 +165,16 @@ public slots:
 signals:
     void dataUpdated( const QString &name, const QVariantList &data );
 
+protected:
+    /**
+     * Generate a unique id for component in the circuit, this model repesents.
+     */
+    virtual QString generateUid( const QString& name );
 private:
     IDocumentModelPrivate* d;
 
+    QSet<QString> m_ids;
+    int m_nextIdNum;
 };
 
 }
