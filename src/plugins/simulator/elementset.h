@@ -128,6 +128,9 @@ class ElementSet : public IElementSet
          m_pinGroup[i] == node i; all the rest is for elements
          */
         void assignNodeAndSourceIds();
+        /** find a suitable node in the circuit, and mark it as ground
+          */
+        void assignGround();
 
         QList<PinGroup *> m_pinGroups;
 
