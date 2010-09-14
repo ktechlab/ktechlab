@@ -15,3 +15,12 @@ category=Switches
 category[de]=Schalter
 icon=rotary
 type=
+
+[ec_capacitor]
+name=ec/capacitor
+title=Capacitor
+title[de]=Kondensator
+category=Passive
+caregory[de]=Passiv
+icon=capacitor
+type=
