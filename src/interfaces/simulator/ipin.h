@@ -30,6 +30,8 @@
 namespace KTechLab {
 
 class IElement;
+
+class IElement;
 class IWire;
 
 /**
@@ -56,8 +58,9 @@ class KTLINTERFACES_EXPORT IPin : public QObject
             \param parentInModel the model from which the pin is created,
                 a component or a connector
             \param pinName the name of the pin in the model
+            \param parent the parent of the pin. It can be NULL
           */
-        IPin(const QVariantMap &parentInModel, QString pinName);
+        IPin(const QVariantMap& parentInModel, QString pinName, IElement* parent);
         /**
           virtual destructor
           */
@@ -101,14 +104,9 @@ class KTLINTERFACES_EXPORT IPin : public QObject
 
         // connection related
         /**
-          set the parent element of the pin. it can be null
-          \param parent the new parent of the node, it can be null
-          */
-        void setParent(IElement * parent);
-        /**
           \return the parent of the pin; it might be null
           */
-        IElement * parent() const;
+        const IElement * parent() const;
 
         /**
           \return the list of connected wires. Pointers to the wires are just
@@ -136,7 +134,7 @@ class KTLINTERFACES_EXPORT IPin : public QObject
         const QVariantMap &m_parentInModel;
         /** the parent of this element, if it doesn't correspond
             to a junction node */
-        IElement *m_parent;
+        const IElement *m_parent;
         /** voltage on the pin */
         double m_voltage;
         /** current flowing in the node; should be 0 if the pin belongs
