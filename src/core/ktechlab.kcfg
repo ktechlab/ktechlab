@@ -1,0 +1,309 @@
+<kcfg>
+	<kcfgfile name="ktechlabrc"/>
+	
+	<group name="General">
+		<entry name="MaxUndo" type="Int">
+			<label>Maximum number of undo steps</label>
+			<default>100</default>
+		</entry>
+		<entry name="RestoreDocumentsOnStartup" type="Bool">
+			<label>Restore Documents on Startup</label>
+			<default>true</default>
+		</entry>
+		<entry name="RaiseItemSelectors" type="Bool">
+			<label>Raise appropriate Item Selector on document creation</label>
+			<default>true</default>
+		</entry>
+		<entry name="RaiseMessagesLog" type="Bool">
+			<label>Raise Messages Log on Compiling</label>
+			<default>true</default>
+		</entry>
+		<entry name="ShowVoltageBars" type="Bool">
+			<label>Show Voltage Bars</label>
+			<default>true</default>
+		</entry>
+		<entry name="ShowVoltageColor" type="Bool">
+			<label>Show Voltage as Color</label>
+			<default>true</default>
+		</entry>
+		<entry name="AnimateWires" type="Bool">
+			<label>Animate Wires (current or power)</label>
+			<default>false</default>
+		</entry>
+		<entry name="RefreshRate" type="Int">
+			<label>Refresh Rate</label>
+			<default>50</default> <!-- Make sure this default value is synched with that in settingsdlg.cpp. TODO: Only store this value in one place -->
+		</entry>
+		<entry name="GridColor" type="Color">
+			<label>Color of grid lines</label>
+			<default>#E8E8E8</default>
+		</entry>
+		<entry name="ShowGrid" type="Bool">
+			<label>Whether the grid should be shown.</label>
+			<default>false</default>
+		</entry>
+		<entry name="ReuseSameViewForOutput" type="Bool">
+			<label>Whether the same output should be use for generation of code, etc</label>
+			<default>false</default>
+		</entry>
+	</group>
+	
+	<group name="AsmFormatter">
+		<entry name="IndentAsmName" type="Int">
+			<label>Indentation of Instruction Names</label>
+			<default>4</default>
+		</entry>
+		<entry name="IndentAsmData" type="Int">
+			<label>Indentation of Instruction Data</label>
+			<default>14</default>
+		</entry>
+		<entry name="IndentComment" type="Int">
+			<label>Indentation of Comments</label>
+			<default>40</default>
+		</entry>
+		<entry name="IndentEqu" type="Int">
+			<label>Indentation of 'equ'</label>
+			<default>14</default>
+		</entry>
+		<entry name="IndentEquValue" type="Int">
+			<label>Indentation of 'equ' Value</label>
+			<default>20</default>
+		</entry>
+		<entry name="AutoFormatMBOutput" type="Bool">
+			<label>Automatically format Microbe output</label>
+			<default>false</default>
+		</entry>
+	</group>
+	
+	<group name="Logic">
+		<entry name="LogicSymbolShapes" type="Enum">
+			<label>Logic Symbol Shapes</label>
+			<choices>
+				<choice name="Distinctive"/>
+				<choice name="Rectangular"/>
+			</choices>
+			<default>Distinctive</default>
+		</entry>
+		<entry name="LogicRisingTrigger" type="Double">
+			<label>Rising Trigger Threshold</label>
+			<default>2.5</default>
+		</entry>
+		<entry name="LogicFallingTrigger" type="Double">
+			<label>Falling Trigger Threshold</label>
+			<default>2</default>
+		</entry>
+		<entry name="LogicOutputHigh" type="Double">
+			<label>Logic Output High</label>
+			<default>5</default>
+		</entry>
+		<entry name="LogicOutputHighImpedance" type="Double">
+			<label>Logic Output High Impedance</label>
+			<default>15</default>
+		</entry>
+		<entry name="LogicOutputLowImpedance" type="Double">
+			<label>Logic Output Low Impedance</label>
+			<default>0</default>
+		</entry>
+	</group>
+	
+	<group name="Gpasm">
+		<entry name="HexFormat" type="Enum">
+			<label>Hex Format</label>
+			<choices>
+				<choice name="inhx32"/>
+				<choice name="inhx8m"/>
+				<choice name="inhx8s"/>
+				<choice name="inhx16"/>
+			</choices>
+			<default>inhx32</default>
+		</entry>
+		<entry name="Radix" type="Enum">
+			<label>Radix</label>
+			<choices>
+				<choice name="Decimal"/>
+				<choice name="Binary"/>
+				<choice name="Octal"/>
+				<choice name="Hexadecimal"/>
+			</choices>
+			<default>Decimal</default>
+		</entry>
+		<entry name="GpasmWarningLevel" type="Enum">
+			<label>GpasmWarning Level</label>
+			<choices>
+				<choice name="All"/>
+				<choice name="Warnings"/>
+				<choice name="Errors"/>
+			</choices>
+			<default>All</default>
+		</entry>
+		<entry name="IgnoreCase" type="Bool">
+			<label>Ignore Case</label>
+			<default>true</default>
+		</entry>
+		<entry name="DosFormat" type="Bool">
+			<label>Dos Formatting</label>
+			<default>false</default>
+		</entry>
+		<entry name="MiscGpasmOptions" type="String">
+			<label>Other Options</label>
+			<default></default>
+		</entry>
+	</group>
+	
+	<group name="SDCC">
+		<entry name="SDCC_nostdlib" type="Bool">
+			<label>Don't search in the standard library directory</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_nostdinc" type="Bool">
+			<label>Don't search in the standard include directory</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_less_pedantic" type="Bool">
+			<label>Disable pedantic warnings</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_std_c89" type="Bool">
+			<label>Strictly follow the C89 standard</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_std_c99" type="Bool">
+			<label>Strictly follow the C99 standard</label>
+			<default>false</default>
+		</entry>
+		
+		<entry name="SDCC_stack_auto" type="Bool">
+			<label>Stack automatic variables</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_int_long_reent" type="Bool">
+			<label>Integer libraries have been compiled as reentrant</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_float_reent" type="Bool">
+			<label>Floating point library is has been compiled as reentrant</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_fommit_frame_pointer" type="Bool">
+			<label>Leave out the frame pointer</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_no_xinit_opt" type="Bool">
+			<label>Don't memcpy initialized data from code space to xdata space</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_all_callee_saves" type="Bool">
+			<label>Callee will always save registers used</label>
+			<default>false</default>
+		</entry>
+		
+		<entry name="SDCC_nooverlay" type="Bool">
+			<label>Don't overlay parameters and local variables</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_nogcse" type="Bool">
+			<label>Disable the GCSE optimization</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_nolabelopt" type="Bool">
+			<label>Don't optimize labels</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_noinvariant" type="Bool">
+			<label>Disable optimization of invariants</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_noinduction" type="Bool">
+			<label>Disable loop variable induction</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_no_peep" type="Bool">
+			<label>Disable peep-hole optimization</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_noloopreverse" type="Bool">
+			<label>Don't do loop reversal optimization</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_opt_code_size" type="Bool">
+			<label>Optimize for compact code</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_opt_code_speed" type="Bool">
+			<label>Optimize for fast code</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_peep_asm" type="Bool">
+			<label>Pass inline assembler code through peep hole optimizer</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_nojtbound" type="Bool">
+			<label>Don't generate boundary check for jump tables</label>
+			<default>false</default>
+		</entry>
+		
+		<entry name="SDCC_nodefaultlibs" type="Bool">
+			<label>Don't use default libraries</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_pno_banksel" type="Bool">
+			<label>Don't generate BANKSEL directives</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_pstack_model_large" type="Bool">
+			<label>Use large stack model</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_debug_xtra" type="Bool">
+			<label>Show more debug info in assembly output</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_denable_peeps" type="Bool">
+			<label>Explicit enable of peepholes</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_calltree" type="Bool">
+			<label>Dump call tree in .calltree file</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_fstack" type="Bool">
+			<label>Enable stack optimizations</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_optimize_goto" type="Bool">
+			<label>Try to use conditional BRA instead of GOTO</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_optimize_cmp" type="Bool">
+			<label>Try to optimize some compares</label>
+			<default>false</default>
+		</entry>
+		<entry name="SDCC_optimize_df" type="Bool">
+			<label>Thorough data flow analysis</label>
+			<default>false</default>
+		</entry>
+		
+		<entry name="MiscSDCCOptions" type="String">
+			<label>Other Options</label>
+			<default></default>
+		</entry>
+	</group>
+	
+	<group name="PicProgramming">
+		<entry name="PicProgrammerProgram" type="String">
+			<label>The application to use to program the PIC.</label>
+			<default>picp</default>
+		</entry>
+		<entry name="PicProgrammerPort" type="String">
+			<label>The device (serial, parallel, etc...) used to program the PIC.</label>
+			<default/>
+		</entry>
+	</group>
+	
+	<group name="Gplink">
+		<entry name="gplink_link_shared" type="Bool">
+			<label>Check this if SDCC uses shared libs for compiling (newer SDCC does so)</label>
+			<default>true</default>
+		</entry>
+	</group>
+</kcfg>
