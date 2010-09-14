@@ -32,8 +32,11 @@ IElement::IElement(QVariantMap & parentInModel,
     }
     // create the pins
     m_pins.clear();
-    for(int i=0; i<m_numPins; ++i)
-        m_pins.append(new IPin(parentInModel, pinNames.at(i)));
+    m_nameToPin.clear();
+    for(int i=0; i<m_numPins; ++i){
+        IPin *newPin = new IPin(parentInModel, pinNames.at(i), this);
+        m_pins.append(newPin);
+    }
     // mappings
     m_nodeIDs = new int[m_numNodes];
     // the node IDs are not defined, mark them invalid
