@@ -120,7 +120,7 @@ private:
     // utilitary methods
     /** convert a variant containing string containing a boolean (0/1) value
         to boolean. Has error checking */
-    bool variantToBool(const QVariant &variant, bool &success);
+    bool variantToBool(const QVariant variant, bool& success);
     /** convert a variant containing a string to a string.
         Has error checking */
     QString variantToString(const QVariant &string, bool &success);
