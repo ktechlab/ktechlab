@@ -57,21 +57,27 @@ QString CircuitScene::circuitName() const
 
 void CircuitScene::dropEvent ( QGraphicsSceneDragDropEvent* event )
 {
-    if (!event->mimeData()->hasFormat("application/x-icomponent")) {
+    if (!event->mimeData()->hasFormat("ktechlab/x-icomponent")) {
         kDebug() << "Dropped unknown data";
         return;
     }
     const ComponentMimeData *mimeData = qobject_cast<const ComponentMimeData*>(event->mimeData());
 
-    //FIXME: implement me!
-    //do something with mimeData here. it should be added to the document using the document
-    //DataEngine and services. use mimeData->createComponent() to create a new component.
-    kDebug() << "Dropping item @"<< event->scenePos() << "type:" << mimeData->data("application/x-icomponent");
+    ComponentItem* item =
+        new ComponentItem(
+            m_model->createComponent(mimeData,event->scenePos()),
+            m_theme
+        );
+    item->setVisible(true);
+    addItem( item );
+    m_components.insert(item->id(), item);
+
+    event->accept();
 }
 
 void CircuitScene::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
 {
-    if (!event->mimeData()->hasFormat("application/x-icomponent")) {
+    if (!event->mimeData()->hasFormat("ktechlab/x-icomponent")) {
         event->ignore();
         return;
     }
