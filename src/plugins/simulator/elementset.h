@@ -143,8 +143,9 @@ class ElementSet : public IElementSet
         QMap<IPin*, IElement*> m_pinToElement;
 
         Matrix *m_a;
-        QuickVector *m_x;
         QuickVector *m_b;
+        QuickVector *m_x;
+        QuickVector *m_x_prev;
 };
 
 }
