@@ -38,6 +38,7 @@ kde4_add_unit_test( directsimulatortest
    ${CMAKE_SOURCE_DIR}/src/plugins/simulator/elementset.cpp
    ${CMAKE_SOURCE_DIR}/src/plugins/basic_ec/elements/capacitance.cpp
    ${CMAKE_SOURCE_DIR}/src/plugins/basic_ec/elements/resistance.cpp
+   ${CMAKE_SOURCE_DIR}/src/plugins/basic_ec/elements/voltagesource.cpp
 )
 
 target_link_libraries( directsimulatortest
