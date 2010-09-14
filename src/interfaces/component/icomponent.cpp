@@ -18,11 +18,11 @@ KTechLab::ComponentMetaData KTechLab::IComponent::metaData ( const QString& name
     KIconLoader *iconLoader = KIconLoader::global();
     iconLoader->addAppDir( "ktechlab" );
     ComponentMetaData data = {
-        item.readEntry("name"),
+        item.readEntry("name").toUtf8(),
         item.readEntry("title"),
         item.readEntry("category"),
         KIcon( iconLoader->iconPath( item.readEntry("icon"), KIconLoader::User ) ),
-        item.readEntry("type")
+        item.readEntry("type").toUtf8()
     };
     return data;
 }
