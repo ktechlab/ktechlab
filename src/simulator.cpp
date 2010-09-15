@@ -14,18 +14,19 @@
 
 #include "component.h"
 
-#include <kstaticdeleter.h>
+// #include <kstaticdeleter.h>
 #include <qtimer.h>
 #include <cassert>
 
 //BEGIN class Simulator
 Simulator *Simulator::m_pSelf = 0;
-static KStaticDeleter<Simulator> staticSimulatorDeleter;
+// static KStaticDeleter<Simulator> staticSimulatorDeleter;
 
 // FIXME: our global simulator is not cleaned up on shutdown. 
 Simulator *Simulator::self() {
 	if (!m_pSelf)
-		staticSimulatorDeleter.setObject(m_pSelf, new Simulator());
+	    m_pSelf = new Simulator();
+//		staticSimulatorDeleter.setObject(m_pSelf, new Simulator());
 
 	return m_pSelf;
 }

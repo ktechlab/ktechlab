@@ -15,19 +15,22 @@
 #include "symbolviewer.h"
 #include "textview.h"
 #include "variablelabel.h"
+//Added by qt3to4:
+#include <Q3Frame>
+#include <QLabel>
 
 
 //BEGIN class VariableLabel
 VariableLabel::VariableLabel( TextView * parent )
-	: QLabel( parent, "toolTipTip", WStyle_StaysOnTop | WStyle_Customize | WStyle_NoBorder | WStyle_Tool | WX11BypassWM )
+	: QLabel( parent, "toolTipTip", Qt::WStyle_StaysOnTop | Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WStyle_Tool | Qt::WX11BypassWM )
 {
 	m_value = -1;
 	
 	setMargin(1);
 	setAutoMask( false );
-	setFrameStyle( QFrame::Plain | QFrame::Box );
+	setFrameStyle( Q3Frame::Plain | Q3Frame::Box );
 	setLineWidth( 1 );
-	setAlignment( AlignAuto | AlignTop );
+	setAlignment( Qt::AlignLeft | Qt::AlignTop );
 	setIndent(0);
 	polish();
 	adjustSize();

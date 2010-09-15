@@ -24,6 +24,8 @@
 
 #include "ktlcanvas.h"
 #include "src/core/ktlconfig.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 
 CircuitICNDocument::CircuitICNDocument(const QString &caption, const char *name)
 		: ICNDocument(caption, name) {
@@ -31,9 +33,9 @@ CircuitICNDocument::CircuitICNDocument(const QString &caption, const char *name)
 
 CircuitICNDocument::~CircuitICNDocument() {
 	// Go to hell, QCanvas. I'm in charge of what gets deleted.
-	QCanvasItemList all = m_canvas->allItems();
-	const QCanvasItemList::Iterator end = all.end();
-	for (QCanvasItemList::Iterator it = all.begin(); it != end; ++it)
+	Q3CanvasItemList all = m_canvas->allItems();
+	const Q3CanvasItemList::Iterator end = all.end();
+	for (Q3CanvasItemList::Iterator it = all.begin(); it != end; ++it)
 		(*it)->setCanvas(0);
 
 	// Remove all items from the canvas
@@ -62,7 +64,7 @@ void CircuitICNDocument::deleteAllNodes() {
 	m_ecNodeList.clear();
 }
 
-bool CircuitICNDocument::canConnect(QCanvasItem *qcanvasItem1, QCanvasItem *qcanvasItem2) const {
+bool CircuitICNDocument::canConnect(Q3CanvasItem *qcanvasItem1, Q3CanvasItem *qcanvasItem2) const {
 	// Rough outline of what can and can't connect:
 	// * At most three connectors to a node
 	// * Can't have connectors going between different levels (e.g. can't have
@@ -95,7 +97,7 @@ Connector *CircuitICNDocument::createConnector(Node *node, Connector *con, const
 		pointList = &autoPoints;
 	}
 
-	QValueList<QPointList> oldConPoints = con->splitConnectorPoints(pos2);
+	Q3ValueList<QPointList> oldConPoints = con->splitConnectorPoints(pos2);
 	con->hide();
 
 	// The actual new connector
@@ -135,8 +137,8 @@ Connector *CircuitICNDocument::createConnector(Connector *con1, Connector *con2,
 	const bool con1UsedManual = con1->usesManualPoints();
 	const bool con2UsedManual = con2->usesManualPoints();
 
-	QValueList<QPointList> oldCon1Points = con1->splitConnectorPoints(pos1);
-	QValueList<QPointList> oldCon2Points = con2->splitConnectorPoints(pos2);
+	Q3ValueList<QPointList> oldCon1Points = con1->splitConnectorPoints(pos1);
+	Q3ValueList<QPointList> oldCon2Points = con2->splitConnectorPoints(pos2);
 
 	ECNode *node1a = dynamic_cast<ECNode*>(con1->startNode());
 	ECNode *node1b = dynamic_cast<ECNode*>(con1->endNode());
@@ -291,8 +293,8 @@ void CircuitICNDocument::slotAssignNodeGroups() {
 
 void CircuitICNDocument::flushDeleteList() {
 	// Remove duplicate items in the delete list
-	QCanvasItemList::iterator end = m_itemDeleteList.end();
-	for (QCanvasItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it) {
+	Q3CanvasItemList::iterator end = m_itemDeleteList.end();
+	for (Q3CanvasItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it) {
 		if (*it && m_itemDeleteList.contains(*it) > 1) {
 			*it = 0;
 		}
@@ -302,8 +304,8 @@ void CircuitICNDocument::flushDeleteList() {
 
 	/* again we're spending time to figure out what special method to call instead of a generic call..*/
 	end = m_itemDeleteList.end();
-	for (QCanvasItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it) {
-		QCanvasItem *qcanvasItem = *it;
+	for (Q3CanvasItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it) {
+		Q3CanvasItem *qcanvasItem = *it;
 		m_selectList->removeQCanvasItem(*it);
 
 		if (Item *item = dynamic_cast<Item*>(qcanvasItem))
@@ -340,7 +342,7 @@ void CircuitICNDocument::flushDeleteList() {
 	requestRerouteInvalidatedConnectors();
 }
 
-bool CircuitICNDocument::registerItem(QCanvasItem *qcanvasItem) {
+bool CircuitICNDocument::registerItem(Q3CanvasItem *qcanvasItem) {
 	if (!qcanvasItem) return false;
 
 	if (!ItemDocument::registerItem(qcanvasItem)) {

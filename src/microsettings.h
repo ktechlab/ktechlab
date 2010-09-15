@@ -13,6 +13,8 @@
 
 #include <qobject.h>
 #include <qvariant.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 class QString;
 class QVariant;
@@ -92,7 +94,7 @@ class PinSettings : public QObject
 		QString m_id;
 		QString m_port;
 };
-typedef QValueList<PinSettings*> PinSettingsList;
+typedef Q3ValueList<PinSettings*> PinSettingsList;
 
 class PinMapping;
 typedef QMap< QString, PinMapping > PinMappingMap;

@@ -12,7 +12,7 @@
 #define LANGUAGEMANAGER_H
 
 #include <qobject.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 
 #include "language.h"
 

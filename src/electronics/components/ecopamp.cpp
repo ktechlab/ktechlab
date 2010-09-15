@@ -14,6 +14,8 @@
 
 #include <klocale.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 
 Item* ECOpAmp::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -36,7 +38,7 @@ ECOpAmp::ECOpAmp(ICNDocument *icnDocument, bool newItem, const char *id)
 {
 	m_name = i18n("Operational Amplifier");
 	
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 	pa[0] = QPoint(-16, -16);
 	pa[1] = QPoint( 16,   0);
 	pa[2] = QPoint(-16,  16);
@@ -57,7 +59,7 @@ void ECOpAmp::drawShape(QPainter &p)
 	int _x = int(x());
 	int _y = int(y());
 
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 	pa[0] = QPoint(_x - 16, _y - 16);
 	pa[1] = QPoint(_x + 16, _y );
 	pa[2] = QPoint(_x - 16, _y + 16);

@@ -21,6 +21,10 @@
 #include <qbitarray.h>
 #include <qlayout.h>
 #include <qtimer.h>
+//Added by qt3to4:
+#include <Q3PointArray>
+#include <Q3Frame>
+#include <Q3VBoxLayout>
 
 #include "ktlcanvas.h"
 
@@ -30,7 +34,7 @@ const int numPrefix = int((maxPrefixExp - minPrefixExp) / 3) + 1;
 const QString SIprefix[] = {"y", "z", "a", "f", "p", "n", QChar(0xB5), "m", "", "k", "M", "G", "T", "P", "E", "Z", "Y"};
 
 Item::Item(ItemDocument *itemDocument, bool newItem, const QString &id)
-		: QObject(), QCanvasPolygon(itemDocument ? itemDocument->canvas() : 0),
+		: QObject(), Q3CanvasPolygon(itemDocument ? itemDocument->canvas() : 0),
 		p_parentItem(0), p_itemDocument(itemDocument), m_baseZ(-1),
 		m_bIsRaised(false), m_bDoneCreation(false), b_deleted(false), 
 		m_bDynamicContent(false) {
@@ -55,7 +59,7 @@ Item::~Item() {
 		p_itemDocument->unregisterUID(id());
 	}
 
-	QCanvasPolygon::hide();
+	Q3CanvasPolygon::hide();
 
 	const VariantDataMap::iterator variantDataEnd = m_variantData.end();
 	for(VariantDataMap::iterator it = m_variantData.begin(); it != variantDataEnd; ++it)
@@ -84,7 +88,7 @@ QFont Item::font() const {
 }
 
 void Item::moveBy(double dx, double dy) {
-	QCanvasPolygon::moveBy(dx, dy);
+	Q3CanvasPolygon::moveBy(dx, dy);
 	emit movedBy(dx, dy);
 }
 
@@ -96,7 +100,7 @@ void Item::setChanged() {
 		canvas()->setChanged(boundingRect());
 }
 
-void Item::setItemPoints(const QPointArray & pa, bool setSizeFromPoints) {
+void Item::setItemPoints(const Q3PointArray & pa, bool setSizeFromPoints) {
 	m_itemPoints = pa;
 
 	if (setSizeFromPoints)
@@ -124,7 +128,7 @@ void Item::setSize(QRect sizeRect, bool forceItemPoints) {
 	m_sizeRect = sizeRect;
 
 	if (m_itemPoints.isEmpty() || forceItemPoints) {
-		setItemPoints(QPointArray(m_sizeRect), false);
+		setItemPoints(Q3PointArray(m_sizeRect), false);
 	}
 
 	canvas()->setChanged(areaPoints().boundingRect());
@@ -299,10 +303,10 @@ bool Item::mouseDoubleClickEvent(const EventInfo & eventInfo) {
 
 	if (type == Variant::Type::Multiline) {
 		KDialogBase * dlg = new KDialogBase(0l, "", true, property->editorCaption(), KDialogBase::Ok | KDialogBase::Cancel | KDialogBase::User1, KDialogBase::Ok, false, KStdGuiItem::clear());
-		QFrame *frame = dlg->makeMainWidget();
-		QVBoxLayout *layout = new QVBoxLayout(frame, 0, dlg->spacingHint());
+		Q3Frame *frame = dlg->makeMainWidget();
+		Q3VBoxLayout *layout = new Q3VBoxLayout(frame, 0, dlg->spacingHint());
 		KTextEdit *textEdit = new KTextEdit(frame);
-		textEdit->setTextFormat(PlainText);
+		textEdit->setTextFormat(Qt::PlainText);
 		textEdit->setText(property->value().toString());
 		layout->addWidget(textEdit, 10);
 		textEdit->setFocus();
@@ -337,7 +341,7 @@ void Item::setSelected(bool yes) {
 	if (isSelected() == yes)
 		return;
 
-	QCanvasPolygon::setSelected(yes);
+	Q3CanvasPolygon::setSelected(yes);
 
 	emit selectionChanged();
 }

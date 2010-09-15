@@ -94,12 +94,12 @@ Connector *ICNDocument::connectorWithID(const QString &id) {
 // TODO: should probably use a nested instance, don't want all this complexity here. 
 // also should generalize for subcircuits... 
 FlowContainer *ICNDocument::flowContainer(const QPoint &pos) {
-	QCanvasItemList collisions = m_canvas->collisions(pos);
+	Q3CanvasItemList collisions = m_canvas->collisions(pos);
 	FlowContainer *flowContainer = 0;
 	int currentLevel = -1;
-	const QCanvasItemList::iterator end = collisions.end();
+	const Q3CanvasItemList::iterator end = collisions.end();
 
-	for (QCanvasItemList::iterator it = collisions.begin(); it != end; ++it) {
+	for (Q3CanvasItemList::iterator it = collisions.begin(); it != end; ++it) {
 		if (FlowContainer *container = dynamic_cast<FlowContainer*>(*it)) {
 			if (container->level() > currentLevel && !m_selectList->contains(container)) {
 				currentLevel = container->level();
@@ -112,7 +112,7 @@ FlowContainer *ICNDocument::flowContainer(const QPoint &pos) {
 }
 // ###
 
-bool ICNDocument::canConnect(QCanvasItem *qcanvasItem1, QCanvasItem *qcanvasItem2) const {
+bool ICNDocument::canConnect(Q3CanvasItem *qcanvasItem1, Q3CanvasItem *qcanvasItem2) const {
 	// Rough outline of what can and can't connect:
 	// * At most three connectors to a node
 	// * Can't have connectors going between different levels (e.g. can't have
@@ -439,7 +439,7 @@ void ICNDocument::createCellMap() {
 		(*it)->updateConnectorPoints(true);
 }
 
-void ICNDocument::appendDeleteList(QCanvasItem *qcanvasItem) {
+void ICNDocument::appendDeleteList(Q3CanvasItem *qcanvasItem) {
 	if (!qcanvasItem || m_itemDeleteList.findIndex(qcanvasItem) != -1)
 		return;
 
@@ -467,7 +467,7 @@ void ICNDocument::appendDeleteList(QCanvasItem *qcanvasItem) {
 	}
 }
 
-bool ICNDocument::registerItem(QCanvasItem *qcanvasItem) {
+bool ICNDocument::registerItem(Q3CanvasItem *qcanvasItem) {
 	if (!qcanvasItem) return false;
 
 	if (!ItemDocument::registerItem(qcanvasItem)) {
@@ -563,7 +563,7 @@ Item* ICNDocument::addItem(const QString &id, const QPoint &p, bool newItem) {
 			flowContainer->setFullBounds(true);
 	}
 
-	QCanvasItemList preCollisions = canvas()->collisions(p);
+	Q3CanvasItemList preCollisions = canvas()->collisions(p);
 
 	for (ItemMap::iterator it = m_itemList.begin(); it != end; ++it) {
 		if (FlowContainer *flowContainer = dynamic_cast<FlowContainer*>(it->second))
@@ -581,8 +581,8 @@ Item* ICNDocument::addItem(const QString &id, const QPoint &p, bool newItem) {
 	// a container item.
 // TODO: ICNDocument should not know about flow containers. 
 	FlowContainer *container = 0;
-	const QCanvasItemList::iterator pcEnd = preCollisions.end();
-	for (QCanvasItemList::iterator it = preCollisions.begin(); it != pcEnd && !container; ++it) {
+	const Q3CanvasItemList::iterator pcEnd = preCollisions.end();
+	for (Q3CanvasItemList::iterator it = preCollisions.begin(); it != pcEnd && !container; ++it) {
 		if (FlowContainer *flowContainer = dynamic_cast<FlowContainer*>(*it))
 			container = flowContainer;
 	}
@@ -669,9 +669,9 @@ void ICNDocument::rerouteInvalidatedConnectors() {
 			// Test to see if the route intersects any Items (we ignore if it is a manual route)
 			if(!needsRerouting && !connector->usesManualPoints()) {
 
-				const QCanvasItemList collisions = connector->collisions(true);
-				const QCanvasItemList::const_iterator collisionsEnd = collisions.end();
-				for(QCanvasItemList::const_iterator collisionsIt = collisions.begin(); (collisionsIt != collisionsEnd) && !needsRerouting; ++collisionsIt) {
+				const Q3CanvasItemList collisions = connector->collisions(true);
+				const Q3CanvasItemList::const_iterator collisionsEnd = collisions.end();
+				for(Q3CanvasItemList::const_iterator collisionsIt = collisions.begin(); (collisionsIt != collisionsEnd) && !needsRerouting; ++collisionsIt) {
 					if(dynamic_cast<Item*>(*collisionsIt))
 						needsRerouting = true;
 				}

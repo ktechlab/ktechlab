@@ -11,6 +11,8 @@
 #include <cmath>
 #include <kdebug.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 
 #include "canvasitemparts.h"
 #include "circuitdocument.h"
@@ -131,7 +133,7 @@ void Component::setFlipped(bool flipped) {
 }
 
 void Component::itemPointsChanged() {
-	QPointArray transformedPoints = transMatrix(m_angleDegrees, b_flipped, 0, 0, false).map(m_itemPoints);
+	Q3PointArray transformedPoints = transMatrix(m_angleDegrees, b_flipped, 0, 0, false).map(m_itemPoints);
 // 	transformedPoints.translate( int(x()), int(y()) );
 	setPoints(transformedPoints);
 }
@@ -150,8 +152,8 @@ ItemData Component::itemData() const {
 	return itemData;
 }
 
-QWMatrix Component::transMatrix(int angleDegrees, bool flipped, int x, int y, bool inverse) {
-	QWMatrix m;
+QMatrix Component::transMatrix(int angleDegrees, bool flipped, int x, int y, bool inverse) {
+	QMatrix m;
 	m.translate(x, y);
 
 	if (inverse) {
@@ -166,7 +168,7 @@ QWMatrix Component::transMatrix(int angleDegrees, bool flipped, int x, int y, bo
 
 	m.translate(-x, -y);
 
-	m.setTransformationMode(QWMatrix::Areas);
+	m.setTransformationMode(QMatrix::Areas);
 	return m;
 }
 
@@ -209,12 +211,12 @@ void Component::updateAttachedPositioning() {
 	//END Transform the nodes
 
 	//BEGIN Transform the GuiParts
-	QWMatrix m;
+	QMatrix m;
 
 	if (b_flipped) m.scale(-1, 1);
 
 	m.rotate(m_angleDegrees);
-	m.setTransformationMode(QWMatrix::Areas);
+	m.setTransformationMode(QMatrix::Areas);
 
 	const TextMap::iterator textMapEnd = m_textMap.end();
 	for(TextMap::iterator it = m_textMap.begin(); it != textMapEnd; ++it) {

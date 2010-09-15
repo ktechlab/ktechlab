@@ -13,6 +13,8 @@
 
 #include <qobject.h>
 #include <qstringlist.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 class FlowCodeDocument;
 class KTechlab;
@@ -23,9 +25,9 @@ class OutputMethodInfo;
 class ProcessChain;
 class ProcessOptions;
 class TextDocument;
-class QProcess;
+class Q3Process;
 
-typedef QValueList<ProcessOptions> ProcessOptionsList;
+typedef Q3ValueList<ProcessOptions> ProcessOptionsList;
 
 class ProcessOptionsSpecial
 {

@@ -12,9 +12,13 @@
 #define CANVASITEMPARTS_H
 
 #include <canvas.h>
-#include <qguardedptr.h>
+#include <qpointer.h>
 #include <qslider.h>
 #include <qtoolbutton.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QWheelEvent>
+#include <QMouseEvent>
 
 class Cells;
 class CIWidgetMgr;
@@ -23,7 +27,7 @@ class SliderWidget;
 class ToolButton;
 class QString;
 
-class GuiPart : public QObject, public QCanvasRectangle
+class GuiPart : public QObject, public Q3CanvasRectangle
 {
 	Q_OBJECT
 	public:
@@ -32,7 +36,7 @@ class GuiPart : public QObject, public QCanvasRectangle
 		 * of calling QCanvasRectangle::setSize. This allows GuiPart to know
 		 * when its size has been changed
 		 */
-		GuiPart( CNItem *parent, const QRect & r, QCanvas * canvas );
+		GuiPart( CNItem *parent, const QRect & r, Q3Canvas * canvas );
 		virtual ~GuiPart();
 		
 		virtual QRect recommendedRect() const { return m_originalRect; }
@@ -95,7 +99,7 @@ class Text : public GuiPart
 {
 	Q_OBJECT
 	public:
-		Text( const QString &text, CNItem *parent, const QRect & r, QCanvas * canvas, int flags = Qt::AlignHCenter | Qt::AlignVCenter );
+		Text( const QString &text, CNItem *parent, const QRect & r, Q3Canvas * canvas, int flags = Qt::AlignHCenter | Qt::AlignVCenter );
 		~Text();
 		
 		/**
@@ -129,7 +133,7 @@ typedef QMap<QString, Text *> TextMap;
 class Widget : public GuiPart
 {
 	public:
-		Widget( const QString & id, CNItem *parent, const QRect & r, QCanvas * canvas );
+		Widget( const QString & id, CNItem *parent, const QRect & r, Q3Canvas * canvas );
 		~Widget();
 		
 		virtual QWidget *widget() const = 0;
@@ -203,7 +207,7 @@ class Button : public Widget
 {
 	Q_OBJECT
 	public:
-		Button( const QString & id, CNItem *parent, bool isToggle, const QRect &r, QCanvas *canvas );
+		Button( const QString & id, CNItem *parent, bool isToggle, const QRect &r, Q3Canvas *canvas );
 		~Button();
 		
 		virtual void mousePressEvent( QMouseEvent *e );
@@ -258,7 +262,7 @@ class Slider : public Widget
 {
 	Q_OBJECT
 	public:
-		Slider( const QString & id, CNItem *parent, const QRect & r, QCanvas * canvas );
+		Slider( const QString & id, CNItem *parent, const QRect & r, Q3Canvas * canvas );
 		~Slider();
 		
 		virtual void mousePressEvent( QMouseEvent *e );
@@ -283,7 +287,7 @@ class Slider : public Widget
 	private:
 		bool m_bSliderInverted; ///< In some orientations, the slider is reflected
 		SliderWidget *m_slider;
-		Orientation m_orientation;
+		Qt::Orientation m_orientation;
 };
 	
 #endif

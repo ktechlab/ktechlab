@@ -16,11 +16,11 @@
 
 #include <qstring.h>
 #include <qstringlist.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 
 class MicroInfo;
 class MicroLibrary;
-typedef QValueList<MicroInfo*> MicroInfoList;
+typedef Q3ValueList<MicroInfo*> MicroInfoList;
 
 inline MicroLibrary *microLibrary();
 

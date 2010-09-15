@@ -21,7 +21,11 @@
 #include <kpushbutton.h>
 #include <ktabwidget.h>
 
-#include <qobjectlist.h>
+#include <qobject.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3GridLayout>
+#include <Q3ValueList>
 
 
 //BEGIN class ViewContainer
@@ -31,7 +35,7 @@ ViewContainer::ViewContainer( const QString & caption, QWidget * parent )
 	b_deleted = false;
 	connect( KTechlab::self(), SIGNAL(needUpdateCaptions()), this, SLOT(updateCaption()) );
 	
-	QHBoxLayout *layout = new QHBoxLayout(this);
+	Q3HBoxLayout *layout = new Q3HBoxLayout(this);
 	m_baseViewArea = new ViewArea( this, this, 0, false, "viewarea_0" );
 	connect( m_baseViewArea, SIGNAL(destroyed(QObject* )), this, SLOT(baseViewAreaDestroyed(QObject* )) );
 	
@@ -354,7 +358,7 @@ ViewArea *ViewArea::createViewArea( Position position, uint id, bool showOpenBut
 	
 	m_id = p_viewContainer->uniqueParentId();
 	
-	QValueList<int> splitPos;
+	Q3ValueList<int> splitPos;
 	int pos = ((orientation() == Qt::Horizontal) ? width()/2 : height()/2);
 	splitPos << pos << pos;
 	setSizes(splitPos);
@@ -446,7 +450,7 @@ void ViewArea::saveState( KConfig *config )
 	{
 		config->writeEntry( orientationKey(m_id), (orientation() == Qt::Horizontal) ? "LeftRight" : "TopBottom" );
 		
-		QValueList<int> contains;
+		Q3ValueList<int> contains;
 		if (va1Ok)
 			contains << p_viewArea1->id();
 		if (va2Ok)
@@ -493,7 +497,7 @@ void ViewArea::restoreState( KConfig *config, int id, const QString &groupName )
 	config->setGroup(groupName);
 	if ( config->hasKey( containsKey(m_id) ) )
 	{
-		typedef QValueList<int> IntList;
+		typedef Q3ValueList<int> IntList;
 		IntList contains = config->readIntListEntry( containsKey(m_id) );
 		
 		if ( contains.isEmpty() || contains.size() > 2 )
@@ -552,7 +556,7 @@ EmptyViewArea::EmptyViewArea( ViewArea * parent )
 {
 	m_pViewArea = parent;
 	
-	QGridLayout * layout = new QGridLayout( this, 5, 3, 0, 6 );
+	Q3GridLayout * layout = new Q3GridLayout( this, 5, 3, 0, 6 );
 	
 	layout->setRowStretch( 0, 20 );
 	layout->setRowStretch( 2, 1 );

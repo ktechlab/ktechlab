@@ -22,6 +22,8 @@
 #include <klocale.h>
 // #include <kmessagebox.h>
 #include <qfile.h>
+//Added by qt3to4:
+#include <Q3TextStream>
 
 FlowCode::FlowCode( ProcessChain *processChain )
 	: Language( processChain, i18n("FlowCode") )
@@ -56,14 +58,14 @@ void FlowCode::processInput( ProcessOptions options )
 	}
 
 	QFile file(options.intermediaryOutput());
-	if ( file.open(IO_WriteOnly | IO_ReadOnly) == false )
+	if ( file.open(QIODevice::WriteOnly | QIODevice::ReadOnly) == false )
 	{
 		finish(false);
 		return;
 	}
 	file.close();
 	
-	if ( file.open(IO_WriteOnly) == false )
+	if ( file.open(QIODevice::WriteOnly) == false )
 	{
 		finish(false);
 		return;
@@ -76,7 +78,7 @@ void FlowCode::processInput( ProcessOptions options )
 		return;
 	}
 
-	QTextStream stream(&file);
+	Q3TextStream stream(&file);
 	stream << code;
 	file.close();
 	finish(true);

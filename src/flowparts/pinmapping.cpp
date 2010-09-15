@@ -23,10 +23,12 @@
 #include <klocale.h>
 #include <kstdaccel.h>
 
-#include <qaccel.h>
+#include <q3accel.h>
 #include <qapplication.h>
-#include <qframe.h>
+#include <q3frame.h>
 #include <qlayout.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
 
 //BEGIN class PinMapping
 PinMapping::PinMapping(Type type) {
@@ -47,8 +49,8 @@ PinMapEditor::PinMapEditor(PinMapping * pinMapping, MicroInfo * picInfo, QWidget
 	m_pPinMapping = pinMapping;
 	m_pPinMapDocument = new PinMapDocument();
 
-	QAccel *accel = new QAccel(this);
-	accel->connectItem(accel->insertItem(Key_Delete),
+	Q3Accel *accel = new Q3Accel(this);
+	accel->connectItem(accel->insertItem(Qt::Key_Delete),
 	                   m_pPinMapDocument,
 	                   SLOT(deleteSelection()));
 	accel->connectItem(accel->insertItem(KStdAccel::selectAll().keyCodeQt()),
@@ -61,12 +63,12 @@ PinMapEditor::PinMapEditor(PinMapping * pinMapping, MicroInfo * picInfo, QWidget
 	                   m_pPinMapDocument,
 	                   SLOT(redo()));
 
-	QFrame * f = new QFrame(this);
+	Q3Frame * f = new Q3Frame(this);
 	f->setMinimumWidth(480);
 	f->setMinimumHeight(480);
-	f->setFrameShape(QFrame::Box);
-	f->setFrameShadow(QFrame::Plain);
-	QVBoxLayout *fLayout = new QVBoxLayout(f, 1, 0, "fLayout");
+	f->setFrameShape(Q3Frame::Box);
+	f->setFrameShadow(Q3Frame::Plain);
+	Q3VBoxLayout *fLayout = new Q3VBoxLayout(f, 1, 0, "fLayout");
 	ViewContainer *vc = new ViewContainer(0, f);
 	fLayout->addWidget(vc);
 

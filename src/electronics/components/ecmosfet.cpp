@@ -15,6 +15,8 @@
 #include <kiconloader.h>
 #include <klocale.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 
 Item *ECMOSFET::constructNEM(ItemDocument *itemDocument, bool newItem, const char *id) {
 	return new ECMOSFET(MOSFET::neMOSFET, (ICNDocument*)itemDocument, newItem, id ? id : "nemosfet");
@@ -266,7 +268,7 @@ void ECMOSFET::drawShape(QPainter &p) {
 		p.drawLine(_x - 3, _y - 14, _x - 3, _y + 15);
 	}
 
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 
 	if (m_MOSFET_type == MOSFET::neMOSFET /*||
 			m_MOSFET_type == MOSFET::ndMOSFET*/) {

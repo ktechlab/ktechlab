@@ -29,11 +29,13 @@
 
 // including only this is fairly inoccuous.
 #include "voltageappearance.h" 
+//Added by qt3to4:
+#include <Q3ValueList>
 
 //BEGIN class Connector
 Connector::Connector(ICNDocument *icnDocument, const QString &id)
 		: QObject(icnDocument), m_conRouter(icnDocument),
-		QCanvasPolygon(icnDocument->canvas()) {
+		Q3CanvasPolygon(icnDocument->canvas()) {
 	p_nodeGroup    = 0;
 	b_semiHidden   = false;
 	b_deleted      = false;
@@ -402,14 +404,14 @@ ConnectorData Connector::connectorData() {
 void Connector::setVisible(bool yes) {
 	if (!canvas() || isVisible() == yes) return;
 
-	QCanvasPolygon::setVisible(yes);
+	Q3CanvasPolygon::setVisible(yes);
 	updateConnectorLines();
 }
 
 void Connector::setSelected(bool yes) {
 	if (!canvas() || isSelected() == yes) return;
 
-	QCanvasPolygon::setSelected(yes);
+	Q3CanvasPolygon::setSelected(yes);
 	updateConnectorLines();
 	emit selected(yes);
 }
@@ -446,7 +448,7 @@ QPen pen(color, (m_wires.size() > 1) ? 2 : 1);
 	for (ConnectorLineList::iterator it = m_connectorLineList.begin(); it != end; ++it) {
 		(*it)->setAnimateCurrent(animateWires);
 
-		QCanvasPolygonalItem *item = static_cast<QCanvasPolygonalItem*>(*it);
+		Q3CanvasPolygonalItem *item = static_cast<Q3CanvasPolygonalItem*>(*it);
 
 		bool changed = (item->z() != z)
 		               || (item->pen() != pen)
@@ -465,7 +467,7 @@ QPen pen(color, (m_wires.size() > 1) ? 2 : 1);
 	}
 }
 
-QValueList<QPointList> Connector::splitConnectorPoints(const QPoint &pos) const {
+Q3ValueList<QPointList> Connector::splitConnectorPoints(const QPoint &pos) const {
 	return m_conRouter.splitPoints(pos);
 }
 

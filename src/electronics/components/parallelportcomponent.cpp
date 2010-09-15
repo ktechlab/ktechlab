@@ -19,6 +19,8 @@
 #include <kdebug.h>
 #include <klocale.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 
 #include <cmath>
 #include <termios.h>
@@ -43,7 +45,7 @@ ParallelPortComponent::ParallelPortComponent(ICNDocument *icnDocument, bool newI
 		: DSubCon(icnDocument, newItem, id ? id : "parallel_port") {
 	m_name = i18n("Parallel Port");
 
-	QPointArray pa(4);
+	Q3PointArray pa(4);
 	pa[0] = QPoint(-32, -112);
 	pa[1] = QPoint(32, -104);
 	pa[2] = QPoint(32, 104);

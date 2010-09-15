@@ -11,6 +11,8 @@
 #include <klocale.h>
 #include <qpainter.h>
 #include <qstyle.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 #include <kdebug.h>
 
 #include "simulator.h"
@@ -157,7 +159,7 @@ void VariableCapacitor::drawShape(QPainter &p) {
 // 	p.drawLine( _x+8, _y, _x+16, _y );
 
 	// Diagonally pointing arrow
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 	pa[0] = QPoint(-4, 0);
 	pa[1] = QPoint(-2, 4);
 	pa[2] = QPoint(0, 0);

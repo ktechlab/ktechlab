@@ -17,12 +17,14 @@
 #include <kdebug.h>
 
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 #include "ktlcanvas.h"
 
 QColor Node::m_selectedColor = QColor(101, 134, 192);
 
 Node::Node(ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint &pos, QString *id)
-		: QObject(), QCanvasPolygon(icnDocument ? icnDocument->canvas() : 0) {
+		: QObject(), Q3CanvasPolygon(icnDocument ? icnDocument->canvas() : 0) {
 	m_length = 8;
 	p_nodeGroup = 0;
 	p_parentItem = 0;
@@ -78,9 +80,9 @@ void Node::setOrientation(const int dir) {
 
 void Node::initPoints() {
 	// Bounding rectangle, facing right
-	QPointArray pa(QRect(0, -8, m_length, 16));
+	Q3PointArray pa(QRect(0, -8, m_length, 16));
 
-	QWMatrix m;
+	QMatrix m;
 	m.rotate(m_dir);
 	pa = m.map(pa);
 	setPoints(pa);
@@ -89,7 +91,7 @@ void Node::initPoints() {
 void Node::setVisible(const bool yes) {
 	if (isVisible() == yes) return;
 
-	QCanvasPolygon::setVisible(yes);
+	Q3CanvasPolygon::setVisible(yes);
 }
 
 void Node::setParentItem(CNItem *parentItem) {
@@ -117,7 +119,7 @@ void Node::removeNode() {
 void Node::moveBy(const double dx, const double dy) {
 	if(dx == 0 && dy == 0) return;
 
-	QCanvasPolygon::moveBy(dx, dy);
+	Q3CanvasPolygon::moveBy(dx, dy);
 
 	emit moved(this);
 }
@@ -134,7 +136,7 @@ NodeData Node::nodeData() const {
 void Node::setNodeSelected(const bool yes) {
 	if (isSelected() == yes) return;
 
-	QCanvasItem::setSelected(yes);
+	Q3CanvasItem::setSelected(yes);
 	setPen(yes ? m_selectedColor : Qt::black);
 	setBrush(yes ? m_selectedColor : Qt::black);
 }

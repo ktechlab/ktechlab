@@ -14,6 +14,8 @@
 #include "cnitem.h"
 
 #include <qobject.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 class MicroSettings;
 class FlowCodeDocument;
@@ -23,7 +25,7 @@ class PinSettings;
 @short Allows visual setting of pin type/state
 @author David Saxton
 */
-class PinItem : public QObject, public QCanvasRectangle
+class PinItem : public QObject, public Q3CanvasRectangle
 {
 	Q_OBJECT
 public:
@@ -55,7 +57,7 @@ private:
 	QRect m_textRect;
 	QFont m_font;
 };
-typedef QValueList<PinItem*> PinItemList;
+typedef Q3ValueList<PinItem*> PinItemList;
 
 
 /**

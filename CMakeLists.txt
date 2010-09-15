@@ -29,6 +29,8 @@ include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
     ${QT_INCLUDES}
     ${GLIB2_INCLUDE_DIRS}
+
+    ${QT_QTTEST_INCLUDE_DIR}
 )
 
 CONFIGURE_FILE(
@@ -38,11 +40,15 @@ CONFIGURE_FILE(
 
 # add_subdirectory( testing )
 
+ADD_DEFINITIONS(-DQT3_SUPPORT)
 
 set( CompileSimulator_SRCS
 # ${CMAKE_SOURCE_DIR}/src/electronics/gpsimprocessor.cpp
  ${CMAKE_SOURCE_DIR}/src/simulator.cpp
 )
+
+qt4_automoc(${CompileSimulator_SRCS})
+
 
 add_executable( CompiledSimulator
 ${CompileSimulator_SRCS}
@@ -50,6 +56,10 @@ ${CompileSimulator_SRCS}
 
 
 target_link_libraries( CompiledSimulator
+${QT_LIBRARIES}
+${QT_QT3SUPPORT_LIBRARY}
+${QT_QTTEST_LIBRARIES}
+
 )
 
 enable_testing()

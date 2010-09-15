@@ -11,6 +11,8 @@
 #include "voltageappearance.h"
 
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 
 JunctionNode::JunctionNode(ICNDocument* icnDocument, int dir, const QPoint& pos, QString* id):
 		ECNode(icnDocument, Node::ec_junction, dir, pos, id) {
@@ -39,5 +41,5 @@ void JunctionNode::drawShape(QPainter &p) {
 }
 
 void JunctionNode::initPoints() {
-	setPoints(QPointArray(QRect(-4, -4, 8, 8)));
+	setPoints(Q3PointArray(QRect(-4, -4, 8, 8)));
 }

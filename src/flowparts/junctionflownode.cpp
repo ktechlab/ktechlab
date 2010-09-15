@@ -12,6 +12,8 @@
 #include "flowconnector.h"
 
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 
 JunctionFlowNode::JunctionFlowNode(ICNDocument* _icnView, int dir, const QPoint& pos, QString* id): FPNode(_icnView, Node::fp_junction, dir, pos, id) {
 }
@@ -20,7 +22,7 @@ JunctionFlowNode::~JunctionFlowNode() {
 }
 
 void JunctionFlowNode::initPoints() {
-	setPoints(QPointArray(QRect(-4, -4, 9, 9)));
+	setPoints(Q3PointArray(QRect(-4, -4, 9, 9)));
 }
 
 bool JunctionFlowNode::acceptInput() const {
@@ -38,8 +40,8 @@ void JunctionFlowNode::checkForRemoval(Connector *connector) {
 		removeNode();
 }
 
-inline QPointArray arrowPoints(int dir) {
-	QPointArray pa(3);
+inline Q3PointArray arrowPoints(int dir) {
+	Q3PointArray pa(3);
 
 	switch (dir) {
 	case 0:
@@ -90,7 +92,7 @@ void JunctionFlowNode::drawShape(QPainter &p) {
 			QPoint end_0 = points[count - 1];
 			QPoint end_1 = points[count - 2];
 
-			QPointArray pa;
+			Q3PointArray pa;
 
 			if (end_0.x() < end_1.x()) {
 				pa = arrowPoints(180);

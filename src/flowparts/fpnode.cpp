@@ -16,6 +16,8 @@
 
 #include <kdebug.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 
 FPNode::FPNode(ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint &pos, QString *id)
         : Node(icnDocument, type, dir, pos, id) {
@@ -63,8 +65,8 @@ FlowPartList FPNode::inputFlowParts() const {
     return list;
 }
 
-inline QPointArray arrowPoints(int dir) {
-    QPointArray pa(3);
+inline Q3PointArray arrowPoints(int dir) {
+    Q3PointArray pa(3);
 
     switch (dir) {
 
@@ -272,7 +274,7 @@ QPoint FPNode::findConnectorDivergePoint(bool * found) {
 void FPNode::setVisible(bool yes) {
     if (isVisible() == yes) return;
 
-    QCanvasPolygon::setVisible(yes);
+    Q3CanvasPolygon::setVisible(yes);
 
     const FlowConnectorList::iterator inputEnd = m_inFlowConnList.end();
     for (FlowConnectorList::iterator it = m_inFlowConnList.begin(); it != inputEnd; ++it) {

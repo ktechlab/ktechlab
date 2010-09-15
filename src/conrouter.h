@@ -14,13 +14,13 @@
 #include "cells.h"
 
 #include <qpoint.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 
 class ICNDocument;
 class Cell;
 
-typedef QValueList<QPoint> QPointList;
-typedef QValueList<QPointList> QPointListList;
+typedef Q3ValueList<QPoint> QPointList;
+typedef Q3ValueList<QPointList> QPointListList;
 
 // what a stupid little class...
 class Point {

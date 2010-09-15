@@ -90,7 +90,7 @@ void MultiInputGate::updateSymbolText() {
 	else {
 		int w = 32 - (m_bInvertedOutput ? 6 : 0);
 		QRect r(-16, 4 - height() / 2, w, height() - 4);
-		addDisplayText("rect-shape-text", r, m_rectangularShapeText, true, AlignTop | AlignHCenter);
+		addDisplayText("rect-shape-text", r, m_rectangularShapeText, true, Qt::AlignTop | Qt::AlignHCenter);
 	}
 }
 

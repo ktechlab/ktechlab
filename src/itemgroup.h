@@ -12,7 +12,7 @@
 #define ITEMGROUP_H
 
 #include <qobject.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 
 class Item;
 class ICNDocument;
@@ -22,10 +22,10 @@ class ItemGroup;
 class MechanicsDocument;
 class Variant;
 
-typedef QValueList<Item *> ItemList;
+typedef Q3ValueList<Item *> ItemList;
 
-class QCanvasItem;
-class QCanvasItemList;
+class Q3CanvasItem;
+class Q3CanvasItemList;
 
 /**
 Generic base class for controlling a selection of Item. Provides
@@ -46,10 +46,10 @@ public:
 	 */
 	Item *activeItem() const { return m_activeItem; }
 	uint itemCount() const { return m_itemList.count(); }
-	virtual bool addQCanvasItem( QCanvasItem *qcanvasItem ) = 0;
-	virtual void setItems( QCanvasItemList list ) = 0;
-	virtual void removeQCanvasItem( QCanvasItem *qcanvasItem ) = 0;
-	virtual bool contains( QCanvasItem *qcanvasItem ) const = 0;
+	virtual bool addQCanvasItem( Q3CanvasItem *qcanvasItem ) = 0;
+	virtual void setItems( Q3CanvasItemList list ) = 0;
+	virtual void removeQCanvasItem( Q3CanvasItem *qcanvasItem ) = 0;
+	virtual bool contains( Q3CanvasItem *qcanvasItem ) const = 0;
 	virtual uint count() const = 0;
 	bool isEmpty() const { return (count() == 0); }
 	virtual void mergeGroup( ItemGroup *group ) = 0;

@@ -13,7 +13,11 @@
 
 #include <katemdi.h>
 #include <qmap.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
+//Added by qt3to4:
+#include <QDropEvent>
+#include <QLabel>
+#include <QDragEnterEvent>
 
 class CircuitDocument;
 class TextDocument;
@@ -38,7 +42,7 @@ class KURL;
 class QLabel;
 
 typedef QMap< int, QString > IntStringMap;
-typedef QValueList< QGuardedPtr<ViewContainer> > ViewContainerList;
+typedef Q3ValueList< QPointer<ViewContainer> > ViewContainerList;
 
 /**
  * This class serves as the main window for KTechlab.  It handles the
@@ -261,7 +265,7 @@ private:
 	KToggleAction *m_statusbarAction;
 	KTabWidget *m_pViewContainerTabWidget;
 	QString m_lastStatusBarMessage;
-	QValueList<KXMLGUIClient*> m_noRemoveGUIClients;
+	Q3ValueList<KXMLGUIClient*> m_noRemoveGUIClients;
 	QLabel *m_pToolBarOverlayLabel;
 	bool m_bIsShown; // Set true when show() is called
 	ViewContainerList m_viewContainerList;
@@ -271,10 +275,10 @@ private:
 
 	static KTechlab *m_pSelf;
 
-	QGuardedPtr<ViewContainer> m_pContextMenuContainer;
-	QGuardedPtr<ViewContainer> m_pFocusedContainer;
-	QGuardedPtr<ViewContainer> m_pContainerDropSource;
-	QGuardedPtr<ViewContainer> m_pContainerDropReceived;
+	QPointer<ViewContainer> m_pContextMenuContainer;
+	QPointer<ViewContainer> m_pFocusedContainer;
+	QPointer<ViewContainer> m_pContainerDropSource;
+	QPointer<ViewContainer> m_pContainerDropReceived;
 };
 
 #endif // KTECHLAB_H

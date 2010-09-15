@@ -16,7 +16,9 @@
 #include <kiconloader.h>
 #include <klocale.h>
 #include <kpopupmenu.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
+//Added by qt3to4:
+#include <QDragEnterEvent>
 
 FlowCodeView::FlowCodeView( FlowCodeDocument * flowCodeDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name )
 	: ICNView( flowCodeDocument, viewContainer, viewAreaId, name )
@@ -50,7 +52,7 @@ FlowCodeView::FlowCodeView( FlowCodeDocument * flowCodeDocument, ViewContainer *
 	
 	setXMLFile( "ktechlabflowcodeui.rc", true );
 	
-	QWhatsThis::add( this, i18n(
+	Q3WhatsThis::add( this, i18n(
 			"Construct a FlowCode document by dragging FlowParts from the list on the left. All FlowCharts require an initial \"Start\" part, of which there can only be one.<br><br>"
 					
 			"Some FlowParts, such as Subroutines, act as a container element for other FlowParts. Drag the items in or out of a container as appropritate. The container that will become the parent of the part being dragged is indicated by being selected.<br><br>"

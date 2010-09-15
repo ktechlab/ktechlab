@@ -21,7 +21,7 @@ class Keypad : public FlowPart
 {
 public:
 	Keypad( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~Keypad();
+	~Qt::KeypadModifier();
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();

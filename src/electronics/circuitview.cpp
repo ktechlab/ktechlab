@@ -16,7 +16,9 @@
 #include "viewiface.h"
 
 #include <klocale.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
+//Added by qt3to4:
+#include <QDragEnterEvent>
 
 CircuitView::CircuitView(CircuitDocument *circuitDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name)
         : ICNView(circuitDocument, viewContainer, viewAreaId, name),
@@ -46,7 +48,7 @@ CircuitView::CircuitView(CircuitDocument *circuitDocument, ViewContainer *viewCo
 
     setXMLFile("ktechlabcircuitui.rc", true);
 
-    QWhatsThis::add(this, i18n(
+    Q3WhatsThis::add(this, i18n(
                         "Construct a circuit by dragging components from the Component selector from the left. Create the connections by dragging a wire from the component connectors.<br><br>"
 
                         "The simulation is running by default, but can be paused and resumed from the Tools menu.<br><br>"

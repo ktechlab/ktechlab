@@ -18,7 +18,7 @@
 
 class Connector;
 
-class ConnectorLine : public QObject, public QCanvasLine {
+class ConnectorLine : public QObject, public Q3CanvasLine {
 
 public:
 	/**

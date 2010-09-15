@@ -12,7 +12,9 @@
 #define CONNECTOR_H
 
 #include <canvas.h>
-#include <qvaluevector.h>
+#include <q3valuevector.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 #include "conrouter.h"
 
@@ -24,19 +26,19 @@ class ICNDocument;
 class Node;
 class NodeGroup;
 
-typedef QValueList<ConnectorLine*> ConnectorLineList;
-typedef QValueList<QPoint> QPointList;
+typedef Q3ValueList<ConnectorLine*> ConnectorLineList;
+typedef Q3ValueList<QPoint> QPointList;
 
 // TODO: refactor these: 
 class Wire;
-typedef QValueVector<Wire *> WireVector;
+typedef Q3ValueVector<Wire *> WireVector;
 // ###
 
 /**
 @short Represents a connection between two Nodes on a ICNDocument
 @author David Saxton
 */
-class Connector : public QObject, public QCanvasPolygon {
+class Connector : public QObject, public Q3CanvasPolygon {
 	Q_OBJECT
 
 public:
@@ -120,7 +122,7 @@ public:
 	 * Returns two sets of points (in canvas-reference) that define the connector
 	 * from start to finish, when it is split at the given point (in canvas-reference)
 	 */
-	QValueList<QPointList> splitConnectorPoints(const QPoint &pos) const;
+	Q3ValueList<QPointList> splitConnectorPoints(const QPoint &pos) const;
 
 	/**
 	 * @returns pointer to ICNDocument that this connector is a member of

@@ -14,6 +14,8 @@
 
 #include <klocale.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 
 Item* ECDiode::construct(ItemDocument *itemDocument, bool newItem, const char *id)
 {
@@ -98,7 +100,7 @@ void ECDiode::drawShape(QPainter &p)
 	int _x = int(x());
 	int _y = int(y());
 
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 	pa[0] = QPoint(8, 0);
 	pa[1] = QPoint(-8, -8);
 	pa[2] = QPoint(-8, 8);

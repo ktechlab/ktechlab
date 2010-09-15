@@ -12,7 +12,7 @@
 #include <qapplication.h>
 #include <canvas.h>
 #include <qtimer.h>
-#include <qsimplerichtext.h>
+#include <q3simplerichtext.h>
 
 #include "ktlcanvas.h"
 #include "itemdocument.h"
@@ -21,7 +21,7 @@
 
 //BEGIN class Canvas
 Canvas::Canvas(ItemDocument *itemDocument, const char *name)
-		: QCanvas(itemDocument, name) {
+		: Q3Canvas(itemDocument, name) {
 	p_itemDocument = itemDocument;
 	m_pMessageTimeout = new QTimer(this);
 	connect(m_pMessageTimeout, SIGNAL(timeout()), this, SLOT(slotSetAllChanged()));
@@ -32,7 +32,7 @@ void Canvas::resize(const QRect & size) {
 		return;
 
 	QRect oldSize = rect();
-	QCanvas::resize(size);
+	Q3Canvas::resize(size);
 
 	emit resized(oldSize, size);
 }
@@ -48,7 +48,7 @@ void Canvas::setMessage(const QString & message) {
 }
 
 void Canvas::drawBackground(QPainter &p, const QRect & clip) {
-	QCanvas::drawBackground(p, clip);
+	Q3Canvas::drawBackground(p, clip);
 #if 0
 	const int scx = (int)((clip.left() - 4) / 8);
 	const int ecx = (int)((clip.right() + 4) / 8);
@@ -87,7 +87,7 @@ void Canvas::drawBackground(QPainter &p, const QRect & clip) {
 }
 
 void Canvas::drawForeground(QPainter &p, const QRect & clip) {
-	QCanvas::drawForeground(p, clip);
+	Q3Canvas::drawForeground(p, clip);
 
 	if (!m_pMessageTimeout->isActive())
 		return;
@@ -112,7 +112,7 @@ void Canvas::drawForeground(QPainter &p, const QRect & clip) {
 
 	if (!firstView) return;
 
-	QSimpleRichText *t = new QSimpleRichText(m_message, QApplication::font());
+	Q3SimpleRichText *t = new Q3SimpleRichText(m_message, QApplication::font());
 
 	const int w = t->width();
 	const int h = t->height();
@@ -139,7 +139,7 @@ void Canvas::drawForeground(QPainter &p, const QRect & clip) {
 
 void Canvas::update() {
 	p_itemDocument->update();
-	QCanvas::update();
+	Q3Canvas::update();
 }
 //END class Canvas
 

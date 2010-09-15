@@ -11,6 +11,10 @@
 #include "eventinfo.h"
 #include "itemdocument.h"
 #include "itemview.h"
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QEvent>
+#include <QWheelEvent>
 
 
 EventInfo::EventInfo()
@@ -39,9 +43,9 @@ EventInfo::EventInfo( ItemView *itemView, QMouseEvent *e )
 	globalPos = e->globalPos();
 	isRightClick = e->button() == Qt::RightButton;
 	isMiddleClick = e->button() == Qt::MidButton;
-	ctrlPressed = e->state() & QMouseEvent::ControlButton;
-	shiftPressed = e->state() & QMouseEvent::ShiftButton;
-	altPressed = e->state() & QMouseEvent::AltButton;
+	ctrlPressed = e->state() & Qt::ControlModifier;
+	shiftPressed = e->state() & Qt::ShiftModifier;
+	altPressed = e->state() & Qt::AltModifier;
 	if ( ItemDocument * id = dynamic_cast<ItemDocument*>(itemView->document()) )
 			qcanvasItemClickedOn = id->itemAtTop(pos);
 	scrollDelta = 0;
@@ -55,9 +59,9 @@ EventInfo::EventInfo( ItemView *itemView, QWheelEvent *e )
 	
 	extractPos( itemView, e->pos() );
 	globalPos = e->globalPos();
-	ctrlPressed = e->state() & QMouseEvent::ControlButton;
-	shiftPressed = e->state() & QMouseEvent::ShiftButton;
-	altPressed = e->state() & QMouseEvent::AltButton;
+	ctrlPressed = e->state() & Qt::ControlModifier;
+	shiftPressed = e->state() & Qt::ShiftModifier;
+	altPressed = e->state() & Qt::AltModifier;
 	if ( ItemDocument * id = dynamic_cast<ItemDocument*>(itemView->document()) )
 		qcanvasItemClickedOn = id->itemAtTop(pos);
 	scrollDelta = e->delta();
@@ -84,9 +88,9 @@ QMouseEvent *EventInfo::mousePressEvent( int dx, int dy ) const
 							pos + QPoint( dx, dy ),
 							(isRightClick ? Qt::RightButton : Qt::LeftButton), 
 							(isRightClick ? Qt::RightButton : Qt::LeftButton) |
-									(ctrlPressed ? Qt::ControlButton : 0 ) |
-									(shiftPressed ? Qt::ShiftButton : 0 ) |
-									(altPressed ? Qt::AltButton : 0 ) );
+									(ctrlPressed ? Qt::ControlModifier : 0 ) |
+									(shiftPressed ? Qt::ShiftModifier : 0 ) |
+									(altPressed ? Qt::AltModifier : 0 ) );
 }
 
 
@@ -96,9 +100,9 @@ QMouseEvent *EventInfo::mouseReleaseEvent( int dx, int dy ) const
 							pos + QPoint( dx, dy ),
 							(isRightClick ? Qt::RightButton : Qt::LeftButton), 
 							(isRightClick ? Qt::RightButton : Qt::LeftButton) |
-									(ctrlPressed ? Qt::ControlButton : 0 ) |
-									(shiftPressed ? Qt::ShiftButton : 0 ) |
-									(altPressed ? Qt::AltButton : 0 ) );
+									(ctrlPressed ? Qt::ControlModifier : 0 ) |
+									(shiftPressed ? Qt::ShiftModifier : 0 ) |
+									(altPressed ? Qt::AltModifier : 0 ) );
 }
 
 
@@ -108,9 +112,9 @@ QMouseEvent *EventInfo::mouseDoubleClickEvent( int dx, int dy ) const
 							pos + QPoint( dx, dy ),
 							(isRightClick ? Qt::RightButton : Qt::LeftButton), 
 							(isRightClick ? Qt::RightButton : Qt::LeftButton) |
-									(ctrlPressed ? Qt::ControlButton : 0 ) |
-									(shiftPressed ? Qt::ShiftButton : 0 ) |
-									(altPressed ? Qt::AltButton : 0 ) );
+									(ctrlPressed ? Qt::ControlModifier : 0 ) |
+									(shiftPressed ? Qt::ShiftModifier : 0 ) |
+									(altPressed ? Qt::AltModifier : 0 ) );
 }
 
 
@@ -119,9 +123,9 @@ QMouseEvent *EventInfo::mouseMoveEvent( int dx, int dy ) const
 	return new QMouseEvent( QEvent::MouseMove,
 							pos + QPoint( dx, dy ),
 							Qt::NoButton, 
-							(ctrlPressed ? Qt::ControlButton : 0 ) |
-									(shiftPressed ? Qt::ShiftButton : 0 ) |
-									(altPressed ? Qt::AltButton : 0 ) );
+							(ctrlPressed ? Qt::ControlModifier : 0 ) |
+									(shiftPressed ? Qt::ShiftModifier : 0 ) |
+									(altPressed ? Qt::AltModifier : 0 ) );
 }
 
 
@@ -129,9 +133,9 @@ QWheelEvent *EventInfo::wheelEvent( int dx, int dy ) const
 {
 	return new QWheelEvent( pos + QPoint( dx, dy ),
 							scrollDelta,
-							(ctrlPressed ? Qt::ControlButton : 0 ) |
-									(shiftPressed ? Qt::ShiftButton : 0 ) |
-									(altPressed ? Qt::AltButton : 0 ),
+							(ctrlPressed ? Qt::ControlModifier : 0 ) |
+									(shiftPressed ? Qt::ShiftModifier : 0 ) |
+									(altPressed ? Qt::AltModifier : 0 ),
 							scrollOrientation );
 }
 

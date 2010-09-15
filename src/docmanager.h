@@ -12,7 +12,9 @@
 #define DOCMANAGER_H
 
 #include <kurl.h>
-#include <qguardedptr.h>
+#include <qpointer.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 class CircuitDocument;
 class DocManager;
@@ -27,9 +29,9 @@ class ViewArea;
 
 class KAction;
 
-typedef QValueList<Document*> DocumentList;
+typedef Q3ValueList<Document*> DocumentList;
 typedef QMap< KURL, Document* > URLDocumentMap;
-typedef QValueList<KAction*> KActionList;
+typedef Q3ValueList<KAction*> KActionList;
 
 /**
 @author David Saxton
@@ -155,8 +157,8 @@ protected:
 	int m_countMechanics;
 	int m_countOther;
 	
-	QGuardedPtr<View> p_focusedView;
-	QGuardedPtr<Document> p_connectedDocument;
+	QPointer<View> p_focusedView;
+	QPointer<Document> p_connectedDocument;
 	DocManagerIface *m_pIface;
 	unsigned m_nextDocumentID;
 	

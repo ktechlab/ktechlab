@@ -150,7 +150,7 @@ void ECNode::checkForRemoval(Connector *connector) {
 void ECNode::setVisible(bool yes) {
 	if (isVisible() == yes) return;
 
-	QCanvasPolygon::setVisible(yes);
+	Q3CanvasPolygon::setVisible(yes);
 
 	const ConnectorList::iterator inputEnd = m_connectorList.end();
 	for (ConnectorList::iterator it = m_connectorList.begin(); it != inputEnd; ++it) {

@@ -30,6 +30,8 @@
 #include <kmessagebox.h>
 #include <qregexp.h>
 #include <qtimer.h>
+//Added by qt3to4:
+#include <Q3PtrList>
 
 CircuitDocument::CircuitDocument(const QString &caption, const char *name)
 		: CircuitICNDocument(caption, name) {
@@ -215,7 +217,7 @@ void CircuitDocument::fillContextMenu(const QPoint &pos) {
 			m_pOrientationAction->insert(orientation_actions[i]);
 		}
 
-		QPtrList<KAction> orientation_actionlist;
+		Q3PtrList<KAction> orientation_actionlist;
 		orientation_actionlist.append(m_pOrientationAction);
 		KTechlab::self()->plugActionList("orientation_actionlist", orientation_actionlist);
 	}

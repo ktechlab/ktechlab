@@ -11,6 +11,8 @@
 #include "component.h"
 
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 #include <cmath>
 
 #include "voltageappearance.h"
@@ -44,7 +46,7 @@ inline int calcLength(double v) {
 PinNode::PinNode(ICNDocument* icnDocument, int dir, const QPoint& pos, QString* id) :
 	ECNode(icnDocument, Node::ec_pin, dir, pos, id) {
 
-	m_pinPoint = new QCanvasRectangle(0, 0, 3, 3, canvas());
+	m_pinPoint = new Q3CanvasRectangle(0, 0, 3, 3, canvas());
 	m_pinPoint->setBrush(Qt::black);
 	m_pinPoint->setPen(Qt::black);
 }
@@ -108,9 +110,9 @@ void PinNode::initPoints() {
 	int l = - m_length;
 
 	// Bounding rectangle, facing right
-	QPointArray pa(QRect(0, -8, l, 16));
+	Q3PointArray pa(QRect(0, -8, l, 16));
 
-	QWMatrix m;
+	QMatrix m;
 	m.rotate(m_dir);
 	pa = m.map(pa);
 	setPoints(pa);

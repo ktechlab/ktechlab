@@ -22,7 +22,7 @@
 #include <qfile.h>
 #include <kprocess.h>
 #include <qregexp.h>
-#include <qtextstream.h>
+#include <q3textstream.h>
 #include <qdatetime.h>
 
 #include <stdio.h>

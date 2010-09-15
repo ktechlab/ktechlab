@@ -15,6 +15,8 @@
 #include <kiconloader.h>
 #include <klocale.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 
 Item *ECBJT::constructNPN(ItemDocument *itemDocument, bool newItem, const char *id) {
 	return new ECBJT(true, (ICNDocument*)itemDocument, newItem, id);
@@ -121,7 +123,7 @@ void ECBJT::drawShape(QPainter &p) {
 	p.drawLine(_x + 8, _y - 8, _x - 8, _y);
 	p.drawLine(_x + 8, _y + 8, _x - 8, _y);
 
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 
 	if (m_bIsNPN) {
 		pa[0] = QPoint(_x + 6, _y + 7);

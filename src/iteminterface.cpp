@@ -30,6 +30,8 @@
 #include <qapplication.h>
 #include <qlabel.h>
 #include <qcheckbox.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
 
 #include <cassert>
 
@@ -247,7 +249,7 @@ QWidget * ItemInterface::configWidget()
 	QWidget * configWidget = new QWidget( parent, "tbConfigWidget" );
 	configWidget->setSizePolicy( QSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding, 1, 1 ) );
 	
-	QHBoxLayout * configLayout = new QHBoxLayout( configWidget );
+	Q3HBoxLayout * configLayout = new Q3HBoxLayout( configWidget );
 // 	configLayout->setAutoAdd( true );
 	configLayout->setSpacing( 6 );
 	

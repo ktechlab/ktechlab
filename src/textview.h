@@ -15,8 +15,11 @@
 #include "view.h"
 
 #include <kate/view.h>
-#include <qguardedptr.h>
+#include <qpointer.h>
 #include <qlabel.h>
+//Added by qt3to4:
+#include <QEvent>
+#include <QMouseEvent>
 
 class QMouseEvent;
 class RegisterInfo;

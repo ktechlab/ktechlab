@@ -14,22 +14,26 @@
 // This file contains class definitions for different types of resizing and rotating
 
 #include <canvas.h>
-#include <qguardedptr.h>
+#include <qpointer.h>
 #include <qmap.h>
 #include <qobject.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
+//Added by qt3to4:
+#include <Q3PointArray>
+#include <QPixmap>
+#include <QEvent>
 
 class MechanicsItem;
 class ResizeHandle;
 class ResizeOverlay;
 class QEvent;
 
-typedef QMap< int, QGuardedPtr<ResizeHandle> > ResizeHandleMap;
+typedef QMap< int, QPointer<ResizeHandle> > ResizeHandleMap;
 
 /**
 @author David Saxton
 */
-class ResizeHandle : public QObject, public QCanvasRectangle
+class ResizeHandle : public QObject, public Q3CanvasRectangle
 {
 	Q_OBJECT
 public:
@@ -86,7 +90,7 @@ public:
 	
 	static const QPixmap& handlePixmap( DrawType drawType, bool hover );
 	
-	virtual QPointArray areaPoints () const;
+	virtual Q3PointArray areaPoints () const;
 	
 public slots:
 	void slotMoveByX( double dx ) { moveBy( dx, 0 ); }
@@ -107,7 +111,7 @@ protected:
 	ResizeOverlay *p_resizeOverlay;
 	
 };
-typedef QValueList<ResizeHandle*> ResizeHandleList;
+typedef Q3ValueList<ResizeHandle*> ResizeHandleList;
 
 /**
 @author David Saxton

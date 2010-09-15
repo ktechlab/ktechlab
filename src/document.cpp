@@ -20,6 +20,8 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <ktabwidget.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 Document::Document( const QString &caption, const char *name )
 	: QObject( KTechlab::self(), name ),
@@ -72,7 +74,7 @@ void Document::slotViewDestroyed( QObject *obj )
 	
 	m_viewList.remove(view);
 	
-	if ( m_pActiveView == (QGuardedPtr<View>)view )
+	if ( m_pActiveView == (QPointer<View>)view )
 	{
 		m_pActiveView = 0l;
 		emit viewUnfocused();
@@ -197,7 +199,7 @@ void Document::setDCOPID( unsigned id )
 	
 	m_dcopID = id;
 	if ( m_pDocumentIface ) {
-		QCString docID;
+		Q3CString docID;
 		docID.setNum( dcopID() );
 		m_pDocumentIface->setObjId( "Document#" + docID );
 	}

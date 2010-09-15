@@ -36,6 +36,9 @@
 #include <qcursor.h>
 #include <qpainter.h>
 #include <qtimer.h>
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <QEvent>
 
 #include "ktlcanvas.h"
 
@@ -104,7 +107,7 @@ void CMManager::mousePressEvent(EventInfo eventInfo) {
 	uint itemType = 0;
 	uint cnItemType = 0;
 
-	QCanvasItem * qcanvasItem = eventInfo.qcanvasItemClickedOn;
+	Q3CanvasItem * qcanvasItem = eventInfo.qcanvasItemClickedOn;
 
 	if (! qcanvasItem) itemType = it_none;
 	else if (dynamic_cast<Node*>(qcanvasItem)) itemType = it_node;
@@ -201,7 +204,7 @@ void CMManager::mouseMoveEvent(const EventInfo &eventInfo) {
 	}
 
 	//BEGIN
-	QCanvasItem *qcnItem = p_itemDocument->itemAtTop(eventInfo.pos);
+	Q3CanvasItem *qcnItem = p_itemDocument->itemAtTop(eventInfo.pos);
 
 	Item *item;
 
@@ -210,7 +213,7 @@ void CMManager::mouseMoveEvent(const EventInfo &eventInfo) {
 	if (widget) item = widget->parent();
 	else item = dynamic_cast<Item*>(qcnItem);
 
-	if (p_lastMouseOverItem != (QGuardedPtr<Item>)item) {
+	if (p_lastMouseOverItem != (QPointer<Item>)item) {
 		QEvent event(QEvent::Leave);
 
 		if (p_lastMouseOverItem)
@@ -233,7 +236,7 @@ void CMManager::mouseMoveEvent(const EventInfo &eventInfo) {
 }
 
 void CMManager::updateCurrentResizeHandle(ResizeHandle * resizeHandle) {
-	if (p_lastMouseOverResizeHandle != (QGuardedPtr<ResizeHandle>)resizeHandle) {
+	if (p_lastMouseOverResizeHandle != (QPointer<ResizeHandle>)resizeHandle) {
 		if (p_lastMouseOverResizeHandle)
 			p_lastMouseOverResizeHandle->setHover(false);
 
@@ -263,7 +266,7 @@ void CMManager::wheelEvent(const EventInfo &eventInfo) {
 	bool accepted = false;
 
 	if (b_allowItemScroll) {
-		QCanvasItem *qcnItem = p_itemDocument->itemAtTop(eventInfo.pos);
+		Q3CanvasItem *qcnItem = p_itemDocument->itemAtTop(eventInfo.pos);
 		Item *item;
 		Widget *widget = dynamic_cast<Widget*>(qcnItem);
 
@@ -472,7 +475,7 @@ Connector *ConnectorDraw::toConnector(Node *node) {
 	return node->getAConnector();
 }
 
-void ConnectorDraw::grabEndStuff(QCanvasItem * endItem, const QPoint & pos, bool posIsExact) {
+void ConnectorDraw::grabEndStuff(Q3CanvasItem * endItem, const QPoint & pos, bool posIsExact) {
 	if (!endItem)
 		return;
 
@@ -545,7 +548,7 @@ bool CMAutoConnector::mousePressedInitial(const EventInfo &eventInfo) {
 
 	delete m_connectorLine;
 
-	m_connectorLine = new QCanvasLine(p_canvas);
+	m_connectorLine = new Q3CanvasLine(p_canvas);
 	m_connectorLine->setPen(QColor(0, 0, 0));
 	m_connectorLine->setZ(ItemDocument::Z::ConnectorCreateLine);
 	m_connectorLine->show();
@@ -572,14 +575,14 @@ bool CMAutoConnector::mouseMoved(const EventInfo &eventInfo) {
 	m_connectorLine->setPoints(m_eventInfo.pos.x(), m_eventInfo.pos.y(), newX, newY);
 
 	if (movedFlag) {
-		QCanvasItem *startItem = 0;
+		Q3CanvasItem *startItem = 0;
 
 		if (p_startNode)
 			startItem = p_startNode;
 		else if (p_startConnector)
 			startItem = p_startConnector;
 
-		QCanvasItem *endItem = p_icnDocument->itemAtTop(QPoint(newX, newY));
+		Q3CanvasItem *endItem = p_icnDocument->itemAtTop(QPoint(newX, newY));
 
 		if (CNItem * cni = dynamic_cast<CNItem*>(endItem))
 			endItem = cni->getClosestNode(QPoint(newX, newY));
@@ -599,7 +602,7 @@ bool CMAutoConnector::mouseReleased(const EventInfo &eventInfo) {
 	delete m_connectorLine;
 	m_connectorLine = 0;
 
-	QCanvasItem *qcanvasItem = p_icnDocument->itemAtTop(end);
+	Q3CanvasItem *qcanvasItem = p_icnDocument->itemAtTop(end);
 
 	if (!qcanvasItem)
 		return true;
@@ -717,14 +720,14 @@ bool CMManualConnector::mouseMoved(const EventInfo &eventInfo) {
 	}
 
 	if (movedFlag) {
-		QCanvasItem *startItem = 0l;
+		Q3CanvasItem *startItem = 0l;
 
 		if (p_startNode)
 			startItem = p_startNode;
 		else if (p_startConnector)
 			startItem = p_startConnector;
 
-		QCanvasItem * endItem = p_icnDocument->itemAtTop(QPoint(newX, newY));
+		Q3CanvasItem * endItem = p_icnDocument->itemAtTop(QPoint(newX, newY));
 
 		// If the endItem is a node, we have to finish exactly on the end.
 		if (Node * node = dynamic_cast<Node*>(endItem)) {
@@ -1242,15 +1245,15 @@ bool CMMechItemMove::mouseReleased(const EventInfo &eventInfo) {
 }
 
 //BEGIN class SelectRectangle
-SelectRectangle::SelectRectangle(int x, int y, int w, int h, QCanvas *qcanvas)
+SelectRectangle::SelectRectangle(int x, int y, int w, int h, Q3Canvas *qcanvas)
 		: m_x(x), m_y(y) {
-	m_topLine = new QCanvasLine(qcanvas);
-	m_rightLine = new QCanvasLine(qcanvas);
-	m_bottomLine = new QCanvasLine(qcanvas);
-	m_leftLine = new QCanvasLine(qcanvas);
+	m_topLine = new Q3CanvasLine(qcanvas);
+	m_rightLine = new Q3CanvasLine(qcanvas);
+	m_bottomLine = new Q3CanvasLine(qcanvas);
+	m_leftLine = new Q3CanvasLine(qcanvas);
 	setSize(w, h);
 
-	QCanvasLine* lines[] = { m_topLine, m_rightLine, m_bottomLine, m_leftLine };
+	Q3CanvasLine* lines[] = { m_topLine, m_rightLine, m_bottomLine, m_leftLine };
 
 	for (int i = 0; i < 4; ++ i) {
 		lines[i]->setPen(QPen(QColor(190, 190, 190), 1, Qt::DotLine));
@@ -1275,8 +1278,8 @@ void SelectRectangle::setSize(int w, int h) {
 	m_h = h;
 }
 
-QCanvasItemList SelectRectangle::collisions() {
-	QCanvas *canvas = m_topLine->canvas();
+Q3CanvasItemList SelectRectangle::collisions() {
+	Q3Canvas *canvas = m_topLine->canvas();
 
 	return canvas->collisions(QRect(m_x, m_y, m_w, m_h));
 }
@@ -1409,8 +1412,8 @@ bool CMItemDrag::mouseReleased(const EventInfo &/*eventInfo*/) {
 }
 
 //BEGIN class CanvasEllipseDraw
-CanvasEllipseDraw::CanvasEllipseDraw(int x, int y, QCanvas * canvas)
-		: QCanvasEllipse(0, 0, canvas) {
+CanvasEllipseDraw::CanvasEllipseDraw(int x, int y, Q3Canvas * canvas)
+		: Q3CanvasEllipse(0, 0, canvas) {
 	move(x, y);
 }
 
@@ -1454,7 +1457,7 @@ bool CMDraw::mousePressedInitial(const EventInfo &eventInfo) {
 	case DrawPart::da_text:
 	case DrawPart::da_rectangle:
 	case DrawPart::da_image: {
-		m_pDrawRectangle = new QCanvasRectangle(eventInfo.pos.x(), eventInfo.pos.y(), 0, 0, p_canvas);
+		m_pDrawRectangle = new Q3CanvasRectangle(eventInfo.pos.x(), eventInfo.pos.y(), 0, 0, p_canvas);
 		m_pDrawRectangle->setPen(QPen(QColor(0, 0, 0), 1));
 		m_pDrawRectangle->setZ(ICNDocument::Z::ConnectorCreateLine);
 		m_pDrawRectangle->show();
@@ -1472,7 +1475,7 @@ bool CMDraw::mousePressedInitial(const EventInfo &eventInfo) {
 	case DrawPart::da_line:
 
 	case DrawPart::da_arrow: {
-		m_pDrawLine = new QCanvasLine(p_canvas);
+		m_pDrawLine = new Q3CanvasLine(p_canvas);
 		m_pDrawLine->setPoints(eventInfo.pos.x(), eventInfo.pos.y(), eventInfo.pos.x(), eventInfo.pos.y());
 		m_pDrawLine->setPen(QPen(QColor(0, 0, 0), 1));
 		m_pDrawLine->setZ(ICNDocument::Z::ConnectorCreateLine);
@@ -1611,8 +1614,8 @@ ManualConnectorDraw::ManualConnectorDraw(ICNDocument *_icnDocument, const QPoint
 	b_currentVertical = false;
 	b_orientationDefined = false;
 
-	m_connectorLines.append(m_previousCon = new QCanvasLine(icnDocument->canvas()));
-	m_connectorLines.append(m_currentCon = new QCanvasLine(icnDocument->canvas()));
+	m_connectorLines.append(m_previousCon = new Q3CanvasLine(icnDocument->canvas()));
+	m_connectorLines.append(m_currentCon = new Q3CanvasLine(icnDocument->canvas()));
 
 	m_currentCon->setPoints(initialPos.x(), initialPos.y(), initialPos.x(), initialPos.y());
 	m_previousCon->setPoints(initialPos.x(), initialPos.y(), initialPos.x(), initialPos.y());
@@ -1627,8 +1630,8 @@ ManualConnectorDraw::ManualConnectorDraw(ICNDocument *_icnDocument, const QPoint
 }
 
 ManualConnectorDraw::~ManualConnectorDraw() {
-	const QValueList<QCanvasLine*>::iterator end = m_connectorLines.end();
-	for (QValueList<QCanvasLine*>::iterator it = m_connectorLines.begin(); it != end; ++it)
+	const Q3ValueList<Q3CanvasLine*>::iterator end = m_connectorLines.end();
+	for (Q3ValueList<Q3CanvasLine*>::iterator it = m_connectorLines.begin(); it != end; ++it)
 		delete *it;
 
 	m_connectorLines.clear();
@@ -1637,8 +1640,8 @@ ManualConnectorDraw::~ManualConnectorDraw() {
 void ManualConnectorDraw::setColor(const QColor & color) {
 	m_color = color;
 
-	const QValueList<QCanvasLine*>::iterator end = m_connectorLines.end();
-	for (QValueList<QCanvasLine*>::iterator it = m_connectorLines.begin(); it != end; ++it)
+	const Q3ValueList<Q3CanvasLine*>::iterator end = m_connectorLines.end();
+	for (Q3ValueList<Q3CanvasLine*>::iterator it = m_connectorLines.begin(); it != end; ++it)
 		(*it)->setPen(m_color);
 }
 
@@ -1663,7 +1666,7 @@ void ManualConnectorDraw::mouseMoved(const QPoint &pos) {
 	updateConnectorEnds();
 }
 
-QCanvasItem* ManualConnectorDraw::mouseClicked(const QPoint &pos) {
+Q3CanvasItem* ManualConnectorDraw::mouseClicked(const QPoint &pos) {
 	if (b_orientationDefined)
 		b_currentVertical = !b_currentVertical;
 	else	mouseMoved(pos);
@@ -1671,14 +1674,14 @@ QCanvasItem* ManualConnectorDraw::mouseClicked(const QPoint &pos) {
 	b_orientationDefined = true;
 	m_currentPos = pos;
 
-	QCanvasItem *qcanvasItem = icnDocument->itemAtTop(pos);
+	Q3CanvasItem *qcanvasItem = icnDocument->itemAtTop(pos);
 
 	if (qcanvasItem && pos != m_initialPos && qcanvasItem != p_initialItem)
 		return qcanvasItem;
 
 	m_previousCon = m_currentCon;
 
-	m_connectorLines.append(m_currentCon = new QCanvasLine(icnDocument->canvas()));
+	m_connectorLines.append(m_currentCon = new Q3CanvasLine(icnDocument->canvas()));
 
 	m_currentCon->setPoints(pos.x(), pos.y(), pos.x(), pos.y());
 	m_currentCon->setPen(m_color);
@@ -1708,9 +1711,9 @@ QPointList ManualConnectorDraw::pointList() {
 	QPointList list;
 	list.append(m_initialPos);
 
-	const QValueList<QCanvasLine*>::iterator end = m_connectorLines.end();
+	const Q3ValueList<Q3CanvasLine*>::iterator end = m_connectorLines.end();
 
-	for (QValueList<QCanvasLine*>::iterator it = m_connectorLines.begin(); it != end; ++it) {
+	for (Q3ValueList<Q3CanvasLine*>::iterator it = m_connectorLines.begin(); it != end; ++it) {
 		list.append((*it)->endPoint());
 	}
 

@@ -10,10 +10,12 @@
 #ifndef VIEWCONTAINER_H
 #define VIEWCONTAINER_H
 
-#include <qdragobject.h>
+#include <q3dragobject.h>
 #include <qmap.h>
 #include <qsplitter.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
 
 class KTechlab;
 class View;
@@ -21,12 +23,12 @@ class ViewArea;
 class ViewContainer;
 
 class KConfig;
-class QHBoxLayout;
+class Q3HBoxLayout;
 class QLayout;
 class QSplitter;
 
 typedef QMap< uint, ViewArea* > ViewAreaMap;
-typedef QValueList<int> IntList;
+typedef Q3ValueList<int> IntList;
 
 /**
 Before a ViewAre has been given a view, this is shown.
@@ -108,7 +110,7 @@ protected slots:
 protected:
 	int m_id;
 	EmptyViewArea * m_pEmptyViewArea;
-	QGuardedPtr<View> p_view;
+	QPointer<View> p_view;
 	ViewArea *p_viewArea1;
 	ViewArea *p_viewArea2;
 	ViewContainer *p_viewContainer;

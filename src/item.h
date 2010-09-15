@@ -14,6 +14,9 @@
 #include "variant.h"
 
 #include <canvas.h>
+//Added by qt3to4:
+#include <Q3PointArray>
+#include <Q3ValueList>
 
 class Document;
 class EventInfo;
@@ -29,14 +32,14 @@ class QTimer;
 
 typedef Variant Property;
 typedef QMap<QString, Variant*> VariantDataMap;
-typedef QValueList<Item *> ItemList;
+typedef Q3ValueList<Item *> ItemList;
 
 /**
 @author David Saxton
 @author Daniel Clarke
 */
 
-class Item : public QObject, public QCanvasPolygon {
+class Item : public Q3CanvasPolygon {
 	Q_OBJECT
 
 public:
@@ -287,7 +290,7 @@ protected:
 	 * Set the rough bounding points for this item. Calls itemPointsChanged
 	 * after setting the points
 	 */
-	void setItemPoints(const QPointArray &pa, bool setSizeFromPoints = true);
+	void setItemPoints(const Q3PointArray &pa, bool setSizeFromPoints = true);
 	/**
 	 * Reinherit this function if you want to apply any sort of transformation
 	 * to the item points
@@ -305,7 +308,7 @@ protected:
 	QString m_type;
 	Item *p_parentItem; // If attached to a parent item
 	ItemList m_children;
-	QPointArray m_itemPoints; // The unorientated and unsized item points
+	Q3PointArray m_itemPoints; // The unorientated and unsized item points
 	QTimer * m_pPropertyChangedTimer; ///< Single show timer for one a property changes
 
 	friend class ItemLibrary;

@@ -17,7 +17,7 @@
 
 //BEGIN class ConnectorLine
 ConnectorLine::ConnectorLine(Connector *connector, int pixelOffset)
-		: QObject(connector), QCanvasLine(connector->canvas()) {
+		: QObject(connector), Q3CanvasLine(connector->canvas()) {
 	m_pConnector = connector;
 	m_pixelOffset = pixelOffset;
 }
@@ -41,7 +41,7 @@ int boundify(int x, int bound1, int bound2) {
 
 void ConnectorLine::drawShape(QPainter &p) {
 	if (!m_bAnimateCurrent) {
-		QCanvasLine::drawShape(p);
+		Q3CanvasLine::drawShape(p);
 		return;
 	}
 

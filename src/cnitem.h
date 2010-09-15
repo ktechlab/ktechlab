@@ -15,6 +15,8 @@
 
 #include "item.h"
 #include "ciwidgetmgr.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 
 class Button;
 class CNItem;
@@ -26,7 +28,7 @@ class Node;
 class QSlider;
 class QString;
 class QToolButton;
-class QWMatrix;
+class QMatrix;
 class Slider;
 class Text;
 
@@ -188,7 +190,7 @@ protected:
 	QColor m_selectedCol;
 	bool b_pointsAdded;
 };
-typedef QValueList<CNItem*> CNItemList;
+typedef Q3ValueList<CNItem*> CNItemList;
 
 #endif
 

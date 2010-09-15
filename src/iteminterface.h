@@ -11,7 +11,7 @@
 #ifndef ITEMINTERFACE_H
 #define ITEMINTERFACE_H
 
-#include <qguardedptr.h>
+#include <qpointer.h>
 
 class CNItemGroup;
 class DoubleSpinBox;
@@ -116,7 +116,7 @@ class ItemInterface : public QObject
 		QCheckBoxMap m_boolCheckMap;
 		
 		// Use by item editor toolbar
-		QGuardedPtr<KToolBar> m_pActiveItemEditorToolBar;
+		QPointer<KToolBar> m_pActiveItemEditorToolBar;
 		int m_toolBarWidgetID;
 		
 		
@@ -127,8 +127,8 @@ class ItemInterface : public QObject
 		ItemInterface();
 		static ItemInterface *m_pSelf;
 	
-		QGuardedPtr<ItemDocument> p_cvb;
-		QGuardedPtr<ItemGroup> p_itemGroup;
+		QPointer<ItemDocument> p_cvb;
+		QPointer<ItemGroup> p_itemGroup;
 		Item *p_lastItem;
 		int m_currentActionTicket;
 };

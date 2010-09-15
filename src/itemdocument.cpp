@@ -19,11 +19,15 @@
 
 #include <qtimer.h>
 #include <qcheckbox.h>
-#include <qpicture.h>
-#include <qpaintdevicemetrics.h>
+#include <q3picture.h>
+#include <q3paintdevicemetrics.h>
 #include <qclipboard.h>
 #include <qregexp.h>
 #include <qimage.h>
+//Added by qt3to4:
+#include <Q3PtrList>
+#include <QPixmap>
+#include <Q3PopupMenu>
 
 #include "itemdocument.h"
 #include "itemdocumentdata.h"
@@ -103,7 +107,7 @@ void ItemDocument::handleNewView(View * view) {
 	requestEvent(ItemDocument::ItemDocumentEvent::ResizeCanvasToItems);
 }
 
-bool ItemDocument::registerItem(QCanvasItem *qcanvasItem) {
+bool ItemDocument::registerItem(Q3CanvasItem *qcanvasItem) {
 	if (!qcanvasItem) return false;
 
 	requestEvent(ItemDocument::ItemDocumentEvent::ResizeCanvasToItems);
@@ -223,7 +227,7 @@ void ItemDocument::print() {
 	p.begin(printer);
 
 	// we let our view do the actual printing
-	QPaintDeviceMetrics metrics(printer);
+	Q3PaintDeviceMetrics metrics(printer);
 
 	// Round to 16 so that we cut in the middle of squares
 	int w = metrics.width();
@@ -412,22 +416,22 @@ void ItemDocument::unselectAll() {
 	selectList()->removeAllItems();
 }
 
-void ItemDocument::select(QCanvasItem *item) {
+void ItemDocument::select(Q3CanvasItem *item) {
 	if (!item) return;
 
 	item->setSelected(selectList()->contains(item) || selectList()->addQCanvasItem(item));
 }
 
-void ItemDocument::select(const QCanvasItemList &list) {
-	const QCanvasItemList::const_iterator end = list.end();
+void ItemDocument::select(const Q3CanvasItemList &list) {
+	const Q3CanvasItemList::const_iterator end = list.end();
 
-	for (QCanvasItemList::const_iterator it = list.begin(); it != end; ++it)
+	for (Q3CanvasItemList::const_iterator it = list.begin(); it != end; ++it)
 		selectList()->addQCanvasItem(*it);
 
 	selectList()->setSelected(true);
 }
 
-void ItemDocument::unselect(QCanvasItem *qcanvasItem) {
+void ItemDocument::unselect(Q3CanvasItem *qcanvasItem) {
 	selectList()->removeQCanvasItem(qcanvasItem);
 	qcanvasItem->setSelected(false);
 }
@@ -437,13 +441,13 @@ void ItemDocument::slotUpdateConfiguration() {
 	m_canvas->setUpdatePeriod(int(1000. / KTLConfig::refreshRate()));
 }
 
-QCanvasItem *ItemDocument::itemAtTop(const QPoint &pos) const {
-	QCanvasItemList list = m_canvas->collisions(QRect(pos.x() - 1, pos.y() - 1, 3, 3));
-	QCanvasItemList::const_iterator it = list.begin();
-	const QCanvasItemList::const_iterator end = list.end();
+Q3CanvasItem *ItemDocument::itemAtTop(const QPoint &pos) const {
+	Q3CanvasItemList list = m_canvas->collisions(QRect(pos.x() - 1, pos.y() - 1, 3, 3));
+	Q3CanvasItemList::const_iterator it = list.begin();
+	const Q3CanvasItemList::const_iterator end = list.end();
 
 	while (it != end) {
-		QCanvasItem *item = *it;
+		Q3CanvasItem *item = *it;
 
 		if (!dynamic_cast<Item*>(item) &&
 		        !dynamic_cast<ConnectorLine*>(item) &&
@@ -522,7 +526,7 @@ QString ItemDocument::generateUID(QString name) {
 	return idAttempt;
 }
 
-void ItemDocument::canvasRightClick(const QPoint &pos, QCanvasItem* item) {
+void ItemDocument::canvasRightClick(const QPoint &pos, Q3CanvasItem* item) {
 	if (item) {
 		if (dynamic_cast<CNItem*>(item) &&
 		        !item->isSelected()) {
@@ -535,7 +539,7 @@ void ItemDocument::canvasRightClick(const QPoint &pos, QCanvasItem* item) {
 	KTechlab::self()->unplugActionList("orientation_actionlist");
 	fillContextMenu(pos);
 
-	QPopupMenu *pop = static_cast<QPopupMenu*>(KTechlab::self()->factory()->container("item_popup", KTechlab::self()));
+	Q3PopupMenu *pop = static_cast<Q3PopupMenu*>(KTechlab::self()->factory()->container("item_popup", KTechlab::self()));
 
 	if (!pop) return;
 
@@ -567,7 +571,7 @@ void ItemDocument::fillContextMenu(const QPoint & pos) {
 		m_pAlignmentAction->insert(align_actions[i]);
 	}
 
-	QPtrList<KAction> alignment_actions;
+	Q3PtrList<KAction> alignment_actions;
 
 	alignment_actions.append(m_pAlignmentAction);
 	KTechlab::self()->plugActionList("alignment_actionlist", alignment_actions);
@@ -704,8 +708,8 @@ void ItemDocument::updateItemViewScrollbars() {
 		ItemView *itemView = static_cast<ItemView*>((View*) * it);
 		CVBEditor *cvbEditor = itemView->cvbEditor();
 
-		cvbEditor->setVScrollBarMode(((h*itemView->zoomLevel()) > cvbEditor->visibleHeight()) ? QScrollView::AlwaysOn : QScrollView::AlwaysOff);
-		cvbEditor->setHScrollBarMode(((w*itemView->zoomLevel()) > cvbEditor->visibleWidth()) ? QScrollView::AlwaysOn : QScrollView::AlwaysOff);
+		cvbEditor->setVScrollBarMode(((h*itemView->zoomLevel()) > cvbEditor->visibleHeight()) ? Q3ScrollView::AlwaysOn : Q3ScrollView::AlwaysOff);
+		cvbEditor->setHScrollBarMode(((w*itemView->zoomLevel()) > cvbEditor->visibleWidth()) ? Q3ScrollView::AlwaysOn : Q3ScrollView::AlwaysOff);
 	}
 }
 
@@ -721,9 +725,9 @@ QRect ItemDocument::canvasBoundingRect() const {
 		if (dragItem) break;
 	}
 
-	const QCanvasItemList allItems = canvas()->allItems();
-	const QCanvasItemList::const_iterator end = allItems.end();
-	for (QCanvasItemList::const_iterator it = allItems.begin(); it != end; ++it) {
+	const Q3CanvasItemList allItems = canvas()->allItems();
+	const Q3CanvasItemList::const_iterator end = allItems.end();
+	for (Q3CanvasItemList::const_iterator it = allItems.begin(); it != end; ++it) {
 		if (!(*it)->isVisible()) continue;
 
 		if (dragItem) {
@@ -837,7 +841,7 @@ void ItemDocument::exportToImage() {
 		outputImage = new QPixmap(saveArea.size());
 	else if (type == "SVG") {
 		setSVGExport(true);
-		outputImage = new QPicture();
+		outputImage = new Q3Picture();
 		// svg can't be cropped using the qimage method.
 		saveArea = cropArea;
 	} else {
@@ -860,7 +864,7 @@ void ItemDocument::exportToImage() {
 
 	if (cropCheck->isChecked()) {
 		if (type == "SVG")
-			saveResult = dynamic_cast<QPicture*>(outputImage)->save(url.path(), type);
+			saveResult = dynamic_cast<Q3Picture*>(outputImage)->save(url.path(), type);
 		else {
 			QImage img = dynamic_cast<QPixmap*>(outputImage)->convertToImage();
 			img = img.copy(cropArea);
@@ -868,7 +872,7 @@ void ItemDocument::exportToImage() {
 		}
 	} else {
 		if (type == "SVG")
-			saveResult = dynamic_cast<QPicture*>(outputImage)->save(url.path(), type);
+			saveResult = dynamic_cast<Q3Picture*>(outputImage)->save(url.path(), type);
 		else	saveResult = dynamic_cast<QPixmap*>(outputImage)->save(url.path(), type);
 	}
 
@@ -885,10 +889,10 @@ void ItemDocument::exportToImage() {
 
 void ItemDocument::setSVGExport(bool svgExport) {
 	// Find any items and tell them not to draw buttons or sliders
-	QCanvasItemList items = m_canvas->allItems();
-	const QCanvasItemList::iterator end = items.end();
+	Q3CanvasItemList items = m_canvas->allItems();
+	const Q3CanvasItemList::iterator end = items.end();
 
-	for (QCanvasItemList::Iterator it = items.begin(); it != end; ++it) {
+	for (Q3CanvasItemList::Iterator it = items.begin(); it != end; ++it) {
 		if (CNItem * cnItem = dynamic_cast<CNItem*>(*it))
 			cnItem->setDrawWidgets(!svgExport);
 	}
