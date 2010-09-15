@@ -16,4 +16,4 @@ X-KDevelop-Mode=GUI
 X-KDevelop-SupportedMimeTypes=application/x-circuit
 X-KDevelop-IRequired=org.kdevelop.IDocument
 X-KDevelop-Interfaces=org.ktechlab.IComponent
-
+X-KDevelop-LoadMode=UserSelectable
