@@ -9,6 +9,7 @@
 #include "cccs.h"
 #include "ccvs.h"
 #include "currentsignal.h"
+#include "currentsource.h"
 
 #include "qdebug.h"
 
@@ -27,12 +28,14 @@ void SimulatorTest::createTest(){
     CCCS *cccs1 = new CCCS( 2.0 );
     CCVS *ccvs1 = new CCVS( 1.5 );
     CurrentSignal *i1 = new CurrentSignal(1e-6, 1e-3);
+    CurrentSource *i2 = new CurrentSource(2e-3);
     
     circ->addElement(q1);
     circ->addElement(c1);
     circ->addElement(cccs1);
     circ->addElement(ccvs1);
     circ->addElement(i1);
+    circ->addElement(i2);
 
     circ->init();
     sim->attachCircuit(circ);
