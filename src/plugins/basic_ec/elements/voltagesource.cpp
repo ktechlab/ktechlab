@@ -14,10 +14,11 @@
 #include <QStringList>
 
 using namespace KTechLab;
+#include "helper.h"
 
 VoltageSource::VoltageSource(QVariantMap parent):
     IElement(parent, 2, 2, 1,
-                QString("p1,n1").split(",") )
+                pinListFromParent(parent) )
 {
     m_v = 5;
 }
