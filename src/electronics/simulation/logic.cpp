@@ -13,15 +13,22 @@
 #include "elementset.h"
 #include "logic.h"
 #include "simulator.h"
-#include "src/core/ktlconfig.h"
+// #include "src/core/ktlconfig.h"
 
 //BEGIN class LogicConfig
 LogicConfig::LogicConfig() {
+/*
 	risingTrigger = KTLConfig::logicRisingTrigger();
 	fallingTrigger = KTLConfig::logicFallingTrigger();
 	output = KTLConfig::logicOutputHigh();
 	highImpedance = KTLConfig::logicOutputHighImpedance();
 	lowImpedance = KTLConfig::logicOutputLowImpedance();
+	*/
+risingTrigger = 2.5;
+fallingTrigger = 2;
+output = 5;
+highImpedance = 15;
+lowImpedance = 0;
 }
 //END class LogicConfig
 
