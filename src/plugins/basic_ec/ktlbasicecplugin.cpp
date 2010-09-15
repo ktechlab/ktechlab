@@ -29,7 +29,7 @@ K_PLUGIN_FACTORY(KTLBasicECPluginFactory, registerPlugin<KTLBasicECPlugin>(); )
 K_EXPORT_PLUGIN(KTLBasicECPluginFactory(KAboutData("ktlbasic_ec","ktlbasic_ec", ki18n("KTechLab Basic Electronic Components"), "0.1", ki18n("Provide a set of basic electronic components"), KAboutData::License_LGPL)))
 
 
-class KTechLab::KTLBasicECFactory: public IComponentFactory
+class KTechLab::KTLBasicECFactory: public IComponentFactory, public GenericElementFactory
 {
 public:
     KTLBasicECFactory()
@@ -45,15 +45,16 @@ public:
         return 0;
     }
 
+protected:
+    virtual IElement * createOrRegister(bool create, const QByteArray& type,
+                                        QVariantMap parentInModel = QVariantMap())
+    {
+        SUPPORT_ELEMENT(Resistance,"ec/resistor")
+        SUPPORT_ELEMENT(Capacitance,"ec/capacitor")
+        SUPPORT_ELEMENT(VoltageSource,"ec/voltagesource")
+        return 0;
+    }
 };
-
-DECLARE_ELEMENT_FACTORY(
-    BasicElementFactory,
-    SUPPORT_ELEMENT(Resistance)
-    SUPPORT_ELEMENT(Capacitance)
-    SUPPORT_ELEMENT(VoltageSource)
-    );
-
 
 KTLBasicECPlugin::KTLBasicECPlugin( QObject *parent, const QVariantList& args )
     :   IComponentPlugin( KTLBasicECPluginFactory::componentData(), parent ),
@@ -70,20 +71,18 @@ void KTLBasicECPlugin::init()
       return;
     }
     plugin->registerComponentFactory( m_componentFactory );
-    m_basicElementFactory = new BasicElementFactory();
-    ISimulationManager::self()->registerElementFactory(m_basicElementFactory);
+    ISimulationManager::self()->registerElementFactory(m_componentFactory);
 }
 
 KTLBasicECPlugin::~KTLBasicECPlugin()
 {
     delete m_componentFactory;
-    delete m_basicElementFactory;
 }
 
 void KTLBasicECPlugin::unload()
 {
     //me be, we should unregister our components at the circuit-plugin
-    ISimulationManager::self()->unregisterElementFactory(m_basicElementFactory);
+    ISimulationManager::self()->unregisterElementFactory(m_componentFactory);
 }
 
 #include "ktlbasicecplugin.moc"

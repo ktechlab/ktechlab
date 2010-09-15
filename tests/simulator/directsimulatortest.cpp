@@ -34,12 +34,18 @@
 using namespace KTechLab;
 
 
-DECLARE_ELEMENT_FACTORY(
-    TestElementFactory,
-    SUPPORT_ELEMENT(Resistance)
-    SUPPORT_ELEMENT(Capacitance)
-    SUPPORT_ELEMENT(VoltageSource)
-    );
+class TestElementFactory : public GenericElementFactory
+{
+protected:
+    virtual IElement * createOrRegister(bool create, const QByteArray& type,
+                                        QVariantMap parentInModel = QVariantMap())
+    {
+        SUPPORT_ELEMENT(Resistance,"Resistance")
+        SUPPORT_ELEMENT(Capacitance,"Capacitance")
+        SUPPORT_ELEMENT(VoltageSource,"VoltageSource")
+        return 0;
+    }
+};
 
 TestElementFactory *fact;
 
