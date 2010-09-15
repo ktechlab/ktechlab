@@ -21,6 +21,7 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/src/electronics
     ${CMAKE_CURRENT_SOURCE_DIR}/src/electronics/components
     ${CMAKE_CURRENT_SOURCE_DIR}/src/electronics/simulation
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/flowparts
     ${CMAKE_CURRENT_SOURCE_DIR}/src/math/
     ${CMAKE_CURRENT_SOURCE_DIR}/src/micro/
     ${CMAKE_CURRENT_SOURCE_DIR}/src/physics
@@ -39,7 +40,8 @@ CONFIGURE_FILE(
 
 
 set( CompileSimulator_SRCS
-${CMAKE_SOURCE_DIR}/src/simulator.cpp
+# ${CMAKE_SOURCE_DIR}/src/electronics/gpsimprocessor.cpp
+ ${CMAKE_SOURCE_DIR}/src/simulator.cpp
 )
 
 add_executable( CompiledSimulator
