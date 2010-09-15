@@ -14,7 +14,7 @@
 #ifndef DEBUGMANAGER_H
 #define DEBUGMANAGER_H
 
-#include <qguardedptr.h>
+// #include <qguardedptr.h>
 #include <qmap.h>
 #include <qobject.h>
 
