@@ -45,6 +45,7 @@ ADD_DEFINITIONS(-DQT3_SUPPORT)
 set( CompileSimulator_SRCS
 # ${CMAKE_SOURCE_DIR}/src/electronics/gpsimprocessor.cpp
  ${CMAKE_SOURCE_DIR}/src/simulator.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/simulation/logic.cpp
 )
 
 qt4_automoc(${CompileSimulator_SRCS})
