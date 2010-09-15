@@ -5,7 +5,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
 cmake_minimum_required(VERSION 2.6)
 
 find_package(Qt4 REQUIRED)
-find_package(GLIB REQUIRED)
+# find_package(GLIB REQUIRED)
 
 set( CMAKE_REQUIRED_FLAGS
     -fexceptions
@@ -41,9 +41,11 @@ CONFIGURE_FILE(
 # add_subdirectory( testing )
 
 ADD_DEFINITIONS(-DQT3_SUPPORT)
+ADD_DEFINITIONS(-DNO_GPSIM)
 
 set( CompileSimulator_SRCS
-# ${CMAKE_SOURCE_DIR}/src/electronics/gpsimprocessor.cpp
+ ${CMAKE_SOURCE_DIR}/testing/simulatortest.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/gpsimprocessor.cpp
  ${CMAKE_SOURCE_DIR}/src/simulator.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/logic.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/element.cpp
@@ -54,6 +56,7 @@ set( CompileSimulator_SRCS
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/circuit.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/pin.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/wire.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/gpsimprocessor.cpp
 )
 
 qt4_automoc(${CompileSimulator_SRCS})
