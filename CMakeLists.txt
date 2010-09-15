@@ -4,6 +4,8 @@ set( VERSION 0.5.0 )
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
 cmake_minimum_required(VERSION 2.6)
 
+set(CMAKE_BUILD_TYPE debug)
+
 find_package(Qt4 REQUIRED)
 # find_package(GLIB REQUIRED)
 
