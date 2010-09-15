@@ -1,10 +1,18 @@
-#include "qdebug.h"
+
+// hack the C++ access control
+#define private public
 #include "simulator.h"
+#undef private
 
 #include "bjt.h"
 #include "capacitance.h"
 
-int main(void){
+#include "qdebug.h"
+
+#include "simulatortest.h"
+
+void SimulatorTest::createTest(){
+
     Simulator * sim = Simulator::self();
 
     sim->slotSetSimulating(false);
@@ -19,6 +27,14 @@ int main(void){
 
     sim->attachCircuit(circ);
 
-    qDebug() << "simulator: " << sim << "\n";
+    qDebug() << "simulator: " << sim;
+
+    sim->step();
+    sim->step();
+    sim->step();
 }
+
+
+QTEST_MAIN(SimulatorTest)
+#include "simulatortest.moc"
 
