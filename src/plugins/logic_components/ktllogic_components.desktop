@@ -1,0 +1,20 @@
+[Desktop Entry]
+Type=Service
+Exec=blubb
+Comment=This plugin provides logic components to KTechLab
+Name=KTechLab Logic Components
+GenericName=KTechLab Logic Components
+ServiceTypes=KTechLab/Plugin
+X-KDE-Library=ktllogic_components
+X-KDE-PluginInfo-Name=ktllogic
+X-KDE-PluginInfo-Author=Julian Bäume
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-License=LGPL
+X-KDevelop-Version=9
+X-KDevelop-Category=Global
+X-KDevelop-Mode=GUI
+X-KDevelop-SupportedMimeTypes=application/x-circuit
+X-KDevelop-IRequired=org.kdevelop.IDocument
+X-KDevelop-Interfaces=org.ktechlab.IComponent
+X-KDevelop-LoadMode=UserSelectable
+
