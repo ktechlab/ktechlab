@@ -11,6 +11,7 @@
 #include "currentsignal.h"
 #include "currentsource.h"
 #include "diode.h"
+#include "inductance.h"
 
 #include "qdebug.h"
 
@@ -31,6 +32,7 @@ void SimulatorTest::createTest(){
     CurrentSignal *i1 = new CurrentSignal(1e-6, 1e-3);
     CurrentSource *i2 = new CurrentSource(2e-3);
     Diode *d1 = new Diode();
+    Inductance *l1 = new Inductance(1e-6, 1e-9);
     
     circ->addElement(q1);
     circ->addElement(c1);
@@ -39,6 +41,7 @@ void SimulatorTest::createTest(){
     circ->addElement(i1);
     circ->addElement(i2);
     circ->addElement(d1);
+    circ->addElement(l1);
 
     circ->init();
     sim->attachCircuit(circ);
