@@ -14,6 +14,7 @@
 #include <QStringList>
 
 using namespace KTechLab;
+#include "helper.h"
 
 /*
 KTechLab::Capacitance::Capacitance() :
@@ -24,7 +25,7 @@ KTechLab::Capacitance::Capacitance() :
 */
 KTechLab::Capacitance::Capacitance(QVariantMap parentInModel) :
     IElement(parentInModel, 2, 2, 0,
-             QString("n1,p1").split(",") )
+             pinListFromParent(parentInModel) )
 {
     // TODO implement
 }
