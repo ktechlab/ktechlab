@@ -13,7 +13,7 @@
 
 #include <ostream>
 
-#include "qmatrix.h"
+#include "quickmatrix.h"
 
 /**
 This class performs matrix storage, lu decomposition, forward and backward
