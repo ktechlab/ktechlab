@@ -16,10 +16,11 @@
 #include <QStringList>
 
 using namespace KTechLab;
+#include "helper.h"
 
 Resistance::Resistance(QVariantMap parentInModel) :
     IElement(parentInModel, 2, 2, 0,
-             QString("n1,p1").split(",")) // it's a little hacky, but it works
+             pinListFromParent(parentInModel))
 {
     double resistance = 1; // 1 ohm, be default
     // FIXME, get the data for the resistance, from the model
