@@ -44,7 +44,7 @@ class DummyElementFactory : public IElementFactory {
     /**
      * \return the type simulation where this factory can create IElements
      */
-    virtual const QString simulationType() const {
+    virtual QString simulationType() const {
       return m_simType;
     }
 
@@ -52,7 +52,7 @@ class DummyElementFactory : public IElementFactory {
      * \return the name of the document mimetype, for which the factory can
      * create IElements
      */
-    virtual const QString supportedDocumentMimeTypeName() const {
+    virtual QString supportedDocumentMimeTypeName() const {
       return m_docMimetype;
     }
 
@@ -61,7 +61,7 @@ class DummyElementFactory : public IElementFactory {
      * create components
      */
     // FIXME element vs component
-    virtual const QList<QString> supportedComponentTypeIds() const {
+    virtual QList<QString> supportedComponentTypeIds() const {
 
         return m_componentList;
     }
@@ -72,7 +72,7 @@ class DummyElementFactory : public IElementFactory {
      * \return the model of the componen, of NULL, if the component is not
      * supported
      */
-    virtual IElement * createElement(QString type, QVariantMap parent = QVariantMap()){
+    virtual IElement * createElement(const QByteArray& type, QVariantMap parent = QVariantMap()){
       if( type == "dummy-element" )
         return new DummyElement();
       return NULL;
