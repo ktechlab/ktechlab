@@ -60,11 +60,13 @@ set( CompileSimulator_SRCS
  # support for elements
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/nonlinear.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/reactive.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/simulation/elementsignal.cpp
  # elements
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/bjt.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/capacitance.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/cccs.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/ccvs.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/simulation/currentsignal.cpp
 )
 
 qt4_automoc(${CompileSimulator_SRCS})
