@@ -70,6 +70,7 @@ set( CompileSimulator_SRCS
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/ccvs.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/currentsignal.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/currentsource.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/simulation/diode.cpp
 )
 
 qt4_automoc(${CompileSimulator_SRCS})
