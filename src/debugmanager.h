@@ -9,6 +9,8 @@
  ***************************************************************************/
 
 #include "config.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 #ifndef NO_GPSIM
 
 #ifndef DEBUGMANAGER_H
@@ -21,7 +23,7 @@
 class GpsimProcessor;
 class TextDocument;
 
-typedef QValueList< QGuardedPtr<GpsimProcessor> > GpsimProcessorList;
+typedef Q3ValueList< QPointer<GpsimProcessor> > GpsimProcessorList;
 
 /**
 @author David Saxton

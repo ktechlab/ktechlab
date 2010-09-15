@@ -13,8 +13,12 @@
 #include "eventinfo.h"
 
 #include <kdebug.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QWheelEvent>
+#include <QMouseEvent>
 
-CIWidgetMgr::CIWidgetMgr( QCanvas *canvas, CNItem *item )
+CIWidgetMgr::CIWidgetMgr( Q3Canvas *canvas, CNItem *item )
 {
 	p_cnItem = item;
 	p_canvas = canvas;

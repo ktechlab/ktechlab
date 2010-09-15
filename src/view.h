@@ -14,9 +14,14 @@
 #include <kstatusbar.h>
 #include <kurl.h>
 #include <kxmlguiclient.h>
-#include <qguardedptr.h>
+#include <qpointer.h>
 #include <qpixmap.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <QEvent>
+#include <Q3VBoxLayout>
+#include <QLabel>
+#include <QPaintEvent>
 
 class DCOPObject;
 class Document;
@@ -25,7 +30,7 @@ class KTechlab;
 class View;
 class ViewContainer;
 class ViewIface;
-class QVBoxLayout;
+class Q3VBoxLayout;
 
 class ViewStatusBar : public KStatusBar
 {
@@ -140,11 +145,11 @@ protected:
 	 */
 	void setFocusWidget( QWidget * focusWidget );
 	
-	QGuardedPtr<Document> m_pDocument;
-	QGuardedPtr<ViewContainer> p_viewContainer;
+	QPointer<Document> m_pDocument;
+	QPointer<ViewContainer> p_viewContainer;
 	uint m_viewAreaId;
 	ViewStatusBar * m_statusBar;
-	QVBoxLayout * m_layout;
+	Q3VBoxLayout * m_layout;
 	ViewIface * m_pViewIface;
 	unsigned m_dcopID;
 	QWidget * m_pFocusWidget;

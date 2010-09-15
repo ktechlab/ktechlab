@@ -38,7 +38,7 @@ public:
      * given QCanvasItems (either nodes or connectors or both) can be
      * connected together.
      */
-    virtual bool canConnect(QCanvasItem *qcanvasItem1, QCanvasItem *qcanvasItem2) const;
+    virtual bool canConnect(Q3CanvasItem *qcanvasItem1, Q3CanvasItem *qcanvasItem2) const;
 
     /**
      * Splits Connector con into two connectors at point pos2, and creates a connector from the node
@@ -88,7 +88,7 @@ public:
      * @param qcanvasItem the item to be registered
      * @return true if succeeded, false if it didn't
      */
-    virtual bool registerItem(QCanvasItem *qcanvasItem);
+    virtual bool registerItem(Q3CanvasItem *qcanvasItem);
     virtual void unregisterUID(const QString & uid);
     virtual NodeList nodeList() const;
 

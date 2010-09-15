@@ -16,6 +16,8 @@
 #include "itemdocument.h"
 
 #include <qmap.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 class Cells;
 class CNItem;
@@ -26,9 +28,9 @@ class NodeGroup;
 
 typedef QMap< QString, Node* > NodeMap;
 typedef std::set<Connector *> ConnectorList;
-typedef QValueList<Node *> NodeList;
-typedef QValueList<NodeGroup*> NodeGroupList;
-typedef QValueList<QPoint> QPointList;
+typedef Q3ValueList<Node *> NodeList;
+typedef Q3ValueList<NodeGroup*> NodeGroupList;
+typedef Q3ValueList<QPoint> QPointList;
 
 // TODO Refactor:
 class FlowContainer;
@@ -79,7 +81,7 @@ public:
 	 * Adds a QCanvasItem to the delete list to be deleted,
 	 * when flushDeleteList() is called
 	 */
-	virtual void appendDeleteList(QCanvasItem *qcanvasItem);
+	virtual void appendDeleteList(Q3CanvasItem *qcanvasItem);
 	/**
 	 * Permantly deletes all items that have been added to the delete list with
 	 * the appendDeleteList( QCanvasItem *qcanvasItem ) function.
@@ -90,7 +92,7 @@ public:
 	 * given QCanvasItems (either nodes or connectors or both) can be
 	 * connected together.
 	 */
-	virtual bool canConnect(QCanvasItem *qcanvasItem1, QCanvasItem *qcanvasItem2) const;
+	virtual bool canConnect(Q3CanvasItem *qcanvasItem1, Q3CanvasItem *qcanvasItem2) const;
 	/**
 	 *        copies the selected items to the clipboard, in an XML text form
 	 */
@@ -105,7 +107,7 @@ public:
 	 * @param qcanvasItem the item to be registered
 	 * @return true if succeeded, false if it didn't
 	 */
-	virtual bool registerItem(QCanvasItem *qcanvasItem);
+	virtual bool registerItem(Q3CanvasItem *qcanvasItem);
 	/**
 	 * Returns a pointer to the 2-dimension array of ICNDocument cells.
 	 */
@@ -271,7 +273,7 @@ protected:
 	CNItemGroup *m_selectList; // Selected objects
 
 	// OVERLOADED
-	QCanvasItemList m_itemDeleteList; // List of canvas items to be deleted
+	Q3CanvasItemList m_itemDeleteList; // List of canvas items to be deleted
 
 	NodeGroupList m_nodeGroupList;
 private:

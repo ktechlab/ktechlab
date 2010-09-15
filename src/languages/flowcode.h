@@ -16,15 +16,15 @@
 #include <qobject.h>
 #include <qstring.h>
 #include <qstringlist.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 
 class CNItem;
 class FlowPart;
 class Item;
 class MicroSettings;
 
-typedef QValueList<FlowPart*> FlowPartList;
-typedef QValueList<Item *> ItemList;
+typedef Q3ValueList<FlowPart*> FlowPartList;
+typedef Q3ValueList<Item *> ItemList;
 
 /**
 "FlowCode" can possibly be considered a misnomer, as the output is actually Microbe.

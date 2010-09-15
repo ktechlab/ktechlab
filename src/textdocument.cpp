@@ -32,6 +32,9 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <ktempfile.h>
+//Added by qt3to4:
+#include <Q3PtrList>
+#include <QPixmap>
 
 
 TextDocument *TextDocument::constructTextDocument( const QString& caption, const char *name )
@@ -570,7 +573,7 @@ IntList TextDocument::bookmarkList() const
 {
 	IntList bookmarkList;
 	
-	typedef QPtrList<KTextEditor::Mark> MarkList;
+	typedef Q3PtrList<KTextEditor::Mark> MarkList;
 	MarkList markList = m_doc->marks();
 	
 	// Find out what marks need adding to our internal lists
@@ -600,7 +603,7 @@ void TextDocument::slotUpdateMarksInfo()
 	KTechlab::self()->unplugActionList("bookmark_actionlist");
 	m_bookmarkActions.clear();
 	
-	QPtrList<KTextEditor::Mark> markList = m_doc->marks();
+	Q3PtrList<KTextEditor::Mark> markList = m_doc->marks();
 	
 	// Find out what marks need adding to our internal lists
 	for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
@@ -647,7 +650,7 @@ void TextDocument::setBookmarks( const IntList &lines )
 
 void TextDocument::clearBookmarks()
 {
-	QPtrList<KTextEditor::Mark> markList = m_doc->marks();
+	Q3PtrList<KTextEditor::Mark> markList = m_doc->marks();
 	
 	// Find out what marks need adding to our internal lists
 	for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
@@ -686,7 +689,7 @@ IntList TextDocument::breakpointList() const
 	IntList breakpointList;
 	
 #ifndef NO_GPSIM
-	typedef QPtrList<KTextEditor::Mark> MarkList;
+	typedef Q3PtrList<KTextEditor::Mark> MarkList;
 	MarkList markList = m_doc->marks();
 	
 	// Find out what marks need adding to our internal lists
@@ -892,7 +895,7 @@ void TextDocument::slotDebuggerDestroyed()
 #ifndef NO_GPSIM
 void TextDocument::clearBreakpoints()
 {
-	QPtrList<KTextEditor::Mark> markList = m_doc->marks();
+	Q3PtrList<KTextEditor::Mark> markList = m_doc->marks();
 	
 	// Find out what marks need adding to our internal lists
 	for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
@@ -916,7 +919,7 @@ void TextDocument::syncBreakpoints()
 	
 	b_lockSyncBreakpoints = true;
 	
-	typedef QPtrList<KTextEditor::Mark> MarkList;
+	typedef Q3PtrList<KTextEditor::Mark> MarkList;
 	MarkList markList = m_doc->marks();
 	
 	IntList bpList;

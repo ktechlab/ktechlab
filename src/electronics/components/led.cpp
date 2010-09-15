@@ -17,6 +17,8 @@
 
 #include <klocale.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 
 Item* LED::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
 	return new LED((ICNDocument*)itemDocument, newItem, id);
@@ -84,7 +86,7 @@ void LED::drawShape(QPainter &p) {
 	                  uint(255 - (255 - _b) * (1 - g)),
 	                  uint(255 - (255 - _b) * (1 - b))));
 
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 	pa[0] = QPoint(8,  0);
 	pa[1] = QPoint(-8, -8);
 	pa[2] = QPoint(-8,  8);

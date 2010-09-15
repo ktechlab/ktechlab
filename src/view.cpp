@@ -21,6 +21,12 @@
 #include <ksqueezedtextlabel.h>
 
 #include <qapplication.h>
+//Added by qt3to4:
+#include <Q3CString>
+#include <QFocusEvent>
+#include <QLabel>
+#include <QEvent>
+#include <Q3VBoxLayout>
 
 
 #include <cassert>
@@ -37,7 +43,7 @@ View::View( Document *document, ViewContainer *viewContainer, uint viewAreaId, c
 	p_viewContainer = viewContainer;
 	m_pViewIface = 0l;
 	
-	setFocusPolicy( ClickFocus );
+	setFocusPolicy( Qt::ClickFocus );
 	
 	if ( ViewArea * viewArea = viewContainer->viewArea(viewAreaId) )
 		viewArea->setView(this);
@@ -45,7 +51,7 @@ View::View( Document *document, ViewContainer *viewContainer, uint viewAreaId, c
 	else
 		kdDebug() << k_funcinfo << " viewArea = " << viewArea <<endl;
 	
-	m_layout = new QVBoxLayout(this);
+	m_layout = new Q3VBoxLayout(this);
 	
 	// Don't bother creating statusbar if no ktechlab as we are not a main ktechlab tab
 	if ( KTechlab::self() )
@@ -99,7 +105,7 @@ void View::setFocusWidget( QWidget * focusWidget )
 	m_pFocusWidget = focusWidget;
 	setFocusProxy( m_pFocusWidget );
 	m_pFocusWidget->installEventFilter( this );
-	m_pFocusWidget->setFocusPolicy( ClickFocus );
+	m_pFocusWidget->setFocusPolicy( Qt::ClickFocus );
 }
 
 
@@ -187,10 +193,10 @@ void View::setDCOPID( unsigned id )
 	m_dcopID = id;
 	if ( m_pViewIface )
 	{
-		QCString docID;
+		Q3CString docID;
 		docID.setNum( document()->dcopID() );
 		
-		QCString viewID;
+		Q3CString viewID;
 		viewID.setNum( dcopID() );
 		
 		m_pViewIface->setObjId( "View#" + docID + "." + viewID );

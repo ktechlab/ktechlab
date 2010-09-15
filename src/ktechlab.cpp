@@ -40,10 +40,17 @@
 #include "textview.h"
 #include "viewcontainer.h"
 
-#include <qdockarea.h>
+#include <q3dockarea.h>
 #include <qtimer.h>
 #include <qtoolbutton.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <QLabel>
+#include <Q3PtrList>
+#include <QPixmap>
+#include <QDragEnterEvent>
+#include <QDropEvent>
 
 #include <kaccel.h>
 #include <kapplication.h>
@@ -307,7 +314,7 @@ void KTechlab::overlayToolBarScreenshot()
 		return;
 	}
 	
-	QPtrListIterator<KToolBar> toolBarIterator();
+	Q3PtrListIterator<KToolBar> toolBarIterator();
 	
 // 	QWidget * toolsWidget = toolBar( "toolsToolBar" );
 // 	QWidget * debugWidget = toolBar( "debugTB" );
@@ -369,9 +376,9 @@ void KTechlab::addNoRemoveGUIClient( KXMLGUIClient * client )
 
 void KTechlab::removeGUIClients()
 {
-	QValueList<KXMLGUIClient*> clientsToRemove;
+	Q3ValueList<KXMLGUIClient*> clientsToRemove;
 	
-	QPtrList<KXMLGUIClient> clients = factory()->clients();
+	Q3PtrList<KXMLGUIClient> clients = factory()->clients();
 	for ( KXMLGUIClient * client = clients.first(); client; client = clients.next() )
 	{
 		if ( client && client != this && !m_noRemoveGUIClients.contains( client ) )
@@ -383,8 +390,8 @@ void KTechlab::removeGUIClients()
 	
 	overlayToolBarScreenshot();
 	
-	QValueList<KXMLGUIClient*>::iterator end = clientsToRemove.end();
-	for ( QValueList<KXMLGUIClient*>::iterator it = clientsToRemove.begin(); it != end; ++it )
+	Q3ValueList<KXMLGUIClient*>::iterator end = clientsToRemove.end();
+	for ( Q3ValueList<KXMLGUIClient*>::iterator it = clientsToRemove.begin(); it != end; ++it )
 		factory()->removeClient(*it);
 }
 
@@ -874,7 +881,7 @@ void KTechlab::slotTabContextActivated( int id )
 	View *view = m_pContextMenuContainer->activeView();
 	if (!view)
 		return;
-	QGuardedPtr<Document> document = view->document();
+	QPointer<Document> document = view->document();
 
 	switch(id)
 	{

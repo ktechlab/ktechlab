@@ -48,7 +48,7 @@ Keypad::Keypad( ICNDocument *icnDocument, bool newItem, const char *id )
 	v->setCaption( i18n("Pin map") );
 }
 
-Keypad::~Keypad()
+Keypad::~Qt::KeypadModifier()
 {
 }
 

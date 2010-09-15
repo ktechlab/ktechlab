@@ -14,6 +14,8 @@
 
 #include <klocale.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 
 //BEGIN class DependentSource
 DependentSource::DependentSource(ICNDocument *icnDocument, bool newItem, const char *id)
@@ -63,7 +65,7 @@ void DependentSource::drawOutline(QPainter &p) {
 #endif
 
 	// Bottom diamond
-	QPointArray pa4(4);
+	Q3PointArray pa4(4);
 
 	pa4[0] = QPoint(_x + 6, _y + 40);
 	pa4[1] = QPoint(_x + 16, _y + 32);
@@ -84,7 +86,7 @@ void DependentSource::drawTopArrow(QPainter &p) {
 
 	p.drawLine(_x + 8, _y + 24, _x + 24, _y + 24);
 
-	QPointArray pa3(3);
+	Q3PointArray pa3(3);
 
 	pa3[0] = QPoint(_x + 24, _y + 24);
 	pa3[1] = QPoint(_x + 19, _y + 21);
@@ -104,7 +106,7 @@ void DependentSource::drawBottomArrow(QPainter &p) {
 
 	p.drawLine(_x + 11, _y + 40, _x + 21, _y + 40);
 
-	QPointArray pa3(3);
+	Q3PointArray pa3(3);
 
 	pa3[0] = QPoint(_x + 21, _y + 40);
 	pa3[1] = QPoint(_x + 16, _y + 37);

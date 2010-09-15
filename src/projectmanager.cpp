@@ -29,8 +29,11 @@
 #include <kmimetype.h>
 #include <kstandarddirs.h>
 #include <qdom.h>
-#include <qpopupmenu.h>
-#include <qwhatsthis.h>
+#include <q3popupmenu.h>
+#include <q3whatsthis.h>
+//Added by qt3to4:
+#include <Q3TextStream>
+#include <QPixmap>
 
 #include <cassert>
 
@@ -784,7 +787,7 @@ bool ProjectInfo::open( const KURL & url )
 	}
 	
 	QFile file(target);
-	if ( !file.open( IO_ReadOnly ) )
+	if ( !file.open( QIODevice::ReadOnly ) )
 	{
 		KMessageBox::sorry( 0l, i18n("Could not open %1 for reading").arg(target) );
 		return false;
@@ -793,7 +796,7 @@ bool ProjectInfo::open( const KURL & url )
 	m_url = url;
 	
 	QString xml;
-	QTextStream textStream( &file );
+	Q3TextStream textStream( &file );
 	while ( !textStream.eof() )
 		xml += textStream.readLine() + '\n';
 	
@@ -841,7 +844,7 @@ bool ProjectInfo::open( const KURL & url )
 bool ProjectInfo::save()
 {
 	QFile file( m_url.path() );
-	if ( file.open(IO_WriteOnly) == false )
+	if ( file.open(QIODevice::WriteOnly) == false )
 	{
 		KMessageBox::sorry( NULL, i18n("Project could not be saved to \"%1\"").arg(m_url.path()), i18n("Saving Project") );
 		return false;
@@ -857,7 +860,7 @@ bool ProjectInfo::save()
 	for ( ProjectItemList::const_iterator it = m_children.begin(); it != end; ++it )
 		root.appendChild( (*it)->toDomElement( doc, m_url ) );
 	
-	QTextStream stream(&file);
+	Q3TextStream stream(&file);
 	stream << doc.toString();
 	file.close();
 	
@@ -899,12 +902,12 @@ ProjectManager::ProjectManager( KateMDI::ToolView * parent )
 	: ItemSelector( parent, "Project Manager" ),
 	m_pCurrentProject(0l)
 {
-	QWhatsThis::add( this, i18n("Displays the list of files in the project.\nTo open or close a project, use the \"Project\" menu. Right click on a file to remove it from the project") );
+	Q3WhatsThis::add( this, i18n("Displays the list of files in the project.\nTo open or close a project, use the \"Project\" menu. Right click on a file to remove it from the project") );
 	
 	setListCaption( i18n("File") );
 	setCaption( i18n("Project Manager") );
 	
-	connect( this, SIGNAL(clicked(QListViewItem*)), this, SLOT(slotItemClicked(QListViewItem*)) );
+	connect( this, SIGNAL(clicked(Q3ListViewItem*)), this, SLOT(slotItemClicked(Q3ListViewItem*)) );
 }
 
 
@@ -1170,7 +1173,7 @@ void ProjectManager::slotItemProcessingOptions()
 }
 
 
-void ProjectManager::slotItemClicked( QListViewItem * item )
+void ProjectManager::slotItemClicked( Q3ListViewItem * item )
 {
 	ILVItem * ilvItem = dynamic_cast<ILVItem*>(item);
 	if ( !ilvItem )
@@ -1184,7 +1187,7 @@ void ProjectManager::slotItemClicked( QListViewItem * item )
 }
 
 
-void ProjectManager::slotContextMenuRequested( QListViewItem * item, const QPoint& pos, int /*col*/ )
+void ProjectManager::slotContextMenuRequested( Q3ListViewItem * item, const QPoint& pos, int /*col*/ )
 {
 	QString popupName;
 	ILVItem * ilvItem = dynamic_cast<ILVItem*>(item);
@@ -1242,7 +1245,7 @@ void ProjectManager::slotContextMenuRequested( QListViewItem * item, const QPoin
 	KTechlab::self()->action("subproject_add_current_file")->setEnabled( haveFocusedDocument );
 	KTechlab::self()->action("project_add_current_file")->setEnabled( haveFocusedDocument );
 	
-	QPopupMenu *pop = static_cast<QPopupMenu*>(KTechlab::self()->factory()->container( popupName, KTechlab::self() ));
+	Q3PopupMenu *pop = static_cast<Q3PopupMenu*>(KTechlab::self()->factory()->container( popupName, KTechlab::self() ));
 	if (pop)
 		pop->popup(pos);
 }

@@ -23,8 +23,8 @@
 #include "cnitem.h"
 
 //BEGIN class CanvasTip
-CanvasTip::CanvasTip(ItemDocument *itemDocument, QCanvas *qcanvas)
-		: QCanvasRectangle(qcanvas) {
+CanvasTip::CanvasTip(ItemDocument *itemDocument, Q3Canvas *qcanvas)
+		: Q3CanvasRectangle(qcanvas) {
 	p_itemDocument = itemDocument;
 
 	setZ(ICNDocument::Z::Tip);

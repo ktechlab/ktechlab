@@ -20,6 +20,8 @@
 #include <kstandarddirs.h>
 
 #include <qfile.h>
+//Added by qt3to4:
+#include <Q3TextStream>
 #include <kprocess.h>
 
 Microbe::Microbe( ProcessChain *processChain )
@@ -31,9 +33,9 @@ Microbe::Microbe( ProcessChain *processChain )
 #if 0
 	// Setup error messages list
 	QFile file( locate("appdata",i1 8n("error_messages_en_gb")) );
-	if ( file.open( IO_ReadOnly ) ) 
+	if ( file.open( QIODevice::ReadOnly ) ) 
 	{
-        QTextStream stream( &file );
+        Q3TextStream stream( &file );
         QString line;
         while ( !stream.atEnd() )
 		{

@@ -14,6 +14,8 @@
 #include <set>
 
 #include <canvas.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 class CNItem;
 class ICNDocument;
@@ -26,13 +28,13 @@ class NodeGroup;
 class QTimer;
 
 typedef std::set<Connector *> ConnectorList;
-typedef QValueList<Node *> NodeList;
+typedef Q3ValueList<Node *> NodeList;
 
 /**
 @short A standard node that can be associated with a Connector or a CNItem
 @author David Saxton
 */
-class Node : public QObject, public QCanvasPolygon {
+class Node : public Q3CanvasPolygon {
 	Q_OBJECT
 
 public:

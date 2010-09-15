@@ -14,6 +14,8 @@
 
 #include <qdatetime.h>
 #include <qfile.h>
+//Added by qt3to4:
+#include <Q3TextStream>
 
 #include <cassert>
 
@@ -89,7 +91,7 @@ void ComponentModelLibrary::loadModels()
 		}
 
 		QFile file( fileName );
-		if ( !file.open( IO_ReadOnly ) )
+		if ( !file.open( QIODevice::ReadOnly ) )
 		{
 			kdWarning() << k_funcinfo << "Could not open library file \""<<fileName<<"\" for reading.\n";
 			continue;
@@ -99,7 +101,7 @@ void ComponentModelLibrary::loadModels()
 		QString typeString;
 		ComponentModel *model = 0;
 
-		QTextStream stream( & file );
+		Q3TextStream stream( & file );
 		while ( !stream.atEnd() )
 		{
 			QString line = stream.readLine();

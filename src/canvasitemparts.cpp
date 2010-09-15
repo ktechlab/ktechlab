@@ -14,11 +14,16 @@
 #include "icndocument.h"
 
 #include <qpainter.h>
+//Added by qt3to4:
+#include <QWheelEvent>
+#include <QPixmap>
+#include <QMouseEvent>
+#include <QEvent>
 
 //BEGIN Class GuiPart
-GuiPart::GuiPart(CNItem *parent, const QRect &r, QCanvas *canvas)
+GuiPart::GuiPart(CNItem *parent, const QRect &r, Q3Canvas *canvas)
 		: QObject(parent),
-		QCanvasRectangle(r, canvas),
+		Q3CanvasRectangle(r, canvas),
 		m_angleDegrees(0),
 		p_parent(parent),
 		b_pointsAdded(false),
@@ -110,7 +115,7 @@ QRect GuiPart::drawRect() {
 	QRect dr = rect();
 
 	if (m_angleDegrees % 180 != 0) {
-		QWMatrix m;
+		QMatrix m;
 		m.translate(int(x() + (width() / 2)), int(y() + (height() / 2)));
 
 		if ((m_angleDegrees % 180) != 0)
@@ -126,7 +131,7 @@ QRect GuiPart::drawRect() {
 //END Class GuiPart
 
 //BEGIN Class Text
-Text::Text(const QString &text, CNItem *parent, const QRect & r, QCanvas * canvas, int flags)
+Text::Text(const QString &text, CNItem *parent, const QRect & r, Q3Canvas * canvas, int flags)
 		: GuiPart(parent, r, canvas) {
 	m_flags = flags;
 	setText(text);
@@ -164,7 +169,7 @@ QRect Text::recommendedRect() const {
 //END Class Text
 
 //BEGIN Class Widget
-Widget::Widget(const QString & id, CNItem * parent, const QRect & r, QCanvas * canvas)
+Widget::Widget(const QString & id, CNItem * parent, const QRect & r, Q3Canvas * canvas)
 		: GuiPart(parent, r, canvas) {
 	m_id = id;
 	show();
@@ -228,7 +233,7 @@ void ToolButton::drawButtonLabel(QPainter * p) {
 //END Class ToolButton
 
 //BEGIN Class Button
-Button::Button(const QString & id, CNItem * parent, bool isToggle, const QRect & r, QCanvas * canvas)
+Button::Button(const QString & id, CNItem * parent, bool isToggle, const QRect & r, Q3Canvas * canvas)
 		: Widget(id, parent, r, canvas) {
 	b_isToggle = isToggle;
 	m_button = new ToolButton(0l);
@@ -364,12 +369,12 @@ void Button::leaveEvent() {
 //BEGIN Class SliderWidget
 SliderWidget::SliderWidget(QWidget *parent)
 		: QSlider(parent) {
-	setWFlags(WNoAutoErase | WRepaintNoErase);
+	setWFlags(Qt::WNoAutoErase | Qt::WNoAutoErase);
 }
 //END Class SliderWidget
 
 //BEGIN Class Slider
-Slider::Slider(const QString & id, CNItem * parent, const QRect & r, QCanvas * canvas)
+Slider::Slider(const QString & id, CNItem * parent, const QRect & r, Q3Canvas * canvas)
 		: Widget(id, parent, r, canvas) {
 	m_orientation = Qt::Vertical;
 	m_bSliderInverted = false;

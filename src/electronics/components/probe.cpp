@@ -19,6 +19,8 @@
 
 #include <klocale.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 
 //BEGIN class Probe
 Probe::Probe(ICNDocument *icnDocument, bool newItem, const char *id)
@@ -94,7 +96,7 @@ void FloatingProbe::drawShape(QPainter &p) {
 
 	p.drawRect(_x, _y, 32, 16);
 
-	QPointArray bezier(4);
+	Q3PointArray bezier(4);
 
 	bezier[0] = QPoint(_x + 4, _y + 10);
 	bezier[1] = QPoint(_x + 12, _y - 6);

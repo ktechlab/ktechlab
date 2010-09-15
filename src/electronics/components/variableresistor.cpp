@@ -15,6 +15,8 @@
 #include <klocale.h>
 #include <qpainter.h>
 #include <qstyle.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 #include <kdebug.h>
 
 Item* VariableResistor::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
@@ -130,7 +132,7 @@ void VariableResistor::drawShape(QPainter &p) {
 	p.drawRect(_x - 16, _y - 6, width(), 12);
 	p.drawLine(_x - 12, _y + 12, _x + 13, _y - 13);
 
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 
 	// Diagonally pointing arrow
 	pa[0] = QPoint(0, 0);

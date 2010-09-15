@@ -18,6 +18,8 @@
 
 #include <kiconloader.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 
 #include <cmath>
 
@@ -213,13 +215,13 @@ void FlowContainer::updateConnectorPoints(bool add) {
 void FlowContainer::setFullBounds(bool full) {
 	if (full || !b_expanded) {
 		QRect bounds = b_expanded ? m_sizeRect : QRect(m_sizeRect.x(), m_sizeRect.y(), m_sizeRect.width(), topStrip);
-		setPoints(QPointArray(bounds));
+		setPoints(Q3PointArray(bounds));
 		return;
 	}
 
 // 	kdDebug() << k_funcinfo << "width="<<width()<<" height="<<height()<<endl;
 
-	QPointArray pa(10);
+	Q3PointArray pa(10);
 
 	pa[0] = QPoint(0, 0);
 	pa[1] = QPoint(width(), 0);

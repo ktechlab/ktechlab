@@ -15,6 +15,8 @@
 
 #include <kdebug.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 
 InputFlowNode::InputFlowNode(ICNDocument *icnDocument, int dir, const QPoint &pos, QString *id)
  : FPNode(icnDocument, Node::fp_in, dir, pos, id)
@@ -68,9 +70,9 @@ void InputFlowNode::addOutputConnector( Connector * )
 }
 
 
-inline QPointArray arrowPoints( int dir )
+inline Q3PointArray arrowPoints( int dir )
 {
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 	switch ( dir ) {
 		case 0:
 			pa[0] = QPoint( 3, 0 );
@@ -106,7 +108,7 @@ void InputFlowNode::drawShape ( QPainter &p )
 	else if ( m_dir == 180 )	p.drawLine ( _x, _y, _x+8, _y );
 	else if ( m_dir == 270 )	p.drawLine ( _x, _y, _x, _y+8 );
 
-	QPointArray pa ( 3 );
+	Q3PointArray pa ( 3 );
 
 	switch ( m_dir )
 	{

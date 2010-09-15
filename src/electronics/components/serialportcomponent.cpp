@@ -19,6 +19,8 @@
 #include <kdebug.h>
 #include <klocale.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 
 #include <cmath>
 #include <termios.h>
@@ -44,7 +46,7 @@ SerialPortComponent::SerialPortComponent(ICNDocument *icnDocument, bool newItem,
 		: DSubCon(icnDocument, newItem, id ? id : "serial_port") {
 	m_name = i18n("Serial Port");
 
-	QPointArray pa(4);
+	Q3PointArray pa(4);
 	pa[0] = QPoint(-32, -48);
 	pa[1] = QPoint( 32, -40);
 	pa[2] = QPoint( 32,  40);

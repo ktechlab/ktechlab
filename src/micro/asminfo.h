@@ -13,7 +13,7 @@
 
 #include <qstring.h>
 #include <qstringlist.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 
 /**
 @author David Saxton
@@ -25,7 +25,7 @@ struct Instruction
 	QString opcode;
 };
 
-typedef QValueList<Instruction> InstructionList;
+typedef Q3ValueList<Instruction> InstructionList;
 
 /**
 @short Base class for all instruction sets

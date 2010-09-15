@@ -21,6 +21,9 @@
 #include <kiconloader.h>
 #include <klocale.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3PointArray>
+#include <QMouseEvent>
 
 #include "ktlcanvas.h"
 
@@ -37,7 +40,7 @@ static const int PinDirArrow = 3;
 
 //BEGIN class PinItem
 PinItem::PinItem( FlowCodeDocument* _view, QPoint position, bool _onLeft, PinSettings * pinSettings )
-	: QCanvasRectangle(0)
+	: Q3CanvasRectangle(0)
 {
 	m_pinSettings = pinSettings;
 	view = _view;
@@ -112,7 +115,7 @@ void PinItem::drawShape( QPainter& p )
 	}
 	
 	int midY = (int)y() + PinWidth/2;
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 	int midLeft = left + (8-PinDirArrow)/2;
 	int midRight = left + (8+PinDirArrow)/2;
 	
@@ -195,7 +198,7 @@ void PinItem::dragged( int dx )
 
 void PinItem::moveBy ( double dx, double dy )
 {
-	QCanvasRectangle::moveBy( dx, dy );
+	Q3CanvasRectangle::moveBy( dx, dy );
 	calcTextRect();
 }
 

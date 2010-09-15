@@ -16,6 +16,8 @@
 #include <klocale.h>
 #include <qpainter.h>
 #include <qstyle.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 
 Item* ECPotentiometer::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -90,7 +92,7 @@ void ECPotentiometer::drawShape( QPainter &p )
 	
 	p.drawRect( _x-14, _y-16, 12, 32 );
 	
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 	pa[0] = QPoint( 0, 0 );
 	pa[1] = QPoint( 4, -3 );
 	pa[2] = QPoint( 4, 3 );

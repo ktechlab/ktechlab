@@ -14,6 +14,8 @@
 #include <kicontheme.h>
 #include <kstandarddirs.h>
 #include <qimage.h>
+//Added by qt3to4:
+#include <QPixmap>
 
 LibraryItem::LibraryItem( QStringList idList, const QString &name, const QString &category, QPixmap icon, Type type, createItemPtr _createItem )
 {
@@ -71,7 +73,7 @@ void LibraryItem::createIcon16()
 	}
 	
 	QImage im = m_icon_full.convertToImage();
-	im = im.smoothScale( size, size, QImage::ScaleMin );
+	im = im.smoothScale( size, size, Qt::KeepAspectRatio );
 	m_icon_16.convertFromImage(im);
 }
 

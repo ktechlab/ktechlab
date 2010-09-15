@@ -14,7 +14,11 @@
 #include "config.h"
 #include "document.h"
 
-#include <qguardedptr.h>
+#include <qpointer.h>
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <QPixmap>
+#include <Q3PtrList>
 
 #include <kate/document.h>
 
@@ -22,7 +26,7 @@ class GpsimDebugger;
 class SourceLine;
 class TextView;
 
-typedef QValueList<int> IntList;
+typedef Q3ValueList<int> IntList;
 
 /**
 @author David Saxton
@@ -216,7 +220,7 @@ protected:
 #endif
 
 	Kate::Document *m_doc;
-	QGuardedPtr<TextDocument> m_pLastTextOutputTarget;
+	QPointer<TextDocument> m_pLastTextOutputTarget;
 	
 private slots:
 	void setLastTextOutputTarget( TextDocument * target );
@@ -231,12 +235,12 @@ private:
 	TextDocument( const QString& caption, const char *name = 0L );
 	bool m_constructorSuccessful;
 	CodeType m_guessedCodeType;
-	QPtrList<KAction> m_bookmarkActions;
+	Q3PtrList<KAction> m_bookmarkActions;
 	
 #ifndef NO_GPSIM
 	bool b_lockSyncBreakpoints; // Used to avoid calling syncMarks() when we are currently doing so
 	bool m_bOwnDebugger;
-	QGuardedPtr<GpsimDebugger> m_pDebugger;
+	QPointer<GpsimDebugger> m_pDebugger;
 	QString m_symbolFile;
 	QString m_debugFile;
 #endif

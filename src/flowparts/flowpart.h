@@ -13,6 +13,9 @@
 
 #include "cnitem.h"
 #include "flowcodedocument.h"
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3ValueList>
 
 class ICNDocument;
 class Node;
@@ -22,7 +25,7 @@ class FPNode;
 class QPixmap;
 class QSize;
 
-typedef QValueList<FlowPart*> FlowPartList;
+typedef Q3ValueList<FlowPart*> FlowPartList;
 
 /**
 All flow parts (eg 'CallSub', 'Read from Port' ,etc) should inherit from this class.
@@ -189,7 +192,7 @@ protected:
 private:
 	FlowSymbol m_flowSymbol;
 };
-typedef QValueList<FlowPart*> FlowPartList;
+typedef Q3ValueList<FlowPart*> FlowPartList;
 
 #endif
 

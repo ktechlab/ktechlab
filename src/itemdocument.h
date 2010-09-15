@@ -14,9 +14,13 @@
 #include <set>
 #include <map>
 
+#include <qurl.h>
+
 #include <document.h>
 #include <canvas.h>
-#include <qptrstack.h>
+#include <q3ptrstack.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 class Canvas;
 class CanvasTip;
@@ -27,12 +31,12 @@ class ItemGroup;
 class KTechlab;
 class Operation;
 class KActionMenu;
-class QCanvasItem;
+class Q3CanvasItem;
 
-typedef QPtrStack<ItemDocumentData> IDDStack;
+typedef Q3PtrStack<ItemDocumentData> IDDStack;
 typedef std::map<int, Item *> IntItemMap;
 typedef std::map<QString, Item *> ItemMap;
-typedef QValueList<Item *> ItemList;
+typedef Q3ValueList<Item *> ItemList;
 
 /**
 @author David Saxton
@@ -81,11 +85,11 @@ public:
 	virtual void fileSave();
 	virtual void fileSaveAs();
 	virtual void print();
-	virtual bool openURL(const KURL &url);
+	virtual bool openURL(const QUrl &url);
 	/**
 	 * Attempt to register the item, returning true iff successful
 	 */
-	virtual bool registerItem(QCanvasItem *qcanvasItem);
+	virtual bool registerItem(Q3CanvasItem *qcanvasItem);
 	/**
 	 * Will attempt to create an item with the given id at position p. Some item
 	 * (such as PIC/START) have restrictions, and can only have one instance of
@@ -147,15 +151,15 @@ public:
 	/**
 	 * Select a list of QCanvasItem's
 	 */
-	void select(const QCanvasItemList &list);
+	void select(const Q3CanvasItemList &list);
 	/**
 	 * Select a QCanvasItem
 	 */
-	void select(QCanvasItem *item);
+	void select(Q3CanvasItem *item);
 	/**
 	 * Unselects the item
 	 */
-	void unselect(QCanvasItem *qcanvasItem);
+	void unselect(Q3CanvasItem *qcanvasItem);
 	/**
 	 * Deletes anything waiting to be deleted.
 	 */
@@ -183,12 +187,12 @@ public:
 	/**
 	 * Returns the top item at point (x, y), or NULL if there is no item there
 	 */
-	QCanvasItem* itemAtTop(const QPoint &pos) const;
+	Q3CanvasItem* itemAtTop(const QPoint &pos) const;
 	/**
 	 * Called when the canvas is clicked on with the right mouse button.
 	 * Popups up a menu for editing operations
 	 */
-	virtual void canvasRightClick(const QPoint &pos, QCanvasItem* item);
+	virtual void canvasRightClick(const QPoint &pos, Q3CanvasItem* item);
 	/**
 	 * List of items in the ItemDocument
 	 */
@@ -197,7 +201,7 @@ public:
 	 * Set the given QCanvasItem (which will attempt to be casted to known
 	 * items to be deleted.
 	 */
-	virtual void appendDeleteList(QCanvasItem *) = 0;
+	virtual void appendDeleteList(Q3CanvasItem *) = 0;
 	/**
 	 * Save the current state of the document to the undo/redo history.
 	 * @param actionTicket if this is non-negative, and the last state save

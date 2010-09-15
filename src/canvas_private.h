@@ -15,11 +15,13 @@
 
 #include "qbitmap.h"
 #include "qimage.h"
+//Added by qt3to4:
+#include <Q3PointArray>
 
 class QPolygonalProcessor 
 {
 public:
-	QPolygonalProcessor(QCanvas* c, const QPointArray& pa) :
+	QPolygonalProcessor(Q3Canvas* c, const Q3PointArray& pa) :
 	canvas(c)
 	{
 		QRect pixelbounds = pa.boundingRect();
@@ -85,12 +87,12 @@ public:
 		result.resize(pnt);
 	}
 
-	QPointArray result;
+	Q3PointArray result;
 
 private:
 	int pnt;
 
-	QCanvas* canvas;
+	Q3Canvas* canvas;
 	QRect bounds;
 	QImage bitmap;
 };
@@ -100,8 +102,8 @@ class QCanvasViewData
 {
 public:
 	QCanvasViewData() : repaint_from_moving( false ) {}
-	QWMatrix xform;
-	QWMatrix ixform;
+	QMatrix xform;
+	QMatrix ixform;
 	bool repaint_from_moving;
 };
 
@@ -131,7 +133,7 @@ class QCanvasItemPtr
 {
 public:
 	QCanvasItemPtr() : ptr(0) { }
-	QCanvasItemPtr( QCanvasItem* p ) : ptr(p) { }
+	QCanvasItemPtr( Q3CanvasItem* p ) : ptr(p) { }
 
 	bool operator<=(const QCanvasItemPtr& that) const
 	{
@@ -162,10 +164,10 @@ public:
 		return that.ptr == ptr;
 	}
 
-	operator QCanvasItem*() const { return ptr; }
+	operator Q3CanvasItem*() const { return ptr; }
 
 private:
-	QCanvasItem* ptr;
+	Q3CanvasItem* ptr;
 };
 
 class QCanvasChunk
@@ -179,16 +181,16 @@ public:
 		list.sort();
 	}
 
-	const QCanvasItemList* listPtr() const {
+	const Q3CanvasItemList* listPtr() const {
 		return &list;
 	}
 
-	void add(QCanvasItem* item) {
+	void add(Q3CanvasItem* item) {
 		list.prepend(item);
 		changed = true;
 	}
 
-	void remove(QCanvasItem* item) {
+	void remove(Q3CanvasItem* item) {
 		list.remove(item);
 		changed = true;
 	}
@@ -208,13 +210,13 @@ public:
 	}
 
 private:
-	QCanvasItemList list;
+	Q3CanvasItemList list;
 	bool changed;
 };
 
 
 
-class QCanvasPolygonScanner : public QPolygonScanner
+class QCanvasPolygonScanner : public Q3PolygonScanner
 {
 	QPolygonalProcessor& processor;
 
@@ -235,7 +237,7 @@ class QCanvasItemExtra
 {
 	QCanvasItemExtra() : vx(0.0), vy(0.0) { }
 	double vx,vy;
-	friend class QCanvasItem;
+	friend class Q3CanvasItem;
 };
 
 

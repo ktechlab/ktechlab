@@ -20,7 +20,7 @@ class ItemDocument;
 /**
 @author David Saxton
 */
-class Canvas : public QCanvas {
+class Canvas : public Q3Canvas {
 	Q_OBJECT
 
 public:

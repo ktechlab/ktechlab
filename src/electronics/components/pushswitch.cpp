@@ -17,7 +17,7 @@
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <qpoint.h>
-#include <qpointarray.h>
+#include <q3pointarray.h>
 
 //BEGIN class ECPTBSwitch
 Item* ECPTBSwitch::construct( ItemDocument *itemDocument, bool newItem, const char *id )

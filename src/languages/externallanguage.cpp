@@ -16,6 +16,9 @@
 #include <kprocess.h>
 #include <qregexp.h>
 #include <qtimer.h>
+//Added by qt3to4:
+#include <Q3CString>
+#include <Q3ValueList>
 
 ExternalLanguage::ExternalLanguage( ProcessChain *processChain, const QString &name )
  : Language( processChain, name )
@@ -140,16 +143,16 @@ void ExternalLanguage::resetLanguageProcess()
 void ExternalLanguage::displayProcessCommand()
 {
 	QStringList quotedArguments;
-	QValueList<QCString> arguments = m_languageProcess->args();
+	Q3ValueList<Q3CString> arguments = m_languageProcess->args();
 	
 	if ( arguments.size() == 1 )
 		quotedArguments << arguments[0];
 		
 	else
 	{
-		QValueList<QCString>::const_iterator end = arguments.end();
+		Q3ValueList<Q3CString>::const_iterator end = arguments.end();
 	
-		for ( QValueList<QCString>::const_iterator it = arguments.begin(); it != end; ++it )
+		for ( Q3ValueList<Q3CString>::const_iterator it = arguments.begin(); it != end; ++it )
 		{
 			if ( (*it).isEmpty() || (*it).contains( QRegExp("[\\s]") ) )
 				quotedArguments << KProcess::quote( *it );

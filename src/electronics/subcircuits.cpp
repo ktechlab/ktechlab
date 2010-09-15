@@ -22,7 +22,9 @@
 #include <klocale.h>
 #include <kstandarddirs.h>
 #include <qfile.h>
-#include <qtextstream.h>
+#include <q3textstream.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 Subcircuits::Subcircuits()
 	: QObject()
@@ -69,12 +71,12 @@ void Subcircuits::loadSubcircuits()
 	KConfig *config = kapp->config();
 	config->setGroup("Subcircuits");
 	
-	QValueList<int> idList = config->readIntListEntry("Ids");
-	const QValueList<int>::iterator idListEnd = idList.end();
-	for ( QValueList<int>::iterator it = idList.begin(); it != idListEnd; ++it )
+	Q3ValueList<int> idList = config->readIntListEntry("Ids");
+	const Q3ValueList<int>::iterator idListEnd = idList.end();
+	for ( Q3ValueList<int>::iterator it = idList.begin(); it != idListEnd; ++it )
 	{
 		QFile file( genFileName(*it) );
-		if ( file.open(IO_ReadOnly) == false )
+		if ( file.open(QIODevice::ReadOnly) == false )
 		{
 			// File has mysteriously disappeared....
 			*it = -1;
@@ -125,17 +127,17 @@ void Subcircuits::addSubcircuit( const QString &name, const QString &subcircuitX
 	const QString fileName = genFileName(id);
 	QFile file(fileName);
 	
-	if ( file.open(IO_WriteOnly) == false )
+	if ( file.open(QIODevice::WriteOnly) == false )
 	{
 		kdError() << "Subcircuits::addSubcircuit: couldn't open subcircuit save file: "<<fileName<<endl;
 		return;
 	}
 	
-	QTextStream stream(&file);
+	Q3TextStream stream(&file);
 	stream << subcircuitXml;
 	file.close();
 	
-	QValueList<int> idList = config->readIntListEntry("Ids");
+	Q3ValueList<int> idList = config->readIntListEntry("Ids");
 	idList += id;
 	config->writeEntry( "Ids", idList );
 	config->writeEntry( "NextId", ++nextId );
@@ -165,7 +167,7 @@ void Subcircuits::slotItemRemoved( const QString &id )
 	
 	KConfig *config = kapp->config();
 	config->setGroup("Subcircuits");
-	QValueList<int> idList = config->readIntListEntry("Ids");
+	Q3ValueList<int> idList = config->readIntListEntry("Ids");
 	idList.remove(id_num);
 	config->writeEntry( "Ids", idList );
 }

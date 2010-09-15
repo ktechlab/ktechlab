@@ -17,6 +17,8 @@
 
 #include <klocale.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 
 //BEGIN class Inverter
 Item* Inverter::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
@@ -62,7 +64,7 @@ void Inverter::drawShape(QPainter &p) {
 	initPainter(p);
 	int _x = (int)x() - 8;
 	int _y = (int)y() - 8;
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 	pa[0] = QPoint(_x, _y);
 	pa[1] = QPoint(_x + width() - 6, _y + (height() / 2));
 	pa[2] = QPoint(_x, _y + height());
@@ -114,7 +116,7 @@ void Buffer::drawShape(QPainter &p) {
 	initPainter(p);
 	int _x = (int)x() - 8;
 	int _y = (int)y() - 8;
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 	pa[0] = QPoint(_x, _y);
 	pa[1] = QPoint(_x + width(), _y + (height() / 2));
 	pa[2] = QPoint(_x, _y + height());

@@ -12,6 +12,9 @@
 #define LIBRARYITEM_H
 
 #include "item.h"
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <QPixmap>
 
 class QStringList;
 
@@ -66,6 +69,6 @@ class LibraryItem
 		createItemPtr createItem;
 		int m_type;
 };
-typedef QValueList<LibraryItem*> LibraryItemList;
+typedef Q3ValueList<LibraryItem*> LibraryItemList;
 
 #endif
