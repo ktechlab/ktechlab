@@ -46,6 +46,12 @@ set( CompileSimulator_SRCS
 # ${CMAKE_SOURCE_DIR}/src/electronics/gpsimprocessor.cpp
  ${CMAKE_SOURCE_DIR}/src/simulator.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/logic.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/simulation/element.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/simulation/elementset.cpp
+ ${CMAKE_SOURCE_DIR}/src/math/quickvector.cpp
+ ${CMAKE_SOURCE_DIR}/src/math/quickmatrix.cpp
+ ${CMAKE_SOURCE_DIR}/src/math/matrix.cpp
+ 
 )
 
 qt4_automoc(${CompileSimulator_SRCS})
