@@ -26,9 +26,7 @@
 
 using namespace std;
 
-#ifndef QVECTOR_H
-#include "qvector.h"
-#endif
+#include "quickvector.h"
 
 /*
 #ifndef BADRNG_H
