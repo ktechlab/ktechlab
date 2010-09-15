@@ -49,10 +49,21 @@ protected:
     virtual IElement * createOrRegister(bool create, const QByteArray& type,
                                         QVariantMap parentInModel = QVariantMap())
     {
+        if (create) {
+            parentInModel.insert("pinList", pinListForComponent(type));
+        }
         SUPPORT_ELEMENT(Resistance,"ec/resistor")
         SUPPORT_ELEMENT(Capacitance,"ec/capacitor")
         SUPPORT_ELEMENT(VoltageSource,"ec/voltagesource")
         return 0;
+    }
+private:
+    QStringList pinListForComponent(const QByteArray& type)
+    {
+        QStringList result;
+        result << QString::fromAscii("n1");
+        result << QString::fromAscii("p1");
+        return result;
     }
 };
 
