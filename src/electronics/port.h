@@ -213,11 +213,11 @@ class ParallelPort : public Port
 		/**
 		 * Sets the (input / ouput) direction of the data pins.
 		 */
-		void setDataDirection( Direction dir );
+		void setDataDirection( Qt::Orientation dir );
 		/**
 		 * Sets the given pins to the given direction.
 		 */
-		void setControlDirection( int pins, Direction dir );
+		void setControlDirection( int pins, Qt::Orientation dir );
 		//END Changing pin directions
 		
 		static ProbeResult probe( const QString & port );

@@ -17,6 +17,8 @@
 
 #include <klocale.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 #include <cmath>
 #include <cassert>
 
@@ -41,7 +43,7 @@ ECRotoSwitch::ECRotoSwitch(ICNDocument *icnDocument, bool newItem, const char *i
         : Component(icnDocument, newItem, id ? id : "roto_switch"),
         m_numPositions(0) {
     m_name = i18n("Rotary Switch");
-    QPointArray pa;
+    Q3PointArray pa;
     pa.makeArc(-_pinInnerRadius, -_pinInnerRadius, 2*_pinInnerRadius, 2*_pinInnerRadius , 0, 16*360);
     setItemPoints(pa);
     //setSize( -64, -64, 128, 128 );

@@ -38,6 +38,8 @@
 #include <qpushbutton.h>
 #include <qregexp.h>
 #include <qtimer.h>
+//Added by qt3to4:
+#include <Q3TextStream>
 
 #include <cassert>
 
@@ -438,7 +440,7 @@ QImage ItemLibrary::componentImage( Component * component, const uint maxSize )
 	maskPainter.setPen( Qt::color1 );
 	maskPainter.setBrush( Qt::color1 );
 	
-	QWMatrix transMatrix; // Matrix to apply to the image
+	QMatrix transMatrix; // Matrix to apply to the image
 	
 	NodeInfoMap nodes = component->nodeMap();
 	const NodeInfoMap::iterator nodesEnd = nodes.end();
@@ -487,7 +489,7 @@ QImage ItemLibrary::componentImage( Component * component, const uint maxSize )
 		
 	// Now, rotate the image so that it's the right way up, and scale it to size
 	QImage im = pm.convertToImage();
-	im = im.smoothScale( 50, 50, QImage::ScaleMin );
+	im = im.smoothScale( 50, 50, Qt::KeepAspectRatio );
 	
 	if (cache)
 		m_imageMap[component->type()] = im;
@@ -517,13 +519,13 @@ bool ItemLibrary::saveDescriptions( const QString & language )
 	QString url = itemDescriptionsFile( language );
 		
 	QFile file( url );
-	if ( !file.open( IO_WriteOnly ) )
+	if ( !file.open( QIODevice::WriteOnly ) )
 	{
 		KMessageBox::sorry( 0, i18n("Could not open item descriptions file \"%1\" for writing.").arg( url ) );
 		return false;
 	}
 	
-	QTextStream stream( & file );
+	Q3TextStream stream( & file );
 	
 	QStringMap::iterator end = m_itemDescriptions[ language ].end();
 	for ( QStringMap::iterator descIt = m_itemDescriptions[ language ].begin(); descIt != end; ++descIt )
@@ -645,13 +647,13 @@ void ItemLibrary::loadItemDescriptions()
 		QString url = itemDescriptionsFile( *it );
 		
 		QFile file( url );
-		if ( !file.open( IO_ReadOnly ) )
+		if ( !file.open( QIODevice::ReadOnly ) )
 		{
 			kdWarning() << k_funcinfo << "Could not open file \"" << url << "\"" << endl;
 			continue;
 		}
 	
-		QTextStream stream( & file );
+		Q3TextStream stream( & file );
 	
 		QString type;
 		QString description;

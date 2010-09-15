@@ -18,6 +18,8 @@
 #include <kprocess.h>
 #include <qfile.h>
 #include <qregexp.h>
+//Added by qt3to4:
+#include <Q3TextStream>
 
 Gpdasm::Gpdasm( ProcessChain *processChain )
  : ExternalLanguage( processChain, "Gpdasm" )
@@ -65,10 +67,10 @@ bool Gpdasm::processExited( bool successfully )
 		return false;
 
 	QFile file(m_processOptions.intermediaryOutput());
-	if ( file.open(IO_WriteOnly) == false )
+	if ( file.open(QIODevice::WriteOnly) == false )
 		return false;
 	
-	QTextStream stream(&file);
+	Q3TextStream stream(&file);
 	stream << m_asmOutput;
 	file.close();
 	return true;

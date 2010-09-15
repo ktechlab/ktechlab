@@ -25,9 +25,14 @@
 
 #include <kmultitabbar.h>
 
-#include <qdict.h>
-#include <qintdict.h>
+#include <q3dict.h>
+#include <q3intdict.h>
 #include <qsplitter.h>
+//Added by qt3to4:
+#include <QChildEvent>
+#include <Q3ValueList>
+#include <QPixmap>
+#include <QEvent>
 
 // TODO FIXME: Either use normal KDE library or explain why we need to use a customized implementation here.
 
@@ -38,7 +43,7 @@ class Splitter : public QSplitter {
     Q_OBJECT
 
 public:
-    Splitter(Orientation o, QWidget* parent = 0, const char* name = 0);
+    Splitter(Qt::Orientation o, QWidget* parent = 0, const char* name = 0);
     ~Splitter();
 
     /** Since there is supposed to be only 2 childs of a katesplitter,
@@ -86,7 +91,7 @@ private:
     MainWindow *m_mw;
 };
 
-class ToolView : public QVBox {
+class ToolView : public Q3VBox {
     Q_OBJECT
 
     friend class Sidebar;
@@ -243,13 +248,13 @@ private:
     KMultiTabBar *m_tabBar;
     Splitter *m_ownSplit;
 
-    QIntDict<ToolView> m_idToWidget;
+    Q3IntDict<ToolView> m_idToWidget;
     QMap<ToolView*, int> m_widgetToId;
 
     /**
      * list of all toolviews around in this sidebar
      */
-    QValueList<ToolView*> m_toolviews;
+    Q3ValueList<ToolView*> m_toolviews;
 
     int m_lastSize;
 
@@ -387,12 +392,12 @@ private:
     /**
      * map identifiers to widgets
      */
-    QDict<ToolView> m_idToWidget;
+    Q3Dict<ToolView> m_idToWidget;
 
     /**
      * list of all toolviews around
      */
-    QValueList<ToolView*> m_toolviews;
+    Q3ValueList<ToolView*> m_toolviews;
 
     /**
      * widget, which is the central part of the

@@ -14,7 +14,7 @@
 #define CANVASTIP_H
 
 #include <canvas.h>
-#include <qvaluevector.h>
+#include <q3valuevector.h>
 
 class ItemDocument;
 class ECNode;
@@ -29,10 +29,10 @@ typedef struct {
 /**
 @author David Saxton
 */
-class CanvasTip : public QCanvasRectangle {
+class CanvasTip : public Q3CanvasRectangle {
 
 public:
-	CanvasTip(ItemDocument *itemDocument, QCanvas *qcanvas);
+	CanvasTip(ItemDocument *itemDocument, Q3Canvas *qcanvas);
 	virtual ~CanvasTip();
 
 	void displayVI(ECNode *node, const QPoint &pos);
@@ -45,7 +45,7 @@ protected:
 	void display(const QPoint &pos);
 	QString displayText(unsigned num) const;
 
-	QValueVector<electrical_info> info;
+	Q3ValueVector<electrical_info> info;
 
 	ItemDocument *p_itemDocument;
 	QString m_text;

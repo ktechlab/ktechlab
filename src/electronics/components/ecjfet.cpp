@@ -14,6 +14,8 @@
 #include <kiconloader.h>
 #include <klocale.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 
 Item *ECJFET::constructNJFET(ItemDocument *itemDocument, bool newItem, const char *id) {
 	return new ECJFET(JFET::nJFET, (ICNDocument*)itemDocument, newItem, id ? id : "njfet");
@@ -135,7 +137,7 @@ void ECJFET::drawShape(QPainter &p) {
 	p.drawLine(_x + 2, _y + 5, _x + 8, _y + 5);
 	p.drawLine(_x + 8, _y + 5, _x + 8, _y + 8);
 
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 
 	if (m_JFET_type == JFET::nJFET) {
 		// right pointing arrow

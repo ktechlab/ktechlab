@@ -14,8 +14,8 @@
 #include "itemselector.h"
 
 #include <kurl.h>
-#include <qguardedptr.h>
-#include <qvaluelist.h>
+#include <qpointer.h>
+#include <q3valuelist.h>
 
 class Document;
 class ILVItem;
@@ -29,8 +29,8 @@ class QDomElement;
 class QStringList;
 namespace KateMDI { class ToolView; }
 
-typedef QValueList<ProcessOptions> ProcessOptionsList;
-typedef QValueList< QGuardedPtr<ProjectItem> > ProjectItemList;
+typedef Q3ValueList<ProcessOptions> ProcessOptionsList;
+typedef Q3ValueList< QPointer<ProjectItem> > ProjectItemList;
 
 
 class LinkerOptions
@@ -225,7 +225,7 @@ class ProjectItem : public QObject, public LinkerOptions, public ProcessingOptio
 		ProjectItemList m_children;
 		Type m_type;
 		
-		QGuardedPtr<ILVItem> m_pILVItem;
+		QPointer<ILVItem> m_pILVItem;
 		ProjectManager * m_pProjectManager;
 		ProjectItem * m_pParent;
 };
@@ -326,11 +326,11 @@ class ProjectManager : public ItemSelector
 		void slotProjectOptions();
 	
 	private slots:
-		void slotContextMenuRequested( QListViewItem *item, const QPoint &pos, int col );
+		void slotContextMenuRequested( Q3ListViewItem *item, const QPoint &pos, int col );
 		/**
 		 * Called when a user clicks on any item in the project view
 		 */
-		void slotItemClicked( QListViewItem * item );
+		void slotItemClicked( Q3ListViewItem * item );
 		
 	protected:
 		ProjectInfo * m_pCurrentProject;

@@ -34,6 +34,8 @@
 #include <ktempfile.h>
 #include <qfile.h>
 #include <qtimer.h>
+//Added by qt3to4:
+#include <Q3TextStream>
 
 
 //BEGIN class ProcessChain
@@ -172,14 +174,14 @@ void ProcessChain::slotFinishedCompile(Language *language)
 				
 					QString text;
 					QFile f( options.targetFile() );
-					if ( !f.open( IO_ReadOnly ) )
+					if ( !f.open( QIODevice::ReadOnly ) )
 					{
 						editor->deleteLater();
 						editor = 0l;
 						break;
 					}
 				
-					QTextStream stream(&f);
+					Q3TextStream stream(&f);
 				
 					while ( !stream.atEnd() )
 						text += stream.readLine()+'\n';

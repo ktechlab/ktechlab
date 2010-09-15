@@ -28,6 +28,8 @@
 #include <ktempfile.h>
 #include <qbitarray.h>
 #include <qfile.h>
+//Added by qt3to4:
+#include <Q3TextStream>
 
 // Converts the QBitArray into a string (e.g. "F289A9E") that can be stored in an xml file
 static QString toAsciiHex(QBitArray _data) {
@@ -102,13 +104,13 @@ bool ItemDocumentData::loadData(const KURL &url) {
 
 	QFile file(target);
 
-	if (!file.open(IO_ReadOnly)) {
+	if (!file.open(QIODevice::ReadOnly)) {
 		KMessageBox::sorry(0l, i18n("Could not open %1 for reading").arg(target));
 		return false;
 	}
 
 	QString xml;
-	QTextStream textStream(&file);
+	Q3TextStream textStream(&file);
 
 	while (!textStream.eof())
 		xml += textStream.readLine() + '\n';
@@ -162,12 +164,12 @@ bool ItemDocumentData::saveData(const KURL &url) {
 	if (url.isLocalFile()) {
 		QFile file(url.path());
 
-		if (!file.open(IO_WriteOnly)) {
+		if (!file.open(QIODevice::WriteOnly)) {
 			KMessageBox::sorry(0l, i18n("Could not open '%1' for writing. Check that you have write permissions").arg(url.path()), i18n("Saving File"));
 			return false;
 		}
 
-		QTextStream stream(&file);
+		Q3TextStream stream(&file);
 
 		stream << toXML();
 		file.close();

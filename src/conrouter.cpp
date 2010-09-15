@@ -16,6 +16,8 @@
 #include <cassert>
 #include <cstdlib>
 #include <cmath>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 ConRouter::ConRouter(ICNDocument *cv) {
 	p_icnDocument = cv;
@@ -48,7 +50,7 @@ QPointList ConRouter::pointList(bool reverse) const {
 QPointListList ConRouter::splitPoints(const QPoint &pos) const {
 	const QPoint split = fromCanvas(pos);
 
-	QValueList<QPointList> list;
+	Q3ValueList<QPointList> list;
 
 	// Check that the point is in the connector points, and not at the start or end
 	bool found = false;

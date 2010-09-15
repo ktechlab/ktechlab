@@ -34,7 +34,16 @@
 #include <qapplication.h>
 #include <qcursor.h>
 #include <qtimer.h>
-#include <qwmatrix.h>
+#include <qmatrix.h>
+//Added by qt3to4:
+#include <QDragLeaveEvent>
+#include <QDragEnterEvent>
+#include <QDragMoveEvent>
+#include <QDropEvent>
+#include <QResizeEvent>
+#include <QMouseEvent>
+#include <QEvent>
+#include <QWheelEvent>
 
 #include <cmath>
 
@@ -224,7 +233,7 @@ void ItemView::zoomOut() {
 
 void ItemView::actualSize() {
 	m_zoomLevel = 1.0;
-	QWMatrix m(m_zoomLevel, 0.0, 0.0, m_zoomLevel, 1.0, 1.0);
+	QMatrix m(m_zoomLevel, 0.0, 0.0, m_zoomLevel, 1.0, 1.0);
 	m_CVBEditor->setWorldMatrix(m);
 
 	p_itemDocument->requestEvent(ItemDocument::ItemDocumentEvent::ResizeCanvasToItems);
@@ -260,7 +269,7 @@ void ItemView::dropEvent(QDropEvent *event) {
 
 	QString text;
 
-	QDataStream stream(event->encodedData(event->format()), IO_ReadOnly);
+	QDataStream stream(event->encodedData(event->format()), QIODevice::ReadOnly);
 
 	stream >> text;
 
@@ -337,7 +346,7 @@ void ItemView::contentsMouseDoubleClickEvent(QMouseEvent *e) {
 	e->accept();
 
 	//HACK: Pass this of as a single press event if widget underneath
-	QCanvasItem * atTop = p_itemDocument->itemAtTop(e->pos() / zoomLevel());
+	Q3CanvasItem * atTop = p_itemDocument->itemAtTop(e->pos() / zoomLevel());
 
 	if (dynamic_cast<Widget*>(atTop))
 		contentsMousePressEvent(e);
@@ -415,7 +424,7 @@ void ItemView::createDragItem(QDragEnterEvent * e) {
 
 	QString text;
 
-	QDataStream stream(e->encodedData(e->format()), IO_ReadOnly);
+	QDataStream stream(e->encodedData(e->format()), QIODevice::ReadOnly);
 
 	stream >> text;
 
@@ -552,7 +561,7 @@ void ItemView::updateStatus() {
 			break;
 		}
 
-	} else if (QCanvasItem *qcanvasItem = itemDocument->itemAtTop(pos)) {
+	} else if (Q3CanvasItem *qcanvasItem = itemDocument->itemAtTop(pos)) {
 		if (ElectronicConnector *con = dynamic_cast<ElectronicConnector*>(qcanvasItem))	{
 			cursor = Qt::CrossCursor;
 			canvasTip->displayVI(con, pos);
@@ -577,7 +586,7 @@ void ItemView::updateStatus() {
 
 //BEGIN class CVBEditor
 CVBEditor::CVBEditor(Canvas *canvas, ItemView *itemView, const char *name)
-		: QCanvasView(canvas, itemView, name, WNoAutoErase | WStaticContents) {
+		: Q3CanvasView(canvas, itemView, name, Qt::WNoAutoErase | Qt::WStaticContents) {
 	m_pCanvas = canvas;
 	b_ignoreEvents = false;
 	b_passEventsToView = true;
@@ -613,7 +622,7 @@ void CVBEditor::updateWorldMatrix() {
 	QRect r = m_pCanvas->rect();
 // 	QWMatrix m( z, 0.0, 0.0, z, -r.left(), -r.top() );
 // 	QWMatrix m( z, 0.0, 0.0, z, 0.0, 0.0 );
-	QWMatrix m;
+	QMatrix m;
 	m.scale(z, z);
 	m.translate(-r.left(), -r.top());
 	setWorldMatrix(m);
@@ -624,9 +633,9 @@ void CVBEditor::contentsWheelEvent(QWheelEvent * e) {
 	QWheelEvent ce(viewport()->mapFromGlobal(e->globalPos()),
 	               e->globalPos(), e->delta(), e->state());
 
-	if (e->orientation() == Horizontal && horizontalScrollBar())
+	if (e->orientation() == Qt::Horizontal && horizontalScrollBar())
 		QApplication::sendEvent(horizontalScrollBar(), e);
-	else  if (e->orientation() == Vertical && verticalScrollBar())
+	else  if (e->orientation() == Qt::Vertical && verticalScrollBar())
 		QApplication::sendEvent(verticalScrollBar(), e);
 
 #if 0
@@ -635,7 +644,7 @@ void CVBEditor::contentsWheelEvent(QWheelEvent * e) {
 
 	b_ignoreEvents = true;
 
-	QCanvasView::wheelEvent(e);
+	Q3CanvasView::wheelEvent(e);
 
 	b_ignoreEvents = false;
 
@@ -652,7 +661,7 @@ bool CVBEditor::event(QEvent * e) {
 
 		b_ignoreEvents = isWheel;
 
-		bool accepted = QCanvasView::event(e);
+		bool accepted = Q3CanvasView::event(e);
 
 		b_ignoreEvents = false;
 
@@ -706,12 +715,12 @@ bool CVBEditor::event(QEvent * e) {
 		return ((QWheelEvent*)e)->isAccepted();
 
 	default:
-		return QCanvasView::event(e);
+		return Q3CanvasView::event(e);
 	}
 }
 
 void CVBEditor::viewportResizeEvent(QResizeEvent * e) {
-	QCanvasView::viewportResizeEvent(e);
+	Q3CanvasView::viewportResizeEvent(e);
 	p_itemView->p_itemDocument->requestEvent(ItemDocument::ItemDocumentEvent::ResizeCanvasToItems);
 }
 

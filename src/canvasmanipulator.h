@@ -16,7 +16,11 @@
 #include "eventinfo.h"
 
 #include <canvas.h>
-#include <qguardedptr.h>
+#include <qpointer.h>
+//Added by qt3to4:
+#include <QWheelEvent>
+#include <Q3ValueList>
+#include <QMouseEvent>
 
 class CanvasManipulator;
 class Connector;
@@ -38,19 +42,19 @@ class MechanicsDocument;
 class Node;
 class NodeGroup;
 class ResizeHandle;
-class QCanvas;
-class QCanvasItem;
-class QCanvasLine;
-class QCanvasRectangle;
+class Q3Canvas;
+class Q3CanvasItem;
+class Q3CanvasLine;
+class Q3CanvasRectangle;
 class QMouseEvent;
 class QTimer;
 class QWheelEvent;
 
 typedef CanvasManipulator*(*CreateManipulatorPtr)(ItemDocument *, CMManager *);
 typedef bool(*AcceptManipulationPtr)(uint eventState, uint cmState, uint itemType, uint cnItemType);
-typedef QValueList<NodeGroup*> NodeGroupList;
+typedef Q3ValueList<NodeGroup*> NodeGroupList;
 typedef std::set<Connector *> ConnectorList;
-typedef QValueList<QPoint> QPointList;
+typedef Q3ValueList<QPoint> QPointList;
 
 class ManipulatorInfo {
 
@@ -60,7 +64,7 @@ public:
 	CreateManipulatorPtr m_createManipulatorPtr;
 };
 
-typedef QValueList<ManipulatorInfo*> ManipulatorInfoList;
+typedef Q3ValueList<ManipulatorInfo*> ManipulatorInfoList;
 
 /**
 Handles canvas manipulation, such as moving an item or resizing the canvas
@@ -158,9 +162,9 @@ protected:
 	QString m_repeatedItemId;
 	ItemDocument *p_itemDocument;
 	ManipulatorInfoList m_manipulatorInfoList;
-	QGuardedPtr<Item> p_lastMouseOverItem; // Pointer to the item where the mouse was last over - this is used to determine when mouse
-	QGuardedPtr<ResizeHandle> p_lastMouseOverResizeHandle;
-	QGuardedPtr<Item> p_lastItemClicked;
+	QPointer<Item> p_lastMouseOverItem; // Pointer to the item where the mouse was last over - this is used to determine when mouse
+	QPointer<ResizeHandle> p_lastMouseOverResizeHandle;
+	QPointer<Item> p_lastItemClicked;
 	QTimer *m_allowItemScrollTmr; // When a user scrolls on the canvas, we don't want to stop scrolling when the user gets to (e.g.) a scrollable widget. So this timer prevents scrolling a widget for a few hundred milliseconds after a scroll event if it was initiated over the canvas
 	bool b_allowItemScroll; // See above.
 	int m_drawAction;
@@ -249,7 +253,7 @@ protected:
 	ItemDocument *p_itemDocument;
 	ICNDocument *p_icnDocument;
 	MechanicsDocument *p_mechanicsDocument;
-	QCanvas *p_canvas;
+	Q3Canvas *p_canvas;
 	ItemGroup *p_selectList;
 	CNItemGroup *p_cnItemSelectList;
 	MechanicsGroup *p_mechItemSelectList;
@@ -329,15 +333,15 @@ protected:
 	 * with pos (i.e. auto-connector will call this with posIsExact = false,
 	 * and manual-connector will call this with posIsExact = true).
 	 */
-	void grabEndStuff(QCanvasItem *endItem, const QPoint &pos, bool posIsExact);
+	void grabEndStuff(Q3CanvasItem *endItem, const QPoint &pos, bool posIsExact);
 	/**
 	 * Returns the closest point to the clickPos that is on the given
 	 * connector.
 	 */
 	QPoint toValidPos(const QPoint &clickPos, Connector *clickedConnector) const;
 
-	QGuardedPtr<Node> p_startNode;
-	QGuardedPtr<Connector> p_startConnector;
+	QPointer<Node> p_startNode;
+	QPointer<Connector> p_startConnector;
 	Node *p_endNode;
 	Connector *p_endConnector;
 	QPoint startConnectorPoint;
@@ -364,7 +368,7 @@ public:
 	virtual bool mouseReleased(const EventInfo &info);
 
 protected:
-	QCanvasLine *m_connectorLine;
+	Q3CanvasLine *m_connectorLine;
 };
 
 /**
@@ -483,24 +487,24 @@ protected:
 class SelectRectangle {
 
 public:
-	SelectRectangle(int x, int y, int w, int h, QCanvas *qcanvas);
+	SelectRectangle(int x, int y, int w, int h, Q3Canvas *qcanvas);
 	~SelectRectangle();
 
 	void setSize(int w, int h);
-	QCanvasItemList collisions();
+	Q3CanvasItemList collisions();
 
 protected:
-	QCanvasLine *m_topLine;
-	QCanvasLine *m_rightLine;
-	QCanvasLine *m_bottomLine;
-	QCanvasLine *m_leftLine;
+	Q3CanvasLine *m_topLine;
+	Q3CanvasLine *m_rightLine;
+	Q3CanvasLine *m_bottomLine;
+	Q3CanvasLine *m_leftLine;
 	const int m_x;
 	const int m_y;
 	int m_w;
 	int m_h;
 	int m_prevCollisions_w;
 	int m_prevCollisions_h;
-	QCanvasItemList m_prevCollisions;
+	Q3CanvasItemList m_prevCollisions;
 };
 
 /**
@@ -557,10 +561,10 @@ protected:
 A QCanvasEllipse that uses a pen (not a brush) to paint
 */
 
-class CanvasEllipseDraw : public QCanvasEllipse {
+class CanvasEllipseDraw : public Q3CanvasEllipse {
 
 public:
-	CanvasEllipseDraw(int x, int y, QCanvas *canvas);
+	CanvasEllipseDraw(int x, int y, Q3Canvas *canvas);
 
 protected:
 	virtual void drawShape(QPainter &p);
@@ -588,9 +592,9 @@ public:
 	virtual bool mouseReleased(const EventInfo &info);
 
 protected:
-	QCanvasRectangle *m_pDrawRectangle;
+	Q3CanvasRectangle *m_pDrawRectangle;
 	CanvasEllipseDraw *m_pDrawEllipse;
-	QCanvasLine *m_pDrawLine;
+	Q3CanvasLine *m_pDrawLine;
 };
 
 /**
@@ -612,7 +616,7 @@ public:
 	 * valid QCanvasItem (Node or Connetor), then this is returned. Otherwise,
 	 * null is returned.
 	 */
-	QCanvasItem *mouseClicked(const QPoint &pos);
+	Q3CanvasItem *mouseClicked(const QPoint &pos);
 	/**
 	 * Returns the list of points that define the manual connection route
 	 */
@@ -625,7 +629,7 @@ public:
 protected:
 	void updateConnectorEnds();
 
-	QValueList<QCanvasLine*> m_connectorLines;
+	Q3ValueList<Q3CanvasLine*> m_connectorLines;
 	ICNDocument *icnDocument;
 
 	bool b_currentVertical;
@@ -635,11 +639,11 @@ protected:
 	QPoint m_previousPos;
 	QPoint m_currentPos;
 
-	QCanvasLine *m_currentCon;
-	QCanvasLine *m_previousCon;
+	Q3CanvasLine *m_currentCon;
+	Q3CanvasLine *m_previousCon;
 
 	// The first item that we clicked on
-	QCanvasItem *p_initialItem;
+	Q3CanvasItem *p_initialItem;
 
 	QColor m_color;
 };

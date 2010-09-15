@@ -13,6 +13,9 @@
 #include <qcolor.h>
 #include <qobject.h>
 #include <qmap.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3ValueList>
 
 class Component;
 
@@ -30,7 +33,7 @@ inline ItemLibrary* itemLibrary();
 typedef QMap< QString, QString > QStringMap;
 typedef QMap< QString, QStringMap > QStringMapMap;
 typedef QMap< QString, QImage > ImageMap;
-typedef QValueList<LibraryItem*> LibraryItemList;
+typedef Q3ValueList<LibraryItem*> LibraryItemList;
 
 /**
 While the program is running, only one instance of this class is created.

@@ -13,6 +13,8 @@
 #define FLOWCONNECTORLIST_H
 
 #include <set>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 class Connector;
 class FlowConnector;
@@ -53,8 +55,8 @@ public :
 
 //#define CAST_POINTER 	(QGuardedPtr<Connector>)(Connector *)(FlowConnector *)
 
-	typedef QValueListIterator<T> iterator;
-	typedef QValueListConstIterator<T> const_iterator;
+	typedef Q3ValueListIterator<T> iterator;
+	typedef Q3ValueListConstIterator<T> const_iterator;
 	typedef T value_type;
 	typedef value_type *pointer;
 	typedef const value_type *const_pointer;
@@ -64,7 +66,7 @@ public :
 
 	FlowConnectorList() : list(), flowList() { }
 
-	FlowConnectorList(const QValueList<T> & l) : flowList(l) {    // O(n)
+	FlowConnectorList(const Q3ValueList<T> & l) : flowList(l) {    // O(n)
 		FlowConnectorList::iterator it, end = flowList.end();
 
 		for (it = flowList.begin(); it != end; it++)
@@ -80,7 +82,7 @@ public :
 
 	~FlowConnectorList() { }	// leak check ?
 
-	QValueList<T> & operator= (const QValueList<T> & l) {   // -> O(n)
+	Q3ValueList<T> & operator= (const Q3ValueList<T> & l) {   // -> O(n)
 		flowList = l;
 		list.clear();
 		FlowConnectorList::iterator it, end = flowList.end();
@@ -91,7 +93,7 @@ public :
 		return flowList;
 	}
 
-	QValueList<T> & operator= (const std::list<T> & l) {	// O(n)
+	Q3ValueList<T> & operator= (const std::list<T> & l) {	// O(n)
 		flowList = l;
 		list.clear();
 		FlowConnectorList::iterator it, end = flowList.end();
@@ -106,11 +108,11 @@ public :
 		return flowList == l;
 	}
 
-	bool operator== (const QValueList<T> & l) const {
+	bool operator== (const Q3ValueList<T> & l) const {
 		return flowList == l;
 	}
 
-	bool operator!= (const QValueList<T> & l) const {
+	bool operator!= (const Q3ValueList<T> & l) const {
 		return flowList != l;
 	}
 
@@ -153,7 +155,7 @@ public :
 		list.clear();
 	}
 
-	QValueList<T> & operator<< (const T & x) {
+	Q3ValueList<T> & operator<< (const T & x) {
 		list.insert((Connector *)x);
 		return flowList << x;
 	}
@@ -219,11 +221,11 @@ public :
 		flowList.insert(pos, n, x);
 	}
 
-	QValueList<T> operator+ (const QValueList<T> &l) const {
+	Q3ValueList<T> operator+ (const Q3ValueList<T> &l) const {
 		return flowList + l;
 	}
 
-	QValueList<T> & operator+= (const QValueList<T> &l) {	// O(n)
+	Q3ValueList<T> & operator+= (const Q3ValueList<T> &l) {	// O(n)
 		const_iterator end = l.end();
 
 		for (const_iterator it = l.begin(); it != end; it++)
@@ -320,24 +322,24 @@ public :
 		return flowList.count();
 	}
 
-	QValueList<T> & operator+= (const T & x) {
+	Q3ValueList<T> & operator+= (const T & x) {
 		list.insert((Connector *) x);
 		return flowList += x;
 	}
 
 private:
 	ConnectorList list;
-	QValueList< T > flowList;
+	Q3ValueList< T > flowList;
 
 	/**
 	 *    Converts an iterator from FlowConnector list to Connector list. Complexity: O(n) !
 	 * @param orig original iterator from FlowConnector list
 	 * @return iterator converted to Connector list
 	 */
-	ConnectorList::iterator convertIterator(QValueList< T >::iterator orig) {
+	ConnectorList::iterator convertIterator(Q3ValueList< T >::iterator orig) {
 		ConnectorList::iterator it2 = list.begin();
 
-		for (QValueList< T >::iterator it = flowList.begin(); it != orig; it++)
+		for (Q3ValueList< T >::iterator it = flowList.begin(); it != orig; it++)
 			it2++;
 
 		return it2;

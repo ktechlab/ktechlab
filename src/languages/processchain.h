@@ -13,7 +13,7 @@
 
 #include "language.h"
 #include <qobject.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 
 class FlowCode;
 class Gpasm;
@@ -26,7 +26,7 @@ class PicProgrammer;
 class ProcesOptions;
 class SDCC;
 
-typedef QValueList<ProcessOptions> ProcessOptionsList;
+typedef Q3ValueList<ProcessOptions> ProcessOptionsList;
 
 /**
 @author Daniel Clarke

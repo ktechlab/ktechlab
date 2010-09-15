@@ -29,8 +29,10 @@
 #include <ktempfile.h>
 #include <kstandarddirs.h>
 #include <qfile.h>
-#include <qtextstream.h>
+#include <q3textstream.h>
 #include <qtimer.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 #include "gpsim/cod.h"
 #include "gpsim/interface.h"
@@ -481,7 +483,7 @@ GpsimDebugger::GpsimDebugger( Type type, GpsimProcessor * gpsim )
 
 GpsimDebugger::~GpsimDebugger()
 {
-	QValueList<DebugLine*> debugLinesToDelete;
+	Q3ValueList<DebugLine*> debugLinesToDelete;
 	
 	for ( unsigned i = 0; i < m_addressSize; ++i )
 	{
@@ -493,8 +495,8 @@ GpsimDebugger::~GpsimDebugger()
 		debugLinesToDelete += dl;
 	}
 	
-	const QValueList<DebugLine*>::iterator end = debugLinesToDelete.end();
-	for ( QValueList<DebugLine*>::iterator it = debugLinesToDelete.begin(); it != end; ++it )
+	const Q3ValueList<DebugLine*>::iterator end = debugLinesToDelete.end();
+	for ( Q3ValueList<DebugLine*>::iterator it = debugLinesToDelete.begin(); it != end; ++it )
 		delete *it;
 	
 	delete [] m_addressToLineMap;

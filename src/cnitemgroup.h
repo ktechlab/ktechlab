@@ -14,6 +14,8 @@
 #include <set>
 
 #include "itemgroup.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 
 class CNItem;
 class Item;
@@ -25,11 +27,11 @@ class Node;
 class ECNode;
 class FPNode;
 class ICNDocument;
-class QCanvasItem;
-class QCanvasItemList;
+class Q3CanvasItem;
+class Q3CanvasItemList;
 
-typedef QValueList<Item *> ItemList;
-typedef QValueList<Node *> NodeList;
+typedef Q3ValueList<Item *> ItemList;
+typedef Q3ValueList<Node *> NodeList;
 typedef std::set<Connector *> ConnectorList;
 
 /**
@@ -62,11 +64,11 @@ public:
 	 * If the item is a a CNItem, Node or Connector, returns the status
 	 * for that particular add function, else returns false
 	 */
-	virtual bool addQCanvasItem( QCanvasItem *qcanvasItem );
+	virtual bool addQCanvasItem( Q3CanvasItem *qcanvasItem );
 	/**
 	 * Sets the contained items to those in this list
 	 */
-	virtual void setItems( QCanvasItemList list );
+	virtual void setItems( Q3CanvasItemList list );
 	/**
 	 * Removes the CNItem from the group
 	 */
@@ -82,11 +84,11 @@ public:
 	/**
 	 * If the item is a a CNItem, Node or Connector, then attempts to remove it
 	 */
-	virtual void removeQCanvasItem( QCanvasItem *qcanvasItem );
+	virtual void removeQCanvasItem( Q3CanvasItem *qcanvasItem );
 	/**
 	 * Returns true if the QCanvasItem passed is contained in the group
 	 */
-	virtual bool contains( QCanvasItem *qcanvasItem ) const;
+	virtual bool contains( Q3CanvasItem *qcanvasItem ) const;
 	/**
 	 * Returns the number of Nodes in the CanvasGroup
 	 */

@@ -15,6 +15,8 @@
 #include <kdebug.h>
 #include <qfile.h>
 #include <qregexp.h>
+//Added by qt3to4:
+#include <Q3TextStream>
 
 AsmParser::AsmParser( const QString &url )
 	: m_url(url)
@@ -32,10 +34,10 @@ AsmParser::~AsmParser()
 bool AsmParser::parse( GpsimDebugger * debugger )
 {
 	QFile file(m_url);
-	if ( !file.open(IO_ReadOnly) )
+	if ( !file.open(QIODevice::ReadOnly) )
 		return false;
 	
-	QTextStream stream( &file );
+	Q3TextStream stream( &file );
 	
 	m_type = Absolute;
 	m_bContainsRadix = false;

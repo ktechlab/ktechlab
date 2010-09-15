@@ -19,6 +19,8 @@
 #include <cmath>
 #include <klocale.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 
 //BEGIN class Meter
 Meter::Meter( ICNDocument *icnDocument, bool newItem, const char *id )
@@ -108,7 +110,7 @@ void Meter::drawShape( QPainter &p )
 	int cy = int(y()-16+(height()/2));
 	p.drawLine( int(cx-sin_prop), int(cy-cos_prop), int(cx+sin_prop), int(cy+cos_prop) );
 	
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 	pa[0] = QPoint( int(cx-sin_prop), int(cy-cos_prop) ); // Arrow head
 	pa[1] = QPoint( int(cx-sin_prop + 8*std::sin(1.571*(-0.3+m_prevProp))), int(cy-cos_prop + 8*std::cos(1.571*(-0.3+m_prevProp))) );
 	pa[2] = QPoint( int(cx-sin_prop + 8*std::sin(1.571*(0.3+m_prevProp))), int(cy-cos_prop + 8*std::cos(1.571*(0.3+m_prevProp))) );

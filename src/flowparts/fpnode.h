@@ -12,6 +12,8 @@
 #define FPNODE_H
 
 #include "node.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 
 class FlowPart;
 
@@ -21,7 +23,7 @@ class FlowConnectorList;
 
 #include "flowconnectorlist.h"
 
-typedef QValueList<FlowPart*> FlowPartList;
+typedef Q3ValueList<FlowPart*> FlowPartList;
 
 
 /**

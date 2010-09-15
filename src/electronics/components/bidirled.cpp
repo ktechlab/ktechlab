@@ -18,6 +18,8 @@
 
 #include <klocale.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 
 Item* BiDirLED::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
 	return new BiDirLED((ICNDocument*)itemDocument, newItem, id);
@@ -102,7 +104,7 @@ void BiDirLED::drawShape(QPainter &p) {
 		p.setBrush(QColor(uint(255 - (255 - _b)*(1 - r[i])), uint(255 - (255 - _b)*(1 - g[i])), uint(255 - (255 - _b)*(1 - b[i]))));
 
 
-		QPointArray pa(3);
+		Q3PointArray pa(3);
 
 		if (i == 0) {
 			pa[0] = QPoint(8, -8);

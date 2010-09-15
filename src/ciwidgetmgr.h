@@ -13,11 +13,13 @@
 
 #include <qmap.h>
 #include <qstring.h>
+//Added by qt3to4:
+#include <QPixmap>
 
 class Button;
 class CNItem;
 class Slider;
-class QCanvas;
+class Q3Canvas;
 class Widget;
 
 typedef QMap<QString, Widget*> WidgetMap;
@@ -31,7 +33,7 @@ all shoved in CNItem, but that gets messy.
 class CIWidgetMgr
 {
 public:
-	CIWidgetMgr( QCanvas *canvas, CNItem *item );
+	CIWidgetMgr( Q3Canvas *canvas, CNItem *item );
 	virtual ~CIWidgetMgr();
 	
 	/**
@@ -96,7 +98,7 @@ public:
 protected:
 	WidgetMap m_widgetMap;
 	QPoint m_pos;
-	QCanvas *p_canvas;
+	Q3Canvas *p_canvas;
 	CNItem *p_cnItem;
 };
 

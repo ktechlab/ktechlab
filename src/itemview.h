@@ -14,7 +14,16 @@
 #include <view.h>
 
 #include <canvas.h>
-#include <qguardedptr.h>
+#include <qpointer.h>
+//Added by qt3to4:
+#include <QResizeEvent>
+#include <QWheelEvent>
+#include <QEvent>
+#include <QDragEnterEvent>
+#include <QDropEvent>
+#include <QMouseEvent>
+#include <QDragMoveEvent>
+#include <QDragLeaveEvent>
 
 class Canvas;
 class CVBEditor;
@@ -101,7 +110,7 @@ class ItemView : public View
 		void enterEvent( QEvent * e );
 		void leaveEvent( QEvent * e );
 
-		QGuardedPtr<ItemDocument> p_itemDocument;
+		QPointer<ItemDocument> p_itemDocument;
 		CVBEditor *m_CVBEditor;
 		double m_zoomLevel;
 		QTimer * m_pUpdateStatusTmr;
@@ -114,7 +123,7 @@ class ItemView : public View
 /**
 @author David Saxton
 */
-class CVBEditor : public QCanvasView
+class CVBEditor : public Q3CanvasView
 {
 	Q_OBJECT
 	public:

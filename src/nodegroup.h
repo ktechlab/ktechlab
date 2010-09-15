@@ -12,8 +12,8 @@
 #define NODEGROUP_H
 
 #include <qobject.h>
-#include <qvaluelist.h>
-#include <qvaluevector.h>
+#include <q3valuelist.h>
+#include <q3valuevector.h>
 
 class ICNDocument;
 class Connector;
@@ -22,9 +22,9 @@ class Node;
 class NodeGroup;
 class QTimer;
 
-typedef QValueList<int> IntList;
-typedef QValueList<NodeGroup*> NodeGroupList;
-typedef QValueList<Node *> NodeList;
+typedef Q3ValueList<int> IntList;
+typedef Q3ValueList<NodeGroup*> NodeGroupList;
+typedef Q3ValueList<Node *> NodeList;
 
 /**
 Controls a group of nodes who are not attached to any CNItems (poor things!)
@@ -106,7 +106,7 @@ protected:
     NodeList m_nodeList;
     NodeList m_extNodeList;
     ICNDocument *p_icnDocument;
-    QValueVector<bool> b_routedMap; // Routes between different nodes
+    Q3ValueVector<bool> b_routedMap; // Routes between different nodes
     bool b_visible;
 
 private:

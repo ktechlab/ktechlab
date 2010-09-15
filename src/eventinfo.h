@@ -12,10 +12,14 @@
 #define EVENTINFO_H
 
 #include <qpoint.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QEvent>
+#include <QWheelEvent>
 
 class ItemView;
 
-class QCanvasItem;
+class Q3CanvasItem;
 class QEvent;
 class QMouseEvent;
 class QWheelEvent;
@@ -42,7 +46,7 @@ public:
 	
 	QPoint pos;
 	QPoint globalPos;
-	QCanvasItem * qcanvasItemClickedOn;
+	Q3CanvasItem * qcanvasItemClickedOn;
 	short scrollDelta;
 	Qt::Orientation scrollOrientation;
 	bool isRightClick;

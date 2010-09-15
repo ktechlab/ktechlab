@@ -408,7 +408,7 @@ void ParallelPort::writeToControl( uchar value )
 //END Register-oriented operations
 
 //BEGIN Changing pin directions
-void ParallelPort::setDataDirection( Direction dir )
+void ParallelPort::setDataDirection( Qt::Orientation dir )
 {
 	if ( dir == Input )
 	{
@@ -422,7 +422,7 @@ void ParallelPort::setDataDirection( Direction dir )
 	setPinState( INPUT_MODE_BIT, dir == Input );
 }
 
-void ParallelPort::setControlDirection( int pins, Direction dir )
+void ParallelPort::setControlDirection( int pins, Qt::Orientation dir )
 {
 	pins &= CONTROL_PINS;
 	

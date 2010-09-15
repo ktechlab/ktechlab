@@ -12,12 +12,14 @@
 #define FILEMETAINFO_H
 
 #include "outputmethoddlg.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 
 
 class TextDocument;
 class TextView;
 class KConfig;
-typedef QValueList<int> IntList;
+typedef Q3ValueList<int> IntList;
 
 class MetaInfo
 {

@@ -34,8 +34,12 @@
 
 #include <qapplication.h>
 #include <qcursor.h>
-#include <qobjectlist.h>
+#include <qobject.h>
 #include <qtimer.h>
+//Added by qt3to4:
+#include <QFocusEvent>
+#include <Q3PopupMenu>
+#include <QEvent>
 
 //BEGIN class TextView
 TextView::TextView(TextDocument * textDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name)
@@ -86,7 +90,7 @@ TextView::TextView(TextDocument * textDocument, ViewContainer *viewContainer, ui
 
 	m_statusBar->insertItem("", ViewStatusBar::LineCol);
 
-	m_view->installPopup(static_cast<QPopupMenu*>(KTechlab::self()->factory()->container("ktexteditor_popup", KTechlab::self())));
+	m_view->installPopup(static_cast<Q3PopupMenu*>(KTechlab::self()->factory()->container("ktexteditor_popup", KTechlab::self())));
 	QWidget * internalView = static_cast<QWidget*>(m_view->child(0, "KateViewInternal"));
 
 	connect(m_view, SIGNAL(cursorPositionChanged()),	this, SLOT(slotCursorPositionChanged()));

@@ -14,6 +14,8 @@
 #include <set>
 #include <qbitarray.h>
 #include <qdom.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 #include "item.h"
 #include "microsettings.h"
@@ -25,11 +27,11 @@ class Node;
 class PinMapping;
 
 typedef std::set<Connector *> ConnectorList;
-typedef QValueList<Item *> ItemList;
-typedef QValueList<Node *> NodeList;
+typedef Q3ValueList<Item *> ItemList;
+typedef Q3ValueList<Node *> NodeList;
 typedef QMap< QString, PinMapping > PinMappingMap;
 
-typedef QValueList<QPoint> QPointList;
+typedef Q3ValueList<QPoint> QPointList;
 typedef QMap<QString, bool> BoolMap;
 typedef QMap<QString, double> DoubleMap;
 typedef QMap<QString, int> IntMap;

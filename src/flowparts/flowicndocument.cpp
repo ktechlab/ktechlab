@@ -23,6 +23,8 @@
 #include <kdebug.h>
 
 #include "ktlcanvas.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 
 FlowICNDocument::FlowICNDocument(const QString &caption, const char *name)
 		: ICNDocument(caption, name) {
@@ -30,9 +32,9 @@ FlowICNDocument::FlowICNDocument(const QString &caption, const char *name)
 
 FlowICNDocument::~FlowICNDocument() {
 	// Go to hell, QCanvas. I'm in charge of what gets deleted.
-	QCanvasItemList all = m_canvas->allItems();
-	const QCanvasItemList::Iterator end = all.end();
-	for (QCanvasItemList::Iterator it = all.begin(); it != end; ++it)
+	Q3CanvasItemList all = m_canvas->allItems();
+	const Q3CanvasItemList::Iterator end = all.end();
+	for (Q3CanvasItemList::Iterator it = all.begin(); it != end; ++it)
 		(*it)->setCanvas(0);
 
 	// Remove all items from the canvas
@@ -59,7 +61,7 @@ void FlowICNDocument::deleteAllNodes() {
 		delete *it;
 }
 
-bool FlowICNDocument::canConnect(QCanvasItem *qcanvasItem1, QCanvasItem *qcanvasItem2) const {
+bool FlowICNDocument::canConnect(Q3CanvasItem *qcanvasItem1, Q3CanvasItem *qcanvasItem2) const {
 	// Rough outline of what can and can't connect:
 	// * At most three connectors to a node
 	// * Can't have connectors going between different levels (e.g. can't have
@@ -185,7 +187,7 @@ Connector * FlowICNDocument::createConnector(Node *node, Connector *con, const Q
 		pointList = &autoPoints;
 	}
 
-	QValueList<QPointList> oldConPoints = con->splitConnectorPoints(pos2);
+	Q3ValueList<QPointList> oldConPoints = con->splitConnectorPoints(pos2);
 
 	con->hide();
 
@@ -289,8 +291,8 @@ void FlowICNDocument::slotAssignNodeGroups() {
 
 void FlowICNDocument::flushDeleteList() {
 	// Remove duplicate items in the delete list
-	QCanvasItemList::iterator end = m_itemDeleteList.end();
-	for (QCanvasItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it) {
+	Q3CanvasItemList::iterator end = m_itemDeleteList.end();
+	for (Q3CanvasItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it) {
 		if (*it && m_itemDeleteList.contains(*it) > 1) {
 			*it = 0;
 		}
@@ -299,8 +301,8 @@ void FlowICNDocument::flushDeleteList() {
 	m_itemDeleteList.remove(0);
 	end = m_itemDeleteList.end();
 
-	for (QCanvasItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it) {
-		QCanvasItem *qcanvasItem = *it;
+	for (Q3CanvasItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it) {
+		Q3CanvasItem *qcanvasItem = *it;
 		m_selectList->removeQCanvasItem(*it);
 
 		if (Item *item = dynamic_cast<Item*>(qcanvasItem))
@@ -338,7 +340,7 @@ void FlowICNDocument::flushDeleteList() {
 	requestRerouteInvalidatedConnectors();
 }
 
-bool FlowICNDocument::registerItem(QCanvasItem *qcanvasItem) {
+bool FlowICNDocument::registerItem(Q3CanvasItem *qcanvasItem) {
 	if (!qcanvasItem)
 		return false;
 
