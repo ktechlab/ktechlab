@@ -14,6 +14,7 @@
 #include "inductance.h"
 #include "jfet.h"
 #include "mosfet.h"
+#include "opamp.h"
 
 #include "qdebug.h"
 
@@ -37,6 +38,7 @@ void SimulatorTest::createTest(){
     Inductance *l1 = new Inductance(1e-6, 1e-9);
     JFET *q2 = new JFET( JFET::nJFET);
     MOSFET *q3 = new MOSFET( MOSFET::neMOSFET );
+    OpAmp *ic1 = new OpAmp();
     
     circ->addElement(q1);
     circ->addElement(c1);
@@ -48,6 +50,7 @@ void SimulatorTest::createTest(){
     circ->addElement(l1);
     circ->addElement(q2);
     circ->addElement(q3);
+    circ->addElement(ic1);
 
     circ->init();
     sim->attachCircuit(circ);
