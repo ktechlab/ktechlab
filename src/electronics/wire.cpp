@@ -10,7 +10,8 @@
 
 #include <cmath>
 #include <cassert>
-#include <kdebug.h>
+// #include <kdebug.h>
+#include <qdebug.h>
 
 #include "pin.h"
 #include "wire.h"
@@ -76,7 +77,8 @@ double Wire::voltage() const
 {
 	double temp;
 	if((temp = m_pStartPin->voltage() - m_pEndPin->voltage()) && Simulator::self()->isSimulating()) {
-		kdError() << k_funcinfo << "Wire voltage error: " << temp << endl;
+		// kdError() << k_funcinfo << "Wire voltage error: " << temp << endl;
+		qCritical() << "Wire voltage error: " << temp << endl;
 	}
 
 	return m_pStartPin->voltage();

@@ -51,7 +51,9 @@ set( CompileSimulator_SRCS
  ${CMAKE_SOURCE_DIR}/src/math/quickvector.cpp
  ${CMAKE_SOURCE_DIR}/src/math/quickmatrix.cpp
  ${CMAKE_SOURCE_DIR}/src/math/matrix.cpp
- 
+ ${CMAKE_SOURCE_DIR}/src/electronics/simulation/circuit.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/pin.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/wire.cpp
 )
 
 qt4_automoc(${CompileSimulator_SRCS})
