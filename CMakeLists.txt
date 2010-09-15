@@ -57,6 +57,9 @@ set( CompileSimulator_SRCS
  ${CMAKE_SOURCE_DIR}/src/electronics/pin.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/wire.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/gpsimprocessor.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/simulation/nonlinear.cpp
+ # elements
+ ${CMAKE_SOURCE_DIR}/src/electronics/simulation/bjt.cpp
 )
 
 qt4_automoc(${CompileSimulator_SRCS})
