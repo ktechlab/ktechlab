@@ -34,10 +34,12 @@ void SimulatorTest::createTest(){
     circ->addElement(ccvs1);
     circ->addElement(i1);
 
+    circ->init();
     sim->attachCircuit(circ);
 
     qDebug() << "simulator: " << sim;
 
+    sim->slotSetSimulating(true);
     sim->step();
     sim->step();
     sim->step();
