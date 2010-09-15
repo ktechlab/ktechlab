@@ -64,6 +64,7 @@ set( CompileSimulator_SRCS
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/bjt.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/capacitance.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/cccs.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/simulation/ccvs.cpp
 )
 
 qt4_automoc(${CompileSimulator_SRCS})

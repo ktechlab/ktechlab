@@ -7,6 +7,7 @@
 #include "bjt.h"
 #include "capacitance.h"
 #include "cccs.h"
+#include "ccvs.h"
 
 #include "qdebug.h"
 
@@ -23,10 +24,12 @@ void SimulatorTest::createTest(){
     BJT *q1 = new BJT(true);
     Capacitance *c1 = new Capacitance(1e-6, 1e-9);
     CCCS *cccs1 = new CCCS( 2.0 );
+    CCVS *ccvs1 = new CCVS( 1.5 );
     
     circ->addElement(q1);
     circ->addElement(c1);
     circ->addElement(cccs1);
+    circ->addElement(ccvs1);
 
     sim->attachCircuit(circ);
 
