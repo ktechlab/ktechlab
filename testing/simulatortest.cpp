@@ -15,6 +15,7 @@
 #include "jfet.h"
 #include "mosfet.h"
 #include "opamp.h"
+#include "vccs.h"
 
 #include "qdebug.h"
 
@@ -39,6 +40,7 @@ void SimulatorTest::createTest(){
     JFET *q2 = new JFET( JFET::nJFET);
     MOSFET *q3 = new MOSFET( MOSFET::neMOSFET );
     OpAmp *ic1 = new OpAmp();
+    VCCS *vccs1 = new VCCS( 1.7);
     
     circ->addElement(q1);
     circ->addElement(c1);
@@ -51,6 +53,7 @@ void SimulatorTest::createTest(){
     circ->addElement(q2);
     circ->addElement(q3);
     circ->addElement(ic1);
+    circ->addElement(vccs1);
 
     circ->init();
     sim->attachCircuit(circ);
