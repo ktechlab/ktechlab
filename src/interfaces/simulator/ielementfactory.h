@@ -41,19 +41,19 @@ public:
     /**
      * \return the type simulation where this factory can create IElements
      */
-    virtual const QString simulationType() const = 0;
+    virtual QString simulationType() const = 0;
 
     /**
      * \return the name of the document mimetype, for which the factory can
      * create IElements
      */
-    virtual const QString supportedDocumentMimeTypeName() const = 0;
+    virtual QString supportedDocumentMimeTypeName() const = 0;
 
     /**
      * \return the list of all component type IDs for which this factory can
      * create components
      */
-    virtual const QList<QString> supportedComponentTypeIds() const = 0;
+    virtual QList<QString> supportedComponentTypeIds() const = 0;
 
     /**
      * create a component model, for a gein component type
@@ -61,7 +61,7 @@ public:
      * \return the model of the componen, of NULL, if the component is not
      * supported
      */
-    virtual IElement * createElement(QString type, QVariantMap parentInModel) = 0;
+    virtual IElement * createElement(const QByteArray& type, QVariantMap parentInModel) = 0;
 };
 
 }
