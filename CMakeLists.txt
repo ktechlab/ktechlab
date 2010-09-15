@@ -74,6 +74,7 @@ set( CompileSimulator_SRCS
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/inductance.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/jfet.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/mosfet.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/simulation/opamp.cpp
 )
 
 qt4_automoc(${CompileSimulator_SRCS})
