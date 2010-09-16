@@ -76,6 +76,10 @@ set( CompileSimulator_SRCS
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/mosfet.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/opamp.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/vccs.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/simulation/vcvs.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/simulation/voltagepoint.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/simulation/voltagesignal.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/simulation/voltagesource.cpp
 )
 
 qt4_automoc(${CompileSimulator_SRCS})
