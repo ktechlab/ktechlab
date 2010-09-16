@@ -15,6 +15,7 @@
 #include "jfet.h"
 #include "mosfet.h"
 #include "opamp.h"
+#include "resistance.h"
 #include "vccs.h"
 #include "vcvs.h"
 #include "voltagepoint.h"
@@ -44,6 +45,7 @@ void SimulatorTest::createTest(){
     JFET *q2 = new JFET( JFET::nJFET);
     MOSFET *q3 = new MOSFET( MOSFET::neMOSFET );
     OpAmp *ic1 = new OpAmp();
+    Resistance *r1 = new Resistance(1000.0);
     VCCS *vccs1 = new VCCS( 1.7);
     VCVS *vcvs1 = new VCVS( 1.9);
     VoltagePoint *v2 = new VoltagePoint(6.0);
@@ -61,6 +63,7 @@ void SimulatorTest::createTest(){
     circ->addElement(q2);
     circ->addElement(q3);
     circ->addElement(ic1);
+    circ->addElement(r1);
     circ->addElement(vccs1);
     circ->addElement(vcvs1);
     circ->addElement(v2);
