@@ -16,6 +16,10 @@
 #include "mosfet.h"
 #include "opamp.h"
 #include "vccs.h"
+#include "vcvs.h"
+#include "voltagepoint.h"
+#include "voltagesignal.h"
+#include "voltagesource.h"
 
 #include "qdebug.h"
 
@@ -41,6 +45,10 @@ void SimulatorTest::createTest(){
     MOSFET *q3 = new MOSFET( MOSFET::neMOSFET );
     OpAmp *ic1 = new OpAmp();
     VCCS *vccs1 = new VCCS( 1.7);
+    VCVS *vcvs1 = new VCVS( 1.9);
+    VoltagePoint *v2 = new VoltagePoint(6.0);
+    VoltageSignal *v3 = new VoltageSignal(1e-6, 3.0);
+    VoltageSource *v4 = new VoltageSource(7.0);
     
     circ->addElement(q1);
     circ->addElement(c1);
@@ -54,6 +62,10 @@ void SimulatorTest::createTest(){
     circ->addElement(q3);
     circ->addElement(ic1);
     circ->addElement(vccs1);
+    circ->addElement(vcvs1);
+    circ->addElement(v2);
+    circ->addElement(v3);
+    circ->addElement(v4);
 
     circ->init();
     sim->attachCircuit(circ);
