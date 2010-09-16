@@ -22,9 +22,15 @@
 #include "voltagesignal.h"
 #include "voltagesource.h"
 
+#include "pin.h"
+
+#include "elementmap.h"
+
 #include "qdebug.h"
 
 #include "simulatortest.h"
+
+void setupElement(Element *elem, Pin *pin1, Pin *pin2);
 
 void SimulatorTest::createTest(){
 
@@ -52,6 +58,22 @@ void SimulatorTest::createTest(){
     VoltageSignal *v3 = new VoltageSignal(1e-6, 3.0);
     VoltageSource *v4 = new VoltageSource(7.0);
     
+    Pin *pin1 = new Pin();
+    Pin *pin2 = new Pin();
+
+    Pin *pinR1 = new Pin();
+    Pin *pinR2 = new Pin();
+
+    pin1->addElement(v4);
+    pin2->addElement(v4);
+
+    pinR1->addElement(r1);
+    pinR2->addElement(r1);
+
+    Wire *wire1 = new Wire(pin1, pinR1);
+    Wire *wire2 = new Wire(pin2, pinR2);
+
+
     circ->addElement(q1);
     circ->addElement(c1);
     circ->addElement(cccs1);
@@ -70,17 +92,72 @@ void SimulatorTest::createTest(){
     circ->addElement(v3);
     circ->addElement(v4);
 
+    circ->addPin(pin1);
+    circ->addPin(pin2);
+
+    circ->addPin(pinR1);
+    circ->addPin(pinR2);
+
     circ->init();
+
+    setupElement(v4, pin1, pin2);
+    setupElement(r1, pinR1, pinR1);
+
     sim->attachCircuit(circ);
 
     qDebug() << "simulator: " << sim;
 
     sim->slotSetSimulating(true);
     sim->step();
+
+    circ->displayEquations();
+
+    qDebug() << "pin1  id:" << pin1->eqId() << " voltage:" << pin1->voltage();
+    qDebug() << "pin2  id:" << pin2->eqId() << " voltage:" << pin2->voltage();
+    qDebug() << "pinR1 id:" << pinR1->eqId() << " voltage:" << pinR1->voltage();
+    qDebug() << "pinR2 id:" << pinR2->eqId() << " voltage:" << pinR2->voltage();
+    qDebug() << "wire1 current known:" << wire1->currentIsKnown() << "value:" << wire1->current();
+    qDebug() << "wire2 current known:" << wire2->currentIsKnown() << "value:" << wire2->current();
+
     sim->step();
+
+    qDebug() << "pin1 id:" << pin1->eqId() << " voltage:" << pin1->voltage();
+    qDebug() << "pin2 id:" << pin2->eqId() << " voltage:" << pin2->voltage();
+    qDebug() << "pinR1 id:" << pinR1->eqId() << " voltage:" << pinR1->voltage();
+    qDebug() << "pinR2 id:" << pinR2->eqId() << " voltage:" << pinR2->voltage();
+
     sim->step();
+
+    qDebug() << "pin1 id:" << pin1->eqId() << " voltage:" << pin1->voltage();
+    qDebug() << "pin2 id:" << pin2->eqId() << " voltage:" << pin2->voltage();
+    qDebug() << "pinR1 id:" << pinR1->eqId() << " voltage:" << pinR1->voltage();
+    qDebug() << "pinR2 id:" << pinR2->eqId() << " voltage:" << pinR2->voltage();
+
 }
 
+void setupElement(Element *elem, Pin *pin1, Pin *pin2){
+    // element map stores the relation between and element and pins
+    ElementMap *em = new ElementMap;
+    em->setElement(elem);
+    em->putPin(0, pin1);
+    em->putPin(1, pin2);
+    pin1->addElement(elem);
+    pin2->addElement(elem);
+    
+    // mabe pin1 with pin1 ? and 2 with 2?
+    // pin1->addCircuitDependentPin(pin2);
+    // pin2->addCircuitDependentPin(pin1);
+    
+    // mabe pin1 with pin1 ? and 2 with 2?
+    // pin1->addGroundDependentPin(pin2);
+    // pin2->addGroundDependentPin(pin1);
+    
+    // FIXME
+    // em.interCircuitDependent.push_back(pinSet); // ...
+    // em.interGroundDependent.push_back(pinSet);
+    
+    em->setupCNodes();
+}
 
 QTEST_MAIN(SimulatorTest)
 #include "simulatortest.moc"
