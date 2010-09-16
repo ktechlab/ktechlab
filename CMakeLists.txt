@@ -63,6 +63,7 @@ set( CompileSimulator_SRCS
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/nonlinear.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/reactive.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/elementsignal.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/elementmap.cpp
  # elements
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/bjt.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/capacitance.cpp
@@ -75,6 +76,7 @@ set( CompileSimulator_SRCS
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/jfet.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/mosfet.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/opamp.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/simulation/resistance.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/vccs.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/vcvs.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/voltagepoint.cpp
