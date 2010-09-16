@@ -117,7 +117,7 @@ bool Element::updateStatus() {
 	if (!p_eSet) b_status = false;
 
 	// And return the status :-)
-// 	kdDebug() << "Element::updateStatus(): Setting b_status to "<<(b_status?"true":"false")<<" this="<<this<<endl;
+ 	qDebug() << "Element::updateStatus(): Setting b_status to"<< b_status <<"this="<<this;
 	return b_status;
 }
 
