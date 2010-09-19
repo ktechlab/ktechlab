@@ -24,7 +24,9 @@
 
 namespace KTechLab
 {
-class CircuitScene;
+
+class IDocumentScene;
+
 /**
  * A QGraphicsItem used to indicate mouse interaction. When this
  * item is clicked, routing will start from this point in the parent scene.
@@ -41,7 +43,7 @@ protected:
 
 private:
     bool fetchCircuit();
-    CircuitScene* m_circuit;
+    IDocumentScene* m_circuit;
 };
 
 }

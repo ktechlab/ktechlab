@@ -1,6 +1,7 @@
 
 include_directories(
     ${CMAKE_SOURCE_DIR}/src
+    ${CMAKE_SOURCE_DIR}/src/lib
     ${KDEVPLATFORM_INCLUDE_DIR}
     ${CMAKE_CURRENT_BUILD_DIR}
 )
@@ -44,6 +45,7 @@ kde4_add_unit_test( directsimulatortest
 target_link_libraries( directsimulatortest
     ktlinterfaces
     ktlmath
+    circuit
     ${QT_QTTEST_LIBRARY}
     ${KDEVPLATFORM_TESTS_LIBRARIES}
 )

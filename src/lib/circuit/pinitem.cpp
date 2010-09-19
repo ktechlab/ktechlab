@@ -18,11 +18,10 @@
 */
 
 #include "pinitem.h"
-#include "circuitscene.h"
+#include "interfaces/component/connectoritem.h"
 #include <QGraphicsSceneMouseEvent>
 #include <KDebug>
 #include <qdrag.h>
-#include <interfaces/component/connectoritem.h>
 
 using namespace KTechLab;
 
@@ -43,7 +42,7 @@ PinItem::PinItem(const QRectF& rect, QGraphicsItem* parent, QGraphicsScene* scen
 bool PinItem::fetchCircuit()
 {
     if (!m_circuit)
-        m_circuit = qobject_cast<CircuitScene*>(this->scene());
+        m_circuit = qobject_cast<IDocumentScene*>(this->scene());
 
     return m_circuit != 0;
 }

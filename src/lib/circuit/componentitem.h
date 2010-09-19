@@ -11,7 +11,7 @@
 #define COMPONENTAPPLET_H
 
 #include <QDomDocument>
-#include <interfaces/component/icomponentitem.h>
+#include "interfaces/component/icomponentitem.h"
 
 namespace KTechLab
 {

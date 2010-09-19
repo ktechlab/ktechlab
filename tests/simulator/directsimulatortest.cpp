@@ -23,7 +23,7 @@
 #include <simulationmanager.h>
 #include <interfaces/idocumentmodel.h>
 #include <interfaces/simulator/isimulationmanager.h>
-#include <interfaces/simulator/genericelementfactory.h>
+#include <circuit/simulator/genericelementfactory.h>
 #include <plugins/simulator/circuittransientsimulator.h>
 #include <plugins/basic_ec/elements/resistance.h>
 #include <plugins/basic_ec/elements/capacitance.h>
