@@ -28,7 +28,6 @@ set( ktlinterfaces_LIB_SRCS
    simulator/isimulatorfactory.cpp
    simulator/isimulationmanager.cpp
    simulator/iwire.cpp
-   simulator/genericelementfactory.cpp
    )
 
 kde4_add_library( ktlinterfaces SHARED ${ktlinterfaces_LIB_SRCS} )
