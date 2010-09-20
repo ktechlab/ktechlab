@@ -57,18 +57,12 @@ void SimulatorTest::createTest(){
     VoltagePoint *v2 = new VoltagePoint(6.0);
     VoltageSignal *v3 = new VoltageSignal(1e-6, 3.0);
     VoltageSource *v4 = new VoltageSource(7.0);
-    
+
     Pin *pin1 = new Pin();
     Pin *pin2 = new Pin();
 
     Pin *pinR1 = new Pin();
     Pin *pinR2 = new Pin();
-
-    pin1->addElement(v4);
-    pin2->addElement(v4);
-
-    pinR1->addElement(r1);
-    pinR2->addElement(r1);
 
     Wire *wire1 = new Wire(pin1, pinR1);
     Wire *wire2 = new Wire(pin2, pinR2);
@@ -101,7 +95,7 @@ void SimulatorTest::createTest(){
     circ->init();
 
     setupElement(v4, pin1, pin2);
-    setupElement(r1, pinR1, pinR1);
+    setupElement(r1, pinR1, pinR2);
 
     sim->attachCircuit(circ);
 
@@ -110,6 +104,19 @@ void SimulatorTest::createTest(){
     sim->slotSetSimulating(true);
     sim->step();
 
+    // try to make the currents work
+    v4->updateCurrents();
+    r1->updateCurrents();
+    pin1->setCurrentIfOneWire();
+    pin2->setCurrentIfOneWire();
+    pinR1->setCurrentIfOneWire();
+    pinR2->setCurrentIfOneWire();
+    pin1->calculateCurrentFromWires();
+    pin2->calculateCurrentFromWires();
+    pinR1->calculateCurrentFromWires();
+    pinR2->calculateCurrentFromWires();
+
+//    circ->updateCurrents();
     circ->displayEquations();
 
     qDebug() << "pin1  id:" << pin1->eqId() << " voltage:" << pin1->voltage();
