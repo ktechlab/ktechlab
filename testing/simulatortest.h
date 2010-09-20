@@ -11,6 +11,7 @@ private slots:
 
     void createTest();
     void testSourceAndResistance();
+    void testSourceAnd4ResistanceInParallel();
 };
 
 #endif
