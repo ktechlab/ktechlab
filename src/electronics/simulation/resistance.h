@@ -31,8 +31,9 @@ public:
     double resistance() { return 1 / m_g; }
     double conductance() { return m_g; }
 
-protected:
     virtual void updateCurrents();
+
+protected:
     virtual void add_initial_dc();
 
 private:

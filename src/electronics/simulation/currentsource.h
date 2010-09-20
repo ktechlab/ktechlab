@@ -27,8 +27,8 @@ public:
 	virtual Type type() const { return Element_CurrentSource; }
 	void setCurrent( const double i );
 
+    virtual void updateCurrents();
 protected:
-	virtual void updateCurrents();
 	virtual void add_initial_dc();
 	
 private:

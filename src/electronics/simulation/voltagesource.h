@@ -30,8 +30,9 @@ public:
 
     void setVoltage(const double v);
 
-protected:
     virtual void updateCurrents();
+
+protected:
     virtual void add_initial_dc();
 
 private:

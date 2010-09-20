@@ -58,8 +58,8 @@ public:
 
 	double current() const { return I_old; }
 
+    virtual void updateCurrents();
 protected:
-	virtual void updateCurrents();
 	void calc_eq(double *g_new, double *I_new);
 	void calcIg(double V, double *I, double *g) const;
 	void updateLim();

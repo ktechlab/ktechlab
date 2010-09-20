@@ -29,8 +29,8 @@ public:
 	double current() { return m_current; }
 	virtual void time_step();
 
+    virtual void updateCurrents();
 protected:
-	virtual void updateCurrents();
 	virtual void add_initial_dc();
 	void addCurrents();
 	

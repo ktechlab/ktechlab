@@ -77,6 +77,8 @@ public:
 
 	void setMOSFETSettings(const MOSFETSettings &settings);
 
+    virtual void updateCurrents();
+
 protected:
 	void calcIg(double V_BS, double V_DS, double V_GS,
 	            double *I_BS, double *I_BD, double *I_D,
@@ -84,7 +86,6 @@ protected:
 	            double *g_M, double *g_mb) const;
 
 	void updateLim();
-	virtual void updateCurrents();
 	/**
 	 * Calculates the new MOSFETState from the voltages on the nodes.
 	 */
