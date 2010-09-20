@@ -109,7 +109,12 @@ double Pin::calculateCurrentFromWires(Wire *aWire) const {
  */
 bool Pin::setCurrentIfOneWire()
 {
-	if(m_wireList.size() == 1) {
+    // if the pin doesn't belong to any elements, than we can't find the current
+    if( m_elementList.size() == 0){
+        qDebug() << "Pin::setCurrentIfOneWire(): no connected element, so can't find current.";
+        return false;
+    }
+    if(m_wireList.size() == 1) {
 /*		double current = 0;
 
 		ElementList::iterator end = m_elementList.end();
@@ -117,7 +122,6 @@ bool Pin::setCurrentIfOneWire()
 		for(ElementList::iterator it = m_elementList.begin(); it != end;++it) {
 			current += (*it)->updateCurrents();
 		}*/
-
 		ElementSet *es = (*(m_elementList.begin()))->elementSet();
 
 		if(es && m_elementList.empty() == false)
