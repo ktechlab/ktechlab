@@ -16,6 +16,7 @@ ElementSignal::ElementSignal()
 	m_type = ElementSignal::st_sinusoidal;
 	m_time = 0.;
 	m_frequency = 0.;
+    setStep(m_type, m_frequency);
 }
 
 ElementSignal::~ElementSignal()
