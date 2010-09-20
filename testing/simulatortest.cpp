@@ -166,6 +166,74 @@ void setupElement(Element *elem, Pin *pin1, Pin *pin2){
     em->setupCNodes();
 }
 
+
+void SimulatorTest::testSourceAndResistance()
+{
+
+    Simulator * sim = Simulator::self();
+
+    sim->slotSetSimulating(false);
+
+    Circuit *circ = new Circuit();
+
+    VoltageSource *v4 = new VoltageSource(8.0);
+    Resistance *r1 = new Resistance(1000.0);
+
+    Pin *pin1 = new Pin();
+    Pin *pin2 = new Pin();
+
+    Pin *pinR1 = new Pin();
+    Pin *pinR2 = new Pin();
+
+    Wire *wire1 = new Wire(pin1, pinR1);
+    Wire *wire2 = new Wire(pin2, pinR2);
+
+    circ->addElement(v4);
+    circ->addElement(r1);
+
+    circ->addPin(pin1);
+    circ->addPin(pin2);
+
+    circ->addPin(pinR1);
+    circ->addPin(pinR2);
+
+    circ->init();
+
+    // need to setup the element _after_ the circuit has been initialized
+    setupElement(v4, pin1, pin2);
+    setupElement(r1, pinR1, pinR2);
+
+    sim->attachCircuit(circ);
+
+    sim->slotSetSimulating(true);
+    sim->step();
+
+    // try to make the currents work
+    circ->updateCurrents();
+    /*
+    v4->updateCurrents();
+    r1->updateCurrents();
+*/
+    pin1->setCurrentIfOneWire();
+    pin2->setCurrentIfOneWire();
+    pinR1->setCurrentIfOneWire();
+    pinR2->setCurrentIfOneWire();
+
+    pin1->calculateCurrentFromWires();
+    pin2->calculateCurrentFromWires();
+    pinR1->calculateCurrentFromWires();
+    pinR2->calculateCurrentFromWires();
+
+    circ->displayEquations();
+
+    qDebug() << "pin1  id:" << pin1->eqId() << " voltage:" << pin1->voltage();
+    qDebug() << "pin2  id:" << pin2->eqId() << " voltage:" << pin2->voltage();
+    qDebug() << "pinR1 id:" << pinR1->eqId() << " voltage:" << pinR1->voltage();
+    qDebug() << "pinR2 id:" << pinR2->eqId() << " voltage:" << pinR2->voltage();
+    qDebug() << "wire1 current known:" << wire1->currentIsKnown() << "value:" << wire1->current();
+    qDebug() << "wire2 current known:" << wire2->currentIsKnown() << "value:" << wire2->current();
+
+}
 QTEST_MAIN(SimulatorTest)
 #include "simulatortest.moc"
 

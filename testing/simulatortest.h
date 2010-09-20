@@ -10,7 +10,7 @@ class SimulatorTest : public QObject {
 private slots:
 
     void createTest();
-
+    void testSourceAndResistance();
 };
 
 #endif
