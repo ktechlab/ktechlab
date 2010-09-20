@@ -234,6 +234,157 @@ void SimulatorTest::testSourceAndResistance()
     qDebug() << "wire2 current known:" << wire2->currentIsKnown() << "value:" << wire2->current();
 
 }
+
+void SimulatorTest::testSourceAnd4ResistanceInParallel()
+{
+    Simulator * sim = Simulator::self();
+
+    sim->slotSetSimulating(false);
+
+    Circuit *circ = new Circuit();
+
+    VoltageSource *v1 = new VoltageSource(8.0);
+    Resistance *r1 = new Resistance(9000.0);
+    Resistance *r2 = new Resistance(8000.0);
+    Resistance *r3 = new Resistance(4000.0);
+    Resistance *r4 = new Resistance(2000.0);
+
+    Pin *pin1 = new Pin();
+    Pin *pin2 = new Pin();
+
+    Pin *pinR11 = new Pin();
+    Pin *pinR12 = new Pin();
+
+    Pin *pinR21 = new Pin();
+    Pin *pinR22 = new Pin();
+
+    Pin *pinR31 = new Pin();
+    Pin *pinR32 = new Pin();
+
+    Pin *pinR41 = new Pin();
+    Pin *pinR42 = new Pin();
+
+    Pin *pinC12a = new Pin();
+    Pin *pinC12b = new Pin();
+    Pin *pinC34a = new Pin();
+    Pin *pinC34b = new Pin();
+
+    Pin *pinC1234a = new Pin();
+    Pin *pinC1234b = new Pin();
+
+    // wires...
+    Wire *wire12a1 = new Wire(pinR11, pinC12a);
+    Wire *wire12a2 = new Wire(pinR21, pinC12a);
+
+    Wire *wire12b1 = new Wire(pinR12, pinC12b);
+    Wire *wire12b2 = new Wire(pinR22, pinC12b);
+
+    Wire *wire34a1 = new Wire(pinR31, pinC34a);
+    Wire *wire34a2 = new Wire(pinR41, pinC34a);
+
+    Wire *wire34b1 = new Wire(pinR32, pinC34b);
+    Wire *wire34b2 = new Wire(pinR42, pinC34b);
+
+    Wire *wire1234a1 = new Wire(pinC12a, pinC1234a);
+    Wire *wire1234a2 = new Wire(pinC34a, pinC1234a);
+    Wire *wire1234b1 = new Wire(pinC12b, pinC1234b);
+    Wire *wire1234b2 = new Wire(pinC34b, pinC1234b);
+
+    Wire *wireAll1 = new Wire(pinC1234a, pin1);
+    Wire *wireAll2 = new Wire(pinC1234b, pin2);
+
+    circ->addElement(v1);
+    circ->addElement(r1);
+    circ->addElement(r2);
+    circ->addElement(r3);
+    circ->addElement(r4);
+
+    circ->addPin(pin1);
+    circ->addPin(pin2);
+
+    circ->addPin(pinR11);
+    circ->addPin(pinR12);
+    circ->addPin(pinR21);
+    circ->addPin(pinR22);
+    circ->addPin(pinR31);
+    circ->addPin(pinR32);
+    circ->addPin(pinR41);
+    circ->addPin(pinR42);
+
+    circ->addPin(pinC12a);
+    circ->addPin(pinC12b);
+    circ->addPin(pinC34a);
+    circ->addPin(pinC34b);
+    circ->addPin(pinC1234a);
+    circ->addPin(pinC1234b);
+
+    circ->init();
+
+    setupElement(v1, pin1, pin2);
+    setupElement(r1, pinR11, pinR12);
+    setupElement(r2, pinR21, pinR22);
+    setupElement(r3, pinR31, pinR32);
+    setupElement(r4, pinR41, pinR42);
+
+    sim->attachCircuit(circ);
+
+    sim->slotSetSimulating(true);
+    sim->step();
+
+    // try to make the currents work
+    circ->updateCurrents();
+
+    circ->displayEquations();
+
+    qDebug() << "pin1  id:" << pin1->eqId() << " voltage:" << pin1->voltage();
+    qDebug() << "pin2  id:" << pin2->eqId() << " voltage:" << pin2->voltage();
+    qDebug() << "pinC12a  id:" << pinC12a->eqId() << " voltage:" << pinC12a->voltage();
+
+    qDebug() << "wireAll1 current known:" << wireAll1->currentIsKnown() << "value:" << wireAll1->current();
+    qDebug() << "wire12a1 current known:" << wire12a1->currentIsKnown() << "value:" << wire12a1->current();
+    qDebug() << "wire12b1 current known:" << wire12b1->currentIsKnown() << "value:" << wire12b1->current();
+
+    pin1->setCurrentIfOneWire();
+    pin2->setCurrentIfOneWire();
+    pinR11->setCurrentIfOneWire();
+    pinR12->setCurrentIfOneWire();
+    pinR21->setCurrentIfOneWire();
+    pinR22->setCurrentIfOneWire();
+    pinR31->setCurrentIfOneWire();
+    pinR32->setCurrentIfOneWire();
+    pinR41->setCurrentIfOneWire();
+    pinR42->setCurrentIfOneWire();
+    pinC12a->setCurrentIfOneWire(); 
+    pinC12b ->setCurrentIfOneWire();
+    pinC34a ->setCurrentIfOneWire();
+    pinC34b ->setCurrentIfOneWire();
+    pinC1234a ->setCurrentIfOneWire();
+    pinC1234b ->setCurrentIfOneWire();
+
+    pin1->calculateCurrentFromWires();
+    pin2->calculateCurrentFromWires();
+    pinR11->calculateCurrentFromWires();
+    pinR12->calculateCurrentFromWires();
+    pinR21->calculateCurrentFromWires();
+    pinR22->calculateCurrentFromWires();
+    pinR31->calculateCurrentFromWires();
+    pinR32->calculateCurrentFromWires();
+    pinR41->calculateCurrentFromWires();
+    pinR42->calculateCurrentFromWires();
+    pinC12a->calculateCurrentFromWires();
+    pinC12b ->calculateCurrentFromWires();
+    pinC34a ->calculateCurrentFromWires();
+    pinC34b ->calculateCurrentFromWires();
+    pinC1234a ->calculateCurrentFromWires();
+    pinC1234b ->calculateCurrentFromWires();
+
+    qDebug() << "wireAll1 current known:" << wireAll1->currentIsKnown() << "value:" << wireAll1->current();
+    qDebug() << "wire12a1 current known:" << wire12a1->currentIsKnown() << "value:" << wire12a1->current();
+    qDebug() << "wire12b1 current known:" << wire12b1->currentIsKnown() << "value:" << wire12b1->current();
+    qDebug() << "wire34a1 current known:" << wire34a1->currentIsKnown() << "value:" << wire34a1->current();
+
+}
+
 QTEST_MAIN(SimulatorTest)
 #include "simulatortest.moc"
 
