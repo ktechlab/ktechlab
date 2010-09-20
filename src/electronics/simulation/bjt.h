@@ -59,8 +59,8 @@ public:
 
 	void setBJTSettings(const BJTSettings & settings);
 
+    virtual void updateCurrents();
 protected:
-	virtual void updateCurrents();
 	/**
 	 * Calculates the new BJTState from the voltages on the nodes.
 	 */
