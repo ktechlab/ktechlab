@@ -54,8 +54,8 @@ public:
 	JFETSettings settings() const { return m_jfetSettings; }
 	void setJFETSettings( const JFETSettings & settings );
 
+    virtual void updateCurrents();
 protected:
-	virtual void updateCurrents();
 	/**
 		* Calculates the new JFETState from the voltages on the nodes.
 		*/

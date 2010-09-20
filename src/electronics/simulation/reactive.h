@@ -33,8 +33,8 @@ public:
 	 */
 	virtual void time_step() = 0;
 	
+    virtual bool updateStatus();
 protected:
-	virtual bool updateStatus();
 	
 	double m_delta; // Delta time interval
 };

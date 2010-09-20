@@ -39,8 +39,8 @@ class Inductance : public Reactive
 		virtual void add_initial_dc();
 		void setInductance( double i );
 
+        virtual void updateCurrents();
 	protected:
-		virtual void updateCurrents();
 		virtual bool updateStatus();
 	
 	private:

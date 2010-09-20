@@ -94,9 +94,9 @@ public:
 	 */
 	void callCallback();
 
+    virtual void updateCurrents() {};
 protected:
 
-	virtual void updateCurrents() {};
 	virtual void add_initial_dc() {};
 
 	CallbackPtr m_pCallbackFunction;
@@ -165,6 +165,8 @@ public:
 	void clearChanged() { isSetChanged = false; }
 	inline bool isChanged() const { return isSetChanged; }
 
+    virtual void updateCurrents();
+
 // FIXME RED ALERT: THESE ARE ONLY ACCESSED BY circuitDocument and SIMULATOR!!!
 PinSet logicPinList;
 // **** 
@@ -178,7 +180,6 @@ PinSet logicPinList;
 protected:
 
 	void configChanged();
-	virtual void updateCurrents();
 	virtual void add_initial_dc();
 
 	double m_r_out, m_v_out;

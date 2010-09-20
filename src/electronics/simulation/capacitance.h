@@ -39,8 +39,8 @@ public:
 	virtual void add_initial_dc();
 	void setCapacitance( const double c );
 
+    virtual void updateCurrents();
 protected:
-	virtual void updateCurrents();
 	virtual bool updateStatus();
 	
 private:
