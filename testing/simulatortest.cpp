@@ -293,6 +293,10 @@ void SimulatorTest::testSourceAnd4ResistanceInParallel()
     Wire *wireAll1 = new Wire(pinC1234a, pin1);
     Wire *wireAll2 = new Wire(pinC1234b, pin2);
 
+    QList<Wire*> allwires;
+    allwires << wire12a1 << wire12a2 << wire12b1 << wire12b2 << wire34a1 << wire34a2 << wire34b1 << wire34b2
+        << wire1234a1 << wire1234a2 << wire1234b1 << wire1234b2 << wireAll1 << wireAll2 ;
+
     circ->addElement(v1);
     circ->addElement(r1);
     circ->addElement(r2);
@@ -344,6 +348,42 @@ void SimulatorTest::testSourceAnd4ResistanceInParallel()
     qDebug() << "wire12a1 current known:" << wire12a1->currentIsKnown() << "value:" << wire12a1->current();
     qDebug() << "wire12b1 current known:" << wire12b1->currentIsKnown() << "value:" << wire12b1->current();
 
+    // create a list of wires
+    QList<Pin*> allpins; // = new QList<Pin*>;
+    std::set<Pin*> * allPinsStd = circ->getPins();
+    std::set<Pin*>::iterator end = allPinsStd->end();
+    for(std::set<Pin*>::iterator it = allPinsStd->begin(); it != end; ++it){
+        allpins.append(*it);
+    }
+
+    foreach(Pin *pin, allpins){
+        qDebug() << "pin eq id: " << pin->eqId();
+    }
+
+    r2->updateCurrents();
+    pinR21->setCurrentIfOneWire();
+    pinR22->setCurrentIfOneWire();
+    qDebug() << "wire current for 12a2: " << wire12a2->current();
+
+    r3->updateCurrents();
+    pinR31->setCurrentIfOneWire();
+    pinR32->setCurrentIfOneWire();
+    qDebug() << "wire current for wire34a2: " << wire34a2->current();
+
+    foreach(Pin *pin, allpins){
+        if( pin->setCurrentIfOneWire() ){
+            qDebug() << "wire currents: ";
+            QString out;
+            foreach(Wire *w, allwires){
+                out.append( QString("| %1 %2 ").arg(w->currentIsKnown()).arg(w->current()) );
+            }
+            qDebug() << out;
+        }
+    }
+    foreach(Pin *pin, allpins){
+        pin->calculateCurrentFromWires();
+    }
+    /*
     pin1->setCurrentIfOneWire();
     pin2->setCurrentIfOneWire();
     pinR11->setCurrentIfOneWire();
@@ -377,7 +417,7 @@ void SimulatorTest::testSourceAnd4ResistanceInParallel()
     pinC34b ->calculateCurrentFromWires();
     pinC1234a ->calculateCurrentFromWires();
     pinC1234b ->calculateCurrentFromWires();
-
+    */
     qDebug() << "wireAll1 current known:" << wireAll1->currentIsKnown() << "value:" << wireAll1->current();
     qDebug() << "wire12a1 current known:" << wire12a1->currentIsKnown() << "value:" << wire12a1->current();
     qDebug() << "wire12b1 current known:" << wire12b1->currentIsKnown() << "value:" << wire12b1->current();
