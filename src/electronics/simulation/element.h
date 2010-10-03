@@ -194,10 +194,6 @@ public:
 	double cbranchCurrent(const int branch);
 	double cnodeVoltage(const int node);
 
-	double cnodeCurrent(const int node) { 
-		if(b_status) return p_cnode[node]->current();
-		else return 0.0; }
-
 protected:
 	/**
 	 * Update the status, returning b_status
