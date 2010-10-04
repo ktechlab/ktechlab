@@ -38,7 +38,7 @@ Currently the following plugins exist:
 \li simulator support for simulating circuits
 
 The plugins can be categorized like in this map:
-\image html pluginmap.svg Plugin map
+\image html pluginmap.svg "Plugin map"
 
 The following subsections describe various aspects of the program.
 
