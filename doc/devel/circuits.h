@@ -28,6 +28,25 @@ Various terms used in this document are described here.
 
 \section plugins Plugins related to circuits
 
+\subsection overview How plugins work together
+
+There are several plugins involved in handling circuit-files. The following diagram shows, how these
+plugins interact:
+
+\image html communication_ktlcircuit.svg "Interaction of circuit-related plugins"
+
+As you can see, the different plugins communicate via public interfaces. The
+KTechLab::KTLCircuitPlugin uses KTechLab::IComponentFactory implementations to
+provide KTechLab::IComponentItem instances for the circuit files, which can be
+drawn on a KTechLab::CircuitScene. On the other hand, there
+is the simulation part that uses KTechLab::IElementFactory implementitions to provide
+KTechLab::IElement instances. These are used by the simulator to simulate the corresponding
+model of the component. Plugins providing at least one of these factories are considered to
+be component plugins. The circuit plugin provides a GUI to the user and stores all data concerning
+a circuit into a KTechLab::CircuitModel. This model stores information like which component is
+connected with which pin to another components pin. It also contains persistant information about how these
+“connections” are layed out (routed) on the screen.
+
 \subsection ktlcircuit The KTechLab::KTLCircuitPlugin
 \p
 The circuit plugin provides support for KTechLab’s circuit-files. When the user tries to
