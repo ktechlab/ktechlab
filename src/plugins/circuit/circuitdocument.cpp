@@ -26,20 +26,13 @@
 using namespace KTechLab;
 
 CircuitDocumentPrivate::CircuitDocumentPrivate( CircuitDocument *doc )
-    :   circuitModel( new CircuitModel() ),
-        m_document(doc)
+    :    m_document(doc)
 {
-    reloadFromXml();
+    initCircuitModel();
     circuitScene = new CircuitScene( doc, circuitModel );
 }
 
-CircuitDocumentPrivate::~CircuitDocumentPrivate()
-{
-    delete circuitScene;
-    delete circuitModel;
-}
-
-void CircuitDocumentPrivate::reloadFromXml()
+void CircuitDocumentPrivate::initCircuitModel()
 {
     QString errorMessage, tempFile;
     if ( !KIO::NetAccess::download( m_document->url(), tempFile, 0 ) ) {
@@ -56,36 +49,26 @@ void CircuitDocumentPrivate::reloadFromXml()
         //return in case the file is empty
         return;
     }
-    QDomDocument doc( "KTechlab" );
-    if ( !doc.setContent( &file, &errorMessage ) ) {
+    QDomDocument dom( "KTechlab" );
+    if ( !dom.setContent( &file, &errorMessage ) ) {
         KMessageBox::sorry( 0, i18n("Couldn't parse xml:\n%1").arg(errorMessage) );
         file.close();
         KIO::NetAccess::removeTempFile(tempFile);
         return;
     }
     file.close();
+    circuitModel = new CircuitModel( dom );
+}
 
-    QDomElement root = doc.documentElement();
-    QDomNode node = root.firstChild();
-    while ( !node.isNull() ) {
-        QDomElement element = node.toElement();
-        if ( !element.isNull() ) {
-            const QString tagName = element.tagName();
-            QDomNamedNodeMap attribs = element.attributes();
-            QVariantMap item;
-            for ( int i=0; i<attribs.count(); ++i ) {
-                item[ attribs.item(i).nodeName() ] = attribs.item(i).nodeValue();
-            }
-            if ( tagName == "item" ) {
-                circuitModel->addComponent( item );
-            } else if ( tagName == "connector" ) {
-                circuitModel->addConnector( item );
-            } else if ( tagName == "node" ) {
-                circuitModel->addNode( item );
-            }
-        }
-        node = node.nextSibling();
-    }
+CircuitDocumentPrivate::~CircuitDocumentPrivate()
+{
+    delete circuitScene;
+    delete circuitModel;
+}
+
+void CircuitDocumentPrivate::reloadFromXml()
+{
+
 }
 
 CircuitDocument::CircuitDocument( const KUrl &url, KDevelop::Core* core )

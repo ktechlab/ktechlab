@@ -27,12 +27,11 @@
 namespace KTechLab
 {
 class ComponentMimeData;
-class KTLCircuitPlugin;
 
 class CircuitModel : public IDocumentModel
 {
 public:
-    CircuitModel ( QObject* parent = 0 );
+    CircuitModel(QDomDocument doc, QObject* parent = 0);
 
     /**
      * Creates a new Component in the circuit from KTechLab::ComponentMimeData.
@@ -55,7 +54,6 @@ public:
 private:
     QVariantMap m_components;
     QVariantMap m_connectors;
-    KTLCircuitPlugin *m_circuitPlugin;
 
     /**
      * Check for valid components

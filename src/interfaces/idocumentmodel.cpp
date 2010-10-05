@@ -32,6 +32,7 @@ public:
     QVariantMap components;
     QVariantMap connectors;
     QVariantMap nodes;
+    QDomDocument doc;
 
 private:
     QSet<QString> m_ids;
@@ -51,11 +52,11 @@ QString IDocumentModelPrivate::generateUid(const QString& name)
     return idAttempt;
 }
 
-IDocumentModel::IDocumentModel ( QObject* parent )
-    : QAbstractTableModel ( parent ),
+IDocumentModel::IDocumentModel ( QDomDocument doc, QObject* parent )
+    : QAbstractItemModel ( parent ),
       d(new IDocumentModelPrivate())
 {
-
+    d->doc = doc;
 }
 
 IDocumentModel::~IDocumentModel()
@@ -155,6 +156,26 @@ void IDocumentModel::updateData(const QString& name, const QVariantMap& data)
 QString IDocumentModel::generateUid(const QString& name)
 {
     return d->generateUid(name);
+}
+
+Qt::ItemFlags IDocumentModel::flags(const QModelIndex& index) const
+{
+    return QAbstractItemModel::flags(index);
+}
+
+QVariant IDocumentModel::headerData(int section, Qt::Orientation orientation, int role) const
+{
+    return QAbstractItemModel::headerData(section, orientation, role);
+}
+
+QModelIndex IDocumentModel::index(int row, int column, const QModelIndex& parent) const
+{
+
+}
+
+QModelIndex IDocumentModel::parent(const QModelIndex& child) const
+{
+    return QModelIndex();
 }
 
 #include "idocumentmodel.moc"

@@ -22,6 +22,7 @@
 
 #include "ktlinterfacesexport.h"
 #include <QAbstractItemModel>
+#include <QDomDocument>
 
 namespace KTechLab
 {
@@ -43,11 +44,11 @@ class IDocumentModelPrivate;
  * the component at (i,i) to the component at (j,j) there will be valid data for
  * a connector at (i,j).
  */
-class KTLINTERFACES_EXPORT IDocumentModel : public QAbstractTableModel
+class KTLINTERFACES_EXPORT IDocumentModel : public QAbstractItemModel
 {
     Q_OBJECT
 public:
-    IDocumentModel ( QObject* parent = 0 );
+    IDocumentModel ( QDomDocument doc, QObject* parent = 0 );
     ~IDocumentModel();
 
     /**
@@ -142,11 +143,11 @@ public:
      */
     int columnCount ( const QModelIndex& parent = QModelIndex() ) const;
     /**
-    * Get the number of rows of the adjacent matrix. This equals the number of columns and
-    * the number of components.
-    *
-    * @return the number of rows of the matrix
-    */
+     * Get the number of rows of the adjacent matrix. This equals the number of columns and
+     * the number of components.
+     *
+     * @return the number of rows of the matrix
+     */
     int rowCount ( const QModelIndex& parent = QModelIndex() ) const;
     /**
      * Set data for a given field in the matrix.
@@ -156,7 +157,19 @@ public:
      * @param role - the role which is responsible for setting the data
      * @return true, if the data was set successful
      */
-     virtual bool setData ( const QModelIndex& index, const QVariant& value, int role = Qt::EditRole );
+    virtual bool setData ( const QModelIndex& index, const QVariant& value,
+                           int role = Qt::EditRole );
+
+    Qt::ItemFlags flags( const QModelIndex &index ) const;
+
+    QVariant headerData( int section, Qt::Orientation orientation,
+                         int role = Qt::DisplayRole ) const;
+
+
+    QModelIndex index( int row, int column,
+                       const QModelIndex &parent = QModelIndex() ) const;
+
+    QModelIndex parent( const QModelIndex &child ) const;
 
 public slots:
     virtual void updateData( const QString &name, const QVariantMap &data );
@@ -169,6 +182,7 @@ protected:
      * Generate a unique id for component in the circuit, this model repesents.
      */
     virtual QString generateUid( const QString& name );
+
 private:
     IDocumentModelPrivate* d;
 };
