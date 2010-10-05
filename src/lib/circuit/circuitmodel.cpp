@@ -19,7 +19,6 @@
 */
 
 #include "circuitmodel.h"
-#include "ktlcircuitplugin.h"
 
 #include <interfaces/iplugincontroller.h>
 #include <shell/core.h>
