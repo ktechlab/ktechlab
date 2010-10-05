@@ -28,16 +28,29 @@
 
 using namespace KTechLab;
 
-CircuitModel::CircuitModel ( QObject* parent )
-    : IDocumentModel ( parent )
+CircuitModel::CircuitModel ( QDomDocument doc, QObject* parent )
+    : IDocumentModel ( doc, parent )
 {
-    QStringList constraints;
-    constraints << QString("'%1' in [X-KDevelop-SupportedMimeTypes]").arg("application/x-circuit");
-    QList<KDevelop::IPlugin*> plugins = KDevelop::Core::self()->pluginController()->allPluginsForExtension( "org.kdevelop.IDocument", constraints );
-    if (plugins.isEmpty()) {
-        kError() << "No plugin found to load KTechLab Documents";
-    } else {
-        m_circuitPlugin = qobject_cast<KTLCircuitPlugin*>( plugins.first() );
+    QDomElement root = doc.documentElement();
+    QDomNode node = root.firstChild();
+    while ( !node.isNull() ) {
+        QDomElement element = node.toElement();
+        if ( !element.isNull() ) {
+            const QString tagName = element.tagName();
+            QDomNamedNodeMap attribs = element.attributes();
+            QVariantMap item;
+            for ( int i=0; i<attribs.count(); ++i ) {
+                item[ attribs.item(i).nodeName() ] = attribs.item(i).nodeValue();
+            }
+            if ( tagName == "item" ) {
+                addComponent( item );
+            } else if ( tagName == "connector" ) {
+                addConnector( item );
+            } else if ( tagName == "node" ) {
+                addNode( item );
+            }
+        }
+        node = node.nextSibling();
     }
 }
 
@@ -55,15 +68,11 @@ QVariantMap CircuitModel::createComponent(const KTechLab::ComponentMimeData* dat
 
 void CircuitModel::addComponent ( const QVariantMap& component )
 {
-    if ( !m_circuitPlugin ) {
-        kError() << "No plugin found to load KTechLab Documents";
-        return;
-    }
-    if ( isValidComponent(component) ) {
+   if ( isValidComponent(component) ) {
         QVariantMap map(component);
-        map.insert( "fileName",
+/*        map.insert( "fileName",
                     m_circuitPlugin->fileNameForComponent( map.value("type").toString() )
-                );
+                );*/
         m_components.insert( component.value("id").toString(), map );
     }
 }

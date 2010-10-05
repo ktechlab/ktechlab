@@ -42,6 +42,7 @@ public:
 
 private:
     CircuitDocument *m_document;
+    void initCircuitModel();
 
 };
 
