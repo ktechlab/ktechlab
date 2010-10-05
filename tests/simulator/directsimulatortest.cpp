@@ -46,7 +46,7 @@ void KTechLab::DirectSimulatorTest::initTestCase()
     SimulationManager::initialize();
     fact = new TestElementFactory();
     ISimulationManager::self()->registerElementFactory(fact);
-    model = new IDocumentModel;
+    model = new IDocumentModel(QDomDocument("KTechlab"));
     transSim = new CircuitTransientSimulator(model);
     simulator = transSim;
     model = 0;
@@ -70,7 +70,7 @@ void DirectSimulatorTest::init()
     if(model)
         delete model;
 
-    model = new IDocumentModel;
+    model = new IDocumentModel(QDomDocument("KTechlab"));
     transSim = new CircuitTransientSimulator(model);
     simulator = transSim;
 }
