@@ -21,15 +21,35 @@
 #include "idocumentmodel.h"
 #include "component/icomponent.h"
 
+#include <QSet>
+
 using namespace KTechLab;
 
 class KTechLab::IDocumentModelPrivate {
 
 public:
+    QString generateUid(const QString& name);
     QVariantMap components;
     QVariantMap connectors;
     QVariantMap nodes;
+
+private:
+    QSet<QString> m_ids;
+    int m_nextIdNum;
 };
+
+QString IDocumentModelPrivate::generateUid(const QString& name)
+{
+    QString cleanName = name;
+    cleanName.remove(QRegExp("__[0-9]*")); //Change 'node__13' to 'node', for example
+    QString idAttempt = cleanName;
+
+    while (m_ids.contains(idAttempt))
+        idAttempt = cleanName + "__" + QString::number(m_nextIdNum++);
+
+    m_ids.insert(idAttempt);
+    return idAttempt;
+}
 
 IDocumentModel::IDocumentModel ( QObject* parent )
     : QAbstractTableModel ( parent ),
@@ -132,16 +152,9 @@ void IDocumentModel::updateData(const QString& name, const QVariantMap& data)
 
 }
 
-QString IDocumentModel::generateUid(const QString& name) {
-    QString cleanName = name;
-    cleanName.remove(QRegExp("__[0-9]*")); //Change 'node__13' to 'node', for example
-    QString idAttempt = cleanName;
-
-    while (m_ids.contains(idAttempt))
-        idAttempt = cleanName + "__" + QString::number(m_nextIdNum++);
-
-    m_ids.insert(idAttempt);
-    return idAttempt;
+QString IDocumentModel::generateUid(const QString& name)
+{
+    return d->generateUid(name);
 }
 
 #include "idocumentmodel.moc"

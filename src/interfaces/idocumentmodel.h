@@ -22,7 +22,6 @@
 
 #include "ktlinterfacesexport.h"
 #include <QAbstractItemModel>
-#include <QSet>
 
 namespace KTechLab
 {
@@ -172,9 +171,6 @@ protected:
     virtual QString generateUid( const QString& name );
 private:
     IDocumentModelPrivate* d;
-
-    QSet<QString> m_ids;
-    int m_nextIdNum;
 };
 
 }
