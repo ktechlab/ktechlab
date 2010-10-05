@@ -6,6 +6,7 @@ set(circuit_SRCS
     componentitem.cpp
     pinitem.cpp
     theme.cpp
+    circuitmodel.cpp
     simulator/genericelementfactory.cpp
 )
 
