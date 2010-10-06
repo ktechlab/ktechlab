@@ -34,6 +34,9 @@ Element::Element() {
 
 	m_numCBranches = 0;
 	m_numCNodes = 0;
+
+    for(int i=0; i < MAX_CNODES; i++)
+        m_cnodeCurrent[i] = 0;
 }
 
 Element::~ Element() {}
@@ -132,5 +135,14 @@ double Element::cnodeVoltage(const int node) {
 
 	return (*p_cnode)[node].voltage();
 }
+double Element::nodeCurrent(int nodeNumber) const
+{
+    if((nodeNumber < 0) || (nodeNumber >= m_numCNodes)){
+        qCritical("Element::nodeCurrent: BUG: requested current for invalid node number: %d\n", nodeNumber );
+        return 0;
+    }
+    return m_cnodeCurrent[nodeNumber];
+}
+
 //END class Element
 

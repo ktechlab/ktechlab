@@ -194,6 +194,16 @@ public:
 	double cbranchCurrent(const int branch);
 	double cnodeVoltage(const int node);
 
+    /**
+     * Get the current flowing into a pin from the element.
+     * Note that this value cannot be stored inside the CNodes, because one
+     * CNode is associated with more elements, so the current on a pin of an
+     * element cannot be clearly defined that way.
+     * \param nodeNumber the number of the node, relative to the element
+     * \return the current from the element into the pin
+     */
+    double nodeCurrent(int nodeNumber) const ;
+
 protected:
 	/**
 	 * Update the status, returning b_status
@@ -230,6 +240,12 @@ protected:
 	 * pointers to the circuit, and at least one of its nodes is not ground.
 	 */
 	bool b_status;
+
+    /**
+     * value of the current flowing into the cnodes. It musb be set by the
+     * calculateCurrent() method
+     */
+    double m_cnodeCurrent[MAX_CNODES];
 
 private:
 	// TODO: this is never initialized, and is only returned as a default value
