@@ -9,6 +9,9 @@ class SimulatorTest : public QObject {
 
 private slots:
 
+    // method called before each test case
+    void init();
+
     void createTest();
     void testSourceAndResistance();
     void testSourceAnd4ResistanceInParallel();
