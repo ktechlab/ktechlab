@@ -32,7 +32,7 @@ void ElementMap::mergeCurrents() {
 
 	for (int i = 0; i < 4; i++) {
 		if(n[i]) {
-			n[i]->setCurrentIfOneWire();
+            n[i]->setSourceCurrent( e->nodeCurrent(i) );
 		}
 	}
 }
