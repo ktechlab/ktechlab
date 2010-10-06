@@ -30,7 +30,18 @@
 
 #include "simulatortest.h"
 
+QList<ElementMap*> allEms;
+
 void setupElement(Element *elem, Pin *pin1, Pin *pin2);
+
+void SimulatorTest::init()
+{
+    qDebug() << "----------------- init --------------\ncleaning up" << allEms.size() << "elementmaps.";
+    foreach(ElementMap *m, allEms){
+        delete m;
+    }
+    allEms.clear();
+}
 
 void SimulatorTest::createTest(){
 
@@ -142,6 +153,7 @@ void SimulatorTest::createTest(){
 void setupElement(Element *elem, Pin *pin1, Pin *pin2){
     // element map stores the relation between and element and pins
     ElementMap *em = new ElementMap;
+    allEms.append(em);
     em->setElement(elem);
     em->putPin(0, pin1);
     em->putPin(1, pin2);
@@ -207,6 +219,12 @@ void SimulatorTest::testSourceAndResistance()
 
     // try to make the currents work
     circ->updateCurrents();
+
+    // set the current on the pins
+    foreach(ElementMap *em, allEms){
+        em->mergeCurrents();
+    }
+
     /*
     v4->updateCurrents();
     r1->updateCurrents();
@@ -330,6 +348,10 @@ void SimulatorTest::testSourceAnd4ResistanceInParallel()
     // try to make the currents work
     circ->updateCurrents();
 
+    foreach(ElementMap *em, allEms){
+        em->mergeCurrents();
+    }
+
     circ->displayEquations();
 
     qDebug() << "pin1  id:" << pin1->eqId() << " voltage:" << pin1->voltage();
@@ -358,6 +380,8 @@ void SimulatorTest::testSourceAnd4ResistanceInParallel()
     r3->updateCurrents();
     qDebug() << "wire current for wire34a2: " << wire34a2->current();
 
+    qDebug() << "pinR11 current known:" << pinR11->currentIsKnown() << "value:" << pinR11->sourceCurrent();
+
     foreach(Pin *pin, allpins){
         pin->calculateCurrentFromWires();
     }
@@ -384,6 +408,11 @@ void SimulatorTest::testSourceAnd4ResistanceInParallel()
     qDebug() << "wire12b1 current known:" << wire12b1->currentIsKnown() << "value:" << wire12b1->current();
     qDebug() << "wire34a1 current known:" << wire34a1->currentIsKnown() << "value:" << wire34a1->current();
 
+    qDebug() << "pi1    current known:" << pin1->currentIsKnown() << "value:" << pin1->sourceCurrent();
+    qDebug() << "pinR11 current known:" << pinR11->currentIsKnown() << "value:" << pinR11->sourceCurrent();
+    qDebug() << "pinR21 current known:" << pinR21->currentIsKnown() << "value:" << pinR21->sourceCurrent();
+    qDebug() << "pinR31 current known:" << pinR31->currentIsKnown() << "value:" << pinR31->sourceCurrent();
+    qDebug() << "pinR41 current known:" << pinR41->currentIsKnown() << "value:" << pinR41->sourceCurrent();
 }
 
 QTEST_MAIN(SimulatorTest)
