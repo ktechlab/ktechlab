@@ -107,15 +107,12 @@ void SimulatorTest::createTest(){
     // try to make the currents work
     v4->updateCurrents();
     r1->updateCurrents();
-    pin1->setCurrentIfOneWire();
-    pin2->setCurrentIfOneWire();
-    pinR1->setCurrentIfOneWire();
-    pinR2->setCurrentIfOneWire();
+    /*
     pin1->calculateCurrentFromWires();
     pin2->calculateCurrentFromWires();
     pinR1->calculateCurrentFromWires();
     pinR2->calculateCurrentFromWires();
-
+    */
 //    circ->updateCurrents();
     circ->displayEquations();
 
@@ -214,11 +211,6 @@ void SimulatorTest::testSourceAndResistance()
     v4->updateCurrents();
     r1->updateCurrents();
 */
-    pin1->setCurrentIfOneWire();
-    pin2->setCurrentIfOneWire();
-    pinR1->setCurrentIfOneWire();
-    pinR2->setCurrentIfOneWire();
-
     pin1->calculateCurrentFromWires();
     pin2->calculateCurrentFromWires();
     pinR1->calculateCurrentFromWires();
@@ -361,46 +353,15 @@ void SimulatorTest::testSourceAnd4ResistanceInParallel()
     }
 
     r2->updateCurrents();
-    pinR21->setCurrentIfOneWire();
-    pinR22->setCurrentIfOneWire();
     qDebug() << "wire current for 12a2: " << wire12a2->current();
 
     r3->updateCurrents();
-    pinR31->setCurrentIfOneWire();
-    pinR32->setCurrentIfOneWire();
     qDebug() << "wire current for wire34a2: " << wire34a2->current();
 
-    foreach(Pin *pin, allpins){
-        if( pin->setCurrentIfOneWire() ){
-            qDebug() << "wire currents: ";
-            QString out;
-            foreach(Wire *w, allwires){
-                out.append( QString("| %1 %2 ").arg(w->currentIsKnown()).arg(w->current()) );
-            }
-            qDebug() << out;
-        }
-    }
     foreach(Pin *pin, allpins){
         pin->calculateCurrentFromWires();
     }
     /*
-    pin1->setCurrentIfOneWire();
-    pin2->setCurrentIfOneWire();
-    pinR11->setCurrentIfOneWire();
-    pinR12->setCurrentIfOneWire();
-    pinR21->setCurrentIfOneWire();
-    pinR22->setCurrentIfOneWire();
-    pinR31->setCurrentIfOneWire();
-    pinR32->setCurrentIfOneWire();
-    pinR41->setCurrentIfOneWire();
-    pinR42->setCurrentIfOneWire();
-    pinC12a->setCurrentIfOneWire(); 
-    pinC12b ->setCurrentIfOneWire();
-    pinC34a ->setCurrentIfOneWire();
-    pinC34b ->setCurrentIfOneWire();
-    pinC1234a ->setCurrentIfOneWire();
-    pinC1234b ->setCurrentIfOneWire();
-
     pin1->calculateCurrentFromWires();
     pin2->calculateCurrentFromWires();
     pinR11->calculateCurrentFromWires();
