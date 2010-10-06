@@ -49,7 +49,11 @@ class KTLINTERFACES_EXPORT IDocumentModel : public QAbstractItemModel
     Q_OBJECT
 public:
     IDocumentModel ( QDomDocument doc, QObject* parent = 0 );
-    ~IDocumentModel();
+    virtual ~IDocumentModel();
+
+    enum {
+        XMLDataRole = Qt::UserRole
+    };
 
     /**
      * Add a valid component to the model. A component must at least have

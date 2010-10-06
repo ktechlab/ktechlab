@@ -22,22 +22,32 @@
 #include "component/icomponent.h"
 
 #include <QSet>
+#include "private/documentitem.h"
+#include <KDebug>
 
 using namespace KTechLab;
 
 class KTechLab::IDocumentModelPrivate {
 
 public:
+    ~IDocumentModelPrivate();
     QString generateUid(const QString& name);
+    DocumentItem* itemFromIndex(QModelIndex index) const;
     QVariantMap components;
     QVariantMap connectors;
     QVariantMap nodes;
     QDomDocument doc;
+    DocumentItem* rootItem;
 
 private:
     QSet<QString> m_ids;
     int m_nextIdNum;
 };
+
+IDocumentModelPrivate::~IDocumentModelPrivate()
+{
+    delete rootItem;
+}
 
 QString IDocumentModelPrivate::generateUid(const QString& name)
 {
@@ -52,11 +62,21 @@ QString IDocumentModelPrivate::generateUid(const QString& name)
     return idAttempt;
 }
 
+DocumentItem* IDocumentModelPrivate::itemFromIndex(QModelIndex index) const
+{
+    if ( !index.isValid() ) {
+        return rootItem;
+    } else {
+        return static_cast<DocumentItem*>(index.internalPointer());
+    }
+}
+
 IDocumentModel::IDocumentModel ( QDomDocument doc, QObject* parent )
     : QAbstractItemModel ( parent ),
       d(new IDocumentModelPrivate())
 {
     d->doc = doc;
+    d->rootItem = new DocumentItem(d->doc, 0);
 }
 
 IDocumentModel::~IDocumentModel()
@@ -66,23 +86,29 @@ IDocumentModel::~IDocumentModel()
 
 QVariant IDocumentModel::data(const QModelIndex& index, int role) const
 {
+    DocumentItem* item = d->itemFromIndex(index);
+    if (role == IDocumentModel::XMLDataRole) {
+        QByteArray res;
+        QTextStream stream(&res);
+        item->node().save(stream, 4);
+        return res;
+    }
     return QVariant();
 }
 
 int IDocumentModel::columnCount(const QModelIndex& parent) const
 {
-    if ( !parent.isValid() )
-        return d->components.size();
-
-    return 0;
+    return 1;
 }
 
 int IDocumentModel::rowCount(const QModelIndex& parent) const
 {
-    if ( !parent.isValid() )
-        return d->components.size();
+    if (parent.column() > 0)
+        return 0;
 
-    return 0;
+    DocumentItem* parentItem = d->itemFromIndex(parent);
+
+    return parentItem->node().childNodes().count();
 }
 
 bool IDocumentModel::setData(const QModelIndex& index, const QVariant& value, int role)
@@ -170,12 +196,34 @@ QVariant IDocumentModel::headerData(int section, Qt::Orientation orientation, in
 
 QModelIndex IDocumentModel::index(int row, int column, const QModelIndex& parent) const
 {
+    if (!hasIndex(row, column, parent))
+        return QModelIndex();
 
+    DocumentItem *parentItem;
+    if (!parent.isValid())
+        parentItem = d->rootItem;
+    else
+        parentItem = static_cast<DocumentItem*>(parent.internalPointer());
+
+    DocumentItem *childItem = parentItem->child(row);
+    if (childItem)
+        return createIndex(row, column, childItem);
+    else
+        return QModelIndex();
 }
 
 QModelIndex IDocumentModel::parent(const QModelIndex& child) const
 {
-    return QModelIndex();
+    if (!child.isValid())
+        return QModelIndex();
+
+    DocumentItem *childItem = static_cast<DocumentItem*>(child.internalPointer());
+    DocumentItem *parentItem = childItem->parent();
+
+    if (!parentItem || parentItem == d->rootItem)
+        return QModelIndex();
+
+    return createIndex(parentItem->row(), 0, parentItem);
 }
 
 #include "idocumentmodel.moc"

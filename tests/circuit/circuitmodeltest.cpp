@@ -60,6 +60,8 @@ void CircuitModelTest::loadFromFile()
     KIO::NetAccess::removeTempFile(tempFile);
     model = new KTechLab::CircuitModel( dom );
 
+    QVERIFY( model->rowCount(model->index(0,0)) == 8 );
+
     delete model;
     model = 0;
 }

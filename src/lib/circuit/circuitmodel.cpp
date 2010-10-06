@@ -104,26 +104,3 @@ QVariantMap CircuitModel::connectors() const
 }
 
 
-QVariant CircuitModel::data ( const QModelIndex& index, int role ) const
-{
-    return QVariant();
-}
-
-int CircuitModel::columnCount ( const QModelIndex& parent ) const
-{
-    return 1;
-}
-
-int CircuitModel::rowCount ( const QModelIndex& parent ) const
-{
-    if ( !parent.isValid() )
-        return m_components.size();
-
-    return 0;
-}
-
-bool CircuitModel::setData ( const QModelIndex& index, const QVariant& value, int role )
-{
-    return QAbstractItemModel::setData ( index, value, role );
-}
-
