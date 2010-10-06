@@ -57,12 +57,12 @@ void VCVS::updateCurrents()
 {
 	if (!b_status) return;
 
-	p_cnode[0]->setCurrent(0.0);
-	p_cnode[1]->setCurrent(0.0);
+    m_cnodeCurrent[0] = 0;
+    m_cnodeCurrent[1] = 0;
 
 	double i = p_cbranch[0]->current();
 
-	p_cnode[2]->sinkCurrent(i);
-	p_cnode[3]->sourceCurrent(i);
+    m_cnodeCurrent[2] = -i;
+    m_cnodeCurrent[3] = i;
 }
 

@@ -41,8 +41,8 @@ void Capacitance::updateCurrents()
 
 	const double i = i_eq_old + (p_cnode[0]->voltage() - p_cnode[1]->voltage()) * m_scaled_cap;
 
-	p_cnode[0]->sourceCurrent(i);
-	p_cnode[1]->sinkCurrent(i);
+    m_cnodeCurrent[0] = i;
+    m_cnodeCurrent[1] = -i;
 }
 
 void Capacitance::time_step()
