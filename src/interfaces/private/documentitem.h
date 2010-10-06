@@ -36,7 +36,7 @@ public:
 
 private:
     QDomNode domNode;
-    QHash<QString,DocumentItem*> childItems;
+    QHash<int,DocumentItem*> childItems;
     DocumentItem* parentItem;
     int rowNumber;
 };

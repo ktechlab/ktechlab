@@ -20,3 +20,42 @@
 
 #include "documentitem.h"
 
+#include <QDebug>
+
+DocumentItem::DocumentItem(QDomNode& node, int row, DocumentItem* parent)
+    :   domNode(node),
+        parentItem(parent),
+        rowNumber(row)
+{
+}
+
+DocumentItem::~DocumentItem()
+{
+    qDeleteAll< QHash<int,DocumentItem*> >(childItems);
+}
+
+QDomNode DocumentItem::node() const
+{
+    return domNode;
+}
+
+DocumentItem* DocumentItem::child(int i)
+{
+    if (i >= 0 && i < domNode.childNodes().count()) {
+        QDomNode childNode = domNode.childNodes().item(i);
+        DocumentItem *childItem = new DocumentItem(childNode, i, this);
+        childItems[i] = childItem;
+        return childItem;
+    }
+    return 0;
+}
+
+DocumentItem* DocumentItem::parent()
+{
+    return parentItem;
+}
+
+int DocumentItem::row()
+{
+    return rowNumber;
+}
