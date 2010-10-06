@@ -49,8 +49,8 @@ void Inductance::updateCurrents()
 
 	const double i = p_cbranch[0]->current();
 
-	p_cnode[1]->setCurrent(i);
-	p_cnode[0]->setCurrent(-i);
+    m_cnodeCurrent[1] = i;
+    m_cnodeCurrent[0] = -i;
 }
 
 void Inductance::time_step()

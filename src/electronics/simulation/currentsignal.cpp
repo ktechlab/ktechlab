@@ -39,8 +39,8 @@ void CurrentSignal::add_initial_dc()
 
 void CurrentSignal::updateCurrents()
 {
-	p_cnode[0]->setCurrent(-m_newCurrent);
-	p_cnode[1]->setCurrent( m_newCurrent);
+    m_cnodeCurrent[0] = -m_newCurrent;
+    m_cnodeCurrent[1] = m_newCurrent;
 }
 
 void CurrentSignal::time_step()

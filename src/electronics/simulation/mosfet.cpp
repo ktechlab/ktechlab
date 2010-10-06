@@ -102,9 +102,9 @@ void MOSFET::add_initial_dc() {
 }
 
 void MOSFET::updateCurrents() {
-	p_cnode[PinD]->sourceCurrent(-I_D  + I_BD);
-	p_cnode[PinB]->sinkCurrent(I_BD + I_BS);
-	p_cnode[PinS]->sourceCurrent( I_D  + I_BS);
+    m_cnodeCurrent[PinD] = -I_D  + I_BD;
+    m_cnodeCurrent[PinB] = -(I_BD + I_BS);
+    m_cnodeCurrent[PinS] = I_D  + I_BS;
 }
 
 void MOSFET::update_dc() {
