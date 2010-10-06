@@ -51,7 +51,7 @@ void VoltageSignal::updateCurrents()
 
 	const double i = p_cbranch[0]->current();
 
-	p_cnode[0]->sinkCurrent(i);
-	p_cnode[1]->sourceCurrent(i);
+    m_cnodeCurrent[0] = -i;
+    m_cnodeCurrent[1] = i;
 }
 

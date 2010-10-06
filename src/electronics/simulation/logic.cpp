@@ -200,13 +200,13 @@ void LogicOut::add_initial_dc() {
 
 void LogicOut::updateCurrents() {
 	if (!p_eSet) {
-		p_cnode[0]->setCurrent(0.0);
+        m_cnodeCurrent[0] = 0;
 		return;
 	}
 
 	if (!b_status) return;
 
-	p_cnode[0]->setCurrent((m_v_out - p_cnode[0]->voltage()) * m_r_out);
+    m_cnodeCurrent[0] = (m_v_out - p_cnode[0]->voltage()) * m_r_out;
 }
 
 void LogicOut::setHigh(bool high) {

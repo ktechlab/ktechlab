@@ -86,9 +86,9 @@ void BJT::add_initial_dc()
 
 void BJT::updateCurrents()
 {
-	p_cnode[1]->sourceCurrent(I_BC - I_T);
-	p_cnode[2]->sourceCurrent(I_BE + I_T);
-	p_cnode[0]->sinkCurrent(p_cnode[1]->current() + p_cnode[2]->current());
+    m_cnodeCurrent[1] = I_BC - I_T;
+    m_cnodeCurrent[2] = I_BE + I_T;
+    m_cnodeCurrent[0] = - (m_cnodeCurrent[1] + m_cnodeCurrent[2]);
 }
 
 void BJT::update_dc()

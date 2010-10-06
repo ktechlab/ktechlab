@@ -46,8 +46,8 @@ void Diode::add_initial_dc() {
 }
 
 void Diode::updateCurrents() {
-	p_cnode[0]->setCurrent(-I_old);
-	p_cnode[1]->setCurrent( I_old);
+    m_cnodeCurrent[0] = -I_old;
+    m_cnodeCurrent[1] = I_old;
 }
 
 void Diode::update_dc() {

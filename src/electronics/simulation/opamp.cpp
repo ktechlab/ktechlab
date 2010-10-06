@@ -34,8 +34,8 @@ void OpAmp::add_initial_dc() {
 void OpAmp::updateCurrents() {
 	if (!b_status) return;
 
-	p_cnode[0]->setCurrent(0.0);
-	p_cnode[1]->setCurrent(p_cbranch[0]->current());
-	p_cnode[2]->setCurrent(0.0);
+    m_cnodeCurrent[0] = 0;
+    m_cnodeCurrent[1] = p_cbranch[0]->current();
+    m_cnodeCurrent[2] = 0;
 }
 
