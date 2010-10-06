@@ -15,7 +15,7 @@
 #include "switch.h"
 
 Pin::Pin() :
-	m_voltage(0), m_eqId(-2), m_groundType(Pin::gt_never)
+	m_voltage(0), m_sourceCurrent(0), m_eqId(-2), m_groundType(Pin::gt_never)
 {}
 
 Pin::~Pin() {
@@ -78,8 +78,26 @@ void Pin::removeWire(Wire *aWire) {
 }
 
 bool Pin::currentIsKnown() const {
+    /*  FIXME this rationale is not correct in this case,
+        because the current _from the element_ is known always, and in rest is 0
+        */
 	return ((m_wireList.size() == 2 && m_elementList.empty())
 		|| (m_wireList.size() < 2 && !m_elementList.empty()));
+}
+
+double Pin::sourceCurrent() const
+{
+    if(!currentIsKnown()){
+        qWarning() << "BUG: asking for a current which is not known!";
+    }
+    if( m_elementList.empty())
+        return 0;
+    return m_sourceCurrent;
+}
+
+void Pin::setSourceCurrent(double current) 
+{
+    m_sourceCurrent = current;
 }
 
 double Pin::calculateCurrentFromWires(Wire *aWire) const {

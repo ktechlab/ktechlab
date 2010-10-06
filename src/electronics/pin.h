@@ -67,6 +67,21 @@ public:
 	 */
 	bool currentIsKnown() const;
 
+    /**
+     * @return the current flowing into the pin from the associated element.
+     *      If the pin doesn't belong to any element, then 0 should be
+     *          returned.
+     *      If currentIsKnown() is false, then the behaviour of this method
+     *          is undefined.
+     */
+    double sourceCurrent() const;
+
+    /**
+     * Set the current coming from the element into the pin.
+     * Should be called from @ref ElementMap.
+     */
+    void setSourceCurrent(double current);
+
 	/**
 	 * Tries to calculate the Pin current from the input / output wires.
 	 * @return whether was successful.
@@ -152,6 +167,7 @@ public:
 
 private:
 	double m_voltage;
+    double m_sourceCurrent;
 
 	int m_eqId;
 	GroundType m_groundType;
