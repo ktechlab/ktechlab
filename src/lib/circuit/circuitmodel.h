@@ -46,10 +46,6 @@ public:
     virtual QVariantMap component( const QString &id ) const ;
     virtual void addConnector ( const QVariantMap& connector );
     virtual QVariantMap connectors() const;
-    virtual QVariant data ( const QModelIndex& index, int role = Qt::DisplayRole ) const;
-    virtual int columnCount ( const QModelIndex& parent = QModelIndex() ) const;
-    virtual int rowCount ( const QModelIndex& parent = QModelIndex() ) const;
-    virtual bool setData ( const QModelIndex& index, const QVariant& value, int role = Qt::EditRole );
 
 private:
     QVariantMap m_components;
