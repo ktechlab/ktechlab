@@ -32,8 +32,8 @@ extern double T_K; ///< Temperature in Kelvin
 class CNode
 {
 public:
-	CNode() : i(0.0), v(0.0), m_n(0) {}
-	CNode(const int32_t n) : i(0.0), v(0.0), m_n(n) {}
+	CNode() : v(0.0), m_n(0) {}
+	CNode(const int32_t n) : v(0.0), m_n(n) {}
 
 	inline void set_n(const int32_t n) { m_n = n; }
 	inline int32_t n() const { return m_n; }
@@ -44,17 +44,11 @@ public:
 	inline bool isGround() const { return m_n == -1; }
 	void setGround(); 
 
-	inline void resetCurrent() { i = 0.0; }
-	inline void sinkCurrent(const double current) { i = -current; } // classical currents 
-	inline void sourceCurrent(const double current) { i = current; }
-	inline double current() const { return i; }
-	inline void setCurrent(const double ampres) { i = ampres; }
 
 private:
 	/// Voltage on node. This is set from the last calculated voltage.
 	/// current is a read-out varriable. 
-	double i, v;
-// FIXME/WARNING: current won't be correct when Cnode is shared between elements! =( 
+	double v;
 
 	/// CNode number
 	int32_t m_n;
