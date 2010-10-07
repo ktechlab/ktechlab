@@ -29,22 +29,7 @@ class CircuitDocument;
 class CircuitScene;
 class CircuitModel;
 
-class CircuitDocumentPrivate
-{
-public:
-    CircuitDocumentPrivate( CircuitDocument *doc );
-    ~CircuitDocumentPrivate();
-
-    void reloadFromXml();
-
-    CircuitScene *circuitScene;
-    CircuitModel *circuitModel;
-
-private:
-    CircuitDocument *m_document;
-    void initCircuitModel();
-
-};
+class CircuitDocumentPrivate;
 
 /**
  * CircuitDocument handles circuit files. It provides access to
@@ -75,6 +60,15 @@ public:
      */
     virtual IDocumentScene* documentScene() const;
 
+    /**
+     * see \ref KDevelop::IDocument
+     */
+    virtual DocumentState state() const;
+
+    /**
+     * see \ref KDevelop::IDocument
+     */
+    virtual bool save(DocumentSaveMode mode = Default);
 protected:
     /**
      * see \ref KDevelop::PartDocument

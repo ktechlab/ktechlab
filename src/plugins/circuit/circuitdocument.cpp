@@ -22,8 +22,27 @@
 #include <QFile>
 #include <QMap>
 #include <KIO/NetAccess>
+#include <qtextdocument.h>
 
 using namespace KTechLab;
+
+class KTechLab::CircuitDocumentPrivate
+{
+public:
+    CircuitDocumentPrivate( CircuitDocument *doc );
+    ~CircuitDocumentPrivate();
+
+    static int debugArea() { static int s_area = KDebug::registerArea("areaName"); return s_area; }
+    bool writeToDisk();
+
+    CircuitScene *circuitScene;
+    CircuitModel *circuitModel;
+
+private:
+    CircuitDocument *m_document;
+    void initCircuitModel();
+
+};
 
 CircuitDocumentPrivate::CircuitDocumentPrivate( CircuitDocument *doc )
     :    m_document(doc)
@@ -60,15 +79,25 @@ void CircuitDocumentPrivate::initCircuitModel()
     circuitModel = new CircuitModel( dom );
 }
 
+bool CircuitDocumentPrivate::writeToDisk()
+{
+    QFile file(m_document->url().toLocalFile());
+    if (!file.open(QIODevice::ReadWrite)) {
+        KMessageBox::sorry( 0, i18n("Couldn't write file to disk:\n%1")
+            .arg(m_document->url().toLocalFile()) );
+        return false;
+    }
+
+    file.resize(0);
+    file.write(circuitModel->textDocument()->toPlainText().toUtf8());
+    file.close();
+    return true;
+}
+
 CircuitDocumentPrivate::~CircuitDocumentPrivate()
 {
     delete circuitScene;
     delete circuitModel;
-}
-
-void CircuitDocumentPrivate::reloadFromXml()
-{
-
 }
 
 CircuitDocument::CircuitDocument( const KUrl &url, KDevelop::Core* core )
@@ -100,6 +129,26 @@ IDocumentModel* CircuitDocument::documentModel() const
 IDocumentScene* CircuitDocument::documentScene() const
 {
     return d->circuitScene;
+}
+
+KDevelop::IDocument::DocumentState CircuitDocument::state() const
+{
+    if (d->circuitModel->textDocument()->isModified())
+        return KDevelop::IDocument::Modified;
+
+    return KDevelop::IDocument::Clean;
+}
+
+bool CircuitDocument::save(KDevelop::IDocument::DocumentSaveMode mode)
+{
+    if (mode & IDocument::Discard)
+        return true;
+
+    DocumentState state = this->state();
+    if (state & IDocument::Clean)
+        return true;
+
+    return d->writeToDisk();
 }
 
 QWidget* CircuitDocument::createViewWidget( QWidget* parent )
