@@ -24,6 +24,7 @@
 #include <QAbstractItemModel>
 #include <QDomDocument>
 
+class QTextDocument;
 namespace KTechLab
 {
 
@@ -174,6 +175,13 @@ public:
                        const QModelIndex &parent = QModelIndex() ) const;
 
     QModelIndex parent( const QModelIndex &child ) const;
+
+    /**
+     * Get a QTextDocument representation of the internal data. It will contain
+     * all data of the model encoded as XML text. It can be used to provide
+     * undo/redo functionality and be saved to disk.
+     */
+    QTextDocument* textDocument() const;
 
 public slots:
     virtual void updateData( const QString &name, const QVariantMap &data );
