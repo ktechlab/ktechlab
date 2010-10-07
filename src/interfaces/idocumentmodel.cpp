@@ -24,12 +24,17 @@
 #include <QSet>
 #include "private/documentitem.h"
 #include <KDebug>
+#include <qtextdocument.h>
 
 using namespace KTechLab;
 
 class KTechLab::IDocumentModelPrivate {
 
 public:
+    IDocumentModelPrivate() {
+        textDocument.setUndoRedoEnabled(true);
+    };
+
     ~IDocumentModelPrivate();
     QString generateUid(const QString& name);
     DocumentItem* itemFromIndex(QModelIndex index) const;
@@ -37,6 +42,7 @@ public:
     QVariantMap connectors;
     QVariantMap nodes;
     QDomDocument doc;
+    QTextDocument textDocument;
     DocumentItem* rootItem;
 
 private:
@@ -76,6 +82,7 @@ IDocumentModel::IDocumentModel ( QDomDocument doc, QObject* parent )
       d(new IDocumentModelPrivate())
 {
     d->doc = doc;
+    d->textDocument.setPlainText(doc.toString());
     d->rootItem = new DocumentItem(d->doc, 0);
 }
 
@@ -173,6 +180,10 @@ QVariantMap IDocumentModel::nodes() const
     return d->nodes;
 }
 
+QTextDocument* IDocumentModel::textDocument() const
+{
+    return &d->textDocument;
+}
 
 void IDocumentModel::updateData(const QString& name, const QVariantMap& data)
 {
