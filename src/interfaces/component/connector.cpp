@@ -91,7 +91,7 @@ void ConnectorPrivate::parseRoute(const QString pathString)
 void ConnectorPrivate::setStartNode(const Node* node)
 {
     if (!node || !node->isValid()){
-        kError() << "Invalid node set as start node:" << node->id();
+        kError() << "Invalid node set as start node:" << node;
         return;
     }
     startNode = node;
@@ -114,7 +114,7 @@ void ConnectorPrivate::setStartNode(const Node* node)
 void ConnectorPrivate::setEndNode(const Node* node)
 {
     if (!node || !node->isValid()){
-        kError() << "Invalid node set as end node:" << node->id();
+        kError() << "Invalid node set as end node:" << node;
         return;
     }
     endNode = node;
