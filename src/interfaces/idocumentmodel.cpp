@@ -90,7 +90,7 @@ QVariant IDocumentModel::data(const QModelIndex& index, int role) const
     if (role == IDocumentModel::XMLDataRole) {
         QByteArray res;
         QTextStream stream(&res);
-        item->node().save(stream, 4);
+        item->node().save(stream, 1);
         return res;
     }
     return QVariant();
