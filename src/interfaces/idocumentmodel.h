@@ -52,8 +52,11 @@ public:
     IDocumentModel ( QDomDocument doc, QObject* parent = 0 );
     virtual ~IDocumentModel();
 
+    /**
+     * Special roles for KTechLab::IDocumentModel extending the Qt::ItemDataRole enum
+     */
     enum {
-        XMLDataRole = Qt::UserRole
+        XMLDataRole = Qt::UserRole /** XML representation of the data */
     };
 
     /**
@@ -191,7 +194,7 @@ signals:
 
 protected:
     /**
-     * Generate a unique id for component in the circuit, this model repesents.
+     * Generate a unique id for a component in the document, this model repesents.
      */
     virtual QString generateUid( const QString& name );
 
