@@ -41,6 +41,9 @@ CircuitScene::CircuitScene ( QObject* parent, CircuitModel *model )
 {
 //    m_componentSize = QSizeF( cg.readEntry("componentWidth", "64").toInt(), cg.readEntry("componentHeight", "64").toInt() );
     setupData();
+
+    connect(this,SIGNAL(transactionAborted()),model,SLOT(revert()));
+    connect(this,SIGNAL(transactionCompleted()),model,SLOT(submit()));
 }
 
 
