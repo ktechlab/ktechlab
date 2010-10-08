@@ -150,6 +150,7 @@ void IDocumentScene::keyPressEvent(QKeyEvent* event)
             removeItem(item);
             delete item;
         }
+        emit transactionCompleted();
     }
 }
 
@@ -182,6 +183,7 @@ void IDocumentScene::abortRouting()
     removeItem(m_routePath);
     delete m_routePath;
     m_routePath = 0;
+    emit transactionAborted();
 }
 
 ConnectorItem* IDocumentScene::finishRouting(const QPointF& pos)
@@ -195,6 +197,7 @@ ConnectorItem* IDocumentScene::finishRouting(const QPointF& pos)
     QList< ConnectorItem* > items;
     items << c;
     emit routed(items);
+    emit transactionCompleted();
 
     return c;
 }

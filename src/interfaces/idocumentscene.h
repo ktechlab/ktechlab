@@ -134,6 +134,20 @@ signals:
      */
     void itemRemoved( QGraphicsItem* );
 
+    /**
+     * Emitted when the user aborts his current action. The scene will be
+     * reset to the last well-defined state.
+     *
+     * \sa transactionCompleted
+     */
+    void transactionAborted();
+
+    /**
+     * Emitted when the user finishes his current action. This will change the
+     * scene permanently.
+     */
+    void transactionCompleted();
+
 public slots:
     virtual void updateData( const QString &name, const QVariantMap &value );
 
