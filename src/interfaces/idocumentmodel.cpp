@@ -83,6 +83,7 @@ IDocumentModel::IDocumentModel ( QDomDocument doc, QObject* parent )
 {
     d->doc = doc;
     d->textDocument.setPlainText(doc.toString());
+    d->textDocument.setModified(false);
     d->rootItem = new DocumentItem(d->doc, 0);
 }
 

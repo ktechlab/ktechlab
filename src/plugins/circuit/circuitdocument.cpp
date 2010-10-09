@@ -91,6 +91,7 @@ bool CircuitDocumentPrivate::writeToDisk()
     file.resize(0);
     file.write(circuitModel->textDocument()->toPlainText().toUtf8());
     file.close();
+    circuitModel->textDocument()->setModified(false);
     return true;
 }
 
