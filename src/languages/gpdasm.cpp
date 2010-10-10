@@ -8,7 +8,7 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "docmanager.h"
+// #include "docmanager.h"
 #include "gpdasm.h"
 #include "logview.h"
 #include "languagemanager.h"
@@ -20,6 +20,7 @@
 #include <qregexp.h>
 //Added by qt3to4:
 #include <Q3TextStream>
+#include <QDebug>
 
 Gpdasm::Gpdasm( ProcessChain *processChain )
  : ExternalLanguage( processChain, "Gpdasm" )
@@ -48,7 +49,8 @@ void Gpdasm::processInput( ProcessOptions options )
 	
 	if ( !start() )
 	{
-		KMessageBox::sorry( LanguageManager::self()->logView(), i18n("Disassembly failed. Please check you have gputils installed.") );
+		// KMessageBox::sorry( LanguageManager::self()->logView(), i18n("Disassembly failed. Please check you have gputils installed.") );
+        qDebug() << "disassembly failed";
 		processInitFailed();
 		return;
 	}

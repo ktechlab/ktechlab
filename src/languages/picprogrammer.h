@@ -13,6 +13,7 @@
 
 #include "externallanguage.h"
 
+#include <QMap>
 
 class KConfig;
 class KProcess;
@@ -61,11 +62,11 @@ class PicProgrammerSettings
 		 * Reads in custom ProgrammerConfigs from config. Any previously loaded
 		 * configurations stored in this class will removed first.
 		 */
-		void load( KConfig * config );
+		void load(); //  KConfig * config );
 		/**
 		 * Saves the custom ProgrammConfigs to config.
 		 */
-		void save( KConfig * config );
+		void save(); // KConfig * config );
 		/**
 		 * @return the ProgrammConfig for the programmer with the given name. If
 		 * no such ProgrammerConfigs with the given name exist, then one will be

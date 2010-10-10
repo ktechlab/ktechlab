@@ -9,14 +9,14 @@
  ***************************************************************************/
 
 #include "asmparser.h"
-#include "ktechlab.h"
+//#include "ktechlab.h"
 #include "language.h"
 #include "logview.h"
 #include "outputmethoddlg.h"
 #include "processchain.h"
-#include "projectmanager.h"
-#include "languagemanager.h"
-#include "src/core/ktlconfig.h"
+// #include "projectmanager.h"
+// #include "languagemanager.h"
+// #include "src/core/ktlconfig.h"
 
 #include <kdebug.h>
 #include <kio/netaccess.h>
@@ -27,7 +27,6 @@
 
 //BEGIN class Language
 Language::Language( ProcessChain *processChain, const QString &name )
-	: QObject( KTechlab::self(), name )
 {
 	p_processChain = processChain;
 }
@@ -40,19 +39,19 @@ Language::~Language()
 
 void Language::outputMessage( const QString &message )
 {
-	LanguageManager::self()->slotMessage( message, extractMessageInfo(message) );
+	qWarning() << "MESSAGE:" << message;
 }
 
 
 void Language::outputWarning( const QString &message )
 {
-	LanguageManager::self()->slotWarning( message, extractMessageInfo(message) );
+    qWarning() << "WARNING:" << message;
 }
 
 
 void Language::outputError( const QString &message )
 {
-	LanguageManager::self()->slotError( message, extractMessageInfo(message) );
+    qWarning() << "ERROR:" << message;
 	m_errorCount++;
 }
 
@@ -62,7 +61,7 @@ void Language::finish( bool successful )
 	if (successful)
 	{
 		outputMessage(m_successfulMessage + "\n");
-		KTechlab::self()->slotChangeStatusbar(m_successfulMessage);
+		// KTechlab::self()->slotChangeStatusbar(m_successfulMessage);
 		
 		ProcessOptions::ProcessPath::Path newPath = outputPath( m_processOptions.processPath() );
 		
@@ -82,7 +81,7 @@ void Language::finish( bool successful )
 	else
 	{
 		outputError(m_failedMessage + "\n");
-		KTechlab::self()->slotChangeStatusbar(m_failedMessage);
+		// KTechlab::self()->slotChangeStatusbar(m_failedMessage);
 		emit processFailed(this);
 		return;
 	}
@@ -131,10 +130,11 @@ ProcessOptionsSpecial::ProcessOptionsSpecial()
 {
 	m_bOutputMapFile = true;
 	b_forceList = true;
-	b_addToProject = ProjectManager::self()->currentProject();
+	// b_addToProject = ProjectManager::self()->currentProject();
 	
 	p_flowCodeDocument = 0l;
-	
+
+    /*
 	switch ( KTLConfig::hexFormat() )
 	{
 		case KTLConfig::EnumHexFormat::inhx8m:
@@ -154,6 +154,8 @@ ProcessOptionsSpecial::ProcessOptionsSpecial()
 			m_hexFormat = "inhx32";
 			break;
 	}
+	*/
+    m_hexFormat = "inhx8m";
 }
 //END class ProcessOptionsSpecial
 
@@ -177,7 +179,8 @@ ProcessOptions::ProcessOptions( OutputMethodInfo info )
 	b_targetFileSet = false;
 	
 	setTargetFile( info.outputFile().path() );
-	
+
+    /*
 	switch ( info.method() )
 	{
 		case OutputMethodInfo::Method::Direct:
@@ -192,6 +195,8 @@ ProcessOptions::ProcessOptions( OutputMethodInfo info )
 			m_method = Method::Load;
 			break;
 	}
+	*/
+    m_method = Method::Load;
 }
 
 

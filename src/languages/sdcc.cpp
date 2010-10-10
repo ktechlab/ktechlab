@@ -14,11 +14,12 @@
 #include "microinfo.h"
 #include "microlibrary.h"
 #include "sdcc.h"
-#include "src/core/ktlconfig.h"
+// #include "src/core/ktlconfig.h"
 
 #include <klocale.h>
-#include <kmessagebox.h>
+// #include <kmessagebox.h>
 #include <kprocess.h>
+#include <qdebug.h>
 
 SDCC::SDCC( ProcessChain * processChain )
 	: ExternalLanguage( processChain, "SDCC" )
@@ -48,7 +49,7 @@ void SDCC::processInput( ProcessOptions options )
 	
 	
 	//BEGIN Pass custom sdcc options
-#define ARG(text,option) if ( KTLConfig::text() ) *m_languageProcess << ( QString("--%1").arg(option) );
+#define ARG(text,option) *m_languageProcess << ( QString("--%1").arg(option) );
 	// General
 	ARG( sDCC_nostdlib,			"nostdlib" )
 	ARG( sDCC_nostdinc,			"nostdinc" )
@@ -93,8 +94,6 @@ void SDCC::processInput( ProcessOptions options )
 	}
 #undef ARG
 
-	if ( !KTLConfig::miscSDCCOptions().isEmpty() )
-		*m_languageProcess << ( KTLConfig::miscSDCCOptions() );
 	//END Pass custom sdcc options
 	
 	
@@ -127,7 +126,8 @@ void SDCC::processInput( ProcessOptions options )
 	
 	if ( !start() )
 	{
-		KMessageBox::sorry( LanguageManager::self()->logView(), i18n("Compilation failed. Please check you have sdcc installed.") );
+		// KMessageBox::sorry( LanguageManager::self()->logView(), i18n("Compilation failed. Please check you have sdcc installed.") );
+        qCritical() << "compilation failed";
 		processInitFailed();
 		return;
 	}

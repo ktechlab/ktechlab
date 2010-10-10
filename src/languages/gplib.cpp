@@ -16,6 +16,8 @@
 #include <kmessagebox.h>
 #include <kprocess.h>
 
+#include <QDebug>
+
 Gplib::Gplib( ProcessChain *processChain )
 	: ExternalLanguage( processChain, "Gpasm" )
 {
@@ -46,7 +48,8 @@ void Gplib::processInput( ProcessOptions options )
 
 	if ( !start() )
 	{
-		KMessageBox::sorry( LanguageManager::self()->logView(), i18n("Linking failed. Please check you have gputils installed.") );
+		// KMessageBox::sorry( LanguageManager::self()->logView(), i18n("Linking failed. Please check you have gputils installed.") );
+        qCritical() << "Linking failed";
 		processInitFailed();
 		return;
 	}
