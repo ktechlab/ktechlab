@@ -34,8 +34,11 @@ public:
 	void setCurrentKnown(bool known);
 
 	void setCurrent(double current ) { m_current = current; m_bCurrentIsKnown = true;}
+
 	/**
-     * Set the current flowing from one end of the wire
+     * Set the current flowing from one end of the wire. Current flows
+     * from the start to the end node of the wire.
+     * The current quantity defines the current flowing from the wire into the pin.
      */
 	void setCurrentFor(const Pin* pin, double current);
 
@@ -46,6 +49,11 @@ public:
 	double current() {
 				return m_current; }
 
+    /**
+     * \return the current flowing from the wire into the pin given as
+     *   parameter
+     *  \param aPin the pin for which the current is requested
+     */
 	double currentFor(const Pin *aPin) const;
 
 	/**
