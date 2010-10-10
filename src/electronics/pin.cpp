@@ -85,6 +85,11 @@ bool Pin::currentIsKnown() const {
 		|| (m_wireList.size() < 2 && !m_elementList.empty()));
 }
 
+bool Pin::setCurrentKnown(bool known)
+{
+    m_currentIsKnown = known;
+}
+
 double Pin::sourceCurrent() const
 {
     if(!currentIsKnown()){
