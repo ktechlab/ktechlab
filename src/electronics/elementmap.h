@@ -46,6 +46,7 @@ public:
 
 	void mergeCurrents();
 	bool compareElement(const Element *anElement) const;
+    // TODO get rid of the method below
 	void setElement(Element *anElement);
 	LogicIn *getLogicInOrNull();
 	void putPin(unsigned int slot, Pin *aPin);
