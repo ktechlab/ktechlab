@@ -19,9 +19,10 @@
 // #include <qguardedptr.h>
 #include <qmap.h>
 #include <qobject.h>
+#include <QPointer>
 
 class GpsimProcessor;
-class TextDocument;
+// class TextDocument;
 
 typedef Q3ValueList< QPointer<GpsimProcessor> > GpsimProcessorList;
 
@@ -40,7 +41,7 @@ class DebugManager : public QObject
 		 * Called from TextDocument when it opens a URL so that it can be
 		 * connected up to any processors that refer to its url.
 		 */
-		void urlOpened( TextDocument * td );
+		// void urlOpened( TextDocument * td );
 		
 	protected:
 		GpsimProcessorList m_processors;
