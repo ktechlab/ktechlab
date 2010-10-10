@@ -50,29 +50,6 @@ double Wire::currentFor(const Pin *aPin) const {
     return 0;
 }
 
-bool Wire::calculateCurrent()
-{
-	if(m_bCurrentIsKnown) return true;
-
-/*else return false;*/
-
-	if(m_pStartPin->currentIsKnown()) {
-		m_current = m_pStartPin->calculateCurrentFromWires(this);
-		m_bCurrentIsKnown = true;
-		return true;
-	}
-	
-	if(m_pEndPin->currentIsKnown()) {
-		m_current = -m_pEndPin->calculateCurrentFromWires(this);
-		m_bCurrentIsKnown = true;
-		return true;
-	}
-
-	m_bCurrentIsKnown = false;
-	return false;
-
-}
-
 double Wire::voltage() const
 {
     double temp;
