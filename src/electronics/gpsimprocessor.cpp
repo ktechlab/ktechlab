@@ -26,13 +26,14 @@
 #include <kdebug.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <ktempfile.h>
+// #include <ktempfile.h>
 #include <kstandarddirs.h>
 #include <qfile.h>
 #include <q3textstream.h>
 #include <qtimer.h>
 //Added by qt3to4:
 #include <Q3ValueList>
+#include <QTemporaryFile>
 
 #include "gpsim/cod.h"
 #include "gpsim/interface.h"
@@ -355,16 +356,16 @@ QString GpsimProcessor::generateSymbolFile( const QString &fileName, QObject *re
 	}
 	else if ( extension == "flowcode" )
 	{
-		const QString hexFile = KTempFile( QString::null, ".hex" ).name();
+		const QString hexFile = QTemporaryFile( "tmpXXXXXX.hex" ).name();
 		
 		ProcessOptions o;
 		o.b_addToProject = false;
 		o.setTargetFile( hexFile );
-		o.setInputFiles( fileName );
+		o.setInputFiles( QStringList(fileName) );
 		o.setMethod( ProcessOptions::Method::Forget );
 		o.setProcessPath( ProcessOptions::ProcessPath::FlowCode_Program );
 		
-		ProcessChain * pc = LanguageManager::self()->compile(o);
+		ProcessChain * pc = new ProcessChain(o);
 		if (receiver)
 		{
 			if (successMember)
@@ -380,11 +381,11 @@ QString GpsimProcessor::generateSymbolFile( const QString &fileName, QObject *re
 		ProcessOptions o;
 		o.b_addToProject = false;
 		o.setTargetFile( QString(fileName).replace(".asm",".hex"));
-		o.setInputFiles(fileName);
+		o.setInputFiles(QStringList(fileName));
 		o.setMethod( ProcessOptions::Method::Forget );
 		o.setProcessPath( ProcessOptions::ProcessPath::path( ProcessOptions::guessMediaType(fileName), ProcessOptions::ProcessPath::Program ) );
 		
-		ProcessChain *pc = LanguageManager::self()->compile(o);
+		ProcessChain *pc = new ProcessChain(o);
 		if (receiver)
 		{
 			if (successMember)
@@ -400,11 +401,11 @@ QString GpsimProcessor::generateSymbolFile( const QString &fileName, QObject *re
 		ProcessOptions o;
 		o.b_addToProject = false;
 		o.setTargetFile( QString(fileName).replace(".c",".hex"));
-		o.setInputFiles(fileName);
+		o.setInputFiles(QStringList(fileName));
 		o.setMethod( ProcessOptions::Method::Forget );
 		o.setProcessPath( ProcessOptions::ProcessPath::C_Program );
 		
-		ProcessChain *pc = LanguageManager::self()->compile(o);
+		ProcessChain *pc = new ProcessChain(o);
 		if (receiver)
 		{
 			if (successMember)
@@ -430,7 +431,7 @@ void GpsimProcessor::compileMicrobe( const QString &filename, QObject *receiver,
 	o.setInputFiles(filename);
 	o.setMethod( ProcessOptions::Method::Forget );
 	o.setProcessPath( ProcessOptions::ProcessPath::Microbe_Program );
-	ProcessChain * pc = LanguageManager::self()->compile(o);
+	ProcessChain * pc = new ProcessChain(o);
 	if (receiver)
 	{
 		if (successMember)
@@ -748,7 +749,7 @@ RegisterSet::RegisterSet( pic_processor * picProcessor )
 {
 	unsigned numRegisters = picProcessor->rma.get_size();
 	kdDebug() << k_funcinfo << "numRegisters="<<numRegisters<<endl;
-	m_registers.resize( numRegisters, 0l );
+	m_registers.resize( numRegisters );
 	for ( unsigned i = 0; i < numRegisters; ++i )
 	{
 		RegisterInfo * info = new RegisterInfo( & picProcessor->rma[i] );
