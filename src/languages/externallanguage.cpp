@@ -9,7 +9,7 @@
  ***************************************************************************/
 
 #include "externallanguage.h"
-#include "languagemanager.h"
+// #include "languagemanager.h"
 #include "logview.h"
 
 #include <kdebug.h>
@@ -19,6 +19,8 @@
 //Added by qt3to4:
 #include <Q3CString>
 #include <Q3ValueList>
+
+#include <QDebug>
 
 ExternalLanguage::ExternalLanguage( ProcessChain *processChain, const QString &name )
  : Language( processChain, name )
@@ -100,7 +102,7 @@ void ExternalLanguage::processExited( KProcess * )
 {
 	if ( !m_languageProcess )
 		return;
-	bool allOk = processExited( m_languageProcess->normalExit() && m_errorCount == 0 );
+	bool allOk = processExited( (m_languageProcess->exitStatus() == KProcess::NormalExit) && m_errorCount == 0 );
 	finish(allOk);
 	deleteLanguageProcess();
 }
@@ -117,7 +119,8 @@ bool ExternalLanguage::start()
 {
 	displayProcessCommand();
 	
-	return m_languageProcess->start( KProcess::NotifyOnExit, KProcess::All );
+	m_languageProcess->start(); // KProcess::NotifyOnExit, KProcess::All ); // FIXME
+	return true;
 }
 
 
@@ -142,6 +145,8 @@ void ExternalLanguage::resetLanguageProcess()
 
 void ExternalLanguage::displayProcessCommand()
 {
+    qCritical() << "unimplemented";
+    /*
 	QStringList quotedArguments;
 	Q3ValueList<Q3CString> arguments = m_languageProcess->args();
 	
@@ -155,14 +160,15 @@ void ExternalLanguage::displayProcessCommand()
 		for ( Q3ValueList<Q3CString>::const_iterator it = arguments.begin(); it != end; ++it )
 		{
 			if ( (*it).isEmpty() || (*it).contains( QRegExp("[\\s]") ) )
-				quotedArguments << KProcess::quote( *it );
+				quotedArguments << *it ; // KProcess::quote( *it ); // FIXME
 			else
 				quotedArguments << *it;
 		}
 	}
+	*/
 	
 // 	outputMessage( "<i>" + quotedArguments.join(" ") + "</i>" );
-	outputMessage( quotedArguments.join(" ") );
+	// outputMessage( quotedArguments.join(" ") );
 // 	LanguageManager::self()->logView()->addOutput( quotedArguments.join(" "), LogView::ot_info );
 }
 
