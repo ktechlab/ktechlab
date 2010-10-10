@@ -57,11 +57,6 @@ public:
 	Pin *otherPin(const Pin *aPin) const;
 
 private:
-	/**
-	 * Attempts to calculate the current that is flowing through
-	 * the connector. Returns true if successfuly, otherwise returns false
-	 */
-	bool calculateCurrent();
 
 	double m_current;
 	bool m_bCurrentIsKnown;
