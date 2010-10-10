@@ -105,6 +105,7 @@ double Pin::sourceCurrent() const
 
 void Pin::setSourceCurrent(double current) 
 {
+    m_currentIsKnown = true;
     m_sourceCurrent = current;
 }
 
