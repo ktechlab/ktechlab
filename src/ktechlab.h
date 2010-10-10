@@ -84,7 +84,7 @@ public:
 	 * @param allowMultiple Whether to allow the user to select more than
 	 * one URL.
 	 */
-	static KURL::List getFileURLs(bool allowMultiple = true);
+	static KUrl::List getFileURLs(bool allowMultiple = true);
 	/**
 	 * Returns a list of the recently opened/saved files
 	 */
