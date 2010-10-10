@@ -58,6 +58,7 @@ void ElementMap::mergeCurrents() {
 	}
 }
 
+#if 0
 /*!
     \fn ElementMap::compareElement(Element *anElement);
  */
@@ -86,6 +87,8 @@ void ElementMap::putPin(unsigned int slot, Pin *aPin) {
 	assert(slot < 4);
 	n[slot] = aPin;
 }
+
+#endif
 
 /*!
     \fn ElementMap::setupCNodes()
