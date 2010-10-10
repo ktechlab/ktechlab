@@ -87,12 +87,12 @@ set( CompileSimulator_SRCS
 qt4_automoc(${CompileSimulator_SRCS})
 
 
-add_executable( CompiledSimulator
+add_executable( compiled_simulator
 ${CompileSimulator_SRCS}
 )
 
 
-target_link_libraries( CompiledSimulator
+target_link_libraries( compiled_simulator
 ${QT_LIBRARIES}
 ${QT_QT3SUPPORT_LIBRARY}
 ${QT_QTTEST_LIBRARIES}
@@ -101,5 +101,5 @@ ${QT_QTTEST_LIBRARIES}
 
 enable_testing()
 
-add_test(CompiledSimulator CompiledSimulator)
+add_test(compiled_simulator compiled_simulator)
 
