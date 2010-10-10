@@ -187,6 +187,14 @@ public:
     QTextDocument* textDocument() const;
 
 public slots:
+    /**
+     * \sa QAbstractItemModel
+     */
+    virtual bool submit();
+    /**
+     * \sa QAbstractItemModel
+     */
+    virtual void revert();
     virtual void updateData( const QString &name, const QVariantMap &data );
 
 signals:
