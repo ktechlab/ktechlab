@@ -81,8 +81,11 @@ bool Pin::currentIsKnown() const {
     /*  FIXME this rationale is not correct in this case,
         because the current _from the element_ is known always, and in rest is 0
         */
+    /*
 	return ((m_wireList.size() == 2 && m_elementList.empty())
 		|| (m_wireList.size() < 2 && !m_elementList.empty()));
+        */
+    return m_currentIsKnown;
 }
 
 bool Pin::setCurrentKnown(bool known)
