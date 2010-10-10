@@ -9,16 +9,17 @@
  ***************************************************************************/
 
 #include "asmparser.h"
-#include "docmanager.h"
+// #include "docmanager.h"
 #include "gpasm.h"
 #include "logview.h"
-#include "languagemanager.h"
-#include "src/core/ktlconfig.h"
+// #include "languagemanager.h"
+// #include "src/core/ktlconfig.h"
 
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kprocess.h>
 #include <qregexp.h>
+#include "QDebug"
 
 Gpasm::Gpasm( ProcessChain *processChain )
  : ExternalLanguage( processChain, "Gpasm" )
@@ -62,6 +63,7 @@ void Gpasm::processInput( ProcessOptions options )
 	if ( !p.containsRadix() )
 	{
 		*m_languageProcess << ("--radix");
+        #if 0
 		switch( KTLConfig::radix() )
 		{
 			case KTLConfig::EnumRadix::Binary:
@@ -78,10 +80,13 @@ void Gpasm::processInput( ProcessOptions options )
 				*m_languageProcess << ("DEC");
 				break;
 		}
+		#endif
+		*m_languageProcess << ("DEC"); // choose the default
 	}
 	
 	// Warning Level
 	*m_languageProcess << ("--warning");
+    #if 0
 	switch( KTLConfig::gpasmWarningLevel() )
 	{
 		case KTLConfig::EnumGpasmWarningLevel::Warnings:
@@ -92,14 +97,17 @@ void Gpasm::processInput( ProcessOptions options )
 			break;
 		default:
 		case KTLConfig::EnumGpasmWarningLevel::All:
+    #endif
 			*m_languageProcess << ("0");
+    #if 0
 			break;
 	}
 	
 	// Ignore case
 	if ( KTLConfig::ignoreCase() )
+    #endif
 		*m_languageProcess << ("--ignore-case");
-	
+	#if 0
 	// Dos formatting
 	if ( KTLConfig::dosFormat() )
 		*m_languageProcess << ("--dos");
@@ -111,13 +119,14 @@ void Gpasm::processInput( ProcessOptions options )
 	// Other options
 	if ( !KTLConfig::miscGpasmOptions().isEmpty() )
 		*m_languageProcess << ( KTLConfig::miscGpasmOptions() );
-	
+	#endif
 	// Input Asm file
 	*m_languageProcess << ( options.inputFiles().first() );
 	
 	if ( !start() )
 	{
-		KMessageBox::sorry( LanguageManager::self()->logView(), i18n("Assembly failed. Please check you have gputils installed.") );
+		// KMessageBox::sorry( LanguageManager::self()->logView(), i18n("Assembly failed. Please check you have gputils installed.") );
+        qCritical() << "assembly failed";
 		processInitFailed();
 		return;
 	}
