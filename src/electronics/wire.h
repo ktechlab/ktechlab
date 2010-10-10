@@ -34,6 +34,10 @@ public:
 	void setCurrentKnown(bool known);
 
 	void setCurrent(double current ) { m_current = current; m_bCurrentIsKnown = true;}
+	/**
+     * Set the current flowing from one end of the wire
+     */
+	void setCurrentFor(const Pin* pin, double current);
 
 	/**
 	 * Returns the current flowing through the connector.
