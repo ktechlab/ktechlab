@@ -60,6 +60,11 @@ public:
 	 */
 	double voltage() const { return m_voltage; }
 
+    /**
+     * Set of the current is known on this pin
+     */
+    bool setCurrentKnown(bool known);
+
 	/**
 	 * This returns the value given by setCurrentKnown AND'd with whether
 	 * we know the current from each switch attached to this pin.
@@ -167,6 +172,8 @@ public:
 private:
 	double m_voltage;
     double m_sourceCurrent;
+
+    bool m_currentIsKnown;
 
 	int m_eqId;
 	GroundType m_groundType;
