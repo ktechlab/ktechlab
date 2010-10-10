@@ -489,12 +489,12 @@ void Circuit::updateCurrents() {
             else {
                 outWire->setCurrentFor(currentPin, currentOut);
                 Pin *otherPin = outWire->otherPin(currentPin);
-                int otherWireUnknwon = unknownWireCurrentCount.value(otherPin);
-                otherWireUnknwon--;
-                unknownWireCurrentCount.insert(otherPin, otherWireUnknwon);
-                if(otherWireUnknwon == 1)
+                int otherWireUnknownCount = unknownWireCurrentCount.value(otherPin);
+                otherWireUnknownCount--;
+                unknownWireCurrentCount.insert(otherPin, otherWireUnknownCount);
+                if(otherWireUnknownCount == 1)
                     pinsToVisit.append(otherPin);
-                if(otherWireUnknwon == 0){
+                if(otherWireUnknownCount == 0){
                     // the other pin has all the wires known, so check if the sum of currents is 0
                     // TODO verify the currents
                 }
