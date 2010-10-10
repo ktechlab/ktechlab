@@ -43,7 +43,7 @@ public:
 	 * Returns the current flowing through the connector.
 	 * This only applies for electronic connectors
 	 */
-	double current() { if(!m_bCurrentIsKnown) calculateCurrent();
+	double current() {
 				return m_current; }
 
 	double currentFor(const Pin *aPin) const;
