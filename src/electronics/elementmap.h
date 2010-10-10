@@ -36,7 +36,7 @@ public:
      */
     ElementMap(Element *element);
             // TODO add 4 optional arguments for pointer to pins?
-	ElementMap();
+
     /**
      \return a pin of the Element associated with this PinMap.
         If the pin number is invalid, NULL is returned.
