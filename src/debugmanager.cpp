@@ -12,22 +12,24 @@
 #ifndef NO_GPSIM
 
 #include "debugmanager.h"
-#include "docmanager.h"
+// #include "docmanager.h"
 #include "gpsimprocessor.h"
-#include "textdocument.h"
+// #include "textdocument.h"
 
+#include <QStringList>
 #include <kdebug.h>
-#include <kstaticdeleter.h>
+// #include <kstaticdeleter.h>
 
 
 //BEGIN class DebugManager
 DebugManager * DebugManager::m_pSelf = 0l;
-static KStaticDeleter<DebugManager> staticDebugManagerDeleter;
+// static KStaticDeleter<DebugManager> staticDebugManagerDeleter;
 
 DebugManager * DebugManager::self()
 {
 	if (!m_pSelf)
-		staticDebugManagerDeleter.setObject( m_pSelf, new DebugManager );
+		// staticDebugManagerDeleter.setObject( m_pSelf, new DebugManager );
+        m_pSelf = new DebugManager;
 	return m_pSelf;
 }
 
@@ -52,6 +54,7 @@ void DebugManager::registerGpsim( GpsimProcessor * gpsim )
 	
 	const QStringList files = gpsim->sourceFileList();
 	QStringList::const_iterator end = files.end();
+    /*
 	for ( QStringList::const_iterator it = files.begin(); it != end; ++it )
 	{
 		if ( TextDocument * doc = dynamic_cast<TextDocument*>(DocManager::self()->findDocument(*it)) )
@@ -60,9 +63,10 @@ void DebugManager::registerGpsim( GpsimProcessor * gpsim )
 				doc->setDebugger( gpsim->currentDebugger(), false );
 		}
 	}
+	*/
 }
 
-
+/*
 void DebugManager::urlOpened( TextDocument * td )
 {
 	if ( td->debuggerIsRunning() )
@@ -81,6 +85,7 @@ void DebugManager::urlOpened( TextDocument * td )
 		return;
 	}
 }
+*/
 //END class DebugManager
 
 
