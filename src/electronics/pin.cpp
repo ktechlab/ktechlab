@@ -26,6 +26,16 @@ Pin::~Pin() {
 	}
 }
 
+void Pin::setVoltage(double v)
+{
+    m_voltage = v;
+}
+
+double Pin::voltage() const
+{
+    return m_voltage;
+}
+
 PinSet Pin::localConnectedPins() //const 
 {
 	PinSet pins;
@@ -56,6 +66,7 @@ void Pin::removeDependentPins() {
 	m_groundDependentPins.clear();
 }
 
+
 /// Element add and remove... What is this really for? 
 void Pin::addElement(Element *e) {
 	assert(e);
@@ -77,14 +88,8 @@ void Pin::removeWire(Wire *aWire) {
 	m_wireList.erase(aWire);
 }
 
-bool Pin::currentIsKnown() const {
-    /*  FIXME this rationale is not correct in this case,
-        because the current _from the element_ is known always, and in rest is 0
-        */
-    /*
-	return ((m_wireList.size() == 2 && m_elementList.empty())
-		|| (m_wireList.size() < 2 && !m_elementList.empty()));
-        */
+bool Pin::currentIsKnown() const
+{
     return m_currentIsKnown;
 }
 
@@ -109,29 +114,20 @@ void Pin::setSourceCurrent(double current)
     m_sourceCurrent = current;
 }
 
-double Pin::calculateCurrentFromWires(Wire *aWire) const {
-
-	double current = 0;
-
-	WireList::const_iterator end = m_wireList.end();
-	for(WireList::const_iterator it = m_wireList.begin(); it != end; ++it) {
-
-// might have to do some vodo to figure out which end of the wire we're on and add/subtract as appropriate.
-		if(*it != aWire) { 
-
-// TODO: throw an exception here, means that this pin should be moved 
-// to the bottom of the working list and tried again after others are checked. 
-			if(!(*it)->currentIsKnown())
-				return 0;
-
-			current += (*it)->currentFor(this);
-		}
-	}
-
-	return current;
-}
 
 const WireList Pin::wires() const
 {
     return m_wireList;
+}
+
+
+void Pin::setEqId(int id)
+{
+    m_eqId = id;
+}
+
+
+int Pin::eqId() const
+{
+    return m_eqId;
 }

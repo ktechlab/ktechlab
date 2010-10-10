@@ -53,12 +53,12 @@ public:
 	 * After calculating the nodal voltages in the circuit, this function should
 	 * be called to tell the pin what its voltage is.
 	 */
-	void setVoltage(double v) { m_voltage = v; }
+	void setVoltage(double v);
 
 	/**
 	 * Returns the voltage as set by setVoltage.
 	 */
-	double voltage() const { return m_voltage; }
+	double voltage() const ;
 
     /**
      * Set of the current is known on this pin
@@ -87,11 +87,6 @@ public:
      */
     void setSourceCurrent(double current);
 
-	/**
-	 * Tries to calculate the Pin current from the input / output wires.
-	 * @return whether was successful.
-	 */
-	double calculateCurrentFromWires(Wire *aWire = (Wire *)0) const;
 
 	/**
 	 * Sets the "ground type" - i.e. the priority that this pin has for being
@@ -141,12 +136,12 @@ public:
 	 * Use this function to set the pin identifier for equations,
 	 * which should be done every time new pins are registered.
 	 */
-	void setEqId(int id) { m_eqId = id; }
+	void setEqId(int id);
 	/**
 	 * The equation identifier.
 	 * @see setEqId
 	 */
-	int eqId() const { return m_eqId; }
+	int eqId() const ;
 
 // #########################
 	/**
