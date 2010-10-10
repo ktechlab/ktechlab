@@ -30,10 +30,10 @@ K_EXPORT_PLUGIN(KTLLogicComponentsPluginFactory(
 )
 
 
-class KTechLab::KTLLogicComponentsFactory: public IComponentFactory, public GenericElementFactory
+class KTechLab::KTLLogicFactory: public IComponentFactory, public GenericElementFactory
 {
 public:
-    KTLLogicComponentsFactory()
+    KTLLogicFactory()
     {
         QString file;
         file = KGlobal::dirs()->findResource("data","ktechlab/components/ktllogic_components.rc");
@@ -57,7 +57,7 @@ protected:
 
 KTLLogicComponentsPlugin::KTLLogicComponentsPlugin(QObject* parent, const QVariantList& args)
     :   IComponentPlugin( KTLLogicComponentsPluginFactory::componentData(), parent ),
-        m_componentFactory( new KTLLogicComponentsFactory() )
+        m_componentFactory( new KTLLogicFactory() )
 {
 
     init();
