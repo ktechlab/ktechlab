@@ -95,7 +95,11 @@ void Wire::setCurrentKnown( bool known )
  */
 Pin *Wire::otherPin(const Pin *aPin) const
 {
-	if(aPin == m_pStartPin) return m_pEndPin;
+    if(aPin == m_pStartPin) return m_pEndPin;
+    if(aPin == m_pEndPin) return m_pStartPin;
+    // got here? bug!
+    qCritical() << "BUG: tried to get other pin for a non-associated wire" ;
+    return NULL;
+}
 
-	return m_pStartPin;
 }
