@@ -182,6 +182,7 @@ void setupElement(Element *elem, Pin *pin1, Pin *pin2){
 
 void SimulatorTest::testSourceAndResistance()
 {
+    qDebug() << " ---------------------------------------- ";
 
     Simulator * sim = Simulator::self();
 
@@ -421,8 +422,14 @@ void SimulatorTest::testSourceAnd4ResistanceInParallel()
     qDebug() << "wire12a1 current known:" << wire12a1->currentIsKnown() << "value:" << wire12a1->current();
     qDebug() << "wire12b1 current known:" << wire12b1->currentIsKnown() << "value:" << wire12b1->current();
     qDebug() << "wire34a1 current known:" << wire34a1->currentIsKnown() << "value:" << wire34a1->current();
+    qDebug() << "wire1234a1 current known:" << wire1234a1->currentIsKnown() << "value:" << wire1234a1->current();
+    qDebug() << "wire1234a2 current known:" << wire1234a2->currentIsKnown() << "value:" << wire1234a2->current();
+    qDebug() << "wire1234b1 current known:" << wire1234b1->currentIsKnown() << "value:" << wire1234b1->current();
+    qDebug() << "wire1234b2 current known:" << wire1234b2->currentIsKnown() << "value:" << wire1234b2->current();
+    qDebug() << "wireAll1 current known:" << wireAll1->currentIsKnown() << "value:" << wireAll1->current();
+    qDebug() << "wireAll2 current known:" << wireAll2->currentIsKnown() << "value:" << wireAll2->current();
 
-    qDebug() << "pi1    current known:" << pin1->currentIsKnown() << "value:" << pin1->sourceCurrent();
+    qDebug() << "pin1   current known:" << pin1->currentIsKnown() << "value:" << pin1->sourceCurrent();
     qDebug() << "pinR11 current known:" << pinR11->currentIsKnown() << "value:" << pinR11->sourceCurrent();
     qDebug() << "pinR21 current known:" << pinR21->currentIsKnown() << "value:" << pinR21->sourceCurrent();
     qDebug() << "pinR31 current known:" << pinR31->currentIsKnown() << "value:" << pinR31->sourceCurrent();
