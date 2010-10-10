@@ -10,6 +10,8 @@
 //
 //
 
+#include <QDebug>
+
 #include <cassert>
 
 #include "elementmap.h"
@@ -32,12 +34,7 @@ ElementMap::ElementMap(Element* element)
 
     setupCNodes();
 }
-ElementMap::ElementMap() {
-	e = 0;
 
-	for(int i = 0; i < 4; ++i)
-		n[i] = 0;
-}
 Pin* ElementMap::pin(int number)
 {
     if((0 <= number) || (number < e->numCNodes()))
