@@ -56,7 +56,7 @@ void VoltageSource::updateCurrents() {
 
 	double i = p_cbranch[0]->current();
 
-    m_cnodeCurrent[0] = i;
-    m_cnodeCurrent[1] = -i;
+    m_cnodeCurrent[0] = -i;
+    m_cnodeCurrent[1] = i;
 }
 
