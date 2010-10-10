@@ -37,6 +37,12 @@ public:
     ElementMap(Element *element);
             // TODO add 4 optional arguments for pointer to pins?
 	ElementMap();
+    /**
+     \return a pin of the Element associated with this PinMap.
+        If the pin number is invalid, NULL is returned.
+     \param number the number used for identication for the pin.
+     */
+    Pin *pin(int number);
 
 	void mergeCurrents();
 	bool compareElement(const Element *anElement) const;
