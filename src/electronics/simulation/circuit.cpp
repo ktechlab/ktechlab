@@ -468,8 +468,8 @@ void Circuit::updateCurrents() {
     int visitedPinCount = 0;
     while( !pinsToVisit.empty() ){
         Pin *currentPin = pinsToVisit.takeFirst();
-        if( unknownWireCurrentCount.value(currentPin) != 1 ){
-            qCritical() << "BUG: pin should have 1 unknown associated wire current";
+        if( unknownWireCurrentCount.value(currentPin) > 1 ){
+            qCritical() << "BUG: pin should have at most 1 unknown associated wire current";
         }
         currentPin->setCurrentKnown(true);
         visitedPinCount ++;
