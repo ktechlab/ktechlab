@@ -16,6 +16,22 @@
 #include "simulation/logic.h"
 
 //BEGIN class ElementMap
+ElementMap::ElementMap(Element* element)
+{
+    e = element;
+
+    // create pins
+    int nodeCnt = element->numCNodes();
+    for(int i = 0; i < nodeCnt; ++i){
+        n[i] = new Pin;
+        n[i]->addElement(element);
+    }
+    // fill the rest with null-s
+    for(int i = nodeCnt; i < 4; ++i)
+        n[i] = 0;
+
+    setupCNodes();
+}
 ElementMap::ElementMap() {
 	e = 0;
 
