@@ -425,7 +425,7 @@ void Circuit::updateCurrents() {
     // invalidate all currents on all pins
     PinSet::iterator pinsEnd = m_pinList.end();
     for(PinSet::iterator it = m_pinList.begin(); it != pinsEnd; ++it){
-        (*it)->setCurrentKnown(false);
+        (*it)->setSourceCurrent(0);
         // invalidate all the currents through the wires
         foreach(Wire *wire, (*it)->wires()){
             wire->setCurrentKnown(false);
@@ -471,36 +471,51 @@ void Circuit::updateCurrents() {
         if( unknownWireCurrentCount.value(currentPin) > 1 ){
             qCritical() << "BUG: pin should have at most 1 unknown associated wire current";
         }
-        currentPin->setCurrentKnown(true);
         visitedPinCount ++;
         double currentOut = currentPin->sourceCurrent(); // zero or coming from the element
         Wire *outWire = NULL;
         foreach(Wire *awire, currentPin->wires()){
             if( awire->currentIsKnown() )
-                currentOut -= awire->currentFor(currentPin);
+                currentOut += awire->currentFor(currentPin);
             else
                 if(! outWire )
                     outWire = awire;
                 else
                     qCritical() << "BUG: indeed the pin has more unknown wire currents";
-            // now we should know the output wire and the value of the current
-            if( outWire == NULL)
-                qDebug() << "All currents are known for this pin";
-            else {
-                outWire->setCurrentFor(currentPin, currentOut);
-                Pin *otherPin = outWire->otherPin(currentPin);
-                int otherWireUnknownCount = unknownWireCurrentCount.value(otherPin);
-                otherWireUnknownCount--;
-                unknownWireCurrentCount.insert(otherPin, otherWireUnknownCount);
-                if(otherWireUnknownCount == 1)
-                    pinsToVisit.append(otherPin);
-                if(otherWireUnknownCount == 0){
-                    // the other pin has all the wires known, so check if the sum of currents is 0
-                    // TODO verify the currents
-                }
-            }
         }
-    }
+        // now we should know the output wire and the value of the current
+        if( outWire == NULL)
+            qDebug() << "All currents are known for this pin";
+        else {
+            outWire->setCurrentFor(currentPin, -currentOut);
+            Pin *otherPin = outWire->otherPin(currentPin);
+            int otherWireUnknownCount = unknownWireCurrentCount.value(otherPin);
+            otherWireUnknownCount--;
+            unknownWireCurrentCount.insert(otherPin, otherWireUnknownCount);
+            if(otherWireUnknownCount == 1)
+                pinsToVisit.append(otherPin);
+            if(otherWireUnknownCount == 0){
+                // the other pin has all the wires known, so check if the sum of currents is 0
+                // TODO verify the currents
+                double currentSum = otherPin->sourceCurrent();
+                foreach(Wire *w, otherPin->wires()){
+                    currentSum += w->currentFor(otherPin);
+                }
+                if( QABS( currentSum ) > 1e-6 ){
+                    qWarning() << "BUG: current's sum is not zero in a pin, but it's"
+                        << currentSum << "; current values are:";
+                    QString out;
+                    out.sprintf("(%.5f) ", otherPin->sourceCurrent());
+                    foreach(Wire *w, otherPin->wires()){
+                        QString tmp;
+                        tmp.sprintf(" %.5f", w->currentFor(otherPin));
+                        out.append(tmp);
+                    }
+                    qWarning() << out;
+                }
+            } // if otherWireUnknownCount == 0
+        } // outWire != null
+    } // while !pinsToVisit.empty()
     // statistics
     qDebug() << "visited" << visitedPinCount << "pins out of "
         << m_pinList.size() ;
