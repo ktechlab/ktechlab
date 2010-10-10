@@ -17,7 +17,7 @@
 namespace KTechLab
 {
 
-class KTLLogicComponentsFactory;
+class KTLLogicFactory;
 class LogicElementFactory;
 
 class KTLLogicComponentsPlugin : public IComponentPlugin
@@ -31,7 +31,7 @@ public:
 private:
     void init();
 
-    KTLLogicComponentsFactory * m_componentFactory;
+    KTLLogicFactory * m_componentFactory;
 };
 
 }
