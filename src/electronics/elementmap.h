@@ -44,19 +44,30 @@ public:
      */
     Pin *pin(int number);
 
+    /**
+     * Get the currents from the associated Element and place
+     * the values in the Pins
+     */
 	void mergeCurrents();
-	bool compareElement(const Element *anElement) const;
+
+	// bool compareElement(const Element *anElement) const;
     // TODO get rid of the method below
-	void setElement(Element *anElement);
-	LogicIn *getLogicInOrNull();
-	void putPin(unsigned int slot, Pin *aPin);
+	//void setElement(Element *anElement);
+
+	// LogicIn *getLogicInOrNull();
+	// void putPin(unsigned int slot, Pin *aPin);
+
+    /**
+     * Set the CNode IDs of the Element, based on the
+     * CNode IDs of the pins
+     */
 	void setupCNodes();
 
 	/// @see Component::setInterCircuitDependent
-	PinSetList interCircuitDependent;
+	//PinSetList interCircuitDependent;
 
 	/// @see Component::setInterGroundDependent
-	PinSetList interGroundDependent;
+	// PinSetList interGroundDependent;
 
     /**
      \return the Element to which this set belongs
