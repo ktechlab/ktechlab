@@ -238,4 +238,19 @@ QModelIndex IDocumentModel::parent(const QModelIndex& child) const
     return createIndex(parentItem->row(), 0, parentItem);
 }
 
+void IDocumentModel::revert()
+{
+    d->doc.setContent(d->textDocument.toPlainText());
+    delete d->rootItem;
+    d->rootItem = new DocumentItem(d->doc,0);
+    QAbstractItemModel::revert();
+}
+
+bool IDocumentModel::submit()
+{
+    d->textDocument.setPlainText(d->doc.toString());
+    return QAbstractItemModel::submit();
+}
+
+
 #include "idocumentmodel.moc"
