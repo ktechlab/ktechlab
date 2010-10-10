@@ -12,15 +12,16 @@
 #include "picinfo16bit.h"
 
 #include <klocale.h>
-#include <kstaticdeleter.h>
+// #include <kstaticdeleter.h>
 
 PicAsm16bit *PicAsm16bit::m_self = 0;
-static KStaticDeleter<PicAsm16bit> picAsm16BitStaticDeleter;
+// static KStaticDeleter<PicAsm16bit> picAsm16BitStaticDeleter;
 
 PicAsm16bit *PicAsm16bit::self()
 {
 	if ( !m_self )
-		picAsm16BitStaticDeleter.setObject( m_self, new PicAsm16bit() );
+		//picAsm16BitStaticDeleter.setObject( m_self, new PicAsm16bit() );
+        m_self = new PicAsm16bit;
 	return m_self;
 }
 

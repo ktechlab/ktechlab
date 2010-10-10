@@ -12,7 +12,7 @@
 #include "microlibrary.h"
 
 #include <kdebug.h>
-#include <kstaticdeleter.h>
+// #include <kstaticdeleter.h>
 
 #include "picinfo12bit.h"
 #include "picinfo14bit.h"
@@ -21,12 +21,13 @@
 #include "micropackage.h"
 
 MicroLibrary * MicroLibrary::m_pSelf = 0l;
-static KStaticDeleter<MicroLibrary> staticMicroLibraryDeleter;
+// static KStaticDeleter<MicroLibrary> staticMicroLibraryDeleter;
 
 MicroLibrary * MicroLibrary::self()
 {
 	if ( !m_pSelf )
-		staticMicroLibraryDeleter.setObject( m_pSelf, new MicroLibrary() );
+//		staticMicroLibraryDeleter.setObject( m_pSelf, new MicroLibrary() );
+        m_pSelf = new MicroLibrary();
 	return m_pSelf;
 }
 
