@@ -7,14 +7,21 @@ cmake_minimum_required(VERSION 2.6)
 set(CMAKE_BUILD_TYPE debug)
 
 find_package(Qt4 REQUIRED)
-# find_package(GLIB REQUIRED)
+find_package(GLIB REQUIRED)
+find_package(GPSim REQUIRED)
+find_package(KDE4 REQUIRED)
+
 
 set( CMAKE_REQUIRED_FLAGS
     -fexceptions
     )
+
+# list(APPEND CMAKE_CXX_FLAGS "-fexceptions")
+
 add_definitions(
     ${QT4_DEFINITIONS}
     ${GLIB2_DEFINITIONS}
+    ${CMAKE_REQUIRED_FLAGS}
     )
 
 include_directories(
@@ -24,6 +31,7 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/src/electronics/components
     ${CMAKE_CURRENT_SOURCE_DIR}/src/electronics/simulation
     ${CMAKE_CURRENT_SOURCE_DIR}/src/flowparts
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/gui
     ${CMAKE_CURRENT_SOURCE_DIR}/src/math/
     ${CMAKE_CURRENT_SOURCE_DIR}/src/micro/
     ${CMAKE_CURRENT_SOURCE_DIR}/src/physics
@@ -31,7 +39,7 @@ include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
     ${QT_INCLUDES}
     ${GLIB2_INCLUDE_DIRS}
-
+    ${KDE4_INCLUDES}
     ${QT_QTTEST_INCLUDE_DIR}
 )
 
@@ -43,11 +51,10 @@ CONFIGURE_FILE(
 # add_subdirectory( testing )
 
 ADD_DEFINITIONS(-DQT3_SUPPORT)
-ADD_DEFINITIONS(-DNO_GPSIM)
+# ADD_DEFINITIONS(-DNO_GPSIM)
 
 set( CompileSimulator_SRCS
  ${CMAKE_SOURCE_DIR}/testing/simulatortest.cpp
- ${CMAKE_SOURCE_DIR}/src/electronics/gpsimprocessor.cpp
  ${CMAKE_SOURCE_DIR}/src/simulator.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/logic.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/element.cpp
@@ -82,6 +89,32 @@ set( CompileSimulator_SRCS
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/voltagepoint.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/voltagesignal.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/voltagesource.cpp
+ # gpsim stuff
+ ${CMAKE_SOURCE_DIR}/src/electronics/gpsimprocessor.cpp
+ ${CMAKE_SOURCE_DIR}/src/debugmanager.cpp
+ ${CMAKE_SOURCE_DIR}/src/languages/sourceline.cpp
+ ${CMAKE_SOURCE_DIR}/src/languages/asmparser.cpp
+ ${CMAKE_SOURCE_DIR}/src/languages/language.cpp
+ ${CMAKE_SOURCE_DIR}/src/languages/processchain.cpp
+ ${CMAKE_SOURCE_DIR}/src/languages/externallanguage.cpp
+ ${CMAKE_SOURCE_DIR}/src/gui/logview.cpp
+ ${CMAKE_SOURCE_DIR}/src/gui/outputmethoddlg.cpp
+ ${CMAKE_SOURCE_DIR}/src/micro/microlibrary.cpp
+ ${CMAKE_SOURCE_DIR}/src/micro/micropackage.cpp
+ ${CMAKE_SOURCE_DIR}/src/micro/microinfo.cpp
+ ${CMAKE_SOURCE_DIR}/src/micro/asminfo.cpp
+ ${CMAKE_SOURCE_DIR}/src/micro/picinfo.cpp
+ ${CMAKE_SOURCE_DIR}/src/micro/picinfo12bit.cpp
+ ${CMAKE_SOURCE_DIR}/src/micro/picinfo14bit.cpp
+ ${CMAKE_SOURCE_DIR}/src/micro/picinfo16bit.cpp
+ ${CMAKE_SOURCE_DIR}/src/languages/sdcc.cpp
+ ${CMAKE_SOURCE_DIR}/src/languages/picprogrammer.cpp
+ ${CMAKE_SOURCE_DIR}/src/languages/gplib.cpp
+ ${CMAKE_SOURCE_DIR}/src/languages/gplink.cpp
+ ${CMAKE_SOURCE_DIR}/src/languages/gpasm.cpp
+ ${CMAKE_SOURCE_DIR}/src/languages/microbe.cpp
+ ${CMAKE_SOURCE_DIR}/src/languages/gpdasm.cpp
+ # ${CMAKE_SOURCE_DIR}/src/languages/flowcode.cpp
 )
 
 qt4_automoc(${CompileSimulator_SRCS})
@@ -96,7 +129,9 @@ target_link_libraries( compiled_simulator
 ${QT_LIBRARIES}
 ${QT_QT3SUPPORT_LIBRARY}
 ${QT_QTTEST_LIBRARIES}
-
+${GPSIM_LIBRARY}
+${GPSim_LIBRARY}
+${KDE4_KDEUI_LIBS}
 )
 
 enable_testing()
