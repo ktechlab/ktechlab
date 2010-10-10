@@ -10,7 +10,7 @@
 
 #include "languagemanager.h"
 #include "picprogrammer.h"
-#include "src/core/ktlconfig.h"
+// #include "src/core/ktlconfig.h"
 
 #include <kapplication.h>
 #include <kconfig.h>
@@ -191,7 +191,9 @@ void PicProgrammerSettings::initStaticConfigs()
 }
 
 
-void PicProgrammerSettings::load( KConfig * config )
+void PicProgrammerSettings::load() {}
+#if 0
+KConfig * config )
 {
 	QStringList oldCustomProgrammers = config->groupList().grep("CustomProgrammer_");
 	QStringList::iterator ocpEnd = oldCustomProgrammers.end();
@@ -215,9 +217,11 @@ void PicProgrammerSettings::load( KConfig * config )
 		}
 	}
 }
+#endif
 
-
-void PicProgrammerSettings::save( KConfig * config )
+void PicProgrammerSettings::save() {}
+#if 0
+KConfig * config )
 {
 	QStringList oldCustomProgrammers = config->groupList().grep("CustomProgrammer_");
 	QStringList::iterator ocpEnd = oldCustomProgrammers.end();
@@ -243,7 +247,7 @@ void PicProgrammerSettings::save( KConfig * config )
 		config->writeEntry( "EraseCommand", it.data().eraseCommand );
 	}
 }
-
+#endif
 
 ProgrammerConfig PicProgrammerSettings::config( const QString & name )
 {
@@ -372,7 +376,7 @@ void PicProgrammer::processInput( ProcessOptions options )
 	m_processOptions = options;
 	
 	PicProgrammerSettings settings;
-	settings.load( kapp->config() );
+	settings.load(); // kapp->config() ); // does nothing
 	
 	QString program = options.m_program;
 	if ( !settings.configNames( true ).contains( program.lower() ) )
@@ -387,9 +391,9 @@ void PicProgrammer::processInput( ProcessOptions options )
 	QString command = config.writeCommand;
 	command.replace( "%port", options.m_port );
 	command.replace( "%device", QString( options.m_picID ).remove("P") );
-	command.replace( "%file", KProcess::quote( options.inputFiles().first() ) );
+	command.replace( "%file", ( options.inputFiles().first() ) ); // FIXME KProcess::quote removed
 	
-	m_languageProcess->setUseShell( true );
+	// m_languageProcess->setUseShell( true );
 	*m_languageProcess << command;
 	
 	if ( !start() )

@@ -159,6 +159,8 @@ class ProcessOptions : public ProcessOptionsSpecial
 		
 		void setInputFiles( const QStringList & files ) { m_inputFiles = files; }
 		QStringList inputFiles() const { return m_inputFiles; }
+		/// added covenience function
+        void setInputFiles( const QString &singleFile) { setInputFiles(QStringList(singleFile)); }
 		
 		void setMethod( Method::type method ) { m_method = method; }
 		Method::type method() const { return m_method; }

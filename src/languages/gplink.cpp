@@ -13,7 +13,7 @@
 #include "logview.h"
 #include "microinfo.h"
 #include "microlibrary.h"
-#include "src/core/ktlconfig.h"
+// #include "src/core/ktlconfig.h"
 
 #include <klocale.h>
 #include <kmessagebox.h>
@@ -102,6 +102,7 @@ void Gplink::processInput( ProcessOptions options )
 		*m_languageProcess << ( *it );
 	
 	// if selected to automatically link to SDCC libraries, add some options.
+    #if 0
 	if( KTLConfig::gplink_link_shared() ) 
 	{	
 		// set up the include directory
@@ -125,10 +126,12 @@ void Gplink::processInput( ProcessOptions options )
 		}
 		*m_languageProcess << "libsdcc.lib";
 	}
+	#endif
 	
 	if ( !start() )
 	{
-		KMessageBox::sorry( LanguageManager::self()->logView(), i18n("Linking failed. Please check you have gputils installed.") );
+		// KMessageBox::sorry( LanguageManager::self()->logView(), i18n("Linking failed. Please check you have gputils installed.") );
+        qCritical() << "Linking failed";
 		processInitFailed();
 		return;
 	}
