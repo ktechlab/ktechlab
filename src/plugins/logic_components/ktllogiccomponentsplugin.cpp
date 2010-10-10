@@ -13,8 +13,8 @@
 #include "interfaces/component/icomponentplugin.h"
 #include "interfaces/simulator/isimulationmanager.h"
 #include "interfaces/idocumentplugin.h"
-#include "interfaces/simulator/genericelementfactory.h"
 
+#include <circuit/simulator/genericelementfactory.h>
 #include <shell/core.h>
 #include <KGenericFactory>
 #include <KAboutData>
@@ -30,7 +30,7 @@ K_EXPORT_PLUGIN(KTLLogicComponentsPluginFactory(
 )
 
 
-class KTechLab::KTLLogicComponentsFactory: public IComponentFactory
+class KTechLab::KTLLogicComponentsFactory: public IComponentFactory, public GenericElementFactory
 {
 public:
     KTLLogicComponentsFactory()
@@ -45,13 +45,14 @@ public:
     {
         return 0;
     }
+protected:
+    virtual IElement * createOrRegister(bool create, const QByteArray& type,
+                                        QVariantMap parentInModel = QVariantMap())
+    {
+        return 0;
+    }
 
 };
-
-DECLARE_ELEMENT_FACTORY(
-    LogicElementFactory,
-
-    );
 
 
 KTLLogicComponentsPlugin::KTLLogicComponentsPlugin(QObject* parent, const QVariantList& args)
@@ -69,20 +70,22 @@ void KTLLogicComponentsPlugin::init()
       return;
     }
     plugin->registerComponentFactory( m_componentFactory );
-    m_logicElementFactory = new LogicElementFactory();
-    ISimulationManager::self()->registerElementFactory(m_logicElementFactory);
+    ISimulationManager::self()->registerElementFactory(m_componentFactory);
 }
 
 KTLLogicComponentsPlugin::~KTLLogicComponentsPlugin()
 {
     delete m_componentFactory;
-    delete m_logicElementFactory;
 }
 
 void KTLLogicComponentsPlugin::unload()
 {
-    //me be, we should unregister our components at the circuit-plugin
-    ISimulationManager::self()->unregisterElementFactory(m_logicElementFactory);
+    IDocumentPlugin *plugin = documentPlugin();
+    if (plugin) {
+      plugin->deregisterComponentFactory( m_componentFactory );
+    }
+
+    ISimulationManager::self()->unregisterElementFactory(m_componentFactory);
 }
 
 #include "ktllogiccomponentsplugin.moc"
