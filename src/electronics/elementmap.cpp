@@ -108,5 +108,12 @@ void ElementMap::setupCNodes() {
 
 	e->add_initial_dc();
 }
+
+
+Element* ElementMap::element() const
+{
+    return e;
+}
+
 //END class ElementMap
 
