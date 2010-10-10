@@ -30,18 +30,6 @@
 
 #include "simulatortest.h"
 
-QList<ElementMap*> allEms;
-
-void setupElement(Element *elem, Pin *pin1, Pin *pin2);
-
-void SimulatorTest::init()
-{
-    qDebug() << "----------------- init --------------\ncleaning up" << allEms.size() << "elementmaps.";
-    foreach(ElementMap *m, allEms){
-        delete m;
-    }
-    allEms.clear();
-}
 
 void SimulatorTest::createTest(){
 
@@ -100,13 +88,6 @@ void SimulatorTest::createTest(){
     Wire *wire1 = new Wire(pin1, pinR1);
     Wire *wire2 = new Wire(pin2, pinR2);
 
-    /*
-    circ->addPin(pin1);
-    circ->addPin(pin2);
-
-    circ->addPin(pinR1);
-    circ->addPin(pinR2);
-    */
     circ->addElementMap(r1m);
     circ->addElementMap(v4m);
 
@@ -119,16 +100,7 @@ void SimulatorTest::createTest(){
     sim->slotSetSimulating(true);
     sim->step();
 
-    // try to make the currents work
-    v4->updateCurrents();
-    r1->updateCurrents();
-    /*
-    pin1->calculateCurrentFromWires();
-    pin2->calculateCurrentFromWires();
-    pinR1->calculateCurrentFromWires();
-    pinR2->calculateCurrentFromWires();
-    */
-//    circ->updateCurrents();
+    circ->updateCurrents();
     circ->displayEquations();
 
     qDebug() << "pin1  id:" << pin1->eqId() << " voltage:" << pin1->voltage();
@@ -154,32 +126,6 @@ void SimulatorTest::createTest(){
 
 }
 
-void setupElement(Element *elem, Pin *pin1, Pin *pin2){
-    // element map stores the relation between and element and pins
-    ElementMap *em = new ElementMap;
-    allEms.append(em);
-    em->setElement(elem);
-    em->putPin(0, pin1);
-    em->putPin(1, pin2);
-    pin1->addElement(elem);
-    pin2->addElement(elem);
-    
-    // mabe pin1 with pin1 ? and 2 with 2?
-    // pin1->addCircuitDependentPin(pin2);
-    // pin2->addCircuitDependentPin(pin1);
-    
-    // mabe pin1 with pin1 ? and 2 with 2?
-    // pin1->addGroundDependentPin(pin2);
-    // pin2->addGroundDependentPin(pin1);
-    
-    // FIXME
-    // em.interCircuitDependent.push_back(pinSet); // ...
-    // em.interGroundDependent.push_back(pinSet);
-    
-    em->setupCNodes();
-}
-
-
 void SimulatorTest::testSourceAndResistance()
 {
     qDebug() << " ---------------------------------------- ";
@@ -199,13 +145,10 @@ void SimulatorTest::testSourceAndResistance()
     Pin *pinR1;
     Pin *pinR2;
 
-    // need to setup the element _after_ the circuit has been initialized
-//    setupElement(v4, pin1, pin2);
     ElementMap *v4m = new ElementMap( v4);
     pin1 = v4m->pin(0);
     pin2 = v4m->pin(1);
     ElementMap *r1m = new ElementMap( r1);
-//    setupElement(r1, pinR1, pinR2);
     pinR1 = r1m->pin(0);
     pinR2 = r1m->pin(1);
 
@@ -224,20 +167,6 @@ void SimulatorTest::testSourceAndResistance()
 
     // try to make the currents work
     circ->updateCurrents();
-
-    // set the current on the pins
-    foreach(ElementMap *em, allEms){
-        em->mergeCurrents();
-    }
-
-    /*
-    v4->updateCurrents();
-    r1->updateCurrents();
-*/
-    pin1->calculateCurrentFromWires();
-    pin2->calculateCurrentFromWires();
-    pinR1->calculateCurrentFromWires();
-    pinR2->calculateCurrentFromWires();
 
     circ->displayEquations();
 
@@ -278,14 +207,6 @@ void SimulatorTest::testSourceAnd4ResistanceInParallel()
     circ->addElement(r3);
     circ->addElement(r4);
 
-
-    /*
-    setupElement(v1, pin1, pin2);
-    setupElement(r1, pinR11, pinR12);
-    setupElement(r2, pinR21, pinR22);
-    setupElement(r3, pinR31, pinR32);
-    setupElement(r4, pinR41, pinR42);
-    */
     ElementMap *v1m = new ElementMap(v1);
     Pin *pin1 = v1m->pin(0);
     Pin *pin2 = v1m->pin(1);
@@ -363,10 +284,6 @@ void SimulatorTest::testSourceAnd4ResistanceInParallel()
     // try to make the currents work
     circ->updateCurrents();
 
-    foreach(ElementMap *em, allEms){
-        em->mergeCurrents();
-    }
-
     circ->displayEquations();
 
     qDebug() << "pin1  id:" << pin1->eqId() << " voltage:" << pin1->voltage();
@@ -389,35 +306,6 @@ void SimulatorTest::testSourceAnd4ResistanceInParallel()
         qDebug() << "pin eq id: " << pin->eqId();
     }
 
-    r2->updateCurrents();
-    qDebug() << "wire current for 12a2: " << wire12a2->current();
-
-    r3->updateCurrents();
-    qDebug() << "wire current for wire34a2: " << wire34a2->current();
-
-    qDebug() << "pinR11 current known:" << pinR11->currentIsKnown() << "value:" << pinR11->sourceCurrent();
-
-    foreach(Pin *pin, allpins){
-        pin->calculateCurrentFromWires();
-    }
-    /*
-    pin1->calculateCurrentFromWires();
-    pin2->calculateCurrentFromWires();
-    pinR11->calculateCurrentFromWires();
-    pinR12->calculateCurrentFromWires();
-    pinR21->calculateCurrentFromWires();
-    pinR22->calculateCurrentFromWires();
-    pinR31->calculateCurrentFromWires();
-    pinR32->calculateCurrentFromWires();
-    pinR41->calculateCurrentFromWires();
-    pinR42->calculateCurrentFromWires();
-    pinC12a->calculateCurrentFromWires();
-    pinC12b ->calculateCurrentFromWires();
-    pinC34a ->calculateCurrentFromWires();
-    pinC34b ->calculateCurrentFromWires();
-    pinC1234a ->calculateCurrentFromWires();
-    pinC1234b ->calculateCurrentFromWires();
-    */
     qDebug() << "wireAll1 current known:" << wireAll1->currentIsKnown() << "value:" << wireAll1->current();
     qDebug() << "wire12a1 current known:" << wire12a1->currentIsKnown() << "value:" << wire12a1->current();
     qDebug() << "wire12b1 current known:" << wire12b1->currentIsKnown() << "value:" << wire12b1->current();
