@@ -92,7 +92,11 @@ KTLBasicECPlugin::~KTLBasicECPlugin()
 
 void KTLBasicECPlugin::unload()
 {
-    //me be, we should unregister our components at the circuit-plugin
+    IDocumentPlugin *plugin = documentPlugin();
+    if (plugin) {
+      plugin->deregisterComponentFactory( m_componentFactory );
+    }
+
     ISimulationManager::self()->unregisterElementFactory(m_componentFactory);
 }
 
