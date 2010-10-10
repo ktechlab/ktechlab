@@ -262,6 +262,10 @@ assert(*it);
 			break;
 		}
 	}
+	// update the CNode IDs for the elements
+    std::set<ElementMap*>::iterator elementMapEnd = m_elementMapSet.end();
+    for(std::set<ElementMap*>::iterator it = m_elementMapSet.begin(); it != elementMapEnd; ++it)
+        (*it)->setupCNodes();
 }
 
 void Circuit::initCache() {
