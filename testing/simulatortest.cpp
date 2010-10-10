@@ -31,6 +31,9 @@
 #include "simulatortest.h"
 
 
+const double maxCurrentError = 1e-6;
+const double maxVoltageError = 1e-6;
+
 void SimulatorTest::createTest(){
 
     Simulator * sim = Simulator::self();
@@ -110,6 +113,15 @@ void SimulatorTest::createTest(){
     qDebug() << "wire1 current known:" << wire1->currentIsKnown() << "value:" << wire1->current();
     qDebug() << "wire2 current known:" << wire2->currentIsKnown() << "value:" << wire2->current();
 
+    Q_ASSERT( QABS( pin2->voltage() - pin1->voltage() - 7 ) < maxVoltageError );
+    Q_ASSERT( QABS( pinR2->voltage() - pinR1->voltage() - 7 ) < maxVoltageError );
+    Q_ASSERT( QABS( pin1->voltage() - pinR1->voltage() ) < maxVoltageError );
+    Q_ASSERT( QABS( pin2->voltage() - pinR2->voltage() ) < maxVoltageError );
+    Q_ASSERT( wire1->currentIsKnown() );
+    Q_ASSERT( wire2->currentIsKnown() );
+    Q_ASSERT( QABS( QABS( wire1->current() ) - 0.007 ) < maxCurrentError );
+    Q_ASSERT( QABS( QABS( wire2->current() ) - 0.007 ) < maxCurrentError );
+
     sim->step();
 
     qDebug() << "pin1 id:" << pin1->eqId() << " voltage:" << pin1->voltage();
@@ -124,6 +136,14 @@ void SimulatorTest::createTest(){
     qDebug() << "pinR1 id:" << pinR1->eqId() << " voltage:" << pinR1->voltage();
     qDebug() << "pinR2 id:" << pinR2->eqId() << " voltage:" << pinR2->voltage();
 
+    Q_ASSERT( QABS( pin2->voltage() - pin1->voltage() - 7 ) < maxVoltageError );
+    Q_ASSERT( QABS( pinR2->voltage() - pinR1->voltage() - 7 ) < maxVoltageError );
+    Q_ASSERT( QABS( pin1->voltage() - pinR1->voltage() ) < maxVoltageError );
+    Q_ASSERT( QABS( pin2->voltage() - pinR2->voltage() ) < maxVoltageError );
+    Q_ASSERT( wire1->currentIsKnown() );
+    Q_ASSERT( wire2->currentIsKnown() );
+    Q_ASSERT( QABS( QABS( wire1->current() ) - 0.007 ) < maxCurrentError );
+    Q_ASSERT( QABS( QABS( wire2->current() ) - 0.007 ) < maxCurrentError );
 }
 
 void SimulatorTest::testSourceAndResistance()
@@ -165,7 +185,6 @@ void SimulatorTest::testSourceAndResistance()
     sim->slotSetSimulating(true);
     sim->step();
 
-    // try to make the currents work
     circ->updateCurrents();
 
     circ->displayEquations();
@@ -176,6 +195,15 @@ void SimulatorTest::testSourceAndResistance()
     qDebug() << "pinR2 id:" << pinR2->eqId() << " voltage:" << pinR2->voltage();
     qDebug() << "wire1 current known:" << wire1->currentIsKnown() << "value:" << wire1->current();
     qDebug() << "wire2 current known:" << wire2->currentIsKnown() << "value:" << wire2->current();
+
+    Q_ASSERT( QABS( pin2->voltage() - pin1->voltage() - 8 ) < maxVoltageError );
+    Q_ASSERT( QABS( pinR2->voltage() - pinR1->voltage() - 8 ) < maxVoltageError );
+    Q_ASSERT( QABS( pin1->voltage() - pinR1->voltage() ) < maxVoltageError );
+    Q_ASSERT( QABS( pin2->voltage() - pinR2->voltage() ) < maxVoltageError );
+    Q_ASSERT( wire1->currentIsKnown() );
+    Q_ASSERT( wire2->currentIsKnown() );
+    Q_ASSERT( QABS( QABS( wire1->current() ) - 0.008 ) < maxCurrentError );
+    Q_ASSERT( QABS( QABS( wire2->current() ) - 0.008 ) < maxCurrentError );
 
 }
 
@@ -322,6 +350,59 @@ void SimulatorTest::testSourceAnd4ResistanceInParallel()
     qDebug() << "pinR21 current known:" << pinR21->currentIsKnown() << "value:" << pinR21->sourceCurrent();
     qDebug() << "pinR31 current known:" << pinR31->currentIsKnown() << "value:" << pinR31->sourceCurrent();
     qDebug() << "pinR41 current known:" << pinR41->currentIsKnown() << "value:" << pinR41->sourceCurrent();
+
+    // voltages across components
+    Q_ASSERT( QABS( pin2->voltage() - pin1->voltage() - 8 ) < maxVoltageError );
+    Q_ASSERT( QABS( pinR12->voltage() - pinR11->voltage() - 8 ) < maxVoltageError );
+    Q_ASSERT( QABS( pinR22->voltage() - pinR21->voltage() - 8 ) < maxVoltageError );
+    Q_ASSERT( QABS( pinR32->voltage() - pinR31->voltage() - 8 ) < maxVoltageError );
+    Q_ASSERT( QABS( pinR42->voltage() - pinR41->voltage() - 8 ) < maxVoltageError );
+    // voltages on nodes, part 1
+    Q_ASSERT( QABS( pin1->voltage() - pinR11->voltage() ) < maxVoltageError );
+    Q_ASSERT( QABS( pin1->voltage() - pinR21->voltage() ) < maxVoltageError );
+    Q_ASSERT( QABS( pin1->voltage() - pinR31->voltage() ) < maxVoltageError );
+    Q_ASSERT( QABS( pin1->voltage() - pinR41->voltage() ) < maxVoltageError );
+    Q_ASSERT( QABS( pin1->voltage() - pinC12a->voltage() ) < maxVoltageError );
+    Q_ASSERT( QABS( pin1->voltage() - pinC34a->voltage() ) < maxVoltageError );
+    Q_ASSERT( QABS( pin1->voltage() - pinC1234a->voltage() ) < maxVoltageError );
+    // part 2
+    Q_ASSERT( QABS( pin2->voltage() - pinR12->voltage() ) < maxVoltageError );
+    Q_ASSERT( QABS( pin2->voltage() - pinR22->voltage() ) < maxVoltageError );
+    Q_ASSERT( QABS( pin2->voltage() - pinR32->voltage() ) < maxVoltageError );
+    Q_ASSERT( QABS( pin2->voltage() - pinR42->voltage() ) < maxVoltageError );
+    Q_ASSERT( QABS( pin2->voltage() - pinC12b->voltage() ) < maxVoltageError );
+    Q_ASSERT( QABS( pin2->voltage() - pinC34b->voltage() ) < maxVoltageError );
+    Q_ASSERT( QABS( pin2->voltage() - pinC1234b->voltage() ) < maxVoltageError );
+    // pin currents are known?
+    foreach(Pin *pin, allpins){
+        Q_ASSERT( pin->currentIsKnown());
+    }
+    // wire currents ?
+    foreach(Wire *wire, allwires){
+        Q_ASSERT( wire->currentIsKnown());
+    }
+    // current values?
+    Q_ASSERT( QABS( QABS( wire12a1->current() ) - 0.0008888889 ) < maxCurrentError );
+    Q_ASSERT( QABS( QABS( wire12a2->current() ) - 0.001 ) < maxCurrentError );
+    Q_ASSERT( QABS( QABS( wire34a1->current() ) - 0.002 ) < maxCurrentError );
+    Q_ASSERT( QABS( QABS( wire34a2->current() ) - 0.004) < maxCurrentError );
+
+    Q_ASSERT( QABS( QABS( wire1234a1->current() ) - 0.00188889 ) < maxCurrentError );
+    Q_ASSERT( QABS( QABS( wire1234a2->current() ) - 0.006 ) < maxCurrentError );
+
+    Q_ASSERT( QABS( QABS( wireAll1->current() ) - 0.00788889 ) < maxCurrentError );
+    // other part
+    Q_ASSERT( QABS( QABS( wire12b1->current() ) - 0.0008888889 ) < maxCurrentError );
+    Q_ASSERT( QABS( QABS( wire12b2->current() ) - 0.001 ) < maxCurrentError );
+    Q_ASSERT( QABS( QABS( wire34b1->current() ) - 0.002 ) < maxCurrentError );
+    Q_ASSERT( QABS( QABS( wire34b2->current() ) - 0.004) < maxCurrentError );
+
+    Q_ASSERT( QABS( QABS( wire1234b1->current() ) - 0.00188889 ) < maxCurrentError );
+    Q_ASSERT( QABS( QABS( wire1234b2->current() ) - 0.006 ) < maxCurrentError );
+
+    Q_ASSERT( QABS( QABS( wireAll2->current() ) - 0.00788889 ) < maxCurrentError );
+
+
 }
 
 QTEST_MAIN(SimulatorTest)
