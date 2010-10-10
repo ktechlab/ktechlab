@@ -102,4 +102,16 @@ Pin *Wire::otherPin(const Pin *aPin) const
     return NULL;
 }
 
+void Wire::setCurrentFor(const Pin* pin, double current)
+{
+    if(pin == m_pStartPin)
+        m_current = current;
+    else
+        if( pin == m_pEndPin)
+            m_current = -current;
+        else {
+            qCritical() << "BUG: trying to set current on a non-associated end of a wire";
+            return;
+        }
+    m_bCurrentIsKnown = true;
 }
