@@ -229,12 +229,6 @@ void SimulatorTest::testSourceAnd4ResistanceInParallel()
     Pin *pinC1234a = new Pin();
     Pin *pinC1234b = new Pin();
 
-    circ->addElement(v1);
-    circ->addElement(r1);
-    circ->addElement(r2);
-    circ->addElement(r3);
-    circ->addElement(r4);
-
     ElementMap *v1m = new ElementMap(v1);
     Pin *pin1 = v1m->pin(0);
     Pin *pin2 = v1m->pin(1);
