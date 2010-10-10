@@ -9,17 +9,17 @@
  ***************************************************************************/
 
 #include "asmparser.h"
-#include "docmanager.h"
+// #include "docmanager.h"
 #include "gplib.h"
-#include "src/core/ktlconfig.h"
+// #include "src/core/ktlconfig.h"
 #include "language.h"
-#include "languagemanager.h"
+// #include "languagemanager.h"
 #include "logview.h"
-#include "ktechlab.h"
+// #include "ktechlab.h"
 #include "outputmethoddlg.h"
 #include "processchain.h"
-#include "projectmanager.h"
-#include "textdocument.h"
+// #include "projectmanager.h"
+// #include "textdocument.h"
 
 #include "flowcode.h"
 #include "gpasm.h"
@@ -31,16 +31,16 @@
 
 #include <kdebug.h>
 #include <klocale.h>
-#include <ktempfile.h>
+// #include <ktempfile.h>
 #include <qfile.h>
 #include <qtimer.h>
 //Added by qt3to4:
 #include <Q3TextStream>
+#include <QTemporaryFile>
 
 
 //BEGIN class ProcessChain
 ProcessChain::ProcessChain( ProcessOptions options, const char *name )
-	: QObject( KTechlab::self(), name)
 {
 	m_pFlowCode = 0l;
 	m_pGpasm = 0l;
@@ -58,7 +58,7 @@ ProcessChain::ProcessChain( ProcessOptions options, const char *name )
 	else
 		target = options.targetFile();
 	
-	LanguageManager::self()->logView()->addOutput( i18n("Building: %1").arg( target ), LogView::ot_important );
+	// LanguageManager::self()->logView()->addOutput( i18n("Building: %1").arg( target ), LogView::ot_important );
 	QTimer::singleShot( 0, this, SLOT(compile()) );
 }
 
@@ -81,6 +81,7 @@ void ProcessChain::compile()
 {
 	// If the micro id in the options is empty, then attempt to get it from any
 	// open project (it might not be necessarily...but won't hurt if it isn't).
+    /*
 	if ( m_processOptions.m_picID.isEmpty() )
 	{
 		if ( ProjectInfo * projectInfo = ProjectManager::self()->currentProject() )
@@ -90,11 +91,20 @@ void ProcessChain::compile()
 				m_processOptions.m_picID = projectItem->microID();
 		}
 	}
+	*/
 	
 	switch ( m_processOptions.processPath() )
 	{
-#define DIRECT_PROCESS( path, processor ) case ProcessOptions::ProcessPath::path: { processor()->processInput(m_processOptions); break; }
-#define INDIRECT_PROCESS( path, processor, extension ) case ProcessOptions::ProcessPath::path: { KTempFile f( QString::null, extension ); f.close(); m_processOptions.setIntermediaryOutput( f.name() ); processor()->processInput(m_processOptions); break; }
+#define DIRECT_PROCESS( path, processor )       \
+        case ProcessOptions::ProcessPath::path: { processor()->processInput(m_processOptions); break; }
+#define INDIRECT_PROCESS( path, processor, extension )  \
+        case ProcessOptions::ProcessPath::path:         \
+            {                                           \
+                QTemporaryFile f( QString("indirectXXXXXX").append(extension) ); f.close();    \
+                m_processOptions.setIntermediaryOutput( f.name() );             \
+                processor()->processInput(m_processOptions);                    \
+                break;                                                          \
+            }
 
 		INDIRECT_PROCESS(	AssemblyAbsolute_PIC,			gpasm,		".hex" )
 		DIRECT_PROCESS(		AssemblyAbsolute_Program,		gpasm )
@@ -107,10 +117,11 @@ void ProcessChain::compile()
 		INDIRECT_PROCESS(	C_Object,						sdcc,		".asm" )
 		INDIRECT_PROCESS(	C_PIC,							sdcc,		".asm" )
 		INDIRECT_PROCESS(	C_Program,						sdcc,		".asm" )
-		INDIRECT_PROCESS(	FlowCode_AssemblyAbsolute,		flowCode,	".microbe" )
-		DIRECT_PROCESS(		FlowCode_Microbe,				flowCode )
-		INDIRECT_PROCESS(	FlowCode_PIC,					flowCode,	".microbe" )
-		INDIRECT_PROCESS(	FlowCode_Program,				flowCode,	".microbe" )
+// FIXME all flowcode is now disabled
+//		INDIRECT_PROCESS(	FlowCode_AssemblyAbsolute,		flowCode,	".microbe" )
+//		DIRECT_PROCESS(		FlowCode_Microbe,				flowCode )
+//		INDIRECT_PROCESS(	FlowCode_PIC,					flowCode,	".microbe" )
+//		INDIRECT_PROCESS(	FlowCode_Program,				flowCode,	".microbe" )
 		DIRECT_PROCESS(		Microbe_AssemblyAbsolute,		microbe )
 		INDIRECT_PROCESS(	Microbe_PIC,					microbe,	".asm" )
 		INDIRECT_PROCESS(	Microbe_Program,				microbe,	".asm" )
@@ -137,12 +148,14 @@ void ProcessChain::compile()
 void ProcessChain::slotFinishedCompile(Language *language)
 {
 	ProcessOptions options = language->processOptions();
-	
+
+    /*
 	if ( options.b_addToProject && ProjectManager::self()->currentProject() )
 		ProjectManager::self()->currentProject()->addFile( KURL(options.targetFile()) );
-	
+	*/
 	ProcessOptions::ProcessPath::MediaType typeTo = ProcessOptions::ProcessPath::to( m_processOptions.processPath() );
-	
+
+    /*
 	TextDocument * editor = 0l;
 	if ( KTLConfig::reuseSameViewForOutput() )
 	{
@@ -150,7 +163,6 @@ void ProcessChain::slotFinishedCompile(Language *language)
 		if ( editor && (!editor->url().isEmpty() || editor->isModified()) )
 			editor = 0l;
 	}
-	
 	switch (typeTo)
 	{
 		case ProcessOptions::ProcessPath::AssemblyAbsolute:
@@ -251,7 +263,9 @@ void ProcessChain::slotFinishedCompile(Language *language)
 	
 	options.setTextOutputtedTo( editor );
 
-	emit successful(options);
+    */
+
+    emit successful(options);
 	emit successful();
 }
 
@@ -267,7 +281,8 @@ a * ProcessChain::b( ) \
 	return c; \
 }
 
-LanguageFunction( FlowCode, flowCode, m_pFlowCode )
+// FIXME no flowcode for now
+// LanguageFunction( FlowCode, flowCode, m_pFlowCode )
 LanguageFunction( Gpasm, gpasm, m_pGpasm )
 LanguageFunction( Gpdasm, gpdasm, m_pGpdasm )
 LanguageFunction( Gplib, gplib, m_pGplib )
@@ -281,7 +296,6 @@ LanguageFunction( SDCC, sdcc, m_pSDCC )
 
 //BEGIN class ProcessListChain
 ProcessListChain::ProcessListChain( ProcessOptionsList pol, const char * name )
-	: QObject( KTechlab::self(), name )
 {
 	m_processOptionsList = pol;
 	
@@ -301,11 +315,13 @@ void ProcessListChain::slotProcessChainSuccessful()
 	ProcessOptionsList::iterator it = m_processOptionsList.begin();
 	ProcessOptions po = *it;
 	m_processOptionsList.remove(it);
-	
+
+    /*
 	ProcessChain * pc = LanguageManager::self()->compile(po);
 	
 	connect( pc, SIGNAL(successful()), this, SLOT(slotProcessChainSuccessful()) );
 	connect( pc, SIGNAL(failed()), this, SLOT(slotProcessChainFailed()) );
+    */
 }
 
 
