@@ -129,3 +129,8 @@ double Pin::calculateCurrentFromWires(Wire *aWire) const {
 
 	return current;
 }
+
+const WireList Pin::wires() const
+{
+    return m_wireList;
+}

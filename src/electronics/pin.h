@@ -168,6 +168,7 @@ public:
 	void addWire(Wire *wire);
 	void removeWire(Wire *wire);
 
+    const WireList wires() const;
 
 private:
 	double m_voltage;
