@@ -57,6 +57,11 @@ public:
 	/// @see Component::setInterGroundDependent
 	PinSetList interGroundDependent;
 
+    /**
+     \return the Element to which this set belongs
+     */
+    Element *element() const;
+
 private:
 	Element *e; // The element
 	Pin *n[4]; // The Pins associated with the CNodes in the element
