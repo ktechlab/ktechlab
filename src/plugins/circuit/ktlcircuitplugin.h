@@ -32,6 +32,11 @@ public:
      */
     void registerComponentFactory( KTechLab::IComponentFactory *factory );
 
+    /**
+     * Deregister the component-factory from the plugin.
+     */
+    void deregisterComponentFactory( KTechLab::IComponentFactory *factory );
+
 private:
     void init();
     KTLComponentViewFactory *m_componentViewFactory;

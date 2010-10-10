@@ -118,6 +118,15 @@ void KTLCircuitPlugin::registerComponentFactory( IComponentFactory *factory )
     }
 }
 
+void KTLCircuitPlugin::deregisterComponentFactory(IComponentFactory* factory)
+{
+    QList<ComponentMetaData> metaData = factory->allMetaData();
+    kDebug() << "deregistering" << metaData.size() << "components";
+    foreach (ComponentMetaData data, metaData) {
+        m_componentModel->removeComponentData( data, factory );
+    }
+}
+
 void KTLCircuitPlugin::unload()
 {
     KDevelop::Core::self()->uiController()->removeToolView(m_componentViewFactory);

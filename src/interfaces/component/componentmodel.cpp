@@ -23,6 +23,7 @@ class KTechLab::ComponentItem
         ~ComponentItem();
 
         void addChild( ComponentItem * child );
+        void removeChild(ComponentItem* child);
         void setParent( ComponentItem * parent );
         ComponentItem * parent();
 
@@ -61,6 +62,13 @@ void ComponentItem::addChild( ComponentItem *child )
 {
     m_children.insert( child->metaData().category, child );
     child->setParent(this);
+}
+
+void ComponentItem::removeChild(ComponentItem* item)
+{
+    m_children.remove(item->metaData().category, item);
+    delete item;
+    item = 0;
 }
 
 void ComponentItem::setParent( ComponentItem *parent )
@@ -282,6 +290,27 @@ void ComponentModel::insertComponentData( const ComponentMetaData & data, ICompo
     beginInsertRows( parentIndex, rowCount( parentIndex ), 0 );
     parent->addChild( item );
     endInsertRows();
+}
+
+void ComponentModel::removeComponentData(const KTechLab::ComponentMetaData& data, IComponentFactory* factory)
+{
+    ComponentItem* parent = m_rootItem->child(data.category);
+    if (!parent) {
+        kWarning() << "Category not found: " << data.category << " - can't remove data";
+        return;
+    }
+    // this is an O(n) operation, may be it should be changed in the future
+    foreach (ComponentItem* child, parent->children()) {
+        if ( factory != child->factory() )
+            continue;
+        if ( child->metaData().name != data.name )
+            continue;
+
+        const QModelIndex parentIndex = index( parent->row(), 0, QModelIndex() );
+        beginRemoveRows(parentIndex,child->row(),child->row());
+        parent->removeChild(child);
+        endRemoveRows();
+    }
 }
 
 // vim: sw=4 sts=4 et tw=100

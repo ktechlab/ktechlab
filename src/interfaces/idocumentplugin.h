@@ -61,6 +61,16 @@ public:
      * \param factory - the component factory
      */
     virtual void registerComponentFactory( KTechLab::IComponentFactory * factory )=0;
+    /**
+     * When component plugins are unloaded, they can remove the components, they
+     * provide from the document plugin, so these components won’t be available for
+     * use any longer.
+     *
+     * \sa registerComponentFactory
+     *
+     * \param factory - the component factory
+     */
+    virtual void deregisterComponentFactory( KTechLab::IComponentFactory* factory )=0;
 };
 
 } // namespace KTechLab
