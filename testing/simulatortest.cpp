@@ -106,10 +106,10 @@ void SimulatorTest::createTest(){
     circ->updateCurrents();
     circ->displayEquations();
 
-    qDebug() << "pin1  id:" << pin1->eqId() << " voltage:" << pin1->voltage();
-    qDebug() << "pin2  id:" << pin2->eqId() << " voltage:" << pin2->voltage();
-    qDebug() << "pinR1 id:" << pinR1->eqId() << " voltage:" << pinR1->voltage();
-    qDebug() << "pinR2 id:" << pinR2->eqId() << " voltage:" << pinR2->voltage();
+    qDebug() << "pin1  id:" << pin1->eqId() << " voltage:" << pin1->voltage() << " current in: " << pin1->sourceCurrent();
+    qDebug() << "pin2  id:" << pin2->eqId() << " voltage:" << pin2->voltage() << " current in: " << pin2->sourceCurrent();
+    qDebug() << "pinR1 id:" << pinR1->eqId() << " voltage:" << pinR1->voltage() << " current in: " << pinR1->sourceCurrent();
+    qDebug() << "pinR2 id:" << pinR2->eqId() << " voltage:" << pinR2->voltage() << " current in: " << pinR2->sourceCurrent();
     qDebug() << "wire1 current known:" << wire1->currentIsKnown() << "value:" << wire1->current();
     qDebug() << "wire2 current known:" << wire2->currentIsKnown() << "value:" << wire2->current();
 
