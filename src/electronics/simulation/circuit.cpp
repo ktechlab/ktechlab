@@ -422,10 +422,89 @@ void Circuit::updateNodalVoltages() {
 }
 
 void Circuit::updateCurrents() {
+    // invalidate all currents on all pins
+    PinSet::iterator pinsEnd = m_pinList.end();
+    for(PinSet::iterator it = m_pinList.begin(); it != pinsEnd; ++it){
+        (*it)->setCurrentKnown(false);
+        // invalidate all the currents through the wires
+        foreach(Wire *wire, (*it)->wires()){
+            wire->setCurrentKnown(false);
+        }
+    }
+    // calculate the values of the currents
 	ElementList::iterator listEnd = m_elementList.end();
 	for (ElementList::iterator it = m_elementList.begin(); it != listEnd; ++it) {
 		(*it)->updateCurrents();
 	}
+    // set the currents coming from the elements
+    std::set<ElementMap*>::iterator elementMapSetEnd = m_elementMapSet.end();
+    for(std::set<ElementMap*>::iterator it = m_elementMapSet.begin();
+                        it != elementMapSetEnd; ++it)
+            (*it)->mergeCurrents();;
+    //
+    QList<Pin*> pinsToVisit;
+    QMap<Pin*,int> unknownWireCurrentCount;
+    for (PinSet::iterator it = m_pinList.begin(); it != pinsEnd; ++it){
+        int wireCount = (*it)->wires().size();
+        unknownWireCurrentCount.insert(*it, wireCount);
+        int elementCount = (*it)->elements().size();
+        if( elementCount > 1){
+            qCritical() << "BUG: one pin associated with multipe elements";
+        }
+        if( wireCount == 1 ){
+            if( elementCount == 1 ){
+                // we know the current
+                pinsToVisit.append(*it);
+            } else {
+                // 1 wire, no element ?!
+                qCritical() << "BUG: invalid circuit structure: pin with a wire and no element attached";
+            }
+        } else {
+            if( elementCount > 0 ){
+                qCritical() << "BUG: more wires, and also elements associated with a pin";
+            }
+        }
+    }
+    int visitedPinCount = 0;
+    while( !pinsToVisit.empty() ){
+        Pin *currentPin = pinsToVisit.takeFirst();
+        if( unknownWireCurrentCount.value(currentPin) != 1 ){
+            qCritical() << "BUG: pin should have 1 unknown associated wire current";
+        }
+        currentPin->setCurrentKnown(true);
+        visitedPinCount ++;
+        double currentOut = currentPin->sourceCurrent(); // zero or coming from the element
+        Wire *outWire = NULL;
+        foreach(Wire *awire, currentPin->wires()){
+            if( awire->currentIsKnown() )
+                currentOut -= awire->currentFor(currentPin);
+            else
+                if(! outWire )
+                    outWire = awire;
+                else
+                    qCritical() << "BUG: indeed the pin has more unknown wire currents";
+            // now we should know the output wire and the value of the current
+            if( outWire == NULL)
+                qDebug() << "All currents are known for this pin";
+            else {
+                outWire->setCurrentFor(currentPin, currentOut);
+                Pin *otherPin = outWire->otherPin(currentPin);
+                int otherWireUnknwon = unknownWireCurrentCount.value(otherPin);
+                otherWireUnknwon--;
+                unknownWireCurrentCount.insert(otherPin, otherWireUnknwon);
+                if(otherWireUnknwon == 1)
+                    pinsToVisit.append(otherPin);
+                if(otherWireUnknwon == 0){
+                    // the other pin has all the wires known, so check if the sum of currents is 0
+                    // TODO verify the currents
+                }
+            }
+        }
+    }
+    // statistics
+    qDebug() << "visited" << visitedPinCount << "pins out of "
+        << m_pinList.size() ;
+}
 
 void Circuit::addElementMap(ElementMap* em)
 {
