@@ -1,6 +1,8 @@
 /***************************************************************************
  *   Copyright (C) 2005 by David Saxton                                    *
  *   david@bluehaze.org                                                    *
+ *   Modified                                                              *
+ *   2010, Zoltan Padrah, zoltan_padrah@users.sourceforge.net              *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -15,9 +17,17 @@ class Pin;
 
 /**
 @author David Saxton
+
+@brief Connection between two nodes.
+
+The wire always connects two Pins.
+A current flows through the wire.
 */
 class Wire {
 public:
+    /**
+     * Create a wire between two pins.
+     */
 	Wire( Pin *startPin, Pin *endPin );
 	~Wire();
 
@@ -33,6 +43,11 @@ public:
 	 */
 	void setCurrentKnown(bool known);
 
+    /**
+     * Set the current flowing through the wire
+     * \param current the value of the current, starting from the start Pin
+     *      and flowing towards the endPin
+     */
 	void setCurrent(double current ) { m_current = current; m_bCurrentIsKnown = true;}
 
 	/**
@@ -46,7 +61,7 @@ public:
 	 * Returns the current flowing through the connector.
 	 * This only applies for electronic connectors
 	 */
-	double current() {
+	double current() const {
 				return m_current; }
 
     /**
@@ -62,12 +77,20 @@ public:
 	 */
 	double voltage() const;
 
+    /**
+     * \return the other end of the wire, relative to the pin given as
+     *      parameter. If the pin given as parameter is not connected
+     *      to the wire, NULL is returned.
+     * \param aPin one end of the wire.
+     */
 	Pin *otherPin(const Pin *aPin) const;
 
 private:
-
+        /// current flowing from the start pin to the end pin of the wire
 	double m_current;
+        /// is the value of the current known
 	bool m_bCurrentIsKnown;
+
 	Pin *m_pStartPin;
 	Pin *m_pEndPin;
 };
