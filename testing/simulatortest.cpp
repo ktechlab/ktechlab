@@ -69,16 +69,6 @@ void SimulatorTest::createTest(){
     VoltageSignal *v3 = new VoltageSignal(1e-6, 3.0);
     VoltageSource *v4 = new VoltageSource(7.0);
 
-    Pin *pin1 = new Pin();
-    Pin *pin2 = new Pin();
-
-    Pin *pinR1 = new Pin();
-    Pin *pinR2 = new Pin();
-
-    Wire *wire1 = new Wire(pin1, pinR1);
-    Wire *wire2 = new Wire(pin2, pinR2);
-
-
     circ->addElement(q1);
     circ->addElement(c1);
     circ->addElement(cccs1);
@@ -97,16 +87,30 @@ void SimulatorTest::createTest(){
     circ->addElement(v3);
     circ->addElement(v4);
 
+
+    ElementMap *v4m = new ElementMap(v4);
+    ElementMap *r1m = new ElementMap(r1);
+
+    Pin *pin1 = v4m->pin(0);
+    Pin *pin2 = v4m->pin(1);
+
+    Pin *pinR1 = r1m->pin(0);
+    Pin *pinR2 = r1m->pin(1);
+
+    Wire *wire1 = new Wire(pin1, pinR1);
+    Wire *wire2 = new Wire(pin2, pinR2);
+
+    /*
     circ->addPin(pin1);
     circ->addPin(pin2);
 
     circ->addPin(pinR1);
     circ->addPin(pinR2);
+    */
+    circ->addElementMap(r1m);
+    circ->addElementMap(v4m);
 
     circ->init();
-
-    setupElement(v4, pin1, pin2);
-    setupElement(r1, pinR1, pinR2);
 
     sim->attachCircuit(circ);
 
@@ -188,29 +192,29 @@ void SimulatorTest::testSourceAndResistance()
     VoltageSource *v4 = new VoltageSource(8.0);
     Resistance *r1 = new Resistance(1000.0);
 
-    Pin *pin1 = new Pin();
-    Pin *pin2 = new Pin();
+    Pin *pin1; 
+    Pin *pin2;
 
-    Pin *pinR1 = new Pin();
-    Pin *pinR2 = new Pin();
+    Pin *pinR1;
+    Pin *pinR2;
+
+    // need to setup the element _after_ the circuit has been initialized
+//    setupElement(v4, pin1, pin2);
+    ElementMap *v4m = new ElementMap( v4);
+    pin1 = v4m->pin(0);
+    pin2 = v4m->pin(1);
+    ElementMap *r1m = new ElementMap( r1);
+//    setupElement(r1, pinR1, pinR2);
+    pinR1 = r1m->pin(0);
+    pinR2 = r1m->pin(1);
+
+    circ->addElementMap(r1m);
+    circ->addElementMap(v4m);
 
     Wire *wire1 = new Wire(pin1, pinR1);
     Wire *wire2 = new Wire(pin2, pinR2);
 
-    circ->addElement(v4);
-    circ->addElement(r1);
-
-    circ->addPin(pin1);
-    circ->addPin(pin2);
-
-    circ->addPin(pinR1);
-    circ->addPin(pinR2);
-
     circ->init();
-
-    // need to setup the element _after_ the circuit has been initialized
-    setupElement(v4, pin1, pin2);
-    setupElement(r1, pinR1, pinR2);
 
     sim->attachCircuit(circ);
 
@@ -259,21 +263,6 @@ void SimulatorTest::testSourceAnd4ResistanceInParallel()
     Resistance *r3 = new Resistance(4000.0);
     Resistance *r4 = new Resistance(2000.0);
 
-    Pin *pin1 = new Pin();
-    Pin *pin2 = new Pin();
-
-    Pin *pinR11 = new Pin();
-    Pin *pinR12 = new Pin();
-
-    Pin *pinR21 = new Pin();
-    Pin *pinR22 = new Pin();
-
-    Pin *pinR31 = new Pin();
-    Pin *pinR32 = new Pin();
-
-    Pin *pinR41 = new Pin();
-    Pin *pinR42 = new Pin();
-
     Pin *pinC12a = new Pin();
     Pin *pinC12b = new Pin();
     Pin *pinC34a = new Pin();
@@ -282,7 +271,62 @@ void SimulatorTest::testSourceAnd4ResistanceInParallel()
     Pin *pinC1234a = new Pin();
     Pin *pinC1234b = new Pin();
 
-    // wires...
+    circ->addElement(v1);
+    circ->addElement(r1);
+    circ->addElement(r2);
+    circ->addElement(r3);
+    circ->addElement(r4);
+
+
+    /*
+    setupElement(v1, pin1, pin2);
+    setupElement(r1, pinR11, pinR12);
+    setupElement(r2, pinR21, pinR22);
+    setupElement(r3, pinR31, pinR32);
+    setupElement(r4, pinR41, pinR42);
+    */
+    ElementMap *v1m = new ElementMap(v1);
+    Pin *pin1 = v1m->pin(0);
+    Pin *pin2 = v1m->pin(1);
+    ElementMap *r1m = new ElementMap(r1);
+    Pin *pinR11 = r1m->pin(0);
+    Pin *pinR12 = r1m->pin(1);
+    ElementMap *r2m = new ElementMap(r2);
+    Pin *pinR21 = r2m->pin(0);
+    Pin *pinR22 = r2m->pin(1);
+    ElementMap *r3m = new ElementMap(r3);
+    Pin *pinR31 = r3m->pin(0);
+    Pin *pinR32 = r3m->pin(1);
+    ElementMap *r4m = new ElementMap(r4);
+    Pin *pinR41 = r4m->pin(0);
+    Pin *pinR42 = r4m->pin(1);
+
+    circ->addPin(pin1);
+    circ->addPin(pin2);
+
+    circ->addPin(pinR11);
+    circ->addPin(pinR12);
+    circ->addPin(pinR21);
+    circ->addPin(pinR22);
+    circ->addPin(pinR31);
+    circ->addPin(pinR32);
+    circ->addPin(pinR41);
+    circ->addPin(pinR42);
+
+    circ->addPin(pinC12a);
+    circ->addPin(pinC12b);
+    circ->addPin(pinC34a);
+    circ->addPin(pinC34b);
+    circ->addPin(pinC1234a);
+    circ->addPin(pinC1234b);
+
+    circ->addElementMap(v1m);
+    circ->addElementMap(r1m);
+    circ->addElementMap(r2m);
+    circ->addElementMap(r3m);
+    circ->addElementMap(r4m);
+
+       // wires...
     Wire *wire12a1 = new Wire(pinR11, pinC12a);
     Wire *wire12a2 = new Wire(pinR21, pinC12a);
 
@@ -307,38 +351,8 @@ void SimulatorTest::testSourceAnd4ResistanceInParallel()
     allwires << wire12a1 << wire12a2 << wire12b1 << wire12b2 << wire34a1 << wire34a2 << wire34b1 << wire34b2
         << wire1234a1 << wire1234a2 << wire1234b1 << wire1234b2 << wireAll1 << wireAll2 ;
 
-    circ->addElement(v1);
-    circ->addElement(r1);
-    circ->addElement(r2);
-    circ->addElement(r3);
-    circ->addElement(r4);
-
-    circ->addPin(pin1);
-    circ->addPin(pin2);
-
-    circ->addPin(pinR11);
-    circ->addPin(pinR12);
-    circ->addPin(pinR21);
-    circ->addPin(pinR22);
-    circ->addPin(pinR31);
-    circ->addPin(pinR32);
-    circ->addPin(pinR41);
-    circ->addPin(pinR42);
-
-    circ->addPin(pinC12a);
-    circ->addPin(pinC12b);
-    circ->addPin(pinC34a);
-    circ->addPin(pinC34b);
-    circ->addPin(pinC1234a);
-    circ->addPin(pinC1234b);
 
     circ->init();
-
-    setupElement(v1, pin1, pin2);
-    setupElement(r1, pinR11, pinR12);
-    setupElement(r2, pinR21, pinR22);
-    setupElement(r3, pinR31, pinR32);
-    setupElement(r4, pinR41, pinR42);
 
     sim->attachCircuit(circ);
 
