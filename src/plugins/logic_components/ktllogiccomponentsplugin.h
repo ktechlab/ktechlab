@@ -32,8 +32,6 @@ private:
     void init();
 
     KTLLogicComponentsFactory * m_componentFactory;
-
-    LogicElementFactory * m_logicElementFactory;
 };
 
 }
