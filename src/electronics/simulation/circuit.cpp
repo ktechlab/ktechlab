@@ -10,6 +10,9 @@
 
 #include <cmath>
 #include <map>
+#include <QSet>
+
+#include <QDebug>
 
 #include "circuit.h"
 #include "circuitdocument.h"
@@ -19,6 +22,7 @@
 #include "pin.h"
 #include "reactive.h"
 #include "wire.h"
+#include <elementmap.h>
 
 typedef std::multimap<int, PinSet> PinSetMap;
 
@@ -418,6 +422,37 @@ void Circuit::updateCurrents() {
 	for (ElementList::iterator it = m_elementList.begin(); it != listEnd; ++it) {
 		(*it)->updateCurrents();
 	}
+
+void Circuit::addElementMap(ElementMap* em)
+{
+    if(!em){
+        qCritical("BUG: tried to add null element map");
+        return;
+    }
+    m_elementMapSet.insert(em);
+    m_elementList.insert(em->element());
+    for(int i=0; i<4; ++i)
+        if( em->pin(i))
+            m_pinList.insert(em->pin(i));
+
+    // debug stuff:
+    qDebug() << "circuit has: " << m_elementMapSet.size() << "ElementMaps,"
+        << m_elementList.size() << "elements,"
+        << m_pinList.size() << "pins";
+
+}
+
+void Circuit::removeElementMap(ElementMap* em)
+{
+    if(!em){
+        qCritical("BUG: tried to remove null element map");
+        return;
+    }
+    m_elementMapSet.erase(em);
+    m_elementList.erase(em->element());
+    for(int i=0; i<4; ++i)
+        if( em->pin(i))
+            m_pinList.erase(em->pin(i));
 }
 
 void Circuit::displayEquations() {

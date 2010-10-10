@@ -20,6 +20,7 @@
 
 class Pin;
 class Element;
+class ElementMap;
 class ElementSet;
 class LogicOut;
 
@@ -106,6 +107,23 @@ public:
 	void clearChanged() { isSetChanged = false; }
 	inline bool isChanged() { return isSetChanged; }
 
+    /**
+     * Add an ElementMap to the list of ElementMaps in the circuit.
+     * Element maps are needed for current calculation.
+     * This method also tries to add the Element and Pins associated with the element map.
+     * Element's won't be duplicated in the circuit.
+     * @param em the ElementMap to be added
+     */
+    void addElementMap(ElementMap *em);
+
+    /**
+     * Remove an ElementMap from the list of ElementMaps in the circuit.
+     * Element maps are needed for current calculation.
+     * The Element and Pins associated with the ElementMap are also removed.
+     * @param em the ElementMap to be removed
+     */
+    void removeElementMap(ElementMap *em);
+
 protected:
 	void cacheAndUpdate();
 	/**
@@ -130,6 +148,8 @@ protected:
 	LogicCacheNode *m_pLogicCacheBase;
 
 	logicOutVec m_pLogicOut;
+
+    std::set<ElementMap*> m_elementMapSet;
 
 private: 
 	bool isSetChanged;
