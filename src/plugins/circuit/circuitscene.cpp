@@ -34,10 +34,11 @@
 using namespace KTechLab;
 
 
-CircuitScene::CircuitScene ( QObject* parent, CircuitModel *model )
+CircuitScene::CircuitScene ( QObject* parent, CircuitModel *model, KTLCircuitPlugin* plugin )
  : IDocumentScene ( parent ),
    m_model( model ),
-   m_theme( new Theme() )
+   m_theme( new Theme() ),
+   m_plugin( plugin )
 {
 //    m_componentSize = QSizeF( cg.readEntry("componentWidth", "64").toInt(), cg.readEntry("componentHeight", "64").toInt() );
     setupData();
@@ -91,13 +92,17 @@ void CircuitScene::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
 
 void CircuitScene::setupData()
 {
-    if (!m_model)
+    if (!m_model && !m_plugin)
         return;
 
     foreach (QVariant component, m_model->components())
     {
         if (component.canConvert(QVariant::Map)) {
-            ComponentItem* item = new ComponentItem( component.toMap(), m_theme );
+            ComponentItem* item = m_plugin->createComponentItem( component.toMap(), m_theme );
+            if (!item) {
+                kWarning() << "Couldn't create item";
+                continue;
+            }
             addItem( item );
             m_components.insert(item->id(), item);
         }
