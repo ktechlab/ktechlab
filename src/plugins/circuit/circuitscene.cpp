@@ -67,11 +67,7 @@ void CircuitScene::dropEvent ( QGraphicsSceneDragDropEvent* event )
     }
     const ComponentMimeData *mimeData = qobject_cast<const ComponentMimeData*>(event->mimeData());
 
-    ComponentItem* item =
-        new ComponentItem(
-            m_model->createComponent(mimeData,event->scenePos()),
-            m_theme
-        );
+    ComponentItem* item = m_plugin->createComponentItem(m_model->createComponent(mimeData,event->scenePos()),m_theme);
     item->setVisible(true);
     addItem( item );
     m_components.insert(item->id(), item);
