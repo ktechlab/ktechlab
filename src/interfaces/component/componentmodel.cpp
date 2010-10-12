@@ -39,6 +39,7 @@ class KTechLab::ComponentItem
 
         ComponentMetaData metaData() const;
         IComponentFactory * factory() const;
+        IComponentFactory * factoryForName(QString name);
 
     private:
         IComponentFactory * m_factory;
@@ -129,6 +130,17 @@ ComponentMetaData ComponentItem::metaData() const
 IComponentFactory * ComponentItem::factory() const
 {
     return m_factory;
+}
+
+IComponentFactory* ComponentItem::factoryForName(QString name)
+{
+    foreach(ComponentItem* categories, children()){
+        foreach(ComponentItem* child, categories->children()){
+            if (child->metaData().name == name)
+                return child->factory();
+        }
+    }
+    return 0;
 }
 
 //
@@ -310,7 +322,18 @@ void ComponentModel::removeComponentData(const KTechLab::ComponentMetaData& data
         beginRemoveRows(parentIndex,child->row(),child->row());
         parent->removeChild(child);
         endRemoveRows();
+        return;
     }
+}
+
+IComponentFactory* ComponentModel::factoryForComponent(const QString& name) const
+{
+    IComponentFactory* factory = m_rootItem->factoryForName(name);
+    if (!factory) {
+        kWarning() << "Factory not found for component: " << name;
+        return 0;
+    }
+    return factory;
 }
 
 // vim: sw=4 sts=4 et tw=100
