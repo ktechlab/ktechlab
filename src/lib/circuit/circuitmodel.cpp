@@ -55,6 +55,7 @@ CircuitModel::CircuitModel ( QDomDocument doc, QObject* parent )
 
 QVariantMap CircuitModel::createComponent(const KTechLab::ComponentMimeData* data, QPointF pos)
 {
+    // TODO: move this method somewhere else into the controller
     QVariantMap comp;
     comp.insert("type", data->type());
     comp.insert("x", pos.x());
@@ -69,9 +70,6 @@ void CircuitModel::addComponent ( const QVariantMap& component )
 {
    if ( isValidComponent(component) ) {
         QVariantMap map(component);
-/*        map.insert( "fileName",
-                    m_circuitPlugin->fileNameForComponent( map.value("type").toString() )
-                );*/
         m_components.insert( component.value("id").toString(), map );
     }
 }
