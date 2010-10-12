@@ -51,7 +51,6 @@ CircuitScene::CircuitScene ( QObject* parent, CircuitModel *model, KTLCircuitPlu
 
 CircuitScene::~CircuitScene()
 {
-    qDeleteAll( m_components.values() );
     delete m_theme;
 }
 
