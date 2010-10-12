@@ -37,6 +37,12 @@ public:
      */
     void deregisterComponentFactory( KTechLab::IComponentFactory *factory );
 
+    /**
+     * Create KTechLab::ComponentItem instances.
+     * \sa KTechLab::IDocumentPlugin
+     */
+    virtual ComponentItem* createComponentItem(const QVariantMap& data, Theme* theme = 0);
+
 private:
     void init();
     KTLComponentViewFactory *m_componentViewFactory;

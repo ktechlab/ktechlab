@@ -15,6 +15,7 @@
 #include <interfaces/iplugin.h>
 #include <QObject>
 #include <QString>
+#include <QVariantMap>
 
 namespace KDevelop
 {
@@ -24,6 +25,8 @@ class IDocument;
 namespace KTechLab
 {
 
+class Theme;
+class ComponentItem;
 class IComponentFactory;
 
 /**
@@ -71,6 +74,12 @@ public:
      * \param factory - the component factory
      */
     virtual void deregisterComponentFactory( KTechLab::IComponentFactory* factory )=0;
+
+    /**
+     * Create a KTechLab::ComponentItem from the given meta-data. The implementation should
+     * find a component factory that can handle the meta-data and produce the item.
+     */
+    virtual ComponentItem* createComponentItem( const QVariantMap& data, KTechLab::Theme* theme = 0 )=0;
 };
 
 } // namespace KTechLab
