@@ -26,6 +26,9 @@
 
 namespace KTechLab
 {
+
+class KTLCircuitPlugin;
+
 class ComponentItem;
 class PinItem;
 class Theme;
@@ -36,7 +39,7 @@ class CircuitScene : public IDocumentScene
 {
   Q_OBJECT
   public:
-    CircuitScene ( QObject* parent = 0, CircuitModel *model = 0 );
+    CircuitScene ( QObject* parent = 0, CircuitModel *model = 0, KTLCircuitPlugin* plugin = 0 );
     virtual ~CircuitScene();
 
     virtual IComponentItem* item(const QString& id) const;
@@ -60,6 +63,7 @@ class CircuitScene : public IDocumentScene
     QMap<QString,ComponentItem*> m_components;
     QMap<QString,PinItem*> m_pins;
     CircuitModel *m_model;
+    KTLCircuitPlugin* m_plugin;
     Theme *m_theme;
 };
 
