@@ -16,6 +16,9 @@
 
 namespace KTechLab
 {
+
+class Theme;
+
 class IComponentItemFactory;
 class IComponent;
 
@@ -27,12 +30,7 @@ class KTLINTERFACES_EXPORT ComponentMimeData: public QMimeData
 {
 Q_OBJECT
 public:
-    ComponentMimeData( const QByteArray& name, KTechLab::IComponentFactory* factory );
-
-    /**
-     * Let the ComponentFactory create a new component and return it.
-     */
-    KTechLab::IComponent * createComponent();
+    ComponentMimeData( const QByteArray& name, KTechLab::IComponentItemFactory *factory );
 
     /**
      * get a name for this component
@@ -42,6 +40,11 @@ public:
      * Get a string representation of the type of this component
      */
     QByteArray type() const;
+
+    /**
+     * Get the factory to create new KTechLab::ComponentItem instances
+     */
+    IComponentItemFactory* factory() const;
 
 private:
     KTechLab::IComponentItemFactory *m_componentFactory;

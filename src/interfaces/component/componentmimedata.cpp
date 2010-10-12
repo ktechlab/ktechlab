@@ -18,11 +18,6 @@ ComponentMimeData::ComponentMimeData( const QByteArray &name, KTechLab::ICompone
         m_componentName( name )
 {}
 
-KTechLab::IComponent *ComponentMimeData::createComponent()
-{
-    return m_componentFactory->create( m_componentName );
-}
-
 QByteArray ComponentMimeData::name() const
 {
     return m_componentName;
@@ -33,5 +28,9 @@ QByteArray ComponentMimeData::type() const
     return data("ktechlab/x-icomponent");
 }
 
+IComponentItemFactory* ComponentMimeData::factory() const
+{
+    return m_componentFactory;
+}
 
 // vim: sw=4 sts=4 et tw=100
