@@ -43,19 +43,24 @@ ConnectorItem::ConnectorItem(const QVariantMap& connectorData, IDocumentScene* s
     init();
     m_connector = new Connector(connectorData);
     setPath(m_connector->route());
-    const Node* s;
-    const Node* e;
+    const Node* s = 0;
+    const Node* e = 0;
+    //TODO: remove these ugly checks
     if (connectorData.value("start-node-is-child").toString() == "1"){
         const IComponentItem* parent = scene->item(connectorData.value("start-node-parent").toString());
-        s = parent->node(connectorData.value("start-node-cid").toString());
+        if (parent && parent->node(connectorData.value("start-node-cid").toString()))
+            s = parent->node(connectorData.value("start-node-cid").toString());
     } else if (connectorData.value("start-node-is-child").toString() == "0"){
-        s = scene->node(connectorData.value("start-node-id").toString());
+        if (scene->node(connectorData.value("start-node-id").toString()))
+            s = scene->node(connectorData.value("start-node-id").toString());
     }
     if (connectorData.value("end-node-is-child").toString() == "1"){
         const IComponentItem* parent = scene->item(connectorData.value("end-node-parent").toString());
-        e = parent->node(connectorData.value("end-node-cid").toString());
+        if (parent && parent->node(connectorData.value("end-node-cid").toString()))
+            e = parent->node(connectorData.value("end-node-cid").toString());
     } else if (connectorData.value("end-node-is-child").toString() == "0"){
-        e = scene->node(connectorData.value("end-node-id").toString());
+        if (scene->node(connectorData.value("end-node-id").toString()))
+            e = scene->node(connectorData.value("end-node-id").toString());
     }
     m_connector->setStartNode(s);
     m_startNode = s;
