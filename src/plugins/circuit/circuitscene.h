@@ -63,8 +63,8 @@ class CircuitScene : public IDocumentScene
     QMap<QString,ComponentItem*> m_components;
     QMap<QString,PinItem*> m_pins;
     CircuitModel *m_model;
-    KTLCircuitPlugin* m_plugin;
     Theme *m_theme;
+    KTLCircuitPlugin* m_plugin;
 };
 
 }

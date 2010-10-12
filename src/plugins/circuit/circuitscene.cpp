@@ -85,8 +85,6 @@ void CircuitScene::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
         event->ignore();
         return;
     }
-    const ComponentMimeData *mimeData = qobject_cast<const ComponentMimeData*>(event->mimeData());
-
     event->accept();
 }
 
@@ -119,7 +117,7 @@ void CircuitScene::setupData()
     foreach (QVariant connector, m_model->connectors())
     {
         if (connector.canConvert(QVariant::Map)) {
-            ConnectorItem *connectorItem = new ConnectorItem(connector.toMap(),this);
+            new ConnectorItem(connector.toMap(),this);
         }
     }
 
