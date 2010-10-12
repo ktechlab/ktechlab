@@ -38,10 +38,10 @@ public:
     void deregisterComponentFactory( KTechLab::IComponentItemFactory *factory );
 
     /**
-     * Create KTechLab::ComponentItem instances.
+     * Get a factory to create KTechLab::ComponentItem instances.
      * \sa KTechLab::IDocumentPlugin
      */
-    virtual ComponentItem* createComponentItem(const QVariantMap& data, Theme* theme = 0);
+    IComponentItemFactory* componentItemFactory( const QString& name, Theme* theme = 0 );
 
 private:
     void init();

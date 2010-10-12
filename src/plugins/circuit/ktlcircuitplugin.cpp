@@ -127,19 +127,14 @@ void KTLCircuitPlugin::deregisterComponentFactory(IComponentItemFactory* factory
     }
 }
 
-ComponentItem* KTLCircuitPlugin::createComponentItem(const QVariantMap& data, Theme* theme)
+IComponentItemFactory* KTLCircuitPlugin::componentItemFactory(const QString& name, Theme* theme)
 {
-    IComponentItemFactory* factory = m_componentModel->factoryForComponent(data.value("type").toString());
+    IComponentItemFactory* factory = m_componentModel->factoryForComponent(name);
     if (!factory) {
         kWarning() << "factory for data not found";
         return 0;
     }
-
-    ComponentItem* item = factory->createItem(data, theme);
-    if (!item)
-        kWarning() << "returning 0 item";
-
-    return item;
+    return factory;
 }
 
 void KTLCircuitPlugin::unload()

@@ -64,10 +64,10 @@ public:
     virtual void deregisterComponentFactory( KTechLab::IComponentItemFactory* factory )=0;
 
     /**
-     * Create a KTechLab::ComponentItem from the given meta-data. The implementation should
-     * find a component factory that can handle the meta-data and produce the item.
+     * Get a factory that allows creating a certain KTechLab::ComponentItem from the given
+     * \param name and \param theme.
      */
-    virtual ComponentItem* createComponentItem( const QVariantMap& data, KTechLab::Theme* theme = 0 )=0;
+    virtual IComponentItemFactory* componentItemFactory( const QString& name, KTechLab::Theme* theme = 0 )=0;
 };
 
 } // namespace KTechLab
