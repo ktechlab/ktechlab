@@ -3,6 +3,7 @@ include_directories(
 )
 
 set(circuit_SRCS
+    genericcomponentitemfactory.cpp
     componentitem.cpp
     pinitem.cpp
     theme.cpp
