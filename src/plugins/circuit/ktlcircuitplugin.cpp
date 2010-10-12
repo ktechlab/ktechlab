@@ -127,6 +127,21 @@ void KTLCircuitPlugin::deregisterComponentFactory(IComponentFactory* factory)
     }
 }
 
+ComponentItem* KTLCircuitPlugin::createComponentItem(const QVariantMap& data, Theme* theme)
+{
+    IComponentFactory* factory = m_componentModel->factoryForComponent(data.value("type").toString());
+    if (!factory) {
+        kWarning() << "factory for data not found";
+        return 0;
+    }
+
+    ComponentItem* item = factory->createItem(data, theme);
+    if (!item)
+        kWarning() << "returning 0 item";
+
+    return item;
+}
+
 void KTLCircuitPlugin::unload()
 {
     KDevelop::Core::self()->uiController()->removeToolView(m_componentViewFactory);
