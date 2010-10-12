@@ -107,7 +107,10 @@ void CircuitScene::setupData()
     foreach (QVariant component, m_model->components())
     {
         if (component.canConvert(QVariant::Map)) {
-            ComponentItem* item = m_plugin->createComponentItem( component.toMap(), m_theme );
+            const QVariantMap& map(component.toMap());
+            IComponentItemFactory* f =
+                m_plugin->componentItemFactory( map.value("type").toString() );
+            ComponentItem* item = f->createItem( map, m_theme );
             if (!item) {
                 kWarning() << "Couldn't create item";
                 continue;
