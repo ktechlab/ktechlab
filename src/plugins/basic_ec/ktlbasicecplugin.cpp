@@ -16,6 +16,7 @@
 #include <interfaces/component/icomponentplugin.h>
 #include <interfaces/simulator/isimulationmanager.h>
 #include <interfaces/idocumentplugin.h>
+#include <circuit/genericcomponentitemfactory.h>
 #include <circuit/simulator/genericelementfactory.h>
 
 #include <shell/core.h>
@@ -29,7 +30,7 @@ K_PLUGIN_FACTORY(KTLBasicECPluginFactory, registerPlugin<KTLBasicECPlugin>(); )
 K_EXPORT_PLUGIN(KTLBasicECPluginFactory(KAboutData("ktlbasic_ec","ktlbasic_ec", ki18n("KTechLab Basic Electronic Components"), "0.1", ki18n("Provide a set of basic electronic components"), KAboutData::License_LGPL)))
 
 
-class KTechLab::KTLBasicECFactory: public IComponentFactory, public GenericElementFactory
+class KTechLab::KTLBasicECFactory: public GenericComponentItemFactory, public GenericElementFactory
 {
 public:
     KTLBasicECFactory()
@@ -38,11 +39,6 @@ public:
         file = KGlobal::dirs()->findResource("data","ktechlab/components/ktlbasic_ec.rc");
         kDebug() << "Found component meta-data file: " << file;
         loadComponentsFromFile( file );
-    }
-
-    virtual IComponent * create( const QString &name )
-    {
-        return 0;
     }
 
 protected:
