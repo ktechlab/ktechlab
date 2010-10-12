@@ -186,6 +186,11 @@ public:
      */
     QTextDocument* textDocument() const;
 
+    /**
+     * Generate a unique id for a component in the document, this model repesents.
+     */
+    virtual QString generateUid( const QString& name );
+
 public slots:
     /**
      * \sa QAbstractItemModel
@@ -199,12 +204,6 @@ public slots:
 
 signals:
     void dataUpdated( const QString &name, const QVariantList &data );
-
-protected:
-    /**
-     * Generate a unique id for a component in the document, this model repesents.
-     */
-    virtual QString generateUid( const QString& name );
 
 private:
     IDocumentModelPrivate* d;
