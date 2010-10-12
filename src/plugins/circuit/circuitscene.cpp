@@ -30,6 +30,7 @@
 #include "circuitmodel.h"
 #include "pinitem.h"
 #include <interfaces/component/connector.h>
+#include <interfaces/component/icomponentplugin.h>
 
 using namespace KTechLab;
 
@@ -59,6 +60,18 @@ QString CircuitScene::circuitName() const
     return m_circuitName;
 }
 
+QVariantMap CircuitScene::createItemData(const KTechLab::ComponentMimeData* data, const QPointF& pos) const
+{
+    QVariantMap comp;
+    // type in the xml files is name in the component mimedata :/
+    comp.insert("type", data->name());
+    comp.insert("x", pos.x());
+    comp.insert("y", pos.y());
+    comp.insert("id", m_model->generateUid(data->name()));
+
+    return comp;
+}
+
 void CircuitScene::dropEvent ( QGraphicsSceneDragDropEvent* event )
 {
     if (!event->mimeData()->hasFormat("ktechlab/x-icomponent")) {
@@ -67,7 +80,9 @@ void CircuitScene::dropEvent ( QGraphicsSceneDragDropEvent* event )
     }
     const ComponentMimeData *mimeData = qobject_cast<const ComponentMimeData*>(event->mimeData());
 
-    ComponentItem* item = m_plugin->createComponentItem(m_model->createComponent(mimeData,event->scenePos()),m_theme);
+    const QVariantMap& itemData = createItemData(mimeData, event->scenePos());
+    m_model->addComponent(itemData);
+    ComponentItem* item = mimeData->factory()->createItem(itemData, m_theme);
     item->setVisible(true);
     addItem( item );
     m_components.insert(item->id(), item);
