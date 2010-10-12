@@ -55,6 +55,12 @@ public:
      */
     void removeComponentData( const ComponentMetaData & data, IComponentFactory* factory);
 
+    /**
+     * Retrieve a KTechLab::IComponentFactory that is able to produce components with the
+     * given \param name
+     */
+    virtual IComponentFactory* factoryForComponent( const QString & name ) const;
+
 private:
     ComponentItem *m_rootItem;
 };
