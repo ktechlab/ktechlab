@@ -141,3 +141,12 @@ category=Outputs
 category[de]=Ausgaben
 icon=ammeter
 type=
+
+[ec_led]
+name=ec/led
+title=LED
+title[de]=LED
+category=Outputs
+category[de]=Ausgaben
+icon=led
+type=
