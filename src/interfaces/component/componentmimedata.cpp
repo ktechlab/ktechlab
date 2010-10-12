@@ -12,7 +12,7 @@
 
 using namespace KTechLab;
 
-ComponentMimeData::ComponentMimeData( const QByteArray &name, KTechLab::IComponentFactory *factory )
+ComponentMimeData::ComponentMimeData( const QByteArray &name, KTechLab::IComponentItemFactory *factory )
     :   QMimeData(),
         m_componentFactory( factory ),
         m_componentName( name )

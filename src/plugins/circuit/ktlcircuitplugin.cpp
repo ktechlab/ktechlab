@@ -109,7 +109,7 @@ ComponentModel * KTLCircuitPlugin::componentModel()
     return m_componentModel;
 }
 
-void KTLCircuitPlugin::registerComponentFactory( IComponentFactory *factory )
+void KTLCircuitPlugin::registerComponentFactory( IComponentItemFactory *factory )
 {
     QList<ComponentMetaData> metaData = factory->allMetaData();
     kDebug() << "registering" << metaData.size() << "components";
@@ -118,7 +118,7 @@ void KTLCircuitPlugin::registerComponentFactory( IComponentFactory *factory )
     }
 }
 
-void KTLCircuitPlugin::deregisterComponentFactory(IComponentFactory* factory)
+void KTLCircuitPlugin::deregisterComponentFactory(IComponentItemFactory* factory)
 {
     QList<ComponentMetaData> metaData = factory->allMetaData();
     kDebug() << "deregistering" << metaData.size() << "components";
@@ -129,7 +129,7 @@ void KTLCircuitPlugin::deregisterComponentFactory(IComponentFactory* factory)
 
 ComponentItem* KTLCircuitPlugin::createComponentItem(const QVariantMap& data, Theme* theme)
 {
-    IComponentFactory* factory = m_componentModel->factoryForComponent(data.value("type").toString());
+    IComponentItemFactory* factory = m_componentModel->factoryForComponent(data.value("type").toString());
     if (!factory) {
         kWarning() << "factory for data not found";
         return 0;

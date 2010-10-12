@@ -16,7 +16,7 @@
 
 namespace KTechLab
 {
-class IComponentFactory;
+class IComponentItemFactory;
 class IComponent;
 
 /**
@@ -44,7 +44,7 @@ public:
     QByteArray type() const;
 
 private:
-    KTechLab::IComponentFactory *m_componentFactory;
+    KTechLab::IComponentItemFactory *m_componentFactory;
     QByteArray m_componentName;
 };
 
