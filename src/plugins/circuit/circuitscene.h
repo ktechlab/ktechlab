@@ -30,6 +30,7 @@ namespace KTechLab
 class KTLCircuitPlugin;
 
 class ComponentItem;
+class ComponentMimeData;
 class PinItem;
 class Theme;
 class CircuitModel;
@@ -58,6 +59,7 @@ class CircuitScene : public IDocumentScene
     QString circuitName() const;
 
     void setupData();
+    QVariantMap createItemData(const KTechLab::ComponentMimeData* data, const QPointF& pos) const;
     QString m_circuitName;
     QString m_componentTheme;
     QMap<QString,ComponentItem*> m_components;
