@@ -8,7 +8,7 @@
 
 namespace KTechLab
 {
-class IComponentFactory;
+class IComponentItemFactory;
 
 class KTLComponentViewFactory;
 class KTLCircuitDocumentFactory;
@@ -30,12 +30,12 @@ public:
      * Register the component- @param{factory} to the plugin so it knows about all provided components
      * and can provide the user with entries in the browser to drag it into their circuit.
      */
-    void registerComponentFactory( KTechLab::IComponentFactory *factory );
+    void registerComponentFactory( KTechLab::IComponentItemFactory *factory );
 
     /**
      * Deregister the component-factory from the plugin.
      */
-    void deregisterComponentFactory( KTechLab::IComponentFactory *factory );
+    void deregisterComponentFactory( KTechLab::IComponentItemFactory *factory );
 
     /**
      * Create KTechLab::ComponentItem instances.
