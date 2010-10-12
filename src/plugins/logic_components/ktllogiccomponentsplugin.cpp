@@ -19,6 +19,7 @@
 #include <KGenericFactory>
 #include <KAboutData>
 #include <KStandardDirs>
+#include <circuit/genericcomponentitemfactory.h>
 
 using namespace KTechLab;
 
@@ -30,7 +31,7 @@ K_EXPORT_PLUGIN(KTLLogicComponentsPluginFactory(
 )
 
 
-class KTechLab::KTLLogicFactory: public IComponentFactory, public GenericElementFactory
+class KTechLab::KTLLogicFactory: public GenericComponentItemFactory, public GenericElementFactory
 {
 public:
     KTLLogicFactory()
@@ -41,10 +42,6 @@ public:
         loadComponentsFromFile( file );
     }
 
-    virtual IComponent * create( const QString &name )
-    {
-        return 0;
-    }
 protected:
     virtual IElement * createOrRegister(bool create, const QByteArray& type,
                                         QVariantMap parentInModel = QVariantMap())

@@ -17,6 +17,10 @@
 
 namespace KTechLab
 {
+
+class ComponentItem;
+class Theme;
+
 class IComponent;
 class IDocumentPlugin;
 
@@ -47,6 +51,12 @@ public:
      * \return a \class QList containing all meta-data
      */
     QList<ComponentMetaData> allMetaData();
+
+    /**
+     * Create a KTechLab::ComponentItem for the given \param data and drawn with
+     * the given \param theme.
+     */
+    virtual ComponentItem* createItem( const QVariantMap& data, KTechLab::Theme* theme=0 )=0;
 protected:
     /**
      * Call this method from the implementation to register a
