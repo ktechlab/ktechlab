@@ -9,6 +9,7 @@
 
 #include "circuitdocument.h"
 
+#include "ktlcircuitplugin.h"
 #include "circuitview.h"
 #include "circuitscene.h"
 #include "circuitmodel.h"
@@ -23,13 +24,14 @@
 #include <QMap>
 #include <KIO/NetAccess>
 #include <qtextdocument.h>
+#include <interfaces/iplugincontroller.h>
 
 using namespace KTechLab;
 
 class KTechLab::CircuitDocumentPrivate
 {
 public:
-    CircuitDocumentPrivate( CircuitDocument *doc );
+    CircuitDocumentPrivate( CircuitDocument *doc, KTLCircuitPlugin* plugin );
     ~CircuitDocumentPrivate();
 
     static int debugArea() { static int s_area = KDebug::registerArea("areaName"); return s_area; }
@@ -37,18 +39,19 @@ public:
 
     CircuitScene *circuitScene;
     CircuitModel *circuitModel;
+    KTLCircuitPlugin* plugin;
 
 private:
     CircuitDocument *m_document;
     void initCircuitModel();
-
 };
 
-CircuitDocumentPrivate::CircuitDocumentPrivate( CircuitDocument *doc )
+CircuitDocumentPrivate::CircuitDocumentPrivate( CircuitDocument *doc, KTLCircuitPlugin* plugin )
     :    m_document(doc)
 {
+    this->plugin = plugin;
     initCircuitModel();
-    circuitScene = new CircuitScene( doc, circuitModel );
+    circuitScene = new CircuitScene( doc, circuitModel, plugin );
 }
 
 void CircuitDocumentPrivate::initCircuitModel()
@@ -102,8 +105,7 @@ CircuitDocumentPrivate::~CircuitDocumentPrivate()
 }
 
 CircuitDocument::CircuitDocument( const KUrl &url, KDevelop::Core* core )
-    :   IComponentDocument( url, core ),
-        d(new CircuitDocumentPrivate(this))
+    :   IComponentDocument( url, core )
 {
 
     init();
@@ -116,6 +118,14 @@ CircuitDocument::~CircuitDocument()
 
 void CircuitDocument::init()
 {
+    QStringList constraints;
+    constraints << QString("'%1' in [X-KDevelop-SupportedMimeTypes]").arg("application/x-circuit");
+    QList<KDevelop::IPlugin*> plugins = KDevelop::Core::self()->pluginController()->allPluginsForExtension( "org.kdevelop.IDocument", constraints );
+    if (plugins.isEmpty()) {
+        kWarning() << "No plugin found to load KTechLab Documents";
+        return;
+    }
+    d = new CircuitDocumentPrivate(this, qobject_cast<KTechLab::KTLCircuitPlugin*>( plugins.first() ));
 }
 
 QString CircuitDocument::documentType() const
