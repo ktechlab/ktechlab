@@ -25,7 +25,7 @@
 
 namespace KTechLab {
 
-class GenericComponentItemFactory : public KTechLab::IComponentFactory
+class GenericComponentItemFactory : public KTechLab::IComponentItemFactory
 {
 
 public:

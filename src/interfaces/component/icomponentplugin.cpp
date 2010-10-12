@@ -20,22 +20,22 @@
 
 using namespace KTechLab;
 
-IComponentFactory::IComponentFactory()
+IComponentItemFactory::IComponentItemFactory()
     :   m_componentDataList( QList<ComponentMetaData>() )
 {
 }
 
-QList<ComponentMetaData> IComponentFactory::allMetaData()
+QList<ComponentMetaData> IComponentItemFactory::allMetaData()
 {
     return m_componentDataList;
 }
 
-void IComponentFactory::addSupportedComponent( const ComponentMetaData & data )
+void IComponentItemFactory::addSupportedComponent( const ComponentMetaData & data )
 {
     m_componentDataList.append( data );
 }
 
-void IComponentFactory::loadComponentsFromFile ( const QString& file )
+void IComponentItemFactory::loadComponentsFromFile ( const QString& file )
 {
     KSharedConfig::Ptr config = KSharedConfig::openConfig( file, KConfig::CascadeConfig );
 

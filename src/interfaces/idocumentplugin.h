@@ -27,7 +27,7 @@ namespace KTechLab
 
 class Theme;
 class ComponentItem;
-class IComponentFactory;
+class IComponentItemFactory;
 
 /**
  * \short Base-class for Plugins handling documents
@@ -51,7 +51,7 @@ public:
      *
      * \param factory - the component factory
      */
-    virtual void registerComponentFactory( KTechLab::IComponentFactory * factory )=0;
+    virtual void registerComponentFactory( KTechLab::IComponentItemFactory * factory )=0;
     /**
      * When component plugins are unloaded, they can remove the components, they
      * provide from the document plugin, so these components won’t be available for
@@ -61,7 +61,7 @@ public:
      *
      * \param factory - the component factory
      */
-    virtual void deregisterComponentFactory( KTechLab::IComponentFactory* factory )=0;
+    virtual void deregisterComponentFactory( KTechLab::IComponentItemFactory* factory )=0;
 
     /**
      * Create a KTechLab::ComponentItem from the given meta-data. The implementation should
