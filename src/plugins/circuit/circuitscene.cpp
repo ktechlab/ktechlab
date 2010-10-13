@@ -46,6 +46,9 @@ CircuitScene::CircuitScene ( QObject* parent, CircuitModel *model, KTLCircuitPlu
 
     connect(this,SIGNAL(transactionAborted()),model,SLOT(revert()));
     connect(this,SIGNAL(transactionCompleted()),model,SLOT(submit()));
+
+    connect(this,SIGNAL(componentsMoved(QList<KTechLab::IComponentItem*>)),
+            this,SLOT(updateModel(QList<KTechLab::IComponentItem*>)));
 }
 
 
@@ -144,6 +147,14 @@ void CircuitScene::setupData()
         }
     }
 
+}
+
+void CircuitScene::updateModel(QList< IComponentItem* > components)
+{
+    foreach(IComponentItem* item, components){
+        const QVariantMap& data = createItemData(item);
+        m_model->updateData(data.value("id").toString(),data);
+    }
 }
 
 void CircuitScene::updateData( const QString& name, const QVariantMap& data )
