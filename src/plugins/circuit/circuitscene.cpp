@@ -98,7 +98,11 @@ void CircuitScene::dropEvent ( QGraphicsSceneDragDropEvent* event )
     item->setVisible(true);
     addItem( item );
     m_components.insert(item->id(), item);
-
+    item->setPos(alignToGrid(item->scenePos()));
+    QList<IComponentItem*> list;
+    list << item;
+    emit IDocumentScene::componentsMoved(list);
+    emit transactionCompleted();
     event->accept();
 }
 
