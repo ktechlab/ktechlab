@@ -42,7 +42,6 @@ IDocumentScene::IDocumentScene(QObject* parent)
 
 IDocumentScene::~IDocumentScene()
 {
-    delete m_routePath;
     m_routingInfo.clear();
 }
 
