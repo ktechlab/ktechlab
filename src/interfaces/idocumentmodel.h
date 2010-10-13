@@ -207,6 +207,7 @@ signals:
 
 private:
     IDocumentModelPrivate* d;
+    friend class IDocumentModelPrivate;
 };
 
 }

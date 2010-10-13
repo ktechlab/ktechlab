@@ -38,6 +38,7 @@ public:
     ~IDocumentModelPrivate();
     QString generateUid(const QString& name);
     DocumentItem* itemFromIndex(QModelIndex index) const;
+    void addData(IDocumentModel* model, QDomElement e, const QVariantMap& data, QVariantMap* dataContainer) const;
     QVariantMap components;
     QVariantMap connectors;
     QVariantMap nodes;
@@ -75,6 +76,22 @@ DocumentItem* IDocumentModelPrivate::itemFromIndex(QModelIndex index) const
     } else {
         return static_cast<DocumentItem*>(index.internalPointer());
     }
+}
+
+void IDocumentModelPrivate::addData(IDocumentModel* model,
+                                    QDomElement e,
+                                    const QVariantMap& data,
+                                    QVariantMap* dataContainer) const
+{
+    QModelIndex parent = model->index(0,0);
+    DocumentItem* parentItem = itemFromIndex(parent);
+    int rows = model->rowCount(parent);
+    model->beginInsertRows(parent,rows,rows);
+    parentItem->node().appendChild(e);
+    dataContainer->insert( data.value("id").toString(), data);
+    model->endInsertRows();
+    QModelIndex i = model->index(rows,0,parent);
+    model->setData(i,data);
 }
 
 IDocumentModel::IDocumentModel ( QDomDocument doc, QObject* parent )
@@ -127,10 +144,8 @@ bool IDocumentModel::setData(const QModelIndex& index, const QVariant& value, in
 
 void IDocumentModel::addComponent(const QVariantMap& component)
 {
-    if (!component.contains("id"))
-        return;
-
-    d->components.insert( component.value("id").toString(), component);
+    QDomElement e = d->doc.createElement("item");
+    d->addData(this, e, component, &d->components );
 }
 
 QVariantMap IDocumentModel::component(const QString& key) const
@@ -145,10 +160,8 @@ QVariantMap IDocumentModel::components() const
 
 void IDocumentModel::addConnector(const QVariantMap& connector)
 {
-    if ( !connector.contains( "id" ) )
-        return;
-
-    d->connectors.insert( connector.value("id").toString(), connector );
+    QDomElement e = d->doc.createElement("connector");
+    d->addData(this, e, connector, &d->connectors);
 }
 
 QVariantMap IDocumentModel::connector(const QString& key) const
@@ -164,8 +177,8 @@ QVariantMap IDocumentModel::connectors() const
 
 void IDocumentModel::addNode(const QVariantMap& node)
 {
-    if ( node.contains( "id" ) )
-        d->nodes.insert( node.value("id").toString(), node );
+    QDomElement e = d->doc.createElement("node");
+    d->addData(this, e, node, &d->nodes);
 }
 
 QVariantMap IDocumentModel::node(const QString& id)
