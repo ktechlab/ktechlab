@@ -102,6 +102,28 @@ IDocumentModel::IDocumentModel ( QDomDocument doc, QObject* parent )
     d->textDocument.setPlainText(doc.toString());
     d->textDocument.setModified(false);
     d->rootItem = new DocumentItem(d->doc, 0);
+
+    QDomElement root = doc.documentElement();
+    QDomNode node = root.firstChild();
+    while ( !node.isNull() ) {
+        QDomElement element = node.toElement();
+        if ( !element.isNull() ) {
+            const QString tagName = element.tagName();
+            QDomNamedNodeMap attribs = element.attributes();
+            QVariantMap item;
+            for ( int i=0; i<attribs.count(); ++i ) {
+                item[ attribs.item(i).nodeName() ] = attribs.item(i).nodeValue();
+            }
+            if ( tagName == "item" ) {
+                d->components.insert( item.value("id").toString(), item );
+            } else if ( tagName == "connector" ) {
+                d->connectors.insert( item.value("id").toString(), item );
+            } else if ( tagName == "node" ) {
+                d->nodes.insert( item.value("id").toString(), item );
+            }
+        }
+        node = node.nextSibling();
+    }
 }
 
 IDocumentModel::~IDocumentModel()
@@ -138,9 +160,19 @@ int IDocumentModel::rowCount(const QModelIndex& parent) const
 
 bool IDocumentModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
-    return QAbstractItemModel::setData(index, value, role);
+    DocumentItem* item = d->itemFromIndex(index);
+    if ((role == Qt::EditRole) && (item) && (value.canConvert(QVariant::Map))){
+        //TODO: make sure to update the containers in d as well
+        QVariantMap data = value.toMap();
+        QDomElement e = item->node().toElement();
+        foreach(const QString& key, data.keys()){
+            e.setAttribute(key, data[key].toString());
+        }
+        emit QAbstractItemModel::dataChanged(index,index);
+        return true;
+    }
+    return false;
 }
-
 
 void IDocumentModel::addComponent(const QVariantMap& component)
 {
