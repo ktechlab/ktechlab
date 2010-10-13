@@ -18,10 +18,9 @@
 
 */
 
-#ifndef CIRCUITMODEL_H
-#define CIRCUITMODEL_H
+#ifndef KTECHLAB_CIRCUITMODEL_H
+#define KTECHLAB_CIRCUITMODEL_H
 
-#include <QPointF>
 #include <interfaces/idocumentmodel.h>
 
 namespace KTechLab
@@ -32,31 +31,8 @@ class CircuitModel : public IDocumentModel
 {
 public:
     CircuitModel(QDomDocument doc, QObject* parent = 0);
-
-    /**
-     * Creates a new Component in the circuit from KTechLab::ComponentMimeData.
-     * This will also add the component to the circuit model.
-     *
-     * \returns a QVariantMap containg all mandatory data
-     */
-    QVariantMap createComponent( const ComponentMimeData* data, QPointF pos = QPointF(0,0) );
-
-    virtual void addComponent ( const QVariantMap& component );
-    virtual QVariantMap components() const;
-    virtual QVariantMap component( const QString &id ) const ;
-    virtual void addConnector ( const QVariantMap& connector );
-    virtual QVariantMap connectors() const;
-
-private:
-    QVariantMap m_components;
-    QVariantMap m_connectors;
-
-    /**
-     * Check for valid components
-     */
-    bool isValidComponent(const QVariantMap& c);
 };
 
 }
 
-#endif // CIRCUITMODEL_H
+#endif // KTECHLAB_CIRCUITMODEL_H
