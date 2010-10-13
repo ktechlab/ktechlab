@@ -53,6 +53,12 @@ class CircuitScene : public IDocumentScene
     virtual void dropEvent ( QGraphicsSceneDragDropEvent* event );
     virtual void dragMoveEvent ( QGraphicsSceneDragDropEvent* event );
 
+  protected slots:
+    /**
+     * update the items in the list withen the model
+     */
+    void updateModel(QList<KTechLab::IComponentItem*> components);
+
   private:
     QSizeF m_componentSize;
     void setCircuitName( const QString &name );
