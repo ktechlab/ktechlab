@@ -24,6 +24,7 @@
 #include "../ktlinterfacesexport.h"
 #include <QGraphicsPathItem>
 #include "../idocumentscene.h"
+#include "idocumentitem.h"
 
 namespace KTechLab {
 
@@ -38,7 +39,7 @@ class Node;
  * and keep track of other \ref QGraphicItem instances used to
  * define this connection.
  */
-class KTLINTERFACES_EXPORT ConnectorItem : public QGraphicsPathItem
+class KTLINTERFACES_EXPORT ConnectorItem : public QGraphicsPathItem, public IDocumentItem
 {
 public:
     /**

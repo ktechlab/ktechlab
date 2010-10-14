@@ -29,6 +29,7 @@
 #include "component/connector.h"
 #include "component/node.h"
 #include "component/icomponentitem.h"
+#include "idocumentmodel.h"
 
 using namespace KTechLab;
 
