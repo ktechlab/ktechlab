@@ -23,6 +23,7 @@
 #include "../ktlinterfacesexport.h"
 #include <QGraphicsSvgItem>
 #include "../idocumentscene.h"
+#include "idocumentitem.h"
 
 namespace KTechLab {
 
@@ -36,7 +37,7 @@ class Node;
  * Each component needs an id which is unique within a document. Each component needs
  * to notify the model after it has been altered by user-interaction.
  */
-class KTLINTERFACES_EXPORT IComponentItem : public QGraphicsSvgItem
+class KTLINTERFACES_EXPORT IComponentItem : public QGraphicsSvgItem, public IDocumentItem
 {
 public:
     IComponentItem(QGraphicsItem* parentItem = 0);
@@ -51,11 +52,6 @@ public:
      * Get the document model.
      */
     IDocumentModel* documentModel() const;
-
-    /**
-     * Get the id of this component.
-     */
-    QString id() const;
 
     /**
      * Check whether the given node belongs to this item.
@@ -100,7 +96,6 @@ protected:
     virtual QVariant itemChange(GraphicsItemChange change, const QVariant& value);
 
     IDocumentModel *m_document;
-    QString m_id;
 };
 
 }

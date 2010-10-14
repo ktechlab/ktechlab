@@ -29,6 +29,9 @@ ComponentItem::ComponentItem ( const QVariantMap& data, Theme *theme, QGraphicsI
       m_theme( theme )
 {
     setData(0, data);
+    setId(data.value("id").toString());
+    setName(data.value("name").toString());
+    setType(data.value("type").toString());
     QString fileName = m_theme->findFirstFile( data.value("fileName").toString() );
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly))

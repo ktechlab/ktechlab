@@ -43,6 +43,9 @@ ConnectorItem::ConnectorItem(const QVariantMap& connectorData, IDocumentScene* s
     init();
     m_connector = new Connector(connectorData);
     setPath(m_connector->route());
+    if (connectorData.value("id").canConvert(QVariant::String))
+        setId(connectorData.value("id").toString());
+
     const Node* s = 0;
     const Node* e = 0;
     //TODO: remove these ugly checks
@@ -72,6 +75,7 @@ void ConnectorItem::init()
 {
     m_startNode = 0;
     m_endNode = 0;
+    setType("connector");
     setAcceptHoverEvents(true);
     setFlags(ItemIsSelectable | ItemSendsGeometryChanges);
     setZValue(-1);
