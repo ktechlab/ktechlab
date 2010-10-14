@@ -53,8 +53,7 @@ bool IComponentItem::hasNode(const Node* node) const
 const Node* IComponentItem::node(const QString& id) const
 {
     foreach (const QGraphicsItem* item, childItems()){
-        //TODO: make this a qgraphicsitem_cast
-        const Node* n = dynamic_cast<const Node*>(item);
+        const Node* n = qgraphicsitem_cast<const Node*>(item);
         if (n && n->id() == id){
             return n;
         }
