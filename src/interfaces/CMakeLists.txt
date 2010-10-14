@@ -4,6 +4,7 @@ include_directories(
     )
 
 set( ktlinterfaces_LIB_SRCS
+   component/idocumentitem.cpp
    component/connector.cpp
    idocumentscene.cpp
    irouterplugin.cpp
