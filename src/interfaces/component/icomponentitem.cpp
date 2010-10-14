@@ -42,18 +42,6 @@ IComponentItem::~IComponentItem()
 
 }
 
-QString IComponentItem::id() const
-{
-    if (!m_id.isEmpty())
-        return m_id;
-    if (data(0).toMap().contains("id")) {
-        return data(0).toMap().value("id").toString();
-    }
-
-    kWarning() << "no id for IComponentItem:" << this;
-    return QString();
-}
-
 bool IComponentItem::hasNode(const Node* node) const
 {
     if (!node->isValid() || id() != node->parentId())
@@ -97,7 +85,7 @@ QVariant KTechLab::IComponentItem::itemChange(QGraphicsItem::GraphicsItemChange 
 {
     if (change == QGraphicsItem::ItemScenePositionHasChanged && m_document){
         QPointF p = value.toPointF();
-        QVariantMap newData = data(0).toMap();
+        QVariantMap newData = QGraphicsItem::data(0).toMap();
         newData.insert("x", p.x());
         newData.insert("y", p.y());
         setData(0, newData);
