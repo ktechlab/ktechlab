@@ -79,6 +79,8 @@ public:
     enum { Type = KTechLab::GraphicsItems::ComponentItemType };
     virtual int type() const { return Type; };
 
+    virtual QVariantMap data() const;
+
 public slots:
     /**
      * Inform the component, that some data has been changed, so it can
