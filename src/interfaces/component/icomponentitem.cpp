@@ -93,6 +93,15 @@ QVariant KTechLab::IComponentItem::itemChange(QGraphicsItem::GraphicsItemChange 
     return QGraphicsItem::itemChange(change, value);
 }
 
+QVariantMap IComponentItem::data() const
+{
+    QVariantMap map = KTechLab::IDocumentItem::data();
+    QPointF p = scenePos();
+    map.insert("x", p.x());
+    map.insert("y", p.y());
+    return map;
+}
+
 void IComponentItem::updateData(const QString& name, const QVariantMap& data)
 {
 

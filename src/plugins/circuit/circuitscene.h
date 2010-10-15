@@ -66,7 +66,6 @@ class CircuitScene : public IDocumentScene
 
     void setupData();
     QVariantMap createItemData(const KTechLab::ComponentMimeData* data, const QPointF& pos) const;
-    QVariantMap createItemData(IComponentItem* item) const;
     QString m_circuitName;
     QString m_componentTheme;
     QMap<QString,ComponentItem*> m_components;

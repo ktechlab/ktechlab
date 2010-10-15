@@ -74,16 +74,6 @@ QVariantMap CircuitScene::createItemData(const KTechLab::ComponentMimeData* data
     return comp;
 }
 
-QVariantMap CircuitScene::createItemData(IComponentItem* item) const
-{
-    QVariantMap comp;
-    comp.insert("type", item->type());
-    comp.insert("x", item->scenePos().x());
-    comp.insert("y", item->scenePos().y());
-    comp.insert("id", item->id());
-    return comp;
-}
-
 void CircuitScene::dropEvent ( QGraphicsSceneDragDropEvent* event )
 {
     if (!event->mimeData()->hasFormat("ktechlab/x-icomponent")) {
@@ -156,7 +146,7 @@ void CircuitScene::setupData()
 void CircuitScene::updateModel(QList< IComponentItem* > components)
 {
     foreach(IComponentItem* item, components){
-        const QVariantMap& data = createItemData(item);
+        const QVariantMap& data = item->data();
         m_model->updateData(data.value("id").toString(),data);
     }
 }
