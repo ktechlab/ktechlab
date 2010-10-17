@@ -31,14 +31,16 @@ using namespace KTechLab;
 class KTechLab::IDocumentModelPrivate {
 
 public:
-    IDocumentModelPrivate() {
+    IDocumentModelPrivate(IDocumentModel* m)
+        : m_model(m)
+    {
         textDocument.setUndoRedoEnabled(true);
     };
 
     ~IDocumentModelPrivate();
     QString generateUid(const QString& name);
     DocumentItem* itemFromIndex(QModelIndex index) const;
-    void addData(IDocumentModel* model, QDomElement e, const QVariantMap& data, QVariantMap* dataContainer) const;
+    void addData(QDomElement e, const QVariantMap& data, QVariantMap* dataContainer) const;
     QVariantMap components;
     QVariantMap connectors;
     QVariantMap nodes;
@@ -47,6 +49,7 @@ public:
     DocumentItem* rootItem;
 
 private:
+    IDocumentModel* m_model;
     QSet<QString> m_ids;
     int m_nextIdNum;
 };
@@ -78,25 +81,24 @@ DocumentItem* IDocumentModelPrivate::itemFromIndex(QModelIndex index) const
     }
 }
 
-void IDocumentModelPrivate::addData(IDocumentModel* model,
-                                    QDomElement e,
+void IDocumentModelPrivate::addData(QDomElement e,
                                     const QVariantMap& data,
                                     QVariantMap* dataContainer) const
 {
-    QModelIndex parent = model->index(0,0);
+    QModelIndex parent = m_model->index(0,0);
     DocumentItem* parentItem = itemFromIndex(parent);
-    int rows = model->rowCount(parent);
-    model->beginInsertRows(parent,rows,rows);
+    int rows = m_model->rowCount(parent);
+    m_model->beginInsertRows(parent,rows,rows);
     parentItem->node().appendChild(e);
     dataContainer->insert( data.value("id").toString(), data);
-    model->endInsertRows();
-    QModelIndex i = model->index(rows,0,parent);
-    model->setData(i,data);
+    m_model->endInsertRows();
+    QModelIndex i = m_model->index(rows,0,parent);
+    m_model->setData(i,data);
 }
 
 IDocumentModel::IDocumentModel ( QDomDocument doc, QObject* parent )
     : QAbstractItemModel ( parent ),
-      d(new IDocumentModelPrivate())
+      d(new IDocumentModelPrivate(this))
 {
     d->doc = doc;
     d->textDocument.setPlainText(doc.toString());
@@ -177,7 +179,7 @@ bool IDocumentModel::setData(const QModelIndex& index, const QVariant& value, in
 void IDocumentModel::addComponent(const QVariantMap& component)
 {
     QDomElement e = d->doc.createElement("item");
-    d->addData(this, e, component, &d->components );
+    d->addData(e, component, &d->components );
 }
 
 QVariantMap IDocumentModel::component(const QString& key) const
@@ -193,7 +195,7 @@ QVariantMap IDocumentModel::components() const
 void IDocumentModel::addConnector(const QVariantMap& connector)
 {
     QDomElement e = d->doc.createElement("connector");
-    d->addData(this, e, connector, &d->connectors);
+    d->addData(e, connector, &d->connectors);
 }
 
 QVariantMap IDocumentModel::connector(const QString& key) const
@@ -210,7 +212,7 @@ QVariantMap IDocumentModel::connectors() const
 void IDocumentModel::addNode(const QVariantMap& node)
 {
     QDomElement e = d->doc.createElement("node");
-    d->addData(this, e, node, &d->nodes);
+    d->addData(e, node, &d->nodes);
 }
 
 QVariantMap IDocumentModel::node(const QString& id)
