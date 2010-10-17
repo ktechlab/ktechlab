@@ -30,6 +30,7 @@ public:
     DocumentItem(QDomNode &node, int row, DocumentItem *parent = 0);
     ~DocumentItem();
     DocumentItem* child(int i);
+    DocumentItem* childWithId(const QString& id);
     DocumentItem* parent();
     QDomNode node() const;
     int row();

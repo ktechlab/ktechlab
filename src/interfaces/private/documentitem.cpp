@@ -50,6 +50,16 @@ DocumentItem* DocumentItem::child(int i)
     return 0;
 }
 
+DocumentItem* DocumentItem::childWithId(const QString& id)
+{
+    for(int i = 0; i<node().childNodes().size(); ++i){
+        QDomNamedNodeMap attribs = child(i)->node().attributes();
+        if (attribs.contains("id") && attribs.namedItem("id").nodeValue() == id)
+            return child(i);
+    }
+    return 0;
+}
+
 DocumentItem* DocumentItem::parent()
 {
     return parentItem;
