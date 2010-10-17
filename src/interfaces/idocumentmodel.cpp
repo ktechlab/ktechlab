@@ -41,6 +41,7 @@ public:
     QString generateUid(const QString& name);
     DocumentItem* itemFromIndex(QModelIndex index) const;
     void addData(QDomElement e, const QVariantMap& data, QVariantMap* dataContainer) const;
+    QModelIndex indexFromId(const QString& id);
     QVariantMap components;
     QVariantMap connectors;
     QVariantMap nodes;
@@ -79,6 +80,15 @@ DocumentItem* IDocumentModelPrivate::itemFromIndex(QModelIndex index) const
     } else {
         return static_cast<DocumentItem*>(index.internalPointer());
     }
+}
+
+QModelIndex IDocumentModelPrivate::indexFromId(const QString& id)
+{
+    DocumentItem* item = rootItem->childWithId(id);
+    if (!item) return QModelIndex();
+
+    QModelIndex rootIndex = m_model->index(0,0);
+    return m_model->index(item->row(),0,rootIndex);
 }
 
 void IDocumentModelPrivate::addData(QDomElement e,
@@ -235,7 +245,8 @@ QTextDocument* IDocumentModel::textDocument() const
 
 void IDocumentModel::updateData(const QString& id, const QVariantMap& data)
 {
-
+    const QModelIndex& modelIndex = d->indexFromId(id);
+    setData(modelIndex, data);
 }
 
 QString IDocumentModel::generateUid(const QString& name)
