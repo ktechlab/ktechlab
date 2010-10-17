@@ -27,6 +27,7 @@
 namespace KTechLab
 {
 
+class IDocumentItem;
 class KTLCircuitPlugin;
 
 class ComponentItem;
@@ -58,6 +59,8 @@ class CircuitScene : public IDocumentScene
      * update the items in the list withen the model
      */
     void updateModel(QList<KTechLab::IComponentItem*> components);
+    void updateModel(QList<KTechLab::ConnectorItem*> connectors);
+    void updateModel(KTechLab::IDocumentItem* item);
 
   private:
     QSizeF m_componentSize;
