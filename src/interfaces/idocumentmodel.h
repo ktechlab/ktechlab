@@ -200,7 +200,7 @@ public slots:
      * \sa QAbstractItemModel
      */
     virtual void revert();
-    virtual void updateData( const QString &name, const QVariantMap &data );
+    virtual void updateData( const QString& id, const QVariantMap& data );
 
 signals:
     void dataUpdated( const QString &name, const QVariantList &data );
