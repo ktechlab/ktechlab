@@ -50,6 +50,10 @@ public:
     /**
      * Provide some internal data as QVariantMap, so it can easily be stored to disk.
      * Default \returns all information known to this class, like id, name and type.
+     *
+     * You should override this method and provide more data, that you want to be
+     * stored by the KTechLab::IDocumentModel.
+     *
      */
     virtual QVariantMap data() const;
 
