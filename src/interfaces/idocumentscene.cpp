@@ -119,7 +119,6 @@ void IDocumentScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
             bool moved = alignToGrid(selectedComponents.first()->pos()) != m_oldSelectionPos;
             foreach (QGraphicsItem* item, selectedItems()){
                 item->setPos(alignToGrid(item->pos()));
-                //TODO: update model
             }
             emit componentsMoved(selectedComponents);
             if (moved) {
@@ -133,6 +132,7 @@ void IDocumentScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
                     }
                 }
                 rerouteConnectors(scheduledConnectors.toList());
+                emit transactionCompleted();
             }
         } else {
             //FIXME: this is needed, because routingInfo thinks we moved, but actually haven't
