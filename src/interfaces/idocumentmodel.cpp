@@ -233,7 +233,7 @@ QTextDocument* IDocumentModel::textDocument() const
     return &d->textDocument;
 }
 
-void IDocumentModel::updateData(const QString& name, const QVariantMap& data)
+void IDocumentModel::updateData(const QString& id, const QVariantMap& data)
 {
 
 }
