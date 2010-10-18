@@ -56,6 +56,9 @@ DocumentItem* DocumentItem::childWithId(const QString& id)
         QDomNamedNodeMap attribs = child(i)->node().attributes();
         if (attribs.contains("id") && attribs.namedItem("id").nodeValue() == id)
             return child(i);
+
+        DocumentItem* c = child(i)->childWithId(id);
+        if (c) return c;
     }
     return 0;
 }
