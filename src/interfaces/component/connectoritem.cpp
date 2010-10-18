@@ -161,3 +161,13 @@ void KTechLab::ConnectorItem::paint(QPainter* painter, const QStyleOptionGraphic
     QGraphicsPathItem::paint(painter, cOption, widget);
     delete cOption;
 }
+
+QVariantMap KTechLab::ConnectorItem::data() const
+{
+    QVariantMap map = KTechLab::IDocumentItem::data();
+    QVariantMap d = m_connector->data();
+    foreach(const QString& key, d.keys()){
+        map.insert(key,d.value(key));
+    }
+    return map;
+}

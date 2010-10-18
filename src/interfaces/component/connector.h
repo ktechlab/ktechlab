@@ -98,12 +98,12 @@ public:
      * Get a path representing the route of the connector
      */
     QPainterPath route() const;
-
-private:
     /**
      * Get connector data as a \class QVariantMap
      */
     QVariantMap data() const;
+
+private:
     ConnectorPrivate *d;
 };
 

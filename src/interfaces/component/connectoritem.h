@@ -95,6 +95,11 @@ public:
     enum { Type = KTechLab::GraphicsItems::ConnectorItemType };
     virtual int type() const { return Type; };
 
+    /**
+     * Get internal data to store it to disk
+     */
+    virtual QVariantMap data() const;
+
 protected:
     virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
     virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
