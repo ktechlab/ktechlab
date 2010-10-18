@@ -28,6 +28,7 @@ public:
     virtual QPainterPath shape() const;
     virtual QVariant itemChange(GraphicsItemChange change, const QVariant& value);
 
+    virtual QVariantMap data() const;
 public slots:
     virtual void updateData( const QString &name, const QVariantMap &data );
 

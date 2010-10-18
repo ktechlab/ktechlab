@@ -125,5 +125,15 @@ QPainterPath ComponentItem::shape() const
     return m_shape;
 }
 
+QVariantMap ComponentItem::data() const
+{
+    QVariantMap map = KTechLab::IComponentItem::data();
+    QPointF pos = scenePos();
+    pos += QPoint(32,32);
+    map.insert("x", pos.x());
+    map.insert("y", pos.y());
+    return map;
+}
+
 #include "componentitem.moc"
 // vim: sw=4 sts=4 et tw=100
