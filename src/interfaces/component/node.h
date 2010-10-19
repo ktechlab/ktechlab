@@ -16,6 +16,9 @@
 
 namespace KTechLab {
 
+class IDocumentItem;
+
+
 /**
  * \short A standard node that can be associated with a Connector
  * \author David Saxton, Julian Bäume
@@ -34,9 +37,9 @@ public:
      */
     void setId(const QString& id);
     /**
-     * Set the parent id string
+     * Set the parent
      */
-    void setParentId(const QString& id);
+    void setParent(IDocumentItem* item);
     /**
      * Get the unique identifier of this object
      */
@@ -53,7 +56,7 @@ public:
 
 private:
     QString m_id;
-    QString m_parentId;
+    IDocumentItem* m_parent;
 };
 
 }

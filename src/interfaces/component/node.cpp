@@ -12,11 +12,13 @@
 #include "node.h"
 
 #include <KDebug>
+#include "idocumentitem.h"
 
 using namespace KTechLab;
 
 Node::Node(QGraphicsItem* parent, QGraphicsScene* scene)
-    : QGraphicsEllipseItem(parent, scene)
+    : QGraphicsEllipseItem(parent, scene),
+      m_parent(0)
 {
 }
 
@@ -29,9 +31,9 @@ void Node::setId(const QString& id)
     m_id = id;
 }
 
-void Node::setParentId(const QString& id)
+void Node::setParent(IDocumentItem* item)
 {
-    m_parentId = id;
+    m_parent = item;
 }
 
 QString Node::id() const
@@ -41,7 +43,9 @@ QString Node::id() const
 
 QString Node::parentId() const
 {
-    return m_parentId;
+    if (!m_parent) return QString();
+
+    return m_parent->id();
 }
 
 bool Node::isValid() const
