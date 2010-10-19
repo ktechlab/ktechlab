@@ -64,18 +64,6 @@ public:
     virtual ~ConnectorItem();
 
     /**
-     * Set the connector representing this item.
-     *
-     * \param connector - the connector
-     */
-    void setConnector(const Connector& connector);
-    /**
-     * Get the connector, this item represents.
-     *
-     * \returns the connector
-     */
-    Connector* connector() const;
-    /**
      * Set the node, where the connector starts.
      */
     void setStartNode(const Node* node);
@@ -100,6 +88,16 @@ public:
      */
     virtual QVariantMap data() const;
 
+    /**
+     * Set the route for this ConnectorItem. Don't use QGraphicsPathItem::setPath()!
+     */
+    void setRoute(const QPainterPath& route);
+    /* TODO: make this class inherit QGraphicsItem and only store a QGraphicsPathItem interally */
+    /**
+     * Get the route for this ConnectorItem
+     */
+    QPainterPath route() const;
+
 protected:
     virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
     virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
@@ -109,9 +107,9 @@ protected:
 
 private:
     void init();
+    class ConnectorItemPrivate;
+    ConnectorItemPrivate *d;
     Connector *m_connector;
-    const Node* m_startNode;
-    const Node* m_endNode;
     IDocumentScene* m_scene;
 };
 
