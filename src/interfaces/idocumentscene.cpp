@@ -70,7 +70,7 @@ void IDocumentScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
             return;
         }
         m_routingInfo->mapRoute(m_startPos, event->scenePos());
-        m_routePath->setPath(m_routingInfo->paintedRoute());
+        m_routePath->setRoute(m_routingInfo->paintedRoute());
         event->accept();
     }
     QGraphicsScene::mouseMoveEvent(event);
@@ -171,7 +171,10 @@ ConnectorItem* IDocumentScene::startRouting(const QPointF& pos)
     m_startPos = pos;
     m_routingInfo->mapRoute(pos,pos);
     m_routePath = new ConnectorItem(this);
-    m_routePath->setPath(m_routingInfo->paintedRoute());
+    QList<Node*> nodes = filterItemList<Node>(items(pos));
+    if (!nodes.isEmpty())
+        m_routePath->setStartNode(nodes.first());
+    m_routePath->setRoute(m_routingInfo->paintedRoute());
     return m_routePath;
 }
 
@@ -191,7 +194,11 @@ ConnectorItem* IDocumentScene::finishRouting(const QPointF& pos)
     ConnectorItem* c = m_routePath;
 
     m_routingInfo->mapRoute(m_startPos,pos);
-    m_routePath->setPath(m_routingInfo->paintedRoute());
+    m_routePath->setRoute(m_routingInfo->paintedRoute());
+    QList<Node*> nodes = filterItemList<Node>(items(pos));
+    if (!nodes.isEmpty())
+        m_routePath->setEndNode(nodes.first());
+
     // this item is still part of the scene, we just forget about it, here
     m_routePath = 0;
     QList< ConnectorItem* > items;
@@ -217,7 +224,7 @@ void IDocumentScene::rerouteConnectors(QList< ConnectorItem* > items)
         QPointF start = c->startNode()->scenePos();
         QPointF end = c->endNode()->scenePos();
         m_routingInfo->mapRoute(start,end);
-        c->setPath(m_routingInfo->paintedRoute());
+        c->setRoute(m_routingInfo->paintedRoute());
     }
     emit routed(items);
 }

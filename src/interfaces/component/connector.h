@@ -51,7 +51,7 @@ public:
     /**
      * Create a new instance given the connector data.
      */
-    Connector(const QVariantMap &connectorData, QObject* parent = 0);
+    Connector(QObject* parent = 0);
     /**
      * Copy constructor
      */

@@ -30,19 +30,79 @@
 
 using namespace KTechLab;
 
+class ConnectorItem::ConnectorItemPrivate {
+public:
+    ConnectorItemPrivate(ConnectorItem* parent)
+        : m_item( parent ) {};
+
+    QPainterPath parseRoute(const QVariantMap& connectorData) const;
+    void setRoute(const QPainterPath& path);
+
+    QVariantMap data;
+private:
+    ConnectorItem* m_item;
+};
+
+void ConnectorItem::ConnectorItemPrivate::setRoute(const QPainterPath& path)
+{
+    data.remove("route");
+    QString pathString;
+    for (int i=0; i<path.elementCount(); ++i){
+        QPainterPath::Element e = path.elementAt(i);
+        pathString += QString("%1,%2,").arg((e.x-4)/8).arg((e.y-4)/8);
+    }
+    data.insert("route", pathString);
+}
+
+QPainterPath ConnectorItem::ConnectorItemPrivate::parseRoute(const QVariantMap& connectorData) const
+{
+    const QString& pathString = connectorData.value("route").toString();
+    QStringList routeList = pathString.split(',');
+    if (routeList.length() == 0){
+        kError() << "Cannot parse route:" << pathString;
+        return QPainterPath();
+    }
+
+    //remove last entry, if it is empty
+    if (routeList.last().isEmpty())
+        routeList.removeLast();
+
+    if (routeList.length() % 2 != 0){
+        kError() << "Cannot parse route:" << pathString;
+        return QPainterPath();
+    }
+
+    QPainterPath route;
+    QStringList::const_iterator it = routeList.constBegin();
+    QPointF p;
+    p.setX((*it++).toDouble()*8+4);
+    p.setY((*it++).toDouble()*8+4);
+    route.moveTo(p);
+    while (it != routeList.constEnd()){
+        p.setX((*it++).toDouble()*8+4);
+        p.setY((*it++).toDouble()*8+4);
+        route.lineTo(p);
+    }
+
+    return route;
+}
+
 ConnectorItem::ConnectorItem(IDocumentScene* scene, QGraphicsItem* parent)
     : QGraphicsPathItem(parent, scene),
-      m_connector(0), m_scene(scene)
+      d(new ConnectorItemPrivate(this)),
+      m_connector(new Connector()), m_scene(scene)
 {
     init();
 }
 
 ConnectorItem::ConnectorItem(const QVariantMap& connectorData, IDocumentScene* scene, QGraphicsItem* parent)
-    : QGraphicsPathItem(parent, scene), m_scene(scene)
+    : QGraphicsPathItem(parent, scene),
+      d(new ConnectorItemPrivate(this)), m_scene(scene)
 {
     init();
-    m_connector = new Connector(connectorData);
-    setPath(m_connector->route());
+    m_connector = new Connector();
+    d->data = connectorData;
+    setPath(d->parseRoute(connectorData));
     if (connectorData.value("id").canConvert(QVariant::String))
         setId(connectorData.value("id").toString());
 
@@ -65,16 +125,12 @@ ConnectorItem::ConnectorItem(const QVariantMap& connectorData, IDocumentScene* s
         if (scene->node(connectorData.value("end-node-id").toString()))
             e = scene->node(connectorData.value("end-node-id").toString());
     }
-    m_connector->setStartNode(s);
-    m_startNode = s;
-    m_connector->setEndNode(e);
-    m_endNode = e;
+    setStartNode(s);
+    setEndNode(e);
 }
 
 void ConnectorItem::init()
 {
-    m_startNode = 0;
-    m_endNode = 0;
     setType("connector");
     setAcceptHoverEvents(true);
     setFlags(ItemIsSelectable | ItemSendsGeometryChanges);
@@ -83,41 +139,45 @@ void ConnectorItem::init()
 
 ConnectorItem::~ConnectorItem()
 {
+    delete d;
     delete m_connector;
     m_connector = 0;
 }
 
-void ConnectorItem::setConnector(const Connector& connector)
-{
-    if (m_connector){
-        delete m_connector;
-        m_connector = 0;
-    }
-
-    m_connector = new Connector(connector);
-    setPath(m_connector->route());
-}
-
-Connector* ConnectorItem::connector() const
-{
-    return m_connector;
-}
-
 void ConnectorItem::setStartNode(const Node* node)
 {
-    m_startNode = node;
+    if (!m_connector) return;
+
+    m_connector->setStartNode(node);
 }
 void ConnectorItem::setEndNode(const Node* node)
 {
-    m_endNode = node;
+    if (!m_connector) return;
+
+    m_connector->setEndNode(node);
 }
 const Node* ConnectorItem::endNode() const
 {
-    return m_endNode;
+    if (!m_connector) return 0;
+
+    return m_connector->endNode();
 }
 const Node* ConnectorItem::startNode() const
 {
-    return m_startNode;
+    if (!m_connector) return 0;
+
+    return m_connector->startNode();
+}
+
+void ConnectorItem::setRoute(const QPainterPath& route)
+{
+    d->setRoute(route);
+    setPath(route);
+}
+
+QPainterPath ConnectorItem::route() const
+{
+    return path();
 }
 
 void ConnectorItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
@@ -165,9 +225,12 @@ void KTechLab::ConnectorItem::paint(QPainter* painter, const QStyleOptionGraphic
 QVariantMap KTechLab::ConnectorItem::data() const
 {
     QVariantMap map = KTechLab::IDocumentItem::data();
-    QVariantMap d = m_connector->data();
-    foreach(const QString& key, d.keys()){
-        map.insert(key,d.value(key));
+    {
+        QVariantMap d = m_connector->data();
+        foreach(const QString& key, d.keys()){
+            map.insert(key,d.value(key));
+        }
     }
+    map.insert("route", d->data.value("route"));
     return map;
 }
