@@ -204,9 +204,7 @@ ConnectorItem* IDocumentScene::finishRouting(const QPointF& pos)
 
     // this item is still part of the scene, we just forget about it, here
     m_routePath = 0;
-    QList< ConnectorItem* > items;
-    items << c;
-    emit routed(items);
+    emit routeCreated(c);
     emit transactionCompleted();
 
     return c;
