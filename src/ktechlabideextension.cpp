@@ -12,6 +12,7 @@
 #include <QString>
 
 #include <KLocale>
+#include <QApplication>
 
 KTechlabIDEExtension::KTechlabIDEExtension()
     : KDevelop::ShellExtension()
@@ -48,3 +49,7 @@ QStringList KTechlabIDEExtension::defaultPlugins() {
     return plugins;
 }
 
+QString KTechlabIDEExtension::binaryPath()
+{
+    return QApplication::applicationDirPath() + "/ktechlab";
+}
