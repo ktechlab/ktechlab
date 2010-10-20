@@ -145,8 +145,11 @@ void IDocumentScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 void IDocumentScene::keyPressEvent(QKeyEvent* event)
 {
     if (event->key() == Qt::Key_Delete){
-        foreach(QGraphicsItem *item,selectedItems()){
-            emit itemRemoved(item);
+        foreach(QGraphicsItem *item, selectedItems()){
+            IDocumentItem* docItem = dynamic_cast<IDocumentItem*>(item);
+            Q_ASSERT(docItem);
+
+            emit itemRemoved(docItem);
             removeItem(item);
             delete item;
         }
