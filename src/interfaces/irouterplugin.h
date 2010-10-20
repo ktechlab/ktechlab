@@ -25,7 +25,7 @@
 #include "ktlinterfacesexport.h"
 
 #include <QtCore/QObject>
-#include <kdevplatform/interfaces/iextension.h>
+#include <interfaces/iextension.h>
 
 class QPointF;
 class QPainterPath;
