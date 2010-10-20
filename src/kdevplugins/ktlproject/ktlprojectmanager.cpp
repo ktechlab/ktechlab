@@ -19,7 +19,6 @@
 */
 
 #include "ktlprojectmanager.h"
-#include "ktlfolderitem.h"
 
 #include <project/projectmodel.h>
 #include <KGenericFactory>
@@ -196,7 +195,7 @@ IProjectFileManager::Features KTLProjectManager::features() const
 
 ProjectFolderItem* KTLProjectManager::import( IProject* project )
 {
-  ProjectFolderItem *rootItem = new KTLFolderItem( project, project->folder() );
+  ProjectFolderItem *rootItem = new ProjectFolderItem( project, project->folder() );
   rootItem->setProjectRoot(true);
 
   d->projectFile = rootItem->project()->folder();
@@ -245,7 +244,7 @@ QList<ProjectFolderItem*> KTLProjectManager::parse( ProjectFolderItem *item )
         } else if ( !type.isEmpty() )
         {
           itemUrl.addPath(name);
-          KTLFolderItem *child = new KTLFolderItem(item->project(), itemUrl, item);
+          ProjectFolderItem *child = new ProjectFolderItem(item->project(), itemUrl, item);
           result.append(child);
         }
       }
