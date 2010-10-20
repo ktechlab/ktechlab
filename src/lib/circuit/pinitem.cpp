@@ -22,10 +22,11 @@
 #include <QGraphicsSceneMouseEvent>
 #include <KDebug>
 #include <qdrag.h>
+#include <interfaces/component/icomponentitem.h>
 
 using namespace KTechLab;
 
-PinItem::PinItem(const QRectF& rect, QGraphicsItem* parent, QGraphicsScene* scene)
+PinItem::PinItem(const QRectF& rect, IComponentItem* parent, QGraphicsScene* scene)
     : Node(parent, scene),
     m_circuit(0)
 {
@@ -35,8 +36,10 @@ PinItem::PinItem(const QRectF& rect, QGraphicsItem* parent, QGraphicsScene* scen
     setBrush(QBrush(Qt::SolidPattern));
     //set opacity to nearly 0, because 0 will hide the item
     //and it won't receive any events if hidden
-    if (parent)
+    if (parent){
         this->setOpacity(0.01);
+        setParent(parent);
+    }
 }
 
 bool PinItem::fetchCircuit()

@@ -25,6 +25,7 @@
 namespace KTechLab
 {
 
+class IComponentItem;
 class IDocumentScene;
 
 /**
@@ -34,7 +35,7 @@ class IDocumentScene;
 class PinItem : public Node
 {
 public:
-    PinItem(const QRectF &rect, QGraphicsItem* parent = 0, QGraphicsScene* scene = 0);
+    PinItem(const QRectF &rect, IComponentItem* parent = 0, QGraphicsScene* scene = 0);
 
 protected:
     virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
