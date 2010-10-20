@@ -21,9 +21,9 @@
 #ifndef KTLAUTOMATICROUTERPLUGIN_H
 #define KTLAUTOMATICROUTERPLUGIN_H
 
-#include <kdevplatform/interfaces/iplugin.h>
+#include <interfaces/iplugin.h>
 #include <interfaces/irouterplugin.h>
-#include <kdevplatform/interfaces/iextension.h>
+#include <interfaces/iextension.h>
 #include <QVariantList>
 
 class AutomaticRouter : public KDevelop::IPlugin, public KTechLab::IRouterPlugin
