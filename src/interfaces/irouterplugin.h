@@ -25,6 +25,7 @@
 #include "ktlinterfacesexport.h"
 
 #include <QtCore/QObject>
+#include <interfaces/iextension.h>
 
 class QPointF;
 class QPainterPath;
@@ -67,6 +68,7 @@ protected:
 
 }
 
+KDEV_DECLARE_EXTENSION_INTERFACE_NS( KTechLab, IRouterPlugin, "org.ktechlab.IRouterPlugin" )
 Q_DECLARE_INTERFACE( KTechLab::IRouterPlugin, "org.ktechlab.IRouterPlugin" )
 
 #endif // IROUTERPLUGIN_H
