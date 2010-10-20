@@ -23,6 +23,7 @@
 
 #include <interfaces/iplugin.h>
 #include <interfaces/irouterplugin.h>
+#include <interfaces/iextension.h>
 #include <QVariantList>
 
 class AutomaticRouter : public KDevelop::IPlugin, public KTechLab::IRouterPlugin
