@@ -98,7 +98,6 @@ void ComponentItem::initPins()
         pinRect.setHeight(r*2);
         PinItem* p = new PinItem(pinRect, this, scene());
         p->setId(pin.attribute("id"));
-        p->setParent(this);
         pin = pin.nextSiblingElement();
     }
 }
