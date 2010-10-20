@@ -119,6 +119,10 @@ signals:
      */
     void aboutToReroute(QList<KTechLab::ConnectorItem*>);
     /**
+     * Emitted, when a new route has been layed out.
+     */
+    void routeCreated(KTechLab::ConnectorItem*);
+    /**
      * Emitted, when the scene routed some ConnectorItems.
      */
     void routed(QList<KTechLab::ConnectorItem*>);
