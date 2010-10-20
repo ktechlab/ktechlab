@@ -57,7 +57,7 @@ QVariantMap ConnectorPrivate::data() const
 
     Q_ASSERT(startNode);
     QString parentId = startNode->parentId();
-    if (parentId.isEmpty()){
+    if (!parentId.isEmpty()){
         map.insert("start-node-is-child", 1);
         map.insert("start-node-parent", parentId);
         map.insert("start-node-cid", startNode->id());
@@ -68,7 +68,7 @@ QVariantMap ConnectorPrivate::data() const
 
     Q_ASSERT(endNode);
     parentId = endNode->parentId();
-    if (parentId.isEmpty()){
+    if (!parentId.isEmpty()){
         map.insert("end-node-is-child", 1);
         map.insert("end-node-parent", parentId);
         map.insert("end-node-cid", endNode->id());
