@@ -22,6 +22,7 @@ public:
     virtual QString projectFileExtension();
     virtual QString projectFileDescription();
     virtual QStringList defaultPlugins();
+    virtual QString binaryPath();
 
 protected:
     KTechlabIDEExtension();
