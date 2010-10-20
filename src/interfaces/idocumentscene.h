@@ -42,6 +42,7 @@ class IComponentItem;
 class ConnectorItem;
 class IRouterPlugin;
 class IRoutingInformation;
+class IDocumentItem;
 
 /**
  * \short A QGraphicsScene with icons connectable through (complex) routed connections
@@ -132,7 +133,7 @@ signals:
     /**
      * Emitted, when some item is removed from the scene.
      */
-    void itemRemoved( QGraphicsItem* );
+    void itemRemoved( KTechLab::IDocumentItem* );
 
     /**
      * Emitted when the user aborts his current action. The scene will be
