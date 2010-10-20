@@ -120,7 +120,7 @@ class KDevelop::KTLProjectManagerPrivate
 K_PLUGIN_FACTORY(KTLProjectManagerFactory, registerPlugin<KTLProjectManager>(); )
 K_EXPORT_PLUGIN(KTLProjectManagerFactory(KAboutData("ktlprojectmanager","ktlprojectmanager",ki18n("KTechLab Project Manager"), "0.1", ki18n("A plugin to support KTechLab project management"), KAboutData::License_GPL)))
 
-KTLProjectManager::KTLProjectManager( QObject *parent, const QVariantList &args )
+KTLProjectManager::KTLProjectManager( QObject* parent, const QVariantList& /* args */ )
   : IPlugin( KTLProjectManagerFactory::componentData(), parent ), IProjectFileManager( ),
   d( new KTLProjectManagerPrivate() )
 {
