@@ -179,6 +179,8 @@ public:
 
     QModelIndex parent( const QModelIndex &child ) const;
 
+    virtual bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex());
+
     /**
      * Get a QTextDocument representation of the internal data. It will contain
      * all data of the model encoded as XML text. It can be used to provide

@@ -186,6 +186,21 @@ bool IDocumentModel::setData(const QModelIndex& index, const QVariant& value, in
     return false;
 }
 
+bool IDocumentModel::removeRows(int row, int count, const QModelIndex& parent)
+{
+    QModelIndex rowIndex = index(row,0,parent);
+    if (!rowIndex.isValid())
+        return false;
+
+    if (count > 1)
+        kWarning() << "Model only supports to remove one row at a time. Removing only row:" << row;
+
+    DocumentItem* item = d->itemFromIndex(rowIndex);
+    item->parent()->removeChild(item->row());
+
+    return true;
+}
+
 void IDocumentModel::addComponent(const QVariantMap& component)
 {
     QDomElement e = d->doc.createElement("item");

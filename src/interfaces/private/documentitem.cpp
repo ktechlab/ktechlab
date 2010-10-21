@@ -21,6 +21,7 @@
 #include "documentitem.h"
 
 #include <QDebug>
+#include <KDebug>
 
 DocumentItem::DocumentItem(QDomNode& node, int row, DocumentItem* parent)
     :   domNode(node),
@@ -61,6 +62,14 @@ DocumentItem* DocumentItem::childWithId(const QString& id)
         if (c) return c;
     }
     return 0;
+}
+
+void DocumentItem::removeChild(int rowNumber)
+{
+    DocumentItem* c = child(rowNumber);
+    QDomNode removed = domNode.removeChild(c->node());
+    if (removed.isNull())
+        kWarning() << "Could not remove child";
 }
 
 DocumentItem* DocumentItem::parent()
