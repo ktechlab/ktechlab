@@ -34,6 +34,7 @@ public:
     DocumentItem* parent();
     QDomNode node() const;
     int row();
+    void removeChild(int rowNumber);
 
 private:
     QDomNode domNode;
