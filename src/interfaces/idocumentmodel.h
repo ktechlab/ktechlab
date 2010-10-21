@@ -177,6 +177,18 @@ public:
     QModelIndex index( int row, int column,
                        const QModelIndex &parent = QModelIndex() ) const;
 
+    /**
+     * Get an index for the given item. This method is provided by convenience
+     * and will look the item up in the internal data and return a QModelIndex
+     * to that data.
+     *
+     * The item will be looked up by id, so the
+     * \param item should contain a (string) field "id".
+     *
+     * \returns a valid QModelIndex if the item is found
+     */
+    QModelIndex index( const QVariantMap& item ) const;
+
     QModelIndex parent( const QModelIndex &child ) const;
 
     virtual bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex());
