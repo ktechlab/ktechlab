@@ -61,6 +61,8 @@ class CircuitScene : public IDocumentScene
     void updateModel(QList<KTechLab::IComponentItem*> components);
     void updateModel(QList<KTechLab::ConnectorItem*> connectors);
     void updateModel(KTechLab::IDocumentItem* item);
+    void addConnector(KTechLab::ConnectorItem* item);
+    void removeItem(KTechLab::IDocumentItem* item);
 
   private:
     QSizeF m_componentSize;
