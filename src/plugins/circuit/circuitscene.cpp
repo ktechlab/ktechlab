@@ -49,8 +49,12 @@ CircuitScene::CircuitScene ( QObject* parent, CircuitModel *model, KTLCircuitPlu
 
     connect(this,SIGNAL(componentsMoved(QList<KTechLab::IComponentItem*>)),
             this,SLOT(updateModel(QList<KTechLab::IComponentItem*>)));
+    connect(this,SIGNAL(routeCreated(KTechLab::ConnectorItem*)),
+            this,SLOT(addConnector(KTechLab::ConnectorItem*)));
     connect(this,SIGNAL(routed(QList<KTechLab::ConnectorItem*>)),
             this,SLOT(updateModel(QList<KTechLab::ConnectorItem*>)));
+    connect(this,SIGNAL(itemRemoved(KTechLab::IDocumentItem*)),
+            this,SLOT(removeItem(KTechLab::IDocumentItem*)));
 }
 
 
@@ -161,6 +165,22 @@ void CircuitScene::updateModel(IDocumentItem* item)
 {
     const QVariantMap& data = item->data();
     m_model->updateData(data.value("id").toString(),data);
+}
+
+void CircuitScene::addConnector(ConnectorItem* item)
+{
+    QVariantMap data = item->data();
+    if (!data.contains("id"))
+        data.insert("id", m_model->generateUid(((IDocumentItem*)item)->type()));
+
+    m_model->addConnector(data);
+}
+
+void CircuitScene::removeItem(IDocumentItem* item)
+{
+    QModelIndex index = m_model->index(item->data());
+    if (!m_model->removeRow(index.row(),index.parent()))
+        kWarning() << "Could not remove item:" << item->data();
 }
 
 void CircuitScene::updateData( const QString& name, const QVariantMap& data )
