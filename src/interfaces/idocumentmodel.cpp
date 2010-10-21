@@ -297,6 +297,15 @@ QModelIndex IDocumentModel::index(int row, int column, const QModelIndex& parent
         return QModelIndex();
 }
 
+QModelIndex IDocumentModel::index(const QVariantMap& item) const
+{
+    const QString& id = item.value("id").toString();
+    if (id.isEmpty())
+        return QModelIndex();
+
+    return d->indexFromId(id);
+}
+
 QModelIndex IDocumentModel::parent(const QModelIndex& child) const
 {
     if (!child.isValid())
