@@ -198,13 +198,9 @@ protected:
 
     virtual void drawBackground(QPainter* painter, const QRectF& rect);
 private:
-    template<class T> inline QList<T*> filterItemList(QList<QGraphicsItem*> list) const;
-    ConnectorItem* m_routePath;
-    QSharedPointer<IRoutingInformation> m_routingInfo;
-    QList<ConnectorItem*> m_needReroutingList;
-    QPointF m_startPos;
-    QPointF m_oldSelectionPos;
-    bool m_movingSelection;
+    class IDocumentScenePrivate;
+    IDocumentScenePrivate* d;
+
 };
 
 }
