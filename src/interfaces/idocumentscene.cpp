@@ -33,29 +33,53 @@
 
 using namespace KTechLab;
 
+class IDocumentScene::IDocumentScenePrivate
+{
+public:
+    IDocumentScenePrivate()
+        :   routePath( 0 ), routingInfo( 0 ),
+            movingSelection(false)
+    {}
+
+    template<class T> inline QList<T*> filterItemList(QList<QGraphicsItem*> list) const
+    {
+        QList<T*> result;
+        foreach(QGraphicsItem* item, list) {
+            T* tItem = qgraphicsitem_cast<T*>(item);
+            if (tItem) result << tItem;
+        }
+        return result;
+    };
+
+    ConnectorItem* routePath;
+    QSharedPointer<IRoutingInformation> routingInfo;
+    QList<ConnectorItem*> needReroutingList;
+    QPointF startPos;
+    QPointF oldSelectionPos;
+    bool movingSelection;
+};
+
 IDocumentScene::IDocumentScene(QObject* parent)
     : QGraphicsScene(parent),
-      m_routePath( 0 ),
-      m_routingInfo( 0 ),
-      m_movingSelection(false)
+      d( new IDocumentScenePrivate() )
 {
 }
 
 IDocumentScene::~IDocumentScene()
 {
-    m_routingInfo.clear();
+    d->routingInfo.clear();
 }
 
 bool IDocumentScene::isRouting() const
 {
-    return m_routePath != 0;
+    return d->routePath != 0;
 }
 
 QSet< QGraphicsItem* > IDocumentScene::movingItems() const
 {
     QSet<QGraphicsItem*> set;
-    if (m_movingSelection)
-        foreach(IComponentItem* item, filterItemList<IComponentItem>(selectedItems())){
+    if (d->movingSelection)
+        foreach(IComponentItem* item, d->filterItemList<IComponentItem>(selectedItems())){
             set << item;
         }
 
@@ -64,13 +88,13 @@ QSet< QGraphicsItem* > IDocumentScene::movingItems() const
 
 void IDocumentScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
-    if (m_routePath){
+    if (d->routePath){
         if (!routingInfo()) {
             event->ignore();
             return;
         }
-        m_routingInfo->mapRoute(m_startPos, event->scenePos());
-        m_routePath->setRoute(m_routingInfo->paintedRoute());
+        d->routingInfo->mapRoute(d->startPos, event->scenePos());
+        d->routePath->setRoute(d->routingInfo->paintedRoute());
         event->accept();
     }
     QGraphicsScene::mouseMoveEvent(event);
@@ -83,29 +107,19 @@ void IDocumentScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
         abortRouting();
     }
     if (!selectedItems().isEmpty()){
-        QList<IComponentItem*> componentList= filterItemList<IComponentItem>(selectedItems());
+        QList<IComponentItem*> componentList = d->filterItemList<IComponentItem>(selectedItems());
         if (componentList.isEmpty())
             return;
 
-        m_needReroutingList.clear();
-        m_oldSelectionPos = componentList.first()->pos();
+        d->needReroutingList.clear();
+        d->oldSelectionPos = componentList.first()->pos();
         foreach(IComponentItem* item, componentList) {
-            m_needReroutingList << filterItemList<ConnectorItem>(item->collidingItems());
+            d->needReroutingList << d->filterItemList<ConnectorItem>(item->collidingItems());
         }
         //FIXME: tell routingInfo we moved, but actually haven't, yet
         emit componentsAboutToMove(componentList);
-        m_movingSelection = true;
+        d->movingSelection = true;
     }
-}
-
-template<class T> inline QList<T*> IDocumentScene::filterItemList(QList<QGraphicsItem*> list) const
-{
-    QList<T*> result;
-    foreach(QGraphicsItem* item, list) {
-        T* tItem = qgraphicsitem_cast<T*>(item);
-        if (tItem) result << tItem;
-    }
-    return result;
 }
 
 void IDocumentScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
@@ -113,21 +127,21 @@ void IDocumentScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
     QGraphicsScene::mouseReleaseEvent(event);
     if (isRouting())
         return;
-    if (!selectedItems().isEmpty() && m_movingSelection){
-        QList<IComponentItem*> selectedComponents = filterItemList<IComponentItem>(selectedItems());
-        if (selectedComponents.first()->pos() != m_oldSelectionPos){
-            bool moved = alignToGrid(selectedComponents.first()->pos()) != m_oldSelectionPos;
+    if (!selectedItems().isEmpty() && d->movingSelection){
+        QList<IComponentItem*> selectedComponents = d->filterItemList<IComponentItem>(selectedItems());
+        if (selectedComponents.first()->pos() != d->oldSelectionPos){
+            bool moved = alignToGrid(selectedComponents.first()->pos()) != d->oldSelectionPos;
             foreach (QGraphicsItem* item, selectedItems()){
                 item->setPos(alignToGrid(item->pos()));
             }
             emit componentsMoved(selectedComponents);
             if (moved) {
                 QSet<ConnectorItem*> scheduledConnectors;
-                foreach (ConnectorItem* c, m_needReroutingList) {
+                foreach (ConnectorItem* c, d->needReroutingList) {
                     scheduledConnectors << c;
                 }
                 foreach(IComponentItem* item, selectedComponents) {
-                    foreach(ConnectorItem* c, filterItemList<ConnectorItem>(item->collidingItems())){
+                    foreach(ConnectorItem* c, d->filterItemList<ConnectorItem>(item->collidingItems())){
                         scheduledConnectors << c;
                     }
                 }
@@ -138,7 +152,7 @@ void IDocumentScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
             //FIXME: this is needed, because routingInfo thinks we moved, but actually haven't
             emit componentsMoved(selectedComponents);
         }
-        m_movingSelection = false;
+        d->movingSelection = false;
     }
 }
 
@@ -159,8 +173,8 @@ void IDocumentScene::keyPressEvent(QKeyEvent* event)
 
 QPointF IDocumentScene::alignToGrid(const QPointF& point)
 {
-    if (m_routingInfo)
-        return m_routingInfo->alignToGrid(point);
+    if (d->routingInfo)
+        return d->routingInfo->alignToGrid(point);
 
     return point;
 }
@@ -171,39 +185,39 @@ ConnectorItem* IDocumentScene::startRouting(const QPointF& pos)
         kError() << "Can't start routing without routing plugin";
         return 0;
     }
-    m_startPos = pos;
-    m_routingInfo->mapRoute(pos,pos);
-    m_routePath = new ConnectorItem(this);
-    QList<Node*> nodes = filterItemList<Node>(items(pos));
+    d->startPos = pos;
+    d->routingInfo->mapRoute(pos,pos);
+    d->routePath = new ConnectorItem(this);
+    QList<Node*> nodes = d->filterItemList<Node>(items(pos));
     if (!nodes.isEmpty())
-        m_routePath->setStartNode(nodes.first());
-    m_routePath->setRoute(m_routingInfo->paintedRoute());
-    return m_routePath;
+        d->routePath->setStartNode(nodes.first());
+    d->routePath->setRoute(d->routingInfo->paintedRoute());
+    return d->routePath;
 }
 
 void IDocumentScene::abortRouting()
 {
-    if (!m_routePath)
+    if (!d->routePath)
         return;
 
-    removeItem(m_routePath);
-    delete m_routePath;
-    m_routePath = 0;
+    removeItem(d->routePath);
+    delete d->routePath;
+    d->routePath = 0;
     emit transactionAborted();
 }
 
 ConnectorItem* IDocumentScene::finishRouting(const QPointF& pos)
 {
-    ConnectorItem* c = m_routePath;
+    ConnectorItem* c = d->routePath;
 
-    m_routingInfo->mapRoute(m_startPos,pos);
-    m_routePath->setRoute(m_routingInfo->paintedRoute());
-    QList<Node*> nodes = filterItemList<Node>(items(pos));
+    d->routingInfo->mapRoute(d->startPos,pos);
+    d->routePath->setRoute(d->routingInfo->paintedRoute());
+    QList<Node*> nodes = d->filterItemList<Node>(items(pos));
     if (!nodes.isEmpty())
-        m_routePath->setEndNode(nodes.first());
+        d->routePath->setEndNode(nodes.first());
 
     // this item is still part of the scene, we just forget about it, here
-    m_routePath = 0;
+    d->routePath = 0;
     emit routeCreated(c);
     emit transactionCompleted();
 
@@ -217,15 +231,15 @@ void IDocumentScene::updateData(const QString& name, const QVariantMap& value)
 
 void IDocumentScene::rerouteConnectors(QList< ConnectorItem* > items)
 {
-    if (!m_routingInfo)
+    if (!d->routingInfo)
         return;
 
     emit aboutToReroute(items);
     foreach (ConnectorItem* c, items){
         QPointF start = c->startNode()->scenePos();
         QPointF end = c->endNode()->scenePos();
-        m_routingInfo->mapRoute(start,end);
-        c->setRoute(m_routingInfo->paintedRoute());
+        d->routingInfo->mapRoute(start,end);
+        c->setRoute(d->routingInfo->paintedRoute());
     }
     emit routed(items);
 }
@@ -243,15 +257,15 @@ void IDocumentScene::fetchRouter()
 
 QSharedPointer< IRoutingInformation > IDocumentScene::routingInfo()
 {
-    if (!m_routingInfo)
+    if (!d->routingInfo)
         fetchRouter();
 
-    return m_routingInfo;
+    return d->routingInfo;
 }
 
 void IDocumentScene::setRoutingInfo(QSharedPointer< IRoutingInformation > info)
 {
-    m_routingInfo = info;
+    d->routingInfo = info;
 }
 
 void IDocumentScene::drawBackground(QPainter* painter, const QRectF& rect)
@@ -262,7 +276,7 @@ void IDocumentScene::drawBackground(QPainter* painter, const QRectF& rect)
     if (!routingInfo())
         return;
 
-    const QPixmap& pixmap = m_routingInfo->visualizedData(rect);
+    const QPixmap& pixmap = d->routingInfo->visualizedData(rect);
     if (pixmap.isNull())
         return;
 
