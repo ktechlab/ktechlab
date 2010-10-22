@@ -44,16 +44,6 @@ public:
     ~IComponentItem();
 
     /**
-     * Set the document model for this component. This will be used to notify
-     * the model about changes and to retrieve information about itself.
-     */
-    void setDocumentModel(IDocumentModel* model);
-    /**
-     * Get the document model.
-     */
-    IDocumentModel* documentModel() const;
-
-    /**
      * Check whether the given node belongs to this item.
      *
      * \param node - the Node to check
@@ -93,11 +83,6 @@ public slots:
 
 signals:
     void dataUpdated( const QString &name, const QVariantMap &data );
-
-protected:
-    virtual QVariant itemChange(GraphicsItemChange change, const QVariant& value);
-
-    IDocumentModel *m_document;
 };
 
 }

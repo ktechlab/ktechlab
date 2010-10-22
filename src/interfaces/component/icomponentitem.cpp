@@ -27,8 +27,7 @@
 using namespace KTechLab;
 
 IComponentItem::IComponentItem(QGraphicsItem* parentItem)
-    : QGraphicsSvgItem(parentItem),
-      m_document(0)
+    : QGraphicsSvgItem(parentItem)
 {
     setAcceptHoverEvents(true);
     setFlags(
@@ -68,29 +67,6 @@ QList<const Node*> IComponentItem::nodes() const
         if (n) list.append(n);
     }
     return list;
-}
-
-void IComponentItem::setDocumentModel(IDocumentModel* model)
-{
-    m_document = model;
-}
-
-IDocumentModel* IComponentItem::documentModel() const
-{
-    return m_document;
-}
-
-QVariant KTechLab::IComponentItem::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant& value)
-{
-    if (change == QGraphicsItem::ItemScenePositionHasChanged && m_document){
-        QPointF p = value.toPointF();
-        QVariantMap newData = QGraphicsItem::data(0).toMap();
-        newData.insert("x", p.x());
-        newData.insert("y", p.y());
-        setData(0, newData);
-        m_document->updateData( "position", newData);
-    }
-    return QGraphicsItem::itemChange(change, value);
 }
 
 QVariantMap IComponentItem::data() const
