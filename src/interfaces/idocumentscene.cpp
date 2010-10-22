@@ -159,7 +159,14 @@ void IDocumentScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 void IDocumentScene::keyPressEvent(QKeyEvent* event)
 {
     if (event->key() == Qt::Key_Delete){
-        foreach(QGraphicsItem *item, selectedItems()){
+        QList<QGraphicsItem*> items = selectedItems();
+        QList<IComponentItem*> components =
+            d->filterItemList<IComponentItem>(items);
+        foreach(IComponentItem* component, components)
+            foreach(const Node* node, component->nodes())
+                foreach(ConnectorItem* connector, d->filterItemList<ConnectorItem>(node->collidingItems()))
+                    items.append(connector);
+        foreach(QGraphicsItem *item, items){
             IDocumentItem* docItem = dynamic_cast<IDocumentItem*>(item);
             Q_ASSERT(docItem);
 
