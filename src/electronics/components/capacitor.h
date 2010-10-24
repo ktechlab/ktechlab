@@ -11,7 +11,7 @@
 #ifndef CAPACITOR_H
 #define CAPACITOR_H
 
-#include "simplecomponent.h"
+#include "component.h"
 #include "capacitance.h"
 
 class ECNode;
@@ -21,18 +21,23 @@ class ECNode;
 Simple capacitor
 @author David Saxton
 */
-class Capacitor : public SimpleComponent
+class Capacitor : public Component
 {
 public:
-	Capacitor(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	Capacitor();
 	~Capacitor();
-	
-	static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
-	static LibraryItem *libraryItem();
-	
+
+    /**
+     * \return the capacitance of the component
+     */
+    double capacitance() const;
+    /**
+     * set the value of the capaciance
+     */
+    void setCapacitance(double capacitance);
+
 private:
-	void dataChanged();
-	virtual void drawShape(QPainter &p);
+	// void dataChanged();
 
 	Capacitance m_capacitance;
 };
