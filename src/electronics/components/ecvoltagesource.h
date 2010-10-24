@@ -11,8 +11,7 @@
 #ifndef ECCELL_H
 #define ECCELL_H
 
-#include "simplecomponent.h"
-
+#include "component.h"
 #include "voltagesource.h"
 
 /**
@@ -20,18 +19,15 @@
 Simple electrical cell that simulates a PD and internal resistance
 @author David Saxton
 */
-class ECCell : public SimpleComponent
+class ECCell : public Component
 {
 public:
-	ECCell( ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	ECCell();
 	~ECCell();
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
 	
 private:
 	void dataChanged();
-	virtual void drawShape( QPainter &p );
+	// virtual void drawShape( QPainter &p );
 	VoltageSource m_voltageSource;
 };
 
