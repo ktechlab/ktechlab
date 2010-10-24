@@ -8,41 +8,20 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include <klocale.h>
-#include <qpainter.h>
+// #include <klocale.h>
+// #include <qpainter.h>
 
 #include "simulator.h"
 #include "capacitor.h"
-#include "ecnode.h"
-#include "libraryitem.h"
+// #include "ecnode.h"
+// #include "libraryitem.h"
 
-Item* Capacitor::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
-	return new Capacitor((ICNDocument*)itemDocument, newItem, id);
-}
+#include <QDebug>
 
-LibraryItem* Capacitor::libraryItem() {
-	return new LibraryItem(
-	           "ec/capacitor",
-	           i18n("Capacitor"),
-	           i18n("Passive"),
-	           "capacitor.png",
-	           LibraryItem::lit_component,
-	           Capacitor::construct
-	       );
-}
-
-Capacitor::Capacitor(ICNDocument *icnDocument, bool newItem, const char *id)
-		: SimpleComponent(icnDocument, newItem, id ? id : "capacitor"),
+Capacitor::Capacitor() : Component(),
 		m_capacitance(0.001, LINEAR_UPDATE_PERIOD) {
-	m_name = i18n("Capacitor");
-	setSize(-8, -8, 16, 16);
 
-	init1PinLeft();
-	init1PinRight();
-
-;
-	setup2pinElement(m_capacitance, m_pNNode[0]->pin(), m_pPNode[0]->pin());
-
+        /*
 	createProperty("Capacitance", Variant::Type::Double);
 	property("Capacitance")->setCaption(i18n("Capacitance"));
 	property("Capacitance")->setUnit("F");
@@ -51,10 +30,13 @@ Capacitor::Capacitor(ICNDocument *icnDocument, bool newItem, const char *id)
 	property("Capacitance")->setValue(1e-3);
 
 	addDisplayText("capacitance", QRect(-8, -24, 16, 16), "", false);
+    */
 }
 
 Capacitor::~Capacitor() {}
 
+
+/*
 void Capacitor::dataChanged() {
 	double capacitance = dataDouble("Capacitance");
 
@@ -63,20 +45,18 @@ void Capacitor::dataChanged() {
 
 	m_capacitance.setCapacitance(capacitance);
 }
+*/
 
-void Capacitor::drawShape(QPainter &p) {
-	initPainter(p);
-
-	int _y = (int)y() - 8;
-	int _x = (int)x() - 8;
-
-	QPen pen;
-	pen.setWidth(1);
-	pen.setColor(p.pen().color());
-	p.setPen(pen);
-	p.drawRect(_x, _y, 5, 16);
-	p.drawRect(_x + 11, _y, 5, 16);
-
-	deinitPainter(p);
+double Capacitor::capacitance() const
+{
+    return m_capacitance.capacitance();
 }
 
+void Capacitor::setCapacitance(double capacitance)
+{
+    if( capacitance < 0){
+        qCritical() << "capacitance value cannot be negative!";
+        capacitance = 1e-12;
+    }
+    m_capacitance.setCapacitance(capacitance);
+}
