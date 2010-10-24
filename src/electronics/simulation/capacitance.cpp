@@ -91,3 +91,7 @@ void Capacitance::setMethod( Method m )
 	updateStatus();
 }
 
+double Capacitance::capacitance() const
+{
+    return m_cap;
+}
