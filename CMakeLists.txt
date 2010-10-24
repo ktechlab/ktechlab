@@ -123,6 +123,7 @@ set( CompileSimulator_SRCS
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ecdiode.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/binarycounter.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/capacitor.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/components/addac.cpp
 )
 
 qt4_automoc(${CompileSimulator_SRCS})
