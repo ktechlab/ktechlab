@@ -9,42 +9,12 @@
  ***************************************************************************/
 
 #include "ecdiode.h"
-#include "ecnode.h"
-#include "libraryitem.h"
 
-#include <klocale.h>
-#include <qpainter.h>
-//Added by qt3to4:
-#include <Q3PointArray>
 
-Item* ECDiode::construct(ItemDocument *itemDocument, bool newItem, const char *id)
+
+ECDiode::ECDiode()
 {
-	return new ECDiode((ICNDocument*)itemDocument, newItem, id);
-}
-
-LibraryItem* ECDiode::libraryItem()
-{
-	return new LibraryItem(
-		"ec/diode",
-		i18n("Diode"),
-		i18n("Discrete"),
-		"diode.png",
-		LibraryItem::lit_component,
-		ECDiode::construct );
-}
-
-ECDiode::ECDiode(ICNDocument *icnDocument, bool newItem, const char *id)
-	: SimpleComponent(icnDocument, newItem, id ? id : "diode")
-{
-	m_name = i18n("Diode");
-
-	setSize(-8, -8, 16, 16);
-
-	init1PinLeft();
-	init1PinRight();
-
-	setup2pinElement(m_diode, m_pNNode[0]->pin(), m_pPNode[0]->pin());
-
+    /*
 	DiodeSettings ds; // it will have the default properties that we use
 
 	createProperty("I_S", Variant::Type::Double);
@@ -69,6 +39,7 @@ ECDiode::ECDiode(ICNDocument *icnDocument, bool newItem, const char *id)
 	property("V_B")->setMaxValue(1e10);
 	property("V_B")->setValue(ds.V_B);
 	property("V_B")->setAdvanced(true);
+    */
 
 // 	createProperty( "R", Variant::Type::Double );
 // 	property("R")->setCaption( i18n("Series Resistance") );
@@ -81,35 +52,39 @@ ECDiode::ECDiode(ICNDocument *icnDocument, bool newItem, const char *id)
 
 ECDiode::~ECDiode() {}
 
-void ECDiode::dataChanged()
+
+void ECDiode::setSaturationCurrent(double I_S)
 {
-	DiodeSettings ds;
-
-	ds.I_S = dataDouble("I_S");
-	ds.V_B = dataDouble("V_B");
-	ds.N = dataDouble("N");
-//	ds.R = dataDouble("R");
-
-	m_diode.setDiodeSettings(ds);
+    DiodeSettings ds = m_diode.settings();
+    ds.I_S = I_S;
+    m_diode.setDiodeSettings(ds);
 }
 
-void ECDiode::drawShape(QPainter &p)
+void ECDiode::setEmissionCoefficient(double N)
 {
-	initPainter(p);
-
-	int _x = int(x());
-	int _y = int(y());
-
-	Q3PointArray pa(3);
-	pa[0] = QPoint(8, 0);
-	pa[1] = QPoint(-8, -8);
-	pa[2] = QPoint(-8, 8);
-	pa.translate(_x, _y);
-	p.drawPolygon(pa);
-	p.drawPolyline(pa);
-
-	p.drawLine(_x + 8, _y - 8, _x + 8, _y + 8);
-
-	deinitPainter(p);
+    DiodeSettings ds = m_diode.settings();
+    ds.N = N;
+    m_diode.setDiodeSettings(ds);
 }
 
+void ECDiode::setBreakdownVoltage(double V_B)
+{
+    DiodeSettings ds = m_diode.settings();
+    ds.V_B = V_B;
+    m_diode.setDiodeSettings(ds);
+}
+
+double ECDiode::saturationCurrent() const
+{
+    return m_diode.settings().I_S;
+}
+
+double ECDiode::emissionCoefficient() const
+{
+    return m_diode.settings().N;
+}
+
+double ECDiode::breakdownVoltage() const
+{
+    return m_diode.settings().V_B;
+}

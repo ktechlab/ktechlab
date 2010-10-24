@@ -49,7 +49,7 @@ void LEDPart::setColor(const QColor &color) {
 }
 
 void LEDPart::step() {
-	avg_brightness += LED::brightness(m_pDiode.current()) * LINEAR_UPDATE_PERIOD;
+	avg_brightness += LED::brightnessFromCurrent(m_pDiode.current()) * LINEAR_UPDATE_PERIOD;
 	lastUpdatePeriod += LINEAR_UPDATE_PERIOD;
 }
 

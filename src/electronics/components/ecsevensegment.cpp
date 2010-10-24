@@ -108,7 +108,7 @@ void ECSevenSegment::stepNonLogic() {
 	if (!m_diodes[0]) return;
 
 	for (int i = 0; i < 8; i++)
-		avg_brightness[i] += LED::brightness(m_diodes[i]->current());
+		avg_brightness[i] += LED::brightnessFromCurrent(m_diodes[i]->current());
 
 	lastUpdatePeriod++;
 }
