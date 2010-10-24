@@ -115,6 +115,11 @@ set( CompileSimulator_SRCS
  ${CMAKE_SOURCE_DIR}/src/languages/microbe.cpp
  ${CMAKE_SOURCE_DIR}/src/languages/gpdasm.cpp
  # ${CMAKE_SOURCE_DIR}/src/languages/flowcode.cpp
+ # we need components...
+ ${CMAKE_SOURCE_DIR}/src/electronics/component.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/components/bidirled.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/components/led.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/components/ecdiode.cpp
 )
 
 qt4_automoc(${CompileSimulator_SRCS})
