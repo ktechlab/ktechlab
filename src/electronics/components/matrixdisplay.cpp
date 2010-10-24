@@ -233,7 +233,7 @@ void MatrixDisplay::stepNonLogic() {
         std::vector<MatrixDisplayCell> *tmp = &m_LEDs[i];
 
         for (unsigned j = 0; j < m_numRows; j++)
-            m_LEDs[i][j].m_avgBrightness += LED::brightness((*tmp)[j].m_pDiode.current()) * LINEAR_UPDATE_PERIOD;
+            m_LEDs[i][j].m_avgBrightness += LED::brightnessFromCurrent((*tmp)[j].m_pDiode.current()) * LINEAR_UPDATE_PERIOD;
     }
 
     m_lastUpdatePeriod += LINEAR_UPDATE_PERIOD;

@@ -11,35 +11,36 @@
 #ifndef BIDIRLED_H
 #define BIDIRLED_H
 
-#include "simplecomponent.h"
+#include "component.h"
 
 class Diode;
 
 /**
 @author David Saxton
 */
-class BiDirLED : public SimpleComponent
+class BiDirLED : public Component
 {
 	public:
-		BiDirLED(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+		BiDirLED();
 		~BiDirLED();
 
-		static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
-		static LibraryItem *libraryItem();
-
-		virtual void dataChanged();
+		// virtual void dataChanged();
 		virtual void stepNonLogic();
 		virtual bool doesStepNonLogic() const { return true; }
 
-	private:
-		virtual void drawShape(QPainter &p);
+        /**
+         * \return the average brightness of a given led
+         * \param ledNumber the number of the LED. It should be
+         *  0 for one LED, and 1 for the other
 
-		double r[2];
-		double g[2];
-		double b[2];
+         FIXME the current implementation will restun bogous results if this
+            method is called too often
+         */
+		double averageBrightness(int ledNumber);
+
+	private:
 
 		double avg_brightness[2];
-		uint last_brightness[2];
 		double lastUpdatePeriod;
 		Diode *m_pDiode[2];
 };
