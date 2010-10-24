@@ -120,6 +120,7 @@ set( CompileSimulator_SRCS
  ${CMAKE_SOURCE_DIR}/src/electronics/components/bidirled.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/led.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ecdiode.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/components/binarycounter.cpp
 )
 
 qt4_automoc(${CompileSimulator_SRCS})
