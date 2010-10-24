@@ -11,38 +11,24 @@
 #include "binarycounter.h"
 
 #include <cstdlib>
-#include <kiconloader.h>
-#include <klocale.h>
+// #include <kiconloader.h>
+// #include <klocale.h>
 
 #include "logic.h"
-#include "libraryitem.h"
+// #include "libraryitem.h"
 
-Item* BinaryCounter::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
-	return new BinaryCounter((ICNDocument*)itemDocument, newItem, id);
-}
+#include <QDebug>
+#include <QStringList>
 
-LibraryItem* BinaryCounter::libraryItem() {
-	QStringList ids;
-	ids << "ec/binary_counter" << "ec/4_bit_binary_counter";
-	return new LibraryItem(
-	           ids,
-	           i18n("Binary Counter"),
-	           i18n("Integrated Circuits"),
-	           "ic1.png",
-	           LibraryItem::lit_component,
-	           BinaryCounter::construct);
-}
-
-BinaryCounter::BinaryCounter(ICNDocument *icnDocument, bool newItem, const char *id)
-		: DIPComponent(icnDocument, newItem, id ? id : "binary_counter") {
-	m_name = i18n("Binary Counter");
-
-	b_triggerHigh = true;
+BinaryCounter::BinaryCounter() : Component()
+{
+	m_bTriggerHigh = true;
 	b_oldIn = false;
 	m_value = 0;
 	m_numBits = 0;
 	m_bDoneLogicIn = false;
 
+    /*
 	createProperty("trig", Variant::Type::Select);
 	property("trig")->setCaption(i18n("Trigger Edge"));
 	QStringMap allowed;
@@ -56,6 +42,7 @@ BinaryCounter::BinaryCounter(ICNDocument *icnDocument, bool newItem, const char 
 	property("bitcount")->setMinValue(1);
 	property("bitcount")->setMaxValue(26);
 	property("bitcount")->setValue(4);
+    */
 }
 
 BinaryCounter::~BinaryCounter() {
@@ -64,12 +51,41 @@ BinaryCounter::~BinaryCounter() {
 	}
 }
 
+/*
 void BinaryCounter::dataChanged() {
 	initPins(dataInt("bitcount"));
 
 	b_triggerHigh = dataString("trig") == "Rising";
 	setDisplayText(">", b_triggerHigh ? "^>" : "_>");
 }
+*/
+
+int BinaryCounter::bitNumber() const
+{
+    return m_numBits;
+}
+
+void BinaryCounter::setBitNumber(int numBits)
+{
+    if( (numBits < 0) || (numBits >= 26)) // FIXME magic constant
+    {
+        qWarning() << "BinaryCounter::setBitNumber: invalid number of bits"
+            << numBits << "Truncating to 26";
+        numBits = 26;
+    }
+    initPins(numBits);
+}
+
+bool BinaryCounter::triggherIsOnRisingEdge() const
+{
+    return m_bTriggerHigh;
+}
+
+void BinaryCounter::setTriggerOnRisingEdge(bool isOnRisingEdge)
+{
+    m_bTriggerHigh = isOnRisingEdge;
+}
+
 
 void BinaryCounter::initPins(unsigned numBits) {
 	if (m_numBits == numBits)
@@ -91,30 +107,30 @@ void BinaryCounter::initPins(unsigned numBits) {
 	for (int i = numBits - 1; i >= 0; i--)
 		pins << QChar('A' + i);
 
-	initDIPSymbol(pins, 64);
-	initDIP(pins);
-
 	if (m_numBits < numBits) {
 		for (unsigned i = m_numBits; i < numBits; i++) {
 			m_pLogicOut[i] = new LogicOut(LogicConfig(), false);
-			setup1pinElement(*(m_pLogicOut[i]), ecNodeWithID(QChar('A' + i))->pin());
 		}
 	} else {
 		for (unsigned i = numBits; i < m_numBits; i++) {
 			QString id = QChar('A' + i);
+            /* FIXME implement element removal
 			removeElement(m_pLogicOut[i], false);
 			removeDisplayText(id);
 			removeNode(id);
+            */
 		}
 	}
 
 	m_numBits = numBits;
 
 	if (!m_bDoneLogicIn) {
+        /*
 		setup1pinElement(enLogic, ecNodeWithID("en")->pin());
 		setup1pinElement(udLogic, ecNodeWithID("u/d")->pin());
 		setup1pinElement(inLogic, ecNodeWithID(">")->pin());
 		setup1pinElement(rLogic, ecNodeWithID("r")->pin());
+        */
 
 		inLogic.setCallback(this, (CallbackPtr)(&BinaryCounter::inStateChanged));
 		rLogic.setCallback(this, (CallbackPtr)(&BinaryCounter::rStateChanged));
@@ -126,7 +142,7 @@ void BinaryCounter::initPins(unsigned numBits) {
 }
 
 void BinaryCounter::inStateChanged(bool state) {
-	if ((state != b_oldIn) && enLogic.isHigh() && !rLogic.isHigh() && state == b_triggerHigh) {
+	if ((state != b_oldIn) && enLogic.isHigh() && !rLogic.isHigh() && state == m_bTriggerHigh) {
 		if (udLogic.isHigh()) m_value++;
 		else m_value--;
 

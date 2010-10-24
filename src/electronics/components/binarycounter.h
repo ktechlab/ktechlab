@@ -11,7 +11,7 @@
 #ifndef EC4BITCOUNTER_H
 #define EC4BITCOUNTER_H
 
-#include "dipcomponent.h"
+#include "component.h"
 #include "logic.h"
 
 /**
@@ -29,27 +29,45 @@ The inputs are:
 
 TODO: refactor and make a subclass of clockedFlipFLop (or clocked Logic, as proposed.
 */
-class BinaryCounter : public CallbackClass, public DIPComponent {
+class BinaryCounter : public CallbackClass, public Component {
 
 public:
-	BinaryCounter(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	BinaryCounter();
 	~BinaryCounter();
 
-	static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
-	static LibraryItem *libraryItem();
+    /**
+     * \return the number of bits of the counter
+     */
+    int bitNumber() const;
+
+    /**
+     * Set the number of bits that this counter has
+     */
+    void setBitNumber(int numBits);
+
+    /**
+     * \return if the triggering of this counter is done on the rising edge
+     *      of the clock
+     */
+    bool triggherIsOnRisingEdge() const ;
+
+    /**
+     * Set if the triggering should happen on rising or falling edge
+     */
+    void setTriggerOnRisingEdge(bool isOnRisingEdge);
 
 protected:
 	void inStateChanged(bool state);   // Input
 	void rStateChanged(bool state);   // Reset
 	void outputValue();
-	void dataChanged();
+	// void dataChanged();
 	void initPins(unsigned numBits);
 
 	LogicIn enLogic, inLogic, rLogic, udLogic;
 	LogicOut *m_pLogicOut[26];
 
 	unsigned m_numBits;
-	bool b_triggerHigh;
+	bool m_bTriggerHigh;
 	bool b_oldIn;  // <<< maybe we should inherit "clocked logic" or something... 
 	unsigned m_value;
 	bool m_bDoneLogicIn;
