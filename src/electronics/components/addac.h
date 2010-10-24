@@ -11,9 +11,10 @@
 #ifndef ADDAC_H
 #define ADDAC_H
 
-#include "dipcomponent.h"
+#include "component.h"
 #include "voltagepoint.h"
 
+class Pin;
 class LogicIn;
 class LogicOut;
 class VoltagePoint;
@@ -23,13 +24,13 @@ const int max_ADDAC_bits = 32;
 /**
 @author David Saxton
 */
-class ADDAC : public DIPComponent {
+class ADDAC : public Component {
 public:
-    ADDAC(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+    ADDAC();
     ~ADDAC();
 
 protected:
-    void dataChanged();
+    // void dataChanged();
     /**
      * Add / remove pins according to the number of outputs the user has requested
      */
@@ -44,11 +45,8 @@ protected:
  */
 class ADC : public ADDAC {
 public:
-    ADC(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+    ADC();
     ~ADC();
-
-    static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
-    static LibraryItem *libraryItem();
 
     virtual void stepNonLogic();
     virtual bool doesStepNonLogic() const { return true; }
@@ -60,7 +58,7 @@ protected:
     virtual void initPins();
 
     LogicOut *m_logic[max_ADDAC_bits];
-    ECNode *m_realNode;
+    Pin *m_realNode;
 };
 
 /**
@@ -68,11 +66,8 @@ protected:
  */
 class DAC : public ADDAC {
 public:
-    DAC(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+    DAC();
     ~DAC();
-
-    static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
-    static LibraryItem *libraryItem();
 
     virtual void stepNonLogic();
     virtual bool doesStepNonLogic() const { return true; }
