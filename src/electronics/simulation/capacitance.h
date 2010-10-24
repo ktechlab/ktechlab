@@ -38,6 +38,7 @@ public:
 	virtual void time_step();
 	virtual void add_initial_dc();
 	void setCapacitance( const double c );
+    double capacitance() const ;
 
     virtual void updateCurrents();
 protected:
