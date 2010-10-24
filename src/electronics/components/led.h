@@ -32,7 +32,6 @@ public:
 
     uint currentBrighness();
 
-//	virtual void dataChanged();
 	virtual void stepNonLogic();
 	virtual bool doesStepNonLogic() const {
 		return true;
