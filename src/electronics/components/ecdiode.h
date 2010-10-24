@@ -11,25 +11,28 @@
 #ifndef ECDIODE_H
 #define ECDIODE_H
 
-#include "simplecomponent.h"
+#include "component.h"
 #include "diode.h"
 
 /**
 @short Simple diode
 @author David Saxton
 */
-class ECDiode : public SimpleComponent
+class ECDiode : public Component
 {
 public:
-	ECDiode(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	ECDiode();
 	~ECDiode();
-	
-	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
-	static LibraryItem *libraryItem();
+
+    void setSaturationCurrent(double I_S); // I_S
+    void setEmissionCoefficient(double N); // N
+    void setBreakdownVoltage(double V_B); // V_B
+
+    double saturationCurrent() const;
+    double emissionCoefficient() const;
+    double breakdownVoltage() const;
 	
 protected:
-	void drawShape(QPainter &p);
-	void dataChanged();
 	Diode m_diode;
 };
 
