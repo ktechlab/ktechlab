@@ -9,17 +9,10 @@
  ***************************************************************************/
 
 #include "bidirled.h"
-// #include "colorcombo.h"
 #include "diode.h"
 #include "led.h"
-// #include "ecnode.h"
-// #include "libraryitem.h"
 #include "simulator.h"
 
-//#include <klocale.h>
-//#include <qpainter.h>
-//Added by qt3to4:
-//#include <Q3PointArray>
 #include <QDebug>
 
 BiDirLED::BiDirLED() {
