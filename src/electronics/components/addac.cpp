@@ -9,21 +9,24 @@
  ***************************************************************************/
 
 #include "addac.h"
-#include "ecnode.h"
+// #include "ecnode.h"
 #include "logic.h"
-#include "libraryitem.h"
+// #include "libraryitem.h"
+#include "pin.h"
+
+#include <QStringList>
 
 #include <cmath>
-#include <kiconloader.h>
-#include <klocale.h>
+// #include <kiconloader.h>
+// #include <klocale.h>
 
 //BEGIN class ADDAC
-ADDAC::ADDAC(ICNDocument *icnDocument, bool newItem, const char *id)
-	: DIPComponent(icnDocument, newItem, id)
+ADDAC::ADDAC() : Component()
 {
 	m_numBits = 0;
 	m_range = 0;
-	
+
+    /*
 	createProperty( "numBits",  Variant::Type::Int );
 	property("numBits")->setCaption( i18n("Number Bits") );
 	property("numBits")->setMinValue(2);
@@ -36,44 +39,30 @@ ADDAC::ADDAC(ICNDocument *icnDocument, bool newItem, const char *id)
 	property("range")->setMinValue(-1e12);
 	property("range")->setMaxValue(1e12);
 	property("range")->setValue(5);
+    */
 }
 
 ADDAC::~ADDAC()
 {
 }
 
+/*
 void ADDAC::dataChanged()
 {
 	m_range = dataDouble("range");
 	initPins();
 }
+*/
+
 //END class ADDAC
 
 //BEGIN class ADC
-Item *ADC::construct(ItemDocument *itemDocument, bool newItem, const char *id)
-{
-	return new ADC((ICNDocument*)itemDocument, newItem, id);
-}
-
-LibraryItem *ADC::libraryItem()
-{
-	return new LibraryItem(
-		"ec/adc",
-		i18n("Analog-Digital"),
-		i18n("Integrated Circuits"),
-		"ic1.png",
-		LibraryItem::lit_component,
-		ADC::construct);
-}
-
 ADC::~ADC()
 {
 }
 
-ADC::ADC( ICNDocument *icnDocument, bool newItem, const char *id )
-	: ADDAC( icnDocument, newItem, id ? id : "adc" )
+ADC::ADC() : ADDAC()
 {
-	m_name = i18n("ADC");
 	
 	for ( int i=0; i<max_ADDAC_bits; ++i )
 		m_logic[i] = 0;
@@ -83,7 +72,7 @@ ADC::ADC( ICNDocument *icnDocument, bool newItem, const char *id )
 
 void ADC::stepNonLogic()
 {
-	double floatBitValue = m_realNode->pin().voltage() * (std::pow( 2, double(m_numBits) )-1.) / m_range;
+	double floatBitValue = m_realNode->voltage() * (std::pow( 2, double(m_numBits) )-1.) / m_range;
 	double roundBitValue = std::floor( floatBitValue + 0.5 );
 	
 	if ( roundBitValue < 0 )
@@ -100,7 +89,7 @@ void ADC::stepNonLogic()
 
 void ADC::initPins()
 {
-	int numBits = dataInt("numBits");
+	int numBits = 8; // dataInt("numBits"); // FIXME
 	
 	if ( numBits < 2 )
 		numBits = 2;
@@ -124,24 +113,23 @@ void ADC::initPins()
 	for(int i = numBits - 1; i >= 0; --i)
 		pins += QString::number(i);
 
-	initDIPSymbol(pins, 64);
-	initDIP(pins);
-
-	if(!m_realNode)
-		m_realNode =  ecNodeWithID("In");
+//	if(!m_realNode)
+//		m_realNode =  ecNodeWithID("In");
 
 	if(numBits > m_numBits) {
 		for(int i = m_numBits; i < numBits; ++i) {
 
 			m_logic[i] = new LogicOut(LogicConfig(), false);
-			setup1pinElement(*(m_logic[i]), ecNodeWithID(QString::number(i))->pin());
 		}
 	} else {
 		for(int i = numBits; i < m_numBits; ++i) {
 			QString id = QString::number(i);
+            // FIXME cleanup of element
+            /*
 			removeDisplayText(id);
 			removeElement(m_logic[i], false);
 			removeNode(id);
+            */
 			m_logic[i] = 0;
 		}
 	}
@@ -150,28 +138,8 @@ void ADC::initPins()
 //END class ADC
 
 //BEGIN class DAC
-Item *DAC::construct(ItemDocument *itemDocument, bool newItem, const char *id)
+DAC::DAC() : ADDAC()
 {
-	return new DAC((ICNDocument*)itemDocument, newItem, id);
-}
-
-LibraryItem* DAC::libraryItem()
-{
-	return new LibraryItem(
-		"ec/dac",
-		i18n("Digital-Analog"),
-		i18n("Integrated Circuits"),
-		"ic1.png",
-		LibraryItem::lit_component,
-		DAC::construct
-			);
-}
-
-DAC::DAC(ICNDocument *icnDocument, bool newItem, const char *id)
-	: ADDAC(icnDocument, newItem, id ? id : "dac")
-{
-	m_name = i18n("DAC");
-	
 	for ( int i=0; i<max_ADDAC_bits; ++i )
 		m_logic[i] = 0;
 	
@@ -196,7 +164,7 @@ void DAC::stepNonLogic()
 
 void DAC::initPins()
 {
-	int numBits = dataInt("numBits");
+	int numBits = 8 ; // FIXME dataInt("numBits");
 	
 	if(numBits < 2) numBits = 2;
 	else if(numBits > max_ADDAC_bits)
@@ -218,24 +186,21 @@ void DAC::initPins()
 	for(int i = inPos - 2; i >= 0; --i)
 		pins += "";
 	
-	initDIPSymbol(pins, 64);
-	initDIP(pins);
-	
-	setup1pinElement(m_voltagePoint, ecNodeWithID("Out")->pin());
-	
 	if(numBits > m_numBits) {
 		for(int i = m_numBits; i < numBits; ++i)
 		{
 			m_logic[i] = new LogicIn(LogicConfig());
-			setup1pinElement(*(m_logic[i]), ecNodeWithID(QString::number(i))->pin());
 		}
 	} else {
 		for(int i = numBits; i < m_numBits; ++i)
 		{
 			QString id = QString::number(i);
+            // FIXME element removal
+            /*
 			removeDisplayText(id);
 			removeElement(m_logic[i], false);
 			removeNode(id);
+            */
 			m_logic[i] = 0;
 		}
 	}
