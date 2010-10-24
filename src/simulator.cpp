@@ -13,6 +13,7 @@
 #include "switch.h"
 
 #include "component.h"
+#include "pin.h"
 
 // #include <kstaticdeleter.h>
 #include <qtimer.h>
