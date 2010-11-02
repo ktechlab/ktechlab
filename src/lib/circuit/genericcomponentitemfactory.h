@@ -21,11 +21,11 @@
 #define KTECHLAB_GENERICCOMPONENTITEMFACTORY_H
 
 #include <interfaces/component/icomponentplugin.h>
-
+#include "circuitexport.h"
 
 namespace KTechLab {
 
-class GenericComponentItemFactory : public KTechLab::IComponentItemFactory
+class CIRCUIT_EXPORT GenericComponentItemFactory : public KTechLab::IComponentItemFactory
 {
 
 public:

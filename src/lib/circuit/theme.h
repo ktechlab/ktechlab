@@ -23,6 +23,7 @@
 #include <QObject>
 
 #include <QStringList>
+#include "circuitexport.h"
 
 class QString;
 
@@ -41,7 +42,7 @@ namespace KTechLab
  *
  * \author Julian Bäume
  */
-class Theme : public QObject
+class CIRCUIT_EXPORT Theme : public QObject
 {
     Q_OBJECT
 public:
