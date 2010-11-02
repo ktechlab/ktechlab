@@ -14,7 +14,7 @@ kde4_add_plugin(ktllogic_components ${ktllogic_PART_SRCS})
 target_link_libraries(ktllogic_components
    ${KDE4_KDECORE_LIBS}
    ktlinterfaces
-   circuit
+   ktlcircuit
    ${KDEVPLATFORM_SHELL_LIBRARIES}
    ${KDEVPLATFORM_INTERFACES_LIBRARIES}
    )

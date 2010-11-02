@@ -22,12 +22,12 @@
 #define KTECHLAB_CIRCUITMODEL_H
 
 #include <interfaces/idocumentmodel.h>
+#include "circuitexport.h"
 
 namespace KTechLab
 {
-class ComponentMimeData;
 
-class CircuitModel : public IDocumentModel
+class CIRCUIT_EXPORT CircuitModel : public IDocumentModel
 {
 public:
     CircuitModel(QDomDocument doc, QObject* parent = 0);

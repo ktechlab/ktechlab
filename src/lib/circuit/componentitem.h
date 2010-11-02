@@ -12,13 +12,14 @@
 
 #include <QDomDocument>
 #include "interfaces/component/icomponentitem.h"
+#include "circuitexport.h"
 
 namespace KTechLab
 {
 
 class Theme;
 
-class ComponentItem: public IComponentItem
+class CIRCUIT_EXPORT ComponentItem: public IComponentItem
 {
     Q_OBJECT
 public:

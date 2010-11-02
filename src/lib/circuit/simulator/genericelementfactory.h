@@ -14,6 +14,7 @@
 #define GENERIC_ELEMENT_FACTORY
 
 #include "interfaces/simulator/ielementfactory.h"
+#include "../circuitexport.h"
 
 #include <kdebug.h>
 
@@ -41,7 +42,7 @@ namespace KTechLab
  * and override the pure virtual function. This header also provides a macro
  * helping you with implementing.
  */
-class GenericElementFactory : public KTechLab::IElementFactory
+class CIRCUIT_EXPORT GenericElementFactory : public KTechLab::IElementFactory
 {
 public:
     GenericElementFactory();
