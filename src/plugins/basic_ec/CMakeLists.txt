@@ -18,7 +18,7 @@ target_link_libraries(ktlbasic_ec
    ${KDE4_KDECORE_LIBS}
    ${KDE4_PLASMA_LIBS}
    ktlinterfaces
-   circuit
+   ktlcircuit
    ${KDEVPLATFORM_SHELL_LIBRARIES}
    ${KDEVPLATFORM_INTERFACES_LIBRARIES}
    )

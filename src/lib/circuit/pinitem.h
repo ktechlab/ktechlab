@@ -21,6 +21,7 @@
 #define PINITEM_H
 
 #include "interfaces/component/node.h"
+#include "circuitexport.h"
 
 namespace KTechLab
 {
@@ -32,7 +33,7 @@ class IDocumentScene;
  * A QGraphicsItem used to indicate mouse interaction. When this
  * item is clicked, routing will start from this point in the parent scene.
  */
-class PinItem : public Node
+class CIRCUIT_EXPORT PinItem : public Node
 {
 public:
     PinItem(const QRectF &rect, IComponentItem* parent = 0, QGraphicsScene* scene = 0);
