@@ -409,6 +409,8 @@ inline void Cells::addCIPenalty(const KTechLab::IComponentItem* item, int score)
     int factor = score < 0 ? -1 : 1;
     QPainterPath shape = item->mapToScene(item->shape());
     QRect rect = shape.boundingRect().toRect();
+    if (!m_sceneRect.contains(rect))
+        updateSceneRect(m_sceneRect | rect);
     //transform to internal raster
     rect.setSize(mapToCells(rect.size())-QSize(1,1));
     rect.moveTopLeft(mapToCells(rect.topLeft())+QPoint(1,1));
