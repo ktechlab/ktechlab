@@ -129,7 +129,7 @@ void Cells::updateVisualization(const QRectF &region)
 
 void Cells::updateSceneRect(const QRectF& rect)
 {
-    if (m_documentScene->isRouting())
+    if (m_documentScene->isRouting() || m_sceneRect.contains(rect.toRect()))
         return;
 
     //FIXME: this doesn't scale, takes very long for larger scenes
