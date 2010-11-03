@@ -15,6 +15,7 @@
 #include <set>
 
 #include <QObject>
+#include <variant.h>
 
 class ElementMap;
 
@@ -55,6 +56,18 @@ public:
      */
 	virtual void stepNonLogic() {};
 
+    /**
+     * \return the list of all the properties of the component
+     */
+    QList<Property*> properties() const;
+
+    /**
+     * \return a property of this component, having a given name/
+     *  If the property is not found, this method returns null.
+     * \param name the name of the property
+     */
+    Property* propertyByName(const QString& name) const;
+
 protected:
 	/**
 	 * Removes all elements and switches.
@@ -63,6 +76,34 @@ protected:
 	 * destructor, or when the dependency information is the same.
 	 */
 	void removeElements();
+
+    /**
+     * associate a property with this component
+     * \param theProperty the property object
+     */
+    void addProperty(Property *theProperty);
+
+    /**
+     * Method that will be called when a property of a component has changed.
+     * By default, this method does nothing, but it should be overridden
+     * in the derived classes.
+     * \param theProperty the property that has changes
+     * \param newValue the new value of the property
+     * \param oldValue the old value of the property
+     */
+    virtual void propertyChanged(Property& theProperty,
+                                 QVariant newValue, QVariant oldValue )
+                {
+                    Q_UNUSED(theProperty);
+                    Q_UNUSED(newValue);
+                    Q_UNUSED(oldValue);
+                }
+
+private slots:
+    /**
+     * Slot used by the properties, in order to signal changes of their values
+     */
+    void propertyChanged(QVariant newValue, QVariant oldValue );
 
 private:
 
@@ -74,6 +115,13 @@ private:
 	 */
 	QList<ElementMap*> m_elementMapList;
 
+    /**
+     * List of all properties of the component.
+     * <br>
+     * Note: because a component should have only a few (at most about 10)
+     * properties, a simple list should be enough.
+     */
+    QList<Property*> m_propertyList;
 };
 
 #endif
