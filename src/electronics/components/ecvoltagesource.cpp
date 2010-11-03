@@ -12,9 +12,17 @@
 
 #include "voltagesource.h"
 
+#include <QDebug>
+
 ECCell::ECCell() : Component()
 {
-
+    Property *v = new Property("voltage", Variant::Type::Double);
+    v->setUnit("V");
+    v->setCaption(tr("Voltage"));
+    v->setMinValue(-1e12);
+    v->setMaxValue(1e12);
+    v->setValue(5.0);
+    addProperty(v);
     /*
     m_pNNode[0]->pin().setGroundType(Pin::gt_medium);
 
@@ -30,6 +38,17 @@ ECCell::ECCell() : Component()
 }
 
 ECCell::~ECCell() {
+}
+
+void ECCell::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
+{
+    if(theProperty.name() != "voltage"){
+        qCritical() << "property changed different than voltage?!";
+        return;
+    }
+    Q_UNUSED(oldValue);
+    double voltage = newValue.asDouble();
+    m_voltageSource.setVoltage(voltage);
 }
 
 /*
