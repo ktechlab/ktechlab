@@ -19,8 +19,15 @@
 #include <QDebug>
 
 Capacitor::Capacitor() : Component(),
-		m_capacitance(0.001, LINEAR_UPDATE_PERIOD) {
-
+		m_capacitance(0.001, LINEAR_UPDATE_PERIOD)
+{
+    Property *cap = new Property("Capacitance", Variant::Type::Double);
+    cap->setCaption(tr("Capacitance"));
+    cap->setUnit("F");
+    cap->setMinValue(1e-12);
+    cap->setMaxValue(1e12);
+    cap->setValue(1e-3);
+    addProperty(cap);
         /*
 	createProperty("Capacitance", Variant::Type::Double);
 	property("Capacitance")->setCaption(i18n("Capacitance"));
@@ -35,6 +42,17 @@ Capacitor::Capacitor() : Component(),
 
 Capacitor::~Capacitor() {}
 
+void Capacitor::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
+{
+    if(theProperty.name() != "Capacitance"){
+        qCritical() << "capacitor has different property than capacitance?"
+            << "and that one also changes?";
+        return;
+    }
+    Q_UNUSED(oldValue);
+    double capacitance = newValue.asDouble();
+    setCapacitance(capacitance);
+}
 
 /*
 void Capacitor::dataChanged() {

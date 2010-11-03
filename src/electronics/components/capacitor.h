@@ -36,6 +36,10 @@ public:
      */
     void setCapacitance(double capacitance);
 
+protected:
+    virtual void propertyChanged(Property& theProperty,
+                                 QVariant newValue, QVariant oldValue );
+
 private:
 	// void dataChanged();
 
