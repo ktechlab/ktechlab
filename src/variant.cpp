@@ -8,25 +8,32 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "colorcombo.h"
-#include "cnitem.h"
+// #include "colorcombo.h"
+// #include "cnitem.h"
+
 
 #include <cmath>
 #include <kdebug.h>
-#include <klocale.h>
-using namespace std;
+// #include <klocale.h>
+#include <QColor>
 
-Variant::Variant( const QString & id, Type::Value type )
-	: QObject(), m_id( id )
+#include <QStringList>
+
+#include "variant.h"
+
+// using namespace std;
+
+Variant::Variant( const QString& name, Variant::Type::Value type )
+	: QObject(), m_name(name)
 {
 	m_type = type;
 	m_bSetDefault = false;
 	m_bHidden = false;
-	m_bAdvanced = false; 
+	m_bAdvanced = false;
 	m_minValue = 1e-6;
 	m_maxValue = 1e9;
 	m_minAbsValue = 1e-6;
-	m_colorScheme = ColorCombo::QtStandard;
+	// m_colorScheme = ColorCombo::QtStandard;
 	if ( type == Type::Color )
 	{
 		// this value is taken from ColorCombo and should ideally be put somewhere...
@@ -41,16 +48,14 @@ Variant::~Variant()
 }
 
 
+/*
 void Variant::setType( Type::Value type )
 {
 	m_type = type;
 }
+*/
 
 
-void Variant::appendAllowed( const QString & id, const QString & i18nName )
-{
-	m_allowed[id] = i18nName;
-}
 
 
 void Variant::setAllowed( const QStringList & allowed )
@@ -61,6 +66,11 @@ void Variant::setAllowed( const QStringList & allowed )
 		m_allowed[ *it ] = *it;
 }
 
+
+void Variant::appendAllowed( const QString & id, const QString & i18nName )
+{
+    m_allowed[id] = i18nName;
+}
 
 void Variant::appendAllowed( const QString & allowed )
 {
@@ -93,14 +103,16 @@ QString Variant::displayString() const
 		case Variant::Type::Double:
 		{
 			double numValue = m_value.toDouble();
-			return QString::number( numValue / CNItem::getMultiplier(numValue) ) + " " + CNItem::getNumberMag(numValue) + m_unit;
+            // FIXME better formatting
+			// return QString::number( numValue / CNItem::getMultiplier(numValue) ) + " " + CNItem::getNumberMag(numValue) + m_unit;
+            return QString::number(numValue);
 		}
 		
 		case Variant::Type::Int:
 			return m_value.toString()+" "+m_unit;
 			
 		case Variant::Type::Bool:
-			return m_value.toBool() ? i18n("True") : i18n("False");
+			return m_value.toBool() ? tr("True") : tr("False");
 			
 		case Variant::Type::Select:
 			return m_allowed[ m_value.toString() ];
@@ -170,7 +182,7 @@ void Variant::setValue( QVariant val )
 			break;
 			
 		case Variant::Type::Color:
-			emit valueChanged( value().toColor() );
+			emit valueChanged( value().value<QColor>() );
 			break;
 			
 		case Variant::Type::Bool:
@@ -204,7 +216,7 @@ bool Variant::changed() const
 			return false;
 		
 		// denom cannot be zero
-		double denom = max( abs( cur ), abs( def ) );
+		double denom = std::max( abs( cur ), abs( def ) );
 		
 		// not changed if within 1e-4% of each other's value
 		return ( (diff / denom) > 1e-6 );

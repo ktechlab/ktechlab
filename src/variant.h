@@ -13,6 +13,7 @@
 
 #include <qobject.h>
 #include <qvariant.h>
+#include <QStringList>
 
 /// \todo Replace "Variant" with "Property"
 class Variant;
@@ -61,23 +62,22 @@ public:
 			};
 	};
 	
-	Variant( const QString & id, Type::Value type );
+	Variant( const QString & name, Type::Value type );
 	virtual ~Variant();
-	
-	QString id() const { return m_id; }
-	
+
+    /**
+     * \return the name of the variant
+     */
+    QString name() const { return m_name; }
 	/**
 	 * Returns the type of Variant (see Variant::Type::Value)
 	 */
 	Variant::Type::Value type() const { return m_type; }
 	/**
-	 * Sets the variant type
-	 */
-	void setType( Type::Value type );
-	/**
 	 * Returns the filter used for file dialogs (if this is of type Type::FileName)
 	 */
 	QString filter() const { return m_filter; }
+
 	void setFilter( const QString & filter ) { m_filter = filter; }
 	/**
 	 * The selection of colours to be used in the combo box - e.g.
@@ -194,7 +194,8 @@ private:
 	QVariant m_value; // the actual data
 	QVariant m_defaultValue;
 	QString m_unit;
-	const QString m_id;
+	// const QString m_id;
+    const QString m_name;
 	double m_minAbsValue;
 	double m_minValue;
 	double m_maxValue;
