@@ -85,7 +85,7 @@ QPointF Cells::alignToGrid(const QPointF& point)
 
 void Cells::update()
 {
-    QRectF updateRegion = m_documentScene->sceneRect();
+    QRectF updateRegion = m_sceneRect;
 
     foreach (QGraphicsItem* item, m_documentScene->items(updateRegion)) {
         //TODO: remove this, once updateSceneRect got fixed
