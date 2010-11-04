@@ -68,6 +68,9 @@ public:
      */
     Property* propertyByName(const QString& name) const;
 
+    // TODO list of pins of the component
+    // FIXME implementing buses
+
 protected:
 	/**
 	 * Removes all elements and switches.
