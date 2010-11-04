@@ -43,6 +43,8 @@ QString KTechlabIDEExtension::projectFileDescription() {
 QStringList KTechlabIDEExtension::defaultPlugins() {
     QStringList plugins = QStringList();
     plugins << QString( "ktlcircuit" );
+    plugins << QString( "KDevProjectManagerView" );
+    plugins << QString( "kdevdocumentview" );
     plugins << QString( "flowcode" );
     plugins << QString( "code_asm" );
     plugins << QString( "code_c" );
