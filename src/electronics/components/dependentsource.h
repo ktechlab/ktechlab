@@ -11,7 +11,8 @@
 #ifndef DEPENDENTSOURCE_H
 #define DEPENDENTSOURCE_H
 
-#include "simplecomponent.h"
+// #include "simplecomponent.h"
+#include "component.h"
 
 #include "cccs.h"
 #include "ccvs.h"
@@ -21,16 +22,12 @@
 /**
 @author David Saxton
 */
-class DependentSource : public SimpleComponent {
+class DependentSource : public Component {
 
 public:
-	DependentSource(ICNDocument *icnDocument, bool newItem, const char *id);
+	DependentSource();
 	~DependentSource();
 
-protected:
-	void drawOutline(QPainter &p);
-	void drawTopArrow(QPainter &p);
-	void drawBottomArrow(QPainter &p);
 };
 
 /**
@@ -40,16 +37,13 @@ protected:
 class ECCCCS : public DependentSource {
 
 public:
-	ECCCCS(ICNDocument *icnDocument, bool newItem, const char *id = 0L);
+	ECCCCS();
 	~ECCCCS();
 
-	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
-	static LibraryItem *libraryItem();
-
 protected:
-	virtual void dataChanged();
-	virtual void drawShape(QPainter &p);
-
+    virtual void propertyChanged(Property& theProperty,
+                                 QVariant newValue, QVariant oldValue );
+    //	virtual void dataChanged();
 	CCCS m_cccs;
 };
 
@@ -60,15 +54,13 @@ protected:
 class ECCCVS : public DependentSource {
 
 public:
-	ECCCVS(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	ECCCVS();
 	~ECCCVS();
 
-	static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
-	static LibraryItem *libraryItem();
-
 protected:
-	virtual void dataChanged();
-	virtual void drawShape(QPainter &p);
+	//virtual void dataChanged();
+    virtual void propertyChanged(Property& theProperty,
+                                 QVariant newValue, QVariant oldValue );
 
 	CCVS m_ccvs;
 };
@@ -80,15 +72,14 @@ protected:
 class ECVCCS : public DependentSource {
 
 public:
-	ECVCCS(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	ECVCCS();
 	~ECVCCS();
 
-	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
-	static LibraryItem *libraryItem();
 
 protected:
-	virtual void dataChanged();
-	virtual void drawShape(QPainter &p);
+    virtual void propertyChanged(Property& theProperty,
+                                 QVariant newValue, QVariant oldValue );
+//	virtual void dataChanged();
 
 	VCCS m_vccs;
 };
@@ -100,15 +91,13 @@ protected:
 class ECVCVS : public DependentSource {
 
 public:
-	ECVCVS(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	ECVCVS();
 	~ECVCVS();
 
-	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
-	static LibraryItem *libraryItem();
-
 protected:
-	virtual void dataChanged();
-	virtual void drawShape(QPainter &p);
+    virtual void propertyChanged(Property& theProperty,
+                                 QVariant newValue, QVariant oldValue );
+//	virtual void dataChanged();
 
 	VCVS m_vcvs;
 };
