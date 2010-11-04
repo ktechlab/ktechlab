@@ -9,35 +9,29 @@
  ***************************************************************************/
 
 #include <cmath>
+#include <QDebug>
 
-#include <kiconloader.h>
-#include <klocale.h>
+// #include <kiconloader.h>
+// #include <klocale.h>
 
 #include "demultiplexer.h"
 #include "logic.h"
-#include "libraryitem.h"
+// #include "libraryitem.h"
 
-Item* Demultiplexer::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
-	return new Demultiplexer((ICNDocument*)itemDocument, newItem, id);
-}
-
-LibraryItem* Demultiplexer::libraryItem() {
-	return new LibraryItem(
-	           "ec/demultiplexer",
-	           i18n("Demultiplexer"),
-	           i18n("Integrated Circuits"),
-	           "ic1.png",
-	           LibraryItem::lit_component,
-	           Demultiplexer::construct);
-}
-
-Demultiplexer::Demultiplexer(ICNDocument *icnDocument, bool newItem, const char *id)
-		: DIPComponent(icnDocument, newItem, id ? id : "demultiplexer"), 
-		m_input(LogicConfig()) {
-
+Demultiplexer::Demultiplexer()
+		: Component(), 
+		m_input(LogicConfig())
+{
 	m_input.setCallback(this, (CallbackPtr)(&Demultiplexer::inStateChanged));
 
-	m_name = i18n("Demultiplexer");
+    Property *size = new Property("addressSize", Variant::Type::Int);
+    size->setCaption(tr("Address Size"));
+    size->setMinValue(1);
+    size->setMaxValue(8);
+    size->setValue(1);
+    addProperty(size);
+
+    /*
 	createProperty("addressSize", Variant::Type::Int);
 	property("addressSize")->setCaption(i18n("Address Size"));
 	property("addressSize")->setMinValue(1);
@@ -49,6 +43,7 @@ Demultiplexer::Demultiplexer(ICNDocument *icnDocument, bool newItem, const char 
 	property("numInput")->setMinValue(-1);
 	property("numInput")->setValue(-1);
 	property("numInput")->setHidden(true);
+    */
 }
 
 Demultiplexer::~Demultiplexer() {
@@ -61,7 +56,9 @@ Demultiplexer::~Demultiplexer() {
 */
 }
 
+/*
 void Demultiplexer::dataChanged() {
+    
 	if (hasProperty("numInput") && dataInt("numInput") != -1) {
 		int addressSize = int(std::ceil(std::log((double)dataInt("numInput")) / std::log(2.0)));
 		property("numInput")->setValue(-1);
@@ -84,6 +81,16 @@ void Demultiplexer::dataChanged() {
 
 	initPins(unsigned(dataInt("addressSize")));
 }
+*/
+void Demultiplexer::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
+{
+    if( theProperty.name() != "addressSize" ){
+        qCritical() << "unknown property: " << theProperty.name();
+        return;
+    }
+    initPins(newValue.asUInt());
+}
+
 
 void Demultiplexer::inStateChanged(bool /*state*/) {
 	if(m_input.isHigh()) {
@@ -125,37 +132,41 @@ void Demultiplexer::initPins(unsigned newAddressSize) {
 	for (int i = newXLogicCount - 1; i >= 0; --i)
 		pins += "X" + QString::number(i);
 
-	initDIPSymbol(pins, 64);
-	initDIP(pins);
+	// initDIPSymbol(pins, 64);
+	// initDIP(pins);
 
-	setup1pinElement(m_input, ecNodeWithID("X")->pin());
+	// setup1pinElement(m_input, ecNodeWithID("X")->pin());
 
 	if (newXLogicCount > oldXLogicCount) {
 		m_xLogic.resize(newXLogicCount);
 		for (unsigned i = oldXLogicCount; i < newXLogicCount; ++i) {
-			setup1pinElement(m_xLogic[i], ecNodeWithID("X" + QString::number(i))->pin());
+			// setup1pinElement(m_xLogic[i], ecNodeWithID("X" + QString::number(i))->pin());
 		}
 
 		m_aLogic.resize(newAddressSize);
 		for (unsigned i = oldAddressSize; i < newAddressSize; ++i) {
-			setup1pinElement(m_aLogic[i], ecNodeWithID("A" + QString::number(i))->pin());
+			// setup1pinElement(m_aLogic[i], ecNodeWithID("A" + QString::number(i))->pin());
 			m_aLogic[i].setCallback(this, (CallbackPtr)(&Demultiplexer::inStateChanged));
 		}
 	} else {
 		for (unsigned i = newXLogicCount; i < oldXLogicCount; ++i) {
 			QString id = "X" + QString::number(i);
+            /* FIXME remove element
 			removeDisplayText(id);
 			removeElement(&m_xLogic[i], false);
 			removeNode(id);
+            */
 		}
 
 		m_xLogic.resize(newXLogicCount);
 
 		for (unsigned i = newAddressSize; i < oldAddressSize; ++i) {
 			QString id = "A" + QString::number(i);
+            /* FIXME remove element
 			removeDisplayText(id);
 			removeElement(&m_aLogic[i], false);
 			removeNode(id);
+            */
 		}
 
 		m_aLogic.resize(newAddressSize);
