@@ -16,6 +16,7 @@
 
 #include "logic.h"
 // #include "libraryitem.h"
+#include "variant.h"
 
 #include <QDebug>
 #include <QStringList>
@@ -27,6 +28,22 @@ BinaryCounter::BinaryCounter() : Component()
 	m_value = 0;
 	m_numBits = 0;
 	m_bDoneLogicIn = false;
+
+    Property *trig = new Property("trig", Variant::Type::Select);
+    trig->setCaption(tr("Trigger Edge"));
+    QStringMap allowed;
+    allowed["Rising"] = tr("Rising");
+    allowed["Falling"] = tr("Falling");
+    trig->setAllowed(allowed);
+    trig->setValue("Falling");
+    addProperty(trig);
+
+    Property *bitcnt = new Property("bitcount", Variant::Type::Int);
+    bitcnt->setCaption(tr("Bit Count"));
+    bitcnt->setMinValue(1);
+    bitcnt->setMaxValue(26);
+    bitcnt->setValue(4);
+    addProperty(bitcnt);
 
     /*
 	createProperty("trig", Variant::Type::Select);
@@ -59,7 +76,18 @@ void BinaryCounter::dataChanged() {
 	setDisplayText(">", b_triggerHigh ? "^>" : "_>");
 }
 */
-
+void BinaryCounter::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
+{
+    if( theProperty.name() == "bitcount"){
+        initPins( newValue.asInt());
+    }
+    if(theProperty.name() == "trig"){
+        m_bTriggerHigh = newValue.asString() == "Rising";
+        // setDisplayText(">", m_bTriggerHigh ? "^>" : "_>");
+    }
+    Q_UNUSED(oldValue);
+}
+/*
 int BinaryCounter::bitNumber() const
 {
     return m_numBits;
@@ -85,7 +113,7 @@ void BinaryCounter::setTriggerOnRisingEdge(bool isOnRisingEdge)
 {
     m_bTriggerHigh = isOnRisingEdge;
 }
-
+*/
 
 void BinaryCounter::initPins(unsigned numBits) {
 	if (m_numBits == numBits)
@@ -119,6 +147,7 @@ void BinaryCounter::initPins(unsigned numBits) {
 			removeDisplayText(id);
 			removeNode(id);
             */
+            m_pLogicOut[i] = 0;
 		}
 	}
 

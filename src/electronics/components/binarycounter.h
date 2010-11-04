@@ -35,6 +35,7 @@ public:
 	BinaryCounter();
 	~BinaryCounter();
 
+    #if 0
     /**
      * \return the number of bits of the counter
      */
@@ -55,12 +56,15 @@ public:
      * Set if the triggering should happen on rising or falling edge
      */
     void setTriggerOnRisingEdge(bool isOnRisingEdge);
+    #endif
 
 protected:
 	void inStateChanged(bool state);   // Input
 	void rStateChanged(bool state);   // Reset
 	void outputValue();
 	// void dataChanged();
+    virtual void propertyChanged(Property& theProperty,
+                                 QVariant newValue, QVariant oldValue );
 	void initPins(unsigned numBits);
 
 	LogicIn enLogic, inLogic, rLogic, udLogic;
