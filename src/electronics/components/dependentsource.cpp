@@ -9,141 +9,44 @@
  ***************************************************************************/
 
 #include "dependentsource.h"
-#include "ecnode.h"
-#include "libraryitem.h"
+// #include "ecnode.h"
+// #include "libraryitem.h"
 
-#include <klocale.h>
-#include <qpainter.h>
+// #include <klocale.h>
+// #include <qpainter.h>
 //Added by qt3to4:
-#include <Q3PointArray>
+//#include <Q3PointArray>
 
 //BEGIN class DependentSource
-DependentSource::DependentSource(ICNDocument *icnDocument, bool newItem, const char *id)
-		: SimpleComponent(icnDocument, newItem, id) {
-	setSize(-16, -16, 32, 32);
-
-	init2PinLeft();
-	init2PinRight();
-
-	m_pNNode[1]->setLength(13);
-	m_pPNode[1]->setLength(13);
-
+DependentSource::DependentSource()
+		: Component()
+{
+    /*
 	createProperty("gain", Variant::Type::Double);
 	property("gain")->setCaption(i18n("Gain"));
 	property("gain")->setValue(1.0);
-
-	addDisplayText("gain", QRect(-16, -32, 32, 16), "");
+    */
+    Property *gain = new Property("gain", Variant::Type::Double);
+    gain->setCaption(tr("Gain"));
+    gain->setValue(1.0);
+    addProperty(gain);
 }
 
 DependentSource::~DependentSource() {
 }
 
-void DependentSource::drawOutline(QPainter &p) {
-	const int _x = (int)x() - 16;
-	const int _y = (int)y() - 32;
-
-	// Top rectangle
-	p.drawRect(_x, _y + 19, width(), 11);
-
-#if 0
-	p.save();
-	bool canSetCol = (p.pen().color() != Qt::color0) && (p.pen().color() != Qt::color1);
-
-	// Bottom lines
-
-	if (canSetCol)
-		p.setPen(m_pNNode[1]->isSelected() ? m_selectedCol : Qt::black);
-
-	p.drawLine(_x, _y + 40, _x + 8, _y + 40); // Left inny
-
-	if (canSetCol)
-		p.setPen(m_pPNode[1]->isSelected() ? m_selectedCol : Qt::black);
-
-	p.drawLine(_x + width(), _y + 40, _x + 24, _y + 40); // Right inny
-
-	p.restore();
-#endif
-
-	// Bottom diamond
-	Q3PointArray pa4(4);
-
-	pa4[0] = QPoint(_x + 6, _y + 40);
-	pa4[1] = QPoint(_x + 16, _y + 32);
-	pa4[2] = QPoint(_x + 26, _y + 40);
-	pa4[3] = QPoint(_x + 16, _y + 48);
-
-	p.drawPolygon(pa4);
-}
-
-void DependentSource::drawTopArrow(QPainter &p) {
-	const int _x = (int)x() - 16;
-	const int _y = (int)y() - 32;
-
-	if (p.pen().color() == m_selectedCol)
-		p.setPen(Qt::black);
-
-	p.setBrush(Qt::black);
-
-	p.drawLine(_x + 8, _y + 24, _x + 24, _y + 24);
-
-	Q3PointArray pa3(3);
-
-	pa3[0] = QPoint(_x + 24, _y + 24);
-	pa3[1] = QPoint(_x + 19, _y + 21);
-	pa3[2] = QPoint(_x + 19, _y + 27);
-
-	p.drawPolygon(pa3);
-}
-
-void DependentSource::drawBottomArrow(QPainter &p) {
-	const int _x = (int)x() - 16;
-	const int _y = (int)y() - 32;
-
-	if (p.pen().color() == m_selectedCol)
-		p.setPen(Qt::black);
-
-	p.setBrush(Qt::black);
-
-	p.drawLine(_x + 11, _y + 40, _x + 21, _y + 40);
-
-	Q3PointArray pa3(3);
-
-	pa3[0] = QPoint(_x + 21, _y + 40);
-	pa3[1] = QPoint(_x + 16, _y + 37);
-	pa3[2] = QPoint(_x + 16, _y + 43);
-
-	p.drawPolygon(pa3);
-}
 //END class DependentSource
 
 //BEGIN class ECCCCS
-Item* ECCCCS::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
-	return new ECCCCS((ICNDocument*)itemDocument, newItem, id);
-}
 
-LibraryItem* ECCCCS::libraryItem() {
-	return new LibraryItem(
-	           QString("ec/cccs"),
-	           i18n("CCCS"),
-	           i18n("Sources"),
-	           "cccs.png",
-	           LibraryItem::lit_component,
-	           ECCCCS::construct);
-}
-
-ECCCCS::ECCCCS(ICNDocument *icnDocument, bool newItem, const char *id)
-		: DependentSource(icnDocument, newItem, id ? id : "cccs"),
+ECCCCS::ECCCCS()
+		: DependentSource(),
 		m_cccs(1) {
-	m_name = i18n("Current Controlled Currrent Source");
-
-	setup4pinElement(m_cccs, m_pNNode[0]->pin(), m_pPNode[0]->pin(),
-			 m_pNNode[1]->pin(), m_pPNode[1]->pin());
-
-	m_pNNode[1]->pin().setGroundType(Pin::gt_medium);
 }
 
 ECCCCS::~ECCCCS() {}
 
+/*
 void ECCCCS::dataChanged() {
 	double gain = dataDouble("gain");
 
@@ -152,44 +55,26 @@ void ECCCCS::dataChanged() {
 
 	m_cccs.setGain(gain);
 }
-
-void ECCCCS::drawShape(QPainter &p) {
-	initPainter(p);
-	drawOutline(p);
-	drawTopArrow(p);
-	drawBottomArrow(p);
-	deinitPainter(p);
+*/
+void ECCCCS::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
+{
+    Q_UNUSED(oldValue);
+    Q_ASSERT(theProperty.name() == "gain");
+    m_cccs.setGain(newValue.asDouble());
 }
+
 //END class ECCCCS
 
 //BEGIN class ECCCVS
-Item* ECCCVS::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
-	return new ECCCVS((ICNDocument*)itemDocument, newItem, id);
-}
 
-LibraryItem *ECCCVS::libraryItem() {
-	return new LibraryItem(
-	           QString("ec/ccvs"),
-	           i18n("CCVS"),
-	           i18n("Sources"),
-	           "ccvs.png",
-	           LibraryItem::lit_component,
-	           ECCCVS::construct);
-}
-
-ECCCVS::ECCCVS(ICNDocument *icnDocument, bool newItem, const char *id)
-		: DependentSource(icnDocument, newItem, id ? id : "ccvs"),
+ECCCVS::ECCCVS()
+		: DependentSource(),
 		m_ccvs(1) {
-	m_name = i18n("Current Controlled Voltage Source");
-
-	setup4pinElement(m_ccvs, m_pNNode[0]->pin(), m_pPNode[0]->pin(),
-			 m_pNNode[1]->pin(), m_pPNode[1]->pin());
-
-	m_pNNode[1]->pin().setGroundType(Pin::gt_medium);
 }
 
 ECCCVS::~ECCCVS() {}
 
+/*
 void ECCCVS::dataChanged() {
 	double gain = dataDouble("gain");
 
@@ -198,43 +83,26 @@ void ECCCVS::dataChanged() {
 
 	m_ccvs.setGain(gain);
 }
-
-void ECCCVS::drawShape(QPainter &p) {
-	initPainter(p);
-	drawOutline(p);
-	drawTopArrow(p);
-	deinitPainter(p);
+*/
+void ECCCVS::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
+{
+    Q_UNUSED(oldValue);
+    Q_ASSERT(theProperty.name() == "gain");
+    m_ccvs.setGain( newValue.asDouble() );
 }
+
+
 //END class ECCCVS
 
 //BEGIN class ECVCCS
-Item* ECVCCS::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
-	return new ECVCCS((ICNDocument*)itemDocument, newItem, id);
-}
-
-LibraryItem* ECVCCS::libraryItem() {
-	return new LibraryItem(
-	           QString("ec/vccs"),
-	           i18n("VCCS"),
-	           i18n("Sources"),
-	           "vccs.png",
-	           LibraryItem::lit_component,
-	           ECVCCS::construct);
-}
-
-ECVCCS::ECVCCS(ICNDocument *icnDocument, bool newItem, const char *id)
-		: DependentSource(icnDocument, newItem, id ? id : "vccs"),
+ECVCCS::ECVCCS()
+		: DependentSource(),
 		m_vccs(1) {
-	m_name = i18n("Voltage Controlled Current Source");
-
-	setup4pinElement(m_vccs, m_pNNode[0]->pin(), m_pPNode[0]->pin(),
-			 m_pNNode[1]->pin(), m_pPNode[1]->pin());
-
-	m_pNNode[1]->pin().setGroundType(Pin::gt_medium);
 }
 
 ECVCCS::~ECVCCS() {}
 
+/*
 void ECVCCS::dataChanged() {
 	double gain = dataDouble("gain");
 
@@ -243,43 +111,26 @@ void ECVCCS::dataChanged() {
 
 	m_vccs.setGain(gain);
 }
-
-void ECVCCS::drawShape(QPainter &p) {
-	initPainter(p);
-	drawOutline(p);
-	drawBottomArrow(p);
-	deinitPainter(p);
+*/
+void ECVCCS::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
+{
+    Q_UNUSED(oldValue);
+    Q_ASSERT( theProperty.name() == "gain");
+    m_vccs.setGain( newValue.asDouble() );
 }
+
 //END class ECVCCS
 
 //BEGIN class ECVCVS
-Item* ECVCVS::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
-	return new ECVCVS((ICNDocument*)itemDocument, newItem, id);
-}
 
-LibraryItem* ECVCVS::libraryItem() {
-	return new LibraryItem(
-	           QString("ec/vcvs"),
-	           i18n("VCVS"),
-	           i18n("Sources"),
-	           "vcvs.png",
-	           LibraryItem::lit_component,
-	           ECVCVS::construct);
-}
-
-ECVCVS::ECVCVS(ICNDocument *icnDocument, bool newItem, const char *id)
-		: DependentSource(icnDocument, newItem, id ? id : "vcvs"),
+ECVCVS::ECVCVS()
+		: DependentSource(),
 		m_vcvs(1) {
-	m_name = i18n("Voltage Controlled Voltage Source");
-
-	setup4pinElement(m_vcvs, m_pNNode[0]->pin(), m_pPNode[0]->pin(),
-			 m_pNNode[1]->pin(), m_pPNode[1]->pin());
-
-	m_pNNode[1]->pin().setGroundType(Pin::gt_medium);
 }
 
 ECVCVS::~ECVCVS() {}
 
+/*
 void ECVCVS::dataChanged() {
 	double gain = dataDouble("gain");
 
@@ -288,11 +139,13 @@ void ECVCVS::dataChanged() {
 
 	m_vcvs.setGain(gain);
 }
-
-void ECVCVS::drawShape(QPainter &p) {
-	initPainter(p);
-	drawOutline(p);
-	deinitPainter(p);
+*/
+void ECVCVS::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
+{
+    Q_UNUSED(oldValue);
+    Q_ASSERT(theProperty.name() == "gain");
+    m_vcvs.setGain( newValue.asDouble() );
 }
+
 //END class ECVCVS
 

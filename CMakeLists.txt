@@ -128,6 +128,7 @@ set( CompileSimulator_SRCS
  ${CMAKE_SOURCE_DIR}/src/electronics/components/addac.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ecvoltagesource.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/demultiplexer.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/components/dependentsource.cpp
 )
 
 qt4_automoc(${CompileSimulator_SRCS})
