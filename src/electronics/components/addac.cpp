@@ -14,6 +14,8 @@
 // #include "libraryitem.h"
 #include "pin.h"
 
+#include <variant.h>
+
 #include <QStringList>
 
 #include <cmath>
@@ -25,6 +27,21 @@ ADDAC::ADDAC() : Component()
 {
 	m_numBits = 0;
 	m_range = 0;
+
+    Property *bits = new Property("numBits", Variant::Type::Int);
+    bits->setCaption( tr("Number Bits") );
+    bits->setMinValue(2);
+    bits->setMaxValue(max_ADDAC_bits);
+    bits->setValue(2);
+    addProperty(bits);
+
+    Property *range = new Property("range", Variant::Type::Double);
+    range->setCaption( tr("Input Range") );
+    range->setUnit("V");
+    range->setMinValue(-1e12);
+    range->setMaxValue(1e12);
+    range->setValue(5);
+    addProperty(range);
 
     /*
 	createProperty( "numBits",  Variant::Type::Int );
@@ -44,6 +61,17 @@ ADDAC::ADDAC() : Component()
 
 ADDAC::~ADDAC()
 {
+}
+
+void ADDAC::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
+{
+    if(theProperty.name() == "range"){
+        m_range = newValue.asDouble();
+    }
+    if(theProperty.name() == "numBits"){
+        initPins();
+    }
+    Q_UNUSED(oldValue);
 }
 
 /*
@@ -89,7 +117,9 @@ void ADC::stepNonLogic()
 
 void ADC::initPins()
 {
-	int numBits = 8; // dataInt("numBits"); // FIXME
+
+    int numBits = propertyByName("numBits")->value().asInt();
+        // dataInt("numBits");
 	
 	if ( numBits < 2 )
 		numBits = 2;
@@ -124,7 +154,7 @@ void ADC::initPins()
 	} else {
 		for(int i = numBits; i < m_numBits; ++i) {
 			QString id = QString::number(i);
-            // FIXME cleanup of element
+            // FIXME cleanup of elements: logic outs and pins
             /*
 			removeDisplayText(id);
 			removeElement(m_logic[i], false);
@@ -164,7 +194,8 @@ void DAC::stepNonLogic()
 
 void DAC::initPins()
 {
-	int numBits = 8 ; // FIXME dataInt("numBits");
+    int numBits = propertyByName("numBits")->value().asInt();
+            // FIXME dataInt("numBits");
 	
 	if(numBits < 2) numBits = 2;
 	else if(numBits > max_ADDAC_bits)

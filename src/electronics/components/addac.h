@@ -30,6 +30,8 @@ public:
     ~ADDAC();
 
 protected:
+    virtual void propertyChanged(Property& theProperty,
+                                 QVariant newValue, QVariant oldValue );
     // void dataChanged();
     /**
      * Add / remove pins according to the number of outputs the user has requested
