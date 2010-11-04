@@ -11,25 +11,25 @@
 #ifndef DEMULTIPLEXER_H
 #define DEMULTIPLEXER_H
 
-#include "dipcomponent.h"
+// #include "dipcomponent.h"
 #include "logic.h"
+#include "component.h"
 
 #include <vector>
 
 /**
 @author David Saxton
 */
-class Demultiplexer : public CallbackClass,  public DIPComponent
+class Demultiplexer : public CallbackClass,  public Component
 {
 public:
-	Demultiplexer( ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	Demultiplexer();
 	~Demultiplexer();
 	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
-	
 protected:
-	void dataChanged();
+    virtual void propertyChanged(Property& theProperty,
+                                 QVariant newValue, QVariant oldValue );
+	// void dataChanged();
 	/**
 	 * Add / remove pins according to the number of inputs the user has requested
 	 */
