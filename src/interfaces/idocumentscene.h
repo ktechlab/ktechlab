@@ -165,6 +165,10 @@ protected:
      */
     void rerouteConnectors(QList< ConnectorItem* > items);
 
+    void scheduleForRerouting(QList<QGraphicsItem*> items);
+
+    void performRerouting();
+
     /**
      * This method tracks mouse movement during the routing process.
      * Make sure to call this method, in case you override it.
