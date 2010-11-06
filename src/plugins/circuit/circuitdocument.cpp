@@ -36,6 +36,7 @@ public:
 
     static int debugArea() { static int s_area = KDebug::registerArea("areaName"); return s_area; }
     bool writeToDisk();
+    void slotUpdateState();
 
     CircuitScene *circuitScene;
     CircuitModel *circuitModel;
@@ -95,7 +96,17 @@ bool CircuitDocumentPrivate::writeToDisk()
     file.write(circuitModel->textDocument()->toPlainText().toUtf8());
     file.close();
     circuitModel->textDocument()->setModified(false);
+    m_document->notifyStateChanged();
     return true;
+}
+
+void CircuitDocumentPrivate::slotUpdateState()
+{
+    KIcon statusIcon;
+    if (circuitModel->textDocument()->isModified()) {
+        statusIcon = KIcon("document-save");
+    }
+    m_document->setStatusIcon(statusIcon);
 }
 
 CircuitDocumentPrivate::~CircuitDocumentPrivate()
@@ -165,6 +176,9 @@ bool CircuitDocument::save(KDevelop::IDocument::DocumentSaveMode mode)
 QWidget* CircuitDocument::createViewWidget( QWidget* parent )
 {
     CircuitView *view = new CircuitView( d->circuitScene, parent);
+
+    connect(d->circuitModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)),
+            this, SLOT(slotUpdateState()));
 
     return view;
 }
