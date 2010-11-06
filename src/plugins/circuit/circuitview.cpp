@@ -24,19 +24,21 @@
  */
 
 #include "circuitview.h"
+#include <KIcon>
+#include <KActionMenu>
+#include <KLocalizedString>
+#include <KActionCollection>
+#include "circuitscene.h"
 
 using namespace KTechLab;
 
-CircuitView::CircuitView( QWidget *parent )
-    : QGraphicsView(parent)
+CircuitView::CircuitView ( CircuitScene* scene, QWidget* parent )
+    : QGraphicsView ( scene, parent ),
+      m_scene(scene)
 {
-    init();
-}
+    setXMLFile("ktechlabcircuitui.rc");
+    setupActions();
 
-
-CircuitView::CircuitView ( QGraphicsScene* scene, QWidget* parent )
-    : QGraphicsView ( scene, parent )
-{
     init();
 }
 
@@ -52,6 +54,52 @@ void CircuitView::init()
     setRenderHints(QPainter::Antialiasing);
     setAcceptDrops( true );
     setDragMode( QGraphicsView::RubberBandDrag );
+}
+
+void CircuitView::setupActions()
+{
+    KActionCollection* ac = actionCollection();
+    KAction* action;
+
+    action = ac->addAction( QString("edit_rotate_cw") );
+    action->setText( i18n("Rotate Clockwise") );
+    action->setIcon( KIcon("object-rotate-right") );
+    connect( action, SIGNAL(triggered()), this, SLOT(slotComponentRotateCW()) );
+
+    action = ac->addAction( QString("edit_rotate_ccw") );
+    action->setText( i18n("Rotate Counter-Clockwise") );
+    action->setIcon( KIcon("object-rotate-left") );
+    connect( action, SIGNAL(triggered()), this, SLOT(slotComponentRotateCCW()) );
+
+    action = ac->addAction( QString("edit_flip_horizontally") );
+    action->setText( i18n("Flip Horizontally") );
+    action->setIcon( KIcon("object-flip-horizontal") );
+    connect( action, SIGNAL(triggered()), this, SLOT(slotComponentFlipHorizontal()) );
+
+    action = ac->addAction( QString("edit_flip_vertically") );
+    action->setText( i18n("Flip Vertically") );
+    action->setIcon( KIcon("object-flip-vertical") );
+    connect( action, SIGNAL(triggered()), this, SLOT(slotComponentFlipVertical()) );
+}
+
+void CircuitView::slotComponentFlipHorizontal()
+{
+    m_scene->flipSelectedComponents(Qt::XAxis);
+}
+
+void CircuitView::slotComponentFlipVertical()
+{
+    m_scene->flipSelectedComponents(Qt::YAxis);
+}
+
+void CircuitView::slotComponentRotateCCW()
+{
+    m_scene->rotateSelectedComponents(-90);
+}
+
+void CircuitView::slotComponentRotateCW()
+{
+    m_scene->rotateSelectedComponents(90);
 }
 
 #include "circuitview.moc"
