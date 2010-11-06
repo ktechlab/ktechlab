@@ -47,6 +47,9 @@ class CircuitScene : public IDocumentScene
     virtual IComponentItem* item(const QString& id) const;
     virtual Node* node(const QString& id) const;
 
+    void rotateSelectedComponents( qreal angle );
+    void flipSelectedComponents( Qt::Axis axis );
+
   public slots:
     virtual void updateData( const QString &name, const QVariantMap &data );
 
