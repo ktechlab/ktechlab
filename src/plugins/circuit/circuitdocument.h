@@ -76,7 +76,9 @@ protected:
     virtual QWidget *createViewWidget( QWidget* parent = 0 );
 
 private:
+    Q_PRIVATE_SLOT(d, void slotUpdateState())
     void init();
+    friend class CircuitDocumentPrivate;
     CircuitDocumentPrivate *d;
 };
 
