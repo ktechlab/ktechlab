@@ -127,8 +127,7 @@ QPainterPath ComponentItem::shape() const
 QVariantMap ComponentItem::data() const
 {
     QVariantMap map = KTechLab::IComponentItem::data();
-    QPointF pos = scenePos();
-    pos += QPoint(32,32);
+    QPointF pos = mapToScene(boundingRect().center());
     map.insert("x", pos.x());
     map.insert("y", pos.y());
     return map;
