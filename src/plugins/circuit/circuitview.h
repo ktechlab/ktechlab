@@ -27,12 +27,14 @@
 #define CIRCUITVIEW_H
 
 #include <QGraphicsView>
+#include <KXMLGUIClient>
 
 namespace KTechLab
 {
 
 class ComponentItem;
 class Theme;
+class CircuitScene;
 
 /**
  * A @class QGraphicsView widget, displaying a @class KTechLab::CircuitScene
@@ -41,16 +43,24 @@ class Theme;
  *
  * @author Julian Bäume
  */
-class CircuitView : public QGraphicsView
+class CircuitView : public QGraphicsView, public KXMLGUIClient
 {
     Q_OBJECT
 
 public:
-    CircuitView( QWidget *parent = 0 );
-    CircuitView ( QGraphicsScene* scene, QWidget* parent = 0 );
+    CircuitView ( KTechLab::CircuitScene* scene, QWidget* parent = 0 );
     ~CircuitView();
 
+private slots:
+    void slotComponentRotateCW();
+    void slotComponentRotateCCW();
+    void slotComponentFlipHorizontal();
+    void slotComponentFlipVertical();
+
+private:
     void init();
+    void setupActions();
+    KTechLab::CircuitScene* m_scene;
 };
 
 }
