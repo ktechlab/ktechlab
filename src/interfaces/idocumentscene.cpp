@@ -251,6 +251,21 @@ void IDocumentScene::rerouteConnectors(QList< ConnectorItem* > items)
     emit routed(items);
 }
 
+void IDocumentScene::scheduleForRerouting(QList< QGraphicsItem* > items)
+{
+    foreach(QGraphicsItem* item, items){
+        ConnectorItem* c = qgraphicsitem_cast<ConnectorItem*>(item);
+        if (!c) continue;
+        d->needReroutingList.append(c);
+    }
+}
+
+void IDocumentScene::performRerouting()
+{
+    rerouteConnectors(d->needReroutingList);
+    d->needReroutingList.clear();
+}
+
 void IDocumentScene::fetchRouter()
 {
     KDevelop::IPluginController *pc = KDevelop::ICore::self()->pluginController();
