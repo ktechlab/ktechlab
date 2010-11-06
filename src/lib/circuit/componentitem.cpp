@@ -54,8 +54,17 @@ ComponentItem::ComponentItem ( const QVariantMap& data, Theme *theme, QGraphicsI
     // of the component, so we have to move it -QPoint(32,32)
     pos -= QPoint(32,32);
     setPos( pos );
+    setTransformOriginPoint(QPoint(32,32));
 
     m_shape.addRect(m_renderer->boundsOnElement("icon"));
+
+    setRotation(data.value("angle").toReal());
+    QTransform t;
+    bool flipped = data.value("flipped").toBool();
+    QPointF center = boundingRect().center();
+    t.translate(center.x(),center.y())
+     .scale((flipped ? -1 : 1), 1)
+     .translate(-center.x(),-center.y());
     connect(this,SIGNAL(dataUpdated(QString,QVariantMap)),
             this,SLOT(updateData(QString,QVariantMap)));
 }
@@ -130,7 +139,22 @@ QVariantMap ComponentItem::data() const
     QPointF pos = mapToScene(boundingRect().center());
     map.insert("x", pos.x());
     map.insert("y", pos.y());
+    int flipCorrection = (transform().m22() == -1) ? 180 : 0;
+    map.insert("angle", normalize(rotation()-flipCorrection));
+    map.insert("flipped", (isFlipped()) ? 1 : 0);
     return map;
+}
+
+bool ComponentItem::isFlipped() const
+{
+    return (transform().m11() == -1) ^ (transform().m22() == -1);
+}
+
+int ComponentItem::normalize(qreal value) const
+{
+    while (value < 0)
+        value += 360;
+    return (int)value % 360;
 }
 
 #include "componentitem.moc"
