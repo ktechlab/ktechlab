@@ -205,6 +205,44 @@ void CircuitScene::updateData( const QString& name, const QVariantMap& data )
     //kDebug() << "Difference between components and applets" << (m_components.size() - applets().size());
 }
 
+void CircuitScene::rotateSelectedComponents(qreal angle)
+{
+    QList<IComponentItem*> components;
+    QList<ConnectorItem*> connectors;
+
+    foreach(QGraphicsItem* item, selectedItems()){
+        IComponentItem* c = qgraphicsitem_cast<IComponentItem*>(item);
+        if (!c) continue;
+        components.append(c);
+        scheduleForRerouting(collidingItems(c));
+        c->setRotation(c->rotation()+angle);
+    }
+    emit componentsMoved(components);
+    performRerouting();
+    emit transactionCompleted();
+}
+
+void CircuitScene::flipSelectedComponents(Qt::Axis axis)
+{
+    QList<IComponentItem*> components;
+
+    foreach(QGraphicsItem* item, selectedItems()){
+        IComponentItem* c = qgraphicsitem_cast<IComponentItem*>(item);
+        if (!c) continue;
+        components.append(c);
+        scheduleForRerouting(collidingItems(c));
+        QPointF center = c->boundingRect().center();
+        QTransform t;
+        int sx = (axis == Qt::XAxis) ? 1 : -1;
+        int sy = (axis == Qt::YAxis) ? 1 : -1;
+        t.translate(center.x(),center.y()).scale(sx,sy).translate(-center.x(),-center.y());
+        c->setTransform(t,true);
+    }
+    emit componentsMoved(components);
+    performRerouting();
+    emit transactionCompleted();
+}
+
 IComponentItem* CircuitScene::item(const QString& id) const
 {
     return m_components.value(id);
