@@ -47,6 +47,8 @@ private:
      * Information is extracted from the DOM.
      */
     void initPins();
+    bool isFlipped() const;
+    int normalize(qreal value) const;
 
     QSvgRenderer *m_renderer;
     Theme *m_theme;
