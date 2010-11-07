@@ -13,10 +13,6 @@
 #include "ecbcdto7segment.h"
 
 #include "logic.h"
-#include "libraryitem.h"
-
-#include <kiconloader.h>
-#include <klocale.h>
 
 // Values for a,b,c,d,e,f,g of common-anode 7 segment display
 static bool numbers[16][7] = { 
@@ -37,36 +33,8 @@ static bool numbers[16][7] = {
 	{ 1, 0, 0, 1, 1, 1, 1 }, // E
 	{ 1, 0, 0, 0, 1, 1, 1 }}; // F
 
-Item* ECBCDTo7Segment::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
-	return new ECBCDTo7Segment((ICNDocument*)itemDocument, newItem, id);
-}
-
-LibraryItem* ECBCDTo7Segment::libraryItem() {
-	return new LibraryItem(
-	           "ec/bcd_to_seven_segment",
-	           i18n("BCD to 7 Segment"),
-	           i18n("Integrated Circuits"),
-	           "ic2.png",
-	           LibraryItem::lit_component,
-	           ECBCDTo7Segment::construct);
-}
-
-ECBCDTo7Segment::ECBCDTo7Segment(ICNDocument *icnDocument, bool newItem, const char *id)
-		: DIPComponent(icnDocument, newItem, id ? id : "bcd_to_seven_segment") {
-	m_name = i18n("BCD to Seven Segment");
-
-	QStringList pins = QStringList::split(',', "A,B,C,D,,lt,rb,en,d,e,f,g,,a,b,c", true);
-
-	initDIPSymbol(pins, 48);
-	initDIP(pins);
-
-	setup1pinElement(ALogic, ecNodeWithID("A")->pin());
-	setup1pinElement(BLogic, ecNodeWithID("B")->pin());
-	setup1pinElement(CLogic, ecNodeWithID("C")->pin());
-	setup1pinElement(DLogic, ecNodeWithID("D")->pin());
-	setup1pinElement(ltLogic, ecNodeWithID("lt")->pin());
-	setup1pinElement(rbLogic, ecNodeWithID("rb")->pin());
-	setup1pinElement(enLogic, ecNodeWithID("en")->pin());
+ECBCDTo7Segment::ECBCDTo7Segment()
+		: Component() {
 
 	ALogic.setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
 	BLogic.setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
@@ -78,13 +46,14 @@ ECBCDTo7Segment::ECBCDTo7Segment(ICNDocument *icnDocument, bool newItem, const c
 
 	for (uint i = 0; i < 7; ++i) {
 		outLogic[i] = new LogicOut(LogicConfig(), false);
-		setup1pinElement(*(outLogic[i]), ecNodeWithID(QChar('a' + i))->pin());
 	}
 
 	inStateChanged(false);
 }
 
-ECBCDTo7Segment::~ECBCDTo7Segment() {}
+ECBCDTo7Segment::~ECBCDTo7Segment() {
+    // TODO delete outLogic members
+}
 
 void ECBCDTo7Segment::inStateChanged(bool) {
 
