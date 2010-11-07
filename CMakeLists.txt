@@ -131,6 +131,7 @@ set( CompileSimulator_SRCS
  ${CMAKE_SOURCE_DIR}/src/electronics/components/led.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ecdiode.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ecvoltagesource.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/components/ec555.cpp
 )
 
 qt4_automoc(${CompileSimulator_SRCS})
