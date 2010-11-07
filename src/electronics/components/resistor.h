@@ -11,25 +11,23 @@
 #ifndef RESISTOR_H
 #define RESISTOR_H
 
-#include "simplecomponent.h"
+#include "component.h"
 #include "resistance.h"
 
 /**
 @short Simple resistor
 @author David Saxton
 */
-class Resistor : public SimpleComponent
+class Resistor : public Component
 {
 	public:
-		Resistor(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+		Resistor();
 		~Resistor();
 
-		static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
-		static LibraryItem *libraryItem();
 
 	protected:
-		virtual void dataChanged();
-		virtual void drawShape(QPainter &p);
+        virtual void propertyChanged(Property& theProperty, QVariant newValue,
+                                     QVariant oldValue);
 
 		Resistance m_resistance;
 };
