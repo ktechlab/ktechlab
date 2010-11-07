@@ -120,15 +120,17 @@ set( CompileSimulator_SRCS
  # base class for components
  ${CMAKE_SOURCE_DIR}/src/electronics/component.cpp
  # components:
- ${CMAKE_SOURCE_DIR}/src/electronics/components/bidirled.cpp
- ${CMAKE_SOURCE_DIR}/src/electronics/components/led.cpp
- ${CMAKE_SOURCE_DIR}/src/electronics/components/ecdiode.cpp
- ${CMAKE_SOURCE_DIR}/src/electronics/components/binarycounter.cpp
- ${CMAKE_SOURCE_DIR}/src/electronics/components/capacitor.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/addac.cpp
- ${CMAKE_SOURCE_DIR}/src/electronics/components/ecvoltagesource.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/components/bidirled.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/components/binarycounter.cpp
+   # bussplitter.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/components/capacitor.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/demultiplexer.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/dependentsource.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/components/discretelogic.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/components/led.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/components/ecdiode.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/components/ecvoltagesource.cpp
 )
 
 qt4_automoc(${CompileSimulator_SRCS})
