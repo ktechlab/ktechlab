@@ -11,11 +11,8 @@
 #include "ecclockinput.h"
 
 #include "logic.h"
-#include "libraryitem.h"
 #include "simulator.h"
-
-#include <klocale.h>
-#include <qpainter.h>
+#include "variant.h"
 
 #include <cmath>
 
@@ -26,24 +23,9 @@ static inline uint roundDouble(const double x) {
 	return uint(std::floor(x + 0.5));
 }
 
-Item* ECClockInput::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
-	return new ECClockInput((ICNDocument*)itemDocument, newItem, id);
-}
 
-LibraryItem* ECClockInput::libraryItem() {
-	return new LibraryItem(
-	           "ec/clock_input",
-	           i18n("Clock Input"),
-	           i18n("Logic"),
-	           "clockinput.png",
-	           LibraryItem::lit_component,
-	           ECClockInput::construct);
-}
-
-ECClockInput::ECClockInput(ICNDocument *icnDocument, bool newItem, const char *id)
-		: SimpleComponent(icnDocument, newItem, (id) ? id : "clock_input") {
-	m_name = i18n("Clock Input");
-	setSize(-16, -8, 32, 16);
+ECClockInput::ECClockInput()
+		: Component() {
 
 	m_lastSetTime = 0;
 	m_high_time = 0;
@@ -57,23 +39,21 @@ ECClockInput::ECClockInput(ICNDocument *icnDocument, bool newItem, const char *i
 		delete ccb;
 	}
 
-	init1PinRight();
 
-	setup1pinElement(m_pOut, m_pPNode[0]->pin());
+    Property *p = 0;
+	p = new Property("low-time", Variant::Type::Double);
+	p->setUnit("S");
+	p->setCaption(tr("Low Time"));
+	p->setMinValue(1.0 / LOGIC_UPDATE_RATE);
+	p->setValue(0.5);
+    addProperty(p);
 
-	createProperty("low-time", Variant::Type::Double);
-	property("low-time")->setUnit("S");
-	property("low-time")->setCaption(i18n("Low Time"));
-	property("low-time")->setMinValue(1.0 / LOGIC_UPDATE_RATE);
-	property("low-time")->setValue(0.5);
+	p = new Property("high-time", Variant::Type::Double);
+	p->setUnit("S");
+	p->setCaption(tr("High Time"));
+	p->setMinValue(1.0 / LOGIC_UPDATE_RATE);
+	p->setValue(0.5);
 
-	createProperty("high-time", Variant::Type::Double);
-	property("high-time")->setUnit("S");
-	property("high-time")->setCaption(i18n("High Time"));
-	property("high-time")->setMinValue(1.0 / LOGIC_UPDATE_RATE);
-	property("high-time")->setValue(0.5);
-
-	addDisplayText("freq", QRect(-16, -24, 32, 14), "", false);
 }
 
 ECClockInput::~ECClockInput() {
@@ -82,16 +62,18 @@ ECClockInput::~ECClockInput() {
 	}
 }
 
-void ECClockInput::dataChanged() {
-	m_high_time = roundDouble(dataDouble("high-time") * LOGIC_UPDATE_RATE);
-	m_low_time = (dataDouble("low-time") * LOGIC_UPDATE_RATE);
+void ECClockInput::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
+{
+    Q_UNUSED(theProperty);
+    Q_UNUSED(newValue);
+    Q_UNUSED(oldValue);
 
-	const double frequency = 1. / (dataDouble("high-time") + dataDouble("low-time"));
-	QString display = QString::number(frequency / getMultiplier(frequency), 'g', 3) + getNumberMag(frequency) + "Hz";
-	setDisplayText("freq", display);
+    m_high_time = roundDouble(property("high-time").asDouble() * LOGIC_UPDATE_RATE);
+    m_low_time = (property("low-time").asDouble() * LOGIC_UPDATE_RATE);
 
-	m_lastSetTime = m_pSimulator->time();
+    m_lastSetTime = m_pSimulator->time();
 }
+
 
 void ECClockInput::stepLogic() {
 	m_pOut.setHigh(m_pSimulator->time() > m_low_time);
@@ -120,27 +102,4 @@ void ECClockInput::stepNonLogic() {
 	}
 
 	m_lastSetTime = upTo;
-}
-
-void ECClockInput::drawShape(QPainter &p) {
-	initPainter(p);
-
-	int _x = x() - 10;
-	int _y = y() - 8;
-
-	p.drawRect(_x - 6,	_y,	32,	16);
-
-	p.drawLine(_x,		_y + 8,		_x,		_y + 4);
-	p.drawLine(_x,		_y + 4,		_x + 4,		_y + 4);
-	p.drawLine(_x + 4,	_y + 4,		_x + 4,		_y + 12);
-	p.drawLine(_x + 4,	_y + 12,	_x + 8,		_y + 12);
-	p.drawLine(_x + 8,	_y + 12,	_x + 8,		_y + 4);
-	p.drawLine(_x + 8,	_y + 4,		_x + 12,	_y + 4);
-	p.drawLine(_x + 12,	_y + 4,		_x + 12,	_y + 12);
-	p.drawLine(_x + 12,	_y + 12,	_x + 16,	_y + 12);
-	p.drawLine(_x + 16,	_y + 12,	_x + 16,	_y + 4);
-	p.drawLine(_x + 16,	_y + 4,		_x + 20,	_y + 4);
-	p.drawLine(_x + 20,	_y + 4,		_x + 20,	_y + 8);
-
-	deinitPainter(p);
 }
