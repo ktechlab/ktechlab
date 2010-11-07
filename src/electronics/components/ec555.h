@@ -17,6 +17,7 @@
 #include <qstringlist.h>
 
 class Resistance;
+class Pin;
 
 /**
 @short 555 IC
@@ -25,11 +26,8 @@ class Resistance;
 class EC555 : public Component
 {
 public:
-	EC555(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	EC555();
 	~EC555();
-	
-	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
-	static LibraryItem *libraryItem();
 	
 	virtual void stepNonLogic();
 	virtual bool doesStepNonLogic() const { return true; }
