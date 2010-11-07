@@ -11,25 +11,21 @@
 #ifndef DISCRETELOGIC_H
 #define DISCRETELOGIC_H
 
-#include "simplecomponent.h"
+#include "component.h"
 #include "logic.h"
 
 /**
 @short Boolean NOT
 @author David Saxton
 */
-class Inverter : public CallbackClass, public SimpleComponent {
+class Inverter : public CallbackClass, public Component {
 
 public:
-	Inverter(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	Inverter();
 	~Inverter();
-
-	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
-	static LibraryItem *libraryItem();
 
 protected:
 	void inStateChanged(bool newState);
-	virtual void drawShape(QPainter &p);
 
 	LogicIn m_pIn;
 	LogicOut m_pOut;
@@ -39,18 +35,14 @@ protected:
 @short Buffer
 @author David Saxton
 */
-class Buffer : public CallbackClass, public SimpleComponent {
+class Buffer : public CallbackClass, public Component {
 
 public:
-	Buffer(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	Buffer();
 	~Buffer();
-
-	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
-	static LibraryItem *libraryItem();
 
 private:
 	void inStateChanged(bool newState);
-	virtual void drawShape(QPainter &p);
 
 	LogicIn m_pIn;
 	LogicOut m_pOut;
@@ -59,21 +51,23 @@ private:
 /**
 @short Boolean logic input
 @author David Saxton
+
+Note: because this class isn't a GUI class, the state of the button is
+simulated with a property "buttonPressed". This property should be set by
+the controller class on an user interface event.
 */
-class ECLogicInput : public SimpleComponent {
+class ECLogicInput : public Component {
 
 public:
-	ECLogicInput(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	ECLogicInput();
 	~ECLogicInput();
 
-	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
-	static LibraryItem *libraryItem();
-
-	virtual void buttonStateChanged(const QString &id, bool state);
-
+protected:
+    virtual void propertyChanged(Property& theProperty, QVariant newValue,
+                                 QVariant oldValue);
 private:
-	virtual void dataChanged();
-	virtual void drawShape(QPainter &p);
+    bool m_toggleOn;
+    bool m_outState;
 	LogicOut m_pOut;
 };
 
@@ -81,25 +75,23 @@ private:
 @short Boolean logic output
 @author David Saxton
 */
-class ECLogicOutput : public CallbackClass, public SimpleComponent {
+class ECLogicOutput : public CallbackClass, public Component {
 
 public:
-	ECLogicOutput(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	ECLogicOutput();
 	~ECLogicOutput();
-
-	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
-	static LibraryItem *libraryItem();
 
 protected:
 	void inStateChanged(bool newState);
-	virtual void drawShape(QPainter &p);
 
-	unsigned long long m_lastDrawTime;
-	unsigned long long m_lastSwitchTime;
-	unsigned long long m_highTime;
-	bool m_bLastState;
+    /** normalized value of the logic value to the interval [0,1],
+        in the future possibly taking into account the mean value of
+        digital signal in one gui update period
+        */
+    Property *outValue;
 
-	double m_lastDrawState;
+    bool m_bLastState;
+
 	LogicIn m_pIn;
 };
 
