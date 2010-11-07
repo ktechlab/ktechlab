@@ -9,134 +9,75 @@
  ***************************************************************************/
 
 #include "ecbjt.h"
-#include "ecnode.h"
-#include "libraryitem.h"
 
-#include <kiconloader.h>
-#include <klocale.h>
-#include <qpainter.h>
-//Added by qt3to4:
-#include <Q3PointArray>
+#include "variant.h"
 
-Item *ECBJT::constructNPN(ItemDocument *itemDocument, bool newItem, const char *id) {
-	return new ECBJT(true, (ICNDocument*)itemDocument, newItem, id);
-}
 
-Item *ECBJT::constructPNP(ItemDocument *itemDocument, bool newItem, const char *id) {
-	return new ECBJT(false, (ICNDocument*)itemDocument, newItem, id);
-}
+ECBJT::ECBJT(bool isNPN)
+		: Component(),
+            m_bIsNPN(isNPN), m_pBJT(m_bIsNPN) {
 
-LibraryItem *ECBJT::libraryItemNPN() {
-	return new LibraryItem(
-	           "ec/npnbjt",
-	           i18n("NPN"),
-	           i18n("Discrete"),
-	           "npn.png",
-	           LibraryItem::lit_component,
-	           ECBJT::constructNPN);
-}
-
-LibraryItem *ECBJT::libraryItemPNP() {
-	return new LibraryItem(
-	           "ec/pnpbjt",
-	           i18n("PNP"),
-	           i18n("Discrete"),
-	           "pnp.png",
-	           LibraryItem::lit_component,
-	           ECBJT::constructPNP);
-}
-
-ECBJT::ECBJT(bool isNPN, ICNDocument *icnDocument, bool newItem, const char *id)
-		: Component(icnDocument, newItem, id ? id : (isNPN ? "npnbjt" : "pnpbjt")),
-	m_bIsNPN(isNPN), m_pBJT(m_bIsNPN) {
-
-	if (m_bIsNPN)
-		m_name = i18n("NPN Transistor");
-	else	m_name = i18n("PNP Transistor");
-
-	setSize(-8, -8, 16, 16);
-
-	setup3pinElement(m_pBJT, createPin(-16, 0, 0, "b")->pin(),
-		createPin(8, -16, 90, "c")->pin(), createPin(8, 16, 270, "e")->pin());
 
 	BJTSettings s; // will be created with the default settings
 
-	Variant *v = createProperty("I_S", Variant::Type::Double);
+    Variant * v = 0;
 
-	v->setCaption(i18n("Saturation Current"));
+	v = new Variant("I_S", Variant::Type::Double);
+	v->setCaption(tr("Saturation Current"));
 	v->setUnit("A");
 	v->setMinValue(1e-20);
 	v->setMaxValue(1e-0);
 	v->setValue(s.I_S);
 	v->setAdvanced(true);
+    addProperty(v);
 
-	v = createProperty("N_F", Variant::Type::Double);
-	v->setCaption(i18n("Forward Coefficient"));
+	v = new Variant("N_F", Variant::Type::Double);
+	v->setCaption(tr("Forward Coefficient"));
 	v->setMinValue(1e0);
 	v->setMaxValue(1e1);
 	v->setValue(s.N_F);
 	v->setAdvanced(true);
+    addProperty(v);
 
-	v = createProperty("N_R", Variant::Type::Double);
-	v->setCaption(i18n("Reverse Coefficient"));
+	v = new Variant("N_R", Variant::Type::Double);
+	v->setCaption(tr("Reverse Coefficient"));
 	v->setMinValue(1e0);
 	v->setMaxValue(1e1);
 	v->setValue(s.N_R);
 	v->setAdvanced(true);
+    addProperty(v);
 
-	v = createProperty("B_F", Variant::Type::Double);
-	v->setCaption(i18n("Forward Beta"));
+	v = new Variant("B_F", Variant::Type::Double);
+	v->setCaption(tr("Forward Beta"));
 	v->setMinValue(1e-1);
 	v->setMaxValue(1e3);
 	v->setValue(s.B_F);
 	v->setAdvanced(true);
+    addProperty(v);
 
-	v = createProperty("B_R", Variant::Type::Double);
-	v->setCaption(i18n("Reverse Beta"));
+	v = new Variant("B_R", Variant::Type::Double);
+	v->setCaption(tr("Reverse Beta"));
 	v->setMinValue(1e-1);
 	v->setMaxValue(1e3);
 	v->setValue(s.B_R);
 	v->setAdvanced(true);
+    addProperty(v);
 }
 
 ECBJT::~ECBJT() {}
 
-void ECBJT::dataChanged() {
-	BJTSettings s;
-	s.I_S = dataDouble("I_S");
-	s.N_F = dataDouble("N_F");
-	s.N_R = dataDouble("N_R");
-	s.B_F = dataDouble("B_F");
-	s.B_R = dataDouble("B_R");
+void ECBJT::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
+{
+    Q_UNUSED(theProperty);
+    Q_UNUSED(newValue);
+    Q_UNUSED(oldValue);
 
-	m_pBJT.setBJTSettings(s);
-}
+    BJTSettings s;
+    s.I_S = property("I_S").asDouble();
+    s.N_F = property("N_F").asDouble();
+    s.N_R = property("N_R").asDouble();
+    s.B_F = property("B_F").asDouble();
+    s.B_R = property("B_R").asDouble();
 
-
-void ECBJT::drawShape(QPainter &p) {
-	const int _x = int(x());
-	const int _y = int(y());
-
-	initPainter(p);
-
-	p.drawLine(_x - 8, _y - 8, _x - 8, _y + 8);
-	p.drawLine(_x + 8, _y - 8, _x - 8, _y);
-	p.drawLine(_x + 8, _y + 8, _x - 8, _y);
-
-	Q3PointArray pa(3);
-
-	if (m_bIsNPN) {
-		pa[0] = QPoint(_x + 6, _y + 7);
-		pa[1] = QPoint(_x + 2, _y + 8);
-		pa[2] = QPoint(_x + 5, _y + 3);
-	} else {
-		pa[0] = QPoint(_x - 7, _y + 1);
-		pa[1] = QPoint(_x - 4, _y + 5);
-		pa[2] = QPoint(_x - 2, _y);
-	}
-
-	p.setBrush(p.pen().color());
-	p.drawPolygon(pa);
-
-	deinitPainter(p);
+    m_pBJT.setBJTSettings(s);
 }

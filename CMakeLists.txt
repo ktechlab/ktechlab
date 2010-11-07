@@ -133,6 +133,7 @@ set( CompileSimulator_SRCS
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ecvoltagesource.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ec555.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ecbcdto7segment.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/components/ecbjt.cpp
 )
 
 qt4_automoc(${CompileSimulator_SRCS})
