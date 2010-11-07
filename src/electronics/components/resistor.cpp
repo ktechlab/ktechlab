@@ -10,61 +10,27 @@
 
 #include "resistor.h"
 
-#include "libraryitem.h"
-#include "resistance.h"
+#include "variant.h"
 
-#include <klocale.h>
-#include <qpainter.h>
+Resistor::Resistor()
+		: Component() {
+    Property * r = new Property("resistance", Variant::Type::Double);
+	r->setCaption(tr("Resistance"));
+	r->setUnit(QChar(0x3a9));
+	r->setValue(1e4);
+	r->setMinValue(1e-6);
+    addProperty(r);
 
-Item* Resistor::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
-	return new Resistor((ICNDocument*)itemDocument, newItem, id);
-}
-
-LibraryItem* Resistor::libraryItem() {
-	return new LibraryItem(
-	           "ec/resistor",
-	           i18n("Resistor"),
-	           i18n("Passive"),
-	           "resistor.png",
-	           LibraryItem::lit_component,
-	           Resistor::construct);
-}
-
-Resistor::Resistor(ICNDocument *icnDocument, bool newItem, const char *id)
-		: SimpleComponent(icnDocument, newItem, id ? id : "resistor") {
-	m_name = i18n("Resistor");
-	setSize(-16, -8, 32, 16);
-
-	init1PinLeft();
-	init1PinRight();
-
-	setup2pinElement(m_resistance, m_pPNode[0]->pin(), m_pNNode[0]->pin());
-
-	createProperty("resistance", Variant::Type::Double);
-	property("resistance")->setCaption(i18n("Resistance"));
-	property("resistance")->setUnit(QChar(0x3a9));
-	property("resistance")->setValue(1e4);
-	property("resistance")->setMinValue(1e-6);
-
-	addDisplayText("res", QRect(-16, -22, 32, 12), "", false);
 }
 
 Resistor::~Resistor() {
 }
+void Resistor::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
+{
+    Q_ASSERT(theProperty.name() == "resistance");
+    Q_ASSERT(newValue.asDouble() > 0);
 
-void Resistor::dataChanged() {
-	double resistance = dataDouble("resistance");
+    Q_UNUSED(oldValue);
 
-	QString display = QString::number(resistance / getMultiplier(resistance), 'g', 3) + getNumberMag(resistance) + QChar(0x3a9);
-	setDisplayText("res", display);
-
-	m_resistance.setResistance(resistance);
+    m_resistance.setResistance(newValue.asDouble());
 }
-
-void Resistor::drawShape(QPainter &p) {
-	initPainter(p);
-	p.drawRect((int)x() - 16, (int)y() - 6, width(), 12);
-	deinitPainter(p);
-}
-
-
