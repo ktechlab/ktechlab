@@ -29,8 +29,6 @@ protected:
     virtual void propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue);
 
 private:
-	// void dataChanged();
-	// virtual void drawShape( QPainter &p );
 	VoltageSource m_voltageSource;
 };
 
