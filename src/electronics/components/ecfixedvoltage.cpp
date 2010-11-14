@@ -9,57 +9,32 @@
  ***************************************************************************/
 
 #include "ecfixedvoltage.h"
-#include "ecnode.h"
-#include "libraryitem.h"
 
-#include <klocale.h>
-#include <qpainter.h>
+#include "property.h"
 
-Item* ECFixedVoltage::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
-    return new ECFixedVoltage((ICNDocument*)itemDocument, newItem, id);
-}
+#include <QDebug>
 
-LibraryItem* ECFixedVoltage::libraryItem() {
-    return new LibraryItem(
-               "ec/fixed_voltage",
-               i18n("Fixed Voltage"),
-               i18n("Sources"),
-               "voltage.png",
-               LibraryItem::lit_component,
-               ECFixedVoltage::construct);
-}
+ECFixedVoltage::ECFixedVoltage()
+        : Component() {
 
-ECFixedVoltage::ECFixedVoltage(ICNDocument *icnDocument, bool newItem, const char *id)
-        : SimpleComponent(icnDocument, newItem, id ? id : "fixed_voltage") {
-    m_name = i18n("Fixed Voltage");
-    setSize(-8, -8, 16, 16);
-
-    init1PinRight();
-    m_pPNode[0]->setLength(11);
-
-    setup1pinElement(m_voltagePoint, m_pPNode[0]->pin());
-
-    addDisplayText("voltage", QRect(-24, -20, width() + 32, 12), "");
-    createProperty("voltage", Variant::Type::Double);
-    property("voltage")->setUnit("V");
-    property("voltage")->setCaption(i18n("Voltage"));
-    property("voltage")->setMinValue(-1e15);
-    property("voltage")->setMaxValue(1e15);
-    property("voltage")->setValue(5.0);
+    Property *voltage = new Property("voltage", Variant::Type::Double);
+    voltage->setUnit("V");
+    voltage->setCaption(tr("Voltage"));
+    voltage->setMinValue(-1e15);
+    voltage->setMaxValue(1e15);
+    voltage->setValue(5.0);
+    addProperty(voltage);
 }
 
 ECFixedVoltage::~ECFixedVoltage() {}
 
-void ECFixedVoltage::dataChanged() {
-    const double voltage = dataDouble("voltage");
-    QString display = QString::number(voltage / getMultiplier(voltage), 'g', 3) + getNumberMag(voltage) + "V";
-    setDisplayText("voltage", display);
-    m_voltagePoint.setVoltage(voltage);
-}
+void ECFixedVoltage::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
+{
+    Q_UNUSED(oldValue);
 
-void ECFixedVoltage::drawShape(QPainter &p) {
-    initPainter(p);
-    p.drawEllipse(int(x() - 4), int(y() - 4), 9, 9);
-    deinitPainter(p);
+    if(theProperty.name() == "voltage"){
+        double voltage = newValue.asDouble();
+        m_voltagePoint.setVoltage(voltage);
+    } else
+        qCritical() << "ECFixedVoltage: unknown property: " << theProperty.name();
 }
-
