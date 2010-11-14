@@ -11,28 +11,26 @@
 #ifndef ECSIGNALLAMP_H
 #define ECSIGNALLAMP_H
 
-#include "simplecomponent.h"
+#include "component.h"
 #include "resistance.h"
 
 /**
 @short Signal Lamp - glows when current flows
 @author David Saxton
 */
-class ECSignalLamp : public SimpleComponent
+class ECSignalLamp : public Component
 {
 public:
-	ECSignalLamp( ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	ECSignalLamp();
 	~ECSignalLamp();
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
+
 	
 	virtual void stepNonLogic();
 	virtual bool doesStepNonLogic() const { return true; }
 	
 private:
+
 	Resistance the_filament;
-	void drawShape( QPainter &p );
 	double avgPower;
 	uint advanceSinceUpdate;
 };
