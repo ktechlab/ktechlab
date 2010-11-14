@@ -11,7 +11,7 @@
 #ifndef ECFIXEDVOLTAGE_H
 #define ECFIXEDVOLTAGE_H
 
-#include "simplecomponent.h"
+#include "component.h"
 
 #include "voltagepoint.h"
 
@@ -19,18 +19,17 @@
 @short Fixed voltage source
 @author David Saxton
 */
-class ECFixedVoltage : public SimpleComponent
+class ECFixedVoltage : public Component
 {
 public:
-	ECFixedVoltage(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	ECFixedVoltage();
 	~ECFixedVoltage();
 	
-	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
-	static LibraryItem *libraryItem();
 	
-private:
-	virtual void drawShape(QPainter &p);
-	void dataChanged();
+protected:
+    virtual void propertyChanged(Property& theProperty, QVariant newValue,
+                                 QVariant oldValue);
+
 	VoltagePoint m_voltagePoint;
 };
 
