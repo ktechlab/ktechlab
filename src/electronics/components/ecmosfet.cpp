@@ -9,145 +9,46 @@
  ***************************************************************************/
 
 #include "ecmosfet.h"
-#include "libraryitem.h"
 
-#include <kdebug.h>
-#include <kiconloader.h>
-#include <klocale.h>
-#include <qpainter.h>
-//Added by qt3to4:
-#include <Q3PointArray>
+#include "variant.h"
 
-Item *ECMOSFET::constructNEM(ItemDocument *itemDocument, bool newItem, const char *id) {
-	return new ECMOSFET(MOSFET::neMOSFET, (ICNDocument*)itemDocument, newItem, id ? id : "nemosfet");
-}
-
-Item *ECMOSFET::constructPEM(ItemDocument *itemDocument, bool newItem, const char *id) {
-	return new ECMOSFET(MOSFET::peMOSFET, (ICNDocument*)itemDocument, newItem, id ? id : "pemosfet");
-}
-
-#if 0
-Item *ECMOSFET::constructNDM(ItemDocument *itemDocument, bool newItem, const char *id) {
-	return new ECMOSFET(MOSFET::ndMOSFET, (ICNDocument*)itemDocument, newItem, id ? id : "ndmosfet");
-}
-
-Item *ECMOSFET::constructPDM(ItemDocument *itemDocument, bool newItem, const char *id) {
-	return new ECMOSFET(MOSFET::pdMOSFET, (ICNDocument*)itemDocument, newItem, id ? id : "pdmosfet");
-}
-
-#endif
+#include <QDebug>
 
 
-LibraryItem* ECMOSFET::libraryItemNEM() {
-	return new LibraryItem(
-	           "ec/nemosfet",
-// 	i18n("n-e MOSFET"),
-	           i18n("n-MOSFET"),
-	           i18n("Discrete"),
-	           "nemosfet.png",
-	           LibraryItem::lit_component,
-	           ECMOSFET::constructNEM);
-}
+ECMOSFET::ECMOSFET(int MOSFET_type)
+		:   Component(),
+            m_pMOSFET((MOSFET::MOSFET_type)MOSFET_type) {
 
-
-LibraryItem* ECMOSFET::libraryItemPEM() {
-	return new LibraryItem(
-	           "ec/pemosfet",
-// 	i18n("p-e MOSFET"),
-	           i18n("p-MOSFET"),
-	           i18n("Discrete"),
-	           "pemosfet.png",
-	           LibraryItem::lit_component,
-	           ECMOSFET::constructPEM);
-}
-
-
-#if 0
-LibraryItem* ECMOSFET::libraryItemNDM() {
-	return new LibraryItem(
-	           "ec/ndmosfet",
-	           i18n("n-d MOSFET"),
-	           i18n("Discrete"),
-	           "ndmosfet.png",
-	           LibraryItem::lit_component,
-	           ECMOSFET::constructNDM);
-}
-
-
-LibraryItem* ECMOSFET::libraryItemPDM() {
-	return new LibraryItem(
-	           "ec/pdmosfet",
-	           i18n("p-d MOSFET"),
-	           i18n("Discrete"),
-	           "pdmosfet.png",
-	           LibraryItem::lit_component,
-	           ECMOSFET::constructPDM);
-}
-#endif
-
-ECMOSFET::ECMOSFET(int MOSFET_type, ICNDocument *icnDocument, bool newItem, const char *id)
-		: Component(icnDocument, newItem, id),
-		m_pMOSFET((MOSFET::MOSFET_type)MOSFET_type) {
 	m_MOSFET_type = MOSFET_type;
-
-	switch ((MOSFET::MOSFET_type) m_MOSFET_type) {
-
-	case MOSFET::neMOSFET: {
-		m_name = i18n("N-Channel Enhancement MOSFET");
-		break;
-	}
-
-	case MOSFET::peMOSFET: {
-		m_name = i18n("P-Channel Enhancement MOSFET");
-		break;
-	}
-
-#if 0
-	case MOSFET::ndMOSFET: {
-		m_name = i18n("N-Channel Depletion MOSFET");
-		break;
-	}
-
-	case MOSFET::pdMOSFET: {
-		m_name = i18n("P-Channel Depletion MOSFET");
-		break;
-	}
-#endif
-
-	}
-
-	setSize(-8, -16, 16, 32);
-
-	ECNode *NodeS = createPin(8, 24, 270, "s");
-
-	setup4pinElement(m_pMOSFET, createPin(8, -24, 90, "d")->pin(),
-				createPin(-16, 8, 0, "g")->pin(),
-				NodeS->pin(), NodeS->pin());
 
 	m_bHaveBodyPin = false;
 
-	Variant *v = createProperty("bodyPin", Variant::Type::Bool);
-	v->setCaption(i18n("mosfet body/bulk pin", "Body Pin"));
+	Variant *v = new Property("bodyPin", Variant::Type::Bool);
+	v->setCaption(tr("mosfet body/bulk pin", "Body Pin"));
 	v->setValue(false);
+    addProperty(v);
 
 	// create a "test" MOSFETSettings, for init. values
 	MOSFETSettings s;
 	
 	// add the properties of MOSFET
-	Variant *v1 = createProperty("mosfetW", Variant::Type::Double);
-	v1->setCaption(i18n("mosfet channel width", "Channel width"));
+	Variant *v1 = new Property("mosfetW", Variant::Type::Double);
+	v1->setCaption(tr("mosfet channel width", "Channel width"));
 	v1->setValue( s.W );
 	v1->setAdvanced(true);
 	v1->setUnit( "m" );
+    addProperty(v1);
 	
-	Variant *v2 = createProperty("mosfetL", Variant::Type::Double);
-	v2->setCaption(i18n("mosfet channel length", "Channel length"));
+	Variant *v2 = new Property("mosfetL", Variant::Type::Double);
+	v2->setCaption(tr("mosfet channel length", "Channel length"));
 	v2->setValue( s.L );
 	v2->setAdvanced(true);
 	v2->setUnit( "m" );
+    addProperty(v2);
 
 	
 #if 0
+    // TODO add other properties to the MOSTFET
 	MOSFETSettings s; // will be created with the default settings
 	v = createProperty("I_S", Variant::Type::Double);
 	v->setCaption(i18n("Saturation Current"));
@@ -189,106 +90,46 @@ ECMOSFET::ECMOSFET(int MOSFET_type, ICNDocument *icnDocument, bool newItem, cons
 
 ECMOSFET::~ECMOSFET() {}
 
-void ECMOSFET::dataChanged() {
-	bool haveBodyPin = dataBool("bodyPin");
+void ECMOSFET::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
+{
+    Q_UNUSED(oldValue);
 
-	if (haveBodyPin != m_bHaveBodyPin) {
-		m_bHaveBodyPin = haveBodyPin;
+    if( theProperty.name() == "bodyPin"){
+        bool haveBodyPin = newValue.asBool();
+        if (haveBodyPin == m_bHaveBodyPin)
+            return;
 
-		if (m_bHaveBodyPin) {
-			// Creating a body pin
-			removeElement(&m_pMOSFET, false);
+        // body pin state changed
+        if (m_bHaveBodyPin) {
+            // TODO Creating a body pin
+//             removeElement(&m_pMOSFET, false);
+// 
+//             setup4pinElement(m_pMOSFET, ecNodeWithID("d")->pin(),
+//                 ecNodeWithID("g")->pin(), ecNodeWithID("s")->pin(),
+//                 createPin(16, 0, 180, "b")->pin());
 
-			setup4pinElement(m_pMOSFET, ecNodeWithID("d")->pin(),
-				ecNodeWithID("g")->pin(), ecNodeWithID("s")->pin(),
-				createPin(16, 0, 180, "b")->pin());
+        } else {
+            // TODO Removing a body pin
+            // removeNode("b");
+            // removeElement(&m_pMOSFET, false);
 
-		} else {
-			// Removing a body pin
-			removeNode("b");
-			removeElement(&m_pMOSFET, false);
+        }
+    }
 
-		// Our class requires that we initialize a four pin element, even if we tie two of those pins together. 
-			setup4pinElement(m_pMOSFET, ecNodeWithID("d")->pin(),
-				ecNodeWithID("g")->pin(), ecNodeWithID("s")->pin(),
-				ecNodeWithID("s")->pin());
-		}
-	}
-
-
-	MOSFETSettings s = m_pMOSFET.settings();
+    MOSFETSettings s = m_pMOSFET.settings();
 #if 0
-	s.I_S = dataDouble("I_S");
-	s.N_F = dataDouble("N_F");
-	s.N_R = dataDouble("N_R");
-	s.B_F = dataDouble("B_F");
-	s.B_R = dataDouble("B_R");
+    s.I_S = dataDouble("I_S");
+    s.N_F = dataDouble("N_F");
+    s.N_R = dataDouble("N_R");
+    s.B_F = dataDouble("B_F");
+    s.B_R = dataDouble("B_R");
 #endif
-	s.L = dataDouble("mosfetL");
-	s.W = dataDouble("mosfetW");
-	
-	m_pMOSFET.setMOSFETSettings(s);
+    if( theProperty.name() == "mosfetL") {
+        s.L = newValue.asDouble();
+    } else if(theProperty.name() == "mosfetW"){
+        s.W = newValue.asDouble();
+    } else
+        qCritical() << "ECMOSFET: unknown property: " << theProperty.name();
+
+    m_pMOSFET.setMOSFETSettings(s);
 }
-
-void ECMOSFET::drawShape(QPainter &p) {
-	const int _x = int(x());
-	const int _y = int(y());
-
-	initPainter(p);
-
-	// Middle three horizontal lines
-	p.drawLine(_x - 3, _y - 11, _x + 8, _y - 11);
-	p.drawLine(_x - 3, _y, _x + 8, _y);
-	p.drawLine(_x - 3, _y + 11, _x + 8, _y + 11);
-
-	// Right middle vertical line
-
-	if (m_bHaveBodyPin)
-		p.drawLine(_x + 8, _y + 11, _x + 8, _y + 16);
-	else	p.drawLine(_x + 8, _y, _x + 8, _y + 16);
-
-	// Right top vertical line
-	p.drawLine(_x + 8, _y - 11, _x + 8, _y - 16);
-
-	QPen pen = p.pen();
-	pen.setWidth(2);
-	p.setPen(pen);
-
-	// Back line
-	p.drawLine(_x - 7, _y - 10, _x - 7, _y + 11);
-
-	if (m_MOSFET_type == MOSFET::neMOSFET ||
-	        m_MOSFET_type == MOSFET::peMOSFET) {
-		// Middle three vertical lines
-		p.drawLine(_x - 2, _y - 14, _x - 2, _y - 7);
-		p.drawLine(_x - 2, _y - 3, _x - 2, _y + 4);
-		p.drawLine(_x - 2, _y + 8, _x - 2, _y + 15);
-	} else {
-		// Middle vertical line
-		p.drawLine(_x - 3, _y - 14, _x - 3, _y + 15);
-	}
-
-	Q3PointArray pa(3);
-
-	if (m_MOSFET_type == MOSFET::neMOSFET /*||
-			m_MOSFET_type == MOSFET::ndMOSFET*/) {
-		// Inwards facing arrow
-		pa[0] = QPoint(0, 0);
-		pa[1] = QPoint(5, -3);
-		pa[2] = QPoint(5, 3);
-	} else {
-		// Outwards facing arrow
-		pa[0] = QPoint(2, -3);
-		pa[1] = QPoint(7, 0);
-		pa[2] = QPoint(2, 3);
-	}
-
-	pa.translate(_x, _y);
-
-	p.setPen(p.pen().color());
-	p.setBrush(p.pen().color());
-	p.drawPolygon(pa);
-
-	deinitPainter(p);
-}
-

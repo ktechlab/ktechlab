@@ -21,21 +21,13 @@
 class ECMOSFET : public Component
 {
 	public:
-		ECMOSFET( int MOSFET_type, ICNDocument *icnDocument, bool newItem, const char * id = 0L );
+		ECMOSFET( int MOSFET_type);
 		~ECMOSFET();
 	
-		static Item * constructNEM( ItemDocument * itemDocument, bool newItem, const char * id );
-		static Item * constructPEM( ItemDocument * itemDocument, bool newItem, const char * id );
-// 		static Item * constructNDM( ItemDocument * itemDocument, bool newItem, const char * id );
-// 		static Item * constructPDM( ItemDocument * itemDocument, bool newItem, const char * id );
-		static LibraryItem * libraryItemNEM();
-		static LibraryItem * libraryItemPEM();
-// 		static LibraryItem * libraryItemNDM();
-// 		static LibraryItem * libraryItemPDM();
-	
 	protected:
-		virtual void dataChanged();
-		virtual void drawShape( QPainter &p );
+        virtual void propertyChanged(Property& theProperty, QVariant newValue,
+                                     QVariant oldValue);
+
 		
 		bool m_bHaveBodyPin;
 		int m_MOSFET_type;
