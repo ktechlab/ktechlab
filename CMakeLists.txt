@@ -139,6 +139,7 @@ set( CompileSimulator_SRCS
  ${CMAKE_SOURCE_DIR}/src/electronics/components/eccurrentsource.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ecdiode.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ecfixedvoltage.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/components/ecground.cpp
   # ..
  ${CMAKE_SOURCE_DIR}/src/electronics/components/resistor.cpp
 )
