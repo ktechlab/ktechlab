@@ -10,96 +10,69 @@
  *   Peak/RMS added (c)19/06/2007 by Jason Lucas			   *
  ***************************************************************************/
 
-#include "ecnode.h"
 #include "ecvoltagesignal.h"
-#include "libraryitem.h"
+
 #include "simulator.h"
+#include "variant.h"
 
+#include <QDebug>
 #include <cmath>
-#include <klocale.h>
-#include <qpainter.h>
-#include <qstring.h>
 
-Item* ECVoltageSignal::construct( ItemDocument *itemDocument, bool newItem, const char *id )
-{
-	return new ECVoltageSignal( (ICNDocument*)itemDocument, newItem, id );
-}
-
-LibraryItem* ECVoltageSignal::libraryItem()
-{
-	return new LibraryItem(
-		"ec/voltage_signal",
-		i18n("Voltage Signal"),
-		i18n("Sources"),
-		"voltagesignal.png",
-		LibraryItem::lit_component,
-		ECVoltageSignal::construct);
-}
-
-ECVoltageSignal::ECVoltageSignal(ICNDocument *icnDocument, bool newItem, const char *id)
-	: SimpleComponent(icnDocument, newItem, id ? id : "voltage_signal"), 
+ECVoltageSignal::ECVoltageSignal()
+	: Component(),
 	m_voltageSignal(LINEAR_UPDATE_PERIOD, 0)
 {
-	m_name = i18n("Voltage Signal");
-	setSize(-8, -8, 16, 16);
-	
-	init1PinLeft();
-	init1PinRight();
-	
-	m_pNNode[0]->pin().setGroundType(Pin::gt_medium);
-	setup2pinElement(m_voltageSignal, m_pNNode[0]->pin(), m_pPNode[0]->pin());
 	m_voltageSignal.setStep(ElementSignal::st_sinusoidal, 50.);
-	
-	createProperty( "frequency", Variant::Type::Double );
-	property("frequency")->setCaption( i18n("Frequency") );
-	property("frequency")->setUnit("Hz");
-	property("frequency")->setMinValue(1e-9);
-	property("frequency")->setMaxValue(1e3);
-	property("frequency")->setValue(50.0);
-	
-	createProperty("voltage", Variant::Type::Double);
-	property("voltage")->setCaption( i18n("Voltage Range"));
-	property("voltage")->setUnit("V");	
-	property("voltage")->setMinValue(-1e12);
-	property("voltage")->setMaxValue(1e12);
-	property("voltage")->setValue(5.0);
 
-	addDisplayText("~", QRect(-8, -8, 16, 16), "~");
-	addDisplayText("voltage", QRect( -16, -24, 32, 16 ), "");
+    Property *freq = new Property( "frequency", Variant::Type::Double );
+	freq->setCaption( tr("Frequency") );
+	freq->setUnit("Hz");
+	freq->setMinValue(1e-9);
+	freq->setMaxValue(1e3);
+	freq->setValue(50.0);
+    addProperty(freq);
 
-	createProperty("peak-rms", Variant::Type::Select);
-	property("peak-rms")->setCaption(i18n("Output"));
+	Property *voltage = new Property("voltage", Variant::Type::Double);
+	voltage->setCaption( tr("Voltage Range"));
+	voltage->setUnit("V");
+	voltage->setMinValue(-1e12);
+	voltage->setMaxValue(1e12);
+	voltage->setValue(5.0);
+    addProperty(voltage);
+
+
+	Property * peak_rms = new Property("peak-rms", Variant::Type::Select);
+	peak_rms->setCaption(tr("Output"));
 	QStringMap allowed;
-	allowed["Peak"] = i18n("Peak");
-	allowed["RMS"] = i18n("RMS");
-	property("peak-rms")->setAllowed(allowed);
-	property("peak-rms")->setValue("Peak");
+	allowed["Peak"] = tr("Peak");
+	allowed["RMS"] = tr("RMS");
+	peak_rms->setAllowed(allowed);
+	peak_rms->setValue("Peak");
+    addProperty(peak_rms);
 }
 
 ECVoltageSignal::~ECVoltageSignal() {}
 
-void ECVoltageSignal::dataChanged()
+void ECVoltageSignal::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
 {
-	const double voltage = dataDouble("voltage");
-	const double frequency = dataDouble("frequency");
-	bool rms = dataString("peak-rms") == "RMS";
-
-	m_voltageSignal.setStep(ElementSignal::st_sinusoidal, frequency );
-	if (rms) {
-		QString display = QString::number( voltage / getMultiplier(voltage), 'g', 3 ) + getNumberMag(voltage) + "V RMS";
-		setDisplayText( "voltage", display );
-		m_voltageSignal.setVoltage(voltage* M_SQRT2);
-	} else {
-		QString display = QString::number( voltage / getMultiplier(voltage), 'g', 3 ) + getNumberMag(voltage) + "V Peak";
-		setDisplayText( "voltage", display );
-		m_voltageSignal.setVoltage(voltage);
-	}
+    Q_UNUSED(oldValue);
+    if(theProperty.name() == "voltage"){
+        const double voltage = newValue.asDouble();
+        m_voltageSignal.setVoltage(voltage);
+    } else if(theProperty.name() == "frequency"){
+        m_voltageSignal.setStep(ElementSignal::st_sinusoidal, newValue.asDouble() );
+    } else if(theProperty.name() == "peak-rms"){
+        const double voltage = m_voltageSignal.voltage();
+        if((newValue.asString() == "Peak") && (oldValue.asString() == "RMS")){
+            // RMS -> peak
+            m_voltageSignal.setVoltage( voltage * M_SQRT1_2 );
+        } else
+            if((newValue.asString() == "RMS") && (oldValue.asString() == "Peak")){
+                // peak -> RMS
+                m_voltageSignal.setVoltage(voltage * M_SQRT2);
+            } else
+                qCritical() << "ECVoltageSignal: unknown configuration of Peak/RSM: old: "
+                    << oldValue.asString() << " ; new: " << newValue.asString();
+    } else
+        qCritical() << "ECVoltageSignal: unknown property: " << theProperty.name();
 }
-
-void ECVoltageSignal::drawShape( QPainter &p )
-{
-	initPainter(p);
-	p.drawEllipse( (int)x()-8, (int)y()-8, width(), height() );
-	deinitPainter(p);
-}
-
