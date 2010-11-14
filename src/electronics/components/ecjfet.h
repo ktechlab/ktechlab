@@ -21,17 +21,13 @@
 class ECJFET : public Component
 {
 public:
-	ECJFET(int JFET_type, ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	ECJFET(int JFET_type);
 	~ECJFET();
 
-	static Item *constructNJFET(ItemDocument *itemDocument, bool newItem, const char *id);
-	static Item *constructPJFET(ItemDocument *itemDocument, bool newItem, const char *id);
-	static LibraryItem *libraryItemNJFET();
-	static LibraryItem *libraryItemPJFET();
 
 protected:
-	virtual void dataChanged();
-	virtual void drawShape(QPainter &p);
+    virtual void propertyChanged(Property& theProperty, QVariant newValue,
+                                 QVariant oldValue);
 
 	int m_JFET_type;
 	JFET m_pJFET;
