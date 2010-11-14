@@ -143,6 +143,9 @@ set( CompileSimulator_SRCS
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ecjfet.cpp
  # ${CMAKE_SOURCE_DIR}/src/electronics/components/eckeypad.cpp # interactive..
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ecmosfet.cpp
+ # ${CMAKE_SOURCE_DIR}/src/electronics/components/ecpotentiometer.cpp # interactive
+ # ${CMAKE_SOURCE_DIR}/src/electronics/components/ecsevensegment.cpp # interactive
+ ${CMAKE_SOURCE_DIR}/src/electronics/components/ecsignallamp.cpp
   # ..
  ${CMAKE_SOURCE_DIR}/src/electronics/components/resistor.cpp
 )
