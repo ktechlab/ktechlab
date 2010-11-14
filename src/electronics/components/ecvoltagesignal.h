@@ -11,7 +11,7 @@
 #ifndef ECVOLTAGESIGNAL_H
 #define ECVOLTAGESIGNAL_H
 
-#include "simplecomponent.h"
+#include "component.h"
 #include "voltagesignal.h"
 
 class VoltageSignal;
@@ -20,18 +20,16 @@ class VoltageSignal;
 @short Provides an alternating voltage source
 @author David Saxton
 */
-class ECVoltageSignal : public SimpleComponent
+class ECVoltageSignal : public Component
 {
 public:
-	ECVoltageSignal(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	ECVoltageSignal();
 	~ECVoltageSignal();
-	
-	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
-	static LibraryItem *libraryItem();
-	
+
+
 protected:
-	virtual void drawShape(QPainter &p);
-	void dataChanged();
+    virtual void propertyChanged(Property& theProperty, QVariant newValue,
+                                 QVariant oldValue);
 	
 	VoltageSignal m_voltageSignal;
 };
