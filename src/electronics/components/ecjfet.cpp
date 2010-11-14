@@ -9,152 +9,85 @@
  ***************************************************************************/
 
 #include "ecjfet.h"
-#include "libraryitem.h"
 
-#include <kiconloader.h>
-#include <klocale.h>
-#include <qpainter.h>
-//Added by qt3to4:
-#include <Q3PointArray>
+#include "variant.h"
 
-Item *ECJFET::constructNJFET(ItemDocument *itemDocument, bool newItem, const char *id) {
-	return new ECJFET(JFET::nJFET, (ICNDocument*)itemDocument, newItem, id ? id : "njfet");
-}
+#include <QDebug>
 
-Item *ECJFET::constructPJFET(ItemDocument *itemDocument, bool newItem, const char *id) {
-	return new ECJFET(JFET::pJFET, (ICNDocument*)itemDocument, newItem, id ? id : "pjfet");
-}
-
-LibraryItem *ECJFET::libraryItemNJFET() {
-	return new LibraryItem(
-	           "ec/njfet",
-// 		i18n("n JFET"),
-	           i18n("n-JFET"),
-	           i18n("Discrete"),
-	           "njfet.png",
-	           LibraryItem::lit_component,
-	           ECJFET::constructNJFET);
-}
-
-LibraryItem *ECJFET::libraryItemPJFET() {
-	return new LibraryItem(
-	           "ec/pjfet",
-//		i18n("p JFET"),
-	           i18n("p-JFET"),
-	           i18n("Discrete"),
-	           "pjfet.png",
-	           LibraryItem::lit_component,
-	           ECJFET::constructPJFET);
-}
-
-ECJFET::ECJFET(int JFET_type, ICNDocument *icnDocument, bool newItem, const char *id)
-		: Component(icnDocument, newItem, id), m_pJFET((JFET::JFET_type) JFET_type) {
+ECJFET::ECJFET(int JFET_type)
+		:   Component(),
+            m_pJFET((JFET::JFET_type) JFET_type) {
 	m_JFET_type = JFET_type;
-
-	if (JFET_type == JFET::nJFET)
-		m_name = i18n("N-Channel JFET");
-	else	m_name = i18n("P-Channel JFET");
-
-	setSize(-8, -8, 16, 16);
-
-	setup3pinElement(m_pJFET, createPin(8, -16, 90, "D")->pin(),
-		createPin(-16, 0, 0, "G")->pin(), createPin(8, 16, 270, "S")->pin());
 
 	JFETSettings s; // will be created with the default settings
 
 	m_pJFET.setJFETSettings(s);
 
-	Variant *v = createProperty("V_Th", Variant::Type::Double);
-	v->setCaption(i18n("Threshold voltage"));
+	Variant *v = new Property("V_Th", Variant::Type::Double);
+	v->setCaption(tr("Threshold voltage"));
 	v->setUnit("V");
 	v->setMinValue(-1e6);
 	v->setMaxValue(1e6);
 	v->setValue(s.V_Th);
 	v->setAdvanced(true);
+    addProperty(v);
 
-	v = createProperty("beta", Variant::Type::Double);
-	v->setCaption(i18n("Transcondutance"));
-	v->setUnit(QString("A/V") + QChar(0xb2));
-	v->setMinValue(1e-12);
-	v->setMaxValue(1e0);
-	v->setValue(s.beta);
-	v->setAdvanced(true);
+	Variant *beta = new Property("beta", Variant::Type::Double);
+	beta->setCaption(tr("Transcondutance"));
+	beta->setUnit(QString("A/V") + QChar(0xb2));
+	beta->setMinValue(1e-12);
+	beta->setMaxValue(1e0);
+	beta->setValue(s.beta);
+	beta->setAdvanced(true);
+    addProperty(beta);
 
-	v = createProperty("I_S", Variant::Type::Double);
-	v->setCaption(i18n("Saturation current"));
-	v->setUnit("A");
-	v->setMinValue(1e-20);
-	v->setMaxValue(1e0);
-	v->setValue(s.I_S);
-	v->setAdvanced(true);
+	Variant *i_s = new Property("I_S", Variant::Type::Double);
+	i_s->setCaption(tr("Saturation current"));
+	i_s->setUnit("A");
+	i_s->setMinValue(1e-20);
+	i_s->setMaxValue(1e0);
+	i_s->setValue(s.I_S);
+	i_s->setAdvanced(true);
+    addProperty(i_s);
 
-	v = createProperty("N", Variant::Type::Double);
-	v->setCaption(i18n("PN emission coefficient"));
-	v->setUnit("");
-	v->setMinValue(0.0);
-	v->setMaxValue(10.0);
-	v->setValue(s.N);
-	v->setAdvanced(true);
+	Variant *n = new Property("N", Variant::Type::Double);
+	n->setCaption(tr("PN emission coefficient"));
+	n->setUnit("");
+	n->setMinValue(0.0);
+	n->setMaxValue(10.0);
+	n->setValue(s.N);
+	n->setAdvanced(true);
+    addProperty(n);
 
-	v = createProperty("N_R", Variant::Type::Double);
-	v->setCaption(i18n("Isr emission coefficient"));
-	v->setUnit("");
-	v->setMinValue(0.0);
-	v->setMaxValue(10.0);
-	v->setValue(s.N_R);
-	v->setAdvanced(true);
+	Variant *n_r = new Property("N_R", Variant::Type::Double);
+	n_r->setCaption(tr("Isr emission coefficient"));
+	n_r->setUnit("");
+	n_r->setMinValue(0.0);
+	n_r->setMaxValue(10.0);
+	n_r->setValue(s.N_R);
+	n_r->setAdvanced(true);
+    addProperty(n_r);
 }
 
 ECJFET::~ECJFET() {}
 
-void ECJFET::dataChanged() {
-	JFETSettings s;
-	s.V_Th = dataDouble("V_Th");
-	s.beta = dataDouble("beta");
-	s.I_S  = dataDouble("I_S");
-	s.N    = dataDouble("N");
-	s.N_R  = dataDouble("N_R");
+void ECJFET::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
+{
+    Q_UNUSED(oldValue);
 
-	m_pJFET.setJFETSettings(s);
-}
+    JFETSettings s = m_pJFET.settings();
+    if( theProperty.name() == "V_Th" ){
+        s.V_Th = newValue.asDouble();
+    } else if( theProperty.name() == "beta"){
+        s.beta = newValue.asDouble();
+    } else if( theProperty.name() == "I_S"){
+        s.I_S = newValue.asDouble();
+    } else if( theProperty.name() == "N"){
+        s.N = newValue.asDouble();
+    } else if( theProperty.name() == "N_R"){
+        s.N_R = newValue.asDouble();
+    } else
+        qCritical() << "ECJFET: unknown property: " << theProperty.name();
 
-
-void ECJFET::drawShape(QPainter &p) {
-	const int _x = int(x());
-	const int _y = int(y());
-
-	initPainter(p);
-
-	// back lines
-	p.drawLine(_x - 8, _y    , _x + 2, _y);
-	p.drawLine(_x + 2, _y - 8, _x + 2, _y + 8);
-
-	// top corner
-	p.drawLine(_x + 2, _y - 5, _x + 8, _y - 5);
-	p.drawLine(_x + 8, _y - 5, _x + 8, _y - 8);
-
-	// bottom corner
-	p.drawLine(_x + 2, _y + 5, _x + 8, _y + 5);
-	p.drawLine(_x + 8, _y + 5, _x + 8, _y + 8);
-
-	Q3PointArray pa(3);
-
-	if (m_JFET_type == JFET::nJFET) {
-		// right pointing arrow
-		pa[0] = QPoint(1,  0);
-		pa[1] = QPoint(-4, -3);
-		pa[2] = QPoint(-4,  3);
-	} else {
-		// left pointing arrow
-		pa[0] = QPoint(-8,  0);
-		pa[1] = QPoint(-3, -3);
-		pa[2] = QPoint(-3,  3);
-	}
-
-	pa.translate(_x, _y);
-
-	p.setBrush(p.pen().color());
-	p.drawPolygon(pa);
-
-	deinitPainter(p);
+    m_pJFET.setJFETSettings(s);
 }
