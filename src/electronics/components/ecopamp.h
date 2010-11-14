@@ -11,7 +11,7 @@
 #ifndef ECOPAMP_H
 #define ECOPAMP_H
 
-#include "simplecomponent.h"
+#include "component.h"
 #include "opamp.h"
 
 class OpAmp;
@@ -20,17 +20,11 @@ class OpAmp;
 @short Operational Amplifier
 @author David Saxton
 */
-class ECOpAmp : public SimpleComponent
+class ECOpAmp : public Component
 {
 public:
-	ECOpAmp(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	ECOpAmp();
 	~ECOpAmp();
-
-	static Item* construct(ItemDocument *itemDocument, bool newItem, const char *id);
-	static LibraryItem *libraryItem();
-
-protected:
-	virtual void drawShape(QPainter &p);
 
 private:
 	OpAmp the_amp;
