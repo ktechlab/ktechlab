@@ -11,7 +11,7 @@
 #ifndef ECCURRENTSIGNAL_H
 #define ECCURRENTSIGNAL_H
 
-#include "simplecomponent.h"
+#include "component.h"
 #include "currentsignal.h"
 
 class CurrentSignal;
@@ -20,18 +20,14 @@ class CurrentSignal;
 @short Provides a current signal (sinusoidal, square, etc)
 @author David Saxton
 */
-class ECCurrentSignal : public SimpleComponent
+class ECCurrentSignal : public Component
 {
 public:
-	ECCurrentSignal( ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	ECCurrentSignal();
 	~ECCurrentSignal();
 	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
-	
 protected:
-	virtual void drawShape( QPainter &p );
-	void dataChanged();
+    virtual void propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue);
 	
 	CurrentSignal m_currentSignal;
 };
