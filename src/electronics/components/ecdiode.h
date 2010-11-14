@@ -24,15 +24,10 @@ public:
 	ECDiode();
 	~ECDiode();
 
-    void setSaturationCurrent(double I_S); // I_S
-    void setEmissionCoefficient(double N); // N
-    void setBreakdownVoltage(double V_B); // V_B
-
-    double saturationCurrent() const;
-    double emissionCoefficient() const;
-    double breakdownVoltage() const;
-	
 protected:
+    virtual void propertyChanged(Property& theProperty, QVariant newValue,
+                                 QVariant oldValue);
+
 	Diode m_diode;
 };
 
