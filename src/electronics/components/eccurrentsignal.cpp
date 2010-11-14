@@ -9,59 +9,33 @@
  ***************************************************************************/
 
 #include "eccurrentsignal.h"
-#include "ecnode.h"
-#include "libraryitem.h"
+
 #include "simulator.h"
+#include "variant.h"
 
-#include <klocale.h>
-#include <qpainter.h>
-
-Item* ECCurrentSignal::construct( ItemDocument *itemDocument, bool newItem, const char *id )
-{
-	return new ECCurrentSignal( (ICNDocument*)itemDocument, newItem, id );
-}
-
-LibraryItem* ECCurrentSignal::libraryItem()
-{
-	return new LibraryItem(
-		"ec/ac_current",
-		i18n("Current Signal"),
-		i18n("Sources"),
-		"currentsignal.png",
-		LibraryItem::lit_component,
-		ECCurrentSignal::construct );
-}
-
-ECCurrentSignal::ECCurrentSignal(ICNDocument *icnDocument, bool newItem, const char *id)
-	: SimpleComponent(icnDocument, newItem, id ? id : "current_signal"),
+ECCurrentSignal::ECCurrentSignal()
+	: Component(),
 	m_currentSignal(LINEAR_UPDATE_PERIOD, 0)	
 {
-	m_name = i18n("Current Signal");
-	setSize(-8, -8, 16, 16);
-
-	init1PinLeft();
-	init1PinRight();
-
-	m_pNNode[0]->pin().setGroundType(Pin::gt_low);
-	setup2pinElement(m_currentSignal, m_pNNode[0]->pin(), m_pPNode[0]->pin());
+	// m_pNNode[0]->pin().setGroundType(Pin::gt_low);
 	m_currentSignal.setStep(ElementSignal::st_sinusoidal, 50.);
 
-	createProperty("1-frequency", Variant::Type::Double);
-	property("1-frequency")->setCaption(i18n("Frequency"));
-	property("1-frequency")->setUnit("Hz");
-	property("1-frequency")->setMinValue(1e-9);
-	property("1-frequency")->setMaxValue(1e3);
-	property("1-frequency")->setValue(50.0);
+    Property *freq = new Property("1-frequency", Variant::Type::Double);
+	freq->setCaption(tr("Frequency"));
+	freq->setUnit("Hz");
+	freq->setMinValue(1e-9);
+	freq->setMaxValue(1e3);
+	freq->setValue(50.0);
+    addProperty(freq);
 
-	createProperty( "1-current", Variant::Type::Double );
-	property("1-current")->setCaption(i18n("Current Range"));
-	property("1-current")->setUnit("A");
-	property("1-current")->setMinValue(-1e12);
-	property("1-current")->setMaxValue(1e12);
-	property("1-current")->setValue(0.02);
+	Property *current = new Property( "1-current", Variant::Type::Double );
+	current->setCaption(tr("Current Range"));
+	current->setUnit("A");
+	current->setMinValue(-1e12);
+	current->setMaxValue(1e12);
+	current->setValue(0.02);
+    addProperty(current);
 
-	addDisplayText("~", QRect(-8, -8, 16, 16), "~");
-	addDisplayText("current", QRect(-16, -24, 32, 16), "");
 }
 
 
@@ -69,22 +43,14 @@ ECCurrentSignal::~ECCurrentSignal()
 {
 }
 
-void ECCurrentSignal::dataChanged()
+void ECCurrentSignal::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
 {
-	const double current = dataDouble("1-current");
-	const double frequency = dataDouble("1-frequency");
-	
-	QString display = QString::number( current / getMultiplier(current), 'g', 3 ) + getNumberMag(current) + "A";
-	setDisplayText( "current", display );
-	
-	m_currentSignal.setStep(ElementSignal::st_sinusoidal, frequency );
-	m_currentSignal.setCurrent(current);
+    if(theProperty.name() == "1-current"){
+        double frequency = newValue.asDouble();
+        m_currentSignal.setStep(ElementSignal::st_sinusoidal, frequency );
+    }
+    if(theProperty.name() == "1-frequency"){
+        double current = newValue.asDouble();
+        m_currentSignal.setCurrent(current);
+    }
 }
-
-void ECCurrentSignal::drawShape( QPainter &p )
-{
-	initPainter(p);
-	p.drawEllipse( (int)x()-8, (int)y()-8, width(), height() );
-	deinitPainter(p);
-}
-
