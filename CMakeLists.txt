@@ -136,6 +136,7 @@ set( CompileSimulator_SRCS
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ecbjt.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ecclockinput.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/eccurrentsignal.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/components/eccurrentsource.cpp
   # ..
  ${CMAKE_SOURCE_DIR}/src/electronics/components/resistor.cpp
 )
