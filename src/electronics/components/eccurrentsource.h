@@ -11,7 +11,7 @@
 #ifndef ECCURRENTSOURCE_H
 #define ECCURRENTSOURCE_H
 
-#include "simplecomponent.h"
+#include "component.h"
 #include "currentsource.h"
 
 class CurrentSource;
@@ -20,18 +20,15 @@ class CurrentSource;
 @short Fixed current source
 @author David Saxton
 */
-class ECCurrentSource : public SimpleComponent
+class ECCurrentSource : public Component
 {
 public:
-	ECCurrentSource( ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	ECCurrentSource();
 	~ECCurrentSource();
 
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
-	static LibraryItem *libraryItem();
-
 private:
-	virtual void drawShape( QPainter &p );
-	void dataChanged();
+    virtual void propertyChanged(Property& theProperty, QVariant newValue,
+                                 QVariant oldValue);
 
 	CurrentSource m_currentSource;
 };
