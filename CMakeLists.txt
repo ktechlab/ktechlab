@@ -148,6 +148,8 @@ set( CompileSimulator_SRCS
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ecsignallamp.cpp
  # ${CMAKE_SOURCE_DIR}/src/electronics/components/ecsubcircuit.cpp # complicated
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ecvoltagesignal.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/components/ecvoltagesource.cpp
+ # ${CMAKE_SOURCE_DIR}/src/electronics/components/externalconnection.cpp # complicated
   # ..
  ${CMAKE_SOURCE_DIR}/src/electronics/components/resistor.cpp
 )
