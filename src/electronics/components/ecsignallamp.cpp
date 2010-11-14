@@ -8,14 +8,8 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include <klocale.h>
-#include <qpainter.h>
-#include <cmath>
-
-#include "ecnode.h"
 #include "ecsignallamp.h"
 #include "element.h"
-#include "libraryitem.h"
 
 // TODO: resistance and power rating should be user definable properties.
 #define RESISTANCE 100
@@ -23,70 +17,23 @@
 // minimal power to create glow. (looks low...)
 #define LIGHTUP   (WATTAGE / 20)
 
-Item* ECSignalLamp::construct( ItemDocument *itemDocument, bool newItem, const char *id )
+
+ECSignalLamp::ECSignalLamp()
+	:   Component()
 {
-	return new ECSignalLamp( (ICNDocument*)itemDocument, newItem, id );
-}
-
-LibraryItem* ECSignalLamp::libraryItem()
-{
-	return new LibraryItem(
-		"ec/signal_lamp",
-		i18n("Signal Lamp"),
-		i18n("Outputs"),
-		"signal_lamp.png",
-		LibraryItem::lit_component,
-		ECSignalLamp::construct);
-}
-
-ECSignalLamp::ECSignalLamp(ICNDocument *icnDocument, bool newItem, const char *id)
-	: SimpleComponent(icnDocument, newItem, id ? id : "signal_lamp")
-{
-	m_name = i18n("Signal Lamp");
-	setSize(-8, -8, 16, 16);
-
-	init1PinLeft();
-	init1PinRight();
-
-//	createResistance(m_pPNode[0]->pin(), m_pNNode[0]->pin(), RESISTANCE);
 	the_filament.setResistance(RESISTANCE);
-	setup2pinElement(the_filament, m_pPNode[0]->pin(), m_pNNode[0]->pin());
 
 	advanceSinceUpdate = 0;
 	avgPower = 0.;
-	m_bDynamicContent = true;
 }
 
 ECSignalLamp::~ECSignalLamp() {}
 
 void ECSignalLamp::stepNonLogic()
 {
-	const double voltage = m_pPNode[0]->pin().voltage()-m_pNNode[0]->pin().voltage();
+    // FIXME implement
+	const double voltage = 0; // m_pPNode[0]->pin().voltage()-m_pNNode[0]->pin().voltage();
 	avgPower = fabs(avgPower * advanceSinceUpdate +
 			(voltage * voltage / RESISTANCE)) /
 			++advanceSinceUpdate;
-}
-
-void ECSignalLamp::drawShape( QPainter &p )
-{
-	initPainter(p);
-
-	int _x = int(x());
-	int _y = int(y());
-
-	// Calculate the brightness as a linear function of power, bounded below by
-	// 25 milliWatts and above by 500 milliWatts.
-	int brightness = (avgPower < LIGHTUP) ? 255 :
-			((avgPower > WATTAGE) ? 0 : (int)(255 * (1 - ((avgPower - LIGHTUP) / (WATTAGE - LIGHTUP)))));
-	advanceSinceUpdate = 0;
-	
-	p.setBrush( QColor( 255, 255, brightness ) );
-	p.drawEllipse( _x-8, _y-8, 16, 16 );
-	
-	int pos = 8 - int(8 * M_SQRT1_2);
-	
-	p.drawLine( _x-8+pos, _y-8+pos, _x+8-pos, _y+8-pos );
-	p.drawLine( _x+8-pos, _y-8+pos, _x-8+pos, _y+8-pos );
-	
-	deinitPainter(p);
 }
