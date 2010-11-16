@@ -155,6 +155,15 @@ QVariant IDocumentModel::data(const QModelIndex& index, int role) const
     return QVariant();
 }
 
+const QDomNode IDocumentModel::domNode(const QModelIndex& index) const
+{
+    DocumentItem* item = d->itemFromIndex(index);
+    if (item)
+        return item->node();
+
+    return QDomNode();
+}
+
 int IDocumentModel::columnCount(const QModelIndex& parent) const
 {
     return 1;
