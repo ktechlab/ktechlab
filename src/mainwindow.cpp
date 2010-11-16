@@ -315,19 +315,6 @@ void MainWindow::createActions()
     action->setIcon( KIcon("ktechlab_microbe") );
     connect( action, SIGNAL(triggered()), this, SLOT(slotFileNewMicrobe()) );
     newActionMenu->addAction( action );
-
-    /*
-    ** circuit actions
-    **/
-    action = actionCollection()->addAction( QString("edit_rotate_cw") );
-    action->setText( i18n("Rotate Clockwise") );
-    action->setIcon( KIcon("object-rotate-right") );
-    connect( action, SIGNAL(triggered()), this, SLOT(slotComponentRotateCW()) );
-
-    action = actionCollection()->addAction( QString("edit_rotate_ccw") );
-    action->setText( i18n("Rotate Counter-Clockwise") );
-    action->setIcon( KIcon("object-rotate-left") );
-    connect( action, SIGNAL(triggered()), this, SLOT(slotComponentRotateCCW()) );
 }
 
 void MainWindow::createToolBars()

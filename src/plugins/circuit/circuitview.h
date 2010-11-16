@@ -35,6 +35,7 @@ namespace KTechLab
 class ComponentItem;
 class Theme;
 class CircuitScene;
+class CircuitDocument;
 
 /**
  * A @class QGraphicsView widget, displaying a @class KTechLab::CircuitScene
@@ -48,18 +49,20 @@ class CircuitView : public QGraphicsView, public KXMLGUIClient
     Q_OBJECT
 
 public:
-    CircuitView ( KTechLab::CircuitScene* scene, QWidget* parent = 0 );
+    CircuitView ( KTechLab::CircuitDocument* document, QWidget* parent = 0 );
     ~CircuitView();
 
 private slots:
-    void slotComponentRotateCW();
-    void slotComponentRotateCCW();
-    void slotComponentFlipHorizontal();
-    void slotComponentFlipVertical();
+    void componentRotateCW();
+    void componentRotateCCW();
+    void componentFlipHorizontal();
+    void componentFlipVertical();
+    void save();
 
 private:
     void init();
     void setupActions();
+    KTechLab::CircuitDocument* m_document;
     KTechLab::CircuitScene* m_scene;
 };
 
