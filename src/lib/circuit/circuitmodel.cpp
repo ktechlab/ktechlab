@@ -30,3 +30,48 @@ using namespace KTechLab;
 CircuitModel::CircuitModel ( QDomDocument doc, QObject* parent )
     : IDocumentModel ( doc, parent )
 {}
+
+int KTechLab::CircuitModel::columnCount(const QModelIndex& parent) const
+{
+    if (isItem(parent))
+        return 2;
+
+    return KTechLab::IDocumentModel::columnCount(parent);
+}
+
+QVariant CircuitModel::data(const QModelIndex& index, int role) const
+{
+    if (isItem(index.parent())) {
+        const QDomElement node = domNode(index).toElement();
+        if (index.column() == 0 && role == Qt::DisplayRole) {
+            return QVariant(node.attribute("id", i18n("Invalid Data")));
+        } else if (index.column() == 1 && role == Qt::DisplayRole || role == Qt::EditRole) {
+            return QVariant(node.attribute("value", i18n("Invalid Data")));
+        }
+    }
+    return KTechLab::IDocumentModel::data(index, role);
+}
+
+Qt::ItemFlags CircuitModel::flags(const QModelIndex& index) const
+{
+    if (!isItem(index.parent()))
+        return KTechLab::IDocumentModel::flags(index);
+
+    if (index.column() == 0) {
+        return KTechLab::IDocumentModel::flags(index) & ~Qt::ItemIsSelectable;
+    } else if (index.column() == 1) {
+        return KTechLab::IDocumentModel::flags(index) | Qt::ItemIsSelectable | Qt::ItemIsEditable;
+    }
+
+    return KTechLab::IDocumentModel::flags(index);
+}
+
+bool KTechLab::CircuitModel::isItem(const QModelIndex& parent) const
+{
+    const QDomNode node = domNode(parent);
+
+    if (!node.toElement().isNull() && node.nodeName() == "item")
+        return true;
+
+    return false;
+}

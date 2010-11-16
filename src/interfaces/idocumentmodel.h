@@ -219,6 +219,9 @@ public slots:
 signals:
     void dataUpdated( const QString &name, const QVariantList &data );
 
+protected:
+    const QDomNode domNode( const QModelIndex& index ) const;
+
 private:
     IDocumentModelPrivate* d;
     friend class IDocumentModelPrivate;

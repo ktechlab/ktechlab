@@ -22,6 +22,7 @@
 #include <KDebug>
 #include <QTreeView>
 #include <QHeaderView>
+#include "componenteditorview.h"
 
 using namespace KTechLab;
 
@@ -59,6 +60,38 @@ private:
     KTLCircuitPlugin * m_plugin;
 };
 
+class KTechLab::KTLComponentEditorFactory: public KDevelop::IToolViewFactory
+{
+public:
+    KTLComponentEditorFactory( KTLCircuitPlugin *plugin )
+        : m_plugin(plugin)
+    {};
+
+    virtual QWidget * create( QWidget *parent )
+    {
+        ComponentEditorView *componentEditor = new ComponentEditorView( parent );
+
+        KDevelop::IDocumentController* docController = m_plugin->core()->documentController();
+        componentEditor->activated(docController->activeDocument());
+        QObject::connect( docController, SIGNAL( documentActivated( KDevelop::IDocument* ) ),
+                          componentEditor, SLOT( activated( KDevelop::IDocument* ) ) );
+
+        return componentEditor;
+    };
+
+    virtual QString id() const
+    {
+        return "org.ktechlab.ComponentEditor";
+    };
+
+    virtual Qt::DockWidgetArea defaultPosition()
+    {
+        return Qt::RightDockWidgetArea;
+    };
+private:
+    KTLCircuitPlugin * m_plugin;
+};
+
 class KTechLab::KTLCircuitDocumentFactory: public KDevelop::IDocumentFactory
 {
 public:
@@ -89,7 +122,10 @@ KTLCircuitPlugin::KTLCircuitPlugin( QObject *parent, const QVariantList& args )
 void KTLCircuitPlugin::init()
 {
     m_componentViewFactory = new KTLComponentViewFactory(this);
-    KDevelop::Core::self()->uiController()->addToolView( "Components", m_componentViewFactory );
+    KDevelop::Core::self()->uiController()->addToolView( i18n("Components"), m_componentViewFactory );
+
+    m_componentEditorFactory = new KTLComponentEditorFactory(this);
+    KDevelop::Core::self()->uiController()->addToolView( i18n("Component Editor"), m_componentEditorFactory );
 
     m_documentFactory = new KTLCircuitDocumentFactory(this);
     KDevelop::Core::self()->documentController()->registerDocumentForMimetype( "application/x-circuit", m_documentFactory );
@@ -140,6 +176,7 @@ IComponentItemFactory* KTLCircuitPlugin::componentItemFactory(const QString& nam
 void KTLCircuitPlugin::unload()
 {
     KDevelop::Core::self()->uiController()->removeToolView(m_componentViewFactory);
+    KDevelop::Core::self()->uiController()->removeToolView(m_componentEditorFactory);
 }
 
 #include "ktlcircuitplugin.moc"
