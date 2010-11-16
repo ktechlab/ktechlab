@@ -1,6 +1,5 @@
 /*
-    <one line to give the program's name and a brief idea of what it does.>
-    Copyright (C) <year>  <name of author>
+    Copyright (C) 2010 Julian Bäume <julian@svg4all.de>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -15,33 +14,43 @@
     You should have received a copy of the GNU General Public License along
     with this program; if not, write to the Free Software Foundation, Inc.,
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-
 */
 
-#ifndef KTECHLAB_CIRCUITMODEL_H
-#define KTECHLAB_CIRCUITMODEL_H
 
-#include <interfaces/idocumentmodel.h>
-#include "circuitexport.h"
+#ifndef KTECHLAB_COMPONENTEDITORVIEW_H
+#define KTECHLAB_COMPONENTEDITORVIEW_H
 
-namespace KTechLab
+#include <QtGui/QTableView>
+
+namespace KDevelop {
+    class IDocument;
+}
+
+
+namespace KTechLab {
+
+class ComponentItem;
+class CircuitModel;
+class CircuitScene;
+
+class ComponentEditorView : public QTableView
 {
-
-class CIRCUIT_EXPORT CircuitModel : public IDocumentModel
-{
+    Q_OBJECT
 public:
-    CircuitModel(QDomDocument doc, QObject* parent = 0);
+    explicit ComponentEditorView(QWidget* parent = 0);
 
-    virtual Qt::ItemFlags flags(const QModelIndex& index) const;
-
-    virtual int columnCount(const QModelIndex& parent = QModelIndex()) const;
-
-    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+public slots:
+    void activated( KDevelop::IDocument* document );
 
 private:
-    bool isItem(const QModelIndex& parent) const;
+    void setComponentItem( KTechLab::ComponentItem* item );
+    KTechLab::CircuitScene* m_scene;
+    KTechLab::CircuitModel* m_model;
+
+private slots:
+    void updateModel();
 };
 
 }
 
-#endif // KTECHLAB_CIRCUITMODEL_H
+#endif // KTECHLAB_COMPONENTEDITORVIEW_H

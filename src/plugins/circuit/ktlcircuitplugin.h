@@ -11,6 +11,7 @@ namespace KTechLab
 class IComponentItemFactory;
 
 class KTLComponentViewFactory;
+class KTLComponentEditorFactory;
 class KTLCircuitDocumentFactory;
 class ComponentModel;
 
@@ -47,6 +48,7 @@ private:
     void init();
     KTLComponentViewFactory *m_componentViewFactory;
     KTLCircuitDocumentFactory *m_documentFactory;
+    KTLComponentEditorFactory* m_componentEditorFactory;
 
     ComponentModel *m_componentModel;
 };
