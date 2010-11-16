@@ -29,12 +29,14 @@
 #include <KLocalizedString>
 #include <KActionCollection>
 #include "circuitscene.h"
+#include "circuitdocument.h"
 
 using namespace KTechLab;
 
-CircuitView::CircuitView ( CircuitScene* scene, QWidget* parent )
-    : QGraphicsView ( scene, parent ),
-      m_scene(scene)
+CircuitView::CircuitView ( KTechLab::CircuitDocument* document, QWidget* parent )
+    : QGraphicsView ( document->documentScene(), parent ),
+      m_document(document),
+      m_scene(static_cast<CircuitScene*>(document->documentScene()))
 {
     setXMLFile("ktechlabcircuitui.rc");
     setupActions();
@@ -64,42 +66,55 @@ void CircuitView::setupActions()
     action = ac->addAction( QString("edit_rotate_cw") );
     action->setText( i18n("Rotate Clockwise") );
     action->setIcon( KIcon("object-rotate-right") );
-    connect( action, SIGNAL(triggered()), this, SLOT(slotComponentRotateCW()) );
+    connect( action, SIGNAL(triggered()), this, SLOT(componentRotateCW()) );
 
     action = ac->addAction( QString("edit_rotate_ccw") );
     action->setText( i18n("Rotate Counter-Clockwise") );
     action->setIcon( KIcon("object-rotate-left") );
-    connect( action, SIGNAL(triggered()), this, SLOT(slotComponentRotateCCW()) );
+    connect( action, SIGNAL(triggered()), this, SLOT(componentRotateCCW()) );
 
     action = ac->addAction( QString("edit_flip_horizontally") );
     action->setText( i18n("Flip Horizontally") );
     action->setIcon( KIcon("object-flip-horizontal") );
-    connect( action, SIGNAL(triggered()), this, SLOT(slotComponentFlipHorizontal()) );
+    connect( action, SIGNAL(triggered()), this, SLOT(componentFlipHorizontal()) );
 
     action = ac->addAction( QString("edit_flip_vertically") );
     action->setText( i18n("Flip Vertically") );
     action->setIcon( KIcon("object-flip-vertical") );
-    connect( action, SIGNAL(triggered()), this, SLOT(slotComponentFlipVertical()) );
+    connect( action, SIGNAL(triggered()), this, SLOT(componentFlipVertical()) );
+
+    //TODO: move this into a basic document-view to re-use it for flow-code
+    action = ac->addAction( KStandardAction::Save );
+    connect( action, SIGNAL(triggered()), this, SLOT(save()) );
+//     action = ac->addAction( KStandardAction::SaveAs );
+//     connect( action, SIGNAL(triggered()), this, SLOT(saveAs()) );
+//     action = ac->addAction( KStandardAction::Revert );
+//     connect( action, SIGNAL(triggered()), this, SLOT(revert()) );
 }
 
-void CircuitView::slotComponentFlipHorizontal()
+void CircuitView::componentFlipHorizontal()
 {
     m_scene->flipSelectedComponents(Qt::XAxis);
 }
 
-void CircuitView::slotComponentFlipVertical()
+void CircuitView::componentFlipVertical()
 {
     m_scene->flipSelectedComponents(Qt::YAxis);
 }
 
-void CircuitView::slotComponentRotateCCW()
+void CircuitView::componentRotateCCW()
 {
     m_scene->rotateSelectedComponents(-90);
 }
 
-void CircuitView::slotComponentRotateCW()
+void CircuitView::componentRotateCW()
 {
     m_scene->rotateSelectedComponents(90);
+}
+
+void CircuitView::save()
+{
+    m_document->save();
 }
 
 #include "circuitview.moc"
