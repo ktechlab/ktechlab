@@ -1,6 +1,12 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
 <kpartgui name="KTechlabCircuit" version="7">
     <MenuBar>
+        <Menu name="file" noMerge="1">
+            <text context="@title:menu">&amp;File</text>
+            <Action name="file_save" group="save_merge"/>
+            <Action name="file_save_as" group="save_merge"/>
+            <Action name="file_revert" group="revert_merge" />
+        </Menu>
         <Menu name="tools" merge="1">
             <text>&amp;Tools</text>
             <Separator/>
@@ -19,7 +25,15 @@
         </Menu>
     </MenuBar>
 
-    <ToolBar name="circuitToolBar">
+    <ToolBar name="mainToolBar" noMerge="1">
+        <text>Main Toolbar</text>
+        <Action name="file_save" group="file_operations" />
+        <Action name="file_revert" group="file_operations" />
+        <Separator/>
+    </ToolBar>
+
+    <ToolBar name="circuitToolBar" noMerge="1">
+        <text>Circuit Toolbar</text>
         <Separator/>
         <Action name="routing_mode"/>
         <Action name="edit_draw"/>
@@ -38,4 +52,3 @@
         <Action name="circuit_create_subcircuit"/>
     </Menu>
 </kpartgui>
-

@@ -175,7 +175,7 @@ bool CircuitDocument::save(KDevelop::IDocument::DocumentSaveMode mode)
 
 QWidget* CircuitDocument::createViewWidget( QWidget* parent )
 {
-    CircuitView *view = new CircuitView( d->circuitScene, parent);
+    CircuitView *view = new CircuitView( this, parent);
 
     connect(d->circuitModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)),
             this, SLOT(slotUpdateState()));
