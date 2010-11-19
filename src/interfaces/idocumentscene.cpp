@@ -269,7 +269,7 @@ void IDocumentScene::performRerouting()
 void IDocumentScene::fetchRouter()
 {
     KDevelop::IPluginController *pc = KDevelop::ICore::self()->pluginController();
-    IRouterPlugin* router = pc->extensionForPlugin<IRouterPlugin>("org.ktechlab.IRouterPlugin", "ktlautomatic_router");
+    IRouterPlugin* router = pc->extensionForPlugin<IRouterPlugin>("org.ktechlab.IRouterPlugin", "ktlsimple_router");
     if (!router) {
         kWarning() << "No Plugin found for extension: org.ktechlab.IRouterPlugin";
         return;
