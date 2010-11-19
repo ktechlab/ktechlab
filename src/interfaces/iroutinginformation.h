@@ -78,7 +78,7 @@ public:
      * The default implementation calls mapRoute(QPointF(sx,sy),QPointF(ex,ey)).
      * This method is provided for convenience.
      */
-    virtual void mapRoute( qreal sx, qreal sy, qreal ex, qreal ey);
+    void mapRoute( qreal sx, qreal sy, qreal ex, qreal ey);
 
     /**
      * Get the route in a paintable format. This can be directly used
