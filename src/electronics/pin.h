@@ -77,7 +77,7 @@ public:
     /**
      * Set of the current is known on this pin
      */
-    bool setCurrentKnown(bool known);
+    void setCurrentKnown(bool known);
 
 	/**
 	 * This returns the value given by setCurrentKnown AND'd with whether
