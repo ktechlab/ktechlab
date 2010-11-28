@@ -13,16 +13,17 @@
 #ifndef PIN_H
 #define PIN_H
 
-#include <set>
 #include "wire.h"
+#include "element.h"
+#include "typedefs.h"
+
+#include <set>
+#include <QList>
 
 class Element;
 class Pin;
 class Wire;
 
-typedef std::set<Element*> ElementList;
-typedef std::set<Pin *> PinSet;
-typedef std::set<Wire *> WireList;
 
 /**
 @author David Saxton
