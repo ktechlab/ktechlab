@@ -119,6 +119,10 @@ set( CompileSimulator_SRCS
  ${CMAKE_SOURCE_DIR}/src/variant.cpp
  # base class for components
  ${CMAKE_SOURCE_DIR}/src/electronics/component.cpp
+ ${CMAKE_SOURCE_DIR}/src/node.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/ecnode.cpp
+ ${CMAKE_SOURCE_DIR}/src/connector.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/electronicconnector.cpp
  # components:
  ${CMAKE_SOURCE_DIR}/src/electronics/components/addac.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/bidirled.cpp
