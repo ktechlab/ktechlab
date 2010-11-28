@@ -8,13 +8,8 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-// #include <cmath>
-#include <kdebug.h>
-// #include <qpainter.h>
-//Added by qt3to4:
-// #include <Q3PointArray>
+#include <QDebug>
 
-// #include "circuitdocument.h"
 #include "component.h"
 #include "pin.h"
 #include "simulator.h"
@@ -77,6 +72,18 @@ Property* Component::propertyByName(const QString& name) const
     return 0;
 }
 
+ECNode* Component::pinByName(const QString name) const
+{
+    if(m_pinMap.contains(name))
+        return m_pinMap.value(name);
+    else
+        return NULL;
+}
+
+QMap< QString, ECNode* > Component::pinMap() const
+{
+    return m_pinMap;
+}
 
 //END class Component
 
