@@ -12,9 +12,12 @@
 #ifndef ELECTRONICCONNECTOR_H
 #define ELECTRONICCONNECTOR_H
 
-#include <connector.h>
+#include "connector.h"
 
-#include "ecnode.h"
+#include "typedefs.h"
+
+class ECNode;
+class Wire;
 
 /**
 	@author David Saxton, Alan Grimes, Zoltan Padrah <zoltan.padrah@gmail.com>
@@ -25,60 +28,41 @@ class ElectronicConnector : public Connector {
 	Q_OBJECT
 
 public:
-	ElectronicConnector(ECNode* startNode, ECNode* endNode, ICNDocument* _ICNDocument, const QString &id = QString());
+    /**
+     Create an electroni connector that connects two nodes
+     */
+	ElectronicConnector(ECNode* startNode, ECNode* endNode);
 
-	~ElectronicConnector();
+	virtual ~ElectronicConnector();
 
 	/**
 	  * Node at start of connector (which refers to this as the output connector)
 	  */
-	virtual Node* startNode() const {
-		return m_startEcNode;
-	}
+	virtual Node* startNode() const ;
 
 	/**
 	 * Node at end of connector (which refers to this as the input connector)
 	 */
-	virtual Node* endNode() const {
-		return m_endEcNode;
-	}
+	virtual Node* endNode() const ;
 
-	unsigned numWires() const { return m_wires.size(); }
+    /**
+     Number of wires in the connector
+     */
+	virtual int numWires() const ;
 
-	Wire *wire(unsigned num = 0) const {
-		return (num < m_wires.size()) ? m_wires[num] : 0;
-	}
+    /**
+     \return a wire of given number contained in the connector
+     */
+	Wire *wire(unsigned num = 0) const ;
 
-	/**
-	 * Increases the currentAnimationOffset according to the current flowing in
-	 * the connector and deltaTime.
-	 */
-	void incrementCurrentAnimation(double deltaTime);
-
-	/**
-	 * Modular offset of moving dots in connector, indicating current (in
-	 * pixels).
-	 */
-	double currentAnimationOffset() const { return m_currentAnimationOffset; }
-
-signals :
-	void removed(ECNode *node);
-	void removed(ElectronicConnector *connector);
-
-public slots:
-	/**
-	 * Takes the minimum pin count of the start and end nodes, and creates a
-	 * connector for each pin up to that minimum.
-	 */
-	void syncWiresWithNodes();
 
 private:
-
-	double m_currentAnimationOffset;
-
 	/// pointers to the endnodes of the connectors
 	ECNode *m_startEcNode;
 	ECNode *m_endEcNode;
+
+    /// wires on the connector
+    WireList m_wires;
 };
 
 #endif
