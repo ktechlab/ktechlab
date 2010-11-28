@@ -15,7 +15,6 @@
 #include <QDebug>
 
 #include "circuit.h"
-#include "circuitdocument.h"
 #include "element.h"
 #include "logic.h"
 #include "nonlinear.h"
