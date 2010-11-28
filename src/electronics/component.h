@@ -17,6 +17,7 @@
 #include <QObject>
 #include <variant.h>
 
+class ECNode;
 class ElementMap;
 
 // typedef std::list<Pin*> PinList;
@@ -68,8 +69,17 @@ public:
      */
     Property* propertyByName(const QString& name) const;
 
-    // TODO list of pins of the component
-    // FIXME implementing buses
+    /**
+     * \return pin of the component, an ECNode, identified by a name
+     *   If no such pin exsits, the method returns NULL
+     * \param name the idenfidier of the pin, as seen by the component
+     */
+    ECNode* pinByName(const QString name) const;
+
+    /**
+     * \return all mapping of pin IDs to ECNodes in the current component
+     */
+    QMap<QString, ECNode*> pinMap() const;
 
 protected:
 	/**
@@ -101,6 +111,9 @@ protected:
                     Q_UNUSED(newValue);
                     Q_UNUSED(oldValue);
                 }
+
+    /// all the pins owned by this component
+    QMap<QString, ECNode*> m_pinMap;
 
 private slots:
     /**
