@@ -93,7 +93,7 @@ bool Pin::currentIsKnown() const
     return m_currentIsKnown;
 }
 
-bool Pin::setCurrentKnown(bool known)
+void Pin::setCurrentKnown(bool known)
 {
     m_currentIsKnown = known;
 }
