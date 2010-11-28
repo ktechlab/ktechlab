@@ -81,11 +81,11 @@ void Pin::removeElement(Element *e) {
 void Pin::addWire(Wire *wire) {
 	assert(wire);
 
-	m_wireList.insert(wire);
+	m_wireList.append(wire);
 }
 
 void Pin::removeWire(Wire *aWire) {
-	m_wireList.erase(aWire);
+	m_wireList.removeAll(aWire);
 }
 
 bool Pin::currentIsKnown() const
