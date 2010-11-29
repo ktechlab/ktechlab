@@ -79,6 +79,11 @@ class KTLProjectManager : public IPlugin, public IProjectFileManager
     virtual bool removeFolder ( ProjectFolderItem* folder );
 
     /**
+     *
+     */
+    virtual bool removeFilesAndFolders(QList< ProjectBaseItem* > items);
+
+    /**
     *
     */
     virtual bool renameFile ( ProjectFileItem* oldFile, const KUrl& newFile );

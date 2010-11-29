@@ -309,6 +309,18 @@ bool KTLProjectManager::removeFolder( ProjectFolderItem* folder )
     return true;
 }
 
+bool KTLProjectManager::removeFilesAndFolders(QList< ProjectBaseItem* > items)
+{
+    foreach(ProjectBaseItem* item, items){
+        if (ProjectFolderItem* f = item->folder()) {
+            removeFolder(f);
+        } else if (ProjectFileItem* f = item->file()){
+            removeFile(f);
+        }
+    }
+    return true;
+}
+
 bool KTLProjectManager::renameFile( ProjectFileItem* oldFile, const KUrl& newFile )
 {
     KUrl oldFileUrl = oldFile->url();
