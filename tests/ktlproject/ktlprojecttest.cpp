@@ -106,7 +106,7 @@ void KTLProjectTest::removeSubProject()
     folderUrl.addPath("renameTestFolder");
 
     KDevelop::IProjectFileManager* manager = m_project->projectFileManager();
-    QVERIFY( manager->removeFolder(m_testFolderItem) );
+    QVERIFY( manager->removeFilesAndFolders(QList<KDevelop::ProjectBaseItem*>() << m_testFolderItem) );
 
     QVERIFY( !QDir(folderUrl.toLocalFile()).exists() );
     QVERIFY( !m_project->inProject(folderUrl) );
@@ -151,7 +151,7 @@ void KTLProjectTest::removeFile()
 
     KUrl fileUrl = m_testFileItem->url();
 
-    QVERIFY( manager->removeFile(m_testFileItem) );
+    QVERIFY( manager->removeFilesAndFolders(QList<KDevelop::ProjectBaseItem*>() << m_testFileItem) );
     QVERIFY( !QFile(fileUrl.toLocalFile()).exists() );
     QVERIFY( !m_project->inProject(fileUrl) );
 }
