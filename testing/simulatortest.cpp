@@ -487,6 +487,54 @@ void SimulatorTest::testComponent_SourceAndResistor()
 
 }
 
+void SimulatorTest::testComponent_voltageDivider()
+{
+    Resistor r1,r2;
+    ECCell v1;
+
+    r1.propertyByName("resistance")->setValue(2000);
+    r2.propertyByName("resistance")->setValue(3000);
+
+    v1.propertyByName("voltage")->setValue(5);
+
+    ElectronicConnector c1(v1.pinByName("p1"), r1.pinByName("p1"));
+    ElectronicConnector c2(r1.pinByName("n1"), r2.pinByName("p1"));
+    ElectronicConnector c3(r2.pinByName("n1"), v1.pinByName("n1"));
+
+    Simulator * sim = Simulator::self();
+    sim->slotSetSimulating(false);
+
+    Circuit *circ = new Circuit();
+    circ->addComponent(r1);
+    circ->addComponent(r2);
+    circ->addComponent(v1);
+    circ->init();
+
+    sim->attachCircuit(circ);
+
+    sim->slotSetSimulating(true);
+
+    sim->step();
+    circ->updateCurrents();
+
+    circ->displayEquations();
+    qDebug() << "c1 current: " << c1.wire()->current();
+    qDebug() << "c2 current: " << c2.wire()->current();
+    qDebug() << "c3 current: " << c3.wire()->current();
+    qDebug() << "v1 voltages: p1: " << v1.pinByName("p1")->pin()->voltage() << " n1:" << v1.pinByName("n1")->pin()->voltage();
+
+    Q_ASSERT(QABS(QABS(c1.wire()->current()) - 0.001) < maxCurrentError);
+    Q_ASSERT(QABS(QABS(c2.wire()->current()) - 0.001) < maxCurrentError);
+    Q_ASSERT(QABS(QABS(c3.wire()->current()) - 0.001) < maxCurrentError);
+    Q_ASSERT(QABS(v1.pinByName("p1")->pin()->voltage() - v1.pinByName("n1")->pin()->voltage() - 5) < maxVoltageError);
+    Q_ASSERT(QABS(r1.pinByName("p1")->pin()->voltage() - r1.pinByName("n1")->pin()->voltage() - 2) < maxVoltageError);
+    Q_ASSERT(QABS(r2.pinByName("p1")->pin()->voltage() - r2.pinByName("n1")->pin()->voltage() - 3) < maxVoltageError);
+
+    sim->slotSetSimulating(false);
+    sim->detachCircuit(circ);
+}
+
+
 
 QTEST_MAIN(SimulatorTest)
 #include "simulatortest.moc"
