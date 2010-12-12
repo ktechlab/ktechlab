@@ -423,8 +423,8 @@ void SimulatorTest::testComponent_SourceAndResistor()
     sim->slotSetSimulating(false);
 
     Circuit *circ = new Circuit();
-    circ->addComponent(&r1);
-    circ->addComponent(&v1);
+    circ->addComponent(r1);
+    circ->addComponent(v1);
     circ->init();
 
     sim->attachCircuit(circ);

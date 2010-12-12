@@ -540,9 +540,9 @@ void Circuit::addElementMap(ElementMap* em)
 
 }
 
-void Circuit::addComponent(const Component* comp)
+void Circuit::addComponent(const Component& comp)
 {
-    foreach(ElementMap *map, comp->elementMapList()){
+    foreach(ElementMap *map, comp.elementMapList()){
         addElementMap(map);
     }
 }
