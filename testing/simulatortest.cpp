@@ -22,6 +22,7 @@
 #include "voltagesignal.h"
 #include "voltagesource.h"
 
+
 #include "pin.h"
 
 #include "elementmap.h"
@@ -29,6 +30,14 @@
 #include "qdebug.h"
 
 #include "simulatortest.h"
+
+#include <connector.h>
+
+// components
+#include <resistor.h>
+#include <ecvoltagesource.h>
+#include <electronicconnector.h>
+
 
 
 const double maxCurrentError = 1e-6;
@@ -205,6 +214,8 @@ void SimulatorTest::testSourceAndResistance()
     Q_ASSERT( QABS( QABS( wire1->current() ) - 0.008 ) < maxCurrentError );
     Q_ASSERT( QABS( QABS( wire2->current() ) - 0.008 ) < maxCurrentError );
 
+    sim->slotSetSimulating(false);
+    sim->detachCircuit(circ);
 }
 
 void SimulatorTest::testSourceAnd4ResistanceInParallel()
@@ -396,8 +407,40 @@ void SimulatorTest::testSourceAnd4ResistanceInParallel()
 
     Q_ASSERT( QABS( QABS( wireAll2->current() ) - 0.00788889 ) < maxCurrentError );
 
+    sim->slotSetSimulating(false);
+    sim->detachCircuit(circ);
+}
+
+void SimulatorTest::testComponent_SourceAndResistor()
+{
+    qDebug() << "starting";
+    Resistor r1;
+    ECCell v1;
+    ElectronicConnector c1(r1.pinByName("n1"), v1.pinByName("n1"));
+    ElectronicConnector c2(r1.pinByName("p1"), v1.pinByName("p1"));
+
+    Simulator * sim = Simulator::self();
+    sim->slotSetSimulating(false);
+
+    Circuit *circ = new Circuit();
+    circ->addComponent(&r1);
+    circ->addComponent(&v1);
+    circ->init();
+
+    sim->attachCircuit(circ);
+
+    sim->slotSetSimulating(true);
+    sim->step();
+
+    circ->updateCurrents();
+
+    circ->displayEquations();
+
+    sim->slotSetSimulating(false);
+    sim->detachCircuit(circ);
 
 }
+
 
 QTEST_MAIN(SimulatorTest)
 #include "simulatortest.moc"
