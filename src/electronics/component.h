@@ -115,6 +115,14 @@ protected:
     /// all the pins owned by this component
     QMap<QString, ECNode*> m_pinMap;
 
+    /**
+     * List of ElementMaps; which contain information on the pins associated
+     * with the element as well as the dependence between the pins for that
+     * element.
+     * @see ElementMap
+     */
+    QList<ElementMap*> m_elementMapList;
+
 private slots:
     /**
      * Slot used by the properties, in order to signal changes of their values
@@ -123,13 +131,6 @@ private slots:
 
 private:
 
-	/**
-	 * List of ElementMaps; which contain information on the pins associated
-	 * with the element as well as the dependence between the pins for that
-	 * element.
-	 * @see ElementMap
-	 */
-	QList<ElementMap*> m_elementMapList;
 
     /**
      * List of all properties of the component.
