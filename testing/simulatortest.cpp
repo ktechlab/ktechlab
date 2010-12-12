@@ -39,6 +39,7 @@
 #include <ecvoltagesource.h>
 #include <electronicconnector.h>
 #include <ecnode.h>
+#include <ecfixedvoltage.h>
 
 
 
@@ -534,6 +535,50 @@ void SimulatorTest::testComponent_voltageDivider()
     sim->detachCircuit(circ);
 }
 
+void SimulatorTest::testComponent_fixedVoltage()
+{
+    ECFixedVoltage v1;
+    v1.propertyByName("voltage")->setValue(5);
+    ECFixedVoltage v2;
+    v2.propertyByName("voltage")->setValue(-5);
+
+    Simulator * sim = Simulator::self();
+    sim->slotSetSimulating(false);
+
+    Circuit *circ = new Circuit();
+    circ->addComponent(v1);
+    circ->addComponent(v2);
+    circ->init();
+
+    sim->attachCircuit(circ);
+
+    sim->slotSetSimulating(true);
+
+    sim->step();
+    circ->updateCurrents();
+
+    circ->displayEquations();
+    qDebug() << "v1: " << v1.pinByName("p1")->pin()->voltage();
+    qDebug() << "v2: " << v2.pinByName("p1")->pin()->voltage();
+
+    Resistor r1;
+    r1.propertyByName("resistance")->setValue(1000);
+
+    ElectronicConnector c1(r1.pinByName("n1"), v1.pinByName("p1"));
+    ElectronicConnector c2(r1.pinByName("p1"), v2.pinByName("p1"));
+
+    circ->addComponent(r1);
+    circ->init();
+
+    sim->step();
+    circ->updateCurrents();
+
+    circ->displayEquations();
+    qDebug() << "v1: " << v1.pinByName("p1")->pin()->voltage();
+    qDebug() << "v2: " << v2.pinByName("p1")->pin()->voltage();
+    qDebug() << "c1 current: " << c1.wire()->current();
+    qDebug() << "c2 current: " << c2.wire()->current();
+}
 
 
 QTEST_MAIN(SimulatorTest)
