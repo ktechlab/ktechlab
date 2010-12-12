@@ -81,7 +81,7 @@ void ECLogicInput::propertyChanged(Property& theProperty, QVariant newValue, QVa
     }
     if( theProperty.name() == "buttonPressed" ){
         if(m_toggleOn)
-            m_outState != m_outState;
+            m_outState = !m_outState;
         else
             m_outState = newValue.asBool();
 
