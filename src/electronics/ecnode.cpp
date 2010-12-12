@@ -23,6 +23,13 @@ ECNode::ECNode()
     m_pins.append(pin);
 }
 
+ECNode::ECNode(Pin* pin): Node()
+{
+    Q_ASSERT(pin);
+    m_pins.clear();
+    m_pins.append(pin);
+}
+
 ECNode::~ECNode() {
     // connectors
     foreach(Connector *con, m_connectorList){

@@ -29,9 +29,15 @@ class ECNode : public Node {
 
 public:
     /**
-     Create an ECNode with 1 pin inside
+     Create an ECNode with 1 new pin inside
      */
 	ECNode();
+    /**
+     Create an ECNode based on a given pin
+     \param pin an existing Pin
+     */
+    ECNode(Pin* pin);
+
 	~ECNode();
 
     // --- internal pin related functions ---
