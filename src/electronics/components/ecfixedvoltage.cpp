@@ -13,9 +13,18 @@
 #include "property.h"
 
 #include <QDebug>
+#include <voltagepoint.h>
+#include <elementmap.h>
+#include <ecnode.h>
 
 ECFixedVoltage::ECFixedVoltage()
         : Component() {
+    m_voltagePoint = new VoltagePoint();
+
+    m_map = new ElementMap(m_voltagePoint);
+    m_elementMapList.append(m_map);
+
+    m_pinMap.insert("p1", new ECNode(m_map->pin(0)));
 
     Property *voltage = new Property("voltage", Variant::Type::Double);
     voltage->setUnit("V");
@@ -34,7 +43,7 @@ void ECFixedVoltage::propertyChanged(Property& theProperty, QVariant newValue, Q
 
     if(theProperty.name() == "voltage"){
         double voltage = newValue.asDouble();
-        m_voltagePoint.setVoltage(voltage);
+        m_voltagePoint->setVoltage(voltage);
     } else
         qCritical() << "ECFixedVoltage: unknown property: " << theProperty.name();
 }
