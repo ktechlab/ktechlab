@@ -18,6 +18,7 @@
 #include "qstringlist.h"
 #include "elementset.h"
 
+class Component;
 class Pin;
 class Element;
 class ElementMap;
@@ -123,6 +124,12 @@ public:
      * @param em the ElementMap to be removed
      */
     void removeElementMap(ElementMap *em);
+
+    /**
+     * Add a component to the circuit
+     * @param comp the component to be added
+     */
+	void addComponent(const Component *comp);
 
 protected:
 	void cacheAndUpdate();

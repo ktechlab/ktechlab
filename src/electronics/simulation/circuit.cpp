@@ -22,6 +22,7 @@
 #include "reactive.h"
 #include "wire.h"
 #include <elementmap.h>
+#include <component.h>
 
 typedef std::multimap<int, PinSet> PinSetMap;
 
@@ -538,6 +539,14 @@ void Circuit::addElementMap(ElementMap* em)
         << m_pinList.size() << "pins";
 
 }
+
+void Circuit::addComponent(const Component* comp)
+{
+    foreach(ElementMap *map, comp->elementMapList()){
+        addElementMap(map);
+    }
+}
+
 
 void Circuit::removeElementMap(ElementMap* em)
 {
