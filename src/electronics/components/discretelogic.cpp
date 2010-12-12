@@ -74,6 +74,8 @@ ECLogicInput::~ECLogicInput() {
 
 void ECLogicInput::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
 {
+    Q_UNUSED(oldValue);
+
     if( theProperty.name() == "useToggle" ){
         m_toggleOn = newValue.asBool();
     }

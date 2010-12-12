@@ -45,6 +45,8 @@ ECCurrentSignal::~ECCurrentSignal()
 
 void ECCurrentSignal::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
 {
+    Q_UNUSED(oldValue);
+
     if(theProperty.name() == "1-current"){
         double frequency = newValue.asDouble();
         m_currentSignal.setStep(ElementSignal::st_sinusoidal, frequency );
