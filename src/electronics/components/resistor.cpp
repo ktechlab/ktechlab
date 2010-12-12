@@ -34,6 +34,13 @@ Resistor::Resistor()
 }
 
 Resistor::~Resistor() {
+    ECNode *n1 = m_pinMap.value("n1");
+    ECNode *p1 = m_pinMap.value("p1");
+    m_pinMap.clear();
+    delete m_elemMap;
+    delete n1;
+    delete p1;
+    delete m_resistance;
 }
 
 void Resistor::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
