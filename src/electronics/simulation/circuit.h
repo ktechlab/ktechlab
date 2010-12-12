@@ -129,7 +129,7 @@ public:
      * Add a component to the circuit
      * @param comp the component to be added
      */
-	void addComponent(const Component *comp);
+	void addComponent(const Component& comp);
 
 protected:
 	void cacheAndUpdate();
