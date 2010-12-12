@@ -32,11 +32,13 @@
 #include "simulatortest.h"
 
 #include <connector.h>
+#include <ecnode.h>
 
 // components
 #include <resistor.h>
 #include <ecvoltagesource.h>
 #include <electronicconnector.h>
+#include <ecnode.h>
 
 
 
@@ -435,6 +437,17 @@ void SimulatorTest::testComponent_SourceAndResistor()
     circ->updateCurrents();
 
     circ->displayEquations();
+
+    qDebug() << "c1 current: " << c1.wire()->current();
+    qDebug() << "c2 current: " << c2.wire()->current();
+    qDebug() << "voltages: R1:1 R1:2 V1:1 V1:2\n  "
+        << r1.pinByName("n1")->pin()->voltage() << r1.pinByName("p1")->pin()->voltage()
+        << v1.pinByName("n1")->pin()->voltage() << v1.pinByName("p1")->pin()->voltage();
+
+    Q_ASSERT( QABS(c1.wire()->current() + 5.0) < maxCurrentError);
+    Q_ASSERT( QABS(c2.wire()->current() - 5.0) < maxCurrentError);
+    Q_ASSERT( QABS(r1.pinByName("p1")->pin()->voltage() - r1.pinByName("n1")->pin()->voltage() - 5) < maxVoltageError);
+    Q_ASSERT( QABS(v1.pinByName("p1")->pin()->voltage() - v1.pinByName("n1")->pin()->voltage() - 5) < maxVoltageError);
 
     sim->slotSetSimulating(false);
     sim->detachCircuit(circ);
