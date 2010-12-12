@@ -13,7 +13,7 @@
 
 #include "component.h"
 
-#include "voltagepoint.h"
+class VoltagePoint;
 
 /**
 @short Fixed voltage source
@@ -30,7 +30,8 @@ protected:
     virtual void propertyChanged(Property& theProperty, QVariant newValue,
                                  QVariant oldValue);
 
-	VoltagePoint m_voltagePoint;
+	VoltagePoint *m_voltagePoint;
+    ElementMap *m_map;
 };
 
 #endif
