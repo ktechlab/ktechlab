@@ -81,6 +81,12 @@ public:
      */
     QMap<QString, ECNode*> pinMap() const;
 
+    /**
+     * \return the list of ElementMaps contained in this component.
+     *      This is needed by the Circuit class.
+     */
+    QList<ElementMap*> elementMapList() const;
+
 protected:
 	/**
 	 * Removes all elements and switches.

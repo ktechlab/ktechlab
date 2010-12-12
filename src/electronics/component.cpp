@@ -85,6 +85,11 @@ QMap< QString, ECNode* > Component::pinMap() const
     return m_pinMap;
 }
 
+QList< ElementMap* > Component::elementMapList() const
+{
+    return m_elementMapList;
+}
+
 //END class Component
 
 #include "component.moc"
