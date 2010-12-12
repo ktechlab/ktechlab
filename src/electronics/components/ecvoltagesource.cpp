@@ -11,11 +11,21 @@
 #include "ecvoltagesource.h"
 
 #include "voltagesource.h"
+#include "elementmap.h"
 
 #include <QDebug>
+#include <ecnode.h>
 
 ECCell::ECCell() : Component()
 {
+    m_voltageSource = new VoltageSource();
+
+    m_sourceMap = new ElementMap(m_voltageSource);
+    m_elementMapList.append(m_sourceMap);
+
+    m_pinMap.insert("n1", new ECNode(m_sourceMap->pin(0))); // FIXME verify polarity
+    m_pinMap.insert("p1", new ECNode(m_sourceMap->pin(1)));
+
     Property *v = new Property("voltage", Variant::Type::Double);
     v->setUnit("V");
     v->setCaption(tr("Voltage"));
@@ -26,6 +36,7 @@ ECCell::ECCell() : Component()
 }
 
 ECCell::~ECCell() {
+    // TODO destructor
 }
 
 void ECCell::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
@@ -37,5 +48,5 @@ void ECCell::propertyChanged(Property& theProperty, QVariant newValue, QVariant 
     Q_UNUSED(oldValue);
 
     double voltage = newValue.asDouble();
-    m_voltageSource.setVoltage(voltage);
+    m_voltageSource->setVoltage(voltage);
 }
