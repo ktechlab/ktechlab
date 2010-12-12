@@ -11,8 +11,10 @@
 #ifndef RESISTOR_H
 #define RESISTOR_H
 
+class ElementMap;
+class Resistance;
+
 #include "component.h"
-#include "resistance.h"
 
 /**
 @short Simple resistor
@@ -29,7 +31,8 @@ class Resistor : public Component
         virtual void propertyChanged(Property& theProperty, QVariant newValue,
                                      QVariant oldValue);
 
-		Resistance m_resistance;
+		Resistance *m_resistance;
+        ElementMap *m_elemMap;
 };
 
 #endif
