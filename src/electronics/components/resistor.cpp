@@ -10,10 +10,20 @@
 
 #include "resistor.h"
 
+#include "ecnode.h"
 #include "variant.h"
+#include <elementmap.h>
+#include <resistance.h>
 
 Resistor::Resistor()
 		: Component() {
+    m_resistance = new Resistance();
+
+    m_elemMap = new ElementMap(m_resistance);
+    // these will be exernal pins
+    m_pinMap.insert("n1", new ECNode(m_elemMap->pin(0)));
+    m_pinMap.insert("p1", new ECNode(m_elemMap->pin(1)));
+
     Property * r = new Property("resistance", Variant::Type::Double);
 	r->setCaption(tr("Resistance"));
 	r->setUnit(QChar(0x3a9));
@@ -25,6 +35,7 @@ Resistor::Resistor()
 
 Resistor::~Resistor() {
 }
+
 void Resistor::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
 {
     Q_ASSERT(theProperty.name() == "resistance");
@@ -32,5 +43,5 @@ void Resistor::propertyChanged(Property& theProperty, QVariant newValue, QVarian
 
     Q_UNUSED(oldValue);
 
-    m_resistance.setResistance(newValue.asDouble());
+    m_resistance->setResistance(newValue.asDouble());
 }
