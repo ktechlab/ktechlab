@@ -23,7 +23,7 @@ ECCell::ECCell() : Component()
     m_sourceMap = new ElementMap(m_voltageSource);
     m_elementMapList.append(m_sourceMap);
 
-    m_pinMap.insert("n1", new ECNode(m_sourceMap->pin(0))); // FIXME verify polarity
+    m_pinMap.insert("n1", new ECNode(m_sourceMap->pin(0)));
     m_pinMap.insert("p1", new ECNode(m_sourceMap->pin(1)));
 
     Property *v = new Property("voltage", Variant::Type::Double);
