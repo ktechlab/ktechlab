@@ -35,6 +35,7 @@ Resistor::Resistor()
 }
 
 Resistor::~Resistor() {
+    // TODO move pin + elementmap destructors into component's destructor
     ECNode *n1 = m_pinMap.value("n1");
     ECNode *p1 = m_pinMap.value("p1");
     m_pinMap.clear();
