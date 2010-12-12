@@ -12,7 +12,9 @@
 #define ECCELL_H
 
 #include "component.h"
-#include "voltagesource.h"
+
+class ElementMap;
+class VoltageSource;
 
 /**
 @short Electrical cell
@@ -29,7 +31,8 @@ protected:
     virtual void propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue);
 
 private:
-	VoltageSource m_voltageSource;
+    VoltageSource *m_voltageSource;
+    ElementMap *m_sourceMap;
 };
 
 #endif
