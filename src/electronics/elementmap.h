@@ -32,7 +32,7 @@ public:
      Create an ElementMap associated with an existing element.
      The pins for the element are automatically created and they can be
      accessed by the pin() method.
-     \param elemnt the element for which the ElementMap is created
+     \param element the element for which the ElementMap is created
      */
     ElementMap(Element *element);
             // TODO add 4 optional arguments for pointer to pins?
