@@ -18,8 +18,9 @@
 Resistor::Resistor()
 		: Component() {
     m_resistance = new Resistance();
-
     m_elemMap = new ElementMap(m_resistance);
+    m_elementMapList.append(m_elemMap);
+
     // these will be exernal pins
     m_pinMap.insert("n1", new ECNode(m_elemMap->pin(0)));
     m_pinMap.insert("p1", new ECNode(m_elemMap->pin(1)));
