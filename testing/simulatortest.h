@@ -14,6 +14,7 @@ private slots:
     void testSourceAnd4ResistanceInParallel();
 
     void testComponent_SourceAndResistor();
+    void testComponent_voltageDivider();
 };
 
 #endif
