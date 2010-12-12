@@ -12,6 +12,8 @@ private slots:
     void createTest();
     void testSourceAndResistance();
     void testSourceAnd4ResistanceInParallel();
+
+    void testComponent_SourceAndResistor();
 };
 
 #endif
