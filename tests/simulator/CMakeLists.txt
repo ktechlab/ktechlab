@@ -25,7 +25,7 @@ kde4_add_unit_test( addcomponents
 
 target_link_libraries( addcomponents
     ktlinterfaces
-#   ktlcircuit_lib
+    ktlcircuit
     ${QT_QTTEST_LIBRARY}
     ${KDEVPLATFORM_TESTS_LIBRARIES}
 )
@@ -45,7 +45,7 @@ kde4_add_unit_test( directsimulatortest
 target_link_libraries( directsimulatortest
     ktlinterfaces
     ktlmath
-    circuit
+    ktlcircuit
     ${QT_QTTEST_LIBRARY}
     ${KDEVPLATFORM_TESTS_LIBRARIES}
 )
