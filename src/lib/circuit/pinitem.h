@@ -36,15 +36,13 @@ class IDocumentScene;
 class CIRCUIT_EXPORT PinItem : public Node
 {
 public:
-    PinItem(const QRectF &rect, IComponentItem* parent = 0, QGraphicsScene* scene = 0);
+    PinItem(const QRectF &rect, IComponentItem* parent = 0, IDocumentScene* scene = 0);
 
 protected:
     virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
     virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
-    virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
 
 private:
-    bool fetchCircuit();
     IDocumentScene* m_circuit;
 };
 
