@@ -26,11 +26,12 @@
 
 using namespace KTechLab;
 
-PinItem::PinItem(const QRectF& rect, IComponentItem* parent, QGraphicsScene* scene)
+PinItem::PinItem(const QRectF& rect, IComponentItem* parent, IDocumentScene* scene)
     : Node(parent, scene),
-    m_circuit(0)
+    m_circuit(scene)
 {
-    setAcceptHoverEvents(true);
+    setFlag(ItemIsSelectable, false);
+    setFlag(ItemIsMovable, false);
     setPos(rect.topLeft());
     setRect(QRectF(QPointF(-rect.width()/2,-rect.height()/2),rect.size()));
     setBrush(QBrush(Qt::SolidPattern));
@@ -40,14 +41,6 @@ PinItem::PinItem(const QRectF& rect, IComponentItem* parent, QGraphicsScene* sce
         this->setOpacity(0.01);
         setParent(parent);
     }
-}
-
-bool PinItem::fetchCircuit()
-{
-    if (!m_circuit)
-        m_circuit = qobject_cast<IDocumentScene*>(this->scene());
-
-    return m_circuit != 0;
 }
 
 void PinItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
@@ -65,25 +58,4 @@ void PinItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
         this->setOpacity(0.01);
     event->accept();
     QGraphicsEllipseItem::hoverLeaveEvent(event);
-}
-
-void PinItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
-{
-    if (!fetchCircuit()){
-        event->ignore();
-        QGraphicsEllipseItem::mousePressEvent(event);
-        return;
-    }
-    if (!m_circuit->isRouting()){
-        const QPointF &center = mapToScene(rect().center());
-        ConnectorItem* c = m_circuit->startRouting(center);
-        c->setStartNode(this);
-        if (parentItem())
-            setOpacity(0.01);
-        event->accept();
-    } else {
-        const QPointF &center = mapToScene(rect().center());
-        ConnectorItem* c = m_circuit->finishRouting(center);
-        c->setEndNode(this);
-    }
 }

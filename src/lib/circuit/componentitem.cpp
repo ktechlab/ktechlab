@@ -105,7 +105,7 @@ void ComponentItem::initPins()
         pinRect.setTop(pin.attribute("cy").toDouble());
         pinRect.setWidth(r*2);
         pinRect.setHeight(r*2);
-        PinItem* p = new PinItem(pinRect, this, scene());
+        PinItem* p = new PinItem(pinRect, this, qobject_cast< IDocumentScene* >(scene()));
         p->setId(pin.attribute("id"));
         pin = pin.nextSiblingElement();
     }
