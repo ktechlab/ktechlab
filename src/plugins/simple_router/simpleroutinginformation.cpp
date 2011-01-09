@@ -28,7 +28,9 @@ KTechLab::SimpleRoutingInformation::SimpleRoutingInformation(IDocumentScene* sce
 
 QPointF KTechLab::SimpleRoutingInformation::alignToGrid(const QPointF& point)
 {
-    return QPoint( QPointF(point * 8).toPoint() / 8);
+    QPoint r = (point - QPointF(4,4)).toPoint();
+    r /= 8;
+    return (r*8) + QPointF(4,4);
 }
 
 void KTechLab::SimpleRoutingInformation::mapRoute(QPointF p1, QPointF p2)
