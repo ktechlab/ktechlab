@@ -45,7 +45,7 @@ public:
 void ConnectorPrivate::setStartNode(const Node* node)
 {
     if (!node || !node->isValid()){
-        kError() << "Invalid node set as start node:" << node;
+        kWarning() << "Invalid node set as start node:" << node;
         return;
     }
     startNode = node;
@@ -83,7 +83,7 @@ QVariantMap ConnectorPrivate::data() const
 void ConnectorPrivate::setEndNode(const Node* node)
 {
     if (!node || !node->isValid()){
-        kError() << "Invalid node set as end node:" << node;
+        kWarning() << "Invalid node set as end node:" << node;
         return;
     }
     endNode = node;
