@@ -35,6 +35,18 @@ ElementMap::ElementMap(Element* element)
     setupCNodes();
 }
 
+ElementMap::~ElementMap()
+{
+    // the element
+    delete e;
+    // the pins
+    for(int i=0; i<4; i++)
+        if(n[i]){
+            delete n[i];
+            n[i] = 0;
+        }
+}
+
 Pin* ElementMap::pin(int number)
 {
     if((0 <= number) || (number < e->numCNodes()))
