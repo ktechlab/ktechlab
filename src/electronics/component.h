@@ -37,6 +37,10 @@ class Component : public QObject {
 public:
 	// Component(ICNDocument *icnDocument, bool newItem, const QString &id);
     Component();
+
+    /**
+     * Destructor for component.
+     */
 	virtual ~Component();
 
 	/**
@@ -89,10 +93,7 @@ public:
 
 protected:
 	/**
-	 * Removes all elements and switches.
-	 * @param setPinsInterIndependent whether to bother calling
-	 * setPinsInterIndependent. This is false when calling from the
-	 * destructor, or when the dependency information is the same.
+	 * Removes all elements, by deleting them.
 	 */
 	void removeElements();
 
@@ -118,7 +119,11 @@ protected:
                     Q_UNUSED(oldValue);
                 }
 
-    /// all the pins owned by this component
+    /**
+     * all the pins owned by this component;
+     * these pins will not be automatically deleted when the component is deleted,
+     * because they might belong to an element
+     */
     QMap<QString, ECNode*> m_pinMap;
 
     /**

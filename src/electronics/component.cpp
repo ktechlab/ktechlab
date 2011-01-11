@@ -11,6 +11,7 @@
 #include <QDebug>
 
 #include "component.h"
+#include "elementmap.h"
 #include "pin.h"
 #include "simulator.h"
 
@@ -33,6 +34,10 @@ Component::~Component() {
 }
 
 void Component::removeElements() {
+    foreach(ElementMap *e, m_elementMapList){
+        if(e)
+            delete e;
+    }
 	m_elementMapList.clear();
 }
 
