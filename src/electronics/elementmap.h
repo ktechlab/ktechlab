@@ -38,6 +38,11 @@ public:
             // TODO add 4 optional arguments for pointer to pins?
 
     /**
+     Destructor. Deletes the elementmap and the element associated to it.
+     */
+    ~ElementMap();
+
+    /**
      \return a pin of the Element associated with this PinMap.
         If the pin number is invalid, NULL is returned.
      \param number the number used for identication for the pin.
