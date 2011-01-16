@@ -18,8 +18,8 @@
 #include "logic.h"
 // #include "libraryitem.h"
 
-Demultiplexer::Demultiplexer()
-		: Component(), 
+Demultiplexer::Demultiplexer(Circuit &ownerCircuit)
+		: Component(ownerCircuit), 
 		m_input(LogicConfig())
 {
 	m_input.setCallback(this, (CallbackPtr)(&Demultiplexer::inStateChanged));
@@ -88,6 +88,8 @@ void Demultiplexer::propertyChanged(Property& theProperty, QVariant newValue, QV
         qCritical() << "unknown property: " << theProperty.name();
         return;
     }
+    Q_UNUSED(oldValue);
+
     initPins(newValue.asUInt());
 }
 

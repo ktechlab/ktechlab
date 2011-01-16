@@ -24,8 +24,8 @@ static inline uint roundDouble(const double x) {
 }
 
 
-ECClockInput::ECClockInput()
-		: Component() {
+ECClockInput::ECClockInput(Circuit& ownerCircuit)
+		: Component(ownerCircuit) {
 
 	m_lastSetTime = 0;
 	m_high_time = 0;

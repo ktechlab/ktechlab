@@ -13,6 +13,8 @@
 
 #include "component.h"
 
+class Circuit;
+
 /**
 @short Fixed voltage source
 @author David Saxton
@@ -21,7 +23,7 @@
 class ECGround : public Component {
 
 public:
-    ECGround();
+    ECGround(Circuit &ownerCircuit);
     ~ECGround();
 
 private:

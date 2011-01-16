@@ -14,6 +14,8 @@
 #include "component.h"
 #include "logic.h"
 
+class Circuit;
+
 /**
 Simple logic counter. 4 Inputs, 4 Outputs.
 
@@ -32,7 +34,7 @@ TODO: refactor and make a subclass of clockedFlipFLop (or clocked Logic, as prop
 class BinaryCounter : public CallbackClass, public Component {
 
 public:
-	BinaryCounter();
+	BinaryCounter(Circuit &ownerCircuit);
 	~BinaryCounter();
 
     #if 0

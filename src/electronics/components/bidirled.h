@@ -13,6 +13,7 @@
 
 #include "component.h"
 
+class Circuit;
 class Diode;
 
 /**
@@ -21,7 +22,7 @@ class Diode;
 class BiDirLED : public Component
 {
 	public:
-		BiDirLED();
+		BiDirLED(Circuit &ownerCircuit);
 		~BiDirLED();
 
 		// virtual void dataChanged();

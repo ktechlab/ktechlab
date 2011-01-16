@@ -13,7 +13,7 @@
 #include "simulator.h"
 
 
-LED::LED() : ECDiode() {
+LED::LED(Circuit& ownerCircuit) : ECDiode(ownerCircuit) {
 	avg_brightness = 255;
 	last_brightness = 255;
 	lastUpdatePeriod = 0.;

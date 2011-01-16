@@ -16,8 +16,8 @@
 
 
 //BEGIN class Inverter
-Inverter::Inverter()
-		: Component() {
+Inverter::Inverter(Circuit& ownerCircuit)
+		: Component(ownerCircuit) {
 
 	m_pOut.setState(true);
 	m_pIn.setCallback(this, (CallbackPtr)(&Inverter::inStateChanged));
@@ -35,8 +35,8 @@ void Inverter::inStateChanged(bool newState) {
 
 //BEGIN class Buffer
 
-Buffer::Buffer()
-		: Component() {
+Buffer::Buffer(Circuit& ownerCircuit)
+		: Component(ownerCircuit) {
 
 	m_pIn.setCallback(this, (CallbackPtr)(&Buffer::inStateChanged));
 	inStateChanged(false);
@@ -52,8 +52,8 @@ void Buffer::inStateChanged(bool newState) {
 
 //BEGIN class ECLogicInput
 
-ECLogicInput::ECLogicInput()
-		: Component() {
+ECLogicInput::ECLogicInput(Circuit& ownerCircuit)
+		: Component(ownerCircuit) {
 
     Property *useToggle = new Property("useToggle", Variant::Type::Bool);
 	useToggle->setCaption(tr("Use Toggle"));
@@ -92,8 +92,8 @@ void ECLogicInput::propertyChanged(Property& theProperty, QVariant newValue, QVa
 //END class ECLogicInput
 
 //BEGIN class ECLogicOutput
-ECLogicOutput::ECLogicOutput()
-		: Component() {
+ECLogicOutput::ECLogicOutput(Circuit& ownerCircuit)
+		: Component(ownerCircuit) {
 
     outValue = new Property("outputValue", Variant::Type::Double);
     outValue->setMinValue(0);

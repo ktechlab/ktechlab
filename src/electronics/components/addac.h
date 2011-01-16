@@ -14,6 +14,7 @@
 #include "component.h"
 #include "voltagepoint.h"
 
+class Circuit;
 class Pin;
 class LogicIn;
 class LogicOut;
@@ -26,7 +27,7 @@ const int max_ADDAC_bits = 32;
 */
 class ADDAC : public Component {
 public:
-    ADDAC();
+    ADDAC(Circuit &ownerCircuit);
     ~ADDAC();
 
 protected:
@@ -47,7 +48,7 @@ protected:
  */
 class ADC : public ADDAC {
 public:
-    ADC();
+    ADC(Circuit &ownerCircuit);
     ~ADC();
 
     virtual void stepNonLogic();
@@ -68,7 +69,7 @@ protected:
  */
 class DAC : public ADDAC {
 public:
-    DAC();
+    DAC(Circuit &ownerCircuit);
     ~DAC();
 
     virtual void stepNonLogic();

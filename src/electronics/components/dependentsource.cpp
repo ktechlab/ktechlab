@@ -18,8 +18,8 @@
 //#include <Q3PointArray>
 
 //BEGIN class DependentSource
-DependentSource::DependentSource()
-		: Component()
+DependentSource::DependentSource(Circuit& ownerCircuit)
+		: Component(ownerCircuit)
 {
     /*
 	createProperty("gain", Variant::Type::Double);
@@ -39,8 +39,8 @@ DependentSource::~DependentSource() {
 
 //BEGIN class ECCCCS
 
-ECCCCS::ECCCCS()
-		: DependentSource(),
+ECCCCS::ECCCCS(Circuit& ownerCircuit)
+		: DependentSource(ownerCircuit),
 		m_cccs(1) {
 }
 
@@ -67,8 +67,8 @@ void ECCCCS::propertyChanged(Property& theProperty, QVariant newValue, QVariant 
 
 //BEGIN class ECCCVS
 
-ECCCVS::ECCCVS()
-		: DependentSource(),
+ECCCVS::ECCCVS(Circuit& ownerCircuit)
+		: DependentSource(ownerCircuit),
 		m_ccvs(1) {
 }
 
@@ -95,8 +95,8 @@ void ECCCVS::propertyChanged(Property& theProperty, QVariant newValue, QVariant 
 //END class ECCCVS
 
 //BEGIN class ECVCCS
-ECVCCS::ECVCCS()
-		: DependentSource(),
+ECVCCS::ECVCCS(Circuit &ownerCircuit)
+		: DependentSource(ownerCircuit),
 		m_vccs(1) {
 }
 
@@ -123,8 +123,8 @@ void ECVCCS::propertyChanged(Property& theProperty, QVariant newValue, QVariant 
 
 //BEGIN class ECVCVS
 
-ECVCVS::ECVCVS()
-		: DependentSource(),
+ECVCVS::ECVCVS(Circuit &ownerCircuit)
+		: DependentSource(ownerCircuit),
 		m_vcvs(1) {
 }
 

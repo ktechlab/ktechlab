@@ -12,8 +12,8 @@
 
 #include "pin.h"
 
-EC555::EC555()
-	: Component()
+EC555::EC555(Circuit& ownerCircuit)
+	: Component(ownerCircuit)
 {
 
 	m_com1 = false;

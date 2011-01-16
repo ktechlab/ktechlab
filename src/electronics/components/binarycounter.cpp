@@ -21,7 +21,7 @@
 #include <QDebug>
 #include <QStringList>
 
-BinaryCounter::BinaryCounter() : Component()
+BinaryCounter::BinaryCounter(Circuit& ownerCircuit) : Component(ownerCircuit)
 {
 	m_bTriggerHigh = true;
 	b_oldIn = false;

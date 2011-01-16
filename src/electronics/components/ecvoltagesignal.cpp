@@ -18,8 +18,8 @@
 #include <QDebug>
 #include <cmath>
 
-ECVoltageSignal::ECVoltageSignal()
-	: Component(),
+ECVoltageSignal::ECVoltageSignal(Circuit& ownerCircuit)
+	: Component(ownerCircuit),
 	m_voltageSignal(LINEAR_UPDATE_PERIOD, 0)
 {
 	m_voltageSignal.setStep(ElementSignal::st_sinusoidal, 50.);

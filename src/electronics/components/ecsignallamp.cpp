@@ -18,8 +18,8 @@
 #define LIGHTUP   (WATTAGE / 20)
 
 
-ECSignalLamp::ECSignalLamp()
-	:   Component()
+ECSignalLamp::ECSignalLamp(Circuit& ownerCircuit)
+	:   Component(ownerCircuit)
 {
 	the_filament.setResistance(RESISTANCE);
 

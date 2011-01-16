@@ -14,8 +14,8 @@
 
 #include "qdebug.h"
 
-ECCurrentSource::ECCurrentSource()
-	: Component(),
+ECCurrentSource::ECCurrentSource(Circuit& ownerCircuit)
+	: Component(ownerCircuit),
         m_currentSource(0.02)
 {
 	// m_pNNode[0]->pin().setGroundType(Pin::gt_low);
