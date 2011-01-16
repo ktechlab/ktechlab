@@ -34,6 +34,8 @@ ECFixedVoltage::ECFixedVoltage(Circuit &ownerCircuit)
     voltage->setMaxValue(1e15);
     voltage->setValue(5.0);
     addProperty(voltage);
+
+    ownerCircuit.addComponent(*this);
 }
 
 ECFixedVoltage::~ECFixedVoltage() {}
