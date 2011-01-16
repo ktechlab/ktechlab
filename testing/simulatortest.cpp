@@ -427,7 +427,6 @@ void SimulatorTest::testComponent_SourceAndResistor()
     Simulator * sim = Simulator::self();
     sim->slotSetSimulating(false);
 
-    circ->addComponent(v1);
     circ->init();
 
     sim->attachCircuit(circ);
@@ -507,7 +506,6 @@ void SimulatorTest::testComponent_voltageDivider()
     Simulator * sim = Simulator::self();
     sim->slotSetSimulating(false);
 
-    circ->addComponent(v1);
     circ->init();
 
     sim->attachCircuit(circ);
