@@ -13,6 +13,7 @@
 
 #include "component.h"
 
+class Circuit;
 class VoltagePoint;
 
 /**
@@ -22,7 +23,7 @@ class VoltagePoint;
 class ECFixedVoltage : public Component
 {
 public:
-	ECFixedVoltage();
+	ECFixedVoltage(Circuit &ownerCircuit);
 	~ECFixedVoltage();
 	
 	

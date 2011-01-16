@@ -10,15 +10,16 @@
 
 #include "ecfixedvoltage.h"
 
+#include "circuit.h"
 #include "property.h"
-
-#include <QDebug>
 #include <voltagepoint.h>
 #include <elementmap.h>
 #include <ecnode.h>
 
-ECFixedVoltage::ECFixedVoltage()
-        : Component() {
+#include <QDebug>
+
+ECFixedVoltage::ECFixedVoltage(Circuit &ownerCircuit)
+        : Component(ownerCircuit) {
     m_voltagePoint = new VoltagePoint();
 
     m_map = new ElementMap(m_voltagePoint);

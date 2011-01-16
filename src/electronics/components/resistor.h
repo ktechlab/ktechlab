@@ -11,6 +11,7 @@
 #ifndef RESISTOR_H
 #define RESISTOR_H
 
+class Circuit;
 class ElementMap;
 class Resistance;
 
@@ -23,7 +24,7 @@ class Resistance;
 class Resistor : public Component
 {
 	public:
-		Resistor();
+		Resistor(Circuit &);
 		~Resistor();
 
 

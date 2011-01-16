@@ -16,7 +16,8 @@
 #include <QDebug>
 #include <ecnode.h>
 
-ECCell::ECCell() : Component()
+ECCell::ECCell(Circuit& ownerCircuit) :
+            Component(ownerCircuit)
 {
     m_voltageSource = new VoltageSource();
 
