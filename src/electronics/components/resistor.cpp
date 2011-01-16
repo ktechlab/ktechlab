@@ -33,6 +33,7 @@ Resistor::Resistor(Circuit &ownerCircuit)
 	r->setMinValue(1e-6);
     addProperty(r);
 
+    ownerCircuit.addComponent(*this);
 }
 
 Resistor::~Resistor() {
