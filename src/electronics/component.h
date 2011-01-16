@@ -17,6 +17,7 @@
 #include <QObject>
 #include <variant.h>
 
+class Circuit;
 class ECNode;
 class ElementMap;
 
@@ -36,12 +37,21 @@ class Component : public QObject {
 
 public:
 	// Component(ICNDocument *icnDocument, bool newItem, const QString &id);
-    Component();
+    /**
+     * Create a component on a given circuit
+     * @param ownerCircuit the circuit in which the component belong
+     */
+    Component(Circuit &ownerCircuit);
 
     /**
      * Destructor for component.
      */
 	virtual ~Component();
+
+    /**
+     * @return the circuit in which the component is located
+     */
+    Circuit & circuit() const;
 
 	/**
 	 * If reinherit (and use) the stepNonLogic function, then you must also
@@ -150,6 +160,9 @@ private:
      * properties, a simple list should be enough.
      */
     QList<Property*> m_propertyList;
+
+    /// the circuit where the component is located
+    Circuit &m_circuit;
 };
 
 #endif
