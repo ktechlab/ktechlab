@@ -460,9 +460,18 @@ void Circuit::updateCurrents() {
                 qCritical() << "BUG: invalid circuit structure: pin with a wire and no element attached";
             }
         } else {
-            if( elementCount > 0 ){
-                qCritical() << "BUG: more wires, and also elements associated with a pin";
-            }
+            if(wireCount == 0){
+                if(elementCount == 0){
+                    qCritical() << "BUG: loose pin: no element or wire connected to it";
+                } else {
+                    qDebug() << "found 1 unconnected element pin";
+                }
+            } else {
+                // wireCount > 1
+                if( elementCount > 0 ){
+                    qCritical() << "BUG: more wires, and also elements associated with a pin";
+                }
+            } // wireCount > 1
         }
     }
     int visitedPinCount = 0;
