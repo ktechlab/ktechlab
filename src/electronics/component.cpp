@@ -10,6 +10,7 @@
 
 #include <QDebug>
 
+#include "circuit.h"
 #include "component.h"
 #include "elementmap.h"
 #include "pin.h"
@@ -17,7 +18,9 @@
 
 //BEGIN class Component
 
-Component::Component()
+
+Component::Component(Circuit &ownerCircuit):
+    m_circuit(ownerCircuit)
 {
 
 }
@@ -33,11 +36,18 @@ Component::~Component() {
     m_propertyList.clear();
 }
 
+Circuit & Component::circuit() const
+{
+    return m_circuit;
+}
+
 void Component::removeElements() {
+    /*
     foreach(ElementMap *e, m_elementMapList){
         if(e)
             delete e;
     }
+    */
 	m_elementMapList.clear();
 }
 
