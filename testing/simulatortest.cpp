@@ -573,6 +573,14 @@ void SimulatorTest::testComponent_fixedVoltage()
     qDebug() << "v2: " << v2.pinByName("p1")->pin()->voltage();
     qDebug() << "c1 current: " << c1.wire()->current();
     qDebug() << "c2 current: " << c2.wire()->current();
+
+    Q_ASSERT( QABS( v1.pinByName("p1")->pin()->voltage() -
+                    v2.pinByName("p1")->pin()->voltage() - 10) < maxVoltageError);
+    Q_ASSERT( QABS(c2.wire()->current() - (-0.01)) < maxCurrentError);
+    Q_ASSERT( QABS(c1.wire()->current() -   0.01 ) < maxCurrentError);
+    
+    sim->slotSetSimulating(false);
+    sim->detachCircuit(circ);
 }
 
 
