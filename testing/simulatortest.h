@@ -16,6 +16,8 @@ private slots:
     void testComponent_SourceAndResistor();
     void testComponent_voltageDivider();
     void testComponent_fixedVoltage();
+
+    void pinReduceTest();
 };
 
 #endif
