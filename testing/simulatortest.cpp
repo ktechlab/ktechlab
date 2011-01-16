@@ -427,7 +427,6 @@ void SimulatorTest::testComponent_SourceAndResistor()
     Simulator * sim = Simulator::self();
     sim->slotSetSimulating(false);
 
-    circ->addComponent(r1);
     circ->addComponent(v1);
     circ->init();
 
@@ -491,6 +490,7 @@ void SimulatorTest::testComponent_SourceAndResistor()
 
 void SimulatorTest::testComponent_voltageDivider()
 {
+    Circuit *circ = new Circuit();
     Resistor r1(*circ),
         r2(*circ);
     ECCell v1(*circ);
@@ -507,9 +507,6 @@ void SimulatorTest::testComponent_voltageDivider()
     Simulator * sim = Simulator::self();
     sim->slotSetSimulating(false);
 
-    Circuit *circ = new Circuit();
-    circ->addComponent(r1);
-    circ->addComponent(r2);
     circ->addComponent(v1);
     circ->init();
 
@@ -539,6 +536,8 @@ void SimulatorTest::testComponent_voltageDivider()
 
 void SimulatorTest::testComponent_fixedVoltage()
 {
+    Circuit *circ = new Circuit();
+
     ECFixedVoltage v1(*circ);
     v1.propertyByName("voltage")->setValue(5);
     ECFixedVoltage v2(*circ);
@@ -547,7 +546,6 @@ void SimulatorTest::testComponent_fixedVoltage()
     Simulator * sim = Simulator::self();
     sim->slotSetSimulating(false);
 
-    Circuit *circ = new Circuit();
     circ->addComponent(v1);
     circ->addComponent(v2);
     circ->init();
@@ -569,7 +567,6 @@ void SimulatorTest::testComponent_fixedVoltage()
     ElectronicConnector c1(r1.pinByName("n1"), v1.pinByName("p1"));
     ElectronicConnector c2(r1.pinByName("p1"), v2.pinByName("p1"));
 
-    circ->addComponent(r1);
     circ->init();
 
     sim->step();
