@@ -417,15 +417,16 @@ void SimulatorTest::testSourceAnd4ResistanceInParallel()
 void SimulatorTest::testComponent_SourceAndResistor()
 {
     qDebug() << "starting";
-    Resistor r1;
-    ECCell v1;
+    Circuit *circ = new Circuit();
+
+    Resistor r1(*circ);
+    ECCell v1(*circ);
     ElectronicConnector c1(r1.pinByName("n1"), v1.pinByName("n1"));
     ElectronicConnector c2(r1.pinByName("p1"), v1.pinByName("p1"));
 
     Simulator * sim = Simulator::self();
     sim->slotSetSimulating(false);
 
-    Circuit *circ = new Circuit();
     circ->addComponent(r1);
     circ->addComponent(v1);
     circ->init();
@@ -490,8 +491,9 @@ void SimulatorTest::testComponent_SourceAndResistor()
 
 void SimulatorTest::testComponent_voltageDivider()
 {
-    Resistor r1,r2;
-    ECCell v1;
+    Resistor r1(*circ),
+        r2(*circ);
+    ECCell v1(*circ);
 
     r1.propertyByName("resistance")->setValue(2000);
     r2.propertyByName("resistance")->setValue(3000);
@@ -537,9 +539,9 @@ void SimulatorTest::testComponent_voltageDivider()
 
 void SimulatorTest::testComponent_fixedVoltage()
 {
-    ECFixedVoltage v1;
+    ECFixedVoltage v1(*circ);
     v1.propertyByName("voltage")->setValue(5);
-    ECFixedVoltage v2;
+    ECFixedVoltage v2(*circ);
     v2.propertyByName("voltage")->setValue(-5);
 
     Simulator * sim = Simulator::self();
@@ -561,7 +563,7 @@ void SimulatorTest::testComponent_fixedVoltage()
     qDebug() << "v1: " << v1.pinByName("p1")->pin()->voltage();
     qDebug() << "v2: " << v2.pinByName("p1")->pin()->voltage();
 
-    Resistor r1;
+    Resistor r1(*circ);
     r1.propertyByName("resistance")->setValue(1000);
 
     ElectronicConnector c1(r1.pinByName("n1"), v1.pinByName("p1"));
