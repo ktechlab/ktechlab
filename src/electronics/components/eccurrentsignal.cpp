@@ -13,8 +13,8 @@
 #include "simulator.h"
 #include "variant.h"
 
-ECCurrentSignal::ECCurrentSignal()
-	: Component(),
+ECCurrentSignal::ECCurrentSignal(Circuit& ownerCircuit)
+	: Component(ownerCircuit),
 	m_currentSignal(LINEAR_UPDATE_PERIOD, 0)	
 {
 	// m_pNNode[0]->pin().setGroundType(Pin::gt_low);

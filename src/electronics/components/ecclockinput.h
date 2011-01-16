@@ -17,6 +17,7 @@
 #include "component.h"
 #include "logic.h"
 
+class Circuit;
 class ComponentCallback;
 class Simulator;
 
@@ -27,7 +28,7 @@ class Simulator;
 class ECClockInput : public Component
 {
 public:
-	ECClockInput();
+	ECClockInput(Circuit &ownerCircuit);
 	~ECClockInput();
 	
 

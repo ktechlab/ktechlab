@@ -14,6 +14,8 @@
 #include "component.h"
 #include "ecdiode.h"
 
+class Circuit;
+
 /**
 @short Simulates a LED
 @author David Saxton
@@ -22,7 +24,7 @@
 class LED : public ECDiode {
 
 public:
-	LED();
+	LED(Circuit &ownerCircuit);
 	~LED();
 
 	/**

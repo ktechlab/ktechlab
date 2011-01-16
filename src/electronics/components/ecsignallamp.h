@@ -14,6 +14,8 @@
 #include "component.h"
 #include "resistance.h"
 
+class Circuit;
+
 /**
 @short Signal Lamp - glows when current flows
 @author David Saxton
@@ -21,7 +23,7 @@
 class ECSignalLamp : public Component
 {
 public:
-	ECSignalLamp();
+	ECSignalLamp(Circuit &ownerCircuit);
 	~ECSignalLamp();
 
 	

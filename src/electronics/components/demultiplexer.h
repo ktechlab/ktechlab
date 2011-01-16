@@ -17,13 +17,15 @@
 
 #include <vector>
 
+class Circuit;
+
 /**
 @author David Saxton
 */
 class Demultiplexer : public CallbackClass,  public Component
 {
 public:
-	Demultiplexer();
+	Demultiplexer(Circuit &ownerCircuit);
 	~Demultiplexer();
 	
 protected:

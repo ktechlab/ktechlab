@@ -15,8 +15,8 @@
 #include <QDebug>
 
 
-ECMOSFET::ECMOSFET(int MOSFET_type)
-		:   Component(),
+ECMOSFET::ECMOSFET(Circuit& ownerCircuit, int MOSFET_type)
+		:   Component(ownerCircuit),
             m_pMOSFET((MOSFET::MOSFET_type)MOSFET_type) {
 
 	m_MOSFET_type = MOSFET_type;

@@ -19,13 +19,15 @@
 #include "vccs.h"
 #include "vcvs.h"
 
+class Circuit;
+
 /**
 @author David Saxton
 */
 class DependentSource : public Component {
 
 public:
-	DependentSource();
+	DependentSource(Circuit &ownerCircuit);
 	~DependentSource();
 
 };
@@ -37,7 +39,7 @@ public:
 class ECCCCS : public DependentSource {
 
 public:
-	ECCCCS();
+	ECCCCS(Circuit &ownerCircuit);
 	~ECCCCS();
 
 protected:
@@ -54,7 +56,7 @@ protected:
 class ECCCVS : public DependentSource {
 
 public:
-	ECCCVS();
+	ECCCVS(Circuit &ownerCircuit);
 	~ECCCVS();
 
 protected:
@@ -72,7 +74,7 @@ protected:
 class ECVCCS : public DependentSource {
 
 public:
-	ECVCCS();
+	ECVCCS(Circuit &ownerCircuit);
 	~ECVCCS();
 
 
@@ -91,7 +93,7 @@ protected:
 class ECVCVS : public DependentSource {
 
 public:
-	ECVCVS();
+	ECVCVS(Circuit &ownerCircuit);
 	~ECVCVS();
 
 protected:

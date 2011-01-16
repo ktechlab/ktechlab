@@ -15,7 +15,8 @@
 
 #include <QDebug>
 
-BiDirLED::BiDirLED() {
+BiDirLED::BiDirLED(Circuit& ownerCircuit) :
+        Component(ownerCircuit){
 	m_pDiode[0] = new Diode();
 	m_pDiode[1] = new Diode();
 

@@ -14,6 +14,7 @@
 #include "component.h"
 #include "currentsource.h"
 
+class Circuit;
 class CurrentSource;
 
 /**
@@ -23,7 +24,7 @@ class CurrentSource;
 class ECCurrentSource : public Component
 {
 public:
-	ECCurrentSource();
+	ECCurrentSource(Circuit &ownerCircuit);
 	~ECCurrentSource();
 
 private:

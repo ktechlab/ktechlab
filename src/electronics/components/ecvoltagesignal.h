@@ -15,6 +15,7 @@
 #include "voltagesignal.h"
 
 class VoltageSignal;
+class Circuit;
 
 /**
 @short Provides an alternating voltage source
@@ -23,7 +24,7 @@ class VoltageSignal;
 class ECVoltageSignal : public Component
 {
 public:
-	ECVoltageSignal();
+	ECVoltageSignal(Circuit &ownerCircuit);
 	~ECVoltageSignal();
 
 

@@ -14,6 +14,8 @@
 #include "component.h"
 #include "logic.h"
 
+class Circuit;
+
 /**
 @short Converts a BCD input to 7-Segment Output
 @author David Saxton
@@ -21,7 +23,7 @@
 class ECBCDTo7Segment : public CallbackClass, public Component
 {
 public:
-	ECBCDTo7Segment();
+	ECBCDTo7Segment(Circuit &ownerCircuit);
 	~ECBCDTo7Segment();
 	
 private:
