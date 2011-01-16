@@ -440,7 +440,7 @@ void Circuit::updateCurrents() {
     std::set<ElementMap*>::iterator elementMapSetEnd = m_elementMapSet.end();
     for(std::set<ElementMap*>::iterator it = m_elementMapSet.begin();
                         it != elementMapSetEnd; ++it)
-            (*it)->mergeCurrents();;
+            (*it)->mergeCurrents();
     //
     QList<Pin*> pinsToVisit;
     QMap<Pin*,int> unknownWireCurrentCount;
