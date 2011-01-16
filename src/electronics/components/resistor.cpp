@@ -10,13 +10,14 @@
 
 #include "resistor.h"
 
+#include "circuit.h"
 #include "ecnode.h"
 #include "variant.h"
 #include <elementmap.h>
 #include <resistance.h>
 
-Resistor::Resistor()
-		: Component() {
+Resistor::Resistor(Circuit &ownerCircuit)
+		: Component(ownerCircuit) {
     m_resistance = new Resistance();
     m_elemMap = new ElementMap(m_resistance);
     m_elementMapList.append(m_elemMap);

@@ -13,6 +13,7 @@
 
 #include "component.h"
 
+class Circuit;
 class ElementMap;
 class VoltageSource;
 
@@ -24,7 +25,7 @@ Simple electrical cell that simulates a PD and internal resistance
 class ECCell : public Component
 {
 public:
-	ECCell();
+	ECCell(Circuit &ownerCircuit);
 	~ECCell();
 
 protected:
