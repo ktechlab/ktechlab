@@ -15,6 +15,7 @@
 
 #include <QDebug>
 #include <ecnode.h>
+#include <circuit.h>
 
 ECCell::ECCell(Circuit& ownerCircuit) :
             Component(ownerCircuit)
@@ -34,6 +35,8 @@ ECCell::ECCell(Circuit& ownerCircuit) :
     v->setMaxValue(1e12);
     v->setValue(5.0);
     addProperty(v);
+
+    ownerCircuit.addComponent(*this);
 }
 
 ECCell::~ECCell() {
