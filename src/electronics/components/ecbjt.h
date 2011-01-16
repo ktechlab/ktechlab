@@ -14,6 +14,8 @@
 #include "component.h"
 #include "bjt.h"
 
+class Circuit;
+
 /**
 @short Simulates a BJT
 @author David Saxton
@@ -21,7 +23,7 @@
 class ECBJT : public Component
 {
 	public:
-		ECBJT(bool isNPN);
+		ECBJT(Circuit &ownerCircuit, bool isNPN);
 		~ECBJT();
 	
 	

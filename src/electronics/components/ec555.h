@@ -16,6 +16,7 @@
 
 #include <qstringlist.h>
 
+class Circuit;
 class Resistance;
 class Pin;
 
@@ -26,7 +27,7 @@ class Pin;
 class EC555 : public Component
 {
 public:
-	EC555();
+	EC555(Circuit &ownerCircuit);
 	~EC555();
 	
 	virtual void stepNonLogic();

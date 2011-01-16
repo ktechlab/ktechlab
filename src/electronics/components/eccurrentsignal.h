@@ -14,6 +14,7 @@
 #include "component.h"
 #include "currentsignal.h"
 
+class Circuit;
 class CurrentSignal;
 
 /**
@@ -23,7 +24,7 @@ class CurrentSignal;
 class ECCurrentSignal : public Component
 {
 public:
-	ECCurrentSignal();
+	ECCurrentSignal(Circuit &ownerCircuit);
 	~ECCurrentSignal();
 	
 protected:

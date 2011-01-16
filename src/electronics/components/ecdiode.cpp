@@ -14,7 +14,8 @@
 
 #include <QDebug>
 
-ECDiode::ECDiode()
+ECDiode::ECDiode(Circuit& ownerCircuit) :
+            Component(ownerCircuit)
 {
 
 	DiodeSettings ds; // it will have the default properties that we use

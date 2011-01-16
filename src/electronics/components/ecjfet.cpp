@@ -14,8 +14,8 @@
 
 #include <QDebug>
 
-ECJFET::ECJFET(int JFET_type)
-		:   Component(),
+ECJFET::ECJFET(Circuit& ownerCircuit, int JFET_type)
+		:   Component(ownerCircuit),
             m_pJFET((JFET::JFET_type) JFET_type) {
 	m_JFET_type = JFET_type;
 

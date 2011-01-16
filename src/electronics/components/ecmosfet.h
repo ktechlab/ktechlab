@@ -14,6 +14,8 @@
 #include "component.h"
 #include "mosfet.h"
 
+class Circuit;
+
 /**
 @short Simulates a MOSFET
 @author David Saxton
@@ -21,7 +23,7 @@
 class ECMOSFET : public Component
 {
 	public:
-		ECMOSFET( int MOSFET_type);
+		ECMOSFET(Circuit &ownerCircuit, int MOSFET_type);
 		~ECMOSFET();
 	
 	protected:

@@ -14,6 +14,8 @@
 #include "component.h"
 #include "diode.h"
 
+class Circuit;
+
 /**
 @short Simple diode
 @author David Saxton
@@ -21,7 +23,7 @@
 class ECDiode : public Component
 {
 public:
-	ECDiode();
+	ECDiode(Circuit &ownerCircuit);
 	~ECDiode();
 
 protected:

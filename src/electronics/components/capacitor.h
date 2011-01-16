@@ -14,6 +14,7 @@
 #include "component.h"
 #include "capacitance.h"
 
+class Circuit;
 class ECNode;
 
 /**
@@ -24,7 +25,7 @@ Simple capacitor
 class Capacitor : public Component
 {
 public:
-	Capacitor();
+	Capacitor(Circuit &ownerCircuit);
 	~Capacitor();
 
     /**

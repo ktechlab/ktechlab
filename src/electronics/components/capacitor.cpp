@@ -18,7 +18,7 @@
 
 #include <QDebug>
 
-Capacitor::Capacitor() : Component(),
+Capacitor::Capacitor(Circuit &ownerCircuit) : Component(ownerCircuit),
 		m_capacitance(0.001, LINEAR_UPDATE_PERIOD)
 {
     Property *cap = new Property("Capacitance", Variant::Type::Double);

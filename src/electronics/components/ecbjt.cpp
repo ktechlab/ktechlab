@@ -13,8 +13,8 @@
 #include "variant.h"
 
 
-ECBJT::ECBJT(bool isNPN)
-		: Component(),
+ECBJT::ECBJT(Circuit& ownerCircuit, bool isNPN)
+		: Component(ownerCircuit),
             m_bIsNPN(isNPN), m_pBJT(m_bIsNPN) {
 
 

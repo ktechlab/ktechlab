@@ -15,6 +15,7 @@
 #include "opamp.h"
 
 class OpAmp;
+class Circuit;
 
 /**
 @short Operational Amplifier
@@ -23,7 +24,7 @@ class OpAmp;
 class ECOpAmp : public Component
 {
 public:
-	ECOpAmp();
+	ECOpAmp(Circuit &ownerCircuit);
 	~ECOpAmp();
 
 private:

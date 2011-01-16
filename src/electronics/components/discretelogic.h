@@ -14,6 +14,8 @@
 #include "component.h"
 #include "logic.h"
 
+class Circuit;
+
 /**
 @short Boolean NOT
 @author David Saxton
@@ -21,7 +23,7 @@
 class Inverter : public CallbackClass, public Component {
 
 public:
-	Inverter();
+	Inverter(Circuit &ownerCircuit);
 	~Inverter();
 
 protected:
@@ -38,7 +40,7 @@ protected:
 class Buffer : public CallbackClass, public Component {
 
 public:
-	Buffer();
+	Buffer(Circuit &ownerCircuit);
 	~Buffer();
 
 private:
@@ -59,7 +61,7 @@ the controller class on an user interface event.
 class ECLogicInput : public Component {
 
 public:
-	ECLogicInput();
+	ECLogicInput(Circuit &ownerCircuit);
 	~ECLogicInput();
 
 protected:
@@ -78,7 +80,7 @@ private:
 class ECLogicOutput : public CallbackClass, public Component {
 
 public:
-	ECLogicOutput();
+	ECLogicOutput(Circuit &ownerCircuit);
 	~ECLogicOutput();
 
 protected:

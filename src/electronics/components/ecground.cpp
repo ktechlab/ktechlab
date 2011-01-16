@@ -10,8 +10,8 @@
 
 #include "ecground.h"
 
-ECGround::ECGround()
-        : Component() {
+ECGround::ECGround(Circuit& ownerCircuit)
+        : Component(ownerCircuit) {
     // TODO add pin
     // init1PinRight();
     // m_pPNode[0]->pin().setGroundType(Pin::gt_always);

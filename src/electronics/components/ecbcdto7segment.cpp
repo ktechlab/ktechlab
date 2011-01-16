@@ -33,8 +33,8 @@ static bool numbers[16][7] = {
 	{ 1, 0, 0, 1, 1, 1, 1 }, // E
 	{ 1, 0, 0, 0, 1, 1, 1 }}; // F
 
-ECBCDTo7Segment::ECBCDTo7Segment()
-		: Component() {
+ECBCDTo7Segment::ECBCDTo7Segment(Circuit& ownerCircuit)
+		: Component(ownerCircuit) {
 
 	ALogic.setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));
 	BLogic.setCallback(this, (CallbackPtr)(&ECBCDTo7Segment::inStateChanged));

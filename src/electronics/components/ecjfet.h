@@ -14,6 +14,8 @@
 #include "component.h"
 #include "jfet.h"
 
+class Circuit;
+
 /**
 @short Simulates a JFET
 @author David Saxton
@@ -21,7 +23,7 @@
 class ECJFET : public Component
 {
 public:
-	ECJFET(int JFET_type);
+	ECJFET(Circuit &ownerCircuit, int JFET_type);
 	~ECJFET();
 
 

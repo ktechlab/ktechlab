@@ -11,8 +11,8 @@
 #include "ecopamp.h"
 
 
-ECOpAmp::ECOpAmp()
-	: Component()
+ECOpAmp::ECOpAmp(Circuit& ownerCircuit)
+	: Component(ownerCircuit)
 {
 }
 

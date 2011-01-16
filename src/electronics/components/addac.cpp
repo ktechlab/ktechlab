@@ -10,6 +10,7 @@
 
 #include "addac.h"
 // #include "ecnode.h"
+#include "circuit.h"
 #include "logic.h"
 // #include "libraryitem.h"
 #include "pin.h"
@@ -23,7 +24,7 @@
 // #include <klocale.h>
 
 //BEGIN class ADDAC
-ADDAC::ADDAC() : Component()
+ADDAC::ADDAC(Circuit& ownerCircuit) : Component(ownerCircuit)
 {
 	m_numBits = 0;
 	m_range = 0;
@@ -57,6 +58,7 @@ ADDAC::ADDAC() : Component()
 	property("range")->setMaxValue(1e12);
 	property("range")->setValue(5);
     */
+    ownerCircuit.addComponent(*this);
 }
 
 ADDAC::~ADDAC()
@@ -89,7 +91,7 @@ ADC::~ADC()
 {
 }
 
-ADC::ADC() : ADDAC()
+ADC::ADC(Circuit& ownerCircuit) : ADDAC(ownerCircuit)
 {
 	
 	for ( int i=0; i<max_ADDAC_bits; ++i )
@@ -168,7 +170,7 @@ void ADC::initPins()
 //END class ADC
 
 //BEGIN class DAC
-DAC::DAC() : ADDAC()
+DAC::DAC(Circuit& ownerCircuit) : ADDAC(ownerCircuit)
 {
 	for ( int i=0; i<max_ADDAC_bits; ++i )
 		m_logic[i] = 0;
