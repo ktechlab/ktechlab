@@ -544,8 +544,6 @@ void SimulatorTest::testComponent_fixedVoltage()
     Simulator * sim = Simulator::self();
     sim->slotSetSimulating(false);
 
-    circ->addComponent(v1);
-    circ->addComponent(v2);
     circ->init();
 
     sim->attachCircuit(circ);
