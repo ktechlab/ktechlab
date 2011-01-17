@@ -53,6 +53,8 @@ CircuitScene::CircuitScene ( QObject* parent, CircuitModel *model, KTLCircuitPlu
             this,SLOT(addConnector(KTechLab::ConnectorItem*)));
     connect(this,SIGNAL(routed(QList<KTechLab::ConnectorItem*>)),
             this,SLOT(updateModel(QList<KTechLab::ConnectorItem*>)));
+    connect(this,SIGNAL(itemAdded(KTechLab::IDocumentItem*)),
+            this,SLOT(addItem(KTechLab::IDocumentItem*)));
     connect(this,SIGNAL(itemRemoved(KTechLab::IDocumentItem*)),
             this,SLOT(removeItem(KTechLab::IDocumentItem*)));
 }
