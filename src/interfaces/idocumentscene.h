@@ -135,6 +135,10 @@ signals:
      */
     void componentsMoved(QList<KTechLab::IComponentItem*>);
     /**
+     * Emitted, when some item is added to the scene.
+     */
+    void itemAdded( KTechLab::IDocumentItem* );
+    /**
      * Emitted, when some item is removed from the scene.
      */
     void itemRemoved( KTechLab::IDocumentItem* );
