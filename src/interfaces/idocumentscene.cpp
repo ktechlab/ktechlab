@@ -103,7 +103,17 @@ void IDocumentScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 void IDocumentScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     QGraphicsScene::mousePressEvent(event);
-    if (!event->isAccepted()){
+    if (isRouting() && (event->modifiers() & Qt::ControlModifier)){
+        Node* n = new Node(0, this);
+        emit itemAdded(n);
+        QPointF p = routingInfo()->alignToGrid(event->scenePos());
+        n->setPos(p);
+        finishRouting(p);
+        clearSelection();
+        startRouting(p);
+        event->accept();
+    }
+    if (!event->isAccepted() && !(event->modifiers() & Qt::ControlModifier)){
         abortRouting();
     }
     if (!selectedItems().isEmpty()){
