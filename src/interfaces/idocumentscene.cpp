@@ -135,13 +135,14 @@ void IDocumentScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 void IDocumentScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
     QGraphicsScene::mouseReleaseEvent(event);
-    if (isRouting())
+    if (isRouting()) {
         return;
+    }
     if (!selectedItems().isEmpty() && d->movingSelection){
         QList<IComponentItem*> selectedComponents = d->filterItemList<IComponentItem>(selectedItems());
         if (!selectedComponents.isEmpty() && selectedComponents.first()->pos() != d->oldSelectionPos) {
             bool moved = alignToGrid(selectedComponents.first()->pos()) != d->oldSelectionPos;
-            foreach (QGraphicsItem* item, selectedItems()){
+            foreach (QGraphicsItem* item, selectedItems()) {
                 item->setPos(alignToGrid(item->pos()));
             }
             emit componentsMoved(selectedComponents);
