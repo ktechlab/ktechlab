@@ -26,7 +26,8 @@ Node::Node(QGraphicsItem* parent, IDocumentScene* scene)
 {
     setAcceptHoverEvents(true);
     setFlag(ItemIsSelectable);
-    setFlag(ItemIsMovable);
+    //disable moving for now, until interaction is implemented
+    //setFlag(ItemIsMovable);
     setRect(-2,-2,4,4);
     setBrush(QBrush(Qt::SolidPattern));
 }
