@@ -29,8 +29,7 @@
 #include "picprogrammer.h"
 #include "sdcc.h"
 
-#include <kdebug.h>
-#include <klocale.h>
+#include <qdebug.h>
 // #include <ktempfile.h>
 #include <qfile.h>
 #include <qtimer.h>
@@ -136,10 +135,10 @@ void ProcessChain::compile()
 #undef INDIRECT_PROCESS
 			
 		case ProcessOptions::ProcessPath::Invalid:
-			kdWarning() << k_funcinfo << "Process path is invalid" << endl;
+			qWarning() << "Process path is invalid" << endl;
 			
 		case ProcessOptions::ProcessPath::None:
-			kdWarning() << k_funcinfo << "Nothing to do" << endl;
+			qWarning() << "Nothing to do" << endl;
 			break;
 	}
 }
