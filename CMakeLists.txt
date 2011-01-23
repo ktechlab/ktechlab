@@ -114,6 +114,7 @@ set( CompileSimulator_SRCS
  ${CMAKE_SOURCE_DIR}/src/languages/gpasm.cpp
  ${CMAKE_SOURCE_DIR}/src/languages/microbe.cpp
  ${CMAKE_SOURCE_DIR}/src/languages/gpdasm.cpp
+ ${CMAKE_SOURCE_DIR}/src/languages/qprocesswitharguments.cpp
  # ${CMAKE_SOURCE_DIR}/src/languages/flowcode.cpp
  # support class for components
  ${CMAKE_SOURCE_DIR}/src/variant.cpp
