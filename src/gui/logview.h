@@ -67,9 +67,6 @@ class LogView : public QObject
 
     protected:
         MessageInfoMap m_messageInfoMap;
-
-    private slots:
-        void slotParaClicked( int para, int pos );
 };
 
 #endif
