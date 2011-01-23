@@ -23,17 +23,18 @@
 
 #include <cassert>
 
-#include <kdebug.h>
-#include <klocale.h>
-#include <kmessagebox.h>
+#include <qdebug.h>
+// #include <klocale.h>
+// #include <kmessagebox.h>
 // #include <ktempfile.h>
-#include <kstandarddirs.h>
+// #include <kstandarddirs.h>
 #include <qfile.h>
 #include <q3textstream.h>
 #include <qtimer.h>
 //Added by qt3to4:
 #include <Q3ValueList>
 #include <QTemporaryFile>
+#include <qmessagebox.h>
 
 #include "gpsim/cod.h"
 #include "gpsim/interface.h"
@@ -162,26 +163,26 @@ void GpsimProcessor::displayCodLoadStatus( )
 		case CodSuccess:
 			break;
 		case CodFileNotFound:
-			KMessageBox::sorry( 0l, i18n("The cod file \"%1\" was not found.").arg(m_symbolFile), i18n("File Not Found") );
+			QMessageBox::critical( 0l, tr("The cod file \"%1\" was not found.").arg(m_symbolFile), tr("File Not Found") );
 			break;
 		case CodUnrecognizedProcessor:
-			KMessageBox::sorry( 0l, i18n("The processor for cod file \"%1\" is unrecognized.").arg(m_symbolFile), i18n("Unrecognized Processor") );
+			QMessageBox::critical( 0l, tr("The processor for cod file \"%1\" is unrecognized.").arg(m_symbolFile), tr("Unrecognized Processor") );
 			break;
 		case CodFileNameTooLong:
-			KMessageBox::sorry( 0l, i18n("The file name \"%1\" is too long.").arg(m_symbolFile), i18n("Filename Too Long") );
+			QMessageBox::critical( 0l, tr("The file name \"%1\" is too long.").arg(m_symbolFile), tr("Filename Too Long") );
 			break;
 		case CodLstNotFound:
-			KMessageBox::sorry( 0l, i18n("The lst file associated with the cod file \"%1\" was not found.").arg(m_symbolFile), i18n("LST File Not Found") );
+			QMessageBox::critical( 0l, tr("The lst file associated with the cod file \"%1\" was not found.").arg(m_symbolFile), tr("LST File Not Found") );
 			break;
 		case CodBadFile:
-			KMessageBox::sorry( 0l, i18n("The cod file \"%1\" is bad.").arg(m_symbolFile), i18n("Bad File") );
+			QMessageBox::critical( 0l, tr("The cod file \"%1\" is bad.").arg(m_symbolFile), tr("Bad File") );
 			break;
 		case CodFileUnreadable:
-			KMessageBox::sorry( 0l, i18n("The cod file \"%1\" could not be read from.").arg(m_symbolFile), i18n("Unreadable File") );
+			QMessageBox::critical( 0l, tr("The cod file \"%1\" could not be read from.").arg(m_symbolFile), tr("Unreadable File") );
 			break;
 		case CodFailure:
 		case CodUnknown:
-			KMessageBox::sorry( 0l, i18n("An error occured with the cod file \"%1\".").arg(m_symbolFile), i18n("Error") );
+			QMessageBox::critical( 0l, tr("An error occured with the cod file \"%1\".").arg(m_symbolFile), tr("Error") );
 			break;
 	}
 }
@@ -283,7 +284,7 @@ void GpsimProcessor::reset()
 MicroInfo * GpsimProcessor::microInfo( ) const
 {
 	if ( !m_pPicProcessor ){
-		kdWarning() << k_funcinfo << " m_pPicProcessor == NULL" << endl;
+		qWarning() << " m_pPicProcessor == NULL" << endl;
 		return 0l;
 	}
 	
@@ -311,7 +312,7 @@ int GpsimProcessor::operandLiteral( unsigned address )
 
 GpsimProcessor::ProgramFileValidity GpsimProcessor::isValidProgramFile( const QString & programFile )
 {
-	if ( !KStandardDirs::exists(programFile) )
+	if ( !QFile::exists(programFile) )
 		return DoesntExist;
 	
 	QString extension = programFile.right( programFile.length() - programFile.findRev('.') - 1 ).lower();
@@ -519,7 +520,7 @@ void GpsimDebugger::associateLine( const QString & sourceFile, int sourceLine, c
 {
 	if ( assemblyLine < 0 || sourceLine < 0 )
 	{
-		kdWarning() << k_funcinfo << "Invalid lines: assemblyLine="<<assemblyLine<<" sourceLine="<<sourceLine<<endl;
+		qWarning() << "Invalid lines: assemblyLine="<<assemblyLine<<" sourceLine="<<sourceLine<<endl;
 		return;
 	}
 	
@@ -528,7 +529,7 @@ void GpsimDebugger::associateLine( const QString & sourceFile, int sourceLine, c
 	
 	if ( m_sourceLineMap.contains(asmSource) )
 	{
-		kdWarning() << k_funcinfo << "Already have an association for assembly (\""<<assemblyFile<<"\","<<assemblyLine<<")"<<endl;
+		qWarning() << "Already have an association for assembly (\""<<assemblyFile<<"\","<<assemblyLine<<")"<<endl;
 		return;
 	}
 	
@@ -575,7 +576,7 @@ void GpsimDebugger::initAddressToLineMap()
 			int fileID = m_pGpsim->picProcessor()->files.Find( stdAsmFile );
 			if ( fileID == -1 )
 			{
-				kdWarning() << k_funcinfo << "Could not find FileContext (asmFile=\""<<asmFile<<"\")"<<endl;
+				qWarning() << "Could not find FileContext (asmFile=\""<<asmFile<<"\")"<<endl;
 				continue;
 			}
 	
@@ -584,7 +585,7 @@ void GpsimDebugger::initAddressToLineMap()
 	
 			if ( (asmFromLine < 0) || (asmToLine < asmFromLine) )
 			{
-				kdWarning() << k_funcinfo << "Invalid lines: asmFromLine="<<asmFromLine<<" asmToLine="<<asmToLine<<endl;
+				qWarning() << "Invalid lines: asmFromLine="<<asmFromLine<<" asmToLine="<<asmToLine<<endl;
 				continue;
 			}
 	
@@ -748,7 +749,7 @@ void GpsimDebugger::stackStep( int dl )
 RegisterSet::RegisterSet( pic_processor * picProcessor )
 {
 	unsigned numRegisters = picProcessor->rma.get_size();
-	kdDebug() << k_funcinfo << "numRegisters="<<numRegisters<<endl;
+	qDebug() << "numRegisters="<<numRegisters<<endl;
 	m_registers.resize( numRegisters );
 	for ( unsigned i = 0; i < numRegisters; ++i )
 	{
@@ -857,22 +858,22 @@ QString RegisterInfo::toString( RegisterType type )
 	switch ( type )
 	{
 		case Generic:
-			return i18n("Generic");
+			return tr("Generic");
 			
 		case File:
-			return i18n("File");
+			return tr("File");
 			
 		case SFR:
-			return i18n("SFR");
+			return tr("SFR");
 			
 		case Breakpoint:
-			return i18n("Breakpoint");
+			return tr("Breakpoint");
 			
 		case Invalid:
-			return i18n("Invalid");
+			return tr("Invalid");
 	}
 	
-	return i18n("Unknown");
+	return tr("Unknown");
 }
 //END class RegisterInfo
 
