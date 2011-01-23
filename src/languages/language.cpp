@@ -18,7 +18,7 @@
 // #include "languagemanager.h"
 // #include "src/core/ktlconfig.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <kio/netaccess.h>
 #include <kmessagebox.h>
 #include <kprocess.h>
@@ -218,7 +218,7 @@ void ProcessOptions::setTargetFile( const QString &file )
 {
 	if (b_targetFileSet)
 	{
-		kdWarning() << "Trying to reset target file!"<<endl;
+		qWarning() << "Trying to reset target file!"<<endl;
 		return;
 	}
 	m_targetFile = file;
