@@ -16,16 +16,17 @@
 #include "sdcc.h"
 // #include "src/core/ktlconfig.h"
 
-#include <klocale.h>
+// #include <klocale.h>
 // #include <kmessagebox.h>
 #include <kprocess.h>
 #include <qdebug.h>
+#include "qprocesswitharguments.h"
 
 SDCC::SDCC( ProcessChain * processChain )
 	: ExternalLanguage( processChain, "SDCC" )
 {
-	m_successfulMessage = i18n("*** Compilation successful ***");
-	m_failedMessage = i18n("*** Compilation failed ***");
+	m_successfulMessage = tr("*** Compilation successful ***");
+	m_failedMessage = tr("*** Compilation failed ***");
 }
 
 SDCC::~SDCC()
@@ -39,7 +40,7 @@ void SDCC::processInput( ProcessOptions options )
 	MicroInfo * info = MicroLibrary::self()->microInfoWithID( options.m_picID );
 	if (!info)
 	{
-		outputError( i18n("Could not find PIC with ID \"%1\".").arg(options.m_picID) );
+		outputError( tr("Could not find PIC with ID \"%1\".").arg(options.m_picID) );
 		return;
 	}
 	
@@ -126,7 +127,7 @@ void SDCC::processInput( ProcessOptions options )
 	
 	if ( !start() )
 	{
-		// KMessageBox::sorry( LanguageManager::self()->logView(), i18n("Compilation failed. Please check you have sdcc installed.") );
+		// KMessageBox::sorry( LanguageManager::self()->logView(), tr("Compilation failed. Please check you have sdcc installed.") );
         qCritical() << "compilation failed";
 		processInitFailed();
 		return;
