@@ -13,20 +13,17 @@
 #include "logview.h"
 #include "microinfo.h"
 #include "microlibrary.h"
+#include "qprocesswitharguments.h"
 // #include "src/core/ktlconfig.h"
 
-#include <klocale.h>
-#include <kmessagebox.h>
-#include <kprocess.h>
-#include <kdebug.h>
-
+#include <qdebug.h>
 #include <qfile.h>
 
 Gplink::Gplink( ProcessChain *processChain )
 	: ExternalLanguage( processChain, "Gpasm" )
 {
-	m_successfulMessage = i18n("*** Linking successful ***");
-	m_failedMessage = i18n("*** Linking failed ***");
+	m_successfulMessage = tr("*** Linking successful ***");
+	m_failedMessage = tr("*** Linking failed ***");
 	
 	// search for SDCC
 	
@@ -45,7 +42,7 @@ Gplink::Gplink( ProcessChain *processChain )
 	SEARCH_FOR_SDCC( "/opt/sdcc/lib" )
 #undef SEARCH_FOR_SDCC
 	if( m_sdccLibDir == "")
-		kdError() << k_funcinfo << "SDCC lib not found";
+		qCritical() << "SDCC lib not found";
 	
 }
 
