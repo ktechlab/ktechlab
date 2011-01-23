@@ -13,7 +13,8 @@
 
 #include "language.h"
 
-class KProcess;
+class QProcessWithArguments;
+class QProcess;
 
 /**
 Base class for Language support that relies on an external program; so this
@@ -30,9 +31,9 @@ public:
 	~ExternalLanguage();
 	
 protected slots:
-	void receivedStdout( KProcess *, char * buffer, int buflen );
-	void receivedStderr( KProcess *, char * buffer, int buflen );
-	void processExited( KProcess * );
+	void receivedStdout( QProcess *, char * buffer, int buflen );
+	void receivedStderr( QProcess *, char * buffer, int buflen );
+	void processExited( QProcess * );
 	
 protected:
 	/**
@@ -91,7 +92,7 @@ protected:
 	 */
 	void displayProcessCommand();
 	
-	KProcess * m_languageProcess;
+	QProcessWithArguments * m_languageProcess;
 };
 
 #endif

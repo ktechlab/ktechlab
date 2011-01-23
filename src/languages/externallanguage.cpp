@@ -11,9 +11,10 @@
 #include "externallanguage.h"
 // #include "languagemanager.h"
 #include "logview.h"
+#include "qprocesswitharguments.h"
 
-#include <kdebug.h>
-#include <kprocess.h>
+// #include <kdebug.h>
+//#include <kprocess.h>
 #include <qregexp.h>
 #include <qtimer.h>
 //Added by qt3to4:
@@ -51,7 +52,7 @@ void ExternalLanguage::deleteLanguageProcess()
 }
 
 
-void ExternalLanguage::receivedStdout( KProcess *, char * buffer, int buflen )
+void ExternalLanguage::receivedStdout( QProcess *, char * buffer, int buflen )
 {
 	QStringList lines = QStringList::split( '\n', QString::fromLocal8Bit( buffer, buflen ), false );
 	QStringList::iterator end = lines.end();
@@ -77,7 +78,7 @@ void ExternalLanguage::receivedStdout( KProcess *, char * buffer, int buflen )
 }
 
 
-void ExternalLanguage::receivedStderr( KProcess *, char * buffer, int buflen )
+void ExternalLanguage::receivedStderr( QProcess *, char * buffer, int buflen )
 {
 	QStringList lines = QStringList::split( '\n', QString::fromLocal8Bit( buffer, buflen ), false );
 	QStringList::iterator end = lines.end();
@@ -98,11 +99,11 @@ void ExternalLanguage::receivedStderr( KProcess *, char * buffer, int buflen )
 }
 
 
-void ExternalLanguage::processExited( KProcess * )
+void ExternalLanguage::processExited( QProcess * )
 {
 	if ( !m_languageProcess )
 		return;
-	bool allOk = processExited( (m_languageProcess->exitStatus() == KProcess::NormalExit) && m_errorCount == 0 );
+	bool allOk = processExited( (m_languageProcess->exitStatus() == QProcess::NormalExit) && m_errorCount == 0 );
 	finish(allOk);
 	deleteLanguageProcess();
 }
@@ -130,16 +131,16 @@ void ExternalLanguage::resetLanguageProcess()
 	deleteLanguageProcess();
 	m_errorCount = 0;
 	
-	m_languageProcess = new KProcess(this);
+	m_languageProcess = new QProcessWithArguments(this);
 	
-	connect( m_languageProcess, SIGNAL(receivedStdout( KProcess*, char*, int )),
-			 this, SLOT(receivedStdout( KProcess*, char*, int )) );
+	connect( m_languageProcess, SIGNAL(receivedStdout( QProcess*, char*, int )),
+			 this, SLOT(receivedStdout( QProcess*, char*, int )) );
 	
-	connect( m_languageProcess, SIGNAL(receivedStderr( KProcess*, char*, int )),
-			 this, SLOT(receivedStderr( KProcess*, char*, int )) );
+	connect( m_languageProcess, SIGNAL(receivedStderr( QProcess*, char*, int )),
+			 this, SLOT(receivedStderr( QProcess*, char*, int )) );
 	
-	connect( m_languageProcess, SIGNAL(processExited( KProcess* )),
-			 this, SLOT(processExited( KProcess* )) );
+	connect( m_languageProcess, SIGNAL(processExited( QProcess* )),
+			 this, SLOT(processExited( QProcess* )) );
 }
 
 
