@@ -11,11 +11,12 @@
 #include "languagemanager.h"
 #include "picprogrammer.h"
 // #include "src/core/ktlconfig.h"
+#include "qprocesswitharguments.h"
 
 #include <kapplication.h>
 #include <kconfig.h>
-#include <kdebug.h>
-#include <klocale.h>
+#include <qdebug.h>
+// #include <klocale.h>
 #include <kmessagebox.h>
 
 #include <qapplication.h>
@@ -24,8 +25,12 @@
 #include <qregexp.h>
 #include <q3textstream.h>
 #include <qdatetime.h>
+#include <qlocale.h>
 
 #include <stdio.h>
+
+    // FIXME HACK
+#define tr(X)   (X)
 
 //BEGIN class ProgrammerConfig
 ProgrammerConfig::ProgrammerConfig()
@@ -63,8 +68,8 @@ void PicProgrammerSettings::initStaticConfigs()
 	m_bDoneStaticConfigsInit = true;
 	ProgrammerConfig config;
 	
-	config.description = i18n("Supported programmers: %1").arg("JuPic, PICStart Plus, Warp-13");
-	config.description += i18n("<br>Interface: Serial Port");
+	config.description = QString(tr("Supported programmers: %1")).arg("JuPic, PICStart Plus, Warp-13");
+	config.description += tr("<br>Interface: Serial Port");
 	config.initCommand = "";
 	config.readCommand = "picp %port %device -rp %file";
 	config.writeCommand = "picp %port %device -wp %file";
@@ -75,8 +80,8 @@ void PicProgrammerSettings::initStaticConfigs()
 	m_staticConfigs[ "PICP" ] = config;
 	
 	
-	config.description = i18n("Supported programmers: %1").arg("Epic Plus");
-	config.description += i18n("<br>Interface: Parallel Port");
+	config.description = QString(tr("Supported programmers: %1")).arg("Epic Plus");
+	config.description += tr("<br>Interface: Parallel Port");
 	config.initCommand = "odyssey init";
 	config.readCommand = "odyssey %device read %file";
 	config.writeCommand = "odyssey %device write %file";
@@ -87,8 +92,8 @@ void PicProgrammerSettings::initStaticConfigs()
 	m_staticConfigs[ "Odyssey" ] = config;
 	
 	
-	config.description = i18n("Supported programmers: %1").arg("JDM PIC-Programmer 2, PIC-PG2C");
-	config.description += i18n("<br>Interface: Serial Port");
+	config.description = QString(tr("Supported programmers: %1")).arg("JDM PIC-Programmer 2, PIC-PG2C");
+	config.description += tr("<br>Interface: Serial Port");
 	config.initCommand = "";
 	config.readCommand = "picprog --output %file --pic %port";
 	config.writeCommand = "picprog --burn --input %file --pic %port --device %device";
@@ -98,8 +103,8 @@ void PicProgrammerSettings::initStaticConfigs()
 	m_staticConfigs[ "PICProg" ] = config;
 	
 	
-	config.description = i18n("Supported programmers: %1").arg("Epic Plus");
-	config.description += i18n("<br>Interface: Parallel Port");
+	config.description = QString(tr("Supported programmers: %1")).arg("Epic Plus");
+	config.description += tr("<br>Interface: Parallel Port");
 	config.initCommand = "";
 	config.readCommand = "dump84 --dump-all --output=%file";
 	config.writeCommand = "prog84 --intel16=%file";
@@ -109,8 +114,8 @@ void PicProgrammerSettings::initStaticConfigs()
 	m_staticConfigs[ "prog84" ] = config;
 	
 	
-	config.description = i18n("Supported programmers: %1").arg("Kit 149, Kit 150");
-	config.description += i18n("<br>Interface: USB Port");
+	config.description = QString(tr("Supported programmers: %1")).arg("Kit 149, Kit 150");
+	config.description += tr("<br>Interface: USB Port");
 	config.initCommand = "";
 	config.readCommand = "pp -d %device -r %file";
 	config.writeCommand = "pp -d %device -w %file";
@@ -120,8 +125,8 @@ void PicProgrammerSettings::initStaticConfigs()
 	m_staticConfigs[ "PP" ] = config;
 	
 	
-	config.description = i18n("Supported programmers: %1").arg("Wisp628");
-	config.description += i18n("<br>Interface: Serial Port");
+	config.description = QString(tr("Supported programmers: %1")).arg("Wisp628");
+	config.description += tr("<br>Interface: Serial Port");
 	config.initCommand = "";
 	config.readCommand = "xwisp ID %device PORT %device DUMP";
 	config.writeCommand = "xwisp ID %device PORT %device WRITE %file";
@@ -132,8 +137,8 @@ void PicProgrammerSettings::initStaticConfigs()
 	
 	
 #if 0
-	config.description = i18n("Supported programmers: %1").arg("Epic Plus, JDM PIC-Programmer 2, PICCOLO, PICCOLO Grande, Trivial HVP Programmer");
-	config.description += i18n("<br>Interface: Serial Port and Parallel Port");
+	config.description = QString(tr("Supported programmers: %1")).arg("Epic Plus, JDM PIC-Programmer 2, PICCOLO, PICCOLO Grande, Trivial HVP Programmer");
+	config.description += QString(tr("<br>Interface: Serial Port and Parallel Port");
 	config.initCommand = "";
 	config.readCommand = "";
 	config.writeCommand = "";
@@ -145,8 +150,8 @@ void PicProgrammerSettings::initStaticConfigs()
 	config.executable = "";
 	
 	
-	config.description = i18n("Supported programmers: %1").arg("Trivial LVP programmer, Trivial HVP Programmer");
-	config.description += i18n("<br>Interface: Parallel Port");
+	config.description = QString(tr("Supported programmers: %1")).arg("Trivial LVP programmer, Trivial HVP Programmer");
+	config.description += QString(tr("<br>Interface: Parallel Port");
 	config.initCommand = "";
 	config.readCommand = "";
 	config.writeCommand = "";
@@ -156,8 +161,8 @@ void PicProgrammerSettings::initStaticConfigs()
 	m_staticConfigs[ "PicPrg2" ] = config;
 	
 	
-	config.description = i18n("Supported programmers: %1").arg("El Cheapo");
-	config.description += i18n("<br>Interface: Parallel Port");
+	config.description = QString(tr("Supported programmers: %1")).arg("El Cheapo");
+	config.description += QString(tr("<br>Interface: Parallel Port");
 	config.initCommand = "";
 	config.readCommand = "";
 	config.writeCommand = "";
@@ -167,8 +172,8 @@ void PicProgrammerSettings::initStaticConfigs()
 	m_staticConfigs[ "PP06" ] = config;
 	
 	
-	config.description = i18n("Supported programmers: %1").arg("NOPPP");
-	config.description += i18n("<br>Interface: Parallel Port");
+	config.description = QString(tr("Supported programmers: %1")).arg("NOPPP");
+	config.description += QString(tr("<br>Interface: Parallel Port");
 	config.initCommand = "";
 	config.readCommand = "";
 	config.writeCommand = "";
@@ -178,8 +183,8 @@ void PicProgrammerSettings::initStaticConfigs()
 	m_staticConfigs[ "NOPPP" ] = config;
 	
 	
-	config.description = i18n("Supported programmers: %1").arg("SNOPPP");
-	config.description += i18n("<br>Interface: Parallel Port");
+	config.description = QString(tr("Supported programmers: %1")).arg("SNOPPP");
+	config.description += QString(tr("<br>Interface: Parallel Port");
 	config.initCommand = "";
 	config.readCommand = "";
 	config.writeCommand = "";
@@ -236,7 +241,7 @@ KConfig * config )
 	ProgrammerConfigMap::iterator end = m_customConfigs.end();
 	for ( ProgrammerConfigMap::iterator it = m_customConfigs.begin(); it != end; ++it )
 	{
-		config->setGroup( QString("CustomProgrammer_%1").arg(at++) );
+		config->setGroup( QString("CustomProgrammer_%1")).arg(at++) );
 		
 		config->writeEntry( "Name", it.key() );
 		config->writeEntry( "InitCommand", it.data().initCommand );
@@ -278,7 +283,7 @@ void PicProgrammerSettings::removeConfig( const QString & name )
 {
 	if ( isPredefined( name ) )
 	{
-		kdWarning() << k_funcinfo << "Cannot remove a predefined PIC programmer configuration." << endl;
+		qWarning() << "Cannot remove a predefined PIC programmer configuration." << endl;
 		return;
 	}
 	
@@ -300,7 +305,7 @@ void PicProgrammerSettings::saveConfig( const QString & name, const ProgrammerCo
 {
 	if ( isPredefined( name ) )
 	{
-		kdWarning() << k_funcinfo << "Cannot save to a predefined PIC programmer configuration." << endl;
+		qWarning() << "Cannot save to a predefined PIC programmer configuration." << endl;
 		return;
 	}
 	
@@ -360,8 +365,8 @@ bool PicProgrammerSettings::isPredefined( const QString & name ) const
 PicProgrammer::PicProgrammer( ProcessChain *processChain )
 	: ExternalLanguage( processChain, "PicProgrammer" )
 {
-	m_successfulMessage = i18n("*** Programming successful ***");
-	m_failedMessage = i18n("*** Programming failed ***");
+	m_successfulMessage = tr("*** Programming successful ***");
+	m_failedMessage = tr("*** Programming failed ***");
 }
 
 
@@ -381,7 +386,7 @@ void PicProgrammer::processInput( ProcessOptions options )
 	QString program = options.m_program;
 	if ( !settings.configNames( true ).contains( program.lower() ) )
 	{
-		kdError() << k_funcinfo << "Invalid program" << endl;
+		qCritical() << "Invalid program" << endl;
 		finish( false );
 		return;
 	}
@@ -398,7 +403,7 @@ void PicProgrammer::processInput( ProcessOptions options )
 	
 	if ( !start() )
 	{
-// 		KMessageBox::sorry( LanguageManager::self()->logView(), i18n("Could not program PIC.") );
+// 		KMessageBox::sorry( LanguageManager::self()->logView(), tr("Could not program PIC.") );
 		processInitFailed();
 		return;
 	}
