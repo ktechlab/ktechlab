@@ -14,18 +14,20 @@
 #include "logview.h"
 // #include "languagemanager.h"
 // #include "src/core/ktlconfig.h"
+#include "qprocesswitharguments.h"
 
-#include <klocale.h>
-#include <kmessagebox.h>
-#include <kprocess.h>
+// #include <klocale.h>
+// #include <kmessagebox.h>
+// #include <kprocess.h>
+
 #include <qregexp.h>
 #include "QDebug"
 
 Gpasm::Gpasm( ProcessChain *processChain )
  : ExternalLanguage( processChain, "Gpasm" )
 {
-	m_successfulMessage = i18n("*** Assembly successful ***");
-	m_failedMessage = i18n("*** Assembly failed ***");
+	m_successfulMessage = tr("*** Assembly successful ***");
+	m_failedMessage = tr("*** Assembly failed ***");
 }
 
 
@@ -125,7 +127,7 @@ void Gpasm::processInput( ProcessOptions options )
 	
 	if ( !start() )
 	{
-		// KMessageBox::sorry( LanguageManager::self()->logView(), i18n("Assembly failed. Please check you have gputils installed.") );
+		// KMessageBox::sorry( LanguageManager::self()->logView(), tr("Assembly failed. Please check you have gputils installed.") );
         qCritical() << "assembly failed";
 		processInitFailed();
 		return;
