@@ -12,7 +12,7 @@
 #include "config.h"
 #include "gpsimprocessor.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <qfile.h>
 #include <qregexp.h>
 //Added by qt3to4:
@@ -85,7 +85,7 @@ bool AsmParser::parse( GpsimDebugger * debugger )
 			int fileLineAt = line.findRev(" ");
 			
 			if ( fileLineAt == -1 )
-				kdWarning() << k_funcinfo << "Syntax error in line \"" << line << "\" while looking for file-line" << endl;
+				qWarning()<< "Syntax error in line \"" << line << "\" while looking for file-line" << endl;
 			else {
 				// 7 = length_of(";#CSRC\t")
 				QString fileName = line.mid( 7, fileLineAt-7 );
@@ -101,7 +101,7 @@ bool AsmParser::parse( GpsimDebugger * debugger )
 				int fileLine = fileLineString.toInt(&ok) - 1;
 				if ( ok && fileLine >= 0 )
 					debugger->associateLine( fileName, fileLine, m_url, inputAtLine );
-				else	kdDebug() << k_funcinfo << "Not a valid line number: \"" << fileLineString << "\"" << endl;
+				else	qDebug() << "Not a valid line number: \"" << fileLineString << "\"" << endl;
 			}
 		}
 
@@ -111,12 +111,12 @@ bool AsmParser::parse( GpsimDebugger * debugger )
 			// We're screwed if the file name contains tabs, but hopefully not many do...
 			QStringList lineParts = QStringList::split( '\t', line );
 			if ( lineParts.size() < 2 )
-				kdWarning() << k_funcinfo << "Line is in wrong format for extracing source line and file: \""<<line<<"\""<<endl;
+				qWarning()<< "Line is in wrong format for extracing source line and file: \""<<line<<"\""<<endl;
 			else {
 				const QString lineAndFile = lineParts[1];
 				int lineFileSplit = lineAndFile.find("; ");
 				if ( lineFileSplit == -1 )
-					kdDebug() << k_funcinfo << "Could not find file / line split in \""<<lineAndFile<<"\""<<endl;
+					qDebug() << "Could not find file / line split in \""<<lineAndFile<<"\""<<endl;
 				else {
 					QString fileName = lineAndFile.mid( lineFileSplit + 2 );
 					QString fileLineString = lineAndFile.left( lineFileSplit );
@@ -131,7 +131,7 @@ bool AsmParser::parse( GpsimDebugger * debugger )
 					int fileLine = fileLineString.toInt(&ok) - 1;
 					if ( ok && fileLine >= 0 )
 						debugger->associateLine( fileName, fileLine, m_url, inputAtLine );
-					else kdDebug() << k_funcinfo << "Not a valid line number: \"" << fileLineString << "\"" << endl;
+					else qDebug() << "Not a valid line number: \"" << fileLineString << "\"" << endl;
 				}
 			}
 		}
