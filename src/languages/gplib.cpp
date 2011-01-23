@@ -11,18 +11,20 @@
 #include "gplib.h"
 #include "languagemanager.h"
 #include "logview.h"
+#include "qprocesswitharguments.h"
 
-#include <klocale.h>
-#include <kmessagebox.h>
-#include <kprocess.h>
+//#include <klocale.h>
+//#include <kmessagebox.h>
+//#include <kprocess.h>
 
 #include <QDebug>
+#include <qmessagebox.h>
 
 Gplib::Gplib( ProcessChain *processChain )
 	: ExternalLanguage( processChain, "Gpasm" )
 {
-	m_successfulMessage = i18n("*** Archiving successful ***");
-	m_failedMessage = i18n("*** Archiving failed ***");
+	m_successfulMessage = tr("*** Archiving successful ***");
+	m_failedMessage = tr("*** Archiving failed ***");
 }
 
 
@@ -48,7 +50,8 @@ void Gplib::processInput( ProcessOptions options )
 
 	if ( !start() )
 	{
-		// KMessageBox::sorry( LanguageManager::self()->logView(), i18n("Linking failed. Please check you have gputils installed.") );
+        // FIXME implement the message below
+		// QMessageBox::critical( LanguageManager::self()->logView(), tr("Linking failed. Please check you have gputils installed.") );
         qCritical() << "Linking failed";
 		processInitFailed();
 		return;
