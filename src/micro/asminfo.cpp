@@ -10,7 +10,7 @@
 
 #include "asminfo.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 
 AsmInfo::AsmInfo()
 {
@@ -47,7 +47,7 @@ QString AsmInfo::setToString( Set set )
 			return "PIC16";
 	}
 	
-	kdWarning() << k_funcinfo << "Unrecognized set="<<set<<endl;
+	qWarning() << "Unrecognized set="<<set<<endl;
 	return QString::null;
 }
 
@@ -63,6 +63,6 @@ AsmInfo::Set AsmInfo::stringToSet( const QString & set )
 	if ( set == "PIC16" )
 		return PIC16;
 	
-// 	kdWarning() << k_funcinfo << "Unrecognized set="<<set<<endl;
+ 	qWarning() << "Unrecognized set="<<set<<endl;
 	return PIC14;
 }
