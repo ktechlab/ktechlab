@@ -13,23 +13,25 @@
 #include "logview.h"
 #include "microbe.h"
 #include "languagemanager.h"
+#include "qprocesswitharguments.h"
 
-#include <kdebug.h>
-#include <klocale.h>
+// #include <kdebug.h>
+// #include <klocale.h>
 // #include <kmessagebox.h>
-#include <kstandarddirs.h>
+// #include <kstandarddirs.h>
 
 #include <qfile.h>
 //Added by qt3to4:
 #include <Q3TextStream>
 #include <kprocess.h>
 #include <qdebug.h>
+#include <QMessageBox>
 
 Microbe::Microbe( ProcessChain *processChain )
  : ExternalLanguage( processChain, "Microbe" )
 {
-	m_failedMessage = i18n("*** Compilation failed ***");
-	m_successfulMessage = i18n("*** Compilation successful ***");
+	m_failedMessage = tr("*** Compilation failed ***");
+	m_successfulMessage = tr("*** Compilation successful ***");
 	
 #if 0
 	// Setup error messages list
@@ -79,7 +81,7 @@ void Microbe::processInput( ProcessOptions options )
 	
 	if ( !start() )
 	{
-//		KMessageBox::sorry( LanguageManager::self()->logView(), i18n("Assembly failed. Please check you have KTechlab installed properly (\"microbe\" could not be started).") );
+//		QMessageBox::critical( LanguageManager::self()->logView(), tr("Assembly failed. Please check you have KTechlab installed properly (\"microbe\" could not be started).") );
         qCritical() << "assembly failed";
 		processInitFailed();
 		return;
