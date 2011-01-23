@@ -12,10 +12,12 @@
 #include "gpdasm.h"
 #include "logview.h"
 #include "languagemanager.h"
+#include "qprocesswitharguments.h"
 
-#include <klocale.h>
-#include <kmessagebox.h>
-#include <kprocess.h>
+//#include <klocale.h>
+//#include <kmessagebox.h>
+//#include <kprocess.h>
+
 #include <qfile.h>
 #include <qregexp.h>
 //Added by qt3to4:
@@ -25,8 +27,8 @@
 Gpdasm::Gpdasm( ProcessChain *processChain )
  : ExternalLanguage( processChain, "Gpdasm" )
 {
-	m_successfulMessage = i18n("*** Disassembly successful ***");
-	m_failedMessage = i18n("*** Disassembly failed ***");
+	m_successfulMessage = tr("*** Disassembly successful ***");
+	m_failedMessage = tr("*** Disassembly failed ***");
 }
 
 
@@ -49,7 +51,7 @@ void Gpdasm::processInput( ProcessOptions options )
 	
 	if ( !start() )
 	{
-		// KMessageBox::sorry( LanguageManager::self()->logView(), i18n("Disassembly failed. Please check you have gputils installed.") );
+		// QMessageBox::critical( LanguageManager::self()->logView(), tr("Disassembly failed. Please check you have gputils installed.") );
         qDebug() << "disassembly failed";
 		processInitFailed();
 		return;
