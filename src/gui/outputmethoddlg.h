@@ -11,7 +11,7 @@
 #ifndef OUTPUTMETHODDLG_H
 #define OUTPUTMETHODDLG_H
 
-#include <kurl.h>
+#include <qurl.h>
 
 class KTechlab;
 class MicroSelectWidget;
@@ -44,14 +44,14 @@ class OutputMethodInfo
         QString picID() const { return m_picID; }
         void setPicID( const QString & id ) { m_picID = id; }
 
-        KUrl outputFile() const { return m_outputFile; }
-        void setOutputFile( const KUrl & outputFile ) { m_outputFile = outputFile; }
+        QUrl outputFile() const { return m_outputFile; }
+        void setOutputFile( const QUrl & outputFile ) { m_outputFile = outputFile; }
 
     protected:
         Method::Type m_method;
         bool m_bAddToProject;
         QString m_picID;
-        KUrl m_outputFile;
+        QUrl m_outputFile;
 };
 
 #endif
