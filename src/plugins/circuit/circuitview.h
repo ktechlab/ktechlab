@@ -29,6 +29,9 @@
 #include <QGraphicsView>
 #include <KXMLGUIClient>
 
+class KSelectAction;
+class QAction;
+
 namespace KTechLab
 {
 
@@ -57,13 +60,17 @@ private slots:
     void componentRotateCCW();
     void componentFlipHorizontal();
     void componentFlipVertical();
+    void routingModeChanged(QAction* action);
     void save();
 
 private:
     void init();
     void setupActions();
+    void setRoutingMode(const QString& modeName);
     KTechLab::CircuitDocument* m_document;
     KTechLab::CircuitScene* m_scene;
+    QString m_currentRouterName;
+    KSelectAction* m_routerModeActions;
 };
 
 }

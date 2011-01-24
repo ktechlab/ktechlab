@@ -25,11 +25,15 @@
 
 #include "circuitview.h"
 #include <KIcon>
-#include <KActionMenu>
+#include <KToggleAction>
 #include <KLocalizedString>
 #include <KActionCollection>
 #include "circuitscene.h"
 #include "circuitdocument.h"
+#include <interfaces/iplugincontroller.h>
+#include <interfaces/icore.h>
+#include <interfaces/irouterplugin.h>
+#include <KSelectAction>
 
 using namespace KTechLab;
 
@@ -39,6 +43,7 @@ CircuitView::CircuitView ( KTechLab::CircuitDocument* document, QWidget* parent 
       m_scene(static_cast<CircuitScene*>(document->documentScene()))
 {
     setXMLFile("ktechlabcircuitui.rc");
+    setRoutingMode(QLatin1String("ktlautomatic_router"));
     setupActions();
 
     init();
@@ -90,6 +95,22 @@ void CircuitView::setupActions()
 //     connect( action, SIGNAL(triggered()), this, SLOT(saveAs()) );
 //     action = ac->addAction( KStandardAction::Revert );
 //     connect( action, SIGNAL(triggered()), this, SLOT(revert()) );
+
+    m_routerModeActions = new KSelectAction(this);
+    m_routerModeActions->setText( i18n("Routing Mode") );
+    ac->addAction(QString("routing_mode_actionmenu"), m_routerModeActions);
+    connect(m_routerModeActions,SIGNAL(triggered(QAction*)),this,SLOT(routingModeChanged(QAction*)));
+    QList<QAction*> routingModeActions;
+    KDevelop::IPluginController *pc = KDevelop::ICore::self()->pluginController();
+    foreach(KDevelop::IPlugin* plugin, pc->allPluginsForExtension("org.ktechlab.IRouterPlugin")) {
+        const KPluginInfo &info = pc->pluginInfo(plugin);
+        action = new KToggleAction( KIcon(info.icon()), QString("edit_mode_%1").arg(info.pluginName()), this );
+        action->setText( info.name() );
+        action->setData( info.pluginName() );
+        action->setCheckable(true);
+        action->setChecked(m_currentRouterName == info.pluginName());
+        m_routerModeActions->addAction(action);
+    }
 }
 
 void CircuitView::componentFlipHorizontal()
@@ -112,9 +133,26 @@ void CircuitView::componentRotateCW()
     m_scene->rotateSelectedComponents(90);
 }
 
+void CircuitView::routingModeChanged(QAction* action)
+{
+    setRoutingMode(action->data().toString());
+}
+
 void CircuitView::save()
 {
     m_document->save();
+}
+
+void CircuitView::setRoutingMode(const QString& modeName)
+{
+    KDevelop::IPluginController *pc = KDevelop::ICore::self()->pluginController();
+    IRouterPlugin* router = pc->extensionForPlugin<IRouterPlugin>("org.ktechlab.IRouterPlugin", modeName);
+    if (!router) {
+        kWarning() << "No Plugin found for extension: org.ktechlab.IRouterPlugin";
+        return;
+    }
+    m_currentRouterName = modeName;
+    router->setDocumentScene(m_scene);
 }
 
 #include "circuitview.moc"

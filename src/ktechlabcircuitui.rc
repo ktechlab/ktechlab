@@ -10,12 +10,7 @@
         <Menu name="tools" merge="1">
             <text>&amp;Tools</text>
             <Separator/>
-            <Menu name="routing_mode_menu">
-                <text>Routing Mode</text>
-                <Action name="routing_mode_auto"/>
-                <Action name="routing_mode_manual"/>
-            </Menu>
-            <Action name="edit_mode_manual_route"/>
+            <Action name="routing_mode_actionmenu" />
             <Separator/>
             <Action name="edit_rotate_cw"/>
             <Action name="edit_rotate_ccw"/>
