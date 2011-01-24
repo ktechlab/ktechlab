@@ -277,22 +277,8 @@ void IDocumentScene::performRerouting()
     d->needReroutingList.clear();
 }
 
-void IDocumentScene::fetchRouter()
-{
-    KDevelop::IPluginController *pc = KDevelop::ICore::self()->pluginController();
-    IRouterPlugin* router = pc->extensionForPlugin<IRouterPlugin>("org.ktechlab.IRouterPlugin", "ktlsimple_router");
-    if (!router) {
-        kWarning() << "No Plugin found for extension: org.ktechlab.IRouterPlugin";
-        return;
-    }
-    router->setDocumentScene(this);
-}
-
 QSharedPointer< IRoutingInformation > IDocumentScene::routingInfo()
 {
-    if (!d->routingInfo)
-        fetchRouter();
-
     return d->routingInfo;
 }
 

@@ -198,12 +198,6 @@ protected:
      */
     virtual void keyPressEvent(QKeyEvent* event);
 
-    /**
-     * Fetch a plugin implementing \class KTechLab::IRouterPlugin and return it.
-     * \returns a plugin capable of mapping a route
-     */
-    virtual void fetchRouter();
-
     virtual void drawBackground(QPainter* painter, const QRectF& rect);
 private:
     class IDocumentScenePrivate;
