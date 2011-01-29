@@ -98,7 +98,6 @@ set( CompileSimulator_SRCS
  ${CMAKE_SOURCE_DIR}/src/languages/processchain.cpp
  ${CMAKE_SOURCE_DIR}/src/languages/externallanguage.cpp
  ${CMAKE_SOURCE_DIR}/src/messageinfo.cpp
- # ${CMAKE_SOURCE_DIR}/src/gui/logview.cpp
  ${CMAKE_SOURCE_DIR}/src/outputmethodinfo.cpp
  ${CMAKE_SOURCE_DIR}/src/micro/microlibrary.cpp
  ${CMAKE_SOURCE_DIR}/src/micro/micropackage.cpp
