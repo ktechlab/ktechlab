@@ -8,15 +8,11 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-// #include "docmanager.h"
 #include "gpdasm.h"
+
 #include "messageinfo.h"
-#include "languagemanager.h"
 #include "qprocesswitharguments.h"
 
-//#include <klocale.h>
-//#include <kmessagebox.h>
-//#include <kprocess.h>
 
 #include <qfile.h>
 #include <qregexp.h>
