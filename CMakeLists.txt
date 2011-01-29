@@ -160,12 +160,10 @@ set( CompileSimulator_SRCS
  ${CMAKE_SOURCE_DIR}/src/electronics/components/resistor.cpp
 )
 
-qt4_automoc(${CompileSimulator_SRCS})
-
 
 add_executable( compiled_simulator
-${CompileSimulator_SRCS}
-)
+ ${CompileSimulator_SRCS}
+ )
 
 
 target_link_libraries( compiled_simulator
@@ -181,3 +179,26 @@ enable_testing()
 
 add_test(compiled_simulator compiled_simulator)
 
+
+# test for qprocess with argument class
+
+set( qprocess_with_argument_SRC
+ ${CMAKE_SOURCE_DIR}/testing/testqprocesswitharguments.cpp
+ ${CMAKE_SOURCE_DIR}/src/languages/qprocesswitharguments.cpp
+ )
+
+add_executable( qprocess_with_args_test
+ ${qprocess_with_argument_SRC}
+ )
+
+target_link_libraries( qprocess_with_args_test
+ ${QT_LIBRARIES}
+ ${QT_QTTEST_LIBRARIES}
+ )
+ 
+add_test(qprocess_with_args_test qprocess_with_args_test)
+
+qt4_automoc(
+ ${CompileSimulator_SRCS}
+ ${qprocess_with_argument_SRC}
+)
