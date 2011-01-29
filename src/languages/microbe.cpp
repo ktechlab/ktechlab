@@ -8,20 +8,12 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-// #include "contexthelp.h"
-// #include "docmanager.h"
-#include "messageinfo.h"
 #include "microbe.h"
-#include "languagemanager.h"
+
+#include "messageinfo.h"
 #include "qprocesswitharguments.h"
 
-// #include <kdebug.h>
-// #include <klocale.h>
-// #include <kmessagebox.h>
-// #include <kstandarddirs.h>
-
 #include <qfile.h>
-//Added by qt3to4:
 #include <Q3TextStream>
 #include <kprocess.h>
 #include <qdebug.h>
