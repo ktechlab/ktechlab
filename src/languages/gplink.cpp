@@ -10,7 +10,7 @@
 
 #include "gplink.h"
 #include "languagemanager.h"
-#include "logview.h"
+#include "messageinfo.h"
 #include "microinfo.h"
 #include "microlibrary.h"
 #include "qprocesswitharguments.h"

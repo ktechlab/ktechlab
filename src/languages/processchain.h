@@ -12,6 +12,7 @@
 #define PROCESSCHAIN_H
 
 #include "language.h"
+
 #include <qobject.h>
 #include <QList>
 

@@ -10,7 +10,7 @@
 
 // #include "contexthelp.h"
 // #include "docmanager.h"
-#include "logview.h"
+#include "messageinfo.h"
 #include "microbe.h"
 #include "languagemanager.h"
 #include "qprocesswitharguments.h"

@@ -10,7 +10,7 @@
 
 #include "gplib.h"
 #include "languagemanager.h"
-#include "logview.h"
+#include "messageinfo.h"
 #include "qprocesswitharguments.h"
 
 //#include <klocale.h>

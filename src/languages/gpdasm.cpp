@@ -10,7 +10,7 @@
 
 // #include "docmanager.h"
 #include "gpdasm.h"
-#include "logview.h"
+#include "messageinfo.h"
 #include "languagemanager.h"
 #include "qprocesswitharguments.h"
 
