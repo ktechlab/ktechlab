@@ -8,20 +8,16 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "asmparser.h"
-//#include "ktechlab.h"
 #include "language.h"
+
+#include "asmparser.h"
 #include "messageinfo.h"
 #include "outputmethodinfo.h"
 #include "processchain.h"
-// #include "projectmanager.h"
-// #include "languagemanager.h"
-// #include "src/core/ktlconfig.h"
 
 #include <qdebug.h>
-#include <kio/netaccess.h>
-#include <kmessagebox.h>
-#include <kprocess.h>
+#include <qmessagebox.h>
+#include <qprocess.h>
 #include <qregexp.h>
 #include <qtimer.h>
 
