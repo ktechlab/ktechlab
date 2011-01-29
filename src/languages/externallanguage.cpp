@@ -9,8 +9,9 @@
  ***************************************************************************/
 
 #include "externallanguage.h"
+
 // #include "languagemanager.h"
-#include "logview.h"
+// #include "logview.h"
 #include "qprocesswitharguments.h"
 
 // #include <kdebug.h>

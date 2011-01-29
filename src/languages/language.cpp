@@ -11,7 +11,7 @@
 #include "asmparser.h"
 //#include "ktechlab.h"
 #include "language.h"
-#include "logview.h"
+#include "messageinfo.h"
 #include "outputmethodinfo.h"
 #include "processchain.h"
 // #include "projectmanager.h"

@@ -10,7 +10,7 @@
 
 #include "asminfo.h"
 #include "languagemanager.h"
-#include "logview.h"
+#include "messageinfo.h"
 #include "microinfo.h"
 #include "microlibrary.h"
 #include "sdcc.h"
@@ -18,7 +18,7 @@
 
 // #include <klocale.h>
 // #include <kmessagebox.h>
-#include <kprocess.h>
+// #include <kprocess.h>
 #include <qdebug.h>
 #include "qprocesswitharguments.h"
 

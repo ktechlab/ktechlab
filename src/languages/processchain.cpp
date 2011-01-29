@@ -14,7 +14,7 @@
 // #include "src/core/ktlconfig.h"
 #include "language.h"
 // #include "languagemanager.h"
-#include "logview.h"
+// #include "logview.h"
 // #include "ktechlab.h"
 #include "outputmethodinfo.h"
 #include "processchain.h"
