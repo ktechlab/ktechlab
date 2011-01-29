@@ -11,17 +11,12 @@
 #include "asmparser.h"
 // #include "docmanager.h"
 #include "gpasm.h"
+
 #include "messageinfo.h"
-// #include "languagemanager.h"
-// #include "src/core/ktlconfig.h"
 #include "qprocesswitharguments.h"
 
-// #include <klocale.h>
-// #include <kmessagebox.h>
-// #include <kprocess.h>
-
 #include <qregexp.h>
-#include "QDebug"
+#include <QDebug>
 
 Gpasm::Gpasm( ProcessChain *processChain )
  : ExternalLanguage( processChain, "Gpasm" )
