@@ -11,7 +11,7 @@
 #include "asmparser.h"
 // #include "docmanager.h"
 #include "gpasm.h"
-#include "logview.h"
+#include "messageinfo.h"
 // #include "languagemanager.h"
 // #include "src/core/ktlconfig.h"
 #include "qprocesswitharguments.h"
