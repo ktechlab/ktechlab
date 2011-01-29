@@ -13,9 +13,9 @@
 
 #include <qobject.h>
 #include <qstringlist.h>
-//Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 
+// FIXME remove references to FlowCodeDocument, TextDocument, KTechlab
 class FlowCodeDocument;
 class KTechlab;
 class LogView;
@@ -25,9 +25,8 @@ class OutputMethodInfo;
 class ProcessChain;
 class ProcessOptions;
 class TextDocument;
-class Q3Process;
 
-typedef Q3ValueList<ProcessOptions> ProcessOptionsList;
+typedef QList<ProcessOptions> ProcessOptionsList;
 
 class ProcessOptionsSpecial
 {

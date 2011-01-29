@@ -12,13 +12,9 @@
 #ifndef NO_GPSIM
 
 #include "debugmanager.h"
-// #include "docmanager.h"
 #include "gpsimprocessor.h"
-// #include "textdocument.h"
 
 #include <QStringList>
-#include <kdebug.h>
-// #include <kstaticdeleter.h>
 
 
 //BEGIN class DebugManager
