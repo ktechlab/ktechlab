@@ -10,11 +10,6 @@
 
 #include "logview.h"
 
-#include <kdebug.h>
-#include <kiconloader.h>
-// #include <katemdi.h>
-// #include <klocale.h>
-
 
 //BEGIN class LogView
 LogView::LogView()
