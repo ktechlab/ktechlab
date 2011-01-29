@@ -19,8 +19,8 @@
 #include <qregexp.h>
 #include <qtimer.h>
 //Added by qt3to4:
-#include <Q3CString>
-#include <Q3ValueList>
+// #include <Q3CString>
+// #include <Q3ValueList>
 
 #include <QDebug>
 
@@ -147,31 +147,29 @@ void ExternalLanguage::resetLanguageProcess()
 
 void ExternalLanguage::displayProcessCommand()
 {
-    qCritical() << "unimplemented";
-    /*
 	QStringList quotedArguments;
-	Q3ValueList<Q3CString> arguments = m_languageProcess->args();
+	QStringList arguments = m_languageProcess->args();
 	
 	if ( arguments.size() == 1 )
 		quotedArguments << arguments[0];
 		
 	else
 	{
-		Q3ValueList<Q3CString>::const_iterator end = arguments.end();
-	
-		for ( Q3ValueList<Q3CString>::const_iterator it = arguments.begin(); it != end; ++it )
-		{
-			if ( (*it).isEmpty() || (*it).contains( QRegExp("[\\s]") ) )
-				quotedArguments << *it ; // KProcess::quote( *it ); // FIXME
-			else
-				quotedArguments << *it;
-		}
+        QChar q('\'');
+        foreach(QString arg, arguments){
+            if(arg.isEmpty() || arg.contains( QRegExp("[\\s]")) )
+                    // see KProcess::quote(QString),
+                    // http://api.kde.org/3.5-api/kdelibs-apidocs/kdecore/html/classKProcess.html#1ce049f3abcc805d6e5d44988451d32a
+                quotedArguments << arg.replace(q,"'\\''").prepend(q).append(q);
+            else
+                quotedArguments << arg;
+        }
 	}
-	*/
 	
 // 	outputMessage( "<i>" + quotedArguments.join(" ") + "</i>" );
 	// outputMessage( quotedArguments.join(" ") );
 // 	LanguageManager::self()->logView()->addOutput( quotedArguments.join(" "), LogView::ot_info );
+    qDebug() << "Process command is: \n" << quotedArguments.join(" ");
 }
 
 

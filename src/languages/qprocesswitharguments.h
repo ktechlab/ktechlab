@@ -23,6 +23,7 @@ class QProcessWithArguments : public QProcess
 {
     public:
         QProcessWithArguments(QObject* parent = 0);
+        QStringList args();
         void start();
         QProcessWithArguments & operator<<(QString args);
     private:

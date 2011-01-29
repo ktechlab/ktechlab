@@ -33,3 +33,8 @@ QProcessWithArguments& QProcessWithArguments::operator<<(QString args)
         m_args.append(args);
     return *this;
 }
+
+QStringList QProcessWithArguments::args()
+{
+    return QStringList(m_args) + m_args;
+}
