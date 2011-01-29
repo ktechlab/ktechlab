@@ -9,13 +9,9 @@
  ***************************************************************************/
 
 #include "gplib.h"
-#include "languagemanager.h"
+
 #include "messageinfo.h"
 #include "qprocesswitharguments.h"
-
-//#include <klocale.h>
-//#include <kmessagebox.h>
-//#include <kprocess.h>
 
 #include <QDebug>
 #include <qmessagebox.h>
