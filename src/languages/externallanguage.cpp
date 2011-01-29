@@ -10,18 +10,10 @@
 
 #include "externallanguage.h"
 
-// #include "languagemanager.h"
-// #include "logview.h"
 #include "qprocesswitharguments.h"
 
-// #include <kdebug.h>
-//#include <kprocess.h>
 #include <qregexp.h>
 #include <qtimer.h>
-//Added by qt3to4:
-// #include <Q3CString>
-// #include <Q3ValueList>
-
 #include <QDebug>
 
 ExternalLanguage::ExternalLanguage( ProcessChain *processChain, const QString &name )

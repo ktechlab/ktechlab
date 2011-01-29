@@ -8,19 +8,15 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
+#include "sdcc.h"
+
 #include "asminfo.h"
-#include "languagemanager.h"
 #include "messageinfo.h"
 #include "microinfo.h"
 #include "microlibrary.h"
-#include "sdcc.h"
-// #include "src/core/ktlconfig.h"
-
-// #include <klocale.h>
-// #include <kmessagebox.h>
-// #include <kprocess.h>
-#include <qdebug.h>
 #include "qprocesswitharguments.h"
+
+#include <qdebug.h>
 
 SDCC::SDCC( ProcessChain * processChain )
 	: ExternalLanguage( processChain, "SDCC" )
