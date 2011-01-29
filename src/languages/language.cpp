@@ -12,7 +12,7 @@
 //#include "ktechlab.h"
 #include "language.h"
 #include "logview.h"
-#include "outputmethoddlg.h"
+#include "outputmethodinfo.h"
 #include "processchain.h"
 // #include "projectmanager.h"
 // #include "languagemanager.h"

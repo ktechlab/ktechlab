@@ -13,11 +13,6 @@
 
 #include <qurl.h>
 
-class KTechlab;
-class MicroSelectWidget;
-class OutputMethodDlg;
-class OutputMethodWidget;
-
 class OutputMethodInfo
 {
     public:
@@ -33,7 +28,6 @@ class OutputMethodInfo
         };
 
         OutputMethodInfo();
-        // void initialize( OutputMethodDlg * dlg );
 
         Method::Type method() const { return m_method; }
         void setMethod( Method::Type method ) { m_method = method; }

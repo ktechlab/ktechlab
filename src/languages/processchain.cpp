@@ -16,7 +16,7 @@
 // #include "languagemanager.h"
 #include "logview.h"
 // #include "ktechlab.h"
-#include "outputmethoddlg.h"
+#include "outputmethodinfo.h"
 #include "processchain.h"
 // #include "projectmanager.h"
 // #include "textdocument.h"

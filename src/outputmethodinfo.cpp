@@ -8,19 +8,7 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-// #include "docmanager.h"
-// #include "filemetainfo.h"
-// #include "textdocument.h"
-#include "outputmethoddlg.h"
-// #include "microlibrary.h"
-// #include "projectmanager.h"
-
-#include <kcombobox.h>
-#include <kconfigskeleton.h>
-#include <kdebug.h>
-// #include <ktempfile.h>
-#include <kurlrequester.h>
-#include <QTemporaryFile>
+#include "outputmethodinfo.h"
 
 
 //BEGIN class OutputMethodInfo
@@ -37,4 +25,4 @@ OutputMethodInfo::OutputMethodInfo()
 
 
 
-#include "outputmethoddlg.moc"
+#include "outputmethodinfo.moc"
