@@ -15,7 +15,6 @@
 #include "debugmanager.h"
 #include "gpsimprocessor.h"
 #include "language.h"
-#include "languagemanager.h"
 #include "microlibrary.h"
 #include "processchain.h"
 #include "simulator.h"
