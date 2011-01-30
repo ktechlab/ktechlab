@@ -12,6 +12,7 @@
 // #include "docmanager.h"
 #include "gpasm.h"
 
+#include "ktlconfig.h"
 #include "messageinfo.h"
 #include "qprocesswitharguments.h"
 
@@ -60,53 +61,46 @@ void Gpasm::processInput( ProcessOptions options )
 	if ( !p.containsRadix() )
 	{
 		*m_languageProcess << ("--radix");
-        #if 0
-		switch( KTLConfig::radix() )
+		switch( KtlConfig::self()->radix() )
 		{
-			case KTLConfig::EnumRadix::Binary:
+            case KtlConfig::Binary:
 				*m_languageProcess << ("BIN");
 				break;
-			case KTLConfig::EnumRadix::Octal:
+			case KtlConfig::Octal:
 				*m_languageProcess << ("OCT");
 				break;
-			case KTLConfig::EnumRadix::Hexadecimal:
+			case KtlConfig::Hexadecimal:
 				*m_languageProcess << ("HEX");
 				break;
-			case KTLConfig::EnumRadix::Decimal:
+			case KtlConfig::Decimal:
 			default:
 				*m_languageProcess << ("DEC");
 				break;
 		}
-		#endif
 		*m_languageProcess << ("DEC"); // choose the default
 	}
 	
 	// Warning Level
 	*m_languageProcess << ("--warning");
-    #if 0
-	switch( KTLConfig::gpasmWarningLevel() )
+	switch( KtlConfig::self()->gpasmWarningLevel() )
 	{
-		case KTLConfig::EnumGpasmWarningLevel::Warnings:
+		case KtlConfig::Warnings:
 			*m_languageProcess << ("1");
 			break;
-		case KTLConfig::EnumGpasmWarningLevel::Errors:
+		case KtlConfig::Errors:
 			*m_languageProcess << ("2");
 			break;
 		default:
-		case KTLConfig::EnumGpasmWarningLevel::All:
-    #endif
+		case KtlConfig::All:
 			*m_languageProcess << ("0");
-    #if 0
 			break;
 	}
 	
 	// Ignore case
-	if ( KTLConfig::ignoreCase() )
-    #endif
+	if ( KtlConfig::self()->ignoreCase() )
 		*m_languageProcess << ("--ignore-case");
-	#if 0
 	// Dos formatting
-	if ( KTLConfig::dosFormat() )
+	if ( KtlConfig::self()->dosFormat() )
 		*m_languageProcess << ("--dos");
 	
 	// Force list
@@ -114,9 +108,8 @@ void Gpasm::processInput( ProcessOptions options )
 		*m_languageProcess << ("--force-list");
 	
 	// Other options
-	if ( !KTLConfig::miscGpasmOptions().isEmpty() )
-		*m_languageProcess << ( KTLConfig::miscGpasmOptions() );
-	#endif
+	if ( !KtlConfig::self()->miscGpasmOptions().isEmpty() )
+		*m_languageProcess << ( KtlConfig::self()->miscGpasmOptions() );
 	// Input Asm file
 	*m_languageProcess << ( options.inputFiles().first() );
 	
