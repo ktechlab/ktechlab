@@ -22,15 +22,10 @@
 #include <cassert>
 
 #include <qdebug.h>
-// #include <klocale.h>
-// #include <kmessagebox.h>
-// #include <ktempfile.h>
-// #include <kstandarddirs.h>
 #include <qfile.h>
-#include <q3textstream.h>
+#include <qtextstream.h>
 #include <qtimer.h>
-//Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 #include <QTemporaryFile>
 #include <qmessagebox.h>
 
