@@ -13,24 +13,21 @@
 // #include "src/core/ktlconfig.h"
 #include "qprocesswitharguments.h"
 
-#include <kapplication.h>
-#include <kconfig.h>
+// #include <kapplication.h>
+// #include <kconfig.h>
 #include <qdebug.h>
 // #include <klocale.h>
-#include <kmessagebox.h>
+// #include <kmessagebox.h>
 
 #include <qapplication.h>
 #include <qfile.h>
-#include <kprocess.h>
+// #include <kprocess.h>
 #include <qregexp.h>
 #include <q3textstream.h>
 #include <qdatetime.h>
-#include <qlocale.h>
 
 #include <stdio.h>
 
-    // FIXME HACK
-#define tr(X)   (X)
 
 //BEGIN class ProgrammerConfig
 ProgrammerConfig::ProgrammerConfig()
@@ -462,4 +459,4 @@ ProcessOptions::ProcessPath::Path PicProgrammer::outputPath( ProcessOptions::Pro
 }
 //END class PicProgrammer
 
-
+#include "picprogrammer.moc"
