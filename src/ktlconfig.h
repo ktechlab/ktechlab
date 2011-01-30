@@ -249,6 +249,8 @@ public:
 
     #undef SDCC_BOOL_OPTION
 
+public:
+
     /// Other Options for SDCC
     QString miscSDCCOptions() const
         { return m_miscSDCCOptions; }

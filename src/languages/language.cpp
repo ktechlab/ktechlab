@@ -11,6 +11,7 @@
 #include "language.h"
 
 #include "asmparser.h"
+#include "ktlconfig.h"
 #include "messageinfo.h"
 #include "outputmethodinfo.h"
 #include "processchain.h"
@@ -130,28 +131,25 @@ ProcessOptionsSpecial::ProcessOptionsSpecial()
 	
 	p_flowCodeDocument = 0l;
 
-    /*
-	switch ( KTLConfig::hexFormat() )
+	switch ( KtlConfig::self()->hexFormat() )
 	{
-		case KTLConfig::EnumHexFormat::inhx8m:
+		case KtlConfig::inhx8m:
 			m_hexFormat = "inhx8m";
 			break;
 			
-		case KTLConfig::EnumHexFormat::inhx8s:
+		case KtlConfig::inhx8s:
 			m_hexFormat = "inhx8s";
 			break;
 			
-		case KTLConfig::EnumHexFormat::inhx16:
+		case KtlConfig::inhx16:
 			m_hexFormat = "inhx16";
 			break;
 			
-		case KTLConfig::EnumHexFormat::inhx32:
+		case KtlConfig::inhx32:
 		default:
 			m_hexFormat = "inhx32";
 			break;
 	}
-	*/
-    m_hexFormat = "inhx8m";
 }
 //END class ProcessOptionsSpecial
 
@@ -176,7 +174,6 @@ ProcessOptions::ProcessOptions( OutputMethodInfo info )
 	
 	setTargetFile( info.outputFile().path() );
 
-    /*
 	switch ( info.method() )
 	{
 		case OutputMethodInfo::Method::Direct:
@@ -191,8 +188,6 @@ ProcessOptions::ProcessOptions( OutputMethodInfo info )
 			m_method = Method::Load;
 			break;
 	}
-	*/
-    m_method = Method::Load;
 }
 
 
