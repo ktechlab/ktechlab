@@ -39,11 +39,11 @@ AsmFormatter::~AsmFormatter()
 QString AsmFormatter::tidyAsm( QStringList lines )
 {
 	// Update our indentation values from config
-	m_indentAsmName = KTLConfig::indentAsmName();
-	m_indentAsmData = KTLConfig::indentAsmData();
-	m_indentEqu = KTLConfig::indentEqu();
-	m_indentEquValue = KTLConfig::indentEquValue();
-	m_indentComment = m_indentEquComment = KTLConfig::indentComment();
+	m_indentAsmName = KtlConfig::indentAsmName();
+	m_indentAsmData = KtlConfig::indentAsmData();
+	m_indentEqu = KtlConfig::indentEqu();
+	m_indentEquValue = KtlConfig::indentEquValue();
+	m_indentComment = m_indentEquComment = KtlConfig::indentComment();
 	
 	QStringList::iterator end = lines.end();
 	for ( QStringList::iterator slit = lines.begin(); slit != end; ++slit )
