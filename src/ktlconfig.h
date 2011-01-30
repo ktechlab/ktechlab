@@ -110,10 +110,14 @@ public:
     };
 
     /// gpasm hex format
-    HexFormat hexFormat() const;
-    void setHexFormat(HexFormat value);
+    HexFormat hexFormat() const {
+        return m_hexFormat;
+    }
+    void setHexFormat(HexFormat value){
+        m_hexFormat = value;
+    }
 
-    enum Radix {
+    enum EnumRadix {
         Decimal,
         Binary,
         Octal,
@@ -121,30 +125,50 @@ public:
     };
 
     /// gpasm radix
-    Radix radix() const;
-    void setRadix(Radix value);
+    EnumRadix radix() const {
+        return m_radix;
+    }
+    void setRadix(EnumRadix value){
+        m_radix = value;
+    }
 
-    enum GpasmWarningLevel {
+    enum EnumGpasmWarningLevel {
         All,
         Warnings,
         Errors
     };
 
     /// gpasm warning level
-    GpasmWarningLevel gpasmWarningLevel() const;
-    void setGpasmWarningLevel(GpasmWarningLevel value);
+    EnumGpasmWarningLevel gpasmWarningLevel() const {
+        return m_gpasmWarningLevel;
+    }
+    void setGpasmWarningLevel(EnumGpasmWarningLevel value) {
+        m_gpasmWarningLevel = value;
+    }
 
     /// gpasm ignore case
-    bool ignoreCase() const;
-    void setIgnoreCase(bool value);
+    bool ignoreCase() const {
+        return m_ignoreCase;
+    }
+    void setIgnoreCase(bool value) {
+        m_ignoreCase = value;
+    }
 
     /// gpasm dos format for ASM
-    bool dosFormat() const;
-    void setDosFormat(bool value);
+    bool dosFormat() const {
+        return m_dosFormat;
+    }
+    void setDosFormat(bool value){
+        m_dosFormat = value;
+    }
 
     /// other gpasm options
-    QString miscGpasmOptions() const;
-    void setMischGpasmOptions(QString value);
+    QString miscGpasmOptions() const {
+        return m_miscGpasmOptions;
+    }
+    void setMischGpasmOptions(QString value){
+        m_miscGpasmOptions = value;
+    }
 
     // SDCC related
     #define SDCC_BOOL_OPTION(name) \
@@ -268,8 +292,8 @@ private:
     double m_LogicOutputHighImpedance;
     double m_LogicOutputLowImpedance;
     HexFormat m_hexFormat;
-    Radix m_radix;
-    GpasmWarningLevel m_gpasmWarningLevel;
+    EnumRadix m_radix;
+    EnumGpasmWarningLevel m_gpasmWarningLevel;
     bool m_ignoreCase;
     bool m_dosFormat;
     QString m_miscGpasmOptions;
