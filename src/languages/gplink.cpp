@@ -13,7 +13,7 @@
 #include "microinfo.h"
 #include "microlibrary.h"
 #include "qprocesswitharguments.h"
-// #include "src/core/ktlconfig.h"
+#include "ktlconfig.h"
 
 #include <qdebug.h>
 #include <qfile.h>
@@ -98,16 +98,15 @@ void Gplink::processInput( ProcessOptions options )
 		*m_languageProcess << ( *it );
 	
 	// if selected to automatically link to SDCC libraries, add some options.
-    #if 0
-	if( KTLConfig::gplink_link_shared() ) 
+	if( KtlConfig::self()->gplink_link_shared() )
 	{	
 		// set up the include directory
 		MicroInfo * info = MicroLibrary::self()->microInfoWithID( options.m_picID );
 		if ( ! info )
 		{
 			// be program won't link anyway, but the user can't say that the program didn't try
-			kdError() << k_funcinfo << "Couldn't find the requested PIC" << options.m_picID << endl;
-			kdWarning() << k_funcinfo << "Supposing that the pic is pic12 or pic14" << endl;
+			qCritical() << "Couldn't find the requested PIC" << options.m_picID << endl;
+			qWarning() << "Supposing that the pic is pic12 or pic14" << endl;
 			*m_languageProcess << "-I" << m_sdccLibDir + "/pic" ;
 		}
 		else
@@ -122,7 +121,6 @@ void Gplink::processInput( ProcessOptions options )
 		}
 		*m_languageProcess << "libsdcc.lib";
 	}
-	#endif
 	
 	if ( !start() )
 	{
@@ -151,8 +149,8 @@ MessageInfo Gplink::extractMessageInfo( const QString &text )
 
 	if ( text.length()<5 || !text.startsWith("/") )
 		return MessageInfo();
-#if 0	
-	const int index = text.find( ".asm", 0, false )+4;
+
+    const int index = text.find( ".asm", 0, false )+4;
 	if ( index == -1+4 )
 		return MessageInfo();
 	const QString fileName = text.left(index);
@@ -173,8 +171,6 @@ MessageInfo Gplink::extractMessageInfo( const QString &text )
 		}
 	}
 	return MessageInfo( fileName, line );
-#endif
-	return MessageInfo();
 }
 
 
