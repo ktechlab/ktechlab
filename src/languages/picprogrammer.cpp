@@ -13,17 +13,11 @@
 // #include "src/core/ktlconfig.h"
 #include "qprocesswitharguments.h"
 
-// #include <kapplication.h>
-// #include <kconfig.h>
-#include <qdebug.h>
-// #include <klocale.h>
-// #include <kmessagebox.h>
-
 #include <qapplication.h>
+#include <qdebug.h>
 #include <qfile.h>
-// #include <kprocess.h>
 #include <qregexp.h>
-#include <q3textstream.h>
+#include <qtextstream.h>
 #include <qdatetime.h>
 
 #include <stdio.h>
