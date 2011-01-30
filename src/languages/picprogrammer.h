@@ -15,10 +15,6 @@
 
 #include <QMap>
 
-class KConfig;
-class KProcess;
-
-
 class ProgrammerConfig
 {
 	public:
@@ -53,8 +49,10 @@ Each programmer configuration is in the form of the ProgrammerConfig struct.
 
 @author David Saxton
 */
-class PicProgrammerSettings
+class PicProgrammerSettings : public QObject
 {
+    Q_OBJECT
+
 	public:
 		PicProgrammerSettings();
 		
