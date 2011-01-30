@@ -55,6 +55,7 @@ ADD_DEFINITIONS(-DQT3_SUPPORT)
 
 set( CompileSimulator_SRCS
  ${CMAKE_SOURCE_DIR}/testing/simulatortest.cpp
+ ${CMAKE_SOURCE_DIR}/src/ktlconfig.cpp
  ${CMAKE_SOURCE_DIR}/src/simulator.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/logic.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/element.cpp
