@@ -9,7 +9,6 @@
  ***************************************************************************/
 
 #include "gplink.h"
-#include "languagemanager.h"
 #include "messageinfo.h"
 #include "microinfo.h"
 #include "microlibrary.h"

@@ -8,7 +8,6 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "languagemanager.h"
 #include "picprogrammer.h"
 // #include "src/core/ktlconfig.h"
 #include "qprocesswitharguments.h"
