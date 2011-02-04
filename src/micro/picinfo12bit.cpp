@@ -11,7 +11,6 @@
 #include "micropackage.h"
 #include "picinfo12bit.h"
 
-#include <klocale.h>
 // #include <kstaticdeleter.h>
 
 PicAsm12bit *PicAsm12bit::m_self = 0;

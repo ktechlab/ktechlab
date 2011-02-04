@@ -11,7 +11,6 @@
 #include "micropackage.h"
 #include "picinfo14bit.h"
 
-#include <klocale.h>
 // #include <kstaticdeleter.h>
 
 PicAsm14bit *PicAsm14bit::m_self = 0;
