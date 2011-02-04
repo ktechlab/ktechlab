@@ -9,7 +9,7 @@
  ***************************************************************************/
 
 #include <cassert>
-#include <kdebug.h>
+#include <qdebug.h>
 
 #include "pin.h"
 #include "switch.h"
