@@ -13,8 +13,6 @@
 
 
 #include <cmath>
-#include <kdebug.h>
-// #include <klocale.h>
 #include <QColor>
 
 #include <QStringList>
@@ -211,12 +209,12 @@ bool Variant::changed() const
 		double cur = value().toDouble();
 		double def = defaultValue().toDouble();
 		
-		double diff = abs( cur - def );
+		double diff = std::abs( cur - def );
 		if ( diff == 0 )
 			return false;
 		
 		// denom cannot be zero
-		double denom = std::max( abs( cur ), abs( def ) );
+		double denom = std::max( std::abs( cur ), std::abs( def ) );
 		
 		// not changed if within 1e-4% of each other's value
 		return ( (diff / denom) > 1e-6 );

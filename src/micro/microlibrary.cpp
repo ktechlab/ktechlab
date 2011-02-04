@@ -11,7 +11,7 @@
 #include "microinfo.h"
 #include "microlibrary.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 // #include <kstaticdeleter.h>
 
 #include "picinfo12bit.h"

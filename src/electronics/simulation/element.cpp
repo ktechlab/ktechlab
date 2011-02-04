@@ -12,7 +12,7 @@
 #include "elementset.h"
 
 #include <cassert>
-#include <kdebug.h>
+#include <qdebug.h>
 
 double T_K = 300.; ///< Temperature in Kelvin
 

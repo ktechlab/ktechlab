@@ -15,7 +15,7 @@
 #include "logic.h"
 #include "nonlinear.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 
 #include <cmath>
 #include <iostream>
