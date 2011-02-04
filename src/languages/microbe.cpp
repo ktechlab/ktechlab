@@ -15,7 +15,6 @@
 
 #include <qfile.h>
 #include <Q3TextStream>
-#include <kprocess.h>
 #include <qdebug.h>
 #include <QMessageBox>
 
