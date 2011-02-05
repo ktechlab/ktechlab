@@ -23,8 +23,8 @@ Resistor::Resistor(Circuit &ownerCircuit)
     m_elementMapList.append(m_elemMap);
 
     // these will be exernal pins
-    m_pinMap.insert("n1", new ECNode(m_elemMap->pin(0)));
-    m_pinMap.insert("p1", new ECNode(m_elemMap->pin(1)));
+    m_pinMap.insert("n1", new ECNode(ownerCircuit, m_elemMap->pin(0)));
+    m_pinMap.insert("p1", new ECNode(ownerCircuit, m_elemMap->pin(1)));
 
     Property * r = new Property("resistance", Variant::Type::Double);
 	r->setCaption(tr("Resistance"));

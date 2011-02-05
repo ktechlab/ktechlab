@@ -10,24 +10,31 @@
 
 #include "ecnode.h"
 
+#include "circuit.h"
 #include "connector.h"
 #include "electronicconnector.h"
 
 #include <QDebug>
 
-ECNode::ECNode()
-		: Node() {
+ECNode::ECNode(Circuit &c)
+		: Node(), m_circuit(c) {
+
     // create 1 pin
     m_pins.clear();
     Pin *pin = new Pin();
     m_pins.append(pin);
+    // register
+    c.addPin(pin);
 }
 
-ECNode::ECNode(Pin* pin): Node()
+ECNode::ECNode(Circuit &c, Pin* pin): Node(), m_circuit(c)
 {
     Q_ASSERT(pin);
+
     m_pins.clear();
     m_pins.append(pin);
+    // ...
+    c.addPin(pin);
 }
 
 ECNode::~ECNode() {
@@ -39,6 +46,7 @@ ECNode::~ECNode() {
     // pins
     foreach(Pin *pin, m_pins){
         delete pin;
+        m_circuit.removePin(pin);
     }
     m_pins.clear();
 }

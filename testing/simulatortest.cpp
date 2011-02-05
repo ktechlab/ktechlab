@@ -586,11 +586,11 @@ void SimulatorTest::testComponent_fixedVoltage()
 void SimulatorTest::pinReduceTest()
 {
     Circuit c;
-    ECNode n1;
-    ECNode n2;
-    ECNode n3;
-    ECNode n4;
-    ECNode n5;
+    ECNode n1(c);
+    ECNode n2(c);
+    ECNode n3(c);
+    ECNode n4(c);
+    ECNode n5(c);
     Resistor r1(c);
     Resistor v1(c);
     ElectronicConnector c1(&n1, r1.pinByName("n1"));

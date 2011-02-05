@@ -25,7 +25,7 @@ ECFixedVoltage::ECFixedVoltage(Circuit &ownerCircuit)
     m_map = new ElementMap(m_voltagePoint);
     m_elementMapList.append(m_map);
 
-    m_pinMap.insert("p1", new ECNode(m_map->pin(0)));
+    m_pinMap.insert("p1", new ECNode(ownerCircuit, m_map->pin(0)));
 
     Property *voltage = new Property("voltage", Variant::Type::Double);
     voltage->setUnit("V");
