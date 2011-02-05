@@ -63,6 +63,9 @@ public:
 	Circuit();
 	~Circuit();
 
+    /**
+     Add a pin to the circuit.
+     */
 	void addPin(Pin *node);
 	PinSet *getPins() { return &m_pinList; }
 
