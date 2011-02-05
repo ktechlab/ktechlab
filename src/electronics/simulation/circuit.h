@@ -67,6 +67,13 @@ public:
      Add a pin to the circuit.
      */
 	void addPin(Pin *node);
+
+    /**
+     Remove a pin from thge circuit
+     \return 0 on success, negative on error
+     */
+    int removePin(Pin *pin);
+
 	PinSet *getPins() { return &m_pinList; }
 
     /**

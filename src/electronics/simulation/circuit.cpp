@@ -47,6 +47,17 @@ void Circuit::addPin(Pin *node) {
 	m_pinList.insert(node);
 }
 
+int Circuit::removePin(Pin* pin)
+{
+    Q_ASSERT(pin);
+
+    if(m_pinList.find(pin) != m_pinList.end()){
+        m_pinList.erase(pin);
+        return 0;
+    }
+    return -1;
+}
+
 void Circuit::addElement(Element *element) {
 	assert(element);
 	m_elementList.insert(element);
