@@ -16,6 +16,7 @@
 #include "pin.h"
 #include "typedefs.h"
 
+class Circuit;
 class Element;
 class Item;
 
@@ -31,12 +32,12 @@ public:
     /**
      Create an ECNode with 1 new pin inside
      */
-	ECNode();
+	ECNode(Circuit &c);
     /**
      Create an ECNode based on a given pin
      \param pin an existing Pin
      */
-    ECNode(Pin* pin);
+    ECNode(Circuit &c, Pin* pin);
 
 	~ECNode();
 
@@ -88,6 +89,9 @@ public:
 	virtual void removeConnector(Connector *connector);
 
 protected:
+    /// the circuit in which the ECNode exists
+    Circuit &m_circuit;
+
     /// pins in this Node
 	PinList m_pins;
 
