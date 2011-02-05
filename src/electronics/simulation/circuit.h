@@ -66,7 +66,11 @@ public:
 	void addPin(Pin *node);
 	PinSet *getPins() { return &m_pinList; }
 
-	void addElement(Element *element);
+    /**
+     * Add an element to the circuit.
+     * This method is called only internally, so it should be protected
+    */
+    void addElement(Element *element);
 
 	bool containsNonLinear() const { return m_elementSet->containsNonLinear(); }
 
