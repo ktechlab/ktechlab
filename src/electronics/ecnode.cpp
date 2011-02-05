@@ -51,10 +51,15 @@ ECNode::~ECNode() {
     m_pins.clear();
 }
 
+// TODO FIXME implement the removal/adding of pins from/to the circuit
+// TODO FIXME deal with connectors when setting the pin count
 void ECNode::setNumPins(unsigned num) {
 	unsigned oldNum = m_pins.size();
 
 	if (num == oldNum) return;
+
+    qCritical() << "ECNode::setNumPins: setting pin count is not completely implemented!" <<
+        "expect crashes!";
 
     if(num > oldNum){
         // create pins
