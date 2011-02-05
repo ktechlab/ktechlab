@@ -601,12 +601,6 @@ void SimulatorTest::pinReduceTest()
     ElectronicConnector c5(&n4, &n5);
     ElectronicConnector ce(&n4, v1.pinByName("p1"));
 
-    c.addPin(n1.pin());
-    c.addPin(n2.pin());
-    c.addPin(n3.pin());
-    c.addPin(n4.pin());
-    c.addPin(n5.pin());
-
     c.init();
     c.displayEquations();
     c.updateCurrents();
