@@ -592,13 +592,20 @@ void SimulatorTest::pinReduceTest()
     ECNode n4;
     ECNode n5;
     Resistor r1(c);
-    Resistor r2(c);
+    Resistor v1(c);
     ElectronicConnector c1(&n1, r1.pinByName("n1"));
-    ElectronicConnector c2(&n2, r2.pinByName("n1"));
+    ElectronicConnector c6(&n1, &n2);
+    ElectronicConnector c2(&n2, v1.pinByName("n1"));
     ElectronicConnector c3(&n3, r1.pinByName("p1"));
     ElectronicConnector c4(&n3, &n5);
     ElectronicConnector c5(&n4, &n5);
-    ElectronicConnector ce(&n4, r2.pinByName("p1"));
+    ElectronicConnector ce(&n4, v1.pinByName("p1"));
+
+    c.addPin(n1.pin());
+    c.addPin(n2.pin());
+    c.addPin(n3.pin());
+    c.addPin(n4.pin());
+    c.addPin(n5.pin());
 
     c.init();
     c.displayEquations();
