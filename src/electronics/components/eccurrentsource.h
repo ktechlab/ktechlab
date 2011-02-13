@@ -31,7 +31,9 @@ private:
     virtual void propertyChanged(Property& theProperty, QVariant newValue,
                                  QVariant oldValue);
 
-	CurrentSource m_currentSource;
+	CurrentSource *m_currentSource;
+    ElementMap *m_elemMap;
+
 };
 
 #endif

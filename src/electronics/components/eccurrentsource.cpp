@@ -13,12 +13,24 @@
 #include "variant.h"
 
 #include "qdebug.h"
+#include <elementmap.h>
+#include <circuit.h>
+#include <ecnode.h>
 
 ECCurrentSource::ECCurrentSource(Circuit& ownerCircuit)
-	: Component(ownerCircuit),
-        m_currentSource(0.02)
+	: Component(ownerCircuit)
 {
 	// m_pNNode[0]->pin().setGroundType(Pin::gt_low);
+
+    m_currentSource = new CurrentSource(0.02);
+    m_elemMap = new ElementMap(m_currentSource);
+    m_elementMapList.append(m_elemMap);
+
+    // external pins
+    // FIXME check if the pins have the correct names
+    m_pinMap.insert("n1", new ECNode(ownerCircuit, m_elemMap->pin(0)));
+    m_pinMap.insert("p1", new ECNode(ownerCircuit, m_elemMap->pin(1)));
+
 
     Property * current = new Property("current", Variant::Type::Double);
 	current->setCaption(tr("Current"));
@@ -27,10 +39,20 @@ ECCurrentSource::ECCurrentSource(Circuit& ownerCircuit)
 	current->setMaxValue(1e12);
 	current->setValue(0.02);
 	addProperty(current);
+
+    ownerCircuit.addComponent(*this);
 }
 
 ECCurrentSource::~ECCurrentSource()
 {
+    // ...
+    ECNode *n1 = m_pinMap.value("n1");
+    ECNode *p1 = m_pinMap.value("p1");
+    m_pinMap.clear();
+    // delete m_elemMap ?
+    // delete element?
+    delete n1;
+    delete p1;
 }
 
 void ECCurrentSource::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
@@ -38,7 +60,7 @@ void ECCurrentSource::propertyChanged(Property& theProperty, QVariant newValue, 
     Q_UNUSED(oldValue);
 
     if(theProperty.name() == "current"){
-        m_currentSource.setCurrent(newValue.asDouble());
+        m_currentSource->setCurrent(newValue.asDouble());
     } else
         qCritical() << "ECCurrentSource: unknown property has changed!" << theProperty.name();
 }
