@@ -60,6 +60,9 @@ to this implementation, and the pure untainted ElementSet. Please keep it that w
 class Circuit
 {
 public:
+    /**
+     Create an empty circuit
+     */
 	Circuit();
 	~Circuit();
 
@@ -74,6 +77,9 @@ public:
      */
     int removePin(Pin *pin);
 
+    /**
+     \return the set of pins in the current circuit
+     */
 	PinSet *getPins() { return &m_pinList; }
 
     /**
@@ -82,14 +88,25 @@ public:
     */
     void addElement(Element *element);
 
+    /**
+     \return true, if the circuit contains at least one nonlinear element;
+        false otherwise
+     */
 	bool containsNonLinear() const { return m_elementSet->containsNonLinear(); }
 
+    /**
+     Assigns equations and initializes ElmentSet-s.
+     Call this method before simulating and after altering the structure of
+     the Circuit
+     */
 	void init();
+
 	/**
 	* Called after everything else has been setup - before doNonLogic or
 	* doLogic are called for the first time. Preps the circuit.
 	*/
 	void initCache();
+
 	/**
 	* Marks all cached results as invalidated and removes them.
 	*/
@@ -105,7 +122,15 @@ public:
 	*/
 	void doLogic() { m_elementSet->doLinear(false); }
 
+    /**
+     Displays the equations of the current simulation on standard output
+     */
 	void displayEquations();
+
+    /**
+     After solving the circuit equations in doLogic() or doNonLogic() methods,
+     this method can calculate all the currents flowing in the circuit
+     */
 	void updateCurrents();
 
 	/**
@@ -118,8 +143,21 @@ public:
 	*/
 	static int identifyGround(PinSet nodeList, int *highest = 0);
 
+    /**
+     Method used by the Simulator class to check if the circuit has to
+     be solved or not.
+     Sets the changed flag on the circuit.
+     */
 	void setChanged() { isSetChanged = true; }
+
+	/**
+     Method to clear the changed flag on the circuit. Used by the simulator
+     */
 	void clearChanged() { isSetChanged = false; }
+
+	/**
+     \return the changed flag of the circuit. Used by the simulator.
+     */
 	inline bool isChanged() { return isSetChanged; }
 
     /**
@@ -147,14 +185,17 @@ public:
 
 protected:
 	void cacheAndUpdate();
+
 	/**
 	* Update the nodal voltages from those calculated in ElementSet
 	*/
 	void updateNodalVoltages();
+
 	/**
 	* Step the reactive elements.
 	*/
 	void stepReactive();
+
 	/**
 	* Returns true if any of the nodes are ground
 	*/
