@@ -584,6 +584,15 @@ void Circuit::removeElementMap(ElementMap* em)
 void Circuit::displayEquations() {
 	m_elementSet->displayEquations();
 }
+
+int Circuit::equationCount() const
+{
+    Q_ASSERT(m_elementSet);
+
+    return m_elementSet->vectorsize();
+}
+
+
 //END class Circuit
 
 //BEGIN class LogicCacheNode
