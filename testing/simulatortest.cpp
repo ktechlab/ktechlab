@@ -604,6 +604,9 @@ void SimulatorTest::pinReduceTest()
     c.init();
     c.displayEquations();
     c.updateCurrents();
+
+    // all the pins above should map to the same equations
+    Q_ASSERT( c.equationCount() == 2);
 }
 
 
