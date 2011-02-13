@@ -609,6 +609,14 @@ void SimulatorTest::pinReduceTest()
     Q_ASSERT( c.equationCount() == 2);
 }
 
+/*
+void SimulatorTest::testComponent_capacitor()
+{
+    Circuit c;
+    Capacitor c1;
+}
+*/
+
 
 QTEST_MAIN(SimulatorTest)
 #include "simulatortest.moc"
