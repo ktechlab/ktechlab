@@ -40,6 +40,8 @@
 #include <electronicconnector.h>
 #include <ecnode.h>
 #include <ecfixedvoltage.h>
+#include <capacitor.h>
+#include <eccurrentsource.h>
 
 
 
@@ -607,6 +609,31 @@ void SimulatorTest::pinReduceTest()
 
     // all the pins above should map to the same equations
     Q_ASSERT( c.equationCount() == 2);
+}
+
+void SimulatorTest::testComponent_currentSource()
+{
+    Circuit c;
+    ECCurrentSource i1(c);
+    Resistor r1(c);
+
+    ElectronicConnector ec1(i1.pinByName("p1"), r1.pinByName("p1"));
+    ElectronicConnector ec2(i1.pinByName("n1"), r1.pinByName("n1"));
+
+    c.init();
+    c.displayEquations();
+
+    Simulator * sim = Simulator::self();
+    sim->attachCircuit(&c);
+    sim->slotSetSimulating(true);
+    sim->step();
+
+    c.updateCurrents();
+    c.displayEquations();
+
+    sim->detachCircuit(&c);
+
+    // TODO assertions
 }
 
 /*
