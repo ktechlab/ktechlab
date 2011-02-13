@@ -148,17 +148,17 @@ public:
      be solved or not.
      Sets the changed flag on the circuit.
      */
-	void setChanged() { isSetChanged = true; }
+	void setChanged() { m_isSetChanged = true; }
 
 	/**
      Method to clear the changed flag on the circuit. Used by the simulator
      */
-	void clearChanged() { isSetChanged = false; }
+	void clearChanged() { m_isSetChanged = false; }
 
 	/**
      \return the changed flag of the circuit. Used by the simulator.
      */
-	inline bool isChanged() { return isSetChanged; }
+	inline bool isChanged() { return m_isSetChanged; }
 
     /**
      * Add an ElementMap to the list of ElementMaps in the circuit.
@@ -214,7 +214,7 @@ protected:
     std::set<ElementMap*> m_elementMapSet;
 
 private: 
-	bool isSetChanged;
+	bool m_isSetChanged;
 };
 
 #endif
