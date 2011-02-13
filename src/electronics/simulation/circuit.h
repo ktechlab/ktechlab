@@ -183,6 +183,11 @@ public:
      */
 	void addComponent(const Component& comp);
 
+    /**
+     \return the number of equations in the circuit
+     */
+    int equationCount() const;
+
 protected:
 	void cacheAndUpdate();
 
