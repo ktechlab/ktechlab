@@ -567,6 +567,13 @@ void Circuit::addComponent(const Component& comp)
     }
 }
 
+void Circuit::removeComponent(const Component& comp)
+{
+    foreach(ElementMap *map, comp.elementMapList()){
+        removeElementMap(map);
+    }
+}
+
 
 void Circuit::removeElementMap(ElementMap* em)
 {
