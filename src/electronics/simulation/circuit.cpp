@@ -28,7 +28,7 @@ typedef std::multimap<int, PinSet> PinSetMap;
 
 //BEGIN class Circuit
 Circuit::Circuit() : 
-		m_bCanCache(false), isSetChanged(true) {
+		m_bCanCache(false), m_isSetChanged(true) {
 	m_elementSet = new ElementSet(this, 0, 0); // why do we do this?
 	m_pLogicCacheBase = new LogicCacheNode;
 	m_elementList.clear();
