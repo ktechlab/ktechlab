@@ -235,6 +235,14 @@ void SimulatorTest::testSourceAndResistance()
 
     sim->slotSetSimulating(false);
     sim->detachCircuit(circ);
+
+    delete wire1;
+    delete wire2;
+    circ->removeElementMap(r1m);
+    circ->removeElementMap(v4m);
+    delete r1m;
+    delete v4m;
+    delete circ;
 }
 
 void SimulatorTest::testSourceAnd4ResistanceInParallel()
