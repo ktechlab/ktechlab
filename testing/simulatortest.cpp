@@ -436,6 +436,39 @@ void SimulatorTest::testSourceAnd4ResistanceInParallel()
 
     sim->slotSetSimulating(false);
     sim->detachCircuit(circ);
+
+    // clean up
+    delete wire1234a1;
+    delete wire1234a2;
+    delete wire1234b1;
+    delete wire1234b2;
+    delete wire12a1;
+    delete wire12a2;
+    delete wire12b1;
+    delete wire12b2;
+    delete wire34a1;
+    delete wire34a2;
+    delete wire34b1;
+    delete wire34b2;
+    delete wireAll1;
+    delete wireAll2;
+    circ->removeElementMap(r1m);
+    circ->removeElementMap(r2m);
+    circ->removeElementMap(r3m);
+    circ->removeElementMap(r4m);
+    circ->removeElementMap(v1m);
+    delete pinC12a;
+    delete pinC12b;
+    delete pinC34a;
+    delete pinC34b;
+    delete pinC1234a;
+    delete pinC1234b;
+    delete r1m;
+    delete r2m;
+    delete r3m;
+    delete r4m;
+    delete v1m;
+    delete circ;
 }
 
 void SimulatorTest::testComponent_SourceAndResistor()
@@ -443,10 +476,10 @@ void SimulatorTest::testComponent_SourceAndResistor()
     qDebug() << "starting";
     Circuit *circ = new Circuit();
 
-    Resistor r1(*circ);
-    ECCell v1(*circ);
-    ElectronicConnector c1(r1.pinByName("n1"), v1.pinByName("n1"));
-    ElectronicConnector c2(r1.pinByName("p1"), v1.pinByName("p1"));
+    Resistor *r1 = new Resistor(*circ);
+    ECCell *v1 = new ECCell(*circ);
+    ElectronicConnector *c1 = new ElectronicConnector(r1->pinByName("n1"), v1->pinByName("n1"));
+    ElectronicConnector *c2 = new ElectronicConnector(r1->pinByName("p1"), v1->pinByName("p1"));
 
     Simulator * sim = Simulator::self();
     sim->slotSetSimulating(false);
