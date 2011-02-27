@@ -38,7 +38,8 @@ public:
             // TODO add 4 optional arguments for pointer to pins?
 
     /**
-     Destructor. Deletes the elementmap and the element associated to it.
+     Destructor. Deletes the elementmap, the element,
+        and the pins associated to it.
      */
     ~ElementMap();
 
