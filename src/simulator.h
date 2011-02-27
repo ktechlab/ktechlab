@@ -19,6 +19,9 @@
 #include "circuit.h"
 #include "logic.h"
 
+
+class QTimer;
+
 using namespace std;
 
 /**
@@ -75,7 +78,17 @@ class Simulator : public QObject {
 	Q_OBJECT
 
 public:
+    /**
+     \return the instance of the simulator
+     */
 	static Simulator *self();
+
+    /**
+     destroy the simulator instance.
+     Calling this at application exit makes Valgrind happyer
+     */
+    static void destroy();
+
 	~Simulator();
 
 	/**
@@ -182,6 +195,9 @@ private:
 	long long m_stepNumber;
 
 	list<Circuit*> *m_ordinaryCircuits;
+
+    /// timer used for simulator steps
+    QTimer *m_stepTimer;
 };
 
 inline void Simulator::addStepCallback(int at, ComponentCallback *ccb) {

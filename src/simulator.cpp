@@ -32,6 +32,15 @@ Simulator *Simulator::self() {
 	return m_pSelf;
 }
 
+void Simulator::destroy()
+{
+    if(m_pSelf){
+        delete m_pSelf;
+        m_pSelf = 0;
+    }
+}
+
+
 Simulator::Simulator()
 		:  m_bIsSimulating(true), m_stepNumber(0) {
 	m_gpsimProcessors = new list<GpsimProcessor*>;
@@ -47,12 +56,14 @@ Simulator::Simulator()
 
 	LogicConfig lc;
 
-	QTimer *stepTimer = new QTimer(this); // FIXME: memory leak. 
-	connect(stepTimer, SIGNAL(timeout()), this, SLOT(step()));
-	stepTimer->start(1);
+	m_stepTimer = new QTimer(this);
+	connect(m_stepTimer, SIGNAL(timeout()), this, SLOT(step()));
+	m_stepTimer->start(1);
 }
 
 Simulator::~Simulator() {
+    disconnect(m_stepTimer, SIGNAL(timeout()), this, SLOT(step()));
+    delete m_stepTimer;
 	delete m_gpsimProcessors;
 	delete m_components;
 	delete m_ordinaryCircuits;
