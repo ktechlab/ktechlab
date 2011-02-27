@@ -29,13 +29,14 @@ typedef std::multimap<int, PinSet> PinSetMap;
 //BEGIN class Circuit
 Circuit::Circuit() : 
 		m_bCanCache(false), m_isSetChanged(true) {
-	m_elementSet = new ElementSet(this, 0, 0); // why do we do this?
+	m_elementSet = 0;
 	m_pLogicCacheBase = new LogicCacheNode;
 	m_elementList.clear();
 }
 
 Circuit::~Circuit() {
-	delete m_elementSet;
+    if(m_elementSet)
+        delete m_elementSet;
 	m_elementSet = 0;
 	delete m_pLogicCacheBase;
 	m_pLogicCacheBase = 0;
@@ -190,7 +191,8 @@ void Circuit::init() {
 	m_pLogicCacheBase = 0;
 
 // ### ##########################################################
-	delete m_elementSet;
+    if(m_elementSet)
+        delete m_elementSet;
 	m_elementSet = new ElementSet(this, cnodeCount, branchCount);
 // ### ##########################################################
 
@@ -280,6 +282,10 @@ assert(*it);
 }
 
 void Circuit::initCache() {
+    if(!m_elementSet){
+        qWarning() << "Circuit::initCache: called with NULL element set, doing nothing.\n";
+        return;
+    }
 	m_elementSet->updateInfo();
 
 	m_bCanCache = true;
@@ -336,6 +342,11 @@ void Circuit::setCacheInvalidated() {
 }
 
 void Circuit::cacheAndUpdate() {
+    if(!m_elementSet){
+        qWarning() << "Circuit::cacheAndUpdate: called with NULL elementSet, doing nothing\n";
+        return;
+    }
+
 	if(!m_pLogicCacheBase) m_pLogicCacheBase = new LogicCacheNode();
 
 	LogicCacheNode *node = m_pLogicCacheBase;
@@ -386,8 +397,10 @@ bool Circuit::recursivePinAdd(Pin *node, PinSet *unassignedNodes, PinSet *associ
 
 void Circuit::doNonLogic() {
 //	if ( !m_elementSet || m_cnodeCount+m_branchCount <= 0 )
-	if (!m_elementSet)
+	if (!m_elementSet){
+        qWarning() << "Circuit::doNonLogic: elementSet is NULL, doing nothing!\n";
 		return;
+    }
 
 	if (m_bCanCache) {
 		if (!m_elementSet->bChanged() && !m_elementSet->AChanged())
@@ -422,6 +435,8 @@ void Circuit::stepReactive() {
 }
 
 void Circuit::updateNodalVoltages() {
+    Q_ASSERT(m_elementSet);
+
 	const PinSet::iterator endIt = m_pinList.end();
 	for (PinSet::iterator it = m_pinList.begin(); it != endIt; ++it) {
 		Pin *const node = *it;
@@ -586,9 +601,15 @@ void Circuit::removeElementMap(ElementMap* em)
     for(int i=0; i<4; ++i)
         if( em->pin(i))
             m_pinList.erase(em->pin(i));
+    // update the ElementSet:
+    init();
 }
 
 void Circuit::displayEquations() {
+    if(!m_elementSet){
+        qWarning() << "Circuit::displayEquations called with NULL elementSet, doing nothing!\n";
+        return;
+    }
 	m_elementSet->displayEquations();
 }
 
