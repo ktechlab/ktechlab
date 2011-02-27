@@ -59,6 +59,7 @@ void SimulatorTest::cleanupTestCase()
 {
     qDebug() << "Cleaning up...";
     KtlConfig::destroy();
+    Simulator::destroy();
 }
 
 
