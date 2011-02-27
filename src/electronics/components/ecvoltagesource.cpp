@@ -40,7 +40,7 @@ ECCell::ECCell(Circuit& ownerCircuit) :
 }
 
 ECCell::~ECCell() {
-    // TODO destructor
+    circuit().removeComponent(*this);
 }
 
 void ECCell::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
