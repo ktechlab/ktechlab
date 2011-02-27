@@ -43,10 +43,24 @@
 #include <capacitor.h>
 #include <eccurrentsource.h>
 
+#include <ktlconfig.h>
+
 
 
 const double maxCurrentError = 1e-6;
 const double maxVoltageError = 1e-6;
+
+void SimulatorTest::initTestCase()
+{
+    qDebug() << "Starting testing..";
+}
+
+void SimulatorTest::cleanupTestCase()
+{
+    qDebug() << "Cleaning up...";
+    KtlConfig::destroy();
+}
+
 
 void SimulatorTest::createTest(){
 
