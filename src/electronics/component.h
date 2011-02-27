@@ -102,10 +102,6 @@ public:
     QList<ElementMap*> elementMapList() const;
 
 protected:
-	/**
-	 * Removes all elements, by deleting them.
-	 */
-	void removeElements();
 
     /**
      * associate a property with this component

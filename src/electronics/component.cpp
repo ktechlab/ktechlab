@@ -12,12 +12,12 @@
 
 #include "circuit.h"
 #include "component.h"
+#include "ecnode.h"
 #include "elementmap.h"
 #include "pin.h"
 #include "simulator.h"
 
 //BEGIN class Component
-
 
 Component::Component(Circuit &ownerCircuit):
     m_circuit(ownerCircuit)
@@ -27,28 +27,28 @@ Component::Component(Circuit &ownerCircuit):
 
 
 Component::~Component() {
-	removeElements();
+    // pins
+    foreach(ECNode *n, m_pinMap.values()){
+        delete n;
+    }
+    
+    // element maps
+    foreach(ElementMap *e, m_elementMapList){
+        delete e;
+    }
+    m_elementMapList.clear();
+    
     // delete all properties
     foreach(Property *p, m_propertyList){
-        if(p)
-            delete p;
+        delete p;
     }
     m_propertyList.clear();
 }
 
+
 Circuit & Component::circuit() const
 {
     return m_circuit;
-}
-
-void Component::removeElements() {
-    /*
-    foreach(ElementMap *e, m_elementMapList){
-        if(e)
-            delete e;
-    }
-    */
-	m_elementMapList.clear();
 }
 
 void Component::addProperty(Property* theProperty)
