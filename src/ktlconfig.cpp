@@ -31,12 +31,19 @@ KtlConfig* KtlConfig::self()
     return m_self;
 }
 
+void KtlConfig::destroy()
+{
+    if(m_self){
+        delete m_self;
+        m_self = 0;
+    }
 }
 
 KtlConfig::~KtlConfig()
 {
-    delete m_self;
+
 }
+
 
 KtlConfig::KtlConfig(QObject* parent): QObject(parent)
 {
