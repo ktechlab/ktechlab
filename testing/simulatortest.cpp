@@ -88,7 +88,7 @@ void SimulatorTest::createTest(){
     VoltageSignal *v3 = new VoltageSignal(1e-6, 3.0);
     VoltageSource *v4 = new VoltageSource(7.0);
 
-    circ->addElement(q1);
+/*    
     circ->addElement(c1);
     circ->addElement(cccs1);
     circ->addElement(ccvs1);
@@ -105,7 +105,7 @@ void SimulatorTest::createTest(){
     circ->addElement(v2);
     circ->addElement(v3);
     circ->addElement(v4);
-
+*/
 
     ElementMap *v4m = new ElementMap(v4);
     ElementMap *r1m = new ElementMap(r1);
@@ -172,6 +172,32 @@ void SimulatorTest::createTest(){
     Q_ASSERT( wire2->currentIsKnown() );
     Q_ASSERT( QABS( QABS( wire1->current() ) - 0.007 ) < maxCurrentError );
     Q_ASSERT( QABS( QABS( wire2->current() ) - 0.007 ) < maxCurrentError );
+
+    sim->slotSetSimulating(false);
+    sim->detachCircuit(circ);
+
+    circ->removeElementMap(r1m);
+    circ->removeElementMap(v4m);
+    delete r1m;
+    delete v4m;
+    delete circ;
+
+    // r1, v4 are already deleted!
+    delete q1;
+    delete c1;
+    delete cccs1;
+    delete ccvs1;
+    delete i1;
+    delete i2;
+    delete d1;
+    delete l1;
+    delete q2;
+    delete q3;
+    delete ic1;
+    delete vccs1;
+    delete vcvs1;
+    delete v2;
+    delete v3;
 }
 
 void SimulatorTest::testSourceAndResistance()
