@@ -22,6 +22,7 @@ ECNode::ECNode(Circuit &c)
     // create 1 pin
     m_pins.clear();
     Pin *pin = new Pin();
+    m_ownsPins = true;
     m_pins.append(pin);
     // register
     c.addPin(pin);
@@ -33,6 +34,7 @@ ECNode::ECNode(Circuit &c, Pin* pin): Node(), m_circuit(c)
 
     m_pins.clear();
     m_pins.append(pin);
+    m_ownsPins = false;
     // ...
     c.addPin(pin);
 }
@@ -45,8 +47,12 @@ ECNode::~ECNode() {
     m_connectorList.clear();
     // pins
     foreach(Pin *pin, m_pins){
-        delete pin;
         m_circuit.removePin(pin);
+    }
+    if(m_ownsPins){
+        foreach(Pin *pin, m_pins){
+            delete pin;
+        }
     }
     m_pins.clear();
 }
@@ -57,6 +63,9 @@ void ECNode::setNumPins(unsigned num) {
 	unsigned oldNum = m_pins.size();
 
 	if (num == oldNum) return;
+
+	if(!m_ownsPins)
+        qCritical() << "ECNode::setNumPins: BUG: setting pin cound on a node which doesn't own its pins!\n";
 
     qCritical() << "ECNode::setNumPins: setting pin count is not completely implemented!" <<
         "expect crashes!";

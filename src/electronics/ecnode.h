@@ -97,6 +97,11 @@ protected:
 
 	/** The attached connectors to this electronic node. No directionality here */
 	ConnectorList m_connectorList;
+
+    /** flag to check of the node should delete the pins associated with it,
+        or not
+        */
+    bool m_ownsPins;
 };
 
 #endif
