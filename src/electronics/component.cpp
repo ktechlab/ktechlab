@@ -37,9 +37,13 @@ Component::~Component() {
         delete e;
     }
     m_elementMapList.clear();
-    
+
     // delete all properties
     foreach(Property *p, m_propertyList){
+        // first disconnect
+        disconnect( p, SIGNAL(valueChanged(QVariant,QVariant)),
+             this, SLOT(propertyChanged(QVariant,QVariant)) );
+        // then delete
         delete p;
     }
     m_propertyList.clear();
