@@ -495,53 +495,59 @@ void SimulatorTest::testComponent_SourceAndResistor()
 
     circ->displayEquations();
 
-    qDebug() << "c1 current: " << c1.wire()->current();
-    qDebug() << "c2 current: " << c2.wire()->current();
+    qDebug() << "c1 current: " << c1->wire()->current();
+    qDebug() << "c2 current: " << c2->wire()->current();
     qDebug() << "voltages: R1:1 R1:2 V1:1 V1:2\n  "
-        << r1.pinByName("n1")->pin()->voltage() << r1.pinByName("p1")->pin()->voltage()
-        << v1.pinByName("n1")->pin()->voltage() << v1.pinByName("p1")->pin()->voltage();
+        << r1->pinByName("n1")->pin()->voltage() << r1->pinByName("p1")->pin()->voltage()
+        << v1->pinByName("n1")->pin()->voltage() << v1->pinByName("p1")->pin()->voltage();
 
-    Q_ASSERT( QABS(c1.wire()->current() + 5.0) < maxCurrentError);
-    Q_ASSERT( QABS(c2.wire()->current() - 5.0) < maxCurrentError);
-    Q_ASSERT( QABS(r1.pinByName("p1")->pin()->voltage() - r1.pinByName("n1")->pin()->voltage() - 5) < maxVoltageError);
-    Q_ASSERT( QABS(v1.pinByName("p1")->pin()->voltage() - v1.pinByName("n1")->pin()->voltage() - 5) < maxVoltageError);
+    Q_ASSERT( QABS(c1->wire()->current() + 5.0) < maxCurrentError);
+    Q_ASSERT( QABS(c2->wire()->current() - 5.0) < maxCurrentError);
+    Q_ASSERT( QABS(r1->pinByName("p1")->pin()->voltage() - r1->pinByName("n1")->pin()->voltage() - 5) < maxVoltageError);
+    Q_ASSERT( QABS(v1->pinByName("p1")->pin()->voltage() - v1->pinByName("n1")->pin()->voltage() - 5) < maxVoltageError);
 
     // change resistor value
-    r1.propertyByName("resistance")->setValue(2000);
+    r1->propertyByName("resistance")->setValue(2000);
 
     sim->step();
     circ->updateCurrents();
 
     circ->displayEquations();
-    qDebug() << "c1 current: " << c1.wire()->current();
-    qDebug() << "c2 current: " << c2.wire()->current();
+    qDebug() << "c1 current: " << c1->wire()->current();
+    qDebug() << "c2 current: " << c2->wire()->current();
 
-    Q_ASSERT( QABS(c1.wire()->current() + 0.0025) < maxCurrentError);
-    Q_ASSERT( QABS(c2.wire()->current() - 0.0025) < maxCurrentError);
-    Q_ASSERT( QABS(r1.pinByName("p1")->pin()->voltage() - r1.pinByName("n1")->pin()->voltage() - 5) < maxVoltageError);
-    Q_ASSERT( QABS(v1.pinByName("p1")->pin()->voltage() - v1.pinByName("n1")->pin()->voltage() - 5) < maxVoltageError);
+    Q_ASSERT( QABS(c1->wire()->current() + 0.0025) < maxCurrentError);
+    Q_ASSERT( QABS(c2->wire()->current() - 0.0025) < maxCurrentError);
+    Q_ASSERT( QABS(r1->pinByName("p1")->pin()->voltage() - r1->pinByName("n1")->pin()->voltage() - 5) < maxVoltageError);
+    Q_ASSERT( QABS(v1->pinByName("p1")->pin()->voltage() - v1->pinByName("n1")->pin()->voltage() - 5) < maxVoltageError);
 
     // change source value
-    v1.propertyByName("voltage")->setValue(2);
+    v1->propertyByName("voltage")->setValue(2);
 
     sim->step();
     circ->updateCurrents();
 
     circ->displayEquations();
-    qDebug() << "c1 current: " << c1.wire()->current();
-    qDebug() << "c2 current: " << c2.wire()->current();
+    qDebug() << "c1 current: " << c1->wire()->current();
+    qDebug() << "c2 current: " << c2->wire()->current();
     qDebug() << "voltages: R1:1 R1:2 V1:1 V1:2\n  "
-        << r1.pinByName("n1")->pin()->voltage() << r1.pinByName("p1")->pin()->voltage()
-        << v1.pinByName("n1")->pin()->voltage() << v1.pinByName("p1")->pin()->voltage();
+        << r1->pinByName("n1")->pin()->voltage() << r1->pinByName("p1")->pin()->voltage()
+        << v1->pinByName("n1")->pin()->voltage() << v1->pinByName("p1")->pin()->voltage();
 
-    Q_ASSERT( QABS(c1.wire()->current() + 0.001) < maxCurrentError);
-    Q_ASSERT( QABS(c2.wire()->current() - 0.001) < maxCurrentError);
-    Q_ASSERT( QABS(r1.pinByName("p1")->pin()->voltage() - r1.pinByName("n1")->pin()->voltage() - 2) < maxVoltageError);
-    Q_ASSERT( QABS(v1.pinByName("p1")->pin()->voltage() - v1.pinByName("n1")->pin()->voltage() - 2) < maxVoltageError);
+    Q_ASSERT( QABS(c1->wire()->current() + 0.001) < maxCurrentError);
+    Q_ASSERT( QABS(c2->wire()->current() - 0.001) < maxCurrentError);
+    Q_ASSERT( QABS(r1->pinByName("p1")->pin()->voltage() - r1->pinByName("n1")->pin()->voltage() - 2) < maxVoltageError);
+    Q_ASSERT( QABS(v1->pinByName("p1")->pin()->voltage() - v1->pinByName("n1")->pin()->voltage() - 2) < maxVoltageError);
 
     sim->slotSetSimulating(false);
     sim->detachCircuit(circ);
 
+    // clean up
+    delete c1;
+    delete c2;
+    delete r1;
+    delete v1;
+    delete circ;
 }
 
 void SimulatorTest::testComponent_voltageDivider()
