@@ -30,6 +30,9 @@ class KtlConfig : public QObject
     Q_OBJECT
 
 public:
+    /**
+     \return the (single) instance of KtlConfig
+     */
     static KtlConfig *self();
 
     // asm formatter

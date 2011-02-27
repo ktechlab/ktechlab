@@ -25,10 +25,12 @@ KtlConfig *KtlConfig::m_self = 0;
 
 KtlConfig* KtlConfig::self()
 {
-    if(!m_self)
-        return new KtlConfig;
-    else
-        return m_self;
+    if(!m_self){
+        m_self = new KtlConfig;
+    }
+    return m_self;
+}
+
 }
 
 KtlConfig::~KtlConfig()
