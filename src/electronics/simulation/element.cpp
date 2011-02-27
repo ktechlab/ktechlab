@@ -120,7 +120,7 @@ bool Element::updateStatus() {
 	if (!p_eSet) b_status = false;
 
 	// And return the status :-)
- 	qDebug() << "Element::updateStatus(): Setting b_status to"<< b_status <<"this="<<this;
+ 	// qDebug() << "Element::updateStatus(): Setting b_status to"<< b_status <<"this="<<this;
 	return b_status;
 }
 
