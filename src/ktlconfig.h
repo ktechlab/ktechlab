@@ -35,6 +35,12 @@ public:
      */
     static KtlConfig *self();
 
+    /**
+     delete the instance of KtlConfig. Use only when exiting the program
+     (to make Valgrind happy)
+     */
+    static void destroy();
+
     // asm formatter
 
     #define INDENT_INT_OPTION(name) \
