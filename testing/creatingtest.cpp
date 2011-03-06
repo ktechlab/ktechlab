@@ -33,6 +33,21 @@
 #include <QDebug>
 #include <QtTest/QtTest>
 
+void CreatingTest::emptyCircuitTest()
+{
+    Circuit circ;
+
+    circ.init();
+
+    Simulator::self()->attachCircuit(&circ);
+    Simulator::self()->slotSetSimulating(true);
+    Simulator::self()->step();
+    circ.updateCurrents();
+
+    Simulator::self()->slotSetSimulating(false);
+    Simulator::self()->detachCircuit(&circ);
+}
+
 void CreatingTest::localVariablesTest()
 {
     {
