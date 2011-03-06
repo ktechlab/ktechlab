@@ -40,12 +40,12 @@ ECCurrentSource::ECCurrentSource(Circuit& ownerCircuit)
 	current->setValue(0.02);
 	addProperty(current);
 
-    ownerCircuit.addComponent(*this);
+    ownerCircuit.addComponent(this);
 }
 
 ECCurrentSource::~ECCurrentSource()
 {
-    circuit().removeComponent(*this);
+    circuit().removeComponent(this);
 }
 
 void ECCurrentSource::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
