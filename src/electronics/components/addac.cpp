@@ -58,7 +58,7 @@ ADDAC::ADDAC(Circuit& ownerCircuit) : Component(ownerCircuit)
 	property("range")->setMaxValue(1e12);
 	property("range")->setValue(5);
     */
-    ownerCircuit.addComponent(*this);
+    ownerCircuit.addComponent(this);
 }
 
 ADDAC::~ADDAC()

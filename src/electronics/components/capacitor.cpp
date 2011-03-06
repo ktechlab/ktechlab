@@ -38,11 +38,11 @@ Capacitor::Capacitor(Circuit &ownerCircuit) : Component(ownerCircuit),
 
 	addDisplayText("capacitance", QRect(-8, -24, 16, 16), "", false);
     */
-        ownerCircuit.addComponent(*this);
+        ownerCircuit.addComponent(this);
 }
 
 Capacitor::~Capacitor() {
-    circuit().removeComponent(*this);
+    circuit().removeComponent(this);
 }
 
 void Capacitor::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)

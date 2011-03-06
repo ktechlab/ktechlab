@@ -575,16 +575,16 @@ void Circuit::addElementMap(ElementMap* em)
 
 }
 
-void Circuit::addComponent(const Component& comp)
+void Circuit::addComponent(Component* comp)
 {
-    foreach(ElementMap *map, comp.elementMapList()){
+    foreach(ElementMap *map, comp->elementMapList()){
         addElementMap(map);
     }
 }
 
-void Circuit::removeComponent(const Component& comp)
+void Circuit::removeComponent(Component* comp)
 {
-    foreach(ElementMap *map, comp.elementMapList()){
+    foreach(ElementMap *map, comp->elementMapList()){
         removeElementMap(map);
     }
 }
