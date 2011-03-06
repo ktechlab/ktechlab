@@ -36,11 +36,11 @@ ECCell::ECCell(Circuit& ownerCircuit) :
     v->setValue(5.0);
     addProperty(v);
 
-    ownerCircuit.addComponent(*this);
+    ownerCircuit.addComponent(this);
 }
 
 ECCell::~ECCell() {
-    circuit().removeComponent(*this);
+    circuit().removeComponent(this);
 }
 
 void ECCell::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)

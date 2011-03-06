@@ -33,11 +33,11 @@ Resistor::Resistor(Circuit &ownerCircuit)
 	r->setMinValue(1e-6);
     addProperty(r);
 
-    ownerCircuit.addComponent(*this);
+    ownerCircuit.addComponent(this);
 }
 
 Resistor::~Resistor() {
-    circuit().removeComponent(*this);
+    circuit().removeComponent(this);
 }
 
 void Resistor::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)

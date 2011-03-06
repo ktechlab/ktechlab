@@ -35,11 +35,11 @@ ECFixedVoltage::ECFixedVoltage(Circuit &ownerCircuit)
     voltage->setValue(5.0);
     addProperty(voltage);
 
-    ownerCircuit.addComponent(*this);
+    ownerCircuit.addComponent(this);
 }
 
 ECFixedVoltage::~ECFixedVoltage() {
-    circuit().removeComponent(*this);
+    circuit().removeComponent(this);
 }
 
 void ECFixedVoltage::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)

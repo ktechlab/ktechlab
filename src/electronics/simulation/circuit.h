@@ -181,13 +181,14 @@ public:
      * Add a component to the circuit
      * @param comp the component to be added
      */
-	void addComponent(const Component& comp);
+	void addComponent(Component *comp);
 
     /**
      Remove a component from the circuit
      \param comp the component to be removed
     */
-    void removeComponent(const Component &comp);
+    void removeComponent(Component *comp);
+
 
     /**
      \return the number of equations in the circuit
