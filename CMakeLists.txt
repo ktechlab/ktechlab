@@ -53,8 +53,7 @@ CONFIGURE_FILE(
 ADD_DEFINITIONS(-DQT3_SUPPORT)
 # ADD_DEFINITIONS(-DNO_GPSIM)
 
-set( CompileSimulator_SRCS
- ${CMAKE_SOURCE_DIR}/testing/simulatortest.cpp
+set( SIMULATOR_LIB_SRCS
  ${CMAKE_SOURCE_DIR}/src/ktlconfig.cpp
  ${CMAKE_SOURCE_DIR}/src/simulator.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/simulation/logic.cpp
@@ -162,18 +161,31 @@ set( CompileSimulator_SRCS
 )
 
 
+add_library( simulator_lib
+ STATIC
+ ${SIMULATOR_LIB_SRCS}
+)
+
+# simulator test
+
+set( CompileSimulator_SRCS
+ ${CMAKE_SOURCE_DIR}/testing/simulatortest.cpp
+)
+
+
 add_executable( compiled_simulator
  ${CompileSimulator_SRCS}
  )
 
 
 target_link_libraries( compiled_simulator
-${QT_LIBRARIES}
-${QT_QT3SUPPORT_LIBRARY}
-${QT_QTTEST_LIBRARIES}
-${GPSIM_LIBRARY}
-${GPSim_LIBRARY}
-${KDE4_KDEUI_LIBS}
+ ${QT_LIBRARIES}
+ ${QT_QT3SUPPORT_LIBRARY}
+ ${QT_QTTEST_LIBRARIES}
+ ${GPSIM_LIBRARY}
+ ${GPSim_LIBRARY}
+ simulator_lib
+# ${KDE4_KDEUI_LIBS}
 )
 
 enable_testing()
@@ -200,6 +212,7 @@ target_link_libraries( qprocess_with_args_test
 add_test(qprocess_with_args_test qprocess_with_args_test)
 
 qt4_automoc(
+ ${SIMULATOR_SRCS}
  ${CompileSimulator_SRCS}
  ${qprocess_with_argument_SRC}
 )
