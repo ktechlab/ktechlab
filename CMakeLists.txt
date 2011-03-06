@@ -211,8 +211,28 @@ target_link_libraries( qprocess_with_args_test
  
 add_test(qprocess_with_args_test qprocess_with_args_test)
 
+# test for proper destruction
+
+set( CREATING_TEST_SRCS
+    ${CMAKE_SOURCE_DIR}/testing/creatingtest.cpp
+)
+
+add_executable( creating_test
+    ${CREATING_TEST_SRCS}
+)
+
+target_link_libraries( creating_test
+ ${QT_LIBRARIES}
+ ${QT_QT3SUPPORT_LIBRARY}
+ ${QT_QTTEST_LIBRARIES}
+ ${GPSIM_LIBRARY}
+ ${GPSim_LIBRARY}
+ simulator_lib
+)
+
 qt4_automoc(
  ${SIMULATOR_SRCS}
  ${CompileSimulator_SRCS}
  ${qprocess_with_argument_SRC}
+ ${CREATING_TEST_SRCS}
 )
