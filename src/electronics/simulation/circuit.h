@@ -189,6 +189,10 @@ public:
     */
     void removeComponent(Component *comp);
 
+    /**
+     \return the list of components in the circuit
+    */
+    const QList<Component*> components() const;
 
     /**
      \return the number of equations in the circuit
@@ -224,6 +228,9 @@ protected:
 	logicOutVec m_pLogicOut;
 
     std::set<ElementMap*> m_elementMapSet;
+
+    /// components in this circuit. the circuit doesn't own the components
+    QList<Component*> m_components;
 
 private: 
 	bool m_isSetChanged;
