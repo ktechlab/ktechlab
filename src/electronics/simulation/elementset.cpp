@@ -91,6 +91,9 @@ void ElementSet::addElement(Element *e) {
 }
 
 void ElementSet::doNonLinear(const int maxIterations, const double maxErrorV, const double maxErrorI) {
+    if(m_cn + m_cb <= 0)
+        return;
+
 	QuickVector *p_x_prev = new QuickVector(p_x);
 
 	// And now tell the cnodes and cbranches about their new voltages & currents
@@ -162,6 +165,9 @@ void ElementSet::loadX(const QuickVector *other) {
 }
 
 bool ElementSet::doLinear(bool performLU) {
+    if(m_cn + m_cb <= 0)
+        return false;
+
 	if(!m_cnonLinearList.empty() || (!p_b->isChanged() && !p_A->validate()))
 		return false;
 
@@ -184,6 +190,8 @@ assert(p_A->validateLU() < 1e-4);
 }
 
 void ElementSet::updateInfo() {
+    if(m_cn + m_cb <= 0)
+        return;
 
 //update voltage
 	for (uint i = 0; i < m_cn; i++) {
@@ -221,7 +229,12 @@ void ElementSet::updateInfo() {
 }
 
 void ElementSet::displayEquations() {
-	std::cout.setf(std::ios_base::fixed);
+    if(m_cn + m_cb <= 0){
+        std::cout << "ElementSet::displayEquations: all vectors and matrices are null.\n";
+        return;
+    }
+
+    std::cout.setf(std::ios_base::fixed);
 	std::cout.precision(5);
 	std::cout.setf(std::ios_base::showpoint);
 	std::cout << "A x = b :" << std::endl;
