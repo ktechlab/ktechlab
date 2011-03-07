@@ -32,6 +32,7 @@ Circuit::Circuit() :
 	m_elementSet = 0;
 	m_pLogicCacheBase = new LogicCacheNode;
 	m_elementList.clear();
+    m_components.clear();
 }
 
 Circuit::~Circuit() {
@@ -577,16 +578,31 @@ void Circuit::addElementMap(ElementMap* em)
 
 void Circuit::addComponent(Component* comp)
 {
+    if(m_components.indexOf(comp) >= 0){
+        qWarning() << "Circuit: addComponent: adding same component again to the cicuit. ignored";
+    }
+    m_components.append(comp);
     foreach(ElementMap *map, comp->elementMapList()){
+        Q_ASSERT(map);
         addElementMap(map);
     }
 }
 
 void Circuit::removeComponent(Component* comp)
 {
+    int count;
+    count =  m_components.removeAll(comp);
+    if(count != 1)
+        qWarning() << "Circuit: component removal removed " << count << "components!";
+
     foreach(ElementMap *map, comp->elementMapList()){
         removeElementMap(map);
     }
+}
+
+const QList< Component* > Circuit::components() const
+{
+    return m_components;
 }
 
 
