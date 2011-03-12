@@ -26,7 +26,11 @@
 #include "pin.h"
 
 #include "elementmap.h"
+
+// hack the circuit's "addElement" method
+#define protected public
 #include "circuit.h"
+#undef protected
 
 #include "qdebug.h"
 
