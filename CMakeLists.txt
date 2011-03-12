@@ -49,6 +49,8 @@ CONFIGURE_FILE(
 
 # add_subdirectory( testing )
 
+ # we need Qt3 support in some classes... TODO make the code compile without
+ #      this flag turned on
 ADD_DEFINITIONS(-DQT3_SUPPORT)
 # ADD_DEFINITIONS(-DNO_GPSIM)
 
