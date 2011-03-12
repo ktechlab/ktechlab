@@ -23,6 +23,7 @@
 #include "wire.h"
 #include <elementmap.h>
 #include <component.h>
+#include <simulator.h>
 
 typedef std::multimap<int, PinSet> PinSetMap;
 

@@ -231,6 +231,8 @@ target_link_libraries( creating_test
 )
 
 qt4_automoc(
+ creatingtest.h
+ simulatortest.h
  ${SIMULATOR_SRCS}
  ${CompileSimulator_SRCS}
  ${qprocess_with_argument_SRC}
