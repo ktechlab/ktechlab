@@ -39,7 +39,6 @@ include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
     ${QT_INCLUDES}
     ${GLIB2_INCLUDE_DIRS}
-    ${KDE4_INCLUDES}
     ${QT_QTTEST_INCLUDE_DIR}
 )
 
