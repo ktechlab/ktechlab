@@ -205,7 +205,20 @@ void Simulator::attachCircuit(Circuit *circuit) {
 
 	m_ordinaryCircuits->push_back(circuit);
 
+    // attach all the nonlinear components from the circuit
+    foreach(Component *comp, circuit->components()){
+        attachComponent(comp);
+    }
+
 	circuit->setChanged();
+}
+
+void Simulator::detachCircuit(Circuit *circuit) {
+    m_ordinaryCircuits->remove(circuit);
+    // detach all the components of the circuit
+    foreach(Component *comp, circuit->components()){
+        detachComponent(comp);
+    }
 }
 
 void Simulator::removeLogicInReferences(LogicIn *logicIn) {
@@ -221,9 +234,6 @@ void Simulator::removeLogicOutReferences(LogicOut *logic) {
 	m_logicChainStarts.erase(logic);
 }
 
-void Simulator::detachCircuit(Circuit *circuit) {
-	m_ordinaryCircuits->remove(circuit);
-}
 //END class Simulator
 
 #include "simulator.moc"
