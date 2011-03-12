@@ -100,6 +100,17 @@ void CreatingTest::localVariablesTest()
         Q_ASSERT(qAbs(cc1.wire(0)->current() + cc2.wire(0)->current()) < MAX_CURRENT_ERROR);
 
         Q_ASSERT(circ.components().size() == 2);
+
+        {
+            Resistor r2(circ);
+
+            initAndStep(&circ);
+
+            qDebug() << "r2 pin voltage:" << r2.pinByName("n1")->pin()->voltage();
+
+            Q_ASSERT(circ.components().size() == 3);
+        }
+        Q_ASSERT(circ.components().size() == 2);
     }
     Q_ASSERT(Simulator::self()->m_ordinaryCircuits->size() == 0);
 }
