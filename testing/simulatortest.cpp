@@ -26,6 +26,7 @@
 #include "pin.h"
 
 #include "elementmap.h"
+#include "circuit.h"
 
 #include "qdebug.h"
 

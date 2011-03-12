@@ -16,7 +16,6 @@
 
 #include <qobject.h>
 
-#include "circuit.h"
 #include "logic.h"
 
 
