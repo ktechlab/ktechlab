@@ -83,12 +83,6 @@ public:
 	PinSet *getPins() { return &m_pinList; }
 
     /**
-     * Add an element to the circuit.
-     * This method is called only internally, so it should be protected
-    */
-    void addElement(Element *element);
-
-    /**
      \return true, if the circuit contains at least one nonlinear element;
         false otherwise
      */
@@ -200,6 +194,13 @@ public:
     int equationCount() const;
 
 protected:
+
+    /**
+     * Add an element to the circuit.
+     * This method is called only internally, so it should be protected
+     */
+    void addElement(Element *element);
+
 	void cacheAndUpdate();
 
 	/**
