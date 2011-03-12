@@ -42,6 +42,20 @@ void CreatingTest::cleanupTestCase()
 }
 
 
+void CreatingTest::initAndStep(Circuit* circ)
+{
+    Q_ASSERT(circ);
+
+    circ->init();
+
+    Simulator * s = Simulator::self();
+    s->attachCircuit(circ);
+    s->slotSetSimulating(true);
+    s->step();
+    circ->updateCurrents();
+    s->slotSetSimulating(false);
+}
+
 void CreatingTest::emptyCircuitTest()
 {
     Circuit circ;

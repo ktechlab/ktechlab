@@ -24,10 +24,13 @@
 
 #include <QObject>
 
+class Circuit;
 
 class CreatingTest : public QObject
 {
     Q_OBJECT
+
+    void initAndStep(Circuit *);
 
 private slots:
     void cleanupTestCase();
