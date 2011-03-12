@@ -14,6 +14,7 @@
 
 #include "component.h"
 #include "pin.h"
+#include "circuit.h"
 
 // #include <kstaticdeleter.h>
 #include <qtimer.h>

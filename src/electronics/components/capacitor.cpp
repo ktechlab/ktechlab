@@ -15,6 +15,7 @@
 #include "capacitor.h"
 // #include "ecnode.h"
 // #include "libraryitem.h"
+#include "circuit.h"
 
 #include <QDebug>
 
