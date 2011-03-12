@@ -32,6 +32,15 @@
 
 #include <QDebug>
 #include <QtTest/QtTest>
+#include <ktlconfig.h>
+
+void CreatingTest::cleanupTestCase()
+{
+    qDebug() << "Cleaning up...";
+    KtlConfig::destroy();
+    Simulator::destroy();
+}
+
 
 void CreatingTest::emptyCircuitTest()
 {
