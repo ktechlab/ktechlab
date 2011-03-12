@@ -103,10 +103,18 @@ void CreatingTest::localVariablesTest()
 
         {
             Resistor r2(circ);
+            // FIXME in the current state, these lines of code create invalid circuit structure
+            ElectronicConnector cc3(r1.pinByName("n1"), r2.pinByName("n1"));
+            ElectronicConnector cc4(r1.pinByName("p1"), r2.pinByName("p1"));
 
             initAndStep(&circ);
 
-            qDebug() << "r2 pin voltage:" << r2.pinByName("n1")->pin()->voltage();
+            qDebug() << "r2 pin voltage:"
+                << r2.pinByName("n1")->pin()->voltage()
+                << " and "
+                << r2.pinByName("p1")->pin()->voltage();
+            qDebug() << "cc3 current: " << cc3.wire(0)->current();
+            qDebug() << "cc4 current: " << cc4.wire(0)->current();
 
             Q_ASSERT(circ.components().size() == 3);
         }
