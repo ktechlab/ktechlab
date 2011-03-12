@@ -34,6 +34,10 @@
 #include <QtTest/QtTest>
 #include <ktlconfig.h>
 
+
+#define MAX_CURRENT_ERROR 1e-9
+
+
 void CreatingTest::cleanupTestCase()
 {
     qDebug() << "Cleaning up...";
@@ -90,6 +94,12 @@ void CreatingTest::localVariablesTest()
 
         qDebug() << "cc1 current: " << cc1.wire(0)->current();
         qDebug() << "cc2 current: " << cc2.wire(0)->current();
+
+        Q_ASSERT(qAbs(qAbs(cc1.wire(0)->current()) - 5) < MAX_CURRENT_ERROR);
+        Q_ASSERT(qAbs(qAbs(cc2.wire(0)->current()) - 5) < MAX_CURRENT_ERROR);
+        Q_ASSERT(qAbs(cc1.wire(0)->current() + cc2.wire(0)->current()) < MAX_CURRENT_ERROR);
+
+        Q_ASSERT(circ.components().size() == 2);
     }
     Q_ASSERT(Simulator::self()->m_ordinaryCircuits->size() == 0);
 }
