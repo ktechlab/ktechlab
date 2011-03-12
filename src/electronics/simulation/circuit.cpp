@@ -37,6 +37,9 @@ Circuit::Circuit() :
 }
 
 Circuit::~Circuit() {
+    // detach the circuit from the simulator at destruction
+    Simulator::self()->detachCircuit(this);
+    // clean up data structures
     if(m_elementSet)
         delete m_elementSet;
 	m_elementSet = 0;
@@ -591,6 +594,11 @@ void Circuit::addComponent(Component* comp)
 
 void Circuit::removeComponent(Component* comp)
 {
+    Q_ASSERT(comp);
+
+    // detach the component from the simulator
+    Simulator::self()->detachComponent(comp);
+    // remove reference
     int count;
     count =  m_components.removeAll(comp);
     if(count != 1)
