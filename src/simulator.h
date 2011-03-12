@@ -108,6 +108,7 @@ public:
 	 * safety reasons.
 	 */
 	void removeLogicOutReferences(LogicOut *logic);
+
 	/**
 	 * Remove pointers to the given LogicIn, called when it is deleted for
 	 * safety reasons. Simulator does not have any references to LogicIns
@@ -116,7 +117,11 @@ public:
 	 */
 	void removeLogicInReferences(LogicIn *logic);
 
+    /**
+     * TODO document this method
+     */
 	inline void addStepCallback(int at, ComponentCallback *ccb);
+
 	/**
 	 * Add the given processor to the simulator. GpsimProcessor::step will
 	 * be called while present in the simulator (it is at GpsimProcessor's
@@ -125,6 +130,7 @@ public:
 	 * @see detachGpsimProcessor( GpsimProcessor * cpu );
 	 */
 	void attachGpsimProcessor(GpsimProcessor *cpu);
+
 	/**
 	 * Remove the given processor from the simulation loop
 	 */
@@ -142,6 +148,7 @@ public:
 	 * Attach a circuit to the simulator
 	 */
 	void attachCircuit(Circuit *circuit);
+
 	/**
 	 * Detach a circuit from the simulator.
 	 */
