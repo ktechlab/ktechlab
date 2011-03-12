@@ -30,9 +30,9 @@ class CreatingTest : public QObject
     Q_OBJECT
 
 private slots:
+    void cleanupTestCase();
     void emptyCircuitTest();
     void localVariablesTest();
-
 
 };
 
