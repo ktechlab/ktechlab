@@ -190,6 +190,7 @@ void Simulator::detachGpsimProcessor(GpsimProcessor *cpu) {
 }
 
 void Simulator::attachComponent(Component *component) {
+    Q_ASSERT(component);
 	if (!component || !component->doesStepNonLogic())
 		return;
 
@@ -197,6 +198,7 @@ void Simulator::attachComponent(Component *component) {
 }
 
 void Simulator::detachComponent(Component *component) {
+    Q_ASSERT(component);
 	m_components->remove(component);
 }
 
