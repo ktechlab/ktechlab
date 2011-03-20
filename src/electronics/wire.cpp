@@ -100,3 +100,5 @@ void Wire::setCurrentFor(const Pin* pin, double current)
         }
     m_bCurrentIsKnown = true;
 }
+
+#include "wire.moc"
