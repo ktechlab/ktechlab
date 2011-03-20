@@ -35,6 +35,10 @@ ElectronicConnector::ElectronicConnector(ECNode *startNode, ECNode *endNode)
     m_startEcNode = startNode;
     m_endEcNode = endNode;
 
+    // register
+    startNode->addConnector(this);
+    endNode->addConnector(this);
+
     // create wires
     m_wires.clear();
     for(int i=0; i<wirecount; i++){
@@ -44,6 +48,9 @@ ElectronicConnector::ElectronicConnector(ECNode *startNode, ECNode *endNode)
 }
 
 ElectronicConnector::~ElectronicConnector() {
+    // unregister
+    m_startEcNode->removeConnector(this);
+    m_endEcNode->removeConnector(this);
     // wires
     foreach(Wire *w, m_wires){
         delete w;
