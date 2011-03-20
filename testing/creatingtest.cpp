@@ -37,6 +37,9 @@
 
 #define MAX_CURRENT_ERROR 1e-9
 
+#define ASSERT_DOUBLE_EQUALS(expr,val) \
+    Q_ASSERT( qAbs( (expr) - (val) ) < MAX_CURRENT_ERROR)
+
 
 void CreatingTest::cleanupTestCase()
 {
@@ -94,11 +97,14 @@ void CreatingTest::localVariablesTest()
 
         qDebug() << "cc1 current: " << cc1.wire(0)->current();
         qDebug() << "cc2 current: " << cc2.wire(0)->current();
+        qDebug() << "v1 gives current: " << v1.pinByName("n1")->pin()->sourceCurrent();
 
         Q_ASSERT(qAbs(qAbs(cc1.wire(0)->current()) - 5) < MAX_CURRENT_ERROR);
         Q_ASSERT(qAbs(qAbs(cc2.wire(0)->current()) - 5) < MAX_CURRENT_ERROR);
         Q_ASSERT(qAbs(cc1.wire(0)->current() + cc2.wire(0)->current()) < MAX_CURRENT_ERROR);
 
+
+        ASSERT_DOUBLE_EQUALS(v1.pinByName("n1")->pin()->sourceCurrent(), 5);
         Q_ASSERT(circ.components().size() == 2);
 
         {
@@ -115,7 +121,9 @@ void CreatingTest::localVariablesTest()
                 << r2.pinByName("p1")->pin()->voltage();
             qDebug() << "cc3 current: " << cc3.wire(0)->current();
             qDebug() << "cc4 current: " << cc4.wire(0)->current();
+            qDebug() << "v1 gives current: " << v1.pinByName("n1")->pin()->sourceCurrent();
 
+            ASSERT_DOUBLE_EQUALS(v1.pinByName("n1")->pin()->sourceCurrent(), 10);
             Q_ASSERT(circ.components().size() == 3);
         }
         Q_ASSERT(circ.components().size() == 2);
