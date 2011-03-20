@@ -127,6 +127,23 @@ void CreatingTest::localVariablesTest()
             Q_ASSERT(circ.components().size() == 3);
         }
         Q_ASSERT(circ.components().size() == 2);
+        {
+            Resistor *r3 = new Resistor(circ);
+            ElectronicConnector *cc6;
+            cc6 = new ElectronicConnector(v1.pinByName("n1"), r3->pinByName("n1"));
+
+            QSignalSpy destroyedSpy(cc6, SIGNAL( destroyed()));
+            QVERIFY( destroyedSpy.isValid() );
+
+
+            initAndStep(&circ);
+
+            Q_ASSERT( destroyedSpy.count() == 0);
+            delete r3;
+            Q_ASSERT( destroyedSpy.count() == 1);
+
+        }
+        Q_ASSERT(circ.components().size() == 2);
     }
     Q_ASSERT(Simulator::self()->m_ordinaryCircuits->size() == 0);
 }
