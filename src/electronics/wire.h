@@ -13,6 +13,8 @@
 #ifndef WIRE_H
 #define WIRE_H
 
+#include <QObject>
+
 class Pin;
 
 /**
@@ -23,7 +25,8 @@ class Pin;
 The wire always connects two Pins.
 A current flows through the wire.
 */
-class Wire {
+class Wire : public QObject {
+    Q_OBJECT
 public:
     /**
      * Create a wire between two pins.
@@ -84,6 +87,7 @@ public:
      * \param aPin one end of the wire.
      */
 	Pin *otherPin(const Pin *aPin) const;
+
 
 private:
         /// current flowing from the start pin to the end pin of the wire
