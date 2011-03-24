@@ -729,7 +729,9 @@ void SimulatorTest::testComponent_currentSource()
 {
     Circuit c;
     ECCurrentSource i1(c);
+        // 20 mA
     Resistor r1(c);
+        // 1 ohm, by default
 
     ElectronicConnector ec1(i1.pinByName("p1"), r1.pinByName("p1"));
     ElectronicConnector ec2(i1.pinByName("n1"), r1.pinByName("n1"));
@@ -743,11 +745,28 @@ void SimulatorTest::testComponent_currentSource()
     sim->step();
 
     c.updateCurrents();
+
     c.displayEquations();
+
+    qDebug() << "ec1 current: " << ec1.wire()->current();
+    qDebug() << "ec2 current: " << ec2.wire()->current();
+    qDebug() << "r1 voltages: " << r1.pinByName("n1")->pin()->voltage()
+        << r1.pinByName("p1")->pin()->voltage();
+    qDebug() << "i1 voltages: " << i1.pinByName("n1")->pin()->voltage()
+        << i1.pinByName("p1")->pin()->voltage();
 
     sim->detachCircuit(&c);
 
-    // TODO assertions
+    ASSERT_DOUBLE_EQUALS( qAbs(ec1.wire()->current()), 0.02);
+    ASSERT_DOUBLE_EQUALS( qAbs(ec2.wire()->current()), 0.02);
+    ASSERT_DOUBLE_EQUALS(
+        r1.pinByName("p1")->pin()->voltage() -
+        r1.pinByName("n1")->pin()->voltage(),
+        0.02 );
+    ASSERT_DOUBLE_EQUALS(
+        i1.pinByName("p1")->pin()->voltage() -
+        i1.pinByName("n1")->pin()->voltage(),
+        0.02 );
 }
 
 /*
