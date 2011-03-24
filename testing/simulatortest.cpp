@@ -51,6 +51,11 @@
 #include <ktlconfig.h>
 
 
+#define MAX_COMPARE_ERROR 1e-6
+
+#define ASSERT_DOUBLE_EQUALS(a,b) \
+    Q_ASSERT( qAbs((a) - (b)) < MAX_COMPARE_ERROR )
+
 
 const double maxCurrentError = 1e-6;
 const double maxVoltageError = 1e-6;
