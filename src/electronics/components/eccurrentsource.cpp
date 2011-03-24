@@ -20,11 +20,13 @@
 ECCurrentSource::ECCurrentSource(Circuit& ownerCircuit)
 	: Component(ownerCircuit)
 {
-	// m_pNNode[0]->pin().setGroundType(Pin::gt_low);
 
     m_currentSource = new CurrentSource(0.02);
     m_elemMap = new ElementMap(m_currentSource);
     m_elementMapList.append(m_elemMap);
+
+    // m_pNNode[0]->pin().setGroundType(Pin::gt_low);
+    m_elemMap->pin(0)->setGroundType(Pin::gt_low);
 
     // external pins
     // FIXME check if the pins have the correct names
