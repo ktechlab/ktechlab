@@ -47,6 +47,6 @@ void CurrentSource::add_initial_dc()
 
 void CurrentSource::updateCurrents()
 {
-    m_cnodeCurrent[0] = -m_i;
-    m_cnodeCurrent[1] = m_i;
+    m_cnodeCurrent[0] = m_i;
+    m_cnodeCurrent[1] = -m_i;
 }
