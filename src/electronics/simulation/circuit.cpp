@@ -193,6 +193,9 @@ void Circuit::init() {
 		}
 	}
 
+    if(groundCount == 0)
+        qCritical() << "BUG: Circuit: no grounds in the current circuit!";
+
 	unsigned cnodeCount = eqs.size() - groundCount;
 
 	delete m_pLogicCacheBase;
