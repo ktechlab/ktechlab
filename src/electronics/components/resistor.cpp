@@ -30,7 +30,7 @@ Resistor::Resistor(Circuit &ownerCircuit)
     Property * r = new Property("resistance", Variant::Type::Double);
 	r->setCaption(tr("Resistance"));
 	r->setUnit(QChar(0x3a9));
-	r->setValue(1e4);
+	r->setValue(1);
 	r->setMinValue(1e-6);
     addProperty(r);
 
