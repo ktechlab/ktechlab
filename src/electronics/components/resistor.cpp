@@ -19,6 +19,7 @@
 Resistor::Resistor(Circuit &ownerCircuit)
 		: Component(ownerCircuit) {
     m_resistance = new Resistance();
+    // FIXME: default value for resistance is 1 ohm, for resistor is 10k
     m_elemMap = new ElementMap(m_resistance);
     m_elementMapList.append(m_elemMap);
 
