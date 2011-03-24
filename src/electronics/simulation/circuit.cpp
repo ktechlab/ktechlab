@@ -172,6 +172,9 @@ void Circuit::init() {
 		branchCount += (*it)->numCBranches();
 	}
 
+    // assign ground
+    identifyGround(m_pinList);
+
 	// Now to give all the Pins ids
 	unsigned groundCount = 0;
 	PinSetMap eqs;
