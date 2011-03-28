@@ -24,6 +24,7 @@
 #include <elementmap.h>
 #include <component.h>
 #include <simulator.h>
+#include <ecnode.h>
 
 typedef std::multimap<int, PinSet> PinSetMap;
 
@@ -285,7 +286,19 @@ void Circuit::init() {
 	}
 
     // assign ground
-    identifyGround(m_pinList);
+
+    // FIXME what happens if we have multiple unconnected parts in the same document
+    // we need to decomppose the circuit into connex parts: we need more grounds...
+    QList< QList<Pin*> > allGroups = getConnectedPinGroups();
+    foreach(QList<Pin *> group, allGroups){
+        // not nice, but it should work
+        PinSet groupSet;
+        groupSet.clear();
+        foreach(Pin *p, group){
+            groupSet.insert(p);
+        }
+        identifyGround(groupSet);
+    }
 
 	// Now to give all the Pins ids
 	unsigned groundCount = 0;
