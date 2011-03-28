@@ -677,6 +677,8 @@ void SimulatorTest::testComponent_fixedVoltage()
     qDebug() << "v1: " << v1->pinByName("p1")->pin()->voltage();
     qDebug() << "v2: " << v2->pinByName("p1")->pin()->voltage();
 
+    qDebug() << " ------------ step 2 ----------------";
+
     Resistor *r1 = new Resistor(*circ);
     r1->propertyByName("resistance")->setValue(1000);
 
@@ -698,7 +700,7 @@ void SimulatorTest::testComponent_fixedVoltage()
                     v2->pinByName("p1")->pin()->voltage() - 10) < maxVoltageError);
     Q_ASSERT( QABS(c2->wire()->current() - (-0.01)) < maxCurrentError);
     Q_ASSERT( QABS(c1->wire()->current() -   0.01 ) < maxCurrentError);
-    
+
     sim->slotSetSimulating(false);
     sim->detachCircuit(circ);
 
