@@ -737,6 +737,34 @@ void SimulatorTest::pinReduceTest()
     Q_ASSERT( c.equationCount() == 2);
 }
 
+void SimulatorTest::pinReduceTestWithGround()
+{
+    Circuit c;
+    ECNode n1(c);
+    ECNode n2(c);
+    ECNode n3(c);
+    ECNode n4(c);
+    ECNode n5(c);
+    Resistor r1(c);
+    Resistor v1(c);
+    ElectronicConnector c1(&n1, r1.pinByName("n1"));
+    ElectronicConnector c6(&n1, &n2);
+    ElectronicConnector c2(&n2, v1.pinByName("n1"));
+    ElectronicConnector c3(&n3, r1.pinByName("p1"));
+    ElectronicConnector c4(&n3, &n5);
+    ElectronicConnector c5(&n4, &n5);
+    ElectronicConnector ce(&n4, v1.pinByName("p1"));
+
+    n1.pin(0)->setGroundType(Pin::gt_medium);
+
+    c.init();
+    c.displayEquations();
+    c.updateCurrents();
+
+    // all the pins above should map to the same equations
+    Q_ASSERT( c.equationCount() == 1);
+}
+
 void SimulatorTest::testComponent_currentSource()
 {
     Circuit c;

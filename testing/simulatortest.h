@@ -17,6 +17,7 @@ private slots:
     void testSourceAnd4ResistanceInParallel();
 
     void pinReduceTest();
+    void pinReduceTestWithGround();
 
     void testComponent_SourceAndResistor();
     void testComponent_voltageDivider();
