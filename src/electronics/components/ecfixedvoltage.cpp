@@ -25,6 +25,9 @@ ECFixedVoltage::ECFixedVoltage(Circuit &ownerCircuit)
     m_map = new ElementMap(m_voltagePoint);
     m_elementMapList.append(m_map);
 
+    // the line below makes some tests fail, so this is not good
+    // m_map->pin(0)->setGroundType(Pin::gt_high);
+
     m_pinMap.insert("p1", new ECNode(ownerCircuit, m_map->pin(0)));
 
     Property *voltage = new Property("voltage", Variant::Type::Double);
