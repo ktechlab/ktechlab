@@ -124,6 +124,10 @@ void SimulatorTest::createTest(){
     Pin *pin1 = v4m->pin(0);
     Pin *pin2 = v4m->pin(1);
 
+    // we manipulate the elements directly, so these are needed
+    pin1->setGroundType(Pin::gt_medium);
+    pin2->setGroundType(Pin::gt_medium);
+
     Pin *pinR1 = r1m->pin(0);
     Pin *pinR2 = r1m->pin(1);
 
@@ -233,6 +237,9 @@ void SimulatorTest::testSourceAndResistance()
     ElementMap *v4m = new ElementMap( v4);
     pin1 = v4m->pin(0);
     pin2 = v4m->pin(1);
+    // we manipulate the elements directly, so these are needed
+    pin1->setGroundType(Pin::gt_medium);
+    pin2->setGroundType(Pin::gt_medium);
     ElementMap *r1m = new ElementMap( r1);
     pinR1 = r1m->pin(0);
     pinR2 = r1m->pin(1);
@@ -307,6 +314,11 @@ void SimulatorTest::testSourceAnd4ResistanceInParallel()
     ElementMap *v1m = new ElementMap(v1);
     Pin *pin1 = v1m->pin(0);
     Pin *pin2 = v1m->pin(1);
+
+    // we manipulate the elements directly, so these are needed
+    pin1->setGroundType(Pin::gt_medium);
+    pin2->setGroundType(Pin::gt_medium);
+
     ElementMap *r1m = new ElementMap(r1);
     Pin *pinR11 = r1m->pin(0);
     Pin *pinR12 = r1m->pin(1);
