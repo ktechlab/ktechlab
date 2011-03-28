@@ -148,6 +148,9 @@ int Circuit::identifyGround(PinSet nodeList, int *highest) {
 	// Now, we can give the nodes their cnode ids, or tell them they are ground
 	bool foundGround = false; // This is only used when we don't have a Always ground node
 
+    // number of pins assigned to be ground
+    int groundPinCount = 0;
+
 	for (PinSetMap::iterator it = eqs.begin(); it != eqsEnd; ++it) {
 		bool ground = false;
 
@@ -159,6 +162,7 @@ int Circuit::identifyGround(PinSet nodeList, int *highest) {
 		if (ground && (!foundGround || *highest == Pin::gt_always)) {
 			for (PinSet::iterator sit = it->second.begin(); sit != send; ++sit) {
 				(*sit)->setEqId(-1);
+                groundPinCount++;
 			}
 
 			foundGround = true;
@@ -168,6 +172,21 @@ int Circuit::identifyGround(PinSet nodeList, int *highest) {
 			}
 		}
 	}
+
+    // if all the pins would become grounds, then better not set any to ground
+    if(groundPinCount == nodeCount){
+        qDebug() << "Circuit:identifyGround: WARNING: "
+            <<"all nodes should be ground, so setting no ground";
+        *highest = Pin::gt_never;
+        // undo all...
+        for(PinSetMap::iterator it = eqs.begin(); it != eqsEnd; ++it){
+            const PinSet::iterator send = it->second.end();
+            for(PinSet::iterator sit = it->second.begin(); sit != send; ++sit){
+                (*sit)->setEqId(0);
+            }
+        }
+        return 0;
+    }
 
 	return numGround;
 }
