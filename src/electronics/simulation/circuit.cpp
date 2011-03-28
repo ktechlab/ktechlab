@@ -83,6 +83,8 @@ int Circuit::identifyGround(PinSet nodeList, int *highest) {
 	// highest ground priority found is marked as ground, and all others are
 	// marked as non ground (their eq-id is set to 0).
 
+    qDebug() << "ground search, pin count: " << nodeList.size();
+
 	int temp_highest;
 
 	if (!highest)
