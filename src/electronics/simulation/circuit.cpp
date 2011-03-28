@@ -88,7 +88,16 @@ int Circuit::identifyGround(PinSet nodeList, int *highest) {
 	if (!highest)
 		highest = &temp_highest;
 
-	// Now to give all the Pins ids
+    int nodeCount = nodeList.size();
+
+    // degenrate case: if we have 1 node, then it sholdn't be ground
+    // this fixes the strange behaviour when we have 1 unconnected voltage point
+    if(nodeCount == 1){
+        *highest = Pin::gt_never;
+        return 0;
+    }
+
+    // Now to give all the Pins ids
 	PinSetMap eqs;
 
 	while (!nodeList.empty()) {
