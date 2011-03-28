@@ -218,6 +218,11 @@ protected:
 	*/
 	static bool recursivePinAdd(Pin *node, PinSet *unassignedNodes, PinSet *associated, PinSet *nodes);
 
+    /**
+     * \return a list of pin sets (lists), that are connected between them
+     */
+    QList<QList<Pin *> > getConnectedPinGroups();
+
 	PinSet m_pinList;
 	ElementList m_elementList;
 	ElementSet *m_elementSet;

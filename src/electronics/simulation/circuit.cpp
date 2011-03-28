@@ -163,6 +163,88 @@ int Circuit::identifyGround(PinSet nodeList, int *highest) {
 	return numGround;
 }
 
+QList< QList< Pin* > > Circuit::getConnectedPinGroups()
+{
+    // list of unassociated pins
+    QList<Pin *> remainingPins;
+    // mapping from pin to component
+    QMap<Pin*, Component*> pinToComponent;
+
+    // generate the above two
+    foreach(Component *c, m_components){
+        foreach(ECNode *n, c->pinMap().values()){
+            foreach(Pin *p, n->pins()){
+                remainingPins.append(p);
+                pinToComponent.insert(p, c);
+            }
+        }
+    }
+
+
+    // this list of lists will be returned
+    QList< QList<Pin*> > groups;
+    // find which pin has been taken
+    QMap<Pin*,int> pinToGroup;
+    // number of current pin group
+    int currentGroupNumber = 1;
+
+    foreach(Pin *currentStart, m_pinList){
+        if(pinToGroup.value(currentStart,-1) == -1){
+            // found an unassociated pin
+            QList<Pin*> currentList;
+            currentList.append(currentStart);
+            // start flooding
+            QList<Pin*> toProcess;
+            toProcess.append(currentStart);
+            pinToGroup.insert(currentStart, currentGroupNumber);
+            while(!toProcess.isEmpty()){
+                Pin *current = toProcess.takeFirst();
+                // pin -> wire
+                foreach(Wire *w, current->wires()){
+                    Pin *other = w->otherPin(current);
+                    if(pinToGroup.value(other, -1) == -1){
+                        // not associated to any group
+                        pinToGroup.insert(other, currentGroupNumber);
+                        toProcess.append(other);
+                        currentList.append(other);
+                    } else
+                        if(pinToGroup.value(other, -1) != currentGroupNumber){
+                            qCritical()
+                                << "Circuit: getConnectedPinGroups: BUG:"
+                                << "wire consistency problems, 2 groups should be 1";
+                        }
+                }
+                // pin -> component
+                Component *currentComp = pinToComponent.value(current, NULL);
+                if(currentComp == NULL)
+                    continue;   // pin doesn't belong to a component
+
+                // if it does belong...
+                foreach(ECNode *n, currentComp->pinMap().values()){
+                    foreach(Pin *p, n->pins()){
+                        if(pinToGroup.value(p, -1) == -1){
+                            // not associated
+                            pinToGroup.insert(p, currentGroupNumber);
+                            toProcess.append(p);
+                            currentList.append(p);
+                        } else
+                            if(pinToGroup.value(p, -1) != currentGroupNumber){
+                                qCritical()
+                                << "Circuit: getConnectedPinGroups: BUG:"
+                                << "component consistency problems, 2 groups should be 1";
+                            }
+                    }
+                }
+            }
+            groups.append(currentList);
+            qDebug() << "pin group with " << currentList.size() << " pins";
+            currentGroupNumber++;
+        }
+    }
+    return groups;
+}
+
+
 /// Setup the simulator!!! 
 void Circuit::init() {
 	unsigned branchCount = 0;
