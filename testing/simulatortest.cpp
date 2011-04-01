@@ -811,13 +811,47 @@ void SimulatorTest::testComponent_currentSource()
         0.02 );
 }
 
-/*
+
 void SimulatorTest::testComponent_capacitor()
 {
     Circuit c;
-    Capacitor c1;
+    Capacitor c1(c);
+    ECCell v1(c);
+    Resistor r1(c);
+
+    ElectronicConnector cc1( v1.pinByName("p1"), r1.pinByName("n1"));
+    ElectronicConnector cc2( r1.pinByName("p1"), c1.pinByName("p1"));
+    ElectronicConnector cc3( c1.pinByName("n1"), v1.pinByName("n1"));
+
+    c.init();
+
+    Simulator * sim = Simulator::self();
+    sim->attachCircuit(&c);
+    sim->slotSetSimulating(true);
+    sim->step();
+
+    c.updateCurrents();
+
+    c.displayEquations();
+
+    qDebug() << "C1 voltages: " << c1.pinByName("p1")->pin()->voltage()
+        << c1.pinByName("n1")->pin()->voltage();
+
+    sim->step();
+    c.displayEquations();
+
+    qDebug() << "C1 voltages: " << c1.pinByName("p1")->pin()->voltage()
+        << c1.pinByName("n1")->pin()->voltage();
+
+    for(int i=0; i<15; i++) {
+        sim->step();
+        qDebug() << "C1 voltages: " << c1.pinByName("p1")->pin()->voltage()
+        << c1.pinByName("n1")->pin()->voltage();
+    }
+
+    sim->detachCircuit(&c);
 }
-*/
+
 
 
 QTEST_MAIN(SimulatorTest)
