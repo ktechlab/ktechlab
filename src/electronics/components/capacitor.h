@@ -12,8 +12,8 @@
 #define CAPACITOR_H
 
 #include "component.h"
-#include "capacitance.h"
 
+class Capacitance;
 class Circuit;
 class ECNode;
 
@@ -28,23 +28,11 @@ public:
 	Capacitor(Circuit &ownerCircuit);
 	~Capacitor();
 
-    /**
-     * \return the capacitance of the component
-     */
-    double capacitance() const;
-    /**
-     * set the value of the capaciance
-     */
-    void setCapacitance(double capacitance);
-
 protected:
     virtual void propertyChanged(Property& theProperty,
                                  QVariant newValue, QVariant oldValue );
 
-private:
-	// void dataChanged();
-
-	Capacitance m_capacitance;
+	Capacitance *m_capacitance;
 };
 
 #endif
