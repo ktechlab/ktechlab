@@ -8,20 +8,27 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-// #include <klocale.h>
-// #include <qpainter.h>
-
-#include "simulator.h"
 #include "capacitor.h"
-// #include "ecnode.h"
-// #include "libraryitem.h"
+
 #include "circuit.h"
+#include "capacitance.h"
+#include "ecnode.h"
+#include "elementmap.h"
+#include "simulator.h"
 
 #include <QDebug>
 
-Capacitor::Capacitor(Circuit &ownerCircuit) : Component(ownerCircuit),
-		m_capacitance(0.001, LINEAR_UPDATE_PERIOD)
+Capacitor::Capacitor(Circuit &ownerCircuit) : Component(ownerCircuit)
 {
+    // model
+    m_capacitance = new Capacitance(0.001, LINEAR_UPDATE_PERIOD);
+    ElementMap *m_elemMap = new ElementMap(m_capacitance);
+    m_elementMapList.append(m_elemMap);
+
+    // pins
+    m_pinMap.insert("n1", new ECNode(ownerCircuit, m_elemMap->pin(0)));
+    m_pinMap.insert("p1", new ECNode(ownerCircuit, m_elemMap->pin(1)));
+
     Property *cap = new Property("Capacitance", Variant::Type::Double);
     cap->setCaption(tr("Capacitance"));
     cap->setUnit("F");
@@ -29,17 +36,8 @@ Capacitor::Capacitor(Circuit &ownerCircuit) : Component(ownerCircuit),
     cap->setMaxValue(1e12);
     cap->setValue(1e-3);
     addProperty(cap);
-        /*
-	createProperty("Capacitance", Variant::Type::Double);
-	property("Capacitance")->setCaption(i18n("Capacitance"));
-	property("Capacitance")->setUnit("F");
-	property("Capacitance")->setMinValue(1e-12);
-	property("Capacitance")->setMaxValue(1e12);
-	property("Capacitance")->setValue(1e-3);
 
-	addDisplayText("capacitance", QRect(-8, -24, 16, 16), "", false);
-    */
-        ownerCircuit.addComponent(this);
+    ownerCircuit.addComponent(this);
 }
 
 Capacitor::~Capacitor() {
@@ -55,30 +53,5 @@ void Capacitor::propertyChanged(Property& theProperty, QVariant newValue, QVaria
     }
     Q_UNUSED(oldValue);
     double capacitance = newValue.asDouble();
-    setCapacitance(capacitance);
-}
-
-/*
-void Capacitor::dataChanged() {
-	double capacitance = dataDouble("Capacitance");
-
-	QString display = QString::number(capacitance / getMultiplier(capacitance), 'g', 3) + getNumberMag(capacitance) + "F";
-	setDisplayText("capacitance", display);
-
-	m_capacitance.setCapacitance(capacitance);
-}
-*/
-
-double Capacitor::capacitance() const
-{
-    return m_capacitance.capacitance();
-}
-
-void Capacitor::setCapacitance(double capacitance)
-{
-    if( capacitance < 0){
-        qCritical() << "capacitance value cannot be negative!";
-        capacitance = 1e-12;
-    }
-    m_capacitance.setCapacitance(capacitance);
+    m_capacitance->setCapacitance(capacitance);
 }
