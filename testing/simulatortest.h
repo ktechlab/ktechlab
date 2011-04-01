@@ -23,7 +23,7 @@ private slots:
     void testComponent_voltageDivider();
     void testComponent_fixedVoltage();
     void testComponent_currentSource();
-//    void testComponent_capacitor();
+    void testComponent_capacitor();
 
 };
 
