@@ -72,7 +72,7 @@ void Element::elementSetDeleted() {
 
 void Element::setCNodes(const int n0, const int n1, const int n2, const int n3) {
 	if (!p_eSet) {
-// 		cerr << "Element::setCNodes: can't set nodes without circuit!"<<endl;
+ 		// qDebug() << "Element::setCNodes: can't set nodes without circuit!";
 		for (int i = 0; i < MAX_CNODES; i++)
 			p_cnode[i] = 0;
 
