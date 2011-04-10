@@ -818,6 +818,7 @@ void SimulatorTest::testComponent_capacitor()
     Capacitor c1(c);
     ECCell v1(c);
     Resistor r1(c);
+    // C = 1mF, R = 1ohm, V = 5V
 
     ElectronicConnector cc1( v1.pinByName("p1"), r1.pinByName("n1"));
     ElectronicConnector cc2( r1.pinByName("p1"), c1.pinByName("p1"));
@@ -828,26 +829,79 @@ void SimulatorTest::testComponent_capacitor()
     Simulator * sim = Simulator::self();
     sim->attachCircuit(&c);
     sim->slotSetSimulating(true);
-    sim->step();
 
-    c.updateCurrents();
+    #define VOLTAGE_ON_C1   \
+    (c1.pinByName("p1")->pin()->voltage() - c1.pinByName("n1")->pin()->voltage())
 
-    c.displayEquations();
+    // WARNING these values are returned by previous runs of the simulator
+    //  manual calculations should be done...
+    const double supposedVoltages[] = {
+        3.07228,
+        4.25678,
+        4.71346,
+        4.88953,
+        4.95741,
+        4.98358,
+        4.99367,
+        4.99756
+    };
 
-    qDebug() << "C1 voltages: " << c1.pinByName("p1")->pin()->voltage()
-        << c1.pinByName("n1")->pin()->voltage();
+    // qDebug()<< "count = " << sizeof(supposedVoltages)/sizeof(double);
+    for(int i=0; i < sizeof(supposedVoltages)/sizeof(double); i++){
+        sim->step();
+        qDebug() << "V_c1 = " << VOLTAGE_ON_C1;
 
-    sim->step();
-    c.displayEquations();
+        if(i==0){
+            c.updateCurrents();
+            c.displayEquations();
+        }
 
-    qDebug() << "C1 voltages: " << c1.pinByName("p1")->pin()->voltage()
-        << c1.pinByName("n1")->pin()->voltage();
+        Q_ASSERT( qAbs( VOLTAGE_ON_C1 - supposedVoltages[i] ) < 0.0001 );
+    }
 
-    for(int i=0; i<15; i++) {
+    // reset the voltage on the capacitor
+    {
+        ElectronicConnector cc4( c1.pinByName("n1"), c1.pinByName("p1"));
+        c.init();
         sim->step();
         qDebug() << "C1 voltages: " << c1.pinByName("p1")->pin()->voltage()
         << c1.pinByName("n1")->pin()->voltage();
+        qDebug() << "V_c1 = " << VOLTAGE_ON_C1;
     }
+    c.init();
+
+
+    for(int i=0; i<sizeof(supposedVoltages)/sizeof(double); i++){
+        sim->step();
+        qDebug() << "V_c1 = " << VOLTAGE_ON_C1;
+
+        if(i==0){
+            c.updateCurrents();
+            c.displayEquations();
+        }
+
+        Q_ASSERT( qAbs( VOLTAGE_ON_C1 - supposedVoltages[i] ) < 0.0001 );
+    }
+
+
+    // hack more around V1 and ground:
+    // revert the ground selection
+    v1.pinByName("n1")->pin()->setGroundType(Pin::gt_never);
+
+    c.init();
+
+    for(int i=0; i<sizeof(supposedVoltages)/sizeof(double); i++){
+        sim->step();
+        qDebug() << "V_c1 = " << VOLTAGE_ON_C1;
+
+        if(i==0){
+            c.updateCurrents();
+            c.displayEquations();
+        }
+
+        Q_ASSERT( qAbs( VOLTAGE_ON_C1 - supposedVoltages[i] ) < 0.0001 );
+    }
+
 
     sim->detachCircuit(&c);
 }
