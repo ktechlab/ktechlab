@@ -8,69 +8,54 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include <klocale.h>
-#include <qpainter.h>
-
 #include "inductor.h"
-#include "libraryitem.h"
+
+#include "circuit.h"
+#include "ecnode.h"
+#include "elementmap.h"
+#include "inductance.h"
 #include "simulator.h"
 
-Item* Inductor::construct(ItemDocument *itemDocument, bool newItem, const char *id) {
-	return new Inductor((ICNDocument*)itemDocument, newItem, id);
+#include <QDebug>
+
+Inductor::Inductor(Circuit& ownerCircuit)
+		: Component(ownerCircuit)
+    {
+    m_pInductance = new Inductance(0.001, LINEAR_UPDATE_PERIOD);
+
+    ElementMap *m_elemMap = new ElementMap(m_pInductance);
+    m_elementMapList.append(m_elemMap);
+
+    // pins
+    m_pinMap.insert("n1", new ECNode(ownerCircuit, m_elemMap->pin(0)));
+    m_pinMap.insert("p1", new ECNode(ownerCircuit, m_elemMap->pin(1)));
+
+    Property *cap = new Property("Inductance", Variant::Type::Double);
+	cap->setCaption(tr("Inductance"));
+	cap->setUnit("H");
+	cap->setMinValue(1e-12);
+	cap->setMaxValue(1e12);
+	cap->setValue(1e-3);
+    addProperty(cap);
+
+    ownerCircuit.addComponent(this);
 }
 
-LibraryItem* Inductor::libraryItem() {
-	return new LibraryItem(
-	           "ec/inductor",
-	           i18n("Inductor"),
-	           i18n("Passive"),
-	           "inductor.png",
-	           LibraryItem::lit_component,
-	           Inductor::construct
-	       );
+Inductor::~Inductor() {
+    circuit().removeComponent(this);
 }
 
-Inductor::Inductor(ICNDocument *icnDocument, bool newItem, const char *id)
-		: SimpleComponent(icnDocument, newItem, id ? id : "inductor"),
-		m_pInductance(0.001, LINEAR_UPDATE_PERIOD) {
-	m_name = i18n("Inductor");
-	setSize(-16, -8, 32, 16);
 
-	init1PinLeft();
-	init1PinRight();
-
-	setup2pinElement(m_pInductance, m_pNNode[0]->pin(), m_pPNode[0]->pin());
-
-	createProperty("Inductance", Variant::Type::Double);
-	property("Inductance")->setCaption(i18n("Inductance"));
-	property("Inductance")->setUnit("H");
-	property("Inductance")->setMinValue(1e-12);
-	property("Inductance")->setMaxValue(1e12);
-	property("Inductance")->setValue(1e-3);
-
-	addDisplayText("inductance", QRect(-8, -24, 16, 16), "", false);
+void Inductor::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
+{
+    if(theProperty.name() != "Inductance"){
+        qCritical() << "inductor has different property than Inductance?"
+        << "and that one also changes?";
+        return;
+    }
+    Q_UNUSED(oldValue);
+    double inductance = newValue.asDouble();
+    m_pInductance->setInductance(inductance);
+    // reset the charge on the capacitance
+    m_pInductance->add_initial_dc();
 }
-
-Inductor::~Inductor() {}
-
-void Inductor::dataChanged() {
-	double inductance = dataDouble("Inductance");
-
-	QString display = QString::number(inductance / getMultiplier(inductance), 'g', 3) + getNumberMag(inductance) + "H";
-	setDisplayText("inductance", display);
-
-	m_pInductance.setInductance(inductance);
-}
-
-void Inductor::drawShape(QPainter &p) {
-	initPainter(p);
-	int _y = int(y());
-	int _x = int(x());
-
-	p.drawArc(_x - 16, _y - 5, 11, 11, 0, 180 * 16);
-	p.drawArc(_x - 5, _y - 5, 11, 11, 0, 180 * 16);
-	p.drawArc(_x + 6, _y - 5, 11, 11, 0, 180 * 16);
-
-	deinitPainter(p);
-}
-

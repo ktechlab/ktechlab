@@ -11,26 +11,25 @@
 #ifndef INDUCTOR_H
 #define INDUCTOR_H
 
-#include "simplecomponent.h"
-#include "inductance.h"
+#include "component.h"
+
+class Circuit;
+class Inductance;
 
 /**
 @author David Saxton
 */
-class Inductor : public SimpleComponent {
+class Inductor : public Component {
 
 public:
-    Inductor(ICNDocument *icnDocument, bool newItem, const char *id = 0);
+    Inductor(Circuit &ownerCircuit);
     ~Inductor();
 
-    static Item *construct(ItemDocument *itemDocument, bool newItem, const char *id);
-    static LibraryItem *libraryItem();
+protected:
+    virtual void propertyChanged(Property& theProperty,
+                                    QVariant newValue, QVariant oldValue );
 
-private:
-    void dataChanged();
-    virtual void drawShape(QPainter &p);
-
-    Inductance m_pInductance;
+    Inductance *m_pInductance;
 };
 
 #endif
