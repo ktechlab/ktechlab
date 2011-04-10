@@ -158,6 +158,8 @@ set( SIMULATOR_LIB_SRCS
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ecvoltagesource.cpp
  # ${CMAKE_SOURCE_DIR}/src/electronics/components/externalconnection.cpp # complicated
   # ..
+ ${CMAKE_SOURCE_DIR}/src/electronics/components/inductor.cpp
+  # ..
  ${CMAKE_SOURCE_DIR}/src/electronics/components/resistor.cpp
 )
 
