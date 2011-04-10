@@ -655,9 +655,9 @@ void Circuit::updateCurrents() {
                     qCritical() << "BUG: indeed the pin has more unknown wire currents";
         }
         // now we should know the output wire and the value of the current
-        if( outWire == NULL)
-            qDebug() << "All currents are known for this pin";
-        else {
+        if( outWire == NULL){
+            // qDebug() << "All currents are known for this pin";
+        } else {
             outWire->setCurrentFor(currentPin, -currentOut);
             Pin *otherPin = outWire->otherPin(currentPin);
             int otherWireUnknownCount = unknownWireCurrentCount.value(otherPin);
