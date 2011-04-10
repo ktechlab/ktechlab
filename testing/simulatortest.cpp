@@ -47,6 +47,7 @@
 #include <ecfixedvoltage.h>
 #include <capacitor.h>
 #include <eccurrentsource.h>
+#include "inductor.h"
 
 #include <ktlconfig.h>
 
@@ -904,8 +905,72 @@ void SimulatorTest::testComponent_capacitor()
 
 
     sim->detachCircuit(&c);
+
 }
 
+
+void SimulatorTest::testComponent_inductor()
+{
+    Circuit c;
+
+    Inductor l1(c);
+    ECCurrentSource i1(c);
+    Resistor r1(c);
+
+    ECNode nn1(c);
+    ECNode np1(c);
+
+    ElectronicConnector cc1( i1.pinByName("p1"), &np1);
+    ElectronicConnector cc2( &np1, l1.pinByName("p1"));
+    ElectronicConnector cc3( &np1, r1.pinByName("p1"));
+
+    ElectronicConnector cc4( i1.pinByName("n1"), &nn1);
+    ElectronicConnector cc5( &nn1, l1.pinByName("n1"));
+    ElectronicConnector cc6( &nn1, r1.pinByName("n1"));
+
+    c.init();
+
+    Simulator * sim = Simulator::self();
+    sim->attachCircuit(&c);
+    sim->slotSetSimulating(true);
+
+    sim->step();
+
+    c.updateCurrents();
+    c.displayEquations();
+
+    #define L1_CURRENT  \
+        cc2.wire()->current()
+
+    // WARNING reusing output from ktechlab; possibly incorrect values
+    //
+    const double l1Current[] = {
+        0.0122891,
+        0.0170271,
+        0.0188538,
+        0.0195581,
+        0.0198296,
+        0.0199343,
+        0.0199747,
+        0.0199902,
+        0.0199962
+    };
+
+    for(int i=0; i<sizeof(l1Current)/sizeof(double); i++){
+        qDebug() << "L1 current: " <<  L1_CURRENT;
+
+        Q_ASSERT( qAbs( qAbs( L1_CURRENT ) - l1Current[i] ) < 0.0001 );
+
+        sim->step();
+        c.updateCurrents();
+    }
+
+    // TODO voltage on L1
+
+    sim->detachCircuit(&c);
+
+    #undef L1_CURRENT
+}
 
 
 QTEST_MAIN(SimulatorTest)
