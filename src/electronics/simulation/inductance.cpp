@@ -31,6 +31,13 @@ void Inductance::setInductance(double i)
 
 void Inductance::add_initial_dc()
 {
+    // The adding of r_eg and v_eq will be done for us by time_step.
+    // So for now, just reset the constants used.
+    scaled_inductance = 0.0;
+
+    // bail if the element is not "ready"
+    if(!b_status) return;
+
 	A_c(0, 0) = 1;
 	A_c(0, 1) = -1;
 
@@ -38,9 +45,6 @@ void Inductance::add_initial_dc()
 	A_b(1, 0) = -1;
 
 	A_d(0, 0) = 0.0;
-	// The adding of r_eg and v_eq will be done for us by time_step.
-	// So for now, just reset the constants used.
-	scaled_inductance = 0.0;
 }
 
 void Inductance::updateCurrents()
