@@ -834,6 +834,8 @@ void SimulatorTest::testComponent_capacitor()
     #define VOLTAGE_ON_C1   \
     (c1.pinByName("p1")->pin()->voltage() - c1.pinByName("n1")->pin()->voltage())
 
+    // TODO test current through C1
+
     // WARNING these values are returned by previous runs of the simulator
     //  manual calculations should be done...
     const double supposedVoltages[] = {
@@ -906,6 +908,7 @@ void SimulatorTest::testComponent_capacitor()
 
     sim->detachCircuit(&c);
 
+    #undef VOLTAGE_ON_C1
 }
 
 
