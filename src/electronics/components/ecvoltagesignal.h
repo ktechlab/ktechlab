@@ -12,7 +12,6 @@
 #define ECVOLTAGESIGNAL_H
 
 #include "component.h"
-#include "voltagesignal.h"
 
 class VoltageSignal;
 class Circuit;
@@ -32,7 +31,7 @@ protected:
     virtual void propertyChanged(Property& theProperty, QVariant newValue,
                                  QVariant oldValue);
 	
-	VoltageSignal m_voltageSignal;
+	VoltageSignal *m_voltageSignal;
 };
 
 #endif
