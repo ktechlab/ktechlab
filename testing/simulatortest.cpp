@@ -834,7 +834,6 @@ void SimulatorTest::testComponent_capacitor()
     #define VOLTAGE_ON_C1   \
     (c1.pinByName("p1")->pin()->voltage() - c1.pinByName("n1")->pin()->voltage())
 
-    // TODO test current through C1
 
     // WARNING these values are returned by previous runs of the simulator
     //  manual calculations should be done...
@@ -861,6 +860,10 @@ void SimulatorTest::testComponent_capacitor()
 
         Q_ASSERT( qAbs( VOLTAGE_ON_C1 - supposedVoltages[i] ) < 0.0001 );
     }
+    // suppose very little current through C1
+    c.updateCurrents();
+    qDebug() << "C1 current: " << cc2.wire()->current();
+    Q_ASSERT( qAbs( cc2.wire()->current() ) < 0.003 ); // 3 mA
 
     // reset the voltage on the capacitor
     {
@@ -885,6 +888,9 @@ void SimulatorTest::testComponent_capacitor()
 
         Q_ASSERT( qAbs( VOLTAGE_ON_C1 - supposedVoltages[i] ) < 0.0001 );
     }
+    c.updateCurrents();
+    qDebug() << "C1 current: " << cc2.wire()->current();
+    Q_ASSERT( qAbs( cc2.wire()->current() ) < 0.003 ); // 3 mA
 
 
     // hack more around V1 and ground:
@@ -904,6 +910,9 @@ void SimulatorTest::testComponent_capacitor()
 
         Q_ASSERT( qAbs( VOLTAGE_ON_C1 - supposedVoltages[i] ) < 0.0001 );
     }
+    c.updateCurrents();
+    qDebug() << "C1 current: " << cc2.wire()->current();
+    Q_ASSERT( qAbs( cc2.wire()->current() ) < 0.003 ); // 3 mA
 
 
     sim->detachCircuit(&c);
