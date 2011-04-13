@@ -12,17 +12,32 @@
 
 #include "ecvoltagesignal.h"
 
+#include "circuit.h"
+#include "ecnode.h"
+#include "elementmap.h"
 #include "simulator.h"
 #include "variant.h"
+#include "voltagesignal.h"
 
 #include <QDebug>
-#include <cmath>
 
 ECVoltageSignal::ECVoltageSignal(Circuit& ownerCircuit)
-	: Component(ownerCircuit),
-	m_voltageSignal(LINEAR_UPDATE_PERIOD, 0)
+	: Component(ownerCircuit)
+	
 {
-	m_voltageSignal.setStep(ElementSignal::st_sinusoidal, 50.);
+    m_voltageSignal = new VoltageSignal(LINEAR_UPDATE_PERIOD, 5);
+	m_voltageSignal->setStep(ElementSignal::st_sinusoidal, 50.);
+
+    ElementMap *m_elemMap = new ElementMap(m_voltageSignal);
+    m_elementMapList.append(m_elemMap);
+
+    // these pins might become ground
+    m_elemMap->pin(0)->setGroundType(Pin::gt_medium);
+    m_elemMap->pin(1)->setGroundType(Pin::gt_medium);
+
+    // pins
+    m_pinMap.insert("n1", new ECNode(ownerCircuit, m_elemMap->pin(0)));
+    m_pinMap.insert("p1", new ECNode(ownerCircuit, m_elemMap->pin(1)));
 
     Property *freq = new Property( "frequency", Variant::Type::Double );
 	freq->setCaption( tr("Frequency") );
@@ -49,27 +64,31 @@ ECVoltageSignal::ECVoltageSignal(Circuit& ownerCircuit)
 	peak_rms->setAllowed(allowed);
 	peak_rms->setValue("Peak");
     addProperty(peak_rms);
+
+    ownerCircuit.addComponent(this);
 }
 
-ECVoltageSignal::~ECVoltageSignal() {}
+ECVoltageSignal::~ECVoltageSignal() {
+    circuit().removeComponent(this);
+}
 
 void ECVoltageSignal::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
 {
     Q_UNUSED(oldValue);
     if(theProperty.name() == "voltage"){
         const double voltage = newValue.asDouble();
-        m_voltageSignal.setVoltage(voltage);
+        m_voltageSignal->setVoltage(voltage);
     } else if(theProperty.name() == "frequency"){
-        m_voltageSignal.setStep(ElementSignal::st_sinusoidal, newValue.asDouble() );
+        m_voltageSignal->setStep(ElementSignal::st_sinusoidal, newValue.asDouble() );
     } else if(theProperty.name() == "peak-rms"){
-        const double voltage = m_voltageSignal.voltage();
+        const double voltage = m_voltageSignal->voltage();
         if((newValue.asString() == "Peak") && (oldValue.asString() == "RMS")){
             // RMS -> peak
-            m_voltageSignal.setVoltage( voltage * M_SQRT1_2 );
+            m_voltageSignal->setVoltage( voltage * M_SQRT1_2 );
         } else
             if((newValue.asString() == "RMS") && (oldValue.asString() == "Peak")){
                 // peak -> RMS
-                m_voltageSignal.setVoltage(voltage * M_SQRT2);
+                m_voltageSignal->setVoltage(voltage * M_SQRT2);
             } else
                 qCritical() << "ECVoltageSignal: unknown configuration of Peak/RSM: old: "
                     << oldValue.asString() << " ; new: " << newValue.asString();
