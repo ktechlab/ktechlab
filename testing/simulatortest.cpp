@@ -48,6 +48,9 @@
 #include <capacitor.h>
 #include <eccurrentsource.h>
 #include "inductor.h"
+#include <ecvoltagesignal.h>
+
+
 
 #include <ktlconfig.h>
 
@@ -56,6 +59,9 @@
 
 #define ASSERT_DOUBLE_EQUALS(a,b) \
     Q_ASSERT( qAbs((a) - (b)) < MAX_COMPARE_ERROR )
+
+#define ASSERT_VALUES_CLOSE_BY(a,b,err) \
+    Q_ASSERT( qAbs((a) - (b)) < err)
 
 
 const double maxCurrentError = 1e-6;
@@ -987,6 +993,64 @@ void SimulatorTest::testComponent_inductor()
 
     #undef L1_CURRENT
     #undef L1_VOLTAGE
+}
+
+void SimulatorTest::testComponent_ecVoltageSignal()
+{
+    Circuit c;
+    ECVoltageSignal v1(c);
+    Resistor r1(c);
+
+    ElectronicConnector cc1( v1.pinByName("p1"), r1.pinByName("p1"));
+    ElectronicConnector cc2( v1.pinByName("n1"), r1.pinByName("n1"));
+
+    // to not to wait so much
+    // v1.propertyByName("frequency")->setValue(1000.);
+
+    c.init();
+
+    Simulator * sim = Simulator::self();
+    sim->attachCircuit(&c);
+    sim->slotSetSimulating(true);
+
+    #define ASSERT_V1_VALUE(val) \
+    ASSERT_VALUES_CLOSE_BY(                         \
+        v1.pinByName("p1")->pin()->voltage() -      \
+        v1.pinByName("n1")->pin()->voltage(),       \
+                           val,                     \
+                           1e-3)
+
+    // FIXME data from simulation runs; might not be accurate
+    const double voltageValues[] = {
+        4.75528,
+        4.04508,
+        2.93893,
+        1.54508,
+        0,
+        -1.54508,
+        -2.93893,
+        -4.04508,
+        -4.75528,
+        -5,
+        -4.75528,
+        -4.04508
+    };
+
+    for(int i=0; i< sizeof(voltageValues)/sizeof(double); i++){
+        sim->step();
+
+        if(i == 0){
+            c.updateCurrents();
+            c.displayEquations();
+        }
+
+        qDebug() << "V1 voltages:" << v1.pinByName("p1")->pin()->voltage()
+            << v1.pinByName("n1")->pin()->voltage();
+
+        ASSERT_V1_VALUE( voltageValues[i] );
+    }
+
+    sim->detachCircuit(&c);
 }
 
 
