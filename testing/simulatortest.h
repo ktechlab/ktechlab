@@ -25,6 +25,7 @@ private slots:
     void testComponent_currentSource();
     void testComponent_capacitor();
     void testComponent_inductor();
+    void testComponent_ecVoltageSignal();
 
 };
 
