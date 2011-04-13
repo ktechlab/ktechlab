@@ -954,6 +954,9 @@ void SimulatorTest::testComponent_inductor()
     #define L1_CURRENT  \
         cc2.wire()->current()
 
+    #define L1_VOLTAGE \
+        (l1.pinByName("p1")->pin()->voltage() - l1.pinByName("n1")->pin()->voltage())
+
     // WARNING reusing output from ktechlab; possibly incorrect values
     //
     const double l1Current[] = {
@@ -977,11 +980,13 @@ void SimulatorTest::testComponent_inductor()
         c.updateCurrents();
     }
 
-    // TODO voltage on L1
+    qDebug() << "L1 voltage: " << L1_VOLTAGE;
+    Q_ASSERT( qAbs(L1_VOLTAGE) < 1e-5 ); // 10uV
 
     sim->detachCircuit(&c);
 
     #undef L1_CURRENT
+    #undef L1_VOLTAGE
 }
 
 
