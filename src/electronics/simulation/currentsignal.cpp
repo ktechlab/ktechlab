@@ -57,8 +57,8 @@ void CurrentSignal::addCurrents()
 	if ( m_newCurrent == m_oldCurrent )
 		return;
 
-	b_i( 0 ) -= m_newCurrent-m_oldCurrent;
-	b_i( 1 ) += m_newCurrent-m_oldCurrent;
+	b_i( 0 ) += m_newCurrent-m_oldCurrent;
+	b_i( 1 ) -= m_newCurrent-m_oldCurrent;
 	
 	m_oldCurrent = m_newCurrent;
 }
