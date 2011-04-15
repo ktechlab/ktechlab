@@ -49,6 +49,7 @@
 #include <eccurrentsource.h>
 #include "inductor.h"
 #include <ecvoltagesignal.h>
+#include <eccurrentsignal.h>
 
 
 
@@ -1053,6 +1054,70 @@ void SimulatorTest::testComponent_ecVoltageSignal()
     sim->detachCircuit(&c);
 
     #undef ASSERT_V1_VALUE
+}
+
+void SimulatorTest::testComponent_ecCurrentSignal()
+{
+    Circuit c;
+    ECCurrentSignal i1(c);
+    Resistor r1(c);
+
+    ElectronicConnector cc1( i1.pinByName("p1"), r1.pinByName("p1"));
+    ElectronicConnector cc2( i1.pinByName("n1"), r1.pinByName("n1"));
+
+    // to not to wait so much
+    // v1.propertyByName("frequency")->setValue(1000.);
+
+    c.init();
+
+    Simulator * sim = Simulator::self();
+    sim->attachCircuit(&c);
+    sim->slotSetSimulating(true);
+
+    #define ASSERT_I1_VALUE(val) \
+    ASSERT_VALUES_CLOSE_BY(                         \
+    i1.pinByName("p1")->pin()->voltage() -      \
+    i1.pinByName("n1")->pin()->voltage(),       \
+    val,                     \
+    1e-3)
+
+    // FIXME data from simulation runs; might not be accurate
+    const double voltageValues[] = {
+        -0.0190211,
+        -0.0161803,
+        -0.0117557,
+        -0.00618034,
+        -2.90946e-17,
+        0.00618034,
+        0.0117557,
+        0.0161803,
+        0.0190211,
+        0.02,
+        0.0190211,
+        0.0161803,
+    };
+
+    for(int i=0; i< sizeof(voltageValues)/sizeof(double); i++){
+        sim->step();
+
+        if(i == 0){
+            c.updateCurrents();
+            c.displayEquations();
+
+            qDebug() << "r1 current: " << cc1.wire()->current();
+        }
+
+        qDebug() << "I1 voltages:" << i1.pinByName("p1")->pin()->voltage()
+        << i1.pinByName("n1")->pin()->voltage();
+
+        ASSERT_I1_VALUE( voltageValues[i] );
+    }
+    c.updateCurrents();
+    qDebug() << "r1 current: " << cc1.wire()->current();
+
+    sim->detachCircuit(&c);
+
+    #undef ASSERT_I1_VALUE
 }
 
 
