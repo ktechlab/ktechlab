@@ -10,15 +10,29 @@
 
 #include "eccurrentsignal.h"
 
+#include <circuit.h>
+#include "currentsignal.h"
+#include "ecnode.h"
+#include "elementmap.h"
+#include "pin.h"
 #include "simulator.h"
 #include "variant.h"
 
+#include <QDebug>
+
 ECCurrentSignal::ECCurrentSignal(Circuit& ownerCircuit)
-	: Component(ownerCircuit),
-	m_currentSignal(LINEAR_UPDATE_PERIOD, 0)	
+	: Component(ownerCircuit)
 {
-	// m_pNNode[0]->pin().setGroundType(Pin::gt_low);
-	m_currentSignal.setStep(ElementSignal::st_sinusoidal, 50.);
+    m_currentSignal = new CurrentSignal(LINEAR_UPDATE_PERIOD, 0.02);
+    m_currentSignal->setStep(ElementSignal::st_sinusoidal, 50.);
+
+    ElementMap *map = new ElementMap(m_currentSignal);
+    m_elementMapList.append(map);
+
+    m_pinMap.insert("n1", new ECNode(ownerCircuit, map->pin(0)));
+    m_pinMap.insert("p1", new ECNode(ownerCircuit, map->pin(1)));
+
+    map->pin(1)->setGroundType(Pin::gt_low);
 
     Property *freq = new Property("1-frequency", Variant::Type::Double);
 	freq->setCaption(tr("Frequency"));
@@ -36,11 +50,13 @@ ECCurrentSignal::ECCurrentSignal(Circuit& ownerCircuit)
 	current->setValue(0.02);
     addProperty(current);
 
+    ownerCircuit.addComponent(this);
 }
 
 
 ECCurrentSignal::~ECCurrentSignal()
 {
+    circuit().removeComponent(this);
 }
 
 void ECCurrentSignal::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
@@ -49,10 +65,13 @@ void ECCurrentSignal::propertyChanged(Property& theProperty, QVariant newValue, 
 
     if(theProperty.name() == "1-current"){
         double frequency = newValue.asDouble();
-        m_currentSignal.setStep(ElementSignal::st_sinusoidal, frequency );
-    }
+        m_currentSignal->setStep(ElementSignal::st_sinusoidal, frequency );
+    } else
     if(theProperty.name() == "1-frequency"){
         double current = newValue.asDouble();
-        m_currentSignal.setCurrent(current);
+        m_currentSignal->setCurrent(current);
+    } else {
+        qCritical() << "ECCurrentSignal: inexistent property with the name "
+            << theProperty.name() << " changed";
     }
 }

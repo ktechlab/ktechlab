@@ -12,7 +12,6 @@
 #define ECCURRENTSIGNAL_H
 
 #include "component.h"
-#include "currentsignal.h"
 
 class Circuit;
 class CurrentSignal;
@@ -30,7 +29,7 @@ public:
 protected:
     virtual void propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue);
 	
-	CurrentSignal m_currentSignal;
+	CurrentSignal *m_currentSignal;
 };
 
 #endif
