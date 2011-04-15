@@ -1051,6 +1051,8 @@ void SimulatorTest::testComponent_ecVoltageSignal()
     }
 
     sim->detachCircuit(&c);
+
+    #undef ASSERT_V1_VALUE
 }
 
 
