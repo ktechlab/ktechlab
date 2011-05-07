@@ -27,7 +27,7 @@ private slots:
     void testComponent_inductor();
     void testComponent_ecVoltageSignal();
     void testComponent_ecCurrentSignal();
-
+    void testComponent_ecDiode();
 };
 
 #endif
