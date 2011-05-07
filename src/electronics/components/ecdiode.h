@@ -12,9 +12,9 @@
 #define ECDIODE_H
 
 #include "component.h"
-#include "diode.h"
 
 class Circuit;
+class Diode;
 
 /**
 @short Simple diode
@@ -30,7 +30,7 @@ protected:
     virtual void propertyChanged(Property& theProperty, QVariant newValue,
                                  QVariant oldValue);
 
-	Diode m_diode;
+	Diode *m_diode;
 };
 
 #endif
