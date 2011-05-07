@@ -10,6 +10,10 @@
 
 #include "ecdiode.h"
 
+#include "circuit.h"
+#include "diode.h"
+#include "ecnode.h"
+#include "elementmap.h"
 #include "variant.h"
 
 #include <QDebug>
@@ -17,6 +21,13 @@
 ECDiode::ECDiode(Circuit& ownerCircuit) :
             Component(ownerCircuit)
 {
+    m_diode = new Diode();
+
+    ElementMap *map = new ElementMap(m_diode);
+    m_elementMapList.append(map);
+
+    m_pinMap.insert("n1", new ECNode(ownerCircuit, map->pin(0)));
+    m_pinMap.insert("p1", new ECNode(ownerCircuit, map->pin(1)));
 
 	DiodeSettings ds; // it will have the default properties that we use
 
@@ -53,15 +64,19 @@ ECDiode::ECDiode(Circuit& ownerCircuit) :
 // 	property("R")->setMaxValue(1e0);
 // 	property("R")->setValue( ds.R );
 // 	property("R")->setAdvanced(true);
+
+    ownerCircuit.addComponent(this);
 }
 
-ECDiode::~ECDiode() {}
+ECDiode::~ECDiode() {
+    circuit().removeComponent(this);
+}
 
 void ECDiode::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
 {
     Q_UNUSED(oldValue);
 
-    DiodeSettings ds = m_diode.settings();
+    DiodeSettings ds = m_diode->settings();
     if(theProperty.name() == "I_S"){
         ds.I_S = newValue.asDouble();
     } else if(theProperty.name() == "N"){
@@ -70,5 +85,5 @@ void ECDiode::propertyChanged(Property& theProperty, QVariant newValue, QVariant
         ds.V_B = newValue.asDouble();
     } else
         qCritical() << "ECDiode: uknown property has changed: " << theProperty.name();
-    m_diode.setDiodeSettings(ds);
+    m_diode->setDiodeSettings(ds);
 }
