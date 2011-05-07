@@ -1135,6 +1135,28 @@ void SimulatorTest::testComponent_ecDiode()
     sim->attachCircuit(&c);
     sim->slotSetSimulating(true);
 
+    #define ASSERT_D1_VOLTAGE(val) \
+        ASSERT_VALUES_CLOSE_BY( \
+        d1.pinByName("p1")->pin()->voltage() -  \
+        d1.pinByName("n1")->pin()->voltage(),   \
+        val, \
+        1e-3)
+
+    // FIXME verify experimental values
+    const double voltageValues[] = {
+            5.51545,
+            5.50968,
+            5.50225,
+            5.49176,
+            5.47384,
+            0.776406,
+            -0.773844,
+            -0.791864,
+            -0.802246,
+            -0.809683
+    };
+    Q_ASSERT( sizeof(voltageValues)/sizeof(double) == 10);
+
     for(int i=-5; i<5; i++){
         i1.propertyByName("current")->setValue(i*0.01);
 
@@ -1148,8 +1170,14 @@ void SimulatorTest::testComponent_ecDiode()
         qDebug() <<"d1 current: " << cc1.wire()->current();
         qDebug() << "d1 voltages: "
         << d1.pinByName("p1")->pin()->voltage() 
-        << d1.pinByName("n1")->pin()->voltage();
+        << d1.pinByName("n1")->pin()->voltage()
+        << "      delta: "
+        <<  d1.pinByName("p1")->pin()->voltage() -
+            d1.pinByName("n1")->pin()->voltage()    ;
+
+        ASSERT_D1_VOLTAGE(voltageValues[i+5]);
     }
+    #undef ASSERT_D1_VOLTAGE
 
     sim->detachCircuit(&c);
 }
