@@ -50,7 +50,7 @@
 #include "inductor.h"
 #include <ecvoltagesignal.h>
 #include <eccurrentsignal.h>
-
+#include "ecdiode.h"
 
 
 #include <ktlconfig.h>
@@ -1119,6 +1119,41 @@ void SimulatorTest::testComponent_ecCurrentSignal()
 
     #undef ASSERT_I1_VALUE
 }
+
+void SimulatorTest::testComponent_ecDiode()
+{
+    Circuit c;
+    ECCurrentSource i1(c);
+    ECDiode d1(c);
+
+    ElectronicConnector cc1(i1.pinByName("p1"), d1.pinByName("n1"));
+    ElectronicConnector cc2(i1.pinByName("n1"), d1.pinByName("p1"));
+
+    c.init();
+
+    Simulator * sim = Simulator::self();
+    sim->attachCircuit(&c);
+    sim->slotSetSimulating(true);
+
+    for(int i=-5; i<5; i++){
+        i1.propertyByName("current")->setValue(i*0.01);
+
+        sim->step();
+        c.updateCurrents();
+
+        if(i== -5){
+            c.displayEquations();
+        }
+
+        qDebug() <<"d1 current: " << cc1.wire()->current();
+        qDebug() << "d1 voltages: "
+        << d1.pinByName("p1")->pin()->voltage() 
+        << d1.pinByName("n1")->pin()->voltage();
+    }
+
+    sim->detachCircuit(&c);
+}
+
 
 
 QTEST_MAIN(SimulatorTest)
