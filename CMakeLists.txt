@@ -129,14 +129,11 @@ set( SIMULATOR_LIB_SRCS
  ${CMAKE_SOURCE_DIR}/src/electronics/components/addac.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/bidirled.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/binarycounter.cpp
-   # bussplitter.cpp
+#${CMAKE_SOURCE_DIR}/src/electronics/components/bussplitter.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/capacitor.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/demultiplexer.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/dependentsource.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/discretelogic.cpp
- ${CMAKE_SOURCE_DIR}/src/electronics/components/led.cpp
- ${CMAKE_SOURCE_DIR}/src/electronics/components/ecdiode.cpp
- ${CMAKE_SOURCE_DIR}/src/electronics/components/ecvoltagesource.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ec555.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ecbcdto7segment.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ecbjt.cpp
@@ -147,20 +144,42 @@ set( SIMULATOR_LIB_SRCS
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ecfixedvoltage.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ecground.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ecjfet.cpp
- # ${CMAKE_SOURCE_DIR}/src/electronics/components/eckeypad.cpp # interactive..
+#${CMAKE_SOURCE_DIR}/src/electronics/components/eckeypad.cpp # interactive..
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ecmosfet.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ecopamp.cpp
- # ${CMAKE_SOURCE_DIR}/src/electronics/components/ecpotentiometer.cpp # interactive
- # ${CMAKE_SOURCE_DIR}/src/electronics/components/ecsevensegment.cpp # interactive
+#${CMAKE_SOURCE_DIR}/src/electronics/components/ecpotentiometer.cpp # interactive
+#${CMAKE_SOURCE_DIR}/src/electronics/components/ecsevensegment.cpp # interactive
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ecsignallamp.cpp
- # ${CMAKE_SOURCE_DIR}/src/electronics/components/ecsubcircuit.cpp # complicated
+#${CMAKE_SOURCE_DIR}/src/electronics/components/ecsubcircuit.cpp # complicated
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ecvoltagesignal.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/ecvoltagesource.cpp
- # ${CMAKE_SOURCE_DIR}/src/electronics/components/externalconnection.cpp # complicated
-  # ..
+#${CMAKE_SOURCE_DIR}/src/electronics/components/externalconnection.cpp # complicated
+#${CMAKE_SOURCE_DIR}/src/electronics/components/flipflop.cpp
+#${CMAKE_SOURCE_DIR}/src/electronics/components/fulladder.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/inductor.cpp
-  # ..
+#${CMAKE_SOURCE_DIR}/src/electronics/components/ledbargraphdisplay.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/components/led.cpp
+#${CMAKE_SOURCE_DIR}/src/electronics/components/magnitudecomparator.cpp
+#${CMAKE_SOURCE_DIR}/src/electronics/components/matrixdisplay.cpp
+#${CMAKE_SOURCE_DIR}/src/electronics/components/matrixdisplaydriver.cpp
+#${CMAKE_SOURCE_DIR}/src/electronics/components/meter.cpp
+#${CMAKE_SOURCE_DIR}/src/electronics/components/multiinputgate.cpp
+#${CMAKE_SOURCE_DIR}/src/electronics/components/multiplexer.cpp
+#${CMAKE_SOURCE_DIR}/src/electronics/components/parallelportcomponent.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/components/piccomponent.cpp
+ ${CMAKE_SOURCE_DIR}/src/electronics/components/piccomponentpin.cpp
+#${CMAKE_SOURCE_DIR}/src/electronics/components/probe.cpp
+#${CMAKE_SOURCE_DIR}/src/electronics/components/pushswitch.cpp
+#${CMAKE_SOURCE_DIR}/src/electronics/components/ram.cpp
  ${CMAKE_SOURCE_DIR}/src/electronics/components/resistor.cpp
+#${CMAKE_SOURCE_DIR}/src/electronics/components/resistordip.cpp
+#${CMAKE_SOURCE_DIR}/src/electronics/components/rotoswitch.cpp
+#${CMAKE_SOURCE_DIR}/src/electronics/components/serialportcomponent.cpp
+#${CMAKE_SOURCE_DIR}/src/electronics/components/toggleswitch.cpp
+#${CMAKE_SOURCE_DIR}/src/electronics/components/variablecapacitor.cpp
+#${CMAKE_SOURCE_DIR}/src/electronics/components/variableresistor.cpp
+#${CMAKE_SOURCE_DIR}/src/electronics/components/voltageregulator.cpp
+
 )
 
 
