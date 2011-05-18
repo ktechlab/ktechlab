@@ -1,0 +1,9 @@
+This path is to contain all the mathematics of physics. This includes physical constants and equations regarding physical phenomenon.
+
+Good source of inf0z:
+
+http://physics.nist.gov/cuu/Constants/
+
+One problematic subject is that the way we measure stuff is based on practical measurements and other historical reasons. More recent evidence suggests that certain physical properties are discrete (quantum) in nature and hence should be computed with integer types!!! =P
+
+One such quantum property is the charge on the electron... However, we'd need to use 128 bit math to compute reasonably sized values exactly.. 
