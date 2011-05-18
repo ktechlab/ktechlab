@@ -15,3 +15,138 @@ category=Switches
 category[de]=Schalter
 icon=rotary
 type=
+
+[ec_capacitor]
+name=ec/capacitor
+title=Capacitor
+title[de]=Kondensator
+category=Passive
+caregory[de]=Passiv
+icon=capacitor
+type=
+
+[ec_inductor]
+name=ec/inductor
+title=Inductor
+title[de]=Spule
+category=Passive
+caregory[de]=Passiv
+icon=inductor
+type=
+
+[ec_voltage_signal]
+name=ec/voltage_signal
+title=Voltage Signal
+title[de]=Wechselspannungsquelle
+category=Sources
+category[de]=Quellen
+icon=voltagesignal
+type=
+
+[ec_battery]
+name=ec/battery
+title=Battery
+title[de]=Batterie
+category=Sources
+category[de]=Quellen
+icon=cell
+type=
+
+[ec_fixed_voltage]
+name=ec/fixed_voltage
+title=Fixed Voltage
+title[de]=Festspannungsquelle
+category=Sources
+category[de]=Quellen
+icon=voltage
+type=
+
+[ec_current_source]
+name=ec/current_source
+title=Current Source
+title[de]=Stromquelle
+category=Sources
+category[de]=Quellen
+icon=current_source
+type=
+
+[ac_current]
+name=ac/current
+title=Current Signal
+title[de]=Wechselstromquelle
+category=Sources
+category[de]=Quellen
+icon=currentsignal
+type=
+
+[ec_cccs]
+name=ec/cccs
+title=Current Controlled Currrent Source
+title[de]=Stromgesteuerte Stromquelle
+category=Sources
+category[de]=Quellen
+icon=cccs
+type=
+
+[ec_ccvs]
+name=ec/ccvs
+title=Current Controlled Voltage Source
+title[de]=Stromgesteuerte Spannungsquelle
+category=Sources
+category[de]=Quellen
+icon=ccvs
+type=
+
+[ec_vccs]
+name=ec/vccs
+title=Voltage Controlled Current Source
+title[de]=Spannungsgesteuerte Stromquelle
+category=Sources
+category[de]=Quellen
+icon=vccs
+type=
+
+[ec_vcvs]
+name=ec/vcvs
+title=Voltage Controlled Voltage Source
+title[de]=Spannungsgesteuerte Spannungsquelle
+category=Sources
+category[de]=Quellen
+icon=vcvs
+type=
+
+[ec_ground]
+name=ec/ground
+title=Ground (0 V)
+title[de]=Masse (0 V)
+category=Sources
+category[de]=Quellen
+icon=ground
+type=
+
+[ec_voltmeter]
+name=ec/voltmeter
+title=Voltmeter
+title[de]=Spannungsmessgerät
+category=Outputs
+category[de]=Ausgaben
+icon=voltmeter
+type=
+
+[ec_ammeter]
+name=ec/ammeter
+title=Ammeter
+title[de]=Strommessgerät
+category=Outputs
+category[de]=Ausgaben
+icon=ammeter
+type=
+
+[ec_led]
+name=ec/led
+title=LED
+title[de]=LED
+category=Outputs
+category[de]=Ausgaben
+icon=led
+type=

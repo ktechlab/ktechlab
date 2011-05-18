@@ -51,12 +51,20 @@ public:
     /**
      * Create a new instance given the connector data.
      */
-    Connector(const QVariantMap &connectorData, QObject* parent = 0);
+    Connector(QObject* parent = 0);
     /**
      * Copy constructor
      */
     Connector(const Connector& connector);
     virtual ~Connector();
+
+    /**
+     * Check the connection to a given node.
+     *
+     * \param node - check if this connector connects to this node
+     * \returns true, if the given node is either start- or end-node
+     */
+    bool connectsTo(const Node* node) const;
 
     /**
      * Set the path to a specific route
@@ -65,21 +73,37 @@ public:
     /**
     * Set the node, where the route starts
     */
-    void setStartNode(const Node& node);
+    void setStartNode(const Node* node);
+    /**
+     * Get information about the start node. Keep in mind,
+     * that this only contains data about the document, not
+     * the scene.
+     *
+     * \returns 0 if start node isn't set up, yet. the node otherwise
+     */
+    const Node* startNode() const;
     /**
     * Set the node, where the route ends
     */
-    void setEndNode(const Node& node);
+    void setEndNode(const Node* node);
+    /**
+     * Get information about the end node. Keep in mind,
+     * that this only contains data about the document, not
+     * the scene.
+     *
+     * \returns 0 if start node isn't set up, yet. the node otherwise
+     */
+    const Node* endNode() const;
     /**
      * Get a path representing the route of the connector
      */
     QPainterPath route() const;
-
-private:
     /**
      * Get connector data as a \class QVariantMap
      */
     QVariantMap data() const;
+
+private:
     ConnectorPrivate *d;
 };
 

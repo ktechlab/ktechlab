@@ -2,6 +2,7 @@ add_subdirectory(core)
 add_subdirectory(math)
 add_subdirectory(gui)
 add_subdirectory(interfaces)
+add_subdirectory(lib)
 add_subdirectory(plugins)
 add_subdirectory(kdevplugins)
 
@@ -98,7 +99,11 @@ install(FILES
     DESTINATION ${DATA_INSTALL_DIR}/ktechlab
 )
 install(FILES  ktechlab.desktop DESTINATION share/applnk/Development)
-install(FILES
-    ktechlab.xml
 
-    DESTINATION ${XDG_MIME_INSTALL_DIR} )
+# XML mime types
+set( SHARED_MIME_INFO_MINIMUM_VERSION "0.30" )
+find_package( SharedMimeInfo )
+if( SHARED_MIME_INFO_FOUND )
+    install(FILES ktechlab.xml DESTINATION ${XDG_MIME_INSTALL_DIR} )
+    update_xdg_mimetypes( ${XDG_MIME_INSTALL_DIR} )
+endif( SHARED_MIME_INFO_FOUND )

@@ -9,6 +9,7 @@
 
 #include "circuitdocument.h"
 
+#include "ktlcircuitplugin.h"
 #include "circuitview.h"
 #include "circuitscene.h"
 #include "circuitmodel.h"
@@ -22,24 +23,39 @@
 #include <QFile>
 #include <QMap>
 #include <KIO/NetAccess>
+#include <qtextdocument.h>
+#include <interfaces/iplugincontroller.h>
 
 using namespace KTechLab;
 
-CircuitDocumentPrivate::CircuitDocumentPrivate( CircuitDocument *doc )
-    :   circuitModel( new CircuitModel() ),
-        m_document(doc)
+class KTechLab::CircuitDocumentPrivate
 {
-    reloadFromXml();
-    circuitScene = new CircuitScene( doc, circuitModel );
+public:
+    CircuitDocumentPrivate( CircuitDocument *doc, KTLCircuitPlugin* plugin );
+    ~CircuitDocumentPrivate();
+
+    static int debugArea() { static int s_area = KDebug::registerArea("areaName"); return s_area; }
+    bool writeToDisk();
+    void slotUpdateState();
+
+    CircuitScene *circuitScene;
+    CircuitModel *circuitModel;
+    KTLCircuitPlugin* plugin;
+
+private:
+    CircuitDocument *m_document;
+    void initCircuitModel();
+};
+
+CircuitDocumentPrivate::CircuitDocumentPrivate( CircuitDocument *doc, KTLCircuitPlugin* plugin )
+    :    m_document(doc)
+{
+    this->plugin = plugin;
+    initCircuitModel();
+    circuitScene = new CircuitScene( doc, circuitModel, plugin );
 }
 
-CircuitDocumentPrivate::~CircuitDocumentPrivate()
-{
-    delete circuitScene;
-    delete circuitModel;
-}
-
-void CircuitDocumentPrivate::reloadFromXml()
+void CircuitDocumentPrivate::initCircuitModel()
 {
     QString errorMessage, tempFile;
     if ( !KIO::NetAccess::download( m_document->url(), tempFile, 0 ) ) {
@@ -56,41 +72,51 @@ void CircuitDocumentPrivate::reloadFromXml()
         //return in case the file is empty
         return;
     }
-    QDomDocument doc( "KTechlab" );
-    if ( !doc.setContent( &file, &errorMessage ) ) {
+    QDomDocument dom( "KTechlab" );
+    if ( !dom.setContent( &file, &errorMessage ) ) {
         KMessageBox::sorry( 0, i18n("Couldn't parse xml:\n%1").arg(errorMessage) );
         file.close();
         KIO::NetAccess::removeTempFile(tempFile);
         return;
     }
     file.close();
+    circuitModel = new CircuitModel( dom );
+}
 
-    QDomElement root = doc.documentElement();
-    QDomNode node = root.firstChild();
-    while ( !node.isNull() ) {
-        QDomElement element = node.toElement();
-        if ( !element.isNull() ) {
-            const QString tagName = element.tagName();
-            QDomNamedNodeMap attribs = element.attributes();
-            QVariantMap item;
-            for ( int i=0; i<attribs.count(); ++i ) {
-                item[ attribs.item(i).nodeName() ] = attribs.item(i).nodeValue();
-            }
-            if ( tagName == "item" ) {
-                circuitModel->addComponent( item );
-            } else if ( tagName == "connector" ) {
-                circuitModel->addConnector( item );
-            } else if ( tagName == "node" ) {
-                circuitModel->addNode( item );
-            }
-        }
-        node = node.nextSibling();
+bool CircuitDocumentPrivate::writeToDisk()
+{
+    QFile file(m_document->url().toLocalFile());
+    if (!file.open(QIODevice::ReadWrite)) {
+        KMessageBox::sorry( 0, i18n("Couldn't write file to disk:\n%1")
+            .arg(m_document->url().toLocalFile()) );
+        return false;
     }
+
+    file.resize(0);
+    file.write(circuitModel->textDocument()->toPlainText().toUtf8());
+    file.close();
+    circuitModel->textDocument()->setModified(false);
+    m_document->notifyStateChanged();
+    return true;
+}
+
+void CircuitDocumentPrivate::slotUpdateState()
+{
+    KIcon statusIcon;
+    if (circuitModel->textDocument()->isModified()) {
+        statusIcon = KIcon("document-save");
+    }
+    m_document->setStatusIcon(statusIcon);
+}
+
+CircuitDocumentPrivate::~CircuitDocumentPrivate()
+{
+    delete circuitScene;
+    delete circuitModel;
 }
 
 CircuitDocument::CircuitDocument( const KUrl &url, KDevelop::Core* core )
-    :   IComponentDocument( url, core ),
-        d(new CircuitDocumentPrivate(this))
+    :   IComponentDocument( url, core )
 {
 
     init();
@@ -103,6 +129,14 @@ CircuitDocument::~CircuitDocument()
 
 void CircuitDocument::init()
 {
+    QStringList constraints;
+    constraints << QString("'%1' in [X-KDevelop-SupportedMimeTypes]").arg("application/x-circuit");
+    QList<KDevelop::IPlugin*> plugins = KDevelop::Core::self()->pluginController()->allPluginsForExtension( "org.kdevelop.IDocument", constraints );
+    if (plugins.isEmpty()) {
+        kWarning() << "No plugin found to load KTechLab Documents";
+        return;
+    }
+    d = new CircuitDocumentPrivate(this, qobject_cast<KTechLab::KTLCircuitPlugin*>( plugins.first() ));
 }
 
 QString CircuitDocument::documentType() const
@@ -114,10 +148,37 @@ IDocumentModel* CircuitDocument::documentModel() const
 {
     return d->circuitModel;
 }
+IDocumentScene* CircuitDocument::documentScene() const
+{
+    return d->circuitScene;
+}
+
+KDevelop::IDocument::DocumentState CircuitDocument::state() const
+{
+    if (d->circuitModel->textDocument()->isModified())
+        return KDevelop::IDocument::Modified;
+
+    return KDevelop::IDocument::Clean;
+}
+
+bool CircuitDocument::save(KDevelop::IDocument::DocumentSaveMode mode)
+{
+    if (mode & IDocument::Discard)
+        return true;
+
+    DocumentState state = this->state();
+    if (state & IDocument::Clean)
+        return true;
+
+    return d->writeToDisk();
+}
 
 QWidget* CircuitDocument::createViewWidget( QWidget* parent )
 {
-    CircuitView *view = new CircuitView( d->circuitScene, parent);
+    CircuitView *view = new CircuitView( this, parent);
+
+    connect(d->circuitModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)),
+            this, SLOT(slotUpdateState()));
 
     return view;
 }

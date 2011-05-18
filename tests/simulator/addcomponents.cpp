@@ -21,7 +21,7 @@
 #include "addcomponents.h"
 #include "dummyfactory.h"
 
-#include "plugins/circuit/circuitmodel.h"
+#include "circuit/circuitmodel.h"
 #include "plugins/circuit/circuitdocument.h"
 #include "interfaces/idocumentplugin.h"
 #include "interfaces/simulator/isimulationmanager.h"

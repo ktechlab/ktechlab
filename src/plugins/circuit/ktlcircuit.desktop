@@ -5,16 +5,16 @@ Comment=This plugin handles KTechLab circuits
 Name=KTechLab Circuit
 GenericName=KTechLab Circuit
 ServiceTypes=KTechLab/Plugin
-X-KDE-Library=ktlcircuit
+X-KDE-Library=ktlcircuitplugin
 X-KDE-PluginInfo-Name=ktlcircuit
 X-KDE-PluginInfo-Author=Julian Bäume
 X-KDE-PluginInfo-Version=0.1
 X-KDE-PluginInfo-License=LGPL
-X-KDevelop-Version=9
+X-KDevelop-Version=11
 X-KDevelop-Category=Global
 X-KDevelop-Mode=NoGUI
 X-KDevelop-SupportedMimeTypes=application/x-circuit
 #keeps crashing, so comment it out for the moment
-#X-KDevelop-IOptional=org.kdevelop.IConRouter
+#X-KDevelop-IOptional=org.kdevelop.IRouterPlugin
 X-KDevelop-Interfaces=org.kdevelop.IDocument
 

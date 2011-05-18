@@ -4,12 +4,15 @@ include_directories(
     )
 
 set( ktlinterfaces_LIB_SRCS
+   component/idocumentitem.cpp
    component/connector.cpp
    idocumentscene.cpp
-   iconrouter.cpp
+   irouterplugin.cpp
+   iroutinginformation.cpp
    idocumentmodel.cpp
    idocumentplugin.cpp
    icomponentdocument.cpp
+   private/documentitem.cpp
    component/icomponentplugin.cpp
    component/icomponent.cpp
    component/componentmodel.cpp
@@ -26,7 +29,6 @@ set( ktlinterfaces_LIB_SRCS
    simulator/isimulatorfactory.cpp
    simulator/isimulationmanager.cpp
    simulator/iwire.cpp
-   simulator/genericelementfactory.cpp
    )
 
 kde4_add_library( ktlinterfaces SHARED ${ktlinterfaces_LIB_SRCS} )

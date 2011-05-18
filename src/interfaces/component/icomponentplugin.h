@@ -17,29 +17,27 @@
 
 namespace KTechLab
 {
+
+class ComponentItem;
+class Theme;
+
 class IComponent;
 class IDocumentPlugin;
 
 /**
- * \short Factory to create IComponent objects
+ * \short Factory to create IComponentItem objects
  * When writing a new \class IComponentPlugin this class must also
- * be implemented to create components, that are exported by the plugin
- * and to provide meta-data about what components are exported.
+ * be implemented to create visual representations of components,
+ * that are exported by the plugin and to provide meta-data about
+ * what components are exported.
+ *
  * \author Julian Bäume
  */
-class KTLINTERFACES_EXPORT IComponentFactory
+class KTLINTERFACES_EXPORT IComponentItemFactory
 {
 public:
-    IComponentFactory();
-    virtual ~IComponentFactory() {};
-
-    /**
-     * Create a new instance of \class IComponent representing a
-     * component with the given \param name.
-     * \param name - the name of the component
-     * \return a pointer to the component
-     */
-    virtual IComponent * create( const QString &name )=0;
+    IComponentItemFactory();
+    virtual ~IComponentItemFactory() {};
 
     /**
      * Return a list containing all meta-data
@@ -47,6 +45,12 @@ public:
      * \return a \class QList containing all meta-data
      */
     QList<ComponentMetaData> allMetaData();
+
+    /**
+     * Create a KTechLab::ComponentItem for the given \param data and drawn with
+     * the given \param theme.
+     */
+    virtual ComponentItem* createItem( const QVariantMap& data, KTechLab::Theme* theme=0 )=0;
 protected:
     /**
      * Call this method from the implementation to register a

@@ -22,10 +22,13 @@
 
 #include "../ktlinterfacesexport.h"
 #include <QGraphicsSvgItem>
+#include "../idocumentscene.h"
+#include "idocumentitem.h"
 
 namespace KTechLab {
 
 class IDocumentModel;
+class Node;
 
 /**
  * \short Components that are shown on a scene
@@ -34,26 +37,39 @@ class IDocumentModel;
  * Each component needs an id which is unique within a document. Each component needs
  * to notify the model after it has been altered by user-interaction.
  */
-class KTLINTERFACES_EXPORT IComponentItem : public QGraphicsSvgItem
+class KTLINTERFACES_EXPORT IComponentItem : public QGraphicsSvgItem, public IDocumentItem
 {
 public:
     IComponentItem(QGraphicsItem* parentItem = 0);
     ~IComponentItem();
 
     /**
-     * Set the document model for this component. This will be used to notify
-     * the model about changes and to retrieve information about itself.
+     * Check whether the given node belongs to this item.
+     *
+     * \param node - the Node to check
+     * \returns true, if the node is child of this item
      */
-    void setDocumentModel(IDocumentModel* model);
-    /**
-     * Get the document model.
-     */
-    IDocumentModel* documentModel() const;
+    bool hasNode(const Node* node) const;
 
     /**
-     * Get the id of this component.
+     * Get a connector node belonging to this component item.
+     *
+     * \param id - the id of the node
+     * \returns the node, 0 if no such node exists
      */
-    QString id() const;
+    const Node* node(const QString& id) const;
+
+    /**
+     * Get a list of all nodes belonging to this item.
+     *
+     * \returns a list of nodes
+     */
+    QList<const Node*> nodes() const;
+
+    enum { Type = KTechLab::GraphicsItems::ComponentItemType };
+    virtual int type() const { return Type; };
+
+    virtual QVariantMap data() const;
 
 public slots:
     /**
@@ -67,13 +83,6 @@ public slots:
 
 signals:
     void dataUpdated( const QString &name, const QVariantMap &data );
-
-protected:
-    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-    virtual QVariant itemChange(GraphicsItemChange change, const QVariant& value);
-
-    IDocumentModel *m_document;
-    QString m_id;
 };
 
 }
