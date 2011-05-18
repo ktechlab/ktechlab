@@ -9,6 +9,7 @@
 namespace KTechLab
 {
 class IComponentItemFactory;
+class FakeComponentItemFactory;
 
 class KTLComponentViewFactory;
 class KTLComponentEditorFactory;
@@ -51,6 +52,7 @@ private:
     KTLComponentEditorFactory* m_componentEditorFactory;
 
     ComponentModel *m_componentModel;
+    KTechLab::FakeComponentItemFactory* m_fakeComponentItemFactory;
 };
 
 } // namespace KTechLab
