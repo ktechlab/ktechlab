@@ -122,13 +122,12 @@ void CircuitScene::setupData()
     {
         if (component.canConvert(QVariant::Map)) {
             const QVariantMap& map(component.toMap());
-            IComponentItemFactory* f =
+            IComponentItemFactory* componentFactory =
                 m_plugin->componentItemFactory( map.value("type").toString() );
-            ComponentItem* item = f->createItem( map, m_theme );
-            if (!item) {
-                kWarning() << "Couldn't create item";
-                continue;
-            }
+
+            Q_ASSERT(componentFactory);
+            ComponentItem* item = componentFactory->createItem( map, m_theme );
+            Q_ASSERT(item);
             addItem( item );
             m_components.insert(item->id(), item);
         }
