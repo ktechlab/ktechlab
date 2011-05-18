@@ -14,10 +14,12 @@
 
 #include <QString>
 #include <KIcon>
+#include <QVariantList>
 
 class KConfig;
 namespace KTechLab
 {
+class IComponentItem;
 
 /**
  * MetaData for a component
@@ -25,7 +27,7 @@ namespace KTechLab
 struct ComponentMetaData
 {
     /** unique name to identify the component */
-    QString name;
+    QByteArray name;
     /** a title visible to the user */
     QString title;
     /** category for the component */
@@ -34,7 +36,7 @@ struct ComponentMetaData
     /** an icon shown to the user */
     KIcon icon;
     /** type of the component */
-    QString type;
+    QByteArray type;
 };
 
 /**
@@ -43,6 +45,7 @@ struct ComponentMetaData
 class KTLINTERFACES_EXPORT IComponent
 {
 public:
+    virtual ~IComponent();
     /**
      * Pure virtual function should return meta-data with information how to handle this component
      */
@@ -51,6 +54,18 @@ public:
      * Read ComponentMetaData for a component with a given \param name from a KConfig object.
      */
     static ComponentMetaData metaData( const QString &name, const KConfig &metaData );
+
+    /**
+     * Create a new QGraphicsItem representing this component. This can then be added to
+     * a KTechLab::IDocumentScene and presented from there.
+     *
+     */
+    virtual IComponentItem* createComponentItem() =0;
+
+    /**
+     * Get a list of pins available for this component, if any.
+     */
+    virtual QVariantList pinList() =0;
 };
 
 } // namespace KTechLab

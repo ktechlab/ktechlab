@@ -19,7 +19,7 @@
 namespace KTechLab
 {
 
-class IComponentFactory;
+class IComponentItemFactory;
 class ComponentItem;
 
 /**
@@ -49,7 +49,17 @@ public:
     /**
      * Add the ComponentMetaData and the corresponding factory to the model
      */
-    virtual void insertComponentData( const ComponentMetaData & data, IComponentFactory * factory );
+    virtual void insertComponentData( const ComponentMetaData & data, IComponentItemFactory * factory );
+    /**
+     * Remove the ComponentMetaData and the corresponding factory from the model
+     */
+    void removeComponentData( const ComponentMetaData & data, IComponentItemFactory* factory);
+
+    /**
+     * Retrieve a KTechLab::IComponentFactory that is able to produce components with the
+     * given \param name
+     */
+    virtual IComponentItemFactory* factoryForComponent( const QString & name ) const;
 
 private:
     ComponentItem *m_rootItem;

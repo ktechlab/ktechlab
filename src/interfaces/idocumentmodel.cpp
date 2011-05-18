@@ -21,21 +21,121 @@
 #include "idocumentmodel.h"
 #include "component/icomponent.h"
 
+#include <QSet>
+#include "private/documentitem.h"
+#include <KDebug>
+#include <qtextdocument.h>
+
 using namespace KTechLab;
 
 class KTechLab::IDocumentModelPrivate {
 
 public:
+    IDocumentModelPrivate(IDocumentModel* m)
+        : m_model(m)
+    {
+        textDocument.setUndoRedoEnabled(true);
+    };
+
+    ~IDocumentModelPrivate();
+    QString generateUid(const QString& name);
+    DocumentItem* itemFromIndex(QModelIndex index) const;
+    void addData(QDomElement e, const QVariantMap& data, QVariantMap* dataContainer) const;
+    QModelIndex indexFromId(const QString& id);
     QVariantMap components;
     QVariantMap connectors;
     QVariantMap nodes;
+    QDomDocument doc;
+    QTextDocument textDocument;
+    DocumentItem* rootItem;
+
+private:
+    IDocumentModel* m_model;
+    QSet<QString> m_ids;
+    int m_nextIdNum;
 };
 
-IDocumentModel::IDocumentModel ( QObject* parent )
-    : QAbstractTableModel ( parent ),
-      d(new IDocumentModelPrivate())
+IDocumentModelPrivate::~IDocumentModelPrivate()
 {
+    delete rootItem;
+}
 
+QString IDocumentModelPrivate::generateUid(const QString& name)
+{
+    QString cleanName = name;
+    cleanName.remove(QRegExp("__[0-9]*")); //Change 'node__13' to 'node', for example
+    QString idAttempt = cleanName;
+
+    while (m_ids.contains(idAttempt))
+        idAttempt = cleanName + "__" + QString::number(m_nextIdNum++);
+
+    m_ids.insert(idAttempt);
+    return idAttempt;
+}
+
+DocumentItem* IDocumentModelPrivate::itemFromIndex(QModelIndex index) const
+{
+    if ( !index.isValid() ) {
+        return rootItem;
+    } else {
+        return static_cast<DocumentItem*>(index.internalPointer());
+    }
+}
+
+QModelIndex IDocumentModelPrivate::indexFromId(const QString& id)
+{
+    DocumentItem* item = rootItem->childWithId(id);
+    if (!item) return QModelIndex();
+
+    QModelIndex rootIndex = m_model->index(0,0);
+    return m_model->index(item->row(),0,rootIndex);
+}
+
+void IDocumentModelPrivate::addData(QDomElement e,
+                                    const QVariantMap& data,
+                                    QVariantMap* dataContainer) const
+{
+    QModelIndex parent = m_model->index(0,0);
+    DocumentItem* parentItem = itemFromIndex(parent);
+    int rows = m_model->rowCount(parent);
+    m_model->beginInsertRows(parent,rows,rows);
+    parentItem->node().appendChild(e);
+    dataContainer->insert( data.value("id").toString(), data);
+    m_model->endInsertRows();
+    QModelIndex i = m_model->index(rows,0,parent);
+    m_model->setData(i,data);
+}
+
+IDocumentModel::IDocumentModel ( QDomDocument doc, QObject* parent )
+    : QAbstractItemModel ( parent ),
+      d(new IDocumentModelPrivate(this))
+{
+    d->doc = doc;
+    d->textDocument.setPlainText(doc.toString());
+    d->textDocument.setModified(false);
+    d->rootItem = new DocumentItem(d->doc, 0);
+
+    QDomElement root = doc.documentElement();
+    QDomNode node = root.firstChild();
+    while ( !node.isNull() ) {
+        QDomElement element = node.toElement();
+        if ( !element.isNull() ) {
+            const QString tagName = element.tagName();
+            QDomNamedNodeMap attribs = element.attributes();
+            QVariantMap item;
+            for ( int i=0; i<attribs.count(); ++i ) {
+                item[ attribs.item(i).nodeName() ] = attribs.item(i).nodeValue();
+            }
+            if ( tagName == "item" ) {
+                d->components.insert( item.value("id").toString(), item );
+            } else if ( tagName == "connector" ) {
+                d->connectors.insert( item.value("id").toString(), item );
+            } else if ( tagName == "node" ) {
+                d->nodes.insert( item.value("id").toString(), item );
+            }
+        }
+        node = node.nextSibling();
+    }
 }
 
 IDocumentModel::~IDocumentModel()
@@ -45,37 +145,75 @@ IDocumentModel::~IDocumentModel()
 
 QVariant IDocumentModel::data(const QModelIndex& index, int role) const
 {
+    DocumentItem* item = d->itemFromIndex(index);
+    if (role == IDocumentModel::XMLDataRole) {
+        QByteArray res;
+        QTextStream stream(&res);
+        item->node().save(stream, 1);
+        return res;
+    }
     return QVariant();
+}
+
+const QDomNode IDocumentModel::domNode(const QModelIndex& index) const
+{
+    DocumentItem* item = d->itemFromIndex(index);
+    if (item)
+        return item->node();
+
+    return QDomNode();
 }
 
 int IDocumentModel::columnCount(const QModelIndex& parent) const
 {
-    if ( !parent.isValid() )
-        return d->components.size();
-
-    return 0;
+    return 1;
 }
 
 int IDocumentModel::rowCount(const QModelIndex& parent) const
 {
-    if ( !parent.isValid() )
-        return d->components.size();
+    if (parent.column() > 0)
+        return 0;
 
-    return 0;
+    DocumentItem* parentItem = d->itemFromIndex(parent);
+
+    return parentItem->node().childNodes().count();
 }
 
 bool IDocumentModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
-    return QAbstractItemModel::setData(index, value, role);
+    DocumentItem* item = d->itemFromIndex(index);
+    if ((role == Qt::EditRole) && (item) && (value.canConvert(QVariant::Map))){
+        //TODO: make sure to update the containers in d as well
+        QVariantMap data = value.toMap();
+        QDomElement e = item->node().toElement();
+        foreach(const QString& key, data.keys()){
+            e.setAttribute(key, data[key].toString());
+        }
+        emit QAbstractItemModel::dataChanged(index,index);
+        return true;
+    }
+    return false;
 }
 
+bool IDocumentModel::removeRows(int row, int count, const QModelIndex& parent)
+{
+    QModelIndex rowIndex = index(row,0,parent);
+    if (!rowIndex.isValid())
+        return false;
+
+    if (count > 1)
+        kWarning() << "Model only supports to remove one row at a time. Removing only row:" << row;
+
+    DocumentItem* item = d->itemFromIndex(rowIndex);
+    item->parent()->removeChild(item->row());
+
+    return true;
+}
 
 void IDocumentModel::addComponent(const QVariantMap& component)
 {
-    if (!component.contains("id"))
-        return;
-
-    d->components.insert( component.value("id").toString(), component);
+    QDomElement e = d->doc.createElement("item");
+    d->addData(e, component, &d->components );
 }
 
 QVariantMap IDocumentModel::component(const QString& key) const
@@ -90,10 +228,8 @@ QVariantMap IDocumentModel::components() const
 
 void IDocumentModel::addConnector(const QVariantMap& connector)
 {
-    if ( !connector.contains( "id" ) )
-        return;
-
-    d->connectors.insert( connector.value("id").toString(), connector );
+    QDomElement e = d->doc.createElement("connector");
+    d->addData(e, connector, &d->connectors);
 }
 
 QVariantMap IDocumentModel::connector(const QString& key) const
@@ -109,8 +245,8 @@ QVariantMap IDocumentModel::connectors() const
 
 void IDocumentModel::addNode(const QVariantMap& node)
 {
-    if ( node.contains( "id" ) )
-        d->nodes.insert( node.value("id").toString(), node );
+    QDomElement e = d->doc.createElement("node");
+    d->addData(e, node, &d->nodes);
 }
 
 QVariantMap IDocumentModel::node(const QString& id)
@@ -126,10 +262,86 @@ QVariantMap IDocumentModel::nodes() const
     return d->nodes;
 }
 
-
-void IDocumentModel::updateData(const QString& name, const QVariantMap& data)
+QTextDocument* IDocumentModel::textDocument() const
 {
-
+    return &d->textDocument;
 }
+
+void IDocumentModel::updateData(const QString& id, const QVariantMap& data)
+{
+    const QModelIndex& modelIndex = d->indexFromId(id);
+    setData(modelIndex, data);
+}
+
+QString IDocumentModel::generateUid(const QString& name)
+{
+    return d->generateUid(name);
+}
+
+Qt::ItemFlags IDocumentModel::flags(const QModelIndex& index) const
+{
+    return QAbstractItemModel::flags(index);
+}
+
+QVariant IDocumentModel::headerData(int section, Qt::Orientation orientation, int role) const
+{
+    return QAbstractItemModel::headerData(section, orientation, role);
+}
+
+QModelIndex IDocumentModel::index(int row, int column, const QModelIndex& parent) const
+{
+    if (!hasIndex(row, column, parent))
+        return QModelIndex();
+
+    DocumentItem *parentItem;
+    if (!parent.isValid())
+        parentItem = d->rootItem;
+    else
+        parentItem = static_cast<DocumentItem*>(parent.internalPointer());
+
+    DocumentItem *childItem = parentItem->child(row);
+    if (childItem)
+        return createIndex(row, column, childItem);
+    else
+        return QModelIndex();
+}
+
+QModelIndex IDocumentModel::index(const QVariantMap& item) const
+{
+    const QString& id = item.value("id").toString();
+    if (id.isEmpty())
+        return QModelIndex();
+
+    return d->indexFromId(id);
+}
+
+QModelIndex IDocumentModel::parent(const QModelIndex& child) const
+{
+    if (!child.isValid())
+        return QModelIndex();
+
+    DocumentItem *childItem = static_cast<DocumentItem*>(child.internalPointer());
+    DocumentItem *parentItem = childItem->parent();
+
+    if (!parentItem || parentItem == d->rootItem)
+        return QModelIndex();
+
+    return createIndex(parentItem->row(), 0, parentItem);
+}
+
+void IDocumentModel::revert()
+{
+    d->doc.setContent(d->textDocument.toPlainText());
+    delete d->rootItem;
+    d->rootItem = new DocumentItem(d->doc,0);
+    QAbstractItemModel::revert();
+}
+
+bool IDocumentModel::submit()
+{
+    d->textDocument.setPlainText(d->doc.toString());
+    return QAbstractItemModel::submit();
+}
+
 
 #include "idocumentmodel.moc"

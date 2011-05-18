@@ -23,7 +23,7 @@
 #include <simulationmanager.h>
 #include <interfaces/idocumentmodel.h>
 #include <interfaces/simulator/isimulationmanager.h>
-#include <interfaces/simulator/genericelementfactory.h>
+#include <circuit/simulator/genericelementfactory.h>
 #include <plugins/simulator/circuittransientsimulator.h>
 #include <plugins/basic_ec/elements/resistance.h>
 #include <plugins/basic_ec/elements/capacitance.h>
@@ -54,7 +54,7 @@ void KTechLab::DirectSimulatorTest::initTestCase()
     SimulationManager::initialize();
     fact = new TestElementFactory();
     ISimulationManager::self()->registerElementFactory(fact);
-    model = new IDocumentModel;
+    model = new IDocumentModel(QDomDocument("KTechlab"));
     transSim = new CircuitTransientSimulator(model);
     simulator = transSim;
     model = 0;
@@ -78,7 +78,7 @@ void DirectSimulatorTest::init()
     if(model)
         delete model;
 
-    model = new IDocumentModel;
+    model = new IDocumentModel(QDomDocument("KTechlab"));
     transSim = new CircuitTransientSimulator(model);
     simulator = transSim;
 }

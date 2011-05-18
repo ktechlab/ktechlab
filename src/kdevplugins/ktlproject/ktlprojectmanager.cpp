@@ -19,7 +19,6 @@
 */
 
 #include "ktlprojectmanager.h"
-#include "ktlfolderitem.h"
 
 #include <project/projectmodel.h>
 #include <KGenericFactory>
@@ -50,17 +49,17 @@ class KDevelop::KTLProjectManagerPrivate
     {
         QStack<QString> domPath;
         domPath.push( name );
-        //TODO: can this be done without dynamic_cast?
-        ProjectFolderItem *wItem = dynamic_cast<ProjectFolderItem*>( item->parent() );
-        if (!wItem) {
+        if (!item->parent()) {
             //this must be the project root
             return projectDomDocument.documentElement();
         }
-        while (!wItem->isProjectRoot()){
-            domPath.push( wItem->folderName() );
-            //TODO: can this be done without dynamic_cast?
-            wItem = dynamic_cast<ProjectFolderItem*>( wItem->parent() );
+        ProjectBaseItem *wItem = item;
+        while ((wItem = wItem->parent())){
+            if (wItem->folder())
+                domPath.push( wItem->folder()->folderName() );
         };
+        //remove last element, because it’s the root element, we don’t want to find that
+        domPath.pop();
 
         QDomElement child = projectDomDocument.documentElement();
         while ( !domPath.isEmpty() ){
@@ -121,7 +120,7 @@ class KDevelop::KTLProjectManagerPrivate
 K_PLUGIN_FACTORY(KTLProjectManagerFactory, registerPlugin<KTLProjectManager>(); )
 K_EXPORT_PLUGIN(KTLProjectManagerFactory(KAboutData("ktlprojectmanager","ktlprojectmanager",ki18n("KTechLab Project Manager"), "0.1", ki18n("A plugin to support KTechLab project management"), KAboutData::License_GPL)))
 
-KTLProjectManager::KTLProjectManager( QObject *parent, const QVariantList &args )
+KTLProjectManager::KTLProjectManager( QObject* parent, const QVariantList& /* args */ )
   : IPlugin( KTLProjectManagerFactory::componentData(), parent ), IProjectFileManager( ),
   d( new KTLProjectManagerPrivate() )
 {
@@ -196,8 +195,7 @@ IProjectFileManager::Features KTLProjectManager::features() const
 
 ProjectFolderItem* KTLProjectManager::import( IProject* project )
 {
-  ProjectFolderItem *rootItem = new KTLFolderItem( project, project->folder() );
-  rootItem->setProjectRoot(true);
+  ProjectFolderItem *rootItem = new ProjectFolderItem( project, project->folder() );
 
   d->projectFile = rootItem->project()->folder();
   d->projectFile.addPath(rootItem->project()->name()+".ktechlab");
@@ -245,7 +243,7 @@ QList<ProjectFolderItem*> KTLProjectManager::parse( ProjectFolderItem *item )
         } else if ( !type.isEmpty() )
         {
           itemUrl.addPath(name);
-          KTLFolderItem *child = new KTLFolderItem(item->project(), itemUrl, item);
+          ProjectFolderItem *child = new ProjectFolderItem(item->project(), itemUrl, item);
           result.append(child);
         }
       }
@@ -308,6 +306,18 @@ bool KTLProjectManager::removeFolder( ProjectFolderItem* folder )
     d->removeItemFromDocument( folder, folder->folderName() );
     folder->parent()->removeRow( folder->row() );
     d->writeProjectToDisk();
+    return true;
+}
+
+bool KTLProjectManager::removeFilesAndFolders(QList< ProjectBaseItem* > items)
+{
+    foreach(ProjectBaseItem* item, items){
+        if (ProjectFolderItem* f = item->folder()) {
+            removeFolder(f);
+        } else if (ProjectFileItem* f = item->file()){
+            removeFile(f);
+        }
+    }
     return true;
 }
 

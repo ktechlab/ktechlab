@@ -24,19 +24,28 @@
  */
 
 #include "circuitview.h"
+#include <KIcon>
+#include <KToggleAction>
+#include <KLocalizedString>
+#include <KActionCollection>
+#include "circuitscene.h"
+#include "circuitdocument.h"
+#include <interfaces/iplugincontroller.h>
+#include <interfaces/icore.h>
+#include <interfaces/irouterplugin.h>
+#include <KSelectAction>
 
 using namespace KTechLab;
 
-CircuitView::CircuitView( QWidget *parent )
-    : QGraphicsView(parent)
+CircuitView::CircuitView ( KTechLab::CircuitDocument* document, QWidget* parent )
+    : QGraphicsView ( document->documentScene(), parent ),
+      m_document(document),
+      m_scene(static_cast<CircuitScene*>(document->documentScene()))
 {
-    init();
-}
+    setXMLFile("ktechlabcircuitui.rc");
+    setRoutingMode(QLatin1String("ktlautomatic_router"));
+    setupActions();
 
-
-CircuitView::CircuitView ( QGraphicsScene* scene, QWidget* parent )
-    : QGraphicsView ( scene, parent )
-{
     init();
 }
 
@@ -52,6 +61,98 @@ void CircuitView::init()
     setRenderHints(QPainter::Antialiasing);
     setAcceptDrops( true );
     setDragMode( QGraphicsView::RubberBandDrag );
+}
+
+void CircuitView::setupActions()
+{
+    KActionCollection* ac = actionCollection();
+    KAction* action;
+
+    action = ac->addAction( QString("edit_rotate_cw") );
+    action->setText( i18n("Rotate Clockwise") );
+    action->setIcon( KIcon("object-rotate-right") );
+    connect( action, SIGNAL(triggered()), this, SLOT(componentRotateCW()) );
+
+    action = ac->addAction( QString("edit_rotate_ccw") );
+    action->setText( i18n("Rotate Counter-Clockwise") );
+    action->setIcon( KIcon("object-rotate-left") );
+    connect( action, SIGNAL(triggered()), this, SLOT(componentRotateCCW()) );
+
+    action = ac->addAction( QString("edit_flip_horizontally") );
+    action->setText( i18n("Flip Horizontally") );
+    action->setIcon( KIcon("object-flip-horizontal") );
+    connect( action, SIGNAL(triggered()), this, SLOT(componentFlipHorizontal()) );
+
+    action = ac->addAction( QString("edit_flip_vertically") );
+    action->setText( i18n("Flip Vertically") );
+    action->setIcon( KIcon("object-flip-vertical") );
+    connect( action, SIGNAL(triggered()), this, SLOT(componentFlipVertical()) );
+
+    //TODO: move this into a basic document-view to re-use it for flow-code
+    action = ac->addAction( KStandardAction::Save );
+    connect( action, SIGNAL(triggered()), this, SLOT(save()) );
+//     action = ac->addAction( KStandardAction::SaveAs );
+//     connect( action, SIGNAL(triggered()), this, SLOT(saveAs()) );
+//     action = ac->addAction( KStandardAction::Revert );
+//     connect( action, SIGNAL(triggered()), this, SLOT(revert()) );
+
+    m_routerModeActions = new KSelectAction(this);
+    m_routerModeActions->setText( i18n("Routing Mode") );
+    ac->addAction(QString("routing_mode_actionmenu"), m_routerModeActions);
+    connect(m_routerModeActions,SIGNAL(triggered(QAction*)),this,SLOT(routingModeChanged(QAction*)));
+    QList<QAction*> routingModeActions;
+    KDevelop::IPluginController *pc = KDevelop::ICore::self()->pluginController();
+    foreach(KDevelop::IPlugin* plugin, pc->allPluginsForExtension("org.ktechlab.IRouterPlugin")) {
+        const KPluginInfo &info = pc->pluginInfo(plugin);
+        action = new KToggleAction( KIcon(info.icon()), QString("edit_mode_%1").arg(info.pluginName()), this );
+        action->setText( info.name() );
+        action->setData( info.pluginName() );
+        action->setCheckable(true);
+        action->setChecked(m_currentRouterName == info.pluginName());
+        m_routerModeActions->addAction(action);
+    }
+}
+
+void CircuitView::componentFlipHorizontal()
+{
+    m_scene->flipSelectedComponents(Qt::XAxis);
+}
+
+void CircuitView::componentFlipVertical()
+{
+    m_scene->flipSelectedComponents(Qt::YAxis);
+}
+
+void CircuitView::componentRotateCCW()
+{
+    m_scene->rotateSelectedComponents(-90);
+}
+
+void CircuitView::componentRotateCW()
+{
+    m_scene->rotateSelectedComponents(90);
+}
+
+void CircuitView::routingModeChanged(QAction* action)
+{
+    setRoutingMode(action->data().toString());
+}
+
+void CircuitView::save()
+{
+    m_document->save();
+}
+
+void CircuitView::setRoutingMode(const QString& modeName)
+{
+    KDevelop::IPluginController *pc = KDevelop::ICore::self()->pluginController();
+    IRouterPlugin* router = pc->extensionForPlugin<IRouterPlugin>("org.ktechlab.IRouterPlugin", modeName);
+    if (!router) {
+        kWarning() << "No Plugin found for extension: org.ktechlab.IRouterPlugin";
+        return;
+    }
+    m_currentRouterName = modeName;
+    router->setDocumentScene(m_scene);
 }
 
 #include "circuitview.moc"

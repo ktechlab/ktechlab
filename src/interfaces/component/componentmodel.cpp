@@ -23,6 +23,7 @@ class KTechLab::ComponentItem
         ~ComponentItem();
 
         void addChild( ComponentItem * child );
+        void removeChild(ComponentItem* child);
         void setParent( ComponentItem * parent );
         ComponentItem * parent();
 
@@ -30,17 +31,18 @@ class KTechLab::ComponentItem
         ComponentItem * child( const QString &key );
 
         void setMetaData( const ComponentMetaData & data );
-        void setFactory( IComponentFactory * factory );
+        void setFactory( IComponentItemFactory * factory );
 
         int row();
         int rowCount();
         QList<ComponentItem*> children();
 
         ComponentMetaData metaData() const;
-        IComponentFactory * factory() const;
+        IComponentItemFactory * factory() const;
+        IComponentItemFactory * factoryForName(QString name);
 
     private:
-        IComponentFactory * m_factory;
+        IComponentItemFactory * m_factory;
         ComponentMetaData m_metaData;
 
         QMultiMap<QString,ComponentItem*> m_children;
@@ -61,6 +63,13 @@ void ComponentItem::addChild( ComponentItem *child )
 {
     m_children.insert( child->metaData().category, child );
     child->setParent(this);
+}
+
+void ComponentItem::removeChild(ComponentItem* item)
+{
+    m_children.remove(item->metaData().category, item);
+    delete item;
+    item = 0;
 }
 
 void ComponentItem::setParent( ComponentItem *parent )
@@ -90,7 +99,7 @@ void ComponentItem::setMetaData( const ComponentMetaData & data )
     m_metaData = data;
 }
 
-void ComponentItem::setFactory( IComponentFactory * factory )
+void ComponentItem::setFactory( IComponentItemFactory * factory )
 {
     m_factory = factory;
 }
@@ -118,9 +127,20 @@ ComponentMetaData ComponentItem::metaData() const
     return m_metaData;
 }
 
-IComponentFactory * ComponentItem::factory() const
+IComponentItemFactory * ComponentItem::factory() const
 {
     return m_factory;
+}
+
+IComponentItemFactory* ComponentItem::factoryForName(QString name)
+{
+    foreach(ComponentItem* categories, children()){
+        foreach(ComponentItem* child, categories->children()){
+            if (child->metaData().name == name)
+                return child->factory();
+        }
+    }
+    return 0;
 }
 
 //
@@ -239,17 +259,17 @@ QMimeData *ComponentModel::mimeData( const QModelIndexList & indexes ) const
         componentData = new ComponentMimeData( item->metaData().name, item->factory() );
 
         //register our mimeType
-        componentData->setData( "application/x-icomponent", item->metaData().name.toUtf8() );
+        componentData->setData( "ktechlab/x-icomponent", item->metaData().name );
     }
     return componentData;
 }
 
 QStringList ComponentModel::mimeTypes() const
 {
-    return QStringList()<<"application/x-icomponent";
+    return QStringList()<<"ktechlab/x-icomponent";
 }
 
-void ComponentModel::insertComponentData( const ComponentMetaData & data, IComponentFactory * factory )
+void ComponentModel::insertComponentData( const ComponentMetaData & data, IComponentItemFactory * factory )
 {
     ComponentItem *item = new ComponentItem();
     item->setMetaData( data );
@@ -282,6 +302,38 @@ void ComponentModel::insertComponentData( const ComponentMetaData & data, ICompo
     beginInsertRows( parentIndex, rowCount( parentIndex ), 0 );
     parent->addChild( item );
     endInsertRows();
+}
+
+void ComponentModel::removeComponentData(const KTechLab::ComponentMetaData& data, IComponentItemFactory* factory)
+{
+    ComponentItem* parent = m_rootItem->child(data.category);
+    if (!parent) {
+        kWarning() << "Category not found: " << data.category << " - can't remove data";
+        return;
+    }
+    // this is an O(n) operation, may be it should be changed in the future
+    foreach (ComponentItem* child, parent->children()) {
+        if ( factory != child->factory() )
+            continue;
+        if ( child->metaData().name != data.name )
+            continue;
+
+        const QModelIndex parentIndex = index( parent->row(), 0, QModelIndex() );
+        beginRemoveRows(parentIndex,child->row(),child->row());
+        parent->removeChild(child);
+        endRemoveRows();
+        return;
+    }
+}
+
+IComponentItemFactory* ComponentModel::factoryForComponent(const QString& name) const
+{
+    IComponentItemFactory* factory = m_rootItem->factoryForName(name);
+    if (!factory) {
+        kWarning() << "Factory not found for component: " << name;
+        return 0;
+    }
+    return factory;
 }
 
 // vim: sw=4 sts=4 et tw=100

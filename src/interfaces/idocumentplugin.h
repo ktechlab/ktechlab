@@ -15,6 +15,7 @@
 #include <interfaces/iplugin.h>
 #include <QObject>
 #include <QString>
+#include <QVariantMap>
 
 namespace KDevelop
 {
@@ -24,7 +25,9 @@ class IDocument;
 namespace KTechLab
 {
 
-class IComponentFactory;
+class Theme;
+class ComponentItem;
+class IComponentItemFactory;
 
 /**
  * \short Base-class for Plugins handling documents
@@ -42,25 +45,29 @@ public:
     virtual ~IDocumentPlugin() {};
 
     /**
-     * Find the name of the file containing the graphical representation of
-     * the given component. The default implementation will simply normalize the
-     * components name to contain no slashes and add .svgz as the default suffix.
-     * You are encouraged to override this method in your own implementation to support
-     * multiple components per file.
-     *
-     * \param component - the name of the component
-     * \returns the filename containing the component
-     */
-    virtual QString fileNameForComponent( const QString &component );
-
-    /**
      * Each component factory can register itself at the document plugin, to make
      * it aware of it's presence. It will then determine which components the
      * factory has to offer and can handle them accordingly.
      *
      * \param factory - the component factory
      */
-    virtual void registerComponentFactory( KTechLab::IComponentFactory * factory )=0;
+    virtual void registerComponentFactory( KTechLab::IComponentItemFactory * factory )=0;
+    /**
+     * When component plugins are unloaded, they can remove the components, they
+     * provide from the document plugin, so these components won’t be available for
+     * use any longer.
+     *
+     * \sa registerComponentFactory
+     *
+     * \param factory - the component factory
+     */
+    virtual void deregisterComponentFactory( KTechLab::IComponentItemFactory* factory )=0;
+
+    /**
+     * Get a factory that allows creating a certain KTechLab::ComponentItem from the given
+     * \param name and \param theme.
+     */
+    virtual IComponentItemFactory* componentItemFactory( const QString& name, KTechLab::Theme* theme = 0 )=0;
 };
 
 } // namespace KTechLab

@@ -26,7 +26,13 @@
 
 namespace KTechLab
 {
+
+class IDocumentItem;
+class KTLCircuitPlugin;
+
 class ComponentItem;
+class ComponentMimeData;
+class PinItem;
 class Theme;
 class CircuitModel;
 class KTLCircuitPlugin;
@@ -35,16 +41,31 @@ class CircuitScene : public IDocumentScene
 {
   Q_OBJECT
   public:
-    CircuitScene ( QObject* parent = 0, CircuitModel *model = 0 );
+    CircuitScene ( QObject* parent = 0, CircuitModel *model = 0, KTLCircuitPlugin* plugin = 0 );
     virtual ~CircuitScene();
+
+    virtual IComponentItem* item(const QString& id) const;
+    virtual Node* node(const QString& id) const;
+
+    void rotateSelectedComponents( qreal angle );
+    void flipSelectedComponents( Qt::Axis axis );
 
   public slots:
     virtual void updateData( const QString &name, const QVariantMap &data );
 
   protected:
     virtual void dropEvent ( QGraphicsSceneDragDropEvent* event );
-    virtual void dragEnterEvent ( QGraphicsSceneDragDropEvent* event );
-    virtual void dragLeaveEvent ( QGraphicsSceneDragDropEvent* event );
+    virtual void dragMoveEvent ( QGraphicsSceneDragDropEvent* event );
+
+  protected slots:
+    /**
+     * update the items in the list withen the model
+     */
+    void updateModel(QList<KTechLab::IComponentItem*> components);
+    void updateModel(QList<KTechLab::ConnectorItem*> connectors);
+    void updateModel(KTechLab::IDocumentItem* item);
+    void addConnector(KTechLab::ConnectorItem* item);
+    void removeItem(KTechLab::IDocumentItem* item);
 
   private:
     QSizeF m_componentSize;
@@ -52,11 +73,14 @@ class CircuitScene : public IDocumentScene
     QString circuitName() const;
 
     void setupData();
+    QVariantMap createItemData(const KTechLab::ComponentMimeData* data, const QPointF& pos) const;
     QString m_circuitName;
     QString m_componentTheme;
     QMap<QString,ComponentItem*> m_components;
+    QMap<QString,PinItem*> m_pins;
     CircuitModel *m_model;
     Theme *m_theme;
+    KTLCircuitPlugin* m_plugin;
 };
 
 }

@@ -12,6 +12,7 @@
 #include <QString>
 
 #include <KLocale>
+#include <QApplication>
 
 KTechlabIDEExtension::KTechlabIDEExtension()
     : KDevelop::ShellExtension()
@@ -42,9 +43,15 @@ QString KTechlabIDEExtension::projectFileDescription() {
 QStringList KTechlabIDEExtension::defaultPlugins() {
     QStringList plugins = QStringList();
     plugins << QString( "ktlcircuit" );
+    plugins << QString( "KDevProjectManagerView" );
+    plugins << QString( "kdevdocumentview" );
     plugins << QString( "flowcode" );
     plugins << QString( "code_asm" );
     plugins << QString( "code_c" );
     return plugins;
 }
 
+QString KTechlabIDEExtension::binaryPath()
+{
+    return QApplication::applicationDirPath() + "/ktechlab";
+}
