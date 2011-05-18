@@ -1,0 +1,53 @@
+[ec_xnor]
+name=ec/xnor
+title=XNOR gate
+title[de]=XNOR-Gatter
+category=Logic
+category[de]=Logik
+icon=xnor
+type=
+
+[ec_xor]
+name=ec/xor
+title=XOR gate
+title[de]=XOR-Gatter
+category=Logic
+category[de]=Logik
+icon=xor
+type=
+
+[ec_or]
+name=ec/or
+title=OR gate
+title[de]=Oder-Gatter
+category=Logic
+category[de]=Logik
+icon=or
+type=
+
+[ec_nor]
+name=ec/nor
+title=NOR gate
+title[de]=NOR-Gatter
+category=Logic
+category[de]=Logik
+icon=nor
+type=
+
+[ec_nand]
+name=ec/nand
+title=NAND gate
+title[de]=NAND-Gatter
+category=Logic
+category[de]=Logik
+icon=nand
+type=
+
+[ec_and]
+name=ec/and
+title=AND gate
+title[de]=Und-Gatter
+category=Logic
+category[de]=Logik
+icon=and
+type=

@@ -22,17 +22,17 @@
 #include <QGraphicsSceneMouseEvent>
 #include <KDebug>
 #include <idocumentmodel.h>
+#include "node.h"
 
 using namespace KTechLab;
 
 IComponentItem::IComponentItem(QGraphicsItem* parentItem)
-    : QGraphicsSvgItem(parentItem),
-      m_document(0)
+    : QGraphicsSvgItem(parentItem)
 {
     setAcceptHoverEvents(true);
     setFlags(
         ItemIsFocusable | ItemIsSelectable |
-        ItemIsMovable | ItemSendsScenePositionChanges
+        ItemIsMovable
     );
 }
 
@@ -41,52 +41,41 @@ IComponentItem::~IComponentItem()
 
 }
 
-void IComponentItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
+bool IComponentItem::hasNode(const Node* node) const
 {
-    if (   event->button() == Qt::LeftButton
-        && contains(event->scenePos())
-        && contains(event->buttonDownScenePos(Qt::LeftButton)) ){
-        if (event->modifiers() != Qt::ControlModifier)
-            scene()->clearSelection();
-        setSelected(true);
-        event->accept();
+    if (!node->isValid() || id() != node->parentId())
+        return false;
+
+    return this->node(node->id()) != 0;
+}
+
+const Node* IComponentItem::node(const QString& id) const
+{
+    foreach (const QGraphicsItem* item, childItems()){
+        const Node* n = qgraphicsitem_cast<const Node*>(item);
+        if (n && n->id() == id){
+            return n;
+        }
     }
-    QGraphicsSvgItem::mouseReleaseEvent(event);
+    return 0;
 }
-
-QString IComponentItem::id() const
+QList<const Node*> IComponentItem::nodes() const
 {
-    if (!m_id.isEmpty())
-        return m_id;
-    if (data(0).toMap().contains("id")) {
-        return data(0).toMap().value("id").toString();
+    QList<const Node*> list;
+    foreach (const QGraphicsItem* item, childItems()){
+        const Node* n = qgraphicsitem_cast<const Node*>(item);
+        if (n) list.append(n);
     }
-
-    kWarning() << "no id for IComponentItem:" << this;
-    return QString();
+    return list;
 }
 
-void IComponentItem::setDocumentModel(IDocumentModel* model)
+QVariantMap IComponentItem::data() const
 {
-    m_document = model;
-}
-
-IDocumentModel* IComponentItem::documentModel() const
-{
-    return m_document;
-}
-
-QVariant KTechLab::IComponentItem::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant& value)
-{
-    if (change == QGraphicsItem::ItemScenePositionHasChanged && m_document){
-        QPointF p = value.toPointF();
-        QVariantMap newData = data(0).toMap();
-        newData.insert("x", p.x());
-        newData.insert("y", p.y());
-        setData(0, newData);
-        m_document->updateData( "position", newData);
-    }
-    return QGraphicsItem::itemChange(change, value);
+    QVariantMap map = KTechLab::IDocumentItem::data();
+    QPointF p = scenePos();
+    map.insert("x", p.x());
+    map.insert("y", p.y());
+    return map;
 }
 
 void IComponentItem::updateData(const QString& name, const QVariantMap& data)

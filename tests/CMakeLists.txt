@@ -4,4 +4,5 @@ add_subdirectory( math )
 
 add_subdirectory( simulator )
 add_subdirectory( ktlproject )
-
+add_subdirectory(automatic_router)
+add_subdirectory(circuit)

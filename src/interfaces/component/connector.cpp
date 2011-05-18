@@ -29,116 +29,79 @@ using namespace KTechLab;
 class KTechLab::ConnectorPrivate
 {
 public:
-    ConnectorPrivate(const QVariantMap& connectorData){
-        data = connectorData;
-        parseRoute(data.value( "route" ).toString());
+    ConnectorPrivate(){
+        startNode = 0;
+        endNode = 0;
     };
 
-    void parseRoute(const QString pathString);
+    void setEndNode(const Node* node);
+    void setStartNode(const Node* node);
 
-    void setRoute(const QPainterPath& path);
-    void setEndNode(const Node& node);
-    void setStartNode(const Node& node);
-
-    QVariantMap data;
-    QPainterPath route;
+    QVariantMap data() const;
+    const Node* startNode;
+    const Node* endNode;
 };
 
-void ConnectorPrivate::setRoute(const QPainterPath& path)
+void ConnectorPrivate::setStartNode(const Node* node)
 {
-    route = path;
-    data.remove("route");
-    QString pathString;
-    for (int i=0; i<path.elementCount(); ++i){
-        QPainterPath::Element e = path.elementAt(i);
-        pathString += e.x/8 + ',' + e.y/8 + ',';
-    }
-            data.insert("route",pathString);
-}
-void ConnectorPrivate::parseRoute(const QString pathString)
-{
-    QStringList routeList = pathString.split(',');
-    if (routeList.length() == 0){
-        kError() << "Cannot parse route:" << pathString;
+    if (!node || !node->isValid()){
+        kWarning() << "Invalid node set as start node:" << node;
         return;
     }
-
-    //remove last entry, if it is empty
-    if (routeList.last().isEmpty())
-        routeList.removeLast();
-
-    if (routeList.length() % 2 != 0){
-        kError() << "Cannot parse route:" << pathString;
-        return;
-    }
-
-    QStringList::const_iterator it = routeList.constBegin();
-    QPointF p;
-    p.setX((*it++).toDouble()*8);
-    p.setY((*it++).toDouble()*8);
-    route.moveTo(p);
-    while (it != routeList.constEnd()){
-        p.setX((*it++).toDouble()*8);
-        p.setY((*it++).toDouble()*8);
-        route.lineTo(p);
-    }
+    startNode = node;
 }
 
-void ConnectorPrivate::setStartNode(const Node& node)
+QVariantMap ConnectorPrivate::data() const
 {
-    if (!node.isValid()){
-        kError() << "Invalid node set as start node:" << node.id();
-        return;
-    }
+    QVariantMap map;
 
-    data.remove("start-node-id");
-    data.remove("start-node-cid");
-    data.remove("start-node-parent");
-    data.remove("start-node-is-child");
-    QString parentId = node.parentId();
-    if (parentId.isEmpty()){
-        data.insert("start-node-is-child", 1);
-        data.insert("start-node-parent", parentId);
-        data.insert("start-node-cid", node.id());
+    Q_ASSERT(startNode);
+    QString parentId = startNode->parentId();
+    if (!parentId.isEmpty()){
+        map.insert("start-node-is-child", 1);
+        map.insert("start-node-parent", parentId);
+        map.insert("start-node-cid", startNode->id());
     } else {
-        data.insert("start-node-is-child", 0);
-        data.insert("start-node-id", node.id());
+        map.insert("start-node-is-child", 0);
+        map.insert("start-node-id", startNode->id());
     }
+
+    Q_ASSERT(endNode);
+    parentId = endNode->parentId();
+    if (!parentId.isEmpty()){
+        map.insert("end-node-is-child", 1);
+        map.insert("end-node-parent", parentId);
+        map.insert("end-node-cid", endNode->id());
+    } else {
+        map.insert("end-node-is-child", 0);
+        map.insert("end-node-id", endNode->id());
+    }
+
+    return map;
 }
 
-void ConnectorPrivate::setEndNode(const Node& node)
+void ConnectorPrivate::setEndNode(const Node* node)
 {
-    if (!node.isValid()){
-        kError() << "Invalid node set as end node:" << node.id();
+    if (!node || !node->isValid()){
+        kWarning() << "Invalid node set as end node:" << node;
         return;
     }
-
-    data.remove("end-node-id");
-    data.remove("end-node-cid");
-    data.remove("end-node-parent");
-    data.remove("end-node-is-child");
-    QString parentId = node.parentId();
-    if (parentId.isEmpty()){
-        data.insert("end-node-is-child", 1);
-        data.insert("end-node-parent", parentId);
-        data.insert("end-node-cid", node.id());
-    } else {
-        data.insert("end-node-is-child", 0);
-        data.insert("end-node-id", node.id());
-    }
+    endNode = node;
 }
 
 
-Connector::Connector(const QVariantMap& connectorData, QObject* parent)
+Connector::Connector(QObject* parent)
     : QObject(parent),
-      d(new ConnectorPrivate(connectorData))
+      d(new ConnectorPrivate())
 {
 }
 
 Connector::Connector(const KTechLab::Connector& connector)
     : QObject(connector.parent()),
-      d(new ConnectorPrivate(connector.data()))
+      d(new ConnectorPrivate())
 {
+    setStartNode(connector.startNode());
+    setEndNode(connector.endNode());
 }
 
 Connector::~Connector()
@@ -146,29 +109,53 @@ Connector::~Connector()
     delete d;
 }
 
-void Connector::setRoute(const QPainterPath& route)
+bool Connector::connectsTo(const KTechLab::Node* node) const
 {
-    d->setRoute(route);
+    if (!node->isValid())
+        return false;
+
+    bool found = false;
+    const QVariantMap& data = d->data();
+    //// stand-alone nodes
+    // test start node
+    found |= data.value("start-node-is-child") == 0 &&
+             data.value("start-node-id") == node->id();
+    //test end node
+    found |= data.value("end-node-is-child") == 0 &&
+             data.value("end-node-id") == node->id();
+    //// child-nodes of items
+    // test start node
+    found |= data.value("start-node-is-child") == 1 &&
+             data.value("start-node-parent") == node->parentId() &&
+             data.value("start-node-cid") == node->id();
+    // test end node
+    found |= data.value("end-node-is-child") == 1 &&
+             data.value("end-node-parent") == node->parentId() &&
+             data.value("end-node-cid") == node->id();
+    return found;
 }
 
-void Connector::setStartNode(const Node& node)
+void Connector::setStartNode(const Node* node)
 {
     d->setStartNode(node);
 }
+const Node* Connector::startNode() const
+{
+    return d->startNode;
+}
 
-void Connector::setEndNode(const Node& node)
+void Connector::setEndNode(const Node* node)
 {
     d->setEndNode(node);
 }
-
-QPainterPath Connector::route() const
+const Node* Connector::endNode() const
 {
-    return d->route;
+    return d->endNode;
 }
 
 QVariantMap Connector::data() const
 {
-    return d->data;
+    return d->data();
 }
 
 #include "connector.moc"

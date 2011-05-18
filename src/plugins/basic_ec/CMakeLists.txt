@@ -3,6 +3,7 @@ add_subdirectory( themes )
 ########### next target ###############
 include_directories(
    ${CMAKE_SOURCE_DIR}/src
+   ${CMAKE_SOURCE_DIR}/src/lib
 )
 
 set( ktlbasic_ec_PART_SRCS
@@ -17,6 +18,7 @@ target_link_libraries(ktlbasic_ec
    ${KDE4_KDECORE_LIBS}
    ${KDE4_PLASMA_LIBS}
    ktlinterfaces
+   ktlcircuit
    ${KDEVPLATFORM_SHELL_LIBRARIES}
    ${KDEVPLATFORM_INTERFACES_LIBRARIES}
    )

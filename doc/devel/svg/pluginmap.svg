@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="560.97998"
+   height="272"
+   id="svg3386"
+   version="1.1"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="architecture.svg">
+  <defs
+     id="defs3388">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective3394" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="491.78836"
+     inkscape:cy="44.306759"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1280"
+     inkscape:window-height="954"
+     inkscape:window-x="-2"
+     inkscape:window-y="-3"
+     inkscape:window-maximized="1"
+     inkscape:snap-grids="true" />
+  <metadata
+     id="metadata3391">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(78.707204,-218.48782)">
+    <g
+       id="g3784"
+       transform="matrix(0.59802915,0,0,0.59802915,-74.086054,96.094483)"
+       style="fill:#ff8000;fill-opacity:1">
+      <rect
+         y="410.81711"
+         x="5.5978003"
+         height="54.232975"
+         width="299.23297"
+         id="rect3776"
+         style="fill:#ff8000;fill-opacity:1;stroke:#000000;stroke-width:0.76702678;stroke-opacity:1" />
+      <text
+         id="text3778"
+         y="449.50504"
+         x="97.14286"
+         style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="449.50504"
+           x="97.14286"
+           id="tspan3780"
+           sodipodi:role="line">Circuit</tspan></text>
+    </g>
+    <g
+       id="g4582"
+       transform="matrix(0.59802915,0,0,0.59802915,-69.30182,123.90282)">
+      <rect
+         y="426.81714"
+         x="-2.4022009"
+         height="54.232975"
+         width="299.23297"
+         id="rect3791"
+         style="fill:#ff8000;fill-opacity:1;stroke:#000000;stroke-width:0.76702654;stroke-opacity:1" />
+      <text
+         id="text3793"
+         y="466.87842"
+         x="48.211922"
+         style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           id="tspan3797"
+           y="466.87842"
+           x="48.211922"
+           sodipodi:role="line">FlowCode</tspan></text>
+    </g>
+    <g
+       id="g4594"
+       transform="matrix(0.59802915,0,0,0.60910375,50.162988,146.3825)">
+      <rect
+         y="130.63342"
+         x="-203.00261"
+         height="52.460972"
+         width="916.40948"
+         id="rect4588"
+         style="fill:#00ccff;fill-opacity:1;stroke:#000000;stroke-width:1.55321336;stroke-opacity:1" />
+      <text
+         id="text4590"
+         y="171.36218"
+         x="99"
+         style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="171.36218"
+           x="99"
+           id="tspan4592"
+           sodipodi:role="line">KDevPlatform</tspan></text>
+    </g>
+    <g
+       id="g4605"
+       transform="matrix(0.59802915,0,0,0.59802915,131.16611,-0.743533)">
+      <rect
+         y="510.28998"
+         x="-30.072206"
+         height="54.144409"
+         width="299.14438"
+         id="rect4599"
+         style="fill:#5fd38d;fill-opacity:1;stroke:#000000;stroke-width:0.85559022;stroke-opacity:1" />
+      <text
+         id="text4601"
+         y="548.36218"
+         x="25"
+         style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="548.36218"
+           x="25"
+           id="tspan4603"
+           sodipodi:role="line">Simulator</tspan></text>
+    </g>
+    <g
+       id="g4616"
+       transform="matrix(0.59802915,0,0,0.59802915,-160.97114,-64.73266)">
+      <rect
+         y="617.39081"
+         x="151.02863"
+         height="53.942764"
+         width="298.94275"
+         id="rect4610"
+         style="fill:#ffd42a;fill-opacity:1;stroke:#000000;stroke-width:1.05723751;stroke-opacity:1" />
+      <text
+         id="text4612"
+         y="655.82764"
+         x="196.72375"
+         style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="655.82764"
+           x="196.72375"
+           id="tspan4614"
+           sodipodi:role="line">KTLProject</tspan></text>
+    </g>
+    <g
+       transform="matrix(0.59802915,0,0,0.59802915,131.1661,36.633289)"
+       id="g4633"
+       style="fill:#2aff80">
+      <rect
+         style="fill:#2aff80;fill-opacity:1;stroke:#000000;stroke-width:0.85559022;stroke-opacity:1"
+         id="rect4635"
+         width="299.14438"
+         height="54.144409"
+         x="-30.072206"
+         y="510.28998" />
+      <text
+         xml:space="preserve"
+         style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+         x="35.419426"
+         y="549.85065"
+         id="text4637"><tspan
+           sodipodi:role="line"
+           id="tspan4639"
+           x="35.419426"
+           y="549.85065">Basic EC</tspan></text>
+    </g>
+    <g
+       style="fill:#ff8000;fill-opacity:1"
+       transform="matrix(0.59802915,0,0,0.59802915,293.70187,58.717659)"
+       id="g4641">
+      <rect
+         style="fill:#ffb380;fill-opacity:1;stroke:#000000;stroke-width:0.76702678;stroke-opacity:1"
+         id="rect4643"
+         width="299.23297"
+         height="54.232975"
+         x="5.5978003"
+         y="410.81711" />
+      <text
+         xml:space="preserve"
+         style="font-size:34.10937119px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+         x="16.2561"
+         y="424.14243"
+         id="text4645"
+         transform="scale(0.94346226,1.0599258)"><tspan
+           sodipodi:role="line"
+           id="tspan4647"
+           x="16.2561"
+           y="424.14243">Automatic Router</tspan></text>
+    </g>
+    <g
+       style="fill:#2aff80"
+       id="g4649"
+       transform="matrix(0.59802915,0,0,0.59802915,131.1661,74.010113)">
+      <rect
+         y="510.28998"
+         x="-30.072206"
+         height="54.144409"
+         width="299.14438"
+         id="rect4651"
+         style="fill:#2aff80;fill-opacity:1;stroke:#000000;stroke-width:0.85559022;stroke-opacity:1" />
+      <text
+         id="text4653"
+         y="549.85065"
+         x="38.396404"
+         style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="549.85065"
+           x="38.396404"
+           id="tspan4655"
+           sodipodi:role="line">MCU PIC</tspan></text>
+    </g>
+    <g
+       id="g4663"
+       transform="matrix(0.59802915,0,0,0.59802915,51.526261,109.5375)">
+      <rect
+         y="263.358"
+         x="-204.42624"
+         height="54.193455"
+         width="299.19345"
+         id="rect4657"
+         style="fill:none;stroke:#000000;stroke-width:0.80654639;stroke-opacity:1" />
+      <text
+         id="text4659"
+         y="302.16339"
+         x="-184.57272"
+         style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="302.16339"
+           x="-184.57272"
+           id="tspan4661"
+           sodipodi:role="line">Management</tspan></text>
+    </g>
+    <g
+       transform="matrix(0.59802915,0,0,0.59802915,235.42023,109.5375)"
+       id="g4668">
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.80654639;stroke-opacity:1"
+         id="rect4670"
+         width="299.19345"
+         height="54.193455"
+         x="-204.42624"
+         y="263.358" />
+      <text
+         xml:space="preserve"
+         style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+         x="-159.26839"
+         y="303.65189"
+         id="text4672"><tspan
+           sodipodi:role="line"
+           id="tspan4674"
+           x="-159.26839"
+           y="303.65189">Simulation</tspan></text>
+    </g>
+    <g
+       id="g4676"
+       transform="matrix(0.59802915,0,0,0.59802915,419.31418,109.5375)">
+      <rect
+         y="263.358"
+         x="-204.42624"
+         height="54.193455"
+         width="299.19345"
+         id="rect4678"
+         style="fill:none;stroke:#000000;stroke-width:0.80654639;stroke-opacity:1" />
+      <text
+         id="text4680"
+         y="303.65189"
+         x="-93.774841"
+         style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="303.65189"
+           x="-93.774841"
+           id="tspan4682"
+           sodipodi:role="line">Tools</tspan></text>
+    </g>
+    <g
+       id="g4684"
+       transform="matrix(0.59802915,0,0,0.59802915,293.70187,96.094483)"
+       style="fill:#ff8000;fill-opacity:1">
+      <rect
+         y="410.81711"
+         x="5.5978003"
+         height="54.232975"
+         width="299.23297"
+         id="rect4686"
+         style="fill:#ffb380;fill-opacity:1;stroke:#000000;stroke-width:0.76702678;stroke-opacity:1" />
+      <text
+         transform="scale(0.92926406,1.0761204)"
+         id="text4688"
+         y="417.75949"
+         x="8.5970335"
+         style="font-size:33.59605789px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="417.75949"
+           x="8.5970335"
+           id="tspan4690"
+           sodipodi:role="line">Probe Visualization</tspan></text>
+    </g>
+    <g
+       id="g4698"
+       transform="matrix(0.34635177,0,0,0.34635177,-44.246837,221.90593)">
+      <rect
+         y="593.95532"
+         x="-75.791328"
+         height="31.030123"
+         width="31.030123"
+         id="rect4692"
+         style="fill:#ffd42a;fill-opacity:1;stroke:#000000;stroke-width:0.96987712;stroke-opacity:1" />
+      <text
+         id="text4694"
+         y="623.48187"
+         x="-35.587048"
+         style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="623.48187"
+           x="-35.587048"
+           id="tspan4696"
+           sodipodi:role="line">Project Management</tspan></text>
+    </g>
+    <g
+       id="g4703"
+       transform="matrix(0.34635177,0,0,0.34635177,-44.246837,244.21831)">
+      <rect
+         style="fill:#ff8000;fill-opacity:1;stroke:#000000;stroke-width:0.96987712;stroke-opacity:1"
+         id="rect4705"
+         width="31.030123"
+         height="31.030123"
+         x="-75.791328"
+         y="593.95532" />
+      <text
+         xml:space="preserve"
+         style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+         x="-35.587048"
+         y="623.48187"
+         id="text4707"><tspan
+           sodipodi:role="line"
+           id="tspan4709"
+           x="-35.587048"
+           y="623.48187">Document Management</tspan></text>
+    </g>
+    <g
+       transform="matrix(0.34635177,0,0,0.34635177,-44.246837,266.66201)"
+       id="g4711">
+      <rect
+         y="593.95532"
+         x="-75.791328"
+         height="31.030123"
+         width="31.030123"
+         id="rect4713"
+         style="fill:#5fd38d;fill-opacity:1;stroke:#000000;stroke-width:0.96987712;stroke-opacity:1" />
+      <text
+         id="text4715"
+         y="623.48187"
+         x="-35.587048"
+         style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="623.48187"
+           x="-35.587048"
+           id="tspan4717"
+           sodipodi:role="line">Circuit Analysis</tspan></text>
+    </g>
+    <g
+       id="g4719"
+       transform="matrix(0.34635177,0,0,0.34635177,146.02582,221.90593)">
+      <rect
+         style="fill:#2aff80;fill-opacity:1;stroke:#000000;stroke-width:0.96987712;stroke-opacity:1"
+         id="rect4721"
+         width="31.030123"
+         height="31.030123"
+         x="-75.791328"
+         y="593.95532" />
+      <text
+         xml:space="preserve"
+         style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+         x="-35.587048"
+         y="623.48187"
+         id="text4723"><tspan
+           sodipodi:role="line"
+           id="tspan4725"
+           x="-35.587048"
+           y="623.48187">Component Models</tspan></text>
+    </g>
+    <g
+       transform="matrix(0.34635177,0,0,0.34635177,146.02582,244.28397)"
+       id="g4727">
+      <rect
+         y="593.95532"
+         x="-75.791328"
+         height="31.030123"
+         width="31.030123"
+         id="rect4729"
+         style="fill:#ffb380;fill-opacity:1;stroke:#000000;stroke-width:0.96987712;stroke-opacity:1" />
+      <text
+         id="text4731"
+         y="623.48187"
+         x="-35.587048"
+         style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="623.48187"
+           x="-35.587048"
+           id="tspan4733"
+           sodipodi:role="line">Helper Plugins</tspan></text>
+    </g>
+  </g>
+</svg>

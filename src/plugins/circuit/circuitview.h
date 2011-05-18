@@ -27,12 +27,18 @@
 #define CIRCUITVIEW_H
 
 #include <QGraphicsView>
+#include <KXMLGUIClient>
+
+class KSelectAction;
+class QAction;
 
 namespace KTechLab
 {
 
 class ComponentItem;
 class Theme;
+class CircuitScene;
+class CircuitDocument;
 
 /**
  * A @class QGraphicsView widget, displaying a @class KTechLab::CircuitScene
@@ -41,16 +47,30 @@ class Theme;
  *
  * @author Julian Bäume
  */
-class CircuitView : public QGraphicsView
+class CircuitView : public QGraphicsView, public KXMLGUIClient
 {
     Q_OBJECT
 
 public:
-    CircuitView( QWidget *parent = 0 );
-    CircuitView ( QGraphicsScene* scene, QWidget* parent = 0 );
+    CircuitView ( KTechLab::CircuitDocument* document, QWidget* parent = 0 );
     ~CircuitView();
 
+private slots:
+    void componentRotateCW();
+    void componentRotateCCW();
+    void componentFlipHorizontal();
+    void componentFlipVertical();
+    void routingModeChanged(QAction* action);
+    void save();
+
+private:
     void init();
+    void setupActions();
+    void setRoutingMode(const QString& modeName);
+    KTechLab::CircuitDocument* m_document;
+    KTechLab::CircuitScene* m_scene;
+    QString m_currentRouterName;
+    KSelectAction* m_routerModeActions;
 };
 
 }

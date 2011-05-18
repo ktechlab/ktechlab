@@ -21,53 +21,19 @@
 #ifndef KTLAUTOMATICROUTERPLUGIN_H
 #define KTLAUTOMATICROUTERPLUGIN_H
 
-#include <kdevplatform/interfaces/iplugin.h>
-#include <interfaces/iconrouter.h>
-#include <kdevplatform/interfaces/iextension.h>
+#include <interfaces/iplugin.h>
+#include <interfaces/irouterplugin.h>
 #include <QVariantList>
-#include <map>
 
-class Cells;
-class Cell;
-
-// Key = cell, data = previous cell, compare = score
-typedef std::multimap< unsigned short, QPointF > TempLabelMap;
-
-class AutomaticRouter : public KDevelop::IPlugin, public KTechLab::IConRouter
+class AutomaticRouter : public KDevelop::IPlugin, public KTechLab::IRouterPlugin
 {
     Q_OBJECT
-    Q_INTERFACES( KTechLab::IConRouter )
+    Q_INTERFACES( KTechLab::IRouterPlugin )
 public:
     AutomaticRouter(QObject* parent = 0, const QVariantList& args = QVariantList());
 
-    virtual void mapRoute(QPointF p1, QPointF p2);
-    virtual void mapRoute(qreal sx, qreal sy, qreal ex, qreal ey);
-
-    virtual QPixmap visualizedData(const QRectF& region = QRectF()) const;
-
 protected slots:
-    virtual void updateScene(const QRectF& rect);
     virtual void generateRoutingInfo(KTechLab::IDocumentScene* scene);
-
-private:
-    /**
-    * Check a line of the ICNDocument cells for a valid route
-    */
-    bool checkLineRoute(int scx, int scy, int ecx, int ecy, int maxCIScore);
-
-    /**
-    * Remove duplicated points from the route
-    */
-    void removeDuplicatePoints();
-
-    void checkACell(int x, int y, Cell *prev, int prevX, int prevY, int nextScore);
-    void checkCell(int x, int y);   // Gets the shortest route from the final cell
-
-    TempLabelMap m_tempLabels;
-    qreal m_lcx;
-    qreal m_lcy;
-
-    bool m_cellsNeedUpdate;
 };
 
 #endif // KTLAUTOMATICROUTERPLUGIN_H

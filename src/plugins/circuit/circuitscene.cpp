@@ -29,23 +29,39 @@
 #include <KDebug>
 #include "circuitmodel.h"
 #include "pinitem.h"
+#include <interfaces/component/connector.h>
+#include <interfaces/component/icomponentplugin.h>
 
 using namespace KTechLab;
 
 
-CircuitScene::CircuitScene ( QObject* parent, CircuitModel *model )
+CircuitScene::CircuitScene ( QObject* parent, CircuitModel *model, KTLCircuitPlugin* plugin )
  : IDocumentScene ( parent ),
    m_model( model ),
-   m_theme( new Theme() )
+   m_theme( new Theme() ),
+   m_plugin( plugin )
 {
 //    m_componentSize = QSizeF( cg.readEntry("componentWidth", "64").toInt(), cg.readEntry("componentHeight", "64").toInt() );
     setupData();
+
+    connect(this,SIGNAL(transactionAborted()),model,SLOT(revert()));
+    connect(this,SIGNAL(transactionCompleted()),model,SLOT(submit()));
+
+    connect(this,SIGNAL(componentsMoved(QList<KTechLab::IComponentItem*>)),
+            this,SLOT(updateModel(QList<KTechLab::IComponentItem*>)));
+    connect(this,SIGNAL(routeCreated(KTechLab::ConnectorItem*)),
+            this,SLOT(addConnector(KTechLab::ConnectorItem*)));
+    connect(this,SIGNAL(routed(QList<KTechLab::ConnectorItem*>)),
+            this,SLOT(updateModel(QList<KTechLab::ConnectorItem*>)));
+    connect(this,SIGNAL(itemAdded(KTechLab::IDocumentItem*)),
+            this,SLOT(addItem(KTechLab::IDocumentItem*)));
+    connect(this,SIGNAL(itemRemoved(KTechLab::IDocumentItem*)),
+            this,SLOT(removeItem(KTechLab::IDocumentItem*)));
 }
 
 
 CircuitScene::~CircuitScene()
 {
-    qDeleteAll( m_components.values() );
     delete m_theme;
 }
 
@@ -54,66 +70,119 @@ QString CircuitScene::circuitName() const
     return m_circuitName;
 }
 
+QVariantMap CircuitScene::createItemData(const KTechLab::ComponentMimeData* data, const QPointF& pos) const
+{
+    QVariantMap comp;
+    // type in the xml files is name in the component mimedata :/
+    comp.insert("type", data->name());
+    comp.insert("x", pos.x());
+    comp.insert("y", pos.y());
+    comp.insert("id", m_model->generateUid(data->name()));
+
+    return comp;
+}
+
 void CircuitScene::dropEvent ( QGraphicsSceneDragDropEvent* event )
 {
-    if (!event->mimeData()->hasFormat("application/x-icomponent")) {
+    if (!event->mimeData()->hasFormat("ktechlab/x-icomponent")) {
         kDebug() << "Dropped unknown data";
         return;
     }
     const ComponentMimeData *mimeData = qobject_cast<const ComponentMimeData*>(event->mimeData());
 
-    //FIXME: implement me!
-    //do something with mimeData here. it should be added to the document using the document
-    //DataEngine and services. use mimeData->createComponent() to create a new component.
-    kDebug() << "Dropping item @"<< event->scenePos() << "type:" << mimeData->data("application/x-icomponent");
+    const QVariantMap& itemData = createItemData(mimeData, event->scenePos());
+    m_model->addComponent(itemData);
+    ComponentItem* item = mimeData->factory()->createItem(itemData, m_theme);
+    item->setVisible(true);
+    addItem( item );
+    m_components.insert(item->id(), item);
+    item->setPos(alignToGrid(item->scenePos()));
+    QList<IComponentItem*> list;
+    list << item;
+    emit IDocumentScene::componentsMoved(list);
+    emit transactionCompleted();
+    event->accept();
 }
 
-
-void CircuitScene::dragEnterEvent ( QGraphicsSceneDragDropEvent* event )
+void CircuitScene::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
 {
-    if (!event->mimeData()->hasFormat("application/x-icomponent")) {
+    if (!event->mimeData()->hasFormat("ktechlab/x-icomponent")) {
+        event->ignore();
         return;
     }
-    const ComponentMimeData *mimeData = qobject_cast<const ComponentMimeData*>(event->mimeData());
-
-    kDebug() << "dragging type:" << mimeData->data("application/x-icomponent");
+    event->accept();
 }
-
-void CircuitScene::dragLeaveEvent ( QGraphicsSceneDragDropEvent* event )
-{
-    QGraphicsScene::dragLeaveEvent ( event );
-}
-
 
 void CircuitScene::setupData()
 {
-    if (!m_model)
+    if (!m_model && !m_plugin)
         return;
 
     foreach (QVariant component, m_model->components())
     {
         if (component.canConvert(QVariant::Map)) {
-            ComponentItem* item = new ComponentItem( component.toMap(), m_theme );
+            const QVariantMap& map(component.toMap());
+            IComponentItemFactory* f =
+                m_plugin->componentItemFactory( map.value("type").toString() );
+            ComponentItem* item = f->createItem( map, m_theme );
+            if (!item) {
+                kWarning() << "Couldn't create item";
+                continue;
+            }
             addItem( item );
             m_components.insert(item->id(), item);
-        }
-    }
-    foreach (QVariant connector, m_model->connectors())
-    {
-        if (connector.canConvert(QVariant::Map)) {
-            ConnectorItem *connectorItem = new ConnectorItem(connector.toMap());
-            addItem( connectorItem );
         }
     }
     foreach (QVariant pins, m_model->nodes()){
         if (pins.canConvert(QVariant::Map)) {
             QPointF p(pins.toMap().value("x").toDouble(),pins.toMap().value("y").toDouble());
-            p -= QPointF(6,6);
             QRectF rect(p, QSize(4,4));
             PinItem* item = new PinItem(rect, 0, this);
             item->setId(pins.toMap().value("id").toString());
+            m_pins.insert(item->id(),item);
         }
     }
+    foreach (QVariant connector, m_model->connectors())
+    {
+        if (connector.canConvert(QVariant::Map)) {
+            new ConnectorItem(connector.toMap(),this);
+        }
+    }
+
+}
+
+void CircuitScene::updateModel(QList< IComponentItem* > components)
+{
+    foreach(IDocumentItem* item, components){
+        updateModel(item);
+    }
+}
+void CircuitScene::updateModel(QList< ConnectorItem* > connectors)
+{
+    foreach(IDocumentItem* item, connectors){
+        updateModel(item);
+    }
+}
+void CircuitScene::updateModel(IDocumentItem* item)
+{
+    const QVariantMap& data = item->data();
+    m_model->updateData(data.value("id").toString(),data);
+}
+
+void CircuitScene::addConnector(ConnectorItem* item)
+{
+    QVariantMap data = item->data();
+    if (!data.contains("id"))
+        data.insert("id", m_model->generateUid(((IDocumentItem*)item)->type()));
+
+    m_model->addConnector(data);
+}
+
+void CircuitScene::removeItem(IDocumentItem* item)
+{
+    QModelIndex index = m_model->index(item->data());
+    if (!m_model->removeRow(index.row(),index.parent()))
+        kWarning() << "Could not remove item:" << item->data();
 }
 
 void CircuitScene::updateData( const QString& name, const QVariantMap& data )
@@ -136,6 +205,54 @@ void CircuitScene::updateData( const QString& name, const QVariantMap& data )
         }
     }*/
     //kDebug() << "Difference between components and applets" << (m_components.size() - applets().size());
+}
+
+void CircuitScene::rotateSelectedComponents(qreal angle)
+{
+    QList<IComponentItem*> components;
+    QList<ConnectorItem*> connectors;
+
+    foreach(QGraphicsItem* item, selectedItems()){
+        IComponentItem* c = qgraphicsitem_cast<IComponentItem*>(item);
+        if (!c) continue;
+        components.append(c);
+        scheduleForRerouting(collidingItems(c));
+        c->setRotation(c->rotation()+angle);
+    }
+    emit componentsMoved(components);
+    performRerouting();
+    emit transactionCompleted();
+}
+
+void CircuitScene::flipSelectedComponents(Qt::Axis axis)
+{
+    QList<IComponentItem*> components;
+
+    foreach(QGraphicsItem* item, selectedItems()){
+        IComponentItem* c = qgraphicsitem_cast<IComponentItem*>(item);
+        if (!c) continue;
+        components.append(c);
+        scheduleForRerouting(collidingItems(c));
+        QPointF center = c->boundingRect().center();
+        QTransform t;
+        int sx = (axis == Qt::XAxis) ? 1 : -1;
+        int sy = (axis == Qt::YAxis) ? 1 : -1;
+        t.translate(center.x(),center.y()).scale(sx,sy).translate(-center.x(),-center.y());
+        c->setTransform(t,true);
+    }
+    emit componentsMoved(components);
+    performRerouting();
+    emit transactionCompleted();
+}
+
+IComponentItem* CircuitScene::item(const QString& id) const
+{
+    return m_components.value(id);
+}
+
+Node* CircuitScene::node(const QString& id) const
+{
+    return m_pins.value(id);
 }
 
 void CircuitScene::setCircuitName ( const QString& name )

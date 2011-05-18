@@ -17,10 +17,5 @@ IDocumentPlugin::IDocumentPlugin( KComponentData data, QObject *parent)
     :   KDevelop::IPlugin( data, parent )
 {}
 
-QString IDocumentPlugin::fileNameForComponent ( const QString& component )
-{
-    return QString(component).replace('/','_').append(".svg");
-}
-
 #include "idocumentplugin.moc"
 // vim: sw=4 sts=4 et tw=100

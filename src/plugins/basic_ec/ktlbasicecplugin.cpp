@@ -12,11 +12,12 @@
 #include "elements/capacitance.h"
 #include "elements/voltagesource.h"
 
-#include "interfaces/component/icomponent.h"
-#include "interfaces/component/icomponentplugin.h"
-#include "interfaces/simulator/isimulationmanager.h"
-#include "interfaces/idocumentplugin.h"
-#include "interfaces/simulator/genericelementfactory.h"
+#include <interfaces/component/icomponent.h>
+#include <interfaces/component/icomponentplugin.h>
+#include <interfaces/simulator/isimulationmanager.h>
+#include <interfaces/idocumentplugin.h>
+#include <circuit/genericcomponentitemfactory.h>
+#include <circuit/simulator/genericelementfactory.h>
 
 #include <shell/core.h>
 #include <KGenericFactory>
@@ -29,7 +30,7 @@ K_PLUGIN_FACTORY(KTLBasicECPluginFactory, registerPlugin<KTLBasicECPlugin>(); )
 K_EXPORT_PLUGIN(KTLBasicECPluginFactory(KAboutData("ktlbasic_ec","ktlbasic_ec", ki18n("KTechLab Basic Electronic Components"), "0.1", ki18n("Provide a set of basic electronic components"), KAboutData::License_LGPL)))
 
 
-class KTechLab::KTLBasicECFactory: public IComponentFactory, public GenericElementFactory
+class KTechLab::KTLBasicECFactory: public GenericComponentItemFactory, public GenericElementFactory
 {
 public:
     KTLBasicECFactory()
@@ -38,11 +39,6 @@ public:
         file = KGlobal::dirs()->findResource("data","ktechlab/components/ktlbasic_ec.rc");
         kDebug() << "Found component meta-data file: " << file;
         loadComponentsFromFile( file );
-    }
-
-    virtual IComponent * create( const QString &name )
-    {
-        return 0;
     }
 
 protected:
@@ -57,7 +53,6 @@ protected:
         SUPPORT_ELEMENT(VoltageSource,"ec/voltagesource")
         return 0;
     }
-private:
     QStringList pinListForComponent(const QByteArray& type)
     {
         QStringList result;
@@ -92,7 +87,11 @@ KTLBasicECPlugin::~KTLBasicECPlugin()
 
 void KTLBasicECPlugin::unload()
 {
-    //me be, we should unregister our components at the circuit-plugin
+    IDocumentPlugin *plugin = documentPlugin();
+    if (plugin) {
+      plugin->deregisterComponentFactory( m_componentFactory );
+    }
+
     ISimulationManager::self()->unregisterElementFactory(m_componentFactory);
 }
 
