@@ -74,7 +74,7 @@ QString Theme::findFirstFile ( const QString& fileName )
     fileList << KGlobal::dirs()->findAllResources( "data", filter );
 
     //find global unknown
-    filter = QString("ktechlab/themes/components/%1").arg("unknown.svgz");
+    filter = QString("ktechlab/themes/components/%1").arg("unknown.svg");
     fileList << KGlobal::dirs()->findAllResources( "data", filter );
 
     if (!fileList.isEmpty()) {
