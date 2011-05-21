@@ -49,6 +49,7 @@ class KDevelop::KTLProjectManagerPrivate
     {
         QStack<QString> domPath;
         domPath.push( name );
+        #if KDEV_PLUGIN_VERSION >= 10
         if (!item->parent()) {
             //this must be the project root
             return projectDomDocument.documentElement();
@@ -60,6 +61,20 @@ class KDevelop::KTLProjectManagerPrivate
         };
         //remove last element, because it’s the root element, we don’t want to find that
         domPath.pop();
+        #else
+        // for older kdevplatform versions
+        //TODO: can this be done without dynamic_cast?
+        ProjectFolderItem *wItem = dynamic_cast<ProjectFolderItem*>( item->parent() );
+        if (!wItem) {
+             //this must be the project root
+             return projectDomDocument.documentElement();
+         }
+        while (!wItem->isProjectRoot()){
+            domPath.push( wItem->folderName() );
+            //TODO: can this be done without dynamic_cast?
+            wItem = dynamic_cast<ProjectFolderItem*>( wItem->parent() );
+         };
+        #endif
 
         QDomElement child = projectDomDocument.documentElement();
         while ( !domPath.isEmpty() ){
@@ -309,6 +324,7 @@ bool KTLProjectManager::removeFolder( ProjectFolderItem* folder )
     return true;
 }
 
+#if KDEV_PLUGIN_VERSION >= 11
 bool KTLProjectManager::removeFilesAndFolders(QList< ProjectBaseItem* > items)
 {
     foreach(ProjectBaseItem* item, items){
@@ -320,6 +336,7 @@ bool KTLProjectManager::removeFilesAndFolders(QList< ProjectBaseItem* > items)
     }
     return true;
 }
+#endif
 
 bool KTLProjectManager::renameFile( ProjectFileItem* oldFile, const KUrl& newFile )
 {
