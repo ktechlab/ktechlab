@@ -17,6 +17,8 @@ MACRO_OPTIONAL_FIND_PACKAGE( GPSim )
 set(KDE4_BUILD_TESTS "ON" CACHE "BOOL" "Enable building of tests" FORCE )
 include(KDevPluginVersion)
 
+add_definitions( -DKDEV_PLUGIN_VERSION=${KDEV_PLUGIN_VERSION})
+
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
 set( CMAKE_REQUIRED_FLAGS
