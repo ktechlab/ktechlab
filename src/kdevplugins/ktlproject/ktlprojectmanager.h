@@ -78,10 +78,12 @@ class KTLProjectManager : public IPlugin, public IProjectFileManager
     */
     virtual bool removeFolder ( ProjectFolderItem* folder );
 
+#if KDEV_PLUGIN_VERSION >= 11
     /**
      *
      */
     virtual bool removeFilesAndFolders(QList< ProjectBaseItem* > items);
+#endif
 
     /**
     *
