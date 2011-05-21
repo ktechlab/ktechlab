@@ -24,5 +24,6 @@ install(TARGETS ktllogic_components DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 ########### install files ###############
 
-install( FILES ktllogic_components.desktop DESTINATION ${SERVICES_INSTALL_DIR} )
+ktl_install_desktop( ktllogic_components.desktop )
+
 install( FILES ktllogic_components.rc DESTINATION ${DATA_INSTALL_DIR}/ktechlab/components/ )
