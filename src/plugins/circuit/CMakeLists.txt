@@ -7,6 +7,7 @@ include_directories(
 )
 
 set( ktlcircuit_PART_SRCS
+   fakecomponentitemfactory.cpp
    componenteditorview.cpp
    circuitscene.cpp
    ktlcircuitplugin.cpp

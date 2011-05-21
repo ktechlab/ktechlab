@@ -23,6 +23,7 @@
 #include <QTreeView>
 #include <QHeaderView>
 #include "componenteditorview.h"
+#include "fakecomponentitemfactory.h"
 
 using namespace KTechLab;
 
@@ -129,6 +130,9 @@ void KTLCircuitPlugin::init()
 
     m_documentFactory = new KTLCircuitDocumentFactory(this);
     KDevelop::Core::self()->documentController()->registerDocumentForMimetype( "application/x-circuit", m_documentFactory );
+
+    m_fakeComponentItemFactory = new FakeComponentItemFactory;
+    registerComponentFactory(m_fakeComponentItemFactory);
 }
 
 KTLCircuitPlugin::~KTLCircuitPlugin()
@@ -136,6 +140,7 @@ KTLCircuitPlugin::~KTLCircuitPlugin()
     // it crashes, when we delete this. I guess,
     // it has been deleted before, somewhere else.
     //delete m_componentViewFactory;
+    delete m_fakeComponentItemFactory;
     delete m_documentFactory;
     delete m_componentModel;
 }
@@ -168,7 +173,7 @@ IComponentItemFactory* KTLCircuitPlugin::componentItemFactory(const QString& nam
     IComponentItemFactory* factory = m_componentModel->factoryForComponent(name);
     if (!factory) {
         kWarning() << "factory for data not found";
-        return 0;
+        return m_componentModel->factoryForComponent("ec/unknown");
     }
     return factory;
 }
