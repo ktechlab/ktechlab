@@ -15,4 +15,5 @@ target_link_libraries(ktlautomatic_router
 
 install(TARGETS ktlautomatic_router DESTINATION ${PLUGIN_INSTALL_DIR} )
 
-install( FILES ktlautomatic_router.desktop DESTINATION ${SERVICES_INSTALL_DIR} )
+ktl_install_desktop( ktlautomatic_router.desktop )
+

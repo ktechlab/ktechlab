@@ -23,5 +23,6 @@ target_link_libraries( ktlsimulator
     )
 
 install(TARGETS ktlsimulator DESTINATION ${PLUGIN_INSTALL_DIR} )
-install( FILES ktlsimulator.desktop DESTINATION ${SERVICES_INSTALL_DIR} )
+
+ktl_install_desktop( ktlsimulator.desktop )
 
