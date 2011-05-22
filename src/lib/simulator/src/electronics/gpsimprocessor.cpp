@@ -27,7 +27,7 @@
 #include <qtimer.h>
 #include <QList>
 #include <QTemporaryFile>
-#include <qmessagebox.h>
+// #include <qmessagebox.h>
 
 #include "gpsim/cod.h"
 #include "gpsim/interface.h"
@@ -156,26 +156,33 @@ void GpsimProcessor::displayCodLoadStatus( )
 		case CodSuccess:
 			break;
 		case CodFileNotFound:
-			QMessageBox::critical( 0l, tr("The cod file \"%1\" was not found.").arg(m_symbolFile), tr("File Not Found") );
+			// QMessageBox::critical( 0l, tr("The cod file \"%1\" was not found.").arg(m_symbolFile), tr("File Not Found") );
+			qCritical() << tr("The cod file \"%1\" was not found.").arg(m_symbolFile);
 			break;
 		case CodUnrecognizedProcessor:
-			QMessageBox::critical( 0l, tr("The processor for cod file \"%1\" is unrecognized.").arg(m_symbolFile), tr("Unrecognized Processor") );
+			// QMessageBox::critical( 0l, tr("The processor for cod file \"%1\" is unrecognized.").arg(m_symbolFile), tr("Unrecognized Processor") );
+			qCritical() << tr("The processor for cod file \"%1\" is unrecognized.").arg(m_symbolFile);
 			break;
 		case CodFileNameTooLong:
-			QMessageBox::critical( 0l, tr("The file name \"%1\" is too long.").arg(m_symbolFile), tr("Filename Too Long") );
+			// QMessageBox::critical( 0l, tr("The file name \"%1\" is too long.").arg(m_symbolFile), tr("Filename Too Long") );
+			qCritical() << tr("The file name \"%1\" is too long.").arg(m_symbolFile);
 			break;
 		case CodLstNotFound:
-			QMessageBox::critical( 0l, tr("The lst file associated with the cod file \"%1\" was not found.").arg(m_symbolFile), tr("LST File Not Found") );
+			// QMessageBox::critical( 0l, tr("The lst file associated with the cod file \"%1\" was not found.").arg(m_symbolFile), tr("LST File Not Found") );
+			qCritical() << tr("The lst file associated with the cod file \"%1\" was not found.").arg(m_symbolFile);
 			break;
 		case CodBadFile:
-			QMessageBox::critical( 0l, tr("The cod file \"%1\" is bad.").arg(m_symbolFile), tr("Bad File") );
+			// QMessageBox::critical( 0l, tr("The cod file \"%1\" is bad.").arg(m_symbolFile), tr("Bad File") );
+			qCritical() << tr("The cod file \"%1\" is bad.").arg(m_symbolFile);
 			break;
 		case CodFileUnreadable:
-			QMessageBox::critical( 0l, tr("The cod file \"%1\" could not be read from.").arg(m_symbolFile), tr("Unreadable File") );
+			// QMessageBox::critical( 0l, tr("The cod file \"%1\" could not be read from.").arg(m_symbolFile), tr("Unreadable File") );
+			qCritical() << tr("The cod file \"%1\" could not be read from.").arg(m_symbolFile);
 			break;
 		case CodFailure:
 		case CodUnknown:
-			QMessageBox::critical( 0l, tr("An error occured with the cod file \"%1\".").arg(m_symbolFile), tr("Error") );
+			// QMessageBox::critical( 0l, tr("An error occured with the cod file \"%1\".").arg(m_symbolFile), tr("Error") );
+			qCritical() << tr("An error occured with the cod file \"%1\".").arg(m_symbolFile);
 			break;
 	}
 }
