@@ -14,6 +14,7 @@
 #include <set>
 #include <cassert>
 #include "math/matrix.h"
+#include "simulatorexport.h"
 
 class CBranch;
 class Circuit;
@@ -43,7 +44,7 @@ point of the circuit for a given set of elements.
 @author David Saxton
 */
 
-class ElementSet {
+class SIMULATOR_EXPORT ElementSet {
 
 public:
 	/**

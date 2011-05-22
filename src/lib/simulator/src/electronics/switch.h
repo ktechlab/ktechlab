@@ -13,6 +13,7 @@
 
 #include <qobject.h>
 #include "resistance.h"
+#include "simulatorexport.h"
 
 class CircuitDocument;
 class Component;
@@ -23,7 +24,7 @@ class Wire;
 /**
 @author David Saxton
 */
-class Switch : public QObject {
+class SIMULATOR_EXPORT Switch : public QObject {
 	Q_OBJECT
 public:
 	enum State {

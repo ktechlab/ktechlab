@@ -12,13 +12,14 @@
 #define VOLTAGESOURCE_H
 
 #include "element.h"
+#include "simulatorexport.h"
 
 /**
 CNode n0 is the negative terminal, CNode n1 is the positive terminal
 @short Voltage Source
 */
 
-class VoltageSource : public Element {
+class SIMULATOR_EXPORT VoltageSource : public Element {
 
 public:
     VoltageSource(const double voltage = 5);

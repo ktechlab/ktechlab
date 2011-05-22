@@ -15,6 +15,7 @@
 #include <list>
 
 #include "element.h"
+#include "simulatorexport.h"
 
 class Pin;
 class Simulator;
@@ -50,7 +51,7 @@ output high/low, also according to the predetermined logic type / voltages.
 @short Boolean Logic input
 */
 
-class LogicIn : public Element {
+class SIMULATOR_EXPORT LogicIn : public Element {
 
 public:
 	LogicIn(LogicConfig config = LogicConfig());
@@ -113,7 +114,7 @@ typedef std::list<LogicIn*> LogicInList;
 /**
 @short Logic output/input
 */
-class LogicOut : public LogicIn {
+class SIMULATOR_EXPORT LogicOut : public LogicIn {
 
 public:
 	enum States {

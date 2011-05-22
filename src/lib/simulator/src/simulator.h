@@ -11,13 +11,14 @@
 #ifndef SIMULATOR_H
 #define SIMULATOR_H
 
+
 #include <list>
 #include <set>
 
 #include <qobject.h>
 
 #include "logic.h"
-
+#include "simulatorexport.h"
 
 class QTimer;
 
@@ -73,7 +74,7 @@ logic, external simulators (such as gpsim), mechanical simulation, etc).
 @author David Saxton
 */
 
-class Simulator : public QObject {
+class SIMULATOR_EXPORT Simulator : public QObject {
 	Q_OBJECT
 
 public:

@@ -13,7 +13,7 @@
 #define ELECTRONICCONNECTOR_H
 
 #include "connector.h"
-
+#include "simulatorexport.h"
 #include "typedefs.h"
 
 class ECNode;
@@ -24,7 +24,7 @@ class Wire;
 
 	An electronic connector, connecting 2 ECNodes.
 */
-class ElectronicConnector : public Connector {
+class SIMULATOR_EXPORT ElectronicConnector : public Connector {
 	Q_OBJECT
 
 public:

@@ -11,9 +11,11 @@
 #ifndef OUTPUTMETHODDLG_H
 #define OUTPUTMETHODDLG_H
 
+#include "simulatorexport.h"
+
 #include <qurl.h>
 
-class OutputMethodInfo
+class SIMULATOR_EXPORT OutputMethodInfo
 {
     public:
         class Method

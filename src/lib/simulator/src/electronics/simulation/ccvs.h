@@ -12,6 +12,7 @@
 #define CCVS_H
 
 #include "element.h"
+#include "simulatorexport.h"
 
 /**
 CNodes n0 and n1 are used for the current control.
@@ -20,7 +21,7 @@ Branches b0 and b1 are for control and output
 @short Current Controlled Voltage Source
 @author David Saxton
 */
-class CCVS : public Element
+class SIMULATOR_EXPORT CCVS : public Element
 {
 public:
 	CCVS( const double gain );

@@ -12,6 +12,7 @@
 #define OPAMP_H
 
 #include <element.h>
+#include "simulatorexport.h"
 
 /**
 node 0: non-inverting input
@@ -19,7 +20,7 @@ node 1: output
 node 2: inverting input
 @author David Saxton
 */
-class OpAmp : public Element
+class SIMULATOR_EXPORT OpAmp : public Element
 {
 	public:
 		OpAmp();

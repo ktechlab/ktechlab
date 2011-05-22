@@ -12,6 +12,7 @@
 #define VCVS_H
 
 #include "element.h"
+#include "simulatorexport.h"
 
 /**
 Voltage source between nodes c2 and c3
@@ -19,7 +20,7 @@ Controlling voltage between nodes c0 and c1
 @short Voltage Controlled Voltage  Source
 @author David Saxton
 */
-class VCVS : public Element
+class SIMULATOR_EXPORT VCVS : public Element
 {
 public:
 	VCVS( const double gain );

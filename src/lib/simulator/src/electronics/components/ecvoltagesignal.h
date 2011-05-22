@@ -12,6 +12,7 @@
 #define ECVOLTAGESIGNAL_H
 
 #include "component.h"
+#include "simulatorexport.h"
 
 class VoltageSignal;
 class Circuit;
@@ -20,7 +21,7 @@ class Circuit;
 @short Provides an alternating voltage source
 @author David Saxton
 */
-class ECVoltageSignal : public Component
+class SIMULATOR_EXPORT ECVoltageSignal : public Component
 {
 public:
 	ECVoltageSignal(Circuit &ownerCircuit);

@@ -16,12 +16,13 @@ class ElementMap;
 class Resistance;
 
 #include "component.h"
+#include "simulatorexport.h"
 
 /**
 @short Simple resistor
 @author David Saxton
 */
-class Resistor : public Component
+class SIMULATOR_EXPORT Resistor : public Component
 {
 	public:
 		Resistor(Circuit &);

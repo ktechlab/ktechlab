@@ -13,6 +13,7 @@
 
 #include "component.h"
 #include "currentsource.h"
+#include "simulatorexport.h"
 
 class Circuit;
 class CurrentSource;
@@ -21,7 +22,7 @@ class CurrentSource;
 @short Fixed current source
 @author David Saxton
 */
-class ECCurrentSource : public Component
+class SIMULATOR_EXPORT ECCurrentSource : public Component
 {
 public:
 	ECCurrentSource(Circuit &ownerCircuit);

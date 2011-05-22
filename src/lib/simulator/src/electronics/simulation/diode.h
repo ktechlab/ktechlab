@@ -12,8 +12,9 @@
 #define DIODE_H
 
 #include "nonlinear.h"
+#include "simulatorexport.h"
 
-class DiodeSettings
+class SIMULATOR_EXPORT DiodeSettings
 {
     public:
         DiodeSettings();
@@ -39,7 +40,7 @@ This simulates a diode. The simulated diode characteristics are:
 @short Simulates the electrical property of diode-ness
 @author David Saxton
 */
-class Diode : public NonLinear
+class SIMULATOR_EXPORT Diode : public NonLinear
 {
     public:
         Diode();

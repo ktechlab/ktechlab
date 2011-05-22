@@ -15,6 +15,7 @@
 #include <set>
 #include <cassert>
 
+#include "simulatorexport.h"
 #include "qstringlist.h"
 #include "elementset.h"
 
@@ -57,7 +58,7 @@ to this implementation, and the pure untainted ElementSet. Please keep it that w
 @short Simulates a collection of components
 @author David Saxton
 */
-class Circuit
+class SIMULATOR_EXPORT Circuit
 {
 public:
     /**

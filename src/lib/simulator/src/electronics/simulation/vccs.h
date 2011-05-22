@@ -12,6 +12,7 @@
 #define VCCS_H
 
 #include "element.h"
+#include "simulatorexport.h"
 
 /**
 CNodes n0 and n1 are used for the voltage control.
@@ -19,7 +20,7 @@ CNodes n2 and n3 are used for the current output.
 @short Voltage Controlled Current Source
 @author David Saxton
 */
-class VCCS : public Element
+class SIMULATOR_EXPORT VCCS : public Element
 {
 public:
 	VCCS( const double gain );

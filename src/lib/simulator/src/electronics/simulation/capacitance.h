@@ -12,12 +12,13 @@
 #define CAPACITANCE_H
 
 #include "reactive.h"
+#include "simulatorexport.h"
 
 /**
 @author David Saxton
 @short Capacitance
 */
-class Capacitance : public Reactive
+class SIMULATOR_EXPORT Capacitance : public Reactive
 {
 public:
 	enum Method

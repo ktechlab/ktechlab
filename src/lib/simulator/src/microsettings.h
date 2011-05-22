@@ -11,6 +11,8 @@
 #ifndef MICROSETTINGS_H
 #define MICROSETTINGS_H
 
+#include "simulatorexport.h"
+
 #include <qobject.h>
 #include <qvariant.h>
 //Added by qt3to4:
@@ -21,7 +23,7 @@ class QVariant;
 class MicroData;
 class MicroInfo;
 
-class VariableInfo
+class SIMULATOR_EXPORT VariableInfo
 {
 public:
 	VariableInfo();
@@ -55,7 +57,7 @@ typedef QMap< QString, VariableInfo > VariableMap; // Variable name, variable in
 @short Stores pic pin settings - type/state
 @author David Saxton
 */
-class PinSettings : public QObject
+class SIMULATOR_EXPORT PinSettings : public QObject
 {
 	Q_OBJECT
 	public:
@@ -108,7 +110,7 @@ This is different from PIC info, which includes stuff such as PIC pin names
 @short Stores Pic settings - pin settings
 @author David Saxton
 */
-class MicroSettings : public QObject
+class SIMULATOR_EXPORT MicroSettings : public QObject
 {
 	Q_OBJECT
 public:

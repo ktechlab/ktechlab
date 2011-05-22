@@ -12,6 +12,7 @@
 #define ECCURRENTSIGNAL_H
 
 #include "component.h"
+#include "simulatorexport.h"
 
 class Circuit;
 class CurrentSignal;
@@ -20,7 +21,7 @@ class CurrentSignal;
 @short Provides a current signal (sinusoidal, square, etc)
 @author David Saxton
 */
-class ECCurrentSignal : public Component
+class SIMULATOR_EXPORT ECCurrentSignal : public Component
 {
 public:
 	ECCurrentSignal(Circuit &ownerCircuit);

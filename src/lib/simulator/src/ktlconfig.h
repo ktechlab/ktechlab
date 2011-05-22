@@ -24,8 +24,9 @@
 
 #include <QObject>
 
+#include "simulatorexport.h"
 
-class KtlConfig : public QObject
+class SIMULATOR_EXPORT KtlConfig : public QObject
 {
     Q_OBJECT
 

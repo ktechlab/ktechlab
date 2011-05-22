@@ -12,6 +12,7 @@
 #define CAPACITOR_H
 
 #include "component.h"
+#include "simulatorexport.h"
 
 class Capacitance;
 class Circuit;
@@ -22,7 +23,7 @@ class ECNode;
 Simple capacitor
 @author David Saxton
 */
-class Capacitor : public Component
+class SIMULATOR_EXPORT Capacitor : public Component
 {
 public:
 	Capacitor(Circuit &ownerCircuit);
