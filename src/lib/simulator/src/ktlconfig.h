@@ -50,7 +50,7 @@ public:
             return m_indent##name; \
         } \
         void setIndent##name(int value){    \
-            m_indent##name;  \
+            m_indent##name = value;  \
     }   \
     private:    \
         bool m_indent##name ;
@@ -187,7 +187,7 @@ public:
             return m_sdcc_##name; \
         } \
         void setSDCC_##name(bool value){    \
-            m_sdcc_##name;  \
+            m_sdcc_##name = value;  \
     }   \
     private:    \
         bool m_sdcc_##name ;
