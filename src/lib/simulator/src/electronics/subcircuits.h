@@ -11,6 +11,8 @@
 #ifndef SUBCIRCUITS_H
 #define SUBCIRCUITS_H
 
+#include "simulatorexport.h"
+
 #include <qobject.h>
 
 class CircuitDocument;
@@ -22,7 +24,7 @@ inline Subcircuits *subcircuits();
 Interface for dealing with loading / saving / etc of subcircuits
 @author David Saxton
 */
-class Subcircuits : public QObject
+class SIMULATOR_EXPORT Subcircuits : public QObject
 {
 Q_OBJECT
 public:

@@ -15,6 +15,8 @@
 #ifndef DEBUGMANAGER_H
 #define DEBUGMANAGER_H
 
+#include "simulatorexport.h"
+
 #include <qmap.h>
 #include <qobject.h>
 #include <QPointer>
@@ -27,7 +29,7 @@ typedef QList< QPointer<GpsimProcessor> > GpsimProcessorList;
 /**
 @author David Saxton
 */
-class DebugManager : public QObject
+class SIMULATOR_EXPORT DebugManager : public QObject
 {
 	Q_OBJECT
 	public:

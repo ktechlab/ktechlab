@@ -11,6 +11,8 @@
 #ifndef VARIANT_H
 #define VARIANT_H
 
+#include "simulatorexport.h"
+
 #include <qobject.h>
 #include <qvariant.h>
 #include <QStringList>
@@ -31,7 +33,7 @@ contained. e.g. returns QVariant::Color or QVariant::Rect
 @author Daniel Clarke
 @author David Saxton
 */
-class Variant : public QObject
+class SIMULATOR_EXPORT Variant : public QObject
 {
 Q_OBJECT
 public:

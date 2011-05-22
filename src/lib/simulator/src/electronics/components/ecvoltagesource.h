@@ -12,6 +12,7 @@
 #define ECCELL_H
 
 #include "component.h"
+#include "simulatorexport.h"
 
 class Circuit;
 class ElementMap;
@@ -22,7 +23,7 @@ class VoltageSource;
 Simple electrical cell that simulates a PD and internal resistance
 @author David Saxton
 */
-class ECCell : public Component
+class SIMULATOR_EXPORT ECCell : public Component
 {
 public:
 	ECCell(Circuit &ownerCircuit);

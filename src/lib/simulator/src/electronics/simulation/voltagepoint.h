@@ -12,12 +12,13 @@
 #define VOLTAGEPOINT_H
 
 #include "element.h"
+#include "simulatorexport.h"
 
 /**
 @short VoltagePoint
 @author David saxton
 */
-class VoltagePoint : public Element
+class SIMULATOR_EXPORT VoltagePoint : public Element
 {
 public:
 	VoltagePoint(const double voltage = 5);

@@ -13,12 +13,13 @@
 
 #include "reactive.h"
 #include "elementsignal.h"
+#include "simulatorexport.h"
 
 /**
 @short CurrentSignal
 @author David saxton
 */
-class CurrentSignal : public Reactive, public ElementSignal
+class SIMULATOR_EXPORT CurrentSignal : public Reactive, public ElementSignal
 {
 public:
 	CurrentSignal(  double delta, double current );

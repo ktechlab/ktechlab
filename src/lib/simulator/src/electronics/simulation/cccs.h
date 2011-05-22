@@ -12,6 +12,7 @@
 #define CCCS_H
 
 #include "element.h"
+#include "simulatorexport.h"
 
 /**
 CNodes n0 and n1 are used for the current control.
@@ -20,7 +21,7 @@ Branches b0 and b1 are for control and output
 @short Current Controlled Current Source
 @author David Saxton
 */
-class CCCS : public Element
+class SIMULATOR_EXPORT CCCS : public Element
 {
 public:
 	CCCS( const double gain );

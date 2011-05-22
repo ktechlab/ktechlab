@@ -11,6 +11,8 @@
 #ifndef PORT_H
 #define PORT_H
 
+#include "simulatorexport.h"
+
 #include <qstringlist.h>
 
 #include <termios.h>
@@ -18,7 +20,7 @@
 /**
 @author David Saxton
  */
-class Port
+class SIMULATOR_EXPORT Port
 {
 	public:
 		enum ProbeResult
@@ -45,7 +47,7 @@ Abstraction for a serial port, allowing control over individual pins.
 
 @author David Saxton
  */
-class SerialPort : public Port
+class SIMULATOR_EXPORT SerialPort : public Port
 {
 	public:
 		enum Pin
@@ -101,7 +103,7 @@ Based loosely on code in the parapin project; see http://parapin.sf.net
 
 @author David Saxton
 */
-class ParallelPort : public Port
+class SIMULATOR_EXPORT ParallelPort : public Port
 {
 	public:
 		enum Pin

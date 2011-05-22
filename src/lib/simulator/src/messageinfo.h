@@ -25,10 +25,12 @@
 #ifndef MESSAGEINFO_H
 #define MESSAGEINFO_H
 
+#include "simulatorexport.h"
+
 #include <QObject>
 #include <QString>
 
-class MessageInfo : public QObject
+class SIMULATOR_EXPORT MessageInfo : public QObject
 {
     Q_OBJECT
 

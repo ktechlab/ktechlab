@@ -11,11 +11,13 @@
 #ifndef ELEMENTSIGNAL_H
 #define ELEMENTSIGNAL_H
 
+#include "simulatorexport.h"
+
 /**
 @short Provides different signals
 @author David Saxton
 */
-class ElementSignal
+class SIMULATOR_EXPORT ElementSignal
 {
 public:
 	enum Type

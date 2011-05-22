@@ -13,6 +13,8 @@
 #ifndef WIRE_H
 #define WIRE_H
 
+#include "simulatorexport.h"
+
 #include <QObject>
 
 class Pin;
@@ -25,7 +27,7 @@ class Pin;
 The wire always connects two Pins.
 A current flows through the wire.
 */
-class Wire : public QObject {
+class SIMULATOR_EXPORT Wire : public QObject {
     Q_OBJECT
 public:
     /**

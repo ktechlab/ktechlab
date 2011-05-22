@@ -12,8 +12,9 @@
 #define MOSFET_H
 
 #include "nonlinear.h"
+#include "simulatorexport.h"
 
-class MOSFETState {
+class SIMULATOR_EXPORT MOSFETState {
 
 public:
 	MOSFETState();
@@ -25,7 +26,7 @@ public:
 	double I[4];
 };
 
-class MOSFETSettings {
+class SIMULATOR_EXPORT MOSFETSettings {
 
 public:
 	MOSFETSettings();
@@ -57,7 +58,7 @@ public:
 @author David Saxton
  */
 
-class MOSFET : public NonLinear {
+class SIMULATOR_EXPORT MOSFET : public NonLinear {
 
 public:
 	enum MOSFET_type { neMOSFET, peMOSFET/*, ndMOSFET, pdMOSFET*/ };

@@ -16,6 +16,7 @@
 #include "wire.h"
 #include "element.h"
 #include "typedefs.h"
+#include "simulatorexport.h"
 
 #include <set>
 #include <QList>
@@ -35,7 +36,7 @@ It also can have one or more wires, through which current can flow,
 into other pins.
 
 */
-class Pin {
+class SIMULATOR_EXPORT Pin {
 
 public:
 	/**
