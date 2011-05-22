@@ -13,16 +13,16 @@ set( ktlsimulator_PART_SRCS
    circuittransientsimulator.cpp
 )
 
-kde4_add_plugin( ktlsimulator ${ktlsimulator_PART_SRCS} )
+kde4_add_plugin( ktlsimulatorplugin ${ktlsimulator_PART_SRCS} )
 
-target_link_libraries( ktlsimulator
+target_link_libraries( ktlsimulatorplugin
     ktlinterfaces
     ktlmath
     ${KDE4_KDECORE_LIBS}
     ${KDEVPLATFORM_INTERFACES_LIBRARIES}
     )
 
-install(TARGETS ktlsimulator DESTINATION ${PLUGIN_INSTALL_DIR} )
+install(TARGETS ktlsimulatorplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 ktl_install_desktop( ktlsimulator.desktop )
 
