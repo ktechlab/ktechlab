@@ -11,6 +11,8 @@
 #ifndef CONNECTOR_H
 #define CONNECTOR_H
 
+#include "simulatorexport.h"
+
 #include <QObject>
 
 class Node;
@@ -21,7 +23,7 @@ class Node;
 
 A connector contains one or more Wires internally.
 */
-class Connector : public QObject {
+class SIMULATOR_EXPORT Connector : public QObject {
 	Q_OBJECT
 
 public:

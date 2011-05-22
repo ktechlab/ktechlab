@@ -12,6 +12,7 @@
 #define ECDIODE_H
 
 #include "component.h"
+#include "simulatorexport.h"
 
 class Circuit;
 class Diode;
@@ -20,7 +21,7 @@ class Diode;
 @short Simple diode
 @author David Saxton
 */
-class ECDiode : public Component
+class SIMULATOR_EXPORT ECDiode : public Component
 {
 public:
 	ECDiode(Circuit &ownerCircuit);

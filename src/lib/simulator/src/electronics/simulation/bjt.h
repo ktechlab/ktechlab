@@ -13,7 +13,9 @@
 
 #include "nonlinear.h"
 
-class BJTState {
+#include "simulatorexport.h"
+
+class SIMULATOR_EXPORT BJTState {
 
 public:
 	BJTState();
@@ -26,7 +28,7 @@ public:
 };
 
 
-class BJTSettings {
+class SIMULATOR_EXPORT BJTSettings {
 
 public:
 	BJTSettings();
@@ -41,7 +43,7 @@ public:
 /**
 @author David Saxton
 */
-class BJT : public NonLinear {
+class SIMULATOR_EXPORT BJT : public NonLinear {
 
 public:
 	BJT(bool isNPN);

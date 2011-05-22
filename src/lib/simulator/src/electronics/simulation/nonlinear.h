@@ -12,12 +12,13 @@
 #define NONLINEAR_H
 
 #include "element.h"
+#include "simulatorexport.h"
 
 /**
 @short Represents a non-linear circuit element (such as a diode)
 @author David Saxton
 */
-class NonLinear : public Element
+class SIMULATOR_EXPORT NonLinear : public Element
 {
     public:
         NonLinear();

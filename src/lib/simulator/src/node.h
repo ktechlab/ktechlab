@@ -13,6 +13,7 @@
 
 #include "connector.h"
 #include "typedefs.h"
+#include "simulatorexport.h"
 
 #include <QList>
 #include <QObject>
@@ -32,7 +33,7 @@ Two nodes are connected by a \ref Connector.
 Note that a node might change the number of Pins it contains,
 during runtime.
 */
-class Node : public QObject {
+class SIMULATOR_EXPORT Node : public QObject {
 	Q_OBJECT
 
 public:

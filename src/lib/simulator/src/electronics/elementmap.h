@@ -17,6 +17,7 @@
 
 #include "simulation/element.h"
 #include "pin.h"
+#include "simulatorexport.h"
 
 class LogicIn;
 
@@ -25,7 +26,7 @@ typedef std::list< PinSet > PinSetList;
 /**
 Contains vital information about the elements in the component.
 */
-class ElementMap {
+class SIMULATOR_EXPORT ElementMap {
 
 public:
     /**

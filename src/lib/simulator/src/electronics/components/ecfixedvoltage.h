@@ -12,6 +12,7 @@
 #define ECFIXEDVOLTAGE_H
 
 #include "component.h"
+#include "simulatorexport.h"
 
 class Circuit;
 class VoltagePoint;
@@ -20,7 +21,7 @@ class VoltagePoint;
 @short Fixed voltage source
 @author David Saxton
 */
-class ECFixedVoltage : public Component
+class SIMULATOR_EXPORT ECFixedVoltage : public Component
 {
 public:
 	ECFixedVoltage(Circuit &ownerCircuit);

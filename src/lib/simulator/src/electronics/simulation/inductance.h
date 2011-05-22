@@ -12,12 +12,13 @@
 #define INDUCTANCE_H
 
 #include "reactive.h"
+#include "simulatorexport.h"
 
 /**
 
 @author David Saxton
 */
-class Inductance : public Reactive
+class SIMULATOR_EXPORT Inductance : public Reactive
 {
 	public:
 		enum Method

@@ -12,13 +12,14 @@
 #define CURRENTSOURCE_H
 
 #include "element.h"
+#include "simulatorexport.h"
 
 /**
 cnode n0 has current flowing otu of it, cnode n1 has current flowing into it
 @author David Saxton
 @short Current Source
 */
-class CurrentSource : public Element
+class SIMULATOR_EXPORT CurrentSource : public Element
 {
 public:
 	CurrentSource( const double current );

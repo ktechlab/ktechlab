@@ -12,12 +12,13 @@
 #define RESISTANCE_H
 
 #include "element.h"
+#include "simulatorexport.h"
 
 /**
 @short Resistance
 @author David saxton
 */
-class Resistance : public Element {
+class SIMULATOR_EXPORT Resistance : public Element {
 
 public:
     Resistance(const double resistance = 1);

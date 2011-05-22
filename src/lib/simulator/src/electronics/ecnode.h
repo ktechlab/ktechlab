@@ -16,6 +16,8 @@
 #include "pin.h"
 #include "typedefs.h"
 
+#include "simulatorexport.h"
+
 class Circuit;
 class Element;
 class Item;
@@ -25,7 +27,7 @@ class Item;
 
 @author David Saxton
 */
-class ECNode : public Node {
+class SIMULATOR_EXPORT ECNode : public Node {
 	Q_OBJECT
 
 public:

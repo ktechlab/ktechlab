@@ -15,6 +15,7 @@
 
 #include "elementset.h"
 #include "physics/physconst.h"
+#include "simulatorexport.h"
 
 class ElementSet;
 
@@ -86,7 +87,7 @@ const int noBranch = -2;
 @short Represents a circuit element (such as resistance)
 @author David Saxton
 */
-class Element
+class SIMULATOR_EXPORT Element
 {
 public:
 	enum Type {

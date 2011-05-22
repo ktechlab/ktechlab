@@ -12,6 +12,7 @@
 #define INDUCTOR_H
 
 #include "component.h"
+#include "simulatorexport.h"
 
 class Circuit;
 class Inductance;
@@ -19,7 +20,7 @@ class Inductance;
 /**
 @author David Saxton
 */
-class Inductor : public Component {
+class SIMULATOR_EXPORT Inductor : public Component {
 
 public:
     Inductor(Circuit &ownerCircuit);

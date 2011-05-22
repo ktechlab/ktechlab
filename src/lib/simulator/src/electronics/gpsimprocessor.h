@@ -14,6 +14,8 @@
 #ifndef GPSIMPROCESSOR_H
 #define GPSIMPROCESSOR_H
 
+#include "simulatorexport.h"
+
 #include "sourceline.h"
 
 #include <qmap.h>
@@ -35,7 +37,7 @@ typedef QMap<SourceLine, SourceLine> SourceLineMap;
 typedef QList<int> IntList;
 
 
-class DebugLine : public SourceLine
+class SIMULATOR_EXPORT DebugLine : public SourceLine
 {
 	public:
 		DebugLine();
@@ -71,7 +73,7 @@ class DebugLine : public SourceLine
 @short Stores info from gpsim register, used to hide gpsim interface
 @author David Saxton
 */
-class RegisterInfo : public QObject
+class SIMULATOR_EXPORT RegisterInfo : public QObject
 {
 	Q_OBJECT
 	public:
@@ -111,7 +113,7 @@ class RegisterInfo : public QObject
 @short Stores information about a set of registers, used to hide gpsim interface.
 @author David Saxton
 */
-class RegisterSet
+class SIMULATOR_EXPORT RegisterSet
 {
 	public:
 		RegisterSet( pic_processor * picProcessor );
@@ -139,7 +141,7 @@ class RegisterSet
 /**
 @author David Saxton
 */
-class GpsimDebugger : public QObject
+class SIMULATOR_EXPORT GpsimDebugger : public QObject
 {
 	friend class GpsimProcessor;
 	Q_OBJECT
@@ -243,7 +245,7 @@ class GpsimDebugger : public QObject
 /**
 @author David Saxton
 */
-class GpsimProcessor : public QObject
+class SIMULATOR_EXPORT GpsimProcessor : public QObject
 {
 	friend class GpsimDebugger;
 	Q_OBJECT

@@ -12,8 +12,9 @@
 #define JFET_H
 
 #include "nonlinear.h"
+#include "simulatorexport.h"
 
-class JFETState
+class SIMULATOR_EXPORT JFETState
 {
 public:
 	JFETState();
@@ -25,7 +26,7 @@ public:
 	double I[3];
 };
 
-class JFETSettings
+class SIMULATOR_EXPORT JFETSettings
 {
 public:
 	JFETSettings();
@@ -40,7 +41,7 @@ public:
 /**
 @author David Saxton
  */
-class JFET : public NonLinear
+class SIMULATOR_EXPORT JFET : public NonLinear
 {
 public:
 	enum JFET_type { nJFET, pJFET };

@@ -17,6 +17,8 @@
 #include <QObject>
 #include <variant.h>
 
+#include "simulatorexport.h"
+
 class Circuit;
 class ECNode;
 class ElementMap;
@@ -32,7 +34,7 @@ class ElementMap;
   In the new version, the component should not behave as a
   controller or view, but only as a model.
 */
-class Component : public QObject {
+class SIMULATOR_EXPORT Component : public QObject {
 	Q_OBJECT
 
 public:

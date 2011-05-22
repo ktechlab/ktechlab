@@ -13,6 +13,7 @@
 
 #include "component.h"
 #include "ecdiode.h"
+#include "simulatorexport.h"
 
 class Circuit;
 
@@ -21,7 +22,7 @@ class Circuit;
 @author David Saxton
 */
 
-class LED : public ECDiode {
+class SIMULATOR_EXPORT LED : public ECDiode {
 
 public:
 	LED(Circuit &ownerCircuit);

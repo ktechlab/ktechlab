@@ -12,12 +12,13 @@
 #define REACTIVE_H
 
 #include "element.h"
+#include "simulatorexport.h"
 
 /**
 @short Represents a reactive element (such as a capacitor)
 @author David Saxton
 */
-class Reactive : public Element
+class SIMULATOR_EXPORT Reactive : public Element
 {
 public:
 	Reactive( const double delta );

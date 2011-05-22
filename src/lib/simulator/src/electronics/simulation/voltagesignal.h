@@ -13,12 +13,13 @@
 
 #include "reactive.h"
 #include "elementsignal.h"
+#include "simulatorexport.h"
 
 /**
 @short VoltageSignal
 @author David saxton
 */
-class VoltageSignal : public Reactive, public ElementSignal
+class SIMULATOR_EXPORT VoltageSignal : public Reactive, public ElementSignal
 {
 public:
 	VoltageSignal( const double delta, const double voltage );
