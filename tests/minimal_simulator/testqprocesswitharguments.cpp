@@ -36,4 +36,4 @@ void TestQProcessWithArguments::launchLs()
 }
 
 QTEST_MAIN(TestQProcessWithArguments)
-#include "testqprocesswitharguments.moc"
+// #include "testqprocesswitharguments.moc"

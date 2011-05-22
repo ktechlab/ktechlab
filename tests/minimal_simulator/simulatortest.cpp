@@ -1185,5 +1185,6 @@ void SimulatorTest::testComponent_ecDiode()
 
 
 QTEST_MAIN(SimulatorTest)
-#include "simulatortest.moc"
+// TODO use thie convention, for now...
+// #include "simulatortest.moc"
 
