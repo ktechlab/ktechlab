@@ -149,4 +149,4 @@ void CreatingTest::localVariablesTest()
 }
 
 QTEST_MAIN(CreatingTest)
-#include "creatingtest.moc"
+// #include "creatingtest.moc"
