@@ -152,9 +152,11 @@ set( simulator_SRCS
 
 )
 
+# add_library( ktlsimulator SHARED ${simulator_SRCS} )
 
-add_library( ktlsimulator SHARED ${simulator_SRCS} )
-#kde4_add_library( ktlsimulator SHARED ${simulator_SRCS} )
+# TODO make the library compile without KDE4 dependencies
+#       maybe ship the kde4macros.cmake file with the source tree
+kde4_add_library( ktlsimulator SHARED ${simulator_SRCS} )
 
 target_link_libraries( ktlsimulator
  ${QT_QTCORE_LIBRARY}
