@@ -12,7 +12,7 @@ find_package(GLIB REQUIRED)
 include( KDE4Defaults )
 include( MacroLibrary )
 
-MACRO_OPTIONAL_FIND_PACKAGE( GPSim )
+find_package( GPSim )
 
 set(KDE4_BUILD_TESTS "ON" CACHE "BOOL" "Enable building of tests" FORCE )
 include(KDevPluginVersion)
