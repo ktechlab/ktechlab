@@ -164,14 +164,14 @@ void SimulatorTest::createTest(){
     qDebug() << "wire1 current known:" << wire1->currentIsKnown() << "value:" << wire1->current();
     qDebug() << "wire2 current known:" << wire2->currentIsKnown() << "value:" << wire2->current();
 
-    Q_ASSERT( QABS( pin2->voltage() - pin1->voltage() - 7 ) < maxVoltageError );
-    Q_ASSERT( QABS( pinR2->voltage() - pinR1->voltage() - 7 ) < maxVoltageError );
-    Q_ASSERT( QABS( pin1->voltage() - pinR1->voltage() ) < maxVoltageError );
-    Q_ASSERT( QABS( pin2->voltage() - pinR2->voltage() ) < maxVoltageError );
+    Q_ASSERT( qAbs( pin2->voltage() - pin1->voltage() - 7 ) < maxVoltageError );
+    Q_ASSERT( qAbs( pinR2->voltage() - pinR1->voltage() - 7 ) < maxVoltageError );
+    Q_ASSERT( qAbs( pin1->voltage() - pinR1->voltage() ) < maxVoltageError );
+    Q_ASSERT( qAbs( pin2->voltage() - pinR2->voltage() ) < maxVoltageError );
     Q_ASSERT( wire1->currentIsKnown() );
     Q_ASSERT( wire2->currentIsKnown() );
-    Q_ASSERT( QABS( QABS( wire1->current() ) - 0.007 ) < maxCurrentError );
-    Q_ASSERT( QABS( QABS( wire2->current() ) - 0.007 ) < maxCurrentError );
+    Q_ASSERT( qAbs( qAbs( wire1->current() ) - 0.007 ) < maxCurrentError );
+    Q_ASSERT( qAbs( qAbs( wire2->current() ) - 0.007 ) < maxCurrentError );
 
     sim->step();
 
@@ -187,14 +187,14 @@ void SimulatorTest::createTest(){
     qDebug() << "pinR1 id:" << pinR1->eqId() << " voltage:" << pinR1->voltage();
     qDebug() << "pinR2 id:" << pinR2->eqId() << " voltage:" << pinR2->voltage();
 
-    Q_ASSERT( QABS( pin2->voltage() - pin1->voltage() - 7 ) < maxVoltageError );
-    Q_ASSERT( QABS( pinR2->voltage() - pinR1->voltage() - 7 ) < maxVoltageError );
-    Q_ASSERT( QABS( pin1->voltage() - pinR1->voltage() ) < maxVoltageError );
-    Q_ASSERT( QABS( pin2->voltage() - pinR2->voltage() ) < maxVoltageError );
+    Q_ASSERT( qAbs( pin2->voltage() - pin1->voltage() - 7 ) < maxVoltageError );
+    Q_ASSERT( qAbs( pinR2->voltage() - pinR1->voltage() - 7 ) < maxVoltageError );
+    Q_ASSERT( qAbs( pin1->voltage() - pinR1->voltage() ) < maxVoltageError );
+    Q_ASSERT( qAbs( pin2->voltage() - pinR2->voltage() ) < maxVoltageError );
     Q_ASSERT( wire1->currentIsKnown() );
     Q_ASSERT( wire2->currentIsKnown() );
-    Q_ASSERT( QABS( QABS( wire1->current() ) - 0.007 ) < maxCurrentError );
-    Q_ASSERT( QABS( QABS( wire2->current() ) - 0.007 ) < maxCurrentError );
+    Q_ASSERT( qAbs( qAbs( wire1->current() ) - 0.007 ) < maxCurrentError );
+    Q_ASSERT( qAbs( qAbs( wire2->current() ) - 0.007 ) < maxCurrentError );
 
     sim->slotSetSimulating(false);
     sim->detachCircuit(circ);
@@ -276,14 +276,14 @@ void SimulatorTest::testSourceAndResistance()
     qDebug() << "wire1 current known:" << wire1->currentIsKnown() << "value:" << wire1->current();
     qDebug() << "wire2 current known:" << wire2->currentIsKnown() << "value:" << wire2->current();
 
-    Q_ASSERT( QABS( pin2->voltage() - pin1->voltage() - 8 ) < maxVoltageError );
-    Q_ASSERT( QABS( pinR2->voltage() - pinR1->voltage() - 8 ) < maxVoltageError );
-    Q_ASSERT( QABS( pin1->voltage() - pinR1->voltage() ) < maxVoltageError );
-    Q_ASSERT( QABS( pin2->voltage() - pinR2->voltage() ) < maxVoltageError );
+    Q_ASSERT( qAbs( pin2->voltage() - pin1->voltage() - 8 ) < maxVoltageError );
+    Q_ASSERT( qAbs( pinR2->voltage() - pinR1->voltage() - 8 ) < maxVoltageError );
+    Q_ASSERT( qAbs( pin1->voltage() - pinR1->voltage() ) < maxVoltageError );
+    Q_ASSERT( qAbs( pin2->voltage() - pinR2->voltage() ) < maxVoltageError );
     Q_ASSERT( wire1->currentIsKnown() );
     Q_ASSERT( wire2->currentIsKnown() );
-    Q_ASSERT( QABS( QABS( wire1->current() ) - 0.008 ) < maxCurrentError );
-    Q_ASSERT( QABS( QABS( wire2->current() ) - 0.008 ) < maxCurrentError );
+    Q_ASSERT( qAbs( qAbs( wire1->current() ) - 0.008 ) < maxCurrentError );
+    Q_ASSERT( qAbs( qAbs( wire2->current() ) - 0.008 ) < maxCurrentError );
 
     sim->slotSetSimulating(false);
     sim->detachCircuit(circ);
@@ -441,27 +441,27 @@ void SimulatorTest::testSourceAnd4ResistanceInParallel()
     qDebug() << "pinR41 current known:" << pinR41->currentIsKnown() << "value:" << pinR41->sourceCurrent();
 
     // voltages across components
-    Q_ASSERT( QABS( pin2->voltage() - pin1->voltage() - 8 ) < maxVoltageError );
-    Q_ASSERT( QABS( pinR12->voltage() - pinR11->voltage() - 8 ) < maxVoltageError );
-    Q_ASSERT( QABS( pinR22->voltage() - pinR21->voltage() - 8 ) < maxVoltageError );
-    Q_ASSERT( QABS( pinR32->voltage() - pinR31->voltage() - 8 ) < maxVoltageError );
-    Q_ASSERT( QABS( pinR42->voltage() - pinR41->voltage() - 8 ) < maxVoltageError );
+    Q_ASSERT( qAbs( pin2->voltage() - pin1->voltage() - 8 ) < maxVoltageError );
+    Q_ASSERT( qAbs( pinR12->voltage() - pinR11->voltage() - 8 ) < maxVoltageError );
+    Q_ASSERT( qAbs( pinR22->voltage() - pinR21->voltage() - 8 ) < maxVoltageError );
+    Q_ASSERT( qAbs( pinR32->voltage() - pinR31->voltage() - 8 ) < maxVoltageError );
+    Q_ASSERT( qAbs( pinR42->voltage() - pinR41->voltage() - 8 ) < maxVoltageError );
     // voltages on nodes, part 1
-    Q_ASSERT( QABS( pin1->voltage() - pinR11->voltage() ) < maxVoltageError );
-    Q_ASSERT( QABS( pin1->voltage() - pinR21->voltage() ) < maxVoltageError );
-    Q_ASSERT( QABS( pin1->voltage() - pinR31->voltage() ) < maxVoltageError );
-    Q_ASSERT( QABS( pin1->voltage() - pinR41->voltage() ) < maxVoltageError );
-    Q_ASSERT( QABS( pin1->voltage() - pinC12a->voltage() ) < maxVoltageError );
-    Q_ASSERT( QABS( pin1->voltage() - pinC34a->voltage() ) < maxVoltageError );
-    Q_ASSERT( QABS( pin1->voltage() - pinC1234a->voltage() ) < maxVoltageError );
+    Q_ASSERT( qAbs( pin1->voltage() - pinR11->voltage() ) < maxVoltageError );
+    Q_ASSERT( qAbs( pin1->voltage() - pinR21->voltage() ) < maxVoltageError );
+    Q_ASSERT( qAbs( pin1->voltage() - pinR31->voltage() ) < maxVoltageError );
+    Q_ASSERT( qAbs( pin1->voltage() - pinR41->voltage() ) < maxVoltageError );
+    Q_ASSERT( qAbs( pin1->voltage() - pinC12a->voltage() ) < maxVoltageError );
+    Q_ASSERT( qAbs( pin1->voltage() - pinC34a->voltage() ) < maxVoltageError );
+    Q_ASSERT( qAbs( pin1->voltage() - pinC1234a->voltage() ) < maxVoltageError );
     // part 2
-    Q_ASSERT( QABS( pin2->voltage() - pinR12->voltage() ) < maxVoltageError );
-    Q_ASSERT( QABS( pin2->voltage() - pinR22->voltage() ) < maxVoltageError );
-    Q_ASSERT( QABS( pin2->voltage() - pinR32->voltage() ) < maxVoltageError );
-    Q_ASSERT( QABS( pin2->voltage() - pinR42->voltage() ) < maxVoltageError );
-    Q_ASSERT( QABS( pin2->voltage() - pinC12b->voltage() ) < maxVoltageError );
-    Q_ASSERT( QABS( pin2->voltage() - pinC34b->voltage() ) < maxVoltageError );
-    Q_ASSERT( QABS( pin2->voltage() - pinC1234b->voltage() ) < maxVoltageError );
+    Q_ASSERT( qAbs( pin2->voltage() - pinR12->voltage() ) < maxVoltageError );
+    Q_ASSERT( qAbs( pin2->voltage() - pinR22->voltage() ) < maxVoltageError );
+    Q_ASSERT( qAbs( pin2->voltage() - pinR32->voltage() ) < maxVoltageError );
+    Q_ASSERT( qAbs( pin2->voltage() - pinR42->voltage() ) < maxVoltageError );
+    Q_ASSERT( qAbs( pin2->voltage() - pinC12b->voltage() ) < maxVoltageError );
+    Q_ASSERT( qAbs( pin2->voltage() - pinC34b->voltage() ) < maxVoltageError );
+    Q_ASSERT( qAbs( pin2->voltage() - pinC1234b->voltage() ) < maxVoltageError );
     // pin currents are known?
     foreach(Pin *pin, allpins){
         Q_ASSERT( pin->currentIsKnown());
@@ -471,25 +471,25 @@ void SimulatorTest::testSourceAnd4ResistanceInParallel()
         Q_ASSERT( wire->currentIsKnown());
     }
     // current values?
-    Q_ASSERT( QABS( QABS( wire12a1->current() ) - 0.0008888889 ) < maxCurrentError );
-    Q_ASSERT( QABS( QABS( wire12a2->current() ) - 0.001 ) < maxCurrentError );
-    Q_ASSERT( QABS( QABS( wire34a1->current() ) - 0.002 ) < maxCurrentError );
-    Q_ASSERT( QABS( QABS( wire34a2->current() ) - 0.004) < maxCurrentError );
+    Q_ASSERT( qAbs( qAbs( wire12a1->current() ) - 0.0008888889 ) < maxCurrentError );
+    Q_ASSERT( qAbs( qAbs( wire12a2->current() ) - 0.001 ) < maxCurrentError );
+    Q_ASSERT( qAbs( qAbs( wire34a1->current() ) - 0.002 ) < maxCurrentError );
+    Q_ASSERT( qAbs( qAbs( wire34a2->current() ) - 0.004) < maxCurrentError );
 
-    Q_ASSERT( QABS( QABS( wire1234a1->current() ) - 0.00188889 ) < maxCurrentError );
-    Q_ASSERT( QABS( QABS( wire1234a2->current() ) - 0.006 ) < maxCurrentError );
+    Q_ASSERT( qAbs( qAbs( wire1234a1->current() ) - 0.00188889 ) < maxCurrentError );
+    Q_ASSERT( qAbs( qAbs( wire1234a2->current() ) - 0.006 ) < maxCurrentError );
 
-    Q_ASSERT( QABS( QABS( wireAll1->current() ) - 0.00788889 ) < maxCurrentError );
+    Q_ASSERT( qAbs( qAbs( wireAll1->current() ) - 0.00788889 ) < maxCurrentError );
     // other part
-    Q_ASSERT( QABS( QABS( wire12b1->current() ) - 0.0008888889 ) < maxCurrentError );
-    Q_ASSERT( QABS( QABS( wire12b2->current() ) - 0.001 ) < maxCurrentError );
-    Q_ASSERT( QABS( QABS( wire34b1->current() ) - 0.002 ) < maxCurrentError );
-    Q_ASSERT( QABS( QABS( wire34b2->current() ) - 0.004) < maxCurrentError );
+    Q_ASSERT( qAbs( qAbs( wire12b1->current() ) - 0.0008888889 ) < maxCurrentError );
+    Q_ASSERT( qAbs( qAbs( wire12b2->current() ) - 0.001 ) < maxCurrentError );
+    Q_ASSERT( qAbs( qAbs( wire34b1->current() ) - 0.002 ) < maxCurrentError );
+    Q_ASSERT( qAbs( qAbs( wire34b2->current() ) - 0.004) < maxCurrentError );
 
-    Q_ASSERT( QABS( QABS( wire1234b1->current() ) - 0.00188889 ) < maxCurrentError );
-    Q_ASSERT( QABS( QABS( wire1234b2->current() ) - 0.006 ) < maxCurrentError );
+    Q_ASSERT( qAbs( qAbs( wire1234b1->current() ) - 0.00188889 ) < maxCurrentError );
+    Q_ASSERT( qAbs( qAbs( wire1234b2->current() ) - 0.006 ) < maxCurrentError );
 
-    Q_ASSERT( QABS( QABS( wireAll2->current() ) - 0.00788889 ) < maxCurrentError );
+    Q_ASSERT( qAbs( qAbs( wireAll2->current() ) - 0.00788889 ) < maxCurrentError );
 
     sim->slotSetSimulating(false);
     sim->detachCircuit(circ);
@@ -558,10 +558,10 @@ void SimulatorTest::testComponent_SourceAndResistor()
         << r1->pinByName("n1")->pin()->voltage() << r1->pinByName("p1")->pin()->voltage()
         << v1->pinByName("n1")->pin()->voltage() << v1->pinByName("p1")->pin()->voltage();
 
-    Q_ASSERT( QABS(c1->wire()->current() + 5.0) < maxCurrentError);
-    Q_ASSERT( QABS(c2->wire()->current() - 5.0) < maxCurrentError);
-    Q_ASSERT( QABS(r1->pinByName("p1")->pin()->voltage() - r1->pinByName("n1")->pin()->voltage() - 5) < maxVoltageError);
-    Q_ASSERT( QABS(v1->pinByName("p1")->pin()->voltage() - v1->pinByName("n1")->pin()->voltage() - 5) < maxVoltageError);
+    Q_ASSERT( qAbs(c1->wire()->current() + 5.0) < maxCurrentError);
+    Q_ASSERT( qAbs(c2->wire()->current() - 5.0) < maxCurrentError);
+    Q_ASSERT( qAbs(r1->pinByName("p1")->pin()->voltage() - r1->pinByName("n1")->pin()->voltage() - 5) < maxVoltageError);
+    Q_ASSERT( qAbs(v1->pinByName("p1")->pin()->voltage() - v1->pinByName("n1")->pin()->voltage() - 5) < maxVoltageError);
 
     // change resistor value
     r1->propertyByName("resistance")->setValue(2000);
@@ -573,10 +573,10 @@ void SimulatorTest::testComponent_SourceAndResistor()
     qDebug() << "c1 current: " << c1->wire()->current();
     qDebug() << "c2 current: " << c2->wire()->current();
 
-    Q_ASSERT( QABS(c1->wire()->current() + 0.0025) < maxCurrentError);
-    Q_ASSERT( QABS(c2->wire()->current() - 0.0025) < maxCurrentError);
-    Q_ASSERT( QABS(r1->pinByName("p1")->pin()->voltage() - r1->pinByName("n1")->pin()->voltage() - 5) < maxVoltageError);
-    Q_ASSERT( QABS(v1->pinByName("p1")->pin()->voltage() - v1->pinByName("n1")->pin()->voltage() - 5) < maxVoltageError);
+    Q_ASSERT( qAbs(c1->wire()->current() + 0.0025) < maxCurrentError);
+    Q_ASSERT( qAbs(c2->wire()->current() - 0.0025) < maxCurrentError);
+    Q_ASSERT( qAbs(r1->pinByName("p1")->pin()->voltage() - r1->pinByName("n1")->pin()->voltage() - 5) < maxVoltageError);
+    Q_ASSERT( qAbs(v1->pinByName("p1")->pin()->voltage() - v1->pinByName("n1")->pin()->voltage() - 5) < maxVoltageError);
 
     // change source value
     v1->propertyByName("voltage")->setValue(2);
@@ -591,10 +591,10 @@ void SimulatorTest::testComponent_SourceAndResistor()
         << r1->pinByName("n1")->pin()->voltage() << r1->pinByName("p1")->pin()->voltage()
         << v1->pinByName("n1")->pin()->voltage() << v1->pinByName("p1")->pin()->voltage();
 
-    Q_ASSERT( QABS(c1->wire()->current() + 0.001) < maxCurrentError);
-    Q_ASSERT( QABS(c2->wire()->current() - 0.001) < maxCurrentError);
-    Q_ASSERT( QABS(r1->pinByName("p1")->pin()->voltage() - r1->pinByName("n1")->pin()->voltage() - 2) < maxVoltageError);
-    Q_ASSERT( QABS(v1->pinByName("p1")->pin()->voltage() - v1->pinByName("n1")->pin()->voltage() - 2) < maxVoltageError);
+    Q_ASSERT( qAbs(c1->wire()->current() + 0.001) < maxCurrentError);
+    Q_ASSERT( qAbs(c2->wire()->current() - 0.001) < maxCurrentError);
+    Q_ASSERT( qAbs(r1->pinByName("p1")->pin()->voltage() - r1->pinByName("n1")->pin()->voltage() - 2) < maxVoltageError);
+    Q_ASSERT( qAbs(v1->pinByName("p1")->pin()->voltage() - v1->pinByName("n1")->pin()->voltage() - 2) < maxVoltageError);
 
     sim->slotSetSimulating(false);
     sim->detachCircuit(circ);
@@ -641,12 +641,12 @@ void SimulatorTest::testComponent_voltageDivider()
     qDebug() << "c3 current: " << c3->wire()->current();
     qDebug() << "v1 voltages: p1: " << v1->pinByName("p1")->pin()->voltage() << " n1:" << v1->pinByName("n1")->pin()->voltage();
 
-    Q_ASSERT(QABS(QABS(c1->wire()->current()) - 0.001) < maxCurrentError);
-    Q_ASSERT(QABS(QABS(c2->wire()->current()) - 0.001) < maxCurrentError);
-    Q_ASSERT(QABS(QABS(c3->wire()->current()) - 0.001) < maxCurrentError);
-    Q_ASSERT(QABS(v1->pinByName("p1")->pin()->voltage() - v1->pinByName("n1")->pin()->voltage() - 5) < maxVoltageError);
-    Q_ASSERT(QABS(r1->pinByName("p1")->pin()->voltage() - r1->pinByName("n1")->pin()->voltage() - 2) < maxVoltageError);
-    Q_ASSERT(QABS(r2->pinByName("p1")->pin()->voltage() - r2->pinByName("n1")->pin()->voltage() - 3) < maxVoltageError);
+    Q_ASSERT(qAbs(qAbs(c1->wire()->current()) - 0.001) < maxCurrentError);
+    Q_ASSERT(qAbs(qAbs(c2->wire()->current()) - 0.001) < maxCurrentError);
+    Q_ASSERT(qAbs(qAbs(c3->wire()->current()) - 0.001) < maxCurrentError);
+    Q_ASSERT(qAbs(v1->pinByName("p1")->pin()->voltage() - v1->pinByName("n1")->pin()->voltage() - 5) < maxVoltageError);
+    Q_ASSERT(qAbs(r1->pinByName("p1")->pin()->voltage() - r1->pinByName("n1")->pin()->voltage() - 2) < maxVoltageError);
+    Q_ASSERT(qAbs(r2->pinByName("p1")->pin()->voltage() - r2->pinByName("n1")->pin()->voltage() - 3) < maxVoltageError);
 
     sim->slotSetSimulating(false);
     sim->detachCircuit(circ);
@@ -704,10 +704,10 @@ void SimulatorTest::testComponent_fixedVoltage()
     qDebug() << "c1 current: " << c1->wire()->current();
     qDebug() << "c2 current: " << c2->wire()->current();
 
-    Q_ASSERT( QABS( v1->pinByName("p1")->pin()->voltage() -
+    Q_ASSERT( qAbs( v1->pinByName("p1")->pin()->voltage() -
                     v2->pinByName("p1")->pin()->voltage() - 10) < maxVoltageError);
-    Q_ASSERT( QABS(c2->wire()->current() - (-0.01)) < maxCurrentError);
-    Q_ASSERT( QABS(c1->wire()->current() -   0.01 ) < maxCurrentError);
+    Q_ASSERT( qAbs(c2->wire()->current() - (-0.01)) < maxCurrentError);
+    Q_ASSERT( qAbs(c1->wire()->current() -   0.01 ) < maxCurrentError);
 
     sim->slotSetSimulating(false);
     sim->detachCircuit(circ);
