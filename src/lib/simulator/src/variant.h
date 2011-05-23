@@ -21,7 +21,6 @@
 class Variant;
 typedef Variant Property;
 
-class QColor;
 class QString;
 
 typedef QMap< QString, QString > QStringMap;
@@ -29,7 +28,7 @@ typedef QMap< QString, QString > QStringMap;
 /**
 For information:
 QVariant::type() returns an enum for the current data type
-contained. e.g. returns QVariant::Color or QVariant::Rect
+contained. e.g. returns QVariant::Select or QVariant::Rect
 @author Daniel Clarke
 @author David Saxton
 */
@@ -52,7 +51,7 @@ public:
 				Select, // Selection of strings
 				Combo, // Editable combination of strings
 				FileName, // Filename
-				Color, // Color
+//				Color, // Color
 				Bool, // Boolean
 				VarName, // Variable name
 				Port, // Port name
@@ -183,10 +182,7 @@ signals:
 	 * Emitted for variants of double-like type.
 	 */
 	void valueChanged( double newValue );
-	/**
-	 * Emitted for variants of color-like type.
-	 */
-	void valueChanged( const QColor & newValue );
+
 	/**
 	 * Emitted for variants of bool-like type.
 	 */
