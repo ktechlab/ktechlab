@@ -111,7 +111,7 @@ void Simulator::step() {
 			delete m_pStartStepCallback[m_llNumber];
 			m_pStartStepCallback[m_llNumber] = 0;
 
-#ifndef NO_GPSIM
+#ifdef GPSIM_FOUND
 			// Update the gpsim processors
 			{
                             unsigned int clockNumber; // current clock count in inner loop

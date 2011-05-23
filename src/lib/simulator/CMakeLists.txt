@@ -21,7 +21,6 @@ include_directories(
 # TODO make the code compile without
 #      this flag turned on
 ADD_DEFINITIONS(-DQT3_SUPPORT)
-# ADD_DEFINITIONS(-DNO_GPSIM)
 
 add_definitions(-fexceptions)
 
@@ -164,7 +163,6 @@ target_link_libraries( ktlsimulator
  ${QT_QTGUI_LIBRARY} # FIXME only for QColor in Variant
  ${QT_QT3SUPPORT_LIBRARY}
  ${GPSIM_LIBRARY}
- ${GPSim_LIBRARY}
 )
 
 install(TARGETS ktlsimulator ${INSTALL_TARGETS_DEFAULT_ARGS})
