@@ -77,4 +77,4 @@ target_link_libraries( creating_test
  ${QT_QTTEST_LIBRARIES}
 )
 
-
+add_test(creating_test creating_test)
