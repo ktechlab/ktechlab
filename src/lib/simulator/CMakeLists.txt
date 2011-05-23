@@ -160,7 +160,6 @@ kde4_add_library( ktlsimulator SHARED ${simulator_SRCS} )
 target_link_libraries( ktlsimulator
  ${QT_QTCORE_LIBRARY}
  ${QT_LIBRARIES}
- ${QT_QTGUI_LIBRARY} # FIXME only for QColor in Variant
  ${QT_QT3SUPPORT_LIBRARY}
  ${GPSIM_LIBRARY}
 )

@@ -14,7 +14,6 @@
 
 #include <cmath>
 #include <algorithm>
-#include <QColor>
 
 #include <QStringList>
 
@@ -33,12 +32,6 @@ Variant::Variant( const QString& name, Variant::Type::Value type )
 	m_maxValue = 1e9;
 	m_minAbsValue = 1e-6;
 	// m_colorScheme = ColorCombo::QtStandard;
-	if ( type == Type::Color )
-	{
-		// this value is taken from ColorCombo and should ideally be put somewhere...
-		m_defaultValue = "#f62a2a";
-		m_value = "#f62a2a";
-	}
 }
 
 
@@ -179,10 +172,7 @@ void Variant::setValue( QVariant val )
 		case Variant::Type::Double:
 			emit valueChanged( value().toDouble() );
 			break;
-			
-		case Variant::Type::Color:
-			emit valueChanged( value().value<QColor>() );
-			break;
+
 			
 		case Variant::Type::Bool:
 			emit valueChanged( value().toBool() );
