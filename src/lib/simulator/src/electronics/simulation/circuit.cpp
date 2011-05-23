@@ -672,7 +672,7 @@ void Circuit::updateCurrents() {
                 foreach(Wire *w, otherPin->wires()){
                     currentSum += w->currentFor(otherPin);
                 }
-                if( QABS( currentSum ) > 1e-6 ){
+                if( qAbs( currentSum ) > 1e-6 ){
                     qWarning() << "BUG: current's sum is not zero in a pin, but it's"
                         << currentSum << "; current values are:";
                     QString out;
