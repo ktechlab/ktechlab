@@ -151,11 +151,29 @@ set( simulator_SRCS
 
 )
 
-# add_library( ktlsimulator SHARED ${simulator_SRCS} )
-
 # TODO make the library compile without KDE4 dependencies
 #       maybe ship the kde4macros.cmake file with the source tree
+if(KDEVPLATFORM_ENABLED)
+
 kde4_add_library( ktlsimulator SHARED ${simulator_SRCS} )
+
+install(TARGETS ktlsimulator ${INSTALL_TARGETS_DEFAULT_ARGS})
+
+else(KDEVPLATFORM_ENABLED)
+
+add_library( ktlsimulator SHARED ${simulator_SRCS} )
+
+
+
+qt4_automoc( ${simulator_SRCS} )
+
+install(TARGETS ktlsimulator
+  RUNTIME DESTINATION bin
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib
+)
+
+endif(KDEVPLATFORM_ENABLED)
 
 target_link_libraries( ktlsimulator
  ${QT_QTCORE_LIBRARY}
@@ -164,7 +182,6 @@ target_link_libraries( ktlsimulator
  ${GPSIM_LIBRARY}
 )
 
-install(TARGETS ktlsimulator ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 #qt4_automoc(
 # creatingtest.h
