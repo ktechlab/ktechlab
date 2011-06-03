@@ -4,20 +4,32 @@ set( VERSION 0.5.0 )
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
 cmake_minimum_required(VERSION 2.6)
 
-find_package(KDE4 4.2.0 REQUIRED)
-find_package(Qt4 4.6 REQUIRED)
-find_package(KDevPlatform 0.10.0 REQUIRED)
+find_package(Qt4 4.6.0 REQUIRED)
 find_package(GLIB REQUIRED)
+find_package(KDE4 4.2.0)
+find_package(KDevPlatform 0.10.0)
+find_package( GPSim )
 
-include( KDE4Defaults )
+if(KDE4_FOUND AND KDEVPLATFORM_FOUND)
+  set(KDEVPLATFORM_ENABLED 1)
+else()
+endif()
+
 include( MacroLibrary )
 
-find_package( GPSim )
+if(KDEVPLATFORM_ENABLED)
+
+include( KDE4Defaults )
+
 
 set(KDE4_BUILD_TESTS "ON" CACHE "BOOL" "Enable building of tests" FORCE )
 include(KDevPluginVersion)
 
 add_definitions( -DKDEV_PLUGIN_VERSION=${KDEV_PLUGIN_VERSION})
+
+else(KDEVPLATFORM_ENABLED)
+
+endif(KDEVPLATFORM_ENABLED)
 
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
@@ -37,16 +49,24 @@ include_directories(
     ${GLIB2_INCLUDE_DIRS}
 )
 
+
 CONFIGURE_FILE(
     ${CMAKE_SOURCE_DIR}/config.h.cmake
     ${CMAKE_BINARY_DIR}/config.h
 )
 
-add_subdirectory( src )
+
+
+if(KDEVPLATFORM_ENABLED)
 add_subdirectory( icons )
 add_subdirectory( examples )
 add_subdirectory( doc )
 add_subdirectory( tests )
+else(KDEVPLATFORM_ENABLED)
+
+endif(KDEVPLATFORM_ENABLED)
+
+add_subdirectory( src )
 
 ########### install files ###############
 
