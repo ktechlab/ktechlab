@@ -1,3 +1,5 @@
+if(KDEVPLATFORM_ENABLED)
+
 add_subdirectory(core)
 add_subdirectory(math)
 add_subdirectory(gui)
@@ -15,6 +17,15 @@ add_subdirectory(kdevplugins)
 #add_subdirectory(drawparts)
 #add_subdirectory(contexthelp)
 #add_subdirectory(math)
+
+else(KDEVPLATFORM_ENABLED)
+
+# no KDE4, build just the libs
+add_subdirectory(lib)
+
+endif(KDEVPLATFORM_ENABLED)
+
+if(KDEVPLATFORM_ENABLED)
 
 include_directories(
     ${KDE4_INCLUDES}
@@ -107,3 +118,6 @@ if( SHARED_MIME_INFO_FOUND )
     install(FILES ktechlab.xml DESTINATION ${XDG_MIME_INSTALL_DIR} )
     update_xdg_mimetypes( ${XDG_MIME_INSTALL_DIR} )
 endif( SHARED_MIME_INFO_FOUND )
+
+endif(KDEVPLATFORM_ENABLED)
+
