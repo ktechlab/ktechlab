@@ -1,10 +1,13 @@
+
+# build the libs anyway
+add_subdirectory(lib)
+
 if(KDEVPLATFORM_ENABLED)
 
 add_subdirectory(core)
 add_subdirectory(math)
 add_subdirectory(gui)
 add_subdirectory(interfaces)
-add_subdirectory(lib)
 add_subdirectory(plugins)
 add_subdirectory(kdevplugins)
 
@@ -17,11 +20,6 @@ add_subdirectory(kdevplugins)
 #add_subdirectory(drawparts)
 #add_subdirectory(contexthelp)
 #add_subdirectory(math)
-
-else(KDEVPLATFORM_ENABLED)
-
-# no KDE4, build just the libs
-add_subdirectory(lib)
 
 endif(KDEVPLATFORM_ENABLED)
 
