@@ -12,8 +12,8 @@ find_package( GPSim )
 
 if(KDE4_FOUND AND KDEVPLATFORM_FOUND)
   set(KDEVPLATFORM_ENABLED 1)
-else()
-endif()
+else(KDE4_FOUND AND KDEVPLATFORM_FOUND)
+endif(KDE4_FOUND AND KDEVPLATFORM_FOUND)
 
 include( MacroLibrary )
 
