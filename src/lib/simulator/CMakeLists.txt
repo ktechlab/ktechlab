@@ -17,7 +17,7 @@ include_directories(
 #    ${QT_QTTEST_INCLUDE_DIR}
 )
 
-# we need Qt3 support in some classes... 
+# we need Qt3 support in some classes...
 # TODO make the code compile without
 #      this flag turned on
 ADD_DEFINITIONS(-DQT3_SUPPORT)
@@ -151,8 +151,6 @@ set( simulator_SRCS
 
 )
 
-# TODO make the library compile without KDE4 dependencies
-#       maybe ship the kde4macros.cmake file with the source tree
 if(KDEVPLATFORM_ENABLED)
 
 kde4_add_library( ktlsimulator SHARED ${simulator_SRCS} )
@@ -182,12 +180,3 @@ target_link_libraries( ktlsimulator
  ${GPSIM_LIBRARY}
 )
 
-
-#qt4_automoc(
-# creatingtest.h
-# simulatortest.h
-# ${SIMULATOR_LIB_SRCS}
-# ${CompileSimulator_SRCS}
-# ${qprocess_with_argument_SRC}
-# ${CREATING_TEST_SRCS}
-#)
