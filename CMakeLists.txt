@@ -15,10 +15,10 @@ if(KDE4_FOUND AND KDEVPLATFORM_FOUND)
 else(KDE4_FOUND AND KDEVPLATFORM_FOUND)
 endif(KDE4_FOUND AND KDEVPLATFORM_FOUND)
 
-include( MacroLibrary )
 
 if(KDEVPLATFORM_ENABLED)
 
+include( MacroLibrary )
 include( KDE4Defaults )
 
 
