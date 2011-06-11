@@ -95,7 +95,7 @@ void ECMOSFET::propertyChanged(Property& theProperty, QVariant newValue, QVarian
     Q_UNUSED(oldValue);
 
     if( theProperty.name() == "bodyPin"){
-        bool haveBodyPin = newValue.asBool();
+        bool haveBodyPin = newValue.toBool();
         if (haveBodyPin == m_bHaveBodyPin)
             return;
 
@@ -125,9 +125,9 @@ void ECMOSFET::propertyChanged(Property& theProperty, QVariant newValue, QVarian
     s.B_R = dataDouble("B_R");
 #endif
     if( theProperty.name() == "mosfetL") {
-        s.L = newValue.asDouble();
+        s.L = newValue.toDouble();
     } else if(theProperty.name() == "mosfetW"){
-        s.W = newValue.asDouble();
+        s.W = newValue.toDouble();
     } else
         qCritical() << "ECMOSFET: unknown property: " << theProperty.name();
 

@@ -55,7 +55,7 @@ void ECCurrentSource::propertyChanged(Property& theProperty, QVariant newValue, 
     Q_UNUSED(oldValue);
 
     if(theProperty.name() == "current"){
-        m_currentSource->setCurrent(newValue.asDouble());
+        m_currentSource->setCurrent(newValue.toDouble());
     } else
         qCritical() << "ECCurrentSource: unknown property has changed!" << theProperty.name();
 }

@@ -27,7 +27,7 @@ Microbe::Microbe( ProcessChain *processChain )
 #if 0
 	// Setup error messages list
 	QFile file( locate("appdata",i1 8n("error_messages_en_gb")) );
-	if ( file.open( QIODevice::ReadOnly ) ) 
+	if ( file.open( QIODevice::ReadOnly ) )
 	{
         Q3TextStream stream( &file );
         QString line;
@@ -82,12 +82,12 @@ void Microbe::processInput( ProcessOptions options )
 
 bool Microbe::isError( const QString &message ) const
 {
-	 return message.contains( "Error", false );
+    return message.contains( "Error", Qt::CaseInsensitive );
 }
 
 bool Microbe::isWarning( const QString &message ) const
 {
-	return message.contains( "Warning", false );
+    return message.contains( "Warning", Qt::CaseInsensitive );
 }
 
 

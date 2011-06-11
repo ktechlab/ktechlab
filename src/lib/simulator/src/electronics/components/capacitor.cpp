@@ -52,7 +52,7 @@ void Capacitor::propertyChanged(Property& theProperty, QVariant newValue, QVaria
         return;
     }
     Q_UNUSED(oldValue);
-    double capacitance = newValue.asDouble();
+    double capacitance = newValue.toDouble();
     m_capacitance->setCapacitance(capacitance);
     // reset the charge on the capacitance
     m_capacitance->add_initial_dc();
