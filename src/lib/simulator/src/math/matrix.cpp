@@ -294,9 +294,9 @@ bool Matrix::validate() const
 {
 	unsigned int n = m_mat->size_m();
 
-	for(int j = 0; j < n; j++) {
+	for(unsigned int j = 0; j < n; j++) {
 		bool isValid = false;
-		for(int i = 0; i < n; i++) {
+		for(unsigned int i = 0; i < n; i++) {
 			const double val = m_mat->at(i,j);
 
 			if(!std::isfinite(val)) return false;
