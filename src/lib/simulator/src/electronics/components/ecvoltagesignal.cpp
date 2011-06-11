@@ -76,22 +76,22 @@ void ECVoltageSignal::propertyChanged(Property& theProperty, QVariant newValue, 
 {
     Q_UNUSED(oldValue);
     if(theProperty.name() == "voltage"){
-        const double voltage = newValue.asDouble();
+        const double voltage = newValue.toDouble();
         m_voltageSignal->setVoltage(voltage);
     } else if(theProperty.name() == "frequency"){
-        m_voltageSignal->setStep(ElementSignal::st_sinusoidal, newValue.asDouble() );
+        m_voltageSignal->setStep(ElementSignal::st_sinusoidal, newValue.toDouble() );
     } else if(theProperty.name() == "peak-rms"){
         const double voltage = m_voltageSignal->voltage();
-        if((newValue.asString() == "Peak") && (oldValue.asString() == "RMS")){
+        if((newValue.toString() == "Peak") && (oldValue.toString() == "RMS")){
             // RMS -> peak
             m_voltageSignal->setVoltage( voltage * M_SQRT1_2 );
         } else
-            if((newValue.asString() == "RMS") && (oldValue.asString() == "Peak")){
+            if((newValue.toString() == "RMS") && (oldValue.toString() == "Peak")){
                 // peak -> RMS
                 m_voltageSignal->setVoltage(voltage * M_SQRT2);
             } else
                 qCritical() << "ECVoltageSignal: unknown configuration of Peak/RSM: old: "
-                    << oldValue.asString() << " ; new: " << newValue.asString();
+                    << oldValue.toString() << " ; new: " << newValue.toString();
     } else
         qCritical() << "ECVoltageSignal: unknown property: " << theProperty.name();
 }
