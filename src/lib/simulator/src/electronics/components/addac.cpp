@@ -68,7 +68,7 @@ ADDAC::~ADDAC()
 void ADDAC::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
 {
     if(theProperty.name() == "range"){
-        m_range = newValue.asDouble();
+        m_range = newValue.toDouble();
     }
     if(theProperty.name() == "numBits"){
         initPins();
@@ -120,7 +120,7 @@ void ADC::stepNonLogic()
 void ADC::initPins()
 {
 
-    int numBits = propertyByName("numBits")->value().asInt();
+    int numBits = propertyByName("numBits")->value().toInt();
         // dataInt("numBits");
 
 	if ( numBits < 2 )
@@ -196,7 +196,7 @@ void DAC::stepNonLogic()
 
 void DAC::initPins()
 {
-    int numBits = propertyByName("numBits")->value().asInt();
+    int numBits = propertyByName("numBits")->value().toInt();
             // FIXME dataInt("numBits");
 
 	if(numBits < 2) numBits = 2;

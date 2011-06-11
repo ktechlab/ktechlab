@@ -96,21 +96,21 @@ MessageInfo Language::extractMessageInfo( const QString &text )
 	if ( !text.startsWith("/") )
 		return MessageInfo();
 	
-	const int index = text.find( ":", 0, false );
+	const int index = text.indexOf( ":", 0, Qt::CaseInsensitive );
 	if ( index == -1 )
 		return MessageInfo();
 	const QString fileName = text.left(index);
 	
 	// Extra line number
 	const QString message = text.right(text.length()-index);
-	const int linePos = message.find( QRegExp(":[\\d]+") );
+	const int linePos = message.indexOf( QRegExp(":[\\d]+") );
 	int line = -1;
 	if ( linePos != -1 )
 	{
-		const int linePosEnd = message.find( ':', linePos+1 );
+		const int linePosEnd = message.indexOf( ':', linePos+1 );
 		if ( linePosEnd != -1 )
 		{
-			const QString number = message.mid( linePos+1, linePosEnd-linePos-1 ).stripWhiteSpace();
+			const QString number = message.mid( linePos+1, linePosEnd-linePos-1 ).trimmed();
 			bool ok;
 			line = number.toInt(&ok)-1;
 			if (!ok) line = -1;
@@ -220,8 +220,8 @@ void ProcessOptions::setTargetFile( const QString &file )
 
 ProcessOptions::ProcessPath::MediaType ProcessOptions::guessMediaType( const QString & url )
 {
-	QString extension = url.right( url.length() - url.findRev('.') - 1 );
-	extension = extension.lower();
+	QString extension = url.right( url.length() - url.lastIndexOf('.') - 1 );
+	extension = extension.toLower();
 	
 	if ( extension == "asm" )
 	{

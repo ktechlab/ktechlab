@@ -68,8 +68,8 @@ void ECClockInput::propertyChanged(Property& theProperty, QVariant newValue, QVa
     Q_UNUSED(newValue);
     Q_UNUSED(oldValue);
 
-    m_high_time = roundDouble(property("high-time").asDouble() * LOGIC_UPDATE_RATE);
-    m_low_time = (property("low-time").asDouble() * LOGIC_UPDATE_RATE);
+    m_high_time = roundDouble(property("high-time").toDouble() * LOGIC_UPDATE_RATE);
+    m_low_time = (property("low-time").toDouble() * LOGIC_UPDATE_RATE);
 
     m_lastSetTime = m_pSimulator->time();
 }

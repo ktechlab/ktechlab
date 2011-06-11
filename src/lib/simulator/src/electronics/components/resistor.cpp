@@ -48,5 +48,5 @@ void Resistor::propertyChanged(Property& theProperty, QVariant newValue, QVarian
 
     Q_UNUSED(oldValue);
 
-    m_resistance->setResistance(newValue.asDouble());
+    m_resistance->setResistance(newValue.toDouble());
 }

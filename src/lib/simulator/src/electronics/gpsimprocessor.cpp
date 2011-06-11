@@ -58,7 +58,7 @@ function will remove the duplicated directory path (by searching for a "//").
 */
 QString sanitizeGpsimFile( QString file )
 {
-	int pos = file.find("//");
+	int pos = file.indexOf("//");
 	if ( pos != -1 )
 	{
 		file.remove( 0, pos + 1 );
@@ -88,8 +88,8 @@ GpsimProcessor::GpsimProcessor( QString symbolFile, QObject *parent )
 	m_pDebugger[0] = m_pDebugger[1] = 0l;
 
 	Processor * tempProcessor = 0l;
-	const char * fileName = symbolFile.ascii();
-	
+	const char * fileName = symbolFile.toAscii();
+
 #ifdef GPSIM_0_21_4
 	switch ( (cod_errors)load_symbol_file( &tempProcessor, fileName ) )
 	{
@@ -314,9 +314,11 @@ GpsimProcessor::ProgramFileValidity GpsimProcessor::isValidProgramFile( const QS
 {
 	if ( !QFile::exists(programFile) )
 		return DoesntExist;
-	
-	QString extension = programFile.right( programFile.length() - programFile.findRev('.') - 1 ).lower();
-	
+
+	QString extension = programFile.right(
+        programFile.length() - programFile.lastIndexOf('.') - 1
+        ).toLower();
+
 	if ( extension == "flowcode" ||
 			extension == "asm" ||
 			extension == "cod" ||
@@ -335,9 +337,11 @@ QString GpsimProcessor::generateSymbolFile( const QString &fileName, QObject *re
 {
 	if ( !isValidProgramFile(fileName) )
 		return QString::null;
-	
-	QString extension = fileName.right( fileName.length() - fileName.findRev('.') - 1 ).lower();
-	
+
+	QString extension = fileName.right(
+        fileName.length() - fileName.lastIndexOf('.') - 1
+        ).toLower();
+
 	if ( extension == "cod" )
 	{
 		QTimer::singleShot( 0, receiver, successMember );
@@ -357,8 +361,8 @@ QString GpsimProcessor::generateSymbolFile( const QString &fileName, QObject *re
 	}
 	else if ( extension == "flowcode" )
 	{
-		const QString hexFile = QTemporaryFile( "tmpXXXXXX.hex" ).name();
-		
+		const QString hexFile = QTemporaryFile( "tmpXXXXXX.hex" ).fileName();
+
 		ProcessOptions o;
 		o.b_addToProject = false;
 		o.setTargetFile( hexFile );
@@ -569,10 +573,10 @@ void GpsimDebugger::initAddressToLineMap()
 
 			QString asmFile = it.key().fileName();
 			int asmFromLine = it.key().line();
-			SourceLine sourceLine = it.data();
-			
-			
-			std::string stdAsmFile( asmFile.ascii() );
+			SourceLine sourceLine = it.value();
+
+
+			std::string stdAsmFile( asmFile.toAscii() );
 			int fileID = m_pGpsim->picProcessor()->files.Find( stdAsmFile );
 			if ( fileID == -1 )
 			{
@@ -782,14 +786,14 @@ RegisterInfo * RegisterSet::fromName( const QString & name )
 	// First try the name as case sensitive, then as case insensitive.
 	if ( m_nameToRegisterMap.contains( name ) )
 		return m_nameToRegisterMap[ name ];
-	
-	QString nameLower = name.lower();
-	
+
+	QString nameLower = name.toLower();
+
 	RegisterInfoMap::iterator end = m_nameToRegisterMap.end();
 	for ( RegisterInfoMap::iterator it = m_nameToRegisterMap.begin(); it != end; ++ it )
 	{
-		if ( it.key().lower() == nameLower )
-			return it.data();
+		if ( it.key().toLower() == nameLower )
+			return it.value();
 	}
 
 	return 0l;
