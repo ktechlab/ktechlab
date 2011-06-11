@@ -41,6 +41,7 @@
 //BEGIN class ProcessChain
 ProcessChain::ProcessChain( ProcessOptions options, const char *name )
 {
+    Q_UNUSED(name);
 	m_pFlowCode = 0l;
 	m_pGpasm = 0l;
 	m_pGpdasm = 0l;
