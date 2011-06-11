@@ -38,13 +38,13 @@ void Gpdasm::processInput( ProcessOptions options )
 	resetLanguageProcess();
 	m_asmOutput = "";
 	m_processOptions = options;;
-	
+
 	*m_languageProcess << ("gpdasm");
-	
+
 	*m_languageProcess << ("--processor");
  	*m_languageProcess << ( options.m_picID );
 	*m_languageProcess << ( options.inputFiles().first() );
-	
+
 	if ( !start() )
 	{
 		// QMessageBox::critical( LanguageManager::self()->logView(), tr("Disassembly failed. Please check you have gputils installed.") );
@@ -69,7 +69,7 @@ bool Gpdasm::processExited( bool successfully )
 	QFile file(m_processOptions.intermediaryOutput());
 	if ( file.open(QIODevice::WriteOnly) == false )
 		return false;
-	
+
 	Q3TextStream stream(&file);
 	stream << m_asmOutput;
 	file.close();
@@ -114,7 +114,7 @@ MessageInfo Gpdasm::extractMessageInfo( const QString &text )
 			if (!ok) line = -1;
 		}
 	}
-	
+
 	return MessageInfo( fileName, line );
 }
 
@@ -127,7 +127,7 @@ ProcessOptions::ProcessPath::Path Gpdasm::outputPath( ProcessOptions::ProcessPat
 		case ProcessOptions::ProcessPath::Object_Disassembly:
 		case ProcessOptions::ProcessPath::Program_Disassembly:
 			return ProcessOptions::ProcessPath::None;
-			
+
 		case ProcessOptions::ProcessPath::AssemblyAbsolute_PIC:
 		case ProcessOptions::ProcessPath::AssemblyAbsolute_Program:
 		case ProcessOptions::ProcessPath::AssemblyRelocatable_Library:
@@ -155,6 +155,6 @@ ProcessOptions::ProcessPath::Path Gpdasm::outputPath( ProcessOptions::ProcessPat
 		case ProcessOptions::ProcessPath::None:
 			return ProcessOptions::ProcessPath::Invalid;
 	}
-	
+
 	return ProcessOptions::ProcessPath::Invalid;
 }

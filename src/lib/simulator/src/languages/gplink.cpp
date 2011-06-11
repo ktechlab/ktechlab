@@ -23,9 +23,9 @@ Gplink::Gplink( ProcessChain *processChain )
 {
 	m_successfulMessage = tr("*** Linking successful ***");
 	m_failedMessage = tr("*** Linking failed ***");
-	
+
 	// search for SDCC
-	
+
 	m_sdccLibDir = "";
 #define SEARCH_FOR_SDCC(dir) 			\
 	{ 					\
@@ -33,7 +33,7 @@ Gplink::Gplink( ProcessChain *processChain )
 		if( f.exists() ) 		\
 			m_sdccLibDir = dir; 	\
 	}
-	
+
 	// consider adding more paths here, if necessary
 	SEARCH_FOR_SDCC( "/usr/local/share/sdcc/lib" )
 	SEARCH_FOR_SDCC( "/usr/share/sdcc/lib" )
@@ -42,7 +42,7 @@ Gplink::Gplink( ProcessChain *processChain )
 #undef SEARCH_FOR_SDCC
 	if( m_sdccLibDir == "")
 		qCritical() << "SDCC lib not found";
-	
+
 }
 
 
@@ -55,51 +55,51 @@ void Gplink::processInput( ProcessOptions options )
 {
 	resetLanguageProcess();
 	m_processOptions = options;
-	
+
 	*m_languageProcess << ("gplink");
-	
+
 	if ( !options.m_hexFormat.isEmpty() )
 	{
 		*m_languageProcess << ("--hex-format");
 		*m_languageProcess << (options.m_hexFormat);
 	}
-	
+
 	if ( options.m_bOutputMapFile )
 		*m_languageProcess << ("--map");
-	
+
 	if ( !options.m_libraryDir.isEmpty() )
 	{
 		*m_languageProcess << ("--include");
 		*m_languageProcess << ( options.m_libraryDir );
 	}
-	
+
 	if ( !options.m_linkerScript.isEmpty() )
 	{
 		*m_languageProcess << ("--script");
 		*m_languageProcess << ( options.m_linkerScript );
 	}
-	
+
 	if ( !options.m_linkOther.isEmpty() )
 		*m_languageProcess << (options.m_linkOther);
-	
+
 	// Output hex file
 	*m_languageProcess << ("--output");
 	*m_languageProcess << ( options.intermediaryOutput() );
-	
+
 	// Input object file
 	const QStringList inputFiles = options.inputFiles();
 	QStringList::const_iterator end = inputFiles.end();
 	for ( QStringList::const_iterator it = inputFiles.begin(); it != end; ++it )
 		*m_languageProcess << ( *it );
-	
+
 	// Other libraries
 	end = options.m_linkLibraries.end();
 	for ( QStringList::const_iterator it = options.m_linkLibraries.begin(); it != end; ++it )
 		*m_languageProcess << ( *it );
-	
+
 	// if selected to automatically link to SDCC libraries, add some options.
 	if( KtlConfig::self()->gplink_link_shared() )
-	{	
+	{
 		// set up the include directory
 		MicroInfo * info = MicroLibrary::self()->microInfoWithID( options.m_picID );
 		if ( ! info )
@@ -121,7 +121,7 @@ void Gplink::processInput( ProcessOptions options )
 		}
 		*m_languageProcess << "libsdcc.lib";
 	}
-	
+
 	if ( !start() )
 	{
 		// KMessageBox::sorry( LanguageManager::self()->logView(), i18n("Linking failed. Please check you have gputils installed.") );
@@ -181,10 +181,10 @@ ProcessOptions::ProcessPath::Path Gplink::outputPath( ProcessOptions::ProcessPat
 	{
 		case ProcessOptions::ProcessPath::Object_PIC:
 			return ProcessOptions::ProcessPath::Program_PIC;
-			
+
 		case ProcessOptions::ProcessPath::Object_Program:
 			return ProcessOptions::ProcessPath::None;
-			
+
 		case ProcessOptions::ProcessPath::AssemblyAbsolute_PIC:
 		case ProcessOptions::ProcessPath::AssemblyAbsolute_Program:
 		case ProcessOptions::ProcessPath::AssemblyRelocatable_Library:
@@ -212,7 +212,7 @@ ProcessOptions::ProcessPath::Path Gplink::outputPath( ProcessOptions::ProcessPat
 		case ProcessOptions::ProcessPath::None:
 			return ProcessOptions::ProcessPath::Invalid;
 	}
-	
+
 	return ProcessOptions::ProcessPath::Invalid;
 }
 

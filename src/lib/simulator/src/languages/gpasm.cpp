@@ -36,27 +36,27 @@ void Gpasm::processInput( ProcessOptions options )
 {
 	resetLanguageProcess();
 	m_processOptions = options;
-	
+
 	AsmParser p( options.inputFiles().first() );
 	p.parse();
-	
+
 	*m_languageProcess << ("gpasm");
-	
+
 	if ( ProcessOptions::ProcessPath::from( options.processPath() ) == ProcessOptions::ProcessPath::AssemblyRelocatable )
 		*m_languageProcess << ("--object");
-	
+
 // 	*m_languageProcess << ("--debug-info"); // Debug info
-	
+
 	// Output filename
 	*m_languageProcess << ("--output");
 	*m_languageProcess << ( options.intermediaryOutput() );
-	
+
 	if ( !options.m_hexFormat.isEmpty() )
 	{
 		*m_languageProcess << ("--hex-format");
 		*m_languageProcess << (options.m_hexFormat);
 	}
-	
+
 	// Radix
 	if ( !p.containsRadix() )
 	{
@@ -79,7 +79,7 @@ void Gpasm::processInput( ProcessOptions options )
 		}
 		*m_languageProcess << ("DEC"); // choose the default
 	}
-	
+
 	// Warning Level
 	*m_languageProcess << ("--warning");
 	switch( KtlConfig::self()->gpasmWarningLevel() )
@@ -95,24 +95,24 @@ void Gpasm::processInput( ProcessOptions options )
 			*m_languageProcess << ("0");
 			break;
 	}
-	
+
 	// Ignore case
 	if ( KtlConfig::self()->ignoreCase() )
 		*m_languageProcess << ("--ignore-case");
 	// Dos formatting
 	if ( KtlConfig::self()->dosFormat() )
 		*m_languageProcess << ("--dos");
-	
+
 	// Force list
 	if ( options.b_forceList )
 		*m_languageProcess << ("--force-list");
-	
+
 	// Other options
 	if ( !KtlConfig::self()->miscGpasmOptions().isEmpty() )
 		*m_languageProcess << ( KtlConfig::self()->miscGpasmOptions() );
 	// Input Asm file
 	*m_languageProcess << ( options.inputFiles().first() );
-	
+
 	if ( !start() )
 	{
 		// KMessageBox::sorry( LanguageManager::self()->logView(), tr("Assembly failed. Please check you have gputils installed.") );
@@ -141,22 +141,22 @@ ProcessOptions::ProcessPath::Path Gpasm::outputPath( ProcessOptions::ProcessPath
 	{
 		case ProcessOptions::ProcessPath::AssemblyAbsolute_PIC:
 			return ProcessOptions::ProcessPath::Program_PIC;
-			
+
 		case ProcessOptions::ProcessPath::AssemblyAbsolute_Program:
 			return ProcessOptions::ProcessPath::None;
-			
+
 		case ProcessOptions::ProcessPath::AssemblyRelocatable_Library:
 			return ProcessOptions::ProcessPath::Object_Library;
-			
+
 		case ProcessOptions::ProcessPath::AssemblyRelocatable_Object:
 			return ProcessOptions::ProcessPath::None;
-			
+
 		case ProcessOptions::ProcessPath::AssemblyRelocatable_PIC:
 			return ProcessOptions::ProcessPath::Object_PIC;
-			
+
 		case ProcessOptions::ProcessPath::AssemblyRelocatable_Program:
 			return ProcessOptions::ProcessPath::Object_Program;
-			
+
 		case ProcessOptions::ProcessPath::C_AssemblyRelocatable:
 		case ProcessOptions::ProcessPath::C_Library:
 		case ProcessOptions::ProcessPath::C_Object:
@@ -180,7 +180,7 @@ ProcessOptions::ProcessPath::Path Gpasm::outputPath( ProcessOptions::ProcessPath
 		case ProcessOptions::ProcessPath::None:
 			return ProcessOptions::ProcessPath::Invalid;
 	}
-	
+
 	return ProcessOptions::ProcessPath::Invalid;
 }
 

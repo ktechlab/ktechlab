@@ -23,7 +23,7 @@
 
 ECVoltageSignal::ECVoltageSignal(Circuit& ownerCircuit)
 	: Component(ownerCircuit)
-	
+
 {
     m_voltageSignal = new VoltageSignal(LINEAR_UPDATE_PERIOD, 5);
 	m_voltageSignal->setStep(ElementSignal::st_sinusoidal, 50.);
