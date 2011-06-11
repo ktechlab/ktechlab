@@ -17,11 +17,6 @@ include_directories(
 #    ${QT_QTTEST_INCLUDE_DIR}
 )
 
-# we need Qt3 support in some classes...
-# TODO make the code compile without
-#      this flag turned on
-ADD_DEFINITIONS(-DQT3_SUPPORT)
-
 add_definitions(-fexceptions)
 
 set( simulator_SRCS
