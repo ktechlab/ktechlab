@@ -9,7 +9,8 @@
  ***************************************************************************/
 
 #include "config.h"
-#ifdef GPSIM_FOUND
+
+#ifndef NO_GPSIM
 
 #include "asmparser.h"
 #include "debugmanager.h"
