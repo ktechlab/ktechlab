@@ -90,7 +90,7 @@ void Demultiplexer::propertyChanged(Property& theProperty, QVariant newValue, QV
     }
     Q_UNUSED(oldValue);
 
-    initPins(newValue.asUInt());
+    initPins(newValue.toUInt());
 }
 
 

@@ -115,9 +115,9 @@ void Gplink::processInput( ProcessOptions options )
 				*m_languageProcess << "-I" << m_sdccLibDir + "/pic16" ;
 			else
 				*m_languageProcess << "-I" << m_sdccLibDir + "/pic" ;
-		
+
 			// to pic to link against
-			*m_languageProcess << options.m_picID.lower().replace ( "p","pic" ) + ".lib";
+			*m_languageProcess << options.m_picID.toLower().replace ( "p","pic" ) + ".lib";
 		}
 		*m_languageProcess << "libsdcc.lib";
 	}
@@ -134,13 +134,13 @@ void Gplink::processInput( ProcessOptions options )
 
 bool Gplink::isError( const QString &message ) const
 {
-	return message.contains( "Error", false );
+	return message.contains( "Error", Qt::CaseInsensitive );
 }
 
 
 bool Gplink::isWarning( const QString &message ) const
 {
-	return message.contains( "Warning", false );
+    return message.contains( "Warning", Qt::CaseInsensitive );
 }
 
 
@@ -150,21 +150,22 @@ MessageInfo Gplink::extractMessageInfo( const QString &text )
 	if ( text.length()<5 || !text.startsWith("/") )
 		return MessageInfo();
 
-    const int index = text.find( ".asm", 0, false )+4;
+    const int index = text.indexOf( ".asm", 0, Qt::CaseInsensitive )+4;
 	if ( index == -1+4 )
 		return MessageInfo();
 	const QString fileName = text.left(index);
-	
+
 	// Extra line number
 	const QString message = text.right(text.length()-index);
-	const int linePos = message.find( QRegExp(":[\\d]+") );
+	const int linePos = message.indexOf( QRegExp(":[\\d]+") );
 	int line = -1;
 	if ( linePos != -1 )
 	{
-		const int linePosEnd = message.find( ':', linePos+1 );
+		const int linePosEnd = message.indexOf( ':', linePos+1 );
 		if ( linePosEnd != -1 )
 		{
-			const QString number = message.mid( linePos+1, linePosEnd-linePos-1 ).stripWhiteSpace();
+			const QString number = message.mid( linePos+1, linePosEnd-linePos-1 )
+                .trimmed();
 			bool ok;
 			line = number.toInt(&ok)-1;
 			if (!ok) line = -1;

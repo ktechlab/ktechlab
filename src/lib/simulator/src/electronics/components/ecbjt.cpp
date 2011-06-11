@@ -73,11 +73,11 @@ void ECBJT::propertyChanged(Property& theProperty, QVariant newValue, QVariant o
     Q_UNUSED(oldValue);
 
     BJTSettings s;
-    s.I_S = property("I_S").asDouble();
-    s.N_F = property("N_F").asDouble();
-    s.N_R = property("N_R").asDouble();
-    s.B_F = property("B_F").asDouble();
-    s.B_R = property("B_R").asDouble();
+    s.I_S = property("I_S").toDouble();
+    s.N_F = property("N_F").toDouble();
+    s.N_R = property("N_R").toDouble();
+    s.B_F = property("B_F").toDouble();
+    s.B_R = property("B_R").toDouble();
 
     m_pBJT.setBJTSettings(s);
 }

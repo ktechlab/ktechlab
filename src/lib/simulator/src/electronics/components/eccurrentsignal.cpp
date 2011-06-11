@@ -64,11 +64,11 @@ void ECCurrentSignal::propertyChanged(Property& theProperty, QVariant newValue, 
     Q_UNUSED(oldValue);
 
     if(theProperty.name() == "1-current"){
-        double frequency = newValue.asDouble();
+        double frequency = newValue.toDouble();
         m_currentSignal->setStep(ElementSignal::st_sinusoidal, frequency );
     } else
     if(theProperty.name() == "1-frequency"){
-        double current = newValue.asDouble();
+        double current = newValue.toDouble();
         m_currentSignal->setCurrent(current);
     } else {
         qCritical() << "ECCurrentSignal: inexistent property with the name "
