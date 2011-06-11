@@ -69,4 +69,3 @@ endif(KDEVPLATFORM_ENABLED)
 add_subdirectory( src )
 
 ########### install files ###############
-

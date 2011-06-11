@@ -36,9 +36,9 @@ bool AsmParser::parse( GpsimDebugger * debugger )
 	QFile file(m_url);
 	if ( !file.open(QIODevice::ReadOnly) )
 		return false;
-	
+
 	QTextStream stream( &file );
-	
+
 	m_type = Absolute;
 	m_bContainsRadix = false;
 	m_picID = QString::null;
@@ -89,13 +89,13 @@ bool AsmParser::parse( GpsimDebugger * debugger )
 				// 7 = length_of(";#CSRC\t")
 				QString fileName = line.mid( 7, fileLineAt-7 );
 				QString fileLineString = line.mid( fileLineAt+1, line.length() - fileLineAt - 1 );
-					
+
 				if ( fileName.startsWith("\"") ) {
 					// Newer versions of SDCC insert " around the filename
 					fileName.remove( 0, 1 ); // First "
 					fileName.remove( fileName.length()-1, 1 ); // Last "
 				}
-				
+
 				bool ok;
 				int fileLine = fileLineString.toInt(&ok) - 1;
 				if ( ok && fileLine >= 0 )
@@ -119,13 +119,13 @@ bool AsmParser::parse( GpsimDebugger * debugger )
 				else {
 					QString fileName = lineAndFile.mid( lineFileSplit + 2 );
 					QString fileLineString = lineAndFile.left( lineFileSplit );
-					
+
 					if ( fileName.startsWith("\"") ) {
 						// Newer versions of SDCC insert " around the filename
 						fileName.remove( 0, 1 ); // First "
 						fileName.remove( fileName.length()-1, 1 ); // Last "
 					}
-				
+
 					bool ok;
 					int fileLine = fileLineString.toInt(&ok) - 1;
 					if ( ok && fileLine >= 0 )
@@ -137,7 +137,7 @@ bool AsmParser::parse( GpsimDebugger * debugger )
 #endif // GPSIM_FOUND
 		inputAtLine++;
 	}
-	
+
 	return true;
 }
 
