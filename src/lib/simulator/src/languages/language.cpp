@@ -26,6 +26,7 @@
 Language::Language( ProcessChain *processChain, const QString &name )
 {
 	p_processChain = processChain;
+    Q_UNUSED(name);
 }
 
 
