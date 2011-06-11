@@ -1,4 +1,17 @@
+# start by looking for 'curses' library
 
+#find_package( Curses )
+
+
+# INCLUDE( CheckLibraryExists )
+# CHECK_LIBRARY_EXISTS( readline readline "/usr/lib" HAVE_LIBREADLINE )
+
+
+# for hacking...
+#set( HAVE_LIBREADLINE 1)
+# message(STATUS "readline: " ${HAVE_LIBREADLINE})
+
+# then GPSim
 FIND_PATH( GPSim_INCLUDE_DIR gpsim_interface.h /usr/include/gpsim /usr/local/include/gpsim )
 
 FIND_LIBRARY( GPSim_LIBRARY NAMES gpsim PATH /usr/lib /usr/local/lib )
@@ -7,7 +20,9 @@ if( GPSim_INCLUDE_DIR AND GPSim_LIBRARY )
 	set( GPSim_FOUND TRUE )
 endif( GPSim_INCLUDE_DIR AND GPSim_LIBRARY )
 
-if ( GPSim_FOUND )
+if( GPSim_FOUND) # AND HAVE_LIBREADLINE )
+#    message(STATUS "GPSim_FOUND AND HAVE_LIBREADLINE")
+
 	INCLUDE( CheckCXXSourceCompiles )
 
 	set( CMAKE_REQUIRED_INCLUDES
@@ -39,41 +54,43 @@ if ( GPSim_FOUND )
 
 	CHECK_INCLUDE_FILE_CXX( ${GPSim_INCLUDE_DIR}/ValueCollections.h HAVE_GPSIM_0_21_12 )
 
-	if( HAVE_GPSIM_0_21_12 )
-        	message( STATUS "GPSim 0.21.12 found" )
-        	set( GPSIM_0_21_12 "GPSim 0.21.12 found" )
-	else( HAVE_GPSIM_0_21_12 )
-        	if( HAVE_GPSIM_0_21_4 )
-                	message( STATUS "GPSim 0.21.4 found" )
-                	set( GPSIM_0_21_4 "GPSim 0.21.4 found" )
-        	else( HAVE_GPSIM_0_21_4 )
-                	if( HAVE_GPSIM_0_21_11 )
-                        	message( STATUS "GPSim 0.21.11 found" )
-                        	set( GPSIM_0_21_11 "GPSim 0.21.11 found" )
-                	else( HAVE_GPSIM_0_21_11 )
-                        	message( STATUS "No GPSim found" )
-                        	set( NO_GPSIM "No GPSim found" )
-                	endif( HAVE_GPSIM_0_21_11 )
-        	endif( HAVE_GPSIM_0_21_4 )
-	endif( HAVE_GPSIM_0_21_12 )
 
-	INCLUDE( CheckLibraryExists )
-	CHECK_LIBRARY_EXISTS( readline readline /usr/lib HAVE_LIBREADLINE )
+    if( HAVE_GPSIM_0_21_12 )
+        message( STATUS "GPSim 0.21.12 found" )
+        set( GPSIM_0_21_12 "GPSim 0.21.12 found" )
+    else( HAVE_GPSIM_0_21_12 )
+            if( HAVE_GPSIM_0_21_4 )
+                    message( STATUS "GPSim 0.21.4 found" )
+                    set( GPSIM_0_21_4 "GPSim 0.21.4 found" )
+            else( HAVE_GPSIM_0_21_4 )
+                    if( HAVE_GPSIM_0_21_11 )
+                            message( STATUS "GPSim 0.21.11 found" )
+                            set( GPSIM_0_21_11 "GPSim 0.21.11 found" )
+                    else( HAVE_GPSIM_0_21_11 )
+                            message( STATUS "No GPSim found" )
+                            set( NO_GPSIM "No GPSim found" )
+                    endif( HAVE_GPSIM_0_21_11 )
+            endif( HAVE_GPSIM_0_21_4 )
+    endif( HAVE_GPSIM_0_21_12 )
 
-	find_package( Curses )
+    set( GPSIM_INCLUDE_DIRS
+        ${GPSim_INCLUDE_DIR}
+        ${GLIB2_INCLUDE_DIRS}
+        )
+    set( GPSIM_LIBRARY
+#        -lreadline
+        ${GPSim_LIBRARY}
+        ${GLIB2_LIBRARY}
+        )
+    set( GPSIM_FOUND TRUE )
+endif( GPSim_FOUND ) # AND HAVE_LIBREADLINE )
 
-	if( HAVE_LIBREADLINE )
-		set( GPSIM_INCLUDE_DIRS 
-			${GPSim_INCLUDE_DIR}
-			${GLIB2_INCLUDE_DIRS}
-			)
-		set( GPSIM_LIBRARY
-			-lreadline
-			${GPSim_LIBRARY}
-			${GLIB2_LIBRARY}
-			)
-		set( GPSIM_FOUND TRUE )
-	else( HAVE_LIBREADLINE )
+# if( NOT HAVE_LIBREADLINE )
+#     message(STATUS "No readline library found, disabling GPsim")
+#     set( NO_GPSIM "No readline library found, disabling GPsim" )
+# endif( NOT HAVE_LIBREADLINE )
 
-	endif( HAVE_LIBREADLINE )
-endif( GPSim_FOUND)
+if(NOT GPSim_FOUND)
+    message( STATUS "No GPSim found" )
+    set( NO_GPSIM "No GPSim found" )
+endif(NOT GPSim_FOUND)
