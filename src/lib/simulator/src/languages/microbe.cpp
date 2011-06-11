@@ -23,7 +23,7 @@ Microbe::Microbe( ProcessChain *processChain )
 {
 	m_failedMessage = tr("*** Compilation failed ***");
 	m_successfulMessage = tr("*** Compilation successful ***");
-	
+
 #if 0
 	// Setup error messages list
 	QFile file( locate("appdata",i1 8n("error_messages_en_gb")) );
@@ -59,17 +59,17 @@ void Microbe::processInput( ProcessOptions options )
 {
 	resetLanguageProcess();
 	m_processOptions = options;
-	
+
 	*m_languageProcess << ("microbe");
-	
+
 	// Input Asm file
 	*m_languageProcess << ( options.inputFiles().first() );
-	
+
 	// Output filename
 	*m_languageProcess << ( options.intermediaryOutput() );
-	
+
 	*m_languageProcess << ("--show-source");
-	
+
 	if ( !start() )
 	{
 //		QMessageBox::critical( LanguageManager::self()->logView(), tr("Assembly failed. Please check you have KTechlab installed properly (\"microbe\" could not be started).") );
@@ -97,13 +97,13 @@ ProcessOptions::ProcessPath::Path Microbe::outputPath( ProcessOptions::ProcessPa
 	{
 		case ProcessOptions::ProcessPath::Microbe_AssemblyAbsolute:
 			return ProcessOptions::ProcessPath::None;
-			
+
 		case ProcessOptions::ProcessPath::Microbe_PIC:
 			return ProcessOptions::ProcessPath::AssemblyAbsolute_PIC;
-			
+
 		case ProcessOptions::ProcessPath::Microbe_Program:
 			return ProcessOptions::ProcessPath::AssemblyAbsolute_Program;
-			
+
 		case ProcessOptions::ProcessPath::AssemblyAbsolute_PIC:
 		case ProcessOptions::ProcessPath::AssemblyAbsolute_Program:
 		case ProcessOptions::ProcessPath::AssemblyRelocatable_Library:
@@ -130,6 +130,6 @@ ProcessOptions::ProcessPath::Path Microbe::outputPath( ProcessOptions::ProcessPa
 		case ProcessOptions::ProcessPath::None:
 			return ProcessOptions::ProcessPath::Invalid;
 	}
-	
+
 	return ProcessOptions::ProcessPath::Invalid;
 }

@@ -99,16 +99,16 @@ QString Variant::displayString() const
 			// return QString::number( numValue / CNItem::getMultiplier(numValue) ) + " " + CNItem::getNumberMag(numValue) + m_unit;
             return QString::number(numValue);
 		}
-		
+
 		case Variant::Type::Int:
 			return m_value.toString()+" "+m_unit;
-			
+
 		case Variant::Type::Bool:
 			return m_value.toBool() ? tr("True") : tr("False");
-			
+
 		case Variant::Type::Select:
 			return m_allowed[ m_value.toString() ];
-			
+
 		default:
 			return m_value.toString();
 	}
@@ -120,9 +120,9 @@ void Variant::setValue( QVariant val )
 	{
 		// Our value is being set to an i18n name, not the actual string id.
 		// So change val to the id (if it exists)
-		
+
 		QString i18nName = val.toString();
-		
+
 		QStringMap::iterator end = m_allowed.end();
 		for ( QStringMap::iterator it = m_allowed.begin(); it != end; ++it )
 		{
@@ -133,20 +133,20 @@ void Variant::setValue( QVariant val )
 			}
 		}
 	}
-	
+
 	if ( !m_bSetDefault )
 	{
 		m_defaultValue = val;
 		m_bSetDefault = true;
 	}
-	
+
 	if ( m_value == val )
 		return;
-	
+
 	const QVariant old = m_value;
 	m_value = val;
 	emit( valueChanged( val, old ) );
-	
+
 	switch ( type() )
 	{
 		case Variant::Type::String:
@@ -164,20 +164,20 @@ void Variant::setValue( QVariant val )
 		case Variant::Type::RichText:
 			emit valueChanged( displayString() );
 			break;
-			
+
 		case Variant::Type::Int:
 			emit valueChanged( value().toInt() );
 			break;
-			
+
 		case Variant::Type::Double:
 			emit valueChanged( value().toDouble() );
 			break;
 
-			
+
 		case Variant::Type::Bool:
 			emit valueChanged( value().toBool() );
 			break;
-			
+
 		case Variant::Type::Raw:
 		case Variant::Type::None:
 			break;
@@ -199,14 +199,14 @@ bool Variant::changed() const
 	{
 		double cur = value().toDouble();
 		double def = defaultValue().toDouble();
-		
+
 		double diff = std::abs( cur - def );
 		if ( diff == 0 )
 			return false;
-		
+
 		// denom cannot be zero
 		double denom = std::max( std::abs( cur ), std::abs( def ) );
-		
+
 		// not changed if within 1e-4% of each other's value
 		return ( (diff / denom) > 1e-6 );
 	}

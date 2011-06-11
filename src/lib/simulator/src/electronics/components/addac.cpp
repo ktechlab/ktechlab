@@ -50,7 +50,7 @@ ADDAC::ADDAC(Circuit& ownerCircuit) : Component(ownerCircuit)
 	property("numBits")->setMinValue(2);
 	property("numBits")->setMaxValue(max_ADDAC_bits);
 	property("numBits")->setValue(2);
-	
+
 	createProperty( "range", Variant::Type::Double );
 	property("range")->setCaption( i18n("Input Range") );
 	property("range")->setUnit("V");
@@ -93,10 +93,10 @@ ADC::~ADC()
 
 ADC::ADC(Circuit& ownerCircuit) : ADDAC(ownerCircuit)
 {
-	
+
 	for ( int i=0; i<max_ADDAC_bits; ++i )
 		m_logic[i] = 0;
-	
+
 	m_realNode = 0;
 }
 
@@ -104,14 +104,14 @@ void ADC::stepNonLogic()
 {
 	double floatBitValue = m_realNode->voltage() * (std::pow( 2, double(m_numBits) )-1.) / m_range;
 	double roundBitValue = std::floor( floatBitValue + 0.5 );
-	
+
 	if ( roundBitValue < 0 )
 	{
 		for ( int i = 0; i<m_numBits; ++i )
 			m_logic[i]->setHigh(false);
 		return;
 	}
-	
+
 	uint roundedBitValue = uint(roundBitValue);
 	for(int i = 0; i < m_numBits; ++i)
 		m_logic[i]->setHigh(roundedBitValue & (1 << i));
@@ -122,23 +122,23 @@ void ADC::initPins()
 
     int numBits = propertyByName("numBits")->value().asInt();
         // dataInt("numBits");
-	
+
 	if ( numBits < 2 )
 		numBits = 2;
 	else if ( numBits > max_ADDAC_bits )
 		numBits = max_ADDAC_bits;
-	
+
 	if ( numBits == m_numBits )
 		return;
-	
+
 	QStringList pins;
-	
+
 	int inPos = (numBits - 1 + (numBits % 2)) / 2;
 	for(int i=0; i < inPos; ++i)
 		pins += "";
-	
+
 	pins += "In";
-	
+
 	for(int i = inPos + 1; i < numBits; ++i)
 		pins += "";
 
@@ -174,7 +174,7 @@ DAC::DAC(Circuit& ownerCircuit) : ADDAC(ownerCircuit)
 {
 	for ( int i=0; i<max_ADDAC_bits; ++i )
 		m_logic[i] = 0;
-	
+
 	m_voltagePoint = 0;
 }
 
@@ -187,7 +187,7 @@ void DAC::stepNonLogic()
 	uint value = 0;
 	for ( int i=0; i < m_numBits; ++i )
 		value |= ( m_logic[i]->isHigh() ? 1 : 0 ) << i;
-	
+
 // 	double valueAsDouble = double(value);
 // 	double powChange = std::pow( double(m_numBits), 2 )-1.;
 // 	m_voltagePoint->setVoltage( m_range * valueAsDouble / powChange );
@@ -198,18 +198,18 @@ void DAC::initPins()
 {
     int numBits = propertyByName("numBits")->value().asInt();
             // FIXME dataInt("numBits");
-	
+
 	if(numBits < 2) numBits = 2;
 	else if(numBits > max_ADDAC_bits)
 		numBits = max_ADDAC_bits;
-	
+
 	if(numBits == m_numBits) return;
-	
+
 	QStringList pins;
-	
+
 	for(int i = 0; i < numBits; ++i)
 		pins += QString::number(i);
-	
+
 	int inPos = (numBits + 1 + (numBits % 2)) / 2;
 	for(int i = numBits - 1; i >= inPos; --i)
 		pins += "";
@@ -218,7 +218,7 @@ void DAC::initPins()
 
 	for(int i = inPos - 2; i >= 0; --i)
 		pins += "";
-	
+
 	if(numBits > m_numBits) {
 		for(int i = m_numBits; i < numBits; ++i)
 		{
@@ -237,7 +237,7 @@ void DAC::initPins()
 			m_logic[i] = 0;
 		}
 	}
-	
+
 	m_numBits = numBits;
 }
 //END class DAC
