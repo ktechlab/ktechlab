@@ -44,7 +44,7 @@ Resistor::~Resistor() {
 void Resistor::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
 {
     Q_ASSERT(theProperty.name() == "resistance");
-    Q_ASSERT(newValue.asDouble() > 0);
+    Q_ASSERT(newValue.toDouble() > 0);
 
     Q_UNUSED(oldValue);
 
