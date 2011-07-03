@@ -30,23 +30,24 @@ target_link_libraries( addcomponents
     ${KDEVPLATFORM_TESTS_LIBRARIES}
 )
 
-kde4_add_unit_test( directsimulatortest
-   directsimulatortest.cpp
-   ${CMAKE_SOURCE_DIR}/src/interfaces/simulator/isimulator.cpp
-   ${CMAKE_SOURCE_DIR}/src/simulationmanager.cpp
-   ${CMAKE_SOURCE_DIR}/src/plugins/simulator/circuittransientsimulator.cpp
-   ${CMAKE_SOURCE_DIR}/src/plugins/simulator/pingroup.cpp
-   ${CMAKE_SOURCE_DIR}/src/plugins/simulator/elementset.cpp
-   ${CMAKE_SOURCE_DIR}/src/plugins/basic_ec/elements/capacitance.cpp
-   ${CMAKE_SOURCE_DIR}/src/plugins/basic_ec/elements/resistance.cpp
-   ${CMAKE_SOURCE_DIR}/src/plugins/basic_ec/elements/voltagesource.cpp
-)
+# kde4_add_unit_test( directsimulatortest
+#    directsimulatortest.cpp
+#    ${CMAKE_SOURCE_DIR}/src/interfaces/simulator/isimulator.cpp
+#    ${CMAKE_SOURCE_DIR}/src/simulationmanager.cpp
+#    ${CMAKE_SOURCE_DIR}/src/plugins/simulator/circuittransientsimulator.cpp
+#    ${CMAKE_SOURCE_DIR}/src/plugins/simulator/pingroup.cpp
+#    ${CMAKE_SOURCE_DIR}/src/plugins/simulator/elementset.cpp
+#    ${CMAKE_SOURCE_DIR}/src/plugins/basic_ec/elements/capacitance.cpp
+#    ${CMAKE_SOURCE_DIR}/src/plugins/basic_ec/elements/resistance.cpp
+#    ${CMAKE_SOURCE_DIR}/src/plugins/basic_ec/elements/voltagesource.cpp
+# )
 
-target_link_libraries( directsimulatortest
-    ktlinterfaces
-    ktlmath
-    ktlcircuit
-    ${QT_QTTEST_LIBRARY}
-    ${KDEVPLATFORM_TESTS_LIBRARIES}
-)
+# target_link_libraries( directsimulatortest
+#     ktlinterfaces
+#     ktlmath
+#     ktlcircuit
+#     ${QT_QTTEST_LIBRARY}
+#     ${KDEVPLATFORM_TESTS_LIBRARIES}
+# )
+
 add_definitions( "-DPROJECTS_SOURCE_DIR=\\\"${CMAKE_SOURCE_DIR}/tests/data\\\"" )
