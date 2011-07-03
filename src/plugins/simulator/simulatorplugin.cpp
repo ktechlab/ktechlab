@@ -29,6 +29,7 @@ K_EXPORT_PLUGIN(SimulatorPluginFactory("ktlsimulatorplugin", "ktlsimulatorplugin
 SimulatorPlugin::SimulatorPlugin(QObject* parent, const QVariantList& args):
               IPlugin(SimulatorPluginFactory::componentData(), parent)
 {
+    Q_UNUSED(args);
     kDebug() << "SimulatorPlugin created\n";
     // create factories
     m_simFact = new SimulatorFactory();
