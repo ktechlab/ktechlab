@@ -77,15 +77,15 @@ void ECJFET::propertyChanged(Property& theProperty, QVariant newValue, QVariant 
 
     JFETSettings s = m_pJFET.settings();
     if( theProperty.name() == "V_Th" ){
-        s.V_Th = newValue.asDouble();
+        s.V_Th = newValue.toDouble();
     } else if( theProperty.name() == "beta"){
-        s.beta = newValue.asDouble();
+        s.beta = newValue.toDouble();
     } else if( theProperty.name() == "I_S"){
-        s.I_S = newValue.asDouble();
+        s.I_S = newValue.toDouble();
     } else if( theProperty.name() == "N"){
-        s.N = newValue.asDouble();
+        s.N = newValue.toDouble();
     } else if( theProperty.name() == "N_R"){
-        s.N_R = newValue.asDouble();
+        s.N_R = newValue.toDouble();
     } else
         qCritical() << "ECJFET: unknown property: " << theProperty.name();
 

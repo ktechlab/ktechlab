@@ -9,7 +9,8 @@
  ***************************************************************************/
 
 #include "config.h"
-#ifdef GPSIM_FOUND
+
+#ifndef NO_GPSIM
 
 #include "asmparser.h"
 #include "debugmanager.h"
@@ -58,7 +59,7 @@ function will remove the duplicated directory path (by searching for a "//").
 */
 QString sanitizeGpsimFile( QString file )
 {
-	int pos = file.find("//");
+	int pos = file.indexOf("//");
 	if ( pos != -1 )
 	{
 		file.remove( 0, pos + 1 );
@@ -75,10 +76,10 @@ GpsimProcessor::GpsimProcessor( QString symbolFile, QObject *parent )
 	{
 		initialize_gpsim_core();
 		initialization_is_complete();
-		
+
 		bDoneGpsimInit = true;
 	}
-	
+
 	m_bCanExecuteNextCycle = true;
 	m_bIsRunning = false;
 	m_pPicProcessor = 0l;
@@ -86,10 +87,10 @@ GpsimProcessor::GpsimProcessor( QString symbolFile, QObject *parent )
 	m_pRegisterMemory = 0l;
 	m_debugMode = GpsimDebugger::AsmDebugger;
 	m_pDebugger[0] = m_pDebugger[1] = 0l;
-	
+
 	Processor * tempProcessor = 0l;
-	const char * fileName = symbolFile.ascii();
-	
+	const char * fileName = symbolFile.toAscii();
+
 #ifdef GPSIM_0_21_4
 	switch ( (cod_errors)load_symbol_file( &tempProcessor, fileName ) )
 	{
@@ -121,9 +122,9 @@ GpsimProcessor::GpsimProcessor( QString symbolFile, QObject *parent )
 	else
 		m_codLoadStatus = ( ProgramFileTypeList::GetList().LoadProgramFile( & tempProcessor, fileName, pFile ) ) ? CodSuccess : CodFailure;
 #endif
-	
+
 	m_pPicProcessor = dynamic_cast<pic_processor*>(tempProcessor);
-	
+
 	if ( codLoadStatus() == CodSuccess )
 	{
 		m_pRegisterMemory = new RegisterSet( m_pPicProcessor );
@@ -132,7 +133,7 @@ GpsimProcessor::GpsimProcessor( QString symbolFile, QObject *parent )
 		Simulator::self()->attachGpsimProcessor(this);
 		DebugManager::self()->registerGpsim(this);
 	}
-        
+
         m_stepsPerMicrosecond = 1;
 }
 
@@ -141,7 +142,7 @@ GpsimProcessor::~GpsimProcessor()
 {
 	Simulator::self()->detachGpsimProcessor(this);
 	delete m_pRegisterMemory;
-	
+
 	if ( m_pDebugger[0] )
 		m_pDebugger[0]->deleteLater();
 	if ( m_pDebugger[1] )
@@ -197,7 +198,7 @@ unsigned GpsimProcessor::programMemorySize() const
 QStringList GpsimProcessor::sourceFileList()
 {
 	QStringList files;
-	
+
 	// Work around nasty bug in gpsim 0.21.4 where nsrc_files value might be used uninitiazed
 	int max = m_pPicProcessor->files.nsrc_files();
 #ifdef GPSIM_0_21_4
@@ -209,10 +210,10 @@ QStringList GpsimProcessor::sourceFileList()
 	{
 		if ( !m_pPicProcessor->files[i] )
 			continue;
-		
+
 		files << sanitizeGpsimFile( m_pPicProcessor->files[i]->name().c_str() );
 	}
-	
+
 	return files;
 }
 
@@ -228,7 +229,7 @@ void GpsimProcessor::setRunning( bool run )
 {
 	if ( m_bIsRunning == run )
 		return;
-	
+
 	m_bIsRunning = run;
 	emit runningStatusChanged(run);
 }
@@ -238,15 +239,15 @@ void GpsimProcessor::executeNext()
 {
 	if ( !m_bIsRunning )
 		return;
-	
+
 	if ( !m_bCanExecuteNextCycle )
 	{
 		m_bCanExecuteNextCycle = true;
 		return;
 	}
-	
+
 	unsigned long long beforeExecuteCount = get_cycles().get();
-	
+
 	if(get_bp().have_interrupt())
 	{
 		m_pPicProcessor->interrupt();
@@ -254,14 +255,14 @@ void GpsimProcessor::executeNext()
 	else
 	{
 		m_pPicProcessor->step_one(false); // Don't know what the false is for; gpsim ignores its value anyway
- 
+
 		// Some instructions take more than one cycle to execute, so ignore next cycle if this was the case
 		if ( (get_cycles().get() - beforeExecuteCount) > 1 )
 			m_bCanExecuteNextCycle = false;
 	}
-	
+
 	currentDebugger()->checkForBreak();
-	
+
 	// Let's also update the values of RegisterInfo every 25 milliseconds
 	if ( (beforeExecuteCount % 10000) == 0 )
 		registerMemory()->update();
@@ -287,7 +288,7 @@ MicroInfo * GpsimProcessor::microInfo( ) const
 		qWarning() << " m_pPicProcessor == NULL" << endl;
 		return 0l;
 	}
-	
+
 	return MicroLibrary::self()->microInfoWithID( m_pPicProcessor->name().c_str() );
 }
 
@@ -314,19 +315,21 @@ GpsimProcessor::ProgramFileValidity GpsimProcessor::isValidProgramFile( const QS
 {
 	if ( !QFile::exists(programFile) )
 		return DoesntExist;
-	
-	QString extension = programFile.right( programFile.length() - programFile.findRev('.') - 1 ).lower();
-	
+
+	QString extension = programFile.right(
+        programFile.length() - programFile.lastIndexOf('.') - 1
+        ).toLower();
+
 	if ( extension == "flowcode" ||
 			extension == "asm" ||
 			extension == "cod" ||
 			extension == "basic" || extension == "microbe" ||
 	   		extension == "c" )
 		return Valid;
-	
+
 	if ( extension == "hex" && QFile::exists( QString(programFile).replace(".hex",".cod") ) )
 		return Valid;
-	
+
 	return IncorrectType;
 }
 
@@ -335,9 +338,11 @@ QString GpsimProcessor::generateSymbolFile( const QString &fileName, QObject *re
 {
 	if ( !isValidProgramFile(fileName) )
 		return QString::null;
-	
-	QString extension = fileName.right( fileName.length() - fileName.findRev('.') - 1 ).lower();
-	
+
+	QString extension = fileName.right(
+        fileName.length() - fileName.lastIndexOf('.') - 1
+        ).toLower();
+
 	if ( extension == "cod" )
 	{
 		QTimer::singleShot( 0, receiver, successMember );
@@ -349,7 +354,7 @@ QString GpsimProcessor::generateSymbolFile( const QString &fileName, QObject *re
 		// We've already checked for the existance of the ".cod" file in GpsimProcessor::isValidProgramFile
 		return QString(fileName).replace(".hex",".cod");
 	}
-	
+
 	else if ( extension == "basic" || extension == "microbe" )
 	{
 		compileMicrobe( fileName, receiver, successMember, failMember );
@@ -357,15 +362,15 @@ QString GpsimProcessor::generateSymbolFile( const QString &fileName, QObject *re
 	}
 	else if ( extension == "flowcode" )
 	{
-		const QString hexFile = QTemporaryFile( "tmpXXXXXX.hex" ).name();
-		
+		const QString hexFile = QTemporaryFile( "tmpXXXXXX.hex" ).fileName();
+
 		ProcessOptions o;
 		o.b_addToProject = false;
 		o.setTargetFile( hexFile );
 		o.setInputFiles( QStringList(fileName) );
 		o.setMethod( ProcessOptions::Method::Forget );
 		o.setProcessPath( ProcessOptions::ProcessPath::FlowCode_Program );
-		
+
 		ProcessChain * pc = new ProcessChain(o);
 		if (receiver)
 		{
@@ -374,7 +379,7 @@ QString GpsimProcessor::generateSymbolFile( const QString &fileName, QObject *re
 			if (failMember)
 				connect( pc, SIGNAL(failed()), receiver, failMember );
 		}
-		
+
 		return QString(hexFile).replace( ".hex", ".cod" );
 	}
 	else if ( extension == "asm" )
@@ -385,7 +390,7 @@ QString GpsimProcessor::generateSymbolFile( const QString &fileName, QObject *re
 		o.setInputFiles(QStringList(fileName));
 		o.setMethod( ProcessOptions::Method::Forget );
 		o.setProcessPath( ProcessOptions::ProcessPath::path( ProcessOptions::guessMediaType(fileName), ProcessOptions::ProcessPath::Program ) );
-		
+
 		ProcessChain *pc = new ProcessChain(o);
 		if (receiver)
 		{
@@ -394,7 +399,7 @@ QString GpsimProcessor::generateSymbolFile( const QString &fileName, QObject *re
 			if (failMember)
 				connect( pc, SIGNAL(failed()), receiver, failMember );
 		}
-		
+
 		return QString(fileName).replace(".asm",".cod");
 	}
 	else if ( extension == "c" )
@@ -405,7 +410,7 @@ QString GpsimProcessor::generateSymbolFile( const QString &fileName, QObject *re
 		o.setInputFiles(QStringList(fileName));
 		o.setMethod( ProcessOptions::Method::Forget );
 		o.setProcessPath( ProcessOptions::ProcessPath::C_Program );
-		
+
 		ProcessChain *pc = new ProcessChain(o);
 		if (receiver)
 		{
@@ -414,10 +419,10 @@ QString GpsimProcessor::generateSymbolFile( const QString &fileName, QObject *re
 			if (failMember)
 				connect( pc, SIGNAL(failed()), receiver, failMember );
 		}
-		
+
 		return QString(fileName).replace(".c",".cod");
 	}
-	
+
 	if ( failMember )
 		QTimer::singleShot( 0, receiver, failMember );
 	return QString::null;
@@ -465,9 +470,9 @@ GpsimDebugger::GpsimDebugger( Type type, GpsimProcessor * gpsim )
 	m_addressToLineMap = 0l;
 	m_stackLevelLowerBreak = -1;
 	m_addressSize = 0;
-	
+
 	connect( m_pGpsim, SIGNAL(runningStatusChanged(bool )), this, SLOT(gpsimRunningStatusChanged(bool )) );
-	
+
 	if ( type == HLLDebugger )
 	{
 		const QStringList sourceFileList = m_pGpsim->sourceFileList();
@@ -478,7 +483,7 @@ GpsimDebugger::GpsimDebugger( Type type, GpsimProcessor * gpsim )
 			p.parse(this);
 		}
 	}
-	
+
 	initAddressToLineMap();
 }
 
@@ -486,21 +491,21 @@ GpsimDebugger::GpsimDebugger( Type type, GpsimProcessor * gpsim )
 GpsimDebugger::~GpsimDebugger()
 {
 	Q3ValueList<DebugLine*> debugLinesToDelete;
-	
+
 	for ( unsigned i = 0; i < m_addressSize; ++i )
 	{
 		DebugLine * dl = m_addressToLineMap[i];
 		if ( !dl || dl->markedAsDeleted() )
 			continue;
-		
+
 		dl->markAsDeleted();
 		debugLinesToDelete += dl;
 	}
-	
+
 	const Q3ValueList<DebugLine*>::iterator end = debugLinesToDelete.end();
 	for ( Q3ValueList<DebugLine*>::iterator it = debugLinesToDelete.begin(); it != end; ++it )
 		delete *it;
-	
+
 	delete [] m_addressToLineMap;
 }
 
@@ -523,16 +528,16 @@ void GpsimDebugger::associateLine( const QString & sourceFile, int sourceLine, c
 		qWarning() << "Invalid lines: assemblyLine="<<assemblyLine<<" sourceLine="<<sourceLine<<endl;
 		return;
 	}
-	
+
 	SourceLine hllSource = SourceLine( sourceFile, sourceLine );
 	SourceLine asmSource = SourceLine( assemblyFile, assemblyLine );
-	
+
 	if ( m_sourceLineMap.contains(asmSource) )
 	{
 		qWarning() << "Already have an association for assembly (\""<<assemblyFile<<"\","<<assemblyLine<<")"<<endl;
 		return;
 	}
-	
+
 	m_sourceLineMap[asmSource] = hllSource;
 }
 
@@ -540,11 +545,11 @@ void GpsimDebugger::associateLine( const QString & sourceFile, int sourceLine, c
 void GpsimDebugger::initAddressToLineMap()
 {
 	m_addressSize = m_pGpsim->programMemorySize();
-	
+
 	delete [] m_addressToLineMap;
 	m_addressToLineMap = new DebugLine*[m_addressSize];
 	memset( m_addressToLineMap, 0, m_addressSize * sizeof(DebugLine*) );
-	
+
 	if ( m_type == AsmDebugger )
 	{
 		for ( unsigned i = 0; i < m_addressSize; ++i )
@@ -552,7 +557,7 @@ void GpsimDebugger::initAddressToLineMap()
 			int line = m_pGpsim->picProcessor()->pma->get_src_line(i) - 1;
 			int fileID = m_pGpsim->picProcessor()->pma->get_file_id(i);
 			FileContext * fileContext = m_pGpsim->picProcessor()->files[fileID];
-		
+
 			if (fileContext)
 				m_addressToLineMap[i] = new DebugLine( sanitizeGpsimFile( fileContext->name().c_str() ), line );
 		}
@@ -564,34 +569,34 @@ void GpsimDebugger::initAddressToLineMap()
 		{
 			SourceLineMap::const_iterator next = it;
 			++next;
-		
+
 			int asmToLine = ((next == slmEnd) || (next.key().fileName() != it.key().fileName())) ? -1 : next.key().line() - 1;
-		
+
 			QString asmFile = it.key().fileName();
 			int asmFromLine = it.key().line();
-			SourceLine sourceLine = it.data();
-			
-			
-			std::string stdAsmFile( asmFile.ascii() );
+			SourceLine sourceLine = it.value();
+
+
+			std::string stdAsmFile( asmFile.toAscii() );
 			int fileID = m_pGpsim->picProcessor()->files.Find( stdAsmFile );
 			if ( fileID == -1 )
 			{
 				qWarning() << "Could not find FileContext (asmFile=\""<<asmFile<<"\")"<<endl;
 				continue;
 			}
-	
+
 			if ( asmToLine == -1 )
 				asmToLine = m_pGpsim->picProcessor()->files[fileID]->max_line() - 2;
-	
+
 			if ( (asmFromLine < 0) || (asmToLine < asmFromLine) )
 			{
 				qWarning() << "Invalid lines: asmFromLine="<<asmFromLine<<" asmToLine="<<asmToLine<<endl;
 				continue;
 			}
-	
+
 			DebugLine * debugLine = new DebugLine( sourceLine.fileName(), sourceLine.line() );
 			bool used = false;
-	
+
 			for ( int i = asmFromLine; i <= asmToLine; ++i )
 			{
 #ifdef GPSIM_0_21_4
@@ -605,7 +610,7 @@ void GpsimDebugger::initAddressToLineMap()
 					m_addressToLineMap[address] = debugLine;
 				}
 			}
-	
+
 			if (!used)
 				delete debugLine;
 		}
@@ -620,7 +625,7 @@ void GpsimDebugger::setBreakpoints( const QString & path, const IntList & lines 
 		DebugLine * dl = m_addressToLineMap[i];
 		if ( !dl || dl->fileName() != path )
 			continue;
-		
+
 		dl->setBreakpoint( lines.contains( dl->line() ) );
 	}
 }
@@ -632,7 +637,7 @@ void GpsimDebugger::setBreakpoint( const QString & path, int line, bool isBreakp
 	{
 		if ( !m_addressToLineMap[i] )
 			continue;
-		
+
 		if ( (m_addressToLineMap[i]->fileName() == path) &&
 					( line == m_addressToLineMap[i]->line() ) )
 			m_addressToLineMap[i]->setBreakpoint(isBreakpoint);
@@ -656,10 +661,10 @@ SourceLine GpsimDebugger::currentLine()
 void GpsimDebugger::emitLineReached()
 {
 	SourceLine currentAt = currentLine();
-	
+
 	if ( currentAt == m_previousAtLineEmit )
 		return;
-	
+
 	m_previousAtLineEmit = currentAt;
 	m_pGpsim->registerMemory()->update();
 	emit lineReached(currentAt);
@@ -670,11 +675,11 @@ void GpsimDebugger::checkForBreak()
 {
 	DebugLine * currentLine = m_addressToLineMap[ m_pGpsim->picProcessor()->pc->get_value() ];
 	int currentStackLevel = int( m_pGpsim->picProcessor()->stack->pointer & m_pGpsim->picProcessor()->stack->stack_mask );
-	
+
 	bool ontoNextLine = m_pBreakFromOldLine != currentLine;
 	bool lineBreakpoint = currentLine ? currentLine->isBreakpoint() : false;
 	bool stackBreakpoint = m_stackLevelLowerBreak >= currentStackLevel;
-		
+
 	if ( ontoNextLine && (lineBreakpoint || stackBreakpoint) )
 		m_pGpsim->setRunning(false);
 }
@@ -687,10 +692,10 @@ int GpsimDebugger::programAddress( const QString & path, int line )
 		DebugLine * dl = m_addressToLineMap[i];
 		if ( !dl || (dl->line() != line) || (dl->fileName() != path) )
 			continue;
-		
+
 		return i;
 	}
-	
+
 	return -1;
 }
 
@@ -714,24 +719,24 @@ void GpsimDebugger::stackStep( int dl )
 {
 	if ( m_pGpsim->isRunning() )
 		return;
-	
+
 	int initialStack = (m_pGpsim->picProcessor()->stack->pointer & m_pGpsim->picProcessor()->stack->stack_mask) + dl;
 	DebugLine * initialLine = currentDebugLine();
-	
+
 	if ( initialStack < 0 )
 		initialStack = 0;
-	
+
 	// Reset any previous stackStep, and step
 	m_pBreakFromOldLine = 0l;
 	m_stackLevelLowerBreak = -1;
 	m_pGpsim->picProcessor()->step_one(false);
-	
+
 	int currentStack = m_pGpsim->picProcessor()->stack->pointer & m_pGpsim->picProcessor()->stack->stack_mask;
 	DebugLine * currentLine = currentDebugLine();
-	
+
 	if ( (initialStack >= currentStack) && (initialLine != currentLine) )
 		emitLineReached();
-	
+
 	else
 	{
 		// Looks like we stepped into something or haven't gone onto the next
@@ -757,7 +762,7 @@ RegisterSet::RegisterSet( pic_processor * picProcessor )
 		m_registers[i] = info;
 		m_nameToRegisterMap[ info->name() ] = info;
 	}
-	
+
 	RegisterInfo * info = new RegisterInfo( picProcessor->W );
 	m_registers.append( info );
 	m_nameToRegisterMap[ info->name() ] = info;
@@ -782,16 +787,16 @@ RegisterInfo * RegisterSet::fromName( const QString & name )
 	// First try the name as case sensitive, then as case insensitive.
 	if ( m_nameToRegisterMap.contains( name ) )
 		return m_nameToRegisterMap[ name ];
-	
-	QString nameLower = name.lower();
-	
+
+	QString nameLower = name.toLower();
+
 	RegisterInfoMap::iterator end = m_nameToRegisterMap.end();
 	for ( RegisterInfoMap::iterator it = m_nameToRegisterMap.begin(); it != end; ++ it )
 	{
-		if ( it.key().lower() == nameLower )
-			return it.data();
+		if ( it.key().toLower() == nameLower )
+			return it.value();
 	}
-	
+
 	return 0l;
 }
 
@@ -812,7 +817,7 @@ RegisterInfo::RegisterInfo( Register * reg )
 	m_pRegister = reg;
 	m_type = Invalid;
 	m_prevEmitValue = 0;
-	
+
 	switch ( m_pRegister->isa() )
 	{
 		case Register::GENERIC_REGISTER:
@@ -831,7 +836,7 @@ RegisterInfo::RegisterInfo( Register * reg )
 			m_type = Invalid;
 			break;
 	}
-		
+
 	m_name = m_pRegister->baseName().c_str();
 }
 
@@ -859,20 +864,20 @@ QString RegisterInfo::toString( RegisterType type )
 	{
 		case Generic:
 			return tr("Generic");
-			
+
 		case File:
 			return tr("File");
-			
+
 		case SFR:
 			return tr("SFR");
-			
+
 		case Breakpoint:
 			return tr("Breakpoint");
-			
+
 		case Invalid:
 			return tr("Invalid");
 	}
-	
+
 	return tr("Unknown");
 }
 //END class RegisterInfo

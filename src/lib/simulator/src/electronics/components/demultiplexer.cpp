@@ -19,7 +19,7 @@
 // #include "libraryitem.h"
 
 Demultiplexer::Demultiplexer(Circuit &ownerCircuit)
-		: Component(ownerCircuit), 
+		: Component(ownerCircuit),
 		m_input(LogicConfig())
 {
 	m_input.setCallback(this, (CallbackPtr)(&Demultiplexer::inStateChanged));
@@ -58,7 +58,7 @@ Demultiplexer::~Demultiplexer() {
 
 /*
 void Demultiplexer::dataChanged() {
-    
+
 	if (hasProperty("numInput") && dataInt("numInput") != -1) {
 		int addressSize = int(std::ceil(std::log((double)dataInt("numInput")) / std::log(2.0)));
 		property("numInput")->setValue(-1);
@@ -90,7 +90,7 @@ void Demultiplexer::propertyChanged(Property& theProperty, QVariant newValue, QV
     }
     Q_UNUSED(oldValue);
 
-    initPins(newValue.asUInt());
+    initPins(newValue.toUInt());
 }
 
 

@@ -50,7 +50,7 @@ void ECFixedVoltage::propertyChanged(Property& theProperty, QVariant newValue, Q
     Q_UNUSED(oldValue);
 
     if(theProperty.name() == "voltage"){
-        double voltage = newValue.asDouble();
+        double voltage = newValue.toDouble();
         m_voltagePoint->setVoltage(voltage);
     } else
         qCritical() << "ECFixedVoltage: unknown property: " << theProperty.name();

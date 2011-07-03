@@ -38,13 +38,13 @@ void Gpdasm::processInput( ProcessOptions options )
 	resetLanguageProcess();
 	m_asmOutput = "";
 	m_processOptions = options;;
-	
+
 	*m_languageProcess << ("gpdasm");
-	
+
 	*m_languageProcess << ("--processor");
  	*m_languageProcess << ( options.m_picID );
 	*m_languageProcess << ( options.inputFiles().first() );
-	
+
 	if ( !start() )
 	{
 		// QMessageBox::critical( LanguageManager::self()->logView(), tr("Disassembly failed. Please check you have gputils installed.") );
@@ -69,7 +69,7 @@ bool Gpdasm::processExited( bool successfully )
 	QFile file(m_processOptions.intermediaryOutput());
 	if ( file.open(QIODevice::WriteOnly) == false )
 		return false;
-	
+
 	Q3TextStream stream(&file);
 	stream << m_asmOutput;
 	file.close();
@@ -79,13 +79,13 @@ bool Gpdasm::processExited( bool successfully )
 
 bool Gpdasm::isError( const QString &message ) const
 {
-	return (message.find( "error", -1, false ) != -1);
+    return (message.indexOf( "error", -1, Qt::CaseInsensitive ) != -1);
 }
 
 
 bool Gpdasm::isWarning( const QString &message ) const
 {
-	return (message.find( "warning", -1, false ) != -1);
+    return (message.indexOf( "warning", -1, Qt::CaseInsensitive ) != -1);
 }
 
 
@@ -93,28 +93,29 @@ MessageInfo Gpdasm::extractMessageInfo( const QString &text )
 {
 	if ( text.length()<5 || !text.startsWith("/") )
 		return MessageInfo();
-	
-	const int index = text.find( ".asm", 0, false )+4;
+
+    const int index = text.indexOf( ".asm", 0, Qt::CaseInsensitive )+4;
 	if ( index == -1+4 )
 		return MessageInfo();
 	const QString fileName = text.left(index);
-	
+
 	// Extra line number
 	const QString message = text.right(text.length()-index);
-	const int linePos = message.find( QRegExp(":[\\d]+") );
+	const int linePos = message.indexOf( QRegExp(":[\\d]+") );
 	int line = -1;
 	if ( linePos != -1 )
 	{
-		const int linePosEnd = message.find( ':', linePos+1 );
+		const int linePosEnd = message.indexOf( ':', linePos+1 );
 		if ( linePosEnd != -1 )
 		{
-			const QString number = message.mid( linePos+1, linePosEnd-linePos-1 ).stripWhiteSpace();
+			const QString number = message.mid( linePos+1, linePosEnd-linePos-1 )
+                .trimmed();
 			bool ok;
 			line = number.toInt(&ok)-1;
 			if (!ok) line = -1;
 		}
 	}
-	
+
 	return MessageInfo( fileName, line );
 }
 
@@ -127,7 +128,7 @@ ProcessOptions::ProcessPath::Path Gpdasm::outputPath( ProcessOptions::ProcessPat
 		case ProcessOptions::ProcessPath::Object_Disassembly:
 		case ProcessOptions::ProcessPath::Program_Disassembly:
 			return ProcessOptions::ProcessPath::None;
-			
+
 		case ProcessOptions::ProcessPath::AssemblyAbsolute_PIC:
 		case ProcessOptions::ProcessPath::AssemblyAbsolute_Program:
 		case ProcessOptions::ProcessPath::AssemblyRelocatable_Library:
@@ -155,6 +156,6 @@ ProcessOptions::ProcessPath::Path Gpdasm::outputPath( ProcessOptions::ProcessPat
 		case ProcessOptions::ProcessPath::None:
 			return ProcessOptions::ProcessPath::Invalid;
 	}
-	
+
 	return ProcessOptions::ProcessPath::Invalid;
 }
