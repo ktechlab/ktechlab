@@ -1,17 +1,14 @@
+# CMake module to find GPSim
+#
+# possibly defined variables after this script is run:
+# GPSIM_FOUND
+# HAVE_GPSIM_0_21_4
+# HAVE_GPSIM_0_21_12
+# HAVE_GPSIM_0_21_11
+# NO_GPSIM
+#
 # start by looking for 'curses' library
 
-#find_package( Curses )
-
-
-# INCLUDE( CheckLibraryExists )
-# CHECK_LIBRARY_EXISTS( readline readline "/usr/lib" HAVE_LIBREADLINE )
-
-
-# for hacking...
-#set( HAVE_LIBREADLINE 1)
-# message(STATUS "readline: " ${HAVE_LIBREADLINE})
-
-# then GPSim
 FIND_PATH( GPSim_INCLUDE_DIR gpsim_interface.h /usr/include/gpsim /usr/local/include/gpsim )
 
 FIND_LIBRARY( GPSim_LIBRARY NAMES gpsim PATH /usr/lib /usr/local/lib )
@@ -20,8 +17,7 @@ if( GPSim_INCLUDE_DIR AND GPSim_LIBRARY )
 	set( GPSim_FOUND TRUE )
 endif( GPSim_INCLUDE_DIR AND GPSim_LIBRARY )
 
-if( GPSim_FOUND) # AND HAVE_LIBREADLINE )
-#    message(STATUS "GPSim_FOUND AND HAVE_LIBREADLINE")
+if( GPSim_FOUND)
 
 	INCLUDE( CheckCXXSourceCompiles )
 
@@ -78,17 +74,12 @@ if( GPSim_FOUND) # AND HAVE_LIBREADLINE )
         ${GLIB2_INCLUDE_DIRS}
         )
     set( GPSIM_LIBRARY
-#        -lreadline
         ${GPSim_LIBRARY}
         ${GLIB2_LIBRARY}
         )
     set( GPSIM_FOUND TRUE )
-endif( GPSim_FOUND ) # AND HAVE_LIBREADLINE )
+endif( GPSim_FOUND )
 
-# if( NOT HAVE_LIBREADLINE )
-#     message(STATUS "No readline library found, disabling GPsim")
-#     set( NO_GPSIM "No readline library found, disabling GPsim" )
-# endif( NOT HAVE_LIBREADLINE )
 
 if(NOT GPSim_FOUND)
     message( STATUS "No GPSim found" )
