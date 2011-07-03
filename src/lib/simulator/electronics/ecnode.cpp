@@ -72,19 +72,19 @@ void ECNode::setNumPins(unsigned num) {
 
     if(num > oldNum){
         // create pins
-        for(int i=oldNum; i<num; i++){
+        for(unsigned i=oldNum; i<num; i++){
             Pin *p = new Pin();
             m_pins.append(p);
         }
     } else {
         // delete pins
-        for(int i=num; i<oldNum; i++){
+        for(unsigned i=num; i<oldNum; i++){
             Pin *p = m_pins.at(i);
             m_pins.removeAt(i);
             delete p;
         }
     }
-    Q_ASSERT(m_pins.size() == num);
+    Q_ASSERT((unsigned)m_pins.size() == num);
 }
 
 int ECNode::numPins() const
@@ -99,7 +99,7 @@ PinList ECNode::pins() const
 
 Pin* ECNode::pin(unsigned int num) const
 {
-    if(num >= m_pins.size()){
+    if(num >= (unsigned)m_pins.size()){
         qDebug() << "BUG: tried to access nonexsitent pin in an EcNode!\n";
         return NULL;
     }
