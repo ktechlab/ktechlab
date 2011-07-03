@@ -13,7 +13,8 @@
 
 #include <set>
 #include <cassert>
-#include "math/matrix.h"
+
+#include "matrix.h"
 #include "simulatorexport.h"
 
 class CBranch;
