@@ -33,12 +33,12 @@ void Gplib::processInput( ProcessOptions options )
 {
 	resetLanguageProcess();
 	m_processOptions = options;
-	
+
 	*m_languageProcess << ("gplib");
 	*m_languageProcess << ("--create");
-	
+
 	*m_languageProcess << ( options.intermediaryOutput() );
-	
+
 	const QStringList inputFiles = options.inputFiles();
 	QStringList::const_iterator end = inputFiles.end();
 	for ( QStringList::const_iterator it = inputFiles.begin(); it != end; ++it )
@@ -57,13 +57,13 @@ void Gplib::processInput( ProcessOptions options )
 
 bool Gplib::isError( const QString &message ) const
 {
-	return message.contains( "Error", false );
+	return message.contains( "Error", Qt::CaseInsensitive );
 }
 
 
 bool Gplib::isWarning( const QString &message ) const
 {
-	return message.contains( "Warning", false );
+    return message.contains( "Warning", Qt::CaseInsensitive);
 }
 
 
@@ -72,12 +72,12 @@ MessageInfo Gplib::extractMessageInfo( const QString &text )
 
 	if ( text.length()<5 || !text.startsWith("/") )
 		return MessageInfo();
-#if 0	
+#if 0
 	const int index = text.find( ".asm", 0, false )+4;
 	if ( index == -1+4 )
 		return MessageInfo();
 	const QString fileName = text.left(index);
-	
+
 	// Extra line number
 	const QString message = text.right(text.length()-index);
 	const int linePos = message.find( QRegExp(":[\\d]+") );
@@ -107,7 +107,7 @@ ProcessOptions::ProcessPath::Path Gplib::outputPath( ProcessOptions::ProcessPath
 	{
 		case ProcessOptions::ProcessPath::Object_Library:
 			return ProcessOptions::ProcessPath::None;
-			
+
 		case ProcessOptions::ProcessPath::AssemblyAbsolute_PIC:
 		case ProcessOptions::ProcessPath::AssemblyAbsolute_Program:
 		case ProcessOptions::ProcessPath::AssemblyRelocatable_Library:
@@ -136,6 +136,6 @@ ProcessOptions::ProcessPath::Path Gplib::outputPath( ProcessOptions::ProcessPath
 		case ProcessOptions::ProcessPath::None:
 			return ProcessOptions::ProcessPath::Invalid;
 	}
-	
+
 	return ProcessOptions::ProcessPath::Invalid;
 }

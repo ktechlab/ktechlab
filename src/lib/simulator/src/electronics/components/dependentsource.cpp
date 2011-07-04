@@ -60,7 +60,7 @@ void ECCCCS::propertyChanged(Property& theProperty, QVariant newValue, QVariant 
 {
     Q_UNUSED(oldValue);
     Q_ASSERT(theProperty.name() == "gain");
-    m_cccs.setGain(newValue.asDouble());
+    m_cccs.setGain(newValue.toDouble());
 }
 
 //END class ECCCCS
@@ -88,7 +88,7 @@ void ECCCVS::propertyChanged(Property& theProperty, QVariant newValue, QVariant 
 {
     Q_UNUSED(oldValue);
     Q_ASSERT(theProperty.name() == "gain");
-    m_ccvs.setGain( newValue.asDouble() );
+    m_ccvs.setGain( newValue.toDouble() );
 }
 
 
@@ -116,7 +116,7 @@ void ECVCCS::propertyChanged(Property& theProperty, QVariant newValue, QVariant 
 {
     Q_UNUSED(oldValue);
     Q_ASSERT( theProperty.name() == "gain");
-    m_vccs.setGain( newValue.asDouble() );
+    m_vccs.setGain( newValue.toDouble() );
 }
 
 //END class ECVCCS
@@ -144,7 +144,7 @@ void ECVCVS::propertyChanged(Property& theProperty, QVariant newValue, QVariant 
 {
     Q_UNUSED(oldValue);
     Q_ASSERT(theProperty.name() == "gain");
-    m_vcvs.setGain( newValue.asDouble() );
+    m_vcvs.setGain( newValue.toDouble() );
 }
 
 //END class ECVCVS

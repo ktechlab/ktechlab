@@ -55,6 +55,6 @@ void ECCell::propertyChanged(Property& theProperty, QVariant newValue, QVariant 
     }
     Q_UNUSED(oldValue);
 
-    double voltage = newValue.asDouble();
+    double voltage = newValue.toDouble();
     m_voltageSource->setVoltage(voltage);
 }
