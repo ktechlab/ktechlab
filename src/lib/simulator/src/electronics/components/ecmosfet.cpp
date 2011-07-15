@@ -30,7 +30,7 @@ ECMOSFET::ECMOSFET(Circuit& ownerCircuit, int MOSFET_type)
 
 	// create a "test" MOSFETSettings, for init. values
 	MOSFETSettings s;
-	
+
 	// add the properties of MOSFET
 	Variant *v1 = new Property("mosfetW", Variant::Type::Double);
 	v1->setCaption(tr("mosfet channel width", "Channel width"));
@@ -38,7 +38,7 @@ ECMOSFET::ECMOSFET(Circuit& ownerCircuit, int MOSFET_type)
 	v1->setAdvanced(true);
 	v1->setUnit( "m" );
     addProperty(v1);
-	
+
 	Variant *v2 = new Property("mosfetL", Variant::Type::Double);
 	v2->setCaption(tr("mosfet channel length", "Channel length"));
 	v2->setValue( s.L );
@@ -46,7 +46,7 @@ ECMOSFET::ECMOSFET(Circuit& ownerCircuit, int MOSFET_type)
 	v2->setUnit( "m" );
     addProperty(v2);
 
-	
+
 #if 0
     // TODO add other properties to the MOSTFET
 	MOSFETSettings s; // will be created with the default settings
@@ -95,7 +95,7 @@ void ECMOSFET::propertyChanged(Property& theProperty, QVariant newValue, QVarian
     Q_UNUSED(oldValue);
 
     if( theProperty.name() == "bodyPin"){
-        bool haveBodyPin = newValue.asBool();
+        bool haveBodyPin = newValue.toBool();
         if (haveBodyPin == m_bHaveBodyPin)
             return;
 
@@ -103,7 +103,7 @@ void ECMOSFET::propertyChanged(Property& theProperty, QVariant newValue, QVarian
         if (m_bHaveBodyPin) {
             // TODO Creating a body pin
 //             removeElement(&m_pMOSFET, false);
-// 
+//
 //             setup4pinElement(m_pMOSFET, ecNodeWithID("d")->pin(),
 //                 ecNodeWithID("g")->pin(), ecNodeWithID("s")->pin(),
 //                 createPin(16, 0, 180, "b")->pin());
@@ -125,9 +125,9 @@ void ECMOSFET::propertyChanged(Property& theProperty, QVariant newValue, QVarian
     s.B_R = dataDouble("B_R");
 #endif
     if( theProperty.name() == "mosfetL") {
-        s.L = newValue.asDouble();
+        s.L = newValue.toDouble();
     } else if(theProperty.name() == "mosfetW"){
-        s.W = newValue.asDouble();
+        s.W = newValue.toDouble();
     } else
         qCritical() << "ECMOSFET: unknown property: " << theProperty.name();
 
