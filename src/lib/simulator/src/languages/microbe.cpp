@@ -23,11 +23,11 @@ Microbe::Microbe( ProcessChain *processChain )
 {
 	m_failedMessage = tr("*** Compilation failed ***");
 	m_successfulMessage = tr("*** Compilation successful ***");
-	
+
 #if 0
 	// Setup error messages list
 	QFile file( locate("appdata",i1 8n("error_messages_en_gb")) );
-	if ( file.open( QIODevice::ReadOnly ) ) 
+	if ( file.open( QIODevice::ReadOnly ) )
 	{
         Q3TextStream stream( &file );
         QString line;
@@ -59,17 +59,17 @@ void Microbe::processInput( ProcessOptions options )
 {
 	resetLanguageProcess();
 	m_processOptions = options;
-	
+
 	*m_languageProcess << ("microbe");
-	
+
 	// Input Asm file
 	*m_languageProcess << ( options.inputFiles().first() );
-	
+
 	// Output filename
 	*m_languageProcess << ( options.intermediaryOutput() );
-	
+
 	*m_languageProcess << ("--show-source");
-	
+
 	if ( !start() )
 	{
 //		QMessageBox::critical( LanguageManager::self()->logView(), tr("Assembly failed. Please check you have KTechlab installed properly (\"microbe\" could not be started).") );
@@ -82,12 +82,12 @@ void Microbe::processInput( ProcessOptions options )
 
 bool Microbe::isError( const QString &message ) const
 {
-	 return message.contains( "Error", false );
+    return message.contains( "Error", Qt::CaseInsensitive );
 }
 
 bool Microbe::isWarning( const QString &message ) const
 {
-	return message.contains( "Warning", false );
+    return message.contains( "Warning", Qt::CaseInsensitive );
 }
 
 
@@ -97,13 +97,13 @@ ProcessOptions::ProcessPath::Path Microbe::outputPath( ProcessOptions::ProcessPa
 	{
 		case ProcessOptions::ProcessPath::Microbe_AssemblyAbsolute:
 			return ProcessOptions::ProcessPath::None;
-			
+
 		case ProcessOptions::ProcessPath::Microbe_PIC:
 			return ProcessOptions::ProcessPath::AssemblyAbsolute_PIC;
-			
+
 		case ProcessOptions::ProcessPath::Microbe_Program:
 			return ProcessOptions::ProcessPath::AssemblyAbsolute_Program;
-			
+
 		case ProcessOptions::ProcessPath::AssemblyAbsolute_PIC:
 		case ProcessOptions::ProcessPath::AssemblyAbsolute_Program:
 		case ProcessOptions::ProcessPath::AssemblyRelocatable_Library:
@@ -130,6 +130,6 @@ ProcessOptions::ProcessPath::Path Microbe::outputPath( ProcessOptions::ProcessPa
 		case ProcessOptions::ProcessPath::None:
 			return ProcessOptions::ProcessPath::Invalid;
 	}
-	
+
 	return ProcessOptions::ProcessPath::Invalid;
 }

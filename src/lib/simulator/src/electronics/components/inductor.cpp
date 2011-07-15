@@ -54,7 +54,7 @@ void Inductor::propertyChanged(Property& theProperty, QVariant newValue, QVarian
         return;
     }
     Q_UNUSED(oldValue);
-    double inductance = newValue.asDouble();
+    double inductance = newValue.toDouble();
     m_pInductance->setInductance(inductance);
     // reset the charge on the capacitance
     m_pInductance->add_initial_dc();
