@@ -41,6 +41,7 @@
 //BEGIN class ProcessChain
 ProcessChain::ProcessChain( ProcessOptions options, const char *name )
 {
+    Q_UNUSED(name);
 	m_pFlowCode = 0l;
 	m_pGpasm = 0l;
 	m_pGpdasm = 0l;
@@ -100,7 +101,7 @@ void ProcessChain::compile()
         case ProcessOptions::ProcessPath::path:         \
             {                                           \
                 QTemporaryFile f( QString("indirectXXXXXX").append(extension) ); f.close();    \
-                m_processOptions.setIntermediaryOutput( f.name() );             \
+                m_processOptions.setIntermediaryOutput( f.fileName() );             \
                 processor()->processInput(m_processOptions);                    \
                 break;                                                          \
             }
@@ -313,7 +314,7 @@ void ProcessListChain::slotProcessChainSuccessful()
 	
 	ProcessOptionsList::iterator it = m_processOptionsList.begin();
 	ProcessOptions po = *it;
-	m_processOptionsList.remove(it);
+	m_processOptionsList.takeFirst();
 
     /*
 	ProcessChain * pc = LanguageManager::self()->compile(po);

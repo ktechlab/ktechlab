@@ -47,7 +47,8 @@ void ExternalLanguage::deleteLanguageProcess()
 
 void ExternalLanguage::receivedStdout( QProcess *, char * buffer, int buflen )
 {
-	QStringList lines = QStringList::split( '\n', QString::fromLocal8Bit( buffer, buflen ), false );
+    QStringList lines = QString::fromLocal8Bit( buffer, buflen )
+        .split( '\n', QString::SkipEmptyParts, Qt::CaseInsensitive );
 	QStringList::iterator end = lines.end();
 	
 	for ( QStringList::iterator it = lines.begin(); it != end; ++it )
@@ -73,7 +74,8 @@ void ExternalLanguage::receivedStdout( QProcess *, char * buffer, int buflen )
 
 void ExternalLanguage::receivedStderr( QProcess *, char * buffer, int buflen )
 {
-	QStringList lines = QStringList::split( '\n', QString::fromLocal8Bit( buffer, buflen ), false );
+    QStringList lines = QString::fromLocal8Bit( buffer, buflen )
+        .split( '\n', QString::SkipEmptyParts, Qt::CaseInsensitive );
 	QStringList::iterator end = lines.end();
 	
 	for ( QStringList::iterator it = lines.begin(); it != end; ++it )

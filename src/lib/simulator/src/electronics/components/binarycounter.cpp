@@ -79,10 +79,10 @@ void BinaryCounter::dataChanged() {
 void BinaryCounter::propertyChanged(Property& theProperty, QVariant newValue, QVariant oldValue)
 {
     if( theProperty.name() == "bitcount"){
-        initPins( newValue.asInt());
+        initPins( newValue.toInt());
     }
     if(theProperty.name() == "trig"){
-        m_bTriggerHigh = newValue.asString() == "Rising";
+        m_bTriggerHigh = newValue.toString() == "Rising";
         // setDisplayText(">", m_bTriggerHigh ? "^>" : "_>");
     }
     Q_UNUSED(oldValue);

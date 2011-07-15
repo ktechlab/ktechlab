@@ -78,11 +78,11 @@ void ECDiode::propertyChanged(Property& theProperty, QVariant newValue, QVariant
 
     DiodeSettings ds = m_diode->settings();
     if(theProperty.name() == "I_S"){
-        ds.I_S = newValue.asDouble();
+        ds.I_S = newValue.toDouble();
     } else if(theProperty.name() == "N"){
-        ds.N = newValue.asDouble();
+        ds.N = newValue.toDouble();
     } else if(theProperty.name() == "V_B"){
-        ds.V_B = newValue.asDouble();
+        ds.V_B = newValue.toDouble();
     } else
         qCritical() << "ECDiode: uknown property has changed: " << theProperty.name();
     m_diode->setDiodeSettings(ds);

@@ -115,9 +115,7 @@ void ECNode::addConnector(Connector *connector) {
 
 void ECNode::removeConnector(Connector *connector) {
     Q_ASSERT(connector);
-	if(m_connectorList.find(connector) != m_connectorList.end()) {
-		m_connectorList.removeAll(connector);
-	}
+    m_connectorList.removeAll(connector);
 }
 
 int ECNode::numCon() const
