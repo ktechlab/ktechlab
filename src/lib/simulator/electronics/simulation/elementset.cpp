@@ -257,4 +257,42 @@ void ElementSet::displayEquations() {
 	std::cout << "A_LU:" << std::endl;
 	p_A->displayLU(std::cout);
 }
+void ElementSet::bUnchanged() const {
+    p_b->setUnchanged();
+}
+bool ElementSet::bChanged() const {
+    return p_b->isChanged();
+}
+double& ElementSet::Ag(const unsigned int i, const unsigned int j) {
+    return p_A->g(i, j);
+}
+bool ElementSet::AChanged() const {
+    return p_A->isChanged();
+}
+double& ElementSet::bValue(unsigned int index) {
+    return (*p_b)[index];
+}
+void ElementSet::setXLoc(const unsigned int loc, double val) {
+    (*p_x)[loc] = val;
+}
+double& ElementSet::xValue(unsigned int index) {
+    return (*p_x)[index];
+}
+QuickVector* ElementSet::xForCache() const {
+    return p_x;
+}
+bool ElementSet::containsNonLinear() const {
+    return !m_cnonLinearList.empty();
+}
+CBranch* ElementSet::cBranch(unsigned int i) {
+    assert(i < m_cb);
+    return m_cbranches[i];
+}
+CNode* ElementSet::cNode(int i) {
+    if (i == -1) return m_ground;
+    return m_cnodes[i];
+}
+unsigned int ElementSet::vectorsize() const {
+    return m_cn + m_cb;
+}
 
