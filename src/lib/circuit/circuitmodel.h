@@ -24,6 +24,7 @@
 #include <interfaces/idocumentmodel.h>
 #include "circuitexport.h"
 
+class Circuit;
 namespace KTechLab
 {
 
@@ -40,6 +41,7 @@ public:
 
 private:
     bool isItem(const QModelIndex& parent) const;
+    Circuit* m_circuit;
 };
 
 }

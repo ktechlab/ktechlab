@@ -24,11 +24,13 @@
 #include <shell/core.h>
 #include <KDebug>
 #include <interfaces/component/componentmimedata.h>
+#include <electronics/simulation/circuit.h>
 
 using namespace KTechLab;
 
 CircuitModel::CircuitModel ( QDomDocument doc, QObject* parent )
-    : IDocumentModel ( doc, parent )
+    : IDocumentModel ( doc, parent ),
+      m_circuit(new Circuit())
 {}
 
 int KTechLab::CircuitModel::columnCount(const QModelIndex& parent) const
