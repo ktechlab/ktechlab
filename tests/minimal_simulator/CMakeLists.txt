@@ -1,15 +1,15 @@
 
 include_directories(
-    ${CMAKE_SOURCE_DIR}/src/lib/simulator/src
-    ${CMAKE_SOURCE_DIR}/src/lib/simulator/src/languages
-    ${CMAKE_SOURCE_DIR}/src/lib/simulator/src/electronics
-    ${CMAKE_SOURCE_DIR}/src/lib/simulator/src/electronics/components
-    ${CMAKE_SOURCE_DIR}/src/lib/simulator/src/electronics/simulation
-    ${CMAKE_SOURCE_DIR}/src/lib/simulator/src/flowparts
-    ${CMAKE_SOURCE_DIR}/src/lib/simulator/src/gui
-    ${CMAKE_SOURCE_DIR}/src/lib/simulator/src/math/
-    ${CMAKE_SOURCE_DIR}/src/lib/simulator/src/micro/
-    ${CMAKE_SOURCE_DIR}/src/lib/simulator/src/physics
+    ${CMAKE_SOURCE_DIR}/src/lib/simulator
+    ${CMAKE_SOURCE_DIR}/src/lib/simulator/languages
+    ${CMAKE_SOURCE_DIR}/src/lib/simulator/electronics
+    ${CMAKE_SOURCE_DIR}/src/lib/simulator/electronics/components
+    ${CMAKE_SOURCE_DIR}/src/lib/simulator/electronics/simulation
+    ${CMAKE_SOURCE_DIR}/src/lib/simulator/flowparts
+    ${CMAKE_SOURCE_DIR}/src/lib/simulator/gui
+    ${CMAKE_SOURCE_DIR}/src/lib/simulator/math/
+    ${CMAKE_SOURCE_DIR}/src/lib/simulator/micro/
+    ${CMAKE_SOURCE_DIR}/src/lib/simulator/physics
 )
 # simulator test
 
@@ -39,12 +39,12 @@ target_link_libraries( compiled_simulator
 
 set( qprocess_with_argument_SRC
  testqprocesswitharguments.cpp
- ${CMAKE_SOURCE_DIR}/src/lib/simulator/src/languages/qprocesswitharguments.cpp
+ ${CMAKE_SOURCE_DIR}/src/lib/simulator/languages/qprocesswitharguments.cpp
 )
 
 qt4_wrap_cpp( qprocess_with_argument_MOCFILES
  testqprocesswitharguments.h
- ${CMAKE_SOURCE_DIR}/src/lib/simulator/src/languages/qprocesswitharguments.h
+ ${CMAKE_SOURCE_DIR}/src/lib/simulator/languages/qprocesswitharguments.h
 )
 
 add_executable( qprocess_with_args_test
