@@ -1,5 +1,6 @@
 include_directories(
     ${CMAKE_SOURCE_DIR}/src
+    ${CMAKE_SOURCE_DIR}/src/lib/simulator/
 )
 
 set(circuit_SRCS
@@ -15,6 +16,7 @@ kde4_add_library( ktlcircuit SHARED ${circuit_SRCS} )
 
 target_link_libraries(ktlcircuit
     ktlinterfaces
+    ktlsimulator
     ${QT_QTCORE_LIBRARY}
     ${QT_QTGUI_LIBRARY}
     ${QT_QTXML_LIBRARY}
