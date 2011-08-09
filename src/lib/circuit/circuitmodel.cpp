@@ -45,7 +45,7 @@ QVariant CircuitModel::data(const QModelIndex& index, int role) const
         const QDomElement node = domNode(index).toElement();
         if (index.column() == 0 && role == Qt::DisplayRole) {
             return QVariant(node.attribute("id", i18n("Invalid Data")));
-        } else if (index.column() == 1 && role == Qt::DisplayRole || role == Qt::EditRole) {
+        } else if ((index.column() == 1 && role == Qt::DisplayRole) || role == Qt::EditRole) {
             return QVariant(node.attribute("value", i18n("Invalid Data")));
         }
     }
