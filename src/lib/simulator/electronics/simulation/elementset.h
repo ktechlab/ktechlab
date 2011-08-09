@@ -65,23 +65,23 @@ public:
 	void addElement(Element *e);
 	void setCacheInvalidated();
 
-	inline bool AChanged() const {    return p_A->isChanged(); }
-	inline double &Ag(CUI i, CUI j) { return p_A->g(i, j);     }
+	bool AChanged() const;
+	double &Ag(CUI i, CUI j);
 
-	inline bool bChanged() const { return p_b->isChanged();    }
-	inline void bUnchanged() const {      p_b->setUnchanged(); }
-	inline double &bValue(unsigned int index) { return (*p_b)[index]; }
+	bool bChanged() const;
+	void bUnchanged() const;
+	double &bValue(unsigned int index);
 
-	inline void setXLoc(CUI loc, double val) { (*p_x)[loc] = val; }
-	inline double &xValue(unsigned int index) { return (*p_x)[index]; }
+	void setXLoc(CUI loc, double val);
+	double &xValue(unsigned int index);
 	void loadX(const QuickVector *other);
 	/** special function to cache our x vector, use only for that! */
-	inline QuickVector *xForCache() const { return p_x; }
+	QuickVector *xForCache() const ;
 
 	/**
 	 * @return if we have any nonlinear elements (e.g. diodes, tranaistors).
 	 */
-	bool containsNonLinear() const { return !m_cnonLinearList.empty(); }
+	bool containsNonLinear() const;
 
 	/**
 	 * Solves for nonlinear elements, or just does linear if it doesn't contain
@@ -94,12 +94,10 @@ public:
 	 */
 	bool doLinear(bool performLU);
 
-	inline CBranch *cBranch(unsigned int i) { assert(i < m_cb); return m_cbranches[i]; }
-	inline CNode *cNode(int i) {
-		if(i == -1) return m_ground;
-		return m_cnodes[i]; }
+	CBranch *cBranch(unsigned int i);
+	CNode *cNode(int i);
 
-	inline unsigned int vectorsize() const { return m_cn + m_cb; }
+	unsigned int vectorsize() const;
 
 	/**
 	 * Displays the matrix equations Ax=b and J(dx)=-r
