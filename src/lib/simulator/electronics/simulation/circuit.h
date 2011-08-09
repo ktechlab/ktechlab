@@ -11,7 +11,7 @@
 #ifndef CIRCUIT_H
 #define CIRCUIT_H
 
-#include <vector> 
+#include <vector>
 #include <set>
 #include <cassert>
 
@@ -41,7 +41,7 @@ public:
 	QuickVector *getData() const;
 	void setData(const ElementSet *newData);
 
-private: 
+private:
 	LogicCacheNode *high;
 	LogicCacheNode *low;
 	QuickVector *data;
@@ -240,7 +240,7 @@ protected:
     /// components in this circuit. the circuit doesn't own the components
     QList<Component*> m_components;
 
-private: 
+private:
 	bool m_isSetChanged;
 };
 
