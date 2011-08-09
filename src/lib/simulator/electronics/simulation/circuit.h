@@ -25,6 +25,7 @@ class Element;
 class ElementMap;
 class ElementSet;
 class LogicOut;
+class QuickVector;
 
 typedef std::set<Pin *> PinSet;
 typedef std::set<Element*> ElementList;

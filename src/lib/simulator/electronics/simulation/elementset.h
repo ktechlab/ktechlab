@@ -23,6 +23,8 @@ class Element;
 class ElementSet;
 class LogicIn;
 class NonLinear;
+class QuickVector;
+class Matrix;
 
 typedef std::set<Element*> ElementList;
 typedef std::set<NonLinear*> NonLinearList;
