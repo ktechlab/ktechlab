@@ -29,7 +29,7 @@
 typedef std::multimap<int, PinSet> PinSetMap;
 
 //BEGIN class Circuit
-Circuit::Circuit() : 
+Circuit::Circuit() :
 		m_bCanCache(false), m_isSetChanged(true) {
 	m_elementSet = 0;
 	m_pLogicCacheBase = new LogicCacheNode;
@@ -276,7 +276,7 @@ QList< QList< Pin* > > Circuit::getConnectedPinGroups()
 }
 
 
-/// Setup the simulator!!! 
+/// Setup the simulator!!!
 void Circuit::init() {
 	unsigned branchCount = 0;
 
@@ -352,7 +352,7 @@ void Circuit::init() {
 			ElementList::const_iterator elementsEnd = elements.end();
 			for (ElementList::const_iterator it = elements.begin(); it != elementsEnd; ++it) {
 assert(*it);
-// HACK ALERT!!! -- special knowledge of specific elements used. 
+// HACK ALERT!!! -- special knowledge of specific elements used.
 				if (((*it)->type() == Element::Element_Capacitance)
 				        || ((*it)->type() == Element::Element_Inductance)) {
 					energyStorage = true;
@@ -473,7 +473,7 @@ void Circuit::initCache() {
 void Circuit::setCacheInvalidated() {
 	if (m_pLogicCacheBase) {
 		delete m_pLogicCacheBase;
-		m_pLogicCacheBase = 0; 
+		m_pLogicCacheBase = 0;
 	}
 }
 
@@ -507,7 +507,7 @@ void Circuit::cacheAndUpdate() {
 	node->setData(m_elementSet);
 }
 
-// WARNING: circuitdocument also has one of these. 
+// WARNING: circuitdocument also has one of these.
 bool Circuit::recursivePinAdd(Pin *node, PinSet *unassignedNodes, PinSet *associated, PinSet *nodes) {
 	if (unassignedNodes->find(node) == unassignedNodes->end())
 		return false;
