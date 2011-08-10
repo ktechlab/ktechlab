@@ -41,11 +41,11 @@
     - flowcode & circuit
         - can be exportedas an image
         - items can be :
-            •    placed on the document by drag and drop
-            •    deleted
-            •    selected
-            •    their properties can be edited
-            •    can be rotated
+            -    placed on the document by drag and drop
+            -    deleted
+            -    selected
+            -    their properties can be edited
+            -    can be rotated
         - items can be connected
    -   text
        - hex
