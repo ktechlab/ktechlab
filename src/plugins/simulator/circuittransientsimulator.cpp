@@ -18,11 +18,11 @@
 #include <kdebug.h>
 #include <interfaces/simulator/isimulationmanager.h>
 #include <interfaces/simulator/ielementfactory.h>
-#include "pingroup.h"
 #include "interfaces/simulator/ielement.h"
 #include "interfaces/simulator/iwire.h"
 #include "interfaces/simulator/ipin.h"
-#include "elementset.h"
+
+#include <simulator.h>
 
 
 using namespace KTechLab;
@@ -30,17 +30,18 @@ using namespace KTechLab;
 CircuitTransientSimulator::CircuitTransientSimulator(IDocumentModel* doc):
     ISimulator(doc)
 {
-    m_doc = doc;
+//     m_doc = doc;
     // TODO get the simulation values from somewhere
-    m_timeInSimulation = 0;
-    m_stepsPerTick = 2;
-    m_timeStepPerTick = 1e-6; // 1 us
+//     m_timeInSimulation = 0;
+//     m_stepsPerTick = 2;
+//     m_timeStepPerTick = 1e-6; // 1 us
     // TODO connect the dataUpdated from the document model to the simulator
 }
 
 void CircuitTransientSimulator::start()
 {
     kDebug() << "start\n";
+//    Simulator;
 }
 
 void CircuitTransientSimulator::pause()
@@ -69,6 +70,17 @@ void CircuitTransientSimulator::componentParameterChanged(QVariantMap* component
     */
 }
 
+void CircuitTransientSimulator::documentStructureChanged()
+{
+
+}
+
+void CircuitTransientSimulator::dumpDebugInfo() const
+{
+
+}
+
+#if 0
 void CircuitTransientSimulator::documentStructureChanged()
 {
     kDebug() << "documentStructureChanged\n";
@@ -115,7 +127,7 @@ void CircuitTransientSimulator::documentStructureChanged()
     }
     /*
     search for logic nodes
-    
+
     foreach(Circuit *c, m_circuits){ // what kind of abstraction?
         stepSimulation();
         createElementSet();
@@ -484,3 +496,6 @@ void KTechLab::CircuitTransientSimulator::dumpDebugInfo() const
     }
     qDebug() << "\n--!!--\n";
 }
+#endif
+
+#include "circuittransientsimulator.moc"
