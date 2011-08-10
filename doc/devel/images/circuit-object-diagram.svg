@@ -187,8 +187,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="494.38134"
-     inkscape:cy="388.70023"
+     inkscape:cx="572.44769"
+     inkscape:cy="271.1973"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -205,7 +205,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -779,5 +779,59 @@
          id="tspan4065-48"
          x="304.38129"
          y="731.40985">1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:189.14480591px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="-1048.9155"
+       y="312.24762"
+       id="text4605"
+       transform="matrix(-0.01988069,-0.83225091,1.2012317,-0.01377397,0,0)"
+       inkscape:transform-center-x="-41.476898"
+       inkscape:transform-center-y="25.543585"><tspan
+         sodipodi:role="line"
+         id="tspan4607"
+         x="-1048.9155"
+         y="312.24762">{</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:354.89196777px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="-1237.184"
+       y="679.35706"
+       id="text4609"
+       transform="matrix(-0.01302644,-0.73974645,1.351689,-0.00712905,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan4611"
+         x="-1237.184"
+         y="679.35706">{</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-weight:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="318.19806"
+       y="881.64636"
+       id="text4613"><tspan
+         sodipodi:role="line"
+         id="tspan4615"
+         x="320.74493"
+         y="881.64636">Created by component </tspan><tspan
+         sodipodi:role="line"
+         x="318.19806"
+         y="901.64636"
+         id="tspan4617">plugins</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 566.69558,329.93194 2.0203,123.23861"
+       id="path4619"
+       transform="translate(0,308.2677)" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-weight:normal;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+       x="697.00525"
+       y="603.68329"
+       id="text4621"
+       transform="translate(0,308.2677)"><tspan
+         sodipodi:role="line"
+         id="tspan4623"
+         x="697.00525"
+         y="603.68329">Created by simulator plugins</tspan></text>
   </g>
 </svg>
