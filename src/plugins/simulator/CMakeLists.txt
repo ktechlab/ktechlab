@@ -2,14 +2,16 @@
 
 include_directories(
    ${CMAKE_SOURCE_DIR}/src
-   ${CMAKE_SOURCE_DIR}/interfaces
-)
+   ${CMAKE_SOURCE_DIR}/src/lib/simulator
+   ${CMAKE_SOURCE_DIR}/src/lib/simulator/electronics
+   ${CMAKE_SOURCE_DIR}/src/lib/simulator/electronics/components
+   ${CMAKE_SOURCE_DIR}/src/lib/simulator/electronics/simulation
+   ${CMAKE_SOURCE_DIR}/src/lib/simulator/math
+   )
 
 set( ktlsimulator_PART_SRCS
-   pingroup.cpp
    simulatorplugin.cpp
    simulatorfactory.cpp
-   elementset.cpp
    circuittransientsimulator.cpp
 )
 

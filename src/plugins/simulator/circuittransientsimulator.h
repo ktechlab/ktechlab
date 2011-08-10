@@ -16,6 +16,7 @@
 
 namespace KTechLab {
 
+    // FIXME these are obsolete / need rework?
 class ElementSet;
 
 class IPin;
@@ -30,6 +31,10 @@ class IWire;
 
 /**
  * simulator for electronic circuits, in time domain
+ *
+ * For now it is only a proxy to the simulator located in
+ * src/lib/simulator, but this simulator provides a nice interface to the
+ * simulator located in the simulator library
  */
 class CircuitTransientSimulator : public ISimulator
 {
@@ -79,18 +84,21 @@ public slots:
 
     virtual void componentParameterChanged(QVariantMap * component = NULL);
 
+#if 0
     /**
       Slot to be activated when some time has passed and the simulation time
       should advance
       */
     virtual void simulationTimerTicked();
+#endif
 
     /**
-     Print all the equations in the 
+     Print all the equations from the simulation
      */
     void dumpDebugInfo() const;
 
 private:
+    #if 0
     /** create a list of elements to be simulated, based on the document model
      \return true if it's successful and false un faliure
      */
@@ -164,12 +172,13 @@ private:
     /** list of all nodes in the document;
         these pointers are not primary */
     QList<IPin*> m_allPinList;
-    
+
     /// list of all the groups of pins
     QList<PinGroup *> m_pinGroups;
 
     /** list of all ElementSets in the document */
     QList<ElementSet*> m_allElementSetsList;
+    #endif
 };
 
 }
