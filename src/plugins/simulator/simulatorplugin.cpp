@@ -23,7 +23,7 @@ K_PLUGIN_FACTORY(SimulatorPluginFactory,
                  registerPlugin<SimulatorPlugin>();
                 )
 
-K_EXPORT_PLUGIN(SimulatorPluginFactory("ktlsimulator", "ktlsimulator"))
+K_EXPORT_PLUGIN(SimulatorPluginFactory("ktlsimulatorplugin", "ktlsimulatorplugin"))
 
 
 SimulatorPlugin::SimulatorPlugin(QObject* parent, const QVariantList& args):
