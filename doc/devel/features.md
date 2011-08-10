@@ -1,6 +1,6 @@
-KTechLab documentation
+# KTechLab documentation
 
-     1. Features – overview (features in „rough lines”)
+## Features – overview (features in „rough lines”)
 
 -   creating, editing, saving projects
     - adding, removing files to/from project
@@ -21,9 +21,7 @@ KTechLab documentation
 -   help can be read
     - for each item there should be help
 
-
-    # Features – detailed (every feature should be listed here, useful for testing)
-
+## Features – detailed (every feature should be listed here, useful for testing)
 
 -   creating, editing, saving projects
     - adding, removing files to/from projekt
@@ -58,3 +56,4 @@ KTechLab documentation
            - can be exported as html
 
 ( here should come quite a few features / use cases )
+
