@@ -1,2 +1,98 @@
-you can get ./admin from 
-[your KDE install Path]/share/apps/kapptemplate/admin
+KTechLab
+=============
+
+KTechLab is an IDE for microcontrollers and electronics.
+It supports circuit simulation,
+program development for microcontrollers and
+simulating the programmed microcontroller together with its application circuit.
+
+Introduction
+-------------
+
+Resources
+-------------
+- KTechLab on github:
+    https://github.com/ktechlab
+
+- KTechLab on sourceforge
+    - wiki:
+        http://ktechlab.sourceforge.net
+    - project page:
+        http://sourceforge.net/projects/ktechlab
+    - project page for developers:
+        http://sourceforge.net/projects/ktechlab/develop
+
+- the official communucation channel is hosted on sourceforge,
+        it is called ktechlab-devel
+    - link to archives of the list:
+        http://sourceforge.net/mailarchive/forum.php?forum_name=ktechlab-devel
+
+- on IRC, KTechLab developers regularly join the channel
+    #ktechlab, on FreeNode
+
+- source code repositories: see Getting the source section, below
+
+
+Getting the source
+------------------
+
+KTechLab's source code is located in GIT repositories.
+
+The official repository is located on github:
+
+- https://github.com/ktechlab/ktechlab
+
+- the master branch contains the latest tested development code,
+    while other branches might contain untested/unstable code
+
+Other notable GIT repositories are located on sourceforge:
+
+- main KTechLab repository:
+    - `git://ktechlab.git.sourceforge.net/gitroot/ktechlab/ktechlab`
+    - contains the contents of the previously used SVN repository
+
+- developers' own repositories:
+    - git://ktechlab.git.sourceforge.net/gitroot/ktechlab/ktl-alonzotg
+    - git://ktechlab.git.sourceforge.net/gitroot/ktechlab/ktl-j_ohny_b
+    - git://ktechlab.git.sourceforge.net/gitroot/ktechlab/ktl-zoltan_p
+        - the master branch should have the same content as the
+            official master branch from github
+    - these repositories contain work-in-progress code,
+        which is supposed to be merged in the master branch on github
+
+Checking out from GIT can be performed with the following commands:
+
+    git clone git://github.com/ktechlab/ktechlab.git
+    cd ktechlab
+    git checkout -b master --track origin/master
+
+
+Building
+-------------------
+
+Required dependencies
+
+- Qt4 -dev
+- cmake
+- glib -dev
+
+Optional dependencies
+
+- KDE4 libraries -dev
+- KDevPlatform libraries -dev
+    - NOTE: without the following two components, only the unit test
+        will be built; those are not useful for end-users
+- GPSim -dev, for microcontroller support
+
+
+rest: TODO
+
+Installing
+-------------------------
+
+TODO
+
+Running/Testing
+-----------------------
+
+TODO
