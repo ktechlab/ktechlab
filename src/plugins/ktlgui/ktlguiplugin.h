@@ -29,6 +29,9 @@ namespace KTechLab
                                                     QString& xmlFile,
                                                     KActionCollection& actions);
 
+        public slots:
+            void slotFileOpen();
+
         private:
 
     };
