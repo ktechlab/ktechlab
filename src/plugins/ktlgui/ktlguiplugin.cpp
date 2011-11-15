@@ -47,11 +47,73 @@ void KTLGuiPlugin::createActionsForMainWindow(Sublime::MainWindow* window,
 {
     xmlFile = "ktechlabui.rc" ;
 
+    KStandardAction::open( this, SLOT(slotFileOpen()), window->actionCollection() );
+
+    /*
+    KStandardAction::openRecent( this, SLOT(slotFileOpenRecent()), actionCollection() );
+    KStandardAction::save( this, SLOT(slotFileSave()), actionCollection() );
+    KStandardAction::saveAs( this, SLOT(slotFileSaveAs()), actionCollection() );
+    KStandardAction::close( this, SLOT(slotViewClose()), actionCollection() );
+    KStandardAction::print( this, SLOT(slotFilePrint()), actionCollection() );
+    KStandardAction::quit( this, SLOT(slotFileQuit()), actionCollection() );
+    KStandardAction::undo( this, SLOT(slotUndo()), actionCollection() );
+    KStandardAction::redo( this, SLOT(slotRedo()), actionCollection() );
+    KStandardAction::cut( this, SLOT(slotCut()), actionCollection() );
+    KStandardAction::copy( this, SLOT(slotCopy()), actionCollection() );
+    KStandardAction::paste( this, SLOT(slotPaste()), actionCollection() );
+
+    KActionMenu *newActionMenu = new KActionMenu( KIcon("document-new"), i18n("&New"), this );
+    actionCollection()->addAction( KStandardAction::name(KStandardAction::New), newActionMenu );
+    connect( newActionMenu, SIGNAL(activated()), this, SLOT(slotFileNew()) );
+
+    KAction *action;
+    action = actionCollection()->addAction( QString("newfile_asm") );
+    action->setText( i18n("Assembly") );
+    action->setIcon( KIcon("") );
+    connect( action, SIGNAL(triggered()), this, SLOT(slotFileNewAssembly()) );
+    newActionMenu->addAction( action );
+
+    action = actionCollection()->addAction( QString("newfile_c") );
+    action->setText( i18n("C source") );
+    action->setIcon( KIcon("text-x-csrc") );
+    connect( action, SIGNAL(triggered()), this, SLOT(slotFileNewC()) );
+    newActionMenu->addAction( action );
+
+    action = actionCollection()->addAction( QString("ktechlab_circuit") );
+    action->setText( i18n("Circuit") );
+    action->setIcon( KIcon("ktechlab_circuit") );
+    connect( action, SIGNAL(triggered()), this, SLOT(slotFileNewCircuit()) );
+    newActionMenu->addAction( action );
+
+    action = actionCollection()->addAction( QString("ktechlab_flowcode") );
+    action->setText( i18n("FlowCode") );
+    action->setIcon( KIcon("ktechlab_flowcode") );
+    connect( action, SIGNAL(triggered()), this, SLOT(slotFileNewFlowCode()) );
+    newActionMenu->addAction( action );
+
+    action = actionCollection()->addAction( QString("ktechlab_mechanics") );
+    action->setText( i18n("Mechanics") );
+    action->setIcon( KIcon("") );
+    connect( action, SIGNAL(triggered()), this, SLOT(slotFileNewMechanics()) );
+    newActionMenu->addAction( action );
+
+    action = actionCollection()->addAction( QString("ktechlab_microbe") );
+    action->setText( i18n("Microbe") );
+    action->setIcon( KIcon("ktechlab_microbe") );
+    connect( action, SIGNAL(triggered()), this, SLOT(slotFileNewMicrobe()) );
+    newActionMenu->addAction( action );
+    */
 
     KDevelop::IPlugin::createActionsForMainWindow(window, xmlFile, actions);
 
     window->setupGUI();
 }
+
+void KTLGuiPlugin::slotFileOpen()
+{
+    printf("slotFileOpen activated\n");
+}
+
 
 #include "ktlguiplugin.moc"
 
