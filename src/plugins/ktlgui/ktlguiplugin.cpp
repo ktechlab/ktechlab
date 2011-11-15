@@ -13,6 +13,10 @@
 #include <KAboutData>
 
 #include <stdio.h>
+#include <sublime/mainwindow.h>
+#include <KActionMenu>
+#include <KStandardAction>
+#include <KActionCollection>
 
 
 using namespace KTechLab;
@@ -37,6 +41,17 @@ KTLGuiPlugin::~KTLGuiPlugin()
     printf("gui plugin destroyed\n");
 }
 
+void KTLGuiPlugin::createActionsForMainWindow(Sublime::MainWindow* window,
+                                              QString& xmlFile,
+                                              KActionCollection& actions)
+{
+    xmlFile = "ktechlabui.rc" ;
+
+
+    KDevelop::IPlugin::createActionsForMainWindow(window, xmlFile, actions);
+
+    window->setupGUI();
+}
 
 #include "ktlguiplugin.moc"
 
