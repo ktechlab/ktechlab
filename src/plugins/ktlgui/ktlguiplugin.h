@@ -24,6 +24,11 @@ namespace KTechLab
                                         const QVariantList &args = QVariantList() );
             virtual ~KTLGuiPlugin();
 
+            virtual void createActionsForMainWindow(
+                                                    Sublime::MainWindow* window,
+                                                    QString& xmlFile,
+                                                    KActionCollection& actions);
+
         private:
 
     };
