@@ -18,3 +18,4 @@ install(TARGETS ktlgui DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 ktl_install_desktop( ktlgui.desktop )
 
+install( FILES ktechlabui.rc DESTINATION ${DATA_INSTALL_DIR}/ktlgui )
