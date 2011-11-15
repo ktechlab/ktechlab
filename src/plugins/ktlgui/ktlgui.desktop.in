@@ -1,0 +1,15 @@
+[Desktop Entry]
+Type=Service
+Exec=blubb
+Comment=This plugin provides GUI to KTechLab
+Name=KTechLab GUI
+GenericName=KTechLab GUI
+ServiceTypes=KTechLab/Plugin
+X-KDE-Library=ktlgui
+X-KDE-PluginInfo-Name=ktlgui
+X-KDE-PluginInfo-Author=Zoltan Padrah
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-License=LGPL
+X-KDevelop-Version=@KDEV_PLUGIN_VERSION@
+X-KDevelop-Category=Global
+X-KDevelop-Mode=GUI
