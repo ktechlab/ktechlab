@@ -27,6 +27,7 @@ add_executable( compiled_simulator
 # kde4_add_unit_test(compiled_simulator ${CompileSimulator_SRCS})
 
 target_link_libraries( compiled_simulator
+ ${QT_QTCORE_LIBRARIES}
  ${QT_QTTEST_LIBRARIES}
  ktlsimulator
 )
@@ -54,6 +55,7 @@ add_executable( qprocess_with_args_test
 
 target_link_libraries( qprocess_with_args_test
  ${QT_LIBRARIES}
+ ${QT_QTCORE_LIBRARIES}
  ${QT_QTTEST_LIBRARIES}
  )
  
@@ -74,6 +76,7 @@ add_executable( creating_test
 
 target_link_libraries( creating_test
  ktlsimulator
+ ${QT_QTCORE_LIBRARIES}
  ${QT_QTTEST_LIBRARIES}
 )
 
