@@ -13,5 +13,6 @@ kde4_add_unit_test( ktlprojecttest ktlprojecttest.cpp
 
 target_link_libraries( ktlprojecttest
     ${QT_QTTEST_LIBRARY}
+    ${KDEVPLATFORM_PROJECT_LIBRARIES}
     ${KDEVPLATFORM_TESTS_LIBRARIES}
 )
