@@ -13,7 +13,8 @@ if( EIGEN2_FOUND )
 
    target_link_libraries( mathtest
 	ktlmath
-	${QT_QTTEST_LIBRARY}
+        ${QT_QTCORE_LIBRARIES}
+        ${QT_QTTEST_LIBRARIES}
 )
 endif( EIGEN2_FOUND )
 
