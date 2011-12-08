@@ -83,6 +83,8 @@ Optional dependencies
     - NOTE: without the following two components, only the unit tests
         will be built; those are not useful for end-users
 - GPSim -dev, for microcontroller support
+- Eigen2 -dev, for unit tests; generally it is not needed for builds
+    targeted to end-users, but it is useful for development
 
 
 
