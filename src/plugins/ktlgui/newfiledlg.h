@@ -35,6 +35,10 @@ class NewFileDlg : public KDialog
     public:
         NewFileDlg( QWidget *parent );
 
+        /**
+         Method called when the user cancels the dialog box, for example by
+         pressing the cancel button
+         */
         void reject();
         void accept();
 
