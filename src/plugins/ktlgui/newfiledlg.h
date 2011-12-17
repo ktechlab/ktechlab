@@ -51,6 +51,14 @@ class NewFileDlg : public KDialog
     public slots:
         void fileTypeChanged();
 
+    signals:
+        void signalFileNewAssembly();
+        void signalFileNewC();
+        void signalFileNewCircuit();
+        void signalFileNewFlowCode();
+        void signalFileNewMechanics();
+        void signalFileNewMicrobe();
+
     protected:
         bool m_bAccepted;
         bool m_bAddToProject;
