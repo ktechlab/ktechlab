@@ -39,10 +39,9 @@ class NewFileDlg : public KDialog
         void accept();
 
         bool accepted() const { return m_bAccepted; }
-        int fileType() const { return m_fileType; }
-        int codeType() const { return m_codeType; }
         bool addToProject() const { return m_bAddToProject; }
         QString microID() const { return m_microID; }
+
         MicroSelectWidget * microSelectWidget() const;
 
     public slots:
@@ -50,8 +49,6 @@ class NewFileDlg : public KDialog
 
     protected:
         bool m_bAccepted;
-        int m_fileType;
-        int m_codeType;
         bool m_bAddToProject;
         QString m_microID;
 
