@@ -40,8 +40,8 @@ KTLGuiPlugin::KTLGuiPlugin(QObject* parent, const QVariantList& /* args */)
     printf("creating gui plugin \n");
 
     // create new file dialog
-    QWidget *wnd = core()->uiController()->activeMainWindow()->window();
-    m_newFileDlg = new NewFileDlg(wnd);
+    m_mainWindow = core()->uiController()->activeMainWindow()->window();
+    m_newFileDlg = new NewFileDlg(m_mainWindow);
     // hook up the new file dialog
     connect(m_newFileDlg,SIGNAL(signalFileNewAssembly()),
             this, SLOT(slotFileNewAssembly()));
