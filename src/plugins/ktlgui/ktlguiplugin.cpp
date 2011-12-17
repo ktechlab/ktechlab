@@ -117,6 +117,40 @@ void KTLGuiPlugin::slotFileOpen()
     printf("slotFileOpen activated\n");
 }
 
+void KTLGuiPlugin::slotFileNew()
+{
+    printf("slotFileNew activated\n");
+    m_newFileDlg->show();
+}
+
+void KTLGuiPlugin::slotFileNewAssembly()
+{
+    printf("slotFileNewAssembly activated\n");
+}
+
+void KTLGuiPlugin::slotFileNewC()
+{
+    printf("slotFileNewC activated\n");
+}
+
+void KTLGuiPlugin::slotFileNewCircuit()
+{
+    printf("slotFileNewCircuit activated\n");
+}
+
+void KTLGuiPlugin::slotFileNewFlowCode()
+{
+    printf("slotFileNewFlowCode activated\n");
+}
+
+void KTLGuiPlugin::slotFileNewMechanics()
+{
+    printf("slotFileNewMechanics activated\n");
+}
+
+void KTLGuiPlugin::slotFileNewMicrobe()
+{
+    printf("slotFileNewMicrobe activated\n");
+}
 
 #include "ktlguiplugin.moc"
-
