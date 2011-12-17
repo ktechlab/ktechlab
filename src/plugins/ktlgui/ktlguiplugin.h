@@ -43,6 +43,7 @@ class NewFileDlg;
 
         private:
             NewFileDlg *m_newFileDlg;
+            QWidget *m_mainWindow;
 
     };
 
