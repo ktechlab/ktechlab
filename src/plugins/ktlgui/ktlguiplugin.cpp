@@ -39,8 +39,22 @@ KTLGuiPlugin::KTLGuiPlugin(QObject* parent, const QVariantList& /* args */)
 {
     printf("creating gui plugin \n");
 
+    // create new file dialog
     QWidget *wnd = core()->uiController()->activeMainWindow()->window();
     m_newFileDlg = new NewFileDlg(wnd);
+    // hook up the new file dialog
+    connect(m_newFileDlg,SIGNAL(signalFileNewAssembly()),
+            this, SLOT(slotFileNewAssembly()));
+    connect(m_newFileDlg,SIGNAL(signalFileNewC()),
+            this, SLOT(slotFileNewC()));
+    connect(m_newFileDlg,SIGNAL(signalFileNewCircuit()),
+            this, SLOT(slotFileNewCircuit()));
+    connect(m_newFileDlg,SIGNAL(signalFileNewFlowCode()),
+            this, SLOT(slotFileNewFlowCode()));
+    connect(m_newFileDlg,SIGNAL(signalFileNewMechanics()),
+            this, SLOT(slotFileNewMechanics()));
+    connect(m_newFileDlg,SIGNAL(signalFileNewMicrobe()),
+            this, SLOT(slotFileNewMicrobe()));
 
     printf("gui plugin created\n");
 }
