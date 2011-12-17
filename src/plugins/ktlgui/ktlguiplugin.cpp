@@ -29,6 +29,7 @@
 #include <interfaces/iprojectcontroller.h>
 #include <interfaces/iplugincontroller.h>
 #include <interfaces/idocumentcontroller.h>
+#include <QTemporaryFile>
 
 
 using namespace KTechLab;
@@ -233,6 +234,16 @@ void KTLGuiPlugin::slotFileNew()
 void KTLGuiPlugin::slotFileNewAssembly()
 {
     printf("slotFileNewAssembly activated\n");
+    // get a temporary file name
+    QTemporaryFile tmpFile(QDir::tempPath().append(QDir::separator())
+        .append("ktlXXXXXX.asm"));
+    tmpFile.setAutoRemove(false);
+    tmpFile.open();
+    qDebug() << "creating temporary file: " << tmpFile.fileName()
+        << "pattern: " << tmpFile.fileTemplate();
+
+    KUrl url(tmpFile.fileName());
+    core()->documentController()->openDocument(url, "ktlcircuit");
 }
 
 void KTLGuiPlugin::slotFileNewC()
