@@ -16,6 +16,8 @@
 namespace KTechLab
 {
 
+class NewFileDlg;
+
     class KTLGuiPlugin : public KDevelop::IPlugin
     {
         Q_OBJECT
@@ -40,10 +42,10 @@ namespace KTechLab
             void slotFileNewMicrobe();
 
         private:
+            NewFileDlg *m_newFileDlg;
 
     };
 
 }
 
 #endif
-

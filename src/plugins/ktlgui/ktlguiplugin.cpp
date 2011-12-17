@@ -18,6 +18,10 @@
 #include <KStandardAction>
 #include <KActionCollection>
 
+#include "newfiledlg.h"
+#include <interfaces/icore.h>
+#include <interfaces/iuicontroller.h>
+
 
 using namespace KTechLab;
 
@@ -33,6 +37,11 @@ K_EXPORT_PLUGIN(KTLGuiPluginFactory(
 KTLGuiPlugin::KTLGuiPlugin(QObject* parent, const QVariantList& /* args */)
   : IPlugin( KTLGuiPluginFactory::componentData(), parent )
 {
+    printf("creating gui plugin \n");
+
+    QWidget *wnd = core()->uiController()->activeMainWindow()->window();
+    m_newFileDlg = new NewFileDlg(wnd);
+
     printf("gui plugin created\n");
 }
 
@@ -61,9 +70,14 @@ void KTLGuiPlugin::createActionsForMainWindow(Sublime::MainWindow* window,
     KStandardAction::cut( this, SLOT(slotCut()), actionCollection() );
     KStandardAction::copy( this, SLOT(slotCopy()), actionCollection() );
     KStandardAction::paste( this, SLOT(slotPaste()), actionCollection() );
+    */
+
+    KStandardAction::openNew(this, SLOT(slotFileNew()), window->actionCollection() );
 
     KActionMenu *newActionMenu = new KActionMenu( KIcon("document-new"), i18n("&New"), this );
+
     actionCollection()->addAction( KStandardAction::name(KStandardAction::New), newActionMenu );
+
     connect( newActionMenu, SIGNAL(activated()), this, SLOT(slotFileNew()) );
 
     KAction *action;
@@ -102,7 +116,6 @@ void KTLGuiPlugin::createActionsForMainWindow(Sublime::MainWindow* window,
     action->setIcon( KIcon("ktechlab_microbe") );
     connect( action, SIGNAL(triggered()), this, SLOT(slotFileNewMicrobe()) );
     newActionMenu->addAction( action );
-    */
 
     KDevelop::IPlugin::createActionsForMainWindow(window, xmlFile, actions);
 
