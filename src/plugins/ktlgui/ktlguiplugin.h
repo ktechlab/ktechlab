@@ -31,6 +31,13 @@ namespace KTechLab
 
         public slots:
             void slotFileOpen();
+            void slotFileNew();
+            void slotFileNewAssembly();
+            void slotFileNewC();
+            void slotFileNewCircuit();
+            void slotFileNewFlowCode();
+            void slotFileNewMechanics();
+            void slotFileNewMicrobe();
 
         private:
 
