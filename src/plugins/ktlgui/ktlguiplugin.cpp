@@ -21,6 +21,14 @@
 #include "newfiledlg.h"
 #include <interfaces/icore.h>
 #include <interfaces/iuicontroller.h>
+#include <KFileDialog>
+#include <shell/core.h>
+#include <KIO/NetAccess>
+#include <KMessageBox>
+#include <kplugininfo.h>
+#include <interfaces/iprojectcontroller.h>
+#include <interfaces/iplugincontroller.h>
+#include <interfaces/idocumentcontroller.h>
 
 
 using namespace KTechLab;
@@ -139,9 +147,81 @@ void KTLGuiPlugin::createActionsForMainWindow(Sublime::MainWindow* window,
     window->resize(750, 470);
 }
 
+
 void KTLGuiPlugin::slotFileOpen()
 {
     printf("slotFileOpen activated\n");
+
+    KUrl file = KFileDialog::getOpenUrl( KUrl("kfiledialog:///<keyword>"), "*",
+                                         m_mainWindow );
+
+    if ( file.isEmpty() )
+        return;
+
+    if ( !file.isValid() )
+        return;
+
+    QString target;
+    // the below code is what you should normally do.  in this
+    // example case, we want the url to our own.  you probably
+    // want to use this code instead for your app
+
+    // download the contents
+    if ( !KIO::NetAccess::download( file, target, m_mainWindow ) )
+    {
+        // If the file could not be downloaded, for example does not
+        // exist on disk, NetAccess will tell us what error to use
+        KMessageBox::error(m_mainWindow, KIO::NetAccess::lastErrorString());
+
+        return;
+    }
+
+    // now url points always to local storage
+    KUrl url(target);
+
+    if ( url.url().endsWith( ".ktechlab", Qt::CaseInsensitive ) )
+    {
+        // FIXME: create an IProject (i.e. KTechlab::Project) to open the url,
+        // since this will prevent KTechLab from crashing...
+
+        // This is a ktechlab project; it has to be handled separetly from a
+        // normal file.
+
+        core()->projectController()->openProject( url );
+        return;
+    }
+
+    //     addRecentFile( url );
+
+    // set our caption
+    // setCaption( url.url() );
+
+    //get interface for extension
+    QStringList constraints;
+    constraints << QString("'%1' in [X-KDevelop-SupportedMimeTypes]").arg(
+            "application/x-circuit" );
+
+    // load in the file (target is always local)
+    KDevelop::ICore *theCore = core();
+    Q_ASSERT( theCore != 0 );
+    KDevelop::IPluginController *pc = theCore->pluginController();
+    Q_ASSERT( pc != 0 );
+    QList<KPluginInfo> plugins = pc->queryExtensionPlugins( "KTLDocument",
+                                                            constraints );
+
+    foreach (KPluginInfo p, plugins) {
+        qDebug() << p.name();
+    }
+
+    if(! url.url().endsWith( ".ktechlab", Qt::CaseInsensitive )){
+        qWarning() << "File extension not known, trying as circuit anyway!\n";
+    }
+
+    // try to open
+    theCore->documentController()->openDocument(url, "ktlcircuit");
+
+    // and remove the temp file
+    KIO::NetAccess::removeTempFile( target );
 }
 
 void KTLGuiPlugin::slotFileNew()
