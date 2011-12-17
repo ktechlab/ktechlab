@@ -107,6 +107,9 @@ void KTLGuiPlugin::createActionsForMainWindow(Sublime::MainWindow* window,
     KDevelop::IPlugin::createActionsForMainWindow(window, xmlFile, actions);
 
     window->setupGUI();
+
+    // FIXME calculate size dynamicaly, based on window contents
+    window->resize(750, 470);
 }
 
 void KTLGuiPlugin::slotFileOpen()
