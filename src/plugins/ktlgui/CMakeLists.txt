@@ -5,7 +5,10 @@ ${CMAKE_SOURCE_DIR}/src
 
 set( ktlgui_PART_SRCS
   ktlguiplugin.cpp
+  newfiledlg.cpp
 )
+
+kde4_add_ui_files(ktlgui_PART_SRCS newfilewidget.ui)
 
 kde4_add_plugin(ktlgui ${ktlgui_PART_SRCS})
 
