@@ -243,7 +243,7 @@ void KTLGuiPlugin::slotFileNewAssembly()
         << "pattern: " << tmpFile.fileTemplate();
 
     KUrl url(tmpFile.fileName());
-    core()->documentController()->openDocument(url, "ktlcircuit");
+    core()->documentController()->openDocument(url);
 }
 
 void KTLGuiPlugin::slotFileNewC()
