@@ -254,6 +254,21 @@ void KTLGuiPlugin::slotFileNewC()
 void KTLGuiPlugin::slotFileNewCircuit()
 {
     printf("slotFileNewCircuit activated\n");
+    // get a temporary file name
+    QTemporaryFile tmpFile(QDir::tempPath().append(QDir::separator())
+        .append("ktlXXXXXX.circuit"));
+    tmpFile.setAutoRemove(false);
+    tmpFile.open();
+    qDebug() << "creating temporary file: " << tmpFile.fileName()
+        << "pattern: " << tmpFile.fileTemplate();
+    // write a minial circuit document into the temporary file
+    tmpFile.write("<!DOCTYPE KTechlab>\n"
+                  "<document type=\"circuit\" >"
+                  "</document>"
+                  );
+    tmpFile.close();
+    KUrl url(tmpFile.fileName());
+    core()->documentController()->openDocument(url, "ktlcircuit");
 }
 
 void KTLGuiPlugin::slotFileNewFlowCode()
