@@ -249,6 +249,16 @@ void KTLGuiPlugin::slotFileNewAssembly()
 void KTLGuiPlugin::slotFileNewC()
 {
     printf("slotFileNewC activated\n");
+    // get a temporary file name
+    QTemporaryFile tmpFile(QDir::tempPath().append(QDir::separator())
+        .append("ktlXXXXXX.c"));
+    tmpFile.setAutoRemove(false);
+    tmpFile.open();
+    qDebug() << "creating temporary file: " << tmpFile.fileName()
+        << "pattern: " << tmpFile.fileTemplate();
+
+    KUrl url(tmpFile.fileName());
+    core()->documentController()->openDocument(url);
 }
 
 void KTLGuiPlugin::slotFileNewCircuit()
