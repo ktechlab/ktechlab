@@ -61,7 +61,6 @@ set(ktechlablib_LIB_SRCS
 
 SET(ktechlab_SRCS
     ktechlabideextension.cpp
-    mainwindow.cpp
     main.cpp
     simulationmanager.cpp
 )
