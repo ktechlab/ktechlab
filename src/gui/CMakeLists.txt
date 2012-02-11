@@ -12,19 +12,6 @@ include_directories(${CMAKE_SOURCE_DIR}/src ${CMAKE_SOURCE_DIR}/src/core
 	${KDE3_INCLUDE_DIR} ${QT_INCLUDE_DIR} )
 
 
-########### next target ###############
-
-SET(gui_STAT_SRCS
-    newfiledlg.cpp
-)
-
-kde4_add_ui_files( gui_STAT_SRCS
-    newfilewidget.ui
-)
-
-kde4_add_library(gui STATIC ${gui_STAT_SRCS})
-#target_link_libraries( itemeditor )
-
 ########### install files ###############
 
 
