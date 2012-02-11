@@ -20,8 +20,6 @@
 
 #include "mainwindow.h"
 
-#include "newfiledlg.h"
-
 #include <QMenu>
 #include <QLayout>
 #include <QListView>
@@ -183,14 +181,7 @@ void MainWindow::slotFileNewMicrobe()
 
 void MainWindow::slotFileNew()
 {
-    NewFileDlg newFileDlg( this );
-
-    newFileDlg.exec();
-    if ( newFileDlg.accepted() )
-    {
-        //FIXME: implement this feature
-        kDebug() << "We should now open a new file!";
-    }
+    kDebug() << "triggered()";
 }
 
 void MainWindow::slotFileOpen()
