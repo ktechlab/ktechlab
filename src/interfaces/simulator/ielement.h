@@ -33,6 +33,7 @@ class IPin;
       Q_OBJECT
 
       public:
+
             /**
              create an element corresponding to a component in the model,
              in a given IElementSet
@@ -49,6 +50,7 @@ class IPin;
               */
             virtual ~IElement();
 
+#if 0
             // parent related
             /**
              \return the parent of the element, in the model of the circuit
@@ -241,6 +243,7 @@ class IPin;
             double ***m_ad;
             double **m_bi;
             double **m_bv;
+#endif
     };
 }
 

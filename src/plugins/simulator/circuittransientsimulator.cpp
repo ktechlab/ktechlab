@@ -17,49 +17,48 @@
 
 #include <kdebug.h>
 #include <interfaces/simulator/isimulationmanager.h>
-#include <interfaces/simulator/ielementfactory.h>
-#include "interfaces/simulator/ielement.h"
-#include "interfaces/simulator/iwire.h"
-#include "interfaces/simulator/ipin.h"
 
 #include <simulator.h>
 
+#include "lib/simulator/simulator.h"
 
 using namespace KTechLab;
 
 CircuitTransientSimulator::CircuitTransientSimulator(IDocumentModel* doc):
     ISimulator(doc)
 {
-//     m_doc = doc;
-    // TODO get the simulation values from somewhere
-//     m_timeInSimulation = 0;
-//     m_stepsPerTick = 2;
-//     m_timeStepPerTick = 1e-6; // 1 us
-    // TODO connect the dataUpdated from the document model to the simulator
+//    doc->
+//    Simulator::self()->attachCircuit();
+    printf("transient simulator created\n");
 }
+
+// FIXME quick hack for start/pause/tooglePause: all circuits run, or none
 
 void CircuitTransientSimulator::start()
 {
     kDebug() << "start\n";
-//    Simulator;
+    Simulator::self()->slotSetSimulating(true);
 }
 
 void CircuitTransientSimulator::pause()
 {
     kDebug() << "pause\n";
+    Simulator::self()->slotSetSimulating(false);
 }
 
 void CircuitTransientSimulator::tooglePause()
 {
     kDebug() << "togglePause\n";
-
+    Simulator::self()->slotSetSimulating(!Simulator::self()->isSimulating());
 }
 
+/*
 IElement* CircuitTransientSimulator::getModelForComponent(QVariantMap* component)
 {
     kDebug() << "getModelForComponent\n";
     return NULL;
 }
+*/
 
 void CircuitTransientSimulator::componentParameterChanged(QVariantMap* component)
 {
