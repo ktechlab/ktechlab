@@ -11,6 +11,25 @@
 
 #include "ielement.h"
 
+using namespace KTechLab;
+
+IElement::IElement(QVariantMap& parentInModel,
+                   int numPins,
+                   int numNodes,
+                   int numVoltageSources,
+                   QList< QString > pinNames):
+    QObject((QObject*) &parentInModel)
+{
+
+}
+
+IElement::~IElement()
+{
+
+}
+
+
+#if 0
 #include "ielementset.h"
 #include "kdebug.h"
 #include "ipin.h"
@@ -194,3 +213,4 @@ double& KTechLab::IElement::b_v(const int i)
     return m_elemSet->b_v(m_voltageSourceIDs[i]);
 }
 
+#endif

@@ -21,14 +21,11 @@ set( ktlinterfaces_LIB_SRCS
    component/icomponentitem.cpp
    component/node.cpp
 
-   simulator/ipin.cpp
    simulator/ielement.cpp
-   simulator/ielementset.cpp
    simulator/ielementfactory.cpp
    simulator/isimulator.cpp
    simulator/isimulatorfactory.cpp
    simulator/isimulationmanager.cpp
-   simulator/iwire.cpp
    )
 
 kde4_add_library( ktlinterfaces SHARED ${ktlinterfaces_LIB_SRCS} )
