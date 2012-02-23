@@ -10,7 +10,6 @@
  ***************************************************************************/
 
 #include "isimulator.h"
-#include "ielement.h"
 
 using namespace KTechLab;
 

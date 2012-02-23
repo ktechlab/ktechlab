@@ -62,7 +62,7 @@ public:
     /**
      * @return the IElement associated with a component
      */
-    virtual IElement *getModelForComponent(QVariantMap *component) = 0;
+    // virtual IElement *getModelForComponent(QVariantMap *component) = 0;
 //
 public slots:
     /**
