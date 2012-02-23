@@ -16,6 +16,7 @@
 
 #include <kpluginfactory.h>
 #include <kdebug.h>
+#include <KAboutData>
 
 using namespace KTechLab;
 
@@ -23,7 +24,13 @@ K_PLUGIN_FACTORY(SimulatorPluginFactory,
                  registerPlugin<SimulatorPlugin>();
                 )
 
-K_EXPORT_PLUGIN(SimulatorPluginFactory("ktlsimulatorplugin", "ktlsimulatorplugin"))
+K_EXPORT_PLUGIN(SimulatorPluginFactory( //"ktlsimulatorplugin", "ktlsimulatorplugin"))
+    KAboutData("ktlsimulatorplugin","ktlsimulatorplugin",
+        ki18n("KTechLab Simulator Plugin"),
+        "0.1",
+        ki18n("This plugin provides simulators to KTechLab"),
+        KAboutData::License_LGPL)))
+
 
 
 SimulatorPlugin::SimulatorPlugin(QObject* parent, const QVariantList& args):
@@ -31,6 +38,7 @@ SimulatorPlugin::SimulatorPlugin(QObject* parent, const QVariantList& args):
 {
     Q_UNUSED(args);
     kDebug() << "SimulatorPlugin created\n";
+    printf("simulator plugin created\n");
     // create factories
     m_simFact = new SimulatorFactory();
     // register factories
@@ -42,6 +50,7 @@ void SimulatorPlugin::unload()
     kDebug() << "unload\n";
     // unregister the factories
     ISimulationManager::self()->unregisterSimulatorFactory(m_simFact);
+    printf("simulator plugin unloaded\n");
 }
 
 SimulatorPlugin::~SimulatorPlugin()
