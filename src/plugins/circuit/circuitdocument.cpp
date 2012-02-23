@@ -13,6 +13,8 @@
 #include "circuitview.h"
 #include "circuitscene.h"
 #include "circuitmodel.h"
+#include "interfaces/simulator/isimulator.h"
+#include "interfaces/simulator/isimulationmanager.h"
 
 #include <shell/core.h>
 #include <KDebug>
@@ -41,6 +43,9 @@ public:
     CircuitScene *circuitScene;
     CircuitModel *circuitModel;
     KTLCircuitPlugin* plugin;
+    /** the simulator associated with the circuit */
+    ISimulator *simulator;
+    // TODO hook up notifications from simulator to model, and in reverse direction
 
 private:
     CircuitDocument *m_document;
@@ -53,6 +58,9 @@ CircuitDocumentPrivate::CircuitDocumentPrivate( CircuitDocument *doc, KTLCircuit
     this->plugin = plugin;
     initCircuitModel();
     circuitScene = new CircuitScene( doc, circuitModel, plugin );
+    // create simulator
+    simulator = ISimulationManager::self()->simulatorForDocument(doc, "transient");
+    Q_ASSERT(simulator);
 }
 
 void CircuitDocumentPrivate::initCircuitModel()
@@ -113,6 +121,7 @@ CircuitDocumentPrivate::~CircuitDocumentPrivate()
 {
     delete circuitScene;
     delete circuitModel;
+    delete simulator;
 }
 
 CircuitDocument::CircuitDocument( const KUrl &url, KDevelop::Core* core )
