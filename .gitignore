@@ -8,4 +8,4 @@ CMakeLists.txt.user
 *.kdev*
 .*.swp
 *.bak
-
+*.kate-swp
