@@ -48,9 +48,9 @@ protected:
         if (create) {
             parentInModel.insert("pinList", pinListForComponent(type));
         }
-        SUPPORT_ELEMENT(Resistance,"ec/resistor")
-        SUPPORT_ELEMENT(Capacitance,"ec/capacitor")
-        SUPPORT_ELEMENT(VoltageSource,"ec/voltagesource")
+        // SUPPORT_ELEMENT(Resistance,"ec/resistor")
+        // SUPPORT_ELEMENT(Capacitance,"ec/capacitor")
+        // SUPPORT_ELEMENT(VoltageSource,"ec/voltagesource")
         return 0;
     }
     QStringList pinListForComponent(const QByteArray& type)
