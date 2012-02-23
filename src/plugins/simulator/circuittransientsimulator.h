@@ -17,17 +17,10 @@
 namespace KTechLab {
 
     // FIXME these are obsolete / need rework?
-class ElementSet;
 
-class IPin;
-
-class PinGroup;
-
-class IWire;
-
-    // referenced classes
-    class IComponentDocument;
-    class IDocumentModel;
+// referenced classes
+class IComponentDocument;
+class IDocumentModel;
 
 /**
  * simulator for electronic circuits, in time domain
@@ -63,7 +56,7 @@ public:
     /**
      * @return the IElement associated with a component
      */
-    virtual IElement *getModelForComponent(QVariantMap *component);
+    // virtual IElement *getModelForComponent(QVariantMap *component);
 
     // TODO set the real:simuated time ratio and the max. time step
 //
