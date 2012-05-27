@@ -82,7 +82,6 @@ target_link_libraries( ktechlab
    ${KDEVPLATFORM_SHELL_LIBRARIES}
    # ktechlablib
    ktlinterfaces
-   gui
 #  languages gui micro flowparts
 #  mechanics electronics elements components drawparts
 #  itemeditor math khtml kutils ${GPSIM_LIBRARY} ktexteditor
