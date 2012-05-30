@@ -58,9 +58,12 @@ CircuitDocumentPrivate::CircuitDocumentPrivate( CircuitDocument *doc, KTLCircuit
     this->plugin = plugin;
     initCircuitModel();
     circuitScene = new CircuitScene( doc, circuitModel, plugin );
-    // create simulator
-    simulator = ISimulationManager::self()->simulatorForDocument(doc, "transient");
-    Q_ASSERT(simulator);
+    /*
+     * simulator is not initialized here, because for a new simulator we need
+     * a completely initialized CircuitDocumentPrivate member for the current
+     * document
+     */
+    simulator = NULL;
 }
 
 void CircuitDocumentPrivate::initCircuitModel()
@@ -146,6 +149,13 @@ void CircuitDocument::init()
         return;
     }
     d = new CircuitDocumentPrivate(this, qobject_cast<KTechLab::KTLCircuitPlugin*>( plugins.first() ));
+    /*
+     * create the simulator here, because for a new simulator we need
+     * a completely initialized "d" private member for the current
+     * document
+     */
+    d->simulator = ISimulationManager::self()->simulatorForDocument(this, "transient");
+    Q_ASSERT(d->simulator);
 }
 
 QString CircuitDocument::documentType() const
