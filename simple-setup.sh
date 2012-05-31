@@ -84,7 +84,7 @@ fi
 
 # create a setup script
 
-echo "!/bin/sh" > $PATH_SETUP_SCRIPT
+echo "#!/bin/sh" > $PATH_SETUP_SCRIPT
 
 echo "export PATH=$INSTALL_DIR_ABSOLUTE/bin:$PATH" >> $PATH_SETUP_SCRIPT
 
@@ -98,7 +98,7 @@ echo "export KDEDIRS=$INSTALL_DIR_ABSOLUTE:$KDEDIRS" >> $PATH_SETUP_SCRIPT
 
 # create launcher script
 
-echo "!/bin/sh" > $LAUNCHER_SCRIPT
+echo "#!/bin/sh" > $LAUNCHER_SCRIPT
 
 echo ". $PATH_SETUP_SCRIPT" >> $LAUNCHER_SCRIPT
 
@@ -106,7 +106,7 @@ echo "ktechlab" >> $LAUNCHER_SCRIPT
 
 # create user setup script
 
-echo "!/bin/sh" > $USER_SETUP_SCRIPT
+echo "#!/bin/sh" > $USER_SETUP_SCRIPT
 
 echo ". $PATH_SETUP_SCRIPT" >> $USER_SETUP_SCRIPT
 
