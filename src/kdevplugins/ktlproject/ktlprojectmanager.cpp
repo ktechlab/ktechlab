@@ -324,7 +324,7 @@ bool KTLProjectManager::removeFolder( ProjectFolderItem* folder )
     return true;
 }
 
-#if KDEV_PLUGIN_VERSION >= 11
+#if (KDEV_PLUGIN_VERSION >= 11) && (KDEV_PLUGIN_VERSION < 13)
 bool KTLProjectManager::removeFilesAndFolders(QList< ProjectBaseItem* > items)
 {
     foreach(ProjectBaseItem* item, items){
@@ -335,6 +335,26 @@ bool KTLProjectManager::removeFilesAndFolders(QList< ProjectBaseItem* > items)
         }
     }
     return true;
+}
+#endif
+
+#if KDEV_PLUGIN_VERSION >= 13
+bool KTLProjectManager::removeFilesAndFolders(QList< ProjectBaseItem* > & items)
+{
+    foreach(ProjectBaseItem* item, items){
+        if (ProjectFolderItem* f = item->folder()) {
+            removeFolder(f);
+        } else if (ProjectFileItem* f = item->file()){
+            removeFile(f);
+        }
+    }
+    return true;
+}
+#endif
+
+#if (KDEV_PLUGIN_VERSION >= 13)
+bool KTLProjectManager::moveFilesAndFolders(const QList<KDevelop::ProjectBaseItem*>& items, KDevelop::ProjectFolderItem* newParent){
+    // FIXME implement me
 }
 #endif
 
