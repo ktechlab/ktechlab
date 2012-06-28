@@ -112,7 +112,7 @@ KTechLab should start running at this point.
 If this simple method of launching KTechLab does not work,
 please contact the developers, because you found is a bug.
 
-## Running by multiple users with same build / install directory
+## Running by multiple users with same build/install directory
 
 It is possible to run an already compiled and installed version of KTechLab
 by multiple users. In order to do this, run the script
