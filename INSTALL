@@ -24,6 +24,72 @@ make
 #and make install
 make install
 
+Detailed instructions for building and installing
+=================================================
+
+cmake doesn't produce any output into the source directory, by default.
+Instead it uses extra build directories for that. This makes the
+make clean procedure obsolete, because you only have to remove the build
+directory.
+
+
+1. By using a terminal, navigate to the top-level source-directory
+
+2. Create and enter a build directory:
+
+        mkdir build && cd build
+
+3. Run cmake to generate the Makefiles:
+
+        cmake .. -DCMAKE_BUILD_TYPE=debugfull -DCMAKE_INSTALL_PREFIX=~/usr/
+
+    This command enables debug-symbols to be built
+    and installs all files into a `usr` sub-directory in your home-directory.
+    If cmake complains about any missing libraries,
+    you need to install development versions for those.
+    Make sure cmake finishes with no error until you proceed.
+
+3. Compile and install the source:
+
+        make install
+
+4. If you installed into a non-standard prefix
+    (like suggested in the cmake-command-line above),
+    you need to make sure that some environment variables are set:
+
+        export PATH=~/usr/bin:$PATH
+
+        export LD_LIBRARY_PATH=~/usr/lib/kde4:~/usr/lib:$LD_LIBRARY_PATH
+
+        export XDG_DATA_DIRS=~/usr/share:$XDG_DATA_DIRS
+
+        export QT_PLUGIN_PATH=~/usr/lib/kde4:$QT_PLUGIN_PATH
+
+        export KDEDIRS=~/usr:$KDEDIRS
+
+5. After installing new versions of .desktop files or other
+    freedesktop.org-related files, you need to run:
+
+        kbuildsycoca4
+
+    to update all caches to use these files.
+    This is especially important when creating new plugins.
+    They won't be loadable by (or even visible to) the KDE's plugin-system,
+    until you ran kbuildsycoca4.
+    Note that you need to have the environment variables from step 5 set.
+
+6. On fresh builds, it's necessary to update the mime database.
+    This will be done by the following command:
+
+        update-mime-database /path/to/mime
+
+    Where /path/to/mime is the path, where the ktechlab.xml gets installed to.
+    For example:
+
+        update-mime-database ~/usr/share/mime
+
+    (there should be ~/usr/share/mime/packages/ktechlab.xml in this case)
+
 
 Compilers and Options
 =====================
