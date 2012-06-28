@@ -110,7 +110,7 @@ CMkake is not a run-time dependency of KTechLab.
 
 KTechLab should start running at this point.
 If this simple method of launching KTechLab does not work,
-please contact the developers, because this is a bug.
+please contact the developers, because you found is a bug.
 
 ## Running by multiple users with same build / install directory
 
