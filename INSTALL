@@ -65,6 +65,43 @@ directory.
     (there should be ~/usr/share/mime/packages/ktechlab.xml in this case)
 
 
+
+Running/Testing
+===============
+
+If building and installing has been successfully completed, the command
+
+    ktechlab
+
+Should launch KTechLab. Note that in some cases the KTechLab plugins
+might be disabled, so they need to be enabled from the menu:
+Setting -> Configure KTechLab -> Plugins,
+and enable all the KTechLab-related plugins.
+
+Sometimes it's easier to launch KTechLab from a script,
+mostly for debugging purposes.
+The script presented below sets the environment-variables and
+installs all the mime-types before launching the KTechLab
+executable located in the current directory:
+
+    #!/bin/bash
+
+    export PATH=~/usr/bin:$PATH
+    export LD_LIBRARY_PATH=~/usr/lib/kde4:~/usr/lib:$LD_LIBRARY_PATH
+    # export XDG_DATA_DIRS=~/usr/share:$XDG_DATA_DIRS
+    export XDG_DATA_DIRS=$HOME/usr/share:$XDG_DATA_DIRS
+    export QT_PLUGIN_PATH=~/usr/lib/kde4:$QT_PLUGIN_PATH
+    export KDEDIRS=~/usr:$KDEDIRS
+
+    kbuildsycoca4  &> /dev/null
+
+    update-mime-database $HOME/usr/share/mime
+
+    ./ktechlab
+
+
+
+
 Compilers and Options
 =====================
 
