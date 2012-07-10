@@ -52,9 +52,9 @@ Other notable GIT repositories are located on sourceforge:
     - contains the contents of the previously used SVN repository
 
 - developers' own repositories:
-    - git://ktechlab.git.sourceforge.net/gitroot/ktechlab/ktl-alonzotg
-    - git://ktechlab.git.sourceforge.net/gitroot/ktechlab/ktl-j_ohny_b
-    - git://ktechlab.git.sourceforge.net/gitroot/ktechlab/ktl-zoltan_p
+    - `git://ktechlab.git.sourceforge.net/gitroot/ktechlab/ktl-alonzotg`
+    - `git://ktechlab.git.sourceforge.net/gitroot/ktechlab/ktl-j_ohny_b`
+    - `git://ktechlab.git.sourceforge.net/gitroot/ktechlab/ktl-zoltan_p`
         - the master branch should have the same content as the
             official master branch from github
     - these repositories contain work-in-progress code,
