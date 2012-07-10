@@ -27,7 +27,7 @@ configuration of CMake build system.
             simple-setup.sh
 
 See figure `01-run-simple-setup.png`:
-![](figures-kdevelop4-guide/01-run-simple-setup.png)
+![01-run-simple-setup.png](figures-kdevelop4-guide/01-run-simple-setup.png)
 
 Creating KDevelop 4 project
 ---------------------------
