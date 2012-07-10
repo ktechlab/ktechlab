@@ -136,4 +136,10 @@ just verified, not recreated.
          sh simple-setup.sh
          sh simple-launch.sh
 
+Developing with KDevelop 4
+--------------------------
+
+See the guide `doc/devel/devel-with-kdevelop4.md`.
+
+
 Have fun with KTechLab!
