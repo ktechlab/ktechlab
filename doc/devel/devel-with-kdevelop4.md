@@ -212,7 +212,4 @@ Feel free to contact the developers
 
 Possible improvements for this document
 ---------------------------------------
-- add inline images
-    ![Alt text](/path/to/img.jpg)
-    ![Alt text](/path/to/img.jpg "Optional title")
 - document the usage of test cases
