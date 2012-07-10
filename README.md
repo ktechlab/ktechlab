@@ -28,7 +28,7 @@ Resources
         http://sourceforge.net/mailarchive/forum.php?forum_name=ktechlab-devel
 
 - on IRC, KTechLab developers regularly join the channel
-    #ktechlab, on FreeNode
+        `#ktechlab`, on FreeNode
 
 - source code repositories: see Getting the source section, below
 
