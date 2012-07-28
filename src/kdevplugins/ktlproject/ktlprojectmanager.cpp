@@ -339,7 +339,7 @@ bool KTLProjectManager::removeFilesAndFolders(QList< ProjectBaseItem* > items)
 #endif
 
 #if KDEV_PLUGIN_VERSION >= 13
-bool KTLProjectManager::removeFilesAndFolders(QList< ProjectBaseItem* > & items)
+bool KTLProjectManager::removeFilesAndFolders(const QList< ProjectBaseItem* > & items)
 {
     foreach(ProjectBaseItem* item, items){
         if (ProjectFolderItem* f = item->folder()) {
