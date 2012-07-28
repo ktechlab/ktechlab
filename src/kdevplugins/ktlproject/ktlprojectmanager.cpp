@@ -355,6 +355,8 @@ bool KTLProjectManager::removeFilesAndFolders(const QList< ProjectBaseItem* > & 
 #if (KDEV_PLUGIN_VERSION >= 13)
 bool KTLProjectManager::moveFilesAndFolders(const QList<KDevelop::ProjectBaseItem*>& items, KDevelop::ProjectFolderItem* newParent){
     // FIXME implement me
+    // always fail to move, because this functionality is not implemented
+    return false;
 }
 #endif
 
