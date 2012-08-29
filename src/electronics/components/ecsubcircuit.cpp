@@ -27,7 +27,7 @@ Item* ECSubcircuit::construct( ItemDocument *itemDocument, bool newItem, const c
 LibraryItem* ECSubcircuit::libraryItem()
 {
 	return new LibraryItem(
-		QString::QString("ec/subcircuit"),
+		QString("ec/subcircuit"),
 		QString::null,
 		QString::null,
 		QString::null,
