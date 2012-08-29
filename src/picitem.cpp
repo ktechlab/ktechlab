@@ -131,17 +131,17 @@ void PinItem::drawShape( QPainter& p )
 	if ( (m_pinSettings->type() == PinSettings::pt_input && onLeft) ||
 			 (m_pinSettings->type() == PinSettings::pt_output && !onLeft) )
 	{
-		pa[0] = QPoint::QPoint( midRight, midY );
-		pa[1] = QPoint::QPoint( midLeft, midY - PinDirArrow );
-		pa[2] = QPoint::QPoint( midLeft, midY + PinDirArrow );
+		pa[0] = QPoint( midRight, midY );
+		pa[1] = QPoint( midLeft, midY - PinDirArrow );
+		pa[2] = QPoint( midLeft, midY + PinDirArrow );
 		p.drawPolygon(pa);
 		p.drawLine ( left, midY, right, midY );
 	}
 	else // Left facing arrow
 	{
-		pa[0] = QPoint::QPoint( midLeft, midY );
-		pa[1] = QPoint::QPoint( midRight, midY - PinDirArrow );
-		pa[2] = QPoint::QPoint( midRight, midY + PinDirArrow );
+		pa[0] = QPoint( midLeft, midY );
+		pa[1] = QPoint( midRight, midY - PinDirArrow );
+		pa[2] = QPoint( midRight, midY + PinDirArrow );
 		p.drawPolygon(pa);
 		p.drawLine ( left, midY, right, midY );
 	}

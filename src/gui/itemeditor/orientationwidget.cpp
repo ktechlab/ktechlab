@@ -184,7 +184,7 @@ void OrientationWidget::slotClear()
 		for ( int col=0; col<4; ++col )
 		{
 			// Hmm...this line has crashed before
-			m_toolBtn[row][col]->setPixmap( QPixmap::QPixmap() );
+			m_toolBtn[row][col]->setPixmap( QPixmap() );
 			m_toolBtn[row][col]->setEnabled(false);
 		}
 	}

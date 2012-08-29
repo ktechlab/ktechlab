@@ -92,7 +92,7 @@ Item* Buffer::construct( ItemDocument *itemDocument, bool newItem, const char *i
 LibraryItem* Buffer::libraryItem()
 {
 	return new LibraryItem(
-		QString::QString("ec/buffer"),
+		QString("ec/buffer"),
 		i18n("Buffer"),
 		i18n("Logic"),
 		"buffer.png",
