@@ -7,8 +7,8 @@ ktlicon_DATA = and.png cell.png logic_input.png logic_output.png nand.png \
 				spdt.png spst.png keypad.png opamp.png xnor.png circuit.png flowcode.png \
 				delay.png interrupt.png pinread.png pinwrite.png portread.png portwrite.png \
 				repeat.png while.png for.png assignment.png branch.png delay.png embed.png end.png \
-				for.png interrupt.png pinread.png pinwrite.png portread.png portwrite.png \
-				repeat.png start.png sub.png subcall.png unary.png while.png item.png ic1.png \
+				interrupt.png pinread.png pinwrite.png portread.png portwrite.png \
+				repeat.png start.png sub.png subcall.png unary.png item.png ic1.png \
 				ic2.png ic3.png voltagesignal.png currentsignal.png clockinput.png cccs.png \
 				ccvs.png vcvs.png vccs.png mechanics.png buffer.png external_connection.png \
 				logicprobe.png potentiometer.png resistordip.png bidirled.png project_library.png \

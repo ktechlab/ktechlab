@@ -1,4 +1,5 @@
-INCLUDES = -I$(top_srcdir)/src -I$(top_srcdir)/src/electronics $(all_includes)
+INCLUDES = -I$(top_srcdir)/src -I$(top_srcdir)/src/electronics \
+           -I$(top_srcdir)/src/core $(all_includes)
 METASOURCES = AUTO
 noinst_LTLIBRARIES =  libelements.la
 libelements_la_SOURCES = cccs.cpp ccvs.cpp circuit.cpp currentsource.cpp \
