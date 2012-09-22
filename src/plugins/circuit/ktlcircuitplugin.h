@@ -61,6 +61,10 @@ private:
     ComponentModel *m_componentModel;
     KTechLab::FakeComponentItemFactory* m_fakeComponentItemFactory;
 private slots:
+	/**
+	 * Create a new circuit file and open it. This slot is activated by the
+	 * file_new_circuit action.
+	 */
 	void newCircuitFile();
 
 };
