@@ -13,3 +13,4 @@ X-KDE-PluginInfo-License=LGPL
 X-KDevelop-Version=@KDEV_PLUGIN_VERSION@
 X-KDevelop-Category=Global
 X-KDevelop-Mode=GUI
+X-KDevelop-Interfaces=org.ktechlab.IGuiPlugin
