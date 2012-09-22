@@ -73,6 +73,18 @@ KTLGuiPlugin::~KTLGuiPlugin()
     printf("gui plugin destroyed\n");
 }
 
+void KTLGuiPlugin::addFiletypeToNewFileDialog(const QListWidgetItem& item, const QObject* receiver, const char* slot)
+{
+	// TODO implement
+}
+
+int KTLGuiPlugin::removeFiletypeFromNewFileDialog(const QObject* receiver, const char* slot)
+{
+	// TODO implement
+	return -1;
+}
+
+
 void KTLGuiPlugin::createActionsForMainWindow(Sublime::MainWindow* window,
                                               QString& xmlFile,
                                               KActionCollection& actions)
