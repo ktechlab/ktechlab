@@ -20,9 +20,11 @@ namespace KTechLab
 
 class NewFileDlg;
 
-    class KTLGuiPlugin : public KDevelop::IPlugin, IGuiPlugin
+    class KTLGuiPlugin : public KDevelop::IPlugin, public IGuiPlugin
     {
         Q_OBJECT
+        Q_INTERFACES(KTechLab::IGuiPlugin)
+
         /* IGuiPlugin interface */
 	public:
 		virtual void addFiletypeToNewFileDialog(

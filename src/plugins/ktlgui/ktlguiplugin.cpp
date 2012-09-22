@@ -48,6 +48,8 @@ KTLGuiPlugin::KTLGuiPlugin(QObject* parent, const QVariantList& /* args */)
 {
     printf("creating gui plugin \n");
 
+	KDEV_USE_EXTENSION_INTERFACE( KTechLab::IGuiPlugin )
+
     // create new file dialog
     m_mainWindow = core()->uiController()->activeMainWindow()->window();
     m_newFileDlg = new NewFileDlg(m_mainWindow);
