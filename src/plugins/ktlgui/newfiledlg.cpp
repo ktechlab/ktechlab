@@ -159,4 +159,15 @@ MicroSelectWidget * NewFileDlg::microSelectWidget() const
     return 0;
 }
 
+void NewFileDlg::addFiletypeToNewFileDialog(const QListWidgetItem& item, const QObject* receiver, const char* slot)
+{
+	// TODO implement
+}
+
+int NewFileDlg::removeFiletypeFromNewFileDialog(const QObject* receiver, const char* slot)
+{
+	// TODO implement
+	return -1;
+}
+
 #include "newfiledlg.moc"

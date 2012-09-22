@@ -20,6 +20,7 @@ namespace Ui
 
 class MicroSelectWidget;
 class QIconViewItem;
+class QListWidgetItem;
 
 namespace KTechLab
 {
@@ -48,6 +49,17 @@ class NewFileDlg : public KDialog
 
         MicroSelectWidget * microSelectWidget() const;
 
+		void addFiletypeToNewFileDialog(
+							const QListWidgetItem &item,
+							const QObject *receiver,
+							const char *slot
+							);
+
+		int removeFiletypeFromNewFileDialog(
+							const QObject *receiver,
+							const char *slot
+							);
+
     public slots:
         void fileTypeChanged();
 
@@ -66,6 +78,11 @@ class NewFileDlg : public KDialog
 
         Ui::NewFileWidget * m_pNewFileWidget;
         QWidget * m_pMainParent;
+
+		QList<const QObject*> m_receiverList;
+		QList<const char *> m_slotList;
+
+
 };
 
 }
