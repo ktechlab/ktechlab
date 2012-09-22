@@ -24,6 +24,8 @@
 #include <QHeaderView>
 #include "componenteditorview.h"
 #include "fakecomponentitemfactory.h"
+#include <kactioncollection.h>
+#include <kaction.h>
 
 using namespace KTechLab;
 
@@ -133,6 +135,17 @@ void KTLCircuitPlugin::init()
 
     m_fakeComponentItemFactory = new FakeComponentItemFactory;
     registerComponentFactory(m_fakeComponentItemFactory);
+}
+
+void KTLCircuitPlugin::createActionsForMainWindow(Sublime::MainWindow* window, QString& xmlFile, KActionCollection& actions)
+{
+	xmlFile = "ktlcircuitui.rc";
+
+	KIconLoader *loader = KIconLoader::global();
+
+	KAction *newCircuit = actions.addAction("file_new_circuit");
+	newCircuit->setText( i18n("New Circuit" ) );
+	newCircuit->setIcon( loader->loadIcon( "ktechlab_circuit", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
 }
 
 KTLCircuitPlugin::~KTLCircuitPlugin()
