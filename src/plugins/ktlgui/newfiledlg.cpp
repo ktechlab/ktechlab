@@ -161,13 +161,37 @@ MicroSelectWidget * NewFileDlg::microSelectWidget() const
 
 void NewFileDlg::addFiletypeToNewFileDialog(QListWidgetItem* item, const QObject* receiver, const char* slot)
 {
-	// TODO implement
+	Q_ASSERT(item);
+	Q_ASSERT(receiver);
+	Q_ASSERT(slot);
+	Q_ASSERT(m_receiverList.size() == m_slotList.size());
+
+	m_pNewFileWidget->typeIconView->addItem(item);
+	m_receiverList.append(receiver);
+	m_slotList.append(slot);
 }
 
 int NewFileDlg::removeFiletypeFromNewFileDialog(const QObject* receiver, const char* slot)
 {
-	// TODO implement
-	return -1;
+	Q_ASSERT(receiver);
+	Q_ASSERT(slot);
+
+	int n = m_receiverList.size();;
+	bool anyFound = false;
+
+	for(int i=0; i<n; i++){
+		if((m_receiverList[i] == receiver) && (!strcmp(m_slotList[i],slot))){
+			// it matches, so remove
+			m_receiverList.removeAt(i);
+			m_slotList.removeAt(i);
+			anyFound = true;
+		}
+	}
+	if(anyFound) {
+		return 0;
+	} else {
+		return -1;
+	}
 }
 
 #include "newfiledlg.moc"
