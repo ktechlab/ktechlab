@@ -60,6 +60,9 @@ private:
 
     ComponentModel *m_componentModel;
     KTechLab::FakeComponentItemFactory* m_fakeComponentItemFactory;
+private slots:
+	void newCircuitFile();
+
 };
 
 } // namespace KTechLab
