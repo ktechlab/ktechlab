@@ -10,6 +10,8 @@
 #ifndef KTL_GUI_PLUGIN_H
 #define KTL_GUI_PLUGIN_H
 
+#include "interfaces/iguiplugin.h"
+
 #include <kdevplatform/interfaces/iplugin.h>
 #include <QVariantList>
 
@@ -18,9 +20,23 @@ namespace KTechLab
 
 class NewFileDlg;
 
-    class KTLGuiPlugin : public KDevelop::IPlugin
+    class KTLGuiPlugin : public KDevelop::IPlugin, IGuiPlugin
     {
         Q_OBJECT
+        /* IGuiPlugin interface */
+	public:
+		virtual void addFiletypeToNewFileDialog(
+							const QListWidgetItem &item,
+							const QObject *receiver,
+							const char *slot
+							);
+
+		virtual int removeFiletypeFromNewFileDialog(
+							const QObject *receiver,
+							const char *slot
+							);
+
+		/* rest of the plugin */
         public:
             explicit KTLGuiPlugin( QObject *parent = 0,
                                         const QVariantList &args = QVariantList() );

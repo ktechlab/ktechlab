@@ -12,6 +12,7 @@ set( ktlinterfaces_LIB_SRCS
    idocumentmodel.cpp
    idocumentplugin.cpp
    icomponentdocument.cpp
+   iguiplugin.cpp
    private/documentitem.cpp
    component/icomponentplugin.cpp
    component/icomponent.cpp
