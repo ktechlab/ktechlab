@@ -47,12 +47,19 @@ public:
 
 private:
     void init();
-    KTLComponentViewFactory *m_componentViewFactory;
+
+	void setupNewFile();
+
+	KTLComponentViewFactory *m_componentViewFactory;
     KTLCircuitDocumentFactory *m_documentFactory;
     KTLComponentEditorFactory* m_componentEditorFactory;
 
     ComponentModel *m_componentModel;
     KTechLab::FakeComponentItemFactory* m_fakeComponentItemFactory;
+
+private slots:
+	void onNewCircuitCreation(void);
+
 };
 
 } // namespace KTechLab

@@ -13,10 +13,12 @@
 #include "interfaces/component/componentmodel.h"
 #include "interfaces/component/icomponentplugin.h"
 #include "interfaces/component/icomponent.h"
+#include "interfaces/iguiplugin.h"
 #include "shell/core.h"
 
 #include <interfaces/iuicontroller.h>
 #include <interfaces/idocumentcontroller.h>
+#include <interfaces/iplugincontroller.h>
 #include <KGenericFactory>
 #include <KAboutData>
 #include <KDebug>
@@ -24,6 +26,9 @@
 #include <QHeaderView>
 #include "componenteditorview.h"
 #include "fakecomponentitemfactory.h"
+#include <KIconLoader>
+#include <QListWidget>
+#include <iostream>
 
 using namespace KTechLab;
 
@@ -133,6 +138,30 @@ void KTLCircuitPlugin::init()
 
     m_fakeComponentItemFactory = new FakeComponentItemFactory;
     registerComponentFactory(m_fakeComponentItemFactory);
+
+	setupNewFile();
+}
+
+void KTLCircuitPlugin::setupNewFile()
+{
+	KDevelop::IPlugin *guiPlugin;
+	guiPlugin = KDevelop::Core::self()->pluginController()->pluginForExtension("org.ktechlab.IGuiPlugin");
+	Q_ASSERT(guiPlugin);
+
+	KTechLab::IGuiPlugin *castedGuiPlugin;
+	castedGuiPlugin = dynamic_cast<KTechLab::IGuiPlugin*>(guiPlugin);
+
+	Q_ASSERT(castedGuiPlugin);
+
+	KIconLoader *loader = KIconLoader::global();
+
+    QString text = QString("%1 (.circuit)").arg( i18n("Circuit") );
+
+	QListWidgetItem *item = new QListWidgetItem(
+		loader->loadIcon( "ktechlab_circuit", KIconLoader::NoGroup, KIconLoader::SizeHuge ), text, NULL);
+
+	castedGuiPlugin->addFiletypeToNewFileDialog(item, this, SLOT(onNewCircuitCreation()));
+
 }
 
 KTLCircuitPlugin::~KTLCircuitPlugin()
@@ -182,6 +211,11 @@ void KTLCircuitPlugin::unload()
 {
     KDevelop::Core::self()->uiController()->removeToolView(m_componentViewFactory);
     KDevelop::Core::self()->uiController()->removeToolView(m_componentEditorFactory);
+}
+
+void KTLCircuitPlugin::onNewCircuitCreation(void )
+{
+	qWarning("void KTLCircuitPlugin::onNewCircuitCreation(void ): it works\n");
 }
 
 #include "ktlcircuitplugin.moc"
