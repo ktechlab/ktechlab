@@ -26,7 +26,7 @@ class NewFileDlg;
         /* IGuiPlugin interface */
 	public:
 		virtual void addFiletypeToNewFileDialog(
-							const QListWidgetItem &item,
+							QListWidgetItem *item,
 							const QObject *receiver,
 							const char *slot
 							);
