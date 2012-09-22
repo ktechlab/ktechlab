@@ -73,7 +73,7 @@ KTLGuiPlugin::~KTLGuiPlugin()
     printf("gui plugin destroyed\n");
 }
 
-void KTLGuiPlugin::addFiletypeToNewFileDialog(const QListWidgetItem& item, const QObject* receiver, const char* slot)
+void KTLGuiPlugin::addFiletypeToNewFileDialog(QListWidgetItem* item, const QObject* receiver, const char* slot)
 {
 	m_newFileDlg->addFiletypeToNewFileDialog(item, receiver, slot);
 }

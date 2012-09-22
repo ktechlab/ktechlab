@@ -38,7 +38,7 @@ public:
 	 *
 	 * Note that the slot has to take no parameters.
 	 */
-	virtual void addFiletypeToNewFileDialog(const QListWidgetItem &item,
+	virtual void addFiletypeToNewFileDialog(QListWidgetItem *item,
 									const QObject *receiver,
 									const char *slot
    								) = 0;

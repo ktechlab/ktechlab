@@ -50,7 +50,7 @@ class NewFileDlg : public KDialog
         MicroSelectWidget * microSelectWidget() const;
 
 		void addFiletypeToNewFileDialog(
-							const QListWidgetItem &item,
+							QListWidgetItem *item,
 							const QObject *receiver,
 							const char *slot
 							);
