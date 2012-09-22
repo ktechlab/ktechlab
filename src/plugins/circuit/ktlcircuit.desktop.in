@@ -17,4 +17,5 @@ X-KDevelop-SupportedMimeTypes=application/x-circuit
 #keeps crashing, so comment it out for the moment
 #X-KDevelop-IOptional=org.kdevelop.IRouterPlugin
 X-KDevelop-Interfaces=org.kdevelop.IDocument
+X-KDevelop-IRequired=org.ktechlab.IGuiPlugin
 
