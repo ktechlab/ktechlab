@@ -13,10 +13,12 @@
 #include "interfaces/component/componentmodel.h"
 #include "interfaces/component/icomponentplugin.h"
 #include "interfaces/component/icomponent.h"
+#include "interfaces/iguiplugin.h"
 #include "shell/core.h"
 
 #include <interfaces/iuicontroller.h>
 #include <interfaces/idocumentcontroller.h>
+#include <interfaces/iplugincontroller.h>
 #include <KGenericFactory>
 #include <KAboutData>
 #include <KDebug>
@@ -24,11 +26,9 @@
 #include <QHeaderView>
 #include "componenteditorview.h"
 #include "fakecomponentitemfactory.h"
-#include <kactioncollection.h>
-#include <kaction.h>
-#include <qdir.h>
-#include <qtemporaryfile.h>
-#include <interfaces/simulator/isimulationmanager.h>
+#include <KIconLoader>
+#include <QListWidget>
+#include <iostream>
 
 using namespace KTechLab;
 
@@ -138,6 +138,30 @@ void KTLCircuitPlugin::init()
 
     m_fakeComponentItemFactory = new FakeComponentItemFactory;
     registerComponentFactory(m_fakeComponentItemFactory);
+
+	setupNewFile();
+}
+
+void KTLCircuitPlugin::setupNewFile()
+{
+	KDevelop::IPlugin *guiPlugin;
+	guiPlugin = KDevelop::Core::self()->pluginController()->pluginForExtension("org.ktechlab.IGuiPlugin");
+	Q_ASSERT(guiPlugin);
+
+	KTechLab::IGuiPlugin *castedGuiPlugin;
+	castedGuiPlugin = dynamic_cast<KTechLab::IGuiPlugin*>(guiPlugin);
+
+	Q_ASSERT(castedGuiPlugin);
+
+	KIconLoader *loader = KIconLoader::global();
+
+    QString text = QString("%1 (.circuit)").arg( i18n("Circuit") );
+
+	QListWidgetItem *item = new QListWidgetItem(
+		loader->loadIcon( "ktechlab_circuit", KIconLoader::NoGroup, KIconLoader::SizeHuge ), text, NULL);
+
+	castedGuiPlugin->addFiletypeToNewFileDialog(item, this, SLOT(onNewCircuitCreation()));
+
 }
 
 void KTLCircuitPlugin::createActionsForMainWindow(
@@ -209,36 +233,11 @@ void KTLCircuitPlugin::unload()
     KDevelop::Core::self()->uiController()->removeToolView(m_componentEditorFactory);
 }
 
-void KTLCircuitPlugin::newCircuitFile()
+
+void KTLCircuitPlugin::onNewCircuitCreation(void )
 {
-	qDebug() << "KTLCircuitPlugin::newCircuitFile() activated\n";
-
-	// get a temporary file name
-	QTemporaryFile tmpFile(QDir::tempPath().append(QDir::separator())
-		.append("ktlXXXXXX.circuit"));
-	tmpFile.setAutoRemove(false);
-	tmpFile.open();
-	qDebug() << "creating temporary file: " << tmpFile.fileName()
-		<< "pattern: " << tmpFile.fileTemplate();
-	// write a minial circuit document into the temporary file
-	tmpFile.write("<!DOCTYPE KTechlab>\n"
-				"<document type=\"circuit\" >"
-				"</document>"
-				);
-	tmpFile.close();
-	KUrl url(tmpFile.fileName());
-	core()->documentController()->openDocument(url, "ktlcircuit");
+	qWarning("void KTLCircuitPlugin::onNewCircuitCreation(void ): it works\n");
 }
-
-void KTLCircuitPlugin::printSimulationManagerStatus()
-{
-	ISimulationManager *sim = ISimulationManager::self();
-	kDebug() << "Registered document mime types:";
-	kDebug() << sim->registeredDocumentMimeTypeNames();
-	kDebug() << "Simulation types:";
-	kDebug() << sim->registeredSimulationTypes();
-}
-
 
 #include "ktlcircuitplugin.moc"
 
