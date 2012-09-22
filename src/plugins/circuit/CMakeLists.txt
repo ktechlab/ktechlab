@@ -31,5 +31,5 @@ install(TARGETS ktlcircuitplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
 ########### install files ###############
 
 ktl_install_desktop( ktlcircuit.desktop )
-#install( FILES ktlcircuit.rc DESTINATION ${DATA_INSTALL_DIR}/ktlcircuit )
+install( FILES ktlcircuitui.rc DESTINATION ${DATA_INSTALL_DIR}/ktlcircuit )
 
