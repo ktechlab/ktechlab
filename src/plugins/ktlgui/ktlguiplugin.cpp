@@ -75,13 +75,12 @@ KTLGuiPlugin::~KTLGuiPlugin()
 
 void KTLGuiPlugin::addFiletypeToNewFileDialog(const QListWidgetItem& item, const QObject* receiver, const char* slot)
 {
-	// TODO implement
+	m_newFileDlg->addFiletypeToNewFileDialog(item, receiver, slot);
 }
 
 int KTLGuiPlugin::removeFiletypeFromNewFileDialog(const QObject* receiver, const char* slot)
 {
-	// TODO implement
-	return -1;
+	return m_newFileDlg->removeFiletypeFromNewFileDialog(receiver, slot);
 }
 
 
