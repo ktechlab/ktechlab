@@ -156,6 +156,12 @@ void CircuitDocument::init()
      */
     d->simulator = ISimulationManager::self()->simulatorForDocument(this, "transient");
     Q_ASSERT(d->simulator);
+	// hook up stuff
+	if(! connect(d->circuitModel, SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)),
+			d->simulator, SLOT(documentStructureChanged(const QModelIndex &, const QModelIndex &)))
+		) {
+		qWarning() << "connecting circuit model to simulator failed\n";
+	}
 }
 
 QString CircuitDocument::documentType() const
