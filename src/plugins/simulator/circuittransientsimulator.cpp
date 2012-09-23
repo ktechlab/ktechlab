@@ -69,7 +69,7 @@ void CircuitTransientSimulator::componentParameterChanged(QVariantMap* component
     */
 }
 
-void CircuitTransientSimulator::documentStructureChanged()
+void CircuitTransientSimulator::documentStructureChanged(const QModelIndex &, const QModelIndex &)
 {
 	qDebug() << "CircuitTransientSimulator::documentStructureChanged()\n";
 }

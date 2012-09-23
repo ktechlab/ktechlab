@@ -16,6 +16,7 @@
 #include <QObject>
 #include <QVariantMap>
 
+class QModelIndex;
 namespace KTechLab {
 
 class IDocumentModel;
@@ -69,7 +70,7 @@ public slots:
      * Slot activate in case of the document structure has changed.
      * The simulator should rebuild its data structures.
      */
-    virtual void documentStructureChanged() = 0;
+    virtual void documentStructureChanged(const QModelIndex &, const QModelIndex &) = 0;
 
     /**
      * Slot to be activated my the document in case of the parameters

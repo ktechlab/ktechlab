@@ -65,7 +65,7 @@ public slots:
      * Slot activate in case of the document structure has changed.
      * The simulator should rebuild its data structures.
      */
-    virtual void documentStructureChanged();
+    virtual void documentStructureChanged(const QModelIndex &, const QModelIndex &);
 
     /**
      * Slot to be activated my the document in case of the parameters
