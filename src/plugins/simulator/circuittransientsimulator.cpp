@@ -14,13 +14,13 @@
 #include "interfaces/icomponentdocument.h"
 #include "interfaces/idocumentmodel.h"
 
-
-#include <kdebug.h>
 #include <interfaces/simulator/isimulationmanager.h>
 
 #include <simulator.h>
 
 #include "lib/simulator/simulator.h"
+
+#include <qdebug.h>
 
 using namespace KTechLab;
 
@@ -29,40 +29,40 @@ CircuitTransientSimulator::CircuitTransientSimulator(IDocumentModel* doc):
 {
 //    doc->
 //    Simulator::self()->attachCircuit();
-    printf("transient simulator created\n");
+    qDebug() <<"transient simulator created\n";
 }
 
 // FIXME quick hack for start/pause/tooglePause: all circuits run, or none
 
 void CircuitTransientSimulator::start()
 {
-    kDebug() << "start\n";
+    qDebug() << "start\n";
     Simulator::self()->slotSetSimulating(true);
 }
 
 void CircuitTransientSimulator::pause()
 {
-    kDebug() << "pause\n";
+    qDebug() << "pause\n";
     Simulator::self()->slotSetSimulating(false);
 }
 
 void CircuitTransientSimulator::tooglePause()
 {
-    kDebug() << "togglePause\n";
+    qDebug() << "togglePause\n";
     Simulator::self()->slotSetSimulating(!Simulator::self()->isSimulating());
 }
 
 /*
 IElement* CircuitTransientSimulator::getModelForComponent(QVariantMap* component)
 {
-    kDebug() << "getModelForComponent\n";
+    qDebug() << "getModelForComponent\n";
     return NULL;
 }
 */
 
 void CircuitTransientSimulator::componentParameterChanged(QVariantMap* component)
 {
-    kDebug() << "componentParameterChanged signaled\n";
+    qDebug() << "componentParameterChanged signaled\n";
     /*
     the circuit state values have to be reset here, and the new state
     has to be recalculated
@@ -71,18 +71,18 @@ void CircuitTransientSimulator::componentParameterChanged(QVariantMap* component
 
 void CircuitTransientSimulator::documentStructureChanged()
 {
-
+	qDebug() << "CircuitTransientSimulator::documentStructureChanged()\n";
 }
 
 void CircuitTransientSimulator::dumpDebugInfo() const
 {
-
+	qDebug() << "CircuitTransientSimulator::dumpDebugInfo() const\n";
 }
 
 #if 0
 void CircuitTransientSimulator::documentStructureChanged()
 {
-    kDebug() << "documentStructureChanged\n";
+    qDebug() << "documentStructureChanged\n";
     /*
     in case of document structure change, the simulator data
     structures should be updated
@@ -176,9 +176,9 @@ bool CircuitTransientSimulator::recreateElementList()
             // is the following line efficient?
         m_idToElement.insert(m_doc->components().key(componentVariant),
                              element);
-        kDebug() << "created model for: " << componentVarMap << "\n";
+        qDebug() << "created model for: " << componentVarMap << "\n";
     }
-    kDebug() << "created " << m_allElementList.size() << " elements\n";
+    qDebug() << "created " << m_allElementList.size() << " elements\n";
     return true;
 }
 
@@ -204,7 +204,7 @@ bool CircuitTransientSimulator::recreateNodeList()
         m_idToNode.insert(id, pin);
     }
     // some statistics
-    kDebug() << "created " << m_nodeList.size() << " nodes\n";
+    qDebug() << "created " << m_nodeList.size() << " nodes\n";
     return true;
 }
 
@@ -229,7 +229,7 @@ bool CircuitTransientSimulator::recreateWireList()
         IPin *startPin = 0;
         IPin *endPin = 0;
         bool startIsChild = variantToBool(connectorMap.value("start-node-is-child"), success);
-        // kDebug() << "startIsChild: " << startIsChild;
+        // qDebug() << "startIsChild: " << startIsChild;
         if( !success ){
             kError() << "can't get start-node-is-child property\n";
             return false;
@@ -307,7 +307,7 @@ bool CircuitTransientSimulator::recreateWireList()
         m_idToWire.insert(id, wire);
     }
     //
-    kDebug() << "created " << m_allWireList.size() << " wires\n";
+    qDebug() << "created " << m_allWireList.size() << " wires\n";
     return true;
 }
 
@@ -325,7 +325,7 @@ bool CircuitTransientSimulator::createAllPinList()
         m_allPinList.append(pin);
     }
     // stats
-    kDebug() << "in total " << m_allPinList.size() << " pins are in the document\n";
+    qDebug() << "in total " << m_allPinList.size() << " pins are in the document\n";
     return true;
 }
 
@@ -366,7 +366,7 @@ bool CircuitTransientSimulator::splitPinsInGroups()
         }
     }
     // status
-    kDebug() << "created " << m_pinGroups.size() << " pin groups\n";
+    qDebug() << "created " << m_pinGroups.size() << " pin groups\n";
     return true;
 }
 
@@ -402,20 +402,20 @@ bool CircuitTransientSimulator::splitDocumentInElementSets()
     // check for unassigned elements
     foreach(IElement *e, m_allElementList){
         if(! elementInSet.contains(e) ){
-            kDebug() << "BUG: Element not assigned to any element set\n";
+            qDebug() << "BUG: Element not assigned to any element set\n";
             return false;
         }
     }
     // stats
-    kDebug() << "created " << m_allElementSetsList.size() << " element sets\n";
+    qDebug() << "created " << m_allElementSetsList.size() << " element sets\n";
     return true;
 }
 
 void CircuitTransientSimulator::simulationTimerTicked()
 {
-    kDebug() << "simulationTimerTicked\n";
+    qDebug() << "simulationTimerTicked\n";
     if( ! m_canBeSimulated ){
-        // kDebug() << "shouldn't do anything\n";
+        // qDebug() << "shouldn't do anything\n";
         return;
     }
     for(int step=0; step<m_stepsPerTick; ++step){
