@@ -21,6 +21,9 @@ namespace Ui
 class MicroSelectWidget;
 class QIconViewItem;
 
+namespace KTechLab
+{
+
 /**
 A standard dialog for getting file details from the user for a new project
 @short Dialog for new file details
@@ -32,28 +35,39 @@ class NewFileDlg : public KDialog
     public:
         NewFileDlg( QWidget *parent );
 
+        /**
+         Method called when the user cancels the dialog box, for example by
+         pressing the cancel button
+         */
         void reject();
         void accept();
 
         bool accepted() const { return m_bAccepted; }
-        int fileType() const { return m_fileType; }
-        int codeType() const { return m_codeType; }
         bool addToProject() const { return m_bAddToProject; }
         QString microID() const { return m_microID; }
+
         MicroSelectWidget * microSelectWidget() const;
 
     public slots:
         void fileTypeChanged();
 
+    signals:
+        void signalFileNewAssembly();
+        void signalFileNewC();
+        void signalFileNewCircuit();
+        void signalFileNewFlowCode();
+        void signalFileNewMechanics();
+        void signalFileNewMicrobe();
+
     protected:
         bool m_bAccepted;
-        int m_fileType;
-        int m_codeType;
         bool m_bAddToProject;
         QString m_microID;
 
         Ui::NewFileWidget * m_pNewFileWidget;
         QWidget * m_pMainParent;
 };
+
+}
 
 #endif

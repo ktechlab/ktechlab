@@ -31,6 +31,8 @@
 #include <QLabel>
 #include <QStyle>
 
+using namespace KTechLab;
+
 NewFileDlg::NewFileDlg( QWidget *parent )
     : KDialog( parent )
 {
@@ -92,6 +94,9 @@ NewFileDlg::NewFileDlg( QWidget *parent )
 void NewFileDlg::accept()
 {
     hide();
+
+    printf("new file dialog accepted\n");
+
     m_bAccepted = true;
 
     const QString fileText = m_pNewFileWidget->typeIconView->currentItem()->text();
@@ -99,11 +104,43 @@ void NewFileDlg::accept()
     m_bAddToProject = m_pNewFileWidget->addToProjectCheck->isChecked();
 
 //     m_microID = m_pNewFileWidget->m_pMicroSelect->micro();
+
+    // check which signal to emit
+    qDebug() << "selection: " << m_pNewFileWidget->typeIconView->currentIndex();
+    qDebug() << "selection count: " << m_pNewFileWidget->typeIconView->currentIndex().row();
+
+    switch(m_pNewFileWidget->typeIconView->currentIndex().row()){
+        case 0:
+            // assembly
+            emit signalFileNewAssembly();
+            break;
+        case 1:
+            // C
+            emit signalFileNewC();
+            break;
+        case 2:
+            // circuit
+            emit signalFileNewCircuit();
+            break;
+        case 3:
+            // flowcode
+            emit signalFileNewFlowCode();
+            break;
+        case 4:
+            // microbe
+            emit signalFileNewMicrobe();
+            break;
+        default:
+            qCritical("unexpected item selected in new file widget!\n");
+            printf("item number: %d\n",
+                   m_pNewFileWidget->typeIconView->currentIndex().row());
+    }
 }
 
 
 void NewFileDlg::reject()
 {
+    hide();
     m_bAccepted = false;
 }
 

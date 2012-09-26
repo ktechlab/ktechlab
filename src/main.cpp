@@ -8,7 +8,6 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "mainwindow.h"
 #include "simulationmanager.h"
 #include "ktechlabideextension.h"
 #include "config.h"
