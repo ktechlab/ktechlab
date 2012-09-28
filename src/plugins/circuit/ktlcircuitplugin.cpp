@@ -24,6 +24,10 @@
 #include <QHeaderView>
 #include "componenteditorview.h"
 #include "fakecomponentitemfactory.h"
+#include <kactioncollection.h>
+#include <kaction.h>
+#include <qdir.h>
+#include <qtemporaryfile.h>
 
 using namespace KTechLab;
 
@@ -135,6 +139,18 @@ void KTLCircuitPlugin::init()
     registerComponentFactory(m_fakeComponentItemFactory);
 }
 
+void KTLCircuitPlugin::createActionsForMainWindow(Sublime::MainWindow* window, QString& xmlFile, KActionCollection& actions)
+{
+	xmlFile = "ktlcircuitui.rc";
+
+	KIconLoader *loader = KIconLoader::global();
+
+	KAction *newCircuit = actions.addAction("file_new_circuit");
+	newCircuit->setText( i18n("New Circuit" ) );
+	newCircuit->setIcon( loader->loadIcon( "ktechlab_circuit", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
+	connect(newCircuit, SIGNAL(triggered()), this, SLOT(newCircuitFile()));
+}
+
 KTLCircuitPlugin::~KTLCircuitPlugin()
 {
     // it crashes, when we delete this. I guess,
@@ -182,6 +198,27 @@ void KTLCircuitPlugin::unload()
 {
     KDevelop::Core::self()->uiController()->removeToolView(m_componentViewFactory);
     KDevelop::Core::self()->uiController()->removeToolView(m_componentEditorFactory);
+}
+
+void KTLCircuitPlugin::newCircuitFile()
+{
+	qDebug() << "KTLCircuitPlugin::newCircuitFile() activated\n";
+
+	// get a temporary file name
+	QTemporaryFile tmpFile(QDir::tempPath().append(QDir::separator())
+		.append("ktlXXXXXX.circuit"));
+	tmpFile.setAutoRemove(false);
+	tmpFile.open();
+	qDebug() << "creating temporary file: " << tmpFile.fileName()
+		<< "pattern: " << tmpFile.fileTemplate();
+	// write a minial circuit document into the temporary file
+	tmpFile.write("<!DOCTYPE KTechlab>\n"
+				"<document type=\"circuit\" >"
+				"</document>"
+				);
+	tmpFile.close();
+	KUrl url(tmpFile.fileName());
+	core()->documentController()->openDocument(url, "ktlcircuit");
 }
 
 #include "ktlcircuitplugin.moc"
