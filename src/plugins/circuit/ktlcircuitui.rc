@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<gui name="ktechlab" version="1">
+  <MenuBar>
+    <Menu name="file">
+        <text context="@title:menu">&amp;File</text>
+        <DefineGroup append="new_merge" name="new_merge"/>
+		<Action name="file_new_circuit" group="new_merge" />
+        <DefineGroup append="open_merge" name="open_merge"/>
+        <DefineGroup append="save_merge" name="save_merge"/>
+        <DefineGroup append="revert_merge" name="revert_merge"/>
+        <DefineGroup append="print_merge" name="print_merge"/>
+        <Action name="file_closeother" append="close_merge"/>
+        <DefineGroup append="close_merge" name="close_merge"/>
+    </Menu>
+  </MenuBar>
+  <ToolBar noMerge="1" name="mainToolBar">
+    <text>Main Toolbar</text>
+	<Action name="file_new_circuit" />
+    <Separator name="separator_0"/>
+  </ToolBar>
+</gui>
