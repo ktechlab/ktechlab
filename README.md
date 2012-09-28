@@ -28,7 +28,7 @@ Resources
         http://sourceforge.net/mailarchive/forum.php?forum_name=ktechlab-devel
 
 - on IRC, KTechLab developers regularly join the channel
-    #ktechlab, on FreeNode
+        `#ktechlab`, on FreeNode
 
 - source code repositories: see Getting the source section, below
 
@@ -52,9 +52,9 @@ Other notable GIT repositories are located on sourceforge:
     - contains the contents of the previously used SVN repository
 
 - developers' own repositories:
-    - git://ktechlab.git.sourceforge.net/gitroot/ktechlab/ktl-alonzotg
-    - git://ktechlab.git.sourceforge.net/gitroot/ktechlab/ktl-j_ohny_b
-    - git://ktechlab.git.sourceforge.net/gitroot/ktechlab/ktl-zoltan_p
+    - `git://ktechlab.git.sourceforge.net/gitroot/ktechlab/ktl-alonzotg`
+    - `git://ktechlab.git.sourceforge.net/gitroot/ktechlab/ktl-j_ohny_b`
+    - `git://ktechlab.git.sourceforge.net/gitroot/ktechlab/ktl-zoltan_p`
         - the master branch should have the same content as the
             official master branch from github
     - these repositories contain work-in-progress code,
@@ -67,8 +67,8 @@ Checking out from GIT can be performed with the following commands:
     git checkout -b master --track origin/master
 
 
-Building and Installing
------------------------
+Building and Running
+--------------------
 
 Required dependencies
 
@@ -91,94 +91,55 @@ Optional dependencies
 Since KDE4, all Makefiles in KDE projects are generated using CMake.
 After checking out the source (see Getting the source),
 here is how to compile and install KTechLab.
+CMkake is not a run-time dependency of KTechLab.
+
 
 1. By using a terminal, navigate to the top-level source-directory
 
-2. Create and enter a build directory:
+2. Run the shell script `simple-setup.sh`.
+    This command compiles KTechLab into the directory `simple-build`,
+    installs it into the directory `simple-install` and
+    sets up the user-specific settings (syscoca, mime database) for the
+    current user.
 
-        mkdir build && cd build
+         sh simple-setup.sh
 
-3. Run cmake to generate the Makefiles:
+3. Launch KTechLab by running the script `simple-launch.sh`
 
-        cmake .. -DCMAKE_BUILD_TYPE=debugfull -DCMAKE_INSTALL_PREFIX=~/usr/
+         sh simple-launch.sh
 
-    This command enables debug-symbols to be built
-    and installs all files into a `usr` sub-directory in your home-directory.
-    If cmake complains about any missing libraries,
-    you need to install development versions for those.
-    Make sure cmake finishes with no error until you proceed.
+KTechLab should start running at this point.
+If this simple method of launching KTechLab does not work,
+please contact the developers, because you have found a bug.
 
-3. Compile and install the source:
+## Running by multiple users with same build/install directory
 
-        make install
+It is possible to run an already compiled and installed version of KTechLab
+by multiple users. In order to do this, run the script
+`ktechlab-user-setup.sh` from the `simple-install/bin/` directory
 
-4. If you installed into a non-standard prefix
-    (like suggested in the cmake-command-line above),
-    you need to make sure that some environment variables are set:
+         sh simple/install/bin/ktechlab-user-setup.sh
 
-        export PATH=~/usr/bin:$PATH
+Then you can launch KTechLab as usual
 
-        export LD_LIBRARY_PATH=~/usr/lib/kde4:~/usr/lib:$LD_LIBRARY_PATH
+        sh simple-launch.sh
 
-        export XDG_DATA_DIRS=~/usr/share:$XDG_DATA_DIRS
+## Running a build when the source/build/install directory has been moved
 
-        export QT_PLUGIN_PATH=~/usr/lib/kde4:$QT_PLUGIN_PATH
+It the source directory has been moved, then the setup procedure has
+to be rerun. This is due to the fact that in the launch scripts of
+KTechLab, absolute directory paths are generated.
+The compilation step should be a lot faster than previously, because
+the source files have not been changed, so the existing build is
+just verified, not recreated.
 
-        export KDEDIRS=~/usr:$KDEDIRS
+         sh simple-setup.sh
+         sh simple-launch.sh
 
-5. After installing new versions of .desktop files or other
-    freedesktop.org-related files, you need to run:
+Developing with KDevelop 4
+--------------------------
 
-        kbuildsycoca4
-
-    to update all caches to use these files.
-    This is especially important when creating new plugins.
-    They won't be loadable by (or even visible to) the KDE's plugin-system,
-    until you ran kbuildsycoca4.
-    Note that you need to have the environment variables from step 5 set.
-
-6. On fresh builds, it's necessary to update the mime database.
-    This will be done by the following command:
-
-        update-mime-database /path/to/mime
-
-    Where /path/to/mime is the path, where the ktechlab.xml gets installed to.
-    For example:
-
-        update-mime-database ~/usr/share/mime
-
-    (there should be ~/usr/share/mime/packages/ktechlab.xml in this case)
+See the guide `doc/devel/devel-with-kdevelop4.md`.
 
 
-Running/Testing
------------------------
-
-If building and installing has been successfully completed, the command
-
-    ktechlab
-
-Should launch KTechLab. Note that in some cases the KTechLab plugins
-might be disabled, so they need to be enabled from the menu:
-Setting -> Configure KTechLab -> Plugins,
-and enable all the KTechLab-related plugins.
-
-Sometimes it's easier to launch KTechLab from a script,
-mostly for debugging purposes.
-The script presented below sets the environment-variables and
-installs all the mime-types before launching the KTechLab
-executable located in the current directory:
-
-    #!/bin/bash
-
-    export PATH=~/usr/bin:$PATH
-    export LD_LIBRARY_PATH=~/usr/lib/kde4:~/usr/lib:$LD_LIBRARY_PATH
-    # export XDG_DATA_DIRS=~/usr/share:$XDG_DATA_DIRS
-    export XDG_DATA_DIRS=$HOME/usr/share:$XDG_DATA_DIRS
-    export QT_PLUGIN_PATH=~/usr/lib/kde4:$QT_PLUGIN_PATH
-    export KDEDIRS=~/usr:$KDEDIRS
-
-    kbuildsycoca4  &> /dev/null
-
-    update-mime-database $HOME/usr/share/mime
-
-    ./ktechlab
+Have fun with KTechLab!
