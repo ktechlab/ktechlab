@@ -28,6 +28,7 @@
 #include <kaction.h>
 #include <qdir.h>
 #include <qtemporaryfile.h>
+#include <interfaces/simulator/isimulationmanager.h>
 
 using namespace KTechLab;
 
@@ -154,8 +155,8 @@ void KTLCircuitPlugin::createActionsForMainWindow(
 	connect(newCircuit, SIGNAL(triggered()), this, SLOT(newCircuitFile()));
 
 	KAction *simulatorStatus = actions.addAction( "help_debug_simulator_status");
-	simulatorStatus->setText(i18n("Print simulator plugin status"));
-	connect(simulatorStatus, SIGNAL(triggered()), this, SLOT(printPluginStatus()));
+	simulatorStatus->setText(i18n("Print simulator manager status"));
+	connect(simulatorStatus, SIGNAL(triggered()), this, SLOT(printSimulationManagerStatus()));
 }
 
 KTLCircuitPlugin::~KTLCircuitPlugin()
@@ -229,9 +230,13 @@ void KTLCircuitPlugin::newCircuitFile()
 	core()->documentController()->openDocument(url, "ktlcircuit");
 }
 
-void KTLCircuitPlugin::printPluginStatus()
+void KTLCircuitPlugin::printSimulationManagerStatus()
 {
-	kDebug() << "KTLCircuitPlugin::printPluginStatus()";
+	ISimulationManager *sim = ISimulationManager::self();
+	kDebug() << "Registered document mime types:";
+	kDebug() << sim->registeredDocumentMimeTypeNames();
+	kDebug() << "Simulation types:";
+	kDebug() << sim->registeredSimulationTypes();
 }
 
 
