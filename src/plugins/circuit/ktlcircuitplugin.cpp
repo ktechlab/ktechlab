@@ -149,6 +149,10 @@ void KTLCircuitPlugin::createActionsForMainWindow(Sublime::MainWindow* window, Q
 	newCircuit->setText( i18n("New Circuit" ) );
 	newCircuit->setIcon( loader->loadIcon( "ktechlab_circuit", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
 	connect(newCircuit, SIGNAL(triggered()), this, SLOT(newCircuitFile()));
+
+	KAction *simulatorStatus = actions.addAction( "help_debug_simulator_status");
+	simulatorStatus->setText(i18n("Print simulator plugin status"));
+	connect(simulatorStatus, SIGNAL(triggered()), this, SLOT(printPluginStatus()));
 }
 
 KTLCircuitPlugin::~KTLCircuitPlugin()
@@ -220,6 +224,12 @@ void KTLCircuitPlugin::newCircuitFile()
 	KUrl url(tmpFile.fileName());
 	core()->documentController()->openDocument(url, "ktlcircuit");
 }
+
+void KTLCircuitPlugin::printPluginStatus()
+{
+	kDebug() << "KTLCircuitPlugin::printPluginStatus()";
+}
+
 
 #include "ktlcircuitplugin.moc"
 

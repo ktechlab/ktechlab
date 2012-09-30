@@ -67,6 +67,10 @@ private slots:
 	 */
 	void newCircuitFile();
 
+	/**
+	 * Print the status of the simulator pluging
+	 */
+	void printPluginStatus();
 };
 
 } // namespace KTechLab
