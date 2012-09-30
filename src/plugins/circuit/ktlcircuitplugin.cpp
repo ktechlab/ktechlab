@@ -116,7 +116,7 @@ private:
     KTLCircuitPlugin * m_plugin;
 };
 
-KTLCircuitPlugin::KTLCircuitPlugin( QObject *parent, const QVariantList& args )
+KTLCircuitPlugin::KTLCircuitPlugin( QObject *parent, const QVariantList& /* args */ )
     : KTechLab::IDocumentPlugin( KTLCircuitFactory::componentData(), parent ),
     m_componentModel( new ComponentModel() )
 {
@@ -139,7 +139,10 @@ void KTLCircuitPlugin::init()
     registerComponentFactory(m_fakeComponentItemFactory);
 }
 
-void KTLCircuitPlugin::createActionsForMainWindow(Sublime::MainWindow* window, QString& xmlFile, KActionCollection& actions)
+void KTLCircuitPlugin::createActionsForMainWindow(
+	Sublime::MainWindow* /* window */,
+	QString& xmlFile,
+	KActionCollection& actions)
 {
 	xmlFile = "ktlcircuitui.rc";
 
@@ -188,7 +191,8 @@ void KTLCircuitPlugin::deregisterComponentFactory(IComponentItemFactory* factory
     }
 }
 
-IComponentItemFactory* KTLCircuitPlugin::componentItemFactory(const QString& name, Theme* theme)
+IComponentItemFactory* KTLCircuitPlugin::componentItemFactory(const QString& name,
+															  Theme* /* theme */ )
 {
     IComponentItemFactory* factory = m_componentModel->factoryForComponent(name);
     if (!factory) {
