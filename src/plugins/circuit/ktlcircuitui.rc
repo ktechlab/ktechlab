@@ -13,6 +13,11 @@
         <Action name="file_closeother" append="close_merge"/>
         <DefineGroup append="close_merge" name="close_merge"/>
     </Menu>
+    <Menu name="help">
+		<Menu name="help_debug">
+			<Action name="help_debug_simulator_status" append="help_debug_merge"/>
+		</Menu>
+    </Menu>
   </MenuBar>
   <ToolBar noMerge="1" name="mainToolBar">
     <text>Main Toolbar</text>

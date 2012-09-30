@@ -28,6 +28,7 @@
 #include <kaction.h>
 #include <qdir.h>
 #include <qtemporaryfile.h>
+#include <interfaces/simulator/isimulationmanager.h>
 
 using namespace KTechLab;
 
@@ -116,7 +117,7 @@ private:
     KTLCircuitPlugin * m_plugin;
 };
 
-KTLCircuitPlugin::KTLCircuitPlugin( QObject *parent, const QVariantList& args )
+KTLCircuitPlugin::KTLCircuitPlugin( QObject *parent, const QVariantList& /* args */ )
     : KTechLab::IDocumentPlugin( KTLCircuitFactory::componentData(), parent ),
     m_componentModel( new ComponentModel() )
 {
@@ -139,7 +140,10 @@ void KTLCircuitPlugin::init()
     registerComponentFactory(m_fakeComponentItemFactory);
 }
 
-void KTLCircuitPlugin::createActionsForMainWindow(Sublime::MainWindow* window, QString& xmlFile, KActionCollection& actions)
+void KTLCircuitPlugin::createActionsForMainWindow(
+	Sublime::MainWindow* /* window */,
+	QString& xmlFile,
+	KActionCollection& actions)
 {
 	xmlFile = "ktlcircuitui.rc";
 
@@ -149,6 +153,10 @@ void KTLCircuitPlugin::createActionsForMainWindow(Sublime::MainWindow* window, Q
 	newCircuit->setText( i18n("New Circuit" ) );
 	newCircuit->setIcon( loader->loadIcon( "ktechlab_circuit", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
 	connect(newCircuit, SIGNAL(triggered()), this, SLOT(newCircuitFile()));
+
+	KAction *simulatorStatus = actions.addAction( "help_debug_simulator_status");
+	simulatorStatus->setText(i18n("Print simulator manager status"));
+	connect(simulatorStatus, SIGNAL(triggered()), this, SLOT(printSimulationManagerStatus()));
 }
 
 KTLCircuitPlugin::~KTLCircuitPlugin()
@@ -184,7 +192,8 @@ void KTLCircuitPlugin::deregisterComponentFactory(IComponentItemFactory* factory
     }
 }
 
-IComponentItemFactory* KTLCircuitPlugin::componentItemFactory(const QString& name, Theme* theme)
+IComponentItemFactory* KTLCircuitPlugin::componentItemFactory(const QString& name,
+															  Theme* /* theme */ )
 {
     IComponentItemFactory* factory = m_componentModel->factoryForComponent(name);
     if (!factory) {
@@ -220,6 +229,16 @@ void KTLCircuitPlugin::newCircuitFile()
 	KUrl url(tmpFile.fileName());
 	core()->documentController()->openDocument(url, "ktlcircuit");
 }
+
+void KTLCircuitPlugin::printSimulationManagerStatus()
+{
+	ISimulationManager *sim = ISimulationManager::self();
+	kDebug() << "Registered document mime types:";
+	kDebug() << sim->registeredDocumentMimeTypeNames();
+	kDebug() << "Simulation types:";
+	kDebug() << sim->registeredSimulationTypes();
+}
+
 
 #include "ktlcircuitplugin.moc"
 
