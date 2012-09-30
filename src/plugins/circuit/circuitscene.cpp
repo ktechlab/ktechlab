@@ -184,7 +184,7 @@ void CircuitScene::removeItem(IDocumentItem* item)
         kWarning() << "Could not remove item:" << item->data();
 }
 
-void CircuitScene::updateData( const QString& name, const QVariantMap& data )
+void CircuitScene::updateData( const QString& /* name */, const QVariantMap& /* data */ )
 {
     //Plasma::DataEngine *docEngine = dataEngine( "ktechlabdocument" );
     //kDebug() << "isContainment() ==" << isContainment();
