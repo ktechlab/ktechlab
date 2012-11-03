@@ -93,6 +93,10 @@
     </Menu>
 
     <Menu name="help">
+		<Menu name="help_debug">
+			<text context="@title:menu">Debug actions</text>
+			<DefineGroup append="help_debug_merge" name="help_debug_merge"/>
+		</Menu>
         <Action name="loaded_plugins" append="about_merge" />
         <Action name="about_platform" append="about_merge" />
     </Menu>
