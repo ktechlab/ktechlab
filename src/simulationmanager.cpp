@@ -166,6 +166,8 @@ void SimulationManager::registerSimulatorFactory(ISimulatorFactory *factory){
     //
     Q_ASSERT( factory );
     //
+	kDebug() << "Registering factory: " << factory->simulationType();
+	//
     SimulatorFactoryMapKey key;
     key.simulationType = factory->simulationType();
     key.documentType = factory->supportedDocumentMimeTypeName();
@@ -187,6 +189,8 @@ void SimulationManager::unregisterSimulatorFactory(ISimulatorFactory *factory){
     //
     Q_ASSERT( factory );
     //
+	kDebug() << "Unregistering simulator factory: " << factory->simulationType();
+	//
     SimulatorFactoryMapKey key;
     key.simulationType = factory->simulationType();
     key.documentType = factory->supportedDocumentMimeTypeName();
