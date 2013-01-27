@@ -71,6 +71,9 @@ private slots:
 	 * Print the status of the simulator manager singleton
 	 */
 	void printSimulationManagerStatus();
+
+	void printOpeningRelatedInfo();
+
 };
 
 } // namespace KTechLab

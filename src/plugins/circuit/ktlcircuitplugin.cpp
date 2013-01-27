@@ -14,6 +14,8 @@
 #include "interfaces/component/icomponentplugin.h"
 #include "interfaces/component/icomponent.h"
 #include "shell/core.h"
+#include "interfaces/iplugincontroller.h"
+#include <interfaces/idocumentcontroller.h>
 
 #include <interfaces/iuicontroller.h>
 #include <interfaces/idocumentcontroller.h>
@@ -157,6 +159,11 @@ void KTLCircuitPlugin::createActionsForMainWindow(
 	KAction *simulatorStatus = actions.addAction( "help_debug_simulator_status");
 	simulatorStatus->setText(i18n("Print simulator manager status"));
 	connect(simulatorStatus, SIGNAL(triggered()), this, SLOT(printSimulationManagerStatus()));
+
+	KAction *printOpenRelated = actions.addAction( "help_debug_open_related_info");
+	printOpenRelated->setText(i18n("Print opening related info"));
+	connect(printOpenRelated, SIGNAL(triggered()), this, SLOT(printOpeningRelatedInfo()));
+
 }
 
 KTLCircuitPlugin::~KTLCircuitPlugin()
@@ -237,6 +244,56 @@ void KTLCircuitPlugin::printSimulationManagerStatus()
 	kDebug() << sim->registeredDocumentMimeTypeNames();
 	kDebug() << "Simulation types:";
 	kDebug() << sim->registeredSimulationTypes();
+}
+
+#define EMPTY_DOCUMENT_URL i18n("Untitled")
+
+static
+bool isEmptyDocumentUrl(const KUrl &url)
+{
+    QRegExp r(QString("^%1(\\s\\(\\d+\\))?$").arg(EMPTY_DOCUMENT_URL));
+    return r.indexIn(url.prettyUrl()) != -1;
+}
+
+void KTLCircuitPlugin::printOpeningRelatedInfo()
+{
+	QTemporaryFile tmpFile(QDir::tempPath().append(QDir::separator())
+		.append("ktlXXXXXX.circuit"));
+	tmpFile.setAutoRemove(false);
+	tmpFile.open();
+	tmpFile.write("<!DOCTYPE KTechlab>\n"
+				"<document type=\"circuit\" >"
+				"</document>"
+				);
+	tmpFile.close();
+	KUrl url(tmpFile.fileName());
+
+	kDebug() << "url: " << url;
+	kDebug() << "isEmptyDocumentURl: " << isEmptyDocumentUrl(url);
+
+	{
+		KMimeType::List allMimes = KMimeType::allMimeTypes();
+		foreach(KMimeType::Ptr t, allMimes){
+			kDebug() << "all mimes: " << t->name() <<
+				", patterns: " << t->patterns();
+		}
+	}
+
+	KMimeType::Ptr mimeType = KMimeType::findByUrl( url );
+
+	kDebug() << "mime type: " << mimeType->name();
+
+	KDevelop::IDocumentFactory *f = KDevelop::Core::self()->
+			documentController()->factory(mimeType->name());
+	kDebug() << "factory for mime type: " << f;
+
+	QString constraint = QString("'%1' in [X-KDevelop-SupportedMimeTypes]")
+			.arg(mimeType->name());
+	KPluginInfo::List plugins = KDevelop::IPluginController::queryPlugins( constraint );
+
+	foreach(KPluginInfo info, plugins){
+		kDebug() << "found plugin: " << info.pluginName();
+	}
 }
 
 

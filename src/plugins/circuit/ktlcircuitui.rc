@@ -16,6 +16,7 @@
     <Menu name="help">
 		<Menu name="help_debug">
 			<Action name="help_debug_simulator_status" append="help_debug_merge"/>
+			<Action name="help_debug_open_related_info" append="help_debug_merge"/>
 		</Menu>
     </Menu>
   </MenuBar>
