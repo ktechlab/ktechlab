@@ -294,6 +294,8 @@ void KTLCircuitPlugin::printOpeningRelatedInfo()
 	//             DocumentActivationParams activationParams = 0,
 	//             IDocument* buddy = 0) = 0;
 	// feature of KDE: KMimeType not recognizing circuit document type, only in certain cases
+
+	// TODO split the debug code in a separate friend class, so the main code will be more clear
 	//
 
 	kDebug() << "mime type: " << mimeType->name();
