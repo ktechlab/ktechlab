@@ -271,6 +271,7 @@ void KTLCircuitPlugin::printOpeningRelatedInfo()
 	kDebug() << "url: " << url;
 	kDebug() << "isEmptyDocumentURl: " << isEmptyDocumentUrl(url);
 
+	/*
 	{
 		KMimeType::List allMimes = KMimeType::allMimeTypes();
 		foreach(KMimeType::Ptr t, allMimes){
@@ -278,10 +279,25 @@ void KTLCircuitPlugin::printOpeningRelatedInfo()
 				", patterns: " << t->patterns();
 		}
 	}
+	*/
 
-	KMimeType::Ptr mimeType = KMimeType::findByUrl( url );
+	int accuracy = -1;
+	// KMimeType::Ptr mimeType = KMimeType::findByUrl( url, 0, false, false, &accuracy ); // bad
+	// KMimeType::Ptr mimeType = KMimeType::findByUrl( url, 0, true, false, &accuracy ); // bad
+	KMimeType::Ptr mimeType = KMimeType::findByUrl( url, 0, false, true, &accuracy ); // good
+	// KMimeType::Ptr mimeType = KMimeType::findByUrl( url ); // bad
+
+	// TODO for working around the bug/feature of KDE, reimpment DocumentController::openDocument(url),
+	//  and then call:
+	// 	    virtual Q_SCRIPTABLE bool openDocument(IDocument* doc,
+	//             const KTextEditor::Range& range = KTextEditor::Range::invalid(),
+	//             DocumentActivationParams activationParams = 0,
+	//             IDocument* buddy = 0) = 0;
+	// feature of KDE: KMimeType not recognizing circuit document type, only in certain cases
+	//
 
 	kDebug() << "mime type: " << mimeType->name();
+	kDebug() << "mime type accuracy: " << accuracy;
 
 	KDevelop::IDocumentFactory *f = KDevelop::Core::self()->
 			documentController()->factory(mimeType->name());
