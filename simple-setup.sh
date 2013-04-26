@@ -39,11 +39,33 @@ fi
 # create the build directory
 mkdir -p "$BUILD_DIRECTORY"
 
+if [ "$?" -ne "0" ]
+then
+    echo "Creation of build directory failed, exiting"
+    exit 5;
+fi
+
+
 # create installation directory
 mkdir -p "$INSTALL_DIRECTORY"
 
+if [ "$?" -ne "0" ]
+then
+    echo "Creation of install directory failed, exiting"
+    exit 6;
+fi
+
+
 # go to the newly created build directory
-cd "$BUILD_DIRECTORY"
+# "./dir" avoids CDPATH value
+cd ./"$BUILD_DIRECTORY"
+
+if [ "$?" -ne "0" ]
+then
+    echo "Directory change to build director failed"
+    exit 7;
+fi
+
 
 # configure the build
 cmake .. -DCMAKE_BUILD_TYPE=debugfull \
