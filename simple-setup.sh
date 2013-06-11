@@ -62,7 +62,7 @@ cd ./"$BUILD_DIRECTORY"
 
 if [ "$?" -ne "0" ]
 then
-    echo "Directory change to build director failed"
+    echo "Directory change to build directory failed"
     exit 7;
 fi
 
