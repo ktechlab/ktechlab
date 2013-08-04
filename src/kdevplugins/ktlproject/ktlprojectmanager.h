@@ -99,6 +99,8 @@ class KTLProjectManager : public IPlugin, public IProjectFileManager
     virtual bool moveFilesAndFolders(const QList<KDevelop::ProjectBaseItem*>&, KDevelop::ProjectFolderItem*);
 #endif
 
+    virtual bool copyFilesAndFolders(const KUrl::List &, KDevelop::ProjectFolderItem*);
+    
     /**
     *
     */
