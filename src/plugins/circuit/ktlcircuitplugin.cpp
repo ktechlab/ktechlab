@@ -421,8 +421,9 @@ void KTLCircuitPlugin::newCircuitFile()
 				);
 	tmpFile.close();
 	KUrl url(tmpFile.fileName());
-	// core()->documentController()->openDocument(url, "ktlcircuit");
-	openDocumentInternal(url);
+	kDebug() << "new file url: " << url;
+	core()->documentController()->openDocument(url, "");
+	// openDocumentInternal(url);
 }
 
 void KTLCircuitPlugin::printSimulationManagerStatus()
