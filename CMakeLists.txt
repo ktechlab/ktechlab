@@ -69,5 +69,3 @@ endif(KDEVPLATFORM_ENABLED)
 add_subdirectory( src )
 
 ########### install files ###############
-
-add_subdirectory(tests/kde_mime)
