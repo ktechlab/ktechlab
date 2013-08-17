@@ -129,6 +129,13 @@ KTLCircuitPlugin::KTLCircuitPlugin( QObject *parent, const QVariantList& /* args
 
 void KTLCircuitPlugin::init()
 {
+	/* TODO add verification about: 1 .circuit file extension is defined on the
+	 * current user; if there are more, then also print the search directories
+	 * and say that the user might experience problems
+	 */
+	/*
+	 * TODO update documentation on the wiki, about setting up ktechlab
+	 */
     m_componentViewFactory = new KTLComponentViewFactory(this);
     KDevelop::Core::self()->uiController()->addToolView( i18n("Components"), m_componentViewFactory );
 
