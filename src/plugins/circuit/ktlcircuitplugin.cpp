@@ -136,10 +136,6 @@ KTLCircuitPlugin::KTLCircuitPlugin( QObject *parent, const QVariantList& /* args
 
 void KTLCircuitPlugin::init()
 {
-	/* TODO add verification about: 1 .circuit file extension is defined on the
-	 * current user; if there are more, then also print the search directories
-	 * and say that the user might experience problems
-	 */
 	verifyMimetypeDefinition();
 
 	/*
@@ -372,31 +368,12 @@ void KTLCircuitPlugin::printOpeningRelatedInfo()
 	KUrl url(tmpFile.fileName());
 
 	kDebug() << "url: " << url;
-	// kDebug() << "isEmptyDocumentURl: " << isEmptyDocumentUrl(url);
-
-	/*
-	{
-		KMimeType::List allMimes = KMimeType::allMimeTypes();
-		foreach(KMimeType::Ptr t, allMimes){
-			kDebug() << "all mimes: " << t->name() <<
-				", patterns: " << t->patterns();
-		}
-	}
-	*/
 
 	int accuracy = -1;
 	// KMimeType::Ptr mimeType = KMimeType::findByUrl( url, 0, false, false, &accuracy ); // bad
 	// KMimeType::Ptr mimeType = KMimeType::findByUrl( url, 0, true, false, &accuracy ); // bad
 	KMimeType::Ptr mimeType = KMimeType::findByUrl( url, 0, false, true, &accuracy ); // good
 	// KMimeType::Ptr mimeType = KMimeType::findByUrl( url ); // bad
-
-	// TODO for working around the bug/feature of KDE, reimpment DocumentController::openDocument(url),
-	//  and then call:
-	// 	    virtual Q_SCRIPTABLE bool openDocument(IDocument* doc,
-	//             const KTextEditor::Range& range = KTextEditor::Range::invalid(),
-	//             DocumentActivationParams activationParams = 0,
-	//             IDocument* buddy = 0) = 0;
-	// feature of KDE: KMimeType not recognizing circuit document type, only in certain cases
 
 	// TODO split the debug code in a separate friend class, so the main code will be more clear
 	//
