@@ -61,7 +61,7 @@ int main(void){
 	QString path(tmpFile.fileName());
 	KUrl url(tmpFile.fileName());
 	kDebug() << "url: " << url;
-	int returnCode = 1;
+	int returnCode = 100;
 
 	// as used by kdevplatform
 	KMimeType::Ptr mimeType0 = KMimeType::findByUrl( url );
@@ -69,7 +69,7 @@ int main(void){
 
 	if(!mimeType0->is("application/x-circuit")){
 		kDebug() << "EXPECT PROBLEMS";
-		returnCode = 2;
+		returnCode = 1;
 	} else {
 		returnCode = 0;
 	}
