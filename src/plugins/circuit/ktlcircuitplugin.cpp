@@ -138,9 +138,6 @@ void KTLCircuitPlugin::init()
 {
 	verifyMimetypeDefinition();
 
-	/*
-	 * TODO update documentation on the wiki, about setting up ktechlab
-	 */
     m_componentViewFactory = new KTLComponentViewFactory(this);
     KDevelop::Core::self()->uiController()->addToolView( i18n("Components"), m_componentViewFactory );
 
