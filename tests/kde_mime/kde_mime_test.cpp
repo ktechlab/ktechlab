@@ -61,6 +61,7 @@ int main(void){
 	QString path(tmpFile.fileName());
 	KUrl url(tmpFile.fileName());
 	kDebug() << "url: " << url;
+	int returnCode = 1;
 
 	// as used by kdevplatform
 	KMimeType::Ptr mimeType0 = KMimeType::findByUrl( url );
@@ -68,7 +69,11 @@ int main(void){
 
 	if(!mimeType0->is("application/x-circuit")){
 		kDebug() << "EXPECT PROBLEMS";
+		returnCode = 2;
+	} else {
+		returnCode = 0;
 	}
+
 	// as used by kdevplatform
 	int accuracy4 = -1;
 	KMimeType::Ptr mimeType4 = KMimeType::findByUrl( url, 0, false, false, &accuracy4 );
@@ -115,5 +120,7 @@ int main(void){
 	if(allRelevantLines.size() == 0){
 		kDebug() << "No file definitions?";
 	}
+
+	return returnCode;
 
 }
