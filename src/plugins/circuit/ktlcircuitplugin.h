@@ -6,6 +6,8 @@
 
 #include <QVariantList>
 
+class QTemporaryFile;
+
 namespace KTechLab
 {
 class IComponentItemFactory;
@@ -73,6 +75,16 @@ private slots:
 	void printSimulationManagerStatus();
 
 	void printOpeningRelatedInfo();
+
+private:
+	void createNewEmptyCircuitFile(QTemporaryFile &tmpFile);
+    void verifyMimetypeDefinition();
+	/**
+	 * Read a glob file and verify if it contains something relevant for
+	 * application/x-circuit file type.
+	 * Returns a list of possibly relevant lines, intended for human inspection
+	 */
+	QStringList readGlobFile(QString globFileName);
 
 };
 

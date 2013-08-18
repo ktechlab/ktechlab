@@ -30,7 +30,14 @@
 #include <kaction.h>
 #include <qdir.h>
 #include <qtemporaryfile.h>
+#include <kmessagebox.h>
+#include <kglobal.h>
+#include <kmimetype.h>
+#include <kstandarddirs.h>
 #include <interfaces/simulator/isimulationmanager.h>
+#include <qstring.h>
+#include <kparts/mainwindow.h>
+
 
 using namespace KTechLab;
 
@@ -133,6 +140,8 @@ void KTLCircuitPlugin::init()
 	 * current user; if there are more, then also print the search directories
 	 * and say that the user might experience problems
 	 */
+	verifyMimetypeDefinition();
+
 	/*
 	 * TODO update documentation on the wiki, about setting up ktechlab
 	 */
@@ -147,6 +156,100 @@ void KTLCircuitPlugin::init()
 
     m_fakeComponentItemFactory = new FakeComponentItemFactory;
     registerComponentFactory(m_fakeComponentItemFactory);
+}
+
+void KTLCircuitPlugin::verifyMimetypeDefinition()
+{
+	// apparently this code gets called at KDevPlatform shutdown. Ignore.
+	if(core()->shuttingDown()){
+		kDebug() << "called at core shutdown. Exiting immediately.";
+		return;
+	}
+
+	QTemporaryFile tmpFile;
+	createNewEmptyCircuitFile(tmpFile);
+	KUrl url(tmpFile.fileName());
+	kDebug() << "test file url: " << url;
+
+	// as used by kdevplatform
+	KMimeType::Ptr testMimeType = KMimeType::findByUrl( url );
+	kDebug() << "mime type for test file: " << testMimeType->name();
+	if(testMimeType->is("application/x-circuit")){
+		// looks good, verification success
+		tmpFile.remove();
+		return;
+	}
+
+	// gather some debug information
+
+	kDebug() << "expect problems: circuit file type not properly registered";
+
+	const QStringList globFiles = KGlobal::dirs()->findAllResources(
+		"xdgdata-mime", QString::fromLatin1("globs"));
+	kDebug() << "Mime glob files are located at: " << globFiles;
+
+	QStringList allRelevantLines;
+	Q_FOREACH(QString globFileName, globFiles){
+		QStringList relevantLines = readGlobFile(globFileName);
+		allRelevantLines.append(relevantLines);
+	}
+	kDebug() << "Relevant Mime file lines: " << allRelevantLines;
+
+	QString messageText(
+		"The KTechLab circuit file type is not properly registered on your system, "
+		"and apparently you won't be able to open circuit (.circuit, application/x-circuit) files."
+		"Likely this is caused by a configuration problem for file type definitions. "
+		"Please find below debug information that might help fixing the problem. "
+		"\n\n"
+	);
+
+	if(allRelevantLines.size() > 1){
+		kDebug() << "Multiple circuit definitions?";
+		QString multiDefMsg = QString(
+			"The circuit file type might be registered multiple times. "
+			"The following relevant lines exist in the file type definions databases:\n %1\n\n"
+		).arg(allRelevantLines.join("\n"));
+		messageText.append(multiDefMsg);
+	}
+	if(allRelevantLines.size() == 0){
+		kDebug() << "No file definitions?";
+		QString noMimetypeMsg = QString(
+			"Very likely the circuit file type is not set up, "
+			"or the file type database containing it is not in use.\n\n"
+		);
+		messageText.append(noMimetypeMsg);
+	}
+
+	QString databaseLocationMsg = QString(
+		"The file type databases in use are at the following locations, "
+		"specified by the XDG_DATA_DIRS environment variable at the launch of KTechLab."
+		"\n%1.\n"
+	).arg(globFiles.join("\n"));
+	messageText.append(databaseLocationMsg);
+
+	QWidget *mainWindow = core()->self()->uiController()->activeMainWindow()->widget();
+
+	KMessageBox::error(mainWindow, messageText, "KTechLab");
+}
+
+QStringList KTLCircuitPlugin::readGlobFile(QString globFileName) {
+	QStringList ret;
+	QFile globFile(globFileName);
+	if(!globFile.open(QIODevice::ReadOnly)) {
+		return ret;
+	}
+	QTextStream globStream(&globFile);
+	while(!globStream.atEnd()) {
+		QString line = globStream.readLine();
+		if(line.startsWith("#")) {
+			continue;
+		}
+		if(line.contains("application/x-circuit")) {
+			ret.append(globFileName.append(": '").append(line).append("'"));
+		}
+	}
+	globFile.close();
+	return ret;
 }
 
 void KTLCircuitPlugin::createActionsForMainWindow(
@@ -223,17 +326,13 @@ void KTLCircuitPlugin::unload()
     KDevelop::Core::self()->uiController()->removeToolView(m_componentEditorFactory);
 }
 
-
-void KTLCircuitPlugin::newCircuitFile()
+void KTLCircuitPlugin::createNewEmptyCircuitFile(QTemporaryFile& tmpFile)
 {
-	qDebug() << "KTLCircuitPlugin::newCircuitFile() activated\n";
-
-	// get a temporary file name
-	QTemporaryFile tmpFile(QDir::tempPath().append(QDir::separator())
-		.append("ktlXXXXXX.circuit"));
+	tmpFile.setFileTemplate(QDir::tempPath().append(QDir::separator())
+		.append("ktl-circuit-XXXXXX.circuit"));
 	tmpFile.setAutoRemove(false);
 	tmpFile.open();
-	qDebug() << "creating temporary file: " << tmpFile.fileName()
+	kDebug() << "creating temporary file: " << tmpFile.fileName()
 		<< "pattern: " << tmpFile.fileTemplate();
 	// write a minial circuit document into the temporary file
 	tmpFile.write("<!DOCTYPE KTechlab>\n"
@@ -241,6 +340,15 @@ void KTLCircuitPlugin::newCircuitFile()
 				"</document>"
 				);
 	tmpFile.close();
+}
+
+void KTLCircuitPlugin::newCircuitFile()
+{
+	qDebug() << "KTLCircuitPlugin::newCircuitFile() activated\n";
+
+	// get a temporary file name
+	QTemporaryFile tmpFile;
+	createNewEmptyCircuitFile(tmpFile);
 	KUrl url(tmpFile.fileName());
 	kDebug() << "new file url: " << url;
 	core()->documentController()->openDocument(url, "");
@@ -259,15 +367,8 @@ void KTLCircuitPlugin::printSimulationManagerStatus()
 
 void KTLCircuitPlugin::printOpeningRelatedInfo()
 {
-	QTemporaryFile tmpFile(QDir::tempPath().append(QDir::separator())
-		.append("ktlXXXXXX.circuit"));
-	tmpFile.setAutoRemove(false);
-	tmpFile.open();
-	tmpFile.write("<!DOCTYPE KTechlab>\n"
-				"<document type=\"circuit\" >"
-				"</document>"
-				);
-	tmpFile.close();
+	QTemporaryFile tmpFile;
+	createNewEmptyCircuitFile(tmpFile);
 	KUrl url(tmpFile.fileName());
 
 	kDebug() << "url: " << url;
