@@ -188,36 +188,36 @@ void KTLCircuitPlugin::verifyMimetypeDefinition()
 	}
 	kDebug() << "Relevant Mime file lines: " << allRelevantLines;
 
-	QString messageText(
+	QString messageText( i18n(
 		"The KTechLab circuit file type is not properly registered on your system, "
 		"and apparently you won't be able to open circuit (.circuit, application/x-circuit) files."
 		"Likely this is caused by a configuration problem for file type definitions. "
 		"Please find below debug information that might help fixing the problem. "
 		"\n\n"
-	);
+						 ) );
 
 	if(allRelevantLines.size() > 1){
 		kDebug() << "Multiple circuit definitions?";
-		QString multiDefMsg = QString(
+		QString multiDefMsg = QString( i18n(
 			"The circuit file type might be registered multiple times. "
 			"The following relevant lines exist in the file type definions databases:\n %1\n\n"
-		).arg(allRelevantLines.join("\n"));
+									   )).arg(allRelevantLines.join("\n"));
 		messageText.append(multiDefMsg);
 	}
 	if(allRelevantLines.size() == 0){
 		kDebug() << "No file definitions?";
-		QString noMimetypeMsg = QString(
+		QString noMimetypeMsg = QString( i18n(
 			"Very likely the circuit file type is not set up, "
 			"or the file type database containing it is not in use.\n\n"
-		);
+										 ));
 		messageText.append(noMimetypeMsg);
 	}
 
-	QString databaseLocationMsg = QString(
+	QString databaseLocationMsg = QString( i18n(
 		"The file type databases in use are at the following locations, "
 		"specified by the XDG_DATA_DIRS environment variable at the launch of KTechLab."
 		"\n%1.\n"
-	).arg(globFiles.join("\n"));
+										   )).arg(globFiles.join("\n"));
 	messageText.append(databaseLocationMsg);
 
 	QWidget *mainWindow = core()->self()->uiController()->activeMainWindow()->widget();
