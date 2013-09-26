@@ -4,6 +4,9 @@
 		<comment xml:lang="en">KTechLab Circuit</comment>
 		<glob pattern="*.circuit" />
 		<generic-icon name="x-ktechlab-circuit" />
+		<magic priority="50">
+			<match type="string" offset="0" value="&lt;!DOCTYPE KTechlab&gt;\n&lt;document type=&quot;circuit&quot;"/>
+		</magic>
 	</mime-type>
 	<mime-type type="application/x-flowcode">
 		<comment xml:lang="en">KTechLab FlowCode</comment>
