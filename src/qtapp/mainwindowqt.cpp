@@ -24,11 +24,61 @@ if not, write to the Free Software Foundation, Inc.,
 
 #include "mainwindowqt.h"
 
+#include <QApplication>
+#include <QMenu>
+#include <QMenuBar>
+#include <QMessageBox>
+
 using namespace KTechLab;
 
-MainWindowQt::MainWindowQt(): QMainWindow()
+MainWindowQt::MainWindowQt(QApplication & app): QMainWindow(), qtApp(app)
 {
-	// TODO implement
+	createActions();
+	createMenus();
+	createToolBars();
 }
 
+void MainWindowQt::createActions() {
 
+	exitAct = new QAction(tr("E&xit"), this);
+	exitAct->setShortcuts(QKeySequence::Quit);
+	exitAct->setStatusTip(tr("Exit the application"));
+	connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
+
+
+	aboutAct = new QAction(tr("&About"), this);
+	aboutAct->setStatusTip(tr("Show the application's About box"));
+	connect(aboutAct, SIGNAL(triggered()), this, SLOT(about()));
+
+	aboutQtAct = new QAction(tr("About &Qt"), this);
+	aboutQtAct->setStatusTip(tr("Show the Qt library's About box"));
+	connect(aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+}
+
+void MainWindowQt::createMenus()
+{
+	fileMenu = menuBar()->addMenu(tr("&File"));
+	fileMenu->addAction(exitAct);
+
+	editMenu = menuBar()->addMenu(tr("&Edit"));
+
+	menuBar()->addSeparator();
+
+	helpMenu = menuBar()->addMenu(tr("&Help"));
+	helpMenu->addAction(aboutAct);
+	helpMenu->addAction(aboutQtAct);
+}
+
+void MainWindowQt::createToolBars()
+{
+	fileToolBar = addToolBar(tr("File"));
+	editToolBar = addToolBar(tr("Edit"));
+}
+
+void MainWindowQt::about()
+{
+   QMessageBox::about(this, tr("About KTechLab"),
+             tr("An IDE for microcontrollers and electronics. "
+             "This is the Qt version, without KDE dependencies"));
+
+}

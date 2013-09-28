@@ -27,13 +27,38 @@ if not, write to the Free Software Foundation, Inc.,
 
 #include <QMainWindow>
 
+class QApplication;
+class QMenu;
+class QToolBar;
+
 namespace KTechLab {
 
 class MainWindowQt : public QMainWindow
 {
 	Q_OBJECT
 public:
-    MainWindowQt();
+    MainWindowQt(QApplication & app);
+
+private slots:
+	void about();
+
+private:
+	void createActions();
+	void createToolBars();
+	void createMenus();
+
+	QApplication & qtApp;
+
+	QAction *exitAct;
+	QAction *aboutAct;
+    QAction *aboutQtAct;
+
+    QMenu *fileMenu;
+    QMenu *editMenu;
+    QMenu *helpMenu;
+
+	QToolBar *fileToolBar;
+    QToolBar *editToolBar;
 
 
 };
