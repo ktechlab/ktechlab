@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
 	app.setOrganizationName("KTechLab Project");
 	app.setApplicationName("KTechLab - Qt version");
 
-	MainWindowQt mainWindow;
+	MainWindowQt mainWindow(app);
 	mainWindow.show();
 	return app.exec();
 }
