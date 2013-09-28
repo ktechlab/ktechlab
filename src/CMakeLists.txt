@@ -2,6 +2,9 @@
 # build the libs anyway
 add_subdirectory(lib)
 
+# for qt-only version
+add_subdirectory(qtapp)
+
 if(KDEVPLATFORM_ENABLED)
 
 add_subdirectory(core)
@@ -118,4 +121,5 @@ if( SHARED_MIME_INFO_FOUND )
 endif( SHARED_MIME_INFO_FOUND )
 
 endif(KDEVPLATFORM_ENABLED)
+
 
