@@ -9,6 +9,7 @@ set(circuit_SRCS
     theme.cpp
     circuitmodel.cpp
     simulator/genericelementfactory.cpp
+    voltageandcurrentitem.cpp
 )
 
 kde4_add_library( ktlcircuit SHARED ${circuit_SRCS} )

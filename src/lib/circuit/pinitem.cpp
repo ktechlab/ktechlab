@@ -24,11 +24,14 @@
 #include <qdrag.h>
 #include <interfaces/component/icomponentitem.h>
 
+#include "voltageandcurrentitem.h"
+
 using namespace KTechLab;
 
 PinItem::PinItem(const QRectF& rect, IComponentItem* parent, IDocumentScene* scene)
     : Node(parent, scene),
-    m_circuit(scene)
+    m_circuit(scene),
+    m_voltageAndCurrentDisplay(new VoltageAndCurrentItem(rect, this, scene))
 {
     setFlag(ItemIsSelectable, false);
     setFlag(ItemIsMovable, false);
