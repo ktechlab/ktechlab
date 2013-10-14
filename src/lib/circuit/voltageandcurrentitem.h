@@ -23,6 +23,9 @@
 
 #include <QGraphicsRectItem>
 
+class QGraphicsSceneHoverEvent;
+class QGraphicsSimpleTextItem;
+
 namespace KTechLab {
 
 class IDocumentScene;
@@ -31,12 +34,12 @@ class IDocumentScene;
 /**
  * Class to display a rectangle with the height being the voltage and the width being the current.
  * The color intensity depends on the voltage.
- * TODO
  */
 class VoltageAndCurrentItem : public QGraphicsRectItem
 {
     qreal m_voltageInV;
     qreal m_currentInA;
+    QSharedPointer<QGraphicsSimpleTextItem> m_tooltip;
 
 public:
     VoltageAndCurrentItem(const QRectF & rect, QGraphicsItem* parent = 0, IDocumentScene* scene = 0);
@@ -45,6 +48,10 @@ public:
     void setVoltage(qreal voltageInV);
     void setCurrent(qreal currentInA);
     
+protected:
+  virtual void hoverEnterEvent ( QGraphicsSceneHoverEvent * event );
+  virtual void hoverLeaveEvent ( QGraphicsSceneHoverEvent * event );
+
 protected:
     void updateAppearance();
     
