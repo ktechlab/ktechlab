@@ -23,11 +23,14 @@
 #include "interfaces/component/node.h"
 #include "circuitexport.h"
 
+#include <QSharedPointer>
+
 namespace KTechLab
 {
 
 class IComponentItem;
 class IDocumentScene;
+class VoltageAndCurrentItem;
 
 /**
  * A QGraphicsItem used to indicate mouse interaction. When this
@@ -44,6 +47,7 @@ protected:
 
 private:
     IDocumentScene* m_circuit;
+    QSharedPointer<VoltageAndCurrentItem> m_voltageAndCurrentDisplay;
 };
 
 }
