@@ -19,7 +19,12 @@
 
 
 #include "voltageandcurrentitem.h"
-#include <interfaces/idocumentscene.h>
+
+#include "interfaces/idocumentscene.h"
+
+#include <QGraphicsSceneMouseEvent>
+#include <QGraphicsSimpleTextItem>
+#include <QDebug>
 
 #include <cmath>
 
@@ -30,12 +35,16 @@ const qreal VoltageAndCurrentItem::m_centerY = -10;
 
 VoltageAndCurrentItem::VoltageAndCurrentItem(const QRectF& rect, QGraphicsItem* parent, IDocumentScene* scene) : 
     QGraphicsRectItem(parent, scene),
-    m_voltageInV(0), m_currentInA(0)
+    m_voltageInV(0), m_currentInA(0),
+    m_tooltip(new QGraphicsSimpleTextItem(this, scene))
 {
     Q_UNUSED(rect);
+    m_tooltip->setPos(0, -30);
+    m_tooltip->hide();
     setFlag(ItemIsSelectable, false);
     setFlag(ItemIsMovable, false);
     setFlag(ItemIgnoresParentOpacity);
+    setAcceptHoverEvents(true);
     setOpacity(0.95);
     updateAppearance();
 }
@@ -57,7 +66,17 @@ void VoltageAndCurrentItem::setCurrent(qreal currentInA)
     updateAppearance();
 }
 
+void VoltageAndCurrentItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
+{
+    m_tooltip->show();
+    event->accept();
+}
 
+void VoltageAndCurrentItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
+{
+    m_tooltip->hide();
+    event->accept();
+}
 
 
 /// The maximum length of the voltage indiactor
@@ -67,7 +86,7 @@ const int vLength = 8;
 const qreal iMidPoint = 0.03;
 
 /// The maximum thicnkess of the current indicator
-const int iLength = 6;
+const int iLength = 8;
 
 inline qreal calcIProp(const qreal i) {
 	return 1 - iMidPoint / (iMidPoint + std::abs(i));
@@ -122,5 +141,5 @@ void VoltageAndCurrentItem::updateAppearance()
   qreal height = thickness;
   setRect(startX, y, width, height);
   
-  setToolTip(QString("V = %1V; I = %2A").arg(m_voltageInV).arg(m_currentInA));
+  m_tooltip->setText(QString("V = %1V; I = %2A").arg(m_voltageInV).arg(m_currentInA));
 }
