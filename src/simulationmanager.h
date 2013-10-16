@@ -35,6 +35,10 @@ class SimulationManager : public ISimulationManager {
                                         IComponentDocument *document,
                                         const QString& simulationType = QString());
 
+    virtual bool destroySimulatorForDocument(
+                            IComponentDocument *document,
+                            const QString &simulationType = QString());
+
     virtual void registerSimulatorFactory(ISimulatorFactory *factory);
 
     virtual void unregisterSimulatorFactory(ISimulatorFactory *factory);

@@ -14,6 +14,9 @@
 #include "circuitscene.h"
 #include "circuitmodel.h"
 
+#include <interfaces/simulator/isimulationmanager.h>
+#include <interfaces/simulator/isimulator.h>
+
 #include <shell/core.h>
 #include <KDebug>
 #include <KLocale>
@@ -41,6 +44,7 @@ public:
     CircuitScene *circuitScene;
     CircuitModel *circuitModel;
     KTLCircuitPlugin* plugin;
+    ISimulator * simulator;
 
 private:
     CircuitDocument *m_document;
@@ -111,6 +115,7 @@ void CircuitDocumentPrivate::slotUpdateState()
 
 CircuitDocumentPrivate::~CircuitDocumentPrivate()
 {
+    ISimulationManager::self()->destroySimulatorForDocument(m_document, QString("transient"));
     delete circuitScene;
     delete circuitModel;
 }
@@ -137,6 +142,9 @@ void CircuitDocument::init()
         return;
     }
     d = new CircuitDocumentPrivate(this, qobject_cast<KTechLab::KTLCircuitPlugin*>( plugins.first() ));
+
+    // simulator is owned by the simulation manager
+    d->simulator = ISimulationManager::self()->simulatorForDocument(this, QString("transient"));
 }
 
 QString CircuitDocument::documentType() const
