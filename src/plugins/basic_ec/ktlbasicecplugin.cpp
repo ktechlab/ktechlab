@@ -55,6 +55,7 @@ protected:
     }
     QStringList pinListForComponent(const QByteArray& type)
     {
+        Q_UNUSED(type);
         QStringList result;
         result << QString::fromAscii("n1");
         result << QString::fromAscii("p1");
@@ -66,7 +67,7 @@ KTLBasicECPlugin::KTLBasicECPlugin( QObject *parent, const QVariantList& args )
     :   IComponentPlugin( KTLBasicECPluginFactory::componentData(), parent ),
         m_componentFactory( new KTLBasicECFactory() )
 {
-
+    Q_UNUSED(args);
     init();
 }
 

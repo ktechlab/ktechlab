@@ -21,6 +21,7 @@ class DummyElement : public IElement {
         std::cout << "dummyMethod called\n";
     }
     virtual void actOnSimulationStep(double time){
+        Q_UNUSED(time);
         std::cout << "dummies dont' act on simulation step\n";
     }
     virtual void fillMatrixCoefficients(){
@@ -73,6 +74,7 @@ class DummyElementFactory : public IElementFactory {
      * supported
      */
     virtual IElement * createElement(const QByteArray& type, QVariantMap parent = QVariantMap()){
+      Q_UNUSED(parent);
       if( type == "dummy-element" )
         return new DummyElement();
       return NULL;
