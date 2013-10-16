@@ -37,7 +37,7 @@ using namespace KTechLab;
       for document instances:
         (document, simulation type) -> simulator
   */
-// TODO make all these classes inner classes, preverably hidden
+// TODO make all these classes inner classes, preferably hidden
 
     /// key for simulator factory map
     class SimulatorFactoryMapKey {
@@ -77,23 +77,17 @@ using namespace KTechLab;
     class SimulatorMapKey {
       public:
         // constructor, needed for the const reference to string
-        SimulatorMapKey(IComponentDocument *doc,
+        SimulatorMapKey(const QString & docUrl,
                             const QString& simType) :
-            document( doc ),
-            simulationType( simType )
+            m_keyValue( docUrl /* doc->url().url() */ + ":" + simType)
         {
         }
 
-        IComponentDocument *document;
-        const QString &simulationType;
+        const QString m_keyValue;
 
         // for QMap implementation
-        bool operator < (const SimulatorMapKey &other) const {
-            QString my1 = QString("%1%2").arg((unsigned long)document)
-                                            .arg(simulationType);
-            QString my2 = QString("%1%2").arg((unsigned long)other.document)
-                                .arg(other.simulationType);
-            return (my1 < my2);
+        bool operator < (const SimulatorMapKey & other) const {
+            return (m_keyValue < other.m_keyValue);
         }
     };
 
@@ -142,9 +136,9 @@ ISimulator *SimulationManager::simulatorForDocument(
     //
     Q_ASSERT( document );
     // check if the simulator is created
-    SimulatorMapKey key( document, simulationType);
+    SimulatorMapKey key( document->url().url(), simulationType);
     if( d->simulatorMap.contains(key) ){
-        kDebug() << "returning existing simulator\n";
+        kDebug() << "returning existing simulator, key:" << key.m_keyValue;
         return d->simulatorMap.value(key);
     }
     // not found, create a simulator
@@ -152,8 +146,10 @@ ISimulator *SimulationManager::simulatorForDocument(
     factoryKey.documentType = document->mimeType()->name();
     factoryKey.simulationType = simulationType;
     if( d->simulatorFactoryMap.contains( factoryKey ) ){
-        kDebug() << "factory found, creating new simulator\n";
-        return d->simulatorFactoryMap.value(factoryKey)->create( document );
+        kDebug() << "factory found, creating new simulator for key:" << key.m_keyValue;
+        ISimulator * sim = d->simulatorFactoryMap.value(factoryKey)->create( document );
+        d->simulatorMap.insert(key, sim);
+        return sim;
     }
     // no factory found
     kWarning() << "no factory found for docoument type " <<
@@ -165,13 +161,11 @@ ISimulator *SimulationManager::simulatorForDocument(
 bool SimulationManager::destroySimulatorForDocument(IComponentDocument* document, const QString& simulationType) {
     Q_ASSERT( document );
     //
-    SimulatorMapKey key( document, simulationType);
-    if(d->simulatorMap.remove(key) > 0) {
-        qDebug() << "removed at least 1 simulator";
-        return true;
-    }
-    qDebug() << "cannot find simulator";
-    return false;
+    SimulatorMapKey key( document->url().url(), simulationType);
+    int removedCount;
+    removedCount = d->simulatorMap.remove(key);
+    qDebug() << "removed " << removedCount << " simulators for key:" << key.m_keyValue;
+    return (removedCount > 0);
 }
 
 void SimulationManager::registerSimulatorFactory(ISimulatorFactory *factory){
