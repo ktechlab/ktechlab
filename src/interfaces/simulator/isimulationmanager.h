@@ -59,6 +59,14 @@ public:
                             IComponentDocument *document,
                             const QString &simulationType = QString()) = 0;
 
+    /**
+     * Destroy a simulator created for a document and simulation type.
+     * @return true if a simulator has been deleted,
+     *          false if no simulator has been deleted.
+     */
+    virtual bool destroySimulatorForDocument(
+                            IComponentDocument *document,
+                            const QString &simulationType = QString()) = 0;
 
     /**
      * registed a ISimulatorFactory. All the needed data

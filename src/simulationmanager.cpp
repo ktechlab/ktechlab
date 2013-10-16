@@ -162,6 +162,18 @@ ISimulator *SimulationManager::simulatorForDocument(
     return NULL;
 }
 
+bool SimulationManager::destroySimulatorForDocument(IComponentDocument* document, const QString& simulationType) {
+    Q_ASSERT( document );
+    //
+    SimulatorMapKey key( document, simulationType);
+    if(d->simulatorMap.remove(key) > 0) {
+        qDebug() << "removed at least 1 simulator";
+        return true;
+    }
+    qDebug() << "cannot find simulator";
+    return false;
+}
+
 void SimulationManager::registerSimulatorFactory(ISimulatorFactory *factory){
     //
     Q_ASSERT( factory );
