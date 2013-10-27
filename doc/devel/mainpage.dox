@@ -46,7 +46,7 @@ The following subsections describe various aspects of the program.
 
 TODO
 
-\subpage circuits
+\ref circuits
 
 \ref circuit_component_pin_ids
 
