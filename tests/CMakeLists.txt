@@ -1,5 +1,7 @@
 ENABLE_TESTING()
 
+add_definitions("-DKDE_ENABLED=1")
+
 add_subdirectory( math )
 
 add_subdirectory( minimal_simulator )

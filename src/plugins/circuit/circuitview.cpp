@@ -42,7 +42,9 @@ CircuitView::CircuitView ( KTechLab::CircuitDocument* document, QWidget* parent 
       m_document(document),
       m_scene(static_cast<CircuitScene*>(document->documentScene()))
 {
+#if KDE_ENABLED // FIXME this is ugly
     setXMLFile("ktechlabcircuitui.rc");
+#endif
     setRoutingMode(QLatin1String("ktlautomatic_router"));
     setupActions();
 
@@ -63,6 +65,7 @@ void CircuitView::init()
     setDragMode( QGraphicsView::RubberBandDrag );
 }
 
+#if KDE_ENABLED
 void CircuitView::setupActions()
 {
     KActionCollection* ac = actionCollection();
@@ -112,6 +115,11 @@ void CircuitView::setupActions()
         m_routerModeActions->addAction(action);
     }
 }
+#else
+void CircuitView::setupActions()
+{
+}
+#endif
 
 void CircuitView::componentFlipHorizontal()
 {
@@ -138,11 +146,14 @@ void CircuitView::routingModeChanged(QAction* action)
     setRoutingMode(action->data().toString());
 }
 
+#if KDE_ENABLED
 void CircuitView::save()
 {
     m_document->save();
 }
+#endif
 
+#if KDE_ENABLED
 void CircuitView::setRoutingMode(const QString& modeName)
 {
     KDevelop::IPluginController *pc = KDevelop::ICore::self()->pluginController();
@@ -154,6 +165,6 @@ void CircuitView::setRoutingMode(const QString& modeName)
     m_currentRouterName = modeName;
     router->setDocumentScene(m_scene);
 }
+#endif
 
 #include "circuitview.moc"
-

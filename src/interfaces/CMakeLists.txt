@@ -31,7 +31,42 @@ set( ktlinterfaces_LIB_SRCS
    simulator/iwire.cpp
    )
 
+set ( ktlinterfaces_qt_HEADERS_TO_MOC
+   component/idocumentitem.h
+   component/connector.h
+   idocumentscene.h
+   irouterplugin.h
+   iroutinginformation.h
+   idocumentmodel.h
+   idocumentplugin.h
+   icomponentdocument.h
+   private/documentitem.h
+   component/icomponentplugin.h
+   component/icomponent.h
+   component/componentmodel.h
+   component/componentmimedata.h
+   component/connectoritem.h
+   component/icomponentitem.h
+   component/node.h
+
+   simulator/ipin.h
+   simulator/ielement.h
+   simulator/ielementset.h
+   simulator/ielementfactory.h
+   simulator/isimulator.h
+   simulator/isimulatorfactory.h
+   simulator/isimulationmanager.h
+   simulator/iwire.h
+
+   )
+
+qt4_wrap_cpp(ktlinterfaces_qt_MOCED_HEADERS ${ktlinterfaces_qt_HEADERS_TO_MOC})
+
+add_library(ktlinterfaces_qt STATIC ${ktlinterfaces_LIB_SRCS} ${ktlinterfaces_qt_MOCED_HEADERS} )
+set_target_properties(ktlinterfaces_qt PROPERTIES COMPILE_FLAGS "-DKDE_ENABLED=0")
+
 kde4_add_library( ktlinterfaces SHARED ${ktlinterfaces_LIB_SRCS} )
+set_target_properties(ktlinterfaces PROPERTIES COMPILE_FLAGS "-DKDE_ENABLED=1")
 
 target_link_libraries( ktlinterfaces
    ${KDEVPLATFORM_INTERFACES_LIBRARIES}

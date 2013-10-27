@@ -11,6 +11,8 @@ set(circuit_SRCS
     simulator/genericelementfactory.cpp
 )
 
+add_library(ktlcircuit_qt STATIC ${circuit_SRCS} )
+
 kde4_add_library( ktlcircuit SHARED ${circuit_SRCS} )
 
 target_link_libraries(ktlcircuit

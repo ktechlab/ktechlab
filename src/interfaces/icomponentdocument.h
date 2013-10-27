@@ -30,6 +30,7 @@ class IDocumentScene;
 
 class IDocumentModel;
 
+
 /**
  * \short Documents containing some form of components
  *
@@ -37,11 +38,20 @@ class IDocumentModel;
  * the components available in the document.
  *
  */
+#if KDE_ENABLED
 class KTLINTERFACES_EXPORT IComponentDocument : public KDevelop::PartDocument
+#else
+class KTLINTERFACES_EXPORT IComponentDocument : public QObject
+#endif
 {
     Q_OBJECT
 public:
+
+#if KDE_ENABLED
     IComponentDocument(const KUrl& url, KDevelop::ICore* core, const QString& preferredPart = QString());
+#else
+	IComponentDocument(const QUrl& url);
+#endif
 
     /**
      * @return the IDocumentModel for this document
@@ -55,6 +65,14 @@ public:
      * \return the IDocumentScene for this document
      */
     virtual IDocumentScene* documentScene() const =0;
+
+#if !KDE_ENABLED
+	/* add a fake url() method */
+public:
+	QUrl & url() { return m_url; }
+protected:
+	QUrl m_url;
+#endif
 };
 
 }

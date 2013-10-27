@@ -47,7 +47,11 @@ class CircuitDocument;
  *
  * @author Julian Bäume
  */
+#if KDE_ENABLED
 class CircuitView : public QGraphicsView, public KXMLGUIClient
+#else
+class CircuitView : public QGraphicsView
+#endif
 {
     Q_OBJECT
 
@@ -61,12 +65,16 @@ private slots:
     void componentFlipHorizontal();
     void componentFlipVertical();
     void routingModeChanged(QAction* action);
+#if KDE_ENABLED
     void save();
+#endif
 
 private:
     void init();
     void setupActions();
+#if KDE_ENABLED
     void setRoutingMode(const QString& modeName);
+#endif
     KTechLab::CircuitDocument* m_document;
     KTechLab::CircuitScene* m_scene;
     QString m_currentRouterName;
