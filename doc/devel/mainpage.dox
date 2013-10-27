@@ -42,6 +42,9 @@ The plugins can be categorized like in this map:
 
 The following subsections describe various aspects of the program.
 
+\subsection main_object_diagram High level object diagram
+\image html high_level_object_diagram.svg "High level object diagram of KTechLab" height=20cm
+
 \subsection main Main function
 
 TODO

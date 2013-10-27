@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1488.189"
+   height="1052.3622"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="high_level_object_diagram.svg">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="EmptyDiamondL"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="EmptyDiamondL"
+       style="overflow:visible">
+      <path
+         id="path3910"
+         d="M 0,-7.0710768 L -7.0710894,0 L 0,7.0710589 L 7.0710462,0 L 0,-7.0710768 z "
+         style="fill-rule:evenodd;fill:#FFFFFF;stroke:#000000;stroke-width:1.0pt"
+         transform="scale(0.8)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyDiamondM"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="EmptyDiamondM"
+       style="overflow:visible">
+      <path
+         id="path3913"
+         d="M 0,-7.0710768 L -7.0710894,0 L 0,7.0710589 L 7.0710462,0 L 0,-7.0710768 z "
+         style="fill-rule:evenodd;fill:#FFFFFF;stroke:#000000;stroke-width:1.0pt"
+         transform="scale(0.4)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="753.80569"
+     inkscape:cy="707.74875"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1280"
+     inkscape:window-height="751"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="1. réteg"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-42.34375,685.20595)">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:none;stroke-miterlimit:4;stroke-dasharray:3,3;stroke-dashoffset:0"
+       d="M 436.46767,171.50915 1035.564,402.36218"
+       id="path6192"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect5214"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect5998"
+       inkscape:connection-end-point="d4"
+       transform="translate(42.34375,-685.20595)" />
+    <rect
+       style="fill:#fff5d7;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect3782"
+       width="151.765"
+       height="77.53154"
+       x="51.741817"
+       y="-305.93069"
+       rx="1.2996014" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3, 3;stroke-dashoffset:0"
+       d="M 501.82532,617.6188 270.7209,644.39502"
+       id="path5986"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect5792"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect5420"
+       inkscape:connection-end-point="d4"
+       transform="translate(42.34375,-685.20595)" />
+    <rect
+       style="fill:#fff5d7;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect4436"
+       width="333.61859"
+       height="61.305965"
+       x="470.6701"
+       y="-362.0069"
+       rx="1.2996014" />
+    <rect
+       style="fill:#fff5d7;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect5420"
+       width="250.51784"
+       height="41.416256"
+       x="62.546814"
+       y="-47.006302"
+       rx="1.2996014" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
+       d="m 651.14126,-300.70093 80.03652,179.5771"
+       id="path5800"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect4436"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect5792"
+       inkscape:connection-end-point="d4" />
+    <rect
+       style="fill:#fff5d7;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect4832"
+       width="499.01535"
+       height="47.477169"
+       x="771.18579"
+       y="-189.64085"
+       rx="1.2996014" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
+       d="M 126.287,379.27526 346.06197,171.50915"
+       id="path5220"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect3782"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect5214"
+       inkscape:connection-end-point="d4"
+       transform="translate(42.34375,-685.20595)" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="127.57072"
+       y="-273.69504"
+       id="text3784"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3786"
+         x="127.57072"
+         y="-273.69504">KDevelop::ICore</tspan><tspan
+         sodipodi:role="line"
+         x="127.57072"
+         y="-253.69502"
+         id="tspan4626">&lt;&lt;singleton&gt;&gt;</tspan></text>
+    <rect
+       style="fill:#fff5d7;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect3792"
+       width="260.61935"
+       height="52.527931"
+       x="295.27417"
+       y="-468.06659"
+       rx="1.2996014" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="323.56717"
+       y="-436.9252"
+       id="text3794"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3796"
+         x="323.56717"
+         y="-436.9252">KDevelop::IPluginController</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
+       d="M 151.4211,379.27526 338.42962,269.66729"
+       id="path3798"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect3782"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect3792"
+       inkscape:connection-end-point="d4"
+       transform="translate(42.34375,-685.20595)" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="491.62949"
+       y="-339.9866"
+       id="text4430"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4432"
+         x="491.62949"
+         y="-339.9866">KTechLab::KTLCircuitPlugin implements</tspan><tspan
+         sodipodi:role="line"
+         x="491.62949"
+         y="-319.9866"
+         id="tspan4628">KTechLab::IComponentPlugin</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL);display:inline"
+       d="m 433.62744,269.66729 102.70055,53.53176"
+       id="path4440"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-end="#rect4436"
+       inkscape:connection-end-point="d4"
+       transform="translate(42.34375,-685.20595)"
+       inkscape:connection-start="#rect3792"
+       inkscape:connection-start-point="d4" />
+    <rect
+       style="fill:#fff5d7;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect4630"
+       width="347.49246"
+       height="57.578697"
+       x="534.06757"
+       y="-266.58578"
+       rx="1.2996014" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="569.42291"
+       y="-244.36241"
+       id="text4632"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4634"
+         x="569.42291"
+         y="-244.36241">KTechLab::ComponentModel implements</tspan><tspan
+         sodipodi:role="line"
+         x="569.42291"
+         y="-224.36241"
+         id="tspan4638">QAbstractItemModel</tspan><tspan
+         sodipodi:role="line"
+         x="569.42291"
+         y="-204.36241"
+         id="tspan4636" /></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
+       d="m 660.52362,-300.70093 25.647,34.11515"
+       id="path4640"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect4436"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect4630"
+       inkscape:connection-end-point="d4" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="786.33807"
+       y="-163.37688"
+       id="text4828"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4830"
+         x="786.33807"
+         y="-163.37688">tree&lt; touple&lt; ComponentMetaData, IComponentItemFactory &gt; &gt;</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
+       d="m 833.10354,-209.00709 84.28084,19.36624"
+       id="path4834"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect4630"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect4832"
+       inkscape:connection-end-point="d4" />
+    <rect
+       style="fill:#fff5d7;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect5020"
+       width="416.18283"
+       height="60.60915"
+       x="909.05469"
+       y="-362.53284"
+       rx="1.2996014" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="929.25769"
+       y="-339.29935"
+       id="text5022"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5024"
+         x="929.25769"
+         y="-339.29935">KTechLab::KTLComponentViewFactory implements</tspan><tspan
+         sodipodi:role="line"
+         x="929.25769"
+         y="-319.29935"
+         id="tspan5026">KDevelop::IToolViewFactory</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
+       d="m 804.2887,-331.65798 104.76599,-0.19097"
+       id="path5028"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect4436"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect5020"
+       inkscape:connection-end-point="d4" />
+    <rect
+       style="fill:#fff5d7;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect5214"
+       width="196.97975"
+       height="49.497475"
+       x="316.09506"
+       y="-563.19427"
+       rx="1.2996014" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="329.22711"
+       y="-537.94043"
+       id="text5216"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5218"
+         x="329.22711"
+         y="-537.94043">KDevelop::IUiController</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3, 3;stroke-dashoffset:0"
+       d="M 971.55777,322.67311 456.5576,171.50915"
+       id="path5406"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect5020"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect5214"
+       inkscape:connection-end-point="d4"
+       transform="translate(42.34375,-685.20595)" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5408"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       transform="translate(-805.17424,-245.78959)"><flowRegion
+         id="flowRegion5410"><rect
+           id="rect5412"
+           width="246.47723"
+           height="34.345184"
+           x="879.8429"
+           y="209.89496" /></flowRegion><flowPara
+         id="flowPara5416">KDevelop::IDocumentController</flowPara></flowRoot>    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
+       d="M 94.966333,456.8068 140.28798,638.19965"
+       id="path5422"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect3782"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect5420"
+       inkscape:connection-end-point="d4"
+       transform="translate(42.34375,-685.20595)" />
+    <rect
+       style="fill:#fff5d7;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect5792"
+       width="401.03058"
+       height="60.609154"
+       x="544.16907"
+       y="-121.12383"
+       rx="1.2996014" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="553.26044"
+       y="-95.870033"
+       id="text5794"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5796"
+         x="553.26044"
+         y="-95.870033">KTechLab::KTLCircuitDocumentFactory implements</tspan><tspan
+         sodipodi:role="line"
+         x="553.26044"
+         y="-75.870033"
+         id="tspan5798">KDevelop::IDocumentFactory</tspan></text>
+    <rect
+       style="fill:#fff5d7;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect5998"
+       width="407.14252"
+       height="55.714062"
+       x="904.28571"
+       y="402.36218"
+       transform="translate(42.34375,-685.20595)"
+       rx="1.2996014" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="920"
+       y="420.93362"
+       id="text6000"
+       sodipodi:linespacing="125%"
+       transform="translate(42.34375,-685.20595)"><tspan
+         sodipodi:role="line"
+         id="tspan6002"
+         x="920"
+         y="420.93362">KTechLab::KTLComponentEditorFactory implements</tspan><tspan
+         sodipodi:role="line"
+         x="920"
+         y="440.93362"
+         id="tspan6004">KDevelop::IToolViewFactory</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
+       d="m 761.94495,378.69741 158.8828,23.66477"
+       id="path6006"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect4436"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect5998"
+       inkscape:connection-end-point="d4"
+       transform="translate(42.34375,-685.20595)" />
+  </g>
+</svg>
