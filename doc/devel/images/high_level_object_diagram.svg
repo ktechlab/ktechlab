@@ -9,8 +9,8 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="1488.189"
-   height="1052.3622"
+   width="1488.1899"
+   height="2053.3601"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.3.1 r9886"
@@ -18,30 +18,59 @@
   <defs
      id="defs4">
     <marker
-       inkscape:stockid="EmptyDiamondL"
+       inkscape:stockid="Arrow1Lend"
        orient="auto"
        refY="0.0"
        refX="0.0"
+       id="Arrow1Lend"
+       style="overflow:visible;">
+      <path
+         id="path4326"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart"
+       style="overflow:visible">
+      <path
+         id="path4323"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="matrix(0.8,0,0,0.8,10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyDiamondL"
+       orient="auto"
+       refY="0"
+       refX="0"
        id="EmptyDiamondL"
        style="overflow:visible">
       <path
          id="path3910"
-         d="M 0,-7.0710768 L -7.0710894,0 L 0,7.0710589 L 7.0710462,0 L 0,-7.0710768 z "
-         style="fill-rule:evenodd;fill:#FFFFFF;stroke:#000000;stroke-width:1.0pt"
-         transform="scale(0.8)" />
+         d="M 0,-7.0710768 -7.0710894,0 0,7.0710589 7.0710462,0 0,-7.0710768 z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="scale(0.8,0.8)"
+         inkscape:connector-curvature="0" />
     </marker>
     <marker
        inkscape:stockid="EmptyDiamondM"
        orient="auto"
-       refY="0.0"
-       refX="0.0"
+       refY="0"
+       refX="0"
        id="EmptyDiamondM"
        style="overflow:visible">
       <path
          id="path3913"
-         d="M 0,-7.0710768 L -7.0710894,0 L 0,7.0710589 L 7.0710462,0 L 0,-7.0710768 z "
-         style="fill-rule:evenodd;fill:#FFFFFF;stroke:#000000;stroke-width:1.0pt"
-         transform="scale(0.4)" />
+         d="M 0,-7.0710768 -7.0710894,0 0,7.0710589 7.0710462,0 0,-7.0710768 z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="scale(0.4,0.4)"
+         inkscape:connector-curvature="0" />
     </marker>
   </defs>
   <sodipodi:namedview
@@ -51,16 +80,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7"
-     inkscape:cx="753.80569"
-     inkscape:cy="707.74875"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="545.08089"
+     inkscape:cy="1269.0589"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1280"
-     inkscape:window-height="751"
-     inkscape:window-x="0"
-     inkscape:window-y="25"
+     inkscape:window-width="1855"
+     inkscape:window-height="1055"
+     inkscape:window-x="65"
+     inkscape:window-y="24"
      inkscape:window-maximized="1"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -74,7 +103,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -82,57 +111,211 @@
      inkscape:label="1. réteg"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-42.34375,685.20595)">
-    <path
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:none;stroke-miterlimit:4;stroke-dasharray:3,3;stroke-dashoffset:0"
-       d="M 436.46767,171.50915 1035.564,402.36218"
-       id="path6192"
-       inkscape:connector-type="polyline"
-       inkscape:connector-curvature="0"
-       inkscape:connection-start="#rect5214"
-       inkscape:connection-start-point="d4"
-       inkscape:connection-end="#rect5998"
-       inkscape:connection-end-point="d4"
-       transform="translate(42.34375,-685.20595)" />
+     transform="translate(-42.34375,1686.2032)">
     <rect
-       style="fill:#fff5d7;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       id="rect3782"
-       width="151.765"
-       height="77.53154"
-       x="51.741817"
-       y="-305.93069"
-       rx="1.2996014" />
+       style="fill:#fff7d2;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect8685"
+       width="400"
+       height="50.714283"
+       x="514.28571"
+       y="1778.3601"
+       transform="translate(42.34375,-1686.2032)" />
+    <rect
+       style="fill:#fff7d2;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect8687"
+       width="270.71429"
+       height="64.285721"
+       x="599.28571"
+       y="1839.7887"
+       transform="translate(42.34375,-1686.2032)" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3, 3;stroke-dashoffset:0"
-       d="M 501.82532,617.6188 270.7209,644.39502"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3, 3;stroke-dashoffset:0;marker-end:url(#Arrow1Lend)"
+       d="M 738.86844,-997.64512 220.40503,-222.7083"
        id="path5986"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="0"
        inkscape:connection-start="#rect5792"
        inkscape:connection-start-point="d4"
        inkscape:connection-end="#rect5420"
+       inkscape:connection-end-point="d4" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3, 3;stroke-dashoffset:0;marker-end:url(#Arrow1Lend)"
+       d="m 689.20253,1219.3374 90.06761,509.7638"
+       id="path6965"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect6493"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect6955"
        inkscape:connection-end-point="d4"
-       transform="translate(42.34375,-685.20595)" />
+       transform="translate(42.34375,-1686.2032)" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3, 3;stroke-dashoffset:0;marker-end:url(#Arrow1Lend)"
+       d="m 749.55277,1388.9485 30.97165,340.1527"
+       id="path6963"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect6493-0"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect6955"
+       inkscape:connection-end-point="d4"
+       transform="translate(42.34375,-1686.2032)" />
+    <rect
+       style="fill:#fff7d2;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect6961"
+       width="301.02545"
+       height="32.324883"
+       x="444.46713"
+       y="1586.6697"
+       transform="translate(42.34375,-1686.2032)" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
+       d="m 604.57875,1618.9946 94.64733,159.3655"
+       id="path8689"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect6961"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect8685"
+       inkscape:connection-end-point="d4"
+       transform="translate(42.34375,-1686.2032)" />
+    <rect
+       style="fill:#fff7d2;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect6959"
+       width="357.59399"
+       height="46.467018"
+       x="512.14734"
+       y="1629.0961"
+       transform="translate(42.34375,-1686.2032)" />
+    <rect
+       style="fill:#fff7d2;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect6955"
+       width="325.26913"
+       height="29.294424"
+       x="661.56726"
+       y="42.897999" />
+    <rect
+       style="fill:#fff7d2;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect6957"
+       width="299.00516"
+       height="23.233509"
+       x="566.69556"
+       y="1686.6747"
+       transform="translate(42.34375,-1686.2032)" />
+    <rect
+       style="fill:#fff7d2;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect6933"
+       width="329.30972"
+       height="63.63961"
+       x="383.7753"
+       y="-178.32552" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
+       d="M 362.82217,631.60088 527.89645,1240.6289"
+       id="path6739"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect3792"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect6491-8"
+       inkscape:connection-end-point="d4"
+       transform="translate(42.34375,-1686.2032)" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL);display:inline"
+       d="m 406.5905,-1054.6023 143.86569,442.27411"
+       id="path6507"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect3792"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect6491"
+       inkscape:connection-end-point="d4" />
+    <rect
+       style="fill:#fff7d2;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect6491"
+       width="309.10669"
+       height="66.670067"
+       x="406.74628"
+       y="-612.32819" />
+    <rect
+       style="fill:#fff7d2;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect6107"
+       width="609.12195"
+       height="54.548237"
+       x="587.5636"
+       y="-700.21222" />
+    <rect
+       style="fill:#fff7d2;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect6105"
+       width="408.10165"
+       height="48.487267"
+       x="407.75644"
+       y="-770.92285" />
+    <rect
+       style="fill:#fff7d2;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect5519"
+       width="231.32494"
+       height="56.568542"
+       x="1286.4858"
+       y="-870.00195" />
+    <rect
+       style="fill:#ccffaa;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect3792"
+       width="260.61935"
+       height="52.527931"
+       x="267.73752"
+       y="-1107.1302"
+       rx="1.2996014" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
+       d="m 414.84673,-1054.6023 181.45329,283.67945"
+       id="path6109"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect3792"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect6105"
+       inkscape:connection-end-point="d4" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3, 3;stroke-dashoffset:0;marker-start:url(#Arrow1Lstart)"
+       d="m 628.02303,-1419.4408 510.64397,206.6094"
+       id="path6192"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect5214"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect5998"
+       inkscape:connection-end-point="d4" />
+    <rect
+       style="fill:#ccffaa;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect3782"
+       width="151.765"
+       height="77.53154"
+       x="109.05798"
+       y="-1235.9183"
+       rx="1.2996014" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
+       d="M 434.4132,-1054.6023 588.02921,-943.659"
+       id="path3931"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect3792"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect3143"
+       inkscape:connection-end-point="d4" />
     <rect
        style="fill:#fff5d7;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect4436"
        width="333.61859"
        height="61.305965"
-       x="470.6701"
-       y="-362.0069"
-       rx="1.2996014" />
-    <rect
-       style="fill:#fff5d7;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       id="rect5420"
-       width="250.51784"
-       height="41.416256"
-       x="62.546814"
-       y="-47.006302"
+       x="558.29083"
+       y="-1293.0048"
        rx="1.2996014" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
-       d="m 651.14126,-300.70093 80.03652,179.5771"
-       id="path5800"
+       d="m 729.552,-1231.6988 25.19013,173.4445"
+       id="path5325"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="0"
        inkscape:connection-start="#rect4436"
@@ -140,16 +323,24 @@
        inkscape:connection-end="#rect5792"
        inkscape:connection-end-point="d4" />
     <rect
+       style="fill:#ccffaa;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect5420"
+       width="250.51784"
+       height="41.416256"
+       x="81.291557"
+       y="-222.7083"
+       rx="1.2996014" />
+    <rect
        style="fill:#fff5d7;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect4832"
        width="499.01535"
        height="47.477169"
-       x="771.18579"
-       y="-189.64085"
+       x="828.50195"
+       y="-1119.6285"
        rx="1.2996014" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
-       d="M 126.287,379.27526 346.06197,171.50915"
+       d="m 244.87172,-1235.9183 283.72259,-183.5225"
        id="path5220"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="0"
@@ -157,76 +348,66 @@
        inkscape:connection-start-point="d4"
        inkscape:connection-end="#rect5214"
        inkscape:connection-end-point="d4"
-       transform="translate(42.34375,-685.20595)" />
+       sodipodi:nodetypes="cc" />
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-       x="127.57072"
-       y="-273.69504"
+       x="184.8869"
+       y="-1203.6827"
        id="text3784"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3786"
-         x="127.57072"
-         y="-273.69504">KDevelop::ICore</tspan><tspan
+         x="184.8869"
+         y="-1203.6827">KDevelop::ICore</tspan><tspan
          sodipodi:role="line"
-         x="127.57072"
-         y="-253.69502"
+         x="184.8869"
+         y="-1183.6827"
          id="tspan4626">&lt;&lt;singleton&gt;&gt;</tspan></text>
-    <rect
-       style="fill:#fff5d7;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       id="rect3792"
-       width="260.61935"
-       height="52.527931"
-       x="295.27417"
-       y="-468.06659"
-       rx="1.2996014" />
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-       x="323.56717"
-       y="-436.9252"
+       x="297.04068"
+       y="-1078.0092"
        id="text3794"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3796"
-         x="323.56717"
-         y="-436.9252">KDevelop::IPluginController</tspan></text>
+         x="297.04068"
+         y="-1078.0092">KDevelop::IPluginController</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
-       d="M 151.4211,379.27526 338.42962,269.66729"
+       d="m 255.98279,-1158.3868 93.93296,51.2566"
        id="path3798"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="0"
        inkscape:connection-start="#rect3782"
        inkscape:connection-start-point="d4"
        inkscape:connection-end="#rect3792"
-       inkscape:connection-end-point="d4"
-       transform="translate(42.34375,-685.20595)" />
+       inkscape:connection-end-point="d4" />
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-       x="491.62949"
-       y="-339.9866"
+       x="572.17914"
+       y="-1267.954"
        id="text4430"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4432"
-         x="491.62949"
-         y="-339.9866">KTechLab::KTLCircuitPlugin implements</tspan><tspan
+         x="572.17914"
+         y="-1267.954">KTechLab::KTLCircuitPlugin implements</tspan><tspan
          sodipodi:role="line"
-         x="491.62949"
-         y="-319.9866"
+         x="572.17914"
+         y="-1247.954"
          id="tspan4628">KTechLab::IComponentPlugin</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL);display:inline"
-       d="m 433.62744,269.66729 102.70055,53.53176"
+       d="m 445.37719,-1107.1302 224.48355,-124.5686"
        id="path4440"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="0"
        inkscape:connection-end="#rect4436"
        inkscape:connection-end-point="d4"
-       transform="translate(42.34375,-685.20595)"
        inkscape:connection-start="#rect3792"
        inkscape:connection-start-point="d4" />
     <rect
@@ -234,31 +415,31 @@
        id="rect4630"
        width="347.49246"
        height="57.578697"
-       x="534.06757"
-       y="-266.58578"
+       x="591.38373"
+       y="-1196.5735"
        rx="1.2996014" />
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-       x="569.42291"
-       y="-244.36241"
+       x="626.73907"
+       y="-1174.3501"
        id="text4632"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4634"
-         x="569.42291"
-         y="-244.36241">KTechLab::ComponentModel implements</tspan><tspan
+         x="626.73907"
+         y="-1174.3501">KTechLab::ComponentModel implements</tspan><tspan
          sodipodi:role="line"
-         x="569.42291"
-         y="-224.36241"
+         x="626.73907"
+         y="-1154.3501"
          id="tspan4638">QAbstractItemModel</tspan><tspan
          sodipodi:role="line"
-         x="569.42291"
-         y="-204.36241"
+         x="626.73907"
+         y="-1134.3501"
          id="tspan4636" /></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
-       d="m 660.52362,-300.70093 25.647,34.11515"
+       d="m 738.07532,-1231.6988 14.86831,35.1253"
        id="path4640"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="0"
@@ -269,17 +450,17 @@
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-       x="786.33807"
-       y="-163.37688"
+       x="843.65424"
+       y="-1093.3645"
        id="text4828"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4830"
-         x="786.33807"
-         y="-163.37688">tree&lt; touple&lt; ComponentMetaData, IComponentItemFactory &gt; &gt;</tspan></text>
+         x="843.65424"
+         y="-1093.3645">tree&lt; touple&lt; ComponentMetaData, IComponentItemFactory &gt; &gt;</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
-       d="m 833.10354,-209.00709 84.28084,19.36624"
+       d="m 890.41968,-1138.9948 84.28089,19.3663"
        id="path4834"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="0"
@@ -292,27 +473,27 @@
        id="rect5020"
        width="416.18283"
        height="60.60915"
-       x="909.05469"
-       y="-362.53284"
+       x="966.37085"
+       y="-1292.5205"
        rx="1.2996014" />
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-       x="929.25769"
-       y="-339.29935"
+       x="986.57385"
+       y="-1269.287"
        id="text5022"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan5024"
-         x="929.25769"
-         y="-339.29935">KTechLab::KTLComponentViewFactory implements</tspan><tspan
+         x="986.57385"
+         y="-1269.287">KTechLab::KTLComponentViewFactory implements</tspan><tspan
          sodipodi:role="line"
-         x="929.25769"
-         y="-319.29935"
+         x="986.57385"
+         y="-1249.287"
          id="tspan5026">KDevelop::IToolViewFactory</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
-       d="m 804.2887,-331.65798 104.76599,-0.19097"
+       d="m 891.90942,-1262.3014 74.46143,0.023"
        id="path5028"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="0"
@@ -321,40 +502,39 @@
        inkscape:connection-end="#rect5020"
        inkscape:connection-end-point="d4" />
     <rect
-       style="fill:#fff5d7;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#ccffaa;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect5214"
        width="196.97975"
        height="49.497475"
-       x="316.09506"
-       y="-563.19427"
+       x="468.36557"
+       y="-1468.9382"
        rx="1.2996014" />
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-       x="329.22711"
-       y="-537.94043"
+       x="479.47729"
+       y="-1437.6235"
        id="text5216"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan5218"
-         x="329.22711"
-         y="-537.94043">KDevelop::IUiController</tspan></text>
+         x="479.47729"
+         y="-1437.6235">KDevelop::IUiController</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3, 3;stroke-dashoffset:0"
-       d="M 971.55777,322.67311 456.5576,171.50915"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3, 3;stroke-dashoffset:0;marker-start:url(#Arrow1Lstart);marker-mid:none;display:inline"
+       d="m 649.49108,-1419.4408 423.78472,126.9203"
        id="path5406"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="0"
-       inkscape:connection-start="#rect5020"
+       inkscape:connection-start="#rect5214"
        inkscape:connection-start-point="d4"
-       inkscape:connection-end="#rect5214"
-       inkscape:connection-end-point="d4"
-       transform="translate(42.34375,-685.20595)" />
+       inkscape:connection-end="#rect5020"
+       inkscape:connection-end-point="d4" />
     <flowRoot
        xml:space="preserve"
        id="flowRoot5408"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-       transform="translate(-805.17424,-245.78959)"><flowRegion
+       transform="translate(-786.4295,-421.49159)"><flowRegion
          id="flowRegion5410"><rect
            id="rect5412"
            width="246.47723"
@@ -363,73 +543,621 @@
            y="209.89496" /></flowRegion><flowPara
          id="flowPara5416">KDevelop::IDocumentController</flowPara></flowRoot>    <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
-       d="M 94.966333,456.8068 140.28798,638.19965"
+       d="m 185.78229,-1158.3868 20.3185,935.6785"
        id="path5422"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="0"
        inkscape:connection-start="#rect3782"
        inkscape:connection-start-point="d4"
        inkscape:connection-end="#rect5420"
-       inkscape:connection-end-point="d4"
-       transform="translate(42.34375,-685.20595)" />
+       inkscape:connection-end-point="d4" />
     <rect
        style="fill:#fff5d7;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect5792"
        width="401.03058"
        height="60.609154"
-       x="544.16907"
-       y="-121.12383"
+       x="558.62811"
+       y="-1058.2543"
        rx="1.2996014" />
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-       x="553.26044"
-       y="-95.870033"
+       x="576.29089"
+       y="-1033.0006"
        id="text5794"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan5796"
-         x="553.26044"
-         y="-95.870033">KTechLab::KTLCircuitDocumentFactory implements</tspan><tspan
+         x="576.29089"
+         y="-1033.0006">KTechLab::KTLCircuitDocumentFactory implements</tspan><tspan
          sodipodi:role="line"
-         x="553.26044"
-         y="-75.870033"
+         x="576.29089"
+         y="-1013.0006"
          id="tspan5798">KDevelop::IDocumentFactory</tspan></text>
     <rect
        style="fill:#fff5d7;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect5998"
        width="407.14252"
        height="55.714062"
-       x="904.28571"
-       y="402.36218"
-       transform="translate(42.34375,-685.20595)"
+       x="1003.9456"
+       y="-1212.8314"
        rx="1.2996014" />
     <text
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
-       x="920"
-       y="420.93362"
+       x="1019.6599"
+       y="-1194.26"
        id="text6000"
-       sodipodi:linespacing="125%"
-       transform="translate(42.34375,-685.20595)"><tspan
+       sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan6002"
-         x="920"
-         y="420.93362">KTechLab::KTLComponentEditorFactory implements</tspan><tspan
+         x="1019.6599"
+         y="-1194.26">KTechLab::KTLComponentEditorFactory implements</tspan><tspan
          sodipodi:role="line"
-         x="920"
-         y="440.93362"
+         x="1019.6599"
+         y="-1174.26"
          id="tspan6004">KDevelop::IToolViewFactory</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
-       d="m 761.94495,378.69741 158.8828,23.66477"
+       d="m 891.90942,-1235.5963 141.93008,22.7649"
        id="path6006"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="0"
        inkscape:connection-start="#rect4436"
        inkscape:connection-start-point="d4"
        inkscape:connection-end="#rect5998"
+       inkscape:connection-end-point="d4" />
+    <rect
+       style="fill:#fff7d2;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+       id="rect3143"
+       width="321.22852"
+       height="60.609154"
+       x="469.37573"
+       y="-943.659" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="475.43668"
+       y="-918.40521"
+       id="text3925"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3927"
+         x="475.43668"
+         y="-918.40521"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">KTechLab::KTLBasicECPlugin implements</tspan><tspan
+         sodipodi:role="line"
+         x="475.43668"
+         y="-898.40521"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         id="tspan3929">KTechLab::IComponentPlugin</tspan></text>
+    <rect
+       style="fill:#fff7d2;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+       id="rect4119"
+       width="582.85803"
+       height="57.578697"
+       x="613.82758"
+       y="-860.82648"
+       rx="1.2996014" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="628.97986"
+       y="-839.61328"
+       id="text4121"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4123"
+         x="628.97986"
+         y="-839.61328"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">KTechLab::KTLBasicECFactory implements</tspan><tspan
+         sodipodi:role="line"
+         x="628.97986"
+         y="-819.61328"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+         id="tspan4129">KTechLab::GenericComponentItemFactory, KTechLab::GenericElementFactory</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
+       d="m 732.5738,-883.04984 75.22817,22.22336"
+       id="path4131"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect3143"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect4119"
+       inkscape:connection-end-point="d4" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3, 3;stroke-dashoffset:0;marker-start:url(#Arrow1Lstart)"
+       d="M 1062.4672,-1072.1514 924.10592,-860.82648"
+       id="path4317"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect4832"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect4119"
+       inkscape:connection-end-point="d4" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="1399.8284"
+       y="-848.7887"
+       id="text5513"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5515"
+         x="1399.8284"
+         y="-848.7887">KTechLab::ISimulationManager</tspan><tspan
+         sodipodi:role="line"
+         x="1399.8284"
+         y="-828.7887"
+         id="tspan5517">&lt;&lt;singleton&gt;&gt;</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3, 3;stroke-dashoffset:0;marker-start:url(#Arrow1Lstart)"
+       d="m 1286.4858,-839.46432 -89.8002,1.74951"
+       id="path5521"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect5519"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect4119"
+       inkscape:connection-end-point="d4" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
+       d="m 79.456865,-1654.8063 123.238615,-1.0102"
+       id="path5709"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3, 3;stroke-dashoffset:0;marker-start:url(#Arrow1Lstart)"
+       d="m 68.345198,-1592.1769 150.512712,-2.0203"
+       id="path5897"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="92.588844"
+       y="-1632.583"
+       id="text6085"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan6087"
+         x="92.588844"
+         y="-1632.583">Owns / has a</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="102.69038"
+       y="-1573.9941"
+       id="text6089"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan6091"
+         x="102.69038"
+         y="-1573.9941">Registers to</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="437.05087"
+       y="-750.71985"
+       id="text6093"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan6095"
+         x="437.05087"
+         y="-750.71985">KTechLab::KTLLogicComponentsPlugin implements</tspan><tspan
+         sodipodi:role="line"
+         x="437.05087"
+         y="-730.71985"
+         id="tspan6097">KTechLab::IComponentPlugin</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="605.74634"
+       y="-678.99902"
+       id="text6099"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan6101"
+         x="605.74634"
+         y="-678.99902">KTechLab::KTLLogicFactory implements</tspan><tspan
+         sodipodi:role="line"
+         x="605.74634"
+         y="-658.99902"
+         id="tspan6103">KTechLab::GenericComponentItemFactory, KTechLab::GenericElementFactory</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
+       d="m 703.9663,-722.43559 84.47924,22.22337"
+       id="path6297"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect6105"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect6107"
+       inkscape:connection-end-point="d4" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="416.84781"
+       y="-587.0744"
+       id="text6485"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan6487"
+         x="416.84781"
+         y="-587.0744">KTechLab::AutomaticRouter implements</tspan><tspan
+         sodipodi:role="line"
+         x="416.84781"
+         y="-567.0744"
+         id="tspan6489">KTechLab::IRouterPlugin</tspan></text>
+    <rect
+       style="fill:#fff7d2;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect6493"
+       width="263.64981"
+       height="57.579002"
+       x="594.6347"
+       y="-524.44476" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="611.80725"
+       y="-501.21136"
+       id="text6495"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan6497"
+         x="611.80725"
+         y="-501.21136">KTechLab::Cells implements</tspan><tspan
+         sodipodi:role="line"
+         x="611.80725"
+         y="-481.21136"
+         id="tspan6499">KTechLab::IRoutingInformation</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 585.01962,1140.5451 42.04088,21.2133"
+       id="path6695"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect6491"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect6493"
        inkscape:connection-end-point="d4"
-       transform="translate(42.34375,-685.20595)" />
+       transform="translate(42.34375,-1686.2032)" />
+    <rect
+       style="fill:#fff7d2;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect6491-8"
+       width="339.10669"
+       height="64.527206"
+       x="409.43176"
+       y="-445.57428" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="419.53329"
+       y="-420.3205"
+       id="text6485-0"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan6487-2"
+         x="419.53329"
+         y="-420.3205">KTechLab::SimpleRouterPlugin implements</tspan><tspan
+         sodipodi:role="line"
+         x="419.53329"
+         y="-400.3205"
+         id="tspan6489-5">KTechLab::IRouterPlugin</tspan></text>
+    <rect
+       style="fill:#fff7d2;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect6493-0"
+       width="383.64981"
+       height="60.436146"
+       x="597.32019"
+       y="-357.69086" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="614.49274"
+       y="-334.45746"
+       id="text6495-6"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan6497-7"
+         x="614.49274"
+         y="-334.45746">KTechLab::SimpleRoutingInformation implements</tspan><tspan
+         sodipodi:role="line"
+         x="614.49274"
+         y="-314.45746"
+         id="tspan6499-9">KTechLab::IRoutingInformation</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 625.80211,-381.04707 46.28762,23.35621"
+       id="path6695-4"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect6491-8"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect6493-0"
+       inkscape:connection-end-point="d4" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="408.64975"
+       y="-151.08028"
+       id="text6927"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan6929"
+         x="408.64975"
+         y="-151.08028">KTechLab::CircuitDocument implements</tspan><tspan
+         sodipodi:role="line"
+         x="408.64975"
+         y="-131.08028"
+         id="tspan6931">KTechLab::IComponentDocument</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="456.58896"
+       y="1609.9031"
+       id="text6935"
+       sodipodi:linespacing="125%"
+       transform="translate(42.34375,-1686.2032)"><tspan
+         sodipodi:role="line"
+         id="tspan6937"
+         x="456.58896"
+         y="1609.9031">KTechLab::CircuitDocumentPrivate</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="525.2793"
+       y="1647.2788"
+       id="text6939"
+       sodipodi:linespacing="125%"
+       transform="translate(42.34375,-1686.2032)"><tspan
+         sodipodi:role="line"
+         id="tspan6941"
+         x="525.2793"
+         y="1647.2788">KTechLab::CircuitScene implements</tspan><tspan
+         sodipodi:role="line"
+         x="525.2793"
+         y="1667.2788"
+         id="tspan6943">KTechLab::IDocumentScene, QGraphicsScene</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="581.8479"
+       y="1703.8473"
+       id="text6945"
+       sodipodi:linespacing="125%"
+       transform="translate(42.34375,-1686.2032)"><tspan
+         sodipodi:role="line"
+         id="tspan6947"
+         x="581.8479"
+         y="1703.8473">KTechLab::IDocumentScenePrivate </tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="678.73987"
+       y="60.070587"
+       id="text6949"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan6951"
+         x="678.73987"
+         y="60.070587">QSharedPointer&lt; IRoutingInformation &gt;</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
+       d="m 289.13329,1504.4813 52.29826,8.4891"
+       id="path7533"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect5420"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect6933"
+       inkscape:connection-end-point="d4"
+       transform="translate(42.34375,-1686.2032)" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
+       d="m 550.88864,1571.5173 21.33453,15.1524"
+       id="path7723"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect6933"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect6961"
+       inkscape:connection-end-point="d4"
+       transform="translate(42.34375,-1686.2032)" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
+       d="m 626.31521,1618.9946 19.58456,10.1015"
+       id="path8101"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect6961"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect6959"
+       inkscape:connection-end-point="d4"
+       transform="translate(42.34375,-1686.2032)" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
+       d="m 703.71002,1675.5631 6.10528,11.1116"
+       id="path8291"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect6959"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect6957"
+       inkscape:connection-end-point="d4"
+       transform="translate(42.34375,-1686.2032)" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL);display:inline"
+       d="m 732.97786,1709.9082 27.72318,19.193"
+       id="path8481"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect6957"
+       inkscape:connection-start-point="d4"
+       transform="translate(42.34375,-1686.2032)"
+       inkscape:connection-end="#rect6955"
+       inkscape:connection-end-point="d4" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="523.57141"
+       y="1799.7887"
+       id="text8671"
+       sodipodi:linespacing="125%"
+       transform="translate(42.34375,-1686.2032)"><tspan
+         sodipodi:role="line"
+         id="tspan8673"
+         x="523.57141"
+         y="1799.7887">KTechLab::CircuitModel implements</tspan><tspan
+         sodipodi:role="line"
+         x="523.57141"
+         y="1819.7887"
+         id="tspan8675">KTechLab::IDocumentModel, QAbstractItemModel</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="615"
+       y="1855.5031"
+       id="text8677"
+       sodipodi:linespacing="125%"
+       transform="translate(42.34375,-1686.2032)"><tspan
+         sodipodi:role="line"
+         id="tspan8679"
+         x="615"
+         y="1855.5031">list&lt; QVariantMap &gt; components</tspan><tspan
+         sodipodi:role="line"
+         x="615"
+         y="1875.5031"
+         id="tspan8681">list&lt; QVariantMap &gt; connectors</tspan><tspan
+         sodipodi:role="line"
+         x="615"
+         y="1895.5031"
+         id="tspan8683">list&lt; QVariantMap &gt; nodes</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#EmptyDiamondL)"
+       d="m 721.85302,1829.0744 3.19746,10.7143"
+       id="path8879"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect8685"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect8687"
+       inkscape:connection-end-point="d4"
+       transform="translate(42.34375,-1686.2032)" />
+    <rect
+       style="fill:#ccffaa;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect9069"
+       width="179.80707"
+       height="35.355427"
+       x="236.29301"
+       y="-1656.1786"
+       rx="1.2996014" />
+    <rect
+       style="fill:#fff5d7;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect4436-0"
+       width="176.0347"
+       height="37.062691"
+       x="240.19951"
+       y="-1605.0093"
+       rx="1.2996014" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="248.41487"
+       y="-1632.9452"
+       id="text9089"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan9091"
+         x="248.41487"
+         y="-1632.9452">object from KDevelop </tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="249.425"
+       y="-1581.4274"
+       id="text9093"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan9095"
+         x="249.425"
+         y="-1581.4274">object from KTechLab</tspan></text>
+    <rect
+       style="fill:#fff7d2;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect6933-8"
+       width="329.30972"
+       height="63.63961"
+       x="190.83618"
+       y="1.9867625" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       x="215.71063"
+       y="29.232002"
+       id="text6927-3"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan6929-5"
+         x="215.71063"
+         y="29.232002">KTechLab::CircuitDocument implements</tspan><tspan
+         sodipodi:role="line"
+         x="215.71063"
+         y="49.232002"
+         id="tspan6931-7">KTechLab::IComponentDocument</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 177.28642,1504.9112 293.04923,1688.19"
+       id="path9128"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect5420"
+       inkscape:connection-start-point="d4"
+       inkscape:connection-end="#rect6933-8"
+       inkscape:connection-end-point="d4"
+       transform="translate(42.34375,-1686.2032)" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#243400;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1,1;stroke-dashoffset:0"
+       id="rect9130"
+       width="909.13727"
+       height="341.43155"
+       x="494.97476"
+       y="366.40536"
+       transform="translate(42.34375,-1686.2032)"
+       rx="1.2996014" />
+    <rect
+       style="fill:none;stroke:#243400;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1, 1;stroke-dashoffset:0"
+       id="rect9132"
+       width="772.76672"
+       height="175.76654"
+       x="415.1727"
+       y="722.9892"
+       transform="translate(42.34375,-1686.2032)"
+       rx="1.2996014" />
+    <rect
+       style="fill:none;stroke:#243400;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1, 1;stroke-dashoffset:0"
+       id="rect9134"
+       width="857.61951"
+       height="144.45181"
+       x="320.21835"
+       y="905.82684"
+       transform="translate(42.34375,-1686.2032)"
+       rx="1.2996014" />
+    <rect
+       style="fill:none;stroke:#243400;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1, 1;stroke-dashoffset:0"
+       id="rect9136"
+       width="557.60413"
+       height="163.64453"
+       x="320.21835"
+       y="1060.3801"
+       transform="translate(42.34375,-1686.2032)" />
+    <rect
+       style="fill:none;stroke:#243400;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1, 1;stroke-dashoffset:0"
+       id="rect9138"
+       width="615.18292"
+       height="166.67517"
+       x="339.41125"
+       y="1237.1569"
+       transform="translate(42.34375,-1686.2032)" />
   </g>
 </svg>
