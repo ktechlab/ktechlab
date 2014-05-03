@@ -148,7 +148,10 @@ void MainWindow::init()
 
     controller()->showArea(m_mainArea,this);
 
+#if KDEV_PLUGIN_VERSION < 16
+	// TODO see why do we need this
     setupAreaSelector();
+#endif
 }
 
 void MainWindow::slotFileNewAssembly()
