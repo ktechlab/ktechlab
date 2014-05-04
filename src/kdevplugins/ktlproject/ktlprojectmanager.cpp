@@ -360,6 +360,12 @@ bool KTLProjectManager::moveFilesAndFolders(const QList<KDevelop::ProjectBaseIte
 }
 #endif
 
+bool KTLProjectManager::copyFilesAndFolders(const KUrl::List& items, KDevelop::ProjectFolderItem* newParent){
+    // FIXME implement me
+    // always fail to move, because this functionality is not implemented
+    return false;
+}
+
 bool KTLProjectManager::renameFile( ProjectFileItem* oldFile, const KUrl& newFile )
 {
     KUrl oldFileUrl = oldFile->url();
