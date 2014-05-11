@@ -11,7 +11,11 @@ set(circuit_SRCS
     simulator/genericelementfactory.cpp
 )
 
+add_library(ktlcircuit_qt STATIC ${circuit_SRCS} )
+set_target_properties(ktlcircuit_qt PROPERTIES COMPILE_FLAGS "-DKDE_ENABLED=0")
+
 kde4_add_library( ktlcircuit SHARED ${circuit_SRCS} )
+set_target_properties(ktlcircuit PROPERTIES COMPILE_FLAGS "-DKDE_ENABLED=1")
 
 target_link_libraries(ktlcircuit
     ktlinterfaces

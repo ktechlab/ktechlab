@@ -6,16 +6,24 @@ include_directories(
    ${CMAKE_SOURCE_DIR}/src/lib/circuit
 )
 
-set( ktlcircuit_PART_SRCS
+set( ktlcircuit_qt_SRCS
    fakecomponentitemfactory.cpp
-   componenteditorview.cpp
-   circuitscene.cpp
-   ktlcircuitplugin.cpp
    circuitdocument.cpp
+   circuitscene.cpp
    circuitview.cpp
 )
 
+set( ktlcircuit_PART_SRCS
+   ktlcircuitplugin.cpp
+   componenteditorview.cpp
+   ${ktlcircuit_qt_SRCS}
+)
+
+add_library(ktlcircuitplugin_qt STATIC ${ktlcircuit_qt_SRCS})
+set_target_properties(ktlcircuitplugin_qt  PROPERTIES COMPILE_FLAGS "-DKDE_ENABLED=0")
+
 kde4_add_plugin(ktlcircuitplugin ${ktlcircuit_PART_SRCS})
+set_target_properties(ktlcircuitplugin  PROPERTIES COMPILE_FLAGS "-DKDE_ENABLED=1")
 target_link_libraries(ktlcircuitplugin
    ${KDE4_KDECORE_LIBS}
    ktlinterfaces

@@ -26,7 +26,12 @@
 #include "connector.h"
 #include <idocumentscene.h>
 #include "icomponentitem.h"
+
+#if KDE_ENABLED
 #include <KDebug>
+#else
+#include <QDebug>
+#endif
 
 using namespace KTechLab;
 
@@ -59,7 +64,11 @@ QPainterPath ConnectorItem::ConnectorItemPrivate::parseRoute(const QVariantMap& 
     const QString& pathString = connectorData.value("route").toString();
     QStringList routeList = pathString.split(',');
     if (routeList.length() == 0){
+#if KDE_ENABLED
         kError() << "Cannot parse route:" << pathString;
+#else
+        qWarning() << "Cannot parse route:" << pathString;
+#endif
         return QPainterPath();
     }
 
@@ -68,7 +77,11 @@ QPainterPath ConnectorItem::ConnectorItemPrivate::parseRoute(const QVariantMap& 
         routeList.removeLast();
 
     if (routeList.length() % 2 != 0){
+#if KDE_ENABLED
         kError() << "Cannot parse route:" << pathString;
+#else
+        qWarning() << "Cannot parse route:" << pathString;
+#endif
         return QPainterPath();
     }
 

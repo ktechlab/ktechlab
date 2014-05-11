@@ -20,8 +20,11 @@
 
 #include "documentitem.h"
 
-#include <QDebug>
+#if KDE_ENABLED
 #include <KDebug>
+#else
+#include <QDebug>
+#endif
 
 DocumentItem::DocumentItem(QDomNode& node, int row, DocumentItem* parent)
     :   domNode(node),
@@ -68,8 +71,13 @@ void DocumentItem::removeChild(int rowNumber)
 {
     DocumentItem* c = child(rowNumber);
     QDomNode removed = domNode.removeChild(c->node());
-    if (removed.isNull())
+    if (removed.isNull()) {
+#if KDE_ENABLED
         kWarning() << "Could not remove child";
+#else
+        qWarning() << "Could not remove child";
+#endif
+    }
 }
 
 DocumentItem* DocumentItem::parent()

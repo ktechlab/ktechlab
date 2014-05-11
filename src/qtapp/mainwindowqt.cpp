@@ -28,6 +28,10 @@ if not, write to the Free Software Foundation, Inc.,
 #include <QMenu>
 #include <QMenuBar>
 #include <QMessageBox>
+#include <QUrl>
+
+#include "plugins/circuit/circuitview.h"
+#include <plugins/circuit/circuitdocument.h>
 
 using namespace KTechLab;
 
@@ -36,6 +40,11 @@ MainWindowQt::MainWindowQt(QApplication & app): QMainWindow(), qtApp(app)
 	createActions();
 	createMenus();
 	createToolBars();
+
+	circDoc = new CircuitDocument(QUrl(""));
+	circView = new CircuitView(circDoc);
+
+	setCentralWidget(circView);
 }
 
 void MainWindowQt::createActions() {

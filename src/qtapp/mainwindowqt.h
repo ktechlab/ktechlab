@@ -33,6 +33,9 @@ class QToolBar;
 
 namespace KTechLab {
 
+class CircuitDocument;
+class CircuitView;
+
 class MainWindowQt : public QMainWindow
 {
 	Q_OBJECT
@@ -48,6 +51,9 @@ private:
 	void createMenus();
 
 	QApplication & qtApp;
+
+	CircuitDocument * circDoc;
+	CircuitView * circView;
 
 	QAction *exitAct;
 	QAction *aboutAct;

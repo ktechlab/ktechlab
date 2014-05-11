@@ -85,7 +85,11 @@ QVariantMap CircuitScene::createItemData(const KTechLab::ComponentMimeData* data
 void CircuitScene::dropEvent ( QGraphicsSceneDragDropEvent* event )
 {
     if (!event->mimeData()->hasFormat("ktechlab/x-icomponent")) {
+#if KDE_ENABLED
         kDebug() << "Dropped unknown data";
+#else
+		qDebug() << "Dropped unknown data";
+#endif
         return;
     }
     const ComponentMimeData *mimeData = qobject_cast<const ComponentMimeData*>(event->mimeData());
@@ -180,8 +184,13 @@ void CircuitScene::addConnector(ConnectorItem* item)
 void CircuitScene::removeItem(IDocumentItem* item)
 {
     QModelIndex index = m_model->index(item->data());
-    if (!m_model->removeRow(index.row(),index.parent()))
+    if (!m_model->removeRow(index.row(),index.parent())) {
+#if KDE_ENABLED
         kWarning() << "Could not remove item:" << item->data();
+#else
+		qWarning() << "Could not remove item:" << item->data();
+#endif
+	}
 }
 
 void CircuitScene::updateData( const QString& /* name */, const QVariantMap& /* data */ )

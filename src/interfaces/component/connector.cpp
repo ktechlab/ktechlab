@@ -22,7 +22,12 @@
 #include <QStringList>
 #include <QPointF>
 #include <QPainterPath>
+
+#if KDE_ENABLED
 #include <KDebug>
+#else
+#include <QDebug>
+#endif
 
 using namespace KTechLab;
 
@@ -45,7 +50,11 @@ public:
 void ConnectorPrivate::setStartNode(const Node* node)
 {
     if (!node || !node->isValid()){
+#if KDE_ENABLED
         kWarning() << "Invalid node set as start node:" << node;
+#else
+        qWarning() << "Invalid node set as start node:" << node;
+#endif
         return;
     }
     startNode = node;
@@ -83,7 +92,11 @@ QVariantMap ConnectorPrivate::data() const
 void ConnectorPrivate::setEndNode(const Node* node)
 {
     if (!node || !node->isValid()){
+#if KDE_ENABLED
         kWarning() << "Invalid node set as end node:" << node;
+#else
+        qWarning() << "Invalid node set as end node:" << node;
+#endif
         return;
     }
     endNode = node;

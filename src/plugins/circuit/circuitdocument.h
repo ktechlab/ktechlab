@@ -12,6 +12,8 @@
 
 #include <interfaces/icomponentdocument.h>
 
+#include <QtGui/QIcon>
+
 namespace Sublime
 {
 class Document;
@@ -42,8 +44,16 @@ class CircuitDocument : public IComponentDocument
 {
     Q_OBJECT
 public:
+#if KDE_ENABLED
     CircuitDocument( const KUrl &url, KDevelop::Core* core );
+#else
+	CircuitDocument( const QUrl &url);
+#endif
     virtual ~CircuitDocument();
+
+// #if !KDE_ENABLED
+//	QUrl url();
+//#endif
 
     /**
      * see \ref Sublime::UrlDocument
@@ -60,20 +70,33 @@ public:
      */
     virtual IDocumentScene* documentScene() const;
 
+#if KDE_ENABLED
     /**
      * see \ref KDevelop::IDocument
      */
     virtual DocumentState state() const;
+#endif
 
+#if KDE_ENABLED
     /**
      * see \ref KDevelop::IDocument
      */
     virtual bool save(DocumentSaveMode mode = Default);
+#endif
+
 protected:
     /**
      * see \ref KDevelop::PartDocument
      */
     virtual QWidget *createViewWidget( QWidget* parent = 0 );
+
+#if !KDE_ENABLED
+	/* Method stubs for KDE methods */
+protected:
+	void notifyStateChanged() { }
+public:
+	void setStatusIcon(QIcon) { }
+#endif
 
 private:
     Q_PRIVATE_SLOT(d, void slotUpdateState())

@@ -2,8 +2,6 @@
 # build the libs anyway
 add_subdirectory(lib)
 
-# for qt-only version
-add_subdirectory(qtapp)
 
 if(KDEVPLATFORM_ENABLED)
 
@@ -13,6 +11,10 @@ add_subdirectory(gui)
 add_subdirectory(interfaces)
 add_subdirectory(plugins)
 add_subdirectory(kdevplugins)
+
+# TODO move above this, and the check for KDEVPLATFORM should go into each directory
+# for qt-only version
+add_subdirectory(qtapp)
 
 #add_subdirectory(context)
 #add_subdirectory(flowparts)
@@ -78,6 +80,7 @@ SET(ktechlab_SRCS
 #)
 
 kde4_add_executable(ktechlab ${ktechlab_SRCS})
+set_target_properties(ktechlab PROPERTIES COMPILE_FLAGS "-DKDE_ENABLED=1")
 
 target_link_libraries( ktechlab
    ${KDE4_KDEUI_LIBS}
