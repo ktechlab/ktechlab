@@ -21,9 +21,16 @@
 
 using namespace KTechLab;
 
+#if KDE_ENABLED
 IComponentDocument::IComponentDocument(const KUrl& url, KDevelop::ICore* core, const QString& preferredPart)
     : PartDocument(url, core, preferredPart)
 {
 }
+#else
+IComponentDocument::IComponentDocument(const QUrl& url) : m_url(url)
+{
+}
+#endif
+
 
 #include "icomponentdocument.moc"

@@ -58,14 +58,22 @@ CircuitDocumentPrivate::CircuitDocumentPrivate( CircuitDocument *doc, KTLCircuit
 void CircuitDocumentPrivate::initCircuitModel()
 {
     QString errorMessage, tempFile;
+#if KDE_ENABLED
     if ( !KIO::NetAccess::download( m_document->url(), tempFile, 0 ) ) {
         errorMessage = KIO::NetAccess::lastErrorString();
         KMessageBox::sorry( 0, i18n("Couldn't parse xml:\n%1").arg(errorMessage) );
         return;
     }
+#else
+	tempFile = m_document->url().toString();
+#endif
     QFile file(tempFile);
     if (!file.open(QIODevice::ReadOnly)) {
+#if KDE_ENABLED
         KMessageBox::sorry( 0, i18n("Couldn't parse xml:\n%1").arg(errorMessage) );
+#else
+		// TODO
+#endif
         return;
     }
     if (file.size() == 0) {
@@ -74,9 +82,15 @@ void CircuitDocumentPrivate::initCircuitModel()
     }
     QDomDocument dom( "KTechlab" );
     if ( !dom.setContent( &file, &errorMessage ) ) {
+#if KDE_ENABLED
         KMessageBox::sorry( 0, i18n("Couldn't parse xml:\n%1").arg(errorMessage) );
+#else
+		// TODO
+#endif
         file.close();
+#if KDE_ENABLED
         KIO::NetAccess::removeTempFile(tempFile);
+#endif
         return;
     }
     file.close();
@@ -87,8 +101,16 @@ bool CircuitDocumentPrivate::writeToDisk()
 {
     QFile file(m_document->url().toLocalFile());
     if (!file.open(QIODevice::ReadWrite)) {
+#if KDE_ENABLED
         KMessageBox::sorry( 0, i18n("Couldn't write file to disk:\n%1")
             .arg(m_document->url().toLocalFile()) );
+#else
+		// TODO
+		/*
+		QMessageBox::warning(0, i18n("Couldn't write file to disk:\n%1")
+            .arg(m_document->url().toLocalFile()) );
+            */
+#endif
         return false;
     }
 
@@ -100,6 +122,7 @@ bool CircuitDocumentPrivate::writeToDisk()
     return true;
 }
 
+#if KDE_ENABLED
 void CircuitDocumentPrivate::slotUpdateState()
 {
     KIcon statusIcon;
@@ -108,6 +131,11 @@ void CircuitDocumentPrivate::slotUpdateState()
     }
     m_document->setStatusIcon(statusIcon);
 }
+#else
+void CircuitDocumentPrivate::slotUpdateState()
+{
+}
+#endif
 
 CircuitDocumentPrivate::~CircuitDocumentPrivate()
 {
@@ -115,12 +143,20 @@ CircuitDocumentPrivate::~CircuitDocumentPrivate()
     delete circuitModel;
 }
 
+#if KDE_ENABLED
 CircuitDocument::CircuitDocument( const KUrl &url, KDevelop::Core* core )
     :   IComponentDocument( url, core )
 {
 
     init();
 }
+#else
+CircuitDocument::CircuitDocument(const QUrl &url) : IComponentDocument(url)
+{
+	init();
+}
+#endif
+
 
 CircuitDocument::~CircuitDocument()
 {
@@ -129,6 +165,7 @@ CircuitDocument::~CircuitDocument()
 
 void CircuitDocument::init()
 {
+#if KDE_ENABLED
     QStringList constraints;
     constraints << QString("'%1' in [X-KDevelop-SupportedMimeTypes]").arg("application/x-circuit");
     QList<KDevelop::IPlugin*> plugins = KDevelop::Core::self()->pluginController()->allPluginsForExtension( "org.kdevelop.IDocument", constraints );
@@ -137,6 +174,9 @@ void CircuitDocument::init()
         return;
     }
     d = new CircuitDocumentPrivate(this, qobject_cast<KTechLab::KTLCircuitPlugin*>( plugins.first() ));
+#else
+	d = new CircuitDocumentPrivate(this, NULL);
+#endif
 }
 
 QString CircuitDocument::documentType() const
@@ -153,6 +193,7 @@ IDocumentScene* CircuitDocument::documentScene() const
     return d->circuitScene;
 }
 
+#if KDE_ENABLED
 KDevelop::IDocument::DocumentState CircuitDocument::state() const
 {
     if (d->circuitModel->textDocument()->isModified())
@@ -160,7 +201,9 @@ KDevelop::IDocument::DocumentState CircuitDocument::state() const
 
     return KDevelop::IDocument::Clean;
 }
+#endif
 
+#if KDE_ENABLED
 bool CircuitDocument::save(KDevelop::IDocument::DocumentSaveMode mode)
 {
     if (mode & IDocument::Discard)
@@ -172,6 +215,7 @@ bool CircuitDocument::save(KDevelop::IDocument::DocumentSaveMode mode)
 
     return d->writeToDisk();
 }
+#endif
 
 QWidget* CircuitDocument::createViewWidget( QWidget* parent )
 {

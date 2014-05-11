@@ -23,7 +23,13 @@
 #include "component/connectoritem.h"
 #include <interfaces/icore.h>
 #include <interfaces/iplugincontroller.h>
+
+#if KDE_ENABLED
 #include <KDebug>
+#else
+#include <QDebug>
+#endif
+
 #include <QGraphicsSceneMouseEvent>
 #include <QKeyEvent>
 #include "component/connector.h"
@@ -200,7 +206,11 @@ QPointF IDocumentScene::alignToGrid(const QPointF& point)
 ConnectorItem* IDocumentScene::startRouting(const QPointF& pos)
 {
     if (!routingInfo()) {
+#if KDE_ENABLED
         kError() << "Can't start routing without routing plugin";
+#else
+        qWarning() << "Can't start routing without routing plugin";
+#endif
         return 0;
     }
     d->startPos = pos;

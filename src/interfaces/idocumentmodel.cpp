@@ -21,9 +21,14 @@
 #include "idocumentmodel.h"
 #include "component/icomponent.h"
 
+#if KDE_ENABLED
+#include <KDebug>
+#else
+#include <QDebug>
+#endif
+
 #include <QSet>
 #include "private/documentitem.h"
-#include <KDebug>
 #include <qtextdocument.h>
 
 using namespace KTechLab;
@@ -201,8 +206,13 @@ bool IDocumentModel::removeRows(int row, int count, const QModelIndex& parent)
     if (!rowIndex.isValid())
         return false;
 
-    if (count > 1)
+    if (count > 1) {
+#if KDE_ENABLED
         kWarning() << "Model only supports to remove one row at a time. Removing only row:" << row;
+#else
+        qWarning() << "Model only supports to remove one row at a time. Removing only row:" << row;
+#endif
+    }
 
     DocumentItem* item = d->itemFromIndex(rowIndex);
     item->parent()->removeChild(item->row());

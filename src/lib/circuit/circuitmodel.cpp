@@ -22,7 +22,13 @@
 
 #include <interfaces/iplugincontroller.h>
 #include <shell/core.h>
+
+#if KDE_ENABLED
 #include <KDebug>
+#else
+#include <QDebug>
+#endif
+
 #include <interfaces/component/componentmimedata.h>
 
 using namespace KTechLab;
@@ -44,9 +50,9 @@ QVariant CircuitModel::data(const QModelIndex& index, int role) const
     if (isItem(index.parent())) {
         const QDomElement node = domNode(index).toElement();
         if (index.column() == 0 && role == Qt::DisplayRole) {
-            return QVariant(node.attribute("id", i18n("Invalid Data")));
+            return QVariant(node.attribute("id", tr("Invalid Data")));
         } else if ((index.column() == 1 && role == Qt::DisplayRole) || role == Qt::EditRole) {
-            return QVariant(node.attribute("value", i18n("Invalid Data")));
+            return QVariant(node.attribute("value", tr("Invalid Data")));
         }
     }
     return KTechLab::IDocumentModel::data(index, role);

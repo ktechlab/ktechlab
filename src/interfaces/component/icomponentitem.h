@@ -39,6 +39,7 @@ class Node;
  */
 class KTLINTERFACES_EXPORT IComponentItem : public QGraphicsSvgItem, public IDocumentItem
 {
+	Q_OBJECT
 public:
     IComponentItem(QGraphicsItem* parentItem = 0);
     ~IComponentItem();

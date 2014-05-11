@@ -20,7 +20,12 @@
 #include "iroutinginformation.h"
 
 #include "idocumentscene.h"
+
+#if KDE_ENABLED
 #include <KDebug>
+#else
+#include <QDebug>
+#endif
 
 using namespace KTechLab;
 
@@ -66,7 +71,11 @@ void IRoutingInformation::setRoute(const QList< QPointF >& route)
 {
     if (m_route.size()>0) {
         //this can happen, but in debug-mode, we should inform about it
+#if KDE_ENABLED
         kDebug() << "Overwriting non-empty route.";
+#else
+        qDebug() << "Overwriting non-empty route.";
+#endif
     }
 
         m_route = route;
