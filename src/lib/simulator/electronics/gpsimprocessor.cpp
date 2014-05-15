@@ -763,7 +763,12 @@ RegisterSet::RegisterSet( pic_processor * picProcessor )
 		m_nameToRegisterMap[ info->name() ] = info;
 	}
 
+#ifdef HAVE_GPSIM_0_27
+	RegisterInfo * info = new RegisterInfo( picProcessor->Wreg );
+#else // before version 0.27
 	RegisterInfo * info = new RegisterInfo( picProcessor->W );
+#endif
+
 	m_registers.append( info );
 	m_nameToRegisterMap[ info->name() ] = info;
 }
