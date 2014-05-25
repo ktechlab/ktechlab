@@ -72,7 +72,8 @@ void CircuitDocumentPrivate::initCircuitModel()
 #if KDE_ENABLED
         KMessageBox::sorry( 0, i18n("Couldn't parse xml:\n%1").arg(errorMessage) );
 #else
-		// TODO
+        // TODO localization
+        QMessageBox::critical(0, ("KTechLab"), QString("Couldn't parse xml:\n%1").arg(errorMessage));
 #endif
         return;
     }
@@ -85,7 +86,8 @@ void CircuitDocumentPrivate::initCircuitModel()
 #if KDE_ENABLED
         KMessageBox::sorry( 0, i18n("Couldn't parse xml:\n%1").arg(errorMessage) );
 #else
-		// TODO
+        // TODO localization
+        QMessageBox::critical(0, ("KTechLab"), QString("Couldn't parse xml:\n%1").arg(errorMessage));
 #endif
         file.close();
 #if KDE_ENABLED
@@ -105,11 +107,9 @@ bool CircuitDocumentPrivate::writeToDisk()
         KMessageBox::sorry( 0, i18n("Couldn't write file to disk:\n%1")
             .arg(m_document->url().toLocalFile()) );
 #else
-		// TODO
-		/*
-		QMessageBox::warning(0, i18n("Couldn't write file to disk:\n%1")
+        // TODO localization
+        QMessageBox::critical(0, ("KTechLab"), QString("Couldn't write file to disk:\n%1")
             .arg(m_document->url().toLocalFile()) );
-            */
 #endif
         return false;
     }
