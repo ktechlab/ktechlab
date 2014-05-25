@@ -119,8 +119,14 @@ void CircuitScene::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
 
 void CircuitScene::setupData()
 {
-    if (!m_model && !m_plugin)
+    if (!m_model || !m_plugin) {
+#if KDE_ENABLED
+        kWarning() << "model or plugin is null; returning instantly";
+#else
+        qWarning() << Q_FUNC_INFO << "model or plugin is null; retuning instantly";
+#endif
         return;
+    }
 
     foreach (QVariant component, m_model->components())
     {
