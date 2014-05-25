@@ -8,6 +8,9 @@ set( math_SRCS
 
 kde4_add_library( ktlmath SHARED ${math_SRCS} )
 target_link_libraries( ktlmath
-	m
+	LINK_PUBLIC m
 )
 install(TARGETS ktlmath ${INSTALL_TARGETS_DEFAULT_ARGS} )
+
+add_library( ktlmath_static STATIC ${math_SRCS} )
+target_link_libraries( ktlmath_static LINK_PUBLIC m )
