@@ -152,6 +152,7 @@ kde4_add_library( ktlsimulator SHARED ${simulator_SRCS} )
 install(TARGETS ktlsimulator ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 target_link_libraries( ktlsimulator
+ PUBLIC
  ${QT_QTCORE_LIBRARY}
  ${QT_LIBRARIES}
 # ${QT_QT3SUPPORT_LIBRARY}

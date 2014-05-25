@@ -69,6 +69,7 @@ kde4_add_library( ktlinterfaces SHARED ${ktlinterfaces_LIB_SRCS} )
 set_target_properties(ktlinterfaces PROPERTIES COMPILE_FLAGS "-DKDE_ENABLED=1")
 
 target_link_libraries( ktlinterfaces
+   PUBLIC
    ${KDEVPLATFORM_INTERFACES_LIBRARIES}
    ${KDEVPLATFORM_SHELL_LIBRARIES}
    ${KDEVPLATFORM_SUBLIME_LIBRARIES}

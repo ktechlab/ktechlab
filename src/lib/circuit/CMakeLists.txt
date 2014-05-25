@@ -18,6 +18,7 @@ kde4_add_library( ktlcircuit SHARED ${circuit_SRCS} )
 set_target_properties(ktlcircuit PROPERTIES COMPILE_FLAGS "-DKDE_ENABLED=1")
 
 target_link_libraries(ktlcircuit
+    PUBLIC
     ktlinterfaces
     ${QT_QTCORE_LIBRARY}
     ${QT_QTGUI_LIBRARY}
