@@ -1,3 +1,5 @@
+# this is the directory, where a test project is located
+add_definitions( -DPROJECTS_SOURCE_DIR="${CMAKE_SOURCE_DIR}/tests/data" )
 
 include_directories(
     ${CMAKE_SOURCE_DIR}/src
@@ -49,5 +51,3 @@ target_link_libraries( addcomponents
 #     ${QT_QTTEST_LIBRARY}
 #     ${KDEVPLATFORM_TESTS_LIBRARIES}
 # )
-
-add_definitions( "-DPROJECTS_SOURCE_DIR=\\\"${CMAKE_SOURCE_DIR}/tests/data\\\"" )
