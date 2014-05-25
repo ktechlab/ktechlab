@@ -36,7 +36,11 @@ target_link_libraries(ktechlab_qt
 	ktlcircuitplugin_qt
 	ktlcircuit_qt
 	ktlinterfaces_qt
+	ktlsimulator_static
+	ktlmath_static
 	${QT_LIBRARIES}
+#    ${QT_QT3SUPPORT_LIBRARY} # is it needed?
+    ${GPSIM_LIBRARY} # for GPSIM support
 	)
 
 install(TARGETS ktechlab_qt DESTINATION bin)
