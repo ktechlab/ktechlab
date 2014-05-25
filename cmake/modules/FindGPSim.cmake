@@ -31,10 +31,31 @@ set( CMAKE_REQUIRED_FLAGS
 	-fexceptions
 	)
 
+INCLUDE( CheckIncludeFileCXX )
+
+# TODO add a GPSIM_VERSION variable here, and then check that in the code
+
+# HAVE_GPSIM_0_27
+
+CHECK_INCLUDE_FILE_CXX( ${GPSim_INCLUDE_DIR}/p12f182x.h HAVE_GPSIM_0_27 )
+
+if( HAVE_GPSIM_0_27 )
+	message( STATUS "GPSim 0.27 found" )
+	set( HAVE_GPSIM_0_27 "GPSim 0.27 found" )
+	set( GPSIM_INCLUDE_DIRS
+		${GPSim_INCLUDE_DIR}
+		${GLIB2_INCLUDE_DIRS}
+		)
+	set( GPSIM_LIBRARY
+		${GPSim_LIBRARY}
+		${GLIB2_LIBRARY}
+		)
+	set( GPSIM_FOUND TRUE )
+	return()
+endif( HAVE_GPSIM_0_27 )
+
 
 # HAVE_GPSIM_0_21_12
-
-INCLUDE( CheckIncludeFileCXX )
 
 CHECK_INCLUDE_FILE_CXX( ${GPSim_INCLUDE_DIR}/ValueCollections.h HAVE_GPSIM_0_21_12 )
 
