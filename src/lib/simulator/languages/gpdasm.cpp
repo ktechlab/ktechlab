@@ -17,7 +17,8 @@
 #include <qfile.h>
 #include <qregexp.h>
 //Added by qt3to4:
-#include <Q3TextStream>
+// #include <Q3TextStream>
+#include <QTextStream>
 #include <QDebug>
 
 Gpdasm::Gpdasm( ProcessChain *processChain )
@@ -70,7 +71,7 @@ bool Gpdasm::processExited( bool successfully )
 	if ( file.open(QIODevice::WriteOnly) == false )
 		return false;
 
-	Q3TextStream stream(&file);
+	QTextStream stream(&file);
 	stream << m_asmOutput;
 	file.close();
 	return true;

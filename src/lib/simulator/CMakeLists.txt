@@ -145,32 +145,38 @@ set( simulator_SRCS
 
 )
 
-if(KDEVPLATFORM_ENABLED)
+# if(KDEVPLATFORM_ENABLED)
 
 kde4_add_library( ktlsimulator SHARED ${simulator_SRCS} )
 
 install(TARGETS ktlsimulator ${INSTALL_TARGETS_DEFAULT_ARGS})
 
-else(KDEVPLATFORM_ENABLED)
-
-add_library( ktlsimulator SHARED ${simulator_SRCS} )
-
-
-
-qt4_automoc( ${simulator_SRCS} )
-
-install(TARGETS ktlsimulator
-  RUNTIME DESTINATION bin
-  LIBRARY DESTINATION lib
-  ARCHIVE DESTINATION lib
-)
-
-endif(KDEVPLATFORM_ENABLED)
-
 target_link_libraries( ktlsimulator
  ${QT_QTCORE_LIBRARY}
  ${QT_LIBRARIES}
- ${QT_QT3SUPPORT_LIBRARY}
+# ${QT_QT3SUPPORT_LIBRARY}
  ${GPSIM_LIBRARY}
 )
+
+# else(KDEVPLATFORM_ENABLED)
+
+add_library( ktlsimulator_static STATIC ${simulator_SRCS} )
+
+qt4_automoc( ${simulator_SRCS} )
+
+# install(TARGETS ktlsimulator_static
+#   RUNTIME DESTINATION bin
+#   LIBRARY DESTINATION lib
+#   ARCHIVE DESTINATION lib
+# )
+
+# target_link_libraries( ktlsimulator_qt
+#  ${QT_QTCORE_LIBRARY}
+#  ${QT_LIBRARIES}
+#  ${QT_QT3SUPPORT_LIBRARY}
+#  ${GPSIM_LIBRARY}
+# )
+
+# endif(KDEVPLATFORM_ENABLED)
+
 
