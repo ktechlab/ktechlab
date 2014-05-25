@@ -32,6 +32,7 @@ if not, write to the Free Software Foundation, Inc.,
 
 #include "plugins/circuit/circuitview.h"
 #include <plugins/circuit/circuitdocument.h>
+#include <plugins/circuit/ktlcircuitplugin.h>
 
 using namespace KTechLab;
 
@@ -40,6 +41,9 @@ MainWindowQt::MainWindowQt(QApplication & app): QMainWindow(), qtApp(app)
 	createActions();
 	createMenus();
 	createToolBars();
+
+    // TODO refactor Circuit Plugin to be usable non-KDE environment
+    // KTLCircuitPlugin * circPlugin = new KTLCircuitPlugin(this, QVariantList());
 
 	circDoc = new CircuitDocument(QUrl(""));
 	circView = new CircuitView(circDoc);
