@@ -12,15 +12,17 @@
 
 #include "ktlinterfacesexport.h"
 
-#include <interfaces/iplugin.h>
+// #include <interfaces/iplugin.h>
+#include "iktlplugin.h"
+
 #include <QObject>
 #include <QString>
 #include <QVariantMap>
 
-namespace KDevelop
-{
-class IDocument;
-} // namespace KDevelop
+// namespace KDevelop
+// {
+// class IDocument;
+// } // namespace KDevelop
 
 namespace KTechLab
 {
@@ -37,7 +39,7 @@ class IComponentItemFactory;
  *
  * \author Julian Bäume
  */
-class KTLINTERFACES_EXPORT IDocumentPlugin: public KDevelop::IPlugin
+class KTLINTERFACES_EXPORT IDocumentPlugin: public KTechLab::IKTLPlugin // KDevelop::IPlugin
 {
     Q_OBJECT
 public:
