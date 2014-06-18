@@ -1,5 +1,7 @@
 /***************************************************************************
- *   Copyright (C) 2009 Julian Bäume <julian@svg4all.de>                   *
+ *    IKtlPlugin interface                                                 *
+ *       A common interface for all plugins in KTechLab                    *
+ *    Copyright (c) 2014 Zoltan Padrah                                     *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -7,19 +9,30 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "idocumentplugin.h"
+#include "iktlplugin.h"
+
+namespace KTechLab
+{
 
 #if KDE_ENABLED
-#include <KComponentData>
-#endif
 
+IKTLPlugin::IKTLPlugin( KComponentData data, QObject *parent) :
+    KDevelop::IPlugin(data, parent)
+{
+}
 
-using namespace KTechLab;
+#else // KDE_ENABLE
 
-IDocumentPlugin::IDocumentPlugin( KComponentData data, QObject *parent)
-    : KTechLab::IKTLPlugin( data, parent)
-    // :   KDevelop::IPlugin( data, parent )
-{}
+IKTLPlugin::IKTLPlugin( KComponentData /* data */, QObject *parent) :
+    QObject(parent)
+{
+}
 
-#include "idocumentplugin.moc"
-// vim: sw=4 sts=4 et tw=100
+#endif // KDE_ENABLE
+
+IKTLPlugin::~IKTLPlugin()
+{
+}
+
+}
+
