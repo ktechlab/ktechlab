@@ -11,7 +11,7 @@ set( ktlcircuit_qt_SRCS
    circuitdocument.cpp
    circuitscene.cpp
    circuitview.cpp
-   # TODO create and add ktlcircuitplugin_qt.cpp
+   ktlcircuitplugin_qt.cpp
 )
 
 set( ktlcircuit_PART_SRCS

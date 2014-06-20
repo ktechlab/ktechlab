@@ -12,6 +12,8 @@
 #ifndef IKTLPLUGIN_H_
 #define IKTLPLUGIN_H_
 
+#include "ktlinterfacesexport.h"
+
 #if KDE_ENABLED
 
 #include <interfaces/iplugin.h>
@@ -20,7 +22,7 @@
 
 #include <QObject>
 /** mock KDE's component data for allowing compilation with and without KDE */
-class KComponentData
+class KTLINTERFACES_EXPORT KComponentData
 {
 };
 
@@ -29,18 +31,16 @@ class KComponentData
 namespace KTechLab
 {
 
-class IKTLPlugin :
-
 #if KDE_ENABLED
-    public KDevelop::IPlugin
+class KTLINTERFACES_EXPORT IKTLPlugin : public KDevelop::IPlugin
 #else
-    public QObject
+class KTLINTERFACES_EXPORT IKTLPlugin : public QObject
 #endif
 {
     Q_OBJECT
 
 public:
-    IKTLPlugin( KComponentData data, QObject *parent = 0 );
+    IKTLPlugin(const KComponentData &data, QObject *parent = 0 );
     virtual ~IKTLPlugin();
 
 };

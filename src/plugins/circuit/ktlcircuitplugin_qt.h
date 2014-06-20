@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 Julian Bäume <julian@svg4all.de>                   *
+ *   Copyright (C) 2008 Julian Bäume <julian@svg4all.de>                   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -7,20 +7,24 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "idocumentplugin.h"
 
-#if KDE_ENABLED
-#include <KComponentData>
-#endif
+#ifndef KTLCIRCUITPLUGIN_QT_H_
+#define KTLCIRCUITPLUGIN_QT_H_
 
+#include "interfaces/idocumentplugin.h"
 
-using namespace KTechLab;
+namespace KTechLab {
 
-IDocumentPlugin::IDocumentPlugin( const KComponentData &data, QObject *parent )
-    : KTechLab::IKTLPlugin( data, parent )
+class KTLCircuitPluginQt : public KTechLab::IDocumentPlugin
 {
+    Q_OBJECT
+public:
+    KTLCircuitPluginQt(const KComponentData &componentData, QObject *parent, const QVariantList& args );
+    virtual ~KTLCircuitPluginQt();
+    virtual void unload();
+
+};
+
 }
 
-
-#include "idocumentplugin.moc"
-// vim: sw=4 sts=4 et tw=100
+#endif // KTLCIRCUITPLUGIN_QT_H_

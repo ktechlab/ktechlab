@@ -13,7 +13,9 @@ set( ktlbasic_ec_PART_SRCS
    elements/voltagesource.cpp
 )
 
+
 kde4_add_plugin(ktlbasic_ec ${ktlbasic_ec_PART_SRCS})
+set_target_properties(ktlbasic_ec PROPERTIES COMPILE_FLAGS "-DKDE_ENABLED=1")
 target_link_libraries(ktlbasic_ec
    ${KDE4_KDECORE_LIBS}
    ${KDE4_PLASMA_LIBS}

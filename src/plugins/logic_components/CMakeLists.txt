@@ -11,6 +11,7 @@ set( ktllogic_PART_SRCS
 )
 
 kde4_add_plugin(ktllogic_components ${ktllogic_PART_SRCS})
+set_target_properties(ktllogic_components PROPERTIES COMPILE_FLAGS "-DKDE_ENABLED=1")
 target_link_libraries(ktllogic_components
    ${KDE4_KDECORE_LIBS}
    ktlinterfaces

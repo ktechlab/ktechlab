@@ -14,17 +14,24 @@
 #include "circuitscene.h"
 #include "circuitmodel.h"
 
+#include <QDomDocument>
+#include <QDomElement>
+#include <QFile>
+#include <QMap>
+#include <qtextdocument.h>
+
+#if KDE_ENABLED
+#include <KMessageBox>
 #include <shell/core.h>
 #include <KDebug>
 #include <KLocale>
-#include <QDomDocument>
-#include <QDomElement>
-#include <KMessageBox>
-#include <QFile>
-#include <QMap>
 #include <KIO/NetAccess>
-#include <qtextdocument.h>
 #include <interfaces/iplugincontroller.h>
+
+#else
+#include <QMessageBox>
+
+#endif
 
 using namespace KTechLab;
 

@@ -43,8 +43,8 @@ public:
     }
 
 protected:
-    virtual IElement * createOrRegister(bool create, const QByteArray& type,
-                                        QVariantMap parentInModel = QVariantMap())
+    virtual IElement * createOrRegister(bool /* create */ , const QByteArray& /* type */,
+                                        QVariantMap /* parentInModel */ = QVariantMap())
     {
         return 0;
     }
@@ -52,7 +52,7 @@ protected:
 };
 
 
-KTLLogicComponentsPlugin::KTLLogicComponentsPlugin(QObject* parent, const QVariantList& args)
+KTLLogicComponentsPlugin::KTLLogicComponentsPlugin(QObject* parent, const QVariantList& /* args */)
     :   IComponentPlugin( KTLLogicComponentsPluginFactory::componentData(), parent ),
         m_componentFactory( new KTLLogicFactory() )
 {
