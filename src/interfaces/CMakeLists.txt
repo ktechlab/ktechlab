@@ -36,6 +36,7 @@ set ( ktlinterfaces_qt_HEADERS_TO_MOC
    component/idocumentitem.h
    component/connector.h
    idocumentscene.h
+   iktlplugin.h
    irouterplugin.h
    iroutinginformation.h
    idocumentmodel.h

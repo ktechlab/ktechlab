@@ -2,9 +2,19 @@
 #ifndef KTLCIRCUITPLUGIN_H
 #define KTLCIRCUITPLUGIN_H
 
-#include "interfaces/idocumentplugin.h"
+// #include "interfaces/idocumentplugin.h"
+#include "ktlcircuitplugin_qt.h"
+
+#include <interfaces/iplugin.h>
+
+namespace Sublime {
+    class MainWindow;
+}
+class KActionCollection;
 
 #include <QVariantList>
+#include <interfaces/iplugin.h>
+#include <kde_file.h>
 
 namespace KTechLab
 {
@@ -16,9 +26,11 @@ class KTLComponentEditorFactory;
 class KTLCircuitDocumentFactory;
 class ComponentModel;
 
-class KTLCircuitPlugin : public KTechLab::IDocumentPlugin
+class KTLCircuitPlugin : public KTechLab::KTLCircuitPluginQt //IDocumentPlugin
 {
     Q_OBJECT
+    // Q_INTERFACES(KDevelop::IPlugin)
+
 public:
     KTLCircuitPlugin( QObject *parent, const QVariantList& args );
     virtual ~KTLCircuitPlugin();
@@ -49,10 +61,10 @@ public:
 	 * Override the method for creating actions for the main window
 	 */
 	virtual void createActionsForMainWindow(Sublime::MainWindow* window,
-											QString& xmlFile,
+                                            QString& xmlFile,
 										 KActionCollection& actions);
 
-private:
+protected:
     void init();
     KTLComponentViewFactory *m_componentViewFactory;
     KTLCircuitDocumentFactory *m_documentFactory;
@@ -60,7 +72,7 @@ private:
 
     ComponentModel *m_componentModel;
     KTechLab::FakeComponentItemFactory* m_fakeComponentItemFactory;
-private slots:
+protected slots:
 	/**
 	 * Create a new circuit file and open it. This slot is activated by the
 	 * file_new_circuit action.

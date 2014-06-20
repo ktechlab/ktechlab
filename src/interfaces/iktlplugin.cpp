@@ -11,19 +11,23 @@
 
 #include "iktlplugin.h"
 
+#if KDE_ENABLED
+#include <KComponentData>
+#endif
+
 namespace KTechLab
 {
 
 #if KDE_ENABLED
 
-IKTLPlugin::IKTLPlugin( KComponentData data, QObject *parent) :
+IKTLPlugin::IKTLPlugin(const KComponentData &data, QObject *parent) :
     KDevelop::IPlugin(data, parent)
 {
 }
 
 #else // KDE_ENABLE
 
-IKTLPlugin::IKTLPlugin( KComponentData /* data */, QObject *parent) :
+IKTLPlugin::IKTLPlugin(const KComponentData &/* data */, QObject *parent) :
     QObject(parent)
 {
 }
@@ -35,4 +39,3 @@ IKTLPlugin::~IKTLPlugin()
 }
 
 }
-

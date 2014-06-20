@@ -39,11 +39,11 @@ class IComponentItemFactory;
  *
  * \author Julian Bäume
  */
-class KTLINTERFACES_EXPORT IDocumentPlugin: public KTechLab::IKTLPlugin // KDevelop::IPlugin
+class KTLINTERFACES_EXPORT IDocumentPlugin: public KTechLab::IKTLPlugin
 {
     Q_OBJECT
 public:
-    IDocumentPlugin( KComponentData data, QObject *parent = 0 );
+    IDocumentPlugin( const KComponentData &data, QObject *parent = 0 );
     virtual ~IDocumentPlugin() {};
 
     /**
