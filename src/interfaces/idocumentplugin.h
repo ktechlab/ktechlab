@@ -12,9 +12,6 @@
 
 #include "ktlinterfacesexport.h"
 
-// #include <interfaces/iplugin.h>
-#include "iktlplugin.h"
-
 #include <QObject>
 #include <QString>
 #include <QVariantMap>
@@ -23,6 +20,8 @@
 // {
 // class IDocument;
 // } // namespace KDevelop
+
+class KComponentData;
 
 namespace KTechLab
 {
@@ -39,9 +38,8 @@ class IComponentItemFactory;
  *
  * \author Julian Bäume
  */
-class KTLINTERFACES_EXPORT IDocumentPlugin: public KTechLab::IKTLPlugin
+class KTLINTERFACES_EXPORT IDocumentPlugin
 {
-    Q_OBJECT
 public:
     IDocumentPlugin( const KComponentData &data, QObject *parent = 0 );
     virtual ~IDocumentPlugin() {};

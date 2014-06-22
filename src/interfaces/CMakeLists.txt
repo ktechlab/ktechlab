@@ -6,7 +6,6 @@ include_directories(
 set( ktlinterfaces_LIB_SRCS
    component/idocumentitem.cpp
    component/connector.cpp
-   iktlplugin.cpp
    idocumentscene.cpp
    irouterplugin.cpp
    iroutinginformation.cpp
@@ -36,7 +35,6 @@ set ( ktlinterfaces_qt_HEADERS_TO_MOC
    component/idocumentitem.h
    component/connector.h
    idocumentscene.h
-   iktlplugin.h
    irouterplugin.h
    iroutinginformation.h
    idocumentmodel.h

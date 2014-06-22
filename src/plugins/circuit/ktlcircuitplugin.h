@@ -26,7 +26,9 @@ class KTLComponentEditorFactory;
 class KTLCircuitDocumentFactory;
 class ComponentModel;
 
-class KTLCircuitPlugin : public KTechLab::KTLCircuitPluginQt //IDocumentPlugin
+class KTLCircuitPlugin :
+    public KDevelop::IPlugin,
+    public KTechLab::KTLCircuitPluginQt
 {
     Q_OBJECT
     // Q_INTERFACES(KDevelop::IPlugin)

@@ -192,7 +192,9 @@ void AddComponentsTest::getPluginObject(){
 
     QVERIFY( ! plugins.isEmpty()) ;
 
-    IDocumentPlugin *plugin = qobject_cast<IDocumentPlugin*>( plugins.first() );
+    // IDocumentPlugin is not a QObject, so have to resort to plain cast
+    //IDocumentPlugin *plugin = qobject_cast<IDocumentPlugin*>( plugins.first() );
+    IDocumentPlugin *plugin = dynamic_cast<IDocumentPlugin*>( plugins.first());
 
     QVERIFY( plugin );
     qDebug() << "circuit plugin not null\n";

@@ -90,21 +90,8 @@ public:
     /**
      * Default constructor see \class KDevelop::IPlugin
      */
-    IComponentPlugin( KComponentData data, QObject *parent = 0 );
+    IComponentPlugin(const KComponentData &data, QObject *parent = 0 );
 
-protected:
-    /**
-     * Get a plugin that is able to handle KTechLab documents.
-     * These must implement the \class KDevelop::IDocument interface
-     * and support the "application/x-circuit" mime-type.
-     *
-     ** FIXME: this is bad behaviour for a base-class.
-     ** Add the mime-type as a parameter, may be, make this method
-     ** virtual and at least allow to specify the result
-     ** (for now only the first found plugin is returned)
-     * \return the plugin capable of handling KTechLab documents
-     */
-    IDocumentPlugin *documentPlugin() const;
 };
 
 } // namespace KTechLab

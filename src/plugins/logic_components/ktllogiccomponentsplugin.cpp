@@ -20,6 +20,7 @@
 #include <KAboutData>
 #include <KStandardDirs>
 #include <circuit/genericcomponentitemfactory.h>
+#include <interfaces/iplugincontroller.h>
 
 using namespace KTechLab;
 
@@ -58,6 +59,21 @@ KTLLogicComponentsPlugin::KTLLogicComponentsPlugin(QObject* parent, const QVaria
 {
 
     init();
+}
+
+IDocumentPlugin* KTLLogicComponentsPlugin::documentPlugin() const
+{
+    QStringList constraints;
+    constraints << QString("'%1' in [X-KDevelop-SupportedMimeTypes]").arg("application/x-circuit");
+    QList<KDevelop::IPlugin*> plugins = KDevelop::Core::self()->pluginController()->allPluginsForExtension( "org.kdevelop.IDocument", constraints );
+    if (plugins.isEmpty()) {
+        kWarning() << "No plugin found to load KTechLab Documents";
+        return 0;
+    }
+    // note: IDocumentPlugin is not a QObject, so qobject_cast won't work here
+    // IDocumentPlugin *plugin = qobject_cast<IDocumentPlugin*>( plugins.first() );
+    IDocumentPlugin *plugin = dynamic_cast<IDocumentPlugin*>( plugins.first() );
+    return plugin;
 }
 
 void KTLLogicComponentsPlugin::init()
