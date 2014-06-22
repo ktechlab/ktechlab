@@ -57,32 +57,11 @@ void IComponentItemFactory::loadComponentsFromFile ( const QString& /* file */ )
 }
 #endif
 
-IComponentPlugin::IComponentPlugin( KComponentData data, QObject *parent )
+IComponentPlugin::IComponentPlugin( const KComponentData &data, QObject *parent )
     :   KDevelop::IPlugin( data, parent )
 {
 
 }
 
-#if KDE_ENABLED
-IDocumentPlugin* IComponentPlugin::documentPlugin() const
-{
-    QStringList constraints;
-    constraints << QString("'%1' in [X-KDevelop-SupportedMimeTypes]").arg("application/x-circuit");
-    QList<KDevelop::IPlugin*> plugins = KDevelop::Core::self()->pluginController()->allPluginsForExtension( "org.kdevelop.IDocument", constraints );
-    if (plugins.isEmpty()) {
-        kWarning() << "No plugin found to load KTechLab Documents";
-        return 0;
-    }
-    IDocumentPlugin *plugin = qobject_cast<IDocumentPlugin*>( plugins.first() );
-    return plugin;
-}
-#else
-IDocumentPlugin* IComponentPlugin::documentPlugin() const
-{
-    // TODO implement
-    qCritical() << "TODO IComponentPlugin::documentPlugin";
-    return NULL;
-}
-#endif
 
 // vim: sw=4 sts=4 et tw=100

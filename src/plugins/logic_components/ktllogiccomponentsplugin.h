@@ -28,6 +28,20 @@ public:
     virtual ~KTLLogicComponentsPlugin();
     virtual void unload();
 
+protected:
+    /**
+     * Get a plugin that is able to handle KTechLab documents.
+     * These must implement the \class KDevelop::IDocument interface
+     * and support the "application/x-circuit" mime-type.
+     *
+     ** FIXME: this is bad behaviour for a base-class.
+     ** Add the mime-type as a parameter, may be, make this method
+     ** virtual and at least allow to specify the result
+     ** (for now only the first found plugin is returned)
+     * \return the plugin capable of handling KTechLab documents
+     */
+    IDocumentPlugin *documentPlugin() const;
+
 private:
     void init();
 

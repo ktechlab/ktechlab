@@ -17,7 +17,6 @@ namespace KTechLab {
 
 class KTLCircuitPluginQt : public KTechLab::IDocumentPlugin
 {
-    Q_OBJECT
 public:
     KTLCircuitPluginQt(const KComponentData &componentData, QObject *parent, const QVariantList& args );
     virtual ~KTLCircuitPluginQt();

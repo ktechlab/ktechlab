@@ -17,7 +17,6 @@
 using namespace KTechLab;
 
 IDocumentPlugin::IDocumentPlugin( const KComponentData &data, QObject *parent )
-    : KTechLab::IKTLPlugin( data, parent )
 {
 }
 

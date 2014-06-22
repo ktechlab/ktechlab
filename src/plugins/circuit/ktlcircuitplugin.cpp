@@ -118,7 +118,8 @@ private:
 };
 
 KTLCircuitPlugin::KTLCircuitPlugin( QObject *parent, const QVariantList& args)
-     : KTechLab::KTLCircuitPluginQt( KTLCircuitFactory::componentData(), parent, args ),
+     : KDevelop::IPlugin(KTLCircuitFactory::componentData(), parent),
+       KTechLab::KTLCircuitPluginQt( KTLCircuitFactory::componentData(), parent, args ),
     m_componentModel( new ComponentModel() )
 {
 
