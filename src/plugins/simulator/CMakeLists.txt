@@ -15,6 +15,8 @@ set( ktlsimulator_PART_SRCS
    circuittransientsimulator.cpp
 )
 
+if(KDEVPLATFORM_ENABLED)
+
 kde4_add_plugin( ktlsimulatorplugin_kde ${ktlsimulator_PART_SRCS} )
 set_target_properties(ktlsimulatorplugin_kde PROPERTIES COMPILE_FLAGS "-DKDE_ENABLED=1")
 
@@ -29,3 +31,4 @@ install(TARGETS ktlsimulatorplugin_kde DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 ktl_install_desktop( ktlsimulatorplugin.desktop )
 
+endif(KDEVPLATFORM_ENABLED)

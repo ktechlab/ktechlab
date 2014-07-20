@@ -7,6 +7,8 @@ set( simple_router_SRCS
     simplerouterplugin.cpp
 )
 
+if(KDEVPLATFORM_ENABLED)
+
 kde4_add_plugin(ktlsimple_router ${simple_router_SRCS})
 target_link_libraries(ktlsimple_router
     ktlinterfaces
@@ -17,3 +19,4 @@ install(TARGETS ktlsimple_router DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 ktl_install_desktop( ktlsimple_router.desktop )
 
+endif(KDEVPLATFORM_ENABLED)

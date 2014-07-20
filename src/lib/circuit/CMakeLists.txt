@@ -11,8 +11,16 @@ set(circuit_SRCS
     simulator/genericelementfactory.cpp
 )
 
-add_library(ktlcircuit_qt STATIC ${circuit_SRCS} )
+set(circuit_HEADERS_TO_MOC
+  theme.h
+)
+
+qt4_wrap_cpp(circuit_MOCED_HEADERS ${circuit_HEADERS_TO_MOC})
+
+add_library(ktlcircuit_qt STATIC ${circuit_SRCS} ${circuit_MOCED_HEADERS})
 set_target_properties(ktlcircuit_qt PROPERTIES COMPILE_FLAGS "-DKDE_ENABLED=0")
+
+if(KDE_ENABLED)
 
 kde4_add_library( ktlcircuit SHARED ${circuit_SRCS} )
 set_target_properties(ktlcircuit PROPERTIES COMPILE_FLAGS "-DKDE_ENABLED=1")
@@ -29,3 +37,5 @@ target_link_libraries(ktlcircuit
 )
 
 install(TARGETS ktlcircuit ${INSTALL_TARGETS_DEFAULT_ARGS})
+
+endif(KDE_ENABLED)

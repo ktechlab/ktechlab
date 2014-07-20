@@ -2,19 +2,23 @@
 # build the libs anyway
 add_subdirectory(lib)
 
+add_subdirectory(interfaces)
+add_subdirectory(plugins)
+add_subdirectory(math)
+# TODO move above this, and the check for KDEVPLATFORM should go into each directory
+# for qt-only version
+add_subdirectory(qtapp)
+
 
 if(KDEVPLATFORM_ENABLED)
 
 add_subdirectory(core)
-add_subdirectory(math)
+
 add_subdirectory(gui)
-add_subdirectory(interfaces)
-add_subdirectory(plugins)
+
+
 add_subdirectory(kdevplugins)
 
-# TODO move above this, and the check for KDEVPLATFORM should go into each directory
-# for qt-only version
-add_subdirectory(qtapp)
 
 #add_subdirectory(context)
 #add_subdirectory(flowparts)

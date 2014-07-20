@@ -20,8 +20,20 @@ set( ktlcircuit_PART_SRCS
    ${ktlcircuit_qt_SRCS}
 )
 
-add_library(ktlcircuitplugin_qt STATIC ${ktlcircuit_qt_SRCS})
+set( ktlcircuitplugin_HEADERS_TO_MOC
+   ktlcircuitplugin_qt.h
+   circuitscene.h
+   circuitview.h
+   circuitdocument.h
+)
+
+qt4_wrap_cpp(ktlcircuitplugin_MOCED_HEADERS ${ktlcircuitplugin_HEADERS_TO_MOC})
+
+add_library(ktlcircuitplugin_qt STATIC ${ktlcircuit_qt_SRCS}
+   ${ktlcircuitplugin_MOCED_HEADERS})
 set_target_properties(ktlcircuitplugin_qt  PROPERTIES COMPILE_FLAGS "-DKDE_ENABLED=0")
+
+if(KDEVPLATFORM_ENABLED)
 
 kde4_add_plugin(ktlcircuitplugin ${ktlcircuit_PART_SRCS})
 set_target_properties(ktlcircuitplugin  PROPERTIES COMPILE_FLAGS "-DKDE_ENABLED=1")
@@ -40,5 +52,8 @@ install(TARGETS ktlcircuitplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
 ########### install files ###############
 
 ktl_install_desktop( ktlcircuit.desktop )
+
+endif(KDEVPLATFORM_ENABLED)
+
 install( FILES ktlcircuitui.rc DESTINATION ${DATA_INSTALL_DIR}/ktlcircuit )
 
