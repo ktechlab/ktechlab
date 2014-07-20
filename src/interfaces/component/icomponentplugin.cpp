@@ -9,7 +9,7 @@
 
 #include "icomponentplugin.h"
 #include "icomponent.h"
-#include "idocumentplugin.h"
+#include "interfaces/idocumentplugin.h"
 
 #if KDE_ENABLED
 #include <shell/core.h>
@@ -58,7 +58,11 @@ void IComponentItemFactory::loadComponentsFromFile ( const QString& /* file */ )
 #endif
 
 IComponentPlugin::IComponentPlugin( const KComponentData &data, QObject *parent )
+#if KDE_ENABLED
     :   KDevelop::IPlugin( data, parent )
+#else
+  // nothing, yet
+#endif
 {
 
 }

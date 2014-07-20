@@ -10,6 +10,7 @@
 #ifndef CIRCUITEXPORT_H
 #define CIRCUITEXPORT_H
 
+#if KDE_ENABLED
 /* needed for KDE_EXPORT macros */
 #include <kdemacros.h>
 
@@ -21,4 +22,10 @@
 # endif
 #endif
 
-#endif
+#else
+
+// building only static lib, no need for import/export
+#define CIRCUIT_EXPORT
+
+#endif // KDE_ENABLED
+#endif // CIRCUITEXPORT_H

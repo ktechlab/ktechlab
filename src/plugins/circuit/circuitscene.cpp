@@ -20,22 +20,35 @@
 
 #include "circuitscene.h"
 #include "theme.h"
+
+#if KDE_ENABLED
 #include "ktlcircuitplugin.h"
+#else
+#include "ktlcircuitplugin_qt.h"
+#endif
+
 #include "interfaces/component/componentmimedata.h"
 #include "interfaces/component/connectoritem.h"
 #include "componentitem.h"
 
-#include <QGraphicsSceneDragDropEvent>
-#include <KDebug>
 #include "circuitmodel.h"
 #include "pinitem.h"
+
 #include <interfaces/component/connector.h>
 #include <interfaces/component/icomponentplugin.h>
+
+#include <QGraphicsSceneDragDropEvent>
+
+#if KDE_ENABLED
+#include <KDebug>
+#endif
+
+#include <QDebug>
 
 using namespace KTechLab;
 
 
-CircuitScene::CircuitScene ( QObject* parent, CircuitModel *model, KTLCircuitPlugin* plugin )
+CircuitScene::CircuitScene (QObject* parent, CircuitModel *model, KTLCircuitPluginQt *plugin )
  : IDocumentScene ( parent ),
    m_model( model ),
    m_theme( new Theme() ),
@@ -280,4 +293,4 @@ void CircuitScene::setCircuitName ( const QString& name )
     setupData();
 }
 
-#include "circuitscene.moc"
+// #include "circuitscene.moc"

@@ -27,7 +27,10 @@
 #define CIRCUITVIEW_H
 
 #include <QGraphicsView>
+
+#if KDE_ENABLED
 #include <KXMLGUIClient>
+#endif
 
 class KSelectAction;
 class QAction;

@@ -32,7 +32,7 @@ if not, write to the Free Software Foundation, Inc.,
 
 #include "plugins/circuit/circuitview.h"
 #include <plugins/circuit/circuitdocument.h>
-#include <plugins/circuit/ktlcircuitplugin.h>
+#include <plugins/circuit/ktlcircuitplugin_qt.h>
 
 using namespace KTechLab;
 

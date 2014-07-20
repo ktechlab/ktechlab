@@ -22,7 +22,10 @@
 
 #include "ipin.h"
 
+#if KDE_ENABLED
 #include <kdebug.h>
+#endif
+#include <QDebug>
 
 using namespace KTechLab;
 
@@ -78,9 +81,16 @@ KTechLab::IPin* KTechLab::IWire::endPin() const
 double KTechLab::IWire::voltage() const
 {
     if( m_start->voltage() != m_end->voltage() )
+#if KDE_EANBLED
         kWarning() << "different voltages on the ends of a wire: "
             << m_start->voltage() << " and "
             << m_end->voltage() << "\n";
+#else
+        qWarning() << "different voltages on the ends of a wire: "
+            << m_start->voltage() << " and "
+            << m_end->voltage() << "\n";
+
+#endif
     return m_start->voltage();
 }
 

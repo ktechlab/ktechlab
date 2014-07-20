@@ -98,8 +98,14 @@ public:
 	void setStatusIcon(QIcon) { }
 #endif
 
+public slots:
+    // should be private slot, but the private slot has issues with incomplete types,
+    // so working around here
+    void slotUpdateStatePrivate();
+
 private:
-    Q_PRIVATE_SLOT(d, void slotUpdateState())
+    // this will fail to compile because CircuitDocumentPrivate is not completely defined
+    // Q_PRIVATE_SLOT(d, void slotUpdateState())
     void init();
     friend class CircuitDocumentPrivate;
     CircuitDocumentPrivate *d;

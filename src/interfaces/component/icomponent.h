@@ -13,8 +13,12 @@
 #include "../ktlinterfacesexport.h"
 
 #include <QString>
-#include <KIcon>
 #include <QVariantList>
+#include <QIcon>
+
+#if KDE_ENABLED
+#include <KIcon>
+#endif
 
 class KConfig;
 namespace KTechLab
@@ -32,9 +36,15 @@ struct ComponentMetaData
     QString title;
     /** category for the component */
     QString category;
+
+#if KDE_ENABLED
     // FIXME: I'm not sure if this is the right place
     /** an icon shown to the user */
     KIcon icon;
+#else
+    // TODO work with the icon correctly
+    QIcon icon;
+#endif
     /** type of the component */
     QByteArray type;
 };

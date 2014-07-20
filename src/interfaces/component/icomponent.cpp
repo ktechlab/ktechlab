@@ -8,12 +8,18 @@
 ***************************************************************************/
 
 #include "icomponent.h"
+
+#if KDE_ENABLED
 #include <KConfig>
 #include <KConfigGroup>
 #include <KIconLoader>
+#endif
+
+#include <QDebug>
 
 KTechLab::ComponentMetaData KTechLab::IComponent::metaData ( const QString& name, const KConfig& metaData )
 {
+#if KDE_ENABLED
     KConfigGroup item = metaData.group(name);
     KIconLoader *iconLoader = KIconLoader::global();
     iconLoader->addAppDir( "ktechlab" );
@@ -24,5 +30,9 @@ KTechLab::ComponentMetaData KTechLab::IComponent::metaData ( const QString& name
         KIcon( iconLoader->iconPath( item.readEntry("icon"), KIconLoader::User ) ),
         item.readEntry("type").toUtf8()
     };
+#else
+    ComponentMetaData data;
+    qCritical() << "KTechLab::IComponent::metaData: returning dummy data";
+#endif
     return data;
 }

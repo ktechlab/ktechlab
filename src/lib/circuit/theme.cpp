@@ -150,4 +150,4 @@ void KTechLab::Theme::setThemeName ( const QString& name )
     m_name = name;
 }
 
-#include "theme.moc"
+// #include "theme.moc"

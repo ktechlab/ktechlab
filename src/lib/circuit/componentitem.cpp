@@ -10,16 +10,21 @@
 #include "componentitem.h"
 #include "theme.h"
 
+#include "pinitem.h"
+#include "interfaces/idocumentmodel.h"
+
+#if KDE_ENABLED
+#include <KDebug>
+#endif
+
+#include <QDebug>
 #include <QVariantMap>
 #include <QSvgRenderer>
-#include <KDebug>
 #include <QGraphicsSceneMouseEvent>
 #include <QApplication>
 #include <QKeyEvent>
 #include <QFile>
-#include "pinitem.h"
 #include <QGraphicsScene>
-#include <interfaces/idocumentmodel.h>
 
 using namespace KTechLab;
 
@@ -76,7 +81,11 @@ ComponentItem::~ComponentItem()
 
 void ComponentItem::updateData( const QString &name, const QVariantMap &data )
 {
+#if KDE_ENABLED
     kDebug() << name << "changed to:" << data;
+#else
+    qDebug() << name << "changed to:" << data;
+#endif
     //updated component, so repaint
     update();
 }
@@ -94,7 +103,11 @@ void ComponentItem::initPins()
         }
     }
     if (pinsNode.isNull() || !pinsNode.hasChildNodes()){
+#if KDE_ENABLED
         kWarning() << "No pins definition found for this component";
+#else
+        qWarning() << "No pins definition found for this component";
+#endif
         return;
     }
     QDomElement pin = pinsNode.firstChildElement();
@@ -123,7 +136,11 @@ void ComponentItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 QVariant ComponentItem::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant& value)
 {
     if (change == ItemScenePositionHasChanged){
+#if KDE_ENABLED
         kDebug() << change << value;
+#else
+        qDebug() << change << value;
+#endif
     }
     return IComponentItem::itemChange(change, value);
 }
@@ -157,5 +174,5 @@ int ComponentItem::normalize(qreal value) const
     return (int)value % 360;
 }
 
-#include "componentitem.moc"
+// #include "componentitem.moc"
 // vim: sw=4 sts=4 et tw=100

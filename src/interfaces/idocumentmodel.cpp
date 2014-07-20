@@ -28,8 +28,10 @@
 #endif
 
 #include <QSet>
-#include "private/documentitem.h"
+#include <QRegExp>
 #include <qtextdocument.h>
+
+#include "private/documentitem.h"
 
 using namespace KTechLab;
 
@@ -354,4 +356,4 @@ bool IDocumentModel::submit()
 }
 
 
-#include "idocumentmodel.moc"
+// #include "idocumentmodel.moc"

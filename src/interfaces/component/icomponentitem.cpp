@@ -20,9 +20,16 @@
 #include "icomponentitem.h"
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
+
+#if KDE_ENABLED
 #include <KDebug>
-#include <idocumentmodel.h>
+#endif
+
+#include "interfaces/idocumentmodel.h"
+
 #include "node.h"
+
+#include <QDebug>
 
 using namespace KTechLab;
 

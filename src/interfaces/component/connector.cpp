@@ -171,4 +171,4 @@ QVariantMap Connector::data() const
     return d->data();
 }
 
-#include "connector.moc"
+// #include "connector.moc"

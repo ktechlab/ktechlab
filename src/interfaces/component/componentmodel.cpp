@@ -10,7 +10,12 @@
 #include "componentmodel.h"
 #include "componentmimedata.h"
 
+#if KDE_ENABLED
 #include <KDebug>
+#endif
+
+#include <QStringList>
+#include <QDebug>
 
 using namespace KTechLab;
 //
@@ -282,20 +287,29 @@ void ComponentModel::insertComponentData( const ComponentMetaData & data, ICompo
          * that can't be dragged but are needed to bring some
          * structure into the component selector widget
          */
-        ComponentMetaData fakeData =
-            {
+        ComponentMetaData fakeData
+        // TODO FIXME hack
+#if KDE_ENABLED
+            = {
                 "",
                 data.category,
                 data.category,
                 KIcon(),
                 ""
-            };
+            }
+#endif
+        ;
+
         parent->setMetaData( fakeData );
         //we are about to insert a new row, tell the model about it so views can be updated
         beginInsertRows( index( rowCount(), 0, QModelIndex() ), 0, 0 );
         m_rootItem->addChild( parent );
         endInsertRows();
+#if KDE_ENABLED
         kDebug() << "added category: " << data.category << " at " << index( parent->row(), 0, QModelIndex() );
+#else
+        qDebug() << "added category: " << data.category << " at " << index( parent->row(), 0, QModelIndex() );
+#endif
     }
     const QModelIndex parentIndex = index( parent->row(), 0, QModelIndex() );
     //we are about to insert a new row, tell the model about it so views can be updated
@@ -308,7 +322,11 @@ void ComponentModel::removeComponentData(const KTechLab::ComponentMetaData& data
 {
     ComponentItem* parent = m_rootItem->child(data.category);
     if (!parent) {
+#if KDE_ENABLED
         kWarning() << "Category not found: " << data.category << " - can't remove data";
+#else
+        qWarning() << "Category not found: " << data.category << " - can't remove data";
+#endif
         return;
     }
     // this is an O(n) operation, may be it should be changed in the future
@@ -330,7 +348,11 @@ IComponentItemFactory* ComponentModel::factoryForComponent(const QString& name) 
 {
     IComponentItemFactory* factory = m_rootItem->factoryForName(name);
     if (!factory) {
+#if KDE_ENABLED
         kWarning() << "Factory not found for component: " << name;
+#else
+        qWarning() << "Factory not found for component: " << name;
+#endif
         return 0;
     }
     return factory;

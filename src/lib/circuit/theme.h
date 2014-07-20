@@ -23,6 +23,7 @@
 #include <QObject>
 
 #include <QStringList>
+
 #include "circuitexport.h"
 
 class QString;

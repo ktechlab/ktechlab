@@ -17,9 +17,14 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-#include <KDebug>
 #include "fakecomponentitemfactory.h"
 #include <componentitem.h>
+
+#if KDE_ENABLED
+#include <KDebug>
+#endif
+
+#include <QDebug>
 
 using namespace KTechLab;
 

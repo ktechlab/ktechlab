@@ -11,10 +11,16 @@
 #include "connector.h"
 #include "node.h"
 
+#if KDE_ENABLED
 #include <KDebug>
+#else
+#include <QDebug>
+#endif
+
 #include "idocumentitem.h"
-#include <idocumentscene.h>
+#include "interfaces/idocumentscene.h"
 #include "connectoritem.h"
+
 #include <QGraphicsSceneMouseEvent>
 
 using namespace KTechLab;

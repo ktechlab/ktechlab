@@ -24,8 +24,8 @@
 #include <QStyleOption>
 #include <QGraphicsScene>
 #include "connector.h"
-#include <idocumentscene.h>
-#include "icomponentitem.h"
+#include "interfaces/idocumentscene.h"
+#include "interfaces/component/icomponentitem.h"
 
 #if KDE_ENABLED
 #include <KDebug>

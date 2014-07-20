@@ -16,7 +16,11 @@
 #include "interfaces/simulator/ielementfactory.h"
 #include "../circuitexport.h"
 
-#include <kdebug.h>
+//#if KDE_ENABKED
+//#include <kdebug.h>
+//#endif
+//
+//#include <QDebug>
 
 /**
  * support macro, to be used in the implementation of the pure virtual function

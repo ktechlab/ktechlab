@@ -10,6 +10,7 @@
 #ifndef MATHEXPORT_H
 #define MATHEXPORT_H
 
+#if KDE_ENABLED
 /* needed for KDE_EXPORT macros */
 #include <kdemacros.h>
 
@@ -21,4 +22,11 @@
 # endif
 #endif
 
-#endif
+#else // KDE_ENABLED
+
+// only static libraries are built, no need for import/export
+#define MATH_EXPORT
+
+#endif // KDE_ENABLED
+
+#endif // MATHEXPORT_H
