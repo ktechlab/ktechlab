@@ -13,7 +13,9 @@
 #include "../ktlinterfacesexport.h"
 #include "icomponent.h"
 
+#if KDE_ENABLED
 #include <interfaces/iplugin.h>
+#endif
 
 namespace KTechLab
 {
@@ -37,7 +39,7 @@ class KTLINTERFACES_EXPORT IComponentItemFactory
 {
 public:
     IComponentItemFactory();
-    virtual ~IComponentItemFactory() {};
+    virtual ~IComponentItemFactory() {}
 
     /**
      * Return a list containing all meta-data
@@ -84,7 +86,12 @@ private:
  *
  * \author Julian Bäume
  */
+#if KDE_ENABLED
 class KTLINTERFACES_EXPORT IComponentPlugin: public KDevelop::IPlugin
+#else
+class KComponentData;
+class KTLINTERFACES_EXPORT IComponentPlugin
+#endif
 {
 public:
     /**

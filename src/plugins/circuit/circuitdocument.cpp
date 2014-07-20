@@ -9,7 +9,12 @@
 
 #include "circuitdocument.h"
 
+#if KDE_ENABLED
 #include "ktlcircuitplugin.h"
+#else
+#include "ktlcircuitplugin_qt.h"
+#endif
+
 #include "circuitview.h"
 #include "circuitscene.h"
 #include "circuitmodel.h"
@@ -38,23 +43,25 @@ using namespace KTechLab;
 class KTechLab::CircuitDocumentPrivate
 {
 public:
-    CircuitDocumentPrivate( CircuitDocument *doc, KTLCircuitPlugin* plugin );
+    CircuitDocumentPrivate( CircuitDocument *doc, KTLCircuitPluginQt* plugin );
     ~CircuitDocumentPrivate();
 
+#if KDE_ENABLED
     static int debugArea() { static int s_area = KDebug::registerArea("areaName"); return s_area; }
+#endif
     bool writeToDisk();
     void slotUpdateState();
 
     CircuitScene *circuitScene;
     CircuitModel *circuitModel;
-    KTLCircuitPlugin* plugin;
+    KTLCircuitPluginQt* plugin;
 
 private:
     CircuitDocument *m_document;
     void initCircuitModel();
 };
 
-CircuitDocumentPrivate::CircuitDocumentPrivate( CircuitDocument *doc, KTLCircuitPlugin* plugin )
+CircuitDocumentPrivate::CircuitDocumentPrivate(CircuitDocument *doc, KTLCircuitPluginQt *plugin )
     :    m_document(doc)
 {
     this->plugin = plugin;
@@ -228,10 +235,18 @@ QWidget* CircuitDocument::createViewWidget( QWidget* parent )
 {
     CircuitView *view = new CircuitView( this, parent);
 
+    // work around the proble of private slot not compiling
+    //connect(d->circuitModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)),
+    //        this, SLOT(slotUpdateState()));
+
     connect(d->circuitModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)),
-            this, SLOT(slotUpdateState()));
+            this, SLOT(slotUpdateStatePrivate()));
 
     return view;
 }
 
-#include "circuitdocument.moc"
+void CircuitDocument::slotUpdateStatePrivate() {
+    d->slotUpdateState();
+}
+
+// #include "circuitdocument.moc"

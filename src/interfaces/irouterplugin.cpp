@@ -23,8 +23,11 @@
 
 #include <QPointF>
 #include <QPainterPath>
-#include <KDebug>
 #include "idocumentscene.h"
+
+#if KDE_ENABLED
+#include <KDebug>
+#endif
 
 using namespace KTechLab;
 

@@ -21,7 +21,13 @@
 #define ICOMPONENTDOCUMENT_H
 
 #include "ktlinterfacesexport.h"
+
+#include <QObject>
+#include <QUrl>
+
+#if KDE_ENABLED
 #include <shell/partdocument.h>
+#endif
 
 namespace KTechLab
 {

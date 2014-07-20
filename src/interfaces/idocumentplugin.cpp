@@ -7,7 +7,7 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "idocumentplugin.h"
+#include "interfaces/idocumentplugin.h"
 
 #if KDE_ENABLED
 #include <KComponentData>
@@ -21,5 +21,5 @@ IDocumentPlugin::IDocumentPlugin( const KComponentData &data, QObject *parent )
 }
 
 
-#include "idocumentplugin.moc"
+// #include "idocumentplugin.moc"
 // vim: sw=4 sts=4 et tw=100

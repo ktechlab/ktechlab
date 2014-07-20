@@ -21,11 +21,11 @@
 #include "irouterplugin.h"
 #include "iroutinginformation.h"
 #include "component/connectoritem.h"
-#include <interfaces/icore.h>
-#include <interfaces/iplugincontroller.h>
 
 #if KDE_ENABLED
 #include <KDebug>
+#include <interfaces/icore.h>
+#include <interfaces/iplugincontroller.h>
 #else
 #include <QDebug>
 #endif
@@ -314,4 +314,4 @@ void IDocumentScene::drawBackground(QPainter* painter, const QRectF& rect)
     painter->restore();
 }
 
-#include "idocumentscene.moc"
+// #include "idocumentscene.moc"

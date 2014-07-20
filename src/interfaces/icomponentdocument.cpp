@@ -33,4 +33,4 @@ IComponentDocument::IComponentDocument(const QUrl& url) : m_url(url)
 #endif
 
 
-#include "icomponentdocument.moc"
+// #include "icomponentdocument.moc"

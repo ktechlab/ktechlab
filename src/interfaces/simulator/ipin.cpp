@@ -21,7 +21,10 @@
 
 #include "ipin.h"
 
+#if KDE_ENABLED
 #include <kdebug.h>
+#endif
+#include <QDebug>
 
 using namespace KTechLab;
 
@@ -91,8 +94,13 @@ void KTechLab::IPin::disconnectWire(IWire* wire)
     if( m_wires.contains(wire)){
         m_wires.removeAt(
             m_wires.indexOf(wire) );
-    } else
+    } else {
+#if KDE_ENABLED
         kError() << "tried to remove not connected wire " << wire << "\n";
+#else
+        qCritical() << "tried to remove not connected wire " << wire << "\n";
+#endif
+    }
 
 }
 

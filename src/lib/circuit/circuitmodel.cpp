@@ -20,8 +20,8 @@
 
 #include "circuitmodel.h"
 
-#include <interfaces/iplugincontroller.h>
-#include <shell/core.h>
+// #include <interfaces/iplugincontroller.h>
+// #include <shell/core.h>
 
 #if KDE_ENABLED
 #include <KDebug>

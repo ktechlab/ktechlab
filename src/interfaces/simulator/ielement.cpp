@@ -12,8 +12,12 @@
 #include "ielement.h"
 
 #include "ielementset.h"
-#include "kdebug.h"
 #include "ipin.h"
+
+#if KDE_ENABLED
+#include "kdebug.h"
+#endif
+#include <QDebug>
 
 using namespace KTechLab;
 
@@ -26,8 +30,13 @@ IElement::IElement(QVariantMap & parentInModel,
     m_pins()
 {
     if( numPins != pinNames.size() ){
+#if KDE_ENABLED
         kError() << "BUG: tried to created IElement with " << numPins << " pins, but with "
             << pinNames.size() << " pin names!\n";
+#else
+        qCritical() << "BUG: tried to created IElement with " << numPins << " pins, but with "
+                    << pinNames.size() << " pin names!\n";
+#endif
         qFatal("number of pin names is differeent from number of pins!\n");
     }
     // create the pins

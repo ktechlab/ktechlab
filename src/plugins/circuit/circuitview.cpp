@@ -24,16 +24,28 @@
  */
 
 #include "circuitview.h"
+
+#if KDE_ENABLED
 #include <KIcon>
 #include <KToggleAction>
 #include <KLocalizedString>
 #include <KActionCollection>
-#include "circuitscene.h"
-#include "circuitdocument.h"
+#include <KSelectAction>
+
 #include <interfaces/iplugincontroller.h>
 #include <interfaces/icore.h>
 #include <interfaces/irouterplugin.h>
-#include <KSelectAction>
+
+#else
+
+#endif
+
+#include "circuitscene.h"
+#include "circuitdocument.h"
+
+#include <QIcon>
+#include <QAction>
+#include <QDebug>
 
 using namespace KTechLab;
 
@@ -176,4 +188,4 @@ void CircuitView::setRoutingMode(const QString& modeName)
 }
 #endif
 
-#include "circuitview.moc"
+// #include "circuitview.moc"

@@ -11,6 +11,12 @@
 
 #include "genericelementfactory.h"
 
+#if KDE_ENABKED
+#include <kdebug.h>
+#endif
+
+#include <QDebug>
+
 using namespace KTechLab;
 
 GenericElementFactory::GenericElementFactory()
@@ -46,14 +52,21 @@ IElement* GenericElementFactory::createOrRegisterImpl(bool create, const QByteAr
     if (!create) {  /* register */
         /* error check */
         if ( m_supportedComponents.size() != 0) {
+#if KDE_ENABLED
             kWarning() << "re-registering everything? why?\n";
+#else
+            qDebug() << "re-registering everything? why?\n";
+#endif
         }
         m_supportedComponents.clear();
     }
     IElement* result = createOrRegister(create,type,parentInModel);
     if (create && !result) {
-        kError() << "requested unknown element type: "
-        << type << "\n";
+#if KDE_ENABLED
+        kError() << "requested unknown element type: " << type << "\n";
+#else
+        qCritical() << "requested unknown element type: " << type << "\n";
+#endif
         return NULL;
     }
     return NULL;

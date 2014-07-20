@@ -10,6 +10,8 @@
 #ifndef KTLINTERFACESEXPORT_H
 #define KTLINTERFACESEXPORT_H
 
+#if KDE_ENABLED
+
 /* needed for KDE_EXPORT macros */
 #include <kdemacros.h>
 
@@ -21,4 +23,11 @@
 # endif
 #endif
 
-#endif
+#else
+
+// only build simple static libraries, no need for exporting
+#define KTLINTERFACES_EXPORT
+
+#endif // KDE_ENABLED
+
+#endif // KTLINTERFACESEXPORT_H

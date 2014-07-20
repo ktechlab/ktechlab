@@ -19,10 +19,15 @@
 
 #include "pinitem.h"
 #include "interfaces/component/connectoritem.h"
-#include <QGraphicsSceneMouseEvent>
-#include <KDebug>
-#include <qdrag.h>
 #include <interfaces/component/icomponentitem.h>
+
+#if KDE_ENABLED
+#include <KDebug>
+#endif
+
+#include <QDebug>
+#include <QGraphicsSceneMouseEvent>
+#include <qdrag.h>
 
 using namespace KTechLab;
 

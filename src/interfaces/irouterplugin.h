@@ -26,8 +26,10 @@
 
 #include <QtCore/QObject>
 
+#if KDE_ENABLED
 #if KDEV_PLUGIN_VERSION <= 10
 #include <interfaces/iextension.h>
+#endif
 #endif
 
 class QPointF;
@@ -71,8 +73,10 @@ protected:
 
 }
 
+#if KDE_ENABLED
 #if KDEV_PLUGIN_VERSION <= 10
 KDEV_DECLARE_EXTENSION_INTERFACE_NS(KTechLab, IRouterPlugin, "org.ktechlab.IRouterPlugin")
+#endif
 #endif
 
 Q_DECLARE_INTERFACE( KTechLab::IRouterPlugin, "org.ktechlab.IRouterPlugin" )
