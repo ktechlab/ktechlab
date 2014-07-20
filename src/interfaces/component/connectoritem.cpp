@@ -38,7 +38,7 @@ using namespace KTechLab;
 class ConnectorItem::ConnectorItemPrivate {
 public:
     ConnectorItemPrivate(ConnectorItem* parent)
-        : m_item( parent ) {};
+        : m_item( parent ) {}
 
     QPainterPath parseRoute(const QVariantMap& connectorData) const;
     void setRoute(const QPainterPath& path);
