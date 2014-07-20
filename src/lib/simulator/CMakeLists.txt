@@ -145,7 +145,7 @@ set( simulator_SRCS
 
 )
 
-# if(KDEVPLATFORM_ENABLED)
+if(KDEVPLATFORM_ENABLED)
 
 kde4_add_library( ktlsimulator SHARED ${simulator_SRCS} )
 
@@ -159,7 +159,7 @@ target_link_libraries( ktlsimulator
  ${GPSIM_LIBRARY}
 )
 
-# else(KDEVPLATFORM_ENABLED)
+endif(KDEVPLATFORM_ENABLED)
 
 add_library( ktlsimulator_static STATIC ${simulator_SRCS} )
 
