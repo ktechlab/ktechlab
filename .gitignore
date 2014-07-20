@@ -9,3 +9,9 @@ CMakeLists.txt.user
 .*.swp
 *.bak
 
+# Qt creator created files
+*.config
+*.creator
+*.creator.user
+*.files
+*.includes
