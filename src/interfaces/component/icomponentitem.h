@@ -68,7 +68,7 @@ public:
     QList<const Node*> nodes() const;
 
     enum { Type = KTechLab::GraphicsItems::ComponentItemType };
-    virtual int type() const { return Type; };
+    virtual int type() const; // { return Type; }
 
     virtual QVariantMap data() const;
 

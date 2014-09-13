@@ -76,6 +76,11 @@ QList<const Node*> IComponentItem::nodes() const
     return list;
 }
 
+int IComponentItem::type() const
+{
+    return Type;
+}
+
 QVariantMap IComponentItem::data() const
 {
     QVariantMap map = KTechLab::IDocumentItem::data();
