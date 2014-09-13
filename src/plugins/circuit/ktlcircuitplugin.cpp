@@ -137,8 +137,6 @@ void KTLCircuitPlugin::init()
     m_documentFactory = new KTLCircuitDocumentFactory(this);
     KDevelop::Core::self()->documentController()->registerDocumentForMimetype( "application/x-circuit", m_documentFactory );
 
-    m_fakeComponentItemFactory = new FakeComponentItemFactory;
-    registerComponentFactory(m_fakeComponentItemFactory);
 }
 
 void KTLCircuitPlugin::createActionsForMainWindow(
@@ -165,43 +163,7 @@ KTLCircuitPlugin::~KTLCircuitPlugin()
     // it crashes, when we delete this. I guess,
     // it has been deleted before, somewhere else.
     //delete m_componentViewFactory;
-    delete m_fakeComponentItemFactory;
     delete m_documentFactory;
-    delete m_componentModel;
-}
-
-ComponentModel * KTLCircuitPlugin::componentModel()
-{
-    return m_componentModel;
-}
-
-void KTLCircuitPlugin::registerComponentFactory( IComponentItemFactory *factory )
-{
-    QList<ComponentMetaData> metaData = factory->allMetaData();
-    kDebug() << "registering" << metaData.size() << "components";
-    foreach (ComponentMetaData data, metaData) {
-        m_componentModel->insertComponentData( data, factory );
-    }
-}
-
-void KTLCircuitPlugin::deregisterComponentFactory(IComponentItemFactory* factory)
-{
-    QList<ComponentMetaData> metaData = factory->allMetaData();
-    kDebug() << "deregistering" << metaData.size() << "components";
-    foreach (ComponentMetaData data, metaData) {
-        m_componentModel->removeComponentData( data, factory );
-    }
-}
-
-IComponentItemFactory* KTLCircuitPlugin::componentItemFactory(const QString& name,
-															  Theme* /* theme */ )
-{
-    IComponentItemFactory* factory = m_componentModel->factoryForComponent(name);
-    if (!factory) {
-        kWarning() << "factory for data not found";
-        return m_componentModel->factoryForComponent("ec/unknown");
-    }
-    return factory;
 }
 
 void KTLCircuitPlugin::unload()

@@ -13,23 +13,61 @@
 
 namespace KTechLab {
 
-KTLCircuitPluginQt::KTLCircuitPluginQt( const KComponentData & componentData,
+KTLCircuitPluginQt::KTLCircuitPluginQt( const ::KComponentData & componentData,
                                         QObject* parent, const QVariantList& /* args */ )
-    : KTechLab::IDocumentPlugin( componentData, parent ) /* ,
-    m_componentModel( new ComponentModel() ) */
+    : KTechLab::IDocumentPlugin( (const ::KComponentData & ) componentData, parent )
+    , m_componentModel( new ComponentModel() )
 {
-
+    m_fakeComponentItemFactory = new FakeComponentItemFactory;
+    registerComponentFactory(m_fakeComponentItemFactory);
     // init();
 }
 
 KTLCircuitPluginQt::~KTLCircuitPluginQt()
 {
     qDebug() << "KTLCircuitPluginQt::~KTLCircuitPluginQt";
+    delete m_fakeComponentItemFactory;;
+    delete m_componentModel;
 }
 
 void KTLCircuitPluginQt::unload()
 {
     qWarning() << "KTLCircuitPluginQt::unload: not implemented";
+}
+
+
+ComponentModel * KTLCircuitPluginQt::componentModel()
+{
+    return m_componentModel;
+}
+
+void KTLCircuitPluginQt::registerComponentFactory( IComponentItemFactory *factory )
+{
+    QList<ComponentMetaData> metaData = factory->allMetaData();
+    qDebug() << "registering" << metaData.size() << "components";
+    foreach (ComponentMetaData data, metaData) {
+        m_componentModel->insertComponentData( data, factory );
+    }
+}
+
+void KTLCircuitPluginQt::deregisterComponentFactory(IComponentItemFactory* factory)
+{
+    QList<ComponentMetaData> metaData = factory->allMetaData();
+    qDebug() << "deregistering" << metaData.size() << "components";
+    foreach (ComponentMetaData data, metaData) {
+        m_componentModel->removeComponentData( data, factory );
+    }
+}
+
+IComponentItemFactory* KTLCircuitPluginQt::componentItemFactory(const QString& name,
+                                                              Theme* /* theme */ )
+{
+    IComponentItemFactory* factory = m_componentModel->factoryForComponent(name);
+    if (!factory) {
+        qWarning() << "factory for data not found";
+        return m_componentModel->factoryForComponent("ec/unknown");
+    }
+    return factory;
 }
 
 }
