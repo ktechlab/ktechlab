@@ -12,6 +12,9 @@
 #define KTLCIRCUITPLUGIN_QT_H_
 
 #include "interfaces/idocumentplugin.h"
+#include "interfaces/component/componentmodel.h"
+
+#include "fakecomponentitemfactory.h"
 
 namespace KTechLab {
 
@@ -22,6 +25,31 @@ public:
     virtual ~KTLCircuitPluginQt();
     virtual void unload();
 
+
+    /**
+     * @return the component model representing all components
+     */
+    ComponentModel * componentModel();
+    /**
+     * Register the component- @param{factory} to the plugin so it knows about all provided components
+     * and can provide the user with entries in the browser to drag it into their circuit.
+     */
+    void registerComponentFactory( KTechLab::IComponentItemFactory *factory );
+
+    /**
+     * Deregister the component-factory from the plugin.
+     */
+    void deregisterComponentFactory( KTechLab::IComponentItemFactory *factory );
+
+    /**
+     * Get a factory to create KTechLab::ComponentItem instances.
+     * \sa KTechLab::IDocumentPlugin
+     */
+    IComponentItemFactory* componentItemFactory( const QString& name, Theme* theme = 0 );
+
+protected:
+    ComponentModel *m_componentModel;
+    FakeComponentItemFactory* m_fakeComponentItemFactory;
 };
 
 }
