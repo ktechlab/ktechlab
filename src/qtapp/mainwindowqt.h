@@ -33,6 +33,8 @@ class QToolBar;
 
 namespace KTechLab {
 
+class KTLCircuitPluginQt;
+
 class CircuitDocument;
 class CircuitView;
 
@@ -40,7 +42,7 @@ class MainWindowQt : public QMainWindow
 {
 	Q_OBJECT
 public:
-    MainWindowQt(QApplication & app);
+    MainWindowQt(QApplication & app, KTLCircuitPluginQt &circuitPlugin);
 
 private slots:
 	void about();
@@ -51,6 +53,7 @@ private:
 	void createMenus();
 
 	QApplication & qtApp;
+    KTLCircuitPluginQt & circuitPlugin;
 
 	CircuitDocument * circDoc;
 	CircuitView * circView;

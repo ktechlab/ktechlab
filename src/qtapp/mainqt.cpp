@@ -11,6 +11,9 @@
 
 #include "mainwindowqt.h"
 
+#include "interfaces/kcomponentdata.h"
+#include "plugins/circuit/ktlcircuitplugin_qt.h"
+
 using namespace KTechLab;
 
 int main(int argc, char **argv) {
@@ -18,7 +21,11 @@ int main(int argc, char **argv) {
 	app.setOrganizationName("KTechLab Project");
 	app.setApplicationName("KTechLab - Qt version");
 
-	MainWindowQt mainWindow(app);
+    KComponentData componentData;
+    QVariantList args;
+    KTLCircuitPluginQt ktlCircuitPlugin(componentData, &app, args);
+
+    MainWindowQt mainWindow(app, ktlCircuitPlugin);
 	mainWindow.show();
 	return app.exec();
 }
