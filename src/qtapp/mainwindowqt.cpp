@@ -36,7 +36,7 @@ if not, write to the Free Software Foundation, Inc.,
 
 using namespace KTechLab;
 
-MainWindowQt::MainWindowQt(QApplication & app): QMainWindow(), qtApp(app)
+MainWindowQt::MainWindowQt(QApplication & app, KTLCircuitPluginQt &circuitPlugin_): QMainWindow(), qtApp(app), circuitPlugin(circuitPlugin_)
 {
 	createActions();
 	createMenus();
