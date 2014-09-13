@@ -17,6 +17,10 @@
 #include <interfaces/iplugin.h>
 #endif
 
+#if !KDE_ENABLED
+class KComponentData;
+#endif
+
 namespace KTechLab
 {
 
@@ -89,7 +93,7 @@ private:
 #if KDE_ENABLED
 class KTLINTERFACES_EXPORT IComponentPlugin: public KDevelop::IPlugin
 #else
-class KComponentData;
+
 class KTLINTERFACES_EXPORT IComponentPlugin
 #endif
 {
