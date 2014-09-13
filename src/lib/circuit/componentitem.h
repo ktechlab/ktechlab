@@ -24,7 +24,7 @@ class CIRCUIT_EXPORT ComponentItem: public IComponentItem
     Q_OBJECT
 public:
     ComponentItem ( const QVariantMap& data, Theme *theme, QGraphicsItem* parentItem = 0 );
-    ~ComponentItem();
+    virtual ~ComponentItem();
 
     virtual QPainterPath shape() const;
     virtual QVariant itemChange(GraphicsItemChange change, const QVariant& value);
