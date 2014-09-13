@@ -19,28 +19,29 @@
 
 using namespace KTechLab;
 //
-// BEGIN class ComponentItem
+// BEGIN class ModelComponentItem
 //
-class KTechLab::ComponentItem
+
+class KTechLab::ModelComponentItem
 {
     public:
-        ComponentItem();
-        ~ComponentItem();
+        ModelComponentItem();
+        ~ModelComponentItem();
 
-        void addChild( ComponentItem * child );
-        void removeChild(ComponentItem* child);
-        void setParent( ComponentItem * parent );
-        ComponentItem * parent();
+        void addChild( ModelComponentItem * child );
+        void removeChild(ModelComponentItem* child);
+        void setParent( ModelComponentItem * parent );
+        ModelComponentItem * parent();
 
-        ComponentItem * child( int row );
-        ComponentItem * child( const QString &key );
+        ModelComponentItem * child( int row );
+        ModelComponentItem * child( const QString &key );
 
         void setMetaData( const ComponentMetaData & data );
         void setFactory( IComponentItemFactory * factory );
 
         int row();
         int rowCount();
-        QList<ComponentItem*> children();
+        QList<ModelComponentItem*> children();
 
         ComponentMetaData metaData() const;
         IComponentItemFactory * factory() const;
@@ -50,48 +51,48 @@ class KTechLab::ComponentItem
         IComponentItemFactory * m_factory;
         ComponentMetaData m_metaData;
 
-        QMultiMap<QString,ComponentItem*> m_children;
-        ComponentItem * m_parent;
+        QMultiMap<QString,ModelComponentItem*> m_children;
+        ModelComponentItem * m_parent;
 };
 
-ComponentItem::ComponentItem()
+ModelComponentItem::ModelComponentItem()
     :   m_parent( 0 )
 {
 }
 
-ComponentItem::~ComponentItem()
+ModelComponentItem::~ModelComponentItem()
 {
     qDeleteAll( m_children );
 }
 
-void ComponentItem::addChild( ComponentItem *child )
+void ModelComponentItem::addChild( ModelComponentItem *child )
 {
     m_children.insert( child->metaData().category, child );
     child->setParent(this);
 }
 
-void ComponentItem::removeChild(ComponentItem* item)
+void ModelComponentItem::removeChild(ModelComponentItem* item)
 {
     m_children.remove(item->metaData().category, item);
     delete item;
     item = 0;
 }
 
-void ComponentItem::setParent( ComponentItem *parent )
+void ModelComponentItem::setParent( ModelComponentItem *parent )
 {
     m_parent = parent;
 }
-ComponentItem * ComponentItem::parent()
+ModelComponentItem * ModelComponentItem::parent()
 {
     return m_parent;
 }
 
-ComponentItem * ComponentItem::child( int row )
+ModelComponentItem * ModelComponentItem::child( int row )
 {
     return children().at( row );
 }
 
-ComponentItem * ComponentItem::child( const QString &key )
+ModelComponentItem * ModelComponentItem::child( const QString &key )
 {
     if (m_children.keys().contains( key )) {
         return m_children.values( key ).back();
@@ -99,48 +100,48 @@ ComponentItem * ComponentItem::child( const QString &key )
     return 0;
 }
 
-void ComponentItem::setMetaData( const ComponentMetaData & data )
+void ModelComponentItem::setMetaData( const ComponentMetaData & data )
 {
     m_metaData = data;
 }
 
-void ComponentItem::setFactory( IComponentItemFactory * factory )
+void ModelComponentItem::setFactory( IComponentItemFactory * factory )
 {
     m_factory = factory;
 }
 
-int ComponentItem::row()
+int ModelComponentItem::row()
 {
     if (m_parent) {
-        return m_parent->children().indexOf(const_cast<ComponentItem*>(this));
+        return m_parent->children().indexOf(const_cast<ModelComponentItem*>(this));
     }
     return 0;
 }
 
-int ComponentItem::rowCount()
+int ModelComponentItem::rowCount()
 {
     return m_children.values().count();
 }
 
-QList<ComponentItem*> ComponentItem::children()
+QList<ModelComponentItem*> ModelComponentItem::children()
 {
     return m_children.values();
 }
 
-ComponentMetaData ComponentItem::metaData() const
+ComponentMetaData ModelComponentItem::metaData() const
 {
     return m_metaData;
 }
 
-IComponentItemFactory * ComponentItem::factory() const
+IComponentItemFactory * ModelComponentItem::factory() const
 {
     return m_factory;
 }
 
-IComponentItemFactory* ComponentItem::factoryForName(QString name)
+IComponentItemFactory* ModelComponentItem::factoryForName(QString name)
 {
-    foreach(ComponentItem* categories, children()){
-        foreach(ComponentItem* child, categories->children()){
+    foreach(ModelComponentItem* categories, children()){
+        foreach(ModelComponentItem* child, categories->children()){
             if (child->metaData().name == name)
                 return child->factory();
         }
@@ -149,7 +150,7 @@ IComponentItemFactory* ComponentItem::factoryForName(QString name)
 }
 
 //
-// END class ComponentItem
+// END class ModelComponentItem
 //
 
 //
@@ -157,7 +158,7 @@ IComponentItemFactory* ComponentItem::factoryForName(QString name)
 //
 ComponentModel::ComponentModel()
 {
-    m_rootItem = new ComponentItem();
+    m_rootItem = new ModelComponentItem();
 }
 
 ComponentModel::~ComponentModel()
@@ -171,14 +172,14 @@ QModelIndex ComponentModel::index( int row, int column, const QModelIndex & pare
         return QModelIndex();
     }
 
-    ComponentItem *parentItem;
+    ModelComponentItem *parentItem;
     if (!parent.isValid()) {
         parentItem = m_rootItem;
     } else {
-        parentItem = static_cast<ComponentItem*>(parent.internalPointer());
+        parentItem = static_cast<ModelComponentItem*>(parent.internalPointer());
     }
 
-    ComponentItem *childItem = parentItem->child(row);
+    ModelComponentItem *childItem = parentItem->child(row);
     if (childItem) {
         return createIndex(row, column, childItem);
     } else {
@@ -192,8 +193,8 @@ QModelIndex ComponentModel::parent( const QModelIndex & index ) const
         return QModelIndex();
     }
 
-    ComponentItem *childItem = static_cast<ComponentItem*>(index.internalPointer());
-    ComponentItem *parentItem = childItem->parent();
+    ModelComponentItem *childItem = static_cast<ModelComponentItem*>(index.internalPointer());
+    ModelComponentItem *parentItem = childItem->parent();
 
     if ( parentItem == m_rootItem ) {
         return QModelIndex();
@@ -210,7 +211,7 @@ int ComponentModel::rowCount( const QModelIndex & parent ) const
     if (!parent.isValid()) {
         return m_rootItem->rowCount();
     } else {
-        ComponentItem *item = static_cast<ComponentItem*>(parent.internalPointer());
+        ModelComponentItem *item = static_cast<ModelComponentItem*>(parent.internalPointer());
         return item->rowCount();
     }
 }
@@ -227,7 +228,7 @@ Qt::ItemFlags ComponentModel::flags( const QModelIndex & index ) const
         return Qt::ItemFlags( Qt::NoItemFlags );
     }
 
-    ComponentItem *item = static_cast<ComponentItem*>(index.internalPointer());
+    ModelComponentItem *item = static_cast<ModelComponentItem*>(index.internalPointer());
     if ( item->metaData().name.isEmpty() ) {
         return Qt::ItemFlags( Qt::ItemIsEnabled );
     }
@@ -240,7 +241,7 @@ QVariant ComponentModel::data( const QModelIndex & index, int role ) const
         return QVariant();
     }
 
-    ComponentItem *item = static_cast<ComponentItem*>(index.internalPointer());
+    ModelComponentItem *item = static_cast<ModelComponentItem*>(index.internalPointer());
     if (role == Qt::DisplayRole) {
         return QVariant(item->metaData().title);
     } else if (role == Qt::DecorationRole) {
@@ -260,7 +261,7 @@ QMimeData *ComponentModel::mimeData( const QModelIndexList & indexes ) const
         index = indexes.first();
     }
     if (index.isValid()) {
-        ComponentItem *item = static_cast<ComponentItem*>(index.internalPointer());
+        ModelComponentItem *item = static_cast<ModelComponentItem*>(index.internalPointer());
         componentData = new ComponentMimeData( item->metaData().name, item->factory() );
 
         //register our mimeType
@@ -276,13 +277,13 @@ QStringList ComponentModel::mimeTypes() const
 
 void ComponentModel::insertComponentData( const ComponentMetaData & data, IComponentItemFactory * factory )
 {
-    ComponentItem *item = new ComponentItem();
+    ModelComponentItem *item = new ModelComponentItem();
     item->setMetaData( data );
     item->setFactory( factory );
 
-    ComponentItem *parent = m_rootItem->child( data.category );
+    ModelComponentItem *parent = m_rootItem->child( data.category );
     if (!parent) {
-        parent = new ComponentItem();
+        parent = new ModelComponentItem();
         /* Use fakeData to store entries for different categories
          * that can't be dragged but are needed to bring some
          * structure into the component selector widget
@@ -320,7 +321,7 @@ void ComponentModel::insertComponentData( const ComponentMetaData & data, ICompo
 
 void ComponentModel::removeComponentData(const KTechLab::ComponentMetaData& data, IComponentItemFactory* factory)
 {
-    ComponentItem* parent = m_rootItem->child(data.category);
+    ModelComponentItem* parent = m_rootItem->child(data.category);
     if (!parent) {
 #if KDE_ENABLED
         kWarning() << "Category not found: " << data.category << " - can't remove data";
@@ -330,7 +331,7 @@ void ComponentModel::removeComponentData(const KTechLab::ComponentMetaData& data
         return;
     }
     // this is an O(n) operation, may be it should be changed in the future
-    foreach (ComponentItem* child, parent->children()) {
+    foreach (ModelComponentItem* child, parent->children()) {
         if ( factory != child->factory() )
             continue;
         if ( child->metaData().name != data.name )
