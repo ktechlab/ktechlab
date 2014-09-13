@@ -42,7 +42,7 @@ class KTLINTERFACES_EXPORT IDocumentPlugin
 {
 public:
     IDocumentPlugin( const KComponentData &data, QObject *parent = 0 );
-    virtual ~IDocumentPlugin() {};
+    virtual ~IDocumentPlugin() {}
 
     /**
      * Each component factory can register itself at the document plugin, to make
