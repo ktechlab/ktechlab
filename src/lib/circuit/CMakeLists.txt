@@ -13,6 +13,7 @@ set(circuit_SRCS
 
 set(circuit_HEADERS_TO_MOC
   theme.h
+  componentitem.h
 )
 
 qt4_wrap_cpp(circuit_MOCED_HEADERS ${circuit_HEADERS_TO_MOC})
