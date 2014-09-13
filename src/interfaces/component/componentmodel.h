@@ -20,7 +20,7 @@ namespace KTechLab
 {
 
 class IComponentItemFactory;
-class ComponentItem;
+class ModelComponentItem;
 
 /**
  * This class implements QAbstractItemModel to provide a tree of compoments sorted into groups like
@@ -62,7 +62,7 @@ public:
     virtual IComponentItemFactory* factoryForComponent( const QString & name ) const;
 
 private:
-    ComponentItem *m_rootItem;
+    ModelComponentItem *m_rootItem;
 };
 
 }
