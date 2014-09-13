@@ -189,7 +189,7 @@ void CircuitDocument::init()
     }
     d = new CircuitDocumentPrivate(this, qobject_cast<KTechLab::KTLCircuitPlugin*>( plugins.first() ));
 #else
-	d = new CircuitDocumentPrivate(this, NULL);
+    d = new CircuitDocumentPrivate(this, NULL); // TODO
 #endif
 }
 
