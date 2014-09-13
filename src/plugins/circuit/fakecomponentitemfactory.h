@@ -22,7 +22,7 @@
 #define KTECHLAB_FAKECOMPONENTITEMFACTORY_H
 
 #include <QVariantMap>
-#include <genericcomponentitemfactory.h>
+#include "lib/circuit/genericcomponentitemfactory.h"
 
 namespace KTechLab {
 
