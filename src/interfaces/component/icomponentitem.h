@@ -42,7 +42,7 @@ class KTLINTERFACES_EXPORT IComponentItem : public QGraphicsSvgItem, public IDoc
 	Q_OBJECT
 public:
     IComponentItem(QGraphicsItem* parentItem = 0);
-    ~IComponentItem();
+    virtual ~IComponentItem();
 
     /**
      * Check whether the given node belongs to this item.
