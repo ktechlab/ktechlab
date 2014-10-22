@@ -119,15 +119,16 @@ private:
 
 KTLCircuitPlugin::KTLCircuitPlugin( QObject *parent, const QVariantList& args)
      : KDevelop::IPlugin(KTLCircuitFactory::componentData(), parent),
-       KTechLab::KTLCircuitPluginQt( KTLCircuitFactory::componentData(), parent, args ),
-    m_componentModel( new ComponentModel() )
+       KTechLab::KTLCircuitPluginQt( KTLCircuitFactory::componentData(), parent, args )
 {
-
     init();
 }
 
 void KTLCircuitPlugin::init()
 {
+    if (m_componentModel != NULL) {
+        m_componentModel = new ComponentModel();
+    }
     m_componentViewFactory = new KTLComponentViewFactory(this);
     KDevelop::Core::self()->uiController()->addToolView( i18n("Components"), m_componentViewFactory );
 
