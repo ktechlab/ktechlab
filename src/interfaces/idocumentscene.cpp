@@ -23,6 +23,7 @@
 #include "component/connectoritem.h"
 
 #if KDE_ENABLED
+#include <KAboutData>
 #include <KDebug>
 #include <interfaces/icore.h>
 #include <interfaces/iplugincontroller.h>

@@ -13,6 +13,7 @@
 
 #if KDE_ENABLED
 #include <shell/core.h>
+#include <KAboutData>
 #include <interfaces/iplugincontroller.h>
 #include <interfaces/iplugin.h>
 #include <KComponentData>
