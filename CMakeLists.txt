@@ -1,7 +1,8 @@
 project( ktechlab )
 set( VERSION 0.3.6 )
 
-find_package(KDE3 REQUIRED)
+find_package(Qt4 4.6.0 REQUIRED)
+find_package(KDE4 REQUIRED)
 include( ${CMAKE_SOURCE_DIR}/cmake/modules/FindGLIB.cmake )
 include( ${CMAKE_SOURCE_DIR}/cmake/modules/FindGPSim.cmake )
 

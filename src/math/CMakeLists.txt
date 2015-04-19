@@ -8,7 +8,7 @@ SET(math_STAT_SRCS
    qmatrix.cpp
 )
 
-kde3_automoc(${math_STAT_SRCS})
+qt4_automoc(${math_STAT_SRCS})
 
 add_library(math STATIC ${math_STAT_SRCS})
 

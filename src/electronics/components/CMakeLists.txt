@@ -59,7 +59,7 @@ SET(components_STAT_SRCS
    led.cpp
 )
 
-kde3_automoc(${components_STAT_SRCS})
+qt4_automoc(${components_STAT_SRCS})
 
 include( CheckCXXCompilerFlag )
 CHECK_CXX_COMPILER_FLAG( -fno-exceptions CXXFLAG_NOEXCEPTIONS )

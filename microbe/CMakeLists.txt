@@ -17,9 +17,9 @@ SET(microbe_SRCS
    parser.cpp
 )
 
-kde3_automoc(${microbe_SRCS})
+qt4_automoc(${microbe_SRCS})
 
-kde3_add_executable(microbe ${microbe_SRCS})
+add_executable(microbe ${microbe_SRCS})
 
 target_link_libraries(microbe ${QT_AND_KDECORE_LIBS} pthread ${LIB_KFILE})
 

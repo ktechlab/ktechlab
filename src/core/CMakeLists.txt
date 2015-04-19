@@ -7,13 +7,13 @@ SET(core_STAT_SRCS
    main.cpp
 )
 
-kde3_automoc(${core_STAT_SRCS})
+qt4_automoc(${core_STAT_SRCS})
 
 set(core_KCFG_SRCS
     ktlconfig.kcfgc
 )
 
-kde3_add_kcfg_files(core_STAT_SRCS ${core_KCFG_SRCS})
+kde4_add_kcfg_files(core_STAT_SRCS ${core_KCFG_SRCS})
 
 add_library(core STATIC ${core_STAT_SRCS})
 

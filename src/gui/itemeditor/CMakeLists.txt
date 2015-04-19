@@ -16,7 +16,7 @@ SET(itemeditor_STAT_SRCS
    componentmodelwidget.cpp
 )
 
-kde3_automoc(${itemeditor_STAT_SRCS})
+qt4_automoc(${itemeditor_STAT_SRCS})
 
 add_library(itemeditor STATIC ${itemeditor_STAT_SRCS})
 target_link_libraries( itemeditor electronics )

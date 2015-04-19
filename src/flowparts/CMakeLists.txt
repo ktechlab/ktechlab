@@ -30,7 +30,7 @@ SET(flowparts_STAT_SRCS
    pinmapping.cpp
 )
 
-kde3_automoc(${flowparts_STAT_SRCS})
+qt4_automoc(${flowparts_STAT_SRCS})
 
 add_library(flowparts STATIC ${flowparts_STAT_SRCS})
 

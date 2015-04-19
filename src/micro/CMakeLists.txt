@@ -14,7 +14,7 @@ SET(micro_STAT_SRCS
    asminfo.cpp
 )
 
-kde3_automoc(${micro_STAT_SRCS})
+qt4_automoc(${micro_STAT_SRCS})
 
 add_library(micro STATIC ${micro_STAT_SRCS})
 
