@@ -38,7 +38,7 @@ SET(gui_STAT_SRCS
    lineedit.cpp
 )
 
-kde3_automoc(${gui_STAT_SRCS})
+qt4_automoc(${gui_STAT_SRCS})
 
 set(gui_UI
     asmformattingwidget.ui
@@ -61,7 +61,7 @@ set(gui_UI
     scopescreenwidget.ui
 )
 
-kde3_add_ui_files(gui_STAT_SRCS ${gui_UI})
+kde4_add_ui_files(gui_STAT_SRCS ${gui_UI})
 
 add_library(gui STATIC ${gui_STAT_SRCS})
 target_link_libraries( itemeditor )

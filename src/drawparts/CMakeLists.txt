@@ -11,7 +11,7 @@ SET(drawparts_STAT_SRCS
    dpimage.cpp
 )
 
-kde3_automoc(${drawparts_STAT_SRCS})
+qt4_automoc(${drawparts_STAT_SRCS})
 
 add_library(drawparts STATIC ${drawparts_STAT_SRCS})
 

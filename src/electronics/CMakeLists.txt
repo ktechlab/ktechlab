@@ -19,7 +19,7 @@ SET(electronics_STAT_SRCS
    componentmodellibrary.cpp
 )
 
-kde3_automoc(${electronics_STAT_SRCS})
+qt4_automoc(${electronics_STAT_SRCS})
 
 include( CheckCXXCompilerFlag )
 CHECK_CXX_COMPILER_FLAG( -fno-exceptions CXXFLAG_NOEXCEPTIONS )

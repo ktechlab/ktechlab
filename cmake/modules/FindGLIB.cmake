@@ -39,6 +39,7 @@ else (GLIB2_LIBRARIES AND GLIB2_INCLUDE_DIRS AND GLIB2_PUBLIC_LINK_FLAGS)
       /sw/lib/glib-2.0/include
       /usr/lib64/glib-2.0/include
       /usr/lib/glib-2.0/include
+      /usr/lib/i386-linux-gnu/glib-2.0/include/
   )
 
   set(GLIB2_DEFINITIONS ${_GLIB2Cflags})

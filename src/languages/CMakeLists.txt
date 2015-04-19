@@ -20,7 +20,7 @@ SET(languages_STAT_SRCS
    picprogrammer.cpp
 )
 
-kde3_automoc(${languages_STAT_SRCS})
+qt4_automoc(${languages_STAT_SRCS})
 
 add_library(languages STATIC ${languages_STAT_SRCS})
 target_link_libraries( languages gui )

@@ -47,7 +47,7 @@ SET(ktechlab_SRCS
    itemdocument.cpp
    textview.cpp
    textdocument.cpp
-   circuitdocument.cpp
+#   circuitdocument.cpp
    flowcodedocument.cpp
    icnview.cpp
    icndocument.cpp
@@ -68,7 +68,7 @@ SET(ktechlab_SRCS
    canvas.cpp
 )
 
-kde3_automoc(${ktechlab_SRCS} microsettings.h )
+qt4_automoc(${ktechlab_SRCS} microsettings.h )
 
 set(ktechlab_DCOP_SKEL_SRCS
     docmanageriface.h
@@ -76,9 +76,9 @@ set(ktechlab_DCOP_SKEL_SRCS
     documentiface.h
 )
 
-kde3_add_dcop_skels(ktechlab_SRCS ${ktechlab_DCOP_SKEL_SRCS})
+#kde3_add_dcop_skels(ktechlab_SRCS ${ktechlab_DCOP_SKEL_SRCS})
 
-kde3_add_executable(ktechlab ${ktechlab_SRCS})
+add_executable(ktechlab ${ktechlab_SRCS})
 
 target_link_libraries( ktechlab ${QT_AND_KDECORE_LIBS} core gui micro flowparts
 	mechanics electronics elements components languages drawparts

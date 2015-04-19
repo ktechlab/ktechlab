@@ -31,7 +31,7 @@ SET(elements_STAT_SRCS
    mosfet.cpp
 )
 
-kde3_automoc(${elements_STAT_SRCS})
+qt4_automoc(${elements_STAT_SRCS})
 
 add_library(elements STATIC ${elements_STAT_SRCS})
 
