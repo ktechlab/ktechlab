@@ -326,7 +326,7 @@ class ProjectManager : public ItemSelector
 		void slotProjectOptions();
 	
 	private slots:
-		void slotContextMenuRequested( K3ListViewItem *item, const QPoint &pos, int col );
+		void slotContextMenuRequested( Q3ListViewItem *item, const QPoint &pos, int col );
 		/**
 		 * Called when a user clicks on any item in the project view
 		 */
