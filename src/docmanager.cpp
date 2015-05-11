@@ -377,17 +377,17 @@ void DocManager::disableContextActions()
 	KTechlab * ktl = KTechlab::self();
 	if ( !ktl ) return;
 	
-	ktl->action("file_save")->setEnabled(false);
-	ktl->action("file_save_as")->setEnabled(false);
-	ktl->action("file_close")->setEnabled(false);
-	ktl->action("file_print")->setEnabled(false);
-	ktl->action("edit_undo")->setEnabled(false);
-	ktl->action("edit_redo")->setEnabled(false);
-	ktl->action("edit_cut")->setEnabled(false);
-	ktl->action("edit_copy")->setEnabled(false);
-	ktl->action("edit_paste")->setEnabled(false);
-	ktl->action("view_split_leftright")->setEnabled(false);
-	ktl->action("view_split_topbottom")->setEnabled(false);
+	ktl->actionByName("file_save")->setEnabled(false);
+	ktl->actionByName("file_save_as")->setEnabled(false);
+	ktl->actionByName("file_close")->setEnabled(false);
+	ktl->actionByName("file_print")->setEnabled(false);
+	ktl->actionByName("edit_undo")->setEnabled(false);
+	ktl->actionByName("edit_redo")->setEnabled(false);
+	ktl->actionByName("edit_cut")->setEnabled(false);
+	ktl->actionByName("edit_copy")->setEnabled(false);
+	ktl->actionByName("edit_paste")->setEnabled(false);
+	ktl->actionByName("view_split_leftright")->setEnabled(false);
+	ktl->actionByName("view_split_topbottom")->setEnabled(false);
 }
 
 

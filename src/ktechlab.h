@@ -70,7 +70,7 @@ class KTechlab : public KateMDI::MainWindow
 		/**
 		 * Returns a pointer to an action with the given name.
 		 */
-		QAction* action( const QString& name ) const;
+		QAction* actionByName( const QString& name ) const;
 		/**
 		 * Returns a URL from a Open File dialog (with all ktechlab related file
 		 * types allowed).

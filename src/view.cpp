@@ -120,13 +120,13 @@ bool View::eventFilter( QObject * watched, QEvent * e )
 	
 			if ( KTechlab * ktl = KTechlab::self() )
 			{
-				ktl->action("file_save")->setEnabled(true);
-				ktl->action("file_save_as")->setEnabled(true);
-				ktl->action("file_close")->setEnabled(true);
-				ktl->action("file_print")->setEnabled(true);
-				ktl->action("edit_paste")->setEnabled(true);
-				ktl->action("view_split_leftright")->setEnabled(true);
-				ktl->action("view_split_topbottom")->setEnabled(true);
+				ktl->actionByName("file_save")->setEnabled(true);
+				ktl->actionByName("file_save_as")->setEnabled(true);
+				ktl->actionByName("file_close")->setEnabled(true);
+				ktl->actionByName("file_print")->setEnabled(true);
+				ktl->actionByName("edit_paste")->setEnabled(true);
+				ktl->actionByName("view_split_leftright")->setEnabled(true);
+				ktl->actionByName("view_split_topbottom")->setEnabled(true);
 		
 				ItemInterface::self()->updateItemActions();
 			}

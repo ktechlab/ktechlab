@@ -604,8 +604,8 @@ void TextDocument::print()
 
 void TextDocument::slotSelectionmChanged()
 {
-	KTechlab::self()->action( "edit_cut" )->setEnabled( /* m_doc->hasSelection () */ m_doc->activeView()->selection() );
-	KTechlab::self()->action( "edit_copy" )->setEnabled( /*m_doc->hasSelection () */ m_doc->activeView()->selection() );
+	KTechlab::self()->actionByName( "edit_cut" )->setEnabled( /* m_doc->hasSelection () */ m_doc->activeView()->selection() );
+	KTechlab::self()->actionByName( "edit_copy" )->setEnabled( /*m_doc->hasSelection () */ m_doc->activeView()->selection() );
 }
 
 
