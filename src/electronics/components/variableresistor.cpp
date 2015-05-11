@@ -14,8 +14,8 @@
 #include "libraryitem.h"
 
 #include <klocale.h>
-#include <qpainter.h>
-#include <qstyle.h>
+#include <Qt/qpainter.h>
+#include <Qt/qstyle.h>
 #include <kdebug.h>
 
 Item* VariableResistor::construct( ItemDocument *itemDocument, bool newItem, const char *id )
@@ -26,7 +26,7 @@ Item* VariableResistor::construct( ItemDocument *itemDocument, bool newItem, con
 LibraryItem* VariableResistor::libraryItem()
 {
 	return new LibraryItem(
-			"ec/variableresistor",
+			QStringList(QString("ec/variableresistor")),
 	i18n("Variable Resistor"),
 	i18n("Passive"),
 	"variable_resistor.png",
@@ -36,7 +36,7 @@ LibraryItem* VariableResistor::libraryItem()
 }
 
 VariableResistor::VariableResistor( ICNDocument* icnDocument, bool newItem, const QString& id )
-	: Component( icnDocument, newItem, id ? id : "variable resistor" )
+	: Component( icnDocument, newItem, (!id.isEmpty()) ? id : "variable resistor" )
 {
 	m_name = i18n("Resistor");
 		
@@ -145,7 +145,7 @@ void VariableResistor::drawShape( QPainter &p )
 	p.drawRect( _x-16, _y-6, width(), 12 );
 	p.drawLine( _x-12, _y+12, _x+13, _y-13 );
 	
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 	
 	// Diagonally pointing arrow
 	pa[0] = QPoint( 0, 0 );

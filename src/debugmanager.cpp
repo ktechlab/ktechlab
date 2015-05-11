@@ -17,12 +17,12 @@
 #include "textdocument.h"
 
 #include <kdebug.h>
-#include <kstaticdeleter.h>
+#include <k3staticdeleter.h>
 
 
 //BEGIN class DebugManager
 DebugManager * DebugManager::m_pSelf = 0l;
-static KStaticDeleter<DebugManager> staticDebugManagerDeleter;
+static K3StaticDeleter<DebugManager> staticDebugManagerDeleter;
 
 DebugManager * DebugManager::self()
 {

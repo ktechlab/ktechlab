@@ -19,7 +19,7 @@ class FlowConnectorList;
 
 #include "flowconnectorlist.h"
 
-typedef QValueList<FlowPart*> FlowPartList;
+typedef QList<FlowPart*> FlowPartList;
 
 
 /**
@@ -154,7 +154,7 @@ protected:
 	
 
 	FlowConnectorList m_inFlowConnList;
-	QGuardedPtr<FlowConnector> m_outputConnector;
+	QPointer<FlowConnector> m_outputConnector;
 
 private:
 	bool m_isInput;

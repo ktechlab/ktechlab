@@ -18,18 +18,18 @@
 #include <kiconloader.h>
 #include <klocale.h>
 
-#include <qcolor.h>
-#include <qcursor.h>
-#include <qfont.h>
-#include <qpainter.h>
-#include <qpixmap.h>
-#include <qpoint.h>
-#include <qsize.h>
+#include <Qt/qcolor.h>
+#include <Qt/qcursor.h>
+#include <Qt/qfont.h>
+#include <Qt/qpainter.h>
+#include <Qt/qpixmap.h>
+#include <Qt/qpoint.h>
+#include <Qt/qsize.h>
 
 
 //BEGIN Class PropertyEditorItem
 PropertyEditorItem::PropertyEditorItem( PropertyEditorItem * par, Property * property )
-	: KListViewItem( par, property->editorCaption(), property->displayString() )
+	: K3ListViewItem( par, property->editorCaption(), property->displayString() )
 {
 	setExpandable( false );
 	m_property=property;
@@ -43,8 +43,8 @@ PropertyEditorItem::PropertyEditorItem( PropertyEditorItem * par, Property * pro
 }
 
 
-PropertyEditorItem::PropertyEditorItem(KListView *par, const QString &text)
-	: KListViewItem(par, text, "")
+PropertyEditorItem::PropertyEditorItem(K3ListView *par, const QString &text)
+	: K3ListViewItem(par, text, "")
 {
 	m_property = 0;
 	setSelectable(false);
@@ -85,7 +85,8 @@ void PropertyEditorItem::paintCell(QPainter *p, const QColorGroup & cg, int colu
 			case Variant::Type::Color:
 			{
 				p->fillRect(0,0,width,height(), QBrush(bgColor));
-				QColor ncolor = m_property->value().toColor();
+				//QColor ncolor = m_property->value().toColor();
+                QColor ncolor = m_property->value().value<QColor>();
 				p->setBrush(ncolor);
 				p->drawRect(margin, margin, width - 2*margin, height() - 2*margin);
 				QColorGroup nGroup(cg);
@@ -112,9 +113,9 @@ void PropertyEditorItem::paintCell(QPainter *p, const QColorGroup & cg, int colu
 			{
 				p->fillRect(0,0,width,height(), QBrush(bgColor));
 				
-				PenStyle style = DrawPart::nameToPenStyle( m_property->value().toString() );
+				Qt::PenStyle style = DrawPart::nameToPenStyle( m_property->value().toString() );
 				int penWidth = 3;
-				QPen pen( black, penWidth, style );
+				QPen pen( Qt::black, penWidth, style );
 				p->setPen( pen );
 				p->drawLine( height()/2, height()/2-1, width-height()/2, height()/2-1 );
 				break;
@@ -151,7 +152,7 @@ void PropertyEditorItem::paintCell(QPainter *p, const QColorGroup & cg, int colu
 			case Variant::Type::SevenSegment:
 			case Variant::Type::KeyPad:
 			{
-				KListViewItem::paintCell(p, cg, column, width, align);
+				K3ListViewItem::paintCell(p, cg, column, width, align);
 				break;
 			}
 		}
@@ -187,7 +188,7 @@ void PropertyEditorItem::paintCell(QPainter *p, const QColorGroup & cg, int colu
 
 void PropertyEditorItem::setup()
 {
-	KListViewItem::setup();
+	K3ListViewItem::setup();
 	if ( depth() == 0 )
 		setHeight(0);
 }
@@ -205,8 +206,8 @@ void PropertyEditorItem::updateValue(bool alsoParent)
 		text = m_property->displayString();
 	
 	setText( 1, text );
-	if ( alsoParent && QListViewItem::parent() )
-		static_cast<PropertyEditorItem*>(QListViewItem::parent())->updateValue();
+	if ( alsoParent && K3ListViewItem::parent() )
+		static_cast<PropertyEditorItem*>(K3ListViewItem::parent())->updateValue();
 }
 
 

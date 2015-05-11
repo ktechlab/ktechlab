@@ -23,7 +23,7 @@ Item* VarAssignment::construct( ItemDocument *itemDocument, bool newItem, const 
 LibraryItem* VarAssignment::libraryItem()
 {
 	return new LibraryItem(
-		"flow/varassignment",
+		QStringList(QString("flow/varassignment")),
 		i18n("Assignment"),
 		i18n("Variables"),
 		"assignment.png",

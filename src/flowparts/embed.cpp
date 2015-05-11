@@ -23,7 +23,7 @@ Item* Embed::construct( ItemDocument *itemDocument, bool newItem, const char *id
 LibraryItem* Embed::libraryItem()
 {
 	return new LibraryItem(
-		"flow/embed",
+		QStringList(QString("flow/embed")),
 		i18n("Embed"),
 		i18n("Common"),
 		"embed.png",

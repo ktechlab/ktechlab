@@ -11,7 +11,7 @@
 #ifndef ASMFORMATTER_H
 #define ASMFORMATTER_H
 
-#include <qstringlist.h>
+#include <Qt/qstringlist.h>
 
 /**
 @author David Saxton

@@ -14,7 +14,7 @@
 #include "wire.h"
 
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 Item* BusSplitter::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -25,7 +25,7 @@ Item* BusSplitter::construct( ItemDocument *itemDocument, bool newItem, const ch
 LibraryItem* BusSplitter::libraryItem()
 {
 	return new LibraryItem(
-		"ec/bus",
+		QStringList(QString("ec/bus")),
 		i18n("Bus"),
 		i18n("Connections"),
 		"bus.png",

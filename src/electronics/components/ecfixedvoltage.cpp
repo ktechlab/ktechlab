@@ -15,7 +15,7 @@
 #include "libraryitem.h"
 
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 Item* ECFixedVoltage::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -24,7 +24,7 @@ Item* ECFixedVoltage::construct( ItemDocument *itemDocument, bool newItem, const
 LibraryItem* ECFixedVoltage::libraryItem()
 {
 	return new LibraryItem(
-		"ec/fixed_voltage",
+		QStringList(QString("ec/fixed_voltage")),
 		i18n("Fixed Voltage"),
 		i18n("Sources"),
 		"voltage.png",

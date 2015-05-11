@@ -29,8 +29,8 @@
 #include <kiconloader.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <qguardedptr.h>
-#include <qstringlist.h>
+#include <Qt/qpointer.h>
+#include <Qt/qstringlist.h>
 
 #include "gpsim/ioports.h"
 #include "gpsim/pic-processor.h"
@@ -70,12 +70,12 @@ PICComponent::PICComponent( ICNDocument *icnDocument, bool newItem, const char *
 	m_bLoadingProgram = false;
 	m_pGpsim = 0L;
 	
-	addButton( "run", QRect(), KGlobal::iconLoader()->loadIcon( "player_play", KIcon::Small ) );
-	addButton( "pause", QRect(), KGlobal::iconLoader()->loadIcon( "player_pause", KIcon::Small ) );
-	addButton( "reset", QRect(), KGlobal::iconLoader()->loadIcon( "stop", KIcon::Small ) );
-	addButton( "reload", QRect(), KGlobal::iconLoader()->loadIcon( "reload", KIcon::Small ) );
+	addButton( "run", QRect(), KIconLoader::global()->loadIcon( "player_play", KIconLoader::Small ) );
+	addButton( "pause", QRect(), KIconLoader::global()->loadIcon( "player_pause", KIconLoader::Small ) );
+	addButton( "reset", QRect(), KIconLoader::global()->loadIcon( "stop", KIconLoader::Small ) );
+	addButton( "reload", QRect(), KIconLoader::global()->loadIcon( "reload", KIconLoader::Small ) );
 	
-	connect( KTechlab::self(), SIGNAL(recentFileAdded(const KURL &)), this, SLOT(slotUpdateFileList()) );
+	connect( KTechlab::self(), SIGNAL(recentFileAdded(const KUrl &)), this, SLOT(slotUpdateFileList()) );
 	
 	connect( ProjectManager::self(),	SIGNAL(projectOpened()),		this, SLOT(slotUpdateFileList()) );
 	connect( ProjectManager::self(),	SIGNAL(projectClosed()),		this, SLOT(slotUpdateFileList()) );
@@ -141,7 +141,7 @@ void PICComponent::initPIC( bool forceReload )
 			initPackage( microInfo );
 	}
 	
-	QString newProgram = KURL( dataString("program") ).path();
+	QString newProgram = KUrl( dataString("program") ).path();
 	bool newFile = (m_picFile != newProgram);
 	if ( !newFile && !forceReload )
 		return;
@@ -284,16 +284,16 @@ void PICComponent::slotUpdateFileList()
 	 
 	if ( ProjectInfo * info = ProjectManager::self()->currentProject() )
 	{
-		const KURL::List urls = info->childOutputURLs( ProjectItem::AllTypes, ProjectItem::ProgramOutput );
-		KURL::List::const_iterator urlsEnd = urls.end();
-		for ( KURL::List::const_iterator it = urls.begin(); it != urlsEnd; ++it )
+		const KUrl::List urls = info->childOutputURLs( ProjectItem::AllTypes, ProjectItem::ProgramOutput );
+		KUrl::List::const_iterator urlsEnd = urls.end();
+		for ( KUrl::List::const_iterator it = urls.begin(); it != urlsEnd; ++it )
 			fileList << (*it).path();
 	}
 	
 	const QStringList::iterator end = preFileList.end();
 	for ( QStringList::iterator it = preFileList.begin(); it != end; ++it )
 	{
-		QString file = KURL(*it).path();
+		QString file = KUrl(*it).path();
 		if ( (file.endsWith(".flowcode") || file.endsWith(".asm") || file.endsWith(".cod") || file.endsWith(".basic") || file.endsWith(".microbe") ) && !fileList.contains(file) ) {
 			fileList.append(file);
 		}

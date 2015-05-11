@@ -398,7 +398,8 @@ void NodeGroup::removeRoutedNodes( NodeList *nodes, Node *n1, Node *n2 )
 	const NodeList::iterator end = nodes->end();
 	for ( NodeList::iterator it = nodes->begin(); it != end; ++it )
 	{
-		if ( nodes->contains(*it) > 1 ) {
+		//if ( nodes->contains(*it) > 1 ) {
+        if ( nodes->count(*it) > 1 ) {
 			*it = 0l;
 		}
 	}

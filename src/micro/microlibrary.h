@@ -14,13 +14,13 @@
 #include "asminfo.h"
 #include "microinfo.h"
 
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qvaluelist.h>
+#include <Qt/qstring.h>
+#include <Qt/qstringlist.h>
+#include <Qt/qlist.h>
 
 class MicroInfo;
 class MicroLibrary;
-typedef QValueList<MicroInfo*> MicroInfoList;
+typedef QList<MicroInfo*> MicroInfoList;
 
 inline MicroLibrary *microLibrary();
 

@@ -23,7 +23,7 @@ Item* MagnitudeComparator::construct( ItemDocument *itemDocument, bool newItem, 
 LibraryItem* MagnitudeComparator::libraryItem()
 {
 	return new LibraryItem(
-			"ec/magnitudecomparator",
+			QStringList(QString("ec/magnitudecomparator")),
 	i18n("Magnitude Comparator"),
 	i18n("Integrated Circuits"),
 	"ic1.png",

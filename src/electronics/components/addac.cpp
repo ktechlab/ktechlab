@@ -35,7 +35,7 @@ Item* DAC::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 LibraryItem* ADC::libraryItem()
 {
 	return new LibraryItem(
-		"ec/adc",
+		QStringList(QString("ec/adc")),
 		i18n("Analog-Digital"),
 		i18n("Integrated Circuits"),
 		"ic1.png",
@@ -48,7 +48,7 @@ LibraryItem* ADC::libraryItem()
 LibraryItem* DAC::libraryItem()
 {
 	return new LibraryItem(
-		"ec/dac",
+		QStringList(QString("ec/dac")),
 		i18n("Digital-Analog"),
 		i18n("Integrated Circuits"),
 		"ic1.png",

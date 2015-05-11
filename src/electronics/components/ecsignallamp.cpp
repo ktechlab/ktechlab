@@ -15,7 +15,7 @@
 #include "pin.h"
 
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 #include <cmath>
 
 // TODO: resistance and power rating should be user definable properties.
@@ -32,7 +32,7 @@ Item* ECSignalLamp::construct( ItemDocument *itemDocument, bool newItem, const c
 LibraryItem* ECSignalLamp::libraryItem()
 {
 	return new LibraryItem(
-		"ec/signal_lamp",
+		QStringList(QString("ec/signal_lamp")),
 		i18n("Signal Lamp"),
 		i18n("Outputs"),
 		"signal_lamp.png",

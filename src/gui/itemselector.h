@@ -11,24 +11,30 @@
 #ifndef ITEMSELECTOR_H
 #define ITEMSELECTOR_H
 
-#include <klistview.h>
+// #include <q3listview.h> // gone in kde4..
 
-#include <qpixmap.h>
-#include <qstring.h>
+#include <Qt/qpixmap.h>
+#include <Qt/qstring.h>
+// #include <Qt/qtreewidget.h>// TODO, to port to this
+//#include <Qt/q3listview.h>
+
+#include <k3listview.h>
 
 class ProjectItem;
-class QStoredDrag;
+class Q3StoredDrag;
+
+
 namespace KateMDI { class ToolView; }
 
 /**
 @short Contains info about item for ItemSelector
 @author David Saxton
 */
-class ILVItem : public QObject, public KListViewItem
+class ILVItem : public QObject, public K3ListViewItem /* K3ListViewItem */
 {
 	public:
-		ILVItem( QListView *parent, const QString &id );
-		ILVItem( QListViewItem *parent, const QString &id );
+		ILVItem( K3ListView *parent, const QString &id );
+		ILVItem( K3ListViewItem *parent, const QString &id );
 		
 		void setProjectItem( ProjectItem * projectItem ) { m_pProjectItem = projectItem; }
 		ProjectItem * projectItem() const { return m_pProjectItem; }
@@ -55,7 +61,7 @@ class ILVItem : public QObject, public KListViewItem
 @short Allows selection of generic items for dragging / clicking
 @author David Saxton
 */
-class ItemSelector : public KListView
+class ItemSelector : public K3ListView /* K3ListView */
 {
 	Q_OBJECT
 	public:
@@ -72,7 +78,7 @@ class ItemSelector : public KListView
 		void addItem( const QString & caption, const QString & id, const QString & category, const QPixmap & icon = QPixmap(), bool removable = false );
 	
 	public slots:
-		virtual void slotContextMenuRequested( QListViewItem *item, const QPoint &pos, int col );
+		virtual void slotContextMenuRequested( Q3ListViewItem* item, const QPoint& pos, int );
 		virtual void clear();
 		void slotRemoveSelectedItem();
 	
@@ -102,15 +108,15 @@ class ItemSelector : public KListView
 		bool readOpenState( const QString &id );
 
 	private slots:
-		void slotItemSelected( QListViewItem * item );
-		void slotItemClicked( QListViewItem *item );
-		void slotItemDoubleClicked( QListViewItem *item );
+		void slotItemSelected( Q3ListViewItem* item );
+		void slotItemClicked( Q3ListViewItem* item );
+		void slotItemDoubleClicked( Q3ListViewItem* item );
 
 	private:
 		/**
 		 * @return a dragobject encoding the currently selected component item.
 		 */
-		QDragObject * dragObject();
+		Q3DragObject * dragObject();
 	
 		QStringList m_categories;
 };

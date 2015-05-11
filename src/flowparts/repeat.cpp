@@ -23,7 +23,7 @@ Item* Repeat::construct( ItemDocument *itemDocument, bool newItem, const char *i
 LibraryItem* Repeat::libraryItem()
 {
 	return new LibraryItem(
-		"flow/repeat",
+		QStringList(QString("flow/repeat")),
 		i18n("Repeat"),
 		i18n("Loops"),
 		"repeat.png",

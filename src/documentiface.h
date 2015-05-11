@@ -13,8 +13,12 @@
 
 #include "config.h"
 
-#include <dcopobject.h>
-#include <dcopref.h>
+//#include <dcopobject.h>
+//#include <dcopref.h>
+
+#include "dcop_stub.h"
+
+#include <Qt/qstringlist.h>
 
 class CircuitDocument;
 class Document;
@@ -28,15 +32,15 @@ class View;
 /**
 @author David Saxton
 */
-class DocumentIface : public DCOPObject
+class DocumentIface : public DCOPObject // TODO port to dbus
 {
-	K_DCOP
+	K_DCOP // TODO port to dbus
 
 	public:
 		DocumentIface( Document * document );
 		virtual ~DocumentIface();
 		
-	k_dcop:
+	k_dcop: // TODO port to dbus
 		QString caption() const;
 		DCOPRef activeView();
 		uint numberOfViews();
@@ -65,12 +69,12 @@ class DocumentIface : public DCOPObject
 
 class TextDocumentIface : public DocumentIface
 {
-	K_DCOP
+	// K_DCOP TODO port to dbus
 
 	public:
 		TextDocumentIface( TextDocument * document );
 		
-	k_dcop:
+	//k_dcop: TODO port to dbus
 		void formatAssembly();
 		void convertToMicrobe();
 		void convertToHex();
@@ -91,13 +95,13 @@ class TextDocumentIface : public DocumentIface
 
 class ItemDocumentIface : public DocumentIface
 {
-	K_DCOP
+	// K_DCOP TODO port to dbus
 
 	public:
 		ItemDocumentIface( ItemDocument * document );
 		
-	k_dcop:
-		QCStringList validItemIDs();
+	// k_dcop: TODO port to dbus
+		QStringList validItemIDs();
 		/**
 		 * Create an item with the given id (e.g. "ec/resistor") at the given
 		 * position.
@@ -120,7 +124,7 @@ class ItemDocumentIface : public DocumentIface
 
 class MechanicsDocumentIface : public ItemDocumentIface
 {
-	K_DCOP
+	// K_DCOP TODO port to dbus
 			
 	public:
 		MechanicsDocumentIface( MechanicsDocument * document );
@@ -131,14 +135,14 @@ class MechanicsDocumentIface : public ItemDocumentIface
 
 class ICNDocumentIface : public ItemDocumentIface
 {
-	K_DCOP
+	// K_DCOP TODO port to dbus
 
 	public:
 		ICNDocumentIface( ICNDocument * document );
 		
-	k_dcop:
+	// k_dcop:  TODO port to dbus
 		void exportToImage();
-		QCStringList nodeIDs( const QString & id );
+		QStringList nodeIDs( const QString & id );
 		/**
 		 * Makes a connection from node1 on item1 to node2 on item2
 		 */
@@ -153,12 +157,12 @@ class ICNDocumentIface : public ItemDocumentIface
 // FIXME: move to separate file and put in same path as circuitdocument.*
 class CircuitDocumentIface : public ICNDocumentIface
 {
-	K_DCOP
+	// K_DCOP TODO port to dbus
 
 public:
 	CircuitDocumentIface( CircuitDocument * document );
 
-k_dcop:
+//k_dcop: TODO port to dbus
 	void setOrientation0();
 	void setOrientation90();
 	void setOrientation180();
@@ -176,7 +180,7 @@ protected:
 
 class FlowCodeDocumentIface : public ICNDocumentIface
 {
-	K_DCOP
+	// K_DCOP TODO port to dbus
 
 	public:
 		FlowCodeDocumentIface( FlowCodeDocument * document );
@@ -185,7 +189,7 @@ class FlowCodeDocumentIface : public ICNDocumentIface
 		void convertToPIC();
 		void convertToAssembly();
 		
-	k_dcop:
+	// k_dcop: TODO port to dbus
 		void setPicType( const QString & id );
 		
 	protected:

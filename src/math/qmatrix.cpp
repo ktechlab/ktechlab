@@ -18,23 +18,25 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+//#ifndef QMATRIX_H
+#include "qmatrix.h"
+//#endif
+
 #include <cstdlib> // for NULL
 #include <cmath>
 #include <cassert>
 #include <iostream>
 #include <cstring>
 
-using namespace std;
 
-#ifndef QMATRIX_H
-#include "qmatrix.h"
-#endif
 
 /*
 #ifndef BADRNG_H
 #include "badrng.h"
 #endif
 */
+
+using namespace std;
 
 // ####################################
 

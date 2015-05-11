@@ -13,7 +13,7 @@
 #include "mechanicssimulation.h"
 
 #include <cmath>
-#include <qtimer.h>
+#include <Qt/qtimer.h>
 
 MechanicsSimulation::MechanicsSimulation( MechanicsDocument *mechanicsDocument )
 	: QObject(mechanicsDocument)

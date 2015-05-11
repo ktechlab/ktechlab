@@ -99,7 +99,7 @@ Connector * CircuitICNDocument::createConnector( Node *node, Connector *con, con
 		pointList = &autoPoints;
 	}
 	
-	QValueList<QPointList> oldConPoints = con->splitConnectorPoints(pos2);
+	QList<QPointList> oldConPoints = con->splitConnectorPoints(pos2);
 	con->hide();
 
 	// The actual new connector
@@ -110,11 +110,11 @@ Connector * CircuitICNDocument::createConnector( Node *node, Connector *con, con
 	// The two connectors formed from the original one when split
 	Connector *new2 = newNode->createConnector(conStartNode);
 	conStartNode->addConnector(new2);
-	new2->setRoutePoints( *oldConPoints.at(0), usedManual );
+	new2->setRoutePoints( oldConPoints.at(0), usedManual );
 
 	Connector *new3 = conEndNode->createConnector(newNode);
 	newNode->addConnector(new3);
-	new3->setRoutePoints( *oldConPoints.at(1), usedManual );
+	new3->setRoutePoints( oldConPoints.at(1), usedManual );
 
 	// Avoid flicker: tell them to update their draw lists now
 	con->updateConnectorPoints(false);
@@ -141,8 +141,8 @@ Connector *CircuitICNDocument::createConnector(Connector *con1, Connector *con2,
 	const bool con1UsedManual = con1->usesManualPoints();
 	const bool con2UsedManual = con2->usesManualPoints();
 	
-	QValueList<QPointList> oldCon1Points = con1->splitConnectorPoints(pos1);
-	QValueList<QPointList> oldCon2Points = con2->splitConnectorPoints(pos2);
+	QList<QPointList> oldCon1Points = con1->splitConnectorPoints(pos1);
+	QList<QPointList> oldCon2Points = con2->splitConnectorPoints(pos2);
 	
 	ECNode *node1a = dynamic_cast<ECNode*> ( con1->startNode() );
 	ECNode *node1b = dynamic_cast<ECNode*> ( con1->endNode(  ) );
@@ -192,11 +192,11 @@ Connector *CircuitICNDocument::createConnector(Connector *con1, Connector *con2,
 		return 0;
 	}
 	
-	con1a->setRoutePoints(*oldCon1Points.at(0), con1UsedManual );
-	con1b->setRoutePoints(*oldCon1Points.at(1), con1UsedManual );
+	con1a->setRoutePoints(oldCon1Points.at(0), con1UsedManual );
+	con1b->setRoutePoints(oldCon1Points.at(1), con1UsedManual );
 	
-	con2a->setRoutePoints(*oldCon2Points.at(0), con2UsedManual );
-	con2b->setRoutePoints(*oldCon2Points.at(1), con2UsedManual );
+	con2a->setRoutePoints(oldCon2Points.at(0), con2UsedManual );
+	con2b->setRoutePoints(oldCon2Points.at(1), con2UsedManual );
 	
 	QPointList autoPoints;
 
@@ -316,7 +316,7 @@ void CircuitICNDocument::flushDeleteList()
 	QCanvasItemList::iterator end = m_itemDeleteList.end();
 	for ( QCanvasItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it )
 	{
-		if ( *it && m_itemDeleteList.contains ( *it ) > 1 ) {
+		if ( *it && (m_itemDeleteList.count( *it ) > 1) ) {
 			*it = 0;
 		}
 	}
@@ -430,8 +430,8 @@ bool CircuitICNDocument::joinConnectors( ECNode *node )
 	ECNode *startNode, *endNode;
 	QPointList conPoints;
 
-	con1 = *node->connectorList().at(0);
-	con2 = *node->connectorList().at(1);
+	con1 = node->connectorList().at(0).data();
+	con2 = node->connectorList().at(1).data();
 
 	if ( con1 == con2 ) return false;
 

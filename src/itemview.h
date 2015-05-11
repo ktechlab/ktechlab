@@ -14,7 +14,7 @@
 #include <view.h>
 
 #include <canvas.h>
-#include <qguardedptr.h>
+#include <Qt/qpointer.h>
 
 class Canvas;
 class CVBEditor;
@@ -101,7 +101,7 @@ class ItemView : public View
 		void enterEvent( QEvent * e );
 		void leaveEvent( QEvent * e );
 
-		QGuardedPtr<ItemDocument> p_itemDocument;
+		QPointer<ItemDocument> p_itemDocument;
 		CVBEditor *m_CVBEditor;
 		double m_zoomLevel;
 		QTimer * m_pUpdateStatusTmr;

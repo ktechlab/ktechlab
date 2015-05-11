@@ -15,7 +15,7 @@
 #include <cmath>
 #include <kiconloader.h>
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 
 //BEGIN class DPRectangle
@@ -27,10 +27,10 @@ Item * DPRectangle::construct( ItemDocument *itemDocument, bool newItem, const c
 LibraryItem* DPRectangle::libraryItem()
 {
 	return new LibraryItem(
-			QString("dp/rectangle"),
+			QStringList(QString("dp/rectangle")),
 	i18n("Rectangle"),
 	i18n("Other"),
-	KGlobal::iconLoader()->loadIcon( "text", KIcon::Small ),
+	KIconLoader::global()->loadIcon( "text", KIconLoader::Small ),
 	LibraryItem::lit_drawpart,
 	DPRectangle::construct );
 }
@@ -146,10 +146,10 @@ Item * DPEllipse::construct( ItemDocument *itemDocument, bool newItem, const cha
 LibraryItem* DPEllipse::libraryItem()
 {
 	return new LibraryItem(
-			QString("dp/ellipse"),
+			QStringList(QString("dp/ellipse")),
 	i18n("Ellipse"),
 	i18n("Other"),
-	KGlobal::iconLoader()->loadIcon( "text", KIcon::Small ),
+	KIconLoader::global()->loadIcon( "text", KIconLoader::Small ),
 	LibraryItem::lit_drawpart,
 	DPEllipse::construct );
 }
@@ -170,7 +170,7 @@ void DPEllipse::postResize()
 	QRect br = m_sizeRect;
 	
 	// Make octagon that roughly covers ellipse
-	QPointArray pa(8);
+	Q3PointArray pa(8);
 	pa[0] = QPoint( br.x() + br.width()/4,		br.y() );
 	pa[1] = QPoint( br.x() + 3*br.width()/4,	br.y() );
 	pa[2] = QPoint( br.x() + br.width(),		br.y() + br.height()/4 );

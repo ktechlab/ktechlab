@@ -28,9 +28,11 @@
 #include "pic14.h"
 
 #include <kaboutdata.h>
+#include <k3aboutdialog.h>
 #include <kcmdlineargs.h>
 #include <klocale.h>
-#include <qfile.h>
+
+#include <Qt/qfile.h>
 
 #include <iostream>
 #include <fstream>
@@ -41,23 +43,31 @@ static const char description[] =
 
 static const char version[] = "0.3";
 
-static KCmdLineOptions options[] =
-{
-	{ "show-source", I18N_NOOP( "Show source code lines in assembly output"),0},
-	{ "nooptimize", I18N_NOOP( "Do not attempt optimization of generated instructions."),0},
-	{ "+[Input URL]", I18N_NOOP( "Input filename" ),0},
-	{ "+[Output URL]", I18N_NOOP( "Output filename" ),0},
-	KCmdLineLastOption
-};
+// static KCmdLineOptions options[] =
+// {
+// 	{ "show-source", I18N_NOOP( "Show source code lines in assembly output"),0},
+// 	{ "nooptimize", I18N_NOOP( "Do not attempt optimization of generated instructions."),0},
+// 	{ "+[Input URL]", I18N_NOOP( "Input filename" ),0},
+// 	{ "+[Output URL]", I18N_NOOP( "Output filename" ),0},
+// 	KCmdLineLastOption
+// };
 
 int main(int argc, char **argv)
 {
-	KAboutData about("microbe", I18N_NOOP("Microbe"), version, description,
-					 KAboutData::License_GPL, "(C) 2004-2005, The KTechlab developers", 0, "http://ktechlab.org", "ktechlab-devel@lists.sourceforge.net" );
-	about.addAuthor( "Daniel Clarke", 0, "daniel.jc@gmail.com" );
-	about.addAuthor( "David Saxton", 0, "david@bluehaze.org" );
-	about.addAuthor( "Modified to add pic 16f877,16f627 and 16f628 by George John", 0,"az.j.george@gmail.com" );
+	KAboutData about(QByteArray("microbe"), QByteArray("Microbe"), ki18n("Microbe"), version, ki18n(description),
+					 KAboutData::License_GPL, ki18n("(C) 2004-2005, The KTechlab developers"),
+                     ki18n(""),
+                     "http://ktechlab.org", "ktechlab-devel@lists.sourceforge.net" );
+	about.addAuthor( ki18n("Daniel Clarke"), ki18n(""), QByteArray("daniel.jc@gmail.com") );
+	about.addAuthor( ki18n("David Saxton"), ki18n(""), QByteArray("david@bluehaze.org") );
+	about.addAuthor( ki18n("Modified to add pic 16f877,16f627 and 16f628 by George John"), ki18n(""), QByteArray("az.j.george@gmail.com" ));
+
     KCmdLineArgs::init(argc, argv, &about);
+    KCmdLineOptions options;
+    options.add( QByteArray("show-source"), ki18n( "Show source code lines in assembly output"),0);
+    options.add( QByteArray("nooptimize"), ki18n( "Do not attempt optimization of generated instructions."),0);
+    options.add( QByteArray("+[Input URL]"), ki18n( "Input filename" ),0);
+    options.add( QByteArray("+[Output URL]"), ki18n( "Output filename" ),0);
     KCmdLineArgs::addCmdLineOptions( options );
 	
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
@@ -73,14 +83,14 @@ int main(int argc, char **argv)
 		
 		if ( !errorReport.isEmpty() )
 		{
-			cerr << mb.errorReport();
+			cerr << mb.errorReport().toStdString();
 			return 1; // If there was an error, don't write the output to file.
 		}
 		
 		else
 		{
-			ofstream out(args->arg(1));
-			out << s;
+			ofstream out(args->arg(1).toStdString().c_str());
+			out << s.toStdString();
 			return 0;
 		}
 	}

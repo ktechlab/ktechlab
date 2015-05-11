@@ -17,7 +17,9 @@
 #include <kglobal.h>
 #include <kiconloader.h>
 #include <klocale.h>
-#include <kpopupmenu.h>
+#include <kactioncollection.h>
+#include <ktoolbarpopupaction.h>
+#include <kmenu.h>
 
 ICNView::ICNView( ICNDocument *icnDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name )
 	: ItemView( icnDocument, viewContainer, viewAreaId, name )
@@ -28,26 +30,37 @@ ICNView::ICNView( ICNDocument *icnDocument, ViewContainer *viewContainer, uint v
 	
 	//BEGIN Routing Actions
 	// These actions get inserted into the main menu
-	m_pAutoRoutingAction = new KRadioAction( i18n("Automatic"), "", 0, this, SLOT(slotSetRoutingAuto()), ac, "routing_mode_auto" );
-	m_pAutoRoutingAction->setExclusiveGroup("routing_mode");
+	//m_pAutoRoutingAction = new KAction( i18n("Automatic"), "", 0, this, SLOT(slotSetRoutingAuto()), ac, "routing_mode_auto" );
+    m_pAutoRoutingAction = new KAction( i18n("Automatic"), ac);
+    m_pAutoRoutingAction->setName("routing_mode_auto");
+    connect(m_pAutoRoutingAction, SIGNAL(triggered(bool)), this, SLOT(slotSetRoutingAuto()));
+    ac->addAction("routing_mode_auto", m_pAutoRoutingAction);
+	//m_pAutoRoutingAction->setExclusiveGroup("routing_mode");// TODO TEST
 	if ( !manualRouting )
 		m_pAutoRoutingAction->setChecked( true );
 	
-	m_pManualRoutingAction = new KRadioAction( i18n("Manual"), "", 0, this, SLOT(slotSetRoutingManual()), ac, "routing_mode_manual" );
-	m_pManualRoutingAction->setExclusiveGroup("routing_mode");
+	//m_pManualRoutingAction = new KAction( i18n("Manual"), "", 0, this, SLOT(slotSetRoutingManual()), ac, "routing_mode_manual" );
+    m_pManualRoutingAction = new KAction( i18n("Manual"), ac);
+    m_pManualRoutingAction->setName("routing_mode_manual");
+    connect(m_pManualRoutingAction, SIGNAL(triggered(bool)), this, SLOT(slotSetRoutingManual()));
+    ac->addAction("routing_mode_manual", m_pManualRoutingAction);
+	//m_pManualRoutingAction->setExclusiveGroup("routing_mode"); // TODO TEST
 	if ( manualRouting )
 		m_pManualRoutingAction->setChecked( true );
 	
 	
 	// This popup gets inserted into the toolbar
-	m_pRoutingModeToolbarPopup = new KToolBarPopupAction( i18n("Connection Routing Mode"), "pencil", 0, 0, 0, ac, "routing_mode" );
+	//m_pRoutingModeToolbarPopup = new KToolBarPopupAction( i18n("Connection Routing Mode"), "pencil", 0, 0, 0, ac, "routing_mode" );
+    m_pRoutingModeToolbarPopup = new KToolBarPopupAction( KIcon("pencil"), i18n("Connection Routing Mode"), ac);
+    m_pRoutingModeToolbarPopup->setName( "routing_mode" );
 	m_pRoutingModeToolbarPopup->setDelayed(false);
+    ac->addAction("routing_mode", m_pRoutingModeToolbarPopup);
 	
-	KPopupMenu * m = m_pRoutingModeToolbarPopup->popupMenu();
-	m->insertTitle( i18n("Connection Routing Mode") );
+	KMenu * m = m_pRoutingModeToolbarPopup->popupMenu();
+	m->addTitle( i18n("Connection Routing Mode") );
 	
-	m->insertItem( /*KGlobal::iconLoader()->loadIcon( "routing_mode_auto",	KIcon::Small ), */i18n("Automatic"), 0 );
-	m->insertItem( /*KGlobal::iconLoader()->loadIcon( "routing_mode_manual",	KIcon::Small ),*/ i18n("Manual"), 1 );
+	m->insertItem( /*KIconLoader::global()->loadIcon( "routing_mode_auto",	KIconLoader::Small ), */i18n("Automatic"), 0 );
+	m->insertItem( /*KIconLoader::global()->loadIcon( "routing_mode_manual",	KIconLoader::Small ),*/ i18n("Manual"), 1 );
 	
 	m->setCheckable(true);
 	m->setItemChecked( manualRouting ? 1 : 0, true );

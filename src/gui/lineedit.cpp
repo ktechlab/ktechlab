@@ -10,14 +10,16 @@
 #include "lineedit.h"
 
 LineEdit::LineEdit( QWidget * parent, const char * name )
-	: KLineEdit( parent, name )
+	: KLineEdit( parent )
 {
+    setName( name );
 }
 
 
 LineEdit::LineEdit( const QString & text, QWidget * parent, const char * name )
-	: KLineEdit( text, parent, name )
+	: KLineEdit( text, parent )
 {
+    setName( name );
 }
 
 

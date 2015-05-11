@@ -11,8 +11,8 @@
 #ifndef LANGUAGE_H
 #define LANGUAGE_H
 
-#include <qobject.h>
-#include <qstringlist.h>
+#include <Qt/qobject.h>
+#include <Qt/qstringlist.h>
 
 class FlowCodeDocument;
 class KTechlab;
@@ -25,7 +25,7 @@ class ProcessOptions;
 class TextDocument;
 class QProcess;
 
-typedef QValueList<ProcessOptions> ProcessOptionsList;
+typedef QList<ProcessOptions> ProcessOptionsList;
 
 class ProcessOptionsSpecial
 {

@@ -11,7 +11,7 @@
 #ifndef OUTPUTMETHODDLG_H
 #define OUTPUTMETHODDLG_H
 
-#include <kdialogbase.h>
+#include <kdialog.h>
 #include <kurl.h>
 
 class TextDocument;
@@ -46,20 +46,20 @@ class OutputMethodInfo
 		QString picID() const { return m_picID; }
 		void setPicID( const QString & id ) { m_picID = id; }
 		
-		KURL outputFile() const { return m_outputFile; }
-		void setOutputFile( const KURL & outputFile ) { m_outputFile = outputFile; }
+		KUrl outputFile() const { return m_outputFile; }
+		void setOutputFile( const KUrl & outputFile ) { m_outputFile = outputFile; }
 		
 	protected:
 		Method::Type m_method;
 		bool m_bAddToProject;
 		QString m_picID;
-		KURL m_outputFile;
+		KUrl m_outputFile;
 };
 
 /**
 @author David Saxton
 */
-class OutputMethodDlg : public KDialogBase
+class OutputMethodDlg : public KDialog
 {
 	Q_OBJECT
 	public:
@@ -68,13 +68,13 @@ class OutputMethodDlg : public KDialogBase
 		 * @param inputURL Used for saving/restoring previous options the user has selected for this file; set this to null if temporary file
 		 * @param showPICSelect Whether to show the combo boxes for selecting a PIC
 		 */
-		OutputMethodDlg( const QString & caption, const KURL & inputURL, bool showPICSelect = false, QWidget *parent = 0, const char *name = 0);
+		OutputMethodDlg( const QString & caption, const KUrl & inputURL, bool showPICSelect = false, QWidget *parent = 0, const char *name = 0);
 		~OutputMethodDlg();
 	
 		void setOutputExtension( const QString & outputExtension );
 		void setFilter( const QString  &filter );
 		void setMethod( OutputMethodInfo::Method::Type m );
-		void setOutputFile( const KURL & out );
+		void setOutputFile( const KUrl & out );
 		void setPicID( const QString & id );
 
 		virtual void reject();
@@ -88,7 +88,7 @@ class OutputMethodDlg : public KDialogBase
 	protected:
 		OutputMethodWidget *m_widget;
 		QString m_outputExtension;
-		KURL m_inputURL;
+		KUrl m_inputURL;
 		OutputMethodInfo m_outputMethodInfo;
 		bool m_bAccepted;
 		

@@ -25,8 +25,8 @@
 #include "instruction.h"
 #include "microbe.h"
 
-#include "qmap.h"
-#include "qvaluelist.h"
+#include <Qt/qmap.h>
+#include <Qt/qlist.h>
 
 class PIC14;
 
@@ -74,7 +74,7 @@ class Statement
 		bool isLabel() const { return content.text().right(1) == ":"; }
 };
 
-typedef QValueList<Statement> StatementList;
+typedef QList<Statement> StatementList;
 
 /**
 @author Daniel Clarke
@@ -182,7 +182,7 @@ class OutputField
 		bool m_found;
 };
 
-typedef QValueList<Field> StatementDefinition;
+typedef QList<Field> StatementDefinition;
 typedef QMap<QString,StatementDefinition> DefinitionMap;
 typedef QMap<QString,OutputField> OutputFieldMap;
 

@@ -11,7 +11,7 @@
 #include "junctionflownode.h"
 #include "flowconnector.h"
 
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 JunctionFlowNode::JunctionFlowNode(ICNDocument* _icnView, int dir, const QPoint& pos, QString* id ): FPNode(_icnView, Node::fp_junction, dir, pos, id)
 {
@@ -24,7 +24,7 @@ JunctionFlowNode::~JunctionFlowNode()
 
 void JunctionFlowNode::initPoints()
 {
-	setPoints( QPointArray( QRect( -4, -4, 9, 9 ) ) );
+	setPoints( Q3PointArray( QRect( -4, -4, 9, 9 ) ) );
 }
 
 
@@ -48,9 +48,9 @@ void JunctionFlowNode::checkForRemoval( Connector *connector )
 }
 
 
-inline QPointArray arrowPoints( int dir )
+inline Q3PointArray arrowPoints( int dir )
 {
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 	switch ( dir ) {
 		case 0:
 			pa[0] = QPoint( 3, 0 );
@@ -100,7 +100,7 @@ void JunctionFlowNode::drawShape ( QPainter &p )
 			QPoint end_0 = points[count-1];
 			QPoint end_1 = points[count-2];
 
-			QPointArray pa;
+			Q3PointArray pa;
 			if ( end_0.x() < end_1.x() )
 			{
 				pa = arrowPoints ( 180 );

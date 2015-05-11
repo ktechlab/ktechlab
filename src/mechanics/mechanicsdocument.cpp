@@ -158,10 +158,10 @@ void MechanicsDocument::flushDeleteList()
 	ItemList::iterator end = m_itemDeleteList.end();
 	for ( ItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it )
 	{
-		if ( *it && m_itemDeleteList.contains(*it) > 1 )
+		if ( *it && m_itemDeleteList.count(*it) > 1 )
 			*it = 0l;
 	}
-	m_itemDeleteList.remove(QGuardedPtr<Item>(0l));
+	m_itemDeleteList.remove(QPointer<Item>(0l));
 	
 	end = m_itemDeleteList.end();
 	for ( ItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it )

@@ -28,9 +28,11 @@
 #include <kmessagebox.h> 
 #include <kmimetype.h>
 #include <kstandarddirs.h>
-#include <qdom.h>
-#include <qpopupmenu.h>
-#include <qwhatsthis.h>
+#include <kxmlguifactory.h>
+
+#include <Qt/qdom.h>
+#include <Qt/q3popupmenu.h>
+#include <Qt/qwhatsthis.h>
 
 #include <cassert>
 
@@ -42,7 +44,7 @@ LinkerOptions::LinkerOptions()
 }
 
 
-QDomElement LinkerOptions::toDomElement( QDomDocument & doc, const KURL & baseURL ) const
+QDomElement LinkerOptions::toDomElement( QDomDocument & doc, const KUrl & baseURL ) const
 {
 	QDomElement node = doc.createElement("linker");
 	
@@ -57,7 +59,7 @@ QDomElement LinkerOptions::toDomElement( QDomDocument & doc, const KURL & baseUR
 	{
 		QDomElement child = doc.createElement("linked-internal");
 		node.appendChild(child);
-		child.setAttribute( "url", KURL::relativeURL( baseURL, *it ) );
+		child.setAttribute( "url", KUrl::relativeUrl( baseURL, *it ) );
 	}
 	
 	end = m_linkedExternal.end();
@@ -72,7 +74,7 @@ QDomElement LinkerOptions::toDomElement( QDomDocument & doc, const KURL & baseUR
 }
 
 
-void LinkerOptions::domElementToLinkerOptions( const QDomElement & element, const KURL & baseURL )
+void LinkerOptions::domElementToLinkerOptions( const QDomElement & element, const KUrl & baseURL )
 {
 	setHexFormat( stringToHexFormat( element.attribute( "hex-format", QString::null ) ) );
 	setOutputMapFile( element.attribute( "output-map-file", "0" ).toInt() );
@@ -92,7 +94,7 @@ void LinkerOptions::domElementToLinkerOptions( const QDomElement & element, cons
 			const QString tagName = childElement.tagName();
 			
 			if ( tagName == "linked-internal" )
-				m_linkedInternal << KURL( baseURL, childElement.attribute( "url", QString::null ) ).url();
+				m_linkedInternal << KUrl( baseURL, childElement.attribute( "url", QString::null ) ).url();
 			
 			else if ( tagName == "linked-external" )
 				m_linkedExternal << childElement.attribute( "url", QString::null );
@@ -158,20 +160,20 @@ ProcessingOptions::~ProcessingOptions()
 }
 
 
-QDomElement ProcessingOptions::toDomElement( QDomDocument & doc, const KURL & baseURL ) const
+QDomElement ProcessingOptions::toDomElement( QDomDocument & doc, const KUrl & baseURL ) const
 {
 	QDomElement node = doc.createElement("processing");
 	
-	node.setAttribute( "output", KURL::relativeURL( baseURL, outputURL().url() ) );
+	node.setAttribute( "output", KUrl::relativeUrl( baseURL, outputURL().url() ) );
 	node.setAttribute( "micro", m_microID );
 	
 	return node;
 }
 
 
-void ProcessingOptions::domElementToProcessingOptions( const QDomElement & element, const KURL & baseURL )
+void ProcessingOptions::domElementToProcessingOptions( const QDomElement & element, const KUrl & baseURL )
 {
-	setOutputURL( KURL( baseURL, element.attribute( "output", QString::null ) ) );
+	setOutputURL( KUrl( baseURL, element.attribute( "output", QString::null ) ) );
 	setMicroID( element.attribute("micro", QString::null ) );
 }
 //END class ProcessingOptions
@@ -227,7 +229,7 @@ void ProjectItem::updateILVItemPixmap()
 		case ProgramType:
 		{
 			QPixmap pm;
-			pm.load( locate( "appdata", "icons/project_program.png" ) );
+			pm.load( KStandardDirs:: locate( "appdata", "icons/project_program.png" ) );
 			m_pILVItem->setPixmap( 0, pm );
 			break;
 		}
@@ -235,7 +237,7 @@ void ProjectItem::updateILVItemPixmap()
 		case LibraryType:
 		{
 			QPixmap pm;
-			pm.load( locate( "appdata", "icons/project_library.png" ) );
+			pm.load( KStandardDirs:: locate( "appdata", "icons/project_library.png" ) );
 			m_pILVItem->setPixmap( 0, pm );
 			break;
 		}
@@ -243,7 +245,8 @@ void ProjectItem::updateILVItemPixmap()
 		case FileType:
 		{
 			KMimeType::Ptr m = KMimeType::findByPath( url().path() );
-			m_pILVItem->setPixmap( 0, m->pixmap( KIcon::Small ) );
+			//m_pILVItem->setPixmap( 0, m->pixmap( KIconLoader::Small ) );
+            m_pILVItem->setPixmap( 0, KIconLoader::global()->loadMimeTypeIcon( m->iconName(), KIconLoader::Small ) );
 			break;
 		}
 	}
@@ -296,7 +299,7 @@ void ProjectItem::setName( const QString & name )
 }
 
 
-void ProjectItem::setURL( const KURL & url )
+void ProjectItem::setURL( const KUrl & url )
 {
 	m_url = url;
 	
@@ -482,7 +485,7 @@ bool ProjectItem::build( ProcessOptionsList * pol )
 			return true;
 			
 		case FileType:
-			po.setInputFiles( url().path() );
+			po.setInputFiles( QStringList( url().path() ) );
 			po.setProcessPath( ProcessOptions::ProcessPath::path( ProcessOptions::guessMediaType( url().url() ), typeTo ) );
 			break;
 			
@@ -542,7 +545,7 @@ void ProjectItem::upload( ProcessOptionsList * pol )
 	ProcessOptions po;
 	dlg->initOptions( & po );
 	po.b_addToProject = false;
-	po.setInputFiles( outputURL().path() );
+	po.setInputFiles( QStringList( outputURL().path() ) );
 	po.setProcessPath( ProcessOptions::ProcessPath::Program_PIC );
 	
 	pol->append( po );
@@ -551,13 +554,13 @@ void ProjectItem::upload( ProcessOptionsList * pol )
 }
 
 
-QDomElement ProjectItem::toDomElement( QDomDocument & doc, const KURL & baseURL ) const
+QDomElement ProjectItem::toDomElement( QDomDocument & doc, const KUrl & baseURL ) const
 {
 	QDomElement node = doc.createElement("item");
 	
 	node.setAttribute( "type", typeToString() );
 	node.setAttribute( "name", m_name );
-	node.setAttribute( "url", KURL::relativeURL( baseURL, m_url.url() ) );
+	node.setAttribute( "url", KUrl::relativeUrl( baseURL, m_url.url() ) );
 	
 	node.appendChild( LinkerOptions::toDomElement( doc, baseURL ) );
 	node.appendChild( ProcessingOptions::toDomElement( doc, baseURL ) );
@@ -574,9 +577,9 @@ QDomElement ProjectItem::toDomElement( QDomDocument & doc, const KURL & baseURL 
 }
 
 
-KURL::List ProjectItem::childOutputURLs( unsigned types, unsigned outputTypes ) const
+KUrl::List ProjectItem::childOutputURLs( unsigned types, unsigned outputTypes ) const
 {
-	KURL::List urls;
+	KUrl::List urls;
 	
 	ProjectItemList::const_iterator end = m_children.end();
 	for ( ProjectItemList::const_iterator it = m_children.begin(); it != end; ++it )
@@ -585,7 +588,7 @@ KURL::List ProjectItem::childOutputURLs( unsigned types, unsigned outputTypes ) 
 			continue;
 		
 		if ( ((*it)->type() & types) && ((*it)->outputType() & outputTypes) )
-			urls += (*it)->outputURL().prettyURL();
+			urls += (*it)->outputURL().prettyUrl();
 		
 		urls += (*it)->childOutputURLs(types);
 	}
@@ -594,7 +597,7 @@ KURL::List ProjectItem::childOutputURLs( unsigned types, unsigned outputTypes ) 
 }
 
 
-ProjectItem * ProjectItem::findItem( const KURL & url )
+ProjectItem * ProjectItem::findItem( const KUrl & url )
 {
 	if ( this->url() == url )
 		return this;
@@ -634,9 +637,9 @@ bool ProjectItem::closeOpenFiles()
 
 void ProjectItem::addFiles()
 {
-	KURL::List urls = KTechlab::self()->getFileURLs();
-	const KURL::List::iterator end = urls.end();
-	for ( KURL::List::iterator it = urls.begin(); it != end; ++ it)
+	KUrl::List urls = KTechlab::self()->getFileURLs();
+	const KUrl::List::iterator end = urls.end();
+	for ( KUrl::List::iterator it = urls.begin(); it != end; ++ it)
 		addFile(*it);
 }
 
@@ -661,7 +664,7 @@ void ProjectItem::addCurrentFile()
 }
 
 
-void ProjectItem::addFile( const KURL & url )
+void ProjectItem::addFile( const KUrl & url )
 {
 	if ( url.isEmpty() )
 		return;
@@ -718,11 +721,11 @@ ProjectItem::Type ProjectItem::stringToType( const QString & type )
 }
 
 
-void ProjectItem::domElementToItem( const QDomElement & element, const KURL & baseURL )
+void ProjectItem::domElementToItem( const QDomElement & element, const KUrl & baseURL )
 {
 	Type type = stringToType( element.attribute( "type", QString::null ) );
 	QString name = element.attribute( "name", QString::null );
-	KURL url( baseURL, element.attribute( "url", QString::null ) );
+	KUrl url( baseURL, element.attribute( "url", QString::null ) );
 	
 	ProjectItem * createdItem = new ProjectItem( this, type, m_pProjectManager );
 	createdItem->setName( name );
@@ -771,7 +774,7 @@ ProjectInfo::~ ProjectInfo()
 }
 
 
-bool ProjectInfo::open( const KURL & url )
+bool ProjectInfo::open( const KUrl & url )
 {
 	QString target;
 	if ( !KIO::NetAccess::download( url, target, 0l ) )
@@ -794,7 +797,7 @@ bool ProjectInfo::open( const KURL & url )
 	
 	QString xml;
 	QTextStream textStream( &file );
-	while ( !textStream.eof() )
+	while ( !textStream.atEnd() ) //was: eof()
 		xml += textStream.readLine() + '\n';
 	
 	file.close();
@@ -904,7 +907,7 @@ ProjectManager::ProjectManager( KateMDI::ToolView * parent )
 	setListCaption( i18n("File") );
 	setCaption( i18n("Project Manager") );
 	
-	connect( this, SIGNAL(clicked(QListViewItem*)), this, SLOT(slotItemClicked(QListViewItem*)) );
+	connect( this, SIGNAL(clicked(Q3ListViewItem*)), this, SLOT(slotItemClicked(Q3ListViewItem*)) );
 }
 
 
@@ -951,7 +954,7 @@ void ProjectManager::slotOpenProject()
 	QString filter;
 	filter = QString("*.ktechlab|%1 (*.ktechlab)\n*|%2").arg( i18n("KTechlab Project") ).arg( i18n("All Files") );
 	
-    KURL url = KFileDialog::getOpenURL(QString::null, filter, this, i18n("Open Location"));
+    KUrl url = KFileDialog::getOpenUrl( KUrl(), filter, this, i18n("Open Location"));
 	
     if ( url.isEmpty() )
 		return;
@@ -960,7 +963,7 @@ void ProjectManager::slotOpenProject()
 }
 
 
-void ProjectManager::slotOpenProject( const KURL & url )
+void ProjectManager::slotOpenProject( const KUrl & url )
 {
 	if ( m_pCurrentProject && m_pCurrentProject->url() == url )
 		return;
@@ -1170,7 +1173,7 @@ void ProjectManager::slotItemProcessingOptions()
 }
 
 
-void ProjectManager::slotItemClicked( QListViewItem * item )
+void ProjectManager::slotItemClicked( Q3ListViewItem * item )
 {
 	ILVItem * ilvItem = dynamic_cast<ILVItem*>(item);
 	if ( !ilvItem )
@@ -1184,11 +1187,11 @@ void ProjectManager::slotItemClicked( QListViewItem * item )
 }
 
 
-void ProjectManager::slotContextMenuRequested( QListViewItem * item, const QPoint& pos, int /*col*/ )
+void ProjectManager::slotContextMenuRequested( K3ListViewItem * item, const QPoint& pos, int /*col*/ )
 {
 	QString popupName;
 	ILVItem * ilvItem = dynamic_cast<ILVItem*>(item);
-	KAction * linkerOptionsAct = KTechlab::self()->action("project_item_linker_options");
+	QAction * linkerOptionsAct = KTechlab::self()->action("project_item_linker_options");
 	linkerOptionsAct->setEnabled(false);
 	
 	if ( !m_pCurrentProject )
@@ -1242,7 +1245,7 @@ void ProjectManager::slotContextMenuRequested( QListViewItem * item, const QPoin
 	KTechlab::self()->action("subproject_add_current_file")->setEnabled( haveFocusedDocument );
 	KTechlab::self()->action("project_add_current_file")->setEnabled( haveFocusedDocument );
 	
-	QPopupMenu *pop = static_cast<QPopupMenu*>(KTechlab::self()->factory()->container( popupName, KTechlab::self() ));
+	Q3PopupMenu *pop = static_cast<Q3PopupMenu*>(KTechlab::self()->factory()->container( popupName, KTechlab::self() ));
 	if (pop)
 		pop->popup(pos);
 }

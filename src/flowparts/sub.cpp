@@ -23,7 +23,7 @@ Item* Sub::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 LibraryItem* Sub::libraryItem()
 {
 	return new LibraryItem(
-		"flow/sub",
+		QStringList(QString("flow/sub")),
 		i18n("Subroutine"),
 		i18n("Common"),
 		"sub.png",

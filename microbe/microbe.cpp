@@ -31,7 +31,7 @@
 
 #include <kdebug.h>
 #include <klocale.h>
-#include <qfile.h>
+#include <Qt/qfile.h>
 
 #include <iostream>
 using namespace std;
@@ -78,7 +78,7 @@ Microbe::~Microbe()
 QString Microbe::compile( const QString & url, bool optimize )
 {
 	QFile file( url );
-	if( file.open( IO_ReadOnly ) )
+	if( file.open( QIODevice::ReadOnly ) )
 	{
 		QTextStream stream(&file);
 		unsigned line = 0;
@@ -99,7 +99,7 @@ QString Microbe::compile( const QString & url, bool optimize )
 	if ( !m_program.isEmpty() )
 	{
 		m_picType = PIC14::toType( m_program[0].text() );
-		m_program.remove( m_program.begin() );
+		m_program.erase( m_program.begin() );
 	}
 	
 	PIC14 * pic = makePic();
@@ -150,7 +150,8 @@ void Microbe::simplifyProgram()
 		for ( unsigned i = 0; i < l; ++i )
 		{
 			QChar c = code[i];
-			switch ( c )
+            const char cc = c.toLatin1();
+			switch ( cc )
 			{
 				case '/':
 					// Look for start of comments in form "//" and "/*"
@@ -188,7 +189,7 @@ void Microbe::simplifyProgram()
 					if ( commentType != None )
 						break;
 					
-					simplified << SourceLine( simplifiedLine.simplifyWhiteSpace(), (*it).url(), (*it).line() );
+					simplified << SourceLine( simplifiedLine.simplified(), (*it).url(), (*it).line() );
 					simplified << SourceLine( c, (*it).url(), (*it).line() );
 					
 					simplifiedLine = "";
@@ -199,7 +200,7 @@ void Microbe::simplifyProgram()
 				simplifiedLine += c;
 		}
 		
-		simplified << SourceLine( simplifiedLine.simplifyWhiteSpace(), (*it).url(), (*it).line() );
+		simplified << SourceLine( simplifiedLine.simplified(), (*it).url(), (*it).line() );
 	}
 	
 	m_program.clear();
@@ -463,7 +464,7 @@ QString Microbe::alias( const QString & alias ) const
 	// otherwise just return the alias as that is the real string.
 	AliasMap::const_iterator it = m_aliasList.find(alias);
 	if ( it != m_aliasList.constEnd() )
-		return it.data();
+		return it.value();
 	return alias;
 }
 

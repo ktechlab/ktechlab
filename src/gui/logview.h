@@ -12,9 +12,10 @@
 #define LOGVIEW_H
 
 class KTechlab;
+class Q3PopupMenu;
 
 #include <ktextedit.h>
-#include <qmap.h>
+#include <Qt/qmap.h>
 
 namespace KateMDI { class ToolView; }
 
@@ -66,7 +67,7 @@ class LogView : public KTextEdit
 		void addOutput( QString text, OutputType outputType, MessageInfo messageInfo = MessageInfo() );
 	
 	protected:
-		virtual QPopupMenu * createPopupMenu( const QPoint & pos );
+		virtual QMenu * createPopupMenu( const QPoint & pos );
 		/**
 		 * Replaces "&" with &amp;, "<" with &lt;, etc
 		 */
@@ -77,6 +78,8 @@ class LogView : public KTextEdit
 		void untidyText( QString &t );
 	
 		MessageInfoMap m_messageInfoMap;
+
+        virtual void mouseDoubleClickEvent ( QMouseEvent * e );
 	
 	private slots:
 		void slotParaClicked( int para, int pos );

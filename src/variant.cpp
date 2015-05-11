@@ -170,7 +170,7 @@ void Variant::setValue( QVariant val )
 			break;
 			
 		case Variant::Type::Color:
-			emit valueChanged( value().toColor() );
+			emit valueChanged( value().value<QColor>() );
 			break;
 			
 		case Variant::Type::Bool:

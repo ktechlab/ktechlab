@@ -12,7 +12,7 @@
 #define MATRIXDISPLAY_H
 
 #include <component.h>
-#include <qvaluevector.h>
+#include <Qt/q3valuevector.h>
 
 const unsigned max_md_width = 100;
 const unsigned max_md_height = 20;
@@ -40,9 +40,9 @@ class MatrixDisplay : public Component
 		QString rowPinID( int row ) const;
 		
 		
-		QValueVector< QValueVector<double> > m_avgBrightness;
-		QValueVector< QValueVector<unsigned> > m_lastBrightness;
-		QValueVector< QValueVector<Diode*> > m_pDiodes;
+		Q3ValueVector< Q3ValueVector<double> > m_avgBrightness;
+		Q3ValueVector< Q3ValueVector<unsigned> > m_lastBrightness;
+		Q3ValueVector< Q3ValueVector<Diode*> > m_pDiodes;
 		
 		ECNode * m_pRowNodes[max_md_height];
 		ECNode * m_pColNodes[max_md_width];

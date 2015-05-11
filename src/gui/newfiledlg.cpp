@@ -12,7 +12,7 @@
 #include "document.h"
 #include "microinfo.h"
 #include "newfiledlg.h"
-#include "newfilewidget.h"
+#include "ui_newfilewidget.h"
 #include "microlibrary.h"
 #include "microselectwidget.h"
 #include "projectmanager.h"
@@ -21,56 +21,71 @@
 #include <kcombobox.h>
 #include <kdebug.h>
 #include <klineedit.h>
-#include <kiconview.h>
+#include <k3iconview.h>
 #include <klocale.h>
 #include <kiconloader.h>
 
 #include <canvas.h>
-#include <qcheckbox.h>
-#include <qdir.h>
-#include <qfile.h>
-#include <qlabel.h>
-#include <qpaintdevicemetrics.h>
+#include <Qt/qcheckbox.h>
+#include <Qt/qdir.h>
+#include <Qt/qfile.h>
+#include <Qt/qlabel.h>
+#include <Qt/q3paintdevicemetrics.h>
 
+
+struct NewFileWidget : public QWidget, Ui::NewFileWidget {
+    NewFileWidget(QWidget *parent) : QWidget(parent) {
+        setupUi(this);
+    }
+};
 
 NewFileDlg::NewFileDlg( QWidget *parent )
-    : KDialogBase( parent, "newfiledlg", true, "New File", KDialogBase::Ok|KDialogBase::Cancel, KDialogBase::Ok, true )
+    :
+    //KDialog( parent, "newfiledlg", true, "New File", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
+    KDialog( parent ) // , "newfiledlg", true, "New File", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
 {
+    setName("newfiledlg");
+    setModal(true);
+    setCaption(i18n("New File"));
+    setButtons(KDialog::Ok | KDialog::Cancel);
+    setDefaultButton(KDialog::Ok);
+    showButtonSeparator(true);
+
 	m_pMainParent = parent;
     m_bAccepted = false;
     m_pNewFileWidget = new NewFileWidget(this);
 
-	 m_pNewFileWidget->typeIconView->setSelectionMode(QIconView::Single);
-	 m_pNewFileWidget->typeIconView->setMode(KIconView::Select);
+	 m_pNewFileWidget->typeIconView->setSelectionMode(Q3IconView::Single);
+	 m_pNewFileWidget->typeIconView->setMode(K3IconView::Select);
     
-	KIconLoader *loader = KGlobal::iconLoader();
+	KIconLoader *loader = KIconLoader::global();
 	
-	QValueList<QIconViewItem*> items;
+	QList<Q3IconViewItem*> items;
 	
 	//BEGIN insert icons
 	QString text = QString("%1 (.asm)").arg(i18n("Assembly Code"));
-	items << new QIconViewItem(m_pNewFileWidget->typeIconView, text, loader->loadIcon( "source", KIcon::NoGroup, KIcon::SizeHuge ) );
+	items << new Q3IconViewItem(m_pNewFileWidget->typeIconView, text, loader->loadIcon( "source", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
 	
 	text = "C (.c)";
-	items << new QIconViewItem(m_pNewFileWidget->typeIconView, text, loader->loadIcon( "source_c", KIcon::NoGroup, KIcon::SizeHuge ) );
+	items << new Q3IconViewItem(m_pNewFileWidget->typeIconView, text, loader->loadIcon( "source_c", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
 	
 	text = QString("%1 (.circuit)").arg(i18n("Circuit"));
-	items << new QIconViewItem(m_pNewFileWidget->typeIconView,text, loader->loadIcon( "ktechlab_circuit", KIcon::NoGroup, KIcon::SizeHuge ) );
+	items << new Q3IconViewItem(m_pNewFileWidget->typeIconView,text, loader->loadIcon( "ktechlab_circuit", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
 	
-	items << new QIconViewItem(m_pNewFileWidget->typeIconView,"FlowCode (.flowcode)", loader->loadIcon( "ktechlab_flowcode", KIcon::NoGroup, KIcon::SizeHuge ) );
+	items << new Q3IconViewItem(m_pNewFileWidget->typeIconView,"FlowCode (.flowcode)", loader->loadIcon( "ktechlab_flowcode", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
 	
 #ifdef MECHANICS
-	items << new QIconViewItem(m_pNewFileWidget->typeIconView,"Mechanics (.mechanics)", loader->loadIcon( "exec", KIcon::NoGroup, KIcon::SizeHuge ) );
+	items << new Q3IconViewItem(m_pNewFileWidget->typeIconView,"Mechanics (.mechanics)", loader->loadIcon( "exec", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
 #endif
 	
-	items << new QIconViewItem(m_pNewFileWidget->typeIconView,"Microbe (.microbe)", loader->loadIcon( "ktechlab_microbe", KIcon::NoGroup, KIcon::SizeHuge ) );
+	items << new Q3IconViewItem(m_pNewFileWidget->typeIconView,"Microbe (.microbe)", loader->loadIcon( "ktechlab_microbe", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
 	//END insert icons
 	
 	unsigned minWidth = 20 + m_pNewFileWidget->typeIconView->spacing() * items.size();
 	int minHeight = 0;
 	
-	const QValueList<QIconViewItem*>::iterator end = items.end();
-	for ( QValueList<QIconViewItem*>::iterator it = items.begin(); it != end; ++it )
+	const QList<Q3IconViewItem*>::iterator end = items.end();
+	for ( QList<Q3IconViewItem*>::iterator it = items.begin(); it != end; ++it )
 	{
 		(*it)->setDragEnabled(false);
 		minWidth += (*it)->width();
@@ -86,8 +101,8 @@ NewFileDlg::NewFileDlg( QWidget *parent )
 	setMainWidget(m_pNewFileWidget);
     
 	// Our behaviour is to have single click selects and double click accepts the dialog
-	connect( m_pNewFileWidget->typeIconView, SIGNAL(selectionChanged(QIconViewItem*)), this, SLOT(fileTypeChanged(QIconViewItem*)) );
-	connect( m_pNewFileWidget->typeIconView, SIGNAL(doubleClicked(QIconViewItem*)), this, SLOT(accept()));
+	connect( m_pNewFileWidget->typeIconView, SIGNAL(selectionChanged(Q3IconViewItem*)), this, SLOT(fileTypeChanged(Q3IconViewItem*)) );
+	connect( m_pNewFileWidget->typeIconView, SIGNAL(doubleClicked(Q3IconViewItem*)), this, SLOT(accept()));
 
     setAcceptDrops(true);
 
@@ -145,7 +160,7 @@ void NewFileDlg::reject()
 }
 
 
-void NewFileDlg::fileTypeChanged( QIconViewItem *item )
+void NewFileDlg::fileTypeChanged( Q3IconViewItem *item )
 {
 	m_pNewFileWidget->m_pMicroSelect->setEnabled(
 			item->text().contains(".flowcode") );

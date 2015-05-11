@@ -23,7 +23,7 @@ Item* WritePort::construct( ItemDocument *itemDocument, bool newItem, const char
 LibraryItem* WritePort::libraryItem()
 {
 	return new LibraryItem(
-		"flow/writeport",
+		QStringList(QString("flow/writeport")),
 		i18n("Write to Port"),
 		i18n("I\\/O"),
 		"portwrite.png",
@@ -45,7 +45,7 @@ WritePort::WritePort( ICNDocument *icnDocument, bool newItem, const char *id )
 	property("0-var")->setValue("x");
 	
 	createProperty( "1-port", Variant::Type::Port );
-	property("1-port")->setToolbarCaption( i18n( "write to port", "to" ) );
+	property("1-port")->setToolbarCaption( i18nc( "write to port", "to" ) );
 	property("1-port")->setEditorCaption( i18n("Port") );
 	property("1-port")->setValue("PORTA");
 }

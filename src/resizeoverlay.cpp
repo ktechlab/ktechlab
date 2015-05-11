@@ -13,7 +13,7 @@
 #include "resizeoverlay.h"
 
 #include <kdebug.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 #include <cmath>
 
 #define DPR ( 180.0 / M_PI )
@@ -169,7 +169,7 @@ void MechanicsItemOverlay::slotUpdateResizeHandles()
 	const PositionInfo absPos = p_mechanicsItem->absolutePosition();
 	const QRect sizeRect = p_mechanicsItem->sizeRect();
 	
-	QPointArray pa(9);
+	Q3PointArray pa(9);
 	pa[0] = sizeRect.topLeft();
 	pa[2] = sizeRect.topRight();
 	pa[1] = (pa[0]+pa[2])/2;
@@ -407,7 +407,8 @@ void LineOverlay::slotResizeHandleMoved( int id, double dx, double dy )
 
 //BEGIN class ResizeHandle
 ResizeHandle::ResizeHandle( ResizeOverlay *resizeOverlay, int id, DrawType drawType, int xsnap, int ysnap )
-	: QObject(), QCanvasRectangle( 0, 0, 13, 13, resizeOverlay->parentItem()->canvas() )
+	: //QObject(),
+        QCanvasRectangle( 0, 0, 13, 13, resizeOverlay->parentItem()->canvas() )
 {
 	p_resizeOverlay = resizeOverlay;
 	m_drawType = drawType;
@@ -432,12 +433,12 @@ void ResizeHandle::setHover( bool hover )
 	canvas()->setChanged( QRect( int(x())-8, int(y())-8, 15, 15 ) );
 }
 
-QPointArray ResizeHandle::areaPoints() const
+Q3PointArray ResizeHandle::areaPoints() const
 {
-// 	QPointArray pa = QCanvasRectangle::areaPoints();
+// 	Q3PointArray pa = QCanvasRectangle::areaPoints();
 // 	pa.translate( -7, -7 );
 // 	return pa;
-	return QPointArray( QRect( int(x())-8, int(y())-8, 15, 15 ) );
+	return Q3PointArray( QRect( int(x())-8, int(y())-8, 15, 15 ) );
 }
 
 void ResizeHandle::moveRH( double _x, double _y )

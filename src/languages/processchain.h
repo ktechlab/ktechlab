@@ -12,8 +12,8 @@
 #define PROCESSCHAIN_H
 
 #include "language.h"
-#include <qobject.h>
-#include <qvaluelist.h>
+#include <Qt/qobject.h>
+#include <Qt/qlist.h>
 
 class FlowCode;
 class Gpasm;
@@ -26,7 +26,7 @@ class PicProgrammer;
 class ProcesOptions;
 class SDCC;
 
-typedef QValueList<ProcessOptions> ProcessOptionsList;
+typedef QList<ProcessOptions> ProcessOptionsList;
 
 /**
 @author Daniel Clarke

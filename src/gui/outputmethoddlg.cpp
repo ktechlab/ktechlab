@@ -11,7 +11,7 @@
 #include "docmanager.h"
 #include "filemetainfo.h"
 #include "textdocument.h"
-#include "outputmethodwidget.h"
+#include "ui_outputmethodwidget.h"
 #include "outputmethoddlg.h"
 #include "microlibrary.h"
 #include "microselectwidget.h"
@@ -20,12 +20,19 @@
 #include <kcombobox.h>
 #include <kconfigskeleton.h>
 #include <kdebug.h>
-#include <ktempfile.h>
+#include <k3tempfile.h>
 #include <kurlrequester.h>
 
-#include <qcheckbox.h>
-#include <qfile.h>
-#include <qradiobutton.h>
+#include <Qt/qcheckbox.h>
+#include <Qt/qfile.h>
+#include <Qt/qradiobutton.h>
+
+
+struct OutputMethodWidget : public QWidget, Ui::OutputMethodWidget {
+    OutputMethodWidget(QWidget *parent) : QWidget(parent) {
+        setupUi(this);
+    }
+};
 
 
 //BEGIN class OutputMethodInfo
@@ -41,7 +48,7 @@ void OutputMethodInfo::initialize( OutputMethodDlg * dlg )
 	if ( dlg->m_widget->displayDirectCheck->isChecked() )
 	{
 		m_method = Method::Direct;
-		KTempFile f( QString::null, dlg->m_outputExtension );
+		K3TempFile f( QString::null, dlg->m_outputExtension );
 		f.close();
 		m_outputFile = f.name();
 		m_bAddToProject = false;
@@ -66,9 +73,16 @@ void OutputMethodInfo::initialize( OutputMethodDlg * dlg )
 
 
 //BEGIN class OutputMethodDlg
-OutputMethodDlg::OutputMethodDlg( const QString &caption, const KURL & inputURL, bool showPICSelect, QWidget *parent, const char *name )
-	: KDialogBase( parent, name, true, caption, Ok|Cancel )
+
+OutputMethodDlg::OutputMethodDlg( const QString &caption, const KUrl & inputURL, bool showPICSelect, QWidget *parent, const char *name )
+	: // KDialog( parent, name, true, caption, Ok|Cancel )
+	KDialog( parent ) //, name, true, caption, Ok|Cancel )
 {
+    setName(name);
+    setModal(true);
+    setCaption(caption);
+    setButtons(KDialog::Ok | KDialog::Cancel);
+
 	m_inputURL = inputURL;
 	m_bAccepted = false;
 	m_widget = new OutputMethodWidget(this);
@@ -131,9 +145,9 @@ void OutputMethodDlg::setPicID( const QString & id )
 }
 
 
-void OutputMethodDlg::setOutputFile( const KURL & out )
+void OutputMethodDlg::setOutputFile( const KUrl & out )
 {
-	m_widget->outputFileURL->setURL(out.prettyURL());
+	m_widget->outputFileURL->setUrl(out.prettyUrl());
 }
 
 

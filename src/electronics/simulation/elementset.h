@@ -13,7 +13,7 @@
 
 //#include <vector>
 
-#include <qvaluelist.h>
+#include <Qt/qlist.h>
 
 class CBranch;
 class Circuit;
@@ -25,8 +25,8 @@ class Matrix;
 class NonLinear;
 class QuickVector;  // not exactly sure how these types of declarations work. 
 
-typedef QValueList<Element*> ElementList;
-typedef QValueList<NonLinear*> NonLinearList;
+typedef QList<Element*> ElementList;
+typedef QList<NonLinear*> NonLinearList;
 
 /**
 Steps in simulation of a set of elements:

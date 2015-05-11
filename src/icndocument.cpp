@@ -29,8 +29,8 @@
 
 #include <kapplication.h>
 #include <kdebug.h>
-#include <qclipboard.h>
-#include <qtimer.h>
+#include <Qt/qclipboard.h>
+#include <Qt/qtimer.h>
 
 
 //BEGIN class ICNDocument
@@ -690,7 +690,7 @@ void ICNDocument::requestRerouteInvalidatedConnectors()
 
 void ICNDocument::rerouteInvalidatedConnectors()
 {
-	qApp->processEvents(300);
+	qApp->processEvents(QEventLoop::AllEvents, 300);
 
 	// We only ever need to add the connector points for CNItem's when we're about to reroute...
 	addAllItemConnectorPoints();

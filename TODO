@@ -65,3 +65,11 @@ The following have been brainstormed with reference to other electronics softwar
 - Right click properties for component model, values with separate value and multiplier selection to make it easier. This could be implemented in the Item editor too.
 -Circuit drawing on a black background to better visualise animated wires and logic levels through wires. Different view options: voltage levels, current flow, logic levels, normal(no wire animation of any sort). 
 - A means for users to create a circuit which is intended for use in a component, and to link the created circuit to a generic component that automatically creates the required in/out pins with reference to the created component circuit. On top of this, a means for users to submit new components they have created this way to allow the library of components to be built. So instead of a long list of IC's one generic one may be used with a library containing the circuits needed to simulate different types which can be chosen for example through the Item Editor.
+
+
+Features needs re-implementation at Qt4 port
+=======
+- dbus integration for documents (used to be dcop bindings for documents)
+- undo / redo interface needs to  be fixed for text documents: this interface is not exported by KDE4 KTextEditor
+    http://api.kde.org/4.10-api/kdelibs-apidocs/interfaces/ktexteditor/html/kte_port_to_kde4.html
+- printing a text document needs fixing

@@ -15,7 +15,7 @@
 #include <kdebug.h>
 #include <kiconloader.h>
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 Item * ECMOSFET::constructNEM( ItemDocument * itemDocument, bool newItem, const char * id )
 {
@@ -40,7 +40,7 @@ Item * ECMOSFET::constructPDM( ItemDocument * itemDocument, bool newItem, const 
 LibraryItem* ECMOSFET::libraryItemNEM()
 {
 	return new LibraryItem(
-			"ec/nemosfet",
+			QStringList(QString("ec/nemosfet")),
 // 	i18n("n-e MOSFET"),
 	i18n("n-MOSFET"),
 	i18n("Discrete"),
@@ -53,7 +53,7 @@ LibraryItem* ECMOSFET::libraryItemNEM()
 LibraryItem* ECMOSFET::libraryItemPEM()
 {
 	return new LibraryItem(
-			"ec/pemosfet",
+			QStringList(QString("ec/pemosfet")),
 // 	i18n("p-e MOSFET"),
 	i18n("p-MOSFET"),
 	i18n("Discrete"),
@@ -67,7 +67,7 @@ LibraryItem* ECMOSFET::libraryItemPEM()
 LibraryItem* ECMOSFET::libraryItemNDM()
 {
 	return new LibraryItem(
-			"ec/ndmosfet",
+			QStringList(QString("ec/ndmosfet")),
 	i18n("n-d MOSFET"),
 	i18n("Discrete"),
 	"ndmosfet.png",
@@ -79,7 +79,7 @@ LibraryItem* ECMOSFET::libraryItemNDM()
 LibraryItem* ECMOSFET::libraryItemPDM()
 {
 	return new LibraryItem(
-			"ec/pdmosfet",
+			QStringList(QString("ec/pdmosfet")),
 	i18n("p-d MOSFET"),
 	i18n("Discrete"),
 	"pdmosfet.png",
@@ -128,7 +128,7 @@ ECMOSFET::ECMOSFET( int MOSFET_type, ICNDocument * icnDocument, bool newItem, co
 	m_bHaveBodyPin = false;
 	
 	Variant * v = createProperty( "bodyPin", Variant::Type::Bool );
-	v->setCaption( i18n( "mosfet body/bulk pin", "Body Pin") );
+	v->setCaption( i18nc( "mosfet body/bulk pin", "Body Pin") );
 	v->setValue( false );
 	
 #if 0
@@ -253,7 +253,7 @@ void ECMOSFET::drawShape( QPainter & p )
 		p.drawLine( _x-3, _y-14, _x-3, _y+15 );
 	}
 	
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 	if ( m_MOSFET_type == MOSFET::neMOSFET /*||
 			m_MOSFET_type == MOSFET::ndMOSFET*/ )
 	{

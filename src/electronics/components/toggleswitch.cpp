@@ -16,7 +16,7 @@
 #include "switch.h"
 
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 //BEGIN class ECDPDT
 Item* ECDPDT::construct( ItemDocument *itemDocument, bool newItem, const char *id )
@@ -27,7 +27,7 @@ Item* ECDPDT::construct( ItemDocument *itemDocument, bool newItem, const char *i
 LibraryItem* ECDPDT::libraryItem()
 {
 	return new LibraryItem(
-		"ec/dpdt_toggle",
+		QStringList(QString("ec/dpdt_toggle")),
 		i18n("DPDT"),
 		i18n("Switches"),
 		"dpdt.png",
@@ -132,7 +132,7 @@ Item* ECDPST::construct( ItemDocument *itemDocument, bool newItem, const char *i
 LibraryItem* ECDPST::libraryItem()
 {
 	return new LibraryItem(
-		"ec/dpst_toggle",
+		QStringList(QString("ec/dpst_toggle")),
 		i18n("DPST"),
 		i18n("Switches"),
 		"dpst.png",
@@ -227,7 +227,7 @@ Item* ECSPDT::construct( ItemDocument *itemDocument, bool newItem, const char *i
 LibraryItem* ECSPDT::libraryItem()
 {
 	return new LibraryItem(
-		"ec/spdt_toggle",
+		QStringList(QString("ec/spdt_toggle")),
 		i18n("SPDT"),
 		i18n("Switches"),
 		"spdt.png",
@@ -321,7 +321,7 @@ Item* ECSPST::construct( ItemDocument *itemDocument, bool newItem, const char *i
 LibraryItem* ECSPST::libraryItem()
 {
 	return new LibraryItem(
-		"ec/spst_toggle",
+		QStringList(QString("ec/spst_toggle")),
 		i18n("SPST"),
 		i18n("Switches"),
 		"spst.png",

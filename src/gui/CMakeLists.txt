@@ -59,6 +59,7 @@ set(gui_UI
     programmerwidget.ui
     contexthelpwidget.ui
     scopescreenwidget.ui
+    gplinksettingswidget.ui
 )
 
 kde4_add_ui_files(gui_STAT_SRCS ${gui_UI})

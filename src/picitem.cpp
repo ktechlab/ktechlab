@@ -20,7 +20,7 @@
 #include <kdebug.h>
 #include <kiconloader.h>
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 static const int InnerWidth = 88;
 static const int SidePadding = 24;
@@ -64,7 +64,7 @@ void PinItem::initItem()
 {
 	setSize( PinLength, PinWidth );
 	setSelected(false);
-	setPen( Qt::black );
+	setPen( QPen( Qt::black ) );
 	calcTextRect();
 	show();
 }
@@ -110,7 +110,7 @@ void PinItem::drawShape( QPainter& p )
 	}
 	
 	int midY = (int)y() + PinWidth/2;
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 	int midLeft = left + (8-PinDirArrow)/2;
 	int midRight = left + (8+PinDirArrow)/2;
 	
@@ -205,6 +205,7 @@ void PinItem::calcTextRect()
 	QRect br;
 	
 	QWidget tmpWidget;
+    //tmpWidget.setAttribute(Qt::WA_PaintOutsidePaintEvent, true); //note: add this if needed
 	QPainter p(&tmpWidget);
 
 	p.setFont(m_font);
@@ -249,7 +250,7 @@ PicItem::PicItem( ICNDocument *icnDocument, bool newItem, const char *id, MicroS
 	updateVisibility();
 	
 	addButton( "settings", QRect( SidePadding-8, m_innerHeight+TopPadding+(BottomPadding-24)/2-1, InnerWidth+16, 24 ), i18n("Advanced...") );
-	addButton( "expandBtn", QRect( (TopPadding-22)/2, (TopPadding-22)/2, 22, 22 ), KGlobal::iconLoader()->loadIcon( "down", KIcon::Small ), true );
+	addButton( "expandBtn", QRect( (TopPadding-22)/2, (TopPadding-22)/2, 22, 22 ), KIconLoader::global()->loadIcon( "down", KIconLoader::Small ), true );
 	button("expandBtn")->setState(true);
 	
 	move( 12, 12 );
@@ -274,7 +275,7 @@ PicItem::PicItem( ICNDocument *icnDocument, bool newItem, const char *id, MicroS
 	}
 
 	setSelected(false);
-	setPen( Qt::black );
+	setPen( QPen( Qt::black ) );
 	updateZ(-1);
 	update();
 	show();

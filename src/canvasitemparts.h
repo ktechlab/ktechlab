@@ -12,9 +12,9 @@
 #define CANVASITEMPARTS_H
 
 #include <canvas.h>
-#include <qguardedptr.h>
-#include <qslider.h>
-#include <qtoolbutton.h>
+#include <Qt/qpointer.h>
+#include <Qt/qslider.h>
+#include <Qt/qtoolbutton.h>
 
 class Cells;
 class CIWidgetMgr;
@@ -23,7 +23,7 @@ class SliderWidget;
 class ToolButton;
 class QString;
 
-class GuiPart : public QObject, public QCanvasRectangle
+class GuiPart : /* public QObject, */ public QCanvasRectangle
 {
 	Q_OBJECT
 	public:
@@ -119,7 +119,7 @@ class Text : public GuiPart
 		QString m_text;
 		int m_flags;
 };
-typedef QMap<QString, QGuardedPtr<Text> > TextMap;
+typedef QMap<QString, QPointer<Text> > TextMap;
 
 
 /**
@@ -283,7 +283,7 @@ class Slider : public Widget
 	private:
 		bool m_bSliderInverted; ///< In some orientations, the slider is reflected
 		SliderWidget *m_slider;
-		Orientation m_orientation;
+		Qt::Orientation m_orientation;
 };
 	
 #endif

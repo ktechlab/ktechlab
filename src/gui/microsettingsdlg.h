@@ -11,11 +11,11 @@
 #ifndef MICROSETTINGSDLG_H
 #define MICROSETTINGSDLG_H
 
-#include <kdialogbase.h>
+#include <kdialog.h>
 
-#include <qmap.h>
-#include <qvalidator.h>
-#include <qvaluevector.h>
+#include <Qt/qmap.h>
+#include <Qt/qvalidator.h>
+#include <Qt/q3valuevector.h>
 
 class KLineEdit;
 class MicroSettings;
@@ -25,10 +25,11 @@ class PinMapping;
 
 typedef QMap< QString, PinMapping > PinMappingMap;
 
+
 /**
 @author David Saxton
 */
-class MicroSettingsDlg : public KDialogBase
+class MicroSettingsDlg : public KDialog
 {
 	Q_OBJECT
 	public:
@@ -93,12 +94,12 @@ class MicroSettingsDlg : public KDialogBase
 		void updatePinMapButtons();
 		
 		NewPinMappingWidget * m_pNewPinMappingWidget; // Used for checking that the variable name is ok
-		KDialogBase * m_pNewPinMappingDlg;
+		KDialog * m_pNewPinMappingDlg;
 		MicroSettingsWidget * m_pWidget;
 		MicroSettings * m_pMicroSettings;
 		PinMappingMap m_pinMappings;
-		QValueVector< KLineEdit * > m_portTypeEdit;
-		QValueVector< KLineEdit * > m_portStateEdit;
+		Q3ValueVector< KLineEdit * > m_portTypeEdit;
+		Q3ValueVector< KLineEdit * > m_portStateEdit;
 		QStringList m_portNames;
 };
 

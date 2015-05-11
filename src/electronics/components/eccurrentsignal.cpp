@@ -16,7 +16,7 @@
 #include "simulator.h"
 
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 Item* ECCurrentSignal::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -26,7 +26,7 @@ Item* ECCurrentSignal::construct( ItemDocument *itemDocument, bool newItem, cons
 LibraryItem* ECCurrentSignal::libraryItem()
 {
 	return new LibraryItem(
-		"ec/ac_current",
+		QStringList(QString("ec/ac_current")),
 		i18n("Current Signal"),
 		i18n("Sources"),
 		"currentsignal.png",

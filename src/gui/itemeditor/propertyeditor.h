@@ -13,11 +13,13 @@
 #ifndef PROPERTYEDITOR_H
 #define PROPERTYEDITOR_H
 
-#include <qvariant.h>
-#include <qguardedptr.h>
-#include <qdict.h>
+#include <Qt/qvariant.h>
+#include <Qt/qpointer.h>
+#include <Qt/q3dict.h>
+//#include <Qt/q3listview.h>
 
-#include <klistview.h>
+// #include <q3listview.h>
+#include <k3listview.h>
 
 #include "propertyeditoritem.h"
 
@@ -28,7 +30,7 @@ class KPushButton;
 
 
 //! A list view to edit any type of properties
-class PropertyEditor : public KListView
+class PropertyEditor : public K3ListView // K3ListView
 {
 	Q_OBJECT
 
@@ -94,14 +96,14 @@ class PropertyEditor : public KListView
 		 * of deleting current editor and creating a new editor for the newly
 		 * selected item.
 		 */
-		void slotClicked(QListViewItem *item);
+		void slotClicked(Q3ListViewItem *item);
 		/**
 		 * Used to fix selection when unselectable item was activated.
 		 */
-		void slotCurrentChanged(QListViewItem *);
+		void slotCurrentChanged(Q3ListViewItem *);
 
-		void slotExpanded(QListViewItem *item);
-		void slotCollapsed(QListViewItem *item);
+		void slotExpanded(Q3ListViewItem *item);
+		void slotCollapsed(Q3ListViewItem *item);
 
 	protected:
 		/**
@@ -112,7 +114,7 @@ class PropertyEditor : public KListView
 		*/
 		void createEditor(PropertyEditorItem *i);//, const QRect &geometry);
 		/**
-		 * Reimplemented from KListView to update editor and revert button
+		 * Reimplemented from K3ListView to update editor and revert button
 		 * position.
 		 */
 		void resizeEvent(QResizeEvent *ev);
@@ -121,8 +123,8 @@ class PropertyEditor : public KListView
 
 		int baseRowHeight() const { return m_baseRowHeight; }
 
-		QGuardedPtr<ItemGroup> m_pItemGroup;
-		QGuardedPtr<PropertySubEditor> m_currentEditor;
+		QPointer<ItemGroup> m_pItemGroup;
+		QPointer<PropertySubEditor> m_currentEditor;
 		PropertyEditorItem *m_editItem;
 		PropertyEditorItem *m_topItem; //The top item is used to control the drawing of every branches.
 		KPushButton *m_defaults; // "Revert to defaults" button

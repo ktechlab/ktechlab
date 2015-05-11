@@ -14,8 +14,8 @@
 #include "led.h"
 
 #include <klocale.h>
-#include <qpainter.h>
-#include <qstyle.h>
+#include <Qt/qpainter.h>
+#include <Qt/qstyle.h>
 #include <kdebug.h>
 
 LEDPart::LEDPart( Component *pParent, const QString& strPNode, const QString& strNNode )
@@ -84,7 +84,7 @@ Item* LEDBarGraphDisplay::construct( ItemDocument *itemDocument, bool newItem, c
 LibraryItem* LEDBarGraphDisplay::libraryItem()
 {
 	return new LibraryItem(
-			"ec/bar_graph_display",
+			QStringList(QString("ec/bar_graph_display")),
 	i18n("Bar Graph Display"),
 	i18n("Outputs"),
 	"bar_graph_display.png",
@@ -94,7 +94,7 @@ LibraryItem* LEDBarGraphDisplay::libraryItem()
 }
 
 LEDBarGraphDisplay::LEDBarGraphDisplay( ICNDocument* icnDocument, bool newItem, const QString& id )
-	: Component( icnDocument, newItem, id ? id : "bar_graph_display" )
+	: Component( icnDocument, newItem, (!id.isEmpty()) ? id : "bar_graph_display" )
 {
 	m_name = i18n("Bar Graph Display");
 	m_bDynamicContent = true;

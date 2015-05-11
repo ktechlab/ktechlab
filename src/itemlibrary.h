@@ -10,9 +10,9 @@
 #ifndef ITEMLIBRARY_H
 #define ITEMLIBRARY_H
 
-#include <qcolor.h>
-#include <qobject.h>
-#include <qmap.h>
+#include <Qt/qcolor.h>
+#include <Qt/qobject.h>
+#include <Qt/qmap.h>
 
 class Component;
 class Document;
@@ -25,7 +25,7 @@ inline ItemLibrary* itemLibrary();
 typedef QMap< QString, QString > QStringMap;
 typedef QMap< QString, QStringMap > QStringMapMap;
 typedef QMap< QString, QImage > ImageMap;
-typedef QValueList<LibraryItem*> LibraryItemList;
+typedef QList<LibraryItem*> LibraryItemList;
 
 /**
 While the program is running, only one instance of this class is created.

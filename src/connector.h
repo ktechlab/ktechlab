@@ -12,8 +12,8 @@
 #define CONNECTOR_H
 
 #include <canvas.h>
-#include <qguardedptr.h>
-#include <qvaluevector.h>
+#include <Qt/qpointer.h>
+#include <Qt/q3valuevector.h>
 
 class Cell;
 class ConnectorData;
@@ -25,9 +25,9 @@ class Node;
 class NodeGroup;
 class Wire;
 
-typedef QValueList<ConnectorLine*> ConnectorLineList;
-typedef QValueList<QPoint> QPointList;
-typedef QValueVector<QGuardedPtr<Wire> > WireVector;
+typedef QList<ConnectorLine*> ConnectorLineList;
+typedef QList<QPoint> QPointList;
+typedef Q3ValueVector<QPointer<Wire> > WireVector;
 
 
 /**
@@ -36,7 +36,7 @@ typedef QValueVector<QGuardedPtr<Wire> > WireVector;
 */
 
 
-class Connector : public QObject, public QCanvasPolygon {
+class Connector : /* public QObject, */ public QCanvasPolygon {
 	Q_OBJECT
 
 public:
@@ -134,7 +134,7 @@ public:
 	 * Returns two sets of points (in canvas-reference) that define the connector
 	 * from start to finish, when it is split at the given point (in canvas-reference)
 	 */
-	QValueList<QPointList> splitConnectorPoints(const QPoint &pos) const;
+	QList<QPointList> splitConnectorPoints(const QPoint &pos) const;
 
 	/**
 	 * @returns pointer to ICNDocument that this connector is a member of
@@ -172,9 +172,9 @@ public:
 	*/
 	WireVector wires() const { return m_wires; }
 	unsigned numWires() const { return m_wires.size(); }
-	Wire *wire(unsigned num = 0) const {
+	Wire *wire(unsigned num = 0) const ; /* {
 		return (num < m_wires.size()) ? m_wires[num] : 0;
-	}
+	} */
 
 	void updateConnectorLines(bool forceRedraw = false);
 
@@ -224,11 +224,11 @@ private:
 	ConnectorLineList m_connectorLineList;
 };
 
-typedef QValueList<QGuardedPtr<Connector> > ConnectorList;
+typedef QList<QPointer<Connector> > ConnectorList;
 
 //BEGIN ConnectorLine things
 
-class ConnectorLine : public QObject, public QCanvasLine {
+class ConnectorLine : /* public QObject, */ public QCanvasLine {
 
 public:
 	/**

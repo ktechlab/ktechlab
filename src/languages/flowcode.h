@@ -13,19 +13,19 @@
 
 #include "language.h"
 
-#include <qguardedptr.h>
-#include <qobject.h>
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qvaluelist.h>
+#include <Qt/qpointer.h>
+#include <Qt/qobject.h>
+#include <Qt/qstring.h>
+#include <Qt/qstringlist.h>
+#include <Qt/qlist.h>
 
 class CNItem;
 class FlowPart;
 class Item;
 class MicroSettings;
 
-typedef QValueList<FlowPart*> FlowPartList;
-typedef QValueList<QGuardedPtr<Item> > ItemList;
+typedef QList<FlowPart*> FlowPartList;
+typedef QList<QPointer<Item> > ItemList;
 
 /**
 "FlowCode" can possibly be considered a misnomer, as the output is actually Microbe.

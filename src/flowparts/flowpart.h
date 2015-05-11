@@ -22,7 +22,7 @@ class FPNode;
 class QPixmap;
 class QSize;
 
-typedef QValueList<FlowPart*> FlowPartList;
+typedef QList<FlowPart*> FlowPartList;
 
 /**
 All flow parts (eg 'CallSub', 'Read from Port' ,etc) should inherit from this class.
@@ -181,7 +181,7 @@ protected:
 	FPNode *m_stdInput;
 	FPNode *m_stdOutput;
 	FPNode *m_altOutput;
-	QGuardedPtr<FlowCodeDocument> m_pFlowCodeDocument;
+	QPointer<FlowCodeDocument> m_pFlowCodeDocument;
 	
 	virtual void postResize();
 	void updateNodePositions();
@@ -189,7 +189,7 @@ protected:
 private:
 	FlowSymbol m_flowSymbol;
 };
-typedef QValueList<FlowPart*> FlowPartList;
+typedef QList<FlowPart*> FlowPartList;
 
 #endif
 

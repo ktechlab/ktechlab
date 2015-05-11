@@ -15,9 +15,11 @@
 
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <kprocess.h>
-#include <qfile.h>
-#include <qregexp.h>
+#include <k3process.h>
+
+#include <Qt/qfile.h>
+#include <Qt/qregexp.h>
+#include <Qt/qtextstream.h>
 
 Gpdasm::Gpdasm( ProcessChain *processChain )
  : ExternalLanguage( processChain, "Gpdasm" )

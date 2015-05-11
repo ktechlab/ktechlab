@@ -23,7 +23,7 @@ Item* While::construct( ItemDocument *itemDocument, bool newItem, const char *id
 LibraryItem* While::libraryItem()
 {
 	return new LibraryItem(
-		"flow/while",
+		QStringList(QString("flow/while")),
 		i18n("While"),
 		i18n("Loops"),
 		"while.png",

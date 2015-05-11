@@ -16,25 +16,27 @@
 #include "ktechlab.h"
 
 #include <cmath>
+
 #include <kconfig.h>
 #include <kdebug.h>
 #include <kglobal.h>
 #include <kiconloader.h>
 #include <klocale.h> 
 #include <knuminput.h>
-#include <qbutton.h>
-#include <qlabel.h>
-#include <qscrollbar.h>
-#include <qslider.h>
-#include <qtimer.h>
-#include <qtoolbutton.h>
+
+#include <Qt/q3button.h>
+#include <Qt/qlabel.h>
+#include <Qt/qscrollbar.h>
+#include <Qt/qslider.h>
+#include <Qt/qtimer.h>
+#include <Qt/qtoolbutton.h>
 
 #include <cassert>
 
 ScopeScreen::ScopeScreen( KateMDI::ToolView * parent)
-        : ScopeScreenWidget(parent)
+        : QWidget(parent)
 {
-	
+	setupUi(this);
 }
 
 

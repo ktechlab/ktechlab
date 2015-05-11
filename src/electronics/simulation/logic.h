@@ -13,14 +13,14 @@
 
 #include "element.h"
 
-#include <qguardedptr.h>
-#include <qvaluelist.h>
+#include <Qt/qpointer.h>
+#include <Qt/qlist.h>
 
 class Component;
 class Pin;
 class Simulator;
 
-typedef QValueList<QGuardedPtr<Pin> > PinList;
+typedef QList<QPointer<Pin> > PinList;
 
 class LogicConfig
 {

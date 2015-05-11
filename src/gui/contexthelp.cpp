@@ -29,21 +29,23 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kparts/browserextension.h> 
-#include <kpopupmenu.h>
+#include <k3popupmenu.h>
 #include <krun.h>
 #include <kdirselectdialog.h>
 #include <kstandarddirs.h>
+#include <k3iconview.h>
+#include <kicon.h>
 
-#include <qfile.h>
-#include <qlayout.h>
-#include <qlabel.h>
-#include <qregexp.h>
-#include <qtextbrowser.h>
-#include <qtimer.h>
-#include <qtoolbutton.h>
-#include <qvalidator.h>
-#include <qwhatsthis.h>
-#include <qwidgetstack.h>
+#include <Qt/qfile.h>
+#include <Qt/qlayout.h>
+#include <Qt/qlabel.h>
+#include <Qt/qregexp.h>
+#include <Qt/qtextbrowser.h>
+#include <Qt/qtimer.h>
+#include <Qt/qtoolbutton.h>
+#include <Qt/qvalidator.h>
+#include <Qt/qwhatsthis.h>
+#include <Qt/q3widgetstack.h>
 
 #include <cassert>
 
@@ -61,8 +63,10 @@ ContextHelp * ContextHelp::self( KateMDI::ToolView * parent )
 
 
 ContextHelp::ContextHelp( KateMDI::ToolView * parent )
-	: ContextHelpWidget( parent )
+	: QWidget(parent), Ui::ContextHelpWidget( /* parent */ )
 {
+    setupUi(this);
+
 	QWhatsThis::add( this, i18n("Provides context-sensitive help relevant to the current editing being performed.") );
 	setAcceptDrops( true );
 	
@@ -71,14 +75,14 @@ ContextHelp::ContextHelp( KateMDI::ToolView * parent )
 	if ( font.pointSize() != 0 )
 		font.setPointSize( int(font.pointSize() * 1.4) );
 	m_pNameLabel->setFont( font );
-	m_pNameLabel->setTextFormat( RichText );
+	m_pNameLabel->setTextFormat( Qt::RichText );
 	
 	m_pBrowser = new KHTMLPart( m_pWidgetStack->widget( 0 ) );
 	m_pBrowserView = m_pBrowser->view();
-	m_pBrowserView->setFocusPolicy( NoFocus );
+	m_pBrowserView->setFocusPolicy( Qt::NoFocus );
 	m_pBrowserLayout->addWidget( m_pBrowserView );
-	connect( m_pBrowser->browserExtension(), SIGNAL(openURLRequest( const KURL &, const KParts::URLArgs & ) ),
-			 this, SLOT( openURL(const KURL &, const KParts::URLArgs & ) ) );
+	connect( m_pBrowser->browserExtension(), SIGNAL(openUrlRequest( const KUrl &, const KParts::OpenUrlArguments & ) ),
+			 this, SLOT( openURL(const KUrl & /*, const KParts::OpenUrlArguments & */ ) ) );
 	
 	// Adjust appearance of browser
 	m_pBrowserView->setMarginWidth( 4 );
@@ -96,8 +100,8 @@ ContextHelp::ContextHelp( KateMDI::ToolView * parent )
 	connect( m_pChangeDescriptionsDirectory, SIGNAL(clicked()), this, SLOT(requestItemDescriptionsDirectory()) );
 	connect( m_pLanguageSelect, SIGNAL(activated(const QString &)), this, SLOT(setCurrentLanguage( const QString& )) );
 	
-	m_pResetButton->setPixmap( KGlobal::iconLoader()->loadIcon( "button_cancel", KIcon::Small ) );
-	m_pChangeDescriptionsDirectory->setPixmap( KGlobal::iconLoader()->loadIcon( "folder", KIcon::Small ) );
+	m_pResetButton->setPixmap( KIconLoader::global()->loadIcon( "button_cancel", KIconLoader::Small ) );
+	m_pChangeDescriptionsDirectory->setPixmap( KIconLoader::global()->loadIcon( "folder", KIconLoader::Small ) );
 	
 	
 	connect( ComponentSelector::self(), SIGNAL(itemSelected( const QString& )), this, SLOT(setBrowserItem( const QString& )) );
@@ -145,7 +149,7 @@ bool ContextHelp::eventFilter( QObject * watched, QEvent * e )
 			dropEvent->accept();
 			
 			QString type;
-			QDataStream stream( dropEvent->encodedData( dropEvent->format() ), IO_ReadOnly );
+			QDataStream stream( dropEvent->encodedData( dropEvent->format() ) /*, IO_ReadOnly */ );
 			stream >> type;
 			
 			LibraryItem * li = itemLibrary()->libraryItem( type );
@@ -284,7 +288,7 @@ void ContextHelp::slotEdit()
 	
 	QStringList resourcePaths;
 	QString currentResourcePath = itemLibrary()->itemDescriptionsDirectory();
-	QString defaultResourcePath = locate( "appdata", "contexthelp/" );
+	QString defaultResourcePath = KStandardDirs::locate( "appdata", "contexthelp/" );
 	
 	resourcePaths << currentResourcePath;
 	if ( currentResourcePath != defaultResourcePath )
@@ -327,7 +331,7 @@ void ContextHelp::slotEditReset()
 {
 	if ( isEditChanged() )
 	{
-		KGuiItem continueItem = KStdGuiItem::cont();
+		KGuiItem continueItem = KStandardGuiItem::cont(); //KStandardGuiItem::cont();
 		continueItem.setText( i18n("Reset") );
 		int answer = KMessageBox::warningContinueCancel( this, i18n("Reset item help to last saved changes?"), i18n("Reset"), continueItem );
 		if ( answer == KMessageBox::Cancel )
@@ -386,19 +390,20 @@ void ContextHelp::addLinkTypeAppearances( QString * html )
 				break;
 				
 			case NewHelpLink:
-				color = red;
+				color = Qt::red;
 				break;
 				
 			case ExampleLink:
 			{
-				QString iconName = KMimeType::iconForURL( examplePathToFullPath( KURL( url ).path() ) );
-				imageURL = KGlobal::iconLoader()->iconPath( iconName, - KIcon::SizeSmall );
+				//QString iconName = KMimeType::iconNameForURL( examplePathToFullPath( KUrl( url ).path() ) );
+                QString iconName = KMimeType::iconNameForUrl( examplePathToFullPath( KUrl( url ).path() ) );
+				imageURL = KIconLoader::global()->iconPath( iconName, - KIconLoader::SizeSmall );
 				break;
 			}
 			
 			case ExternalLink:
 			{
-				imageURL = locate( "appdata", "icons/external_link.png" );
+				imageURL = KStandardDirs::locate( "appdata", "icons/external_link.png" );
 				break;
 			}
 		}
@@ -424,7 +429,7 @@ void ContextHelp::addLinkTypeAppearances( QString * html )
 
 
 // static function
-ContextHelp::LinkType ContextHelp::extractLinkType( const KURL & url )
+ContextHelp::LinkType ContextHelp::extractLinkType( const KUrl & url )
 {
 	QString path = url.path();
 	
@@ -452,11 +457,11 @@ QString ContextHelp::examplePathToFullPath( QString path )
 	if ( path.startsWith("/") )
 		path.remove( 0, 1 );
 	
-	return locate( "appdata", "examples/" + path );
+	return KStandardDirs::locate( "appdata", "examples/" + path );
 }
 
 
-void ContextHelp::openURL( const KURL & url, const KParts::URLArgs & )
+void ContextHelp::openURL( const KUrl & url /*, const KParts::OpenUrlArguments & */ )
 {
 	QString path = url.path();
 	
@@ -474,7 +479,7 @@ void ContextHelp::openURL( const KURL & url, const KParts::URLArgs & )
 		case ExternalLink:
 		{
 			// external url
-			KRun * r = new KRun( url );
+			KRun * r = new KRun( url, this );
 			connect( r, SIGNAL(finished()), r, SLOT(deleteLater()) );
 			connect( r, SIGNAL(error()), r, SLOT(deleteLater()) );
 			break;

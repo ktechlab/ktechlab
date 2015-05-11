@@ -12,7 +12,7 @@
 #include "languagemanager.h"
 #include "logview.h"
 #include "ktechlab.h"
-#include "ktempfile.h"
+#include "k3tempfile.h"
 #include "src/core/ktlconfig.h"
 #include "outputmethoddlg.h"
 #include "processchain.h"
@@ -22,10 +22,10 @@
 #include "gpasm.h"
 #include "gpdasm.h"
 
-#include <kdockwidget.h>
+#include <k3dockwidget.h>
 #include <kiconloader.h>
 #include <klocale.h>
-#include <qwhatsthis.h>
+#include <Qt/qwhatsthis.h>
 
 #include <cassert>
 

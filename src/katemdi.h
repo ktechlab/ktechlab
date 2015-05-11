@@ -24,10 +24,12 @@
 #include <kparts/mainwindow.h>
 
 #include <kmultitabbar.h>
+#include <ktoggleaction.h>
 
-#include <qdict.h>
-#include <qintdict.h>
-#include <qsplitter.h>
+#include <Qt/q3dict.h>
+#include <Qt/q3intdict.h>
+#include <Qt/q3vbox.h>
+#include <Qt/qsplitter.h>
 
 namespace KateMDI {
 
@@ -38,7 +40,7 @@ class Splitter : public QSplitter
   Q_OBJECT
 
   public:
-    Splitter(Orientation o, QWidget* parent=0, const char* name=0);
+    Splitter(Qt::Orientation o, QWidget* parent=0, const char* name=0);
     ~Splitter();
 
     /** Since there is supposed to be only 2 childs of a katesplitter,
@@ -88,7 +90,7 @@ class GUIClient : public QObject, public KXMLGUIClient
     MainWindow *m_mw;
 };
 
-class ToolView : public QVBox
+class ToolView : public Q3VBox
 {
   Q_OBJECT
 
@@ -199,13 +201,13 @@ class Sidebar : public KMultiTabBar
      * restore the current session config from given object, use current group
      * @param config config object to use
      */
-    void restoreSession (KConfig *config);
+    void restoreSession (KConfigGroup *config);
 
      /**
      * save the current session config to given object, use current group
      * @param config config object to use
      */
-    void saveSession (KConfig *config);
+    void saveSession (KConfigGroup* config);
 
   private slots:
     void tabClicked(int);
@@ -226,13 +228,13 @@ class Sidebar : public KMultiTabBar
     KMultiTabBar *m_tabBar;
     Splitter *m_ownSplit;
 
-    QIntDict<ToolView> m_idToWidget;
+    Q3IntDict<ToolView> m_idToWidget;
     QMap<ToolView*, int> m_widgetToId;
 
     /**
      * list of all toolviews around in this sidebar
      */
-    QValueList<ToolView*> m_toolviews;
+    QList<ToolView*> m_toolviews;
 
     int m_lastSize;
 
@@ -355,7 +357,7 @@ class MainWindow : public KParts::MainWindow
      * @param config config object to use
      * @param group config group to use
      */
-    void saveSession (KConfig *config, const QString &group);
+    void saveSession (KConfigGroup *config);
 	
 	void updateSidebarMinimumSizes();
 
@@ -366,12 +368,12 @@ class MainWindow : public KParts::MainWindow
     /**
      * map identifiers to widgets
      */
-    QDict<ToolView> m_idToWidget;
+    Q3Dict<ToolView> m_idToWidget;
 
     /**
      * list of all toolviews around
      */
-    QValueList<ToolView*> m_toolviews;
+    QList<ToolView*> m_toolviews;
 
     /**
      * widget, which is the central part of the

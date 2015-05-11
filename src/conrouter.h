@@ -13,14 +13,14 @@
 
 #include "cells.h"
 
-#include <qpoint.h>
-#include <qvaluelist.h>
+#include <Qt/qpoint.h>
+#include <Qt/qlist.h>
 
 class ICNDocument;
 class Cell;
 
-typedef QValueList<QPoint> QPointList;
-typedef QValueList<QPointList> QPointListList;
+typedef QList<QPoint> QPointList;
+typedef QList<QPointList> QPointListList;
 
 /**
 Abstraction for the routing of a connector.

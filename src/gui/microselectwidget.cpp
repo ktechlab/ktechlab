@@ -15,15 +15,16 @@
 
 #include <kcombobox.h>
 #include <klocale.h>
-#include <qgroupbox.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <qvariant.h>
-#include <qwhatsthis.h>
 
-MicroSelectWidget::MicroSelectWidget( QWidget* parent, const char* name, WFlags )
-	: QGroupBox( 4, Qt::Horizontal, i18n("Microprocessor"), parent, name )
+#include <Qt/q3groupbox.h>
+#include <Qt/qlabel.h>
+#include <Qt/qlayout.h>
+#include <Qt/qtooltip.h>
+#include <Qt/qvariant.h>
+#include <Qt/qwhatsthis.h>
+
+MicroSelectWidget::MicroSelectWidget( QWidget* parent, const char* name, Qt::WFlags )
+	: Q3GroupBox( 4, Qt::Horizontal, i18n("Microprocessor"), parent, name )
 {
 	m_allowedAsmSet = AsmInfo::AsmSetAll;
 	m_allowedGpsimSupport = m_allowedFlowCodeSupport = m_allowedMicrobeSupport = MicroInfo::AllSupport;
@@ -34,13 +35,15 @@ MicroSelectWidget::MicroSelectWidget( QWidget* parent, const char* name, WFlags 
 	m_pMicroFamilyLabel = new QLabel( this, "m_pMicroFamilyLabel" );
 	m_pMicroFamilyLabel->setText( i18n("Family") );
 
-	m_pMicroFamily = new KComboBox( false, this, "m_pMicroFamily" );
+	m_pMicroFamily = new KComboBox( false, this ); //, "m_pMicroFamily" );
+	m_pMicroFamily->setName("m_pMicroFamily");
 	m_pMicroFamily->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Preferred );
 
 	m_pMicroLabel = new QLabel( this, "m_pMicroLabel" );
 	m_pMicroLabel->setText( i18n("Micro") );
 
-	m_pMicro = new KComboBox( false, this, "m_pMicro" );
+	m_pMicro = new KComboBox( false, this ); //, "m_pMicro" );
+	m_pMicro->setName("m_pMicro");
 	m_pMicro->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Preferred );
 	m_pMicro->setEditable( true );
 	m_pMicro->setAutoCompletion(true);

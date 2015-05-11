@@ -1,310 +1,313 @@
-<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
-<class>LogicWidget</class>
-<widget class="QWidget">
-    <property name="name">
-        <cstring>LogicWidget</cstring>
-    </property>
-    <property name="geometry">
-        <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>367</width>
-            <height>341</height>
-        </rect>
-    </property>
-    <property name="caption">
-        <string>Logic</string>
-    </property>
-    <vbox>
-        <property name="name">
-            <cstring>unnamed</cstring>
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LogicWidget</class>
+ <widget class="QWidget" name="LogicWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>367</width>
+    <height>374</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Logic</string>
+  </property>
+  <layout class="QVBoxLayout">
+   <property name="margin">
+    <number>0</number>
+   </property>
+   <item>
+    <layout class="QHBoxLayout">
+     <item>
+      <widget class="QLabel" name="textLabel1_3">
+       <property name="text">
+        <string>Logic Symbol Shapes:</string>
+       </property>
+       <property name="wordWrap">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="KComboBox" name="kcfg_LogicSymbolShapes">
+       <item>
+        <property name="text">
+         <string>Distinctive</string>
         </property>
-        <property name="margin">
-            <number>0</number>
+       </item>
+       <item>
+        <property name="text">
+         <string>Rectangular</string>
         </property>
-        <widget class="QLayoutWidget">
-            <property name="name">
-                <cstring>layout2</cstring>
-            </property>
-            <hbox>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <widget class="QLabel">
-                    <property name="name">
-                        <cstring>textLabel1_3</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Logic Symbol Shapes:</string>
-                    </property>
-                </widget>
-                <widget class="KComboBox">
-                    <item>
-                        <property name="text">
-                            <string>Distinctive</string>
-                        </property>
-                    </item>
-                    <item>
-                        <property name="text">
-                            <string>Rectangular</string>
-                        </property>
-                    </item>
-                    <property name="name">
-                        <cstring>kcfg_LogicSymbolShapes</cstring>
-                    </property>
-                </widget>
-            </hbox>
-        </widget>
-        <widget class="QGroupBox">
-            <property name="name">
-                <cstring>groupBox3</cstring>
-            </property>
-            <property name="title">
-                <string>Input</string>
-            </property>
-            <grid>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <widget class="KDoubleNumInput" row="0" column="1">
-                    <property name="name">
-                        <cstring>kcfg_LogicRisingTrigger</cstring>
-                    </property>
-                    <property name="value">
-                        <number>.3</number>
-                    </property>
-                    <property name="minValue">
-                        <number>0.1</number>
-                    </property>
-                    <property name="maxValue">
-                        <number>1.5</number>
-                    </property>
-                    <property name="suffix">
-                        <string> V</string>
-                    </property>
-                    <property name="precision">
-                        <number>1</number>
-                    </property>
-                    <property name="toolTip" stdset="0">
-                        <string>Required voltage level before the input will be considered high.</string>
-                    </property>
-                    <property name="whatsThis" stdset="0">
-                        <string></string>
-                    </property>
-                </widget>
-                <widget class="QLabel" row="1" column="0">
-                    <property name="name">
-                        <cstring>textLabel2_2</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Falling Trigger Threshold:</string>
-                    </property>
-                    <property name="toolTip" stdset="0">
-                        <string>Required voltage level before an input will be considered low.</string>
-                    </property>
-                </widget>
-                <widget class="KDoubleNumInput" row="1" column="1">
-                    <property name="name">
-                        <cstring>kcfg_LogicFallingTrigger</cstring>
-                    </property>
-                    <property name="value">
-                        <number>.2</number>
-                    </property>
-                    <property name="minValue">
-                        <number>.1</number>
-                    </property>
-                    <property name="maxValue">
-                        <number>1.6</number>
-                    </property>
-                    <property name="suffix">
-                        <string> V</string>
-                    </property>
-                    <property name="precision">
-                        <number>1</number>
-                    </property>
-                    <property name="toolTip" stdset="0">
-                        <string>Required voltage level before an input will be considered low.</string>
-                    </property>
-                    <property name="whatsThis" stdset="0">
-                        <string></string>
-                    </property>
-                </widget>
-                <widget class="QLabel" row="0" column="0">
-                    <property name="name">
-                        <cstring>textLabel1</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Rising Trigger Threshold:</string>
-                    </property>
-                    <property name="toolTip" stdset="0">
-                        <string>Required voltage level before the input will be considered high.</string>
-                    </property>
-                </widget>
-            </grid>
-        </widget>
-        <widget class="QGroupBox">
-            <property name="name">
-                <cstring>groupBox4</cstring>
-            </property>
-            <property name="title">
-                <string>Output</string>
-            </property>
-            <grid>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <widget class="QLabel" row="0" column="0">
-                    <property name="name">
-                        <cstring>textLabel2</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Output High:</string>
-                    </property>
-                    <property name="toolTip" stdset="0">
-                        <string>Voltage level for high on logic components.</string>
-                    </property>
-                </widget>
-                <widget class="KDoubleNumInput" row="0" column="1">
-                    <property name="name">
-                        <cstring>kcfg_LogicOutputHigh</cstring>
-                    </property>
-                    <property name="value">
-                        <number>.5</number>
-                    </property>
-                    <property name="minValue">
-                        <number>.1</number>
-                    </property>
-                    <property name="maxValue">
-                        <number>1.6</number>
-                    </property>
-                    <property name="suffix">
-                        <string> V</string>
-                    </property>
-                    <property name="precision">
-                        <number>1</number>
-                    </property>
-                    <property name="toolTip" stdset="0">
-                        <string>Voltage level for high on logic components.</string>
-                    </property>
-                    <property name="whatsThis" stdset="0">
-                        <string></string>
-                    </property>
-                </widget>
-                <widget class="QLabel" row="1" column="0">
-                    <property name="name">
-                        <cstring>textLabel4</cstring>
-                    </property>
-                    <property name="text">
-                        <string>High Output Impedance:</string>
-                    </property>
-                    <property name="toolTip" stdset="0">
-                        <string>This is the output impedance when the output is high.</string>
-                    </property>
-                </widget>
-                <widget class="QLabel" row="2" column="0">
-                    <property name="name">
-                        <cstring>textLabel1_2</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Low Output Impedance:</string>
-                    </property>
-                    <property name="toolTip" stdset="0">
-                        <string>This is the output impedance when the output is low.</string>
-                    </property>
-                </widget>
-                <widget class="KIntSpinBox" row="1" column="1">
-                    <property name="name">
-                        <cstring>kcfg_LogicOutputHighImpedance</cstring>
-                    </property>
-                    <property name="suffix">
-                        <string></string>
-                    </property>
-                    <property name="maxValue">
-                        <number>1000000000</number>
-                    </property>
-                    <property name="minValue">
-                        <number>1</number>
-                    </property>
-                    <property name="value">
-                        <number>15</number>
-                    </property>
-                    <property name="toolTip" stdset="0">
-                        <string>This is the output impedance when the output is high.</string>
-                    </property>
-                    <property name="whatsThis" stdset="0">
-                        <string></string>
-                    </property>
-                </widget>
-                <widget class="KIntSpinBox" row="2" column="1">
-                    <property name="name">
-                        <cstring>kcfg_LogicOutputLowImpedance</cstring>
-                    </property>
-                    <property name="suffix">
-                        <string></string>
-                    </property>
-                    <property name="specialValueText">
-                        <string>Floating</string>
-                    </property>
-                    <property name="maxValue">
-                        <number>1000000000</number>
-                    </property>
-                    <property name="minValue">
-                        <number>0</number>
-                    </property>
-                    <property name="value">
-                        <number>0</number>
-                    </property>
-                    <property name="toolTip" stdset="0">
-                        <string>This is the output impedance when the output is low.</string>
-                    </property>
-                    <property name="whatsThis" stdset="0">
-                        <string></string>
-                    </property>
-                </widget>
-            </grid>
-        </widget>
-        <widget class="QLabel">
-            <property name="name">
-                <cstring>textLabel2_3</cstring>
-            </property>
-            <property name="text">
-                <string>Here, you can configure the behaviour of logic components.
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="Q3GroupBox" name="groupBox3">
+     <property name="title">
+      <string>Input</string>
+     </property>
+     <layout class="QGridLayout">
+      <item row="0" column="1">
+       <widget class="KDoubleNumInput" name="kcfg_LogicRisingTrigger">
+        <property name="toolTip">
+         <string>Required voltage level before the input will be considered high.</string>
+        </property>
+        <property name="whatsThis">
+         <string/>
+        </property>
+        <property name="value">
+         <double>0.300000000000000</double>
+        </property>
+        <property name="suffix">
+         <string> V</string>
+        </property>
+        <property name="minValue" stdset="0">
+         <double>0.100000000000000</double>
+        </property>
+        <property name="maxValue" stdset="0">
+         <double>1.500000000000000</double>
+        </property>
+        <property name="precision" stdset="0">
+         <number>1</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="textLabel2_2">
+        <property name="toolTip">
+         <string>Required voltage level before an input will be considered low.</string>
+        </property>
+        <property name="text">
+         <string>Falling Trigger Threshold:</string>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="KDoubleNumInput" name="kcfg_LogicFallingTrigger">
+        <property name="toolTip">
+         <string>Required voltage level before an input will be considered low.</string>
+        </property>
+        <property name="whatsThis">
+         <string/>
+        </property>
+        <property name="value">
+         <double>0.200000000000000</double>
+        </property>
+        <property name="suffix">
+         <string> V</string>
+        </property>
+        <property name="minValue" stdset="0">
+         <double>0.100000000000000</double>
+        </property>
+        <property name="maxValue" stdset="0">
+         <double>1.600000000000000</double>
+        </property>
+        <property name="precision" stdset="0">
+         <number>1</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="textLabel1">
+        <property name="toolTip">
+         <string>Required voltage level before the input will be considered high.</string>
+        </property>
+        <property name="text">
+         <string>Rising Trigger Threshold:</string>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="Q3GroupBox" name="groupBox4">
+     <property name="title">
+      <string>Output</string>
+     </property>
+     <layout class="QGridLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="textLabel2">
+        <property name="toolTip">
+         <string>Voltage level for high on logic components.</string>
+        </property>
+        <property name="text">
+         <string>Output High:</string>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="KDoubleNumInput" name="kcfg_LogicOutputHigh">
+        <property name="toolTip">
+         <string>Voltage level for high on logic components.</string>
+        </property>
+        <property name="whatsThis">
+         <string/>
+        </property>
+        <property name="value">
+         <double>0.500000000000000</double>
+        </property>
+        <property name="suffix">
+         <string> V</string>
+        </property>
+        <property name="minValue" stdset="0">
+         <double>0.100000000000000</double>
+        </property>
+        <property name="maxValue" stdset="0">
+         <double>1.600000000000000</double>
+        </property>
+        <property name="precision" stdset="0">
+         <number>1</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="textLabel4">
+        <property name="toolTip">
+         <string>This is the output impedance when the output is high.</string>
+        </property>
+        <property name="text">
+         <string>High Output Impedance:</string>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="textLabel1_2">
+        <property name="toolTip">
+         <string>This is the output impedance when the output is low.</string>
+        </property>
+        <property name="text">
+         <string>Low Output Impedance:</string>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="KIntSpinBox" name="kcfg_LogicOutputHighImpedance">
+        <property name="toolTip">
+         <string>This is the output impedance when the output is high.</string>
+        </property>
+        <property name="whatsThis">
+         <string/>
+        </property>
+        <property name="suffix">
+         <string/>
+        </property>
+        <property name="value">
+         <number>15</number>
+        </property>
+        <property name="maxValue" stdset="0">
+         <number>1000000000</number>
+        </property>
+        <property name="minValue" stdset="0">
+         <number>1</number>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="KIntSpinBox" name="kcfg_LogicOutputLowImpedance">
+        <property name="toolTip">
+         <string>This is the output impedance when the output is low.</string>
+        </property>
+        <property name="whatsThis">
+         <string/>
+        </property>
+        <property name="specialValueText">
+         <string>Floating</string>
+        </property>
+        <property name="suffix">
+         <string/>
+        </property>
+        <property name="value">
+         <number>0</number>
+        </property>
+        <property name="maxValue" stdset="0">
+         <number>1000000000</number>
+        </property>
+        <property name="minValue" stdset="0">
+         <number>0</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="textLabel2_3">
+     <property name="text">
+      <string>Here, you can configure the behaviour of logic components.
 
 These values will apply to all components, apart from the PIC, whose pins' impedances depend on the pin in use.</string>
-            </property>
-            <property name="alignment">
-                <set>WordBreak|AlignVCenter</set>
-            </property>
-        </widget>
-        <spacer>
-            <property name="name">
-                <cstring>spacer10</cstring>
-            </property>
-            <property name="orientation">
-                <enum>Vertical</enum>
-            </property>
-            <property name="sizeType">
-                <enum>MinimumExpanding</enum>
-            </property>
-            <property name="sizeHint">
-                <size>
-                    <width>20</width>
-                    <height>29</height>
-                </size>
-            </property>
-        </spacer>
-    </vbox>
-</widget>
-<layoutdefaults spacing="6" margin="11"/>
-<includehints>
-    <includehint>kcombobox.h</includehint>
-    <includehint>knuminput.h</includehint>
-    <includehint>knuminput.h</includehint>
-    <includehint>knuminput.h</includehint>
-    <includehint>knuminput.h</includehint>
-    <includehint>knuminput.h</includehint>
-    <includehint>knuminput.h</includehint>
-    <includehint>knuminput.h</includehint>
-    <includehint>knuminput.h</includehint>
-</includehints>
-</UI>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignVCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="spacer10">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::MinimumExpanding</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>29</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+ <customwidgets>
+  <customwidget>
+   <class>Q3GroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>Qt3Support/Q3GroupBox</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>KDoubleNumInput</class>
+   <extends>QWidget</extends>
+   <header>knuminput.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KIntSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>knuminput.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

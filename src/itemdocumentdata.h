@@ -14,20 +14,20 @@
 #include "item.h"
 #include "microsettings.h"
 
-#include <qdom.h>
+#include <Qt/qdom.h>
 
 class Connector;
 class ECSubcircuit;
-class KURL;
+class KUrl;
 class Node;
 class PinMapping;
 
-typedef QValueList<QGuardedPtr<Connector> > ConnectorList;
-typedef QValueList<QGuardedPtr<Item> > ItemList;
-typedef QValueList<QGuardedPtr<Node> > NodeList;
+typedef QList<QPointer<Connector> > ConnectorList;
+typedef QList<QPointer<Item> > ItemList;
+typedef QList<QPointer<Node> > NodeList;
 typedef QMap< QString, PinMapping > PinMappingMap;
 
-typedef QValueList<QPoint> QPointList;
+typedef QList<QPoint> QPointList;
 typedef QMap<QString, bool> BoolMap;
 typedef QMap<QString, double> DoubleMap;
 typedef QMap<QString, int> IntMap;
@@ -137,12 +137,12 @@ class ItemDocumentData
 		 * be deleted first.
 		 * @returns true iff successful
 		 */
-		bool loadData( const KURL &url );
+		bool loadData( const KUrl &url );
 		/**
 		 * Write the data to the given file.
 		 * @returns true iff successful
 		 */
-		bool saveData( const KURL &url );
+		bool saveData( const KUrl &url );
 		/**
 		 * Returns the xml used for describing the data
 		 */

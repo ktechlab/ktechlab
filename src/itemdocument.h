@@ -15,9 +15,9 @@
 #include <document.h>
 #include <canvas.h>
 
-#include <qmap.h>
-#include <qptrstack.h>
-#include <qvaluevector.h>
+#include <Qt/qmap.h>
+#include <Qt/q3ptrstack.h>
+#include <Qt/q3valuevector.h>
 
 class Canvas;
 class CanvasTip;
@@ -33,12 +33,12 @@ class Operation;
 class KActionMenu;
 class QCanvasItem;
 
-typedef QPtrStack<ItemDocumentData> IDDStack;
-typedef QGuardedPtr<Item> GuardedItem;
+typedef Q3PtrStack<ItemDocumentData> IDDStack;
+typedef QPointer<Item> GuardedItem;
 typedef QMap< int, GuardedItem > IntItemMap;
 typedef QMap< QString, Item* > ItemMap;
-typedef QValueList<GuardedItem> ItemList;
-typedef QValueList<QPoint> QPointList;
+typedef QList<GuardedItem> ItemList;
+typedef QList<QPoint> QPointList;
 
 /**
 @author David Saxton
@@ -88,7 +88,7 @@ class ItemDocument : public Document
 		virtual void fileSave();
 		virtual void fileSaveAs();
 		virtual void print();
-		virtual bool openURL( const KURL &url );
+		virtual bool openURL( const KUrl &url );
 		/**
 		 * Attempt to register the item, returning true iff successful
 		 */
@@ -465,8 +465,8 @@ class CanvasTip : public QCanvasRectangle
 		void display( const QPoint &pos );
 		QString displayText( unsigned num ) const;
 	
-		QValueVector<double> m_v;
-		QValueVector<double> m_i;
+		Q3ValueVector<double> m_v;
+		Q3ValueVector<double> m_i;
 		ItemDocument *p_itemDocument;
 		QString m_text;
 };

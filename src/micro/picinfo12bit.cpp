@@ -12,10 +12,10 @@
 #include "picinfo12bit.h"
 
 #include <klocale.h>
-#include <kstaticdeleter.h>
+#include <k3staticdeleter.h>
 
 PicAsm12bit *PicAsm12bit::m_self = 0;
-static KStaticDeleter<PicAsm12bit> picAsm12BitStaticDeleter;
+static K3StaticDeleter<PicAsm12bit> picAsm12BitStaticDeleter;
 
 PicAsm12bit *PicAsm12bit::self()
 {

@@ -1,10 +1,10 @@
 #include <cmath>
 #include <iostream>
 
-#include <qfile.h>
-#include <qregexp.h>
-#include <qstring.h>
-#include <qstringlist.h>
+#include <Qt/qfile.h>
+#include <Qt/qregexp.h>
+#include <Qt/qstring.h>
+#include <Qt/qstringlist.h>
 
 using namespace std;
 

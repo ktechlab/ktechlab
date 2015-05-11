@@ -11,8 +11,9 @@
 #ifndef DOCMANAGERIFACE_H
 #define DOCMANAGERIFACE_H
 
-#include <dcopobject.h>
-#include <dcopref.h>
+//#include <dcopobject.h>
+//#include <dcopref.h>
+#include "dcop_stub.h"
 
 class DocManager;
 class Document;

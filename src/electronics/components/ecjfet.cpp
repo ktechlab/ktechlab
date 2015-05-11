@@ -14,7 +14,7 @@
 
 #include <kiconloader.h>
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 Item * ECJFET::constructNJFET( ItemDocument * itemDocument, bool newItem, const char * id )
 {
@@ -31,7 +31,7 @@ Item * ECJFET::constructPJFET( ItemDocument * itemDocument, bool newItem, const 
 LibraryItem* ECJFET::libraryItemNJFET()
 {
 	return new LibraryItem(
-			"ec/njfet",
+			QStringList(QString("ec/njfet")),
 // 	i18n("n JFET"),
 	i18n("n-JFET"),
 	i18n("Discrete"),
@@ -44,7 +44,7 @@ LibraryItem* ECJFET::libraryItemNJFET()
 LibraryItem* ECJFET::libraryItemPJFET()
 {
 	return new LibraryItem(
-			"ec/pjfet",
+			QStringList(QString("ec/pjfet")),
 // 	i18n("p JFET"),
 	i18n("p-JFET"),
 	i18n("Discrete"),
@@ -146,7 +146,7 @@ void ECJFET::drawShape( QPainter &p )
 	p.drawLine( _x+2, _y+5, _x+8, _y+5 );
 	p.drawLine( _x+8, _y+5, _x+8, _y+8 );
 	
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 	if ( m_JFET_type == JFET::nJFET )
 	{
 		// right pointing arrow

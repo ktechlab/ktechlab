@@ -14,9 +14,11 @@
 #include "config.h"
 #include "view.h"
 
-#include <kate/view.h>
-#include <qguardedptr.h>
-#include <qlabel.h>
+// #include <kate/view.h>
+#include <ktexteditor/view.h>
+
+#include <Qt/qpointer.h>
+#include <Qt/qlabel.h>
 
 class QMouseEvent;
 class RegisterInfo;
@@ -38,29 +40,31 @@ class TextView : public View
 		/**
 		 * Brings up the goto line dialog.
 		 */
-		bool gotoLine( const int line ) { return m_view->setCursorPosition( line, 0/*m_view->cursorColumn()*/ ); }
+		bool gotoLine( const int line ) ; // { return m_view->setCursorPosition( line, 0/*m_view->cursorColumn()*/ ); }
 		/**
 		 * Returns a pointer to the document as a text document
 		 */
 		TextDocument *textDocument() const;
-		void cut() { m_view->cut(); }
-		void copy() { m_view->copy(); }
-		void paste() { m_view->paste(); }
+		void cut(); // { m_view->cut(); }
+		void copy(); // { m_view->copy(); }
+		void paste(); // { m_view->paste(); }
 		void saveCursorPosition();
 		void restoreCursorPosition();
 		/**
 		 * Enable code actions depending on the type of code being edited
 		 */
 		void initCodeActions();
-		void setCursorPosition( uint line, uint col ) { m_view->setCursorPosition( line, col ); }
+		void setCursorPosition( uint line, uint col ); // { m_view->setCursorPosition( line, col ); }
 		unsigned currentLine();
 		unsigned currentColumn();
 		void disableActions();
 	
-		Kate::View * kateView() const { return m_view; }
+		KTextEditor::View * kateView() const { return m_view; }
 	
-		Kate::View::saveResult save() { return m_view->save(); }
-		Kate::View::saveResult saveAs() { return m_view->saveAs(); }
+		//KTextEditor::View::saveResult save(); // { return m_view->save(); }
+		bool save();
+		//KTextEditor::View::saveResult saveAs(); // { return m_view->saveAs(); }
+        bool saveAs();
 	
 	public slots:
 		/**
@@ -81,7 +85,7 @@ class TextView : public View
 		void gotFocus();
 	
 	protected:
-		Kate::View * m_view;
+		KTextEditor::View * m_view;
 #ifndef NO_GPSIM
 		VariableLabel * m_pTextViewLabel; ///< Pops up when the user hovers his mouse over a word
 #endif

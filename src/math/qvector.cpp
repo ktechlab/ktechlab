@@ -18,17 +18,19 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+// #ifndef QVECTOR_H
+#include "qvector.h"
+// #endif
+
 #include <cstdlib> // for null 
 #include <cmath>
 #include <cassert>
 #include <kdebug.h>
 #include <iostream>
 
-using namespace std;
 
-#ifndef QVECTOR_H
-#include "qvector.h"
-#endif
+
+using namespace std;
 
 /*
 #ifndef BADRNG_H

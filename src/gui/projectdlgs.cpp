@@ -8,31 +8,48 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "createsubprojectwidget.h"
-#include "linkeroptionswidget.h"
+#include "ui_createsubprojectwidget.h"
+#include "ui_linkeroptionswidget.h"
 #include "microlibrary.h"
 #include "microselectwidget.h"
-#include "newprojectwidget.h"
-#include "processingoptionswidget.h"
+#include "ui_newprojectwidget.h"
+#include "ui_processingoptionswidget.h"
 #include "projectdlgs.h"
 #include "projectmanager.h"
 
 #include <cassert>
+
 #include <kcombobox.h>
 #include <kdeversion.h>
 #include <kfiledialog.h>
 #include <klineedit.h>
 #include <klocale.h>
 #include <kurlrequester.h>
-#include <qcheckbox.h>
-#include <qcombobox.h>
-#include <qlabel.h>
-#include <qlayout.h>
+#include <k3listview.h>
+
+#include <Qt/qcheckbox.h>
+#include <Qt/qcombobox.h>
+#include <Qt/qlabel.h>
+#include <Qt/qlayout.h>
+
+struct NewProjectWidget : public QWidget, Ui::NewProjectWidget {
+    NewProjectWidget(QWidget *parent) : QWidget(parent) {
+        setupUi(this);
+    }
+};
 
 //BEGIN class NewProjectDlg
 NewProjectDlg::NewProjectDlg( QWidget * parent )
-	: KDialogBase( parent, "newprojectdlg", true, "New Project", KDialogBase::Ok|KDialogBase::Cancel, KDialogBase::Ok, true )
+	: // KDialog( parent, "newprojectdlg", true, "New Project", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
+      KDialog( parent ) //, "newprojectdlg", true, "New Project", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
 {
+    setName("newprojectdlg");
+    setModal(true);
+    setCaption(i18n("New Project"));
+    setButtons(KDialog::Ok | KDialog::Cancel);
+    setDefaultButton(KDialog::Ok);
+    showButtonSeparator(true);
+
 	m_pWidget = new NewProjectWidget(this);
 	connect( m_pWidget->projectNameEdit, SIGNAL(textChanged(const QString & )), this, SLOT(locationChanged(const QString& )) );
 	connect( m_pWidget->projectLocationURL, SIGNAL(textChanged(const QString & )), this, SLOT(locationChanged(const QString& )) );
@@ -40,7 +57,7 @@ NewProjectDlg::NewProjectDlg( QWidget * parent )
     // Check if already valid dir
 	locationChanged( QString::null );
     
-	m_pWidget->projectLocationURL->setURL( QDir::homeDirPath() );
+	m_pWidget->projectLocationURL->setUrl( QDir::homeDirPath() );
 	m_pWidget->projectLocationURL->setMode( KFile::Directory );
     
 	setMainWidget( m_pWidget );
@@ -54,7 +71,7 @@ void NewProjectDlg::accept()
 	m_bAccepted = true;
 
 	m_projectName = m_pWidget->projectNameEdit->text();
-	m_projectLocation = m_pWidget->projectLocationURL->url();
+	m_projectLocation = m_pWidget->projectLocationURL->url().url();
 }
 
 void NewProjectDlg::reject()
@@ -64,7 +81,7 @@ void NewProjectDlg::reject()
 
 void NewProjectDlg::locationChanged( const QString & )
 {
-	m_location = m_pWidget->projectLocationURL->url();
+	m_location = m_pWidget->projectLocationURL->url().url();
 	QDir subDir(m_location);
     
 	if ( !m_location.endsWith("/") )
@@ -78,23 +95,36 @@ void NewProjectDlg::locationChanged( const QString & )
 	QDir dir(m_location);
 	
 	if ( dir.exists() || !subDir.exists() ) 
-		enableButtonOK(false);
+		enableButtonOk(false);
 	
 	else
-		enableButtonOK(true);
+		enableButtonOk(true);
 }
 //END class NewProjectDlg
 
 
+struct CreateSubprojectWidget : public QWidget, Ui::CreateSubprojectWidget {
+    CreateSubprojectWidget(QWidget *parent) : QWidget(parent) {
+        setupUi(this);
+    }
+};
 
 //BEGIN class CreateSubprojectDlg
 CreateSubprojectDlg::CreateSubprojectDlg( QWidget * parent )
-	: KDialogBase( parent, "Create Subproject Dialog", true, "Create Subproject", KDialogBase::Ok|KDialogBase::Cancel, KDialogBase::Ok, true )
+	: // KDialog( parent, "Create Subproject Dialog", true, "Create Subproject", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
+	KDialog( parent ) // , "Create Subproject Dialog", true, "Create Subproject", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
 {
+    setName("Create Subproject Dialog");
+    setModal(true);
+    setCaption(i18n("Create Subproject"));
+    setButtons(KDialog::Ok|KDialog::Cancel);
+    setDefaultButton(KDialog::Ok);
+    showButtonSeparator(true);
+
 	m_pWidget = new CreateSubprojectWidget(this);
 	
 	if ( ProjectManager::self()->currentProject() )
-		m_pWidget->m_targetFile->setURL( ProjectManager::self()->currentProject()->directory() );
+		m_pWidget->m_targetFile->setUrl( ProjectManager::self()->currentProject()->directory() );
 	
 	m_type = ProgramType;
     
@@ -114,7 +144,7 @@ void CreateSubprojectDlg::accept()
 
 	m_bAccepted = true;
 
-	m_targetFile = m_pWidget->m_targetFile->url();
+	m_targetFile = m_pWidget->m_targetFile->url().url();
 	m_type = (Type)m_pWidget->m_typeCombo->currentItem();
 }
 
@@ -125,12 +155,25 @@ void CreateSubprojectDlg::reject()
 }
 //END class CreateSubprojectDlg
 
-
+struct LinkerOptionsWidget : public QWidget, Ui::LinkerOptionsWidget {
+    LinkerOptionsWidget(QWidget *parent) : QWidget(parent) {
+        setupUi(this);
+    }
+};
 
 //BEGIN class LinkerOptionsDlg
 LinkerOptionsDlg::LinkerOptionsDlg( LinkerOptions * linkingOptions, QWidget *parent )
-	: KDialogBase( parent, "Linker Options Dialog", true, "Linker Options", KDialogBase::Ok|KDialogBase::Cancel, KDialogBase::Ok, true )
+	: // KDialog( parent, "Linker Options Dialog", true, "Linker Options", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
+	KDialog( parent) //, "Linker Options Dialog", true, "Linker Options", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
 {
+    setName("Linker Options Dialog");
+    setModal(true);
+    setCaption(i18n("Linker Options"));
+    setButtons(KDialog::Ok|KDialog::Cancel);
+    setDefaultButton(KDialog::Ok);
+    showButtonSeparator(true);
+
+
 	m_pLinkerOptions = linkingOptions;
 	m_pWidget = new LinkerOptionsWidget(this);
 	
@@ -139,7 +182,7 @@ LinkerOptionsDlg::LinkerOptionsDlg( LinkerOptions * linkingOptions, QWidget *par
 	
 	
 	//BEGIN Update gplink options
-	m_pWidget->m_pHexFormat->setCurrentItem( m_pLinkerOptions->hexFormat() );
+	m_pWidget->m_pHexFormat->setCurrentIndex( m_pLinkerOptions->hexFormat() );
 	m_pWidget->m_pOutputMap->setChecked( m_pLinkerOptions->outputMapFile() );
 	m_pWidget->m_pLibraryDir->setText( m_pLinkerOptions->libraryDir() );
 	m_pWidget->m_pLinkerScript->setText( m_pLinkerOptions->linkerScript() );
@@ -149,19 +192,19 @@ LinkerOptionsDlg::LinkerOptionsDlg( LinkerOptions * linkingOptions, QWidget *par
 	
 	
 	//BEGIN Update library widgets
-	const KURL::List availableInternal = pi->childOutputURLs( ProjectItem::LibraryType );
+	const KUrl::List availableInternal = pi->childOutputURLs( ProjectItem::LibraryType );
 	const QStringList linkedInternal = m_pLinkerOptions->linkedInternal();
 	
-	KURL::List::const_iterator end = availableInternal.end();
-	for ( KURL::List::const_iterator it = availableInternal.begin(); it != end; ++it )
+	KUrl::List::const_iterator end = availableInternal.end();
+	for ( KUrl::List::const_iterator it = availableInternal.begin(); it != end; ++it )
 	{
-		QString relativeURL = KURL::relativeURL( pi->url(), *it );
-		QCheckListItem * item = new QCheckListItem( m_pWidget->m_pInternalLibraries, relativeURL, QCheckListItem::CheckBox );
+		QString relativeURL = KUrl::relativeUrl( pi->url(), *it );
+		Q3CheckListItem * item = new Q3CheckListItem( m_pWidget->m_pInternalLibraries, relativeURL, Q3CheckListItem::CheckBox );
 		item->setOn( linkedInternal.contains(relativeURL) );
 	}
 	
-	m_pExternalLibraryRequester = new KURLRequester( 0l );
-	m_pExternalLibraryRequester->fileDialog()->setURL( "/usr/share/sdcc/lib" );
+	m_pExternalLibraryRequester = new KUrlRequester( 0l );
+	m_pExternalLibraryRequester->fileDialog()->setUrl( KUrl( "/usr/share/sdcc/lib" ) );
 	
 	delete m_pWidget->m_pExternalLibraries;
 	m_pWidget->m_pExternalLibraries = new KEditListBox( i18n("Link libraries outside project"), m_pExternalLibraryRequester->customEditor(), m_pWidget );
@@ -193,9 +236,9 @@ void LinkerOptionsDlg::accept()
 	hide();
 	
 	QStringList linkedInternal;
-	for ( QListViewItemIterator internalIt( m_pWidget->m_pInternalLibraries ); internalIt.current(); ++internalIt )
+	for ( Q3ListViewItemIterator internalIt( m_pWidget->m_pInternalLibraries ); internalIt.current(); ++internalIt )
 	{
-		QCheckListItem * item = static_cast<QCheckListItem*>(internalIt.current());
+		Q3CheckListItem * item = static_cast<Q3CheckListItem*>(internalIt.current());
 		if ( item->isOn() )
 			linkedInternal << item->text();
 	}
@@ -215,12 +258,25 @@ void LinkerOptionsDlg::reject()
 }
 //END class LinkerOptionsDlg
 
+struct ProcessingOptionsWidget : public QWidget, Ui::ProcessingOptionsWidget {
+    ProcessingOptionsWidget(QWidget *parent) : QWidget(parent) {
+        setupUi(this);
+    }
+};
 
 
 //BEGIN class ProcessingOptionsDlg
 ProcessingOptionsDlg::ProcessingOptionsDlg( ProjectItem * projectItem, QWidget *parent )
-	: KDialogBase( parent, "Processing Options Dialog", true, "Processing Options", KDialogBase::Ok|KDialogBase::Cancel, KDialogBase::Ok, true )
+	: // KDialog( parent, "Processing Options Dialog", true, "Processing Options", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
+	KDialog( parent ) // , "Processing Options Dialog", true, "Processing Options", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
 {
+    setName("Processing Options Dialog");
+    setModal(true);
+    setCaption(i18n("Processing Options"));
+    setButtons(KDialog::Ok|KDialog::Cancel);
+    setDefaultButton(KDialog::Ok);
+    showButtonSeparator(true);
+
 	m_pProjectItem = projectItem;
 	m_pWidget = new ProcessingOptionsWidget(this);
 	
@@ -242,7 +298,7 @@ ProcessingOptionsDlg::ProcessingOptionsDlg( ProjectItem * projectItem, QWidget *
 			break;
 	}
 	
-	m_pWidget->m_pOutputURL->setURL( projectItem->outputURL().path() );
+	m_pWidget->m_pOutputURL->setUrl( projectItem->outputURL().path() );
 	m_pWidget->m_pMicroSelect->setMicro( projectItem->microID() );
 	
 	setMainWidget( m_pWidget );

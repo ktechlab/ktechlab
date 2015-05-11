@@ -35,7 +35,7 @@ QPointList ConRouter::pointList( bool reverse ) const
 	
 	if (reverse) {
 		bool notDone = m_cellPointList.size() > 0;
-		for ( QPointList::const_iterator it = m_cellPointList.fromLast(); notDone; --it )
+		for ( QPointList::const_iterator it = (--m_cellPointList.constEnd()); notDone; --it )
 		{
 			pointList.append( toCanvas(&*it) );
 			if ( it == m_cellPointList.begin() ) notDone = false;
@@ -56,7 +56,7 @@ QPointListList ConRouter::splitPoints( const QPoint &pos ) const
 {
 	const QPoint split = fromCanvas(&pos);
 	
-	QValueList<QPointList> list;
+	QList<QPointList> list;
 	
 	// Check that the point is in the connector points, and not at the start or end
 	bool found = false;
@@ -67,7 +67,8 @@ QPointListList ConRouter::splitPoints( const QPoint &pos ) const
 	{
 		for ( QPointList::const_iterator it = m_cellPointList.begin(); it != end && !found; ++it )
 		{
-			if ( qpoint_distance( *it, split ) <= dl[i] && it != m_cellPointList.begin() && it != m_cellPointList.fromLast() )
+            QPointList::const_iterator fromLast = --m_cellPointList.constEnd();
+			if ( qpoint_distance( *it, split ) <= dl[i] && it != m_cellPointList.begin() && it != fromLast) // m_cellPointList.fromLast() )
 				found = true;
 		}
 	}
@@ -133,10 +134,12 @@ QPointListList ConRouter::dividePoints( uint n ) const
 		// Get the points between (pos) and (pos+avgLength)
 		const int endPos = roundDouble( avgLength*(i+1) );
 		const int startPos = roundDouble( avgLength*i );
-		const QPointList::iterator end = ++points.at(endPos);
-		for ( QPointList::iterator it = points.at(startPos); it != end; ++it )
+		//const QPointList::iterator end = ++points.at(endPos);
+		//for ( QPointList::iterator it = points.at(startPos); it != end; ++it )
+        for (int pos = startPos; pos < endPos; ++pos)
 		{
-			pl += toCanvas(*it);
+			//pl += toCanvas(*it);
+            pl += toCanvas( points.at(pos) );
 		}
 		pll += pl;
 	}
@@ -265,7 +268,7 @@ void ConRouter::setPoints( const QPointList &pointList, bool reverse  )
 	{
 		m_cellPointList.clear();
 		const QPointList::iterator begin = cellPointList.begin();
-		for ( QPointList::iterator it = cellPointList.fromLast(); it != begin; --it )
+		for ( QPointList::iterator it = --cellPointList.end(); it != begin; --it )
 		{
 			m_cellPointList += *it;
 		}

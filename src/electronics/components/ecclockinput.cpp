@@ -15,7 +15,7 @@
 #include "simulator.h"
 
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 #include <cmath>
 
@@ -35,7 +35,7 @@ Item* ECClockInput::construct( ItemDocument *itemDocument, bool newItem, const c
 LibraryItem* ECClockInput::libraryItem()
 {
 	return new LibraryItem(
-		"ec/clock_input",
+		QStringList(QString("ec/clock_input")),
 		i18n("Clock Input"),
 		i18n("Logic"),
 		"clockinput.png",

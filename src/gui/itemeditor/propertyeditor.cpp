@@ -25,16 +25,16 @@
 #include <kpushbutton.h>
 #include <kiconloader.h>
 
-#include <qheader.h>
-#include <qevent.h>
-#include <qfontmetrics.h>
-#include <qtimer.h>
-#include <qapplication.h>
-#include <qeventloop.h>
-#include <qtooltip.h>
+#include <Qt/q3header.h>
+#include <Qt/qevent.h>
+#include <Qt/qfontmetrics.h>
+#include <Qt/qtimer.h>
+#include <Qt/qapplication.h>
+#include <Qt/qeventloop.h>
+#include <Qt/qtooltip.h>
 
 PropertyEditor::PropertyEditor( QWidget * parent, const char * name )
-	: KListView( parent, name )
+	: K3ListView( parent /*, name */ )
  , m_items(101, false)
  , justClickedItem(false)
 {
@@ -46,17 +46,17 @@ PropertyEditor::PropertyEditor( QWidget * parent, const char * name )
 	m_topItem = 0;
 	m_editItem = 0;
 
-	connect(this, SIGNAL(selectionChanged(QListViewItem *)), this, SLOT(slotClicked(QListViewItem *)));
-	connect(this, SIGNAL(currentChanged(QListViewItem *)), this, SLOT(slotCurrentChanged(QListViewItem *)));
-	connect(this, SIGNAL(expanded(QListViewItem *)), this, SLOT(slotExpanded(QListViewItem *)));
-	connect(this, SIGNAL(collapsed(QListViewItem *)), this, SLOT(slotCollapsed(QListViewItem *)));
+	connect(this, SIGNAL(selectionChanged(Q3ListViewItem *)), this, SLOT(slotClicked(Q3ListViewItem *)));
+	connect(this, SIGNAL(currentChanged(Q3ListViewItem *)), this, SLOT(slotCurrentChanged(Q3ListViewItem *)));
+	connect(this, SIGNAL(expanded(Q3ListViewItem *)), this, SLOT(slotExpanded(Q3ListViewItem *)));
+	connect(this, SIGNAL(collapsed(Q3ListViewItem *)), this, SLOT(slotCollapsed(Q3ListViewItem *)));
 	connect(header(), SIGNAL(sizeChange( int, int, int )), this, SLOT(slotColumnSizeChanged( int, int, int )));
 	connect(header(), SIGNAL(clicked( int )), this, SLOT(moveEditor()));
 	connect(header(), SIGNAL(sectionHandleDoubleClicked ( int )), this, SLOT(slotColumnSizeChanged( int )));
 
 	m_defaults = new KPushButton(viewport());
-	m_defaults->setFocusPolicy(QWidget::NoFocus);
-	setFocusPolicy(QWidget::ClickFocus);
+	m_defaults->setFocusPolicy(Qt::NoFocus);
+	setFocusPolicy(Qt::ClickFocus);
 	m_defaults->setPixmap(SmallIcon("undo"));
 	QToolTip::add(m_defaults, i18n("Undo changes"));
 	m_defaults->hide();
@@ -64,10 +64,10 @@ PropertyEditor::PropertyEditor( QWidget * parent, const char * name )
 
 	setRootIsDecorated( false );
 	setShowSortIndicator( false );
-	setTooltipColumn(0);
+	// setTooltipColumn(0); // TODO equivalent?
 	setSorting(0);
 	setItemMargin(2);
-	setResizeMode(QListView::LastColumn);
+	setResizeMode(K3ListView::LastColumn);
 	header()->setMovingEnabled( false );
 	setTreeStepSize(0);
 
@@ -80,7 +80,7 @@ PropertyEditor::~PropertyEditor()
 }
 
 
-void PropertyEditor::slotClicked(QListViewItem *item)
+void PropertyEditor::slotClicked(Q3ListViewItem *item)
 {
 	if (!item)
 		return;
@@ -92,11 +92,11 @@ void PropertyEditor::slotClicked(QListViewItem *item)
 }
 
 
-void PropertyEditor::slotCurrentChanged(QListViewItem *item)
+void PropertyEditor::slotCurrentChanged(Q3ListViewItem *item)
 {
 	if (item==firstChild())
 	{
-		QListViewItem *oldItem = item;
+		Q3ListViewItem *oldItem = item;
 		while (item && (!item->isSelectable() || !item->isVisible()))
 			item = item->itemBelow();
 		
@@ -109,7 +109,7 @@ void PropertyEditor::slotCurrentChanged(QListViewItem *item)
 }
 
 
-void PropertyEditor::slotExpanded(QListViewItem *item)
+void PropertyEditor::slotExpanded(Q3ListViewItem *item)
 {
 	if (!item)
 		return;
@@ -117,7 +117,7 @@ void PropertyEditor::slotExpanded(QListViewItem *item)
 }
 
 
-void PropertyEditor::slotCollapsed(QListViewItem *item)
+void PropertyEditor::slotCollapsed(Q3ListViewItem *item)
 {
 	if (!item)
 		return;
@@ -285,7 +285,7 @@ void PropertyEditor::reset()
 QSize PropertyEditor::sizeHint() const
 {
 	return QSize( QFontMetrics(font()).width(columnText(0)+columnText(1)+"   "),
-		KListView::sizeHint().height());
+		K3ListView::sizeHint().height());
 }
 
 
@@ -293,7 +293,8 @@ void PropertyEditor::create( ItemGroup * b )
 {
 	m_pItemGroup = b;
 	
-	QCString selectedPropertyName1, selectedPropertyName2;
+	//QCString selectedPropertyName1, selectedPropertyName2;
+    QByteArray selectedPropertyName1, selectedPropertyName2;
 	
 	fill();
 	
@@ -362,7 +363,7 @@ void PropertyEditor::fill()
 		}
 		
 		PropertyEditorItem  *item = new PropertyEditorItem( m_topItem, v );
-		m_items.insert( v->id(), item );
+		m_items.insert( v->id().latin1(), item );
 		
 	}
 }
@@ -390,7 +391,7 @@ void PropertyEditor::setFocus()
 		m_currentEditor->setFocus();
 	
 	else
-		KListView::setFocus();
+		K3ListView::setFocus();
 }
 
 
@@ -417,7 +418,7 @@ void PropertyEditor::moveEditor()
 
 void PropertyEditor::resizeEvent(QResizeEvent *ev)
 {
-	KListView::resizeEvent(ev);
+	K3ListView::resizeEvent(ev);
 	if(m_defaults->isVisible())
 	{
 		QRect r = itemRect(m_editItem);
@@ -440,9 +441,9 @@ bool PropertyEditor::handleKeyPress( QKeyEvent* ev )
 	const Qt::ButtonState s = ev->state();
 
 	//selection moving
-	QListViewItem *item = 0;
+	Q3ListViewItem *item = 0;
 
-	if ((s==NoButton && k==Key_Up) || k==Key_BackTab) {
+	if ((s==Qt::NoButton && k==Qt::Key_Up) || k==Qt::Key_Backtab) {
 		//find prev visible
 		item = selectedItem() ? selectedItem()->itemAbove() : 0;
 		while (item && (!item->isSelectable() || !item->isVisible()))
@@ -450,7 +451,7 @@ bool PropertyEditor::handleKeyPress( QKeyEvent* ev )
 		if (!item)
 			return true;
 	}
-	else if (s==NoButton && (k==Key_Down || k==Key_Tab)) {
+	else if (s==Qt::NoButton && (k==Qt::Key_Down || k==Qt::Key_Tab)) {
 		//find next visible
 		item = selectedItem() ? selectedItem()->itemBelow() : 0;
 		while (item && (!item->isSelectable() || !item->isVisible()))
@@ -458,7 +459,7 @@ bool PropertyEditor::handleKeyPress( QKeyEvent* ev )
 		if (!item)
 			return true;
 	}
-	else if(s==NoButton && k==Key_Home) {
+	else if(s==Qt::NoButton && k==Qt::Key_Home) {
 		if (m_currentEditor && m_currentEditor->hasFocus())
 			return false;
 		//find 1st visible
@@ -466,12 +467,12 @@ bool PropertyEditor::handleKeyPress( QKeyEvent* ev )
 		while (item && (!item->isSelectable() || !item->isVisible()))
 			item = item->itemBelow();
 	}
-	else if(s==NoButton && k==Key_End) {
+	else if(s==Qt::NoButton && k==Qt::Key_End) {
 		if (m_currentEditor && m_currentEditor->hasFocus())
 			return false;
 		//find last visible
 		item = selectedItem();
-		QListViewItem *lastVisible = item;
+		Q3ListViewItem *lastVisible = item;
 		while (item) { // && (!item->isSelectable() || !item->isVisible()))
 			item = item->itemBelow();
 			if (item && item->isSelectable() && item->isVisible())

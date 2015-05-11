@@ -16,8 +16,8 @@
 
 #include "component.h"
 
-#include <qguardedptr.h>
-#include <qmap.h>
+#include <Qt/qpointer.h>
+#include <Qt/qmap.h>
 
 class Document;
 class ECNode;
@@ -84,7 +84,7 @@ class PICComponent : public Component
 		 */
 		void initPIC( bool forceReload );
 	
-		QGuardedPtr<GpsimProcessor> m_pGpsim;
+		QPointer<GpsimProcessor> m_pGpsim;
 		QString m_picFile; ///< The input program that the user selected
 		QString m_symbolFile; ///< The symbol file that was generated from m_picFile
 		bool m_bLoadingProgram; ///< True between createSymbolFile being called and the file being created

@@ -2,7 +2,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#include <qpoint.h>
+#include <Qt/qpoint.h>
 #include <cmath>
 
 inline int roundDown( int x, int roundness )

@@ -13,8 +13,8 @@
 
 #include <component.h>
 
-#include <qguardedptr.h>
-#include <qvaluevector.h>
+#include <Qt/qpointer.h>
+#include <Qt/q3valuevector.h>
 
 class Wire;
 
@@ -36,7 +36,7 @@ class BusSplitter : public Component
 		virtual void drawShape( QPainter &p );
 		
 		unsigned m_busSize;
-		QValueVector<QGuardedPtr<Wire> > m_pWires;
+		Q3ValueVector<QPointer<Wire> > m_pWires;
 		ECNode * m_pInNode;
 };
 

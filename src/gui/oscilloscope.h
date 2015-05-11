@@ -14,13 +14,16 @@
 #ifndef PROBE_H
 #ifndef KTECHLAB_H
 #ifndef OSCILLOSCOPEDATA_H
-#include "oscilloscopewidget.h"
+#include "ui_oscilloscopewidget.h"
 #endif
 #endif
 #endif
 
 #include "simulator.h"
-#include <qmap.h>
+
+#include <Qt/qmap.h>
+#include <Qt/qwidget.h>
+
 #include <stdint.h>
 
 class FloatingProbeData;
@@ -70,7 +73,7 @@ void addOscilloscopeAsToolView( KTechlab *ktechlab);
 /**
 @author David Saxton
 */
-class Oscilloscope : public OscilloscopeWidget
+class Oscilloscope : public QWidget, public Ui::OscilloscopeWidget
 {
 	Q_OBJECT
 	public:

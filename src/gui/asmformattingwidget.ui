@@ -1,213 +1,206 @@
-<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
-<class>AsmFormattingWidget</class>
-<widget class="QWidget">
-    <property name="name">
-        <cstring>AsmFormattingWidget</cstring>
-    </property>
-    <property name="geometry">
-        <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>425</width>
-            <height>219</height>
-        </rect>
-    </property>
-    <property name="caption">
-        <string>Asm Formatting</string>
-    </property>
-    <property name="whatsThis" stdset="0">
-        <string>The values control the indentation from the left margin of the various types of assembly code.</string>
-    </property>
-    <vbox>
-        <property name="name">
-            <cstring>unnamed</cstring>
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AsmFormattingWidget</class>
+ <widget class="QWidget" name="AsmFormattingWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>425</width>
+    <height>241</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Asm Formatting</string>
+  </property>
+  <property name="whatsThis">
+   <string>The values control the indentation from the left margin of the various types of assembly code.</string>
+  </property>
+  <layout class="QVBoxLayout">
+   <property name="margin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="Q3GroupBox" name="groupBox64">
+     <property name="title">
+      <string>Output Code Indentation</string>
+     </property>
+     <layout class="QGridLayout">
+      <item row="3" column="0">
+       <widget class="QLabel" name="textLabel11">
+        <property name="text">
+         <string>'equ' Value</string>
         </property>
-        <property name="margin">
-            <number>0</number>
+        <property name="wordWrap">
+         <bool>false</bool>
         </property>
-        <widget class="QGroupBox">
-            <property name="name">
-                <cstring>groupBox64</cstring>
-            </property>
-            <property name="title">
-                <string>Output Code Indentation</string>
-            </property>
-            <grid>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <widget class="QLabel" row="3" column="0">
-                    <property name="name">
-                        <cstring>textLabel11</cstring>
-                    </property>
-                    <property name="text">
-                        <string>'equ' Value</string>
-                    </property>
-                </widget>
-                <widget class="QLabel" row="1" column="0">
-                    <property name="name">
-                        <cstring>textLabel8</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Instruction Data</string>
-                    </property>
-                </widget>
-                <widget class="QLabel" row="4" column="0">
-                    <property name="name">
-                        <cstring>textLabel9</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Comment</string>
-                    </property>
-                </widget>
-                <widget class="QLabel" row="2" column="0">
-                    <property name="name">
-                        <cstring>textLabel10</cstring>
-                    </property>
-                    <property name="text">
-                        <string>'equ'</string>
-                    </property>
-                </widget>
-                <widget class="QLabel" row="0" column="0">
-                    <property name="name">
-                        <cstring>textLabel7</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Instruction Name</string>
-                    </property>
-                </widget>
-                <widget class="KIntSpinBox" row="0" column="1">
-                    <property name="name">
-                        <cstring>kcfg_IndentAsmName</cstring>
-                    </property>
-                    <property name="sizePolicy">
-                        <sizepolicy>
-                            <hsizetype>5</hsizetype>
-                            <vsizetype>0</vsizetype>
-                            <horstretch>0</horstretch>
-                            <verstretch>0</verstretch>
-                        </sizepolicy>
-                    </property>
-                    <property name="value">
-                        <number>4</number>
-                    </property>
-                    <property name="toolTip" stdset="0">
-                        <string></string>
-                    </property>
-                </widget>
-                <widget class="KIntSpinBox" row="1" column="1">
-                    <property name="name">
-                        <cstring>kcfg_IndentAsmData</cstring>
-                    </property>
-                    <property name="sizePolicy">
-                        <sizepolicy>
-                            <hsizetype>5</hsizetype>
-                            <vsizetype>0</vsizetype>
-                            <horstretch>0</horstretch>
-                            <verstretch>0</verstretch>
-                        </sizepolicy>
-                    </property>
-                    <property name="value">
-                        <number>14</number>
-                    </property>
-                </widget>
-                <widget class="KIntSpinBox" row="3" column="1">
-                    <property name="name">
-                        <cstring>kcfg_IndentEqu</cstring>
-                    </property>
-                    <property name="sizePolicy">
-                        <sizepolicy>
-                            <hsizetype>5</hsizetype>
-                            <vsizetype>0</vsizetype>
-                            <horstretch>0</horstretch>
-                            <verstretch>0</verstretch>
-                        </sizepolicy>
-                    </property>
-                    <property name="value">
-                        <number>14</number>
-                    </property>
-                </widget>
-                <widget class="KIntSpinBox" row="2" column="1">
-                    <property name="name">
-                        <cstring>kcfg_IndentEquValue</cstring>
-                    </property>
-                    <property name="sizePolicy">
-                        <sizepolicy>
-                            <hsizetype>5</hsizetype>
-                            <vsizetype>0</vsizetype>
-                            <horstretch>0</horstretch>
-                            <verstretch>0</verstretch>
-                        </sizepolicy>
-                    </property>
-                    <property name="value">
-                        <number>20</number>
-                    </property>
-                </widget>
-                <widget class="KIntSpinBox" row="4" column="1">
-                    <property name="name">
-                        <cstring>kcfg_IndentComment</cstring>
-                    </property>
-                    <property name="sizePolicy">
-                        <sizepolicy>
-                            <hsizetype>5</hsizetype>
-                            <vsizetype>0</vsizetype>
-                            <horstretch>0</horstretch>
-                            <verstretch>0</verstretch>
-                        </sizepolicy>
-                    </property>
-                    <property name="minValue">
-                        <number>-1</number>
-                    </property>
-                    <property name="value">
-                        <number>40</number>
-                    </property>
-                </widget>
-            </grid>
-        </widget>
-        <widget class="QCheckBox">
-            <property name="name">
-                <cstring>kcfg_AutoFormatMBOutput</cstring>
-            </property>
-            <property name="text">
-                <string>&amp;Automatically format Microbe output</string>
-            </property>
-            <property name="accel">
-                <string>Alt+A</string>
-            </property>
-        </widget>
-        <spacer>
-            <property name="name">
-                <cstring>spacer57</cstring>
-            </property>
-            <property name="orientation">
-                <enum>Vertical</enum>
-            </property>
-            <property name="sizeType">
-                <enum>Expanding</enum>
-            </property>
-            <property name="sizeHint">
-                <size>
-                    <width>20</width>
-                    <height>484</height>
-                </size>
-            </property>
-        </spacer>
-    </vbox>
-</widget>
-<tabstops>
-    <tabstop>kcfg_IndentAsmName</tabstop>
-    <tabstop>kcfg_IndentAsmData</tabstop>
-    <tabstop>kcfg_IndentEquValue</tabstop>
-    <tabstop>kcfg_IndentEqu</tabstop>
-    <tabstop>kcfg_IndentComment</tabstop>
-    <tabstop>kcfg_AutoFormatMBOutput</tabstop>
-</tabstops>
-<layoutdefaults spacing="6" margin="11"/>
-<includehints>
-    <includehint>knuminput.h</includehint>
-    <includehint>knuminput.h</includehint>
-    <includehint>knuminput.h</includehint>
-    <includehint>knuminput.h</includehint>
-    <includehint>knuminput.h</includehint>
-</includehints>
-</UI>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="textLabel8">
+        <property name="text">
+         <string>Instruction Data</string>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="textLabel9">
+        <property name="text">
+         <string>Comment</string>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="textLabel10">
+        <property name="text">
+         <string>'equ'</string>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="textLabel7">
+        <property name="text">
+         <string>Instruction Name</string>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="KIntSpinBox" name="kcfg_IndentAsmName">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string/>
+        </property>
+        <property name="value">
+         <number>4</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="KIntSpinBox" name="kcfg_IndentAsmData">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="value">
+         <number>14</number>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="KIntSpinBox" name="kcfg_IndentEqu">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="value">
+         <number>14</number>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="KIntSpinBox" name="kcfg_IndentEquValue">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="value">
+         <number>20</number>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="KIntSpinBox" name="kcfg_IndentComment">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="value">
+         <number>40</number>
+        </property>
+        <property name="minValue" stdset="0">
+         <number>-1</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="kcfg_AutoFormatMBOutput">
+     <property name="text">
+      <string>&amp;Automatically format Microbe output</string>
+     </property>
+     <property name="shortcut">
+      <string>Alt+A</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="spacer57">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Expanding</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>484</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+ <customwidgets>
+  <customwidget>
+   <class>Q3GroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>Qt3Support/Q3GroupBox</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>KIntSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>knuminput.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>kcfg_IndentAsmName</tabstop>
+  <tabstop>kcfg_IndentAsmData</tabstop>
+  <tabstop>kcfg_IndentEquValue</tabstop>
+  <tabstop>kcfg_IndentEqu</tabstop>
+  <tabstop>kcfg_IndentComment</tabstop>
+  <tabstop>kcfg_AutoFormatMBOutput</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

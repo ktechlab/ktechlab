@@ -19,16 +19,18 @@
 #include "src/core/ktlconfig.h"
 
 #include <kdebug.h>
-#include <kio/netaccess.h>
+//#include <kio/netaccess.h>
 #include <kmessagebox.h>
-#include <kprocess.h>
-#include <qregexp.h>
-#include <qtimer.h>
+#include <k3process.h>
+
+#include <Qt/qregexp.h>
+#include <Qt/qtimer.h>
 
 //BEGIN class Language
 Language::Language( ProcessChain *processChain, const QString &name )
-	: QObject( KTechlab::self(), name )
+	: QObject( KTechlab::self() /*, name */ )
 {
+    setName(name.latin1());
 	p_processChain = processChain;
 }
 
@@ -71,7 +73,7 @@ void Language::finish( bool successful )
 		
 		else if (p_processChain)
 		{
-			m_processOptions.setInputFiles( m_processOptions.intermediaryOutput() );
+			m_processOptions.setInputFiles( QStringList( m_processOptions.intermediaryOutput() ) );
 			m_processOptions.setIntermediaryOutput( m_processOptions.targetFile() );
 			m_processOptions.setProcessPath(newPath);
 // 			p_processChain->compile(m_processOptions);

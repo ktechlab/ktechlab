@@ -23,7 +23,7 @@ Item* Delay::construct( ItemDocument *itemDocument, bool newItem, const char *id
 LibraryItem* Delay::libraryItem()
 {
 	return new LibraryItem(
-		"flow/delay",
+		QStringList(QString("flow/delay")),
 		i18n("Delay"),
 		i18n("Functions"),
 		"delay.png",

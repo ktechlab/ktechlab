@@ -11,8 +11,8 @@
 #ifndef SWITCH_H
 #define SWITCH_H
 
-#include <qguardedptr.h>
-#include <qobject.h>
+#include <Qt/qpointer.h>
+#include <Qt/qobject.h>
 
 class CircuitDocument;
 class Component;
@@ -79,8 +79,8 @@ protected:
 	Resistance *m_pBounceResistance;
 	State m_state;
 	Component *m_pComponent;
-	QGuardedPtr<Pin> m_pP1;
-	QGuardedPtr<Pin> m_pP2;
+	QPointer<Pin> m_pP1;
+	QPointer<Pin> m_pP2;
 	QTimer *m_pStopBouncingTimer;
 };
 

@@ -13,9 +13,10 @@
 #include "logview.h"
 
 #include <kdebug.h>
-#include <kprocess.h>
-#include <qregexp.h>
-#include <qtimer.h>
+#include <k3process.h>
+
+#include <Qt/qregexp.h>
+#include <Qt/qtimer.h>
 
 ExternalLanguage::ExternalLanguage( ProcessChain *processChain, const QString &name )
  : Language( processChain, name )
@@ -46,7 +47,7 @@ void ExternalLanguage::deleteLanguageProcess()
 }
 
 
-void ExternalLanguage::receivedStdout( KProcess *, char * buffer, int buflen )
+void ExternalLanguage::receivedStdout( K3Process *, char * buffer, int buflen )
 {
 	QStringList lines = QStringList::split( '\n', QString::fromLocal8Bit( buffer, buflen ), false );
 	QStringList::iterator end = lines.end();
@@ -72,7 +73,7 @@ void ExternalLanguage::receivedStdout( KProcess *, char * buffer, int buflen )
 }
 
 
-void ExternalLanguage::receivedStderr( KProcess *, char * buffer, int buflen )
+void ExternalLanguage::receivedStderr( K3Process *, char * buffer, int buflen )
 {
 	QStringList lines = QStringList::split( '\n', QString::fromLocal8Bit( buffer, buflen ), false );
 	QStringList::iterator end = lines.end();
@@ -93,11 +94,11 @@ void ExternalLanguage::receivedStderr( KProcess *, char * buffer, int buflen )
 }
 
 
-void ExternalLanguage::processExited( KProcess * )
+void ExternalLanguage::processExited( K3Process * )
 {
 	if ( !m_languageProcess )
 		return;
-	bool allOk = processExited( m_languageProcess->normalExit() && m_errorCount == 0 );
+	bool allOk = processExited( (m_languageProcess->normalExit()) && (m_errorCount == 0) );
 	finish(allOk);
 	deleteLanguageProcess();
 }
@@ -114,7 +115,7 @@ bool ExternalLanguage::start()
 {
 	displayProcessCommand();
 	
-	return m_languageProcess->start( KProcess::NotifyOnExit, KProcess::All );
+	return m_languageProcess->start( K3Process::NotifyOnExit, K3Process::All );
 }
 
 
@@ -124,35 +125,41 @@ void ExternalLanguage::resetLanguageProcess()
 	deleteLanguageProcess();
 	m_errorCount = 0;
 	
-	m_languageProcess = new KProcess(this);
+	m_languageProcess = new K3Process(this);
 	
-	connect( m_languageProcess, SIGNAL(receivedStdout( KProcess*, char*, int )),
-			 this, SLOT(receivedStdout( KProcess*, char*, int )) );
+	connect( m_languageProcess, SIGNAL(receivedStdout( K3Process*, char*, int )),
+			 this, SLOT(receivedStdout( K3Process*, char*, int )) );
 	
-	connect( m_languageProcess, SIGNAL(receivedStderr( KProcess*, char*, int )),
-			 this, SLOT(receivedStderr( KProcess*, char*, int )) );
+	connect( m_languageProcess, SIGNAL(receivedStderr( K3Process*, char*, int )),
+			 this, SLOT(receivedStderr( K3Process*, char*, int )) );
 	
-	connect( m_languageProcess, SIGNAL(processExited( KProcess* )),
-			 this, SLOT(processExited( KProcess* )) );
+	connect( m_languageProcess, SIGNAL(processExited( K3Process* )),
+			 this, SLOT(processExited( K3Process* )) );
 }
 
 
 void ExternalLanguage::displayProcessCommand()
 {
 	QStringList quotedArguments;
-	QValueList<QCString> arguments = m_languageProcess->args();
+	//QList<QString> arguments = m_languageProcess->args();
+    QList<QString> arguments;
+    for (QList<QByteArray>::const_iterator itArgs = m_languageProcess->args().begin();
+         itArgs != m_languageProcess->args().end();
+         ++itArgs) {
+        arguments.append(QString(*itArgs));
+    }
 	
 	if ( arguments.size() == 1 )
 		quotedArguments << arguments[0];
 		
 	else
 	{
-		QValueList<QCString>::const_iterator end = arguments.end();
+		QList<QString>::const_iterator end = arguments.end();
 	
-		for ( QValueList<QCString>::const_iterator it = arguments.begin(); it != end; ++it )
+		for ( QList<QString>::const_iterator it = arguments.begin(); it != end; ++it )
 		{
 			if ( (*it).isEmpty() || (*it).contains( QRegExp("[\\s]") ) )
-				quotedArguments << KProcess::quote( *it );
+				quotedArguments << K3Process::quote( *it );
 			else
 				quotedArguments << *it;
 		}

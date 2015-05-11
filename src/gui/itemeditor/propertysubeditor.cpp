@@ -8,7 +8,8 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include <qvariant.h>
+#include <Qt/qvariant.h>
+#include <Qt/qevent.h>
 
 #include <kdebug.h>
 
@@ -56,11 +57,11 @@ PropertySubEditor::setWidget(QWidget *w, QWidget* focusProxy)
 
 	if(!m_childWidget)
 		return;
-	if (focusProxy && focusProxy->focusPolicy()!=NoFocus) {
+	if (focusProxy && focusProxy->focusPolicy()!=Qt::NoFocus) {
 		setFocusProxy(focusProxy);
 		focusProxy->installEventFilter(this);
 	}
-	else if (m_childWidget->focusPolicy()!=NoFocus)
+	else if (m_childWidget->focusPolicy()!=Qt::NoFocus)
 		setFocusProxy(m_childWidget);
 
 	m_childWidget->installEventFilter(this);

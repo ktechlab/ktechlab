@@ -13,16 +13,19 @@
 
 #include <kdebug.h>
 #include <klineedit.h>
-#include <klistview.h>
 #include <klocale.h>
 #include <ktoolbar.h>
-#include <ktoolbarbutton.h>
+//#include <ktoolbarbutton.h> // converted to QToolButton
+#include <k3listview.h>
 
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qheader.h>
-#include <qpainter.h>
-#include <qtooltip.h>
+#include <Qt/q3listview.h>
+#include <Qt/qlabel.h>
+#include <Qt/qlayout.h>
+// #include <Qt/q3header.h> // needed?
+#include <Qt/qpainter.h>
+#include <Qt/qtooltip.h>
+#include <Qt/qtoolbutton.h>
+#include <Qt/q3header.h>
 
 
 //BEGIN class ComponentModelWidget
@@ -35,14 +38,18 @@ ComponentModelWidget::ComponentModelWidget( QWidget *parent, const char *name )
 	// parts of the following code are stolen from amarok/src/playlistwindow.cpp :)
 	//BEGIN Filter lineedit
 	KToolBar * bar = new KToolBar( this, "ComponentModelSearch" );
-	bar->setIconSize( 22, false ); //looks more sensible
-	bar->setFlat( true ); //removes the ugly frame
-	bar->setMovingEnabled( false ); //removes the ugly frame
+	bar->setIconSize( QSize( 22, 22 ) /*, false  ?? */ ); //looks more sensible
+	//bar->setFlat( true ); //removes the ugly frame
+    bar->setMovable( false ); //removes the ugly frame
+	//bar->setMovingEnabled( false ); //removes the ugly frame // removed, apparently
 
-	QWidget * button = new KToolBarButton( "locationbar_erase", 1, bar );
+	//QWidget * button = new QToolButton( "locationbar_erase", 1, bar );
+    QWidget * button = new QToolButton( bar );
+    button->setObjectName("locationbar_erase"); // TODO what is: "locationbar_erase", 1,
 	m_pSearchEdit = new ClickLineEdit( i18n( "Filter here..." ), bar );
 
-	bar->setStretchableWidget( m_pSearchEdit );
+	//bar->setStretchableWidget( m_pSearchEdit ); // TODO removed, investigate
+    m_pSearchEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding));
 	m_pSearchEdit->setFrame( QFrame::Sunken );
 	connect( m_pSearchEdit, SIGNAL(textChanged( const QString & )), this, SLOT(setFilter( const QString& )) );
 
@@ -54,7 +61,7 @@ ComponentModelWidget::ComponentModelWidget( QWidget *parent, const char *name )
 	QToolTip::add( m_pSearchEdit, filtertip );
 	//END Filter lineedit
 	
-	m_pList = new KListView( this );
+	m_pList = new K3ListView( this );
 // 	m_pList->setItemMargin( 3 );
 	m_pList->addColumn( "model" );
 	m_pList->setFullWidth( true );
@@ -100,7 +107,7 @@ void ComponentModelWidget::init( Component * component )
 	QStringList::iterator end = types.end();
 	for ( QStringList::iterator it = types.begin(); it != end; ++it )
 	{
-		new KListViewItem( m_pList, *it );
+		new K3ListViewItem( m_pList, *it );
 	}
 }
 
@@ -109,9 +116,9 @@ void ComponentModelWidget::setFilter( const QString & filter )
 {
 	QString lower = filter.lower();
 	
-	for ( QListViewItemIterator it( m_pList ); it.current(); ++it )
+	for ( Q3ListViewItemIterator it( m_pList ); it.current(); ++it )
 	{
-		QListViewItem * item = *it;
+		Q3ListViewItem * item = *it;
 		bool hasText = item->text(0).lower().contains( lower );
 		item->setVisible( hasText );
 	}
@@ -122,7 +129,7 @@ void ComponentModelWidget::setFilter( const QString & filter )
 
 //BEGIN class ClickLineEdit
 ClickLineEdit::ClickLineEdit( const QString &msg, QWidget *parent, const char* name ) :
-		KLineEdit( parent, name )
+		KLineEdit( parent /*, name */)
 {
 	mDrawClickMsg = true;
 	setClickMessage( msg );
@@ -146,7 +153,7 @@ void ClickLineEdit::setText( const QString &txt )
 
 void ClickLineEdit::drawContents( QPainter *p )
 {
-	KLineEdit::drawContents( p );
+	// KLineEdit::drawContents( p ); // TODO this has been removed
 
 	if ( mDrawClickMsg == true && !hasFocus() ) {
 		QPen tmp = p->pen();
@@ -157,7 +164,7 @@ void ClickLineEdit::drawContents( QPainter *p )
 
         // Add two pixel margin on the left side
 		cr.rLeft() += 3;
-		p->drawText( cr, AlignAuto | AlignVCenter, mClickMessage );
+		p->drawText( cr, Qt::AlignAuto | Qt::AlignVCenter, mClickMessage );
 		p->setPen( tmp );
 	}
 }

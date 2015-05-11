@@ -14,14 +14,14 @@
 #ifndef DEBUGMANAGER_H
 #define DEBUGMANAGER_H
 
-#include <qguardedptr.h>
-#include <qmap.h>
-#include <qobject.h>
+#include <Qt/qpointer.h>
+#include <Qt/qmap.h>
+#include <Qt/qobject.h>
 
 class GpsimProcessor;
 class TextDocument;
 
-typedef QValueList< QGuardedPtr<GpsimProcessor> > GpsimProcessorList;
+typedef QList< QPointer<GpsimProcessor> > GpsimProcessorList;
 
 /**
 @author David Saxton

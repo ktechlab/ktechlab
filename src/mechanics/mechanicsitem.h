@@ -12,13 +12,13 @@
 #define MECHANICSITEM_H
 
 #include <item.h>
-#include <qvaluelist.h>
+#include <Qt/qlist.h>
 
 class LibraryItem;
 class MechanicsItem;
 // class MechanicsItemOverlayItem;
 class MechanicsDocument;
-typedef QValueList<MechanicsItem*> MechanicsItemList;
+typedef QList<MechanicsItem*> MechanicsItemList;
 
 /**
 @short Stores mass, moment of inertia

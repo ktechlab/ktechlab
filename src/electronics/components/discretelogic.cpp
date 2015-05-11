@@ -16,7 +16,7 @@
 #include "simulator.h"
 
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 
 //BEGIN class Inverter
@@ -71,7 +71,7 @@ void Inverter::drawShape( QPainter &p )
 	initPainter(p);
 	int _x = (int)x()-8;
 	int _y = (int)y()-8;
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 	pa[0] = QPoint( _x, _y );
 	pa[1] = QPoint( _x+width()-6, _y+(height()/2) );
 	pa[2] = QPoint( _x, _y+height() );
@@ -92,7 +92,7 @@ Item* Buffer::construct( ItemDocument *itemDocument, bool newItem, const char *i
 LibraryItem* Buffer::libraryItem()
 {
 	return new LibraryItem(
-		QString("ec/buffer"),
+		QStringList(QString("ec/buffer")),
 		i18n("Buffer"),
 		i18n("Logic"),
 		"buffer.png",
@@ -133,7 +133,7 @@ void Buffer::drawShape( QPainter &p )
 	initPainter(p);
 	int _x = (int)x()-8;
 	int _y = (int)y()-8;
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 	pa[0] = QPoint( _x, _y );
 	pa[1] = QPoint( _x+width(), _y+(height()/2) );
 	pa[2] = QPoint( _x, _y+height() );
@@ -153,7 +153,7 @@ Item* ECLogicInput::construct( ItemDocument *itemDocument, bool newItem, const c
 LibraryItem* ECLogicInput::libraryItem()
 {
 	return new LibraryItem(
-		"ec/logic_input",
+		QStringList(QString("ec/logic_input")),
 		i18n("Logic Input"),
 		i18n("Logic"),
 		"logic_input.png",
@@ -220,7 +220,7 @@ Item* ECLogicOutput::construct( ItemDocument *itemDocument, bool newItem, const 
 LibraryItem* ECLogicOutput::libraryItem()
 {
 	return new LibraryItem(
-		"ec/logic_output",
+		QStringList(QString("ec/logic_output")),
 		i18n("Logic Output"),
 		i18n("Logic"),
 		"logic_output.png",

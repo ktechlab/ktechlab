@@ -18,7 +18,7 @@
 #include "src/core/ktlconfig.h"
 #include "cnitemgroup.h"
 #include "documentiface.h"
-#include "drawpart.h"
+#include "drawparts/drawpart.h"
 #include "ecnode.h"
 #include "itemdocumentdata.h"
 #include "ktechlab.h"
@@ -31,14 +31,16 @@
 #include <kinputdialog.h> 
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <qregexp.h>
-#include <qtimer.h> 
+#include <kactionmenu.h>
+
+#include <Qt/qregexp.h>
+#include <Qt/qtimer.h> 
 
 
 CircuitDocument::CircuitDocument( const QString & caption, const char *name )
 	: CircuitICNDocument( caption, name )
 {
-	m_pOrientationAction = new KActionMenu( i18n("Orientation"), "rotate", this );
+	m_pOrientationAction = new KActionMenu( KIcon("rotate"), i18n("Orientation"), this );
 	
 	m_type = Document::dt_circuit;
 	m_pDocumentIface = new CircuitDocumentIface(this);
@@ -83,7 +85,7 @@ void CircuitDocument::slotInitItemActions( )
 	if ( !item && m_selectList->count() > 0 || !m_selectList->itemsAreSameType() )
 		return;
 	
-	KAction * orientation_actions[] = {
+	QAction * orientation_actions[] = {
 		activeCircuitView->action("edit_orientation_0"),
 		activeCircuitView->action("edit_orientation_90"),
 		activeCircuitView->action("edit_orientation_180"),
@@ -99,8 +101,8 @@ void CircuitDocument::slotInitItemActions( )
 	for ( unsigned i = 0; i < 4; ++ i)
 	{
 		orientation_actions[i]->setEnabled(true);
-		m_pOrientationAction->remove( orientation_actions[i] );
-		m_pOrientationAction->insert( orientation_actions[i] );
+		m_pOrientationAction->removeAction( orientation_actions[i] );
+		m_pOrientationAction->addAction( orientation_actions[i] );
 	}
 	
 	if ( item->angleDegrees() == 0 )
@@ -237,7 +239,7 @@ void CircuitDocument::fillContextMenu( const QPoint &pos )
 	if ( !activeCircuitView ) return;
 
 	bool canCreateSubcircuit = (m_selectList->count() > 1 && countExtCon(m_selectList->items()) > 0);
-	KAction * subcircuitAction = activeCircuitView->action("circuit_create_subcircuit");
+	QAction * subcircuitAction = activeCircuitView->action("circuit_create_subcircuit");
 	subcircuitAction->setEnabled( canCreateSubcircuit );
 
 	if ( m_selectList->count() < 1 ) return;
@@ -248,7 +250,7 @@ void CircuitDocument::fillContextMenu( const QPoint &pos )
 	//logic was --electronerd
 	if (!( !item && m_selectList->count() > 0 || !m_selectList->itemsAreSameType() ))
 	{	
-		KAction * orientation_actions[] = {
+		QAction * orientation_actions[] = {
 			activeCircuitView->action("edit_orientation_0"),
 			activeCircuitView->action("edit_orientation_90"),
 			activeCircuitView->action("edit_orientation_180"),
@@ -258,11 +260,11 @@ void CircuitDocument::fillContextMenu( const QPoint &pos )
 
 		for ( unsigned i = 0; i < 4; ++ i)
 		{
-			m_pOrientationAction->remove( orientation_actions[i] );
-			m_pOrientationAction->insert( orientation_actions[i] );
+			m_pOrientationAction->removeAction( orientation_actions[i] );
+			m_pOrientationAction->addAction( orientation_actions[i] );
 		}
 
-		QPtrList<KAction> orientation_actionlist;
+		QList<QAction*> orientation_actionlist;
 	// 	orientation_actionlist.prepend( new KActionSeparator() );
 		orientation_actionlist.append( m_pOrientationAction );
 		KTechlab::self()->plugActionList( "orientation_actionlist", orientation_actionlist );
@@ -470,7 +472,7 @@ void CircuitDocument::assignCircuits()
 			m_wireList << (*it)->wire(i);
 	}
 
-	typedef QValueList<PinList> PinListList;
+	typedef QList<PinList> PinListList;
 	
 	// Stage 1: Partition the circuit up into dependent areas (bar splitting
 	// at ground pins)
@@ -563,7 +565,7 @@ void CircuitDocument::splitIntoCircuits( PinList *pinList )
 {
 	// First: identify ground
 	PinList unassignedPins = *pinList;
-	typedef QValueList<PinList> PinListList;
+	typedef QList<PinList> PinListList;
 	PinListList pinListList;
 
 	while ( !unassignedPins.isEmpty() ) {

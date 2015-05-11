@@ -11,9 +11,9 @@
 #include "microinfo.h"
 #include "microsettings.h"
 #include "microsettingsdlg.h"
-#include "microsettingswidget.h"
+#include "ui_microsettingswidget.h"
 #include "micropackage.h"
-#include "newpinmappingwidget.h"
+#include "ui_newpinmappingwidget.h"
 #include "pinmapping.h"
 
 #include <kcombobox.h>
@@ -24,16 +24,37 @@
 #include <kmessagebox.h>
 #include <kpushbutton.h>
 
-#include <qgroupbox.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qregexp.h>
-#include <qtable.h>
-#include <qwhatsthis.h>
+#include <Qt/qgroupbox.h>
+#include <Qt/qlabel.h>
+#include <Qt/qlayout.h>
+#include <Qt/qregexp.h>
+#include <Qt/q3table.h>
+#include <Qt/qwhatsthis.h>
+
+struct MicroSettingsWidget : public QWidget, Ui::MicroSettingsWidget {
+    MicroSettingsWidget(QWidget *parent) : QWidget(parent) {
+        setupUi(this);
+    }
+};
+
+struct NewPinMappingWidget : public QWidget, Ui::NewPinMappingWidget {
+    NewPinMappingWidget(QWidget *parent) :QWidget(parent) {
+        setupUi(this);
+    }
+};
 
 MicroSettingsDlg::MicroSettingsDlg( MicroSettings * microSettings, QWidget *parent, const char *name )
-	: KDialogBase( parent, name, true, i18n("PIC Settings"), KDialogBase::Ok|KDialogBase::Apply|KDialogBase::Cancel, KDialogBase::Ok, true )
+	:
+	//KDialog( parent, name, true, i18n("PIC Settings"), KDialog::Ok|KDialog::Apply|KDialog::Cancel, KDialog::Ok, true )
+    KDialog( parent /*, name, true, i18n("PIC Settings"), KDialog::Ok|KDialog::Apply|KDialog::Cancel, KDialog::Ok, true */ )
 {
+    setName(name);
+    setModal(true);
+    setCaption(i18n("PIC Settings"));
+    setButtons(KDialog::Ok | KDialog::Apply | KDialog::Cancel);
+    setDefaultButton(KDialog::Ok);
+    showButtonSeparator(true);
+
 	m_pMicroSettings = microSettings;
 	m_pNewPinMappingWidget = 0l;
 	m_pNewPinMappingDlg = 0l;
@@ -66,7 +87,7 @@ MicroSettingsDlg::MicroSettingsDlg( MicroSettings * microSettings, QWidget *pare
 		//END Get current Type / State text
 		
 		
-		QGroupBox * groupBox = new QGroupBox( *it, m_pWidget->portsGroupBox );
+		Q3GroupBox * groupBox = new Q3GroupBox( *it, m_pWidget->portsGroupBox );
 		
 		groupBox->setColumnLayout(0, Qt::Vertical );
 		groupBox->layout()->setSpacing( 6 );
@@ -133,7 +154,8 @@ MicroSettingsDlg::MicroSettingsDlg( MicroSettings * microSettings, QWidget *pare
 	//END Initialize pin maps
 	
 	
-	enableButtonSeparator( false );
+	//enableButtonSeparator( false );
+    showButtonSeparator( false );
 	setMainWidget(m_pWidget);
 	m_pWidget->adjustSize();
 	adjustSize();
@@ -202,8 +224,9 @@ void MicroSettingsDlg::slotCheckNewPinMappingName( const QString & name )
 	// Validate name might change the name so that it is valid
 	QString newName = name;
 	
-	if ( m_pNewPinMappingWidget )
-		m_pNewPinMappingDlg->enableButtonOK( validatePinMapName( newName ) == QValidator::Acceptable );
+	if ( m_pNewPinMappingWidget ) {
+		m_pNewPinMappingDlg->enableButtonOk( validatePinMapName( newName ) == QValidator::Acceptable );
+    }
 	
 	if ( newName != name )
 		m_pNewPinMappingWidget->nameEdit->setText( newName );
@@ -212,7 +235,12 @@ void MicroSettingsDlg::slotCheckNewPinMappingName( const QString & name )
 
 void MicroSettingsDlg::slotCreatePinMap()
 {
-	m_pNewPinMappingDlg = new KDialogBase( this, "New Pin Mapping Dlg", true, i18n("New Pin Mapping"), Ok | Cancel );
+	//m_pNewPinMappingDlg = new KDialog( this, "New Pin Mapping Dlg", true, i18n("New Pin Mapping"), Ok | Cancel );
+    m_pNewPinMappingDlg = new KDialog( this);
+    m_pNewPinMappingDlg->setName( "New Pin Mapping Dlg" );
+    m_pNewPinMappingDlg->setModal( true );
+    m_pNewPinMappingDlg->setCaption(i18n("New Pin Mapping"));
+    m_pNewPinMappingDlg->setButtons( KDialog::Ok | KDialog::Cancel );
 	m_pNewPinMappingDlg->setButtonText( Ok, i18n("Create") );
 	m_pNewPinMappingWidget = new NewPinMappingWidget( m_pNewPinMappingDlg );
 	m_pNewPinMappingDlg->setMainWidget( m_pNewPinMappingWidget );
@@ -257,7 +285,8 @@ void MicroSettingsDlg::slotCreatePinMap()
 	
 	m_pinMappings[name] = PinMapping( type );
 	m_pWidget->pinMapCombo->insertItem( name );
-	m_pWidget->pinMapCombo->setCurrentItem( m_pWidget->pinMapCombo->count() - 1 );
+	//m_pWidget->pinMapCombo->setCurrentItem( m_pWidget->pinMapCombo->count() - 1 );
+    m_pWidget->pinMapCombo->setCurrentItem( name );
 	
 	updatePinMapButtons();
 	slotModifyPinMap();
@@ -275,7 +304,7 @@ void MicroSettingsDlg::slotRenamePinMap()
 	PinMappingNameValidator * validator = new PinMappingNameValidator( this, oldName );
 	
 	bool ok = false;
-	QString newName = KInputDialog::getText( i18n("New Pin Map Name"), i18n("Name"), oldName, & ok, this, 0, validator );
+	QString newName = KInputDialog::getText( i18n("New Pin Map Name"), i18n("Name"), oldName, & ok, this,/* 0, */ validator );
 	
 	delete validator;
 	

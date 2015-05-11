@@ -161,8 +161,8 @@ Connector *FlowICNDocument::createConnector( Connector *con1, Connector *con2, c
 	const bool con1UsedManual = con1->usesManualPoints();
 	const bool con2UsedManual = con2->usesManualPoints();
 	
-	QValueList<QPointList> oldCon1Points = con1->splitConnectorPoints(pos1);
-	QValueList<QPointList> oldCon2Points = con2->splitConnectorPoints(pos2);
+	QList<QPointList> oldCon1Points = con1->splitConnectorPoints(pos1);
+	QList<QPointList> oldCon2Points = con2->splitConnectorPoints(pos2);
 	
 	
 	// FIXME dynamic_cast used because Connector doesn't know about FPNode
@@ -210,7 +210,7 @@ Connector * FlowICNDocument::createConnector( Node *node, Connector *con, const 
 		pointList = &autoPoints;
 	}
 	
-	QValueList<QPointList> oldConPoints = con->splitConnectorPoints(pos2);
+	QList<QPointList> oldConPoints = con->splitConnectorPoints(pos2);
 	con->hide();
 	
 	// The actual new connector
@@ -221,11 +221,11 @@ Connector * FlowICNDocument::createConnector( Node *node, Connector *con, const 
 	// The two connectors formed from the original one when split
 	Connector *new2 = newNode->createInputConnector(conStartNode);
 	conStartNode->addOutputConnector(new2);
-	new2->setRoutePoints( *oldConPoints.at(0), usedManual );
+	new2->setRoutePoints( oldConPoints.at(0), usedManual );
 	
 	Connector *new3 = conEndNode->createInputConnector(newNode);
 	newNode->addOutputConnector(new3);
-	new3->setRoutePoints( *oldConPoints.at(1), usedManual );
+	new3->setRoutePoints( oldConPoints.at(1), usedManual );
 	
 	// Avoid flicker: tell them to update their draw lists now
 	con->updateConnectorPoints(false);
@@ -326,7 +326,7 @@ void FlowICNDocument::flushDeleteList()
 	QCanvasItemList::iterator end = m_itemDeleteList.end();
 	for ( QCanvasItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it )
 	{
-		if ( *it && m_itemDeleteList.contains ( *it ) > 1 )
+		if ( *it && (m_itemDeleteList.count ( *it ) > 1) )
 		{
 			*it = 0l;
 		}
@@ -452,8 +452,8 @@ bool FlowICNDocument::joinConnectors( FPNode *node )
 	if ( node->inputConnectorList().count() == 0 )
 	{
 		// Both connectors emerge from node - output - i.e. node is pure start node
-		con1 = *node->outputConnectorList().at(0);
-		con2 = *node->outputConnectorList().at(1);
+		con1 = node->outputConnectorList().at(0).data();
+		con2 = node->outputConnectorList().at(1).data();
 		if ( con1 == con2 ) {
 			return false;
 		}
@@ -465,8 +465,8 @@ bool FlowICNDocument::joinConnectors( FPNode *node )
 	else if ( node->inputConnectorList().count() == 1 )
 	{
 		// Ont input, one output
-		con1 = *node->inputConnectorList().at(0);
-		con2 = *node->outputConnectorList().at(0);
+		con1 = node->inputConnectorList().at(0).data();
+		con2 = node->outputConnectorList().at(0).data();
 		if ( con1 == con2 ) {
 			return false;
 		}
@@ -478,8 +478,8 @@ bool FlowICNDocument::joinConnectors( FPNode *node )
 	else
 	{
 		// Both input - i.e. node is pure end node
-		con1 = *node->inputConnectorList().at(0);
-		con2 = *node->inputConnectorList().at(1);
+		con1 = node->inputConnectorList().at(0).data();
+		con2 = node->inputConnectorList().at(1).data();
 		if ( con1 == con2 ) {
 			return false;
 		}

@@ -23,19 +23,24 @@
 #include "core/ktlconfig.h"
 #include "utils.h"
 
-#include <kaccel.h>
+//#include <kaccel.h>
+#include <kaction.h>
+#include <kstandardaction.h>
 #include <kdebug.h>
 #include <kiconloader.h>
 #include <klocale.h>
-#include <kpopupmenu.h>
-#include <kurldrag.h>
+#include <k3popupmenu.h>
+#include <k3urldrag.h>
+#include <ktoolbarpopupaction.h>
+#include <kactioncollection.h>
 
-#include <qapplication.h>
-#include <qcursor.h>
-#include <qtimer.h>
-#include <qwmatrix.h>
+#include <Qt/qapplication.h>
+#include <Qt/qcursor.h>
+#include <Qt/qtimer.h>
+#include <Qt/qwmatrix.h>
 
 #include <cmath>
+#include <kmenu.h>
 
 
 //BEGIN class ItemView
@@ -44,52 +49,113 @@ ItemView::ItemView( ItemDocument * itemDocument, ViewContainer *viewContainer, u
 {
 	KActionCollection * ac = actionCollection();
 	
-	KStdAction::selectAll(	itemDocument,	SLOT(selectAll()),	ac );
-	KStdAction::zoomIn(	this,		SLOT(zoomIn()),		ac );
-	KStdAction::zoomOut(	this,		SLOT(zoomOut()),	ac );
-	KStdAction::actualSize(	this,		SLOT(actualSize()),	ac )->setEnabled(false);
+	KStandardAction::selectAll(	itemDocument,	SLOT(selectAll()),	ac );
+	KStandardAction::zoomIn(	this,		SLOT(zoomIn()),		ac );
+	KStandardAction::zoomOut(	this,		SLOT(zoomOut()),	ac );
+	KStandardAction::actualSize(	this,		SLOT(actualSize()),	ac )->setEnabled(false);
 	
 	
-	KAccel *pAccel = new KAccel(this);
-	pAccel->insert( "Cancel", i18n("Cancel"), i18n("Cancel the current operation"), Qt::Key_Escape, itemDocument, SLOT(cancelCurrentOperation()) );
-	pAccel->readSettings();
+	//KAccel *pAccel = new KAccel(this);
+	//pAccel->insert( "Cancel", i18n("Cancel"), i18n("Cancel the current operation"), Qt::Key_Escape, itemDocument, SLOT(cancelCurrentOperation()) );
+	//pAccel->readSettings(); // TODO what does this do?
+    KAction *pAccel = new KAction( KIcon("cancel"), i18n("Cancel"), ac);
+    pAccel->setName("cancelCurrentOperation");
+    pAccel->setShortcut(Qt::Key_Escape);
+    connect(pAccel, SIGNAL(triggered(bool)), itemDocument, SLOT(cancelCurrentOperation()));
+    ac->addAction("cancelCurrentOperation", pAccel);
 	
-	new KAction( i18n("Delete"), "editdelete", Qt::Key_Delete, itemDocument, SLOT(deleteSelection()), ac, "edit_delete" );
-	new KAction( i18n("Export as Image..."), 0, 0, itemDocument, SLOT(exportToImage()), ac, "file_export_image");
+    {
+	//new KAction( i18n("Delete"), "editdelete", Qt::Key_Delete, itemDocument, SLOT(deleteSelection()), ac, "edit_delete" );
+        KAction *action = new KAction( KIcon("editdelete"), i18n("Delete"), ac);
+        action->setName("edit_delete");
+        connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(deleteSelection()));
+        ac->addAction("edit_delete", action);
+    }
+    {
+	//new KAction( i18n("Export as Image..."), 0, 0, itemDocument, SLOT(exportToImage()), ac, "file_export_image");
+        KAction *action = new KAction( KIcon("file_export_image"), i18n("Export as Image..."), ac);
+        action->setName("file_export_image");
+        connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(exportToImage()));
+        ac->addAction("file_export_image", action);
+    }
 	
 	//BEGIN Item Alignment actions
-	new KAction( i18n("Align Horizontally"), 0, 0, itemDocument, SLOT(alignHorizontally()), ac, "align_horizontally" );
-	new KAction( i18n("Align Vertically"), 0, 0, itemDocument, SLOT(alignVertically()), ac, "align_vertically" );
-	new KAction( i18n("Distribute Horizontally"), 0, 0, itemDocument, SLOT(distributeHorizontally()), ac, "distribute_horizontally" );
-	new KAction( i18n("Distribute Vertically"), 0, 0, itemDocument, SLOT(distributeVertically()), ac, "distribute_vertically" );
+	{
+	//new KAction( i18n("Align Horizontally"), 0, 0, itemDocument, SLOT(alignHorizontally()), ac, "align_horizontally" );
+        KAction *action = new KAction( KIcon("align_horizontally"), i18n("Align Horizontally"), ac);
+        action->setName("align_horizontally");
+        connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(alignHorizontally()));
+        ac->addAction("align_horizontally", action);
+    }
+    {
+	//new KAction( i18n("Align Vertically"), 0, 0, itemDocument, SLOT(alignVertically()), ac, "align_vertically" );
+        KAction *action = new KAction( KIcon("align_vertically"), i18n("Align Vertically"), ac);
+        action->setName("align_vertically");
+        connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(alignVertically()));
+        ac->addAction("align_vertically", action);
+    }
+    {
+	//new KAction( i18n("Distribute Horizontally"), 0, 0, itemDocument, SLOT(distributeHorizontally()), ac, "distribute_horizontally" );
+        KAction *action = new KAction( KIcon("distribute_horizontally"), i18n("Distribute Horizontally"), ac);
+        action->setName("distribute_horizontally");
+        connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(distributeHorizontally()));
+        ac->addAction("distribute_horizontally", action);
+    }
+    {
+	//new KAction( i18n("Distribute Vertically"), 0, 0, itemDocument, SLOT(distributeVertically()), ac, "distribute_vertically" );
+        KAction *action = new KAction( KIcon("distribute_vertically"), i18n("Distribute Vertically"), ac);
+        action->setName("distribute_vertically");
+        connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(distributeVertically()));
+        ac->addAction("distribute_vertically", action);
+    }
 	//END Item Alignment actions
 	
 	
 	//BEGIN Draw actions
-	KToolBarPopupAction * pa = new KToolBarPopupAction( i18n("Draw"), "paintbrush", 0, 0, 0, ac, "edit_draw" );
+	//KToolBarPopupAction * pa = new KToolBarPopupAction( i18n("Draw"), "paintbrush", 0, 0, 0, ac, "edit_draw" );
+	KToolBarPopupAction * pa = new KToolBarPopupAction( KIcon("paintbrush"), i18n("Draw"), ac);
+    pa->setName("edit_draw");
 	pa->setDelayed(false);
 	
-	KPopupMenu * m = pa->popupMenu();
-	m->insertTitle( i18n("Draw") );
+	KMenu * m = pa->popupMenu();
+	m->addTitle( i18n("Draw") );
 	
-	m->insertItem( KGlobal::iconLoader()->loadIcon( "tool_text",	KIcon::Small ), i18n("Text"),		DrawPart::da_text );
-	m->insertItem( KGlobal::iconLoader()->loadIcon( "tool_line",	KIcon::Small ), i18n("Line"),		DrawPart::da_line );
-	m->insertItem( KGlobal::iconLoader()->loadIcon( "tool_arrow",	KIcon::Small ), i18n("Arrow"),		DrawPart::da_arrow );
-	m->insertItem( KGlobal::iconLoader()->loadIcon( "tool_ellipse",	KIcon::Small ), i18n("Ellipse"),	DrawPart::da_ellipse );
-	m->insertItem( KGlobal::iconLoader()->loadIcon("tool_rectangle", KIcon::Small ), i18n("Rectangle"),	DrawPart::da_rectangle );
-	m->insertItem( KGlobal::iconLoader()->loadIcon( "imagegallery",	KIcon::Small ), i18n("Image"),		DrawPart::da_image );
+	m->insertItem( KIcon( "tool_text" ), i18n("Text"),		DrawPart::da_text );
+	m->insertItem( KIcon( "tool_line" ), i18n("Line"),		DrawPart::da_line );
+	m->insertItem( KIcon( "tool_arrow"  ), i18n("Arrow"),		DrawPart::da_arrow );
+	m->insertItem( KIcon( "tool_ellipse" ), i18n("Ellipse"),	DrawPart::da_ellipse );
+	m->insertItem( KIcon("tool_rectangle" ), i18n("Rectangle"),	DrawPart::da_rectangle );
+	m->insertItem( KIcon( "imagegallery" ), i18n("Image"),		DrawPart::da_image );
 	connect( m, SIGNAL(activated(int)), itemDocument, SLOT(slotSetDrawAction(int)) );
 	//END Draw actions
 	
 	
 	//BEGIN Item Control actions
-	new KAction( i18n("Raise Selection"), "bring_forward", Qt::Key_PageUp,   itemDocument, SLOT(raiseZ()), ac, "edit_raise" );
-	new KAction( i18n("Lower Selection"), "send_backward", Qt::Key_PageDown, itemDocument, SLOT(lowerZ()), ac, "edit_lower" );
+    {
+	//new KAction( i18n("Raise Selection"), "bring_forward", Qt::Key_PageUp,   itemDocument, SLOT(raiseZ()), ac, "edit_raise" );
+        KAction * action = new KAction( KIcon("bring_forward"), i18n("Raise Selection"), ac);
+        action->setName("edit_raise");
+        action->setShortcut(Qt::Key_PageUp);
+        connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(raiseZ()));
+        ac->addAction("edit_raise", action);
+    }
+    {
+	//new KAction( i18n("Lower Selection"), "send_backward", Qt::Key_PageDown, itemDocument, SLOT(lowerZ()), ac, "edit_lower" );
+        KAction *action = new KAction( KIcon("send_backward"), i18n("Lower Selection"), ac);
+        action->setName("edit_lower");
+        action->setShortcut(Qt::Key_PageDown);
+        connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(lowerZ()));
+        ac->addAction("edit_lower", action);
+    }
 	//END Item Control actions
 	
 	
-	KAction * na = new KAction( "", 0, 0, 0, 0, ac, "null_action" );
+	{
+	//KAction * na = new KAction( "", 0, 0, 0, 0, ac, "null_action" );
+    KAction * na = new KAction( "", ac);
+    na->setName("null_action");
 	na->setEnabled(false);
+    }
 	
 	setXMLFile( "ktechlabitemviewui.rc" );
 	
@@ -244,12 +310,12 @@ void ItemView::dropEvent( QDropEvent *event )
 {
 	removeDragItem();
 	
-	KURL::List urls;
-	if ( KURLDrag::decode( event, urls ) )
+	KUrl::List urls;
+	if ( K3URLDrag::decode( event, urls ) )
 	{
 		// Then it is URLs that we can decode :)
-		const KURL::List::iterator end = urls.end();
-		for ( KURL::List::iterator it = urls.begin(); it != end; ++it )
+		const KUrl::List::iterator end = urls.end();
+		for ( KUrl::List::iterator it = urls.begin(); it != end; ++it )
 		{
 			DocManager::self()->openURL(*it);
 		}
@@ -260,7 +326,9 @@ void ItemView::dropEvent( QDropEvent *event )
 		return;
 	
 	QString text;
-	QDataStream stream( event->encodedData(event->format()), IO_ReadOnly );
+	//QDataStream stream( event->encodedData(event->format()), IO_ReadOnly );
+    QByteArray byteArray( event->encodedData(event->format()) );
+    QDataStream stream( &byteArray, IO_ReadOnly);
 	stream >> text;
 
 	// Get a new component item
@@ -398,8 +466,8 @@ void ItemView::dragEnterEvent( QDragEnterEvent *event )
 {
 	startUpdatingStatus();
 	
-	KURL::List urls;
-	if ( KURLDrag::decode( event, urls ) ) {
+	KUrl::List urls;
+	if ( K3URLDrag::decode( event, urls ) ) {
 		event->accept(true);
 		// Then it is URLs that we can decode later :)
 		return;
@@ -417,7 +485,9 @@ void ItemView::createDragItem( QDragEnterEvent * e )
 	e->accept();
 	
 	QString text;
-	QDataStream stream( e->encodedData(e->format()), IO_ReadOnly );
+	//QDataStream stream( e->encodedData(e->format()), IO_ReadOnly );
+    QByteArray byteArray( e->encodedData(e->format()) );
+    QDataStream stream( &byteArray, IO_ReadOnly );
 	stream >> text;
 
 	QPoint p = mousePosToCanvasPos( e->pos() );
@@ -584,7 +654,7 @@ void ItemView::updateStatus()
 
 //BEGIN class CVBEditor
 CVBEditor::CVBEditor( Canvas *canvas, ItemView *itemView, const char *name )
-	: QCanvasView( canvas, itemView, name, WNoAutoErase | WStaticContents )
+	: QCanvasView( canvas, itemView, name, Qt::WNoAutoErase | Qt::WStaticContents )
 {
 	m_pCanvas = canvas;
 	b_ignoreEvents = false;
@@ -637,9 +707,9 @@ void CVBEditor::contentsWheelEvent( QWheelEvent * e )
 	QWheelEvent ce( viewport()->mapFromGlobal( e->globalPos() ),
 			e->globalPos(), e->delta(), e->state());
 	
-	if ( e->orientation() == Horizontal && horizontalScrollBar() )
+	if ( e->orientation() == Qt::Horizontal && horizontalScrollBar() )
 		QApplication::sendEvent( horizontalScrollBar(), e);
-	else  if (e->orientation() == Vertical && verticalScrollBar() )
+	else  if (e->orientation() == Qt::Vertical && verticalScrollBar() )
 		QApplication::sendEvent( verticalScrollBar(), e);
 	
 #if 0

@@ -16,11 +16,13 @@
 
 #include <cmath>
 #include <kdebug.h>
-#include <kdialogbase.h>
+#include <kdialog.h>
 #include <ktextedit.h>
-#include <qbitarray.h>
-#include <qlayout.h>
-#include <qtimer.h>
+#include <kstandardguiitem.h>
+
+#include <Qt/qbitarray.h>
+#include <Qt/qlayout.h>
+#include <Qt/qtimer.h>
 
 const int minPrefixExp = -24;
 const int maxPrefixExp = 24;
@@ -29,7 +31,8 @@ const QString SIprefix[] = {"y","z","a","f","p","n",QChar(0xB5),"m","","k","M","
 
 
 Item::Item( ItemDocument *itemDocument, bool newItem, const QString &id )
-	: QObject(), QCanvasPolygon( itemDocument ? itemDocument->canvas() : 0 )
+	: //QObject(),
+        QCanvasPolygon( itemDocument ? itemDocument->canvas() : 0 )
 {
 	m_bDynamicContent = false;
 	m_bIsRaised = false;
@@ -110,7 +113,7 @@ void Item::setChanged()
 }
 
 
-void Item::setItemPoints( const QPointArray & pa, bool setSizeFromPoints )
+void Item::setItemPoints( const Q3PointArray & pa, bool setSizeFromPoints )
 {
 	m_itemPoints = pa;
 	if (setSizeFromPoints)
@@ -140,7 +143,7 @@ void Item::setSize( QRect sizeRect, bool forceItemPoints )
 	m_sizeRect = sizeRect;
 	if ( m_itemPoints.isEmpty() || forceItemPoints )
 	{
-		setItemPoints( QPointArray( m_sizeRect ), false );
+		setItemPoints( Q3PointArray( m_sizeRect ), false );
 	}
 	canvas()->setChanged(areaPoints().boundingRect());
 	postResize();
@@ -193,7 +196,7 @@ ItemData Item::itemData() const
 			}
 			case Variant::Type::Color:
 			{
-				itemData.dataColor[it.key()] = it.data()->value().toColor();
+				itemData.dataColor[it.key()] = it.data()->value().value<QColor>();
 				break;
 			}
 			case Variant::Type::Bool:
@@ -328,18 +331,28 @@ bool Item::mouseDoubleClickEvent( const EventInfo & eventInfo )
 	
 	if ( type == Variant::Type::Multiline )
 	{
-		KDialogBase * dlg = new KDialogBase( 0l, "", true, property->editorCaption(), KDialogBase::Ok|KDialogBase::Cancel|KDialogBase::User1, KDialogBase::Ok, false, KStdGuiItem::clear() );
-		QFrame *frame = dlg->makeMainWidget();
+		//KDialog * dlg = new KDialog( 0l, "", true, property->editorCaption(), KDialog::Ok|KDialog::Cancel|KDialog::User1, KDialog::Ok,
+        //                             false, KStandardGuiItem::clear() );
+        KDialog * dlg = new KDialog( 0 );
+        dlg->setModal(true);
+        dlg->setCaption( property->editorCaption() );
+        dlg->setButtons(KDialog::Ok|KDialog::Cancel|KDialog::User1);
+        dlg->setDefaultButton(KDialog::Ok);
+        dlg->showButtonSeparator(false);
+        dlg->setButtonText(KDialog::User1, KStandardGuiItem::clear().text());
+        //QFrame *frame = dlg->makeMainWidget();
+		QFrame *frame = new QFrame(dlg);
+        dlg->setMainWidget(frame);
 		QVBoxLayout *layout = new QVBoxLayout( frame, 0, dlg->spacingHint() );
 		KTextEdit *textEdit = new KTextEdit( frame );
-		textEdit->setTextFormat( PlainText );
+		textEdit->setTextFormat( Qt::PlainText );
 		textEdit->setText( property->value().toString() );
 		layout->addWidget( textEdit, 10 );
 		textEdit->setFocus();
 		connect( dlg, SIGNAL( user1Clicked() ), textEdit, SLOT( clear() ) );
 		dlg->setMinimumWidth( 600 );
 		
-		if ( dlg->exec() == KDialogBase::Accepted )
+		if ( dlg->exec() == KDialog::Accepted )
 		{
 			property->setValue( textEdit->text() );
 			dataChanged();
@@ -353,7 +366,7 @@ bool Item::mouseDoubleClickEvent( const EventInfo & eventInfo )
 		RichTextEditorDlg * dlg = new RichTextEditorDlg( 0l, property->editorCaption() );
 		dlg->setText( property->value().toString() );
 		
-		if ( dlg->exec() == KDialogBase::Accepted )
+		if ( dlg->exec() == KDialog::Accepted )
 		{
 			property->setValue( dlg->text() );
 			dataChanged();
@@ -585,7 +598,7 @@ QString Item::dataString( const QString & id ) const
 QColor Item::dataColor( const QString & id ) const
 {
 	Variant * variant = property(id);
-	return variant ? variant->value().toColor() : Qt::black;
+	return variant ? variant->value().value<QColor>() : Qt::black;
 }
 
 

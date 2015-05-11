@@ -26,11 +26,11 @@
 #include <kdebug.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <ktempfile.h>
+#include <k3tempfile.h>
 #include <kstandarddirs.h>
-#include <qfile.h>
-#include <qtextstream.h>
-#include <qtimer.h>
+#include <Qt/qfile.h>
+#include <Qt/qtextstream.h>
+#include <Qt/qtimer.h>
 
 #include "gpsim/cod.h"
 #include "gpsim/interface.h"
@@ -351,12 +351,12 @@ QString GpsimProcessor::generateSymbolFile( const QString &fileName, QObject *re
 	}
 	else if ( extension == "flowcode" )
 	{
-		const QString hexFile = KTempFile( QString::null, ".hex" ).name();
+		const QString hexFile = K3TempFile( QString::null, ".hex" ).name();
 		
 		ProcessOptions o;
 		o.b_addToProject = false;
 		o.setTargetFile( hexFile );
-		o.setInputFiles( fileName );
+		o.setInputFiles( QStringList(fileName) );
 		o.setMethod( ProcessOptions::Method::Forget );
 		o.setProcessPath( ProcessOptions::ProcessPath::FlowCode_Program );
 		
@@ -376,7 +376,7 @@ QString GpsimProcessor::generateSymbolFile( const QString &fileName, QObject *re
 		ProcessOptions o;
 		o.b_addToProject = false;
 		o.setTargetFile( QString(fileName).replace(".asm",".hex"));
-		o.setInputFiles(fileName);
+		o.setInputFiles(QStringList(fileName));
 		o.setMethod( ProcessOptions::Method::Forget );
 		o.setProcessPath( ProcessOptions::ProcessPath::path( ProcessOptions::guessMediaType(fileName), ProcessOptions::ProcessPath::Program ) );
 		
@@ -396,7 +396,7 @@ QString GpsimProcessor::generateSymbolFile( const QString &fileName, QObject *re
 		ProcessOptions o;
 		o.b_addToProject = false;
 		o.setTargetFile( QString(fileName).replace(".c",".hex"));
-		o.setInputFiles(fileName);
+		o.setInputFiles(QStringList(fileName));
 		o.setMethod( ProcessOptions::Method::Forget );
 		o.setProcessPath( ProcessOptions::ProcessPath::C_Program );
 		
@@ -423,7 +423,7 @@ void GpsimProcessor::compileMicrobe( const QString &filename, QObject *receiver,
 	ProcessOptions o;
 	o.b_addToProject = false;
 	o.setTargetFile( QString(filename).replace(".microbe",".hex") );
-	o.setInputFiles(filename);
+	o.setInputFiles(QStringList(filename));
 	o.setMethod( ProcessOptions::Method::Forget );
 	o.setProcessPath( ProcessOptions::ProcessPath::Microbe_Program );
 	ProcessChain * pc = LanguageManager::self()->compile(o);
@@ -469,7 +469,7 @@ GpsimDebugger::GpsimDebugger( Type type, GpsimProcessor * gpsim )
 
 GpsimDebugger::~GpsimDebugger()
 {
-	QValueList<DebugLine*> debugLinesToDelete;
+	QList<DebugLine*> debugLinesToDelete;
 	
 	for ( unsigned i = 0; i < m_addressSize; ++i )
 	{
@@ -481,8 +481,8 @@ GpsimDebugger::~GpsimDebugger()
 		debugLinesToDelete += dl;
 	}
 	
-	const QValueList<DebugLine*>::iterator end = debugLinesToDelete.end();
-	for ( QValueList<DebugLine*>::iterator it = debugLinesToDelete.begin(); it != end; ++it )
+	const QList<DebugLine*>::iterator end = debugLinesToDelete.end();
+	for ( QList<DebugLine*>::iterator it = debugLinesToDelete.begin(); it != end; ++it )
 		delete *it;
 	
 	delete [] m_addressToLineMap;
@@ -742,7 +742,7 @@ RegisterSet::RegisterSet( pic_processor * picProcessor )
 		m_nameToRegisterMap[ info->name() ] = info;
 	}
 	
-	RegisterInfo * info = new RegisterInfo( picProcessor->W );
+	RegisterInfo * info = new RegisterInfo( picProcessor->Wreg ); // is tihs correct for "W" member? TODO
 	m_registers.append( info );
 	m_nameToRegisterMap[ info->name() ] = info;
 }

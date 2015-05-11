@@ -14,8 +14,8 @@
 #include "itemselector.h"
 
 #include <kurl.h>
-#include <qguardedptr.h>
-#include <qvaluelist.h>
+#include <Qt/qpointer.h>
+#include <Qt/qlist.h>
 
 class Document;
 class ILVItem;
@@ -29,8 +29,8 @@ class QDomElement;
 class QStringList;
 namespace KateMDI { class ToolView; }
 
-typedef QValueList<ProcessOptions> ProcessOptionsList;
-typedef QValueList< QGuardedPtr<ProjectItem> > ProjectItemList;
+typedef QList<ProcessOptions> ProcessOptionsList;
+typedef QList< QPointer<ProjectItem> > ProjectItemList;
 
 
 class LinkerOptions
@@ -74,13 +74,13 @@ class LinkerOptions
 		QStringList linkedExternal() const { return m_linkedExternal; }
 		void setLinkedExternal( const QStringList & linkedExternal ) { m_linkedExternal = linkedExternal; }
 		
-		QDomElement toDomElement( QDomDocument & doc, const KURL & baseURL ) const;
+		QDomElement toDomElement( QDomDocument & doc, const KUrl & baseURL ) const;
 		
 		static QString hexFormatToString( HexFormat::type format );
 		static HexFormat::type stringToHexFormat( const QString & hexFormat );
 		
 	protected:
-		void domElementToLinkerOptions( const QDomElement & element, const KURL & baseURL );
+		void domElementToLinkerOptions( const QDomElement & element, const KUrl & baseURL );
 		
 		QStringList m_linkedInternal;
 		QStringList m_linkedExternal;
@@ -102,8 +102,8 @@ class ProcessingOptions
 		 * Sets the output url that this item will be built into (if this is a
 		 * buildable item).
 		 */
-		void setOutputURL( const KURL & url ) { m_outputURL = url; }
-		KURL outputURL() const { return m_outputURL; }
+		void setOutputURL( const KUrl & url ) { m_outputURL = url; }
+		KUrl outputURL() const { return m_outputURL; }
 		
 		/**
 		 * Set the microprocessor id that this project item is being built for
@@ -112,15 +112,15 @@ class ProcessingOptions
 		virtual void setMicroID( const QString & id ) { m_microID = id; }
 		virtual QString microID() const { return m_microID; }
 		
-		QDomElement toDomElement( QDomDocument & doc, const KURL & baseURL ) const;
+		QDomElement toDomElement( QDomDocument & doc, const KUrl & baseURL ) const;
 		
 		void setUseParentMicroID( bool useParentMicroID ) { m_bUseParentMicroID = useParentMicroID; }
 		bool useParentMicroID() const { return m_bUseParentMicroID; }
 		
 	protected:
-		void domElementToProcessingOptions( const QDomElement & element, const KURL & baseURL );
+		void domElementToProcessingOptions( const QDomElement & element, const KUrl & baseURL );
 		
-		KURL m_outputURL;
+		KUrl m_outputURL;
 		QString m_microID;
 		bool m_bUseParentMicroID;
 };
@@ -174,8 +174,8 @@ class ProjectItem : public QObject, public LinkerOptions, public ProcessingOptio
 		 * url has not yet been set, then this project item will set the output
 		 * url based on this (input) url.
 		 */
-		void setURL( const KURL & url );
-		KURL url() const { return m_url; }
+		void setURL( const KUrl & url );
+		KUrl url() const { return m_url; }
 		
 		OutputType outputType() const;
 		
@@ -187,12 +187,12 @@ class ProjectItem : public QObject, public LinkerOptions, public ProcessingOptio
 		 * @param outputTypes An OR'ed list of ProjectItem::OutputType values
 		 * for the children.
 		 */
-		KURL::List childOutputURLs( unsigned types = AllTypes, unsigned outputTypes = AllOutputs ) const;
+		KUrl::List childOutputURLs( unsigned types = AllTypes, unsigned outputTypes = AllOutputs ) const;
 		
 		/**
 		 * Creates a new ProjectItem for the given url and adds it as a child.
 		 */
-		void addFile( const KURL & url );
+		void addFile( const KUrl & url );
 		/**
 		 * Queries the user for a list of urls to add, and then calls addFile
 		 * for each url.
@@ -201,7 +201,7 @@ class ProjectItem : public QObject, public LinkerOptions, public ProcessingOptio
 		
 		void addCurrentFile();
 		bool closeOpenFiles();
-		QDomElement toDomElement( QDomDocument & doc, const KURL & baseURL ) const;
+		QDomElement toDomElement( QDomDocument & doc, const KUrl & baseURL ) const;
 		
 		bool build( ProcessOptionsList * pol );
 		void upload( ProcessOptionsList * pol );
@@ -213,19 +213,19 @@ class ProjectItem : public QObject, public LinkerOptions, public ProcessingOptio
 		 * Searches this item and the children for an item for the given url,
 		 * return null if no such item could be found.
 		 */
-		ProjectItem * findItem( const KURL & url );
+		ProjectItem * findItem( const KUrl & url );
 		
 	protected:
-		void domElementToItem( const QDomElement & element, const KURL & baseURL );
+		void domElementToItem( const QDomElement & element, const KUrl & baseURL );
 		void updateILVItemPixmap();
 		void updateControlChildMicroIDs();
 		
-		KURL m_url;
+		KUrl m_url;
 		QString m_name;
 		ProjectItemList m_children;
 		Type m_type;
 		
-		QGuardedPtr<ILVItem> m_pILVItem;
+		QPointer<ILVItem> m_pILVItem;
 		ProjectManager * m_pProjectManager;
 		ProjectItem * m_pParent;
 };
@@ -255,7 +255,7 @@ class ProjectInfo : public ProjectItem
 		bool saveAndClose();
 		bool save();
 		
-		bool open( const KURL & url );
+		bool open( const KUrl & url );
 };
 
 /**
@@ -307,7 +307,7 @@ class ProjectManager : public ItemSelector
 	public slots:
 		void slotNewProject();
 		void slotOpenProject();
-		void slotOpenProject( const KURL &url );
+		void slotOpenProject( const KUrl &url );
 		bool slotCloseProject();
 		void slotCreateSubproject();
 		void slotAddFile();
@@ -326,11 +326,11 @@ class ProjectManager : public ItemSelector
 		void slotProjectOptions();
 	
 	private slots:
-		void slotContextMenuRequested( QListViewItem *item, const QPoint &pos, int col );
+		void slotContextMenuRequested( K3ListViewItem *item, const QPoint &pos, int col );
 		/**
 		 * Called when a user clicks on any item in the project view
 		 */
-		void slotItemClicked( QListViewItem * item );
+		void slotItemClicked( Q3ListViewItem* item );
 		
 	protected:
 		ProjectInfo * m_pCurrentProject;

@@ -33,20 +33,23 @@
 #include <kiconloader.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <kpopupmenu.h>
-#include <kprinter.h>
+#include <k3popupmenu.h>
+//#include <kprinter.h>
+#include <kactionmenu.h>
+#include <kxmlguifactory.h>
 
-#include <qapplication.h>
-#include <qcheckbox.h>
-#include <qclipboard.h>
-#include <qcursor.h>
-#include <qimage.h>
-#include <qpaintdevicemetrics.h>
-#include <qpainter.h>
-#include <qpicture.h>
-#include <qregexp.h> 
-#include <qsimplerichtext.h>
-#include <qtimer.h>
+#include <Qt/qapplication.h>
+#include <Qt/qcheckbox.h>
+#include <Qt/qclipboard.h>
+#include <Qt/qcursor.h>
+#include <Qt/qimage.h>
+#include <Qt/q3paintdevicemetrics.h>
+#include <Qt/qpainter.h>
+#include <Qt/qpicture.h>
+#include <Qt/qregexp.h> 
+#include <Qt/q3simplerichtext.h>
+#include <Qt/qtimer.h>
+#include <Qt/qprinter.h>
 
 #include <cmath>
 #include <cassert>
@@ -84,7 +87,9 @@ ItemDocument::ItemDocument( const QString &caption, const char *name)
 	connect( MechanicsSelector::self(),	SIGNAL(itemClicked(const QString& )),	this, SLOT(slotUnsetRepeatedItemId()) );
 #endif
 
-	m_pAlignmentAction = new KActionMenu( i18n("Alignment"), "rightjust", this );
+	m_pAlignmentAction = new KActionMenu( i18n("Alignment") /*, "rightjust" */ , this );
+    m_pAlignmentAction->setName("rightjust");
+    m_pAlignmentAction->setIcon( KIcon("rightjust") );
 	
 	slotUpdateConfiguration();
 }
@@ -185,7 +190,7 @@ void ItemDocument::writeFile()
 }
 
 
-bool ItemDocument::openURL( const KURL &url )
+bool ItemDocument::openURL( const KUrl &url )
 {
 	ItemDocumentData data( type() );
 	
@@ -235,7 +240,7 @@ bool ItemDocument::openURL( const KURL &url )
 
 void ItemDocument::print()
 {
-	static KPrinter * printer = new KPrinter;
+	static QPrinter * printer = new QPrinter;
 	
 	if ( ! printer->setup( KTechlab::self() ) )
 		return;
@@ -247,7 +252,7 @@ void ItemDocument::print()
 	p.begin( printer );
 	
 	// we let our view do the actual printing
-	QPaintDeviceMetrics metrics( printer );
+	Q3PaintDeviceMetrics metrics( printer );
 	
 	// Round to 16 so that we cut in the middle of squares
 	int w = metrics.width();
@@ -257,7 +262,7 @@ void ItemDocument::print()
 	h = (h & 0xFFFFFFF0) + ((h << 1) & 0x10);
 
 	p.setClipping( true );
-	p.setClipRect( 0, 0, w, h, QPainter::CoordPainter );
+	p.setClipRect( 0, 0, w, h, /* QPainter::CoordPainter */ Qt::ReplaceClip ); // TODO is this correct?
 	
 	// Send off the painter for drawing
 	m_canvas->setBackgroundPixmap( 0 );
@@ -577,7 +582,7 @@ void ItemDocument::canvasRightClick( const QPoint &pos, QCanvasItem* item )
 	KTechlab::self()->unplugActionList("orientation_actionlist");
 	fillContextMenu(pos);
 
-	QPopupMenu *pop = static_cast<QPopupMenu*>(KTechlab::self()->factory()->container("item_popup", KTechlab::self() ));
+	Q3PopupMenu *pop = static_cast<Q3PopupMenu*>(KTechlab::self()->factory()->container("item_popup", KTechlab::self() ));
 
 	if (!pop) return;
 
@@ -593,7 +598,7 @@ void ItemDocument::fillContextMenu( const QPoint & pos )
 	if ( !KTechlab::self() || !activeItemView )
 		return;
 	
-	KAction * align_actions[] = { 
+	QAction * align_actions[] = {
 		activeItemView->action("align_horizontally"),
 		activeItemView->action("align_vertically"),
 		activeItemView->action("distribute_horizontally"),
@@ -606,10 +611,12 @@ void ItemDocument::fillContextMenu( const QPoint & pos )
 	for ( unsigned i = 0; i < 4; ++i )
 	{
 		align_actions[i]->setEnabled(true);
-		m_pAlignmentAction->remove( align_actions[i] );
-		m_pAlignmentAction->insert( align_actions[i] );
+		m_pAlignmentAction->removeAction( align_actions[i] );
+		//m_pAlignmentAction->insert( align_actions[i] );
+        m_pAlignmentAction->addAction( align_actions[i] );
 	}
-	QPtrList<KAction> alignment_actions;
+	//Q3PtrList<KAction> alignment_actions;
+    QList<QAction*> alignment_actions;
 	alignment_actions.append( m_pAlignmentAction );
 	KTechlab::self()->plugActionList( "alignment_actionlist", alignment_actions );
 }
@@ -621,7 +628,7 @@ void ItemDocument::slotInitItemActions()
 	if ( !KTechlab::self() || !activeItemView )
 		return;
 	
-	KAction * align_actions[] = { 
+	QAction * align_actions[] = {
 		activeItemView->action("align_horizontally"),
 		activeItemView->action("align_vertically"),
 		activeItemView->action("distribute_horizontally"),
@@ -667,7 +674,7 @@ void ItemDocument::updateBackground()
 		p.end(); // all done
 	}
 
-	pm.setDefaultOptimization( QPixmap::BestOptim );
+	//pm.setDefaultOptimization( QPixmap::BestOptim ); // TODO no longer available?
 	m_canvas->setBackgroundPixmap(pm); // and the finale.
 }
 
@@ -756,8 +763,8 @@ void ItemDocument::updateItemViewScrollbars()
 		ItemView * itemView = static_cast<ItemView*>((View*)*it);
 		CVBEditor * cvbEditor = itemView->cvbEditor();
 		
-		cvbEditor->setVScrollBarMode( ((h*itemView->zoomLevel()) > cvbEditor->visibleHeight()) ? QScrollView::AlwaysOn : QScrollView::AlwaysOff );
-		cvbEditor->setHScrollBarMode( ((w*itemView->zoomLevel()) > cvbEditor->visibleWidth()) ? QScrollView::AlwaysOn : QScrollView::AlwaysOff );
+		cvbEditor->setVScrollBarMode( ((h*itemView->zoomLevel()) > cvbEditor->visibleHeight()) ? Q3ScrollView::AlwaysOn : Q3ScrollView::AlwaysOff );
+		cvbEditor->setHScrollBarMode( ((w*itemView->zoomLevel()) > cvbEditor->visibleWidth()) ? Q3ScrollView::AlwaysOn : Q3ScrollView::AlwaysOff );
 	}
 }
 
@@ -834,19 +841,28 @@ void ItemDocument::exportToImage()
 	// so setup the filedialog.
 	QString f;
 	f = QString("*.png|%1\n*.bmp|%2\n*.svg|%3").arg( i18n("PNG Image") ).arg( i18n("BMP Image") ).arg( i18n("SVG Image") );
-	KFileDialog exportDialog(QString::null, f, KTechlab::self(), i18n("Export As Image"), true, cropCheck);
+	//KFileDialog exportDialog( KUrl() /*QString::null */, f, KTechlab::self(), i18n("Export As Image"), true, cropCheck);
+    KFileDialog exportDialog( KUrl(), f, KTechlab::self(), /*i18n("Export As Image"),*/ /* true, */ cropCheck);
+    exportDialog.setModal(true);
+    exportDialog.setCaption(i18n("Export As Image"));
 	
 	exportDialog.setOperationMode( KFileDialog::Saving );
 	// now actually show it
 	if ( exportDialog.exec() == QDialog::Rejected )
 		return;
-	KURL url = exportDialog.selectedURL();
+	KUrl url = exportDialog.selectedUrl();
 
 	if ( url.isEmpty() ) return;
 	
 	if ( QFile::exists( url.path() ) )
 	{
-		int query = KMessageBox::warningYesNo( KTechlab::self(), i18n( "A file named \"%1\" already exists. " "Are you sure you want to overwrite it?" ).arg( url.fileName() ), i18n( "Overwrite File?" ), i18n( "Overwrite" ), KStdGuiItem::cancel() );
+		int query = KMessageBox::warningYesNo(
+            KTechlab::self(),
+            i18n( "A file named \"%1\" already exists. " "Are you sure you want to overwrite it?" ).arg( url.fileName() ),
+            i18n( "Overwrite File?" ),
+            //i18n( "Overwrite" ),
+            KStandardGuiItem::cancel() );
+
 		if ( query == KMessageBox::No ) return;
 	}
 	
@@ -916,16 +932,16 @@ void ItemDocument::exportToImage()
 	if ( cropCheck->isChecked() )
 	{
 		if( type == "SVG" )
-			saveResult = dynamic_cast<QPicture*>(outputImage)->save( url.path(), type);
+			saveResult = dynamic_cast<QPicture*>(outputImage)->save( url.path(), type.toLatin1().data());
 		else {
 			QImage img = dynamic_cast<QPixmap*>(outputImage)->convertToImage();
 			img = img.copy(cropArea);
-			saveResult = img.save(url.path(),type);
+			saveResult = img.save(url.path(),type.toLatin1().data());
 		}
 	} else {
 		if ( type=="SVG" )
-			saveResult = dynamic_cast<QPicture*>(outputImage)->save( url.path(), type );
-		else	saveResult = dynamic_cast<QPixmap*>(outputImage)->save( url.path(), type );
+			saveResult = dynamic_cast<QPicture*>(outputImage)->save( url.path(), type.toLatin1().data() );
+		else	saveResult = dynamic_cast<QPixmap*>(outputImage)->save( url.path(), type.toLatin1().data() );
 	}
 	
 	//if(saveResult == true)	KMessageBox::information( this, i18n("Sucessfully exported to \"%1\"").arg( url.filename() ), i18n("Image Export") );
@@ -1316,7 +1332,7 @@ void Canvas::drawForeground ( QPainter &p, const QRect & clip )
 	
 	if ( !firstView ) return;
 	
-	QSimpleRichText * t = new QSimpleRichText( m_message, QApplication::font() );
+	Q3SimpleRichText * t = new Q3SimpleRichText( m_message, QApplication::font() );
 	
 	int w = t->width();
 	int h = t->height();

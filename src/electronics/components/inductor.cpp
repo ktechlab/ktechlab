@@ -13,7 +13,7 @@
 #include "libraryitem.h"
 
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 Item* Inductor::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -23,7 +23,7 @@ Item* Inductor::construct( ItemDocument *itemDocument, bool newItem, const char 
 LibraryItem* Inductor::libraryItem()
 {
 	return new LibraryItem(
-		"ec/inductor",
+		QStringList(QString("ec/inductor")),
 		i18n("Inductor"),
 		i18n("Passive"),
 		"inductor.png",

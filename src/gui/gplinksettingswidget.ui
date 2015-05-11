@@ -1,64 +1,37 @@
-<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
-<class>GplinkSettingsWidget</class>
-<widget class="QWidget">
-    <property name="name">
-        <cstring>GplinkSettingsWidget</cstring>
-    </property>
-    <property name="geometry">
-        <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>370</width>
-            <height>59</height>
-        </rect>
-    </property>
-    <property name="caption">
-        <string>Gplink Settings</string>
-    </property>
-    <widget class="QCheckBox">
-        <property name="name">
-            <cstring>kcfg_gplink_link_shared</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>10</y>
-                <width>350</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Link with shared libraries (&amp;use this with new SDCC)</string>
-        </property>
-        <property name="accel">
-            <string>Alt+U</string>
-        </property>
-    </widget>
-    <spacer>
-        <property name="name">
-            <cstring>spacer5</cstring>
-        </property>
-        <property name="orientation">
-            <enum>Vertical</enum>
-        </property>
-        <property name="sizeType">
-            <enum>Expanding</enum>
-        </property>
-        <property name="sizeHint">
-            <size>
-                <width>31</width>
-                <height>51</height>
-            </size>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>160</x>
-                <y>40</y>
-                <width>31</width>
-                <height>51</height>
-            </rect>
-        </property>
-    </spacer>
-</widget>
-<layoutdefaults spacing="6" margin="11"/>
-</UI>
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>GplinkSettingsWidget</class>
+ <widget class="QWidget" name="GplinkSettingsWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>370</width>
+    <height>59</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Gplink Settings</string>
+  </property>
+  <widget class="QCheckBox" name="kcfg_gplink_link_shared">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>350</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Link with shared libraries (&amp;use this with new SDCC)</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+U</string>
+   </property>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+ <resources/>
+ <connections/>
+</ui>

@@ -9,7 +9,7 @@
  ***************************************************************************/
 
 // This section should be kept at the top to handle detection of os
-#include <qglobal.h>
+#include <Qt/qglobal.h>
 #if defined(Q_OS_DARWIN) || defined(Q_OS_MACX)
 	#define DARWIN
 #endif

@@ -14,7 +14,7 @@
 #include <itemview.h>
 
 class ICNDocument;
-class KRadioAction;
+class KAction;
 class KToolBarPopupAction;
 
 /**
@@ -36,8 +36,8 @@ class ICNView : public ItemView
 		
 	protected:
 		KToolBarPopupAction * m_pRoutingModeToolbarPopup;
-		KRadioAction * m_pManualRoutingAction;
-		KRadioAction * m_pAutoRoutingAction;
+		KAction * m_pManualRoutingAction;
+		KAction * m_pAutoRoutingAction;
 };
 
 #endif

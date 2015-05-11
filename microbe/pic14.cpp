@@ -76,18 +76,18 @@ PortPin PIC14::toPortPin( const QString & portPinString )
 
 	if ( portPinString.length()  == 3 )	
 	{
-		port = QString("PORT%1").arg( portPinString[1].upper() );
+		port = QString("PORT%1").arg( portPinString[1].toUpper() );
 		pin = QString( portPinString[2] ).toInt();
 	}
 	// In form e.g. RB.3
 	else if ( portPinString.length()  == 4 )//modification change ==3 to ==4	
 	{
-		port = QString("PORT%1").arg( portPinString[1].upper() );
+		port = QString("PORT%1").arg( portPinString[1].toUpper() );
 		pin = QString( portPinString[3] ).toInt();//modification change 2 to 3	
 	}
 	else
 	{
-		int dotpos = portPinString.find(".");
+		int dotpos = portPinString.indexOf(".");
 		if ( dotpos == -1 )
 			return PortPin();
 		
@@ -102,7 +102,7 @@ PortPin PIC14::toPortPin( const QString & portPinString )
 			Register Reg(REG.registerType());
 			holdport=Reg.name();
 			if(holdport!=port)
-		    	 cerr << QString(" ERROR: %1 is not a Register bit\n").arg(portPinString );
+		    	 cerr << QString(" ERROR: %1 is not a Register bit\n").arg(portPinString ).toStdString();
 		}
 		else
 			pin = portPinString.mid(dotpos+1).toInt();
@@ -121,7 +121,7 @@ PortPin PIC14::toPortPin( const QString & portPinString )
 //**************************Modification ends ********************************
 	else
 	{
-		cerr << QString("ERROR: %1 is not a Port/Register bit\n").arg(portPinString );
+		cerr << QString("ERROR: %1 is not a Port/Register bit\n").arg(portPinString ).toStdString();
 		return PortPin();
 	}
 }
@@ -157,7 +157,7 @@ uchar PIC14::gprStart() const
 
 PIC14::Type PIC14::toType( const QString & _text )
 {
-	QString text = _text.upper().simplifyWhiteSpace().remove('P');
+	QString text = _text.toUpper().simplified().remove('P');
 	
 	if ( text == "16C84" )
 	{	
@@ -187,7 +187,7 @@ PIC14::Type PIC14::toType( const QString & _text )
 		return P16F877;
 	}
 	
-	cerr << QString("%1 is not a known PIC identifier\n").arg(_text);
+	cerr << QString("%1 is not a known PIC identifier\n").arg(_text).toStdString();
 	return unknown;
 }
 
@@ -1423,7 +1423,7 @@ void PIC14::Sasm(const QString &raw)
 //BEGIN class PortPin
 PortPin::PortPin( const QString & port, int pin )
 {
-	m_port = port.upper();
+	m_port = port.toUpper();
 	m_pin = pin;
 }
 
@@ -1439,7 +1439,7 @@ int PortPin::portPosition() const
 {
 	if ( m_port.isEmpty() )
 		return 0;
-	return uchar( m_port[ m_port.length() - 1 ] ) - 'A';
+	return uchar( m_port[ m_port.length() - 1 ].toLatin1() ) - 'A';
 }
 
 //END class PortPin

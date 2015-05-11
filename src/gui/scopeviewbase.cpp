@@ -8,21 +8,21 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-
-#include <qpainter.h>
+#include "scopeviewbase.h"
 
 #include "oscilloscope.h"
 #include "oscilloscopedata.h"
 #include "probepositioner.h"
 
-
-#include "scopeviewbase.h"
+#include <Qt/qpainter.h>
+#include <Qt/qevent.h>
+#include <Qt/qdebug.h>
 
 //for testing 
 //#include <valgrind/callgrind.h>
 
 ScopeViewBase::ScopeViewBase(QWidget *parent, const char *name)
-: QFrame(parent, name, WNoAutoErase),
+: QFrame(parent, name, Qt::WNoAutoErase),
 b_needRedraw(true),
 m_pixmap(0L),
 m_halfOutputHeight(0.0)
@@ -43,7 +43,12 @@ void ScopeViewBase::paintEvent( QPaintEvent * event )
 		//CALLGRIND_TOGGLE_COLLECT();
 		
 		updateOutputHeight();
-		
+
+        if (!m_pixmap) {
+            qWarning() << "unexpected null pixmap";
+            return;
+        }
+
 		QPainter p;
 		m_pixmap->fill( paletteBackgroundColor() );
 		p.begin(m_pixmap);

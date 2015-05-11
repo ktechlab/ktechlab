@@ -17,8 +17,8 @@
 #include "simulator.h"
 
 #include <klocale.h>
-#include <qpainter.h>
-#include <qstring.h>
+#include <Qt/qpainter.h>
+#include <Qt/qstring.h>
 
 Item* ECSevenSegment::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -28,7 +28,7 @@ Item* ECSevenSegment::construct( ItemDocument *itemDocument, bool newItem, const
 LibraryItem* ECSevenSegment::libraryItem()
 {
 	return new LibraryItem(
-		"ec/seven_segment",
+		QStringList(QString("ec/seven_segment")),
 		i18n("Seven Segment"),
 		i18n("Outputs"),
 		"seven_segment.png",

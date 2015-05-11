@@ -21,7 +21,7 @@
 #include "utils.h"
 
 #include <kdebug.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 #include <cstdlib>
 #include <cmath>
@@ -29,7 +29,7 @@
 
 //BEGIN class Connector
 Connector::Connector(Node *startNode, Node *endNode, ICNDocument *icnDocument, QString *id)
-		: QObject(icnDocument),
+		: //QObject(icnDocument),
 		QCanvasPolygon(icnDocument->canvas()) {
 	m_currentAnimationOffset = 0.0;
 	p_parentContainer = 0;
@@ -457,6 +457,9 @@ void Connector::setVisible(bool yes) {
 	updateConnectorLines();
 }
 
+Wire *Connector::wire(unsigned num) const {
+    return (num < m_wires.size()) ? m_wires[num] : 0;
+}
 
 void Connector::setSelected(bool yes) {
 	if (!canvas() || isSelected() == yes) return;
@@ -506,7 +509,7 @@ void Connector::updateConnectorLines(bool forceRedraw) {
 }
 
 
-QValueList<QPointList> Connector::splitConnectorPoints(const QPoint & pos) const {
+QList<QPointList> Connector::splitConnectorPoints(const QPoint & pos) const {
 	return m_conRouter->splitPoints(pos);
 }
 
@@ -541,7 +544,8 @@ void Connector::incrementCurrentAnimation(double deltaTime) {
 
 //BEGIN class ConnectorLine
 ConnectorLine::ConnectorLine(Connector * connector, int pixelOffset)
-		: QObject(connector), QCanvasLine(connector->canvas()) {
+		: //QObject(connector),
+            QCanvasLine(connector->canvas()) {
 	m_pConnector = connector;
 	m_pixelOffset = pixelOffset;
 }

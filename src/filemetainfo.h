@@ -17,7 +17,7 @@
 class TextDocument;
 class TextView;
 class KConfig;
-typedef QValueList<int> IntList;
+typedef QList<int> IntList;
 
 class MetaInfo
 {
@@ -33,11 +33,11 @@ class MetaInfo
 		 * Writes to the given config the data stored in here. Does not set the
 		 * group.
 		 */
-		void save( KConfig * conf );
+		void save( KConfigGroup * conf );
 		/**
 		 * Reads in the data from the config. Does not set the group.
 		 */
-		void load( KConfig * conf );
+		void load( KConfigGroup * conf );
 		
 		IntList bookmarks() const { return m_bookmarks; }
 		void setBookmarks( IntList bookmarks ) { m_bookmarks = bookmarks; }
@@ -72,7 +72,7 @@ class MetaInfo
 		unsigned m_cursorLine;
 		unsigned m_cursorColumn;
 };
-typedef QMap<KURL,MetaInfo> MetaInfoMap;
+typedef QMap<KUrl,MetaInfo> MetaInfoMap;
 
 /**
 Looks after per-file metainfo; e.g. bookmarks, breakpoints, compiling options, etc
@@ -89,30 +89,30 @@ class FileMetaInfo : public QObject
 		 * Initialize the TextDocument with the appropriate stored metainfo - e.g.
 		 * setting the appopriate bookmarks, etc
 		 */
-		void initializeFromMetaInfo( const KURL & url, TextDocument * textDocument );
+		void initializeFromMetaInfo( const KUrl & url, TextDocument * textDocument );
 		/**
 		 * Initialize the TextView with the appropriate stored metainfo - e.g.
 		 * setting the appopriate cursor position, etc.
 		 */
-		void initializeFromMetaInfo( const KURL & url, TextView * textView );
+		void initializeFromMetaInfo( const KUrl & url, TextView * textView );
 		/**
 		 * Initialize the OutputMethodDlg with the options the user had selected
 		 * for the last time it was used for the given url.
 		 */
-		void initializeFromMetaInfo( const KURL & url, OutputMethodDlg * outputMethodDlg );
+		void initializeFromMetaInfo( const KUrl & url, OutputMethodDlg * outputMethodDlg );
 		/**
 		 * Get the bookmarks, etc from the given TextDocument, and save them
 		 */
-		void grabMetaInfo( const KURL & url, TextDocument * textDocument );
+		void grabMetaInfo( const KUrl & url, TextDocument * textDocument );
 		/**
 		 * Get the cursor position, etc from the given TextView, and save them.
 		 */
-		void grabMetaInfo( const KURL & url, TextView * textView );
+		void grabMetaInfo( const KUrl & url, TextView * textView );
 		/**
 		 * Get the output method et al from the given OutputMethodDlg, and save
 		 * them.
 		 */
-		void grabMetaInfo( const KURL & url, OutputMethodDlg * outputMethodDlg );
+		void grabMetaInfo( const KUrl & url, OutputMethodDlg * outputMethodDlg );
 		/**
 		 * Save all metainfo to disk.
 		 */

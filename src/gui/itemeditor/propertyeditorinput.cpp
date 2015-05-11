@@ -21,8 +21,9 @@
 #include <kglobal.h>
 #include <kdebug.h>
 
-#include <qiconset.h>
-#include <qtoolbutton.h>
+#include <Qt/qiconset.h>
+#include <Qt/qtoolbutton.h>
+#include <Qt/qevent.h>
 
 #include <limits.h>
 
@@ -54,20 +55,20 @@ void PropertyEditorInput::slotTextChanged( const QString & text )
 
 //BEGIN class PropIntSpinBox
 PropIntSpinBox::PropIntSpinBox( int lower, int upper, int step, int value, int base=10, QWidget *parent=0, const char *name=0)
-: KIntSpinBox(lower, upper, step, value, base, parent, name)
+: KIntSpinBox(lower, upper, step, value, parent /*, name */ , base)
 {
-	editor()->setAlignment(Qt::AlignLeft);
+	lineEdit()->setAlignment(Qt::AlignLeft);
 }
 
 
 bool PropIntSpinBox::eventFilter(QObject *o, QEvent *e)
 {
-	if(o == editor())
+	if(o == lineEdit())
 	{
 		if(e->type() == QEvent::KeyPress)
 		{
 			QKeyEvent* ev = static_cast<QKeyEvent*>(e);
-			if((ev->key()==Key_Up || ev->key()==Key_Down) && ev->state()!=ControlButton)
+			if((ev->key()==Qt::Key_Up || ev->key()==Qt::Key_Down) && ev->state()!=Qt::ControlButton)
 			{
 				parentWidget()->eventFilter(o, e);
 				return true;
@@ -112,18 +113,18 @@ void PropertyEditorSpin::valueChange( int value )
 PropDoubleSpinBox::PropDoubleSpinBox(double lower, double upper, double minAbs, double value, const QString &unit, QWidget *parent=0)
 	: DoubleSpinBox( lower, upper, minAbs, value, unit, parent )
 {
-	editor()->setAlignment(Qt::AlignLeft);
+	lineEdit()->setAlignment(Qt::AlignLeft);
 }
 
 
 bool PropDoubleSpinBox::eventFilter(QObject *o, QEvent *e)
 {
-	if(o == editor())
+	if(o == lineEdit())
 	{
 		if(e->type() == QEvent::KeyPress)
 		{
 			QKeyEvent* ev = static_cast<QKeyEvent*>(e);
-			if((ev->key()==Key_Up || ev->key()==Key_Down) && ev->state()!=ControlButton)
+			if((ev->key()==Qt::Key_Up || ev->key()==Qt::Key_Down) && ev->state()!=Qt::ControlButton)
 			{
 				parentWidget()->eventFilter(o, e);
 				return true;
@@ -166,7 +167,7 @@ PropertyEditorBool::PropertyEditorBool( QWidget * parent, Property * property, c
 	: PropertySubEditor( parent, property, name )
 {
 	m_toggle = new QToolButton(this);
-	m_toggle->setFocusPolicy(QWidget::NoFocus);
+	m_toggle->setFocusPolicy(Qt::NoFocus);
 	m_toggle->setToggleButton(true);
 	m_toggle->setUsesTextLabel(true);
 	m_toggle->setTextPosition(QToolButton::Right); //js BesideIcon -didnt work before qt3.2);
@@ -194,7 +195,7 @@ bool PropertyEditorBool::eventFilter(QObject* watched, QEvent* e)
 	if(e->type() == QEvent::KeyPress)
 	{
 		QKeyEvent* ev = static_cast<QKeyEvent*>(e);
-		if(ev->key() == Key_Space)
+		if(ev->key() == Qt::Key_Space)
 		{
 			m_toggle->toggle();
 			return true;

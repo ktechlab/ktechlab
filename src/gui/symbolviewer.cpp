@@ -18,8 +18,10 @@
 #include <kconfig.h>
 #include <kdebug.h>
 #include <klocale.h>
-#include <qlabel.h>
-#include <qlayout.h>
+#include <kconfiggroup.h>
+
+#include <Qt/qlabel.h>
+#include <Qt/qlayout.h>
 
 #include <cassert>
 
@@ -29,7 +31,7 @@ static const int VALUE_COLUMN = 1;
 
 //BEGIN class SymbolViewerItem
 SymbolViewerItem::SymbolViewerItem( SymbolViewer * symbolViewer, RegisterInfo * registerInfo )
-	: KListViewItem( symbolViewer->symbolList() )
+	: Q3ListViewItem( symbolViewer->symbolList() )
 {
 	assert(registerInfo);
 	m_pRegisterInfo = registerInfo;
@@ -76,8 +78,8 @@ SymbolViewer::SymbolViewer( KateMDI::ToolView * parent )
 {
 	QGridLayout  * grid = new QGridLayout( this, 1, 1, 0, 6 );
 	
-	m_pSymbolList = new KListView(this);
-	m_pSymbolList->setFocusPolicy( NoFocus );
+	m_pSymbolList = new Q3ListView(this);
+	m_pSymbolList->setFocusPolicy( Qt::NoFocus );
 	grid->addMultiCellWidget( m_pSymbolList, 0, 0, 0, 1 );
 	
 	grid->addWidget( new QLabel( i18n("Value radix:"), this ), 1, 0 );
@@ -89,7 +91,7 @@ SymbolViewer::SymbolViewer( KateMDI::ToolView * parent )
 	m_pRadixCombo->insertItem( i18n("Decimal") );
 	m_pRadixCombo->insertItem( i18n("Hexadecimal") );
 	m_valueRadix = Decimal;
-	m_pRadixCombo->setCurrentItem(2);
+	m_pRadixCombo->setCurrentIndex(2);
 	connect( m_pRadixCombo, SIGNAL(activated(int)), this, SLOT(selectRadix(int)) );
 	
 	m_pGpsim = 0l;
@@ -97,7 +99,8 @@ SymbolViewer::SymbolViewer( KateMDI::ToolView * parent )
 	
 	m_pSymbolList->addColumn( i18n("Name") );
 	m_pSymbolList->addColumn( i18n("Value") );
-	m_pSymbolList->setFullWidth(true);
+	//m_pSymbolList->setFullWidth(true);
+    m_pSymbolList->setColumnWidthMode(1, Q3ListView::Maximum);
 	m_pSymbolList->setAllColumnsShowFocus( true );
 }
 
@@ -109,21 +112,23 @@ SymbolViewer::~SymbolViewer()
 
 void SymbolViewer::saveProperties( KConfig * config )
 {
-	QString oldGroup = config->group();
+	//QString oldGroup = config->group();
 	
-	config->setGroup( "SymbolEditor" );
-	config->writeEntry( "Radix", m_valueRadix );
+	KConfigGroup grSym = config->group( "SymbolEditor" );
+	grSym.writeEntry( "Radix", (int) m_valueRadix );
 	
-	config->setGroup( oldGroup );
+	//config->setGroup( oldGroup );
 }
 
 
 void SymbolViewer::readProperties( KConfig * config )
 {
-	QString oldGroup = config->group();
+	//QString oldGroup = config->group();
+
 	
-	config->setGroup( "SymbolEditor" );
-	m_valueRadix = (SymbolViewer::Radix)config->readNumEntry( "Radix", Decimal );
+	KConfigGroup grSym = config->group( "SymbolEditor" );
+
+    m_valueRadix = (SymbolViewer::Radix)grSym.readEntry( "Radix", (int) Decimal );
 	
 	int pos = 4;
 	switch ( m_valueRadix )
@@ -137,9 +142,9 @@ void SymbolViewer::readProperties( KConfig * config )
 		case Hexadecimal:
 			pos--;
 	}
-	m_pRadixCombo->setCurrentItem( pos );
+	m_pRadixCombo->setCurrentIndex( pos );
 	
-	config->setGroup( oldGroup );
+	//config->setGroup( oldGroup );
 }
 
 

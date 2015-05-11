@@ -24,12 +24,12 @@
 #include <kiconloader.h>
 #include <klocale.h> 
 #include <knuminput.h>
-#include <qbutton.h>
-#include <qlabel.h>
-#include <qscrollbar.h>
-#include <qslider.h>
-#include <qtimer.h>
-#include <qtoolbutton.h>
+#include <Qt/q3button.h>
+#include <Qt/qlabel.h>
+#include <Qt/qscrollbar.h>
+#include <Qt/qslider.h>
+#include <Qt/qtimer.h>
+#include <Qt/qtoolbutton.h>
 
 #include <cassert>
 
@@ -58,8 +58,10 @@ Oscilloscope * Oscilloscope::self( KateMDI::ToolView * parent)
 
 
 Oscilloscope::Oscilloscope( KateMDI::ToolView * parent)
-	: OscilloscopeWidget(parent)
+	: QWidget(parent)
 {
+    setupUi(this);
+
 	m_nextColor = 0;
 	m_nextId = 1;
 	m_oldestId = -1;
@@ -81,8 +83,9 @@ Oscilloscope::Oscilloscope( KateMDI::ToolView * parent)
 	connect( updateScrollTmr, SIGNAL(timeout()), this, SLOT(updateScrollbars()));
 	updateScrollTmr->start(20);
 	
-	KGlobal::config()->setGroup("Oscilloscope");
-	setZoomLevel( KGlobal::config()->readDoubleNumEntry( "ZoomLevel", 0.5));
+	//KGlobal::config()->setGroup("Oscilloscope");
+    KConfigGroup grOscill = KGlobal::config()->group("Oscilloscope");
+	setZoomLevel( grOscill.readEntry( "ZoomLevel", 0.5));
 	
 	connect( this, SIGNAL(probeRegistered(int, ProbeData *)), probePositioner, SLOT(slotProbeDataRegistered(int, ProbeData *)));
 	connect( this, SIGNAL(probeUnregistered(int)), probePositioner, SLOT(slotProbeDataUnregistered(int)));
@@ -118,8 +121,10 @@ void Oscilloscope::setZoomLevel( double zoomLevel)
 	else if( zoomLevel > 1.0)
 		zoomLevel = 1.0;
 	
-	KGlobal::config()->setGroup("Oscilloscope");
-	KGlobal::config()->writeEntry( "ZoomLevel", zoomLevel);
+	//KGlobal::config()->setGroup("Oscilloscope");
+    KConfigGroup grOscill = KGlobal::config()->group("Oscilloscope");
+	//KGlobal::config()->writeEntry( "ZoomLevel", zoomLevel);
+    grOscill.writeEntry( "ZoomLevel", zoomLevel);
 	
 	// We want to maintain the position of the *center* of the view, not the
 	// left edge, so have to record time at center of view... We also have to
@@ -323,7 +328,7 @@ void addOscilloscopeAsToolView( KTechlab *ktechlab)
 	KateMDI::ToolView * tv;
 	tv = ktechlab->createToolView( Oscilloscope::toolViewIdentifier(),
 				KMultiTabBar::Bottom,
-				KGlobal::iconLoader()->loadIcon( "oscilloscope", KIcon::Small),
+				KIconLoader::global()->loadIcon( "oscilloscope", KIconLoader::Small),
 				i18n("Oscilloscope"));
 	
 	Oscilloscope::self(tv);

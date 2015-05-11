@@ -15,7 +15,7 @@
 #include "pin.h"
 
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 Item* ECGround::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -24,7 +24,7 @@ Item* ECGround::construct( ItemDocument *itemDocument, bool newItem, const char 
 LibraryItem* ECGround::libraryItem()
 {
 	return new LibraryItem(
-		"ec/ground",
+		QStringList(QString("ec/ground")),
 		i18n("Ground (0V)"),
 		i18n("Sources"),
 		"ground.png",

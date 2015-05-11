@@ -11,8 +11,9 @@
 #ifndef VIEWIFACE_H
 #define VIEWIFACE_H
 
-#include <dcopobject.h>
-#include <dcopref.h>
+// #include <dcopobject.h>
+// #include <dcopref.h>
+#include "dcop_stub.h"
 
 class CircuitView;
 class FlowCodeView;

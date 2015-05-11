@@ -9,96 +9,144 @@
 
 #include "richtexteditor.h"
 
-#include <kactionclasses.h>
+//#include <kactionclasses.h>
+#include <ktoolbarpopupaction.h>
+#include <ktoggleaction.h>
 #include <kcolordialog.h>
 #include <kiconloader.h>
 #include <klocale.h>
-#include <kpopupmenu.h>
+#include <k3popupmenu.h>
 #include <ktextedit.h>
 #include <ktoolbar.h>
+#include <kactioncollection.h>
+#include <kmenu.h>
+#include <k3textedit.h>
 
-#include <qfont.h>
-#include <qlayout.h>
-#include <qmime.h>
-#include <qregexp.h>
-#include <qvbox.h>
-
+#include <Qt/qfont.h>
+#include <Qt/qlayout.h>
+#include <Qt/qmime.h>
+#include <Qt/qregexp.h>
+#include <Qt/q3vbox.h>
+#include <Qt/q3textedit.h>
+#include <Qt/q3stylesheet.h>
 
 //BEGIN class RichTextEditor
 RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
 	: QWidget(parent, name)
 {
 	QVBoxLayout * layout = new QVBoxLayout( this, 0, 6 );
-	m_pEditor = new KTextEdit( this, "RichTextEdit" );
+	m_pEditor = new K3TextEdit( this ); //, "RichTextEdit" );
+	m_pEditor->setName("RichTextEdit");
 	layout->addWidget( m_pEditor );
 	
-	m_pEditor->setTextFormat( QTextEdit::RichText );
+	m_pEditor->setTextFormat( Qt::RichText );
 	
 	connect( m_pEditor, SIGNAL( textChanged() ), SIGNAL( textChanged() ) );
 	connect( m_pEditor, SIGNAL( currentFontChanged( const QFont & ) ), this, SLOT( fontChanged( const QFont & ) ) );
 	connect( m_pEditor, SIGNAL( currentColorChanged( const QColor & ) ), this, SLOT( colorChanged( const QColor & ) ) );
 	connect( m_pEditor, SIGNAL( currentAlignmentChanged( int ) ), this, SLOT( alignmentChanged( int ) ) );
-	connect( m_pEditor, SIGNAL( currentVerticalAlignmentChanged( VerticalAlignment ) ), this, SLOT(verticalAlignmentChanged()) );
+	connect( m_pEditor, SIGNAL( currentVerticalAlignmentChanged( Q3TextEdit::VerticalAlignment ) ), this, SLOT(verticalAlignmentChanged()) );
 	
 	KToolBar * tools = new KToolBar( this, "RichTextEditorToops" );
 	layout->add( tools );
 	KActionCollection * ac = new KActionCollection( m_pEditor );
 	
 	
-	m_pTextBold = new KToggleAction( i18n("Bold"), "text_bold", CTRL + Key_B, 0, 0, ac, "format_bold" );
+	//m_pTextBold = new KToggleAction( i18n("Bold"), "text_bold", Qt::CTRL + Qt::Key_B, 0, 0, ac, "format_bold" );
+    m_pTextBold = new KToggleAction( i18n("Bold"), ac);
+    m_pTextBold->setName("text_bold");
+    m_pTextBold->setShortcut(Qt::CTRL + Qt::Key_B);
+    m_pTextBold->setIcon( KIconLoader::global()->loadIcon(QString("format_bold"), KIconLoader::Toolbar ) );
 	connect( m_pTextBold, SIGNAL(toggled(bool)), m_pEditor, SLOT(setBold(bool)) );
-	m_pTextBold->plug( tools );
+	//m_pTextBold->plug( tools );
+    tools->addAction(m_pTextBold);
 
-	m_pTextItalic = new KToggleAction( i18n("Italic"), "text_italic", CTRL + Key_I, 0, 0, ac, "format_italic" );
+	//m_pTextItalic = new KToggleAction( i18n("Italic"), "text_italic", Qt::CTRL + Qt::Key_I, 0, 0, ac, "format_italic" );
+    m_pTextItalic = new KToggleAction( i18n("Italic"), ac);
+    m_pTextItalic->setName("text_italic");
+    m_pTextItalic->setShortcut( Qt::CTRL + Qt::Key_I );
+    m_pTextItalic->setIcon( KIconLoader::global()->loadIcon(QString("format_italic"), KIconLoader::Toolbar) );
 	connect( m_pTextItalic, SIGNAL(toggled(bool)), m_pEditor, SLOT(setItalic(bool)) );
-	m_pTextItalic->plug( tools );
+	//m_pTextItalic->plug( tools );
+    tools->addAction(m_pTextItalic);
 
-	m_pTextUnderline = new KToggleAction( i18n("Underline"), "text_under", CTRL + Key_U, 0, 0, ac, "format_underline" );
+	//m_pTextUnderline = new KToggleAction( i18n("Underline"), "text_under", Qt::CTRL + Qt::Key_U, 0, 0, ac, "format_underline" );
+    m_pTextUnderline = new KToggleAction( i18n("Underline"), ac);
+    m_pTextUnderline->setName("text_under");
+    m_pTextUnderline->setShortcut( Qt::CTRL + Qt::Key_U );
+    m_pTextItalic->setIcon( KIconLoader::global()->loadIcon(QString("format_underline"), KIconLoader::Toolbar) );
 	connect( m_pTextUnderline, SIGNAL(toggled(bool)), m_pEditor, SLOT(setUnderline(bool)) );
-	m_pTextUnderline->plug( tools );
+	//m_pTextUnderline->plug( tools );
+    tools->addAction(m_pTextUnderline);
 	
-	m_pTextList = new KToggleAction( i18n("List"), "unsorted_list", CTRL + Key_L, 0, 0, ac, "format_list" );
+	//m_pTextList = new KToggleAction( i18n("List"), "unsorted_list", Qt::CTRL + Qt::Key_L, 0, 0, ac, "format_list" );
+    m_pTextList = new KToggleAction( i18n("List"), ac);
+    m_pTextList->setName("unsorted_list");
+    m_pTextList->setShortcut( Qt::CTRL + Qt::Key_L );
+    m_pTextItalic->setIcon( KIconLoader::global()->loadIcon(QString("format_list"), KIconLoader::Toolbar) );
 	connect( m_pTextList, SIGNAL(toggled(bool)), SLOT(slotSetList(bool)) );
-	m_pTextList->plug( tools );
+	//m_pTextList->plug( tools );
+    tools->addAction( m_pTextList );
 	
 	
 	//BEGIN Text horizontal-alignment actions
-	m_pTextAlignment = new KToolBarPopupAction( i18n("Text Alignment"), "text_left", 0, 0, 0, ac, "text_alignment" );
-	m_pTextAlignment->plug( tools );
+	//m_pTextAlignment = new KToolBarPopupAction( i18n("Text Alignment"), "text_left", 0, 0, 0, ac, "text_alignment" );
+    m_pTextAlignment = new KToolBarPopupAction(
+            KIcon(QString("text_alignment")),
+            i18n("Text Alignment"),
+            ac);
+    m_pTextAlignment->setName("text_left");
+	//m_pTextAlignment->plug( tools );
+    tools->addAction(m_pTextAlignment);
 	m_pTextAlignment->setDelayed(false);
 	
-	KPopupMenu * m = m_pTextAlignment->popupMenu();
-	m->insertTitle( i18n("Text Alignment") );
+	//K3PopupMenu * m = m_pTextAlignment->popupMenu();
+    KMenu * m = m_pTextAlignment->popupMenu();
+    //m->insertTitle( i18n("Text Alignment") );
+    m->addTitle( i18n("Text Alignment"));
 	m->setCheckable( true );
 	
-	m->insertItem( KGlobal::iconLoader()->loadIcon( "text_left",	KIcon::Small ), i18n("Align Left"),		AlignLeft );
-	m->insertItem( KGlobal::iconLoader()->loadIcon( "text_center",	KIcon::Small ), i18n("Align Center"),	AlignHCenter );
-	m->insertItem( KGlobal::iconLoader()->loadIcon( "text_right",	KIcon::Small ), i18n("Align Right"),	AlignRight );
-	m->insertItem( KGlobal::iconLoader()->loadIcon( "text_block",	KIcon::Small ), i18n("Align Block"),	AlignJustify );
+	m->insertItem( KIcon( "text_left" ), i18n("Align Left"),		Qt::AlignLeft );
+	m->insertItem( KIcon( "text_center"), i18n("Align Center"),	Qt::AlignHCenter );
+	m->insertItem( KIcon( "text_right" ), i18n("Align Right"),	Qt::AlignRight );
+	m->insertItem( KIcon( "text_block" ), i18n("Align Block"),	Qt::AlignJustify );
 	connect( m, SIGNAL(activated(int)), m_pEditor, SLOT(setAlignment(int)) );
 	//END Text horizontal-alignment actions
 	
 	
 	//BEGIN Text vertical-alignment actions
-	m_pTextVerticalAlignment = new KToolBarPopupAction( i18n("Text Vertical Alignment"), "text", 0, 0, 0, ac, "text_vertical_alignment" );
-	m_pTextVerticalAlignment->plug( tools );
+	//m_pTextVerticalAlignment = new KToolBarPopupAction( i18n("Text Vertical Alignment"), "text", 0, 0, 0, ac, "text_vertical_alignment" );
+    m_pTextVerticalAlignment = new KToolBarPopupAction(
+            KIcon(QString("text_vertical_alignment")),
+            i18n("Text Vertical Alignment"),
+            ac);
+    m_pTextVerticalAlignment->setName("text");
+	//m_pTextVerticalAlignment->plug( tools );
+    tools->addAction(m_pTextVerticalAlignment);
 	m_pTextVerticalAlignment->setDelayed(false);
 	
 	m = m_pTextVerticalAlignment->popupMenu();
-	m->insertTitle( i18n("Text Vertical Alignment") );
+	//m->insertTitle( i18n("Text Vertical Alignment") );
+    m->addTitle( i18n("Text Vertical Alignment") );
 	m->setCheckable( true );
 	
-	m->insertItem( KGlobal::iconLoader()->loadIcon( "text_super",	KIcon::Small ), i18n("Superscript"),	QTextEdit::AlignSuperScript );
-	m->insertItem(																	i18n("Normal"),			QTextEdit::AlignNormal );
-	m->insertItem( KGlobal::iconLoader()->loadIcon( "text_sub",		KIcon::Small ), i18n("Subscript"),		QTextEdit::AlignSubScript );
+	m->insertItem( KIcon( "text_super" ), i18n("Superscript"),	Q3TextEdit::AlignSuperScript );
+	m->insertItem(						i18n("Normal"),			Q3TextEdit::AlignNormal );
+	m->insertItem( KIcon( "text_sub" ), i18n("Subscript"),		Q3TextEdit::AlignSubScript );
 	connect( m, SIGNAL(activated(int)), this, SLOT(slotSetVerticalAlignment(int)) );
 	//END Text vertical-alignment actions
 	
 	
 	QPixmap pm( 16, 16 );
-	pm.fill( black );
-	m_pTextColor = new KAction( i18n("Text Color..."), pm, 0, this, SLOT(textColor()), ac, "format_color" );
-	m_pTextColor->plug( tools );
+	pm.fill( Qt::black );
+	//m_pTextColor = new KAction( i18n("Text Color..."), pm, 0, this, SLOT(textColor()), ac, "format_color" );
+    m_pTextColor = new KAction( i18n("Text Color..."), this);
+    m_pTextColor->setIcon(pm);
+    m_pTextColor->setName("format_color");
+    connect(m_pTextColor, SIGNAL(activated(int)), this, SLOT(textColor()));
+	//m_pTextColor->plug( tools );
+    ac->addAction("format_color", m_pTextColor);
+    tools->addAction(m_pTextColor);
 	
 	
 }
@@ -140,7 +188,7 @@ QWidget * RichTextEditor::editorViewport() const
 
 void RichTextEditor::setText( QString text )
 {
-	if ( !QStyleSheet::mightBeRichText( text ) )
+	if ( !Q3StyleSheet::mightBeRichText( text ) )
 	{
 		// Format the text to be HTML
 		text.replace( '\n', "<br>" );
@@ -208,13 +256,13 @@ void RichTextEditor::insertHTML( const QString & html )
 
 void RichTextEditor::slotSetVerticalAlignment( int a )
 {
-	m_pEditor->setVerticalAlignment( (QTextEdit::VerticalAlignment)a );
+	m_pEditor->setVerticalAlignment( (Q3TextEdit::VerticalAlignment)a );
 }
 
 
 void RichTextEditor::slotSetList( bool set )
 {
-	m_pEditor->setParagType( set ? QStyleSheetItem::DisplayListItem : QStyleSheetItem::DisplayBlock, QStyleSheetItem::ListDisc );
+	m_pEditor->setParagType( set ? Q3StyleSheetItem::DisplayListItem : Q3StyleSheetItem::DisplayBlock, Q3StyleSheetItem::ListDisc );
 }
 
 
@@ -245,14 +293,14 @@ void RichTextEditor::colorChanged( const QColor & c )
 
 void RichTextEditor::alignmentChanged( int a )
 {
-	if ( ( a == AlignAuto ) || ( a & AlignLeft ))
-		m_pTextAlignment->setIcon( "text_left" );
-	else if ( ( a & AlignHCenter ) )
-		m_pTextAlignment->setIcon( "text_center" );
-	else if ( ( a & AlignRight ) )
-		m_pTextAlignment->setIcon( "text_right" );
-	else if ( ( a & AlignJustify ) )
-		m_pTextAlignment->setIcon( "text_block" );
+	if ( ( a == Qt::AlignAuto ) || ( a & Qt::AlignLeft ))
+		m_pTextAlignment->setIcon( KIcon("text_left") );
+	else if ( ( a & Qt::AlignHCenter ) )
+		m_pTextAlignment->setIcon( KIcon("text_center") );
+	else if ( ( a & Qt::AlignRight ) )
+		m_pTextAlignment->setIcon( KIcon("text_right") );
+	else if ( ( a & Qt::AlignJustify ) )
+		m_pTextAlignment->setIcon( KIcon("text_block") );
 }
 
 
@@ -277,9 +325,20 @@ void RichTextEditor::setResourcePaths( const QStringList & paths )
 
 //BEGIN class RichTextEditorDlg
 RichTextEditorDlg::RichTextEditorDlg( QWidget * parent, const QString & caption )
-	: KDialogBase( parent, "RichTextEditorDlg", true, caption, KDialogBase::Ok|KDialogBase::Cancel, KDialogBase::Ok, true )
+	: //KDialog( parent, "RichTextEditorDlg", true, caption, KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
+	KDialog( parent )
 {
-	QVBox * page = makeVBoxMainWidget();
+    setName("RichTextEditorDlg");
+    setModal(true);
+    setCaption(caption);
+    setButtons(KDialog::Ok | KDialog::Cancel);
+    setDefaultButton(KDialog::Ok);
+    showButtonSeparator(true);
+
+
+	//QVBox * page = makeVBoxMainWidget();
+    Q3VBox * page = new Q3VBox(this);
+    setMainWidget(page);
 	m_pEditor = new RichTextEditor( page );
 }
 //END class RichTextEditorDlg

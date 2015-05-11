@@ -10,11 +10,13 @@
 #ifndef VIEWCONTAINER_H
 #define VIEWCONTAINER_H
 
-#include <qdragobject.h>
-#include <qmap.h>
-#include <qsplitter.h>
-#include <qvaluelist.h>
+#include <Qt/q3dragobject.h>
+#include <Qt/qmap.h>
+#include <Qt/qsplitter.h>
+#include <Qt/qlist.h>
+#include <Qt/qpointer.h>
 
+class KConfigGroup;
 class KTechlab;
 class View;
 class ViewArea;
@@ -26,7 +28,7 @@ class QLayout;
 class QSplitter;
 
 typedef QMap< uint, ViewArea* > ViewAreaMap;
-typedef QValueList<int> IntList;
+typedef QList<int> IntList;
 
 /**
 Before a ViewAre has been given a view, this is shown.
@@ -82,12 +84,12 @@ public:
 	/**
 	 * Saves the state of this ViewArea and any contained ViewAreas
 	 */
-	void saveState( KConfig *config );
+	void saveState( KConfigGroup *config );
 	/**
 	 * Restores the state of this ViewArea and any contained ViewAreas
 	 * @param groupName e.g. "ViewContainer 1"
 	 */
-	void restoreState( KConfig *config, int id, const QString &groupName );
+	void restoreState( KConfigGroup *config, int id, const QString &groupName );
 	/**
 	 * Returns true if this ViewArea can save useful information as to its state
 	 * (i.e. it's children can save useful information about their state, or has
@@ -108,7 +110,7 @@ protected slots:
 protected:
 	int m_id;
 	EmptyViewArea * m_pEmptyViewArea;
-	QGuardedPtr<View> p_view;
+	QPointer<View> p_view;
 	ViewArea *p_viewArea1;
 	ViewArea *p_viewArea2;
 	ViewContainer *p_viewContainer;
@@ -191,13 +193,13 @@ public:
 	 * to the given KConfig. Doesn't change the group - so preset it if
 	 * needed!
 	 */
-	void saveState( KConfig *config );
+	void saveState( KConfigGroup *config );
 	/**
 	 * Reads in the saved config state (as written by saveState), and restores
 	 * the ViewContainer with all appropriate views open
 	 * @param groupName e.g. "ViewContainer 1"
 	 */
-	void restoreState( KConfig *config, const QString &groupName );
+	void restoreState( KConfigGroup *config, const QString &groupName );
 	/**
 	 * Returns a unique id (negative) for a ViewArea that is now a Parent of other ViewAreas
 	 */
@@ -223,7 +225,7 @@ protected slots:
 	void baseViewAreaDestroyed( QObject *obj );
 
 protected:
-	void restoreViewArea( KConfig *config, int id, ViewArea *viewArea );
+	void restoreViewArea( KConfigGroup *config, int id, ViewArea *viewArea );
 	void findActiveViewArea();
 	int m_activeViewArea;
 	ViewArea *m_baseViewArea;

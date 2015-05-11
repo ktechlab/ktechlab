@@ -13,16 +13,25 @@
 
 #include "config.h"
 #include "document.h"
+#include "gpsimprocessor.h"
 
-#include <qguardedptr.h>
+#include <Qt/qpointer.h>
+#include <Qt/q3ptrlist.h>
 
-#include <kate/document.h>
+//#include <kate/document.h>
+#include <ktexteditor/document.h>
+#include <ktexteditor/markinterface.h>
 
 class GpsimDebugger;
 class SourceLine;
 class TextView;
 
-typedef QValueList<int> IntList;
+namespace KTextEditor {
+    class View;
+    class Document;
+}
+
+typedef QList<int> IntList;
 
 /**
 @author David Saxton
@@ -110,8 +119,8 @@ public:
 	virtual void clearBreakpoints();
 #endif
 	
-	virtual bool openURL(const KURL& url);
-	void fileSave(const KURL& url);
+	virtual bool openURL(const KUrl& url);
+	void fileSave(const KUrl& url);
 	/**
 	 * Set the document to the given text, making the document unmodified, and
 	 * reseting the undo/redo history/
@@ -132,7 +141,7 @@ public:
 	virtual void print();
 	virtual void setModified( bool modified );
 	
-	Kate::View* createKateView( QWidget *parent, const char *name = 0l );
+	KTextEditor::View* createKateView( QWidget *parent, const char *name = 0l );
 	
 	virtual void undo();
 	virtual void redo();
@@ -141,8 +150,8 @@ public:
 	virtual void paste();
 	
 	virtual bool isModified() const { return m_doc->isModified(); }
-	virtual bool isUndoAvailable() const { return (m_doc->undoCount() != 0); }
-	virtual bool isRedoAvailable() const { return (m_doc->redoCount() != 0); }
+	virtual bool isUndoAvailable() const ; // { return (m_doc->undoCount() != 0); }
+	virtual bool isRedoAvailable() const ; // { return (m_doc->redoCount() != 0); }
 
 	void clearBookmarks();
 	virtual bool fileClose();
@@ -165,7 +174,7 @@ public:
 		PICOutput
 	};
 	
-	Kate::Document * kateDocument() const { return m_doc; }
+	KTextEditor::Document * kateDocument() const { return m_doc; }
 	
 public slots:
 	/**
@@ -215,8 +224,8 @@ protected:
 	bool m_bLoadDebuggerAsHLL;
 #endif
 
-	Kate::Document *m_doc;
-	QGuardedPtr<TextDocument> m_pLastTextOutputTarget;
+	KTextEditor::Document *m_doc;
+	QPointer<TextDocument> m_pLastTextOutputTarget;
 	
 private slots:
 	void setLastTextOutputTarget( TextDocument * target );
@@ -231,12 +240,13 @@ private:
 	TextDocument( const QString& caption, const char *name = 0L );
 	bool m_constructorSuccessful;
 	CodeType m_guessedCodeType;
-	QPtrList<KAction> m_bookmarkActions;
+	//Q3PtrList<KAction> m_bookmarkActions;
+    QList<QAction*> m_bookmarkActions;
 	
 #ifndef NO_GPSIM
 	bool b_lockSyncBreakpoints; // Used to avoid calling syncMarks() when we are currently doing so
 	bool m_bOwnDebugger;
-	QGuardedPtr<GpsimDebugger> m_pDebugger;
+	QPointer<GpsimDebugger> m_pDebugger;
 	QString m_symbolFile;
 	QString m_debugFile;
 #endif

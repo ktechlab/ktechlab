@@ -18,15 +18,16 @@
 #include <kdebug.h>
 #include <klocale.h>
 #include <kglobal.h>
-#include <kpopupmenu.h>
-#include <qcheckbox.h>
-#include <qcursor.h>
-#include <qevent.h>
-#include <qlabel.h>
-#include <qpainter.h>
-#include <qpixmap.h>
-#include <qscrollbar.h>
-#include <qtimer.h>
+#include <k3popupmenu.h>
+
+#include <Qt/qcheckbox.h>
+#include <Qt/qcursor.h>
+#include <Qt/qevent.h>
+#include <Qt/qlabel.h>
+#include <Qt/qpainter.h>
+#include <Qt/qpixmap.h>
+#include <Qt/qscrollbar.h>
+#include <Qt/qtimer.h>
 
 #include <algorithm>
 #include <cmath>
@@ -38,7 +39,7 @@ inline uint64_t min( uint64_t a, uint64_t b)
 
 
 OscilloscopeView::OscilloscopeView( QWidget *parent, const char *name)
-	: QFrame( parent, name, WNoAutoErase),
+	: QFrame( parent, name, Qt::WNoAutoErase),
 	b_needRedraw(true),
 	m_pixmap(0),
 	m_fps(10),
@@ -47,10 +48,11 @@ OscilloscopeView::OscilloscopeView( QWidget *parent, const char *name)
 	m_pSimulator( Simulator::self()),
 	m_halfOutputHeight(0.0)
 {
-	KGlobal::config()->setGroup("Oscilloscope");
-	m_fps = KGlobal::config()->readNumEntry( "FPS", 25);
+	//KGlobal::config()->setGroup("Oscilloscope");
+    KConfigGroup grOscill = KGlobal::config()->group("Oscilloscope");
+	m_fps = grOscill.readEntry( "FPS", 25);
 
-	setBackgroundMode(NoBackground);
+	setBackgroundMode(Qt::NoBackground);
 	setMouseTracking(true);
 
 	m_updateViewTmr = new QTimer(this);
@@ -113,7 +115,7 @@ void OscilloscopeView::mousePressEvent( QMouseEvent *event)
 		{
 			event->accept();
 	
-			KPopupMenu fpsMenu;
+			K3PopupMenu fpsMenu;
 			fpsMenu.insertTitle( i18n("Framerate"));
 	
 			const int fps[] = { 10, 25, 50, 75, 100 };
@@ -167,8 +169,9 @@ void OscilloscopeView::mouseReleaseEvent( QMouseEvent *event)
 void OscilloscopeView::slotSetFrameRate( int fps)
 {
 	m_fps = fps;
-	KGlobal::config()->setGroup("Oscilloscope");
-	KGlobal::config()->writeEntry( "FPS", m_fps);
+	//KGlobal::config()->setGroup("Oscilloscope");
+    KConfigGroup grOscill = KGlobal::config()->group("Oscilloscope");
+	grOscill.writeEntry( "FPS", m_fps);
 }
 
 

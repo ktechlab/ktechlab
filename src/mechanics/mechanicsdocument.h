@@ -18,8 +18,8 @@ class MechanicsGroup;
 class MechanicsItem;
 class MechanicsSimulation;
 
-typedef QValueList<MechanicsItem*> MechItemList;
-typedef QValueList<MechanicsItem*> MechanicsItemList;
+typedef QList<MechanicsItem*> MechItemList;
+typedef QList<MechanicsItem*> MechanicsItemList;
 
 /**
 @author David Saxton

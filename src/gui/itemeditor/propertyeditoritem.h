@@ -13,25 +13,27 @@
 #ifndef PROPERTYEDITORITEM_H
 #define PROPERTYEDITORITEM_H
 
-#include <klistview.h> 
-#include <qasciidict.h>
-#include <qptrlist.h>
-#include <qdict.h>
+//#include <q3listview.h>
+#include <Qt/q3asciidict.h>
+#include <Qt/q3ptrlist.h>
+#include <Qt/q3dict.h>
 
 #include "property.h"
 
+#include <k3listview.h>
+
 #define PropertyEditorItem_BranchBoxSize 9
 
-/** This class is a subclass of KListViewItem which is associated to a property.
+/** This class is a subclass of K3ListViewItem which is associated to a property.
     It also takes care of drawing custom contents.
  **/
  //! An item in PropertyEditorItem associated to a property
-class PropertyEditorItem : public QObject, public KListViewItem
+class PropertyEditorItem : public QObject,  public K3ListViewItem // K3ListViewItem
 {
 	Q_OBJECT
 	
 	public:
-		typedef QAsciiDict<PropertyEditorItem> Dict;
+		typedef Q3AsciiDict<PropertyEditorItem> Dict;
 
 		/**
 		 * Creates a PropertyEditorItem child of \a parent, associated to
@@ -46,7 +48,7 @@ class PropertyEditorItem : public QObject, public KListViewItem
 		 * Creates PropertyEditor Top Item which is necessary for drawing all
 		 * branches.
 		 */
-		PropertyEditorItem(KListView *parent, const QString &text);
+		PropertyEditorItem( /*K3ListView */ K3ListView *parent, const QString &text);
 
 		~PropertyEditorItem();
 
@@ -75,13 +77,13 @@ class PropertyEditorItem : public QObject, public KListViewItem
 
 	protected:
 		/**
-		 * Reimplemented from KListViewItem to draw custom contents. Properties
+		 * Reimplemented from K3ListViewItem to draw custom contents. Properties
 		 * names are wriiten in bold if modified. Also takes care of drawing
 		 * borders around the cells as well as pixmaps or colors if necessary.
 		 */
 		virtual void paintCell(QPainter *p, const QColorGroup & cg, int column, int width, int align);
 		/**
-		 * Reimplemented from KListViewItem to hide the top item.
+		 * Reimplemented from K3ListViewItem to hide the top item.
 		 */
 		virtual void setup();
 

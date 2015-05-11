@@ -24,7 +24,7 @@ Item* ECKeyPad::construct( ItemDocument *itemDocument, bool newItem, const char 
 LibraryItem* ECKeyPad::libraryItem()
 {
 	return new LibraryItem(
-		"ec/keypad",
+		QStringList(QString("ec/keypad")),
 		i18n("Keypad"),
 		i18n("Switches"),
 		"keypad.png",

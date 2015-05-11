@@ -29,9 +29,9 @@ class MatrixDisplayDriver : public Component
 		virtual bool doesStepNonLogic() const { return true; }
 		
 	protected:
-		QValueVector<LogicIn*> m_pValueLogic;
-		QValueVector<LogicOut*> m_pRowLogic;
-		QValueVector<LogicOut*> m_pColLogic;
+		Q3ValueVector<LogicIn*> m_pValueLogic;
+		Q3ValueVector<LogicOut*> m_pRowLogic;
+		Q3ValueVector<LogicOut*> m_pColLogic;
 		
 		unsigned m_prevCol;
 		unsigned m_nextCol;

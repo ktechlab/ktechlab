@@ -13,9 +13,9 @@
 
 #include "wire.h"
 
-#include <qguardedptr.h>
-#include <qobject.h>
-#include <qvaluelist.h>
+#include <Qt/qpointer.h>
+#include <Qt/qobject.h>
+#include <Qt/qlist.h>
 
 class ECNode;
 class Element;
@@ -23,10 +23,10 @@ class Pin;
 class Switch;
 class Wire;
 
-typedef QValueList<Element*> ElementList;
-typedef QValueList<QGuardedPtr<Pin> > PinList;
-typedef QValueList<Switch*> SwitchList;
-typedef QValueList<QGuardedPtr<Wire> > WireList;
+typedef QList<Element*> ElementList;
+typedef QList<QPointer<Pin> > PinList;
+typedef QList<Switch*> SwitchList;
+typedef QList<QPointer<Wire> > WireList;
 
 
 /**
@@ -101,7 +101,7 @@ class Pin : public QObject
 		 * Tell thie Pin that none of the currents from the switches have yet
 		 * been merged.
 		 */
-		void setSwitchCurrentsUnknown() { m_switchList.remove( 0l ); m_unknownSwitchCurrents = m_switchList; }
+		void setSwitchCurrentsUnknown(); // { m_switchList.erase( 0l ); m_unknownSwitchCurrents = m_switchList; }
 		/**
 		 * This returns the value given by setCurrentKnown AND'd with whether
 		 * we know the current from each switch attached to this pin.
@@ -111,7 +111,7 @@ class Pin : public QObject
 		/**
 		 * Tells the Pin that the current from the given switch has been merged.
 		 */
-		void setSwitchCurrentKnown( Switch * sw ) { m_unknownSwitchCurrents.remove( sw ); }
+		void setSwitchCurrentKnown( Switch * sw ) { m_unknownSwitchCurrents.removeAll( sw ); }
 		/**
 		 * Tries to calculate the Pin current from the input / output wires.
 		 * @return whether was successful.

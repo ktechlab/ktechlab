@@ -10,7 +10,7 @@
 
 #include "ktechlab.h"
 
-#include <dcopclient.h>
+//#include <dcopclient.h>
 #include <kaboutdata.h>
 #include <kapplication.h>
 #include <kcmdlineargs.h>
@@ -21,34 +21,38 @@
 static const char description[] =
     I18N_NOOP("An IDE for microcontrollers and electronics");
 
-static KCmdLineOptions options[] =
-{
-    { "+[URL]", I18N_NOOP( "Document to open." ), 0 },
-    KCmdLineLastOption
-};
+// static KCmdLineOptions options[] =
+// {
+//     { "+[URL]", I18N_NOOP( "Document to open." ), 0 },
+//     KCmdLineLastOption
+// };
 
 
 int main(int argc, char **argv)
 {
-    KAboutData about("ktechlab", I18N_NOOP("KTechLab"), VERSION, description,
-	KAboutData::License_GPL, "(C) 2003-2009, The KTechLab developers", "", "http://ktechlab.org", "ktechlab-devel@lists.sourceforge.net" );
-	about.addAuthor( "Alan Grimes", "developer" );
-	about.addAuthor( "Zoltan Padrah", "developer" , "zoltan_padrah@users.sourceforge.net");
-	about.addCredit( "Jason Lucas", "keeping the project up as a maintainer during the time David left" );
-	about.addCredit( "Lawrence Shafer", "Website, wiki and forum" );
-	about.addCredit( "Julian Bäume", "some bug-fixes", "julian@svg4all.de" );
-	about.addCredit( "David Saxton", "former developer, project founder, former maintainer", "david@bluehaze.org" );
-	about.addCredit( "Daniel Clarke", "former developer", "daniel.jc@gmail.com" );
-	about.addCredit( "Couriousous", "JK flip-flop, asyncronous preset/reset in the D flip-flop." );
-	about.addCredit( "John Myers", "Rotary Switch" );
-	about.addCredit( "Ali Akcaagac", "Glib friendliness." );
-	about.addCredit( "David Leggett", "former Website hosting and feedback during early development." );
+    KAboutData about(QByteArray("ktechlab"), QByteArray("KTechLab"), ki18n("KTechLab"), VERSION, ki18n(description),
+                    KAboutData::License_GPL, ki18n("(C) 2003-2009, The KTechLab developers"),
+                    ki18n(""), "http://ktechlab.org", "ktechlab-devel@lists.sourceforge.net" );
+	about.addAuthor( ki18n("Alan Grimes"), ki18n("developer"), "" );
+	about.addAuthor( ki18n("Zoltan Padrah"), ki18n("developer") , QByteArray("zoltan_padrah@users.sourceforge.net"));
+	about.addCredit( ki18n("Jason Lucas"), ki18n("keeping the project up as a maintainer during the time David left"), "" );
+	about.addCredit( ki18n("Lawrence Shafer"), ki18n("Website, wiki and forum"), "" );
+	about.addCredit( ki18n("Julian Bäume"), ki18n("some bug-fixes"), QByteArray("julian@svg4all.de") );
+	about.addCredit( ki18n("David Saxton"), ki18n("former developer, project founder, former maintainer"), QByteArray("david@bluehaze.org") );
+	about.addCredit( ki18n("Daniel Clarke"), ki18n("former developer"), QByteArray("daniel.jc@gmail.com") );
+	about.addCredit( ki18n("Couriousous"), ki18n("JK flip-flop, asyncronous preset/reset in the D flip-flop."), "" );
+	about.addCredit( ki18n("John Myers"), ki18n("Rotary Switch"), "" );
+	about.addCredit( ki18n("Ali Akcaagac"), ki18n("Glib friendliness."), "" );
+	about.addCredit( ki18n("David Leggett"), ki18n("former Website hosting and feedback during early development."), "" );
+
     KCmdLineArgs::init(argc, argv, &about);
+    KCmdLineOptions options;
+    options.add( QByteArray("+[URL]"), ki18n( "Document to open." ), 0);
     KCmdLineArgs::addCmdLineOptions(options);
     KApplication app;
 	
     // register ourselves as a dcop client
-	app.dcopClient()->registerAs(app.name(), false);
+	//app.dcopClient()->registerAs(app.name(), false);
 	
 	KTechlab *ktechlab = new KTechlab();
 	

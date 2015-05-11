@@ -12,7 +12,7 @@
 #include "pin.h"
 #include "component.h"
 
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 #include <cmath>
 
 /// The maximum length of the voltage indiactor
@@ -47,7 +47,7 @@ PinNode::PinNode(ICNDocument* icnDocument, int dir, const QPoint& pos, QString* 
 {
 	m_pinPoint = new QCanvasRectangle( 0, 0, 3, 3, canvas() );
 	m_pinPoint->setBrush(Qt::black);
-	m_pinPoint->setPen(Qt::black);
+	m_pinPoint->setPen( QPen(Qt::black));
 }
 
 
@@ -117,7 +117,7 @@ void PinNode::initPoints()
 	int l = - m_length;
 
 	// Bounding rectangle, facing right
-	QPointArray pa( QRect( 0, -8, l, 16 ) );
+	Q3PointArray pa( QRect( 0, -8, l, 16 ) );
 
 	QWMatrix m;
 	m.rotate( m_dir );

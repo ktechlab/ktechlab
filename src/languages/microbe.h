@@ -13,7 +13,7 @@
 
 #include "externallanguage.h"
 
-#include <qmap.h>
+#include <Qt/qmap.h>
 
 typedef QMap< int, QString > ErrorMap;
 

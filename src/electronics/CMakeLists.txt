@@ -2,7 +2,20 @@ add_subdirectory(simulation)
 add_subdirectory(components)
 add_subdirectory(models)
 
-include_directories(${CMAKE_SOURCE_DIR}/src ${CMAKE_SOURCE_DIR}/src/electronics ${CMAKE_SOURCE_DIR}/src/electronics/components ${CMAKE_SOURCE_DIR}/src/electronics/simulation ${CMAKE_SOURCE_DIR}/src/flowparts ${CMAKE_SOURCE_DIR}/src/gui ${CMAKE_SOURCE_DIR}/src/languages ${CMAKE_SOURCE_DIR}/src/mechanics ${CMAKE_SOURCE_DIR}/src/micro ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${KDE3_INCLUDE_DIR} ${QT_INCLUDE_DIR} )
+include_directories(
+        ${CMAKE_SOURCE_DIR}/src
+        ${CMAKE_SOURCE_DIR}/drawparts
+        ${CMAKE_SOURCE_DIR}/src/electronics
+        ${CMAKE_SOURCE_DIR}/src/electronics/components
+        ${CMAKE_SOURCE_DIR}/src/electronics/simulation
+        ${CMAKE_SOURCE_DIR}/src/flowparts
+        ${CMAKE_SOURCE_DIR}/src/gui
+        ${CMAKE_SOURCE_DIR}/src/languages
+        ${CMAKE_SOURCE_DIR}/src/mechanics
+        ${CMAKE_SOURCE_DIR}/src/micro ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_CURRENT_BINARY_DIR}
+        ${KDE3_INCLUDE_DIR}
+        ${QT_INCLUDE_DIR} )
 
 
 ########### next target ###############
@@ -17,6 +30,11 @@ SET(electronics_STAT_SRCS
    ecnode.cpp
    port.cpp
    componentmodellibrary.cpp
+   circuitdocument.cpp
+   pinnode.cpp
+   circuiticndocument.cpp
+   junctionnode.cpp
+   electronicconnector.cpp
 )
 
 qt4_automoc(${electronics_STAT_SRCS})

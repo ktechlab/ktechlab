@@ -17,7 +17,7 @@
 #include <cstdlib> 
 #include <kiconloader.h>
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 
 //BEGIN class DPLine
@@ -29,10 +29,10 @@ Item* DPLine::construct( ItemDocument *itemDocument, bool newItem, const char *i
 LibraryItem* DPLine::libraryItem()
 {
 	return new LibraryItem(
-		"dp/line",
+		QStringList(QString("dp/line")),
 		i18n("Line"),
 		i18n("Other"),
-		KGlobal::iconLoader()->loadIcon( "text", KIcon::Small ),
+		KIconLoader::global()->loadIcon( "text", KIconLoader::Small ),
 		LibraryItem::lit_drawpart,
 		DPLine::construct );
 }
@@ -98,7 +98,7 @@ void DPLine::postResize()
 	int x2 = x1+width();
 	int y2 = y1+height();
 	
-	QPointArray p(4);
+	Q3PointArray p(4);
 	int pw = pen().width();
 	int dx = abs(x1-x2);
 	int dy = abs(y1-y2);
@@ -156,10 +156,10 @@ Item* DPArrow::construct( ItemDocument *itemDocument, bool newItem, const char *
 LibraryItem* DPArrow::libraryItem()
 {
 	return new LibraryItem(
-		QString("dp/arrow"),
+		QStringList(QString("dp/arrow")),
 		i18n("Arrow"),
 		i18n("Other"),
-		KGlobal::iconLoader()->loadIcon( "text", KIcon::Small ),
+		KIconLoader::global()->loadIcon( "text", KIconLoader::Small ),
 		LibraryItem::lit_drawpart,
 		DPArrow::construct );
 }
@@ -233,7 +233,7 @@ void DPArrow::drawShape( QPainter & p )
 	pen.setCapStyle( Qt::RoundCap );
 	p.setPen(pen);
 	p.setBrush(pen.color());
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 	pa[0] = QPoint( round_x(x2), round_x(y2) );
 	pa[1] = QPoint( round_x(x3), round_x(y3) );
 	pa[2] = QPoint( round_x(x4), round_x(y4) );

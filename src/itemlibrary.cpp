@@ -29,15 +29,15 @@
 #include <kmessagebox.h>
 #include <kstandarddirs.h>
 
-#include <qbitmap.h>
-#include <qdir.h>
-#include <qfile.h>
-#include <qimage.h>
-#include <qpainter.h>
-#include <qpixmap.h>
-#include <qpushbutton.h>
-#include <qregexp.h>
-#include <qtimer.h>
+#include <Qt/qbitmap.h>
+#include <Qt/qdir.h>
+#include <Qt/qfile.h>
+#include <Qt/qimage.h>
+#include <Qt/qpainter.h>
+#include <Qt/qpixmap.h>
+#include <Qt/qpushbutton.h>
+#include <Qt/qregexp.h>
+#include <Qt/qtimer.h>
 
 #include <cassert>
 
@@ -502,7 +502,7 @@ QImage ItemLibrary::componentImage( Component * component, const uint maxSize )
 		
 	// Now, rotate the image so that it's the right way up, and scale it to size
 	QImage im = pm.convertToImage();
-	im = im.smoothScale( 50, 50, QImage::ScaleMin );
+	im = im.smoothScale( 50, 50, Qt::ScaleMin );
 	
 	if (cache)
 		m_imageMap[component->type()] = im;
@@ -595,7 +595,8 @@ QString ItemLibrary::description( QString type, const QString & language ) const
 
 QString ItemLibrary::emptyItemDescription( const QString & language ) const
 {
-	return m_emptyItemDescription.arg( KGlobal::locale()->twoAlphaToLanguageName( language ) );
+	//return m_emptyItemDescription.arg( KGlobal::locale()->twoAlphaToLanguageName( language ) );
+    return m_emptyItemDescription.arg( KGlobal::locale()->languageCodeToName( language ) );
 }
 
 
@@ -617,23 +618,23 @@ void ItemLibrary::setItemDescriptionsDirectory( QString dir )
 	if ( !dir.isEmpty() && !dir.endsWith("/") )
 		dir += "/";
 	
-	KConfig * conf = kapp->config();
-	QString prevGroup = conf->group();
+	KConfig * conf = KGlobal::config().data();
+	//QString prevGroup = conf->group();
 	
-	conf->setGroup("General");
-	conf->writePathEntry( "ItemDescriptionsDirectory", dir );
-	conf->setGroup( prevGroup );
+	KConfigGroup grGen = conf->group("General");
+	grGen.writePathEntry( "ItemDescriptionsDirectory", dir );
+	//conf->setGroup( prevGroup );
 }
 
 
 QString ItemLibrary::itemDescriptionsDirectory() const
 {
-	KConfig * conf = kapp->config();
-	QString prevGroup = conf->group();
+	KConfig * conf = KGlobal::config().data();
+	//QString prevGroup = conf->group();
 	
-	conf->setGroup("General");
-	QString dir = conf->readPathEntry( "ItemDescriptionsDirectory", locate( "appdata", "contexthelp/" ) );
-	conf->setGroup( prevGroup );
+	KConfigGroup grGen = conf->group("General");
+	QString dir = grGen.readPathEntry( "ItemDescriptionsDirectory", KStandardDirs::locate( "appdata", "contexthelp/" ) );
+	//conf->setGroup( prevGroup );
 	
 	if ( !dir.isEmpty() && !dir.endsWith("/") )
 		dir += "/";

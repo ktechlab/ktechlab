@@ -13,20 +13,20 @@
 #include "oscilloscopeview.h"
 #include "probepositioner.h"
 
-#include <qevent.h>
-#include <qpainter.h>
-#include <qpointarray.h>
+#include <Qt/qevent.h>
+#include <Qt/qpainter.h>
+#include <Qt/q3pointarray.h>
 
 #include <algorithm>
 #include <cmath>
 
 ProbePositioner::ProbePositioner(QWidget *parent, const char *name)
-	: QWidget( parent, name, WNoAutoErase )
+	: QWidget( parent, name, Qt::WNoAutoErase )
 {
 	m_probePosOffset = 0;
 	p_draggedProbe = 0l;
 	setFixedWidth( int(probeArrowWidth) );
-	setBackgroundMode(NoBackground);
+	setBackgroundMode(Qt::NoBackground);
 	b_needRedraw = true;
 	m_pixmap = 0l;
 }
@@ -193,7 +193,7 @@ void ProbePositioner::paintEvent( QPaintEvent *e )
 			p.setBrush( probeData->color() );
 			int currentPos = probePosition(probeData);
 			
-			QPointArray pa(3);
+			Q3PointArray pa(3);
 			pa[0] = QPoint( 0, int(currentPos-(probeArrowHeight/2)) );
 			pa[1] = QPoint( int(probeArrowWidth), currentPos );
 			pa[2] = QPoint( 0, int(currentPos+(probeArrowHeight/2)) );

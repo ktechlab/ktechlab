@@ -12,9 +12,10 @@
 #ifndef FLOWCONNECTOR_H
 #define FLOWCONNECTOR_H
 
-#include <connector.h>
-
 #include "fpnode.h"
+#include "connector.h"
+
+class FPNode;
 
 /**
 	@author David Saxton, Alan Grimes, Zoltan Padrah <zoltan.padrah@gmail.com>
@@ -32,17 +33,17 @@ public:
 	/**
 	 * Node at start of connector (which refers to this as the output connector)
 	 */
-	virtual Node *startNode() const { return m_startFpNode; }
+	virtual Node *startNode() const ; // { return m_startFpNode );
 
 	/**
 	 * Node at end of connector (which refers to this as the input connector)
 	 */
-	virtual Node *endNode() const { return m_endFpNode; }
+	virtual Node *endNode() const ; // { return m_endFpNode; }
 	
 private:
 	/// the endnodes of the connector
-	QGuardedPtr<FPNode> m_startFpNode;
-	QGuardedPtr<FPNode> m_endFpNode;
+	QPointer<FPNode> m_startFpNode;
+	QPointer<FPNode> m_endFpNode;
 	
 };
 

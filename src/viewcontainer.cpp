@@ -20,8 +20,9 @@
 #include <klocale.h>
 #include <kpushbutton.h>
 #include <ktabwidget.h>
+#include <kconfiggroup.h>
 
-#include <qobjectlist.h>
+//#include <Qt/qobjectlist.h>
 
 
 //BEGIN class ViewContainer
@@ -83,11 +84,11 @@ View *ViewContainer::view( uint id ) const
 		return 0l;
 	
 	// We do not want a recursive search as ViewAreas also hold other ViewAreas
-	QObjectList *l = va->queryList( "View", 0, false, false );
+	QObjectList l = va->queryList( "View", 0, false, false );
 	View *view = 0l;
-	if ( !l->isEmpty() )
-		view = dynamic_cast<View*>(l->first());
-	delete l;
+	if ( !l.isEmpty() )
+		view = dynamic_cast<View*>(l.first());
+	//delete l;
 	
 	return view;
 }
@@ -222,7 +223,7 @@ bool ViewContainer::canSaveUsefulStateInfo() const
 }
 
 
-void ViewContainer::saveState( KConfig *config )
+void ViewContainer::saveState( KConfigGroup *config )
 {
 	if (!m_baseViewArea)
 		return;
@@ -232,11 +233,11 @@ void ViewContainer::saveState( KConfig *config )
 }
 
 
-void ViewContainer::restoreState( KConfig *config, const QString &groupName )
+void ViewContainer::restoreState( KConfigGroup* config, const QString& groupName )
 {
-	config->setGroup(groupName);
-	int baseAreaId = config->readNumEntry("BaseViewArea");
-	m_baseViewArea->restoreState( config, baseAreaId, groupName );
+	//config->setGroup(groupName);
+	int baseAreaId = config->readEntry("BaseViewArea", 0);
+	m_baseViewArea->restoreState(  config, baseAreaId, groupName );
 }
 
 
@@ -341,8 +342,10 @@ ViewArea *ViewArea::createViewArea( Position position, uint id, bool showOpenBut
 	
 	setOrientation( ( position == Right ) ? Qt::Horizontal : Qt::Vertical );
 	
-	p_viewArea1 = new ViewArea( this, p_viewContainer, m_id, false, (const char*)("viewarea_"+QString::number(m_id)) );
-	p_viewArea2 = new ViewArea( this, p_viewContainer, id, showOpenButton, (const char*)("viewarea_"+QString::number(id)) );
+	p_viewArea1 = new ViewArea( this, p_viewContainer, m_id, false,
+                                ("viewarea_"+QString::number(m_id)).toLatin1().data() );
+	p_viewArea2 = new ViewArea( this, p_viewContainer, id, showOpenButton,
+                                ("viewarea_"+QString::number(id)).toLatin1().data() );
 	
 	connect( p_viewArea1, SIGNAL(destroyed(QObject* )), this, SLOT(viewAreaDestroyed(QObject* )) );
 	connect( p_viewArea2, SIGNAL(destroyed(QObject* )), this, SLOT(viewAreaDestroyed(QObject* )) );
@@ -354,7 +357,7 @@ ViewArea *ViewArea::createViewArea( Position position, uint id, bool showOpenBut
 	
 	m_id = p_viewContainer->uniqueParentId();
 	
-	QValueList<int> splitPos;
+	QList<int> splitPos;
 	int pos = ((orientation() == Qt::Horizontal) ? width()/2 : height()/2);
 	splitPos << pos << pos;
 	setSizes(splitPos);
@@ -437,7 +440,7 @@ bool ViewArea::canSaveUsefulStateInfo() const
 }
 
 
-void ViewArea::saveState( KConfig *config )
+void ViewArea::saveState( KConfigGroup* config )
 {
 	bool va1Ok = p_viewArea1 && p_viewArea1->canSaveUsefulStateInfo();
 	bool va2Ok = p_viewArea2 && p_viewArea2->canSaveUsefulStateInfo();
@@ -446,7 +449,7 @@ void ViewArea::saveState( KConfig *config )
 	{
 		config->writeEntry( orientationKey(m_id), (orientation() == Qt::Horizontal) ? "LeftRight" : "TopBottom" );
 		
-		QValueList<int> contains;
+		QList<int> contains;
 		if (va1Ok)
 			contains << p_viewArea1->id();
 		if (va2Ok)
@@ -460,12 +463,12 @@ void ViewArea::saveState( KConfig *config )
 	}
 	else if ( p_view && !p_view->document()->url().isEmpty() )
 	{
-		config->writePathEntry( fileKey(m_id), p_view->document()->url().prettyURL() );
+		config->writePathEntry( fileKey(m_id), p_view->document()->url().prettyUrl() );
 	}
 }
 
 
-void ViewArea::restoreState( KConfig *config, int id, const QString &groupName )
+void ViewArea::restoreState( KConfigGroup* config, int id, const QString& groupName )
 {
 	if (!config)
 		return;
@@ -483,18 +486,18 @@ void ViewArea::restoreState( KConfig *config, int id, const QString &groupName )
 		p_viewContainer->setIdUsed(id);
 	}
 	
-	config->setGroup(groupName);
+	//config->setGroup(groupName);
 	if ( config->hasKey( orientationKey(id) ) )
 	{
 		QString orientation = config->readEntry( orientationKey(m_id) );
 		setOrientation( (orientation == "LeftRight") ? Qt::Horizontal : Qt::Vertical );
 	}
 	
-	config->setGroup(groupName);
+	//config->setGroup(groupName);
 	if ( config->hasKey( containsKey(m_id) ) )
 	{
-		typedef QValueList<int> IntList;
-		IntList contains = config->readIntListEntry( containsKey(m_id) );
+		typedef QList<int> IntList;
+		IntList contains = config->readEntry( containsKey(m_id), IntList());
 		
 		if ( contains.isEmpty() || contains.size() > 2 )
 			kdError() << k_funcinfo << "Contained list has wrong size of " << contains.size() << endl;
@@ -504,7 +507,8 @@ void ViewArea::restoreState( KConfig *config, int id, const QString &groupName )
 			if ( contains.size() >= 1 )
 			{
 				int viewArea1Id = contains[0];
-				p_viewArea1 = new ViewArea( this, p_viewContainer, viewArea1Id, false, (const char*)("viewarea_"+QString::number(viewArea1Id)) );
+				p_viewArea1 = new ViewArea( this, p_viewContainer, viewArea1Id, false,
+                                            ("viewarea_"+QString::number(viewArea1Id)).toLatin1().data() );
 				connect( p_viewArea1, SIGNAL(destroyed(QObject* )), this, SLOT(viewAreaDestroyed(QObject* )) );
 				p_viewArea1->restoreState( config, viewArea1Id, groupName );
 				p_viewArea1->show();
@@ -513,7 +517,8 @@ void ViewArea::restoreState( KConfig *config, int id, const QString &groupName )
 			if ( contains.size() >= 2 )
 			{
 				int viewArea2Id = contains[1];
-				p_viewArea2 = new ViewArea( this, p_viewContainer, viewArea2Id, false, (const char*)("viewarea_"+QString::number(viewArea2Id)) );
+				p_viewArea2 = new ViewArea( this, p_viewContainer, viewArea2Id, false,
+                                            ("viewarea_"+QString::number(viewArea2Id)).toLatin1().data() );
 				connect( p_viewArea2, SIGNAL(destroyed(QObject* )), this, SLOT(viewAreaDestroyed(QObject* )) );
 				p_viewArea2->restoreState( config, viewArea2Id, groupName );
 				p_viewArea2->show();
@@ -521,10 +526,10 @@ void ViewArea::restoreState( KConfig *config, int id, const QString &groupName )
 		}
 	}
 	
-	config->setGroup(groupName);
+	//config->setGroup(groupName);
 	if ( config->hasKey( fileKey(m_id) ) )
 	{
-		bool openedOk = DocManager::self()->openURL( config->readPathEntry( fileKey(m_id) ), this );
+		bool openedOk = DocManager::self()->openURL( config->readPathEntry( fileKey(m_id), "" ), this );
 		if (!openedOk)
 			deleteLater();
 	}

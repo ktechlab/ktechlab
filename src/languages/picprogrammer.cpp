@@ -18,12 +18,12 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 
-#include <qapplication.h>
-#include <qfile.h>
-#include <kprocess.h>
-#include <qregexp.h>
-#include <qtextstream.h>
-#include <qdatetime.h>
+#include <Qt/qapplication.h>
+#include <Qt/qfile.h>
+#include <k3process.h>
+#include <Qt/qregexp.h>
+#include <Qt/qtextstream.h>
+#include <Qt/qdatetime.h>
 
 #include <stdio.h>
 
@@ -200,17 +200,18 @@ void PicProgrammerSettings::load( KConfig * config )
 		// The CustomProgrammer_ string we searched for might appear half way through... (don't want)
 		if ( (*it).startsWith("CustomProgrammer_") )
 		{
-			config->setGroup(*it);
+			//config->setGroup(*it);
+            KConfigGroup grProg = config->group(*it);
 			
 			ProgrammerConfig pc;
-			pc.initCommand = config->readEntry( "InitCommand" );
-			pc.readCommand = config->readEntry( "ReadCommand" );
-			pc.writeCommand = config->readEntry( "WriteCommand" );
-			pc.verifyCommand = config->readEntry( "VerifyCommand" );
-			pc.blankCheckCommand = config->readEntry( "BlankCheckCommand" );
-			pc.eraseCommand = config->readEntry( "EraseCommand" );
+			pc.initCommand = grProg.readEntry( "InitCommand" );
+			pc.readCommand = grProg.readEntry( "ReadCommand" );
+			pc.writeCommand = grProg.readEntry( "WriteCommand" );
+			pc.verifyCommand = grProg.readEntry( "VerifyCommand" );
+			pc.blankCheckCommand = grProg.readEntry( "BlankCheckCommand" );
+			pc.eraseCommand = grProg.readEntry( "EraseCommand" );
 			
-			QString name = config->readEntry( "Name" );
+			QString name = grProg.readEntry( "Name" );
 			m_customConfigs[name] = pc;
 		}
 	}
@@ -232,15 +233,17 @@ void PicProgrammerSettings::save( KConfig * config )
 	ProgrammerConfigMap::iterator end = m_customConfigs.end();
 	for ( ProgrammerConfigMap::iterator it = m_customConfigs.begin(); it != end; ++it )
 	{
-		config->setGroup( QString("CustomProgrammer_%1").arg(at++) );
-		
-		config->writeEntry( "Name", it.key() );
-		config->writeEntry( "InitCommand", it.data().initCommand );
-		config->writeEntry( "ReadCommand", it.data().readCommand );
-		config->writeEntry( "WriteCommand", it.data().writeCommand );
-		config->writeEntry( "VerifyCommand", it.data().verifyCommand );
-		config->writeEntry( "BlankCheckCommand", it.data().blankCheckCommand );
-		config->writeEntry( "EraseCommand", it.data().eraseCommand );
+		//config->setGroup( QString("CustomProgrammer_%1").arg(at++) );
+        QString grName = QString("CustomProgrammer_%1").arg(at++);
+        KConfigGroup gr = config->group(grName);
+
+		gr.writeEntry( "Name", it.key() );
+		gr.writeEntry( "InitCommand", it.data().initCommand );
+		gr.writeEntry( "ReadCommand", it.data().readCommand );
+		gr.writeEntry( "WriteCommand", it.data().writeCommand );
+		gr.writeEntry( "VerifyCommand", it.data().verifyCommand );
+		gr.writeEntry( "BlankCheckCommand", it.data().blankCheckCommand );
+		gr.writeEntry( "EraseCommand", it.data().eraseCommand );
 	}
 }
 
@@ -372,7 +375,9 @@ void PicProgrammer::processInput( ProcessOptions options )
 	m_processOptions = options;
 	
 	PicProgrammerSettings settings;
-	settings.load( kapp->config() );
+	//settings.load( kapp->config() );
+    KSharedConfigPtr cfgPtr = KGlobal::config();
+    settings.load( cfgPtr.data() );
 	
 	QString program = options.m_program;
 	if ( !settings.configNames( true ).contains( program.lower() ) )
@@ -387,7 +392,7 @@ void PicProgrammer::processInput( ProcessOptions options )
 	QString command = config.writeCommand;
 	command.replace( "%port", options.m_port );
 	command.replace( "%device", QString( options.m_picID ).remove("P") );
-	command.replace( "%file", KProcess::quote( options.inputFiles().first() ) );
+	command.replace( "%file", K3Process::quote( options.inputFiles().first() ) );
 	
 	m_languageProcess->setUseShell( true );
 	*m_languageProcess << command;

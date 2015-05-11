@@ -13,7 +13,7 @@
 #include "pin.h"
 #include "component.h"
 
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 
 JunctionNode::JunctionNode(ICNDocument* icnDocument, int dir, const QPoint& pos, QString* id): 
@@ -51,5 +51,5 @@ void JunctionNode::drawShape( QPainter & p )
 
 void JunctionNode::initPoints()
 {
-	setPoints( QPointArray( QRect( -4, -4, 8, 8 ) ) );
+	setPoints( Q3PointArray( QRect( -4, -4, 8, 8 ) ) );
 }

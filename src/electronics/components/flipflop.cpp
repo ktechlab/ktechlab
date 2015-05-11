@@ -18,7 +18,7 @@
 
 #include <kiconloader.h>
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 
 //BEGIN class ClockedFlipFlop
@@ -58,7 +58,7 @@ Item* ECDFlipFlop::construct( ItemDocument *itemDocument, bool newItem, const ch
 LibraryItem* ECDFlipFlop::libraryItem()
 {
 	return new LibraryItem(
-		"ec/d_flipflop",
+		QStringList(QString("ec/d_flipflop")),
 		i18n("D Flip-Flop"),
 		i18n("Integrated Circuits"),
 		"ic3.png",
@@ -199,7 +199,7 @@ Item* ECJKFlipFlop::construct( ItemDocument *itemDocument, bool newItem, const c
 LibraryItem* ECJKFlipFlop::libraryItem()
 {
 	return new LibraryItem(
-		"ec/jk_flipflop",
+		QStringList(QString("ec/jk_flipflop")),
 		i18n("JK Flip-Flop"),
 		i18n("Integrated Circuits"),
 		"ic3.png",
@@ -340,7 +340,7 @@ Item* ECSRFlipFlop::construct( ItemDocument *itemDocument, bool newItem, const c
 LibraryItem* ECSRFlipFlop::libraryItem()
 {
 	return new LibraryItem(
-		"ec/sr_flipflop",
+		QStringList(QString("ec/sr_flipflop")),
 		i18n("SR Flip-Flop"),
 		i18n("Integrated Circuits"),
 		"ic3.png",

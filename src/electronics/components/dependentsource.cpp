@@ -19,7 +19,7 @@
 #include "vcvs.h"
 
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 //BEGIN class DependentSource
 DependentSource::DependentSource( ICNDocument *icnDocument, bool newItem, const char *id )
@@ -71,7 +71,7 @@ void DependentSource::drawOutline( QPainter & p )
 #endif
 	
 	// Bottom diamond
-	QPointArray pa4(4);
+	Q3PointArray pa4(4);
 	pa4[0] = QPoint( _x+6, _y+40 );
 	pa4[1] = QPoint( _x+16, _y+32 );
 	pa4[2] = QPoint( _x+26, _y+40 );
@@ -93,7 +93,7 @@ void DependentSource::drawTopArrow( QPainter & p )
 	
 	p.drawLine( _x+8, _y+24, _x+24, _y+24 );
 	
-	QPointArray pa3(3);
+	Q3PointArray pa3(3);
 	pa3[0] = QPoint( _x+24, _y+24 );
 	pa3[1] = QPoint( _x+19, _y+21 );
 	pa3[2] = QPoint( _x+19, _y+27 );
@@ -114,7 +114,7 @@ void DependentSource::drawBottomArrow( QPainter & p )
 	
 	p.drawLine( _x+11, _y+40, _x+21, _y+40 );
 	
-	QPointArray pa3(3);
+	Q3PointArray pa3(3);
 	pa3[0] = QPoint( _x+21, _y+40 );
 	pa3[1] = QPoint( _x+16, _y+37 );
 	pa3[2] = QPoint( _x+16, _y+43 );
@@ -132,7 +132,7 @@ Item* ECCCCS::construct( ItemDocument *itemDocument, bool newItem, const char *i
 LibraryItem* ECCCCS::libraryItem()
 {
 	return new LibraryItem(
-		QString("ec/cccs"),
+		QStringList(QString("ec/cccs")),
 		i18n("CCCS"),
 		i18n("Sources"),
 		"cccs.png",
@@ -182,7 +182,7 @@ Item* ECCCVS::construct( ItemDocument *itemDocument, bool newItem, const char *i
 LibraryItem* ECCCVS::libraryItem()
 {
 	return new LibraryItem(
-		QString("ec/ccvs"),
+		QStringList(QString("ec/ccvs")),
 		i18n("CCVS"),
 		i18n("Sources"),
 		"ccvs.png",
@@ -231,7 +231,7 @@ Item* ECVCCS::construct( ItemDocument *itemDocument, bool newItem, const char *i
 LibraryItem* ECVCCS::libraryItem()
 {
 	return new LibraryItem(
-		QString("ec/vccs"),
+		QStringList(QString("ec/vccs")),
 		i18n("VCCS"),
 		i18n("Sources"),
 		"vccs.png",
@@ -280,7 +280,7 @@ Item* ECVCVS::construct( ItemDocument *itemDocument, bool newItem, const char *i
 LibraryItem* ECVCVS::libraryItem()
 {
 	return new LibraryItem(
-		QString("ec/vcvs"),
+		QStringList(QString("ec/vcvs")),
 		i18n("VCVS"),
 		i18n("Sources"),
 		"vcvs.png",

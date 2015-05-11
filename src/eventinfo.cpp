@@ -12,6 +12,7 @@
 #include "itemdocument.h"
 #include "itemview.h"
 
+#include <Qt/qnamespace.h>
 
 EventInfo::EventInfo()
 {
@@ -39,9 +40,9 @@ EventInfo::EventInfo( ItemView *itemView, QMouseEvent *e )
 	globalPos = e->globalPos();
 	isRightClick = e->button() == Qt::RightButton;
 	isMiddleClick = e->button() == Qt::MidButton;
-	ctrlPressed = e->state() & QMouseEvent::ControlButton;
-	shiftPressed = e->state() & QMouseEvent::ShiftButton;
-	altPressed = e->state() & QMouseEvent::AltButton;
+	ctrlPressed = e->modifiers() & Qt::ControlModifier; // QMouseEvent::ControlButton;
+	shiftPressed = e->modifiers() & Qt::ShiftModifier; // QMouseEvent::ShiftButton;
+	altPressed = e->modifiers() & Qt::AltModifier; //QMouseEvent::AltButton;
 	if ( ItemDocument * id = dynamic_cast<ItemDocument*>(itemView->document()) )
 			qcanvasItemClickedOn = id->itemAtTop(pos);
 	scrollDelta = 0;
@@ -55,9 +56,9 @@ EventInfo::EventInfo( ItemView *itemView, QWheelEvent *e )
 	
 	extractPos( itemView, e->pos() );
 	globalPos = e->globalPos();
-	ctrlPressed = e->state() & QMouseEvent::ControlButton;
-	shiftPressed = e->state() & QMouseEvent::ShiftButton;
-	altPressed = e->state() & QMouseEvent::AltButton;
+	ctrlPressed = e->modifiers() & Qt::ControlModifier; // QMouseEvent::ControlButton;
+	shiftPressed = e->modifiers() & Qt::ShiftModifier; // QMouseEvent::ShiftButton;
+	altPressed = e->modifiers() & Qt::AltModifier; // QMouseEvent::AltButton;
 	if ( ItemDocument * id = dynamic_cast<ItemDocument*>(itemView->document()) )
 		qcanvasItemClickedOn = id->itemAtTop(pos);
 	scrollDelta = e->delta();

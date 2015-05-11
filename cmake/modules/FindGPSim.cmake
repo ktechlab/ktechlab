@@ -57,23 +57,24 @@ if ( GPSim_FOUND )
         	endif( HAVE_GPSIM_0_21_4 )
 	endif( HAVE_GPSIM_0_21_12 )
 
-	INCLUDE( CheckLibraryExists )
-	CHECK_LIBRARY_EXISTS( readline readline /usr/lib HAVE_LIBREADLINE )
+# removed check on readline library, because (1) it is broken (2) make module finding simpler
+#	INCLUDE( CheckLibraryExists )
+#	CHECK_LIBRARY_EXISTS( readline readline /usr/lib HAVE_LIBREADLINE )
 
 	find_package( Curses )
 
-	if( HAVE_LIBREADLINE )
+#	if( HAVE_LIBREADLINE )
 		set( GPSIM_INCLUDE_DIRS 
 			${GPSim_INCLUDE_DIR}
 			${GLIB2_INCLUDE_DIRS}
 			)
 		set( GPSIM_LIBRARY
-			-lreadline
+#			-lreadline
 			${GPSim_LIBRARY}
 			${GLIB2_LIBRARY}
 			)
 		set( GPSIM_FOUND TRUE )
-	else( HAVE_LIBREADLINE )
+#	else( HAVE_LIBREADLINE )
 
-	endif( HAVE_LIBREADLINE )
+#	endif( HAVE_LIBREADLINE )
 endif( GPSim_FOUND)

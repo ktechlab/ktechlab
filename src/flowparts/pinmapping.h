@@ -15,7 +15,7 @@
 #include "circuiticndocument.h"
 #include "icnview.h"
 
-#include <kdialogbase.h>
+#include <kdialog.h>
 
 class ECKeyPad;
 class ECSevenSegment;
@@ -67,7 +67,7 @@ typedef QMap< QString, PinMapping > PinMappingMap;
 Dialog for editing a Pin Mapping
 @author David Saxton
 */
-class PinMapEditor : public KDialogBase
+class PinMapEditor : public KDialog
 {
 	Q_OBJECT
 	public:

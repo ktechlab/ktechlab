@@ -11,7 +11,7 @@
 #ifndef SCOPEVIEWBASE_H
 #define SCOPEVIEWBASE_H
 
-#include <qframe.h>
+#include <Qt/qframe.h>
 
 class Oscilloscope;
 class Simulator;

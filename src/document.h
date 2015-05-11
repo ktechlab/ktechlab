@@ -11,8 +11,11 @@
 #ifndef DOCUMENT_H
 #define DOCUMENT_H
 
+#include "view.h"
+
 #include <kurl.h>
-#include <qguardedptr.h>
+
+#include <Qt/qpointer.h>
 
 class DCOPObject;
 class Document;
@@ -21,7 +24,7 @@ class KTechlab;
 class View;
 class ViewContainer;
 
-typedef QValueList<QGuardedPtr<View> > ViewList;
+typedef QList<QPointer<View> > ViewList;
 
 /**
 @author David Saxton
@@ -94,7 +97,7 @@ public:
 	/**
 	 * Returns the url of the file that the Document refers to
 	 */
-	const KURL& url() const { return m_url; }
+	const KUrl& url() const { return m_url; }
 	/**
 	 * Prompts the user for a url, with the given types for the filter.
 	 * If user accepts, returns true, and set the url to the new url.
@@ -104,11 +107,11 @@ public:
 	 * Attempts to open a url, and returns true if succesful.
 	 * You must reinherit this function.
 	 */
-	virtual bool openURL( const KURL &url ) = 0;
+	virtual bool openURL( const KUrl &url ) = 0;
 	/**
 	 * Sets the url of the file that this Document refers to
 	 */
-	void setURL( const KURL &url );
+	void setURL( const KUrl &url );
 	/**
 	 * Sets whether the file is modified or not. Will emit modifiedStateChanged
 	 * if state changes. You must emit this signal if you reinherit this
@@ -205,7 +208,7 @@ signals:
 	 * Emitted when the name of the file that the Document refers to
 	 * is changed.
 	 */
-	void fileNameChanged( const KURL &url );
+	void fileNameChanged( const KUrl &url );
 	
 	void viewFocused( View *view );
 	void viewUnfocused();
@@ -235,8 +238,8 @@ protected:
 	
 private:
 
-	KURL		  m_url;
-	QGuardedPtr<View> m_pActiveView;
+	KUrl		  m_url;
+	QPointer<View> m_pActiveView;
 	QString		  m_caption;
 	bool		  m_bAddToProjectOnSave;
 	unsigned 	  m_dcopID;

@@ -25,7 +25,7 @@ class Node;
 class QSlider;
 class QString;
 class QToolButton;
-class QWMatrix;
+class QMatrix;
 class Slider;
 class Text;
 
@@ -44,8 +44,8 @@ public:
 
 typedef QMap<QString, QString> StringMap;
 typedef QMap<QString, NodeInfo> NodeInfoMap; // Internal id, node info
-typedef QValueList<QGuardedPtr<Connector> > ConnectorList;
-typedef QMap<QString, QGuardedPtr<Text> > TextMap;
+typedef QList<QPointer<Connector> > ConnectorList;
+typedef QMap<QString, QPointer<Text> > TextMap;
 
 /**
 Essentially, all items that live on ICNDocument should inherit from this class.
@@ -172,14 +172,14 @@ protected:
 	 */
 	virtual void initPainter( QPainter &p );
 	
-	QGuardedPtr<ICNDocument> p_icnDocument;
+	QPointer<ICNDocument> p_icnDocument;
 	TextMap m_textMap;
 	NodeInfoMap m_nodeMap;
 	QColor m_selectedCol;
 	QColor m_brushCol;
 	bool b_pointsAdded;
 };
-typedef QValueList<CNItem*> CNItemList;
+typedef QList<CNItem*> CNItemList;
 
 #endif
 

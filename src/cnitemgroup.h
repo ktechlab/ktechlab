@@ -22,14 +22,14 @@ class Connector;
 class FlowPart;
 class Node;
 class ECNode;
-class FPNode;
+// class FPNode;
 class ICNDocument;
 class QCanvasItem;
 class QCanvasItemList;
 
-typedef QValueList<QGuardedPtr<Item> > ItemList;
-typedef QValueList<QGuardedPtr<Node> > NodeList;
-typedef QValueList<QGuardedPtr<Connector> > ConnectorList;
+typedef QList<QPointer<Item> > ItemList;
+typedef QList<QPointer<Node> > NodeList;
+typedef QList<QPointer<Connector> > ConnectorList;
 
 /**
 @author David Saxton

@@ -13,8 +13,10 @@
 #include "gpsimprocessor.h"
 
 #include <kdebug.h>
-#include <qfile.h>
-#include <qregexp.h>
+
+#include <Qt/qfile.h>
+#include <Qt/qregexp.h>
+#include <Qt/qstringlist.h>
 
 AsmParser::AsmParser( const QString &url )
 	: m_url(url)
@@ -41,8 +43,11 @@ bool AsmParser::parse( GpsimDebugger * debugger )
 	m_bContainsRadix = false;
 	m_picID = QString::null;
 	
-	QStringList nonAbsoluteOps = QStringList::split( ",",
-			"code,.def,.dim,.direct,endw,extern,.file,global,idata,.ident,.line,.type,udata,udata_acs,udata_ovr,udata_shr" );
+	//QStringList nonAbsoluteOps = QStringList::split( ",",
+	//		"code,.def,.dim,.direct,endw,extern,.file,global,idata,.ident,.line,.type,udata,udata_acs,udata_ovr,udata_shr" );
+    QStringList nonAbsoluteOps = QString(
+        "code,.def,.dim,.direct,endw,extern,.file,global,idata,.ident,.line,.type,udata,udata_acs,udata_ovr,udata_shr")
+        .split(",");
 	
 	unsigned inputAtLine = 0;
 	while ( !stream.atEnd() ) {

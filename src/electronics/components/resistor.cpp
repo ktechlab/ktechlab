@@ -14,7 +14,7 @@
 #include "resistance.h"
 
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 Item* Resistor::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -24,7 +24,7 @@ Item* Resistor::construct( ItemDocument *itemDocument, bool newItem, const char 
 LibraryItem* Resistor::libraryItem()
 {
 	return new LibraryItem(
-		"ec/resistor",
+		QStringList(QString("ec/resistor")),
 		i18n("Resistor"),
 		i18n("Passive"),
 		"resistor.png",

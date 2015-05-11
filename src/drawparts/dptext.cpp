@@ -16,9 +16,9 @@
 #include <kiconloader.h>
 #include <klocale.h>
 
-#include <qpainter.h> 
-#include <qsimplerichtext.h>
-#include <qstylesheet.h>
+#include <Qt/qpainter.h> 
+#include <Qt/q3simplerichtext.h>
+#include <Qt/q3stylesheet.h>
 
 Item* DPText::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -34,7 +34,7 @@ LibraryItem* DPText::libraryItem()
 		idList,
 		i18n("Canvas Text"),
 		i18n("Other"),
-		KGlobal::iconLoader()->loadIcon( "text", KIcon::Small ),
+		KIconLoader::global()->loadIcon( "text", KIconLoader::Small ),
 		LibraryItem::lit_drawpart,
 		DPText::construct );
 }
@@ -86,7 +86,7 @@ void DPText::dataChanged()
 	
 	m_text = dataString("text");
 	
-	if ( !QStyleSheet::mightBeRichText( m_text ) )
+	if ( !Q3StyleSheet::mightBeRichText( m_text ) )
 	{
 		// Format the text to be HTML
 		m_text.replace( '\n', "<br>" );
@@ -98,7 +98,7 @@ void DPText::dataChanged()
 
 void DPText::postResize()
 {
-	setItemPoints( QPointArray(m_sizeRect), false );
+	setItemPoints( Q3PointArray(m_sizeRect), false );
 }
 
 
@@ -132,7 +132,7 @@ void DPText::drawShape( QPainter &p )
 	bound.setBottom( bound.bottom()-pad );
 	
 	
-	QSimpleRichText * t = new QSimpleRichText( m_text, QFont() );
+	Q3SimpleRichText * t = new Q3SimpleRichText( m_text, QFont() );
 	t->setWidth( bound.width() );
 	
 	t->draw( &p, bound.left(), bound.top(), bound, QColorGroup() );

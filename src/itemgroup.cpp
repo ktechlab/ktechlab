@@ -14,7 +14,7 @@
 #include "mechanicsdocument.h"
 #include "utils.h"
 
-#include <qtimer.h>
+#include <Qt/qtimer.h>
 #include <map>
 
 ItemGroup::ItemGroup( ItemDocument *view, const char *name )
@@ -62,7 +62,7 @@ ItemList ItemGroup::items( bool excludeParentedItems ) const
 		end = children.end();
 		for ( ItemList::iterator it = children.begin(); it != end; ++it )
 		{
-			if ( children.contains(*it) > 1 )
+			if ( children.count(*it) > 1 )
 				*it = 0l;
 		}
 		children.remove((Item*)0l);

@@ -22,7 +22,7 @@
 
 //BEGIN class DocumentIface
 DocumentIface::DocumentIface( Document * document )
-	: DCOPObject("Document")
+	: DCOPObject( /* TODO "Document" */ )
 {
 	m_pDocument = document;
 }
@@ -125,7 +125,7 @@ QString DocumentIface::caption( ) const
 
 DCOPRef DocumentIface::viewToRef( View * view )
 {
-	return DCOPRef( view->dcopObject() );
+	return DCOPRef(); //  view->dcopObject() ); TODO
 }
 //END class DocumentIface
 
@@ -238,11 +238,11 @@ void ICNDocumentIface::exportToImage( )
 	m_pICNDocument->exportToImage();
 }
 
-QCStringList ICNDocumentIface::nodeIDs( const QString & id )
+QStringList ICNDocumentIface::nodeIDs( const QString & id )
 {
 	CNItem * item = m_pICNDocument->cnItemWithID(id);
 	
-	QCStringList ids;
+	QStringList ids;
 	if ( !item )
 		return ids;
 	
@@ -292,9 +292,9 @@ ItemDocumentIface::ItemDocumentIface( ItemDocument * document )
 	m_pItemDocument = document;
 }
 
-QCStringList ItemDocumentIface::validItemIDs( )
+QStringList ItemDocumentIface::validItemIDs( )
 {
-	QCStringList validIDs;
+	QStringList validIDs;
 	
 	LibraryItemList * allItems = itemLibrary()->items();
 	const LibraryItemList::iterator end = allItems->end();

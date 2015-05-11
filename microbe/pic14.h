@@ -29,9 +29,9 @@
 #include "expression.h"
 #include "microbe.h"
 
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qvaluelist.h>
+#include <Qt/qstring.h>
+#include <Qt/qstringlist.h>
+#include <Qt/qlist.h>
 
 class Code;
 class Microbe;
@@ -65,7 +65,7 @@ class PortPin
 		QString m_port;
 		int m_pin;
 };
-typedef QValueList<PortPin> PortPinList;
+typedef QList<PortPin> PortPinList;
 
 
 /**

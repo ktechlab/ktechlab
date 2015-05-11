@@ -13,7 +13,7 @@
 
 #include "itemdocument.h"
 
-#include <qmap.h>
+#include <Qt/qmap.h>
 
 class Cells;
 class CNItem;
@@ -25,10 +25,10 @@ class Node;
 class NodeGroup;
 
 typedef QMap< QString, Node* > NodeMap;
-typedef QValueList<QGuardedPtr<Connector> > ConnectorList;
-typedef QValueList<QGuardedPtr<Node> > NodeList;
-typedef QValueList<NodeGroup*> NodeGroupList;
-typedef QValueList<QGuardedPtr<NodeGroup> > GuardedNodeGroupList;
+typedef QList<QPointer<Connector> > ConnectorList;
+typedef QList<QPointer<Node> > NodeList;
+typedef QList<NodeGroup*> NodeGroupList;
+typedef QList<QPointer<NodeGroup> > GuardedNodeGroupList;
 
 /**
 @author David Saxton

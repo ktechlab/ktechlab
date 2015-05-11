@@ -15,8 +15,8 @@
 #include "simulator.h"
 #include "probepositioner.h"
 
-#include <qpainter.h>
-#include <qtimer.h>
+#include <Qt/qpainter.h>
+#include <Qt/qtimer.h>
 #include <kdebug.h>
 
 #include <cmath>

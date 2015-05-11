@@ -17,7 +17,7 @@
 
 #include <kdebug.h>
 #include <klocale.h>
-#include <qfile.h>
+#include <Qt/qfile.h>
 
 Item* ECSubcircuit::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -27,7 +27,7 @@ Item* ECSubcircuit::construct( ItemDocument *itemDocument, bool newItem, const c
 LibraryItem* ECSubcircuit::libraryItem()
 {
 	return new LibraryItem(
-		QString("ec/subcircuit"),
+		QStringList(QString("ec/subcircuit")),
 		QString::null,
 		QString::null,
 		QString::null,

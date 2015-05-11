@@ -27,9 +27,11 @@
 #include <knuminput.h>
 #include <kurlrequester.h>
 #include <ktoolbar.h>
-#include <qapplication.h>
-#include <qlabel.h>
-#include <qcheckbox.h>
+#include <kxmlguifactory.h>
+
+#include <Qt/qapplication.h>
+#include <Qt/qlabel.h>
+#include <Qt/qcheckbox.h>
 
 #include <cassert>
 
@@ -93,8 +95,10 @@ void ItemInterface::slotItemDocumentChanged( ItemDocument * doc )
 
 void ItemInterface::clearItemEditorToolBar()
 {
-	if ( m_pActiveItemEditorToolBar && m_toolBarWidgetID != -1 )
-		m_pActiveItemEditorToolBar->removeItem(m_toolBarWidgetID);
+	if ( m_pActiveItemEditorToolBar && m_toolBarWidgetID != -1 ) {
+		//m_pActiveItemEditorToolBar->removeItem(m_toolBarWidgetID); // TODO add proper replacmenet
+        m_pActiveItemEditorToolBar->clear();
+    }
 	m_toolBarWidgetID = -1;
 	itemEditTBCleared();
 }
@@ -158,10 +162,12 @@ void ItemInterface::slotUpdateItemInterface()
 		{
 			if ( m_pActiveItemEditorToolBar = dynamic_cast<KToolBar*>(ktl->factory()->container("itemEditorTB",itemView)) )
 			{
-				m_pActiveItemEditorToolBar->setFullSize( true );
+				//m_pActiveItemEditorToolBar->setFullSize( true ); // TODO proper replacement
+                m_pActiveItemEditorToolBar->adjustSize();
 				QWidget * widget = configWidget();
 				m_toolBarWidgetID = 1;
-				m_pActiveItemEditorToolBar->insertWidget( m_toolBarWidgetID, 0, widget );
+				// m_pActiveItemEditorToolBar->insertWidget( m_toolBarWidgetID, 0, widget ); // TODO properly fix
+                m_pActiveItemEditorToolBar->addWidget( widget );
 			}
 		}
 	}
@@ -309,7 +315,7 @@ QWidget * ItemInterface::configWidget()
 				
 				const QStringList allowed = vait.data()->allowed();
 				
-				KURLComboRequester * urlreq = new KURLComboRequester( configWidget );
+				KUrlComboRequester * urlreq = new KUrlComboRequester( configWidget );
 				urlreq->setFilter( vait.data()->filter() );
 				connectMapWidget( urlreq, SIGNAL(urlSelected(const QString &)) );
 				m_stringURLReqMap[vait.key()] = urlreq;
@@ -319,7 +325,7 @@ QWidget * ItemInterface::configWidget()
 				box->setEditable( true );
 				
 				// Note this has to be called after inserting the allowed list
-				urlreq->setURL( vait.data()->value().toString() );
+				urlreq->setUrl( vait.data()->value().toString() );
 				
 				// Generally we only want a file name once the user has finished typing out the full file name.
 				connectMapWidget( box, SIGNAL(returnPressed(const QString &)));
@@ -345,7 +351,8 @@ QWidget * ItemInterface::configWidget()
 			}
 			case Variant::Type::Int:
 			{
-				KIntSpinBox *spin = new KIntSpinBox( (int)vait.data()->minValue(), (int)vait.data()->maxValue(), 1, vait.data()->value().toInt(), 10, configWidget );
+				KIntSpinBox *spin = new KIntSpinBox( (int)vait.data()->minValue(), (int)vait.data()->maxValue(), 1, vait.data()->value().toInt(),
+                                                     configWidget, 10 );
 				
 				connectMapWidget( spin, SIGNAL(valueChanged(int)) );
 				m_intSpinBoxMap[vait.key()] = spin;
@@ -369,7 +376,7 @@ QWidget * ItemInterface::configWidget()
 			}
 			case Variant::Type::Color:
 			{
-				QColor value = vait.data()->value().toColor();
+				QColor value = vait.data()->value().value<QColor>();
 				
 				ColorCombo * colorBox = new ColorCombo( (ColorCombo::ColorScheme)vait.data()->colorScheme(), configWidget );
 				
@@ -508,9 +515,9 @@ void ItemInterface::tbDataChanged()
 		slotSetData( sbit.key(), sbit.data()->value() );
 	}
 	
-	// Filenames from KURLRequesters
-	const KURLReqMap::iterator m_stringURLReqMapEnd = m_stringURLReqMap.end();
-	for ( KURLReqMap::iterator urlit = m_stringURLReqMap.begin(); urlit != m_stringURLReqMapEnd; ++urlit )
+	// Filenames from KUrlRequesters
+	const KUrlReqMap::iterator m_stringURLReqMapEnd = m_stringURLReqMap.end();
+	for ( KUrlReqMap::iterator urlit = m_stringURLReqMap.begin(); urlit != m_stringURLReqMapEnd; ++urlit )
 	{
 		slotSetData( urlit.key(), urlit.data()->url() );
 	}

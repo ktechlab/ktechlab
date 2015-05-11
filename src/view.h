@@ -11,12 +11,19 @@
 #ifndef VIEW_H
 #define VIEW_H
 
+#include "viewcontainer.h"
+#include "document.h"
+
 #include <kstatusbar.h>
 #include <kurl.h>
 #include <kxmlguiclient.h>
-#include <qguardedptr.h>
-#include <qpixmap.h>
-#include <qpainter.h>
+
+#include <Qt/qpointer.h>
+#include <Qt/qpixmap.h>
+#include <Qt/qpainter.h>
+#include <Qt/qevent.h>
+#include <Qt/qpalette.h>
+
 
 class DCOPObject;
 class Document;
@@ -25,7 +32,11 @@ class KTechlab;
 class View;
 class ViewContainer;
 class ViewIface;
+
+class KAction;
+
 class QVBoxLayout;
+class QLabel;
 
 class ViewStatusBar : public KStatusBar
 {
@@ -43,7 +54,7 @@ public:
 	
 public slots:
 	void slotModifiedStateChanged();
-	void slotFileNameChanged( const KURL &url );
+	void slotFileNameChanged( const KUrl &url );
 	void slotViewFocused( View * );
 	void slotViewUnfocused();
 	
@@ -65,7 +76,7 @@ public:
 	View( Document *document, ViewContainer *viewContainer, uint viewAreaId, const char *name = 0 );
 	virtual ~View();
 	
-	KAction * action( const QString & name ) const;
+	QAction * action( const QString & name ) const;
 	/**
 	 * Pointer to the parent document
 	 */
@@ -140,8 +151,8 @@ protected:
 	 */
 	void setFocusWidget( QWidget * focusWidget );
 	
-	QGuardedPtr<Document> m_pDocument;
-	QGuardedPtr<ViewContainer> p_viewContainer;
+	QPointer<Document> m_pDocument;
+	QPointer<ViewContainer> p_viewContainer;
 	uint m_viewAreaId;
 	ViewStatusBar * m_statusBar;
 	QVBoxLayout * m_layout;
@@ -177,9 +188,11 @@ protected:
 	void paintEvent( QPaintEvent *e )
 	{
 		QPainter p( this );
-		p.setPen( colorGroup().shadow() );
+		//p.setPen( colorGroup().shadow() );
+        QColorGroup colorGroup(palette());
+        p.setPen( colorGroup.shadow() );
 		p.drawLine( e->rect().left(), 0, e->rect().right(), 0 );
-		p.setPen( ((View*)parentWidget())->hasFocus() ? colorGroup().light() : colorGroup().midlight() );
+		p.setPen( ((View*)parentWidget())->hasFocus() ? colorGroup.light() : colorGroup.midlight() );
 		p.drawLine( e->rect().left(), 1, e->rect().right(), 1 );
 	}
 };

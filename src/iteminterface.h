@@ -11,7 +11,10 @@
 #ifndef ITEMINTERFACE_H
 #define ITEMINTERFACE_H
 
-#include <qguardedptr.h>
+#include <Qt/qpointer.h>
+#include <Qt/qmap.h>
+
+#include "itemgroup.h"
 
 class CNItemGroup;
 class DoubleSpinBox;
@@ -26,7 +29,7 @@ class Variant;
 class ColorCombo;
 class KComboBox;
 class KToolBar;
-class KURLRequester;
+class KUrlRequester;
 class QCheckBox;
 class LineEdit;
 class KIntSpinBox;
@@ -38,7 +41,7 @@ typedef QMap<QString, LineEdit*> LineEditMap;
 typedef QMap<QString, DoubleSpinBox*> DoubleSpinBoxMap;
 typedef QMap<QString, KIntSpinBox*> IntSpinBoxMap;
 typedef QMap<QString, ColorCombo*> ColorComboMap;
-typedef QMap<QString, KURLRequester*> KURLReqMap;
+typedef QMap<QString, KUrlRequester*> KUrlReqMap;
 typedef QMap<QString, QCheckBox*> QCheckBoxMap;
 
 /**
@@ -109,14 +112,14 @@ class ItemInterface : public QObject
 		// Widget maps.
 		LineEditMap m_stringLineEditMap;
 		KComboBoxMap m_stringComboBoxMap;
-		KURLReqMap m_stringURLReqMap;
+		KUrlReqMap m_stringURLReqMap;
 		DoubleSpinBoxMap m_doubleSpinBoxMap;
 		IntSpinBoxMap m_intSpinBoxMap;
 		ColorComboMap m_colorComboMap;
 		QCheckBoxMap m_boolCheckMap;
 		
 		// Use by item editor toolbar
-		QGuardedPtr<KToolBar> m_pActiveItemEditorToolBar;
+		QPointer<KToolBar> m_pActiveItemEditorToolBar;
 		int m_toolBarWidgetID;
 		
 		
@@ -127,9 +130,9 @@ class ItemInterface : public QObject
 		ItemInterface();
 		static ItemInterface * m_pSelf;
 	
-		QGuardedPtr<ItemDocument> p_cvb;
-		QGuardedPtr<ItemGroup> p_itemGroup;
-		QGuardedPtr<Item> p_lastItem;
+		QPointer<ItemDocument> p_cvb;
+		QPointer<ItemGroup> p_itemGroup;
+		QPointer<Item> p_lastItem;
 		int m_currentActionTicket;
 };
 
