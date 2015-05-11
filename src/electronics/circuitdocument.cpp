@@ -86,10 +86,10 @@ void CircuitDocument::slotInitItemActions( )
 		return;
 	
 	QAction * orientation_actions[] = {
-		activeCircuitView->action("edit_orientation_0"),
-		activeCircuitView->action("edit_orientation_90"),
-		activeCircuitView->action("edit_orientation_180"),
-		activeCircuitView->action("edit_orientation_270") };
+		activeCircuitView->actionByName("edit_orientation_0"),
+		activeCircuitView->actionByName("edit_orientation_90"),
+		activeCircuitView->actionByName("edit_orientation_180"),
+		activeCircuitView->actionByName("edit_orientation_270") };
 
 	if ( !item )
 	{
@@ -239,7 +239,7 @@ void CircuitDocument::fillContextMenu( const QPoint &pos )
 	if ( !activeCircuitView ) return;
 
 	bool canCreateSubcircuit = (m_selectList->count() > 1 && countExtCon(m_selectList->items()) > 0);
-	QAction * subcircuitAction = activeCircuitView->action("circuit_create_subcircuit");
+	QAction * subcircuitAction = activeCircuitView->actionByName("circuit_create_subcircuit");
 	subcircuitAction->setEnabled( canCreateSubcircuit );
 
 	if ( m_selectList->count() < 1 ) return;
@@ -251,10 +251,10 @@ void CircuitDocument::fillContextMenu( const QPoint &pos )
 	if (!( !item && m_selectList->count() > 0 || !m_selectList->itemsAreSameType() ))
 	{	
 		QAction * orientation_actions[] = {
-			activeCircuitView->action("edit_orientation_0"),
-			activeCircuitView->action("edit_orientation_90"),
-			activeCircuitView->action("edit_orientation_180"),
-			activeCircuitView->action("edit_orientation_270") };
+			activeCircuitView->actionByName("edit_orientation_0"),
+			activeCircuitView->actionByName("edit_orientation_90"),
+			activeCircuitView->actionByName("edit_orientation_180"),
+			activeCircuitView->actionByName("edit_orientation_270") };
 
 		if ( !item ) return;
 

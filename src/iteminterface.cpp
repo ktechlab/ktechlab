@@ -182,8 +182,8 @@ void ItemInterface::updateItemActions()
 	
 	bool itemsSelected = p_itemGroup && p_itemGroup->itemCount();
 	
-	itemView->action("edit_raise")->setEnabled(itemsSelected);
-	itemView->action("edit_lower")->setEnabled(itemsSelected);
+	itemView->actionByName("edit_raise")->setEnabled(itemsSelected);
+	itemView->actionByName("edit_lower")->setEnabled(itemsSelected);
 	
 	if ( KTechlab::self() )
 	{
@@ -197,12 +197,12 @@ void ItemInterface::updateItemActions()
 	if ( cnItemGroup && circuitView  )
 	{
 		bool canFlip = cnItemGroup->canFlip();
-		circuitView->action("edit_flip_horizontally")->setEnabled( canFlip );
-		circuitView->action("edit_flip_vertically")->setEnabled( canFlip );
+		circuitView->actionByName("edit_flip_horizontally")->setEnabled( canFlip );
+		circuitView->actionByName("edit_flip_vertically")->setEnabled( canFlip );
 		
 		bool canRotate = cnItemGroup->canRotate();
-		circuitView->action("edit_rotate_ccw")->setEnabled( canRotate );
-		circuitView->action("edit_rotate_cw")->setEnabled( canRotate );
+		circuitView->actionByName("edit_rotate_ccw")->setEnabled( canRotate );
+		circuitView->actionByName("edit_rotate_cw")->setEnabled( canRotate );
 	}
 }
 
