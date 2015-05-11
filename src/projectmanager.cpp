@@ -864,7 +864,7 @@ bool ProjectInfo::save()
 	stream << doc.toString();
 	file.close();
 	
-	(static_cast<RecentFilesAction*>(KTechlab::self()->action("project_open_recent")))->addURL(m_url);
+	(static_cast<RecentFilesAction*>(KTechlab::self()->actionByName("project_open_recent")))->addURL(m_url);
 	
 	return true;
 }
@@ -980,7 +980,7 @@ void ProjectManager::slotOpenProject( const KUrl & url )
 		return;
 	}
 	
-	RecentFilesAction * rfa = static_cast<RecentFilesAction*>(KTechlab::self()->action("project_open_recent"));
+	RecentFilesAction * rfa = static_cast<RecentFilesAction*>(KTechlab::self()->actionByName("project_open_recent"));
 	rfa->addURL( m_pCurrentProject->url() );
 	
 	if ( KTLConfig::raiseItemSelectors() )
@@ -1046,14 +1046,14 @@ void ProjectManager::updateActions()
 {
 	bool projectIsOpen = m_pCurrentProject;
 	
-	KTechlab::self()->action("project_create_subproject")->setEnabled( projectIsOpen );
-	KTechlab::self()->action("project_export_makefile")->setEnabled( projectIsOpen );
-	KTechlab::self()->action("subproject_add_existing_file")->setEnabled( projectIsOpen );
-	KTechlab::self()->action("subproject_add_current_file")->setEnabled( projectIsOpen );
-// 	KTechlab::self()->action("project_options")->setEnabled( projectIsOpen );
-	KTechlab::self()->action("project_close")->setEnabled( projectIsOpen );
-	KTechlab::self()->action("project_add_existing_file")->setEnabled( projectIsOpen );
-	KTechlab::self()->action("project_add_current_file")->setEnabled( projectIsOpen );
+	KTechlab::self()->actionByName("project_create_subproject")->setEnabled( projectIsOpen );
+	KTechlab::self()->actionByName("project_export_makefile")->setEnabled( projectIsOpen );
+	KTechlab::self()->actionByName("subproject_add_existing_file")->setEnabled( projectIsOpen );
+	KTechlab::self()->actionByName("subproject_add_current_file")->setEnabled( projectIsOpen );
+// 	KTechlab::self()->actionByName("project_options")->setEnabled( projectIsOpen );
+	KTechlab::self()->actionByName("project_close")->setEnabled( projectIsOpen );
+	KTechlab::self()->actionByName("project_add_existing_file")->setEnabled( projectIsOpen );
+	KTechlab::self()->actionByName("project_add_current_file")->setEnabled( projectIsOpen );
 }
 
 
@@ -1191,7 +1191,7 @@ void ProjectManager::slotContextMenuRequested( K3ListViewItem * item, const QPoi
 {
 	QString popupName;
 	ILVItem * ilvItem = dynamic_cast<ILVItem*>(item);
-	QAction * linkerOptionsAct = KTechlab::self()->action("project_item_linker_options");
+	QAction * linkerOptionsAct = KTechlab::self()->actionByName("project_item_linker_options");
 	linkerOptionsAct->setEnabled(false);
 	
 	if ( !m_pCurrentProject )
@@ -1242,8 +1242,8 @@ void ProjectManager::slotContextMenuRequested( K3ListViewItem * item, const QPoi
 	}
 	
 	bool haveFocusedDocument = DocManager::self()->getFocusedDocument();
-	KTechlab::self()->action("subproject_add_current_file")->setEnabled( haveFocusedDocument );
-	KTechlab::self()->action("project_add_current_file")->setEnabled( haveFocusedDocument );
+	KTechlab::self()->actionByName("subproject_add_current_file")->setEnabled( haveFocusedDocument );
+	KTechlab::self()->actionByName("project_add_current_file")->setEnabled( haveFocusedDocument );
 	
 	Q3PopupMenu *pop = static_cast<Q3PopupMenu*>(KTechlab::self()->factory()->container( popupName, KTechlab::self() ));
 	if (pop)

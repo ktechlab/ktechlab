@@ -297,9 +297,9 @@ void KTechlab::setupView()
 	setXMLFile("ktechlabui.rc");
 	createShellGUI(true);
 	//action("newfile_popup")->plug( toolBar("mainToolBar"), 0 );
-    action("newfile_popup")->addTo( toolBar("mainToolBar") );
+    actionByName("newfile_popup")->addTo( toolBar("mainToolBar") );
 	//action("file_new")->unplug( toolBar("mainToolBar") );
-    action("file_new")->removeFrom( toolBar("mainToolBar") );
+    actionByName("file_new")->removeFrom( toolBar("mainToolBar") );
 	setupExampleActions();
 	statusBar()->show();
 }
@@ -799,7 +799,7 @@ void KTechlab::slotViewContainerDestroyed( QObject * object )
 }
 
 
-QAction * KTechlab::action( const QString & name ) const
+QAction * KTechlab::actionByName( const QString & name ) const
 {
 	QAction * action = actionCollection()->action(name);
 	if ( !action )

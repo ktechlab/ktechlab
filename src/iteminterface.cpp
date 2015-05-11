@@ -187,8 +187,8 @@ void ItemInterface::updateItemActions()
 	
 	if ( KTechlab::self() )
 	{
-		KTechlab::self()->action("edit_cut")->setEnabled(itemsSelected);
-		KTechlab::self()->action("edit_copy")->setEnabled(itemsSelected);
+		KTechlab::self()->actionByName("edit_cut")->setEnabled(itemsSelected);
+		KTechlab::self()->actionByName("edit_copy")->setEnabled(itemsSelected);
 	}
 	
 	CNItemGroup * cnItemGroup = dynamic_cast<CNItemGroup*>((ItemGroup*)p_itemGroup);
