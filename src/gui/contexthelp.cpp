@@ -121,7 +121,7 @@ ContextHelp::~ContextHelp()
 
 bool ContextHelp::eventFilter( QObject * watched, QEvent * e )
 {
-// 	kdDebug() << k_funcinfo << "watched="<<watched<<endl;
+// 	kDebug() << k_funcinfo << "watched="<<watched<<endl;
 	
 	if ( (watched != m_pEditor) && (watched != m_pEditor->editorViewport()) )
 		return false;

@@ -212,7 +212,7 @@ void PinItem::calcTextRect()
 
 	if (!m_pinSettings)
 	{
-		kdDebug() << "PinItem::textRect: No pinSettings!"<<endl;
+		kDebug() << "PinItem::textRect: No pinSettings!"<<endl;
 		return;
 	}	
 	if ( onLeft )

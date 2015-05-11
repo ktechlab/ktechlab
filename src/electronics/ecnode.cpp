@@ -253,7 +253,7 @@ bool ECNode::handleNewConnector( Connector * connector )
 
 	if ( m_connectorList.contains(connector) )
 	{
-		kdWarning() << k_funcinfo << " Already have connector = " << connector << endl;
+		kWarning() << k_funcinfo << " Already have connector = " << connector << endl;
 		return false;
 	}
 

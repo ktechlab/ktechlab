@@ -227,7 +227,7 @@ bool ICNDocument::canConnect( QCanvasItem *qcanvasItem1, QCanvasItem *qcanvasIte
 				container[i] = startParentItem[i]->parentItem();
 			else if ( dl == 1 )
 				container[i] = startParentItem[i];
-			else	kdError() << k_funcinfo << " start, i="<<i<<" dl="<<dl<<endl;
+			else	kError() << k_funcinfo << " start, i="<<i<<" dl="<<dl<<endl;
 		}
 
 		if (endParentItem[i]) {
@@ -236,7 +236,7 @@ bool ICNDocument::canConnect( QCanvasItem *qcanvasItem1, QCanvasItem *qcanvasIte
 				container[i+3] = endParentItem[i]->parentItem();
 			else if ( dl == 1 )
 				container[i+3] = endParentItem[i];
-			else	kdError() << k_funcinfo << " end, i="<<i<<" dl="<<dl<<endl;
+			else	kError() << k_funcinfo << " end, i="<<i<<" dl="<<dl<<endl;
 		}
 	}
 
@@ -517,7 +517,7 @@ spend time figuring out which method to call...
 		}
 
 		if(connector) connector->removeConnector();
-		else kdWarning() << k_funcinfo << "unrecognised QCanvasItem " << qcanvasItem << endl;
+		else kWarning() << k_funcinfo << "unrecognised QCanvasItem " << qcanvasItem << endl;
 	}
 }
 
@@ -532,13 +532,13 @@ bool ICNDocument::registerItem( QCanvasItem *qcanvasItem )
 			m_nodeList[ node->id() ] = node;
 			emit nodeAdded(node);
 			*/
-			kdError() << k_funcinfo << "BUG: this member should have been overridden!" << endl;
+			kError() << k_funcinfo << "BUG: this member should have been overridden!" << endl;
 
 		} else if ( Connector *connector = dynamic_cast<Connector*>(qcanvasItem) ) {
 			m_connectorList.append(connector);
 			emit connectorAdded(connector);
 		} else {
-			kdError() << k_funcinfo << "Unrecognised item"<<endl;
+			kError() << k_funcinfo << "Unrecognised item"<<endl;
 			return false;
 		}
 	}

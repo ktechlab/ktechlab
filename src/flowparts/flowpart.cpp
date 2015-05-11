@@ -228,7 +228,7 @@ void FlowPart::initSymbol( FlowPart::FlowSymbol symbol, int width )
 			setItemPoints(pa);
 			break;
 		}
-		default: kdError() << k_funcinfo << "Unknown flowSymbol: "<<symbol<<endl;
+		default: kError() << k_funcinfo << "Unknown flowSymbol: "<<symbol<<endl;
 	}
 }
 
@@ -685,7 +685,7 @@ void FlowPart::updateAttachedPositioning( )
 	{
 		if ( !it.data().node )
 		{
-			kdError() << k_funcinfo << "Node in nodemap is null" << endl;
+			kError() << k_funcinfo << "Node in nodemap is null" << endl;
 			continue;
 		}
 		
@@ -720,7 +720,7 @@ void FlowPart::updateNodePositions()
 {
 	if ( m_orientation > 7 )
 	{
-		kdWarning() << k_funcinfo << "Invalid orientation: "<<m_orientation<<endl;
+		kWarning() << k_funcinfo << "Invalid orientation: "<<m_orientation<<endl;
 		return;
 	}
 	
@@ -741,7 +741,7 @@ void FlowPart::updateNodePositions()
 		else if (stdOutputInfo)
 			stdOutputInfo->orientation = outNodePositioning[m_orientation];
 	} else {
-		kdWarning() << k_funcinfo << "Invalid orientation: "<<m_orientation<<endl;
+		kWarning() << k_funcinfo << "Invalid orientation: "<<m_orientation<<endl;
 		return;
 	}
 	
@@ -749,7 +749,7 @@ void FlowPart::updateNodePositions()
 	for ( NodeInfoMap::iterator it = m_nodeMap.begin(); it != end; ++it )
 	{
 		if ( !it.data().node )
-			kdError() << k_funcinfo << "Node in nodemap is null" << endl;
+			kError() << k_funcinfo << "Node in nodemap is null" << endl;
 		else {
 			switch ( it.data().orientation ) {
 			case 0:
@@ -810,7 +810,7 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 	
 	if ( ! ( allowedOrientations() & ( 1 << orientation ) ) )
 	{
-		kdWarning() << k_funcinfo << "Requesting invalid orientation of " << orientation << endl;
+		kWarning() << k_funcinfo << "Requesting invalid orientation of " << orientation << endl;
 		return;
 	}
 	

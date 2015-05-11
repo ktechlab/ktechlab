@@ -540,7 +540,7 @@ void ItemInterface::slotSetData( const QString &id, QVariant value )
 	
 	if ( !p_itemGroup->itemsAreSameType() )
 	{
-		kdDebug() << k_funcinfo << "Items are not the same type!"<<endl;
+		kDebug() << k_funcinfo << "Items are not the same type!"<<endl;
 		return;
 	}
 	

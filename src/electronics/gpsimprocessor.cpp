@@ -278,7 +278,7 @@ void GpsimProcessor::reset()
 MicroInfo * GpsimProcessor::microInfo( ) const
 {
 	if ( !m_pPicProcessor ){
-		kdWarning() << k_funcinfo << " m_pPicProcessor == NULL" << endl;
+		kWarning() << k_funcinfo << " m_pPicProcessor == NULL" << endl;
 		return 0l;
 	}
 	
@@ -504,7 +504,7 @@ void GpsimDebugger::associateLine( const QString & sourceFile, int sourceLine, c
 {
 	if ( assemblyLine < 0 || sourceLine < 0 )
 	{
-		kdWarning() << k_funcinfo << "Invalid lines: assemblyLine="<<assemblyLine<<" sourceLine="<<sourceLine<<endl;
+		kWarning() << k_funcinfo << "Invalid lines: assemblyLine="<<assemblyLine<<" sourceLine="<<sourceLine<<endl;
 		return;
 	}
 	
@@ -513,7 +513,7 @@ void GpsimDebugger::associateLine( const QString & sourceFile, int sourceLine, c
 	
 	if ( m_sourceLineMap.contains(asmSource) )
 	{
-		kdWarning() << k_funcinfo << "Already have an association for assembly (\""<<assemblyFile<<"\","<<assemblyLine<<")"<<endl;
+		kWarning() << k_funcinfo << "Already have an association for assembly (\""<<assemblyFile<<"\","<<assemblyLine<<")"<<endl;
 		return;
 	}
 	
@@ -560,7 +560,7 @@ void GpsimDebugger::initAddressToLineMap()
 			int fileID = m_pGpsim->picProcessor()->files.Find( stdAsmFile );
 			if ( fileID == -1 )
 			{
-				kdWarning() << k_funcinfo << "Could not find FileContext (asmFile=\""<<asmFile<<"\")"<<endl;
+				kWarning() << k_funcinfo << "Could not find FileContext (asmFile=\""<<asmFile<<"\")"<<endl;
 				continue;
 			}
 	
@@ -569,7 +569,7 @@ void GpsimDebugger::initAddressToLineMap()
 	
 			if ( (asmFromLine < 0) || (asmToLine < asmFromLine) )
 			{
-				kdWarning() << k_funcinfo << "Invalid lines: asmFromLine="<<asmFromLine<<" asmToLine="<<asmToLine<<endl;
+				kWarning() << k_funcinfo << "Invalid lines: asmFromLine="<<asmFromLine<<" asmToLine="<<asmToLine<<endl;
 				continue;
 			}
 	
@@ -733,7 +733,7 @@ void GpsimDebugger::stackStep( int dl )
 RegisterSet::RegisterSet( pic_processor * picProcessor )
 {
 	unsigned numRegisters = picProcessor->rma.get_size();
-	kdDebug() << k_funcinfo << "numRegisters="<<numRegisters<<endl;
+	kDebug() << k_funcinfo << "numRegisters="<<numRegisters<<endl;
 	m_registers.resize( numRegisters, 0l );
 	for ( unsigned i = 0; i < numRegisters; ++i )
 	{

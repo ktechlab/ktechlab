@@ -416,7 +416,7 @@ void ItemView::contentsMouseDoubleClickEvent( QMouseEvent *e )
 
 void ItemView::contentsMouseMoveEvent( QMouseEvent *e )
 {
-// 	kdDebug() << k_funcinfo << "state = " << e->state() << endl;
+// 	kDebug() << k_funcinfo << "state = " << e->state() << endl;
 	
 	if ( !e || !p_itemDocument )
 		return;
@@ -681,7 +681,7 @@ void CVBEditor::canvasResized( const QRect & oldSize, const QRect & newSize )
 	
 	return;
 	
-	kdDebug() << k_funcinfo << endl;
+	kDebug() << k_funcinfo << endl;
 	
 	QPoint delta = oldSize.topLeft() - newSize.topLeft();
 	delta *= p_itemView->zoomLevel();

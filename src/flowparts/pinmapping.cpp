@@ -190,7 +190,7 @@ void PinMapDocument::init( const PinMapping & pinMapping, MicroInfo * microInfo 
 			break;
 			
 		case PinMapping::Invalid:
-			kdDebug() << k_funcinfo << "m_pinMappingType == Invalid" << endl;
+			kDebug() << k_funcinfo << "m_pinMappingType == Invalid" << endl;
 			break;
 	}
 	

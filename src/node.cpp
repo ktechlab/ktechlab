@@ -37,7 +37,7 @@ Node::Node( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoin
 		if (id) {
 			m_id = *id;
 			if ( !p_icnDocument->registerUID(*id) )
-				kdError() << k_funcinfo << "Could not register id " << *id << endl;
+				kError() << k_funcinfo << "Could not register id " << *id << endl;
 		} else m_id = p_icnDocument->generateUID("node"+QString::number(type));
 	}
 	
@@ -100,7 +100,7 @@ void Node::setVisible( bool yes )
 void Node::setParentItem( CNItem *parentItem )
 {
 	if (!parentItem) {
-		kdError() << k_funcinfo << "no parent item" << endl;
+		kError() << k_funcinfo << "no parent item" << endl;
 		return;
 	}
 

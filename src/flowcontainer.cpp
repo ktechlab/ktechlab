@@ -246,7 +246,7 @@ void FlowContainer::setFullBounds( bool full )
 		return;
 	}
 	
-// 	kdDebug() << k_funcinfo << "width="<<width()<<" height="<<height()<<endl;
+// 	kDebug() << k_funcinfo << "width="<<width()<<" height="<<height()<<endl;
 	
 	Q3PointArray pa(10);
 	pa[0] = QPoint( 0, 0 );
@@ -317,7 +317,7 @@ void FlowContainer::setExpanded( bool expanded )
 
 void FlowContainer::postResize()
 {
-// 	kdDebug() << k_funcinfo << "width="<<width()<<endl;
+// 	kDebug() << k_funcinfo << "width="<<width()<<endl;
 	setFullBounds(false);
 	FlowPart::postResize();
 }

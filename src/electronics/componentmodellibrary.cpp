@@ -84,14 +84,14 @@ void ComponentModelLibrary::loadModels()
 		QString fileName = KStandardDirs::locate( "appdata", "models/" + *it );
 		if ( fileName.isEmpty() )
 		{
-			kdWarning() << k_funcinfo << "Could not find library file \""<<*it<<"\".\n";
+			kWarning() << k_funcinfo << "Could not find library file \""<<*it<<"\".\n";
 			continue;
 		}
 
 		QFile file( fileName );
 		if ( !file.open( QIODevice::ReadOnly ) )
 		{
-			kdWarning() << k_funcinfo << "Could not open library file \""<<fileName<<"\" for reading.\n";
+			kWarning() << k_funcinfo << "Could not open library file \""<<fileName<<"\" for reading.\n";
 			continue;
 		}
 
@@ -115,10 +115,10 @@ void ComponentModelLibrary::loadModels()
 				ModelType type = None;
 				if ( typeString == "NPN" ) type = NPN;
 				else if ( typeString == "PNP" ) type = PNP;
-				else	kdError() << k_funcinfo << "Unknown type \""<<typeString<<"\".\n";
+				else	kError() << k_funcinfo << "Unknown type \""<<typeString<<"\".\n";
 
 				if ( m_componentModelIDs[type].contains( id ) )
-					kdError() << k_funcinfo << "Already have model with id=\""<<id<<"\" for type=\""<<typeString<<"\".\n";
+					kError() << k_funcinfo << "Already have model with id=\""<<id<<"\" for type=\""<<typeString<<"\".\n";
 
 				if ( !m_componentModels.contains( type ) )
 				{
@@ -131,7 +131,7 @@ void ComponentModelLibrary::loadModels()
 
 				if ( int(modelCount[type] * 1.2) > maxComponentModels )
 				{
-					kdWarning() << k_funcinfo << "There are "<<modelCount[type]<<" models for component type \""<<typeString<<"\". Consider enlarging the dictionary.\n";
+					kWarning() << k_funcinfo << "There are "<<modelCount[type]<<" models for component type \""<<typeString<<"\". Consider enlarging the dictionary.\n";
 				}
 
 				// Reset the model
@@ -168,14 +168,14 @@ void ComponentModelLibrary::loadModels()
 					double realValue = value.toDouble( & ok );
 					
 					if ( !ok )
-						kdError() << k_funcinfo << "Could not convert \""<<value<<"\" to a real number (for property \""<<name<<"\".\n";
+						kError() << k_funcinfo << "Could not convert \""<<value<<"\" to a real number (for property \""<<name<<"\".\n";
 					else	model->setProperty( name, realValue );
 				}
 			}
 		}
 	}
 
-	kdDebug() << k_funcinfo << "It took " << ct.elapsed() << " milliseconds to read in the component models.\n";
+	kDebug() << k_funcinfo << "It took " << ct.elapsed() << " milliseconds to read in the component models.\n";
 }
 //END class ComponentModelLibrary
 

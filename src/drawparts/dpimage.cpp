@@ -41,7 +41,7 @@ bool ImageScaleThread::updateSettings( const QString & imageURL, int width, int 
 {
 	if ( running() )
 	{
-		kdWarning() << k_funcinfo << "Cannot update settings while running.\n";
+		kWarning() << k_funcinfo << "Cannot update settings while running.\n";
 		return false;
 	}
 	

@@ -108,7 +108,7 @@ void FPNode::addOutputConnector( Connector * const connector )
 		return ;
 
 	if( m_outputConnector)
-		kdError() << k_funcinfo << "BUG: adding an output connector when we already have one" << endl;
+		kError() << k_funcinfo << "BUG: adding an output connector when we already have one" << endl;
 
 	// FIXME dynamic_cast connector
 	m_outputConnector = dynamic_cast<FlowConnector*>(connector);
@@ -136,7 +136,7 @@ bool FPNode::handleNewConnector( Connector * connector )
 	if ( m_inFlowConnList.contains(dynamic_cast<FlowConnector *> (connector) ) || 
 		    ((Connector*)m_outputConnector == connector) )
 	{
-		kdWarning() << k_funcinfo << " Already have connector = " << connector << endl;
+		kWarning() << k_funcinfo << " Already have connector = " << connector << endl;
 		return false;
 	}
 

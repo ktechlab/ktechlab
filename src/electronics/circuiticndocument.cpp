@@ -178,7 +178,7 @@ Connector *CircuitICNDocument::createConnector(Connector *con1, Connector *con2,
 	if(!con1a || !con1b || !con2a || !con2b ) {
 		// This should never happen, as the canConnect function should strictly
 		// determine whether the connectors could be created before hand.
-		kdWarning() << k_funcinfo << "Not all the connectors were created, this should never happen" << endl;
+		kWarning() << k_funcinfo << "Not all the connectors were created, this should never happen" << endl;
 		
 		if(con1a) con1a->removeConnector();
 		if(con1b) con1b->removeConnector();
@@ -245,7 +245,7 @@ Connector *CircuitICNDocument::createConnector( const QString &startNodeId, cons
 	ECNode *endNode = getEcNodeWithID(endNodeId);
 	
 	if ( !startNode || !endNode ) {
-		kdDebug() << "Either/both the connector start node and end node could not be found" << endl;
+		kDebug() << "Either/both the connector start node and end node could not be found" << endl;
 		return 0L;
 	}
 	
@@ -253,7 +253,7 @@ Connector *CircuitICNDocument::createConnector( const QString &startNodeId, cons
 	
 	Connector *connector = endNode->createConnector(startNode);
 	if (!connector) {
-		kdError() << k_funcinfo << "End node did not create the connector" << endl;
+		kError() << k_funcinfo << "End node did not create the connector" << endl;
 		return 0l;
 	}
 
@@ -336,7 +336,7 @@ void CircuitICNDocument::flushDeleteList()
 			m_ecNodeList.remove ( node->id() );
 		else if ( Connector * con = dynamic_cast<Connector*> ( qcanvasItem ) )
 			m_connectorList.remove ( con );
-		else	kdError() << k_funcinfo << "Unknown qcanvasItem! "<<qcanvasItem << endl;
+		else	kError() << k_funcinfo << "Unknown qcanvasItem! "<<qcanvasItem << endl;
 
 		qcanvasItem->setCanvas(0);
 
@@ -376,7 +376,7 @@ bool CircuitICNDocument::registerItem( QCanvasItem *qcanvasItem )
 			m_connectorList.append(connector);
 			emit connectorAdded(connector);
 		} else {
-			kdError() << k_funcinfo << "Unrecognised item"<<endl;
+			kError() << k_funcinfo << "Unrecognised item"<<endl;
 			return false;
 		}
 	}

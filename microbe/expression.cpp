@@ -207,7 +207,7 @@ void Expression::doOp( Operation op, BTreeNode *left, BTreeNode *right )
 		case unset:
 		case extpin:
 		case keypad:
-			kdError() << k_funcinfo << "Bad left->type(): " << left->type() << endl;
+			kError() << k_funcinfo << "Bad left->type(): " << left->type() << endl;
 	};
 	
 	PIC14::LocationType rightType;
@@ -228,7 +228,7 @@ void Expression::doOp( Operation op, BTreeNode *left, BTreeNode *right )
 		case unset:
 		case extpin:
 		case keypad:
-			kdError() << k_funcinfo << "Bad right->type(): " << right->type() << endl;
+			kError() << k_funcinfo << "Bad right->type(): " << right->type() << endl;
 	};
 	
 	switch(op)

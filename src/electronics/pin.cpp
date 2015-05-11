@@ -41,7 +41,7 @@ Pin::~Pin()
 
 PinList Pin::localConnectedPins( ) const
 {
-// 	kdDebug() << k_funcinfo << "Input wires: "<<m_inputWireList.size()<<"   Output wires: " << m_outputWireList.size() << "   Switch connected: " << m_switchConnectedPins.size() << endl;
+// 	kDebug() << k_funcinfo << "Input wires: "<<m_inputWireList.size()<<"   Output wires: " << m_outputWireList.size() << "   Switch connected: " << m_switchConnectedPins.size() << endl;
 	
 	PinList pins;
 	

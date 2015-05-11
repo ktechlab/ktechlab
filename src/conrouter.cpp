@@ -77,8 +77,8 @@ QPointListList ConRouter::splitPoints( const QPoint &pos ) const
 	QPointList second;
 	
 	if (!found) {
-		kdWarning() << "ConRouter::splitConnectorPoints: Could not find point ("<<pos.x()<<", "<<pos.y()<<") in connector points"<<endl;
-		kdWarning() << "ConRouter::splitConnectorPoints: Returning generic list"<<endl;
+		kWarning() << "ConRouter::splitConnectorPoints: Could not find point ("<<pos.x()<<", "<<pos.y()<<") in connector points"<<endl;
+		kWarning() << "ConRouter::splitConnectorPoints: Returning generic list"<<endl;
 		
 		first.append( toCanvas(m_cellPointList.first()) );
 		first.append(pos);

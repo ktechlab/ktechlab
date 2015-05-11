@@ -45,7 +45,7 @@ View::View( Document *document, ViewContainer *viewContainer, uint viewAreaId, c
 		viewArea->setView(this);
 	
 	else
-		kdDebug() << k_funcinfo << " viewArea = " << viewArea <<endl;
+		kDebug() << k_funcinfo << " viewArea = " << viewArea <<endl;
 	
 	m_layout = new QVBoxLayout(this);
 	
@@ -73,7 +73,7 @@ QAction* View::actionByName( const QString& name ) const
 {
 	QAction * action = actionCollection()->action(name);
 	if ( !action )
-		kdError() << k_funcinfo << "No such action: " << name << endl;
+		kError() << k_funcinfo << "No such action: " << name << endl;
 	return action;
 }
 
@@ -107,7 +107,7 @@ void View::setFocusWidget( QWidget * focusWidget )
 
 bool View::eventFilter( QObject * watched, QEvent * e )
 {
-// 	kdDebug() << k_funcinfo << e->type() << endl;
+// 	kDebug() << k_funcinfo << e->type() << endl;
 	
 	if ( watched != m_pFocusWidget )
 		return false;
@@ -131,42 +131,42 @@ bool View::eventFilter( QObject * watched, QEvent * e )
 				ItemInterface::self()->updateItemActions();
 			}
 	
-// 			kdDebug() << k_funcinfo << "Focused In\n";
+// 			kDebug() << k_funcinfo << "Focused In\n";
 			emit focused(this);
 			break;
 		}
 		
 		case QEvent::FocusOut:
 		{
-// 			kdDebug() << k_funcinfo << "Focused Out.\n";
+// 			kDebug() << k_funcinfo << "Focused Out.\n";
             QFocusEvent *fe = static_cast<QFocusEvent*>(e);
 			
 			if ( QWidget * fw = qApp->focusWidget() )
 			{
 				QString fwClassName( fw->className() );
-// 				kdDebug() << "New focus widget is \""<<fw->name()<<"\" of type " << fwClassName << endl;
+// 				kDebug() << "New focus widget is \""<<fw->name()<<"\" of type " << fwClassName << endl;
 				
 				if ( (fwClassName != "KateViewInternal") &&
 								  (fwClassName != "QViewportWidget") )
 				{
-// 					kdDebug() << "Returning as a non-view widget has focus.\n";
+// 					kDebug() << "Returning as a non-view widget has focus.\n";
 					break;
 				}
 			}
 			else
 			{
-// 				kdDebug() << "No widget currently has focus.\n";
+// 				kDebug() << "No widget currently has focus.\n";
 			}
 			
 			if ( fe->reason() == QFocusEvent::Popup )
 			{
-// 				kdDebug() << k_funcinfo << "Ignoring focus-out event as was a popup.\n";
+// 				kDebug() << k_funcinfo << "Ignoring focus-out event as was a popup.\n";
 				break;
 			}
 			
 			if ( fe->reason() == QFocusEvent::ActiveWindow )
 			{
-// 				kdDebug() << k_funcinfo << "Ignoring focus-out event as main window lost focus.\n";
+// 				kDebug() << k_funcinfo << "Ignoring focus-out event as main window lost focus.\n";
 				break;
 			}
 			

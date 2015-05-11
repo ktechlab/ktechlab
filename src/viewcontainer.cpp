@@ -156,7 +156,7 @@ int ViewContainer::createViewArea( int relativeViewArea, ViewArea::Position posi
 	ViewArea *relative = viewArea(relativeViewArea);
 	if (!relative)
 	{
-		kdError() << k_funcinfo << "Could not find relative view area" << endl;
+		kError() << k_funcinfo << "Could not find relative view area" << endl;
 		return -1;
 	}
 	
@@ -331,12 +331,12 @@ ViewArea *ViewArea::createViewArea( Position position, uint id, bool showOpenBut
 {
 	if (p_viewArea1 || p_viewArea2)
 	{
-		kdError() << k_funcinfo << "Attempting to create ViewArea when already containing ViewAreas!" << endl;
+		kError() << k_funcinfo << "Attempting to create ViewArea when already containing ViewAreas!" << endl;
 		return 0l;
 	}
 	if (!p_view)
 	{
-		kdError() << k_funcinfo << "We don't have a view yet, so creating a new ViewArea is redundant" << endl;
+		kError() << k_funcinfo << "We don't have a view yet, so creating a new ViewArea is redundant" << endl;
 		return 0l;
 	}
 	
@@ -396,13 +396,13 @@ void ViewArea::setView( View *view )
 	
 	if ( p_view )
 	{
-		kdError() << k_funcinfo << "Attempting to set already contained view!" << endl;
+		kError() << k_funcinfo << "Attempting to set already contained view!" << endl;
 		return;
 	}
 	
 	p_view = view;
 	
-// 	kdDebug() << k_funcinfo << "p_view->isFocusEnabled()="<<p_view->isFocusEnabled()<<" p_view->isHidden()="<<p_view->isHidden()<<endl;
+// 	kDebug() << k_funcinfo << "p_view->isFocusEnabled()="<<p_view->isFocusEnabled()<<" p_view->isHidden()="<<p_view->isHidden()<<endl;
 	
 	connect( view, SIGNAL(destroyed()), this, SLOT(viewDestroyed()) );
 	bool hadFocus = hasFocus();
@@ -500,7 +500,7 @@ void ViewArea::restoreState( KConfigGroup* config, int id, const QString& groupN
 		IntList contains = config->readEntry( containsKey(m_id), IntList());
 		
 		if ( contains.isEmpty() || contains.size() > 2 )
-			kdError() << k_funcinfo << "Contained list has wrong size of " << contains.size() << endl;
+			kError() << k_funcinfo << "Contained list has wrong size of " << contains.size() << endl;
 		
 		else
 		{

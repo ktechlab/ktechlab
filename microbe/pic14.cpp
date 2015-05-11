@@ -150,7 +150,7 @@ uchar PIC14::gprStart() const
 			break;
 	}
 	
-	kdError() << k_funcinfo << "Unknown PIC type = " << m_type << endl;
+	kError() << k_funcinfo << "Unknown PIC type = " << m_type << endl;
 	return 0xc;
 }
 
@@ -217,7 +217,7 @@ QString PIC14::minimalTypeString() const
 			break;
 	}
 	
-	kdError() << k_funcinfo << "Unknown PIC type = " << m_type << endl;
+	kError() << k_funcinfo << "Unknown PIC type = " << m_type << endl;
 	return 0;;
 }
 
@@ -770,7 +770,7 @@ void PIC14::ifInitCode( const QString &val1, const QString &val2, LocationType v
 			break;
 			
 		case work:
-			kdError() << k_funcinfo << "Cannot subtract working from working!" << endl;
+			kError() << k_funcinfo << "Cannot subtract working from working!" << endl;
 			break;
 			
 		case var:

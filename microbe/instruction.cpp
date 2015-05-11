@@ -937,7 +937,7 @@ RegisterBit::RegisterBit( uchar bitPos, Register::Type reg )
 		case Register::WORKING:
 		case Register::none:
 		{
-// 			kdError() << k_funcinfo << "Bad register: " << reg << endl;
+// 			kError() << k_funcinfo << "Bad register: " << reg << endl;
 		}
 	}
 }
@@ -1771,7 +1771,7 @@ void RegisterBit::initFromName()
 	{
 		m_registerType = Register::none;
 		m_bitPos = 0;
-		kdError() << k_funcinfo << "Unknown bit: " << m_name << endl;
+		kError() << k_funcinfo << "Unknown bit: " << m_name << endl;
 	}
 }
 //END class RegisterBit
@@ -2571,7 +2571,7 @@ void Instruction::makeOutputLinks( Code::iterator current, bool firstOutput, boo
 	++current;
 	if ( !*current )
 	{
-		kdWarning() << k_funcinfo << "current+1 is null"<<endl;
+		kWarning() << k_funcinfo << "current+1 is null"<<endl;
 		return;
 	}
 	if ( firstOutput )

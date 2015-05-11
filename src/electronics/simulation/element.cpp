@@ -68,7 +68,7 @@ void Element::elementSetDeleted()
 	if (b_componentDeleted) return delete this;
 
 	b_status = false;
-// 	kdDebug() << "Element::elementSetDeleted(): Setting b_status to false, this="<<this<<endl;
+// 	kDebug() << "Element::elementSetDeleted(): Setting b_status to false, this="<<this<<endl;
 	
 	p_eSet = 0;
 	setCNodes();
@@ -137,7 +137,7 @@ bool Element::updateStatus()
 	}
 
 	// And return the status :-)
-// 	kdDebug() << "Element::updateStatus(): Setting b_status to "<<(b_status?"true":"false")<<" this="<<this<<endl;
+// 	kDebug() << "Element::updateStatus(): Setting b_status to "<<(b_status?"true":"false")<<" this="<<this<<endl;
 	return b_status;
 }
 

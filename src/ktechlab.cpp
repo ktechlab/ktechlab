@@ -110,7 +110,7 @@ KTechlab::KTechlab()
     KSharedConfigPtr cfg = KGlobal::config();
 	readProperties( cfg.data() );
 	
-// 	kdDebug() << "Constructor time: " << ct.elapsed() << endl;
+// 	kDebug() << "Constructor time: " << ct.elapsed() << endl;
 }
 
 
@@ -803,7 +803,7 @@ QAction * KTechlab::action( const QString & name ) const
 {
 	QAction * action = actionCollection()->action(name);
 	if ( !action )
-		kdError() << k_funcinfo << "No such action: " << name << endl;
+		kError() << k_funcinfo << "No such action: " << name << endl;
 	return action;
 }
 

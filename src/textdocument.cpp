@@ -353,7 +353,7 @@ void TextDocument::fileSave( const KUrl& url )
 {
 	if ( m_doc->url().path() != url.path() )
 	{
-		kdError() << k_funcinfo << "Error: Kate::View url and passed url do not match; cannot save." << endl;
+		kError() << k_funcinfo << "Error: Kate::View url and passed url do not match; cannot save." << endl;
 		return;
 	}
 	
@@ -472,7 +472,7 @@ void TextDocument::convertToAssembly()
 	
 	else
 	{
-		kdError() << "Could not get file type for converting to assembly!"<<endl;
+		kError() << "Could not get file type for converting to assembly!"<<endl;
 		return;
 	}
 	
@@ -516,7 +516,7 @@ void TextDocument::convertToHex()
 	
 	else
 	{
-		kdError() << "Could not get file type for converting to hex!"<<endl;
+		kError() << "Could not get file type for converting to hex!"<<endl;
 		return;
 	}
 	
@@ -569,7 +569,7 @@ void TextDocument::convertToPIC()
 			break;
 			
 		case ct_unknown:
-			kdError() << "Could not get file type for converting to hex!"<<endl;
+			kError() << "Could not get file type for converting to hex!"<<endl;
 			return;
 	}
 	
