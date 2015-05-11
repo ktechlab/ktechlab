@@ -52,7 +52,7 @@ void ScopeScreenView::drawContents(QPainter * p)
 	const double ticksPerPixel = m_intervalsX * m_ticksPerIntervalX / cr.width();	
 	//draw the current time
 	int curTimeX = ((Simulator::self()->time() + m_offsetX) % (ticksPerScreen)) * pixelsPerTick;
-	//kdDebug() << curTimeX <<endl;
+	//kDebug() << curTimeX <<endl;
 	p->drawLine(curTimeX, cr.top(), curTimeX, cr.bottom());
 	
 	//the following is liberally borrowed from OscilloscopeView::drawFloatingData
@@ -102,7 +102,7 @@ void ScopeScreenView::drawContents(QPainter * p)
 			{
 				prevX = 0;
 			}
-			//kdDebug() <<at<<" "<<nextX<<" "<<nextY<<" "<<nextTime<<endl;
+			//kDebug() <<at<<" "<<nextX<<" "<<nextY<<" "<<nextTime<<endl;
 			p->drawLine( prevX, prevY, nextX, nextY );
 			
 			prevTime = nextTime;

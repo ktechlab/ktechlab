@@ -123,10 +123,10 @@ void ProcessChain::compile()
 #undef INDIRECT_PROCESS
 			
 		case ProcessOptions::ProcessPath::Invalid:
-			kdWarning() << k_funcinfo << "Process path is invalid" << endl;
+			kWarning() << k_funcinfo << "Process path is invalid" << endl;
 			
 		case ProcessOptions::ProcessPath::None:
-			kdWarning() << k_funcinfo << "Nothing to do" << endl;
+			kWarning() << k_funcinfo << "Nothing to do" << endl;
 			break;
 	}
 }

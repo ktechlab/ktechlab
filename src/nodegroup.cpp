@@ -329,7 +329,7 @@ void NodeGroup::findBestPair( NodeList *list, Node **n1, Node **n2 )
 	}
 	
 	if (!*n1) {
-		kdError() << "NodeGroup::findBestPair: Could not find a routable pair of nodes!"<<endl;
+		kError() << "NodeGroup::findBestPair: Could not find a routable pair of nodes!"<<endl;
 	}
 }
 

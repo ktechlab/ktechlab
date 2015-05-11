@@ -181,10 +181,10 @@ void Matrix::displayMatrix()
 		uint i = m_inMap[_i];
 		for ( uint j=0; j<n; j++ )
 		{
-			if ( j > 0 && (*m_mat)[i][j] >= 0 ) kdDebug() << "+";
-			kdDebug() << (*m_mat)[i][j] << "("<<j<<")";
+			if ( j > 0 && (*m_mat)[i][j] >= 0 ) kDebug() << "+";
+			kDebug() << (*m_mat)[i][j] << "("<<j<<")";
 		}
-		kdDebug()  << endl;
+		kDebug()  << endl;
 	}
 }
 

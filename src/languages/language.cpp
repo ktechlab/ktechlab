@@ -215,7 +215,7 @@ void ProcessOptions::setTargetFile( const QString &file )
 {
 	if (b_targetFileSet)
 	{
-		kdWarning() << "Trying to reset target file!"<<endl;
+		kWarning() << "Trying to reset target file!"<<endl;
 		return;
 	}
 	m_targetFile = file;

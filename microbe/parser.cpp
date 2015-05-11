@@ -313,7 +313,7 @@ Code * Parser::parse( const SourceLineList & lines )
 						}
 						else if(nextField.type() == Field::Newline)
 							newPosition = line.length()+1;
-						else kdDebug() << "Bad statement definition - awkward field type after expression";
+						else kDebug() << "Bad statement definition - awkward field type after expression";
 					}
 					else newPosition = line.length() + 1;
 					if(newPosition == -1)

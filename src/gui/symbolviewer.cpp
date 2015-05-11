@@ -182,7 +182,7 @@ void SymbolViewer::selectRadix( int selectIndex )
 {
 	if ( (selectIndex<0) || (selectIndex>3) )
 	{
-		kdWarning() << k_funcinfo << "Invalid select position for radix: " << selectIndex << endl;
+		kWarning() << k_funcinfo << "Invalid select position for radix: " << selectIndex << endl;
 		return;
 	}
 	

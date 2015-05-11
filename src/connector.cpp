@@ -44,9 +44,9 @@ Connector::Connector(Node *startNode, Node *endNode, ICNDocument *icnDocument, Q
 	if (id) {
 		m_id = *id;
 		if ( !p_icnDocument->registerUID(*id) ) {
-                    kdDebug() << k_funcinfo << "Connector attempted to register given ID, but ID already in use: " << *id << endl;
+                    kDebug() << k_funcinfo << "Connector attempted to register given ID, but ID already in use: " << *id << endl;
                     m_id = p_icnDocument->generateUID( *id );
-                    kdDebug() << "Creating a new one: " << m_id << endl;
+                    kDebug() << "Creating a new one: " << m_id << endl;
 		}
 	} else m_id = p_icnDocument->generateUID("connector");
 
@@ -347,7 +347,7 @@ void Connector::setRoutePoints(QPointList pointList, bool setManual, bool checkE
 
 bool Connector::pointsAreReverse(const QPointList &pointList) const {
 	if (!startNode() || !endNode()) {
-		kdWarning() << k_funcinfo << "Cannot determine orientation as no start and end nodes" << endl;
+		kWarning() << k_funcinfo << "Cannot determine orientation as no start and end nodes" << endl;
 		return false;
 	}
 
@@ -381,7 +381,7 @@ void Connector::rerouteConnector() {
 	if (!isVisible()) return;
 
 	if (nodeGroup()) {
-		kdWarning() << k_funcinfo << "Connector is controlled by a NodeGroup! Use that to reroute the connector" << endl;
+		kWarning() << k_funcinfo << "Connector is controlled by a NodeGroup! Use that to reroute the connector" << endl;
 		return;
 	}
 
@@ -420,7 +420,7 @@ ConnectorData Connector::connectorData() const {
 	ConnectorData connectorData;
 
 	if (!startNode() || !endNode()) {
-		kdDebug() << k_funcinfo << " m_startNode=" << startNode() << " m_endNode=" << endNode() << endl;
+		kDebug() << k_funcinfo << " m_startNode=" << startNode() << " m_endNode=" << endNode() << endl;
 		return connectorData;
 	}
 

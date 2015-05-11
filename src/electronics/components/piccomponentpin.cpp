@@ -84,19 +84,19 @@ void PICComponentPin::attach( IOPIN * iopin )
 {
 	if (!iopin)
 	{
-		kdWarning() << k_funcinfo << " iopin is NULL" << endl;
+		kWarning() << k_funcinfo << " iopin is NULL" << endl;
 		return;
 	}
 	
 	if (m_pStimulusNode)
 	{
-		kdWarning() << k_funcinfo << " Already have a node stimulus" << endl;
+		kWarning() << k_funcinfo << " Already have a node stimulus" << endl;
 		return;
 	}
 	
 	if (m_pIOPIN)
 	{
-		kdWarning() << k_funcinfo << " Already have an iopin" << endl;
+		kWarning() << k_funcinfo << " Already have an iopin" << endl;
 		return;
 	}
 	

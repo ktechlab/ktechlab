@@ -390,7 +390,7 @@ void Item::setSelected( bool yes )
 
 void Item::setParentItem( Item *newParentItem )
 {
-// 	kdDebug() << k_funcinfo << "this = "<<this<<" newParentItem = "<<newParentItem<<endl;
+// 	kDebug() << k_funcinfo << "this = "<<this<<" newParentItem = "<<newParentItem<<endl;
 	if ( newParentItem == p_parentItem )
 		return;
 	
@@ -405,7 +405,7 @@ void Item::setParentItem( Item *newParentItem )
 	if (newParentItem)
 	{
 		if ( newParentItem->contains(this) );
-// 			kdError() << k_funcinfo << "Already a child of " << newParentItem << endl;
+// 			kError() << k_funcinfo << "Already a child of " << newParentItem << endl;
 		else
 		{
 			connect( newParentItem, SIGNAL(removed(Item*)), this, SLOT(removeItem()) );
@@ -452,13 +452,13 @@ void Item::addChild( Item *child )
 	
 	if ( child->contains(this) )
 	{
-// 		kdError() << k_funcinfo << "Attempting to add a child to this item that is already a parent of this item. Incest results in stack overflow." << endl;
+// 		kError() << k_funcinfo << "Attempting to add a child to this item that is already a parent of this item. Incest results in stack overflow." << endl;
 		return;
 	}
 	
 	if ( contains( child, true ) )
 	{
-// 		kdError() << k_funcinfo << "Already have child " << child << endl;
+// 		kError() << k_funcinfo << "Already have child " << child << endl;
 		return;
 	}
 	
@@ -619,7 +619,7 @@ Variant * Item::property( const QString & id ) const
 	if ( m_variantData.contains(id) )
 		return m_variantData[id];
 	
-	kdError() << k_funcinfo << " No such property with id " << id << endl;
+	kError() << k_funcinfo << " No such property with id " << id << endl;
 	return 0l;
 }
 

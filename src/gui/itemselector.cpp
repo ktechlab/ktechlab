@@ -124,7 +124,7 @@ void ItemSelector::addItem( const QString & caption, const QString & id, const Q
 	
 	if ( !parentItem )
 	{
-		kdError() << "Unexpected error in finding parent item for category list"<<endl;
+		kError() << "Unexpected error in finding parent item for category list"<<endl;
 		return;
 	}
 	

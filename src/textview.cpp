@@ -508,7 +508,7 @@ TextViewEventFilter::TextViewEventFilter( TextView * textView )
 
 bool TextViewEventFilter::eventFilter( QObject *, QEvent * e )
 {
-// 	kdDebug() << k_funcinfo << "e->type() = " << e->type() << endl;
+// 	kDebug() << k_funcinfo << "e->type() = " << e->type() << endl;
 	
 	if ( e->type() == QEvent::MouseMove )
 	{

@@ -279,7 +279,7 @@ void MicroSettingsDlg::slotCreatePinMap()
 			break;
 				
 		default:
-			kdError() << k_funcinfo << "Unknown selected type " << type << endl;
+			kError() << k_funcinfo << "Unknown selected type " << type << endl;
 			break;
 	}
 	

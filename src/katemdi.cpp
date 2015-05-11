@@ -304,7 +304,7 @@ ToolView *Sidebar::addWidget (const QPixmap &icon, const QString &text, ToolView
 
 void Sidebar::updateMinimumSize()
 {
-// 	kdDebug() << "layout()->margin()="<<layout()->margin()<<endl;
+// 	kDebug() << "layout()->margin()="<<layout()->margin()<<endl;
 	
 	QSize minSize;
 	
@@ -313,8 +313,8 @@ void Sidebar::updateMinimumSize()
 	{
 		QSize s = (*it)->childrenRect().size();
 		minSize = minSize.expandedTo( s );
-// 		kdDebug() << "s="<<s<<"(*it)->minimumSize()="<<(*it)->minimumSize()<<endl;
-// 		kdDebug() << "(*it)->layout()->margin()="<<(*it)->margin()<<endl;
+// 		kDebug() << "s="<<s<<"(*it)->minimumSize()="<<(*it)->minimumSize()<<endl;
+// 		kDebug() << "(*it)->layout()->margin()="<<(*it)->margin()<<endl;
 	}
 	
 	minSize.setWidth( minSize.width() - 30 );
@@ -440,7 +440,7 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
     KMultiTabBarTab *bt = dynamic_cast<KMultiTabBarTab*>(obj);
     if (bt)
     {
-      kdDebug()<<"Request for popup"<<endl;
+      kDebug()<<"Request for popup"<<endl;
 
       m_popupButton = bt->id();
 

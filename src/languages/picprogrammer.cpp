@@ -277,7 +277,7 @@ void PicProgrammerSettings::removeConfig( const QString & name )
 {
 	if ( isPredefined( name ) )
 	{
-		kdWarning() << k_funcinfo << "Cannot remove a predefined PIC programmer configuration." << endl;
+		kWarning() << k_funcinfo << "Cannot remove a predefined PIC programmer configuration." << endl;
 		return;
 	}
 	
@@ -299,7 +299,7 @@ void PicProgrammerSettings::saveConfig( const QString & name, const ProgrammerCo
 {
 	if ( isPredefined( name ) )
 	{
-		kdWarning() << k_funcinfo << "Cannot save to a predefined PIC programmer configuration." << endl;
+		kWarning() << k_funcinfo << "Cannot save to a predefined PIC programmer configuration." << endl;
 		return;
 	}
 	
@@ -382,7 +382,7 @@ void PicProgrammer::processInput( ProcessOptions options )
 	QString program = options.m_program;
 	if ( !settings.configNames( true ).contains( program.lower() ) )
 	{
-		kdError() << k_funcinfo << "Invalid program" << endl;
+		kError() << k_funcinfo << "Invalid program" << endl;
 		finish( false );
 		return;
 	}

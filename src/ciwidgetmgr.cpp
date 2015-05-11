@@ -124,7 +124,7 @@ Button* CIWidgetMgr::addButton( const QString &id, const QRect & pos, const QStr
 	}
 	else
 	{
-		kdWarning() << "CIWidgetMgr::addButton: Attempting to re-add button with same id as previous"<<endl;
+		kWarning() << "CIWidgetMgr::addButton: Attempting to re-add button with same id as previous"<<endl;
 		delete it.data();
 		it.data() = button;
 	}
@@ -148,7 +148,7 @@ Button* CIWidgetMgr::addButton( const QString &id, const QRect & pos, QPixmap pi
 	}
 	else
 	{
-		kdWarning() << "CIWidgetMgr::addButton: Attempting to re-add button with same id as previous"<<endl;
+		kWarning() << "CIWidgetMgr::addButton: Attempting to re-add button with same id as previous"<<endl;
 		delete it.data();
 		it.data() = button;
 	}
@@ -176,7 +176,7 @@ Slider* CIWidgetMgr::addSlider( const QString &id, int minValue, int maxValue, i
 	}
 	else
 	{
-		kdWarning() << "CIWidgetMgr::addSlider: Attempting to re-add slider with same id as previous"<<endl;
+		kWarning() << "CIWidgetMgr::addSlider: Attempting to re-add slider with same id as previous"<<endl;
 		delete slider;
 		return 0l;
 	}

@@ -288,7 +288,7 @@ void CircuitDocument::deleteCircuits()
 
 void CircuitDocument::requestAssignCircuits()
 {
-// 	kdDebug() << k_funcinfo << endl;
+// 	kDebug() << k_funcinfo << endl;
 	deleteCircuits();
 	m_updateCircuitsTmr->stop();
 	m_updateCircuitsTmr->start( 0, true );
@@ -485,7 +485,7 @@ void CircuitDocument::assignCircuits()
 		pinListList.append(pinList);
 	}
 
-// 	kdDebug () << "pinListList.size()="<<pinListList.size()<<endl;
+// 	kDebug () << "pinListList.size()="<<pinListList.size()<<endl;
 	
 	// Stage 2: Split up each partition into circuits by ground pins
 	const PinListList::iterator nllEnd = pinListList.end();
@@ -799,16 +799,16 @@ bool CircuitDocument::isValidItem( Item *item )
 
 void CircuitDocument::displayEquations()
 {
-	kdDebug() << "######################################################" << endl;
+	kDebug() << "######################################################" << endl;
 	const CircuitList::iterator end = m_circuitList.end();
 	int i = 1;
 	for ( CircuitList::iterator it = m_circuitList.begin(); it != end; ++it )
 	{
-		kdDebug() << "Equation set "<<i<<":\n";
+		kDebug() << "Equation set "<<i<<":\n";
 		(*it)->displayEquations();
 		i++;
 	}
-	kdDebug() << "######################################################" << endl;
+	kDebug() << "######################################################" << endl;
 }
 
 

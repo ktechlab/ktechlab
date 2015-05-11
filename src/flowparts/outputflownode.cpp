@@ -39,7 +39,7 @@ bool OutputFlowNode::acceptOutput() const
 
 void OutputFlowNode::addInputConnector( Connector * const connector )
 {
-	kdDebug() << k_funcinfo << "BUG: trying to add input connector to an output node" << endl;
+	kDebug() << k_funcinfo << "BUG: trying to add input connector to an output node" << endl;
 }
 
 
@@ -100,7 +100,7 @@ void OutputFlowNode::drawShape ( QPainter &p )
 			pa = arrowPoints ( 270 );
 			break;
 		default:
-			kdError() << k_funcinfo << "BUG: m_dir = " << m_dir << endl;
+			kError() << k_funcinfo << "BUG: m_dir = " << m_dir << endl;
 	}
 
 

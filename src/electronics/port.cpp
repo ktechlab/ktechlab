@@ -97,12 +97,12 @@ void SerialPort::setPinState( Pin pin, bool state )
 	
 	if ( flags == -1 )
 	{
-		kdError() << k_funcinfo << "Bad pin " << pin << endl;
+		kError() << k_funcinfo << "Bad pin " << pin << endl;
 		return;
 	}
 	
 	if ( ioctl( m_file, state ? TIOCMBIS : TIOCMBIC, & flags ) == -1 )
-		kdError() << k_funcinfo << "Could not set pin " << pin << " errno = " << errno << endl;
+		kError() << k_funcinfo << "Could not set pin " << pin << " errno = " << errno << endl;
 }
 
 
@@ -141,14 +141,14 @@ bool SerialPort::pinState( Pin pin )
 	
 	if ( mask == 0 )
 	{
-		kdError() << k_funcinfo << "Bad pin " << pin << endl;
+		kError() << k_funcinfo << "Bad pin " << pin << endl;
 		return false;
 	}
 	
 	int bits = 0;
 	if ( ioctl( m_file, TIOCMGET, & bits ) == -1 )
 	{
-		kdError() << k_funcinfo << "Could not read pin" << pin << " errno = " << errno << endl;
+		kError() << k_funcinfo << "Could not read pin" << pin << " errno = " << errno << endl;
 		return false;
 	}
 	
@@ -180,7 +180,7 @@ bool SerialPort::openPort( const QString & port, speed_t baudRate )
 	m_file = open( port.ascii(), O_NOCTTY | O_NONBLOCK | O_RDWR );
 	if ( m_file == -1 )
 	{
-		kdError() << k_funcinfo << "Could not open port " << port << endl;
+		kError() << k_funcinfo << "Could not open port " << port << endl;
 		return false;
 	}
 	
@@ -389,7 +389,7 @@ uchar ParallelPort::readFromRegister( Register reg )
 // 	uchar value = inb( m_lpBase + reg ) ^ INVERT_MASK[reg];
 	uchar value = 0;
 	if ( ioctl( m_file, IOCTL_REG_READ[reg], &value ) )
-		kdError() << k_funcinfo << "errno=" << errno << endl;
+		kError() << k_funcinfo << "errno=" << errno << endl;
 	else
 		m_reg[reg] = value;
 	return value;
@@ -407,7 +407,7 @@ void ParallelPort::writeToRegister( Register reg, uchar value )
 	
 // 	outb( value ^ INVERT_MASK[reg], m_lpBase + reg );
 	if ( ioctl( m_file, IOCTL_REG_WRITE[reg], & value ) )
-		kdError() << k_funcinfo << "errno=" << errno << endl;
+		kError() << k_funcinfo << "errno=" << errno << endl;
 	else
 		m_reg[reg] = value;
 }
@@ -518,13 +518,13 @@ QStringList ParallelPort::ports( unsigned probeResult )
 bool ParallelPort::openPort( const QString & port )
 {
 #ifdef DARWIN
-	kdWarning() << k_funcinfo << "Parallel ports disabled on Darwin" << endl;
+	kWarning() << k_funcinfo << "Parallel ports disabled on Darwin" << endl;
 	return false;
 #endif
 	
 	if ( m_file != -1 )
 	{
-		kdWarning() << k_funcinfo << "Port already open" << endl;
+		kWarning() << k_funcinfo << "Port already open" << endl;
 		return false;
 	}
 	
@@ -532,13 +532,13 @@ bool ParallelPort::openPort( const QString & port )
 	
 	if ( m_file == -1 )
 	{
-		kdError() << k_funcinfo << "Could not open port \"" << port << "\": errno="<<errno<<endl;
+		kError() << k_funcinfo << "Could not open port \"" << port << "\": errno="<<errno<<endl;
 		return false;
 	}
 	
 	if ( ioctl( m_file, PPCLAIM ) )
 	{
-		kdError() << k_funcinfo << "Port " << port << " must be RW" << endl;
+		kError() << k_funcinfo << "Port " << port << " must be RW" << endl;
 		close( m_file );
 		m_file = -1;
 		return false;
@@ -561,7 +561,7 @@ void ParallelPort::closePort()
 	close( m_file );
 	
 	if ( res )
-		kdError() << k_funcinfo << "res="<<res<<endl;
+		kError() << k_funcinfo << "res="<<res<<endl;
 	
 	m_file = -1;
 }

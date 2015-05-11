@@ -100,7 +100,7 @@ void LinkerOptions::domElementToLinkerOptions( const QDomElement & element, cons
 				m_linkedExternal << childElement.attribute( "url", QString::null );
 			
 			else
-				kdError() << k_funcinfo << "Unrecognised element tag name: "<<tagName<<endl;
+				kError() << k_funcinfo << "Unrecognised element tag name: "<<tagName<<endl;
 		}
 		
 		node = node.nextSibling();
@@ -375,7 +375,7 @@ ProjectItem::OutputType ProjectItem::outputType() const
 			switch ( type() )
 			{
 				case ProjectItem::ProjectType:
-					kdWarning() << k_funcinfo << "Parent item and this item are both project items" << endl;
+					kWarning() << k_funcinfo << "Parent item and this item are both project items" << endl;
 					return UnknownOutput;
 						
 				case ProjectItem::FileType:
@@ -390,7 +390,7 @@ ProjectItem::OutputType ProjectItem::outputType() const
 				
 		case ProjectItem::FileType:
 		{
-			kdWarning() << k_funcinfo << "Don't know how to handle parent item being a file" << endl;
+			kWarning() << k_funcinfo << "Don't know how to handle parent item being a file" << endl;
 			return UnknownOutput;
 		}
 				
@@ -751,7 +751,7 @@ void ProjectItem::domElementToItem( const QDomElement & element, const KUrl & ba
 				createdItem->domElementToItem( childElement, baseURL );
 			
 			else
-				kdError() << k_funcinfo << "Unrecognised element tag name: "<<tagName<<endl;
+				kError() << k_funcinfo << "Unrecognised element tag name: "<<tagName<<endl;
 		}
 		
 		node = node.nextSibling();
@@ -830,7 +830,7 @@ bool ProjectInfo::open( const KUrl & url )
 				domElementToItem( element, m_url );
 			
 			else
-				kdWarning() << k_funcinfo << "Unrecognised element tag name: "<<tagName<<endl;
+				kWarning() << k_funcinfo << "Unrecognised element tag name: "<<tagName<<endl;
 		}
 		
 		node = node.nextSibling();
@@ -932,7 +932,7 @@ void ProjectManager::slotNewProject()
 		
         QDir dir;
         if ( !dir.mkdir( m_pCurrentProject->directory() ) )
-			kdDebug() << "Error in creating directory " << m_pCurrentProject->directory() << endl;
+			kDebug() << "Error in creating directory " << m_pCurrentProject->directory() << endl;
 		
 		m_pCurrentProject->save();
 		updateActions();

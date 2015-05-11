@@ -143,7 +143,7 @@ bool FlowICNDocument::canConnect( QCanvasItem *qcanvasItem1, QCanvasItem *qcanva
 				return false;
 		}
 	} else
-		kdError() << k_funcinfo << "BUG: document type is not dt_flowcode" << endl;
+		kError() << k_funcinfo << "BUG: document type is not dt_flowcode" << endl;
 	//END Check we have appropriate input and output allowance
 
 	return ICNDocument::canConnect(qcanvasItem1, qcanvasItem2);
@@ -251,7 +251,7 @@ Connector* FlowICNDocument::createConnector( const QString &startNodeId, const Q
 	
 	if ( !startNode || !endNode )
 	{
-		kdDebug() << "Either/both the connector start node and end node could not be found" << endl;
+		kDebug() << "Either/both the connector start node and end node could not be found" << endl;
 		return 0L;
 	}
 	
@@ -261,7 +261,7 @@ Connector* FlowICNDocument::createConnector( const QString &startNodeId, const Q
 	Connector *connector = endNode->createInputConnector(startNode);
 	if (!connector)
 	{
-		kdError() << k_funcinfo << "End node did not create the connector" << endl;
+		kError() << k_funcinfo << "End node did not create the connector" << endl;
 		return 0l;
 	}
 	startNode->addOutputConnector(connector);
@@ -349,7 +349,7 @@ void FlowICNDocument::flushDeleteList()
 			m_connectorList.remove ( con );
 
 		else
-			kdError() << k_funcinfo << "Unknown qcanvasItem! "<<qcanvasItem << endl;
+			kError() << k_funcinfo << "Unknown qcanvasItem! "<<qcanvasItem << endl;
 
 		qcanvasItem->setCanvas ( 0l );
 
@@ -396,7 +396,7 @@ bool FlowICNDocument::registerItem( QCanvasItem *qcanvasItem )
 		}
 		else
 		{
-			kdError() << k_funcinfo << "Unrecognised item"<<endl;
+			kError() << k_funcinfo << "Unrecognised item"<<endl;
 			return false;
 		}
 	}

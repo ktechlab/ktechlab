@@ -164,7 +164,7 @@ void SerialPortComponent::dataChanged()
 		baudRate = B38400;
 	else
 	{
-		kdError() << k_funcinfo << "Unknown baud rate = \""<<baudString<<"\""<<endl;
+		kError() << k_funcinfo << "Unknown baud rate = \""<<baudString<<"\""<<endl;
 		return;
 	}
 	

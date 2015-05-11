@@ -45,7 +45,7 @@ Microbe::Microbe( ProcessChain *processChain )
 				if (ok) {
 					m_errorMessages[pos] = line.right(line.length()-line.find("#"));
 				} else {
-					kdError() << k_funcinfo << "Error parsing Microbe error-message file"<<endl;
+					kError() << k_funcinfo << "Error parsing Microbe error-message file"<<endl;
 				}
 			}
         }

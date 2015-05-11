@@ -45,7 +45,7 @@ Gplink::Gplink( ProcessChain *processChain )
 	SEARCH_FOR_SDCC( "/opt/sdcc/lib" )
 #undef SEARCH_FOR_SDCC
 	if( m_sdccLibDir == "")
-		kdError() << k_funcinfo << "SDCC lib not found";
+		kError() << k_funcinfo << "SDCC lib not found";
 	
 }
 
@@ -109,8 +109,8 @@ void Gplink::processInput( ProcessOptions options )
 		if ( ! info )
 		{
 			// be program won't link anyway, but the user can't say that the program didn't try
-			kdError() << k_funcinfo << "Couldn't find the requested PIC" << options.m_picID << endl;
-			kdWarning() << k_funcinfo << "Supposing that the pic is pic12 or pic14" << endl;
+			kError() << k_funcinfo << "Couldn't find the requested PIC" << options.m_picID << endl;
+			kWarning() << k_funcinfo << "Supposing that the pic is pic12 or pic14" << endl;
 			*m_languageProcess << "-I" << m_sdccLibDir + "/pic" ;
 		}
 		else

@@ -19,12 +19,12 @@ Resistance::Resistance( const double resistance )
 {
 	m_g = resistance < 1e-9 ? 1e9 : 1./resistance;
 	m_numCNodes = 2;
-// 	kdDebug() << k_funcinfo << endl;
+// 	kDebug() << k_funcinfo << endl;
 }
 
 Resistance::~Resistance()
 {
-// 	kdDebug() << k_funcinfo << endl;
+// 	kDebug() << k_funcinfo << endl;
 }
 
 void Resistance::setConductance( const double g )

@@ -223,7 +223,7 @@ void MechanicsItemOverlay::slotResizeHandleMoved( int id, double dx, double dy )
 		case ResizeHandle::rhp_center:
 			break;
 		default:
-			kdError() << k_funcinfo << "Unknown resize handle id " << id << endl;
+			kError() << k_funcinfo << "Unknown resize handle id " << id << endl;
 			break;
 	}
 }
@@ -710,7 +710,7 @@ const QPixmap& ResizeHandle::handlePixmap( DrawType drawType, bool hover )
 			case ResizeHandle::dt_rotate_topRight:
 			case ResizeHandle::dt_rotate_bottomRight:
 			case ResizeHandle::dt_rotate_bottomLeft:
-				kdWarning() << k_funcinfo << "ResizeHandle of type " << drawType << " does not have an image." << endl;
+				kWarning() << k_funcinfo << "ResizeHandle of type " << drawType << " does not have an image." << endl;
 		}
 	}
 	else
@@ -733,7 +733,7 @@ const QPixmap& ResizeHandle::handlePixmap( DrawType drawType, bool hover )
 			case ResizeHandle::dt_rotate_topRight:
 			case ResizeHandle::dt_rotate_bottomRight:
 			case ResizeHandle::dt_rotate_bottomLeft:
-				kdWarning() << k_funcinfo << "ResizeHandle of type " << drawType << " does not have an image." << endl;
+				kWarning() << k_funcinfo << "ResizeHandle of type " << drawType << " does not have an image." << endl;
 		}
 	}
 	

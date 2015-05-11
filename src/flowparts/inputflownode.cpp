@@ -64,7 +64,7 @@ bool InputFlowNode::acceptOutput() const
 
 void InputFlowNode::addOutputConnector( Connector * const connector )
 {
-	kdError() << k_funcinfo << "BUG: adding output connector to an input node" << endl;
+	kError() << k_funcinfo << "BUG: adding output connector to an input node" << endl;
 }
 
 
@@ -123,7 +123,7 @@ void InputFlowNode::drawShape ( QPainter &p )
 			pa = arrowPoints ( 270 );
 			break;
 		default:
-			kdError() << k_funcinfo << "BUG: m_dir = " << m_dir << endl;
+			kError() << k_funcinfo << "BUG: m_dir = " << m_dir << endl;
 	}
 
 	// Note: I have not tested the positioning of the arrows for all combinations.
