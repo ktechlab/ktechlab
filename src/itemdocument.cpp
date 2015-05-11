@@ -599,10 +599,10 @@ void ItemDocument::fillContextMenu( const QPoint & pos )
 		return;
 	
 	QAction * align_actions[] = {
-		activeItemView->action("align_horizontally"),
-		activeItemView->action("align_vertically"),
-		activeItemView->action("distribute_horizontally"),
-		activeItemView->action("distribute_vertically") };
+		activeItemView->actionByName("align_horizontally"),
+		activeItemView->actionByName("align_vertically"),
+		activeItemView->actionByName("distribute_horizontally"),
+		activeItemView->actionByName("distribute_vertically") };
 	
 	bool enableAlignment = selectList()->itemCount() > 1;
 
@@ -629,10 +629,10 @@ void ItemDocument::slotInitItemActions()
 		return;
 	
 	QAction * align_actions[] = {
-		activeItemView->action("align_horizontally"),
-		activeItemView->action("align_vertically"),
-		activeItemView->action("distribute_horizontally"),
-		activeItemView->action("distribute_vertically") };
+		activeItemView->actionByName("align_horizontally"),
+		activeItemView->actionByName("align_vertically"),
+		activeItemView->actionByName("distribute_horizontally"),
+		activeItemView->actionByName("distribute_vertically") };
 	
 	bool enableAlignment = selectList()->itemCount() > 1;
 	for ( unsigned i = 0; i < 4; ++i )

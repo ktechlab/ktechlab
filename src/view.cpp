@@ -69,7 +69,7 @@ View::~View()
 }
 
 
-QAction* View::action( const QString& name ) const
+QAction* View::actionByName( const QString& name ) const
 {
 	QAction * action = actionCollection()->action(name);
 	if ( !action )

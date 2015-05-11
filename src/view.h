@@ -76,7 +76,7 @@ public:
 	View( Document *document, ViewContainer *viewContainer, uint viewAreaId, const char *name = 0 );
 	virtual ~View();
 	
-	QAction * action( const QString & name ) const;
+	QAction * actionByName( const QString & name ) const;
 	/**
 	 * Pointer to the parent document
 	 */

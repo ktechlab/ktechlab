@@ -242,15 +242,15 @@ void TextView::paste() {
 
 void TextView::disableActions()
 {
-	KMenu * tb = (dynamic_cast<KToolBarPopupAction*>(action("program_convert")))->popupMenu();
+	KMenu * tb = (dynamic_cast<KToolBarPopupAction*>(actionByName("program_convert")))->popupMenu();
 	
 	tb->setItemEnabled( TextDocument::AssemblyOutput, false );
 	tb->setItemEnabled( TextDocument::HexOutput, false );
 	tb->setItemEnabled( TextDocument::PICOutput, false );
-	action("format_asm")->setEnabled(false);
+	actionByName("format_asm")->setEnabled(false);
 	
 #ifndef NO_GPSIM
-	action("debug_toggle_breakpoint")->setEnabled(false);
+	actionByName("debug_toggle_breakpoint")->setEnabled(false);
 #endif
 }
 
@@ -283,7 +283,7 @@ void TextView::initCodeActions()
 {
 	disableActions();
 	
-	KMenu * tb = (dynamic_cast<KToolBarPopupAction*>(action("program_convert")))->popupMenu();
+	KMenu * tb = (dynamic_cast<KToolBarPopupAction*>(actionByName("program_convert")))->popupMenu();
 	
 	switch ( textDocument()->guessedCodeType() )
 	{
@@ -291,9 +291,9 @@ void TextView::initCodeActions()
 		{
 			tb->setItemEnabled( TextDocument::HexOutput, true );
 			tb->setItemEnabled( TextDocument::PICOutput, true );
-			action("format_asm")->setEnabled(true);
+			actionByName("format_asm")->setEnabled(true);
 #ifndef NO_GPSIM
-			action("debug_toggle_breakpoint")->setEnabled(true);
+			actionByName("debug_toggle_breakpoint")->setEnabled(true);
 			slotInitDebugActions();
 #endif
 			break;
@@ -382,9 +382,9 @@ void TextView::slotUpdateMarksInfo()
     KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface*>( m_view->document() );
 	// if ( m_view->getDoc()->mark(l) & TextDocument::Breakpoint )
     if (iface->mark(l) & TextDocument::Breakpoint)
-		action("debug_toggle_breakpoint")->setText( i18n("Clear &Breakpoint") );
+		actionByName("debug_toggle_breakpoint")->setText( i18n("Clear &Breakpoint") );
 	else
-		action("debug_toggle_breakpoint")->setText( i18n("Set &Breakpoint") );
+		actionByName("debug_toggle_breakpoint")->setText( i18n("Set &Breakpoint") );
 #endif
 }
 
@@ -396,12 +396,12 @@ void TextView::slotInitDebugActions()
 	bool isStepping = textDocument()->debuggerIsStepping();
 	bool ownDebugger = textDocument()->ownDebugger();
 	
-	action("debug_run")->setEnabled( !isRunning || isStepping );
-	action("debug_interrupt")->setEnabled(isRunning && !isStepping);
-	action("debug_stop")->setEnabled(isRunning && ownDebugger);
-	action("debug_step")->setEnabled(isRunning && isStepping);
-	action("debug_step_over")->setEnabled(isRunning && isStepping);
-	action("debug_step_out")->setEnabled(isRunning && isStepping);
+	actionByName("debug_run")->setEnabled( !isRunning || isStepping );
+	actionByName("debug_interrupt")->setEnabled(isRunning && !isStepping);
+	actionByName("debug_stop")->setEnabled(isRunning && ownDebugger);
+	actionByName("debug_step")->setEnabled(isRunning && isStepping);
+	actionByName("debug_step_over")->setEnabled(isRunning && isStepping);
+	actionByName("debug_step_out")->setEnabled(isRunning && isStepping);
 #endif // !NO_GPSIM
 }
 

@@ -300,9 +300,9 @@ void ItemView::actualSize()
 
 void ItemView::updateZoomActions()
 {
-	action("view_zoom_in")->setEnabled( canZoomIn() );
-	action("view_zoom_out")->setEnabled( canZoomOut() );
-	action("view_actual_size")->setEnabled( m_zoomLevel != 1.0 );
+	actionByName("view_zoom_in")->setEnabled( canZoomIn() );
+	actionByName("view_zoom_out")->setEnabled( canZoomOut() );
+	actionByName("view_actual_size")->setEnabled( m_zoomLevel != 1.0 );
 }
 
 
