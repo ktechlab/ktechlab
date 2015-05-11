@@ -12,13 +12,13 @@
 
 #include <map>
 
-#include "qscrollview.h"
-#include "qpixmap.h"
-#include "qptrlist.h"
-#include "qbrush.h"
-#include "qpen.h"
-#include "qvaluelist.h"
-#include "qpointarray.h"
+#include "Qt/q3scrollview.h"
+#include "Qt/qpixmap.h"
+#include "Qt/q3ptrlist.h"
+#include "Qt/qbrush.h"
+#include "Qt/qpen.h"
+#include "Qt/qlist.h"
+#include "Qt/q3pointarray.h"
 
 class QCanvasPolygonalItem;
 class QCanvasRectangle;
@@ -33,7 +33,7 @@ class QCanvasView;
 typedef std::multimap< double, QCanvasItem* > SortedCanvasItems;
 
 
-class QCanvasItemList : public QValueList<QCanvasItem*>
+class QCanvasItemList : public QList<QCanvasItem*>
 {
 	public:
 		void sort();
@@ -43,8 +43,9 @@ class QCanvasItemList : public QValueList<QCanvasItem*>
 
 class QCanvasItemExtra;
 
-class QCanvasItem : public Qt
+class QCanvasItem : public QObject
 {
+    Q_OBJECT
 	public:
 		QCanvasItem(QCanvas* canvas);
 		virtual ~QCanvasItem();
@@ -89,7 +90,7 @@ class QCanvasItem : public Qt
 	protected:
 		void update() { changeChunks(); }
 
-		virtual QPointArray chunks() const;
+		virtual Q3PointArray chunks() const;
 		virtual void addToChunks();
 		virtual void removeFromChunks();
 		virtual void changeChunks();
@@ -162,7 +163,7 @@ class QCanvas : public QObject
 		QCanvasItemList allItems();
 		QCanvasItemList collisions( const QPoint&) const;
 		QCanvasItemList collisions( const QRect&) const;
-		QCanvasItemList collisions( const QPointArray& pa, const QCanvasItem* item,
+		QCanvasItemList collisions( const Q3PointArray& pa, const QCanvasItem* item,
 						bool exact) const;
 
 		void drawArea(const QRect&, QPainter* p, bool double_buffer=false);
@@ -212,7 +213,7 @@ class QCanvas : public QObject
 		QCanvasChunk* chunks;
 
 		SortedCanvasItems m_canvasItems;
-		QPtrList<QCanvasView> m_viewList;
+		Q3PtrList<QCanvasView> m_viewList;
 
 		void initTiles(QPixmap p, int h, int v, int tilewidth, int tileheight);
 		ushort *grid;
@@ -234,22 +235,22 @@ class QCanvas : public QObject
 
 class QCanvasViewData;
 
-class QCanvasView : public QScrollView
+class QCanvasView : public Q3ScrollView
 {
 	Q_OBJECT
 	public:
 
-		QCanvasView(QWidget* parent=0, const char* name=0, WFlags f=0);
-		QCanvasView(QCanvas* viewing, QWidget* parent=0, const char* name=0, WFlags f=0);
+		QCanvasView(QWidget* parent=0, const char* name=0, Qt::WFlags f=0);
+		QCanvasView(QCanvas* viewing, QWidget* parent=0, const char* name=0, Qt::WFlags f=0);
 		~QCanvasView();
 
 		QCanvas* canvas() const
 		{ return viewing; }
 		void setCanvas(QCanvas* v);
 
-		const QWMatrix &worldMatrix() const;
-		const QWMatrix &inverseWorldMatrix() const;
-		bool setWorldMatrix( const QWMatrix & );
+		const QMatrix &worldMatrix() const;
+		const QMatrix &inverseWorldMatrix() const;
+		bool setWorldMatrix( const QMatrix & );
 
 	protected:
 		void drawContents( QPainter*, int cx, int cy, int cw, int ch );
@@ -288,7 +289,7 @@ class QCanvasPolygonalItem : public QCanvasItem
 		QBrush brush() const
 		{ return br; }
 
-		virtual QPointArray areaPoints() const=0;
+		virtual Q3PointArray areaPoints() const=0;
 		QRect boundingRect() const;
 
 	protected:
@@ -303,10 +304,10 @@ class QCanvasPolygonalItem : public QCanvasItem
 		{ return (bool)val; }
 
 	private:
-		void scanPolygon( const QPointArray& pa, int winding,
+		void scanPolygon( const Q3PointArray& pa, int winding,
 					QPolygonalProcessor& process ) const;
 
-		QPointArray chunks() const;
+		Q3PointArray chunks() const;
 
 		bool collidesWith( const QCanvasPolygonalItem*,
 				   const QCanvasRectangle*,
@@ -332,7 +333,7 @@ class QCanvasRectangle : public QCanvasPolygonalItem
 		void setSize(const int w, const int h);
 		QSize size() const
 		{ return QSize(w,h); }
-		QPointArray areaPoints() const;
+		Q3PointArray areaPoints() const;
 		QRect rect() const
 		{ return QRect(int(x()),int(y()),w,h); }
 
@@ -340,7 +341,7 @@ class QCanvasRectangle : public QCanvasPolygonalItem
 
 	protected:
 		void drawShape(QPainter &);
-		QPointArray chunks() const;
+		Q3PointArray chunks() const;
 
 	private:
 		bool collidesWith( const QCanvasPolygonalItem*,
@@ -356,15 +357,15 @@ class QCanvasPolygon : public QCanvasPolygonalItem
 	public:
 		QCanvasPolygon(QCanvas* canvas);
 		~QCanvasPolygon();
-		void setPoints(QPointArray);
-		QPointArray points() const;
+		void setPoints(Q3PointArray);
+		Q3PointArray points() const;
 		void moveBy(double dx, double dy);
 
-		QPointArray areaPoints() const;
+		Q3PointArray areaPoints() const;
 
 	protected:
 		void drawShape(QPainter &);
-		QPointArray poly;
+		Q3PointArray poly;
 };
 
 
@@ -385,7 +386,7 @@ class QCanvasLine : public QCanvasPolygonalItem
 
 	protected:
 		void drawShape(QPainter &);
-		QPointArray areaPoints() const;
+		Q3PointArray areaPoints() const;
 
 	private:
 		int x1,y1,x2,y2;
@@ -409,7 +410,7 @@ class QCanvasEllipse : public QCanvasPolygonalItem
 		void setAngles(int start, int length);
 		int angleStart() const { return a1; }
 		int angleLength() const { return a2; }
-		QPointArray areaPoints() const;
+		Q3PointArray areaPoints() const;
 
 		bool collidesWith( const QCanvasItem* ) const;
 

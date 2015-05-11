@@ -14,10 +14,10 @@
 #include "switch.h"
 
 #include <klocale.h>
-#include <qpainter.h>
-#include <qpixmap.h>
-#include <qpoint.h>
-#include <qpointarray.h>
+#include <Qt/qpainter.h>
+#include <Qt/qpixmap.h>
+#include <Qt/qpoint.h>
+//#include <Qt/q3pointarray.h>
 
 //BEGIN class ECPTBSwitch
 Item* ECPTBSwitch::construct( ItemDocument *itemDocument, bool newItem, const char *id )
@@ -28,7 +28,7 @@ Item* ECPTBSwitch::construct( ItemDocument *itemDocument, bool newItem, const ch
 LibraryItem* ECPTBSwitch::libraryItem()
 {
 	return new LibraryItem(
-		QString("ec/ptb_switch"),
+		QStringList(QString("ec/ptb_switch")),
 		i18n("Push-to-Break"),
 		i18n("Switches"),
 		"ptb.png",
@@ -120,7 +120,7 @@ Item* ECPTMSwitch::construct( ItemDocument *itemDocument, bool newItem, const ch
 LibraryItem* ECPTMSwitch::libraryItem()
 {
 	return new LibraryItem(
-		QString("ec/ptm_switch"),
+		QStringList(QString("ec/ptm_switch")),
 		i18n("Push-to-Make"),
 		i18n("Switches"),
 		"ptm.png",

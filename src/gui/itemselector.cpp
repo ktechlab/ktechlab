@@ -22,24 +22,25 @@
 #include <kconfig.h>
 #include <kdebug.h>
 #include <klocale.h>
+#include <kconfiggroup.h>
 
-#include <qdragobject.h>
-#include <qlayout.h>
-#include <qpopupmenu.h>
-#include <qwhatsthis.h>
+#include <Qt/q3dragobject.h>
+#include <Qt/qlayout.h>
+#include <Qt/q3popupmenu.h>
+#include <Qt/qwhatsthis.h>
 
 #include <cassert>
 
-ILVItem::ILVItem( QListView* parent, const QString &id )
-	: KListViewItem( parent, 0 )
+ILVItem::ILVItem( K3ListView* parent, const QString &id )
+	: K3ListViewItem( parent, 0 )
 {
 	m_id = id;
 	b_isRemovable = false;
 	m_pProjectItem = 0l;
 }
 
-ILVItem::ILVItem( QListViewItem* parent, const QString &id )
-	: KListViewItem( parent, 0 )
+ILVItem::ILVItem( K3ListViewItem* parent, const QString &id )
+	: K3ListViewItem( parent, 0 )
 {
 	m_id = id;
 	b_isRemovable = false;
@@ -48,20 +49,21 @@ ILVItem::ILVItem( QListViewItem* parent, const QString &id )
 
 
 ItemSelector::ItemSelector( QWidget *parent, const char *name )
-	: KListView( parent, name )
+	: K3ListView( parent /*, name */ )
 {
     addColumn( i18n( "Component" ) );
 	setFullWidth(true);
 	setSorting( -1, false );
     setRootIsDecorated(true);
     setDragEnabled(true);
-	setFocusPolicy( NoFocus );
+	setFocusPolicy( Qt::NoFocus );
 	
-// 	connect( this, SIGNAL(executed(QListViewItem*) ), this, SLOT(slotItemExecuted(QListViewItem*)) );
-	connect( this, SIGNAL(clicked(QListViewItem*)), this, SLOT(slotItemClicked(QListViewItem*)) );
-	connect( this, SIGNAL(doubleClicked(QListViewItem*)), this, SLOT(slotItemDoubleClicked(QListViewItem*)) );
-	connect( this, SIGNAL(contextMenuRequested(QListViewItem*, const QPoint&, int )), this, SLOT(slotContextMenuRequested(QListViewItem*, const QPoint&, int )) );
-	connect( this, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotItemSelected( QListViewItem* )) );
+// 	connect( this, SIGNAL(executed(K3ListViewItem*) ), this, SLOT(slotItemExecuted(K3ListViewItem*)) );
+	connect( this, SIGNAL(clicked(Q3ListViewItem*)), this, SLOT(slotItemClicked(Q3ListViewItem*)) );
+	connect( this, SIGNAL(doubleClicked(Q3ListViewItem*)), this, SLOT(slotItemDoubleClicked(Q3ListViewItem*)) );
+	connect( this, SIGNAL(contextMenuRequested(Q3ListViewItem*, const QPoint&, int )), this,
+             SLOT(slotContextMenuRequested(Q3ListViewItem*, const QPoint&, int )) );
+	connect( this, SIGNAL(selectionChanged(Q3ListViewItem*)), this, SLOT(slotItemSelected( Q3ListViewItem* )) );
 }
 
 ItemSelector::~ItemSelector()
@@ -73,7 +75,7 @@ ItemSelector::~ItemSelector()
 void ItemSelector::clear()
 {
 	m_categories.clear();
-	KListView::clear();
+	K3ListView::clear();
 }
 
 
@@ -135,15 +137,17 @@ void ItemSelector::addItem( const QString & caption, const QString & id, const Q
 
 void ItemSelector::writeOpenStates()
 {
-	KConfig *config = kapp->config();
-	config->setGroup( name() );
+	//KConfig *config = kapp->config();
+    KSharedConfigPtr configPtr = KGlobal::config();
+	//config->setGroup( name() );
+    KConfigGroup configGroup = configPtr->group( name() );
 	
 	const QStringList::iterator end = m_categories.end();
 	for ( QStringList::iterator it = m_categories.begin(); it != end; ++it )
 	{
-		QListViewItem *item = findItem( *it, 0 );
+		Q3ListViewItem *item = findItem( *it, 0 );
 		if (item) {
-			config->writeEntry( *it+"IsOpen", item->isOpen() );
+			configGroup.writeEntry( *it+"IsOpen", item->isOpen() );
 		}
 	}
 }
@@ -151,20 +155,22 @@ void ItemSelector::writeOpenStates()
 
 bool ItemSelector::readOpenState( const QString &id )
 {
-	KConfig *config = kapp->config();
-	config->setGroup( name() );
+	//KConfig *config = kapp->config();
+    KSharedConfigPtr configPtr = KGlobal::config();
+	//config->setGroup( name() );
+    KConfigGroup configGroup = configPtr->group( name() );
 	
-	return config->readBoolEntry( id+"IsOpen", true );
+	return configGroup.readEntry<bool>( id+"IsOpen", true );
 }
 
 
-void ItemSelector::slotContextMenuRequested( QListViewItem* item, const QPoint& pos, int /*col*/ )
+void ItemSelector::slotContextMenuRequested( Q3ListViewItem* item, const QPoint& pos, int /*col*/ )
 {
 	if ( !item || !(static_cast<ILVItem*>(item))->isRemovable() ) {
 		return;
 	}
 	
-	QPopupMenu *menu = new QPopupMenu(this);
+	Q3PopupMenu *menu = new Q3PopupMenu(this);
 	menu->insertItem( i18n("Remove %1").arg(item->text(0)), this, SLOT(slotRemoveSelectedItem()), Qt::Key_Delete );
 	menu->popup(pos);
 }
@@ -177,7 +183,7 @@ void ItemSelector::slotRemoveSelectedItem()
 		return;
 	
 	emit itemRemoved( item->key( 0, 0 ) );
-	ILVItem *parent = dynamic_cast<ILVItem*>(item->QListViewItem::parent());
+	ILVItem *parent = dynamic_cast<ILVItem*>(item->K3ListViewItem::parent());
 	delete item;
 	// Get rid of the category as well if it has no children
 	if ( parent && !parent->firstChild() )
@@ -194,7 +200,7 @@ void ItemSelector::setListCaption( const QString &caption )
 }
 
 
-void ItemSelector::slotItemSelected( QListViewItem * item )
+void ItemSelector::slotItemSelected( Q3ListViewItem * item )
 {
 	if (!item)
 		return;
@@ -203,7 +209,7 @@ void ItemSelector::slotItemSelected( QListViewItem * item )
 }
 
 
-void ItemSelector::slotItemClicked( QListViewItem *item )
+void ItemSelector::slotItemClicked( Q3ListViewItem *item )
 {
 	if (!item)
 		return;
@@ -215,7 +221,7 @@ void ItemSelector::slotItemClicked( QListViewItem *item )
 }
 
 
-void ItemSelector::slotItemDoubleClicked( QListViewItem *item )
+void ItemSelector::slotItemDoubleClicked( Q3ListViewItem *item )
 {
 	if (!item)
 		return;
@@ -238,28 +244,28 @@ void ItemSelector::slotItemDoubleClicked( QListViewItem *item )
 }
 
 
-QDragObject* ItemSelector::dragObject()
+Q3DragObject* ItemSelector::dragObject()
 {
 	const QString id = currentItem()->key(0,0);
 	
-	QStoredDrag * d = 0l;
+	Q3StoredDrag * d = 0l;
 	
 	if ( id.startsWith("flow/") )
-		d = new QStoredDrag( "ktechlab/flowpart", this );
+		d = new Q3StoredDrag( "ktechlab/flowpart", this );
 	
 	else if ( id.startsWith("ec/") )
-		d = new QStoredDrag( "ktechlab/component", this );
+		d = new Q3StoredDrag( "ktechlab/component", this );
 	
 	else if ( id.startsWith("sc/") )
-		d = new QStoredDrag( "ktechlab/subcircuit", this );
+		d = new Q3StoredDrag( "ktechlab/subcircuit", this );
 	
 	else if ( id.startsWith("mech/") )
-		d = new QStoredDrag( "ktechlab/mechanical", this );
+		d = new Q3StoredDrag( "ktechlab/mechanical", this );
 	
 	if (d)
 	{
 		QByteArray data;
-		QDataStream stream( data, IO_WriteOnly );
+		QDataStream stream( &data, IO_WriteOnly );
 		stream << id;
 		d->setEncodedData(data);
 	}

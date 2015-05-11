@@ -14,13 +14,13 @@
 #include "simulator.h"
 #include "switch.h"
 
-#include <kstaticdeleter.h>
-#include <qtimer.h>
+#include <k3staticdeleter.h>
+#include <Qt/qtimer.h>
 #include <cassert>
 
 //BEGIN class Simulator
 Simulator *Simulator::m_pSelf = 0;
-static KStaticDeleter<Simulator> staticSimulatorDeleter;
+static K3StaticDeleter<Simulator> staticSimulatorDeleter;
 
 Simulator *Simulator::self() {
 	if (!m_pSelf)
@@ -279,9 +279,9 @@ void Simulator::attachCircuit(Circuit *circuit) {
 void Simulator::removeLogicInReferences(LogicIn *logicIn) {
 	if (!logicIn) return;
 
-	QValueList<LogicOut*>::iterator end = m_logicChainStarts.end();
+	QList<LogicOut*>::iterator end = m_logicChainStarts.end();
 
-	for (QValueList<LogicOut*>::iterator it = m_logicChainStarts.begin(); it != end; ++it) {
+	for (QList<LogicOut*>::iterator it = m_logicChainStarts.begin(); it != end; ++it) {
 		LogicIn *logicCallback = *it;
 
 		while (logicCallback) {

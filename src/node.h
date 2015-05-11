@@ -12,7 +12,7 @@
 #define NODE_H
 
 #include <canvas.h>
-#include <qguardedptr.h>
+#include <Qt/qpointer.h>
 
 class CNItem;
 class Item;
@@ -24,14 +24,14 @@ class NodeData;
 class NodeGroup;
 class QTimer;
 
-typedef QValueList<QGuardedPtr<Connector> > ConnectorList;
-typedef QValueList<QGuardedPtr<Node> > NodeList;
+typedef QList<QPointer<Connector> > ConnectorList;
+typedef QList<QPointer<Node> > NodeList;
 
 /**
 @short A standard node that can be associated with a Connector or a CNItem
 @author David Saxton
 */
-class Node : public QObject, public QCanvasPolygon
+class Node : /* public QObject, */ public QCanvasPolygon
 {
 Q_OBJECT
 public:

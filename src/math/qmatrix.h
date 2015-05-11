@@ -18,12 +18,14 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef QMATRIX_H
-#define QMATRIX_H
+#ifndef QMATRIX_H__KTECHLAB_
+#define QMATRIX_H__KTECHLAB_
 
-#ifndef QVECTOR_H
+//#ifndef QVECTOR_H
 #include "qvector.h"
-#endif
+//#endif
+
+// class QuickVector;
 
 class QuickMatrix {
 public :

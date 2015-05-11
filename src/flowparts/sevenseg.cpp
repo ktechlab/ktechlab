@@ -24,7 +24,7 @@ Item* SevenSeg::construct( ItemDocument *itemDocument, bool newItem, const char 
 LibraryItem* SevenSeg::libraryItem()
 {
 	return new LibraryItem(
-		"flow/sevenseg",
+		QStringList(QString("flow/sevenseg")),
 		i18n("Seven Segment"),
 		i18n("Functions"),
 		"seven_segment.png",

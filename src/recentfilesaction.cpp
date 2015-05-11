@@ -11,26 +11,32 @@
 #include "recentfilesaction.h"
 
 #include <kconfig.h>
-#include <kpopupmenu.h>
+#include <kmenu.h>
 #include <kstandarddirs.h>
 #include <kurl.h>
+#include <kconfig.h>
+#include <kconfiggroup.h>
+#include <kglobal.h>
+#include <ksharedconfig.h>
 
 RecentFilesAction::RecentFilesAction( const QString & configGroupName, const QString& text, const QObject* receiver, const char* slot, QObject* parent, const char* name )
-	: KSelectAction( text, 0/*pix*/, parent, name )
+	: KSelectAction( text /*, 0*/ /*pix*/, parent /*, name */ )
 {
+    setName(name);
+
 	m_configGroupName = configGroupName;
 	m_maxItems = 10;
 	
-	m_popup = new KPopupMenu;
+	m_popup = new KMenu;
 	connect(m_popup, SIGNAL(aboutToShow()), this, SLOT(menuAboutToShow()));
 	connect(m_popup, SIGNAL(activated(int)), this, SLOT(menuItemActivated(int)));
-	connect( this, SIGNAL( activated( const QString& ) ),
+	connect( this, SIGNAL(triggered(const QString&)),
 			 this, SLOT( itemSelected( const QString& ) ) );
 
 	setMenuAccelsEnabled( false );
 	
 	if ( receiver )
-		connect( this, SIGNAL(urlSelected(const KURL &)), receiver, slot );
+		connect( this, SIGNAL(urlSelected(const KUrl &)), receiver, slot );
 }
 
 
@@ -39,7 +45,7 @@ RecentFilesAction::~RecentFilesAction()
 	delete m_popup;
 }
 
-void RecentFilesAction::addURL( const KURL& url )
+void RecentFilesAction::addURL( const KUrl& url )
 {
 	if ( url.isLocalFile() && !KGlobal::dirs()->relativeLocation("tmp", url.path()).startsWith("/"))
 		return;
@@ -48,7 +54,7 @@ void RecentFilesAction::addURL( const KURL& url )
 	if ( url.isLocalFile() && url.ref().isNull() && url.query().isNull() )
 		file = url.path();
 	else
-		file = url.prettyURL();
+		file = url.prettyUrl();
 	
 	QStringList lst = items();
 
@@ -72,22 +78,22 @@ void RecentFilesAction::addURL( const KURL& url )
 
 void RecentFilesAction::loadEntries()
 {
-	KConfig * config = KGlobal::config();
+	KConfig * config = KGlobal::config().data();
 	
 	QString     key;
 	QString     value;
-	QString     oldGroup;
+	//QString     oldGroup;
 	QStringList lst;
 
-	oldGroup = config->group();
+	//oldGroup = config->group();
 
-	config->setGroup( m_configGroupName );
+	KConfigGroup grCfg = config->group( m_configGroupName );
 
     // read file list
 	for( unsigned int i = 1 ; i <= m_maxItems ; i++ )
 	{
 		key = QString( "File%1" ).arg( i );
-		value = config->readPathEntry( key );
+		value = grCfg.readEntry( key, "");
 
 		if (!value.isNull())
 			lst.append( value );
@@ -96,49 +102,49 @@ void RecentFilesAction::loadEntries()
     // set file
 	setItems( lst );
 
-	config->setGroup( oldGroup );
+	//config->setGroup( oldGroup );
 }
 
 void RecentFilesAction::saveEntries()
 {
-	KConfig * config = KGlobal::config();
+	KConfig * config = KGlobal::config().data();
 	
 	QString     key;
 	QString     value;
-	QString     oldGroup;
+	//QString     oldGroup;
 	QStringList lst = items();
 
-	oldGroup = config->group();
+	//oldGroup = config->group();
 
-	config->deleteGroup( m_configGroupName, true );
-	config->setGroup( m_configGroupName );
+	config->deleteGroup( m_configGroupName /*, true */ );
+	KConfigGroup grCfg = config->group( m_configGroupName );
 
     // write file list
 	for( unsigned int i = 1 ; i <= lst.count() ; i++ )
 	{
 		key = QString( "File%1" ).arg( i );
 		value = lst[ i - 1 ];
-		config->writePathEntry( key, value );
+		grCfg.writePathEntry( key, value );
 	}
 
-	config->setGroup( oldGroup );
+	//grCfg.setGroup( oldGroup );
 	
 	config->sync();
 }
 
 void RecentFilesAction::itemSelected( const QString& text )
 {
-	emit urlSelected( KURL( text ) );
+	emit urlSelected( KUrl( text ) );
 }
 
 void RecentFilesAction::menuItemActivated( int id )
 {
-	emit urlSelected( KURL(m_popup->text(id)) );
+	emit urlSelected( KUrl(m_popup->text(id)) );
 }
 
 void RecentFilesAction::menuAboutToShow()
 {
-	KPopupMenu *menu = m_popup;
+	KMenu *menu = m_popup;
 	menu->clear();
 	QStringList list = items();
 	QStringList::iterator end = list.end();
@@ -148,25 +154,28 @@ void RecentFilesAction::menuAboutToShow()
 
 void RecentFilesAction::slotClicked()
 {
-	KAction::slotActivated();
+	//KAction::slotActivated(); // TODO CORRECT?
+    KAction::trigger();
 }
 
 void RecentFilesAction::slotActivated(const QString& text)
 {
-	KSelectAction::slotActivated(text);
+	//KSelectAction::slotActivated(text); // TODO CORRECT?
+    KSelectAction::activate( QAction::Trigger);
 }
 
 
 void RecentFilesAction::slotActivated(int id)
 {
-	KSelectAction::slotActivated(id);
+	//KSelectAction::slotActivated(id);
+    KSelectAction::activate(QAction::Trigger); // TODO correct?
 }
 
 
 void RecentFilesAction::slotActivated()
 {
 	emit activated( currentItem() );
-	emit activated( currentText() );
+	//emit activated( currentText() ); // TODO how should this work?
 }
 
 

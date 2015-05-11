@@ -18,10 +18,10 @@
 #include <klocale.h>
 #include <kstandarddirs.h>
 
-#include <qlayout.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qwhatsthis.h>
+#include <Qt/qlayout.h>
+#include <Qt/qlabel.h>
+#include <Qt/qpushbutton.h>
+#include <Qt/qwhatsthis.h>
 
 #include <cassert>
 
@@ -47,7 +47,7 @@ ItemEditor::ItemEditor( KateMDI::ToolView * parent )
 
 	//BEGIN Create Name Label
 	m_pNameLabel = new QLabel( this, "" );
-	m_pNameLabel->setTextFormat( RichText );
+	m_pNameLabel->setTextFormat( Qt::RichText );
 	
 	QFont font;
 	font.setBold( true );

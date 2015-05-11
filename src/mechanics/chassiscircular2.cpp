@@ -13,8 +13,8 @@
 #include "libraryitem.h"
 
 #include <klocale.h>
-#include <qpainter.h>
-#include <qwmatrix.h>
+#include <Qt/qpainter.h>
+#include <Qt/qwmatrix.h>
 
 #include <algorithm>
 #include <cmath>
@@ -31,7 +31,7 @@ Item* ChassisCircular2::construct( ItemDocument *itemDocument, bool newItem, con
 LibraryItem* ChassisCircular2::libraryItem()
 {
 	return new LibraryItem(
-		"mech/chassis_circular_2",
+		QStringList(QString("mech/chassis_circular_2")),
 		i18n("Circular 2-Wheel Chassis"),
 		i18n("Chassis'"),
 		"chassis.png",
@@ -48,10 +48,10 @@ ChassisCircular2::ChassisCircular2( MechanicsDocument *mechanicsDocument, bool n
 	m_theta1 = 0.0;
 	m_theta2 = 0.0;
 	
-	QPointArray pa;
+	Q3PointArray pa;
 	pa.makeEllipse( -25, -25, 50, 50 );
 	QWMatrix m(4,0,0,4,0,0);
-	m.setTransformationMode( QWMatrix::Areas );
+	// m.setTransformationMode( QWMatrix::Areas ); // TODO find a replacement
 	pa = m.map(pa);
 	setItemPoints(pa);
 	
@@ -125,10 +125,12 @@ void ChassisCircular2::drawShape( QPainter &p )
 	for ( double i=-1; i<std::ceil(m_wheel1Pos.width()/stripeWidth); ++i )
 	{
 		
-		p.setClipRect( QRect( int(_x+m_wheel1Pos.x()+2), int(_y+m_wheel1Pos.y()+2), int(m_wheel1Pos.width()-4), int(m_wheel1Pos.height()-4) ), QPainter::CoordPainter );
+		p.setClipRect( QRect( int(_x+m_wheel1Pos.x()+2), int(_y+m_wheel1Pos.y()+2), int(m_wheel1Pos.width()-4), int(m_wheel1Pos.height()-4) ),
+                       /* QPainter::CoordPainter */ Qt::UniteClip );
 		p.drawRect( int(offset1+X + i*stripeWidth*2), int(y1+1), int(stripeWidth), int(H-2) );
 		
-		p.setClipRect( QRect( int(_x+m_wheel2Pos.x()+2), int(_y+m_wheel2Pos.y()+2), int(m_wheel2Pos.width()-4), int(m_wheel2Pos.height()-4) ), QPainter::CoordPainter );
+		p.setClipRect( QRect( int(_x+m_wheel2Pos.x()+2), int(_y+m_wheel2Pos.y()+2), int(m_wheel2Pos.width()-4), int(m_wheel2Pos.height()-4) ),
+                       /* QPainter::CoordPainter */ Qt::UniteClip );
 		p.drawRect( int(offset2+X + i*stripeWidth*2), int(y2+1), int(stripeWidth), int(H-2) );
 	}
 	p.setClipping(false);

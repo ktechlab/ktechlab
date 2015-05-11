@@ -43,7 +43,7 @@ Item* ECBCDTo7Segment::construct( ItemDocument *itemDocument, bool newItem, cons
 LibraryItem* ECBCDTo7Segment::libraryItem()
 {
 	return new LibraryItem(
-		"ec/bcd_to_seven_segment",
+		QStringList(QString("ec/bcd_to_seven_segment")),
 		i18n("BCD to 7 Segment"),
 		i18n("Integrated Circuits"),
 		"ic2.png",

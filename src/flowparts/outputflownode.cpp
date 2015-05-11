@@ -14,7 +14,7 @@
 
 
 #include <kdebug.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 OutputFlowNode::OutputFlowNode(ICNDocument* _icnView, int dir, const QPoint& pos, QString* id): FPNode(_icnView, Node::fp_out, dir, pos, id)
 {
@@ -43,9 +43,9 @@ void OutputFlowNode::addInputConnector( Connector * const connector )
 }
 
 
-inline QPointArray arrowPoints( int dir )
+inline Q3PointArray arrowPoints( int dir )
 {
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 	switch ( dir ) {
 		case 0:
 			pa[0] = QPoint( 3, 0 );
@@ -83,7 +83,7 @@ void OutputFlowNode::drawShape ( QPainter &p )
 	else if ( m_dir == 180 )	p.drawLine ( _x, _y, _x+8, _y );
 	else if ( m_dir == 270 )	p.drawLine ( _x, _y, _x, _y+8 );
 
-	QPointArray pa ( 3 );
+	Q3PointArray pa ( 3 );
 
 	switch ( m_dir )
 	{

@@ -30,9 +30,9 @@
 #include <variable.h>
 // #include <pic14.h>
 
-#include <qmap.h>
-#include <qstring.h>
-#include <qstringlist.h>
+#include <Qt/qmap.h>
+#include <Qt/qstring.h>
+#include <Qt/qstringlist.h>
 
 class QString;
 class BTreeBase;
@@ -41,9 +41,9 @@ class Code;
 class PIC14;
 class PortPin;
 
-typedef QValueList<PortPin> PortPinList;
+typedef QList<PortPin> PortPinList;
 
-typedef QValueList<Variable> VariableList;
+typedef QList<Variable> VariableList;
 typedef QMap<QString,QString> AliasMap;
 
 enum ExprType
@@ -58,7 +58,7 @@ enum ExprType
 
 
 class SourceLine;
-typedef QValueList<SourceLine> SourceLineList;
+typedef QList<SourceLine> SourceLineList;
 /**
 Represents a source line, with the convention of line number starting at zero.
 @author David Saxton
@@ -67,7 +67,7 @@ class SourceLine
 {
 	public:
 		/**
-		 * The QValueList template requires a default constructor - calling this
+		 * The QList template requires a default constructor - calling this
 		 * though creates an invalid SourceLine with line() returning -1. So
 		 * this constructor should never be used.
 		 */

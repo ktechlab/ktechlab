@@ -33,27 +33,27 @@ bool MetaInfo::hasDefaultData() const
 }
 
 
-void MetaInfo::save( KConfig * conf )
+void MetaInfo::save( KConfigGroup* conf )
 {
 	conf->writeEntry( "Bookmarks", bookmarks() );
 	conf->writeEntry( "Breakpoints", breakpoints() );
 	conf->writeEntry( "OutputMethod", toID(outputMethodInfo().method()) );
-	conf->writePathEntry( "OutputPath", outputMethodInfo().outputFile().prettyURL() );
+	conf->writePathEntry( "OutputPath", outputMethodInfo().outputFile().prettyUrl() );
 	conf->writeEntry( "OutputPicID", outputMethodInfo().picID() );
 	conf->writeEntry( "CursorLine", cursorLine() );
 	conf->writeEntry( "CursorColumn", cursorColumn() );
 }
 
 
-void MetaInfo::load( KConfig * conf )
+void MetaInfo::load( KConfigGroup* conf )
 {
-	setBookmarks( conf->readIntListEntry("Bookmarks") );
-	setBreakpoints( conf->readIntListEntry("Breakpoints") );
+	setBookmarks( conf->readEntry("Bookmarks", IntList()) );
+	setBreakpoints( conf->readEntry("Breakpoints", IntList()) );
 	m_outputMethodInfo.setMethod( toMethod( conf->readEntry("OutputMethod") ) );
-	m_outputMethodInfo.setOutputFile( conf->readPathEntry("OutputPath") );
+	m_outputMethodInfo.setOutputFile( conf->readPathEntry("OutputPath", QString()) );
 	m_outputMethodInfo.setPicID( conf->readEntry("OutputPicID") );
-	setCursorLine( conf->readNumEntry( "CursorLine", 0 ) );
-	setCursorColumn( conf->readNumEntry( "CursorColumn", 0 ) );
+	setCursorLine( conf->readEntry( "CursorLine", 0 ) );
+	setCursorColumn( conf->readEntry( "CursorColumn", 0 ) );
 }
 
 
@@ -91,7 +91,8 @@ QString MetaInfo::toID( OutputMethodInfo::Method::Type method )
 FileMetaInfo::FileMetaInfo()
 	: QObject()
 {
-	m_metaInfoConfig = new KConfig( "metainfo", false, false, "appdata" );
+	//m_metaInfoConfig = new KConfig( "metainfo", false, false, "appdata" );
+    m_metaInfoConfig = new KConfig( "metainfo", "appdata" );
 	loadAllMetaInfo();
 }
 
@@ -103,7 +104,7 @@ FileMetaInfo::~FileMetaInfo()
 }
 
 
-void FileMetaInfo::grabMetaInfo( const KURL & url, TextDocument * textDocument )
+void FileMetaInfo::grabMetaInfo( const KUrl & url, TextDocument * textDocument )
 {
 	if (!textDocument)
 		return;
@@ -113,7 +114,7 @@ void FileMetaInfo::grabMetaInfo( const KURL & url, TextDocument * textDocument )
 }
 
 
-void FileMetaInfo::initializeFromMetaInfo( const KURL & url, TextDocument * textDocument )
+void FileMetaInfo::initializeFromMetaInfo( const KUrl & url, TextDocument * textDocument )
 {
 	if (!textDocument)
 		return;
@@ -123,7 +124,7 @@ void FileMetaInfo::initializeFromMetaInfo( const KURL & url, TextDocument * text
 }
 
 
-void FileMetaInfo::grabMetaInfo( const KURL & url, TextView * textView )
+void FileMetaInfo::grabMetaInfo( const KUrl & url, TextView * textView )
 {
 	if (!textView)
 		return;
@@ -133,7 +134,7 @@ void FileMetaInfo::grabMetaInfo( const KURL & url, TextView * textView )
 }
 
 
-void FileMetaInfo::initializeFromMetaInfo( const KURL & url, TextView * textView )
+void FileMetaInfo::initializeFromMetaInfo( const KUrl & url, TextView * textView )
 {
 	if (!textView)
 		return;
@@ -142,7 +143,7 @@ void FileMetaInfo::initializeFromMetaInfo( const KURL & url, TextView * textView
 }
 
 
-void FileMetaInfo::grabMetaInfo( const KURL & url, OutputMethodDlg * dlg )
+void FileMetaInfo::grabMetaInfo( const KUrl & url, OutputMethodDlg * dlg )
 {
 	if (!dlg)
 		return;
@@ -151,7 +152,7 @@ void FileMetaInfo::grabMetaInfo( const KURL & url, OutputMethodDlg * dlg )
 }
 
 
-void FileMetaInfo::initializeFromMetaInfo( const KURL & url, OutputMethodDlg * dlg )
+void FileMetaInfo::initializeFromMetaInfo( const KUrl & url, OutputMethodDlg * dlg )
 {
 	if ( !dlg || url.isEmpty() || !m_metaInfoMap.contains(url) )
 		return;
@@ -172,12 +173,12 @@ void FileMetaInfo::saveAllMetaInfo()
 	for ( MetaInfoMap::iterator it = m_metaInfoMap.begin(); it != end; ++it )
 	{
 		if ( it.data().hasDefaultData() )
-			m_metaInfoConfig->deleteGroup(it.key().prettyURL());
+			m_metaInfoConfig->deleteGroup(it.key().prettyUrl());
 		
 		else
 		{
-			m_metaInfoConfig->setGroup( it.key().prettyURL() );
-			it.data().save( m_metaInfoConfig );
+			KConfigGroup grUrl = m_metaInfoConfig->group( it.key().prettyUrl() );
+			it.data().save( &grUrl );
 		}
 	}
 }
@@ -189,8 +190,8 @@ void FileMetaInfo::loadAllMetaInfo()
 	const QStringList::iterator end = urlList.end();
 	for ( QStringList::iterator it = urlList.begin(); it != end; ++it )
 	{
-		m_metaInfoConfig->setGroup(*it);
-		m_metaInfoMap[*it].load(m_metaInfoConfig);
+		KConfigGroup grUrl = m_metaInfoConfig->group(*it);
+		m_metaInfoMap[*it].load(&grUrl);
 	}
 }
 //END class FileMetaInfo

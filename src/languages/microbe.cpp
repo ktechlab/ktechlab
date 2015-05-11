@@ -19,8 +19,8 @@
 #include <kmessagebox.h>
 #include <kstandarddirs.h>
 
-#include <qfile.h>
-#include <kprocess.h>
+#include <Qt/qfile.h>
+#include <k3process.h>
 
 Microbe::Microbe( ProcessChain *processChain )
  : ExternalLanguage( processChain, "Microbe" )

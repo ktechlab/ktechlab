@@ -18,7 +18,7 @@
 
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <kprocess.h>
+#include <k3process.h>
 
 SDCC::SDCC( ProcessChain * processChain )
 	: ExternalLanguage( processChain, "SDCC" )

@@ -27,7 +27,7 @@
 #include "optimizer.h"
 #include "pic14.h"
 #include <kdebug.h>
-#include <qstringlist.h>
+#include <Qt/qstringlist.h>
 #include <cassert>
 #include <iostream>
 using namespace std;
@@ -227,8 +227,8 @@ Register::Register( Type type )
 
 Register::Register( const QString & name )//--to find a name varable or register(ex  trise)
 {
-	m_name = name.stripWhiteSpace();
-	QString upper = m_name.upper();
+	m_name = name.trimmed();
+	QString upper = m_name.toUpper();
 //--------------------------------------------Bank0-------------------//
 	if ( upper == "TMR0" )
 		m_type = TMR0;
@@ -945,14 +945,14 @@ RegisterBit::RegisterBit( uchar bitPos, Register::Type reg )
 
 RegisterBit::RegisterBit( const QString & name )
 {
-	m_name = name.upper().stripWhiteSpace();
+	m_name = name.toUpper().trimmed();
 	initFromName();
 }
 
 
 RegisterBit::RegisterBit( const char * name )
 {
-	m_name = QString(name).upper().stripWhiteSpace();
+	m_name = QString(name).toUpper().trimmed();
 	initFromName();
 }
 
@@ -1808,8 +1808,8 @@ bool RegisterState::operator == ( const RegisterState & state ) const
 
 void RegisterState::print()
 {
-	cout << "   known="<<binary(known)<<endl;
-	cout << "   value="<<binary(value)<<endl;
+	cout << "   known="<< binary(known).toStdString() <<endl;
+	cout << "   value="<< binary(value).toStdString() <<endl;
 }
 //END class RegisterState
 
@@ -2005,8 +2005,9 @@ void ProcessorState::print()
 	RegisterMap::iterator end = m_registers.end();
 	for ( RegisterMap::iterator it = m_registers.begin(); it != end; ++it )
 	{
-		cout << " " << it.key().name() << ":\n";
-		it.data().print();
+		cout << " " << it.key().name().toStdString() << ":\n";
+        it.value().print();
+// 		it.data().print();
 	}
 }
 //END class ProcessorState
@@ -2148,12 +2149,12 @@ void Code::removeInstruction( Instruction * instruction )
 		iterator next = ++iterator(i);
 		
 		QStringList labels = instruction->labels();
-		i.list->remove( i.it );
+		i.list->erase( i.it );
 		
 		if ( previous != e )
 		{
 			labels += (*previous)->labels();
-			previous.list->remove( previous.it );
+			previous.list->erase( previous.it );
 		}
 		
 		if ( next != e )
@@ -2269,7 +2270,7 @@ QString Code::generateCode( PIC14 * pic ) const
 	
 	QString picString = pic->minimalTypeString();
 	code += QString("list p=%1\n").arg( picString );
-	code += QString("include \"p%2.inc\"\n\n").arg( picString.lower() );
+	code += QString("include \"p%2.inc\"\n\n").arg( picString.toLower() );
 	
 	code += "; Config options\n";
 	code += "  __config _WDT_OFF\n\n";
@@ -2616,13 +2617,13 @@ void Instruction::addOutputLink( Instruction * instruction )
 
 void Instruction::removeInputLink( Instruction * instruction )
 {
-	m_inputLinks.remove( instruction );
+	m_inputLinks.removeAll( instruction );
 }
 
 
 void Instruction::removeOutputLink( Instruction * instruction )
 {
-	m_outputLinks.remove( instruction );
+	m_outputLinks.removeAll( instruction );
 }
 
 
@@ -3581,7 +3582,7 @@ ProcessorBehaviour Instr_xorlw::behaviour() const
 //BEGIN Microbe (non-assembly) Operations
 QString Instr_sourceCode::code() const
 {
-	QStringList sourceLines = QStringList::split("\n",m_raw);
+	QStringList sourceLines = m_raw.split("\n"); // QString::split("\n",m_raw);
 	return ";" + sourceLines.join("\n;");
 }
 

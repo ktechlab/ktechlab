@@ -14,7 +14,7 @@
 
 
 DocManagerIface::DocManagerIface( DocManager * docManager )
-	: DCOPObject("DocumentManager")
+	: DCOPObject( /* TODO "DocumentManager" */ )
 {
 	m_pDocManager = docManager;
 }
@@ -62,7 +62,7 @@ DCOPRef DocManagerIface::createMechanicsDocument( )
 DCOPRef DocManagerIface::docToRef( Document * document )
 {
 	if (document)
-		return DCOPRef(document->dcopObject());
+		return DCOPRef(); // TODO document->dcopObject());
 	return DCOPRef();
 }
 

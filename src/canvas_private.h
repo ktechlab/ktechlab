@@ -13,13 +13,14 @@
 #ifndef CANVAS_PRIVATE_H
 #define CANVAS_PRIVATE_H
 
-#include "qbitmap.h"
-#include "qimage.h"
+#include "Qt/qbitmap.h"
+#include "Qt/qimage.h"
+#include <Qt/q3polygonscanner.h>
 
 class QPolygonalProcessor 
 {
 public:
-	QPolygonalProcessor(QCanvas* c, const QPointArray& pa) :
+	QPolygonalProcessor(QCanvas* c, const Q3PointArray& pa) :
 	canvas(c)
 	{
 		QRect pixelbounds = pa.boundingRect();
@@ -85,7 +86,7 @@ public:
 		result.resize(pnt);
 	}
 
-	QPointArray result;
+	Q3PointArray result;
 
 private:
 	int pnt;
@@ -216,7 +217,7 @@ private:
 
 
 
-class QCanvasPolygonScanner : public QPolygonScanner
+class QCanvasPolygonScanner : public Q3PolygonScanner
 {
 	QPolygonalProcessor& processor;
 

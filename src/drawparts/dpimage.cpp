@@ -17,8 +17,8 @@
 #include <kiconloader.h>
 #include <klocale.h>
 
-#include <qpainter.h>
-#include <qtimer.h>
+#include <Qt/qpainter.h>
+#include <Qt/qtimer.h>
 
 
 //BEGIN class ImageScaleThread
@@ -117,7 +117,7 @@ void ImageScaleThread::run()
 		m_bSettingsChanged = false;
 		if ( !m_bDoneNormalScale )
 		{
-			m_normalScaled = m_image.scale( m_width, m_height );
+			m_normalScaled = m_image.scaled( m_width, m_height );
 			m_bDoneNormalScale = true;
 		}
 	}
@@ -147,10 +147,10 @@ Item* DPImage::construct( ItemDocument *itemDocument, bool newItem, const char *
 LibraryItem* DPImage::libraryItem()
 {
 	return new LibraryItem(
-			"dp/image",
+			QStringList(QString("dp/image")),
 	i18n("Image"),
 	i18n("Other"),
-	KGlobal::iconLoader()->loadIcon( "text", KIcon::Small ),
+	KIconLoader::global()->loadIcon( "text", KIconLoader::Small ),
 	LibraryItem::lit_drawpart,
 	DPImage::construct );
 }
@@ -195,7 +195,7 @@ void DPImage::setSelected( bool yes )
 
 void DPImage::postResize()
 {
-	setItemPoints( QPointArray(m_sizeRect), false );
+	setItemPoints( Q3PointArray(m_sizeRect), false );
 	m_bSettingsChanged = true;
 }
 

@@ -26,7 +26,7 @@ Item* SetPin::construct( ItemDocument *itemDocument, bool newItem, const char *i
 LibraryItem* SetPin::libraryItem()
 {
 	return new LibraryItem(
-		"flow/setpin",
+		QStringList(QString("flow/setpin")),
 		i18n("Set Pin State"),
 		i18n("I\\/O"),
 		"pinwrite.png",

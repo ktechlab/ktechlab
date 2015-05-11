@@ -17,10 +17,10 @@
 
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <kprocess.h>
+#include <k3process.h>
 #include <kdebug.h>
 
-#include <qfile.h>
+#include <Qt/qfile.h>
 
 Gplink::Gplink( ProcessChain *processChain )
 	: ExternalLanguage( processChain, "Gpasm" )

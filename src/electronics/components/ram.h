@@ -14,8 +14,8 @@
 #include "component.h"
 #include "logic.h"
 
-#include <qbitarray.h>
-#include <qptrvector.h>
+#include <Qt/qbitarray.h>
+#include <Qt/q3ptrvector.h>
 
 /**
 @author David Saxton
@@ -42,9 +42,9 @@ class RAM : public CallbackClass, public Component
 		int m_wordSize;
 		int m_addressSize;
 		
-		QPtrVector<LogicIn> m_address;
-		QPtrVector<LogicIn> m_dataIn;
-		QPtrVector<LogicOut> m_dataOut;
+		Q3PtrVector<LogicIn> m_address;
+		Q3PtrVector<LogicIn> m_dataIn;
+		Q3PtrVector<LogicOut> m_dataOut;
 };
 
 #endif

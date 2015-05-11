@@ -18,12 +18,12 @@
 #include <klocale.h>
 #include <kdebug.h>
 
-#include <qstring.h>
-#include <qpixmap.h>
-#include <qvariant.h>
-#include <qevent.h>
-#include <qlabel.h>
-#include <qcursor.h>
+#include <Qt/qstring.h>
+#include <Qt/qpixmap.h>
+#include <Qt/qvariant.h>
+#include <Qt/qevent.h>
+#include <Qt/qlabel.h>
+#include <Qt/qcursor.h>
 
 
 PropertyEditorFile::PropertyEditorFile( QWidget * parent, Property * property, const char * name )
@@ -49,7 +49,7 @@ PropertyEditorFile::PropertyEditorFile( QWidget * parent, Property * property, c
 
 void PropertyEditorFile::selectFile()
 {
-	KURL url = KFileDialog::getOpenFileName( QString::null, m_property->filter(), this, i18n("Choose File") );
+	KUrl url = KFileDialog::getOpenFileName( KUrl() /* QString::null */, m_property->filter(), this, i18n("Choose File") );
 	if ( !url.isValid() )
 		return;
 	
@@ -70,7 +70,7 @@ bool PropertyEditorFile::eventFilter(QObject* watched, QEvent* e)
 	if(e->type() == QEvent::KeyPress)
 	{
 		QKeyEvent* ev = static_cast<QKeyEvent*>(e);
-		if((ev->key() == Key_Enter) || (ev->key()== Key_Space) || (ev->key() == Key_Return))
+		if((ev->key() == Qt::Key_Enter) || (ev->key()== Qt::Key_Space) || (ev->key() == Qt::Key_Return))
 		{
 			m_button->animateClick();
 			return true;

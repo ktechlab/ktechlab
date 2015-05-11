@@ -23,7 +23,7 @@ Item* VarComparison::construct( ItemDocument *itemDocument, bool newItem, const 
 LibraryItem* VarComparison::libraryItem()
 {
 	return new LibraryItem(
-		"flow/varcomparison",
+		QStringList(QString("flow/varcomparison")),
 		i18n("Comparison"),
 		i18n("Variables"),
 		"branch.png",

@@ -15,8 +15,8 @@
 #include "libraryitem.h"
 
 #include <klocale.h>
-#include <qpainter.h>
-#include <qstyle.h>
+#include <Qt/qpainter.h>
+#include <Qt/qstyle.h>
 #include <kdebug.h>
 
 Item* VariableCapacitor::construct( ItemDocument *itemDocument, bool newItem, const char *id )
@@ -27,7 +27,7 @@ Item* VariableCapacitor::construct( ItemDocument *itemDocument, bool newItem, co
 LibraryItem* VariableCapacitor::libraryItem()
 {
 	return new LibraryItem(
-	"ec/variablecapacitor",
+	QStringList(QString("ec/variablecapacitor")),
 	i18n("Variable Capacitor"),
 	i18n("Passive"),
 	"variable_capacitor.png",
@@ -37,7 +37,7 @@ LibraryItem* VariableCapacitor::libraryItem()
 }
 
 VariableCapacitor::VariableCapacitor( ICNDocument* icnDocument, bool newItem, const QString& id )
-	: Component( icnDocument, newItem, id ? id : "variable capacitor" )
+	: Component( icnDocument, newItem, (!id.isEmpty()) ? id : "variable capacitor" )
 {
 	m_name = i18n("Variable Capacitor");
 	
@@ -164,7 +164,7 @@ void VariableCapacitor::drawShape( QPainter &p )
 // 	p.drawLine( _x+8, _y, _x+16, _y );
 	
 	// Diagonally pointing arrow
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 	pa[0] = QPoint( -4, 0 );
 	pa[1] = QPoint( -2, 4 );
 	pa[2] = QPoint( 0, 0 );

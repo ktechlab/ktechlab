@@ -22,11 +22,12 @@
 #include <kdebug.h>
 #include <klocale.h>
 #include <kstdaccel.h>
+#include <kstandardshortcut.h>
 
-#include <qaccel.h>
-#include <qapplication.h>
-#include <qframe.h>
-#include <qlayout.h>
+#include <Qt/q3accel.h>
+#include <Qt/qapplication.h>
+#include <Qt/qframe.h>
+#include <Qt/qlayout.h>
 
 
 //BEGIN class PinMapping
@@ -51,26 +52,34 @@ PinMapping::~PinMapping()
 
 //BEGIN class PinMapEditor
 PinMapEditor::PinMapEditor( PinMapping * pinMapping, MicroInfo * picInfo, QWidget * parent, const char * name )
-	: KDialogBase( parent, name, true, i18n("Pin Map Editor"), Ok|Apply|Cancel, KDialogBase::Ok, true )
+	: //KDialog( parent, name, true, i18n("Pin Map Editor"), Ok|Apply|Cancel, KDialog::Ok, true )
+	  KDialog( parent ) //, name, true, i18n("Pin Map Editor"), Ok|Apply|Cancel, KDialog::Ok, true )
 {
+    setName(name);
+    setModal(true);
+    setCaption(i18n("Pin Map Editor"));
+    setButtons(KDialog::Ok | KDialog::Apply | KDialog::Cancel);
+    setDefaultButton(KDialog::Ok);
+    showButtonSeparator(true);
+
 	m_pPinMapping = pinMapping;
 	
 	m_pPinMapDocument = new PinMapDocument();
 	
-	QAccel * accel = new QAccel( this );
-	accel->connectItem( accel->insertItem( Key_Delete ),
+	Q3Accel * accel = new Q3Accel( this );
+	accel->connectItem( accel->insertItem( Qt::Key_Delete ),
 						m_pPinMapDocument,
 						SLOT(deleteSelection()) );
 	
-	accel->connectItem( accel->insertItem( KStdAccel::selectAll().keyCodeQt() ),
+	accel->connectItem( accel->insertItem( KStandardShortcut::selectAll().primary() ),
 						m_pPinMapDocument,
 						SLOT(selectAll()) );
 	
-	accel->connectItem( accel->insertItem( KStdAccel::undo().keyCodeQt() ),
+	accel->connectItem( accel->insertItem( KStandardShortcut::undo().primary() ),
 						m_pPinMapDocument,
 						SLOT(undo()) );
 	
-	accel->connectItem( accel->insertItem( KStdAccel::redo().keyCodeQt() ),
+	accel->connectItem( accel->insertItem( KStandardShortcut::redo().primary() ),
 						m_pPinMapDocument,
 						SLOT(redo()) );
 	
@@ -92,7 +101,9 @@ PinMapEditor::PinMapEditor( PinMapping * pinMapping, MicroInfo * picInfo, QWidge
 	
 	m_pPinMapDocument->init( *m_pPinMapping, picInfo );
 	
-	enableButtonSeparator( false );
+    showButtonSeparator( false );
+	// enableButtonSeparator( false );
+
 	setMainWidget(f);
 }
 
@@ -100,14 +111,14 @@ PinMapEditor::PinMapEditor( PinMapping * pinMapping, MicroInfo * picInfo, QWidge
 void PinMapEditor::slotApply()
 {
 	savePinMapping();
-	KDialogBase::slotApply();
+	KDialog::applyClicked();// slotApply();
 }
 
 
 void PinMapEditor::slotOk()
 {
 	savePinMapping();
-	KDialogBase::slotOk();
+	KDialog::okClicked();// slotOk();
 }
 
 
@@ -327,7 +338,9 @@ Item* PIC_IC::construct( ItemDocument *itemDocument, bool newItem, const char *i
 
 LibraryItem* PIC_IC::libraryItem()
 {
-	return new LibraryItem(	"PIC_IC", 0, 0, LibraryItem::lit_other, PIC_IC::construct );
+	return new LibraryItem(
+            QStringList(QString("PIC_IC")),
+            0, 0, LibraryItem::lit_other, PIC_IC::construct );
 }
 
 

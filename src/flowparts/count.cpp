@@ -23,7 +23,7 @@ Item* Count::construct( ItemDocument *itemDocument, bool newItem, const char *id
 LibraryItem* Count::libraryItem()
 {
 	return new LibraryItem(
-		"flow/count",
+		QStringList(QString("flow/count")),
 		i18n("Count"),
 		i18n("Functions"),
 		"ppcount.png",

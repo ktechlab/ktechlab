@@ -72,7 +72,7 @@ void Document::slotViewDestroyed( QObject *obj )
 	
 	m_viewList.remove(view);
 	
-	if ( m_pActiveView == (QGuardedPtr<View>)view )
+	if ( m_pActiveView == (QPointer<View>)view )
 	{
 		m_pActiveView = 0l;
 		emit viewUnfocused();
@@ -103,7 +103,7 @@ void Document::setCaption( const QString &caption )
 
 bool Document::getURL( const QString &types )
 {
-	KURL url = KFileDialog::getSaveURL( QString::null, types, KTechlab::self(), i18n("Save Location"));
+	KUrl url = KFileDialog::getSaveUrl( KUrl(), types, KTechlab::self(), i18n("Save Location"));
 	
 	if ( url.isEmpty() ) return false;
 	
@@ -112,8 +112,8 @@ bool Document::getURL( const QString &types )
 		int query = KMessageBox::warningYesNo( KTechlab::self(),
 			   i18n( "A file named \"%1\" already exists. Are you sure you want to overwrite it?" ).arg( url.fileName() ),
 			   i18n( "Overwrite File?" ),
-			   i18n( "Overwrite" ),
-			   KStdGuiItem::cancel() );
+			   //i18n( "Overwrite" ),
+			   KStandardGuiItem::cancel() );
 		if ( query == KMessageBox::No )
 			return false;
 	}
@@ -134,11 +134,11 @@ bool Document::fileClose()
 		if ( ViewContainer * viewContainer = (activeView() ? activeView()->viewContainer() : 0l) )
 			KTechlab::self()->tabWidget()->setCurrentPage( KTechlab::self()->tabWidget()->indexOf(viewContainer) );
 		
-		KGuiItem saveItem = KStdGuiItem::yes();
+		KGuiItem saveItem = KStandardGuiItem::yes();
 		saveItem.setText( i18n("Save") );
 		saveItem.setIconName( "filesave" );
 		
-		KGuiItem discardItem = KStdGuiItem::no();
+		KGuiItem discardItem = KStandardGuiItem::no();
 		discardItem.setText( i18n("Discard") );
 		
 		int choice = KMessageBox::warningYesNoCancel( KTechlab::self(),
@@ -168,7 +168,7 @@ void Document::setModified( bool modified )
 }
 
 
-void Document::setURL( const KURL &url )
+void Document::setURL( const KUrl &url )
 {
 	if ( m_url == url ) return;
 	
@@ -197,7 +197,7 @@ void Document::setDCOPID( unsigned id )
 	
 	m_dcopID = id;
 	if ( m_pDocumentIface ) {
-		QCString docID;
+		QString docID;
 		docID.setNum( dcopID() );
 		m_pDocumentIface->setObjId( "Document#" + docID );
 	}

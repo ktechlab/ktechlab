@@ -14,8 +14,8 @@
 #ifndef VARIABLELABEL_H
 #define VARIABLELABEL_H
 
-#include <qguardedptr.h>
-#include <qlabel.h>
+#include <Qt/qpointer.h>
+#include <Qt/qlabel.h>
 
 class TextView;
 
@@ -50,7 +50,7 @@ class VariableLabel : public QLabel
 	protected:
 		void disconnectRegisterInfo();
 		
-		QGuardedPtr<RegisterInfo> m_pRegisterInfo;
+		QPointer<RegisterInfo> m_pRegisterInfo;
 		QString m_registerName;
 		int m_value;
 };

@@ -22,7 +22,7 @@ Item* Pulse::construct( ItemDocument *itemDocument, bool newItem, const char *id
 LibraryItem* Pulse::libraryItem()
 {
 	return new LibraryItem(
-		"flow/pulse",
+		QStringList(QString("flow/pulse")),
 		i18n("Pulse"),
 		i18n("Functions"),
 		"pppulse.png",

@@ -13,12 +13,12 @@
 #include "cnitem.h"
 #include "icndocument.h"
 
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 
 //BEGIN Class GuiPart
 GuiPart::GuiPart( CNItem *parent, const QRect & r, QCanvas * canvas )
-	: QObject(parent),
+	: //QObject(parent),
 	QCanvasRectangle( r, canvas ),
 	m_angleDegrees(0),
 	p_parent(parent),
@@ -245,7 +245,8 @@ void ToolButton::drawButtonLabel( QPainter * p )
 {
 	if ( m_angleDegrees % 180 == 0 || text().isEmpty() )
 	{
-		QToolButton::drawButtonLabel(p);
+		//QToolButton::drawButtonLabel(p);
+        QToolButton::render(p);
 		return;
 	}
 	
@@ -341,7 +342,7 @@ void Button::setState( bool state )
 bool Button::state() const
 {
 	if ( isToggle() )
-		return m_button->state();
+		return m_button->isChecked(); //was: state()
 	else
 		return m_button->isDown();
 }
@@ -425,7 +426,8 @@ void Button::leaveEvent()
 SliderWidget::SliderWidget( QWidget *parent )
 	: QSlider(parent)
 {
-	setWFlags(WNoAutoErase|WRepaintNoErase);
+	//setWFlags(Qt::WNoAutoErase|Qt::WRepaintNoErase);
+    setWindowFlags(Qt::WNoAutoErase | Qt::WRepaintNoErase);
 }
 //END Class SliderWidget
 

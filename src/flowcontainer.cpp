@@ -17,7 +17,7 @@
 #include "resizeoverlay.h"
 
 #include <kiconloader.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 #include <cmath>
 
@@ -30,7 +30,7 @@ FlowContainer::FlowContainer( ICNDocument *_icnDocument, bool newItem, const QSt
 	m_ext_in = m_int_in = m_int_out = m_ext_out = 0l;
 	b_expanded = true;
 	
-	addButton( "expandBtn", QRect( offsetX(), offsetY()+24 - 11, 22, 22 ), KGlobal::iconLoader()->loadIcon( "down", KIcon::Small ), true );
+	addButton( "expandBtn", QRect( offsetX(), offsetY()+24 - 11, 22, 22 ), KIconLoader::global()->loadIcon( "down", KIconLoader::Small ), true );
 	m_rectangularOverlay = new RectangularOverlay( this, 8, 8 );
 	setSize( -160, -120, 320, 240 );
 	
@@ -242,13 +242,13 @@ void FlowContainer::setFullBounds( bool full )
 	if ( full || !b_expanded )
 	{
 		QRect bounds = b_expanded ? m_sizeRect : QRect( m_sizeRect.x(), m_sizeRect.y(), m_sizeRect.width(), topStrip );
-		setPoints( QPointArray(bounds) );
+		setPoints( Q3PointArray(bounds) );
 		return;
 	}
 	
 // 	kdDebug() << k_funcinfo << "width="<<width()<<" height="<<height()<<endl;
 	
-	QPointArray pa(10);
+	Q3PointArray pa(10);
 	pa[0] = QPoint( 0, 0 );
 	pa[1] = QPoint( width(), 0 );
 	pa[2] = QPoint( width(), height() );

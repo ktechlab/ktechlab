@@ -13,7 +13,7 @@
 
 #include "flowicndocument.h"
 
-#include <qguardedptr.h>
+#include <Qt/qpointer.h>
 
 class KTechlab;
 class FlowCode;
@@ -24,7 +24,7 @@ class MicroSettings;
 class TextDocument;
 class QString;
 
-typedef QValueList<FlowPart*> FlowPartList;
+typedef QList<FlowPart*> FlowPartList;
 typedef QMap<QString, int > StringIntMap;
 
 /**
@@ -91,7 +91,7 @@ class FlowCodeDocument : public FlowICNDocument
 		void setLastTextOutputTarget( TextDocument * target );
 
 	private:
-		QGuardedPtr<TextDocument> m_pLastTextOutputTarget;
+		QPointer<TextDocument> m_pLastTextOutputTarget;
 		MicroInfo *m_microInfo; // Stores information about the PIC
 		MicroSettings *m_microSettings; // Stores initial settings of the PIC
 		PicItem *m_picItem; // Allows the user to change the PIC settings

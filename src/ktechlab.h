@@ -11,9 +11,12 @@
 #ifndef KTECHLAB_H
 #define KTECHLAB_H
 
-#include <katemdi.h>
-#include <qmap.h>
-#include <qvaluelist.h>
+#include "katemdi.h"
+
+#include <kurl.h>
+
+#include <Qt/qmap.h>
+#include <Qt/qlist.h>
 
 class CircuitDocument;
 class TextDocument;
@@ -30,7 +33,7 @@ class ViewArea;
 class ViewContainer;
 
 typedef QMap< int, QString > IntStringMap;
-typedef QValueList< QGuardedPtr<ViewContainer> > ViewContainerList;
+typedef QList< QPointer<ViewContainer> > ViewContainerList;
 
 class KAction;
 class KActionCollection;
@@ -38,7 +41,7 @@ class RecentFilesAction;
 class KTabWidget;
 class KToolBar;
 class KToggleAction;
-class KURL;
+class KUrl;
 class QLabel;
 
 /**
@@ -67,14 +70,14 @@ class KTechlab : public KateMDI::MainWindow
 		/**
 		 * Returns a pointer to an action with the given name.
 		 */
-		KAction * action( const QString & name ) const;
+		QAction* action( const QString& name ) const;
 		/**
 		 * Returns a URL from a Open File dialog (with all ktechlab related file
 		 * types allowed).
 		 * @param allowMultiple Whether to allow the user to select more than
 		 * one URL.
 		 */
-		static KURL::List getFileURLs( bool allowMultiple = true );
+		static KUrl::List getFileURLs( bool allowMultiple = true );
 		/**
 		 * Returns a list of the recently opened/saved files
 		 */
@@ -121,7 +124,7 @@ class KTechlab : public KateMDI::MainWindow
 		/**
 		 * Emitted when a recent file is added
 		 */
-		void recentFileAdded( const KURL &url );
+		void recentFileAdded( const KUrl &url );
 		/**
 		 * Emitted when ViewContainers should update their captions.
 		 */
@@ -141,12 +144,12 @@ class KTechlab : public KateMDI::MainWindow
 		 * Open the document at the given url. If viewArea is non-null, then the
 		 * new view will be put into viewArea.
 		 */
-		void load( const KURL & url, ViewArea * viewArea = 0l );
+		void load( const KUrl & url, ViewArea * viewArea = 0l );
 		void slotUpdateConfiguration();
 		/**
 		 * Adds a url to the list of recently opened files
 		 */
-		void addRecentFile( const KURL &url );
+		void addRecentFile( const KUrl &url );
 		/**
 		 * A document had its modified state changed; will update actions, 
 		 * tab titles, etc as appropriate.
@@ -252,7 +255,7 @@ class KTechlab : public KateMDI::MainWindow
 		KToggleAction * m_statusbarAction;
 		KTabWidget * m_pViewContainerTabWidget;
 		QString m_lastStatusBarMessage;
-		QValueList<KXMLGUIClient*> m_noRemoveGUIClients;
+		QList<KXMLGUIClient*> m_noRemoveGUIClients;
 		QLabel * m_pToolBarOverlayLabel;
 		bool m_bIsShown; // Set true when show() is called
 		ViewContainerList m_viewContainerList;
@@ -262,10 +265,10 @@ class KTechlab : public KateMDI::MainWindow
 		
 		static KTechlab * m_pSelf;
 	
-		QGuardedPtr<ViewContainer> m_pContextMenuContainer;
-		QGuardedPtr<ViewContainer> m_pFocusedContainer;
-		QGuardedPtr<ViewContainer> m_pContainerDropSource;
-		QGuardedPtr<ViewContainer> m_pContainerDropReceived;
+		QPointer<ViewContainer> m_pContextMenuContainer;
+		QPointer<ViewContainer> m_pFocusedContainer;
+		QPointer<ViewContainer> m_pContainerDropSource;
+		QPointer<ViewContainer> m_pContainerDropReceived;
 };
 
 #endif // KTECHLAB_H

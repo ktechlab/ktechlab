@@ -12,6 +12,8 @@
 #include "canvasitemparts.h"
 #include "eventinfo.h"
 
+#include <Qt/q3button.h>
+
 #include <kdebug.h>
 
 CIWidgetMgr::CIWidgetMgr( QCanvas *canvas, CNItem *item )
@@ -113,7 +115,7 @@ Button* CIWidgetMgr::addButton( const QString &id, const QRect & pos, const QStr
 	WidgetMap::iterator it;
 	
 	Button *button = new Button( id, p_cnItem, toggle, pos, p_canvas );
-	(dynamic_cast<QButton*>(button->widget()))->setText(display);
+	(dynamic_cast<QToolButton*>(button->widget()))->setText(display);
 	
 	it = m_widgetMap.find(id);
 	if ( it == m_widgetMap.end() )

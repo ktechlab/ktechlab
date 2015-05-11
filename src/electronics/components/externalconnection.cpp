@@ -12,7 +12,7 @@
 #include "libraryitem.h"
 
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 Item* ExternalConnection::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -22,7 +22,7 @@ Item* ExternalConnection::construct( ItemDocument *itemDocument, bool newItem, c
 LibraryItem* ExternalConnection::libraryItem()
 {
 	return new LibraryItem(
-		"ec/external_connection",
+		QStringList(QString("ec/external_connection")),
 		i18n("External Connection"),
 		i18n("Connections"),
 		"external_connection.png",

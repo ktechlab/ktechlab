@@ -13,6 +13,8 @@
 #include <cassert>
 #include <kdebug.h>
 
+#include <Qt/qdebug.h>
+
 Pin::Pin( ECNode * parent )
 {
 	assert(parent);
@@ -77,6 +79,14 @@ void Pin::setSwitchConnected( Pin * pin, bool isConnected )
 		m_switchConnectedPins.remove(pin);
 }
 
+void Pin::setSwitchCurrentsUnknown() {
+    if (!m_switchList.empty()) {
+        m_switchList.removeAt( 0l );
+    } else {
+        qWarning() << "Pin::setSwitchCurrentsUnknown - unexpected empty switch list";
+    }
+    m_unknownSwitchCurrents = m_switchList;
+}
 
 void Pin::addCircuitDependentPin( Pin * pin )
 {

@@ -28,9 +28,9 @@
 #include <cassert>
 #include <kdebug.h>
 #include <klocale.h>
-#include <qfile.h>
-#include <qregexp.h>
-#include <qstring.h>
+#include <Qt/qfile.h>
+#include <Qt/qregexp.h>
+#include <Qt/qstring.h>
 
 #include <iostream>
 using namespace std;
@@ -203,7 +203,7 @@ Code * Parser::parse( const SourceLineList & lines )
 		
 		QString command; // e.g. "delay", "for", "subroutine", "increment", etc
 		{
-			int spacepos = line.find(' ');
+			int spacepos = line.indexOf(' ');
 			if ( spacepos >= 0 )
 				command = line.left( spacepos );
 			else
@@ -236,7 +236,7 @@ Code * Parser::parse( const SourceLineList & lines )
 			
 			continue; // Give up on the current statement
 		}
-		StatementDefinition definition = dmit.data();
+		StatementDefinition definition = dmit.value();
 		
 		// Start at the first white space character following the statement name
 		int newPosition = 0;
@@ -269,7 +269,7 @@ Code * Parser::parse( const SourceLineList & lines )
 				case (Field::Variable):
 				case (Field::Name):
 				{
-					newPosition = line.find( ' ', position );
+					newPosition = line.indexOf( ' ', position );
 					if(position == newPosition)
 					{
 						newPosition = -1;
@@ -303,12 +303,12 @@ Code * Parser::parse( const SourceLineList & lines )
 					{
 						nextField = (*it);
 						if(nextField.type() == Field::FixedString) 
-							newPosition = line.find(QRegExp("\\b" + nextField.string() + "\\b"));
+							newPosition = line.indexOf(QRegExp("\\b" + nextField.string() + "\\b"));
 						// Although code is not neccessarily braced, after an expression it is the only
 						// sensilbe way to have it.
 						else if(nextField.type() == Field::Code)
 						{
-							newPosition = line.find("{");
+							newPosition = line.indexOf("{");
 							if(newPosition == -1) newPosition = line.length() + 1;
 						}
 						else if(nextField.type() == Field::Newline)
@@ -367,7 +367,7 @@ Code * Parser::parse( const SourceLineList & lines )
 				case (Field::FixedString):
 				{
 					// Is the string found, and is it starting in the right place?
-					int stringPosition  = line.find(QRegExp("\\b"+field.string()+"\\b"));
+					int stringPosition  = line.indexOf(QRegExp("\\b"+field.string()+"\\b"));
 					if( stringPosition != position || stringPosition == -1 )
 					{
 						if( !field.compulsory() )
@@ -402,7 +402,7 @@ Code * Parser::parse( const SourceLineList & lines )
 					if( nextField.type() == Field::FixedString )
 					{
 						nextStatement = *(++StatementList::Iterator(sit));
-						newPosition = nextStatement.text().find(QRegExp("\\b" + nextField.string() + "\\b"));
+						newPosition = nextStatement.text().indexOf(QRegExp("\\b" + nextField.string() + "\\b"));
 						if(newPosition != 0)
 						{
 							// If the next field is optional just carry on as nothing happened,
@@ -502,14 +502,14 @@ bool Parser::processAssignment(const QString &line)
 		if ( tokens[1] != "=" )
 			mistake( Microbe::UnassignedPort, tokens[1] );
 		
-		Expression( m_pPic, mb, m_currentSourceLine, false ).compileExpression(line.mid(line.find("=")+1));
+		Expression( m_pPic, mb, m_currentSourceLine, false ).compileExpression(line.mid(line.indexOf("=")+1));
 		m_pPic->saveResultToVar( firstToken );
 	}
 	else if ( m_pPic->isValidTris( firstToken ) )
 	{
 		if( tokens[1] == "=" )
 		{
-			Expression( m_pPic, mb, m_currentSourceLine, false ).compileExpression(line.mid(line.find("=")+1));
+			Expression( m_pPic, mb, m_currentSourceLine, false ).compileExpression(line.mid(line.indexOf("=")+1));
 			m_pPic->Stristate(firstToken);
 		}
 	}
@@ -529,7 +529,7 @@ bool Parser::processAssignment(const QString &line)
 		// hasn't been defined yet.
 		mb->addVariable( Variable( Variable::charType, firstToken ) );
 		
-		Expression( m_pPic, mb, m_currentSourceLine, false ).compileExpression(line.mid(line.find("=")+1));
+		Expression( m_pPic, mb, m_currentSourceLine, false ).compileExpression(line.mid(line.indexOf("=")+1));
 		
 		Variable v = mb->variable( firstToken );
 		switch ( v.type() )
@@ -661,12 +661,12 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 			if(step.left(1) == "+")
 			{
 				stepPositive = true;
-				step = step.mid(1).stripWhiteSpace();
+				step = step.mid(1).trimmed();
 			}
 			else if(step.left(1) == "-")
 			{
 				stepPositive = false;
-				step = step.mid(1).stripWhiteSpace();
+				step = step.mid(1).trimmed();
 			}
 			else stepPositive = true;
 		}
@@ -676,8 +676,8 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 			stepPositive = true;
 		}
 		
-		QString variable = fieldMap["initExpression"].string().mid(0,fieldMap["initExpression"].string().find("=")).stripWhiteSpace();	
-		QString endExpr = variable+ " <= " + fieldMap["toExpression"].string().stripWhiteSpace();
+		QString variable = fieldMap["initExpression"].string().mid(0,fieldMap["initExpression"].string().indexOf("=")).trimmed();
+		QString endExpr = variable+ " <= " + fieldMap["toExpression"].string().trimmed();
 		
 		if( fieldMap["stepExpression"].found() )
 		{	
@@ -698,8 +698,8 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 		// The alias should be the key since two aliases could
 		// point to the same name.
 	
-		QString alias = fieldMap["alias"].string().stripWhiteSpace(); 
-		QString dest = fieldMap["dest"].string().stripWhiteSpace();
+		QString alias = fieldMap["alias"].string().trimmed();
+		QString dest = fieldMap["dest"].string().trimmed();
 		
 		// Check to see whether or not we've already aliased it...
 // 		if ( mb->alias(alias) != alias )
@@ -776,7 +776,8 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 	}
 	else if ( name == "keypad" || name == "sevenseg" )
 	{
-		QStringList pins = QStringList::split( ' ', fieldMap["pinlist"].string() );
+		//QStringList pins = QStringList::split( ' ', fieldMap["pinlist"].string() );
+        QStringList pins = fieldMap["pinlist"].string().split(' ');
 		QString variableName = fieldMap["name"].string();
 		
 		if ( mb->isVariableKnown( variableName ) )

@@ -11,7 +11,7 @@
 #ifndef PROGRAMMERDLG_H
 #define PROGRAMMERDLG_H
 
-#include <kdialogbase.h>
+#include <kdialog.h>
 
 class MicroSelectWidget;
 class PicProgrammerSettings;
@@ -22,7 +22,7 @@ class ProgrammerWidget;
 /**
 @author David Saxton
 */
-class ProgrammerDlg : public KDialogBase
+class ProgrammerDlg : public KDialog
 {
 	Q_OBJECT
 	public:

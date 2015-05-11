@@ -16,7 +16,7 @@
 #include "switch.h"
 
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 #include <cmath>
 #include <cassert>
 
@@ -31,7 +31,7 @@ Item* ECRotoSwitch::construct( ItemDocument *itemDocument, bool newItem, const c
 LibraryItem* ECRotoSwitch::libraryItem()
 {
 	return new LibraryItem(
-		"ec/roto_switch",
+		QStringList(QString("ec/roto_switch")),
 		i18n("Rotary"),
 		i18n("Switches"),
 		"rotary.png",
@@ -45,7 +45,7 @@ ECRotoSwitch::ECRotoSwitch( ICNDocument *icnDocument, bool newItem, const char *
 m_numPositions(0)
 {
 	m_name = i18n("Rotary Switch");
-	QPointArray pa;
+	Q3PointArray pa;
 	pa.makeArc( -_pinInnerRadius, -_pinInnerRadius, 2*_pinInnerRadius, 2*_pinInnerRadius , 0, 16*360 );
 	setItemPoints( pa );
 	//setSize( -64, -64, 128, 128 );

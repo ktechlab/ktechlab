@@ -15,7 +15,7 @@
 
 #include <kiconloader.h>
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 Item* ResistorDIP::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -25,7 +25,7 @@ Item* ResistorDIP::construct( ItemDocument *itemDocument, bool newItem, const ch
 LibraryItem* ResistorDIP::libraryItem()
 {
 	return new LibraryItem(
-		"ec/resistordip",
+		QStringList(QString("ec/resistordip")),
 		i18n("Resistor DIP"),
 		i18n("Passive"),
 		"resistordip.png",

@@ -12,7 +12,7 @@
 
 #include <kcolordialog.h>
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 bool ColorCombo::createdPalettes = false;
 QColor * ColorCombo::palette[ NumberOfSchemes ];
@@ -109,9 +109,9 @@ void ColorCombo::slotActivated( int index )
 			QPixmap pixmap( rect.width(), rect.height() );
 
 			if ( qGray( customColor.rgb() ) < 128 )
-				pen.setColor( white );
+				pen.setColor( Qt::white );
 			else
-				pen.setColor( black );
+				pen.setColor( Qt::black );
 
 			painter.begin( &pixmap );
 			QBrush brush( customColor );
@@ -161,9 +161,9 @@ void ColorCombo::addColors()
 		customColor = internalColor;
 
 	if ( qGray( customColor.rgb() ) < 128 )
-		pen.setColor( white );
+		pen.setColor( Qt::white );
 	else
-		pen.setColor( black );
+		pen.setColor( Qt::black );
 
 	painter.begin( &pixmap );
 	QBrush brush( customColor );

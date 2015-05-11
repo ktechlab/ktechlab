@@ -13,8 +13,8 @@
 #include "component.h"
 #include "logic.h"
 
-#include <qbitarray.h>
-#include <qptrvector.h>
+#include <Qt/qbitarray.h>
+#include <Qt/q3ptrvector.h>
 
 /**
 @author Fredy Yanardi
@@ -40,10 +40,10 @@ class MagnitudeComparator : public CallbackClass, public Component
 	
 		QBitArray m_data;
 		
-		QPtrVector<LogicIn> m_aLogic;
-		QPtrVector<LogicIn> m_bLogic;
-		QPtrVector<LogicIn> m_cLogic;
-		QPtrVector<LogicOut> m_output;
+		Q3PtrVector<LogicIn> m_aLogic;
+		Q3PtrVector<LogicIn> m_bLogic;
+		Q3PtrVector<LogicIn> m_cLogic;
+		Q3PtrVector<LogicOut> m_output;
 };
 
 #endif

@@ -16,7 +16,7 @@
 #include "pin.h"
 
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 Item* ECCell::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {

@@ -9,18 +9,20 @@
 
 #include "utils.h"
 #include "canvas.h"
+#include "canvas_private.h"
 
 #include <kdebug.h>
 
-#include "qapplication.h"
-#include "qbitmap.h"
+#include "Qt/qapplication.h"
+#include "Qt/qbitmap.h"
+#include "Qt/q3ptrdict.h"
+#include "Qt/qpainter.h"
+#include "Qt/q3polygonscanner.h"
+#include "Qt/qtimer.h"
+#include "Qt/q3tl.h"
+#include <Qt/q3scrollview.h>
+#include <Qt/qdesktopwidget.h>
 
-#include "qptrdict.h"
-#include "qpainter.h"
-#include "qpolygonscanner.h"
-#include "qtimer.h"
-#include "qtl.h"
-#include "canvas_private.h"
 
 #include <stdlib.h>
 
@@ -217,7 +219,7 @@ const QRect& QCanvasClusterizer::operator[](int i)
 
 void QCanvasItemList::sort()
 {
-	qHeapSort(*((QValueList<QCanvasItemPtr>*)this));
+	qHeapSort(*((QList<QCanvasItemPtr>*)this));
 }
 
 
@@ -276,7 +278,7 @@ void QCanvas::init( const QRect & r, int chunksze, int mxclusters )
 	initChunkSize( r );
 	chunks=new QCanvasChunk[m_chunkSize.width()*m_chunkSize.height()];
 	update_timer = 0;
-	bgcolor = white;
+	bgcolor = Qt::white;
 	grid = 0;
 	htiles = 0;
 	vtiles = 0;
@@ -351,7 +353,7 @@ void QCanvas::resize( const QRect & newSize )
 		return;
 
 	QCanvasItem* item;
-	QPtrList<QCanvasItem> hidden;
+	Q3PtrList<QCanvasItem> hidden;
 	SortedCanvasItems::iterator end = m_canvasItems.end();
 	for ( SortedCanvasItems::iterator it = m_canvasItems.begin(); it != end; ++it )
 	{
@@ -384,7 +386,7 @@ void QCanvas::retune(int chunksze, int mxclusters)
 
 	if ( chunksize!=chunksze )
 	{
-		QPtrList<QCanvasItem> hidden;
+		Q3PtrList<QCanvasItem> hidden;
 		SortedCanvasItems::iterator end = m_canvasItems.end();
 		for ( SortedCanvasItems::iterator it = m_canvasItems.begin(); it != end; ++it )
 		{
@@ -476,14 +478,14 @@ void QCanvas::drawViewArea( QCanvasView* view, QPainter* p, const QRect& vr, boo
 		// For translation-only transformation, it is safe to include the right
 		// and bottom edges, but otherwise, these must be excluded since they
 		// are not precisely defined (different bresenham paths).
-		QPointArray a;
+		Q3PointArray a;
 		if ( wm.m12()==0.0 && wm.m21()==0.0 && wm.m11() == 1.0 && wm.m22() == 1.0 )
-			a = QPointArray( QRect(all.x(),all.y(),all.width()+1,all.height()+1) );
-		else	a = QPointArray( all );
+			a = Q3PointArray( QRect(all.x(),all.y(),all.width()+1,all.height()+1) );
+		else	a = Q3PointArray( all );
 
 		a = (wm*twm).map(a);
 	
-		if ( view->viewport()->backgroundMode() == NoBackground )
+		if ( view->viewport()->backgroundMode() == Qt::NoBackground )
 		{
 			QRect cvr = vr; cvr.moveBy(tl.x(),tl.y());
 			p->setClipRegion(QRegion(cvr)-QRegion(a));
@@ -526,16 +528,22 @@ void QCanvas::drawViewArea( QCanvasView* view, QPainter* p, const QRect& vr, boo
 	}
 }
 
+void QCanvas::advance()
+{
+    qWarning() << "QCanvas::advance: TODO"; // TODO
+}
+
+
 /*!
 	Repaints changed areas in all views of the canvas.
  */
 void QCanvas::update()
 {
 	QCanvasClusterizer clusterizer(m_viewList.count());
-	QPtrList<QRect> doneareas;
+	Q3PtrList<QRect> doneareas;
 	doneareas.setAutoDelete(true);
 
-	QPtrListIterator<QCanvasView> it(m_viewList);
+	Q3PtrListIterator<QCanvasView> it(m_viewList);
 	QCanvasView* view;
 	while( (view=it.current()) != 0 ) {
 		++it;
@@ -551,6 +559,7 @@ void QCanvas::update()
 				QRect r = changeBounds(view->inverseWorldMatrix().map(area));
 				if ( !r.isEmpty() )
 				{
+                    //view->viewport()->setAttribute(Qt::WA_PaintOutsidePaintEvent, true); // note: remove this when possible
 					QPainter p(view->viewport());
 		  		  // Translate to the coordinate system of drawViewArea().
 					QPoint tl = view->contentsToViewport(QPoint(0,0));
@@ -820,6 +829,7 @@ void QCanvas::drawCanvasArea(const QRect& inarea, QPainter* p, bool double_buffe
 		if ( !view->worldMatrix().isIdentity() )
 			continue; // Cannot paint those here (see callers).
 
+        //view->viewport()->setAttribute(Qt::WA_PaintOutsidePaintEvent, true); // note: remove this when possible
 		QPainter painter(view->viewport());
 		QPoint tr = view->contentsToViewport(area.topLeft());
 		QPoint nrtr = view->contentsToViewport(QPoint(0,0)); // new translation
@@ -1034,7 +1044,7 @@ void QCanvas::setBackgroundPixmap( const QPixmap& p )
  */
 void QCanvas::drawBackground(QPainter& painter, const QRect& clip)
 {
-	painter.fillRect( clip, white );
+	painter.fillRect( clip, Qt::white );
 	
 	if ( pm.isNull() )
 		painter.fillRect(clip,bgcolor);
@@ -1078,8 +1088,8 @@ void QCanvas::drawForeground(QPainter& painter, const QRect& clip)
 {
 	if ( debug_redraw_areas )
 	{
-		painter.setPen(red);
-		painter.setBrush(NoBrush);
+		painter.setPen( Qt::red );
+		painter.setBrush(Qt::NoBrush);
 		painter.drawRect(clip);
 	}
 }
@@ -1123,7 +1133,7 @@ void QCanvas::setTile( int x, int y, int tilenum )
 
 
 QCanvasItem::QCanvasItem(QCanvas* canvas)
-	: myx(0), myy(0), myz(0), cnv(canvas), val(false),
+	: val(false), myx(0), myy(0), myz(0), cnv(canvas),
 	 ext(0), m_bNeedRedraw(true), vis(false), sel(false)
 {
 	if (cnv) cnv->addItem(this);
@@ -1263,9 +1273,9 @@ static bool collision_double_dispatch( const QCanvasPolygonalItem* p1,
 		return xd*xd+yd*yd <= rd*rd;
 	} else if ( p1 && p2 ) {
 		// d
-		QPointArray pa1 = p1->areaPoints();
-		QPointArray pa2 = p2 ? p2->areaPoints()
-			: QPointArray(i2->boundingRect());
+		Q3PointArray pa1 = p1->areaPoints();
+		Q3PointArray pa2 = p2 ? p2->areaPoints()
+			: Q3PointArray(i2->boundingRect());
 		bool col= !(QRegion(pa1) & QRegion(pa2,true)).isEmpty();
 
 		return col;
@@ -1317,7 +1327,7 @@ QCanvasItemList QCanvas::collisions(const QPoint& p) const
 QCanvasItemList QCanvas::collisions(const QRect& r) const
 {
 	QCanvasRectangle i(r,(QCanvas*)this);
-	i.setPen(NoPen);
+	i.setPen(Qt::NoPen);
 	i.show(); // doesn't actually show, since we destroy it
 	QCanvasItemList l = i.collisions(true);
 	l.sort();
@@ -1325,9 +1335,9 @@ QCanvasItemList QCanvas::collisions(const QRect& r) const
 }
 
 
-QCanvasItemList QCanvas::collisions(const QPointArray& chunklist, const QCanvasItem* item, bool exact) const
+QCanvasItemList QCanvas::collisions(const Q3PointArray& chunklist, const QCanvasItem* item, bool exact) const
 {
-	QPtrDict<void> seen;
+	Q3PtrDict<void> seen;
 	QCanvasItemList result;
 	for (int i=0; i<(int)chunklist.count(); i++) {
 		int x = chunklist[i].x();
@@ -1352,7 +1362,7 @@ QCanvasItemList QCanvas::collisions(const QPointArray& chunklist, const QCanvasI
 void QCanvasItem::addToChunks()
 {
 	if (isVisible() && canvas()) {
-		QPointArray pa = chunks();
+		Q3PointArray pa = chunks();
 		for (int i=0; i<(int)pa.count(); i++)
 			canvas()->addItemToChunk(this,pa[i].x(),pa[i].y());
 		val = true;
@@ -1363,7 +1373,7 @@ void QCanvasItem::addToChunks()
 void QCanvasItem::removeFromChunks()
 {
 	if (isVisible() && canvas()) {
-		QPointArray pa = chunks();
+		Q3PointArray pa = chunks();
 		for (int i=0; i<(int)pa.count(); i++)
 			canvas()->removeItemFromChunk(this,pa[i].x(),pa[i].y());
 	}
@@ -1375,15 +1385,15 @@ void QCanvasItem::changeChunks()
 	if (isVisible() && canvas()) {
 		if (!val)
 			addToChunks();
-		QPointArray pa = chunks();
+		Q3PointArray pa = chunks();
 		for (int i=0; i<(int)pa.count(); i++)
 			canvas()->setChangedChunk(pa[i].x(),pa[i].y());
 	}
 }
 
-QPointArray QCanvasItem::chunks() const
+Q3PointArray QCanvasItem::chunks() const
 {
-	QPointArray r;
+	Q3PointArray r;
 	int n=0;
 	QRect br = boundingRect();
 	if (isVisible() && canvas())
@@ -1402,8 +1412,8 @@ QPointArray QCanvasItem::chunks() const
 	return r;
 }
 
-QCanvasView::QCanvasView(QWidget* parent, const char* name, WFlags f)
-	: QScrollView(parent,name,f|WResizeNoErase|WStaticContents)
+QCanvasView::QCanvasView(QWidget* parent, const char* name, Qt::WFlags f)
+	: Q3ScrollView(parent,name,f|Qt::WResizeNoErase|Qt::WStaticContents)
 {
 	d = new QCanvasViewData;
 	viewing = 0;
@@ -1411,8 +1421,8 @@ QCanvasView::QCanvasView(QWidget* parent, const char* name, WFlags f)
 	connect(this,SIGNAL(contentsMoving(int,int)),this,SLOT(cMoving(int,int)));
 }
 
-QCanvasView::QCanvasView(QCanvas* canvas, QWidget* parent, const char* name, WFlags f)
-	: QScrollView(parent,name,f|WResizeNoErase|WStaticContents)
+QCanvasView::QCanvasView(QCanvas* canvas, QWidget* parent, const char* name, Qt::WFlags f)
+	: Q3ScrollView(parent,name,f|Qt::WResizeNoErase|Qt::WStaticContents)
 {
 	d = new QCanvasViewData;
 	viewing = 0;
@@ -1546,7 +1556,7 @@ void QCanvasView::drawContents( QPainter * )
 QSize QCanvasView::sizeHint() const
 {
 	if ( !canvas() )
-		return QScrollView::sizeHint();
+		return Q3ScrollView::sizeHint();
     // should maybe take transformations into account
 	return ( canvas()->size() + 2 * QSize(frameWidth(), frameWidth()) )
 			.boundedTo( 3 * QApplication::desktop()->size() / 4 );
@@ -1600,9 +1610,9 @@ void QCanvasPolygonalItem::invalidate()
 }
 
 
-QPointArray QCanvasPolygonalItem::chunks() const
+Q3PointArray QCanvasPolygonalItem::chunks() const
 {
-	QPointArray pa = areaPoints();
+	Q3PointArray pa = areaPoints();
 
 	if ( !pa.size() )
 	{
@@ -1617,7 +1627,7 @@ QPointArray QCanvasPolygonalItem::chunks() const
 	return processor.result;
 }
 
-QPointArray QCanvasRectangle::chunks() const
+Q3PointArray QCanvasRectangle::chunks() const
 {
     // No need to do a polygon scan!
 	return QCanvasItem::chunks();
@@ -1681,12 +1691,12 @@ void QCanvasPolygon::drawShape(QPainter & p)
     // ### why can't we draw outlines? We could use drawPolyline for it. Lars
     // ### see other message. Warwick
 
-    p.setPen(NoPen); // since QRegion(QPointArray) excludes outline :-(  )-:
+    p.setPen(Qt::NoPen); // since QRegion(Q3PointArray) excludes outline :-(  )-:
 	p.drawPolygon(poly);
 }
 
 
-void QCanvasPolygon::setPoints(QPointArray pa)
+void QCanvasPolygon::setPoints(Q3PointArray pa)
 {
 	removeFromChunks();
 	poly = pa;
@@ -1714,14 +1724,14 @@ void QCanvasPolygon::moveBy(double dx, double dy)
 	}
 }
 
-QPointArray QCanvasPolygon::points() const
+Q3PointArray QCanvasPolygon::points() const
 {
-	QPointArray pa = areaPoints();
+	Q3PointArray pa = areaPoints();
 	pa.translate(int(-x()),int(-y()));
 	return pa;
 }
 
-QPointArray QCanvasPolygon::areaPoints() const
+Q3PointArray QCanvasPolygon::areaPoints() const
 {
 	return poly.copy();
 }
@@ -1763,9 +1773,9 @@ void QCanvasLine::drawShape(QPainter &p)
 	p.drawLine((int)(x()+x1), (int)(y()+y1), (int)(x()+x2), (int)(y()+y2));
 }
 
-QPointArray QCanvasLine::areaPoints() const
+Q3PointArray QCanvasLine::areaPoints() const
 {
-	QPointArray p(4);
+	Q3PointArray p(4);
 	int xi = int(x());
 	int yi = int(y());
 	int pw = pen().width();
@@ -1860,12 +1870,12 @@ void QCanvasRectangle::setSize(const int width, const int height)
 }
 
 
-QPointArray QCanvasRectangle::areaPoints() const
+Q3PointArray QCanvasRectangle::areaPoints() const
 {
-	QPointArray pa(4);
+	Q3PointArray pa(4);
 	int pw = (pen().width()+1)/2;
 	if ( pw < 1 ) pw = 1;
-	if ( pen() == NoPen ) pw = 0;
+	if ( pen() == Qt::NoPen ) pw = 0;
 	pa[0] = QPoint((int)x()-pw,(int)y()-pw);
 	pa[1] = pa[0] + QPoint(w+pw*2,0);
 	pa[2] = pa[1] + QPoint(0,h+pw*2);
@@ -1948,9 +1958,9 @@ void QCanvasEllipse::setAngles(int start, int length)
 }
 
 
-QPointArray QCanvasEllipse::areaPoints() const
+Q3PointArray QCanvasEllipse::areaPoints() const
 {
-	QPointArray r;
+	Q3PointArray r;
     // makeArc at 0,0, then translate so that fixed point math doesn't overflow
 	r.makeArc(int(x()-w/2.0+0.5)-1, int(y()-h/2.0+0.5)-1, w+3, h+3, a1, a2);
 	r.resize(r.size()+1);
@@ -1961,7 +1971,7 @@ QPointArray QCanvasEllipse::areaPoints() const
 
 void QCanvasEllipse::drawShape(QPainter & p)
 {
-    p.setPen(NoPen); // since QRegion(QPointArray) excludes outline :-(  )-:
+    p.setPen(Qt::NoPen); // since QRegion(Q3PointArray) excludes outline :-(  )-:
 	if ( !a1 && a2 == 360*16 ) {
 		p.drawEllipse(int(x()-w/2.0+0.5), int(y()-h/2.0+0.5), w, h);
 	} else {
@@ -1970,9 +1980,10 @@ void QCanvasEllipse::drawShape(QPainter & p)
 }
 
 
-void QCanvasPolygonalItem::scanPolygon(const QPointArray& pa, int winding, QPolygonalProcessor& process) const
+void QCanvasPolygonalItem::scanPolygon(const Q3PointArray& pa, int winding, QPolygonalProcessor& process) const
 {
 	QCanvasPolygonScanner scanner(process);
 	scanner.scan(pa,winding);
 }
 
+#include "canvas.moc"

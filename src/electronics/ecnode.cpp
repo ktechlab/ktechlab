@@ -17,7 +17,7 @@
 #include "pin.h"
 
 #include <kdebug.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 ECNode::ECNode( ICNDocument *icnDocument, Node::node_type _type, int dir, const QPoint &pos, QString *_id )
 	: Node( icnDocument, _type, dir, pos, _id )

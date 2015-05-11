@@ -1,179 +1,184 @@
-<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
-<class>LinkerOptionsWidget</class>
-<widget class="QWidget">
-    <property name="name">
-        <cstring>LinkerOptionsWidget</cstring>
-    </property>
-    <property name="geometry">
-        <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>401</width>
-            <height>475</height>
-        </rect>
-    </property>
-    <property name="caption">
-        <string>Linker Options</string>
-    </property>
-    <grid>
-        <property name="name">
-            <cstring>unnamed</cstring>
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LinkerOptionsWidget</class>
+ <widget class="QWidget" name="LinkerOptionsWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>415</width>
+    <height>554</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Linker Options</string>
+  </property>
+  <layout class="QGridLayout">
+   <property name="margin">
+    <number>0</number>
+   </property>
+   <item row="1" column="1">
+    <widget class="KComboBox" name="m_pHexFormat">
+     <property name="toolTip">
+      <string>GPASM supports inhx8m, inhx8s, inhx16, and inhx32 hex file formats. This option controls which hex file format is used.</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>inhx32</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>inhx8m</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>inhx8s</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>inhx16</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="textLabel3">
+     <property name="text">
+      <string>Library Directory (-I):</string>
+     </property>
+     <property name="wordWrap">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="KLineEdit" name="m_pLibraryDir"/>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="textLabel1">
+     <property name="text">
+      <string>Hex Format (-a):</string>
+     </property>
+     <property name="wordWrap">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="2">
+    <widget class="QCheckBox" name="m_pOutputMap">
+     <property name="text">
+      <string>&amp;Output a map file (-m)</string>
+     </property>
+     <property name="shortcut">
+      <string>Alt+O</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="textLabel8">
+     <property name="text">
+      <string>Linker Script (-s):</string>
+     </property>
+     <property name="wordWrap">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QLineEdit" name="m_pLinkerScript"/>
+   </item>
+   <item row="5" column="1">
+    <widget class="KLineEdit" name="m_pOther"/>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="textLabel4">
+     <property name="text">
+      <string>Other:</string>
+     </property>
+     <property name="wordWrap">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0" colspan="2">
+    <widget class="Q3GroupBox" name="groupBox2">
+     <property name="title">
+      <string>Link libraries inside project</string>
+     </property>
+     <layout class="QVBoxLayout">
+      <item>
+       <widget class="K3ListView" name="m_pInternalLibraries">
+        <property name="selectionMode">
+         <enum>Q3ListView::NoSelection</enum>
         </property>
-        <property name="margin">
-            <number>0</number>
+        <property name="resizeMode">
+         <enum>Q3ListView::LastColumn</enum>
         </property>
-        <widget class="KComboBox" row="1" column="1">
-            <item>
-                <property name="text">
-                    <string>inhx32</string>
-                </property>
-            </item>
-            <item>
-                <property name="text">
-                    <string>inhx8m</string>
-                </property>
-            </item>
-            <item>
-                <property name="text">
-                    <string>inhx8s</string>
-                </property>
-            </item>
-            <item>
-                <property name="text">
-                    <string>inhx16</string>
-                </property>
-            </item>
-            <property name="name">
-                <cstring>m_pHexFormat</cstring>
-            </property>
-            <property name="insertionPolicy">
-                <enum>AtBottom</enum>
-            </property>
-            <property name="toolTip" stdset="0">
-                <string>GPASM supports inhx8m, inhx8s, inhx16, and inhx32 hex file formats. This option controls which hex file format is used.</string>
-            </property>
-        </widget>
-        <widget class="QLabel" row="3" column="0">
-            <property name="name">
-                <cstring>textLabel3</cstring>
-            </property>
-            <property name="text">
-                <string>Library Directory (-I):</string>
-            </property>
-        </widget>
-        <widget class="KLineEdit" row="3" column="1">
-            <property name="name">
-                <cstring>m_pLibraryDir</cstring>
-            </property>
-        </widget>
-        <widget class="QLabel" row="1" column="0">
-            <property name="name">
-                <cstring>textLabel1</cstring>
-            </property>
-            <property name="text">
-                <string>Hex Format (-a):</string>
-            </property>
-        </widget>
-        <widget class="QCheckBox" row="2" column="0" rowspan="1" colspan="2">
-            <property name="name">
-                <cstring>m_pOutputMap</cstring>
-            </property>
-            <property name="text">
-                <string>&amp;Output a map file (-m)</string>
-            </property>
-            <property name="accel">
-                <string>Alt+O</string>
-            </property>
-        </widget>
-        <widget class="QLabel" row="4" column="0">
-            <property name="name">
-                <cstring>textLabel8</cstring>
-            </property>
-            <property name="text">
-                <string>Linker Script (-s):</string>
-            </property>
-        </widget>
-        <widget class="QLineEdit" row="4" column="1">
-            <property name="name">
-                <cstring>m_pLinkerScript</cstring>
-            </property>
-        </widget>
-        <widget class="KLineEdit" row="5" column="1">
-            <property name="name">
-                <cstring>m_pOther</cstring>
-            </property>
-        </widget>
-        <widget class="QLabel" row="5" column="0">
-            <property name="name">
-                <cstring>textLabel4</cstring>
-            </property>
-            <property name="text">
-                <string>Other:</string>
-            </property>
-        </widget>
-        <widget class="QGroupBox" row="6" column="0" rowspan="1" colspan="2">
-            <property name="name">
-                <cstring>groupBox2</cstring>
-            </property>
-            <property name="title">
-                <string>Link libraries inside project</string>
-            </property>
-            <vbox>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <widget class="KListView">
-                    <column>
-                        <property name="text">
-                            <string>Library</string>
-                        </property>
-                        <property name="clickable">
-                            <bool>true</bool>
-                        </property>
-                        <property name="resizable">
-                            <bool>true</bool>
-                        </property>
-                    </column>
-                    <property name="name">
-                        <cstring>m_pInternalLibraries</cstring>
-                    </property>
-                    <property name="selectionMode" stdset="0">
-                        <enum>NoSelection</enum>
-                    </property>
-                    <property name="resizeMode">
-                        <enum>LastColumn</enum>
-                    </property>
-                    <property name="tooltipColumn">
-                        <number>0</number>
-                    </property>
-                </widget>
-            </vbox>
-        </widget>
-        <widget class="KEditListBox" row="7" column="0" rowspan="1" colspan="2">
-            <property name="name">
-                <cstring>m_pExternalLibraries</cstring>
-            </property>
-            <property name="title">
-                <string></string>
-            </property>
-        </widget>
-    </grid>
-</widget>
-<tabstops>
-    <tabstop>m_pHexFormat</tabstop>
-    <tabstop>m_pOutputMap</tabstop>
-    <tabstop>m_pLibraryDir</tabstop>
-    <tabstop>m_pLinkerScript</tabstop>
-    <tabstop>m_pOther</tabstop>
-    <tabstop>m_pInternalLibraries</tabstop>
-</tabstops>
-<layoutdefaults spacing="6" margin="11"/>
-<includehints>
-    <includehint>kcombobox.h</includehint>
-    <includehint>klineedit.h</includehint>
-    <includehint>klineedit.h</includehint>
-    <includehint>klistview.h</includehint>
-    <includehint>keditlistbox.h</includehint>
-    <includehint>klineedit.h</includehint>
-</includehints>
-</UI>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="7" column="0" colspan="2">
+    <widget class="KEditListBox" name="m_pExternalLibraries">
+     <property name="title">
+      <string/>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+ <customwidgets>
+  <customwidget>
+   <class>Q3GroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>Qt3Support/Q3GroupBox</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Q3Frame</class>
+   <extends>QFrame</extends>
+   <header>Qt3Support/Q3Frame</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Q3ListView</class>
+   <extends>Q3Frame</extends>
+   <header>q3listview.h</header>
+  </customwidget>
+  <customwidget>
+   <class>K3ListView</class>
+   <extends>Q3ListView</extends>
+   <header>k3listview.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KEditListBox</class>
+   <extends>QGroupBox</extends>
+   <header>keditlistbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>m_pHexFormat</tabstop>
+  <tabstop>m_pOutputMap</tabstop>
+  <tabstop>m_pLibraryDir</tabstop>
+  <tabstop>m_pLinkerScript</tabstop>
+  <tabstop>m_pOther</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

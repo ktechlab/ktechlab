@@ -11,13 +11,13 @@
 #ifndef MECHANICSSIMULATION_H
 #define MECHANICSSIMULATION_H
 
-#include <qguardedptr.h>
-#include <qobject.h>
-#include <qvaluelist.h>
+#include <Qt/qpointer.h>
+#include <Qt/qobject.h>
+#include <Qt/qlist.h>
 
 class MechanicsItem;
 class MechanicsDocument;
-typedef QValueList<MechanicsItem*> MechanicsItemList;
+typedef QList<MechanicsItem*> MechanicsItemList;
 
 
 /**
@@ -68,7 +68,7 @@ protected slots:
 	void slotAdvance();
 	
 protected:
-	QGuardedPtr<MechanicsDocument> p_mechanicsDocument;
+	QPointer<MechanicsDocument> p_mechanicsDocument;
 	QTimer *m_advanceTmr;
 };
 

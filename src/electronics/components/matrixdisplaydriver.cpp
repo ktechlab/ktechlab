@@ -13,8 +13,8 @@
 #include "matrixdisplaydriver.h"
 
 #include <klocale.h>
-#include <qpainter.h>
-#include <qstring.h>
+#include <Qt/qpainter.h>
+#include <Qt/qstring.h>
 
 #include <cassert>
 
@@ -299,7 +299,7 @@ Item* MatrixDisplayDriver::construct( ItemDocument *itemDocument, bool newItem, 
 LibraryItem * MatrixDisplayDriver::libraryItem()
 {
 	return new LibraryItem(
-		"ec/matrix_display_driver",
+		QStringList(QString("ec/matrix_display_driver")),
 		i18n("Matrix Display Driver"),
 		i18n("Integrated Circuits"),
 		"ic2.png",

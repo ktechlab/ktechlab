@@ -51,8 +51,8 @@ class Switch;
 
 class Wire;
 
-typedef QValueList<ECNode*> ECNodeList;
-typedef QValueList<LogicIn*> LogicInList;
+typedef QList<ECNode*> ECNodeList;
+typedef QList<LogicIn*> LogicInList;
 typedef void(Component::*VoidCallbackPtr)();
 
 class ComponentCallback {
@@ -199,7 +199,7 @@ private:
 	static Simulator *m_pSelf;
 
 	///List of LogicOuts that are at the start of a LogicChain
-	QValueList<LogicOut*> m_logicChainStarts;
+	QList<LogicOut*> m_logicChainStarts;
 	list<GpsimProcessor*> *m_gpsimProcessors;
 
 // doesn't look too appropriate.

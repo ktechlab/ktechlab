@@ -14,13 +14,14 @@
 #ifndef SYMBOLVIEWER_H
 #define SYMBOLVIEWER_H
 
-#include <klistview.h>
-#include <qguardedptr.h>
+#include <Qt/q3listview.h>
+#include <Qt/qpointer.h>
 
 class KComboBox;
 class RegisterInfo;
 class RegisterSet;
 class SymbolViewer;
+class KConfig;
 namespace KateMDI { class ToolView; }
 
 
@@ -45,7 +46,7 @@ class SymbolViewer : public QWidget
 		
 		Radix valueRadix() const { return m_valueRadix; }
 		
-		KListView * symbolList() const { return m_pSymbolList; }
+		Q3ListView * symbolList() const { return m_pSymbolList; }
 		/**
 		 * Write the current properties (such as currently selected radix) to
 		 * the config.
@@ -71,9 +72,9 @@ class SymbolViewer : public QWidget
 		void selectRadix( int selectIndex );
 		
 	protected:
-		QGuardedPtr<GpsimProcessor> m_pGpsim;
+		QPointer<GpsimProcessor> m_pGpsim;
 		RegisterSet * m_pCurrentContext;
-		KListView * m_pSymbolList;
+		Q3ListView * m_pSymbolList;
 		Radix m_valueRadix;
 
 	private:
@@ -83,7 +84,7 @@ class SymbolViewer : public QWidget
 };
 
 
-class SymbolViewerItem : public QObject, public KListViewItem
+class SymbolViewerItem : public QObject, public Q3ListViewItem
 {
 	Q_OBJECT
 	public:

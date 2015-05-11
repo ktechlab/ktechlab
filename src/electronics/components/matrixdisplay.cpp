@@ -18,8 +18,8 @@
 
 #include <kdebug.h>
 #include <klocale.h>
-#include <qpainter.h>
-#include <qstring.h>
+#include <Qt/qpainter.h>
+#include <Qt/qstring.h>
 
 Item* MatrixDisplay::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -30,7 +30,7 @@ Item* MatrixDisplay::construct( ItemDocument *itemDocument, bool newItem, const 
 LibraryItem* MatrixDisplay::libraryItem()
 {
 	return new LibraryItem(
-		"ec/matrix_display",
+		QStringList(QString("ec/matrix_display")),
 		i18n("Matrix Display"),
 		i18n("Outputs"),
 		"matrixdisplay.png",

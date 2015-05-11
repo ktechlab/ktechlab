@@ -16,10 +16,10 @@
 
 #include "sourceline.h"
 
-#include <qmap.h>
-#include <qvaluevector.h>
-#include <qobject.h>
-#include <qvaluelist.h>
+#include <Qt/qmap.h>
+#include <Qt/q3valuevector.h>
+#include <Qt/qobject.h>
+#include <Qt/qlist.h>
 
 class DebugLine;
 class GpsimProcessor;
@@ -29,7 +29,7 @@ class Register;
 class RegisterMemoryAccess;
 
 typedef QMap<SourceLine, SourceLine> SourceLineMap;
-typedef QValueList<int> IntList;
+typedef QList<int> IntList;
 
 
 class DebugLine : public SourceLine
@@ -129,7 +129,7 @@ class RegisterSet
 	protected:
 		typedef QMap< QString, RegisterInfo * > RegisterInfoMap;
 		RegisterInfoMap m_nameToRegisterMap;
-		QValueVector< RegisterInfo * > m_registers;
+		Q3ValueVector< RegisterInfo * > m_registers;
 };
 
 

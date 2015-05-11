@@ -18,16 +18,16 @@
 #include <kpushbutton.h>
 #include <kdebug.h>
 
-#include <qlabel.h>
-#include <qstring.h>
-#include <qevent.h>
+#include <Qt/qlabel.h>
+#include <Qt/qstring.h>
+#include <Qt/qevent.h>
 
 //BEGIN class PropertyEditorColor
 PropertyEditorColor::PropertyEditorColor( QWidget * parent, Property * property, const char * name )
 	: PropertySubEditor( parent, property, name )
 {
 	m_pColorCombo = new ColorCombo( (ColorCombo::ColorScheme)property->colorScheme(), this );
-	m_pColorCombo->setColor( property->value().toColor() );
+	m_pColorCombo->setColor( property->value().value<QColor>() );
 	m_pColorCombo->resize(width(), height());
 	m_pColorCombo->show();
 	setWidget(m_pColorCombo);
@@ -49,7 +49,7 @@ bool PropertyEditorColor::eventFilter(QObject* watched, QEvent* e)
 	if(e->type() == QEvent::KeyPress)
 	{
 		QKeyEvent* ev = static_cast<QKeyEvent*>(e);
-		if((ev->key() == Key_Enter) | (ev->key()== Key_Space) || (ev->key() == Key_Return))
+		if((ev->key() == Qt::Key_Enter) | (ev->key()== Qt::Key_Space) || (ev->key() == Qt::Key_Return))
 		{
 // 			m_pColorCombo->animateClick();
 			m_pColorCombo->popup();

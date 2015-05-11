@@ -19,15 +19,17 @@
 #include <kiconloader.h>
 #include <klocale.h>
 #include <ksqueezedtextlabel.h>
+#include <kxmlguifactory.h>
+#include <kactioncollection.h>
 
-#include <qapplication.h>
+#include <Qt/qapplication.h>
 
 
 #include <cassert>
 
 //BEGIN class View
 View::View( Document *document, ViewContainer *viewContainer, uint viewAreaId, const char *name )
-	: QWidget( viewContainer->viewArea(viewAreaId), name ? name : (const char *)("view_" + QString::number(viewAreaId)) ),
+	: QWidget( viewContainer->viewArea(viewAreaId), name ? name : ("view_" + QString::number(viewAreaId)).toLatin1().data() ),
 	  KXMLGUIClient()
 {
 	m_pFocusWidget = 0l;
@@ -37,7 +39,7 @@ View::View( Document *document, ViewContainer *viewContainer, uint viewAreaId, c
 	p_viewContainer = viewContainer;
 	m_pViewIface = 0l;
 	
-	setFocusPolicy( ClickFocus );
+	setFocusPolicy( Qt::ClickFocus );
 	
 	if ( ViewArea * viewArea = viewContainer->viewArea(viewAreaId) )
 		viewArea->setView(this);
@@ -67,9 +69,9 @@ View::~View()
 }
 
 
-KAction * View::action( const QString & name ) const
+QAction* View::action( const QString& name ) const
 {
-	KAction * action = actionCollection()->action(name);
+	QAction * action = actionCollection()->action(name);
 	if ( !action )
 		kdError() << k_funcinfo << "No such action: " << name << endl;
 	return action;
@@ -99,7 +101,7 @@ void View::setFocusWidget( QWidget * focusWidget )
 	m_pFocusWidget = focusWidget;
 	setFocusProxy( m_pFocusWidget );
 	m_pFocusWidget->installEventFilter( this );
-	m_pFocusWidget->setFocusPolicy( ClickFocus );
+	m_pFocusWidget->setFocusPolicy( Qt::ClickFocus );
 }
 
 
@@ -137,6 +139,7 @@ bool View::eventFilter( QObject * watched, QEvent * e )
 		case QEvent::FocusOut:
 		{
 // 			kdDebug() << k_funcinfo << "Focused Out.\n";
+            QFocusEvent *fe = static_cast<QFocusEvent*>(e);
 			
 			if ( QWidget * fw = qApp->focusWidget() )
 			{
@@ -155,13 +158,13 @@ bool View::eventFilter( QObject * watched, QEvent * e )
 // 				kdDebug() << "No widget currently has focus.\n";
 			}
 			
-			if ( QFocusEvent::reason() == QFocusEvent::Popup )
+			if ( fe->reason() == QFocusEvent::Popup )
 			{
 // 				kdDebug() << k_funcinfo << "Ignoring focus-out event as was a popup.\n";
 				break;
 			}
 			
-			if ( QFocusEvent::reason() == QFocusEvent::ActiveWindow )
+			if ( fe->reason() == QFocusEvent::ActiveWindow )
 			{
 // 				kdDebug() << k_funcinfo << "Ignoring focus-out event as main window lost focus.\n";
 				break;
@@ -187,10 +190,10 @@ void View::setDCOPID( unsigned id )
 	m_dcopID = id;
 	if ( m_pViewIface )
 	{
-		QCString docID;
+		QString docID;
 		docID.setNum( document()->dcopID() );
 		
-		QCString viewID;
+		QString viewID;
 		viewID.setNum( dcopID() );
 		
 		m_pViewIface->setObjId( "View#" + docID + "." + viewID );
@@ -211,11 +214,11 @@ ViewStatusBar::ViewStatusBar( View *view )
 	m_fileNameLabel = new KSqueezedTextLabel(this);
 	addWidget( m_fileNameLabel, 1, false );
 	
-	m_modifiedPixmap = KGlobal::iconLoader()->loadIcon( "filesave", KIcon::Small );
-	m_unmodifiedPixmap = KGlobal::iconLoader()->loadIcon( "null", KIcon::Small );
+	m_modifiedPixmap = KIconLoader::global()->loadIcon( "filesave", KIconLoader::Small );
+	m_unmodifiedPixmap = KIconLoader::global()->loadIcon( "null", KIconLoader::Small );
 	
 	connect( view->document(), SIGNAL(modifiedStateChanged()), this, SLOT(slotModifiedStateChanged()) );
-	connect( view->document(), SIGNAL(fileNameChanged(const KURL& )), this, SLOT(slotFileNameChanged(const KURL& )) );
+	connect( view->document(), SIGNAL(fileNameChanged(const KUrl& )), this, SLOT(slotFileNameChanged(const KUrl& )) );
 	
 	connect( view, SIGNAL(focused(View* )), this, SLOT(slotViewFocused(View* )) );
 	connect( view, SIGNAL(unfocused()), this, SLOT(slotViewUnfocused()) );
@@ -233,9 +236,9 @@ void ViewStatusBar::slotModifiedStateChanged()
 }
 
 
-void ViewStatusBar::slotFileNameChanged( const KURL &url )
+void ViewStatusBar::slotFileNameChanged( const KUrl &url )
 {
-	m_fileNameLabel->setText( url.isEmpty() ? i18n("Untitled") : url.fileName(true) );
+	m_fileNameLabel->setText( url.isEmpty() ? i18n("Untitled") : url.fileName(KUrl::IgnoreTrailingSlash) );
 }
 
 

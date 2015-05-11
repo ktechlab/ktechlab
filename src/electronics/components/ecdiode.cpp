@@ -14,7 +14,7 @@
 #include "libraryitem.h"
 
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 Item* ECDiode::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -24,7 +24,7 @@ Item* ECDiode::construct( ItemDocument *itemDocument, bool newItem, const char *
 LibraryItem* ECDiode::libraryItem()
 {
 	return new LibraryItem(
-		"ec/diode",
+		QStringList(QString("ec/diode")),
 		i18n("Diode"),
 		i18n("Discrete"),
 		"diode.png",
@@ -104,7 +104,7 @@ void ECDiode::drawShape( QPainter & p )
 	int _x = int(x());
 	int _y = int(y());
 	
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 	pa[0] = QPoint( 8, 0 );
 	pa[1] = QPoint( -8, -8 );
 	pa[2] = QPoint( -8, 8 );

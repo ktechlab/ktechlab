@@ -15,8 +15,11 @@
 
 #include <kiconloader.h>
 #include <klocale.h>
-#include <kpopupmenu.h>
-#include <qwhatsthis.h>
+#include <kmenu.h>
+#include <ktoolbarpopupaction.h>
+#include <kactioncollection.h>
+
+#include <Qt/qwhatsthis.h>
 
 FlowCodeView::FlowCodeView( FlowCodeDocument * flowCodeDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name )
 	: ICNView( flowCodeDocument, viewContainer, viewAreaId, name )
@@ -24,16 +27,18 @@ FlowCodeView::FlowCodeView( FlowCodeDocument * flowCodeDocument, ViewContainer *
 	KActionCollection * ac = actionCollection();
 	
 	//BEGIN Convert To * Actions
-	KToolBarPopupAction * pa = new KToolBarPopupAction( i18n("Convert to ..."), "fork", 0, 0, 0, ac, "program_convert" );
+	//KToolBarPopupAction * pa = new KToolBarPopupAction( i18n("Convert to ..."), "fork", 0, 0, 0, ac, "program_convert" );
+    KToolBarPopupAction * pa = new KToolBarPopupAction( KIcon("fork"), i18n("Convert to ..."), ac);
+    pa->setName( "program_convert" );
 	pa->setDelayed(false);
 	
-	KPopupMenu * m = pa->popupMenu();
+	KMenu * m = pa->popupMenu();
 	
-	m->insertTitle( i18n("Convert to") );
-	m->insertItem( KGlobal::iconLoader()->loadIcon( "convert_to_microbe", KIcon::Small ), i18n("Microbe"), FlowCodeDocument::MicrobeOutput );
-	m->insertItem( KGlobal::iconLoader()->loadIcon( "convert_to_assembly", KIcon::Small ), i18n("Assembly"), FlowCodeDocument::AssemblyOutput );
-	m->insertItem( KGlobal::iconLoader()->loadIcon( "convert_to_hex", KIcon::Small ), i18n("Hex"), FlowCodeDocument::HexOutput );
-	m->insertItem( KGlobal::iconLoader()->loadIcon( "convert_to_pic", KIcon::Small ), i18n("PIC (upload)"), FlowCodeDocument::PICOutput );
+	m->addTitle( i18n("Convert to") );
+	m->insertItem( KIcon( "convert_to_microbe" ), i18n("Microbe"), FlowCodeDocument::MicrobeOutput );
+	m->insertItem( KIcon( "convert_to_assembly" ), i18n("Assembly"), FlowCodeDocument::AssemblyOutput );
+	m->insertItem( KIcon( "convert_to_hex" ), i18n("Hex"), FlowCodeDocument::HexOutput );
+	m->insertItem( KIcon( "convert_to_pic" ), i18n("PIC (upload)"), FlowCodeDocument::PICOutput );
 	connect( m, SIGNAL(activated(int)), flowCodeDocument, SLOT(slotConvertTo(int)) );
 	//END Convert To * Actions
 	

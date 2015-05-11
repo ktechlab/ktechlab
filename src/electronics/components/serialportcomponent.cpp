@@ -19,7 +19,7 @@
 
 #include <kdebug.h>
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 #include <cmath>
 #include <termios.h>
@@ -32,7 +32,7 @@ Item* SerialPortComponent::construct( ItemDocument *itemDocument, bool newItem, 
 LibraryItem* SerialPortComponent::libraryItem()
 {
 	return new LibraryItem(
-		"ec/serial_port",
+		QStringList(QString("ec/serial_port")),
 		i18n("Serial Port"),
 		i18n("Connections"),
 		"ic1.png",
@@ -46,7 +46,7 @@ SerialPortComponent::SerialPortComponent( ICNDocument *icnDocument, bool newItem
 {
 	m_name = i18n("Serial Port");
 	
-	QPointArray pa( 4 );
+	Q3PointArray pa( 4 );
 	pa[0] = QPoint( -32, -48 );
 	pa[1] = QPoint( 32, -40 );
 	pa[2] = QPoint( 32, 40 );

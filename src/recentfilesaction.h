@@ -11,7 +11,12 @@
 #ifndef RECENTFILESACTION_H
 #define RECENTFILESACTION_H
 
-#include <kactionclasses.h>
+//#include <kactionclasses.h>
+#include <kselectaction.h>
+
+//class K3PopupMenu;
+class KUrl;
+class KMenu;
 
 /**
 Taken mainly from kdelibs/kdeui/kactionclasses.[cpp/h], author Michael Koch.
@@ -46,7 +51,7 @@ class RecentFilesAction : public KSelectAction
 		 *
 		 *  @param url The URL of the file
 		 */
-		void addURL( const KURL& url );
+		void addURL( const KUrl& url );
 		
 	signals:
 		/**
@@ -54,7 +59,7 @@ class RecentFilesAction : public KSelectAction
 		 *
 		 *  @param url The URL thats the user selected.
 		 */
-		void urlSelected( const KURL& url );
+		void urlSelected( const KUrl& url );
 		
 	protected slots:
 		void itemSelected( const QString& string );
@@ -67,7 +72,7 @@ class RecentFilesAction : public KSelectAction
 
 	protected:
 		unsigned m_maxItems;
-		KPopupMenu * m_popup;
+		KMenu * m_popup;
 		QString m_configGroupName;
 };
 

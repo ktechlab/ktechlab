@@ -17,7 +17,7 @@
 
 #include <cmath>
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 //BEGIN class MultiInputGate
 MultiInputGate::MultiInputGate( ICNDocument *icnDocument, bool newItem, const char *id, const QString & rectangularShapeText, bool invertedOutput, int baseWidth, bool likeOR )
@@ -99,7 +99,7 @@ void MultiInputGate::updateSymbolText()
 	{
 		int w = 32 - (m_bInvertedOutput ? 6 : 0);
 		QRect r( -16, 4-height()/2, w, height()-4 );
-		addDisplayText( "rect-shape-text", r, m_rectangularShapeText, true, AlignTop | AlignHCenter );
+		addDisplayText( "rect-shape-text", r, m_rectangularShapeText, true, Qt::AlignTop | Qt::AlignHCenter );
 	}
 }
 
@@ -232,7 +232,7 @@ Item* ECXnor::construct( ItemDocument *itemDocument, bool newItem, const char *i
 LibraryItem* ECXnor::libraryItem()
 {
 	return new LibraryItem(
-		"ec/xnor",
+		QStringList(QString("ec/xnor")),
 		i18n("XNOR gate"),
 		i18n("Logic"),
 		"xnor.png",
@@ -301,7 +301,7 @@ Item* ECXor::construct( ItemDocument *itemDocument, bool newItem, const char *id
 LibraryItem* ECXor::libraryItem()
 {
 	return new LibraryItem(
-		"ec/xor",
+		QStringList(QString("ec/xor")),
 		i18n("XOR gate"),
 		i18n("Logic"),
 		"xor.png",
@@ -368,7 +368,7 @@ Item* ECOr::construct( ItemDocument *itemDocument, bool newItem, const char *id 
 LibraryItem* ECOr::libraryItem()
 {
 	return new LibraryItem(
-		"ec/or",
+		QStringList(QString("ec/or")),
 		i18n("OR gate"),
 		i18n("Logic"),
 		"or.png",
@@ -436,7 +436,7 @@ Item* ECNor::construct( ItemDocument *itemDocument, bool newItem, const char *id
 LibraryItem* ECNor::libraryItem()
 {
 	return new LibraryItem(
-		"ec/nor",
+		QStringList(QString("ec/nor")),
 		i18n("NOR gate"),
 		i18n("Logic"),
 		"nor.png",
@@ -504,7 +504,7 @@ Item* ECNand::construct( ItemDocument *itemDocument, bool newItem, const char *i
 LibraryItem* ECNand::libraryItem()
 {
 	return new LibraryItem(
-		"ec/nand",
+		QStringList(QString("ec/nand")),
 		i18n("NAND gate"),
 		i18n("Logic"),
 		"nand.png",

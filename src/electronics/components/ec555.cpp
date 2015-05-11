@@ -17,7 +17,7 @@
 
 #include <kiconloader.h>
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 Item* EC555::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -27,7 +27,7 @@ Item* EC555::construct( ItemDocument *itemDocument, bool newItem, const char *id
 LibraryItem* EC555::libraryItem()
 {
 	return new LibraryItem(
-		"ec/555",
+		QStringList(QString("ec/555")),
 		i18n("555"),
 		i18n("Integrated Circuits"),
 		"ic1.png",

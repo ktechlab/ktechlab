@@ -8,15 +8,24 @@ include( ${CMAKE_SOURCE_DIR}/cmake/modules/FindGPSim.cmake )
 
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
+add_definitions ( -DQT3_SUPPORT )
+#add_definitions ( -DQT3_SUPPORT_WARNINGS )
+
+
 set( CMAKE_REQUIRED_FLAGS
 	-fexceptions
 	)
-add_definitions(${QT_DEFINITIONS} ${KDE3_DEFINITIONS} ${GLIB2_DEFINITIONS})
+add_definitions(${QT_DEFINITIONS} ${GLIB2_DEFINITIONS}${KDE4_DEFINITIONS})
 
-link_directories(${KDE3_LIB_DIR})
+# KDE disables STL compatibility by default; re-enabling it is supported
+# see http://kde.6490.n7.nabble.com/QT-NO-STL-in-KDE4-td1123882i20.html
+# and http://www.cmake.org/Wiki/HowToBuildKDE4Software#Some_useful_functions
+remove_definitions(-DQT_NO_STL)
+
+link_directories(${KDE4_LIB_DIR}) # not really needed, see FindKde4Internal.cmake
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}
-	${KDE3_INCLUDE_DIR} ${QT_INCLUDE_DIR} ${GLIB2_INCLUDE_DIRS} )
+	${KDE4_INCLUDE_DIR} ${QT_INCLUDE_DIR} ${GLIB2_INCLUDE_DIRS} )
 
 CONFIGURE_FILE( ${CMAKE_SOURCE_DIR}/config.h.cmake
 	${CMAKE_BINARY_DIR}/config.h )

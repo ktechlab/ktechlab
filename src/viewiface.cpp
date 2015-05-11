@@ -18,7 +18,7 @@
 
 //BEGIN class ViewIface
 ViewIface::ViewIface( View * view )
-	: DCOPObject("View")
+	: DCOPObject( /* "View" TODO */ )
 {
 	m_pView = view;
 }
@@ -29,7 +29,7 @@ ViewIface::~ ViewIface( )
 
 DCOPRef ViewIface::document( )
 {
-	return DCOPRef( m_pView->document()->dcopObject() );
+	return DCOPRef(); // TODO m_pView->document()->dcopObject() );
 }
 
 bool ViewIface::hasFocus( )

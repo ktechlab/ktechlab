@@ -23,7 +23,7 @@ Item* Keypad::construct( ItemDocument *itemDocument, bool newItem, const char *i
 LibraryItem* Keypad::libraryItem()
 {
 	return new LibraryItem(
-		"flow/keypad",
+		QStringList(QString("flow/keypad")),
 		i18n("Keypad"),
 		i18n("Functions"),
 		"keypad.png",

@@ -15,9 +15,9 @@
 #include <kglobal.h>
 #include <klocale.h>
 
-#include <qlineedit.h>
-#include <qregexp.h>
-#include <qtimer.h>
+#include <Qt/qlineedit.h>
+#include <Qt/qregexp.h>
+#include <Qt/qtimer.h>
 
 #include <algorithm>
 #include <cmath>
@@ -61,13 +61,13 @@ DoubleSpinBox::DoubleSpinBox( QWidget * parent )
 
 void DoubleSpinBox::init()
 {
-	editor()->setAlignment( Qt::AlignRight );
+	lineEdit()->setAlignment( Qt::AlignRight );
 	
 	connect( this, SIGNAL(valueChanged(int)), this, SLOT(checkIfChanged()) );
 	QSpinBox::setMinValue( -(1<<30) );
 	QSpinBox::setMaxValue( +(1<<30) );	
 	
-	setValidator( 0 );
+	// setValidator( 0 ); // apparently in Qt4 there is no validator
 }
 
 

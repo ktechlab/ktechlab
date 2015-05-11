@@ -24,7 +24,9 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <ktabwidget.h>
-#include <qfile.h>
+#include <kxmlguifactory.h>
+
+#include <Qt/qfile.h>
 
 #include <cassert>
 
@@ -73,7 +75,7 @@ bool DocManager::closeAll()
 }
 
 
-void DocManager::gotoTextLine( const KURL &url, int line )
+void DocManager::gotoTextLine( const KUrl &url, int line )
 {
 	TextDocument * doc = dynamic_cast<TextDocument*>( openURL(url) );
 	TextView * tv = doc ? doc->textView() : 0l;
@@ -85,7 +87,7 @@ void DocManager::gotoTextLine( const KURL &url, int line )
 }
 
 
-Document* DocManager::openURL( const KURL &url, ViewArea *viewArea )
+Document* DocManager::openURL( const KUrl &url, ViewArea *viewArea )
 {
 	if ( url.isEmpty() ) return 0;
 	
@@ -94,7 +96,7 @@ Document* DocManager::openURL( const KURL &url, ViewArea *viewArea )
 		QFile file(url.path());
 		if ( file.open(IO_ReadOnly) == false )
 		{
-			KMessageBox::sorry( 0l, i18n("Could not open '%1'").arg( url.prettyURL() ) );
+			KMessageBox::sorry( 0l, i18n("Could not open '%1'").arg( url.prettyUrl() ) );
 			return 0l;
 		}
 		file.close();
@@ -201,7 +203,7 @@ QString DocManager::untitledName( int type )
 }
 
 
-Document *DocManager::findDocument( const KURL &url ) const
+Document *DocManager::findDocument( const KUrl &url ) const
 {
 	// First, look in the associated documents
 	if ( m_associatedDocuments.contains(url) )
@@ -219,7 +221,7 @@ Document *DocManager::findDocument( const KURL &url ) const
 }
 
 
-void DocManager::associateDocument( const KURL &url, Document *document )
+void DocManager::associateDocument( const KUrl &url, Document *document )
 {
 	if (!document)
 		return;
@@ -258,8 +260,8 @@ void DocManager::handleNewDocument( Document *document, ViewArea *viewArea )
 	document->setDCOPID(m_nextDocumentID++);
 	
 	connect( document, SIGNAL(modifiedStateChanged()), KTechlab::self(), SLOT(slotDocModifiedChanged()) );
-	connect( document, SIGNAL(fileNameChanged(const KURL&)), KTechlab::self(), SLOT(slotDocModifiedChanged()) );
-	connect( document, SIGNAL(fileNameChanged(const KURL&)), KTechlab::self(), SLOT(addRecentFile(const KURL&)) );
+	connect( document, SIGNAL(fileNameChanged(const KUrl&)), KTechlab::self(), SLOT(slotDocModifiedChanged()) );
+	connect( document, SIGNAL(fileNameChanged(const KUrl&)), KTechlab::self(), SLOT(addRecentFile(const KUrl&)) );
 	connect( document, SIGNAL(destroyed(QObject* )), this, SLOT(documentDestroyed(QObject* )) );
 	connect( document, SIGNAL(viewFocused(View* )), this, SLOT(slotViewFocused(View* )) );
 	connect( document, SIGNAL(viewUnfocused()), this, SLOT(slotViewUnfocused()) );
@@ -427,13 +429,13 @@ MechanicsDocument *DocManager::createMechanicsDocument()
 }
 
 
-CircuitDocument *DocManager::openCircuitFile( const KURL &url, ViewArea *viewArea )
+CircuitDocument *DocManager::openCircuitFile( const KUrl &url, ViewArea *viewArea )
 {
 	CircuitDocument *document = new CircuitDocument( url.fileName().remove(url.directory()) );
 	
 	if ( !document->openURL(url) )
 	{
-		KMessageBox::sorry( 0l, i18n("Could not open Circuit file \"%1\"").arg(url.prettyURL()) );
+		KMessageBox::sorry( 0l, i18n("Could not open Circuit file \"%1\"").arg(url.prettyUrl()) );
 		document->deleteLater();
 		return 0l;
 	}
@@ -444,13 +446,13 @@ CircuitDocument *DocManager::openCircuitFile( const KURL &url, ViewArea *viewAre
 }
 
 
-FlowCodeDocument *DocManager::openFlowCodeFile( const KURL &url, ViewArea *viewArea )
+FlowCodeDocument *DocManager::openFlowCodeFile( const KUrl &url, ViewArea *viewArea )
 {
 	FlowCodeDocument *document = new FlowCodeDocument( url.fileName().remove(url.directory()) );
 	
 	if ( !document->openURL(url) )
 	{
-		KMessageBox::sorry( 0l, i18n("Could not open FlowCode file \"%1\"").arg(url.prettyURL()) );
+		KMessageBox::sorry( 0l, i18n("Could not open FlowCode file \"%1\"").arg(url.prettyUrl()) );
 		document->deleteLater();
 		return 0l;
 	}
@@ -461,13 +463,13 @@ FlowCodeDocument *DocManager::openFlowCodeFile( const KURL &url, ViewArea *viewA
 }
 
 
-MechanicsDocument *DocManager::openMechanicsFile( const KURL &url, ViewArea *viewArea )
+MechanicsDocument *DocManager::openMechanicsFile( const KUrl &url, ViewArea *viewArea )
 {
 	MechanicsDocument *document = new MechanicsDocument( url.fileName().remove(url.directory()) );
 	
 	if ( !document->openURL(url) )
 	{
-		KMessageBox::sorry( 0l, i18n("Could not open Mechanics file \"%1\"").arg(url.prettyURL()) );
+		KMessageBox::sorry( 0l, i18n("Could not open Mechanics file \"%1\"").arg(url.prettyUrl()) );
 		document->deleteLater();
 		return 0l;
 	}
@@ -479,7 +481,7 @@ MechanicsDocument *DocManager::openMechanicsFile( const KURL &url, ViewArea *vie
 }
 
 
-TextDocument *DocManager::openTextFile( const KURL &url, ViewArea *viewArea )
+TextDocument *DocManager::openTextFile( const KUrl &url, ViewArea *viewArea )
 {
 	TextDocument *document = TextDocument::constructTextDocument( url.fileName().remove(url.directory()) );
 	
@@ -488,7 +490,7 @@ TextDocument *DocManager::openTextFile( const KURL &url, ViewArea *viewArea )
 	
 	if ( !document->openURL(url) )
 	{
-		KMessageBox::sorry( 0l, i18n("Could not open text file \"%1\"").arg(url.prettyURL()) );
+		KMessageBox::sorry( 0l, i18n("Could not open text file \"%1\"").arg(url.prettyUrl()) );
 		document->deleteLater();
 		return 0l;
 	}

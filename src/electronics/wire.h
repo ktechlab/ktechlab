@@ -11,8 +11,10 @@
 #ifndef WIRE_H
 #define WIRE_H
 
-#include <qguardedptr.h>
-#include <qobject.h>
+#include <pin.h>
+
+#include <Qt/qpointer.h>
+#include <Qt/qobject.h>
 
 class Pin;
 
@@ -59,8 +61,8 @@ class Wire : public QObject
 private:
 	double m_current;
 	bool m_bCurrentIsKnown;
-	QGuardedPtr<Pin> m_pStartPin;
-	QGuardedPtr<Pin> m_pEndPin;
+	QPointer<Pin> m_pStartPin;
+	QPointer<Pin> m_pEndPin;
 };
 
 #endif

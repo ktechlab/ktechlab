@@ -13,8 +13,8 @@
 #include <component.h>
 #include "diode.h"
 
-#include <qvaluevector.h>
-#include <qstringlist.h>
+#include <Qt/q3valuevector.h>
+#include <Qt/qstringlist.h>
 
 /**
 @author William Hillerby

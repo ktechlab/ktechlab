@@ -13,9 +13,10 @@
 
 #include "externallanguage.h"
 
+#include <Qt/qmap.h>
 
 class KConfig;
-class KProcess;
+class K3Process;
 
 
 class ProgrammerConfig

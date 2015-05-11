@@ -14,7 +14,7 @@
 #include "component.h"
 #include "logic.h"
 
-#include <qptrvector.h>
+#include <Qt/q3ptrvector.h>
 
 /**
 @author David Saxton
@@ -37,8 +37,8 @@ protected:
 	
 	void inStateChanged( bool newState );
 	
-	QPtrVector<LogicIn> m_aLogic;
-	QPtrVector<LogicIn> m_xLogic;
+	Q3PtrVector<LogicIn> m_aLogic;
+	Q3PtrVector<LogicIn> m_xLogic;
 	LogicOut * m_output;
 };
 

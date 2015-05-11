@@ -14,8 +14,8 @@
 #include "ecnode.h"
 
 #include <klocale.h>
-#include <qpainter.h>
-#include <qstyle.h>
+#include <Qt/qpainter.h>
+#include <Qt/qstyle.h>
 #include <kdebug.h>
 
 Item* VoltageRegulator::construct( ItemDocument *itemDocument, bool newItem, const char *id )
@@ -26,7 +26,7 @@ Item* VoltageRegulator::construct( ItemDocument *itemDocument, bool newItem, con
 LibraryItem* VoltageRegulator::libraryItem()
 {
 	return new LibraryItem(
-			"ec/voltageregulator",
+			QStringList(QString("ec/voltageregulator")),
 	i18n("Voltage Regulator"),
 	i18n("Passive"),
 	"voltage_regulator.png",
@@ -36,7 +36,7 @@ LibraryItem* VoltageRegulator::libraryItem()
 }
 
 VoltageRegulator::VoltageRegulator( ICNDocument* icnDocument, bool newItem, const QString& id )
-	: Component( icnDocument, newItem, id ? id : "voltageregulator" )
+	: Component( icnDocument, newItem, (!id.isEmpty()) ? id : "voltageregulator" )
 {
 	
 	createProperty( "voltageout",  Variant::Type::Double );

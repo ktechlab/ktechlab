@@ -31,9 +31,9 @@
 
 #include <kdebug.h>
 #include <klocale.h>
-#include <ktempfile.h>
-#include <qfile.h>
-#include <qtimer.h>
+#include <k3tempfile.h>
+#include <Qt/qfile.h>
+#include <Qt/qtimer.h>
 
 
 //BEGIN class ProcessChain
@@ -92,7 +92,7 @@ void ProcessChain::compile()
 	switch ( m_processOptions.processPath() )
 	{
 #define DIRECT_PROCESS( path, processor ) case ProcessOptions::ProcessPath::path: { processor()->processInput(m_processOptions); break; }
-#define INDIRECT_PROCESS( path, processor, extension ) case ProcessOptions::ProcessPath::path: { KTempFile f( QString::null, extension ); f.close(); m_processOptions.setIntermediaryOutput( f.name() ); processor()->processInput(m_processOptions); break; }
+#define INDIRECT_PROCESS( path, processor, extension ) case ProcessOptions::ProcessPath::path: { K3TempFile f( QString::null, extension ); f.close(); m_processOptions.setIntermediaryOutput( f.name() ); processor()->processInput(m_processOptions); break; }
 
 		INDIRECT_PROCESS(	AssemblyAbsolute_PIC,			gpasm,		".hex" )
 		DIRECT_PROCESS(		AssemblyAbsolute_Program,		gpasm )
@@ -137,7 +137,7 @@ void ProcessChain::slotFinishedCompile(Language *language)
 	ProcessOptions options = language->processOptions();
 	
 	if ( options.b_addToProject && ProjectManager::self()->currentProject() )
-		ProjectManager::self()->currentProject()->addFile( KURL(options.targetFile()) );
+		ProjectManager::self()->currentProject()->addFile( KUrl(options.targetFile()) );
 	
 	ProcessOptions::ProcessPath::MediaType typeTo = ProcessOptions::ProcessPath::to( m_processOptions.processPath() );
 	

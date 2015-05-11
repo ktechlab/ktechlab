@@ -23,3 +23,18 @@ FlowConnector::FlowConnector(FPNode* startNode, FPNode* endNode, ICNDocument* _I
 FlowConnector::~FlowConnector()
 {
 }
+
+Node *FlowConnector::startNode() const {
+    FPNode *fpNode = m_startFpNode;
+    Node *node = dynamic_cast<Node*> (fpNode);
+    return node;
+    // return static_cast<Node*> ( static_cast<FPNode*> (m_startFpNode) );
+
+}
+
+Node *FlowConnector::endNode() const {
+    return m_endFpNode;
+
+}
+
+

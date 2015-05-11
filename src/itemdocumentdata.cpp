@@ -25,9 +25,9 @@
 #include <kio/netaccess.h>
 #include <klocale.h>
 #include <kmessagebox.h> 
-#include <ktempfile.h>
-#include <qbitarray.h>
-#include <qfile.h>
+#include <k3tempfile.h>
+#include <Qt/qbitarray.h>
+#include <Qt/qfile.h>
 
 
 // Converts the QBitArray into a string (e.g. "F289A9E") that can be stored in an xml file
@@ -97,7 +97,7 @@ void ItemDocumentData::reset()
 }
 
 
-bool ItemDocumentData::loadData( const KURL &url )
+bool ItemDocumentData::loadData( const KUrl &url )
 {
 	QString target;
 	if ( !KIO::NetAccess::download( url, target, 0l ) )
@@ -118,7 +118,7 @@ bool ItemDocumentData::loadData( const KURL &url )
 	
 	QString xml;
 	QTextStream textStream( &file );
-	while ( !textStream.eof() )
+	while ( !textStream.atEnd() /* eof() */ )
 		xml += textStream.readLine() + '\n';
 	
 	file.close();
@@ -174,7 +174,7 @@ bool ItemDocumentData::fromXML( const QString &xml )
 }
 
 
-bool ItemDocumentData::saveData( const KURL &url )
+bool ItemDocumentData::saveData( const KUrl &url )
 {
 	
 	if ( url.isLocalFile() )
@@ -192,7 +192,7 @@ bool ItemDocumentData::saveData( const KURL &url )
 	}
 	else
 	{
-		KTempFile file;
+		K3TempFile file;
 		*file.textStream() << toXML();
 		file.close();
 		
@@ -683,7 +683,7 @@ void ItemDocumentData::elementToConnectorData( QDomElement element )
 	
 	ConnectorData connectorData;
 	
-	connectorData.manualRoute = element.attribute( "manual-route", "0" );
+	connectorData.manualRoute = ( element.attribute( "manual-route", "0" ) == "1");
 	QString route = element.attribute( "route", "" );
 	
 	QStringList points = QStringList::split( ",", route );
@@ -992,7 +992,7 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 	{
 		if ( !it.data().type.isEmpty() && !itemDocument->itemWithID( it.key() ) )
 		{
-			Item *item = itemLibrary()->createItem( it.data().type, itemDocument, false, it.key(), false );
+			Item *item = itemLibrary()->createItem( it.data().type, itemDocument, false, it.key().toLatin1().data(), false );
 			if ( item && !itemDocument->isValidItem(item) )
 			{
 				kdWarning() << "Attempted to create invalid item with id: " << it.key() << endl;
@@ -1298,7 +1298,7 @@ void SubcircuitData::initECSubcircuit( ECSubcircuit * ecSubcircuit )
 	for ( std::multimap< double, QString >::iterator it = leftPins.begin(); it != leftPinsEnd; ++it )
 	{
 		nodeMap[ it->second ] = nodeId;
-		ecSubcircuit->setExtConName( nodeId, m_itemDataMap[ it->second ].dataString["name"].data() );
+		ecSubcircuit->setExtConName( nodeId, m_itemDataMap[ it->second ].dataString["name"] );
 		nodeId++;
 		m_itemDataMap.remove( it->second );
 	}
@@ -1307,7 +1307,7 @@ void SubcircuitData::initECSubcircuit( ECSubcircuit * ecSubcircuit )
 	for ( std::multimap< double, QString >::iterator it = rightPins.begin(); it != rightPinsEnd; ++it )
 	{
 		nodeMap[ it->second ] = nodeId;
-		ecSubcircuit->setExtConName( nodeId, m_itemDataMap[ it->second ].dataString["name"].data() );
+		ecSubcircuit->setExtConName( nodeId, m_itemDataMap[ it->second ].dataString["name"] );
 		nodeId--;
 		m_itemDataMap.remove( it->second );
 	}

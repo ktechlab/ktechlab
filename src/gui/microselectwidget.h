@@ -11,7 +11,7 @@
 #ifndef MICROSELECTWIDGET_H
 #define MICROSELECTWIDGET_H
 
-#include <qgroupbox.h>
+#include <Qt/q3groupbox.h>
 
 class QVBoxLayout;
 class QHBoxLayout;
@@ -24,12 +24,12 @@ class KComboBox;
 /**
 @author David Saxton
 */
-class MicroSelectWidget : public QGroupBox
+class MicroSelectWidget : public Q3GroupBox
 {
 	Q_OBJECT
 
 	public:
-		MicroSelectWidget( QWidget* parent = 0, const char* name = 0, WFlags fl = 0 );
+		MicroSelectWidget( QWidget* parent = 0, const char* name = 0, Qt::WFlags fl = 0 );
 		~MicroSelectWidget();
 
 		void setMicro( const QString & id );

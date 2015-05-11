@@ -23,7 +23,7 @@ Item* CallSub::construct( ItemDocument *itemDocument, bool newItem, const char *
 LibraryItem* CallSub::libraryItem()
 {
 	return new LibraryItem(
-		"flow/callsub",
+		QStringList(QString("flow/callsub")),
 		i18n("Sub Call"),
 		i18n("Common"),
 		"subcall.png",

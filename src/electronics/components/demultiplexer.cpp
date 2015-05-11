@@ -26,7 +26,7 @@ Item* Demultiplexer::construct( ItemDocument *itemDocument, bool newItem, const 
 LibraryItem* Demultiplexer::libraryItem()
 {
 	return new LibraryItem(
-		"ec/demultiplexer",
+		QStringList(QString("ec/demultiplexer")),
 		i18n("Demultiplexer"),
 		i18n("Integrated Circuits"),
 		"ic1.png",

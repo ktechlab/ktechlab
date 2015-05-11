@@ -1,0 +1,11 @@
+/*
+ File to workaround a bug from kio/global.h: it tries to include QFile, without Qt/ prefix.
+ That file should find this one, thus compile successfully.
+*/
+
+#ifndef KTECHLAB_QFILE_KDE_KIO_GLOBAL_WORKAROUND
+#define KTECHLAB_QFILE_KDE_KIO_GLOBAL_WORKAROUND
+
+#include <QtCore/QFile>
+
+#endif // KTECHLAB_QFILE_KDE_KIO_GLOBAL_WORKAROUND

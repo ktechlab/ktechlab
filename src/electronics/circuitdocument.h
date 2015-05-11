@@ -12,6 +12,7 @@
 #define CIRCUITDOCUMENT_H
 
 #include "circuiticndocument.h"
+#include "pin.h"
 
 class Circuit;
 class Component;
@@ -27,14 +28,14 @@ class Wire;
 
 class KActionMenu;
 
-typedef QValueList<Circuit*> CircuitList;
-typedef QValueList<Component*> ComponentList;
-typedef QValueList<QGuardedPtr<Connector> > ConnectorList;
-typedef QValueList<ECNode*> ECNodeList;
-typedef QValueList<Element*> ElementList;
-typedef QValueList<QGuardedPtr<Pin> > PinList;
-typedef QValueList<Switch*> SwitchList;
-typedef QValueList<QGuardedPtr<Wire> > WireList;
+typedef QList<Circuit*> CircuitList;
+typedef QList<Component*> ComponentList;
+typedef QList<QPointer<Connector> > ConnectorList;
+typedef QList<ECNode*> ECNodeList;
+typedef QList<Element*> ElementList;
+typedef QList<QPointer<Pin> > PinList;
+typedef QList<Switch*> SwitchList;
+typedef QList<QPointer<Wire> > WireList;
 
 class Circuitoid
 {

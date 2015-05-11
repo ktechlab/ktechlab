@@ -21,7 +21,7 @@ qt4_automoc(${microbe_SRCS})
 
 add_executable(microbe ${microbe_SRCS})
 
-target_link_libraries(microbe ${QT_AND_KDECORE_LIBS} pthread ${LIB_KFILE})
+target_link_libraries(microbe ${QT_AND_KDECORE_LIBS} ${QT_QTCORE_LIBRARY} ${KDE4_KDECORE_LIBRARY} pthread ${LIB_KFILE})
 
 install(TARGETS microbe DESTINATION bin)
 

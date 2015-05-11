@@ -12,14 +12,14 @@
 #define SCOPESCREEN_H
 
 #include "simulator.h"
-#include "src/gui/scopescreenwidget.h"
+#include "src/gui/ui_scopescreenwidget.h"
 
 namespace KateMDI { class ToolView; }
 
 /**
 	@author John Myers
 */
-class ScopeScreen : public ScopeScreenWidget
+class ScopeScreen : public QWidget, public Ui::ScopeScreenWidget
 {
     Q_OBJECT
 

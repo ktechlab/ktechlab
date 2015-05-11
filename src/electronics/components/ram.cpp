@@ -24,7 +24,7 @@ Item* RAM::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 LibraryItem* RAM::libraryItem()
 {
 	return new LibraryItem(
-		"ec/ram",
+		QStringList(QString("ec/ram")),
 		i18n("RAM"),
 		i18n("Integrated Circuits"),
 		"ic2.png",
@@ -38,7 +38,7 @@ RAM::RAM( ICNDocument *icnDocument, bool newItem, const char *id )
 {
 	m_name = i18n("RAM");
 	
-	m_data = 0l;
+	//m_data = 0l; // should be initialized by the constructor anyway
 	m_pCS = 0l;
 	m_pOE = 0l;
 	m_pWE = 0l;

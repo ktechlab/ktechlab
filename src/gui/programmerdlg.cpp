@@ -13,7 +13,8 @@
 #include "picprogrammer.h"
 #include "port.h"
 #include "programmerdlg.h"
-#include "programmerwidget.h"
+#include "ui_programmerwidget.h"
+
 #include "src/core/ktlconfig.h"
 
 #include <kcombobox.h>
@@ -21,14 +22,27 @@
 #include <klocale.h>
 #include <kstdguiitem.h>
 
+struct ProgrammerWidget : public QWidget, Ui::ProgrammerWidget {
+    ProgrammerWidget(QWidget *parent) : QWidget(parent) {
+        setupUi(this);
+    }
+};
+
 ProgrammerDlg::ProgrammerDlg( const QString & picID, QWidget *parent, const char *name )
-	: KDialogBase( parent, name, true, i18n("PIC Programmer"), Ok|Cancel )
+	: KDialog( parent ) // , name, true, i18n("PIC Programmer"), Ok|Cancel )
 {
+    setName(name);
+    setModal(true);
+    setCaption(i18n("PIC Programmer"));
+    setButtons(Ok|Cancel);
+
 	// Change the "Ok" button to a "Burn" button
-	KGuiItem burnItem = KStdGuiItem::ok();
+	KGuiItem burnItem = KStandardGuiItem::ok();
 	burnItem.setText( i18n("Burn") );
-	setButtonOK( burnItem );
-	
+	//setButtonOK( burnItem );
+    setButtonGuiItem(Ok, burnItem);
+
+
 	m_bAccepted = false;
 	m_pProgrammerWidget = new ProgrammerWidget( this );
 	m_pProgrammerSettings = new PicProgrammerSettings;
@@ -37,7 +51,8 @@ ProgrammerDlg::ProgrammerDlg( const QString & picID, QWidget *parent, const char
 	KComboBox * programmerCombo = m_pProgrammerWidget->m_pProgrammerProgram;
 	QStringList programmerNames = m_pProgrammerSettings->configNames( false );
 	programmerCombo->insertStringList( programmerNames );
-	programmerCombo->setSizeLimit( programmerNames.size() );
+	//programmerCombo->setSizeLimit( programmerNames.size() );
+    programmerCombo->setMaxCount( programmerNames.size() );
 	programmerCombo->setCurrentText( KTLConfig::picProgrammerProgram() );
 	
 	// Sets up the list of ports

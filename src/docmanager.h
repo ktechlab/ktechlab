@@ -11,8 +11,11 @@
 #ifndef DOCMANAGER_H
 #define DOCMANAGER_H
 
+#include "view.h"
+
 #include <kurl.h>
-#include <qguardedptr.h>
+
+#include <Qt/qpointer.h>
 
 class CircuitDocument;
 class DocManager;
@@ -27,9 +30,9 @@ class ViewArea;
 
 class KAction;
 
-typedef QValueList<Document*> DocumentList;
-typedef QMap< KURL, Document* > URLDocumentMap;
-typedef QValueList<KAction*> KActionList;
+typedef QList<Document*> DocumentList;
+typedef QMap< KUrl, Document* > URLDocumentMap;
+typedef QList<KAction*> KActionList;
 
 /**
 @author David Saxton
@@ -48,12 +51,12 @@ public:
 	/**
 	 * Goes to the given line in the given text file (if the file exists)
 	 */
-	void gotoTextLine( const KURL &url, int line );
+	void gotoTextLine( const KUrl &url, int line );
 	/**
 	 * Attempts to open the document at the given url.
 	 * @param ViewArea if non-null, will open the new view into the ViewArea
 	 */
-	Document* openURL( const KURL &url, ViewArea *viewArea = 0l );
+	Document* openURL( const KUrl &url, ViewArea *viewArea = 0l );
 	/**
 	 * Returns the focused View
 	 */
@@ -73,14 +76,14 @@ public:
 	 * returns a pointer to that Document if so - otherwises returns null
 	 * @see associateDocument
 	 */
-	Document *findDocument( const KURL &url ) const;
+	Document *findDocument( const KUrl &url ) const;
 	/**
 	 * Associates a url with a pointer to a document. When findFile is called
 	 * with the given url, it will return a pointer to this document if it still
 	 * exists.
 	 * @see findDocument
 	 */
-	void associateDocument( const KURL &url, Document *document );
+	void associateDocument( const KUrl &url, Document *document );
 	/**
 	 * Gives the given document focus. If it has no open views, one will be
 	 * created for it if viewAreaForNew is non-null
@@ -114,7 +117,7 @@ signals:
 	/**
 	 * Emitted when a file is successfully opened
 	 */
-	void fileOpened( const KURL &url );
+	void fileOpened( const KUrl &url );
 	
 protected slots:
 	/**
@@ -138,10 +141,10 @@ protected:
 	 * ViewContainer
 	 */
 	View *createNewView( Document *document, ViewArea *viewArea = 0l );
-	CircuitDocument *openCircuitFile( const KURL &url, ViewArea *viewArea = 0l );
-	FlowCodeDocument *openFlowCodeFile( const KURL &url, ViewArea *viewArea = 0l );
-	MechanicsDocument *openMechanicsFile( const KURL &url, ViewArea *viewArea = 0l );
-	TextDocument *openTextFile( const KURL &url, ViewArea *viewArea = 0l );
+	CircuitDocument *openCircuitFile( const KUrl &url, ViewArea *viewArea = 0l );
+	FlowCodeDocument *openFlowCodeFile( const KUrl &url, ViewArea *viewArea = 0l );
+	MechanicsDocument *openMechanicsFile( const KUrl &url, ViewArea *viewArea = 0l );
+	TextDocument *openTextFile( const KUrl &url, ViewArea *viewArea = 0l );
 	
 	DocumentList m_documentList;
 	URLDocumentMap m_associatedDocuments;
@@ -155,8 +158,8 @@ protected:
 	int m_countMechanics;
 	int m_countOther;
 	
-	QGuardedPtr<View> p_focusedView;
-	QGuardedPtr<Document> p_connectedDocument;
+	QPointer<View> p_focusedView;
+	QPointer<Document> p_connectedDocument;
 	DocManagerIface *m_pIface;
 	unsigned m_nextDocumentID;
 	

@@ -23,7 +23,7 @@ Item* Unary::construct( ItemDocument *itemDocument, bool newItem, const char *id
 LibraryItem* Unary::libraryItem()
 {
 	return new LibraryItem(
-		"flow/unary",
+		QStringList(QString("flow/unary")),
 		i18n("Unary"),
 		i18n("Variables"),
 		"unary.png",

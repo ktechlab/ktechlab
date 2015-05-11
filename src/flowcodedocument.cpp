@@ -23,6 +23,7 @@
 #include "outputmethoddlg.h"
 #include "picitem.h"
 #include "programmerdlg.h"
+#include "textdocument.h"
 
 #include <kdebug.h>
 #include <klocale.h>

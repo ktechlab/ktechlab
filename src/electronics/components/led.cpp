@@ -16,7 +16,7 @@
 #include "simulator.h"
 
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 Item* LED::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -26,7 +26,7 @@ Item* LED::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 LibraryItem* LED::libraryItem()
 {
 	return new LibraryItem(
-		"ec/led",
+		QStringList(QString("ec/led")),
 		i18n("LED"),
 		i18n("Outputs"),
 		"led.png",
@@ -91,7 +91,7 @@ void LED::drawShape( QPainter &p )
 			  uint(255 - (255 - _b) * (1 - g)),
 			  uint(255 - (255 - _b) * (1 - b))));
 
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 	pa[0] = QPoint(  8,  0 );
 	pa[1] = QPoint( -8, -8 );
 	pa[2] = QPoint( -8,  8 );

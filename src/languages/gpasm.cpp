@@ -17,8 +17,8 @@
 
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <kprocess.h>
-#include <qregexp.h>
+#include <k3process.h>
+#include <Qt/qregexp.h>
 
 Gpasm::Gpasm( ProcessChain *processChain )
  : ExternalLanguage( processChain, "Gpasm" )

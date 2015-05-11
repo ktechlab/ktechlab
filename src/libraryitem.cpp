@@ -13,7 +13,7 @@
 #include <kiconloader.h>
 #include <kicontheme.h>
 #include <kstandarddirs.h>
-#include <qimage.h>
+#include <Qt/qimage.h>
 
 LibraryItem::LibraryItem( QStringList idList, const QString &name, const QString &category, QPixmap icon, Type type, createItemPtr _createItem )
 {
@@ -32,7 +32,7 @@ LibraryItem::LibraryItem( QStringList idList, const QString &name, const QString
 	m_idList = idList;
 	m_name = name;
 	m_category = category;
-	m_icon_full.load( locate( "appdata", "icons/"+iconName ) );
+	m_icon_full.load( KStandardDirs::locate( "appdata", "icons/"+iconName ) );
 	m_type = type;
 	createItem = _createItem;
 	createIcon16();
@@ -58,7 +58,7 @@ LibraryItem::~LibraryItem()
 void LibraryItem::createIcon16()
 {
 	if ( m_icon_full.isNull() )
-		m_icon_full = KGlobal::iconLoader()->loadIcon( "null", KIcon::Small );
+		m_icon_full = KIconLoader::global()->loadIcon( "null", KIconLoader::Small );
 	
 // 	const int size = KIcon::SizeSmallMedium;
 // 	const int size = 22;
@@ -71,7 +71,7 @@ void LibraryItem::createIcon16()
 	}
 	
 	QImage im = m_icon_full.convertToImage();
-	im = im.smoothScale( size, size, QImage::ScaleMin );
+	im = im.smoothScale( size, size, Qt::ScaleMin );
 	m_icon_16.convertFromImage(im);
 }
 

@@ -11,18 +11,18 @@
 #ifndef NEWFILEDLG_H
 #define NEWFILEDLG_H
 
-#include <kdialogbase.h>
+#include <kdialog.h>
 
 class MicroSelectWidget;
 class NewFileWidget;
-class QIconViewItem;
+class Q3IconViewItem;
 
 /**
 A standard dialog for getting file details from the user for a new project
 @short Dialog for new file details
 @author David Saxton
 */
-class NewFileDlg : public KDialogBase
+class NewFileDlg : public KDialog
 {
 	Q_OBJECT
 	public:
@@ -39,7 +39,7 @@ class NewFileDlg : public KDialogBase
 		MicroSelectWidget * microSelectWidget() const;
     
 	public slots:
-		void fileTypeChanged( QIconViewItem *item );
+		void fileTypeChanged( Q3IconViewItem *item );
 		
 	protected:
 		bool m_bAccepted;

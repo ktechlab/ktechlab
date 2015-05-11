@@ -11,8 +11,8 @@
 #ifndef MICROSETTINGS_H
 #define MICROSETTINGS_H
 
-#include <qobject.h>
-#include <qvariant.h>
+#include <Qt/qobject.h>
+#include <Qt/qvariant.h>
 
 class QString;
 class QVariant;
@@ -92,7 +92,7 @@ class PinSettings : public QObject
 		QString m_id;
 		QString m_port;
 };
-typedef QValueList<PinSettings*> PinSettingsList;
+typedef QList<PinSettings*> PinSettingsList;
 
 class PinMapping;
 typedef QMap< QString, PinMapping > PinMappingMap;

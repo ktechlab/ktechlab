@@ -32,7 +32,7 @@
 
 #include <kdebug.h>
 #include <klocale.h>
-#include <qregexp.h>
+#include <Qt/qregexp.h>
 
 Expression::Expression( PIC14 *pic, Microbe *master, SourceLine sourceLine, bool suppressNumberTooBig )
 	: m_sourceLine(sourceLine)
@@ -424,8 +424,8 @@ void Expression::buildTree( const QString & unstrippedExpression, BTreeBase *tre
 	node->setChildOp(op);
 	
 	QString tokens[2];
-	tokens[0] = expression.left(firstEnd).stripWhiteSpace();
-	tokens[1] = expression.mid(secondStart).stripWhiteSpace();
+	tokens[0] = expression.left(firstEnd).trimmed();
+	tokens[1] = expression.mid(secondStart).trimmed();
 	
 	if( op != noop )
 	{	
@@ -585,11 +585,11 @@ int Expression::findSkipBrackets( const QString & expr, char ch, int startPos)
 	int bracketLevel = 0;
 	while(!found)
 	{
-		if(expr[i].latin1() == '\'')
+		if(expr[i].toLatin1() == '\'')
 		{
 			if( i + 2 < int(expr.length()) )
 			{
-				if( expr[i+2].latin1() == '\'' )
+				if( expr[i+2].toLatin1() == '\'' )
 				{
 				 i = i + 2;
 				 found = true;
@@ -597,12 +597,12 @@ int Expression::findSkipBrackets( const QString & expr, char ch, int startPos)
 			}
 		}
 		
-		if(expr[i].latin1() == '(') bracketLevel++;
-		else if(expr[i].latin1() == ')') bracketLevel--;
+		if(expr[i].toLatin1() == '(') bracketLevel++;
+		else if(expr[i].toLatin1() == ')') bracketLevel--;
 		
 		if( bracketLevel == 0 )
 		{
-			if(expr[i].latin1() == ch) found = true;
+			if(expr[i].toLatin1() == ch) found = true;
 			else i++;
 		}
 		else i++;
@@ -623,11 +623,11 @@ int Expression::findSkipBrackets( const QString & expr, QString phrase, int star
 	int bracketLevel = 0;
 	while(!found)
 	{	
-		if(expr[i].latin1() == '\'')
+		if(expr[i].toLatin1() == '\'')
 		{
 			if( i + 2 < int(expr.length()) )
 			{
-				if( expr[i+2].latin1() == '\'' )
+				if( expr[i+2].toLatin1() == '\'' )
 				{
 				 i = i + 2;
 				 found = true;
@@ -635,8 +635,8 @@ int Expression::findSkipBrackets( const QString & expr, QString phrase, int star
 			}
 		}
 		
-		if(expr[i].latin1() == '(') bracketLevel++;
-		else if(expr[i].latin1() == ')') bracketLevel--;
+		if(expr[i].toLatin1() == '(') bracketLevel++;
+		else if(expr[i].toLatin1() == ')') bracketLevel--;
 		
 		if( bracketLevel == 0 )
 		{
@@ -659,7 +659,7 @@ QString Expression::stripBrackets( QString expression )
 	bool stripping = true;
 	int bracketLevel = 0;
 	int i = 0;
-	expression = expression.stripWhiteSpace();
+	expression = expression.trimmed();
 	while(stripping)
 	{
 		if( expression.at(i) == '(' ) bracketLevel++;
@@ -667,7 +667,7 @@ QString Expression::stripBrackets( QString expression )
 		{
 			if( i == int(expression.length() - 1) && bracketLevel == 1)
 			{
-				expression = expression.mid(1,expression.length() - 2).stripWhiteSpace();
+				expression = expression.mid(1,expression.length() - 2).trimmed();
 			}
 			bracketLevel--;	
 		}
@@ -699,7 +699,7 @@ void Expression::expressionValue( QString expr, BTreeBase */*tree*/, BTreeNode *
 	saving them on the basic stack then  making the function call.
 	Of course we also need to mark the terminal node type as a function.
 	*/
-	expr = expr.stripWhiteSpace();
+	expr = expr.trimmed();
 	
 	// My intention is so that these error checks are ordered
 	// so that e.g. for x = 3 it picks up the = rather than the spaces first.
@@ -716,7 +716,7 @@ void Expression::expressionValue( QString expr, BTreeBase */*tree*/, BTreeNode *
 		{
 			// If so, turn it into a number, and use the ASCII code as the value
 			t = number;
-			expr =  QString::number(expr[1].latin1());
+			expr =  QString::number(expr[1].toLatin1());
 		}
 	}
 	
@@ -759,7 +759,7 @@ void Expression::expressionValue( QString expr, BTreeBase */*tree*/, BTreeNode *
 	if( t == extpin )
 	{
 		bool NOT;
-		int i = expr.find("is");
+		int i = expr.indexOf("is");
 		if(i > 0)
 		{
 			NOT = expr.contains("low");

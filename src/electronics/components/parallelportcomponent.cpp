@@ -19,7 +19,7 @@
 
 #include <kdebug.h>
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 #include <cmath>
 #include <termios.h>
@@ -32,7 +32,7 @@ Item* ParallelPortComponent::construct( ItemDocument *itemDocument, bool newItem
 LibraryItem* ParallelPortComponent::libraryItem()
 {
 	return new LibraryItem(
-			"ec/parallel_port",
+			QStringList(QString("ec/parallel_port")),
 	i18n("Parallel Port"),
 	i18n("Connections"),
 	"ic1.png",
@@ -46,7 +46,7 @@ ParallelPortComponent::ParallelPortComponent( ICNDocument *icnDocument, bool new
 {
 	m_name = i18n("Parallel Port");
 	
-	QPointArray pa( 4 );
+	Q3PointArray pa( 4 );
 	pa[0] = QPoint( -32, -112 );
 	pa[1] = QPoint( 32, -104 );
 	pa[2] = QPoint( 32, 104 );

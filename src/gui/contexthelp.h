@@ -11,9 +11,9 @@
 #ifndef CONTEXTHELP_H
 #define CONTEXTHELP_H
 
-#include "src/gui/contexthelpwidget.h"
+#include "src/gui/ui_contexthelpwidget.h"
 
-#include <qguardedptr.h>
+#include <Qt/qpointer.h>
 #include <ktextedit.h>
 
 class Item;
@@ -22,7 +22,7 @@ class RichTextEditor;
 
 class KHTMLPart;
 class KHTMLView;
-class KURL;
+class KUrl;
 class QLabel;
 class QTextBrowser;
 class QWidgetStack;
@@ -38,7 +38,7 @@ in a ICNDocument.
 
 @author David Saxton
 */
-class ContextHelp : public ContextHelpWidget
+class ContextHelp : public QWidget, Ui::ContextHelpWidget
 {
 	Q_OBJECT
 	public:
@@ -64,7 +64,7 @@ class ContextHelp : public ContextHelpWidget
 		 * Set the help browser to the given location.
 		 */
 		void setBrowserItem( const QString & type );
-		void openURL( const KURL &, const KParts::URLArgs & );
+		void openURL( const KUrl& url /*, const KParts::OpenUrlArguments& */ );
 		
 	protected slots:
 		/**
@@ -101,7 +101,7 @@ class ContextHelp : public ContextHelpWidget
 		 * Looks at url and tries to determine the link type. Will return
 		 * ExternalLink if the url can not be identified as any other type.
 		 */
-		static LinkType extractLinkType( const KURL & url );
+		static LinkType extractLinkType( const KUrl & url );
 		/**
 		 * Adjusts the appearance of links depending on their LinkType (e.g
 		 * external links are given an "external" icon, and new help links are 

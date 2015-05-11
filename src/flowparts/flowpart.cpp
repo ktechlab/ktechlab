@@ -25,11 +25,11 @@
 
 #include <kdebug.h>
 
-#include <qbitarray.h>
-#include <qbitmap.h>
-#include <qpainter.h>
-#include <qpixmap.h>
-#include <qregexp.h>
+#include <Qt/qbitarray.h>
+#include <Qt/qbitmap.h>
+#include <Qt/qpainter.h>
+#include <Qt/qpixmap.h>
+#include <Qt/qregexp.h>
 
 #include <cassert>
 #include <algorithm>
@@ -181,7 +181,7 @@ void FlowPart::initSymbol( FlowPart::FlowSymbol symbol, int width )
 		case FlowPart::ps_io:
 		{
 			// define parallelogram shape
-			QPointArray pa(4);
+			Q3PointArray pa(4);
 			pa[0] = QPoint( -(width-10)/2, -16 );
 			pa[1] = QPoint( width/2, -16 );
 			pa[2] = QPoint( (width-10)/2, 8 );
@@ -200,7 +200,7 @@ void FlowPart::initSymbol( FlowPart::FlowSymbol symbol, int width )
 			// Draw semicircle
 			double x;
 			const int RP_NUM = 48;
-			QPointArray pa(RP_NUM);
+			Q3PointArray pa(RP_NUM);
 			int point = 0;
 			for ( double y = -1.0; y <= 1.0; y+= 4.0/(RP_NUM-2) )
 			{
@@ -218,7 +218,7 @@ void FlowPart::initSymbol( FlowPart::FlowSymbol symbol, int width )
 		case FlowPart::ps_decision:
 		{
 			// define rhombus
-			QPointArray pa(6);
+			Q3PointArray pa(6);
 			pa[0] = QPoint( 0, -24 );
 			pa[1] = QPoint( width/2, -6 );
 			pa[2] = QPoint( width/2, 6 );
@@ -425,7 +425,7 @@ FlowPart* FlowPart::endPart( QStringList ids, FlowPartList *previousParts )
 		return outputPart( *(ids.begin()) );
 	}
 	
-	typedef QValueList<FlowPartList>  ValidPartsList;
+	typedef QList<FlowPartList>  ValidPartsList;
 	ValidPartsList validPartsList;
 	
 	const QStringList::iterator idsEnd = ids.end();
@@ -841,7 +841,7 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 	if ( m_stdInput && m_stdOutput && m_altOutput )
 	{
 		//BEGIN Draw diamond outline
-		QPointArray diamond(4);
+		Q3PointArray diamond(4);
 		for ( uint i=0; i<4; ++i )
 			diamond[i] = c[i];
 		
@@ -858,7 +858,7 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 		
 		
 		//BEGIN Draw "true" output as a tick
-		QPointArray tick(4);
+		Q3PointArray tick(4);
 		tick[0] = QPoint( -3, 0 );
 		tick[1] = QPoint( 0, 2 );
 		tick[2] = QPoint( 0, 2 );
@@ -872,7 +872,7 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 		
 		
 		//BEGIN Draw "false" output as a cross
-		QPointArray cross(4);
+		Q3PointArray cross(4);
 		cross[0] = QPoint( -2, -2 );
 		cross[1] = QPoint( 2, 2 );
 		cross[2] = QPoint( -2, 2 );
@@ -920,7 +920,7 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 		}
 		
 		if ( inPos != -1 ) {
-			QPointArray inArrow(6);
+			Q3PointArray inArrow(6);
 			for ( int i=0; i<6; ++i )
 			{
 				inArrow[i] = arrows[(inPos+2)%4][i];
@@ -931,7 +931,7 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 		}
 		
 		if ( outPos != -1 ) {
-			QPointArray outArrow(6);
+			Q3PointArray outArrow(6);
 			for ( int i=0; i<6; ++i ) {
 				outArrow[i] = arrows[outPos][i];
 			}

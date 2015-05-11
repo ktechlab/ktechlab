@@ -12,8 +12,8 @@
 #include <kdebug.h>
 #include <kstandarddirs.h>
 
-#include <qdatetime.h>
-#include <qfile.h>
+#include <Qt/qdatetime.h>
+#include <Qt/qfile.h>
 
 #include <cassert>
 
@@ -81,7 +81,7 @@ void ComponentModelLibrary::loadModels()
 	QStringList::iterator end = files.end();
 	for ( QStringList::iterator it = files.begin(); it != end; ++it )
 	{
-		QString fileName = locate( "appdata", "models/" + *it );
+		QString fileName = KStandardDirs::locate( "appdata", "models/" + *it );
 		if ( fileName.isEmpty() )
 		{
 			kdWarning() << k_funcinfo << "Could not find library file \""<<*it<<"\".\n";
@@ -89,7 +89,7 @@ void ComponentModelLibrary::loadModels()
 		}
 
 		QFile file( fileName );
-		if ( !file.open( IO_ReadOnly ) )
+		if ( !file.open( QIODevice::ReadOnly ) )
 		{
 			kdWarning() << k_funcinfo << "Could not open library file \""<<fileName<<"\" for reading.\n";
 			continue;

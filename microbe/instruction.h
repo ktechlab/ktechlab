@@ -26,10 +26,10 @@
 #ifndef INSTRUCTION_H
 #define INSTRUCTION_H
 
-#include <qmap.h>
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qvaluelist.h>
+#include <Qt/qmap.h>
+#include <Qt/qstring.h>
+#include <Qt/qstringlist.h>
+#include <Qt/qlist.h>
 
 class Code;
 class CodeIterator;
@@ -37,7 +37,7 @@ class CodeConstIterator;
 class Instruction;
 class PIC14;
 
-typedef QValueList<Instruction*> InstructionList;
+typedef QList<Instruction*> InstructionList;
 
 
 /**

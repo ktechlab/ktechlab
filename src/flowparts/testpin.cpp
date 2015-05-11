@@ -23,7 +23,7 @@ Item* TestPin::construct( ItemDocument *itemDocument, bool newItem, const char *
 LibraryItem* TestPin::libraryItem()
 {
 	return new LibraryItem(
-		"flow/testpin",
+		QStringList(QString("flow/testpin")),
 		i18n("Test Pin State"),
 		i18n("I\\/O"),
 		"pinread.png",

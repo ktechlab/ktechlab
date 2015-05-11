@@ -23,7 +23,7 @@ Item* Interrupt::construct( ItemDocument *itemDocument, bool newItem, const char
 LibraryItem* Interrupt::libraryItem()
 {
 	return new LibraryItem(
-		"flow/interrupt",
+		QStringList(QString("flow/interrupt")),
 		i18n("Interrupt"),
 		i18n("Common"),
 		"interrupt.png",

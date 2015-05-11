@@ -10,10 +10,10 @@
 #ifndef COMPONENTMODELLIBRARY_H
 #define COMPONENTMODELLIBRARY_H
 
-#include <qdict.h>
-#include <qmap.h>
-#include <qobject.h>
-#include <qstringlist.h>
+#include <Qt/q3dict.h>
+#include <Qt/qmap.h>
+#include <Qt/qobject.h>
+#include <Qt/qstringlist.h>
 
 typedef QMap< QString, double > DoubleMap;
 
@@ -47,7 +47,7 @@ class ComponentModel
 		DoubleMap m_property;
 };
 
-typedef QDict< ComponentModel > ComponentModelDict;
+typedef Q3Dict< ComponentModel > ComponentModelDict;
 
 /**
 @author David Saxton <david@bluehaze.org>

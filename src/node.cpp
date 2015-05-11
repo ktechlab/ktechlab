@@ -16,12 +16,13 @@
 
 #include <kdebug.h>
 
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 QColor Node::m_selectedColor = QColor( 101, 134, 192 );
 
 Node::Node( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint &pos, QString *id )
-	: QObject(), QCanvasPolygon( icnDocument ? icnDocument->canvas() : 0 )
+	: //QObject(),
+	  QCanvasPolygon( icnDocument ? icnDocument->canvas() : 0 )
 {
 	m_length = 8;
 	p_nodeGroup = 0l;
@@ -43,7 +44,7 @@ Node::Node( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoin
 	initPoints();
 	move( pos.x(), pos.y() );
 	setBrush( Qt::black );
-	setPen( Qt::black );
+	setPen( QPen( Qt::black ) );
 	show();
 	
 	emit (moved(this));
@@ -81,7 +82,7 @@ void Node::initPoints()
 	int l = m_length;
 
 	// Bounding rectangle, facing right
-	QPointArray pa( QRect( 0, -8, l, 16 ) );
+	Q3PointArray pa( QRect( 0, -8, l, 16 ) );
 
 	QWMatrix m;
 	m.rotate( m_dir );

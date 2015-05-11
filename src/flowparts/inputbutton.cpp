@@ -23,7 +23,7 @@ Item* InputButton::construct( ItemDocument *itemDocument, bool newItem, const ch
 LibraryItem* InputButton::libraryItem()
 {
 	return new LibraryItem(
-		"flow/inputbutton",
+		QStringList(QString("flow/inputbutton")),
 		i18n("InputButton"),
 		i18n("Functions"),
 		"ppinputbutton.png",

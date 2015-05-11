@@ -12,7 +12,7 @@
 #define ROTOSWITCH_H
 
 #include "component.h"
-#include <qvaluevector.h>
+#include <Qt/q3valuevector.h>
 
 struct SwitchPosition
 {
@@ -59,7 +59,7 @@ private:
     ///The radius of the ring of positions
     static const int _contactRingRadius = _contactOuterRadius - _contactRadius;
     
-    QValueVector<SwitchPosition> m_positions;
+    Q3ValueVector<SwitchPosition> m_positions;
     ECNode* m_inNode;
     
 protected:

@@ -15,7 +15,7 @@
 
 #include <kiconloader.h>
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 Item * ECBJT::constructNPN( ItemDocument * itemDocument, bool newItem, const char * id )
 {
@@ -32,7 +32,7 @@ Item * ECBJT::constructPNP( ItemDocument * itemDocument, bool newItem, const cha
 LibraryItem* ECBJT::libraryItemNPN()
 {
 	return new LibraryItem(
-		"ec/npnbjt",
+		QStringList(QString("ec/npnbjt")),
 		i18n("NPN"),
 		i18n("Discrete"),
 		"npn.png",
@@ -44,7 +44,7 @@ LibraryItem* ECBJT::libraryItemNPN()
 LibraryItem* ECBJT::libraryItemPNP()
 {
 	return new LibraryItem(
-		"ec/pnpbjt",
+		QStringList(QString("ec/pnpbjt")),
 		i18n("PNP"),
 		i18n("Discrete"),
 		"pnp.png",
@@ -133,7 +133,7 @@ void ECBJT::drawShape( QPainter &p )
 	p.drawLine( _x+8, _y-8, _x-8, _y );
 	p.drawLine( _x+8, _y+8, _x-8, _y );
 	
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 	if ( m_bIsNPN )
 	{
 		pa[0] = QPoint( _x+6, _y+7 );

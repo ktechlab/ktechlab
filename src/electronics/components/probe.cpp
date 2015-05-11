@@ -19,7 +19,7 @@
 #include "voltagesource.h"
 
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 //BEGIN class Probe
 Probe::Probe( ICNDocument *icnDocument, bool newItem, const char *id )
@@ -111,7 +111,7 @@ void FloatingProbe::drawShape( QPainter &p )
 	
 	p.drawRect( _x, _y, 32, 16 );
 	
-	QPointArray bezier(4);
+	Q3PointArray bezier(4);
 	
 	bezier[0] = QPoint( _x+4, _y+10 );
 	bezier[1] = QPoint( _x+12, _y-6 );
@@ -136,7 +136,7 @@ Item* VoltageProbe::construct( ItemDocument *itemDocument, bool newItem, const c
 LibraryItem* VoltageProbe::libraryItem()
 {
 	return new LibraryItem(
-			"ec/voltageprobe",
+			QStringList(QString("ec/voltageprobe")),
 	i18n("Voltage Probe"),
 	i18n("Outputs"),
 	"floatingprobe.png",
@@ -178,7 +178,7 @@ Item* CurrentProbe::construct( ItemDocument *itemDocument, bool newItem, const c
 LibraryItem* CurrentProbe::libraryItem()
 {
 	return new LibraryItem(
-			"ec/currentprobe",
+			QStringList(QString("ec/currentprobe")),
 	i18n("Current Probe"),
 	i18n("Outputs"),
 	"floatingprobe.png",

@@ -21,11 +21,11 @@
 #ifndef VARIABLE_H
 #define VARIABLE_H
 
-#include <qstring.h>
-#include <qvaluelist.h>
+#include <Qt/qstring.h>
+#include <Qt/qlist.h>
 
 class PortPin;
-typedef QValueList<PortPin> PortPinList;
+typedef QList<PortPin> PortPinList;
 
 
 /**
@@ -74,6 +74,6 @@ class Variable
 		QString m_name;
 		PortPinList m_portPinList;
 };
-typedef QValueList<Variable> VariableList;
+typedef QList<Variable> VariableList;
 
 #endif

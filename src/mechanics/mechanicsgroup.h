@@ -16,7 +16,7 @@
 
 class MechanicsItem;
 class MechanicsDocument;
-typedef QValueList<MechanicsItem*> MechanicsItemList;
+typedef QList<MechanicsItem*> MechanicsItemList;
 
 /**
 @author David Saxton

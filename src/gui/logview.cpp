@@ -14,21 +14,25 @@
 #include <kiconloader.h>
 #include <katemdi.h>
 #include <klocale.h>
-#include <qpopupmenu.h>
+#include <Qt/q3popupmenu.h>
 
 
 //BEGIN class LogView
 LogView::LogView( KateMDI::ToolView * parent, const char *name )
-	: KTextEdit( parent, name )
+	: KTextEdit( parent /* , name */ )
 {
+    setName(name);
+
 	setReadOnly(true);
-	setPaper( Qt::white );
-	setTextFormat( LogText );
-	setWordWrap( WidgetWidth );
-	setFocusPolicy( NoFocus );
+	//setPaper( Qt::white ); // TODO re-enable this, get an equivalent
+	setTextFormat( Qt::LogText );
+	//setWordWrap( WidgetWidth );
+    setWordWrapMode( QTextOption::WrapAtWordBoundaryOrAnywhere );
+	setFocusPolicy( Qt::NoFocus );
 	
 	// Connect up signal emitted when the user doubleclicks on a paragraph in the log view
-	connect( this, SIGNAL(clicked(int,int)), this, SLOT(slotParaClicked(int,int)) );
+	// connect( this, SIGNAL(clicked(int,int)), this, SLOT(slotParaClicked(int,int)) );
+    // ^ reimplemented by: mouseDoubleClickEvent()
 }
 
 
@@ -69,14 +73,23 @@ void LogView::addOutput( QString text, OutputType outputType, MessageInfo messag
 			append( QString("<font color=\"#800000\">%1</font>").arg(text) );
 			break;
 	}
-	
-	m_messageInfoMap[ paragraphs()-1 ] = messageInfo;
+
+	//m_messageInfoMap[  paragraphs()-1 ] = messageInfo;
+    m_messageInfoMap[  document()->blockCount()-1 ] = messageInfo;
 }
 
 
+void LogView::mouseDoubleClickEvent(QMouseEvent* e)
+{
+    QTextCursor curs = cursorForPosition( e->pos() );
+    slotParaClicked(curs.blockNumber(), curs.columnNumber());
+    QTextEdit::mouseDoubleClickEvent(e); // note: is this needed?
+}
+
 void LogView::slotParaClicked( int para, int /*pos*/ )
 {
-	QString t = text(para);
+	//QString t = text(para);
+    QString t = document()->findBlockByLineNumber(para).text();
 	untidyText(t);
 	emit paraClicked( t, m_messageInfoMap[para] );
 }
@@ -98,17 +111,18 @@ void LogView::untidyText( QString &t )
 }
 
 
-QPopupMenu * LogView::createPopupMenu( const QPoint & pos )
+QMenu * LogView::createPopupMenu( const QPoint & pos )
 {
-	QPopupMenu * menu = KTextEdit::createPopupMenu( pos );
+	QMenu * menu = KTextEdit::createStandardContextMenu( pos );
 	
 	menu->insertSeparator();
 	int id = menu->insertItem( i18n("Clear All"), this, SLOT(clear()) );
 	
 	// "an empty textedit is always considered to have one paragraph" - qt documentation
 	// although this does not always seem to be the case, so I don't know...
-	menu->setItemEnabled( id, paragraphs() > 1 );
-	
+	//menu->setItemEnabled( id, paragraphs() > 1 );
+    menu->setItemEnabled( id, document()->blockCount() > 1 );
+
 	return menu;
 }
 //END class LogView

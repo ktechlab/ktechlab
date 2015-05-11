@@ -124,13 +124,13 @@ QString AsmFormatter::tidyEqu( const QString & oldLine )
     QStringList parts = QStringList::split( ' ', code );
 
 	QString pad0, pad1, pad2;
-	pad0.fill( ' ', m_indentEqu - (*parts.at(0)).length() );
-	pad1.fill( ' ', m_indentEquValue - m_indentEqu - (*parts.at(1)).length() );
-	pad2.fill( ' ', m_indentEquComment - m_indentEquValue - m_indentEqu - (*parts.at(2)).length() );
+	pad0.fill( ' ', m_indentEqu - (parts.at(0)).length() );
+	pad1.fill( ' ', m_indentEquValue - m_indentEqu - (parts.at(1)).length() );
+	pad2.fill( ' ', m_indentEquComment - m_indentEquValue - m_indentEqu - (parts.at(2)).length() );
 
-	code = *parts.at(0) + pad0;
-	code += *parts.at(1) + pad1;
-	code += *parts.at(2);
+	code = parts.at(0) + pad0;
+	code += parts.at(1) + pad1;
+	code += parts.at(2);
 	if ( !comment.isEmpty() )
 	{
 		code += pad2;

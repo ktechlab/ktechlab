@@ -51,7 +51,7 @@ class PropIntSpinBox : public KIntSpinBox
 	virtual ~PropIntSpinBox() {;}
 
 	virtual bool eventFilter(QObject *o, QEvent *e);
-	QLineEdit * editor () const { return KIntSpinBox::editor(); }
+	QLineEdit * editor () const { return KIntSpinBox::lineEdit(); }
 };
 
 
@@ -82,7 +82,7 @@ class PropDoubleSpinBox : public DoubleSpinBox
 	virtual ~PropDoubleSpinBox() {;}
 
 	virtual bool eventFilter(QObject *o, QEvent *e);
-	QLineEdit * editor () const { return DoubleSpinBox::editor(); }
+	QLineEdit * editor () const { return DoubleSpinBox::lineEdit(); }
 };
 
 

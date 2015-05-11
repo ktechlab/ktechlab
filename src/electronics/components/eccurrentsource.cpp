@@ -16,7 +16,7 @@
 #include "pin.h"
 
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 Item* ECCurrentSource::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -26,7 +26,7 @@ Item* ECCurrentSource::construct( ItemDocument *itemDocument, bool newItem, cons
 LibraryItem* ECCurrentSource::libraryItem()
 {
 	return new LibraryItem(
-		"ec/current_source",
+		QStringList(QString("ec/current_source")),
 		i18n("Current Source"),
 		i18n("Sources"),
 		"current_source.png",

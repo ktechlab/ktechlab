@@ -20,8 +20,8 @@
 #include "itemdocumentdata.h"
 #include <kdebug.h>
 
-#include <qbitarray.h>
-#include <qpainter.h>
+#include <Qt/qbitarray.h>
+#include <Qt/qpainter.h>
 
 #include <cstdlib>
 #include <cmath>
@@ -39,7 +39,7 @@ CNItem::CNItem( ICNDocument *icnDocument, bool newItem, const QString &id )
 	m_selectedCol = QColor( 101, 134, 192 );
 	
 	setBrush(m_brushCol);
-	setPen( Qt::black );
+	setPen( QPen( Qt::black ) );
 }
 
 CNItem::~CNItem()

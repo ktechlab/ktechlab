@@ -64,6 +64,6 @@ class LibraryItem
 		createItemPtr createItem;
 		int m_type;
 };
-typedef QValueList<LibraryItem*> LibraryItemList;
+typedef QList<LibraryItem*> LibraryItemList;
 
 #endif

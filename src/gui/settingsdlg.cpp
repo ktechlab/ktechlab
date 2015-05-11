@@ -8,15 +8,15 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "asmformattingwidget.h"
-#include "generaloptionswidget.h"
-#include "gpasmsettingswidget.h"
-#include "gplinksettingswidget.h"
-#include "logicwidget.h"
-#include "picprogrammerconfigwidget.h"
+#include "ui_asmformattingwidget.h"
+#include "ui_generaloptionswidget.h"
+#include "ui_gpasmsettingswidget.h"
+#include "ui_gplinksettingswidget.h"
+#include "ui_logicwidget.h"
+#include "ui_picprogrammerconfigwidget.h"
 #include "picprogrammer.h"
 #include "port.h"
-#include "sdccoptionswidget.h"
+#include "ui_sdccoptionswidget.h"
 #include "settingsdlg.h"
 #include "src/core/ktlconfig.h"
 
@@ -31,11 +31,55 @@
 #include <knuminput.h>
 #include <kpushbutton.h>
 #include <kstandarddirs.h>
-#include <qgroupbox.h>
-#include <qlabel.h>
-#include <qslider.h>
-#include <qtimer.h>
-#include <qtooltip.h>
+#include <Qt/qgroupbox.h>
+#include <Qt/qlabel.h>
+#include <Qt/qslider.h>
+#include <Qt/qtimer.h>
+#include <Qt/qtooltip.h>
+
+
+struct GeneralOptionsWidget : public QWidget, Ui::GeneralOptionsWidget {
+    GeneralOptionsWidget(QWidget *parent, const char *name = 0) : QWidget(parent, name) {
+        setupUi(this);
+    }
+};
+
+struct GpasmSettingsWidget : public QWidget, Ui::GpasmSettingsWidget {
+    GpasmSettingsWidget(QWidget *parent, const char *name = 0) : QWidget(parent, name) {
+        setupUi(this);
+    }
+};
+
+struct SDCCOptionsWidget : public QWidget, Ui::SDCCOptionsWidget {
+    SDCCOptionsWidget(QWidget *parent, const char *name = 0) : QWidget(parent, name) {
+        setupUi(this);
+    }
+};
+
+struct AsmFormattingWidget : public QWidget, Ui::AsmFormattingWidget {
+    AsmFormattingWidget(QWidget *parent, const char *name = 0) : QWidget(parent, name) {
+        setupUi(this);
+    }
+};
+
+struct LogicWidget : public QWidget, Ui::LogicWidget {
+    LogicWidget(QWidget *parent, const char *name = 0) : QWidget(parent, name) {
+        setupUi(this);
+    }
+};
+
+struct PicProgrammerConfigWidget : public QWidget, Ui::PicProgrammerConfigWidget {
+    PicProgrammerConfigWidget(QWidget *parent, const char *name = 0) : QWidget(parent, name) {
+        setupUi(this);
+    }
+};
+
+struct GplinkSettingsWidget : public QWidget, Ui::GplinkSettingsWidget {
+    GplinkSettingsWidget(QWidget *parent, const char *name = 0) : QWidget(parent, name) {
+        setupUi(this);
+    }
+};
+
 
 
 // Make sure that this value is the same as that in ktechlab.kcfg
@@ -157,7 +201,7 @@ void SettingsDlg::slotUpdatePicProgrammerDescription()
 	edit = m_picProgrammerConfigWidget->name; \
 	edit->setText( config.name ); \
 	edit->setEnabled(customProgrammer); \
-	QToolTip::add( edit, customProgrammer ? 0 : config.name )
+	QToolTip::add( edit, customProgrammer ? QString() : config.name )
 	
 	SETUP_COMMAND( initCommand );
 	SETUP_COMMAND( readCommand );
@@ -196,7 +240,12 @@ void SettingsDlg::slotRemoveProgrammerConfig()
 	
 	QString program = combo->currentText();
 	
-	KMessageBox::ButtonCode confirm = (KMessageBox::ButtonCode)KMessageBox::warningContinueCancel( this, i18n("Remove programmer configuration \"%1\"?").arg(program), i18n("Remove \"%1\"").arg(program), i18n("Remove") );
+	KMessageBox::ButtonCode confirm = (KMessageBox::ButtonCode)KMessageBox::warningContinueCancel(
+            this,
+            i18n("Remove programmer configuration \"%1\"?").arg(program),
+            i18n("Remove \"%1\"").arg(program)
+            //, i18n("Remove")
+            );
 	if ( confirm == KMessageBox::Cancel )
 		return;
 	
@@ -218,7 +267,7 @@ void SettingsDlg::slotAddProgrammerConfig()
 	NameValidator * nv = new NameValidator( takenNames );
 	
 	bool ok = false;
-	QString name = KInputDialog::getText( i18n("Configuration Name"), i18n("Name"), 0, &ok, this, 0, nv );
+	QString name = KInputDialog::getText( i18n("Configuration Name"), i18n("Name"), QString(),/* 0,*/ &ok, this,/* 0,*/ nv );
 	
 	delete nv;
 	
@@ -231,7 +280,8 @@ void SettingsDlg::slotAddProgrammerConfig()
 	m_pPicProgrammerSettings->saveConfig( name, config );
 	
 	combo->insertItem( name );
-	combo->setCurrentItem( count );
+	// combo->setCurrentItem( count );
+    combo->setCurrentItem( name );
 	slotUpdatePicProgrammerDescription();
 }
 
@@ -266,7 +316,8 @@ int SettingsDlg::sliderValueToRefreshRate( int sliderValue )
 
 void SettingsDlg::updateSettings()
 {
-	KConfig * config = kapp->config();
+	//KConfig * config = kapp->config();
+    KConfig * config = KGlobal::config().data();
 	
 	KConfigSkeleton::ItemInt *item = dynamic_cast<KConfigSkeleton::ItemInt*>(KTLConfig::self()->findItem( "RefreshRate" ));
 	if ( !item )
@@ -277,13 +328,13 @@ void SettingsDlg::updateSettings()
 	if ( newRefreshRate != KTLConfig::refreshRate() )
 	{
 		item->setValue(newRefreshRate);
-		config->setGroup("WorkArea");
+		KConfigGroup grWorkArea = config->group("WorkArea");
 		if ( newRefreshRate != defaultRefreshRate )
-			config->writeEntry("RefreshRate",newRefreshRate);
+			grWorkArea.writeEntry("RefreshRate", newRefreshRate);
 		else
-			config->deleteEntry("RefreshRate");
+			grWorkArea.deleteEntry("RefreshRate");
 		
-		emit settingsChanged();
+		emit settingsChanged(name());
 	}
 	
 	QTimer::singleShot( 0, this, SLOT(slotUpdateSettings()) );
@@ -292,7 +343,8 @@ void SettingsDlg::updateSettings()
 
 void SettingsDlg::slotUpdateSettings()
 {
-	KConfig * config = kapp->config();
+	//KConfig * config = kapp->config();
+    KConfig *config = KGlobal::config().data();
 	
 	KConfigSkeleton::ItemString * item = dynamic_cast<KConfigSkeleton::ItemString*>(KTLConfig::self()->findItem( "PicProgrammerProgram" ));
 	if ( !item )
@@ -304,13 +356,13 @@ void SettingsDlg::slotUpdateSettings()
 	if ( newProgram != KTLConfig::picProgrammerProgram() )
 	{
 		item->setValue( newProgram );
-		config->setGroup( "PicProgramming" );
+		KConfigGroup grPicProg = config->group( "PicProgramming" );
 		if ( newProgram != "picp" )
-			config->writeEntry( "PicProgrammerProgram", newProgram );
+			grPicProg.writeEntry( "PicProgrammerProgram", newProgram );
 		else
-			config->deleteEntry( "PicProgrammerProgram" );
+			grPicProg.deleteEntry( "PicProgrammerProgram" );
 		
-		emit settingsChanged();
+		emit settingsChanged(name());
 	}
 	
 	m_pPicProgrammerSettings->save( config );
@@ -323,14 +375,16 @@ void SettingsDlg::updateWidgets()
 {
 	m_generalOptionsWidget->refreshRateSlider->setValue( refreshRateToSliderValue( KTLConfig::refreshRate() ) );
 	
-	m_pPicProgrammerSettings->load( kapp->config() );
+	//m_pPicProgrammerSettings->load( kapp->config() );
+    m_pPicProgrammerSettings->load( KGlobal::config().data() );
 	
 	QStringList programmerNames = m_pPicProgrammerSettings->configNames( false );
 	
 	KComboBox * combo = m_picProgrammerConfigWidget->kcfg_PicProgrammerProgram;
 	combo->clear();
 	combo->insertStringList( programmerNames );
-	combo->setSizeLimit( programmerNames.size() );
+	//combo->setSizeLimit( programmerNames.size() );
+    combo->setMaxCount( programmerNames.size() );
 	
 	QTimer::singleShot( 0, this, SLOT(slotUpdateWidgets()) );
 }

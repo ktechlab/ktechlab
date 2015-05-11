@@ -13,9 +13,9 @@
 
 #include "drawpart.h"
 
-#include <qimage.h>
-#include <qpixmap.h>
-#include <qthread.h>
+#include <Qt/qimage.h>
+#include <Qt/qpixmap.h>
+#include <Qt/qthread.h>
 
 /**
 @short Thread to perform quick and then good image scaling.

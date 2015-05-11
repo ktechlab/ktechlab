@@ -15,13 +15,15 @@
 
 #include <kdebug.h>
 #include <kiconloader.h>
-#include <klistbox.h>
+//#include <klistbox.h>
 #include <klocale.h>
 
-#include <qcursor.h>
-#include <qhbox.h>
-#include <qstringlist.h>
-#include <qtoolbutton.h>
+#include <Qt/qcursor.h>
+#include <Qt/q3hbox.h>
+#include <Qt/qstringlist.h>
+#include <Qt/qtoolbutton.h>
+#include <Qt/qevent.h>
+#include <Qt/qlineedit.h>
 
 
 //BEGIN class PropComboBox
@@ -42,7 +44,7 @@ bool PropComboBox::eventFilter(QObject *o, QEvent *e)
 		if(e->type() == QEvent::KeyPress)
 		{
 			QKeyEvent* ev = static_cast<QKeyEvent*>(e);
-			if((ev->key()==Key_Up || ev->key()==Key_Down) && ev->state()!=ControlButton)
+			if((ev->key()==Qt::Key_Up || ev->key()==Qt::Key_Down) && ev->state()!=Qt::ControlButton)
 			{
 				parentWidget()->eventFilter(o, e);
 				return true;
@@ -66,7 +68,7 @@ void PropComboBox::hideList()
 PropertyEditorList::PropertyEditorList( QWidget * parent, Property * property, const char * name )
 	: PropertySubEditor( parent, property, name )
 {
-	QHBox *box = new QHBox(this);
+	Q3HBox *box = new Q3HBox(this);
 
 	m_combo = new PropComboBox( box );
 	m_combo->setGeometry(frameGeometry());

@@ -19,8 +19,8 @@
 
 #include <cmath>
 #include <klocale.h>
-#include <qpainter.h>
-#include <qstring.h>
+#include <Qt/qpainter.h>
+#include <Qt/qstring.h>
 
 Item* ECVoltageSignal::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -30,7 +30,7 @@ Item* ECVoltageSignal::construct( ItemDocument *itemDocument, bool newItem, cons
 LibraryItem* ECVoltageSignal::libraryItem()
 {
 	return new LibraryItem(
-		"ec/voltage_signal",
+		QStringList(QString("ec/voltage_signal")),
 		i18n("Voltage Signal"),
 		i18n("Sources"),
 		"voltagesignal.png",

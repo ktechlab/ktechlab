@@ -28,6 +28,11 @@ SET(flowparts_STAT_SRCS
    inputbutton.cpp
    flowpart.cpp
    pinmapping.cpp
+   flowconnector.cpp
+   flowicndocument.cpp
+   inputflownode.cpp
+   outputflownode.cpp
+   junctionflownode.cpp
 )
 
 qt4_automoc(${flowparts_STAT_SRCS})

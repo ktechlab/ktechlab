@@ -12,8 +12,9 @@
 #define COMPONENT_H
 
 #include "cnitem.h"
+#include "circuitdocument.h"
 
-#include <qvaluelist.h>
+#include <Qt/qlist.h>
 
 class ICNDocument;
 class CircuitDocument;
@@ -45,11 +46,11 @@ class VoltagePoint;
 class VoltageSignal;
 class VoltageSource;
 
-typedef QValueList<ECNode*> ECNodeList;
-typedef QValueList<Element*> ElementList;
-typedef QValueList<Switch*> SwitchList;
+typedef QList<ECNode*> ECNodeList;
+typedef QList<Element*> ElementList;
+typedef QList<Switch*> SwitchList;
 
-typedef QValueList< QValueList<Pin*> > PinListList;
+typedef QList< QList<Pin*> > PinListList;
 
 /**
 Contains vital information about the elements in the component.
@@ -69,7 +70,7 @@ class ElementMap
 		PinListList interGroundDependent;
 };
 
-typedef QValueList<ElementMap> ElementMapList;
+typedef QList<ElementMap> ElementMapList;
 
 /**
 @short Base class for all electrical components
@@ -334,7 +335,7 @@ class Component : public CNItem
 
 // TODO: only Switch cares about this, so either demote it to a member of class switch or
 // refactor it out alltogether. 
-		QGuardedPtr<CircuitDocument> m_pCircuitDocument;
+		QPointer<CircuitDocument> m_pCircuitDocument;
 		int m_angleDegrees;
 		bool b_flipped;
 	
@@ -345,7 +346,7 @@ class Component : public CNItem
 		 * @param it Which pins are inter-dependent needs to be recorded in case
 		 * this information is later needed in rebuildPinInterDependence.
 		 */
-		void setInterDependent( ElementMapList::iterator it, const QValueList<Pin*> & pins );
+		void setInterDependent( ElementMapList::iterator it, const QList<Pin*> & pins );
 		/**
 		 * Sets all pins independent of each other.
 		 */
@@ -354,12 +355,12 @@ class Component : public CNItem
 		 * The given pins will affect the simulation of each other. Therefore, they
 		 * will need to be simulated in the same circuit.
 		 */
-		void setInterCircuitDependent( ElementMapList::iterator it, const QValueList<Pin*> & pins );
+		void setInterCircuitDependent( ElementMapList::iterator it, const QList<Pin*> & pins );
 		/**
 		 * If any of the given pins are ground, then that will affect whether
 		 * any of the other pins can be ground.
 		 */
-		void setInterGroundDependent( ElementMapList::iterator it, const QValueList<Pin*> & pins );
+		void setInterGroundDependent( ElementMapList::iterator it, const QList<Pin*> & pins );
 		/**
 		 * List of ElementMaps; which contain information on the pins associated
 		 * with the element as well as the dependence between the pins for that
@@ -375,7 +376,7 @@ TODO: ammend this comment with a more complete justification for the design deci
 		/**
 		 * @return an iterator to the element in m_elementMapList
 		 */
-		ElementMapList::iterator handleElement( Element *e, const QValueList<Pin*> & pins );
+		ElementMapList::iterator handleElement( Element *e, const QList<Pin*> & pins );
 };
 
 #endif

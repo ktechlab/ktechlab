@@ -23,7 +23,7 @@ Item* End::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 LibraryItem* End::libraryItem()
 {
 	return new LibraryItem(
-		"flow/end",
+		QStringList(QString("flow/end")),
 		i18n("End"),
 		i18n("Common"),
 		"end.png",

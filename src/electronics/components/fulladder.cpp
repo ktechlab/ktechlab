@@ -25,7 +25,7 @@ Item* FullAdder::construct( ItemDocument *itemDocument, bool newItem, const char
 LibraryItem* FullAdder::libraryItem()
 {
 	return new LibraryItem(
-		"ec/adder",
+		QStringList(QString("ec/adder")),
 		i18n("Adder"),
 		i18n("Integrated Circuits"),
 		"ic1.png",

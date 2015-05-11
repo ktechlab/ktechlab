@@ -24,6 +24,7 @@
 #include "symbolviewer.h"
 #include "textdocument.h"
 #include "textview.h"
+#include "gpsimprocessor.h"
 
 // #include <kate/katedocument.h>
 
@@ -31,8 +32,20 @@
 #include <klibloader.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <ktempfile.h>
+#include <k3tempfile.h>
+#include <ktexteditor/document.h>
+#include <kxmlguifactory.h>
 
+
+bool TextDocument::isUndoAvailable() const {
+    //return (m_doc->undoCount() != 0);
+    return true; // TODO FIXME fix undo/redo
+}
+bool TextDocument::isRedoAvailable() const {
+    //return (m_doc->redoCount() != 0);
+    return true; // TODO FIXME fix undo/redo
+
+}
 
 TextDocument *TextDocument::constructTextDocument( const QString& caption, const char *name )
 {
@@ -60,32 +73,47 @@ TextDocument::TextDocument( const QString &caption, const char *name )
 	m_pLastTextOutputTarget = 0l;
 	m_guessedCodeType = TextDocument::ct_unknown;
 	m_type = Document::dt_text;
-	m_bookmarkActions.setAutoDelete(true);
+	//m_bookmarkActions.setAutoDelete(true); // TODO see if this genereates memory leaks
 	m_pDocumentIface = new TextDocumentIface(this);
 	
-	KLibFactory *factory = KLibLoader::self()->factory("libkatepart");
+	KLibFactory *factory = KLibLoader::self()->factory("katepart");
 	if(!factory)
 	{
 		KMessageBox::sorry( KTechlab::self(), i18n("Libkatepart not available for constructing editor") );
 		return;
 	}
-	m_doc = (Kate::Document*)(KTextEditor::Document *)factory->create( 0L, "kate", "KTextEditor::Document");
-	
+	//m_doc = (KTextEditor::Document*)factory->create( 0L, "kate", "KTextEditor::Document");
+	{
+	//QVariantList list;
+    //list.append(QVariant( "KTextEditor::Document"));
+	m_doc = factory->create<KTextEditor::Document>( /* QString("KatePart"), */ this  /*,  list */ );
+    }
+    if(!m_doc)
+    {
+        KMessageBox::sorry( KTechlab::self(), i18n("Failed to create editor") );
+        return;
+    }
 	guessScheme();
 	
 	connect( m_doc, SIGNAL(undoChanged()),		this, SIGNAL(undoRedoStateChanged()) );
 	connect( m_doc, SIGNAL(undoChanged()),		this, SLOT(slotSyncModifiedStates()) );
-	connect( m_doc, SIGNAL(textChanged()),		this, SLOT(slotSyncModifiedStates()) );
-	connect( m_doc, SIGNAL(marksChanged()),		this, SLOT(slotUpdateMarksInfo()) );
+	connect( m_doc, SIGNAL(textChanged(KTextEditor::Document *)),		this, SLOT(slotSyncModifiedStates()) );
 	connect( m_doc,	SIGNAL(selectionChanged()),	this, SLOT(slotSelectionmChanged()) );
-	
-	m_doc->setDescription((KTextEditor::MarkInterface::MarkTypes)Breakpoint, i18n("Breakpoint"));
-	m_doc->setPixmap((KTextEditor::MarkInterface::MarkTypes)Breakpoint, *inactiveBreakpointPixmap());
-	m_doc->setPixmap((KTextEditor::MarkInterface::MarkTypes)ActiveBreakpoint, *activeBreakpointPixmap());
-	m_doc->setPixmap((KTextEditor::MarkInterface::MarkTypes)ReachedBreakpoint, *reachedBreakpointPixmap());
-	m_doc->setPixmap((KTextEditor::MarkInterface::MarkTypes)DisabledBreakpoint, *disabledBreakpointPixmap());
-	m_doc->setPixmap((KTextEditor::MarkInterface::MarkTypes)ExecutionPoint, *executionPointPixmap());
-	m_doc->setMarksUserChangable( Bookmark | Breakpoint );
+    connect( m_doc, SIGNAL(marksChanged(KTextEditor::Document*)),     this, SLOT(slotUpdateMarksInfo()) );
+
+    KTextEditor::MarkInterface *markIface = qobject_cast<KTextEditor::MarkInterface*>( m_doc );
+    if (!markIface) {
+        KMessageBox::sorry( KTechlab::self(), i18n("Failed to create MarkInterface") );
+        return;
+    }
+
+	markIface->setMarkDescription((KTextEditor::MarkInterface::MarkTypes)Breakpoint, i18n("Breakpoint"));
+	markIface->setMarkPixmap((KTextEditor::MarkInterface::MarkTypes)Breakpoint, *inactiveBreakpointPixmap());
+	markIface->setMarkPixmap((KTextEditor::MarkInterface::MarkTypes)ActiveBreakpoint, *activeBreakpointPixmap());
+	markIface->setMarkPixmap((KTextEditor::MarkInterface::MarkTypes)ReachedBreakpoint, *reachedBreakpointPixmap());
+	markIface->setMarkPixmap((KTextEditor::MarkInterface::MarkTypes)DisabledBreakpoint, *disabledBreakpointPixmap());
+	markIface->setMarkPixmap((KTextEditor::MarkInterface::MarkTypes)ExecutionPoint, *executionPointPixmap());
+	markIface->setEditableMarks( Bookmark | Breakpoint );
 
 	m_constructorSuccessful = true;
 }
@@ -104,7 +132,7 @@ TextDocument::~TextDocument()
 		{
 			if ( TextView * tv = dynamic_cast<TextView*>( (View*)*it) )
 			{
-				Kate::View * kv = tv->kateView();
+				KTextEditor::View * kv = tv->kateView();
 				KTechlab::self()->factory()->removeClient( kv );
 			}
 		}
@@ -117,7 +145,7 @@ TextDocument::~TextDocument()
 
 bool TextDocument::fileClose()
 {
-	const QString path = url().prettyURL();
+	const QString path = url().prettyUrl();
 	if ( !path.isEmpty() )
 		fileMetaInfo()->grabMetaInfo( path, this );
 	
@@ -135,16 +163,17 @@ View * TextDocument::createView( ViewContainer *viewContainer, uint viewAreaId, 
 {
 	TextView * textView = new TextView( this, viewContainer, viewAreaId, name );
 	
-	fileMetaInfo()->initializeFromMetaInfo( url().prettyURL(), textView );
+	fileMetaInfo()->initializeFromMetaInfo( url().prettyUrl(), textView );
 	
 	handleNewView(textView);
 	return textView;
 }
 
 
-Kate::View* TextDocument::createKateView( QWidget *parent, const char *name )
+KTextEditor::View* TextDocument::createKateView( QWidget *parent, const char *name )
 {
-	return static_cast<Kate::View*>((m_doc->createView( parent, name ))->qt_cast("Kate::View"));
+	//return static_cast<KTextEditor::View*>((m_doc->createView( parent, name ))->qt_cast("Kate::View"));
+    return m_doc->createView( parent /*, name */);
 }
 
 
@@ -185,8 +214,9 @@ void TextDocument::setText( const QString & text, bool asInitial )
 	
 	if ( asInitial )
 	{
-		m_doc->clearUndo();
-		m_doc->clearRedo();
+		//m_doc->clearUndo(); // TODO FIXME
+		//m_doc->clearRedo(); // TODO FIXME
+        qWarning() << "TextDocument::clearUndo TODO";
 		setModified(false);
 	
 		connect( m_doc, SIGNAL(undoChanged()), this, SIGNAL(undoRedoStateChanged()) );
@@ -198,14 +228,16 @@ void TextDocument::setText( const QString & text, bool asInitial )
 
 void TextDocument::undo()
 {
-	m_doc->undo();
+	//m_doc->undo(); // TODO FIXME
+    qWarning() << "TextDocument::undo TODO";
 	slotSyncModifiedStates();
 }
 
 
 void TextDocument::redo()
 {
-	m_doc->redo();
+	//m_doc->redo(); // TODO FIXME
+    qWarning() << "TextDocument::redo TODO";
 	slotSyncModifiedStates();
 }
 
@@ -280,11 +312,21 @@ void TextDocument::slotInitLanguage( CodeType type )
 	if ( !hlName.isEmpty() )
 	{
 		int i = 0;
-		int hlModeCount = m_doc->hlModeCount();
-		while ( i<hlModeCount && m_doc->hlModeName(i) != hlName )
-			i++;
+		//int hlModeCount = m_doc->hlModeCount();
+        QStringList hlModes = m_doc->highlightingModes();
+		//while ( i<hlModeCount && m_doc->hlModeName(i) != hlName )
+		//	i++;
+        while (!hlModes.isEmpty()) {
+            if (hlModes.first() == hlName) {
+                break;
+            }
+            hlModes.removeFirst();
+        }
 		
-		m_doc->setHlMode(i);
+		//m_doc->setHlMode(i);
+		if (!hlModes.isEmpty()) {
+            m_doc->setHighlightingMode(hlModes.first());
+        }
 	}
 	
 	m_guessedCodeType = type;
@@ -307,7 +349,7 @@ void TextDocument::formatAssembly()
 }
 
 
-void TextDocument::fileSave( const KURL& url )
+void TextDocument::fileSave( const KUrl& url )
 {
 	if ( m_doc->url().path() != url.path() )
 	{
@@ -315,14 +357,14 @@ void TextDocument::fileSave( const KURL& url )
 		return;
 	}
 	
-	if ( activeView() && (textView()->save() == Kate::View::SAVE_OK ) )
+	if ( activeView() && (textView()->save()) )
 		saveDone();
 }
 
 
 void TextDocument::fileSaveAs()
 {
-	if (  activeView() && (textView()->saveAs() == Kate::View::SAVE_OK) )
+	if (  activeView() && (textView()->saveAs()) )
 		saveDone();
 	
 	// Our modified state may not have changed, but we emit this to force the
@@ -340,12 +382,12 @@ void TextDocument::saveDone()
 }
 
 
-bool TextDocument::openURL( const KURL& url )
+bool TextDocument::openURL( const KUrl& url )
 {
-	m_doc->openURL(url);
+	m_doc->openUrl(url);
 	setURL(url);
 	
-	fileMetaInfo()->initializeFromMetaInfo( url.prettyURL(), this );
+	fileMetaInfo()->initializeFromMetaInfo( url.prettyUrl(), this );
 	guessScheme();
 	
 #ifndef NO_GPSIM
@@ -367,7 +409,7 @@ QString TextDocument::outputFilePath( const QString &ext )
 	QString filePath = url().path();
 	if ( filePath.isEmpty() )
 	{
-		KTempFile f( QString::null, ext );
+		K3TempFile f( QString::null, ext );
 		(*f.textStream()) <<  m_doc->text();
 		f.close();
 		DocManager::self()->associateDocument( f.name(), this );
@@ -447,7 +489,7 @@ void TextDocument::convertToAssembly()
 	
 	ProcessOptions o( dlg.info() );
 	o.setTextOutputTarget( m_pLastTextOutputTarget, this, SLOT(setLastTextOutputTarget( TextDocument* )) );
-	o.setInputFiles(filePath);
+	o.setInputFiles(QStringList( filePath) );
 	o.setProcessPath( ProcessOptions::ProcessPath::path( ProcessOptions::guessMediaType(filePath), toType ) );
 	LanguageManager::self()->compile(o);
 }
@@ -491,7 +533,7 @@ void TextDocument::convertToHex()
 	
 	ProcessOptions o( dlg.info() );
 	o.setTextOutputTarget( m_pLastTextOutputTarget, this, SLOT(setLastTextOutputTarget( TextDocument* )) );
-	o.setInputFiles(filePath);
+	o.setInputFiles(QStringList(filePath));
 	o.setProcessPath( ProcessOptions::ProcessPath::path( ProcessOptions::guessMediaType(filePath), ProcessOptions::ProcessPath::Program ) );
 	LanguageManager::self()->compile(o);
 }
@@ -545,7 +587,7 @@ void TextDocument::convertToPIC()
 	
 	ProcessOptions o;
 	dlg->initOptions( & o );
-	o.setInputFiles( filePath );
+	o.setInputFiles( QStringList(filePath ));
 	o.setProcessPath( ProcessOptions::ProcessPath::path( ProcessOptions::guessMediaType(filePath), ProcessOptions::ProcessPath::Pic ) );
 	LanguageManager::self()->compile( o );
 	
@@ -555,14 +597,15 @@ void TextDocument::convertToPIC()
 
 void TextDocument::print()
 {
-	KTextEditor::printInterface(m_doc)->print ();
+	//KTextEditor::printInterface(m_doc)->print (); // TODO FIXME
+    qWarning() << "TextDocument::print TODO";
 }
 
 
 void TextDocument::slotSelectionmChanged()
 {
-	KTechlab::self()->action( "edit_cut" )->setEnabled( m_doc->hasSelection () );
-	KTechlab::self()->action( "edit_copy" )->setEnabled( m_doc->hasSelection () );
+	KTechlab::self()->action( "edit_cut" )->setEnabled( /* m_doc->hasSelection () */ m_doc->activeView()->selection() );
+	KTechlab::self()->action( "edit_copy" )->setEnabled( /*m_doc->hasSelection () */ m_doc->activeView()->selection() );
 }
 
 
@@ -570,12 +613,17 @@ IntList TextDocument::bookmarkList() const
 {
 	IntList bookmarkList;
 	
-	typedef QPtrList<KTextEditor::Mark> MarkList;
-	MarkList markList = m_doc->marks();
+	typedef QHash<int, KTextEditor::Mark*> MarkList;
+    KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface*>( m_doc );
+    if (!iface) return IntList();
+	//MarkList markList = m_doc->marks();
+    const MarkList &markList = iface->marks();
 	
 	// Find out what marks need adding to our internal lists
-	for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
+	//for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
+    for (MarkList::const_iterator itMark = markList.begin(); itMark != markList.end(); ++itMark)
 	{
+        const KTextEditor::Mark * mark = itMark.value();
 		if ( mark->type & Bookmark )
 			bookmarkList += mark->line;
 	}
@@ -600,16 +648,33 @@ void TextDocument::slotUpdateMarksInfo()
 	KTechlab::self()->unplugActionList("bookmark_actionlist");
 	m_bookmarkActions.clear();
 	
-	QPtrList<KTextEditor::Mark> markList = m_doc->marks();
+	//QPtrList<KTextEditor::Mark> markList = m_doc->marks();
+    typedef QHash<int, KTextEditor::Mark*> MarkList;
+    KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface*>( m_doc );
+    if (!iface) return ;
+    //MarkList markList = m_doc->marks();
+    MarkList markList = iface->marks();
+
 	
 	// Find out what marks need adding to our internal lists
-	for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
-	{
+	//for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
+	//{
+    for (MarkList::iterator itMark = markList.begin(); itMark != markList.end(); ++itMark)
+    {
+        KTextEditor::Mark * mark = itMark.value();
 		if ( mark->type & Bookmark )
 		{
-			KAction * a = new KAction( i18n("%1 - %2").arg( QString::number( mark->line+1 ) ).arg( m_doc->textLine(mark->line) ),
+            QString actionCaption = i18n("%1 - %2").arg( QString::number( mark->line+1 ) ).
+                                            arg( m_doc->text(KTextEditor::Range( mark->line, 0, mark->line, 100 /* FIXME arbitrary */)) );
+            QString actionName = QString("bookmark_%1").arg(QString::number(mark->line).ascii());
+            /*
+			KAction * a = new KAction( actionCaption,
 									   0, this, SLOT(slotBookmarkRequested()), this,
-									   QString("bookmark_%1").arg(QString::number(mark->line).ascii()) );
+									   actionName );
+									   */
+            KAction * a = new KAction( actionCaption, this);
+            a->setName(actionName.toLatin1().data());
+            connect(a, SIGNAL(triggered(bool)), this, SLOT(slotBookmarkRequested()));
 			m_bookmarkActions.append(a);
 		}
 	}
@@ -647,13 +712,21 @@ void TextDocument::setBookmarks( const IntList &lines )
 
 void TextDocument::clearBookmarks()
 {
-	QPtrList<KTextEditor::Mark> markList = m_doc->marks();
+	//QPtrList<KTextEditor::Mark> markList = m_doc->marks();
+    typedef QHash<int, KTextEditor::Mark*> MarkList;
+    KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface*>( m_doc );
+    if (!iface) return;
+    //MarkList markList = m_doc->marks();
+    MarkList markList = iface->marks();
 	
 	// Find out what marks need adding to our internal lists
-	for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
-	{
+	//for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
+	//{
+    for (MarkList::iterator itMark = markList.begin(); itMark != markList.end(); ++itMark)
+    {
+        KTextEditor::Mark * mark = itMark.value();
 		if ( mark->type & Bookmark )
-			m_doc->removeMark( mark->line, Bookmark );
+			iface->removeMark( mark->line, Bookmark );
 	}
 	
 	slotUpdateMarksInfo();
@@ -662,11 +735,14 @@ void TextDocument::clearBookmarks()
 
 void TextDocument::setBookmark( uint line, bool isBookmark )
 {
+    KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface*>( m_doc );
+    if (!iface) return;
+
 	if (isBookmark)
-		m_doc->addMark( line, Bookmark );
+		iface->addMark( line, Bookmark );
 	
 	else
-		m_doc->removeMark( line, Bookmark );
+		iface->removeMark( line, Bookmark );
 }
 
 
@@ -686,12 +762,19 @@ IntList TextDocument::breakpointList() const
 	IntList breakpointList;
 	
 #ifndef NO_GPSIM
-	typedef QPtrList<KTextEditor::Mark> MarkList;
-	MarkList markList = m_doc->marks();
+	//typedef QPtrList<KTextEditor::Mark> MarkList;
+    typedef QHash<int, KTextEditor::Mark*> MarkList;
+    KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface*>( m_doc );
+    if (!iface) return IntList();
+    //MarkList markList = m_doc->marks();
+    MarkList markList = iface->marks(); // note: this will copy
+
 	
 	// Find out what marks need adding to our internal lists
-	for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
+	//for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
+    for (MarkList::iterator itMark = markList.begin(); itMark != markList.end(); ++itMark)
 	{
+        KTextEditor::Mark * mark = itMark.value();
 		if ( mark->type & Breakpoint )
 			breakpointList += mark->line;
 	}
@@ -704,15 +787,18 @@ IntList TextDocument::breakpointList() const
 void TextDocument::setBreakpoint( uint line, bool isBreakpoint )
 {
 #ifndef NO_GPSIM
+    KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface*>( m_doc );
+    if (!iface) return ;
+
 	if (isBreakpoint)
 	{
-		m_doc->addMark( line, Breakpoint );
+		iface->addMark( line, Breakpoint );
 		if (m_pDebugger)
 			m_pDebugger->setBreakpoint( m_debugFile, line, true );
 	}
 	else
 	{
-		m_doc->removeMark( line, Breakpoint );
+		iface->removeMark( line, Breakpoint );
 		if (m_pDebugger)
 			m_pDebugger->setBreakpoint( m_debugFile, line, false );
 	}
@@ -823,13 +909,17 @@ void TextDocument::debugStepOut()
 void TextDocument::slotDebugSetCurrentLine( const SourceLine & line )
 {
 #ifndef NO_GPSIM
+
+    KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface*>( m_doc );
+    if (!iface) return;
+
 	int textLine = line.line();
 	
 	if ( DocManager::self()->findDocument( line.fileName() ) != this )
 		textLine = -1;
 	
-	m_doc->removeMark( m_lastDebugLineAt, ExecutionPoint );
-	m_doc->addMark( textLine, ExecutionPoint );
+	iface->removeMark( m_lastDebugLineAt, ExecutionPoint );
+	iface->addMark( textLine, ExecutionPoint );
 	
 	if ( activeView() )
 		textView()->setCursorPosition( textLine, 0 );
@@ -892,13 +982,21 @@ void TextDocument::slotDebuggerDestroyed()
 #ifndef NO_GPSIM
 void TextDocument::clearBreakpoints()
 {
-	QPtrList<KTextEditor::Mark> markList = m_doc->marks();
-	
+	//QPtrList<KTextEditor::Mark> markList = m_doc->marks();
+    //typedef QPtrList<KTextEditor::Mark> MarkList;
+    typedef QHash<int, KTextEditor::Mark*> MarkList;
+    KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface*>( m_doc );
+    if (!iface) return;
+    //MarkList markList = m_doc->marks();
+    MarkList markList = iface->marks(); // note: this will copy
+
 	// Find out what marks need adding to our internal lists
-	for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
+	//for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
+    for (MarkList::iterator itMark = markList.begin(); itMark != markList.end(); ++itMark)
 	{
+        KTextEditor::Mark * mark = itMark.value();
 		if ( mark->type & Bookmark )
-			m_doc->removeMark( mark->line, Breakpoint );
+			iface->removeMark( mark->line, Breakpoint );
 	}
 	
 	slotUpdateMarksInfo();
@@ -916,14 +1014,21 @@ void TextDocument::syncBreakpoints()
 	
 	b_lockSyncBreakpoints = true;
 	
-	typedef QPtrList<KTextEditor::Mark> MarkList;
-	MarkList markList = m_doc->marks();
-	
+    //QPtrList<KTextEditor::Mark> markList = m_doc->marks();
+    //typedef QPtrList<KTextEditor::Mark> MarkList;
+    typedef QHash<int, KTextEditor::Mark*> MarkList;
+    KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface*>( m_doc );
+    if (!iface) return;
+    //MarkList markList = m_doc->marks();
+    MarkList markList = iface->marks(); // note: this will copy
+
 	IntList bpList;
 	
 	// Find out what marks need adding to our internal lists
-	for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
+	//for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
+    for (MarkList::iterator itMark = markList.begin(); itMark != markList.end(); ++itMark)
 	{
+        KTextEditor::Mark *mark = itMark.value();
 		const int line = mark->line;
 		
 		if ( mark->type & Breakpoint )

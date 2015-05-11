@@ -14,7 +14,7 @@
 #include "libraryitem.h"
 
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 Item* Capacitor::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -24,7 +24,7 @@ Item* Capacitor::construct( ItemDocument *itemDocument, bool newItem, const char
 LibraryItem* Capacitor::libraryItem()
 {
 	return new LibraryItem(
-		"ec/capacitor",
+		QStringList(QString("ec/capacitor")),
 		i18n("Capacitor"),
 		i18n("Passive"),
 		"capacitor.png",

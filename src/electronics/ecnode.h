@@ -13,7 +13,7 @@
 
 #include "node.h"
 
-#include <qvaluevector.h>
+#include <Qt/q3valuevector.h>
 
 class ECNode;
 class Element;
@@ -21,9 +21,9 @@ class Pin;
 class Switch;
 class QTimer;
 
-typedef QValueList<ECNode*> ECNodeList;
-typedef QValueList<Element*> ElementList;
-typedef QValueVector<Pin*> PinVector;
+typedef QList<ECNode*> ECNodeList;
+typedef QList<Element*> ElementList;
+typedef Q3ValueVector<Pin*> PinVector;
 
 /**
 @short Electrical node with voltage / current / etc properties

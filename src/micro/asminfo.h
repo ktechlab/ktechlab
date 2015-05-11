@@ -11,9 +11,9 @@
 #ifndef ASMINFO_H
 #define ASMINFO_H
 
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qvaluelist.h>
+#include <Qt/qstring.h>
+#include <Qt/qstringlist.h>
+#include <Qt/qlist.h>
 
 /**
 @author David Saxton
@@ -25,7 +25,7 @@ struct Instruction
 	QString opcode;
 };
 
-typedef QValueList<Instruction> InstructionList;
+typedef QList<Instruction> InstructionList;
 
 /**
 @short Base class for all instruction sets

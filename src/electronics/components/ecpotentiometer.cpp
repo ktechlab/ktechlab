@@ -15,8 +15,8 @@
 #include "resistance.h"
 
 #include <klocale.h>
-#include <qpainter.h>
-#include <qstyle.h>
+#include <Qt/qpainter.h>
+#include <Qt/qstyle.h>
 
 Item* ECPotentiometer::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -26,7 +26,7 @@ Item* ECPotentiometer::construct( ItemDocument *itemDocument, bool newItem, cons
 LibraryItem* ECPotentiometer::libraryItem()
 {
 	return new LibraryItem(
-		"ec/potentiometer",
+		QStringList(QString("ec/potentiometer")),
 		i18n("Potentiometer"),
 		i18n("Passive"),
 		"potentiometer.png",
@@ -92,17 +92,17 @@ void ECPotentiometer::drawShape( QPainter &p )
 	
 	p.drawRect( _x-14, _y-16, 12, 32 );
 	
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 	pa[0] = QPoint( 0, 0 );
 	pa[1] = QPoint( 4, -3 );
 	pa[2] = QPoint( 4, 3 );
 	
-	int space = m_pSlider->style().pixelMetric( QStyle::PM_SliderSpaceAvailable, m_pSlider );
+	int space = m_pSlider->style()->pixelMetric( QStyle::PM_SliderSpaceAvailable /*, m_pSlider TODO investigate parameter */ );
 	int base_y = _y + int( space * m_sliderProp );
 	
 	pa.translate( _x+16, base_y );
 	
-	QColor c = m_p1->isSelected() ? m_selectedCol : black;
+	QColor c = m_p1->isSelected() ? m_selectedCol : Qt::black;
 	
 	p.setPen(c);
 	p.setBrush(c);

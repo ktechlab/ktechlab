@@ -40,10 +40,10 @@
 
 #include <cmath>
 #include <kdebug.h>
-#include <qbitarray.h>
-#include <qpainter.h>
-#include <qwidget.h>
-#include <qwmatrix.h>
+#include <Qt/qbitarray.h>
+#include <Qt/qpainter.h>
+#include <Qt/qwidget.h>
+#include <Qt/qwmatrix.h>
 
 const int dipWidth = 112;
 const int pairSep = 32;
@@ -234,7 +234,7 @@ void Component::setFlipped( bool flipped )
 
 void Component::itemPointsChanged()
 {
-    QPointArray transformedPoints = transMatrix( m_angleDegrees, b_flipped, 0, 0, false ).map(m_itemPoints);
+    Q3PointArray transformedPoints = transMatrix( m_angleDegrees, b_flipped, 0, 0, false ).map(m_itemPoints);
 // 	transformedPoints.translate( int(x()), int(y()) );
     setPoints(transformedPoints);
 }
@@ -275,7 +275,7 @@ QWMatrix Component::transMatrix( int angleDegrees, bool flipped, int x, int y, b
         m.rotate(angleDegrees);
     }
     m.translate( -x, -y );
-    m.setTransformationMode( QWMatrix::Areas );
+    // m.setTransformationMode( QWMatrix::Areas ); // TODO find a replacement
     return m;
 }
 
@@ -330,7 +330,7 @@ void Component::updateAttachedPositioning()
     if (b_flipped)
         m.scale( -1, 1 );
     m.rotate(m_angleDegrees);
-    m.setTransformationMode( QWMatrix::Areas );
+    //m.setTransformationMode( QWMatrix::Areas ); // TODO find a replacement
 
     const TextMap::iterator textMapEnd = m_textMap.end();
     for ( TextMap::iterator it = m_textMap.begin(); it != textMapEnd; ++it )
@@ -460,6 +460,7 @@ void Component::initDIPSymbol( const QStringList & pins, int _width )
     setSize( -(_width-(_width%16))/2, -(numSide+1)*8, _width, (numSide+1)*16, true );
 
     QWidget tmpWidget;
+    //tmpWidget.setAttribute(Qt::WA_PaintOutsidePaintEvent, true); // note: add this if needed
     QPainter p(&tmpWidget);
 
     p.setFont( font() );
@@ -469,7 +470,7 @@ void Component::initDIPSymbol( const QStringList & pins, int _width )
     {
         if ( !pins[i].isEmpty() )
         {
-            const QString text = *pins.at(i);
+            const QString text = pins.at(i);
 
             const int _top = (i+1)*16-8 + offsetY();
             const int _width = width()/2 - 6;
@@ -485,7 +486,7 @@ void Component::initDIPSymbol( const QStringList & pins, int _width )
     {
         if ( !pins[i].isEmpty() )
         {
-            const QString text = *pins.at(i);
+            const QString text = pins.at(i);
 
             const int _top = (2*numSide-i)*16 - 8 + offsetY();
             const int _width = width()/2 - 6;
@@ -710,7 +711,7 @@ BJT* Component::createBJT( Pin *cN, Pin *bN, Pin *eN, bool isNPN )
 {
     BJT *e = new BJT(isNPN);
 
-    QValueList<Pin*> pins;
+    QList<Pin*> pins;
     pins << bN << cN << eN;
 
     ElementMapList::iterator it = handleElement( e, pins );
@@ -722,7 +723,7 @@ Capacitance* Component::createCapacitance( Pin *n0, Pin *n1, double capacitance 
 {
     Capacitance *e = new Capacitance( capacitance, LINEAR_UPDATE_PERIOD );
 
-    QValueList<Pin*> pins;
+    QList<Pin*> pins;
     pins << n0 << n1;
 
     ElementMapList::iterator it = handleElement( e, pins );
@@ -734,7 +735,7 @@ CCCS* Component::createCCCS( Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain )
 {
     CCCS *e = new CCCS(gain);
 
-    QValueList<Pin*> pins;
+    QList<Pin*> pins;
     pins << n0 << n1 << n2 << n3;
 
     ElementMapList::iterator it = handleElement( e, pins );
@@ -746,7 +747,7 @@ CCVS* Component::createCCVS( Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain )
 {
     CCVS *e = new CCVS(gain);
 
-    QValueList<Pin*> pins;
+    QList<Pin*> pins;
     pins << n0 << n1 << n2 << n3;
 
     ElementMapList::iterator it = handleElement( e, pins );
@@ -767,7 +768,7 @@ CurrentSignal* Component::createCurrentSignal( Pin *n0, Pin *n1, double current 
 {
     CurrentSignal *e = new CurrentSignal( LINEAR_UPDATE_PERIOD, current );
 
-    QValueList<Pin*> pins;
+    QList<Pin*> pins;
     pins << n0 << n1;
 
     ElementMapList::iterator it = handleElement( e, pins );
@@ -779,7 +780,7 @@ CurrentSource* Component::createCurrentSource( Pin *n0, Pin *n1, double current 
 {
     CurrentSource *e = new CurrentSource(current);
 
-    QValueList<Pin*> pins;
+    QList<Pin*> pins;
     pins << n0 << n1;
 
     ElementMapList::iterator it = handleElement( e, pins );
@@ -791,7 +792,7 @@ Diode* Component::createDiode( Pin *n0, Pin *n1 )
 {
     Diode *e = new Diode();
 
-    QValueList<Pin*> pins;
+    QList<Pin*> pins;
     pins << n0 << n1;
 
     ElementMapList::iterator it = handleElement( e, pins );
@@ -803,7 +804,7 @@ JFET * Component::createJFET( Pin * D, Pin * G, Pin * S, int JFET_type )
 {
     JFET * e = new JFET( (JFET::JFET_type) JFET_type );
 
-    QValueList<Pin*> pins;
+    QList<Pin*> pins;
     pins << D << G << S;
 
     ElementMapList::iterator it = handleElement( e, pins );
@@ -815,7 +816,7 @@ Inductance* Component::createInductance( Pin *n0, Pin *n1, double inductance )
 {
     Inductance *e = new Inductance( inductance, LINEAR_UPDATE_PERIOD );
 
-    QValueList<Pin*> pins;
+    QList<Pin*> pins;
     pins << n0 << n1;
 
     ElementMapList::iterator it = handleElement( e, pins );
@@ -827,7 +828,7 @@ LogicIn *Component::createLogicIn( Pin *node )
 {
     LogicIn *e = new LogicIn(LogicIn::getConfig());
 
-    QValueList<Pin*> pins;
+    QList<Pin*> pins;
     pins << node;
 
     ElementMapList::iterator it = handleElement( e, pins );
@@ -838,7 +839,7 @@ LogicOut *Component::createLogicOut( Pin *node, bool isHigh )
 {
     LogicOut *e = new LogicOut( LogicIn::getConfig(), isHigh);
 
-    QValueList<Pin*> pins;
+    QList<Pin*> pins;
     pins << node;
 
     ElementMapList::iterator it = handleElement( e, pins );
@@ -850,7 +851,7 @@ MOSFET * Component::createMOSFET( Pin * D, Pin * G, Pin * S, Pin * B, int MOSFET
 {
     MOSFET * e = new MOSFET( (MOSFET::MOSFET_type) MOSFET_type );
 
-    QValueList<Pin*> pins;
+    QList<Pin*> pins;
     pins << D << G << S << B;
 
     /// \todo remove the following line removing body if null
@@ -865,7 +866,7 @@ OpAmp * Component::createOpAmp( Pin * nonInverting, Pin * inverting, Pin * out )
 {
     OpAmp * e = new OpAmp();
 
-    QValueList<Pin*> pins;
+    QList<Pin*> pins;
     pins << nonInverting << inverting << out;
 
     ElementMapList::iterator it = handleElement( e, pins );
@@ -877,7 +878,7 @@ Resistance* Component::createResistance( Pin *n0, Pin *n1, double resistance )
 {
     Resistance *e = new Resistance(resistance);
 
-    QValueList<Pin*> pins;
+    QList<Pin*> pins;
     pins << n0 << n1;
 
     ElementMapList::iterator it = handleElement( e, pins );
@@ -902,7 +903,7 @@ VCCS* Component::createVCCS( Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain )
 {
     VCCS *e = new VCCS(gain);
 
-    QValueList<Pin*> pins;
+    QList<Pin*> pins;
     pins << n0 << n1 << n2 << n3;
 
     ElementMapList::iterator it = handleElement( e, pins );
@@ -914,7 +915,7 @@ VCVS* Component::createVCVS( Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain )
 {
     VCVS *e = new VCVS(gain);
 
-    QValueList<Pin*> pins;
+    QList<Pin*> pins;
     pins << n0 << n1 << n2 << n3;
 
     ElementMapList::iterator it = handleElement( e, pins );
@@ -934,7 +935,7 @@ VoltagePoint* Component::createVoltagePoint( Pin *n0, double voltage )
 {
     VoltagePoint *e = new VoltagePoint(voltage);
 
-    QValueList<Pin*> pins;
+    QList<Pin*> pins;
     pins << n0;
 
     ElementMapList::iterator it = handleElement( e, pins );
@@ -946,7 +947,7 @@ VoltageSignal* Component::createVoltageSignal( Pin *n0, Pin *n1, double voltage 
 {
     VoltageSignal *e = new VoltageSignal(LINEAR_UPDATE_PERIOD, voltage );
 
-    QValueList<Pin*> pins;
+    QList<Pin*> pins;
     pins << n0 << n1;
 
     ElementMapList::iterator it = handleElement( e, pins );
@@ -958,7 +959,7 @@ VoltageSource* Component::createVoltageSource( Pin *n0, Pin *n1, double voltage 
 {
     VoltageSource *e = new VoltageSource(voltage);
 
-    QValueList<Pin*> pins;
+    QList<Pin*> pins;
     pins << n0 << n1;
 
     ElementMapList::iterator it = handleElement( e, pins );
@@ -967,7 +968,7 @@ VoltageSource* Component::createVoltageSource( Pin *n0, Pin *n1, double voltage 
 }
 
 
-ElementMapList::iterator Component::handleElement( Element *e, const QValueList<Pin*> & pins )
+ElementMapList::iterator Component::handleElement( Element *e, const QList<Pin*> & pins )
 {
     if (!e)
         return m_elementMapList.end();
@@ -975,33 +976,34 @@ ElementMapList::iterator Component::handleElement( Element *e, const QValueList<
     ElementMap em;
     em.e = e;
     int at = 0;
-    QValueList<Pin*>::ConstIterator end = pins.end();
-    for ( QValueList<Pin*>::ConstIterator it = pins.begin(); it != end; ++it )
+    QList<Pin*>::ConstIterator end = pins.end();
+    for ( QList<Pin*>::ConstIterator it = pins.begin(); it != end; ++it )
     {
         (*it)->addElement(e);
         em.n[at++] = *it;
     }
 
-    ElementMapList::iterator it = m_elementMapList.append(em);
+    //ElementMapList::iterator it = m_elementMapList.append(em);
+    ElementMapList::iterator it = m_elementMapList.insert(m_elementMapList.end(), em);
 
     emit elementCreated(e);
     return it;
 }
 
 
-void Component::setInterDependent( ElementMapList::iterator it, const QValueList<Pin*> & pins )
+void Component::setInterDependent( ElementMapList::iterator it, const QList<Pin*> & pins )
 {
     setInterCircuitDependent( it, pins );
     setInterGroundDependent( it, pins );
 }
 
 
-void Component::setInterCircuitDependent( ElementMapList::iterator it, const QValueList<Pin*> & pins )
+void Component::setInterCircuitDependent( ElementMapList::iterator it, const QList<Pin*> & pins )
 {
-    QValueList<Pin*>::ConstIterator end = pins.end();
-    for ( QValueList<Pin*>::ConstIterator it1 = pins.begin(); it1 != end; ++it1 )
+    QList<Pin*>::ConstIterator end = pins.end();
+    for ( QList<Pin*>::ConstIterator it1 = pins.begin(); it1 != end; ++it1 )
     {
-        for ( QValueList<Pin*>::ConstIterator it2 = pins.begin(); it2 != end; ++it2 )
+        for ( QList<Pin*>::ConstIterator it2 = pins.begin(); it2 != end; ++it2 )
         {
             (*it1)->addCircuitDependentPin( *it2 );
         }
@@ -1011,12 +1013,12 @@ void Component::setInterCircuitDependent( ElementMapList::iterator it, const QVa
 }
 
 
-void Component::setInterGroundDependent( ElementMapList::iterator it, const QValueList<Pin*> & pins )
+void Component::setInterGroundDependent( ElementMapList::iterator it, const QList<Pin*> & pins )
 {
-    QValueList<Pin*>::ConstIterator end = pins.end();
-    for ( QValueList<Pin*>::ConstIterator it1 = pins.begin(); it1 != end; ++it1 )
+    QList<Pin*>::ConstIterator end = pins.end();
+    for ( QList<Pin*>::ConstIterator it1 = pins.begin(); it1 != end; ++it1 )
     {
-        for ( QValueList<Pin*>::ConstIterator it2 = pins.begin(); it2 != end; ++it2 )
+        for ( QList<Pin*>::ConstIterator it2 = pins.begin(); it2 != end; ++it2 )
         {
             (*it1)->addGroundDependentPin( *it2 );
         }

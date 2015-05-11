@@ -12,9 +12,10 @@
 #define ITEM_H
 
 #include "variant.h"
+#include "itemdocument.h"
 
 #include <canvas.h>
-#include <qguardedptr.h>
+#include <Qt/qpointer.h>
 
 class Document;
 class EventInfo;
@@ -31,15 +32,15 @@ class QTimer;
 typedef Variant Property;
 
 typedef Item*(*createItemPtr)( ItemDocument *itemDocument, bool newItem, const char *id );
-typedef QGuardedPtr<Item> GuardedItem;
+typedef QPointer<Item> GuardedItem;
 typedef QMap<QString, Variant*> VariantDataMap;
-typedef QValueList<GuardedItem> ItemList;
+typedef QList<GuardedItem> ItemList;
 
 /**
 @author David Saxton
 @author Daniel Clarke
 */
-class Item : public QObject, public QCanvasPolygon
+class Item : /* public QObject, */ public QCanvasPolygon
 {
 Q_OBJECT
 public:
@@ -271,7 +272,7 @@ protected:
 	 * Set the rough bounding points for this item. Calls itemPointsChanged
 	 * after setting the points
 	 */
-	void setItemPoints( const QPointArray &pa, bool setSizeFromPoints = true );
+	void setItemPoints( const Q3PointArray &pa, bool setSizeFromPoints = true );
 	/**
 	 * Reinherit this function if you want to apply any sort of transformation
 	 * to the item points
@@ -285,8 +286,8 @@ protected:
 	QString m_type;
 	GuardedItem p_parentItem; // If attached to a parent item
 	ItemList m_children;
-	QGuardedPtr<ItemDocument> p_itemDocument;
-	QPointArray m_itemPoints; // The unorientated and unsized item points
+	QPointer<ItemDocument> p_itemDocument;
+	Q3PointArray m_itemPoints; // The unorientated and unsized item points
 	QTimer * m_pPropertyChangedTimer; ///< Single show timer for one a property changes
 	
 	friend class ItemLibrary;

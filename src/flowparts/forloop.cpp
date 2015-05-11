@@ -23,7 +23,7 @@ Item* ForLoop::construct( ItemDocument *itemDocument, bool newItem, const char *
 LibraryItem* ForLoop::libraryItem()
 {
 	return new LibraryItem(
-		"flow/forloop",
+		QStringList(QString("flow/forloop")),
 		i18n("For"),
 		i18n("Loops"),
 		"for.png",
@@ -50,7 +50,7 @@ ForLoop::ForLoop( ICNDocument *icnDocument, bool newItem, const char *id )
 	property("1-initial")->setValue("1");
 	
 	createProperty( "2-end", Variant::Type::Combo );
-	property("2-end")->setToolbarCaption( i18n( "for x = 1 to", "to" ) );
+	property("2-end")->setToolbarCaption( i18nc( "for x = 1 to", "to" ) );
 	property("2-end")->setEditorCaption( i18n("End Value") );
 	property("2-end")->setValue("10");
 	

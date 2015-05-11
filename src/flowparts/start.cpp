@@ -23,7 +23,7 @@ Item* Start::construct( ItemDocument *itemDocument, bool newItem, const char *id
 LibraryItem* Start::libraryItem()
 {
 	return new LibraryItem(
-		"flow/start",
+		QStringList(QString("flow/start")),
 		i18n("Start"),
 		i18n("Common"),
 		"start.png",

@@ -17,7 +17,7 @@
 #include "simulator.h"
 
 #include <klocale.h>
-#include <qpainter.h>
+#include <Qt/qpainter.h>
 
 Item* BiDirLED::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
@@ -27,7 +27,7 @@ Item* BiDirLED::construct( ItemDocument *itemDocument, bool newItem, const char 
 LibraryItem* BiDirLED::libraryItem()
 {
 	return new LibraryItem (
-		"ec/bidir_led",
+		QStringList(QString("ec/bidir_led")),
 		i18n("Bidirectional LED"),
 		i18n("Outputs"),
 		"bidirled.png",
@@ -108,7 +108,7 @@ void BiDirLED::drawShape( QPainter &p )
 		p.setBrush( QColor( uint(255-(255-_b)*(1-r[i])), uint(255-(255-_b)*(1-g[i])), uint(255-(255-_b)*(1-b[i])) ) );
 		
 		
-		QPointArray pa(3);
+		Q3PointArray pa(3);
 		if ( i == 0 )
 		{
 			pa[0] = QPoint( 8, -8 );

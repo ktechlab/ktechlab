@@ -14,7 +14,7 @@
 #include "eventinfo.h"
 
 #include <canvas.h>
-#include <qguardedptr.h>
+#include <Qt/qpointer.h>
 
 class CanvasManipulator;
 class Connector;
@@ -47,9 +47,9 @@ class QWheelEvent;
 
 typedef CanvasManipulator*(*CreateManipulatorPtr)( ItemDocument *, CMManager * );
 typedef bool(*AcceptManipulationPtr)( uint eventState, uint cmState, uint itemType, uint cnItemType );
-typedef QValueList<NodeGroup*> NodeGroupList;
-typedef QValueList<QGuardedPtr<Connector> > ConnectorList;
-typedef QValueList<QPoint> QPointList;
+typedef QList<NodeGroup*> NodeGroupList;
+typedef QList<QPointer<Connector> > ConnectorList;
+typedef QList<QPoint> QPointList;
 
 
 class ManipulatorInfo
@@ -59,7 +59,7 @@ public:
 	AcceptManipulationPtr m_acceptManipulationPtr;
 	CreateManipulatorPtr m_createManipulatorPtr;
 };
-typedef QValueList<ManipulatorInfo*> ManipulatorInfoList;
+typedef QList<ManipulatorInfo*> ManipulatorInfoList;
 
 
 /**
@@ -153,9 +153,9 @@ protected:
 	QString m_repeatedItemId;
 	ItemDocument *p_itemDocument;
 	ManipulatorInfoList m_manipulatorInfoList;
-	QGuardedPtr<Item> p_lastMouseOverItem; // Pointer to the item where the mouse was last over - this is used to determine when mouse
-	QGuardedPtr<ResizeHandle> p_lastMouseOverResizeHandle;
-	QGuardedPtr<Item> p_lastItemClicked;
+	QPointer<Item> p_lastMouseOverItem; // Pointer to the item where the mouse was last over - this is used to determine when mouse
+	QPointer<ResizeHandle> p_lastMouseOverResizeHandle;
+	QPointer<Item> p_lastItemClicked;
 	QTimer *m_allowItemScrollTmr; // When a user scrolls on the canvas, we don't want to stop scrolling when the user gets to (e.g.) a scrollable widget. So this timer prevents scrolling a widget for a few hundred milliseconds after a scroll event if it was initiated over the canvas
 	bool b_allowItemScroll; // See above.
 	int m_drawAction;
@@ -321,8 +321,8 @@ class ConnectorDraw : public CanvasManipulator
 		 */
 		QPoint toValidPos( const QPoint & clickPos, Connector * clickedConnector ) const;
 		
-		QGuardedPtr<Node> p_startNode;
-		QGuardedPtr<Connector> p_startConnector;
+		QPointer<Node> p_startNode;
+		QPointer<Connector> p_startConnector;
 		Node * p_endNode;
 		Connector * p_endConnector;
 		QPoint startConnectorPoint;
@@ -603,7 +603,7 @@ class ManualConnectorDraw
 	protected:
 		void updateConnectorEnds();
 	
-		QValueList<QCanvasLine*> m_connectorLines;
+		QList<QCanvasLine*> m_connectorLines;
 		ICNDocument *icnDocument;
 	
 		bool b_currentVertical;

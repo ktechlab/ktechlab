@@ -26,7 +26,7 @@ Item* Multiplexer::construct( ItemDocument *itemDocument, bool newItem, const ch
 LibraryItem* Multiplexer::libraryItem()
 {
 	return new LibraryItem(
-		"ec/multiplexer",
+		QStringList(QString("ec/multiplexer")),
 		i18n("Multiplexer"),
 		i18n("Integrated Circuits"),
 		"ic1.png",

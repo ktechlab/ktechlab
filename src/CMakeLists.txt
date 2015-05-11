@@ -9,12 +9,28 @@ add_subdirectory(drawparts)
 add_subdirectory(contexthelp)
 add_subdirectory(math)
 
-include_directories(${CMAKE_SOURCE_DIR}/src ${CMAKE_SOURCE_DIR}/src/drawparts ${CMAKE_SOURCE_DIR}/src/electronics ${CMAKE_SOURCE_DIR}/src/electronics/components ${CMAKE_SOURCE_DIR}/src/electronics/simulation ${CMAKE_SOURCE_DIR}/src/flowparts ${CMAKE_SOURCE_DIR}/src/gui ${CMAKE_SOURCE_DIR}/src/gui/itemeditor ${CMAKE_SOURCE_DIR}/src/languages ${CMAKE_SOURCE_DIR}/src/mechanics ${CMAKE_SOURCE_DIR}/src/micro ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${KDE3_INCLUDE_DIR} ${QT_INCLUDE_DIR} )
+include_directories(
+    ${CMAKE_SOURCE_DIR}/src
+    ${CMAKE_SOURCE_DIR}/src/drawparts
+    ${CMAKE_SOURCE_DIR}/src/electronics
+    ${CMAKE_SOURCE_DIR}/src/electronics/components
+    ${CMAKE_SOURCE_DIR}/src/electronics/simulation
+    ${CMAKE_SOURCE_DIR}/src/flowparts
+    ${CMAKE_SOURCE_DIR}/src/gui
+    ${CMAKE_SOURCE_DIR}/src/gui/itemeditor
+    ${CMAKE_SOURCE_DIR}/src/languages
+    ${CMAKE_SOURCE_DIR}/src/mechanics
+    ${CMAKE_SOURCE_DIR}/src/micro
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_BINARY_DIR}
+    ${KDE4_INCLUDE_DIR}
+    ${QT_INCLUDE_DIR} )
 
 
 ########### next target ###############
 
 SET(ktechlab_SRCS
+   dcop_stub.cpp
    ktechlab.cpp
    node.cpp
    connector.cpp
@@ -80,10 +96,28 @@ set(ktechlab_DCOP_SKEL_SRCS
 
 add_executable(ktechlab ${ktechlab_SRCS})
 
-target_link_libraries( ktechlab ${QT_AND_KDECORE_LIBS} core gui micro flowparts
+target_link_libraries( ktechlab
+    core gui micro flowparts
 	mechanics electronics elements components languages drawparts
-	itemeditor math khtml kutils ${GPSIM_LIBRARY} ktexteditor kio
-	kdeprint )
+	itemeditor math
+	${KDE4_KHTML_LIBRARY} # khtml
+	${KDE4_KUTILS_LIBRARY} # kutils
+	${GPSIM_LIBRARY}
+	${KDE4_KTEXTEDITOR_LIBRARY} # ktexteditor
+	${KDE4_KIO_LIBRARY} # kio
+	${QT_AND_KDECORE_LIBS}
+	${KDE4_KPARTS_LIBRARY} # kparts
+	# kdeprint # removed in kde4, use Qt4
+	${QT_QTXML_LIBRARY}
+	${KDE4_KDEUI_LIBRARY} # kdeui
+	${QT_QTGUI_LIBRARY} # QtGui
+	${KDE4_KDECORE_LIBRARY} # kdecore
+	${KDE4_KDE3SUPPORT_LIBRARY} # kde3support
+	${QT_QT3SUPPORT_LIBRARY} # Qt3Support
+	${GPSIM_LIBRARY} # gpsim
+	${QT_QTCORE_LIBRARY} # QtCore
+	${KDE4_KFILE_LIBRARY} # kfile
+	)
 
 install(TARGETS ktechlab DESTINATION bin)
 

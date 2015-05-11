@@ -435,7 +435,7 @@ bool Circuit::recursivePinAdd( Pin *node, PinList *unassignedNodes, PinList *ass
 {
 	if ( !unassignedNodes->contains(node) )
 		return false;
-	unassignedNodes->remove(node);
+	unassignedNodes->removeAll(node);
 	
 	bool foundGround = node->eqId() == -1;
 	

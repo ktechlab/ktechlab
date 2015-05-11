@@ -31,10 +31,12 @@
 #include <kconfig.h>
 #include <kdebug.h>
 #include <kglobal.h>
+#include <kconfiggroup.h>
+#include <ksharedconfig.h>
 
-#include <qcursor.h>
-#include <qpainter.h>
-#include <qtimer.h>
+#include <Qt/qcursor.h>
+#include <Qt/qpainter.h>
+#include <Qt/qtimer.h>
 
 // FIXME: This source file is HUUUGE!!!, contains numerous clases, should be broken down. 
 
@@ -54,8 +56,8 @@ CMManager::CMManager( ItemDocument *itemDocument )
 	m_allowItemScrollTmr = new QTimer(this);
 	connect( m_allowItemScrollTmr, SIGNAL(timeout()), this, SLOT(slotAllowItemScroll()) );
 	
-	KGlobal::config()->setGroup("General");
-	slotSetManualRoute( KGlobal::config()->readBoolEntry( "ManualRouting", false ) );
+	KConfigGroup grGen = KGlobal::config()->group("General");
+	slotSetManualRoute( grGen.readEntry( "ManualRouting", false ) );
 }
 
 
@@ -231,7 +233,7 @@ void CMManager::mouseMoveEvent( const EventInfo &eventInfo )
 	if (widget) item = widget->parent();
 	else item = dynamic_cast<Item*>(qcnItem);
 	
-	if ( p_lastMouseOverItem != (QGuardedPtr<Item>)item ) {
+	if ( p_lastMouseOverItem != (QPointer<Item>)item ) {
 		QEvent event(QEvent::Leave);
 		
 		if (p_lastMouseOverItem)
@@ -256,7 +258,7 @@ void CMManager::mouseMoveEvent( const EventInfo &eventInfo )
 
 void CMManager::updateCurrentResizeHandle( ResizeHandle * resizeHandle )
 {
-	if ( p_lastMouseOverResizeHandle != (QGuardedPtr<ResizeHandle>)resizeHandle )
+	if ( p_lastMouseOverResizeHandle != (QPointer<ResizeHandle>)resizeHandle )
 	{
 		if (p_lastMouseOverResizeHandle)
 			p_lastMouseOverResizeHandle->setHover(false);
@@ -329,8 +331,8 @@ void CMManager::setDrawAction( int drawAction )
 
 void CMManager::slotSetManualRoute( bool manualRoute )
 {
-	KGlobal::config()->setGroup("General");
-	KGlobal::config()->writeEntry( "ManualRouting", manualRoute );
+	KConfigGroup grGen = KGlobal::config()->group("General");
+	grGen.writeEntry( "ManualRouting", manualRoute );
 	
 	setCMState( cms_manual_route, manualRoute );
 }
@@ -1819,8 +1821,8 @@ ManualConnectorDraw::ManualConnectorDraw( ICNDocument *_icnDocument, const QPoin
 
 ManualConnectorDraw::~ManualConnectorDraw()
 {
-	const QValueList<QCanvasLine*>::iterator end = m_connectorLines.end();
-	for ( QValueList<QCanvasLine*>::iterator it = m_connectorLines.begin(); it != end; ++it )
+	const QList<QCanvasLine*>::iterator end = m_connectorLines.end();
+	for ( QList<QCanvasLine*>::iterator it = m_connectorLines.begin(); it != end; ++it )
 		delete *it;
 	
 	m_connectorLines.clear();
@@ -1830,8 +1832,8 @@ void ManualConnectorDraw::setColor( const QColor & color )
 {
 	m_color = color;
 	
-	const QValueList<QCanvasLine*>::iterator end = m_connectorLines.end();
-	for ( QValueList<QCanvasLine*>::iterator it = m_connectorLines.begin(); it != end; ++it )
+	const QList<QCanvasLine*>::iterator end = m_connectorLines.end();
+	for ( QList<QCanvasLine*>::iterator it = m_connectorLines.begin(); it != end; ++it )
 		(*it)->setPen( m_color );
 }
 
@@ -1909,8 +1911,8 @@ QPointList ManualConnectorDraw::pointList()
 	QPointList list;
 	list.append(m_initialPos);
 	
-	const QValueList<QCanvasLine*>::iterator end = m_connectorLines.end();
-	for ( QValueList<QCanvasLine*>::iterator it = m_connectorLines.begin(); it != end; ++it )
+	const QList<QCanvasLine*>::iterator end = m_connectorLines.end();
+	for ( QList<QCanvasLine*>::iterator it = m_connectorLines.begin(); it != end; ++it )
 	{
 		list.append( (*it)->endPoint() );
 	}
