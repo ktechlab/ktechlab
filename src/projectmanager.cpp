@@ -1187,7 +1187,7 @@ void ProjectManager::slotItemClicked( Q3ListViewItem * item )
 }
 
 
-void ProjectManager::slotContextMenuRequested( K3ListViewItem * item, const QPoint& pos, int /*col*/ )
+void ProjectManager::slotContextMenuRequested( Q3ListViewItem* item, const QPoint& pos, int col /*col*/ )
 {
 	QString popupName;
 	ILVItem * ilvItem = dynamic_cast<ILVItem*>(item);
