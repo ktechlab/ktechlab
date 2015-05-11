@@ -30,10 +30,10 @@ CircuitICNDocument::CircuitICNDocument( const QString &caption, const char *name
 
 CircuitICNDocument::~CircuitICNDocument()
 {
-	// Go to hell, QCanvas. I'm in charge of what gets deleted.
-	QCanvasItemList all = m_canvas->allItems();
-	const QCanvasItemList::Iterator end = all.end();
-	for ( QCanvasItemList::Iterator it= all.begin(); it != end; ++it )
+	// Go to hell, KtlQCanvas. I'm in charge of what gets deleted.
+	KtlQCanvasItemList all = m_canvas->allItems();
+	const KtlQCanvasItemList::Iterator end = all.end();
+	for ( KtlQCanvasItemList::Iterator it= all.begin(); it != end; ++it )
 		(*it)->setCanvas(0l);
 	
 	// Remove all items from the canvas
@@ -61,7 +61,7 @@ void CircuitICNDocument::deleteAllNodes() {
 }
 
 
-bool CircuitICNDocument::canConnect( QCanvasItem *qcanvasItem1, QCanvasItem *qcanvasItem2 ) const
+bool CircuitICNDocument::canConnect( KtlQCanvasItem *qcanvasItem1, KtlQCanvasItem *qcanvasItem2 ) const
 {
 	// Rough outline of what can and can't connect:
 	// * At most three connectors to a node
@@ -313,8 +313,8 @@ void CircuitICNDocument::slotAssignNodeGroups()
 void CircuitICNDocument::flushDeleteList()
 {
 	// Remove duplicate items in the delete list
-	QCanvasItemList::iterator end = m_itemDeleteList.end();
-	for ( QCanvasItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it )
+	KtlQCanvasItemList::iterator end = m_itemDeleteList.end();
+	for ( KtlQCanvasItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it )
 	{
 		if ( *it && (m_itemDeleteList.count( *it ) > 1) ) {
 			*it = 0;
@@ -325,9 +325,9 @@ void CircuitICNDocument::flushDeleteList()
 
 /* again we're spending time to figure out what special method to call instead of a generic call..*/
 	end = m_itemDeleteList.end();
-	for ( QCanvasItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it )
+	for ( KtlQCanvasItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it )
 	{
-		QCanvasItem *qcanvasItem = *it;
+		KtlQCanvasItem *qcanvasItem = *it;
 		m_selectList->removeQCanvasItem ( *it );
 
 		if ( Item *item = dynamic_cast<Item*> ( qcanvasItem ) )
@@ -364,7 +364,7 @@ void CircuitICNDocument::flushDeleteList()
 }
 
 
-bool CircuitICNDocument::registerItem( QCanvasItem *qcanvasItem )
+bool CircuitICNDocument::registerItem( KtlQCanvasItem *qcanvasItem )
 {
 	if(!qcanvasItem) return false;
 

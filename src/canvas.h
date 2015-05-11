@@ -20,35 +20,35 @@
 #include "Qt/qlist.h"
 #include "Qt/q3pointarray.h"
 
-class QCanvasPolygonalItem;
-class QCanvasRectangle;
-class QCanvasPolygon;
-class QCanvasEllipse;
-class QCanvasLine;
-class QCanvasChunk;
-class QCanvas;
-class QCanvasItem;
-class QCanvasView;
+class KtlQCanvasPolygonalItem;
+class KtlQCanvasRectangle;
+class KtlQCanvasPolygon;
+class KtlQCanvasEllipse;
+class KtlQCanvasLine;
+class KtlQCanvasChunk;
+class KtlQCanvas;
+class KtlQCanvasItem;
+class KtlQCanvasView;
 
-typedef std::multimap< double, QCanvasItem* > SortedCanvasItems;
+typedef std::multimap< double, KtlQCanvasItem* > SortedCanvasItems;
 
 
-class QCanvasItemList : public QList<QCanvasItem*>
+class KtlQCanvasItemList : public QList<KtlQCanvasItem*>
 {
 	public:
 		void sort();
-		QCanvasItemList operator+(const QCanvasItemList &l) const;
+		KtlQCanvasItemList operator+(const KtlQCanvasItemList &l) const;
 };
 
 
-class QCanvasItemExtra;
+class KtlQCanvasItemExtra;
 
-class QCanvasItem : public QObject
+class KtlQCanvasItem : public QObject
 {
     Q_OBJECT
 	public:
-		QCanvasItem(QCanvas* canvas);
-		virtual ~QCanvasItem();
+		KtlQCanvasItem(KtlQCanvas* canvas);
+		virtual ~KtlQCanvasItem();
 
 		double x() const { return myx; }
 		double y() const { return myy; }
@@ -60,11 +60,11 @@ class QCanvasItem : public QObject
 		void setY(double a) { move(x(),a); }
 		void setZ(double a);
 
-		virtual bool collidesWith( const QCanvasItem* ) const=0;
+		virtual bool collidesWith( const KtlQCanvasItem* ) const=0;
 
-		QCanvasItemList collisions(const bool exact /* NO DEFAULT */ ) const;
+		KtlQCanvasItemList collisions(const bool exact /* NO DEFAULT */ ) const;
 
-		virtual void setCanvas(QCanvas*);
+		virtual void setCanvas(KtlQCanvas*);
 
 		virtual void draw(QPainter&)=0;
 
@@ -78,11 +78,11 @@ class QCanvasItem : public QObject
 
 		virtual QRect boundingRect() const=0;
 
-		QCanvas* canvas() const { return cnv; }
+		KtlQCanvas* canvas() const { return cnv; }
 		
-		virtual bool collidesWith( const QCanvasPolygonalItem*,
-					   const QCanvasRectangle*,
-					   const QCanvasEllipse* ) const = 0;
+		virtual bool collidesWith( const KtlQCanvasPolygonalItem*,
+					   const KtlQCanvasRectangle*,
+					   const KtlQCanvasEllipse* ) const = 0;
 
 		bool needRedraw() const { return m_bNeedRedraw; }
 		void setNeedRedraw( const bool needRedraw ) { m_bNeedRedraw = needRedraw; }
@@ -99,25 +99,25 @@ class QCanvasItem : public QObject
 		double myx,myy,myz;
 
 	private:
-		QCanvas* cnv;
-		static QCanvas* current_canvas;
-		QCanvasItemExtra *ext;
-		QCanvasItemExtra& extra();
+		KtlQCanvas* cnv;
+		static KtlQCanvas* current_canvas;
+		KtlQCanvasItemExtra *ext;
+		KtlQCanvasItemExtra& extra();
 		bool m_bNeedRedraw;
 		bool vis;
 		bool sel;
 
 };
 
-class QCanvas : public QObject
+class KtlQCanvas : public QObject
 {
 	Q_OBJECT
 	public:
-		QCanvas( QObject* parent = 0, const char* name = 0 );
-		QCanvas( const int w, const int h);
-		QCanvas( QPixmap p, int h, int v, int tilewidth, int tileheight );
+		KtlQCanvas( QObject* parent = 0, const char* name = 0 );
+		KtlQCanvas( const int w, const int h);
+		KtlQCanvas( QPixmap p, int h, int v, int tilewidth, int tileheight );
 
-		virtual ~QCanvas();
+		virtual ~KtlQCanvas();
 
 		virtual void setTiles( QPixmap tiles, int h, int v,
 							   int tilewidth, int tileheight );
@@ -155,28 +155,28 @@ class QCanvas : public QObject
 		virtual void setUnchanged(const QRect& area);
 
 		// These call setChangedChunk.
-		void addItemToChunk(QCanvasItem*, int i, int j);
-		void removeItemFromChunk(QCanvasItem*, int i, int j);
-		void addItemToChunkContaining(QCanvasItem*, int x, int y);
-		void removeItemFromChunkContaining(QCanvasItem*, int x, int y);
+		void addItemToChunk(KtlQCanvasItem*, int i, int j);
+		void removeItemFromChunk(KtlQCanvasItem*, int i, int j);
+		void addItemToChunkContaining(KtlQCanvasItem*, int x, int y);
+		void removeItemFromChunkContaining(KtlQCanvasItem*, int x, int y);
 
-		QCanvasItemList allItems();
-		QCanvasItemList collisions( const QPoint&) const;
-		QCanvasItemList collisions( const QRect&) const;
-		QCanvasItemList collisions( const Q3PointArray& pa, const QCanvasItem* item,
+		KtlQCanvasItemList allItems();
+		KtlQCanvasItemList collisions( const QPoint&) const;
+		KtlQCanvasItemList collisions( const QRect&) const;
+		KtlQCanvasItemList collisions( const Q3PointArray& pa, const KtlQCanvasItem* item,
 						bool exact) const;
 
 		void drawArea(const QRect&, QPainter* p, bool double_buffer=false);
 
-		// These are for QCanvasView to call
-		virtual void addView(QCanvasView*);
-		virtual void removeView(QCanvasView*);
+		// These are for KtlQCanvasView to call
+		virtual void addView(KtlQCanvasView*);
+		virtual void removeView(KtlQCanvasView*);
 		void drawCanvasArea(const QRect&, QPainter* p=0, bool double_buffer=true);
-		void drawViewArea( QCanvasView* view, QPainter* p, const QRect& r, bool dbuf );
+		void drawViewArea( KtlQCanvasView* view, QPainter* p, const QRect& r, bool dbuf );
 
-		// These are for QCanvasItem to call
-		virtual void addItem(QCanvasItem*);
-		virtual void removeItem(const QCanvasItem*);
+		// These are for KtlQCanvasItem to call
+		virtual void addItem(KtlQCanvasItem*);
+		virtual void removeItem(const KtlQCanvasItem*);
 
 		virtual void setUpdatePeriod(int ms);
 		int toChunkScaling( int x ) const;
@@ -197,23 +197,23 @@ class QCanvas : public QObject
 		void init(const QRect & r, int chunksze=16, int maxclust=100);
 		void initChunkSize( const QRect & s );
 
-		QCanvasChunk& chunk(int i, int j) const;
-		QCanvasChunk& chunkContaining(int x, int y) const;
+		KtlQCanvasChunk& chunk(int i, int j) const;
+		KtlQCanvasChunk& chunkContaining(int x, int y) const;
 
 		QRect changeBounds(const QRect& inarea);
 		void drawChanges(const QRect& inarea);
 		void drawChangedItems( QPainter & painter );
-		void setNeedRedraw( const QCanvasItemList * list );
+		void setNeedRedraw( const KtlQCanvasItemList * list );
 
 		QPixmap offscr;
 		int chunksize;
 		int maxclusters;
 		QRect m_size;
 		QRect m_chunkSize;
-		QCanvasChunk* chunks;
+		KtlQCanvasChunk* chunks;
 
 		SortedCanvasItems m_canvasItems;
-		Q3PtrList<QCanvasView> m_viewList;
+		Q3PtrList<KtlQCanvasView> m_viewList;
 
 		void initTiles(QPixmap p, int h, int v, int tilewidth, int tileheight);
 		ushort *grid;
@@ -227,26 +227,26 @@ class QCanvas : public QObject
 		QColor bgcolor;
 		bool debug_redraw_areas;
 
-		friend void qt_unview(QCanvas* c);
+		friend void qt_unview(KtlQCanvas* c);
 
-		QCanvas( const QCanvas & );
-		QCanvas &operator=( const QCanvas & );
+		KtlQCanvas( const KtlQCanvas & );
+		KtlQCanvas &operator=( const KtlQCanvas & );
 };
 
-class QCanvasViewData;
+class KtlQCanvasViewData;
 
-class QCanvasView : public Q3ScrollView
+class KtlQCanvasView : public Q3ScrollView
 {
 	Q_OBJECT
 	public:
 
-		QCanvasView(QWidget* parent=0, const char* name=0, Qt::WFlags f=0);
-		QCanvasView(QCanvas* viewing, QWidget* parent=0, const char* name=0, Qt::WFlags f=0);
-		~QCanvasView();
+		KtlQCanvasView(QWidget* parent=0, const char* name=0, Qt::WFlags f=0);
+		KtlQCanvasView(KtlQCanvas* viewing, QWidget* parent=0, const char* name=0, Qt::WFlags f=0);
+		~KtlQCanvasView();
 
-		QCanvas* canvas() const
+		KtlQCanvas* canvas() const
 		{ return viewing; }
-		void setCanvas(QCanvas* v);
+		void setCanvas(KtlQCanvas* v);
 
 		const QMatrix &worldMatrix() const;
 		const QMatrix &inverseWorldMatrix() const;
@@ -258,11 +258,11 @@ class QCanvasView : public Q3ScrollView
 
 	private:
 		void drawContents( QPainter* );
-		QCanvas* viewing;
-		QCanvasViewData* d;
-		friend void qt_unview(QCanvas* c);
-		QCanvasView( const QCanvasView & );
-		QCanvasView &operator=( const QCanvasView & );
+		KtlQCanvas* viewing;
+		KtlQCanvasViewData* d;
+		friend void qt_unview(KtlQCanvas* c);
+		KtlQCanvasView( const KtlQCanvasView & );
+		KtlQCanvasView &operator=( const KtlQCanvasView & );
 
 	private slots:
 		void cMoving(int,int);
@@ -271,15 +271,15 @@ class QCanvasView : public Q3ScrollView
 };
 
 
-class QPolygonalProcessor;
+class KtlQPolygonalProcessor;
 
-class QCanvasPolygonalItem : public QCanvasItem
+class KtlQCanvasPolygonalItem : public KtlQCanvasItem
 {
 	public:
-		QCanvasPolygonalItem(QCanvas* canvas);
-		virtual ~QCanvasPolygonalItem();
+		KtlQCanvasPolygonalItem(KtlQCanvas* canvas);
+		virtual ~KtlQCanvasPolygonalItem();
 
-		bool collidesWith( const QCanvasItem* ) const;
+		bool collidesWith( const KtlQCanvasItem* ) const;
 
 		virtual void setPen( const QPen & p );
 		virtual void setBrush( const QBrush & b );
@@ -305,13 +305,13 @@ class QCanvasPolygonalItem : public QCanvasItem
 
 	private:
 		void scanPolygon( const Q3PointArray& pa, int winding,
-					QPolygonalProcessor& process ) const;
+					KtlQPolygonalProcessor& process ) const;
 
 		Q3PointArray chunks() const;
 
-		bool collidesWith( const QCanvasPolygonalItem*,
-				   const QCanvasRectangle*,
-				   const QCanvasEllipse* ) const;
+		bool collidesWith( const KtlQCanvasPolygonalItem*,
+				   const KtlQCanvasRectangle*,
+				   const KtlQCanvasEllipse* ) const;
 
 		QBrush br;
 		QPen pn;
@@ -319,14 +319,14 @@ class QCanvasPolygonalItem : public QCanvasItem
 };
 
 
-class QCanvasRectangle : public QCanvasPolygonalItem
+class KtlQCanvasRectangle : public KtlQCanvasPolygonalItem
 {
 	public:
-		QCanvasRectangle(QCanvas* canvas);
-		QCanvasRectangle(const QRect&, QCanvas* canvas);
-		QCanvasRectangle(int x, int y, int width, int height, QCanvas* canvas);
+		KtlQCanvasRectangle(KtlQCanvas* canvas);
+		KtlQCanvasRectangle(const QRect&, KtlQCanvas* canvas);
+		KtlQCanvasRectangle(int x, int y, int width, int height, KtlQCanvas* canvas);
 
-		~QCanvasRectangle();
+		~KtlQCanvasRectangle();
 
 		int width() const;
 		int height() const;
@@ -337,26 +337,26 @@ class QCanvasRectangle : public QCanvasPolygonalItem
 		QRect rect() const
 		{ return QRect(int(x()),int(y()),w,h); }
 
-		bool collidesWith( const QCanvasItem* ) const;
+		bool collidesWith( const KtlQCanvasItem* ) const;
 
 	protected:
 		void drawShape(QPainter &);
 		Q3PointArray chunks() const;
 
 	private:
-		bool collidesWith( const QCanvasPolygonalItem*,
-				   const QCanvasRectangle*,
-				   const QCanvasEllipse* ) const;
+		bool collidesWith( const KtlQCanvasPolygonalItem*,
+				   const KtlQCanvasRectangle*,
+				   const KtlQCanvasEllipse* ) const;
 
 		int w, h;
 };
 
 
-class QCanvasPolygon : public QCanvasPolygonalItem
+class KtlQCanvasPolygon : public KtlQCanvasPolygonalItem
 {
 	public:
-		QCanvasPolygon(QCanvas* canvas);
-		~QCanvasPolygon();
+		KtlQCanvasPolygon(KtlQCanvas* canvas);
+		~KtlQCanvasPolygon();
 		void setPoints(Q3PointArray);
 		Q3PointArray points() const;
 		void moveBy(double dx, double dy);
@@ -369,11 +369,11 @@ class QCanvasPolygon : public QCanvasPolygonalItem
 };
 
 
-class QCanvasLine : public QCanvasPolygonalItem
+class KtlQCanvasLine : public KtlQCanvasPolygonalItem
 {
 	public:
-		QCanvasLine(QCanvas* canvas);
-		~QCanvasLine();
+		KtlQCanvasLine(KtlQCanvas* canvas);
+		~KtlQCanvasLine();
 		void setPoints(int x1, int y1, int x2, int y2);
 
 		QPoint startPoint() const
@@ -393,16 +393,16 @@ class QCanvasLine : public QCanvasPolygonalItem
 };
 
 
-class QCanvasEllipse : public QCanvasPolygonalItem
+class KtlQCanvasEllipse : public KtlQCanvasPolygonalItem
 {
 
 	public:
-		QCanvasEllipse( QCanvas* canvas );
-		QCanvasEllipse( int width, int height, QCanvas* canvas );
-		QCanvasEllipse( int width, int height, int startangle, int angle,
-					QCanvas* canvas );
+		KtlQCanvasEllipse( KtlQCanvas* canvas );
+		KtlQCanvasEllipse( int width, int height, KtlQCanvas* canvas );
+		KtlQCanvasEllipse( int width, int height, int startangle, int angle,
+					KtlQCanvas* canvas );
 
-		~QCanvasEllipse();
+		~KtlQCanvasEllipse();
 
 		int width() const;
 		int height() const;
@@ -412,15 +412,15 @@ class QCanvasEllipse : public QCanvasPolygonalItem
 		int angleLength() const { return a2; }
 		Q3PointArray areaPoints() const;
 
-		bool collidesWith( const QCanvasItem* ) const;
+		bool collidesWith( const KtlQCanvasItem* ) const;
 
 	protected:
 		void drawShape(QPainter &);
 
 	private:
-		bool collidesWith( const QCanvasPolygonalItem*,
-				   const QCanvasRectangle*,
-				   const QCanvasEllipse* ) const;
+		bool collidesWith( const KtlQCanvasPolygonalItem*,
+				   const KtlQCanvasRectangle*,
+				   const KtlQCanvasEllipse* ) const;
 		int w, h;
 		int a1, a2;
 };

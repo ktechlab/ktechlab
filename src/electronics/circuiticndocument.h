@@ -38,7 +38,7 @@ public:
 	 * given QCanvasItems (either nodes or connectors or both) can be
 	 * connected together.
 	 */
-	virtual bool canConnect ( QCanvasItem *qcanvasItem1, QCanvasItem *qcanvasItem2 ) const;
+	virtual bool canConnect ( KtlQCanvasItem *qcanvasItem1, KtlQCanvasItem *qcanvasItem2 ) const;
 	
 	/**
 	 * Splits Connector con into two connectors at point pos2, and creates a connector from the node
@@ -79,7 +79,7 @@ public:
 	
 	/**
 	 * Permantly deletes all items that have been added to the delete list with
-	 * the appendDeleteList( QCanvasItem *qcanvasItem ) function.
+	 * the appendDeleteList( KtlQCanvasItem *qcanvasItem ) function.
 	 */
 	virtual void flushDeleteList();
 	
@@ -89,7 +89,7 @@ public:
 	 * @param qcanvasItem the item to be registered
 	 * @return true if succeeded, false if it didn't
 	 */
-	virtual bool registerItem ( QCanvasItem *qcanvasItem );
+	virtual bool registerItem ( KtlQCanvasItem *qcanvasItem );
 	
 	virtual void unregisterUID ( const QString & uid );
 	

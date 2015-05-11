@@ -16,7 +16,7 @@
 
 #include <kdebug.h>
 
-CIWidgetMgr::CIWidgetMgr( QCanvas *canvas, CNItem *item )
+CIWidgetMgr::CIWidgetMgr( KtlQCanvas *canvas, CNItem *item )
 {
 	p_cnItem = item;
 	p_canvas = canvas;
@@ -25,9 +25,9 @@ CIWidgetMgr::CIWidgetMgr( QCanvas *canvas, CNItem *item )
 
 CIWidgetMgr::~CIWidgetMgr()
 {
-	// QCanvas deletes our items for us. Actually, it pretty much insists on deleting them,
+	// KtlQCanvas deletes our items for us. Actually, it pretty much insists on deleting them,
 	// despite me telling it not to, so if I delete them then it gets confused and crashes.
-	// Naughty QCanvas!
+	// Naughty KtlQCanvas!
 	const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
 	for ( WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it )
 	{

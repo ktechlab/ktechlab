@@ -31,7 +31,7 @@ typedef QList<QPointer<Node> > NodeList;
 @short A standard node that can be associated with a Connector or a CNItem
 @author David Saxton
 */
-class Node : /* public QObject, */ public QCanvasPolygon
+class Node : /* public QObject, */ public KtlQCanvasPolygon
 {
 Q_OBJECT
 public:

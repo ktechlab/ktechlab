@@ -114,7 +114,7 @@ class ItemView : public View
 /**
 @author David Saxton
 */
-class CVBEditor : public QCanvasView
+class CVBEditor : public KtlQCanvasView
 {
 	Q_OBJECT
 	public:

@@ -32,7 +32,7 @@ const QString SIprefix[] = {"y","z","a","f","p","n",QChar(0xB5),"m","","k","M","
 
 Item::Item( ItemDocument *itemDocument, bool newItem, const QString &id )
 	: //QObject(),
-        QCanvasPolygon( itemDocument ? itemDocument->canvas() : 0 )
+        KtlQCanvasPolygon( itemDocument ? itemDocument->canvas() : 0 )
 {
 	m_bDynamicContent = false;
 	m_bIsRaised = false;
@@ -65,7 +65,7 @@ Item::~Item()
 		p_itemDocument->unregisterUID( id() );
 	}
 	
-	QCanvasPolygon::hide();
+	KtlQCanvasPolygon::hide();
 	
 	const VariantDataMap::iterator variantDataEnd = m_variantData.end();
 	for ( VariantDataMap::iterator it = m_variantData.begin(); it != variantDataEnd; ++it )
@@ -98,7 +98,7 @@ QFont Item::font() const
 
 void Item::moveBy( double dx, double dy )
 {
-	QCanvasPolygon::moveBy(dx,dy);
+	KtlQCanvasPolygon::moveBy(dx,dy);
 	emit movedBy( dx, dy );
 }
 
@@ -383,7 +383,7 @@ void Item::setSelected( bool yes )
 {
 	if ( isSelected() == yes )
 		return;
-	QCanvasPolygon::setSelected(yes);
+	KtlQCanvasPolygon::setSelected(yes);
 	emit selectionChanged();
 }
 

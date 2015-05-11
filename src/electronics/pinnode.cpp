@@ -45,7 +45,7 @@ inline int calcLength( double v )
 PinNode::PinNode(ICNDocument* icnDocument, int dir, const QPoint& pos, QString* id) :
 		  ECNode(icnDocument, Node::ec_pin, dir, pos, id)
 {
-	m_pinPoint = new QCanvasRectangle( 0, 0, 3, 3, canvas() );
+	m_pinPoint = new KtlQCanvasRectangle( 0, 0, 3, 3, canvas() );
 	m_pinPoint->setBrush(Qt::black);
 	m_pinPoint->setPen( QPen(Qt::black));
 }

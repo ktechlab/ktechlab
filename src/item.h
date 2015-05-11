@@ -40,7 +40,7 @@ typedef QList<GuardedItem> ItemList;
 @author David Saxton
 @author Daniel Clarke
 */
-class Item : /* public QObject, */ public QCanvasPolygon
+class Item : /* public QObject, */ public KtlQCanvasPolygon
 {
 Q_OBJECT
 public:

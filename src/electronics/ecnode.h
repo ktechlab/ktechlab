@@ -145,7 +145,7 @@ class ECNode : public Node
 		bool m_bShowVoltageColor;
 		double m_prevV;
 		double m_prevI;
-		QCanvasRectangle * m_pinPoint;
+		KtlQCanvasRectangle * m_pinPoint;
 		PinVector m_pins;
 		
 		// -- functionality from node.h --

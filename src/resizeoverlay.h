@@ -29,7 +29,7 @@ typedef QMap< int, QPointer<ResizeHandle> > ResizeHandleMap;
 /**
 @author David Saxton
 */
-class ResizeHandle : /* public QObject, */ public QCanvasRectangle
+class ResizeHandle : /* public QObject, */ public KtlQCanvasRectangle
 {
 	Q_OBJECT
 public:

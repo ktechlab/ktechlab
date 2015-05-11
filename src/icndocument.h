@@ -72,13 +72,13 @@ public:
 	 */
 	Connector* connectorWithID( const QString &id );
 	/**
-	 * Adds a QCanvasItem to the delete list to be deleted,
+	 * Adds a KtlQCanvasItem to the delete list to be deleted,
 	 * when flushDeleteList() is called
 	 */
-	virtual void appendDeleteList( QCanvasItem *qcanvasItem );
+	virtual void appendDeleteList( KtlQCanvasItem *qcanvasItem );
 	/**
 	 * Permantly deletes all items that have been added to the delete list with
-	 * the appendDeleteList( QCanvasItem *qcanvasItem ) function.
+	 * the appendDeleteList( KtlQCanvasItem *qcanvasItem ) function.
 	 */
 	virtual void flushDeleteList() = 0;
 	/**
@@ -86,7 +86,7 @@ public:
 	 * given QCanvasItems (either nodes or connectors or both) can be
 	 * connected together.
 	 */
-	virtual bool canConnect( QCanvasItem *qcanvasItem1, QCanvasItem *qcanvasItem2 ) const;
+	virtual bool canConnect( KtlQCanvasItem *qcanvasItem1, KtlQCanvasItem *qcanvasItem2 ) const;
 	/**
 	 *        copies the selected items to the clipboard, in an XML text form
 	 */
@@ -102,7 +102,7 @@ public:
 	 * @param qcanvasItem the item to be registered
 	 * @return true if succeeded, false if it didn't
 	 */
-	virtual bool registerItem( QCanvasItem *qcanvasItem );
+	virtual bool registerItem( KtlQCanvasItem *qcanvasItem );
 	/**
 	 * Returns a pointer to the 2-dimension array of ICNDocument cells.
 	 */
@@ -283,7 +283,7 @@ protected:
 	CNItemGroup *m_selectList; // Selected objects
 
 	// OVERLOADED	
-	QCanvasItemList m_itemDeleteList; // List of canvas items to be deleted
+	KtlQCanvasItemList m_itemDeleteList; // List of canvas items to be deleted
 
 private:
 	Cells *m_cells;

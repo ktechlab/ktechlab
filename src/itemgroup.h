@@ -23,8 +23,8 @@ class Variant;
 
 typedef QList<QPointer<Item> > ItemList;
 
-class QCanvasItem;
-class QCanvasItemList;
+class KtlQCanvasItem;
+class KtlQCanvasItemList;
 
 /**
 Generic base class for controlling a selection of Item. Provides
@@ -45,10 +45,10 @@ public:
 	 */
 	Item *activeItem() const { return m_activeItem; }
 	uint itemCount() const { return m_itemList.count(); }
-	virtual bool addQCanvasItem( QCanvasItem *qcanvasItem ) = 0;
-	virtual void setItems( QCanvasItemList list ) = 0;
-	virtual void removeQCanvasItem( QCanvasItem *qcanvasItem ) = 0;
-	virtual bool contains( QCanvasItem *qcanvasItem ) const = 0;
+	virtual bool addQCanvasItem( KtlQCanvasItem *qcanvasItem ) = 0;
+	virtual void setItems( KtlQCanvasItemList list ) = 0;
+	virtual void removeQCanvasItem( KtlQCanvasItem *qcanvasItem ) = 0;
+	virtual bool contains( KtlQCanvasItem *qcanvasItem ) const = 0;
 	virtual uint count() const = 0;
 	bool isEmpty() const { return (count() == 0); }
 	virtual void mergeGroup( ItemGroup *group ) = 0;

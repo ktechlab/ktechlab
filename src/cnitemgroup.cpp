@@ -81,7 +81,7 @@ bool CNItemGroup::addConnector( Connector *con )
 }
 
 
-bool CNItemGroup::addQCanvasItem( QCanvasItem *qcanvasItem )
+bool CNItemGroup::addQCanvasItem( KtlQCanvasItem *qcanvasItem )
 {
 	if (!qcanvasItem) return false;
 	
@@ -106,14 +106,14 @@ bool CNItemGroup::addQCanvasItem( QCanvasItem *qcanvasItem )
 	return false;
 }
 
-void CNItemGroup::setItems( QCanvasItemList list )
+void CNItemGroup::setItems( KtlQCanvasItemList list )
 {
 	ItemList itemRemoveList = m_itemList;
 	ConnectorList connectorRemoveList = m_connectorList;
 	NodeList nodeRemoveList = m_nodeList;
 	
-	const QCanvasItemList::const_iterator end = list.end();
-	for ( QCanvasItemList::const_iterator it = list.begin(); it != end; ++it )
+	const KtlQCanvasItemList::const_iterator end = list.end();
+	for ( KtlQCanvasItemList::const_iterator it = list.begin(); it != end; ++it )
 	{
 		if ( Item * item = dynamic_cast<Item*>(*it) )
 			itemRemoveList.remove( item );
@@ -156,8 +156,8 @@ void CNItemGroup::setItems( QCanvasItemList list )
 	}
 	
 	{
-		const QCanvasItemList::const_iterator end = list.end();
-		for ( QCanvasItemList::const_iterator it = list.begin(); it != end; ++it )
+		const KtlQCanvasItemList::const_iterator end = list.end();
+		for ( KtlQCanvasItemList::const_iterator it = list.begin(); it != end; ++it )
 		{
 			// We don't need to check that we've already got the item as it will
 			// be checked in the function call
@@ -202,7 +202,7 @@ void CNItemGroup::removeConnector( Connector *con )
 }
 
 
-void CNItemGroup::removeQCanvasItem( QCanvasItem *qcanvasItem )
+void CNItemGroup::removeQCanvasItem( KtlQCanvasItem *qcanvasItem )
 {
 	if (!qcanvasItem) return;
 	
@@ -289,7 +289,7 @@ ConnectorList CNItemGroup::connectors( bool excludeParented ) const
 }
 
 
-bool CNItemGroup::contains( QCanvasItem *qcanvasItem ) const
+bool CNItemGroup::contains( KtlQCanvasItem *qcanvasItem ) const
 {
 	if (!qcanvasItem)
 		return false;

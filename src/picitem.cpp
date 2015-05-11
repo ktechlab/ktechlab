@@ -35,7 +35,7 @@ static const int PinDirArrow = 3;
 
 //BEGIN class PinItem
 PinItem::PinItem( FlowCodeDocument* _view, QPoint position, bool _onLeft, PinSettings * pinSettings )
-	: QCanvasRectangle(0)
+	: KtlQCanvasRectangle(0)
 {
 	m_pinSettings = pinSettings;
 	view = _view;
@@ -193,7 +193,7 @@ void PinItem::dragged( int dx )
 
 void PinItem::moveBy ( double dx, double dy )
 {
-	QCanvasRectangle::moveBy( dx, dy );
+	KtlQCanvasRectangle::moveBy( dx, dy );
 	calcTextRect();
 }
 

@@ -407,7 +407,7 @@ void ItemView::contentsMouseDoubleClickEvent( QMouseEvent *e )
 	e->accept();
 	
 	//HACK: Pass this of as a single press event if widget underneath
-	QCanvasItem * atTop = p_itemDocument->itemAtTop( e->pos()/zoomLevel() );
+	KtlQCanvasItem * atTop = p_itemDocument->itemAtTop( e->pos()/zoomLevel() );
 	if ( dynamic_cast<Widget*>(atTop) )
 		contentsMousePressEvent(e);
 	else	p_itemDocument->m_cmManager->mouseDoubleClickEvent( EventInfo( this, e ) );
@@ -620,7 +620,7 @@ void ItemView::updateStatus()
 				break;
 		}
 				
-	} else if ( QCanvasItem *qcanvasItem = itemDocument->itemAtTop(pos) ) {
+	} else if ( KtlQCanvasItem *qcanvasItem = itemDocument->itemAtTop(pos) ) {
 		if ( Connector * con = dynamic_cast<Connector*>(qcanvasItem) )
 		{
 			cursor = Qt::CrossCursor;
@@ -654,7 +654,7 @@ void ItemView::updateStatus()
 
 //BEGIN class CVBEditor
 CVBEditor::CVBEditor( Canvas *canvas, ItemView *itemView, const char *name )
-	: QCanvasView( canvas, itemView, name, Qt::WNoAutoErase | Qt::WStaticContents )
+	: KtlQCanvasView( canvas, itemView, name, Qt::WNoAutoErase | Qt::WStaticContents )
 {
 	m_pCanvas = canvas;
 	b_ignoreEvents = false;
@@ -716,7 +716,7 @@ void CVBEditor::contentsWheelEvent( QWheelEvent * e )
 	if ( b_ignoreEvents )
 		return;
 	b_ignoreEvents = true;
-	QCanvasView::wheelEvent( e );
+	KtlQCanvasView::wheelEvent( e );
 	b_ignoreEvents = false;
 #endif
 }
@@ -731,7 +731,7 @@ bool CVBEditor::event( QEvent * e )
 			return false;
 		
 		b_ignoreEvents = isWheel;
-		bool accepted = QCanvasView::event( e );
+		bool accepted = KtlQCanvasView::event( e );
 		b_ignoreEvents = false;
 		return accepted;
 	}
@@ -783,14 +783,14 @@ bool CVBEditor::event( QEvent * e )
 			return ((QWheelEvent*)e)->isAccepted();
 			
 		default:
-			return QCanvasView::event( e );
+			return KtlQCanvasView::event( e );
 	}
 }
 
 
 void CVBEditor::viewportResizeEvent( QResizeEvent * e )
 {
-	QCanvasView::viewportResizeEvent(e);
+	KtlQCanvasView::viewportResizeEvent(e);
 	p_itemView->p_itemDocument->requestEvent( ItemDocument::ItemDocumentEvent::ResizeCanvasToItems );
 }
 //END class CVBEditor

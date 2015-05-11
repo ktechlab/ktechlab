@@ -119,7 +119,7 @@ void ItemDocument::handleNewView( View * view )
 	requestEvent( ItemDocument::ItemDocumentEvent::ResizeCanvasToItems );
 }
 
-bool ItemDocument::registerItem(QCanvasItem *qcanvasItem)
+bool ItemDocument::registerItem(KtlQCanvasItem *qcanvasItem)
 {
 	if (!qcanvasItem) return false;
 	
@@ -451,7 +451,7 @@ void ItemDocument::unselectAll()
 }
 
 
-void ItemDocument::select( QCanvasItem * item )
+void ItemDocument::select( KtlQCanvasItem * item )
 {
 	if (!item) return;
 
@@ -459,17 +459,17 @@ void ItemDocument::select( QCanvasItem * item )
 }
 
 
-void ItemDocument::select( const QCanvasItemList & list )
+void ItemDocument::select( const KtlQCanvasItemList & list )
 {
-	const QCanvasItemList::const_iterator end = list.end();
-	for ( QCanvasItemList::const_iterator it = list.begin(); it != end; ++it )
+	const KtlQCanvasItemList::const_iterator end = list.end();
+	for ( KtlQCanvasItemList::const_iterator it = list.begin(); it != end; ++it )
 		selectList()->addQCanvasItem(*it);
 	
 	selectList()->setSelected(true);
 }
 
 
-void ItemDocument::unselect( QCanvasItem *qcanvasItem )
+void ItemDocument::unselect( KtlQCanvasItem *qcanvasItem )
 {
 	selectList()->removeQCanvasItem(qcanvasItem);
 	qcanvasItem->setSelected(false);
@@ -483,14 +483,14 @@ void ItemDocument::slotUpdateConfiguration()
 }
 
 
-QCanvasItem* ItemDocument::itemAtTop( const QPoint &pos ) const
+KtlQCanvasItem* ItemDocument::itemAtTop( const QPoint &pos ) const
 {
-	QCanvasItemList list = m_canvas->collisions( QRect( pos.x()-1, pos.y()-1, 3, 3 ) );
-	QCanvasItemList::const_iterator it = list.begin();
-	const QCanvasItemList::const_iterator end = list.end();
+	KtlQCanvasItemList list = m_canvas->collisions( QRect( pos.x()-1, pos.y()-1, 3, 3 ) );
+	KtlQCanvasItemList::const_iterator it = list.begin();
+	const KtlQCanvasItemList::const_iterator end = list.end();
 
 	while ( it != end ) {
-		QCanvasItem *item = *it;
+		KtlQCanvasItem *item = *it;
 		if(	!dynamic_cast<Item*>(item) &&
 			!dynamic_cast<ConnectorLine*>(item) &&
 			!dynamic_cast<Node*>(item) &&
@@ -567,7 +567,7 @@ QString ItemDocument::generateUID( QString name )
 }
 
 // FIXME: popup menu doesn't seem to work these days. =( 
-void ItemDocument::canvasRightClick( const QPoint &pos, QCanvasItem* item )
+void ItemDocument::canvasRightClick( const QPoint &pos, KtlQCanvasItem* item )
 {
 	if (item) {
 		if ( dynamic_cast<CNItem*>(item) &&
@@ -782,10 +782,10 @@ QRect ItemDocument::canvasBoundingRect() const
 		if ( dragItem ) break;
 	}
 	
-	const QCanvasItemList allItems = canvas()->allItems();
-	const QCanvasItemList::const_iterator end = allItems.end();
+	const KtlQCanvasItemList allItems = canvas()->allItems();
+	const KtlQCanvasItemList::const_iterator end = allItems.end();
 
-	for ( QCanvasItemList::const_iterator it = allItems.begin(); it != end; ++it )
+	for ( KtlQCanvasItemList::const_iterator it = allItems.begin(); it != end; ++it )
 	{
 		if( !(*it)->isVisible() ) continue;
 		
@@ -959,9 +959,9 @@ void ItemDocument::exportToImage()
 void ItemDocument::setSVGExport( bool svgExport )
 {
 	// Find any items and tell them not to draw buttons or sliders
-	QCanvasItemList items = m_canvas->allItems();
-	const QCanvasItemList::iterator end = items.end();
-	for ( QCanvasItemList::Iterator it = items.begin(); it != end; ++it )
+	KtlQCanvasItemList items = m_canvas->allItems();
+	const KtlQCanvasItemList::iterator end = items.end();
+	for ( KtlQCanvasItemList::Iterator it = items.begin(); it != end; ++it )
 	{
 		if ( CNItem * cnItem = dynamic_cast<CNItem*>(*it) )
 			cnItem->setDrawWidgets(!svgExport);
@@ -1099,8 +1099,8 @@ ItemList ItemDocument::itemList( ) const
 
 
 //BEGIN class CanvasTip
-CanvasTip::CanvasTip( ItemDocument *itemDocument, QCanvas *qcanvas )
-	: QCanvasRectangle( qcanvas )
+CanvasTip::CanvasTip( ItemDocument *itemDocument, KtlQCanvas *qcanvas )
+	: KtlQCanvasRectangle( qcanvas )
 {
 	p_itemDocument = itemDocument;
 
@@ -1238,7 +1238,7 @@ void CanvasTip::setText( const QString & text )
 
 //BEGIN class Canvas
 Canvas::Canvas( ItemDocument *itemDocument, const char * name )
-	: QCanvas( itemDocument, name )
+	: KtlQCanvas( itemDocument, name )
 {
 	p_itemDocument = itemDocument;
 	m_pMessageTimeout = new QTimer(this);
@@ -1251,7 +1251,7 @@ void Canvas::resize( const QRect & size )
 	if ( rect() == size )
 		return;
 	QRect oldSize = rect();
-	QCanvas::resize( size );
+	KtlQCanvas::resize( size );
 	emit resized( oldSize, size );
 }
 
@@ -1270,7 +1270,7 @@ void Canvas::setMessage( const QString & message )
 
 void Canvas::drawBackground ( QPainter &p, const QRect & clip )
 {
-	QCanvas::drawBackground( p, clip );
+	KtlQCanvas::drawBackground( p, clip );
 #if 0
 	const int scx = (int)((clip.left()-4)/8);
 	const int ecx = (int)((clip.right()+4)/8);
@@ -1307,7 +1307,7 @@ void Canvas::drawBackground ( QPainter &p, const QRect & clip )
 
 void Canvas::drawForeground ( QPainter &p, const QRect & clip )
 {
-	QCanvas::drawForeground( p, clip );
+	KtlQCanvas::drawForeground( p, clip );
 	
 	if ( !m_pMessageTimeout->isActive() )
 		return;
@@ -1356,7 +1356,7 @@ void Canvas::drawForeground ( QPainter &p, const QRect & clip )
 void Canvas::update()
 {
 	p_itemDocument->update();
-	QCanvas::update();
+	KtlQCanvas::update();
 }
 //END class Canvas
 

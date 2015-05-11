@@ -130,13 +130,13 @@ void MechanicsDocument::deleteSelection()
 }
 
 
-bool MechanicsDocument::registerItem( QCanvasItem *qcanvasItem )
+bool MechanicsDocument::registerItem( KtlQCanvasItem *qcanvasItem )
 {
 	return ItemDocument::registerItem(qcanvasItem);
 }
 
 
-void MechanicsDocument::appendDeleteList( QCanvasItem *qcanvasItem )
+void MechanicsDocument::appendDeleteList( KtlQCanvasItem *qcanvasItem )
 {
 	MechanicsItem *mechItem = dynamic_cast<MechanicsItem*>(qcanvasItem);
 	if ( !mechItem || m_itemDeleteList.contains(mechItem) ) {

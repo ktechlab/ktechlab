@@ -43,19 +43,19 @@ public:
 	MechanicsItem *mechanicsItemWithID( const QString &id );
 	virtual Item* addItem( const QString &id, const QPoint &p, bool newItem );
 	/**
-	 * Adds a QCanvasItem to the delete list to be deleted, when
+	 * Adds a KtlQCanvasItem to the delete list to be deleted, when
 	 * flushDeleteList() is called
 	 */
-	virtual void appendDeleteList( QCanvasItem *qcanvasItem );
+	virtual void appendDeleteList( KtlQCanvasItem *qcanvasItem );
 	/**
 	 * Permantly deletes all items that have been added to the delete list with
-	 * the appendDeleteList( QCanvasItem *qcanvasItem ) function.
+	 * the appendDeleteList( KtlQCanvasItem *qcanvasItem ) function.
 	 */
 	virtual void flushDeleteList();
 	/**
 	 * Register an item with the ICNDocument.
 	 */
-	virtual bool registerItem( QCanvasItem *qcanvasItem );
+	virtual bool registerItem( KtlQCanvasItem *qcanvasItem );
 
 protected:
 	MechanicsGroup *m_selectList;
