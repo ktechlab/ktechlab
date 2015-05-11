@@ -1319,15 +1319,15 @@ KtlQCanvasItemList KtlQCanvasItem::collisions(const bool exact) const
 	return canvas()->collisions(chunks(),this,exact);
 }
 
-KtlQCanvasItemList KtlQCanvas::collisions(const QPoint& p) const
+KtlQCanvasItemList KtlQCanvas::collisions(const QPoint& p) /* const */
 {
 	return collisions(QRect(p,QSize(1,1)));
 }
 
-KtlQCanvasItemList KtlQCanvas::collisions(const QRect& r) const
+KtlQCanvasItemList KtlQCanvas::collisions(const QRect& r) /* const */
 {
-	KtlQCanvasRectangle i(r,(KtlQCanvas*)this);
-	i.setPen(Qt::NoPen);
+	KtlQCanvasRectangle i(r, /*(KtlQCanvas*) */ this);
+	i.setPen( QPen( Qt::NoPen) );
 	i.show(); // doesn't actually show, since we destroy it
 	KtlQCanvasItemList l = i.collisions(true);
 	l.sort();

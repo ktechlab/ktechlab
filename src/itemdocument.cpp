@@ -485,7 +485,7 @@ void ItemDocument::slotUpdateConfiguration()
 
 KtlQCanvasItem* ItemDocument::itemAtTop( const QPoint &pos ) const
 {
-	KtlQCanvasItemList list = m_canvas->collisions( QRect( pos.x()-1, pos.y()-1, 3, 3 ) );
+	KtlQCanvasItemList list = m_canvas->collisions( QRect( pos.x()-1, pos.y()-1, 3, 3 ) ); // note: m_canvas is actually modified here
 	KtlQCanvasItemList::const_iterator it = list.begin();
 	const KtlQCanvasItemList::const_iterator end = list.end();
 
