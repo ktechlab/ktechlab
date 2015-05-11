@@ -161,8 +161,8 @@ class KtlQCanvas : public QObject
 		void removeItemFromChunkContaining(KtlQCanvasItem*, int x, int y);
 
 		KtlQCanvasItemList allItems();
-		KtlQCanvasItemList collisions( const QPoint&) const;
-		KtlQCanvasItemList collisions( const QRect&) const;
+		KtlQCanvasItemList collisions( const QPoint&) /* const */ ;
+		KtlQCanvasItemList collisions( const QRect&) /* const */;
 		KtlQCanvasItemList collisions( const Q3PointArray& pa, const KtlQCanvasItem* item,
 						bool exact) const;
 
