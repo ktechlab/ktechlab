@@ -23,16 +23,16 @@ class SliderWidget;
 class ToolButton;
 class QString;
 
-class GuiPart : /* public QObject, */ public QCanvasRectangle
+class GuiPart : /* public QObject, */ public KtlQCanvasRectangle
 {
 	Q_OBJECT
 	public:
 		/**
 		 * Create a GuiPart. Control the position using setGuiPartSize, instead
-		 * of calling QCanvasRectangle::setSize. This allows GuiPart to know
+		 * of calling KtlQCanvasRectangle::setSize. This allows GuiPart to know
 		 * when its size has been changed
 		 */
-		GuiPart( CNItem *parent, const QRect & r, QCanvas * canvas );
+		GuiPart( CNItem *parent, const QRect & r, KtlQCanvas * canvas );
 		virtual ~GuiPart();
 		
 		virtual QRect recommendedRect() const { return m_originalRect; }
@@ -49,7 +49,7 @@ class GuiPart : /* public QObject, */ public QCanvasRectangle
 		 */
 		void setAngleDegrees( int angleDegrees );
 		/**
-		 * Control the size. Call this instead of QCanvasRectangle::setSize. In
+		 * Control the size. Call this instead of KtlQCanvasRectangle::setSize. In
 		 * turn, this function will notify subclasses via posChanged();
 		 */
 		void setGuiPartSize( int width, int height );
@@ -95,7 +95,7 @@ class Text : public GuiPart
 {
 	Q_OBJECT
 	public:
-		Text( const QString &text, CNItem *parent, const QRect & r, QCanvas * canvas, int flags = Qt::AlignHCenter | Qt::AlignVCenter );
+		Text( const QString &text, CNItem *parent, const QRect & r, KtlQCanvas * canvas, int flags = Qt::AlignHCenter | Qt::AlignVCenter );
 		~Text();
 		
 		/**
@@ -129,7 +129,7 @@ typedef QMap<QString, QPointer<Text> > TextMap;
 class Widget : public GuiPart
 {
 	public:
-		Widget( const QString & id, CNItem *parent, const QRect & r, QCanvas * canvas );
+		Widget( const QString & id, CNItem *parent, const QRect & r, KtlQCanvas * canvas );
 		~Widget();
 		
 		virtual QWidget *widget() const = 0;
@@ -203,7 +203,7 @@ class Button : public Widget
 {
 	Q_OBJECT
 	public:
-		Button( const QString & id, CNItem *parent, bool isToggle, const QRect &r, QCanvas *canvas );
+		Button( const QString & id, CNItem *parent, bool isToggle, const QRect &r, KtlQCanvas *canvas );
 		~Button();
 		
 		virtual void mousePressEvent( QMouseEvent *e );
@@ -258,7 +258,7 @@ class Slider : public Widget
 {
 	Q_OBJECT
 	public:
-		Slider( const QString & id, CNItem *parent, const QRect & r, QCanvas * canvas );
+		Slider( const QString & id, CNItem *parent, const QRect & r, KtlQCanvas * canvas );
 		~Slider();
 		
 		virtual void mousePressEvent( QMouseEvent *e );

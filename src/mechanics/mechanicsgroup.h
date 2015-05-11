@@ -46,14 +46,14 @@ public:
 	void removeChildren( Item *item );
 	bool addItem( Item *item );
 	bool removeItem( Item *item );
-	virtual bool addQCanvasItem(QCanvasItem* item);
-	virtual bool contains(QCanvasItem* item) const;
+	virtual bool addQCanvasItem(KtlQCanvasItem* item);
+	virtual bool contains(KtlQCanvasItem* item) const;
 	virtual uint count() const { return itemCount(); }
 	virtual void deleteAllItems();
 	virtual void mergeGroup(ItemGroup* group);
 	virtual void removeAllItems();
-	virtual void removeQCanvasItem(QCanvasItem* item);
-	virtual void setItems(QCanvasItemList list);
+	virtual void removeQCanvasItem(KtlQCanvasItem* item);
+	virtual void setItems(KtlQCanvasItemList list);
 	/**
 	 * Sets the selected state of all items in the group
 	 */

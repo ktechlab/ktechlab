@@ -24,8 +24,8 @@ class Node;
 class ECNode;
 // class FPNode;
 class ICNDocument;
-class QCanvasItem;
-class QCanvasItemList;
+class KtlQCanvasItem;
+class KtlQCanvasItemList;
 
 typedef QList<QPointer<Item> > ItemList;
 typedef QList<QPointer<Node> > NodeList;
@@ -61,11 +61,11 @@ public:
 	 * If the item is a a CNItem, Node or Connector, returns the status
 	 * for that particular add function, else returns false
 	 */
-	virtual bool addQCanvasItem( QCanvasItem *qcanvasItem );
+	virtual bool addQCanvasItem( KtlQCanvasItem *qcanvasItem );
 	/**
 	 * Sets the contained items to those in this list
 	 */
-	virtual void setItems( QCanvasItemList list );
+	virtual void setItems( KtlQCanvasItemList list );
 	/**
 	 * Removes the CNItem from the group
 	 */
@@ -81,11 +81,11 @@ public:
 	/**
 	 * If the item is a a CNItem, Node or Connector, then attempts to remove it
 	 */
-	virtual void removeQCanvasItem( QCanvasItem *qcanvasItem );
+	virtual void removeQCanvasItem( KtlQCanvasItem *qcanvasItem );
 	/**
-	 * Returns true if the QCanvasItem passed is contained in the group
+	 * Returns true if the KtlQCanvasItem passed is contained in the group
 	 */
-	virtual bool contains( QCanvasItem *qcanvasItem ) const;
+	virtual bool contains( KtlQCanvasItem *qcanvasItem ) const;
 	/**
 	 * Returns the number of Nodes in the CanvasGroup
 	 */

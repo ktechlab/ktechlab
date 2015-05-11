@@ -36,7 +36,7 @@ typedef Q3ValueVector<QPointer<Wire> > WireVector;
 */
 
 
-class Connector : /* public QObject, */ public QCanvasPolygon {
+class Connector : /* public QObject, */ public KtlQCanvasPolygon {
 	Q_OBJECT
 
 public:
@@ -228,7 +228,7 @@ typedef QList<QPointer<Connector> > ConnectorList;
 
 //BEGIN ConnectorLine things
 
-class ConnectorLine : /* public QObject, */ public QCanvasLine {
+class ConnectorLine : /* public QObject, */ public KtlQCanvasLine {
 
 public:
 	/**

@@ -105,11 +105,11 @@ Connector *ICNDocument::connectorWithID( const QString &id )
 
 FlowContainer *ICNDocument::flowContainer( const QPoint &pos )
 {
-	QCanvasItemList collisions = m_canvas->collisions(pos);
+	KtlQCanvasItemList collisions = m_canvas->collisions(pos);
 	FlowContainer *flowContainer = 0l;
 	int currentLevel = -1;
-	const QCanvasItemList::iterator end = collisions.end();
-	for ( QCanvasItemList::iterator it = collisions.begin(); it != end; ++it )
+	const KtlQCanvasItemList::iterator end = collisions.end();
+	for ( KtlQCanvasItemList::iterator it = collisions.begin(); it != end; ++it )
 	{
 		if ( FlowContainer *container = dynamic_cast<FlowContainer*>(*it) )
 		{
@@ -125,7 +125,7 @@ FlowContainer *ICNDocument::flowContainer( const QPoint &pos )
 }
 
 
-bool ICNDocument::canConnect( QCanvasItem *qcanvasItem1, QCanvasItem *qcanvasItem2 ) const
+bool ICNDocument::canConnect( KtlQCanvasItem *qcanvasItem1, KtlQCanvasItem *qcanvasItem2 ) const
 {
 	// Rough outline of what can and can't connect:
 	// * At most three connectors to a node
@@ -494,7 +494,7 @@ QPoint ICNDocument::gridSnap( const QPoint &pos )
 }
 
 
-void ICNDocument::appendDeleteList( QCanvasItem *qcanvasItem )
+void ICNDocument::appendDeleteList( KtlQCanvasItem *qcanvasItem )
 {
 	if ( !qcanvasItem || m_itemDeleteList.findIndex(qcanvasItem) != -1 )
 		return;
@@ -517,12 +517,12 @@ spend time figuring out which method to call...
 		}
 
 		if(connector) connector->removeConnector();
-		else kWarning() << k_funcinfo << "unrecognised QCanvasItem " << qcanvasItem << endl;
+		else kWarning() << k_funcinfo << "unrecognised KtlQCanvasItem " << qcanvasItem << endl;
 	}
 }
 
 
-bool ICNDocument::registerItem( QCanvasItem *qcanvasItem )
+bool ICNDocument::registerItem( KtlQCanvasItem *qcanvasItem )
 {
 	if (!qcanvasItem) return false;
 
@@ -621,7 +621,7 @@ Item* ICNDocument::addItem( const QString &id, const QPoint &p, bool newItem )
 			flowContainer->setFullBounds(true);
 	}
 
-	QCanvasItemList preCollisions = canvas()->collisions(p);
+	KtlQCanvasItemList preCollisions = canvas()->collisions(p);
 	for ( ItemMap::iterator it = m_itemList.begin(); it != end; ++it )
 	{
 		if ( FlowContainer *flowContainer = dynamic_cast<FlowContainer*>(*it) )
@@ -634,8 +634,8 @@ Item* ICNDocument::addItem( const QString &id, const QPoint &p, bool newItem )
 	// Look through the CNItems at the given point (sorted by z-coordinate) for
 	// a container item.
 	FlowContainer *container = 0l;
-	const QCanvasItemList::iterator pcEnd = preCollisions.end();
-	for ( QCanvasItemList::iterator it = preCollisions.begin(); it != pcEnd && !container; ++it )
+	const KtlQCanvasItemList::iterator pcEnd = preCollisions.end();
+	for ( KtlQCanvasItemList::iterator it = preCollisions.begin(); it != pcEnd && !container; ++it )
 	{
 		if ( FlowContainer *flowContainer = dynamic_cast<FlowContainer*>(*it) )
 			container = flowContainer;
@@ -732,9 +732,9 @@ void ICNDocument::rerouteInvalidatedConnectors()
 			// Test to see if the route intersects any Items (we ignore if it is a manual route)
 			if ( !needsRerouting && !connector->usesManualPoints() ) {
 
-				const QCanvasItemList collisions = connector->collisions(true);
-				const QCanvasItemList::const_iterator collisionsEnd = collisions.end();
-				for ( QCanvasItemList::const_iterator collisionsIt = collisions.begin(); (collisionsIt != collisionsEnd) && !needsRerouting; ++collisionsIt )
+				const KtlQCanvasItemList collisions = connector->collisions(true);
+				const KtlQCanvasItemList::const_iterator collisionsEnd = collisions.end();
+				for ( KtlQCanvasItemList::const_iterator collisionsIt = collisions.begin(); (collisionsIt != collisionsEnd) && !needsRerouting; ++collisionsIt )
 				{
 					if ( dynamic_cast<Item*>(*collisionsIt) )
 						needsRerouting = true;

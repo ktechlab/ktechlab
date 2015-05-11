@@ -15,7 +15,7 @@
 
 class ItemView;
 
-class QCanvasItem;
+class KtlQCanvasItem;
 class QEvent;
 class QMouseEvent;
 class QWheelEvent;
@@ -42,7 +42,7 @@ public:
 	
 	QPoint pos;
 	QPoint globalPos;
-	QCanvasItem * qcanvasItemClickedOn;
+	KtlQCanvasItem * qcanvasItemClickedOn;
 	short scrollDelta;
 	Qt::Orientation scrollOrientation;
 	bool isRightClick;

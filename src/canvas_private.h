@@ -17,10 +17,10 @@
 #include "Qt/qimage.h"
 #include <Qt/q3polygonscanner.h>
 
-class QPolygonalProcessor 
+class KtlQPolygonalProcessor
 {
 public:
-	QPolygonalProcessor(QCanvas* c, const Q3PointArray& pa) :
+	KtlQPolygonalProcessor(KtlQCanvas* c, const Q3PointArray& pa) :
 	canvas(c)
 	{
 		QRect pixelbounds = pa.boundingRect();
@@ -91,27 +91,27 @@ public:
 private:
 	int pnt;
 
-	QCanvas* canvas;
+	KtlQCanvas* canvas;
 	QRect bounds;
 	QImage bitmap;
 };
 
 
-class QCanvasViewData
+class KtlQCanvasViewData
 {
 public:
-	QCanvasViewData() : repaint_from_moving( false ) {}
+	KtlQCanvasViewData() : repaint_from_moving( false ) {}
 	QWMatrix xform;
 	QWMatrix ixform;
 	bool repaint_from_moving;
 };
 
 
-class QCanvasClusterizer
+class KtlQCanvasClusterizer
 {
 public:
-	QCanvasClusterizer(int maxclusters);
-	~QCanvasClusterizer();
+	KtlQCanvasClusterizer(int maxclusters);
+	~KtlQCanvasClusterizer();
 
 	void add(int x, int y); // 1x1 rectangle (point)
 	void add(int x, int y, int w, int h);
@@ -128,13 +128,13 @@ private:
 };
 
 
-class QCanvasItemPtr
+class KtlQCanvasItemPtr
 {
 public:
-	QCanvasItemPtr() : ptr(0) { }
-	QCanvasItemPtr( QCanvasItem* p ) : ptr(p) { }
+	KtlQCanvasItemPtr() : ptr(0) { }
+	KtlQCanvasItemPtr( KtlQCanvasItem* p ) : ptr(p) { }
 
-	bool operator<=(const QCanvasItemPtr& that) const
+	bool operator<=(const KtlQCanvasItemPtr& that) const
 	{
 		// Order same-z objects by identity.
 		if (that.ptr->z()==ptr->z())
@@ -142,7 +142,7 @@ public:
 		return that.ptr->z() <= ptr->z();
 	}
 
-	bool operator<(const QCanvasItemPtr& that) const
+	bool operator<(const KtlQCanvasItemPtr& that) const
 	{
 		// Order same-z objects by identity.
 		if (that.ptr->z()==ptr->z())
@@ -150,7 +150,7 @@ public:
 		return that.ptr->z() < ptr->z();
 	}
 
-	bool operator>(const QCanvasItemPtr& that) const
+	bool operator>(const KtlQCanvasItemPtr& that) const
 	{
 		// Order same-z objects by identity.
 		if (that.ptr->z()==ptr->z())
@@ -158,23 +158,23 @@ public:
 		return that.ptr->z() > ptr->z();
 	}
 
-	bool operator==(const QCanvasItemPtr& that) const
+	bool operator==(const KtlQCanvasItemPtr& that) const
 	{
 		return that.ptr == ptr;
 	}
 
-	operator QCanvasItem*() const { return ptr; }
+	operator KtlQCanvasItem*() const { return ptr; }
 
 private:
-	QCanvasItem* ptr;
+	KtlQCanvasItem* ptr;
 };
 
 
 
-class QCanvasChunk
+class KtlQCanvasChunk
 {
 public:
-	QCanvasChunk() : changed(true) { }
+	KtlQCanvasChunk() : changed(true) { }
 	// Other code assumes lists are not deleted. Assignment is also
 	// done on ChunkRecs. So don't add that sort of thing here.
 
@@ -182,16 +182,16 @@ public:
 		list.sort();
 	}
 
-	const QCanvasItemList* listPtr() const {
+	const KtlQCanvasItemList* listPtr() const {
 		return &list;
 	}
 
-	void add(QCanvasItem* item) {
+	void add(KtlQCanvasItem* item) {
 		list.prepend(item);
 		changed = true;
 	}
 
-	void remove(QCanvasItem* item) {
+	void remove(KtlQCanvasItem* item) {
 		list.remove(item);
 		changed = true;
 	}
@@ -211,18 +211,18 @@ public:
 	}
 
 private:
-	QCanvasItemList list;
+	KtlQCanvasItemList list;
 	bool changed;
 };
 
 
 
-class QCanvasPolygonScanner : public Q3PolygonScanner
+class KtlQCanvasPolygonScanner : public Q3PolygonScanner
 {
-	QPolygonalProcessor& processor;
+	KtlQPolygonalProcessor& processor;
 
 public:
-	QCanvasPolygonScanner(QPolygonalProcessor& p) :	processor(p)
+	KtlQCanvasPolygonScanner(KtlQPolygonalProcessor& p) :	processor(p)
 	{
 	}
 	void processSpans( int n, QPoint* point, int* width )
@@ -234,11 +234,11 @@ public:
 
 // lesser-used data in canvas item, plus room for extension.
 // Be careful adding to this - check all usages.
-class QCanvasItemExtra
+class KtlQCanvasItemExtra
 {
-	QCanvasItemExtra() : vx(0.0), vy(0.0) { }
+	KtlQCanvasItemExtra() : vx(0.0), vy(0.0) { }
 	double vx,vy;
-	friend class QCanvasItem;
+	friend class KtlQCanvasItem;
 };
 
 

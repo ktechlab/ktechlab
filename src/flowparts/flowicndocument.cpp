@@ -30,10 +30,10 @@ FlowICNDocument::FlowICNDocument( const QString &caption, const char *name)
 
 FlowICNDocument::~FlowICNDocument()
 {
-	// Go to hell, QCanvas. I'm in charge of what gets deleted.
-	QCanvasItemList all = m_canvas->allItems();
-	const QCanvasItemList::Iterator end = all.end();
-	for ( QCanvasItemList::Iterator it= all.begin(); it != end; ++it )
+	// Go to hell, KtlQCanvas. I'm in charge of what gets deleted.
+	KtlQCanvasItemList all = m_canvas->allItems();
+	const KtlQCanvasItemList::Iterator end = all.end();
+	for ( KtlQCanvasItemList::Iterator it= all.begin(); it != end; ++it )
 		(*it)->setCanvas(0l);
 	
 	// Remove all items from the canvas
@@ -59,7 +59,7 @@ void FlowICNDocument::deleteAllNodes() {
 }
 
 
-bool FlowICNDocument::canConnect( QCanvasItem *qcanvasItem1, QCanvasItem *qcanvasItem2 ) const
+bool FlowICNDocument::canConnect( KtlQCanvasItem *qcanvasItem1, KtlQCanvasItem *qcanvasItem2 ) const
 {
 	// Rough outline of what can and can't connect:
 	// * At most three connectors to a node
@@ -323,8 +323,8 @@ void FlowICNDocument::slotAssignNodeGroups()
 void FlowICNDocument::flushDeleteList()
 {
 	// Remove duplicate items in the delete list
-	QCanvasItemList::iterator end = m_itemDeleteList.end();
-	for ( QCanvasItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it )
+	KtlQCanvasItemList::iterator end = m_itemDeleteList.end();
+	for ( KtlQCanvasItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it )
 	{
 		if ( *it && (m_itemDeleteList.count ( *it ) > 1) )
 		{
@@ -334,9 +334,9 @@ void FlowICNDocument::flushDeleteList()
 	m_itemDeleteList.remove ( 0l );
 
 	end = m_itemDeleteList.end();
-	for ( QCanvasItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it )
+	for ( KtlQCanvasItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it )
 	{
-		QCanvasItem *qcanvasItem = *it;
+		KtlQCanvasItem *qcanvasItem = *it;
 		m_selectList->removeQCanvasItem ( *it );
 
 		if ( Item *item = dynamic_cast<Item*> ( qcanvasItem ) )
@@ -377,7 +377,7 @@ void FlowICNDocument::flushDeleteList()
 	requestRerouteInvalidatedConnectors();
 }
 
-bool FlowICNDocument::registerItem( QCanvasItem *qcanvasItem )
+bool FlowICNDocument::registerItem( KtlQCanvasItem *qcanvasItem )
 {
 	if (!qcanvasItem)
 		return false;

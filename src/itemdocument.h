@@ -31,7 +31,7 @@ class KTechlab;
 class Operation;
 
 class KActionMenu;
-class QCanvasItem;
+class KtlQCanvasItem;
 
 typedef Q3PtrStack<ItemDocumentData> IDDStack;
 typedef QPointer<Item> GuardedItem;
@@ -92,7 +92,7 @@ class ItemDocument : public Document
 		/**
 		 * Attempt to register the item, returning true iff successful
 		 */
-		virtual bool registerItem( QCanvasItem *qcanvasItem );
+		virtual bool registerItem( KtlQCanvasItem *qcanvasItem );
 		/**
 		 * Will attempt to create an item with the given id at position p. Some item
 		 * (such as PIC/START) have restrictions, and can only have one instance of
@@ -149,17 +149,17 @@ class ItemDocument : public Document
 		 */
 		void unselectAll();
 		/**
-		 * Select a list of QCanvasItem's
+		 * Select a list of KtlQCanvasItem's
 		 */
-		void select( const QCanvasItemList & list );
+		void select( const KtlQCanvasItemList & list );
 		/**
-		 * Select a QCanvasItem
+		 * Select a KtlQCanvasItem
 		 */
-		void select( QCanvasItem * item );
+		void select( KtlQCanvasItem * item );
 		/**
 		 * Unselects the item
 		 */
-		void unselect( QCanvasItem *qcanvasItem );
+		void unselect( KtlQCanvasItem *qcanvasItem );
 		/**
 		 * Deletes anything waiting to be deleted.
 		 */
@@ -187,21 +187,21 @@ class ItemDocument : public Document
 		/**
 		 * Returns the top item at point (x, y), or NULL if there is no item there
 		 */
-		QCanvasItem* itemAtTop( const QPoint &pos ) const;
+		KtlQCanvasItem* itemAtTop( const QPoint &pos ) const;
 		/**
 		 * Called when the canvas is clicked on with the right mouse button.
 		 * Popups up a menu for editing operations
 		 */
-		virtual void canvasRightClick( const QPoint &pos, QCanvasItem* item );
+		virtual void canvasRightClick( const QPoint &pos, KtlQCanvasItem* item );
 		/**
 		 * List of items in the ItemDocument
 		 */
 		ItemList itemList() const;
 		/**
-		 * Set the given QCanvasItem (which will attempt to be casted to known
+		 * Set the given KtlQCanvasItem (which will attempt to be casted to known
 		 * items to be deleted.
 		 */
-		virtual void appendDeleteList( QCanvasItem * ) = 0;
+		virtual void appendDeleteList( KtlQCanvasItem * ) = 0;
 		/**
 		 * Save the current state of the document to the undo/redo history.
 		 * @param actionTicket if this is non-negative, and the last state save
@@ -220,7 +220,7 @@ class ItemDocument : public Document
 		 */
 		void requestEvent( ItemDocumentEvent::type type );
 		/**
-		 * Called from Canvas (when QCanvas::advance is called).
+		 * Called from Canvas (when KtlQCanvas::advance is called).
 		 */
 		virtual void update();
 
@@ -411,7 +411,7 @@ private:
 /**
 @author David Saxton
 */
-class Canvas : public QCanvas
+class Canvas : public KtlQCanvas
 {
 	Q_OBJECT
 	public:
@@ -449,10 +449,10 @@ class Canvas : public QCanvas
 /**
 @author David Saxton
 */
-class CanvasTip : public QCanvasRectangle
+class CanvasTip : public KtlQCanvasRectangle
 {
 	public:
-		CanvasTip( ItemDocument *itemDocument, QCanvas *qcanvas );
+		CanvasTip( ItemDocument *itemDocument, KtlQCanvas *qcanvas );
 		virtual ~CanvasTip();
 	
 		void displayVI( ECNode *node, const QPoint &pos );

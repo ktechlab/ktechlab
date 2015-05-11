@@ -22,7 +22,7 @@ QColor Node::m_selectedColor = QColor( 101, 134, 192 );
 
 Node::Node( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint &pos, QString *id )
 	: //QObject(),
-	  QCanvasPolygon( icnDocument ? icnDocument->canvas() : 0 )
+	  KtlQCanvasPolygon( icnDocument ? icnDocument->canvas() : 0 )
 {
 	m_length = 8;
 	p_nodeGroup = 0l;
@@ -94,7 +94,7 @@ void Node::setVisible( bool yes )
 {
 	if ( isVisible() == yes ) return;
 	
-	QCanvasPolygon::setVisible(yes);
+	KtlQCanvasPolygon::setVisible(yes);
 }
 
 void Node::setParentItem( CNItem *parentItem )
@@ -124,7 +124,7 @@ void Node::removeNode()
 void Node::moveBy( double dx, double dy )
 {
 	if ( dx == 0 && dy == 0 ) return;
-	QCanvasPolygon::moveBy( dx, dy );
+	KtlQCanvasPolygon::moveBy( dx, dy );
 	emit moved(this);
 }
 
@@ -141,7 +141,7 @@ void Node::setNodeSelected( bool yes )
 	if ( isSelected() == yes )
 		return;
 	
-	QCanvasItem::setSelected(yes);
+	KtlQCanvasItem::setSelected(yes);
 	
 	setPen(   yes ? m_selectedColor : Qt::black );
 	setBrush( yes ? m_selectedColor : Qt::black );

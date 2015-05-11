@@ -408,7 +408,7 @@ void LineOverlay::slotResizeHandleMoved( int id, double dx, double dy )
 //BEGIN class ResizeHandle
 ResizeHandle::ResizeHandle( ResizeOverlay *resizeOverlay, int id, DrawType drawType, int xsnap, int ysnap )
 	: //QObject(),
-        QCanvasRectangle( 0, 0, 13, 13, resizeOverlay->parentItem()->canvas() )
+        KtlQCanvasRectangle( 0, 0, 13, 13, resizeOverlay->parentItem()->canvas() )
 {
 	p_resizeOverlay = resizeOverlay;
 	m_drawType = drawType;
@@ -435,7 +435,7 @@ void ResizeHandle::setHover( bool hover )
 
 Q3PointArray ResizeHandle::areaPoints() const
 {
-// 	Q3PointArray pa = QCanvasRectangle::areaPoints();
+// 	Q3PointArray pa = KtlQCanvasRectangle::areaPoints();
 // 	pa.translate( -7, -7 );
 // 	return pa;
 	return Q3PointArray( QRect( int(x())-8, int(y())-8, 15, 15 ) );

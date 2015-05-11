@@ -23,7 +23,7 @@ class PinSettings;
 @short Allows visual setting of pin type/state
 @author David Saxton
 */
-class PinItem : /*public QObject, */ public QCanvasRectangle
+class PinItem : /*public QObject, */ public KtlQCanvasRectangle
 {
 	Q_OBJECT
 public:

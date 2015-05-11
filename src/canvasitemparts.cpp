@@ -17,9 +17,9 @@
 
 
 //BEGIN Class GuiPart
-GuiPart::GuiPart( CNItem *parent, const QRect & r, QCanvas * canvas )
+GuiPart::GuiPart( CNItem *parent, const QRect & r, KtlQCanvas * canvas )
 	: //QObject(parent),
-	QCanvasRectangle( r, canvas ),
+	KtlQCanvasRectangle( r, canvas ),
 	m_angleDegrees(0),
 	p_parent(parent),
 	b_pointsAdded(false),
@@ -142,7 +142,7 @@ QRect GuiPart::drawRect()
 
 
 //BEGIN Class Text
-Text::Text( const QString &text, CNItem *parent, const QRect & r, QCanvas * canvas, int flags )
+Text::Text( const QString &text, CNItem *parent, const QRect & r, KtlQCanvas * canvas, int flags )
 	: GuiPart( parent, r, canvas )
 {
 	m_flags = flags;
@@ -192,7 +192,7 @@ QRect Text::recommendedRect() const
 
 
 //BEGIN Class Widget
-Widget::Widget( const QString & id, CNItem * parent, const QRect & r, QCanvas * canvas )
+Widget::Widget( const QString & id, CNItem * parent, const QRect & r, KtlQCanvas * canvas )
 	: GuiPart( parent, r, canvas )
 {
 	m_id = id;
@@ -274,7 +274,7 @@ void ToolButton::drawButtonLabel( QPainter * p )
 
 
 //BEGIN Class Button
-Button::Button( const QString & id, CNItem * parent, bool isToggle, const QRect & r, QCanvas * canvas )
+Button::Button( const QString & id, CNItem * parent, bool isToggle, const QRect & r, KtlQCanvas * canvas )
 	: Widget( id, parent, r, canvas )
 {
 	b_isToggle = isToggle;
@@ -433,7 +433,7 @@ SliderWidget::SliderWidget( QWidget *parent )
 
 
 //BEGIN Class Slider
-Slider::Slider( const QString & id, CNItem * parent, const QRect & r, QCanvas * canvas )
+Slider::Slider( const QString & id, CNItem * parent, const QRect & r, KtlQCanvas * canvas )
 	: Widget( id, parent, r, canvas )
 {
 	m_orientation = Qt::Vertical;

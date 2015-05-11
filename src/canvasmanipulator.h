@@ -37,10 +37,10 @@ class Node;
 class NodeGroup;
 class ResizeHandle;
 
-class QCanvas;
-class QCanvasItem;
-class QCanvasLine;
-class QCanvasRectangle;
+class KtlQCanvas;
+class KtlQCanvasItem;
+class KtlQCanvasLine;
+class KtlQCanvasRectangle;
 class QMouseEvent;
 class QTimer;
 class QWheelEvent;
@@ -230,7 +230,7 @@ protected:
 	ItemDocument *p_itemDocument;
 	ICNDocument *p_icnDocument;
 	MechanicsDocument *p_mechanicsDocument;
-	QCanvas *p_canvas;
+	KtlQCanvas *p_canvas;
 	ItemGroup *p_selectList;
 	CNItemGroup *p_cnItemSelectList;
 	MechanicsGroup *p_mechItemSelectList;
@@ -314,7 +314,7 @@ class ConnectorDraw : public CanvasManipulator
 		 * with pos (i.e. auto-connector will call this with posIsExact = false,
 		 * and manual-connector will call this with posIsExact = true).
 		 */
-		void grabEndStuff( QCanvasItem * endItem, const QPoint & pos, bool posIsExact );
+		void grabEndStuff( KtlQCanvasItem * endItem, const QPoint & pos, bool posIsExact );
 		/**
 		 * Returns the closest point to the clickPos that is on the given
 		 * connector.
@@ -348,7 +348,7 @@ public:
 	virtual bool mouseReleased( const EventInfo &info );
 	
 protected:
-	QCanvasLine *m_connectorLine;
+	KtlQCanvasLine *m_connectorLine;
 };
 
 
@@ -464,24 +464,24 @@ protected:
 class SelectRectangle
 {
 	public:
-		SelectRectangle( int x, int y, int w, int h, QCanvas *qcanvas );
+		SelectRectangle( int x, int y, int w, int h, KtlQCanvas *qcanvas );
 		~SelectRectangle();
 		
 		void setSize( int w, int h );
-		QCanvasItemList collisions();
+		KtlQCanvasItemList collisions();
 		
 	protected:
-		QCanvasLine *m_topLine;
-		QCanvasLine *m_rightLine;
-		QCanvasLine *m_bottomLine;
-		QCanvasLine *m_leftLine;
+		KtlQCanvasLine *m_topLine;
+		KtlQCanvasLine *m_rightLine;
+		KtlQCanvasLine *m_bottomLine;
+		KtlQCanvasLine *m_leftLine;
 		const int m_x;
 		const int m_y;
 		int m_w;
 		int m_h;
 		int m_prevCollisions_w;
 		int m_prevCollisions_h;
-		QCanvasItemList m_prevCollisions;
+		KtlQCanvasItemList m_prevCollisions;
 };
 
 
@@ -534,12 +534,12 @@ protected:
 
 /**
 @author David Saxton
-A QCanvasEllipse that uses a pen (not a brush) to paint
+A KtlQCanvasEllipse that uses a pen (not a brush) to paint
 */
-class CanvasEllipseDraw : public QCanvasEllipse
+class CanvasEllipseDraw : public KtlQCanvasEllipse
 {
 	public:
-		CanvasEllipseDraw( int x, int y, QCanvas * canvas );
+		CanvasEllipseDraw( int x, int y, KtlQCanvas * canvas );
 		
 	protected:
 		virtual void drawShape( QPainter & p );
@@ -565,9 +565,9 @@ class CMDraw : public CanvasManipulator
 		virtual bool mouseReleased( const EventInfo &info );
 	
 	protected:
-		QCanvasRectangle * m_pDrawRectangle;
+		KtlQCanvasRectangle * m_pDrawRectangle;
 		CanvasEllipseDraw * m_pDrawEllipse;
-		QCanvasLine * m_pDrawLine;
+		KtlQCanvasLine * m_pDrawLine;
 };
 
 
@@ -587,10 +587,10 @@ class ManualConnectorDraw
 		void mouseMoved( const QPoint &pos );
 		/**
 		 * Called when the user clicks the mouse. If the connector finishes on a
-		 * valid QCanvasItem (Node or Connetor), then this is returned. Otherwise,
+		 * valid KtlQCanvasItem (Node or Connetor), then this is returned. Otherwise,
 		 * null is returned.
 		 */
-		QCanvasItem * mouseClicked( const QPoint &pos );
+		KtlQCanvasItem * mouseClicked( const QPoint &pos );
 		/**
 		 * Returns the list of points that define the manual connection route
 		 */
@@ -603,7 +603,7 @@ class ManualConnectorDraw
 	protected:
 		void updateConnectorEnds();
 	
-		QList<QCanvasLine*> m_connectorLines;
+		QList<KtlQCanvasLine*> m_connectorLines;
 		ICNDocument *icnDocument;
 	
 		bool b_currentVertical;
@@ -613,11 +613,11 @@ class ManualConnectorDraw
 		QPoint m_previousPos;
 		QPoint m_currentPos;
 	
-		QCanvasLine *m_currentCon;
-		QCanvasLine *m_previousCon;
+		KtlQCanvasLine *m_currentCon;
+		KtlQCanvasLine *m_previousCon;
 	
 		// The first item that we clicked on
-		QCanvasItem *p_initialItem;
+		KtlQCanvasItem *p_initialItem;
 	
 		QColor m_color;
 };

@@ -30,7 +30,7 @@
 //BEGIN class Connector
 Connector::Connector(Node *startNode, Node *endNode, ICNDocument *icnDocument, QString *id)
 		: //QObject(icnDocument),
-		QCanvasPolygon(icnDocument->canvas()) {
+		KtlQCanvasPolygon(icnDocument->canvas()) {
 	m_currentAnimationOffset = 0.0;
 	p_parentContainer = 0;
 	p_nodeGroup    = 0;
@@ -453,7 +453,7 @@ ConnectorData Connector::connectorData() const {
 void Connector::setVisible(bool yes) {
 	if (!canvas() || isVisible() == yes) return;
 
-	QCanvasPolygon::setVisible(yes);
+	KtlQCanvasPolygon::setVisible(yes);
 	updateConnectorLines();
 }
 
@@ -464,7 +464,7 @@ Wire *Connector::wire(unsigned num) const {
 void Connector::setSelected(bool yes) {
 	if (!canvas() || isSelected() == yes) return;
 
-	QCanvasPolygon::setSelected(yes);
+	KtlQCanvasPolygon::setSelected(yes);
 	updateConnectorLines();
 
 	emit selected(yes);
@@ -490,7 +490,7 @@ void Connector::updateConnectorLines(bool forceRedraw) {
 	for (ConnectorLineList::iterator it = m_connectorLineList.begin(); it != end; ++it) {
 		(*it)->setAnimateCurrent(animateWires);
 
-		QCanvasPolygonalItem *item = static_cast<QCanvasPolygonalItem*>(*it);
+		KtlQCanvasPolygonalItem *item = static_cast<KtlQCanvasPolygonalItem*>(*it);
 
 		bool changed = (item->z() != z)
 			    || (item->pen() != pen)
@@ -545,7 +545,7 @@ void Connector::incrementCurrentAnimation(double deltaTime) {
 //BEGIN class ConnectorLine
 ConnectorLine::ConnectorLine(Connector * connector, int pixelOffset)
 		: //QObject(connector),
-            QCanvasLine(connector->canvas()) {
+            KtlQCanvasLine(connector->canvas()) {
 	m_pConnector = connector;
 	m_pixelOffset = pixelOffset;
 }
@@ -571,7 +571,7 @@ int boundify(int x, int bound1, int bound2) {
 
 void ConnectorLine::drawShape(QPainter & p) {
 	if (!m_bAnimateCurrent) {
-		QCanvasLine::drawShape(p);
+		KtlQCanvasLine::drawShape(p);
 		return;
 	}
 

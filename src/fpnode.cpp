@@ -290,7 +290,7 @@ void FPNode::setVisible( bool yes )
 {
 	if ( isVisible() == yes ) return;
 	
-	QCanvasPolygon::setVisible(yes);
+	KtlQCanvasPolygon::setVisible(yes);
 	
 	const FlowConnectorList::iterator inputEnd = m_inFlowConnList.end();
 	for ( FlowConnectorList::iterator it = m_inFlowConnList.begin(); it != inputEnd; ++it )

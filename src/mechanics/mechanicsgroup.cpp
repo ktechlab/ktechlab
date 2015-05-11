@@ -157,12 +157,12 @@ void MechanicsGroup::setSelected( bool sel )
 }
 
 
-bool MechanicsGroup::addQCanvasItem( QCanvasItem* item )
+bool MechanicsGroup::addQCanvasItem( KtlQCanvasItem* item )
 {
 	return addItem( dynamic_cast<Item*>(item) );
 }
 
-bool MechanicsGroup::contains(QCanvasItem* item) const
+bool MechanicsGroup::contains(KtlQCanvasItem* item) const
 {
     return m_itemList.contains(dynamic_cast<Item*>(item));
 }
@@ -201,13 +201,13 @@ void MechanicsGroup::removeAllItems()
 		removeItem(m_itemList.first());
 }
 
-void MechanicsGroup::removeQCanvasItem(QCanvasItem* item)
+void MechanicsGroup::removeQCanvasItem(KtlQCanvasItem* item)
 {
 	removeItem(dynamic_cast<Item*>(item));
 }
 
 
-void MechanicsGroup::setItems(QCanvasItemList list)
+void MechanicsGroup::setItems(KtlQCanvasItemList list)
 {
 	{
 		ItemList removeList;
@@ -226,8 +226,8 @@ void MechanicsGroup::setItems(QCanvasItemList list)
 		}
 	}
 	
-	const QCanvasItemList::iterator end = list.end();
-	for ( QCanvasItemList::iterator it = list.begin(); it != end; ++it )
+	const KtlQCanvasItemList::iterator end = list.end();
+	for ( KtlQCanvasItemList::iterator it = list.begin(); it != end; ++it )
 	{
 		// We don't need to check that we've already got the item as it will
 		// be checked in the function call
