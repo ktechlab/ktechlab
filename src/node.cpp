@@ -24,6 +24,14 @@ Node::Node( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoin
 	: //QObject(),
 	  KtlQCanvasPolygon( icnDocument ? icnDocument->canvas() : 0 )
 {
+    QString name("Node");
+    if (id) {
+        name.append("-%1").arg(*id);
+    } else {
+        name.append("-Unknown");
+    }
+    setName(name.toLatin1().data());
+
 	m_length = 8;
 	p_nodeGroup = 0l;
 	p_parentItem = 0L;

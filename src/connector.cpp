@@ -31,6 +31,15 @@
 Connector::Connector(Node *startNode, Node *endNode, ICNDocument *icnDocument, QString *id)
 		: //QObject(icnDocument),
 		KtlQCanvasPolygon(icnDocument->canvas()) {
+
+    QString name("Connector");
+    if (id) {
+        name.append("-%1").arg(*id);
+    } else {
+        name.append("-Unknown");
+    }
+    setName(name.toLatin1().data());
+
 	m_currentAnimationOffset = 0.0;
 	p_parentContainer = 0;
 	p_nodeGroup    = 0;

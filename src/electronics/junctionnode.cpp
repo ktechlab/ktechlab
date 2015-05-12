@@ -19,6 +19,13 @@
 JunctionNode::JunctionNode(ICNDocument* icnDocument, int dir, const QPoint& pos, QString* id): 
 		ECNode(icnDocument, Node::ec_junction, dir, pos, id)
 {
+    QString name("JunctionNode");
+    if (id) {
+        name.append("-%1").arg(*id);
+    } else {
+        name.append("-Unknown");
+    }
+    setName( name.toLatin1().data() );
 }
 
 
