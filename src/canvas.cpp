@@ -1823,6 +1823,7 @@ KtlQCanvasRectangle::KtlQCanvasRectangle(KtlQCanvas* canvas) :
 		KtlQCanvasPolygonalItem(canvas),
     w(32), h(32)
 {
+    setName("KtlQCanvasRectangle");
 }
 
 
@@ -1830,6 +1831,7 @@ KtlQCanvasRectangle::KtlQCanvasRectangle(const QRect& r, KtlQCanvas* canvas) :
 		KtlQCanvasPolygonalItem(canvas),
     w(r.width()), h(r.height())
 {
+    setName("KtlQCanvasRectangle");
 	move(r.x(),r.y());
 }
 
@@ -1838,6 +1840,7 @@ KtlQCanvasRectangle::KtlQCanvasRectangle(int x, int y, int width, int height, Kt
 	: KtlQCanvasPolygonalItem(canvas),
 	w(width), h(height)
 {
+    setName("KtlQCanvasRectangle");
 	move(x,y);
 }
 
