@@ -65,7 +65,12 @@ CircuitDocument::CircuitDocument( const QString & caption, const char *name )
 CircuitDocument::~CircuitDocument()
 {
 	m_bDeleted = true;
-	deleteCircuits();
+
+    disconnect( m_updateCircuitsTmr, SIGNAL(timeout()), this, SLOT(assignCircuits()) );
+    disconnect( this, SIGNAL(connectorAdded(Connector*)), this, SLOT(connectorAdded(Connector*)) );
+    disconnect( this, SIGNAL(connectorAdded(Connector*)), this, SLOT(requestAssignCircuits()) );
+
+    deleteCircuits();
 	
 	delete m_updateCircuitsTmr;
 	delete m_pDocumentIface;
@@ -289,6 +294,9 @@ void CircuitDocument::deleteCircuits()
 void CircuitDocument::requestAssignCircuits()
 {
 // 	kDebug() << k_funcinfo << endl;
+    if (m_bDeleted) {
+        return;
+    }
 	deleteCircuits();
 	m_updateCircuitsTmr->stop();
 	m_updateCircuitsTmr->start( 0, true );
