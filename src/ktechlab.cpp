@@ -786,6 +786,9 @@ void KTechlab::openExample( int id )
 
 void KTechlab::slotViewContainerActivated( QWidget * viewContainer )
 {
+    if (!viewContainer) {
+        return; // null viewContainer could be selected, when all documents are closed
+    }
 	m_pFocusedContainer = dynamic_cast<ViewContainer*>(viewContainer);
 	m_pFocusedContainer->setFocus();
 }
