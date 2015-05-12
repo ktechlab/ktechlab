@@ -1587,10 +1587,13 @@ KtlQCanvasPolygonalItem::KtlQCanvasPolygonalItem(KtlQCanvas* canvas)
 	: KtlQCanvasItem(canvas),
 	br(defaultPolygonBrush()),
 	pn(defaultPolygonPen()), wind(false)
-{}
+{
+    qDebug() << "created KtlQCanvasPolygonalItem at " << this;
+}
 
 KtlQCanvasPolygonalItem::~KtlQCanvasPolygonalItem()
 {
+    qDebug() << "destroying KtlQCanvasPolygonalItem at " << this;
 }
 
 bool KtlQCanvasPolygonalItem::winding() const
