@@ -73,3 +73,4 @@ Features needs re-implementation at Qt4 port
 - undo / redo interface needs to  be fixed for text documents: this interface is not exported by KDE4 KTextEditor
     http://api.kde.org/4.10-api/kdelibs-apidocs/interfaces/ktexteditor/html/kte_port_to_kde4.html
 - printing a text document needs fixing
+- fix building of the core library first; otherwise missing include file (ktlconfig.h) error could happen at build time
