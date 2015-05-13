@@ -1326,10 +1326,11 @@ KtlQCanvasItemList KtlQCanvas::collisions(const QPoint& p) /* const */
 
 KtlQCanvasItemList KtlQCanvas::collisions(const QRect& r) /* const */
 {
-	KtlQCanvasRectangle i(r, /*(KtlQCanvas*) */ this);
-	i.setPen( QPen( Qt::NoPen) );
-	i.show(); // doesn't actually show, since we destroy it
-	KtlQCanvasItemList l = i.collisions(true);
+	KtlQCanvasRectangle *i = new KtlQCanvasRectangle(r, /*(KtlQCanvas*) */ this); // TODO verify here, why is crashing ?!
+	i->setPen( QPen( Qt::NoPen) );
+	i->show(); // doesn't actually show, since we destroy it
+	KtlQCanvasItemList l = i->collisions(true);
+    delete  i;
 	l.sort();
 	return l;
 }
