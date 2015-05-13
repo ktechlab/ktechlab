@@ -101,8 +101,10 @@ ItemDocument::~ItemDocument()
 //	ItemMap toDelete = m_itemList;
 
 	const ItemMap::iterator end = m_itemList.end();
-	for ( ItemMap::iterator it = m_itemList.begin(); it != end; ++it )
-		delete *it;
+	for ( ItemMap::iterator it = m_itemList.begin(); it != end; ++it ) {
+        qDebug() << "FIXME to really: ItemDocument::~ItemDocument: deleting [" << it.key() << "] " << it.value();
+		//delete *it; // TODO FIXME HACK
+    }
 	m_itemList.clear();
 
 	cleanClearStack( m_undoStack );
