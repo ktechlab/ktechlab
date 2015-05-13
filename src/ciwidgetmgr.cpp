@@ -288,22 +288,22 @@ bool CIWidgetMgr::wheelEvent( const EventInfo &info )
 }
 
 
-void CIWidgetMgr::enterEvent()
+void CIWidgetMgr::enterEvent(QEvent *)
 {
 	const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
 	for ( WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it )
 	{
-		it.data()->enterEvent();
+		it.data()->enterEvent(0);
 	}
 }
 
 
-void CIWidgetMgr::leaveEvent()
+void CIWidgetMgr::leaveEvent(QEvent *)
 {
 	const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
 	for ( WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it )
 	{
-		it.data()->leaveEvent();
+		it.data()->leaveEvent(0);
 	}
 }
 

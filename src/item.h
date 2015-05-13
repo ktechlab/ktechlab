@@ -187,8 +187,8 @@ public:
 	virtual bool mouseDoubleClickEvent ( const EventInfo &eventInfo );
 	virtual bool mouseMoveEvent( const EventInfo &eventInfo );
 	virtual bool wheelEvent( const EventInfo &eventInfo );
-	virtual void enterEvent();
-	virtual void leaveEvent();
+	virtual void enterEvent(QEvent *);
+	virtual void leaveEvent(QEvent *);
 	/**
 	 * Returns the name of the CNItem, e.g. "Resistor"
 	 */

@@ -237,9 +237,9 @@ void CMManager::mouseMoveEvent( const EventInfo &eventInfo )
 		QEvent event(QEvent::Leave);
 		
 		if (p_lastMouseOverItem)
-			p_lastMouseOverItem->leaveEvent();
+			p_lastMouseOverItem->leaveEvent(0);
 		
-		if (item) item->enterEvent();
+		if (item) item->enterEvent(0);
 		
 		p_lastMouseOverItem = item;
 	}

@@ -398,18 +398,18 @@ bool CNItem::wheelEvent( const EventInfo &info )
 }
 
 
-void CNItem::enterEvent()
+void CNItem::enterEvent(QEvent *)
 {
-	Item::enterEvent();
-	CIWidgetMgr::enterEvent();
+	Item::enterEvent(0);
+	CIWidgetMgr::enterEvent(0);
 	setChanged();
 }
 
 
-void CNItem::leaveEvent()
+void CNItem::leaveEvent(QEvent *)
 {
-	Item::leaveEvent();
-	CIWidgetMgr::leaveEvent();
+	Item::leaveEvent(0);
+	CIWidgetMgr::leaveEvent(0);
 	setChanged();
 }
 

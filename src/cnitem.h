@@ -88,8 +88,8 @@ public:
 	virtual bool mouseDoubleClickEvent ( const EventInfo &eventInfo );
 	virtual bool mouseMoveEvent( const EventInfo &eventInfo );
 	virtual bool wheelEvent( const EventInfo &eventInfo );
-	virtual void enterEvent();
-	virtual void leaveEvent();
+	virtual void enterEvent(QEvent *);
+	virtual void leaveEvent(QEvent *);
 	/**
 	 * ICNDocument needs to know what 'cells' a CNItem is present in,
 	 * so that connection mapping can be done to avoid CNItems.

@@ -140,8 +140,8 @@ class Widget : public GuiPart
 		 */
 		void setEnabled( bool enabled );
 		
-		virtual void enterEvent() {};
-		virtual void leaveEvent() {};
+		virtual void enterEvent(QEvent *) {};
+		virtual void leaveEvent(QEvent *) {};
 		
 		/**
 		 * Mouse was pressed. pos is given relative to CNItem position.
@@ -182,8 +182,8 @@ class ToolButton : public QToolButton
 		virtual void mouseDoubleClickEvent ( QMouseEvent *e ) { QToolButton::mouseDoubleClickEvent(e); }
 		virtual void mouseMoveEvent( QMouseEvent *e ) { QToolButton::mouseMoveEvent(e); }
 		virtual void wheelEvent( QWheelEvent *e ) { QToolButton::wheelEvent(e); }
-		virtual void enterEvent() { QToolButton::enterEvent(0l); }
-		virtual void leaveEvent() { QToolButton::leaveEvent(0l); }
+		virtual void enterEvent(QEvent *) { QToolButton::enterEvent(0l); }
+		virtual void leaveEvent(QEvent *) { QToolButton::leaveEvent(0l); }
 		
 		void setAngleDegrees( int angleDegrees ) { m_angleDegrees = angleDegrees; }
 		
@@ -208,8 +208,8 @@ class Button : public Widget
 		
 		virtual void mousePressEvent( QMouseEvent *e );
 		virtual void mouseReleaseEvent( QMouseEvent *e );
-		virtual void enterEvent();
-		virtual void leaveEvent();
+		virtual void enterEvent(QEvent *);
+		virtual void leaveEvent(QEvent *);
 		
 		/**
 		 * Set the text displayed inside the button
@@ -245,8 +245,8 @@ class SliderWidget : public QSlider
 		virtual void mouseDoubleClickEvent ( QMouseEvent *e ) { QSlider::mouseDoubleClickEvent(e); }
 		virtual void mouseMoveEvent( QMouseEvent *e ) { QSlider::mouseMoveEvent(e); }
 		virtual void wheelEvent( QWheelEvent *e ) { QSlider::wheelEvent(e); }
-		virtual void enterEvent() { QSlider::enterEvent(0l); }
-		virtual void leaveEvent() { QSlider::leaveEvent(0l); }
+		virtual void enterEvent(QEvent *) { QSlider::enterEvent(0l); }
+		virtual void leaveEvent(QEvent *) { QSlider::leaveEvent(0l); }
 };
 	
 	
@@ -266,8 +266,8 @@ class Slider : public Widget
 		virtual void mouseDoubleClickEvent ( QMouseEvent *e );
 		virtual void mouseMoveEvent( QMouseEvent *e );
 		virtual void wheelEvent( QWheelEvent *e );
-		virtual void enterEvent();
-		virtual void leaveEvent();
+		virtual void enterEvent(QEvent *);
+		virtual void leaveEvent(QEvent *);
 		
 		virtual QWidget *widget() const;
 		int value() const;
