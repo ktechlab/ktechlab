@@ -60,8 +60,8 @@ class ECNode : public Node
 		 * @param num number of the 
 		 * @return pointer to a pin in this node, given by num
 		 */
-		Pin *pin( unsigned num = 0 ) const
-			{ return (num < m_pins.size()) ? m_pins[num] : 0l; }
+		Pin *pin( unsigned num = 0 ) const ;
+			//{ return (num < m_pins.size()) ? m_pins[num] : 0l; }
 
 		bool showVoltageBars() const { return m_bShowVoltageBars; }
 		void setShowVoltageBars( bool show ) { m_bShowVoltageBars = show; }
