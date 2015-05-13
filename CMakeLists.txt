@@ -1,3 +1,9 @@
+#set( KTECHLAB_DEVELOPER_BUILD "true" )
+
+if (${KTECHLAB_DEVELOPER_BUILD})
+    SET(CMAKE_INSTALL_PREFIX "../inst1") # for development only
+endif (${KTECHLAB_DEVELOPER_BUILD})
+
 project( ktechlab )
 set( VERSION 0.3.6 )
 
@@ -11,6 +17,16 @@ include( ${CMAKE_SOURCE_DIR}/cmake/modules/FindGPSim.cmake )
 add_definitions ( -DQT3_SUPPORT )
 #add_definitions ( -DQT3_SUPPORT_WARNINGS )
 
+if (${KTECHLAB_DEVELOPER_BUILD})
+# for debugging with GCC 5
+    add_definitions( -fno-omit-frame-pointer )
+    set(SANITIZE_FLAGS " -fsanitize=address -fno-omit-frame-pointer ") # address
+    #set(SANITIZE_FLAGS " -fsanitize=undefined -fno-omit-frame-pointer ") # undefined
+    #set(SANITIZE_FLAGS "") # disabled
+
+    add_definitions( ${SANITIZE_FLAGS} )
+    SET( CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${SANITIZE_FLAGS}" )
+endif (${KTECHLAB_DEVELOPER_BUILD})
 
 set( CMAKE_REQUIRED_FLAGS
 	-fexceptions
