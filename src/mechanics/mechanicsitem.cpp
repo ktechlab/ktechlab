@@ -272,12 +272,12 @@ bool MechanicsItem::wheelEvent( const EventInfo &eventInfo )
 }
 
 
-void MechanicsItem::enterEvent()
+void MechanicsItem::enterEvent(QEvent *)
 {
 }
 
 
-void MechanicsItem::leaveEvent()
+void MechanicsItem::leaveEvent(QEvent *)
 {
 }
 

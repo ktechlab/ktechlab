@@ -303,10 +303,10 @@ bool Item::wheelEvent( const EventInfo &eventInfo )
 	Q_UNUSED(eventInfo);
 	return false;
 }
-void Item::enterEvent()
+void Item::enterEvent(QEvent *)
 {
 }
-void Item::leaveEvent()
+void Item::leaveEvent(QEvent *)
 {
 }
 

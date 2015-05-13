@@ -77,8 +77,8 @@ public:
 	bool mouseDoubleClickEvent ( const EventInfo &info );
 	bool mouseMoveEvent( const EventInfo &info );
 	bool wheelEvent( const EventInfo &info );
-	void enterEvent();
-	void leaveEvent();
+	void enterEvent(QEvent *);
+	void leaveEvent(QEvent *);
 	
 	virtual void buttonStateChanged( const QString &/*id*/, bool /*on*/ ) {};
 	virtual void sliderValueChanged( const QString &/*id*/, int /*value*/ ) {};

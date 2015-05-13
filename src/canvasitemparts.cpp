@@ -402,18 +402,18 @@ void Button::mouseReleaseEvent( QMouseEvent *e )
 }
 
 
-void Button::enterEvent()
+void Button::enterEvent(QEvent *)
 {
-	m_button->enterEvent();
+	m_button->enterEvent(0);
 // 	m_button->setFocus();
 // 	bool hasFocus = m_button->hasFocus();
 // 	m_button->setAutoRaise(true);
 // 	m_button->setOn(true);
 }
 
-void Button::leaveEvent()
+void Button::leaveEvent(QEvent *)
 {
-	m_button->leaveEvent();
+	m_button->leaveEvent(0);
 // 	m_button->clearFocus();
 // 	bool hasFocus = m_button->hasFocus();
 // 	m_button->setAutoRaise(false);
@@ -531,14 +531,14 @@ void Slider::wheelEvent( QWheelEvent *e )
 	canvas()->setChanged( rect() );
 }
 
-void Slider::enterEvent()
+void Slider::enterEvent(QEvent *)
 {
-	m_slider->enterEvent();
+	m_slider->enterEvent(0);
 }
 
-void Slider::leaveEvent()
+void Slider::leaveEvent(QEvent *)
 {
-	m_slider->leaveEvent();
+	m_slider->leaveEvent(0);
 }
 
 void Slider::slotValueChanged( int value )
