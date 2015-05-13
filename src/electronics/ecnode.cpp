@@ -68,7 +68,7 @@ void ECNode::setNumPins( unsigned num )
 	emit numPinsChanged(num);
 }
 
-Pin *ECNode::pin( unsigned num = 0 ) const
+Pin *ECNode::pin( unsigned num ) const
     { return (num < m_pins.size()) ? m_pins[num] : 0l; }
 
 void ECNode::setNodeChanged()
