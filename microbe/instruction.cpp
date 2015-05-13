@@ -1883,8 +1883,8 @@ void ProcessorState::merge( const ProcessorState & state )
 			return;
 		}
 		
-		RegisterState thisReg = *this_it;
-		RegisterState otherReg = *other_it;
+		//RegisterState thisReg = *this_it;
+		//RegisterState otherReg = *other_it;
 		
 		if ( this_it.key() == other_it.key() )	
 		{
@@ -1970,8 +1970,8 @@ bool ProcessorState::operator == ( const ProcessorState & state ) const
 			return true;
 		}
 		
-		RegisterState thisReg = *this_it;
-		RegisterState otherReg = *other_it;
+		//RegisterState thisReg = *this_it;
+		//RegisterState otherReg = *other_it;
 		
 		if ( this_it.key() == other_it.key() )	
 		{
