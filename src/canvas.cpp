@@ -1680,6 +1680,9 @@ void KtlQCanvasPolygonalItem::setBrush( const QBrush & b )
 
 KtlQCanvasPolygon::KtlQCanvasPolygon(KtlQCanvas* canvas)
 	: KtlQCanvasPolygonalItem(canvas)
+    , guardBef()
+    , poly(new Q3PointArray)
+    , guardAft()
 {
 }
 
@@ -1687,6 +1690,7 @@ KtlQCanvasPolygon::KtlQCanvasPolygon(KtlQCanvas* canvas)
 KtlQCanvasPolygon::~KtlQCanvasPolygon()
 {
 	hide();
+    delete poly;
 }
 
 
@@ -1696,16 +1700,16 @@ void KtlQCanvasPolygon::drawShape(QPainter & p)
     // ### see other message. Warwick
 
     p.setPen(Qt::NoPen); // since QRegion(Q3PointArray) excludes outline :-(  )-:
-	p.drawPolygon(poly);
+	p.drawPolygon(*poly);
 }
 
 
 void KtlQCanvasPolygon::setPoints(Q3PointArray pa)
 {
 	removeFromChunks();
-	poly = pa;
-	poly.detach(); // Explicit sharing is stupid.
-	poly.translate((int)x(),(int)y());
+	*poly = pa;
+	poly->detach(); // Explicit sharing is stupid.
+	poly->translate((int)x(),(int)y());
 	addToChunks();
 }
 
@@ -1719,7 +1723,7 @@ void KtlQCanvasPolygon::moveBy(double dx, double dy)
 	int idy = int(y()+dy)-int(y());
 	if ( idx || idy ) {
 		removeFromChunks();
-		poly.translate(idx,idy);
+		poly->translate(idx,idy);
 	}
 	myx+=dx;
 	myy+=dy;
@@ -1737,7 +1741,7 @@ Q3PointArray KtlQCanvasPolygon::points() const
 
 Q3PointArray KtlQCanvasPolygon::areaPoints() const
 {
-	return poly.copy();
+	return poly->copy();
 }
 
 // ### mark: Why don't we offer a constructor that lets the user set the
