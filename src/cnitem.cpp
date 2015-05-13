@@ -223,7 +223,7 @@ Node* CNItem::createNode( double _x, double _y, int orientation, const QString &
 	if ( orientation < 0 )
 		orientation += 360;
 	
-	Node *node;
+	Node *node = NULL;
 
 	// TODO get rid of this switch statement... 
 	switch(type) {
