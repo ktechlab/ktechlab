@@ -184,13 +184,13 @@ class KTechlab : public KateMDI::MainWindow
 		 * This function is called when it is time for the app to save its
 		 * properties for session management purposes.
 		 */
-		void saveProperties(KConfig *);
+		void savePropertiesInConfig(KConfig *);
 		/**
 		 * This function is called when this app is restored.  The KConfig
 		 * object points to the session management config file that was saved
 		 * with @ref saveProperties
 		 */
-		void readProperties(KConfig *);
+		void readPropertiesInConfig(KConfig *);
 		/**
 		 * Called before the window is closed, either by the user or indirectly by the session manager.
 		 * This function doesn't actually close the main window; it only queries the user and closes the active view.

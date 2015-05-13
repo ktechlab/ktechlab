@@ -108,7 +108,7 @@ KTechlab::KTechlab()
 	setupView();
 	//readProperties( KGlobal::config() );
     KSharedConfigPtr cfg = KGlobal::config();
-	readProperties( cfg.data() );
+	readPropertiesInConfig( cfg.data() );
 	
 // 	kDebug() << "Constructor time: " << ct.elapsed() << endl;
 }
@@ -811,7 +811,7 @@ QAction * KTechlab::actionByName( const QString & name ) const
 }
 
 
-void KTechlab::saveProperties( KConfig *conf )
+void KTechlab::savePropertiesInConfig( KConfig *conf )
 {
 	// Dumbass KMainWindow - can't handle my width/height correctly. Whoever thought of the "+1" hack anyway?!
 	//conf->setGroup("UI");
@@ -876,7 +876,7 @@ void KTechlab::saveProperties( KConfig *conf )
 }
 
 
-void KTechlab::readProperties( KConfig *conf )
+void KTechlab::readPropertiesInConfig( KConfig *conf )
 {
 	startRestore( conf, "KateMDI" );
 	
@@ -1363,7 +1363,7 @@ bool KTechlab::queryClose()
 {
     KConfig *cfgPtr = KGlobal::config().data();
 	//saveProperties( KGlobal::config() );
-    saveProperties( cfgPtr );
+    savePropertiesInConfig( cfgPtr );
 	
 	if ( DocManager::self()->closeAll() && ProjectManager::self()->slotCloseProject() )
 	{
