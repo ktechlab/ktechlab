@@ -189,7 +189,7 @@ void Expression::doOp( Operation op, BTreeNode *left, BTreeNode *right )
 		rvalue = right->reg();
 	
 	// Handle if stuff
-	PIC14::LocationType leftType;
+	PIC14::LocationType leftType = PIC14::num;
 	switch ( left->type() )
 	{
 		case number:
@@ -210,7 +210,7 @@ void Expression::doOp( Operation op, BTreeNode *left, BTreeNode *right )
 			kError() << k_funcinfo << "Bad left->type(): " << left->type() << endl;
 	};
 	
-	PIC14::LocationType rightType;
+	PIC14::LocationType rightType = PIC14::work;
 	switch ( right->type() )
 	{
 		case number:
@@ -259,7 +259,7 @@ void Expression::buildTree( const QString & unstrippedExpression, BTreeBase *tre
 	int firstEnd = 0;
 	int secondStart = 0;
 	bool unary = false;
-	Operation op;
+	Operation op = noop;
 	QString expression = stripBrackets( unstrippedExpression );
 	switch(level)
 	{
