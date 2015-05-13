@@ -245,7 +245,7 @@ class ProjectInfo : public ProjectItem
   	 	/**
 		 * Returns the directory that the project is saved in
 		 */
-		QString directory() const { return m_url.directory(false); }
+		QString directory() const { return m_url.directory(KUrl::IgnoreTrailingSlash); }
 		
 		/**
 		 * Saves the project information to file, and attempts to close all
