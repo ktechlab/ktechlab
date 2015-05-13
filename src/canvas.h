@@ -365,7 +365,10 @@ class KtlQCanvasPolygon : public KtlQCanvasPolygonalItem
 
 	protected:
 		void drawShape(QPainter &);
-		Q3PointArray poly;
+        // TODO FIXME guarts are added for debugging memory corruption (poly takes non-pointer values)
+        int guardBef[10];
+		Q3PointArray *poly;
+        int guardAft[10];
 };
 
 
