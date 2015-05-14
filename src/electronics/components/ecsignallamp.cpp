@@ -69,7 +69,7 @@ void ECSignalLamp::stepNonLogic()
 	avgPower = fabs(avgPower * advanceSinceUpdate +
 			(voltage * voltage / RESISTANCE)) /
 			advanceSinceUpdate;
-    advanceSinceUpdate;
+    ++advanceSinceUpdate;
 }
 
 void ECSignalLamp::drawShape( QPainter &p )
