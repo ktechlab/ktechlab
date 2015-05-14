@@ -1,4 +1,4 @@
-set( KTECHLAB_DEVELOPER_BUILD "true" )
+#set( KTECHLAB_DEVELOPER_BUILD "true" )
 
 if (KTECHLAB_DEVELOPER_BUILD)
     SET(CMAKE_INSTALL_PREFIX "../inst1") # for development only
