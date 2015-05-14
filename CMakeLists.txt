@@ -31,6 +31,7 @@ endif (KTECHLAB_DEVELOPER_BUILD)
 set( CMAKE_REQUIRED_FLAGS
 	-fexceptions
 	)
+add_definitions( -fno-inline )  # do not inline any method calls; this is useful for crash debugging
 add_definitions(${QT_DEFINITIONS} ${GLIB2_DEFINITIONS}${KDE4_DEFINITIONS})
 
 # KDE disables STL compatibility by default; re-enabling it is supported
