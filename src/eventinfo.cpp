@@ -84,10 +84,10 @@ QMouseEvent *EventInfo::mousePressEvent( int dx, int dy ) const
 	return new QMouseEvent( QEvent::MouseButtonPress,
 							pos + QPoint( dx, dy ),
 							(isRightClick ? Qt::RightButton : Qt::LeftButton), 
-							(isRightClick ? Qt::RightButton : Qt::LeftButton) |
-									(ctrlPressed ? Qt::ControlButton : 0 ) |
-									(shiftPressed ? Qt::ShiftButton : 0 ) |
-									(altPressed ? Qt::AltButton : 0 ) );
+							(isRightClick ? Qt::RightButton : Qt::LeftButton),
+									(ctrlPressed ? Qt::ControlModifier : Qt::NoModifier ) |
+									(shiftPressed ? Qt::ShiftModifier : Qt::NoModifier ) |
+									(altPressed ? Qt::AltModifier : Qt::NoModifier ) );
 }
 
 
@@ -96,10 +96,10 @@ QMouseEvent *EventInfo::mouseReleaseEvent( int dx, int dy ) const
 	return new QMouseEvent( QEvent::MouseButtonRelease,
 							pos + QPoint( dx, dy ),
 							(isRightClick ? Qt::RightButton : Qt::LeftButton), 
-							(isRightClick ? Qt::RightButton : Qt::LeftButton) |
-									(ctrlPressed ? Qt::ControlButton : 0 ) |
-									(shiftPressed ? Qt::ShiftButton : 0 ) |
-									(altPressed ? Qt::AltButton : 0 ) );
+							(isRightClick ? Qt::RightButton : Qt::LeftButton),
+                                    (ctrlPressed ? Qt::ControlModifier : Qt::NoModifier ) |
+                                    (shiftPressed ? Qt::ShiftModifier : Qt::NoModifier ) |
+                                    (altPressed ? Qt::AltModifier : Qt::NoModifier ) );
 }
 
 
@@ -108,10 +108,10 @@ QMouseEvent *EventInfo::mouseDoubleClickEvent( int dx, int dy ) const
 	return new QMouseEvent( QEvent::MouseButtonDblClick,
 							pos + QPoint( dx, dy ),
 							(isRightClick ? Qt::RightButton : Qt::LeftButton), 
-							(isRightClick ? Qt::RightButton : Qt::LeftButton) |
-									(ctrlPressed ? Qt::ControlButton : 0 ) |
-									(shiftPressed ? Qt::ShiftButton : 0 ) |
-									(altPressed ? Qt::AltButton : 0 ) );
+							(isRightClick ? Qt::RightButton : Qt::LeftButton),
+                                    (ctrlPressed ? Qt::ControlModifier : Qt::NoModifier ) |
+                                    (shiftPressed ? Qt::ShiftModifier : Qt::NoModifier ) |
+                                    (altPressed ? Qt::AltModifier : Qt::NoModifier ) );
 }
 
 
@@ -120,9 +120,9 @@ QMouseEvent *EventInfo::mouseMoveEvent( int dx, int dy ) const
 	return new QMouseEvent( QEvent::MouseMove,
 							pos + QPoint( dx, dy ),
 							Qt::NoButton, 
-							(ctrlPressed ? Qt::ControlButton : 0 ) |
-									(shiftPressed ? Qt::ShiftButton : 0 ) |
-									(altPressed ? Qt::AltButton : 0 ) );
+							(ctrlPressed ? Qt::ControlModifier : Qt::NoModifier ) |
+									(shiftPressed ? Qt::ShiftModifier : Qt::NoModifier ) |
+									(altPressed ? Qt::AltModifier : Qt::NoModifier ) );
 }
 
 
@@ -130,9 +130,9 @@ QWheelEvent *EventInfo::wheelEvent( int dx, int dy ) const
 {
 	return new QWheelEvent( pos + QPoint( dx, dy ),
 							scrollDelta,
-							(ctrlPressed ? Qt::ControlButton : 0 ) |
-									(shiftPressed ? Qt::ShiftButton : 0 ) |
-									(altPressed ? Qt::AltButton : 0 ),
+							(ctrlPressed ? Qt::ControlModifier : Qt::NoModifier ) |
+									(shiftPressed ? Qt::ShiftModifier : Qt::NoModifier ) |
+									(altPressed ? Qt::AltModifier : Qt::NoModifier ),
 							scrollOrientation );
 }
 

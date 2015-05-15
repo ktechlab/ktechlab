@@ -158,13 +158,13 @@ bool View::eventFilter( QObject * watched, QEvent * e )
 // 				kDebug() << "No widget currently has focus.\n";
 			}
 			
-			if ( fe->reason() == QFocusEvent::Popup )
+			if ( fe->reason() == Qt::PopupFocusReason )
 			{
 // 				kDebug() << k_funcinfo << "Ignoring focus-out event as was a popup.\n";
 				break;
 			}
 			
-			if ( fe->reason() == QFocusEvent::ActiveWindow )
+			if ( fe->reason() == Qt::ActiveWindowFocusReason )
 			{
 // 				kDebug() << k_funcinfo << "Ignoring focus-out event as main window lost focus.\n";
 				break;
