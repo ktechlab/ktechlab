@@ -429,7 +429,8 @@ bool CircuitICNDocument::joinConnectors( ECNode *node )
 	if ( conCount != 2 ) return false;
 
 	Connector *con1, *con2;
-	ECNode *startNode, *endNode;
+	ECNode *startNode = NULL;
+    ECNode *endNode = NULL;
 	QPointList conPoints;
 
 	con1 = node->connectorList().at(0).data();
