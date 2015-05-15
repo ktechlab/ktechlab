@@ -1057,7 +1057,13 @@ void Component::setAllPinsInterIndependent()
     NodeInfoMap::iterator nmEnd = m_nodeMap.end();
     for ( NodeInfoMap::iterator it = m_nodeMap.begin(); it != nmEnd; ++it )
     {
-        PinVector pins = (static_cast<ECNode*>(it.data().node))->pins();
+        //PinVector pins = (static_cast<ECNode*>(it.data().node))->pins();
+        ECNode *node = dynamic_cast<ECNode*>(it.data().node);
+        if (!node) {
+            qWarning() << Q_FUNC_INFO << "skipping not-ECNode node: " << it.data().node;
+            continue;
+        }
+        PinVector pins = node->pins();
         PinVector::iterator pinsEnd = pins.end();
         for ( PinVector::iterator pinsIt = pins.begin(); pinsIt != pinsEnd; ++pinsIt )
         {
