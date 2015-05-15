@@ -31,7 +31,7 @@ Node::Node( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoin
         name.append("-Unknown");
     }
     setName(name.toLatin1().data());
-    qDebug() << "created node at " << this;
+    qDebug() << Q_FUNC_INFO << " this=" << this;
 
 	m_length = 8;
 	p_nodeGroup = 0l;

@@ -36,6 +36,7 @@ Item::Item( ItemDocument *itemDocument, bool newItem, const QString &id )
 {
     QString name(QString("Item-%1").arg(id));
     setName(name.toLatin1().data());
+    qDebug() << Q_FUNC_INFO << " this=" << this;
 
 	m_bDynamicContent = false;
 	m_bIsRaised = false;

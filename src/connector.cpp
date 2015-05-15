@@ -39,6 +39,7 @@ Connector::Connector(Node *startNode, Node *endNode, ICNDocument *icnDocument, Q
         name.append("-Unknown");
     }
     setName(name.toLatin1().data());
+    qDebug() << Q_FUNC_INFO << " this=" << this;
 
 	m_currentAnimationOffset = 0.0;
 	p_parentContainer = 0;
@@ -555,6 +556,7 @@ void Connector::incrementCurrentAnimation(double deltaTime) {
 ConnectorLine::ConnectorLine(Connector * connector, int pixelOffset)
 		: //QObject(connector),
             KtlQCanvasLine(connector->canvas()) {
+    qDebug() << Q_FUNC_INFO << " this=" << this;
 	m_pConnector = connector;
 	m_pixelOffset = pixelOffset;
 }

@@ -32,6 +32,8 @@ CNItem::CNItem( ICNDocument *icnDocument, bool newItem, const QString &id )
 	  p_icnDocument(icnDocument),
 	  b_pointsAdded(false)
 {
+    qDebug() << Q_FUNC_INFO << " this=" << this;
+
 	setZ( ICNDocument::Z::Item );
 	setSelected(false);
 	
