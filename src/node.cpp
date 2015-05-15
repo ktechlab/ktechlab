@@ -26,11 +26,12 @@ Node::Node( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoin
 {
     QString name("Node");
     if (id) {
-        name.append("-%1").arg(*id);
+        name.append(QString("-%1").arg(*id));
     } else {
         name.append("-Unknown");
     }
     setName(name.toLatin1().data());
+    qDebug() << "created node at " << this;
 
 	m_length = 8;
 	p_nodeGroup = 0l;
