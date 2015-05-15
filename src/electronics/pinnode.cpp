@@ -47,7 +47,7 @@ PinNode::PinNode(ICNDocument* icnDocument, int dir, const QPoint& pos, QString* 
 {
     QString name("PinNode");
     if (id) {
-        name.append("-%1").arg(*id);
+        name.append(QString("-%1").arg(*id));
     } else {
         name.append("-Unknown");
     }

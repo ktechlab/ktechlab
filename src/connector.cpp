@@ -34,7 +34,7 @@ Connector::Connector(Node *startNode, Node *endNode, ICNDocument *icnDocument, Q
 
     QString name("Connector");
     if (id) {
-        name.append("-%1").arg(*id);
+        name.append(QString( "-%1").arg(*id));
     } else {
         name.append("-Unknown");
     }

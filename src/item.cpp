@@ -34,8 +34,7 @@ Item::Item( ItemDocument *itemDocument, bool newItem, const QString &id )
 	: //QObject(),
         KtlQCanvasPolygon( itemDocument ? itemDocument->canvas() : 0 )
 {
-    QString name("Item-%1");
-    name.arg(id);
+    QString name(QString("Item-%1").arg(id));
     setName(name.toLatin1().data());
 
 	m_bDynamicContent = false;
