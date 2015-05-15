@@ -457,7 +457,7 @@ bool ProjectItem::build( ProcessOptionsList * pol )
 	po.setTargetFile( outputURL().path() );
 	po.m_picID = microID();
 	
-	ProcessOptions::ProcessPath::MediaType typeTo;
+	ProcessOptions::ProcessPath::MediaType typeTo = ProcessOptions::ProcessPath::Unknown;
 	
 	switch ( outputType() )
 	{
