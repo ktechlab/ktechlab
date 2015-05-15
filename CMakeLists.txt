@@ -1,9 +1,5 @@
 #set( KTECHLAB_DEVELOPER_BUILD "true" )
 
-if (KTECHLAB_DEVELOPER_BUILD)
-    SET(CMAKE_INSTALL_PREFIX "../inst1") # for development only
-endif (KTECHLAB_DEVELOPER_BUILD)
-
 project( ktechlab )
 set( VERSION 0.3.6 )
 
