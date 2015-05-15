@@ -326,7 +326,13 @@ KtlQCanvasChunk& KtlQCanvas::chunk(int i, int j) const
 {
 	i -= m_chunkSize.left();
 	j -= m_chunkSize.top();
-	return chunks[i+m_chunkSize.width()*j];
+    //return chunks[i+m_chunkSize.width()*j];
+    const int chunkOffset = i + m_chunkSize.width() * j;
+    if ((chunkOffset < 0) || (chunkOffset >= (m_chunkSize.width()*m_chunkSize.height())) ) {
+        qWarning() << Q_FUNC_INFO << " invalid chunk coordinates: " << i << " " << j;
+        return chunks[0]; // at least it should not crash
+    }
+    return chunks[chunkOffset];
 }
 
 /*!
