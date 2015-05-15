@@ -1142,6 +1142,7 @@ KtlQCanvasItem::KtlQCanvasItem(KtlQCanvas* canvas)
 	: val(false), myx(0), myy(0), myz(0), cnv(canvas),
 	 ext(0), m_bNeedRedraw(true), vis(false), sel(false)
 {
+    qDebug() << Q_FUNC_INFO << " this=" << this;
 	if (cnv) cnv->addItem(this);
 }
 
@@ -1690,6 +1691,7 @@ KtlQCanvasPolygon::KtlQCanvasPolygon(KtlQCanvas* canvas)
     , poly(new Q3PointArray)
     , guardAft()
 {
+    qDebug() << Q_FUNC_INFO << " this=" << this;
 }
 
 
@@ -1757,6 +1759,7 @@ Q3PointArray KtlQCanvasPolygon::areaPoints() const
 KtlQCanvasLine::KtlQCanvasLine(KtlQCanvas* canvas)
 	: KtlQCanvasPolygonalItem(canvas)
 {
+    qDebug() << Q_FUNC_INFO << " this=" << this;
 	x1 = y1 = x2 = y2 = 0;
 }
 
@@ -1838,6 +1841,7 @@ KtlQCanvasRectangle::KtlQCanvasRectangle(KtlQCanvas* canvas) :
     w(32), h(32)
 {
     setName("KtlQCanvasRectangle");
+    qDebug() << Q_FUNC_INFO << " this=" << this;
 }
 
 
@@ -1847,6 +1851,7 @@ KtlQCanvasRectangle::KtlQCanvasRectangle(const QRect& r, KtlQCanvas* canvas) :
 {
     setName("KtlQCanvasRectangle");
 	move(r.x(),r.y());
+    qDebug() << Q_FUNC_INFO << " this=" << this;
 }
 
 
@@ -1856,6 +1861,7 @@ KtlQCanvasRectangle::KtlQCanvasRectangle(int x, int y, int width, int height, Kt
 {
     setName("KtlQCanvasRectangle");
 	move(x,y);
+    qDebug() << Q_FUNC_INFO << " this=" << this;
 }
 
 
@@ -1912,6 +1918,7 @@ KtlQCanvasEllipse::KtlQCanvasEllipse(KtlQCanvas* canvas)
 	w(32), h(32),
 	a1(0), a2(360*16)
 {
+    qDebug() << Q_FUNC_INFO << " this=" << this;
 }
 
 /*!
@@ -1923,6 +1930,7 @@ KtlQCanvasEllipse::KtlQCanvasEllipse(KtlQCanvas* canvas)
 	w(width),h(height),
 	a1(0),a2(360*16)
 {
+    qDebug() << Q_FUNC_INFO << " this=" << this;
 }
 
 
@@ -1932,6 +1940,7 @@ KtlQCanvasEllipse::KtlQCanvasEllipse(int width, int height,
 	w(width),h(height),
 	a1(startangle),a2(angle)
 {
+    qDebug() << Q_FUNC_INFO << " this=" << this;
 }
 
 
