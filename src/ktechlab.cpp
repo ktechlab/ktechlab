@@ -206,6 +206,7 @@ void KTechlab::setupToolDocks()
 						 KMultiTabBar::Left,
 						 loader->loadIcon( "attach", KIconLoader::Small ),
 						 i18n("Project") );
+    tv->setName("ProjectManager-ToolView");
 	ProjectManager::self( tv );
 	
 	pm.load( KStandardDirs::locate( "appdata", "icons/circuit.png" ) );
@@ -213,6 +214,7 @@ void KTechlab::setupToolDocks()
 						 KMultiTabBar::Left,
 						 pm,
 						 i18n("Components") );
+    tv->setName("ComponentSelector-ToolView");
 	ComponentSelector::self(tv);
 	
 	// Create an instance of the subcircuits interface, now that we have created the component selector
@@ -224,6 +226,7 @@ void KTechlab::setupToolDocks()
 						 KMultiTabBar::Left,
 						 pm,
 						 i18n("Flow Parts") );
+    tv->setName("FlowPartSelector-ToolView");
 	FlowPartSelector::self(tv);
 	
 #ifdef MECHANICS
@@ -232,6 +235,7 @@ void KTechlab::setupToolDocks()
 						 KMultiTabBar::Left,
 						 pm,
 						 i18n("Mechanics") );
+    tv->setName("MechanicsSelector-ToolView");
 	MechanicsSelector::self(tv);
 #endif
 	
@@ -240,18 +244,21 @@ void KTechlab::setupToolDocks()
 						 KMultiTabBar::Right,
 						 pm,
 						 i18n("Item Editor") );
+    tv->setName("ItemEditor-ToolView");
 	ItemEditor::self(tv);
 	
 	tv = createToolView( ContextHelp::toolViewIdentifier(),
 						 KMultiTabBar::Right,
 						 loader->loadIcon( "contents", KIconLoader::Small ),
 						 i18n("Context Help") );
+    tv->setName("ContextHelp-ToolView");
 	ContextHelp::self(tv);
 	
 	tv = createToolView( LanguageManager::toolViewIdentifier(),
 						 KMultiTabBar::Bottom,
 						 loader->loadIcon( "log", KIconLoader::Small ),
 						 i18n("Messages") );
+    tv->setName("LanguageManager-ToolView");
 	LanguageManager::self( tv );
 	
 #ifndef NO_GPSIM
@@ -259,6 +266,7 @@ void KTechlab::setupToolDocks()
 						 KMultiTabBar::Right,
 						 loader->loadIcon( "blockdevice", KIconLoader::Small ),
 						 i18n("Symbol Viewer") );
+    tv->setName("SymbolViewer-ToolView");
 	SymbolViewer::self(tv);
 #endif
 	
@@ -269,6 +277,7 @@ void KTechlab::setupToolDocks()
 	                     KMultiTabBar::Bottom,
 	                     loader->loadIcon( "oscilloscope", KIconLoader::Small ),
 	                     i18n("Scope Screen (Very Rough)") );
+    tv->setName("ScopeScreen-ToolView");
 	ScopeScreen::self( tv );
 #endif
 
