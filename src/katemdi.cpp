@@ -52,7 +52,7 @@ Splitter::Splitter(Qt::Orientation o, QWidget* parent, const char* name)
 Splitter::~Splitter()
 {
 }
-
+/*
 bool Splitter::isLastChild(QWidget* w) const
 {
   return indexOf(w) == (count() - 1);
@@ -63,7 +63,7 @@ int Splitter::idAfter ( QWidget * w ) const
 {
   //return QSplitter::idAfter (w);
     return indexOf(w);
-}
+}*/
 
 //END SPLITTER
 
