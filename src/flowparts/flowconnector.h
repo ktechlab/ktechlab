@@ -12,7 +12,7 @@
 #ifndef FLOWCONNECTOR_H
 #define FLOWCONNECTOR_H
 
-#include "fpnode.h"
+//#include "fpnode.h"
 #include "connector.h"
 
 class FPNode;
