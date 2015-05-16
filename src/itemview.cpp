@@ -117,7 +117,7 @@ ItemView::ItemView( ItemDocument * itemDocument, ViewContainer *viewContainer, u
     pa->setName("edit_draw");
 	pa->setDelayed(false);
 	
-	KMenu * m = pa->popupMenu();
+	KMenu * m = pa->menu();
 	m->addTitle( i18n("Draw") );
 	
 	m->insertItem( KIcon( "tool_text" ), i18n("Text"),		DrawPart::da_text );

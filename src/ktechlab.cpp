@@ -501,55 +501,55 @@ void KTechlab::setupActions()
     p->setShortcut( KStandardShortcut::shortcut(KStandardShortcut::New) );
     connect(p, SIGNAL(triggered(bool)), this, SLOT(slotFileNew()));
     ac->addAction("newfile_popup", p);
-	p->popupMenu()->addTitle( i18n("New File") );
+	p->menu()->addTitle( i18n("New File") );
     {
-        //(new KAction( i18n("Assembly"), "source", 0, this, SLOT(slotFileNewAssembly()), ac, "newfile_asm" ))->plug( p->popupMenu() );
+        //(new KAction( i18n("Assembly"), "source", 0, this, SLOT(slotFileNewAssembly()), ac, "newfile_asm" ))->plug( p->menu() );
         KAction *a = new KAction( KIcon("source"),  i18n("Assembly"), ac);
         a->setName("newfile_asm");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotFileNewAssembly()));
-        p->popupMenu()->addAction(a);
+        p->menu()->addAction(a);
         ac->addAction("newfile_asm", a);
     }
     {
-        //(new KAction( i18n("C source"), "source_c", 0, this, SLOT(slotFileNewC()), ac, "newfile_c" ))->plug( p->popupMenu() );
+        //(new KAction( i18n("C source"), "source_c", 0, this, SLOT(slotFileNewC()), ac, "newfile_c" ))->plug( p->menu() );
         KAction *a = new KAction( KIcon("source_c"), i18n("C source"), ac);
         a->setName("newfile_c");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotFileNewC()));
-        p->popupMenu()->addAction(a);
+        p->menu()->addAction(a);
         ac->addAction("newfile_c", a);
     }
     {
-        //(new KAction( i18n("Circuit"), "ktechlab_circuit", 0, this, SLOT(slotFileNewCircuit()), ac, "newfile_circuit" ))->plug( p->popupMenu() );
+        //(new KAction( i18n("Circuit"), "ktechlab_circuit", 0, this, SLOT(slotFileNewCircuit()), ac, "newfile_circuit" ))->plug( p->menu() );
         KAction *a = new KAction( KIcon("ktechlab_circuit"), i18n("Circuit"), ac);
         a->setName("newfile_circuit");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotFileNewCircuit()));
-        p->popupMenu()->addAction(a);
+        p->menu()->addAction(a);
         ac->addAction("newfile_circuit", a);
     }
     {
-        //(new KAction( i18n("FlowCode"), "ktechlab_flowcode", 0, this, SLOT(slotFileNewFlowCode()), ac, "newfile_flowcode" ))->plug( p->popupMenu() );
+        //(new KAction( i18n("FlowCode"), "ktechlab_flowcode", 0, this, SLOT(slotFileNewFlowCode()), ac, "newfile_flowcode" ))->plug( p->menu() );
         KAction *a = new KAction( KIcon("ktechlab_flowcode"), i18n("FlowCode"), ac);
         a->setName("newfile_flowcode");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotFileNewFlowCode()));
-        p->popupMenu()->addAction(a);
+        p->menu()->addAction(a);
         ac->addAction("newfile_flowcode", a);
     }
 #ifdef MECHANICS
     {
-        //(new KAction( i18n("Mechanics"), "ktechlab_mechanics", 0, this, SLOT(slotFileNewMechanics()), ac, "newfile_mechanics" ))->plug( p->popupMenu() );
+        //(new KAction( i18n("Mechanics"), "ktechlab_mechanics", 0, this, SLOT(slotFileNewMechanics()), ac, "newfile_mechanics" ))->plug( p->menu() );
         KAction *a = new KAction( KIcon("ktechlab_mechanics"), i18n("Mechanics"), ac);
         a->setName("newfile_mechanics");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotFileNewMechanics()));
-        p->popupMenu()->addAction(a);
+        p->menu()->addAction(a);
         ac->addAction("newfile_mechanics", a);
     }
 #endif
     {
-        //(new KAction( "Microbe", "ktechlab_microbe", 0, this, SLOT(slotFileNewMicrobe()), ac, "newfile_microbe" ))->plug( p->popupMenu() );
+        //(new KAction( "Microbe", "ktechlab_microbe", 0, this, SLOT(slotFileNewMicrobe()), ac, "newfile_microbe" ))->plug( p->menu() );
         KAction *a = new KAction( KIcon("ktechlab_microbe"), i18n("Microbe"), ac);
         a->setName("newfile_microbe");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotFileNewMicrobe()));
-        p->popupMenu()->addAction(a);
+        p->menu()->addAction(a);
         ac->addAction("newfile_microbe", a);
     }
 	//END New File popup

@@ -100,10 +100,10 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
     tools->addAction(m_pTextAlignment);
 	m_pTextAlignment->setDelayed(false);
 	
-	//K3PopupMenu * m = m_pTextAlignment->popupMenu();
-    KMenu * m = m_pTextAlignment->popupMenu();
+	//K3PopupMenu * m = m_pTextAlignment->menu();
+    QMenu * m = m_pTextAlignment->menu();
     //m->insertTitle( i18n("Text Alignment") );
-    m->addTitle( i18n("Text Alignment"));
+    m->setTitle( i18n("Text Alignment"));
 	m->setCheckable( true );
 	
 	m->insertItem( KIcon( "text_left" ), i18n("Align Left"),		Qt::AlignLeft );
@@ -125,9 +125,9 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
     tools->addAction(m_pTextVerticalAlignment);
 	m_pTextVerticalAlignment->setDelayed(false);
 	
-	m = m_pTextVerticalAlignment->popupMenu();
+	m = m_pTextVerticalAlignment->menu();
 	//m->insertTitle( i18n("Text Vertical Alignment") );
-    m->addTitle( i18n("Text Vertical Alignment") );
+    m->setTitle( i18n("Text Vertical Alignment") );
 	m->setCheckable( true );
 	
 	m->insertItem( KIcon( "text_super" ), i18n("Superscript"),	Q3TextEdit::AlignSuperScript );
