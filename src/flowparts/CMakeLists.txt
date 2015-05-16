@@ -29,6 +29,7 @@ SET(flowparts_STAT_SRCS
    flowpart.cpp
    pinmapping.cpp
    flowconnector.cpp
+   flowconnectorlist.cpp
    flowicndocument.cpp
    inputflownode.cpp
    outputflownode.cpp

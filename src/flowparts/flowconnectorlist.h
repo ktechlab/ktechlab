@@ -67,13 +67,13 @@ public :
 	
 	FlowConnectorList () : list(), flowList() { }
 
-	FlowConnectorList ( const QList<T> & l ) : flowList(l) { // O(n)
+	FlowConnectorList ( const QList<T> & l ) ; /* : flowList(l) { // O(n)
 		FlowConnectorList::iterator it, end = flowList.end();
 		for( it = flowList.begin(); it != end; it++)
 			list.append( CAST_POINTER *it);
-	}
+	} */
 
-	FlowConnectorList ( const std::list<T> & l ) ; /* : flowList(l) {
+	/* FlowConnectorList ( const std::list<T> & l ) ; */ /* : flowList(l) {
 		FlowConnectorList::iterator it, end = flowList.end();
 		for( it = flowList.begin(); it != end; it++)
 			list.append( CAST_POINTER *it);
@@ -81,16 +81,16 @@ public :
 
 	~FlowConnectorList () { }	// leak check ?
 
-	QList<T> & operator= ( const QList<T> & l ) { // -> O(n)
+	QList<T> & operator= ( const QList<T> & l ) ; /* { // -> O(n)
 		flowList = l;
 		list.clear();
 		FlowConnectorList::iterator it, end = flowList.end();
 		for( it = flowList.begin(); it != end; it++)
 			list.append( CAST_POINTER  *it);
 		return flowList;
-	}
+	} */
 
-	QList<T> & operator= ( const std::list<T> & l ) ; /* {	// O(n)
+	/* QList<T> & operator= ( const std::list<T> & l ) ; */ /* {	// O(n)
 		flowList = l;
 		list.clear();
 		FlowConnectorList::iterator it, end = flowList.end();
@@ -100,7 +100,7 @@ public :
 		return flowList;
 	} */
 
-	bool operator== ( const std::list<T> & l ) const ; /* {
+	/* bool operator== ( const std::list<T> & l ) const ; */  /* {
 		return flowList == l;
 	} */
 
@@ -136,25 +136,25 @@ public :
 		return flowList.constEnd();
 	}
 
-	iterator insert ( iterator it, const T & x ) {	// O(n)	
+	iterator insert ( iterator it, const T & x ) ; /* {	// O(n)
 		list.insert(  convertIterator( it ), CAST_POINTER x);
 		return flowList.insert(it,x);
-	}
+	} */
 
-	uint remove ( const T & x ) {
+	uint remove ( const T & x ) ; /* {
 		list.remove( CAST_POINTER  x);
 		return flowList.remove(x);
-	}
+	} */
 
 	void clear () {
 		flowList.clear();
 		list.clear();
 	}
 
-	QList<T> & operator<< ( const T & x ) {
+	QList<T> & operator<< ( const T & x ) ; /* {
 		list << CAST_POINTER  x;
 		return flowList << x;
-	}
+	} */
 
 	size_type size () const {	// assert ?
 		return flowList.size();
@@ -164,15 +164,15 @@ public :
 		return flowList.empty();
 	}
 
-	void push_front ( const T & x ) {
+	void push_front ( const T & x ) ; /* {
 		list.push_front(CAST_POINTER x);
 		flowList.push_front(x);
-	}
+	} */
 
-	void push_back ( const T & x ) {
+	void push_back ( const T & x ) ; /* {
 		list.push_back(CAST_POINTER x);
 		flowList.push_back(x);
-	}
+	} */
 
 	iterator erase ( iterator it ){		// O(n)
 		list.erase( convertIterator(it) );
@@ -210,7 +210,7 @@ public :
 		list.pop_back();
 	}
 
-	void insert ( iterator pos, size_type n, const T & x ) ; /* { 	// O(n)
+	/* void insert ( iterator pos, size_type n, const T & x ) ; */ /* { 	// O(n)
 		list.insert( convertIterator(pos) ,n, CAST_POINTER x); 
 		flowList.insert(pos,n,x);
 	} */
@@ -219,18 +219,18 @@ public :
 		return flowList + l;
 	}
 
-	QList<T> & operator+= ( const QList<T> & l ) {	// O(n)
+	QList<T> & operator+= ( const QList<T> & l ) ; /* {	// O(n)
 		const_iterator end = l.end();
 		for(const_iterator it = l.begin(); it != end; it++)
 			list.append( CAST_POINTER  *it );
 		return flowList += l;
-	}
+	} */
 
-	iterator fromLast () ; /* {
+	/* iterator fromLast () ; */ /* {
 		return flowList.fromLast();
 	} */
 
-	const_iterator fromLast () const ; /* {
+	/* const_iterator fromLast () const ; */ /* {
 		return flowList.fromLast();
 	} */
 
@@ -238,21 +238,21 @@ public :
 		return flowList.isEmpty();
 	}
 
-	iterator append ( const T & x ){
+	iterator append ( const T & x ) ; /* {
 		list.append(CAST_POINTER x);
 		// return flowList.append(x);
         flowList.append(x);
         iterator ret = flowList.end();
         --ret;
         return ret;
-	}
+	} */
 
-	iterator prepend ( const T & x ){
+	iterator prepend ( const T & x ) ; /* {
 		list.prepend(CAST_POINTER x);
 		//return flowList.prepend(x);
         flowList.prepend(x);
         return flowList.begin();
-	}
+	} */
 
 	iterator remove ( iterator it ){
 	// -> O(n)
@@ -327,10 +327,10 @@ public :
 		return flowList.count();
 	}
 
-	QList<T> & operator+= ( const T & x ) {
+	QList<T> & operator+= ( const T & x ) ; /* {
 		list += CAST_POINTER x;
 		return flowList += x;
-	}
+	} */
 
 private: 
 	ConnectorList list;
