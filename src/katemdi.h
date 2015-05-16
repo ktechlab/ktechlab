@@ -49,9 +49,9 @@ class Splitter : public QSplitter
      * returns 0 if there is no widget after this one.
      * This results in an error if widget is not a child
      * in this splitter */
-    bool isLastChild(QWidget* w) const;
+    //bool isLastChild(QWidget* w) const;
 
-    int idAfter ( QWidget * w ) const;
+    //int idAfter ( QWidget * w ) const;
 };
 
 class ToggleToolViewAction : public KToggleAction
