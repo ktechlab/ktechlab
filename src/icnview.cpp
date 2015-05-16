@@ -56,7 +56,7 @@ ICNView::ICNView( ICNDocument *icnDocument, ViewContainer *viewContainer, uint v
 	m_pRoutingModeToolbarPopup->setDelayed(false);
     ac->addAction("routing_mode", m_pRoutingModeToolbarPopup);
 	
-	KMenu * m = m_pRoutingModeToolbarPopup->popupMenu();
+	KMenu * m = m_pRoutingModeToolbarPopup->menu();
 	m->addTitle( i18n("Connection Routing Mode") );
 	
 	m->insertItem( /*KIconLoader::global()->loadIcon( "routing_mode_auto",	KIconLoader::Small ), */i18n("Automatic"), 0 );
@@ -113,8 +113,8 @@ void ICNView::slotUpdateRoutingMode( bool manualRouting )
 
 void ICNView::slotUpdateRoutingToggles( bool manualRouting )
 {
-	m_pRoutingModeToolbarPopup->popupMenu()->setItemChecked( !manualRouting, 0 );
-	m_pRoutingModeToolbarPopup->popupMenu()->setItemChecked(  manualRouting, 1 );
+	m_pRoutingModeToolbarPopup->menu()->setItemChecked( !manualRouting, 0 );
+	m_pRoutingModeToolbarPopup->menu()->setItemChecked(  manualRouting, 1 );
 	
 	if ( manualRouting )
 		m_pManualRoutingAction->setChecked(true);

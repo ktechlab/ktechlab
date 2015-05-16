@@ -32,7 +32,7 @@ FlowCodeView::FlowCodeView( FlowCodeDocument * flowCodeDocument, ViewContainer *
     pa->setName( "program_convert" );
 	pa->setDelayed(false);
 	
-	KMenu * m = pa->popupMenu();
+	KMenu * m = pa->menu();
 	
 	m->addTitle( i18n("Convert to") );
 	m->insertItem( KIcon( "convert_to_microbe" ), i18n("Microbe"), FlowCodeDocument::MicrobeOutput );
