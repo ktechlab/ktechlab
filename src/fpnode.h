@@ -108,8 +108,8 @@ public:
 	/**
 	 * Returns a list of the input connectors; implemented inline 
 	 */
-	ConnectorList inputConnectorList() const  {  
-			return (ConnectorList)(FlowConnectorList) m_inFlowConnList; 	}
+	ConnectorList inputConnectorList() const ; /* {
+			return (ConnectorList)(FlowConnectorList) m_inFlowConnList; 	} */
 	/**
 	 * Returns a list of the output connectors
 	 */

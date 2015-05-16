@@ -372,6 +372,9 @@ bool FPNode::isConnected( Node *node, NodeList *checkedNodes )
 	return false;
 }
 
+ConnectorList FPNode::inputConnectorList() const  {
+    return (ConnectorList)(FlowConnectorList) m_inFlowConnList;
+}
 		
 ConnectorList FPNode::outputConnectorList() const 
 {  
