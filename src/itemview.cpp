@@ -117,8 +117,8 @@ ItemView::ItemView( ItemDocument * itemDocument, ViewContainer *viewContainer, u
     pa->setName("edit_draw");
 	pa->setDelayed(false);
 	
-	KMenu * m = pa->menu();
-	m->addTitle( i18n("Draw") );
+	QMenu * m = pa->menu();
+	m->setTitle( i18n("Draw") );
 	
 	m->insertItem( KIcon( "tool_text" ), i18n("Text"),		DrawPart::da_text );
 	m->insertItem( KIcon( "tool_line" ), i18n("Line"),		DrawPart::da_line );

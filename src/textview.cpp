@@ -62,9 +62,9 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
 	pa->setDelayed(false);
     ac->addAction("program_convert", pa);
 	
-	KMenu * m = pa->menu();
+	QMenu * m = pa->menu();
 
-    m->addTitle( i18n("Convert to ...") );
+    m->setTitle( i18n("Convert to ...") );
 	m->insertItem( KIcon( "convert_to_microbe" ), i18n("Microbe"), TextDocument::MicrobeOutput );
 	m->insertItem( KIcon( "convert_to_assembly" ), i18n("Assembly"), TextDocument::AssemblyOutput );
 	m->insertItem( KIcon( "convert_to_hex" ), i18n("Hex"), TextDocument::HexOutput );
@@ -242,7 +242,7 @@ void TextView::paste() {
 
 void TextView::disableActions()
 {
-	KMenu * tb = (dynamic_cast<KToolBarPopupAction*>(actionByName("program_convert")))->menu();
+	QMenu * tb = (dynamic_cast<KToolBarPopupAction*>(actionByName("program_convert")))->menu();
 	
 	tb->setItemEnabled( TextDocument::AssemblyOutput, false );
 	tb->setItemEnabled( TextDocument::HexOutput, false );
@@ -283,7 +283,7 @@ void TextView::initCodeActions()
 {
 	disableActions();
 	
-	KMenu * tb = (dynamic_cast<KToolBarPopupAction*>(actionByName("program_convert")))->menu();
+	QMenu * tb = (dynamic_cast<KToolBarPopupAction*>(actionByName("program_convert")))->menu();
 	
 	switch ( textDocument()->guessedCodeType() )
 	{
