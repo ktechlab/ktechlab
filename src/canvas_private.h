@@ -35,7 +35,7 @@ public:
 
 	inline void add(int x, int y)
 	{
-		if ( pnt >= (int)result.size() ) {
+		if ( pnt >= result.size() ) {
 			result.resize(pnt*2+10);
 		}
 		result[pnt++] = QPoint(x+bounds.x(),y+bounds.y());
