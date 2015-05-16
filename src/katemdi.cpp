@@ -647,32 +647,41 @@ MainWindow::MainWindow (QWidget* parentWidget, const char* name)
 {
   // init the internal widgets
   Q3HBox *hb = new Q3HBox (this);
+  hb->setName("MainWindow-central-HBox");
   setCentralWidget(hb);
 
   m_sidebars[KMultiTabBar::Left] = new Sidebar (KMultiTabBar::Left, this, hb);
+  m_sidebars[KMultiTabBar::Left]->setName("Main-Left-Sidebar");
 
   m_hSplitter = new Splitter (Qt::Horizontal, hb);
   m_hSplitter->setOpaqueResize( KGlobalSettings::opaqueResize() );
+  m_hSplitter->setName("Main-Left-Splitter");
 
   m_sidebars[KMultiTabBar::Left]->setSplitter (m_hSplitter);
 
   Q3VBox *vb = new Q3VBox (m_hSplitter);
+  vb->setName("Main-Center-VBox");
   m_hSplitter->setCollapsible(vb, false);
 
   m_sidebars[KMultiTabBar::Top] = new Sidebar (KMultiTabBar::Top, this, vb);
+  m_sidebars[KMultiTabBar::Top]->setName("Main-Top-Sidebar");
 
   m_vSplitter = new Splitter (Qt::Vertical, vb);
+  m_vSplitter->setName("Main-Top-Splitter");
   m_vSplitter->setOpaqueResize( KGlobalSettings::opaqueResize() );
 
   m_sidebars[KMultiTabBar::Top]->setSplitter (m_vSplitter);
 
   m_centralWidget = new Q3VBox (m_vSplitter);
+  m_centralWidget->setName("Main-Central-Vbox");
   m_vSplitter->setCollapsible(m_centralWidget, false);
 
   m_sidebars[KMultiTabBar::Bottom] = new Sidebar (KMultiTabBar::Bottom, this, vb);
+  m_sidebars[KMultiTabBar::Bottom]->setName("Main-Bottom-Sidebar");
   m_sidebars[KMultiTabBar::Bottom]->setSplitter (m_vSplitter);
 
   m_sidebars[KMultiTabBar::Right] = new Sidebar (KMultiTabBar::Right, this, hb);
+  m_sidebars[KMultiTabBar::Right]->setName("Main-Right-Sidebar");
   m_sidebars[KMultiTabBar::Right]->setSplitter (m_hSplitter);
 }
 
