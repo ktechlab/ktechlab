@@ -17,6 +17,7 @@
 #include "itemselector.h"
 #include "libraryitem.h"
 #include "mechanicsdocument.h"
+#include "katemdi.h"
 
 #include <kapplication.h>
 #include <kconfig.h>
@@ -51,12 +52,17 @@ ILVItem::ILVItem( K3ListViewItem* parent, const QString &id )
 ItemSelector::ItemSelector( QWidget *parent, const char *name )
 	: K3ListView( parent /*, name */ )
 {
+    setName(name);
+    qDebug() << Q_FUNC_INFO << " this=" << this;
+
     addColumn( i18n( "Component" ) );
 	setFullWidth(true);
 	setSorting( -1, false );
     setRootIsDecorated(true);
     setDragEnabled(true);
 	setFocusPolicy( Qt::NoFocus );
+
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding); // ?
 	
 // 	connect( this, SIGNAL(executed(K3ListViewItem*) ), this, SLOT(slotItemExecuted(K3ListViewItem*)) );
 	connect( this, SIGNAL(clicked(Q3ListViewItem*)), this, SLOT(slotItemClicked(Q3ListViewItem*)) );
@@ -295,8 +301,10 @@ ComponentSelector * ComponentSelector::self( KateMDI::ToolView * parent )
 
 
 ComponentSelector::ComponentSelector( KateMDI::ToolView * parent )
-	: ItemSelector( (QWidget*)parent, "Component Selector" )
+	: ItemSelector( parent, "Component Selector" )
 {
+    qDebug() << Q_FUNC_INFO << " creating " << this;
+
 	QWhatsThis::add( this, i18n(
 			"Add components to the circuit diagram by dragging them into the circuit.<br><br>"
 			
@@ -308,6 +316,7 @@ ComponentSelector::ComponentSelector( KateMDI::ToolView * parent )
 	setListCaption( i18n("Component") );
 	
 	LibraryItemList *items = itemLibrary()->items();
+    qDebug() << Q_FUNC_INFO << " there are " << items->count() << " items";
 	const LibraryItemList::iterator end = items->end();
 	for ( LibraryItemList::iterator it = items->begin(); it != end; ++it )
 	{
