@@ -1,0 +1,7 @@
+# kdevelop related
+.kdev4
+*.kdev4
+
+build*
+inst*
+!build*.sh
