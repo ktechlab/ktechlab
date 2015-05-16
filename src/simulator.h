@@ -93,9 +93,9 @@ public:
 	 * Number of (1/LOGIC_UPDATE_RATE) intervals that the simulator has been
 	 * stepping for.
 	 */
-	long long time() const {
+	long long time() const /* {
 		return m_stepNumber * (long long)(LOGIC_UPDATE_RATE / LINEAR_UPDATE_RATE) + m_llNumber;
-	}
+	} */
 
 	/**
 	 * Initializes a new logic chain.

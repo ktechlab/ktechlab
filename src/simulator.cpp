@@ -66,6 +66,11 @@ Simulator::~Simulator() {
 	delete m_ordinaryCircuits;
 }
 
+long long Simulator::time() const {
+    return m_stepNumber * (long long)(LOGIC_UPDATE_RATE / LINEAR_UPDATE_RATE) + m_llNumber;
+}
+
+
 void Simulator::step() {
 	if (!m_bIsSimulating) return;
 
