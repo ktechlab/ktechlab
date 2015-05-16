@@ -185,16 +185,16 @@ public:
 		setFixedHeight( 2 );
 	}
 protected:
-	void paintEvent( QPaintEvent *e )
-	{
-		QPainter p( this );
-		//p.setPen( colorGroup().shadow() );
-        QColorGroup colorGroup(palette());
-        p.setPen( colorGroup.shadow() );
-		p.drawLine( e->rect().left(), 0, e->rect().right(), 0 );
-		p.setPen( ((View*)parentWidget())->hasFocus() ? colorGroup.light() : colorGroup.midlight() );
-		p.drawLine( e->rect().left(), 1, e->rect().right(), 1 );
-	}
+	void paintEvent( QPaintEvent *e );
+// 	{
+// 		QPainter p( this );
+// 		//p.setPen( colorGroup().shadow() );
+//         QColorGroup colorGroup(palette());
+//         p.setPen( colorGroup.shadow() );
+// 		p.drawLine( e->rect().left(), 0, e->rect().right(), 0 );
+// 		p.setPen( ((View*)parentWidget())->hasFocus() ? colorGroup.light() : colorGroup.midlight() );
+// 		p.drawLine( e->rect().left(), 1, e->rect().right(), 1 );
+// 	}
 };
 
 #endif

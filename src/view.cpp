@@ -257,4 +257,23 @@ void ViewStatusBar::slotViewUnfocused()
 }
 //END class ViewStatusBar
 
+//BEGIN class KVSSBSep
+void KVSSBSep::paintEvent( QPaintEvent *e )
+{
+    QPainter p( this );
+    //p.setPen( colorGroup().shadow() );
+    QColorGroup colorGroup(palette());
+    p.setPen( colorGroup.shadow() );
+    p.drawLine( e->rect().left(), 0, e->rect().right(), 0 );
+    //p.setPen( ((View*)parentWidget())->hasFocus() ? colorGroup.light() : colorGroup.midlight() );
+    View * parentView = dynamic_cast<View*>(parentWidget());
+    if (!parentView) {
+        qWarning() << "parent not View for this=" << this << ", parent=" << parentWidget();
+        return;
+    }
+    p.setPen( parentView->hasFocus() ? colorGroup.light() : colorGroup.midlight() );
+    p.drawLine( e->rect().left(), 1, e->rect().right(), 1 );
+}
+//END  class KVSSBSep
+
 #include "view.moc"
