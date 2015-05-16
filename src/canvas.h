@@ -301,7 +301,7 @@ class KtlQCanvasPolygonalItem : public KtlQCanvasItem
 
 		void invalidate();
 		bool isValid() const
-		{ return (bool)val; }
+		{ return val; }
 
 	private:
 		void scanPolygon( const Q3PointArray& pa, int winding,
