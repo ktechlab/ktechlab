@@ -27,10 +27,13 @@ void DiagnosticStyle::drawControl(ControlElement element, const QStyleOption* op
 //         QFont textFont = painter->font();
 //         textFont.setPointSize( 8 );
 //         painter->setFont(textFont);
+        QString text(widget->metaObject()->className());
+        text.append(":");
+        text.append(widget->name());
         painter->drawText(widget->rect(),
                           Qt::AlignLeft | Qt::AlignTop,
                           //Qt::AlignRight | Qt::AlignBottom,
-                          widget->metaObject()->className());
+                          text);
     }
 }
 
