@@ -32,9 +32,9 @@ FlowCodeView::FlowCodeView( FlowCodeDocument * flowCodeDocument, ViewContainer *
     pa->setName( "program_convert" );
 	pa->setDelayed(false);
 	
-	KMenu * m = pa->menu();
+	QMenu * m = pa->menu();
 	
-	m->addTitle( i18n("Convert to") );
+	m->setTitle( i18n("Convert to") );
 	m->insertItem( KIcon( "convert_to_microbe" ), i18n("Microbe"), FlowCodeDocument::MicrobeOutput );
 	m->insertItem( KIcon( "convert_to_assembly" ), i18n("Assembly"), FlowCodeDocument::AssemblyOutput );
 	m->insertItem( KIcon( "convert_to_hex" ), i18n("Hex"), FlowCodeDocument::HexOutput );

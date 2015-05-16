@@ -501,7 +501,7 @@ void KTechlab::setupActions()
     p->setShortcut( KStandardShortcut::shortcut(KStandardShortcut::New) );
     connect(p, SIGNAL(triggered(bool)), this, SLOT(slotFileNew()));
     ac->addAction("newfile_popup", p);
-	p->menu()->addTitle( i18n("New File") );
+	p->menu()->setTitle( i18n("New File") );
     {
         //(new KAction( i18n("Assembly"), "source", 0, this, SLOT(slotFileNewAssembly()), ac, "newfile_asm" ))->plug( p->menu() );
         KAction *a = new KAction( KIcon("source"),  i18n("Assembly"), ac);

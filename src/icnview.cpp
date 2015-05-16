@@ -56,8 +56,8 @@ ICNView::ICNView( ICNDocument *icnDocument, ViewContainer *viewContainer, uint v
 	m_pRoutingModeToolbarPopup->setDelayed(false);
     ac->addAction("routing_mode", m_pRoutingModeToolbarPopup);
 	
-	KMenu * m = m_pRoutingModeToolbarPopup->menu();
-	m->addTitle( i18n("Connection Routing Mode") );
+	QMenu * m = m_pRoutingModeToolbarPopup->menu();
+	m->setTitle( i18n("Connection Routing Mode") );
 	
 	m->insertItem( /*KIconLoader::global()->loadIcon( "routing_mode_auto",	KIconLoader::Small ), */i18n("Automatic"), 0 );
 	m->insertItem( /*KIconLoader::global()->loadIcon( "routing_mode_manual",	KIconLoader::Small ),*/ i18n("Manual"), 1 );
