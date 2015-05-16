@@ -9,6 +9,7 @@
  ***************************************************************************/
 
 #include "ktechlab.h"
+#include "diagnosticstyle.h"
 
 //#include <dcopclient.h>
 #include <kaboutdata.h>
@@ -50,6 +51,10 @@ int main(int argc, char **argv)
     options.add( QByteArray("+[URL]"), ki18n( "Document to open." ), 0);
     KCmdLineArgs::addCmdLineOptions(options);
     KApplication app;
+
+    if (true) {  // TODO add a command line option for debugging the program's visual look
+        //app.setStyle(new DiagnosticStyle());
+    }
 	
     // register ourselves as a dcop client
 	//app.dcopClient()->registerAs(app.name(), false);

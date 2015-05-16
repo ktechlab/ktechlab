@@ -4,6 +4,7 @@ include_directories(${CMAKE_SOURCE_DIR}/src ${CMAKE_SOURCE_DIR}/src/drawparts ${
 ########### next target ###############
 
 SET(core_STAT_SRCS
+   diagnosticstyle.cpp
    main.cpp
 )
 
