@@ -1345,6 +1345,14 @@ KtlQCanvasItemList KtlQCanvas::collisions(const QRect& r) /* const */
 
 KtlQCanvasItemList KtlQCanvas::collisions(const Q3PointArray& chunklist, const KtlQCanvasItem* item, bool exact) const
 {
+    // TODO dump all objects here
+    qDebug() << Q_FUNC_INFO << " test item: " << item;
+    for (SortedCanvasItems::const_iterator itIt = m_canvasItems.begin(); itIt != m_canvasItems.end(); ++itIt) {
+        const KtlQCanvasItem *i = itIt->second;
+        qDebug() << "   in canvas item: " << i;
+    }
+    qDebug() << "end canvas item list";
+
 	Q3PtrDict<void> seen;
 	KtlQCanvasItemList result;
 	for (int i=0; i<(int)chunklist.count(); i++) {
@@ -1357,8 +1365,15 @@ KtlQCanvasItemList KtlQCanvas::collisions(const Q3PointArray& chunklist, const K
 				if ( g != item ) {
 					if ( !seen.find(g) ) {
 						seen.replace(g,(void*)1);
-						if ( !exact || item->collidesWith(g) )
-							result.append(g);
+						//if ( !exact || item->collidesWith(g) )
+						//	result.append(g);
+                        if (!exact) {
+                            result.append(g);
+                        }
+                        qDebug() <<"test collides " << item << " with " << g;
+                        if (item->collidesWith(g)) {
+                            result.append(g);
+                        }
 					}
 				}
 			}
