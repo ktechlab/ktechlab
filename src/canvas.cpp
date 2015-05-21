@@ -1255,12 +1255,32 @@ static bool collision_double_dispatch( const KtlQCanvasPolygonalItem* p1,
 					const KtlQCanvasRectangle* r2,
 					const KtlQCanvasEllipse* e2 )
 {
-	const KtlQCanvasItem* i1 = p1 ?
-			(const KtlQCanvasItem*)p1 : r1 ?
-			(const KtlQCanvasItem*)r1 : (const KtlQCanvasItem*)e1;
-	const KtlQCanvasItem* i2 = p2 ?
-			(const KtlQCanvasItem*)p2 : r2 ?
-			(const KtlQCanvasItem*)r2 : (const KtlQCanvasItem*)e2;
+    const KtlQCanvasItem *i1 = NULL;
+    if (p1) {
+        i1 = p1;
+    } else {
+        if (r1) {
+            i1 = r1;
+        } else {
+            i1 = e1;
+        }
+    }
+    const KtlQCanvasItem *i2 = NULL;
+    if (i2) {
+        i2 = p2;
+    } else {
+        if (r2) {
+            i2 = r2;
+        } else {
+            i2 = e2;
+        }
+    }
+// 	const KtlQCanvasItem* i1 = p1 ?
+// 			(const KtlQCanvasItem*)p1 : r1 ?
+// 			(const KtlQCanvasItem*)r1 : (const KtlQCanvasItem*)e1;
+// 	const KtlQCanvasItem* i2 = p2 ?
+// 			(const KtlQCanvasItem*)p2 : r2 ?
+// 			(const KtlQCanvasItem*)r2 : (const KtlQCanvasItem*)e2;
 
 	if ( r1 && r2 )
 	{
