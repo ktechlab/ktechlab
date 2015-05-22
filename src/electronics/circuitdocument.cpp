@@ -70,6 +70,11 @@ CircuitDocument::~CircuitDocument()
     disconnect( this, SIGNAL(connectorAdded(Connector*)), this, SLOT(connectorAdded(Connector*)) );
     disconnect( this, SIGNAL(connectorAdded(Connector*)), this, SLOT(requestAssignCircuits()) );
 
+    for (ConnectorList::Iterator itConn = m_connectorList.begin(); itConn != m_connectorList.end(); ++itConn) {
+        Connector *connector = itConn->data();
+        disconnect( connector, SIGNAL(removed(Connector*)), this, SLOT(requestAssignCircuits()) );
+    }
+
     deleteCircuits();
 	
 	delete m_updateCircuitsTmr;

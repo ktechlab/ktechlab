@@ -118,6 +118,11 @@ KTechlab::~KTechlab()
 {
 	fileMetaInfo()->saveAllMetaInfo();
 	
+    for (ViewContainerList::Iterator itVc = m_viewContainerList.begin(); itVc != m_viewContainerList.end(); ++itVc ) {
+        ViewContainer *vc = itVc->data();
+        disconnect( vc, SIGNAL(destroyed(QObject* )), this, SLOT(slotViewContainerDestroyed(QObject* )) );
+    }
+
 	delete fileMetaInfo();
 	delete itemLibrary(); // This better be the last time the item library is used!
 	delete subcircuits();
