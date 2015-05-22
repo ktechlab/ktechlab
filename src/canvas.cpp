@@ -28,6 +28,9 @@
 
 using namespace std;
 
+static bool isCanvasDebugEnabled() {
+    return true;
+}
 
 //BEGIN class KtlQCanvasClusterizer
 
@@ -1142,7 +1145,9 @@ KtlQCanvasItem::KtlQCanvasItem(KtlQCanvas* canvas)
 	: val(false), myx(0), myy(0), myz(0), cnv(canvas),
 	 ext(0), m_bNeedRedraw(true), vis(false), sel(false)
 {
-    qDebug() << Q_FUNC_INFO << " this=" << this;
+    if (isCanvasDebugEnabled()) {
+        qDebug() << Q_FUNC_INFO << " this=" << this;
+    }
 	if (cnv) cnv->addItem(this);
 }
 
@@ -1365,13 +1370,14 @@ KtlQCanvasItemList KtlQCanvas::collisions(const QRect& r) /* const */
 
 KtlQCanvasItemList KtlQCanvas::collisions(const Q3PointArray& chunklist, const KtlQCanvasItem* item, bool exact) const
 {
-    // TODO dump all objects here
-    qDebug() << Q_FUNC_INFO << " test item: " << item;
-    for (SortedCanvasItems::const_iterator itIt = m_canvasItems.begin(); itIt != m_canvasItems.end(); ++itIt) {
-        const KtlQCanvasItem *i = itIt->second;
-        qDebug() << "   in canvas item: " << i;
+    if (isCanvasDebugEnabled()) {
+        qDebug() << Q_FUNC_INFO << " test item: " << item;
+        for (SortedCanvasItems::const_iterator itIt = m_canvasItems.begin(); itIt != m_canvasItems.end(); ++itIt) {
+            const KtlQCanvasItem *i = itIt->second;
+            qDebug() << "   in canvas item: " << i;
+        }
+        qDebug() << "end canvas item list";
     }
-    qDebug() << "end canvas item list";
 
 	//Q3PtrDict<void> seen;
     QHash<KtlQCanvasItem*, bool> seen;
@@ -1394,7 +1400,9 @@ KtlQCanvasItemList KtlQCanvas::collisions(const Q3PointArray& chunklist, const K
                         if (!exact) {
                             result.append(g);
                         }
-                        qDebug() <<"test collides " << item << " with " << g;
+                        if (isCanvasDebugEnabled()) {
+                            qDebug() <<"test collides " << item << " with " << g;
+                        }
                         if (item->collidesWith(g)) {
                             result.append(g);
                         }
@@ -1635,12 +1643,16 @@ KtlQCanvasPolygonalItem::KtlQCanvasPolygonalItem(KtlQCanvas* canvas)
 	br(defaultPolygonBrush()),
 	pn(defaultPolygonPen()), wind(false)
 {
-    qDebug() << "created KtlQCanvasPolygonalItem at " << this;
+    if (isCanvasDebugEnabled()) {
+        qDebug() << "created KtlQCanvasPolygonalItem at " << this;
+    }
 }
 
 KtlQCanvasPolygonalItem::~KtlQCanvasPolygonalItem()
 {
-    qDebug() << "destroying KtlQCanvasPolygonalItem at " << this;
+    if (isCanvasDebugEnabled()) {
+        qDebug() << "destroying KtlQCanvasPolygonalItem at " << this;
+    }
 }
 
 bool KtlQCanvasPolygonalItem::winding() const
@@ -1730,7 +1742,9 @@ KtlQCanvasPolygon::KtlQCanvasPolygon(KtlQCanvas* canvas)
     , poly(new Q3PointArray)
     , guardAft()
 {
-    qDebug() << Q_FUNC_INFO << " this=" << this;
+    if (isCanvasDebugEnabled()) {
+        qDebug() << Q_FUNC_INFO << " this=" << this;
+    }
 }
 
 
@@ -1798,7 +1812,9 @@ Q3PointArray KtlQCanvasPolygon::areaPoints() const
 KtlQCanvasLine::KtlQCanvasLine(KtlQCanvas* canvas)
 	: KtlQCanvasPolygonalItem(canvas)
 {
-    qDebug() << Q_FUNC_INFO << " this=" << this;
+    if (isCanvasDebugEnabled()) {
+        qDebug() << Q_FUNC_INFO << " this=" << this;
+    }
 	x1 = y1 = x2 = y2 = 0;
 }
 
@@ -1880,7 +1896,9 @@ KtlQCanvasRectangle::KtlQCanvasRectangle(KtlQCanvas* canvas) :
     w(32), h(32)
 {
     setName("KtlQCanvasRectangle");
-    qDebug() << Q_FUNC_INFO << " this=" << this;
+    if (isCanvasDebugEnabled()) {
+        qDebug() << Q_FUNC_INFO << " this=" << this;
+    }
 }
 
 
@@ -1890,7 +1908,9 @@ KtlQCanvasRectangle::KtlQCanvasRectangle(const QRect& r, KtlQCanvas* canvas) :
 {
     setName("KtlQCanvasRectangle");
 	move(r.x(),r.y());
-    qDebug() << Q_FUNC_INFO << " this=" << this;
+    if (isCanvasDebugEnabled()) {
+        qDebug() << Q_FUNC_INFO << " this=" << this;
+    }
 }
 
 
@@ -1900,7 +1920,9 @@ KtlQCanvasRectangle::KtlQCanvasRectangle(int x, int y, int width, int height, Kt
 {
     setName("KtlQCanvasRectangle");
 	move(x,y);
-    qDebug() << Q_FUNC_INFO << " this=" << this;
+    if (isCanvasDebugEnabled()) {
+        qDebug() << Q_FUNC_INFO << " this=" << this;
+    }
 }
 
 
@@ -1957,7 +1979,9 @@ KtlQCanvasEllipse::KtlQCanvasEllipse(KtlQCanvas* canvas)
 	w(32), h(32),
 	a1(0), a2(360*16)
 {
-    qDebug() << Q_FUNC_INFO << " this=" << this;
+    if (isCanvasDebugEnabled()) {
+        qDebug() << Q_FUNC_INFO << " this=" << this;
+    }
 }
 
 /*!
@@ -1969,7 +1993,9 @@ KtlQCanvasEllipse::KtlQCanvasEllipse(KtlQCanvas* canvas)
 	w(width),h(height),
 	a1(0),a2(360*16)
 {
-    qDebug() << Q_FUNC_INFO << " this=" << this;
+    if (isCanvasDebugEnabled()) {
+        qDebug() << Q_FUNC_INFO << " this=" << this;
+    }
 }
 
 
@@ -1979,7 +2005,9 @@ KtlQCanvasEllipse::KtlQCanvasEllipse(int width, int height,
 	w(width),h(height),
 	a1(startangle),a2(angle)
 {
-    qDebug() << Q_FUNC_INFO << " this=" << this;
+    if (isCanvasDebugEnabled()) {
+        qDebug() << Q_FUNC_INFO << " this=" << this;
+    }
 }
 
 
