@@ -219,7 +219,7 @@ const QRect& KtlQCanvasClusterizer::operator[](int i)
 
 void KtlQCanvasItemList::sort()
 {
-	qHeapSort(*((QList<KtlQCanvasItemPtr>*)this));
+	qHeapSort(*  /* ((QList<KtlQCanvasItemPtr>*)) */ this);
 }
 
 
