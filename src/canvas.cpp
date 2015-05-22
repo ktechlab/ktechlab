@@ -15,7 +15,7 @@
 
 #include "Qt/qapplication.h"
 #include "Qt/qbitmap.h"
-#include "Qt/q3ptrdict.h"
+//#include "Qt/q3ptrdict.h"
 #include "Qt/qpainter.h"
 #include "Qt/q3polygonscanner.h"
 #include "Qt/qtimer.h"
@@ -1373,7 +1373,8 @@ KtlQCanvasItemList KtlQCanvas::collisions(const Q3PointArray& chunklist, const K
     }
     qDebug() << "end canvas item list";
 
-	Q3PtrDict<void> seen;
+	//Q3PtrDict<void> seen;
+    QHash<KtlQCanvasItem*, bool> seen;
 	KtlQCanvasItemList result;
 	for (int i=0; i<(int)chunklist.count(); i++) {
 		int x = chunklist[i].x();
@@ -1383,8 +1384,11 @@ KtlQCanvasItemList KtlQCanvas::collisions(const Q3PointArray& chunklist, const K
 			for (KtlQCanvasItemList::ConstIterator it=l->begin(); it!=l->end(); ++it) {
 				KtlQCanvasItem *g=*it;
 				if ( g != item ) {
-					if ( !seen.find(g) ) {
-						seen.replace(g,(void*)1);
+					//if ( !seen.find(g) ) {
+                    if ( seen.find(g) == seen.end() ) {
+						//seen.replace(g,(void*)1);
+                        seen.take(g);
+                        seen.insert(g, true);
 						//if ( !exact || item->collidesWith(g) )
 						//	result.append(g);
                         if (!exact) {
