@@ -29,7 +29,7 @@
 using namespace std;
 
 static bool isCanvasDebugEnabled() {
-    return true;
+    return false;
 }
 
 //BEGIN class KtlQCanvasClusterizer
