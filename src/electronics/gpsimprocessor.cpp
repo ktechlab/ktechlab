@@ -741,8 +741,11 @@ RegisterSet::RegisterSet( pic_processor * picProcessor )
 		m_registers[i] = info;
 		m_nameToRegisterMap[ info->name() ] = info;
 	}
-	
+#if defined(HAVE_GPSIM_0_26)
 	RegisterInfo * info = new RegisterInfo( picProcessor->Wreg ); // is tihs correct for "W" member? TODO
+#else
+	RegisterInfo * info = new RegisterInfo( picProcessor->W );
+#endif
 	m_registers.append( info );
 	m_nameToRegisterMap[ info->name() ] = info;
 }
