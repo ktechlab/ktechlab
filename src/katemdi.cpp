@@ -40,6 +40,24 @@
 
 typedef QList<int> IntList;
 
+static QString getSpaces(int count) {
+    QString s;
+    for (int i = 0; i < count; ++i ) {
+        s += "| ";
+    }
+    return s;
+}
+
+static void printObjChildren(int startLevel, const QObject *obj) {
+    QObjectList chl = obj->children();
+    QMutableListIterator<QObject*> itCh( chl );
+    while (itCh.hasNext()) {
+        itCh.next();
+        qDebug() << getSpaces(startLevel) << itCh.value();
+        printObjChildren(startLevel + 1, itCh.value());
+    }
+}
+
 namespace KateMDI {
 
 //BEGIN SPLITTER
