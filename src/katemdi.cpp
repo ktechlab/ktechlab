@@ -186,7 +186,7 @@ ToolView::~ToolView ()
   m_mainWin->toolViewDeleted (this);
 }
 
-void ToolView::setVisible (bool vis)
+void ToolView::setVisibleToolView (bool vis)
 {
   if (m_visible == vis)
     return;
@@ -368,7 +368,7 @@ bool Sidebar::showWidget (ToolView *widget)
     {
       it.current()->hide();
       setTab (it.currentKey(), false);
-      it.current()->setVisible(false);
+      it.current()->setVisibleToolView(false);
     }
 
   setTab (m_widgetToId[widget], true);
@@ -376,7 +376,7 @@ bool Sidebar::showWidget (ToolView *widget)
   m_ownSplit->show ();
   widget->show ();
 
-  widget->setVisible (true);
+  widget->setVisibleToolView (true);
 
   return true;
 }
@@ -408,7 +408,7 @@ bool Sidebar::hideWidget (ToolView *widget)
   if (!anyVis)
     m_ownSplit->hide ();
 
-  widget->setVisible (false);
+  widget->setVisibleToolView (false);
 
   return true;
 }
@@ -598,7 +598,7 @@ void Sidebar::restoreSession (KConfigGroup *configGr)
     ToolView *tv = m_toolviews[i];
 
     tv->persistent = configGr->readEntry (QString ("Kate-MDI-ToolView-%1-Persistent").arg(tv->id), false);
-    tv->setVisible (configGr->readEntry (QString ("Kate-MDI-ToolView-%1-Visible").arg(tv->id), false));
+    tv->setVisibleToolView (configGr->readEntry (QString ("Kate-MDI-ToolView-%1-Visible").arg(tv->id), false));
 
     if (!anyVis)
       anyVis = tv->visible();
