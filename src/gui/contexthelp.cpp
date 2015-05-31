@@ -70,6 +70,13 @@ ContextHelp::ContextHelp( KateMDI::ToolView * parent )
 	QWhatsThis::add( this, i18n("Provides context-sensitive help relevant to the current editing being performed.") );
 	setAcceptDrops( true );
 	
+    if (parent->layout()) {
+        parent->layout()->addWidget(this);
+        qDebug() << Q_FUNC_INFO << " added item selector to parent's layout " << parent;
+    } else {
+        qWarning() << Q_FUNC_INFO << " unexpected null layout on parent " << parent ;
+    }
+
 	QFont font;
 	font.setBold( true );
 	if ( font.pointSize() != 0 )

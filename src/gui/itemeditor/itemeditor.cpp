@@ -14,6 +14,7 @@
 #include "itemeditor.h"
 #include "orientationwidget.h"
 #include "propertyeditor.h"
+#include "katemdi.h"
 
 #include <klocale.h>
 #include <kstandarddirs.h>
@@ -22,6 +23,7 @@
 #include <Qt/qlabel.h>
 #include <Qt/qpushbutton.h>
 #include <Qt/qwhatsthis.h>
+#include <Qt/qdebug.h>
 
 #include <cassert>
 
@@ -42,7 +44,14 @@ ItemEditor::ItemEditor( KateMDI::ToolView * parent )
 	: QWidget( (QWidget*)parent, "Item Editor" )
 {
 	QWhatsThis::add( this, i18n("This allows editing of advanced properties of the selected item(s). Right click on the picture of the item to set the orientation.") );
-	
+
+    if (parent->layout()) {
+        parent->layout()->addWidget(this);
+        qDebug() << Q_FUNC_INFO << " added item selector to parent's layout " << parent;
+    } else {
+        qWarning() << Q_FUNC_INFO << " unexpected null layout on parent " << parent ;
+    }
+
 	QVBoxLayout * vlayout = new QVBoxLayout( this, 0, 6 );
 
 	//BEGIN Create Name Label

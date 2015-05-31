@@ -28,7 +28,7 @@
 
 #include <Qt/q3dict.h>
 #include <Qt/q3intdict.h>
-#include <Qt/q3vbox.h>
+// #include <Qt/q3vbox.h>
 #include <Qt/qsplitter.h>
 
 namespace KateMDI {
@@ -90,7 +90,7 @@ class GUIClient : public QObject, public KXMLGUIClient
     MainWindow *m_mw;
 };
 
-class ToolView : public Q3VBox
+class ToolView : public QWidget
 {
   Q_OBJECT
 

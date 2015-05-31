@@ -62,6 +62,13 @@ ItemSelector::ItemSelector( QWidget *parent, const char *name )
     setDragEnabled(true);
 	setFocusPolicy( Qt::NoFocus );
 
+    if (parent->layout()) {
+        parent->layout()->addWidget(this);
+        qDebug() << Q_FUNC_INFO << " added item selector to parent's layout " << parent;
+    } else {
+        qWarning() << Q_FUNC_INFO << " unexpected null layout on parent " << parent ;
+    }
+
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding); // ?
 	
 // 	connect( this, SIGNAL(executed(K3ListViewItem*) ), this, SLOT(slotItemExecuted(K3ListViewItem*)) );

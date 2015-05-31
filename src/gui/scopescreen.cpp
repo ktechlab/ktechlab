@@ -36,6 +36,13 @@
 ScopeScreen::ScopeScreen( KateMDI::ToolView * parent)
         : QWidget(parent)
 {
+    if (parent->layout()) {
+        parent->layout()->addWidget(this);
+        qDebug() << Q_FUNC_INFO << " added item selector to parent's layout " << parent;
+    } else {
+        qWarning() << Q_FUNC_INFO << " unexpected null layout on parent " << parent ;
+    }
+
 	setupUi(this);
 }
 
