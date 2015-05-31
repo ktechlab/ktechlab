@@ -13,6 +13,7 @@
 
 #include "gpsimprocessor.h"
 #include "symbolviewer.h"
+#include "katemdi.h"
 
 #include <kcombobox.h>
 #include <kconfig.h>
@@ -76,6 +77,13 @@ SymbolViewer * SymbolViewer::self( KateMDI::ToolView * parent )
 SymbolViewer::SymbolViewer( KateMDI::ToolView * parent )
 	: QWidget( (QWidget*)parent )
 {
+    if (parent->layout()) {
+        parent->layout()->addWidget(this);
+        qDebug() << Q_FUNC_INFO << " added item selector to parent's layout " << parent;
+    } else {
+        qWarning() << Q_FUNC_INFO << " unexpected null layout on parent " << parent ;
+    }
+
 	QGridLayout  * grid = new QGridLayout( this, 1, 1, 0, 6 );
 	
 	m_pSymbolList = new Q3ListView(this);

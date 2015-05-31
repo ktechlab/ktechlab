@@ -23,6 +23,13 @@ LogView::LogView( KateMDI::ToolView * parent, const char *name )
 {
     setName(name);
 
+    if (parent->layout()) {
+        parent->layout()->addWidget(this);
+        qDebug() << Q_FUNC_INFO << " added item selector to parent's layout " << parent;
+    } else {
+        qWarning() << Q_FUNC_INFO << " unexpected null layout on parent " << parent ;
+    }
+
 	setReadOnly(true);
 	//setPaper( Qt::white ); // TODO re-enable this, get an equivalent
 	setTextFormat( Qt::LogText );

@@ -433,6 +433,11 @@ void KTechlab::removeGUIClients()
 void KTechlab::setupTabWidget()
 {	
 	m_pViewContainerTabWidget = new KTabWidget(centralWidget());
+    if (centralWidget()->layout()) {
+        centralWidget()->layout()->addWidget(m_pViewContainerTabWidget);
+    } else {
+        qWarning() << " unexpected null layout for " << centralWidget();
+    }
 	connect( tabWidget(), SIGNAL(currentChanged(QWidget* )), this, SLOT(slotViewContainerActivated(QWidget* )) );
 	
 	//KConfig *config = kapp->config();
