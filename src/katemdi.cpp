@@ -250,7 +250,8 @@ void Sidebar::setSidebarStyle( KMultiTabBarStyle style )
 void Sidebar::setSplitter (Splitter *sp)
 {
   m_splitter = sp;
-  m_ownSplit = new Splitter ((sidebarPosition() == KMultiTabBar::Top || sidebarPosition() == KMultiTabBar::Bottom) ? Qt::Horizontal : Qt::Vertical, m_splitter);
+  Qt::Orientation splitOrient = (sidebarPosition() == KMultiTabBar::Top || sidebarPosition() == KMultiTabBar::Bottom) ? Qt::Horizontal : Qt::Vertical;
+  m_ownSplit = new Splitter (splitOrient, m_splitter, "own-Split");
   m_ownSplit->setOpaqueResize( KGlobalSettings::opaqueResize() );
   m_ownSplit->setChildrenCollapsible( false );
   m_splitter->setResizeMode( m_ownSplit, QSplitter::KeepSize );
