@@ -342,11 +342,12 @@ bool Sidebar::removeWidget (ToolView *widget)
   m_toolviews.remove (widget);
 
   bool anyVis = false;
-  Q3IntDictIterator<ToolView> it( m_idToWidget );
-  for ( ; it.current(); ++it )
+  //Q3IntDictIterator<ToolView> it( m_idToWidget );
+
+  for ( QMap<int, ToolView*>::iterator it = m_idToWidget.begin(); it != m_idToWidget.end(); ++it )
   {
     if (!anyVis)
-      anyVis =  it.current()->isVisible();
+      anyVis =  it.value()->isVisible();
   }
 
   if (m_idToWidget.isEmpty())
@@ -366,13 +367,13 @@ bool Sidebar::showWidget (ToolView *widget)
     return false;
 
   // hide other non-persistent views
-  Q3IntDictIterator<ToolView> it( m_idToWidget );
-  for ( ; it.current(); ++it )
-    if ((it.current() != widget) && !it.current()->persistent)
+  //Q3IntDictIterator<ToolView> it( m_idToWidget );
+  for ( QMap<int, ToolView*>::iterator it = m_idToWidget.begin(); it != m_idToWidget.end(); ++it )
+    if ((it.value() != widget) && !it.value()->persistent)
     {
-      it.current()->hide();
-      setTab (it.currentKey(), false);
-      it.current()->setVisibleToolView(false);
+      it.value()->hide();
+      setTab (it.key(), false);
+      it.value()->setVisibleToolView(false);
     }
 
   setTab (m_widgetToId[widget], true);
@@ -394,16 +395,17 @@ bool Sidebar::hideWidget (ToolView *widget)
 
    updateLastSize ();
 
-  for ( Q3IntDictIterator<ToolView> it( m_idToWidget ); it.current(); ++it )
+  //for ( Q3IntDictIterator<ToolView> it( m_idToWidget ); it.current(); ++it )
+  for ( QMap<int, ToolView*>::iterator it = m_idToWidget.begin(); it != m_idToWidget.end(); ++it )
   {
-    if (it.current() == widget)
+    if (it.value() == widget)
     {
-      it.current()->hide();
+      it.value()->hide();
       continue;
     }
 
     if (!anyVis)
-      anyVis =  it.current()->isVisible();
+      anyVis =  it.value()->isVisible();
   }
 
   // lower tab

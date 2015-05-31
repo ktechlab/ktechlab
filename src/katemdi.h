@@ -228,7 +228,8 @@ class Sidebar : public KMultiTabBar
     KMultiTabBar *m_tabBar;
     Splitter *m_ownSplit;
 
-    Q3IntDict<ToolView> m_idToWidget;
+    //Q3IntDict<ToolView> m_idToWidget;
+    QMap<int, ToolView*> m_idToWidget;
     QMap<ToolView*, int> m_widgetToId;
 
     /**
@@ -368,7 +369,8 @@ class MainWindow : public KParts::MainWindow
     /**
      * map identifiers to widgets
      */
-    Q3Dict<ToolView> m_idToWidget;
+    //Q3Dict<ToolView> m_idToWidget;
+    QMap<QString, ToolView*> m_idToWidget;
 
     /**
      * list of all toolviews around
