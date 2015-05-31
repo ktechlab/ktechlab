@@ -51,7 +51,10 @@ void ScopeViewBase::paintEvent( QPaintEvent * event )
 
 		QPainter p;
 		m_pixmap->fill( paletteBackgroundColor() );
-		p.begin(m_pixmap);
+		const bool startSuccess = p.begin(m_pixmap);
+        if ((startSuccess) || (!p.isActive())) {
+            qWarning() << Q_FUNC_INFO << " painter is not active";
+        }
 		p.setClipRegion(event->region());
 		
 		//let the subclass draw the background (grids, etc.)

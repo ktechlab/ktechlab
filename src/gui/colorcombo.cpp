@@ -12,7 +12,9 @@
 
 #include <kcolordialog.h>
 #include <klocale.h>
+
 #include <Qt/qpainter.h>
+#include <Qt/qdebug.h>
 
 bool ColorCombo::createdPalettes = false;
 QColor * ColorCombo::palette[ NumberOfSchemes ];
@@ -113,7 +115,10 @@ void ColorCombo::slotActivated( int index )
 			else
 				pen.setColor( Qt::black );
 
-			painter.begin( &pixmap );
+			const bool isSuccess = painter.begin( &pixmap );
+            if (!isSuccess) {
+                qWarning() << Q_FUNC_INFO << " painter not active";
+            }
 			QBrush brush( customColor );
 			painter.fillRect( rect, brush );
 			painter.setPen( pen );
