@@ -133,7 +133,7 @@ class ToolView : public Q3VBox
 
     Sidebar *sidebar () { return m_sidebar; }
 
-    void setVisible (bool vis);
+    void setVisibleToolView (bool vis);
 
   public:
     bool visible () const;
