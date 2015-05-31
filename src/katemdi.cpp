@@ -418,8 +418,10 @@ void Sidebar::tabClicked(int i)
 {
   ToolView *w = m_idToWidget[i];
 
-  if (!w)
+  if (!w) {
+      qWarning() << Q_FUNC_INFO << " unexpected tab number " << i;
     return;
+  }
 
   if (isTabRaised(i))
   {
