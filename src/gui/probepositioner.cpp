@@ -16,6 +16,7 @@
 #include <Qt/qevent.h>
 #include <Qt/qpainter.h>
 #include <Qt/q3pointarray.h>
+#include <Qt/qdebug.h>
 
 #include <algorithm>
 #include <cmath>
@@ -181,6 +182,11 @@ void ProbePositioner::paintEvent( QPaintEvent *e )
 	
 	if (b_needRedraw)
 	{
+        if (!m_pixmap) {
+            qWarning() << Q_FUNC_INFO << " unexpected null m_pixmap in " << this;
+            return;
+        }
+
 		QPainter p;
 		m_pixmap->fill( paletteBackgroundColor() );
 		p.begin(m_pixmap);

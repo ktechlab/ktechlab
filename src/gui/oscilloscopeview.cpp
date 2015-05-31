@@ -191,6 +191,11 @@ void OscilloscopeView::paintEvent( QPaintEvent *e)
 		updateOutputHeight();
 		const double pixelsPerSecond = Oscilloscope::self()->pixelsPerSecond();
 		
+        if (!m_pixmap) {
+            qWarning() << Q_FUNC_INFO << " unexpected null m_pixmap in " << this;
+            return;
+        }
+
 		QPainter p;
 		m_pixmap->fill( paletteBackgroundColor());
 		p.begin(m_pixmap);

@@ -45,7 +45,7 @@ void ScopeViewBase::paintEvent( QPaintEvent * event )
 		updateOutputHeight();
 
         if (!m_pixmap) {
-            qWarning() << "unexpected null pixmap";
+            qWarning() << Q_FUNC_INFO << "unexpected null pixmap in " << this;
             return;
         }
 
