@@ -260,7 +260,12 @@ void ViewStatusBar::slotViewUnfocused()
 //BEGIN class KVSSBSep
 void KVSSBSep::paintEvent( QPaintEvent *e )
 {
-    QPainter p( this );
+    //QPainter p( this );
+    QPainter p;
+    const bool beginSuccess = p.begin( this );
+    if (!beginSuccess) {
+        qWarning() << Q_FUNC_INFO << " painter is not active";
+    }
     //p.setPen( colorGroup().shadow() );
     QColorGroup colorGroup(palette());
     p.setPen( colorGroup.shadow() );

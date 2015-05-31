@@ -480,6 +480,10 @@ void KtlQCanvas::drawViewArea( KtlQCanvasView* view, QPainter* p, const QRect& v
 // 	QRect all(0,0,width(),height());
 	QRect all(m_size);
 
+    if (!p->isActive()) {
+        qWarning() << Q_FUNC_INFO << " painter is not active";
+    }
+
 	if ( !all.contains(ivr) )
 	{
 		// Need to clip with edge of canvas.
@@ -507,7 +511,12 @@ void KtlQCanvas::drawViewArea( KtlQCanvasView* view, QPainter* p, const QRect& v
 	if ( dbuf ) {
 		offscr = QPixmap(vr.width(), vr.height());
 		offscr.x11SetScreen(p->device()->x11Screen());
-		QPainter dbp(&offscr);
+		//QPainter dbp(&offscr);
+        QPainter dbp;
+        const bool isSuccess = dbp.begin(&offscr);
+        if (!isSuccess) {
+            qWarning() << Q_FUNC_INFO << " painter not active";
+        }
 	
 		twm.translate(-vr.x(),-vr.y());
 		twm.translate(-tl.x(),-tl.y());
@@ -569,7 +578,12 @@ void KtlQCanvas::update()
 				if ( !r.isEmpty() )
 				{
                     //view->viewport()->setAttribute(Qt::WA_PaintOutsidePaintEvent, true); // note: remove this when possible
-					QPainter p(view->viewport());
+					//QPainter p(view->viewport());
+                    QPainter p;
+                    const bool startSucces = p.begin( view->viewport() );
+                    if (!startSucces) {
+                        qWarning() << Q_FUNC_INFO << " painter is not active ";
+                    }
 		  		  // Translate to the coordinate system of drawViewArea().
 					QPoint tl = view->contentsToViewport(QPoint(0,0));
 					p.translate(tl.x(),tl.y());
@@ -801,7 +815,10 @@ void KtlQCanvas::drawCanvasArea(const QRect& inarea, QPainter* p, bool double_bu
 
 	if ( double_buffer && !offscr.isNull() ) {
 		QPainter painter;
-		painter.begin(&offscr);
+        const bool isSucces = painter.begin(&offscr);
+        if (!isSucces) {
+            qWarning() << Q_FUNC_INFO << " " << __LINE__ << " painter not active ";
+        }
 		painter.translate(-area.x(),-area.y());
 		painter.setBrushOrigin(-area.x(),-area.y());
 
@@ -810,6 +827,9 @@ void KtlQCanvas::drawCanvasArea(const QRect& inarea, QPainter* p, bool double_bu
 		} else {
 			painter.setClipRegion(rgn);
 		}
+        if (!painter.isActive()) {
+            qWarning() << Q_FUNC_INFO << " " << __LINE__ << " painter is not active";
+        }
 
 		drawBackground(painter,area);
 // 		allvisible.drawUnique(painter);
@@ -839,7 +859,12 @@ void KtlQCanvas::drawCanvasArea(const QRect& inarea, QPainter* p, bool double_bu
 			continue; // Cannot paint those here (see callers).
 
         //view->viewport()->setAttribute(Qt::WA_PaintOutsidePaintEvent, true); // note: remove this when possible
-		QPainter painter(view->viewport());
+		//QPainter painter(view->viewport());
+		QPainter painter;
+        const bool isSuccess = painter.begin(view->viewport());
+        if (!isSuccess) {
+            qWarning() << Q_FUNC_INFO << " " << __LINE__ << " painter not active";
+        }
 		QPoint tr = view->contentsToViewport(area.topLeft());
 		QPoint nrtr = view->contentsToViewport(QPoint(0,0)); // new translation
 		QPoint rtr = nrtr - trtr; // extra translation of rgn

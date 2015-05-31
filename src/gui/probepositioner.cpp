@@ -189,7 +189,11 @@ void ProbePositioner::paintEvent( QPaintEvent *e )
 
 		QPainter p;
 		m_pixmap->fill( paletteBackgroundColor() );
-		p.begin(m_pixmap);
+		const bool startSuccess = p.begin(m_pixmap);
+        if ((!startSuccess) || (!p.isActive())) {
+            qWarning() << Q_FUNC_INFO << " painter is not active";
+        }
+
 		p.setClipRegion(e->region());
 		
 		const ProbeDataMap::const_iterator end = m_probeDataMap.end();

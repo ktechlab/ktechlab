@@ -461,7 +461,12 @@ void Component::initDIPSymbol( const QStringList & pins, int _width )
 
     QWidget tmpWidget;
     //tmpWidget.setAttribute(Qt::WA_PaintOutsidePaintEvent, true); // note: add this if needed
-    QPainter p(&tmpWidget);
+    //QPainter p(&tmpWidget);
+    QPainter p;
+    const bool isSuccess = p.begin(&tmpWidget);
+    if (!isSuccess) {
+        qWarning() << Q_FUNC_INFO << " painter not active";
+    }
 
     p.setFont( font() );
 

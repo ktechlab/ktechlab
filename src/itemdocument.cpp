@@ -666,7 +666,12 @@ void ItemDocument::updateBackground()
 	pm.fill( Qt::white );
 	
 	if( KTLConfig::showGrid() ){
-		QPainter p(&pm); // setup painter to draw on pixmap
+		//QPainter p(&pm); // setup painter to draw on pixmap
+        QPainter p;
+        const bool isSuccess = p.begin(&pm);
+        if (!isSuccess) {
+            qWarning() << Q_FUNC_INFO << " painter is not active";
+        }
 		p.setPen( KTLConfig::gridColor() ); // set forecolour
 		// note: anything other than 8 borks this
 		for( int i = (interval / 2); i < bigness; i+=interval ){

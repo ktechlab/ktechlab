@@ -112,7 +112,12 @@ void FlowPart::setCaption( const QString &caption )
 	}
 	
 	QWidget *w = new QWidget();
-	QPainter p(w);
+	//QPainter p(w);
+    QPainter p;
+    const bool isSuccess = p.begin(w);
+    if (!isSuccess) {
+        qWarning() << Q_FUNC_INFO << " painter not active";
+    }
 	p.setFont( font() );
 	const int text_width = p.boundingRect( boundingRect(), (Qt::SingleLine | Qt::AlignHCenter | Qt::AlignVCenter), caption ).width();
 	p.end();
