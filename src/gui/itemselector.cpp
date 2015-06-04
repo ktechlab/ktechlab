@@ -281,7 +281,9 @@ Q3DragObject* ItemSelector::dragObject()
 		QDataStream stream( &data, IO_WriteOnly );
 		stream << id;
 		d->setEncodedData(data);
-	}
+	} else {
+        qWarning() << Q_FUNC_INFO << " null drag returned";
+    }
 	
 	// A pixmap cursor is often hard to make out
 // 	QPixmap *pixmap = const_cast<QPixmap*>(currentItem()->pixmap(0));
