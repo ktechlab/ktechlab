@@ -863,7 +863,12 @@ void KtlQCanvas::drawCanvasArea(const QRect& inarea, QPainter* p, bool double_bu
 		QPainter painter;
         const bool isSuccess = painter.begin(view->viewport());
         if (!isSuccess) {
-            qWarning() << Q_FUNC_INFO << " " << __LINE__ << " painter not active";
+            //qWarning() << Q_FUNC_INFO << " on view " << view << " viewport " << view->viewport();
+            qWarning() << Q_FUNC_INFO << " " << __LINE__ << " painter not active, applying workaround";
+            // TODO fix this workaround for repainting: the painter would try to draw to the widget outside of a paint event,
+            //  which is not expected to work. Thus this code just sends an update() to the widget, ensuring correct painting
+            view->viewport()->update();
+            continue;
         }
 		QPoint tr = view->contentsToViewport(area.topLeft());
 		QPoint nrtr = view->contentsToViewport(QPoint(0,0)); // new translation
