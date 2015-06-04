@@ -418,6 +418,10 @@ QWidget * ItemInterface::configWidget()
 		if ( !editWidget )
 			continue;
 		
+        const int widgetH = QFontMetrics( configWidget->font() ).height() + 2;
+        editWidget->setMinimumHeight( widgetH );  // note: this is hack-ish; something is not ok with the layout
+        editWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
 		// In the case of the toolbar, we don't want it too high
 		if ( editWidget->height() > parent->height()-2 )
 			editWidget->setMaximumHeight( parent->height()-2 );
