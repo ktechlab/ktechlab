@@ -67,10 +67,19 @@ The following have been brainstormed with reference to other electronics softwar
 - A means for users to create a circuit which is intended for use in a component, and to link the created circuit to a generic component that automatically creates the required in/out pins with reference to the created component circuit. On top of this, a means for users to submit new components they have created this way to allow the library of components to be built. So instead of a long list of IC's one generic one may be used with a library containing the circuits needed to simulate different types which can be chosen for example through the Item Editor.
 
 
+Fixes that could be postponed after the first Qt4 release
+=======
+- fix building of the core library first; otherwise missing include file (ktlconfig.h) error could happen at build time
+    - the build-scripts have a work-around, and based on that, building should be straight-forward
+
 Features needs re-implementation at Qt4 port
 =======
 - dbus integration for documents (used to be dcop bindings for documents)
 - undo / redo interface needs to  be fixed for text documents: this interface is not exported by KDE4 KTextEditor
     http://api.kde.org/4.10-api/kdelibs-apidocs/interfaces/ktexteditor/html/kte_port_to_kde4.html
 - printing a text document needs fixing
-- fix building of the core library first; otherwise missing include file (ktlconfig.h) error could happen at build time
+
+Fixes needed for the first release candidate of the Qt4 port
+=======
+- fix crash on item drag to circuit, if the item is held less than ~1s over the circuit (if it is, then dragging appears to work)
+    - this is possibly related to the repainting issues, because it appears to be timing-dependent; or it is a race-condition?
