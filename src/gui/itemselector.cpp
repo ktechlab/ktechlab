@@ -62,6 +62,8 @@ ItemSelector::ItemSelector( QWidget *parent, const char *name )
     setDragEnabled(true);
 	setFocusPolicy( Qt::NoFocus );
 
+    setSelectionMode( Q3ListView::NoSelection );
+
     if (parent->layout()) {
         parent->layout()->addWidget(this);
         qDebug() << Q_FUNC_INFO << " added item selector to parent's layout " << parent;
