@@ -6,8 +6,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${KD
 ########### install files ###############
 
 
-# TODO
-#kde3_install_icons(hicolor)
+kde4_install_icons(hicolor)
 
 
 
