@@ -577,6 +577,10 @@ void KtlQCanvas::update()
 				QRect r = changeBounds(view->inverseWorldMatrix().map(area));
 				if ( !r.isEmpty() )
 				{
+                    // as of my testing, drawing below always fails, so just post for an update event to the widget
+                    view->viewport()->update();
+
+#if 0
                     //view->viewport()->setAttribute(Qt::WA_PaintOutsidePaintEvent, true); // note: remove this when possible
 					//QPainter p(view->viewport());
                     QPainter p;
@@ -588,6 +592,7 @@ void KtlQCanvas::update()
 					QPoint tl = view->contentsToViewport(QPoint(0,0));
 					p.translate(tl.x(),tl.y());
 					drawViewArea( view, &p, wm.map(r), true );
+#endif
 					doneareas.append(new QRect(r));
 				}
 			} else clusterizer.add(area);
@@ -858,17 +863,27 @@ void KtlQCanvas::drawCanvasArea(const QRect& inarea, QPainter* p, bool double_bu
 		if ( !view->worldMatrix().isIdentity() )
 			continue; // Cannot paint those here (see callers).
 
+        // as of my testing, drawing below always fails, so just post for an update event to the widget
+        view->viewport()->update();
+
+#if 0
         //view->viewport()->setAttribute(Qt::WA_PaintOutsidePaintEvent, true); // note: remove this when possible
 		//QPainter painter(view->viewport());
 		QPainter painter;
         const bool isSuccess = painter.begin(view->viewport());
+        static int paintSuccessCount = 0;
+        static int paintFailCount = 0;
         if (!isSuccess) {
             //qWarning() << Q_FUNC_INFO << " on view " << view << " viewport " << view->viewport();
             qWarning() << Q_FUNC_INFO << " " << __LINE__ << " painter not active, applying workaround";
             // TODO fix this workaround for repainting: the painter would try to draw to the widget outside of a paint event,
             //  which is not expected to work. Thus this code just sends an update() to the widget, ensuring correct painting
+            ++paintFailCount;
+            qWarning() << Q_FUNC_INFO << " paint success: " << paintSuccessCount << ", fail: " << paintFailCount;
             view->viewport()->update();
             continue;
+        } else {
+            ++paintSuccessCount;
         }
 		QPoint tr = view->contentsToViewport(area.topLeft());
 		QPoint nrtr = view->contentsToViewport(QPoint(0,0)); // new translation
@@ -889,6 +904,8 @@ void KtlQCanvas::drawCanvasArea(const QRect& inarea, QPainter* p, bool double_bu
 			drawForeground(painter,area);
 			painter.translate(-nrtr.x(),-nrtr.y());
 		}
+#endif
+
 	}
 }
 
