@@ -691,18 +691,20 @@ void KTechlab::setupActions()
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotViewSplitTopBottom()));
         ac->addAction("view_split_topbottom", a);
     }
-	
+	{
 	//KToggleAction * ta = new KToggleAction( i18n("Run Simulation"), "player_play", Qt::Key_F10, 0, 0, ac, "simulation_run" );
-	KToggleAction * ta = new KToggleAction( KIcon("player_play"), i18n("Run Simulation"), ac);
-    ta->setShortcut( Qt::Key_F10 );
-    ta->setName( "simulation_run" );
-	ta->setChecked(true);
-	connect( ta, SIGNAL(toggled(bool )), Simulator::self(), SLOT(slotSetSimulating(bool )) );
+        KToggleAction * ta = new KToggleAction( KIcon("player_play"), i18n("Run Simulation"), ac);
+        ta->setShortcut( Qt::Key_F10 );
+        ta->setName( "simulation_run" );
+        ta->setChecked(true);
+        connect( ta, SIGNAL(toggled(bool )), Simulator::self(), SLOT(slotSetSimulating(bool )) );
 #if defined(KDE_MAKE_VERSION)
 # if KDE_VERSION >= KDE_MAKE_VERSION(3,3,0)
 		ta->setCheckedState( KGuiItem( i18n("Pause Simulation"), "player_pause", 0 ) );
 # endif
 #endif
+        ac->addAction( "simulation_run", ta);
+    }
 	
 	// We can call slotCloseProject now that the actions have been created
 	ProjectManager::self()->updateActions();
