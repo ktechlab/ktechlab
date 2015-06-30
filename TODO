@@ -83,3 +83,4 @@ Fixes needed for the first release candidate of the Qt4 port
 =======
 - fix crash on item drag to circuit, if the item is held less than ~1s over the circuit (if it is, then dragging appears to work)
     - this is possibly related to the repainting issues, because it appears to be timing-dependent; or it is a race-condition?
+- fix build on kubuntu 64 bit, for all combinations of installed/not installed state of gpsim/glib
