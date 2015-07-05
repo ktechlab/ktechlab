@@ -40,8 +40,12 @@ remove_definitions(-DQT_NO_STL)
 
 link_directories(${KDE4_LIB_DIR}) # not really needed, see FindKde4Internal.cmake
 
+if ( GPSIM_FOUND AND GLIB2_FOUND)
+    include_directories( ${GLIB2_INCLUDE_DIRS} )
+endif (GPSIM_FOUND AND GLIB2_FOUND)
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}
-	${KDE4_INCLUDE_DIR} ${QT_INCLUDE_DIR} ${GLIB2_INCLUDE_DIRS} )
+        ${KDE4_INCLUDE_DIR} ${QT_INCLUDE_DIR} )
 
 CONFIGURE_FILE( ${CMAKE_SOURCE_DIR}/config.h.cmake
 	${CMAKE_BINARY_DIR}/config.h )
