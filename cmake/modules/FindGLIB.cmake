@@ -40,6 +40,7 @@ else (GLIB2_LIBRARIES AND GLIB2_INCLUDE_DIRS AND GLIB2_PUBLIC_LINK_FLAGS)
       /usr/lib64/glib-2.0/include
       /usr/lib/glib-2.0/include
       /usr/lib/i386-linux-gnu/glib-2.0/include/
+      /usr/lib/x86_64-linux-gnu/glib-2.0/include/
   )
 
   set(GLIB2_DEFINITIONS ${_GLIB2Cflags})
@@ -280,6 +281,7 @@ else (GLIB2_LIBRARIES AND GLIB2_INCLUDE_DIRS AND GLIB2_PUBLIC_LINK_FLAGS)
 
   if (GLIB2_FOUND)
     if (NOT GLIB2_FIND_QUIETLY)
+      message(STATUS "Found GLib2, config include dir: ${GLIBCONFIG_INCLUDE_DIR}")
       message(STATUS "Found GLib2: ${GLIB2_LIBRARIES}")
     endif (NOT GLIB2_FIND_QUIETLY)
   else (GLIB2_FOUND)
