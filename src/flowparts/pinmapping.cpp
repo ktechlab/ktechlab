@@ -97,7 +97,7 @@ PinMapEditor::PinMapEditor( PinMapping * pinMapping, MicroInfo * picInfo, QWidge
 	
 	m_pPinMapView = static_cast<PinMapView*>(m_pPinMapDocument->createView( vc, 0 ));
 	
-	qApp->processEvents();
+	//qApp->processEvents(); // 2015.07.07 - do not process events, if it is not urgently needed; might generate crashes?
 	
 	m_pPinMapDocument->init( *m_pPinMapping, picInfo );
 	
