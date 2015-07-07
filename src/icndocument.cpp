@@ -690,7 +690,7 @@ void ICNDocument::requestRerouteInvalidatedConnectors()
 
 void ICNDocument::rerouteInvalidatedConnectors()
 {
-	qApp->processEvents(QEventLoop::AllEvents, 300);
+	//qApp->processEvents(QEventLoop::AllEvents, 300); // 2015.07.07 - do not process events, if it is not urgently needed; might generate crashes?
 
 	// We only ever need to add the connector points for CNItem's when we're about to reroute...
 	addAllItemConnectorPoints();
