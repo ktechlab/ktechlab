@@ -139,6 +139,10 @@ void NodeGroup::updateRoutes()
 		
 		ConRouter cr(p_icnDocument);
 		cr.mapRoute( (int)n1->x(), (int)n1->y(), (int)n2->x(), (int)n2->y() );
+        if (cr.pointList(false).size() <= 0) {
+            qDebug() << Q_FUNC_INFO << "no ConRouter points, giving up";
+            return; // continue might get to an infinite loop
+        }
 		QPointListList pl = cr.dividePoints( route.size()+1 );
 		
 		const NodeList::iterator routeEnd = route.end();
