@@ -310,8 +310,10 @@ void ConRouter::mapRoute( int sx, int sy, int ex, int ey )
 	
 	cellsPtr = p_icnDocument->cells();
 	
-	if ( !cellsPtr->haveCell( scx, scy ) || !cellsPtr->haveCell( ecx, ecy ) )
+	if ( !cellsPtr->haveCell( scx, scy ) || !cellsPtr->haveCell( ecx, ecy ) ) {
+        qDebug() << Q_FUNC_INFO << "cellPtr doesn't have cells, giving up";
 		return;
+    }
 	
 	m_cellPointList.clear();
 	m_lcx = ecx;
