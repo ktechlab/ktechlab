@@ -417,16 +417,16 @@ void CircuitDocument::calculateConnectorCurrents()
 	{
 		found = false;
 		
-		WireList::iterator wiresEnd = wires.end();
-		for ( WireList::iterator it = wires.begin(); it != wiresEnd; )
+		for ( WireList::iterator itW = wires.begin(); itW != wires.end(); )
 		{
-			if ( (*it)->calculateCurrent() )
+			if ( (*itW)->calculateCurrent() )
 			{
 				found = true;
-				WireList::iterator oldIt = it;
-				++it;
-				wires.remove(oldIt);
-			} else	++it;
+				itW = wires.erase(itW);
+                // note: assigning a temporary interator, incrementing and erasing, seems to crash
+			} else {
+                ++itW;
+            }
 		}
 		
 		SwitchList::iterator switchesEnd = switches.end();
@@ -435,6 +435,8 @@ void CircuitDocument::calculateConnectorCurrents()
 			if ( (*it)->calculateCurrent() )
 			{
 				found = true;
+                // note: assigning a temporary interator, incrementing and erasing, seems to crash
+                // it = container.erase( it ) seems to crash other times
 				SwitchList::iterator oldIt = it;
 				++it;
 				switches.remove(oldIt);
@@ -449,6 +451,8 @@ make the ground pins work. Current engine doesn't treat ground explicitly.
 		for ( PinList::iterator it = groundPins.begin(); it != groundPinsEnd; ) {
 			if ( (*it)->calculateCurrentFromWires() ) {
 				found = true;
+                // note: assigning a temporary interator, incrementing and erasing, seems to crash sometimes;
+                // it = container.erase( it ) seems to crash other times
 				PinList::iterator oldIt = it;
 				++it;
 				groundPins.remove(oldIt);
