@@ -102,8 +102,9 @@ ItemDocument::~ItemDocument()
 
 	const ItemMap::iterator end = m_itemList.end();
 	for ( ItemMap::iterator it = m_itemList.begin(); it != end; ++it ) {
-        qDebug() << "FIXME to really: ItemDocument::~ItemDocument: deleting [" << it.key() << "] " << it.value();
-		//delete *it; // TODO FIXME HACK
+        qDebug() << "ItemDocument::~ItemDocument: deleting [" << it.key() << "] " << it.value();
+		//delete *it; // 2015.07.31 - this will crash
+        it.value()->deleteLater();
     }
 	m_itemList.clear();
 

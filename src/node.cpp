@@ -130,6 +130,10 @@ void Node::removeNode()
 	p_icnDocument->appendDeleteList(this);
 }
 
+void Node::setICNDocument(ICNDocument *documentPtr) {
+    p_icnDocument = documentPtr;
+}
+
 void Node::moveBy( double dx, double dy )
 {
 	if ( dx == 0 && dy == 0 ) return;

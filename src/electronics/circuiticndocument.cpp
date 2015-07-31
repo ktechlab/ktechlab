@@ -53,10 +53,21 @@ CircuitICNDocument::~CircuitICNDocument()
 
 void CircuitICNDocument::deleteAllNodes() {
 
-	const ECNodeMap::iterator nodeListEnd = m_ecNodeList.end();
+    const ECNodeMap::iterator nodeListEnd = m_ecNodeList.end();
 	for ( ECNodeMap::iterator it = m_ecNodeList.begin(); it != nodeListEnd; ++it ) {
-        qDebug() << "FIXME to really: CircuitICNDocument::deleteAllNodes removing [" << it.key() << "] " << it.value();
-		// delete *it; // TODO FIXME HACK
+        qDebug() << "CircuitICNDocument::deleteAllNodes removing [" << it.key() << "] " << it.value();
+		//delete *it; // 2015.07.31 - this will not work
+
+        // prevent crash on node destructor
+        {
+            ECNode *ecNode = it.value();
+            //unregisterUID( ecNode->id() ); // do not use, will modify m_ecNodeList
+            ICNDocument::unregisterUID( ecNode->id() );
+            ecNode->setICNDocument( NULL );
+        }
+
+
+        it.value()->deleteLater();
     }
 
 	m_ecNodeList.clear();

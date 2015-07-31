@@ -163,6 +163,8 @@ public:
 	 */
 	virtual void drawShape( QPainter &p ) = 0;
 	
+    void setICNDocument(ICNDocument *documentPtr);
+
 public slots:
 	void moveBy( double dx, double dy );
 	void removeNode(Item*) { removeNode(); }
