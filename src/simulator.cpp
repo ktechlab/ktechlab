@@ -15,7 +15,10 @@
 #include "switch.h"
 
 #include <k3staticdeleter.h>
+
 #include <Qt/qtimer.h>
+#include <Qt/qset.h>
+
 #include <cassert>
 
 //BEGIN class Simulator
@@ -141,8 +144,13 @@ void Simulator::step() {
 
 			// Update the non-logic circuits
 			if (Circuit *changed = m_pChangedCircuitStart->nextChanged(prevChain)) {
-				for (Circuit *circuit = changed; circuit; circuit = circuit->nextChanged(prevChain))
+                QSet<Circuit*> canAddChangedSet;
+				for (   Circuit *circuit = changed;
+                        circuit && (!canAddChangedSet.contains(circuit));
+                        circuit = circuit->nextChanged(prevChain)) {
 					circuit->setCanAddChanged(true);
+                    canAddChangedSet.insert(circuit);
+                }
 
 				m_pChangedCircuitStart->setNextChanged(0, prevChain);
 				m_pChangedCircuitLast = m_pChangedCircuitStart;
