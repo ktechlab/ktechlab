@@ -33,7 +33,7 @@ Simulator *Simulator::self() {
 }
 
 Simulator::Simulator()
-		:  m_bIsSimulating(true), m_stepNumber(0), m_currentChain(0) {
+		:  m_bIsSimulating(false), m_stepNumber(0), m_currentChain(0) {
 	m_gpsimProcessors = new list<GpsimProcessor*>;
 	m_componentCallbacks = new list<ComponentCallback>;
 	m_components	   = new list<Component*>;
@@ -54,9 +54,10 @@ Simulator::Simulator()
 	m_pChangedCircuitStart = new Circuit;
 	m_pChangedCircuitLast  = m_pChangedCircuitStart;
 
-	QTimer *stepTimer = new QTimer(this);
-	connect(stepTimer, SIGNAL(timeout()), this, SLOT(step()));
-	stepTimer->start(1);
+	m_stepTimer = new QTimer(this);
+	connect(m_stepTimer, SIGNAL(timeout()), this, SLOT(step()));
+
+    slotSetSimulating(true); // start the timer
 }
 
 Simulator::~Simulator() {
@@ -80,7 +81,7 @@ void Simulator::step() {
 	// We are called a thousand times a second (the maximum allowed by QTimer),
 	// so divide the LINEAR_UPDATE_RATE by 1e3 for the number of loops we need
 	// to do.
-	const unsigned maxSteps = unsigned(LINEAR_UPDATE_RATE / 1e3);
+	const unsigned maxSteps = unsigned(LINEAR_UPDATE_RATE / SIMULATOR_STEP_INTERVAL_MS);
 
 	for (unsigned i = 0; i < maxSteps; ++i) {
 		m_stepNumber++;
@@ -198,6 +199,12 @@ void Simulator::step() {
 
 void Simulator::slotSetSimulating(bool simulate) {
 	if (m_bIsSimulating == simulate) return;
+
+    if (simulate) {
+        m_stepTimer->start(SIMULATOR_STEP_INTERVAL_MS);
+    } else {
+        m_stepTimer->stop();
+    }
 
 	m_bIsSimulating = simulate;
 	emit simulatingStateChanged(simulate);

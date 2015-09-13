@@ -25,11 +25,15 @@ linear elements are updated.
 const int LINEAR_UPDATE_RATE = int(1e4);
 const double LINEAR_UPDATE_PERIOD = 1.0 / LINEAR_UPDATE_RATE;
 
+const int SIMULATOR_STEP_INTERVAL_MS = 20;
+
 /**
 This should be a multiple of 1000. It is the number of times a second that
 logic elements are updated.
 */
 const int LOGIC_UPDATE_RATE = int(1e6);
+
+class QTimer;
 
 class Circuit;
 
@@ -197,6 +201,8 @@ private slots:
 private:
 	bool m_bIsSimulating;
 	static Simulator *m_pSelf;
+
+    QTimer *m_stepTimer;
 
 	///List of LogicOuts that are at the start of a LogicChain
 	QList<LogicOut*> m_logicChainStarts;
