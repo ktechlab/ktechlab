@@ -125,7 +125,9 @@ CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *view
 	
 	m_pViewIface = new CircuitViewIface(this);
 	
-	m_statusBar->insertItem( "", ViewStatusBar::SimulationState );
+    // note: the text below normally should not be visible; it is needed to get the "real" status displayed;
+    // see slotUpdateRunningStatus
+	m_statusBar->insertItem( i18n("Simulation Initializing"), ViewStatusBar::SimulationState );
 	connect( Simulator::self(), SIGNAL(simulatingStateChanged(bool )), this, SLOT(slotUpdateRunningStatus(bool )) );
 	slotUpdateRunningStatus( Simulator::self()->isSimulating() );
 }
