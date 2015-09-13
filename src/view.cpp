@@ -64,8 +64,13 @@ View::View( Document *document, ViewContainer *viewContainer, uint viewAreaId, c
 
 View::~View()
 {
-	if ( KTechlab::self() )
-		KTechlab::self()->factory()->removeClient(this);
+	//if ( KTechlab::self() )   // 2015.09.13 - remove the XMLGUIClient from the factory, even at program close
+	//	KTechlab::self()->factory()->removeClient(this);
+    if ( factory() ) {
+        factory()->removeClient( this );
+    } else {
+        qWarning() << Q_FUNC_INFO << "Null factory";
+    }
 }
 
 
