@@ -21,7 +21,7 @@ MechanicsSimulation::MechanicsSimulation( MechanicsDocument *mechanicsDocument )
 	p_mechanicsDocument = mechanicsDocument;
 	m_advanceTmr = new QTimer(this);
 	connect( m_advanceTmr, SIGNAL(timeout()), this, SLOT(slotAdvance()) );
-	m_advanceTmr->start(1);
+	m_advanceTmr->start(20); // it is not implemented anyway, so don't hog the CPU
 }
 
 
