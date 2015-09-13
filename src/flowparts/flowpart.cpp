@@ -825,6 +825,8 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 	maskPainter.setBrush(Qt::color1);
 	maskPainter.setPen(Qt::color1);
 	
+    //BEGIN painter on pm
+    {
 	QPainter p(&pm);
 	p.setBrush(m_brushCol);
 	p.setPen( Qt::black );
@@ -946,7 +948,9 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 		}
 	}
 	
-	pm.setMask(mask);
+    }
+    //END painter on pm
+	pm.setMask(mask);  // pm needs not to have active painters on it
 }
 
 #include "flowpart.moc"
