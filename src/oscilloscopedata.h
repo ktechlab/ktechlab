@@ -16,8 +16,6 @@
 #include <stdint.h>
 #include <vector>
 
-using namespace std;
-
 #define DATA_CHUNK_SIZE (8192/sizeof(T))
 
 /*
@@ -138,7 +136,7 @@ class LogicProbeData : public ProbeData
 		bool isEmpty() const { return m_data->size() == 0; }
 
 	protected:
-		vector<LogicDataPoint> *m_data;
+		std::vector<LogicDataPoint> *m_data;
 		friend class OscilloscopeView;
 };
 
@@ -196,7 +194,7 @@ class FloatingProbeData : public ProbeData
 		Scaling m_scaling;
 		double m_upperAbsValue;
 		double m_lowerAbsValue;
-		vector<float> *m_data;
+		std::vector<float> *m_data;
 		friend class OscilloscopeView;
 };
 

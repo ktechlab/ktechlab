@@ -19,6 +19,8 @@
 
 #include <cmath>
 
+using namespace std;
+
 // was a constant, this is my guess for an appropriate name. 
 #define TIME_INTERVAL 100  
 

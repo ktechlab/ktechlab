@@ -32,6 +32,8 @@
 #include <algorithm>
 #include <cmath>
 
+using namespace std;
+
 inline uint64_t min( uint64_t a, uint64_t b)
 {
 	return a < b ? a : b;
