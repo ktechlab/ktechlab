@@ -18,7 +18,7 @@ class CNItemGroup;
 class Component;
 class FlowPart;
 
-class QPushButton;
+class DrawingPushButton;
 
 /**
 @author David Saxton
@@ -49,7 +49,7 @@ class OrientationWidget : public QWidget
 		void initFromComponent( Component * component );
 		void initFromFlowPart( FlowPart * flowPart );
 	
-		QPushButton *m_toolBtn[2][4];
+		DrawingPushButton *m_toolBtn[2][4];
 		QPointer<FlowPart> m_pFlowPart;
 		QPointer<Component> m_pComponent;
 		QPointer<CNItem> m_pCNItem; // Either the flowpart or component

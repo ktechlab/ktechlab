@@ -30,6 +30,26 @@
 
 const int _size = 44;
 
+//BEGIN class DrawingPushButton
+struct DrawingPushButton : public QPushButton {
+    DrawingPushButton(QWidget *parent) : QPushButton(parent) { }
+
+
+    virtual void paintEvent(QPaintEvent *ev) {
+        QPushButton::paintEvent(ev);
+        QPainter painter(this);
+        painter.drawPixmap( 0, 0, toDiplayPixmap);
+    }
+
+    void setToDisplayPixmap(const QPixmap &pixmap) {
+        toDiplayPixmap = pixmap.copy(); // need to explicitly copy, or all the buttons will look the same
+    }
+
+    QPixmap toDiplayPixmap;
+};
+
+//END class DrawingPushButton
+
 //BEGIN class OrientationWidget
 OrientationWidget::OrientationWidget(QWidget *parent, const char *name)
 	: QWidget( parent, name )
@@ -40,7 +60,7 @@ OrientationWidget::OrientationWidget(QWidget *parent, const char *name)
 	{
 		for ( int col=0; col<4; ++col )
 		{
-			QPushButton *btn = new QPushButton(this);
+			DrawingPushButton *btn = new DrawingPushButton(this);
 			m_toolBtn[row][col] = btn;
 			layout->addWidget( btn, row, col );
 			btn->setFixedSize( _size+6, _size+6 );
@@ -118,7 +138,9 @@ void OrientationWidget::initFromFlowPart( FlowPart * flowPart )
 				m_toolBtn[i][j]->setEnabled(true);
 				QPixmap pm( 50, 50 );
 				flowPart->orientationPixmap( o, pm );
-				m_toolBtn[i][j]->setPixmap(pm);
+				//m_toolBtn[i][j]->setPixmap(pm);
+                m_toolBtn[i][j]->setToDisplayPixmap(pm);
+                m_toolBtn[i][j]->update();
 			}
 		}
 	}
@@ -156,12 +178,16 @@ void OrientationWidget::initFromComponent( Component * component )
 			bool flipped = bool(row);
 			int angle = 90 * col;
 			
-			if ( col || row )
-				tbPm.convertFromImage( im.xForm( Component::transMatrix( angle, flipped, bound.width()/2, bound.height()/2 ) ) );
-			else
+			if ( col || row ) {
+				tbPm.convertFromImage( im.transformed(
+                        Component::transMatrix( angle, flipped, bound.width()/2, bound.height()/2 ) ) );
+            } else {
 				tbPm.convertFromImage( im );
+            }
 			
-			m_toolBtn[row][col]->setPixmap(tbPm);
+			//m_toolBtn[row][col]->setPixmap(tbPm);
+            m_toolBtn[row][col]->setToDisplayPixmap(tbPm);
+            m_toolBtn[row][col]->update();
 			m_toolBtn[row][col]->setEnabled(true);
 		}
 	}
@@ -184,7 +210,9 @@ void OrientationWidget::slotClear()
 		for ( int col=0; col<4; ++col )
 		{
 			// Hmm...this line has crashed before
-			m_toolBtn[row][col]->setPixmap( QPixmap() );
+			//m_toolBtn[row][col]->setPixmap( QPixmap() );
+            m_toolBtn[row][col]->setToDisplayPixmap(QPixmap());
+            m_toolBtn[row][col]->update();
 			m_toolBtn[row][col]->setEnabled(false);
 		}
 	}

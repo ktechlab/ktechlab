@@ -423,7 +423,8 @@ QImage ItemLibrary::componentImage( Component * component, const uint maxSize )
 	maskPainter.setPen( Qt::color1 );
 	maskPainter.setBrush( Qt::color1 );
 	
-	
+    //BEGIN painting on the pixmap
+    {
 	QPainter p(&pm);
 	p.translate( -bound.x(), -bound.y() );
 	p.setPen( component->pen() );
@@ -497,8 +498,10 @@ QImage ItemLibrary::componentImage( Component * component, const uint maxSize )
 // 	maskPainter.setBrush( Qt::color1 );
 	component->drawWidgets(p);
 // 	component->drawWidgets(maskPainter);
+    }
+    //END painting on the pixmap
 	
-	pm.setMask(mask);
+	pm.setMask(mask); // pm needs not to have active painters on it
 		
 	// Now, rotate the image so that it's the right way up, and scale it to size
 	QImage im = pm.convertToImage();
