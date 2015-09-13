@@ -10,7 +10,9 @@
 
 #include "oscilloscopedata.h"
 #include "oscilloscope.h"
- 
+
+using namespace std;
+
 //BEGIN class ProbeData
 ProbeData::ProbeData( int id)
 	: m_id(id), m_drawPosition(0.5),

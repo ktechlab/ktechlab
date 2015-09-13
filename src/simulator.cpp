@@ -21,6 +21,8 @@
 
 #include <cassert>
 
+using namespace std;
+
 //BEGIN class Simulator
 Simulator *Simulator::m_pSelf = 0;
 static K3StaticDeleter<Simulator> staticSimulatorDeleter;

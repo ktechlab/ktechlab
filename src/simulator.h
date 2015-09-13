@@ -16,8 +16,6 @@
 #include "circuit.h"
 #include "logic.h"
 
-using namespace std;
-
 /**
 This should be a multiple of 1000. It is the number of times a second that
 linear elements are updated.
@@ -206,18 +204,18 @@ private:
 
 	///List of LogicOuts that are at the start of a LogicChain
 	QList<LogicOut*> m_logicChainStarts;
-	list<GpsimProcessor*> *m_gpsimProcessors;
+	std::list<GpsimProcessor*> *m_gpsimProcessors;
 
 // doesn't look too appropriate.
 // essentially a grab bag of every odd *component* that answers "true" to does step non-logic,
 // Which is every component that has special UI-related code that needs to be called every time the simulator steps.
 // this is not to be confused with elements which have nonLinear and Reactive components. =P
-	list<Component*> *m_components;
-	list<ComponentCallback> *m_componentCallbacks;
-	list<Circuit*> *m_ordinaryCircuits;
+	std::list<Component*> *m_components;
+	std::list<ComponentCallback> *m_componentCallbacks;
+	std::list<Circuit*> *m_ordinaryCircuits;
 
 // allow a variable number of callbacks be scheduled at each possible time. 
-	list<ComponentCallback *> *m_pStartStepCallback[LOGIC_UPDATE_RATE/LINEAR_UPDATE_RATE];
+	std::list<ComponentCallback *> *m_pStartStepCallback[LOGIC_UPDATE_RATE/LINEAR_UPDATE_RATE];
 
 	Circuit *m_pChangedCircuitStart;
 	Circuit *m_pChangedCircuitLast;
@@ -237,7 +235,7 @@ inline void Simulator::addStepCallback(int at, ComponentCallback *ccb) {
 // code was buggy[er], don't really know what variables are for, rewritten to make it work,
 // OK for now.
 	if (!m_pStartStepCallback[at]) {
-		m_pStartStepCallback[at] = new list<ComponentCallback*>;
+		m_pStartStepCallback[at] = new std::list<ComponentCallback*>;
 	}
 
 	m_pStartStepCallback[at]->push_back(ccb);
