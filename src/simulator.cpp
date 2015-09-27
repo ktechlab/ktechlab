@@ -73,7 +73,7 @@ Simulator::~Simulator() {
 }
 
 long long Simulator::time() const {
-    return m_stepNumber * (long long)(LOGIC_UPDATE_RATE / LINEAR_UPDATE_RATE) + m_llNumber;
+    return m_stepNumber * LOGIC_UPDATE_PER_STEP + m_llNumber;
 }
 
 
@@ -86,6 +86,7 @@ void Simulator::step() {
 	const unsigned maxSteps = unsigned(LINEAR_UPDATE_RATE / SIMULATOR_STEP_INTERVAL_MS);
 
 	for (unsigned i = 0; i < maxSteps; ++i) {
+        // here starts 1 linear step
 		m_stepNumber++;
 
 		// Update the non-logic parts of the simulation
@@ -106,9 +107,10 @@ void Simulator::step() {
 		}
 
 		// Update the logic parts of our simulation
-		const unsigned max = unsigned(LOGIC_UPDATE_RATE / LINEAR_UPDATE_RATE);
+		//const unsigned max = unsigned(LOGIC_UPDATE_RATE / LINEAR_UPDATE_RATE); // 2015.09.27 - use contants for logic updates
 
-		for (m_llNumber = 0; m_llNumber < max; ++m_llNumber) {
+		for (m_llNumber = 0; m_llNumber < LOGIC_UPDATE_PER_STEP; ++m_llNumber) {
+            // here starts 1 logic update
 			// Update the logic components
 			{
 				list<ComponentCallback>::iterator callbacks_end = m_componentCallbacks->end();
@@ -123,7 +125,7 @@ void Simulator::step() {
 
 				for (list<ComponentCallback*>::iterator callback = m_pStartStepCallback[m_llNumber]->begin(); callback != callbacks_end; callback++) {
 					(*callback)->callback();
-					// should we delete the list entry?
+					// should we delete the list entry? no
 				}
 			}
 

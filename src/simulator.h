@@ -20,7 +20,7 @@
 This should be a multiple of 1000. It is the number of times a second that
 linear elements are updated.
 */
-const int LINEAR_UPDATE_RATE = int(1e4);
+const int LINEAR_UPDATE_RATE = int(10000);
 const double LINEAR_UPDATE_PERIOD = 1.0 / LINEAR_UPDATE_RATE;
 
 const int SIMULATOR_STEP_INTERVAL_MS = 20;
@@ -29,7 +29,9 @@ const int SIMULATOR_STEP_INTERVAL_MS = 20;
 This should be a multiple of 1000. It is the number of times a second that
 logic elements are updated.
 */
-const int LOGIC_UPDATE_RATE = int(1e6);
+const int LOGIC_UPDATE_RATE = int(1000000);
+
+const int LOGIC_UPDATE_PER_STEP = int(LOGIC_UPDATE_RATE / LINEAR_UPDATE_RATE);
 
 class QTimer;
 
@@ -96,7 +98,7 @@ public:
 	 * stepping for.
 	 */
 	long long time() const ; /* {
-		return m_stepNumber * (long long)(LOGIC_UPDATE_RATE / LINEAR_UPDATE_RATE) + m_llNumber;
+		return m_stepNumber * LOGIC_UPDATE_PER_STEP + m_llNumber;
 	} */
 
 	/**
@@ -131,6 +133,12 @@ public:
 		m_pChangedCircuitLast = changed;
 	}
 
+	/**
+     * add a callback to be executed at the current step, at the given logic update number
+     * @param at the logic update number
+     * @param ccb the callback that shold be called; note that the ownership of the callback
+     *      object remains at the caller
+     */
 	inline void addStepCallback(int at, ComponentCallback *ccb);
 	/**
 	 * Add the given processor to the simulator. GpsimProcessor::step will
@@ -214,8 +222,8 @@ private:
 	std::list<ComponentCallback> *m_componentCallbacks;
 	std::list<Circuit*> *m_ordinaryCircuits;
 
-// allow a variable number of callbacks be scheduled at each possible time. 
-	std::list<ComponentCallback *> *m_pStartStepCallback[LOGIC_UPDATE_RATE/LINEAR_UPDATE_RATE];
+// allow a variable number of callbacks be scheduled at each possible time.
+	std::list<ComponentCallback *> *m_pStartStepCallback[LOGIC_UPDATE_PER_STEP];
 
 	Circuit *m_pChangedCircuitStart;
 	Circuit *m_pChangedCircuitLast;
@@ -234,6 +242,9 @@ private:
 inline void Simulator::addStepCallback(int at, ComponentCallback *ccb) {
 // code was buggy[er], don't really know what variables are for, rewritten to make it work,
 // OK for now.
+    if ((at < 0) || (at >= LOGIC_UPDATE_PER_STEP)) {
+        return; // note: maybe log here the error
+    }
 	if (!m_pStartStepCallback[at]) {
 		m_pStartStepCallback[at] = new std::list<ComponentCallback*>;
 	}
