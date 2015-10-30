@@ -22,7 +22,7 @@
 using namespace std;
 
 // was a constant, this is my guess for an appropriate name. 
-#define TIME_INTERVAL 100  
+//#define TIME_INTERVAL 100 // 2015.09.27 - added proper constant to simulator class
 
 static inline uint roundDouble( const double x )
 {
@@ -59,7 +59,7 @@ ECClockInput::ECClockInput( ICNDocument *icnDocument, bool newItem, const char *
 	m_bSetStepCallbacks = true;
 	m_pSimulator = Simulator::self();
 	
-	for ( unsigned i = 0; i < 1000; i++ )
+	for ( unsigned i = 0; i < LOGIC_UPDATE_PER_STEP; i++ )
 	{
 		ComponentCallback * ccb = new ComponentCallback( this, (VoidCallbackPtr)(&ECClockInput::stepCallback) );
 		m_pComponentCallback[i] = new list<ComponentCallback>;
@@ -87,7 +87,7 @@ ECClockInput::ECClockInput( ICNDocument *icnDocument, bool newItem, const char *
 
 ECClockInput::~ECClockInput()
 {
-	for ( unsigned i = 0; i < 1000; i++ )
+	for ( unsigned i = 0; i < LOGIC_UPDATE_PER_STEP; i++ )
 		delete m_pComponentCallback[i];
 }
 
@@ -96,18 +96,20 @@ void ECClockInput::dataChanged()
 	m_high_time = roundDouble(dataDouble("high-time") * LOGIC_UPDATE_RATE);
 	m_low_time = roundDouble(dataDouble("low-time") * LOGIC_UPDATE_RATE);
 	m_period = m_low_time + m_high_time;
-	
+
 	const double frequency = 1. / (dataDouble("high-time") + dataDouble("low-time"));
 	QString display = QString::number( frequency / getMultiplier(frequency), 'g', 3 ) + getNumberMag(frequency) + "Hz";
 	setDisplayText( "freq", display );
 	
-	bool setStepCallbacks = m_period > TIME_INTERVAL;
+	bool setStepCallbacks = m_period > LOGIC_UPDATE_PER_STEP;
 	if ( setStepCallbacks != m_bSetStepCallbacks ) {
 
 		m_bSetStepCallbacks = setStepCallbacks;
-		if (setStepCallbacks)
+		if (setStepCallbacks) {
 			m_pSimulator->detachComponentCallbacks(*this);
-		else	m_pSimulator->attachComponentCallback( this, (VoidCallbackPtr)(&ECClockInput::stepLogic) );
+        } else	{
+            m_pSimulator->attachComponentCallback( this, (VoidCallbackPtr)(&ECClockInput::stepLogic) );
+        }
 	}
 	
 	m_bLastStepCallbackOut = false;
@@ -119,7 +121,8 @@ void ECClockInput::stepLogic()
 {
 	m_pOut->setHigh( m_time>m_low_time );
 	
-	if ( ++m_time > m_period ) {
+    ++m_time;
+	if ( m_time > m_period ) {
 		m_time -= int(m_time / m_period) * m_period;
 	}
 }
@@ -134,13 +137,23 @@ void ECClockInput::stepCallback()
 
 void ECClockInput::stepNonLogic()
 {
-	if (!m_bSetStepCallbacks)
+	if (!m_bSetStepCallbacks) {
 		return;
+    }
 	
 	bool addingHigh = !m_bLastStepCallbackOut;
 	
+//     { // for testing
+//         const long long remainingLogicSteps = m_pSimulator->time() % LOGIC_UPDATE_PER_STEP;
+//         if (remainingLogicSteps != 0) {
+//             qWarning() << Q_FUNC_INFO << "remainingLogicSteps should be 0, but got " << remainingLogicSteps;
+//         }
+//     }
+
+    // TODO review this method
+
 	long long lowerTime = m_pSimulator->time();
-	long long upperTime = lowerTime + TIME_INTERVAL;
+	long long upperTime = lowerTime + LOGIC_UPDATE_PER_STEP;
 	
 	long long upTo = m_lastSetTime;
 	
@@ -150,7 +163,7 @@ void ECClockInput::stepNonLogic()
 		addingHigh = !addingHigh;
 		
 		long long at = upTo-lowerTime;
-		if ( at >= 0 && at < TIME_INTERVAL )
+		if ( at >= 0 && at < LOGIC_UPDATE_PER_STEP )
 			m_pSimulator->addStepCallback( at, &m_pComponentCallback[at]->front());
 	}
 	
