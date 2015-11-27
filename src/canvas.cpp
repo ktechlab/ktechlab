@@ -1591,17 +1591,20 @@ void KtlQCanvasView::updateContentsSize()
 		if ( br.width() < contentsWidth() ) {
 			QRect r(contentsToViewport(QPoint(br.width(),0)),
 					QSize(contentsWidth()-br.width(),contentsHeight()));
-			viewport()->erase(r);
+			//viewport()->erase(r); // 2015.11.25 - not recommended to directly repaint
+                        viewport()->update(r);
 		}
 		if ( br.height() < contentsHeight() ) {
 			QRect r(contentsToViewport(QPoint(0,br.height())),
 					QSize(contentsWidth(),contentsHeight()-br.height()));
-			viewport()->erase(r);
+			//viewport()->erase(r);  // 2015.11.25 - not recommended to directly repaint
+                        viewport()->update(r);
 		}
 
 		resizeContents(br.width(),br.height());
 	} else {
-		viewport()->erase();
+		//viewport()->erase();  // 2015.11.25 - not recommended to directly repaint
+                viewport()->update();
 		resizeContents(1,1);
 	}
 }
