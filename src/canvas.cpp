@@ -1651,9 +1651,10 @@ void KtlQCanvasView::drawContents(QPainter *p, int cx, int cy, int cw, int ch)
 
 	(Implemented to get rid of a compiler warning.)
  */
-void KtlQCanvasView::drawContents( QPainter * )
+void KtlQCanvasView::drawContents( QPainter *p )
 {
     qDebug() << Q_FUNC_INFO << " called, altough not expected";
+    drawContents(p, 0, 0, width(), height());
 }
 
 /*!
