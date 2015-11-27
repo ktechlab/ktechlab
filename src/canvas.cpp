@@ -522,7 +522,8 @@ void KtlQCanvas::drawViewArea( KtlQCanvasView* view, QPainter* p, const QRect& v
 		twm.translate(-tl.x(),-tl.y());
 		dbp.setWorldMatrix( wm*twm, true );
 	
-		dbp.setClipRect(0,0,vr.width(), vr.height());
+        // 2015.11.27 - do not clip, in order to fix drawing of garbage on the screen.
+		//dbp.setClipRect(0,0,vr.width(), vr.height());
 // 		dbp.setClipRect(v);
 		drawCanvasArea(ivr,&dbp,false);
 		dbp.end();
@@ -535,9 +536,11 @@ void KtlQCanvas::drawViewArea( KtlQCanvasView* view, QPainter* p, const QRect& v
 	 	   //QRegion outside = p->clipRegion() - r;
 		    //p->setClipRegion(outside);
 		    //p->fillRect(outside.boundingRect(),red);
-			p->setClipRegion(inside);
+            // 2015.11.27 - do not clip, in order to fix drawing of garbage on the screen.
+			//p->setClipRegion(inside);
 		} else {
-			p->setClipRect(r);
+            // 2015.11.27 - do not clip, in order to fix drawing of garbage on the screen.
+			//p->setClipRect(r);
 		}
 		p->setWorldMatrix( wm*twm );
 	
