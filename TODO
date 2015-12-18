@@ -81,6 +81,23 @@ Features needs re-implementation at Qt4 port
 
 Fixes needed for the first release candidate of the Qt4 port
 =======
-- fix crash on item drag to circuit, if the item is held less than ~1s over the circuit (if it is, then dragging appears to work)
-    - this is possibly related to the repainting issues, because it appears to be timing-dependent; or it is a race-condition?
+- created subcircuits appear twice in the subcircuit list, and in some cases they cause crashes; investigation needed
+
 - fix build on kubuntu 64 bit, for all combinations of installed/not installed state of gpsim/glib
+
+- (from Claus) There are some other gfx glitches, but that might be because I run it in a virtual machine - didn't have them on the previous builds though.
+    - needs checking
+
+- Gfx error on e.g. LED in that I can't connect a wire unless I rotate the part.
+- some components get their connectors moved, thus (1) graphical issues, (2) impossibility of connecting connectors results
+
+- Som gfx errors that leaves gaps at connection points on components.
+  (see last email with attached screen shot)
+
+
+-'Scope works well, but doesn't clear 'lines' from other circuits when they are closed. (Y-axis scale would be nice)
+
+-I think the 'scope just keeps filling data points into RAM, because RAM usage climbs steadily until the virtual machine crashes (same as the kde3 version)
+
+- components have no description
+   - the context help exists; or something else is needed here?
