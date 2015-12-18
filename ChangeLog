@@ -54,3 +54,9 @@ Miscellaneous Features:
 * PIC program uploading (via the use of external programs).
 * Allow changing of the z-ordering of items.
 * Added support for gpsim-0.21.11 and gpsim-0.21.12.
+
+Changes between Qt3 and Qt4 port (to be completed)
+====
+- ktechlab compiles and runs with Qt4 and kdelibs4
+- fixed crash on item drag to circuit, if the item is held less than ~1s over the circuit (if it is, then dragging appears to work)
+    - caused by timing condition, related to dragging explicit event consumption in the application
