@@ -81,7 +81,13 @@ Features needs re-implementation at Qt4 port
 
 Fixes needed for the first release candidate of the Qt4 port
 =======
-- created subcircuits appear twice in the subcircuit list, and in some cases they cause crashes; investigation needed
+- cannot delete subcircuit with the delete key
+- cannot change the name of an external connector
+- graphical glitches with external components; maybe related to external connectors with the same name
+
+- created subcircuits appear twice in the subcircuit list; investigation needed
+- created subcircuits in some cases they cause crashes; investigation needed
+
 
 - fix build on kubuntu 64 bit, for all combinations of installed/not installed state of gpsim/glib
 
