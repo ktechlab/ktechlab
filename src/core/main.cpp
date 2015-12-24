@@ -10,6 +10,7 @@
 
 #include "ktechlab.h"
 #include "diagnosticstyle.h"
+#include "logtofilemsghandler.h"
 
 //#include <dcopclient.h>
 #include <kaboutdata.h>
@@ -31,6 +32,8 @@ static const char description[] =
 
 int main(int argc, char **argv)
 {
+    LogToFileMsgHandler logFileHandler;
+
     KAboutData about(QByteArray("ktechlab"), QByteArray("KTechLab"), ki18n("KTechLab"), VERSION, ki18n(description),
                     KAboutData::License_GPL, ki18n("(C) 2003-2009, The KTechLab developers"),
                     ki18n(""), "http://ktechlab.org", "ktechlab-devel@lists.sourceforge.net" );
