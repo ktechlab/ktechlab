@@ -62,7 +62,7 @@ ItemSelector::ItemSelector( QWidget *parent, const char *name )
     setDragEnabled(true);
 	setFocusPolicy( Qt::NoFocus );
 
-    setSelectionMode( Q3ListView::NoSelection );
+    setSelectionMode( Q3ListView::Single ); // 2015.12.10 - need to allow selection for removing items
 
     if (parent->layout()) {
         parent->layout()->addWidget(this);
@@ -193,9 +193,12 @@ void ItemSelector::slotContextMenuRequested( Q3ListViewItem* item, const QPoint&
 
 void ItemSelector::slotRemoveSelectedItem()
 {
+    qDebug() << Q_FUNC_INFO << "removing selected item";
 	ILVItem *item = dynamic_cast<ILVItem*>(selectedItem());
-	if (!item)
+	if (!item) {
+        qDebug() << Q_FUNC_INFO << "no selected item to remove";
 		return;
+    }
 	
 	emit itemRemoved( item->key( 0, 0 ) );
 	ILVItem *parent = dynamic_cast<ILVItem*>(item->K3ListViewItem::parent());
