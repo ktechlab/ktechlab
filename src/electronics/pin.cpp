@@ -83,7 +83,7 @@ void Pin::setSwitchCurrentsUnknown() {
     if (!m_switchList.empty()) {
         m_switchList.removeAt( 0l );
     } else {
-        qWarning() << "Pin::setSwitchCurrentsUnknown - unexpected empty switch list";
+        qDebug() << "Pin::setSwitchCurrentsUnknown - WARN - unexpected empty switch list";
     }
     m_unknownSwitchCurrents = m_switchList;
 }
