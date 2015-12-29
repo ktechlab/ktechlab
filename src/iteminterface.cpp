@@ -475,6 +475,7 @@ void ItemInterface::connectMapWidget( QWidget *widget, const char *_signal )
 
 void ItemInterface::tbDataChanged()
 {
+    qDebug() << Q_FUNC_INFO;
 	// Manual string values
 	const LineEditMap::iterator m_stringLineEditMapEnd = m_stringLineEditMap.end();
 	for ( LineEditMap::iterator leit = m_stringLineEditMap.begin(); leit != m_stringLineEditMapEnd; ++leit )
@@ -486,6 +487,7 @@ void ItemInterface::tbDataChanged()
 	const KComboBoxMap::iterator m_stringComboBoxMapEnd = m_stringComboBoxMap.end();
 	for ( KComboBoxMap::iterator cmit = m_stringComboBoxMap.begin(); cmit != m_stringComboBoxMapEnd; ++cmit )
 	{
+        qDebug() << Q_FUNC_INFO << "set KCombo data for " << cmit.key() << " to " << cmit.data()->currentText();
 		slotSetData( cmit.key(), cmit.data()->currentText() );
 	}
 

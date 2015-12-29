@@ -202,9 +202,10 @@ PropertyEditorItem::~PropertyEditorItem()
 void PropertyEditorItem::updateValue(bool alsoParent)
 {
 	QString text;
-	if ( m_property )
+	if ( m_property ) {
 		text = m_property->displayString();
-	
+    }
+    qDebug() << Q_FUNC_INFO << "text= " << text;
 	setText( 1, text );
 	if ( alsoParent && K3ListViewItem::parent() )
 		static_cast<PropertyEditorItem*>(K3ListViewItem::parent())->updateValue();
