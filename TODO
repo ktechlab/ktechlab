@@ -81,7 +81,6 @@ Features needs re-implementation at Qt4 port
 
 Fixes needed for the first release candidate of the Qt4 port
 =======
-- cannot delete subcircuit with the delete key
 - cannot change the name of an external connector
 - graphical glitches with external components; maybe related to external connectors with the same name
 
