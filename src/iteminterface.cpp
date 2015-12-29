@@ -299,7 +299,7 @@ QWidget * ItemInterface::configWidget()
 					box->setEditable( true );
 				
 				m_stringComboBoxMap[vait.key()] = box;
-				connectMapWidget( box, SIGNAL(textChanged(const QString &)));
+				connectMapWidget( box, SIGNAL(editTextChanged(const QString &)));
 				connectMapWidget( box, SIGNAL(activated(const QString &)));
 				
 				connect( *vait, SIGNAL(valueChanged(const QString &)), box, SLOT(setCurrentItem(const QString &)) );
