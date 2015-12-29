@@ -107,7 +107,7 @@ PropertyEditorList::PropertyEditorList( QWidget * parent, Property * property, c
 	
 	m_combo->setEditable( isEditable );
 	
-	m_combo->setInsertionPolicy(QComboBox::NoInsertion);
+	m_combo->setInsertionPolicy(QComboBox::InsertAtBottom);
 	m_combo->setAutoCompletion(true);
 	m_combo->setMinimumSize(10, 0); // to allow the combo to be resized to a small size
 
