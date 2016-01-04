@@ -112,6 +112,7 @@ QString Variant::displayString() const
 
 void Variant::setValue( QVariant val )
 {
+    qDebug() << Q_FUNC_INFO << "val=" << val << " old=" << m_value;
 	if ( type() == Variant::Type::Select && !m_allowed.contains( val.toString() ) )
 	{
 		// Our value is being set to an i18n name, not the actual string id.
@@ -186,6 +187,7 @@ void Variant::setValue( QVariant val )
 		case Variant::Type::None:
 			break;
 	}
+	qDebug() << Q_FUNC_INFO << "result m_value=" << m_value;
 }
 
 
