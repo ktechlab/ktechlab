@@ -174,6 +174,12 @@ signals:
 	 * Emitted for variants of string-like type.
 	 */
 	void valueChanged( const QString & newValue );
+    /**
+     * Emitted for variants of string-like type.
+     * This signal is needed for updating values in KComboBox-es, see KComboBox::setCurrentItem(),
+     *   second bool parameter, insert.
+     */
+    void valueChangedStrAndTrue( const QString &newValue, bool trueBool);
 	/**
 	 * Emitted for variants of int-like type.
 	 */

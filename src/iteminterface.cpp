@@ -302,8 +302,9 @@ QWidget * ItemInterface::configWidget()
 				m_stringComboBoxMap[vait.key()] = box;
 				connectMapWidget( box, SIGNAL(editTextChanged(const QString &)));
 				connectMapWidget( box, SIGNAL(activated(const QString &)));
-				
-				connect( *vait, SIGNAL(valueChanged(const QString &)), box, SLOT(setCurrentItem(const QString &)) );
+
+				connect( *vait, SIGNAL(valueChangedStrAndTrue(const QString &, bool)),
+                         box, SLOT(setCurrentItem(const QString &, bool)) );
 				
 				editWidget = box;
 				break;
