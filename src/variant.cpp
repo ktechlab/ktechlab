@@ -158,7 +158,12 @@ void Variant::setValue( QVariant val )
 		case Variant::Type::KeyPad:
 		case Variant::Type::Multiline:
 		case Variant::Type::RichText:
-			emit valueChanged( displayString() );
+            {
+                QString dispString = displayString();
+                qDebug() << Q_FUNC_INFO << "dispString=" << dispString << " value=" << m_value;
+                emit valueChanged( dispString );
+                emit valueChangedStrAndTrue( dispString, true );
+            }
 			break;
 			
 		case Variant::Type::Int:
