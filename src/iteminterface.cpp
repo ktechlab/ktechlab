@@ -48,6 +48,7 @@ ItemInterface * ItemInterface::self()
 
 ItemInterface::ItemInterface()
 	: QObject( KTechlab::self() )
+    , m_isInTbDataChanged(false)
 {
 	m_pActiveItemEditorToolBar = 0;
 	p_cvb = 0l;
@@ -472,10 +473,36 @@ void ItemInterface::connectMapWidget( QWidget *widget, const char *_signal )
 	connect( widget, _signal, this, SLOT(tbDataChanged()) );
 }
 
+// TODO move to separate file
+struct BoolLock {
+    bool *m_flagPtr;
+    BoolLock(bool *flagPtr) : m_flagPtr(flagPtr) {
+        if (m_flagPtr == NULL) {
+            qCritical() << Q_FUNC_INFO << "NULL flagPtr";
+            return;
+        }
+        if (*m_flagPtr == true) {
+            qWarning() << Q_FUNC_INFO << "flag expected to be false, addr=" << m_flagPtr << " Doing nothing";
+            m_flagPtr = NULL;
+        } else {
+            *m_flagPtr = true;
+        }
+    }
+    ~BoolLock() {
+        if (m_flagPtr != NULL) {
+            *m_flagPtr = false;
+        }
+    }
+};
 
 void ItemInterface::tbDataChanged()
 {
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << "begin";
+    if (m_isInTbDataChanged) {
+        qDebug() << Q_FUNC_INFO << "avoiding recursion, returning";
+        return;
+    }
+    BoolLock inTbChangedLock(&m_isInTbDataChanged);
 	// Manual string values
 	const LineEditMap::iterator m_stringLineEditMapEnd = m_stringLineEditMap.end();
 	for ( LineEditMap::iterator leit = m_stringLineEditMap.begin(); leit != m_stringLineEditMapEnd; ++leit )
