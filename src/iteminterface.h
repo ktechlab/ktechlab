@@ -134,6 +134,7 @@ class ItemInterface : public QObject
 		QPointer<ItemGroup> p_itemGroup;
 		QPointer<Item> p_lastItem;
 		int m_currentActionTicket;
+        bool m_isInTbDataChanged;
 };
 
 #endif
