@@ -2,6 +2,6 @@
 .kdev4
 *.kdev4
 
-build*
-inst*
+*build*
+*inst*
 !build*.sh
