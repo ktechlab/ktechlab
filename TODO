@@ -81,27 +81,6 @@ Features needs re-implementation at Qt4 port
 
 Fixes needed for the first release candidate of the Qt4 port
 =======
-
-- use-after free crash in ECSRFlipFlop::inStateChanged()
-
-    READ of size 4 at 0xaf8a9148 thread T0
-        #0 0x82c3c19 in ECSRFlipFlop::inStateChanged(bool) /home/zoltan_padrah/zolee/ktechlab/ktechlab/src/electronics/components/flipflop.cpp:392
-        #1 0x81850e7 in LogicIn::callCallback() /home/zoltan_padrah/zolee/ktechlab/ktechlab/src/electronics/simulation/logic.h:100
-        #2 0x8183dd8 in Simulator::step() /home/zoltan_padrah/zolee/ktechlab/ktechlab/src/simulator.cpp:193
-
-    0xaf8a9148 is located 328 bytes inside of 348-byte region [0xaf8a9000,0xaf8a915c)
-    freed by thread T0 here:
-        #0 0xb721968e in operator delete(void*) (/usr/lib/i386-linux-gnu/libasan.so.2+0x9368e)
-        #1 0x826edcc in CircuitICNDocument::flushDeleteList() /home/zoltan_padrah/zolee/ktechlab/ktechlab/src/electronics/circuiticndocument.cpp:356
-        #2 0x812f98f in ItemView::removeDragItem() /home/zoltan_padrah/zolee/ktechlab/ktechlab/src/itemview.cpp:511
-        #3 0xb5a2c0a3 in QWidget::event(QEvent*) (/usr/lib/i386-linux-gnu/libQtGui.so.4+0x1930a3)
-        #4 0xb59d27f3 in QApplicationPrivate::notify_helper(QObject*, QEvent*) (/usr/lib/i386-linux-gnu/libQtGui.so.4+0x1397f3)
-
-    previously allocated by thread T0 here:
-        #0 0xb721914e in operator new(unsigned int) (/usr/lib/i386-linux-gnu/libasan.so.2+0x9314e)
-        #1 0x82c5347 in ECSRFlipFlop::construct(ItemDocument*, bool, char const*) /home/zoltan_padrah/zolee/ktechlab/ktechlab/src/electronics/components/flipflop.cpp:337
-        #2 0x8093b4b in ItemLibrary::createItem(QString const&, ItemDocument*, bool, char const*, bool) /home/zoltan_padrah/zolee/ktechlab/ktechlab/src/itemlibrary.cpp:372
-
 - created subcircuits appear twice in the subcircuit list; investigation needed
 - created subcircuits in some cases they cause crashes; investigation needed
 
