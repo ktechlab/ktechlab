@@ -1,0 +1,10 @@
+{
+   <Do_not_warn_on_sse_functions_1>
+   Memcheck:Addr16
+   fun:_Z31qt_blend_argb32_on_argb32_ssse3PhiPKhiiii
+}
+{
+   <Do_not_warn_on_sse_functions_2>
+   Memcheck:Cond
+   fun:_Z31qt_blend_argb32_on_argb32_ssse3PhiPKhiiii
+}
