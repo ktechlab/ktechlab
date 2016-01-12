@@ -107,7 +107,7 @@ void ColorCombo::slotActivated( int index )
 		{
 			QPainter painter;
 			QPen pen;
-			QRect rect( 0, 0, width(), QFontMetrics(painter.font()).height()+4);
+			QRect rect( 0, 0, width(), QFontMetrics(font()).height()+4);
 			QPixmap pixmap( rect.width(), rect.height() );
 
 			if ( qGray( customColor.rgb() ) < 128 )
@@ -151,7 +151,7 @@ void ColorCombo::addColors()
 {
 	QPainter painter;
 	QPen pen;
-	QRect rect( 0, 0, width(), QFontMetrics(painter.font()).height()+4 );
+	QRect rect( 0, 0, width(), QFontMetrics( font() ).height()+4 );
 	QPixmap pixmap( rect.width(), rect.height() );
 	int i;
 
@@ -170,7 +170,10 @@ void ColorCombo::addColors()
 	else
 		pen.setColor( Qt::black );
 
-	painter.begin( &pixmap );
+	const bool isSuccess = painter.begin( &pixmap );
+    if (!isSuccess) {
+        qWarning() << Q_FUNC_INFO << " painter not active";
+    }
 	QBrush brush( customColor );
 	painter.fillRect( rect, brush );
 	painter.setPen( pen );
