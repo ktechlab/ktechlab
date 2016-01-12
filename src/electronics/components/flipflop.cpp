@@ -52,7 +52,7 @@ void ClockedFlipFlop::dataChanged()
 //BEGIN class ECDFlipFlop
 Item* ECDFlipFlop::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
-	return new ECDFlipFlop( (ICNDocument*)itemDocument, newItem, id );
+	return new ECDFlipFlop( dynamic_cast<ICNDocument*>(itemDocument), newItem, id );
 }
 
 LibraryItem* ECDFlipFlop::libraryItem()
@@ -92,20 +92,20 @@ ECDFlipFlop::ECDFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id
 	addDisplayText( "Q",	QRect( 12,	-16,	20, 16 ), "Q" );
 	addDisplayText( "Q'",	QRect( 12,	0,		20, 16 ), "Q'" );
 	
-	m_pD->setCallback( this, (CallbackPtr)(&ECDFlipFlop::inputChanged) );
-	m_pClock->setCallback( this, (CallbackPtr)(&ECDFlipFlop::clockChanged) );
-	setp->setCallback( this, (CallbackPtr)(&ECDFlipFlop::asyncChanged) );
-	rstp->setCallback( this, (CallbackPtr)(&ECDFlipFlop::asyncChanged) );
+	m_pD->setCallback( this, static_cast<CallbackPtr>(&ECDFlipFlop::inputChanged) );
+	m_pClock->setCallback( this, static_cast<CallbackPtr>(&ECDFlipFlop::clockChanged) );
+	setp->setCallback( this, static_cast<CallbackPtr>(&ECDFlipFlop::asyncChanged) );
+	rstp->setCallback( this, static_cast<CallbackPtr>(&ECDFlipFlop::asyncChanged) );
 	
 	inStateChanged(false);
 }
 
 ECDFlipFlop::~ECDFlipFlop()
 {
-    m_pD->setCallback( NULL, (CallbackPtr)(NULL) );
-    m_pClock->setCallback( NULL, (CallbackPtr)(NULL) );
-    setp->setCallback( NULL, (CallbackPtr)(NULL) );
-    rstp->setCallback( NULL, (CallbackPtr)(NULL) );
+    m_pD->setCallback( NULL, static_cast<CallbackPtr>(NULL) );
+    m_pClock->setCallback( NULL, static_cast<CallbackPtr>(NULL) );
+    setp->setCallback( NULL, static_cast<CallbackPtr>(NULL) );
+    rstp->setCallback( NULL, static_cast<CallbackPtr>(NULL) );
 }
 
 void ECDFlipFlop::initSymbolFromTrigger()
@@ -197,7 +197,7 @@ void ECDFlipFlop::inStateChanged(bool)
 //BEGIN class ECJKFlipFlop
 Item* ECJKFlipFlop::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
-	return new ECJKFlipFlop( (ICNDocument*)itemDocument, newItem, id );
+	return new ECJKFlipFlop( dynamic_cast<ICNDocument*>(itemDocument), newItem, id );
 }
 
 LibraryItem* ECJKFlipFlop::libraryItem()
@@ -246,18 +246,18 @@ ECJKFlipFlop::ECJKFlipFlop( ICNDocument *icnDocument, bool newItem, const char *
 	addDisplayText( "Q",	QRect( 12,	-24,	20, 16 ), "Q" );
 	addDisplayText( "Q'",	QRect( 12,	8,		20, 16 ), "Q'" );
 		
-	m_pClock->setCallback( this, (CallbackPtr)(&ECJKFlipFlop::clockChanged) );
-	setp->setCallback( this, (CallbackPtr)(&ECJKFlipFlop::asyncChanged) );
-	rstp->setCallback( this, (CallbackPtr)(&ECJKFlipFlop::asyncChanged) );
+	m_pClock->setCallback( this, static_cast<CallbackPtr>(&ECJKFlipFlop::clockChanged) );
+	setp->setCallback( this, static_cast<CallbackPtr>(&ECJKFlipFlop::asyncChanged) );
+	rstp->setCallback( this, static_cast<CallbackPtr>(&ECJKFlipFlop::asyncChanged) );
 	
 	inStateChanged(false);
 }
 
 ECJKFlipFlop::~ECJKFlipFlop()
 {
-    m_pClock->setCallback( NULL, (CallbackPtr)(NULL) );
-    setp->setCallback( NULL, (CallbackPtr)(NULL) );
-    rstp->setCallback( NULL, (CallbackPtr)(NULL) );
+    m_pClock->setCallback( NULL, static_cast<CallbackPtr>(NULL) );
+    setp->setCallback( NULL, static_cast<CallbackPtr>(NULL) );
+    rstp->setCallback( NULL, static_cast<CallbackPtr>(NULL) );
 }
 
 void ECJKFlipFlop::initSymbolFromTrigger()
@@ -341,7 +341,7 @@ void ECJKFlipFlop::inStateChanged(bool)
 //BEGIN class ECSRFlipFlop
 Item* ECSRFlipFlop::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {
-	return new ECSRFlipFlop( (ICNDocument*)itemDocument, newItem, id );
+	return new ECSRFlipFlop( dynamic_cast<ICNDocument*>(itemDocument), newItem, id );
 }
 
 LibraryItem* ECSRFlipFlop::libraryItem()
@@ -380,18 +380,18 @@ ECSRFlipFlop::ECSRFlipFlop( ICNDocument *icnDocument, bool newItem, const char *
 	addDisplayText( "Q", QRect( 4, -16, 20, 16 ), "Q" );
 	addDisplayText( "Q'", QRect( 4, 0, 20, 16 ), "Q'" );
 	
-	m_pS->setCallback( this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged) );
-	m_pR->setCallback( this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged) );
-	m_pQ->setCallback( this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged) );
-	m_pQBar->setCallback( this, (CallbackPtr)(&ECSRFlipFlop::inStateChanged) );
+	m_pS->setCallback( this, static_cast<CallbackPtr>(&ECSRFlipFlop::inStateChanged) );
+	m_pR->setCallback( this, static_cast<CallbackPtr>(&ECSRFlipFlop::inStateChanged) );
+	m_pQ->setCallback( this, static_cast<CallbackPtr>(&ECSRFlipFlop::inStateChanged) );
+	m_pQBar->setCallback( this, static_cast<CallbackPtr>(&ECSRFlipFlop::inStateChanged) );
 }
 
 ECSRFlipFlop::~ECSRFlipFlop()
 {
-    m_pS->setCallback( NULL, (CallbackPtr)(NULL) );
-    m_pR->setCallback( NULL, (CallbackPtr)(NULL) );
-    m_pQ->setCallback( NULL, (CallbackPtr)(NULL) );
-    m_pQBar->setCallback( NULL, (CallbackPtr)(NULL) );
+    m_pS->setCallback( NULL, static_cast<CallbackPtr>(NULL) );
+    m_pR->setCallback( NULL, static_cast<CallbackPtr>(NULL) );
+    m_pQ->setCallback( NULL, static_cast<CallbackPtr>(NULL) );
+    m_pQBar->setCallback( NULL, static_cast<CallbackPtr>(NULL) );
 }
 
 void ECSRFlipFlop::inStateChanged(bool)
