@@ -102,6 +102,10 @@ ECDFlipFlop::ECDFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id
 
 ECDFlipFlop::~ECDFlipFlop()
 {
+    m_pD->setCallback( NULL, (CallbackPtr)(NULL) );
+    m_pClock->setCallback( NULL, (CallbackPtr)(NULL) );
+    setp->setCallback( NULL, (CallbackPtr)(NULL) );
+    rstp->setCallback( NULL, (CallbackPtr)(NULL) );
 }
 
 void ECDFlipFlop::initSymbolFromTrigger()
@@ -251,6 +255,9 @@ ECJKFlipFlop::ECJKFlipFlop( ICNDocument *icnDocument, bool newItem, const char *
 
 ECJKFlipFlop::~ECJKFlipFlop()
 {
+    m_pClock->setCallback( NULL, (CallbackPtr)(NULL) );
+    setp->setCallback( NULL, (CallbackPtr)(NULL) );
+    rstp->setCallback( NULL, (CallbackPtr)(NULL) );
 }
 
 void ECJKFlipFlop::initSymbolFromTrigger()
@@ -381,6 +388,10 @@ ECSRFlipFlop::ECSRFlipFlop( ICNDocument *icnDocument, bool newItem, const char *
 
 ECSRFlipFlop::~ECSRFlipFlop()
 {
+    m_pS->setCallback( NULL, (CallbackPtr)(NULL) );
+    m_pR->setCallback( NULL, (CallbackPtr)(NULL) );
+    m_pQ->setCallback( NULL, (CallbackPtr)(NULL) );
+    m_pQBar->setCallback( NULL, (CallbackPtr)(NULL) );
 }
 
 void ECSRFlipFlop::inStateChanged(bool)
