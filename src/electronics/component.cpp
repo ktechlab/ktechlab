@@ -459,16 +459,18 @@ void Component::initDIPSymbol( const QStringList & pins, int _width )
 
     setSize( -(_width-(_width%16))/2, -(numSide+1)*8, _width, (numSide+1)*16, true );
 
-    QWidget tmpWidget;
-    //tmpWidget.setAttribute(Qt::WA_PaintOutsidePaintEvent, true); // note: add this if needed
-    //QPainter p(&tmpWidget);
-    QPainter p;
-    const bool isSuccess = p.begin(&tmpWidget);
-    if (!isSuccess) {
-        qWarning() << Q_FUNC_INFO << " painter not active";
-    }
+// 2015.01.11 - do not use painter
+//     QWidget tmpWidget;
+//     //tmpWidget.setAttribute(Qt::WA_PaintOutsidePaintEvent, true); // note: add this if needed
+//     //QPainter p(&tmpWidget);
+//     QPainter p;
+//     const bool isSuccess = p.begin(&tmpWidget);
+//     if (!isSuccess) {
+//         qWarning() << Q_FUNC_INFO << " painter not active";
+//     }
 
-    p.setFont( font() );
+    //p.setFont( font() ); // 2015.01.11 - do not use painter
+    QFontMetrics fontMetrics( font() );
 
     // Pins along left
     for ( int i=0; i<numSide; i++ )
@@ -482,7 +484,9 @@ void Component::initDIPSymbol( const QStringList & pins, int _width )
             const int _left = 6 + offsetX();
             const int _height = 16;
 
-            QRect br = p.boundingRect( QRect( _left, _top, _width, _height ), Qt::AlignLeft, text );
+            //QRect br = p.boundingRect( QRect( _left, _top, _width, _height ), Qt::AlignLeft, text ); // 2015.01.11 - do not use painter
+            QRect br = fontMetrics.boundingRect( QRect( _left, _top, _width, _height ), Qt::AlignLeft, text );
+
             addDisplayText( text, br, text );
         }
     }
@@ -498,7 +502,8 @@ void Component::initDIPSymbol( const QStringList & pins, int _width )
             const int _left = (width()/2) + offsetX();
             const int _height = 16;
 
-            QRect br = p.boundingRect( QRect( _left, _top, _width, _height ), Qt::AlignRight, text );
+            //QRect br = p.boundingRect( QRect( _left, _top, _width, _height ), Qt::AlignRight, text ); // 2015.01.11 - do not use painter
+            QRect br = fontMetrics.boundingRect( QRect( _left, _top, _width, _height ), Qt::AlignLeft, text );
             addDisplayText( text, br, text );
         }
     }
