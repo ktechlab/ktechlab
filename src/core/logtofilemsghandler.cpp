@@ -39,7 +39,8 @@ static void ktlLogToFile(QtMsgType type, const char *msg) {
         return;
     }
     QString nowStr = QDateTime::currentDateTime().toString("yy-MM-dd hh:mm,zzz");
-    const char *nowCStr = nowStr.toLatin1().data();
+    const QByteArray latin1Text = nowStr.toLatin1();
+    const char *nowCStr = latin1Text.data();
     switch (type) {
     case QtDebugMsg:
         fprintf(logFile, "%s (DD) %s\n", nowCStr, msg);
