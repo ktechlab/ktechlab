@@ -81,6 +81,8 @@ class Oscilloscope : public QWidget, public Ui::OscilloscopeWidget
 		static QString toolViewIdentifier() { return "Oscilloscope"; }
 		virtual ~Oscilloscope();
 		
+        static bool isInstantiated() ;
+
 		/**
 	 	* Register a probe (that outputs boolean data) with the oscilloscope.
 	 	* Returns a unique id that the probe can use to add data points

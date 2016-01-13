@@ -94,8 +94,12 @@ Oscilloscope::Oscilloscope( KateMDI::ToolView * parent)
 
 Oscilloscope::~Oscilloscope()
 {
+    m_pSelf = NULL;
 }
 
+bool Oscilloscope::isInstantiated() {
+    return m_pSelf != NULL;
+}
 
 void Oscilloscope::slotTogglePause()
 {
@@ -337,12 +341,20 @@ void addOscilloscopeAsToolView( KTechlab *ktechlab)
 
 ProbeData * registerProbe( Probe * probe)
 {
+    if (!Oscilloscope::isInstantiated()) {
+        qDebug() << Q_FUNC_INFO << "no oscilloscope to register to, doing nothing";
+        return NULL;
+    }
 	return Oscilloscope::self()->registerProbe(probe);
 }
 
 
 void unregisterProbe( int id)
 {
+    if (!Oscilloscope::isInstantiated()) {
+        qDebug() << Q_FUNC_INFO << "no oscilloscope to unregister from, doing nothing";
+        return;
+    }
 	Oscilloscope::self()->unregisterProbe(id);
 }
 
