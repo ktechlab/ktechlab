@@ -26,6 +26,8 @@ set(KDE4_BUILD_TESTS "ON" CACHE "BOOL" "Enable building of tests" FORCE )
 include(KDevPluginVersion)
 
 add_definitions( -DKDEV_PLUGIN_VERSION=${KDEV_PLUGIN_VERSION})
+# hacky; should add c++11 features to each executable
+add_definitions( -std=c++0x )
 
 else(KDEVPLATFORM_ENABLED)
 

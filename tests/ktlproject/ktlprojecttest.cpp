@@ -25,6 +25,10 @@
 #include <interfaces/iprojectcontroller.h>
 #include <interfaces/iplugincontroller.h>
 #include <interfaces/iproject.h>
+#if KDEV_PLUGIN_VERSION < 17
+#else
+  #include <language/duchain/indexedstring.h>
+#endif
 #include <QtTest/QTest>
 #include <qtest_kde.h>
 #include <KUrl>
@@ -77,10 +81,18 @@ void KTLProjectTest::addSubProject()
     KUrl folderUrl = m_project->folder();
     folderUrl.addPath("addTestFolder");
     KDevelop::IProjectFileManager* manager = m_project->projectFileManager();
+#if KDEV_PLUGIN_VERSION < 17
     m_testFolderItem = manager->addFolder(folderUrl, m_project->projectItem());
+#else
+    m_testFolderItem = manager->addFolder(KDevelop::Path(folderUrl), m_project->projectItem());
+#endif
 
     QVERIFY( QDir(folderUrl.toLocalFile()).exists() );
+#if KDEV_PLUGIN_VERSION < 17
     QVERIFY( m_project->inProject(folderUrl) );
+#else
+    QVERIFY( m_project->inProject(KDevelop::IndexedString( folderUrl.url()) ) );
+#endif
 }
 
 void KTLProjectTest::renameSubProject()
@@ -91,10 +103,18 @@ void KTLProjectTest::renameSubProject()
     KUrl folderUrl = m_project->folder();
     folderUrl.addPath("renameTestFolder");
     KDevelop::IProjectFileManager* manager = m_project->projectFileManager();
+#if KDEV_PLUGIN_VERSION < 17
     QVERIFY( manager->renameFolder(m_testFolderItem,folderUrl) );
+#else
+    QVERIFY( manager->renameFolder(m_testFolderItem, KDevelop::Path(folderUrl)) );
+#endif
 
     QVERIFY( QDir(folderUrl.toLocalFile()).exists() );
+#if KDEV_PLUGIN_VERSION < 17
     QVERIFY( m_project->inProject(folderUrl) );
+#else
+    QVERIFY( m_project->inProject(KDevelop::IndexedString( folderUrl.url()) ) );
+#endif
 }
 
 void KTLProjectTest::removeSubProject()
@@ -113,7 +133,11 @@ void KTLProjectTest::removeSubProject()
     #endif
 
     QVERIFY( !QDir(folderUrl.toLocalFile()).exists() );
+#if KDEV_PLUGIN_VERSION < 17
     QVERIFY( !m_project->inProject(folderUrl) );
+#else
+    QVERIFY( m_project->inProject(KDevelop::IndexedString( folderUrl.url()) ) );
+#endif
 }
 
 void KTLProjectTest::addFile()
@@ -125,10 +149,18 @@ void KTLProjectTest::addFile()
     KUrl newFile = m_project->folder();
     newFile.addPath("unittest.circuit");
 
+#if KDEV_PLUGIN_VERSION < 17
     m_testFileItem = manager->addFile(newFile, m_project->projectItem());
+#else
+    m_testFileItem = manager->addFile(KDevelop::Path(newFile), m_project->projectItem());
+#endif
 
     QVERIFY( QFile(newFile.toLocalFile()).exists() );
+#if KDEV_PLUGIN_VERSION < 17
     QVERIFY( m_project->inProject(newFile) );
+#else
+    QVERIFY( m_project->inProject(KDevelop::IndexedString( newFile.url()) ) );
+#endif
 }
 
 void KTLProjectTest::renameFile()
@@ -140,10 +172,18 @@ void KTLProjectTest::renameFile()
     KUrl newFile = m_project->folder();
     newFile.addPath("renameunittest.circuit");
 
+#if KDEV_PLUGIN_VERSION < 17
     QVERIFY( manager->renameFile(m_testFileItem, newFile) );
+#else
+    QVERIFY( manager->renameFile(m_testFileItem, KDevelop::Path(newFile)) );
+#endif
 
     QVERIFY( QFile(newFile.toLocalFile()).exists() );
+#if KDEV_PLUGIN_VERSION < 17
     QVERIFY( m_project->inProject(newFile) );
+#else
+    QVERIFY( m_project->inProject(KDevelop::IndexedString( newFile.url()) ) );
+#endif
 }
 
 void KTLProjectTest::removeFile()
@@ -162,7 +202,11 @@ void KTLProjectTest::removeFile()
     #endif
 
     QVERIFY( !QFile(fileUrl.toLocalFile()).exists() );
+#if KDEV_PLUGIN_VERSION < 17
     QVERIFY( !m_project->inProject(fileUrl) );
+#else
+    QVERIFY( !m_project->inProject(KDevelop::IndexedString( fileUrl.url() ) ) );
+#endif
 }
 
 QTEST_KDEMAIN(KTLProjectTest, GUI)

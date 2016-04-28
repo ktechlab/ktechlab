@@ -115,9 +115,14 @@ void MainWindow::load( const KUrl &url )
     setCaption( url.url() );
 
     //get interface for extension
+#if KDEV_PLUGIN_VERSION < 17
     QStringList constraints;
     constraints << QString("'%1' in [X-KDevelop-SupportedMimeTypes]").arg(
             "application/x-circuit" );
+#else
+    QVariantMap constraints;
+    constraints.insert("X-KDevelop-SupportedMimeTypes", "application/x-circuit");
+#endif
 
     // load in the file (target is always local)
     KDevelop::Core *core = KDevelop::Core::self();

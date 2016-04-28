@@ -129,8 +129,13 @@ CircuitDocument::~CircuitDocument()
 
 void CircuitDocument::init()
 {
+#if KDEV_PLUGIN_VERSION < 17
     QStringList constraints;
     constraints << QString("'%1' in [X-KDevelop-SupportedMimeTypes]").arg("application/x-circuit");
+#else
+    QVariantMap constraints;
+    constraints.insert("X-KDevelop-SupportedMimeTypes", "application/x-circuit");
+#endif
     QList<KDevelop::IPlugin*> plugins = KDevelop::Core::self()->pluginController()->allPluginsForExtension( "org.kdevelop.IDocument", constraints );
     if (plugins.isEmpty()) {
         kWarning() << "No plugin found to load KTechLab Documents";

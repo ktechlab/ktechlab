@@ -41,12 +41,20 @@ class KTLProjectManager : public IPlugin, public IProjectFileManager
     /**
     *
     */
+#if KDEV_PLUGIN_VERSION < 17
     virtual ProjectFileItem* addFile ( const KUrl& folder, ProjectFolderItem* parent );
+#else
+    virtual ProjectFileItem* addFile ( const Path& folder, ProjectFolderItem* parent );
+#endif
 
     /**
     *
     */
+#if KDEV_PLUGIN_VERSION < 17
     virtual ProjectFolderItem* addFolder ( const KUrl& folder, ProjectFolderItem* parent );
+#else
+    virtual ProjectFolderItem* addFolder ( const Path& folder, ProjectFolderItem* parent );
+#endif
 
     /**
     *
@@ -92,24 +100,37 @@ class KTLProjectManager : public IPlugin, public IProjectFileManager
     virtual bool removeFilesAndFolders(const QList< ProjectBaseItem* > & items);
 #endif
 
-#if (KDEV_PLUGIN_VERSION >= 13)
     /**
      *
-     */
+     */ 
+#if (KDEV_PLUGIN_VERSION < 13)
+#else
     virtual bool moveFilesAndFolders(const QList<KDevelop::ProjectBaseItem*>&, KDevelop::ProjectFolderItem*);
 #endif
 
+#if KDEV_PLUGIN_VERSION < 17
     virtual bool copyFilesAndFolders(const KUrl::List &, KDevelop::ProjectFolderItem*);
+#else
+    virtual bool copyFilesAndFolders(const Path::List &, KDevelop::ProjectFolderItem*);
+#endif
     
+#if KDEV_PLUGIN_VERSION < 17
     /**
     *
     */
     virtual bool renameFile ( ProjectFileItem* oldFile, const KUrl& newFile );
+#else
+    virtual bool renameFile ( ProjectFileItem* oldFile, const Path& newFile );
+#endif
 
     /**
     *
     */
+#if KDEV_PLUGIN_VERSION < 17
     virtual bool renameFolder ( ProjectFolderItem* oldFolder, const KUrl& newFolder );
+#else
+    virtual bool renameFolder ( ProjectFolderItem* oldFolder, const Path& newFolder );
+#endif
 
     /**
     *
