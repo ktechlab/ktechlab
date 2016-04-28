@@ -50,4 +50,4 @@ target_link_libraries( addcomponents
 #     ${KDEVPLATFORM_TESTS_LIBRARIES}
 # )
 
-add_definitions( "-DPROJECTS_SOURCE_DIR=\\\"${CMAKE_SOURCE_DIR}/tests/data\\\"" )
+add_definitions( -DPROJECTS_SOURCE_DIR="${CMAKE_SOURCE_DIR}/tests/data" )

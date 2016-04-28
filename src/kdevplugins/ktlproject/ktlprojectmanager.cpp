@@ -146,6 +146,7 @@ KTLProjectManager::~KTLProjectManager()
 {
 }
 
+#if KDEV_PLUGIN_VERSION < 17
 ProjectFileItem* KTLProjectManager::addFile( const KUrl& folder, ProjectFolderItem* parent )
 {
   if (!folder.isValid() && folder.isLocalFile())
@@ -174,7 +175,38 @@ ProjectFileItem* KTLProjectManager::addFile( const KUrl& folder, ProjectFolderIt
   d->writeProjectToDisk();
   return item;
 }
+#else // KDEV_PLUGIN_VERSION < 17
+ProjectFileItem* KTLProjectManager::addFile( const Path& folder, ProjectFolderItem* parent )
+{
+  if (!folder.isValid() && folder.isLocalFile())
+    return 0;
+  //create file on disk
+  QFile newFile(folder.toLocalFile());
+  if (!newFile.exists()){
+      newFile.open(QIODevice::ReadWrite);
+      newFile.close();
+  }
 
+  // add file to project
+  ProjectFileItem *item = new ProjectFileItem( parent->project(), KDevelop::Path( folder ), parent );
+  QString relativeFileName =
+    KUrl::relativePath( d->projectFile.directory(), folder.toUrl().directory(KUrl::AppendTrailingSlash) );
+  relativeFileName.append(folder.toUrl().fileName());
+
+  QDomElement itemElement = d->projectDomDocument.createElement("item");
+  itemElement.setAttribute("url", relativeFileName );
+  itemElement.setAttribute("name", item->fileName() );
+  itemElement.setAttribute("type", "File");
+
+  QDomElement folderElement = d->findElementInDocument( parent, parent->folderName() );
+  folderElement.appendChild( itemElement );
+
+  d->writeProjectToDisk();
+  return item;
+}
+#endif
+
+#if KDEV_PLUGIN_VERSION < 17
 ProjectFolderItem* KTLProjectManager::addFolder( const KUrl& folder, ProjectFolderItem* parent )
 {
   if (!folder.isValid() && folder.isLocalFile())
@@ -202,6 +234,35 @@ ProjectFolderItem* KTLProjectManager::addFolder( const KUrl& folder, ProjectFold
 
   return item;
 }
+#else
+ProjectFolderItem* KTLProjectManager::addFolder( const Path& folder, ProjectFolderItem* parent )
+{
+  if (!folder.isValid() && folder.isLocalFile())
+    return 0;
+  //create folder on disk
+  QDir newFolder(folder.toUrl().directory());
+  if (newFolder.exists()){
+      newFolder.mkdir(folder.toUrl().fileName());
+  }
+
+  // add file to project
+  ProjectFolderItem *item = new ProjectFolderItem( parent->project(), KDevelop::Path( folder ), parent );
+  QString relativeFileName =
+    KUrl::relativePath( d->projectFile.directory(), newFolder.absolutePath() );
+
+  QDomElement itemElement = d->projectDomDocument.createElement("item");
+  itemElement.setAttribute("url", relativeFileName );
+  itemElement.setAttribute("name", item->folderName() );
+  itemElement.setAttribute("type", "Program");
+
+  QDomElement folderElement = d->findElementInDocument( parent, parent->folderName() );
+  folderElement.appendChild( itemElement );
+
+  d->writeProjectToDisk();
+
+  return item;
+}
+#endif
 
 IProjectFileManager::Features KTLProjectManager::features() const
 {
@@ -210,7 +271,11 @@ IProjectFileManager::Features KTLProjectManager::features() const
 
 ProjectFolderItem* KTLProjectManager::import( IProject* project )
 {
+#if KDEV_PLUGIN_VERSION < 17
   ProjectFolderItem *rootItem = new ProjectFolderItem( project, project->folder() );
+#else
+  ProjectFolderItem *rootItem = new ProjectFolderItem( project, KDevelop::Path( project->folder() ) );
+#endif
 
   d->projectFile = rootItem->project()->folder();
   d->projectFile.addPath(rootItem->project()->name()+".ktechlab");
@@ -253,12 +318,20 @@ QList<ProjectFolderItem*> KTLProjectManager::parse( ProjectFolderItem *item )
         KUrl itemUrl( item->project()->folder(), childElement.attribute( "url", QString() ) );
         if ( type == "File" )
         {
+#if KDEV_PLUGIN_VERSION < 17
           ProjectFileItem *child = new ProjectFileItem(item->project(), itemUrl, item);
+#else
+	  ProjectFileItem *child = new ProjectFileItem(item->project(), KDevelop::Path( itemUrl ), item);
+#endif
           kDebug() << "Created file:" << child->fileName();
         } else if ( !type.isEmpty() )
         {
           itemUrl.addPath(name);
+#if KDEV_PLUGIN_VERSION < 17
           ProjectFolderItem *child = new ProjectFolderItem(item->project(), itemUrl, item);
+#else
+	  ProjectFolderItem *child = new ProjectFolderItem(item->project(), KDevelop::Path( itemUrl ), item);
+#endif
           result.append(child);
         }
       }
@@ -360,12 +433,21 @@ bool KTLProjectManager::moveFilesAndFolders(const QList<KDevelop::ProjectBaseIte
 }
 #endif
 
+#if KDEV_PLUGIN_VERSION < 17
 bool KTLProjectManager::copyFilesAndFolders(const KUrl::List& items, KDevelop::ProjectFolderItem* newParent){
     // FIXME implement me
     // always fail to move, because this functionality is not implemented
     return false;
 }
+#else
+bool KTLProjectManager::copyFilesAndFolders(const Path::List& items, KDevelop::ProjectFolderItem* newParent){
+    // FIXME implement me
+    // always fail to move, because this functionality is not implemented
+    return false;
+}
+#endif
 
+#if KDEV_PLUGIN_VERSION < 17
 bool KTLProjectManager::renameFile( ProjectFileItem* oldFile, const KUrl& newFile )
 {
     KUrl oldFileUrl = oldFile->url();
@@ -380,7 +462,24 @@ bool KTLProjectManager::renameFile( ProjectFileItem* oldFile, const KUrl& newFil
 
     return true;
 }
+#else
+bool KTLProjectManager::renameFile( ProjectFileItem* oldFile, const Path& newFile )
+{
+    KUrl oldFileUrl = oldFile->url();
+    QFile file(oldFileUrl.toLocalFile());
+    if (!file.rename(newFile.toLocalFile()))
+        return false;
 
+    QString oldFileName = oldFile->fileName();
+    oldFile->setPath( newFile );
+    d->updateItemFromDocument( oldFile, oldFileName );
+    d->writeProjectToDisk();
+
+    return true;
+}
+#endif
+
+#if KDEV_PLUGIN_VERSION < 17
 bool KTLProjectManager::renameFolder( ProjectFolderItem* oldFolder, const KUrl& newFolder )
 {
     KUrl oldFolderUrl = oldFolder->url();
@@ -394,6 +493,21 @@ bool KTLProjectManager::renameFolder( ProjectFolderItem* oldFolder, const KUrl& 
     d->writeProjectToDisk();
     return true;
 }
+#else
+bool KTLProjectManager::renameFolder( ProjectFolderItem* oldFolder, const Path& newFolder )
+{
+    KUrl oldFolderUrl = oldFolder->url();
+    QDir folder(oldFolderUrl.directory());
+    if (!folder.rename(oldFolder->folderName(), newFolder.toLocalFile()))
+        return false;
+
+    QString oldFolderName = oldFolder->folderName();
+    oldFolder->setPath( newFolder );
+    d->updateItemFromDocument( oldFolder, oldFolderName );
+    d->writeProjectToDisk();
+    return true;
+}
+#endif
 
 bool KTLProjectManager::reload(ProjectFolderItem* item)
 {

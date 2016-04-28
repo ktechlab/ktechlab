@@ -53,8 +53,13 @@ IComponentPlugin::IComponentPlugin( KComponentData data, QObject *parent )
 
 IDocumentPlugin* IComponentPlugin::documentPlugin() const
 {
+#if KDEV_PLUGIN_VERSION < 17
     QStringList constraints;
     constraints << QString("'%1' in [X-KDevelop-SupportedMimeTypes]").arg("application/x-circuit");
+#else
+    QVariantMap constraints;
+    constraints.insert(QString("X-KDevelop-SupportedMimeTypes"), QString("application/x-circuit"));
+#endif
     QList<KDevelop::IPlugin*> plugins = KDevelop::Core::self()->pluginController()->allPluginsForExtension( "org.kdevelop.IDocument", constraints );
     if (plugins.isEmpty()) {
         kWarning() << "No plugin found to load KTechLab Documents";
