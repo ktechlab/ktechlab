@@ -1,5 +1,9 @@
 # this is the directory, where a test project is located
-add_definitions( -DPROJECTS_SOURCE_DIR="${CMAKE_SOURCE_DIR}/tests/data" )
+if (${CMAKE_MAJOR_VERSION} LESS "3")
+  add_definitions( -DPROJECTS_SOURCE_DIR=\\"${CMAKE_SOURCE_DIR}/tests/data\\" )
+else (${CMAKE_MAJOR_VERSION} LESS "3")
+  add_definitions( "-DPROJECTS_SOURCE_DIR='${CMAKE_SOURCE_DIR}/tests/data'" )
+endif (${CMAKE_MAJOR_VERSION} LESS "3")
 
 include_directories(
     ${CMAKE_SOURCE_DIR}/src
