@@ -206,7 +206,12 @@ void PinItem::calcTextRect()
 	
 	QWidget tmpWidget;
     //tmpWidget.setAttribute(Qt::WA_PaintOutsidePaintEvent, true); //note: add this if needed
-	QPainter p(&tmpWidget);
+	//QPainter p(&tmpWidget); // 2016.05.03 - initialize painter explicitly
+    QPainter p;
+    const bool isBeginSuccess = p.begin(&tmpWidget);
+    {
+        qWarning() << Q_FUNC_INFO << " painter not active";
+    }
 
 	p.setFont(m_font);
 

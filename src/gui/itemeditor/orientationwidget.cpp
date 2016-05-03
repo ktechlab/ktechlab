@@ -37,7 +37,12 @@ struct DrawingPushButton : public QPushButton {
 
     virtual void paintEvent(QPaintEvent *ev) {
         QPushButton::paintEvent(ev);
-        QPainter painter(this);
+        //QPainter painter(this);// 2016.05.03 - explicitly initialize painter
+        QPainter painter;
+        const bool isSuccess = painter.begin(this);
+        if (!isSuccess) {
+            qWarning() << Q_FUNC_INFO << " painter not active";
+        }
         painter.drawPixmap( 0, 0, toDiplayPixmap);
     }
 

@@ -925,7 +925,12 @@ void ItemDocument::exportToImage()
 		return;
 	}
 	
-	QPainter p(outputImage);
+	//QPainter p(outputImage); // 2016.05.03 - explicitly initialize painter
+	QPainter p;
+    const bool isBeginSuccess = p.begin(outputImage);
+    {
+        qWarning() << Q_FUNC_INFO << " painter not active";
+    }
 	
 	m_canvas->setBackgroundPixmap(QPixmap());
 	m_canvas->drawArea( saveArea, &p );
