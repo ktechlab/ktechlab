@@ -204,33 +204,38 @@ void PinItem::calcTextRect()
 	m_textRect.moveTop( m_textRect.top()-2 );
 	QRect br;
 	
-	QWidget tmpWidget;
-    //tmpWidget.setAttribute(Qt::WA_PaintOutsidePaintEvent, true); //note: add this if needed
-	//QPainter p(&tmpWidget); // 2016.05.03 - initialize painter explicitly
-    QPainter p;
-    const bool isBeginSuccess = p.begin(&tmpWidget);
-    {
-        qWarning() << Q_FUNC_INFO << " painter not active";
-    }
+// 	QWidget tmpWidget;
+//     //tmpWidget.setAttribute(Qt::WA_PaintOutsidePaintEvent, true); //note: add this if needed
+// 	//QPainter p(&tmpWidget); // 2016.05.03 - initialize painter explicitly
+//     QPainter p;
+//     const bool isBeginSuccess = p.begin(&tmpWidget);
+//     {
+//         qWarning() << Q_FUNC_INFO << " painter not active";
+//     }
+//
+// 	p.setFont(m_font);
 
-	p.setFont(m_font);
+    QFontMetrics fontMetrics( m_font );
 
 	if (!m_pinSettings)
 	{
 		kDebug() << "PinItem::textRect: No pinSettings!"<<endl;
 		return;
-	}	
+	}
+	// note: br is assigned but not used; here might be some bug...
 	if ( onLeft )
 	{
 		m_textRect.setLeft( (int)x() + PinLength + 2 );
 		m_textRect.setRight( (int)x() + InnerWidth/2 );
-		br = p.boundingRect( m_textRect, Qt::AlignLeft, m_pinSettings->id() );
+		//br = p.boundingRect( m_textRect, Qt::AlignLeft, m_pinSettings->id() ); // 2016.05.03 - do not create dummy widget
+        br = fontMetrics.boundingRect( m_textRect, Qt::AlignLeft, m_pinSettings->id() );
 	}
 	else
 	{
 		m_textRect.setLeft( m_textRect.right() - InnerWidth/2 );
 		m_textRect.setRight( (int)x() - 2 );
-		br = p.boundingRect( m_textRect, Qt::AlignRight, m_pinSettings->id() );
+		//br = p.boundingRect( m_textRect, Qt::AlignRight, m_pinSettings->id() ); // 2016.05.03 - do not create dummy widget
+        br = fontMetrics.boundingRect( m_textRect, Qt::AlignRight, m_pinSettings->id() );
 	}
 }
 //END class PinItem
