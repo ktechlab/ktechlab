@@ -103,3 +103,5 @@ Fixes needed for the first release candidate of the Qt4 port
 
 - components have no description
    - the context help exists; or something else is needed here?
+
+- pressing cancel in the new.. dialog does not work
