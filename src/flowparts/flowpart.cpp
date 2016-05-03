@@ -111,17 +111,22 @@ void FlowPart::setCaption( const QString &caption )
 		return;
 	}
 	
-	QWidget *w = new QWidget();
-	//QPainter p(w);
-    QPainter p;
-    const bool isSuccess = p.begin(w);
-    if (!isSuccess) {
-        qWarning() << Q_FUNC_INFO << " painter not active";
-    }
-	p.setFont( font() );
-	const int text_width = p.boundingRect( boundingRect(), (Qt::SingleLine | Qt::AlignHCenter | Qt::AlignVCenter), caption ).width();
-	p.end();
-	delete w;
+// 2016.05.03 - do not use temporary widget for getting font metrics
+// 	QWidget *w = new QWidget();
+// 	//QPainter p(w);
+//     QPainter p;
+//     const bool isSuccess = p.begin(w);
+//     if (!isSuccess) {
+//         qWarning() << Q_FUNC_INFO << " painter not active";
+//     }
+// 	p.setFont( font() );
+// 	const int text_width = p.boundingRect( boundingRect(), (Qt::SingleLine | Qt::AlignHCenter | Qt::AlignVCenter), caption ).width();
+// 	p.end();
+// 	delete w;
+
+    QFontMetrics fontMetrics( font() );
+    const int text_width = fontMetrics.boundingRect( boundingRect(), (Qt::SingleLine | Qt::AlignHCenter | Qt::AlignVCenter), caption ).width();
+
 	int width = std::max( ((int)(text_width/16))*16, 48 );
 	
 	switch(m_flowSymbol)
