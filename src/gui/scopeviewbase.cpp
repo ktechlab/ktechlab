@@ -52,7 +52,7 @@ void ScopeViewBase::paintEvent( QPaintEvent * event )
 		QPainter p;
 		m_pixmap->fill( paletteBackgroundColor() );
 		const bool startSuccess = p.begin(m_pixmap);
-        if ((startSuccess) || (!p.isActive())) {
+        if ((!startSuccess) || (!p.isActive())) {
             qWarning() << Q_FUNC_INFO << " painter is not active";
         }
 		p.setClipRegion(event->region());
