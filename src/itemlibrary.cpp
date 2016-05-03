@@ -423,7 +423,7 @@ QImage ItemLibrary::componentImage( Component * component, const uint maxSize )
     {
         const bool isSuccess = maskPainter.begin(&mask);
         if (!isSuccess) {
-            qWarning() << Q_FUNC_INFO << " painter not active";
+            qWarning() << Q_FUNC_INFO << " painter not active at line " << __LINE__;
         }
     }
 	maskPainter.translate( -bound.x(), -bound.y() );
@@ -435,8 +435,8 @@ QImage ItemLibrary::componentImage( Component * component, const uint maxSize )
 	//QPainter p(&pm); // 2016.05.03 - initialize painter explicitly
     QPainter p;
     const bool isBeginSuccess = p.begin(&pm);
-    {
-        qWarning() << Q_FUNC_INFO << " painter not active";
+    if (!isBeginSuccess) {
+        qWarning() << Q_FUNC_INFO << " painter not active at line " << __LINE__;
     }
 	p.translate( -bound.x(), -bound.y() );
 	p.setPen( component->pen() );
