@@ -714,7 +714,7 @@ MainWindow::MainWindow (QWidget* parentWidget, const char* name)
   m_centralWidget->setLayout( vbCl );
   m_centralWidget->setName("Main-Central-Vbox");
   m_vSplitter->setCollapsible(m_centralWidget, false);
-  vbl->addLayout( vbCl );
+  //vbl->addLayout( vbCl ); // 2016.05.03 - apparently generates a warning about already having a parent
 
   m_sidebars[KMultiTabBar::Bottom] = new Sidebar (KMultiTabBar::Bottom, this, vb);
   m_sidebars[KMultiTabBar::Bottom]->setName("Main-Bottom-Sidebar");
