@@ -820,14 +820,27 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 	}
 	
 	QBitmap mask( 50, 50 );
-	QPainter maskPainter(&mask);
+	//QPainter maskPainter(&mask); // 2016.05.03 - initialize painter explicitly
+    QPainter maskPainter;
+    {
+        const bool isSuccess = maskPainter.begin(&mask);
+        if (!isSuccess) {
+            qWarning() << Q_FUNC_INFO << " painter not active";
+        }
+    }
+
 	mask.fill( Qt::color0 );
 	maskPainter.setBrush(Qt::color1);
 	maskPainter.setPen(Qt::color1);
 	
     //BEGIN painter on pm
     {
-	QPainter p(&pm);
+	//QPainter p(&pm); // 2016.05.03 - explicitly initialize painter
+    QPainter p;
+    const bool isBeginSuccess = p.begin(&pm);
+    if (!isBeginSuccess) {
+        qWarning() << Q_FUNC_INFO << " painter not active";
+    }
 	p.setBrush(m_brushCol);
 	p.setPen( Qt::black );
 

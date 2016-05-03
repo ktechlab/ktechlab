@@ -760,7 +760,7 @@ void KtlQCanvas::drawChanges(const QRect& inarea)
 	\code
 	QPrinter pr;
 	if ( pr.setup() ) {
-	QPainter p(&pr);
+	QPainter p(&pr);        // this code is in a comment block
 	canvas.drawArea( canvas.rect(), &p );
 }
 	\endcode

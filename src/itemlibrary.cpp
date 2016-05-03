@@ -418,14 +418,26 @@ QImage ItemLibrary::componentImage( Component * component, const uint maxSize )
 	QBitmap mask( bound.size() );
 	mask.fill( Qt::color0 );
 	
-	QPainter maskPainter(&mask);
+	//QPainter maskPainter(&mask); // 2016.05.03 - initialize painter explicitly
+    QPainter maskPainter;
+    {
+        const bool isSuccess = maskPainter.begin(&mask);
+        if (!isSuccess) {
+            qWarning() << Q_FUNC_INFO << " painter not active";
+        }
+    }
 	maskPainter.translate( -bound.x(), -bound.y() );
 	maskPainter.setPen( Qt::color1 );
 	maskPainter.setBrush( Qt::color1 );
 	
     //BEGIN painting on the pixmap
     {
-	QPainter p(&pm);
+	//QPainter p(&pm); // 2016.05.03 - initialize painter explicitly
+    QPainter p;
+    const bool isBeginSuccess = p.begin(&pm);
+    {
+        qWarning() << Q_FUNC_INFO << " painter not active";
+    }
 	p.translate( -bound.x(), -bound.y() );
 	p.setPen( component->pen() );
 	p.setBrush( component->brush() );
