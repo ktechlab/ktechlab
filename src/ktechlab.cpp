@@ -504,7 +504,7 @@ void KTechlab::setupActions()
 	//KToolBarPopupAction *p = new KToolBarPopupAction( i18n("&New"), "filenew",
     //          KStandardShortcut::shortcut(KStandardShortcut::New), this, SLOT(slotFileNew()), ac, "newfile_popup" );
     KToolBarPopupAction *p = new KToolBarPopupAction(
-                                                     KIcon("filenew"),
+                                                     KIcon("document-new"),
                                                      i18n("&New"),
                                                      ac);
     p->setName("newfile_popup");
