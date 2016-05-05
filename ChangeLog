@@ -69,3 +69,4 @@ Changes between Qt3 and Qt4 port (to be completed)
 - fixed use-after free crash in ECSRFlipFlop::inStateChanged(), when SR flipflops are added and removed subsequenctly to a circuit
 - fixed possible graphical glitches on color selecting widget
 - fixed crash when closing ktechlab with probes placed on a circuit
+- fixed button for inserting DrawParts (text, arrow, rectangle, etc.) in circuits and in flowcode
