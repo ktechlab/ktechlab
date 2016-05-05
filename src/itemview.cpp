@@ -117,6 +117,7 @@ ItemView::ItemView( ItemDocument * itemDocument, ViewContainer *viewContainer, u
 	KToolBarPopupAction * pa = new KToolBarPopupAction( KIcon("paintbrush"), i18n("Draw"), ac);
     pa->setName("edit_draw");
 	pa->setDelayed(false);
+    ac->addAction("edit_draw", pa);
 	
 	QMenu * m = pa->menu();
 	m->setTitle( i18n("Draw") );
