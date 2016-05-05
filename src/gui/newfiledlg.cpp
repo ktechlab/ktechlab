@@ -156,6 +156,7 @@ void NewFileDlg::accept()
 
 void NewFileDlg::reject()
 {
+    hide();
     m_bAccepted = false;
 }
 
