@@ -100,6 +100,9 @@ Fixes needed for the first release candidate of the Qt4 port
 -'Scope works well, but doesn't clear 'lines' from other circuits when they are closed. (Y-axis scale would be nice)
 
 -I think the 'scope just keeps filling data points into RAM, because RAM usage climbs steadily until the virtual machine crashes (same as the kde3 version)
+    - would be useful to set a reasonable limit for the data points, initially hardcoded, to be made configurable in the future
 
 - components have no description
    - the context help exists; or something else is needed here?
+   - missing for: VCVS, VCCS, CCVS, CCCS, Push-to-Make, Push-to-Break, NPN, PNP, n-JFET, p-JFET, n-MOSFET, p-MOSFET,
+        Inductor, Bar Graph Display
