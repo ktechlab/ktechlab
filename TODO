@@ -72,6 +72,10 @@ Fixes that could be postponed after the first Qt4 release
 - fix building of the core library first; otherwise missing include file (ktlconfig.h) error could happen at build time
     - the build-scripts have a work-around, and based on that, building should be straight-forward
 
+- maximum size of collected oscilloscope data should be configurable and should signal the user that the buffer is full
+    - for now the line "flats out" when it reaches its limit; a Reset makes it collect data again
+
+
 Features needs re-implementation at Qt4 port
 =======
 - dbus integration for documents (used to be dcop bindings for documents)
@@ -98,9 +102,6 @@ Fixes needed for the first release candidate of the Qt4 port
 
 
 -'Scope works well, but doesn't clear 'lines' from other circuits when they are closed. (Y-axis scale would be nice)
-
--I think the 'scope just keeps filling data points into RAM, because RAM usage climbs steadily until the virtual machine crashes (same as the kde3 version)
-    - would be useful to set a reasonable limit for the data points, initially hardcoded, to be made configurable in the future
 
 - components have no description
    - the context help exists; or something else is needed here?

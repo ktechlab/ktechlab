@@ -39,6 +39,12 @@ LogicProbeData::LogicProbeData( int id)
 	m_data = new vector<LogicDataPoint>;
 }
 
+void LogicProbeData::addDataPoint( LogicDataPoint data) {
+    if (m_data->size() < MAX_PROBE_DATA_SIZE) {
+        m_data->push_back(data);
+    }
+}
+
 void LogicProbeData::eraseData()
 {
 	bool lastValue = false;
@@ -103,6 +109,12 @@ FloatingProbeData::FloatingProbeData( int id)
 	m_scaling = Linear;
 	m_upperAbsValue = 10.0;
 	m_lowerAbsValue = 0.1;
+}
+
+void FloatingProbeData::addDataPoint( float data) {
+    if (m_data->size() < MAX_PROBE_DATA_SIZE) {
+        m_data->push_back(data);
+    }
 }
 
 void FloatingProbeData::eraseData()
