@@ -71,3 +71,7 @@ Changes between Qt3 and Qt4 port (to be completed)
 - fixed crash when closing ktechlab with probes placed on a circuit
 - fixed button for inserting DrawParts (text, arrow, rectangle, etc.) in circuits and in flowcode
 - fixed pressing cancel in the new.. dialog; now it does work
+- fixed with a hard-coded limit: I think the 'scope just keeps filling data points into RAM,
+    because RAM usage climbs steadily until the virtual machine crashes (same as the kde3 version)
+    - would be useful to set a reasonable limit for the data points, initially hardcoded, to be made configurable in the future
+    - for now limit is hard-coded, the probe data flats-out when limit is reached; memory usage does not increase to infinity

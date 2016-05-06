@@ -28,6 +28,10 @@
 #define DCARRAY_ARRAY_SIZE ((67108864/(8192*DATA_CHUNK_ARRAY_SIZE))+1)
 */
 
+/** max number of samples that a probe can hold */
+#define MAX_PROBE_DATA_SIZE     ( 1 * 1024 * 1024 )
+// TODO ^ should be configurable
+
 /**
 For use in LogicProbe: Every time the input changes state, the new input state
 is recorded in value, along with the simulator time that it occurs at.
@@ -126,9 +130,9 @@ class LogicProbeData : public ProbeData
 		/**
 		 * Appends the data point to the set of data.
 		 */
-		void addDataPoint( LogicDataPoint data) {
+		void addDataPoint( LogicDataPoint data); /* {
 			m_data->push_back(data);
-		}
+		} */ // 2016.05.06 - moved to cpp
 
 		virtual void eraseData();
 		virtual uint64_t findPos( uint64_t time) const;
@@ -153,7 +157,7 @@ class FloatingProbeData : public ProbeData
 		/**
 		 * Appends the data point to the set of data.
 		 */
-		void addDataPoint( float data) { m_data->push_back(data); }
+		void addDataPoint( float data) ; // { m_data->push_back(data); } // 2016.05.06 - moved to cpp
 		/**
 		 * Converts the insert position to a Simulator time.
 		 */
