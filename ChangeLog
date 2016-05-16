@@ -75,3 +75,4 @@ Changes between Qt3 and Qt4 port (to be completed)
     because RAM usage climbs steadily until the virtual machine crashes (same as the kde3 version)
     - would be useful to set a reasonable limit for the data points, initially hardcoded, to be made configurable in the future
     - for now limit is hard-coded, the probe data flats-out when limit is reached; memory usage does not increase to infinity
+- fixed crash on File -> Quit

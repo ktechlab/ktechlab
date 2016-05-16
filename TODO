@@ -107,5 +107,3 @@ Fixes needed for the first release candidate of the Qt4 port
    - the context help exists; or something else is needed here?
    - missing for: VCVS, VCCS, CCVS, CCCS, Push-to-Make, Push-to-Break, NPN, PNP, n-JFET, p-JFET, n-MOSFET, p-MOSFET,
         Inductor, Bar Graph Display
-
-- crash on File -> Quit
