@@ -1403,8 +1403,9 @@ void KTechlab::slotFileQuit()
 	//KMainWindow* w;
 	if(!memberList().isEmpty())
 	{
+        QList<KMainWindow*> mainWindowList = memberList();
 		//for( w=memberList->first(); w!=0; w=memberList->next() )
-        for(QList<KMainWindow*>::iterator itWnd = memberList().begin(); itWnd != memberList().end(); ++itWnd)
+        for(QList<KMainWindow*>::iterator itWnd = mainWindowList.begin(); itWnd != mainWindowList.end(); ++itWnd)
 		{
 			// only close the window if the closeEvent is accepted. If the user presses Cancel on the saveModified() dialog,
 			// the window and the application stay open.
