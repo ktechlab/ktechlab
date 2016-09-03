@@ -9,6 +9,8 @@
 
 #include "config.h"
 
+#include "icon-list-generated.h"
+
 static const char description[] =
     I18N_NOOP("An IDE for microcontrollers and electronics");
 
@@ -32,6 +34,11 @@ int main(int argc, char **argv) {
     tableWidget->setLayout(mainLayout);
     mainWnd->setCentralWidget(mainWidget);
 
+    const int iconCount = sizeof(iconNames)/sizeof(iconNames[0]);
+    for (int iconNr = 0; iconNr < iconCount; ++iconNr) {
+        addIcon(mainLayout, iconNames[iconNr]);
+    }
+    /*
     addIcon(mainLayout, "asd");
     addIcon(mainLayout, "rotate_cw");
     addIcon(mainLayout, "rotate_ccw");
@@ -56,6 +63,7 @@ int main(int argc, char **argv) {
     addIcon(mainLayout, "ktechlab_flowcode");
     addIcon(mainLayout, "exec");
     addIcon(mainLayout, "oscilloscope");
+    */
     /*  {
         KIcon testIcon("foo");
         QPixmap testPixmap = testIcon.pixmap(64, 64);
@@ -86,5 +94,5 @@ static void addIcon(QGridLayout *mainLayout, const char *iconName) {
     qt->setText(iconName);
     qt->setMinimumSize(300, 70);
     mainLayout->addWidget(qt, atRow, 2);
-    mainLayout->setRowMinimumHeight(atRow, 100);
+    mainLayout->setRowMinimumHeight(atRow, 70);
 }
