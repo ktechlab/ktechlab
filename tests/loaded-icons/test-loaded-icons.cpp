@@ -5,6 +5,7 @@
 #include <kicon.h>
 #include <QtGui/qgridlayout.h>
 #include <QtGui/qlabel.h>
+#include <qscrollarea.h>
 
 #include "config.h"
 
@@ -21,9 +22,14 @@ int main(int argc, char **argv) {
     KCmdLineArgs::init(argc, argv, &about);
     KApplication testLoadedIconsApp;
     KMainWindow *mainWnd = new KMainWindow;
-    QWidget *mainWidget = new QWidget;
+    QScrollArea *mainWidget = new QScrollArea;
+    QWidget *tableWidget = new QWidget;
+    mainWidget->setWidget(tableWidget);
+    mainWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    mainWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    mainWidget->setWidgetResizable(true);
     QGridLayout *mainLayout = new QGridLayout;
-    mainWidget->setLayout(mainLayout);
+    tableWidget->setLayout(mainLayout);
     mainWnd->setCentralWidget(mainWidget);
 
     addIcon(mainLayout, "asd");
@@ -73,9 +79,12 @@ static void addIcon(QGridLayout *mainLayout, const char *iconName) {
     QPixmap testPixmap = testIcon.pixmap(64, 64);
     QLabel *ql = new QLabel;
     ql->setPixmap(testPixmap);
+    ql->setMinimumSize(70, 70);
     mainLayout->addWidget(ql, atRow, 1);
 
     QLabel *qt = new QLabel;
     qt->setText(iconName);
+    qt->setMinimumSize(300, 70);
     mainLayout->addWidget(qt, atRow, 2);
+    mainLayout->setRowMinimumHeight(atRow, 100);
 }
