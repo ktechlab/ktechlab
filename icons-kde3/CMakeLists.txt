@@ -29,5 +29,12 @@ install( FILES
     nuvola/32x32/actions/rotate_cw.png
     nuvola/32x32/actions/rotate_ccw.png
 
+    vym-icons/text_block.png
+    vym-icons/text_center.png
+    vym-icons/text_left.png
+    vym-icons/text_right.png
+    vym-icons/text_sub.png
+    vym-icons/text_super.png
+
     DESTINATION share/apps/ktechlab/pics
     )
