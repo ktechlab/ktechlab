@@ -114,7 +114,6 @@ Fixes needed for the first release candidate of the Qt4 port
     align_vertically
     distribute_horizontally
     distribute_vertically
-    edit_delete (!)
     file_export_image
     fileimport
     imagegallery

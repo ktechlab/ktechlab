@@ -6,6 +6,7 @@ install( FILES
     Crystal/22x22/actions/contents.png
     Crystal/22x22/actions/down.png
     Crystal/48x48/filesystems/exec.png
+    Crystal/22x22/actions/editdelete.png
     Crystal/22x22/actions/fileclose.png
     Crystal/22x22/actions/fileopen.png
     Crystal/22x22/actions/filesave.png

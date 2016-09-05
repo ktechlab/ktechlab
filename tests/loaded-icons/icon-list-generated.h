@@ -1,4 +1,5 @@
 /* AUTO-GENERATED FILE BY ./tests/loaded-icons/generate-icon-names-list.sh; DO NOT EDIT MANUALLY */
+/* date of generation: Mon Sep  5 17:11:36 EEST 2016 */
 static const char *iconNames[] = {
     "align_horizontally",
     "align_vertically",
@@ -22,7 +23,6 @@ static const char *iconNames[] = {
     "document-new",
     "down",
     "editdelete",
-    "edit_delete",
     "exec",
     "fileclose",
     "fileexport",
