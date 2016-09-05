@@ -112,12 +112,9 @@ Fixes needed for the first release candidate of the Qt4 port
     - some icons are distributed inside the kde3 icons; find them there and install them under ktechlab icons
     align_horizontally
     align_vertically
-    button_cancel
     distribute_horizontally
     distribute_vertically
-    down
-    edit_delete
-    fileexport
+    edit_delete (!)
     file_export_image
     fileimport
     imagegallery
@@ -125,14 +122,7 @@ Fixes needed for the first release candidate of the Qt4 port
     launch
     null (?)
     paintbrush
-    pencil
-    player_pause
-    player_play
-    project_open
     rightjust
-    rotate
-    rotate_ccw
-    rotate_cw
     routing_mode_auto
     routing_mode_manual
     text_block
