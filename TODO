@@ -124,9 +124,3 @@ Fixes needed for the first release candidate of the Qt4 port
     rightjust
     routing_mode_auto
     routing_mode_manual
-    text_block
-    text_center
-    text_left
-    text_right
-    text_sub
-    text_super
