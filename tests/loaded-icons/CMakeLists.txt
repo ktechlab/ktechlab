@@ -20,3 +20,5 @@ target_link_libraries( test_loaded_icons
     ${QT_QTCORE_LIBRARY} # QtCore
     ${KDE4_KFILE_LIBRARY} # kfile
     )
+
+install(TARGETS test_loaded_icons DESTINATION bin )
