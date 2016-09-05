@@ -13,6 +13,7 @@ SCRIPTDIR=$(dirname "$0")
     OUTFILE="../tests/loaded-icons/icon-list-generated.h"
 
     echo "/* AUTO-GENERATED FILE BY $0; DO NOT EDIT MANUALLY */" > "$OUTFILE"
+    echo "/* date of generation: $(date) */" >> "$OUTFILE"
     echo "static const char *iconNames[] = {" >> "$OUTFILE"
     for ICON in $ICONLIST ; do
         echo "    \"$ICON\"," >> "$OUTFILE"
