@@ -76,3 +76,5 @@ Changes between Qt3 and Qt4 port (to be completed)
     - would be useful to set a reasonable limit for the data points, initially hardcoded, to be made configurable in the future
     - for now limit is hard-coded, the probe data flats-out when limit is reached; memory usage does not increase to infinity
 - fixed crash on File -> Quit
+- fixed some missing icons: attach blockdevice cancel contents exec fileclose fileopen filesave log reload source source_c
+    stop view_bottom view_right window_new
