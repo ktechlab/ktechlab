@@ -3,9 +3,12 @@
 #include <kcmdlineargs.h>
 #include <kaboutdata.h>
 #include <kicon.h>
+#include <kiconloader.h>
+
 #include <QtGui/qgridlayout.h>
 #include <QtGui/qlabel.h>
 #include <qscrollarea.h>
+#include <qdebug.h>
 
 #include "config.h"
 
@@ -14,10 +17,11 @@
 static const char description[] =
     I18N_NOOP("An IDE for microcontrollers and electronics");
 
+    // TODO retun "" if ok, or an error message if it is not ok
 static void addIcon(QGridLayout *mainLayout, const char *iconName);
 
 int main(int argc, char **argv) {
-    KAboutData about(QByteArray("ktechlab"), QByteArray("KTechLab"), ki18n("KTechLab"), VERSION, ki18n(description),
+    KAboutData about(QByteArray("ktechlab"), QByteArray("KTechLab Icon Tester"), ki18n("KTechLab Icon Tester"), VERSION, ki18n(description),
                 KAboutData::License_GPL, ki18n("(C) 2003-2009, The KTechLab developers"),
                 ki18n(""), "http://ktechlab.org", "ktechlab-devel@lists.sourceforge.net" );
 
@@ -38,6 +42,7 @@ int main(int argc, char **argv) {
     for (int iconNr = 0; iconNr < iconCount; ++iconNr) {
         addIcon(mainLayout, iconNames[iconNr]);
     }
+    // TODO add assertion if all icons have been properly loaded
     /*
     addIcon(mainLayout, "asd");
     addIcon(mainLayout, "rotate_cw");
@@ -83,6 +88,21 @@ int main(int argc, char **argv) {
 
 static void addIcon(QGridLayout *mainLayout, const char *iconName) {
     const int atRow = mainLayout->numRows() + 1;
+    {
+        KIcon testIconConstr(iconName);
+        if (testIconConstr.isNull()) {
+            qWarning() << "KIcon " << iconName << " is NULL";
+        }
+    }
+    {
+        QPixmap  testPixmapLoader = KIconLoader::global()->loadIcon(QString(iconName), KIconLoader::NoGroup,
+                                                                    KIconLoader::SizeHuge, KIconLoader::DefaultState,
+                                                                    QStringList(), 0L, true
+                                                                   );
+        if (testPixmapLoader.isNull()) {
+            qWarning() << "loadIcon " << iconName << " is NULL";
+        }
+    }
     KIcon testIcon(iconName);
     QPixmap testPixmap = testIcon.pixmap(64, 64);
     QLabel *ql = new QLabel;
