@@ -567,6 +567,8 @@ void KTechlab::setupActions()
 
 // 	m_recentFiles = KStandardAction::openRecent( this, SLOT(load(const KUrl&)), ac );
 	m_recentFiles = new RecentFilesAction( "Recent Files", i18n("Open Recent"), this, SLOT(load(const KUrl &)), ac, "file_open_recent" );
+    ac->addAction(m_recentFiles->name(), m_recentFiles);
+
     m_statusbarAction = KStandardAction::showStatusbar( this, SLOT(slotOptionsShowStatusbar()), ac );
 	
 	//BEGIN Project Actions
@@ -587,7 +589,9 @@ void KTechlab::setupActions()
     }
     {
 // 	m_recentProjects = new KRecentFilesAction( i18n("Open &Recent Project..."), 0, ProjectManager::self(), SLOT(slotOpenProject(const KUrl&)), ac, "project_open_recent" );
-	m_recentProjects = new RecentFilesAction( "Recent Projects", i18n("Open &Recent Project..."), ProjectManager::self(), SLOT(slotOpenProject(const KUrl&)), ac, "project_open_recent" );
+        m_recentProjects = new RecentFilesAction( "Recent Projects", i18n("Open &Recent Project..."),
+                                                  ProjectManager::self(), SLOT(slotOpenProject(const KUrl&)), ac, "project_open_recent" );
+        ac->addAction("project_open_recent", m_recentProjects);
     }
     {
 	//new KAction( i18n("Export to Makefile..."), "fileexport",	0, pm, SLOT(slotExportToMakefile()),		ac, "project_export_makefile" );
