@@ -12,6 +12,8 @@
 			<Action name="view_split_topbottom"/>
 			<Action name="view_close_activeview"/>
 			<Separator/>
+            <Action name="view_show_status_bar"/>
+            <Separator/>
 		</Menu>
 		
 		<Menu name="project">

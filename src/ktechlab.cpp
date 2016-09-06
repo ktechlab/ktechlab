@@ -570,6 +570,7 @@ void KTechlab::setupActions()
     ac->addAction(m_recentFiles->name(), m_recentFiles);
 
     m_statusbarAction = KStandardAction::showStatusbar( this, SLOT(slotOptionsShowStatusbar()), ac );
+    ac->addAction("view_show_status_bar", m_statusbarAction);
 	
 	//BEGIN Project Actions
 	ProjectManager *pm = ProjectManager::self();
