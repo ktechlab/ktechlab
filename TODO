@@ -108,7 +108,6 @@ Fixes needed for the first release candidate of the Qt4 port
    - missing for: VCVS, VCCS, CCVS, CCCS, Push-to-Make, Push-to-Break, NPN, PNP, n-JFET, p-JFET, n-MOSFET, p-MOSFET,
         Inductor, Bar Graph Display
 
-- add licence for 3rd party icons
 - minimize the number of bundled 3rd party icons; most should be usable from Oxygen icon theme
 
 - when creating new project, ok/cancel does not work
