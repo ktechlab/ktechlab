@@ -88,3 +88,6 @@ Changes between Qt3 and Qt4 port (to be completed)
     file_export_image -> document-export
     fileimport -> document-import
     imagegallery -> insert-image
+    launch -> run-build (doxygen)
+    paintbrush -> draw-brush (doxygen)
+    rightjust -> format-justify-right (doxygen)
