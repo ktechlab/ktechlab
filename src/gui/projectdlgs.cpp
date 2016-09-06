@@ -31,6 +31,7 @@
 #include <Qt/qcombobox.h>
 #include <Qt/qlabel.h>
 #include <Qt/qlayout.h>
+#include <Qt/qdebug.h>
 
 struct NewProjectWidget : public QWidget, Ui::NewProjectWidget {
     NewProjectWidget(QWidget *parent) : QWidget(parent) {
@@ -83,6 +84,7 @@ void NewProjectDlg::reject()
 void NewProjectDlg::locationChanged( const QString & )
 {
 	m_location = m_pWidget->projectLocationURL->url().toLocalFile();
+    qDebug() << "location changed to: " << m_location;
 	QDir subDir(m_location);
     
 	if ( !m_location.endsWith("/") )
@@ -94,6 +96,8 @@ void NewProjectDlg::locationChanged( const QString & )
 	m_pWidget->locationLabel->setText( m_location );
     
 	QDir dir(m_location);
+
+    qDebug() << "dir.exists: " << dir.exists() << " subdir.exists: " << subDir.exists();
 	
 	if ( dir.exists() || !subDir.exists() ) {
 		enableButtonOk(false);
