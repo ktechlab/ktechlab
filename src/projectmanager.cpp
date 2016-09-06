@@ -864,7 +864,14 @@ bool ProjectInfo::save()
 	stream << doc.toString();
 	file.close();
 	
-	(static_cast<RecentFilesAction*>(KTechlab::self()->actionByName("project_open_recent")))->addURL(m_url);
+    {
+        QAction *recentfilesaction = KTechlab::self()->actionByName("project_open_recent");
+        if (recentfilesaction) {
+            (static_cast<RecentFilesAction*>(recentfilesaction))->addURL(m_url);
+        } else {
+            qWarning() << "there is no project_open_recent action in KTechLab!";
+        }
+    }
 	
 	return true;
 }
@@ -979,9 +986,14 @@ void ProjectManager::slotOpenProject( const KUrl & url )
 		m_pCurrentProject = 0l;
 		return;
 	}
-	
-	RecentFilesAction * rfa = static_cast<RecentFilesAction*>(KTechlab::self()->actionByName("project_open_recent"));
-	rfa->addURL( m_pCurrentProject->url() );
+	{
+        RecentFilesAction * rfa = static_cast<RecentFilesAction*>(KTechlab::self()->actionByName("project_open_recent"));
+        if (rfa) {
+            rfa->addURL( m_pCurrentProject->url() );
+        } else {
+            qWarning() << "there is no project_open_recent action in application";
+        }
+    }
 	
 	if ( KTLConfig::raiseItemSelectors() )
 		KTechlab::self()->showToolView( KTechlab::self()->toolView( toolViewIdentifier() ) );
