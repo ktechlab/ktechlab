@@ -455,7 +455,7 @@ void KTechlab::setupTabWidget()
 	if (grUi.readEntry( "ShowCloseTabsButton", true ))
 	{
 		QToolButton *but = new QToolButton(tabWidget());
-		but->setIconSet(SmallIcon("tab_remove"));
+		but->setIconSet(SmallIcon("tab-close"));
 		but->adjustSize();
 		but->hide();
 		connect( but, SIGNAL(clicked()), this, SLOT(slotViewContainerClose()) );
