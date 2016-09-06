@@ -89,7 +89,7 @@ ItemDocument::ItemDocument( const QString &caption, const char *name)
 
 	m_pAlignmentAction = new KActionMenu( i18n("Alignment") /*, "rightjust" */ , this );
     m_pAlignmentAction->setName("rightjust");
-    m_pAlignmentAction->setIcon( KIcon("rightjust") );
+    m_pAlignmentAction->setIcon( KIcon("format-justify-right") );
 	
 	slotUpdateConfiguration();
 }

@@ -656,7 +656,7 @@ void KTechlab::setupActions()
     }
     {
 	//new KAction( i18n("Build..."), "launch",					0, pm, SLOT(slotItemBuild()),				ac, "project_item_build" );
-        KAction *a = new KAction( KIcon("launch"), i18n("Build..."), ac);
+        KAction *a = new KAction( KIcon("run-build"), i18n("Build..."), ac);
         a->setName("project_item_build");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotItemBuild()));
         ac->addAction("project_item_build", a);
