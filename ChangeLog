@@ -91,3 +91,9 @@ Changes between Qt3 and Qt4 port (to be completed)
     launch -> run-build (doxygen)
     paintbrush -> draw-brush (doxygen)
     rightjust -> format-justify-right (doxygen)
+    routing_mode_auto -- not actually used
+    routing_mode_manual -- not actually used
+- fixed missing icons:
+    - some icons are distributed inside the kde3 icons; find them there and install them under ktechlab icons
+    ktechlab_mechanics - not actually used
+    null - false positive

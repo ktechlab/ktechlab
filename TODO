@@ -108,13 +108,7 @@ Fixes needed for the first release candidate of the Qt4 port
    - missing for: VCVS, VCCS, CCVS, CCCS, Push-to-Make, Push-to-Break, NPN, PNP, n-JFET, p-JFET, n-MOSFET, p-MOSFET,
         Inductor, Bar Graph Display
 
-- fix missing icons:
-    - some icons are distributed inside the kde3 icons; find them there and install them under ktechlab icons
-    ktechlab_mechanics (?)
-    null (?)
-    routing_mode_auto
-    routing_mode_manual
-
+- add licence for 3rd party icons
 - minimize the number of bundled 3rd party icons; most should be usable from Oxygen icon theme
 
 - when creating new project, ok/cancel does not work

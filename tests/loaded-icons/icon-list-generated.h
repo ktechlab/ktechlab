@@ -1,5 +1,5 @@
 /* AUTO-GENERATED FILE BY ./tests/loaded-icons/generate-icon-names-list.sh; DO NOT EDIT MANUALLY */
-/* date of generation: Tue Sep  6 16:49:46 EEST 2016 */
+/* date of generation: Tue Sep  6 17:05:59 EEST 2016 */
 static const char *iconNames[] = {
     "align-horizontal-center",
     "align-vertical-center",
@@ -37,10 +37,11 @@ static const char *iconNames[] = {
     "insert-image",
     "ktechlab_circuit",
     "ktechlab_flowcode",
-    "ktechlab_mechanics",
     "ktechlab_microbe",
     "log",
     "null",
+    "null",
+    "fork",
     "oscilloscope",
     "pencil",
     "player_pause",
@@ -50,9 +51,6 @@ static const char *iconNames[] = {
     "rotate",
     "rotate_ccw",
     "rotate_cw",
-    "routing_mode_auto",
-    "routing_mode_manual",
-    "fork",
     "run-build",
     "send_backward",
     "source",
