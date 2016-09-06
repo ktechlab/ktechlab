@@ -98,3 +98,4 @@ Changes between Qt3 and Qt4 port (to be completed)
     ktechlab_mechanics - not actually used
     null - false positive
 - add licence information about 3rd party icons
+- fixed: when creating new project, ok/cancel does not work

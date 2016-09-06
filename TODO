@@ -110,4 +110,4 @@ Fixes needed for the first release candidate of the Qt4 port
 
 - minimize the number of bundled 3rd party icons; most should be usable from Oxygen icon theme
 
-- when creating new project, ok/cancel does not work
+- when creating a project, ktechlab crashes
