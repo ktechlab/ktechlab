@@ -71,17 +71,18 @@ void NewProjectDlg::accept()
 	m_bAccepted = true;
 
 	m_projectName = m_pWidget->projectNameEdit->text();
-	m_projectLocation = m_pWidget->projectLocationURL->url().url();
+	m_projectLocation = m_pWidget->projectLocationURL->url().toLocalFile();
 }
 
 void NewProjectDlg::reject()
 {
 	m_bAccepted = false;
+    hide();
 }
 
 void NewProjectDlg::locationChanged( const QString & )
 {
-	m_location = m_pWidget->projectLocationURL->url().url();
+	m_location = m_pWidget->projectLocationURL->url().toLocalFile();
 	QDir subDir(m_location);
     
 	if ( !m_location.endsWith("/") )
@@ -94,11 +95,11 @@ void NewProjectDlg::locationChanged( const QString & )
     
 	QDir dir(m_location);
 	
-	if ( dir.exists() || !subDir.exists() ) 
+	if ( dir.exists() || !subDir.exists() ) {
 		enableButtonOk(false);
-	
-	else
+    } else {
 		enableButtonOk(true);
+    }
 }
 //END class NewProjectDlg
 
@@ -144,7 +145,7 @@ void CreateSubprojectDlg::accept()
 
 	m_bAccepted = true;
 
-	m_targetFile = m_pWidget->m_targetFile->url().url();
+	m_targetFile = m_pWidget->m_targetFile->url().toLocalFile();
 	m_type = (Type)m_pWidget->m_typeCombo->currentItem();
 }
 
@@ -152,6 +153,7 @@ void CreateSubprojectDlg::accept()
 void CreateSubprojectDlg::reject()
 {
 	m_bAccepted = false;
+    hide();
 }
 //END class CreateSubprojectDlg
 
