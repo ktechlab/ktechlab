@@ -81,3 +81,10 @@ Changes between Qt3 and Qt4 port (to be completed)
     button_cancel down fileexport pencil player_pause player_play project_open rotate rotate_ccw rotate_cw
     editdelete
     text_block     text_center     text_left     text_right     text_sub     text_super
+    align_horizontally -> align-horizontal-center (oxygen)
+    align_vertically -> align-vertical-center (oxygen)
+    distribute_horizontally -> distribute-horizontal-x (oxygen)
+    distribute_vertically -> distribute-vertical-y (oxygen)
+    file_export_image -> document-export
+    fileimport -> document-import
+    imagegallery -> insert-image

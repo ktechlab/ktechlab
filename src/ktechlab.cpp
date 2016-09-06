@@ -612,7 +612,7 @@ void KTechlab::setupActions()
     }
     {
 	//new KAction( i18n("Add Current File..."), "fileimport",		0, pm, SLOT(slotAddCurrentFile()),			ac, "project_add_current_file" );
-        KAction *a = new KAction( KIcon("fileimport"), i18n("Add Current File..."), ac);
+        KAction *a = new KAction( KIcon("document-import"), i18n("Add Current File..."), ac);
         a->setName("project_add_current_file");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotAddCurrentFile()));
         ac->addAction("project_add_current_file", a);
@@ -642,7 +642,7 @@ void KTechlab::setupActions()
     }
     {
 	//new KAction( i18n("Insert Current File..."), "fileimport",	0, pm, SLOT(slotSubprojectAddCurrentFile()),ac, "subproject_add_current_file" );
-        KAction *a = new KAction( KIcon("fileimport"), i18n("Insert Current File..."), ac);
+        KAction *a = new KAction( KIcon("document-import"), i18n("Insert Current File..."), ac);
         a->setName("subproject_add_current_file");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotSubprojectAddCurrentFile()));
         ac->addAction("subproject_add_current_file", a);

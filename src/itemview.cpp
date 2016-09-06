@@ -74,7 +74,7 @@ ItemView::ItemView( ItemDocument * itemDocument, ViewContainer *viewContainer, u
     }
     {
 	//new KAction( i18n("Export as Image..."), 0, 0, itemDocument, SLOT(exportToImage()), ac, "file_export_image");
-        KAction *action = new KAction( KIcon("file_export_image"), i18n("Export as Image..."), ac);
+        KAction *action = new KAction( KIcon("document-export"), i18n("Export as Image..."), ac);
         action->setName("file_export_image");
         connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(exportToImage()));
         ac->addAction("file_export_image", action);
@@ -83,28 +83,28 @@ ItemView::ItemView( ItemDocument * itemDocument, ViewContainer *viewContainer, u
 	//BEGIN Item Alignment actions
 	{
 	//new KAction( i18n("Align Horizontally"), 0, 0, itemDocument, SLOT(alignHorizontally()), ac, "align_horizontally" );
-        KAction *action = new KAction( KIcon("align_horizontally"), i18n("Align Horizontally"), ac);
+        KAction *action = new KAction( KIcon("align-horizontal-center"), i18n("Align Horizontally"), ac);
         action->setName("align_horizontally");
         connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(alignHorizontally()));
         ac->addAction("align_horizontally", action);
     }
     {
 	//new KAction( i18n("Align Vertically"), 0, 0, itemDocument, SLOT(alignVertically()), ac, "align_vertically" );
-        KAction *action = new KAction( KIcon("align_vertically"), i18n("Align Vertically"), ac);
+        KAction *action = new KAction( KIcon("align-vertical-center"), i18n("Align Vertically"), ac);
         action->setName("align_vertically");
         connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(alignVertically()));
         ac->addAction("align_vertically", action);
     }
     {
 	//new KAction( i18n("Distribute Horizontally"), 0, 0, itemDocument, SLOT(distributeHorizontally()), ac, "distribute_horizontally" );
-        KAction *action = new KAction( KIcon("distribute_horizontally"), i18n("Distribute Horizontally"), ac);
+        KAction *action = new KAction( KIcon("distribute-horizontal-x"), i18n("Distribute Horizontally"), ac);
         action->setName("distribute_horizontally");
         connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(distributeHorizontally()));
         ac->addAction("distribute_horizontally", action);
     }
     {
 	//new KAction( i18n("Distribute Vertically"), 0, 0, itemDocument, SLOT(distributeVertically()), ac, "distribute_vertically" );
-        KAction *action = new KAction( KIcon("distribute_vertically"), i18n("Distribute Vertically"), ac);
+        KAction *action = new KAction( KIcon("distribute-vertical-y"), i18n("Distribute Vertically"), ac);
         action->setName("distribute_vertically");
         connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(distributeVertically()));
         ac->addAction("distribute_vertically", action);
@@ -127,7 +127,7 @@ ItemView::ItemView( ItemDocument * itemDocument, ViewContainer *viewContainer, u
 	m->insertItem( KIcon( "tool_arrow"  ), i18n("Arrow"),		DrawPart::da_arrow );
 	m->insertItem( KIcon( "tool_ellipse" ), i18n("Ellipse"),	DrawPart::da_ellipse );
 	m->insertItem( KIcon("tool_rectangle" ), i18n("Rectangle"),	DrawPart::da_rectangle );
-	m->insertItem( KIcon( "imagegallery" ), i18n("Image"),		DrawPart::da_image );
+	m->insertItem( KIcon( "insert-image" ), i18n("Image"),		DrawPart::da_image );
 	connect( m, SIGNAL(activated(int)), itemDocument, SLOT(slotSetDrawAction(int)) );
 	//END Draw actions
 	
