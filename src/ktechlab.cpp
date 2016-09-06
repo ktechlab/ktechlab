@@ -547,7 +547,7 @@ void KTechlab::setupActions()
 #ifdef MECHANICS
     {
         //(new KAction( i18n("Mechanics"), "ktechlab_mechanics", 0, this, SLOT(slotFileNewMechanics()), ac, "newfile_mechanics" ))->plug( p->menu() );
-        KAction *a = new KAction( KIcon("ktechlab_mechanics"), i18n("Mechanics"), ac);
+        KAction *a = new KAction( KIcon("" /* "ktechlab_mechanics" -- for the future */), i18n("Mechanics"), ac);
         a->setName("newfile_mechanics");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotFileNewMechanics()));
         p->menu()->addAction(a);
