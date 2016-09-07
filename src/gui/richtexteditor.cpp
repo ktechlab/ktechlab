@@ -56,7 +56,7 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
     m_pTextBold = new KToggleAction( i18n("Bold"), ac);
     m_pTextBold->setName("text_bold");
     m_pTextBold->setShortcut(Qt::CTRL + Qt::Key_B);
-    m_pTextBold->setIcon( KIconLoader::global()->loadIcon(QString("format_bold"), KIconLoader::Toolbar ) );
+    m_pTextBold->setIcon( KIconLoader::global()->loadIcon("format-text-bold", KIconLoader::Toolbar ) );
 	connect( m_pTextBold, SIGNAL(toggled(bool)), m_pEditor, SLOT(setBold(bool)) );
 	//m_pTextBold->plug( tools );
     tools->addAction(m_pTextBold);
@@ -65,7 +65,7 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
     m_pTextItalic = new KToggleAction( i18n("Italic"), ac);
     m_pTextItalic->setName("text_italic");
     m_pTextItalic->setShortcut( Qt::CTRL + Qt::Key_I );
-    m_pTextItalic->setIcon( KIconLoader::global()->loadIcon(QString("format_italic"), KIconLoader::Toolbar) );
+    m_pTextItalic->setIcon( KIconLoader::global()->loadIcon("format-text-italic", KIconLoader::Toolbar) );
 	connect( m_pTextItalic, SIGNAL(toggled(bool)), m_pEditor, SLOT(setItalic(bool)) );
 	//m_pTextItalic->plug( tools );
     tools->addAction(m_pTextItalic);
@@ -74,7 +74,7 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
     m_pTextUnderline = new KToggleAction( i18n("Underline"), ac);
     m_pTextUnderline->setName("text_under");
     m_pTextUnderline->setShortcut( Qt::CTRL + Qt::Key_U );
-    m_pTextItalic->setIcon( KIconLoader::global()->loadIcon(QString("format_underline"), KIconLoader::Toolbar) );
+    m_pTextItalic->setIcon( KIconLoader::global()->loadIcon("format-text-underline", KIconLoader::Toolbar) );
 	connect( m_pTextUnderline, SIGNAL(toggled(bool)), m_pEditor, SLOT(setUnderline(bool)) );
 	//m_pTextUnderline->plug( tools );
     tools->addAction(m_pTextUnderline);
@@ -83,7 +83,7 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
     m_pTextList = new KToggleAction( i18n("List"), ac);
     m_pTextList->setName("unsorted_list");
     m_pTextList->setShortcut( Qt::CTRL + Qt::Key_L );
-    m_pTextItalic->setIcon( KIconLoader::global()->loadIcon(QString("format_list"), KIconLoader::Toolbar) );
+    m_pTextItalic->setIcon( KIconLoader::global()->loadIcon("format-list-unordered", KIconLoader::Toolbar) );
 	connect( m_pTextList, SIGNAL(toggled(bool)), SLOT(slotSetList(bool)) );
 	//m_pTextList->plug( tools );
     tools->addAction( m_pTextList );
@@ -92,7 +92,7 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
 	//BEGIN Text horizontal-alignment actions
 	//m_pTextAlignment = new KToolBarPopupAction( i18n("Text Alignment"), "text_left", 0, 0, 0, ac, "text_alignment" );
     m_pTextAlignment = new KToolBarPopupAction(
-            KIcon(QString("text_alignment")),
+            KIcon("text_alignment"),
             i18n("Text Alignment"),
             ac);
     m_pTextAlignment->setName("text_left");
