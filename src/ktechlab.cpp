@@ -1273,38 +1273,39 @@ void KTechlab::slotDocModifiedChanged()
 		if ( !vc || !vc->activeView() || !vc->activeView()->document() )
 			continue;
 		
-		QString iconName;
+        QPixmap iconPixmap;
 		
-		if ( vc->activeView()->document()->isModified() )
-			iconName = "filesave";
+		if ( vc->activeView()->document()->isModified() ) {
+            iconPixmap = loader->loadIcon( "filesave", KIconLoader::Small );
+        } else {
+            switch ( vc->activeView()->document()->type() )
+            {
+                case Document::dt_circuit:
+                    iconPixmap = loader->loadIcon( "ktechlab_circuit", KIconLoader::Small );
+                    break;
+
+                case Document::dt_flowcode:
+                    iconPixmap = loader->loadIcon( "ktechlab_flowcode", KIconLoader::Small );
+                    break;
+
+                case Document::dt_mechanics:
+                    iconPixmap = loader->loadIcon( "ktechlab_mechanics", KIconLoader::Small );
+                    break;
+
+                case Document::dt_text:
+                    iconPixmap = loader->loadIcon( "text-x-generic", KIconLoader::Small );
+                    break;
+
+                case Document::dt_pinMapEditor:
+                    break;
+
+                case Document::dt_none:
+                    iconPixmap = loader->loadIcon( "application-x-zerosize", KIconLoader::Small );
+                    break;
+            }
+        }
 		
-		else switch ( vc->activeView()->document()->type() )
-		{
-			case Document::dt_circuit:
-				iconName = "ktechlab_circuit";
-				break;
-				
-			case Document::dt_flowcode:
-				iconName = "ktechlab_flowcode";
-				break;
-				
-			case Document::dt_mechanics:
-				iconName = "ktechlab_mechanics";
-				break;
-				
-			case Document::dt_text:
-				iconName = "txt";
-				break;
-				
-			case Document::dt_pinMapEditor:
-				break;
-				
-			case Document::dt_none:
-				iconName = "unknown";
-				break;
-		}
-		
-		tabWidget()->setTabIconSet( vc, loader->loadIcon( iconName, KIconLoader::Small ) );
+		tabWidget()->setTabIconSet( vc, iconPixmap );
 	}
 	//END Set tab icons
 }
