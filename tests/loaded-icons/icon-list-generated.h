@@ -1,8 +1,9 @@
 /* AUTO-GENERATED FILE BY ./tests/loaded-icons/generate-icon-names-list.sh; DO NOT EDIT MANUALLY */
-/* date of generation: Wed Sep  7 11:25:14 EEST 2016 */
+/* date of generation: Thu Sep  8 00:16:30 EEST 2016 */
 static const char *iconNames[] = {
     "align-horizontal-center",
     "align-vertical-center",
+    "application-x-zerosize",
     "attach",
     "blockdevice",
     "bring_forward",
@@ -41,6 +42,7 @@ static const char *iconNames[] = {
     "insert-image",
     "ktechlab_circuit",
     "ktechlab_flowcode",
+    "ktechlab_mechanics",
     "ktechlab_microbe",
     "log",
     "null",
@@ -68,6 +70,7 @@ static const char *iconNames[] = {
     "text_right",
     "text_sub",
     "text_super",
+    "text-x-generic",
     "tool_arrow",
     "tool_ellipse",
     "tool_line",
