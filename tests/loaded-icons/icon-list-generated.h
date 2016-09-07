@@ -1,5 +1,5 @@
 /* AUTO-GENERATED FILE BY ./tests/loaded-icons/generate-icon-names-list.sh; DO NOT EDIT MANUALLY */
-/* date of generation: Tue Sep  6 17:05:59 EEST 2016 */
+/* date of generation: Wed Sep  7 11:25:14 EEST 2016 */
 static const char *iconNames[] = {
     "align-horizontal-center",
     "align-vertical-center",
@@ -34,6 +34,10 @@ static const char *iconNames[] = {
     "folder",
     "fork",
     "format-justify-right",
+    "format-list-unordered",
+    "format-text-bold",
+    "format-text-italic",
+    "format-text-underline",
     "insert-image",
     "ktechlab_circuit",
     "ktechlab_flowcode",
@@ -57,6 +61,7 @@ static const char *iconNames[] = {
     "source_c",
     "stop",
     "text",
+    "text_alignment",
     "text_block",
     "text_center",
     "text_left",
