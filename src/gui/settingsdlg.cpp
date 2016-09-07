@@ -102,11 +102,11 @@ SettingsDlg::SettingsDlg( QWidget *parent, const char *name, KConfigSkeleton *co
 	m_logicWidget->kcfg_LogicOutputLowImpedance->setSuffix( QString(" ") + QChar(0x3a9) );
 	
 	addPage( m_generalOptionsWidget, i18n("General"), "misc", i18n("General Options") );
-	addPage( m_picProgrammerConfigWidget, i18n("Programmer"), "memory", i18n("PIC Programmer") );
+	addPage( m_picProgrammerConfigWidget, i18n("Programmer"), "network-connect", i18n("PIC Programmer") );
 	addPage( m_asmFormattingWidget, i18n("Formatter"), "indent_asm", i18n("Assembly Formatter") );
 	addPage( m_logicWidget, i18n("Logic"), "logic_or", i18n("Electronic Logic Values") );
 	addPage( m_gpasmSettingsWidget, "Gpasm", "convert_to_hex", "gpasm" );
-	addPage( m_gplinkSettingsWidget, "Gplink", "gplink", "Gpasm" );
+	addPage( m_gplinkSettingsWidget, "Gplink", "merge", "gplink" );
 	addPage( m_sdccOptionsWidget, "SDCC", "source_c", "SDCC" );
 	
 	connect( m_generalOptionsWidget->refreshRateSlider, SIGNAL(valueChanged(int)), this, SLOT(slotUpdateRefreshRateLabel(int)) );

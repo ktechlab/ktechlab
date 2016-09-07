@@ -100,3 +100,6 @@ Changes between Qt3 and Qt4 port (to be completed)
 - add licence information about 3rd party icons
 - fixed: when creating new project, ok/cancel does not work
 - fixed: when creating a project, ktechlab crashes
+- fixed more icons
+    memory.png -> network-connect
+    gplink.png -> merge

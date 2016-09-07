@@ -21,6 +21,7 @@ install( FILES
 
     nuvola/32x32/actions/button_cancel.png
     nuvola/32x32/actions/fileexport.png
+    nuvola/32x32/actions/misc.png
     nuvola/32x32/actions/pencil.png
     nuvola/32x32/actions/player_pause.png
     nuvola/32x32/actions/player_play.png
