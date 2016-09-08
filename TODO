@@ -111,3 +111,4 @@ Fixes needed for the first release candidate of the Qt4 port
 - minimize the number of bundled 3rd party icons; most should be usable from Oxygen icon theme
 
 - when editing source code, many nonexitent signals are used in the code
+- cannot compile code for PIC, because SDCC complains about the PIC identifier
