@@ -601,12 +601,12 @@ void TextDocument::print()
     qWarning() << "TextDocument::print TODO";
 }
 
-
-void TextDocument::slotSelectionmChanged()
-{
-	KTechlab::self()->actionByName( "edit_cut" )->setEnabled( /* m_doc->hasSelection () */ m_doc->activeView()->selection() );
-	KTechlab::self()->actionByName( "edit_copy" )->setEnabled( /*m_doc->hasSelection () */ m_doc->activeView()->selection() );
-}
+// 2016.09.08 - moved to TextView
+// void TextDocument::slotSelectionmChanged()
+// {
+// 	KTechlab::self()->actionByName( "edit_cut" )->setEnabled( /* m_doc->hasSelection () */ m_doc->activeView()->selection() );
+// 	KTechlab::self()->actionByName( "edit_copy" )->setEnabled( /*m_doc->hasSelection () */ m_doc->activeView()->selection() );
+// }
 
 
 IntList TextDocument::bookmarkList() const

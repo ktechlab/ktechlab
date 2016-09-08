@@ -157,7 +157,8 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
 	QWidget * internalView = static_cast<QWidget*>( m_view->child( 0, "KateViewInternal" ) );
 	
 	connect( m_view, SIGNAL(cursorPositionChanged()),	this, SLOT(slotCursorPositionChanged()) );
-	
+	connect( m_view, SIGNAL(selectionChanged(KTextEditor::View *)), this, SLOT(slotSelectionmChanged()) );
+
 	setFocusWidget( internalView );
 	connect( this, SIGNAL(focused( View* )), this, SLOT(gotFocus()) );
 	
@@ -278,6 +279,10 @@ void TextView::gotFocus()
 #endif
 }
 
+void TextView::slotSelectionmChanged() {
+    KTechlab::self()->actionByName( "edit_cut" )->setEnabled( m_view->selection() );
+    KTechlab::self()->actionByName( "edit_copy" )->setEnabled( m_view->selection() );
+}
 
 void TextView::initCodeActions()
 {

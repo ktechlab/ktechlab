@@ -83,7 +83,8 @@ class TextView : public View
 		void slotWordHoveredOver( const QString & word, int line, int col );
 		void slotWordUnhovered();
 		void gotFocus();
-	
+        void slotSelectionmChanged();
+
 	protected:
 		KTextEditor::View * m_view;
 #ifndef NO_GPSIM

@@ -234,7 +234,7 @@ private slots:
 	void slotCODCreationFailed();
 	void slotDebuggerDestroyed();
 	void slotBookmarkRequested();
-	void slotSelectionmChanged();
+// 	void slotSelectionmChanged(); // 2016.09.08 - moved to TextView
 
 private:
 	TextDocument( const QString& caption, const char *name = 0L );
