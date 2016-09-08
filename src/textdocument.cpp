@@ -221,7 +221,7 @@ void TextDocument::setText( const QString & text, bool asInitial )
 	
 		connect( m_doc, SIGNAL(undoChanged()), this, SIGNAL(undoRedoStateChanged()) );
 		connect( m_doc, SIGNAL(undoChanged()), this, SLOT(slotSyncModifiedStates()) );
-		connect( m_doc, SIGNAL(textChanged()), this, SLOT(slotSyncModifiedStates()) );
+		connect( m_doc, SIGNAL(textChanged(KTextEditor::Document *)), this, SLOT(slotSyncModifiedStates()) );
 	}
 }
 
