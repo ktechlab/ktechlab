@@ -40,6 +40,7 @@ FlowCodeView::FlowCodeView( FlowCodeDocument * flowCodeDocument, ViewContainer *
 	m->insertItem( KIcon( "convert_to_hex" ), i18n("Hex"), FlowCodeDocument::HexOutput );
 	m->insertItem( KIcon( "convert_to_pic" ), i18n("PIC (upload)"), FlowCodeDocument::PICOutput );
 	connect( m, SIGNAL(activated(int)), flowCodeDocument, SLOT(slotConvertTo(int)) );
+    ac->addAction("program_convert" , pa);
 	//END Convert To * Actions
 	
 	
