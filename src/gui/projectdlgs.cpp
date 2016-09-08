@@ -261,6 +261,7 @@ void LinkerOptionsDlg::accept()
 
 void LinkerOptionsDlg::reject()
 {
+    hide();
 }
 //END class LinkerOptionsDlg
 
@@ -331,6 +332,7 @@ void ProcessingOptionsDlg::accept()
 
 void ProcessingOptionsDlg::reject()
 {
+    hide();
 }
 //END class ProcessingOptionsDlg
 
