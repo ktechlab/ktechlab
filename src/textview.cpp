@@ -133,7 +133,7 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
 	//new KAction( i18n("Step Out"), "dbgstepout", 0, textDocument, SLOT(debugStepOut()), ac, "debug_step_out" );
         KAction *action = new KAction( KIcon("dbgstepout"), i18n("Step Out"), ac);
         action->setName("debug_step_out");
-        connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(textDocument()));
+        connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(debugStepOut()));
         ac->addAction("debug_step_out", action);
     }
 	//END Debug Actions
@@ -156,7 +156,7 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
 	
 	QWidget * internalView = static_cast<QWidget*>( m_view->child( 0, "KateViewInternal" ) );
 	
-	connect( m_view, SIGNAL(cursorPositionChanged()),	this, SLOT(slotCursorPositionChanged()) );
+	connect( m_view, SIGNAL(cursorPositionChanged(KTextEditor::View *, const KTextEditor::Cursor &)),	this, SLOT(slotCursorPositionChanged()) );
 	connect( m_view, SIGNAL(selectionChanged(KTextEditor::View *)), this, SLOT(slotSelectionmChanged()) );
 
 	setFocusWidget( internalView );
@@ -495,10 +495,17 @@ TextViewEventFilter::TextViewEventFilter( TextView * textView )
 	
 	//((KTextEditor::TextHintInterface*)textView->kateView()->qt_cast("KTextEditor::TextHintInterface"))->enableTextHints(0);
     {
-    KTextEditor::View * view = textView->kateView();
-    qobject_cast<KTextEditor::TextHintInterface*>(view)->enableTextHints(0);
+        KTextEditor::View * view = textView->kateView();
+        KTextEditor::TextHintInterface *iface = qobject_cast<KTextEditor::TextHintInterface*>(view);
+        if (iface) {
+            iface->enableTextHints(0);
+            //connect( textView->kateView(), SIGNAL(needTextHint(int, int, QString &)), this, SLOT(slotNeedTextHint( int, int, QString& )) );
+            connect( view, SIGNAL(needTextHint(const KTextEditor::Cursor &, QString &)),
+                     this, SLOT(slotNeedTextHint(const KTextEditor::Cursor &, QString &)) );
+        } else {
+            qWarning() << "KTextEditor::View does not implement TextHintInterface for " << view;
+        }
     }
-	connect( textView->kateView(), SIGNAL(needTextHint(int, int, QString &)), this, SLOT(slotNeedTextHint( int, int, QString& )) );
 	
 	m_pHoverTimer = new QTimer( this );
 	connect( m_pHoverTimer, SIGNAL(timeout()), this, SLOT(hoverTimeout()) );
@@ -587,8 +594,10 @@ void TextViewEventFilter::updateHovering( const QString & currentWord, int line,
 static inline bool isWordLetter( const QString & s ) { return (s.length() == 1) && (s[0].isLetterOrNumber() || s[0] == '_'); }
 
 
-void TextViewEventFilter::slotNeedTextHint( int line, int col, QString & )
+void TextViewEventFilter::slotNeedTextHint(const KTextEditor::Cursor &position, QString &text)
 {
+    int line = position.line();
+    int col = position.column();
 	m_pNoWordTimer->stop();
 	
 	//KTextEditor::EditInterface * e = (KTextEditor::EditInterface*)m_pTextView->textDocument()->kateDocument()->qt_cast("KTextEditor::EditInterface");

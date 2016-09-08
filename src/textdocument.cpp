@@ -98,7 +98,7 @@ TextDocument::TextDocument( const QString &caption, const char *name )
 	connect( m_doc, SIGNAL(undoChanged()),		this, SIGNAL(undoRedoStateChanged()) );
 	connect( m_doc, SIGNAL(undoChanged()),		this, SLOT(slotSyncModifiedStates()) );
 	connect( m_doc, SIGNAL(textChanged(KTextEditor::Document *)),		this, SLOT(slotSyncModifiedStates()) );
-	connect( m_doc,	SIGNAL(selectionChanged()),	this, SLOT(slotSelectionmChanged()) );
+// 	connect( m_doc,	SIGNAL(selectionChanged()),	this, SLOT(slotSelectionmChanged()) ); // 2016.09.08 - moved to TextView
     connect( m_doc, SIGNAL(marksChanged(KTextEditor::Document*)),     this, SLOT(slotUpdateMarksInfo()) );
 
     KTextEditor::MarkInterface *markIface = qobject_cast<KTextEditor::MarkInterface*>( m_doc );

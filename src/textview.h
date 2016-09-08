@@ -126,7 +126,7 @@ class TextViewEventFilter : public QObject
 		void wordUnhovered();
 		
 	protected slots:
-		void slotNeedTextHint( int line, int col, QString & text );
+		void slotNeedTextHint( const KTextEditor::Cursor& position, QString& text );
 		/**
 		 * Called when we are not in hover mode, but the user has had his mouse
 		 * in the same position for some time.
