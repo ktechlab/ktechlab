@@ -1024,7 +1024,7 @@ void KTechlab::slotOptionsPreferences()
 	
 	// User edited the configuration - update your local copies of the
 	// configuration data
-	connect( dialog, SIGNAL(settingsChanged()), this, SLOT(slotUpdateConfiguration()) );
+	connect( dialog, SIGNAL(settingsChanged(const QString &)), this, SLOT(slotUpdateConfiguration()) );
 	dialog->show();
 }
 

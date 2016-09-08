@@ -200,7 +200,7 @@ void TextDocument::setText( const QString & text, bool asInitial )
 	{
 		disconnect( m_doc, SIGNAL(undoChanged()), this, SIGNAL(undoRedoStateChanged()) );
 		disconnect( m_doc, SIGNAL(undoChanged()), this, SLOT(slotSyncModifiedStates()) );
-		disconnect( m_doc, SIGNAL(textChanged()), this, SLOT(slotSyncModifiedStates()) );
+		disconnect( m_doc, SIGNAL(textChanged(KTextEditor::Document *)), this, SLOT(slotSyncModifiedStates()) );
 	}
 
 	const ViewList::iterator end = m_viewList.end();
