@@ -94,6 +94,7 @@ GpsimProcessor::GpsimProcessor( QString symbolFile, QObject *parent )
 	const char * fileName = symbolFile.ascii();
 	
 #ifdef GPSIM_0_21_4
+    qDebug() << "GPSIM_0_21_4 GpsimProcessor " << fileName;
 	switch ( (cod_errors)load_symbol_file( &tempProcessor, fileName ) )
 	{
 		case COD_SUCCESS:
@@ -118,12 +119,14 @@ GpsimProcessor::GpsimProcessor( QString symbolFile, QObject *parent )
 			m_codLoadStatus = CodUnknown;
 	}
 #else // GPSIM_0_21_11+
+    qDebug() << "GPSIM_0_21_11+ GpsimProcessor " << fileName;
 	FILE * pFile = fopen( fileName, "r" );
 	if ( !pFile )
 		m_codLoadStatus = CodFileUnreadable;
 	else
 		m_codLoadStatus = ( ProgramFileTypeList::GetList().LoadProgramFile( & tempProcessor, fileName, pFile ) ) ? CodSuccess : CodFailure;
 #endif
+    qDebug() << " m_codLoadStatus=" << m_codLoadStatus;
 	
 	m_pPicProcessor = dynamic_cast<pic_processor*>(tempProcessor);
 	
