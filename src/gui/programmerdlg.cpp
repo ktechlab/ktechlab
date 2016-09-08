@@ -92,6 +92,7 @@ void ProgrammerDlg::accept()
 
 void ProgrammerDlg::reject()
 {
+    hide();
 	m_bAccepted = false;
 }
 

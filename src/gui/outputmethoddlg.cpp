@@ -162,6 +162,7 @@ void OutputMethodDlg::accept()
 
 void OutputMethodDlg::reject()
 {
+    hide();
 	m_bAccepted = false;
 }
 

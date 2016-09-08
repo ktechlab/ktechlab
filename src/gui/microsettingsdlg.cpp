@@ -192,6 +192,7 @@ void MicroSettingsDlg::slotSaveStuff()
 
 void MicroSettingsDlg::reject()
 {
+    hide();
 	deleteLater();
 }
 
