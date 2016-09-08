@@ -72,6 +72,7 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
 	connect( m, SIGNAL(activated(int)), textDocument, SLOT(slotConvertTo(int)) );
 	
 	m->setItemEnabled( TextDocument::MicrobeOutput, false );
+    ac->addAction("program_convert", pa);
 	//END Convert To * Actions
 	
     {
