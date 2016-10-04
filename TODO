@@ -113,5 +113,3 @@ Fixes needed for the first release candidate of the Qt4 port
 - when editing source code, many nonexitent signals are used in the code
 - cannot compile code for PIC, because SDCC complains about the PIC identifier
 - cannot convert C code to ASM or HEX, because function __sdcc_gsinit_startup
-- when launching mircobe, also look in the installation prefix of ktechlab first.
-    should fix "convert to microbe" when ktechlab is not in PATH
