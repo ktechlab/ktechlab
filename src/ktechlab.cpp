@@ -720,7 +720,8 @@ void KTechlab::setupActions()
 void KTechlab::setupExampleActions()
 {
 	QStringList categories;
-	categories << "555" << "basic" << "diodes" << "jfets" << "mosfets" << "transistors" << "opamps";
+	categories << "555" << "basic" << "diodes" << "jfets" << "opamps" << "matrix_disp_driver"
+        << "mosfets" << "transistors" ;
 	
 	// A name for the example circuit can be generated from the filename (and
 	// will be done so if the filename is not in this list). But the name
@@ -752,6 +753,7 @@ void KTechlab::setupExampleActions()
 	filesToNames["inverter.circuit"] = i18n("Inverter");
 	filesToNames["scmitt-trigger.circuit"] = i18n("Scmitt Trigger");
 	filesToNames["switch.circuit"] = i18n("Switch");
+    filesToNames["matrix_display.circuit"] = i18n("Matrix Display Driver");
 	
 	int at = 0;
 	
@@ -764,7 +766,7 @@ void KTechlab::setupExampleActions()
 		//K3PopupMenu * m = static_cast<K3PopupMenu*>(factory()->container( "examples_" + category, this ));
         KMenu * m = static_cast<KMenu*>(factory()->container( "examples_" + category, this ));
 		if ( !m ) {
-            kWarning() << "failed to cast to popup menu";
+            kWarning() << "failed to cast to popup menu: " << "examples_" + category;
 			continue;
         }
 		connect( m, SIGNAL(activated( int )), this, SLOT(openExample( int )) );

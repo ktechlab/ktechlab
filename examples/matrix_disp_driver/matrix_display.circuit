@@ -1,0 +1,107 @@
+<!DOCTYPE KTechlab>
+<document type="circuit">
+ <item x="732" y="420" z="1" type="ec/matrix_display_driver" id="Matrix Display Driver" flip="0" angle="0">
+  <data type="string" value="Row Cathode" id="diode-configuration"/>
+ </item>
+ <item x="276" y="292" z="2" type="ec/battery" id="cell" flip="0" angle="0">
+  <data type="number" value="5" id="voltage"/>
+ </item>
+ <item x="220" y="340" z="3" type="ec/ground" id="ground" flip="0" angle="270"/>
+ <item x="916" y="372" z="0" type="ec/matrix_display" id="matrix_display" flip="0" angle="0">
+  <data type="string" value="Row Cathode" id="diode-configuration"/>
+  <data type="number" value="7" id="0-rows"/>
+  <data type="number" value="5" id="1-cols"/>
+  <data type="color" value="#f62a2a" id="color"/>
+ </item>
+ <item x="404" y="316" z="4" type="ec/spst_toggle" id="spst_toggle" flip="0" angle="0">
+  <data type="string" value="" id="button_text"/>
+  <data type="number" value="0.005" id="bounce_period"/>
+  <data type="bool" value="0" id="bounce"/>
+  <button id="button" state="0"/>
+ </item>
+ <item x="404" y="364" z="5" type="ec/spst_toggle" id="spst_toggle__44" flip="0" angle="0">
+  <data type="string" value="" id="button_text"/>
+  <data type="number" value="0.005" id="bounce_period"/>
+  <data type="bool" value="0" id="bounce"/>
+  <button id="button" state="0"/>
+ </item>
+ <item x="404" y="516" z="8" type="ec/spst_toggle" id="spst_toggle__46" flip="0" angle="0">
+  <data type="string" value="" id="button_text"/>
+  <data type="number" value="0.005" id="bounce_period"/>
+  <data type="bool" value="0" id="bounce"/>
+  <button id="button" state="0"/>
+ </item>
+ <item x="404" y="412" z="6" type="ec/spst_toggle" id="spst_toggle__50" flip="0" angle="0">
+  <data type="string" value="" id="button_text"/>
+  <data type="number" value="0.005" id="bounce_period"/>
+  <data type="bool" value="0" id="bounce"/>
+  <button id="button" state="1"/>
+ </item>
+ <item x="404" y="556" z="9" type="ec/spst_toggle" id="spst_toggle__52" flip="0" angle="0">
+  <data type="string" value="" id="button_text"/>
+  <data type="number" value="0.005" id="bounce_period"/>
+  <data type="bool" value="0" id="bounce"/>
+  <button id="button" state="1"/>
+ </item>
+ <item x="404" y="604" z="10" type="ec/spst_toggle" id="spst_toggle__58" flip="0" angle="0">
+  <data type="string" value="" id="button_text"/>
+  <data type="number" value="0.005" id="bounce_period"/>
+  <data type="bool" value="0" id="bounce"/>
+  <button id="button" state="0"/>
+ </item>
+ <item x="404" y="460" z="7" type="ec/spst_toggle" id="spst_toggle__59" flip="0" angle="0">
+  <data type="string" value="" id="button_text"/>
+  <data type="number" value="0.005" id="bounce_period"/>
+  <data type="bool" value="0" id="bounce"/>
+  <button id="button" state="0"/>
+ </item>
+ <item x="404" y="652" z="11" type="ec/spst_toggle" id="spst_toggle__64" flip="0" angle="0">
+  <data type="string" value="" id="button_text"/>
+  <data type="number" value="0.005" id="bounce_period"/>
+  <data type="bool" value="0" id="bounce"/>
+  <button id="button" state="0"/>
+ </item>
+ <connector route="47,45,46,45,45,45,44,45,43,45,42,45,41,45,40,45,39,45,38,45,37,45," manual-route="1" end-node-is-child="0" start-node-is-child="1" end-node-id="node1__65" start-node-parent="spst_toggle__44" id="connector" start-node-cid="n1"/>
+ <connector route="47,64,46,64,45,64,44,64,43,64,42,64,41,64,40,64,39,64,38,64,37,64," manual-route="1" end-node-is-child="0" start-node-is-child="1" end-node-id="node1__99" start-node-parent="spst_toggle__46" id="connector__100" start-node-cid="n1"/>
+ <connector route="37,69,37,68,37,67,37,66,37,65,37,64," start-node-id="node1__95" manual-route="1" end-node-is-child="0" start-node-is-child="0" end-node-id="node1__99" id="connector__101"/>
+ <connector route="37,64,37,63,37,62,37,61,37,60,37,59,37,58,37,57," start-node-id="node1__99" manual-route="1" end-node-is-child="0" start-node-is-child="0" end-node-id="node1__67" id="connector__102"/>
+ <connector route="53,64,54,64,55,64,56,64,57,64,58,64,59,64,59,63,59,62,59,61,59,60,59,59,59,58,59,57,59,56,59,55,59,54,59,53,59,52,59,51,59,50,59,49,59,48,60,48,61,48,62,48,63,48,64,48,65,48,66,48,67,48,68,48,69,48,70,48,71,48,72,48,73,48,74,48,75,48,76,48,77,48,78,48,79,48,80,48,81,48,82,48,83,48,84,48,85,48,86,48," end-node-parent="Matrix Display Driver" manual-route="1" end-node-is-child="1" start-node-is-child="1" end-node-cid="D4" start-node-parent="spst_toggle__46" id="connector__103" start-node-cid="p1"/>
+ <connector route="53,69,54,69,55,69,56,69,57,69,58,69,59,69,60,69,61,69,61,68,61,67,61,66,61,65,61,64,61,63,61,62,61,61,61,60,61,59,61,58,61,57,61,56,61,55,61,54,61,53,61,52,61,51,61,50,62,50,63,50,64,50,65,50,66,50,67,50,68,50,69,50,70,50,71,50,72,50,73,50,74,50,75,50,76,50,77,50,78,50,79,50,80,50,81,50,82,50,83,50,84,50,85,50,86,50," end-node-parent="Matrix Display Driver" manual-route="1" end-node-is-child="1" start-node-is-child="1" end-node-cid="D5" start-node-parent="spst_toggle__52" id="connector__104" start-node-cid="p1"/>
+ <connector route="53,75,54,75,55,75,56,75,57,75,58,75,59,75,60,75,61,75,62,75,63,75,63,74,63,73,63,72,63,71,63,70,63,69,63,68,63,67,63,66,63,65,63,64,63,63,63,62,63,61,63,60,63,59,63,58,63,57,63,56,63,55,63,54,63,53,63,52,64,52,65,52,66,52,67,52,68,52,69,52,70,52,71,52,72,52,73,52,74,52,75,52,76,52,77,52,78,52,79,52,80,52,81,52,82,52,83,52,84,52,85,52,86,52," end-node-parent="Matrix Display Driver" manual-route="1" end-node-is-child="1" start-node-is-child="1" end-node-cid="D6" start-node-parent="spst_toggle__58" id="connector__105" start-node-cid="p1"/>
+ <connector route="53,81,54,81,55,81,56,81,57,81,58,81,59,81,60,81,61,81,62,81,63,81,64,81,65,81,65,80,65,79,65,78,65,77,65,76,65,75,65,74,65,73,65,72,65,71,65,70,65,69,65,68,65,67,65,66,65,65,65,64,65,63,65,62,65,61,65,60,65,59,65,58,65,57,65,56,65,55,65,54,66,54,67,54,68,54,69,54,70,54,71,54,72,54,73,54,74,54,75,54,76,54,77,54,78,54,79,54,80,54,81,54,82,54,83,54,84,54,85,54,86,54," end-node-parent="Matrix Display Driver" manual-route="1" end-node-is-child="1" start-node-is-child="1" end-node-cid="D7" start-node-parent="spst_toggle__64" id="connector__106" start-node-cid="p1"/>
+ <connector route="47,51,46,51,45,51,44,51,43,51,42,51,41,51,40,51,39,51,38,51,37,51," manual-route="1" end-node-is-child="0" start-node-is-child="1" end-node-id="node1" start-node-parent="spst_toggle__50" id="connector__62" start-node-cid="n1"/>
+ <connector route="37,45,37,46,37,47,37,48,37,49,37,50,37,51," start-node-id="node1__65" manual-route="1" end-node-is-child="0" start-node-is-child="0" end-node-id="node1" id="connector__67"/>
+ <connector route="27,40,27,39,27,38,27,37,27,36,28,36,29,36,30,36,31,36,32,36," end-node-parent="cell" manual-route="1" end-node-is-child="1" start-node-is-child="1" end-node-cid="n1" start-node-parent="ground" id="connector__69" start-node-cid="p1"/>
+ <connector route="96,40,97,40,98,40,99,40,100,40,101,40,102,40,103,40,104,40,105,40,106,40,107,40," end-node-parent="matrix_display" manual-route="1" end-node-is-child="1" start-node-is-child="1" end-node-cid="row_0" start-node-parent="Matrix Display Driver" id="connector__70" start-node-cid="R6"/>
+ <connector route="96,42,97,42,98,42,99,42,100,42,101,42,102,42,103,42,104,42,105,42,106,42,107,42," end-node-parent="matrix_display" manual-route="1" end-node-is-child="1" start-node-is-child="1" end-node-cid="row_1" start-node-parent="Matrix Display Driver" id="connector__71" start-node-cid="R5"/>
+ <connector route="96,44,97,44,98,44,99,44,100,44,101,44,102,44,103,44,104,44,105,44,106,44,107,44," end-node-parent="matrix_display" manual-route="1" end-node-is-child="1" start-node-is-child="1" end-node-cid="row_2" start-node-parent="Matrix Display Driver" id="connector__72" start-node-cid="R4"/>
+ <connector route="96,46,97,46,98,46,99,46,100,46,101,46,102,46,103,46,104,46,105,46,106,46,107,46," end-node-parent="matrix_display" manual-route="1" end-node-is-child="1" start-node-is-child="1" end-node-cid="row_3" start-node-parent="Matrix Display Driver" id="connector__73" start-node-cid="R3"/>
+ <connector route="96,48,97,48,98,48,99,48,100,48,101,48,102,48,103,48,104,48,105,48,106,48,107,48," end-node-parent="matrix_display" manual-route="1" end-node-is-child="1" start-node-is-child="1" end-node-cid="row_4" start-node-parent="Matrix Display Driver" id="connector__74" start-node-cid="R2"/>
+ <connector route="96,50,97,50,98,50,99,50,100,50,101,50,102,50,103,50,104,50,105,50,106,50,107,50," end-node-parent="matrix_display" manual-route="1" end-node-is-child="1" start-node-is-child="1" end-node-cid="row_5" start-node-parent="Matrix Display Driver" id="connector__75" start-node-cid="R1"/>
+ <connector route="96,52,97,52,98,52,99,52,100,52,101,52,102,52,103,52,104,52,105,52,106,52,107,52," end-node-parent="matrix_display" manual-route="1" end-node-is-child="1" start-node-is-child="1" end-node-cid="row_6" start-node-parent="Matrix Display Driver" id="connector__76" start-node-cid="R0"/>
+ <connector route="96,56,97,56,98,56,99,56,100,56,101,56,102,56,103,56,104,56,105,56,106,56,107,56,108,56,109,56,110,56,110,55," end-node-parent="matrix_display" manual-route="1" end-node-is-child="1" start-node-is-child="1" end-node-cid="col_0" start-node-parent="Matrix Display Driver" id="connector__77" start-node-cid="C0"/>
+ <connector route="96,58,97,58,98,58,99,58,100,58,101,58,102,58,103,58,104,58,105,58,106,58,107,58,108,58,109,58,110,58,111,58,112,58,112,57,112,56,112,55," end-node-parent="matrix_display" manual-route="1" end-node-is-child="1" start-node-is-child="1" end-node-cid="col_1" start-node-parent="Matrix Display Driver" id="connector__78" start-node-cid="C1"/>
+ <connector route="96,60,97,60,98,60,99,60,100,60,101,60,102,60,103,60,104,60,105,60,106,60,107,60,108,60,109,60,110,60,111,60,112,60,113,60,114,60,114,59,114,58,114,57,114,56,114,55," end-node-parent="matrix_display" manual-route="1" end-node-is-child="1" start-node-is-child="1" end-node-cid="col_2" start-node-parent="Matrix Display Driver" id="connector__79" start-node-cid="C2"/>
+ <connector route="96,62,97,62,98,62,99,62,100,62,101,62,102,62,103,62,104,62,105,62,106,62,107,62,108,62,109,62,110,62,111,62,112,62,113,62,114,62,115,62,116,62,116,61,116,60,116,59,116,58,116,57,116,56,116,55," end-node-parent="matrix_display" manual-route="1" end-node-is-child="1" start-node-is-child="1" end-node-cid="col_3" start-node-parent="Matrix Display Driver" id="connector__80" start-node-cid="C3"/>
+ <connector route="96,64,97,64,98,64,99,64,100,64,101,64,102,64,103,64,104,64,105,64,106,64,107,64,108,64,109,64,110,64,111,64,112,64,113,64,114,64,115,64,116,64,117,64,118,64,118,63,118,62,118,61,118,60,118,59,118,58,118,57,118,56,118,55," end-node-parent="matrix_display" manual-route="1" end-node-is-child="1" start-node-is-child="1" end-node-cid="col_4" start-node-parent="Matrix Display Driver" id="connector__81" start-node-cid="C4"/>
+ <connector route="47,39,46,39,45,39,44,39,43,39,42,39,41,39,40,39,39,39,38,39,37,39," manual-route="1" end-node-is-child="0" start-node-is-child="1" end-node-id="node1__68" start-node-parent="spst_toggle" id="connector__82" start-node-cid="n1"/>
+ <connector route="36,36,37,36,37,37,37,38,37,39," manual-route="1" end-node-is-child="0" start-node-is-child="1" end-node-id="node1__68" start-node-parent="cell" id="connector__83" start-node-cid="p1"/>
+ <connector route="37,39,37,40,37,41,37,42,37,43,37,44,37,45," start-node-id="node1__68" manual-route="1" end-node-is-child="0" start-node-is-child="0" end-node-id="node1__65" id="connector__84"/>
+ <connector route="53,39,54,39,54,40,55,40,56,40,57,40,58,40,59,40,60,40,61,40,62,40,63,40,64,40,65,40,66,40,67,40,68,40,69,40,70,40,71,40,72,40,73,40,74,40,75,40,76,40,77,40,78,40,79,40,80,40,81,40,82,40,83,40,84,40,85,40,86,40," end-node-parent="Matrix Display Driver" manual-route="1" end-node-is-child="1" start-node-is-child="1" end-node-cid="D0" start-node-parent="spst_toggle" id="connector__85" start-node-cid="p1"/>
+ <connector route="53,45,54,45,54,44,54,43,54,42,55,42,56,42,57,42,58,42,59,42,60,42,61,42,62,42,63,42,64,42,65,42,66,42,67,42,68,42,69,42,70,42,71,42,72,42,73,42,74,42,75,42,76,42,77,42,78,42,79,42,80,42,81,42,82,42,83,42,84,42,85,42,86,42," end-node-parent="Matrix Display Driver" manual-route="1" end-node-is-child="1" start-node-is-child="1" end-node-cid="D1" start-node-parent="spst_toggle__44" id="connector__86" start-node-cid="p1"/>
+ <connector route="53,51,54,51,55,51,55,50,55,49,55,48,55,47,55,46,55,45,55,44,56,44,57,44,58,44,59,44,60,44,61,44,62,44,63,44,64,44,65,44,66,44,67,44,68,44,69,44,70,44,71,44,72,44,73,44,74,44,75,44,76,44,77,44,78,44,79,44,80,44,81,44,82,44,83,44,84,44,85,44,86,44," end-node-parent="Matrix Display Driver" manual-route="1" end-node-is-child="1" start-node-is-child="1" end-node-cid="D2" start-node-parent="spst_toggle__50" id="connector__87" start-node-cid="p1"/>
+ <connector route="53,57,54,57,55,57,56,57,57,57,57,56,57,55,57,54,57,53,57,52,57,51,57,50,57,49,57,48,57,47,57,46,58,46,59,46,60,46,61,46,62,46,63,46,64,46,65,46,66,46,67,46,68,46,69,46,70,46,71,46,72,46,73,46,74,46,75,46,76,46,77,46,78,46,79,46,80,46,81,46,82,46,83,46,84,46,85,46,86,46," end-node-parent="Matrix Display Driver" manual-route="1" end-node-is-child="1" start-node-is-child="1" end-node-cid="D3" start-node-parent="spst_toggle__59" id="connector__88" start-node-cid="p1"/>
+ <connector route="37,51,37,52,37,53,37,54,37,55,37,56,37,57," start-node-id="node1" manual-route="1" end-node-is-child="0" start-node-is-child="0" end-node-id="node1__67" id="connector__89"/>
+ <connector route="37,57,38,57,39,57,40,57,41,57,42,57,43,57,44,57,45,57,46,57,47,57," start-node-id="node1__67" end-node-parent="spst_toggle__59" manual-route="1" end-node-is-child="1" start-node-is-child="0" end-node-cid="n1" id="connector__90"/>
+ <connector route="47,75,46,75,45,75,44,75,43,75,42,75,41,75,40,75,39,75,38,75,37,75," manual-route="1" end-node-is-child="0" start-node-is-child="1" end-node-id="node1__91" start-node-parent="spst_toggle__58" id="connector__92" start-node-cid="n1"/>
+ <connector route="47,81,46,81,45,81,44,81,43,81,42,81,41,81,40,81,39,81,38,81,37,81,37,80,37,79,37,78,37,77,37,76,37,75," manual-route="1" end-node-is-child="0" start-node-is-child="1" end-node-id="node1__91" start-node-parent="spst_toggle__64" id="connector__93" start-node-cid="n1"/>
+ <connector route="47,69,46,69,45,69,44,69,43,69,42,69,41,69,40,69,39,69,38,69,37,69," manual-route="1" end-node-is-child="0" start-node-is-child="1" end-node-id="node1__95" start-node-parent="spst_toggle__52" id="connector__96" start-node-cid="n1"/>
+ <connector route="37,75,37,74,37,73,37,72,37,71,37,70,37,69," start-node-id="node1__91" manual-route="1" end-node-is-child="0" start-node-is-child="0" end-node-id="node1__95" id="connector__97"/>
+ <node x="300" y="412" id="node1"/>
+ <node x="300" y="364" id="node1__65"/>
+ <node x="300" y="460" id="node1__67"/>
+ <node x="300" y="316" id="node1__68"/>
+ <node x="300" y="604" id="node1__91"/>
+ <node x="300" y="556" id="node1__95"/>
+ <node x="300" y="516" id="node1__99"/>
+</document>

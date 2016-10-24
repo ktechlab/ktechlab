@@ -56,6 +56,9 @@
 				<Menu name="examples_jfets">
 					<text>JFETs</text>
 				</Menu>
+                <Menu name="examples_matrix_disp_driver">
+                    <text>Matrix Display Drivers</text>
+                </Menu>
 				<Menu name="examples_mosfets">
 					<text>MOSFETs</text>
 				</Menu>
