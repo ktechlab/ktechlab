@@ -35,7 +35,7 @@ FlowPart *FPNode::outputFlowPart() const
 {
 	// for InputFlowNode this member is overridden
 	
-	if( m_outputConnector)
+	if (!m_outputConnector)
 		return 0;
 	if( m_outputConnector->endNode() == 0)
 		return 0;
