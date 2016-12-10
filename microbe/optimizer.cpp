@@ -157,8 +157,7 @@ bool Optimizer::pruneInstructions()
 	{
 		QStringList labels = (*it)->labels();
 		
-		QStringList::iterator labelsEnd = labels.end();
-		for ( QStringList::iterator labelsIt = labels.begin(); labelsIt != labelsEnd; )
+		for ( QStringList::iterator labelsIt = labels.begin(); labelsIt != labels.end(); )
 		{
 			if ( !referencedLabels.contains( *labelsIt ) )
 			{
