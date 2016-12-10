@@ -11,13 +11,41 @@ Introduction
 
 Resources
 -------------
-- KTechLab on github:
+- KTechLab is joining KDE, all of its assets will be available there.
+    https://community.kde.org/Incubator/Projects/KTechLab
+
+    TODO webpage at KDE
+
+    - temporary source code repository location, will change location in the future
+        git://anongit.kde.org/scratch/padrah/ktechlab.git
+        https://anongit.kde.org/scratch/padrah/ktechlab.git
+
+        - repository browser, location is temporary
+            https://commits.kde.org/scratch/padrah/ktechlab
+
+    - bugtracker at KDE:
+        https://bugs.kde.org/describecomponents.cgi?product=KTechLab
+
+    - mailing list at KDE:
+        ktechlab-devel at KDE
+        https://mail.kde.org/mailman/listinfo/ktechlab-devel
+        Archives contain the messages from the old list, too
+
+- on IRC, KTechLab developers regularly join the channel
+    `#ktechlab`, on FreeNode
+
+- source code repositories: see Getting the source section, below
+
+- KTechLab on github (will become deprecated)
     https://github.com/ktechlab
 
-    https://github.com/ktechlab/ktechlab-0.3
-    https://github.com/ktechlab/ktechlab
+    https://github.com/ktechlab/ktechlab/wiki
 
-- KTechLab on sourceforge
+    https://github.com/ktechlab/ktechlab
+    https://github.com/ktechlab/ktechlab-0.3 (archive only; merged into the above repoistory)
+    - new commits will be always pushed to KDE Git, github will be a mirror only
+
+- KTechLab on sourceforge (mostly deprecated; source code downloads are available)
     - wiki:
         http://ktechlab.sourceforge.net
     - project page:
@@ -25,38 +53,48 @@ Resources
     - project page for developers:
         http://sourceforge.net/projects/ktechlab/develop
 
-- the official communucation channel is hosted on sourceforge,
+- the official communucation channel is hosted at KDE; the mailing list on sourceforge will become deprecated;
         it is called ktechlab-devel
     - link to archives of the list:
         http://sourceforge.net/mailarchive/forum.php?forum_name=ktechlab-devel
 
-- on IRC, KTechLab developers regularly join the channel
-        `#ktechlab`, on FreeNode
-
-- source code repositories: see Getting the source section, below
 
 
 Getting the source
 ------------------
 
-KTechLab's source code is located in GIT repositories.
+KTechLab's source code is located in a GIT repository.
 
-The official repositories are located on github:
+Official repository is hosted at KDE; its temporary location is at
+
+    git://anongit.kde.org/scratch/padrah/ktechlab.git
+    https://anongit.kde.org/scratch/padrah/ktechlab.git
+
+    - repository browser, location is temporary
+        https://commits.kde.org/scratch/padrah/ktechlab
+
+    - for write access, see section Write access to KTechLab repository at KDE, below.
+
+
+Deprecated official repositories located on github; they mirror code from KDE,
+and also have branches named github/* for historical reference.
+For new code use the KDE Git.
 
 - https://github.com/ktechlab/ktechlab-0.3
     - the port-0.3.8-kde4-v1 branch contains currently the latest code
+    (at the time of origina writing; this branch has become master branch in KDE repositories)
 
 - https://github.com/ktechlab/ktechlab
     - the master branch contains the latest tested development code,
         while other branches might contain untested/unstable code
 
-Other notable GIT repositories are located on sourceforge:
+Other notable deprecated GIT repositories are located on sourceforge:
 
-- main KTechLab repository:
+- main KTechLab repository (deprecated, use KDE Git):
     - `git://ktechlab.git.sourceforge.net/gitroot/ktechlab/ktechlab`
     - contains the contents of the previously used SVN repository
 
-- developers' own repositories:
+- developers' own repositories (deprecated, use KDE Git):
     - `git://ktechlab.git.sourceforge.net/gitroot/ktechlab/ktl-alonzotg`
     - `git://ktechlab.git.sourceforge.net/gitroot/ktechlab/ktl-j_ohny_b`
     - `git://ktechlab.git.sourceforge.net/gitroot/ktechlab/ktl-zoltan_p`
@@ -67,9 +105,8 @@ Other notable GIT repositories are located on sourceforge:
 
 Checking out from GIT can be performed with the following commands:
 
-    git clone git://github.com/ktechlab/ktechlab-0.3.git
+    git clone git://github.com/ktechlab/ktechlab.git
     cd ktechlab
-    git checkout -b port-0.3.8-kde4-v1 --track origin/port-0.3.8-kde4-v1
 
 
 Building and Running
@@ -140,6 +177,41 @@ Developing with KDevelop 4
 --------------------------
 
 Just open/import the CMakeLists.txt project file.
+
+
+Write access to KTechLab repository at KDE
+------------------------------------------
+
+Please read the KDE Git manual:
+
+    https://community.kde.org/Sysadmin/GitKdeOrgManual
+
+You need:
+
+1. KDE developer account; should be usable at `identity.kde.org` ; see
+    https://community.kde.org/Infrastructure
+    https://community.kde.org/Infrastructure/Get_a_Developer_Account
+
+    An SSH key should be registered at KDE and usable on your computer.
+
+2. Set up git for usage with KDE Git Infrastructure
+    https://community.kde.org/Infrastructure/Git
+    https://techbase.kde.org/Development/Git/Configuration
+        git config --global user.name <Your Real Name>
+        git config --global user.email <Your identity.kde.org email>
+
+        cat ~/.gitconfig
+
+        [url "git://anongit.kde.org/"]
+            insteadOf = kde:
+        [url "git@git.kde.org:"]
+            pushInsteadOf = kde:
+
+3. Clone KTechLab repository; current location is temporary:
+        git clone kde:scratch/padrah/ktechlab
+
+Pushing should work with the URL rewrite rules from step 2.
+
 
 
 Have fun with KTechLab!
