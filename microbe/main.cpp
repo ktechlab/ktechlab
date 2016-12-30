@@ -56,11 +56,11 @@ int main(int argc, char **argv)
 {
 	KAboutData about(QByteArray("microbe"), QByteArray("Microbe"), ki18n("Microbe"), version, ki18n(description),
 					 KAboutData::License_GPL, ki18n("(C) 2004-2005, The KTechlab developers"),
-                     ki18n(""),
+                     QByteArray(""),
                      "http://ktechlab.org", "ktechlab-devel@lists.sourceforge.net" );
-	about.addAuthor( ki18n("Daniel Clarke"), ki18n(""), QByteArray("daniel.jc@gmail.com") );
-	about.addAuthor( ki18n("David Saxton"), ki18n(""), QByteArray("david@bluehaze.org") );
-	about.addAuthor( ki18n("Modified to add pic 16f877,16f627 and 16f628 by George John"), ki18n(""), QByteArray("az.j.george@gmail.com" ));
+	about.addAuthor( ki18n("Daniel Clarke"), QByteArray(""), QByteArray("daniel.jc@gmail.com") );
+	about.addAuthor( ki18n("David Saxton"), QByteArray(""), QByteArray("david@bluehaze.org") );
+	about.addAuthor( ki18n("Modified to add pic 16f877,16f627 and 16f628 by George John"), QByteArray(""), QByteArray("az.j.george@gmail.com" ));
 
     KCmdLineArgs::init(argc, argv, &about);
     KCmdLineOptions options;
