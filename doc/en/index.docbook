@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!-- kate: tab-width 2; indent-mode xml; -->
-<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.1.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
 		  <!ENTITY ktechlab "ktechlab">
 			<!ENTITY ktechlab-quick SYSTEM "quick.docbook">
 		  <!ENTITY ktechlab-pic-programs SYSTEM "picprograms.docbook">
