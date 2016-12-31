@@ -274,13 +274,13 @@ const int INPUT_MODE_BIT = 1 << 21; // Controls if the data pins are input or ou
 	#define PPRELEASE 	0xCAFE
 #endif
 
-const int IOCTL_REG_READ[3] = {
+const unsigned long IOCTL_REG_READ[3] = {
 	PPRDATA,
 	PPRSTATUS,
 	PPRCONTROL,
 };
 
-const int IOCTL_REG_WRITE[3] = {
+const unsigned long IOCTL_REG_WRITE[3] = {
 	PPWDATA,
 	0,
 	PPWCONTROL,
