@@ -56,7 +56,7 @@ int main(int argc, char **argv)
 {
 	KAboutData about(QByteArray("microbe"), QByteArray("Microbe"), ki18n("Microbe"), version, ki18n(description),
 					 KAboutData::License_GPL, ki18n("(C) 2004-2005, The KTechlab developers"),
-                     ki18n(""),
+                     KLocalizedString(),
                      "http://ktechlab.org", "ktechlab-devel@lists.sourceforge.net" );
 	about.addAuthor( ki18n("Daniel Clarke"), KLocalizedString(), QByteArray("daniel.jc@gmail.com") );
 	about.addAuthor( ki18n("David Saxton"), KLocalizedString(), QByteArray("david@bluehaze.org") );
