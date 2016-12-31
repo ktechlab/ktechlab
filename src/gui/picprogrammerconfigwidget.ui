@@ -47,18 +47,12 @@
                 <property name="text">
                   <string>&amp;Add ...</string>
                 </property>
-                <property name="shortcut">
-                  <string>Alt+A</string>
-                </property>
               </widget>
             </item>
             <item row="1" column="3">
               <widget class="KPushButton" name="removeButton">
                 <property name="text">
                   <string>Re&amp;move</string>
-                </property>
-                <property name="shortcut">
-                  <string>Alt+M</string>
                 </property>
               </widget>
             </item>

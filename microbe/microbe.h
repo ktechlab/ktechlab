@@ -142,7 +142,7 @@ class Microbe
 		};
 	
 		/**
-		 * Returns a list of errors occured during compilation, intended for
+		 * Returns a list of errors occurred during compilation, intended for
 		 * outputting to stderr.
 		 */
 		QString errorReport() const { return m_errorReport; }

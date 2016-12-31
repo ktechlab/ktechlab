@@ -32,9 +32,6 @@
                   <property name="text">
                     <string>Don't search in the standard librar&amp;y directory (--nostdlib)</string>
                   </property>
-                  <property name="shortcut">
-                    <string>Alt+Y</string>
-                  </property>
                 </widget>
               </item>
               <item>
@@ -51,9 +48,6 @@
                 <widget class="QCheckBox" name="kcfg_SDCC_less_pedantic">
                   <property name="text">
                     <string>Disa&amp;ble pedantic warnings (--less-pedantic)</string>
-                  </property>
-                  <property name="shortcut">
-                    <string>Alt+B</string>
                   </property>
                 </widget>
               </item>
@@ -114,9 +108,6 @@
                   <property name="text">
                     <string>Stack auto&amp;matic variables (--stack-auto)</string>
                   </property>
-                  <property name="shortcut">
-                    <string>Alt+M</string>
-                  </property>
                   <property name="toolTip" stdset="0">
                     <string/>
                   </property>
@@ -130,9 +121,6 @@
                   <property name="text">
                     <string>Integer li&amp;braries were compiled as reentrant (--int-long-reent)</string>
                   </property>
-                  <property name="shortcut">
-                    <string>Alt+B</string>
-                  </property>
                   <property name="toolTip" stdset="0">
                     <string/>
                   </property>
@@ -145,9 +133,6 @@
                 <widget class="QCheckBox" name="kcfg_SDCC_float_reent">
                   <property name="text">
                     <string>Floating point librar&amp;y was compiled as reentrant (--float-reent)</string>
-                  </property>
-                  <property name="shortcut">
-                    <string>Alt+Y</string>
                   </property>
                   <property name="whatsThis" stdset="0">
                     <string>Floating point library is compiled as reentrant.</string>
@@ -169,9 +154,6 @@
                   <property name="text">
                     <string>Don't memcpy initialized &amp;xram from code (--no-xinit-opt)</string>
                   </property>
-                  <property name="shortcut">
-                    <string>Alt+X</string>
-                  </property>
                   <property name="whatsThis" stdset="0">
                     <string>Will not memcpy initialized data from code space into xdata space. This saves a few bytes in code space if you don't have initialized data.</string>
                   </property>
@@ -181,9 +163,6 @@
                 <widget class="QCheckBox" name="kcfg_SDCC_all_callee_saves">
                   <property name="text">
                     <string>Callee will &amp;always save registers used (--all-callee-saves)</string>
-                  </property>
-                  <property name="shortcut">
-                    <string>Alt+A</string>
                   </property>
                 </widget>
               </item>
@@ -215,9 +194,6 @@
                   <property name="text">
                     <string>Disable overlaying leaf function &amp;auto variables (--nooverlay)</string>
                   </property>
-                  <property name="shortcut">
-                    <string>Alt+A</string>
-                  </property>
                   <property name="whatsThis" stdset="0">
                     <string>The compiler will not overlay parameters and local variables of any function, see section Parameters and local variables for more details.</string>
                   </property>
@@ -237,9 +213,6 @@
                 <widget class="QCheckBox" name="kcfg_SDCC_nolabelopt">
                   <property name="text">
                     <string>Disable label optimi&amp;zation (--nolabelopt)</string>
-                  </property>
-                  <property name="shortcut">
-                    <string>Alt+Z</string>
                   </property>
                   <property name="whatsThis" stdset="0">
                     <string>Will not optimize labels (makes the dumpfiles more readable).</string>
@@ -271,9 +244,6 @@
                   <property name="text">
                     <string>Disable peep-hole optimization (--&amp;no-peep)</string>
                   </property>
-                  <property name="shortcut">
-                    <string>Alt+N</string>
-                  </property>
                   <property name="whatsThis" stdset="0">
                     <string>Disable peep-hole optimization.</string>
                   </property>
@@ -297,9 +267,6 @@
                   <property name="text">
                     <string>Opti&amp;mize for compact code (--opt-code-size)</string>
                   </property>
-                  <property name="shortcut">
-                    <string>Alt+M</string>
-                  </property>
                   <property name="whatsThis" stdset="0">
                     <string>The compiler will optimize code generation towards compact code, possibly at the expense of code speed.</string>
                   </property>
@@ -309,9 +276,6 @@
                 <widget class="QCheckBox" name="kcfg_SDCC_opt_code_speed">
                   <property name="text">
                     <string>&amp;Optimize for fast code (--opt-code-speed)</string>
-                  </property>
-                  <property name="shortcut">
-                    <string>Alt+O</string>
                   </property>
                   <property name="whatsThis" stdset="0">
                     <string>The compiler will optimize code generation towards fast code, possibly at the expense of code size.</string>
@@ -323,9 +287,6 @@
                   <property name="text">
                     <string>Ena&amp;ble inline assembly peephole optimization (--peep-asm)</string>
                   </property>
-                  <property name="shortcut">
-                    <string>Alt+B</string>
-                  </property>
                   <property name="whatsThis" stdset="0">
                     <string>Pass the inline assembler code through the peep hole optimizer. This can cause unexpected changes to inline assembler code, please go through the peephole optimizer rules defined in the source file tree '&lt;target&gt;/peeph.def' before using this option.</string>
                   </property>
@@ -335,9 +296,6 @@
                 <widget class="QCheckBox" name="kcfg_SDCC_nojtbound">
                   <property name="text">
                     <string>Don't generate boundary check for &amp;jump tables (--nojtbound)</string>
-                  </property>
-                  <property name="shortcut">
-                    <string>Alt+J</string>
                   </property>
                 </widget>
               </item>
@@ -389,18 +347,12 @@
                   <property name="text">
                     <string>Use large stac&amp;k model (--pstack-model=large)</string>
                   </property>
-                  <property name="shortcut">
-                    <string>Alt+K</string>
-                  </property>
                 </widget>
               </item>
               <item>
                 <widget class="QCheckBox" name="kcfg_SDCC_debug_xtra">
                   <property name="text">
                     <string>Show more debug info in assembl&amp;y output (--debug-xtra)</string>
-                  </property>
-                  <property name="shortcut">
-                    <string>Alt+Y</string>
                   </property>
                 </widget>
               </item>
@@ -409,18 +361,12 @@
                   <property name="text">
                     <string>E&amp;xplicit enable of peepholes (--denable-peeps)</string>
                   </property>
-                  <property name="shortcut">
-                    <string>Alt+X</string>
-                  </property>
                 </widget>
               </item>
               <item>
                 <widget class="QCheckBox" name="kcfg_SDCC_calltree">
                   <property name="text">
                     <string>Du&amp;mp call tree in .calltree file (--calltree)</string>
-                  </property>
-                  <property name="shortcut">
-                    <string>Alt+M</string>
                   </property>
                 </widget>
               </item>
@@ -429,18 +375,12 @@
                   <property name="text">
                     <string>Ena&amp;ble stack optimizations (--fstack)</string>
                   </property>
-                  <property name="shortcut">
-                    <string>Alt+B</string>
-                  </property>
                 </widget>
               </item>
               <item>
                 <widget class="QCheckBox" name="kcfg_SDCC_optimize_goto">
                   <property name="text">
                     <string>Try to use conditional BRA instead of GOTO (--optimi&amp;ze-goto)</string>
-                  </property>
-                  <property name="shortcut">
-                    <string>Alt+Z</string>
                   </property>
                 </widget>
               </item>

@@ -12,7 +12,7 @@
 	
 	<sect1 id="documents">
 		<title>Documents</title>
-		<para>To get started in &kappname;, you will need to create a new document, whose type will depend on your task:
+		<para>To get started in &kappname;, you will need to create a new document, whose type will depend on your task:</para>
 			
 			<itemizedlist>
 				<listitem><para>&flowcode; Document - Construct a PIC program via flowcharting.</para></listitem>
@@ -21,9 +21,9 @@
 				<listitem><para>Assembly Document - Start writing a PIC assembly program.</para></listitem>
 			</itemizedlist>
 			
-			&kappname; uses a Document-View model, in that the Document logic is completely seperate from open views of the document. This allows several views of the same file.</para>
+		<para>&kappname; uses a Document-View model, in that the Document logic is completely separate from open views of the document. This allows several views of the same file.</para>
 		
-		<para>On creating a new document, the view is created in a seperate tab. Each tab can support any number of views, tiled in any arbitary pattern. This allows, for example, simulating a PIC program in circuit, while stepping through the program in an assembly document in the same tab.</para>
+		<para>On creating a new document, the view is created in a separate tab. Each tab can support any number of views, tiled in any arbitrary pattern. This allows, for example, simulating a PIC program in circuit, while stepping through the program in an assembly document in the same tab.</para>
 		
 		<para>The contents of tabs can be duplicated by dragging the tab to an empty area on the tab bar. They can be inserted into an existing tab by dragging it onto that tab.</para>
 		

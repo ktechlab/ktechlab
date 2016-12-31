@@ -45,7 +45,7 @@
 		
 		<para>Many FlowParts, such as subroutines and loops, can contain code of their own. After creating such a container, FlowParts can be added by either dragging or dropping them into the container. The container will be highlighted to indicate that it will become the new parent of the FlowPart.</para>
 		
-		<para>The container takes responbility for FlowParts nestled inside. If the expand button is unclicked, all contained FlowParts will be hidden - and likewise, the contents will be shown when the expand button is clicked again. Connections cannot be made between FlowParts in different containers, and the contents of a container will be moved about along with the container.</para>
+		<para>The container takes responsibility for FlowParts nestled inside. If the expand button is unclicked, all contained FlowParts will be hidden - and likewise, the contents will be shown when the expand button is clicked again. Connections cannot be made between FlowParts in different containers, and the contents of a container will be moved about along with the container.</para>
 		
 	</sect1>
 	

@@ -8,7 +8,7 @@
 		
 		<para>Dragging a component from the sidebar into the circuit will place it under the mouse cursor. Alternatively, you can double click on an item in the Components sidebar to repeatedly add it to the circuit. In this mode, a copy of the selected component will be placed repeatedly on mouse left-clicking until either Escape is pressed, or the mouse is right-clicked.</para>
 		
-		<para>To reposition a component, left-click and drag. You'll find it snapping to the underlying grid. If you drag the component out of the right or bottom edges of the workarea, the workarea will resize itself to accomodate.</para>
+		<para>To reposition a component, left-click and drag. You'll find it snapping to the underlying grid. If you drag the component out of the right or bottom edges of the workarea, the workarea will resize itself to accommodate.</para>
 		
 		<para>All components have a notion of orientation; 0, 90, 180 and 270 degrees. Those that aren't symmetrical about an axis can also be flipped. To rotate a selection of components, either right click and select from the Orientation menu, or click on the rotate buttons in the toolbar. The latter can also be accessed by pressing the "[" and "]" keys (familiar to Inkscape users). The Item sidebar (on the right) provides a powerful method of setting the orientation by providing previews of the components. Flipping components is also only possibly via the Item sidebar.</para>
 	</sect1>
@@ -30,7 +30,7 @@
 		<title>Component Attributes</title>
 		<para>Most components will have editable attributes, such as the resistance for resistors. By default, you can edit simple attributes in the toolbar, when a group of the same type of components are selected. If your selection contains a mixture of different types of components (such as resistors and capacitors), then no attributes will be displayed for editing.</para>
 		
-		<para>Some components have more advanced attributes which are not accesible via the toolbar. These are found in the Item sidebar on the right. The diode, for example, has a variety of behavioural characteristics that you can edit here.</para>
+		<para>Some components have more advanced attributes which are not accessible via the toolbar. These are found in the Item sidebar on the right. The diode, for example, has a variety of behavioural characteristics that you can edit here.</para>
 		
 		<para>If your selection of components have different values for their attributes (for example, different resistances for a selection of resistors), the Item sidebar will have the disagreeing attributes greyed-out. You can enable these by clicking the "Merge properties" button.</para>
 		
@@ -43,7 +43,7 @@
 		<title>Simulation</title>
 		<para>By default, the simulation will be running when you create a new circuit. The status of the simulation is displayed in the lower right of a circuit view, and can be changed via the Tools menu. Firstly - a little explanation on how the Simulator works. This should allow you to make the most out of it.</para>
 		
-		<para>When a circuit is created or modified, the affected areas are partitioned up into groups of pins and connections that can be considered independent. Each group is then simulated as a seperate entity (although still interacting via the components), with the simulation provided dependent on the group's complexity. Complex groups, such as those involving nonlinear components like LEDs, are slow to simulate. Groups that contain only logic pins, of which only one controls the value on those pins, are the fastest to simulate.</para>
+		<para>When a circuit is created or modified, the affected areas are partitioned up into groups of pins and connections that can be considered independent. Each group is then simulated as a separate entity (although still interacting via the components), with the simulation provided dependent on the group's complexity. Complex groups, such as those involving nonlinear components like LEDs, are slow to simulate. Groups that contain only logic pins, of which only one controls the value on those pins, are the fastest to simulate.</para>
 		
 		<para>The results of the simulation are provided through several graphical means.</para>
 		
@@ -62,7 +62,7 @@
 		
 		<para>For voltage and current probes, the range of input values can be adjusted in the "Item Editor" sidebar on the right.</para>
 		
-		<para>Zooming is controlled by a slider. The scaling is logarithmic; for every few pixels that the slider moves along, the zoom factor will be multipled by a constant. &kappname; simulates logic to a maximum precision of 1 microsecond, and at maximum zoom level, one microsecond is represented by 8 pixels.</para>
+		<para>Zooming is controlled by a slider. The scaling is logarithmic; for every few pixels that the slider moves along, the zoom factor will be multiplied by a constant. &kappname; simulates logic to a maximum precision of 1 microsecond, and at maximum zoom level, one microsecond is represented by 8 pixels.</para>
 		
 		<para>When the scrollbar is dragged to the end, it will remain there as new data is recorded. Otherwise, the position of the scrollbar remains fixed in time. The oscilloscope view can also be moved forwards and backwards by left-clicking and dragging the view. Due to limitations of the underlying widget system, scrolling will be very granular at maximum zoom.</para>
 		

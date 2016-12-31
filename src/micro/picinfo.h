@@ -15,7 +15,7 @@
 
 /**
 This is the base class for all 12bit, 14bit and 16bit PICs.
-Thanks go to gpsim & Scott Dattalo for some of the the hierachal PIC class
+Thanks go to gpsim & Scott Dattalo for some of the hierachal PIC class
 structure used here :-)
 @short Base class for all PICMicros
 @author David Saxton

@@ -21,7 +21,7 @@ class QMouseEvent;
 class QWheelEvent;
 
 /**
-Contains information from for a mouse event that occured on a canvas. Like a
+Contains information from for a mouse event that occurred on a canvas. Like a
 QMouseEvent / QEvent / QWheelEvent, but abstracted to the canvas coordinate
 system, as well as holding lots of useful information.
 @author David Saxton

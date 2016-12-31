@@ -175,12 +175,12 @@ class ItemDocument : public Document
 		 */
 		Item* itemWithID( const QString & );
 		/**
-		 * Returns true if the the user can perform an undo action
+		 * Returns true if the user can perform an undo action
 		 * (i.e. the undo stack is not empty)
 		 */
 		virtual bool isUndoAvailable() const;
 		/**
-		 * Returns true if the the user can perform an redo action
+		 * Returns true if the user can perform an redo action
 		 * (i.e. the redo stack is not empty)
 		 */
 		virtual bool isRedoAvailable() const;

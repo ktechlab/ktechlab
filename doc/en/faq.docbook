@@ -14,7 +14,7 @@
 			<itemizedlist>
 				<listitem><para>gpsim >= 0.21.4 is not installed. &kappname; does not support gpsim-0.21.2 or gpsim-0.20.14 (or any earlier versions). Later versions may work; but this cannot be tested before they are released. The latest gpsim can be obtained from the <ulink url="http://www.dattalo.com/gnupic/gpsim.html">gpsim website</ulink>.</para></listitem>
 				<listitem><para>Gpsim is installed, but the header files could not be found. If gpsim is installed in a non-standard location, you may need to specify the location of the header files with "./configure --with-extra-includes=DIR". It is also likely you'll need to specify a library location with the configure option "--with-extra-lib" if the includes are in a non-standard location.</para></listitem>
-				<listitem><para>Gpsim is installed and the headers are somewhere where configure can find them, but there is some other glib craziness occuring.</para></listitem>
+				<listitem><para>Gpsim is installed and the headers are somewhere where configure can find them, but there is some other glib craziness occurring.</para></listitem>
 			</itemizedlist>
 				
 			<para>Configure generates the file <computeroutput>config.log</computeroutput> which will contain details of exactly what went wrong. Searching for gpsim in this log should help you decide what's happened. As an example, here is part of the config.log file where one of the gpsim header files is missing:</para>

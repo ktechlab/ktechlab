@@ -23,7 +23,7 @@ static void addIcon(QGridLayout *mainLayout, const char *iconName);
 int main(int argc, char **argv) {
     KAboutData about(QByteArray("ktechlab"), QByteArray("KTechLab Icon Tester"), ki18n("KTechLab Icon Tester"), VERSION, ki18n(description),
                 KAboutData::License_GPL, ki18n("(C) 2003-2009, The KTechLab developers"),
-                ki18n(""), "http://ktechlab.org", "ktechlab-devel@lists.sourceforge.net" );
+                "", "http://ktechlab.org", "ktechlab-devel@lists.sourceforge.net" );
 
     KCmdLineArgs::init(argc, argv, &about);
     KApplication testLoadedIconsApp;

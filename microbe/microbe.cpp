@@ -184,7 +184,7 @@ void Microbe::simplifyProgram()
 					
 				case '{':
 				case '}':
-					// Put braces on seperate lines
+					// Put braces on separate lines
 					
 					if ( commentType != None )
 						break;
@@ -297,13 +297,13 @@ void Microbe::compileError( MistakeType type, const QString & context, const Sou
 			message = i18n("Pin list expected");
 			break;
 		case AliasRedefined:
-			message = i18n("Alias already definied");
+			message = i18n("Alias already defined");
 			break;
 		case InvalidInterrupt:
 			message = i18n("Interrupt type not supported by target PIC");
 			break;
 		case InterruptRedefined:
-			message = i18n("Interrupt already definied");
+			message = i18n("Interrupt already defined");
 			break;
 		case ReadOnlyVariable:
 			message = i18n("Variable '%1' is read only").arg(context);

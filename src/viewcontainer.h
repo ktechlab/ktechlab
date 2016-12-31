@@ -50,7 +50,7 @@ class EmptyViewArea : public QWidget
 
 
 /**
-Contains either exactly one View, or two ViewAreas, seperated by a QSplitter.
+Contains either exactly one View, or two ViewAreas, separated by a QSplitter.
 If it contains one view, then the value returned in id() is that of the view.
 If it contains two ViewAreas, then the value returned by id() is -1.
 @author David Saxton
@@ -161,7 +161,7 @@ public:
 	 * of a view.
 	 * @param relativeViewArea the viewarea to position the new viewarea next to, if -1 then is taken to be the active view area
 	 * @param position Top, Right, Bottom or Left of given relativeViewArea
-	 * @returns id of the the view area, or -1 if unsucessful
+	 * @returns id of the view area, or -1 if unsucessful
 	 * @param showOpenButton Whether to present the user with the EmptyViewArea
 	 * widget (i.e. the new ViewArea is not destined to be immediately filled
 	 * with a view).

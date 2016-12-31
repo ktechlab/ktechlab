@@ -165,9 +165,6 @@
            <property name="text">
             <string>S&amp;ave</string>
            </property>
-           <property name="shortcut">
-            <string>Alt+A</string>
-           </property>
           </widget>
          </item>
         </layout>

@@ -179,7 +179,7 @@ void GpsimProcessor::displayCodLoadStatus( )
 			break;
 		case CodFailure:
 		case CodUnknown:
-			KMessageBox::sorry( 0l, i18n("An error occured with the cod file \"%1\".").arg(m_symbolFile), i18n("Error") );
+			KMessageBox::sorry( 0l, i18n("An error occurred with the cod file \"%1\".").arg(m_symbolFile), i18n("Error") );
 			break;
 	}
 }

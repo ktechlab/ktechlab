@@ -169,7 +169,7 @@ class ProcessOptions : public ProcessOptionsSpecial
 		 * ReuseSameViewForOutput, then the given TextDocument will have its
 		 * text set to the output if the TextDocument is not modified and has
 		 * an empty url. Otherwise a new TextDocument will be created. Either
-		 * way, once the the processing has finished, a signal will be emitted
+		 * way, once the processing has finished, a signal will be emitted
 		 * to the given receiver passing a TextDocument * as an argument. This
 		 * is not to be confused with setTextOutputtedTo, which is called once
 		 * the processing has finished, and will call-back to the slot given.

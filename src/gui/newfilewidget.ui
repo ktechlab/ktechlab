@@ -97,9 +97,6 @@ Creates a new circuit, with drag and drop editor. Real time simulation of the ci
      <property name="text">
       <string>&amp;Add to project</string>
      </property>
-     <property name="shortcut">
-      <string>Alt+A</string>
-     </property>
      <property name="checked">
       <bool>true</bool>
      </property>

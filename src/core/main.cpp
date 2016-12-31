@@ -36,7 +36,7 @@ int main(int argc, char **argv)
 
     KAboutData about(QByteArray("ktechlab"), QByteArray("KTechLab"), ki18n("KTechLab"), VERSION, ki18n(description),
                     KAboutData::License_GPL, ki18n("(C) 2003-2009, The KTechLab developers"),
-                    ki18n(""), "http://ktechlab.org", "ktechlab-devel@lists.sourceforge.net" );
+                    "", "http://ktechlab.org", "ktechlab-devel@lists.sourceforge.net" );
 	about.addAuthor( ki18n("Alan Grimes"), ki18n("developer"), "" );
 	about.addAuthor( ki18n("Zoltan Padrah"), ki18n("developer") , QByteArray("zoltan_padrah@users.sourceforge.net"));
 	about.addCredit( ki18n("Jason Lucas"), ki18n("keeping the project up as a maintainer during the time David left"), "" );
@@ -44,7 +44,7 @@ int main(int argc, char **argv)
 	about.addCredit( ki18n("Julian Bäume"), ki18n("some bug-fixes"), QByteArray("julian@svg4all.de") );
 	about.addCredit( ki18n("David Saxton"), ki18n("former developer, project founder, former maintainer"), QByteArray("david@bluehaze.org") );
 	about.addCredit( ki18n("Daniel Clarke"), ki18n("former developer"), QByteArray("daniel.jc@gmail.com") );
-	about.addCredit( ki18n("Couriousous"), ki18n("JK flip-flop, asyncronous preset/reset in the D flip-flop."), "" );
+	about.addCredit( ki18n("Couriousous"), ki18n("JK flip-flop, asynchronous preset/reset in the D flip-flop."), "" );
 	about.addCredit( ki18n("John Myers"), ki18n("Rotary Switch"), "" );
 	about.addCredit( ki18n("Ali Akcaagac"), ki18n("Glib friendliness."), "" );
 	about.addCredit( ki18n("David Leggett"), ki18n("former Website hosting and feedback during early development."), "" );

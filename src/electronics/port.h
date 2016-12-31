@@ -51,7 +51,7 @@ class SerialPort : public Port
 		enum Pin
 		{
 			CD		= 1, // Carrier detect
-			RD		= 2, // Recieved data
+			RD		= 2, // Received data
 			TD		= 3, // Transmitted data
 			DTR		= 4, // Data terminal ready
 			GND		= 5, // Signal ground

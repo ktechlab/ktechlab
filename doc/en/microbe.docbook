@@ -11,11 +11,13 @@
 		<programlisting>microbe [options] [input.microbe] [output.asm]</programlisting>
 		
 		where options are:
+	</para>
 		<itemizedlist>
 			<listitem><para><function>--show-source</function> - Puts each line of &microbe; source code as a comment in the assembly output before the assembly instructions themselves for that line.</para></listitem>
 			<listitem><para><function>--no-optimize</function> - Prevent optimization of the instructions generated from the source. Optimization is usually safe, and so this option is mainly used for debugging.</para></listitem>
 		</itemizedlist>
 		
+	<para>
 		The .microbe input file must identify the target PIC by inserting the PIC name at the top of the .microbe file; e.g. the name of a PIC16F84 is "P16F84".
 		
 		<example><title>Simple complete &microbe; program</title>
@@ -382,6 +384,7 @@ TRISB = 255
 	<title>Comparison</title>
 	<para>
 	Supported operations:
+	</para>
 	<itemizedlist>
 	<listitem><para><emphasis>Equals:</emphasis> x == y</para></listitem>
 	<listitem><para><emphasis>Does not equal:</emphasis> x != y</para></listitem>
@@ -391,6 +394,7 @@ TRISB = 255
 	<listitem><para><emphasis>Is less than or equal to:</emphasis> x &lt;= y</para></listitem>
 	</itemizedlist>
 	
+	<para>
 	For example:
 	</para>
 	<example><title>Comparison</title>
@@ -410,7 +414,7 @@ TRISB = 255
 	There are several types of events, and some of these take an optional parameter making
 	the condition under which the routine is called more specific.
 	<itemizedlist>
-	<listitem><para><emphasis>changed &lt;pin name&gt;</emphasis>	
+	<listitem><para><emphasis>changed &lt;pin name&gt;</emphasis>
 		 - Occurs when the state of the specified pin changes. Pin name is in the usual syntax of PORTX.n, e.g. <programlisting>interrupt changed PORTB.4</programlisting></para></listitem>
 	<listitem><para><emphasis>triggered</emphasis> - Rotates the variable x right through carry.</para></listitem>
 	<listitem><para><emphasis>timer</emphasis> - ///TODO</para></listitem>

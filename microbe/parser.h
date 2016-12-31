@@ -60,7 +60,7 @@ class Statement
 		 */
 		bool hasBracedCode() const { return !bracedCode.isEmpty(); }
 		/**
-		 * This breaks up the line seperated by spaces,{,and =/
+		 * This breaks up the line separated by spaces,{,and =/
 		 */
 		static QStringList tokenise(const QString &line);
 		/**

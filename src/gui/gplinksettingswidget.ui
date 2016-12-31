@@ -25,9 +25,6 @@
    <property name="text">
     <string>Link with shared libraries (&amp;use this with new SDCC)</string>
    </property>
-   <property name="shortcut">
-    <string>Alt+U</string>
-   </property>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

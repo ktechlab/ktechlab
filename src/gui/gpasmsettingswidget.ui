@@ -58,9 +58,6 @@
           <property name="text">
             <string>Ign&amp;ore case (-i)</string>
           </property>
-          <property name="shortcut">
-            <string>Alt+O</string>
-          </property>
           <property name="toolTip" stdset="0">
             <string>All user defined symbols and macros are case sensitive. This option makes them case insensitive.</string>
           </property>
@@ -69,10 +66,7 @@
       <item row="4" column="0" rowspan="1" colspan="4">
         <widget class="QCheckBox" name="kcfg_DosFormat">
           <property name="text">
-            <string>Generate DOS-formated hex file (-&amp;n)</string>
-          </property>
-          <property name="shortcut">
-            <string>Alt+N</string>
+            <string>Generate DOS-formatted hex file (-&amp;n)</string>
           </property>
           <property name="toolTip" stdset="0">
             <string>By default, gpasm generates hex files using ISO format. However, some device programmers required a DOS formatted file. This option will cause gpasm to generate a DOS formatted hex file. </string>
@@ -176,7 +170,7 @@
             </sizepolicy>
           </property>
           <property name="toolTip" stdset="0">
-            <string>This sets the threshold of messages displayed in the log view.&lt;ul&gt;&lt;li&gt;&quot;All&quot; will display all output - information, warnings and errors.&lt;li&gt;&quot;Warnings&quot; will supress messages. &lt;li&gt;&quot;Errors&quot; will supress both messages and warnings.&lt;/ul&gt;</string>
+            <string>This sets the threshold of messages displayed in the log view.&lt;ul&gt;&lt;li&gt;&quot;All&quot; will display all output - information, warnings and errors.&lt;li&gt;&quot;Warnings&quot; will suppress messages. &lt;li&gt;&quot;Errors&quot; will suppress both messages and warnings.&lt;/ul&gt;</string>
           </property>
           <item>
             <property name="text">

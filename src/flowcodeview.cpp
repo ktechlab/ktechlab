@@ -59,7 +59,7 @@ FlowCodeView::FlowCodeView( FlowCodeDocument * flowCodeDocument, ViewContainer *
 	QWhatsThis::add( this, i18n(
 			"Construct a FlowCode document by dragging FlowParts from the list on the left. All FlowCharts require an initial \"Start\" part, of which there can only be one.<br><br>"
 					
-			"Some FlowParts, such as Subroutines, act as a container element for other FlowParts. Drag the items in or out of a container as appropritate. The container that will become the parent of the part being dragged is indicated by being selected.<br><br>"
+			"Some FlowParts, such as Subroutines, act as a container element for other FlowParts. Drag the items in or out of a container as appropriate. The container that will become the parent of the part being dragged is indicated by being selected.<br><br>"
 					
 			"Note that connections cannot be made between FlowParts in different containers, or at different levels."
 							   ) );

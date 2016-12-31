@@ -72,9 +72,6 @@
      <property name="text">
       <string>&amp;Output a map file (-m)</string>
      </property>
-     <property name="shortcut">
-      <string>Alt+O</string>
-     </property>
     </widget>
    </item>
    <item row="4" column="0">

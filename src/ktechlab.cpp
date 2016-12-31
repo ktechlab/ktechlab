@@ -751,7 +751,7 @@ void KTechlab::setupExampleActions()
 	filesToNames["instrumentation-amplifier.circuit"] = i18n("Instrumentation Amplifier");
 	filesToNames["astable-multivibrator.circuit"] = i18n("Astable Multivibrator");
 	filesToNames["inverter.circuit"] = i18n("Inverter");
-	filesToNames["scmitt-trigger.circuit"] = i18n("Scmitt Trigger");
+	filesToNames["scmitt-trigger.circuit"] = i18n("Schmitt Trigger");
 	filesToNames["switch.circuit"] = i18n("Switch");
     filesToNames["matrix_display.circuit"] = i18n("Matrix Display Driver");
 	

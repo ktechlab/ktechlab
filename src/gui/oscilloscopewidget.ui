@@ -10,9 +10,6 @@
     <height>195</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Form1</string>
-  </property>
   <layout class="QGridLayout">
    <property name="margin">
     <number>0</number>

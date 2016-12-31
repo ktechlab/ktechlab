@@ -60,7 +60,7 @@ The output state is set from the input state when the clock is pulsed.
 <!-- item: ec/dac -->
 Converts a digital input to an analog output signal.
 <!-- item: ec/demultiplexer -->
-Seperates the input data stream into components. The value of the input is passed to the "X" output selected by the binary number given by the "A" inputs.
+Separates the input data stream into components. The value of the input is passed to the "X" output selected by the binary number given by the "A" inputs.
 <!-- item: ec/diode -->
 Allows current to flow in the direction indicated by the arrow when a certain voltage difference has been reached.
 <!-- item: ec/dpdt_toggle -->
@@ -135,7 +135,7 @@ The pins are divided into 3 registers.<br><br><b>Data Pins</b><br><br>The data p
 <!-- item: ec/pemosfet -->
 
 <!-- item: ec/pic -->
-The PIC component allows the simulation of a PIC program.<br><br>The loadable PIC program must be one of the following formats:<ul><li>Assembly (.asm)</li><li>FlowCode (.flowcode)</li><li>Symbol file (.cod)</li><li>Microbe (.microbe, .basic)</li><li>C source (.c)</li></ul>Doubleclick on the PIC component to open up the program source file.<br><br>If the program source file is of type assembly, then the the opened text file will automatically be linked to the simulation. You can control the program from the text document using the debug controls.<br><br>Explanation of buttons:<ul><li>Play - Run the PIC program from the point at which it was paused, or from the start otherwise.</li><li>Pause - Pause the simulation at the current execution point.</li><li>Stop - Reset all parts of the simulation.</li><li>Reload - Reread the PIC program from disk and restart gpsim.</li></ul>
+The PIC component allows the simulation of a PIC program.<br><br>The loadable PIC program must be one of the following formats:<ul><li>Assembly (.asm)</li><li>FlowCode (.flowcode)</li><li>Symbol file (.cod)</li><li>Microbe (.microbe, .basic)</li><li>C source (.c)</li></ul>Doubleclick on the PIC component to open up the program source file.<br><br>If the program source file is of type assembly, then the opened text file will automatically be linked to the simulation. You can control the program from the text document using the debug controls.<br><br>Explanation of buttons:<ul><li>Play - Run the PIC program from the point at which it was paused, or from the start otherwise.</li><li>Pause - Pause the simulation at the current execution point.</li><li>Stop - Reset all parts of the simulation.</li><li>Reload - Reread the PIC program from disk and restart gpsim.</li></ul>
 <!-- item: ec/pjfet -->
 
 <!-- item: ec/pnpbjt -->
@@ -143,7 +143,7 @@ The PIC component allows the simulation of a PIC program.<br><br>The loadable PI
 <!-- item: ec/potentiometer -->
 Consists of a resistor connected to the end pins, with a central pin connected at an adjustable point along the resistor
 <!-- item: ec/probe -->
-Connect this probe the the point in the circuit to measure the logic value. The output will be displayed in the Oscilloscope view.
+Connect this probe the point in the circuit to measure the logic value. The output will be displayed in the Oscilloscope view.
 <!-- item: ec/ptb_switch -->
 
 <!-- item: ec/ptm_switch -->
