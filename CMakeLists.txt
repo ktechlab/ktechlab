@@ -55,7 +55,6 @@ add_subdirectory( src )
 add_subdirectory( examples )
 add_subdirectory( icons )
 add_subdirectory( icons-kde3 )
-add_subdirectory( po )
 add_subdirectory( doc )
 
 
