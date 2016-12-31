@@ -10,6 +10,9 @@
     <height>241</height>
    </rect>
   </property>
+  <property name="windowTitle">
+   <string>Asm Formatting</string>
+  </property>
   <property name="whatsThis">
    <string>The values control the indentation from the left margin of the various types of assembly code.</string>
   </property>
