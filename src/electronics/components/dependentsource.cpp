@@ -143,7 +143,7 @@ LibraryItem* ECCCCS::libraryItem()
 ECCCCS::ECCCCS( ICNDocument *icnDocument, bool newItem, const char *id )
 	: DependentSource( icnDocument, newItem, id ? id : "cccs" )
 {
-	m_name = i18n("Current Controlled Currrent Source");
+	m_name = i18n("Current Controlled Current Source");
 	m_cccs = createCCCS( m_pNNode[0], m_pPNode[0], m_pNNode[1], m_pPNode[1], 1. );
 	m_pNNode[1]->pin()->setGroundType( Pin::gt_medium );
 }
