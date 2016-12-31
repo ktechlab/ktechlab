@@ -397,7 +397,7 @@
               <item>
                 <widget class="QCheckBox" name="kcfg_SDCC_optimize_df">
                   <property name="text">
-                    <string>Thorough data flow analyis (resource intensive) (--optimize-df)</string>
+                    <string>Thorough data flow analysis (resource intensive) (--optimize-df)</string>
                   </property>
                   <property name="shortcut">
                     <string/>
