@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 {
     LogToFileMsgHandler logFileHandler;
 
-    KAboutData about(QByteArray("ktechlab"), QByteArray("KTechLab"), ki18n("KTechLab"), VERSION, ki18n(description),
+    KAboutData about(QByteArray("ktechlab"), QByteArray("ktechlab"), ki18n("KTechLab"), VERSION, ki18n(description),
                     KAboutData::License_GPL, ki18n("(C) 2003-2009, The KTechLab developers"),
                     KLocalizedString(), "http://ktechlab.org", "ktechlab-devel@lists.sourceforge.net" );
 	about.addAuthor( ki18n("Alan Grimes"), ki18n("developer"), "" );
