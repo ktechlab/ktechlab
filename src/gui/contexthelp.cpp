@@ -44,7 +44,6 @@
 #include <Qt/qtimer.h>
 #include <Qt/qtoolbutton.h>
 #include <Qt/qvalidator.h>
-#include <Qt/qwhatsthis.h>
 #include <Qt/q3widgetstack.h>
 
 #include <cassert>
@@ -67,7 +66,7 @@ ContextHelp::ContextHelp( KateMDI::ToolView * parent )
 {
     setupUi(this);
 
-	QWhatsThis::add( this, i18n("Provides context-sensitive help relevant to the current editing being performed.") );
+	setWhatsThis( i18n("Provides context-sensitive help relevant to the current editing being performed.") );
 	setAcceptDrops( true );
 	
     if (parent->layout()) {

@@ -29,7 +29,6 @@
 #include <Qt/qlayout.h>
 #include <Qt/qregexp.h>
 #include <Qt/q3table.h>
-#include <Qt/qwhatsthis.h>
 
 struct MicroSettingsWidget : public QWidget, Ui::MicroSettingsWidget {
     MicroSettingsWidget(QWidget *parent) : QWidget(parent) {
@@ -60,9 +59,9 @@ MicroSettingsDlg::MicroSettingsDlg( MicroSettings * microSettings, QWidget *pare
 	m_pNewPinMappingDlg = 0l;
 	m_pWidget = new MicroSettingsWidget(this);
 	
-	QWhatsThis::add( this, i18n("This dialog allows editing of the initial properties of the PIC") );
-	QWhatsThis::add( m_pWidget->portsGroupBox, i18n("Edit the initial value of the ports here. For each binary number, the order from right-to-left is pins 0 through 7.<br><br>The \"Type (TRIS)\" edit shows the initial input/output state of the ports; 1 represents an input, and 0 an output.<br><br>The \"State (PORT)\" edit shows the initial high/low state of the ports; 1 represents a high, and 0 a low.") );
-	QWhatsThis::add( m_pWidget->variables, i18n("Edit the initial value of the variables here.<br><br>Note that the value of the variable can only be in the range 0->255. These variables will be initialized before any other code is executed.") );
+	setWhatsThis( i18n("This dialog allows editing of the initial properties of the PIC") );
+	m_pWidget->portsGroupBox->setWhatsThis( i18n("Edit the initial value of the ports here. For each binary number, the order from right-to-left is pins 0 through 7.<br><br>The \"Type (TRIS)\" edit shows the initial input/output state of the ports; 1 represents an input, and 0 an output.<br><br>The \"State (PORT)\" edit shows the initial high/low state of the ports; 1 represents a high, and 0 a low.") );
+	m_pWidget->variables->setWhatsThis( i18n("Edit the initial value of the variables here.<br><br>Note that the value of the variable can only be in the range 0->255. These variables will be initialized before any other code is executed.") );
 	
 	
 	//BEGIN Initialize initial port settings

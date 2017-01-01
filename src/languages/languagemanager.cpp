@@ -25,7 +25,6 @@
 #include <k3dockwidget.h>
 #include <kiconloader.h>
 #include <klocale.h>
-#include <Qt/qwhatsthis.h>
 
 #include <cassert>
 
@@ -49,7 +48,7 @@ LanguageManager::LanguageManager( KateMDI::ToolView * parent )
 {
 	m_logView = new LogView( parent, "LanguageManager LogView");
 	
-	QWhatsThis::add( m_logView, i18n("These messages show the output of language-related functionality such as compiling and assembling.<br><br>For error messages, clicking on the line will automatically open up the file at the position of the error.") );
+	m_logView->setWhatsThis( i18n("These messages show the output of language-related functionality such as compiling and assembling.<br><br>For error messages, clicking on the line will automatically open up the file at the position of the error.") );
 	connect( m_logView, SIGNAL(paraClicked(const QString&, MessageInfo )), this, SLOT(slotParaClicked(const QString&, MessageInfo )) );
 	reset();
 }

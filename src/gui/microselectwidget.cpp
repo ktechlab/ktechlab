@@ -20,7 +20,6 @@
 #include <Qt/qlabel.h>
 #include <Qt/qlayout.h>
 #include <Qt/qvariant.h>
-#include <Qt/qwhatsthis.h>
 
 MicroSelectWidget::MicroSelectWidget( QWidget* parent, const char* name, Qt::WFlags )
 	: Q3GroupBox( 4, Qt::Horizontal, i18n("Microprocessor"), parent, name )

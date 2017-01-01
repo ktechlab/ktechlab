@@ -43,7 +43,6 @@
 #include <Qt/q3dockarea.h>
 #include <Qt/qtimer.h>
 #include <Qt/qtoolbutton.h>
-#include <Qt/qwhatsthis.h>
 #include <Qt/q3ptrlist.h>
 #include <Qt/qdesktopwidget.h>
 

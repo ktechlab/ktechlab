@@ -32,7 +32,6 @@
 
 #include <Qt/qdom.h>
 #include <Qt/q3popupmenu.h>
-#include <Qt/qwhatsthis.h>
 
 #include <cassert>
 
@@ -909,7 +908,7 @@ ProjectManager::ProjectManager( KateMDI::ToolView * parent )
 	: ItemSelector( parent, "Project Manager" ),
 	m_pCurrentProject(0l)
 {
-	QWhatsThis::add( this, i18n("Displays the list of files in the project.\nTo open or close a project, use the \"Project\" menu. Right click on a file to remove it from the project") );
+	setWhatsThis( i18n("Displays the list of files in the project.\nTo open or close a project, use the \"Project\" menu. Right click on a file to remove it from the project") );
 	
 	setListCaption( i18n("File") );
 	setCaption( i18n("Project Manager") );

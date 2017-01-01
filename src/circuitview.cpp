@@ -18,8 +18,6 @@
 #include <klocale.h>
 #include <kactioncollection.h>
 
-#include <Qt/qwhatsthis.h>
-
 CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name )
 	: ICNView( circuitDocument, viewContainer, viewAreaId, name ),
 	p_circuitDocument(circuitDocument)
@@ -111,7 +109,7 @@ CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *view
 	setXMLFile( "ktechlabcircuitui.rc", true );
 	
 	
-	QWhatsThis::add( this, i18n(
+	setWhatsThis( i18n(
 			"Construct a circuit by dragging components from the Component selector from the left. Create the connections by dragging a wire from the component connectors.<br><br>"
 					
 			"The simulation is running by default, but can be paused and resumed from the Tools menu.<br><br>"

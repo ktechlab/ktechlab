@@ -28,7 +28,6 @@
 #include <Qt/q3dragobject.h>
 #include <Qt/qlayout.h>
 #include <Qt/q3popupmenu.h>
-#include <Qt/qwhatsthis.h>
 
 #include <cassert>
 
@@ -321,7 +320,7 @@ ComponentSelector::ComponentSelector( KateMDI::ToolView * parent )
 {
     qDebug() << Q_FUNC_INFO << " creating " << this;
 
-	QWhatsThis::add( this, i18n(
+	setWhatsThis( i18n(
 			"Add components to the circuit diagram by dragging them into the circuit.<br><br>"
 			
 			"To add more than one component of the same type, doubleclick on a component, and click repeatedly in the circuit to place the component. Right click to stop placement.<br><br>"
@@ -362,7 +361,7 @@ FlowPartSelector * FlowPartSelector::self( KateMDI::ToolView * parent )
 FlowPartSelector::FlowPartSelector( KateMDI::ToolView * parent )
 	: ItemSelector( (QWidget*)parent, "Part Selector" )
 {
-	QWhatsThis::add( this, i18n("Add FlowPart to the FlowCode document by dragging them there.<br><br>To add more than one FlowPart of the same type, doubleclick on a FlowPart, and click repeatedly in the FlowChart to place the component. Right click to stop placement.") );
+	setWhatsThis( i18n("Add FlowPart to the FlowCode document by dragging them there.<br><br>To add more than one FlowPart of the same type, doubleclick on a FlowPart, and click repeatedly in the FlowChart to place the component. Right click to stop placement.") );
 	
 	setListCaption( i18n("Flow Part") );
 	
@@ -395,7 +394,7 @@ MechanicsSelector * MechanicsSelector::self( KateMDI::ToolView * parent )
 MechanicsSelector::MechanicsSelector( QWidget *parent )
 	: ItemSelector( (QWidget*)parent, "Mechanics Selector" )
 {
-	QWhatsThis::add( this, i18n("Add mechanical parts to the mechanics work area by dragging them there.") );
+	setWhatsThis( i18n("Add mechanical parts to the mechanics work area by dragging them there.") );
 	
 	LibraryItemList *items = itemLibrary()->items();
 	const LibraryItemList::iterator end = items->end();

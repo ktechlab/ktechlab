@@ -22,7 +22,6 @@
 #include <Qt/qlayout.h>
 #include <Qt/qlabel.h>
 #include <Qt/qpushbutton.h>
-#include <Qt/qwhatsthis.h>
 #include <Qt/qdebug.h>
 
 #include <cassert>
@@ -43,7 +42,7 @@ ItemEditor * ItemEditor::self( KateMDI::ToolView * parent )
 ItemEditor::ItemEditor( KateMDI::ToolView * parent )
 	: QWidget( (QWidget*)parent, "Item Editor" )
 {
-	QWhatsThis::add( this, i18n("This allows editing of advanced properties of the selected item(s). Right click on the picture of the item to set the orientation.") );
+	setWhatsThis( i18n("This allows editing of advanced properties of the selected item(s). Right click on the picture of the item to set the orientation.") );
 
     if (parent->layout()) {
         parent->layout()->addWidget(this);
@@ -66,7 +65,7 @@ ItemEditor::ItemEditor( KateMDI::ToolView * parent )
 	//END Create Name Label
 
 	m_pPropertyEditor = new PropertyEditor(this);
-	QWhatsThis::add(m_pPropertyEditor,i18n("<p>Shows properties associated with the currently selected item(s).<br/>Select a property to change its value. If multiple items are selected with different values then the property will appear greyed out, use \"Merge Properties\" to make them the same.<br/>Select \"Defaults\" to set all properties to their default values")); 
+	m_pPropertyEditor->setWhatsThis(i18n("<p>Shows properties associated with the currently selected item(s).<br/>Select a property to change its value. If multiple items are selected with different values then the property will appear greyed out, use \"Merge Properties\" to make them the same.<br/>Select \"Defaults\" to set all properties to their default values")); 
 	
 	m_pComponentModelWidget = new ComponentModelWidget( this );
 	
@@ -81,7 +80,7 @@ ItemEditor::ItemEditor( KateMDI::ToolView * parent )
 	h2Layout->addItem( new QSpacerItem( 1, 1 ) );
 	m_pOrientationWidget = new OrientationWidget(this);
 	h2Layout->addWidget(m_pOrientationWidget);
-	QWhatsThis::add(m_pOrientationWidget,i18n("Change the orientation of the selected item by selecting the appropriate button"));
+	m_pOrientationWidget->setWhatsThis(i18n("Change the orientation of the selected item by selecting the appropriate button"));
 	h2Layout->addItem( new QSpacerItem( 1, 1 ) );
 	
 	slotClear();
