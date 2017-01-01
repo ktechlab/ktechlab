@@ -31,7 +31,6 @@
 #include <Qt/qtimer.h>
 #include <Qt/qapplication.h>
 #include <Qt/qeventloop.h>
-#include <Qt/qtooltip.h>
 
 PropertyEditor::PropertyEditor( QWidget * parent, const char * name )
 	: K3ListView( parent /*, name */ )
@@ -58,7 +57,7 @@ PropertyEditor::PropertyEditor( QWidget * parent, const char * name )
 	m_defaults->setFocusPolicy(Qt::NoFocus);
 	setFocusPolicy(Qt::ClickFocus);
 	m_defaults->setPixmap(SmallIcon("undo"));
-	QToolTip::add(m_defaults, i18n("Undo changes"));
+	m_defaults->setToolTip(i18n("Undo changes"));
 	m_defaults->hide();
 	connect(m_defaults, SIGNAL(clicked()), this, SLOT(resetItem()));
 

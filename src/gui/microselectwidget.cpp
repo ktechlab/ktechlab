@@ -19,7 +19,6 @@
 #include <Qt/q3groupbox.h>
 #include <Qt/qlabel.h>
 #include <Qt/qlayout.h>
-#include <Qt/qtooltip.h>
 #include <Qt/qvariant.h>
 #include <Qt/qwhatsthis.h>
 

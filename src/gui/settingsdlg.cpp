@@ -35,7 +35,6 @@
 #include <Qt/qlabel.h>
 #include <Qt/qslider.h>
 #include <Qt/qtimer.h>
-#include <Qt/qtooltip.h>
 
 
 struct GeneralOptionsWidget : public QWidget, Ui::GeneralOptionsWidget {
@@ -201,7 +200,7 @@ void SettingsDlg::slotUpdatePicProgrammerDescription()
 	edit = m_picProgrammerConfigWidget->name; \
 	edit->setText( config.name ); \
 	edit->setEnabled(customProgrammer); \
-	QToolTip::add( edit, customProgrammer ? QString() : config.name )
+	edit->setToolTip( customProgrammer ? QString() : config.name )
 	
 	SETUP_COMMAND( initCommand );
 	SETUP_COMMAND( readCommand );

@@ -23,7 +23,6 @@
 #include <Qt/qlayout.h>
 // #include <Qt/q3header.h> // needed?
 #include <Qt/qpainter.h>
-#include <Qt/qtooltip.h>
 #include <Qt/qtoolbutton.h>
 #include <Qt/q3header.h>
 
@@ -55,10 +54,10 @@ ComponentModelWidget::ComponentModelWidget( QWidget *parent, const char *name )
 
 	connect( button, SIGNAL(clicked()), m_pSearchEdit, SLOT(clear()) );
 
-	QToolTip::add( button, i18n( "Clear filter" ) );
+	button->setToolTip( i18n( "Clear filter" ) );
 	QString filtertip = i18n( "Enter space-separated terms to filter the component library." );
 	
-	QToolTip::add( m_pSearchEdit, filtertip );
+	m_pSearchEdit->setToolTip( filtertip );
 	//END Filter lineedit
 	
 	m_pList = new K3ListView( this );
@@ -66,7 +65,7 @@ ComponentModelWidget::ComponentModelWidget( QWidget *parent, const char *name )
 	m_pList->addColumn( "model" );
 	m_pList->setFullWidth( true );
 	m_pList->header()->hide();
-	QToolTip::add( m_pList, i18n( "Select a predefined component configuration from this list." ) );
+	m_pList->setToolTip( i18n( "Select a predefined component configuration from this list." ) );
 	
 	vlayout->addWidget( bar );
 	vlayout->addWidget( m_pList );
