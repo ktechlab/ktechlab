@@ -112,7 +112,7 @@ bool ItemDocumentData::loadData( const KUrl &url )
 	QFile file(target);
 	if ( !file.open( IO_ReadOnly ) )
 	{
-		KMessageBox::sorry( 0l, i18n("Could not open %1 for reading").arg(target) );
+		KMessageBox::sorry( 0l, i18n("Could not open %1 for reading", target) );
 		return false;
 	}
 	
@@ -134,7 +134,7 @@ bool ItemDocumentData::fromXML( const QString &xml )
 	QString errorMessage;
 	if ( !doc.setContent( xml, &errorMessage ) )
 	{
-		KMessageBox::sorry( 0l, i18n("Couldn't parse xml:\n%1").arg(errorMessage) );
+		KMessageBox::sorry( 0l, i18n("Could not parse XML:\n%1", errorMessage) );
 		return false;
 	}
 	
@@ -182,7 +182,7 @@ bool ItemDocumentData::saveData( const KUrl &url )
 		QFile file( url.path() );
 		if ( !file.open(IO_WriteOnly) )
 		{
-			KMessageBox::sorry( 0l, i18n("Could not open '%1' for writing. Check that you have write permissions").arg(url.path()), i18n("Saving File") );
+			KMessageBox::sorry( 0l, i18n("Could not open '%1' for writing. Check that you have write permissions", url.path()), i18n("Saving File") );
 			return false;
 		}
 		

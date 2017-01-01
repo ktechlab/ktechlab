@@ -61,7 +61,7 @@ While::~While()
 
 void While::dataChanged()
 {
-	setCaption( i18n("while %1 %2 %3").arg(dataString("0var1")).arg(dataString("1op")).arg(dataString("2var2")) );
+	setCaption( i18n("while %1 %2 %3", dataString("0var1"), dataString("1op"), dataString("2var2")) );
 }
 
 void While::generateMicrobe( FlowCode *code )

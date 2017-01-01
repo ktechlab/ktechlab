@@ -10,6 +10,8 @@
 #ifndef ITEMLIBRARY_H
 #define ITEMLIBRARY_H
 
+#include <klocalizedstring.h>
+
 #include <Qt/qcolor.h>
 #include <Qt/qobject.h>
 #include <Qt/qmap.h>
@@ -129,7 +131,7 @@ class ItemLibrary : public QObject
 		LibraryItemList m_items;
 		ImageMap m_imageMap;
 		QStringMapMap m_itemDescriptions; // (Language, type) <--> description
-		static QString m_emptyItemDescription; // Description template for when a description does not yet exist
+		static KLocalizedString m_emptyItemDescription; // Description template for when a description does not yet exist
 	
 		friend ItemLibrary * itemLibrary();
 };

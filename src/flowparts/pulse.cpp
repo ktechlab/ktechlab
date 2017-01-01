@@ -67,7 +67,7 @@ Pulse::~Pulse()
 void Pulse::dataChanged()
 {
 	double pulse = dataDouble("0-duration");
-	setCaption( i18n("Pulse %1 for %2 sec").arg(dataString("3-pin")).arg(QString::number( pulse / getMultiplier(pulse), 'f', 1 ) + getNumberMag(pulse)) );
+	setCaption( i18n("Pulse %1 for %2 sec", dataString("3-pin"), QString::number( pulse / getMultiplier(pulse), 'f', 1 ) + getNumberMag(pulse)) );
 }
 
 void Pulse::generateMicrobe( FlowCode *code )

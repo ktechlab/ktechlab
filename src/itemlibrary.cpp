@@ -130,13 +130,11 @@
 //END Item includes
 
 
-QString ItemLibrary::m_emptyItemDescription = QString::null;
+KLocalizedString ItemLibrary::m_emptyItemDescription = ki18n("This help item does not yet exist for the %1 language. Help out with KTechlab by creating one via the \"Edit\" button.");
 
 
 ItemLibrary::ItemLibrary()
 {
-	m_emptyItemDescription = i18n("This help item does not yet exist for the %1 language. Help out with KTechlab by creating one via the \"Edit\" button!");
-	
 	addFlowParts();
 	addComponents();
 	addMechanics();
@@ -611,7 +609,7 @@ QString ItemLibrary::description( QString type, const QString & language ) const
 QString ItemLibrary::emptyItemDescription( const QString & language ) const
 {
 	//return m_emptyItemDescription.arg( KGlobal::locale()->twoAlphaToLanguageName( language ) );
-    return m_emptyItemDescription.arg( KGlobal::locale()->languageCodeToName( language ) );
+    return m_emptyItemDescription.subs( KGlobal::locale()->languageCodeToName( language ) ).toString();
 }
 
 

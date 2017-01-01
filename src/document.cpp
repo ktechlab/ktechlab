@@ -110,7 +110,7 @@ bool Document::getURL( const QString &types )
 	if ( QFile::exists( url.path() ) )
 	{
 		int query = KMessageBox::warningYesNo( KTechlab::self(),
-			   i18n( "A file named \"%1\" already exists. Are you sure you want to overwrite it?" ).arg( url.fileName() ),
+			   i18n( "A file named \"%1\" already exists. Are you sure you want to overwrite it?", url.fileName() ),
 			   i18n( "Overwrite File?" ),
 			   //i18n( "Overwrite" ),
 			   KStandardGuiItem::cancel() );
@@ -142,7 +142,7 @@ bool Document::fileClose()
 		discardItem.setText( i18n("Discard") );
 		
 		int choice = KMessageBox::warningYesNoCancel( KTechlab::self(),
-				i18n("The document \'%1\' has been modified.\nDo you want to save it?").arg(name),
+				i18n("The document \'%1\' has been modified.\nDo you want to save it?", name),
 				i18n("Save Document?"),
 				saveItem,
 				discardItem );

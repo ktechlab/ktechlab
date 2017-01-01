@@ -664,8 +664,8 @@ void TextDocument::slotUpdateMarksInfo()
         KTextEditor::Mark * mark = itMark.value();
 		if ( mark->type & Bookmark )
 		{
-            QString actionCaption = i18n("%1 - %2").arg( QString::number( mark->line+1 ) ).
-                                            arg( m_doc->text(KTextEditor::Range( mark->line, 0, mark->line, 100 /* FIXME arbitrary */)) );
+            QString actionCaption = i18n("%1 - %2", QString::number( mark->line+1 ),
+                                            m_doc->text(KTextEditor::Range( mark->line, 0, mark->line, 100 /* FIXME arbitrary */)) );
             QString actionName = QString("bookmark_%1").arg(QString::number(mark->line).ascii());
             /*
 			KAction * a = new KAction( actionCaption,

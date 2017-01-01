@@ -57,7 +57,7 @@ ReadPort::~ReadPort()
 
 void ReadPort::dataChanged()
 {
-	setCaption( i18n("Read %1 to %2").arg(dataString("0-port")).arg(dataString("1-var")) );
+	setCaption( i18n("Read %1 to %2", dataString("0-port"), dataString("1-var")) );
 }
 
 void ReadPort::generateMicrobe( FlowCode *code )

@@ -106,7 +106,7 @@
    <item row="5" column="0">
     <widget class="QLabel" name="textLabel1">
      <property name="toolTip">
-      <string>Maximum undo steps for work area. This doesn't apply to text documents - that is configurable separately under Configure Editor.</string>
+      <string>Maximum undo steps for work area. This does not apply to text documents - that is configurable separately under Configure Editor.</string>
      </property>
      <property name="text">
       <string>Maximum undo steps for work area:</string>

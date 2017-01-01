@@ -58,7 +58,7 @@ SetPin::~SetPin()
 
 void SetPin::dataChanged()
 {
-	setCaption( i18n("Set %1 %2").arg(dataString("pin")).arg(dataString("state")) );
+	setCaption( i18n("Set %1 %2", dataString("pin"), dataString("state")) );
 }
 
 void SetPin::generateMicrobe( FlowCode *code )

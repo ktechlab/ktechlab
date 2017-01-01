@@ -58,7 +58,7 @@ InputButton::~InputButton()
 
 void InputButton::dataChanged()
 {
-	setCaption( i18n("Continue on %1 %2").arg(dataString("0-trigger")).arg(dataString("1-pin")) );
+	setCaption( i18n("Continue on %1 %2", dataString("0-trigger"), dataString("1-pin")) );
 }
 
 

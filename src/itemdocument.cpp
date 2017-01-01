@@ -866,7 +866,7 @@ void ItemDocument::exportToImage()
 	{
 		int query = KMessageBox::warningYesNo(
             KTechlab::self(),
-            i18n( "A file named \"%1\" already exists. " "Are you sure you want to overwrite it?" ).arg( url.fileName() ),
+            i18n( "A file named \"%1\" already exists. " "Are you sure you want to overwrite it?", url.fileName() ),
             i18n( "Overwrite File?" ),
             //i18n( "Overwrite" ),
             KStandardGuiItem::cancel() );
@@ -957,7 +957,7 @@ void ItemDocument::exportToImage()
 		else	saveResult = dynamic_cast<QPixmap*>(outputImage)->save( url.path(), type.toLatin1().data() );
 	}
 	
-	//if(saveResult == true)	KMessageBox::information( this, i18n("Sucessfully exported to \"%1\"").arg( url.filename() ), i18n("Image Export") );
+	//if(saveResult == true)	KMessageBox::information( this, i18n("Sucessfully exported to \"%1\"", url.filename() ), i18n("Image Export") );
 	//else KMessageBox::information( this, i18n("Export failed"), i18n("Image Export") );
 	
 	if ( type == "SVG" ) setSVGExport(false);

@@ -30,14 +30,14 @@
               <item>
                 <widget class="QCheckBox" name="kcfg_SDCC_nostdlib">
                   <property name="text">
-                    <string>Don't search in the standard librar&amp;y directory (--nostdlib)</string>
+                    <string>Do not search in the standard librar&amp;y directory (--nostdlib)</string>
                   </property>
                 </widget>
               </item>
               <item>
                 <widget class="QCheckBox" name="kcfg_SDCC_nostdinc">
                   <property name="text">
-                    <string>Don't search in the standard include directory (--nostdinc)</string>
+                    <string>Do not search in the standard include directory (--nostdinc)</string>
                   </property>
                   <property name="shortcut">
                     <string/>
@@ -152,10 +152,10 @@
               <item>
                 <widget class="QCheckBox" name="kcfg_SDCC_no_xinit_opt">
                   <property name="text">
-                    <string>Don't memcpy initialized &amp;xram from code (--no-xinit-opt)</string>
+                    <string>Do not memcpy initialized &amp;xram from code (--no-xinit-opt)</string>
                   </property>
                   <property name="whatsThis" stdset="0">
-                    <string>Will not memcpy initialized data from code space into xdata space. This saves a few bytes in code space if you don't have initialized data.</string>
+                    <string>Will not memcpy initialized data from code space into xdata space. This saves a few bytes in code space if you do not have initialized data.</string>
                   </property>
                 </widget>
               </item>
@@ -295,7 +295,7 @@
               <item>
                 <widget class="QCheckBox" name="kcfg_SDCC_nojtbound">
                   <property name="text">
-                    <string>Don't generate boundary check for &amp;jump tables (--nojtbound)</string>
+                    <string>Do not generate boundary check for &amp;jump tables (--nojtbound)</string>
                   </property>
                 </widget>
               </item>
@@ -325,7 +325,7 @@
               <item>
                 <widget class="QCheckBox" name="kcfg_SDCC_nodefaultlibs">
                   <property name="text">
-                    <string>Don't use default libraries (--nodefaultlibs)</string>
+                    <string>Do not use default libraries (--nodefaultlibs)</string>
                   </property>
                   <property name="shortcut">
                     <string/>
@@ -335,7 +335,7 @@
               <item>
                 <widget class="QCheckBox" name="kcfg_SDCC_pno_banksel">
                   <property name="text">
-                    <string>Don't generate BANKSEL directives (--pno-banksel)</string>
+                    <string>Do not generate BANKSEL directives (--pno-banksel)</string>
                   </property>
                   <property name="shortcut">
                     <string/>

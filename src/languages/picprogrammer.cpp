@@ -63,7 +63,7 @@ void PicProgrammerSettings::initStaticConfigs()
 	m_bDoneStaticConfigsInit = true;
 	ProgrammerConfig config;
 	
-	config.description = i18n("Supported programmers: %1").arg("JuPic, PICStart Plus, Warp-13");
+	config.description = i18n("Supported programmers: %1", QString("JuPic, PICStart Plus, Warp-13"));
 	config.description += i18n("<br>Interface: Serial Port");
 	config.initCommand = "";
 	config.readCommand = "picp %port %device -rp %file";
@@ -75,7 +75,7 @@ void PicProgrammerSettings::initStaticConfigs()
 	m_staticConfigs[ "PICP" ] = config;
 	
 	
-	config.description = i18n("Supported programmers: %1").arg("Epic Plus");
+	config.description = i18n("Supported programmers: %1", QString("Epic Plus"));
 	config.description += i18n("<br>Interface: Parallel Port");
 	config.initCommand = "odyssey init";
 	config.readCommand = "odyssey %device read %file";
@@ -87,7 +87,7 @@ void PicProgrammerSettings::initStaticConfigs()
 	m_staticConfigs[ "Odyssey" ] = config;
 	
 	
-	config.description = i18n("Supported programmers: %1").arg("JDM PIC-Programmer 2, PIC-PG2C");
+	config.description = i18n("Supported programmers: %1", QString("JDM PIC-Programmer 2, PIC-PG2C"));
 	config.description += i18n("<br>Interface: Serial Port");
 	config.initCommand = "";
 	config.readCommand = "picprog --output %file --pic %port";
@@ -98,7 +98,7 @@ void PicProgrammerSettings::initStaticConfigs()
 	m_staticConfigs[ "PICProg" ] = config;
 	
 	
-	config.description = i18n("Supported programmers: %1").arg("Epic Plus");
+	config.description = i18n("Supported programmers: %1", QString("Epic Plus"));
 	config.description += i18n("<br>Interface: Parallel Port");
 	config.initCommand = "";
 	config.readCommand = "dump84 --dump-all --output=%file";
@@ -109,7 +109,7 @@ void PicProgrammerSettings::initStaticConfigs()
 	m_staticConfigs[ "prog84" ] = config;
 	
 	
-	config.description = i18n("Supported programmers: %1").arg("Kit 149, Kit 150");
+	config.description = i18n("Supported programmers: %1", QString("Kit 149, Kit 150"));
 	config.description += i18n("<br>Interface: USB Port");
 	config.initCommand = "";
 	config.readCommand = "pp -d %device -r %file";
@@ -120,7 +120,7 @@ void PicProgrammerSettings::initStaticConfigs()
 	m_staticConfigs[ "PP" ] = config;
 	
 	
-	config.description = i18n("Supported programmers: %1").arg("Wisp628");
+	config.description = i18n("Supported programmers: %1", QString("Wisp628"));
 	config.description += i18n("<br>Interface: Serial Port");
 	config.initCommand = "";
 	config.readCommand = "xwisp ID %device PORT %device DUMP";
@@ -132,7 +132,7 @@ void PicProgrammerSettings::initStaticConfigs()
 	
 	
 #if 0
-	config.description = i18n("Supported programmers: %1").arg("Epic Plus, JDM PIC-Programmer 2, PICCOLO, PICCOLO Grande, Trivial HVP Programmer");
+	config.description = i18n("Supported programmers: %1", QString("Epic Plus, JDM PIC-Programmer 2, PICCOLO, PICCOLO Grande, Trivial HVP Programmer"));
 	config.description += i18n("<br>Interface: Serial Port and Parallel Port");
 	config.initCommand = "";
 	config.readCommand = "";
@@ -145,7 +145,7 @@ void PicProgrammerSettings::initStaticConfigs()
 	config.executable = "";
 	
 	
-	config.description = i18n("Supported programmers: %1").arg("Trivial LVP programmer, Trivial HVP Programmer");
+	config.description = i18n("Supported programmers: %1", QString("Trivial LVP programmer, Trivial HVP Programmer"));
 	config.description += i18n("<br>Interface: Parallel Port");
 	config.initCommand = "";
 	config.readCommand = "";
@@ -156,7 +156,7 @@ void PicProgrammerSettings::initStaticConfigs()
 	m_staticConfigs[ "PicPrg2" ] = config;
 	
 	
-	config.description = i18n("Supported programmers: %1").arg("El Cheapo");
+	config.description = i18n("Supported programmers: %1", QString("El Cheapo"));
 	config.description += i18n("<br>Interface: Parallel Port");
 	config.initCommand = "";
 	config.readCommand = "";
@@ -167,7 +167,7 @@ void PicProgrammerSettings::initStaticConfigs()
 	m_staticConfigs[ "PP06" ] = config;
 	
 	
-	config.description = i18n("Supported programmers: %1").arg("NOPPP");
+	config.description = i18n("Supported programmers: %1", QString("NOPPP"));
 	config.description += i18n("<br>Interface: Parallel Port");
 	config.initCommand = "";
 	config.readCommand = "";
@@ -178,7 +178,7 @@ void PicProgrammerSettings::initStaticConfigs()
 	m_staticConfigs[ "NOPPP" ] = config;
 	
 	
-	config.description = i18n("Supported programmers: %1").arg("SNOPPP");
+	config.description = i18n("Supported programmers: %1", QString("SNOPPP"));
 	config.description += i18n("<br>Interface: Parallel Port");
 	config.initCommand = "";
 	config.readCommand = "";

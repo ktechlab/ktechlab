@@ -58,7 +58,7 @@ Embed::~Embed()
 void Embed::dataChanged()
 {
 	const QString sample = dataString("code").left(10).replace("\n"," ");
-	setCaption( i18n("%1: %2...").arg(dataString("type")).arg(sample) );
+	setCaption( i18n("%1: %2...", dataString("type"), sample) );
 }
 
 

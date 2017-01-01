@@ -57,14 +57,14 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
 	
 	//BEGIN Convert To * Actions
 	//KToolBarPopupAction * pa = new KToolBarPopupAction( i18n("Convert to"), "fork", 0, 0, 0, ac, "program_convert" );
-    KToolBarPopupAction * pa = new KToolBarPopupAction( KIcon("fork"), i18n("Convert to"), ac);
+    KToolBarPopupAction * pa = new KToolBarPopupAction( KIcon("fork"), i18n("Convert To"), ac);
     pa->setName("program_convert");
 	pa->setDelayed(false);
     ac->addAction("program_convert", pa);
 	
 	QMenu * m = pa->menu();
 
-    m->setTitle( i18n("Convert to ...") );
+    m->setTitle( i18n("Convert To") );
 	m->insertItem( KIcon( "convert_to_microbe" ), i18n("Microbe"), TextDocument::MicrobeOutput );
 	m->insertItem( KIcon( "convert_to_assembly" ), i18n("Assembly"), TextDocument::AssemblyOutput );
 	m->insertItem( KIcon( "convert_to_hex" ), i18n("Hex"), TextDocument::HexOutput );
@@ -371,7 +371,7 @@ void TextView::slotCursorPositionChanged()
 	line = curs.line();
     column = curs.column();
 	
-	m_statusBar->changeItem( i18n(" Line: %1 Col: %2 ").arg(QString::number(line+1)).arg(QString::number(column+1)), ViewStatusBar::LineCol );
+	m_statusBar->changeItem( i18n(" Line: %1 Col: %2 ", QString::number(line+1), QString::number(column+1)), ViewStatusBar::LineCol );
 	
 	slotUpdateMarksInfo();
 }

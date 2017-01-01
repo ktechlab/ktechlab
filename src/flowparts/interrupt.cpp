@@ -54,7 +54,7 @@ Interrupt::~Interrupt()
 
 void Interrupt::dataChanged()
 {
-	setCaption( i18n("Interrupt %1").arg(dataString("interrupt")) );
+	setCaption( i18n("Interrupt %1", dataString("interrupt")) );
 }
 
 void Interrupt::generateMicrobe( FlowCode *code )

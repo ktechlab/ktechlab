@@ -160,26 +160,26 @@ void GpsimProcessor::displayCodLoadStatus( )
 		case CodSuccess:
 			break;
 		case CodFileNotFound:
-			KMessageBox::sorry( 0l, i18n("The cod file \"%1\" was not found.").arg(m_symbolFile), i18n("File Not Found") );
+			KMessageBox::sorry( 0l, i18n("The cod file \"%1\" was not found.", m_symbolFile), i18n("File Not Found") );
 			break;
 		case CodUnrecognizedProcessor:
-			KMessageBox::sorry( 0l, i18n("The processor for cod file \"%1\" is unrecognized.").arg(m_symbolFile), i18n("Unrecognized Processor") );
+			KMessageBox::sorry( 0l, i18n("The processor for cod file \"%1\" is unrecognized.", m_symbolFile), i18n("Unrecognized Processor") );
 			break;
 		case CodFileNameTooLong:
-			KMessageBox::sorry( 0l, i18n("The file name \"%1\" is too long.").arg(m_symbolFile), i18n("Filename Too Long") );
+			KMessageBox::sorry( 0l, i18n("The file name \"%1\" is too long.", m_symbolFile), i18n("Filename Too Long") );
 			break;
 		case CodLstNotFound:
-			KMessageBox::sorry( 0l, i18n("The lst file associated with the cod file \"%1\" was not found.").arg(m_symbolFile), i18n("LST File Not Found") );
+			KMessageBox::sorry( 0l, i18n("The lst file associated with the cod file \"%1\" was not found.", m_symbolFile), i18n("LST File Not Found") );
 			break;
 		case CodBadFile:
-			KMessageBox::sorry( 0l, i18n("The cod file \"%1\" is bad.").arg(m_symbolFile), i18n("Bad File") );
+			KMessageBox::sorry( 0l, i18n("The cod file \"%1\" is bad.", m_symbolFile), i18n("Bad File") );
 			break;
 		case CodFileUnreadable:
-			KMessageBox::sorry( 0l, i18n("The cod file \"%1\" could not be read from.").arg(m_symbolFile), i18n("Unreadable File") );
+			KMessageBox::sorry( 0l, i18n("The cod file \"%1\" could not be read from.", m_symbolFile), i18n("Unreadable File") );
 			break;
 		case CodFailure:
 		case CodUnknown:
-			KMessageBox::sorry( 0l, i18n("An error occurred with the cod file \"%1\".").arg(m_symbolFile), i18n("Error") );
+			KMessageBox::sorry( 0l, i18n("An error occurred with the cod file \"%1\".", m_symbolFile), i18n("Error") );
 			break;
 	}
 }

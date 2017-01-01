@@ -56,7 +56,7 @@ ProcessChain::ProcessChain( ProcessOptions options, const char *name )
 	else
 		target = options.targetFile();
 	
-	LanguageManager::self()->logView()->addOutput( i18n("Building: %1").arg( target ), LogView::ot_important );
+	LanguageManager::self()->logView()->addOutput( i18n("Building: %1", target ), LogView::ot_important );
 	QTimer::singleShot( 0, this, SLOT(compile()) );
 }
 

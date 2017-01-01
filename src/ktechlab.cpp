@@ -575,8 +575,8 @@ void KTechlab::setupActions()
 	//BEGIN Project Actions
 	ProjectManager *pm = ProjectManager::self();
     {
-	//new KAction( i18n("New Project.."), "window_new",			0, pm, SLOT(slotNewProject()),			ac, 	"project_new" );
-        KAction *a = new KAction( KIcon("window_new"), i18n("New Project.."), ac);
+	//new KAction( i18n("New Project..."), "window_new",			0, pm, SLOT(slotNewProject()),			ac, 	"project_new" );
+        KAction *a = new KAction( KIcon("window_new"), i18n("New Project..."), ac);
         a->setName("project_new");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotNewProject()));
         ac->addAction("project_new", a);
@@ -731,8 +731,8 @@ void KTechlab::setupExampleActions()
 	QStringMap filesToNames;
 	filesToNames["internals.circuit"] = i18n("Internals");
 	filesToNames["square-wave.circuit"] = i18n("Square Wave");
-	filesToNames["2-way-switch.circuit"] = i18n("%1-Way Switch").arg(2);
-	filesToNames["3-way-switch.circuit"] = i18n("%1-Way Switch").arg(3);
+	filesToNames["2-way-switch.circuit"] = i18n("2-Way Switch");
+	filesToNames["3-way-switch.circuit"] = i18n("3-Way Switch");
 	filesToNames["capacitor.circuit"] = i18n("Capacitor");
 	filesToNames["lrc.circuit"] = i18n("LRC");
 	filesToNames["resistors-parallel.circuit"] = i18n("Resistors in Parallel");

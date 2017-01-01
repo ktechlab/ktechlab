@@ -125,7 +125,7 @@ void OscilloscopeView::mousePressEvent( QMouseEvent *event)
 			for( uint i=0; i<5; ++i)
 			{
 				const int num = fps[i];
-				fpsMenu.insertItem( i18n("%1 fps").arg(num), num);
+				fpsMenu.insertItem( i18n("%1 fps", QString::number(num)), num);
 				fpsMenu.setItemChecked( num, num == m_fps);
 			}
 	

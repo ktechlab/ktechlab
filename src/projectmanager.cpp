@@ -421,7 +421,7 @@ bool ProjectItem::build( ProcessOptionsList * pol )
 	
 	if ( outputURL().isEmpty() )
 	{
-		KMessageBox::sorry( 0l, i18n("Don't know how to build \"%1\" (output url is empty).").arg(name()) );
+		KMessageBox::sorry( 0l, i18n("Do not know how to build \"%1\" (output URL is empty).", name()) );
 		return false;
 	}
 	
@@ -432,7 +432,7 @@ bool ProjectItem::build( ProcessOptionsList * pol )
 		ProjectItem * lib = projectInfo->findItem( projectInfo->directory() + *it );
 		if ( !lib )
 		{
-			KMessageBox::sorry( 0l, i18n("Don't know how to build \"%1\" (library does not exist in project).").arg(*it) );
+			KMessageBox::sorry( 0l, i18n("Do not know how to build \"%1\" (library does not exist in project).", *it) );
 			return false;
 		}
 		
@@ -462,7 +462,7 @@ bool ProjectItem::build( ProcessOptionsList * pol )
 	switch ( outputType() )
 	{
 		case UnknownOutput:
-			KMessageBox::sorry( 0l, i18n("Don't know how to build \"%1\" (unknown output type).").arg(name()) );
+			KMessageBox::sorry( 0l, i18n("Do not know how to build \"%1\" (unknown output type).", name()) );
 			return false;
 			
 		case ProgramOutput:
@@ -789,7 +789,7 @@ bool ProjectInfo::open( const KUrl & url )
 	QFile file(target);
 	if ( !file.open( IO_ReadOnly ) )
 	{
-		KMessageBox::sorry( 0l, i18n("Could not open %1 for reading").arg(target) );
+		KMessageBox::sorry( 0l, i18n("Could not open %1 for reading", target) );
 		return false;
 	}
 	
@@ -806,7 +806,7 @@ bool ProjectInfo::open( const KUrl & url )
 	QString errorMessage;
 	if ( !doc.setContent( xml, &errorMessage ) )
 	{
-		KMessageBox::sorry( 0l, i18n("Couldn't parse xml:\n%1").arg(errorMessage) );
+		KMessageBox::sorry( 0l, i18n("Could not parse XML:\n%1", errorMessage) );
 		return false;
 	}
 	
@@ -846,7 +846,7 @@ bool ProjectInfo::save()
 	QFile file( m_url.path() );
 	if ( file.open(IO_WriteOnly) == false )
 	{
-		KMessageBox::sorry( NULL, i18n("Project could not be saved to \"%1\"").arg(m_url.path()), i18n("Saving Project") );
+		KMessageBox::sorry( NULL, i18n("Project could not be saved to \"%1\"", m_url.path()), i18n("Saving Project") );
 		return false;
 	}
 	
@@ -1140,7 +1140,7 @@ void ProjectManager::slotRemoveSelected()
 	if ( !currentItem )
 		return;
 	
-	int choice = KMessageBox::questionYesNo( this, i18n("Do you really want to remove \"%1\"?").arg( currentItem->text(0) ), i18n("Remove Project File?"), KGuiItem(i18n("Remove")), KGuiItem(i18n("Cancel")) );
+	int choice = KMessageBox::questionYesNo( this, i18n("Do you really want to remove \"%1\"?", currentItem->text(0) ), i18n("Remove Project File?"), KGuiItem(i18n("Remove")), KGuiItem(i18n("Cancel")) );
 	
 	if ( choice == KMessageBox::No )
 		return;

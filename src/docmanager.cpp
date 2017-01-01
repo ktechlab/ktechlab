@@ -96,7 +96,7 @@ Document* DocManager::openURL( const KUrl &url, ViewArea *viewArea )
 		QFile file(url.path());
 		if ( file.open(IO_ReadOnly) == false )
 		{
-			KMessageBox::sorry( 0l, i18n("Could not open '%1'").arg( url.prettyUrl() ) );
+			KMessageBox::sorry( 0l, i18n( "Could not open '%1'", url.prettyUrl() ) );
 			return 0l;
 		}
 		file.close();
@@ -165,7 +165,7 @@ QString DocManager::untitledName( int type )
 	case Document::dt_circuit:
 		{
 			if ( m_countCircuit>1 )
-				name = i18n("Untitled (Circuit %1)").arg(QString::number(m_countCircuit));
+				name = i18n("Untitled (Circuit %1)", QString::number(m_countCircuit));
 			else
 				name = i18n("Untitled (Circuit)");
 			m_countCircuit++;
@@ -174,7 +174,7 @@ QString DocManager::untitledName( int type )
 	case Document::dt_flowcode:
 		{
 			if ( m_countFlowCode>1 )
-				name = i18n("Untitled (FlowCode %1)").arg(QString::number(m_countFlowCode));
+				name = i18n("Untitled (FlowCode %1)", QString::number(m_countFlowCode));
 			else
 				name = i18n("Untitled (FlowCode)");
 			m_countFlowCode++;
@@ -183,7 +183,7 @@ QString DocManager::untitledName( int type )
 	case Document::dt_mechanics:
 		{
 			if ( m_countMechanics>1 )
-				name = i18n("Untitled (Mechanics %1)").arg(QString::number(m_countMechanics));
+				name = i18n("Untitled (Mechanics %1)", QString::number(m_countMechanics));
 			else
 				name = i18n("Untitled (Mechanics)");
 			m_countMechanics++;
@@ -192,7 +192,7 @@ QString DocManager::untitledName( int type )
 	default:
 		{
 			if ( m_countOther>1 )
-				name = i18n("Untitled (%1)").arg(QString::number(m_countOther));
+				name = i18n("Untitled (%1)", QString::number(m_countOther));
 			else
 				name = i18n("Untitled");
 			m_countOther++;
@@ -435,7 +435,7 @@ CircuitDocument *DocManager::openCircuitFile( const KUrl &url, ViewArea *viewAre
 	
 	if ( !document->openURL(url) )
 	{
-		KMessageBox::sorry( 0l, i18n("Could not open Circuit file \"%1\"").arg(url.prettyUrl()) );
+		KMessageBox::sorry( 0l, i18n("Could not open Circuit file \"%1\"", url.prettyUrl()) );
 		document->deleteLater();
 		return 0l;
 	}
@@ -452,7 +452,7 @@ FlowCodeDocument *DocManager::openFlowCodeFile( const KUrl &url, ViewArea *viewA
 	
 	if ( !document->openURL(url) )
 	{
-		KMessageBox::sorry( 0l, i18n("Could not open FlowCode file \"%1\"").arg(url.prettyUrl()) );
+		KMessageBox::sorry( 0l, i18n("Could not open FlowCode file \"%1\"", url.prettyUrl()) );
 		document->deleteLater();
 		return 0l;
 	}
@@ -469,7 +469,7 @@ MechanicsDocument *DocManager::openMechanicsFile( const KUrl &url, ViewArea *vie
 	
 	if ( !document->openURL(url) )
 	{
-		KMessageBox::sorry( 0l, i18n("Could not open Mechanics file \"%1\"").arg(url.prettyUrl()) );
+		KMessageBox::sorry( 0l, i18n("Could not open Mechanics file \"%1\"", url.prettyUrl()) );
 		document->deleteLater();
 		return 0l;
 	}
@@ -490,7 +490,7 @@ TextDocument *DocManager::openTextFile( const KUrl &url, ViewArea *viewArea )
 	
 	if ( !document->openURL(url) )
 	{
-		KMessageBox::sorry( 0l, i18n("Could not open text file \"%1\"").arg(url.prettyUrl()) );
+		KMessageBox::sorry( 0l, i18n("Could not open text file \"%1\"", url.prettyUrl()) );
 		document->deleteLater();
 		return 0l;
 	}

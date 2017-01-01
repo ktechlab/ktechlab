@@ -151,19 +151,19 @@ void SettingsDlg::slotUpdateRefreshRateLabel( int sliderValue )
 	switch(sliderValue)
 	{
 		case 0:
-			m_generalOptionsWidget->refreshRateLabel->setText( i18n("Lowest (%1 FPS)").arg(number) );
+			m_generalOptionsWidget->refreshRateLabel->setText( i18n("Lowest (%1 FPS)", number) );
 			break;
 		case 1:
-			m_generalOptionsWidget->refreshRateLabel->setText( i18n("Low (%1 FPS)").arg(number) );
+			m_generalOptionsWidget->refreshRateLabel->setText( i18n("Low (%1 FPS)", number) );
 			break;
 		case 2:
-			m_generalOptionsWidget->refreshRateLabel->setText( i18n("Medium (%1 FPS)").arg(number) );
+			m_generalOptionsWidget->refreshRateLabel->setText( i18n("Medium (%1 FPS)", number) );
 			break;
 		case 3:
-			m_generalOptionsWidget->refreshRateLabel->setText( i18n("High (%1 FPS)").arg(number) );
+			m_generalOptionsWidget->refreshRateLabel->setText( i18n("High (%1 FPS)", number) );
 			break;
 		case 4:
-			m_generalOptionsWidget->refreshRateLabel->setText( i18n("Highest (%1 FPS)").arg(number) );
+			m_generalOptionsWidget->refreshRateLabel->setText( i18n("Highest (%1 FPS)", number) );
 			break;
 		default:
 			m_generalOptionsWidget->refreshRateLabel->setText( i18n("Unknown value") );
@@ -188,9 +188,9 @@ void SettingsDlg::slotUpdatePicProgrammerDescription()
 	
 	QString programLocation = KStandardDirs::findExe( executable );
 	if ( programLocation.isNull() )
-		description.prepend( i18n("<b>%1</b> cannot be found.<br>").arg( executable ) );
+		description.prepend( i18n("<b>%1</b> cannot be found.<br>", executable ) );
 	else
-		description.prepend( i18n("<b>%1</b> found: %2<br>").arg( executable ).arg(programLocation) );
+		description.prepend( i18n("<b>%1</b> found: %2<br>", executable, programLocation) );
 	
 	m_picProgrammerConfigWidget->m_pProgrammerDescription->setText( description );
 	m_picProgrammerConfigWidget->removeButton->setEnabled( customProgrammer );
@@ -242,8 +242,8 @@ void SettingsDlg::slotRemoveProgrammerConfig()
 	
 	KMessageBox::ButtonCode confirm = (KMessageBox::ButtonCode)KMessageBox::warningContinueCancel(
             this,
-            i18n("Remove programmer configuration \"%1\"?").arg(program),
-            i18n("Remove \"%1\"").arg(program)
+            i18n("Remove programmer configuration \"%1\"?", program),
+            i18n("Remove \"%1\"", program)
             //, i18n("Remove")
             );
 	if ( confirm == KMessageBox::Cancel )

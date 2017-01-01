@@ -176,7 +176,7 @@ QString FlowCode::generateMicrobe( const ItemList &itemList, MicroSettings *sett
 				continue;
 			
 			if ( !startPart->outputPart( nodeMapIt.key() ) )
-				outputWarning( i18n("Warning: Floating connection for %1").arg( startPart->id() ) );
+				outputWarning( i18n("Warning: Floating connection for %1", startPart->id() ) );
 		}
 		
 		FlowContainer * fc = dynamic_cast<FlowContainer*>((Item*)*it);

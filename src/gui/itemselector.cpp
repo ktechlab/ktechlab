@@ -186,7 +186,7 @@ void ItemSelector::slotContextMenuRequested( Q3ListViewItem* item, const QPoint&
 	}
 	
 	Q3PopupMenu *menu = new Q3PopupMenu(this);
-	menu->insertItem( i18n("Remove %1").arg(item->text(0)), this, SLOT(slotRemoveSelectedItem())
+	menu->insertItem( i18n("Remove %1",  item->text(0)), this, SLOT(slotRemoveSelectedItem())
         //, Qt::Key_Delete // 2015.12.29 - do not specify shortcut key, because it does not work
     );
 	menu->popup(pos);

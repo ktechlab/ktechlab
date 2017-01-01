@@ -50,7 +50,7 @@ CallSub::~CallSub()
 
 void CallSub::dataChanged()
 {
-	setCaption( i18n("Call %1").arg(dataString("sub")) );
+	setCaption( i18n("Call %1", dataString("sub")) );
 }
 
 void CallSub::generateMicrobe( FlowCode *code )

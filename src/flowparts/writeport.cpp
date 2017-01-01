@@ -58,7 +58,7 @@ WritePort::~WritePort()
 
 void WritePort::dataChanged()
 {
-	setCaption(  i18n("Write %1 to %2").arg(dataString("0-var")).arg(dataString("1-port")) );
+	setCaption(  i18n("Write %1 to %2", dataString("0-var"), dataString("1-port")) );
 }
 
 

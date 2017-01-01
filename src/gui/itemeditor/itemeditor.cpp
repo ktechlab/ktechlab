@@ -66,7 +66,7 @@ ItemEditor::ItemEditor( KateMDI::ToolView * parent )
 	//END Create Name Label
 
 	m_pPropertyEditor = new PropertyEditor(this);
-	QWhatsThis::add(m_pPropertyEditor,i18n("<qt>Shows properties associated with the currently selected item(s).<p>Select a property to change its value. If multiple items are selected with different values then the property will appear greyed out, use ""Merge Properties"" to make them the same.<p>Select ""Defaults to set all properties to their default values""")); 
+	QWhatsThis::add(m_pPropertyEditor,i18n("<p>Shows properties associated with the currently selected item(s).<br/>Select a property to change its value. If multiple items are selected with different values then the property will appear greyed out, use \"Merge Properties\" to make them the same.<br/>Select \"Defaults\" to set all properties to their default values")); 
 	
 	m_pComponentModelWidget = new ComponentModelWidget( this );
 	

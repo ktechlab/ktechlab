@@ -378,7 +378,7 @@ void MicroSettingsDlg::savePort( int row )
 	
 	if ( !typeOk )
 	{
-// 		KMessageBox::sorry( this, i18n("Unregnised Port Type: %1").arg(typeText) );
+// 		KMessageBox::sorry( this, i18n("Unregnised Port Type: %1", typeText) );
 		return;
 	}
 	
@@ -391,7 +391,7 @@ void MicroSettingsDlg::savePort( int row )
 	
 	if ( !stateOk )
 	{
-// 		KMessageBox::sorry( this, i18n("Unregnised Port State: %1").arg(stateText) );
+// 		KMessageBox::sorry( this, i18n("Unregnised Port State: %1", stateText) );
 		return;
 	}
 	
@@ -413,7 +413,7 @@ void MicroSettingsDlg::saveVariable( int row )
 
 	if (!ok)
 	{
-		KMessageBox::sorry( this, i18n("Invalid variable value: %1").arg(valueText) );
+		KMessageBox::sorry( this, i18n("Invalid variable value: %1", valueText) );
 		return;
 	}
 	

@@ -38,7 +38,7 @@ void SDCC::processInput( ProcessOptions options )
 	MicroInfo * info = MicroLibrary::self()->microInfoWithID( options.m_picID );
 	if (!info)
 	{
-		outputError( i18n("Could not find PIC with ID \"%1\".").arg(options.m_picID) );
+		outputError( i18n("Could not find PIC with ID \"%1\".", options.m_picID) );
 		return;
 	}
 	

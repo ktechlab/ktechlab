@@ -156,11 +156,11 @@
 	
 	<group name="SDCC">
 		<entry name="SDCC_nostdlib" type="Bool">
-			<label>Don't search in the standard library directory</label>
+			<label>Do not search in the standard library directory</label>
 			<default>false</default>
 		</entry>
 		<entry name="SDCC_nostdinc" type="Bool">
-			<label>Don't search in the standard include directory</label>
+			<label>Do not search in the standard include directory</label>
 			<default>false</default>
 		</entry>
 		<entry name="SDCC_less_pedantic" type="Bool">
@@ -193,7 +193,7 @@
 			<default>false</default>
 		</entry>
 		<entry name="SDCC_no_xinit_opt" type="Bool">
-			<label>Don't memcpy initialized data from code space to xdata space</label>
+			<label>Do not memcpy initialized data from code space to xdata space</label>
 			<default>false</default>
 		</entry>
 		<entry name="SDCC_all_callee_saves" type="Bool">
@@ -202,7 +202,7 @@
 		</entry>
 		
 		<entry name="SDCC_nooverlay" type="Bool">
-			<label>Don't overlay parameters and local variables</label>
+			<label>Do not overlay parameters and local variables</label>
 			<default>false</default>
 		</entry>
 		<entry name="SDCC_nogcse" type="Bool">
@@ -210,7 +210,7 @@
 			<default>false</default>
 		</entry>
 		<entry name="SDCC_nolabelopt" type="Bool">
-			<label>Don't optimize labels</label>
+			<label>Do not optimize labels</label>
 			<default>false</default>
 		</entry>
 		<entry name="SDCC_noinvariant" type="Bool">
@@ -226,7 +226,7 @@
 			<default>false</default>
 		</entry>
 		<entry name="SDCC_noloopreverse" type="Bool">
-			<label>Don't do loop reversal optimization</label>
+			<label>Do not do loop reversal optimization</label>
 			<default>false</default>
 		</entry>
 		<entry name="SDCC_opt_code_size" type="Bool">
@@ -242,16 +242,16 @@
 			<default>false</default>
 		</entry>
 		<entry name="SDCC_nojtbound" type="Bool">
-			<label>Don't generate boundary check for jump tables</label>
+			<label>Do not generate boundary check for jump tables</label>
 			<default>false</default>
 		</entry>
 		
 		<entry name="SDCC_nodefaultlibs" type="Bool">
-			<label>Don't use default libraries</label>
+			<label>Do not use default libraries</label>
 			<default>false</default>
 		</entry>
 		<entry name="SDCC_pno_banksel" type="Bool">
-			<label>Don't generate BANKSEL directives</label>
+			<label>Do not generate BANKSEL directives</label>
 			<default>false</default>
 		</entry>
 		<entry name="SDCC_pstack_model_large" type="Bool">

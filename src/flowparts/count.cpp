@@ -57,7 +57,7 @@ Count::~Count()
 void Count::dataChanged()
 {
 	double count = dataDouble("1-length");
-	setCaption( i18n("Count %1 for %2 sec").arg(dataString("0-trigger")).arg(QString::number( count / getMultiplier(count), 'g', 3 ) + getNumberMag(count)) );
+	setCaption( i18n("Count %1 for %2 sec", dataString("0-trigger"), QString::number( count / getMultiplier(count), 'g', 3 ) + getNumberMag(count)) );
 }
 
 void Count::generateMicrobe( FlowCode *code )

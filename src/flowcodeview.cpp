@@ -27,14 +27,14 @@ FlowCodeView::FlowCodeView( FlowCodeDocument * flowCodeDocument, ViewContainer *
 	KActionCollection * ac = actionCollection();
 	
 	//BEGIN Convert To * Actions
-	//KToolBarPopupAction * pa = new KToolBarPopupAction( i18n("Convert to ..."), "fork", 0, 0, 0, ac, "program_convert" );
-    KToolBarPopupAction * pa = new KToolBarPopupAction( KIcon("fork"), i18n("Convert to ..."), ac);
+	//KToolBarPopupAction * pa = new KToolBarPopupAction( i18n("Convert to..."), "fork", 0, 0, 0, ac, "program_convert" );
+    KToolBarPopupAction * pa = new KToolBarPopupAction( KIcon("fork"), i18n("Convert to..."), ac);
     pa->setName( "program_convert" );
 	pa->setDelayed(false);
 	
 	QMenu * m = pa->menu();
 	
-	m->setTitle( i18n("Convert to") );
+	m->setTitle( i18n("Convert To") );
 	m->insertItem( KIcon( "convert_to_microbe" ), i18n("Microbe"), FlowCodeDocument::MicrobeOutput );
 	m->insertItem( KIcon( "convert_to_assembly" ), i18n("Assembly"), FlowCodeDocument::AssemblyOutput );
 	m->insertItem( KIcon( "convert_to_hex" ), i18n("Hex"), FlowCodeDocument::HexOutput );

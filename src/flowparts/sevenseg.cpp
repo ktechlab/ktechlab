@@ -58,7 +58,7 @@ SevenSeg::~SevenSeg()
 
 void SevenSeg::dataChanged()
 {
-	setCaption( i18n("Display %1 on %2").arg( dataString("expression") ).arg( dataString("sevenseg") ) );
+	setCaption( i18n("Display %1 on %2", dataString("expression"), dataString("sevenseg") ) );
 }
 
 

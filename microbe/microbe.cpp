@@ -89,7 +89,7 @@ QString Microbe::compile( const QString & url, bool optimize )
 	}
 	else
 	{
-		m_errorReport += i18n("Could not open file '%1'\n").arg(url);
+		m_errorReport += i18n("Could not open file '%1'\n", url);
 		return 0;
 	}
 	
@@ -222,7 +222,7 @@ void Microbe::compileError( MistakeType type, const QString & context, const Sou
 			message = i18n("Unknown statement");
 			break;
 		case InvalidPort:
-			message = i18n("Port '%1' is not supported by target PIC").arg(context);
+			message = i18n("Port '%1' is not supported by target PIC", context);
 			break;
 		case UnassignedPin:
 			message = i18n("Pin identifier was not followed by '='");
@@ -231,19 +231,19 @@ void Microbe::compileError( MistakeType type, const QString & context, const Sou
 			message = i18n("Pin state can only be 'high' or 'low'");
 			break;
 		case UnassignedPort:
-			message = i18n("Invalid token '%1'. Port identifier should be followed by '='").arg(context);
+			message = i18n("Invalid token '%1'. Port identifier should be followed by '='", context);
 			break;
 		case UnexpectedStatementBeforeBracket:
 			message = i18n("Unexpected statement before '{'");
 			break;
 		case MismatchedBrackets:
-			message = i18n("Mismatched brackets in expression '%1'").arg(context);
+			message = i18n("Mismatched brackets in expression '%1'", context);
 			break;
 		case InvalidEquals:
 			message = i18n("Invalid '=' found in expression");
 			break;
 		case ReservedKeyword:
-			message = i18n("Reserved keyword '%1' cannot be a variable name.").arg(context);
+			message = i18n("Reserved keyword '%1' cannot be a variable name.", context);
 			break;
 		case ConsecutiveOperators:
 			message = i18n("Nothing between operators");
@@ -255,10 +255,10 @@ void Microbe::compileError( MistakeType type, const QString & context, const Sou
 			if ( context.isEmpty() )
 				message = i18n("Unknown variable");
 			else
-				message = i18n("Unknown variable '%1'").arg(context);
+				message = i18n("Unknown variable '%1'", context);
 			break;
 		case UnopenableInclude:
-			message = i18n("Could not open include file '%1'").arg(context);
+			message = i18n("Could not open include file '%1'", context);
 			break;
 		case DivisionByZero:
 			message = i18n("Division by zero");
@@ -273,7 +273,7 @@ void Microbe::compileError( MistakeType type, const QString & context, const Sou
 			message = i18n("Delay must be a positive constant value");
 			break;
 		case HighLowExpected:
-			message = i18n("'high' or 'low' expected after pin expression '%1'").arg(context);
+			message = i18n("'high' or 'low' expected after pin expression '%1'", context);
 			break;
 		case InvalidComparison:
 			message = i18n("Comparison operator in '%1' is not recognized");
@@ -291,7 +291,7 @@ void Microbe::compileError( MistakeType type, const QString & context, const Sou
 			message = i18n("Extra tokens at end of line");
 			break;
 		case FixedStringExpected:
-			message = i18n("Expected '%1'").arg(context);
+			message = i18n("Expected '%1'", context);
 			break;
 		case PinListExpected:
 			message = i18n("Pin list expected");
@@ -306,19 +306,19 @@ void Microbe::compileError( MistakeType type, const QString & context, const Sou
 			message = i18n("Interrupt already defined");
 			break;
 		case ReadOnlyVariable:
-			message = i18n("Variable '%1' is read only").arg(context);
+			message = i18n("Variable '%1' is read only", context);
 			break;
 		case WriteOnlyVariable:
-			message = i18n("Variable '%1' is write only").arg(context);
+			message = i18n("Variable '%1' is write only", context);
 			break;
 		case InvalidPinMapSize:
 			message = i18n("Invalid pin list size");
 			break;
 		case VariableRedefined:
-			message = i18n("Variable '%1' is already defined").arg(context);
+			message = i18n("Variable '%1' is already defined", context);
 			break;
 		case InvalidVariableName:
-			message = i18n("'%1' is not a valid variable name").arg(context);
+			message = i18n("'%1' is not a valid variable name", context);
 			break;
 		case VariableExpected:
 			message = i18n("Variable expected");

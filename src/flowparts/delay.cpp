@@ -52,7 +52,7 @@ Delay::~Delay()
 void Delay::dataChanged()
 {
 	double delay = dataDouble("delay_length");
-	setCaption( i18n("Delay for %1 sec").arg(QString::number( delay / getMultiplier(delay), 'g', 3 )+getNumberMag(delay)) );
+	setCaption( i18n("Delay for %1 sec", QString::number( delay / getMultiplier(delay), 'g', 3 )+getNumberMag(delay)) );
 }
 
 void Delay::generateMicrobe( FlowCode *code )
