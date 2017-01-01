@@ -3,7 +3,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${KD
 
 ########### install files ###############
 
-kde4_install_icons(share/apps/ktechlab/icons)
+kde4_install_icons(${DATA_INSTALL_DIR}/ktechlab/icons)
 
 install(FILES
 	and.png
@@ -97,7 +97,7 @@ install(FILES
 	pemosfet.png
 	pjfet.png
 	
-	DESTINATION share/apps/ktechlab/icons)
+	DESTINATION ${DATA_INSTALL_DIR}/ktechlab/icons)
 
 #original Makefile.am contents follow:
 

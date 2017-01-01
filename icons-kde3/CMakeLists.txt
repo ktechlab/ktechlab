@@ -7,5 +7,5 @@ install( FILES
 
     nuvola/32x32/actions/pencil.png
 
-    DESTINATION share/apps/ktechlab/pics
+    DESTINATION ${DATA_INSTALL_DIR}/ktechlab/pics
     )

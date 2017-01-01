@@ -9,7 +9,7 @@ install(FILES
 	nor.circuit
 	scmitt-trigger.circuit
 	switch.circuit
-	DESTINATION share/apps/ktechlab/examples/transistors)
+	DESTINATION ${DATA_INSTALL_DIR}/ktechlab/examples/transistors)
 
 
 

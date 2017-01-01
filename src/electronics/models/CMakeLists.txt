@@ -5,7 +5,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${KD
 
 install(FILES
 	transistors_lib.txt
-	DESTINATION share/apps/ktechlab/models)
+	DESTINATION ${DATA_INSTALL_DIR}/ktechlab/models)
 
 
 

@@ -6,7 +6,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${KD
 install(FILES
 	internals.circuit
 	square-wave.circuit
-	DESTINATION share/apps/ktechlab/examples/555)
+	DESTINATION ${DATA_INSTALL_DIR}/ktechlab/examples/555)
 
 
 

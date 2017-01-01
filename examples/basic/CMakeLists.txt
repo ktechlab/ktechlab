@@ -10,7 +10,7 @@ install(FILES
 	lrc.circuit resistors-parallel.circuit
 	resistors-series.circuit
 	voltage-divider.circuit
-	DESTINATION share/apps/ktechlab/examples/basic)
+	DESTINATION ${DATA_INSTALL_DIR}/ktechlab/examples/basic)
 
 
 

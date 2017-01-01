@@ -21,4 +21,4 @@ target_link_libraries( test_loaded_icons
     ${KDE4_KFILE_LIBRARY} # kfile
     )
 
-install(TARGETS test_loaded_icons DESTINATION bin )
+install(TARGETS test_loaded_icons ${INSTALL_TARGETS_DEFAULT_ARGS})

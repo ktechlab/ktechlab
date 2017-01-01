@@ -6,7 +6,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${KD
 install(FILES
 	full-wave-rectifier.circuit
 	half-wave-rectifier.circuit
-	DESTINATION share/apps/ktechlab/examples/diodes)
+	DESTINATION ${DATA_INSTALL_DIR}/ktechlab/examples/diodes)
 
 
 

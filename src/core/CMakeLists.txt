@@ -22,7 +22,7 @@ add_library(core STATIC ${core_STAT_SRCS})
 
 ########### install files ###############
 
-install(FILES  ktechlab.kcfg DESTINATION share/config.kcfg)
+install(FILES ktechlab.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 
 
 

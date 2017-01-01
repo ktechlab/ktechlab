@@ -8,7 +8,7 @@ install(FILES
 	inverting-amplifier.circuit
 	noninverting-amplifier.circuit
 	instrumentation-amplifier.circuit
-	DESTINATION share/apps/ktechlab/examples/opamps)
+	DESTINATION ${DATA_INSTALL_DIR}/ktechlab/examples/opamps)
 
 
 

@@ -9,7 +9,7 @@ install(FILES
 	nand.circuit
 	nor.circuit
 	or.circuit
-	DESTINATION share/apps/ktechlab/examples/mosfets)
+	DESTINATION ${DATA_INSTALL_DIR}/ktechlab/examples/mosfets)
 
 
 
