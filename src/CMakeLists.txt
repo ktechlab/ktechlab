@@ -98,7 +98,6 @@ target_link_libraries( ktechlab
 	mechanics electronics elements components languages drawparts
 	itemeditor math
 	${KDE4_KHTML_LIBRARY} # khtml
-	${KDE4_KUTILS_LIBRARY} # kutils
 	${GPSIM_LIBRARY}
 	${KDE4_KTEXTEDITOR_LIBRARY} # ktexteditor
 	${KDE4_KIO_LIBRARY} # kio
