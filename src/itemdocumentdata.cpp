@@ -23,7 +23,7 @@
 
 #include <kdebug.h>
 #include <kio/netaccess.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h> 
 #include <k3tempfile.h>
 #include <Qt/qbitarray.h>

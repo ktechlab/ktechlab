@@ -16,7 +16,7 @@
 #include "libraryitem.h"
 #include "simulator.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <Qt/qpainter.h>
 #include <Qt/qstring.h>
 

@@ -17,7 +17,7 @@
 #include "simulator.h"
 
 #include <kiconloader.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <Qt/qpainter.h>
 
 

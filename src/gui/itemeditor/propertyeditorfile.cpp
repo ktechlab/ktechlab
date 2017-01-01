@@ -15,7 +15,7 @@
 #include <klineedit.h>
 #include <kpushbutton.h>
 #include <kfiledialog.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kdebug.h>
 
 #include <Qt/qstring.h>

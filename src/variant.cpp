@@ -13,7 +13,7 @@
 
 #include <cmath>
 #include <kdebug.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 using namespace std;
 
 Variant::Variant( const QString & id, Type::Value type )

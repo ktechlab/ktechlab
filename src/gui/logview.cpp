@@ -13,7 +13,7 @@
 #include <kdebug.h>
 #include <kiconloader.h>
 #include <katemdi.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <Qt/q3popupmenu.h>
 
 

@@ -11,7 +11,7 @@
 #include "micropackage.h"
 #include "picinfo14bit.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <k3staticdeleter.h>
 
 PicAsm14bit *PicAsm14bit::m_self = 0;

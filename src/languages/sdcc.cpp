@@ -16,7 +16,7 @@
 #include "sdcc.h"
 #include "src/core/ktlconfig.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <k3process.h>
 

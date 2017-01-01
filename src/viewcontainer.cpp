@@ -17,7 +17,7 @@
 #include <kconfig.h>
 #include <kdebug.h>
 #include <kglobalsettings.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kpushbutton.h>
 #include <ktabwidget.h>
 #include <kconfiggroup.h>

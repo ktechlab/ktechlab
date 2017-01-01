@@ -24,7 +24,7 @@
 #include <kfiledialog.h>
 #include <kiconloader.h>
 #include <kio/netaccess.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h> 
 #include <kmimetype.h>
 #include <kstandarddirs.h>

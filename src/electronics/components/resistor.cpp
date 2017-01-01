@@ -13,7 +13,7 @@
 #include "libraryitem.h"
 #include "resistance.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <Qt/qpainter.h>
 
 Item* Resistor::construct( ItemDocument *itemDocument, bool newItem, const char *id )

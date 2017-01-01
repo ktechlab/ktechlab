@@ -18,7 +18,7 @@
 #include <kcmdlineargs.h>
 #include <kconfig.h>
 #include <config.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 
 static const char description[] =
     I18N_NOOP("An IDE for microcontrollers and electronics");

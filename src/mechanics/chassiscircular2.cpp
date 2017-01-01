@@ -12,7 +12,7 @@
 
 #include "libraryitem.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <Qt/qpainter.h>
 #include <Qt/qwmatrix.h>
 

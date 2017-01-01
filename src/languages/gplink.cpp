@@ -15,7 +15,7 @@
 #include "microlibrary.h"
 #include "src/core/ktlconfig.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <k3process.h>
 #include <kdebug.h>

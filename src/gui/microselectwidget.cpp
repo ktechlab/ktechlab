@@ -14,7 +14,7 @@
 #include "microselectwidget.h"
 
 #include <kcombobox.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 
 #include <Qt/q3groupbox.h>
 #include <Qt/qlabel.h>

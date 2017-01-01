@@ -14,7 +14,7 @@
 #include "viewiface.h"
 
 #include <kiconloader.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kmenu.h>
 #include <ktoolbarpopupaction.h>
 #include <kactioncollection.h>

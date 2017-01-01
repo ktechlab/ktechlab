@@ -16,7 +16,7 @@
 
 #include <kdebug.h>
 #include <kiconloader.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 
 #include <Qt/qcolor.h>
 #include <Qt/qcursor.h>

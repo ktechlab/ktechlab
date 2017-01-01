@@ -19,7 +19,7 @@
 #include "outputflownode.h"
 #include "pinmapping.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 // #include <kmessagebox.h>
 #include <Qt/qfile.h>
 #include <Qt/qtextstream.h>

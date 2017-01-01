@@ -15,7 +15,7 @@
 #include "pin.h"
 #include "simulator.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <Qt/qpainter.h>
 
 Item* ECCurrentSignal::construct( ItemDocument *itemDocument, bool newItem, const char *id )

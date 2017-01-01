@@ -14,7 +14,7 @@
 #include "switch.h"
 
 #include "ecnode.h"
-#include <klocale.h>
+#include <klocalizedstring.h>
 
 Item* ECKeyPad::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {

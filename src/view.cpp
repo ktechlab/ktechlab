@@ -17,7 +17,7 @@
 
 #include <kdebug.h>
 #include <kiconloader.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <ksqueezedtextlabel.h>
 #include <kxmlguifactory.h>
 #include <kactioncollection.h>

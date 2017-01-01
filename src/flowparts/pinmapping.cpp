@@ -20,7 +20,7 @@
 #include "viewcontainer.h"
 
 #include <kdebug.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kstdaccel.h>
 #include <kstandardshortcut.h>
 

@@ -26,7 +26,7 @@
 #include <kconfig.h>
 #include <kinputdialog.h>
 #include <klineedit.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <knuminput.h>
 #include <kpushbutton.h>

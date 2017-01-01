@@ -16,7 +16,7 @@
 #include <kconfig.h>
 #include <kglobal.h>
 #include <kiconloader.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kactioncollection.h>
 #include <ktoolbarpopupaction.h>
 #include <kmenu.h>

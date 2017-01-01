@@ -25,7 +25,7 @@
 #include <kdebug.h>
 #include <kglobalsettings.h>
 #include <kapplication.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kconfig.h>
 #include <kiconloader.h>
 //#include <kpopupmenu.h>

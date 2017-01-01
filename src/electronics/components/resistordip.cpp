@@ -14,7 +14,7 @@
 #include "resistordip.h"
 
 #include <kiconloader.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <Qt/qpainter.h>
 
 Item* ResistorDIP::construct( ItemDocument *itemDocument, bool newItem, const char *id )

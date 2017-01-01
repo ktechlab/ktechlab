@@ -12,7 +12,7 @@
 #include "flowcode.h"
 #include "pulse.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 
 Item* Pulse::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {

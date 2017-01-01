@@ -12,7 +12,7 @@
 #include "inductor.h"
 #include "libraryitem.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <Qt/qpainter.h>
 
 Item* Inductor::construct( ItemDocument *itemDocument, bool newItem, const char *id )

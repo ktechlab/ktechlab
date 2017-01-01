@@ -18,7 +18,7 @@
 #include "resistance.h"
 
 #include <kdebug.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <Qt/qpainter.h>
 
 #include <cmath>

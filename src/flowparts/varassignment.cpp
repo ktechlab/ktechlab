@@ -13,7 +13,7 @@
 #include "libraryitem.h"
 #include "flowcode.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 
 Item* VarAssignment::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {

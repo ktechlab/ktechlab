@@ -16,7 +16,7 @@
 #include "propertyeditor.h"
 #include "katemdi.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kstandarddirs.h>
 
 #include <Qt/qlayout.h>

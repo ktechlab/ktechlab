@@ -16,7 +16,7 @@
 
 #include <kconfig.h>
 #include <kdebug.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kglobal.h>
 #include <k3popupmenu.h>
 

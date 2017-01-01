@@ -21,7 +21,7 @@
 #include "textview.h"
 #include "viewcontainer.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <ktabwidget.h>
 #include <kxmlguifactory.h>

@@ -21,7 +21,7 @@
 #include <kdebug.h>
 #include <kglobal.h>
 #include <kiconloader.h>
-#include <klocale.h> 
+#include <klocalizedstring.h>
 #include <knuminput.h>
 
 #include <Qt/q3button.h>

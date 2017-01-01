@@ -19,7 +19,7 @@
 
 #include <kcombobox.h>
 #include <kguiitem.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kstdguiitem.h>
 
 struct ProgrammerWidget : public QWidget, Ui::ProgrammerWidget {

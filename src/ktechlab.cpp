@@ -55,7 +55,7 @@
 #include <kiconloader.h>
 #include <kio/netaccess.h>
 //#include <kkeydialog.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
 //#include <kpopupmenu.h>
 #include <kstandarddirs.h>

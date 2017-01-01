@@ -28,7 +28,7 @@
 #include <kstandardaction.h>
 #include <kdebug.h>
 #include <kiconloader.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <k3popupmenu.h>
 #include <k3urldrag.h>
 #include <ktoolbarpopupaction.h>

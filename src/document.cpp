@@ -17,7 +17,7 @@
 #include "viewcontainer.h"
 
 #include <kfiledialog.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <ktabwidget.h>
 

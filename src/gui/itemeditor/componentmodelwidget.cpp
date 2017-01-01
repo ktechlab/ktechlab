@@ -13,7 +13,7 @@
 
 #include <kdebug.h>
 #include <klineedit.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <ktoolbar.h>
 //#include <ktoolbarbutton.h> // converted to QToolButton
 #include <k3listview.h>

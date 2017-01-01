@@ -14,6 +14,7 @@
 #include <kdebug.h>
 #include <kglobal.h>
 #include <klocale.h>
+#include <klocalizedstring.h>
 
 #include <Qt/qlineedit.h>
 #include <Qt/qregexp.h>

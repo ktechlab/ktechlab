@@ -29,7 +29,7 @@
 // #include "kateview.h"
 #include <kdebug.h>
 #include <kiconloader.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <k3popupmenu.h>
 #include <kstandarddirs.h>
 #include <ktoolbarpopupaction.h>

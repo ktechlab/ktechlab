@@ -12,7 +12,7 @@
 
 #include <cstdlib>
 #include <kiconloader.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 
 #include "logic.h"
 #include "libraryitem.h"

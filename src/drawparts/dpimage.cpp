@@ -15,7 +15,7 @@
 
 #include <kdebug.h>
 #include <kiconloader.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 
 #include <Qt/qpainter.h>
 #include <Qt/qtimer.h>

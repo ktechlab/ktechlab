@@ -13,7 +13,7 @@
 #include "variant.h"
 
 #include <cmath>
-#include <klocale.h>
+#include <klocalizedstring.h>
 
 Item* MagnitudeComparator::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {

@@ -13,7 +13,7 @@
 #include "ecnode.h"
 #include "libraryitem.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <Qt/qpainter.h>
 #include <Qt/qstyle.h>
 #include <kdebug.h>

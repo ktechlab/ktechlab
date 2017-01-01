@@ -13,7 +13,7 @@
 #include "property.h"
 #include "propertyeditorcolor.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kfontdialog.h>
 #include <kpushbutton.h>
 #include <kdebug.h>

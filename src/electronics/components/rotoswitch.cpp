@@ -15,7 +15,7 @@
 #include "libraryitem.h"
 #include "switch.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <Qt/qpainter.h>
 #include <cmath>
 #include <cassert>

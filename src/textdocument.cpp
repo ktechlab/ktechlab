@@ -30,7 +30,7 @@
 
 #include <kdebug.h>
 #include <klibloader.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <k3tempfile.h>
 #include <ktexteditor/document.h>

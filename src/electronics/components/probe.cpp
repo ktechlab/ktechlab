@@ -18,7 +18,7 @@
 #include "simulator.h"
 #include "voltagesource.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <Qt/qpainter.h>
 
 //BEGIN class Probe

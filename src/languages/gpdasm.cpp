@@ -13,7 +13,7 @@
 #include "logview.h"
 #include "languagemanager.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <k3process.h>
 

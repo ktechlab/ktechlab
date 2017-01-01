@@ -22,7 +22,7 @@
 #include <kdebug.h>
 #include <klineedit.h>
 #include <k3iconview.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kiconloader.h>
 
 #include <canvas.h>

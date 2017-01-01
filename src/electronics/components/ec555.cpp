@@ -16,7 +16,7 @@
 #include "resistance.h"
 
 #include <kiconloader.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <Qt/qpainter.h>
 
 Item* EC555::construct( ItemDocument *itemDocument, bool newItem, const char *id )

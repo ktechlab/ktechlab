@@ -19,7 +19,7 @@
 #include <kconfig.h>
 #include <kdebug.h>
 #include <kiconloader.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kstandarddirs.h>
 #include <kconfiggroup.h>
 

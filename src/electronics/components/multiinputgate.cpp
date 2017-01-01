@@ -16,7 +16,7 @@
 #include "src/core/ktlconfig.h"
 
 #include <cmath>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <Qt/qpainter.h>
 
 //BEGIN class MultiInputGate

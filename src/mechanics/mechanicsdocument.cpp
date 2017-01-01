@@ -18,7 +18,7 @@
 #include "mechanicssimulation.h"
 #include "mechanicsview.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 
 MechanicsDocument::MechanicsDocument( const QString &caption, const char *name )
 	: ItemDocument( caption, name )

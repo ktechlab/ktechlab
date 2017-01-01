@@ -11,7 +11,7 @@
 #include "colorcombo.h"
 
 #include <kcolordialog.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 
 #include <Qt/qpainter.h>
 #include <Qt/qdebug.h>

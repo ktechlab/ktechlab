@@ -30,7 +30,7 @@
 #include "sdcc.h"
 
 #include <kdebug.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <k3tempfile.h>
 #include <Qt/qfile.h>
 #include <Qt/qtimer.h>

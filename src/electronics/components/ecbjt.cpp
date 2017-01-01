@@ -14,7 +14,7 @@
 #include "libraryitem.h"
 
 #include <kiconloader.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <Qt/qpainter.h>
 
 Item * ECBJT::constructNPN( ItemDocument * itemDocument, bool newItem, const char * id )

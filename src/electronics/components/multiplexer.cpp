@@ -14,7 +14,7 @@
 #include "libraryitem.h"
 
 #include <kiconloader.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 
 #include <cmath>
 

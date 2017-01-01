@@ -27,6 +27,7 @@
 #include <kmimetype.h>
 #include <kinputdialog.h>
 #include <klocale.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <kparts/browserextension.h> 
 #include <k3popupmenu.h>

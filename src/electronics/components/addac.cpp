@@ -17,7 +17,7 @@
 
 #include <cmath>
 #include <kiconloader.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 
 
 Item* ADC::construct( ItemDocument *itemDocument, bool newItem, const char *id )

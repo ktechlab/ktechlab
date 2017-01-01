@@ -24,7 +24,7 @@
 #include <cassert>
 
 #include <kdebug.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <k3tempfile.h>
 #include <kstandarddirs.h>

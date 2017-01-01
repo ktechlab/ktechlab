@@ -31,7 +31,7 @@
 #include <kdebug.h>
 #include <kfiledialog.h>
 #include <kiconloader.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <k3popupmenu.h>
 //#include <kprinter.h>

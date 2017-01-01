@@ -15,7 +15,7 @@
 #include "simulator.h"
 #include "viewiface.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kactioncollection.h>
 
 CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name )

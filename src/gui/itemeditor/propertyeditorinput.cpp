@@ -17,7 +17,7 @@
 
 #include <kiconloader.h>
 #include <klineedit.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kglobal.h>
 #include <kdebug.h>
 

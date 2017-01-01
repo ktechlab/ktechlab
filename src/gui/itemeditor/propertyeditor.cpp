@@ -20,7 +20,7 @@
 #include "propertyeditorlist.h"
 #include "propertyeditorinput.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kdebug.h>
 #include <kpushbutton.h>
 #include <kiconloader.h>

@@ -14,7 +14,7 @@
 #include "resizeoverlay.h"
 
 #include <kiconloader.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 
 #include <Qt/qpainter.h> 
 #include <Qt/q3simplerichtext.h>
