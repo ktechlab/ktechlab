@@ -480,7 +480,7 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
 
         p->insertItem(w->persistent ? SmallIcon("view-restore") : SmallIcon("view-fullscreen"), w->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent"), 10);
 
-        p->addTitle(SmallIcon("move"), i18n("Move To"), 0 /* 51 ? */);
+        p->addTitle(SmallIcon("transform-move"), i18n("Move To"), 0 /* 51 ? */);
 
 		if (sidebarPosition() != 0)
           p->insertItem(SmallIcon("go-previous"), i18n("Left Sidebar"),0);

@@ -134,16 +134,16 @@ ItemView::ItemView( ItemDocument * itemDocument, ViewContainer *viewContainer, u
 	
 	//BEGIN Item Control actions
     {
-	//new KAction( i18n("Raise Selection"), "bring_forward", Qt::Key_PageUp,   itemDocument, SLOT(raiseZ()), ac, "edit_raise" );
-        KAction * action = new KAction( KIcon("bring_forward"), i18n("Raise Selection"), ac);
+	//new KAction( i18n("Raise Selection"), "object-order-raise", Qt::Key_PageUp,   itemDocument, SLOT(raiseZ()), ac, "edit_raise" );
+        KAction * action = new KAction( KIcon("object-order-raise"), i18n("Raise Selection"), ac);
         action->setName("edit_raise");
         action->setShortcut(Qt::Key_PageUp);
         connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(raiseZ()));
         ac->addAction("edit_raise", action);
     }
     {
-	//new KAction( i18n("Lower Selection"), "send_backward", Qt::Key_PageDown, itemDocument, SLOT(lowerZ()), ac, "edit_lower" );
-        KAction *action = new KAction( KIcon("send_backward"), i18n("Lower Selection"), ac);
+	//new KAction( i18n("Lower Selection"), "object-order-lower", Qt::Key_PageDown, itemDocument, SLOT(lowerZ()), ac, "edit_lower" );
+        KAction *action = new KAction( KIcon("object-order-lower"), i18n("Lower Selection"), ac);
         action->setName("edit_lower");
         action->setShortcut(Qt::Key_PageDown);
         connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(lowerZ()));

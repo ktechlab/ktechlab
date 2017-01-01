@@ -1,5 +1,5 @@
 /* AUTO-GENERATED FILE BY ./tests/loaded-icons/generate-icon-names-list.sh; DO NOT EDIT MANUALLY */
-/* date of generation: Sun Jan  1 18:03:03 CET 2017 */
+/* date of generation: Sun Jan  1 22:24:01 CET 2017 */
 static const char *iconNames[] = {
     "align-horizontal-center",
     "align-vertical-center",
@@ -9,7 +9,6 @@ static const char *iconNames[] = {
     "application-x-zerosize",
     "attach",
     "blockdevice",
-    "bring_forward",
     "configure",
     "convert_to_assembly",
     "convert_to_hex",
@@ -53,10 +52,11 @@ static const char *iconNames[] = {
     "ktechlab_mechanics",
     "media-playback-pause",
     "media-playback-start",
-    "move",
     "null",
     "object-flip-horizontal",
     "object-flip-vertical",
+    "object-order-lower",
+    "object-order-raise",
     "object-rotate-left",
     "object-rotate-right",
     "oscilloscope",
@@ -65,7 +65,6 @@ static const char *iconNames[] = {
     "project-open",
     "run-build",
     "search-filter",
-    "send_backward",
     "source",
     "tab-close",
     "text",
@@ -76,6 +75,7 @@ static const char *iconNames[] = {
     "tool_line",
     "tool_rectangle",
     "tool_text",
+    "transform-move",
     "transform-rotate",
     "utilities-log-viewer",
     "view-fullscreen",
