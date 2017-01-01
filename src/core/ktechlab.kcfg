@@ -185,7 +185,7 @@
 			<default>false</default>
 		</entry>
 		<entry name="SDCC_float_reent" type="Bool">
-			<label>Floating point library is has been compiled as reentrant</label>
+			<label>Floating point library has been compiled as reentrant</label>
 			<default>false</default>
 		</entry>
 		<entry name="SDCC_fommit_frame_pointer" type="Bool">
