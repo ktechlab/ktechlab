@@ -5,14 +5,14 @@
 	<sect1 id="introduction">
 		<title>Introduction</title>
 		
-		<para>&kappname; is an IDE for electronic circuits and microcontrollers. It can perform simulation a variety of components (logic, integrated, linear, nonlinear and reactive), simulation and debugging of PIC microcontrollers via gpsim, and comes with its own closely-linked and complementary high level languages: &flowcode; and &microbe;.</para>
+		<para>&ktechlab; is an IDE for electronic circuits and microcontrollers. It can perform simulation a variety of components (logic, integrated, linear, nonlinear and reactive), simulation and debugging of PIC microcontrollers via gpsim, and comes with its own closely-linked and complementary high level languages: &flowcode; and &microbe;.</para>
 		
 		<para>It has been designed to be as easy to use and unintrusive as possible; all components and FlowParts have context sensitive help, and simulating electronics is as simple as dragging components onto the work area and creating connectors that autoroute themselves between their pins. &flowcode; allows users new to PICs to instantly create their own programs, while the electronic simulation allows stepping through a PIC's assembly program inside a circuit.</para>
 	</sect1>
 	
 	<sect1 id="documents">
 		<title>Documents</title>
-		<para>To get started in &kappname;, you will need to create a new document, whose type will depend on your task:</para>
+		<para>To get started in &ktechlab;, you will need to create a new document, whose type will depend on your task:</para>
 			
 			<itemizedlist>
 				<listitem><para>&flowcode; Document - Construct a PIC program via flowcharting.</para></listitem>
@@ -21,7 +21,7 @@
 				<listitem><para>Assembly Document - Start writing a PIC assembly program.</para></listitem>
 			</itemizedlist>
 			
-		<para>&kappname; uses a Document-View model, in that the Document logic is completely separate from open views of the document. This allows several views of the same file.</para>
+		<para>&ktechlab; uses a Document-View model, in that the Document logic is completely separate from open views of the document. This allows several views of the same file.</para>
 		
 		<para>On creating a new document, the view is created in a separate tab. Each tab can support any number of views, tiled in any arbitrary pattern. This allows, for example, simulating a PIC program in circuit, while stepping through the program in an assembly document in the same tab.</para>
 		

@@ -4,7 +4,7 @@
 <sect1>
 	<title>Introduction and General Syntax</title>
 	<para>
-		<application>Microbe</application> compiles programs written in the custom language for PICs, as a companion program to <application>&kappname;</application>. The syntax has been designed to suit a &flowcode; program.
+		<application>Microbe</application> compiles programs written in the custom language for PICs, as a companion program to <application>&ktechlab;</application>. The syntax has been designed to suit a &flowcode; program.
 		
 		The syntax for running <command>microbe</command> from the commandline is:
 		

@@ -5,10 +5,10 @@
 	<sect1 id="flowcode_introduction">
 		<title>Introduction</title>
 		
-		<para>&flowcode; allows for very quick and easy construction of a PIC program. After the user has constructed a flowchart from the program parts available, &kappname; can then convert the flowchart into a number of formats. To output hex, for example, the following chain of conversions takes place:</para>
+		<para>&flowcode; allows for very quick and easy construction of a PIC program. After the user has constructed a flowchart from the program parts available, &ktechlab; can then convert the flowchart into a number of formats. To output hex, for example, the following chain of conversions takes place:</para>
 		
 		<orderedlist>
-			<listitem><para>The &flowcode; is converted to &microbe;; a high-level language whose compiler is distributed with &kappname;.</para></listitem>
+			<listitem><para>The &flowcode; is converted to &microbe;; a high-level language whose compiler is distributed with &ktechlab;.</para></listitem>
 			<listitem><para>The <command>microbe</command> executable then compiles the &microbe; file to PIC assembly.</para></listitem>
 			<listitem><para>Finally, <command>gpasm</command> takes the PIC assembly file, and outputs the hex for the program.</para></listitem>
 		</orderedlist>
@@ -20,7 +20,7 @@
 	<sect1 id="flowcode_creation">
 		<title>Creating a Program</title>
 		
-		<para>Every &flowcode; program needs a unique starting point - this is the place where your program will be run from on PIC startup. To define this point, open up the FlowParts sidebar on the left, and drag across the Start part. &kappname; will only allow you to use one of these.</para>
+		<para>Every &flowcode; program needs a unique starting point - this is the place where your program will be run from on PIC startup. To define this point, open up the FlowParts sidebar on the left, and drag across the Start part. &ktechlab; will only allow you to use one of these.</para>
 		
 		<para>You can then construct your program by using the predefined parts on the left - or insert code of your own (in assembly or &microbe; format) via the Embed part. The flow of the program is controlled via the connections between the FlowParts - <xref linkend="connecting_components"/> offers more detail on creating connections.</para>
 		

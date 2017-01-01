@@ -4,7 +4,7 @@
 	
 	<sect1 id="placing_components">
 		<title>Placing components</title>
-		<para>On the left, you'll find the Components tab.</para>
+		<para>On the left, you'll find the <guilabel>Components</guilabel> tab.</para>
 		
 		<para>Dragging a component from the sidebar into the circuit will place it under the mouse cursor. Alternatively, you can double click on an item in the Components sidebar to repeatedly add it to the circuit. In this mode, a copy of the selected component will be placed repeatedly on mouse left-clicking until either Escape is pressed, or the mouse is right-clicked.</para>
 		
@@ -15,13 +15,13 @@
 	
 	<sect1 id="connecting_components">
 		<title>Connecting Components</title>
-		<para>There are two modes for creating connections (wires): automatic, and manual. These modes are selected via the "Connection Routing Mode" pulldown menu in the toolbar. Experiment with both - automatic routing is often better for small circuits, whereas more complex circuits may need manual routing.</para>
+		<para>There are two modes for creating connections (wires): automatic, and manual. These modes are selected via the <guimenu>Connection Routing Mode</guimenu> pulldown menu in the toolbar. Experiment with both - automatic routing is often better for small circuits, whereas more complex circuits may need manual routing.</para>
 		
 		<para>In automatic mode, create a connection by dragging from either a component pin or an existing connection, and releasing the mouse over the desired pin or connection. You'll see the straight-line being drawn turn orange when a valid connection will be created on mouse release. If the line you're drawing is black, it's either because there's nothing beneath the mouse cursor, or you're attempting to connect together two items which are already connected. When flowcharting, the criteria for a valid connection are more complex - but we'll get to that later.</para>
 		
 		<para>The best way to get a feel for manual connection routing is by experimenting with it. Click on the starting pin or connection, and then extend the proto-connector by moving the mouse away from where you clicked. To place a corner, left-click. To cancel drawing the connection, either press escape, or right-click the mouse.</para>
 		
-		<para>&kappname; tries its best to maintain the routes your connections take. However, if dragging a component results in the end points of a connection moving relative to each other, &kappname; will be forced to redraw the connection using auto-routing. Before moving a component, you can see which connectors will have to be rerouted - as they will turn grey on clicking.</para>
+		<para>&ktechlab; tries its best to maintain the routes your connections take. However, if dragging a component results in the end points of a connection moving relative to each other, &ktechlab; will be forced to redraw the connection using auto-routing. Before moving a component, you can see which connectors will have to be rerouted - as they will turn grey on clicking.</para>
 		
 		<para>To remove an existing connection, select it by drawing a small select-rectangle over part of the connector, and hit delete.</para>
 	</sect1>
@@ -62,7 +62,7 @@
 		
 		<para>For voltage and current probes, the range of input values can be adjusted in the "Item Editor" sidebar on the right.</para>
 		
-		<para>Zooming is controlled by a slider. The scaling is logarithmic; for every few pixels that the slider moves along, the zoom factor will be multiplied by a constant. &kappname; simulates logic to a maximum precision of 1 microsecond, and at maximum zoom level, one microsecond is represented by 8 pixels.</para>
+		<para>Zooming is controlled by a slider. The scaling is logarithmic; for every few pixels that the slider moves along, the zoom factor will be multiplied by a constant. &ktechlab; simulates logic to a maximum precision of 1 microsecond, and at maximum zoom level, one microsecond is represented by 8 pixels.</para>
 		
 		<para>When the scrollbar is dragged to the end, it will remain there as new data is recorded. Otherwise, the position of the scrollbar remains fixed in time. The oscilloscope view can also be moved forwards and backwards by left-clicking and dragging the view. Due to limitations of the underlying widget system, scrolling will be very granular at maximum zoom.</para>
 		
