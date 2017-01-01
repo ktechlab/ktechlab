@@ -3,6 +3,8 @@
 project( ktechlab )
 set( VERSION 0.3.6 )
 
+cmake_minimum_required(VERSION 2.8)
+
 find_package(Qt4 4.6.0 REQUIRED)
 find_package(KDE4 REQUIRED)
 include( ${CMAKE_SOURCE_DIR}/cmake/modules/FindGLIB.cmake )
@@ -27,25 +29,20 @@ if (KTECHLAB_DEVELOPER_BUILD)
 
 endif (KTECHLAB_DEVELOPER_BUILD)
 
-set( CMAKE_REQUIRED_FLAGS
-	-fexceptions
-	)
 add_definitions( -fno-inline )  # do not inline any method calls; this is useful for crash debugging
-add_definitions(${QT_DEFINITIONS} ${GLIB2_DEFINITIONS}${KDE4_DEFINITIONS})
+add_definitions(${QT_DEFINITIONS} ${GLIB2_DEFINITIONS} ${KDE4_DEFINITIONS})
 
 # KDE disables STL compatibility by default; re-enabling it is supported
 # see http://kde.6490.n7.nabble.com/QT-NO-STL-in-KDE4-td1123882i20.html
 # and http://www.cmake.org/Wiki/HowToBuildKDE4Software#Some_useful_functions
 remove_definitions(-DQT_NO_STL)
 
-link_directories(${KDE4_LIB_DIR}) # not really needed, see FindKde4Internal.cmake
-
 if ( GPSIM_FOUND AND GLIB2_FOUND)
     include_directories( ${GLIB2_INCLUDE_DIRS} )
+    set(CMAKE_CXX_FLAGS ${KDE4_ENABLE_EXCEPTIONS})
 endif (GPSIM_FOUND AND GLIB2_FOUND)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}
-        ${KDE4_INCLUDE_DIR} ${QT_INCLUDE_DIR} )
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 CONFIGURE_FILE( ${CMAKE_SOURCE_DIR}/config.h.cmake
 	${CMAKE_BINARY_DIR}/config.h )
@@ -57,18 +54,4 @@ add_subdirectory( icons )
 add_subdirectory( icons-kde3 )
 add_subdirectory( doc )
 
-
 add_subdirectory(tests)
-
-########### install files ###############
-
-
-
-
-#original Makefile.am contents follow:
-
-#AUTOMAKE_OPTIONS = foreign 1.5
-#
-#include admin/deps.am
-#
-#SUBDIRS=$(TOPSUBDIRS)

@@ -6,17 +6,3 @@ add_subdirectory(matrix_disp_driver)
 add_subdirectory(mosfets)
 add_subdirectory(transistors)
 add_subdirectory(opamps)
-
-include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${KDE3_INCLUDE_DIR} ${QT_INCLUDE_DIR} )
-
-
-########### install files ###############
-
-
-
-
-#original Makefile.am contents follow:
-
-#INCLUDES = 
-#METASOURCES = AUTO
-#SUBDIRS = 555 basic diodes jfets mosfets transistors opamps

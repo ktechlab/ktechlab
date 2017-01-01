@@ -1,4 +1,3 @@
-
 install( FILES
     Crystal/22x22/actions/attach.png
     Crystal/48x48/filesystems/blockdevice.png
