@@ -77,29 +77,29 @@ CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *view
         ac->addAction("circuit_create_subcircuit", ra);
     }
     {
-	//new KAction( i18n("Rotate Clockwise"), "rotate_cw", "]", circuitDocument, SLOT(rotateClockwise()), ac, "edit_rotate_cw" );
-        KAction *ra = new KAction( KIcon("rotate_cw"), i18n("Rotate Clockwise"), ac);
+	//new KAction( i18n("Rotate Clockwise"), "object-rotate-right", "]", circuitDocument, SLOT(rotateClockwise()), ac, "edit_rotate_cw" );
+        KAction *ra = new KAction( KIcon("object-rotate-right"), i18n("Rotate Clockwise"), ac);
         ra->setName("edit_rotate_cw");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(rotateClockwise()));
         ac->addAction("edit_rotate_cw", ra);
     }
     {
-	//new KAction( i18n("Rotate Counter-Clockwise"), "rotate_ccw", "[", circuitDocument, SLOT(rotateCounterClockwise()), ac, "edit_rotate_ccw" );
-        KAction *ra = new KAction( KIcon("rotate_ccw"), i18n("Rotate Counter-Clockwise"), ac);
+	//new KAction( i18n("Rotate Counter-Clockwise"), "object-rotate-left", "[", circuitDocument, SLOT(rotateCounterClockwise()), ac, "edit_rotate_ccw" );
+        KAction *ra = new KAction( KIcon("object-rotate-left"), i18n("Rotate Counter-Clockwise"), ac);
         ra->setName("edit_rotate_ccw");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(rotateCounterClockwise()));
         ac->addAction("edit_rotate_ccw", ra);
     }
     {
 	//new KAction( i18n("Flip Horizontally"), "", 0, circuitDocument, SLOT(flipHorizontally()), ac, "edit_flip_horizontally" );
-        KAction *ra = new KAction( KIcon(""), i18n("Flip Horizontally"), ac);
+        KAction *ra = new KAction( KIcon("object-flip-horizontal"), i18n("Flip Horizontally"), ac);
         ra->setName("edit_flip_horizontally");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(flipHorizontally()));
         ac->addAction("edit_flip_horizontally", ra);
     }
     {
 	//new KAction( i18n("Flip Vertically"), "", 0, circuitDocument, SLOT(flipVertically()), ac, "edit_flip_vertically" );
-        KAction *ra = new KAction( KIcon(""), i18n("Flip Vertically"), ac);
+        KAction *ra = new KAction( KIcon("object-flip-vertical"), i18n("Flip Vertically"), ac);
         ra->setName("edit_flip_vertically");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(flipVertically()));
         ac->addAction("edit_flip_vertically", ra);

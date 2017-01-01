@@ -253,14 +253,14 @@ void KTechlab::setupToolDocks()
 	
 	tv = createToolView( ContextHelp::toolViewIdentifier(),
 						 KMultiTabBar::Right,
-						 loader->loadIcon( "contents", KIconLoader::Small ),
+						 loader->loadIcon( "help-contents", KIconLoader::Small ),
 						 i18n("Context Help") );
     tv->setName("ContextHelp-ToolView");
 	ContextHelp::self(tv);
 	
 	tv = createToolView( LanguageManager::toolViewIdentifier(),
 						 KMultiTabBar::Bottom,
-						 loader->loadIcon( "log", KIconLoader::Small ),
+						 loader->loadIcon( "utilities-log-viewer", KIconLoader::Small ),
 						 i18n("Messages") );
     tv->setName("LanguageManager-ToolView");
 	LanguageManager::self( tv );
@@ -500,7 +500,7 @@ void KTechlab::setupActions()
 	KStandardAction::preferences(		this, SLOT(slotOptionsPreferences()),		ac );
 	
 	//BEGIN New file popup
-	//KToolBarPopupAction *p = new KToolBarPopupAction( i18n("&New"), "filenew",
+	//KToolBarPopupAction *p = new KToolBarPopupAction( i18n("&New"), "document-new",
     //          KStandardShortcut::shortcut(KStandardShortcut::New), this, SLOT(slotFileNew()), ac, "newfile_popup" );
     KToolBarPopupAction *p = new KToolBarPopupAction(
                                                      KIcon("document-new"),
@@ -520,8 +520,8 @@ void KTechlab::setupActions()
         ac->addAction("newfile_asm", a);
     }
     {
-        //(new KAction( i18n("C source"), "source_c", 0, this, SLOT(slotFileNewC()), ac, "newfile_c" ))->plug( p->menu() );
-        KAction *a = new KAction( KIcon("source_c"), i18n("C source"), ac);
+        //(new KAction( i18n("C source"), "text-x-csrc", 0, this, SLOT(slotFileNewC()), ac, "newfile_c" ))->plug( p->menu() );
+        KAction *a = new KAction( KIcon("text-x-csrc"), i18n("C source"), ac);
         a->setName("newfile_c");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotFileNewC()));
         p->menu()->addAction(a);
@@ -574,15 +574,15 @@ void KTechlab::setupActions()
 	//BEGIN Project Actions
 	ProjectManager *pm = ProjectManager::self();
     {
-	//new KAction( i18n("New Project..."), "window_new",			0, pm, SLOT(slotNewProject()),			ac, 	"project_new" );
-        KAction *a = new KAction( KIcon("window_new"), i18n("New Project..."), ac);
+	//new KAction( i18n("New Project..."), "window-new",			0, pm, SLOT(slotNewProject()),			ac, 	"project_new" );
+        KAction *a = new KAction( KIcon("window-new"), i18n("New Project..."), ac);
         a->setName("project_new");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotNewProject()));
         ac->addAction("project_new", a);
     }
     {
-	//new KAction( i18n("Open Project..."), "project_open",		0, pm, SLOT(slotOpenProject()),			ac, 	"project_open" );
-        KAction *a = new KAction( KIcon("project_open"), i18n("Open Project..."), ac);
+	//new KAction( i18n("Open Project..."), "project-open",		0, pm, SLOT(slotOpenProject()),			ac, 	"project_open" );
+        KAction *a = new KAction( KIcon("project-open"), i18n("Open Project..."), ac);
         a->setName("project_open");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotOpenProject()));
         ac->addAction("project_open", a);
@@ -594,8 +594,8 @@ void KTechlab::setupActions()
         ac->addAction("project_open_recent", m_recentProjects);
     }
     {
-	//new KAction( i18n("Export to Makefile..."), "fileexport",	0, pm, SLOT(slotExportToMakefile()),		ac, "project_export_makefile" );
-        KAction *a = new KAction( KIcon("fileexport"), i18n("Export to Makefile..."), ac);
+	//new KAction( i18n("Export to Makefile..."), "document-export",	0, pm, SLOT(slotExportToMakefile()),		ac, "project_export_makefile" );
+        KAction *a = new KAction( KIcon("document-export"), i18n("Export to Makefile..."), ac);
         a->setName("project_export_makefile");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotExportToMakefile()));
         ac->addAction("project_export_makefile", a);
@@ -608,14 +608,14 @@ void KTechlab::setupActions()
         ac->addAction("project_create_subproject", a);
     }
     {
-	//new KAction( i18n("Add Existing File..."), "fileopen",		0, pm, SLOT(slotAddFile()),					ac, "project_add_existing_file" );
-        KAction *a = new KAction( KIcon("fileopen"), i18n("Add Existing File..."), ac);
+	//new KAction( i18n("Add Existing File..."), "document-open",		0, pm, SLOT(slotAddFile()),					ac, "project_add_existing_file" );
+        KAction *a = new KAction( KIcon("document-open"), i18n("Add Existing File..."), ac);
         a->setName("project_add_existing_file");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotAddFile()));
         ac->addAction("project_add_existing_file", a);
     }
     {
-	//new KAction( i18n("Add Current File..."), "fileimport",		0, pm, SLOT(slotAddCurrentFile()),			ac, "project_add_current_file" );
+	//new KAction( i18n("Add Current File..."), "document-import",		0, pm, SLOT(slotAddCurrentFile()),			ac, "project_add_current_file" );
         KAction *a = new KAction( KIcon("document-import"), i18n("Add Current File..."), ac);
         a->setName("project_add_current_file");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotAddCurrentFile()));
@@ -624,28 +624,28 @@ void KTechlab::setupActions()
 // 	new KAction( i18n("Project Options"), "configure",			0, pm, SLOT(slotProjectOptions()),			ac, "project_options" );
 // ^ TODO why commented?
     {
-	//new KAction( i18n("Close Project"), "fileclose",			0, pm, SLOT(slotCloseProject()),			ac, "project_close" );
-        KAction *a = new KAction( KIcon("fileclose"), i18n("Close Project"), ac);
+	//new KAction( i18n("Close Project"), "window-close",			0, pm, SLOT(slotCloseProject()),			ac, "project_close" );
+        KAction *a = new KAction( KIcon("window-close"), i18n("Close Project"), ac);
         a->setName("project_close");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotCloseProject()));
         ac->addAction("project_close", a);
     }
     {
-	//new KAction( i18n("Remove from Project"), "editdelete",		0, pm, SLOT(slotRemoveSelected()),			ac, "project_remove_selected" );
-        KAction *a = new KAction( KIcon("editdelete"), i18n("Remove from Project"), ac);
+	//new KAction( i18n("Remove from Project"), "edit-delete",		0, pm, SLOT(slotRemoveSelected()),			ac, "project_remove_selected" );
+        KAction *a = new KAction( KIcon("edit-delete"), i18n("Remove from Project"), ac);
         a->setName("project_remove_selected");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotRemoveSelected()));
         ac->addAction("project_remove_selected", a);
     }
     {
-	//new KAction( i18n("Insert Existing File..."), "fileopen",	0, pm, SLOT(slotSubprojectAddExistingFile()),	ac, "subproject_add_existing_file" );
-        KAction *a = new KAction( KIcon("fileopen"), i18n("Insert Existing File..."), ac);
+	//new KAction( i18n("Insert Existing File..."), "document-open",	0, pm, SLOT(slotSubprojectAddExistingFile()),	ac, "subproject_add_existing_file" );
+        KAction *a = new KAction( KIcon("document-open"), i18n("Insert Existing File..."), ac);
         a->setName("subproject_add_existing_file");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotSubprojectAddExistingFile()));
         ac->addAction("subproject_add_existing_file", a);
     }
     {
-	//new KAction( i18n("Insert Current File..."), "fileimport",	0, pm, SLOT(slotSubprojectAddCurrentFile()),ac, "subproject_add_current_file" );
+	//new KAction( i18n("Insert Current File..."), "document-import",	0, pm, SLOT(slotSubprojectAddCurrentFile()),ac, "subproject_add_current_file" );
         KAction *a = new KAction( KIcon("document-import"), i18n("Insert Current File..."), ac);
         a->setName("subproject_add_current_file");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotSubprojectAddCurrentFile()));
@@ -682,29 +682,29 @@ void KTechlab::setupActions()
 	//END Project Actions
 	
 	{
-	//new KAction( i18n("Split View Left/Right"), "view_right", Qt::CTRL|Qt::SHIFT|Qt::Key_L, this, SLOT(slotViewSplitLeftRight()), ac, "view_split_leftright" );
-        KAction *a = new KAction( KIcon("view_right"), i18n("Split View Left/Right"), ac);
+	//new KAction( i18n("Split View Left/Right"), "view-split-left-right", Qt::CTRL|Qt::SHIFT|Qt::Key_L, this, SLOT(slotViewSplitLeftRight()), ac, "view_split_leftright" );
+        KAction *a = new KAction( KIcon("view-split-left-right"), i18n("Split View Left/Right"), ac);
         a->setName("view_split_leftright");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotViewSplitLeftRight()));
         ac->addAction("view_split_leftright", a);
     }
     {
-	//new KAction( i18n("Split View Top/Bottom"), "view_bottom", Qt::CTRL|Qt::SHIFT|Qt::Key_T, this, SLOT(slotViewSplitTopBottom()), ac, "view_split_topbottom" );
-        KAction *a = new KAction( KIcon("view_bottom"), i18n("Split View Top/Bottom"), ac);
+	//new KAction( i18n("Split View Top/Bottom"), "view-split-top-bottom", Qt::CTRL|Qt::SHIFT|Qt::Key_T, this, SLOT(slotViewSplitTopBottom()), ac, "view_split_topbottom" );
+        KAction *a = new KAction( KIcon("view-split-top-bottom"), i18n("Split View Top/Bottom"), ac);
         a->setName("view_split_topbottom");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotViewSplitTopBottom()));
         ac->addAction("view_split_topbottom", a);
     }
 	{
-	//KToggleAction * ta = new KToggleAction( i18n("Run Simulation"), "player_play", Qt::Key_F10, 0, 0, ac, "simulation_run" );
-        KToggleAction * ta = new KToggleAction( KIcon("player_play"), i18n("Run Simulation"), ac);
+	//KToggleAction * ta = new KToggleAction( i18n("Run Simulation"), "media-playback-start", Qt::Key_F10, 0, 0, ac, "simulation_run" );
+        KToggleAction * ta = new KToggleAction( KIcon("media-playback-start"), i18n("Run Simulation"), ac);
         ta->setShortcut( Qt::Key_F10 );
         ta->setName( "simulation_run" );
         ta->setChecked(true);
         connect( ta, SIGNAL(toggled(bool )), Simulator::self(), SLOT(slotSetSimulating(bool )) );
 #if defined(KDE_MAKE_VERSION)
 # if KDE_VERSION >= KDE_MAKE_VERSION(3,3,0)
-		ta->setCheckedState( KGuiItem( i18n("Pause Simulation"), "player_pause", 0 ) );
+		ta->setCheckedState( KGuiItem( i18n("Pause Simulation"), "media-playback-pause", 0 ) );
 # endif
 #endif
         ac->addAction( "simulation_run", ta);
@@ -1277,7 +1277,7 @@ void KTechlab::slotDocModifiedChanged()
         QPixmap iconPixmap;
 		
 		if ( vc->activeView()->document()->isModified() ) {
-            iconPixmap = loader->loadIcon( "filesave", KIconLoader::Small );
+            iconPixmap = loader->loadIcon( "document-save", KIconLoader::Small );
         } else {
             switch ( vc->activeView()->document()->type() )
             {

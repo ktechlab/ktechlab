@@ -67,7 +67,7 @@ NewFileDlg::NewFileDlg( QWidget *parent )
 	items << new Q3IconViewItem(m_pNewFileWidget->typeIconView, text, loader->loadIcon( "source", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
 	
 	text = "C (.c)";
-	items << new Q3IconViewItem(m_pNewFileWidget->typeIconView, text, loader->loadIcon( "source_c", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
+	items << new Q3IconViewItem(m_pNewFileWidget->typeIconView, text, loader->loadIcon( "text-x-csrc", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
 	
 	text = QString("%1 (.circuit)").arg(i18n("Circuit"));
 	items << new Q3IconViewItem(m_pNewFileWidget->typeIconView,text, loader->loadIcon( "ktechlab_circuit", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );

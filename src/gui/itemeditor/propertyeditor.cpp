@@ -56,7 +56,7 @@ PropertyEditor::PropertyEditor( QWidget * parent, const char * name )
 	m_defaults = new KPushButton(viewport());
 	m_defaults->setFocusPolicy(Qt::NoFocus);
 	setFocusPolicy(Qt::ClickFocus);
-	m_defaults->setPixmap(SmallIcon("undo"));
+	m_defaults->setPixmap(SmallIcon("edit-undo"));
 	m_defaults->setToolTip(i18n("Undo changes"));
 	m_defaults->hide();
 	connect(m_defaults, SIGNAL(clicked()), this, SLOT(resetItem()));

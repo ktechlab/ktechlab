@@ -58,15 +58,15 @@ ItemView::ItemView( ItemDocument * itemDocument, ViewContainer *viewContainer, u
 	//KAccel *pAccel = new KAccel(this);
 	//pAccel->insert( "Cancel", i18n("Cancel"), i18n("Cancel the current operation"), Qt::Key_Escape, itemDocument, SLOT(cancelCurrentOperation()) );
 	//pAccel->readSettings(); // TODO what does this do?
-    KAction *pAccel = new KAction( KIcon("cancel"), i18n("Cancel"), ac);
+    KAction *pAccel = new KAction( KIcon("process-stop"), i18n("Cancel"), ac);
     pAccel->setName("cancelCurrentOperation");
     pAccel->setShortcut(Qt::Key_Escape);
     connect(pAccel, SIGNAL(triggered(bool)), itemDocument, SLOT(cancelCurrentOperation()));
     ac->addAction("cancelCurrentOperation", pAccel);
 	
     {
-	//new KAction( i18n("Delete"), "editdelete", Qt::Key_Delete, itemDocument, SLOT(deleteSelection()), ac, "edit_delete" );
-        KAction *action = new KAction( KIcon("editdelete"), i18n("Delete"), ac);
+	//new KAction( i18n("Delete"), "edit-delete", Qt::Key_Delete, itemDocument, SLOT(deleteSelection()), ac, "edit_delete" );
+        KAction *action = new KAction( KIcon("edit-delete"), i18n("Delete"), ac);
         action->setName("edit_delete");
         action->setShortcut( Qt::Key_Delete );
         connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(deleteSelection()));

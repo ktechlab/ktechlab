@@ -70,10 +70,10 @@ PICComponent::PICComponent( ICNDocument *icnDocument, bool newItem, const char *
 	m_bLoadingProgram = false;
 	m_pGpsim = 0L;
 	
-	addButton( "run", QRect(), KIconLoader::global()->loadIcon( "player_play", KIconLoader::Small ) );
-	addButton( "pause", QRect(), KIconLoader::global()->loadIcon( "player_pause", KIconLoader::Small ) );
-	addButton( "reset", QRect(), KIconLoader::global()->loadIcon( "stop", KIconLoader::Small ) );
-	addButton( "reload", QRect(), KIconLoader::global()->loadIcon( "reload", KIconLoader::Small ) );
+	addButton( "run", QRect(), KIconLoader::global()->loadIcon( "media-playback-start", KIconLoader::Small ) );
+	addButton( "pause", QRect(), KIconLoader::global()->loadIcon( "media-playback-pause", KIconLoader::Small ) );
+	addButton( "reset", QRect(), KIconLoader::global()->loadIcon( "process-stop", KIconLoader::Small ) );
+	addButton( "reload", QRect(), KIconLoader::global()->loadIcon( "view-refresh", KIconLoader::Small ) );
 	
 	connect( KTechlab::self(), SIGNAL(recentFileAdded(const KUrl &)), this, SLOT(slotUpdateFileList()) );
 	

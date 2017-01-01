@@ -87,7 +87,7 @@ ItemDocument::ItemDocument( const QString &caption, const char *name)
 	connect( MechanicsSelector::self(),	SIGNAL(itemClicked(const QString& )),	this, SLOT(slotUnsetRepeatedItemId()) );
 #endif
 
-	m_pAlignmentAction = new KActionMenu( i18n("Alignment") /*, "rightjust" */ , this );
+	m_pAlignmentAction = new KActionMenu( i18n("Alignment") /*, "format-justify-right" */ , this );
     m_pAlignmentAction->setName("rightjust");
     m_pAlignmentAction->setIcon( KIcon("format-justify-right") );
 	

@@ -45,25 +45,25 @@ int main(int argc, char **argv) {
     // TODO add assertion if all icons have been properly loaded
     /*
     addIcon(mainLayout, "asd");
-    addIcon(mainLayout, "rotate_cw");
-    addIcon(mainLayout, "rotate_ccw");
+    addIcon(mainLayout, "object-rotate-right");
+    addIcon(mainLayout, "object-rotate-left");
     addIcon(mainLayout, "text");
     addIcon(mainLayout, "rotate");
-    addIcon(mainLayout, "player_play");
-    addIcon(mainLayout, "player_pause");
-    addIcon(mainLayout, "stop");
-    addIcon(mainLayout, "reload");
+    addIcon(mainLayout, "media-playback-start");
+    addIcon(mainLayout, "media-playback-pause");
+    addIcon(mainLayout, "process-stop");
+    addIcon(mainLayout, "view-refresh");
     addIcon(mainLayout, "ktechlab_circuit");
     addIcon(mainLayout, "fork");
     addIcon(mainLayout, "convert_to_microbe");
     addIcon(mainLayout, "convert_to_assembly");
     addIcon(mainLayout, "convert_to_hex");
     addIcon(mainLayout, "convert_to_pic");
-    addIcon(mainLayout, "down");
-    addIcon(mainLayout, "button_cancel");
+    addIcon(mainLayout, "go-down");
+    addIcon(mainLayout, "dialog-cancel");
     addIcon(mainLayout, "folder");
     addIcon(mainLayout, "template-source");
-    addIcon(mainLayout, "source_c");
+    addIcon(mainLayout, "text-x-csrc");
     addIcon(mainLayout, "ktechlab_circuit");
     addIcon(mainLayout, "ktechlab_flowcode");
     addIcon(mainLayout, "exec");

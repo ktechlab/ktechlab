@@ -40,7 +40,7 @@
 CircuitDocument::CircuitDocument( const QString & caption, const char *name )
 	: CircuitICNDocument( caption, name )
 {
-	m_pOrientationAction = new KActionMenu( KIcon("rotate"), i18n("Orientation"), this );
+	m_pOrientationAction = new KActionMenu( KIcon("transform-rotate"), i18n("Orientation"), this );
 	
 	m_type = Document::dt_circuit;
 	m_pDocumentIface = new CircuitDocumentIface(this);

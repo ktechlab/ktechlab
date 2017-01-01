@@ -566,12 +566,12 @@ EmptyViewArea::EmptyViewArea( ViewArea * parent )
 	layout->setColStretch( 0, 1 );
 	layout->setColStretch( 2, 1 );
 	
-	KGuiItem openItem( i18n("Open Document"), "fileopen" );
+	KGuiItem openItem( i18n("Open Document"), "document-open" );
 	KPushButton * newDocButton = new KPushButton( openItem, this );
 	layout->addWidget( newDocButton, 1, 1 );
 	connect( newDocButton, SIGNAL(clicked()), this, SLOT(openDocument()) );
 	
-	KGuiItem cancelItem( i18n("Cancel"), "button_cancel" );
+	KGuiItem cancelItem( i18n("Cancel"), "dialog-cancel" );
 	KPushButton * cancelButton = new KPushButton( cancelItem, this );
 	layout->addWidget( cancelButton, 3, 1 );
 	connect( cancelButton, SIGNAL(clicked()), m_pViewArea, SLOT(deleteLater()) );

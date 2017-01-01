@@ -98,12 +98,12 @@ void PropertyEditorItem::paintCell(QPainter *p, const QColorGroup & cg, int colu
 				p->fillRect(0,0,width,height(), QBrush(bgColor));
 				if(m_property->value().toBool())
 				{
-					p->drawPixmap(margin, height()/2 -8, SmallIcon("button_ok"));
+					p->drawPixmap(margin, height()/2 -8, SmallIcon("dialog-ok"));
 					p->drawText(QRect(margin+20,0,width,height()-1), Qt::AlignVCenter, i18n("Yes"));
 				}
 				else
 				{
-					p->drawPixmap(margin, height()/2 -8, SmallIcon("button_cancel"));
+					p->drawPixmap(margin, height()/2 -8, SmallIcon("dialog-cancel"));
 					p->drawText(QRect(margin+20,0,width,height()-1), Qt::AlignVCenter, i18n("No"));
 				}
 				break;

@@ -136,7 +136,7 @@ bool Document::fileClose()
 		
 		KGuiItem saveItem = KStandardGuiItem::yes();
 		saveItem.setText( i18n("Save") );
-		saveItem.setIconName( "filesave" );
+		saveItem.setIconName( "document-save" );
 		
 		KGuiItem discardItem = KStandardGuiItem::no();
 		discardItem.setText( i18n("Discard") );

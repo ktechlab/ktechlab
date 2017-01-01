@@ -219,7 +219,7 @@ ViewStatusBar::ViewStatusBar( View *view )
 	m_fileNameLabel = new KSqueezedTextLabel(this);
 	addWidget( m_fileNameLabel, 1, false );
 	
-	m_modifiedPixmap = KIconLoader::global()->loadIcon( "filesave", KIconLoader::Small );
+	m_modifiedPixmap = KIconLoader::global()->loadIcon( "document-save", KIconLoader::Small );
 	m_unmodifiedPixmap = KIconLoader::global()->loadIcon( "null", KIconLoader::Small );
 	
 	connect( view->document(), SIGNAL(modifiedStateChanged()), this, SLOT(slotModifiedStateChanged()) );

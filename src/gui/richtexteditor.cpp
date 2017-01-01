@@ -52,7 +52,7 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
 	KActionCollection * ac = new KActionCollection( m_pEditor );
 	
 	
-	//m_pTextBold = new KToggleAction( i18n("Bold"), "text_bold", Qt::CTRL + Qt::Key_B, 0, 0, ac, "format_bold" );
+	//m_pTextBold = new KToggleAction( i18n("Bold"), "format-text-bold", Qt::CTRL + Qt::Key_B, 0, 0, ac, "format_bold" );
     m_pTextBold = new KToggleAction( i18n("Bold"), ac);
     m_pTextBold->setName("text_bold");
     m_pTextBold->setShortcut(Qt::CTRL + Qt::Key_B);
@@ -61,7 +61,7 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
 	//m_pTextBold->plug( tools );
     tools->addAction(m_pTextBold);
 
-	//m_pTextItalic = new KToggleAction( i18n("Italic"), "text_italic", Qt::CTRL + Qt::Key_I, 0, 0, ac, "format_italic" );
+	//m_pTextItalic = new KToggleAction( i18n("Italic"), "format-text-italic", Qt::CTRL + Qt::Key_I, 0, 0, ac, "format_italic" );
     m_pTextItalic = new KToggleAction( i18n("Italic"), ac);
     m_pTextItalic->setName("text_italic");
     m_pTextItalic->setShortcut( Qt::CTRL + Qt::Key_I );
@@ -70,7 +70,7 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
 	//m_pTextItalic->plug( tools );
     tools->addAction(m_pTextItalic);
 
-	//m_pTextUnderline = new KToggleAction( i18n("Underline"), "text_under", Qt::CTRL + Qt::Key_U, 0, 0, ac, "format_underline" );
+	//m_pTextUnderline = new KToggleAction( i18n("Underline"), "format-text-underline", Qt::CTRL + Qt::Key_U, 0, 0, ac, "format_underline" );
     m_pTextUnderline = new KToggleAction( i18n("Underline"), ac);
     m_pTextUnderline->setName("text_under");
     m_pTextUnderline->setShortcut( Qt::CTRL + Qt::Key_U );
@@ -90,9 +90,9 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
 	
 	
 	//BEGIN Text horizontal-alignment actions
-	//m_pTextAlignment = new KToolBarPopupAction( i18n("Text Alignment"), "text_left", 0, 0, 0, ac, "text_alignment" );
+	//m_pTextAlignment = new KToolBarPopupAction( i18n("Text Alignment"), "format-justify-left", 0, 0, 0, ac, "text_alignment" );
     m_pTextAlignment = new KToolBarPopupAction(
-            KIcon("text_alignment"),
+            KIcon("format-justify-left"),
             i18n("Text Alignment"),
             ac);
     m_pTextAlignment->setName("text_left");
@@ -106,10 +106,10 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
     m->setTitle( i18n("Text Alignment"));
 	m->setCheckable( true );
 	
-	m->insertItem( KIcon( "text_left" ), i18n("Align Left"),		Qt::AlignLeft );
-	m->insertItem( KIcon( "text_center"), i18n("Align Center"),	Qt::AlignHCenter );
-	m->insertItem( KIcon( "text_right" ), i18n("Align Right"),	Qt::AlignRight );
-	m->insertItem( KIcon( "text_block" ), i18n("Align Block"),	Qt::AlignJustify );
+	m->insertItem( KIcon( "format-justify-left" ), i18n("Align Left"),		Qt::AlignLeft );
+	m->insertItem( KIcon( "format-justify-center"), i18n("Align Center"),	Qt::AlignHCenter );
+	m->insertItem( KIcon( "format-justify-right" ), i18n("Align Right"),	Qt::AlignRight );
+	m->insertItem( KIcon( "format-justify-fill" ), i18n("Align Block"),	Qt::AlignJustify );
 	connect( m, SIGNAL(activated(int)), m_pEditor, SLOT(setAlignment(int)) );
 	//END Text horizontal-alignment actions
 	
@@ -130,9 +130,9 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
     m->setTitle( i18n("Text Vertical Alignment") );
 	m->setCheckable( true );
 	
-	m->insertItem( KIcon( "text_super" ), i18n("Superscript"),	Q3TextEdit::AlignSuperScript );
+	m->insertItem( KIcon( "format-text-superscript" ), i18n("Superscript"),	Q3TextEdit::AlignSuperScript );
 	m->insertItem(						i18n("Normal"),			Q3TextEdit::AlignNormal );
-	m->insertItem( KIcon( "text_sub" ), i18n("Subscript"),		Q3TextEdit::AlignSubScript );
+	m->insertItem( KIcon( "format-text-subscript" ), i18n("Subscript"),		Q3TextEdit::AlignSubScript );
 	connect( m, SIGNAL(activated(int)), this, SLOT(slotSetVerticalAlignment(int)) );
 	//END Text vertical-alignment actions
 	
@@ -294,13 +294,13 @@ void RichTextEditor::colorChanged( const QColor & c )
 void RichTextEditor::alignmentChanged( int a )
 {
 	if ( ( a == Qt::AlignAuto ) || ( a & Qt::AlignLeft ))
-		m_pTextAlignment->setIcon( KIcon("text_left") );
+		m_pTextAlignment->setIcon( KIcon("format-justify-left") );
 	else if ( ( a & Qt::AlignHCenter ) )
-		m_pTextAlignment->setIcon( KIcon("text_center") );
+		m_pTextAlignment->setIcon( KIcon("format-justify-center") );
 	else if ( ( a & Qt::AlignRight ) )
-		m_pTextAlignment->setIcon( KIcon("text_right") );
+		m_pTextAlignment->setIcon( KIcon("format-justify-right") );
 	else if ( ( a & Qt::AlignJustify ) )
-		m_pTextAlignment->setIcon( KIcon("text_block") );
+		m_pTextAlignment->setIcon( KIcon("format-justify-fill") );
 }
 
 
@@ -310,9 +310,9 @@ void RichTextEditor::verticalAlignmentChanged()
 // 	if ( a == KTextEdit::AlignNormal )
 // 		m_pTextVerticalAlignment->setIcon( "text" );
 // 	else if ( a == KTextEdit::AlignSuperScript )
-// 		m_pTextVerticalAlignment->setIcon( "text_super" );
+// 		m_pTextVerticalAlignment->setIcon( "format-text-superscript" );
 // 	else if ( a == KTextEdit::AlignSubScript )
-// 		m_pTextVerticalAlignment->setIcon( "text_sub" );
+// 		m_pTextVerticalAlignment->setIcon( "format-text-subscript" );
 }
 
 

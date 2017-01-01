@@ -106,7 +106,7 @@ ContextHelp::ContextHelp( KateMDI::ToolView * parent )
 	connect( m_pChangeDescriptionsDirectory, SIGNAL(clicked()), this, SLOT(requestItemDescriptionsDirectory()) );
 	connect( m_pLanguageSelect, SIGNAL(activated(const QString &)), this, SLOT(setCurrentLanguage( const QString& )) );
 	
-	m_pResetButton->setPixmap( KIconLoader::global()->loadIcon( "button_cancel", KIconLoader::Small ) );
+	m_pResetButton->setPixmap( KIconLoader::global()->loadIcon( "dialog-cancel", KIconLoader::Small ) );
 	m_pChangeDescriptionsDirectory->setPixmap( KIconLoader::global()->loadIcon( "folder", KIconLoader::Small ) );
 	
 	

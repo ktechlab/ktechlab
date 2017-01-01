@@ -478,21 +478,21 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
 
         p->addTitle(SmallIcon("view_remove"), i18n("Behavior"), 0 /*0 */);
 
-        p->insertItem(w->persistent ? SmallIcon("window_nofullscreen") : SmallIcon("window_fullscreen"), w->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent"), 10);
+        p->insertItem(w->persistent ? SmallIcon("view-restore") : SmallIcon("view-fullscreen"), w->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent"), 10);
 
         p->addTitle(SmallIcon("move"), i18n("Move To"), 0 /* 51 ? */);
 
 		if (sidebarPosition() != 0)
-          p->insertItem(SmallIcon("back"), i18n("Left Sidebar"),0);
+          p->insertItem(SmallIcon("go-previous"), i18n("Left Sidebar"),0);
 
 		if (sidebarPosition() != 1)
-          p->insertItem(SmallIcon("forward"), i18n("Right Sidebar"),1);
+          p->insertItem(SmallIcon("go-next"), i18n("Right Sidebar"),1);
 
 		if (sidebarPosition() != 2)
-          p->insertItem(SmallIcon("up"), i18n("Top Sidebar"),2);
+          p->insertItem(SmallIcon("go-up"), i18n("Top Sidebar"),2);
 
 		if (sidebarPosition() != 3)
-          p->insertItem(SmallIcon("down"), i18n("Bottom Sidebar"),3);
+          p->insertItem(SmallIcon("go-down"), i18n("Bottom Sidebar"),3);
 
         connect(p, SIGNAL(activated(int)),
               this, SLOT(buttonPopupActivate(int)));

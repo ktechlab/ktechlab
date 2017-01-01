@@ -95,44 +95,44 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
         ac->addAction("debug_toggle_breakpoint", action);
     }
     {
-	//new KAction( i18n("Run"), "dbgrun", 0, textDocument, SLOT(debugRun()), ac, "debug_run" );
-        KAction *action = new KAction( KIcon("dbgrun"), i18n("Run"), ac);
+	//new KAction( i18n("Run"), "debug-run", 0, textDocument, SLOT(debugRun()), ac, "debug_run" );
+        KAction *action = new KAction( KIcon("debug-run"), i18n("Run"), ac);
         action->setName("debug_run");
         connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(debugRun()));
         ac->addAction("debug_run", action);
     }
     {
-	//new KAction( i18n("Interrupt"), "player_pause", 0, textDocument, SLOT(debugInterrupt()), ac, "debug_interrupt" );
-        KAction *action = new KAction( KIcon("player_pause"), i18n("Interrupt"), ac);
+	//new KAction( i18n("Interrupt"), "media-playback-pause", 0, textDocument, SLOT(debugInterrupt()), ac, "debug_interrupt" );
+        KAction *action = new KAction( KIcon("media-playback-pause"), i18n("Interrupt"), ac);
         action->setName("debug_interrupt");
         connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(debugInterrupt()));
         ac->addAction("debug_interrupt", action);
     }
     {
-	//new KAction( i18n("Stop"), "stop", 0, textDocument, SLOT(debugStop()), ac, "debug_stop" );
-        KAction *action = new KAction( KIcon("stop"), i18n("Stop"), ac);
+	//new KAction( i18n("Stop"), "process-stop", 0, textDocument, SLOT(debugStop()), ac, "debug_stop" );
+        KAction *action = new KAction( KIcon("process-stop"), i18n("Stop"), ac);
         action->setName("debug_stop");
         connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(debugStop()));
         ac->addAction("debug_stop", action);
     }
     {
-	//new KAction( i18n("Step"), "dbgstep", Qt::CTRL|Qt::ALT|Qt::Key_Right, textDocument, SLOT(debugStep()), ac, "debug_step" );
-        KAction *action = new KAction( KIcon("dbgstep"), i18n("Step"), ac);
+	//new KAction( i18n("Step"), "debug-step-instruction", Qt::CTRL|Qt::ALT|Qt::Key_Right, textDocument, SLOT(debugStep()), ac, "debug_step" );
+        KAction *action = new KAction( KIcon("debug-step-instruction"), i18n("Step"), ac);
         action->setName("debug_step");
         action->setShortcut(Qt::CTRL|Qt::ALT|Qt::Key_Right);
         connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(debugStep()));
         ac->addAction("debug_step", action);
     }
     {
-	//new KAction( i18n("Step Over"), "dbgnext", 0, textDocument, SLOT(debugStepOver()), ac, "debug_step_over" );
-        KAction *action = new KAction( KIcon("dbgnext"), i18n("Step Over"), ac);
+	//new KAction( i18n("Step Over"), "debug-step-over", 0, textDocument, SLOT(debugStepOver()), ac, "debug_step_over" );
+        KAction *action = new KAction( KIcon("debug-step-over"), i18n("Step Over"), ac);
         action->setName("debug_step_over");
         connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(debugStepOver()));
         ac->addAction("debug_step_over", action);
     }
     {
-	//new KAction( i18n("Step Out"), "dbgstepout", 0, textDocument, SLOT(debugStepOut()), ac, "debug_step_out" );
-        KAction *action = new KAction( KIcon("dbgstepout"), i18n("Step Out"), ac);
+	//new KAction( i18n("Step Out"), "debug-step-out", 0, textDocument, SLOT(debugStepOut()), ac, "debug_step_out" );
+        KAction *action = new KAction( KIcon("debug-step-out"), i18n("Step Out"), ac);
         action->setName("debug_step_out");
         connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(debugStepOut()));
         ac->addAction("debug_step_out", action);

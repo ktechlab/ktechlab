@@ -159,7 +159,7 @@ void ClickLineEdit::drawContents( QPainter *p )
 		p->setPen( palette().color( QPalette::Disabled, QColorGroup::Text ) );
 		QRect cr = contentsRect();
 
-        //p->drawPixmap( 3, 3, SmallIcon("filter") );
+        //p->drawPixmap( 3, 3, SmallIcon("search-filter") );
 
         // Add two pixel margin on the left side
 		cr.rLeft() += 3;

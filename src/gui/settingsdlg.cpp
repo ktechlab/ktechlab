@@ -100,13 +100,13 @@ SettingsDlg::SettingsDlg( QWidget *parent, const char *name, KConfigSkeleton *co
 	m_logicWidget->kcfg_LogicOutputHighImpedance->setSuffix( QString(" ") + QChar(0x3a9) );
 	m_logicWidget->kcfg_LogicOutputLowImpedance->setSuffix( QString(" ") + QChar(0x3a9) );
 	
-	addPage( m_generalOptionsWidget, i18n("General"), "misc", i18n("General Options") );
+	addPage( m_generalOptionsWidget, i18n("General"), "ktechlab", i18n("General Options") );
 	addPage( m_picProgrammerConfigWidget, i18n("Programmer"), "network-connect", i18n("PIC Programmer") );
 	addPage( m_asmFormattingWidget, i18n("Formatter"), "indent_asm", i18n("Assembly Formatter") );
 	addPage( m_logicWidget, i18n("Logic"), "logic_or", i18n("Electronic Logic Values") );
 	addPage( m_gpasmSettingsWidget, "Gpasm", "convert_to_hex", "gpasm" );
 	addPage( m_gplinkSettingsWidget, "Gplink", "merge", "gplink" );
-	addPage( m_sdccOptionsWidget, "SDCC", "source_c", "SDCC" );
+	addPage( m_sdccOptionsWidget, "SDCC", "text-x-csrc", "SDCC" );
 	
 	connect( m_generalOptionsWidget->refreshRateSlider, SIGNAL(valueChanged(int)), this, SLOT(slotUpdateRefreshRateLabel(int)) );
 	connect( m_picProgrammerConfigWidget->kcfg_PicProgrammerProgram, SIGNAL(activated(const QString &)), this, SLOT(slotUpdatePicProgrammerDescription()) );
