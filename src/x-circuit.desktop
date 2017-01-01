@@ -5,3 +5,6 @@ MimeType=application/x-circuit
 Icon=ktechlab_circuit
 Patterns=*.circuit
 Comment=KTechlab Circuit
+Comment[sv]=Ktechlab Krets
+Comment[uk]=Ланцюг KTechlab
+Comment[x-test]=xxKTechlab Circuitxx

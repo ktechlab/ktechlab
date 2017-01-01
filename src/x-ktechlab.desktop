@@ -5,3 +5,6 @@ MimeType=application/x-ktechlab
 Icon=ktechlab
 Patterns=*.ktechlab
 Comment=KTechlab Project
+Comment[sv]=Ktechlab Projekt
+Comment[uk]=Проект KTechlab
+Comment[x-test]=xxKTechlab Projectxx

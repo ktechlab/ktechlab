@@ -5,3 +5,6 @@ MimeType=application/x-microbe
 Icon=ktechlab_microbe
 Patterns=*.microbe;*.basic
 Comment=KTechlab Microbe
+Comment[sv]=Ktechlab Microbe
+Comment[uk]=Microbe KTechlab
+Comment[x-test]=xxKTechlab Microbexx

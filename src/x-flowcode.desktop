@@ -5,3 +5,6 @@ MimeType=application/x-flowcode
 Icon=ktechlab_flowcode
 Patterns=*.flowcode
 Comment=KTechlab FlowCode
+Comment[sv]=Ktechlab FlowCode
+Comment[uk]=FlowCode KTechlab
+Comment[x-test]=xxKTechlab FlowCodexx

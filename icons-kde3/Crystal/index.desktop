@@ -1,6 +1,12 @@
 [KDE Icon Theme]
 Name=Conectiva Crystal Icon Theme Beta 3.7
+Name[sv]=Conectiva Kristall ikontema beta 3.7
+Name[uk]=Тема піктограм Conectiva Crystal Beta 3.7
+Name[x-test]=xxConectiva Crystal Icon Theme Beta 3.7xx
 Comment=Highcolor Icon Theme by Everaldo (everaldo@everaldo.com)
+Comment[sv]=Färgrikt ikontema av Everaldo (everaldo@everaldo.com)
+Comment[uk]=Кольорова тема піктограм від Everaldo (everaldo@everaldo.com)
+Comment[x-test]=xxHighcolor Icon Theme by Everaldo (everaldo@everaldo.com)xx
 DisplayDepth=32
 Example=exec
 LinkOverlay=link
