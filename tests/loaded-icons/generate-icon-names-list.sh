@@ -8,9 +8,11 @@ SCRIPTDIR=$(dirname "$0")
 ( cd "$SCRIPTDIR/../../src"
     ICONLIST_LOADED=$(grep -R -e 'loadIcon *( *\"[^\"]*\"' --only-matching | cut -d\" -f 2)
     ICONLIST_CREATED=$(grep -R -e 'KIcon *( *\"[^\"]*\"' --only-matching | cut -d\" -f 2)
+    ICONLIST_PIXMAPS=$(grep -R -e 'SmallIcon *( *\"[^\"]*\"' --only-matching | cut -d\" -f 2)
+    ICONLIST_GUIITEM=$(grep -R -e 'setIconName *( *\"[^\"]*\"' --only-matching | cut -d\" -f 2)
     # TODO addPage( m_generalOptionsWidget, i18n("General"), "misc", i18n("General Options") );
     #                                                         ^~~~
-    ICONLIST=$( echo "$ICONLIST_LOADED $ICONLIST_CREATED" | sort | uniq )
+    ICONLIST=$( echo $ICONLIST_LOADED $ICONLIST_CREATED $ICONLIST_PIXMAPS $ICONLIST_GUIITEM | xargs -n1 | sort -u )
 
     OUTFILE="../tests/loaded-icons/icon-list-generated.h"
 
