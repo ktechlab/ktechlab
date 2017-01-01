@@ -6,7 +6,7 @@
 </body></html>
 <!-- item: datasheet -->
 <html><head><meta name="qrichtext" content="1" /></head><body>
-<p align="justify">Technical specifications of electric components are listed in so called <span style="font-weight:600">datasheets</span>. These are provided by the manufacturers and can normally be obtained from their homepages. A good search engine for common datasheets is:</p>
+<p align="justify">Технічну специфікацію компонентів електроніки викладають у так званих <span style="font-weight:600">технічних описах</span>. Такі описи надаються виробниками і, зазвичай можуть бути отримані з домашніх сторінок відповідних компаній. Чудовим пошуковим рушієм для типових технічних описів є цей сайт:</p>
 <p align="justify"><a href="http://www.datasheetarchive.com">www.datasheetarchive.com</a></p>
 </body></html>
 <!-- item: dp/arrow -->
@@ -20,9 +20,9 @@
 <!-- item: dp/text -->
 Двічі клацніть на текстовому елементі, щоб визначити текст
 <!-- item: ec/555 -->
-Common timer IC
+Типовий контролер інтерфейсу таймера
 <!-- item: ec/ac_current -->
-Provides a variety of current signals
+Надає спектр сигналів силою струму
 <!-- item: ec/adc -->
 Перетворює аналоговий сигнал на цифровий
 <!-- item: ec/adder -->
@@ -30,11 +30,11 @@ Provides a variety of current signals
 <!-- item: ec/ammeter -->
 Вставте послідовно до схеми, щоб виміряти силу струму.
 <!-- item: ec/and -->
-The output is high if and only if all of the inputs are high.
+Вихід відкрито тоді і лише тоді, коли відкрито усі входи.
 <!-- item: ec/battery -->
 Створює різницю потенціалів.
 <!-- item: ec/bcd_to_seven_segment -->
-Converts a binary-coded-input to a form displayable by a seven segment display.<br><br>Normal operation: <i>lt</i> (Lamp Test) and the <i>rb</i> (Ripple Blanking) are held high, <i>en</i> (Enable) is held low.
+Перетворює вхідні сигнали у двійковому кодуванні у формат, придатний для показу на сегментному індикаторі.<br><br>Нормальна робота: <i>lt</i> (Lamp Test) та <i>rb</i> (Ripple Blanking) підтримуються відкритими, <i>en</i> (Enable) підтримується закритим.
 <!-- item: ec/bidir_led -->
 Двобічний світлодіод
 <!-- item: ec/binary_counter -->
@@ -90,19 +90,19 @@ Shows the logic-state of the input.
 <!-- item: ec/magnitudecomparator -->
 Compares two binary numbers and generates output to indicate which binary number has the greater magnitude. It has 3 cascading inputs:<ul><li>I: A &gt; B</li><li>I: A &lt; B</li><li>I: A = B</li></ul>and 3 outputs:<ul><li>O: A &gt; B</li><li>O: A &lt; B</li><li>O: A = B</li></ul>
 <!-- item: ec/matrix_display -->
-A matrix display of LEDs with a configurable number of columns and rows.
+Матричний дисплей з LED із придатною до налаштовування кількістю стовпчиків і рядків.
 <!-- item: ec/matrix_display_driver -->
 
 <!-- item: ec/multiplexer -->
 Combines the input data stream into one single stream. The value of the input selected by the "A" inputs is passed to the output.
 <!-- item: ec/nand -->
-The output is low only when all of the inputs are high.
+Вихід закрито, якщо усі входи відкрито.
 <!-- item: ec/nemosfet -->
 
 <!-- item: ec/njfet -->
 
 <!-- item: ec/nor -->
-The output is high when all inputs are low.
+Вихід відкрито, якщо усіх входи закрито.
 <!-- item: ec/npnbjt -->
 
 <!-- item: ec/opamp -->
@@ -129,7 +129,7 @@ The output is high when all inputs are low.
 <li><a href="ktechlab-example:///opamps/schmitt-trigger">Schmitt-Trigger</a></li></ul>
 </body></html>
 <!-- item: ec/or -->
-The output is high when at least one of the inputs is high; or low when all of the inputs are off
+Вихід відкрито, якщо відкрито принаймні один із входів. Вихід закрито, якщо усі входи закрито.
 <!-- item: ec/parallel_port -->
 The pins are divided into 3 registers.<br><br><b>Data Pins</b><br><br>The data pins can be configured as either all input or all output. They are:<ul><li><b>D<i>[0..7]</i></b></li></ul><br><b>Status Pins</b><br><br>The status pins are read-only. They area:<ul><li><b>ERR</b> - Error</li><li><b>ON</b> - Online</li><li><b>PE</b> - Paper End</li><li><b>ACK</b> - Acknowledge</li><li><b>BUSY</b> - Busy</li></ul><br><b>Control Pins</b><ul><li><b>STR</b> - Strobe</li><li><b>AUT</b> - Auto Feed</li><li><b>INIT</b> - Init</li><li><b>SEL</b> - Select</li></ul><br>The remaining pins are all ground.
 <!-- item: ec/pemosfet -->
@@ -159,13 +159,13 @@ This RAM stores data as a collection of words; each of which contains <i>word si
 <p align="center"><img src=siemens.png ></p>
 <p align="center"><img src=siemens_unit.png ></p>
 <p align="justify">For better understanding it is allways a good idea to illustrate the practical meaning of such formulas by explaining them in words. That is very easy here:</p>
-<p align="justify">&quot;A resistor then has a value of 1 Ohm, if an applied voltage of 1 Volt causes a current of 1 Ampere.&quot;</p>
-<p><span style="font-weight:600">Examples:</span></p>
+<p align="justify">&quot;Резистор із опором у 1 ом, якщо маємо на його контактах напругу у 1 вольт пропускатиме струм із силою у 1 ампер.&quot;</p>
+<p><span style="font-weight:600">Приклади:</span></p>
 <ul type="disc"><li><a href="ktechlab-example:///basic/resistors-series.circuit">Series connection</a></li>
 <li><a href="ktechlab-example:///basic/resistors-parallel.circuit">Parallel connection</a></li></ul>
 </body></html>
 <!-- item: ec/resistordip -->
-Set of resistors with identical values in a Dual Inline Package.
+Набір резисторів із однаковими опорами, запакований у корпус DIP.
 <!-- item: ec/roto_switch -->
 Rotary Switch
 <!-- item: ec/serial_port -->
@@ -173,7 +173,7 @@ Interface to a serial port. The pins are:<br><ul><li><b>CD</b> - Carrier Detect 
 <!-- item: ec/seven_segment -->
 A seven segment display with a decimal point. This can be configured to either have a common cathode or a common anode.
 <!-- item: ec/signal_lamp -->
-A simple filament signal lamp, with a 100 ohms series resistance.
+Проста сигнальна лампа розжарювання із опором у 100 Ом, якщо з’єднано послідовно.
 <!-- item: ec/spdt_toggle -->
 Single-Pole Double-Throw switch.
 <!-- item: ec/spst_toggle -->
@@ -183,19 +183,19 @@ The output is made high by holding <i>set</i> high, and low by holding <i>reset<
 <!-- item: ec/subcircuit -->
 
 <!-- item: ec/variablecapacitor -->
-Stores electrical charge.<br><br>The voltage across the capacitor and capacitance are related by <i>Charge = Capacitance x Voltage</i>.
+Зберігає електричний заряд.<br><br>Напругу між обкладками конденсатора та ємність пов’язано формулою <i>Заряд = Ємність x Напруга</i>.
 <!-- item: ec/variableresistor -->
-Limits the flow of current, obeying Ohms Law
+Обмежує струм відповідно до закону Ома
 <!-- item: ec/vccs -->
 
 <!-- item: ec/vcvs -->
 
 <!-- item: ec/voltage_signal -->
-Provides a variety of voltage signals.
+Надає спектр сигналів напругою.
 <!-- item: ec/voltageprobe -->
-Displays the voltage at the probe point on the oscilloscope.
+Показує напругу у точці зондування на осцилоскопі.
 <!-- item: ec/voltmeter -->
-Place this in parallel in the circuit to meaure the voltage between two points.
+Вставте його у схему паралельно, щоб виміряти напругу між двома точками.
 <!-- item: ec/xnor -->
 Exclusive NOR gate. Output is low when exactly one input is high.
 <!-- item: ec/xor -->
@@ -205,11 +205,11 @@ Exclusive OR gate. Output is high when exactly one input is high.
 <p>This help item does not yet exist for the Amerikanisches Englisch language. Help out with KTechlab by creating one via the &quot;Edit&quot; button!</p>
 </body></html>
 <!-- item: flow/callsub -->
-Call a subroutine. When the subroutine returns, the code will continue execution from this point.
+Виклик підпрограми. Після завершення роботи підпрограми виконання коду буде продовжено з цієї точки.
 <!-- item: flow/delay -->
 Затримати виконання програми на фіксований проміжок часу.
 <!-- item: flow/embed -->
-Doubleclick on the item to edit the embedded code.
+Двічі клацніть на елементі, щоб редагувати вбудований до нього код.
 <!-- item: flow/end -->
 End the program execution, putting the IC into sleep. Unlike Start, however, this FlowPart is not necessary for proper program execution
 <!-- item: flow/forloop -->
@@ -246,13 +246,13 @@ Sets the port's pins state to high/low from the given value. Only pins that have
 </body></html>
 <!-- item: storage -->
 <html><head><meta name="qrichtext" content="1" /></head><body>
-<p><span style="font-weight:600">Storage elements</span> here are elements with the possibility to store electric or mechanic energy and to give it back later.</p>
-<p>In electrotechnology this are:</p>
-<ul type="disc"><li>Capacitor</li>
-<li>Inductor</li></ul>
-<p>And in the mechanics:</p>
-<ul type="disc"><li>Mass</li>
-<li>Spring</li></ul>
+<p><span style="font-weight:600">Елементи-накопичувачі</span> — елементи, які можуть зберігати електричну або механічну енергію і повертати її.</p>
+<p>У електроніці це:</p>
+<ul type="disc"><li>Конденсатор</li>
+<li>Індукційна котушка</li></ul>
+<p>У механіці:</p>
+<ul type="disc"><li>Матеріальне тіло (маса)</li>
+<li>Пружина</li></ul>
 </body></html>
 <!-- item: transferfunction -->
 <html><head><meta name="qrichtext" content="1" /></head><body>

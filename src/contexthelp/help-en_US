@@ -107,7 +107,7 @@ The output is high when all inputs are low.
 
 <!-- item: ec/opamp -->
 <html><head><meta name="qrichtext" content="1" /></head><body>
-<p align="justify">An <span style="font-weight:600">operational amplifier</span> (opamp) is an integrated universal amplifier which's behaviour can simply be configured by external components. Those high flexibility is achieved due to it's high open loop gain <span style="font-style:italic">A</span><span style="vertical-align:sub">0</span> which amplifies the difference of the input potentials. The <a href="ktechlab-help:///transferfunction">transfer function</a> is:</p>
+<p align="justify">An <span style="font-weight:600">operational amplifier</span> (opamp) is an integrated universal amplifier which's behaviour can simply be configured by external components. Those high flexibility is achieved due to its high open loop gain <span style="font-style:italic">A</span><span style="vertical-align:sub">0</span> which amplifies the difference of the input potentials. The <a href="ktechlab-help:///transferfunction">transfer function</a> is:</p>
 <p align="center"><img src=opamp.png ></p>
 <p align="center"><img src=tf_op.png ></p>
 <p align="justify">The open loop gain <span style="font-style:italic">A</span><span style="vertical-align:sub">0</span> is the value of the <a href="ktechlab-help:///complex">complex</a> gain <span style="font-style:italic;text-decoration:underline">A</span> in case of f = 0Hz (d.c. voltage) and is ideally infinite, in praxis depending on type 10<span style="vertical-align:super">5</span> to 10<span style="vertical-align:super">7</span>.</p>
@@ -116,7 +116,7 @@ The output is high when all inputs are low.
 <ul type="disc"><li><span style="font-style:italic">A = A</span><span style="vertical-align:sub">0</span> = &#8734;</li>
 <li>R<span style="vertical-align:sub">E+ </span>= R<span style="vertical-align:sub">E- </span>= &#8734;&#937;</li>
 <li>R<span style="vertical-align:sub">A</span> = 0&#937;</li></ul>
-<p align="justify">Characteristics of real opamps are listened in it's <a href="ktechlab-help:///datasheet">datasheet</a>.</p>
+<p align="justify">Characteristics of real opamps are listened in its <a href="ktechlab-help:///datasheet">datasheet</a>.</p>
 <p><span style="font-weight:600">Applications:</span></p>
 <ul type="disc"><li><a href="ktechlab-example:///opamps/inverting-amplifier.circuit">Inverting amplifier</a>    </li>
 <li><a href="ktechlab-example:///opamps/noninverting-amplifier.circuit">Noninverting amplifier</a>    </li>
@@ -125,7 +125,7 @@ The output is high when all inputs are low.
 <li><a href="ktechlab-example:///opamps/pid_controller.circuit">PID controller</a>    </li>
 <li><a href="ktechlab-example:///opamps/analog-computer.circuit">Analog computer</a>    </li>
 <li><a href="ktechlab-example:///opamps/active-filter.circuit">Active filter</a>    </li>
-<li><a href="ktechlab-example:///opamps/comperator.circuit">Comperator</a>    </li>
+<li><a href="ktechlab-example:///opamps/comparator.circuit">Comparator</a>    </li>
 <li><a href="ktechlab-example:///opamps/schmitt-trigger">Schmitt-Trigger</a></li></ul>
 </body></html>
 <!-- item: ec/or -->
