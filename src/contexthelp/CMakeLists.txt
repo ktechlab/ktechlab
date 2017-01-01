@@ -9,6 +9,7 @@ install(FILES
 	help-fr
 	help-it
 	help-de
+	help-uk
 	ohm.png
 	ohm_unit.png
 	opamp.png

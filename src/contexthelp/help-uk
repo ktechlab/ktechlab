@@ -2,7 +2,7 @@
 
 <!-- item: complex -->
 <html><head><meta name="qrichtext" content="1" /></head><body>
-<p>This help item does not yet exist for the American English language. Help out with KTechlab by creating one via the &quot;Edit&quot; button!</p>
+<p>This help item does not yet exist for the Amerikanisches Englisch language. Help out with KTechlab by creating one via the &quot;Edit&quot; button!</p>
 </body></html>
 <!-- item: datasheet -->
 <html><head><meta name="qrichtext" content="1" /></head><body>
@@ -10,33 +10,33 @@
 <p align="justify"><a href="http://www.datasheetarchive.com">www.datasheetarchive.com</a></p>
 </body></html>
 <!-- item: dp/arrow -->
-Select the line to position the end points
+Позначте лінію для розташовування кінців
 <!-- item: dp/ellipse -->
 
 <!-- item: dp/line -->
-Select the line to position the end points
+Позначте лінію для розташовування кінців
 <!-- item: dp/rectangle -->
 
 <!-- item: dp/text -->
-Doubleclick the Text Item to set the text
+Двічі клацніть на текстовому елементі, щоб визначити текст
 <!-- item: ec/555 -->
 Common timer IC
 <!-- item: ec/ac_current -->
 Provides a variety of current signals
 <!-- item: ec/adc -->
-Converts an analog signal into a digital output.
+Перетворює аналоговий сигнал на цифровий
 <!-- item: ec/adder -->
 
 <!-- item: ec/ammeter -->
-Place this in series in the circuit to measure the current flowing.
+Вставте послідовно до схеми, щоб виміряти силу струму.
 <!-- item: ec/and -->
 The output is high if and only if all of the inputs are high.
 <!-- item: ec/battery -->
-Provides a potential-difference.
+Створює різницю потенціалів.
 <!-- item: ec/bcd_to_seven_segment -->
 Converts a binary-coded-input to a form displayable by a seven segment display.<br><br>Normal operation: <i>lt</i> (Lamp Test) and the <i>rb</i> (Ripple Blanking) are held high, <i>en</i> (Enable) is held low.
 <!-- item: ec/bidir_led -->
-Bidrectional Light Emitting Diode
+Двобічний світлодіод
 <!-- item: ec/binary_counter -->
 Holds an internal count, which changes when the clock input <i>&gt;</i> pin is pulsed.<br><br>Normal operation: <i>en</i> (Enable) and <i>u/d</i> (Up/Down) are held high, <i>r</i> (Reset) is low.
 <!-- item: ec/buffer -->
@@ -50,7 +50,7 @@ Stores electrical charge.<br><br>The voltage across the capacitor and capacitanc
 <!-- item: ec/ccvs -->
 
 <!-- item: ec/clock_input -->
-A square-wave generator, outputting logical high/low at repeating time intervals.
+A square-wave generator, outputing logical high/low at repeating time intervals.
 <!-- item: ec/current_source -->
 Provides a fixed current source.
 <!-- item: ec/currentprobe -->
@@ -111,7 +111,7 @@ The output is high when all inputs are low.
 <p align="center"><img src=opamp.png ></p>
 <p align="center"><img src=tf_op.png ></p>
 <p align="justify">The open loop gain <span style="font-style:italic">A</span><span style="vertical-align:sub">0</span> is the value of the <a href="ktechlab-help:///complex">complex</a> gain <span style="font-style:italic;text-decoration:underline">A</span> in case of f = 0Hz (d.c. voltage) and is ideally infinite, in praxis depending on type 10<span style="vertical-align:super">5</span> to 10<span style="vertical-align:super">7</span>.</p>
-<p align="justify">The required behavior is achieved by <a href="ktechlab-help:///feedback">feedback</a> of output to the input using discrete components. This way a <a href="ktechlab-help:///controlloop">control loop</a> is closed, which should eliminate control deviation, thus the input voltage U<span style="vertical-align:sub">E </span> here. From this it follows that, except for few exceptions, both inputs of a working opamp circuit must have equal <a href="ktechlab-help:///potential">potential</a>. This realization is very useful for calculation and error diagnostics!</p>
+<p align="justify">The whiched behaviour is achived by <a href="ktechlab-help:///feedback">feedback</a> of output to the input using discrete components. This way a <a href="ktechlab-help:///controlloop">control loop</a> is closed, which should eliminate control deviation, thus the input voltage U<span style="vertical-align:sub">E </span> here. From this it follows that, except for few exceptions, both inputs of a working opamp circuit must have equal <a href="ktechlab-help:///potential">potential</a>. This realisation is very useful for calculation and error diagnostics!</p>
 <p align="justify">In most cases opamps can assumed to be ideal and <a href="ktechlab-help:///linear">linear</a> in operating range:</p>
 <ul type="disc"><li><span style="font-style:italic">A = A</span><span style="vertical-align:sub">0</span> = &#8734;</li>
 <li>R<span style="vertical-align:sub">E+ </span>= R<span style="vertical-align:sub">E- </span>= &#8734;&#937;</li>
@@ -135,7 +135,7 @@ The pins are divided into 3 registers.<br><br><b>Data Pins</b><br><br>The data p
 <!-- item: ec/pemosfet -->
 
 <!-- item: ec/pic -->
-The PIC component allows the simulation of a PIC program.<br><br>The loadable PIC program must be one of the following formats:<ul><li>Assembly (.asm)</li><li>FlowCode (.flowcode)</li><li>Symbol file (.cod)</li><li>Microbe (.microbe, .basic)</li><li>C source (.c)</li></ul>Double-click on the PIC component to open up the program source file.<br><br>If the program source file is of type assembly, then the opened text file will automatically be linked to the simulation. You can control the program from the text document using the debug controls.<br><br>Explanation of buttons:<ul><li>Play - Run the PIC program from the point at which it was paused, or from the start otherwise.</li><li>Pause - Pause the simulation at the current execution point.</li><li>Stop - Reset all parts of the simulation.</li><li>Reload - Reread the PIC program from disk and restart gpsim.</li></ul>
+The PIC component allows the simulation of a PIC program.<br><br>The loadable PIC program must be one of the following formats:<ul><li>Assembly (.asm)</li><li>FlowCode (.flowcode)</li><li>Symbol file (.cod)</li><li>Microbe (.microbe, .basic)</li><li>C source (.c)</li></ul>Doubleclick on the PIC component to open up the program source file.<br><br>If the program source file is of type assembly, then the opened text file will automatically be linked to the simulation. You can control the program from the text document using the debug controls.<br><br>Explanation of buttons:<ul><li>Play - Run the PIC program from the point at which it was paused, or from the start otherwise.</li><li>Pause - Pause the simulation at the current execution point.</li><li>Stop - Reset all parts of the simulation.</li><li>Reload - Reread the PIC program from disk and restart gpsim.</li></ul>
 <!-- item: ec/pjfet -->
 
 <!-- item: ec/pnpbjt -->
@@ -158,7 +158,7 @@ This RAM stores data as a collection of words; each of which contains <i>word si
 <p align="justify">Thus these value is a measure how worse a resistor conduct the current. In practice an other measure has established how good current is conducted. For this purpose the reciprocal is generated an a new dimension, the <span style="font-style:italic">susceptance</span> is introduced:</p>
 <p align="center"><img src=siemens.png ></p>
 <p align="center"><img src=siemens_unit.png ></p>
-<p align="justify">For better understanding it is always a good idea to illustrate the practical meaning of such formulas by explaining them in words. That is very easy here:</p>
+<p align="justify">For better understanding it is allways a good idea to illustrate the practical meaning of such formulas by explaining them in words. That is very easy here:</p>
 <p align="justify">&quot;A resistor then has a value of 1 Ohm, if an applied voltage of 1 Volt causes a current of 1 Ampere.&quot;</p>
 <p><span style="font-weight:600">Examples:</span></p>
 <ul type="disc"><li><a href="ktechlab-example:///basic/resistors-series.circuit">Series connection</a></li>
@@ -195,43 +195,43 @@ Provides a variety of voltage signals.
 <!-- item: ec/voltageprobe -->
 Displays the voltage at the probe point on the oscilloscope.
 <!-- item: ec/voltmeter -->
-Place this in parallel in the circuit to measure the voltage between two points.
+Place this in parallel in the circuit to meaure the voltage between two points.
 <!-- item: ec/xnor -->
 Exclusive NOR gate. Output is low when exactly one input is high.
 <!-- item: ec/xor -->
 Exclusive OR gate. Output is high when exactly one input is high.
 <!-- item: feedback -->
 <html><head><meta name="qrichtext" content="1" /></head><body>
-<p>This help item does not yet exist for the American English language. Help out with KTechlab by creating one via the &quot;Edit&quot; button!</p>
+<p>This help item does not yet exist for the Amerikanisches Englisch language. Help out with KTechlab by creating one via the &quot;Edit&quot; button!</p>
 </body></html>
 <!-- item: flow/callsub -->
 Call a subroutine. When the subroutine returns, the code will continue execution from this point.
 <!-- item: flow/delay -->
-Delay the program execution for a fixed period of time.
+Затримати виконання програми на фіксований проміжок часу.
 <!-- item: flow/embed -->
-Double-click on the item to edit the embedded code.
+Doubleclick on the item to edit the embedded code.
 <!-- item: flow/end -->
 End the program execution, putting the IC into sleep. Unlike Start, however, this FlowPart is not necessary for proper program execution
 <!-- item: flow/forloop -->
-The code contained in the for loop is repeatedly executed. By default, the variable used will be incremented every time. This can be changed by entering a value other than 1 into Step.<br><br>The for loop will exit when the value contained in the variable is equal to the end value.
+The code contained in the foor loop is repeatedly executed. By default, the variable used will be incremented every time. This can be changed by entering a value other than 1 into Step.<br><br>The for loop will exit when the value contained in the variable is equal to the end value.
 <!-- item: flow/keypad -->
-Gets a key from a keypad connected to the PIC.
+Отримати значення натиснутої клавіші з клавіатурної панелі, яку з’єднано з PIC.
 <!-- item: flow/readport -->
-Assign the value of a port to a variable.
+Надати змінній значення з порту.
 <!-- item: flow/repeat -->
 Repeatedly execute code, until the given condition is false. The condition is checked after the code has been executed.<br><br>This is different from "While", which checks for the condition to be true before the code is executed.
 <!-- item: flow/setpin -->
 Set a pin on a port high or low. The pin needs to be set as an output pin.
 <!-- item: flow/sevenseg -->
-Output to a Seven Segment display.
+Вивести дані на сегментний індикатор.
 <!-- item: flow/start -->
-Determines the initial program execution point.
+Визначає початкову точку виконання програми.
 <!-- item: flow/sub -->
 Defines the starting point of a subroutine. Call this subroutine using "Call Sub"
 <!-- item: flow/testpin -->
 Conditional branch point, depending on the high/low state of a pin.
 <!-- item: flow/unary -->
-A unary operation involves only one variable. Supported operations are:<br><ul><li><b>Rotate Left</b> rotates the binary bits of the variable left (discarding the end bits).</li><li><b>Rotate Right</b> rotates the binary bits right (discarding the start bits).</li><li><b>Increment</b> increases the value of the variable by 1. A value of 255 wraps around to 0.</li><li><b>Decrement</b> decreases the value of a variable by 1. A value of 0 wraps around to 255.</li></ul>
+A unary operation involves only one variable. Suppo operations are:<br><ul><li><b>Rotate Left</b> rotates the binary bits of the variable left (discarding the end bits).</li><li><b>Rotate Right</b> rotates the binary bits right (discarding the start bits).</li><li><b>Increment</b> increases the value of the variable by 1. A value of 255 wraps around to 0.</li><li><b>Decrement</b> decreases the value of a variable by 1. A value of 0 wraps around to 255.</li></ul>
 <!-- item: flow/varassignment -->
 Assigns the evaluation of an expression to a variable. The expression can take many forms. For example:<ul><li><b>x = 2</b></li><li><b>x = y + 3</b></li><li><b>x = y + z</b></li><li><b>x = 2 * y</b></ul>
 <!-- item: flow/varcomparison -->
@@ -242,7 +242,7 @@ Repeatedly execute code, until the given condition is false. The condition is ch
 Sets the port's pins state to high/low from the given value. Only pins that have been configured as output pins will take on the value assigned to them.
 <!-- item: linear -->
 <html><head><meta name="qrichtext" content="1" /></head><body>
-<p>This help item does not yet exist for the American English language. Help out with KTechlab by creating one via the &quot;Edit&quot; button!</p>
+<p>This help item does not yet exist for the Amerikanisches Englisch language. Help out with KTechlab by creating one via the &quot;Edit&quot; button!</p>
 </body></html>
 <!-- item: storage -->
 <html><head><meta name="qrichtext" content="1" /></head><body>
@@ -257,7 +257,7 @@ Sets the port's pins state to high/low from the given value. Only pins that have
 <!-- item: transferfunction -->
 <html><head><meta name="qrichtext" content="1" /></head><body>
 <p align="justify">A <span style="font-weight:600">transfer-function</span> is a mathematical model of a system. Generally it is given by the division of the resulting output signal to an adequate input signal. By multiplicating this transfer function with any input signal, the input information disappears and we get the output signal.</p>
-<p align="justify">In the simplest case of a <a href="ktechlab-help:///linear">linear</a> <a href="ktechlab-help:///system">SISO system</a> without <a href="ktechlab-help:///storage">storage elements</a> the transfer function reduces to a scalar gain. Here any input signal is practical because system behavior is independent from it.</p>
-<p align="justify">By adding storage elements the scalar gain becomes a <a href="ktechlab-help:///complex">complex</a> gain in frequency domain. This includes information about frequency dependent gain and phase shift in static (i.e. steady state) case. In order to describe dynamic (i.e. transient) behavior as well we use the transfer function in complex variable domain which also contains information about damping procedure. The adequate input signal here is a dirac impulse which consist of superposition of <span style="font-style:italic">all</span> frequencies in equal amplitude and thus can worm all needed information out of the system.</p>
-<p align="justify">This realization also has very practical meaning, by the way. Given that in practice a shot looks like a dirac impulse in spectrum we can fire a gun in a cathedral for example and record the echo. Now we have the transfer function of the cathedral. When <a href="ktechlab-help:///convolution">convolve</a> this with any audio recording it will sound like played in the cathedral.</p>
+<p align="justify">In the simplest case of a <a href="ktechlab-help:///linear">linear</a> <a href="ktechlab-help:///system">SISO system</a> without <a href="ktechlab-help:///storage">storage elements</a> the transfer function reduces to a scalar gain. Here any input signal is practical because system behaviour is independent from it.</p>
+<p align="justify">By adding storage elements the scalar gain becomes a <a href="ktechlab-help:///complex">complex</a> gain in frequency domain. This includes information about frequency dependent gain and phase shift in static (i.e. steady state) case. In order to describe dynamic (i.e. transient) behaviour as well we use the transfer function in complex variable domain which also contains information about damping procedure. The adequate input signal here is a dirac impulse which consist of superposition of <span style="font-style:italic">all</span> frequencies in equal amplitude and thus can worm all needed information out of the system.</p>
+<p align="justify">This realisation also has very practical meaning, by the way. Given that in practice a shot looks like a dirac impulse in spectrum we can fire a gun in a cathedral for example and record the echo. Now we have the transfer function of the cathedral. When <a href="ktechlab-help:///convolution">convolve</a> this with any audio recording it will sound like played in the cathedral.</p>
 </body></html>
