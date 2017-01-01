@@ -60,7 +60,6 @@
 //#include <kpopupmenu.h>
 #include <kstandarddirs.h>
 #include <ktabwidget.h> 
-#include <k3urldrag.h>
 //#include <kwin.h>
 #include <kxmlguifactory.h>
 #include <kstandardaction.h>
@@ -68,7 +67,6 @@
 #include <ktoolbarpopupaction.h>
 #include <kmenu.h>
 #include <kwindowsystem.h>
-#include <k3urldrag.h>
 #include <kshortcutsdialog.h>
 #include <k3popupmenu.h>
 
@@ -949,7 +947,7 @@ void KTechlab::readPropertiesInConfig( KConfig *conf )
 void KTechlab::dragEnterEvent(QDragEnterEvent *event)
 {
     // accept uri drops only
-    event->accept(K3URLDrag::canDecode(event));
+    event->accept(KUrl::List::canDecode(event->mimeData()));
 }
 
 
@@ -958,10 +956,10 @@ void KTechlab::dropEvent(QDropEvent *event)
     // this is a very simplistic implementation of a drop event.  we
     // will only accept a dropped URL.  the Qt dnd code can do *much*
     // much more, so please read the docs there
-    KUrl::List urls;
+    const KUrl::List urls = KUrl::List::fromMimeData(event->mimeData());
 
     // see if we can decode a URI.. if not, just ignore it
-    if (K3URLDrag::decode(event, urls) && !urls.isEmpty())
+    if (!urls.isEmpty())
     {
         // okay, we have a URI.. process it
         const KUrl &url = urls.first();

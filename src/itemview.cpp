@@ -30,7 +30,6 @@
 #include <kiconloader.h>
 #include <klocalizedstring.h>
 #include <k3popupmenu.h>
-#include <k3urldrag.h>
 #include <ktoolbarpopupaction.h>
 #include <kactioncollection.h>
 
@@ -312,14 +311,13 @@ void ItemView::dropEvent( QDropEvent *event )
 {
 	removeDragItem();
 	
-	KUrl::List urls;
-	if ( K3URLDrag::decode( event, urls ) )
+	if ( KUrl::List::canDecode( event->mimeData() ) )
 	{
 		// Then it is URLs that we can decode :)
-		const KUrl::List::iterator end = urls.end();
-		for ( KUrl::List::iterator it = urls.begin(); it != end; ++it )
+		const KUrl::List urls = KUrl::List::fromMimeData( event->mimeData() );
+		foreach ( const KUrl &u, urls )
 		{
-			DocManager::self()->openURL(*it);
+			DocManager::self()->openURL(u);
 		}
 		return;
 	}
@@ -468,8 +466,7 @@ void ItemView::dragEnterEvent( QDragEnterEvent *event )
 {
 	startUpdatingStatus();
 	
-	KUrl::List urls;
-	if ( K3URLDrag::decode( event, urls ) ) {
+	if ( KUrl::List::canDecode( event->mimeData() ) ) {
 		event->accept(true);
 		// Then it is URLs that we can decode later :)
 		return;
