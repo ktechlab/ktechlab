@@ -196,11 +196,7 @@ QStringList KTechlab::recentFiles()
 
 void KTechlab::setupToolDocks()
 {
-#if defined(KDE_MAKE_VERSION)
-# if KDE_VERSION >= KDE_MAKE_VERSION(3,3,0)
 	setToolViewStyle( KMultiTabBar::KDEV3ICON );
-# endif
-#endif
 	
 	QPixmap pm;
 	KIconLoader * loader = KIconLoader::global();
@@ -702,11 +698,7 @@ void KTechlab::setupActions()
         ta->setName( "simulation_run" );
         ta->setChecked(true);
         connect( ta, SIGNAL(toggled(bool )), Simulator::self(), SLOT(slotSetSimulating(bool )) );
-#if defined(KDE_MAKE_VERSION)
-# if KDE_VERSION >= KDE_MAKE_VERSION(3,3,0)
 		ta->setCheckedState( KGuiItem( i18n("Pause Simulation"), "media-playback-pause", 0 ) );
-# endif
-#endif
         ac->addAction( "simulation_run", ta);
     }
 	

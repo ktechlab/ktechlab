@@ -20,7 +20,6 @@
 #include <cassert>
 
 #include <kcombobox.h>
-#include <kdeversion.h>
 #include <kfiledialog.h>
 #include <klineedit.h>
 #include <klocale.h>
@@ -217,11 +216,7 @@ LinkerOptionsDlg::LinkerOptionsDlg( LinkerOptions * linkingOptions, QWidget *par
 	m_pWidget->m_pExternalLibraries->layout()->setMargin(11);
 	(dynamic_cast<QGridLayout*>(m_pWidget->layout()))->addMultiCellWidget( m_pWidget->m_pExternalLibraries, 7, 7, 0, 1 );
 	
-#if defined(KDE_MAKE_VERSION)
-# if KDE_VERSION >= KDE_MAKE_VERSION(3,4,0)
 	m_pWidget->m_pExternalLibraries->setButtons( KEditListBox::Add | KEditListBox::Remove );
-# endif
-#endif
 	m_pWidget->m_pExternalLibraries->insertStringList( m_pLinkerOptions->linkedExternal() );
 	//END Update library widgets
 	
