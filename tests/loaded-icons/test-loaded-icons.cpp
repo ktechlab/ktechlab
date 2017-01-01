@@ -53,7 +53,7 @@ int main(int argc, char **argv) {
     addIcon(mainLayout, "media-playback-pause");
     addIcon(mainLayout, "process-stop");
     addIcon(mainLayout, "view-refresh");
-    addIcon(mainLayout, "ktechlab_circuit");
+    addIcon(mainLayout, "application-x-circuit");
     addIcon(mainLayout, "fork");
     addIcon(mainLayout, "convert_to_microbe");
     addIcon(mainLayout, "convert_to_assembly");
@@ -64,8 +64,8 @@ int main(int argc, char **argv) {
     addIcon(mainLayout, "folder");
     addIcon(mainLayout, "template-source");
     addIcon(mainLayout, "text-x-csrc");
-    addIcon(mainLayout, "ktechlab_circuit");
-    addIcon(mainLayout, "ktechlab_flowcode");
+    addIcon(mainLayout, "application-x-circuit");
+    addIcon(mainLayout, "application-x-flowcode");
     addIcon(mainLayout, "exec");
     addIcon(mainLayout, "oscilloscope");
     */

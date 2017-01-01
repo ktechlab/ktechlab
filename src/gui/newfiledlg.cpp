@@ -70,15 +70,15 @@ NewFileDlg::NewFileDlg( QWidget *parent )
 	items << new Q3IconViewItem(m_pNewFileWidget->typeIconView, text, loader->loadIcon( "text-x-csrc", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
 	
 	text = QString("%1 (.circuit)").arg(i18n("Circuit"));
-	items << new Q3IconViewItem(m_pNewFileWidget->typeIconView,text, loader->loadIcon( "ktechlab_circuit", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
+	items << new Q3IconViewItem(m_pNewFileWidget->typeIconView,text, loader->loadIcon( "application-x-circuit", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
 	
-	items << new Q3IconViewItem(m_pNewFileWidget->typeIconView,"FlowCode (.flowcode)", loader->loadIcon( "ktechlab_flowcode", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
+	items << new Q3IconViewItem(m_pNewFileWidget->typeIconView,"FlowCode (.flowcode)", loader->loadIcon( "application-x-flowcode", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
 	
 #ifdef MECHANICS
 	items << new Q3IconViewItem(m_pNewFileWidget->typeIconView,"Mechanics (.mechanics)", loader->loadIcon( "exec", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
 #endif
 	
-	items << new Q3IconViewItem(m_pNewFileWidget->typeIconView,"Microbe (.microbe)", loader->loadIcon( "ktechlab_microbe", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
+	items << new Q3IconViewItem(m_pNewFileWidget->typeIconView,"Microbe (.microbe)", loader->loadIcon( "application-x-microbe", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
 	//END insert icons
 	
 	unsigned minWidth = 20 + m_pNewFileWidget->typeIconView->spacing() * items.size();

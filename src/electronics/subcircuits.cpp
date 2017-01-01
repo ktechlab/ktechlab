@@ -118,7 +118,7 @@ void Subcircuits::updateComponentSelector( int id, const QString &name )
 		return;
 	
 	ComponentSelector::self()->addItem( name, "sc/"+QString::number(id), i18n("Subcircuits"),
-                                        KIconLoader::global()->loadIcon( "ktechlab_circuit", KIconLoader::Small ), true );
+                                        KIconLoader::global()->loadIcon( "application-x-circuit", KIconLoader::Small ), true );
 }
 
 

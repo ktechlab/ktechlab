@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="application/x-circuit">
+    <comment>KTechlab Circuit</comment>
+    <glob pattern="*.circuit"/>
+  </mime-type>
+  <mime-type type="application/x-flowcode">
+    <comment>KTechlab FlowCode</comment>
+    <glob pattern="*.flowcode"/>
+  </mime-type>
+  <mime-type type="application/x-ktechlab">
+    <comment>KTechlab project</comment>
+    <glob pattern="*.ktechlab"/>
+  </mime-type>
+  <mime-type type="application/x-microbe">
+    <comment>KTechlab Microbe</comment>
+    <glob pattern="*.microbe"/>
+    <glob pattern="*.basic"/>
+  </mime-type>
+</mime-info>

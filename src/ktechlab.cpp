@@ -528,16 +528,16 @@ void KTechlab::setupActions()
         ac->addAction("newfile_c", a);
     }
     {
-        //(new KAction( i18n("Circuit"), "ktechlab_circuit", 0, this, SLOT(slotFileNewCircuit()), ac, "newfile_circuit" ))->plug( p->menu() );
-        KAction *a = new KAction( KIcon("ktechlab_circuit"), i18n("Circuit"), ac);
+        //(new KAction( i18n("Circuit"), "application-x-circuit", 0, this, SLOT(slotFileNewCircuit()), ac, "newfile_circuit" ))->plug( p->menu() );
+        KAction *a = new KAction( KIcon("application-x-circuit"), i18n("Circuit"), ac);
         a->setName("newfile_circuit");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotFileNewCircuit()));
         p->menu()->addAction(a);
         ac->addAction("newfile_circuit", a);
     }
     {
-        //(new KAction( i18n("FlowCode"), "ktechlab_flowcode", 0, this, SLOT(slotFileNewFlowCode()), ac, "newfile_flowcode" ))->plug( p->menu() );
-        KAction *a = new KAction( KIcon("ktechlab_flowcode"), i18n("FlowCode"), ac);
+        //(new KAction( i18n("FlowCode"), "application-x-flowcode", 0, this, SLOT(slotFileNewFlowCode()), ac, "newfile_flowcode" ))->plug( p->menu() );
+        KAction *a = new KAction( KIcon("application-x-flowcode"), i18n("FlowCode"), ac);
         a->setName("newfile_flowcode");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotFileNewFlowCode()));
         p->menu()->addAction(a);
@@ -554,8 +554,8 @@ void KTechlab::setupActions()
     }
 #endif
     {
-        //(new KAction( "Microbe", "ktechlab_microbe", 0, this, SLOT(slotFileNewMicrobe()), ac, "newfile_microbe" ))->plug( p->menu() );
-        KAction *a = new KAction( KIcon("ktechlab_microbe"), i18n("Microbe"), ac);
+        //(new KAction( "Microbe", "application-x-microbe", 0, this, SLOT(slotFileNewMicrobe()), ac, "newfile_microbe" ))->plug( p->menu() );
+        KAction *a = new KAction( KIcon("application-x-microbe"), i18n("Microbe"), ac);
         a->setName("newfile_microbe");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotFileNewMicrobe()));
         p->menu()->addAction(a);
@@ -1282,11 +1282,11 @@ void KTechlab::slotDocModifiedChanged()
             switch ( vc->activeView()->document()->type() )
             {
                 case Document::dt_circuit:
-                    iconPixmap = loader->loadIcon( "ktechlab_circuit", KIconLoader::Small );
+                    iconPixmap = loader->loadIcon( "application-x-circuit", KIconLoader::Small );
                     break;
 
                 case Document::dt_flowcode:
-                    iconPixmap = loader->loadIcon( "ktechlab_flowcode", KIconLoader::Small );
+                    iconPixmap = loader->loadIcon( "application-x-flowcode", KIconLoader::Small );
                     break;
 
                 case Document::dt_mechanics:
