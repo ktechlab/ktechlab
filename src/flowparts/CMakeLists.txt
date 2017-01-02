@@ -1,5 +1,3 @@
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
-
 SET(flowparts_STAT_SRCS
    callsub.cpp
    delay.cpp

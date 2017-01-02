@@ -1,17 +1,18 @@
 include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}  # needed for subdirs
     ${CMAKE_CURRENT_SOURCE_DIR}/core
+    ${CMAKE_CURRENT_BINARY_DIR}/core  # for the kcfg file
     ${CMAKE_CURRENT_SOURCE_DIR}/drawparts
     ${CMAKE_CURRENT_SOURCE_DIR}/electronics
     ${CMAKE_CURRENT_SOURCE_DIR}/electronics/components
     ${CMAKE_CURRENT_SOURCE_DIR}/electronics/simulation
     ${CMAKE_CURRENT_SOURCE_DIR}/flowparts
     ${CMAKE_CURRENT_SOURCE_DIR}/gui
+    ${CMAKE_CURRENT_BINARY_DIR}/gui  # for ui-generated files
     ${CMAKE_CURRENT_SOURCE_DIR}/gui/itemeditor
     ${CMAKE_CURRENT_SOURCE_DIR}/languages
     ${CMAKE_CURRENT_SOURCE_DIR}/mechanics
     ${CMAKE_CURRENT_SOURCE_DIR}/micro
-    ${CMAKE_CURRENT_BINARY_DIR}
     ${KDE4_INCLUDES}
     ${QT_INCLUDES})
 if(GPSim_FOUND)

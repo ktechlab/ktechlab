@@ -13,7 +13,6 @@
 #include "logview.h"
 #include "microinfo.h"
 #include "microlibrary.h"
-#include "src/core/ktlconfig.h"
 
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
@@ -21,6 +20,8 @@
 #include <kdebug.h>
 
 #include <Qt/qfile.h>
+
+#include <ktlconfig.h>
 
 Gplink::Gplink( ProcessChain *processChain )
 	: ExternalLanguage( processChain, "Gpasm" )

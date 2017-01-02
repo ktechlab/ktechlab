@@ -16,7 +16,6 @@
 #include "ecnode.h"
 #include "junctionnode.h"
 #include "itemdocumentdata.h"
-#include "src/core/ktlconfig.h"
 #include "wire.h"
 #include "utils.h"
 
@@ -25,6 +24,8 @@
 
 #include <cstdlib>
 #include <cmath>
+
+#include <ktlconfig.h>
 
 
 //BEGIN class Connector

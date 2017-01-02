@@ -8,12 +8,8 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "ui_createsubprojectwidget.h"
-#include "ui_linkeroptionswidget.h"
 #include "microlibrary.h"
 #include "microselectwidget.h"
-#include "ui_newprojectwidget.h"
-#include "ui_processingoptionswidget.h"
 #include "projectdlgs.h"
 #include "projectmanager.h"
 
@@ -31,6 +27,11 @@
 #include <Qt/qlabel.h>
 #include <Qt/qlayout.h>
 #include <Qt/qdebug.h>
+
+#include <ui_createsubprojectwidget.h>
+#include <ui_linkeroptionswidget.h>
+#include <ui_newprojectwidget.h>
+#include <ui_processingoptionswidget.h>
 
 struct NewProjectWidget : public QWidget, Ui::NewProjectWidget {
     NewProjectWidget(QWidget *parent) : QWidget(parent) {

@@ -13,7 +13,6 @@
 #include "microsettingsdlg.h"
 #include "ui_microsettingswidget.h"
 #include "micropackage.h"
-#include "ui_newpinmappingwidget.h"
 #include "pinmapping.h"
 
 #include <kcombobox.h>
@@ -29,6 +28,8 @@
 #include <Qt/qlayout.h>
 #include <Qt/qregexp.h>
 #include <Qt/q3table.h>
+
+#include <ui_newpinmappingwidget.h>
 
 struct MicroSettingsWidget : public QWidget, Ui::MicroSettingsWidget {
     MicroSettingsWidget(QWidget *parent) : QWidget(parent) {

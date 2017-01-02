@@ -8,17 +8,9 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "ui_asmformattingwidget.h"
-#include "ui_generaloptionswidget.h"
-#include "ui_gpasmsettingswidget.h"
-#include "ui_gplinksettingswidget.h"
-#include "ui_logicwidget.h"
-#include "ui_picprogrammerconfigwidget.h"
 #include "picprogrammer.h"
 #include "port.h"
-#include "ui_sdccoptionswidget.h"
 #include "settingsdlg.h"
-#include "src/core/ktlconfig.h"
 
 #include <kapplication.h>
 #include <kcolorbutton.h>
@@ -35,6 +27,15 @@
 #include <Qt/qlabel.h>
 #include <Qt/qslider.h>
 #include <Qt/qtimer.h>
+
+#include <ktlconfig.h>
+#include <ui_asmformattingwidget.h>
+#include <ui_generaloptionswidget.h>
+#include <ui_gpasmsettingswidget.h>
+#include <ui_gplinksettingswidget.h>
+#include <ui_logicwidget.h>
+#include <ui_picprogrammerconfigwidget.h>
+#include <ui_sdccoptionswidget.h>
 
 
 struct GeneralOptionsWidget : public QWidget, Ui::GeneralOptionsWidget {

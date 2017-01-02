@@ -1,7 +1,3 @@
-include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${KDE4_INCLUDES} ${QT_INCLUDES})
-
-########### next target ###############
-
 SET(microbe_SRCS
    btreebase.cpp
    btreenode.cpp

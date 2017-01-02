@@ -10,7 +10,6 @@
 
 #include "languagemanager.h"
 #include "picprogrammer.h"
-#include "src/core/ktlconfig.h"
 
 #include <kapplication.h>
 #include <kconfig.h>
@@ -26,6 +25,8 @@
 #include <Qt/qdatetime.h>
 
 #include <stdio.h>
+
+#include <ktlconfig.h>
 
 //BEGIN class ProgrammerConfig
 ProgrammerConfig::ProgrammerConfig()

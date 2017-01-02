@@ -12,7 +12,6 @@
 #include "document.h"
 #include "microinfo.h"
 #include "newfiledlg.h"
-#include "ui_newfilewidget.h"
 #include "microlibrary.h"
 #include "microselectwidget.h"
 #include "projectmanager.h"
@@ -31,6 +30,8 @@
 #include <Qt/qfile.h>
 #include <Qt/qlabel.h>
 #include <Qt/q3paintdevicemetrics.h>
+
+#include <ui_newfilewidget.h>
 
 
 struct NewFileWidget : public QWidget, Ui::NewFileWidget {

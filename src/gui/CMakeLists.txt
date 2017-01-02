@@ -1,7 +1,5 @@
 add_subdirectory(itemeditor)
 
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
-
 ########### next target ###############
 
 SET(gui_STAT_SRCS

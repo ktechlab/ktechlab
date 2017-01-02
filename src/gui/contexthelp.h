@@ -11,7 +11,7 @@
 #ifndef CONTEXTHELP_H
 #define CONTEXTHELP_H
 
-#include "src/gui/ui_contexthelpwidget.h"
+#include <ui_contexthelpwidget.h>
 
 #include <Qt/qpointer.h>
 #include <ktextedit.h>

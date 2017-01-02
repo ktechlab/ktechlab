@@ -22,7 +22,6 @@
 #include "itemgroup.h"
 #include "itemselector.h"
 #include "ktechlab.h"
-#include "core/ktlconfig.h"
 #include "pin.h"
 #include "resizeoverlay.h"
 #include "simulator.h"
@@ -53,6 +52,8 @@
 
 #include <cmath>
 #include <cassert>
+
+#include <ktlconfig.h>
 
 
 //BEGIN class ItemDocument

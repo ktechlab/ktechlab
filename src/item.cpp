@@ -8,7 +8,6 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "core/ktlconfig.h"
 #include "itemdocument.h"
 #include "itemdocumentdata.h"
 #include "ktechlab.h"
@@ -23,6 +22,8 @@
 #include <Qt/qbitarray.h>
 #include <Qt/qlayout.h>
 #include <Qt/qtimer.h>
+
+#include <ktlconfig.h>
 
 const int minPrefixExp = -24;
 const int maxPrefixExp = 24;

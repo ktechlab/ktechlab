@@ -1,5 +1,3 @@
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
-
 SET(components_STAT_SRCS
    ecdiode.cpp
    ecsevensegment.cpp

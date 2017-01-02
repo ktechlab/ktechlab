@@ -11,7 +11,6 @@
 #include "asmparser.h"
 #include "docmanager.h"
 #include "gplib.h"
-#include "src/core/ktlconfig.h"
 #include "language.h"
 #include "languagemanager.h"
 #include "logview.h"
@@ -34,6 +33,8 @@
 #include <k3tempfile.h>
 #include <Qt/qfile.h>
 #include <Qt/qtimer.h>
+
+#include <ktlconfig.h>
 
 
 //BEGIN class ProcessChain

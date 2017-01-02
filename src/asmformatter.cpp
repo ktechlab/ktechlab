@@ -9,10 +9,11 @@
  ***************************************************************************/
 
 #include "asmformatter.h"
-#include "core/ktlconfig.h"
 #include "picinfo12bit.h"
 #include "picinfo14bit.h"
 #include "picinfo16bit.h"
+
+#include <ktlconfig.h>
 
 static QString extractComment( const QString & line )
 {

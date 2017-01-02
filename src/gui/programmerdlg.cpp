@@ -13,14 +13,15 @@
 #include "picprogrammer.h"
 #include "port.h"
 #include "programmerdlg.h"
-#include "ui_programmerwidget.h"
 
-#include "src/core/ktlconfig.h"
 
 #include <kcombobox.h>
 #include <kguiitem.h>
 #include <klocalizedstring.h>
 #include <kstdguiitem.h>
+
+#include <ktlconfig.h>
+#include <ui_programmerwidget.h>
 
 struct ProgrammerWidget : public QWidget, Ui::ProgrammerWidget {
     ProgrammerWidget(QWidget *parent) : QWidget(parent) {

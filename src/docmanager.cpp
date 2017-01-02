@@ -15,7 +15,6 @@
 #include "iteminterface.h"
 #include "itemselector.h"
 #include "ktechlab.h"
-#include "core/ktlconfig.h"
 #include "mechanicsdocument.h"
 #include "textdocument.h"
 #include "textview.h"
@@ -29,6 +28,8 @@
 #include <Qt/qfile.h>
 
 #include <cassert>
+
+#include <ktlconfig.h>
 
 DocManager * DocManager::m_pSelf = 0l;
 

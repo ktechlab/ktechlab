@@ -14,8 +14,6 @@
 #include "circuitview.h"
 #include "component.h"
 #include "connector.h"
-//#include "ktlconfig.h"	// Works like this:
-#include "src/core/ktlconfig.h"
 #include "cnitemgroup.h"
 #include "documentiface.h"
 #include "drawparts/drawpart.h"
@@ -35,6 +33,8 @@
 
 #include <Qt/qregexp.h>
 #include <Qt/qtimer.h> 
+
+#include <ktlconfig.h>
 
 
 CircuitDocument::CircuitDocument( const QString & caption, const char *name )

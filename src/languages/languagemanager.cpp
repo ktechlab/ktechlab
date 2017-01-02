@@ -13,7 +13,6 @@
 #include "logview.h"
 #include "ktechlab.h"
 #include "k3tempfile.h"
-#include "src/core/ktlconfig.h"
 #include "outputmethoddlg.h"
 #include "processchain.h"
 #include "projectmanager.h"
@@ -27,6 +26,8 @@
 #include <klocalizedstring.h>
 
 #include <cassert>
+
+#include <ktlconfig.h>
 
 
 LanguageManager * LanguageManager::m_pSelf = 0l;

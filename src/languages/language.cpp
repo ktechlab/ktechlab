@@ -16,7 +16,6 @@
 #include "processchain.h"
 #include "projectmanager.h"
 #include "languagemanager.h"
-#include "src/core/ktlconfig.h"
 
 #include <kdebug.h>
 //#include <kio/netaccess.h>
@@ -25,6 +24,8 @@
 
 #include <Qt/qregexp.h>
 #include <Qt/qtimer.h>
+
+#include <ktlconfig.h>
 
 //BEGIN class Language
 Language::Language( ProcessChain *processChain, const QString &name )

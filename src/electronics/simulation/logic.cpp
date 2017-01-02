@@ -14,7 +14,8 @@
 #include "logic.h"
 #include "matrix.h"
 #include "simulator.h"
-#include "src/core/ktlconfig.h"
+
+#include <ktlconfig.h>
 
 
 //BEGIN class LogicConfig

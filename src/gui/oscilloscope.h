@@ -14,7 +14,7 @@
 #ifndef PROBE_H
 #ifndef KTECHLAB_H
 #ifndef OSCILLOSCOPEDATA_H
-#include "ui_oscilloscopewidget.h"
+#include <ui_oscilloscopewidget.h>
 #endif
 #endif
 #endif

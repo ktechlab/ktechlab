@@ -12,7 +12,8 @@
 #define SCOPESCREEN_H
 
 #include "simulator.h"
-#include "src/gui/ui_scopescreenwidget.h"
+
+#include <ui_scopescreenwidget.h>
 
 namespace KateMDI { class ToolView; }
 

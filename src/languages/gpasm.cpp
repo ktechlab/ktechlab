@@ -13,12 +13,13 @@
 #include "gpasm.h"
 #include "logview.h"
 #include "languagemanager.h"
-#include "src/core/ktlconfig.h"
 
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <k3process.h>
 #include <Qt/qregexp.h>
+
+#include <ktlconfig.h>
 
 Gpasm::Gpasm( ProcessChain *processChain )
  : ExternalLanguage( processChain, "Gpasm" )

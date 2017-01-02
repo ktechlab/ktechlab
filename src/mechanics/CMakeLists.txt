@@ -1,5 +1,3 @@
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
-
 SET(mechanics_STAT_SRCS
    mechanicsitem.cpp
    chassiscircular2.cpp

@@ -20,7 +20,6 @@
 #include "itemlibrary.h"
 #include "itemview.h"
 #include "ktechlab.h"
-#include "core/ktlconfig.h"
 #include "utils.h"
 
 //#include <kaccel.h>
@@ -40,6 +39,8 @@
 
 #include <cmath>
 #include <kmenu.h>
+
+#include <ktlconfig.h>
 
 
 //BEGIN class ItemView

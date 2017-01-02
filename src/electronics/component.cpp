@@ -11,7 +11,6 @@
 #include "canvasitemparts.h"
 #include "circuitdocument.h"
 #include "component.h"
-#include "src/core/ktlconfig.h"
 #include "ecnode.h"
 #include "itemdocumentdata.h"
 #include "node.h"
@@ -44,6 +43,8 @@
 #include <Qt/qpainter.h>
 #include <Qt/qwidget.h>
 #include <Qt/qwmatrix.h>
+
+#include <ktlconfig.h>
 
 const int dipWidth = 112;
 const int pairSep = 32;

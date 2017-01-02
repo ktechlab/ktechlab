@@ -1,5 +1,3 @@
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
-
 SET(languages_STAT_SRCS
    language.cpp
    languagemanager.cpp

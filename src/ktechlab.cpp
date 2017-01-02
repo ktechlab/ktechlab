@@ -24,7 +24,6 @@
 #include "iteminterface.h"
 #include "itemlibrary.h"
 #include "ktechlab.h"
-#include "core/ktlconfig.h"
 #include "languagemanager.h"
 #include "mechanicsdocument.h"
 #include "microlibrary.h"
@@ -69,6 +68,8 @@
 #include <kmenu.h>
 #include <kwindowsystem.h>
 #include <kshortcutsdialog.h>
+
+#include <ktlconfig.h>
 
 
 KTechlab * KTechlab::m_pSelf = 0l;

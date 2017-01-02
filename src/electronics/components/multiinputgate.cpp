@@ -13,11 +13,12 @@
 #include "libraryitem.h"
 #include "logic.h"
 #include "multiinputgate.h"
-#include "src/core/ktlconfig.h"
 
 #include <cmath>
 #include <klocalizedstring.h>
 #include <Qt/qpainter.h>
+
+#include <ktlconfig.h>
 
 //BEGIN class MultiInputGate
 MultiInputGate::MultiInputGate( ICNDocument *icnDocument, bool newItem, const char *id, const QString & rectangularShapeText, bool invertedOutput, int baseWidth, bool likeOR )

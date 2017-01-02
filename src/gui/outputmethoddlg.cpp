@@ -11,7 +11,6 @@
 #include "docmanager.h"
 #include "filemetainfo.h"
 #include "textdocument.h"
-#include "ui_outputmethodwidget.h"
 #include "outputmethoddlg.h"
 #include "microlibrary.h"
 #include "microselectwidget.h"
@@ -26,6 +25,8 @@
 #include <Qt/qcheckbox.h>
 #include <Qt/qfile.h>
 #include <Qt/qradiobutton.h>
+
+#include <ui_outputmethodwidget.h>
 
 
 struct OutputMethodWidget : public QWidget, Ui::OutputMethodWidget {

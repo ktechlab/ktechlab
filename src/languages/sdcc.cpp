@@ -14,11 +14,12 @@
 #include "microinfo.h"
 #include "microlibrary.h"
 #include "sdcc.h"
-#include "src/core/ktlconfig.h"
 
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <k3process.h>
+
+#include <ktlconfig.h>
 
 SDCC::SDCC( ProcessChain * processChain )
 	: ExternalLanguage( processChain, "SDCC" )

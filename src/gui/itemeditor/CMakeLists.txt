@@ -1,5 +1,3 @@
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
-
 SET(itemeditor_STAT_SRCS
    itemeditor.cpp
    orientationwidget.cpp

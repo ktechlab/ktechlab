@@ -9,6 +9,7 @@ list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 
 find_package(Qt4 4.6.0 REQUIRED)
 find_package(KDE4 REQUIRED)
+include(KDE4Defaults)
 find_package(GPSim)
 
 #set(CMAKE_VERBOSE_MAKEFILE ON)

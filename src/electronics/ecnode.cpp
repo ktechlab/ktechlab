@@ -9,7 +9,6 @@
  ***************************************************************************/
 
 #include "circuitdocument.h"
-#include "src/core/ktlconfig.h"
 #include "component.h"
 #include "connector.h"
 #include "ecnode.h"
@@ -18,6 +17,8 @@
 
 #include <kdebug.h>
 #include <Qt/qpainter.h>
+
+#include <ktlconfig.h>
 
 ECNode::ECNode( ICNDocument *icnDocument, Node::node_type _type, int dir, const QPoint &pos, QString *_id )
 	: Node( icnDocument, _type, dir, pos, _id )

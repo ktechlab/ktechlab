@@ -8,7 +8,6 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include "core/ktlconfig.h"
 #include "docmanager.h"
 #include "document.h"
 #include "language.h"
@@ -34,6 +33,8 @@
 #include <Qt/q3popupmenu.h>
 
 #include <cassert>
+
+#include <ktlconfig.h>
 
 //BEGIN class LinkerOptions
 LinkerOptions::LinkerOptions()
