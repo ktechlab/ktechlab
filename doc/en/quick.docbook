@@ -35,7 +35,7 @@
 		
 		<para>In Circuit and &flowcode; documents, there are several drawing tools available, including text. These are available by clicking on the paintbrush icon in the toolbar. To draw, drag the mouse to form either a shape or a line appropriate to the drawing tool in use.</para>
 		
-		<para>When a drawing is selected, it can be resized by dragging its handles. Holding down shift while dragging will snap the handle to the underlying grid. Each tool has basic options accessible from the toolbar, such as colours. There are also more advanced options found in the Item sidebar, such as line and cap styles.</para>
+		<para>When a drawing is selected, it can be resized by dragging its handles. Holding down &Shift; while dragging will snap the handle to the underlying grid. Each tool has basic options accessible from the toolbar, such as colours. There are also more advanced options found in the <guilabel>Item Editor</guilabel> sidebar, such as line and cap styles.</para>
 		
 	</sect1>
 	
