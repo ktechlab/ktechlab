@@ -4,9 +4,9 @@
 <sect1>
 	<title>Introduction and General Syntax</title>
 	<para>
-		<application>Microbe</application> compiles programs written in the custom language for PICs, as a companion program to <application>&ktechlab;</application>. The syntax has been designed to suit a &flowcode; program.
+		<application>Microbe</application> compiles programs written in the custom language for PICs, as a companion program to &ktechlab;. The syntax has been designed to suit a &flowcode; program.
 		
-		The syntax for running <command>microbe</command> from the commandline is:
+		The syntax for running <command>microbe</command> from the command line is:
 		
 		<programlisting>microbe [options] [input.microbe] [output.asm]</programlisting>
 		
