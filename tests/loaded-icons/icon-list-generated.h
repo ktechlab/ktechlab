@@ -1,5 +1,5 @@
 /* AUTO-GENERATED FILE BY ./tests/loaded-icons/generate-icon-names-list.sh; DO NOT EDIT MANUALLY */
-/* date of generation: Mon Jan  2 10:14:14 CET 2017 */
+/* date of generation: Mon Jan  2 10:35:56 CET 2017 */
 static const char *iconNames[] = {
     "align-horizontal-center",
     "align-vertical-center",
@@ -72,6 +72,7 @@ static const char *iconNames[] = {
     "search-filter",
     "source",
     "tab-close",
+    "tab-close-other",
     "text",
     "text-x-csrc",
     "text-x-generic",

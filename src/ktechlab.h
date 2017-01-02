@@ -138,7 +138,7 @@ class KTechlab : public KateMDI::MainWindow
 		/**
 		 * The user clicked on an item in the tab-menu (from right clicking).
 		 */
-		void slotTabContextActivated( int id );
+		void slotTabContextActivated( QAction * action );
 		void slotChangeStatusbar(const QString& text);
 		/**
 		 * Open the document at the given url. If viewArea is non-null, then the

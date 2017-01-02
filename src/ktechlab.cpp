@@ -69,7 +69,6 @@
 #include <kmenu.h>
 #include <kwindowsystem.h>
 #include <kshortcutsdialog.h>
-#include <k3popupmenu.h>
 
 
 KTechlab * KTechlab::m_pSelf = 0l;
@@ -1042,8 +1041,8 @@ void KTechlab::slotTabContext( QWidget* widget,const QPoint & pos )
 {
 	// Shamelessly stolen from KDevelop...
 	
-	K3PopupMenu * tabMenu = new K3PopupMenu;
-	tabMenu->insertTitle( (dynamic_cast<ViewContainer*>(widget))->caption() );
+	KMenu * tabMenu = new KMenu;
+	tabMenu->addTitle( (dynamic_cast<ViewContainer*>(widget))->caption() );
 
 	//Find the document on whose tab the user clicked
 	m_pContextMenuContainer = 0l;
@@ -1058,34 +1057,34 @@ void KTechlab::slotTabContext( QWidget* widget,const QPoint & pos )
 		{
 			m_pContextMenuContainer = viewContainer;
 			
-			tabMenu->insertItem( i18n("Close"), 0 );
+			tabMenu->addAction( KIcon("tab-close"), i18n("Close") )->setData( 0 );
 			
 			View *view = (viewContainer->viewCount() == 1) ? viewContainer->activeView() : 0l;
 			
 			if ( view && view->document()->isModified() )
-				tabMenu->insertItem( i18n("Save"), 1 );
+				tabMenu->addAction( KIcon("document-save"), i18n("Save") )->setData( 1 );
 			
 			if ( view && !view->document()->url().isEmpty() )
-				tabMenu->insertItem( i18n("Reload"), 2 );
+				tabMenu->addAction( KIcon("view-refresh"), i18n("Reload") )->setData( 2 );
 			
 			if ( m_viewContainerList.count() > 1 )
-				tabMenu->insertItem( i18n("Close All Others"), 4 );
+				tabMenu->addAction( KIcon("tab-close-other"), i18n("Close All Others") )->setData( 4 );
 
 		}
 	}
 	
-	connect( tabMenu, SIGNAL( activated(int) ), this, SLOT(slotTabContextActivated(int)) );
+	connect( tabMenu, SIGNAL( triggered(QAction*) ), this, SLOT(slotTabContextActivated(QAction*)) );
 
 	tabMenu->exec(pos);
 	delete tabMenu;
 }
 
 
-void KTechlab::slotTabContextActivated( int id )
+void KTechlab::slotTabContextActivated( QAction * action )
 {
 	// Shamelessly stolen from KDevelop...
 	
-	if( !m_pContextMenuContainer )
+	if( !m_pContextMenuContainer || !action || action->data().isNull() )
 		return;
 	
 	View *view = m_pContextMenuContainer->activeView();
@@ -1093,7 +1092,7 @@ void KTechlab::slotTabContextActivated( int id )
 		return;
 	QPointer<Document> document = view->document();
 
-	switch(id)
+	switch(action->data().toInt())
 	{
 		case 0:
 		{
