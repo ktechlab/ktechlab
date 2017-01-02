@@ -13,7 +13,7 @@
 
 #include <component.h>
 
-#include <Qt/q3valuevector.h>
+#include <QVector>
 
 /**
 "Container" component for subcircuits
@@ -54,7 +54,7 @@ signals:
 protected:
 	virtual void dataChanged();
 	virtual void drawShape( QPainter &p );
-	Q3ValueVector<QString> m_conNames;
+	QVector<QString> m_conNames;
 };
 
 #endif
