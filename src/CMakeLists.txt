@@ -14,6 +14,10 @@ include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
     ${KDE4_INCLUDES}
     ${QT_INCLUDES})
+if(GPSim_FOUND)
+    include_directories(${GPSim_INCLUDE_DIRS})
+    set(CMAKE_CXX_FLAGS ${KDE4_ENABLE_EXCEPTIONS})
+endif()
 
 add_subdirectory(core)
 add_subdirectory(gui)
@@ -108,10 +112,12 @@ target_link_libraries( ktechlab
 	${KDE4_KDECORE_LIBRARY} # kdecore
 	${KDE4_KDE3SUPPORT_LIBRARY} # kde3support
 	${QT_QT3SUPPORT_LIBRARY} # Qt3Support
-	${GPSIM_LIBRARY} # gpsim
 	${QT_QTCORE_LIBRARY} # QtCore
 	${KDE4_KFILE_LIBRARY} # kfile
 	)
+if(GPSim_FOUND)
+    target_link_libraries(ktechlab ${GPSim_LIBRARIES})
+endif()
 
 install(TARGETS ktechlab ${INSTALL_TARGETS_DEFAULT_ARGS})
 

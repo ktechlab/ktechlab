@@ -5,10 +5,11 @@ set( VERSION 0.3.6 )
 
 cmake_minimum_required(VERSION 2.8)
 
+list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
+
 find_package(Qt4 4.6.0 REQUIRED)
 find_package(KDE4 REQUIRED)
-include( ${CMAKE_SOURCE_DIR}/cmake/modules/FindGLIB.cmake )
-include( ${CMAKE_SOURCE_DIR}/cmake/modules/FindGPSim.cmake )
+find_package(GPSim)
 
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
@@ -37,10 +38,10 @@ add_definitions(${QT_DEFINITIONS} ${GLIB2_DEFINITIONS} ${KDE4_DEFINITIONS})
 # and http://www.cmake.org/Wiki/HowToBuildKDE4Software#Some_useful_functions
 remove_definitions(-DQT_NO_STL)
 
-if ( GPSIM_FOUND AND GLIB2_FOUND)
-    include_directories( ${GLIB2_INCLUDE_DIRS} )
-    set(CMAKE_CXX_FLAGS ${KDE4_ENABLE_EXCEPTIONS})
-endif (GPSIM_FOUND AND GLIB2_FOUND)
+# TODO switch to NO_GPSIM to HAVE_GPSIM
+if (NOT GPSim_FOUND)
+    set(NO_GPSIM TRUE)
+endif ()
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
