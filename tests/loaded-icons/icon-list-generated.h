@@ -1,5 +1,5 @@
 /* AUTO-GENERATED FILE BY ./tests/loaded-icons/generate-icon-names-list.sh; DO NOT EDIT MANUALLY */
-/* date of generation: Sun Jan  1 22:24:01 CET 2017 */
+/* date of generation: Mon Jan  2 10:14:14 CET 2017 */
 static const char *iconNames[] = {
     "align-horizontal-center",
     "align-vertical-center",
@@ -27,7 +27,12 @@ static const char *iconNames[] = {
     "document-new",
     "document-open",
     "document-save",
+    "draw-arrow",
     "draw-brush",
+    "draw-ellipse",
+    "draw-line",
+    "draw-rectangle",
+    "draw-text",
     "edit-delete",
     "edit-undo",
     "exec",
@@ -70,11 +75,6 @@ static const char *iconNames[] = {
     "text",
     "text-x-csrc",
     "text-x-generic",
-    "tool_arrow",
-    "tool_ellipse",
-    "tool_line",
-    "tool_rectangle",
-    "tool_text",
     "transform-move",
     "transform-rotate",
     "utilities-log-viewer",

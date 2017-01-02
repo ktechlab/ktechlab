@@ -121,11 +121,11 @@ ItemView::ItemView( ItemDocument * itemDocument, ViewContainer *viewContainer, u
 	QMenu * m = pa->menu();
 	m->setTitle( i18n("Draw") );
 	
-	m->insertItem( KIcon( "tool_text" ), i18n("Text"),		DrawPart::da_text );
-	m->insertItem( KIcon( "tool_line" ), i18n("Line"),		DrawPart::da_line );
-	m->insertItem( KIcon( "tool_arrow"  ), i18n("Arrow"),		DrawPart::da_arrow );
-	m->insertItem( KIcon( "tool_ellipse" ), i18n("Ellipse"),	DrawPart::da_ellipse );
-	m->insertItem( KIcon("tool_rectangle" ), i18n("Rectangle"),	DrawPart::da_rectangle );
+	m->insertItem( KIcon( "draw-text" ), i18n("Text"),		DrawPart::da_text );
+	m->insertItem( KIcon( "draw-line" ), i18n("Line"),		DrawPart::da_line );
+	m->insertItem( KIcon( "draw-arrow"  ), i18n("Arrow"),		DrawPart::da_arrow );
+	m->insertItem( KIcon( "draw-ellipse" ), i18n("Ellipse"),	DrawPart::da_ellipse );
+	m->insertItem( KIcon( "draw-rectangle" ), i18n("Rectangle"),	DrawPart::da_rectangle );
 	m->insertItem( KIcon( "insert-image" ), i18n("Image"),		DrawPart::da_image );
 	connect( m, SIGNAL(activated(int)), itemDocument, SLOT(slotSetDrawAction(int)) );
 	//END Draw actions
