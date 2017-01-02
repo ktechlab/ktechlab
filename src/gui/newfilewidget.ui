@@ -10,9 +10,6 @@
     <height>217</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>New File</string>
-  </property>
   <property name="whatsThis">
    <string>Select the type of file you wish to create.&lt;br&gt;
 &lt;p&gt;

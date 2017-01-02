@@ -13,9 +13,6 @@
         <height>168</height>
       </rect>
     </property>
-    <property name="windowTitle">
-      <string>Gpasm Settings</string>
-    </property>
     <property name="toolTip" stdset="0">
       <string/>
     </property>

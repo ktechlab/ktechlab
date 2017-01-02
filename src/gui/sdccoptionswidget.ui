@@ -13,9 +13,6 @@
         <height>377</height>
       </rect>
     </property>
-    <property name="windowTitle">
-      <string>SDCC Options</string>
-    </property>
     <layout class="QGridLayout">
       <property name="margin">
         <number>0</number>

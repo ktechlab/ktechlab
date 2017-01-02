@@ -13,9 +13,6 @@
         <height>96</height>
       </rect>
     </property>
-    <property name="windowTitle">
-      <string>Programmer</string>
-    </property>
     <layout class="QGridLayout">
       <property name="margin">
         <number>0</number>

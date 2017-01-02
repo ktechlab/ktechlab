@@ -10,9 +10,6 @@
     <height>554</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Linker Options</string>
-  </property>
   <layout class="QGridLayout">
    <property name="margin">
     <number>0</number>

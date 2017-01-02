@@ -10,9 +10,6 @@
     <height>59</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Gplink Settings</string>
-  </property>
   <widget class="QCheckBox" name="kcfg_gplink_link_shared">
    <property name="geometry">
     <rect>
