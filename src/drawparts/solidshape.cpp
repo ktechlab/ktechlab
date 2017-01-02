@@ -104,7 +104,7 @@ void DPRectangle::dataChanged()
 
 QSize DPRectangle::minimumSize() const
 {
-	int side = QMAX(16, pen().width()+2);
+	int side = qMax(16, pen().width()+2);
 	return QSize( side, side );
 }
 

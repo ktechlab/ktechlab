@@ -47,8 +47,8 @@ void ElectronicConnector::syncWiresWithNodes() {
 	unsigned newNumWires = 0;
 
 	if (isStartNodeJunction || isEndNodeJunction)
-		newNumWires = QMAX(startEcNode->numPins(), endEcNode->numPins());
-	else	newNumWires = QMIN(startEcNode->numPins(), endEcNode->numPins());
+		newNumWires = qMax(startEcNode->numPins(), endEcNode->numPins());
+	else	newNumWires = qMin(startEcNode->numPins(), endEcNode->numPins());
 
 	unsigned oldNumWires = m_wires.size();
 

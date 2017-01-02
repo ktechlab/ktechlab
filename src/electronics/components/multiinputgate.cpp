@@ -113,7 +113,7 @@ int MultiInputGate::logicSymbolShapeToWidth() const
 
 void MultiInputGate::dataChanged()
 {
-	updateInputs( QMIN( maxGateInput, dataInt("numInput") ) );
+	updateInputs( qMin( maxGateInput, dataInt("numInput") ) );
 }
 
 

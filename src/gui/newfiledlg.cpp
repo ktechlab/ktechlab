@@ -90,7 +90,7 @@ NewFileDlg::NewFileDlg( QWidget *parent )
 	{
 		(*it)->setDragEnabled(false);
 		minWidth += (*it)->width();
-		minHeight = QMAX( minHeight, (*it)->height()+20 );
+		minHeight = qMax( minHeight, (*it)->height()+20 );
 	}
 	
 	m_pNewFileWidget->typeIconView->setMinimumSize( minWidth, minHeight );

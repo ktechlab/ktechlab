@@ -1173,7 +1173,7 @@ void KtlQCanvas::setTiles( QPixmap p, int h, int v, int tilewidth, int tileheigh
 	}
 	if ( h + v > 10 ) {
 		int s = scm(tilewidth,tileheight);
-		retune( s < 128 ? s : QMAX(tilewidth,tileheight) );
+		retune( s < 128 ? s : qMax(tilewidth,tileheight) );
 	}
 	setAllChanged();
 }
