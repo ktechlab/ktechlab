@@ -14,7 +14,7 @@
 #include <Qt/qpointer.h>
 #include <Qt/qobject.h>
 #include <Qt/qlist.h>
-#include <Qt/q3valuevector.h>
+#include <QBitArray>
 
 class ICNDocument;
 class Connector;
@@ -111,7 +111,7 @@ protected:
 	NodeList m_nodeList;
 	NodeList m_extNodeList;
 	ICNDocument *p_icnDocument;
-	Q3ValueVector<bool> b_routedMap; // Routes between different nodes
+	QBitArray b_routedMap; // Routes between different nodes
 	bool b_visible;
 	
 private:

@@ -372,8 +372,7 @@ void NodeGroup::resetRoutedMap()
 {
 	const uint n = m_nodeList.size() + m_extNodeList.size();
 	
-	b_routedMap.resize(0);
-	b_routedMap.resize( n*n, false );
+	b_routedMap.resize( n*n );
 	
 	const ConnectorList::iterator end = m_conList.end();
 	for ( ConnectorList::iterator it = m_conList.begin(); it != end; ++it )
