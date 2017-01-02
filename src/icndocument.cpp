@@ -27,10 +27,10 @@
 #include "outputflownode.h"
 #include "utils.h"
 
-#include <kapplication.h>
 #include <kdebug.h>
 #include <Qt/qclipboard.h>
 #include <Qt/qtimer.h>
+#include <QApplication>
 
 
 //BEGIN class ICNDocument
@@ -586,7 +586,7 @@ void ICNDocument::copy()
 	data.addNodes( nodeList );
 	data.addConnectors( connectorList );
 
-	KApplication::clipboard()->setText( data.toXML(), QClipboard::Clipboard );
+	QApplication::clipboard()->setText( data.toXML(), QClipboard::Clipboard );
 }
 
 		

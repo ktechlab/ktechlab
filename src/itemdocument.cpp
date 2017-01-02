@@ -26,7 +26,6 @@
 #include "resizeoverlay.h"
 #include "simulator.h"
 
-#include <kapplication.h>
 #include <kdebug.h>
 #include <kfiledialog.h>
 #include <kiconloader.h>
@@ -419,7 +418,7 @@ void ItemDocument::cut()
 
 void ItemDocument::paste()
 {
-	QString xml = KApplication::clipboard()->text( QClipboard::Clipboard );
+	QString xml = QApplication::clipboard()->text( QClipboard::Clipboard );
 	if ( xml.isEmpty() )
 		return;
 	
