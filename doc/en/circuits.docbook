@@ -21,7 +21,7 @@
 		
 		<para>The best way to get a feel for manual connection routing is by experimenting with it. Click on the starting pin or connection, and then extend the proto-connector by moving the mouse away from where you clicked. To place a corner, left-click. To cancel drawing the connection, either press &Esc;, or right-click the mouse.</para>
 		
-		<para>&ktechlab; tries its best to maintain the routes your connections take. However, if dragging a component results in the end points of a connection moving relative to each other, &ktechlab; will be forced to redraw the connection using auto-routing. Before moving a component, you can see which connectors will have to be rerouted - as they will turn grey on clicking.</para>
+		<para>&ktechlab; tries its best to maintain the routes your connections take. However, if dragging a component results in the end points of a connection moving relative to each other, &ktechlab; will be forced to redraw the connection using auto-routing. Before moving a component, you can see which connectors will have to be rerouted - as they will turn gray on clicking.</para>
 		
 		<para>To remove an existing connection, select it by drawing a small select-rectangle over part of the connector, and hit <keycap>Del</keycap>.</para>
 	</sect1>
@@ -30,9 +30,9 @@
 		<title>Component Attributes</title>
 		<para>Most components will have editable attributes, such as the resistance for resistors. By default, you can edit simple attributes in the toolbar, when a group of the same type of components are selected. If your selection contains a mixture of different types of components (such as resistors and capacitors), then no attributes will be displayed for editing.</para>
 		
-		<para>Some components have more advanced attributes which are not accessible via the toolbar. These are found in the Item sidebar on the right. The diode, for example, has a variety of behavioural characteristics that you can edit here.</para>
+		<para>Some components have more advanced attributes which are not accessible via the toolbar. These are found in the <guilabel>Item</guilabel> sidebar on the right. The diode, for example, has a variety of behavioral characteristics that you can edit here.</para>
 <!-- Not in 0.3.6 version
-		<para>If your selection of components have different values for their attributes (for example, different resistances for a selection of resistors), the <guilabel>Item</guilabel> sidebar will have the disagreeing attributes greyed-out. You can enable these by clicking the <guibutton>Merge properties</guibutton> button.</para>
+		<para>If your selection of components have different values for their attributes (for example, different resistances for a selection of resistors), the <guilabel>Item</guilabel> sidebar will have the disagreeing attributes grayed-out. You can enable these by clicking the <guibutton>Merge properties</guibutton> button.</para>
 
 		<para>The "Defaults" button will reset the component attributes to the ones it had on creation.</para>
 		-->
@@ -47,7 +47,7 @@
 		
 		<para>The results of the simulation are provided through several graphical means.</para>
 		
-		<para>The pins on the components will display voltage sidebars. These are coloured orange for positive voltage, and blue for negative voltage. Their length depends on the voltage level, and their width on the amount of current flowing through the pin. These can be turned off in the <guilabel>General</guilabel> page of the <guilabel>Configuration</guilabel> dialog.</para>
+		<para>The pins on the components will display voltage sidebars. These are colored orange for positive voltage, and blue for negative voltage. Their length depends on the voltage level, and their width on the amount of current flowing through the pin. These can be turned off in the <guilabel>General</guilabel> page of the <guilabel>Configuration</guilabel> dialog.</para>
 		
 		<para>Hovering the mouse over a pin or connection will display a small tooltip showing the voltage and current at that point in the circuit. Several components also provide graphical feedback - for example, LEDs and voltmeters or ammeters.</para>
 		
@@ -58,7 +58,7 @@
 		<title>Oscilloscope</title>
 		<para>The oscilloscope can record logic, voltage and current data. The logic probe is optimized for storing boolean samples, and so should be used instead of the voltage probe when measuring logic.</para>
 		
-		<para>To collect data, create a new probe component, and attach it to an appropriate point in the circuit. You'll see the output immediately drawn in the oscilloscope. Adding more probes will squash the outputs next to each other - you can reposition these by dragging the arrows on the left of the oscilloscope view, and change their colours via the probe's attributes.</para>
+		<para>To collect data, create a new probe component, and attach it to an appropriate point in the circuit. You'll see the output immediately drawn in the oscilloscope. Adding more probes will squash the outputs next to each other - you can reposition these by dragging the arrows on the left of the oscilloscope view, and change their colors via the probe's attributes.</para>
 		
 		<para>For voltage and current probes, the range of input values can be adjusted in the <guilabel>Item Editor</guilabel> sidebar on the right.</para>
 		

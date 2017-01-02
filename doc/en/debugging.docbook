@@ -15,7 +15,7 @@
 	<sect1 id="controlling_debugger">
 		<title>Controlling the Debugger</title>
 		
-		<para>The debugger can be in one of two modes: running, and stepping. While running, the PIC program will be simulated in realtime. To allow stepping, the PIC program must be paused - either by clicking on Interrupt in the Debug menu, or clicking on the pause button on the PIC component.</para>
+		<para>The debugger can be in one of two modes: running, and stepping. While running, the PIC program will be simulated in realtime. To allow stepping, the PIC program must be paused - either by clicking on <guimenuitem>Interrupt</guimenuitem> in the <guimenu>Debug</guimenu> menu, or clicking on the pause button on the PIC component.</para>
 		
 		<para>In stepping mode, a green arrow in the margin of the text document indicates the next line to be executed (familiar to <application>KDevelop</application> users). It may be useful to turn on the icon border via the <guimenu>View</guimenu> menu (it can be permanently turned on via the <guilabel>Editor Settings</guilabel> dialog).</para>
 		
@@ -27,7 +27,7 @@
 				<listitem><para><guimenuitem>Step Out</guimenuitem> - If the current execution is inside a call, or similar, then this will wait until the call returns. Similarly to stepping over, this is equivalent to waiting until the stack level returns to one less than the initial level, if the initial level is greater than zero.</para></listitem>
 		</itemizedlist>
 		
-		<para>Breakpoints allow the execution to be paused when the PIC program reaches a given instruction. To toggle a breakpoint on the line containing the cursor, either use the Debug menu, or click on the icon border of the text document.</para>
+		<para>Breakpoints allow the execution to be paused when the PIC program reaches a given instruction. To toggle a breakpoint on the line containing the cursor, either use the <guimenu>Debug</guimenu> menu, or click on the icon border of the text document.</para>
 		
 		<para>The <guilabel>Symbol Viewer</guilabel> sidebar on the right shows the values of the Special Function Registers. To find out the value of a variable in the General Purpose Registers, you can hover your mouse over the variable name in an instruction that operates on that register. Note that the radix selection in the <guilabel>Symbol Viewer</guilabel> also controls how the value is displayed when hovering over a variable.</para>
 	</sect1>

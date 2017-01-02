@@ -228,7 +228,7 @@ goto MyLabel
 		Syntax:
 		<programlisting role="correct"><function>delay</function> [interval]</programlisting>
 		
-		<note><para>At present, &microbe; assumes that the PIC is operating at a frequency of 4Mhz - &ie; each instruction takes 1 microsecond to execute. If this is not the case, the interval must be adjusted proportionately.</para></note>
+		<note><para>At present, &microbe; assumes that the PIC is operating at a frequency of 4MHz - &ie; each instruction takes 1 microsecond to execute. If this is not the case, the interval must be adjusted proportionately.</para></note>
 		</para>
 	</sect2>
 	
