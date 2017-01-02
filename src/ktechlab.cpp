@@ -52,6 +52,7 @@
 #include <kdebug.h>
 #include <kedittoolbar.h>
 #include <kfiledialog.h>
+#include <kicon.h>
 #include <kiconloader.h>
 #include <kio/netaccess.h>
 //#include <kkeydialog.h>
@@ -1256,7 +1257,6 @@ KUrl::List KTechlab::getFileURLs( bool allowMultiple )
 void KTechlab::slotDocModifiedChanged()
 {
 	//BEGIN Set tab icons
-	KIconLoader *loader = KIconLoader::global();
 	const ViewContainerList::iterator vcEnd = m_viewContainerList.end();
 	for ( ViewContainerList::iterator it = m_viewContainerList.begin(); it != vcEnd; ++it )
 	{
@@ -1264,39 +1264,39 @@ void KTechlab::slotDocModifiedChanged()
 		if ( !vc || !vc->activeView() || !vc->activeView()->document() )
 			continue;
 		
-        QPixmap iconPixmap;
+        QIcon icon;
 		
 		if ( vc->activeView()->document()->isModified() ) {
-            iconPixmap = loader->loadIcon( "document-save", KIconLoader::Small );
+            icon = KIcon( "document-save" );
         } else {
             switch ( vc->activeView()->document()->type() )
             {
                 case Document::dt_circuit:
-                    iconPixmap = loader->loadIcon( "application-x-circuit", KIconLoader::Small );
+                    icon = KIcon( "application-x-circuit" );
                     break;
 
                 case Document::dt_flowcode:
-                    iconPixmap = loader->loadIcon( "application-x-flowcode", KIconLoader::Small );
+                    icon = KIcon( "application-x-flowcode" );
                     break;
 
                 case Document::dt_mechanics:
-                    iconPixmap = loader->loadIcon( "ktechlab_mechanics", KIconLoader::Small );
+                    icon = KIcon( "ktechlab_mechanics" );
                     break;
 
                 case Document::dt_text:
-                    iconPixmap = loader->loadIcon( "text-x-generic", KIconLoader::Small );
+                    icon = KIcon( "text-x-generic" );
                     break;
 
                 case Document::dt_pinMapEditor:
                     break;
 
                 case Document::dt_none:
-                    iconPixmap = loader->loadIcon( "application-x-zerosize", KIconLoader::Small );
+                    icon = KIcon( "application-x-zerosize" );
                     break;
             }
         }
 		
-		tabWidget()->setTabIconSet( vc, iconPixmap );
+		tabWidget()->setTabIconSet( vc, icon );
 	}
 	//END Set tab icons
 }

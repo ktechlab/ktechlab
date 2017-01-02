@@ -23,7 +23,7 @@
 #include <klocalizedstring.h>
 #include <kdebug.h>
 #include <kpushbutton.h>
-#include <kiconloader.h>
+#include <kicon.h>
 
 #include <Qt/q3header.h>
 #include <Qt/qevent.h>
@@ -56,7 +56,7 @@ PropertyEditor::PropertyEditor( QWidget * parent, const char * name )
 	m_defaults = new KPushButton(viewport());
 	m_defaults->setFocusPolicy(Qt::NoFocus);
 	setFocusPolicy(Qt::ClickFocus);
-	m_defaults->setPixmap(SmallIcon("edit-undo"));
+	m_defaults->setIcon(KIcon("edit-undo"));
 	m_defaults->setToolTip(i18n("Undo changes"));
 	m_defaults->hide();
 	connect(m_defaults, SIGNAL(clicked()), this, SLOT(resetItem()));

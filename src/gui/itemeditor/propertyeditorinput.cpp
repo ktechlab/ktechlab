@@ -15,7 +15,7 @@
 #include "propertyeditorinput.h"
 #include "property.h"
 
-#include <kiconloader.h>
+#include <kicon.h>
 #include <klineedit.h>
 #include <klocalizedstring.h>
 #include <kglobal.h>
@@ -209,12 +209,12 @@ void PropertyEditorBool::setState( bool state )
 {
 	if(state)
 	{
-		m_toggle->setIconSet(QIconSet(SmallIcon("dialog-ok")));
+		m_toggle->setIcon(KIcon("dialog-ok"));
 		m_toggle->setTextLabel(i18n("Yes"));
 	}
 	else
 	{
-		m_toggle->setIconSet(QIconSet(SmallIcon("dialog-cancel")));
+		m_toggle->setIcon(KIcon("dialog-cancel"));
 		m_toggle->setTextLabel(i18n("No"));
 	}
 

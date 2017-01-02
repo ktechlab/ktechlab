@@ -23,6 +23,7 @@
 #include <kdebug.h>
 #include <khtml_part.h>
 #include <khtmlview.h>
+#include <kicon.h>
 #include <kiconloader.h>
 #include <kmimetype.h>
 #include <kinputdialog.h>
@@ -107,8 +108,8 @@ ContextHelp::ContextHelp( KateMDI::ToolView * parent )
 	connect( m_pChangeDescriptionsDirectory, SIGNAL(clicked()), this, SLOT(requestItemDescriptionsDirectory()) );
 	connect( m_pLanguageSelect, SIGNAL(activated(const QString &)), this, SLOT(setCurrentLanguage( const QString& )) );
 	
-	m_pResetButton->setPixmap( KIconLoader::global()->loadIcon( "dialog-cancel", KIconLoader::Small ) );
-	m_pChangeDescriptionsDirectory->setPixmap( KIconLoader::global()->loadIcon( "folder", KIconLoader::Small ) );
+	m_pResetButton->setIcon( KIcon( "dialog-cancel" ) );
+	m_pChangeDescriptionsDirectory->setIcon( KIcon( "folder" ) );
 	
 	
 	connect( ComponentSelector::self(), SIGNAL(itemSelected( const QString& )), this, SLOT(setBrowserItem( const QString& )) );
