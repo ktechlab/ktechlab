@@ -134,12 +134,12 @@ Button* CIWidgetMgr::addButton( const QString &id, const QRect & pos, const QStr
 }
 
 
-Button* CIWidgetMgr::addButton( const QString &id, const QRect & pos, QPixmap pixmap, bool toggle )
+Button* CIWidgetMgr::addButton( const QString &id, const QRect & pos, const QIcon &icon, bool toggle )
 {
 	WidgetMap::iterator it;
 	
 	Button *button = new Button( id, p_cnItem, toggle, pos, p_canvas );
-	button->setPixmap(pixmap);
+	button->setIcon( icon );
 	
 	it = m_widgetMap.find(id);
 	if ( it == m_widgetMap.end() )

@@ -323,9 +323,9 @@ QWidget* Button::widget() const
 {
 	return m_button;
 }
-void Button::setPixmap( const QPixmap &p )
+void Button::setIcon( const QIcon &icon )
 {
-	m_button->setPixmap(p);
+	m_button->setIcon(icon);
 }
 void Button::setState( bool state )
 {

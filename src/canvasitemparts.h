@@ -15,6 +15,7 @@
 #include <Qt/qpointer.h>
 #include <Qt/qslider.h>
 #include <Qt/qtoolbutton.h>
+#include <QIcon>
 
 class Cells;
 class CIWidgetMgr;
@@ -219,7 +220,7 @@ class Button : public Widget
 		bool isToggle() const { return b_isToggle; }
 		virtual QWidget *widget() const;
 		bool state() const;
-		void setPixmap( const QPixmap & );
+		void setIcon( const QIcon & );
 		void setState( bool state );
 		virtual QRect recommendedRect() const;
 		

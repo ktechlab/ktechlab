@@ -18,7 +18,7 @@
 #include "eventinfo.h"
 
 #include <kdebug.h>
-#include <kiconloader.h>
+#include <kicon.h>
 #include <klocalizedstring.h>
 #include <Qt/qpainter.h>
 
@@ -260,7 +260,7 @@ PicItem::PicItem( ICNDocument *icnDocument, bool newItem, const char *id, MicroS
 	updateVisibility();
 	
 	addButton( "settings", QRect( SidePadding-8, m_innerHeight+TopPadding+(BottomPadding-24)/2-1, InnerWidth+16, 24 ), i18n("Advanced...") );
-	addButton( "expandBtn", QRect( (TopPadding-22)/2, (TopPadding-22)/2, 22, 22 ), KIconLoader::global()->loadIcon( "go-down", KIconLoader::Small ), true );
+	addButton( "expandBtn", QRect( (TopPadding-22)/2, (TopPadding-22)/2, 22, 22 ), KIcon( "go-down" ), true );
 	button("expandBtn")->setState(true);
 	
 	move( 12, 12 );

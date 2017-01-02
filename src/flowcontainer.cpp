@@ -16,7 +16,7 @@
 #include "nodegroup.h"
 #include "resizeoverlay.h"
 
-#include <kiconloader.h>
+#include <kicon.h>
 #include <Qt/qpainter.h>
 
 #include <cmath>
@@ -30,7 +30,7 @@ FlowContainer::FlowContainer( ICNDocument *_icnDocument, bool newItem, const QSt
 	m_ext_in = m_int_in = m_int_out = m_ext_out = 0l;
 	b_expanded = true;
 	
-	addButton( "expandBtn", QRect( offsetX(), offsetY()+24 - 11, 22, 22 ), KIconLoader::global()->loadIcon( "go-down", KIconLoader::Small ), true );
+	addButton( "expandBtn", QRect( offsetX(), offsetY()+24 - 11, 22, 22 ), KIcon( "go-down" ), true );
 	m_rectangularOverlay = new RectangularOverlay( this, 8, 8 );
 	setSize( -160, -120, 320, 240 );
 	

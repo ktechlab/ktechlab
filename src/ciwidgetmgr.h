@@ -13,6 +13,7 @@
 
 #include <Qt/qmap.h>
 #include <Qt/qstring.h>
+#include <QIcon>
 
 class Button;
 class CNItem;
@@ -58,10 +59,10 @@ public:
 	 */
 	Button* addButton( const QString &id, const QRect & pos, const QString &display, bool toggle = false );
 	/**
-	 * Adds a button with a QPixmap pixmap on it instead of text
+	 * Adds a button with a QIcon icon on it instead of text
 	 * @see void addButton( const QString &id, QRect pos, const QString &display )
 	 */
-	Button* addButton( const QString &id, const QRect & pos, QPixmap pixmap, bool toggle = false );
+	Button* addButton( const QString &id, const QRect & pos, const QIcon &icon, bool toggle = false );
 	/**
 	 * Removes the widget with the given id.
 	 */
