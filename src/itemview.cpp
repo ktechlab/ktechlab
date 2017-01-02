@@ -327,9 +327,9 @@ void ItemView::dropEvent( QDropEvent *event )
 		return;
 	
 	QString text;
-	//QDataStream stream( event->encodedData(event->format()), IO_ReadOnly );
+	//QDataStream stream( event->encodedData(event->format()), QIODevice::ReadOnly );
     QByteArray byteArray( event->encodedData(event->format()) );
-    QDataStream stream( &byteArray, IO_ReadOnly);
+    QDataStream stream( &byteArray, QIODevice::ReadOnly);
 	stream >> text;
 
 	// Get a new component item
@@ -485,9 +485,9 @@ void ItemView::createDragItem( QDragEnterEvent * e )
 	e->accept();
 	
 	QString text;
-	//QDataStream stream( e->encodedData(e->format()), IO_ReadOnly );
+	//QDataStream stream( e->encodedData(e->format()), QIODevice::ReadOnly );
     QByteArray byteArray( e->encodedData(e->format()) );
-    QDataStream stream( &byteArray, IO_ReadOnly );
+    QDataStream stream( &byteArray, QIODevice::ReadOnly );
 	stream >> text;
 
 	QPoint p = mousePosToCanvasPos( e->pos() );

@@ -27,14 +27,14 @@ const QString outputFile = "output.lib";
 int main()
 {
 	QFile input( inputFile );
-	if ( !input.open( IO_ReadOnly ) )
+	if ( !input.open( QIODevice::ReadOnly ) )
 	{
 		cerr << "Could not open input file \""<<inputFile<<"\" for reading.\n";
 		return 1;
 	}
 	
 	QFile output( outputFile );
-	if ( !output.open( IO_WriteOnly ) )
+	if ( !output.open( QIODevice::WriteOnly ) )
 	{
 		cerr << "Could not open output file \""<<outputFile<<"\" for writing.\n";
 		return 1;

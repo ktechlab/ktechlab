@@ -173,7 +173,7 @@ void ProcessChain::slotFinishedCompile(Language *language)
 				
 					QString text;
 					QFile f( options.targetFile() );
-					if ( !f.open( IO_ReadOnly ) )
+					if ( !f.open( QIODevice::ReadOnly ) )
 					{
 						editor->deleteLater();
 						editor = 0l;

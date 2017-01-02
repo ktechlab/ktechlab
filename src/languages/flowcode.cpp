@@ -57,14 +57,14 @@ void FlowCode::processInput( ProcessOptions options )
 	}
 
 	QFile file(options.intermediaryOutput());
-	if ( file.open(IO_WriteOnly | IO_ReadOnly) == false )
+	if ( file.open(QIODevice::WriteOnly | QIODevice::ReadOnly) == false )
 	{
 		finish(false);
 		return;
 	}
 	file.close();
 	
-	if ( file.open(IO_WriteOnly) == false )
+	if ( file.open(QIODevice::WriteOnly) == false )
 	{
 		finish(false);
 		return;

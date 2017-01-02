@@ -34,7 +34,7 @@ AsmParser::~AsmParser()
 bool AsmParser::parse( GpsimDebugger * debugger )
 {
 	QFile file(m_url);
-	if ( !file.open(IO_ReadOnly) )
+	if ( !file.open(QIODevice::ReadOnly) )
 		return false;
 	
 	QTextStream stream( &file );

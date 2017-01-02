@@ -284,7 +284,7 @@ Q3DragObject* ItemSelector::dragObject()
 	if (d)
 	{
 		QByteArray data;
-		QDataStream stream( &data, IO_WriteOnly );
+		QDataStream stream( &data, QIODevice::WriteOnly );
 		stream << id;
 		d->setEncodedData(data);
 	} else {

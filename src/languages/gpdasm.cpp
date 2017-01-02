@@ -67,7 +67,7 @@ bool Gpdasm::processExited( bool successfully )
 		return false;
 
 	QFile file(m_processOptions.intermediaryOutput());
-	if ( file.open(IO_WriteOnly) == false )
+	if ( file.open(QIODevice::WriteOnly) == false )
 		return false;
 	
 	QTextStream stream(&file);

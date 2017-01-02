@@ -157,7 +157,7 @@ bool ContextHelp::eventFilter( QObject * watched, QEvent * e )
 			dropEvent->accept();
 			
 			QString type;
-			QDataStream stream( dropEvent->encodedData( dropEvent->format() ) /*, IO_ReadOnly */ );
+			QDataStream stream( dropEvent->encodedData( dropEvent->format() ) /*, QIODevice::ReadOnly */ );
 			stream >> type;
 			
 			LibraryItem * li = itemLibrary()->libraryItem( type );

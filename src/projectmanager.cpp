@@ -787,7 +787,7 @@ bool ProjectInfo::open( const KUrl & url )
 	}
 	
 	QFile file(target);
-	if ( !file.open( IO_ReadOnly ) )
+	if ( !file.open( QIODevice::ReadOnly ) )
 	{
 		KMessageBox::sorry( 0l, i18n("Could not open %1 for reading", target) );
 		return false;
@@ -844,7 +844,7 @@ bool ProjectInfo::open( const KUrl & url )
 bool ProjectInfo::save()
 {
 	QFile file( m_url.path() );
-	if ( file.open(IO_WriteOnly) == false )
+	if ( file.open(QIODevice::WriteOnly) == false )
 	{
 		KMessageBox::sorry( NULL, i18n("Project could not be saved to \"%1\"", m_url.path()), i18n("Saving Project") );
 		return false;

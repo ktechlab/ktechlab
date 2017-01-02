@@ -31,7 +31,7 @@ Microbe::Microbe( ProcessChain *processChain )
 #if 0
 	// Setup error messages list
 	QFile file( locate("appdata",i1 8n("error_messages_en_gb")) );
-	if ( file.open( IO_ReadOnly ) ) 
+	if ( file.open( QIODevice::ReadOnly ) ) 
 	{
         QTextStream stream( &file );
         QString line;

@@ -95,7 +95,7 @@ Document* DocManager::openURL( const KUrl &url, ViewArea *viewArea )
 	if ( url.isLocalFile() )
 	{
 		QFile file(url.path());
-		if ( file.open(IO_ReadOnly) == false )
+		if ( file.open(QIODevice::ReadOnly) == false )
 		{
 			KMessageBox::sorry( 0l, i18n( "Could not open '%1'", url.prettyUrl() ) );
 			return 0l;

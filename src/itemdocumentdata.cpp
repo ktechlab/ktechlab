@@ -110,7 +110,7 @@ bool ItemDocumentData::loadData( const KUrl &url )
 	}
 	
 	QFile file(target);
-	if ( !file.open( IO_ReadOnly ) )
+	if ( !file.open( QIODevice::ReadOnly ) )
 	{
 		KMessageBox::sorry( 0l, i18n("Could not open %1 for reading", target) );
 		return false;
@@ -180,7 +180,7 @@ bool ItemDocumentData::saveData( const KUrl &url )
 	if ( url.isLocalFile() )
 	{
 		QFile file( url.path() );
-		if ( !file.open(IO_WriteOnly) )
+		if ( !file.open(QIODevice::WriteOnly) )
 		{
 			KMessageBox::sorry( 0l, i18n("Could not open '%1' for writing. Check that you have write permissions", url.path()), i18n("Saving File") );
 			return false;

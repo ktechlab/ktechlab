@@ -1035,7 +1035,7 @@ OutputField::OutputField( const QString & string/*, int lineNumber*/ )
 			filename = filename.mid(1); 
 			filename = filename.mid(0,filename.length()-1);
 			QFile includeFile(filename);
-			if( includeFile.open(IO_ReadOnly) )
+			if( includeFile.open(QIODevice::ReadOnly) )
 			{
 				QTextStream stream( &includeFile );
         			QStringList includeCode;

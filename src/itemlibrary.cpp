@@ -547,7 +547,7 @@ bool ItemLibrary::saveDescriptions( const QString & language )
 	QString url = itemDescriptionsFile( language );
 		
 	QFile file( url );
-	if ( !file.open( IO_WriteOnly ) )
+	if ( !file.open( QIODevice::WriteOnly ) )
 	{
 		KMessageBox::sorry( 0, i18n("Could not open item descriptions file \"%1\" for writing.").arg( url ) );
 		return false;
@@ -684,7 +684,7 @@ void ItemLibrary::loadItemDescriptions()
 		QString url = itemDescriptionsFile( *it );
 		
 		QFile file( url );
-		if ( !file.open( IO_ReadOnly ) )
+		if ( !file.open( QIODevice::ReadOnly ) )
 		{
 			kWarning() << k_funcinfo << "Could not open file \"" << url << "\"" << endl;
 			continue;
