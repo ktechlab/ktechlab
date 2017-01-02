@@ -18,7 +18,7 @@
 		</itemizedlist>
 		
 	<para>
-		The .microbe input file must identify the target PIC by inserting the PIC name at the top of the .microbe file; e.g. the name of a PIC16F84 is "P16F84".
+		The .microbe input file must identify the target PIC by inserting the PIC name at the top of the .microbe file; &eg; the name of a PIC16F84 is "P16F84".
 		
 		<example><title>Simple complete &microbe; program</title>
 			<programlisting role="correct">
@@ -44,7 +44,7 @@ end</programlisting>
 				<listitem><para>They can only contain alphanumerical characters [a..z][A..Z][0..9] and the underscore "_".</para></listitem>
 				<listitem><para>They are case-sensitive.</para></listitem>
 				<listitem><para>They cannot start with a number.</para></listitem>
-				<listitem><para>They should not start with "__" (double underscore), as this is reserved for use by the compiler.</para></listitem>
+				<listitem><para>They should not start with <quote>__</quote> (double underscore), as this is reserved for use by the compiler.</para></listitem>
 			</itemizedlist>
 		</para>
 	</sect2>
@@ -92,7 +92,7 @@ multiline comment */</programlisting>
 	<sect2 id="structure">
 		<title>Program Structure</title>
 		<para>
-			The PIC id must be inserted at the top of the program. The end of the main program is denoted with "end". Subroutines must placed after "end".
+				The PIC id must be inserted at the top of the program. The end of the main program is denoted with <quote>end</quote>. Subroutines must placed after <quote>end</quote>.
 		</para>
 	</sect2>
 
@@ -106,7 +106,7 @@ sub SubName
 {
 	// Code...
 }</programlisting>
-		<para>The subroutine is called with "call SubName".</para>
+<para>The subroutine is called with <quote>call <replaceable>SubName</replaceable></quote>.</para>
 	</sect2>
 </sect1>
 
@@ -216,7 +216,7 @@ goto MyLabel
 			
 			Syntax:
 			<programlisting role="correct"><function>call</function> [SubName]</programlisting>
-			where SubName is the name of the subroutine to be called.
+			where <replaceable>SubName</replaceable> is the name of the subroutine to be called.
 		</para>
 	</sect2>
 	
@@ -228,7 +228,7 @@ goto MyLabel
 		Syntax:
 		<programlisting role="correct"><function>delay</function> [interval]</programlisting>
 		
-		<note><para>At present, &microbe; assumes that the PIC is operating at a frequency of 4Mhz - i.e. each instruction takes 1 microsecond to execute. If this is not the case, the interval must be adjusted proportionately.</para></note>
+		<note><para>At present, &microbe; assumes that the PIC is operating at a frequency of 4Mhz - &ie; each instruction takes 1 microsecond to execute. If this is not the case, the interval must be adjusted proportionately.</para></note>
 		</para>
 	</sect2>
 	
@@ -317,7 +317,7 @@ x = keypad1</programlisting>
 	<sect2 id="pins">
 	<title>Pin I/O</title>
 		<para>
-		Each pin on a port is obtained by prefixing the pin number by the port name; e.g. Pin 2 (starting from Pin 0) on PORTA is known as
+		Each pin on a port is obtained by prefixing the pin number by the port name; &eg; Pin 2 (starting from Pin 0) on PORTA is known as
 		<emphasis>PORTA.0</emphasis>.
 		
 		The syntax to set a pin state is:
@@ -414,11 +414,10 @@ TRISB = 255
 	There are several types of events, and some of these take an optional parameter making
 	the condition under which the routine is called more specific.
 	<itemizedlist>
-	<listitem><para><emphasis>changed &lt;pin name&gt;</emphasis>
-		 - Occurs when the state of the specified pin changes. Pin name is in the usual syntax of PORTX.n, e.g. <programlisting>interrupt changed PORTB.4</programlisting></para></listitem>
-	<listitem><para><emphasis>triggered</emphasis> - Rotates the variable x right through carry.</para></listitem>
+	<listitem><para><emphasis>change &lt;pin name&gt;</emphasis>
+		 - Occurs when the state of the specified pin changes. Pin name is in the usual syntax of PORTX.n, &eg; <programlisting>interrupt change PORTB.4</programlisting></para></listitem>
 	<listitem><para><emphasis>timer</emphasis> - ///TODO</para></listitem>
-	<listitem><para><emphasis>write_complete</emphasis> - ///TODO</para></listitem>
+	<listitem><para><emphasis>external</emphasis> - ///TODO</para></listitem>
 	</itemizedlist>
 	</para>
 </sect1>

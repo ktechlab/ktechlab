@@ -5,11 +5,11 @@
 	<sect1 id="starting_debugger">
 		<title>Starting the Debugger</title>
 		
-		<para>Debugging support is provided for Assembly, SDCC and Microbe, when they are open as a text document. From here, stepping is controlled via the Debug menu. There are two methods of starting the debugger.</para>
+		<para>Debugging support is provided for Assembly, SDCC and Microbe, when they are open as a text document. From here, stepping is controlled via the <guimenu>Debug</guimenu> menu. There are two methods of starting the debugger.</para>
 		
 		<para>If the PIC program is already running in a circuit, then double-clicking on the PIC component will open up the program. For assembly PIC programs, the debugger for that text document will be linked into the PIC component. In this case, the debug menu cannot stop the PIC program - as this is owned by the PIC component.</para>
 		
-		<para>If the assembly file is already opened, then the debugger can be run via the Debug menu. After compiling the program, the debugger will be ready, with the PIC program paused at the first instruction. Note that when debugging high level languages, the current execution point will not be shown if there is no line that corresponds to the first assembly instruction to be executed. In this case, clicking next will bring the execution point to the first line in the program.</para>
+		<para>If the assembly file is already opened, then the debugger can be run via the <guimenu>Debug</guimenu> menu. After compiling the program, the debugger will be ready, with the PIC program paused at the first instruction. Note that when debugging high level languages, the current execution point will not be shown if there is no line that corresponds to the first assembly instruction to be executed. In this case, clicking <guibutton>Next</guibutton> will bring the execution point to the first line in the program.</para>
 	</sect1>
 	
 	<sect1 id="controlling_debugger">
@@ -17,19 +17,19 @@
 		
 		<para>The debugger can be in one of two modes: running, and stepping. While running, the PIC program will be simulated in realtime. To allow stepping, the PIC program must be paused - either by clicking on Interrupt in the Debug menu, or clicking on the pause button on the PIC component.</para>
 		
-		<para>In stepping mode, a green arrow in the margin of the text document indicates the next line to be executed (familiar to KDevelop users). It may be useful to turn on the icon border via the View menu (it can be permanently turned on via the Editor Settings dialog).</para>
+		<para>In stepping mode, a green arrow in the margin of the text document indicates the next line to be executed (familiar to <application>KDevelop</application> users). It may be useful to turn on the icon border via the <guimenu>View</guimenu> menu (it can be permanently turned on via the <guilabel>Editor Settings</guilabel> dialog).</para>
 		
 		<para>There are three types of stepping:</para>
 		
 		<itemizedlist>
-			<listitem><para>Step into - This executes the current instruction. The green arrow is moved onto the next line to be executed.</para></listitem>
-			<listitem><para>Step over - If the next instruction to be executed is a call, or similar, then this will "step over" the call, returning to stepping mode once the call has returned. Otherwise, stepping over an instruction behaves identically to step. To put it technically - the initial stack level is recorded, and the program execution is paused once the stack level returns to its initial level.</para></listitem>
-			<listitem><para>Step out - If the current execution is inside a call, or similar, then this will wait until the call returns. Similarly to stepping over, this is equivalent to waiting until the stack level returns to one less than the initial level, if the initial level is greater than zero.</para></listitem>
+				<listitem><para><guimenuitem>Step</guimenuitem> - This executes the current instruction. The green arrow is moved onto the next line to be executed.</para></listitem>
+				<listitem><para><guimenuitem>Step Over</guimenuitem> - If the next instruction to be executed is a call, or similar, then this will "step over" the call, returning to stepping mode once the call has returned. Otherwise, stepping over an instruction behaves identically to step. To put it technically - the initial stack level is recorded, and the program execution is paused once the stack level returns to its initial level.</para></listitem>
+				<listitem><para><guimenuitem>Step Out</guimenuitem> - If the current execution is inside a call, or similar, then this will wait until the call returns. Similarly to stepping over, this is equivalent to waiting until the stack level returns to one less than the initial level, if the initial level is greater than zero.</para></listitem>
 		</itemizedlist>
 		
 		<para>Breakpoints allow the execution to be paused when the PIC program reaches a given instruction. To toggle a breakpoint on the line containing the cursor, either use the Debug menu, or click on the icon border of the text document.</para>
 		
-		<para>The "Symbol Viewer" sidebar on the right shows the values of the Special Function Registers. To find out the value of a variable in the General Purpose Registers, you can hover your mouse over the variable name in an instruction that operates on that register. Note that the radix selection in the Symbol Viewer also controls how the value is displayed when hovering over a variable.</para>
+		<para>The <guilabel>Symbol Viewer</guilabel> sidebar on the right shows the values of the Special Function Registers. To find out the value of a variable in the General Purpose Registers, you can hover your mouse over the variable name in an instruction that operates on that register. Note that the radix selection in the <guilabel>Symbol Viewer</guilabel> also controls how the value is displayed when hovering over a variable.</para>
 	</sect1>
 	
 </chapter>

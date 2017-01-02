@@ -20,11 +20,11 @@
 	<sect1 id="flowcode_creation">
 		<title>Creating a Program</title>
 		
-		<para>Every &flowcode; program needs a unique starting point - this is the place where your program will be run from on PIC startup. To define this point, open up the FlowParts sidebar on the left, and drag across the Start part. &ktechlab; will only allow you to use one of these.</para>
+		<para>Every &flowcode; program needs a unique starting point - this is the place where your program will be run from on PIC startup. To define this point, open up the FlowParts sidebar on the left, and drag across the <guilabel>Start</guilabel> part. &ktechlab; will only allow you to use one of these.</para>
 		
-		<para>You can then construct your program by using the predefined parts on the left - or insert code of your own (in assembly or &microbe; format) via the Embed part. The flow of the program is controlled via the connections between the FlowParts - <xref linkend="connecting_components"/> offers more detail on creating connections.</para>
+		<para>You can then construct your program by using the predefined parts on the left - or insert code of your own (in assembly or &microbe; format) via the <guilabel>Embed</guilabel> part. The flow of the program is controlled via the connections between the FlowParts - <xref linkend="connecting_components"/> offers more detail on creating connections.</para>
 		
-		<para>&flowcode; imposes limitations in addition to those of Circuits on what can be connected. For example, each FlowPart can only have one output connection. Additional limitations are described in <xref linkend="nestling_flowcode"/>.</para>
+		<para>&flowcode; imposes limitations in addition to those of circuits on what can be connected. For example, each FlowPart can only have one output connection. Additional limitations are described in <xref linkend="nestling_flowcode"/>.</para>
 	</sect1>
 	
 	<sect1 id="pic_settings">
@@ -34,9 +34,9 @@
 		
 		<para>Each pin shown on the picture of the PIC shows the initial type of pin (input or output), and its initial state (high or low). You can change these by dragging the pin to set the type, and clicking on it to toggle its state.</para>
 		
-		<para>The Settings dialog, invoked by clicking on the Settings button, also allows you to edit the initial pin types and states - in this case, by editing the binary values written to the PORT and TRIS registers. As well as pin settings though, the dialog allows editing of the initial values of variables in the PIC program.</para>
+		<para>The <guilabel>Settings</guilabel> dialog, invoked by clicking on the <guibutton>Settings</guibutton> button, also allows you to edit the initial pin types and states - in this case, by editing the binary values written to the PORT and TRIS registers. As well as pin settings though, the dialog allows editing of the initial values of variables in the PIC program.</para>
 		
-		<para>At the bottom, there is a list of currently defined pin maps, as well as buttons to manipulate them. Pin maps are used to specify how a seven segment or a keypad is connected to a PIC. To use the Seven Segment or the Keypad &flowcode; parts, you will need to define a pin map here first.</para>
+		<para>At the bottom, there is a list of currently defined pin maps, as well as buttons to manipulate them. Pin maps are used to specify how a seven segment or a keypad is connected to a PIC. To use the <guilabel>Seven Segment</guilabel> or the <guilabel>Keypad</guilabel> &flowcode; parts, you will need to define a pin map here first.</para>
 		
 	</sect1>
 	
