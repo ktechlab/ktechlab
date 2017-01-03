@@ -13,7 +13,7 @@
 			
 			<itemizedlist>
 				<listitem><para>gpsim >= 0.21.4 is not installed. &ktechlab; does not support gpsim-0.21.2 or gpsim-0.20.14 (or any earlier versions). Later versions may work; but this cannot be tested before they are released. The latest gpsim can be obtained from the <ulink url="http://gpsim.sourceforge.net/gpsim.html">gpsim website</ulink>.</para></listitem>
-										<listitem><para>Gpsim is installed, but the header files could not be found. If gpsim is installed in a non-standard location, you may need to specify the location of the header files with <command>cmake</command> <option>-DGPSim_INCLUDE_DIR=<replaceable>DIR</replaceable></option>. It is also likely you'll need to specify a library location with the CMake option <quote>GPSim_INCLUDE_DIR</quote> if the includes are in a non-standard location.</para></listitem>
+										<listitem><para>Gpsim is installed, but the header files could not be found. If gpsim is installed in a non-standard location, you may need to specify the location of the header files with <command>cmake</command> <option>-DGPSim_INCLUDE_DIR=<replaceable>DIR</replaceable></option>. It is also likely you'll need to specify a library location with the CMake option <quote>GPSim_LIBRARY</quote> if the libraries are in a non-standard location.</para></listitem>
 				<listitem><para>Gpsim is installed and the headers are somewhere where CMake can find them, but there is some other glib craziness occurring.</para></listitem>
 			</itemizedlist>
 				
