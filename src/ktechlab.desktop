@@ -1,7 +1,9 @@
 [Desktop Entry]
 Name=KTechlab
 Name[ca]=KTechlab
+Name[es]=KTechlab
 Name[nl]=KTechlab
+Name[pt]=KTechlab
 Name[sk]=KTechlab
 Name[sv]=Ktechlab
 Name[uk]=KTechlab
@@ -12,6 +14,9 @@ Type=Application
 X-DocPath=ktechlab/index.html
 Comment=An IDE for microcontrollers and electronics
 Comment[ca]=Un IDE per a microcontroladors i electrònica
+Comment[es]=Un IDE para microcontroladores y sistemas electrónicos
+Comment[nl]=Een IDE (ontwikkelomgeving) voor microcontrollers en elektronica
+Comment[pt]=Um IDE para micro-controladores e electrónica
 Comment[sk]=IDE pre mikrokontroléry a elektroniku
 Comment[sv]=En integrerad utvecklingsmiljö för mikrokontroller och elektronik
 Comment[uk]=Комплексне середовище розробки для мікроконтролерів та електроніки
