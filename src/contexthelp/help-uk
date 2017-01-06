@@ -2,7 +2,7 @@
 
 <!-- item: complex -->
 <html><head><meta name="qrichtext" content="1" /></head><body>
-<p>This help item does not yet exist for the Amerikanisches Englisch language. Help out with KTechlab by creating one via the &quot;Edit&quot; button!</p>
+<p>Цього запису довідки українською ще немає. Допоможіть KTechlab, створивши цей запис: натисніть кнопку &quot;Змінити&quot;!</p>
 </body></html>
 <!-- item: datasheet -->
 <html><head><meta name="qrichtext" content="1" /></head><body>
@@ -38,63 +38,63 @@
 <!-- item: ec/bidir_led -->
 Двобічний світлодіод
 <!-- item: ec/binary_counter -->
-Holds an internal count, which changes when the clock input <i>&gt;</i> pin is pulsed.<br><br>Normal operation: <i>en</i> (Enable) and <i>u/d</i> (Up/Down) are held high, <i>r</i> (Reset) is low.
+Містить внутрішній лічильник, який змінює значення, коли через контакт входу годинника <i>&gt;</i> подається пульсація.<br><br>Нормальний режим роботи: <i>en</i> (Enable або Увімкнути) і <i>u/d</i> (Up/Down або Вгору/Вниз) утримуються відкритими, <i>r</i> (Reset або Скинути) закрито.
 <!-- item: ec/buffer -->
-Cleans the logic input, with the output high or low depending on input trigger levels.
+Очищує логічний вхід із виведенням стану «відкрито» або «закрито» залежно від рівня вхідного перемикання.
 <!-- item: ec/bus -->
-Merges several connections into one.
+Об’єднує декілька з’єднань у одне.
 <!-- item: ec/capacitor -->
-Stores electrical charge.<br><br>The voltage across the capacitor and capacitance are related by <i>Charge = Capacitance x Voltage</i>.
+Зберігає електричний заряд.<br><br>Напругу між обкладками конденсатора та ємність пов’язано формулою <i>Заряд = Ємність x Напруга</i>.
 <!-- item: ec/cccs -->
 
 <!-- item: ec/ccvs -->
 
 <!-- item: ec/clock_input -->
-A square-wave generator, outputing logical high/low at repeating time intervals.
+Генератор прямокутних імпульсів, виводить логічні струми «відкрито»/«закрито» з регулярними інтервалами.
 <!-- item: ec/current_source -->
-Provides a fixed current source.
+Є джерелом сталого струму.
 <!-- item: ec/currentprobe -->
-Displays the current at the probe point on the oscilloscope.
+Показує силу струму у точці зондування на осцилоскопі.
 <!-- item: ec/d_flipflop -->
-The output state is set from the input state when the clock is pulsed.
+Запам’ятовує стан входу та видає його на вихід після надходження імпульсу синхронізації.
 <!-- item: ec/dac -->
-Converts a digital input to an analog output signal.
+Перетворює вхідний цифровий сигнал на вихідний аналоговий.
 <!-- item: ec/demultiplexer -->
-Separates the input data stream into components. The value of the input is passed to the "X" output selected by the binary number given by the "A" inputs.
+Розділяє вхідний потік даних на компоненти. Значення вхідного сигналу передається на вихід «X», який визначається двійковим числом, що задається входами «A».
 <!-- item: ec/diode -->
-Allows current to flow in the direction indicated by the arrow when a certain voltage difference has been reached.
+Дозволяє проходження струпу у напрямку, позначеному стрілкою, якщо досягнуто певної різниці потенціалів.
 <!-- item: ec/dpdt_toggle -->
-Double-Pole Double-Throw switch.
+Перемикач із двома полюсами і двома напрямками.
 <!-- item: ec/dpst_toggle -->
-Double-Pole Single-Throw switch.
+Перемикач із двома полюсами і одним напрямком.
 <!-- item: ec/external_connection -->
-Point to connect the circuit to an external entity - e.g. a mechanical component or as part of a subcircuit.
+Точка з’єднання схеми із зовнішнім об’єктом — механічним компонентом або зовнішньою схемою, якщо елемент є частиною підсхеми.
 <!-- item: ec/fixed_voltage -->
-Provides a fixed voltage point to connect components to.
+Точка фіксованої напруги для з’єднання з нею компонентів.
 <!-- item: ec/ground -->
-Ground (0V) point
+Точка землі (0 В)
 <!-- item: ec/inductor -->
 
 <!-- item: ec/inverter -->
-The output is the logical inverse of the logic-input state.
+Вихід є логічно інвертованим сигналом відносно вхідного логічного стану.
 <!-- item: ec/jk_flipflop -->
-The output state is set according to J and K when the clock is pulsed.
+Стан виходу визначається за J і K, коли надходить сигнал синхронізації.
 <!-- item: ec/keypad -->
-Provides a numeric array of Push-to-Make switches, with 4 rows and a configurable number of columns.
+Числовий масив перемикачів «натиснути, щоб з’єднати» із трьома рядками і придатною до налаштовування кількістю стовпчиків клавіш.
 <!-- item: ec/led -->
-Light Emitting Diode
+Світлодіод
 <!-- item: ec/logic_input -->
-Provides a user-adjustable logic state.<br><br>Click to pulse high, or drag the mouse off to keep the output high.
+Дає визначений користувачем логічний стан.<br><br>Натисніть для сигналу відкриття або перетягніть вказівник назовні, щоб відкрити вихід.
 <!-- item: ec/logic_output -->
-Shows the logic-state of the input.
+Показує логічний стан вхідного сигналу.
 <!-- item: ec/magnitudecomparator -->
-Compares two binary numbers and generates output to indicate which binary number has the greater magnitude. It has 3 cascading inputs:<ul><li>I: A &gt; B</li><li>I: A &lt; B</li><li>I: A = B</li></ul>and 3 outputs:<ul><li>O: A &gt; B</li><li>O: A &lt; B</li><li>O: A = B</li></ul>
+Порівнює два двійкові числа і створює вихідний сигнал для позначення того, яке з двійкових чисел є більшим. Має 3 каскадних входи:<ul><li>I: A &gt; B</li><li>I: A &lt; B</li><li>I: A = B</li></ul>і 3 виходи:<ul><li>O: A &gt; B</li><li>O: A &lt; B</li><li>O: A = B</li></ul>
 <!-- item: ec/matrix_display -->
 Матричний дисплей з LED із придатною до налаштовування кількістю стовпчиків і рядків.
 <!-- item: ec/matrix_display_driver -->
-
+Різновид знакосинтезувального індикатора, елементи якого згруповані за рядками та стовпцями. Матричний індикатор призначений для виведення зображень символів, спеціальних знаків та графічних об’єктів на різноманітних пристроях для зорового сприйняття.
 <!-- item: ec/multiplexer -->
-Combines the input data stream into one single stream. The value of the input selected by the "A" inputs is passed to the output.
+Поєднує вхідний потік даних у один потік. Значення вхідного сигналу, що визначається входами «A» передається на вихід.
 <!-- item: ec/nand -->
 Вихід закрито, якщо усі входи відкрито.
 <!-- item: ec/nemosfet -->
@@ -116,8 +116,8 @@ Combines the input data stream into one single stream. The value of the input se
 <ul type="disc"><li><span style="font-style:italic">A = A</span><span style="vertical-align:sub">0</span> = &#8734;</li>
 <li>R<span style="vertical-align:sub">E+ </span>= R<span style="vertical-align:sub">E- </span>= &#8734;&#937;</li>
 <li>R<span style="vertical-align:sub">A</span> = 0&#937;</li></ul>
-<p align="justify">Characteristics of real opamps are listened in it's <a href="ktechlab-help:///datasheet">datasheet</a>.</p>
-<p><span style="font-weight:600">Applications:</span></p>
+<p align="justify">Характеристики справжніх операційних підсилювачів викладено у відповідній <a href="ktechlab-help:///datasheet">технічній документації</a>.</p>
+<p><span style="font-weight:600">Застосування:</span></p>
 <ul type="disc"><li><a href="ktechlab-example:///opamps/inverting-amplifier.circuit">Inverting amplifier</a>    </li>
 <li><a href="ktechlab-example:///opamps/noninverting-amplifier.circuit">Noninverting amplifier</a>    </li>
 <li><a href="ktechlab-example:///opamps/decoupler.circuit">Decoupler</a>    </li>
@@ -141,9 +141,9 @@ The PIC component allows the simulation of a PIC program.<br><br>The loadable PI
 <!-- item: ec/pnpbjt -->
 
 <!-- item: ec/potentiometer -->
-Consists of a resistor connected to the end pins, with a central pin connected at an adjustable point along the resistor
+Складається з резистора із контактами на кінцях і центрального контакту, який з’єднується із рухомою позицією на резисторі.
 <!-- item: ec/probe -->
-Connect this probe the point in the circuit to measure the logic value. The output will be displayed in the Oscilloscope view.
+З’єднайте цей зонд із точкою схеми, де треба виміряти логічне значення. Значення буде показано на панелі осцилоскопа.
 <!-- item: ec/ptb_switch -->
 
 <!-- item: ec/ptm_switch -->
@@ -161,25 +161,25 @@ This RAM stores data as a collection of words; each of which contains <i>word si
 <p align="justify">For better understanding it is allways a good idea to illustrate the practical meaning of such formulas by explaining them in words. That is very easy here:</p>
 <p align="justify">&quot;Резистор із опором у 1 ом, якщо маємо на його контактах напругу у 1 вольт пропускатиме струм із силою у 1 ампер.&quot;</p>
 <p><span style="font-weight:600">Приклади:</span></p>
-<ul type="disc"><li><a href="ktechlab-example:///basic/resistors-series.circuit">Series connection</a></li>
-<li><a href="ktechlab-example:///basic/resistors-parallel.circuit">Parallel connection</a></li></ul>
+<ul type="disc"><li><a href="ktechlab-example:///basic/resistors-series.circuit">Послідовне з’єднання</a></li>
+<li><a href="ktechlab-example:///basic/resistors-parallel.circuit">Паралельне з’єднання</a></li></ul>
 </body></html>
 <!-- item: ec/resistordip -->
 Набір резисторів із однаковими опорами, запакований у корпус DIP.
 <!-- item: ec/roto_switch -->
-Rotary Switch
+Обертовий перемикач
 <!-- item: ec/serial_port -->
 Interface to a serial port. The pins are:<br><ul><li><b>CD</b> - Carrier Detect (control; output)</li><li><b>RD</b> - Received Data (data; output)</li><li><b>TD</b> - Transmitted Data (data; input)</li><li><b>DTR</b> - Data Terminal Ready (control; input)</li><li><b>GND</b> - Signal Ground (ground)</li><li><b>DSR</b> - Data Set Ready (control; input)</li><li><b>RTS</b> - Request to Send (control; input)</li><li><b>CTS</b> - Clear to Send (control; output)</li><li><b>RI</b> - Ring Indicator (control; output)</li></ul>
 <!-- item: ec/seven_segment -->
-A seven segment display with a decimal point. This can be configured to either have a common cathode or a common anode.
+Сегментний індикатор із десятковою крапкою. Можна налаштувати як типовий катодний або типовий анодний.
 <!-- item: ec/signal_lamp -->
 Проста сигнальна лампа розжарювання із опором у 100 Ом, якщо з’єднано послідовно.
 <!-- item: ec/spdt_toggle -->
-Single-Pole Double-Throw switch.
+Перемикач із одним полюсом і двома напрямками.
 <!-- item: ec/spst_toggle -->
-Single-Pole Single-Throw switch.
+Перемикач із одним полюсом і одним напрямком.
 <!-- item: ec/sr_flipflop -->
-The output is made high by holding <i>set</i> high, and low by holding <i>reset</i> high.
+Створює стан «відкрито» на виході, якщо відкрито <i>set</i>, і стан «закрито», якщо відкрито <i>reset</i>.
 <!-- item: ec/subcircuit -->
 
 <!-- item: ec/variablecapacitor -->
@@ -197,12 +197,12 @@ The output is made high by holding <i>set</i> high, and low by holding <i>reset<
 <!-- item: ec/voltmeter -->
 Вставте його у схему паралельно, щоб виміряти напругу між двома точками.
 <!-- item: ec/xnor -->
-Exclusive NOR gate. Output is low when exactly one input is high.
+Шлюз виключного АБО-НІ. Вихід буде закрито, якщо відкрито лише один з входів.
 <!-- item: ec/xor -->
-Exclusive OR gate. Output is high when exactly one input is high.
+Шлюз виключного АБО. Вихід буде відкрито, якщо відкрито лише один вхід.
 <!-- item: feedback -->
 <html><head><meta name="qrichtext" content="1" /></head><body>
-<p>This help item does not yet exist for the Amerikanisches Englisch language. Help out with KTechlab by creating one via the &quot;Edit&quot; button!</p>
+<p>Цього запису довідки українською ще немає. Допоможіть KTechlab, створивши цей запис: натисніть кнопку &quot;Змінити&quot;!</p>
 </body></html>
 <!-- item: flow/callsub -->
 Виклик підпрограми. Після завершення роботи підпрограми виконання коду буде продовжено з цієї точки.
@@ -211,7 +211,7 @@ Exclusive OR gate. Output is high when exactly one input is high.
 <!-- item: flow/embed -->
 Двічі клацніть на елементі, щоб редагувати вбудований до нього код.
 <!-- item: flow/end -->
-End the program execution, putting the IC into sleep. Unlike Start, however, this FlowPart is not necessary for proper program execution
+Завершити виконання програми, перемкнувши контролер інтерфейсу у режим сну. На відміну від частини «Початок», ця частина діаграми є необов’язковою для належного виконання програми.
 <!-- item: flow/forloop -->
 The code contained in the foor loop is repeatedly executed. By default, the variable used will be incremented every time. This can be changed by entering a value other than 1 into Step.<br><br>The for loop will exit when the value contained in the variable is equal to the end value.
 <!-- item: flow/keypad -->
@@ -221,15 +221,15 @@ The code contained in the foor loop is repeatedly executed. By default, the vari
 <!-- item: flow/repeat -->
 Repeatedly execute code, until the given condition is false. The condition is checked after the code has been executed.<br><br>This is different from "While", which checks for the condition to be true before the code is executed.
 <!-- item: flow/setpin -->
-Set a pin on a port high or low. The pin needs to be set as an output pin.
+Встановлює для контакту на порті значення «відкрито» або «закрито». Контакт має бути налаштовано як вихід.
 <!-- item: flow/sevenseg -->
 Вивести дані на сегментний індикатор.
 <!-- item: flow/start -->
 Визначає початкову точку виконання програми.
 <!-- item: flow/sub -->
-Defines the starting point of a subroutine. Call this subroutine using "Call Sub"
+Визначає вхідну точку підпрограми. Викликати підпрограму можна командою «Call Підпрограма»
 <!-- item: flow/testpin -->
-Conditional branch point, depending on the high/low state of a pin.
+Точка розгалуження за умовою, залежно від стану (відкрито або закрито) контакту.
 <!-- item: flow/unary -->
 A unary operation involves only one variable. Suppo operations are:<br><ul><li><b>Rotate Left</b> rotates the binary bits of the variable left (discarding the end bits).</li><li><b>Rotate Right</b> rotates the binary bits right (discarding the start bits).</li><li><b>Increment</b> increases the value of the variable by 1. A value of 255 wraps around to 0.</li><li><b>Decrement</b> decreases the value of a variable by 1. A value of 0 wraps around to 255.</li></ul>
 <!-- item: flow/varassignment -->
@@ -239,10 +239,10 @@ Conditional branch point, depending on the comparison of two values. The support
 <!-- item: flow/while -->
 Repeatedly execute code, until the given condition is false. The condition is checked before the code has been executed.<br><br>This is different from "Repeat", which checks for the condition to be true after the code is executed.
 <!-- item: flow/writeport -->
-Sets the port's pins state to high/low from the given value. Only pins that have been configured as output pins will take on the value assigned to them.
+Встановлює стан порту (відкрито або закрито) за вказаним значенням. Встановлювати значення можна лише для контактів, які налаштовано як виходи.
 <!-- item: linear -->
 <html><head><meta name="qrichtext" content="1" /></head><body>
-<p>This help item does not yet exist for the Amerikanisches Englisch language. Help out with KTechlab by creating one via the &quot;Edit&quot; button!</p>
+<p>Цього запису довідки українською ще немає. Допоможіть KTechlab, створивши цей запис: натисніть кнопку &quot;Змінити&quot;!</p>
 </body></html>
 <!-- item: storage -->
 <html><head><meta name="qrichtext" content="1" /></head><body>
