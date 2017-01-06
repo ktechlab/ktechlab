@@ -6,5 +6,3 @@ target_link_libraries( test_loaded_icons
     ${KDE4_KDECORE_LIBRARY} # kdecore
     ${QT_QTCORE_LIBRARY} # QtCore
     )
-
-install(TARGETS test_loaded_icons ${INSTALL_TARGETS_DEFAULT_ARGS})
