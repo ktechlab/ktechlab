@@ -2,7 +2,7 @@
 
 <!-- item: complex -->
 <html><head><meta name="qrichtext" content="1" /></head><body>
-<p>This help item does not yet exist for the American English language. Help out with KTechlab by creating one via the &quot;Edit&quot; button!</p>
+<p>Complex gain is the effect that circuit has on the amplitude and phase of a sine wave signal. It is expressed by a complex number.</p>
 </body></html>
 <!-- item: datasheet -->
 <html><head><meta name="qrichtext" content="1" /></head><body>
@@ -12,11 +12,11 @@
 <!-- item: dp/arrow -->
 Select the line to position the end points
 <!-- item: dp/ellipse -->
-
+Click and hold the left mouse button to indicate one corner of the ‘bounding rectangle’ of the ellipse, then move the mouse pointer to the opposite corner.
 <!-- item: dp/line -->
 Select the line to position the end points
 <!-- item: dp/rectangle -->
-
+Click and hold the left mouse button to indicate one corner of the rectangle, then move the mouse pointer to its opposite corner.
 <!-- item: dp/text -->
 Doubleclick the Text Item to set the text
 <!-- item: ec/555 -->
@@ -26,7 +26,7 @@ Provides a variety of current signals
 <!-- item: ec/adc -->
 Converts an analog signal into a digital output.
 <!-- item: ec/adder -->
-
+Adds tree one-bit binary numbers, A, B, and >; A and B are the operands, and > is a bit carried in from the previous less-significant stage. The circuit produces a two-bit output, output carry and sum represented by the signals C and S, where sum = 2C + S￼.
 <!-- item: ec/ammeter -->
 Place this in series in the circuit to measure the current flowing.
 <!-- item: ec/and -->
@@ -131,7 +131,7 @@ The output is high when all inputs are low.
 <!-- item: ec/or -->
 The output is high when at least one of the inputs is high; or low when all of the inputs are off
 <!-- item: ec/parallel_port -->
-The pins are divided into 3 registers.<br><br><b>Data Pins</b><br><br>The data pins can be configured as either all input or all output. They are:<ul><li><b>D<i>[0..7]</i></b></li></ul><br><b>Status Pins</b><br><br>The status pins are read-only. They area:<ul><li><b>ERR</b> - Error</li><li><b>ON</b> - Online</li><li><b>PE</b> - Paper End</li><li><b>ACK</b> - Acknowledge</li><li><b>BUSY</b> - Busy</li></ul><br><b>Control Pins</b><ul><li><b>STR</b> - Strobe</li><li><b>AUT</b> - Auto Feed</li><li><b>INIT</b> - Init</li><li><b>SEL</b> - Select</li></ul><br>The remaining pins are all ground.
+The pins are divided into 3 registers.<br><br><b>Data Pins</b><br><br>The data pins can be configured as either all input or all output. They are:<ul><li><b>D<i>[0..7]</i></b></li></ul><br><b>Status Pins</b><br><br>The status pins are read-only. They are:<ul><li><b>ERR</b> - Error</li><li><b>ON</b> - Online</li><li><b>PE</b> - Paper End</li><li><b>ACK</b> - Acknowledge</li><li><b>BUSY</b> - Busy</li></ul><br><b>Control Pins</b><ul><li><b>STR</b> - Strobe</li><li><b>AUT</b> - Auto Feed</li><li><b>INIT</b> - Init</li><li><b>SEL</b> - Select</li></ul><br>The remaining pins are all ground.
 <!-- item: ec/pemosfet -->
 
 <!-- item: ec/pic -->
@@ -155,7 +155,7 @@ This RAM stores data as a collection of words; each of which contains <i>word si
 <p align="justify">A <span style="font-weight:600">resistor</span> limits flow of current, obeying Ohms Law which says, that current and voltage are proportional each other. By define proportional coefficient to 1 we get the unit:</p>
 <p align="center"><img src=ohm.png ></p>
 <p align="center"><img src=ohm_unit.png ></p>
-<p align="justify">Thus these value is a measure how worse a resistor conduct the current. In practice an other measure has established how good current is conducted. For this purpose the reciprocal is generated an a new dimension, the <span style="font-style:italic">susceptance</span> is introduced:</p>
+<p align="justify">Thus this value is a measure how worse a resistor conduct the current. In practice an other measure has established how good current is conducted. For this purpose the reciprocal is generated an a new dimension, the <span style="font-style:italic">susceptance</span> is introduced:</p>
 <p align="center"><img src=siemens.png ></p>
 <p align="center"><img src=siemens_unit.png ></p>
 <p align="justify">For better understanding it is always a good idea to illustrate the practical meaning of such formulas by explaining them in words. That is very easy here:</p>

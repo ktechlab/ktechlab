@@ -2,7 +2,7 @@
 
 <!-- item: complex -->
 <html><head><meta name="qrichtext" content="1" /></head><body>
-<p>Цього запису довідки українською ще немає. Допоможіть KTechlab, створивши цей запис: натисніть кнопку &quot;Змінити&quot;!</p>
+<p>Комплексний коефіцієнт підсилення є мірою того, наскільки проходження схеми впливає на амплітуду і фазу синусоїдального вхідного сигналу. Виражається комплексим числом.</p>
 </body></html>
 <!-- item: datasheet -->
 <html><head><meta name="qrichtext" content="1" /></head><body>
@@ -12,11 +12,11 @@
 <!-- item: dp/arrow -->
 Позначте лінію для розташовування кінців
 <!-- item: dp/ellipse -->
-
+Натисніть і утримуйте ліву кнопку миші, щоб позначити один із кутів «прямокутної рамки» еліпса, потім перетягніть вказівник у її протилежний кут.
 <!-- item: dp/line -->
 Позначте лінію для розташовування кінців
 <!-- item: dp/rectangle -->
-
+Click and hold the left mouse button to indicate one corner of the ‘bounding rectangle’ of the ellipse, then move your mouse to the opposite corner.
 <!-- item: dp/text -->
 Двічі клацніть на текстовому елементі, щоб визначити текст
 <!-- item: ec/555 -->
@@ -26,7 +26,7 @@
 <!-- item: ec/adc -->
 Перетворює аналоговий сигнал на цифровий
 <!-- item: ec/adder -->
-
+Елемент, призначений для утворення суми двох операндів. Додає три однобітових двійкових числа, A, B і >; A і B є операндами, а > — біт, отриманий на попередньому менш значному етапі. Виводить результат у двобітовому форматі: сигнал перенесення і суму, як сигнали C і S, де сума = 2C + S￼.
 <!-- item: ec/ammeter -->
 Вставте послідовно до схеми, щоб виміряти силу струму.
 <!-- item: ec/and -->
@@ -107,35 +107,35 @@
 
 <!-- item: ec/opamp -->
 <html><head><meta name="qrichtext" content="1" /></head><body>
-<p align="justify">An <span style="font-weight:600">operational amplifier</span> (opamp) is an integrated universal amplifier which's behaviour can simply be configured by external components. Those high flexibility is achieved due to it's high open loop gain <span style="font-style:italic">A</span><span style="vertical-align:sub">0</span> which amplifies the difference of the input potentials. The <a href="ktechlab-help:///transferfunction">transfer function</a> is:</p>
+<p align="justify"><span style="font-weight:600">Операційний підсилювач</span> (opamp) — інтегрований універсальний підсилювач, поведінку якого можна просто налаштувати за допомогою зовнішніх компонентів. Ця висока гнучкість досягається через його високий коефіцієнт підсилення розімкненою петлею зворотного зв’язку, <span style="font-style:italic">A</span><span style="vertical-align:sub">0</span>, який збільшує різницю вхідних потенціалів. <a href="ktechlab-help:///transferfunction">Функція передавання</a>:</p>
 <p align="center"><img src=opamp.png ></p>
 <p align="center"><img src=tf_op.png ></p>
-<p align="justify">The open loop gain <span style="font-style:italic">A</span><span style="vertical-align:sub">0</span> is the value of the <a href="ktechlab-help:///complex">complex</a> gain <span style="font-style:italic;text-decoration:underline">A</span> in case of f = 0Hz (d.c. voltage) and is ideally infinite, in praxis depending on type 10<span style="vertical-align:super">5</span> to 10<span style="vertical-align:super">7</span>.</p>
-<p align="justify">The whiched behaviour is achived by <a href="ktechlab-help:///feedback">feedback</a> of output to the input using discrete components. This way a <a href="ktechlab-help:///controlloop">control loop</a> is closed, which should eliminate control deviation, thus the input voltage U<span style="vertical-align:sub">E </span> here. From this it follows that, except for few exceptions, both inputs of a working opamp circuit must have equal <a href="ktechlab-help:///potential">potential</a>. This realisation is very useful for calculation and error diagnostics!</p>
-<p align="justify">In most cases opamps can assumed to be ideal and <a href="ktechlab-help:///linear">linear</a> in operating range:</p>
+<p align="justify">Коефіцієнт підсилення <span style="font-style:italic">A</span><span style="vertical-align:sub">0</span> є значенням <a href="ktechlab-help:///complex">комплексного</a> підсилення <span style="font-style:italic;text-decoration:underline">A</span>, якщо покласти частоту f = 0 Гц (стала напруга) і є ідеально нескінченним, на практиці ж залежить від типу і має значення від 10<span style="vertical-align:super">5</span> до 10<span style="vertical-align:super">7</span>.</p>
+<p align="justify">Така поведінка підсилювача досягається <a href="ktechlab-help:///feedback">зворотним зв’язком</a> входу щодо виходу, який створюється дискретними компонентами. Таким чином замикається <a href="ktechlab-help:///controlloop">петля керування</a>, що має усунути відхилення, отже вхідний струм U<span style="vertical-align:sub">E </span>. Звідси, окрім деяких виключень, обидва входи схеми операційного підсилювача повинні мати однакові <a href="ktechlab-help:///potential">потенціали</a>. Така реалізація схеми є дуже корисною для обчислень і діагностування помилок!</p>
+<p align="justify">У більшості випадків операційні підсилювачі можна вважати ідеальними і <a href="ktechlab-help:///linear">лінійними</a> у операційному діапазоні:</p>
 <ul type="disc"><li><span style="font-style:italic">A = A</span><span style="vertical-align:sub">0</span> = &#8734;</li>
 <li>R<span style="vertical-align:sub">E+ </span>= R<span style="vertical-align:sub">E- </span>= &#8734;&#937;</li>
 <li>R<span style="vertical-align:sub">A</span> = 0&#937;</li></ul>
 <p align="justify">Характеристики справжніх операційних підсилювачів викладено у відповідній <a href="ktechlab-help:///datasheet">технічній документації</a>.</p>
 <p><span style="font-weight:600">Застосування:</span></p>
-<ul type="disc"><li><a href="ktechlab-example:///opamps/inverting-amplifier.circuit">Inverting amplifier</a>    </li>
-<li><a href="ktechlab-example:///opamps/noninverting-amplifier.circuit">Noninverting amplifier</a>    </li>
-<li><a href="ktechlab-example:///opamps/decoupler.circuit">Decoupler</a>    </li>
-<li><a href="ktechlab-example:///opamps/instrumentation-amplifier.circuit">Instrumentation amplifier</a>    </li>
-<li><a href="ktechlab-example:///opamps/pid_controller.circuit">PID controller</a>    </li>
-<li><a href="ktechlab-example:///opamps/analog-computer.circuit">Analog computer</a>    </li>
-<li><a href="ktechlab-example:///opamps/active-filter.circuit">Active filter</a>    </li>
-<li><a href="ktechlab-example:///opamps/comperator.circuit">Comperator</a>    </li>
-<li><a href="ktechlab-example:///opamps/schmitt-trigger">Schmitt-Trigger</a></li></ul>
+<ul type="disc"><li><a href="ktechlab-example:///opamps/inverting-amplifier.circuit">Інверсійний підсилювач</a>    </li>
+<li><a href="ktechlab-example:///opamps/noninverting-amplifier.circuit">Неінверсійний підсилювач</a>    </li>
+<li><a href="ktechlab-example:///opamps/decoupler.circuit">Розв’язка</a>    </li>
+<li><a href="ktechlab-example:///opamps/instrumentation-amplifier.circuit">Інструментальний підсилювач</a>    </li>
+<li><a href="ktechlab-example:///opamps/pid_controller.circuit">Контролер PID</a>    </li>
+<li><a href="ktechlab-example:///opamps/analog-computer.circuit">Аналоговий комп’ютер</a>    </li>
+<li><a href="ktechlab-example:///opamps/active-filter.circuit">Активний фільтр</a>    </li>
+<li><a href="ktechlab-example:///opamps/comperator.circuit">Порівнювач</a>    </li>
+<li><a href="ktechlab-example:///opamps/schmitt-trigger">Перемикач Шмітта</a></li></ul>
 </body></html>
 <!-- item: ec/or -->
 Вихід відкрито, якщо відкрито принаймні один із входів. Вихід закрито, якщо усі входи закрито.
 <!-- item: ec/parallel_port -->
-The pins are divided into 3 registers.<br><br><b>Data Pins</b><br><br>The data pins can be configured as either all input or all output. They are:<ul><li><b>D<i>[0..7]</i></b></li></ul><br><b>Status Pins</b><br><br>The status pins are read-only. They area:<ul><li><b>ERR</b> - Error</li><li><b>ON</b> - Online</li><li><b>PE</b> - Paper End</li><li><b>ACK</b> - Acknowledge</li><li><b>BUSY</b> - Busy</li></ul><br><b>Control Pins</b><ul><li><b>STR</b> - Strobe</li><li><b>AUT</b> - Auto Feed</li><li><b>INIT</b> - Init</li><li><b>SEL</b> - Select</li></ul><br>The remaining pins are all ground.
+Контакти поділено на три регістри.<br><br><b>Контакти даних</b><br><br>Контакти даних можна налаштувати або усі на вхід, або усі на вихід. Такими контактами є:<ul><li><b>D<i>[0..7]</i></b></li></ul><br><b>Контакти стану</b><br><br>Контакти стану призначено лише для читання. Це:<ul><li><b>ERR</b> - Error</li><li><b>ON</b> - Online</li><li><b>PE</b> - Paper End</li><li><b>ACK</b> - Acknowledge</li><li><b>BUSY</b> - Busy</li></ul><br><b>Контакти керування</b><ul><li><b>STR</b> - Strobe</li><li><b>AUT</b> - Auto Feed</li><li><b>INIT</b> - Init</li><li><b>SEL</b> - Select</li></ul><br>Інші контакти з’єднано із землею.
 <!-- item: ec/pemosfet -->
 
 <!-- item: ec/pic -->
-The PIC component allows the simulation of a PIC program.<br><br>The loadable PIC program must be one of the following formats:<ul><li>Assembly (.asm)</li><li>FlowCode (.flowcode)</li><li>Symbol file (.cod)</li><li>Microbe (.microbe, .basic)</li><li>C source (.c)</li></ul>Doubleclick on the PIC component to open up the program source file.<br><br>If the program source file is of type assembly, then the opened text file will automatically be linked to the simulation. You can control the program from the text document using the debug controls.<br><br>Explanation of buttons:<ul><li>Play - Run the PIC program from the point at which it was paused, or from the start otherwise.</li><li>Pause - Pause the simulation at the current execution point.</li><li>Stop - Reset all parts of the simulation.</li><li>Reload - Reread the PIC program from disk and restart gpsim.</li></ul>
+Компонент PIC уможливлює імітацію роботи програми PIC.<br><br>Придатна до завантаження програма PIC має зберігатися у одному з таких форматів:<ul><li>Асемблер (.asm)</li><li>FlowCode (.flowcode)</li><li>Файл символів (.cod)</li><li>Microbe (.microbe, .basic)</li><li>Код мовою C (.c)</li></ul>Двічі клацніть на компоненті PIC, щоб відкрити файл початкових кодів програми.<br><br>Якщо файл коду програми написано мовою асемблера, відкритий текстовий файл буде автоматично пов’язано із імітацією. Ви можете керувати виконанням програми з текстового документа за допомогою засобів керування діагностикою.<br><br>Кнопки керування:<ul><li>Пуск — виконати програму PIC з позиції, де її було призупинено, або розпочати виконання, якщо виконання ще не було призупинено.</li><li>Пауза — призупинити імітацію на поточній позиції виконання.</li><li>Стоп — відновити початковий стан усіх частин імітації.</li><li>Перезавантажити — повторно прочитати програму PIC з диска і перезапустити gpsim.</li></ul>
 <!-- item: ec/pjfet -->
 
 <!-- item: ec/pnpbjt -->
@@ -149,17 +149,17 @@ The PIC component allows the simulation of a PIC program.<br><br>The loadable PI
 <!-- item: ec/ptm_switch -->
 
 <!-- item: ec/ram -->
-This RAM stores data as a collection of words; each of which contains <i>word size</i> bits of data.<br><br>To read data, set the CS (<i>chip select</i>) and the OE (<i>output enable</i>) pins high, and select the word using the address pins <i>A*</i>. The word is outputted on the data-out pins: <i>DO*</i>.<br><br>To write data, set the CS (<i>chip select</i>) and the WE (<i>write enable</i>) pins high, and select the address to write to with the <i>A*</i> pins. Write to the selected word using the data-in pins: <i>DI*</i>.<br><br>The <i>Address Size</i> is the number of bits that determine an address; so the total number of words stored will be 2^<sup><i>Address Size</i></sup>.
+У оперативній пам’яті зберігається набір слів; кожне слово складається з <i>розмір слова</i> бітів даних.<br><br>Щоб прочитати дані, встановіть стан «відкрито» для контактів CS (<i>chip select</i>) і OE (<i>output enable</i>) і виберіть слово за допомогою контактів адреси <i>A*</i>. Слово буде виведено на контакти виведення даних: <i>DO*</i>.<br><br>Щоб записати дані, встановіть стан «відкрито» для контактів CS (<i>chip select</i>) і WE (<i>write enable</i>) і виберіть адресу для запису за допомогою контактів <i>A*</i>. Запис вибраного слова здійснюється за допомогою контактів вхідних даних: <i>DI*</i>.<br><br><i>Розмір адреси</i> — кількість бітів, які визначають адреси; отже, загалом у модулі можна зберегти 2^<sup><i>Розмір адреси</i></sup> слів.
 <!-- item: ec/resistor -->
 <html><head><meta name="qrichtext" content="1" /></head><body>
-<p align="justify">A <span style="font-weight:600">resistor</span> limits flow of current, obeying Ohms Law which says, that current and voltage are proportional each other. By define proportional coefficient to 1 we get the unit:</p>
+<p align="justify"><span style="font-weight:600">Резистор</span> обмежує струм відповідно до закону Ома, який визначає пропорційну залежність між силою струму і напругою. Якщо взяти одиничний коефіцієнт пропорційності, отримаємо одиницю виміру опору:</p>
 <p align="center"><img src=ohm.png ></p>
 <p align="center"><img src=ohm_unit.png ></p>
-<p align="justify">Thus these value is a measure how worse a resistor conduct the current. In practice an other measure has established how good current is conducted. For this purpose the reciprocal is generated an a new dimension, the <span style="font-style:italic">susceptance</span> is introduced:</p>
+<p align="justify">Отже, опір — міра того, наскільки погано резистор пропускає струм. На практиці використовують іншу міру, яка визначає, наскільки добре пропускається струм. Обернена до опору величина називається <span style="font-style:italic">реактивною провідністю</span>:</p>
 <p align="center"><img src=siemens.png ></p>
 <p align="center"><img src=siemens_unit.png ></p>
-<p align="justify">For better understanding it is allways a good idea to illustrate the practical meaning of such formulas by explaining them in words. That is very easy here:</p>
-<p align="justify">&quot;Резистор із опором у 1 ом, якщо маємо на його контактах напругу у 1 вольт пропускатиме струм із силою у 1 ампер.&quot;</p>
+<p align="justify">Кращого розуміння можна досягти шляхом ілюстрування формул у формі речень, які пояснюють суть явища. Тут це дуже просто:</p>
+<p align="justify">&quot;Резистор із опором у 1 ом, якщо маємо на його контактах напругу у 1 вольт, пропускатиме струм із силою у 1 ампер.&quot;</p>
 <p><span style="font-weight:600">Приклади:</span></p>
 <ul type="disc"><li><a href="ktechlab-example:///basic/resistors-series.circuit">Послідовне з’єднання</a></li>
 <li><a href="ktechlab-example:///basic/resistors-parallel.circuit">Паралельне з’єднання</a></li></ul>
@@ -169,7 +169,7 @@ This RAM stores data as a collection of words; each of which contains <i>word si
 <!-- item: ec/roto_switch -->
 Обертовий перемикач
 <!-- item: ec/serial_port -->
-Interface to a serial port. The pins are:<br><ul><li><b>CD</b> - Carrier Detect (control; output)</li><li><b>RD</b> - Received Data (data; output)</li><li><b>TD</b> - Transmitted Data (data; input)</li><li><b>DTR</b> - Data Terminal Ready (control; input)</li><li><b>GND</b> - Signal Ground (ground)</li><li><b>DSR</b> - Data Set Ready (control; input)</li><li><b>RTS</b> - Request to Send (control; input)</li><li><b>CTS</b> - Clear to Send (control; output)</li><li><b>RI</b> - Ring Indicator (control; output)</li></ul>
+Інтерфейс послідовного порту. Контакти:<br><ul><li><b>CD</b> - Carrier Detect (керування, вихід)</li><li><b>RD</b> - Received Data (дані; вихід)</li><li><b>TD</b> - Transmitted Data (дані; вхід)</li><li><b>DTR</b> - Data Terminal Ready (керування; вхід)</li><li><b>GND</b> - Signal Ground (земля)</li><li><b>DSR</b> - Data Set Ready (керування; вхід)</li><li><b>RTS</b> - Request to Send (керування; вхід)</li><li><b>CTS</b> - Clear to Send (керування; вихід)</li><li><b>RI</b> - Ring Indicator (керування; вихід)</li></ul>
 <!-- item: ec/seven_segment -->
 Сегментний індикатор із десятковою крапкою. Можна налаштувати як типовий катодний або типовий анодний.
 <!-- item: ec/signal_lamp -->
@@ -213,13 +213,13 @@ Interface to a serial port. The pins are:<br><ul><li><b>CD</b> - Carrier Detect 
 <!-- item: flow/end -->
 Завершити виконання програми, перемкнувши контролер інтерфейсу у режим сну. На відміну від частини «Початок», ця частина діаграми є необов’язковою для належного виконання програми.
 <!-- item: flow/forloop -->
-The code contained in the foor loop is repeatedly executed. By default, the variable used will be incremented every time. This can be changed by entering a value other than 1 into Step.<br><br>The for loop will exit when the value contained in the variable is equal to the end value.
+Код, що міститься у циклі for буде виконуватися повторно. Типово, змінна циклу під час кожного виконання збільшуватиметься на одиницю. Змінити крок збільшення змінної можна призначивши для параметра «Крок» значення, яке є відмінним від 1.<br><br>Виконання циклу for буде завершено, якщо значення, що зберігається у змінній стане рівним кінцевому значенню.
 <!-- item: flow/keypad -->
 Отримати значення натиснутої клавіші з клавіатурної панелі, яку з’єднано з PIC.
 <!-- item: flow/readport -->
 Надати змінній значення з порту.
 <!-- item: flow/repeat -->
-Repeatedly execute code, until the given condition is false. The condition is checked after the code has been executed.<br><br>This is different from "While", which checks for the condition to be true before the code is executed.
+Повторно виконувати код, доки не почне справджуватися контрольна умова. Виконання умови перевіряється після виконання коду.<br><br>У цьому полягає відмінність цього циклу від циклу «While», у якому виконання умови перевіряється до виконання коду.
 <!-- item: flow/setpin -->
 Встановлює для контакту на порті значення «відкрито» або «закрито». Контакт має бути налаштовано як вихід.
 <!-- item: flow/sevenseg -->
@@ -231,13 +231,13 @@ Repeatedly execute code, until the given condition is false. The condition is ch
 <!-- item: flow/testpin -->
 Точка розгалуження за умовою, залежно від стану (відкрито або закрито) контакту.
 <!-- item: flow/unary -->
-A unary operation involves only one variable. Suppo operations are:<br><ul><li><b>Rotate Left</b> rotates the binary bits of the variable left (discarding the end bits).</li><li><b>Rotate Right</b> rotates the binary bits right (discarding the start bits).</li><li><b>Increment</b> increases the value of the variable by 1. A value of 255 wraps around to 0.</li><li><b>Decrement</b> decreases the value of a variable by 1. A value of 0 wraps around to 255.</li></ul>
+Для виконання унарної дії потрібна лише одна змінна. Підтримувані дії:<br><ul><li><b>Зсув ліворуч</b> — зсув двійкових бітів ліворуч (із відкиданням кінцевого біта).</li><li><b>Зсув праворуч</b> — зсув двійкових бітів праворуч (із відкиданням початкового біта).</li><li><b>Збільшення</b> — збільшення значення змінної на 1. Збільшення значення 255 циклічно дасть 0.</li><li><b>Зменшення</b> — зменшення значення змінної на 1. Зменшення значення 0 циклічно дасть 255.</li></ul>
 <!-- item: flow/varassignment -->
-Assigns the evaluation of an expression to a variable. The expression can take many forms. For example:<ul><li><b>x = 2</b></li><li><b>x = y + 3</b></li><li><b>x = y + z</b></li><li><b>x = 2 * y</b></ul>
+Запис результатів обчислення виразу до змінної. Вираз можна записувати у багатьох формах. Приклади:<ul><li><b>x = 2</b></li><li><b>x = y + 3</b></li><li><b>x = y + z</b></li><li><b>x = 2 * y</b></ul>
 <!-- item: flow/varcomparison -->
-Conditional branch point, depending on the comparison of two values. The supported comparisons are:<ul><li><b>x == y</b> - Equality: true if x has the same value as y.</li><li><b>x &lt; y</b> - Less than: true if x is smaller than y.</li><li><b>x &gt; y</b> - Greater than: true if x is bigger than y.</li><li><b>x &lt;= y</b> - Less than or equal: true if x is less than or equal to y.</li><li><b>x &gt;= y</b> - Greater than or equal: true if x is greater than or equal to y.</li><li><b>x != y</b> - Does not equal: true if x does not have the same value as y.</li></ul>
+Точка розгалуження за умовою, яка полягає у порівнянні двох значень. Підтримувані формати порівняння:<ul><li><b>x == y</b> — рівність: істина, якщо x має те саме значення, що і y.</li><li><b>x &lt; y</b> — менше: істина, якщо x менше за y.</li><li><b>x &gt; y</b> — більше: істина, якщо x більше за y.</li><li><b>x &lt;= y</b> — менше або дорівнює: істина, якщо x менше або дорівнює y.</li><li><b>x &gt;= y</b> — більше або дорівнює: істина, якщо x більше або дорівнює y.</li><li><b>x != y</b> — не дорівнює: істина, якщо x має значення, яке не дорівнює значенню y.</li></ul>
 <!-- item: flow/while -->
-Repeatedly execute code, until the given condition is false. The condition is checked before the code has been executed.<br><br>This is different from "Repeat", which checks for the condition to be true after the code is executed.
+Повторно виконувати код, доки не перестане справджуватися задана умова. Виконання умови перевіряється до виконання коду.<br><br>Цим цей цикл відрізняється від циклу «Repeat», де перевірка виконання умови виконується після виконання коду.
 <!-- item: flow/writeport -->
 Встановлює стан порту (відкрито або закрито) за вказаним значенням. Встановлювати значення можна лише для контактів, які налаштовано як виходи.
 <!-- item: linear -->
@@ -256,8 +256,8 @@ Repeatedly execute code, until the given condition is false. The condition is ch
 </body></html>
 <!-- item: transferfunction -->
 <html><head><meta name="qrichtext" content="1" /></head><body>
-<p align="justify">A <span style="font-weight:600">transfer-function</span> is a mathematical model of a system. Generally it is given by the division of the resulting output signal to an adequate input signal. By multiplicating this transfer function with any input signal, the input information disappears and we get the output signal.</p>
-<p align="justify">In the simplest case of a <a href="ktechlab-help:///linear">linear</a> <a href="ktechlab-help:///system">SISO system</a> without <a href="ktechlab-help:///storage">storage elements</a> the transfer function reduces to a scalar gain. Here any input signal is practical because system behaviour is independent from it.</p>
-<p align="justify">By adding storage elements the scalar gain becomes a <a href="ktechlab-help:///complex">complex</a> gain in frequency domain. This includes information about frequency dependent gain and phase shift in static (i.e. steady state) case. In order to describe dynamic (i.e. transient) behaviour as well we use the transfer function in complex variable domain which also contains information about damping procedure. The adequate input signal here is a dirac impulse which consist of superposition of <span style="font-style:italic">all</span> frequencies in equal amplitude and thus can worm all needed information out of the system.</p>
-<p align="justify">This realisation also has very practical meaning, by the way. Given that in practice a shot looks like a dirac impulse in spectrum we can fire a gun in a cathedral for example and record the echo. Now we have the transfer function of the cathedral. When <a href="ktechlab-help:///convolution">convolve</a> this with any audio recording it will sound like played in the cathedral.</p>
+<p align="justify"><span style="font-weight:600">Функція передавання</span> — математична модель системи. Зазвичай, отримується діленням отриманого вихідного сигналу на відповідний йому вхідний сигнал. Множенням функції передавання на будь-який вхідний сигнал ми отримаємо вихідний сигнал.</p>
+<p align="justify">У найпростішому випадку <a href="ktechlab-help:///linear">лінійної</a> <a href="ktechlab-help:///system">системи</a> з одним входом і одним виходом без <a href="ktechlab-help:///storage">елементів-накопичувачів</a> функція передавання є числовим коефіцієнтом підсилення. У цьому випадку поведінка системи не залежить від вхідного сигналу.</p>
+<p align="justify">Якщо додати у схему елементи-накопичувачі коефіцієнт перетвориться на <a href="ktechlab-help:///complex">комплексний</a> у частотній області. Тоді функція передавання міститиме інформацію щодо залежного від частоти підсилання та фазового зсуву у статичному випадку (тобто випадку із незмінною поведінкою системи з часом). Що описати динамічну поведінку системи, використовують функцію передавання у області комплексної змінної, яка містить дані щодо змін у схемі. Відповідним вхідним сигналом у цьому випадку є вхідний імпульс у формі функції Дірака. Такий імпульс є суперпозицією <span style="font-style:italic">усіх</span> частот із однією амплітудою, отже може зібрати усю потрібну інформацію щодо системи.</p>
+<p align="justify">До речі, така реалізація має практичний бік. Якщо вважати постріл імпульсом Дірака, ми можемо ініціювати постріл на відстані і записати результат спостереження за звуком. Таким чином ми отримаємо функцію передавання місцевості, де відбувся постріл. Якщо <a href="ktechlab-help:///convolution">згорнути</a> результати з будь-яким звуковим сигналом, ми почуємо звук таким, ніби його відтворювали на місці пострілу.</p>
 </body></html>
