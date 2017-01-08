@@ -58,6 +58,7 @@ DocManager::DocManager()
 
 DocManager::~DocManager()
 {
+    delete m_pIface;
 }
 
 
