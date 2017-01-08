@@ -3,6 +3,7 @@
   <mime-type type="application/x-circuit">
     <comment>KTechlab Circuit</comment>
     <comment xml:lang="ca">Circuit del KTechlab</comment>
+    <comment xml:lang="ca@valencia">Circuit del KTechlab</comment>
     <comment xml:lang="es">Circuito de KTechlab</comment>
     <comment xml:lang="nl">KTechlab elektronisch schema</comment>
     <comment xml:lang="pt">Circuito do KTechlab</comment>
@@ -14,6 +15,7 @@
   <mime-type type="application/x-flowcode">
     <comment>KTechlab FlowCode</comment>
     <comment xml:lang="ca">FlowCode del KTechlab</comment>
+    <comment xml:lang="ca@valencia">FlowCode del KTechlab</comment>
     <comment xml:lang="es">FlowCode de KTechlab</comment>
     <comment xml:lang="nl">KTechlab FlowCode</comment>
     <comment xml:lang="pt">Fluxograma do KTechlab</comment>
@@ -25,6 +27,7 @@
   <mime-type type="application/x-ktechlab">
     <comment>KTechlab project</comment>
     <comment xml:lang="ca">Projecte del KTechlab</comment>
+    <comment xml:lang="ca@valencia">Projecte del KTechlab</comment>
     <comment xml:lang="es">Proyecto de KTechlab</comment>
     <comment xml:lang="nl">KTechlab project</comment>
     <comment xml:lang="pt">Projecto do KTechlab</comment>
@@ -36,6 +39,7 @@
   <mime-type type="application/x-microbe">
     <comment>KTechlab Microbe</comment>
     <comment xml:lang="ca">Microbe del KTechlab</comment>
+    <comment xml:lang="ca@valencia">Microbe del KTechlab</comment>
     <comment xml:lang="es">Microbe de KTechlab</comment>
     <comment xml:lang="nl">KTechlab Microbe</comment>
     <comment xml:lang="pt">Microbe do KTechlab</comment>
