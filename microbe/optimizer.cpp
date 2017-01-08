@@ -12,6 +12,7 @@
 #include "optimizer.h"
 
 #include <kdebug.h>
+#include <klocalizedstring.h>
 
 #include <cassert>
 #include <iostream>
@@ -42,10 +43,14 @@ void Optimizer::optimize( Code * code )
 {
 // 	return;
 	m_pCode = code;
-	
+
+    const int maxIterations = 10000; // selected randomly
+
 	bool changed;
+    int iterationNumber = 0;
 	do
 	{
+        ++iterationNumber;
 		changed = false;
 		
 		// Repeatedly generate links and states until
@@ -58,7 +63,15 @@ void Optimizer::optimize( Code * code )
 		// Perform optimizations based on processor states
 		changed |= optimizeInstructions();
 	}
-	while ( changed );
+	while ( changed && (iterationNumber < maxIterations) );
+
+    if (iterationNumber >= maxIterations) {
+        QString warnMessage( i18n(
+            "Internal issue: Optimization has not finished in %1 iterations.",
+            iterationNumber) );
+        //qDebug() << warnMessage; // qDebug or qWarning generates "compilation failed" message in ktechlab
+        std::cout << warnMessage.toStdString();
+    }
 }
 
 
