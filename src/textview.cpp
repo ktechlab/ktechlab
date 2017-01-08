@@ -185,8 +185,9 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
 TextView::~TextView()
 {
 	if ( KTechlab::self() ) {
-		if ( KXMLGUIFactory * f = m_view->factory() )
-			f->removeClient( m_view );
+        // 2017.01.09: do not crash on document close. factory has its clients removed in TextDocument::~TextDocument()
+		//if ( KXMLGUIFactory * f = m_view->factory() )
+		//	f->removeClient( m_view );
 		
 		KTechlab::self()->addNoRemoveGUIClient( m_view );
 	}

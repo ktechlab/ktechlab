@@ -66,11 +66,12 @@ View::~View()
 {
 	//if ( KTechlab::self() )   // 2015.09.13 - remove the XMLGUIClient from the factory, even at program close
 	//	KTechlab::self()->factory()->removeClient(this);
-    if ( factory() ) {
-        factory()->removeClient( this );
-    } else {
-        qWarning() << Q_FUNC_INFO << "Null factory";
-    }
+    // 2017.01.09: do not crash on document close. factory has its clients removed in TextDocument::~TextDocument()
+    //if ( factory() ) {
+    //    factory()->removeClient( this );
+    //} else {
+    //    qWarning() << Q_FUNC_INFO << "Null factory";
+    //}
 }
 
 
