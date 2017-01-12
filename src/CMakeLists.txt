@@ -131,3 +131,4 @@ install(FILES  ktechlabui.rc ktechlabcircuitui.rc  	ktechlabflowcodeui.rc
 	ktechlabkateui.rc DESTINATION ${DATA_INSTALL_DIR}/ktechlab)
 install(FILES ktechlab.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 install(FILES ktechlab_mime.xml DESTINATION ${XDG_MIME_INSTALL_DIR})
+install(FILES ktechlab.appdata.xml DESTINATION ${DATA_INSTALL_DIR}/appdata )

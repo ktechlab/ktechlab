@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component type="desktop">
+  <id>ktechlab.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-2.0+</project_license>
+  <name>KTechlab</name>
+  <summary>IDE for microcontrollers and electronics</summary>
+  <description>
+    <p>
+      KTechlab is an IDE for microcontrollers and electronics designed to be as easy to use and unintrusive as possible.
+    </p>
+    <p>Features:</p>
+    <ul>
+      <li>Wide range of components with editable characteristics</li>
+      <li>Visual editor for circuits</li>
+      <li>Context help for the components</li>
+      <li>Two modes of connector routing: automatic and manual</li>
+      <li>Several ways to define the PIC logic: assembly code, Microbe (own high level programming language) code, C code, and visual FlowCode</li>
+      <li>Interconversion of the programming code between supported languages</li>
+      <li>Inbuilt debugger</li>
+      <li>Simulation with oscilloscope and probes</li>
+      <li>Uploading the assembly code to PIC using hardware programmer</li>
+    </ul>
+  </description>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://userbase.kde.org/images.userbase/e/e6/Ktechlab_screen.png</image>
+    </screenshot>
+  </screenshots>
+  <url type="homepage">https://userbase.kde.org/Special:myLanguage/KTechlab/games/knights/</url>
+  <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=ktechlab</url>
+  <project_group>KDE</project_group>
+  <provides>
+    <binary>ktechlab</binary>
+  </provides>
+</component>
