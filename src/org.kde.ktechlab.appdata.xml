@@ -4,22 +4,74 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>KTechlab</name>
+  <name xml:lang="pt">KTechlab</name>
+  <name xml:lang="sv">Ktechlab</name>
+  <name xml:lang="uk">KTechlab</name>
+  <name xml:lang="x-test">xxKTechlabxx</name>
   <summary>IDE for microcontrollers and electronics</summary>
+  <summary xml:lang="pt">IDE para micro-controladores e electrónica</summary>
+  <summary xml:lang="sv">En integrerad utvecklingsmiljö för mikrokontroller och elektronik</summary>
+  <summary xml:lang="uk">Комплексне середовище розробки для мікроконтролерів та електроніки</summary>
+  <summary xml:lang="x-test">xxIDE for microcontrollers and electronicsxx</summary>
   <description>
     <p>
       KTechlab is an IDE for microcontrollers and electronics designed to be as easy to use and unintrusive as possible.
     </p>
+    <p xml:lang="pt">O KTechlab é um IDE para micro-controladores e electrónica, desenhado para ser simples de usar e o menos incómodo possível.</p>
+    <p xml:lang="sv">Ktechlab är en integrerad utvecklingsmiljö för mikrokontroller och elektronik konstruerad för att vara så lättanvänd och lite påträngande som möjligt.</p>
+    <p xml:lang="uk">KTechlab — це комплексне середовище розробки для мікроконтролерів та електроніки, створене якомога простішим у користуванні і ненав’язливим.</p>
+    <p xml:lang="x-test">xxKTechlab is an IDE for microcontrollers and electronics designed to be as easy to use and unintrusive as possible.xx</p>
     <p>Features:</p>
+    <p xml:lang="pt">Funcionalidades:</p>
+    <p xml:lang="sv">Funktioner:</p>
+    <p xml:lang="uk">Можливості:</p>
+    <p xml:lang="x-test">xxFeatures:xx</p>
     <ul>
       <li>Wide range of components with editable characteristics</li>
+      <li xml:lang="pt">Gama abrangente de componentes com características editáveis</li>
+      <li xml:lang="sv">Stor mängd komponenter med redigerbara karaktäristika</li>
+      <li xml:lang="uk">Широкий діапазон компонентів із придатними до редагування властивостями.</li>
+      <li xml:lang="x-test">xxWide range of components with editable characteristicsxx</li>
       <li>Visual editor for circuits</li>
+      <li xml:lang="pt">Editor visual de circuitos</li>
+      <li xml:lang="sv">Visuell editor för kretsscheman</li>
+      <li xml:lang="uk">Візуальний редактор для схем.</li>
+      <li xml:lang="x-test">xxVisual editor for circuitsxx</li>
       <li>Context help for the components</li>
+      <li xml:lang="pt">Ajuda de contexto para os componentes</li>
+      <li xml:lang="sv">Sammanhangsberoende hjälp för komponenterna</li>
+      <li xml:lang="uk">Контекстна довідка до компонентів.</li>
+      <li xml:lang="x-test">xxContext help for the componentsxx</li>
       <li>Two modes of connector routing: automatic and manual</li>
+      <li xml:lang="pt">Dois modos de encaminhamento de ligações: automático e manual</li>
+      <li xml:lang="sv">Två sätt att sammankoppla anslutningar: automatisk och manuell</li>
+      <li xml:lang="uk">Два режими маршрутизації з’єднань: автоматичний і ручний.</li>
+      <li xml:lang="x-test">xxTwo modes of connector routing: automatic and manualxx</li>
       <li>Several ways to define the PIC logic: assembly code, Microbe (own high level programming language) code, C code, and visual FlowCode</li>
+      <li xml:lang="pt">Diversas formas de definir a lógica do PIC: código em Assembly, código em Microbe (linguagem de programação própria de alto nível), código em C e fluxogramas visuais.</li>
+      <li xml:lang="sv">Flera olika sätt att definiera PIC-logik: assemblerkod, Microbe-kod (eget högnivåprogramspråk), C-kod och visuell FlowCode</li>
+      <li xml:lang="uk">Декілька способів визначення логіки PIC: асемблерний код, Microbe (власна високорівнева мова програмування), код C та візуальний FlowCode.</li>
+      <li xml:lang="x-test">xxSeveral ways to define the PIC logic: assembly code, Microbe (own high level programming language) code, C code, and visual FlowCodexx</li>
       <li>Interconversion of the programming code between supported languages</li>
+      <li xml:lang="pt">Conversão do código programado entre as linguagens suportadas</li>
+      <li xml:lang="sv">Konvertering mellan programkoden mellan språk som stöds</li>
+      <li xml:lang="uk">Взаємне перетворення програмного коду між підтримуваними мовами.</li>
+      <li xml:lang="x-test">xxInterconversion of the programming code between supported languagesxx</li>
       <li>Inbuilt debugger</li>
+      <li xml:lang="pt">Depurador incorporado</li>
+      <li xml:lang="sv">inbyggd avlusare</li>
+      <li xml:lang="uk">Вбудований засіб діагностики.</li>
+      <li xml:lang="x-test">xxInbuilt debuggerxx</li>
       <li>Simulation with oscilloscope and probes</li>
+      <li xml:lang="pt">Simulação com osciloscópios e sondas</li>
+      <li xml:lang="sv">Simulering med oscilloskop och prober</li>
+      <li xml:lang="uk">Імітація за допомогою осцилоскопа і зондів.</li>
+      <li xml:lang="x-test">xxSimulation with oscilloscope and probesxx</li>
       <li>Uploading the assembly code to PIC using hardware programmer</li>
+      <li xml:lang="pt">Envio do código em Assembly para o PIC, usando um programador por 'hardware'</li>
+      <li xml:lang="sv">Uppladdning av assemblerkoden till en PIC med användning av hårdvaruprogrammerare</li>
+      <li xml:lang="uk">Вивантаження асемблерного коду на PIC за допомогою апаратного програматора.</li>
+      <li xml:lang="x-test">xxUploading the assembly code to PIC using hardware programmerxx</li>
     </ul>
   </description>
   <screenshots>
