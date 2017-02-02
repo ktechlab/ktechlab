@@ -6,6 +6,7 @@
   <name>KTechlab</name>
   <name xml:lang="nl">KTechlab</name>
   <name xml:lang="pt">KTechlab</name>
+  <name xml:lang="pt-BR">KTechlab</name>
   <name xml:lang="sk">KTechlab</name>
   <name xml:lang="sv">Ktechlab</name>
   <name xml:lang="uk">KTechlab</name>
@@ -13,6 +14,7 @@
   <summary>IDE for microcontrollers and electronics</summary>
   <summary xml:lang="nl">IDE (ontwikkelomgeving) voor microcontrollers en elektronica</summary>
   <summary xml:lang="pt">IDE para micro-controladores e electrónica</summary>
+  <summary xml:lang="pt-BR">IDE para microcontroladores e eletrônicos</summary>
   <summary xml:lang="sv">En integrerad utvecklingsmiljö för mikrokontroller och elektronik</summary>
   <summary xml:lang="uk">Комплексне середовище розробки для мікроконтролерів та електроніки</summary>
   <summary xml:lang="x-test">xxIDE for microcontrollers and electronicsxx</summary>
@@ -22,12 +24,14 @@
     </p>
     <p xml:lang="nl">KTechlab is een IDE (ontwikkelomgeving) voor microcontrollers en elektronica ontworpen voor gemakkelijk gebruik en zo weinig opdringerig als mogelijk.</p>
     <p xml:lang="pt">O KTechlab é um IDE para micro-controladores e electrónica, desenhado para ser simples de usar e o menos incómodo possível.</p>
+    <p xml:lang="pt-BR">O KTechlab é uma IDE para microcontroladores e eletrônicos desenhada para ser fácil de usar e o menos intrusivo possível.</p>
     <p xml:lang="sv">Ktechlab är en integrerad utvecklingsmiljö för mikrokontroller och elektronik konstruerad för att vara så lättanvänd och lite påträngande som möjligt.</p>
     <p xml:lang="uk">KTechlab — це комплексне середовище розробки для мікроконтролерів та електроніки, створене якомога простішим у користуванні і ненав’язливим.</p>
     <p xml:lang="x-test">xxKTechlab is an IDE for microcontrollers and electronics designed to be as easy to use and unintrusive as possible.xx</p>
     <p>Features:</p>
     <p xml:lang="nl">Kenmerken:</p>
     <p xml:lang="pt">Funcionalidades:</p>
+    <p xml:lang="pt-BR">Funcionalidades:</p>
     <p xml:lang="sk">Funkcie:</p>
     <p xml:lang="sv">Funktioner:</p>
     <p xml:lang="uk">Можливості:</p>
@@ -42,6 +46,7 @@
       <li>Visual editor for circuits</li>
       <li xml:lang="nl">Visuele bewerker voor schakelingen</li>
       <li xml:lang="pt">Editor visual de circuitos</li>
+      <li xml:lang="pt-BR">Editor visual para circuitos</li>
       <li xml:lang="sv">Visuell editor för kretsscheman</li>
       <li xml:lang="uk">Візуальний редактор для схем.</li>
       <li xml:lang="x-test">xxVisual editor for circuitsxx</li>
