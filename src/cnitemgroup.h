@@ -58,7 +58,7 @@ public:
 	 */
 	bool addConnector( Connector *con );
 	/**
-	 * If the item is a a CNItem, Node or Connector, returns the status
+	 * If the item is a CNItem, Node or Connector, returns the status
 	 * for that particular add function, else returns false
 	 */
 	virtual bool addQCanvasItem( KtlQCanvasItem *qcanvasItem );
@@ -79,7 +79,7 @@ public:
 	 */
 	void removeConnector( Connector *con );
 	/**
-	 * If the item is a a CNItem, Node or Connector, then attempts to remove it
+	 * If the item is a CNItem, Node or Connector, then attempts to remove it
 	 */
 	virtual void removeQCanvasItem( KtlQCanvasItem *qcanvasItem );
 	/**

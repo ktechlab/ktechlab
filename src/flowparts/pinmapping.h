@@ -87,8 +87,8 @@ class PinMapEditor : public KDialog
 /**
 For use with FlowParts that require a pin map (e.g. Keypad and Seven Segment).
 @author David Saxton
-To see a document like this: put down a PIC, clik advanced on it, then down in the pin map definitions dialog
-clik add/modifify, select something in the appearing dialog, and there is is.
+To see a document like this: put down a PIC, click advanced on it, then down in the pin map definitions dialog
+click add/modify, select something in the appearing dialog, and there is it.
 It's similar to a circuit.
 */
 // because this document is similar to a circuit, the nodes are the electronic nodes
