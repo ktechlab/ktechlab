@@ -4,6 +4,7 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>KTechlab</name>
+  <name xml:lang="es">KTechlab</name>
   <name xml:lang="nl">KTechlab</name>
   <name xml:lang="pt">KTechlab</name>
   <name xml:lang="pt-BR">KTechlab</name>
@@ -22,6 +23,7 @@
     <p>
       KTechlab is an IDE for microcontrollers and electronics designed to be as easy to use and unintrusive as possible.
     </p>
+    <p xml:lang="es">KTechlab es un entorno de desarrollo integrado para microcontroladores y electrónica diseñado para que sea fácil de usar y lo menos intrusivo posible.</p>
     <p xml:lang="nl">KTechlab is een IDE (ontwikkelomgeving) voor microcontrollers en elektronica ontworpen voor gemakkelijk gebruik en zo weinig opdringerig als mogelijk.</p>
     <p xml:lang="pt">O KTechlab é um IDE para micro-controladores e electrónica, desenhado para ser simples de usar e o menos incómodo possível.</p>
     <p xml:lang="pt-BR">O KTechlab é uma IDE para microcontroladores e eletrônicos desenhada para ser fácil de usar e o menos intrusivo possível.</p>
@@ -38,12 +40,14 @@
     <p xml:lang="x-test">xxFeatures:xx</p>
     <ul>
       <li>Wide range of components with editable characteristics</li>
+      <li xml:lang="es">Amplio abanico de componentes con características editables</li>
       <li xml:lang="nl">Brede reeks van componenten met bewerkbare karakteristieken</li>
       <li xml:lang="pt">Gama abrangente de componentes com características editáveis</li>
       <li xml:lang="sv">Stor mängd komponenter med redigerbara karaktäristika</li>
       <li xml:lang="uk">Широкий діапазон компонентів із придатними до редагування властивостями.</li>
       <li xml:lang="x-test">xxWide range of components with editable characteristicsxx</li>
       <li>Visual editor for circuits</li>
+      <li xml:lang="es">Editor de circuitos visual</li>
       <li xml:lang="nl">Visuele bewerker voor schakelingen</li>
       <li xml:lang="pt">Editor visual de circuitos</li>
       <li xml:lang="pt-BR">Editor visual para circuitos</li>
@@ -87,6 +91,7 @@
       <li xml:lang="uk">Імітація за допомогою осцилоскопа і зондів.</li>
       <li xml:lang="x-test">xxSimulation with oscilloscope and probesxx</li>
       <li>Uploading the assembly code to PIC using hardware programmer</li>
+      <li xml:lang="es">Envío del código ensamblador al PIC usando el programador hardware</li>
       <li xml:lang="nl">Uploaden van de assembly code naar PIC met hardware programmeerder</li>
       <li xml:lang="pt">Envio do código em Assembly para o PIC, usando um programador por 'hardware'</li>
       <li xml:lang="sv">Uppladdning av assemblerkoden till en PIC med användning av hårdvaruprogrammerare</li>
