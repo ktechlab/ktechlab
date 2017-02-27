@@ -14,6 +14,7 @@
   <name xml:lang="uk">KTechlab</name>
   <name xml:lang="x-test">xxKTechlabxx</name>
   <summary>IDE for microcontrollers and electronics</summary>
+  <summary xml:lang="es">IDE para microcontroladores y sistemas electrónicos</summary>
   <summary xml:lang="nl">IDE (ontwikkelomgeving) voor microcontrollers en elektronica</summary>
   <summary xml:lang="pt">IDE para micro-controladores e electrónica</summary>
   <summary xml:lang="pt-BR">IDE para microcontroladores e eletrônicos</summary>
@@ -33,6 +34,7 @@
     <p xml:lang="x-test">xxKTechlab is an IDE for microcontrollers and electronics designed to be as easy to use and unintrusive as possible.xx</p>
     <p>Features:</p>
     <p xml:lang="cs">Vlastnosti:</p>
+    <p xml:lang="es">Funciones:</p>
     <p xml:lang="nl">Kenmerken:</p>
     <p xml:lang="pt">Funcionalidades:</p>
     <p xml:lang="pt-BR">Funcionalidades:</p>
@@ -57,6 +59,7 @@
       <li xml:lang="uk">Візуальний редактор для схем.</li>
       <li xml:lang="x-test">xxVisual editor for circuitsxx</li>
       <li>Context help for the components</li>
+      <li xml:lang="es">Ayuda de contexto para los componentes</li>
       <li xml:lang="nl">Contexthulp voor de componenten</li>
       <li xml:lang="pt">Ajuda de contexto para os componentes</li>
       <li xml:lang="sv">Sammanhangsberoende hjälp för komponenterna</li>
@@ -75,12 +78,14 @@
       <li xml:lang="uk">Декілька способів визначення логіки PIC: асемблерний код, Microbe (власна високорівнева мова програмування), код C та візуальний FlowCode.</li>
       <li xml:lang="x-test">xxSeveral ways to define the PIC logic: assembly code, Microbe (own high level programming language) code, C code, and visual FlowCodexx</li>
       <li>Interconversion of the programming code between supported languages</li>
+      <li xml:lang="es">Conversión interna del código de programación entre los lenguajes permitidos</li>
       <li xml:lang="nl">Onderlinge conversie van de programmeercode tussen ondersteunde talen</li>
       <li xml:lang="pt">Conversão do código programado entre as linguagens suportadas</li>
       <li xml:lang="sv">Konvertering mellan programkoden mellan språk som stöds</li>
       <li xml:lang="uk">Взаємне перетворення програмного коду між підтримуваними мовами.</li>
       <li xml:lang="x-test">xxInterconversion of the programming code between supported languagesxx</li>
       <li>Inbuilt debugger</li>
+      <li xml:lang="es">Depurador integrado</li>
       <li xml:lang="nl">Ingebouwde debugger</li>
       <li xml:lang="pt">Depurador incorporado</li>
       <li xml:lang="sv">inbyggd avlusare</li>
