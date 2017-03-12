@@ -76,6 +76,7 @@ endif()
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(GLib
+    FOUND_VAR GLib_FOUND
     REQUIRED_VARS
       GLib_LIBRARY
       GLib_INCLUDE_DIRS
