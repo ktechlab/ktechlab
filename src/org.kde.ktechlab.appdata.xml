@@ -68,12 +68,14 @@
       <li xml:lang="uk">Контекстна довідка до компонентів.</li>
       <li xml:lang="x-test">xxContext help for the componentsxx</li>
       <li>Two modes of connector routing: automatic and manual</li>
+      <li xml:lang="es">Dos modos de rutas de conectores: automático y manual</li>
       <li xml:lang="nl">Twee manieren van routering van verbindingen: automatisch en handmatig</li>
       <li xml:lang="pt">Dois modos de encaminhamento de ligações: automático e manual</li>
       <li xml:lang="sv">Två sätt att sammankoppla anslutningar: automatisk och manuell</li>
       <li xml:lang="uk">Два режими маршрутизації з’єднань: автоматичний і ручний.</li>
       <li xml:lang="x-test">xxTwo modes of connector routing: automatic and manualxx</li>
       <li>Several ways to define the PIC logic: assembly code, Microbe (own high level programming language) code, C code, and visual FlowCode</li>
+      <li xml:lang="es">Diversos modos de definir la lógica del PIC: código ensamblador, código Microbe (lenguaje de programación propio de alto nivel), código C y FlowCode visual</li>
       <li xml:lang="nl">Verschillende manieren om de PIC-logica te definiëren: assembly code, Microbe (eigen hoog niveau programmeertaal) code, C code en visuele FlowCode</li>
       <li xml:lang="pt">Diversas formas de definir a lógica do PIC: código em Assembly, código em Microbe (linguagem de programação própria de alto nível), código em C e fluxogramas visuais.</li>
       <li xml:lang="sv">Flera olika sätt att definiera PIC-logik: assemblerkod, Microbe-kod (eget högnivåprogramspråk), C-kod och visuell FlowCode</li>
@@ -94,6 +96,7 @@
       <li xml:lang="uk">Вбудований засіб діагностики.</li>
       <li xml:lang="x-test">xxInbuilt debuggerxx</li>
       <li>Simulation with oscilloscope and probes</li>
+      <li xml:lang="es">Simulación con osciloscopio y sondas</li>
       <li xml:lang="nl">Simulatie met oscilloscope en probes</li>
       <li xml:lang="pt">Simulação com osciloscópios e sondas</li>
       <li xml:lang="sv">Simulering med oscilloskop och prober</li>
