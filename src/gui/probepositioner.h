@@ -11,7 +11,7 @@
 #ifndef PROBEPOSITIONER_H
 #define PROBEPOSITIONER_H
 
-#include <Qt/qwidget.h>
+#include <qwidget.h>
 
 class ProbeData;
 typedef QMap< int, ProbeData* > ProbeDataMap;

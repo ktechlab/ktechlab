@@ -17,7 +17,7 @@
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <k3process.h>
-#include <Qt/qregexp.h>
+#include <qregexp.h>
 
 #include <ktlconfig.h>
 

@@ -23,10 +23,10 @@
 #include <knuminput.h>
 #include <kpushbutton.h>
 #include <kstandarddirs.h>
-#include <Qt/qgroupbox.h>
-#include <Qt/qlabel.h>
-#include <Qt/qslider.h>
-#include <Qt/qtimer.h>
+#include <qgroupbox.h>
+#include <qlabel.h>
+#include <qslider.h>
+#include <qtimer.h>
 
 #include <ktlconfig.h>
 #include <ui_asmformattingwidget.h>

@@ -32,7 +32,7 @@
 
 #include <kdebug.h>
 #include <klocale.h>
-#include <Qt/qregexp.h>
+#include <qregexp.h>
 
 Expression::Expression( PIC14 *pic, Microbe *master, SourceLine sourceLine, bool suppressNumberTooBig )
 	: m_sourceLine(sourceLine)

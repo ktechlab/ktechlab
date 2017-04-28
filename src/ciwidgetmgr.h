@@ -11,8 +11,8 @@
 #ifndef CIWIDGETMGR_H
 #define CIWIDGETMGR_H
 
-#include <Qt/qmap.h>
-#include <Qt/qstring.h>
+#include <qmap.h>
+#include <qstring.h>
 #include <QIcon>
 
 class Button;

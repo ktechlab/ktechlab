@@ -27,7 +27,7 @@
 #include "optimizer.h"
 #include "pic14.h"
 #include <kdebug.h>
-#include <Qt/qstringlist.h>
+#include <qstringlist.h>
 #include <cassert>
 #include <iostream>
 using namespace std;

@@ -11,8 +11,8 @@
 #ifndef MICROSETTINGS_H
 #define MICROSETTINGS_H
 
-#include <Qt/qobject.h>
-#include <Qt/qvariant.h>
+#include <qobject.h>
+#include <qvariant.h>
 
 class QString;
 class QVariant;

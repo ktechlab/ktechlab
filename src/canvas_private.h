@@ -13,9 +13,9 @@
 #ifndef CANVAS_PRIVATE_H
 #define CANVAS_PRIVATE_H
 
-#include "Qt/qbitmap.h"
-#include "Qt/qimage.h"
-#include <Qt/q3polygonscanner.h>
+#include "qbitmap.h"
+#include "qimage.h"
+#include <q3polygonscanner.h>
 
 class KtlQPolygonalProcessor
 {

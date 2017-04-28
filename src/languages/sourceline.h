@@ -11,7 +11,7 @@
 #ifndef SOURCELINE_H
 #define SOURCELINE_H
 
-#include <Qt/qstring.h>
+#include <qstring.h>
 
 /**
 @author David Saxton

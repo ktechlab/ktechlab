@@ -13,7 +13,7 @@
 #include <time.h>
 
 #include <kdebug.h>
-#include <Qt/qtimer.h>
+#include <qtimer.h>
 
 #include "circuitdocument.h"
 #include "component.h"

@@ -16,7 +16,7 @@
 
 #include <kdebug.h>
 
-#include <Qt/qpainter.h>
+#include <qpainter.h>
 
 QColor Node::m_selectedColor = QColor( 101, 134, 192 );
 

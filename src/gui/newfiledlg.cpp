@@ -25,11 +25,11 @@
 #include <kiconloader.h>
 
 #include <canvas.h>
-#include <Qt/qcheckbox.h>
-#include <Qt/qdir.h>
-#include <Qt/qfile.h>
-#include <Qt/qlabel.h>
-#include <Qt/q3paintdevicemetrics.h>
+#include <qcheckbox.h>
+#include <qdir.h>
+#include <qfile.h>
+#include <qlabel.h>
+#include <q3paintdevicemetrics.h>
 
 #include <ui_newfilewidget.h>
 

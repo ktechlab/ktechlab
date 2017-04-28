@@ -9,8 +9,8 @@
 
 #include "diagnosticstyle.h"
 
-#include <Qt/qpainter.h>
-#include <Qt/qwidget.h>
+#include <qpainter.h>
+#include <qwidget.h>
 
 void DiagnosticStyle::drawControl(ControlElement element, const QStyleOption* option, QPainter* painter, const QWidget* widget) const
 {

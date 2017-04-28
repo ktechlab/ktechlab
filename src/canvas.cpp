@@ -13,15 +13,15 @@
 
 #include <kdebug.h>
 
-#include "Qt/qapplication.h"
-#include "Qt/qbitmap.h"
-//#include "Qt/q3ptrdict.h"
-#include "Qt/qpainter.h"
-#include "Qt/q3polygonscanner.h"
-#include "Qt/qtimer.h"
-#include "Qt/q3tl.h"
-#include <Qt/q3scrollview.h>
-#include <Qt/qdesktopwidget.h>
+#include "qapplication.h"
+#include "qbitmap.h"
+//#include "q3ptrdict.h"
+#include "qpainter.h"
+#include "q3polygonscanner.h"
+#include "qtimer.h"
+#include "q3tl.h"
+#include <q3scrollview.h>
+#include <qdesktopwidget.h>
 
 
 #include <stdlib.h>

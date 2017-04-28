@@ -39,10 +39,10 @@
 
 #include <cmath>
 #include <kdebug.h>
-#include <Qt/qbitarray.h>
-#include <Qt/qpainter.h>
-#include <Qt/qwidget.h>
-#include <Qt/qwmatrix.h>
+#include <qbitarray.h>
+#include <qpainter.h>
+#include <qwidget.h>
+#include <qwmatrix.h>
 
 #include <ktlconfig.h>
 

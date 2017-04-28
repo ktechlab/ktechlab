@@ -12,7 +12,7 @@
 #include "itemdocument.h"
 #include "itemview.h"
 
-#include <Qt/qnamespace.h>
+#include <qnamespace.h>
 
 EventInfo::EventInfo()
 {

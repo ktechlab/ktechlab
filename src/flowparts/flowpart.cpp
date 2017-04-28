@@ -25,11 +25,11 @@
 
 #include <kdebug.h>
 
-#include <Qt/qbitarray.h>
-#include <Qt/qbitmap.h>
-#include <Qt/qpainter.h>
-#include <Qt/qpixmap.h>
-#include <Qt/qregexp.h>
+#include <qbitarray.h>
+#include <qbitmap.h>
+#include <qpainter.h>
+#include <qpixmap.h>
+#include <qregexp.h>
 
 #include <cassert>
 #include <algorithm>

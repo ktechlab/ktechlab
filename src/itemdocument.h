@@ -15,9 +15,9 @@
 #include <document.h>
 #include <canvas.h>
 
-#include <Qt/qmap.h>
-#include <Qt/q3ptrstack.h>
-#include <Qt/q3valuevector.h>
+#include <qmap.h>
+#include <q3ptrstack.h>
+#include <q3valuevector.h>
 
 class Canvas;
 class CanvasTip;

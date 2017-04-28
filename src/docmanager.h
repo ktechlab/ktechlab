@@ -15,7 +15,7 @@
 
 #include <kurl.h>
 
-#include <Qt/qpointer.h>
+#include <qpointer.h>
 
 class CircuitDocument;
 class DocManager;

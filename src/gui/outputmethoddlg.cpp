@@ -22,9 +22,9 @@
 #include <k3tempfile.h>
 #include <kurlrequester.h>
 
-#include <Qt/qcheckbox.h>
-#include <Qt/qfile.h>
-#include <Qt/qradiobutton.h>
+#include <qcheckbox.h>
+#include <qfile.h>
+#include <qradiobutton.h>
 
 #include <ui_outputmethodwidget.h>
 

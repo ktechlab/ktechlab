@@ -18,13 +18,13 @@
 #include <kiconloader.h>
 #include <klocalizedstring.h>
 
-#include <Qt/qcolor.h>
-#include <Qt/qcursor.h>
-#include <Qt/qfont.h>
-#include <Qt/qpainter.h>
-#include <Qt/qpixmap.h>
-#include <Qt/qpoint.h>
-#include <Qt/qsize.h>
+#include <qcolor.h>
+#include <qcursor.h>
+#include <qfont.h>
+#include <qpainter.h>
+#include <qpixmap.h>
+#include <qpoint.h>
+#include <qsize.h>
 
 
 //BEGIN Class PropertyEditorItem

@@ -22,10 +22,10 @@
 
 #include "logtofilemsghandler.h"
 
-#include <QtCore/QtGlobal>
-#include <QtCore/QDebug>
-#include <QtCore/QDate>
-#include <Qt/qapplication.h>
+#include <QtGlobal>
+#include <QDebug>
+#include <QDate>
+#include <qapplication.h>
 
 #include <stdlib.h>
 #include <stdio.h>

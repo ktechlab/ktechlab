@@ -20,7 +20,7 @@
 
 #include <cmath>
 #include <klocalizedstring.h>
-#include <Qt/qpainter.h>
+#include <qpainter.h>
 
 
 //BEGIN class Meter

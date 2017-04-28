@@ -14,10 +14,10 @@
 #include "switch.h"
 
 #include <klocalizedstring.h>
-#include <Qt/qpainter.h>
-#include <Qt/qpixmap.h>
-#include <Qt/qpoint.h>
-//#include <Qt/q3pointarray.h>
+#include <qpainter.h>
+#include <qpixmap.h>
+#include <qpoint.h>
+//#include <q3pointarray.h>
 
 //BEGIN class ECPTBSwitch
 Item* ECPTBSwitch::construct( ItemDocument *itemDocument, bool newItem, const char *id )

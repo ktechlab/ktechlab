@@ -19,7 +19,7 @@
 #include "voltagesource.h"
 
 #include <klocalizedstring.h>
-#include <Qt/qpainter.h>
+#include <qpainter.h>
 
 //BEGIN class Probe
 Probe::Probe( ICNDocument *icnDocument, bool newItem, const char *id )

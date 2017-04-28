@@ -12,9 +12,9 @@
 #define CANVASITEMPARTS_H
 
 #include <canvas.h>
-#include <Qt/qpointer.h>
-#include <Qt/qslider.h>
-#include <Qt/qtoolbutton.h>
+#include <qpointer.h>
+#include <qslider.h>
+#include <qtoolbutton.h>
 #include <QIcon>
 
 class Cells;

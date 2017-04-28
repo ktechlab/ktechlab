@@ -14,8 +14,8 @@
 #ifndef VARIABLELABEL_H
 #define VARIABLELABEL_H
 
-#include <Qt/qpointer.h>
-#include <Qt/qlabel.h>
+#include <qpointer.h>
+#include <qlabel.h>
 
 class TextView;
 

@@ -13,8 +13,8 @@
 #include "libraryitem.h"
 
 #include <klocalizedstring.h>
-#include <Qt/qpainter.h>
-#include <Qt/qwmatrix.h>
+#include <qpainter.h>
+#include <qwmatrix.h>
 
 #include <algorithm>
 #include <cmath>

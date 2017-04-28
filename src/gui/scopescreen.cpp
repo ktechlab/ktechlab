@@ -24,12 +24,12 @@
 #include <klocalizedstring.h>
 #include <knuminput.h>
 
-#include <Qt/q3button.h>
-#include <Qt/qlabel.h>
-#include <Qt/qscrollbar.h>
-#include <Qt/qslider.h>
-#include <Qt/qtimer.h>
-#include <Qt/qtoolbutton.h>
+#include <q3button.h>
+#include <qlabel.h>
+#include <qscrollbar.h>
+#include <qslider.h>
+#include <qtimer.h>
+#include <qtoolbutton.h>
 
 #include <cassert>
 

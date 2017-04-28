@@ -28,9 +28,9 @@
 #include <cassert>
 #include <kdebug.h>
 #include <klocale.h>
-#include <Qt/qfile.h>
-#include <Qt/qregexp.h>
-#include <Qt/qstring.h>
+#include <qfile.h>
+#include <qregexp.h>
+#include <qstring.h>
 
 #include <iostream>
 using namespace std;

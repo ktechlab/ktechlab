@@ -19,7 +19,7 @@
 #include <kmessagebox.h>
 #include <kstandarddirs.h>
 
-#include <Qt/qfile.h>
+#include <qfile.h>
 #include <k3process.h>
 
 Microbe::Microbe( ProcessChain *processChain )

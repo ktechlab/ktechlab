@@ -14,8 +14,8 @@
 #include "libraryitem.h"
 
 #include <klocalizedstring.h>
-#include <Qt/qpainter.h>
-#include <Qt/qstyle.h>
+#include <qpainter.h>
+#include <qstyle.h>
 #include <kdebug.h>
 
 Item* VariableResistor::construct( ItemDocument *itemDocument, bool newItem, const char *id )

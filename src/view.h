@@ -18,11 +18,11 @@
 #include <kurl.h>
 #include <kxmlguiclient.h>
 
-#include <Qt/qpointer.h>
-#include <Qt/qpixmap.h>
-#include <Qt/qpainter.h>
-#include <Qt/qevent.h>
-#include <Qt/qpalette.h>
+#include <qpointer.h>
+#include <qpixmap.h>
+#include <qpainter.h>
+#include <qevent.h>
+#include <qpalette.h>
 
 
 class DCOPObject;

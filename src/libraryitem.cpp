@@ -13,7 +13,7 @@
 #include <kiconloader.h>
 #include <kicontheme.h>
 #include <kstandarddirs.h>
-#include <Qt/qimage.h>
+#include <qimage.h>
 
 LibraryItem::LibraryItem( QStringList idList, const QString &name, const QString &category, QPixmap icon, Type type, createItemPtr _createItem )
 {

@@ -34,8 +34,8 @@
 #include <kconfiggroup.h>
 #include <kmenu.h>
 
-#include <Qt/q3intdict.h>
-#include <Qt/qevent.h>
+#include <q3intdict.h>
+#include <qevent.h>
 
 
 typedef QList<int> IntList;

@@ -13,7 +13,7 @@
 
 #include <cassert>
 #include <map>
-#include <Qt/qrect.h>
+#include <qrect.h>
 #include "utils.h"
 
 class Point

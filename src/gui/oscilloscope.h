@@ -21,8 +21,8 @@
 
 #include "simulator.h"
 
-#include <Qt/qmap.h>
-#include <Qt/qwidget.h>
+#include <qmap.h>
+#include <qwidget.h>
 
 #include <stdint.h>
 

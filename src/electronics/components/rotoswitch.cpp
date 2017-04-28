@@ -16,7 +16,7 @@
 #include "switch.h"
 
 #include <klocalizedstring.h>
-#include <Qt/qpainter.h>
+#include <qpainter.h>
 #include <cmath>
 #include <cassert>
 

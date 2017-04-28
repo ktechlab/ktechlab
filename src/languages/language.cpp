@@ -22,8 +22,8 @@
 #include <kmessagebox.h>
 #include <k3process.h>
 
-#include <Qt/qregexp.h>
-#include <Qt/qtimer.h>
+#include <qregexp.h>
+#include <qtimer.h>
 
 #include <ktlconfig.h>
 

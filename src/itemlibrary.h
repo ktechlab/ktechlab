@@ -12,9 +12,9 @@
 
 #include <klocalizedstring.h>
 
-#include <Qt/qcolor.h>
-#include <Qt/qobject.h>
-#include <Qt/qmap.h>
+#include <qcolor.h>
+#include <qobject.h>
+#include <qmap.h>
 
 class Component;
 class Document;

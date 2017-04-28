@@ -17,8 +17,8 @@
 // #include <kate/view.h>
 #include <ktexteditor/view.h>
 
-#include <Qt/qpointer.h>
-#include <Qt/qlabel.h>
+#include <qpointer.h>
+#include <qlabel.h>
 
 class QMouseEvent;
 class RegisterInfo;

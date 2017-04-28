@@ -10,8 +10,8 @@
 #ifndef ITEMEDITOR_H
 #define ITEMEDITOR_H
 
-#include <Qt/qwidget.h>
-#include <Qt/qpointer.h>
+#include <qwidget.h>
+#include <qpointer.h>
 
 class ComponentModelWidget;
 class CNItem;

@@ -25,12 +25,12 @@
 #include <kpushbutton.h>
 #include <kicon.h>
 
-#include <Qt/q3header.h>
-#include <Qt/qevent.h>
-#include <Qt/qfontmetrics.h>
-#include <Qt/qtimer.h>
-#include <Qt/qapplication.h>
-#include <Qt/qeventloop.h>
+#include <q3header.h>
+#include <qevent.h>
+#include <qfontmetrics.h>
+#include <qtimer.h>
+#include <qapplication.h>
+#include <qeventloop.h>
 
 PropertyEditor::PropertyEditor( QWidget * parent, const char * name )
 	: K3ListView( parent /*, name */ )

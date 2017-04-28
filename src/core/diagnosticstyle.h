@@ -10,7 +10,7 @@
 #ifndef KTECHLAB_CORE_MAIN_H__
 #define KTECHLAB_CORE_MAIN_H__
 
-#include <QtGui/QMotifStyle>
+#include <QMotifStyle>
 
 /**
  * see approach from here:

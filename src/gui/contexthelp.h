@@ -13,7 +13,7 @@
 
 #include <ui_contexthelpwidget.h>
 
-#include <Qt/qpointer.h>
+#include <qpointer.h>
 #include <ktextedit.h>
 
 class Item;

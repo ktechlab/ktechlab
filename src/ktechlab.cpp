@@ -39,11 +39,11 @@
 #include "textview.h"
 #include "viewcontainer.h"
 
-#include <Qt/q3dockarea.h>
-#include <Qt/qtimer.h>
-#include <Qt/qtoolbutton.h>
-#include <Qt/q3ptrlist.h>
-#include <Qt/qdesktopwidget.h>
+#include <q3dockarea.h>
+#include <qtimer.h>
+#include <qtoolbutton.h>
+#include <q3ptrlist.h>
+#include <qdesktopwidget.h>
 
 #include <ktoolbar.h>
 #include <kstdaccel.h>

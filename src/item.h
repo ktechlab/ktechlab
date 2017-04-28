@@ -15,7 +15,7 @@
 #include "itemdocument.h"
 
 #include <canvas.h>
-#include <Qt/qpointer.h>
+#include <qpointer.h>
 
 class Document;
 class EventInfo;

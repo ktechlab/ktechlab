@@ -30,15 +30,15 @@
 #include <kmessagebox.h>
 #include <kstandarddirs.h>
 
-#include <Qt/qbitmap.h>
-#include <Qt/qdir.h>
-#include <Qt/qfile.h>
-#include <Qt/qimage.h>
-#include <Qt/qpainter.h>
-#include <Qt/qpixmap.h>
-#include <Qt/qpushbutton.h>
-#include <Qt/qregexp.h>
-#include <Qt/qtimer.h>
+#include <qbitmap.h>
+#include <qdir.h>
+#include <qfile.h>
+#include <qimage.h>
+#include <qpainter.h>
+#include <qpixmap.h>
+#include <qpushbutton.h>
+#include <qregexp.h>
+#include <qtimer.h>
 
 #include <cassert>
 

@@ -22,7 +22,7 @@
 #include <ktabwidget.h>
 #include <kconfiggroup.h>
 
-//#include <Qt/qobjectlist.h>
+//#include <qobjectlist.h>
 
 
 //BEGIN class ViewContainer

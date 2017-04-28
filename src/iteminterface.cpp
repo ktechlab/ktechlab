@@ -29,9 +29,9 @@
 #include <ktoolbar.h>
 #include <kxmlguifactory.h>
 
-#include <Qt/qapplication.h>
-#include <Qt/qlabel.h>
-#include <Qt/qcheckbox.h>
+#include <qapplication.h>
+#include <qlabel.h>
+#include <qcheckbox.h>
 
 #include <cassert>
 

@@ -19,7 +19,7 @@
 #include <k3process.h>
 #include <kdebug.h>
 
-#include <Qt/qfile.h>
+#include <qfile.h>
 
 #include <ktlconfig.h>
 

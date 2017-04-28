@@ -36,18 +36,18 @@
 #include <kactionmenu.h>
 #include <kxmlguifactory.h>
 
-#include <Qt/qapplication.h>
-#include <Qt/qcheckbox.h>
-#include <Qt/qclipboard.h>
-#include <Qt/qcursor.h>
-#include <Qt/qimage.h>
-#include <Qt/q3paintdevicemetrics.h>
-#include <Qt/qpainter.h>
-#include <Qt/qpicture.h>
-#include <Qt/qregexp.h> 
-#include <Qt/q3simplerichtext.h>
-#include <Qt/qtimer.h>
-#include <Qt/qprinter.h>
+#include <qapplication.h>
+#include <qcheckbox.h>
+#include <qclipboard.h>
+#include <qcursor.h>
+#include <qimage.h>
+#include <q3paintdevicemetrics.h>
+#include <qpainter.h>
+#include <qpicture.h>
+#include <qregexp.h>
+#include <q3simplerichtext.h>
+#include <qtimer.h>
+#include <qprinter.h>
 
 #include <cmath>
 #include <cassert>

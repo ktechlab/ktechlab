@@ -11,10 +11,10 @@
 #ifndef PICPACKAGES_H
 #define PICPACKAGES_H
 
-#include <Qt/qstring.h>
-#include <Qt/qstringlist.h>
+#include <qstring.h>
+#include <qstringlist.h>
 
-#include <Qt/qmap.h>
+#include <qmap.h>
 
 /**
 @author David Saxton

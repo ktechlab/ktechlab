@@ -10,7 +10,7 @@
 #ifndef RICHTEXTEDITOR_H
 #define RICHTEXTEDITOR_H
 
-#include <Qt/qwidget.h>
+#include <qwidget.h>
 
 #include <kdialog.h>
 //#include <kdialog.h>

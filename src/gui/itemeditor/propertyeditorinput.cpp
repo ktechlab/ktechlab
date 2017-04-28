@@ -21,9 +21,9 @@
 #include <kglobal.h>
 #include <kdebug.h>
 
-#include <Qt/qiconset.h>
-#include <Qt/qtoolbutton.h>
-#include <Qt/qevent.h>
+#include <qiconset.h>
+#include <qtoolbutton.h>
+#include <qevent.h>
 
 #include <limits.h>
 

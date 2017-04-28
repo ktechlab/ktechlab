@@ -17,7 +17,7 @@
 
 #include <kdebug.h>
 #include <klocalizedstring.h>
-#include <Qt/qfile.h>
+#include <qfile.h>
 
 Item* ECSubcircuit::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {

@@ -34,9 +34,9 @@
 #include <kconfiggroup.h>
 #include <ksharedconfig.h>
 
-#include <Qt/qcursor.h>
-#include <Qt/qpainter.h>
-#include <Qt/qtimer.h>
+#include <qcursor.h>
+#include <qpainter.h>
+#include <qtimer.h>
 
 // FIXME: This source file is HUUUGE!!!, contains numerous clases, should be broken down. 
 

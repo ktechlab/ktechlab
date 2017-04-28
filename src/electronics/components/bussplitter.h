@@ -13,8 +13,8 @@
 
 #include <component.h>
 
-#include <Qt/qpointer.h>
-#include <Qt/q3valuevector.h>
+#include <qpointer.h>
+#include <q3valuevector.h>
 
 class Wire;
 

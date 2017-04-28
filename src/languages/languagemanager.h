@@ -11,8 +11,8 @@
 #ifndef LANGUAGEMANAGER_H
 #define LANGUAGEMANAGER_H
 
-#include <Qt/qobject.h>
-#include <Qt/qlist.h>
+#include <qobject.h>
+#include <qlist.h>
 
 #include "language.h"
 

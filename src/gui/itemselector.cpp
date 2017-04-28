@@ -25,9 +25,9 @@
 #include <klocalizedstring.h>
 #include <kconfiggroup.h>
 
-#include <Qt/q3dragobject.h>
-#include <Qt/qlayout.h>
-#include <Qt/q3popupmenu.h>
+#include <q3dragobject.h>
+#include <qlayout.h>
+#include <q3popupmenu.h>
 
 #include <cassert>
 

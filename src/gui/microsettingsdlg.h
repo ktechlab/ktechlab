@@ -13,9 +13,9 @@
 
 #include <kdialog.h>
 
-#include <Qt/qmap.h>
-#include <Qt/qvalidator.h>
-#include <Qt/q3valuevector.h>
+#include <qmap.h>
+#include <qvalidator.h>
+#include <q3valuevector.h>
 
 class KLineEdit;
 class MicroSettings;

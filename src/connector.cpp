@@ -20,7 +20,7 @@
 #include "utils.h"
 
 #include <kdebug.h>
-#include <Qt/qpainter.h>
+#include <qpainter.h>
 
 #include <cstdlib>
 #include <cmath>

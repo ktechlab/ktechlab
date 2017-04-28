@@ -15,7 +15,7 @@
 #include "icndocument.h"
 
 #include <kdebug.h>
-#include <Qt/qpainter.h>
+#include <qpainter.h>
 
 FPNode::FPNode( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint &pos, QString *id )
 	: Node( icnDocument, type, dir, pos, id )

@@ -13,8 +13,8 @@
 
 #include "cells.h"
 
-#include <Qt/qpoint.h>
-#include <Qt/qlist.h>
+#include <qpoint.h>
+#include <qlist.h>
 
 class ICNDocument;
 class Cell;

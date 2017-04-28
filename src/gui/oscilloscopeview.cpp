@@ -20,14 +20,14 @@
 #include <kglobal.h>
 #include <k3popupmenu.h>
 
-#include <Qt/qcheckbox.h>
-#include <Qt/qcursor.h>
-#include <Qt/qevent.h>
-#include <Qt/qlabel.h>
-#include <Qt/qpainter.h>
-#include <Qt/qpixmap.h>
-#include <Qt/qscrollbar.h>
-#include <Qt/qtimer.h>
+#include <qcheckbox.h>
+#include <qcursor.h>
+#include <qevent.h>
+#include <qlabel.h>
+#include <qpainter.h>
+#include <qpixmap.h>
+#include <qscrollbar.h>
+#include <qtimer.h>
 
 #include <algorithm>
 #include <cmath>

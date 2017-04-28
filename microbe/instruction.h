@@ -26,10 +26,10 @@
 #ifndef INSTRUCTION_H
 #define INSTRUCTION_H
 
-#include <Qt/qmap.h>
-#include <Qt/qstring.h>
-#include <Qt/qstringlist.h>
-#include <Qt/qlist.h>
+#include <qmap.h>
+#include <qstring.h>
+#include <qstringlist.h>
+#include <qlist.h>
 
 class Code;
 class CodeIterator;

@@ -12,8 +12,8 @@
 #define CONNECTOR_H
 
 #include <canvas.h>
-#include <Qt/qpointer.h>
-#include <Qt/q3valuevector.h>
+#include <qpointer.h>
+#include <q3valuevector.h>
 
 class Cell;
 class ConnectorData;

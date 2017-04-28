@@ -31,7 +31,7 @@
 
 #include <kdebug.h>
 #include <klocale.h>
-#include <Qt/qfile.h>
+#include <qfile.h>
 
 #include <iostream>
 using namespace std;

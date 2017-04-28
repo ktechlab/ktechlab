@@ -16,10 +16,10 @@
 #include <kcombobox.h>
 #include <klocalizedstring.h>
 
-#include <Qt/q3groupbox.h>
-#include <Qt/qlabel.h>
-#include <Qt/qlayout.h>
-#include <Qt/qvariant.h>
+#include <q3groupbox.h>
+#include <qlabel.h>
+#include <qlayout.h>
+#include <qvariant.h>
 
 MicroSelectWidget::MicroSelectWidget( QWidget* parent, const char* name, Qt::WFlags )
 	: Q3GroupBox( 4, Qt::Horizontal, i18n("Microprocessor"), parent, name )

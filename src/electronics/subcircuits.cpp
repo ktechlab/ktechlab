@@ -23,8 +23,8 @@
 #include <kstandarddirs.h>
 #include <kconfiggroup.h>
 
-#include <Qt/qfile.h>
-#include <Qt/qtextstream.h>
+#include <qfile.h>
+#include <qtextstream.h>
 
 Subcircuits::Subcircuits()
 	: QObject()

@@ -18,9 +18,9 @@
 #include <kpushbutton.h>
 #include <kdebug.h>
 
-#include <Qt/qlabel.h>
-#include <Qt/qstring.h>
-#include <Qt/qevent.h>
+#include <qlabel.h>
+#include <qstring.h>
+#include <qevent.h>
 
 //BEGIN class PropertyEditorColor
 PropertyEditorColor::PropertyEditorColor( QWidget * parent, Property * property, const char * name )

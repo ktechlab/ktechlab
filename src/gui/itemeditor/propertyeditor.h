@@ -13,10 +13,10 @@
 #ifndef PROPERTYEDITOR_H
 #define PROPERTYEDITOR_H
 
-#include <Qt/qvariant.h>
-#include <Qt/qpointer.h>
-#include <Qt/q3dict.h>
-//#include <Qt/q3listview.h>
+#include <qvariant.h>
+#include <qpointer.h>
+#include <q3dict.h>
+//#include <q3listview.h>
 
 // #include <q3listview.h>
 #include <k3listview.h>

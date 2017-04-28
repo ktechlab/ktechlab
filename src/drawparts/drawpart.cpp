@@ -14,7 +14,7 @@
 #include "variant.h"
 
 #include <klocalizedstring.h>
-#include <Qt/qbitarray.h>
+#include <qbitarray.h>
 
 DrawPart::DrawPart( ItemDocument *itemDocument, bool newItem, const char *id )
 	: Item( itemDocument, newItem, id )

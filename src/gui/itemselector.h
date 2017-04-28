@@ -13,10 +13,10 @@
 
 // #include <q3listview.h> // gone in kde4..
 
-#include <Qt/qpixmap.h>
-#include <Qt/qstring.h>
-// #include <Qt/qtreewidget.h>// TODO, to port to this
-//#include <Qt/q3listview.h>
+#include <qpixmap.h>
+#include <qstring.h>
+// #include <qtreewidget.h>// TODO, to port to this
+//#include <q3listview.h>
 
 #include <k3listview.h>
 

@@ -18,7 +18,7 @@
 
 #include "dcop_stub.h"
 
-#include <Qt/qstringlist.h>
+#include <qstringlist.h>
 
 class CircuitDocument;
 class Document;

@@ -15,7 +15,7 @@
 #include <kdebug.h>
 #include <kiconloader.h>
 #include <klocalizedstring.h>
-#include <Qt/qpainter.h>
+#include <qpainter.h>
 
 Item * ECMOSFET::constructNEM( ItemDocument * itemDocument, bool newItem, const char * id )
 {

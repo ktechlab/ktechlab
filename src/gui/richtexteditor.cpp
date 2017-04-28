@@ -22,13 +22,13 @@
 #include <kmenu.h>
 #include <k3textedit.h>
 
-#include <Qt/qfont.h>
-#include <Qt/qlayout.h>
-#include <Qt/qmime.h>
-#include <Qt/qregexp.h>
-#include <Qt/q3vbox.h>
-#include <Qt/q3textedit.h>
-#include <Qt/q3stylesheet.h>
+#include <qfont.h>
+#include <qlayout.h>
+#include <qmime.h>
+#include <qregexp.h>
+#include <q3vbox.h>
+#include <q3textedit.h>
+#include <q3stylesheet.h>
 
 //BEGIN class RichTextEditor
 RichTextEditor::RichTextEditor(QWidget *parent, const char *name)

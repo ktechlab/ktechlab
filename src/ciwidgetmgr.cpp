@@ -12,7 +12,7 @@
 #include "canvasitemparts.h"
 #include "eventinfo.h"
 
-#include <Qt/q3button.h>
+#include <q3button.h>
 
 #include <kdebug.h>
 

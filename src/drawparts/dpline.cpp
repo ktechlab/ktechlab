@@ -17,7 +17,7 @@
 #include <cstdlib> 
 #include <kiconloader.h>
 #include <klocalizedstring.h>
-#include <Qt/qpainter.h>
+#include <qpainter.h>
 
 
 //BEGIN class DPLine

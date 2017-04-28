@@ -14,9 +14,9 @@
 
 #include <kdebug.h>
 
-#include <Qt/qfile.h>
-#include <Qt/qregexp.h>
-#include <Qt/qstringlist.h>
+#include <qfile.h>
+#include <qregexp.h>
+#include <qstringlist.h>
 
 AsmParser::AsmParser( const QString &url )
 	: m_url(url)

@@ -14,8 +14,8 @@
 #ifndef SYMBOLVIEWER_H
 #define SYMBOLVIEWER_H
 
-#include <Qt/q3listview.h>
-#include <Qt/qpointer.h>
+#include <q3listview.h>
+#include <qpointer.h>
 
 class KComboBox;
 class RegisterInfo;

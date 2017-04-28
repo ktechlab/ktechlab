@@ -21,8 +21,8 @@
 #include <klocalizedstring.h>
 #include <kconfiggroup.h>
 
-#include <Qt/qlabel.h>
-#include <Qt/qlayout.h>
+#include <qlabel.h>
+#include <qlayout.h>
 
 #include <cassert>
 

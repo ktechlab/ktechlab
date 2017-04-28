@@ -14,10 +14,10 @@
 // This file contains class definitions for different types of resizing and rotating
 
 #include <canvas.h>
-#include <Qt/qpointer.h>
-#include <Qt/qmap.h>
-#include <Qt/qobject.h>
-#include <Qt/qlist.h>
+#include <qpointer.h>
+#include <qmap.h>
+#include <qobject.h>
+#include <qlist.h>
 
 class MechanicsItem;
 class ResizeHandle;

@@ -13,10 +13,10 @@
 #include "oscilloscopeview.h"
 #include "probepositioner.h"
 
-#include <Qt/qevent.h>
-#include <Qt/qpainter.h>
-#include <Qt/q3pointarray.h>
-#include <Qt/qdebug.h>
+#include <qevent.h>
+#include <qpainter.h>
+#include <q3pointarray.h>
+#include <qdebug.h>
 
 #include <algorithm>
 #include <cmath>

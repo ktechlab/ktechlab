@@ -13,7 +13,7 @@
 #include <cassert>
 #include <kdebug.h>
 
-#include <Qt/qdebug.h>
+#include <qdebug.h>
 
 Pin::Pin( ECNode * parent )
 {

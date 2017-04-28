@@ -29,8 +29,8 @@
 #include <kicon.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <Qt/qpointer.h>
-#include <Qt/qstringlist.h>
+#include <qpointer.h>
+#include <qstringlist.h>
 
 #include "gpsim/ioports.h"
 #include "gpsim/pic-processor.h"

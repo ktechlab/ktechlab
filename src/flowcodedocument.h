@@ -13,7 +13,7 @@
 
 #include "flowicndocument.h"
 
-#include <Qt/qpointer.h>
+#include <qpointer.h>
 
 class KTechlab;
 class FlowCode;

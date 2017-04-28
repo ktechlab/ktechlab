@@ -12,7 +12,7 @@
 #include "libraryitem.h"
 
 #include <klocalizedstring.h>
-#include <Qt/qpainter.h>
+#include <qpainter.h>
 
 Item* ExternalConnection::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {

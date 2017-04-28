@@ -13,7 +13,7 @@
 
 #include "itemdocument.h"
 
-#include <Qt/qmap.h>
+#include <qmap.h>
 
 class Cells;
 class CNItem;

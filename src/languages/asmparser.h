@@ -11,7 +11,7 @@
 #ifndef ASMPARSER_H
 #define ASMPARSER_H
 
-#include <Qt/qstring.h>
+#include <qstring.h>
 
 class GpsimDebugger;
 

@@ -5,8 +5,8 @@
 #include <kicon.h>
 #include <kiconloader.h>
 
-#include <QtGui/qgridlayout.h>
-#include <QtGui/qlabel.h>
+#include <qgridlayout.h>
+#include <qlabel.h>
 #include <qscrollarea.h>
 #include <qdebug.h>
 

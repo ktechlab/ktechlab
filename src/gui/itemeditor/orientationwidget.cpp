@@ -19,12 +19,12 @@
 #include <kdebug.h>
 #include <kstandarddirs.h>
 
-#include <Qt/qbitmap.h>
-#include <Qt/qlayout.h>
-#include <Qt/qimage.h>
-#include <Qt/qpixmap.h>
-#include <Qt/qpainter.h>
-#include <Qt/qpushbutton.h>
+#include <qbitmap.h>
+#include <qlayout.h>
+#include <qimage.h>
+#include <qpixmap.h>
+#include <qpainter.h>
+#include <qpushbutton.h>
 
 #include <cassert>
 

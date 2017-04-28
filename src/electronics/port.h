@@ -11,7 +11,7 @@
 #ifndef PORT_H
 #define PORT_H
 
-#include <Qt/qstringlist.h>
+#include <qstringlist.h>
 
 #include <termios.h>
 

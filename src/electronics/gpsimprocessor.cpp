@@ -28,9 +28,9 @@
 #include <kmessagebox.h>
 #include <k3tempfile.h>
 #include <kstandarddirs.h>
-#include <Qt/qfile.h>
-#include <Qt/qtextstream.h>
-#include <Qt/qtimer.h>
+#include <qfile.h>
+#include <qtextstream.h>
+#include <qtimer.h>
 
 #include "gpsim/cod.h"
 #include "gpsim/interface.h"

@@ -8,8 +8,8 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include <Qt/qvariant.h>
-#include <Qt/qevent.h>
+#include <qvariant.h>
+#include <qevent.h>
 
 #include <kdebug.h>
 

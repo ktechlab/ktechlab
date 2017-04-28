@@ -17,7 +17,7 @@
 #include "logic.h"
 #include "gpsim/stimuli.h"
 
-#include <Qt/qstring.h>
+#include <qstring.h>
 
 
 /**

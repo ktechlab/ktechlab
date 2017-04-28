@@ -14,7 +14,7 @@
 #include "flowpart.h"
 
 #include <kdebug.h>
-#include <Qt/qpainter.h>
+#include <qpainter.h>
 
 InputFlowNode::InputFlowNode(ICNDocument *icnDocument, int dir, const QPoint &pos, QString *id)
  : FPNode(icnDocument, Node::fp_in, dir, pos, id)

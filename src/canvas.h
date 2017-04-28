@@ -12,13 +12,13 @@
 
 #include <map>
 
-#include "Qt/q3scrollview.h"
-#include "Qt/qpixmap.h"
-#include "Qt/q3ptrlist.h"
-#include "Qt/qbrush.h"
-#include "Qt/qpen.h"
-#include "Qt/qlist.h"
-#include "Qt/q3pointarray.h"
+#include "q3scrollview.h"
+#include "qpixmap.h"
+#include "q3ptrlist.h"
+#include "qbrush.h"
+#include "qpen.h"
+#include "qlist.h"
+#include "q3pointarray.h"
 
 class KtlQCanvasPolygonalItem;
 class KtlQCanvasRectangle;

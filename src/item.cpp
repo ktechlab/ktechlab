@@ -19,9 +19,9 @@
 #include <ktextedit.h>
 #include <kstandardguiitem.h>
 
-#include <Qt/qbitarray.h>
-#include <Qt/qlayout.h>
-#include <Qt/qtimer.h>
+#include <qbitarray.h>
+#include <qlayout.h>
+#include <qtimer.h>
 
 #include <ktlconfig.h>
 

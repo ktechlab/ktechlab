@@ -13,8 +13,8 @@
 
 #include "element.h"
 
-#include <Qt/qpointer.h>
-#include <Qt/qlist.h>
+#include <qpointer.h>
+#include <qlist.h>
 
 class Component;
 class Pin;

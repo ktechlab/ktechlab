@@ -31,8 +31,8 @@
 #include <kmessagebox.h>
 #include <kactionmenu.h>
 
-#include <Qt/qregexp.h>
-#include <Qt/qtimer.h> 
+#include <qregexp.h>
+#include <qtimer.h>
 
 #include <ktlconfig.h>
 

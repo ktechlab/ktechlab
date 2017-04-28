@@ -14,7 +14,7 @@
 #include <kiconloader.h>
 #include <katemdi.h>
 #include <klocalizedstring.h>
-#include <Qt/q3popupmenu.h>
+#include <q3popupmenu.h>
 
 
 //BEGIN class LogView

@@ -12,7 +12,7 @@
 #define MECHANICSITEM_H
 
 #include <item.h>
-#include <Qt/qlist.h>
+#include <qlist.h>
 
 class LibraryItem;
 class MechanicsItem;

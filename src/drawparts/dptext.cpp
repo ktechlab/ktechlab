@@ -16,9 +16,9 @@
 #include <kiconloader.h>
 #include <klocalizedstring.h>
 
-#include <Qt/qpainter.h> 
-#include <Qt/q3simplerichtext.h>
-#include <Qt/q3stylesheet.h>
+#include <qpainter.h>
+#include <q3simplerichtext.h>
+#include <q3stylesheet.h>
 
 Item* DPText::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {

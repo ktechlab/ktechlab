@@ -28,7 +28,7 @@
 
 #include "microbe.h"
 
-#include <Qt/qstring.h>
+#include <qstring.h>
 
 class PIC14;
 class BTreeNode;

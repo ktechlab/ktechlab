@@ -31,8 +31,8 @@
 #include <kdebug.h>
 #include <klocalizedstring.h>
 #include <k3tempfile.h>
-#include <Qt/qfile.h>
-#include <Qt/qtimer.h>
+#include <qfile.h>
+#include <qtimer.h>
 
 #include <ktlconfig.h>
 

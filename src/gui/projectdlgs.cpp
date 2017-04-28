@@ -22,11 +22,11 @@
 #include <kurlrequester.h>
 #include <k3listview.h>
 
-#include <Qt/qcheckbox.h>
-#include <Qt/qcombobox.h>
-#include <Qt/qlabel.h>
-#include <Qt/qlayout.h>
-#include <Qt/qdebug.h>
+#include <qcheckbox.h>
+#include <qcombobox.h>
+#include <qlabel.h>
+#include <qlayout.h>
+#include <qdebug.h>
 
 #include <ui_createsubprojectwidget.h>
 #include <ui_linkeroptionswidget.h>

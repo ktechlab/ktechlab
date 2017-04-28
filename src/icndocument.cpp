@@ -28,8 +28,8 @@
 #include "utils.h"
 
 #include <kdebug.h>
-#include <Qt/qclipboard.h>
-#include <Qt/qtimer.h>
+#include <qclipboard.h>
+#include <qtimer.h>
 #include <QApplication>
 
 

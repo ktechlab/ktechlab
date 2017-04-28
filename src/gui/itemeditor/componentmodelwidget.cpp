@@ -18,13 +18,13 @@
 //#include <ktoolbarbutton.h> // converted to QToolButton
 #include <k3listview.h>
 
-#include <Qt/q3listview.h>
-#include <Qt/qlabel.h>
-#include <Qt/qlayout.h>
-// #include <Qt/q3header.h> // needed?
-#include <Qt/qpainter.h>
-#include <Qt/qtoolbutton.h>
-#include <Qt/q3header.h>
+#include <q3listview.h>
+#include <qlabel.h>
+#include <qlayout.h>
+// #include <q3header.h> // needed?
+#include <qpainter.h>
+#include <qtoolbutton.h>
+#include <q3header.h>
 
 
 //BEGIN class ComponentModelWidget

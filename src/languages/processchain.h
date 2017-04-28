@@ -12,8 +12,8 @@
 #define PROCESSCHAIN_H
 
 #include "language.h"
-#include <Qt/qobject.h>
-#include <Qt/qlist.h>
+#include <qobject.h>
+#include <qlist.h>
 
 class FlowCode;
 class Gpasm;

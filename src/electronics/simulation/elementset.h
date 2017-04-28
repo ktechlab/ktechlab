@@ -13,7 +13,7 @@
 
 //#include <vector>
 
-#include <Qt/qlist.h>
+#include <qlist.h>
 
 class CBranch;
 class Circuit;

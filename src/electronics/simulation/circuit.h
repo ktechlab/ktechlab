@@ -11,9 +11,9 @@
 #ifndef CIRCUIT_H
 #define CIRCUIT_H
 
-#include <Qt/qpointer.h>
-#include "Qt/qstringlist.h"
-#include "Qt/qlist.h"
+#include <qpointer.h>
+#include "qstringlist.h"
+#include "qlist.h"
 
 #include "elementset.h"
 

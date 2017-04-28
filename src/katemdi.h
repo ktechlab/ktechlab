@@ -26,10 +26,10 @@
 #include <kmultitabbar.h>
 #include <ktoggleaction.h>
 
-#include <Qt/q3dict.h>
-#include <Qt/q3intdict.h>
-// #include <Qt/q3vbox.h>
-#include <Qt/qsplitter.h>
+#include <q3dict.h>
+#include <q3intdict.h>
+// #include <q3vbox.h>
+#include <qsplitter.h>
 
 namespace KateMDI {
 

@@ -15,8 +15,8 @@
 
 #include <kurl.h>
 
-#include <Qt/qmap.h>
-#include <Qt/qlist.h>
+#include <qmap.h>
+#include <qlist.h>
 
 class CircuitDocument;
 class TextDocument;

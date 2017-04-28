@@ -11,8 +11,8 @@
 #ifndef SWITCH_H
 #define SWITCH_H
 
-#include <Qt/qpointer.h>
-#include <Qt/qobject.h>
+#include <qpointer.h>
+#include <qobject.h>
 
 class CircuitDocument;
 class Component;

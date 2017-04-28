@@ -13,8 +13,8 @@
 
 #include <pin.h>
 
-#include <Qt/qpointer.h>
-#include <Qt/qobject.h>
+#include <qpointer.h>
+#include <qobject.h>
 
 class Pin;
 

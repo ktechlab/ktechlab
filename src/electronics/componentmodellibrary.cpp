@@ -12,8 +12,8 @@
 #include <kdebug.h>
 #include <kstandarddirs.h>
 
-#include <Qt/qdatetime.h>
-#include <Qt/qfile.h>
+#include <qdatetime.h>
+#include <qfile.h>
 
 #include <cassert>
 

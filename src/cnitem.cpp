@@ -20,8 +20,8 @@
 #include "itemdocumentdata.h"
 #include <kdebug.h>
 
-#include <Qt/qbitarray.h>
-#include <Qt/qpainter.h>
+#include <qbitarray.h>
+#include <qpainter.h>
 
 #include <cstdlib>
 #include <cmath>

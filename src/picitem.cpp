@@ -20,7 +20,7 @@
 #include <kdebug.h>
 #include <kicon.h>
 #include <klocalizedstring.h>
-#include <Qt/qpainter.h>
+#include <qpainter.h>
 
 static const int InnerWidth = 88;
 static const int SidePadding = 24;

@@ -37,12 +37,12 @@
 #include <kxmlguifactory.h>
 #include <kactioncollection.h>
 
-#include <Qt/qapplication.h> 
-#include <Qt/qcursor.h>
-//#include <Qt/qobjectlist.h>
-#include <Qt/qtimer.h>
-#include <Qt/qsharedpointer.h>
-#include <Qt/qclipboard.h>
+#include <qapplication.h>
+#include <qcursor.h>
+//#include <qobjectlist.h>
+#include <qtimer.h>
+#include <qsharedpointer.h>
+#include <qclipboard.h>
 
 
 //BEGIN class TextView

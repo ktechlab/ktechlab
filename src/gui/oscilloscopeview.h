@@ -11,7 +11,7 @@
 #ifndef OSCILLOSCOPEVIEW_H
 #define OSCILLOSCOPEVIEW_H
 
-#include <Qt/qframe.h>
+#include <qframe.h>
 
 class Oscilloscope;
 class Simulator;

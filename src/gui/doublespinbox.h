@@ -11,7 +11,7 @@
 #ifndef DOUBLESPINBOX_H
 #define DOUBLESPINBOX_H
 
-#include <Qt/qspinbox.h>
+#include <qspinbox.h>
 
 /**
 Where appropriate, function names with value in them should

@@ -14,7 +14,7 @@
 #include "eventinfo.h"
 
 #include <canvas.h>
-#include <Qt/qpointer.h>
+#include <qpointer.h>
 
 class CanvasManipulator;
 class Connector;

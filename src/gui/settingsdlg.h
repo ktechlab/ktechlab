@@ -12,8 +12,8 @@
 #define SETTINGSDLG_H
 
 #include <kconfigdialog.h>
-#include <Qt/qmap.h>
-#include <Qt/qvalidator.h>
+#include <qmap.h>
+#include <qvalidator.h>
 
 class AsmFormattingWidget;
 class GeneralOptionsWidget;

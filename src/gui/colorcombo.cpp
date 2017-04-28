@@ -13,8 +13,8 @@
 #include <kcolordialog.h>
 #include <klocalizedstring.h>
 
-#include <Qt/qpainter.h>
-#include <Qt/qdebug.h>
+#include <qpainter.h>
+#include <qdebug.h>
 
 bool ColorCombo::createdPalettes = false;
 QColor * ColorCombo::palette[ NumberOfSchemes ];

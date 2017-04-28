@@ -24,10 +24,10 @@
 #include <kstdaccel.h>
 #include <kstandardshortcut.h>
 
-#include <Qt/q3accel.h>
-#include <Qt/qapplication.h>
-#include <Qt/qframe.h>
-#include <Qt/qlayout.h>
+#include <q3accel.h>
+#include <qapplication.h>
+#include <qframe.h>
+#include <qlayout.h>
 
 
 //BEGIN class PinMapping

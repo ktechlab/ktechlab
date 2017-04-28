@@ -23,11 +23,11 @@
 #include <kmessagebox.h>
 #include <kpushbutton.h>
 
-#include <Qt/qgroupbox.h>
-#include <Qt/qlabel.h>
-#include <Qt/qlayout.h>
-#include <Qt/qregexp.h>
-#include <Qt/q3table.h>
+#include <qgroupbox.h>
+#include <qlabel.h>
+#include <qlayout.h>
+#include <qregexp.h>
+#include <q3table.h>
 
 #include <ui_newpinmappingwidget.h>
 

@@ -18,12 +18,12 @@
 //#include <klistbox.h>
 #include <klocalizedstring.h>
 
-#include <Qt/qcursor.h>
-#include <Qt/q3hbox.h>
-#include <Qt/qstringlist.h>
-#include <Qt/qtoolbutton.h>
-#include <Qt/qevent.h>
-#include <Qt/qlineedit.h>
+#include <qcursor.h>
+#include <q3hbox.h>
+#include <qstringlist.h>
+#include <qtoolbutton.h>
+#include <qevent.h>
+#include <qlineedit.h>
 
 
 //BEGIN class PropComboBox

@@ -26,8 +26,8 @@
 #include <klocalizedstring.h>
 #include <kmessagebox.h> 
 #include <k3tempfile.h>
-#include <Qt/qbitarray.h>
-#include <Qt/qfile.h>
+#include <qbitarray.h>
+#include <qfile.h>
 
 
 // Converts the QBitArray into a string (e.g. "F289A9E") that can be stored in an xml file

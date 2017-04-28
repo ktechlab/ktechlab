@@ -38,15 +38,15 @@
 #include <k3iconview.h>
 #include <kicon.h>
 
-#include <Qt/qfile.h>
-#include <Qt/qlayout.h>
-#include <Qt/qlabel.h>
-#include <Qt/qregexp.h>
-#include <Qt/qtextbrowser.h>
-#include <Qt/qtimer.h>
-#include <Qt/qtoolbutton.h>
-#include <Qt/qvalidator.h>
-#include <Qt/q3widgetstack.h>
+#include <qfile.h>
+#include <qlayout.h>
+#include <qlabel.h>
+#include <qregexp.h>
+#include <qtextbrowser.h>
+#include <qtimer.h>
+#include <qtoolbutton.h>
+#include <qvalidator.h>
+#include <q3widgetstack.h>
 
 #include <cassert>
 

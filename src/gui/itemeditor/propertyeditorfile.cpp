@@ -18,12 +18,12 @@
 #include <klocalizedstring.h>
 #include <kdebug.h>
 
-#include <Qt/qstring.h>
-#include <Qt/qpixmap.h>
-#include <Qt/qvariant.h>
-#include <Qt/qevent.h>
-#include <Qt/qlabel.h>
-#include <Qt/qcursor.h>
+#include <qstring.h>
+#include <qpixmap.h>
+#include <qvariant.h>
+#include <qevent.h>
+#include <qlabel.h>
+#include <qcursor.h>
 
 
 PropertyEditorFile::PropertyEditorFile( QWidget * parent, Property * property, const char * name )

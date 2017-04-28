@@ -19,10 +19,10 @@
 #include <klocalizedstring.h>
 #include <kstandarddirs.h>
 
-#include <Qt/qlayout.h>
-#include <Qt/qlabel.h>
-#include <Qt/qpushbutton.h>
-#include <Qt/qdebug.h>
+#include <qlayout.h>
+#include <qlabel.h>
+#include <qpushbutton.h>
+#include <qdebug.h>
 
 #include <cassert>
 

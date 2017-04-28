@@ -13,7 +13,7 @@
 #include "cnitem.h"
 #include "icndocument.h"
 
-#include <Qt/qpainter.h>
+#include <qpainter.h>
 
 
 //BEGIN Class GuiPart

@@ -13,7 +13,7 @@
 #include "resizeoverlay.h"
 
 #include <kdebug.h>
-#include <Qt/qpainter.h>
+#include <qpainter.h>
 #include <cmath>
 
 #define DPR ( 180.0 / M_PI )

@@ -14,7 +14,7 @@
 
 #include <kiconloader.h>
 #include <klocalizedstring.h>
-#include <Qt/qpainter.h>
+#include <qpainter.h>
 
 Item * ECJFET::constructNJFET( ItemDocument * itemDocument, bool newItem, const char * id )
 {

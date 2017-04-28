@@ -32,10 +32,10 @@
 #include <ktoolbarpopupaction.h>
 #include <kactioncollection.h>
 
-#include <Qt/qapplication.h>
-#include <Qt/qcursor.h>
-#include <Qt/qtimer.h>
-#include <Qt/qwmatrix.h>
+#include <qapplication.h>
+#include <qcursor.h>
+#include <qtimer.h>
+#include <qwmatrix.h>
 
 #include <cmath>
 #include <kmenu.h>

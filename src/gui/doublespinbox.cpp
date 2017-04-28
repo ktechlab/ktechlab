@@ -16,10 +16,10 @@
 #include <klocale.h>
 #include <klocalizedstring.h>
 
-#include <Qt/qlineedit.h>
-#include <Qt/qregexp.h>
-#include <Qt/qtimer.h>
-#include <Qt/qdebug.h>
+#include <qlineedit.h>
+#include <qregexp.h>
+#include <qtimer.h>
+#include <qdebug.h>
 
 #include <algorithm>
 #include <cmath>

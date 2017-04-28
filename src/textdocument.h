@@ -15,8 +15,8 @@
 #include "document.h"
 #include "gpsimprocessor.h"
 
-#include <Qt/qpointer.h>
-#include <Qt/q3ptrlist.h>
+#include <qpointer.h>
+#include <q3ptrlist.h>
 
 //#include <kate/document.h>
 #include <ktexteditor/document.h>

@@ -16,10 +16,10 @@
 
 #include "sourceline.h"
 
-#include <Qt/qmap.h>
-#include <Qt/q3valuevector.h>
-#include <Qt/qobject.h>
-#include <Qt/qlist.h>
+#include <qmap.h>
+#include <q3valuevector.h>
+#include <qobject.h>
+#include <qlist.h>
 
 class DebugLine;
 class GpsimProcessor;

@@ -11,8 +11,8 @@
 #ifndef COLORCOMBO_H
 #define COLORCOMBO_H
 
-#include <Qt/qcolor.h>
-#include <Qt/qcombobox.h>
+#include <qcolor.h>
+#include <qcombobox.h>
 
 /**
 Based on KColorCombo, Copyright (C) 1997 Martin Jones (mjones@kde.org). Allows

@@ -16,7 +16,7 @@
 #include "pin.h"
 
 #include <kdebug.h>
-#include <Qt/qpainter.h>
+#include <qpainter.h>
 
 #include <ktlconfig.h>
 

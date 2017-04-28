@@ -15,7 +15,7 @@ class KTechlab;
 class Q3PopupMenu;
 
 #include <ktextedit.h>
-#include <Qt/qmap.h>
+#include <qmap.h>
 
 namespace KateMDI { class ToolView; }
 

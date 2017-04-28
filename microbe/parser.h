@@ -25,8 +25,8 @@
 #include "instruction.h"
 #include "microbe.h"
 
-#include <Qt/qmap.h>
-#include <Qt/qlist.h>
+#include <qmap.h>
+#include <qlist.h>
 
 class PIC14;
 

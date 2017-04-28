@@ -29,8 +29,8 @@
 #include <kstandarddirs.h>
 #include <kxmlguifactory.h>
 
-#include <Qt/qdom.h>
-#include <Qt/q3popupmenu.h>
+#include <qdom.h>
+#include <q3popupmenu.h>
 
 #include <cassert>
 

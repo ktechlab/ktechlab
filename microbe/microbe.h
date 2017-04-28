@@ -30,9 +30,9 @@
 #include <variable.h>
 // #include <pic14.h>
 
-#include <Qt/qmap.h>
-#include <Qt/qstring.h>
-#include <Qt/qstringlist.h>
+#include <qmap.h>
+#include <qstring.h>
+#include <qstringlist.h>
 
 class QString;
 class BTreeBase;

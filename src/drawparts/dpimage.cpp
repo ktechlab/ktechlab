@@ -17,8 +17,8 @@
 #include <kiconloader.h>
 #include <klocalizedstring.h>
 
-#include <Qt/qpainter.h>
-#include <Qt/qtimer.h>
+#include <qpainter.h>
+#include <qtimer.h>
 
 
 //BEGIN class ImageScaleThread

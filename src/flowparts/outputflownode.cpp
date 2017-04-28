@@ -14,7 +14,7 @@
 
 
 #include <kdebug.h>
-#include <Qt/qpainter.h>
+#include <qpainter.h>
 
 OutputFlowNode::OutputFlowNode(ICNDocument* _icnView, int dir, const QPoint& pos, QString* id): FPNode(_icnView, Node::fp_out, dir, pos, id)
 {

@@ -22,7 +22,7 @@
 #include <kxmlguifactory.h>
 #include <kactioncollection.h>
 
-#include <Qt/qapplication.h>
+#include <qapplication.h>
 
 
 #include <cassert>

@@ -11,9 +11,9 @@
 #ifndef VARIANT_H
 #define VARIANT_H
 
-#include <Qt/qobject.h>
-#include <Qt/qvariant.h>
-#include <Qt/qstringlist.h>
+#include <qobject.h>
+#include <qvariant.h>
+#include <qstringlist.h>
 
 /// \todo Replace "Variant" with "Property"
 class Variant;

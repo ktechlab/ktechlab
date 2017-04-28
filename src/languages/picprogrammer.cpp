@@ -17,12 +17,12 @@
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 
-#include <Qt/qapplication.h>
-#include <Qt/qfile.h>
+#include <qapplication.h>
+#include <qfile.h>
 #include <k3process.h>
-#include <Qt/qregexp.h>
-#include <Qt/qtextstream.h>
-#include <Qt/qdatetime.h>
+#include <qregexp.h>
+#include <qtextstream.h>
+#include <qdatetime.h>
 
 #include <stdio.h>
 
