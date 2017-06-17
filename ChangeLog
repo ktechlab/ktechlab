@@ -108,3 +108,4 @@ Changes between Qt3 and Qt4 port (to be completed)
     should fix "convert to microbe" when ktechlab is not in PATH
     - added fix into the run-simple.sh and run-developer.sh scripts; for installs in the PATH,
         this should not be needed
+- fixed loading PIC program through the toolbar button; in property editor it works

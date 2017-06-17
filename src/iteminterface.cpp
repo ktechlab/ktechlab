@@ -553,7 +553,10 @@ void ItemInterface::tbDataChanged()
 	const KUrlReqMap::iterator m_stringURLReqMapEnd = m_stringURLReqMap.end();
 	for ( KUrlReqMap::iterator urlit = m_stringURLReqMap.begin(); urlit != m_stringURLReqMapEnd; ++urlit )
 	{
-		slotSetData( urlit.key(), urlit.data()->url() );
+        qDebug() << Q_FUNC_INFO << "set kurlrequester data for " << urlit.key() << " to " << urlit.data()->url();
+        QVariant urlVar( urlit.data()->url().path() );
+        qDebug() << Q_FUNC_INFO << "urlVar=" << urlVar << " urlVar.toUrl=" << urlVar.toUrl();
+		slotSetData( urlit.key(), urlVar );
 	}
 	
 	if (p_cvb)
