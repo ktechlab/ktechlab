@@ -126,6 +126,7 @@ PICComponent::~PICComponent()
 
 void PICComponent::dataChanged()
 {
+    qDebug() << Q_FUNC_INFO;
 	initPIC(false);
 }
 
@@ -134,17 +135,24 @@ void PICComponent::initPIC( bool forceReload )
 {
 	if ( !m_bCreatedInitialPackage )
 	{
+        qDebug() << Q_FUNC_INFO << " creating initial package";
 		// We are still being created, so other connectors will be expecting us to
 		// have grown pins soonish.
 		MicroInfo * microInfo = MicroLibrary::self()->microInfoWithID( dataString("lastPackage") );
-		if ( microInfo )
+		if ( microInfo ) {
 			initPackage( microInfo );
+        } else {
+            qDebug() << Q_FUNC_INFO << " unknown last package: " << dataString("lastPackage");
+        }
 	}
 	
 	QString newProgram = KUrl( dataString("program") ).path();
+    qDebug() << Q_FUNC_INFO << "newProgram=" << newProgram;
 	bool newFile = (m_picFile != newProgram);
-	if ( !newFile && !forceReload )
+	if ( !newFile && !forceReload ) {
+        qDebug() << Q_FUNC_INFO << "not new program, not force reload, exiting";
 		return;
+    }
 	
 	delete m_pGpsim;
 	m_pGpsim = 0L;
@@ -354,6 +362,7 @@ bool PICComponent::mouseDoubleClickEvent ( const EventInfo &eventInfo )
 
 QString PICComponent::createSymbolFile()
 {
+    qDebug() << Q_FUNC_INFO;
 	m_bLoadingProgram = true;
 	slotUpdateBtns();
 	
@@ -363,6 +372,7 @@ QString PICComponent::createSymbolFile()
 
 void PICComponent::slotCODCreationSucceeded()
 {
+    qDebug() << Q_FUNC_INFO << " m_symbolFile=" << m_symbolFile;
 	m_bLoadingProgram = false;
 	
 	delete m_pGpsim;
@@ -403,6 +413,8 @@ void PICComponent::slotCODCreationFailed()
 
 void PICComponent::programReload()
 {
+    qDebug() << Q_FUNC_INFO;
+
 	delete m_pGpsim;
 	m_pGpsim = 0L;
 	
@@ -415,8 +427,10 @@ void PICComponent::programReload()
 void PICComponent::slotUpdateBtns()
 {
 	// We can get called by the destruction of gpsim after our canvas has been set to NULL
-	if (!canvas())
+	if (!canvas()) {
+        qDebug() << Q_FUNC_INFO << " no canvas, exiting";
 		return;
+    }
 	
 	button("run")->setEnabled( m_pGpsim && !m_pGpsim->isRunning() );
 	button("pause")->setEnabled( m_pGpsim && m_pGpsim->isRunning() );

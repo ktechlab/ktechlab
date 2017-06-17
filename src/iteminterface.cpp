@@ -311,6 +311,7 @@ QWidget * ItemInterface::configWidget()
 			}
 			case Variant::Type::FileName:
 			{
+                qDebug() << Q_FUNC_INFO << "create FileName";
 				QString value = vait.data()->value().toString();
 				if ( !vait.data()->allowed().contains(value) )
 					vait.data()->appendAllowed(value);
@@ -572,14 +573,17 @@ void ItemInterface::setProperty( Variant * v )
 
 void ItemInterface::slotSetData( const QString &id, QVariant value )
 {
-	if ( !p_itemGroup || (p_itemGroup->itemCount() == 0) )
+	if ( !p_itemGroup || (p_itemGroup->itemCount() == 0) ) {
+        qDebug() << Q_FUNC_INFO << "p_itemGroup not valid:" << p_itemGroup;
 		return;
+    }
 	
 	if ( !p_itemGroup->itemsAreSameType() )
 	{
 		kDebug() << k_funcinfo << "Items are not the same type!"<<endl;
 		return;
 	}
+	qDebug() << Q_FUNC_INFO << "id=" << id << " value=" << value;
 	
 	const ItemList itemList = p_itemGroup->items(true);
 	const ItemList::const_iterator end = itemList.end();

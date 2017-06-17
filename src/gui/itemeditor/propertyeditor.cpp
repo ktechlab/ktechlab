@@ -153,6 +153,7 @@ void PropertyEditor::createEditor( PropertyEditorItem * i )
 			break;
 			
 		case Variant::Type::FileName:
+            qDebug() << Q_FUNC_INFO << "creating PropertyEditorFile";
 			editor = new PropertyEditorFile( viewport(), i->property() );
 			break;
 			

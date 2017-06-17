@@ -50,8 +50,11 @@ PropertyEditorFile::PropertyEditorFile( QWidget * parent, Property * property, c
 void PropertyEditorFile::selectFile()
 {
 	KUrl url = KFileDialog::getOpenFileName( KUrl() /* QString::null */, m_property->filter(), this, i18n("Choose File") );
-	if ( !url.isValid() )
+    qDebug() << Q_FUNC_INFO << "got KUrl: " << url;
+	if ( !url.isValid() ) {
+        qDebug() << Q_FUNC_INFO << "url is not valid, not setting it";
 		return;
+    }
 	
 	m_property->setValue( url.path() );
 	ItemInterface::self()->setProperty( m_property );
