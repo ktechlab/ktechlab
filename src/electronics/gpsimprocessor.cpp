@@ -330,8 +330,11 @@ GpsimProcessor::ProgramFileValidity GpsimProcessor::isValidProgramFile( const QS
 
 QString GpsimProcessor::generateSymbolFile( const QString &fileName, QObject *receiver, const char *successMember, const char * failMember )
 {
-	if ( !isValidProgramFile(fileName) )
+    qDebug() << Q_FUNC_INFO << "fileName=" << fileName ;
+	if (isValidProgramFile(fileName) != GpsimProcessor::Valid) {
+        qDebug() << Q_FUNC_INFO << "not valid program file";
 		return QString::null;
+    }
 	
 	QString extension = fileName.right( fileName.length() - fileName.findRev('.') - 1 ).lower();
 	
