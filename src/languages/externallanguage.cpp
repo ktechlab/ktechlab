@@ -96,8 +96,10 @@ void ExternalLanguage::receivedStderr( K3Process *, char * buffer, int buflen )
 
 void ExternalLanguage::processExited( K3Process * )
 {
-	if ( !m_languageProcess )
+	if ( !m_languageProcess ) {
+        qDebug() << Q_FUNC_INFO << " m_languageProcess == NULL, returning";
 		return;
+    }
 	bool allOk = processExited( (m_languageProcess->normalExit()) && (m_errorCount == 0) );
 	finish(allOk);
 	deleteLanguageProcess();
