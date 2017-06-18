@@ -145,10 +145,12 @@ bool SDCC::isError( const QString &message ) const
 
 bool SDCC::isStderrOutputFatal( const QString & message ) const
 {
+    qDebug() << Q_FUNC_INFO << "message=" << message;
 	if ( message.startsWith("Processor:") )
 		return false;
 	
-	return true;
+    return false; // note: return code from SDCC will tell if anything is fatal
+	//return true; // 2017.06.18 - by default stderr messages are not fatal
 }
 
 bool SDCC::isWarning( const QString &message ) const
