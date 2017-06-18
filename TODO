@@ -110,6 +110,12 @@ Fixes needed for the first release candidate of the Qt4 port
 
 - minimize the number of bundled 3rd party icons; most should be usable from Oxygen icon theme
 
+- GPLink options pane is broken; GUI needs fixing
+- GPLink should have an option to set the libraries' path
+
+- when loading program to PIC, "all supported file types" is not valid
+- loading C code to PIC fails
+
 - when editing source code, many nonexitent signals are used in the code
 - cannot compile code for PIC, because SDCC complains about the PIC identifier
 - cannot convert C code to ASM or HEX, because function __sdcc_gsinit_startup

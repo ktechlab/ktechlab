@@ -20,6 +20,7 @@
 #include <kdebug.h>
 
 #include <qfile.h>
+#include <qdir.h>
 
 #include <ktlconfig.h>
 
@@ -35,19 +36,31 @@ Gplink::Gplink( ProcessChain *processChain )
 #define SEARCH_FOR_SDCC(dir) 			\
 	{ 					\
 		QFile f(dir); 			\
-		if( f.exists() ) 		\
+		qDebug() << Q_FUNC_INFO << " SDCC lib testing " << dir ; \
+		if( f.exists() ) { 		\
+            qDebug() << Q_FUNC_INFO << " SDCC lib found " << dir ; \
 			m_sdccLibDir = dir; 	\
+        } \
 	}
 	
 	// consider adding more paths here, if necessary
 	SEARCH_FOR_SDCC( "/usr/local/share/sdcc/lib" )
 	SEARCH_FOR_SDCC( "/usr/share/sdcc/lib" )
 	SEARCH_FOR_SDCC( "/usr/sdcc/lib" )
+    SEARCH_FOR_SDCC( "/usr/sdcc/share/lib" )
 	SEARCH_FOR_SDCC( "/opt/sdcc/lib" )
+    SEARCH_FOR_SDCC( "/opt/sdcc/share/lib" )
+    SEARCH_FOR_SDCC( QDir::homePath() + "/share/sdcc/lib" );
 #undef SEARCH_FOR_SDCC
-	if( m_sdccLibDir == "")
-		kError() << k_funcinfo << "SDCC lib not found";
-	
+	if( m_sdccLibDir == "") {
+		qWarning() << Q_FUNC_INFO << "SDCC lib not found. Expect linking errors";
+    }
+    {
+        QFile f( m_sdccLibDir + "/../non-free/lib" );
+        if ( !f.exists() ) {
+            qWarning() << Q_FUNC_INFO << "SDCC non-free lib not found. Expect linking errors";
+        }
+    }
 }
 
 
@@ -116,11 +129,19 @@ void Gplink::processInput( ProcessOptions options )
 		}
 		else
 		{
-			if ( info->instructionSet()->set() == AsmInfo::PIC16 )
-				*m_languageProcess << "-I" << m_sdccLibDir + "/pic16" ;
-			else
-				*m_languageProcess << "-I" << m_sdccLibDir + "/pic" ;
-		
+            QString picLibSubdir;
+			switch ( info->instructionSet()->set() ) {
+                // note: is PIC12 supported by SDCC?
+                case AsmInfo::PIC12:    picLibSubdir = "pic12";     break;
+                case AsmInfo::PIC14:    picLibSubdir = "pic14";     break;
+                case AsmInfo::PIC16:    picLibSubdir = "pic16";     break;
+                default:
+                    qWarning() << Q_FUNC_INFO << "Inexpected instruction set: " << (int) info->instructionSet()->set();
+                    break;
+            }
+            *m_languageProcess << "-I" << m_sdccLibDir + "/" + picLibSubdir ;
+            // non-free libraries are needed; beware the Debian/Ubuntu/derivatives' packages
+            *m_languageProcess << "-I" << m_sdccLibDir + "/../non-free/lib/" + picLibSubdir ;
 			// to pic to link against
 			*m_languageProcess << options.m_picID.lower().replace ( "p","pic" ) + ".lib";
 		}
