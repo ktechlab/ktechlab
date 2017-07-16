@@ -6,23 +6,41 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>370</width>
-    <height>59</height>
+    <width>457</width>
+    <height>108</height>
    </rect>
   </property>
-  <widget class="QCheckBox" name="kcfg_gplink_link_shared">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>350</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Link with shared libraries (&amp;use this with new SDCC)</string>
-   </property>
-  </widget>
+  <property name="layoutDirection">
+   <enum>Qt::LeftToRight</enum>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0" colspan="2">
+    <widget class="QCheckBox" name="kcfg_gplink_link_shared">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>Link with shared libraries (&amp;use this with new SDCC)</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
