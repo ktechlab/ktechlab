@@ -113,3 +113,4 @@ Changes between Qt3 and Qt4 port (to be completed)
     error with __sdcc_gsinit_startup
     note: sdcc is broken in Debian/Ubuntu for PICs: https://bugs.launchpad.net/ubuntu/+source/sdcc/+bug/1077918
 - fixed: when loading program to PIC, "all supported file types" is not valid
+- fixed: converting C code to hex if destination file does not exist

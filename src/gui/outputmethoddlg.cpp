@@ -95,7 +95,14 @@ OutputMethodDlg::OutputMethodDlg( const QString &caption, const KUrl & inputURL,
 		m_widget->m_pMicroSelect->hide();
 		m_widget->adjustSize();
 	}
-	
+	{
+        qDebug() << Q_FUNC_INFO << "outputFileURL: def mode " << m_widget->outputFileURL->mode();
+        KFile::Modes openMode = m_widget->outputFileURL->mode();
+        openMode &= (~ KFile::ExistingOnly);
+        m_widget->outputFileURL->setMode(openMode);
+        qDebug() << Q_FUNC_INFO << "outputFileURL: new mode " << m_widget->outputFileURL->mode();
+    }
+
 	fileMetaInfo()->initializeFromMetaInfo( m_inputURL, this );
 	
 	setMainWidget(m_widget);
