@@ -111,9 +111,22 @@ Fixes needed for the first release candidate of the Qt4 port
 - minimize the number of bundled 3rd party icons; most should be usable from Oxygen icon theme
 
 - GPLink should have an option to set the libraries' path
+- SDCC should have an option to set extra include path
+- SDCC should have an option to enable non-free libraries/includes
 
 - loading C code to PIC fails
+    - apparently when using a project, the PIC gets recognized and uploading works
 
 - when editing source code, many nonexitent signals are used in the code
+- when editing source code, many keyboard shortcuts are signaled as duplicate
+
+- SDCC "other options" is not a list, but 1 huge option
+    sdcc --foo --bar
+    vs
+    sdcc '--foo --bar' <- this is not correct
+
 - cannot compile code for PIC, because SDCC complains about the PIC identifier
+    - pic16f84 works; others are not clear
+
 - cannot convert C code to ASM or HEX, because function __sdcc_gsinit_startup
+    - need to set proper sdcclib when linking; to be automatized
