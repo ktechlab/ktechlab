@@ -87,7 +87,7 @@ PICComponent::PICComponent( ICNDocument *icnDocument, bool newItem, const char *
 	createProperty( "program", Variant::Type::FileName );
 	property("program")->setCaption( i18n("Program") );
 	QString filter;
-	filter = QString("*.flowcode *.asm *.cod *.basic|%1").arg(i18n("All Supported Files"));
+	filter = QString("*.flowcode *.cod *.asm *.basic *.c|%1").arg(i18n("All Supported Files"));
 	filter += QString("\n*.flowcode|FlowCode (*.flowcode)");
 	filter += QString("\n*.cod|%1 (*.cod)").arg(i18n("Symbol File"));
 	filter += QString("\n*.asm|%1 (*.asm)").arg(i18n("Assembly Code"));
