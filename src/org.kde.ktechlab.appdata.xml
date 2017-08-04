@@ -44,6 +44,7 @@
     <p xml:lang="ca">Característiques:</p>
     <p xml:lang="ca-valencia">Característiques:</p>
     <p xml:lang="cs">Vlastnosti:</p>
+    <p xml:lang="de">Funktionen:</p>
     <p xml:lang="es">Funciones:</p>
     <p xml:lang="fr">Fonctionnalités :</p>
     <p xml:lang="nl">Kenmerken:</p>
@@ -76,6 +77,7 @@
       <li>Context help for the components</li>
       <li xml:lang="ca">Ajuda contextual per als components</li>
       <li xml:lang="ca-valencia">Ajuda contextual per als components</li>
+      <li xml:lang="de">Kontexthilfe für die Komponenten</li>
       <li xml:lang="es">Ayuda de contexto para los componentes</li>
       <li xml:lang="nl">Contexthulp voor de componenten</li>
       <li xml:lang="pt">Ajuda de contexto para os componentes</li>
