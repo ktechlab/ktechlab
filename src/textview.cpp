@@ -179,6 +179,28 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
 	
 	internalView->installEventFilter( eventFilter );
 #endif
+
+    // TODO HACK disable some actions which collide with ktechlab's actions.
+    //  the proper solution would be to move the actions from KTechLab object level to document level for
+    //  all types of documents
+    QList< QAction* > actList = m_view->actionCollection()->actions();
+    for (QList<QAction*>::iterator itAct = actList.begin(); itAct != actList.end(); ++itAct) {
+        QAction *act = *itAct;
+        qDebug() << Q_FUNC_INFO << "act: " << act->text() << " acc " << act->accel() << ":" << act ;
+
+        if ( (QLatin1String(act->name()) == QLatin1String("file_save"))
+            || (QLatin1String(act->name()) == QLatin1String("file_save_as"))
+            || (QLatin1String(act->name()) == QLatin1String("file_print"))
+            //|| (QLatin1String(act->name()) == QLatin1String("edit_undo")) // hack does not work
+            //|| (QLatin1String(act->name()) == QLatin1String("edit_redo")) // hack does not work
+            //|| (QLatin1String(act->name()) == QLatin1String("edit_cut")) // hack does not work
+            //|| (QLatin1String(act->name()) == QLatin1String("edit_copy")) // hack does not work
+            || (QLatin1String(act->name()) == QLatin1String("edit_paste"))
+        ) {
+            qDebug() << Q_FUNC_INFO << "action " << act << " disabled";
+            act->setEnabled(false);
+        }
+    }
 }
 
 

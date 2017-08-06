@@ -478,22 +478,25 @@ void KTechlab::setupActions()
 {
 	KActionCollection *ac = actionCollection();
 	
+    // TODO move the actions from KTechLab object level to document view level for
+    //  all types of documents; see actions marked with (1)! and TextView constructor
+
     // 2017.08.06 - using custom new action
     //KStandardAction::openNew(			this, SLOT(slotFileNew()),					ac );
     {
     KAction *openAction = KStandardAction::open(				this, SLOT(slotFileOpen()),					ac );
     openAction->setShortcutContext(Qt::WidgetWithChildrenShortcut );
     }
-    KStandardAction::save(				this, SLOT(slotFileSave()),					ac );
+    KStandardAction::save(				this, SLOT(slotFileSave()),					ac ); // (1)!
     KStandardAction::saveAs(				this, SLOT(slotFileSaveAs()),				ac );
 	KStandardAction::close(				this, SLOT(slotViewClose()),				ac );
-    KStandardAction::print(				this, SLOT(slotFilePrint()),				ac );
+    KStandardAction::print(				this, SLOT(slotFilePrint()),				ac ); // (1)!
     KStandardAction::quit(				this, SLOT(slotFileQuit()),					ac );
-	KStandardAction::undo(				this, SLOT(slotEditUndo()),					ac );
-	KStandardAction::redo(				this, SLOT(slotEditRedo()),					ac );
-	KStandardAction::cut(				this, SLOT(slotEditCut()),					ac );
-	KStandardAction::copy(				this, SLOT(slotEditCopy()),					ac );
-	KStandardAction::paste(				this, SLOT(slotEditPaste()),				ac );
+	KStandardAction::undo(				this, SLOT(slotEditUndo()),					ac ); // (1)! // TODO
+	KStandardAction::redo(				this, SLOT(slotEditRedo()),					ac ); // (1)! // TODO
+	KStandardAction::cut(				this, SLOT(slotEditCut()),					ac ); // (1)!// TODO
+	KStandardAction::copy(				this, SLOT(slotEditCopy()),					ac ); // (1)!// TODO
+	KStandardAction::paste(				this, SLOT(slotEditPaste()),				ac ); // (1)!
 	KStandardAction::keyBindings(		this, SLOT(slotOptionsConfigureKeys()),		ac );
 	KStandardAction::configureToolbars(	this, SLOT(slotOptionsConfigureToolbars()),	ac );
 	KStandardAction::preferences(		this, SLOT(slotOptionsPreferences()),		ac );
