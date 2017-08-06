@@ -312,7 +312,16 @@ bool TextView::saveAs()
 {
     return m_view->document()->documentSaveAs();
 }
-
+void TextView::print() {
+    qDebug() << Q_FUNC_INFO;
+    // note: quite a hack, but could not find any more decent way of getting to undo/redo interface
+    QAction *a = m_view->actionCollection()->action("file_print");
+    if (a != NULL) {
+        a->trigger();
+    } else {
+        qWarning() << Q_FUNC_INFO << "no file_print action in text view! no action taken";
+    }
+}
 
 void TextView::gotFocus()
 {

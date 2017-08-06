@@ -596,7 +596,7 @@ void TextDocument::convertToPIC()
 void TextDocument::print()
 {
 	//KTextEditor::printInterface(m_doc)->print (); // TODO FIXME
-    qWarning() << "TextDocument::print TODO";
+    textView()->print();
 }
 
 // 2016.09.08 - moved to TextView

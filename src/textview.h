@@ -67,6 +67,7 @@ class TextView : public View
 		bool save();
 		//KTextEditor::View::saveResult saveAs(); // { return m_view->saveAs(); }
         bool saveAs();
+        void print();
 	
 	public slots:
 		/**
