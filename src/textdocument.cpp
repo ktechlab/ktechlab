@@ -228,16 +228,14 @@ void TextDocument::setText( const QString & text, bool asInitial )
 
 void TextDocument::undo()
 {
-	//m_doc->undo(); // TODO FIXME
-    qWarning() << "TextDocument::undo TODO";
+    textView()->undo();
 	slotSyncModifiedStates();
 }
 
 
 void TextDocument::redo()
 {
-	//m_doc->redo(); // TODO FIXME
-    qWarning() << "TextDocument::redo TODO";
+    textView()->redo();
 	slotSyncModifiedStates();
 }
 

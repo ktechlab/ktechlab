@@ -45,6 +45,8 @@ class TextView : public View
 		 * Returns a pointer to the document as a text document
 		 */
 		TextDocument *textDocument() const;
+        void undo();
+        void redo();
 		void cut(); // { m_view->cut(); }
 		void copy(); // { m_view->copy(); }
 		void paste(); // { m_view->paste(); }

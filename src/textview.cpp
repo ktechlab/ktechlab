@@ -185,20 +185,22 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
     //  all types of documents
     QList< QAction* > actList = m_view->actionCollection()->actions();
     for (QList<QAction*>::iterator itAct = actList.begin(); itAct != actList.end(); ++itAct) {
-        QAction *act = *itAct;
+        KAction *act = static_cast<KAction*>( *itAct );
         qDebug() << Q_FUNC_INFO << "act: " << act->text() << " acc " << act->accel() << ":" << act ;
 
         if ( (QLatin1String(act->name()) == QLatin1String("file_save"))
             || (QLatin1String(act->name()) == QLatin1String("file_save_as"))
             || (QLatin1String(act->name()) == QLatin1String("file_print"))
-            //|| (QLatin1String(act->name()) == QLatin1String("edit_undo")) // hack does not work
-            //|| (QLatin1String(act->name()) == QLatin1String("edit_redo")) // hack does not work
-            //|| (QLatin1String(act->name()) == QLatin1String("edit_cut")) // hack does not work
-            //|| (QLatin1String(act->name()) == QLatin1String("edit_copy")) // hack does not work
+            || (QLatin1String(act->name()) == QLatin1String("edit_undo"))
+            || (QLatin1String(act->name()) == QLatin1String("edit_redo"))
+            || (QLatin1String(act->name()) == QLatin1String("edit_cut"))
+            || (QLatin1String(act->name()) == QLatin1String("edit_copy"))
             || (QLatin1String(act->name()) == QLatin1String("edit_paste"))
         ) {
+            act->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+            act->setShortcutConfigurable(true);
+            act->setShortcut(Qt::Key_unknown);
             qDebug() << Q_FUNC_INFO << "action " << act << " disabled";
-            act->setEnabled(false);
         }
     }
 }
@@ -241,6 +243,26 @@ bool TextView::gotoLine( const int line ) {
 TextDocument *TextView::textDocument() const
 {
 	return static_cast<TextDocument*>(document());
+}
+void TextView::undo() {
+    qDebug() << Q_FUNC_INFO;
+    // note: quite a hack, but could not find any more decent way of getting to undo/redo interface
+    QAction *a = m_view->actionCollection()->action("edit_undo");
+    if (a != NULL) {
+        a->trigger();
+    } else {
+        qWarning() << Q_FUNC_INFO << "no edit_undo action in text view! no action taken";
+    }
+}
+void TextView::redo() {
+    qDebug() << Q_FUNC_INFO;
+    // note: quite a hack, but could not find any more decent way of getting to undo/redo interface
+    QAction *a = m_view->actionCollection()->action("edit_redo");
+    if (a != NULL) {
+        a->trigger();
+    } else {
+        qWarning() << Q_FUNC_INFO << "no edit_redo action in text view! no action taken";
+    }
 }
 
 void TextView::cut() {

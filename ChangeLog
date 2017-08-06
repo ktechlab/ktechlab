@@ -119,3 +119,5 @@ Changes between Qt3 and Qt4 port (to be completed)
     sdcc --foo --bar
     vs
     sdcc '--foo --bar' <- this is not correct
+- fixed: when editing source code, many keyboard shortcuts are signaled as duplicate
+    KTextEditor creates its own KActions, and those interfered with the KTechLab created ones

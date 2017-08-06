@@ -492,10 +492,10 @@ void KTechlab::setupActions()
 	KStandardAction::close(				this, SLOT(slotViewClose()),				ac );
     KStandardAction::print(				this, SLOT(slotFilePrint()),				ac ); // (1)!
     KStandardAction::quit(				this, SLOT(slotFileQuit()),					ac );
-	KStandardAction::undo(				this, SLOT(slotEditUndo()),					ac ); // (1)! // TODO
-	KStandardAction::redo(				this, SLOT(slotEditRedo()),					ac ); // (1)! // TODO
-	KStandardAction::cut(				this, SLOT(slotEditCut()),					ac ); // (1)!// TODO
-	KStandardAction::copy(				this, SLOT(slotEditCopy()),					ac ); // (1)!// TODO
+	KStandardAction::undo(				this, SLOT(slotEditUndo()),					ac ); // (1)!
+	KStandardAction::redo(				this, SLOT(slotEditRedo()),					ac ); // (1)!
+	KStandardAction::cut(				this, SLOT(slotEditCut()),					ac ); // (1)!
+	KStandardAction::copy(				this, SLOT(slotEditCopy()),					ac ); // (1)!
 	KStandardAction::paste(				this, SLOT(slotEditPaste()),				ac ); // (1)!
 	KStandardAction::keyBindings(		this, SLOT(slotOptionsConfigureKeys()),		ac );
 	KStandardAction::configureToolbars(	this, SLOT(slotOptionsConfigureToolbars()),	ac );

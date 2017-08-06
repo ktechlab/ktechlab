@@ -75,12 +75,14 @@ Fixes that could be postponed after the first Qt4 release
 - maximum size of collected oscilloscope data should be configurable and should signal the user that the buffer is full
     - for now the line "flats out" when it reaches its limit; a Reset makes it collect data again
 
+- undo / redo interface needs to be properly fixed for text documents: this interface is not exported by KDE4 KTextEditor
+    http://api.kde.org/4.10-api/kdelibs-apidocs/interfaces/ktexteditor/html/kte_port_to_kde4.html
+    - a hack is in place which works
 
 Features needs re-implementation at Qt4 port
 =======
 - dbus integration for documents (used to be dcop bindings for documents)
-- undo / redo interface needs to  be fixed for text documents: this interface is not exported by KDE4 KTextEditor
-    http://api.kde.org/4.10-api/kdelibs-apidocs/interfaces/ktexteditor/html/kte_port_to_kde4.html
+
 - printing a text document needs fixing
 
 Fixes needed for the first release candidate of the Qt4 port
@@ -118,9 +120,6 @@ Fixes needed for the first release candidate of the Qt4 port
     - apparently when using a project, the PIC gets recognized and uploading works
 
 - when editing source code, many nonexitent signals are used in the code
-- when editing source code, many keyboard shortcuts are signaled as duplicate
-
-
 
 - cannot compile code for PIC, because SDCC complains about the PIC identifier
     - pic16f84 works; others are not clear
