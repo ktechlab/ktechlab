@@ -478,9 +478,12 @@ void KTechlab::setupActions()
 {
 	KActionCollection *ac = actionCollection();
 	
-    KStandardAction::open(				this, SLOT(slotFileOpen()),					ac );
     // 2017.08.06 - using custom new action
     //KStandardAction::openNew(			this, SLOT(slotFileNew()),					ac );
+    {
+    KAction *openAction = KStandardAction::open(				this, SLOT(slotFileOpen()),					ac );
+    openAction->setShortcutContext(Qt::WidgetWithChildrenShortcut );
+    }
     KStandardAction::save(				this, SLOT(slotFileSave()),					ac );
     KStandardAction::saveAs(				this, SLOT(slotFileSaveAs()),				ac );
 	KStandardAction::close(				this, SLOT(slotViewClose()),				ac );
