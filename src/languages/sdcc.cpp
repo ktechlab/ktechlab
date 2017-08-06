@@ -94,8 +94,10 @@ void SDCC::processInput( ProcessOptions options )
 	}
 #undef ARG
 
-	if ( !KTLConfig::miscSDCCOptions().isEmpty() )
-		*m_languageProcess << ( KTLConfig::miscSDCCOptions() );
+	if ( !KTLConfig::miscSDCCOptions().isEmpty() ) {
+        // note: this will not work with quotes inside the text; those need special parsing
+		*m_languageProcess << ( KTLConfig::miscSDCCOptions().split(QRegExp(" ")) );
+    }
 	//END Pass custom sdcc options
 	
 	
