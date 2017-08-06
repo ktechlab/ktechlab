@@ -305,7 +305,7 @@ void KTechlab::setupView()
 	setXMLFile("ktechlabui.rc");
 	createShellGUI(true);
 	//action("newfile_popup")->plug( toolBar("mainToolBar"), 0 );
-    actionByName("newfile_popup")->addTo( toolBar("mainToolBar") );
+    actionByName("file_new")->addTo( toolBar("mainToolBar") );
 	//action("file_new")->unplug( toolBar("mainToolBar") );
     actionByName("file_new")->removeFrom( toolBar("mainToolBar") );
 	setupExampleActions();
@@ -478,8 +478,9 @@ void KTechlab::setupActions()
 {
 	KActionCollection *ac = actionCollection();
 	
-    KStandardAction::openNew(			this, SLOT(slotFileNew()),					ac );
     KStandardAction::open(				this, SLOT(slotFileOpen()),					ac );
+    // 2017.08.06 - using custom new action
+    //KStandardAction::openNew(			this, SLOT(slotFileNew()),					ac );
     KStandardAction::save(				this, SLOT(slotFileSave()),					ac );
     KStandardAction::saveAs(				this, SLOT(slotFileSaveAs()),				ac );
 	KStandardAction::close(				this, SLOT(slotViewClose()),				ac );
@@ -501,10 +502,10 @@ void KTechlab::setupActions()
                                                      KIcon("document-new"),
                                                      i18n("&New"),
                                                      ac);
-    p->setName("newfile_popup");
+    p->setName("file_new");
     p->setShortcut( KStandardShortcut::shortcut(KStandardShortcut::New) );
     connect(p, SIGNAL(triggered(bool)), this, SLOT(slotFileNew()));
-    ac->addAction("newfile_popup", p);
+    ac->addAction("file_new", p);
 	p->menu()->setTitle( i18n("New File") );
     {
         //(new KAction( i18n("Assembly"), "source", 0, this, SLOT(slotFileNewAssembly()), ac, "newfile_asm" ))->plug( p->menu() );
