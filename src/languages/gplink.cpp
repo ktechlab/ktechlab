@@ -35,15 +35,20 @@ Gplink::Gplink( ProcessChain *processChain )
 	m_sdccLibDir = "";
 #define SEARCH_FOR_SDCC(dir) 			\
 	{ 					\
+    if ( m_sdccLibDir.isEmpty() ) { \
 		QFile f(dir); 			\
 		qDebug() << Q_FUNC_INFO << " SDCC lib testing " << dir ; \
 		if( f.exists() ) { 		\
             qDebug() << Q_FUNC_INFO << " SDCC lib found " << dir ; \
 			m_sdccLibDir = dir; 	\
         } \
+    } \
 	}
 	
 	// consider adding more paths here, if necessary
+	if (!KTLConfig::sDCC_install_prefix().isEmpty()) {
+        SEARCH_FOR_SDCC( KTLConfig::sDCC_install_prefix().append("/share/sdcc/lib") );
+    }
 	SEARCH_FOR_SDCC( "/usr/local/share/sdcc/lib" )
 	SEARCH_FOR_SDCC( "/usr/share/sdcc/lib" )
 	SEARCH_FOR_SDCC( "/usr/sdcc/lib" )

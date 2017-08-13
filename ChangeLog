@@ -123,3 +123,9 @@ Changes between Qt3 and Qt4 port (to be completed)
     KTextEditor creates its own KActions, and those interfered with the KTechLab created ones
 - fixed printing of text documents
 - could not reproduce anymore: when editing source code, many nonexitent signals are used in the code
+- fixed: SDCC should have an option to enable non-free libraries/includes
+- fixed: SDCC should have an option to set extra SDCC's install prefix
+- not needed: GPLink should have an option to set the libraries' path -- it takes libraries from SDCC install prefix
+- cannot convert C code to ASM or HEX, because function __sdcc_gsinit_startup
+    - need to set proper sdcclib when linking; to be automatized
+    - sdcc's libraries should be properly installed

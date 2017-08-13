@@ -286,7 +286,15 @@
 			<label>Thorough data flow analysis</label>
 			<default>false</default>
 		</entry>
-		
+        <entry name="SDCC_use_non_free" type="Bool">
+            <label>Search / include non-free licensed libraries and header files</label>
+            <default>true</default>
+        </entry>
+        <entry name="SDCC_install_prefix" type="String">
+            <label>Location where SDCC in installed</label>
+            <default></default>
+        </entry>
+
 		<entry name="MiscSDCCOptions" type="String">
 			<label>Other Options</label>
 			<default></default>

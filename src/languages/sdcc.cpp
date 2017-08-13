@@ -45,8 +45,13 @@ void SDCC::processInput( ProcessOptions options )
 	
 	m_processOptions = options;
 	
-	*m_languageProcess << ("sdcc");
-	
+    if ( KTLConfig::sDCC_install_prefix().isEmpty()) {
+        qDebug() << Q_FUNC_INFO << "using system sdcc";
+        *m_languageProcess << ("sdcc");
+    } else {
+        qDebug() << Q_FUNC_INFO << "using sdcc at " << KTLConfig::sDCC_install_prefix();
+        *m_languageProcess << ( KTLConfig::sDCC_install_prefix().append("/bin/sdcc") );
+    }
 	
 	//BEGIN Pass custom sdcc options
 #define ARG(text,option) if ( KTLConfig::text() ) *m_languageProcess << ( QString("--%1").arg(option) );
@@ -56,6 +61,7 @@ void SDCC::processInput( ProcessOptions options )
 	ARG( sDCC_less_pedantic,		"less-pedantic" )
 	ARG( sDCC_std_c89,			"std-c89" )
 	ARG( sDCC_std_c99,			"std-c99" )
+    ARG( sDCC_use_non_free,   "use-non-free" );
 	
 	// Code generation
 	ARG( sDCC_stack_auto,			"stack-auto" )
@@ -93,6 +99,19 @@ void SDCC::processInput( ProcessOptions options )
 		ARG( sDCC_optimize_df,			"optimize-df" )
 	}
 #undef ARG
+
+    if ( !KTLConfig::sDCC_install_prefix().isEmpty()) {
+        QString incDir="";
+        switch (info->instructionSet()->set()) {
+            case AsmInfo::PIC14: incDir = "pic14"; break;
+            case AsmInfo::PIC16: incDir = "pic16"; break;
+            default:
+                qWarning() << Q_FUNC_INFO << "unsupported PIC instruction set " << info->instructionSet()->set();
+        }
+        *m_languageProcess << ( QString("-I%1/share/sdcc/include").arg(KTLConfig::sDCC_install_prefix()) );
+        *m_languageProcess << ( QString("-I%1/share/sdcc/include/%2").arg(KTLConfig::sDCC_install_prefix()).arg(incDir) );
+        *m_languageProcess << ( QString("-I%1/share/sdcc/non-free/include/%2").arg(KTLConfig::sDCC_install_prefix()).arg(incDir) );
+    }
 
 	if ( !KTLConfig::miscSDCCOptions().isEmpty() ) {
         // note: this will not work with quotes inside the text; those need special parsing
