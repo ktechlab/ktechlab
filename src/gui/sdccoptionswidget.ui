@@ -1,460 +1,502 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0" stdsetdef="1">
-  <author></author>
-  <comment></comment>
-  <exportmacro></exportmacro>
-  <class>SDCCOptionsWidget</class>
-  <widget class="QWidget" name="SDCCOptionsWidget">
-    <property name="geometry">
-      <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>441</width>
-        <height>377</height>
-      </rect>
-    </property>
-    <layout class="QGridLayout">
-      <property name="margin">
-        <number>0</number>
-      </property>
-      <item row="0" column="0" rowspan="1" colspan="2">
-        <widget class="QTabWidget" name="tabWidget12">
-          <widget class="QWidget" name="general">
-            <attribute name="title">
-              <string>Ge&amp;neral</string>
-            </attribute>
-            <layout class="QVBoxLayout">
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_nostdlib">
-                  <property name="text">
-                    <string>Do not search in the standard librar&amp;y directory (--nostdlib)</string>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_nostdinc">
-                  <property name="text">
-                    <string>Do not search in the standard include directory (--nostdinc)</string>
-                  </property>
-                  <property name="shortcut">
-                    <string/>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_less_pedantic">
-                  <property name="text">
-                    <string>Disa&amp;ble pedantic warnings (--less-pedantic)</string>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_std_c89">
-                  <property name="text">
-                    <string>Use C&amp;89 standard only (--std-c89)</string>
-                  </property>
-                  <property name="shortcut">
-                    <string>Alt+8</string>
-                  </property>
-                  <property name="whatsThis" stdset="0">
-                    <string>Follow the C89 standard and disable SDCC features that conflict with the standard.</string>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_std_c99">
-                  <property name="text">
-                    <string>Use C&amp;99 standard only (--std-c99)</string>
-                  </property>
-                  <property name="shortcut">
-                    <string>Alt+9</string>
-                  </property>
-                  <property name="toolTip" stdset="0">
-                    <string/>
-                  </property>
-                  <property name="whatsThis" stdset="0">
-                    <string>Follow the C99 standard and disable SDCC features that conflict with the standard (incomplete support).</string>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <spacer name="spacer32">
-                  <property name="sizeHint">
-                    <size>
-                      <width>20</width>
-                      <height>20</height>
-                    </size>
-                  </property>
-                  <property name="sizeType">
-                    <enum>QSizePolicy::Expanding</enum>
-                  </property>
-                  <property name="orientation">
-                    <enum>Qt::Vertical</enum>
-                  </property>
-                </spacer>
-              </item>
-            </layout>
-          </widget>
-          <widget class="QWidget" name="code_generation">
-            <attribute name="title">
-              <string>Code Gener&amp;ation</string>
-            </attribute>
-            <layout class="QVBoxLayout">
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_stack_auto">
-                  <property name="text">
-                    <string>Stack auto&amp;matic variables (--stack-auto)</string>
-                  </property>
-                  <property name="toolTip" stdset="0">
-                    <string/>
-                  </property>
-                  <property name="whatsThis" stdset="0">
-                    <string>All functions in the source file will be compiled as reentrant, i.e. the parameters and local variables will be allocated on the stack. If this option is used all source files in the project should be compiled with this option. It automatically implies -int-long-reent and -float-reent.</string>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_int_long_reent">
-                  <property name="text">
-                    <string>Integer li&amp;braries were compiled as reentrant (--int-long-reent)</string>
-                  </property>
-                  <property name="toolTip" stdset="0">
-                    <string/>
-                  </property>
-                  <property name="whatsThis" stdset="0">
-                    <string>Integer (16 bit) and long (32 bit) libraries have been compiled as reentrant. Note by default these libraries are compiled as non-reentrant.</string>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_float_reent">
-                  <property name="text">
-                    <string>Floating point librar&amp;y was compiled as reentrant (--float-reent)</string>
-                  </property>
-                  <property name="whatsThis" stdset="0">
-                    <string>Floating point library is compiled as reentrant.</string>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_fommit_frame_pointer">
-                  <property name="text">
-                    <string>Leave out the frame pointer (--fommit-frame-pointer)</string>
-                  </property>
-                  <property name="shortcut">
-                    <string/>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_no_xinit_opt">
-                  <property name="text">
-                    <string>Do not memcpy initialized &amp;xram from code (--no-xinit-opt)</string>
-                  </property>
-                  <property name="whatsThis" stdset="0">
-                    <string>Will not memcpy initialized data from code space into xdata space. This saves a few bytes in code space if you do not have initialized data.</string>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_all_callee_saves">
-                  <property name="text">
-                    <string>Callee will &amp;always save registers used (--all-callee-saves)</string>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <spacer name="spacer31">
-                  <property name="sizeHint">
-                    <size>
-                      <width>20</width>
-                      <height>20</height>
-                    </size>
-                  </property>
-                  <property name="sizeType">
-                    <enum>QSizePolicy::Expanding</enum>
-                  </property>
-                  <property name="orientation">
-                    <enum>Qt::Vertical</enum>
-                  </property>
-                </spacer>
-              </item>
-            </layout>
-          </widget>
-          <widget class="QWidget" name="optimization">
-            <attribute name="title">
-              <string>&amp;Optimization</string>
-            </attribute>
-            <layout class="QVBoxLayout">
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_nooverlay">
-                  <property name="text">
-                    <string>Disable overlaying leaf function &amp;auto variables (--nooverlay)</string>
-                  </property>
-                  <property name="whatsThis" stdset="0">
-                    <string>The compiler will not overlay parameters and local variables of any function, see section Parameters and local variables for more details.</string>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_nogcse">
-                  <property name="text">
-                    <string>Disable the GCSE optimization (--nogcse)</string>
-                  </property>
-                  <property name="shortcut">
-                    <string/>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_nolabelopt">
-                  <property name="text">
-                    <string>Disable label optimi&amp;zation (--nolabelopt)</string>
-                  </property>
-                  <property name="whatsThis" stdset="0">
-                    <string>Will not optimize labels (makes the dumpfiles more readable).</string>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_noinvariant">
-                  <property name="text">
-                    <string>Disable optimization of invariants (--noinvariant)</string>
-                  </property>
-                  <property name="shortcut">
-                    <string/>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_noinduction">
-                  <property name="text">
-                    <string>Disable loop variable induction (--noinduction)</string>
-                  </property>
-                  <property name="shortcut">
-                    <string/>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_no_peep">
-                  <property name="text">
-                    <string>Disable peep-hole optimization (--&amp;no-peep)</string>
-                  </property>
-                  <property name="whatsThis" stdset="0">
-                    <string>Disable peep-hole optimization.</string>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_noloopreverse">
-                  <property name="text">
-                    <string>Disable loop reverse optimization (--noloopreverse)</string>
-                  </property>
-                  <property name="shortcut">
-                    <string/>
-                  </property>
-                  <property name="whatsThis" stdset="0">
-                    <string>Will not do loop reversal optimization.</string>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_opt_code_size">
-                  <property name="text">
-                    <string>Opti&amp;mize for compact code (--opt-code-size)</string>
-                  </property>
-                  <property name="whatsThis" stdset="0">
-                    <string>The compiler will optimize code generation towards compact code, possibly at the expense of code speed.</string>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_opt_code_speed">
-                  <property name="text">
-                    <string>&amp;Optimize for fast code (--opt-code-speed)</string>
-                  </property>
-                  <property name="whatsThis" stdset="0">
-                    <string>The compiler will optimize code generation towards fast code, possibly at the expense of code size.</string>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_peep_asm">
-                  <property name="text">
-                    <string>Ena&amp;ble inline assembly peephole optimization (--peep-asm)</string>
-                  </property>
-                  <property name="whatsThis" stdset="0">
-                    <string>Pass the inline assembler code through the peep hole optimizer. This can cause unexpected changes to inline assembler code, please go through the peephole optimizer rules defined in the source file tree '&lt;target&gt;/peeph.def' before using this option.</string>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_nojtbound">
-                  <property name="text">
-                    <string>Do not generate boundary check for &amp;jump tables (--nojtbound)</string>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <spacer name="spacer33">
-                  <property name="sizeHint">
-                    <size>
-                      <width>20</width>
-                      <height>20</height>
-                    </size>
-                  </property>
-                  <property name="sizeType">
-                    <enum>QSizePolicy::Expanding</enum>
-                  </property>
-                  <property name="orientation">
-                    <enum>Qt::Vertical</enum>
-                  </property>
-                </spacer>
-              </item>
-            </layout>
-          </widget>
-          <widget class="QWidget" name="pic16_specific">
-            <attribute name="title">
-              <string>PIC&amp;16 Specific</string>
-            </attribute>
-            <layout class="QVBoxLayout">
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_nodefaultlibs">
-                  <property name="text">
-                    <string>Do not use default libraries (--nodefaultlibs)</string>
-                  </property>
-                  <property name="shortcut">
-                    <string/>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_pno_banksel">
-                  <property name="text">
-                    <string>Do not generate BANKSEL directives (--pno-banksel)</string>
-                  </property>
-                  <property name="shortcut">
-                    <string/>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_pstack_model_large">
-                  <property name="text">
-                    <string>Use large stac&amp;k model (--pstack-model=large)</string>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_debug_xtra">
-                  <property name="text">
-                    <string>Show more debug info in assembl&amp;y output (--debug-xtra)</string>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_denable_peeps">
-                  <property name="text">
-                    <string>E&amp;xplicit enable of peepholes (--denable-peeps)</string>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_calltree">
-                  <property name="text">
-                    <string>Du&amp;mp call tree in .calltree file (--calltree)</string>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_fstack">
-                  <property name="text">
-                    <string>Ena&amp;ble stack optimizations (--fstack)</string>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_optimize_goto">
-                  <property name="text">
-                    <string>Try to use conditional BRA instead of GOTO (--optimi&amp;ze-goto)</string>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_optimize_cmp">
-                  <property name="text">
-                    <string>Try to optimize some compares (--optimize-cmp)</string>
-                  </property>
-                  <property name="shortcut">
-                    <string/>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <widget class="QCheckBox" name="kcfg_SDCC_optimize_df">
-                  <property name="text">
-                    <string>Thorough data flow analysis (resource intensive) (--optimize-df)</string>
-                  </property>
-                  <property name="shortcut">
-                    <string/>
-                  </property>
-                </widget>
-              </item>
-              <item>
-                <spacer name="spacer34">
-                  <property name="sizeHint">
-                    <size>
-                      <width>20</width>
-                      <height>20</height>
-                    </size>
-                  </property>
-                  <property name="sizeType">
-                    <enum>QSizePolicy::Expanding</enum>
-                  </property>
-                  <property name="orientation">
-                    <enum>Qt::Vertical</enum>
-                  </property>
-                </spacer>
-              </item>
-            </layout>
-          </widget>
+<ui version="4.0">
+ <class>SDCCOptionsWidget</class>
+ <widget class="QWidget" name="SDCCOptionsWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>562</width>
+    <height>415</height>
+   </rect>
+  </property>
+  <layout class="QGridLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item row="2" column="1">
+    <widget class="KLineEdit" name="kcfg_MiscSDCCOptions" native="true"/>
+   </item>
+   <item row="0" column="0" colspan="2">
+    <widget class="QTabWidget" name="tabWidget12">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="general">
+      <attribute name="title">
+       <string>Ge&amp;neral</string>
+      </attribute>
+      <layout class="QVBoxLayout">
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_nostdlib">
+         <property name="text">
+          <string>Do not search in the standard librar&amp;y directory (--nostdlib)</string>
+         </property>
         </widget>
-      </item>
-      <item row="1" column="1">
-        <widget class="KLineEdit" name="kcfg_MiscSDCCOptions"/>
-      </item>
-      <item row="1" column="0">
-        <widget class="QLabel" name="textLabel2">
-          <property name="text">
-            <string>Other options:</string>
-          </property>
-          <property name="wordWrap">
-            <bool>false</bool>
-          </property>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_nostdinc">
+         <property name="text">
+          <string>Do not search in the standard include directory (--nostdinc)</string>
+         </property>
+         <property name="shortcut">
+          <string/>
+         </property>
         </widget>
-      </item>
-      <item row="2" column="1">
-        <spacer name="spacer4">
-          <property name="sizeHint">
-            <size>
-              <width>20</width>
-              <height>16</height>
-            </size>
-          </property>
-          <property name="sizeType">
-            <enum>QSizePolicy::Expanding</enum>
-          </property>
-          <property name="orientation">
-            <enum>Qt::Vertical</enum>
-          </property>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_less_pedantic">
+         <property name="text">
+          <string>Disa&amp;ble pedantic warnings (--less-pedantic)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_std_c89">
+         <property name="whatsThis">
+          <string>Follow the C89 standard and disable SDCC features that conflict with the standard.</string>
+         </property>
+         <property name="text">
+          <string>Use C&amp;89 standard only (--std-c89)</string>
+         </property>
+         <property name="shortcut">
+          <string>Alt+8</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_std_c99">
+         <property name="toolTip">
+          <string/>
+         </property>
+         <property name="whatsThis">
+          <string>Follow the C99 standard and disable SDCC features that conflict with the standard (incomplete support).</string>
+         </property>
+         <property name="text">
+          <string>Use C&amp;99 standard only (--std-c99)</string>
+         </property>
+         <property name="shortcut">
+          <string>Alt+9</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_use_non_free">
+         <property name="whatsThis">
+          <string>Search / include non-free licensed libraries and header files</string>
+         </property>
+         <property name="text">
+          <string>Use non-free licensed libraries and header files (--use-non-free)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="spacer32">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Expanding</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
         </spacer>
-      </item>
-    </layout>
-  </widget>
-  <layoutdefault spacing="6" margin="11"/>
-  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
-  <includes>
-    <include location="local">klineedit.h</include>
-  </includes>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="code_generation">
+      <attribute name="title">
+       <string>Code Gener&amp;ation</string>
+      </attribute>
+      <layout class="QVBoxLayout">
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_stack_auto">
+         <property name="toolTip">
+          <string/>
+         </property>
+         <property name="whatsThis">
+          <string>All functions in the source file will be compiled as reentrant, i.e. the parameters and local variables will be allocated on the stack. If this option is used all source files in the project should be compiled with this option. It automatically implies -int-long-reent and -float-reent.</string>
+         </property>
+         <property name="text">
+          <string>Stack auto&amp;matic variables (--stack-auto)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_int_long_reent">
+         <property name="toolTip">
+          <string/>
+         </property>
+         <property name="whatsThis">
+          <string>Integer (16 bit) and long (32 bit) libraries have been compiled as reentrant. Note by default these libraries are compiled as non-reentrant.</string>
+         </property>
+         <property name="text">
+          <string>Integer li&amp;braries were compiled as reentrant (--int-long-reent)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_float_reent">
+         <property name="whatsThis">
+          <string>Floating point library is compiled as reentrant.</string>
+         </property>
+         <property name="text">
+          <string>Floating point librar&amp;y was compiled as reentrant (--float-reent)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_fommit_frame_pointer">
+         <property name="text">
+          <string>Leave out the frame pointer (--fommit-frame-pointer)</string>
+         </property>
+         <property name="shortcut">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_no_xinit_opt">
+         <property name="whatsThis">
+          <string>Will not memcpy initialized data from code space into xdata space. This saves a few bytes in code space if you do not have initialized data.</string>
+         </property>
+         <property name="text">
+          <string>Do not memcpy initialized &amp;xram from code (--no-xinit-opt)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_all_callee_saves">
+         <property name="text">
+          <string>Callee will &amp;always save registers used (--all-callee-saves)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="spacer31">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Expanding</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="optimization">
+      <attribute name="title">
+       <string>&amp;Optimization</string>
+      </attribute>
+      <layout class="QVBoxLayout">
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_nooverlay">
+         <property name="whatsThis">
+          <string>The compiler will not overlay parameters and local variables of any function, see section Parameters and local variables for more details.</string>
+         </property>
+         <property name="text">
+          <string>Disable overlaying leaf function &amp;auto variables (--nooverlay)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_nogcse">
+         <property name="text">
+          <string>Disable the GCSE optimization (--nogcse)</string>
+         </property>
+         <property name="shortcut">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_nolabelopt">
+         <property name="whatsThis">
+          <string>Will not optimize labels (makes the dumpfiles more readable).</string>
+         </property>
+         <property name="text">
+          <string>Disable label optimi&amp;zation (--nolabelopt)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_noinvariant">
+         <property name="text">
+          <string>Disable optimization of invariants (--noinvariant)</string>
+         </property>
+         <property name="shortcut">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_noinduction">
+         <property name="text">
+          <string>Disable loop variable induction (--noinduction)</string>
+         </property>
+         <property name="shortcut">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_no_peep">
+         <property name="whatsThis">
+          <string>Disable peep-hole optimization.</string>
+         </property>
+         <property name="text">
+          <string>Disable peep-hole optimization (--&amp;no-peep)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_noloopreverse">
+         <property name="whatsThis">
+          <string>Will not do loop reversal optimization.</string>
+         </property>
+         <property name="text">
+          <string>Disable loop reverse optimization (--noloopreverse)</string>
+         </property>
+         <property name="shortcut">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_opt_code_size">
+         <property name="whatsThis">
+          <string>The compiler will optimize code generation towards compact code, possibly at the expense of code speed.</string>
+         </property>
+         <property name="text">
+          <string>Opti&amp;mize for compact code (--opt-code-size)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_opt_code_speed">
+         <property name="whatsThis">
+          <string>The compiler will optimize code generation towards fast code, possibly at the expense of code size.</string>
+         </property>
+         <property name="text">
+          <string>&amp;Optimize for fast code (--opt-code-speed)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_peep_asm">
+         <property name="whatsThis">
+          <string>Pass the inline assembler code through the peep hole optimizer. This can cause unexpected changes to inline assembler code, please go through the peephole optimizer rules defined in the source file tree '&lt;target&gt;/peeph.def' before using this option.</string>
+         </property>
+         <property name="text">
+          <string>Ena&amp;ble inline assembly peephole optimization (--peep-asm)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_nojtbound">
+         <property name="text">
+          <string>Do not generate boundary check for &amp;jump tables (--nojtbound)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="spacer33">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Expanding</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="pic16_specific">
+      <attribute name="title">
+       <string>PIC&amp;16 Specific</string>
+      </attribute>
+      <layout class="QVBoxLayout">
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_nodefaultlibs">
+         <property name="text">
+          <string>Do not use default libraries (--nodefaultlibs)</string>
+         </property>
+         <property name="shortcut">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_pno_banksel">
+         <property name="text">
+          <string>Do not generate BANKSEL directives (--pno-banksel)</string>
+         </property>
+         <property name="shortcut">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_pstack_model_large">
+         <property name="text">
+          <string>Use large stac&amp;k model (--pstack-model=large)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_debug_xtra">
+         <property name="text">
+          <string>Show more debug info in assembl&amp;y output (--debug-xtra)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_denable_peeps">
+         <property name="text">
+          <string>E&amp;xplicit enable of peepholes (--denable-peeps)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_calltree">
+         <property name="text">
+          <string>Du&amp;mp call tree in .calltree file (--calltree)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_fstack">
+         <property name="text">
+          <string>Ena&amp;ble stack optimizations (--fstack)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_optimize_goto">
+         <property name="text">
+          <string>Try to use conditional BRA instead of GOTO (--optimi&amp;ze-goto)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_optimize_cmp">
+         <property name="text">
+          <string>Try to optimize some compares (--optimize-cmp)</string>
+         </property>
+         <property name="shortcut">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_SDCC_optimize_df">
+         <property name="text">
+          <string>Thorough data flow analysis (resource intensive) (--optimize-df)</string>
+         </property>
+         <property name="shortcut">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="spacer34">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Expanding</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="textLabel2">
+     <property name="text">
+      <string>Other options:</string>
+     </property>
+     <property name="wordWrap">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <spacer name="spacer4">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Expanding</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>16</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="installPrefixLabel">
+     <property name="text">
+      <string>SDCC install prefix:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLineEdit" name="kcfg_SDCC_install_prefix">
+     <property name="whatsThis">
+      <string>Location where SDCC in installed. Empty for system default.</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+ <customwidgets>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QWidget</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+ </customwidgets>
+ <includes>
+  <include location="local">klineedit.h</include>
+ </includes>
+ <resources/>
+ <connections/>
 </ui>
