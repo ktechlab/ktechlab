@@ -81,6 +81,9 @@ void Gplink::processInput( ProcessOptions options )
 	
 	*m_languageProcess << ("gplink");
 	
+	// note: needed for newer GPUtils: relocate to shared memory if necessary
+	*m_languageProcess << ("--use-shared");
+
 	if ( !options.m_hexFormat.isEmpty() )
 	{
 		*m_languageProcess << ("--hex-format");
