@@ -129,3 +129,10 @@ Changes between Qt3 and Qt4 port (to be completed)
 - cannot convert C code to ASM or HEX, because function __sdcc_gsinit_startup
     - need to set proper sdcclib when linking; to be automatized
     - sdcc's libraries should be properly installed
+- reviewed: cannot compile code for PIC, because SDCC complains about the PIC identifier
+    - pic16f84 works; others are not clear
+    - gpsim pic list: gpsim ; processor list
+    - sdcc pic list: touch foo.c ;
+        sdcc -mpic14 -phelp foo.c
+        sdcc -mpic16 -phelp --verbose foo.c
+    - some PICs are not supported by SDCC

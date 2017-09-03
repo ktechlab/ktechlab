@@ -66,6 +66,7 @@ class PicInfo17C75x : public PicInfo17C7xx
 };
 
 /**
+Note: this PIC is not supported by SDCC
 @author David Saxton
  */
 class PicInfo17C752 : public PicInfo17C75x
@@ -73,10 +74,11 @@ class PicInfo17C752 : public PicInfo17C75x
 	public:
 		PicInfo17C752();
 		~PicInfo17C752();
-		virtual Support gpsimSupport() const { return PartialSupport; }
+		virtual Support gpsimSupport() const { return NoSupport; }
 };
 
 /**
+Note: this PIC is not supported by SDCC
 @author David Saxton
  */
 class PicInfo17C756 : public PicInfo17C75x
@@ -84,10 +86,11 @@ class PicInfo17C756 : public PicInfo17C75x
 	public:
 		PicInfo17C756();
 		~PicInfo17C756();
-		virtual Support gpsimSupport() const { return PartialSupport; }
+		virtual Support gpsimSupport() const { return NoSupport; }
 };
 
 /**
+Note: this PIC is not supported by SDCC
 @author David Saxton
  */
 class PicInfo17C756A : public PicInfo17C75x
@@ -99,6 +102,7 @@ class PicInfo17C756A : public PicInfo17C75x
 };
 
 /**
+Note: this PIC is not supported by SDCC
 @author David Saxton
  */
 class PicInfo17C762 : public PicInfo17C75x
@@ -106,10 +110,11 @@ class PicInfo17C762 : public PicInfo17C75x
 	public:
 		PicInfo17C762();
 		~PicInfo17C762();
-		virtual Support gpsimSupport() const { return PartialSupport; }
+		virtual Support gpsimSupport() const { return NoSupport; }
 };
 
 /**
+Note: this PIC is not supported by SDCC
 @author David Saxton
  */
 class PicInfo17C766 : public PicInfo17C75x
@@ -117,7 +122,7 @@ class PicInfo17C766 : public PicInfo17C75x
 	public:
 		PicInfo17C766();
 		~PicInfo17C766();
-		virtual Support gpsimSupport() const { return PartialSupport; }
+		virtual Support gpsimSupport() const { return NoSupport; }
 };
 
 /**
@@ -143,6 +148,7 @@ class PicInfo18C2x2 : public PicInfo16bit
 };
 
 /**
+Note: this PIC is not supported by SDCC
 @author David Saxton
  */
 class PicInfo18C242 : public PicInfo18C2x2
@@ -150,10 +156,11 @@ class PicInfo18C242 : public PicInfo18C2x2
 	public:
 		PicInfo18C242();
 		~PicInfo18C242();
-		virtual Support gpsimSupport() const { return PartialSupport; }
+		virtual Support gpsimSupport() const { return FullSupport; }
 };
 
 /**
+Note: this PIC is not supported by SDCC
 @author David Saxton
  */
 class PicInfo18C252 : public PicInfo18C242
@@ -161,7 +168,7 @@ class PicInfo18C252 : public PicInfo18C242
 	public:
 		PicInfo18C252();
 		~PicInfo18C252();
-		virtual Support gpsimSupport() const { return PartialSupport; }
+		virtual Support gpsimSupport() const { return FullSupport; }
 };
 
 /**
@@ -176,6 +183,7 @@ class PicInfo18C4x2 : public PicInfo16bit
 };
 
 /**
+Note: this PIC is not supported by SDCC
 @author David Saxton
  */
 class PicInfo18C442 : public PicInfo18C4x2
@@ -183,10 +191,11 @@ class PicInfo18C442 : public PicInfo18C4x2
 	public:
 		PicInfo18C442();
 		~PicInfo18C442();
-		virtual Support gpsimSupport() const { return PartialSupport; }
+		virtual Support gpsimSupport() const { return FullSupport; }
 };
 
 /**
+Note: this PIC is not supported by SDCC
 @author David Saxton
  */
 class PicInfo18C452 : public PicInfo18C442
@@ -194,7 +203,7 @@ class PicInfo18C452 : public PicInfo18C442
 	public:
 		PicInfo18C452();
 		~PicInfo18C452();
-		virtual Support gpsimSupport() const { return PartialSupport; }
+		virtual Support gpsimSupport() const { return FullSupport; }
 };
 
 /**
@@ -205,7 +214,7 @@ class PicInfo18F442 : public PicInfo18C442
 	public:
 		PicInfo18F442();
 		~PicInfo18F442();
-		virtual Support gpsimSupport() const { return PartialSupport; }
+		virtual Support gpsimSupport() const { return FullSupport; }
 };
 
 /**
@@ -216,7 +225,7 @@ class PicInfo18F248 : public PicInfo18F442
 	public:
 		PicInfo18F248();
 		~PicInfo18F248();
-		virtual Support gpsimSupport() const { return NoSupport; }
+		virtual Support gpsimSupport() const { return FullSupport; }
 };
 
 /**
@@ -227,7 +236,7 @@ class PicInfo18F452 : public PicInfo18F442
 	public:
 		PicInfo18F452();
 		~PicInfo18F452();
-		virtual Support gpsimSupport() const { return PartialSupport; }
+		virtual Support gpsimSupport() const { return FullSupport; }
 };
 
 /**
@@ -249,7 +258,7 @@ class PicInfo18F1220 : public PicInfo18Fxx20
 	public:
 		PicInfo18F1220();
 		~PicInfo18F1220();
-		virtual Support gpsimSupport() const { return NoSupport; }
+		virtual Support gpsimSupport() const { return FullSupport; }
 };
 
 /**
@@ -260,7 +269,7 @@ class PicInfo18F1320 : public PicInfo18F1220
 	public:
 		PicInfo18F1320();
 		~PicInfo18F1320();
-		virtual Support gpsimSupport() const { return NoSupport; }
+		virtual Support gpsimSupport() const { return FullSupport; }
 };
 
 #endif

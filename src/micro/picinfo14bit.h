@@ -54,6 +54,7 @@ class PicInfo16C8x : public PicInfo14bit
 };
 
 /**
+Note: this PIC is superseeded by 16F84. SDCC does not recognize it.
 @author David Saxton
  */
 class PicInfo16C84 : public PicInfo16C8x
@@ -166,7 +167,7 @@ class PicInfo16C64 : public PicInfo16X6X
 	public:
 		PicInfo16C64();
 		~PicInfo16C64();
-		virtual Support gpsimSupport() const { return PartialSupport; }
+		virtual Support gpsimSupport() const { return FullSupport; }
 };
 
 /**
@@ -177,7 +178,7 @@ class PicInfo16C65 : public PicInfo16C64
 	public:
 		PicInfo16C65();
 		~PicInfo16C65();
-		virtual Support gpsimSupport() const { return PartialSupport; }
+		virtual Support gpsimSupport() const { return FullSupport; }
 };
 
 /**
@@ -225,7 +226,7 @@ class PicInfo16F648 : public PicInfo16F628
 	public:
 		PicInfo16F648();
 		~PicInfo16F648();
-		virtual Support gpsimSupport() const { return NoSupport; }
+		virtual Support gpsimSupport() const { return FullSupport; }
 };
 
 /**
@@ -269,7 +270,7 @@ class PicInfo16C72 : public PicInfo16C62
 	public:
 		PicInfo16C72();
 		~PicInfo16C72();
-		virtual Support gpsimSupport() const { return PartialSupport; }
+		virtual Support gpsimSupport() const { return FullSupport; }
 };
 
 /**
@@ -280,7 +281,7 @@ class PicInfo16C73 : public PicInfo16C63
 	public:
 		PicInfo16C73();
 		~PicInfo16C73();
-		virtual Support gpsimSupport() const { return PartialSupport; }
+		virtual Support gpsimSupport() const { return FullSupport; }
 };
 
 /**
@@ -291,7 +292,7 @@ class PicInfo16C74 : public PicInfo16C65
 	public:
 		PicInfo16C74();
 		~PicInfo16C74();
-		virtual Support gpsimSupport() const { return PartialSupport; }
+		virtual Support gpsimSupport() const { return FullSupport; }
 };
 
 /**
@@ -302,7 +303,7 @@ class PicInfo16F873 : public PicInfo16C73
 	public:
 		PicInfo16F873();
 		~PicInfo16F873();
-		virtual Support gpsimSupport() const { return PartialSupport; }
+		virtual Support gpsimSupport() const { return FullSupport; }
 };
 
 /**
@@ -313,7 +314,7 @@ class PicInfo16F874 : public PicInfo16C74
 	public:
 		PicInfo16F874();
 		~PicInfo16F874();
-		virtual Support gpsimSupport() const { return PartialSupport; }
+		virtual Support gpsimSupport() const { return FullSupport; }
 };
 
 /**
@@ -324,7 +325,7 @@ class PicInfo16F877 : public PicInfo16F874
 	public:
 		PicInfo16F877();
 		~PicInfo16F877();
-		virtual Support gpsimSupport() const { return PartialSupport; }
+		virtual Support gpsimSupport() const { return FullSupport; }
 };
 
 #endif

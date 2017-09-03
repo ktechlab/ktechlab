@@ -82,6 +82,17 @@ Fixes that could be postponed after the first Qt4 release
 - printing a text document needs fixing
     - hack is in place, it works
 
+- some PICs do not have SDCC support (e.g. Pic18Cxxx). These should not be selectable from the GUI
+
+- minimize the number of bundled 3rd party icons; most should be usable from Oxygen icon theme
+
+- loading C code to PIC fails
+    - apparently when using a project, the PIC gets recognized and uploading works; looks like a feature
+
+- components have no description
+   - the context help exists; or something else is needed here?
+   - missing for: VCVS, VCCS, CCVS, CCCS, Push-to-Make, Push-to-Break, NPN, PNP, n-JFET, p-JFET, n-MOSFET, p-MOSFET,
+        Inductor, Bar Graph Display
 
 Features needs re-implementation at Qt4 port
 =======
@@ -110,16 +121,5 @@ Fixes needed for the first release candidate of the Qt4 port
 
 -'Scope works well, but doesn't clear 'lines' from other circuits when they are closed. (Y-axis scale would be nice)
 
-- components have no description
-   - the context help exists; or something else is needed here?
-   - missing for: VCVS, VCCS, CCVS, CCCS, Push-to-Make, Push-to-Break, NPN, PNP, n-JFET, p-JFET, n-MOSFET, p-MOSFET,
-        Inductor, Bar Graph Display
-
-- minimize the number of bundled 3rd party icons; most should be usable from Oxygen icon theme
-
-- loading C code to PIC fails
-    - apparently when using a project, the PIC gets recognized and uploading works
-
-- cannot compile code for PIC, because SDCC complains about the PIC identifier
-    - pic16f84 works; others are not clear
-
+- new file toolbar button / file menu entry should show the new file dialog
+- new file toolbar button / file menu entry should appear on the toolbar by default
