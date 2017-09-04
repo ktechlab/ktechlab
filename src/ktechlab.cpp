@@ -304,10 +304,11 @@ void KTechlab::setupView()
 	setStandardToolBarMenuEnabled(true);
 	setXMLFile("ktechlabui.rc");
 	createShellGUI(true);
-	//action("newfile_popup")->plug( toolBar("mainToolBar"), 0 );
-    actionByName("file_new")->addTo( toolBar("mainToolBar") );
-	//action("file_new")->unplug( toolBar("mainToolBar") );
-    actionByName("file_new")->removeFrom( toolBar("mainToolBar") );
+    // 2017.09.04 - no need to explicitly add the new file selector to toolbar
+	////action("newfile_popup")->plug( toolBar("mainToolBar"), 0 );
+    //actionByName("file_new")->addTo( toolBar("mainToolBar") );
+	////action("file_new")->unplug( toolBar("mainToolBar") );
+    //actionByName("file_new")->removeFrom( toolBar("mainToolBar") );
 	setupExampleActions();
 	statusBar()->show();
 }

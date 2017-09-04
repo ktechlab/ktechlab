@@ -122,4 +122,3 @@ Fixes needed for the first release candidate of the Qt4 port
 -'Scope works well, but doesn't clear 'lines' from other circuits when they are closed. (Y-axis scale would be nice)
 
 - new file toolbar button / file menu entry should show the new file dialog
-- new file toolbar button / file menu entry should appear on the toolbar by default
