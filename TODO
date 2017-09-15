@@ -97,8 +97,14 @@ Fixes that could be postponed after the first Qt4 release
 - created subcircuits appear twice in the subcircuit list; investigation needed
 - created subcircuits in some cases they cause crashes; investigation needed
 
+- Translations: not all strings are available in gettext ( https://bugs.kde.org/show_bug.cgi?id=375726 )
 
-Features needs re-implementation at Qt4 port
+- Oscilloscope view sometimes does not scale the signals correctly ( https://bugs.kde.org/show_bug.cgi?id=371625 )
+
+- Op-amp with positive feedback behaves as amplifier; should behave as comparator ( https://bugs.kde.org/show_bug.cgi?id=371622 )
+
+
+Features which need re-implementation in Qt4 port
 =======
 - dbus integration for documents (used to be dcop bindings for documents)
 
@@ -107,3 +113,6 @@ Features needs re-implementation at Qt4 port
 
 Fixes needed for the first release candidate of the Qt4 port
 =======
+
+- to fix: when placing a component with slider, and clicking on the slider, the
+  slider follows the mouse cursor even after it is released; this is annyoing
