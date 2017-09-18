@@ -13,7 +13,9 @@
 #include "cnitem.h"
 #include "icndocument.h"
 
+#include <qevent.h>
 #include <qpainter.h>
+#include <qdebug.h>
 
 
 //BEGIN Class GuiPart
@@ -489,19 +491,27 @@ void Slider::setValue( int value )
  
 void Slider::mousePressEvent( QMouseEvent *e )
 {
+    qDebug() << Q_FUNC_INFO << "pos " << e->pos() << " x " << int(x()) << " y " << int(y())
+        << " b " << e->button() << " st " << e->state() ;
 	QMouseEvent event( QEvent::MouseButtonPress, e->pos()-QPoint(int(x()),int(y())), e->button(), e->state() );
 	m_slider->mousePressEvent(&event);
-	if (event.isAccepted())
+	if (event.isAccepted()) {
+        qDebug() << Q_FUNC_INFO << "accepted " << e;
 		e->accept();
+    }
 	canvas()->setChanged( rect() );
 }
 
 void Slider::mouseReleaseEvent( QMouseEvent *e )
 {
+    qDebug() << Q_FUNC_INFO << "pos " << e->pos() << " x " << int(x()) << " y " << int(y())
+        << " b " << e->button() << " st " << e->state() ;
 	QMouseEvent event( QEvent::MouseButtonRelease, e->pos()-QPoint(int(x()),int(y())), e->button(), e->state() );
 	m_slider->mouseReleaseEvent(&event);
-	if (event.isAccepted())
+	if (event.isAccepted()) {
+        qDebug() << Q_FUNC_INFO << "accepted " << e;
 		e->accept();
+    }
 	canvas()->setChanged( rect() );
 }
 
@@ -531,14 +541,16 @@ void Slider::wheelEvent( QWheelEvent *e )
 	canvas()->setChanged( rect() );
 }
 
-void Slider::enterEvent(QEvent *)
+void Slider::enterEvent(QEvent *e)
 {
-	m_slider->enterEvent(0);
+    qDebug() << Q_FUNC_INFO;
+	m_slider->enterEvent(e);
 }
 
-void Slider::leaveEvent(QEvent *)
+void Slider::leaveEvent(QEvent *e)
 {
-	m_slider->leaveEvent(0);
+    qDebug() << Q_FUNC_INFO;
+	m_slider->leaveEvent(e);
 }
 
 void Slider::slotValueChanged( int value )

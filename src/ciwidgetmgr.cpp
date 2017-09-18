@@ -12,6 +12,8 @@
 #include "canvasitemparts.h"
 #include "eventinfo.h"
 
+#include <qevent.h>
+
 #include <q3button.h>
 
 #include <kdebug.h>
@@ -211,6 +213,8 @@ bool CIWidgetMgr::mousePressEvent( const EventInfo &info )
 bool CIWidgetMgr::mouseReleaseEvent( const EventInfo &info )
 {
 	QMouseEvent *e = info.mouseReleaseEvent( 0, 0 );
+
+    qDebug() << Q_FUNC_INFO << " button=" << e->button() << " buttons=" << e->buttons();
 	
 	const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
 	for ( WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it )
