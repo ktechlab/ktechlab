@@ -148,3 +148,5 @@ Changes between Qt3 and Qt4 port (to be completed)
     it is usable as it is
 - fix build on kubuntu 64 bit, for all combinations of installed/not installed state of gpsim/glib
     - when both (gpsim-dev and libglib2.0-dev) are installed or both are uninstalled, then ktechlab compiles and runs fine (kubunt 16.04)
+- fixed: when placing a component with slider, and clicking on the slider, the
+  slider follows the mouse cursor even after it is released; this is annyoing

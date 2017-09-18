@@ -113,6 +113,3 @@ Features which need re-implementation in Qt4 port
 
 Fixes needed for the first release candidate of the Qt4 port
 =======
-
-- to fix: when placing a component with slider, and clicking on the slider, the
-  slider follows the mouse cursor even after it is released; this is annyoing
