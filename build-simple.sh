@@ -24,8 +24,8 @@ log_cmd echo "== starting build at $( date ) == "
         log_cmd cmake -DCMAKE_INSTALL_PREFIX="$SCRIPTDIR/inst-simple/" "$SCRIPTDIR"
     fi
 
-    # work around the bug: core directory has to be built first
-    log_cmd make -C "$SCRIPTDIR/build-simple/src/core"
+    # work around the bug: core directory has to be built first # 2017.09.18 - not needed anymore
+    #log_cmd make -C "$SCRIPTDIR/build-simple/src/core"
 
     log_cmd make install -j2
 )

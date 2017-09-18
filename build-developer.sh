@@ -25,13 +25,15 @@ log_cmd echo "== starting build at $( date ) == "
         echo "buildsystem being generated"
 
         log_cmd cmake   -DCMAKE_INSTALL_PREFIX="$SCRIPTDIR/inst-developer/" \
-                        -DCMAKE_C_COMPILER=gcc-5 -DCMAKE_CXX_COMPILER=g++-5 \
                         -DKTECHLAB_DEVELOPER_BUILD=true \
             "$SCRIPTDIR"
+
+        # -DCMAKE_C_COMPILER=gcc-5 -DCMAKE_CXX_COMPILER=g++-5 \ # 2017.09.18 - deprecated
+
     fi
 
-    # work around the bug: core directory has to be built first
-    log_cmd make -C "$SCRIPTDIR/build-developer/src/core"
+    # work around the bug: core directory has to be built first # 2017.09.18 - not needed anymore
+    #log_cmd make -C "$SCRIPTDIR/build-developer/src/core"
 
-    log_cmd make install -j2
+    log_cmd make install -j"$( nproc )"
 )
