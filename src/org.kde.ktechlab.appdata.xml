@@ -9,6 +9,7 @@
   <name xml:lang="cs">KTechlab</name>
   <name xml:lang="de">KTechlab</name>
   <name xml:lang="es">KTechlab</name>
+  <name xml:lang="it">KTechlab</name>
   <name xml:lang="nl">KTechlab</name>
   <name xml:lang="pt">KTechlab</name>
   <name xml:lang="pt-BR">KTechlab</name>
@@ -21,6 +22,7 @@
   <summary xml:lang="ca-valencia">IDE per a microcontroladors i electrònica</summary>
   <summary xml:lang="de">Entwicklungsumgebung für Mikrocontroller und Elektronik</summary>
   <summary xml:lang="es">IDE para microcontroladores y sistemas electrónicos</summary>
+  <summary xml:lang="it">Un IDE per microcontrollori ed elettronica</summary>
   <summary xml:lang="nl">IDE (ontwikkelomgeving) voor microcontrollers en elektronica</summary>
   <summary xml:lang="pt">IDE para micro-controladores e electrónica</summary>
   <summary xml:lang="pt-BR">IDE para microcontroladores e eletrônicos</summary>
@@ -34,6 +36,7 @@
     <p xml:lang="ca">El KTechlab és un IDE per a microcontroladors i electrònica dissenyat per ser tan fàcil d'usar i discret com sigui possible.</p>
     <p xml:lang="ca-valencia">El KTechlab és un IDE per a microcontroladors i electrònica dissenyat per ser tan fàcil d'usar i discret com siga possible.</p>
     <p xml:lang="es">KTechlab es un entorno de desarrollo integrado para microcontroladores y electrónica diseñado para que sea fácil de usar y lo menos intrusivo posible.</p>
+    <p xml:lang="it">KTechlab è un IDE per microcontrollori ed elettronica progettato per essere semplice da usare e meno invadente possibile.</p>
     <p xml:lang="nl">KTechlab is een IDE (ontwikkelomgeving) voor microcontrollers en elektronica ontworpen voor gemakkelijk gebruik en zo weinig opdringerig als mogelijk.</p>
     <p xml:lang="pt">O KTechlab é um IDE para micro-controladores e electrónica, desenhado para ser simples de usar e o menos incómodo possível.</p>
     <p xml:lang="pt-BR">O KTechlab é uma IDE para microcontroladores e eletrônicos desenhada para ser fácil de usar e o menos intrusivo possível.</p>
@@ -47,6 +50,7 @@
     <p xml:lang="de">Funktionen:</p>
     <p xml:lang="es">Funciones:</p>
     <p xml:lang="fr">Fonctionnalités :</p>
+    <p xml:lang="it">Caratteristiche:</p>
     <p xml:lang="nl">Kenmerken:</p>
     <p xml:lang="pt">Funcionalidades:</p>
     <p xml:lang="pt-BR">Funcionalidades:</p>
@@ -59,6 +63,7 @@
       <li xml:lang="ca">Gran varietat de components amb característiques modificables</li>
       <li xml:lang="ca-valencia">Gran varietat de components amb característiques modificables</li>
       <li xml:lang="es">Amplio abanico de componentes con características editables</li>
+      <li xml:lang="it">Ampia gamma di componenti con caratteristiche modificabili</li>
       <li xml:lang="nl">Brede reeks van componenten met bewerkbare karakteristieken</li>
       <li xml:lang="pt">Gama abrangente de componentes com características editáveis</li>
       <li xml:lang="sv">Stor mängd komponenter med redigerbara karaktäristika</li>
@@ -68,6 +73,7 @@
       <li xml:lang="ca">Editor visual per als circuits</li>
       <li xml:lang="ca-valencia">Editor visual per als circuits</li>
       <li xml:lang="es">Editor de circuitos visual</li>
+      <li xml:lang="it">Editor visuale di circuiti</li>
       <li xml:lang="nl">Visuele bewerker voor schakelingen</li>
       <li xml:lang="pt">Editor visual de circuitos</li>
       <li xml:lang="pt-BR">Editor visual para circuitos</li>
@@ -79,6 +85,7 @@
       <li xml:lang="ca-valencia">Ajuda contextual per als components</li>
       <li xml:lang="de">Kontexthilfe für die Komponenten</li>
       <li xml:lang="es">Ayuda de contexto para los componentes</li>
+      <li xml:lang="it">Aiuto contestuale sui componenti</li>
       <li xml:lang="nl">Contexthulp voor de componenten</li>
       <li xml:lang="pt">Ajuda de contexto para os componentes</li>
       <li xml:lang="sv">Sammanhangsberoende hjälp för komponenterna</li>
@@ -88,6 +95,7 @@
       <li xml:lang="ca">Dos modes d'encaminament per al connector: automàtic i manual</li>
       <li xml:lang="ca-valencia">Dos modes d'encaminament per al connector: automàtic i manual</li>
       <li xml:lang="es">Dos modos de rutas de conectores: automático y manual</li>
+      <li xml:lang="it">Due modi di connessione: automatica e manuale</li>
       <li xml:lang="nl">Twee manieren van routering van verbindingen: automatisch en handmatig</li>
       <li xml:lang="pt">Dois modos de encaminhamento de ligações: automático e manual</li>
       <li xml:lang="sv">Två sätt att sammankoppla anslutningar: automatisk och manuell</li>
@@ -97,6 +105,7 @@
       <li xml:lang="ca">Diverses maneres de definir el PIC lògic: codi en assemblador, codi en Microbe (llenguatge de programació propi d'alt nivell), codi en C i FlowCode visual</li>
       <li xml:lang="ca-valencia">Diverses maneres de definir el PIC lògic: codi en assemblador, codi en Microbe (llenguatge de programació propi d'alt nivell), codi en C i FlowCode visual</li>
       <li xml:lang="es">Diversos modos de definir la lógica del PIC: código ensamblador, código Microbe (lenguaje de programación propio de alto nivel), código C y FlowCode visual</li>
+      <li xml:lang="it">Molti modi di definire la logica del PIC: codice assembly, codice Microbe (un proprio linguaggio di programmazione ad alto livello), codice C e FlowCode visuale</li>
       <li xml:lang="nl">Verschillende manieren om de PIC-logica te definiëren: assembly code, Microbe (eigen hoog niveau programmeertaal) code, C code en visuele FlowCode</li>
       <li xml:lang="pt">Diversas formas de definir a lógica do PIC: código em Assembly, código em Microbe (linguagem de programação própria de alto nível), código em C e fluxogramas visuais.</li>
       <li xml:lang="sv">Flera olika sätt att definiera PIC-logik: assemblerkod, Microbe-kod (eget högnivåprogramspråk), C-kod och visuell FlowCode</li>
@@ -106,6 +115,7 @@
       <li xml:lang="ca">Interconversió del codi de programació entre els llenguatges admesos</li>
       <li xml:lang="ca-valencia">Interconversió del codi de programació entre els llenguatges admesos</li>
       <li xml:lang="es">Conversión interna del código de programación entre los lenguajes permitidos</li>
+      <li xml:lang="it">Interconversione del codice di programmazione fra i linguaggi supportati</li>
       <li xml:lang="nl">Onderlinge conversie van de programmeercode tussen ondersteunde talen</li>
       <li xml:lang="pt">Conversão do código programado entre as linguagens suportadas</li>
       <li xml:lang="sv">Konvertering mellan programkoden mellan språk som stöds</li>
@@ -115,6 +125,7 @@
       <li xml:lang="ca">Depurador incorporat</li>
       <li xml:lang="ca-valencia">Depurador incorporat</li>
       <li xml:lang="es">Depurador integrado</li>
+      <li xml:lang="it">Debugger interno</li>
       <li xml:lang="nl">Ingebouwde debugger</li>
       <li xml:lang="pt">Depurador incorporado</li>
       <li xml:lang="sv">inbyggd avlusare</li>
@@ -124,6 +135,7 @@
       <li xml:lang="ca">Simulació amb oscil·loscopi i sondes</li>
       <li xml:lang="ca-valencia">Simulació amb oscil·loscopi i sondes</li>
       <li xml:lang="es">Simulación con osciloscopio y sondas</li>
+      <li xml:lang="it">Simulazione con oscilloscopio e con sonde</li>
       <li xml:lang="nl">Simulatie met oscilloscope en probes</li>
       <li xml:lang="pt">Simulação com osciloscópios e sondas</li>
       <li xml:lang="sv">Simulering med oscilloskop och prober</li>
@@ -133,6 +145,7 @@
       <li xml:lang="ca">Puja el codi en assemblador al PIC emprant el programador de maquinari</li>
       <li xml:lang="ca-valencia">Puja el codi en assemblador al PIC emprant el programador de maquinari</li>
       <li xml:lang="es">Envío del código ensamblador al PIC usando el programador hardware</li>
+      <li xml:lang="it">Caricamento del codice assembly nel PIC con un programmatore hardware</li>
       <li xml:lang="nl">Uploaden van de assembly code naar PIC met hardware programmeerder</li>
       <li xml:lang="pt">Envio do código em Assembly para o PIC, usando um programador por 'hardware'</li>
       <li xml:lang="sv">Uppladdning av assemblerkoden till en PIC med användning av hårdvaruprogrammerare</li>
