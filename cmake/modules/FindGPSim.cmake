@@ -53,7 +53,7 @@ if (GPSim_INCLUDE_DIR AND GPSim_LIBRARY AND GLib_FOUND)
 
     macro_push_required_vars()
     set(CMAKE_REQUIRED_INCLUDES ${GPSim_INCLUDE_DIRS})
-    set(CMAKE_REQUIRED_LIBRARIES ${GPSim_LIBRARIES})
+    set(CMAKE_REQUIRED_LIBRARIES ${GPSim_LIBRARIES} -ldl)
     set(CMAKE_REQUIRED_DEFINITIONS ${KDE4_ENABLE_EXCEPTIONS})
     check_cxx_source_compiles(
 "#include <gpsim/pic-processor.h>
