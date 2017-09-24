@@ -32,8 +32,8 @@ log_cmd echo "== starting build at $( date ) == "
 
     fi
 
-    # work around the bug: core directory has to be built first # 2017.09.18 - not needed anymore
-    #log_cmd make -C "$SCRIPTDIR/build-developer/src/core"
+    # work around the bug: core directory has to be built first
+    log_cmd make -C "$SCRIPTDIR/build-developer/src/core"
 
     log_cmd make install -j"$( nproc )"
 )
