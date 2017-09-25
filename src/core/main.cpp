@@ -36,7 +36,7 @@ int main(int argc, char **argv)
 
     KAboutData about(QByteArray("ktechlab"), QByteArray("ktechlab"), ki18n("KTechLab"), VERSION, ki18n(description),
                     KAboutData::License_GPL, ki18n("(C) 2003-2017, The KTechLab developers"),
-                    KLocalizedString(), "https://github.com/KDE/ktechlab/", "ktechlab-devel@kde.org" );
+                    KLocalizedString(), "https://userbase.kde.org/KTechlab", "ktechlab-devel@kde.org" );
 	about.addAuthor( ki18n("Alan Grimes"),
                      ki18n("Developer, Simulation"),
                      "" );
