@@ -44,7 +44,7 @@ if (NOT GPSim_FOUND)
     set(NO_GPSIM TRUE)
 endif ()
 
-include_directories(${CMAKE_CURRENT_BINARY_DIR} ${KDE4_INCLUDES})
+include_directories(${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR}/src/core ${KDE4_INCLUDES})
 
 CONFIGURE_FILE( ${CMAKE_SOURCE_DIR}/config.h.cmake
 	${CMAKE_BINARY_DIR}/config.h )
