@@ -38,7 +38,7 @@ in a ICNDocument.
 
 @author David Saxton
 */
-class ContextHelp : public QWidget, Ui::ContextHelpWidget
+class ContextHelp : public QWidget, public Ui::ContextHelpWidget
 {
 	Q_OBJECT
 	public:

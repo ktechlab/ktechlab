@@ -34,7 +34,8 @@
 #include <ui_newfilewidget.h>
 
 
-struct NewFileWidget : public QWidget, Ui::NewFileWidget {
+class NewFileWidget : public QWidget, public Ui::NewFileWidget {
+    public:
     NewFileWidget(QWidget *parent) : QWidget(parent) {
         setupUi(this);
     }

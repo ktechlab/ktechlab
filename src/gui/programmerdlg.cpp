@@ -23,7 +23,8 @@
 #include <ktlconfig.h>
 #include <ui_programmerwidget.h>
 
-struct ProgrammerWidget : public QWidget, Ui::ProgrammerWidget {
+class ProgrammerWidget : public QWidget, public Ui::ProgrammerWidget {
+    public:
     ProgrammerWidget(QWidget *parent) : QWidget(parent) {
         setupUi(this);
     }

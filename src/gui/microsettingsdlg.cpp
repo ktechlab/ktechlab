@@ -31,13 +31,15 @@
 
 #include <ui_newpinmappingwidget.h>
 
-struct MicroSettingsWidget : public QWidget, Ui::MicroSettingsWidget {
+class MicroSettingsWidget : public QWidget, public Ui::MicroSettingsWidget {
+    public:
     MicroSettingsWidget(QWidget *parent) : QWidget(parent) {
         setupUi(this);
     }
 };
 
-struct NewPinMappingWidget : public QWidget, Ui::NewPinMappingWidget {
+class NewPinMappingWidget : public QWidget, public Ui::NewPinMappingWidget {
+    public:
     NewPinMappingWidget(QWidget *parent) :QWidget(parent) {
         setupUi(this);
     }

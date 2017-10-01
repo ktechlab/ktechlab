@@ -33,7 +33,8 @@
 #include <ui_newprojectwidget.h>
 #include <ui_processingoptionswidget.h>
 
-struct NewProjectWidget : public QWidget, Ui::NewProjectWidget {
+class NewProjectWidget : public QWidget, public Ui::NewProjectWidget {
+    public:
     NewProjectWidget(QWidget *parent) : QWidget(parent) {
         setupUi(this);
     }
@@ -108,7 +109,8 @@ void NewProjectDlg::locationChanged( const QString & )
 //END class NewProjectDlg
 
 
-struct CreateSubprojectWidget : public QWidget, Ui::CreateSubprojectWidget {
+class CreateSubprojectWidget : public QWidget, public Ui::CreateSubprojectWidget {
+    public:
     CreateSubprojectWidget(QWidget *parent) : QWidget(parent) {
         setupUi(this);
     }
@@ -161,7 +163,8 @@ void CreateSubprojectDlg::reject()
 }
 //END class CreateSubprojectDlg
 
-struct LinkerOptionsWidget : public QWidget, Ui::LinkerOptionsWidget {
+class LinkerOptionsWidget : public QWidget, public Ui::LinkerOptionsWidget {
+    public:
     LinkerOptionsWidget(QWidget *parent) : QWidget(parent) {
         setupUi(this);
     }
@@ -261,7 +264,8 @@ void LinkerOptionsDlg::reject()
 }
 //END class LinkerOptionsDlg
 
-struct ProcessingOptionsWidget : public QWidget, Ui::ProcessingOptionsWidget {
+class ProcessingOptionsWidget : public QWidget, public Ui::ProcessingOptionsWidget {
+    public:
     ProcessingOptionsWidget(QWidget *parent) : QWidget(parent) {
         setupUi(this);
     }

@@ -29,7 +29,8 @@
 #include <ui_outputmethodwidget.h>
 
 
-struct OutputMethodWidget : public QWidget, Ui::OutputMethodWidget {
+class OutputMethodWidget : public QWidget, public Ui::OutputMethodWidget {
+    public:
     OutputMethodWidget(QWidget *parent) : QWidget(parent) {
         setupUi(this);
     }

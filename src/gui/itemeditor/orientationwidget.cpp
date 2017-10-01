@@ -31,7 +31,8 @@
 const int _size = 44;
 
 //BEGIN class DrawingPushButton
-struct DrawingPushButton : public QPushButton {
+class DrawingPushButton : public QPushButton {
+    public:
     DrawingPushButton(QWidget *parent) : QPushButton(parent) { }
 
 

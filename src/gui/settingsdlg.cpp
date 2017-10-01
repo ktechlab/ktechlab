@@ -38,43 +38,50 @@
 #include <ui_sdccoptionswidget.h>
 
 
-struct GeneralOptionsWidget : public QWidget, Ui::GeneralOptionsWidget {
+class GeneralOptionsWidget : public QWidget, public Ui::GeneralOptionsWidget {
+    public:
     GeneralOptionsWidget(QWidget *parent, const char *name = 0) : QWidget(parent, name) {
         setupUi(this);
     }
 };
 
-struct GpasmSettingsWidget : public QWidget, Ui::GpasmSettingsWidget {
+class GpasmSettingsWidget : public QWidget, public Ui::GpasmSettingsWidget {
+    public:
     GpasmSettingsWidget(QWidget *parent, const char *name = 0) : QWidget(parent, name) {
         setupUi(this);
     }
 };
 
-struct SDCCOptionsWidget : public QWidget, Ui::SDCCOptionsWidget {
+class SDCCOptionsWidget : public QWidget, public Ui::SDCCOptionsWidget {
+    public:
     SDCCOptionsWidget(QWidget *parent, const char *name = 0) : QWidget(parent, name) {
         setupUi(this);
     }
 };
 
-struct AsmFormattingWidget : public QWidget, Ui::AsmFormattingWidget {
+class AsmFormattingWidget : public QWidget, public Ui::AsmFormattingWidget {
+    public:
     AsmFormattingWidget(QWidget *parent, const char *name = 0) : QWidget(parent, name) {
         setupUi(this);
     }
 };
 
-struct LogicWidget : public QWidget, Ui::LogicWidget {
+class LogicWidget : public QWidget, public Ui::LogicWidget {
+    public:
     LogicWidget(QWidget *parent, const char *name = 0) : QWidget(parent, name) {
         setupUi(this);
     }
 };
 
-struct PicProgrammerConfigWidget : public QWidget, Ui::PicProgrammerConfigWidget {
+class PicProgrammerConfigWidget : public QWidget, public Ui::PicProgrammerConfigWidget {
+    public:
     PicProgrammerConfigWidget(QWidget *parent, const char *name = 0) : QWidget(parent, name) {
         setupUi(this);
     }
 };
 
-struct GplinkSettingsWidget : public QWidget, Ui::GplinkSettingsWidget {
+class GplinkSettingsWidget : public QWidget, public Ui::GplinkSettingsWidget {
+    public:
     GplinkSettingsWidget(QWidget *parent, const char *name = 0) : QWidget(parent, name) {
         setupUi(this);
     }
