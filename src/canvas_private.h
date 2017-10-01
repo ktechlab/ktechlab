@@ -236,8 +236,8 @@ public:
 // Be careful adding to this - check all usages.
 class KtlQCanvasItemExtra
 {
-	KtlQCanvasItemExtra() : vx(0.0), vy(0.0) { }
-	double vx,vy;
+	KtlQCanvasItemExtra() /* : vx(0.0), vy(0.0) */ { }
+	//double vx,vy; // 2017.10.01 - commented unused members
 	friend class KtlQCanvasItem;
 };
 

@@ -992,7 +992,7 @@ bool CMItemMove::mousePressedInitial( const EventInfo &eventInfo )
 }
 
 
-void CMItemMove::canvasResized( const QRect & oldSize, const QRect & newSize )
+void CMItemMove::canvasResized( const QRect & /*oldSize*/, const QRect & /*newSize*/ )
 {
 	//QPoint delta = oldSize.topLeft() - newSize.topLeft(); // 2017.10.01 - comment out unused variable
 	
@@ -1058,10 +1058,10 @@ bool CMItemMove::mouseMoved( const EventInfo &eventInfo )
 		if ( !*it || !(*it)->isMovable() )
 			continue;
 		
-		QRect oldRect = (*it)->boundingRect();
+		//QRect oldRect = (*it)->boundingRect(); // 2017.10.01 - comment out unused variable
 		(*it)->moveBy( dx, dy );
-		QRect newRect = (*it)->boundingRect();
-		QRect merged = oldRect | newRect;
+		//QRect newRect = (*it)->boundingRect();
+		//QRect merged = oldRect | newRect; // 2017.10.01 - comment out unused variable
 	}
 	
 	if ( (dx != 0) || (dy != 0) )
@@ -1692,7 +1692,7 @@ bool CMDraw::mouseMoved( const EventInfo &eventInfo )
 }
 
 
-bool CMDraw::mouseReleased( const EventInfo &eventInfo )
+bool CMDraw::mouseReleased( const EventInfo & /*eventInfo*/ )
 {
 	//const QPoint pos = eventInfo.pos; // 2017.10.01 - comment out unused variable
 	

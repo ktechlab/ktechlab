@@ -150,7 +150,7 @@ bool FlowICNDocument::canConnect( KtlQCanvasItem *qcanvasItem1, KtlQCanvasItem *
 }
 
 
-Connector *FlowICNDocument::createConnector( Connector *con1, Connector *con2, const QPoint &pos1, const QPoint &pos2, QPointList *pointList )
+Connector *FlowICNDocument::createConnector( Connector *con1, Connector *con2, const QPoint & /*pos1*/, const QPoint & /*pos2*/, QPointList * /*pointList*/ )
 {
 	// FIXME isn't all this dead code?
 	/*
