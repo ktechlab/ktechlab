@@ -928,7 +928,7 @@ void ItemDocument::exportToImage()
 	//QPainter p(outputImage); // 2016.05.03 - explicitly initialize painter
 	QPainter p;
     const bool isBeginSuccess = p.begin(outputImage);
-    {
+    if (!isBeginSuccess) {
         qWarning() << Q_FUNC_INFO << " painter not active";
     }
 	
