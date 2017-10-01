@@ -57,6 +57,7 @@ void PropertyEditorInput::slotTextChanged( const QString & text )
 PropIntSpinBox::PropIntSpinBox( int lower, int upper, int step, int value, int base=10, QWidget *parent=0, const char *name=0)
 : KIntSpinBox(lower, upper, step, value, parent /*, name */ , base)
 {
+    setName(name);
 	lineEdit()->setAlignment(Qt::AlignLeft);
 }
 
