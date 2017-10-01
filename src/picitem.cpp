@@ -94,7 +94,7 @@ void PinItem::drawShape( QPainter& p )
 		p.drawText( r, Qt::AlignLeft, m_pinSettings->id() );
 	else
 		p.drawText( r, Qt::AlignRight, m_pinSettings->id() );
-	QRect br = p.boundingRect( r, Qt::AlignLeft, m_pinSettings->id() );
+	//QRect br = p.boundingRect( r, Qt::AlignLeft, m_pinSettings->id() ); // 2017.10.01 - comment out unused variable
 	
 	int left;
 	int right;

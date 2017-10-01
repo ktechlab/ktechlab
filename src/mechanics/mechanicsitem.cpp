@@ -173,7 +173,7 @@ void MechanicsItem::updateCanvasPoints()
 	m.translate( -int(ipbr.left()), -int(ipbr.top()) );
 	setPoints( m.map(m_itemPoints) );
 	
-	QRect tempt = m.mapRect(ipbr);
+	//QRect tempt = m.mapRect(ipbr); // 2017.10.01 - comment out unused variable
 }
 
 

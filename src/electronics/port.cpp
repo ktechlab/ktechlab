@@ -286,11 +286,11 @@ const unsigned long IOCTL_REG_WRITE[3] = {
 	PPWCONTROL,
 };
 
-const int INVERT_MASK[3] = {
-	0x0,
-	0x80, // 10000000
-	0x0b, // 00001011
-};
+// const int INVERT_MASK[3] = { // 2017.10.01 - comment unused code
+// 	0x0,
+// 	0x80, // 10000000
+// 	0x0b, // 00001011
+// };
 
 ParallelPort::ParallelPort()
 {

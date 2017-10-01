@@ -34,7 +34,7 @@ CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *view
     }
 	
 	//BEGIN Item Control Actions
-	KAction * ra;
+	//KAction * ra; // 2017.10.01 - commented unused variable
     {
 	//ra = new KAction( i18n("0 Degrees"), "", 0, circuitDocument, SLOT(setOrientation0()), ac, "edit_orientation_0" );
 	// ra->setExclusiveGroup("orientation"); // TODO test

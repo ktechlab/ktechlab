@@ -46,8 +46,8 @@
 
 #include <ktlconfig.h>
 
-const int dipWidth = 112;
-const int pairSep = 32;
+// const int dipWidth = 112;    // 2017.10.01 - comment out unused constants
+// const int pairSep = 32;
 
 // Degrees per radian
 
