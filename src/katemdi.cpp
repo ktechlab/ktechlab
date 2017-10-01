@@ -667,10 +667,11 @@ void Sidebar::saveSession (KConfigGroup *config)
 //BEGIN MAIN WINDOW
 
 MainWindow::MainWindow (QWidget* parentWidget, const char* name)
- : KParts::MainWindow( parentWidget, name)
+ : KParts::MainWindow( parentWidget, (Qt::WindowFlags)KDE_DEFAULT_WINDOWFLAGS )
  , m_restoreConfig (0)
  , m_guiClient (new GUIClient (this))
 {
+    setName(name);
   // init the internal widgets
   QWidget *hb = new QWidget(this); // Q3HBox (this);
   QHBoxLayout *hbl = new QHBoxLayout;
