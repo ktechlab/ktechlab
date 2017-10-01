@@ -123,7 +123,7 @@ QString DocumentIface::caption( ) const
 	return m_pDocument->caption();
 }
 
-DCOPRef DocumentIface::viewToRef( View * view )
+DCOPRef DocumentIface::viewToRef( View * /*view*/ )
 {
 	return DCOPRef(); //  view->dcopObject() ); TODO
 }

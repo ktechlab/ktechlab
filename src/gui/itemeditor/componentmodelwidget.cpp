@@ -127,7 +127,7 @@ void ComponentModelWidget::setFilter( const QString & filter )
 
 
 //BEGIN class ClickLineEdit
-ClickLineEdit::ClickLineEdit( const QString &msg, QWidget *parent, const char* name ) :
+ClickLineEdit::ClickLineEdit( const QString &msg, QWidget *parent, const char* /*name*/ ) :
 		KLineEdit( parent /*, name */)
 {
 	mDrawClickMsg = true;

@@ -170,7 +170,7 @@ View * TextDocument::createView( ViewContainer *viewContainer, uint viewAreaId, 
 }
 
 
-KTextEditor::View* TextDocument::createKateView( QWidget *parent, const char *name )
+KTextEditor::View* TextDocument::createKateView( QWidget *parent, const char * /*name*/ )
 {
 	//return static_cast<KTextEditor::View*>((m_doc->createView( parent, name ))->qt_cast("Kate::View"));
     return m_doc->createView( parent /*, name */);

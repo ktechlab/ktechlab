@@ -483,7 +483,7 @@ void TextView::toggleBreakpoint()
 }
 
 
-void TextView::slotWordHoveredOver( const QString & word, int line, int col )
+void TextView::slotWordHoveredOver( const QString & word, int line, int /*col*/ )
 {
 #ifndef NO_GPSIM
 	// We're only interested in popping something up if we currently have a debugger running
@@ -649,7 +649,7 @@ void TextViewEventFilter::updateHovering( const QString & currentWord, int line,
 static inline bool isWordLetter( const QString & s ) { return (s.length() == 1) && (s[0].isLetterOrNumber() || s[0] == '_'); }
 
 
-void TextViewEventFilter::slotNeedTextHint(const KTextEditor::Cursor &position, QString &text)
+void TextViewEventFilter::slotNeedTextHint(const KTextEditor::Cursor &position, QString &  /*text*/)
 {
     int line = position.line();
     int col = position.column();

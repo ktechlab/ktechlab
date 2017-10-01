@@ -29,7 +29,7 @@
 
 
 //BEGIN class Connector
-Connector::Connector(Node *startNode, Node *endNode, ICNDocument *icnDocument, QString *id)
+Connector::Connector(Node * /*startNode*/, Node * /*endNode*/, ICNDocument *icnDocument, QString *id)
 		: //QObject(icnDocument),
 		KtlQCanvasPolygon(icnDocument->canvas()) {
 

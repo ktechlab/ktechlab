@@ -32,7 +32,7 @@
 #include <qapplication.h>
 #include <qeventloop.h>
 
-PropertyEditor::PropertyEditor( QWidget * parent, const char * name )
+PropertyEditor::PropertyEditor( QWidget * parent, const char * /*name*/ )
 	: K3ListView( parent /*, name */ )
  , m_items(101, false)
  , justClickedItem(false)

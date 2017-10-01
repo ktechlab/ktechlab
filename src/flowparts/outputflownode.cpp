@@ -37,7 +37,7 @@ bool OutputFlowNode::acceptOutput() const
 	return true;
 }
 
-void OutputFlowNode::addInputConnector( Connector * const connector )
+void OutputFlowNode::addInputConnector( Connector * const /*connector*/ )
 {
 	kDebug() << k_funcinfo << "BUG: trying to add input connector to an output node" << endl;
 }
