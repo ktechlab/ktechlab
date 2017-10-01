@@ -25,9 +25,9 @@ class PicAsm16bit : public AsmInfo
 		virtual Set set() const { return AsmInfo::PIC16; }
 	
 	protected:
-		static PicAsm16bit *m_self;
+// 		static PicAsm16bit *m_self;
 	
-	private:
+	public:
 		PicAsm16bit();
 };
 
