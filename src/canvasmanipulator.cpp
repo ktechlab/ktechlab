@@ -626,7 +626,7 @@ bool CMAutoConnector::mousePressedInitial( const EventInfo &eventInfo )
 			p_startConnector = toConnector(p_startNode);
 			p_startNode = 0l;
 		}
-	} else if (p_startConnector = dynamic_cast<Connector*>(eventInfo.qcanvasItemClickedOn) )
+	} else if ((p_startConnector = dynamic_cast<Connector*>(eventInfo.qcanvasItemClickedOn) ))
 	{
 // 		startConnectorPoint = m_eventInfo.pos = m_prevPos = p_icnDocument->gridSnap(m_eventInfo.pos);
 		startConnectorPoint = m_eventInfo.pos = m_prevPos = toValidPos( m_eventInfo.pos, p_startConnector );
@@ -766,7 +766,7 @@ bool CMManualConnector::mousePressedInitial( const EventInfo &eventInfo )
 	
 	QPoint sp;
 	
-	if ( p_startNode = dynamic_cast<Node*>(eventInfo.qcanvasItemClickedOn) )
+	if ( (p_startNode = dynamic_cast<Node*>(eventInfo.qcanvasItemClickedOn)) )
 	{
 		sp.setX( (int)p_startNode->x() );
 		sp.setY( (int)p_startNode->y() );
