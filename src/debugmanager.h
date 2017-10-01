@@ -42,10 +42,11 @@ class DebugManager : public QObject
 		
 	protected:
 		GpsimProcessorList m_processors;
-		
+
+    public:
+        DebugManager();
 	private:
-		DebugManager();
-		static DebugManager * m_pSelf;
+// 		static DebugManager * m_pSelf;
 		
 };
 

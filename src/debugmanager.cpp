@@ -18,17 +18,18 @@
 
 #include <kdebug.h>
 #include <k3staticdeleter.h>
+#include <kglobal.h>
 
 
 //BEGIN class DebugManager
-DebugManager * DebugManager::m_pSelf = 0l;
-static K3StaticDeleter<DebugManager> staticDebugManagerDeleter;
+// DebugManager * DebugManager::m_pSelf = 0l; // 2017.10.10 - use K_GLOBAL_STATIC
+// static K3StaticDeleter<DebugManager> staticDebugManagerDeleter;
+
+K_GLOBAL_STATIC( DebugManager, globalDebugManager);
 
 DebugManager * DebugManager::self()
 {
-	if (!m_pSelf)
-		staticDebugManagerDeleter.setObject( m_pSelf, new DebugManager );
-	return m_pSelf;
+	return globalDebugManager;
 }
 
 
