@@ -345,8 +345,8 @@ class GpsimProcessor : public QObject
 		/**
 		 * Converts the file at programFile to a Symbol file for emulation,
 		 * and returns that symbol file's path
-		 * @param programFile The full url to the file
-		 * @param assembled The slot to connect the assembled signal to
+		 * @param fileName The full url to the file
+		 * @param receiver The slot to connect the assembled signal to
 		 * @see static bool isValidProgramFile( const QString &programFile )
 		 */
 		static QString generateSymbolFile( const QString &fileName, QObject *receiver, const char *successMember, const char * failMember = 0l );

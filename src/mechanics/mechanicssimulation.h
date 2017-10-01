@@ -117,7 +117,7 @@ protected:
 	/**
 	 * Rotate the set of MechanicsItems by the given amount about the center of
 	 * mass.
-	 * @param angle Rotate amount in radians
+	 * @param dtheta Rotate amount in radians
 	 */
 	void rotateBy( double dtheta );
 	

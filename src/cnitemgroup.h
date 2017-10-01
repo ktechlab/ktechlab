@@ -125,7 +125,6 @@ public:
 	virtual void mergeGroup( ItemGroup *group );
 	/**
 	 * Removes all items from this group (doesn't delete them)
-	 * @param unselect whether to unselect the items or not. This will be done after removal from group
 	 */
 	virtual void removeAllItems();
 	/**

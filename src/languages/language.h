@@ -209,7 +209,6 @@ class Language : public QObject
 	
 		/**
 		 * Compile / assemble / dissassembly / whatever the given input.
-		 * @returns true if processing was started succesfully (this is different to finishing successfuly).
 		 */
 		virtual void processInput( ProcessOptions options ) = 0;
 		/**

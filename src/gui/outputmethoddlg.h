@@ -64,7 +64,7 @@ class OutputMethodDlg : public KDialog
 	Q_OBJECT
 	public:
 		/**
-		 * @param Caption The caption of the dialog window
+		 * @param caption The caption of the dialog window
 		 * @param inputURL Used for saving/restoring previous options the user has selected for this file; set this to null if temporary file
 		 * @param showPICSelect Whether to show the combo boxes for selecting a PIC
 		 */

@@ -91,7 +91,6 @@ class CircuitDocument : public CircuitICNDocument
 		/**
 		 * Enables / disables / selects various actions depending on what is
 		 * selected or not.
-		 * @param plugContextMenu If true, then will insert actions into contextmenu
 		 */
 		virtual void slotInitItemActions();
 		void requestAssignCircuits();
@@ -123,10 +122,10 @@ class CircuitDocument : public CircuitICNDocument
 		Circuit *createCircuit( Circuitoid *circuitoid );
 
 		/**
-		 * @param node Current node (will be added, then tested for further
+		 * @param pin Current node (will be added, then tested for further
 		 * connections).
-		 * @param nodeList List of nodes in current partition.
-		 * @param unassignedNodes The pool of all nodes in the CircuitDocument
+		 * @param pinList List of nodes in current partition.
+		 * @param unassignedPins The pool of all nodes in the CircuitDocument
 		 * waiting for assignment.
 		 * @param onlyGroundDependent if true, then the partition will not use
 		 * circuit-dependent pins to include new pins while growing the

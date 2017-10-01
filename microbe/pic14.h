@@ -223,13 +223,13 @@ class PIC14
 		void Sdelay( unsigned length_us, Code::InstructionPosition pos = Code::Middle );
 		/**
 		 * Output the working register to the given seven segment.
-		 * @param name The variable giving the pin configuration of the seven
+		 * @param pinMap The variable giving the pin configuration of the seven
 		 * segment.
 		 */
 		void SsevenSegment( const Variable & pinMap );
 		/**
 		 * Read the value of the keypad to the working register.
-		 * @param name The variable giving the pin configuration of the keypad.
+		 * @param pinMap The variable giving the pin configuration of the keypad.
 		 */
 		void Skeypad( const Variable & pinMap );
 		//END "Special Functionality" functions

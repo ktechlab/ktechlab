@@ -76,7 +76,6 @@ class ItemInterface : public QObject
 		/**
 		 * Returns a configuration widget for the component for insertion into te
 		 * ItemEditTB.
-		 * @param showAdvanced Whether advanced data should be shown
 		 */
 		virtual QWidget * configWidget();
 	

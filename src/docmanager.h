@@ -54,7 +54,7 @@ public:
 	void gotoTextLine( const KUrl &url, int line );
 	/**
 	 * Attempts to open the document at the given url.
-	 * @param ViewArea if non-null, will open the new view into the ViewArea
+	 * @param viewArea if non-null, will open the new view into the ViewArea
 	 */
 	Document* openURL( const KUrl &url, ViewArea *viewArea = 0l );
 	/**

@@ -100,8 +100,7 @@ protected:
 	/**
 	 * If there are two connectors joined to a node, then they can be merged
 	 * into one connector. The node will not be removed.
-	 * @param node The node between the two connectors
-	 * @param noCreate If true, no new connectors will be created
+	 * @param ecnode The node between the two connectors
 	 * @returns true if it was successful in merging the connectors
 	 */
 	bool joinConnectors( ECNode *ecnode );	

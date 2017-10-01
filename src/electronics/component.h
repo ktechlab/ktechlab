@@ -132,7 +132,7 @@ class Component : public CNItem
 		virtual void stepNonLogic() {};
 		/**
 		 * Returns the translation matrix used for painting et al
-		 * @param orientation The orientation to use
+		 * @param angleDegrees The orientation to use
 		 * @param x x co-ordinate of the center of the object to be mapped
 		 * @param y y co-ordinate of the center of the object to be mapped
 		 * @param inverse If false, maps the unrotated item to a rotated one, else mapped->unmapped

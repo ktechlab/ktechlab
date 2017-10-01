@@ -59,7 +59,7 @@ public:
 	/**
 	 * @param operand is the name of the instruction - eg 'addwf' or 'clrwdt'.
 	 * @param description is instruction description - eg 'Add W and f'.
-	 * @param opcode' is the 14-bit code for the instruction, eg
+	 * @param opcode is the 14-bit code for the instruction, eg
 	 * '000111dfffffff'for addwf.
 	 */
 	void addInstruction( const QString &operand, const QString &description, const QString &opcode );

@@ -121,7 +121,7 @@ class ToolView : public QWidget
   signals:
     /**
      * toolview hidden or shown
-     * @param bool is this toolview made visible?
+     * @param visible is this toolview made visible?
      */
     void visibleChanged (bool visible);
 
@@ -356,7 +356,6 @@ class MainWindow : public KParts::MainWindow
     /**
      * save the current session config to given object and group
      * @param config config object to use
-     * @param group config group to use
      */
     void saveSession (KConfigGroup *config);
 	

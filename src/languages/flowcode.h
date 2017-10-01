@@ -75,7 +75,6 @@ public:
 	void removeStopPart( FlowPart *part );
 	/**
 	 * Generates and returns the microbe code
-	 * @param nonVerbal if true then will not inform the user when something goes wrong
 	 */
 	QString generateMicrobe( const ItemList &itemList, MicroSettings *settings );
 	/**

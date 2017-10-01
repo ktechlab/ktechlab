@@ -145,7 +145,7 @@ public:
 	void addChild( Item *child );
 	/**
 	 * Returns the list of children.
-	 * @param if includeGrandChildren is true then this list will also contain
+	 * @param includeGrandChildren if includeGrandChildren is true then this list will also contain
 	 * the children's children, and so on recursively, instead of just the
 	 * immediate children.
 	 */

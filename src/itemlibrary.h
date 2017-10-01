@@ -73,7 +73,7 @@ class ItemLibrary : public QObject
 		 * Does similar to that above, but will not be able to return a description
 		 * if there is none saved on file (instead of the above, which falls back to
 		 * calling item->description()).
-		 * @param id the id of the item.
+		 * @param type the id of the item.
 		 * @param language the language code, e.g. "es".
 		 */
 		QString description( QString type, const QString & language ) const;
