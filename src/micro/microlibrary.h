@@ -44,9 +44,10 @@ class MicroLibrary
 		 */
 		QStringList microIDs( unsigned asmSet = AsmInfo::AsmSetAll, unsigned gpsimSupport = MicroInfo::AllSupport, unsigned flowCodeSupport = MicroInfo::AllSupport, unsigned microbeSupport = MicroInfo::AllSupport );
 
-	private:
+    public:
 		MicroLibrary();
-		static MicroLibrary * m_pSelf;
+	private:
+// 		static MicroLibrary * m_pSelf;
 	
 		MicroInfoList m_microInfoList;
 		friend MicroLibrary *microLibrary();

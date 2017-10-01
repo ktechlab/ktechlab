@@ -20,14 +20,19 @@
 
 #include "micropackage.h"
 
-MicroLibrary * MicroLibrary::m_pSelf = 0l;
-static K3StaticDeleter<MicroLibrary> staticMicroLibraryDeleter;
+#include <kglobal.h>
+
+// MicroLibrary * MicroLibrary::m_pSelf = 0l;
+// static K3StaticDeleter<MicroLibrary> staticMicroLibraryDeleter;
+
+K_GLOBAL_STATIC( MicroLibrary, globalMicroLibrary);
 
 MicroLibrary * MicroLibrary::self()
 {
-	if ( !m_pSelf )
-		staticMicroLibraryDeleter.setObject( m_pSelf, new MicroLibrary() );
-	return m_pSelf;
+    return globalMicroLibrary;
+// 	if ( !m_pSelf )
+// 		staticMicroLibraryDeleter.setObject( m_pSelf, new MicroLibrary() );
+// 	return m_pSelf;
 }
 
 MicroLibrary::MicroLibrary()
