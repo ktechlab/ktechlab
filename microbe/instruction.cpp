@@ -585,10 +585,12 @@ RegisterBit::RegisterBit( uchar bitPos, Register::Type reg )
 				case 5: m_name = "T0IE"; break;
 				case 6: 
 				{
-				  if(pic_type=="P16F84"||pic_type=="P16C84")
+				  if(pic_type=="P16F84"||pic_type=="P16C84") {
 					m_name = "EEIE"; break;
-				  if(pic_type=="P16F877"||pic_type=="P16F627" ||pic_type =="P16F628")
+                  }
+				  if(pic_type=="P16F877"||pic_type=="P16F627" ||pic_type =="P16F628") {
 					m_name = "PEIE"; break;
+                  }
 	 			  break;
 
 
@@ -608,16 +610,20 @@ RegisterBit::RegisterBit( uchar bitPos, Register::Type reg )
 				case 4: m_name = "TXIF"; break;
 				case 5: m_name = "RCIF"; break;
 				case 6:
-				  if(pic_type=="P16F877")
+				  if(pic_type=="P16F877") {
 					 m_name = "ADIF"; break;
-				  if(pic_type=="P16F627"||pic_type=="P16F628")
+                  }
+				  if(pic_type=="P16F627"||pic_type=="P16F628") {
 					 m_name = "CMIF";break;
+                  }
 				  break;					
 				case 7:
-				  if(pic_type=="P16F877") 
+				  if(pic_type=="P16F877") {
 					m_name = "PSPIF"; break;
-				  if(pic_type=="P16F627"||pic_type=="P16F628")
+                  }
+				  if(pic_type=="P16F627"||pic_type=="P16F628") {
 					 m_name = "EEIF";break;
+                  }
 				  break;
 			}
 			break;
@@ -643,10 +649,12 @@ RegisterBit::RegisterBit( uchar bitPos, Register::Type reg )
 				case 0: m_name = "TMR1ON"; break;
 				case 1: m_name = "TMRCS"; break;
 				case 2:
-				  if(pic_type=="P16F877")
+				  if(pic_type=="P16F877") {
 					 m_name = "T1SYNC"; break;
-				  if(pic_type=="P16F627"||pic_type=="P16F628")
+                  }
+				  if(pic_type=="P16F627"||pic_type=="P16F628") {
 					 m_name = "NOT_T1SYNC"; break;
+                  }
 				  break;
 				case 3: m_name = "T1OSCEN"; break;
 				case 4: m_name = "T1CKPS0"; break;
@@ -706,10 +714,12 @@ RegisterBit::RegisterBit( uchar bitPos, Register::Type reg )
 				case 1: m_name = "OERR"; break;
 				case 2: m_name = "FERR"; break;
 				case 3: 
-				  if(pic_type=="P16F877")
+				  if(pic_type=="P16F877") {
 					m_name = "ADDEN"; break;
-				  if(pic_type=="P16F627"||pic_type=="P16F628")
+                  }
+				  if(pic_type=="P16F627"||pic_type=="P16F628") {
 					m_name = "ADEN"; break;
+                  }
 				case 4: m_name = "CREN"; break;
 				case 5: m_name = "SREN"; break;
 				case 6: m_name = "RX9"; break;
@@ -806,18 +816,22 @@ RegisterBit::RegisterBit( uchar bitPos, Register::Type reg )
 				case 5: m_name = "RCIE"; break;
 				case 6:
 				{
-				   if (pic_type=="P16F877")
+				   if (pic_type=="P16F877") {
  					m_name = "ADIE"; break;
-				   if (pic_type=="P16F627"||pic_type=="P16F628")
+                   }
+				   if (pic_type=="P16F627"||pic_type=="P16F628") {
  					m_name = "CMIE"; break;
+                   }
 				   break;
  				}
 				case 7:
 				{
-				   if (pic_type=="P16F877")
+				   if (pic_type=="P16F877") {
  					m_name = "PSPIE"; break;
-				   if (pic_type=="P16F627"||pic_type=="P16F628")
+                   }
+				   if (pic_type=="P16F627"||pic_type=="P16F628") {
  					m_name = "EEIE"; break;
+                   }
 				   break;
  				} 
 			}
