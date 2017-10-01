@@ -161,7 +161,7 @@ void ItemInterface::slotUpdateItemInterface()
 	{
 		if ( KTechlab * ktl = KTechlab::self() )
 		{
-			if ( m_pActiveItemEditorToolBar = dynamic_cast<KToolBar*>(ktl->factory()->container("itemEditorTB",itemView)) )
+			if ( (m_pActiveItemEditorToolBar = dynamic_cast<KToolBar*>(ktl->factory()->container("itemEditorTB",itemView)) ) )
 			{
 				//m_pActiveItemEditorToolBar->setFullSize( true ); // TODO proper replacement
                 m_pActiveItemEditorToolBar->adjustSize();
