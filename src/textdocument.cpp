@@ -309,7 +309,7 @@ void TextDocument::slotInitLanguage( CodeType type )
 	
 	if ( !hlName.isEmpty() )
 	{
-		int i = 0;
+		//int i = 0; // 2017.10.01 - comment out unused variable
 		//int hlModeCount = m_doc->hlModeCount();
         QStringList hlModes = m_doc->highlightingModes();
 		//while ( i<hlModeCount && m_doc->hlModeName(i) != hlName )

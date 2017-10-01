@@ -994,7 +994,7 @@ bool CMItemMove::mousePressedInitial( const EventInfo &eventInfo )
 
 void CMItemMove::canvasResized( const QRect & oldSize, const QRect & newSize )
 {
-	QPoint delta = oldSize.topLeft() - newSize.topLeft();
+	//QPoint delta = oldSize.topLeft() - newSize.topLeft(); // 2017.10.01 - comment out unused variable
 	
 // 	scrollCanvasToSelection();
 	
@@ -1117,7 +1117,7 @@ bool CMItemMove::mouseReleased( const EventInfo &eventInfo )
 		if (*it) itemIDs.append( (*it)->id() );
 	}
 	
-	const QPoint pos = eventInfo.pos;
+	//const QPoint pos = eventInfo.pos; // 2017.10.10 - comment out unused variable
 	
 	// And make sure all connectors are properly shown
 	const ConnectorList &connectorList = p_icnDocument->connectorList();
@@ -1694,7 +1694,7 @@ bool CMDraw::mouseMoved( const EventInfo &eventInfo )
 
 bool CMDraw::mouseReleased( const EventInfo &eventInfo )
 {
-	const QPoint pos = eventInfo.pos;
+	//const QPoint pos = eventInfo.pos; // 2017.10.01 - comment out unused variable
 	
 	QRect sizeRect;
 	
