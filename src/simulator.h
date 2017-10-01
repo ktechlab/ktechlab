@@ -90,6 +90,7 @@ class Simulator : public QObject {
 	Q_OBJECT
 
 public:
+    static bool isDestroyedSim();
 	static Simulator *self();
 	~Simulator();
 
@@ -206,7 +207,7 @@ private slots:
 
 private:
 	bool m_bIsSimulating;
-	static Simulator *m_pSelf;
+// 	static Simulator *m_pSelf;
 
     QTimer *m_stepTimer;
 
@@ -231,7 +232,9 @@ private:
 	LogicOut *m_pChangedLogicStart;
 	LogicOut *m_pChangedLogicLast;
 
+public:
 	Simulator();
+private:
 	unsigned long m_llNumber; // simulation clock; Exists only to support the time() callback.
 	long long m_stepNumber;
 

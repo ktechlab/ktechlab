@@ -143,7 +143,9 @@ GpsimProcessor::GpsimProcessor( QString symbolFile, QObject *parent )
 
 GpsimProcessor::~GpsimProcessor()
 {
-	Simulator::self()->detachGpsimProcessor(this);
+    if (!Simulator::isDestroyedSim()) {
+        Simulator::self()->detachGpsimProcessor(this);
+    }
 	delete m_pRegisterMemory;
 	
 	if ( m_pDebugger[0] )

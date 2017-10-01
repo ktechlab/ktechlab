@@ -75,14 +75,18 @@ Component::Component( ICNDocument *icnDocument, bool newItem, const QString &id 
 Component::~Component()
 {
     removeElements();
-    Simulator::self()->detachComponent(this);
+    if (!Simulator::isDestroyedSim()) {
+        Simulator::self()->detachComponent(this);
+    }
 }
 
 void Component::removeItem( )
 {
     if (b_deleted)
         return;
-    Simulator::self()->detachComponent(this);
+    if (!Simulator::isDestroyedSim()) {
+        Simulator::self()->detachComponent(this);
+    }
     CNItem::removeItem();
 }
 

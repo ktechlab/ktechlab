@@ -292,7 +292,9 @@ void CircuitDocument::deleteCircuits()
 	const CircuitList::iterator end = m_circuitList.end();
 	for ( CircuitList::iterator it = m_circuitList.begin(); it != end; ++it )
 	{
-		Simulator::self()->detachCircuit(*it);
+        if (!Simulator::isDestroyedSim()) {
+            Simulator::self()->detachCircuit(*it);
+        }
 		delete *it;
 	}
 	m_circuitList.clear();
@@ -359,7 +361,10 @@ void CircuitDocument::componentRemoved( Item * item )
 	m_toSimulateList.remove( component );
 
 	requestAssignCircuits();
-	Simulator::self()->detachComponent(component);
+
+    if (!Simulator::isDestroyedSim()) {
+        Simulator::self()->detachComponent(component);
+    }
 }
 
 // I think this is where the inf0z from cnodes/branches is moved into the midle-layer

@@ -45,6 +45,9 @@ LogicIn::LogicIn( LogicConfig config )
 
 LogicIn::~LogicIn()
 {
+    if (Simulator::isDestroyedSim()) {
+        return;
+    }
 	Simulator::self()->removeLogicInReferences(this);
 }
 
@@ -149,6 +152,9 @@ LogicOut::LogicOut( LogicConfig config, bool _high )
 
 LogicOut::~LogicOut()
 {
+    if (Simulator::isDestroyedSim()) {
+        return;
+    }
 	if (!m_pSimulator)
 		m_pSimulator = Simulator::self();
 	
