@@ -720,6 +720,7 @@ RegisterBit::RegisterBit( uchar bitPos, Register::Type reg )
 				  if(pic_type=="P16F627"||pic_type=="P16F628") {
 					m_name = "ADEN"; break;
                   }
+                  break;
 				case 4: m_name = "CREN"; break;
 				case 5: m_name = "SREN"; break;
 				case 6: m_name = "RX9"; break;
