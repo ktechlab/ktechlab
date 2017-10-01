@@ -407,7 +407,7 @@ bool Microbe::isValidVariableName( const QString & variableName)
 	if ( !variableName[0].isLetter() && variableName[0] != '_' )
 		return false;
 	
-	for ( unsigned i = 1; i < variableName.length(); ++i )
+	for ( int i = 1; i < variableName.length(); ++i )
 	{
 		if ( !variableName[i].isLetterOrNumber() && variableName[i] != '_' )
 			return false;
