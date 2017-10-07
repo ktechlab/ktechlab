@@ -1,270 +1,291 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0" stdsetdef="1">
-  <author></author>
-  <comment></comment>
-  <exportmacro></exportmacro>
-  <class>PicProgrammerConfigWidget</class>
-  <widget class="QWidget" name="PicProgrammerConfigWidget">
-    <property name="geometry">
-      <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>464</width>
-        <height>493</height>
-      </rect>
-    </property>
-    <layout class="QVBoxLayout">
-      <property name="margin">
-        <number>0</number>
-      </property>
-      <item>
-        <widget class="Q3GroupBox" name="groupBox3">
-          <property name="title">
-            <string>Programmer Configuration</string>
-          </property>
-          <layout class="QGridLayout">
-            <item row="1" column="0" rowspan="1" colspan="2">
-              <spacer name="spacer3">
-                <property name="sizeHint">
-                  <size>
-                    <width>295</width>
-                    <height>20</height>
-                  </size>
-                </property>
-                <property name="sizeType">
-                  <enum>QSizePolicy::Expanding</enum>
-                </property>
-                <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                </property>
-              </spacer>
-            </item>
-            <item row="1" column="2">
-              <widget class="KPushButton" name="addButton">
-                <property name="text">
-                  <string>&amp;Add ...</string>
-                </property>
-              </widget>
-            </item>
-            <item row="1" column="3">
-              <widget class="KPushButton" name="removeButton">
-                <property name="text">
-                  <string>Re&amp;move</string>
-                </property>
-              </widget>
-            </item>
-            <item row="0" column="0">
-              <widget class="QLabel" name="textLabel1_3">
-                <property name="text">
-                  <string>Program:</string>
-                </property>
-                <property name="wordWrap">
-                  <bool>false</bool>
-                </property>
-              </widget>
-            </item>
-            <item row="0" column="1" rowspan="1" colspan="3">
-              <widget class="KComboBox" name="kcfg_PicProgrammerProgram">
-                <property name="sizePolicy">
-                  <sizepolicy>
-                    <hsizetype>1</hsizetype>
-                    <vsizetype>0</vsizetype>
-                    <horstretch>1</horstretch>
-                    <verstretch>0</verstretch>
-                  </sizepolicy>
-                </property>
-                <property name="contextMenuEnabled">
-                  <bool>false</bool>
-                </property>
-              </widget>
-            </item>
-            <item row="2" column="0" rowspan="1" colspan="4">
-              <widget class="QLabel" name="m_pProgrammerDescription">
-                <property name="text">
-                  <string>(Program Description)</string>
-                </property>
-                <property name="wordWrap">
-                  <bool>false</bool>
-                </property>
-              </widget>
-            </item>
-          </layout>
-        </widget>
+<ui version="4.0">
+ <class>PicProgrammerConfigWidget</class>
+ <widget class="QWidget" name="PicProgrammerConfigWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>464</width>
+    <height>493</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="Q3GroupBox" name="groupBox3" native="true">
+     <property name="title" stdset="0">
+      <string>Programmer Configuration</string>
+     </property>
+     <layout class="QGridLayout">
+      <item row="1" column="0" colspan="2">
+       <spacer name="spacer3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Expanding</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>295</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
-      <item>
-        <widget class="Q3GroupBox" name="commandsGroupBox">
-          <property name="title">
-            <string>Commands</string>
-          </property>
-          <layout class="QGridLayout">
-            <item row="0" column="0">
-              <widget class="QLabel" name="textLabel1_2">
-                <property name="text">
-                  <string>Initialization:</string>
-                </property>
-                <property name="wordWrap">
-                  <bool>false</bool>
-                </property>
-              </widget>
-            </item>
-            <item row="3" column="1">
-              <widget class="KLineEdit" name="verifyCommand"/>
-            </item>
-            <item row="2" column="1">
-              <widget class="KLineEdit" name="writeCommand"/>
-            </item>
-            <item row="1" column="1">
-              <widget class="KLineEdit" name="readCommand"/>
-            </item>
-            <item row="0" column="1">
-              <widget class="KLineEdit" name="initCommand"/>
-            </item>
-            <item row="1" column="0">
-              <widget class="QLabel" name="textLabel4">
-                <property name="text">
-                  <string>Read:</string>
-                </property>
-                <property name="wordWrap">
-                  <bool>false</bool>
-                </property>
-              </widget>
-            </item>
-            <item row="2" column="0">
-              <widget class="QLabel" name="textLabel3">
-                <property name="text">
-                  <string>Write:</string>
-                </property>
-                <property name="wordWrap">
-                  <bool>false</bool>
-                </property>
-              </widget>
-            </item>
-            <item row="4" column="1">
-              <widget class="KLineEdit" name="blankCheckCommand"/>
-            </item>
-            <item row="5" column="1">
-              <widget class="KLineEdit" name="eraseCommand"/>
-            </item>
-            <item row="6" column="0" rowspan="1" colspan="2">
-              <widget class="QLabel" name="textLabel2">
-                <property name="text">
-                  <string>The following strings will be replaced when the command is run:
+      <item row="1" column="2">
+       <widget class="KPushButton" name="addButton">
+        <property name="text">
+         <string>&amp;Add ...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="KPushButton" name="removeButton">
+        <property name="text">
+         <string>Re&amp;move</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="textLabel1_3">
+        <property name="text">
+         <string>Program:</string>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" colspan="3">
+       <widget class="KComboBox" name="kcfg_PicProgrammerProgram">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>1</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="contextMenuPolicy">
+         <enum>Qt::PreventContextMenu</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="4">
+       <widget class="QLabel" name="m_pProgrammerDescription">
+        <property name="text">
+         <string>(Program Description)</string>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="Q3GroupBox" name="commandsGroupBox" native="true">
+     <property name="title" stdset="0">
+      <string>Commands</string>
+     </property>
+     <layout class="QGridLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="textLabel1_2">
+        <property name="text">
+         <string>Initialization:</string>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="KLineEdit" name="verifyCommand" native="true"/>
+      </item>
+      <item row="2" column="1">
+       <widget class="KLineEdit" name="writeCommand" native="true"/>
+      </item>
+      <item row="1" column="1">
+       <widget class="KLineEdit" name="readCommand" native="true"/>
+      </item>
+      <item row="0" column="1">
+       <widget class="KLineEdit" name="initCommand" native="true"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="textLabel4">
+        <property name="text">
+         <string>Read:</string>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="textLabel3">
+        <property name="text">
+         <string>Write:</string>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="KLineEdit" name="blankCheckCommand" native="true"/>
+      </item>
+      <item row="5" column="1">
+       <widget class="KLineEdit" name="eraseCommand" native="true"/>
+      </item>
+      <item row="6" column="0" colspan="2">
+       <widget class="QLabel" name="textLabel2">
+        <property name="text">
+         <string>The following strings will be replaced when the command is run:
 &lt;ul&gt;
 &lt;li&gt;&lt;b&gt;%port&lt;/b&gt; - Port that the programmer is connected to&lt;/li&gt;
 &lt;li&gt;&lt;b&gt;%device&lt;/b&gt; - PIC device&lt;/li&gt;
 &lt;li&gt;&lt;b&gt;%file&lt;/b&gt; - File to read from or write to&lt;/li&gt;
 &lt;/ul&gt;</string>
-                </property>
-                <property name="textFormat">
-                  <enum>Qt::RichText</enum>
-                </property>
-                <property name="wordWrap">
-                  <bool>false</bool>
-                </property>
-              </widget>
-            </item>
-            <item row="5" column="0">
-              <widget class="QLabel" name="textLabel5">
-                <property name="text">
-                  <string>Erase:</string>
-                </property>
-                <property name="wordWrap">
-                  <bool>false</bool>
-                </property>
-              </widget>
-            </item>
-            <item row="3" column="0">
-              <widget class="QLabel" name="textLabel2_3">
-                <property name="text">
-                  <string>Verify:</string>
-                </property>
-                <property name="wordWrap">
-                  <bool>false</bool>
-                </property>
-              </widget>
-            </item>
-            <item row="4" column="0">
-              <widget class="QLabel" name="textLabel1_4">
-                <property name="text">
-                  <string>Blank Check:</string>
-                </property>
-                <property name="wordWrap">
-                  <bool>false</bool>
-                </property>
-              </widget>
-            </item>
-          </layout>
-        </widget>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::RichText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
       </item>
-      <item>
-        <layout class="QHBoxLayout">
-          <item>
-            <widget class="QLabel" name="textLabel1">
-              <property name="text">
-                <string>Default port:</string>
-              </property>
-              <property name="wordWrap">
-                <bool>false</bool>
-              </property>
-            </widget>
-          </item>
-          <item>
-            <widget class="QComboBox" name="kcfg_PicProgrammerPort">
-              <property name="editable">
-                <bool>true</bool>
-              </property>
-            </widget>
-          </item>
-        </layout>
+      <item row="5" column="0">
+       <widget class="QLabel" name="textLabel5">
+        <property name="text">
+         <string>Erase:</string>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
       </item>
-      <item>
-        <spacer name="spacer2">
-          <property name="sizeHint">
-            <size>
-              <width>20</width>
-              <height>16</height>
-            </size>
-          </property>
-          <property name="sizeType">
-            <enum>QSizePolicy::Expanding</enum>
-          </property>
-          <property name="orientation">
-            <enum>Qt::Vertical</enum>
-          </property>
-        </spacer>
+      <item row="3" column="0">
+       <widget class="QLabel" name="textLabel2_3">
+        <property name="text">
+         <string>Verify:</string>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
       </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="textLabel1_4">
+        <property name="text">
+         <string>Blank Check:</string>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout">
+     <item>
+      <widget class="QLabel" name="textLabel1">
+       <property name="text">
+        <string>Default port:</string>
+       </property>
+       <property name="wordWrap">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="kcfg_PicProgrammerPort">
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
     </layout>
-  </widget>
-  <layoutdefault spacing="6" margin="11"/>
-  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
-  <customwidgets>
-    <customwidget>
-      <class>KComboBox</class>
-      <extends>QComboBox</extends>
-      <header location="global">kcombobox.h</header>
-    </customwidget>
-  </customwidgets>
-  <tabstops>
-    <tabstop>kcfg_PicProgrammerProgram</tabstop>
-    <tabstop>addButton</tabstop>
-    <tabstop>removeButton</tabstop>
-    <tabstop>initCommand</tabstop>
-    <tabstop>readCommand</tabstop>
-    <tabstop>writeCommand</tabstop>
-    <tabstop>verifyCommand</tabstop>
-    <tabstop>blankCheckCommand</tabstop>
-    <tabstop>eraseCommand</tabstop>
-    <tabstop>kcfg_PicProgrammerPort</tabstop>
-  </tabstops>
-  <includes>
-    <include location="local">kpushbutton.h</include>
-    <include location="local">kpushbutton.h</include>
-    <include location="local">kcombobox.h</include>
-    <include location="local">klineedit.h</include>
-    <include location="local">klineedit.h</include>
-    <include location="local">klineedit.h</include>
-    <include location="local">klineedit.h</include>
-    <include location="local">klineedit.h</include>
-    <include location="local">klineedit.h</include>
-  </includes>
+   </item>
+   <item>
+    <spacer name="spacer2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Expanding</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>16</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+ <customwidgets>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header location="global">kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>Q3GroupBox</class>
+   <extends>QWidget</extends>
+   <header>q3groupbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QWidget</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>kcfg_PicProgrammerProgram</tabstop>
+  <tabstop>addButton</tabstop>
+  <tabstop>removeButton</tabstop>
+  <tabstop>initCommand</tabstop>
+  <tabstop>readCommand</tabstop>
+  <tabstop>writeCommand</tabstop>
+  <tabstop>verifyCommand</tabstop>
+  <tabstop>blankCheckCommand</tabstop>
+  <tabstop>eraseCommand</tabstop>
+  <tabstop>kcfg_PicProgrammerPort</tabstop>
+ </tabstops>
+ <includes>
+  <include location="local">kpushbutton.h</include>
+  <include location="local">kpushbutton.h</include>
+  <include location="local">kcombobox.h</include>
+  <include location="local">klineedit.h</include>
+  <include location="local">klineedit.h</include>
+  <include location="local">klineedit.h</include>
+  <include location="local">klineedit.h</include>
+  <include location="local">klineedit.h</include>
+  <include location="local">klineedit.h</include>
+ </includes>
+ <resources/>
+ <connections/>
 </ui>
