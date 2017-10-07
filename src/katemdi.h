@@ -33,6 +33,7 @@
 
 namespace KateMDI {
 
+class MainWindow;
 
 /** This class is needed because QSplitter cant return an index for a widget. */
 class Splitter : public QSplitter
@@ -77,7 +78,7 @@ class GUIClient : public QObject, public KXMLGUIClient
   Q_OBJECT
 
   public:
-    GUIClient ( class MainWindow *mw );
+    GUIClient ( MainWindow *mw );
     virtual ~GUIClient();
 
     void registerToolView (ToolView *tv);
@@ -109,7 +110,7 @@ class ToolView : public QWidget
      * @param sidebar sidebar of this toolview
      * @param parent parent widget, e.g. the splitter of one of the sidebars
      */
-    ToolView (class MainWindow *mainwin, class Sidebar *sidebar, QWidget *parent);
+    ToolView (MainWindow *mainwin, class Sidebar *sidebar, QWidget *parent);
 
   public:
     /**
@@ -169,7 +170,7 @@ class Sidebar : public KMultiTabBar
   Q_OBJECT
 
   public:
-    Sidebar (KMultiTabBar::KMultiTabBarPosition pos, class MainWindow *mainwin, QWidget *parent);
+    Sidebar (KMultiTabBar::KMultiTabBarPosition pos, MainWindow *mainwin, QWidget *parent);
     virtual ~Sidebar ();
 
     void setSplitter (Splitter *sp);
