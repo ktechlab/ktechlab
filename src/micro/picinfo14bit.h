@@ -24,10 +24,10 @@ class PicAsm14bit : public AsmInfo
 		static PicAsm14bit *self();
 		virtual Set set() const { return AsmInfo::PIC14; }
 	
-	protected:
-		static PicAsm14bit *m_self;
+	//protected:
+	//	static PicAsm14bit *m_self;
 	
-	private:
+	//private:
 		PicAsm14bit();
 };
 

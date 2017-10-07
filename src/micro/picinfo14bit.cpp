@@ -13,15 +13,19 @@
 
 #include <klocalizedstring.h>
 #include <k3staticdeleter.h>
+#include <kglobal.h>
 
-PicAsm14bit *PicAsm14bit::m_self = 0;
-static K3StaticDeleter<PicAsm14bit> picAsm14BitStaticDeleter;
+// PicAsm14bit *PicAsm14bit::m_self = 0;
+// static K3StaticDeleter<PicAsm14bit> picAsm14BitStaticDeleter;
+
+K_GLOBAL_STATIC(PicAsm14bit, globalPicAsm14bit);
 
 PicAsm14bit *PicAsm14bit::self()
 {
-	if ( !m_self )
-		picAsm14BitStaticDeleter.setObject( m_self, new PicAsm14bit() );
-	return m_self;
+//	if ( !m_self )
+//		picAsm14BitStaticDeleter.setObject( m_self, new PicAsm14bit() );
+//	return m_self;
+    return globalPicAsm14bit;
 }
 
 
