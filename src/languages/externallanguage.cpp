@@ -120,6 +120,8 @@ bool ExternalLanguage::start()
 {
 	displayProcessCommand();
 	
+    m_languageProcess->setOutputChannelMode(KProcess::SeparateChannels);
+
 	m_languageProcess->start( );
     return m_languageProcess->waitForStarted();
 }
