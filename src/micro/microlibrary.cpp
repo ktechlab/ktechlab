@@ -12,7 +12,7 @@
 #include "microlibrary.h"
 
 #include <kdebug.h>
-#include <k3staticdeleter.h>
+// #include <k3staticdeleter.h>
 
 #include "picinfo12bit.h"
 #include "picinfo14bit.h"

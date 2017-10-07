@@ -12,7 +12,7 @@
 #include "languagemanager.h"
 #include "logview.h"
 #include "ktechlab.h"
-#include "k3tempfile.h"
+// #include "k3tempfile.h"
 #include "outputmethoddlg.h"
 #include "processchain.h"
 #include "projectmanager.h"

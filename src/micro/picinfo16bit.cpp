@@ -12,7 +12,7 @@
 #include "picinfo16bit.h"
 
 #include <klocalizedstring.h>
-#include <k3staticdeleter.h>
+// #include <k3staticdeleter.h>
 #include <kglobal.h>
 
 // PicAsm16bit *PicAsm16bit::m_self = 0;

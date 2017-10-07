@@ -17,7 +17,7 @@
 #include "textdocument.h"
 
 #include <kdebug.h>
-#include <k3staticdeleter.h>
+// #include <k3staticdeleter.h>
 #include <kglobal.h>
 
 

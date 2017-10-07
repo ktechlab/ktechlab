@@ -14,7 +14,7 @@
 #include "simulator.h"
 #include "switch.h"
 
-#include <k3staticdeleter.h>
+// #include <k3staticdeleter.h>
 #include <kglobal.h>
 
 #include <qtimer.h>

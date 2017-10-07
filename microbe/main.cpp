@@ -28,7 +28,7 @@
 #include "pic14.h"
 
 #include <kaboutdata.h>
-#include <k3aboutdialog.h>
+// #include <k3aboutdialog.h>
 #include <kcmdlineargs.h>
 #include <klocale.h>
 
