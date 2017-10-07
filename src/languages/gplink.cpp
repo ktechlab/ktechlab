@@ -16,7 +16,7 @@
 
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <k3process.h>
+#include <kprocess.h>
 #include <kdebug.h>
 
 #include <qfile.h>

@@ -16,10 +16,11 @@
 #include <kdebug.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
+#include <kshell.h>
 
 #include <qapplication.h>
 #include <qfile.h>
-#include <k3process.h>
+#include <kprocess.h>
 #include <qregexp.h>
 #include <qtextstream.h>
 #include <qdatetime.h>
@@ -393,10 +394,11 @@ void PicProgrammer::processInput( ProcessOptions options )
 	QString command = config.writeCommand;
 	command.replace( "%port", options.m_port );
 	command.replace( "%device", QString( options.m_picID ).remove("P") );
-	command.replace( "%file", K3Process::quote( options.inputFiles().first() ) );
+	command.replace( "%file", KShell::quoteArg( options.inputFiles().first() ) );
 	
-	m_languageProcess->setUseShell( true );
-	*m_languageProcess << command;
+	//m_languageProcess->setUseShell( true ); // 2017.10.08 - port to KProcess
+	//*m_languageProcess << command;
+    m_languageProcess->setShellCommand( command );
 	
 	if ( !start() )
 	{

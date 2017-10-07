@@ -17,7 +17,7 @@
 
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <k3process.h>
+#include <kprocess.h>
 
 #include <ktlconfig.h>
 

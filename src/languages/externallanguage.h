@@ -13,7 +13,9 @@
 
 #include "language.h"
 
-class K3Process;
+#include <qprocess.h>
+
+class KProcess;
 
 /**
 Base class for Language support that relies on an external program; so this
@@ -30,9 +32,9 @@ public:
 	~ExternalLanguage();
 	
 protected slots:
-	void receivedStdout( K3Process *, char * buffer, int buflen );
-	void receivedStderr( K3Process *, char * buffer, int buflen );
-	void processExited( K3Process * );
+	void processStdout();
+	void processStderr();
+	void processExited( int, QProcess::ExitStatus );
 	
 protected:
 	/**
@@ -91,7 +93,7 @@ protected:
 	 */
 	void displayProcessCommand();
 	
-	K3Process * m_languageProcess;
+	KProcess * m_languageProcess;
 };
 
 #endif

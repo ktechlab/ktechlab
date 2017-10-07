@@ -14,7 +14,7 @@
 
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <k3process.h>
+#include <kprocess.h>
 
 Gplib::Gplib( ProcessChain *processChain )
 	: ExternalLanguage( processChain, "Gpasm" )

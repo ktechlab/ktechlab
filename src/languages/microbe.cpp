@@ -20,7 +20,7 @@
 #include <kstandarddirs.h>
 
 #include <qfile.h>
-#include <k3process.h>
+#include <kprocess.h>
 
 Microbe::Microbe( ProcessChain *processChain )
  : ExternalLanguage( processChain, "Microbe" )

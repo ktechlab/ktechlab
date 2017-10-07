@@ -13,7 +13,8 @@
 #include "logview.h"
 
 #include <kdebug.h>
-#include <k3process.h>
+#include <kprocess.h>
+#include <kshell.h>
 
 #include <qregexp.h>
 #include <qtimer.h>
@@ -47,9 +48,10 @@ void ExternalLanguage::deleteLanguageProcess()
 }
 
 
-void ExternalLanguage::receivedStdout( K3Process *, char * buffer, int buflen )
+void ExternalLanguage::processStdout()
 {
-	QStringList lines = QStringList::split( '\n', QString::fromLocal8Bit( buffer, buflen ), false );
+    QString allOut = m_languageProcess->readAllStandardOutput();
+	QStringList lines = QStringList::split( '\n', allOut, false );
 	QStringList::iterator end = lines.end();
 	
 	for ( QStringList::iterator it = lines.begin(); it != end; ++it )
@@ -73,9 +75,10 @@ void ExternalLanguage::receivedStdout( K3Process *, char * buffer, int buflen )
 }
 
 
-void ExternalLanguage::receivedStderr( K3Process *, char * buffer, int buflen )
+void ExternalLanguage::processStderr()
 {
-	QStringList lines = QStringList::split( '\n', QString::fromLocal8Bit( buffer, buflen ), false );
+    QString allStdErr = m_languageProcess->readAllStandardError();
+	QStringList lines = QStringList::split( '\n', allStdErr, false );
 	QStringList::iterator end = lines.end();
 	
 	for ( QStringList::iterator it = lines.begin(); it != end; ++it )
@@ -94,13 +97,13 @@ void ExternalLanguage::receivedStderr( K3Process *, char * buffer, int buflen )
 }
 
 
-void ExternalLanguage::processExited( K3Process * )
+void ExternalLanguage::processExited( int, QProcess::ExitStatus )
 {
 	if ( !m_languageProcess ) {
         qDebug() << Q_FUNC_INFO << " m_languageProcess == NULL, returning";
 		return;
     }
-	bool allOk = processExited( (m_languageProcess->normalExit()) && (m_errorCount == 0) );
+	bool allOk = processExited( (m_languageProcess->exitStatus() == QProcess::NormalExit) && (m_errorCount == 0) );
 	finish(allOk);
 	deleteLanguageProcess();
 }
@@ -117,7 +120,8 @@ bool ExternalLanguage::start()
 {
 	displayProcessCommand();
 	
-	return m_languageProcess->start( K3Process::NotifyOnExit, K3Process::All );
+	m_languageProcess->start( );
+    return m_languageProcess->waitForStarted();
 }
 
 
@@ -127,29 +131,29 @@ void ExternalLanguage::resetLanguageProcess()
 	deleteLanguageProcess();
 	m_errorCount = 0;
 	
-	m_languageProcess = new K3Process(this);
+	m_languageProcess = new KProcess(this);
 	
-	connect( m_languageProcess, SIGNAL(receivedStdout( K3Process*, char*, int )),
-			 this, SLOT(receivedStdout( K3Process*, char*, int )) );
+	connect( m_languageProcess, SIGNAL(readyReadStandardOutput()),
+			 this, SLOT(processStdout()) );
 	
-	connect( m_languageProcess, SIGNAL(receivedStderr( K3Process*, char*, int )),
-			 this, SLOT(receivedStderr( K3Process*, char*, int )) );
+	connect( m_languageProcess, SIGNAL(readyReadStandardError()),
+			 this, SLOT(processStderr()) );
 	
-	connect( m_languageProcess, SIGNAL(processExited( K3Process* )),
-			 this, SLOT(processExited( K3Process* )) );
+	connect( m_languageProcess, SIGNAL(finished(int, QProcess::ExitStatus)),
+			 this, SLOT(processExited(int, QProcess::ExitStatus )) );
 }
 
 
 void ExternalLanguage::displayProcessCommand()
 {
 	QStringList quotedArguments;
-	//QList<QString> arguments = m_languageProcess->args();
-    QList<QString> arguments;
-    for (QList<QByteArray>::const_iterator itArgs = m_languageProcess->args().begin();
-         itArgs != m_languageProcess->args().end();
-         ++itArgs) {
-        arguments.append(QString(*itArgs));
-    }
+	QList<QString> arguments = m_languageProcess->program();
+//     QList<QString> arguments;
+//     for (QList<QByteArray>::const_iterator itArgs = m_languageProcess->args().begin();
+//          itArgs != m_languageProcess->args().end();
+//          ++itArgs) {
+//         arguments.append(QString(*itArgs));
+//     }
 	
 	if ( arguments.size() == 1 )
 		quotedArguments << arguments[0];
@@ -161,7 +165,7 @@ void ExternalLanguage::displayProcessCommand()
 		for ( QList<QString>::const_iterator it = arguments.begin(); it != end; ++it )
 		{
 			if ( (*it).isEmpty() || (*it).contains( QRegExp("[\\s]") ) )
-				quotedArguments << K3Process::quote( *it );
+				quotedArguments << KShell::quoteArg( *it );
 			else
 				quotedArguments << *it;
 		}

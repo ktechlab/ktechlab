@@ -20,7 +20,7 @@
 #include <kdebug.h>
 //#include <kio/netaccess.h>
 #include <kmessagebox.h>
-#include <k3process.h>
+#include <kprocess.h>
 
 #include <qregexp.h>
 #include <qtimer.h>

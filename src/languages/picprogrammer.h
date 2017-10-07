@@ -16,7 +16,7 @@
 #include <qmap.h>
 
 class KConfig;
-class K3Process;
+class KProcess;
 
 
 class ProgrammerConfig
