@@ -12,16 +12,20 @@
 #include "picinfo12bit.h"
 
 #include <klocalizedstring.h>
-#include <k3staticdeleter.h>
+//#include <k3staticdeleter.h>
+#include <kglobal.h>
 
-PicAsm12bit *PicAsm12bit::m_self = 0;
-static K3StaticDeleter<PicAsm12bit> picAsm12BitStaticDeleter;
+//PicAsm12bit *PicAsm12bit::m_self = 0;
+//static K3StaticDeleter<PicAsm12bit> picAsm12BitStaticDeleter;
+
+K_GLOBAL_STATIC(PicAsm12bit, globalPicAsm12bit);
 
 PicAsm12bit *PicAsm12bit::self()
 {
-	if ( !m_self )
-		picAsm12BitStaticDeleter.setObject( m_self, new PicAsm12bit() );
-	return m_self;
+//	if ( !m_self )
+//		picAsm12BitStaticDeleter.setObject( m_self, new PicAsm12bit() );
+//	return m_self;
+    return globalPicAsm12bit;
 }
 
 
