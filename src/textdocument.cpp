@@ -32,7 +32,7 @@
 #include <klibloader.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <k3tempfile.h>
+#include <ktemporaryfile.h>
 #include <ktexteditor/document.h>
 #include <kxmlguifactory.h>
 
@@ -418,8 +418,14 @@ QString TextDocument::outputFilePath( const QString &ext )
 	QString filePath = url().path();
 	if ( filePath.isEmpty() )
 	{
-		K3TempFile f( QString::null, ext );
-		(*f.textStream()) <<  m_doc->text();
+		KTemporaryFile f;
+        f.setSuffix(ext);
+        if (!f.open()) {
+            qWarning() << Q_FUNC_INFO << " Failed to open temporary file";
+            return QString();
+        }
+        QTextStream out(&f);
+        out << m_doc->text();
 		f.close();
 		DocManager::self()->associateDocument( f.name(), this );
 		return f.name();
