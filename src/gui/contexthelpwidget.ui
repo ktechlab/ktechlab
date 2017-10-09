@@ -84,7 +84,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="WStackPage">
+     <widget class="QWidget" name="WStackPage1">
       <property name="geometry">
        <rect>
         <x>0</x>
