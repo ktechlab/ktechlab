@@ -26,7 +26,7 @@
 #include <kdebug.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <k3tempfile.h>
+#include <ktemporaryfile.h>
 #include <kstandarddirs.h>
 #include <qfile.h>
 #include <qtextstream.h>
@@ -359,8 +359,13 @@ QString GpsimProcessor::generateSymbolFile( const QString &fileName, QObject *re
 	}
 	else if ( extension == "flowcode" )
 	{
-		const QString hexFile = K3TempFile( QString::null, ".hex" ).name();
-		
+        KTemporaryFile tmpFile;
+        tmpFile.setSuffix( ".hex" );
+        if (!tmpFile.open()) {
+            qWarning() << " failed to open " << tmpFile.fileName() << " error " << tmpFile.errorString();
+            return QString::null;
+        }
+		const QString hexFile = tmpFile.fileName();
 		ProcessOptions o;
 		o.b_addToProject = false;
 		o.setTargetFile( hexFile );
