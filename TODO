@@ -67,6 +67,18 @@ The following have been brainstormed with reference to other electronics softwar
 - A means for users to create a circuit which is intended for use in a component, and to link the created circuit to a generic component that automatically creates the required in/out pins with reference to the created component circuit. On top of this, a means for users to submit new components they have created this way to allow the library of components to be built. So instead of a long list of IC's one generic one may be used with a library containing the circuits needed to simulate different types which can be chosen for example through the Item Editor.
 
 
+Modifications needed for KF5 port
+=======
+- read this: http://doc.qt.io/qt-4.8/porting4.html
+
+- fix UI files to not use Q3* functionality
+
+- Q3PointArray -> QPolygon ?
+- Q3PtrVector -> ?
+- Q3ListView -> ?
+- K3ListView -> ?
+- K3TextEdit -> ?
+
 Fixes that could be postponed after the first Qt4 release
 =======
 - fix building of the core library first; otherwise missing include file (ktlconfig.h) error could happen at build time
