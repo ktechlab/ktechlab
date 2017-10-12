@@ -30,7 +30,7 @@
 
 #include <kdebug.h>
 #include <klocalizedstring.h>
-#include <k3tempfile.h>
+#include <ktemporaryfile.h>
 #include <qfile.h>
 #include <qtimer.h>
 
@@ -92,8 +92,22 @@ void ProcessChain::compile()
 	
 	switch ( m_processOptions.processPath() )
 	{
-#define DIRECT_PROCESS( path, processor ) case ProcessOptions::ProcessPath::path: { processor()->processInput(m_processOptions); break; }
-#define INDIRECT_PROCESS( path, processor, extension ) case ProcessOptions::ProcessPath::path: { K3TempFile f( QString::null, extension ); f.close(); m_processOptions.setIntermediaryOutput( f.name() ); processor()->processInput(m_processOptions); break; }
+#define DIRECT_PROCESS( path, processor ) \
+        case ProcessOptions::ProcessPath::path: \
+            { \
+                processor()->processInput(m_processOptions); break; \
+            }
+#define INDIRECT_PROCESS( path, processor, extension ) \
+        case ProcessOptions::ProcessPath::path: \
+            { \
+                KTemporaryFile f; \
+                f.setSuffix( extension ); \
+                f.open(); \
+                f.close(); \
+                m_processOptions.setIntermediaryOutput( f.name() ); \
+                processor()->processInput(m_processOptions); \
+                break; \
+            }
 
 		INDIRECT_PROCESS(	AssemblyAbsolute_PIC,			gpasm,		".hex" )
 		DIRECT_PROCESS(		AssemblyAbsolute_Program,		gpasm )
