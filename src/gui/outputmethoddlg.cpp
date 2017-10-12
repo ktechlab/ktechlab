@@ -19,7 +19,7 @@
 #include <kcombobox.h>
 #include <kconfigskeleton.h>
 #include <kdebug.h>
-#include <k3tempfile.h>
+#include <ktemporaryfile.h>
 #include <kurlrequester.h>
 
 #include <qcheckbox.h>
@@ -50,7 +50,12 @@ void OutputMethodInfo::initialize( OutputMethodDlg * dlg )
 	if ( dlg->m_widget->displayDirectCheck->isChecked() )
 	{
 		m_method = Method::Direct;
-		K3TempFile f( QString::null, dlg->m_outputExtension );
+		//K3TempFile f( QString::null, dlg->m_outputExtension );
+        KTemporaryFile f;
+        f.setSuffix( dlg->m_outputExtension );
+        if (!f.open()) {
+            qWarning() << "failed to open " << f.name() << " because " << f.errorString();
+        }
 		f.close();
 		m_outputFile = f.name();
 		m_bAddToProject = false;
