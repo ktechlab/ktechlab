@@ -25,7 +25,7 @@
 #include <kio/netaccess.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h> 
-#include <k3tempfile.h>
+#include <ktemporaryfile.h>
 #include <qbitarray.h>
 #include <qfile.h>
 
@@ -192,8 +192,13 @@ bool ItemDocumentData::saveData( const KUrl &url )
 	}
 	else
 	{
-		K3TempFile file;
-		*file.textStream() << toXML();
+        KTemporaryFile file;
+        if (!file.open()) {
+            KMessageBox::error( 0l, file.errorString() );
+            return false;
+        }
+        QTextStream str(&file);
+		str << toXML();
 		file.close();
 		
 		if ( !KIO::NetAccess::upload( file.name(), url, 0l ) )
