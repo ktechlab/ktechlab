@@ -1,7 +1,7 @@
 #set( KTECHLAB_DEVELOPER_BUILD "true" )
 
 project( ktechlab )
-set( VERSION 0.40.0 )
+set( VERSION 0.40.1 )
 
 cmake_minimum_required(VERSION 2.8)
 
