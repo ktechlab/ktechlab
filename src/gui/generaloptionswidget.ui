@@ -7,11 +7,20 @@
     <x>0</x>
     <y>0</y>
     <width>492</width>
-    <height>468</height>
+    <height>473</height>
    </rect>
   </property>
   <layout class="QGridLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item row="0" column="0" colspan="2">
@@ -35,36 +44,6 @@
      <property name="maxValue" stdset="0">
       <number>100000</number>
      </property>
-    </widget>
-   </item>
-   <item row="6" column="0" colspan="2">
-    <widget class="Q3GroupBox" name="groupBox4">
-     <property name="title">
-      <string>Convenience</string>
-     </property>
-     <layout class="QVBoxLayout">
-      <item>
-       <widget class="QCheckBox" name="kcfg_RestoreDocumentsOnStartup">
-        <property name="text">
-         <string>Restore opened doc&amp;uments on startup</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="kcfg_RaiseItemSelectors">
-        <property name="text">
-         <string>Raise the &amp;appropriate item selector on creating a new document</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="kcfg_RaiseMessagesLog">
-        <property name="text">
-         <string>Raise the &amp;Messages log when compiling</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
     </widget>
    </item>
    <item row="4" column="1">
@@ -113,8 +92,35 @@
      </property>
     </widget>
    </item>
+   <item row="1" column="0" colspan="2">
+    <widget class="QCheckBox" name="kcfg_ShowVoltageBars">
+     <property name="text">
+      <string>Show voltage bars &amp;on electronic components</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="2">
+    <widget class="QCheckBox" name="kcfg_ShowVoltageColor">
+     <property name="text">
+      <string>Color the wires to match the voltage</string>
+     </property>
+     <property name="shortcut">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="2">
+    <widget class="QCheckBox" name="kcfg_AnimateWires">
+     <property name="text">
+      <string>Animate wires to show the current or power flow</string>
+     </property>
+     <property name="shortcut">
+      <string/>
+     </property>
+    </widget>
+   </item>
    <item row="7" column="0" colspan="2">
-    <widget class="Q3GroupBox" name="groupBox21">
+    <widget class="QGroupBox" name="groupBox21">
      <property name="title">
       <string>Display Refresh Rate</string>
      </property>
@@ -190,31 +196,34 @@
      </layout>
     </widget>
    </item>
-   <item row="1" column="0" colspan="2">
-    <widget class="QCheckBox" name="kcfg_ShowVoltageBars">
-     <property name="text">
-      <string>Show voltage bars &amp;on electronic components</string>
+   <item row="6" column="0" colspan="2">
+    <widget class="QGroupBox" name="groupBox4">
+     <property name="title">
+      <string>Convenience</string>
      </property>
-    </widget>
-   </item>
-   <item row="2" column="0" colspan="2">
-    <widget class="QCheckBox" name="kcfg_ShowVoltageColor">
-     <property name="text">
-      <string>Color the wires to match the voltage</string>
-     </property>
-     <property name="shortcut">
-      <string/>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0" colspan="2">
-    <widget class="QCheckBox" name="kcfg_AnimateWires">
-     <property name="text">
-      <string>Animate wires to show the current or power flow</string>
-     </property>
-     <property name="shortcut">
-      <string/>
-     </property>
+     <layout class="QVBoxLayout">
+      <item>
+       <widget class="QCheckBox" name="kcfg_RestoreDocumentsOnStartup">
+        <property name="text">
+         <string>Restore opened doc&amp;uments on startup</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="kcfg_RaiseItemSelectors">
+        <property name="text">
+         <string>Raise the &amp;appropriate item selector on creating a new document</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="kcfg_RaiseMessagesLog">
+        <property name="text">
+         <string>Raise the &amp;Messages log when compiling</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>
@@ -223,20 +232,14 @@
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
  <customwidgets>
   <customwidget>
-   <class>Q3GroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>Qt3Support/Q3GroupBox</header>
-   <container>1</container>
+   <class>KIntSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>knuminput.h</header>
   </customwidget>
   <customwidget>
    <class>KColorButton</class>
    <extends>QPushButton</extends>
    <header>kcolorbutton.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
