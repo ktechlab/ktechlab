@@ -11,7 +11,16 @@
    </rect>
   </property>
   <layout class="QVBoxLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item>
@@ -43,7 +52,7 @@
     </layout>
    </item>
    <item>
-    <widget class="Q3GroupBox" name="groupBox3">
+    <widget class="QGroupBox" name="groupBox3">
      <property name="title">
       <string>Input</string>
      </property>
@@ -128,7 +137,7 @@
     </widget>
    </item>
    <item>
-    <widget class="Q3GroupBox" name="groupBox4">
+    <widget class="QGroupBox" name="groupBox4">
      <property name="title">
       <string>Output</string>
      </property>
@@ -284,10 +293,9 @@ These values will apply to all components, apart from the PIC, whose pins' imped
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
  <customwidgets>
   <customwidget>
-   <class>Q3GroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>Qt3Support/Q3GroupBox</header>
-   <container>1</container>
+   <class>KIntSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>knuminput.h</header>
   </customwidget>
   <customwidget>
    <class>KDoubleNumInput</class>
@@ -298,11 +306,6 @@ These values will apply to all components, apart from the PIC, whose pins' imped
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
