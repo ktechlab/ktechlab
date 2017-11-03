@@ -24,10 +24,7 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="Q3GroupBox" name="groupBox3" native="true">
-     <property name="title" stdset="0">
-      <string>Programmer Configuration</string>
-     </property>
+    <widget class="QGroupBox" name="groupBox3">
      <layout class="QGridLayout">
       <item row="1" column="0" colspan="2">
        <spacer name="spacer3">
@@ -96,10 +93,7 @@
     </widget>
    </item>
    <item>
-    <widget class="Q3GroupBox" name="commandsGroupBox" native="true">
-     <property name="title" stdset="0">
-      <string>Commands</string>
-     </property>
+    <widget class="QGroupBox" name="commandsGroupBox">
      <layout class="QGridLayout">
       <item row="0" column="0">
        <widget class="QLabel" name="textLabel1_2">
@@ -251,11 +245,6 @@
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header location="global">kcombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>Q3GroupBox</class>
-   <extends>QWidget</extends>
-   <header>q3groupbox.h</header>
   </customwidget>
   <customwidget>
    <class>KLineEdit</class>
