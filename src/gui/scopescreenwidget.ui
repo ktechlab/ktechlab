@@ -15,7 +15,7 @@
     <widget class="ScopeScreenView" name="scopeScreenView" native="true"/>
    </item>
    <item>
-    <widget class="Q3GroupBox" name="xGroupBox">
+    <widget class="QGroupBox" name="xGroupBox">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
        <horstretch>0</horstretch>
@@ -163,12 +163,6 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>Q3GroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>Qt3Support/Q3GroupBox</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>KIntSpinBox</class>
    <extends>QSpinBox</extends>
    <header>knuminput.h</header>
@@ -180,54 +174,5 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections>
-  <connection>
-   <sender>intervalsX</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>scopeScreenView</receiver>
-   <slot>setIntervalsX(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>ticksPerIntervalX</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>scopeScreenView</receiver>
-   <slot>setTicksPerIntervalX(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>offsetX</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>scopeScreenView</receiver>
-   <slot>setOffsetX(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
