@@ -190,8 +190,9 @@ bool ContextHelp::isEditChanged()
 		return false;
 	
 	// Is the edit widget raised?
-	if ( m_pWidgetStack->visibleWidget() != m_pWidgetStack->widget( 1 ) )
+	if ( m_pWidgetStack->currentIndex() != 1 ) {
 		return false;
+    }
 	
 	// We are currently editing an item. Is it changed?
 	return ( m_pEditor->text() != itemLibrary()->description( m_lastItemType, m_currentLanguage ).stripWhiteSpace() );
@@ -200,8 +201,9 @@ bool ContextHelp::isEditChanged()
 
 void ContextHelp::slotUpdate( Item * item )
 {
-	if ( isEditChanged() )
+	if ( isEditChanged() ) {
 		return;
+    }
 	
 	m_lastItemType = item ? item->type() : QString::null;
 	m_pEditButton->setEnabled( item );
@@ -212,7 +214,7 @@ void ContextHelp::slotUpdate( Item * item )
 		return;
 	}
 	
-	m_pWidgetStack->raiseWidget( 0 );
+	m_pWidgetStack->setCurrentIndex( 0 );
 	setContextHelp( item->name(), itemLibrary()->description( m_lastItemType, KGlobal::locale()->language() ) );
 }
 
@@ -246,7 +248,7 @@ void ContextHelp::slotClear()
 	
 	// Can we go hide the edit widget?
 	if ( !isEditChanged() )
-		m_pWidgetStack->raiseWidget( 0 );
+		m_pWidgetStack->setCurrentIndex( 0 );
 }
 
 
@@ -305,7 +307,7 @@ void ContextHelp::slotEdit()
 	m_pEditor->setResourcePaths( resourcePaths );
 	QString description = itemLibrary()->description( m_lastItemType, m_currentLanguage );
 	m_pEditor->setText( description );
-	m_pWidgetStack->raiseWidget( 1 );
+	m_pWidgetStack->setCurrentIndex( 1 );
 }
 
 
@@ -346,7 +348,7 @@ void ContextHelp::slotEditReset()
 			return;
 	}
 	
-	m_pWidgetStack->raiseWidget( 0 );
+	m_pWidgetStack->setCurrentIndex( 0 );
 }
 
 
@@ -356,7 +358,7 @@ void ContextHelp::slotSave()
 		return;
 	
 	setContextHelp( m_pNameLabel->text(), itemLibrary()->description( m_lastItemType, KGlobal::locale()->language() ) );
-	m_pWidgetStack->raiseWidget( 0 );
+	m_pWidgetStack->setCurrentIndex( 0 );
 }
 
 
