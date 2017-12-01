@@ -208,8 +208,11 @@ LinkerOptionsDlg::LinkerOptionsDlg( LinkerOptions * linkingOptions, QWidget *par
 	for ( KUrl::List::const_iterator it = availableInternal.begin(); it != end; ++it )
 	{
 		QString relativeURL = KUrl::relativeUrl( pi->url(), *it );
-		Q3CheckListItem * item = new Q3CheckListItem( m_pWidget->m_pInternalLibraries, relativeURL, Q3CheckListItem::CheckBox );
-		item->setOn( linkedInternal.contains(relativeURL) );
+        // 2017.12.1 - convert to QListWidgetItem
+		//Q3CheckListItem * item = new Q3CheckListItem( m_pWidget->m_pInternalLibraries, relativeURL, Q3CheckListItem::CheckBox );
+        QListWidgetItem * item = new QListWidgetItem( relativeURL, m_pWidget->m_pInternalLibraries );
+        item->setCheckState( (linkedInternal.contains(relativeURL)) ? Qt::Checked : Qt::Unchecked );
+		//item->setOn( linkedInternal.contains(relativeURL) ); // 2017.12.1 - convert to QListWidgetItem
 	}
 	
 	m_pExternalLibraryRequester = new KUrlRequester( 0l );
@@ -241,11 +244,12 @@ void LinkerOptionsDlg::accept()
 	hide();
 	
 	QStringList linkedInternal;
-	for ( Q3ListViewItemIterator internalIt( m_pWidget->m_pInternalLibraries ); internalIt.current(); ++internalIt )
+	for (int itemNr = 0; itemNr < m_pWidget->m_pInternalLibraries->count(); ++itemNr)
 	{
-		Q3CheckListItem * item = static_cast<Q3CheckListItem*>(internalIt.current());
-		if ( item->isOn() )
+        QListWidgetItem * item = m_pWidget->m_pInternalLibraries->item(itemNr);
+		if ( item->checkState() == Qt::Checked ) {
 			linkedInternal << item->text();
+        }
 	}
 	m_pLinkerOptions->setLinkedInternal( linkedInternal );
 	

@@ -6,12 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>415</width>
+    <width>420</width>
     <height>554</height>
    </rect>
   </property>
   <layout class="QGridLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item row="1" column="1">
@@ -97,25 +106,6 @@
      </property>
     </widget>
    </item>
-   <item row="6" column="0" colspan="2">
-    <widget class="Q3GroupBox" name="groupBox2">
-     <property name="title">
-      <string>Link libraries inside project</string>
-     </property>
-     <layout class="QVBoxLayout">
-      <item>
-       <widget class="K3ListView" name="m_pInternalLibraries">
-        <property name="selectionMode">
-         <enum>Q3ListView::NoSelection</enum>
-        </property>
-        <property name="resizeMode">
-         <enum>Q3ListView::LastColumn</enum>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
    <item row="7" column="0" colspan="2">
     <widget class="KEditListBox" name="m_pExternalLibraries">
      <property name="title">
@@ -123,33 +113,30 @@
      </property>
     </widget>
    </item>
+   <item row="6" column="0" colspan="2">
+    <widget class="QGroupBox" name="groupBox2">
+     <property name="title">
+      <string>Link libraries inside project</string>
+     </property>
+     <layout class="QVBoxLayout">
+      <item>
+       <widget class="QListWidget" name="m_pInternalLibraries">
+        <property name="selectionMode">
+         <enum>QAbstractItemView::NoSelection</enum>
+        </property>
+        <property name="resizeMode">
+         <enum>QListView::Fixed</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
  <customwidgets>
-  <customwidget>
-   <class>Q3GroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>Qt3Support/Q3GroupBox</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>Q3Frame</class>
-   <extends>QFrame</extends>
-   <header>Qt3Support/Q3Frame</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>Q3ListView</class>
-   <extends>Q3Frame</extends>
-   <header>q3listview.h</header>
-  </customwidget>
-  <customwidget>
-   <class>K3ListView</class>
-   <extends>Q3ListView</extends>
-   <header>k3listview.h</header>
-  </customwidget>
   <customwidget>
    <class>KEditListBox</class>
    <extends>QGroupBox</extends>
