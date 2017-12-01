@@ -39,7 +39,7 @@ class NewFileDlg : public KDialog
 		MicroSelectWidget * microSelectWidget() const;
     
 	public slots:
-		void fileTypeChanged( Q3IconViewItem *item );
+		void fileTypeChanged();
 		
 	protected:
 		bool m_bAccepted;

@@ -57,43 +57,50 @@ NewFileDlg::NewFileDlg( QWidget *parent )
     m_bAccepted = false;
     m_pNewFileWidget = new NewFileWidget(this);
 
-	 m_pNewFileWidget->typeIconView->setSelectionMode(Q3IconView::Single);
-	 m_pNewFileWidget->typeIconView->setMode(K3IconView::Select);
+	 m_pNewFileWidget->typeIconView->setSelectionMode(QAbstractItemView::SingleSelection /*Q3IconView::Single*/);
+	 //m_pNewFileWidget->typeIconView->setMode(K3IconView::Select); // 2017.12.01 - convert to qlistwidget
+     m_pNewFileWidget->typeIconView->setIconSize(QSize(KIconLoader::SizeHuge, KIconLoader::SizeHuge));
     
 	KIconLoader *loader = KIconLoader::global();
 	
-	QList<Q3IconViewItem*> items;
+	QList<QListWidgetItem*> items;
 	
 	//BEGIN insert icons
 	QString text = QString("%1 (.asm)").arg(i18n("Assembly Code"));
-	items << new Q3IconViewItem(m_pNewFileWidget->typeIconView, text, loader->loadIcon( "source", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
+    items << new QListWidgetItem(loader->loadIcon( "source", KIconLoader::NoGroup, KIconLoader::SizeHuge ), text, m_pNewFileWidget->typeIconView);
+
 	
 	text = "C (.c)";
-	items << new Q3IconViewItem(m_pNewFileWidget->typeIconView, text, loader->loadIcon( "text-x-csrc", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
+	items << new QListWidgetItem(loader->loadIcon( "text-x-csrc", KIconLoader::NoGroup, KIconLoader::SizeHuge ), text, m_pNewFileWidget->typeIconView );
 	
 	text = QString("%1 (.circuit)").arg(i18n("Circuit"));
-	items << new Q3IconViewItem(m_pNewFileWidget->typeIconView,text, loader->loadIcon( "application-x-circuit", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
+	items << new QListWidgetItem(loader->loadIcon( "application-x-circuit", KIconLoader::NoGroup, KIconLoader::SizeHuge ), text, m_pNewFileWidget->typeIconView);
 	
-	items << new Q3IconViewItem(m_pNewFileWidget->typeIconView,"FlowCode (.flowcode)", loader->loadIcon( "application-x-flowcode", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
+	items << new QListWidgetItem(loader->loadIcon( "application-x-flowcode", KIconLoader::NoGroup, KIconLoader::SizeHuge ), "FlowCode (.flowcode)", m_pNewFileWidget->typeIconView );
 	
 #ifdef MECHANICS
-	items << new Q3IconViewItem(m_pNewFileWidget->typeIconView,"Mechanics (.mechanics)", loader->loadIcon( "exec", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
+	items << new QListWidgetItem(loader->loadIcon( "exec", KIconLoader::NoGroup, KIconLoader::SizeHuge ), "Mechanics (.mechanics)", m_pNewFileWidget->typeIconView);
 #endif
 	
-	items << new Q3IconViewItem(m_pNewFileWidget->typeIconView,"Microbe (.microbe)", loader->loadIcon( "application-x-microbe", KIconLoader::NoGroup, KIconLoader::SizeHuge ) );
+	items << new QListWidgetItem(loader->loadIcon( "application-x-microbe", KIconLoader::NoGroup, KIconLoader::SizeHuge ), "Microbe (.microbe)", m_pNewFileWidget->typeIconView);
 	//END insert icons
 	
-	unsigned minWidth = 20 + m_pNewFileWidget->typeIconView->spacing() * items.size();
-	int minHeight = 0;
+	int minWidth = 20 + m_pNewFileWidget->typeIconView->spacing() * items.size();
+	int minHeight = 20;
 	
-	const QList<Q3IconViewItem*>::iterator end = items.end();
-	for ( QList<Q3IconViewItem*>::iterator it = items.begin(); it != end; ++it )
+	const QList<QListWidgetItem*>::iterator end = items.end();
+	for ( QList<QListWidgetItem*>::iterator it = items.begin(); it != end; ++it )
 	{
-		(*it)->setDragEnabled(false);
-		minWidth += (*it)->width();
-		minHeight = qMax( minHeight, (*it)->height()+20 );
+		//(*it)->setDragEnabled(false); // 2017.12.01 - use qlistwidget
+        Qt::ItemFlags flags = (*it)->flags();
+        flags &= (~Qt::ItemIsDragEnabled);
+        (*it)->setFlags(flags);
+
+        qDebug() << Q_FUNC_INFO << "W = " << (*it)->icon().availableSizes().first().width() << " H=" << (*it)->icon().availableSizes().first().height();
+		minWidth += (*it)->icon().availableSizes().first().width() + 20;
+		minHeight = qMax( minHeight, (*it)->icon().availableSizes().first().height()+20 );
 	}
-	
+	qDebug() << Q_FUNC_INFO << "minW = " << minWidth << " minH=" << minHeight;
 	m_pNewFileWidget->typeIconView->setMinimumSize( minWidth, minHeight );
 	m_pNewFileWidget->typeIconView->setCurrentItem(items[3]);
 	m_pNewFileWidget->addToProjectCheck->setChecked( ProjectManager::self()->currentProject() );
@@ -103,8 +110,8 @@ NewFileDlg::NewFileDlg( QWidget *parent )
 	setMainWidget(m_pNewFileWidget);
     
 	// Our behaviour is to have single click selects and double click accepts the dialog
-	connect( m_pNewFileWidget->typeIconView, SIGNAL(selectionChanged(Q3IconViewItem*)), this, SLOT(fileTypeChanged(Q3IconViewItem*)) );
-	connect( m_pNewFileWidget->typeIconView, SIGNAL(doubleClicked(Q3IconViewItem*)), this, SLOT(accept()));
+	connect( m_pNewFileWidget->typeIconView, SIGNAL(itemSelectionChanged()), this, SLOT(fileTypeChanged()) );
+	connect( m_pNewFileWidget->typeIconView, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(accept()));
 
     setAcceptDrops(true);
 
@@ -163,10 +170,14 @@ void NewFileDlg::reject()
 }
 
 
-void NewFileDlg::fileTypeChanged( Q3IconViewItem *item )
+void NewFileDlg::fileTypeChanged()
 {
+    bool doEnableMicros = false;
+    if (!m_pNewFileWidget->typeIconView->selectedItems().isEmpty()) {
+        doEnableMicros = m_pNewFileWidget->typeIconView->selectedItems().first()->text().contains(".flowcode");
+    }
 	m_pNewFileWidget->m_pMicroSelect->setEnabled(
-			item->text().contains(".flowcode") );
+			doEnableMicros );
 }
 
 

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>217</height>
+    <height>145</height>
    </rect>
   </property>
   <property name="whatsThis">
@@ -20,7 +20,16 @@ Creates a new PIC program, with flow chart editor. Select the target device for 
 Creates a new circuit, with drag and drop editor. Real time simulation of the circuit occurs automatically.</string>
   </property>
   <layout class="QGridLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item row="2" column="0" colspan="3">
@@ -81,7 +90,32 @@ Creates a new circuit, with drag and drop editor. Real time simulation of the ci
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="K3IconView" name="typeIconView"/>
+    <widget class="QListWidget" name="typeIconView">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="movement">
+      <enum>QListView::Static</enum>
+     </property>
+     <property name="isWrapping" stdset="0">
+      <bool>false</bool>
+     </property>
+     <property name="resizeMode">
+      <enum>QListView::Fixed</enum>
+     </property>
+     <property name="spacing">
+      <number>20</number>
+     </property>
+     <property name="viewMode">
+      <enum>QListView::IconMode</enum>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
    </item>
    <item row="4" column="1">
     <widget class="QCheckBox" name="addToProjectCheck">
@@ -103,22 +137,6 @@ Creates a new circuit, with drag and drop editor. Real time simulation of the ci
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
-  <customwidget>
-   <class>Q3IconView</class>
-   <extends>Q3Frame</extends>
-   <header>q3iconview.h</header>
-  </customwidget>
-  <customwidget>
-   <class>Q3Frame</class>
-   <extends>QFrame</extends>
-   <header>Qt3Support/Q3Frame</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>K3IconView</class>
-   <extends>Q3IconView</extends>
-   <header>k3iconview.h</header>
-  </customwidget>
   <customwidget>
    <class>MicroSelectWidget</class>
    <extends>QWidget</extends>
