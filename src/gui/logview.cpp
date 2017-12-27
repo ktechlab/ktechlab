@@ -14,8 +14,9 @@
 #include <kiconloader.h>
 #include <katemdi.h>
 #include <klocalizedstring.h>
-#include <q3popupmenu.h>
 
+// #include <q3popupmenu.h>
+#include <qmenu.h>
 
 //BEGIN class LogView
 LogView::LogView( KateMDI::ToolView * parent, const char *name )

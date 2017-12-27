@@ -27,7 +27,8 @@
 
 #include <q3dragobject.h>
 #include <qlayout.h>
-#include <q3popupmenu.h>
+// #include <q3popupmenu.h>
+#include <qmenu.h>
 
 #include <cassert>
 
@@ -184,7 +185,7 @@ void ItemSelector::slotContextMenuRequested( Q3ListViewItem* item, const QPoint&
 		return;
 	}
 	
-	Q3PopupMenu *menu = new Q3PopupMenu(this);
+	QMenu *menu = new QMenu(this);
 	menu->insertItem( i18n("Remove %1",  item->text(0)), this, SLOT(slotRemoveSelectedItem())
         //, Qt::Key_Delete // 2015.12.29 - do not specify shortcut key, because it does not work
     );

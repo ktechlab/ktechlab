@@ -12,7 +12,7 @@
 #define LOGVIEW_H
 
 class KTechlab;
-class Q3PopupMenu;
+// class Q3PopupMenu;
 
 #include <ktextedit.h>
 #include <qmap.h>

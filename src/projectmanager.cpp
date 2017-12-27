@@ -30,7 +30,8 @@
 #include <kxmlguifactory.h>
 
 #include <qdom.h>
-#include <q3popupmenu.h>
+// #include <q3popupmenu.h>
+#include <qmenu.h>
 
 #include <cassert>
 
@@ -1257,7 +1258,7 @@ void ProjectManager::slotContextMenuRequested( Q3ListViewItem* item, const QPoin
 	KTechlab::self()->actionByName("subproject_add_current_file")->setEnabled( haveFocusedDocument );
 	KTechlab::self()->actionByName("project_add_current_file")->setEnabled( haveFocusedDocument );
 	
-	Q3PopupMenu *pop = static_cast<Q3PopupMenu*>(KTechlab::self()->factory()->container( popupName, KTechlab::self() ));
+	QMenu *pop = static_cast<QMenu*>(KTechlab::self()->factory()->container( popupName, KTechlab::self() ));
 	if (pop)
 		pop->popup(pos);
 }
