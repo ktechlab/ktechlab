@@ -31,7 +31,7 @@
 #include <kiconloader.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <k3popupmenu.h>
+// #include <k3popupmenu.h>
 //#include <kprinter.h>
 #include <kactionmenu.h>
 #include <kxmlguifactory.h>
@@ -41,6 +41,7 @@
 #include <qclipboard.h>
 #include <qcursor.h>
 #include <qimage.h>
+#include <qmenu.h>
 #include <q3paintdevicemetrics.h>
 #include <qpainter.h>
 #include <qpicture.h>
@@ -585,7 +586,7 @@ void ItemDocument::canvasRightClick( const QPoint &pos, KtlQCanvasItem* item )
 	KTechlab::self()->unplugActionList("orientation_actionlist");
 	fillContextMenu(pos);
 
-	Q3PopupMenu *pop = static_cast<Q3PopupMenu*>(KTechlab::self()->factory()->container("item_popup", KTechlab::self() ));
+	QMenu *pop = static_cast<QMenu*>(KTechlab::self()->factory()->container("item_popup", KTechlab::self() ));
 
 	if (!pop) return;
 

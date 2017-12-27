@@ -18,7 +18,7 @@
 #include <kdebug.h>
 #include <klocalizedstring.h>
 #include <kglobal.h>
-#include <k3popupmenu.h>
+// #include <k3popupmenu.h>
 
 #include <qcheckbox.h>
 #include <qcursor.h>
@@ -27,6 +27,7 @@
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <qscrollbar.h>
+#include <qmenu.h>
 #include <qtimer.h>
 
 #include <algorithm>
@@ -117,8 +118,11 @@ void OscilloscopeView::mousePressEvent( QMouseEvent *event)
 		{
 			event->accept();
 	
-			K3PopupMenu fpsMenu;
-			fpsMenu.insertTitle( i18n("Framerate"));
+			QMenu fpsMenu;
+			//fpsMenu.insertTitle( i18n("Framerate")); // 2017.12.27 - use setTitle
+            fpsMenu.insertItem( i18n("Framerate"), 1 );
+            fpsMenu.setItemEnabled(1, false);
+            fpsMenu.insertSeparator();
 	
 			const int fps[] = { 10, 25, 50, 75, 100 };
 	

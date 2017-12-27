@@ -15,7 +15,7 @@
 #include <kcolordialog.h>
 #include <kicon.h>
 #include <klocalizedstring.h>
-#include <k3popupmenu.h>
+// #include <k3popupmenu.h>
 #include <ktextedit.h>
 #include <ktoolbar.h>
 #include <kactioncollection.h>

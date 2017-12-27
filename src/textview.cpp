@@ -30,7 +30,7 @@
 #include <kdebug.h>
 #include <kiconloader.h>
 #include <klocalizedstring.h>
-#include <k3popupmenu.h>
+// #include <k3popupmenu.h>
 #include <kstandarddirs.h>
 #include <ktoolbarpopupaction.h>
 #include <kmenu.h>
@@ -153,7 +153,7 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
 	m_statusBar->insertItem( "", ViewStatusBar::LineCol );
 	
 	//m_view->installPopup( static_cast<Q3PopupMenu*>( KTechlab::self()->factory()->container( "ktexteditor_popup", KTechlab::self() ) ) );
-    m_view->setContextMenu( static_cast<Q3PopupMenu*>( KTechlab::self()->factory()->container( "ktexteditor_popup", KTechlab::self() ) ) );
+    m_view->setContextMenu( static_cast<QMenu*>( KTechlab::self()->factory()->container( "ktexteditor_popup", KTechlab::self() ) ) );
 	
 	QWidget * internalView = static_cast<QWidget*>( m_view->child( 0, "KateViewInternal" ) );
 	

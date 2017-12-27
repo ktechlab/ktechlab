@@ -31,7 +31,7 @@
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <kparts/browserextension.h> 
-#include <k3popupmenu.h>
+// #include <k3popupmenu.h>
 #include <krun.h>
 #include <kdirselectdialog.h>
 #include <kstandarddirs.h>
