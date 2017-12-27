@@ -21,7 +21,7 @@
 #include "gpasm.h"
 #include "gpdasm.h"
 
-#include <k3dockwidget.h>
+// #include <k3dockwidget.h>
 #include <kiconloader.h>
 #include <klocalizedstring.h>
 

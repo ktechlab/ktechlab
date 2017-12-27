@@ -35,7 +35,7 @@
 #include <krun.h>
 #include <kdirselectdialog.h>
 #include <kstandarddirs.h>
-#include <k3iconview.h>
+// #include <k3iconview.h>
 #include <kicon.h>
 
 #include <qfile.h>

@@ -20,7 +20,7 @@
 #include <kcombobox.h>
 #include <kdebug.h>
 #include <klineedit.h>
-#include <k3iconview.h>
+// #include <k3iconview.h>
 #include <klocalizedstring.h>
 #include <kiconloader.h>
 
