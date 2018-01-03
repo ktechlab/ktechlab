@@ -20,11 +20,14 @@
 #include <ktoolbar.h>
 #include <kactioncollection.h>
 #include <kmenu.h>
-#include <k3textedit.h>
+#include <qtextedit.h>
 
+#include <qdebug.h>
 #include <qfont.h>
 #include <qlayout.h>
 #include <qmime.h>
+#include <qtextlist.h>
+#include <qtextformat.h>
 #include <qregexp.h>
 #include <q3vbox.h>
 #include <q3textedit.h>
@@ -35,17 +38,18 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
 	: QWidget(parent, name)
 {
 	QVBoxLayout * layout = new QVBoxLayout( this, 0, 6 );
-	m_pEditor = new K3TextEdit( this ); //, "RichTextEdit" );
+	m_pEditor = new QTextEdit( this ); //, "RichTextEdit" );
 	m_pEditor->setName("RichTextEdit");
 	layout->addWidget( m_pEditor );
 	
 	m_pEditor->setTextFormat( Qt::RichText );
 	
 	connect( m_pEditor, SIGNAL( textChanged() ), SIGNAL( textChanged() ) );
-	connect( m_pEditor, SIGNAL( currentFontChanged( const QFont & ) ), this, SLOT( fontChanged( const QFont & ) ) );
-	connect( m_pEditor, SIGNAL( currentColorChanged( const QColor & ) ), this, SLOT( colorChanged( const QColor & ) ) );
-	connect( m_pEditor, SIGNAL( currentAlignmentChanged( int ) ), this, SLOT( alignmentChanged( int ) ) );
-	connect( m_pEditor, SIGNAL( currentVerticalAlignmentChanged( Q3TextEdit::VerticalAlignment ) ), this, SLOT(verticalAlignmentChanged()) );
+    connect( m_pEditor, SIGNAL( currentCharFormatChanged(const QTextCharFormat &) ), this, SLOT( slotCurrentCharFormatChanged( const QTextCharFormat &) ) );
+	//connect( m_pEditor, SIGNAL( currentFontChanged( const QFont & ) ), this, SLOT( fontChanged( const QFont & ) ) ); // 2018.01.03 - use slotCurrentCharFormatChanged
+	//connect( m_pEditor, SIGNAL( currentColorChanged( const QColor & ) ), this, SLOT( colorChanged( const QColor & ) ) ); // 2018.01.03 - use slotCurrentCharFormatChanged
+	//connect( m_pEditor, SIGNAL( currentAlignmentChanged( int ) ), this, SLOT( alignmentChanged( int ) ) ); // 2018.01.03 - use slotCurrentCharFormatChanged
+	//connect( m_pEditor, SIGNAL( currentVerticalAlignmentChanged( Q3TextEdit::VerticalAlignment ) ), this, SLOT(verticalAlignmentChanged()) ); // 2018.01.03 - use slotCurrentCharFormatChanged
 	
 	KToolBar * tools = new KToolBar( this, "RichTextEditorToops" );
 	layout->add( tools );
@@ -57,7 +61,7 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
     m_pTextBold->setName("text_bold");
     m_pTextBold->setShortcut(Qt::CTRL + Qt::Key_B);
     m_pTextBold->setIcon( KIcon("format-text-bold") );
-	connect( m_pTextBold, SIGNAL(toggled(bool)), m_pEditor, SLOT(setBold(bool)) );
+	connect( m_pTextBold, SIGNAL(toggled(bool)), this, SLOT(slotSetBold(bool)) );
 	//m_pTextBold->plug( tools );
     tools->addAction(m_pTextBold);
 
@@ -66,7 +70,7 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
     m_pTextItalic->setName("text_italic");
     m_pTextItalic->setShortcut( Qt::CTRL + Qt::Key_I );
     m_pTextItalic->setIcon( KIcon("format-text-italic") );
-	connect( m_pTextItalic, SIGNAL(toggled(bool)), m_pEditor, SLOT(setItalic(bool)) );
+	connect( m_pTextItalic, SIGNAL(toggled(bool)), this, SLOT(slotSetItalic(bool)) );
 	//m_pTextItalic->plug( tools );
     tools->addAction(m_pTextItalic);
 
@@ -75,7 +79,7 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
     m_pTextUnderline->setName("text_under");
     m_pTextUnderline->setShortcut( Qt::CTRL + Qt::Key_U );
     m_pTextItalic->setIcon( KIcon("format-text-underline") );
-	connect( m_pTextUnderline, SIGNAL(toggled(bool)), m_pEditor, SLOT(setUnderline(bool)) );
+	connect( m_pTextUnderline, SIGNAL(toggled(bool)), this, SLOT(slotSetUnderline(bool)) );
 	//m_pTextUnderline->plug( tools );
     tools->addAction(m_pTextUnderline);
 	
@@ -110,7 +114,7 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
 	m->insertItem( KIcon( "format-justify-center"), i18n("Align Center"),	Qt::AlignHCenter );
 	m->insertItem( KIcon( "format-justify-right" ), i18n("Align Right"),	Qt::AlignRight );
 	m->insertItem( KIcon( "format-justify-fill" ), i18n("Align Block"),	Qt::AlignJustify );
-	connect( m, SIGNAL(activated(int)), m_pEditor, SLOT(setAlignment(int)) );
+	connect( m, SIGNAL(activated(int)), this, SLOT(slotSetAlignment(int)) );
 	//END Text horizontal-alignment actions
 	
 	
@@ -130,9 +134,9 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
     m->setTitle( i18n("Text Vertical Alignment") );
 	m->setCheckable( true );
 	
-	m->insertItem( KIcon( "format-text-superscript" ), i18n("Superscript"),	Q3TextEdit::AlignSuperScript );
-	m->insertItem(						i18n("Normal"),			Q3TextEdit::AlignNormal );
-	m->insertItem( KIcon( "format-text-subscript" ), i18n("Subscript"),		Q3TextEdit::AlignSubScript );
+	m->insertItem( KIcon( "format-text-superscript" ), i18n("Superscript"),	QTextCharFormat::AlignSuperScript );
+	m->insertItem(						i18n("Normal"),			QTextCharFormat::AlignNormal );
+	m->insertItem( KIcon( "format-text-subscript" ), i18n("Subscript"),		QTextCharFormat::AlignSubScript );
 	connect( m, SIGNAL(activated(int)), this, SLOT(slotSetVerticalAlignment(int)) );
 	//END Text vertical-alignment actions
 	
@@ -236,8 +240,10 @@ void RichTextEditor::insertURL( const QString & url, const QString & text )
 void RichTextEditor::insertHTML( const QString & html )
 {
 	// Save cursor position
-	int cursorPara, cursorIndex;
-	m_pEditor->getCursorPosition( & cursorPara, & cursorIndex );
+	//int cursorPara, cursorIndex;
+	//m_pEditor->getCursorPosition( & cursorPara, & cursorIndex );
+    QPoint cursorPos;
+    cursorPos = m_pEditor->cursor().pos();
 	
 	// replaceString is used so that the inserted text is at the cursor position.
 	// it's just a random set of characters, so that the chance of them actually being
@@ -250,21 +256,72 @@ void RichTextEditor::insertHTML( const QString & html )
 	m_pEditor->setText( editorText );
 	
 	// Restore cursor position
-	m_pEditor->setCursorPosition( cursorPara, cursorIndex );
+	//m_pEditor->setCursorPosition( cursorPara, cursorIndex );
+    m_pEditor->cursor().setPos(cursorPos);
 }
 
+void RichTextEditor::slotSetBold(bool isBold) {
+    QTextCharFormat format;
+    if (isBold) {
+        format.setFontWeight(QFont::Bold);
+    } else {
+        format.setFontWeight(QFont::Normal);
+    }
+    m_pEditor->textCursor().mergeCharFormat(format);
+}
+void RichTextEditor::slotSetItalic(bool isItalic) {
+    QTextCharFormat format;
+    format.setFontItalic(isItalic);
+    m_pEditor->textCursor().mergeCharFormat(format);
+}
+void RichTextEditor::slotSetUnderline(bool isUnderline) {
+    QTextCharFormat format;
+    format.setFontUnderline(isUnderline);
+    m_pEditor->textCursor().mergeCharFormat(format);
+}
+void RichTextEditor::slotSetAlignment(int alignment) {
+    QTextBlockFormat format = m_pEditor->textCursor().blockFormat();
+    format.setAlignment( (Qt::AlignmentFlag) alignment );
+    m_pEditor->textCursor().mergeBlockFormat(format);
+}
 
-void RichTextEditor::slotSetVerticalAlignment( int a )
+void RichTextEditor::slotSetVerticalAlignment(int a )
 {
-	m_pEditor->setVerticalAlignment( (Q3TextEdit::VerticalAlignment)a );
+	//m_pEditor->setVerticalAlignment( (Q3TextEdit::VerticalAlignment)a );
+    //m_pEditor->setAlignment(a);
+    QTextCharFormat format;
+    format.setVerticalAlignment( (QTextCharFormat::VerticalAlignment)a );
+    m_pEditor->mergeCurrentCharFormat(format);
 }
 
 
 void RichTextEditor::slotSetList( bool set )
 {
-	m_pEditor->setParagType( set ? Q3StyleSheetItem::DisplayListItem : Q3StyleSheetItem::DisplayBlock, Q3StyleSheetItem::ListDisc );
+	//m_pEditor->setParagType( set ? Q3StyleSheetItem::DisplayListItem : Q3StyleSheetItem::DisplayBlock, Q3StyleSheetItem::ListDisc );
+    if (set) {
+        m_pEditor->textCursor().createList(QTextListFormat::ListDisc);
+    } else {
+        QTextCursor cursor = m_pEditor->textCursor();
+        QTextList *list = cursor.currentList();
+        if( list ) {
+            QTextListFormat::Style style = QTextListFormat::ListStyleUndefined;
+            QTextListFormat listFormat;
+            listFormat.setIndent( 0 );
+            listFormat.setStyle( style );
+            list->setFormat( listFormat );
+
+            for( int i = list->count() - 1; i >= 0 ; --i )
+                list->removeItem( i );
+        }
+    }
 }
 
+void RichTextEditor::slotCurrentCharFormatChanged(const QTextCharFormat & f) {
+    fontChanged( f.font() );
+    colorChanged( m_pEditor->foregroundColor() );
+    alignmentChanged( m_pEditor->alignment() );
+    verticalAlignmentChanged(); // note: consider removing this method
+}
 
 void RichTextEditor::fontChanged( const QFont & f )
 {
@@ -318,7 +375,8 @@ void RichTextEditor::verticalAlignmentChanged()
 
 void RichTextEditor::setResourcePaths( const QStringList & paths )
 {
-	m_pEditor->mimeSourceFactory()->setFilePath( paths );
+	//m_pEditor->mimeSourceFactory()->setFilePath( paths );
+    qWarning() << Q_FUNC_INFO << " not implemented ; " << paths;
 }
 //END class RichTextEditor
 

@@ -152,3 +152,4 @@ Changes between Qt3 and Qt4 port (to be completed)
   slider follows the mouse cursor even after it is released; this is annyoing
 * release 0.40.0
 - use QMenu instead of Q3PopupMenu
+- use QTextEdit instead of K3TextEdit

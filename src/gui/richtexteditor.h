@@ -16,10 +16,11 @@
 //#include <kdialog.h>
 
 class KAction;
-class K3TextEdit;
+class QTextEdit;
 class KToggleAction;
 class KToolBarPopupAction;
 class QFont;
+class QTextCharFormat;
 
 /**
 @author David Saxton
@@ -69,12 +70,17 @@ class RichTextEditor : public QWidget
 		void insertHTML( const QString & html );
 		
 	protected slots:
+        void slotSetBold(bool);
+        void slotSetItalic(bool);
+        void slotSetUnderline(bool);
+        void slotSetAlignment(int);
 		/**
 		 * Called when a vertical alignment is selected (subscript, normal or
 		 * superscript).
 		 */
 		void slotSetVerticalAlignment( int alignment );
 		void slotSetList( bool set );
+        void slotCurrentCharFormatChanged(const QTextCharFormat & f);
 		void fontChanged( const QFont &f );
 		void colorChanged( const QColor &c );
 		void alignmentChanged( int a );
@@ -89,7 +95,7 @@ class RichTextEditor : public QWidget
 		KToolBarPopupAction * m_pTextAlignment;
 		KToolBarPopupAction * m_pTextVerticalAlignment;
 		KAction * m_pTextColor;
-		K3TextEdit * m_pEditor;
+		QTextEdit * m_pEditor;
 };
 
 

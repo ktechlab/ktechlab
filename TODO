@@ -122,6 +122,6 @@ Features which need re-implementation in Qt4 port
 
 - TextDocument::clearUndo / clearRedo is not implemented; only used in newly created documents
 
-
-Fixes needed for the first release candidate of the Qt4 port
+TODO items before the next release
 =======
+- validate that rich text editor continues to work correctly (see the context help of the components)
