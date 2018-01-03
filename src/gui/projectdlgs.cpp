@@ -20,7 +20,7 @@
 #include <klineedit.h>
 #include <klocalizedstring.h>
 #include <kurlrequester.h>
-#include <k3listview.h>
+// #include <k3listview.h>
 
 #include <qcheckbox.h>
 #include <qcombobox.h>
