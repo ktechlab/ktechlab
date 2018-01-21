@@ -867,9 +867,7 @@ void ItemDocument::exportToImage()
 		int query = KMessageBox::warningYesNo(
             KTechlab::self(),
             i18n( "A file named \"%1\" already exists. " "Are you sure you want to overwrite it?", url.fileName() ),
-            i18n( "Overwrite File?" ),
-            //i18n( "Overwrite" ),
-            KStandardGuiItem::cancel() );
+            i18n( "Overwrite File?" ));
 
 		if ( query == KMessageBox::No ) return;
 	}
