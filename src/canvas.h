@@ -171,7 +171,7 @@ class KtlQCanvas : public QObject
 		// These are for KtlQCanvasView to call
 		virtual void addView(KtlQCanvasView*);
 		virtual void removeView(KtlQCanvasView*);
-		void drawCanvasArea(const QRect&, QPainter* p=0, bool double_buffer=true);
+		void drawCanvasArea(const QRect&, QPainter* p, bool double_buffer);
 		void drawViewArea( KtlQCanvasView* view, QPainter* p, const QRect& r, bool dbuf );
 
 		// These are for KtlQCanvasItem to call

@@ -748,7 +748,7 @@ void KtlQCanvas::drawChanges(const QRect& inarea)
 		elarea.width()*chunksize,
 		elarea.height()*chunksize
 					  );
-		drawCanvasArea(elarea);
+		drawCanvasArea(elarea, NULL, true);
 	}
 }
 
