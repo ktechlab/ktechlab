@@ -253,7 +253,8 @@ class KtlQCanvasView : public Q3ScrollView
 		bool setWorldMatrix( const QMatrix & );
 
 	protected:
-		void drawContents( QPainter*, int cx, int cy, int cw, int ch );
+        /** overrides Q3ScrollView::drawContents() */
+		virtual void drawContents( QPainter*, int cx, int cy, int cw, int ch );
 		QSize sizeHint() const;
 
 	private:
