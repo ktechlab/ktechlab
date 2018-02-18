@@ -765,10 +765,10 @@ void KtlQCanvas::drawChanges(const QRect& inarea)
 }
 	\endcode
  */
-void KtlQCanvas::drawArea(const QRect& clip, QPainter* painter, bool dbuf)
+void KtlQCanvas::drawArea(const QRect& clip, QPainter* painter)
 {
 	if ( painter )
-		drawCanvasArea( clip, painter, dbuf );
+		drawCanvasArea( clip, painter, false );
 }
 
 

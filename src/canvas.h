@@ -166,7 +166,7 @@ class KtlQCanvas : public QObject
 		KtlQCanvasItemList collisions( const Q3PointArray& pa, const KtlQCanvasItem* item,
 						bool exact) const;
 
-		void drawArea(const QRect&, QPainter* p, bool double_buffer=false);
+		void drawArea(const QRect&, QPainter* p);
 
 		// These are for KtlQCanvasView to call
 		virtual void addView(KtlQCanvasView*);
