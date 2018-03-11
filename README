@@ -133,17 +133,17 @@ CMkake is not a run-time dependency of KTechLab.
 
 1. By using a terminal, navigate to the top-level source-directory
 
-2. Run the shell script `simple-setup.sh`.
-    This command compiles KTechLab into the directory `simple-build`,
-    installs it into the directory `simple-install` and
+2. Run the shell script `build-simple.sh`.
+    This command compiles KTechLab into the directory `build-simple`,
+    installs it into the directory `inst-simple` and
     sets up the user-specific settings (syscoca, mime database) for the
     current user.
 
-         sh simple-setup.sh
+         sh build-simple.sh
 
-3. Launch KTechLab by running the script `simple-launch.sh`
+3. Launch KTechLab by running the script `run-simple.sh`
 
-         sh simple-launch.sh
+         sh run-simple.sh
 
 KTechLab should start running at this point.
 If this simple method of launching KTechLab does not work,
@@ -159,7 +159,7 @@ by multiple users. In order to do this, run the script
 
 Then you can launch KTechLab as usual
 
-        sh simple-launch.sh
+         sh run-simple.sh
 
 ## Running a build when the source/build/install directory has been moved
 
@@ -170,8 +170,8 @@ The compilation step should be a lot faster than previously, because
 the source files have not been changed, so the existing build is
 just verified, not recreated.
 
-         sh simple-setup.sh
-         sh simple-launch.sh
+         sh build-simple.sh
+         sh run-simple.sh
 
 Developing with KDevelop 4
 --------------------------
