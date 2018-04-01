@@ -169,6 +169,8 @@ void ElementSet::doNonLinear( int maxIterations, double maxErrorV, double maxErr
 		if ( converged ) break;
 	}
 	while ( ++k < maxIterations );
+
+    delete p_x_prev;
 }
 
 
