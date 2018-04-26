@@ -122,6 +122,10 @@ endif()
 
 install(TARGETS ktechlab ${INSTALL_TARGETS_DEFAULT_ARGS})
 
+# for helping testing
+
+kde4_add_library(test_ktechlab STATIC ${ktechlab_SRCS})
+
 
 ########### install files ###############
 
