@@ -924,18 +924,20 @@ void ItemDocument::exportToImage()
 		return;
 	}
 	
-	//QPainter p(outputImage); // 2016.05.03 - explicitly initialize painter
-	QPainter p;
-    const bool isBeginSuccess = p.begin(outputImage);
-    if (!isBeginSuccess) {
-        qWarning() << Q_FUNC_INFO << " painter not active";
-    }
-	
-	m_canvas->setBackgroundPixmap(QPixmap());
-	m_canvas->drawArea( saveArea, &p );
-	updateBackground();
-	
-	p.end();
+//2018.05.05 - extract to a method
+// 	//QPainter p(outputImage); // 2016.05.03 - explicitly initialize painter
+// 	QPainter p;
+//     const bool isBeginSuccess = p.begin(outputImage);
+//     if (!isBeginSuccess) {
+//         qWarning() << Q_FUNC_INFO << " painter not active";
+//     }
+//
+// 	m_canvas->setBackgroundPixmap(QPixmap());
+// 	m_canvas->drawArea( saveArea, &p );
+// 	updateBackground();
+//
+// 	p.end();
+    exportToImageDraw(saveArea, *outputImage);
 
 	bool saveResult;
 	
@@ -967,6 +969,21 @@ void ItemDocument::exportToImage()
 	delete outputImage;
 }
 
+void ItemDocument::exportToImageDraw( const QRect &saveArea, QPaintDevice &pDev) {
+    qDebug() << Q_FUNC_INFO << " saveArea " << saveArea;
+    //QPainter p(outputImage); // 2016.05.03 - explicitly initialize painter
+    QPainter p;
+    const bool isBeginSuccess = p.begin(&pDev);
+    if (!isBeginSuccess) {
+        qWarning() << Q_FUNC_INFO << " painter not active";
+    }
+
+    m_canvas->setBackgroundPixmap(QPixmap());
+    m_canvas->drawArea( saveArea, &p );
+    updateBackground();
+
+    p.end();
+}
 
 void ItemDocument::setSVGExport( bool svgExport )
 {

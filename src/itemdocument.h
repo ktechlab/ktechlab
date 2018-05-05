@@ -46,6 +46,9 @@ typedef QList<QPoint> QPointList;
 class ItemDocument : public Document
 {
 	Q_OBJECT
+
+	friend class KtlTestsAppFixture;
+
 	public:
 		ItemDocument( const QString &caption, const char *name = 0 );
 		~ItemDocument();
@@ -255,6 +258,9 @@ public slots:
 		 * to, and then exports an image of the canvas.
 		 */
 		void exportToImage();
+    protected:
+        void exportToImageDraw( const QRect & saveArea, QPaintDevice &pDev);
+    public slots:
 		/**
 		 * Deletes whatever is selected.
 		 */
