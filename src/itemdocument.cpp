@@ -949,8 +949,15 @@ void ItemDocument::exportToImage()
 			saveResult = dynamic_cast<QPicture*>(outputImage)->save( url.path(), type.toLatin1().data());
 		else {
 			QImage img = dynamic_cast<QPixmap*>(outputImage)->convertToImage();
-			img = img.copy(cropArea);
-			saveResult = img.save(url.path(),type.toLatin1().data());
+            if ( saveArea.x() < 0 ) {
+                cropArea.translate( - saveArea.x(), 0 );
+            }
+            if ( saveArea.y() < 0 ) {
+                cropArea.translate( 0, - saveArea.y() );
+            }
+            qDebug() << Q_FUNC_INFO << " cropArea " << cropArea;
+			QImage imgCropped = img.copy(cropArea);
+			saveResult = imgCropped.save(url.path(),type.toLatin1().data());
 		}
 	} else {
 		if ( type=="SVG" )
@@ -977,6 +984,10 @@ void ItemDocument::exportToImageDraw( const QRect &saveArea, QPaintDevice &pDev)
     if (!isBeginSuccess) {
         qWarning() << Q_FUNC_INFO << " painter not active";
     }
+
+    QTransform transf;
+    transf.translate( -saveArea.x(), -saveArea.y());
+    p.setTransform(transf);
 
     m_canvas->setBackgroundPixmap(QPixmap());
     m_canvas->drawArea( saveArea, &p );
