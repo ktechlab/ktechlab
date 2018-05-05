@@ -79,6 +79,11 @@ private slots:
         qDebug() << "imgFile.fileName() = " << imgFile.fileName();
         bool saveResult = img.save(imgFile.fileName());
         QCOMPARE( saveResult, true );
+
+        delete outputImage;
+
+        DocManager::self()->closeAll();
+        QCOMPARE( DocManager::self()->m_documentList.size(), 0);
     }
 };
 
