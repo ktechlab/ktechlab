@@ -1,6 +1,7 @@
 #include "../src/ktechlab.h"
 #include "config.h"
 #include "docmanager.h"
+#include "electronics/circuitdocument.h"
 
 #include <kaboutdata.h>
 #include <kapplication.h>
@@ -9,6 +10,7 @@
 
 #include <qdebug.h>
 #include <qtest.h>
+#include <qtemporaryfile.h>
 
 static const char description[] =
     I18N_NOOP("An IDE for microcontrollers and electronics");
@@ -44,10 +46,39 @@ private slots:
     void testDocumentOpen() {
         DocManager::self()->closeAll();
         QCOMPARE( DocManager::self()->m_documentList.size(), 0);
-        QFile exFile(SRC_EXAMPLES_DIR "/basic/resistors-series.circuit");
+        QFile exFile(SRC_TESTS_DATA_DIR "test-document-draw-1.circuit");
         KUrl exUrl(exFile.fileName());
+        qDebug() << "open example: " << exUrl;
         DocManager::self()->openURL(exUrl, NULL);
         QCOMPARE( DocManager::self()->m_documentList.size(), 1);
+        Document *doc = DocManager::self()->m_documentList.first();
+        QVERIFY( doc != NULL );
+        QCOMPARE( doc->type(), Document::dt_circuit );
+        CircuitDocument *circDoc = static_cast<CircuitDocument*>( doc );
+        QVERIFY( circDoc != NULL );
+        QVERIFY( circDoc->m_canvas );
+        qDebug() << "item list size " << circDoc->m_itemList.size();
+
+        //QRect saveArea = circDoc->m_canvas->rect();   // is empty
+        QRect resizeArea(0, -500, 400, 1080);
+        qDebug() << " resizeArea " << resizeArea;
+        circDoc->m_canvas->resize(resizeArea);
+
+        QRect saveArea(-500, -500, 1040, 1080);
+        qDebug() << "save area " << saveArea;
+        QPixmap *outputImage = new QPixmap( saveArea.size() );
+        outputImage->fill(Qt::green);
+
+        circDoc->exportToImageDraw(saveArea, *outputImage);
+
+        QImage img = dynamic_cast<QPixmap*>(outputImage)->convertToImage();
+        img = img.copy();
+        QTemporaryFile imgFile("testDocumentOpen_output_XXXXXX.png");
+        imgFile.setAutoRemove(false);
+        imgFile.open();
+        qDebug() << "imgFile.fileName() = " << imgFile.fileName();
+        bool saveResult = img.save(imgFile.fileName());
+        QCOMPARE( saveResult, true );
     }
 };
 
