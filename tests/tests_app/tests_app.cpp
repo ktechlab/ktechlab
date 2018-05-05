@@ -13,7 +13,7 @@
 static const char description[] =
     I18N_NOOP("An IDE for microcontrollers and electronics");
 
-class KtlAppFixture : public QObject {
+class KtlTestsAppFixture : public QObject {
     Q_OBJECT
 
 public:
@@ -40,7 +40,16 @@ private slots:
         //delete app; // this crashes apparently
         app = NULL;
     }
+
+    void testDocumentOpen() {
+        DocManager::self()->closeAll();
+        QCOMPARE( DocManager::self()->m_documentList.size(), 0);
+        QFile exFile(SRC_EXAMPLES_DIR "/basic/resistors-series.circuit");
+        KUrl exUrl(exFile.fileName());
+        DocManager::self()->openURL(exUrl, NULL);
+        QCOMPARE( DocManager::self()->m_documentList.size(), 1);
+    }
 };
 
-QTEST_MAIN(KtlAppFixture)
+QTEST_MAIN(KtlTestsAppFixture)
 #include "tests_app.moc"

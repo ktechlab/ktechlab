@@ -40,6 +40,9 @@ typedef QList<KAction*> KActionList;
 class DocManager : public QObject
 {
 Q_OBJECT
+
+    friend class KtlTestsAppFixture;
+
 public:
 	static DocManager * self();
 	~DocManager();

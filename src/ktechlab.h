@@ -54,6 +54,9 @@ class QLabel;
 class KTechlab : public KateMDI::MainWindow
 {
 	Q_OBJECT
+
+    friend class KtlTestsAppFixture;
+
 	public:
 		KTechlab();
 		~KTechlab();
