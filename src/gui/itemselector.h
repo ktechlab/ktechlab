@@ -16,9 +16,9 @@
 #include <qpixmap.h>
 #include <qstring.h>
 // #include <qtreewidget.h>// TODO, to port to this
-//#include <q3listview.h>
+#include <q3listview.h>
 
-#include <k3listview.h>
+// #include <k3listview.h>
 
 class ProjectItem;
 class Q3StoredDrag;
@@ -30,11 +30,11 @@ namespace KateMDI { class ToolView; }
 @short Contains info about item for ItemSelector
 @author David Saxton
 */
-class ILVItem : public QObject, public K3ListViewItem /* K3ListViewItem */
+class ILVItem : public QObject, public Q3ListViewItem /* K3ListViewItem */
 {
 	public:
-		ILVItem( K3ListView *parent, const QString &id );
-		ILVItem( K3ListViewItem *parent, const QString &id );
+		ILVItem( Q3ListView *parent, const QString &id );
+		ILVItem( Q3ListViewItem *parent, const QString &id );
 		
 		void setProjectItem( ProjectItem * projectItem ) { m_pProjectItem = projectItem; }
 		ProjectItem * projectItem() const { return m_pProjectItem; }
@@ -61,7 +61,7 @@ class ILVItem : public QObject, public K3ListViewItem /* K3ListViewItem */
 @short Allows selection of generic items for dragging / clicking
 @author David Saxton
 */
-class ItemSelector : public K3ListView /* K3ListView */
+class ItemSelector : public Q3ListView /* K3ListView */
 {
 	Q_OBJECT
 	public:

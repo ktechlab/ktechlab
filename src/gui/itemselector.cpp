@@ -32,16 +32,16 @@
 
 #include <cassert>
 
-ILVItem::ILVItem( K3ListView* parent, const QString &id )
-	: K3ListViewItem( parent, 0 )
+ILVItem::ILVItem( Q3ListView* parent, const QString &id )
+	: Q3ListViewItem( parent, 0 )
 {
 	m_id = id;
 	b_isRemovable = false;
 	m_pProjectItem = 0l;
 }
 
-ILVItem::ILVItem( K3ListViewItem* parent, const QString &id )
-	: K3ListViewItem( parent, 0 )
+ILVItem::ILVItem( Q3ListViewItem* parent, const QString &id )
+	: Q3ListViewItem( parent, 0 )
 {
 	m_id = id;
 	b_isRemovable = false;
@@ -50,16 +50,17 @@ ILVItem::ILVItem( K3ListViewItem* parent, const QString &id )
 
 
 ItemSelector::ItemSelector( QWidget *parent, const char *name )
-	: K3ListView( parent /*, name */ )
+	: Q3ListView( parent /*, name */ )
 {
     setName(name);
     qDebug() << Q_FUNC_INFO << " this=" << this;
 
     addColumn( i18n( "Component" ) );
-	setFullWidth(true);
+	//setFullWidth(true);       // 2018.06.02 - fixed?
+    setSizePolicy( QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred) );
 	setSorting( -1, false );
     setRootIsDecorated(true);
-    setDragEnabled(true);
+    //setDragEnabled(true);     // 2018.06.02 - needed?
 	setFocusPolicy( Qt::NoFocus );
 
     setSelectionMode( Q3ListView::Single ); // 2015.12.10 - need to allow selection for removing items
@@ -90,7 +91,7 @@ ItemSelector::~ItemSelector()
 void ItemSelector::clear()
 {
 	m_categories.clear();
-	K3ListView::clear();
+	Q3ListView::clear();
 }
 
 
@@ -146,6 +147,7 @@ void ItemSelector::addItem( const QString & caption, const QString & id, const Q
 	ILVItem *item = new ILVItem( parentItem, id );
 	item->setPixmap( 0, icon );
 	item->setText( 0, caption );
+    item->setDragEnabled(true);
 	item->setRemovable(removable);
 }
 
@@ -203,7 +205,7 @@ void ItemSelector::slotRemoveSelectedItem()
     }
 	
 	emit itemRemoved( item->key( 0, 0 ) );
-	ILVItem *parent = dynamic_cast<ILVItem*>(item->K3ListViewItem::parent());
+	ILVItem *parent = dynamic_cast<ILVItem*>(item->Q3ListViewItem::parent());
 	delete item;
 	// Get rid of the category as well if it has no children
 	if ( parent && !parent->firstChild() )
