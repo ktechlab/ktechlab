@@ -98,8 +98,8 @@ class MicroSettingsDlg : public KDialog
 		MicroSettingsWidget * m_pWidget;
 		MicroSettings * m_pMicroSettings;
 		PinMappingMap m_pinMappings;
-		Q3ValueVector< KLineEdit * > m_portTypeEdit;
-		Q3ValueVector< KLineEdit * > m_portStateEdit;
+		QVector< KLineEdit * > m_portTypeEdit;
+		QVector< KLineEdit * > m_portStateEdit;
 		QStringList m_portNames;
 };
 

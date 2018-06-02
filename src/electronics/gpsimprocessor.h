@@ -129,7 +129,7 @@ class RegisterSet
 	protected:
 		typedef QMap< QString, RegisterInfo * > RegisterInfoMap;
 		RegisterInfoMap m_nameToRegisterMap;
-		Q3ValueVector< RegisterInfo * > m_registers;
+		QVector< RegisterInfo * > m_registers;
 };
 
 

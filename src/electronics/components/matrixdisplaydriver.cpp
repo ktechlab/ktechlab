@@ -330,11 +330,11 @@ MatrixDisplayDriver::MatrixDisplayDriver( ICNDocument *icnDocument, bool newItem
 	initDIPSymbol( pins, 64 );
 	initDIP(pins);
 	
-	m_pValueLogic.resize( 8, 0l );
+	m_pValueLogic.resize( 8 /*, 0l - 2018.06.02 - initialized below */ );
 	for ( unsigned i = 0; i < 8; ++i )
 		m_pValueLogic[i] = createLogicIn( ecNodeWithID("D"+QString::number(i)) );
 	
-	m_pRowLogic.resize( 7, 0l );
+	m_pRowLogic.resize( 7 /*, 0l - 2018.06.02 - initialized below */ );
 	for ( unsigned i = 0; i < 7; ++i )
 	{
 		m_pRowLogic[i] = createLogicOut( ecNodeWithID("R"+QString::number(i)), false );
@@ -342,7 +342,7 @@ MatrixDisplayDriver::MatrixDisplayDriver( ICNDocument *icnDocument, bool newItem
 		m_pRowLogic[i]->setOutputHighVoltage(5.0);
 	}
 	
-	m_pColLogic.resize( 5, 0l );
+	m_pColLogic.resize( 5 /*, 0l - 2018.06.02 - initialized below */ );
 	for ( unsigned i = 0; i < 5; ++i )
 	{
 		m_pColLogic[i] = createLogicOut( ecNodeWithID("C"+QString::number(i)), false );

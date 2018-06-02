@@ -747,7 +747,7 @@ RegisterSet::RegisterSet( pic_processor * picProcessor )
 {
 	unsigned numRegisters = picProcessor->rma.get_size();
 	kDebug() << k_funcinfo << "numRegisters="<<numRegisters<<endl;
-	m_registers.resize( numRegisters, 0l );
+	m_registers.resize( numRegisters /*, 0l - 2018.06.02 - initialized below */ );
 	for ( unsigned i = 0; i < numRegisters; ++i )
 	{
 		RegisterInfo * info = new RegisterInfo( & picProcessor->rma[i] );

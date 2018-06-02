@@ -70,8 +70,8 @@ MicroSettingsDlg::MicroSettingsDlg( MicroSettings * microSettings, QWidget *pare
 	//BEGIN Initialize initial port settings
 	m_portNames = microSettings->microInfo()->package()->portNames();
 	
-	m_portTypeEdit.resize( m_portNames.size(), 0 );
-	m_portStateEdit.resize( m_portNames.size(), 0 );
+	m_portTypeEdit.resize( m_portNames.size() /*, 0  - 2018.06.02 - initialized below */);
+	m_portStateEdit.resize( m_portNames.size() /*, 0 - 2018.06.02 - initialized below */ );
 	
 	uint row = 0;
 	QStringList::iterator end = m_portNames.end();

@@ -27,7 +27,7 @@ class Wire;
 
 typedef QList<ConnectorLine*> ConnectorLineList;
 typedef QList<QPoint> QPointList;
-typedef Q3ValueVector<QPointer<Wire> > WireVector;
+typedef QVector<QPointer<Wire> > WireVector;
 
 
 /**

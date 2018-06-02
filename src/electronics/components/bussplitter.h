@@ -36,7 +36,7 @@ class BusSplitter : public Component
 		virtual void drawShape( QPainter &p );
 		
 		unsigned m_busSize;
-		Q3ValueVector<QPointer<Wire> > m_pWires;
+		QVector<QPointer<Wire> > m_pWires;
 		ECNode * m_pInNode;
 };
 

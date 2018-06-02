@@ -40,9 +40,9 @@ class MatrixDisplay : public Component
 		QString rowPinID( int row ) const;
 		
 		
-		Q3ValueVector< Q3ValueVector<double> > m_avgBrightness;
-		Q3ValueVector< Q3ValueVector<unsigned> > m_lastBrightness;
-		Q3ValueVector< Q3ValueVector<Diode*> > m_pDiodes;
+		QVector< QVector<double> > m_avgBrightness;
+		QVector< QVector<unsigned> > m_lastBrightness;
+		QVector< QVector<Diode*> > m_pDiodes;
 		
 		ECNode * m_pRowNodes[max_md_height];
 		ECNode * m_pColNodes[max_md_width];

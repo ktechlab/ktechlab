@@ -471,8 +471,8 @@ class CanvasTip : public KtlQCanvasRectangle
 		void display( const QPoint &pos );
 		QString displayText( unsigned num ) const;
 	
-		Q3ValueVector<double> m_v;
-		Q3ValueVector<double> m_i;
+		QVector<double> m_v;
+		QVector<double> m_i;
 		ItemDocument *p_itemDocument;
 		QString m_text;
 };

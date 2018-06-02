@@ -23,7 +23,7 @@ class QTimer;
 
 typedef QList<ECNode*> ECNodeList;
 typedef QList<Element*> ElementList;
-typedef Q3ValueVector<Pin*> PinVector;
+typedef QVector<Pin*> PinVector;
 
 /**
 @short Electrical node with voltage / current / etc properties
