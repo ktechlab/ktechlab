@@ -24,10 +24,10 @@
 #include <kstdaccel.h>
 #include <kstandardshortcut.h>
 
-#include <q3accel.h>
 #include <qapplication.h>
 #include <qframe.h>
 #include <qlayout.h>
+#include <qaction.h>
 
 
 //BEGIN class PinMapping
@@ -65,25 +65,32 @@ PinMapEditor::PinMapEditor( PinMapping * pinMapping, MicroInfo * picInfo, QWidge
 	m_pPinMapping = pinMapping;
 	
 	m_pPinMapDocument = new PinMapDocument();
-	
-	Q3Accel * accel = new Q3Accel( this );
-	accel->connectItem( accel->insertItem( Qt::Key_Delete ),
-						m_pPinMapDocument,
-						SLOT(deleteSelection()) );
-	
-	accel->connectItem( accel->insertItem( KStandardShortcut::selectAll().primary() ),
-						m_pPinMapDocument,
-						SLOT(selectAll()) );
-	
-	accel->connectItem( accel->insertItem( KStandardShortcut::undo().primary() ),
-						m_pPinMapDocument,
-						SLOT(undo()) );
-	
-	accel->connectItem( accel->insertItem( KStandardShortcut::redo().primary() ),
-						m_pPinMapDocument,
-						SLOT(redo()) );
-	
-	
+
+    {
+        QAction * actionDelSel = new QAction( this );
+        actionDelSel->setShortcut(Qt::Key_Delete);
+        connect(actionDelSel, SIGNAL(triggered(bool)), m_pPinMapDocument, SLOT(deleteSelection()) );
+        addAction(actionDelSel);
+    }
+    {
+        QAction * actionSelAll = new QAction( this );
+        actionSelAll->setShortcut( KStandardShortcut::selectAll().primary() );
+        connect(actionSelAll, SIGNAL(triggered(bool)), m_pPinMapDocument, SLOT(selectAll()) );
+        addAction(actionSelAll);
+    }
+    {
+        QAction * actionUndo = new QAction( this );
+        actionUndo->setShortcut( KStandardShortcut::undo().primary() );
+        connect(actionUndo, SIGNAL(triggered(bool)), m_pPinMapDocument, SLOT(undo()) );
+        addAction(actionUndo);
+    }
+    {
+        QAction * actionRedo = new QAction( this );
+        actionRedo->setShortcut( KStandardShortcut::redo().primary() );
+        connect(actionRedo, SIGNAL(triggered(bool)), m_pPinMapDocument, SLOT(redo()) );
+        addAction(actionRedo);
+    }
+
 	QFrame * f = new QFrame(this);
 	f->setMinimumWidth( 480 );
 	f->setMinimumHeight( 480 );
