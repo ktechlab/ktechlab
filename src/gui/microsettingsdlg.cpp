@@ -117,11 +117,17 @@ MicroSettingsDlg::MicroSettingsDlg( MicroSettings * microSettings, QWidget *pare
 	
 	//BEGIN Initialize initial variable settings
 	// Hide row headers
-	m_pWidget->variables->setLeftMargin(0);
+	//m_pWidget->variables->setLeftMargin(0); // 2018.06.02 - fixed in UI file
 	
 	// Make columns as thin as possible
-	m_pWidget->variables->setColumnStretchable( 0, true );
-	m_pWidget->variables->setColumnStretchable( 1, true );
+	//m_pWidget->variables->setColumnStretchable( 0, true );  // 2018.06.02 - to be fixed
+	//m_pWidget->variables->setColumnStretchable( 1, true );  // 2018.06.02 - to be fixed
+	{
+        QStringList headerLabels;
+        headerLabels.append( i18n("Variable name") );
+        headerLabels.append( i18n("Variable value") );
+        m_pWidget->variables->setHorizontalHeaderLabels(headerLabels);
+    }
 	
 	QStringList variableNames = microSettings->variableNames();
 	row = 0;
@@ -131,15 +137,19 @@ MicroSettingsDlg::MicroSettingsDlg( MicroSettings * microSettings, QWidget *pare
 		VariableInfo *info = microSettings->variableInfo(*it);
 		if (info)
 		{
-			m_pWidget->variables->insertRows( row, 1 );
-			m_pWidget->variables->setText( row, 0,  *it );
-			m_pWidget->variables->setText( row, 1, info->valueAsString() );
+            qDebug() << Q_FUNC_INFO << "add var: " << *it << " val: " << info->valueAsString();
+            m_pWidget->variables->insertRow( row );
+            QTableWidgetItem *varNameItem = new QTableWidgetItem( *it );
+            m_pWidget->variables->setItem(row, 0, varNameItem);
+            QTableWidgetItem *varValItem = new QTableWidgetItem( info->valueAsString() );
+            m_pWidget->variables->setItem(row, 1, varValItem);
 			++row;
 		}
 	}
-	m_pWidget->variables->insertRows( row, 1 );
+	m_pWidget->variables->insertRow( row );
+    qDebug() << Q_FUNC_INFO << "row count: " << m_pWidget->variables->rowCount();
 	
-	connect( m_pWidget->variables, SIGNAL(valueChanged(int,int)), this, SLOT(checkAddVariableRow()) );
+	connect( m_pWidget->variables, SIGNAL(cellChanged(int,int)), this, SLOT(checkAddVariableRow()) );
 	//END Initialize initial variable settings
 	
 	
@@ -186,7 +196,7 @@ void MicroSettingsDlg::slotSaveStuff()
 		savePort(i);
 	
 	m_pMicroSettings->removeAllVariables();
-	for ( int i=0; i< m_pWidget->variables->numRows(); i++ )
+	for ( int i=0; i< m_pWidget->variables->rowCount(); i++ )
 		saveVariable(i);
 	
 	m_pMicroSettings->setPinMappings( m_pinMappings );
@@ -405,10 +415,18 @@ void MicroSettingsDlg::savePort( int row )
 
 void MicroSettingsDlg::saveVariable( int row )
 {
-	QString name = m_pWidget->variables->text( row, 0 );
+    QTableWidgetItem *nameItem = m_pWidget->variables->item( row, 0 );
+    if (!nameItem) {
+        return;
+    }
+	QString name = nameItem->text();
 	if ( name.isEmpty() ) return;
 	
-	QString valueText = m_pWidget->variables->text( row, 1 );
+    QTableWidgetItem *valueItem = m_pWidget->variables->item( row, 1 );
+	QString valueText;
+    if (valueItem) {
+        valueText = valueItem->text();
+    }
 	int value;
 	bool ok = true;
 	if ( valueText.startsWith( "0x", false ) ) value = valueText.remove(0,2).toInt( &ok, 16 );
@@ -420,6 +438,8 @@ void MicroSettingsDlg::saveVariable( int row )
 		return;
 	}
 	
+	qDebug() << Q_FUNC_INFO << "save variable: " << name << " val: " << value;
+
 	m_pMicroSettings->setVariable( name, value, true );
 	VariableInfo *info = m_pMicroSettings->variableInfo(name);
 	if ( info && info->valueAsString().toInt() != value )
@@ -433,8 +453,12 @@ void MicroSettingsDlg::saveVariable( int row )
 
 void MicroSettingsDlg::checkAddVariableRow()
 {
-	int lastRow = m_pWidget->variables->numRows()-1;
-	if ( !m_pWidget->variables->text( lastRow, 0 ).isEmpty() ) m_pWidget->variables->insertRows( lastRow+1, 1 );
+	int lastRow = m_pWidget->variables->rowCount()-1;
+    if ( QTableWidgetItem *lastItem = m_pWidget->variables->item( lastRow, 0 ) ) {
+        if ( !lastItem->text().isEmpty() ) {
+            m_pWidget->variables->insertRow( lastRow+1 );
+        }
+    }
 }
 
 
