@@ -20,7 +20,7 @@
 
 #include "property.h"
 
-#include <k3listview.h>
+#include <q3listview.h>
 
 #define PropertyEditorItem_BranchBoxSize 9
 
@@ -28,7 +28,7 @@
     It also takes care of drawing custom contents.
  **/
  //! An item in PropertyEditorItem associated to a property
-class PropertyEditorItem : public QObject,  public K3ListViewItem // K3ListViewItem
+class PropertyEditorItem : public QObject,  public Q3ListViewItem // K3ListViewItem
 {
 	Q_OBJECT
 	
@@ -48,7 +48,7 @@ class PropertyEditorItem : public QObject,  public K3ListViewItem // K3ListViewI
 		 * Creates PropertyEditor Top Item which is necessary for drawing all
 		 * branches.
 		 */
-		PropertyEditorItem( /*K3ListView */ K3ListView *parent, const QString &text);
+		PropertyEditorItem( /*K3ListView */ Q3ListView *parent, const QString &text);
 
 		~PropertyEditorItem();
 

@@ -15,11 +15,10 @@
 
 #include <qvariant.h>
 #include <qpointer.h>
-#include <q3dict.h>
-//#include <q3listview.h>
 
-// #include <q3listview.h>
-#include <k3listview.h>
+#include <q3dict.h>
+#include <q3listview.h>
+
 
 #include "propertyeditoritem.h"
 
@@ -30,7 +29,7 @@ class KPushButton;
 
 
 //! A list view to edit any type of properties
-class PropertyEditor : public K3ListView // K3ListView
+class PropertyEditor : public Q3ListView // K3ListView
 {
 	Q_OBJECT
 

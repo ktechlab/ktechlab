@@ -25,18 +25,20 @@
 #include <kpushbutton.h>
 #include <kicon.h>
 
-#include <q3header.h>
 #include <qevent.h>
 #include <qfontmetrics.h>
 #include <qtimer.h>
 #include <qapplication.h>
 #include <qeventloop.h>
 
-PropertyEditor::PropertyEditor( QWidget * parent, const char * /*name*/ )
-	: K3ListView( parent /*, name */ )
+#include <q3header.h>
+
+PropertyEditor::PropertyEditor( QWidget * parent, const char * name )
+	: Q3ListView( parent, name )
  , m_items(101, false)
  , justClickedItem(false)
 {
+    setName( name );
 	m_items.setAutoDelete(false);
 
 	addColumn( i18n("Property") );
@@ -66,7 +68,7 @@ PropertyEditor::PropertyEditor( QWidget * parent, const char * /*name*/ )
 	// setTooltipColumn(0); // TODO equivalent?
 	setSorting(0);
 	setItemMargin(2);
-	setResizeMode(K3ListView::LastColumn);
+	setResizeMode(Q3ListView::LastColumn);
 	header()->setMovingEnabled( false );
 	setTreeStepSize(0);
 
@@ -285,7 +287,7 @@ void PropertyEditor::reset()
 QSize PropertyEditor::sizeHint() const
 {
 	return QSize( QFontMetrics(font()).width(columnText(0)+columnText(1)+"   "),
-		K3ListView::sizeHint().height());
+		Q3ListView::sizeHint().height());
 }
 
 
@@ -387,11 +389,12 @@ void PropertyEditor::setFocus()
 			setSelected(item, true);
 		}
 	}
-	if (m_currentEditor)
+	if (m_currentEditor) {
 		m_currentEditor->setFocus();
-	
-	else
-		K3ListView::setFocus();
+    }
+	else {
+		Q3ListView::setFocus();
+    }
 }
 
 
@@ -418,7 +421,7 @@ void PropertyEditor::moveEditor()
 
 void PropertyEditor::resizeEvent(QResizeEvent *ev)
 {
-	K3ListView::resizeEvent(ev);
+	Q3ListView::resizeEvent(ev);
 	if(m_defaults->isVisible())
 	{
 		QRect r = itemRect(m_editItem);

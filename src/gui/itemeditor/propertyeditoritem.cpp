@@ -29,7 +29,7 @@
 
 //BEGIN Class PropertyEditorItem
 PropertyEditorItem::PropertyEditorItem( PropertyEditorItem * par, Property * property )
-	: K3ListViewItem( par, property->editorCaption(), property->displayString() )
+	: Q3ListViewItem( par, property->editorCaption(), property->displayString() )
 {
 	setExpandable( false );
 	m_property=property;
@@ -43,8 +43,8 @@ PropertyEditorItem::PropertyEditorItem( PropertyEditorItem * par, Property * pro
 }
 
 
-PropertyEditorItem::PropertyEditorItem(K3ListView *par, const QString &text)
-	: K3ListViewItem(par, text, "")
+PropertyEditorItem::PropertyEditorItem(Q3ListView *par, const QString &text)
+	: Q3ListViewItem(par, text, "")
 {
 	m_property = 0;
 	setSelectable(false);
@@ -69,7 +69,7 @@ void PropertyEditorItem::paintCell(QPainter *p, const QColorGroup & cg, int colu
 	
 	int margin = listView()->itemMargin();
 	
-	QColor bgColor = backgroundColor(0);
+	QColor bgColor = cg.background(); // backgroundColor(0); // 2018.06.02 - is this better?
 	
 	if(column == 1)
 	{
@@ -152,7 +152,7 @@ void PropertyEditorItem::paintCell(QPainter *p, const QColorGroup & cg, int colu
 			case Variant::Type::SevenSegment:
 			case Variant::Type::KeyPad:
 			{
-				K3ListViewItem::paintCell(p, cg, column, width, align);
+				Q3ListViewItem::paintCell(p, cg, column, width, align);
 				break;
 			}
 		}
@@ -188,7 +188,7 @@ void PropertyEditorItem::paintCell(QPainter *p, const QColorGroup & cg, int colu
 
 void PropertyEditorItem::setup()
 {
-	K3ListViewItem::setup();
+	Q3ListViewItem::setup();
 	if ( depth() == 0 )
 		setHeight(0);
 }
@@ -207,8 +207,8 @@ void PropertyEditorItem::updateValue(bool alsoParent)
     }
     qDebug() << Q_FUNC_INFO << "text= " << text;
 	setText( 1, text );
-	if ( alsoParent && K3ListViewItem::parent() )
-		static_cast<PropertyEditorItem*>(K3ListViewItem::parent())->updateValue();
+	if ( alsoParent && Q3ListViewItem::parent() )
+		static_cast<PropertyEditorItem*>(Q3ListViewItem::parent())->updateValue();
 }
 
 
