@@ -118,7 +118,7 @@ void Item::setChanged()
 }
 
 
-void Item::setItemPoints( const Q3PointArray & pa, bool setSizeFromPoints )
+void Item::setItemPoints( const QPolygon & pa, bool setSizeFromPoints )
 {
 	m_itemPoints = pa;
 	if (setSizeFromPoints)
@@ -148,7 +148,7 @@ void Item::setSize( QRect sizeRect, bool forceItemPoints )
 	m_sizeRect = sizeRect;
 	if ( m_itemPoints.isEmpty() || forceItemPoints )
 	{
-		setItemPoints( Q3PointArray( m_sizeRect ), false );
+		setItemPoints( QPolygon( m_sizeRect ), false );
 	}
 	canvas()->setChanged(areaPoints().boundingRect());
 	postResize();

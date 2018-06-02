@@ -73,9 +73,9 @@ FlowPartList FPNode::inputFlowParts() const
 }
 
 
-inline Q3PointArray arrowPoints( int dir )
+inline QPolygon arrowPoints( int dir )
 {
-	Q3PointArray pa(3);
+	QPolygon pa(3);
 	switch ( dir ) {
 		case 0:
 			pa[0] = QPoint( 3, 0 );

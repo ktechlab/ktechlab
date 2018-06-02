@@ -203,7 +203,7 @@ void ProbePositioner::paintEvent( QPaintEvent *e )
 			p.setBrush( probeData->color() );
 			int currentPos = probePosition(probeData);
 			
-			Q3PointArray pa(3);
+			QPolygon pa(3);
 			pa[0] = QPoint( 0, int(currentPos-(probeArrowHeight/2)) );
 			pa[1] = QPoint( int(probeArrowWidth), currentPos );
 			pa[2] = QPoint( 0, int(currentPos+(probeArrowHeight/2)) );

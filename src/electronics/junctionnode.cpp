@@ -58,5 +58,5 @@ void JunctionNode::drawShape( QPainter & p )
 
 void JunctionNode::initPoints()
 {
-	setPoints( Q3PointArray( QRect( -4, -4, 8, 8 ) ) );
+	setPoints( QPolygon( QRect( -4, -4, 8, 8 ) ) );
 }

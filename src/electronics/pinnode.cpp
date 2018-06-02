@@ -125,7 +125,7 @@ void PinNode::initPoints()
 	int l = - m_length;
 
 	// Bounding rectangle, facing right
-	Q3PointArray pa( QRect( 0, -8, l, 16 ) );
+	QPolygon pa( QRect( 0, -8, l, 16 ) );
 
 	QWMatrix m;
 	m.rotate( m_dir );

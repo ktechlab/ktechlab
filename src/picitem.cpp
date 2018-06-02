@@ -110,7 +110,7 @@ void PinItem::drawShape( QPainter& p )
 	}
 	
 	int midY = (int)y() + PinWidth/2;
-	Q3PointArray pa(3);
+	QPolygon pa(3);
 	int midLeft = left + (8-PinDirArrow)/2;
 	int midRight = left + (8+PinDirArrow)/2;
 	

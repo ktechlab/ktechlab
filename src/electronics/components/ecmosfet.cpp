@@ -253,7 +253,7 @@ void ECMOSFET::drawShape( QPainter & p )
 		p.drawLine( _x-3, _y-14, _x-3, _y+15 );
 	}
 	
-	Q3PointArray pa(3);
+	QPolygon pa(3);
 	if ( m_MOSFET_type == MOSFET::neMOSFET /*||
 			m_MOSFET_type == MOSFET::ndMOSFET*/ )
 	{

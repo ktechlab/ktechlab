@@ -169,7 +169,7 @@ void MechanicsItemOverlay::slotUpdateResizeHandles()
 	const PositionInfo absPos = p_mechanicsItem->absolutePosition();
 	const QRect sizeRect = p_mechanicsItem->sizeRect();
 	
-	Q3PointArray pa(9);
+	QPolygon pa(9);
 	pa[0] = sizeRect.topLeft();
 	pa[2] = sizeRect.topRight();
 	pa[1] = (pa[0]+pa[2])/2;
@@ -433,12 +433,12 @@ void ResizeHandle::setHover( bool hover )
 	canvas()->setChanged( QRect( int(x())-8, int(y())-8, 15, 15 ) );
 }
 
-Q3PointArray ResizeHandle::areaPoints() const
+QPolygon ResizeHandle::areaPoints() const
 {
-// 	Q3PointArray pa = KtlQCanvasRectangle::areaPoints();
+// 	QPolygon pa = KtlQCanvasRectangle::areaPoints();
 // 	pa.translate( -7, -7 );
 // 	return pa;
-	return Q3PointArray( QRect( int(x())-8, int(y())-8, 15, 15 ) );
+	return QPolygon( QRect( int(x())-8, int(y())-8, 15, 15 ) );
 }
 
 void ResizeHandle::moveRH( double _x, double _y )

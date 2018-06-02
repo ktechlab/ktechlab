@@ -164,7 +164,7 @@ void VariableCapacitor::drawShape( QPainter &p )
 // 	p.drawLine( _x+8, _y, _x+16, _y );
 	
 	// Diagonally pointing arrow
-	Q3PointArray pa(3);
+	QPolygon pa(3);
 	pa[0] = QPoint( -4, 0 );
 	pa[1] = QPoint( -2, 4 );
 	pa[2] = QPoint( 0, 0 );

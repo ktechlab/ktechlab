@@ -46,7 +46,7 @@ SerialPortComponent::SerialPortComponent( ICNDocument *icnDocument, bool newItem
 {
 	m_name = i18n("Serial Port");
 	
-	Q3PointArray pa( 4 );
+	QPolygon pa( 4 );
 	pa[0] = QPoint( -32, -48 );
 	pa[1] = QPoint( 32, -40 );
 	pa[2] = QPoint( 32, 40 );

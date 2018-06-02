@@ -86,7 +86,7 @@ public:
 	
 	static const QPixmap& handlePixmap( DrawType drawType, bool hover );
 	
-	virtual Q3PointArray areaPoints () const;
+	virtual QPolygon areaPoints () const;
 	
 public slots:
 	void slotMoveByX( double dx ) { moveBy( dx, 0 ); }

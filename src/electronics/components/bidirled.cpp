@@ -108,7 +108,7 @@ void BiDirLED::drawShape( QPainter &p )
 		p.setBrush( QColor( uint(255-(255-_b)*(1-r[i])), uint(255-(255-_b)*(1-g[i])), uint(255-(255-_b)*(1-b[i])) ) );
 		
 		
-		Q3PointArray pa(3);
+		QPolygon pa(3);
 		if ( i == 0 )
 		{
 			pa[0] = QPoint( 8, -8 );

@@ -92,7 +92,7 @@ void ECPotentiometer::drawShape( QPainter &p )
 	
 	p.drawRect( _x-14, _y-16, 12, 32 );
 	
-	Q3PointArray pa(3);
+	QPolygon pa(3);
 	pa[0] = QPoint( 0, 0 );
 	pa[1] = QPoint( 4, -3 );
 	pa[2] = QPoint( 4, 3 );

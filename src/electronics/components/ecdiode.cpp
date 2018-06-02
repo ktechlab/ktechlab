@@ -104,7 +104,7 @@ void ECDiode::drawShape( QPainter & p )
 	int _x = int(x());
 	int _y = int(y());
 	
-	Q3PointArray pa(3);
+	QPolygon pa(3);
 	pa[0] = QPoint( 8, 0 );
 	pa[1] = QPoint( -8, -8 );
 	pa[2] = QPoint( -8, 8 );

@@ -191,7 +191,7 @@ void FlowPart::initSymbol( FlowPart::FlowSymbol symbol, int width )
 		case FlowPart::ps_io:
 		{
 			// define parallelogram shape
-			Q3PointArray pa(4);
+			QPolygon pa(4);
 			pa[0] = QPoint( -(width-10)/2, -16 );
 			pa[1] = QPoint( width/2, -16 );
 			pa[2] = QPoint( (width-10)/2, 8 );
@@ -210,7 +210,7 @@ void FlowPart::initSymbol( FlowPart::FlowSymbol symbol, int width )
 			// Draw semicircle
 			double x;
 			const int RP_NUM = 48;
-			Q3PointArray pa(RP_NUM);
+			QPolygon pa(RP_NUM);
 			int point = 0;
 			for ( double y = -1.0; y <= 1.0; y+= 4.0/(RP_NUM-2) )
 			{
@@ -228,7 +228,7 @@ void FlowPart::initSymbol( FlowPart::FlowSymbol symbol, int width )
 		case FlowPart::ps_decision:
 		{
 			// define rhombus
-			Q3PointArray pa(6);
+			QPolygon pa(6);
 			pa[0] = QPoint( 0, -24 );
 			pa[1] = QPoint( width/2, -6 );
 			pa[2] = QPoint( width/2, 6 );
@@ -866,7 +866,7 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 	if ( m_stdInput && m_stdOutput && m_altOutput )
 	{
 		//BEGIN Draw diamond outline
-		Q3PointArray diamond(4);
+		QPolygon diamond(4);
 		for ( uint i=0; i<4; ++i )
 			diamond[i] = c[i];
 		
@@ -883,7 +883,7 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 		
 		
 		//BEGIN Draw "true" output as a tick
-		Q3PointArray tick(4);
+		QPolygon tick(4);
 		tick[0] = QPoint( -3, 0 );
 		tick[1] = QPoint( 0, 2 );
 		tick[2] = QPoint( 0, 2 );
@@ -897,7 +897,7 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 		
 		
 		//BEGIN Draw "false" output as a cross
-		Q3PointArray cross(4);
+		QPolygon cross(4);
 		cross[0] = QPoint( -2, -2 );
 		cross[1] = QPoint( 2, 2 );
 		cross[2] = QPoint( -2, 2 );
@@ -945,7 +945,7 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 		}
 		
 		if ( inPos != -1 ) {
-			Q3PointArray inArrow(6);
+			QPolygon inArrow(6);
 			for ( int i=0; i<6; ++i )
 			{
 				inArrow[i] = arrows[(inPos+2)%4][i];
@@ -956,7 +956,7 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 		}
 		
 		if ( outPos != -1 ) {
-			Q3PointArray outArrow(6);
+			QPolygon outArrow(6);
 			for ( int i=0; i<6; ++i ) {
 				outArrow[i] = arrows[outPos][i];
 			}

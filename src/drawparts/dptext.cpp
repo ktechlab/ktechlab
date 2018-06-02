@@ -98,7 +98,7 @@ void DPText::dataChanged()
 
 void DPText::postResize()
 {
-	setItemPoints( Q3PointArray(m_sizeRect), false );
+	setItemPoints( QPolygon(m_sizeRect), false );
 }
 
 

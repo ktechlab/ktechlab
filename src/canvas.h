@@ -90,7 +90,7 @@ class KtlQCanvasItem : public QObject
 	protected:
 		void update() { changeChunks(); }
 
-		virtual Q3PointArray chunks() const;
+		virtual QPolygon chunks() const;
 		virtual void addToChunks();
 		virtual void removeFromChunks();
 		virtual void changeChunks();
@@ -163,7 +163,7 @@ class KtlQCanvas : public QObject
 		KtlQCanvasItemList allItems();
 		KtlQCanvasItemList collisions( const QPoint&) /* const */ ;
 		KtlQCanvasItemList collisions( const QRect&) /* const */;
-		KtlQCanvasItemList collisions( const Q3PointArray& pa, const KtlQCanvasItem* item,
+		KtlQCanvasItemList collisions( const QPolygon& pa, const KtlQCanvasItem* item,
 						bool exact) const;
 
 		void drawArea(const QRect&, QPainter* p);
@@ -290,7 +290,7 @@ class KtlQCanvasPolygonalItem : public KtlQCanvasItem
 		QBrush brush() const
 		{ return br; }
 
-		virtual Q3PointArray areaPoints() const=0;
+		virtual QPolygon areaPoints() const=0;
 		QRect boundingRect() const;
 
 	protected:
@@ -305,10 +305,10 @@ class KtlQCanvasPolygonalItem : public KtlQCanvasItem
 		{ return val; }
 
 	private:
-		void scanPolygon( const Q3PointArray& pa, int winding,
+		void scanPolygon( const QPolygon& pa, int winding,
 					KtlQPolygonalProcessor& process ) const;
 
-		Q3PointArray chunks() const;
+		QPolygon chunks() const;
 
 		bool collidesWith( const KtlQCanvasPolygonalItem*,
 				   const KtlQCanvasRectangle*,
@@ -334,7 +334,7 @@ class KtlQCanvasRectangle : public KtlQCanvasPolygonalItem
 		void setSize(const int w, const int h);
 		QSize size() const
 		{ return QSize(w,h); }
-		Q3PointArray areaPoints() const;
+		QPolygon areaPoints() const;
 		QRect rect() const
 		{ return QRect(int(x()),int(y()),w,h); }
 
@@ -342,7 +342,7 @@ class KtlQCanvasRectangle : public KtlQCanvasPolygonalItem
 
 	protected:
 		void drawShape(QPainter &);
-		Q3PointArray chunks() const;
+		QPolygon chunks() const;
 
 	private:
 		bool collidesWith( const KtlQCanvasPolygonalItem*,
@@ -358,17 +358,17 @@ class KtlQCanvasPolygon : public KtlQCanvasPolygonalItem
 	public:
 		KtlQCanvasPolygon(KtlQCanvas* canvas);
 		~KtlQCanvasPolygon();
-		void setPoints(Q3PointArray);
-		Q3PointArray points() const;
+		void setPoints(QPolygon);
+		QPolygon points() const;
 		void moveBy(double dx, double dy);
 
-		Q3PointArray areaPoints() const;
+		QPolygon areaPoints() const;
 
 	protected:
 		void drawShape(QPainter &);
         // TODO FIXME guarts are added for debugging memory corruption (poly takes non-pointer values)
         int guardBef[10];
-		Q3PointArray *poly;
+		QPolygon *poly;
         int guardAft[10];
 };
 
@@ -390,7 +390,7 @@ class KtlQCanvasLine : public KtlQCanvasPolygonalItem
 
 	protected:
 		void drawShape(QPainter &);
-		Q3PointArray areaPoints() const;
+		QPolygon areaPoints() const;
 
 	private:
 		int x1,y1,x2,y2;
@@ -414,7 +414,7 @@ class KtlQCanvasEllipse : public KtlQCanvasPolygonalItem
 		void setAngles(int start, int length);
 		int angleStart() const { return a1; }
 		int angleLength() const { return a2; }
-		Q3PointArray areaPoints() const;
+		QPolygon areaPoints() const;
 
 		bool collidesWith( const KtlQCanvasItem* ) const;
 

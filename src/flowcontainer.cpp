@@ -242,13 +242,13 @@ void FlowContainer::setFullBounds( bool full )
 	if ( full || !b_expanded )
 	{
 		QRect bounds = b_expanded ? m_sizeRect : QRect( m_sizeRect.x(), m_sizeRect.y(), m_sizeRect.width(), topStrip );
-		setPoints( Q3PointArray(bounds) );
+		setPoints( QPolygon(bounds) );
 		return;
 	}
 	
 // 	kDebug() << k_funcinfo << "width="<<width()<<" height="<<height()<<endl;
 	
-	Q3PointArray pa(10);
+	QPolygon pa(10);
 	pa[0] = QPoint( 0, 0 );
 	pa[1] = QPoint( width(), 0 );
 	pa[2] = QPoint( width(), height() );

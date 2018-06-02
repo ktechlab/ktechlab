@@ -98,7 +98,7 @@ void DPLine::postResize()
 	int x2 = x1+width();
 	int y2 = y1+height();
 	
-	Q3PointArray p(4);
+	QPolygon p(4);
 	int pw = pen().width();
 	int dx = abs(x1-x2);
 	int dy = abs(y1-y2);
@@ -233,7 +233,7 @@ void DPArrow::drawShape( QPainter & p )
 	pen.setCapStyle( Qt::RoundCap );
 	p.setPen(pen);
 	p.setBrush(pen.color());
-	Q3PointArray pa(3);
+	QPolygon pa(3);
 	pa[0] = QPoint( round_x(x2), round_x(y2) );
 	pa[1] = QPoint( round_x(x3), round_x(y3) );
 	pa[2] = QPoint( round_x(x4), round_x(y4) );

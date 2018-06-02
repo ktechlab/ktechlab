@@ -71,7 +71,7 @@ void DependentSource::drawOutline( QPainter & p )
 #endif
 	
 	// Bottom diamond
-	Q3PointArray pa4(4);
+	QPolygon pa4(4);
 	pa4[0] = QPoint( _x+6, _y+40 );
 	pa4[1] = QPoint( _x+16, _y+32 );
 	pa4[2] = QPoint( _x+26, _y+40 );
@@ -93,7 +93,7 @@ void DependentSource::drawTopArrow( QPainter & p )
 	
 	p.drawLine( _x+8, _y+24, _x+24, _y+24 );
 	
-	Q3PointArray pa3(3);
+	QPolygon pa3(3);
 	pa3[0] = QPoint( _x+24, _y+24 );
 	pa3[1] = QPoint( _x+19, _y+21 );
 	pa3[2] = QPoint( _x+19, _y+27 );
@@ -114,7 +114,7 @@ void DependentSource::drawBottomArrow( QPainter & p )
 	
 	p.drawLine( _x+11, _y+40, _x+21, _y+40 );
 	
-	Q3PointArray pa3(3);
+	QPolygon pa3(3);
 	pa3[0] = QPoint( _x+21, _y+40 );
 	pa3[1] = QPoint( _x+16, _y+37 );
 	pa3[2] = QPoint( _x+16, _y+43 );

@@ -46,7 +46,7 @@ ParallelPortComponent::ParallelPortComponent( ICNDocument *icnDocument, bool new
 {
 	m_name = i18n("Parallel Port");
 	
-	Q3PointArray pa( 4 );
+	QPolygon pa( 4 );
 	pa[0] = QPoint( -32, -112 );
 	pa[1] = QPoint( 32, -104 );
 	pa[2] = QPoint( 32, 104 );

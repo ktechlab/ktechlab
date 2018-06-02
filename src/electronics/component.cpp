@@ -239,7 +239,7 @@ void Component::setFlipped( bool flipped )
 
 void Component::itemPointsChanged()
 {
-    Q3PointArray transformedPoints = transMatrix( m_angleDegrees, b_flipped, 0, 0, false ).map(m_itemPoints);
+    QPolygon transformedPoints = transMatrix( m_angleDegrees, b_flipped, 0, 0, false ).map(m_itemPoints);
 // 	transformedPoints.translate( int(x()), int(y()) );
     setPoints(transformedPoints);
 }

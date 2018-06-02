@@ -133,7 +133,7 @@ void ECBJT::drawShape( QPainter &p )
 	p.drawLine( _x+8, _y-8, _x-8, _y );
 	p.drawLine( _x+8, _y+8, _x-8, _y );
 	
-	Q3PointArray pa(3);
+	QPolygon pa(3);
 	if ( m_bIsNPN )
 	{
 		pa[0] = QPoint( _x+6, _y+7 );

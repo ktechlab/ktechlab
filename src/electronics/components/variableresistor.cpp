@@ -145,7 +145,7 @@ void VariableResistor::drawShape( QPainter &p )
 	p.drawRect( _x-16, _y-6, width(), 12 );
 	p.drawLine( _x-12, _y+12, _x+13, _y-13 );
 	
-	Q3PointArray pa(3);
+	QPolygon pa(3);
 	
 	// Diagonally pointing arrow
 	pa[0] = QPoint( 0, 0 );

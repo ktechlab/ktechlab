@@ -170,7 +170,7 @@ void DPEllipse::postResize()
 	QRect br = m_sizeRect;
 	
 	// Make octagon that roughly covers ellipse
-	Q3PointArray pa(8);
+	QPolygon pa(8);
 	pa[0] = QPoint( br.x() + br.width()/4,		br.y() );
 	pa[1] = QPoint( br.x() + 3*br.width()/4,	br.y() );
 	pa[2] = QPoint( br.x() + br.width(),		br.y() + br.height()/4 );

@@ -272,7 +272,7 @@ protected:
 	 * Set the rough bounding points for this item. Calls itemPointsChanged
 	 * after setting the points
 	 */
-	void setItemPoints( const Q3PointArray &pa, bool setSizeFromPoints = true );
+	void setItemPoints( const QPolygon& pa, bool setSizeFromPoints = true );
 	/**
 	 * Reinherit this function if you want to apply any sort of transformation
 	 * to the item points
@@ -287,7 +287,7 @@ protected:
 	GuardedItem p_parentItem; // If attached to a parent item
 	ItemList m_children;
 	QPointer<ItemDocument> p_itemDocument;
-	Q3PointArray m_itemPoints; // The unorientated and unsized item points
+	QPolygon m_itemPoints; // The unorientated and unsized item points
 	QTimer * m_pPropertyChangedTimer; ///< Single show timer for one a property changes
 	
 	friend class ItemLibrary;

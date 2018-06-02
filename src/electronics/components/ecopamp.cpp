@@ -39,7 +39,7 @@ ECOpAmp::ECOpAmp( ICNDocument *icnDocument, bool newItem, const char *id )
 {
 	m_name = i18n("Operational Amplifier");
 	
-	Q3PointArray pa(3);
+	QPolygon pa(3);
 	pa[0] = QPoint( -16, -16 );
 	pa[1] = QPoint( 16, 0 );
 	pa[2] = QPoint( -16, 16 );
@@ -63,7 +63,7 @@ void ECOpAmp::drawShape( QPainter & p )
 	int _x = int(x());
 	int _y = int(y());
 	
-	Q3PointArray pa(3);
+	QPolygon pa(3);
 	pa[0] = QPoint( _x-16, _y-16 );
 	pa[1] = QPoint( _x+16, _y );
 	pa[2] = QPoint( _x-16, _y+16 );

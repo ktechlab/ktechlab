@@ -491,10 +491,10 @@ void KtlQCanvas::drawViewArea( KtlQCanvasView* view, QPainter* p, const QRect& v
 		// For translation-only transformation, it is safe to include the right
 		// and bottom edges, but otherwise, these must be excluded since they
 		// are not precisely defined (different bresenham paths).
-		Q3PointArray a;
+		QPolygon a;
 		if ( wm.m12()==0.0 && wm.m21()==0.0 && wm.m11() == 1.0 && wm.m22() == 1.0 )
-			a = Q3PointArray( QRect(all.x(),all.y(),all.width()+1,all.height()+1) );
-		else	a = Q3PointArray( all );
+			a = QPolygon( QRect(all.x(),all.y(),all.width()+1,all.height()+1) );
+		else	a = QPolygon( all );
 
 		a = (wm*twm).map(a);
 	
@@ -1355,9 +1355,9 @@ static bool collision_double_dispatch( const KtlQCanvasPolygonalItem* p1,
 		return xd*xd+yd*yd <= rd*rd;
 	} else if ( p1 && p2 ) {
 		// d
-		Q3PointArray pa1 = p1->areaPoints();
-		Q3PointArray pa2 = p2 ? p2->areaPoints()
-			: Q3PointArray(i2->boundingRect());
+		QPolygon pa1 = p1->areaPoints();
+		QPolygon pa2 = p2 ? p2->areaPoints()
+			: QPolygon(i2->boundingRect());
 		bool col= !(QRegion(pa1) & QRegion(pa2,true)).isEmpty();
 
 		return col;
@@ -1418,7 +1418,7 @@ KtlQCanvasItemList KtlQCanvas::collisions(const QRect& r) /* const */
 }
 
 
-KtlQCanvasItemList KtlQCanvas::collisions(const Q3PointArray& chunklist, const KtlQCanvasItem* item, bool exact) const
+KtlQCanvasItemList KtlQCanvas::collisions(const QPolygon& chunklist, const KtlQCanvasItem* item, bool exact) const
 {
     if (isCanvasDebugEnabled()) {
         qDebug() << Q_FUNC_INFO << " test item: " << item;
@@ -1467,7 +1467,7 @@ KtlQCanvasItemList KtlQCanvas::collisions(const Q3PointArray& chunklist, const K
 void KtlQCanvasItem::addToChunks()
 {
 	if (isVisible() && canvas()) {
-		Q3PointArray pa = chunks();
+		QPolygon pa = chunks();
 		for (int i=0; i<(int)pa.count(); i++)
 			canvas()->addItemToChunk(this,pa[i].x(),pa[i].y());
 		val = true;
@@ -1478,7 +1478,7 @@ void KtlQCanvasItem::addToChunks()
 void KtlQCanvasItem::removeFromChunks()
 {
 	if (isVisible() && canvas()) {
-		Q3PointArray pa = chunks();
+		QPolygon pa = chunks();
 		for (int i=0; i<(int)pa.count(); i++)
 			canvas()->removeItemFromChunk(this,pa[i].x(),pa[i].y());
 	}
@@ -1490,15 +1490,15 @@ void KtlQCanvasItem::changeChunks()
 	if (isVisible() && canvas()) {
 		if (!val)
 			addToChunks();
-		Q3PointArray pa = chunks();
+		QPolygon pa = chunks();
 		for (int i=0; i<(int)pa.count(); i++)
 			canvas()->setChangedChunk(pa[i].x(),pa[i].y());
 	}
 }
 
-Q3PointArray KtlQCanvasItem::chunks() const
+QPolygon KtlQCanvasItem::chunks() const
 {
-	Q3PointArray r;
+	QPolygon r;
 	int n=0;
 	QRect br = boundingRect();
 	if (isVisible() && canvas())
@@ -1727,9 +1727,9 @@ void KtlQCanvasPolygonalItem::invalidate()
 }
 
 
-Q3PointArray KtlQCanvasPolygonalItem::chunks() const
+QPolygon KtlQCanvasPolygonalItem::chunks() const
 {
-	Q3PointArray pa = areaPoints();
+	QPolygon pa = areaPoints();
 
 	if ( !pa.size() )
 	{
@@ -1744,7 +1744,7 @@ Q3PointArray KtlQCanvasPolygonalItem::chunks() const
 	return processor.result;
 }
 
-Q3PointArray KtlQCanvasRectangle::chunks() const
+QPolygon KtlQCanvasRectangle::chunks() const
 {
     // No need to do a polygon scan!
 	return KtlQCanvasItem::chunks();
@@ -1794,7 +1794,7 @@ void KtlQCanvasPolygonalItem::setBrush( const QBrush & b )
 KtlQCanvasPolygon::KtlQCanvasPolygon(KtlQCanvas* canvas)
 	: KtlQCanvasPolygonalItem(canvas)
     , guardBef()
-    , poly(new Q3PointArray)
+    , poly(new QPolygon)
     , guardAft()
 {
     if (isCanvasDebugEnabled()) {
@@ -1815,12 +1815,12 @@ void KtlQCanvasPolygon::drawShape(QPainter & p)
     // ### why can't we draw outlines? We could use drawPolyline for it. Lars
     // ### see other message. Warwick
 
-    p.setPen(Qt::NoPen); // since QRegion(Q3PointArray) excludes outline :-(  )-:
+    p.setPen(Qt::NoPen); // since QRegion(QPolygon) excludes outline :-(  )-:
 	p.drawPolygon(*poly);
 }
 
 
-void KtlQCanvasPolygon::setPoints(Q3PointArray pa)
+void KtlQCanvasPolygon::setPoints(QPolygon pa)
 {
 	removeFromChunks();
 	*poly = pa;
@@ -1848,16 +1848,16 @@ void KtlQCanvasPolygon::moveBy(double dx, double dy)
 	}
 }
 
-Q3PointArray KtlQCanvasPolygon::points() const
+QPolygon KtlQCanvasPolygon::points() const
 {
-	Q3PointArray pa = areaPoints();
+	QPolygon pa = areaPoints();
 	pa.translate(int(-x()),int(-y()));
 	return pa;
 }
 
-Q3PointArray KtlQCanvasPolygon::areaPoints() const
+QPolygon KtlQCanvasPolygon::areaPoints() const
 {
-	return poly->copy();
+	return QPolygon( *poly ); // ->copy(); // 2018.06.02 - copy is only in QPolygon
 }
 
 // ### mark: Why don't we offer a constructor that lets the user set the
@@ -1900,9 +1900,9 @@ void KtlQCanvasLine::drawShape(QPainter &p)
 	p.drawLine((int)(x()+x1), (int)(y()+y1), (int)(x()+x2), (int)(y()+y2));
 }
 
-Q3PointArray KtlQCanvasLine::areaPoints() const
+QPolygon KtlQCanvasLine::areaPoints() const
 {
-	Q3PointArray p(4);
+	QPolygon p(4);
 	int xi = int(x());
 	int yi = int(y());
 	int pw = pen().width();
@@ -2009,9 +2009,9 @@ void KtlQCanvasRectangle::setSize(const int width, const int height)
 }
 
 
-Q3PointArray KtlQCanvasRectangle::areaPoints() const
+QPolygon KtlQCanvasRectangle::areaPoints() const
 {
-	Q3PointArray pa(4);
+	QPolygon pa(4);
 	int pw = (pen().width()+1)/2;
 	if ( pw < 1 ) pw = 1;
 	if ( pen() == Qt::NoPen ) pw = 0;
@@ -2106,20 +2106,20 @@ void KtlQCanvasEllipse::setAngles(int start, int length)
 }
 
 
-Q3PointArray KtlQCanvasEllipse::areaPoints() const
+QPolygon KtlQCanvasEllipse::areaPoints() const
 {
 	Q3PointArray r;
     // makeArc at 0,0, then translate so that fixed point math doesn't overflow
 	r.makeArc(int(x()-w/2.0+0.5)-1, int(y()-h/2.0+0.5)-1, w+3, h+3, a1, a2);
 	r.resize(r.size()+1);
 	r.setPoint(r.size()-1,int(x()),int(y()));
-	return r;
+	return QPolygon(r);
 }
 
 
 void KtlQCanvasEllipse::drawShape(QPainter & p)
 {
-    p.setPen(Qt::NoPen); // since QRegion(Q3PointArray) excludes outline :-(  )-:
+    p.setPen(Qt::NoPen); // since QRegion(QPolygon) excludes outline :-(  )-:
 	if ( !a1 && a2 == 360*16 ) {
 		p.drawEllipse(int(x()-w/2.0+0.5), int(y()-h/2.0+0.5), w, h);
 	} else {
@@ -2128,7 +2128,7 @@ void KtlQCanvasEllipse::drawShape(QPainter & p)
 }
 
 
-void KtlQCanvasPolygonalItem::scanPolygon(const Q3PointArray& pa, int winding, KtlQPolygonalProcessor& process) const
+void KtlQCanvasPolygonalItem::scanPolygon(const QPolygon& pa, int winding, KtlQPolygonalProcessor& process) const
 {
 	KtlQCanvasPolygonScanner scanner(process);
 	scanner.scan(pa,winding);

@@ -24,7 +24,7 @@ JunctionFlowNode::~JunctionFlowNode()
 
 void JunctionFlowNode::initPoints()
 {
-	setPoints( Q3PointArray( QRect( -4, -4, 9, 9 ) ) );
+	setPoints( QPolygon( QRect( -4, -4, 9, 9 ) ) );
 }
 
 
@@ -48,9 +48,9 @@ void JunctionFlowNode::checkForRemoval( Connector *connector )
 }
 
 
-inline Q3PointArray arrowPoints( int dir )
+inline QPolygon arrowPoints( int dir )
 {
-	Q3PointArray pa(3);
+	QPolygon pa(3);
 	switch ( dir ) {
 		case 0:
 			pa[0] = QPoint( 3, 0 );
@@ -100,7 +100,7 @@ void JunctionFlowNode::drawShape ( QPainter &p )
 			QPoint end_0 = points[count-1];
 			QPoint end_1 = points[count-2];
 
-			Q3PointArray pa;
+			QPolygon pa;
 			if ( end_0.x() < end_1.x() )
 			{
 				pa = arrowPoints ( 180 );

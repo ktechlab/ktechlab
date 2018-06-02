@@ -20,7 +20,7 @@
 class KtlQPolygonalProcessor
 {
 public:
-	KtlQPolygonalProcessor(KtlQCanvas* c, const Q3PointArray& pa) :
+	KtlQPolygonalProcessor(KtlQCanvas* c, const QPolygon& pa) :
 	canvas(c)
 	{
 		QRect pixelbounds = pa.boundingRect();
@@ -86,7 +86,7 @@ public:
 		result.resize(pnt);
 	}
 
-	Q3PointArray result;
+	QPolygon result;
 
 private:
 	int pnt;

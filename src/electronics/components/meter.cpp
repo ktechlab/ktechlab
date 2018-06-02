@@ -115,7 +115,7 @@ void Meter::drawShape( QPainter &p )
 	int cy = int(y()-16+(height()/2));
 	p.drawLine( int(cx-sin_prop), int(cy-cos_prop), int(cx+sin_prop), int(cy+cos_prop) );
 	
-	Q3PointArray pa(3);
+	QPolygon pa(3);
 	pa[0] = QPoint( int(cx-sin_prop), int(cy-cos_prop) ); // Arrow head
 	pa[1] = QPoint( int(cx-sin_prop + 8*std::sin(1.571*(-0.3+m_prevProp))), int(cy-cos_prop + 8*std::cos(1.571*(-0.3+m_prevProp))) );
 	pa[2] = QPoint( int(cx-sin_prop + 8*std::sin(1.571*(0.3+m_prevProp))), int(cy-cos_prop + 8*std::cos(1.571*(0.3+m_prevProp))) );

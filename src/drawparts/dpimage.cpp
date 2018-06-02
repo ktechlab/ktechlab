@@ -195,7 +195,7 @@ void DPImage::setSelected( bool yes )
 
 void DPImage::postResize()
 {
-	setItemPoints( Q3PointArray(m_sizeRect), false );
+	setItemPoints( QPolygon(m_sizeRect), false );
 	m_bSettingsChanged = true;
 }
 

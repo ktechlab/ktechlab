@@ -111,7 +111,7 @@ void FloatingProbe::drawShape( QPainter &p )
 	
 	p.drawRect( _x, _y, 32, 16 );
 	
-	Q3PointArray bezier(4);
+	QPolygon bezier(4);
 	
 	bezier[0] = QPoint( _x+4, _y+10 );
 	bezier[1] = QPoint( _x+12, _y-6 );
