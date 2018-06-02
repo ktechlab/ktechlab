@@ -16,15 +16,13 @@
 #include <klocalizedstring.h>
 #include <ktoolbar.h>
 //#include <ktoolbarbutton.h> // converted to QToolButton
-#include <q3listview.h>
 
-#include <q3listview.h>
+#include <qlistwidget.h>
 #include <qlabel.h>
 #include <qlayout.h>
 // #include <q3header.h> // needed?
 #include <qpainter.h>
 #include <qtoolbutton.h>
-#include <q3header.h>
 
 
 //BEGIN class ComponentModelWidget
@@ -60,12 +58,12 @@ ComponentModelWidget::ComponentModelWidget( QWidget *parent, const char *name )
 	m_pSearchEdit->setToolTip( filtertip );
 	//END Filter lineedit
 	
-	m_pList = new Q3ListView( this );
+	m_pList = new QListWidget( this );
 // 	m_pList->setItemMargin( 3 );
-	m_pList->addColumn( "model" );
+	//m_pList->addColumn( "model" ); // 2018.06.02 - should not be needed
 	//m_pList->setFullWidth( true );    // 2018.06.02 - is it fixed?
     m_pList->setSizePolicy( QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding) );
-	m_pList->header()->hide();
+	//m_pList->header()->hide();
 	m_pList->setToolTip( i18n( "Select a predefined component configuration from this list." ) );
 	
 	vlayout->addWidget( bar );
@@ -107,7 +105,8 @@ void ComponentModelWidget::init( Component * component )
 	QStringList::iterator end = types.end();
 	for ( QStringList::iterator it = types.begin(); it != end; ++it )
 	{
-		new Q3ListViewItem( m_pList, *it );
+		QListWidgetItem *newItem = new QListWidgetItem( m_pList );
+        newItem->setText( *it );
 	}
 }
 
@@ -116,11 +115,11 @@ void ComponentModelWidget::setFilter( const QString & filter )
 {
 	QString lower = filter.lower();
 	
-	for ( Q3ListViewItemIterator it( m_pList ); it.current(); ++it )
+	for ( int itemNr = 0; itemNr < m_pList->count(); ++itemNr)
 	{
-		Q3ListViewItem * item = *it;
-		bool hasText = item->text(0).lower().contains( lower );
-		item->setVisible( hasText );
+		QListWidgetItem * item = m_pList->item(itemNr);
+		bool hasText = item->text().lower().contains( lower );
+		item->setHidden( !hasText );
 	}
 }
 //END class ComponentModelWidget
