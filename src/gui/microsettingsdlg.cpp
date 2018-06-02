@@ -123,10 +123,10 @@ MicroSettingsDlg::MicroSettingsDlg( MicroSettings * microSettings, QWidget *pare
 	m_pWidget->variables->setColumnStretchable( 0, true );
 	m_pWidget->variables->setColumnStretchable( 1, true );
 	
-	QStringList variables = microSettings->variableNames();
+	QStringList variableNames = microSettings->variableNames();
 	row = 0;
-	end = variables.end();
-	for ( QStringList::iterator it = variables.begin(); it != end; ++it )
+	end = variableNames.end();
+	for ( QStringList::iterator it = variableNames.begin(); it != end; ++it )
 	{
 		VariableInfo *info = microSettings->variableInfo(*it);
 		if (info)
