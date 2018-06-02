@@ -16,7 +16,7 @@
 #include <klocalizedstring.h>
 #include <ktoolbar.h>
 //#include <ktoolbarbutton.h> // converted to QToolButton
-#include <k3listview.h>
+#include <q3listview.h>
 
 #include <q3listview.h>
 #include <qlabel.h>
@@ -60,10 +60,11 @@ ComponentModelWidget::ComponentModelWidget( QWidget *parent, const char *name )
 	m_pSearchEdit->setToolTip( filtertip );
 	//END Filter lineedit
 	
-	m_pList = new K3ListView( this );
+	m_pList = new Q3ListView( this );
 // 	m_pList->setItemMargin( 3 );
 	m_pList->addColumn( "model" );
-	m_pList->setFullWidth( true );
+	//m_pList->setFullWidth( true );    // 2018.06.02 - is it fixed?
+    m_pList->setSizePolicy( QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding) );
 	m_pList->header()->hide();
 	m_pList->setToolTip( i18n( "Select a predefined component configuration from this list." ) );
 	
@@ -106,7 +107,7 @@ void ComponentModelWidget::init( Component * component )
 	QStringList::iterator end = types.end();
 	for ( QStringList::iterator it = types.begin(); it != end; ++it )
 	{
-		new K3ListViewItem( m_pList, *it );
+		new Q3ListViewItem( m_pList, *it );
 	}
 }
 

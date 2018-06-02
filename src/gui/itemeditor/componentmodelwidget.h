@@ -13,7 +13,7 @@
 #include <klineedit.h>
 
 class Component;
-class K3ListView;
+class Q3ListView;
 
 /**
   This class provides a KLineEdit which contains a greyed-out hinting
@@ -70,7 +70,7 @@ class ComponentModelWidget : public QWidget
 		void setFilter( const QString & filter );
 		
 	protected:
-		K3ListView * m_pList;
+		Q3ListView * m_pList;
 		ClickLineEdit * m_pSearchEdit;
 };
 
