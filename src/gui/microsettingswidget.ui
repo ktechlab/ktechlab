@@ -1,179 +1,172 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0" stdsetdef="1">
-  <author></author>
-  <comment></comment>
-  <exportmacro></exportmacro>
-  <class>MicroSettingsWidget</class>
-  <widget class="QWidget" name="MicroSettingsWidget">
-    <property name="geometry">
-      <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>447</width>
-        <height>401</height>
-      </rect>
-    </property>
-    <property name="sizePolicy">
-      <sizepolicy>
-        <hsizetype>1</hsizetype>
-        <vsizetype>1</vsizetype>
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-      </sizepolicy>
-    </property>
-    <layout class="QVBoxLayout">
-      <property name="margin">
-        <number>0</number>
-      </property>
+<ui version="4.0">
+ <class>MicroSettingsWidget</class>
+ <widget class="QWidget" name="MicroSettingsWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>462</width>
+    <height>401</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <layout class="QVBoxLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QGroupBox" name="portsGroupBox">
+     <layout class="QVBoxLayout">
       <item>
-        <widget class="Q3GroupBox" name="portsGroupBox">
-          <property name="title">
-            <string>Initial Port Settings</string>
-          </property>
-          <layout class="QVBoxLayout">
-            <item>
-              <widget class="QLabel" name="textLabel1">
-                <property name="sizePolicy">
-                  <sizepolicy>
-                    <hsizetype>3</hsizetype>
-                    <vsizetype>1</vsizetype>
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                  </sizepolicy>
-                </property>
-                <property name="text">
-                  <string>Tip: Toggle the initial state (high/low) of a pin by clicking its picture.
+       <widget class="QLabel" name="textLabel1">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Tip: Toggle the initial state (high/low) of a pin by clicking its picture.
 Drag it to set the type (input/output).</string>
-                </property>
-                <property name="textFormat">
-                  <enum>Qt::PlainText</enum>
-                </property>
-                <property name="wordWrap">
-                  <bool>false</bool>
-                </property>
-              </widget>
-            </item>
-          </layout>
-        </widget>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::PlainText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+       </widget>
       </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox6">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <layout class="QVBoxLayout">
       <item>
-        <widget class="Q3GroupBox" name="groupBox6">
-          <property name="sizePolicy">
-            <sizepolicy>
-              <hsizetype>1</hsizetype>
-              <vsizetype>1</vsizetype>
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-            </sizepolicy>
-          </property>
-          <property name="title">
-            <string>Initial Variable Values</string>
-          </property>
-          <layout class="QVBoxLayout">
-            <item>
-              <widget class="Q3Table" name="variables">
-                <property name="minimumSize">
-                  <size>
-                    <width>0</width>
-                    <height>64</height>
-                  </size>
-                </property>
-                <property name="numRows">
-                  <number>0</number>
-                </property>
-                <property name="numCols">
-                  <number>2</number>
-                </property>
-                <column>
-                  <property name="text">
-                    <string>Variable</string>
-                  </property>
-                </column>
-                <column>
-                  <property name="text">
-                    <string>Value</string>
-                  </property>
-                </column>
-              </widget>
-            </item>
-          </layout>
-        </widget>
+       <widget class="Q3Table" name="variables" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>64</height>
+         </size>
+        </property>
+        <property name="numRows" stdset="0">
+         <number>0</number>
+        </property>
+        <property name="numCols" stdset="0">
+         <number>2</number>
+        </property>
+       </widget>
       </item>
-      <item>
-        <widget class="Q3GroupBox" name="groupBox3">
-          <property name="title">
-            <string>Pin Map Definitions</string>
-          </property>
-          <layout class="QGridLayout">
-            <item row="0" column="0" rowspan="1" colspan="5">
-              <widget class="KComboBox" name="pinMapCombo"/>
-            </item>
-            <item row="1" column="4">
-              <widget class="KPushButton" name="pinMapRemove">
-                <property name="text">
-                  <string>Remove</string>
-                </property>
-              </widget>
-            </item>
-            <item row="1" column="0">
-              <spacer name="spacer3">
-                <property name="sizeHint">
-                  <size>
-                    <width>60</width>
-                    <height>20</height>
-                  </size>
-                </property>
-                <property name="sizeType">
-                  <enum>QSizePolicy::Expanding</enum>
-                </property>
-                <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                </property>
-              </spacer>
-            </item>
-            <item row="1" column="1">
-              <widget class="KPushButton" name="pinMapAdd">
-                <property name="text">
-                  <string>Create</string>
-                </property>
-              </widget>
-            </item>
-            <item row="1" column="2">
-              <widget class="KPushButton" name="pinMapModify">
-                <property name="text">
-                  <string>Modif&amp;y</string>
-                </property>
-              </widget>
-            </item>
-            <item row="1" column="3">
-              <widget class="KPushButton" name="pinMapRename">
-                <property name="text">
-                  <string>Rename</string>
-                </property>
-                <property name="shortcut">
-                  <string/>
-                </property>
-              </widget>
-            </item>
-          </layout>
-        </widget>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox3">
+     <layout class="QGridLayout">
+      <item row="0" column="0" colspan="5">
+       <widget class="KComboBox" name="pinMapCombo"/>
       </item>
-    </layout>
-  </widget>
-  <layoutdefault spacing="6" margin="11"/>
-  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
-  <customwidgets>
-    <customwidget>
-      <class>KComboBox</class>
-      <extends>QComboBox</extends>
-      <header location="global">kcombobox.h</header>
-    </customwidget>
-  </customwidgets>
-  <includes>
-    <include location="local">kcombobox.h</include>
-    <include location="local">kpushbutton.h</include>
-    <include location="local">kpushbutton.h</include>
-    <include location="local">kpushbutton.h</include>
-    <include location="local">kpushbutton.h</include>
-  </includes>
+      <item row="1" column="4">
+       <widget class="KPushButton" name="pinMapRemove">
+        <property name="text">
+         <string>Remove</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <spacer name="spacer3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Expanding</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>60</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="1">
+       <widget class="KPushButton" name="pinMapAdd">
+        <property name="text">
+         <string>Create</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="KPushButton" name="pinMapModify">
+        <property name="text">
+         <string>Modif&amp;y</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="KPushButton" name="pinMapRename">
+        <property name="text">
+         <string>Rename</string>
+        </property>
+        <property name="shortcut">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+ <customwidgets>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header location="global">kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>Q3Table</class>
+   <extends>QWidget</extends>
+   <header>q3table.h</header>
+  </customwidget>
+ </customwidgets>
+ <includes>
+  <include location="local">kcombobox.h</include>
+  <include location="local">kpushbutton.h</include>
+  <include location="local">kpushbutton.h</include>
+  <include location="local">kpushbutton.h</include>
+  <include location="local">kpushbutton.h</include>
+ </includes>
+ <resources/>
+ <connections/>
 </ui>

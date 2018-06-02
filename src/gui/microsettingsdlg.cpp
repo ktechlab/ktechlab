@@ -89,9 +89,10 @@ MicroSettingsDlg::MicroSettingsDlg( MicroSettings * microSettings, QWidget *pare
 		//END Get current Type / State text
 		
 		
-		Q3GroupBox * groupBox = new Q3GroupBox( *it, m_pWidget->portsGroupBox );
+		QGroupBox * groupBox = new QGroupBox( *it, m_pWidget->portsGroupBox );
 		
-		groupBox->setColumnLayout(0, Qt::Vertical );
+		//groupBox->setColumnLayout(0, Qt::Vertical ); // 2018.06.02 - not needed
+        groupBox->setLayout(new QVBoxLayout);
 		groupBox->layout()->setSpacing( 6 );
 		groupBox->layout()->setMargin( 11 );
 		QGridLayout * groupBoxLayout = new QGridLayout( groupBox->layout() );
