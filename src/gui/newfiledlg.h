@@ -15,7 +15,7 @@
 
 class MicroSelectWidget;
 class NewFileWidget;
-class Q3IconViewItem;
+// class Q3IconViewItem; // 2018.06.02 - not used
 
 /**
 A standard dialog for getting file details from the user for a new project
