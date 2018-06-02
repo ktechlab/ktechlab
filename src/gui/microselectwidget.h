@@ -24,7 +24,7 @@ class KComboBox;
 /**
 @author David Saxton
 */
-class MicroSelectWidget : public Q3GroupBox
+class MicroSelectWidget : public QGroupBox
 {
 	Q_OBJECT
 

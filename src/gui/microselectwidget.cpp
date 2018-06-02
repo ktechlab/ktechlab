@@ -22,29 +22,38 @@
 #include <qvariant.h>
 
 MicroSelectWidget::MicroSelectWidget( QWidget* parent, const char* name, Qt::WFlags )
-	: Q3GroupBox( 4, Qt::Horizontal, i18n("Microprocessor"), parent, name )
+	//: Q3GroupBox( 4, Qt::Horizontal, i18n("Microprocessor"), parent, name )
+    : QGroupBox(parent, name)
 {
+    setLayout(new QHBoxLayout);
+    setTitle(i18n("Microprocessor"));
+
 	m_allowedAsmSet = AsmInfo::AsmSetAll;
 	m_allowedGpsimSupport = m_allowedFlowCodeSupport = m_allowedMicrobeSupport = MicroInfo::AllSupport;
 	
-	if ( !name )
+	if ( !name ) {
 		setName( "MicroSelectWidget" );
-
-	m_pMicroFamilyLabel = new QLabel( this, "m_pMicroFamilyLabel" );
+    }
+	m_pMicroFamilyLabel = new QLabel( NULL, "m_pMicroFamilyLabel" );
 	m_pMicroFamilyLabel->setText( i18n("Family") );
+    layout()->addWidget( m_pMicroFamilyLabel );
 
-	m_pMicroFamily = new KComboBox( false, this ); //, "m_pMicroFamily" );
+	m_pMicroFamily = new KComboBox( false ); //, "m_pMicroFamily" );
 	m_pMicroFamily->setName("m_pMicroFamily");
 	m_pMicroFamily->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Preferred );
+    layout()->addWidget( m_pMicroFamily );
 
-	m_pMicroLabel = new QLabel( this, "m_pMicroLabel" );
+	m_pMicroLabel = new QLabel( NULL, "m_pMicroLabel" );
 	m_pMicroLabel->setText( i18n("Micro") );
+    layout()->addWidget( m_pMicroLabel );
 
-	m_pMicro = new KComboBox( false, this ); //, "m_pMicro" );
+	m_pMicro = new KComboBox( false ); //, "m_pMicro" );
 	m_pMicro->setName("m_pMicro");
 	m_pMicro->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Preferred );
 	m_pMicro->setEditable( true );
 	m_pMicro->setAutoCompletion(true);
+    layout()->addWidget( m_pMicro );
+
 	updateFromAllowed();
 	setMicro("P16F84");
 	connect( m_pMicroFamily, SIGNAL(activated(const QString & )), this, SLOT(microFamilyChanged(const QString& )) );
