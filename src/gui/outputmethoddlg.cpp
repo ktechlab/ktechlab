@@ -109,6 +109,8 @@ OutputMethodDlg::OutputMethodDlg( const QString &caption, const KUrl & inputURL,
         qDebug() << Q_FUNC_INFO << "outputFileURL: new mode " << m_widget->outputFileURL->mode();
     }
 
+    connect(m_widget->saveFileCheck, SIGNAL(toggled(bool)), m_widget->groupBoxSaveOptions, SLOT(setEnabled(bool)));
+
 	fileMetaInfo()->initializeFromMetaInfo( m_inputURL, this );
 	
 	setMainWidget(m_widget);
