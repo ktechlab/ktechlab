@@ -14,7 +14,7 @@
 #ifndef SYMBOLVIEWER_H
 #define SYMBOLVIEWER_H
 
-#include <q3listview.h>
+#include <qtablewidget.h>
 #include <qpointer.h>
 
 class KComboBox;
@@ -46,7 +46,7 @@ class SymbolViewer : public QWidget
 		
 		Radix valueRadix() const { return m_valueRadix; }
 		
-		Q3ListView * symbolList() const { return m_pSymbolList; }
+		//QTableWidget * symbolList() const { return m_pSymbolList; } // 2016.06.02 - unused
 		/**
 		 * Write the current properties (such as currently selected radix) to
 		 * the config.
@@ -74,7 +74,7 @@ class SymbolViewer : public QWidget
 	protected:
 		QPointer<GpsimProcessor> m_pGpsim;
 		RegisterSet * m_pCurrentContext;
-		Q3ListView * m_pSymbolList;
+		QTableWidget * m_pSymbolList;
 		Radix m_valueRadix;
 
 	private:
@@ -84,18 +84,18 @@ class SymbolViewer : public QWidget
 };
 
 
-class SymbolViewerItem : public QObject, public Q3ListViewItem
+class SymbolViewerItem : public QObject, public QTableWidgetItem
 {
 	Q_OBJECT
 	public:
-		SymbolViewerItem( SymbolViewer * symbolViewer, RegisterInfo * registerInfo );
+		SymbolViewerItem( SymbolViewer* symbolViewer, const RegisterInfo* registerInfo, int intendedColumn);
 		
 	public slots:
 		void valueChanged( unsigned newValue );
 		void radixChanged();
 		
 	protected:
-		RegisterInfo * m_pRegisterInfo;
+		const RegisterInfo * m_pRegisterInfo;
 		SymbolViewer * m_pSymbolViewer;
 };
 

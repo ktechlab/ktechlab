@@ -23,6 +23,7 @@
 
 #include <qlabel.h>
 #include <qlayout.h>
+#include <qheaderview.h>
 
 #include <cassert>
 
@@ -31,16 +32,23 @@ static const int VALUE_COLUMN = 1;
 
 
 //BEGIN class SymbolViewerItem
-SymbolViewerItem::SymbolViewerItem( SymbolViewer * symbolViewer, RegisterInfo * registerInfo )
-	: Q3ListViewItem( symbolViewer->symbolList() )
+SymbolViewerItem::SymbolViewerItem( SymbolViewer* symbolViewer, const RegisterInfo* registerInfo, int intendedColumn )
+	: QObject(), QTableWidgetItem()
+    , m_pRegisterInfo(registerInfo), m_pSymbolViewer(symbolViewer)
 {
+    qDebug() << Q_FUNC_INFO << " reg info name " << m_pRegisterInfo->name();
+    qDebug() << Q_FUNC_INFO << " row " << row() << " column " << column();
+
 	assert(registerInfo);
 	m_pRegisterInfo = registerInfo;
 	m_pSymbolViewer = symbolViewer;
-	
-	setText( NAME_COLUMN, m_pRegisterInfo->name() );
-// 	setText( TYPE_COLUMN, RegisterInfo::toString( m_pRegisterInfo->type() ) );
-	radixChanged(); // force update of displayed string
+
+    // note: at initial update the column is set to -1, so don't rely on that
+    if (intendedColumn == NAME_COLUMN) {
+        setText( m_pRegisterInfo->name() );
+    } else { // VALUE_COLUMN...
+        setText( m_pSymbolViewer->toDisplayString( m_pRegisterInfo->value() ) );
+    }
 	
 	connect( m_pRegisterInfo, SIGNAL(valueChanged(unsigned)), this, SLOT(valueChanged(unsigned)) );
 	connect( m_pSymbolViewer, SIGNAL(valueRadixChanged(SymbolViewer::Radix)), this, SLOT(radixChanged()) );
@@ -50,13 +58,17 @@ SymbolViewerItem::SymbolViewerItem( SymbolViewer * symbolViewer, RegisterInfo * 
 
 void SymbolViewerItem::valueChanged( unsigned newValue )
 {
-	setText( VALUE_COLUMN, m_pSymbolViewer->toDisplayString( newValue ) );
+    if (column() == VALUE_COLUMN) {
+        setText( m_pSymbolViewer->toDisplayString( newValue ) );
+    }
 }
 
 
 void SymbolViewerItem::radixChanged()
 {
-	valueChanged( m_pRegisterInfo->value() );
+    if (column() == VALUE_COLUMN) {
+        valueChanged( m_pRegisterInfo->value() );
+    }
 }
 //END class SymbolViewerItem
 
@@ -86,7 +98,7 @@ SymbolViewer::SymbolViewer( KateMDI::ToolView * parent )
 
 	QGridLayout  * grid = new QGridLayout( this, 1, 1, 0, 6 );
 	
-	m_pSymbolList = new Q3ListView(this);
+	m_pSymbolList = new QTableWidget(this);
 	m_pSymbolList->setFocusPolicy( Qt::NoFocus );
 	grid->addMultiCellWidget( m_pSymbolList, 0, 0, 0, 1 );
 	
@@ -104,12 +116,21 @@ SymbolViewer::SymbolViewer( KateMDI::ToolView * parent )
 	
 	m_pGpsim = 0l;
 	m_pCurrentContext = 0l;
-	
-	m_pSymbolList->addColumn( i18n("Name") );
-	m_pSymbolList->addColumn( i18n("Value") );
+
+    m_pSymbolList->verticalHeader()-> setVisible(false);
+    m_pSymbolList->horizontalHeader()->setVisible(true);
+	//m_pSymbolList->addColumn( i18n("Name") ); // 2018.06.02 - use QTableWidget
+	//m_pSymbolList->addColumn( i18n("Value") ); // 2018.06.02 - use QTableWidget
+    m_pSymbolList->setColumnCount(2);
+    m_pSymbolList->setHorizontalHeaderItem(0, new QTableWidgetItem(i18n("Name")));
+    m_pSymbolList->setHorizontalHeaderItem(1, new QTableWidgetItem(i18n("Value")));
+    m_pSymbolList->horizontalHeaderItem(0)->setText(i18n("Name"));
+    m_pSymbolList->horizontalHeaderItem(1)->setText(i18n("Value"));
 	//m_pSymbolList->setFullWidth(true);
-    m_pSymbolList->setColumnWidthMode(1, Q3ListView::Maximum);
-	m_pSymbolList->setAllColumnsShowFocus( true );
+    //m_pSymbolList->setColumnWidthMode(1, Q3ListView::Maximum);    // 2018.06.02 - use QTableWidget
+    m_pSymbolList->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
+	//m_pSymbolList->setAllColumnsShowFocus( true );    // 2018.06.02 - use QTableWidget
+    m_pSymbolList->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
 
@@ -164,24 +185,45 @@ void SymbolViewer::setContext( GpsimProcessor * gpsim )
 		return;
 	
 	m_pSymbolList->clear();
-	m_pGpsim = gpsim;
+    m_pSymbolList->setColumnCount(2);
+    m_pSymbolList->setRowCount(0);
+
+    m_pSymbolList->setHorizontalHeaderItem(0, new QTableWidgetItem(i18n("Name")));
+    m_pSymbolList->setHorizontalHeaderItem(1, new QTableWidgetItem(i18n("Value")));
+    m_pSymbolList->horizontalHeaderItem(0)->setText(i18n("Name"));
+    m_pSymbolList->horizontalHeaderItem(1)->setText(i18n("Value"));
+
+    m_pGpsim = gpsim;
 	m_pCurrentContext = registerSet;
 	
 	if (!m_pCurrentContext)
 		return;
 		
-	connect( gpsim, SIGNAL(destroyed()), m_pSymbolList, SLOT(clear()) );
+	connect( gpsim, SIGNAL(destroyed()), m_pSymbolList, SLOT(clearContents()) );
 	
 	unsigned count = m_pCurrentContext->size();
 	for ( unsigned i = 0; i < count; ++i )
 	{
 		RegisterInfo * reg = m_pCurrentContext->fromAddress(i);
+
+        if (!reg) {
+            qDebug() << " skip null register at " << i;
+            continue;
+        }
 		
 		if ( (reg->type() == RegisterInfo::Generic) ||
-					(reg->type() == RegisterInfo::Invalid) )
-		continue;
+					(reg->type() == RegisterInfo::Invalid) ) {
+            continue;
+        }
 		
-		new SymbolViewerItem( this, reg );
+        qDebug() << Q_FUNC_INFO << " add reg at " << i << " info " << reg;
+
+        m_pSymbolList->insertRow(i);
+
+		SymbolViewerItem *itemName = new SymbolViewerItem( this, reg, 0 );
+        m_pSymbolList->setItem(i, 0, itemName);
+        SymbolViewerItem *itemVal = new SymbolViewerItem( this, reg, 1 );
+        m_pSymbolList->setItem(i, 1, itemVal);
 	}
 }
 

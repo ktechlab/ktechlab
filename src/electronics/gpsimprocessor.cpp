@@ -753,6 +753,7 @@ RegisterSet::RegisterSet( pic_processor * picProcessor )
 		RegisterInfo * info = new RegisterInfo( & picProcessor->rma[i] );
 		m_registers[i] = info;
 		m_nameToRegisterMap[ info->name() ] = info;
+        qDebug() << Q_FUNC_INFO << " add register info " << info->name() << " at pos " << i << " addr " << info;
 	}
 #if defined(HAVE_GPSIM_0_26)
 	RegisterInfo * info = new RegisterInfo( picProcessor->Wreg ); // is tihs correct for "W" member? TODO
@@ -761,6 +762,8 @@ RegisterSet::RegisterSet( pic_processor * picProcessor )
 #endif
 	m_registers.append( info );
 	m_nameToRegisterMap[ info->name() ] = info;
+    qDebug() << Q_FUNC_INFO << " add register info " << info->name() << " at end, addr " << info;
+    qDebug() << Q_FUNC_INFO << " registers.size " << m_registers.size() << " ; numRegisters " << numRegisters;
 }
 
 
@@ -832,7 +835,7 @@ RegisterInfo::RegisterInfo( Register * reg )
 			break;
 	}
 		
-	m_name = m_pRegister->baseName().c_str();
+	m_name = QString::fromLatin1(m_pRegister->baseName().c_str());
 }
 
 
