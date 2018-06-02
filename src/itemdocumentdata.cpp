@@ -1083,7 +1083,7 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 				
 				// FIXME ICNDocument->type() used
 				// FIXME tons of dynamic_cast
-				if( icnd->type() == Document::dt_circuit ) {
+				if(( icnd->type() == Document::dt_circuit ) || ( icnd->type() == Document::dt_pinMapEditor )) {
 					connector = new ElectronicConnector( 
 								dynamic_cast<ECNode *>(startNode), 
 								dynamic_cast<ECNode *>(endNode), icnd, &id );
