@@ -71,13 +71,19 @@ Modifications needed for KF5 port
 =======
 - read this: http://doc.qt.io/qt-4.8/porting4.html
 
-- fix UI files to not use Q3* functionality
-
 - Q3PointArray -> QPolygon ?
-- Q3PtrVector -> ?
-- Q3ListView -> ?
-- K3ListView -> ?
-- K3TextEdit -> ?
+- Q3PtrVector -> QVector< T * >
+- property editor; property editor item
+    - Q3ListView -> QTableWidget
+- item selector
+    - Q3ListView -> QTreeWidget
+- project manager
+    - Q3ListView -> QTreeWidget
+- Q3ScrollView -> ?
+- Q3Hbox -> QWidget, QHBoxLayout
+- Q3PaintDeviceMetrics -> ?
+- Q3SimpleRichText -> ?
+
 
 Fixes that could be postponed after the first Qt4 release
 =======
