@@ -9,6 +9,7 @@
   <name xml:lang="cs">KTechlab</name>
   <name xml:lang="de">KTechlab</name>
   <name xml:lang="es">KTechlab</name>
+  <name xml:lang="fr">KTechlab</name>
   <name xml:lang="it">KTechlab</name>
   <name xml:lang="nl">KTechlab</name>
   <name xml:lang="pt">KTechlab</name>
@@ -22,6 +23,7 @@
   <summary xml:lang="ca-valencia">IDE per a microcontroladors i electrònica</summary>
   <summary xml:lang="de">Entwicklungsumgebung für Mikrocontroller und Elektronik</summary>
   <summary xml:lang="es">IDE para microcontroladores y sistemas electrónicos</summary>
+  <summary xml:lang="fr">Environnement de Développement Intégré pour les microcontrôleurs et l'électronique</summary>
   <summary xml:lang="it">Un IDE per microcontrollori ed elettronica</summary>
   <summary xml:lang="nl">IDE (ontwikkelomgeving) voor microcontrollers en elektronica</summary>
   <summary xml:lang="pt">IDE para micro-controladores e electrónica</summary>
@@ -36,6 +38,7 @@
     <p xml:lang="ca">El KTechlab és un IDE per a microcontroladors i electrònica dissenyat per ser tan fàcil d'usar i discret com sigui possible.</p>
     <p xml:lang="ca-valencia">El KTechlab és un IDE per a microcontroladors i electrònica dissenyat per ser tan fàcil d'usar i discret com siga possible.</p>
     <p xml:lang="es">KTechlab es un entorno de desarrollo integrado para microcontroladores y electrónica diseñado para que sea fácil de usar y lo menos intrusivo posible.</p>
+    <p xml:lang="fr">Un Environnement de Développement Intégré pour les microcontrôleurs et l'électronique conçu pour être facile à utiliser et aussi peu intrusif que possible.</p>
     <p xml:lang="it">KTechlab è un IDE per microcontrollori ed elettronica progettato per essere semplice da usare e meno invadente possibile.</p>
     <p xml:lang="nl">KTechlab is een IDE (ontwikkelomgeving) voor microcontrollers en elektronica ontworpen voor gemakkelijk gebruik en zo weinig opdringerig als mogelijk.</p>
     <p xml:lang="pt">O KTechlab é um IDE para micro-controladores e electrónica, desenhado para ser simples de usar e o menos incómodo possível.</p>
@@ -74,6 +77,7 @@
       <li xml:lang="ca-valencia">Editor visual per als circuits</li>
       <li xml:lang="de">Grafischer Editor für Schaltkreise</li>
       <li xml:lang="es">Editor de circuitos visual</li>
+      <li xml:lang="fr">Éditeur visuel de circuits</li>
       <li xml:lang="it">Editor visuale di circuiti</li>
       <li xml:lang="nl">Visuele bewerker voor schakelingen</li>
       <li xml:lang="pt">Editor visual de circuitos</li>
@@ -86,6 +90,7 @@
       <li xml:lang="ca-valencia">Ajuda contextual per als components</li>
       <li xml:lang="de">Kontexthilfe für die Komponenten</li>
       <li xml:lang="es">Ayuda de contexto para los componentes</li>
+      <li xml:lang="fr">Aide contextuelle pour les composants</li>
       <li xml:lang="it">Aiuto contestuale sui componenti</li>
       <li xml:lang="nl">Contexthulp voor de componenten</li>
       <li xml:lang="pt">Ajuda de contexto para os componentes</li>
@@ -126,6 +131,7 @@
       <li xml:lang="ca">Depurador incorporat</li>
       <li xml:lang="ca-valencia">Depurador incorporat</li>
       <li xml:lang="es">Depurador integrado</li>
+      <li xml:lang="fr">Débogueur intégré</li>
       <li xml:lang="it">Debugger interno</li>
       <li xml:lang="nl">Ingebouwde debugger</li>
       <li xml:lang="pt">Depurador incorporado</li>
