@@ -18,6 +18,8 @@
 #include <klocalizedstring.h>
 #include <kactioncollection.h>
 
+#include <qdebug.h>
+
 CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name )
 	: ICNView( circuitDocument, viewContainer, viewAreaId, name ),
 	p_circuitDocument(circuitDocument)
@@ -145,6 +147,8 @@ void CircuitView::slotUpdateRunningStatus( bool isRunning )
 
 void CircuitView::dragEnterEvent( QDragEnterEvent * e )
 {
+    qDebug() << Q_FUNC_INFO << e->mimeData()->formats();
+
 	ICNView::dragEnterEvent(e);
 	if ( e->isAccepted() )
 		return;

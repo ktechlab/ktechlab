@@ -15,14 +15,14 @@
 
 #include <qpixmap.h>
 #include <qstring.h>
-// #include <qtreewidget.h>// TODO, to port to this
-#include <q3listview.h>
+#include <qtreewidget.h>
+// #include <q3listview.h>
 
 // #include <k3listview.h>
 
 class ProjectItem;
-class Q3StoredDrag;
-
+// class Q3StoredDrag;  // 2018.08.12 - move to QTreeWidget
+class QMimeData;
 
 namespace KateMDI { class ToolView; }
 
@@ -30,18 +30,23 @@ namespace KateMDI { class ToolView; }
 @short Contains info about item for ItemSelector
 @author David Saxton
 */
-class ILVItem : public QObject, public Q3ListViewItem /* K3ListViewItem */
+class ILVItem : public QObject, public QTreeWidgetItem /* K3ListViewItem */
 {
 	public:
-		ILVItem( Q3ListView *parent, const QString &id );
-		ILVItem( Q3ListViewItem *parent, const QString &id );
+        enum {
+            DataRole_ID = Qt::UserRole,
+            // note: add here isRemovable, projectItem
+        } ILVItemRole;
+
+		ILVItem( QTreeWidget *parent, const QString &id );
+		ILVItem( QTreeWidgetItem *parent, const QString &id );
 		
 		void setProjectItem( ProjectItem * projectItem ) { m_pProjectItem = projectItem; }
 		ProjectItem * projectItem() const { return m_pProjectItem; }
 		
-		QString id() const { return m_id; }
+// 		QString id() const { return m_id; } // 2018.08.12 - use data()
 	
-		QString key( int, bool ) const { return m_id; }
+// 		QString key( int, bool ) const { return m_id; } // 2018.08.12 - use data()
 		/**
 		 * Set whether the item can be removed from the listview by the user
 		 */
@@ -52,7 +57,7 @@ class ILVItem : public QObject, public Q3ListViewItem /* K3ListViewItem */
 		bool isRemovable() const { return b_isRemovable; }
 	
 	protected:
-		QString m_id;
+		//QString m_id; // 2018.08.12 - use data()
 		bool b_isRemovable;
 		ProjectItem * m_pProjectItem;
 };
@@ -61,7 +66,7 @@ class ILVItem : public QObject, public Q3ListViewItem /* K3ListViewItem */
 @short Allows selection of generic items for dragging / clicking
 @author David Saxton
 */
-class ItemSelector : public Q3ListView /* K3ListView */
+class ItemSelector : public QTreeWidget /* K3ListView */
 {
 	Q_OBJECT
 	public:
@@ -78,7 +83,7 @@ class ItemSelector : public Q3ListView /* K3ListView */
 		void addItem( const QString & caption, const QString & id, const QString & category, const QPixmap & icon = QPixmap(), bool removable = false );
 	
 	public slots:
-		virtual void slotContextMenuRequested( Q3ListViewItem* item, const QPoint& pos, int );
+		virtual void slotContextMenuRequested(const QPoint& pos);
 		virtual void clear();
 		void slotRemoveSelectedItem();
 	
@@ -107,16 +112,20 @@ class ItemSelector : public Q3ListView /* K3ListView */
 		 */
 		bool readOpenState( const QString &id );
 
+        QTreeWidgetItem *selectedItem() const ;
+
+        virtual QMimeData * mimeData(const QList<QTreeWidgetItem *> items) const ;
+
 	private slots:
-		void slotItemSelected( Q3ListViewItem* item );
-		void slotItemClicked( Q3ListViewItem* item );
-		void slotItemDoubleClicked( Q3ListViewItem* item );
+		void slotItemSelected( );
+		void slotItemClicked(  QTreeWidgetItem *item, int );
+		void slotItemDoubleClicked( QTreeWidgetItem*, int );
 
 	private:
 		/**
 		 * @return a dragobject encoding the currently selected component item.
 		 */
-		Q3DragObject * dragObject();
+// 		Q3DragObject * dragObject();
 	
 		QStringList m_categories;
 };

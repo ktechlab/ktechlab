@@ -321,7 +321,7 @@ void ItemLibrary::addMechanics()
 
 void ItemLibrary::addLibraryItem( LibraryItem *item )
 {
-	m_items.append(item);
+	m_items.prepend(item);
 }
 
 

@@ -207,7 +207,7 @@ ProjectItem::~ProjectItem()
 void ProjectItem::setILVItem( ILVItem * ilvItem )
 {
 	m_pILVItem = ilvItem;
-	ilvItem->setOpen(true);
+	ilvItem->setExpanded(true);
 	ilvItem->setText( 0, name() );
 	ilvItem->setProjectItem(this);
 	updateILVItemPixmap();
@@ -231,7 +231,7 @@ void ProjectItem::updateILVItemPixmap()
 		{
 			QPixmap pm;
 			pm.load( KStandardDirs:: locate( "appdata", "icons/project_program.png" ) );
-			m_pILVItem->setPixmap( 0, pm );
+			m_pILVItem->setIcon( 0, QIcon( pm ) );
 			break;
 		}
 		
@@ -239,7 +239,7 @@ void ProjectItem::updateILVItemPixmap()
 		{
 			QPixmap pm;
 			pm.load( KStandardDirs:: locate( "appdata", "icons/project_library.png" ) );
-			m_pILVItem->setPixmap( 0, pm );
+			m_pILVItem->setIcon( 0, QIcon( pm ) );
 			break;
 		}
 		
@@ -247,7 +247,7 @@ void ProjectItem::updateILVItemPixmap()
 		{
 			KMimeType::Ptr m = KMimeType::findByPath( url().path() );
 			//m_pILVItem->setPixmap( 0, m->pixmap( KIconLoader::Small ) );
-            m_pILVItem->setPixmap( 0, KIconLoader::global()->loadMimeTypeIcon( m->iconName(), KIconLoader::Small ) );
+            m_pILVItem->setIcon( 0, QIcon( KIconLoader::global()->loadMimeTypeIcon( m->iconName(), KIconLoader::Small ) ) );
 			break;
 		}
 	}
@@ -915,7 +915,7 @@ ProjectManager::ProjectManager( KateMDI::ToolView * parent )
 	setListCaption( i18n("File") );
 	setCaption( i18n("Project Manager") );
 	
-	connect( this, SIGNAL(clicked(Q3ListViewItem*)), this, SLOT(slotItemClicked(Q3ListViewItem*)) );
+	connect( this, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(slotItemClicked(QTreeWidgetItem*,int)) );
 }
 
 
@@ -1186,7 +1186,7 @@ void ProjectManager::slotItemProcessingOptions()
 }
 
 
-void ProjectManager::slotItemClicked( Q3ListViewItem * item )
+void ProjectManager::slotItemClicked( QTreeWidgetItem* item, int )
 {
 	ILVItem * ilvItem = dynamic_cast<ILVItem*>(item);
 	if ( !ilvItem )
@@ -1200,20 +1200,21 @@ void ProjectManager::slotItemClicked( Q3ListViewItem * item )
 }
 
 
-void ProjectManager::slotContextMenuRequested( Q3ListViewItem* item, const QPoint& pos, int /*col*/ )
+void ProjectManager::slotContextMenuRequested( const QPoint& pos )
 {
+    QTreeWidgetItem* item = itemAt(pos);
 	QString popupName;
 	ILVItem * ilvItem = dynamic_cast<ILVItem*>(item);
 	QAction * linkerOptionsAct = KTechlab::self()->actionByName("project_item_linker_options");
 	linkerOptionsAct->setEnabled(false);
 	
-	if ( !m_pCurrentProject )
+	if ( !m_pCurrentProject ) {
 		popupName = "project_none_popup";
 	
-	else if ( !ilvItem )
+    } else if ( !ilvItem ) {
 		popupName = "project_blank_popup";
 	
-	else
+    } else
 	{
 		ProcessOptions::ProcessPath::MediaType mediaType = ProcessOptions::guessMediaType( ilvItem->projectItem()->url().url() );
 		
@@ -1259,8 +1260,10 @@ void ProjectManager::slotContextMenuRequested( Q3ListViewItem* item, const QPoin
 	KTechlab::self()->actionByName("project_add_current_file")->setEnabled( haveFocusedDocument );
 	
 	QMenu *pop = static_cast<QMenu*>(KTechlab::self()->factory()->container( popupName, KTechlab::self() ));
-	if (pop)
-		pop->popup(pos);
+	if (pop) {
+        QPoint globalPos = mapToGlobal(pos);
+		pop->popup(globalPos);
+    }
 }
 //END class ProjectManager
 

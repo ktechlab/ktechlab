@@ -326,11 +326,11 @@ class ProjectManager : public ItemSelector
 		void slotProjectOptions();
 	
 	private slots:
-		void slotContextMenuRequested( Q3ListViewItem *item, const QPoint &pos, int col );
+		void slotContextMenuRequested( const QPoint &pos );
 		/**
 		 * Called when a user clicks on any item in the project view
 		 */
-		void slotItemClicked( Q3ListViewItem* item );
+		void slotItemClicked( QTreeWidgetItem* item, int );
 		
 	protected:
 		ProjectInfo * m_pCurrentProject;

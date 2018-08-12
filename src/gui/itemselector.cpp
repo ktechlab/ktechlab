@@ -25,45 +25,51 @@
 #include <klocalizedstring.h>
 #include <kconfiggroup.h>
 
-#include <q3dragobject.h>
+// #include <q3dragobject.h>
 #include <qlayout.h>
 // #include <q3popupmenu.h>
 #include <qmenu.h>
 
 #include <cassert>
 
-ILVItem::ILVItem( Q3ListView* parent, const QString &id )
-	: Q3ListViewItem( parent, 0 )
+ILVItem::ILVItem( QTreeWidget *parent, const QString &id )
+	: QTreeWidgetItem( parent, 0 /* note: add item types */ )
 {
-	m_id = id;
+    setData(0, DataRole_ID, QVariant(id));
+    // 	m_id = id;  // 2018.08.12 - use data()
 	b_isRemovable = false;
 	m_pProjectItem = 0l;
 }
 
-ILVItem::ILVItem( Q3ListViewItem* parent, const QString &id )
-	: Q3ListViewItem( parent, 0 )
+ILVItem::ILVItem( QTreeWidgetItem *parent, const QString &id )
+	: QTreeWidgetItem( parent, 0 /* note: add item types */ )
 {
-	m_id = id;
+	//m_id = id;    // 2018.08.12 - use data()
+    setData(0, DataRole_ID, QVariant(id));
 	b_isRemovable = false;
 	m_pProjectItem = 0l;
 }
 
 
 ItemSelector::ItemSelector( QWidget *parent, const char *name )
-	: Q3ListView( parent /*, name */ )
+	: QTreeWidget( parent /*, name */ )
 {
     setName(name);
     qDebug() << Q_FUNC_INFO << " this=" << this;
 
-    addColumn( i18n( "Component" ) );
-	//setFullWidth(true);       // 2018.06.02 - fixed?
+    setDragDropMode(QAbstractItemView::DragOnly);
+    setColumnCount(1);
+    setHeaderLabel( i18n( "Component" ) );
+    //addColumn( i18n( "Component" ) ); // 2018.08.12 - use setHeaderLabel()
+	//setFullWidth(true);       // 2018.06.02 - need to be fixed
     setSizePolicy( QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred) );
-	setSorting( -1, false );
+	//setSorting( -1, false ); // 2018.08.12 - use setSortingEnabled
+    setSortingEnabled(false);
     setRootIsDecorated(true);
     //setDragEnabled(true);     // 2018.06.02 - needed?
 	setFocusPolicy( Qt::NoFocus );
 
-    setSelectionMode( Q3ListView::Single ); // 2015.12.10 - need to allow selection for removing items
+    setSelectionMode( QAbstractItemView::SingleSelection ); // 2015.12.10 - need to allow selection for removing items
 
     if (parent->layout()) {
         parent->layout()->addWidget(this);
@@ -75,11 +81,14 @@ ItemSelector::ItemSelector( QWidget *parent, const char *name )
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding); // ?
 	
 // 	connect( this, SIGNAL(executed(K3ListViewItem*) ), this, SLOT(slotItemExecuted(K3ListViewItem*)) );
-	connect( this, SIGNAL(clicked(Q3ListViewItem*)), this, SLOT(slotItemClicked(Q3ListViewItem*)) );
-	connect( this, SIGNAL(doubleClicked(Q3ListViewItem*)), this, SLOT(slotItemDoubleClicked(Q3ListViewItem*)) );
-	connect( this, SIGNAL(contextMenuRequested(Q3ListViewItem*, const QPoint&, int )), this,
-             SLOT(slotContextMenuRequested(Q3ListViewItem*, const QPoint&, int )) );
-	connect( this, SIGNAL(selectionChanged(Q3ListViewItem*)), this, SLOT(slotItemSelected( Q3ListViewItem* )) );
+	connect( this, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(slotItemClicked(QTreeWidgetItem*,int)) );
+	connect( this, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(slotItemDoubleClicked(QTreeWidgetItem*,int)) );
+// 	connect( this, SIGNAL(contextMenuRequested(Q3ListViewItem*, const QPoint&, int )), this,
+//              SLOT(slotContextMenuRequested(Q3ListViewItem*, const QPoint&, int )) ); // 2018.08.12 - use signal from below
+    setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(this, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(slotContextMenuRequested(QPoint)));
+
+	connect( this, SIGNAL(itemSelectionChanged()), this, SLOT(slotItemSelected()) );
 }
 
 ItemSelector::~ItemSelector()
@@ -91,12 +100,13 @@ ItemSelector::~ItemSelector()
 void ItemSelector::clear()
 {
 	m_categories.clear();
-	Q3ListView::clear();
+	QTreeWidget::clear();
 }
 
 
 void ItemSelector::addItem( const QString & caption, const QString & id, const QString & _category, const QPixmap & icon, bool removable )
 {
+    qDebug() << Q_FUNC_INFO << "id=" << id;
 	ILVItem *parentItem = 0L;
 	
 	QString category = _category;
@@ -125,14 +135,19 @@ void ItemSelector::addItem( const QString & caption, const QString & id, const Q
 			else {
 				parentItem = new ILVItem( this, "" );
 			}
-			parentItem->setOpen( readOpenState(cat) );
+            //parentItem->setExpandable(true); // 2018.08.12 - is it needed?
+
+			parentItem->setExpanded( readOpenState(cat) );
 			
-			parentItem->setExpandable(true);
 			parentItem->setText( 0, cat );
 		}
 		else
 		{
-			parentItem = (ILVItem*)findItem( cat, 0 );
+            QList<QTreeWidgetItem*> foundList = findItems( cat, Qt::MatchExactly);
+            if (foundList.size() > 1) {
+                qWarning() << Q_FUNC_INFO << "found multiple categories for '" << cat << "'";
+            }
+            parentItem = dynamic_cast<ILVItem*>( foundList.front() );
 		}
 		
 		category.remove( 0, pos );
@@ -145,9 +160,11 @@ void ItemSelector::addItem( const QString & caption, const QString & id, const Q
 	}
 	
 	ILVItem *item = new ILVItem( parentItem, id );
-	item->setPixmap( 0, icon );
+	//item->setPixmap( 0, icon );  // 2018.08.12 - replaced with line below
+    item->setIcon( 0, QIcon(icon) );
 	item->setText( 0, caption );
-    item->setDragEnabled(true);
+    //item->setDragEnabled(true); // 2018.08.12 - replaced with line below
+    item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled);
 	item->setRemovable(removable);
 }
 
@@ -162,9 +179,14 @@ void ItemSelector::writeOpenStates()
 	const QStringList::iterator end = m_categories.end();
 	for ( QStringList::iterator it = m_categories.begin(); it != end; ++it )
 	{
-		Q3ListViewItem *item = findItem( *it, 0 );
+        QList<QTreeWidgetItem*> itemsFound = findItems( *it, Qt::MatchExactly );
+        if (itemsFound.size() > 1) {
+            qWarning() << Q_FUNC_INFO << " too many items " << itemsFound.size()
+                << " for category '" << *it << "'";
+        }
+		QTreeWidgetItem *item = itemsFound.first() /* findItem( *it, 0 ) */ ;
 		if (item) {
-			configGroup.writeEntry( *it+"IsOpen", item->isOpen() );
+			configGroup.writeEntry( *it+"IsOpen", item->isExpanded() /* isOpen() */ );
 		}
 	}
 }
@@ -180,9 +202,61 @@ bool ItemSelector::readOpenState( const QString &id )
 	return configGroup.readEntry<bool>( id+"IsOpen", true );
 }
 
+QTreeWidgetItem *ItemSelector::selectedItem() const {
+    QList< QTreeWidgetItem*> selectedList = selectedItems();
+    if (selectedList.empty()) {
+        return NULL;
+    }
+    if (selectedList.size() > 1) {
+        qWarning() << Q_FUNC_INFO << " expected 1 item in selection, got " << selectedList.size();
+    }
+    return selectedList.first();
+}
 
-void ItemSelector::slotContextMenuRequested( Q3ListViewItem* item, const QPoint& pos, int /*col*/ )
+QMimeData * ItemSelector::mimeData(const QList<QTreeWidgetItem *> items) const {
+    qDebug() << Q_FUNC_INFO << " begin ";
+    if (items.size() > 1) {
+        qWarning() << Q_FUNC_INFO << "expected 1 item, got " << items.size();
+    }
+    QTreeWidgetItem *theItem = items.first();
+    if (!theItem) {
+        qWarning() << Q_FUNC_INFO << "unexpected null item";
+        return NULL;
+    }
+    qDebug() << Q_FUNC_INFO << " theItem = " << theItem;
+    QVariant idAsVariant = theItem->data(0, ILVItem::DataRole_ID);
+    qDebug() << Q_FUNC_INFO << " idAsVariant = " << idAsVariant;
+    const QString id = idAsVariant.asString();
+    qDebug() << Q_FUNC_INFO << "id='" << id << "'";
+
+    QMimeData * mime = new QMimeData;
+
+    QByteArray data;
+    QDataStream stream( &data, QIODevice::WriteOnly );
+    stream << id;
+
+    if ( id.startsWith("flow/") ) {
+        mime->setData("ktechlab/flowpart", data);
+    } else if ( id.startsWith("ec/") ) {
+        mime->setData("ktechlab/component", data);
+    } else if ( id.startsWith("sc/") ) {
+        mime->setData("ktechlab/subcircuit", data);
+    } else if ( id.startsWith("mech/") ) {
+        mime->setData("ktechlab/mechanical", data);
+    } else {
+        qWarning() << Q_FUNC_INFO << "returning unset mime; uknown id '" << id << "'";
+    }
+
+    // A pixmap cursor is often hard to make out
+//  QPixmap *pixmap = const_cast<QPixmap*>(currentItem()->pixmap(0));
+//  if (pixmap) d->setPixmap(*pixmap);
+
+    return mime;
+}
+
+void ItemSelector::slotContextMenuRequested(const QPoint& pos)
 {
+    QTreeWidgetItem* item = itemAt(pos);
 	if ( !item || !(static_cast<ILVItem*>(item))->isRemovable() ) {
 		return;
 	}
@@ -191,24 +265,31 @@ void ItemSelector::slotContextMenuRequested( Q3ListViewItem* item, const QPoint&
 	menu->insertItem( i18n("Remove %1",  item->text(0)), this, SLOT(slotRemoveSelectedItem())
         //, Qt::Key_Delete // 2015.12.29 - do not specify shortcut key, because it does not work
     );
-	menu->popup(pos);
+    QPoint globalPos = mapToGlobal(pos);
+	menu->popup(globalPos);
 }
 
 
 void ItemSelector::slotRemoveSelectedItem()
 {
     qDebug() << Q_FUNC_INFO << "removing selected item";
-	ILVItem *item = dynamic_cast<ILVItem*>(selectedItem());
+    QList< QTreeWidgetItem*> selectedList = selectedItems();
+    if (selectedList.empty()) {
+        qDebug() << Q_FUNC_INFO << "selection is empty";
+        return;
+    }
+    QTreeWidgetItem *selectedItem = selectedList.first();
+	ILVItem *item = dynamic_cast<ILVItem*>(selectedItem);
 	if (!item) {
         qDebug() << Q_FUNC_INFO << "no selected item to remove";
 		return;
     }
 	
-	emit itemRemoved( item->key( 0, 0 ) );
-	ILVItem *parent = dynamic_cast<ILVItem*>(item->Q3ListViewItem::parent());
+	emit itemRemoved( item->data(0, ILVItem::DataRole_ID).asString() /*key( 0, 0 ) */ );
+	ILVItem *parent = dynamic_cast<ILVItem*>(item->QTreeWidgetItem::parent());
 	delete item;
 	// Get rid of the category as well if it has no children
-	if ( parent && !parent->firstChild() )
+	if ( parent && !parent->childCount() /* firstChild() */ )
 	{
 		m_categories.remove(parent->text(0));
 		delete parent;
@@ -218,20 +299,23 @@ void ItemSelector::slotRemoveSelectedItem()
 
 void ItemSelector::setListCaption( const QString &caption )
 {
-	setColumnText( 0, caption );
+	//setColumnText( 0, caption ); // 2018.08.12 - see below
+    setHeaderLabel( caption );
 }
 
 
-void ItemSelector::slotItemSelected( Q3ListViewItem * item )
+void ItemSelector::slotItemSelected( )
 {
-	if (!item)
+    QTreeWidgetItem *item = selectedItem();
+	if (!item) {
 		return;
+    }
 	
-	emit itemSelected( item->key( 0, 0 ) );
+	emit itemSelected( item->data(0, ILVItem::DataRole_ID).asString() /* item->key( 0, 0 ) */ );
 }
 
 
-void ItemSelector::slotItemClicked( Q3ListViewItem *item )
+void ItemSelector::slotItemClicked( QTreeWidgetItem *item, int )
 {
 	if (!item)
 		return;
@@ -239,16 +323,19 @@ void ItemSelector::slotItemClicked( Q3ListViewItem *item )
 	if ( ItemDocument * itemDocument = dynamic_cast<ItemDocument*>(DocManager::self()->getFocusedDocument()) )
 		itemDocument->slotUnsetRepeatedItemId();
 	
-	emit itemClicked( item->key( 0, 0 ) );
+    const QString &itemIdString = item->data(0, ILVItem::DataRole_ID).asString();
+
+	emit itemClicked( itemIdString /* item->key( 0, 0 ) */ );
 }
 
 
-void ItemSelector::slotItemDoubleClicked( Q3ListViewItem *item )
+void ItemSelector::slotItemDoubleClicked( QTreeWidgetItem *item, int )
 {
 	if (!item)
 		return;
 	
-	QString id = item->key( 0, 0 );
+	//QString id = item->key( 0, 0 );
+    const QString &id = item->data(0, ILVItem::DataRole_ID).asString();
 	
 	if ( Document * doc = DocManager::self()->getFocusedDocument() )
 	{
@@ -265,10 +352,10 @@ void ItemSelector::slotItemDoubleClicked( Q3ListViewItem *item )
 	emit itemDoubleClicked(id);
 }
 
-
+#if 0 // 2018.08.12 - needed?
 Q3DragObject* ItemSelector::dragObject()
 {
-	const QString id = currentItem()->key(0,0);
+	const QString &id = currentItem()->data(0, ILVItem::DataRole_ID).asString() /* key(0,0) */;
 	
 	Q3StoredDrag * d = 0l;
 	
@@ -300,7 +387,7 @@ Q3DragObject* ItemSelector::dragObject()
 
     return d;
 }
-
+#endif
 
 
 //BEGIN class ComponentSelector
