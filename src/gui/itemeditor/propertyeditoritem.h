@@ -20,7 +20,8 @@
 
 #include "property.h"
 
-#include <q3listview.h>
+// #include <q3listview.h>
+#include <qtablewidget.h>
 
 #define PropertyEditorItem_BranchBoxSize 9
 
@@ -28,12 +29,12 @@
     It also takes care of drawing custom contents.
  **/
  //! An item in PropertyEditorItem associated to a property
-class PropertyEditorItem : public QObject,  public Q3ListViewItem // K3ListViewItem
+class PropertyEditorItem : public QObject,  public QTableWidgetItem // K3ListViewItem
 {
 	Q_OBJECT
 	
 	public:
-		typedef Q3AsciiDict<PropertyEditorItem> Dict;
+		//typedef Q3AsciiDict<PropertyEditorItem> Dict; // 2018.08.13 - unused
 
 		/**
 		 * Creates a PropertyEditorItem child of \a parent, associated to
@@ -48,7 +49,7 @@ class PropertyEditorItem : public QObject,  public Q3ListViewItem // K3ListViewI
 		 * Creates PropertyEditor Top Item which is necessary for drawing all
 		 * branches.
 		 */
-		PropertyEditorItem( /*K3ListView */ Q3ListView *parent, const QString &text);
+		PropertyEditorItem( /*K3ListView */ QTableWidget *parent, const QString &text);
 
 		~PropertyEditorItem();
 
@@ -70,7 +71,7 @@ class PropertyEditorItem : public QObject,  public Q3ListViewItem // K3ListViewI
 		 */
 		virtual void updateValue(bool alsoParent = true);
 
-		virtual void paintFocus ( QPainter * p, const QColorGroup & cg, const QRect & r );
+// 		virtual void paintFocus ( QPainter * p, const QColorGroup & cg, const QRect & r );
 		
 	protected slots:
 		virtual void propertyValueChanged();
@@ -81,11 +82,11 @@ class PropertyEditorItem : public QObject,  public Q3ListViewItem // K3ListViewI
 		 * names are wriiten in bold if modified. Also takes care of drawing
 		 * borders around the cells as well as pixmaps or colors if necessary.
 		 */
-		virtual void paintCell(QPainter *p, const QColorGroup & cg, int column, int width, int align);
+// 		virtual void paintCell(QPainter *p, const QColorGroup & cg, int column, int width, int align);
 		/**
 		 * Reimplemented from K3ListViewItem to hide the top item.
 		 */
-		virtual void setup();
+// 		virtual void setup();
 
 	private:
 		Property *m_property;

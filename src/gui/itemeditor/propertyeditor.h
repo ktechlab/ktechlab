@@ -15,9 +15,10 @@
 
 #include <qvariant.h>
 #include <qpointer.h>
+#include <qtablewidget.h>
 
 #include <q3dict.h>
-#include <q3listview.h>
+//#include <q3listview.h> // 2018.08.13 - ported to QTableWidget
 
 
 #include "propertyeditoritem.h"
@@ -26,10 +27,10 @@ class ItemGroup;
 class Variant;
 class PropertySubEditor;
 class KPushButton;
-
+class QStyledItemDelegate;
 
 //! A list view to edit any type of properties
-class PropertyEditor : public Q3ListView // K3ListView
+class PropertyEditor : public QTableWidget // K3ListView
 {
 	Q_OBJECT
 
@@ -95,14 +96,14 @@ class PropertyEditor : public Q3ListView // K3ListView
 		 * of deleting current editor and creating a new editor for the newly
 		 * selected item.
 		 */
-		void slotClicked(Q3ListViewItem *item);
+		void slotClicked(const QModelIndex& index);
 		/**
 		 * Used to fix selection when unselectable item was activated.
 		 */
-		void slotCurrentChanged(Q3ListViewItem *);
+		void slotCurrentChanged(QTableWidgetItem *);
 
-		void slotExpanded(Q3ListViewItem *item);
-		void slotCollapsed(Q3ListViewItem *item);
+		void slotExpanded(QTableWidgetItem *item);
+		void slotCollapsed(QTableWidgetItem *item);
 
 	protected:
 		/**
@@ -111,7 +112,7 @@ class PropertyEditor : public Q3ListView // K3ListView
 		 * PropertyEditorItem::modified() == true). The editor type depends on
 		 * Property::type() of the item's property.
 		*/
-		void createEditor(PropertyEditorItem *i);//, const QRect &geometry);
+		void createEditor(const QModelIndex& index);//, const QRect &geometry);
 		/**
 		 * Reimplemented from K3ListView to update editor and revert button
 		 * position.
@@ -122,15 +123,20 @@ class PropertyEditor : public Q3ListView // K3ListView
 
 		int baseRowHeight() const { return m_baseRowHeight; }
 
+		PropertyEditorItem *selectedItem() ;
+
 		QPointer<ItemGroup> m_pItemGroup;
 		QPointer<PropertySubEditor> m_currentEditor;
 		PropertyEditorItem *m_editItem;
 		PropertyEditorItem *m_topItem; //The top item is used to control the drawing of every branches.
 		KPushButton *m_defaults; // "Revert to defaults" button
-		PropertyEditorItem::Dict m_items;
+		//PropertyEditorItem::Dict m_items; // 2018.08.13 - unused
 		int m_baseRowHeight;
 		//! Used in setFocus() to prevent scrolling to previously selected item on mouse click
-		bool justClickedItem : 1;
+		bool justClickedItem;
+
+        QStyledItemDelegate *m_colPropertyDelegate;
+        QStyledItemDelegate *m_colValueDelegate;
 
 		friend class PropertyEditorItem;
 		friend class PropertySubEditor;

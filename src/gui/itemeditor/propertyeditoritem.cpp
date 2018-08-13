@@ -29,39 +29,47 @@
 
 //BEGIN Class PropertyEditorItem
 PropertyEditorItem::PropertyEditorItem( PropertyEditorItem * par, Property * property )
-	: Q3ListViewItem( par, property->editorCaption(), property->displayString() )
+	: QTableWidgetItem( property->editorCaption() /*, property->displayString() */ )
 {
-	setExpandable( false );
-	m_property=property;
-	connect( m_property, SIGNAL(valueChanged( QVariant, QVariant )), this, SLOT(propertyValueChanged()) );
+    // setParent(par); // table takes ownership of the item
+    //setText(property->editorCaption()); // need to set 2 items for each property
+	// setExpandable( false ); // TODO
 
-	updateValue();
+	m_property=property;
+	//connect( m_property, SIGNAL(valueChanged( QVariant, QVariant )), this, SLOT(propertyValueChanged()) );
+
+	//updateValue(); // need to set 2 items for each property
 
 	//3 rows per item is enough?
-	setMultiLinesEnabled( true );
-	setHeight(static_cast<PropertyEditor*>(listView())->baseRowHeight()*3);
+// 	setMultiLinesEnabled( true ); // TODO
+// 	setHeight(static_cast<PropertyEditor*>(listView())->baseRowHeight()*3);
 }
 
 
-PropertyEditorItem::PropertyEditorItem(Q3ListView *par, const QString &text)
-	: Q3ListViewItem(par, text, "")
+PropertyEditorItem::PropertyEditorItem(QTableWidget* parent, const QString& text)
+	: QTableWidgetItem( text )
 {
+    setParent(parent);
+    setText(text);
+
 	m_property = 0;
-	setSelectable(false);
-	setOpen(true);
+    setFlags(flags() &= (~Qt::ItemIsSelectable));
+	//setSelectable(false);
+	//setOpen(true);
 
 	//3 rows per item is enough?
-	setMultiLinesEnabled( true );
-	setHeight(static_cast<PropertyEditor*>(par)->baseRowHeight()*3);
+// 	setMultiLinesEnabled( true );   // TODO
+// 	setHeight(static_cast<PropertyEditor*>(par)->baseRowHeight()*3);
 }
 
 
 void PropertyEditorItem::propertyValueChanged()
 {
-	setText( 1, m_property->displayString() );
+	setText( m_property->displayString() );
 }
 
 
+#if 0 // 2018.08.13 - moved to property editor
 void PropertyEditorItem::paintCell(QPainter *p, const QColorGroup & cg, int column, int width, int align)
 {
 	if ( depth() == 0 )
@@ -184,14 +192,14 @@ void PropertyEditorItem::paintCell(QPainter *p, const QColorGroup & cg, int colu
 	p->setPen( QColor(200,200,200) ); //like in t.v.
 	p->drawLine(-50, height()-1, width, height()-1 );
 }
+#endif
 
-
-void PropertyEditorItem::setup()
-{
-	Q3ListViewItem::setup();
-	if ( depth() == 0 )
-		setHeight(0);
-}
+// void PropertyEditorItem::setup()
+// {
+// 	Q3ListViewItem::setup();
+// 	if ( depth() == 0 )
+// 		setHeight(0);
+// }
 
 
 PropertyEditorItem::~PropertyEditorItem()
@@ -206,15 +214,15 @@ void PropertyEditorItem::updateValue(bool alsoParent)
 		text = m_property->displayString();
     }
     qDebug() << Q_FUNC_INFO << "text= " << text;
-	setText( 1, text );
-	if ( alsoParent && Q3ListViewItem::parent() )
-		static_cast<PropertyEditorItem*>(Q3ListViewItem::parent())->updateValue();
+	setText( text );
+	if ( alsoParent && QObject::parent() )
+		static_cast<PropertyEditorItem*>(QObject::parent())->updateValue();
 }
 
 
-void PropertyEditorItem::paintFocus ( QPainter * , const QColorGroup & , const QRect &  )
-{
-}
+// void PropertyEditorItem::paintFocus ( QPainter * , const QColorGroup & , const QRect &  )
+// {
+// }
 //END class PropertyEditorItem
 
 #include "propertyeditoritem.moc"

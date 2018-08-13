@@ -75,6 +75,8 @@ Modifications needed for KF5 port
 - Q3PtrVector -> QVector< T * >
 - property editor; property editor item
     - Q3ListView -> QTableWidget
+    - fix glitch of reset button disappearing when horiznotally resizing the property editor
+    - fix color of text / background in property editor
 - Q3ScrollView -> ?
 - Q3Hbox -> QWidget, QHBoxLayout
 - Q3PaintDeviceMetrics -> ?
