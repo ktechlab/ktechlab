@@ -79,7 +79,6 @@ Modifications needed for KF5 port
     - fix color of text / background in property editor
 - Q3ScrollView -> ?
 - Q3Hbox -> QWidget, QHBoxLayout
-- Q3PaintDeviceMetrics -> ?
 - Q3SimpleRichText -> ?
 
 

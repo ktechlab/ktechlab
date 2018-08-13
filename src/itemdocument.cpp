@@ -256,13 +256,14 @@ void ItemDocument::print()
 	p.begin( printer );
 	
 	// we let our view do the actual printing
-	Q3PaintDeviceMetrics metrics( printer );
+	//Q3PaintDeviceMetrics metrics( printer ); // 2018.08.13 - replaced with method call
+    QRect pageRect = printer->pageRect();
 	
 	// Round to 16 so that we cut in the middle of squares
-	int w = metrics.width();
+	int w = pageRect.width();
 	w = (w & 0xFFFFFFF0) + ((w << 1) & 0x10);
 
-	int h = metrics.height();
+	int h = pageRect.height();
 	h = (h & 0xFFFFFFF0) + ((h << 1) & 0x10);
 
 	p.setClipping( true );
