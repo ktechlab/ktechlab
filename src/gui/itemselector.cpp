@@ -353,40 +353,40 @@ void ItemSelector::slotItemDoubleClicked( QTreeWidgetItem *item, int )
 }
 
 #if 0 // 2018.08.12 - needed?
-Q3DragObject* ItemSelector::dragObject()
-{
-	const QString &id = currentItem()->data(0, ILVItem::DataRole_ID).asString() /* key(0,0) */;
-	
-	Q3StoredDrag * d = 0l;
-	
-	if ( id.startsWith("flow/") )
-		d = new Q3StoredDrag( "ktechlab/flowpart", this );
-	
-	else if ( id.startsWith("ec/") )
-		d = new Q3StoredDrag( "ktechlab/component", this );
-	
-	else if ( id.startsWith("sc/") )
-		d = new Q3StoredDrag( "ktechlab/subcircuit", this );
-	
-	else if ( id.startsWith("mech/") )
-		d = new Q3StoredDrag( "ktechlab/mechanical", this );
-	
-	if (d)
-	{
-		QByteArray data;
-		QDataStream stream( &data, QIODevice::WriteOnly );
-		stream << id;
-		d->setEncodedData(data);
-	} else {
-        qWarning() << Q_FUNC_INFO << " null drag returned";
-    }
-	
-	// A pixmap cursor is often hard to make out
-// 	QPixmap *pixmap = const_cast<QPixmap*>(currentItem()->pixmap(0));
-// 	if (pixmap) d->setPixmap(*pixmap);
-
-    return d;
-}
+// Q3DragObject* ItemSelector::dragObject()
+// {
+// 	const QString &id = currentItem()->data(0, ILVItem::DataRole_ID).asString() /* key(0,0) */;
+//
+// 	Q3StoredDrag * d = 0l;
+//
+// 	if ( id.startsWith("flow/") )
+// 		d = new Q3StoredDrag( "ktechlab/flowpart", this );
+//
+// 	else if ( id.startsWith("ec/") )
+// 		d = new Q3StoredDrag( "ktechlab/component", this );
+//
+// 	else if ( id.startsWith("sc/") )
+// 		d = new Q3StoredDrag( "ktechlab/subcircuit", this );
+//
+// 	else if ( id.startsWith("mech/") )
+// 		d = new Q3StoredDrag( "ktechlab/mechanical", this );
+//
+// 	if (d)
+// 	{
+// 		QByteArray data;
+// 		QDataStream stream( &data, QIODevice::WriteOnly );
+// 		stream << id;
+// 		d->setEncodedData(data);
+// 	} else {
+//         qWarning() << Q_FUNC_INFO << " null drag returned";
+//     }
+//
+// 	// A pixmap cursor is often hard to make out
+// // 	QPixmap *pixmap = const_cast<QPixmap*>(currentItem()->pixmap(0));
+// // 	if (pixmap) d->setPixmap(*pixmap);
+//
+//     return d;
+// }
 #endif
 
 
