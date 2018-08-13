@@ -46,9 +46,10 @@
 #include <qpainter.h>
 #include <qpicture.h>
 #include <qregexp.h>
-#include <q3simplerichtext.h>
+#include <q3simplerichtext.h> // 2018.08.13 - not needed
 #include <qtimer.h>
 #include <qprinter.h>
+#include <qtextedit.h>
 
 #include <cmath>
 #include <cassert>
@@ -1373,23 +1374,30 @@ void Canvas::drawForeground ( QPainter &p, const QRect & clip )
 	
 	if ( !firstView ) return;
 	
-	Q3SimpleRichText * t = new Q3SimpleRichText( m_message, QApplication::font() );
+// 	Q3SimpleRichText * t = new Q3SimpleRichText( m_message, QApplication::font() );
+    QTextEdit * t = new QTextEdit( m_message );
 	
+    t->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::QSizePolicy::Minimum);
+    t->resize( t->sizeHint() ); // TODO fix resizing
+
 	int w = t->width();
 	int h = t->height();
 	int x = rect().left() + 15;
 	int y = rect().top() + 15;
 	int b = 10; // text padding
 	
-	if ( w+2*b >= minSize.width() || h+2*b >= minSize.height() )
-	{
-		delete t;
-		return;
-	}
+// 	if ( w+2*b >= minSize.width() || h+2*b >= minSize.height() )
+// 	{
+//         qWarning() << Q_FUNC_INFO << "size not good w=" << w << " h=" << h << "b=" << b << " minSize=" << minSize;
+// 		delete t;
+// 		return;
+// 	}
 	
 	p.setBrush( firstView->colorGroup().background() );
 	p.drawRoundRect( x, y, w+2*b, h+2*b, (8*200)/(w+2*b), (8*200)/(h+2*b) );
-	t->draw( &p, x+b, y+b, QRect(), firstView->colorGroup() );
+// 	t->draw( &p, x+b, y+b, QRect(), firstView->colorGroup() );
+    t->resize(w+2*b, h+2*b);
+    t->render( &p, QPoint( x, y ) );
 	delete t;
 }
 

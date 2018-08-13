@@ -17,7 +17,9 @@
 #include <klocalizedstring.h>
 
 #include <qpainter.h>
-#include <q3simplerichtext.h>
+#include <qtextedit.h>
+
+// #include <q3simplerichtext.h> // 2018.08.13 - not needed anymore
 #include <q3stylesheet.h>
 
 Item* DPText::construct( ItemDocument *itemDocument, bool newItem, const char *id )
@@ -131,11 +133,10 @@ void DPText::drawShape( QPainter &p )
 	bound.setRight( bound.right()-pad );
 	bound.setBottom( bound.bottom()-pad );
 	
-	
-	Q3SimpleRichText * t = new Q3SimpleRichText( m_text, QFont() );
-	t->setWidth( bound.width() );
-	
-	t->draw( &p, bound.left(), bound.top(), bound, QColorGroup() );
+	QTextEdit * t = new QTextEdit( m_text );
+    t->resize( bound.width(), bound.height() ); // t->setWidth( bound.width() );
+
+    t->render( &p, bound.topLeft() ); //t->draw( &p, bound.left(), bound.top(), bound, QColorGroup() );
 	delete t;
 }
 

@@ -79,7 +79,8 @@ Modifications needed for KF5 port
     - fix color of text / background in property editor
 - Q3ScrollView -> ?
 - Q3Hbox -> QWidget, QHBoxLayout
-- Q3SimpleRichText -> ?
+- Q3SimpleRichText -> QTextEdit
+    -> fix resizing of the editor to minimal needed size for rendering
 
 
 Fixes that could be postponed after the first Qt4 release
