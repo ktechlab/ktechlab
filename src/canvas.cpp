@@ -362,7 +362,7 @@ void KtlQCanvas::resize( const QRect & newSize )
 		return;
 
 	KtlQCanvasItem* item;
-	Q3PtrList<KtlQCanvasItem> hidden;
+	Q3PtrList<KtlQCanvasItem> hidden;       // TODO QT3
 	SortedCanvasItems::iterator end = m_canvasItems.end();
 	for ( SortedCanvasItems::iterator it = m_canvasItems.begin(); it != end; ++it )
 	{
@@ -395,7 +395,7 @@ void KtlQCanvas::retune(int chunksze, int mxclusters)
 
 	if ( chunksize!=chunksze )
 	{
-		Q3PtrList<KtlQCanvasItem> hidden;
+		Q3PtrList<KtlQCanvasItem> hidden;   // TODO QT3
 		SortedCanvasItems::iterator end = m_canvasItems.end();
 		for ( SortedCanvasItems::iterator it = m_canvasItems.begin(); it != end; ++it )
 		{
@@ -561,10 +561,10 @@ void KtlQCanvas::advance()
 void KtlQCanvas::update()
 {
 	KtlQCanvasClusterizer clusterizer(m_viewList.count());
-	Q3PtrList<QRect> doneareas;
+	Q3PtrList<QRect> doneareas;     // TODO QT3
 	doneareas.setAutoDelete(true);
 
-	Q3PtrListIterator<KtlQCanvasView> it(m_viewList);
+	Q3PtrListIterator<KtlQCanvasView> it(m_viewList);   // TODO QT3
 	KtlQCanvasView* view;
 	while( (view=it.current()) != 0 ) {
 		++it;
@@ -1518,7 +1518,7 @@ QPolygon KtlQCanvasItem::chunks() const
 }
 
 KtlQCanvasView::KtlQCanvasView(QWidget* parent, const char* name, Qt::WFlags f)
-	: Q3ScrollView(parent,name,f|Qt::WResizeNoErase|Qt::WStaticContents)
+	: Q3ScrollView(parent,name,f|Qt::WResizeNoErase|Qt::WStaticContents)    // TODO QT3
 {
 	d = new KtlQCanvasViewData;
 	viewing = 0;
@@ -1527,7 +1527,7 @@ KtlQCanvasView::KtlQCanvasView(QWidget* parent, const char* name, Qt::WFlags f)
 }
 
 KtlQCanvasView::KtlQCanvasView(KtlQCanvas* canvas, QWidget* parent, const char* name, Qt::WFlags f)
-	: Q3ScrollView(parent,name,f|Qt::WResizeNoErase|Qt::WStaticContents)
+	: Q3ScrollView(parent,name,f|Qt::WResizeNoErase|Qt::WStaticContents)    // TODO QT3
 {
 	d = new KtlQCanvasViewData;
 	viewing = 0;
@@ -1666,7 +1666,7 @@ void KtlQCanvasView::drawContents( QPainter *p )
 QSize KtlQCanvasView::sizeHint() const
 {
 	if ( !canvas() )
-		return Q3ScrollView::sizeHint();
+		return Q3ScrollView::sizeHint();        // TODO QT3
     // should maybe take transformations into account
 	return ( canvas()->size() + 2 * QSize(frameWidth(), frameWidth()) )
 			.boundedTo( 3 * QApplication::desktop()->size() / 4 );
@@ -2108,7 +2108,7 @@ void KtlQCanvasEllipse::setAngles(int start, int length)
 
 QPolygon KtlQCanvasEllipse::areaPoints() const
 {
-	Q3PointArray r;
+	Q3PointArray r;     // TODO QT3
     // makeArc at 0,0, then translate so that fixed point math doesn't overflow
 	r.makeArc(int(x()-w/2.0+0.5)-1, int(y()-h/2.0+0.5)-1, w+3, h+3, a1, a2);
 	r.resize(r.size()+1);

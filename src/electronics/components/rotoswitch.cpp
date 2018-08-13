@@ -45,7 +45,7 @@ ECRotoSwitch::ECRotoSwitch( ICNDocument *icnDocument, bool newItem, const char *
 m_numPositions(0)
 {
 	m_name = i18n("Rotary Switch");
-	Q3PointArray pa;
+	Q3PointArray pa;    // TODO QT3
 	pa.makeArc( -_pinInnerRadius, -_pinInnerRadius, 2*_pinInnerRadius, 2*_pinInnerRadius , 0, 16*360 );
 	setItemPoints( pa );
 	//setSize( -64, -64, 128, 128 );

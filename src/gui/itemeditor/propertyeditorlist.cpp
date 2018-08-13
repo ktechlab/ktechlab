@@ -68,7 +68,7 @@ void PropComboBox::hideList()
 PropertyEditorList::PropertyEditorList( QWidget * parent, Property * property, const char * name )
 	: PropertySubEditor( parent, property, name )
 {
-	Q3HBox *box = new Q3HBox(this);
+	Q3HBox *box = new Q3HBox(this);     // TODO QT3
 
 	m_combo = new PropComboBox( box );
 	m_combo->setGeometry(frameGeometry());

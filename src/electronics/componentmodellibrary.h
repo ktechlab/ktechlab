@@ -47,7 +47,7 @@ class ComponentModel
 		DoubleMap m_property;
 };
 
-typedef Q3Dict< ComponentModel > ComponentModelDict;
+typedef Q3Dict< ComponentModel > ComponentModelDict;    // TODO QT3
 
 /**
 @author David Saxton <david@bluehaze.org>

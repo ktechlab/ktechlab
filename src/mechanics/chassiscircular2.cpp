@@ -48,7 +48,7 @@ ChassisCircular2::ChassisCircular2( MechanicsDocument *mechanicsDocument, bool n
 	m_theta1 = 0.0;
 	m_theta2 = 0.0;
 	
-	Q3PointArray pa;
+	Q3PointArray pa;    // TODO QT3
 	pa.makeEllipse( -25, -25, 50, 50 );
 	QWMatrix m(4,0,0,4,0,0);
 	// m.setTransformationMode( QWMatrix::Areas ); // TODO find a replacement

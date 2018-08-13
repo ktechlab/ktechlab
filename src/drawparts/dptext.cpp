@@ -88,7 +88,7 @@ void DPText::dataChanged()
 	
 	m_text = dataString("text");
 	
-	if ( !Q3StyleSheet::mightBeRichText( m_text ) )
+	if ( !Q3StyleSheet::mightBeRichText( m_text ) ) // TODO QT3
 	{
 		// Format the text to be HTML
 		m_text.replace( '\n', "<br>" );

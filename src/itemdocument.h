@@ -33,7 +33,7 @@ class Operation;
 class KActionMenu;
 class KtlQCanvasItem;
 
-typedef Q3PtrStack<ItemDocumentData> IDDStack;
+typedef Q3PtrStack<ItemDocumentData> IDDStack;  // TODO QT3
 typedef QPointer<Item> GuardedItem;
 typedef QMap< int, GuardedItem > IntItemMap;
 typedef QMap< QString, Item* > ItemMap;

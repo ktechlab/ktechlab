@@ -37,8 +37,8 @@ protected:
 	
 	void inStateChanged( bool newState );
 	
-	Q3PtrVector<LogicIn> m_aLogic;
-	Q3PtrVector<LogicOut> m_xLogic;
+	Q3PtrVector<LogicIn> m_aLogic;      // TODO QT3
+	Q3PtrVector<LogicOut> m_xLogic;     // TODO QT3
 	LogicIn * m_input;
 };
 

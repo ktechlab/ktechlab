@@ -192,7 +192,7 @@ QWidget * RichTextEditor::editorViewport() const
 
 void RichTextEditor::setText( QString text )
 {
-	if ( !Q3StyleSheet::mightBeRichText( text ) )
+	if ( !Q3StyleSheet::mightBeRichText( text ) )   // TODO QT3
 	{
 		// Format the text to be HTML
 		text.replace( '\n', "<br>" );
@@ -395,7 +395,7 @@ RichTextEditorDlg::RichTextEditorDlg( QWidget * parent, const QString & caption 
 
 
 	//QVBox * page = makeVBoxMainWidget();
-    Q3VBox * page = new Q3VBox(this);
+    Q3VBox * page = new Q3VBox(this);   // TODO QT3
     setMainWidget(page);
 	m_pEditor = new RichTextEditor( page );
 }
