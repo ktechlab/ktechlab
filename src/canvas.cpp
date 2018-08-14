@@ -399,7 +399,7 @@ void KtlQCanvas::retune(int chunksze, int mxclusters)
 
 	if ( chunksize!=chunksze )
 	{
-		Q3PtrList<KtlQCanvasItem> hidden;   // TODO QT3
+		QList<KtlQCanvasItem*> hidden;
 		SortedCanvasItems::iterator end = m_canvasItems.end();
 		for ( SortedCanvasItems::iterator it = m_canvasItems.begin(); it != end; ++it )
 		{
@@ -418,7 +418,8 @@ void KtlQCanvas::retune(int chunksze, int mxclusters)
 		delete [] chunks;
 		chunks=newchunks;
 
-		for (KtlQCanvasItem* item=hidden.first(); item != 0; item=hidden.next()) {
+		for (QList<KtlQCanvasItem*>::iterator itItem = hidden.begin(); itItem != hidden.end(); ++itItem) {
+            KtlQCanvasItem* item = *itItem;
 			item->show();
 		}
 	}
