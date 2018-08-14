@@ -192,7 +192,7 @@ QWidget * RichTextEditor::editorViewport() const
 
 void RichTextEditor::setText( QString text )
 {
-	if ( !Q3StyleSheet::mightBeRichText( text ) )   // TODO QT3
+	if ( !Qt::mightBeRichText( text ) )
 	{
 		// Format the text to be HTML
 		text.replace( '\n', "<br>" );
