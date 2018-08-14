@@ -42,9 +42,9 @@ class RAM : public CallbackClass, public Component
 		int m_wordSize;
 		int m_addressSize;
 		
-		Q3PtrVector<LogicIn> m_address; // TODO QT3
-		Q3PtrVector<LogicIn> m_dataIn;  // TODO QT3
-		Q3PtrVector<LogicOut> m_dataOut;    // TODO QT3
+		QVector<LogicIn*> m_address;
+		QVector<LogicIn*> m_dataIn;
+		QVector<LogicOut*> m_dataOut;
 };
 
 #endif
