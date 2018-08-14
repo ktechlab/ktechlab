@@ -18,7 +18,7 @@
 #include <cassert>
 
 // A prime number slightly larger than the number of models for any particular type
-const int maxComponentModels = 101;
+// const int maxComponentModels = 101;
 
 //BEGIN class ComponentModel
 ComponentModel::ComponentModel()
@@ -122,17 +122,17 @@ void ComponentModelLibrary::loadModels()
 
 				if ( !m_componentModels.contains( type ) )
 				{
-					m_componentModels[type] = ComponentModelDict( maxComponentModels );
-					m_componentModels[type].setAutoDelete( true );
+					m_componentModels[type] = ComponentModelDict( /* maxComponentModels */ );
+					//m_componentModels[type].setAutoDelete( true ); // 2018.08.14 - not needed
 				}
 
-				m_componentModels[type].insert( id, model );
+				m_componentModels[type].insert( id, *model );
 				m_componentModelIDs[type] << id;
 
-				if ( int(modelCount[type] * 1.2) > maxComponentModels )
+				/* if ( int(modelCount[type] * 1.2) > maxComponentModels )  // 2018.08.14 - not needed
 				{
 					kWarning() << k_funcinfo << "There are "<<modelCount[type]<<" models for component type \""<<typeString<<"\". Consider enlarging the dictionary.\n";
-				}
+				} */
 
 				// Reset the model
 				model = 0l;
