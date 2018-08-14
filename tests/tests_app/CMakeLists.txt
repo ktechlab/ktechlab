@@ -27,6 +27,7 @@ kde4_add_executable(tests_app tests_app.cpp)
 
 target_link_libraries( tests_app
     test_ktechlab
+    ktlqt3support
     core gui micro flowparts
     mechanics electronics elements components languages drawparts
     itemeditor

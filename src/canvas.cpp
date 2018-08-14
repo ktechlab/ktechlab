@@ -17,7 +17,7 @@
 #include "qbitmap.h"
 //#include "q3ptrdict.h"
 #include "qpainter.h"
-#include "q3polygonscanner.h"
+#include "ktlq3polygonscanner.h"
 #include "qtimer.h"
 #include "q3tl.h"
 #include <q3pointarray.h>   // needed for q3polygonscanner

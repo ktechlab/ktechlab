@@ -53,9 +53,9 @@ QT_MODULE(Qt3SupportLight)
 class Q3PointArray;
 class QPoint;
 
-class Q_COMPAT_EXPORT Q3PolygonScanner {
+class Q_COMPAT_EXPORT KtlQ3PolygonScanner {
 public:
-    virtual ~Q3PolygonScanner() {}
+    virtual ~KtlQ3PolygonScanner() {}
     void scan(const Q3PointArray& pa, bool winding, int index=0, int npoints=-1);
     void scan(const Q3PointArray& pa, bool winding, int index, int npoints, bool stitchable);
     enum Edge { Left=1, Right=2, Top=4, Bottom=8 };

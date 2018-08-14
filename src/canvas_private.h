@@ -15,7 +15,7 @@
 
 #include "qbitmap.h"
 #include "qimage.h"
-#include <q3polygonscanner.h>
+#include "ktlq3polygonscanner.h"
 
 class KtlQPolygonalProcessor
 {
@@ -217,7 +217,7 @@ private:
 
 
 
-class KtlQCanvasPolygonScanner : public Q3PolygonScanner    // TODO QT3
+class KtlQCanvasPolygonScanner : public KtlQ3PolygonScanner    // TODO QT3
 {
 	KtlQPolygonalProcessor& processor;
 

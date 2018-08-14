@@ -13,6 +13,7 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/languages
     ${CMAKE_CURRENT_SOURCE_DIR}/mechanics
     ${CMAKE_CURRENT_SOURCE_DIR}/micro
+    ${CMAKE_CURRENT_SOURCE_DIR}/ktlqt3support
     ${KDE4_INCLUDES}
     ${QT_INCLUDES})
 if(GPSim_FOUND)
@@ -30,6 +31,7 @@ add_subdirectory(languages)
 add_subdirectory(drawparts)
 add_subdirectory(contexthelp)
 add_subdirectory(math)
+add_subdirectory(ktlqt3support)
 
 ########### next target ###############
 
@@ -100,6 +102,7 @@ kde4_add_executable(ktechlab ${ktechlab_SRCS})
 
 target_link_libraries( ktechlab
     core gui micro flowparts
+    ktlqt3support
 	mechanics electronics elements components languages drawparts
 	itemeditor math
 	${KDE4_KHTML_LIBRARY} # khtml

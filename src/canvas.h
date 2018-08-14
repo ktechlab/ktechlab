@@ -235,7 +235,7 @@ class KtlQCanvas : public QObject
 
 class KtlQCanvasViewData;
 
-class KtlQCanvasView : public Q3ScrollView  // TODO QT3
+class KtlQCanvasView : public Q3ScrollView  // TODO QT3 QScrollArea
 {
 	Q_OBJECT
 	public:
@@ -253,7 +253,7 @@ class KtlQCanvasView : public Q3ScrollView  // TODO QT3
 		bool setWorldMatrix( const QMatrix & );
 
 	protected:
-        /** overrides Q3ScrollView::drawContents() */
+        /** overrides Q3ScrollView::drawContents() */   // override paintEvent?
 		virtual void drawContents( QPainter*, int cx, int cy, int cw, int ch );
 		QSize sizeHint() const;
 
