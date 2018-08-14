@@ -280,6 +280,7 @@ PropertyEditor::PropertyEditor( QWidget * parent, const char * name )
 	horizontalHeader()->setResizeMode(QHeaderView::QHeaderView::Stretch);
     horizontalHeader()->setMovable(false);
 	//header()->setMovingEnabled( false );
+    verticalHeader()->setVisible(false);
 	//setTreeStepSize(0);
     setSelectionMode(QAbstractItemView::SingleSelection);
 
