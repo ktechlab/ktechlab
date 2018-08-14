@@ -385,6 +385,9 @@ bool ItemDocument::isRedoAvailable() const
 
 void ItemDocument::undo()
 {
+    if (m_undoStack.empty()) {
+        return;
+    }
 	ItemDocumentData *idd = m_undoStack.pop();
 	if (!idd) return;
 
@@ -399,6 +402,9 @@ void ItemDocument::undo()
 
 void ItemDocument::redo()
 {
+    if (m_redoStack.empty()) {
+        return;
+    }
 	ItemDocumentData *idd = m_redoStack.pop();
 	if (!idd) return;
 	

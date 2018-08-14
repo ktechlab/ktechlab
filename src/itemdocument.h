@@ -16,7 +16,7 @@
 #include <canvas.h>
 
 #include <qmap.h>
-#include <q3ptrstack.h>
+#include <qstack.h>
 #include <q3valuevector.h>
 
 class Canvas;
@@ -33,7 +33,7 @@ class Operation;
 class KActionMenu;
 class KtlQCanvasItem;
 
-typedef Q3PtrStack<ItemDocumentData> IDDStack;  // TODO QT3
+typedef QStack<ItemDocumentData*> IDDStack;
 typedef QPointer<Item> GuardedItem;
 typedef QMap< int, GuardedItem > IntItemMap;
 typedef QMap< QString, Item* > ItemMap;
