@@ -40,10 +40,10 @@ class MagnitudeComparator : public CallbackClass, public Component
 	
 		QBitArray m_data;
 		
-		Q3PtrVector<LogicIn> m_aLogic;      // TODO QT3
-		Q3PtrVector<LogicIn> m_bLogic;      // TODO QT3
-		Q3PtrVector<LogicIn> m_cLogic;      // TODO QT3
-		Q3PtrVector<LogicOut> m_output;     // TODO QT3
+		QVector<LogicIn*> m_aLogic;
+		QVector<LogicIn*> m_bLogic;
+		QVector<LogicIn*> m_cLogic;
+		QVector<LogicOut*> m_output;
 };
 
 #endif
