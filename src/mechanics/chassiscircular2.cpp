@@ -48,8 +48,12 @@ ChassisCircular2::ChassisCircular2( MechanicsDocument *mechanicsDocument, bool n
 	m_theta1 = 0.0;
 	m_theta2 = 0.0;
 	
-	Q3PointArray pa;    // TODO QT3
-	pa.makeEllipse( -25, -25, 50, 50 );
+	//Q3PointArray pa;    // 2018.08.14 - ported to PainterPath
+	//pa.makeEllipse( -25, -25, 50, 50 );
+    QPainterPath path;
+    path.addEllipse( -25, -25, 50, 50);
+    QPolygon pa = path.toFillPolygon().toPolygon();
+
 	QWMatrix m(4,0,0,4,0,0);
 	// m.setTransformationMode( QWMatrix::Areas ); // TODO find a replacement
 	pa = m.map(pa);

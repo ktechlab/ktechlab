@@ -20,6 +20,7 @@
 #include "q3polygonscanner.h"
 #include "qtimer.h"
 #include "q3tl.h"
+#include <q3pointarray.h>   // needed for q3polygonscanner
 #include <q3scrollview.h>
 #include <qdesktopwidget.h>
 
@@ -2127,9 +2128,14 @@ void KtlQCanvasEllipse::setAngles(int start, int length)
 
 QPolygon KtlQCanvasEllipse::areaPoints() const
 {
-	Q3PointArray r;     // TODO QT3
-    // makeArc at 0,0, then translate so that fixed point math doesn't overflow
-	r.makeArc(int(x()-w/2.0+0.5)-1, int(y()-h/2.0+0.5)-1, w+3, h+3, a1, a2);
+	//Q3PointArray r;     // 2018.08.14 - see below
+    // // makeArc at 0,0, then translate so that fixed point math doesn't overflow
+	//r.makeArc(int(x()-w/2.0+0.5)-1, int(y()-h/2.0+0.5)-1, w+3, h+3, a1, a2);
+
+    QPainterPath path;
+    path.arcTo(int(x()-w/2.0+0.5)-1, int(y()-h/2.0+0.5)-1, w+3, h+3, a1, a2-a1);
+    QPolygon r = path.toFillPolygon().toPolygon();
+
 	r.resize(r.size()+1);
 	r.setPoint(r.size()-1,int(x()),int(y()));
 	return QPolygon(r);

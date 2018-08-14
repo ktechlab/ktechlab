@@ -18,7 +18,7 @@
 #include "qbrush.h"
 #include "qpen.h"
 #include "qlist.h"
-#include "q3pointarray.h"
+// #include "q3pointarray.h" // 2018.08.14
 
 class KtlQCanvasPolygonalItem;
 class KtlQCanvasRectangle;

@@ -15,7 +15,7 @@
 
 #include <qevent.h>
 #include <qpainter.h>
-#include <q3pointarray.h>
+// #include <q3pointarray.h> // 2018.08.14
 #include <qdebug.h>
 
 #include <algorithm>

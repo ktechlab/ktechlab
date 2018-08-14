@@ -45,8 +45,13 @@ ECRotoSwitch::ECRotoSwitch( ICNDocument *icnDocument, bool newItem, const char *
 m_numPositions(0)
 {
 	m_name = i18n("Rotary Switch");
-	Q3PointArray pa;    // TODO QT3
-	pa.makeArc( -_pinInnerRadius, -_pinInnerRadius, 2*_pinInnerRadius, 2*_pinInnerRadius , 0, 16*360 );
+	//Q3PointArray pa;    // 2018.08.14 - see below
+	//pa.makeArc( -_pinInnerRadius, -_pinInnerRadius, 2*_pinInnerRadius, 2*_pinInnerRadius , 0, 16*360 );
+    QPainterPath path;
+    path.addEllipse( -_pinInnerRadius, -_pinInnerRadius, 2*_pinInnerRadius, 2*_pinInnerRadius );
+    QPolygon pa = path.toFillPolygon().toPolygon();
+
+
 	setItemPoints( pa );
 	//setSize( -64, -64, 128, 128 );
 
