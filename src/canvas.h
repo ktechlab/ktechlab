@@ -213,7 +213,7 @@ class KtlQCanvas : public QObject
 		KtlQCanvasChunk* chunks;
 
 		SortedCanvasItems m_canvasItems;
-		Q3PtrList<KtlQCanvasView> m_viewList;   // TODO QT3
+		QList<KtlQCanvasView*> m_viewList;
 
 		void initTiles(QPixmap p, int h, int v, int tilewidth, int tileheight);
 		ushort *grid;

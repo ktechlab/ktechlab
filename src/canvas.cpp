@@ -307,8 +307,10 @@ KtlQCanvas::KtlQCanvas( QPixmap p, int h, int v, int tilewidth, int tileheight )
 
 void qt_unview( KtlQCanvas * c )
 {
-	for (KtlQCanvasView* view=c->m_viewList.first(); view != 0; view=c->m_viewList.next())
+	for (QList<KtlQCanvasView*>::iterator itView =c->m_viewList.begin(); itView != c->m_viewList.end(); ++itView) {
+        KtlQCanvasView* view = *itView;
 		view->viewing = 0;
+    }
 }
 
 KtlQCanvas::~KtlQCanvas()
@@ -362,7 +364,7 @@ void KtlQCanvas::resize( const QRect & newSize )
 		return;
 
 	KtlQCanvasItem* item;
-	QList<KtlQCanvasItem*> hidden;       // TODO QT3
+	QList<KtlQCanvasItem*> hidden;
 	SortedCanvasItems::iterator end = m_canvasItems.end();
 	for ( SortedCanvasItems::iterator it = m_canvasItems.begin(); it != end; ++it )
 	{
@@ -452,7 +454,7 @@ void KtlQCanvas::addView(KtlQCanvasView* view)
 
 void KtlQCanvas::removeView(KtlQCanvasView* view)
 {
-	m_viewList.removeRef(view);
+    m_viewList.removeAll(view);
 }
 
 void KtlQCanvas::setUpdatePeriod(int ms)
@@ -568,10 +570,14 @@ void KtlQCanvas::update()
 	KtlQCanvasClusterizer clusterizer(m_viewList.count());
 	QList<QRect> doneareas;
 
-	Q3PtrListIterator<KtlQCanvasView> it(m_viewList);   // TODO QT3
-	KtlQCanvasView* view;
-	while( (view=it.current()) != 0 ) {
-		++it;
+	//Q3PtrListIterator<KtlQCanvasView> it(m_viewList);   // 2018.08.14 - see below
+	//KtlQCanvasView* view;
+	//while( (view=it.current()) != 0 ) {
+	//	++it;
+    //
+    for (QList<KtlQCanvasView*>::iterator itView = m_viewList.begin(); itView != m_viewList.end(); ++itView) {
+        KtlQCanvasView* view = *itView;
+
 		QWMatrix wm = view->worldMatrix();
 	
 		QRect area(view->contentsX(),view->contentsY(),
@@ -869,7 +875,9 @@ void KtlQCanvas::drawCanvasArea(const QRect& inarea, QPainter* p, bool double_bu
 
 	trtr -= area.topLeft();
 
-	for (KtlQCanvasView* view=m_viewList.first(); view; view=m_viewList.next()) {
+	for ( QList<KtlQCanvasView*>::iterator itView = m_viewList.begin(); itView != m_viewList.end(); ++itView) {
+        KtlQCanvasView* view = *itView;
+
 		if ( !view->worldMatrix().isIdentity() )
 			continue; // Cannot paint those here (see callers).
 
@@ -1057,12 +1065,12 @@ void KtlQCanvas::setBackgroundColor( const QColor& c )
 {
 	if ( bgcolor != c ) {
 		bgcolor = c;
-		KtlQCanvasView* view=m_viewList.first();
-		while ( view != 0 ) {
+		for (QList<KtlQCanvasView*>::iterator itView = m_viewList.begin(); itView != m_viewList.end(); ++itView) {
+            KtlQCanvasView* view = *itView;
+
 	    /* XXX this doesn't look right. Shouldn't this
 			be more like setBackgroundPixmap? : Ian */
 			view->viewport()->setEraseColor( bgcolor );
-			view=m_viewList.next();
 		}
 		setAllChanged();
 	}
@@ -1088,11 +1096,15 @@ QPixmap KtlQCanvas::backgroundPixmap() const
 void KtlQCanvas::setBackgroundPixmap( const QPixmap& p )
 {
 	setTiles(p, 1, 1, p.width(), p.height());
-	KtlQCanvasView* view = m_viewList.first();
-	while ( view != 0 ) {
-		view->updateContents();
-		view = m_viewList.next();
-	}
+
+    for (QList<KtlQCanvasView*>::iterator itView = m_viewList.begin(); itView != m_viewList.end(); ++itView) {
+        (*itView)->updateContents();
+    }
+	//KtlQCanvasView* view = m_viewList.first();    // 2018.08.14 - see above
+	//while ( view != 0 ) {
+	//	view->updateContents();
+	//	view = m_viewList.next();
+	//}
 }
 
 /*!
