@@ -217,7 +217,7 @@ private:
 
 
 
-class KtlQCanvasPolygonScanner : public KtlQ3PolygonScanner    // TODO QT3
+class KtlQCanvasPolygonScanner : public KtlQ3PolygonScanner
 {
 	KtlQPolygonalProcessor& processor;
 

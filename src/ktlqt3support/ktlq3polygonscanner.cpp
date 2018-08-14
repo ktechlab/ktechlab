@@ -40,7 +40,7 @@
 ****************************************************************************/
 
 #include "ktlq3polygonscanner.h"
-#include "q3pointarray.h"
+#include "qpolygon.h"
 #include <stdlib.h>
 
 QT_BEGIN_NAMESPACE
@@ -729,7 +729,7 @@ miInsertionSort(EdgeTableEntry *AET)
 /*!
     \overload
 */
-void KtlQ3PolygonScanner::scan(const Q3PointArray& pa, bool winding, int index, int npoints)
+void KtlQ3PolygonScanner::scan(const QPolygon& pa, bool winding, int index, int npoints)
 {
     scan(pa, winding, index, npoints, true);
 }
@@ -740,7 +740,7 @@ void KtlQ3PolygonScanner::scan(const Q3PointArray& pa, bool winding, int index, 
     If \a stitchable is false, the right and bottom edges of the
     polygon are included. This causes adjacent polygons to overlap.
 */
-void KtlQ3PolygonScanner::scan(const Q3PointArray& pa, bool winding, int index, int npoints, bool stitchable)
+void KtlQ3PolygonScanner::scan(const QPolygon& pa, bool winding, int index, int npoints, bool stitchable)
 {
     scan(pa, winding, index, npoints,
         stitchable ? Edge(Left+Top) : Edge(Left+Right+Top+Bottom));
@@ -765,7 +765,7 @@ void KtlQ3PolygonScanner::scan(const Q3PointArray& pa, bool winding, int index, 
     \warning The edges feature does not work properly.
 
 */
-void KtlQ3PolygonScanner::scan(const Q3PointArray& pa, bool winding, int index, int npoints, Edge edges)
+void KtlQ3PolygonScanner::scan(const QPolygon& pa, bool winding, int index, int npoints, Edge edges)
 {
 
 

@@ -50,16 +50,16 @@ QT_BEGIN_NAMESPACE
 
 QT_MODULE(Qt3SupportLight)
 
-class Q3PointArray;
+class QPolygon;
 class QPoint;
 
 class Q_COMPAT_EXPORT KtlQ3PolygonScanner {
 public:
     virtual ~KtlQ3PolygonScanner() {}
-    void scan(const Q3PointArray& pa, bool winding, int index=0, int npoints=-1);
-    void scan(const Q3PointArray& pa, bool winding, int index, int npoints, bool stitchable);
+    void scan(const QPolygon& pa, bool winding, int index = 0, int npoints = -1);
+    void scan(const QPolygon& pa, bool winding, int index, int npoints, bool stitchable);
     enum Edge { Left=1, Right=2, Top=4, Bottom=8 };
-    void scan(const Q3PointArray& pa, bool winding, int index, int npoints, Edge edges);
+    void scan(const QPolygon& pa, bool winding, int index, int npoints, KtlQ3PolygonScanner::Edge edges);
     virtual void processSpans(int n, QPoint* point, int* width)=0;
 };
 
