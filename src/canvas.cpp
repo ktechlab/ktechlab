@@ -362,7 +362,7 @@ void KtlQCanvas::resize( const QRect & newSize )
 		return;
 
 	KtlQCanvasItem* item;
-	Q3PtrList<KtlQCanvasItem> hidden;       // TODO QT3
+	QList<KtlQCanvasItem*> hidden;       // TODO QT3
 	SortedCanvasItems::iterator end = m_canvasItems.end();
 	for ( SortedCanvasItems::iterator it = m_canvasItems.begin(); it != end; ++it )
 	{
@@ -380,9 +380,13 @@ void KtlQCanvas::resize( const QRect & newSize )
 	delete [] chunks;
 	chunks=newchunks;
 
-	for (item=hidden.first(); item != 0; item=hidden.next()) {
-		item->show();
-	}
+    for (QList<KtlQCanvasItem*>::iterator itItem = hidden.begin(); itItem != hidden.end(); ++itItem) {
+        KtlQCanvasItem* item = *itItem;
+        item->show();
+    }
+// 	for (item=hidden.first(); item != 0; item=hidden.next()) {  // 2018.08.14 - use QList
+// 		item->show();
+// 	}
 
 	setAllChanged();
 
