@@ -77,6 +77,7 @@ Modifications needed for KF5 port
     - Q3ListView -> QTableWidget
     - fix glitch of reset button disappearing when horiznotally resizing the property editor
     - fix color of text / background in property editor
+    - on 'no item selected', the old properties still remain there
 - Q3ScrollView -> ?
 - Q3Hbox -> QWidget, QHBoxLayout
 - Q3SimpleRichText -> QTextEdit
