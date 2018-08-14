@@ -19,7 +19,8 @@
 #include <klocalizedstring.h>
 
 #include <qcursor.h>
-#include <q3hbox.h>
+//#include <q3hbox.h>
+#include <qboxlayout.h>
 #include <qstringlist.h>
 #include <qtoolbutton.h>
 #include <qevent.h>
@@ -68,11 +69,15 @@ void PropComboBox::hideList()
 PropertyEditorList::PropertyEditorList( QWidget * parent, Property * property, const char * name )
 	: PropertySubEditor( parent, property, name )
 {
-	Q3HBox *box = new Q3HBox(this);     // TODO QT3
+    QWidget *box = new QWidget(this);
+    QHBoxLayout *boxLayout = new QHBoxLayout;
 
 	m_combo = new PropComboBox( box );
 	m_combo->setGeometry(frameGeometry());
-	
+
+    boxLayout->addWidget(m_combo);
+    box->setLayout(boxLayout);
+
 	bool isEditable = false;
 	switch ( property->type() )
 	{

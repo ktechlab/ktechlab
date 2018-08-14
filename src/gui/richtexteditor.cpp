@@ -395,9 +395,12 @@ RichTextEditorDlg::RichTextEditorDlg( QWidget * parent, const QString & caption 
 
 
 	//QVBox * page = makeVBoxMainWidget();
-    Q3VBox * page = new Q3VBox(this);   // TODO QT3
+    QWidget * page = new QWidget(this);
+    QVBoxLayout *pageLayout = new QVBoxLayout;
+    m_pEditor = new RichTextEditor( page );
+    pageLayout->addWidget(m_pEditor);
+    page->setLayout(pageLayout);
     setMainWidget(page);
-	m_pEditor = new RichTextEditor( page );
 }
 //END class RichTextEditorDlg
 
