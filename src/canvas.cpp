@@ -566,8 +566,7 @@ void KtlQCanvas::advance()
 void KtlQCanvas::update()
 {
 	KtlQCanvasClusterizer clusterizer(m_viewList.count());
-	Q3PtrList<QRect> doneareas;     // TODO QT3
-	doneareas.setAutoDelete(true);
+	QList<QRect> doneareas;
 
 	Q3PtrListIterator<KtlQCanvasView> it(m_viewList);   // TODO QT3
 	KtlQCanvasView* view;
@@ -601,7 +600,7 @@ void KtlQCanvas::update()
 					p.translate(tl.x(),tl.y());
 					drawViewArea( view, &p, wm.map(r), true );
 #endif
-					doneareas.append(new QRect(r));
+					doneareas.append(r);
 				}
 			} else clusterizer.add(area);
 		}
@@ -610,8 +609,11 @@ void KtlQCanvas::update()
 	for (int i=0; i<clusterizer.clusters(); i++)
 		drawChanges(clusterizer[i]);
 
-	for ( QRect* r=doneareas.first(); r != 0; r=doneareas.next() )
-		setUnchanged(*r);
+	//for ( QRect* r=doneareas.first(); r != 0; r=doneareas.next() )        // 2018.08.14 - use iterators
+	//	setUnchanged(*r);
+    for (QList<QRect>::iterator itDone = doneareas.begin(); itDone != doneareas.end(); ++itDone) {
+        setUnchanged( *itDone );
+    }
 }
 
 
