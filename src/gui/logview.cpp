@@ -22,7 +22,7 @@
 LogView::LogView( KateMDI::ToolView * parent, const char *name )
 	: KTextEdit( parent /* , name */ )
 {
-    setName(name);
+    setObjectName(name);
 
     if (parent->layout()) {
         parent->layout()->addWidget(this);

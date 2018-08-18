@@ -54,7 +54,7 @@ ILVItem::ILVItem( QTreeWidgetItem *parent, const QString &id )
 ItemSelector::ItemSelector( QWidget *parent, const char *name )
 	: QTreeWidget( parent /*, name */ )
 {
-    setName(name);
+    setObjectName(name);
     qDebug() << Q_FUNC_INFO << " this=" << this;
 
     setDragDropMode(QAbstractItemView::DragOnly);

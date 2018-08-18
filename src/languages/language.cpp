@@ -31,7 +31,7 @@
 Language::Language( ProcessChain *processChain, const QString &name )
 	: QObject( KTechlab::self() /*, name */ )
 {
-    setName(name.latin1());
+    setObjectName(name.latin1());
 	p_processChain = processChain;
 }
 

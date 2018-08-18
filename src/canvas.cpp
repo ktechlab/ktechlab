@@ -1970,7 +1970,7 @@ KtlQCanvasRectangle::KtlQCanvasRectangle(KtlQCanvas* canvas) :
 		KtlQCanvasPolygonalItem(canvas),
     w(32), h(32)
 {
-    setName("KtlQCanvasRectangle");
+    setObjectName("KtlQCanvasRectangle");
     if (isCanvasDebugEnabled()) {
         qDebug() << Q_FUNC_INFO << " this=" << this;
     }
@@ -1981,7 +1981,7 @@ KtlQCanvasRectangle::KtlQCanvasRectangle(const QRect& r, KtlQCanvas* canvas) :
 		KtlQCanvasPolygonalItem(canvas),
     w(r.width()), h(r.height())
 {
-    setName("KtlQCanvasRectangle");
+    setObjectName("KtlQCanvasRectangle");
 	move(r.x(),r.y());
     if (isCanvasDebugEnabled()) {
         qDebug() << Q_FUNC_INFO << " this=" << this;
@@ -1993,7 +1993,7 @@ KtlQCanvasRectangle::KtlQCanvasRectangle(int x, int y, int width, int height, Kt
 	: KtlQCanvasPolygonalItem(canvas),
 	w(width), h(height)
 {
-    setName("KtlQCanvasRectangle");
+    setObjectName("KtlQCanvasRectangle");
 	move(x,y);
     if (isCanvasDebugEnabled()) {
         qDebug() << Q_FUNC_INFO << " this=" << this;

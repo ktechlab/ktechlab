@@ -93,7 +93,7 @@ ToggleToolViewAction::ToggleToolViewAction ( const QString& text, const KShortcu
  : KToggleAction(text /* ,cut */, parent /*,name*/)
  , m_tv(tv)
 {
-    setName(name);
+    setObjectName(name);
     KToggleAction::setShortcut(cut.primary());
 
   connect(this,SIGNAL(toggled(bool)),this,SLOT(slotToggled(bool)));
@@ -246,7 +246,7 @@ Sidebar::Sidebar (KMultiTabBar::KMultiTabBarPosition pos, MainWindow *mainwin, Q
   , m_ownSplit (0)
   , m_lastSize (0)
 {
-  setName(  (QString("Sidebar-%1").arg(pos)).toLatin1().data() );
+  setObjectName(  (QString("Sidebar-%1").arg(pos)).toLatin1().data() );
   setSidebarPosition( pos );
   setFocusPolicy( Qt::NoFocus );
   hide ();
@@ -671,22 +671,22 @@ MainWindow::MainWindow (QWidget* parentWidget, const char* name)
  , m_restoreConfig (0)
  , m_guiClient (new GUIClient (this))
 {
-    setName(name);
+    setObjectName(name);
   // init the internal widgets
   QWidget *hb = new QWidget(this); // Q3HBox (this);
   QHBoxLayout *hbl = new QHBoxLayout;
   hb->setLayout(hbl);
 
-  hb->setName("MainWindow-central-HBox");
+  hb->setObjectName("MainWindow-central-HBox");
   setCentralWidget(hb);
 
   m_sidebars[KMultiTabBar::Left] = new Sidebar (KMultiTabBar::Left, this, hb);
-  m_sidebars[KMultiTabBar::Left]->setName("Main-Left-Sidebar");
+  m_sidebars[KMultiTabBar::Left]->setObjectName("Main-Left-Sidebar");
   hbl->addWidget( m_sidebars[KMultiTabBar::Left] );
 
   m_hSplitter = new Splitter (Qt::Horizontal, hb);
   m_hSplitter->setOpaqueResize( KGlobalSettings::opaqueResize() );
-  m_hSplitter->setName("Main-Left-Splitter");
+  m_hSplitter->setObjectName("Main-Left-Splitter");
   hbl->addWidget( m_hSplitter );
 
   m_sidebars[KMultiTabBar::Left]->setSplitter (m_hSplitter);
@@ -695,15 +695,15 @@ MainWindow::MainWindow (QWidget* parentWidget, const char* name)
   QWidget *vb = new QWidget (m_hSplitter);
   QVBoxLayout *vbl = new QVBoxLayout;
   vb->setLayout(vbl);
-  vb->setName("Main-Center-VBox");
+  vb->setObjectName("Main-Center-VBox");
   m_hSplitter->setCollapsible(vb, false);
 
   m_sidebars[KMultiTabBar::Top] = new Sidebar (KMultiTabBar::Top, this, vb);
-  m_sidebars[KMultiTabBar::Top]->setName("Main-Top-Sidebar");
+  m_sidebars[KMultiTabBar::Top]->setObjectName("Main-Top-Sidebar");
   vbl->addWidget( m_sidebars[KMultiTabBar::Top] );
 
   m_vSplitter = new Splitter (Qt::Vertical, vb);
-  m_vSplitter->setName("Main-Top-Splitter");
+  m_vSplitter->setObjectName("Main-Top-Splitter");
   m_vSplitter->setOpaqueResize( KGlobalSettings::opaqueResize() );
   vbl->addWidget( m_vSplitter );
 
@@ -713,17 +713,17 @@ MainWindow::MainWindow (QWidget* parentWidget, const char* name)
   //m_centralWidget = new Q3VBox (m_vSplitter );
   QVBoxLayout *vbCl = new QVBoxLayout;
   m_centralWidget->setLayout( vbCl );
-  m_centralWidget->setName("Main-Central-Vbox");
+  m_centralWidget->setObjectName("Main-Central-Vbox");
   m_vSplitter->setCollapsible(m_centralWidget, false);
   //vbl->addLayout( vbCl ); // 2016.05.03 - apparently generates a warning about already having a parent
 
   m_sidebars[KMultiTabBar::Bottom] = new Sidebar (KMultiTabBar::Bottom, this, vb);
-  m_sidebars[KMultiTabBar::Bottom]->setName("Main-Bottom-Sidebar");
+  m_sidebars[KMultiTabBar::Bottom]->setObjectName("Main-Bottom-Sidebar");
   m_sidebars[KMultiTabBar::Bottom]->setSplitter (m_vSplitter);
   vbl->addWidget( m_sidebars[KMultiTabBar::Bottom] );
 
   m_sidebars[KMultiTabBar::Right] = new Sidebar (KMultiTabBar::Right, this, hb);
-  m_sidebars[KMultiTabBar::Right]->setName("Main-Right-Sidebar");
+  m_sidebars[KMultiTabBar::Right]->setObjectName("Main-Right-Sidebar");
   m_sidebars[KMultiTabBar::Right]->setSplitter (m_hSplitter);
   hbl->addWidget( m_sidebars[KMultiTabBar::Right] );
 }

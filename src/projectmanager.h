@@ -166,7 +166,7 @@ class ProjectItem : public QObject, public LinkerOptions, public ProcessingOptio
 		void addChild( ProjectItem * child );
 		ProjectItemList children() const { return m_children; }
 		
-		void setName( const QString & name );
+		void setObjectName( const QString & name );
 		QString name() const { return m_name; }
 		
 		/**

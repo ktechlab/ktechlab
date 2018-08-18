@@ -51,7 +51,7 @@ PinNode::PinNode(ICNDocument* icnDocument, int dir, const QPoint& pos, QString* 
     } else {
         name.append("-Unknown");
     }
-    setName( name.toLatin1().data() );
+    setObjectName( name.toLatin1().data() );
 
 	m_pinPoint = new KtlQCanvasRectangle( 0, 0, 3, 3, canvas() );
 	m_pinPoint->setBrush(Qt::black);

@@ -25,7 +25,7 @@ JunctionNode::JunctionNode(ICNDocument* icnDocument, int dir, const QPoint& pos,
     } else {
         name.append("-Unknown");
     }
-    setName( name.toLatin1().data() );
+    setObjectName( name.toLatin1().data() );
 }
 
 

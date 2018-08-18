@@ -58,7 +58,7 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
 	//BEGIN Convert To * Actions
 	//KToolBarPopupAction * pa = new KToolBarPopupAction( i18n("Convert to"), "fork", 0, 0, 0, ac, "program_convert" );
     KToolBarPopupAction * pa = new KToolBarPopupAction( KIcon("fork"), i18n("Convert To"), ac);
-    pa->setName("program_convert");
+    pa->setObjectName("program_convert");
 	pa->setDelayed(false);
     ac->addAction("program_convert", pa);
 	
@@ -78,7 +78,7 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
     {
 	//new KAction( i18n("Format Assembly Code"), "", Qt::Key_F12, textDocument, SLOT(formatAssembly()), ac, "format_asm" );
         KAction *action = new KAction( KIcon(""), i18n("Format Assembly Code"), ac);
-        action->setName("format_asm");
+        action->setObjectName("format_asm");
         action->setShortcut(Qt::Key_F12);
         connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(formatAssembly()));
         ac->addAction("format_asm", action);
@@ -90,35 +90,35 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
 	{
 	//new KAction( i18n("Set &Breakpoint"), 0, 0, this, SLOT(toggleBreakpoint()), ac, "debug_toggle_breakpoint" );
         KAction *action = new KAction( KIcon(""), i18n("Set &Breakpoint"), ac);
-        action->setName("debug_toggle_breakpoint");
+        action->setObjectName("debug_toggle_breakpoint");
         connect(action, SIGNAL(triggered(bool)), this, SLOT(toggleBreakpoint()));
         ac->addAction("debug_toggle_breakpoint", action);
     }
     {
 	//new KAction( i18n("Run"), "debug-run", 0, textDocument, SLOT(debugRun()), ac, "debug_run" );
         KAction *action = new KAction( KIcon("debug-run"), i18n("Run"), ac);
-        action->setName("debug_run");
+        action->setObjectName("debug_run");
         connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(debugRun()));
         ac->addAction("debug_run", action);
     }
     {
 	//new KAction( i18n("Interrupt"), "media-playback-pause", 0, textDocument, SLOT(debugInterrupt()), ac, "debug_interrupt" );
         KAction *action = new KAction( KIcon("media-playback-pause"), i18n("Interrupt"), ac);
-        action->setName("debug_interrupt");
+        action->setObjectName("debug_interrupt");
         connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(debugInterrupt()));
         ac->addAction("debug_interrupt", action);
     }
     {
 	//new KAction( i18n("Stop"), "process-stop", 0, textDocument, SLOT(debugStop()), ac, "debug_stop" );
         KAction *action = new KAction( KIcon("process-stop"), i18n("Stop"), ac);
-        action->setName("debug_stop");
+        action->setObjectName("debug_stop");
         connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(debugStop()));
         ac->addAction("debug_stop", action);
     }
     {
 	//new KAction( i18n("Step"), "debug-step-instruction", Qt::CTRL|Qt::ALT|Qt::Key_Right, textDocument, SLOT(debugStep()), ac, "debug_step" );
         KAction *action = new KAction( KIcon("debug-step-instruction"), i18n("Step"), ac);
-        action->setName("debug_step");
+        action->setObjectName("debug_step");
         action->setShortcut(Qt::CTRL|Qt::ALT|Qt::Key_Right);
         connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(debugStep()));
         ac->addAction("debug_step", action);
@@ -126,14 +126,14 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
     {
 	//new KAction( i18n("Step Over"), "debug-step-over", 0, textDocument, SLOT(debugStepOver()), ac, "debug_step_over" );
         KAction *action = new KAction( KIcon("debug-step-over"), i18n("Step Over"), ac);
-        action->setName("debug_step_over");
+        action->setObjectName("debug_step_over");
         connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(debugStepOver()));
         ac->addAction("debug_step_over", action);
     }
     {
 	//new KAction( i18n("Step Out"), "debug-step-out", 0, textDocument, SLOT(debugStepOut()), ac, "debug_step_out" );
         KAction *action = new KAction( KIcon("debug-step-out"), i18n("Step Out"), ac);
-        action->setName("debug_step_out");
+        action->setObjectName("debug_step_out");
         connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(debugStepOut()));
         ac->addAction("debug_step_out", action);
     }

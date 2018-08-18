@@ -85,7 +85,7 @@ OutputMethodDlg::OutputMethodDlg( const QString &caption, const KUrl & inputURL,
 	: // KDialog( parent, name, true, caption, Ok|Cancel )
 	KDialog( parent ) //, name, true, caption, Ok|Cancel )
 {
-    setName(name);
+    setObjectName(name);
     setModal(true);
     setCaption(caption);
     setButtons(KDialog::Ok | KDialog::Cancel);

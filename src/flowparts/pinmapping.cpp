@@ -55,7 +55,7 @@ PinMapEditor::PinMapEditor( PinMapping * pinMapping, MicroInfo * picInfo, QWidge
 	: //KDialog( parent, name, true, i18n("Pin Map Editor"), Ok|Apply|Cancel, KDialog::Ok, true )
 	  KDialog( parent ) //, name, true, i18n("Pin Map Editor"), Ok|Apply|Cancel, KDialog::Ok, true )
 {
-    setName(name);
+    setObjectName(name);
     setModal(true);
     setCaption(i18n("Pin Map Editor"));
     setButtons(KDialog::Ok | KDialog::Apply | KDialog::Cancel);

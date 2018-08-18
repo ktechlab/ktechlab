@@ -22,7 +22,7 @@
 RecentFilesAction::RecentFilesAction( const QString & configGroupName, const QString& text, const QObject* receiver, const char* slot, QObject* parent, const char* name )
 	: KSelectAction( text /*, 0*/ /*pix*/, parent /*, name */ )
 {
-    setName(name);
+    setObjectName(name);
 
 	m_configGroupName = configGroupName;
 	m_maxItems = 10;

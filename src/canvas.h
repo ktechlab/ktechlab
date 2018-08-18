@@ -240,7 +240,7 @@ class KtlQCanvasView : public Q3ScrollView  // TODO QT3 QScrollArea
 	Q_OBJECT
 	public:
 
-		KtlQCanvasView(QWidget* parent=0, const char* name=0, Qt::WFlags f=0);
+		KtlQCanvasView(QWidget* parent=0, const char* name=0, Qt::WFlags f=0); // 2018.08.15 - unused?
 		KtlQCanvasView(KtlQCanvas* viewing, QWidget* parent=0, const char* name=0, Qt::WFlags f=0);
 		~KtlQCanvasView();
 

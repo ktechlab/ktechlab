@@ -27,7 +27,7 @@ FlowCodeView::FlowCodeView( FlowCodeDocument * flowCodeDocument, ViewContainer *
 	//BEGIN Convert To * Actions
 	//KToolBarPopupAction * pa = new KToolBarPopupAction( i18n("Convert to..."), "fork", 0, 0, 0, ac, "program_convert" );
     KToolBarPopupAction * pa = new KToolBarPopupAction( KIcon("fork"), i18n("Convert to..."), ac);
-    pa->setName( "program_convert" );
+    pa->setObjectName( "program_convert" );
 	pa->setDelayed(false);
 	
 	QMenu * m = pa->menu();

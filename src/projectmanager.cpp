@@ -292,7 +292,7 @@ void ProjectItem::updateControlChildMicroIDs()
 }
 
 
-void ProjectItem::setName( const QString & name )
+void ProjectItem::setObjectName( const QString & name )
 {
 	m_name = name;
 	if (m_pILVItem)
@@ -305,7 +305,7 @@ void ProjectItem::setURL( const KUrl & url )
 	m_url = url;
 	
 	if ( m_name.isEmpty() )
-		setName( url.fileName() );
+		setObjectName( url.fileName() );
 	
 	if ( type() != FileType )
 	{
@@ -729,7 +729,7 @@ void ProjectItem::domElementToItem( const QDomElement & element, const KUrl & ba
 	KUrl url( baseURL, element.attribute( "url", QString::null ) );
 	
 	ProjectItem * createdItem = new ProjectItem( this, type, m_pProjectManager );
-	createdItem->setName( name );
+	createdItem->setObjectName( name );
 	createdItem->setURL( url );
 	
 	addChild( createdItem );
@@ -935,7 +935,7 @@ void ProjectManager::slotNewProject()
 	if ( newProjectDlg->accepted() )
 	{
 		m_pCurrentProject = new ProjectInfo( this );
-		m_pCurrentProject->setName( newProjectDlg->projectName() );
+		m_pCurrentProject->setObjectName( newProjectDlg->projectName() );
 		m_pCurrentProject->setURL( newProjectDlg->location() + m_pCurrentProject->name().lower() + ".ktechlab" );
 		
         QDir dir;

@@ -205,7 +205,7 @@ void KTechlab::setupToolDocks()
 						 KMultiTabBar::Left,
 						 loader->loadIcon( "attach", KIconLoader::Small ),
 						 i18n("Project") );
-    tv->setName("ProjectManager-ToolView");
+    tv->setObjectName("ProjectManager-ToolView");
 	ProjectManager::self( tv );
 	
 	pm.load( KStandardDirs::locate( "appdata", "icons/circuit.png" ) );
@@ -213,7 +213,7 @@ void KTechlab::setupToolDocks()
 						 KMultiTabBar::Left,
 						 pm,
 						 i18n("Components") );
-    tv->setName("ComponentSelector-ToolView");
+    tv->setObjectName("ComponentSelector-ToolView");
 	ComponentSelector::self(tv);
 	
 	// Create an instance of the subcircuits interface, now that we have created the component selector
@@ -225,7 +225,7 @@ void KTechlab::setupToolDocks()
 						 KMultiTabBar::Left,
 						 pm,
 						 i18n("Flow Parts") );
-    tv->setName("FlowPartSelector-ToolView");
+    tv->setObjectName("FlowPartSelector-ToolView");
 	FlowPartSelector::self(tv);
 	
 #ifdef MECHANICS
@@ -234,7 +234,7 @@ void KTechlab::setupToolDocks()
 						 KMultiTabBar::Left,
 						 pm,
 						 i18n("Mechanics") );
-    tv->setName("MechanicsSelector-ToolView");
+    tv->setObjectName("MechanicsSelector-ToolView");
 	MechanicsSelector::self(tv);
 #endif
 	
@@ -243,21 +243,21 @@ void KTechlab::setupToolDocks()
 						 KMultiTabBar::Right,
 						 pm,
 						 i18n("Item Editor") );
-    tv->setName("ItemEditor-ToolView");
+    tv->setObjectName("ItemEditor-ToolView");
 	ItemEditor::self(tv);
 	
 	tv = createToolView( ContextHelp::toolViewIdentifier(),
 						 KMultiTabBar::Right,
 						 loader->loadIcon( "help-contents", KIconLoader::Small ),
 						 i18n("Context Help") );
-    tv->setName("ContextHelp-ToolView");
+    tv->setObjectName("ContextHelp-ToolView");
 	ContextHelp::self(tv);
 	
 	tv = createToolView( LanguageManager::toolViewIdentifier(),
 						 KMultiTabBar::Bottom,
 						 loader->loadIcon( "utilities-log-viewer", KIconLoader::Small ),
 						 i18n("Messages") );
-    tv->setName("LanguageManager-ToolView");
+    tv->setObjectName("LanguageManager-ToolView");
 	LanguageManager::self( tv );
 	
 #ifndef NO_GPSIM
@@ -265,7 +265,7 @@ void KTechlab::setupToolDocks()
 						 KMultiTabBar::Right,
 						 loader->loadIcon( "blockdevice", KIconLoader::Small ),
 						 i18n("Symbol Viewer") );
-    tv->setName("SymbolViewer-ToolView");
+    tv->setObjectName("SymbolViewer-ToolView");
 	SymbolViewer::self(tv);
 #endif
 	
@@ -276,7 +276,7 @@ void KTechlab::setupToolDocks()
 	                     KMultiTabBar::Bottom,
 	                     loader->loadIcon( "oscilloscope", KIconLoader::Small ),
 	                     i18n("Scope Screen (Very Rough)") );
-    tv->setName("ScopeScreen-ToolView");
+    tv->setObjectName("ScopeScreen-ToolView");
 	ScopeScreen::self( tv );
 #endif
 
@@ -509,7 +509,7 @@ void KTechlab::setupActions()
                                                      KIcon("document-new"),
                                                      i18n("&New"),
                                                      ac);
-    p->setName("file_new");
+    p->setObjectName("file_new");
     p->setShortcut( KStandardShortcut::shortcut(KStandardShortcut::New) );
     connect(p, SIGNAL(triggered(bool)), this, SLOT(slotFileNew()));
     ac->addAction("file_new", p);
@@ -517,7 +517,7 @@ void KTechlab::setupActions()
     {
         //(new KAction( i18n("Assembly"), "source", 0, this, SLOT(slotFileNewAssembly()), ac, "newfile_asm" ))->plug( p->menu() );
         KAction *a = new KAction( KIcon("source"),  i18n("Assembly"), ac);
-        a->setName("newfile_asm");
+        a->setObjectName("newfile_asm");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotFileNewAssembly()));
         p->menu()->addAction(a);
         ac->addAction("newfile_asm", a);
@@ -525,7 +525,7 @@ void KTechlab::setupActions()
     {
         //(new KAction( i18n("C source"), "text-x-csrc", 0, this, SLOT(slotFileNewC()), ac, "newfile_c" ))->plug( p->menu() );
         KAction *a = new KAction( KIcon("text-x-csrc"), i18n("C source"), ac);
-        a->setName("newfile_c");
+        a->setObjectName("newfile_c");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotFileNewC()));
         p->menu()->addAction(a);
         ac->addAction("newfile_c", a);
@@ -533,7 +533,7 @@ void KTechlab::setupActions()
     {
         //(new KAction( i18n("Circuit"), "application-x-circuit", 0, this, SLOT(slotFileNewCircuit()), ac, "newfile_circuit" ))->plug( p->menu() );
         KAction *a = new KAction( KIcon("application-x-circuit"), i18n("Circuit"), ac);
-        a->setName("newfile_circuit");
+        a->setObjectName("newfile_circuit");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotFileNewCircuit()));
         p->menu()->addAction(a);
         ac->addAction("newfile_circuit", a);
@@ -541,7 +541,7 @@ void KTechlab::setupActions()
     {
         //(new KAction( i18n("FlowCode"), "application-x-flowcode", 0, this, SLOT(slotFileNewFlowCode()), ac, "newfile_flowcode" ))->plug( p->menu() );
         KAction *a = new KAction( KIcon("application-x-flowcode"), i18n("FlowCode"), ac);
-        a->setName("newfile_flowcode");
+        a->setObjectName("newfile_flowcode");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotFileNewFlowCode()));
         p->menu()->addAction(a);
         ac->addAction("newfile_flowcode", a);
@@ -550,7 +550,7 @@ void KTechlab::setupActions()
     {
         //(new KAction( i18n("Mechanics"), "ktechlab_mechanics", 0, this, SLOT(slotFileNewMechanics()), ac, "newfile_mechanics" ))->plug( p->menu() );
         KAction *a = new KAction( KIcon("" /* "ktechlab_mechanics" -- for the future */), i18n("Mechanics"), ac);
-        a->setName("newfile_mechanics");
+        a->setObjectName("newfile_mechanics");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotFileNewMechanics()));
         p->menu()->addAction(a);
         ac->addAction("newfile_mechanics", a);
@@ -559,7 +559,7 @@ void KTechlab::setupActions()
     {
         //(new KAction( "Microbe", "application-x-microbe", 0, this, SLOT(slotFileNewMicrobe()), ac, "newfile_microbe" ))->plug( p->menu() );
         KAction *a = new KAction( KIcon("application-x-microbe"), i18n("Microbe"), ac);
-        a->setName("newfile_microbe");
+        a->setObjectName("newfile_microbe");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotFileNewMicrobe()));
         p->menu()->addAction(a);
         ac->addAction("newfile_microbe", a);
@@ -579,14 +579,14 @@ void KTechlab::setupActions()
     {
 	//new KAction( i18n("New Project..."), "window-new",			0, pm, SLOT(slotNewProject()),			ac, 	"project_new" );
         KAction *a = new KAction( KIcon("window-new"), i18n("New Project..."), ac);
-        a->setName("project_new");
+        a->setObjectName("project_new");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotNewProject()));
         ac->addAction("project_new", a);
     }
     {
 	//new KAction( i18n("Open Project..."), "project-open",		0, pm, SLOT(slotOpenProject()),			ac, 	"project_open" );
         KAction *a = new KAction( KIcon("project-open"), i18n("Open Project..."), ac);
-        a->setName("project_open");
+        a->setObjectName("project_open");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotOpenProject()));
         ac->addAction("project_open", a);
     }
@@ -599,28 +599,28 @@ void KTechlab::setupActions()
     {
 	//new KAction( i18n("Export to Makefile..."), "document-export",	0, pm, SLOT(slotExportToMakefile()),		ac, "project_export_makefile" );
         KAction *a = new KAction( KIcon("document-export"), i18n("Export to Makefile..."), ac);
-        a->setName("project_export_makefile");
+        a->setObjectName("project_export_makefile");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotExportToMakefile()));
         ac->addAction("project_export_makefile", a);
     }
     {
 	//new KAction( i18n("Create Subproject..."), 0,				0, pm, SLOT(slotCreateSubproject()),		ac, "project_create_subproject" );
         KAction *a = new KAction( KIcon(""), i18n("Create Subproject..."), ac);
-        a->setName("project_create_subproject");
+        a->setObjectName("project_create_subproject");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotCreateSubproject()));
         ac->addAction("project_create_subproject", a);
     }
     {
 	//new KAction( i18n("Add Existing File..."), "document-open",		0, pm, SLOT(slotAddFile()),					ac, "project_add_existing_file" );
         KAction *a = new KAction( KIcon("document-open"), i18n("Add Existing File..."), ac);
-        a->setName("project_add_existing_file");
+        a->setObjectName("project_add_existing_file");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotAddFile()));
         ac->addAction("project_add_existing_file", a);
     }
     {
 	//new KAction( i18n("Add Current File..."), "document-import",		0, pm, SLOT(slotAddCurrentFile()),			ac, "project_add_current_file" );
         KAction *a = new KAction( KIcon("document-import"), i18n("Add Current File..."), ac);
-        a->setName("project_add_current_file");
+        a->setObjectName("project_add_current_file");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotAddCurrentFile()));
         ac->addAction("project_add_current_file", a);
     }
@@ -629,56 +629,56 @@ void KTechlab::setupActions()
     {
 	//new KAction( i18n("Close Project"), "window-close",			0, pm, SLOT(slotCloseProject()),			ac, "project_close" );
         KAction *a = new KAction( KIcon("window-close"), i18n("Close Project"), ac);
-        a->setName("project_close");
+        a->setObjectName("project_close");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotCloseProject()));
         ac->addAction("project_close", a);
     }
     {
 	//new KAction( i18n("Remove from Project"), "edit-delete",		0, pm, SLOT(slotRemoveSelected()),			ac, "project_remove_selected" );
         KAction *a = new KAction( KIcon("edit-delete"), i18n("Remove from Project"), ac);
-        a->setName("project_remove_selected");
+        a->setObjectName("project_remove_selected");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotRemoveSelected()));
         ac->addAction("project_remove_selected", a);
     }
     {
 	//new KAction( i18n("Insert Existing File..."), "document-open",	0, pm, SLOT(slotSubprojectAddExistingFile()),	ac, "subproject_add_existing_file" );
         KAction *a = new KAction( KIcon("document-open"), i18n("Insert Existing File..."), ac);
-        a->setName("subproject_add_existing_file");
+        a->setObjectName("subproject_add_existing_file");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotSubprojectAddExistingFile()));
         ac->addAction("subproject_add_existing_file", a);
     }
     {
 	//new KAction( i18n("Insert Current File..."), "document-import",	0, pm, SLOT(slotSubprojectAddCurrentFile()),ac, "subproject_add_current_file" );
         KAction *a = new KAction( KIcon("document-import"), i18n("Insert Current File..."), ac);
-        a->setName("subproject_add_current_file");
+        a->setObjectName("subproject_add_current_file");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotSubprojectAddCurrentFile()));
         ac->addAction("subproject_add_current_file", a);
     }
     {
 	//new KAction( i18n("Linker Options..."), "configure",		0, pm, SLOT(slotSubprojectLinkerOptions()),	ac, "project_item_linker_options" );
         KAction *a = new KAction( KIcon("configure"), i18n("Linker Options..."), ac);
-        a->setName("project_item_linker_options");
+        a->setObjectName("project_item_linker_options");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotSubprojectLinkerOptions()));
         ac->addAction("project_item_linker_options", a);
     }
     {
 	//new KAction( i18n("Build..."), "launch",					0, pm, SLOT(slotItemBuild()),				ac, "project_item_build" );
         KAction *a = new KAction( KIcon("run-build"), i18n("Build..."), ac);
-        a->setName("project_item_build");
+        a->setObjectName("project_item_build");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotItemBuild()));
         ac->addAction("project_item_build", a);
     }
     {
 	//new KAction( i18n("Upload..."), "convert_to_pic",			0, pm, SLOT(slotItemUpload()),				ac, "project_item_upload" );
         KAction *a = new KAction( KIcon("convert_to_pic"), i18n("Upload..."), ac);
-        a->setName("project_item_upload");
+        a->setObjectName("project_item_upload");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotItemUpload()));
         ac->addAction("project_item_upload", a);
     }
     {
 	//new KAction( i18n("Processing Options..."), "configure",	0, pm, SLOT(slotItemProcessingOptions()),	ac, "project_item_processing_options" );
         KAction *a = new KAction( KIcon("configure"), i18n("Processing Options..."), ac);
-        a->setName("project_item_processing_options");
+        a->setObjectName("project_item_processing_options");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotItemProcessingOptions()));
         ac->addAction("project_item_processing_options", a);
     }
@@ -687,14 +687,14 @@ void KTechlab::setupActions()
 	{
 	//new KAction( i18n("Split View Left/Right"), "view-split-left-right", Qt::CTRL|Qt::SHIFT|Qt::Key_L, this, SLOT(slotViewSplitLeftRight()), ac, "view_split_leftright" );
         KAction *a = new KAction( KIcon("view-split-left-right"), i18n("Split View Left/Right"), ac);
-        a->setName("view_split_leftright");
+        a->setObjectName("view_split_leftright");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotViewSplitLeftRight()));
         ac->addAction("view_split_leftright", a);
     }
     {
 	//new KAction( i18n("Split View Top/Bottom"), "view-split-top-bottom", Qt::CTRL|Qt::SHIFT|Qt::Key_T, this, SLOT(slotViewSplitTopBottom()), ac, "view_split_topbottom" );
         KAction *a = new KAction( KIcon("view-split-top-bottom"), i18n("Split View Top/Bottom"), ac);
-        a->setName("view_split_topbottom");
+        a->setObjectName("view_split_topbottom");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotViewSplitTopBottom()));
         ac->addAction("view_split_topbottom", a);
     }
@@ -702,7 +702,7 @@ void KTechlab::setupActions()
 	//KToggleAction * ta = new KToggleAction( i18n("Run Simulation"), "media-playback-start", Qt::Key_F10, 0, 0, ac, "simulation_run" );
         KToggleAction * ta = new KToggleAction( KIcon("media-playback-start"), i18n("Run Simulation"), ac);
         ta->setShortcut( Qt::Key_F10 );
-        ta->setName( "simulation_run" );
+        ta->setObjectName( "simulation_run" );
         ta->setChecked(true);
         connect( ta, SIGNAL(toggled(bool )), Simulator::self(), SLOT(slotSetSimulating(bool )) );
 		ta->setCheckedState( KGuiItem( i18n("Pause Simulation"), "media-playback-pause", 0 ) );

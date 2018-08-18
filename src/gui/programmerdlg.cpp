@@ -34,7 +34,7 @@ class ProgrammerWidget : public QWidget, public Ui::ProgrammerWidget {
 ProgrammerDlg::ProgrammerDlg( const QString & picID, QWidget *parent, const char *name )
 	: KDialog( parent ) // , name, true, i18n("PIC Programmer"), Ok|Cancel )
 {
-    setName(name);
+    setObjectName(name);
     setModal(true);
     setCaption(i18n("PIC Programmer"));
     setButtons(Ok|Cancel);

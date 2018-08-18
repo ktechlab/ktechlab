@@ -12,14 +12,14 @@
 LineEdit::LineEdit( QWidget * parent, const char * name )
 	: KLineEdit( parent )
 {
-    setName( name );
+    setObjectName( name );
 }
 
 
 LineEdit::LineEdit( const QString & text, QWidget * parent, const char * name )
 	: KLineEdit( text, parent )
 {
-    setName( name );
+    setObjectName( name );
 }
 
 

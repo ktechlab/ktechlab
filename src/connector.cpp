@@ -39,7 +39,7 @@ Connector::Connector(Node * /*startNode*/, Node * /*endNode*/, ICNDocument *icnD
     } else {
         name.append("-Unknown");
     }
-    setName(name.toLatin1().data());
+    setObjectName(name.toLatin1().data());
     qDebug() << Q_FUNC_INFO << " this=" << this;
 
 	m_currentAnimationOffset = 0.0;

@@ -45,7 +45,7 @@ NewProjectDlg::NewProjectDlg( QWidget * parent )
 	: // KDialog( parent, "newprojectdlg", true, "New Project", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
       KDialog( parent ) //, "newprojectdlg", true, "New Project", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
 {
-    setName("newprojectdlg");
+    setObjectName("newprojectdlg");
     setModal(true);
     setCaption(i18n("New Project"));
     setButtons(KDialog::Ok | KDialog::Cancel);
@@ -121,7 +121,7 @@ CreateSubprojectDlg::CreateSubprojectDlg( QWidget * parent )
 	: // KDialog( parent, "Create Subproject Dialog", true, "Create Subproject", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
 	KDialog( parent ) // , "Create Subproject Dialog", true, "Create Subproject", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
 {
-    setName("Create Subproject Dialog");
+    setObjectName("Create Subproject Dialog");
     setModal(true);
     setCaption(i18n("Create Subproject"));
     setButtons(KDialog::Ok|KDialog::Cancel);
@@ -175,7 +175,7 @@ LinkerOptionsDlg::LinkerOptionsDlg( LinkerOptions * linkingOptions, QWidget *par
 	: // KDialog( parent, "Linker Options Dialog", true, "Linker Options", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
 	KDialog( parent) //, "Linker Options Dialog", true, "Linker Options", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
 {
-    setName("Linker Options Dialog");
+    setObjectName("Linker Options Dialog");
     setModal(true);
     setCaption(i18n("Linker Options"));
     setButtons(KDialog::Ok|KDialog::Cancel);
@@ -281,7 +281,7 @@ ProcessingOptionsDlg::ProcessingOptionsDlg( ProjectItem * projectItem, QWidget *
 	: // KDialog( parent, "Processing Options Dialog", true, "Processing Options", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
 	KDialog( parent ) // , "Processing Options Dialog", true, "Processing Options", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
 {
-    setName("Processing Options Dialog");
+    setObjectName("Processing Options Dialog");
     setModal(true);
     setCaption(i18n("Processing Options"));
     setButtons(KDialog::Ok|KDialog::Cancel);

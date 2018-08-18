@@ -30,7 +30,7 @@ Node::Node( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoin
     } else {
         name.append("-Unknown");
     }
-    setName(name.toLatin1().data());
+    setObjectName(name.toLatin1().data());
     qDebug() << Q_FUNC_INFO << " this=" << this;
 
 	m_length = 8;

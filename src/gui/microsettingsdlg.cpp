@@ -50,7 +50,7 @@ MicroSettingsDlg::MicroSettingsDlg( MicroSettings * microSettings, QWidget *pare
 	//KDialog( parent, name, true, i18n("PIC Settings"), KDialog::Ok|KDialog::Apply|KDialog::Cancel, KDialog::Ok, true )
     KDialog( parent /*, name, true, i18n("PIC Settings"), KDialog::Ok|KDialog::Apply|KDialog::Cancel, KDialog::Ok, true */ )
 {
-    setName(name);
+    setObjectName(name);
     setModal(true);
     setCaption(i18n("PIC Settings"));
     setButtons(KDialog::Ok | KDialog::Apply | KDialog::Cancel);
@@ -251,7 +251,7 @@ void MicroSettingsDlg::slotCreatePinMap()
 {
 	//m_pNewPinMappingDlg = new KDialog( this, "New Pin Mapping Dlg", true, i18n("New Pin Mapping"), Ok | Cancel );
     m_pNewPinMappingDlg = new KDialog( this);
-    m_pNewPinMappingDlg->setName( "New Pin Mapping Dlg" );
+    m_pNewPinMappingDlg->setObjectName( "New Pin Mapping Dlg" );
     m_pNewPinMappingDlg->setModal( true );
     m_pNewPinMappingDlg->setCaption(i18n("New Pin Mapping"));
     m_pNewPinMappingDlg->setButtons( KDialog::Ok | KDialog::Cancel );

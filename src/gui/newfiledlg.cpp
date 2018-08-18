@@ -46,7 +46,7 @@ NewFileDlg::NewFileDlg( QWidget *parent )
     //KDialog( parent, "newfiledlg", true, "New File", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
     KDialog( parent ) // , "newfiledlg", true, "New File", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
 {
-    setName("newfiledlg");
+    setObjectName("newfiledlg");
     setModal(true);
     setCaption(i18n("New File"));
     setButtons(KDialog::Ok | KDialog::Cancel);

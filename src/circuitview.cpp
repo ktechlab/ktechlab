@@ -29,7 +29,7 @@ CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *view
     {
 	//new KAction( "Dump linear equations", Qt::CTRL|Qt::Key_D, circuitDocument, SLOT(displayEquations()), ac, "dump_les" );
         KAction * a = new KAction( i18n("Dump linear equations"), ac);
-        a->setName("dump_les");
+        a->setObjectName("dump_les");
         a->setShortcut(Qt::CTRL | Qt::Key_D);
         connect(a, SIGNAL(triggered(bool)), circuitDocument, SLOT(displayEquations()));
         ac->addAction("dump_les", a);
@@ -41,7 +41,7 @@ CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *view
 	//ra = new KAction( i18n("0 Degrees"), "", 0, circuitDocument, SLOT(setOrientation0()), ac, "edit_orientation_0" );
 	// ra->setExclusiveGroup("orientation"); // TODO test
         KAction *ra = new KAction( KIcon(""), i18n("0 Degrees"), ac);
-        ra->setName("edit_orientation_0");
+        ra->setObjectName("edit_orientation_0");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(setOrientation0()));
         ac->addAction("edit_orientation_0", ra);
         ra->setChecked(true);
@@ -50,7 +50,7 @@ CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *view
 	//ra = new KAction( i18n("90 Degrees"), "", 0, circuitDocument, SLOT(setOrientation90()), ac, "edit_orientation_90" );
 	// ra->setExclusiveGroup("orientation"); // TODO test
         KAction *ra = new KAction( KIcon(""), i18n("90 Degrees"), ac);
-        ra->setName("edit_orientation_90");
+        ra->setObjectName("edit_orientation_90");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(setOrientation90()));
         ac->addAction("edit_orientation_90", ra);
     }
@@ -58,7 +58,7 @@ CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *view
 	//ra = new KAction( i18n("180 Degrees"), "", 0, circuitDocument, SLOT(setOrientation180()), ac, "edit_orientation_180" );
 	//ra->setExclusiveGroup("orientation"); // TODO test
         KAction *ra = new KAction( KIcon(""), i18n("180 Degrees"), ac);
-        ra->setName("edit_orientation_180");
+        ra->setObjectName("edit_orientation_180");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(setOrientation180()));
         ac->addAction("edit_orientation_180", ra);
     }
@@ -66,7 +66,7 @@ CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *view
 	//ra =new KAction( i18n("270 Degrees"), "", 0, circuitDocument, SLOT(setOrientation270()), ac, "edit_orientation_270" );
 	//ra->setExclusiveGroup("orientation"); // TODO test
         KAction *ra = new KAction( KIcon(""), i18n("270 Degrees"), ac);
-        ra->setName("edit_orientation_270");
+        ra->setObjectName("edit_orientation_270");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(setOrientation270()));
         ac->addAction("edit_orientation_270", ra);
     }
@@ -74,35 +74,35 @@ CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *view
     {
 	//new KAction( i18n("Create Subcircuit"), "", 0, circuitDocument, SLOT(createSubcircuit()), ac, "circuit_create_subcircuit" );
         KAction *ra = new KAction( KIcon(""), i18n("Create Subcircuit"), ac);
-        ra->setName("circuit_create_subcircuit");
+        ra->setObjectName("circuit_create_subcircuit");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(createSubcircuit()));
         ac->addAction("circuit_create_subcircuit", ra);
     }
     {
 	//new KAction( i18n("Rotate Clockwise"), "object-rotate-right", "]", circuitDocument, SLOT(rotateClockwise()), ac, "edit_rotate_cw" );
         KAction *ra = new KAction( KIcon("object-rotate-right"), i18n("Rotate Clockwise"), ac);
-        ra->setName("edit_rotate_cw");
+        ra->setObjectName("edit_rotate_cw");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(rotateClockwise()));
         ac->addAction("edit_rotate_cw", ra);
     }
     {
 	//new KAction( i18n("Rotate Counter-Clockwise"), "object-rotate-left", "[", circuitDocument, SLOT(rotateCounterClockwise()), ac, "edit_rotate_ccw" );
         KAction *ra = new KAction( KIcon("object-rotate-left"), i18n("Rotate Counter-Clockwise"), ac);
-        ra->setName("edit_rotate_ccw");
+        ra->setObjectName("edit_rotate_ccw");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(rotateCounterClockwise()));
         ac->addAction("edit_rotate_ccw", ra);
     }
     {
 	//new KAction( i18n("Flip Horizontally"), "", 0, circuitDocument, SLOT(flipHorizontally()), ac, "edit_flip_horizontally" );
         KAction *ra = new KAction( KIcon("object-flip-horizontal"), i18n("Flip Horizontally"), ac);
-        ra->setName("edit_flip_horizontally");
+        ra->setObjectName("edit_flip_horizontally");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(flipHorizontally()));
         ac->addAction("edit_flip_horizontally", ra);
     }
     {
 	//new KAction( i18n("Flip Vertically"), "", 0, circuitDocument, SLOT(flipVertically()), ac, "edit_flip_vertically" );
         KAction *ra = new KAction( KIcon("object-flip-vertical"), i18n("Flip Vertically"), ac);
-        ra->setName("edit_flip_vertically");
+        ra->setObjectName("edit_flip_vertically");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(flipVertically()));
         ac->addAction("edit_flip_vertically", ra);
     }

@@ -32,7 +32,7 @@ ICNView::ICNView( ICNDocument *icnDocument, ViewContainer *viewContainer, uint v
 	// These actions get inserted into the main menu
 	//m_pAutoRoutingAction = new KAction( i18n("Automatic"), "", 0, this, SLOT(slotSetRoutingAuto()), ac, "routing_mode_auto" );
     m_pAutoRoutingAction = new KAction( i18n("Automatic"), ac);
-    m_pAutoRoutingAction->setName("routing_mode_auto");
+    m_pAutoRoutingAction->setObjectName("routing_mode_auto");
     connect(m_pAutoRoutingAction, SIGNAL(triggered(bool)), this, SLOT(slotSetRoutingAuto()));
     ac->addAction("routing_mode_auto", m_pAutoRoutingAction);
 	//m_pAutoRoutingAction->setExclusiveGroup("routing_mode");// TODO TEST
@@ -41,7 +41,7 @@ ICNView::ICNView( ICNDocument *icnDocument, ViewContainer *viewContainer, uint v
 	
 	//m_pManualRoutingAction = new KAction( i18n("Manual"), "", 0, this, SLOT(slotSetRoutingManual()), ac, "routing_mode_manual" );
     m_pManualRoutingAction = new KAction( i18n("Manual"), ac);
-    m_pManualRoutingAction->setName("routing_mode_manual");
+    m_pManualRoutingAction->setObjectName("routing_mode_manual");
     connect(m_pManualRoutingAction, SIGNAL(triggered(bool)), this, SLOT(slotSetRoutingManual()));
     ac->addAction("routing_mode_manual", m_pManualRoutingAction);
 	//m_pManualRoutingAction->setExclusiveGroup("routing_mode"); // TODO TEST
@@ -52,7 +52,7 @@ ICNView::ICNView( ICNDocument *icnDocument, ViewContainer *viewContainer, uint v
 	// This popup gets inserted into the toolbar
 	//m_pRoutingModeToolbarPopup = new KToolBarPopupAction( i18n("Connection Routing Mode"), "pencil", 0, 0, 0, ac, "routing_mode" );
     m_pRoutingModeToolbarPopup = new KToolBarPopupAction( KIcon("pencil"), i18n("Connection Routing Mode"), ac);
-    m_pRoutingModeToolbarPopup->setName( "routing_mode" );
+    m_pRoutingModeToolbarPopup->setObjectName( "routing_mode" );
 	m_pRoutingModeToolbarPopup->setDelayed(false);
     ac->addAction("routing_mode", m_pRoutingModeToolbarPopup);
 	

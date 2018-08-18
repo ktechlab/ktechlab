@@ -36,7 +36,7 @@ Item::Item( ItemDocument *itemDocument, bool newItem, const QString &id )
         KtlQCanvasPolygon( itemDocument ? itemDocument->canvas() : 0 )
 {
     QString name(QString("Item-%1").arg(id));
-    setName(name.toLatin1().data());
+    setObjectName(name.toLatin1().data());
     qDebug() << Q_FUNC_INFO << " this=" << this;
 
 	m_bDynamicContent = false;

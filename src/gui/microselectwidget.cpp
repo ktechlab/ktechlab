@@ -32,14 +32,14 @@ MicroSelectWidget::MicroSelectWidget( QWidget* parent, const char* name, Qt::WFl
 	m_allowedGpsimSupport = m_allowedFlowCodeSupport = m_allowedMicrobeSupport = MicroInfo::AllSupport;
 	
 	if ( !name ) {
-		setName( "MicroSelectWidget" );
+		setObjectName( "MicroSelectWidget" );
     }
 	m_pMicroFamilyLabel = new QLabel( NULL, "m_pMicroFamilyLabel" );
 	m_pMicroFamilyLabel->setText( i18n("Family") );
     layout()->addWidget( m_pMicroFamilyLabel );
 
 	m_pMicroFamily = new KComboBox( false ); //, "m_pMicroFamily" );
-	m_pMicroFamily->setName("m_pMicroFamily");
+	m_pMicroFamily->setObjectName("m_pMicroFamily");
 	m_pMicroFamily->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Preferred );
     layout()->addWidget( m_pMicroFamily );
 
@@ -48,7 +48,7 @@ MicroSelectWidget::MicroSelectWidget( QWidget* parent, const char* name, Qt::WFl
     layout()->addWidget( m_pMicroLabel );
 
 	m_pMicro = new KComboBox( false ); //, "m_pMicro" );
-	m_pMicro->setName("m_pMicro");
+	m_pMicro->setObjectName("m_pMicro");
 	m_pMicro->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Preferred );
 	m_pMicro->setEditable( true );
 	m_pMicro->setAutoCompletion(true);

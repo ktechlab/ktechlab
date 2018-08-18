@@ -688,7 +688,7 @@ void TextDocument::slotUpdateMarksInfo()
 									   actionName );
 									   */
             KAction * a = new KAction( actionCaption, this);
-            a->setName(actionName.toLatin1().data());
+            a->setObjectName(actionName.toLatin1().data());
             connect(a, SIGNAL(triggered(bool)), this, SLOT(slotBookmarkRequested()));
 			m_bookmarkActions.append(a);
 		}

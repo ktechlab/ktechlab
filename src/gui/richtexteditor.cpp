@@ -39,7 +39,7 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
 {
 	QVBoxLayout * layout = new QVBoxLayout( this, 0, 6 );
 	m_pEditor = new QTextEdit( this ); //, "RichTextEdit" );
-	m_pEditor->setName("RichTextEdit");
+	m_pEditor->setObjectName("RichTextEdit");
 	layout->addWidget( m_pEditor );
 	
 	m_pEditor->setTextFormat( Qt::RichText );
@@ -58,7 +58,7 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
 	
 	//m_pTextBold = new KToggleAction( i18n("Bold"), "format-text-bold", Qt::CTRL + Qt::Key_B, 0, 0, ac, "format_bold" );
     m_pTextBold = new KToggleAction( i18n("Bold"), ac);
-    m_pTextBold->setName("text_bold");
+    m_pTextBold->setObjectName("text_bold");
     m_pTextBold->setShortcut(Qt::CTRL + Qt::Key_B);
     m_pTextBold->setIcon( KIcon("format-text-bold") );
 	connect( m_pTextBold, SIGNAL(toggled(bool)), this, SLOT(slotSetBold(bool)) );
@@ -67,7 +67,7 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
 
 	//m_pTextItalic = new KToggleAction( i18n("Italic"), "format-text-italic", Qt::CTRL + Qt::Key_I, 0, 0, ac, "format_italic" );
     m_pTextItalic = new KToggleAction( i18n("Italic"), ac);
-    m_pTextItalic->setName("text_italic");
+    m_pTextItalic->setObjectName("text_italic");
     m_pTextItalic->setShortcut( Qt::CTRL + Qt::Key_I );
     m_pTextItalic->setIcon( KIcon("format-text-italic") );
 	connect( m_pTextItalic, SIGNAL(toggled(bool)), this, SLOT(slotSetItalic(bool)) );
@@ -76,7 +76,7 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
 
 	//m_pTextUnderline = new KToggleAction( i18n("Underline"), "format-text-underline", Qt::CTRL + Qt::Key_U, 0, 0, ac, "format_underline" );
     m_pTextUnderline = new KToggleAction( i18n("Underline"), ac);
-    m_pTextUnderline->setName("text_under");
+    m_pTextUnderline->setObjectName("text_under");
     m_pTextUnderline->setShortcut( Qt::CTRL + Qt::Key_U );
     m_pTextItalic->setIcon( KIcon("format-text-underline") );
 	connect( m_pTextUnderline, SIGNAL(toggled(bool)), this, SLOT(slotSetUnderline(bool)) );
@@ -85,7 +85,7 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
 	
 	//m_pTextList = new KToggleAction( i18n("List"), "unsorted_list", Qt::CTRL + Qt::Key_L, 0, 0, ac, "format_list" );
     m_pTextList = new KToggleAction( i18n("List"), ac);
-    m_pTextList->setName("unsorted_list");
+    m_pTextList->setObjectName("unsorted_list");
     m_pTextList->setShortcut( Qt::CTRL + Qt::Key_L );
     m_pTextItalic->setIcon( KIcon("format-list-unordered") );
 	connect( m_pTextList, SIGNAL(toggled(bool)), SLOT(slotSetList(bool)) );
@@ -99,7 +99,7 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
             KIcon("format-justify-left"),
             i18n("Text Alignment"),
             ac);
-    m_pTextAlignment->setName("text_left");
+    m_pTextAlignment->setObjectName("text_left");
 	//m_pTextAlignment->plug( tools );
     tools->addAction(m_pTextAlignment);
 	m_pTextAlignment->setDelayed(false);
@@ -124,7 +124,7 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
             KIcon(QString("text_vertical_alignment")),
             i18n("Text Vertical Alignment"),
             ac);
-    m_pTextVerticalAlignment->setName("text");
+    m_pTextVerticalAlignment->setObjectName("text");
 	//m_pTextVerticalAlignment->plug( tools );
     tools->addAction(m_pTextVerticalAlignment);
 	m_pTextVerticalAlignment->setDelayed(false);
@@ -146,7 +146,7 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
 	//m_pTextColor = new KAction( i18n("Text Color..."), pm, 0, this, SLOT(textColor()), ac, "format_color" );
     m_pTextColor = new KAction( i18n("Text Color..."), this);
     m_pTextColor->setIcon(pm);
-    m_pTextColor->setName("format_color");
+    m_pTextColor->setObjectName("format_color");
     connect(m_pTextColor, SIGNAL(activated(int)), this, SLOT(textColor()));
 	//m_pTextColor->plug( tools );
     ac->addAction("format_color", m_pTextColor);
@@ -386,7 +386,7 @@ RichTextEditorDlg::RichTextEditorDlg( QWidget * parent, const QString & caption 
 	: //KDialog( parent, "RichTextEditorDlg", true, caption, KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
 	KDialog( parent )
 {
-    setName("RichTextEditorDlg");
+    setObjectName("RichTextEditorDlg");
     setModal(true);
     setCaption(caption);
     setButtons(KDialog::Ok | KDialog::Cancel);

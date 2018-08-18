@@ -231,7 +231,7 @@ PropertyEditor::PropertyEditor( QWidget * parent, const char * name )
  , m_colPropertyDelegate(NULL)
  , m_colValueDelegate(NULL)
 {
-    setName( name );
+    setObjectName( name );
 	//m_items.setAutoDelete(false); // 2018.08.13 - unused
 
     setColumnCount(2);
