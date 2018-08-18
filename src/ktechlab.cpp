@@ -320,7 +320,7 @@ void KTechlab::overlayToolBarScreenshot()
 	
 	if ( !m_pToolBarOverlayLabel )
 	{
-		m_pToolBarOverlayLabel = new QLabel( 0, 0,
+		m_pToolBarOverlayLabel = new QLabel( 0,
                 Qt::WStyle_StaysOnTop | Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WNoAutoErase | Qt::WType_Popup  );
 		m_pToolBarOverlayLabel->hide();
 		m_pToolBarOverlayLabel->setBackgroundMode( Qt::NoBackground );
@@ -333,7 +333,7 @@ void KTechlab::overlayToolBarScreenshot()
 		return;
 	}
 	
-	if ( m_pToolBarOverlayLabel->isShown() )
+	if ( m_pToolBarOverlayLabel->isVisible() )
 	{
 		// This is to avoid successive calls to removeGUIClient when we have
 		// already popped it up for the first call, and don't want to take
@@ -346,9 +346,11 @@ void KTechlab::overlayToolBarScreenshot()
 // 	QWidget * toolsWidget = toolBar( "toolsToolBar" );
 // 	QWidget * debugWidget = toolBar( "debugTB" );
 	
-	KToolBar * toolsWidget = static_cast<KToolBar*>(child( "toolsToolBar", "KToolBar" ));
-	KToolBar * debugWidget = static_cast<KToolBar*>(child( "debugTB", "KToolBar" ));
-	
+	//KToolBar * toolsWidget = static_cast<KToolBar*>(child( "toolsToolBar", "KToolBar" )); // 2018.08.18 - see below
+	//KToolBar * debugWidget = static_cast<KToolBar*>(child( "debugTB", "KToolBar" ));
+    KToolBar * toolsWidget = findChild<KToolBar*>("toolsToolBar");
+    KToolBar * debugWidget = findChild<KToolBar*>("debugTB");
+
 	if ( !toolsWidget && !debugWidget )
 		return;
 	
@@ -442,10 +444,12 @@ void KTechlab::setupTabWidget()
 
 	
 	bool CloseOnHover = grUi.readEntry( "CloseOnHover", false );
-	tabWidget()->setHoverCloseButton( CloseOnHover );
+	//tabWidget()->setHoverCloseButton( CloseOnHover ); // 2018.08.18 - see below
+    tabWidget()->setTabsClosable( CloseOnHover );
 	
 	bool CloseOnHoverDelay = grUi.readEntry( "CloseOnHoverDelay", false );
-	tabWidget()->setHoverCloseButtonDelayed( CloseOnHoverDelay );
+	//tabWidget()->setHoverCloseButtonDelayed( CloseOnHoverDelay ); // 2018.08.18 - see below
+    tabWidget()->setTabsClosable( CloseOnHoverDelay );
 	
 	if (grUi.readEntry( "ShowCloseTabsButton", true ))
 	{
@@ -463,7 +467,7 @@ void KTechlab::setupTabWidget()
 
 void KTechlab::slotUpdateTabWidget()
 {
-	m_viewContainerList.remove( (ViewContainer*)0 );
+	m_viewContainerList.removeAll( (ViewContainer*)0 );
 	
 	bool noWindows = m_viewContainerList.isEmpty();
 	
@@ -569,7 +573,7 @@ void KTechlab::setupActions()
 
 // 	m_recentFiles = KStandardAction::openRecent( this, SLOT(load(const KUrl&)), ac );
 	m_recentFiles = new RecentFilesAction( "Recent Files", i18n("Open Recent"), this, SLOT(load(const KUrl &)), ac, "file_open_recent" );
-    ac->addAction(m_recentFiles->name(), m_recentFiles);
+    ac->addAction(m_recentFiles->objectName(), m_recentFiles);
 
     m_statusbarAction = KStandardAction::showStatusbar( this, SLOT(slotOptionsShowStatusbar()), ac );
     ac->addAction("view_show_status_bar", m_statusbarAction);
@@ -770,8 +774,8 @@ void KTechlab::setupExampleActions()
 		connect( m, SIGNAL(activated( int )), this, SLOT(openExample( int )) );
 		
 		QStringList files = dir.entryList();
-		files.remove(".");
-		files.remove("..");
+		files.removeAll(".");
+		files.removeAll("..");
 		
 		QStringList::iterator filesEnd = files.end();
 		for ( QStringList::iterator filesIt = files.begin(); filesIt != filesEnd; ++filesIt )
@@ -791,7 +795,7 @@ void KTechlab::setupExampleActions()
 				for ( unsigned i = 0; i < name.length(); ++i )
 				{
 					if ( prevWasSpace )
-						name[i] = name[i].upper();
+						name[i] = name[i].toUpper();
 					prevWasSpace = name[i].isSpace();
 				}
 			}
@@ -822,8 +826,8 @@ void KTechlab::slotViewContainerActivated( QWidget * viewContainer )
 
 void KTechlab::slotViewContainerDestroyed( QObject * object )
 {
-	m_viewContainerList.remove( static_cast<ViewContainer*>(object) );
-	m_viewContainerList.remove( (ViewContainer*)0 );
+	m_viewContainerList.removeAll( static_cast<ViewContainer*>(object) );
+	m_viewContainerList.removeAll( (ViewContainer*)0 );
 	slotUpdateTabWidget();
 }
 
@@ -880,7 +884,7 @@ void KTechlab::savePropertiesInConfig( KConfig *conf )
 		
 		// To make sure the ViewContainers are restored in the right order, we must create them in alphabetical order,
 		// as KConfig stores them as such...
-		const QString id = QString::number(viewContainerId++).rightJustify( 4, '0' );
+		const QString id = QString::number(viewContainerId++).rightJustified( 4, '0' );
 			
 		//conf->setGroup( "ViewContainer " + id );
         KConfigGroup grViewCont = conf->group("ViewContainer " + id);
@@ -956,7 +960,7 @@ void KTechlab::readPropertiesInConfig( KConfig *conf )
 void KTechlab::dragEnterEvent(QDragEnterEvent *event)
 {
     // accept uri drops only
-    event->accept(KUrl::List::canDecode(event->mimeData()));
+    event->setAccepted(KUrl::List::canDecode(event->mimeData()));
 }
 
 
@@ -1041,7 +1045,7 @@ void KTechlab::slotChangeStatusbar( const QString & text )
 	if ( m_lastStatusBarMessage == text )
 		return;
 	
-    statusBar()->message(text);
+    statusBar()->showMessage(text);
 	m_lastStatusBarMessage = text;
 }
 
@@ -1051,12 +1055,12 @@ void KTechlab::slotTabContext( QWidget* widget,const QPoint & pos )
 	// Shamelessly stolen from KDevelop...
 	
 	KMenu * tabMenu = new KMenu;
-	tabMenu->addTitle( (dynamic_cast<ViewContainer*>(widget))->caption() );
+	tabMenu->addTitle( (dynamic_cast<ViewContainer*>(widget))->windowTitle() );
 
 	//Find the document on whose tab the user clicked
 	m_pContextMenuContainer = 0l;
 	
-	m_viewContainerList.remove((ViewContainer*)0l);
+	m_viewContainerList.removeAll((ViewContainer*)0l);
 	
 	const ViewContainerList::iterator vcEnd = m_viewContainerList.end();
 	for ( ViewContainerList::iterator it = m_viewContainerList.begin(); it != vcEnd; ++it )
@@ -1304,7 +1308,7 @@ void KTechlab::slotDocModifiedChanged()
             }
         }
 		
-		tabWidget()->setTabIconSet( vc, icon );
+		tabWidget()->setTabIcon(tabWidget()->indexOf(vc), icon );
 	}
 	//END Set tab icons
 }
@@ -1312,7 +1316,8 @@ void KTechlab::slotDocModifiedChanged()
 
 void KTechlab::requestUpdateCaptions()
 {
-	m_pUpdateCaptionsTimer->start( 0, true );
+    m_pUpdateCaptionsTimer->setSingleShot(true);
+	m_pUpdateCaptionsTimer->start( 0 /*, true */ );
 }
 
 
@@ -1337,8 +1342,9 @@ void KTechlab::slotUpdateCaptions()
 	else
 		newCaption = "";
 	
-	if (newCaption != caption().remove(" - KTechlab"))
-		setCaption(newCaption);
+	if (newCaption != windowTitle().remove(" - KTechlab")) {
+		setWindowTitle(newCaption);
+    }
 	//END Set KTechlab caption
 	
 	
