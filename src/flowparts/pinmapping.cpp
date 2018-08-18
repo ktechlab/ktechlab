@@ -97,7 +97,10 @@ PinMapEditor::PinMapEditor( PinMapping * pinMapping, MicroInfo * picInfo, QWidge
 	
 	f->setFrameShape( QFrame::Box );
 	f->setFrameShadow( QFrame::Plain );
-	QVBoxLayout * fLayout = new QVBoxLayout( f, 1, 0, "fLayout" );
+	QVBoxLayout * fLayout = new QVBoxLayout; // ( f, 1, 0, "fLayout" ); // 2018.08.18 - use non-deprected constructor
+    fLayout->setContentsMargins(1,1,1,1);
+    fLayout->setSpacing(0);
+    fLayout->setObjectName("fLayout");
 
 	ViewContainer * vc = new ViewContainer( 0, f );
 	fLayout->addWidget( vc );
@@ -300,10 +303,10 @@ PinMapping PinMapDocument::pinMapping() const
 	{
 		Node * node = attached->childNode( *attachedIt );
 		QString pinID;
-				
+
 		for ( NodeInfoMap::const_iterator it = picNodeInfoMap.begin(); it != picNodeInfoMapEnd; ++it )
 		{
-			if ( it.data().node->isConnected( node ) )
+			if ( it.value().node->isConnected( node ) )
 			{
 				pinID = it.key();
 				break;

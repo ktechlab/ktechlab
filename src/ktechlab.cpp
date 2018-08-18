@@ -149,7 +149,7 @@ void KTechlab::load( const KUrl & url, ViewArea * viewArea )
 	if ( !url.isValid() )
 		return;
 	
-	if ( url.url().endsWith( ".ktechlab", false ) )
+	if ( url.url().endsWith( ".ktechlab", Qt::CaseInsensitive ) )
 	{
 		// This is a ktechlab project; it has to be handled separetly from a
 		// normal file.
@@ -292,7 +292,7 @@ void KTechlab::addWindow( ViewContainer * vc )
 		connect( vc, SIGNAL(destroyed(QObject* )), this, SLOT(slotViewContainerDestroyed(QObject* )) );
 	}
 	
-	m_viewContainerList.remove((ViewContainer*)0);
+	m_viewContainerList.removeAll((ViewContainer*)0);
 	slotUpdateTabWidget();
 	slotDocModifiedChanged();
 }

@@ -80,7 +80,7 @@ class NameValidator : public QValidator
 		}
 		
 		virtual State validate( QString & input, int & ) const {
-			return (input.isEmpty() || m_unallowed.contains( input.lower() )) ? Intermediate : Acceptable;
+			return (input.isEmpty() || m_unallowed.contains( input.toLower() )) ? Intermediate : Acceptable;
 		}
 		
 	protected:
