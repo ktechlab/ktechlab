@@ -28,7 +28,8 @@ public:
 		bounds.setRight( canvas->toChunkScaling( pixelbounds.right() ) );
 		bounds.setTop( canvas->toChunkScaling( pixelbounds.top() ) );
 		bounds.setBottom( canvas->toChunkScaling( pixelbounds.bottom() ) );
-		bitmap = QImage(bounds.width(),bounds.height(),1,2,QImage::LittleEndian);
+		//bitmap = QImage(bounds.width(),bounds.height(),1,2,QImage::LittleEndian); // 2018.09.07 - convert to non-deprecated
+        bitmap = QImage(bounds.width(),bounds.height(), QImage::Format_MonoLSB);
 		pnt = 0;
 		bitmap.fill(0);
 	}
