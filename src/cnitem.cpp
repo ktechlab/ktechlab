@@ -454,7 +454,7 @@ void CNItem::updateConnectorPoints( bool add )
 	
 	// Get translation matrix
 	// Hackish...
-	QWMatrix m;
+	QMatrix m;
 	if ( Component *c = dynamic_cast<Component*>(this) )
 		m = c->transMatrix( c->angleDegrees(), c->flipped(), int(x()), int(y()), false );
 	

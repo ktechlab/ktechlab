@@ -127,7 +127,7 @@ QRect GuiPart::drawRect()
 	QRect dr = rect();
 	if ( m_angleDegrees%180 != 0 )
 	{
-		QWMatrix m;
+		QMatrix m;
 		m.translate( int(x()+(width()/2)), int(y()+(height()/2)) );
 	
 		if ( (m_angleDegrees%180) != 0 )

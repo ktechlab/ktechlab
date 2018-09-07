@@ -35,7 +35,7 @@
 #include <qapplication.h>
 #include <qcursor.h>
 #include <qtimer.h>
-#include <qwmatrix.h>
+#include <qmatrix.h>
 
 #include <cmath>
 #include <kmenu.h>
@@ -292,7 +292,7 @@ void ItemView::zoomOut()
 void ItemView::actualSize()
 {
 	m_zoomLevel = 1.0;
-	QWMatrix m( m_zoomLevel, 0.0, 0.0, m_zoomLevel, 1.0, 1.0 );
+	QMatrix m( m_zoomLevel, 0.0, 0.0, m_zoomLevel, 1.0, 1.0 );
 	m_CVBEditor->setWorldMatrix(m);
 	
 	p_itemDocument->requestEvent( ItemDocument::ItemDocumentEvent::ResizeCanvasToItems );
@@ -696,9 +696,9 @@ void CVBEditor::updateWorldMatrix()
 {
 	double z = p_itemView->zoomLevel();
 	QRect r = m_pCanvas->rect();
-// 	QWMatrix m( z, 0.0, 0.0, z, -r.left(), -r.top() );
-// 	QWMatrix m( z, 0.0, 0.0, z, 0.0, 0.0 );
-	QWMatrix m;
+// 	QMatrix m( z, 0.0, 0.0, z, -r.left(), -r.top() );
+// 	QMatrix m( z, 0.0, 0.0, z, 0.0, 0.0 );
+	QMatrix m;
 	m.scale( z, z );
 	m.translate( -r.left(), -r.top() );
 	setWorldMatrix( m );

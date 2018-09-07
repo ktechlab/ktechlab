@@ -14,7 +14,7 @@
 
 #include <klocalizedstring.h>
 #include <qpainter.h>
-#include <qwmatrix.h>
+#include <qmatrix.h>
 
 #include <algorithm>
 #include <cmath>
@@ -54,8 +54,8 @@ ChassisCircular2::ChassisCircular2( MechanicsDocument *mechanicsDocument, bool n
     path.addEllipse( -25, -25, 50, 50);
     QPolygon pa = path.toFillPolygon().toPolygon();
 
-	QWMatrix m(4,0,0,4,0,0);
-	// m.setTransformationMode( QWMatrix::Areas ); // TODO find a replacement
+	QMatrix m(4,0,0,4,0,0);
+	// m.setTransformationMode( QMatrix::Areas ); // TODO find a replacement
 	pa = m.map(pa);
 	setItemPoints(pa);
 	

@@ -137,7 +137,7 @@ class Component : public CNItem
 		 * @param y y co-ordinate of the center of the object to be mapped
 		 * @param inverse If false, maps the unrotated item to a rotated one, else mapped->unmapped
 		 */
-		static QWMatrix transMatrix( int angleDegrees, bool flipped, int x, int y, bool inverse = false );
+		static QMatrix transMatrix( int angleDegrees, bool flipped, int x, int y, bool inverse = false );
 		/**
 		 * @return Information about the component in an ItemData struct.
 		 */

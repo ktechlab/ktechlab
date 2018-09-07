@@ -16,7 +16,7 @@
 #include <klocalizedstring.h>
 #include <qbitarray.h>
 #include <qpainter.h>
-#include <qwmatrix.h>
+#include <qmatrix.h>
 #include <cmath>
 
 #define DPR ( 180.0 / M_PI )
@@ -166,7 +166,7 @@ void MechanicsItem::updateCanvasPoints()
 	
 	PositionInfo abs = absolutePosition();
 	
-	QWMatrix m;
+	QMatrix m;
 	m.rotate(abs.angle() * DPR);
 	m.translate( m_sizeRect.left(), m_sizeRect.top() );
 	m.scale( scalex, scaley );

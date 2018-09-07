@@ -478,11 +478,11 @@ void KtlQCanvas::drawViewArea( KtlQCanvasView* view, QPainter* p, const QRect& v
 {
 	QPoint tl = view->contentsToViewport(QPoint(0,0));
 
-	QWMatrix wm = view->worldMatrix();
-	QWMatrix iwm = wm.invert();
+	QMatrix wm = view->worldMatrix();
+	QMatrix iwm = wm.invert();
     // ivr = covers all chunks in vr
 	QRect ivr = iwm.map(vr);
-	QWMatrix twm;
+	QMatrix twm;
 	twm.translate(tl.x(),tl.y());
 
 // 	QRect all(0,0,width(),height());
@@ -579,7 +579,7 @@ void KtlQCanvas::update()
     for (QList<KtlQCanvasView*>::iterator itView = m_viewList.begin(); itView != m_viewList.end(); ++itView) {
         KtlQCanvasView* view = *itView;
 
-		QWMatrix wm = view->worldMatrix();
+		QMatrix wm = view->worldMatrix();
 	
 		QRect area(view->contentsX(),view->contentsY(),
 				   view->visibleWidth(),view->visibleHeight());
@@ -1580,19 +1580,19 @@ void KtlQCanvasView::setCanvas(KtlQCanvas* canvas)
 }
 
 
-const QWMatrix &KtlQCanvasView::worldMatrix() const
+const QMatrix &KtlQCanvasView::worldMatrix() const
 {
 	return d->xform;
 }
 
 
-const QWMatrix &KtlQCanvasView::inverseWorldMatrix() const
+const QMatrix &KtlQCanvasView::inverseWorldMatrix() const
 {
 	return d->ixform;
 }
 
 
-bool KtlQCanvasView::setWorldMatrix( const QWMatrix & wm )
+bool KtlQCanvasView::setWorldMatrix( const QMatrix & wm )
 {
 	bool ok = wm.isInvertible();
 	if ( ok ) {

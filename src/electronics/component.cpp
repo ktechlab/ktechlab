@@ -42,7 +42,7 @@
 #include <qbitarray.h>
 #include <qpainter.h>
 #include <qwidget.h>
-#include <qwmatrix.h>
+#include <qmatrix.h>
 
 #include <ktlconfig.h>
 
@@ -263,9 +263,9 @@ ItemData Component::itemData() const
 }
 
 
-QWMatrix Component::transMatrix( int angleDegrees, bool flipped, int x, int y, bool inverse )
+QMatrix Component::transMatrix( int angleDegrees, bool flipped, int x, int y, bool inverse )
 {
-    QWMatrix m;
+    QMatrix m;
     m.translate( x, y );
     if (inverse)
     {
@@ -280,7 +280,7 @@ QWMatrix Component::transMatrix( int angleDegrees, bool flipped, int x, int y, b
         m.rotate(angleDegrees);
     }
     m.translate( -x, -y );
-    // m.setTransformationMode( QWMatrix::Areas ); // TODO find a replacement
+    // m.setTransformationMode( QMatrix::Areas ); // TODO find a replacement
     return m;
 }
 
@@ -330,12 +330,12 @@ void Component::updateAttachedPositioning()
 
 
     //BEGIN Transform the GuiParts
-    QWMatrix m;
+    QMatrix m;
 
     if (b_flipped)
         m.scale( -1, 1 );
     m.rotate(m_angleDegrees);
-    //m.setTransformationMode( QWMatrix::Areas ); // TODO find a replacement
+    //m.setTransformationMode( QMatrix::Areas ); // TODO find a replacement
 
     const TextMap::iterator textMapEnd = m_textMap.end();
     for ( TextMap::iterator it = m_textMap.begin(); it != textMapEnd; ++it )

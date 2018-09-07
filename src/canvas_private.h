@@ -101,8 +101,8 @@ class KtlQCanvasViewData
 {
 public:
 	KtlQCanvasViewData() : repaint_from_moving( false ) {}
-	QWMatrix xform;
-	QWMatrix ixform;
+	QMatrix xform;
+	QMatrix ixform;
 	bool repaint_from_moving;
 };
 
