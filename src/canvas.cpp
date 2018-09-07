@@ -1597,7 +1597,7 @@ bool KtlQCanvasView::setWorldMatrix( const QMatrix & wm )
 	bool ok = wm.isInvertible();
 	if ( ok ) {
 		d->xform = wm;
-		d->ixform = wm.invert();
+		d->ixform = wm.inverted();
 		updateContentsSize();
 		viewport()->update();
 	}
@@ -1609,7 +1609,7 @@ void KtlQCanvasView::updateContentsSize()
 	if ( viewing ) {
 		QRect br;
 // 			br = d->xform.map(QRect(0,0,viewing->width(),viewing->height()));
-		br = d->xform.map(viewing->rect());
+		br = d->xform.mapRect(viewing->rect());
 
 		if ( br.width() < contentsWidth() ) {
 			QRect r(contentsToViewport(QPoint(br.width(),0)),
@@ -1657,7 +1657,7 @@ void KtlQCanvasView::cMoving(int x, int y)
 void KtlQCanvasView::drawContents(QPainter *p, int cx, int cy, int cw, int ch)
 {
 	QRect r(cx,cy,cw,ch);
-	r = r.normalize();
+	r = r.normalized();
 	
 	if (viewing) {
 	//viewing->drawViewArea(this,p,r,true);
