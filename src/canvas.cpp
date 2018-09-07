@@ -1560,6 +1560,7 @@ KtlQCanvasView::KtlQCanvasView(KtlQCanvas* canvas, QWidget* parent, const char* 
 KtlQCanvasView::~KtlQCanvasView()
 {
 	delete d;
+    d = NULL;
 	setCanvas(0);
 }
 
