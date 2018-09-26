@@ -552,6 +552,9 @@ void ItemView::leaveEvent( QEvent * e )
 		p_itemDocument->m_canvasTip->setVisible(false);
 }
 
+void ItemView::requestDocumentResizeToCanvasItems() {
+    p_itemDocument->requestEvent( ItemDocument::ItemDocumentEvent::ResizeCanvasToItems );
+}
 
 void ItemView::slotUpdateConfiguration()
 {
@@ -791,7 +794,9 @@ bool CVBEditor::event( QEvent * e )
 void CVBEditor::viewportResizeEvent( QResizeEvent * e )
 {
 	KtlQCanvasView::viewportResizeEvent(e);
-	p_itemView->p_itemDocument->requestEvent( ItemDocument::ItemDocumentEvent::ResizeCanvasToItems );
+    // 2018.09.26 - move to explicit method
+	//p_itemView->p_itemDocument->requestEvent( ItemDocument::ItemDocumentEvent::ResizeCanvasToItems );
+    p_itemView->requestDocumentResizeToCanvasItems();
 }
 //END class CVBEditor
 

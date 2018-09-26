@@ -83,6 +83,8 @@ class ItemView : public View
 		void createDragItem( QDragEnterEvent * event );
 		void removeDragItem();
 		void updateZoomActions();
+
+    public:
 		/**
 		 * Attempts to create a new CNItem if one was dragged onto the canvas
 		 */
@@ -101,13 +103,16 @@ class ItemView : public View
 		void enterEvent( QEvent * e );
 		void leaveEvent( QEvent * e );
 
+        void requestDocumentResizeToCanvasItems();
+
+    protected:
 		QPointer<ItemDocument> p_itemDocument;
 		CVBEditor *m_CVBEditor;
 		double m_zoomLevel;
 		QTimer * m_pUpdateStatusTmr;
 		Item * m_pDragItem;
 	
-		friend class CVBEditor;
+		//friend class CVBEditor; // 2018.09.26
 };
 
 
