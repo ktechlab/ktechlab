@@ -39,8 +39,8 @@
 **
 ****************************************************************************/
 
-#ifndef Q3POLYGONSCANNER_H
-#define Q3POLYGONSCANNER_H
+#ifndef KTL_Q3POLYGONSCANNER_H
+#define KTL_Q3POLYGONSCANNER_H
 
 #include <QtCore/qglobal.h>
 
@@ -67,4 +67,4 @@ QT_END_NAMESPACE
 
 QT_END_HEADER
 
-#endif // Q3POLYGONSCANNER_H
+#endif // KTL_Q3POLYGONSCANNER_H
