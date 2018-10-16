@@ -12,6 +12,7 @@
 #define NODE_H
 
 #include <canvas.h>
+#include "canvasitems.h"
 #include <qpointer.h>
 
 class CNItem;

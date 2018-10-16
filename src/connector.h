@@ -12,6 +12,7 @@
 #define CONNECTOR_H
 
 #include <canvas.h>
+#include "canvasitems.h"
 #include <qpointer.h>
 #include <q3valuevector.h>
 

@@ -14,6 +14,7 @@
 #include <set>
 #include <document.h>
 #include <canvas.h>
+#include "canvasitems.h"
 
 #include <qmap.h>
 #include <qstack.h>

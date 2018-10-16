@@ -12,6 +12,7 @@
 #define CANVASITEMPARTS_H
 
 #include <canvas.h>
+#include "canvasitems.h"
 #include <qpointer.h>
 #include <qslider.h>
 #include <qtoolbutton.h>

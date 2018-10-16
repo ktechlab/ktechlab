@@ -16,6 +16,7 @@
 #include "qbitmap.h"
 #include "qimage.h"
 #include "ktlq3polygonscanner.h"
+#include "canvasitems.h"
 
 class KtlQPolygonalProcessor
 {

@@ -88,6 +88,7 @@ SET(ktechlab_SRCS
    recentfilesaction.cpp
    variablelabel.cpp
    canvas.cpp
+   canvasitems.cpp
    canvasitemlist.cpp
 )
 

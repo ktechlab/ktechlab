@@ -14,6 +14,7 @@
 #include "eventinfo.h"
 
 #include <canvas.h>
+#include "canvasitems.h"
 #include <qpointer.h>
 
 class CanvasManipulator;
