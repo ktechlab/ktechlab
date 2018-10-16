@@ -88,6 +88,7 @@ SET(ktechlab_SRCS
    recentfilesaction.cpp
    variablelabel.cpp
    canvas.cpp
+   canvasitemlist.cpp
 )
 
 set(ktechlab_DCOP_SKEL_SRCS

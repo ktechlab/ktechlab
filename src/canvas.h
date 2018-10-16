@@ -20,6 +20,8 @@
 #include "qlist.h"
 // #include "q3pointarray.h" // 2018.08.14
 
+#include "canvasitemlist.h"
+
 class KtlQCanvasPolygonalItem;
 class KtlQCanvasRectangle;
 class KtlQCanvasPolygon;
@@ -29,17 +31,6 @@ class KtlQCanvasChunk;
 class KtlQCanvas;
 class KtlQCanvasItem;
 class KtlQCanvasView;
-
-typedef std::multimap< double, KtlQCanvasItem* > SortedCanvasItems;
-
-
-class KtlQCanvasItemList : public QList<KtlQCanvasItem*>
-{
-	public:
-		void sort();
-		KtlQCanvasItemList operator+(const KtlQCanvasItemList &l) const;
-};
-
 
 class KtlQCanvasItemExtra;
 

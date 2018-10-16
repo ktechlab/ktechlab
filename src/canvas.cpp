@@ -221,22 +221,6 @@ const QRect& KtlQCanvasClusterizer::operator[](int i)
 //END class KtlQCanvasClusterizer
 
 
-void KtlQCanvasItemList::sort()
-{
-	qHeapSort(*  /* ((QList<KtlQCanvasItemPtr>*)) */ this);
-}
-
-
-KtlQCanvasItemList KtlQCanvasItemList::operator+(const KtlQCanvasItemList &l) const
-{
-	KtlQCanvasItemList l2(*this);
-	for(const_iterator it = l.begin(); it != l.end(); ++it)
-		l2.append(*it);
-	return l2;
-}
-
-
-
 static int gcd(int a, int b)
 {
 	int r;
