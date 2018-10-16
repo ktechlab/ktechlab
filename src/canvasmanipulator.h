@@ -13,7 +13,7 @@
 
 #include "eventinfo.h"
 
-#include <canvas.h>
+//#include <canvas.h> // 2018.10.16 - not needed
 #include "canvasitems.h"
 #include <qpointer.h>
 

@@ -162,3 +162,4 @@ Changes between Qt3 and Qt4 port (to be completed)
 - ported project manager
     - Q3ListView -> QTreeWidget
 - Q3PaintDeviceMetrics -> QPrinter->pageRect()
+- canvas.h: split up huge file
