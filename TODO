@@ -81,16 +81,11 @@ Modifications needed for getting rid of Qt3Support dependency
 
 - read this: http://doc.qt.io/qt-4.8/porting4.html
 
-- Q3PointArray -> QPolygon ?
-- Q3PtrVector -> QVector< T * >
 - property editor; property editor item
-    - Q3ListView -> QTableWidget
     - fix glitch of reset button disappearing when horiznotally resizing the property editor
     - fix color of text / background in property editor
     - on 'no item selected', the old properties still remain there
-- Q3ScrollView -> ?
-- Q3Hbox -> QWidget, QHBoxLayout
-- Q3SimpleRichText -> QTextEdit
+- QTextEdit
     -> fix resizing of the editor to minimal needed size for rendering
 
 
