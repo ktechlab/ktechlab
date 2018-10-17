@@ -12,7 +12,7 @@
 
 #include <map>
 
-#include "q3scrollview.h"
+#include "ktlqt3support/q3scrollview.h"
 #include "qpixmap.h"
 #include "q3ptrlist.h"
 #include "qbrush.h"

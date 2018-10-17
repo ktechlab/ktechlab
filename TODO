@@ -76,8 +76,6 @@ Modifications needed for KF5 port
 
 Modifications needed for getting rid of Qt3Support dependency
 =======
-- if possible remove classes: CVBEditor, Canvas
-- copy the Q3ScrollView into source tree and use that
 - remove Qt3 dependencies
 
 
