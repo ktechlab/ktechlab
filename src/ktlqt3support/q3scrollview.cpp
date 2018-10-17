@@ -52,7 +52,7 @@
 #include "qstyle.h"
 #include "q3ptrlist.h"
 #include "qevent.h"
-#include "q3listview.h"
+//#include "q3listview.h"
 #ifdef Q_WS_MAC
 # include "private/qt_mac_p.h"
 #endif
@@ -2366,10 +2366,10 @@ void Q3ScrollView::drawContents(QPainter*, int, int, int, int)
 */
 void Q3ScrollView::frameChanged()
 {
-    // slight ugle-hack - the listview header needs readjusting when
-    // changing the frame
-    if (Q3ListView *lv = qobject_cast<Q3ListView *>(this))
-        lv->triggerUpdate();
+//     // slight ugle-hack - the listview header needs readjusting when
+//     // changing the frame
+//     if (Q3ListView *lv = qobject_cast<Q3ListView *>(this))
+//         lv->triggerUpdate();
     Q3Frame::frameChanged();
     updateScrollBars();
 }
