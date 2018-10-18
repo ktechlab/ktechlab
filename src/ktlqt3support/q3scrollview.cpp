@@ -53,9 +53,9 @@
 #include "q3ptrlist.h"
 #include "qevent.h"
 //#include "q3listview.h"
-#ifdef Q_WS_MAC
-# include "private/qt_mac_p.h"
-#endif
+// #ifdef Q_WS_MAC      // 2018.10.18 - do not depend on internal headers
+// # include "private/qt_mac_p.h"
+// #endif
 
 QT_BEGIN_NAMESPACE
 
@@ -870,19 +870,19 @@ void Q3ScrollView::updateScrollBars()
             mac_need_scroll = true;
         } else {
             QWidget *tlw = window();
-#ifndef QT_MAC_USE_COCOA
-            QPoint tlw_br = QPoint(tlw->width(), tlw->height()),
-                    my_br = qt_mac_posInWindow(this) + QPoint(w, h);
-            if(my_br.x() >= tlw_br.x() - 3 && my_br.y() >= tlw_br.y() - 3)
-#endif
+// #ifndef QT_MAC_USE_COCOA           // 2018.10.18 - do not depend on internal headers
+//             QPoint tlw_br = QPoint(tlw->width(), tlw->height()),
+//                     my_br = qt_mac_posInWindow(this) + QPoint(w, h);
+//             if(my_br.x() >= tlw_br.x() - 3 && my_br.y() >= tlw_br.y() - 3)
+// #endif
                 mac_need_scroll = true;
         }
         if(mac_need_scroll) {
-#ifndef QT_MAC_USE_COCOA
-            WindowAttributes attr;
-            GetWindowAttributes((WindowPtr)handle(), &attr);
-            mac_need_scroll = (attr & kWindowResizableAttribute);
-#endif
+// #ifndef QT_MAC_USE_COCOA           // 2018.10.18 - do not depend on internal headers
+//             WindowAttributes attr;
+//             GetWindowAttributes((WindowPtr)handle(), &attr);
+//             mac_need_scroll = (attr & kWindowResizableAttribute);
+// #endif
         }
         if(mac_need_scroll) {
             showc = true;
