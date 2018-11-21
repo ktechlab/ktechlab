@@ -146,7 +146,7 @@ public:
         inresize(false), use_cached_size_hint(true)
     {
         l_marg = r_marg = t_marg = b_marg = 0;
-        viewport->polish();
+        viewport->ensurePolished();
         vMode = Q3ScrollView::Auto;
         hMode = Q3ScrollView::Auto;
         corner = 0;
@@ -1364,7 +1364,7 @@ void Q3ScrollView::addChild(QWidget* child, int x, int y)
 #endif
         return;
     }
-    child->polish();
+    child->ensurePolished();
     child->setBackgroundOrigin(WidgetOrigin);
 
     if (child->parentWidget() == viewport()) {

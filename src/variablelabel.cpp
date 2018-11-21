@@ -29,7 +29,7 @@ VariableLabel::VariableLabel( TextView * parent )
 	setLineWidth( 1 );
 	setAlignment( Qt::AlignAuto | Qt::AlignTop );
 	setIndent(0);
-	polish();
+	ensurePolished();
 	adjustSize();
 }
 
