@@ -274,8 +274,9 @@ void KtlQCanvas::init( const QRect & r, int chunksze, int mxclusters )
 }
 
 KtlQCanvas::KtlQCanvas( QObject* parent, const char* name )
-	: QObject( parent, name )
+	: QObject( parent /*, name*/ )
 {
+    setObjectName( name );
 	init(0,0);
 }
 
@@ -433,8 +434,12 @@ void KtlQCanvas::removeItem(const KtlQCanvasItem* item)
 void KtlQCanvas::addView(KtlQCanvasView* view)
 {
 	m_viewList.append(view);
-	if ( htiles>1 || vtiles>1 || pm.isNull() )
-		view->viewport()->setBackgroundColor(backgroundColor());
+	if ( htiles>1 || vtiles>1 || pm.isNull() ) {
+		//view->viewport()->setBackgroundColor(backgroundColor()); // 2018.11.21
+        QPalette palette;
+        palette.setColor(view->viewport()->backgroundRole(), backgroundColor());
+        view->viewport()->setPalette(palette);
+    }
 }
 
 void KtlQCanvas::removeView(KtlQCanvasView* view)
@@ -463,9 +468,9 @@ void KtlQCanvas::drawViewArea( KtlQCanvasView* view, QPainter* p, const QRect& v
 	QPoint tl = view->contentsToViewport(QPoint(0,0));
 
 	QMatrix wm = view->worldMatrix();
-	QMatrix iwm = wm.invert();
+	QMatrix iwm = wm.inverted();
     // ivr = covers all chunks in vr
-	QRect ivr = iwm.map(vr);
+	QRect ivr = iwm.mapRect(vr);
 	QMatrix twm;
 	twm.translate(tl.x(),tl.y());
 
@@ -492,7 +497,7 @@ void KtlQCanvas::drawViewArea( KtlQCanvasView* view, QPainter* p, const QRect& v
 	
 		if ( view->viewport()->backgroundMode() == Qt::NoBackground )
 		{
-			QRect cvr = vr; cvr.moveBy(tl.x(),tl.y());
+			QRect cvr = vr; cvr.translate(tl.x(),tl.y());
 			p->setClipRegion(QRegion(cvr)-QRegion(a));
 			p->fillRect(vr,view->viewport()->palette()
 					.brush(QPalette::Active,QColorGroup::Background));
@@ -524,7 +529,7 @@ void KtlQCanvas::drawViewArea( KtlQCanvasView* view, QPainter* p, const QRect& v
 	} else
 #endif
     {
-		QRect r = vr; r.moveBy(tl.x(),tl.y()); // move to untransformed co-ords
+		QRect r = vr; r.translate(tl.x(),tl.y()); // move to untransformed co-ords
 		if ( !all.contains(ivr) )
 		{
 			QRegion inside = p->clipRegion() & r;
@@ -575,7 +580,7 @@ void KtlQCanvas::update()
 			if ( !wm.isIdentity() )
 			{
 				// r = Visible area of the canvas where there are changes
-				QRect r = changeBounds(view->inverseWorldMatrix().map(area));
+				QRect r = changeBounds(view->inverseWorldMatrix().mapRect(area));
 				if ( !r.isEmpty() )
 				{
                     // as of my testing, drawing below always fails, so just post for an update event to the widget
@@ -701,12 +706,19 @@ QRect KtlQCanvas::changeBounds(const QRect& inarea)
 	}
 
 	if ( !result.isEmpty() ) {
-		result.rLeft() *= chunksize;
-		result.rTop() *= chunksize;
-		result.rRight() *= chunksize;
-		result.rBottom() *= chunksize;
-		result.rRight() += chunksize;
-		result.rBottom() += chunksize;
+		//result.rLeft() *= chunksize; // 2018.11.18
+		//result.rTop() *= chunksize;
+		//result.rRight() *= chunksize;
+		//result.rBottom() *= chunksize;
+		//result.rRight() += chunksize;
+		//result.rBottom() += chunksize;
+
+        result.setLeft( result.left() * chunksize );
+        result.setTop( result.top() * chunksize );
+        result.setRight( result.right() * chunksize );
+        result.setBottom( result.bottom() * chunksize );
+        result.setRight( result.right() + chunksize );
+        result.setBottom( result.bottom() + chunksize );
 	}
 
 	return result;
@@ -1058,9 +1070,13 @@ void KtlQCanvas::setBackgroundColor( const QColor& c )
 		for (QList<KtlQCanvasView*>::iterator itView = m_viewList.begin(); itView != m_viewList.end(); ++itView) {
             KtlQCanvasView* view = *itView;
 
-	    /* XXX this doesn't look right. Shouldn't this
-			be more like setBackgroundPixmap? : Ian */
-			view->viewport()->setEraseColor( bgcolor );
+            /* XXX this doesn't look right. Shouldn't this
+                be more like setBackgroundPixmap? : Ian */
+            //view->viewport()->setEraseColor( bgcolor ); // 2018.11.21
+            QWidget *viewportWidg = view->viewport();
+            QPalette palette;
+            palette.setColor(viewportWidg->backgroundRole(), bgcolor);
+            viewportWidg->setPalette(palette);
 		}
 		setAllChanged();
 	}
