@@ -19,8 +19,10 @@
 
 //BEGIN class VariableLabel
 VariableLabel::VariableLabel( TextView * parent )
-	: QLabel( parent, "toolTipTip", Qt::WStyle_StaysOnTop | Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WStyle_Tool | Qt::WX11BypassWM )
+	: QLabel( parent, Qt::WStyle_StaysOnTop | Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WStyle_Tool | Qt::WX11BypassWM )
 {
+    setObjectName("toolTipTip");
+
 	m_value = -1;
 	
 	setMargin(1);
