@@ -29,7 +29,7 @@ RecentFilesAction::RecentFilesAction( const QString & configGroupName, const QSt
 	
 	m_popup = new KMenu;
 	connect(m_popup, SIGNAL(aboutToShow()), this, SLOT(menuAboutToShow()));
-	connect(m_popup, SIGNAL(activated(int)), this, SLOT(menuItemActivated(int)));
+	connect(m_popup, SIGNAL(triggered(QAction*)), this, SLOT(menuItemActivated(QAction* action)));
 	connect( this, SIGNAL(triggered(const QString&)),
 			 this, SLOT( itemSelected( const QString& ) ) );
 
@@ -59,13 +59,13 @@ void RecentFilesAction::addURL( const KUrl& url )
 	QStringList lst = items();
 
     // remove file if already in list
-	lst.remove( file );
+	lst.removeAll( file );
 
     // remove last item if already maxitems in list
 	if( lst.count() == m_maxItems )
 	{
         // remove last item
-		lst.remove( lst.last() );
+		lst.removeAll( lst.last() );
 	}
 
     // add file to list
@@ -137,9 +137,10 @@ void RecentFilesAction::itemSelected( const QString& text )
 	emit urlSelected( KUrl( text ) );
 }
 
-void RecentFilesAction::menuItemActivated( int id )
+void RecentFilesAction::menuItemActivated( QAction *action )
 {
-	emit urlSelected( KUrl(m_popup->text(id)) );
+	//emit urlSelected( KUrl(m_popup->text(id)) ); // 2018.11.21
+    emit urlSelected( KUrl(action->text()) );
 }
 
 void RecentFilesAction::menuAboutToShow()
@@ -148,8 +149,10 @@ void RecentFilesAction::menuAboutToShow()
 	menu->clear();
 	QStringList list = items();
 	QStringList::iterator end = list.end();
-	for ( QStringList::Iterator it = list.begin(); it != end; ++it )
-		menu->insertItem(*it);
+	for ( QStringList::Iterator it = list.begin(); it != end; ++it ) {
+		//menu->insertItem(*it); // 2018.11.21
+        menu->addAction(*it);
+    }
 }
 
 void RecentFilesAction::slotClicked()
@@ -174,7 +177,7 @@ void RecentFilesAction::slotActivated(int id)
 
 void RecentFilesAction::slotActivated()
 {
-	emit activated( currentItem() );
+	emit triggered( currentItem() );
 	//emit activated( currentText() ); // TODO how should this work?
 }
 

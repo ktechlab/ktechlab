@@ -64,7 +64,7 @@ class RecentFilesAction : public KSelectAction
 	protected slots:
 		void itemSelected( const QString& string );
 		void menuAboutToShow();
-		void menuItemActivated( int id );
+		void menuItemActivated( QAction *action );
 		void slotClicked();
 		virtual void slotActivated(int);
 		virtual void slotActivated(const QString& );
