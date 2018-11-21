@@ -190,7 +190,7 @@ static bool collision_double_dispatch( const KtlQCanvasPolygonalItem* p1,
         QPolygon pa1 = p1->areaPoints();
         QPolygon pa2 = p2 ? p2->areaPoints()
             : QPolygon(i2->boundingRect());
-        bool col= !(QRegion(pa1) & QRegion(pa2,true)).isEmpty();
+        bool col= !(QRegion(pa1) & QRegion(pa2, /* true */ Qt::WindingFill )).isEmpty();
 
         return col;
     } else {
