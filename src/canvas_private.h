@@ -194,7 +194,7 @@ public:
 	}
 
 	void remove(KtlQCanvasItem* item) {
-		list.remove(item);
+		list.removeAll(item);
 		changed = true;
 	}
 
