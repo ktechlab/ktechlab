@@ -69,7 +69,7 @@ void DebugManager::urlOpened( TextDocument * td )
 	if ( td->debuggerIsRunning() )
 		return;
 	
-	m_processors.remove( (GpsimProcessor*)0l );
+	m_processors.removeAll( (GpsimProcessor*)0l );
 	GpsimProcessorList::iterator end = m_processors.end();
 	for ( GpsimProcessorList::iterator it = m_processors.begin(); it != end; ++it )
 	{
