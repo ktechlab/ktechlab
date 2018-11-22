@@ -357,8 +357,8 @@ void CircuitDocument::componentRemoved( Item * item )
 
 	if (!component) return;
 
-	m_componentList.remove( component );
-	m_toSimulateList.remove( component );
+	m_componentList.removeAll( component );
+	m_toSimulateList.removeAll( component );
 
 	requestAssignCircuits();
 
@@ -379,7 +379,7 @@ void CircuitDocument::calculateConnectorCurrents()
 	PinList groundPins;
 
 	// Tell the Pins to reset their calculated currents to zero
-	m_pinList.remove((Pin*)0);
+	m_pinList.removeAll((Pin*)0);
 
 	const PinList::iterator pinEnd = m_pinList.end();
 	for ( PinList::iterator it = m_pinList.begin(); it != pinEnd; ++it )
@@ -410,7 +410,7 @@ void CircuitDocument::calculateConnectorCurrents()
 
 
 	// And now for the wires and switches...
-	m_wireList.remove((Wire*)0);
+	m_wireList.removeAll((Wire*)0);
 	const WireList::iterator clEnd = m_wireList.end();
 	for ( WireList::iterator it = m_wireList.begin(); it != clEnd; ++it )
 		(*it)->setCurrentKnown(false);
@@ -520,7 +520,7 @@ void CircuitDocument::assignCircuits()
 		splitIntoCircuits(&*it);
 	
 	// Stage 3: Initialize the circuits
-	m_circuitList.remove(0l);
+	m_circuitList.removeAll(0l);
 	CircuitList::iterator circuitListEnd = m_circuitList.end();
 	for ( CircuitList::iterator it = m_circuitList.begin(); it != circuitListEnd; ++it )
 		(*it)->init();
@@ -563,7 +563,7 @@ void CircuitDocument::getPartition( Pin *pin, PinList *pinList, PinList *unassig
 {
 	if (!pin) return;
 	
-	unassignedPins->remove(pin);
+	unassignedPins->removeAll(pin);
 	
 	if ( pinList->contains(pin) ) return;
 
@@ -649,7 +649,7 @@ void CircuitDocument::recursivePinAdd( Pin *pin, Circuitoid *circuitoid, PinList
 	if(!pin) return;
 	
 	if(pin->eqId() != -1 )
-		unassignedPins->remove(pin);
+		unassignedPins->removeAll(pin);
 
 	if(circuitoid->contains(pin) ) return;
 
@@ -770,7 +770,7 @@ void CircuitDocument::createSubcircuit()
 			*it = 0;
 	}
 
-	itemList.remove((Item*)0);
+	itemList.removeAll((Item*)0);
 	
 	if ( itemList.isEmpty() ) {
 		KMessageBox::sorry( activeView(), i18n("No components were found in the selection.") );

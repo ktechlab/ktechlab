@@ -385,7 +385,7 @@ void ICNDocument::getTranslatable(const ItemList &itemList, ConnectorList *fixed
 			}
 			
 			ConnectorList conList = cnItem->connectorList();
-			conList.remove((Connector*)0);
+			conList.removeAll((Connector*)0);
 
 			const ConnectorList::iterator clEnd = conList.end();
 			for ( ConnectorList::iterator clit = conList.begin(); clit != clEnd; ++clit )
@@ -414,7 +414,7 @@ void ICNDocument::getTranslatable(const ItemList &itemList, ConnectorList *fixed
 			NodeList externalNodeList = ng->externalNodeList();
 			const NodeList::iterator itemNodeListEnd = itemNodeList.end();
 			for ( NodeList::iterator inlIt = itemNodeList.begin(); inlIt != itemNodeListEnd; ++inlIt )
-				externalNodeList.remove(*inlIt);
+				externalNodeList.removeAll(*inlIt);
 			
 			if ( externalNodeList.isEmpty() )
 			{
@@ -579,7 +579,7 @@ void ICNDocument::copy()
 		if ( it.value().size() > 1 )
 			nodeList.append(it.key());
 		else if ( it.value().size() > 0 )
-			connectorList.remove( it.value().at(0) );
+			connectorList.removeAll( it.value().at(0) );
 	}
 
 	data.addItems( m_selectList->items(false) );
@@ -816,7 +816,7 @@ ConnectorList ICNDocument::getCommonConnectors( const ItemList &list )
 			*it = 0;
 		}
 	}
-	connectorList.remove((Connector*)0);
+	connectorList.removeAll((Connector*)0);
 	return connectorList;
 }
 

@@ -334,7 +334,7 @@ void CircuitICNDocument::flushDeleteList()
 		}
 	}
 
-	m_itemDeleteList.remove(0);
+	m_itemDeleteList.removeAll(0);
 
 /* again we're spending time to figure out what special method to call instead of a generic call..*/
 	end = m_itemDeleteList.end();

@@ -65,7 +65,7 @@ ItemList ItemGroup::items( bool excludeParentedItems ) const
 			if ( children.count(*it) > 1 )
 				*it = 0l;
 		}
-		children.remove((Item*)0l);
+		children.removeAll((Item*)0l);
 		
 		items += children;
 		parents = children;
@@ -155,7 +155,7 @@ void ItemGroup::registerItem( Item *item )
 
 void ItemGroup::unregisterItem( Item *item )
 {
-	if ( m_itemList.remove(item) > 0 ) {
+	if ( m_itemList.removeAll(item) > 0 ) {
 		updateAreSameStatus();
 	}
 }

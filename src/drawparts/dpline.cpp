@@ -171,7 +171,7 @@ DPArrow::DPArrow( ItemDocument *itemDocument, bool newItem, const char *id )
 	
 	// We don't want to use the square cap style as it screws up drawing our arrow head
 	QStringList allowed = property("cap-style")->allowed();
-	allowed.remove( DrawPart::penCapStyleToName( Qt::SquareCap ) );
+	allowed.removeAll( DrawPart::penCapStyleToName( Qt::SquareCap ) );
 	property("cap-style")->setAllowed(allowed);
 	
 	m_headAngle = 20.0;

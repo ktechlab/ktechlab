@@ -72,13 +72,13 @@ void FlowContainer::filterEndPartIDs( QStringList *ids )
 {
 	// Remove *all* nodes except for very bottom one
 	if (m_int_out) {
-		ids->remove(m_int_out->childId());
+		ids->removeAll(m_int_out->childId());
 	}
 	if (m_ext_in) {
-		ids->remove(m_ext_in->childId());
+		ids->removeAll(m_ext_in->childId());
 	}
 	if (m_int_in) {
-		ids->remove(m_int_in->childId());
+		ids->removeAll(m_int_in->childId());
 	}
 }
 

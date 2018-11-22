@@ -477,5 +477,5 @@ void ConRouter::removeDuplicatePoints()
 			prev = *it;
 		}
 	}
-	m_cellPointList.remove( invalid );
+	m_cellPointList.removeAll( invalid );
 }

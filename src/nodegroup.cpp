@@ -30,13 +30,13 @@ NodeGroup::~NodeGroup()
 {
 	clearConList();
 	
-	m_extNodeList.remove( (Node*)0l );
+	m_extNodeList.removeAll( (Node*)0l );
 	const NodeList::iterator xnEnd = m_extNodeList.end();
 	for ( NodeList::iterator it = m_extNodeList.begin(); it != xnEnd; ++it )
 		(*it)->setNodeGroup(0l);
 	m_extNodeList.clear();
 	
-	m_nodeList.remove( (Node*)0l );
+	m_nodeList.removeAll( (Node*)0l );
 	const NodeList::iterator nEnd = m_nodeList.end();
 	for ( NodeList::iterator it = m_nodeList.begin(); it != nEnd; ++it )
 		(*it)->setNodeGroup(0l);
@@ -51,7 +51,7 @@ void NodeGroup::setVisible( bool visible )
 	
 	b_visible = visible;
 	
-	m_nodeList.remove( (Node*)0l );
+	m_nodeList.removeAll( (Node*)0l );
 	const NodeList::iterator nEnd = m_nodeList.end();
 	for ( NodeList::iterator it = m_nodeList.begin(); it != nEnd; ++it )
 		(*it)->setVisible(visible);
@@ -92,8 +92,8 @@ void NodeGroup::translate( int dx, int dy )
 	if ( (dx == 0) && (dy == 0) )
 		return;
 	
-	m_conList.remove((Connector*)0l);
-	m_nodeList.remove((Node*)0l);
+	m_conList.removeAll((Connector*)0l);
+	m_nodeList.removeAll((Node*)0l);
 	
 	const ConnectorList::iterator conEnd = m_conList.end();
 	for ( ConnectorList::iterator it = m_conList.begin(); it != conEnd; ++it )
@@ -194,8 +194,8 @@ NodeList NodeGroup::findRoute( Node *startNode, Node *endNode )
 		}
 	}
 	
-	nl.remove(startNode);
-	nl.remove(endNode);
+	nl.removeAll(startNode);
+	nl.removeAll(endNode);
 	
 	return nl;
 }
@@ -406,7 +406,7 @@ void NodeGroup::removeRoutedNodes( NodeList *nodes, Node *n1, Node *n2 )
 			*it = 0l;
 		}
 	}
-	nodes->remove((Node*)0l);
+	nodes->removeAll((Node*)0l);
 	
 	const int n1pos = getNodePos(n1);
 	const int n2pos = getNodePos(n2);
@@ -429,10 +429,10 @@ void NodeGroup::removeRoutedNodes( NodeList *nodes, Node *n1, Node *n2 )
 	}
 	
 	if (!n1HasCon) {
-		nodes->remove(n1);
+		nodes->removeAll(n1);
 	}
 	if (!n2HasCon) {
-		nodes->remove(n2);
+		nodes->removeAll(n2);
 	}
 }
 
@@ -551,16 +551,16 @@ void NodeGroup::init()
 void NodeGroup::nodeRemoved( Node *node )
 {
 	// We are probably about to get deleted by ICNDocument anyway...so no point in doing anything
-	m_nodeList.remove(node);
+	m_nodeList.removeAll(node);
 	node->setNodeGroup(0l);
 	node->setVisible(true);
-	m_extNodeList.remove(node);
+	m_extNodeList.removeAll(node);
 }
 
 
 void NodeGroup::connectorRemoved( Connector *connector )
 {
-	m_conList.remove(connector);
+	m_conList.removeAll(connector);
 }
 
 

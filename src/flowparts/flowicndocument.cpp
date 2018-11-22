@@ -331,7 +331,7 @@ void FlowICNDocument::flushDeleteList()
 			*it = 0l;
 		}
 	}
-	m_itemDeleteList.remove ( 0l );
+	m_itemDeleteList.removeAll ( 0l );
 
 	end = m_itemDeleteList.end();
 	for ( KtlQCanvasItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it )

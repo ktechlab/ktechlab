@@ -906,11 +906,11 @@ void ItemDocumentData::restoreDocument( ItemDocument *itemDocument )
 	
 	{
 		ItemList removeItems = itemDocument->itemList();
-		removeItems.remove((Item*)0l);
+		removeItems.removeAll((Item*)0l);
 		
 		const ItemDataMap::iterator end = m_itemDataMap.end();
 		for ( ItemDataMap::iterator it = m_itemDataMap.begin(); it != end; ++it )
-			removeItems.remove( itemDocument->itemWithID(it.key()) );
+			removeItems.removeAll( itemDocument->itemWithID(it.key()) );
 		
 		const ItemList::iterator removeEnd = removeItems.end();
 		for ( ItemList::iterator it = removeItems.begin(); it != removeEnd; ++it )
@@ -924,11 +924,11 @@ void ItemDocumentData::restoreDocument( ItemDocument *itemDocument )
 	{
 		{
 			NodeList removeNodes = icnd->nodeList();
-			removeNodes.remove((Node*)0l);
+			removeNodes.removeAll((Node*)0l);
 			
 			const NodeDataMap::iterator end = m_nodeDataMap.end();
 			for ( NodeDataMap::iterator it = m_nodeDataMap.begin(); it != end; ++it )
-				removeNodes.remove( icnd->nodeWithID( it.key() ) );
+				removeNodes.removeAll( icnd->nodeWithID( it.key() ) );
 			
 			const NodeList::iterator removeEnd = removeNodes.end();
 			for ( NodeList::iterator it = removeNodes.begin(); it != removeEnd; ++it )
@@ -939,11 +939,11 @@ void ItemDocumentData::restoreDocument( ItemDocument *itemDocument )
 		}
 		{
 			ConnectorList removeConnectors = icnd->connectorList();
-			removeConnectors.remove((Connector*)0l);
+			removeConnectors.removeAll((Connector*)0l);
 			
 			const ConnectorDataMap::iterator end = m_connectorDataMap.end();
 			for ( ConnectorDataMap::iterator it = m_connectorDataMap.begin(); it != end; ++it )
-				removeConnectors.remove( icnd->connectorWithID(it.key()) );
+				removeConnectors.removeAll( icnd->connectorWithID(it.key()) );
 			
 			const ConnectorList::iterator removeEnd = removeConnectors.end();
 			for ( ConnectorList::iterator it = removeConnectors.begin(); it != removeEnd; ++it )

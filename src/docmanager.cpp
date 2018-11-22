@@ -69,7 +69,7 @@ bool DocManager::closeAll()
 		Document *document = m_documentList.first();
 		if ( document->fileClose() )
 		{
-			m_documentList.remove(document);
+			m_documentList.removeAll(document);
 			removeDocumentAssociations(document);
 		} else return false;
 	}
@@ -296,7 +296,7 @@ View *DocManager::createNewView( Document *document, ViewArea *viewArea )
 void DocManager::documentDestroyed( QObject *obj )
 {
 	Document *doc = static_cast<Document*>(obj);
-	m_documentList.remove(doc);
+	m_documentList.removeAll(doc);
 	removeDocumentAssociations(doc);
 	disableContextActions();
 }

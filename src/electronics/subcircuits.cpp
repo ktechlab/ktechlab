@@ -181,7 +181,7 @@ void Subcircuits::slotItemRemoved( const QString &id )
     KSharedConfigPtr config = KGlobal::config();
 	KConfigGroup grSc = config->group("Subcircuits");
 	QList<int> idList = asIntList( grSc.readEntry<QString>(QString("Ids"), QString()) );
-	idList.remove(id_num);
+	idList.removeAll(id_num);
 	grSc.writeEntry( "Ids", idList );
 }
 

@@ -220,7 +220,7 @@ void Connector::updateDrawList() {
 		next++;
 	}
 
-	drawLineList.remove(QPoint(invalid, invalid));
+	drawLineList.removeAll(QPoint(invalid, invalid));
 
 	// Find the bounding rect
 	{

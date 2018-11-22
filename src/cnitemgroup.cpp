@@ -116,16 +116,16 @@ void CNItemGroup::setItems( KtlQCanvasItemList list )
 	for ( KtlQCanvasItemList::const_iterator it = list.begin(); it != end; ++it )
 	{
 		if ( Item * item = dynamic_cast<Item*>(*it) )
-			itemRemoveList.remove( item );
+			itemRemoveList.removeAll( item );
 		
 		else if ( Node * node = dynamic_cast<Node*>(*it) )
-			nodeRemoveList.remove( node );
+			nodeRemoveList.removeAll( node );
 		
 		else if ( Connector * con = dynamic_cast<Connector*>(*it) )
-			connectorRemoveList.remove( con );
+			connectorRemoveList.removeAll( con );
 		
 		else if ( ConnectorLine * conLine = dynamic_cast<ConnectorLine*>(*it) )
-			connectorRemoveList.remove( conLine->parent() );
+			connectorRemoveList.removeAll( conLine->parent() );
 	}
 	
 	{
@@ -185,7 +185,7 @@ void CNItemGroup::removeNode( Node *node )
 {
 	if ( !node || !m_nodeList.contains(node) )
 		return;
-	m_nodeList.remove(node);
+	m_nodeList.removeAll(node);
 	node->setSelected(false);
 	updateInfo();
 	emit nodeRemoved(node);
@@ -195,7 +195,7 @@ void CNItemGroup::removeNode( Node *node )
 void CNItemGroup::removeConnector( Connector *con )
 {
 	if ( !con || !m_connectorList.contains(con) ) return;
-	m_connectorList.remove(con);
+	m_connectorList.removeAll(con);
 	con->setSelected(false);
 	updateInfo();
 	emit connectorRemoved(con);

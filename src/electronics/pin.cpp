@@ -76,7 +76,7 @@ void Pin::setSwitchConnected( Pin * pin, bool isConnected )
 			m_switchConnectedPins.append(pin);
 	}
 	else
-		m_switchConnectedPins.remove(pin);
+		m_switchConnectedPins.removeAll(pin);
 }
 
 void Pin::setSwitchCurrentsUnknown() {
@@ -119,7 +119,7 @@ void Pin::addElement( Element * e )
 
 void Pin::removeElement( Element * e )
 {
-	m_elementList.remove(e);
+	m_elementList.removeAll(e);
 }
 
 
@@ -133,7 +133,7 @@ void Pin::addSwitch( Switch * sw )
 
 void Pin::removeSwitch( Switch * sw )
 {
-	m_switchList.remove( sw );
+	m_switchList.removeAll( sw );
 }
 
 
@@ -153,8 +153,8 @@ void Pin::addOutputWire( Wire * wire )
 
 bool Pin::calculateCurrentFromWires()
 {
-	m_inputWireList.remove( (Wire*)0l );
-	m_outputWireList.remove( (Wire*)0l );
+	m_inputWireList.removeAll( (Wire*)0l );
+	m_outputWireList.removeAll( (Wire*)0l );
 	
 	const WireList inputs = m_inputWireList;
 	const WireList outputs = m_outputWireList;

@@ -291,7 +291,7 @@ void ItemSelector::slotRemoveSelectedItem()
 	// Get rid of the category as well if it has no children
 	if ( parent && !parent->childCount() /* firstChild() */ )
 	{
-		m_categories.remove(parent->text(0));
+		m_categories.removeAll(parent->text(0));
 		delete parent;
 	}
 }

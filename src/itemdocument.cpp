@@ -736,7 +736,7 @@ void ItemDocument::resizeCanvasToItems()
 {
 	QRect bound = canvasBoundingRect();
 	
-	m_viewList.remove((View*)0);
+	m_viewList.removeAll((View*)0);
 	const ViewList::iterator end = m_viewList.end();
 	for ( ViewList::iterator it = m_viewList.begin(); it != end; ++it ) {
 		ItemView * iv = static_cast<ItemView*>((View*)*it);

@@ -481,7 +481,7 @@ void Item::removeChild( Item *child )
 	if ( !child || !m_children.contains(child) )
 		return;
 	
-	m_children.remove(child);
+	m_children.removeAll(child);
 	disconnect( child, SIGNAL(removed(Item* )), this, SLOT(removeChild(Item* )) );
 	
 	childRemoved(child);

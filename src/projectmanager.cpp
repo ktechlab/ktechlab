@@ -194,7 +194,7 @@ ProjectItem::ProjectItem( ProjectItem * parent, Type type, ProjectManager * proj
 
 ProjectItem::~ProjectItem()
 {
-	m_children.remove( (ProjectItem*)0l );
+	m_children.removeAll( (ProjectItem*)0l );
 	ProjectItemList::iterator end = m_children.end();
 	for ( ProjectItemList::iterator it = m_children.begin(); it != end; ++it )
 		(*it)->deleteLater();
@@ -285,7 +285,7 @@ void ProjectItem::updateControlChildMicroIDs()
 			break;
 	}
 	
-	m_children.remove( (ProjectItem*)0l );
+	m_children.removeAll( (ProjectItem*)0l );
 	ProjectItemList::iterator end = m_children.end();
 	for ( ProjectItemList::iterator it = m_children.begin(); it != end; ++it )
 		(*it)->setUseParentMicroID( control );
@@ -443,7 +443,7 @@ bool ProjectItem::build( ProcessOptionsList * pol )
 	
 	
 	// Build all children
-	m_children.remove( (ProjectItem*)0l );
+	m_children.removeAll( (ProjectItem*)0l );
 	ProjectItemList::iterator cend = m_children.end();
 	for ( ProjectItemList::iterator it = m_children.begin(); it != cend; ++it )
 	{
@@ -496,7 +496,7 @@ bool ProjectItem::build( ProcessOptionsList * pol )
 			QStringList inputFiles;
 			
 			// Link child objects
-			m_children.remove( (ProjectItem*)0l );
+			m_children.removeAll( (ProjectItem*)0l );
 			ProjectItemList::iterator cend = m_children.end();
 			for ( ProjectItemList::iterator it = m_children.begin(); it != cend; ++it )
 				inputFiles << (*it)->outputURL().path();
@@ -624,7 +624,7 @@ bool ProjectItem::closeOpenFiles()
 	if ( doc && !doc->fileClose() )
 		return false;
 	
-	m_children.remove( (ProjectItem*)0l );
+	m_children.removeAll( (ProjectItem*)0l );
 	ProjectItemList::iterator end = m_children.end();
 	for ( ProjectItemList::iterator it = m_children.begin(); it != end; ++it )
 	{
@@ -670,7 +670,7 @@ void ProjectItem::addFile( const KUrl & url )
 	if ( url.isEmpty() )
 		return;
 	
-	m_children.remove( (ProjectItem*)0l );
+	m_children.removeAll( (ProjectItem*)0l );
 	ProjectItemList::iterator end = m_children.end();
 	for ( ProjectItemList::iterator it = m_children.begin(); it != end; ++it )
 	{
@@ -856,7 +856,7 @@ bool ProjectInfo::save()
 	QDomElement root = doc.createElement("project");
 	doc.appendChild(root);
 	
-	m_children.remove( (ProjectItem*)0l );
+	m_children.removeAll( (ProjectItem*)0l );
 	ProjectItemList::const_iterator end = m_children.end();
 	for ( ProjectItemList::const_iterator it = m_children.begin(); it != end; ++it )
 		root.appendChild( (*it)->toDomElement( doc, m_url ) );

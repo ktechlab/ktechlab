@@ -70,7 +70,7 @@ void Document::slotViewDestroyed( QObject *obj )
 {
 	View *view = static_cast<View*>(obj);
 	
-	m_viewList.remove(view);
+	m_viewList.removeAll(view);
 	
 	if ( m_pActiveView == (QPointer<View>)view )
 	{

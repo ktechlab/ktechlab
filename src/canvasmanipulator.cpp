@@ -962,7 +962,7 @@ bool CMItemMove::mousePressedInitial( const EventInfo &eventInfo )
 	}
 	
 	ItemList itemList = p_cnItemSelectList->items(false);
-	itemList.remove((Item*)0l);
+	itemList.removeAll((Item*)0l);
 	
 	m_bItemsSnapToGrid = false;
 	const ItemList::iterator itemListEnd = itemList.end();
@@ -1008,7 +1008,7 @@ void CMItemMove::scrollCanvasToSelection()
 {
 	QRect bound;
 	ItemList itemList = p_cnItemSelectList->items(false);
-	itemList.remove((Item*)0l);
+	itemList.removeAll((Item*)0l);
 	const ItemList::iterator itemListEnd = itemList.end();
 	for ( ItemList::iterator it = itemList.begin(); it != itemListEnd; ++it )
 		bound |= (*it)->boundingRect();

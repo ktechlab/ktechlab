@@ -161,7 +161,7 @@ void MechanicsDocument::flushDeleteList()
 		if ( *it && m_itemDeleteList.count(*it) > 1 )
 			*it = 0l;
 	}
-	m_itemDeleteList.remove(QPointer<Item>(0l));
+	m_itemDeleteList.removeAll(QPointer<Item>(0l));
 	
 	end = m_itemDeleteList.end();
 	for ( ItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it )
