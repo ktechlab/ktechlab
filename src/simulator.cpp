@@ -326,7 +326,7 @@ void Simulator::removeLogicInReferences(LogicIn *logicIn) {
 }
 
 void Simulator::removeLogicOutReferences(LogicOut *logic) {
-	m_logicChainStarts.remove(logic);
+	m_logicChainStarts.removeAll(logic);
 
 	// Any changes to the code below will probably also apply to Simulator::detachCircuit
 	if (m_pChangedLogicLast == logic) {
