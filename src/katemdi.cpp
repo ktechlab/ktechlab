@@ -63,8 +63,9 @@ namespace KateMDI {
 //BEGIN SPLITTER
 
 Splitter::Splitter(Qt::Orientation o, QWidget* parent, const char* name)
-  : QSplitter(o, parent, name)
+  : QSplitter(o, parent /*, name*/)
 {
+    setObjectName(name);
 }
 
 Splitter::~Splitter()
@@ -224,7 +225,7 @@ void ToolView::childEvent ( QChildEvent *ev )
 {
   // set the widget to be focus proxy if possible
     QWidget *childWidget =  qobject_cast< QWidget* >( ev->child() );
-  if (ev->inserted() && ev->child() && childWidget) {
+  if ((ev->type() == QEvent::ChildInserted) && ev->child() && childWidget) {
     //setFocusProxy ((QWidget *)(ev->child()->qt_cast("QWidget")));
     setFocusProxy( childWidget );
   }
@@ -275,7 +276,8 @@ void Sidebar::setSplitter (Splitter *sp)
   m_ownSplit = new Splitter (splitOrient, m_splitter, "own-Split");
   m_ownSplit->setOpaqueResize( KGlobalSettings::opaqueResize() );
   m_ownSplit->setChildrenCollapsible( false );
-  m_splitter->setResizeMode( m_ownSplit, QSplitter::KeepSize );
+  //m_splitter->setResizeMode( m_ownSplit, QSplitter::KeepSize ); // 2018.11.22
+  m_splitter->setStretchFactor( m_splitter->indexOf(m_ownSplit), 0);
   m_ownSplit->hide ();
 }
 
@@ -305,7 +307,10 @@ ToolView *Sidebar::addWidget (const QPixmap &icon, const QString &text, ToolView
   else
   {
     widget->hide ();
-    widget->reparent (m_ownSplit, 0, QPoint());
+    //widget->reparent (m_ownSplit, 0, QPoint()); // 2018.11.22
+    widget->setParent(m_ownSplit, 0);
+    QPoint p;
+    widget->setGeometry(p.x(),p.y(),width(),height());
     widget->m_sidebar = this;
   }
 
@@ -357,7 +362,7 @@ bool Sidebar::removeWidget (ToolView *widget)
 
   m_idToWidget.remove (m_widgetToId[widget]);
   m_widgetToId.remove (widget);
-  m_toolviews.remove (widget);
+  m_toolviews.removeAll(widget);
 
   bool anyVis = false;
   //Q3IntDictIterator<ToolView> it( m_idToWidget );
@@ -478,24 +483,32 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
 
         p->addTitle(SmallIcon("view_remove"), i18n("Behavior"), 0 /*0 */);
 
-        p->insertItem(w->persistent ? SmallIcon("view-restore") : SmallIcon("view-fullscreen"), w->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent"), 10);
+        //p->insertItem(w->persistent ? SmallIcon("view-restore") : SmallIcon("view-fullscreen"), w->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent"), 10); // 2018.11.22
+        p->addAction(
+            w->persistent ? SmallIcon("view-restore") : SmallIcon("view-fullscreen"),
+            w->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent")
+        )->setData(10);
 
         p->addTitle(SmallIcon("transform-move"), i18n("Move To"), 0 /* 51 ? */);
 
 		if (sidebarPosition() != 0)
-          p->insertItem(SmallIcon("go-previous"), i18n("Left Sidebar"),0);
+          //p->insertItem(SmallIcon("go-previous"), i18n("Left Sidebar"),0);  // 2018.11.22
+          p->addAction(SmallIcon("go-previous"), i18n("Left Sidebar"))->setData(0);
 
 		if (sidebarPosition() != 1)
-          p->insertItem(SmallIcon("go-next"), i18n("Right Sidebar"),1);
+          //p->insertItem(SmallIcon("go-next"), i18n("Right Sidebar"),1); // 2018.11.22
+          p->addAction(SmallIcon("go-next"), i18n("Right Sidebar"))->setData(1);
 
 		if (sidebarPosition() != 2)
-          p->insertItem(SmallIcon("go-up"), i18n("Top Sidebar"),2);
+          //p->insertItem(SmallIcon("go-up"), i18n("Top Sidebar"),2); // 2018.11.22
+          p->addAction(SmallIcon("go-up"), i18n("Top Sidebar"))->setData(2);
 
-		if (sidebarPosition() != 3)
-          p->insertItem(SmallIcon("go-down"), i18n("Bottom Sidebar"),3);
-
-        connect(p, SIGNAL(activated(int)),
-              this, SLOT(buttonPopupActivate(int)));
+		if (sidebarPosition() != 3) {
+          //p->insertItem(SmallIcon("go-down"), i18n("Bottom Sidebar"),3); // 2018.11.22
+          p->addAction(SmallIcon("go-down"), i18n("Bottom Sidebar"))->setData(3);
+        }
+        connect(p, SIGNAL(triggered(QAction*)),
+              this, SLOT(buttonPopupActivate(QAction*)));
 
         p->exec(e->globalPos());
         delete p;
@@ -508,8 +521,9 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
   return false;
 }
 
-void Sidebar::buttonPopupActivate (int id)
+void Sidebar::buttonPopupActivate (QAction* action)
 {
+  int id = action->data().asInt();
   ToolView *w = m_idToWidget[m_popupButton];
 
   if (!w)
@@ -606,7 +620,7 @@ void Sidebar::restoreSession (KConfigGroup *configGr)
       tab(newId)->installEventFilter(this);
 
       // reshuffle in splitter
-      m_ownSplit->moveToLast (tv);
+      m_ownSplit->addWidget(tv);
     }
   }
 
@@ -696,7 +710,7 @@ MainWindow::MainWindow (QWidget* parentWidget, const char* name)
   QVBoxLayout *vbl = new QVBoxLayout;
   vb->setLayout(vbl);
   vb->setObjectName("Main-Center-VBox");
-  m_hSplitter->setCollapsible(vb, false);
+  m_hSplitter->setCollapsible(m_hSplitter->indexOf(vb), false);
 
   m_sidebars[KMultiTabBar::Top] = new Sidebar (KMultiTabBar::Top, this, vb);
   m_sidebars[KMultiTabBar::Top]->setObjectName("Main-Top-Sidebar");
@@ -714,7 +728,7 @@ MainWindow::MainWindow (QWidget* parentWidget, const char* name)
   QVBoxLayout *vbCl = new QVBoxLayout;
   m_centralWidget->setLayout( vbCl );
   m_centralWidget->setObjectName("Main-Central-Vbox");
-  m_vSplitter->setCollapsible(m_centralWidget, false);
+  m_vSplitter->setCollapsible(m_vSplitter->indexOf(m_centralWidget), false);
   //vbl->addLayout( vbCl ); // 2016.05.03 - apparently generates a warning about already having a parent
 
   m_sidebars[KMultiTabBar::Bottom] = new Sidebar (KMultiTabBar::Bottom, this, vb);
@@ -788,7 +802,7 @@ void MainWindow::toolViewDeleted (ToolView *widget)
   widget->sidebar()->removeWidget (widget);
 
   m_idToWidget.remove (widget->id);
-  m_toolviews.remove (widget);
+  m_toolviews.removeAll (widget);
 }
 
 void MainWindow::setToolViewStyle (KMultiTabBar::KMultiTabBarStyle style)

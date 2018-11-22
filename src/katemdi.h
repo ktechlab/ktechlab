@@ -217,7 +217,7 @@ class Sidebar : public KMultiTabBar
     bool eventFilter(QObject *obj, QEvent *ev);
 
   private slots:
-    void buttonPopupActivate (int id);
+    void buttonPopupActivate (QAction* action);
 
   private:
 	  
