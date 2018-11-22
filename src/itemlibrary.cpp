@@ -471,7 +471,7 @@ QImage ItemLibrary::componentImage( Component * component, const uint maxSize )
 	const NodeInfoMap::iterator nodesEnd = nodes.end();
 	for ( NodeInfoMap::iterator it = nodes.begin(); it != nodesEnd; ++it )
 	{
-		Node *node = it.data().node;
+		Node *node = it.value().node;
 		const bool sel = node->isSelected();
 		if (sel)
 			node->setSelected(false);
@@ -501,8 +501,8 @@ QImage ItemLibrary::componentImage( Component * component, const uint maxSize )
 	const TextMap::iterator textEnd = text.end();
 	for ( TextMap::iterator it = text.begin(); it != textEnd; ++it )
 	{
-		it.data()->drawShape(p);
-		it.data()->drawShape(maskPainter);
+		it.value()->drawShape(p);
+		it.value()->drawShape(maskPainter);
 	}
 		
 // 	maskPainter.setPen( Qt::color1 );
@@ -559,7 +559,7 @@ bool ItemLibrary::saveDescriptions( const QString & language )
 	for ( QStringMap::iterator descIt = m_itemDescriptions[ language ].begin(); descIt != end; ++descIt )
 	{
 		stream << QString("<!-- item: %1 -->\n").arg( descIt.key() );
-		stream << descIt.data() << endl;
+		stream << descIt.value() << endl;
 	}
 	
 	file.close();

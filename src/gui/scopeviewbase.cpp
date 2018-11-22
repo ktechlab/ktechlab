@@ -95,7 +95,7 @@ void ScopeViewBase::drawProbeMap( QPainter & p, QMap< int, T * > & map )
 	const TheIterator end = map.end();
 	for ( TheIterator it = map.begin(); it != end; ++it )
 	{
-		T * probe = it.data();
+		T * probe = it.value();
 		
 		if ( probe->isEmpty() )
 			return;

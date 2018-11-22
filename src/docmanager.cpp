@@ -241,7 +241,7 @@ void DocManager::removeDocumentAssociations( Document *document )
 		const URLDocumentMap::iterator end = m_associatedDocuments.end();
 		for ( URLDocumentMap::iterator it = m_associatedDocuments.begin(); it != end; ++it )
 		{
-			if ( it.data() == document )
+			if ( it.value() == document )
 			{
 				doneErase = true;
 				m_associatedDocuments.erase(it);

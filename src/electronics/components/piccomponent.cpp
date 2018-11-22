@@ -187,7 +187,7 @@ void PICComponent::deletePICComponentPins()
 {
 	const PICComponentPinMap::iterator picComponentMapEnd = m_picComponentPinMap.end();
 	for ( PICComponentPinMap::iterator it = m_picComponentPinMap.begin(); it != picComponentMapEnd; ++it )
-		delete it.data();
+		delete it.value();
 	m_picComponentPinMap.clear();
 }
 
@@ -245,7 +245,7 @@ void PICComponent::initPackage( MicroInfo * microInfo )
 		PicPinMap picPinMap = microPackage->pins( PicPin::type_bidir | PicPin::type_input | PicPin::type_open );
 		const PicPinMap::iterator picPinMapEnd = picPinMap.end();
 		for ( PicPinMap::iterator it = picPinMap.begin(); it != picPinMapEnd; ++it )
-			m_picComponentPinMap[it.key()] = new PICComponentPin( this, it.data() );
+			m_picComponentPinMap[it.key()] = new PICComponentPin( this, it.value() );
 		//END Create new stuff
 	
 	
@@ -280,7 +280,7 @@ void PICComponent::attachPICComponentPins()
 	
 	const PICComponentPinMap::iterator end = m_picComponentPinMap.end();
 	for ( PICComponentPinMap::iterator it = m_picComponentPinMap.begin(); it != end; ++it )
-		it.data()->attach( picProcessor->get_pin( it.key() ) );
+		it.value()->attach( picProcessor->get_pin( it.key() ) );
 }
 
 
@@ -341,7 +341,7 @@ void PICComponent::buttonStateChanged( const QString &id, bool state )
 		// Set all pin outputs to low
 		const PICComponentPinMap::iterator end = m_picComponentPinMap.end();
 		for ( PICComponentPinMap::iterator it = m_picComponentPinMap.begin(); it != end; ++it )
-			it.data()->resetOutput();
+			it.value()->resetOutput();
 	}
 	
 	slotUpdateBtns();

@@ -44,9 +44,9 @@ class ILVItem : public QObject, public QTreeWidgetItem /* K3ListViewItem */
 		void setProjectItem( ProjectItem * projectItem ) { m_pProjectItem = projectItem; }
 		ProjectItem * projectItem() const { return m_pProjectItem; }
 		
-// 		QString id() const { return m_id; } // 2018.08.12 - use data()
+// 		QString id() const { return m_id; } // 2018.08.12 - use value()
 	
-// 		QString key( int, bool ) const { return m_id; } // 2018.08.12 - use data()
+// 		QString key( int, bool ) const { return m_id; } // 2018.08.12 - use value()
 		/**
 		 * Set whether the item can be removed from the listview by the user
 		 */
@@ -57,7 +57,7 @@ class ILVItem : public QObject, public QTreeWidgetItem /* K3ListViewItem */
 		bool isRemovable() const { return b_isRemovable; }
 	
 	protected:
-		//QString m_id; // 2018.08.12 - use data()
+		//QString m_id; // 2018.08.12 - use value()
 		bool b_isRemovable;
 		ProjectItem * m_pProjectItem;
 };

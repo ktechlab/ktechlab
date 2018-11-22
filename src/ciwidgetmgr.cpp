@@ -33,7 +33,7 @@ CIWidgetMgr::~CIWidgetMgr()
 	const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
 	for ( WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it )
 	{
-		delete it.data();
+		delete it.value();
 	}
 	m_widgetMap.clear();
 }
@@ -50,7 +50,7 @@ void CIWidgetMgr::setDrawWidgets( bool draw )
 	const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
 	for ( WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it )
 	{
-		draw ? it.data()->show() : it.data()->hide();
+		draw ? it.value()->show() : it.value()->hide();
 	}
 }
 
@@ -60,7 +60,7 @@ Widget *CIWidgetMgr::widgetWithID( const QString &id ) const
 	WidgetMap::const_iterator it = m_widgetMap.find(id);
 	if ( it == m_widgetMap.end() )
 		return 0l;
-	else return it.data();
+	else return it.value();
 }
 
 
@@ -97,7 +97,7 @@ void CIWidgetMgr::drawWidgets( QPainter &p )
 	const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
 	for ( WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it )
 	{
-		it.data()->drawShape(p);
+		it.value()->drawShape(p);
 	}
 }
 
@@ -127,8 +127,8 @@ Button* CIWidgetMgr::addButton( const QString &id, const QRect & pos, const QStr
 	else
 	{
 		kWarning() << "CIWidgetMgr::addButton: Attempting to re-add button with same id as previous"<<endl;
-		delete it.data();
-		it.data() = button;
+		delete it.value();
+		it.value() = button;
 	}
 	
 	p_cnItem->updateAttachedPositioning();
@@ -151,8 +151,8 @@ Button* CIWidgetMgr::addButton( const QString &id, const QRect & pos, const QIco
 	else
 	{
 		kWarning() << "CIWidgetMgr::addButton: Attempting to re-add button with same id as previous"<<endl;
-		delete it.data();
-		it.data() = button;
+		delete it.value();
+		it.value() = button;
 	}
 	
 	p_cnItem->updateAttachedPositioning();
@@ -195,9 +195,9 @@ bool CIWidgetMgr::mousePressEvent( const EventInfo &info )
 	const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
 	for ( WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it )
 	{
-		if ( it.data()->rect().contains(info.pos) )
+		if ( it.value()->rect().contains(info.pos) )
 		{
-			it.data()->mousePressEvent(e);
+			it.value()->mousePressEvent(e);
 			if (e->isAccepted())
 			{
 				delete e;
@@ -219,7 +219,7 @@ bool CIWidgetMgr::mouseReleaseEvent( const EventInfo &info )
 	const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
 	for ( WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it )
 	{
-		it.data()->mouseReleaseEvent(e);
+		it.value()->mouseReleaseEvent(e);
 	}
 	
 	bool accepted = e->isAccepted();
@@ -235,9 +235,9 @@ bool CIWidgetMgr::mouseDoubleClickEvent( const EventInfo &info )
 	const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
 	for ( WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it )
 	{
-		if ( it.data()->rect().contains(info.pos) )
+		if ( it.value()->rect().contains(info.pos) )
 		{
-			it.data()->mouseDoubleClickEvent(e);
+			it.value()->mouseDoubleClickEvent(e);
 			if (e->isAccepted())
 			{
 				delete e;
@@ -257,7 +257,7 @@ bool CIWidgetMgr::mouseMoveEvent( const EventInfo &info )
 	const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
 	for ( WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it )
 	{
-		it.data()->mouseMoveEvent(e);
+		it.value()->mouseMoveEvent(e);
 		if (e->isAccepted())
 		{
 			delete e;
@@ -276,9 +276,9 @@ bool CIWidgetMgr::wheelEvent( const EventInfo &info )
 	const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
 	for ( WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it )
 	{
-		if ( it.data()->rect().contains(info.pos) )
+		if ( it.value()->rect().contains(info.pos) )
 		{
-			it.data()->wheelEvent(e);
+			it.value()->wheelEvent(e);
 			if (e->isAccepted())
 			{
 				delete e;
@@ -297,7 +297,7 @@ void CIWidgetMgr::enterEvent(QEvent *)
 	const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
 	for ( WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it )
 	{
-		it.data()->enterEvent(0);
+		it.value()->enterEvent(0);
 	}
 }
 
@@ -307,7 +307,7 @@ void CIWidgetMgr::leaveEvent(QEvent *)
 	const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
 	for ( WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it )
 	{
-		it.data()->leaveEvent(0);
+		it.value()->leaveEvent(0);
 	}
 }
 

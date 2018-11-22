@@ -179,8 +179,8 @@ void MicroSettings::setPortState( const QString &port, int state )
 	PortList::iterator plit = m_ports.find(port);
 	if ( plit == m_ports.end() ) return;
 	
-	const PinSettingsList::iterator plitEnd = plit.data().end();
-	for ( PinSettingsList::iterator it = plit.data().begin(); it != plitEnd; ++it )
+	const PinSettingsList::iterator plitEnd = plit.value().end();
+	for ( PinSettingsList::iterator it = plit.value().begin(); it != plitEnd; ++it )
 	{
 // 		cout << "state="<<state<<endl;
 		(*it)->setState( (state%2 == 1) ? PinSettings::ps_on : PinSettings::ps_off );
@@ -194,8 +194,8 @@ void MicroSettings::setPortType( const QString &port, int type )
 	PortList::iterator plit = m_ports.find(port);
 	if ( plit == m_ports.end() ) return;
 	
-	const PinSettingsList::iterator plitEnd = plit.data().end();
-	for ( PinSettingsList::iterator it = plit.data().begin(); it != plitEnd; ++it )
+	const PinSettingsList::iterator plitEnd = plit.value().end();
+	for ( PinSettingsList::iterator it = plit.value().begin(); it != plitEnd; ++it )
 	{
 		(*it)->setType( (type%2 == 1) ? PinSettings::pt_input : PinSettings::pt_output );
 		type /= 2;
@@ -219,8 +219,8 @@ MicroData MicroSettings::microData() const
 	const VariableMap::const_iterator variableMapEnd = m_variableMap.end();
 	for ( VariableMap::const_iterator it = m_variableMap.begin(); it != variableMapEnd; ++it )
 	{
-		if ( it.data().permanent )
-			data.variableMap[it.key()] = it.data().valueAsString();
+		if ( it.value().permanent )
+			data.variableMap[it.key()] = it.value().valueAsString();
 	} 
 	
 	return data;
@@ -237,15 +237,15 @@ void MicroSettings::restoreFromMicroData( const MicroData &microData )
 		PinSettings *pin = pinWithID(it.key());
 		if (pin)
 		{
-			pin->setState( it.data().state );
-			pin->setType( it.data().type );
+			pin->setState( it.value().state );
+			pin->setType( it.value().type );
 		}
 	}
 	
 	const QStringMap::const_iterator variableMapEnd = microData.variableMap.end();
 	for ( QStringMap::const_iterator it = microData.variableMap.begin(); it != variableMapEnd; ++it )
 	{
-		setVariable( it.key(), it.data(), true );
+		setVariable( it.key(), it.value(), true );
 	}
 }
 
@@ -256,9 +256,9 @@ void MicroSettings::setVariable( const QString &name, QVariant value, bool perma
 	VariableMap::iterator it = m_variableMap.find(name);
 	if ( it != m_variableMap.end() )
 	{
-		it.data().setValue(value);
-		it.data().permanent = permanent;
-		it.data().initAtStart = permanent;
+		it.value().setValue(value);
+		it.value().permanent = permanent;
+		it.value().initAtStart = permanent;
 	}
 	else
 	{
@@ -288,7 +288,7 @@ VariableInfo* MicroSettings::variableInfo( const QString &name )
 	if ( name.isNull() ) return 0l;
 	VariableMap::iterator it = m_variableMap.find(name);
 	if ( it != m_variableMap.end() ) {
-		return &(it.data());
+		return &(it.value());
 	} else {
 		return 0l;
 	}

@@ -240,12 +240,12 @@ void PicProgrammerSettings::save( KConfig * config )
         KConfigGroup gr = config->group(grName);
 
 		gr.writeEntry( "Name", it.key() );
-		gr.writeEntry( "InitCommand", it.data().initCommand );
-		gr.writeEntry( "ReadCommand", it.data().readCommand );
-		gr.writeEntry( "WriteCommand", it.data().writeCommand );
-		gr.writeEntry( "VerifyCommand", it.data().verifyCommand );
-		gr.writeEntry( "BlankCheckCommand", it.data().blankCheckCommand );
-		gr.writeEntry( "EraseCommand", it.data().eraseCommand );
+		gr.writeEntry( "InitCommand", it.value().initCommand );
+		gr.writeEntry( "ReadCommand", it.value().readCommand );
+		gr.writeEntry( "WriteCommand", it.value().writeCommand );
+		gr.writeEntry( "VerifyCommand", it.value().verifyCommand );
+		gr.writeEntry( "BlankCheckCommand", it.value().blankCheckCommand );
+		gr.writeEntry( "EraseCommand", it.value().eraseCommand );
 	}
 }
 

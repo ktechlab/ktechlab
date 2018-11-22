@@ -85,13 +85,13 @@ ItemData DrawPart::itemData() const
 	const VariantDataMap::const_iterator end = m_variantData.end();
 	for ( VariantDataMap::const_iterator it = m_variantData.begin(); it != end; ++it )
 	{
-		switch( it.data()->type() )
+		switch( it.value()->type() )
 		{
 			case Variant::Type::PenStyle:
-				itemData.dataString[it.key()] = penStyleToID( nameToPenStyle( it.data()->value().toString() ) );
+				itemData.dataString[it.key()] = penStyleToID( nameToPenStyle( it.value()->value().toString() ) );
 				break;
 			case Variant::Type::PenCapStyle:
-				itemData.dataString[it.key()] = penCapStyleToID( nameToPenCapStyle( it.data()->value().toString() ) );
+				itemData.dataString[it.key()] = penCapStyleToID( nameToPenCapStyle( it.value()->value().toString() ) );
 				break;
 			case Variant::Type::String:
 			case Variant::Type::FileName:
@@ -130,11 +130,11 @@ void DrawPart::restoreFromItemData( const ItemData &itemData )
 		if ( vit == m_variantData.end() )
 			continue;
 		
-		if ( vit.data()->type() == Variant::Type::PenStyle )
-			setDataPenStyle( it.key(), idToPenStyle( it.data() ) );
+		if ( vit.value()->type() == Variant::Type::PenStyle )
+			setDataPenStyle( it.key(), idToPenStyle( it.value() ) );
 		
-		else if ( vit.data()->type() == Variant::Type::PenCapStyle )
-			setDataPenCapStyle( it.key(), idToPenCapStyle( it.data() ) );
+		else if ( vit.value()->type() == Variant::Type::PenCapStyle )
+			setDataPenCapStyle( it.key(), idToPenCapStyle( it.value() ) );
 	}
 }
 

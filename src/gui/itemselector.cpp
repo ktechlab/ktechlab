@@ -36,7 +36,7 @@ ILVItem::ILVItem( QTreeWidget *parent, const QString &id )
 	: QTreeWidgetItem( parent, 0 /* note: add item types */ )
 {
     setData(0, DataRole_ID, QVariant(id));
-    // 	m_id = id;  // 2018.08.12 - use data()
+    // 	m_id = id;  // 2018.08.12 - use value()
 	b_isRemovable = false;
 	m_pProjectItem = 0l;
 }
@@ -44,7 +44,7 @@ ILVItem::ILVItem( QTreeWidget *parent, const QString &id )
 ILVItem::ILVItem( QTreeWidgetItem *parent, const QString &id )
 	: QTreeWidgetItem( parent, 0 /* note: add item types */ )
 {
-	//m_id = id;    // 2018.08.12 - use data()
+	//m_id = id;    // 2018.08.12 - use value()
     setData(0, DataRole_ID, QVariant(id));
 	b_isRemovable = false;
 	m_pProjectItem = 0l;

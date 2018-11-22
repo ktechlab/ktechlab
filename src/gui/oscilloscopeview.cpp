@@ -285,7 +285,7 @@ void OscilloscopeView::drawLogicData( QPainter & p)
 		int64_t deltaAt = 1;
 		int totalDeltaAt = 1;
 		
-		LogicProbeData * probe = it.data();
+		LogicProbeData * probe = it.value();
 
 		vector<LogicDataPoint> *data = probe->m_data;
 		if(!data->size()) continue;
@@ -375,7 +375,7 @@ void OscilloscopeView::drawFloatingData(QPainter &p)
 
 	const FloatingProbeDataMap::iterator end = Oscilloscope::self()->m_floatingProbeDataMap.end();
 	for(FloatingProbeDataMap::iterator it = Oscilloscope::self()->m_floatingProbeDataMap.begin(); it != end; ++it) {
-		FloatingProbeData * probe = it.data();
+		FloatingProbeData * probe = it.value();
 		vector<float> *data = probe->m_data;
 
 		if(!data->size()) continue;

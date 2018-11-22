@@ -172,13 +172,13 @@ void FileMetaInfo::saveAllMetaInfo()
 	const MetaInfoMap::iterator end = m_metaInfoMap.end();
 	for ( MetaInfoMap::iterator it = m_metaInfoMap.begin(); it != end; ++it )
 	{
-		if ( it.data().hasDefaultData() )
+		if ( it.value().hasDefaultData() )
 			m_metaInfoConfig->deleteGroup(it.key().prettyUrl());
 		
 		else
 		{
 			KConfigGroup grUrl = m_metaInfoConfig->group( it.key().prettyUrl() );
-			it.data().save( &grUrl );
+			it.value().save( &grUrl );
 		}
 	}
 }

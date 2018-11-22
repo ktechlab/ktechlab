@@ -64,10 +64,10 @@ PicPinMap MicroPackage::pins( uint pinType, const QString& portName )
 	const PicPinMap::iterator picPinListEnd = m_picPinMap.end();
 	for ( PicPinMap::iterator it = m_picPinMap.begin(); it != picPinListEnd; ++it )
 	{
-		if ( (it.data().type & pinType) &&
-					(portName.isEmpty() || it.data().portName == portName) )
+		if ( (it.value().type & pinType) &&
+					(portName.isEmpty() || it.value().portName == portName) )
 		{
-			list[it.key()] = it.data();
+			list[it.key()] = it.value();
 		}
 	}
 	
@@ -82,10 +82,10 @@ QStringList MicroPackage::pinIDs( uint pinType, const QString& portName )
 	const PicPinMap::iterator picPinListEnd = m_picPinMap.end();
 	for ( PicPinMap::iterator it = m_picPinMap.begin(); it != picPinListEnd; ++it )
 	{
-		if ( (it.data().type & pinType) &&
-					(portName.isEmpty() || it.data().portName == portName) )
+		if ( (it.value().type & pinType) &&
+					(portName.isEmpty() || it.value().portName == portName) )
 		{
-			list.append( it.data().pinID );
+			list.append( it.value().pinID );
 		}
 	}
 	
@@ -100,8 +100,8 @@ int MicroPackage::pinCount( uint pinType, const QString& portName )
 	const PicPinMap::iterator picPinListEnd = m_picPinMap.end();
 	for ( PicPinMap::iterator it = m_picPinMap.begin(); it != picPinListEnd; ++it )
 	{
-		if ( (it.data().type & pinType) &&
-					(portName.isEmpty() || it.data().portName == portName) ) count++;
+		if ( (it.value().type & pinType) &&
+					(portName.isEmpty() || it.value().portName == portName) ) count++;
 	}
 	
 	return count;

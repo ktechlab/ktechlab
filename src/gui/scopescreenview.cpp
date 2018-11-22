@@ -59,7 +59,7 @@ void ScopeScreenView::drawContents(QPainter * p)
 	const FloatingProbeDataMap::iterator end = Oscilloscope::self()->m_floatingProbeDataMap.end();
 	for ( FloatingProbeDataMap::iterator it = Oscilloscope::self()->m_floatingProbeDataMap.begin(); it != end; ++it )
 	{
-		FloatingProbeData * probe = it.data();
+		FloatingProbeData * probe = it.value();
 		StoredData<float> * data = &(probe->m_data);
 		
 		if ( data->allocatedUpTo() == 0 )
@@ -133,7 +133,7 @@ void ScopeScreenView::drawContents(QPainter * p)
 		llong deltaAt = 1;
 		int totalDeltaAt = 1;
 		
-		LogicProbeData * probe = it.data();
+		LogicProbeData * probe = it.value();
 		StoredData<LogicDataPoint> * data = &(probe->m_data);
 		
 		if ( data->allocatedUpTo() == 0 )

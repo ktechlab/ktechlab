@@ -1030,13 +1030,13 @@ void ItemDocument::raiseZ( const ItemList & itemList )
 	IntItemMap::iterator previous = m_zOrder.end();
 	IntItemMap::iterator it = --m_zOrder.end();
 	do {
-		Item * previousData = (previous == m_zOrder.end()) ? 0l : previous.data();
-		Item * currentData = it.data();
+		Item * previousData = (previous == m_zOrder.end()) ? 0l : previous.value();
+		Item * currentData = it.value();
 		
 		if ( currentData && previousData && itemList.contains(currentData) && !itemList.contains(previousData) )
 		{
-			previous.data() = currentData;
-			it.data() = previousData;
+			previous.value() = currentData;
+			it.value() = previousData;
 		}
 		
 		previous = it;
@@ -1062,13 +1062,13 @@ void ItemDocument::lowerZ( const ItemList &itemList )
 	IntItemMap::iterator end = m_zOrder.end();
 	for ( IntItemMap::iterator it = m_zOrder.begin(); it != end; ++it )
 	{
-		Item * previousData = previous.data();
-		Item * currentData = it.data();
+		Item * previousData = previous.value();
+		Item * currentData = it.value();
 		
 		if ( currentData && previousData && itemList.contains(currentData) && !itemList.contains(previousData) )
 		{
-			previous.data() = currentData;
-			it.data() = previousData;
+			previous.value() = currentData;
+			it.value() = previousData;
 		}
 		
 		previous = it;
@@ -1094,7 +1094,7 @@ void ItemDocument::slotUpdateZOrdering()
 	IntItemMap::iterator zEnd = m_zOrder.end();
 	for ( IntItemMap::iterator it = m_zOrder.begin(); it != zEnd; ++it )
 	{	
-		Item * item = it.data();
+		Item * item = it.value();
 		if (!item) continue;
 		
 		toAdd.remove( item->id() );
@@ -1117,7 +1117,7 @@ void ItemDocument::slotUpdateZOrdering()
 	
 	zEnd = m_zOrder.end();
 	for ( IntItemMap::iterator it = m_zOrder.begin(); it != zEnd; ++it )
-		it.data()->updateZ( it.key() );
+		it.value()->updateZ( it.key() );
 }
 
 
@@ -1138,7 +1138,7 @@ ItemList ItemDocument::itemList( ) const
 	
 	ItemMap::const_iterator end = m_itemList.end();
 	for ( ItemMap::const_iterator it = m_itemList.begin(); it != end; ++it )
-		l << it.data();
+		l << it.value();
 
 	return l;
 }

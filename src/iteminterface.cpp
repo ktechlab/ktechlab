@@ -263,13 +263,13 @@ QWidget * ItemInterface::configWidget()
 	const VariantDataMap::iterator vaEnd = variantMap->end();
 	for ( VariantDataMap::iterator vait = variantMap->begin(); vait != vaEnd; ++vait )
 	{
-		if ( vait.data()->isHidden() || vait.data()->isAdvanced() )
+		if ( vait.value()->isHidden() || vait.value()->isAdvanced() )
 			continue;
 		
-		const Variant::Type::Value type = vait.data()->type();
+		const Variant::Type::Value type = vait.value()->type();
 		
 		// common to all types apart from bool
-		QString toolbarCaption = vait.data()->toolbarCaption();
+		QString toolbarCaption = vait.value()->toolbarCaption();
 		if ( type != Variant::Type::Bool && !toolbarCaption.isEmpty() )
 			configLayout->addWidget( new QLabel( toolbarCaption, configWidget ) );
 		
@@ -285,11 +285,11 @@ QWidget * ItemInterface::configWidget()
 			case Variant::Type::KeyPad:
 			case Variant::Type::SevenSegment:
 			{
-				QString value = vait.data()->displayString();
-				if ( !value.isEmpty() && !vait.data()->allowed().contains(value) )
-					vait.data()->appendAllowed(value);
+				QString value = vait.value()->displayString();
+				if ( !value.isEmpty() && !vait.value()->allowed().contains(value) )
+					vait.value()->appendAllowed(value);
 				
-				const QStringList allowed = vait.data()->allowed();
+				const QStringList allowed = vait.value()->allowed();
 				
 				KComboBox * box = new KComboBox(configWidget);
 				
@@ -312,14 +312,14 @@ QWidget * ItemInterface::configWidget()
 			case Variant::Type::FileName:
 			{
                 qDebug() << Q_FUNC_INFO << "create FileName";
-				QString value = vait.data()->value().toString();
-				if ( !vait.data()->allowed().contains(value) )
-					vait.data()->appendAllowed(value);
+				QString value = vait.value()->value().toString();
+				if ( !vait.value()->allowed().contains(value) )
+					vait.value()->appendAllowed(value);
 				
-				const QStringList allowed = vait.data()->allowed();
+				const QStringList allowed = vait.value()->allowed();
 				
 				KUrlComboRequester * urlreq = new KUrlComboRequester( configWidget );
-				urlreq->setFilter( vait.data()->filter() );
+				urlreq->setFilter( vait.value()->filter() );
 				connectMapWidget( urlreq, SIGNAL(urlSelected(const KUrl &)) );
 				m_stringURLReqMap[vait.key()] = urlreq;
 				
@@ -328,7 +328,7 @@ QWidget * ItemInterface::configWidget()
 				box->setEditable( true );
 				
 				// Note this has to be called after inserting the allowed list
-				urlreq->setUrl( vait.data()->value().toString() );
+				urlreq->setUrl( vait.value()->value().toString() );
 				
 				// Generally we only want a file name once the user has finished typing out the full file name.
 				connectMapWidget( box, SIGNAL(returnPressed(const QString &)));
@@ -343,7 +343,7 @@ QWidget * ItemInterface::configWidget()
 			{
 				LineEdit * edit = new LineEdit( configWidget );
 				
-				edit->setText( vait.data()->value().toString() );
+				edit->setText( vait.value()->value().toString() );
 				connectMapWidget(edit,SIGNAL(textChanged(const QString &)));
 				m_stringLineEditMap[vait.key()] = edit;
 				editWidget = edit;
@@ -354,7 +354,7 @@ QWidget * ItemInterface::configWidget()
 			}
 			case Variant::Type::Int:
 			{
-				KIntSpinBox *spin = new KIntSpinBox( (int)vait.data()->minValue(), (int)vait.data()->maxValue(), 1, vait.data()->value().toInt(),
+				KIntSpinBox *spin = new KIntSpinBox( (int)vait.value()->minValue(), (int)vait.value()->maxValue(), 1, vait.value()->value().toInt(),
                                                      configWidget, 10 );
 				
 				connectMapWidget( spin, SIGNAL(valueChanged(int)) );
@@ -367,7 +367,7 @@ QWidget * ItemInterface::configWidget()
 			}
 			case Variant::Type::Double:
 			{
-				DoubleSpinBox *spin = new DoubleSpinBox( vait.data()->minValue(), vait.data()->maxValue(), vait.data()->minAbsValue(), vait.data()->value().toDouble(), vait.data()->unit(), configWidget );
+				DoubleSpinBox *spin = new DoubleSpinBox( vait.value()->minValue(), vait.value()->maxValue(), vait.value()->minAbsValue(), vait.value()->value().toDouble(), vait.value()->unit(), configWidget );
 				
 				connectMapWidget( spin, SIGNAL(valueChanged(double)));
 				m_doubleSpinBoxMap[vait.key()] = spin;
@@ -379,9 +379,9 @@ QWidget * ItemInterface::configWidget()
 			}
 			case Variant::Type::Color:
 			{
-				QColor value = vait.data()->value().value<QColor>();
+				QColor value = vait.value()->value().value<QColor>();
 				
-				ColorCombo * colorBox = new ColorCombo( (ColorCombo::ColorScheme)vait.data()->colorScheme(), configWidget );
+				ColorCombo * colorBox = new ColorCombo( (ColorCombo::ColorScheme)vait.value()->colorScheme(), configWidget );
 				
 				colorBox->setColor( value );
 				connectMapWidget( colorBox, SIGNAL(activated(const QColor &)));
@@ -394,8 +394,8 @@ QWidget * ItemInterface::configWidget()
 			}
 			case Variant::Type::Bool:
 			{
-				const bool value = vait.data()->value().toBool();
-				QCheckBox * box = new QCheckBox( vait.data()->toolbarCaption(), configWidget );
+				const bool value = vait.value()->value().toBool();
+				QCheckBox * box = new QCheckBox( vait.value()->toolbarCaption(), configWidget );
 				
 				box->setChecked(value);
 				connectMapWidget( box, SIGNAL(toggled(bool)));
@@ -509,35 +509,35 @@ void ItemInterface::tbDataChanged()
 	const LineEditMap::iterator m_stringLineEditMapEnd = m_stringLineEditMap.end();
 	for ( LineEditMap::iterator leit = m_stringLineEditMap.begin(); leit != m_stringLineEditMapEnd; ++leit )
 	{
-		slotSetData( leit.key(), leit.data()->text() );
+		slotSetData( leit.key(), leit.value()->text() );
 	}
 	
 	// String values from comboboxes
 	const KComboBoxMap::iterator m_stringComboBoxMapEnd = m_stringComboBoxMap.end();
 	for ( KComboBoxMap::iterator cmit = m_stringComboBoxMap.begin(); cmit != m_stringComboBoxMapEnd; ++cmit )
 	{
-        qDebug() << Q_FUNC_INFO << "set KCombo data for " << cmit.key() << " to " << cmit.data()->currentText();
-		slotSetData( cmit.key(), cmit.data()->currentText() );
+        qDebug() << Q_FUNC_INFO << "set KCombo data for " << cmit.key() << " to " << cmit.value()->currentText();
+		slotSetData( cmit.key(), cmit.value()->currentText() );
 	}
 
 	// Colors values from colorcombos
 	const ColorComboMap::iterator m_colorComboMapEnd = m_colorComboMap.end();
 	for ( ColorComboMap::iterator ccit = m_colorComboMap.begin(); ccit != m_colorComboMapEnd; ++ccit )
 	{
-		slotSetData( ccit.key(), ccit.data()->color() );
+		slotSetData( ccit.key(), ccit.value()->color() );
 	}
 	
 	// Bool values from checkboxes
 	const QCheckBoxMap::iterator m_boolCheckMapEnd = m_boolCheckMap.end();
 	for ( QCheckBoxMap::iterator chit = m_boolCheckMap.begin(); chit != m_boolCheckMapEnd; ++chit )
 	{
-		slotSetData( chit.key(), chit.data()->isChecked() );
+		slotSetData( chit.key(), chit.value()->isChecked() );
 	}
 	
 	const IntSpinBoxMap::iterator m_intSpinBoxMapEnd = m_intSpinBoxMap.end();
 	for ( IntSpinBoxMap::iterator it = m_intSpinBoxMap.begin(); it != m_intSpinBoxMapEnd; ++it )
 	{
-		slotSetData( it.key(), it.data()->value() );
+		slotSetData( it.key(), it.value()->value() );
 	}
 	
 	// (?) Combined values from spin boxes and combo boxes
@@ -547,15 +547,15 @@ void ItemInterface::tbDataChanged()
 	for ( DoubleSpinBoxMap::iterator sbit = m_doubleSpinBoxMap.begin(); sbit != m_doubleSpinBoxMapEnd; ++sbit )
 	{
 // 		VariantDataMap::iterator vait = variantData.find(sbit.key());
-		slotSetData( sbit.key(), sbit.data()->value() );
+		slotSetData( sbit.key(), sbit.value()->value() );
 	}
 	
 	// Filenames from KUrlRequesters
 	const KUrlReqMap::iterator m_stringURLReqMapEnd = m_stringURLReqMap.end();
 	for ( KUrlReqMap::iterator urlit = m_stringURLReqMap.begin(); urlit != m_stringURLReqMapEnd; ++urlit )
 	{
-        qDebug() << Q_FUNC_INFO << "set kurlrequester data for " << urlit.key() << " to " << urlit.data()->url();
-        QVariant urlVar( urlit.data()->url().path() );
+        qDebug() << Q_FUNC_INFO << "set kurlrequester data for " << urlit.key() << " to " << urlit.value()->url();
+        QVariant urlVar( urlit.value()->url().path() );
         qDebug() << Q_FUNC_INFO << "urlVar=" << urlVar << " urlVar.toUrl=" << urlVar.toUrl();
 		slotSetData( urlit.key(), urlVar );
 	}

@@ -199,7 +199,7 @@ void Oscilloscope::unregisterProbe( int id)
 	m_logicProbeDataMap.remove(id);
 	m_floatingProbeDataMap.remove(id);
 	
-	bool oldestDestroyed = it.data() == m_oldestProbe;
+	bool oldestDestroyed = it.value() == m_oldestProbe;
 	
 	if( it != m_probeDataMap.end())
 		m_probeDataMap.erase(it);
@@ -215,7 +215,7 @@ ProbeData * Oscilloscope::probeData( int id) const
 {
 	const ProbeDataMap::const_iterator bit = m_probeDataMap.find(id);
 	if( bit != m_probeDataMap.end())
-		return bit.data();
+		return bit.value();
 	
 	return 0;
 }
@@ -250,7 +250,7 @@ void Oscilloscope::getOldestProbe()
 		return;
 	}
 	
-	m_oldestProbe = m_probeDataMap.begin().data();
+	m_oldestProbe = m_probeDataMap.begin().value();
 	m_oldestId = m_probeDataMap.begin().key();
 }
 

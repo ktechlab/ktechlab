@@ -95,7 +95,7 @@ FlowPart::~FlowPart()
 		const VariantDataMap::iterator end = m_variantData.end();
 		for ( VariantDataMap::iterator it = m_variantData.begin(); it != end; ++it )
 		{
-			Variant *v = it.data();
+			Variant *v = it.value();
 			if (v)
 				m_pFlowCodeDocument->varNameChanged( "", v->value().toString() );
 		}
@@ -375,7 +375,7 @@ FlowPartList FlowPart::inputParts()
 	const NodeInfoMap::iterator nEnd = m_nodeMap.end();
 	for ( NodeInfoMap::iterator it = m_nodeMap.begin(); it != nEnd; ++it )
 	{
-		Node *node = p_icnDocument->nodeWithID( it.data().id );
+		Node *node = p_icnDocument->nodeWithID( it.value().id );
 		FlowPartList newList;
 		
 		if ( FPNode *fpNode = dynamic_cast<FPNode*>(node) )
@@ -573,7 +573,7 @@ void FlowPart::slotUpdateFlowPartVariables()
 	PinMappingMap::const_iterator pEnd = pinMappings.end();
 	for ( PinMappingMap::const_iterator it = pinMappings.begin(); it != pEnd; ++it )
 	{
-		switch ( it.data().type() )
+		switch ( it.value().type() )
 		{
 		case PinMapping::SevenSegment:
 			sevenSegMaps << it.key();
@@ -598,7 +598,7 @@ void FlowPart::slotUpdateFlowPartVariables()
 	const VariantDataMap::iterator vEnd = m_variantData.end();
 	for ( VariantDataMap::iterator it = m_variantData.begin(); it != vEnd; ++it )
 	{
-		Variant * v = it.data();
+		Variant * v = it.value();
 		if ( !v ) continue;
 		
 		if ( v->type() == Variant::Type::Port )
@@ -629,7 +629,7 @@ void FlowPart::updateVarNames()
 	const VariantDataMap::iterator end = m_variantData.end();
 	for ( VariantDataMap::iterator it = m_variantData.begin(); it != end; ++it )
 	{
-		Variant *v = it.data();
+		Variant *v = it.value();
 		if ( v && v->type() == Variant::Type::VarName )
 			v->setAllowed(names);
 	}
@@ -684,31 +684,31 @@ void FlowPart::updateAttachedPositioning( )
 	const TextMap::iterator textMapEnd = m_textMap.end();
 	for ( TextMap::iterator it = m_textMap.begin(); it != textMapEnd; ++it )
 	{
-		QRect pos = it.data()->recommendedRect();
-		it.data()->move( pos.x() + x(), pos.y() + y() );
-		it.data()->setGuiPartSize( pos.width(), pos.height() );
+		QRect pos = it.value()->recommendedRect();
+		it.value()->move( pos.x() + x(), pos.y() + y() );
+		it.value()->setGuiPartSize( pos.width(), pos.height() );
 	}
 	//END Rearrange text if appropriate
 	
 	const NodeInfoMap::iterator end = m_nodeMap.end();
 	for ( NodeInfoMap::iterator it = m_nodeMap.begin(); it != end; ++it )
 	{
-		if ( !it.data().node )
+		if ( !it.value().node )
 		{
 			kError() << k_funcinfo << "Node in nodemap is null" << endl;
 			continue;
 		}
 		
-		double nx = it.data().x;
-		double ny = it.data().y;
+		double nx = it.value().x;
+		double ny = it.value().y;
 			
 #define round_8(x) (((x) > 0) ? int(((x)+4)/8)*8 : int(((x)-4)/8)*8)
 		nx = round_8(nx);
 		ny = round_8(ny);
 #undef round_8
 			
-		it.data().node->move( int(nx+x()), int(ny+y()) );
-		it.data().node->setOrientation( it.data().orientation );
+		it.value().node->move( int(nx+x()), int(ny+y()) );
+		it.value().node->setOrientation( it.value().orientation );
 	}
 }
 
@@ -758,25 +758,25 @@ void FlowPart::updateNodePositions()
 	const NodeInfoMap::iterator end = m_nodeMap.end();
 	for ( NodeInfoMap::iterator it = m_nodeMap.begin(); it != end; ++it )
 	{
-		if ( !it.data().node )
+		if ( !it.value().node )
 			kError() << k_funcinfo << "Node in nodemap is null" << endl;
 		else {
-			switch ( it.data().orientation ) {
+			switch ( it.value().orientation ) {
 			case 0:
-				it.data().x = offsetX()+width()+8;
-				it.data().y = 0;
+				it.value().x = offsetX()+width()+8;
+				it.value().y = 0;
 				break;
 			case 270:
-				it.data().x = 0;
-				it.data().y = offsetY()-8;
+				it.value().x = 0;
+				it.value().y = offsetY()-8;
 				break;
 			case 180:
-				it.data().x = offsetX()-8;
-				it.data().y = 0;
+				it.value().x = offsetX()-8;
+				it.value().y = 0;
 				break;
 			case 90:
-				it.data().x = 0;
-				it.data().y = offsetY()+height()+8;;
+				it.value().x = 0;
+				it.value().y = offsetY()+height()+8;;
 				break;
 			}
 		}

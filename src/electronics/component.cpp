@@ -303,12 +303,12 @@ void Component::updateAttachedPositioning()
     const NodeInfoMap::iterator end = m_nodeMap.end();
     for ( NodeInfoMap::iterator it = m_nodeMap.begin(); it != end; ++it )
     {
-        if ( !it.data().node )
+        if ( !it.value().node )
             kError() << k_funcinfo << "Node in nodemap is null" << endl;
         else
         {
-            int nx = int((std::cos(m_angleDegrees * RPD) * it.data().x) - (std::sin(m_angleDegrees * RPD) * it.data().y));
-            int ny = int((std::sin(m_angleDegrees * RPD) * it.data().x) + (std::cos(m_angleDegrees * RPD) * it.data().y));
+            int nx = int((std::cos(m_angleDegrees * RPD) * it.value().x) - (std::sin(m_angleDegrees * RPD) * it.value().y));
+            int ny = int((std::sin(m_angleDegrees * RPD) * it.value().x) + (std::cos(m_angleDegrees * RPD) * it.value().y));
 
             if (b_flipped)
                 nx = -nx;
@@ -318,12 +318,12 @@ void Component::updateAttachedPositioning()
             ny = round_8(ny);
 #undef round_8
 
-            int newDir = (((m_angleDegrees + it.data().orientation)%360)+360)%360;
+            int newDir = (((m_angleDegrees + it.value().orientation)%360)+360)%360;
             if (b_flipped)
                 newDir = (((180-newDir)%360)+360)%360;
 
-            it.data().node->move( nx+x(), ny+y() );
-            it.data().node->setOrientation( newDir );
+            it.value().node->move( nx+x(), ny+y() );
+            it.value().node->setOrientation( newDir );
         }
     }
     //END Transform the nodes
@@ -340,18 +340,18 @@ void Component::updateAttachedPositioning()
     const TextMap::iterator textMapEnd = m_textMap.end();
     for ( TextMap::iterator it = m_textMap.begin(); it != textMapEnd; ++it )
     {
-        QRect newPos = m.mapRect( it.data()->recommendedRect() );
-        it.data()->move( newPos.x() + x(), newPos.y() + y() );
-        it.data()->setGuiPartSize( newPos.width(), newPos.height() );
-        it.data()->setAngleDegrees(m_angleDegrees);
+        QRect newPos = m.mapRect( it.value()->recommendedRect() );
+        it.value()->move( newPos.x() + x(), newPos.y() + y() );
+        it.value()->setGuiPartSize( newPos.width(), newPos.height() );
+        it.value()->setAngleDegrees(m_angleDegrees);
     }
     const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
     for ( WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it )
     {
-        QRect newPos = m.mapRect( it.data()->recommendedRect() );
-        it.data()->move( newPos.x() + x(), newPos.y() + y() );
-        it.data()->setGuiPartSize( newPos.width(), newPos.height() );
-        it.data()->setAngleDegrees(m_angleDegrees);
+        QRect newPos = m.mapRect( it.value()->recommendedRect() );
+        it.value()->move( newPos.x() + x(), newPos.y() + y() );
+        it.value()->setGuiPartSize( newPos.width(), newPos.height() );
+        it.value()->setAngleDegrees(m_angleDegrees);
     }
     //END Transform the GuiParts
 }
@@ -1072,10 +1072,10 @@ void Component::setAllPinsInterIndependent()
     NodeInfoMap::iterator nmEnd = m_nodeMap.end();
     for ( NodeInfoMap::iterator it = m_nodeMap.begin(); it != nmEnd; ++it )
     {
-        //PinVector pins = (static_cast<ECNode*>(it.data().node))->pins();
-        ECNode *node = dynamic_cast<ECNode*>(it.data().node);
+        //PinVector pins = (static_cast<ECNode*>(it.value().node))->pins();
+        ECNode *node = dynamic_cast<ECNode*>(it.value().node);
         if (!node) {
-            qWarning() << Q_FUNC_INFO << "skipping not-ECNode node: " << it.data().node;
+            qWarning() << Q_FUNC_INFO << "skipping not-ECNode node: " << it.value().node;
             continue;
         }
         PinVector pins = node->pins();

@@ -265,8 +265,8 @@ void FlowCodeDocument::varNameChanged( const QString &newValue, const QString &o
 	// If none are left after, remove it from microsettings
 	StringIntMap::iterator it = m_varNames.find(oldValue);
 	if ( it != m_varNames.end() ) {
-		--(it.data());
-		if ( it.data() <= 0 ) {
+		--(it.value());
+		if ( it.value() <= 0 ) {
 			VariableInfo *info = microSettings()->variableInfo(it.key());
 			if ( info && !info->permanent ) microSettings()->deleteVariable(oldValue);
 			m_varNames.erase(it);
@@ -277,7 +277,7 @@ void FlowCodeDocument::varNameChanged( const QString &newValue, const QString &o
 	if ( !newValue.isEmpty() ) {
 		it = m_varNames.find(newValue);
 		if ( it != m_varNames.end() ) {
-			++it.data();
+			++it.value();
 		} else {
 			m_varNames[newValue] = 1;
 			microSettings()->setVariable( newValue, QVariant(), false );

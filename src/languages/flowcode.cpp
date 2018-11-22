@@ -170,7 +170,7 @@ QString FlowCode::generateMicrobe( const ItemList &itemList, MicroSettings *sett
 		NodeInfoMap::const_iterator nodeMapEnd = nodeMap.end();
 		for ( NodeInfoMap::const_iterator nodeMapIt = nodeMap.begin(); nodeMapIt != nodeMapEnd; ++nodeMapIt )
 		{
-			Node * node = nodeMapIt.data().node;
+			Node * node = nodeMapIt.value().node;
 				// FIXME dynamic_cast used
 			if(  !node || ( dynamic_cast<OutputFlowNode*>(node) == 0) )
 				continue;
@@ -244,7 +244,7 @@ QString FlowCode::generateMicrobe( const ItemList &itemList, MicroSettings *sett
 		{
 			QString type;
 			
-			switch ( it.data().type() )
+			switch ( it.value().type() )
 			{
 				case PinMapping::Keypad_4x3:
 				case PinMapping::Keypad_4x4:
@@ -262,7 +262,7 @@ QString FlowCode::generateMicrobe( const ItemList &itemList, MicroSettings *sett
 			if ( type.isEmpty() )
 				continue;
 			
-			addCode( QString("%1 %2 %3").arg( type ).arg( it.key() ).arg( it.data().pins().join(" ") ) );
+			addCode( QString("%1 %2 %3").arg( type ).arg( it.key() ).arg( it.value().pins().join(" ") ) );
 		}
 	}
 	

@@ -135,7 +135,7 @@ bool ItemGroup::itemsHaveDefaultData() const
 	const VariantDataMap::const_iterator vitEnd = variantMap->end();
 	for ( VariantDataMap::const_iterator vit = variantMap->begin(); vit != vitEnd; ++vit )
 	{
-		if ( !vit.data()->isHidden() && vit.data()->value() != vit.data()->defaultValue() )
+		if ( !vit.value()->isHidden() && vit.value()->value() != vit.value()->defaultValue() )
 			return false;
 	}
 	return true;

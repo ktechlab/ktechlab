@@ -381,7 +381,7 @@ void ICNDocument::getTranslatable(const ItemList &itemList, ConnectorList *fixed
 			const NodeInfoMap::iterator nlEnd = nodeMap.end();
 			for ( NodeInfoMap::iterator nlIt = nodeMap.begin(); nlIt != nlEnd; ++nlIt )
 			{
-				itemNodeList.append(nlIt.data().node);
+				itemNodeList.append(nlIt.value().node);
 			}
 			
 			ConnectorList conList = cnItem->connectorList();
@@ -392,7 +392,7 @@ void ICNDocument::getTranslatable(const ItemList &itemList, ConnectorList *fixed
 			{
 				ConnectorMap::iterator cit = fixedConnectorMap.find(*clit);
 				if ( cit != fixedConnectorMap.end() ) {
-					cit.data()++;
+					cit.value()++;
 				} else	fixedConnectorMap[*clit] = 1;
 			}
 		}
@@ -442,7 +442,7 @@ void ICNDocument::getTranslatable(const ItemList &itemList, ConnectorList *fixed
 		Node *startNode = it.key()->endNode();
 		Node *endNode = it.key()->startNode();
 
-		if( (it.data() > 1)
+		if( (it.value() > 1)
 		 || (startNode && endNode && startNode->parentItem() == endNode->parentItem()) )
 		{
 			translatableConnectors->append( const_cast<Connector*>(it.key()) );
@@ -576,10 +576,10 @@ void ICNDocument::copy()
 	// Remove those connectors (and nodes) which are dangling on an orphan node
 	NCLMap::iterator nclEnd = nclMap.end();
 	for ( NCLMap::iterator it = nclMap.begin(); it != nclEnd; ++it ) {
-		if ( it.data().size() > 1 )
+		if ( it.value().size() > 1 )
 			nodeList.append(it.key());
-		else if ( it.data().size() > 0 )
-			connectorList.remove( it.data().at(0) );
+		else if ( it.value().size() > 0 )
+			connectorList.remove( it.value().at(0) );
 	}
 
 	data.addItems( m_selectList->items(false) );
@@ -836,7 +836,7 @@ NodeList ICNDocument::getCommonNodes( const ItemList &list )
 		const NodeInfoMap::iterator nodeMapEnd = nodeMap.end();
 		for(NodeInfoMap::iterator it = nodeMap.begin(); it != nodeMapEnd; ++it )
 		{
-			Node *node = it.data().node;
+			Node *node = it.value().node;
 			
 			if(!nodeList.contains(node) ) nodeList += node;
 

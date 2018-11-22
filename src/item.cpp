@@ -74,7 +74,7 @@ Item::~Item()
 	
 	const VariantDataMap::iterator variantDataEnd = m_variantData.end();
 	for ( VariantDataMap::iterator it = m_variantData.begin(); it != variantDataEnd; ++it )
-		delete it.data();
+		delete it.value();
 	m_variantData.clear();
 }
 
@@ -176,7 +176,7 @@ ItemData Item::itemData() const
 	const VariantDataMap::const_iterator end = m_variantData.end();
 	for ( VariantDataMap::const_iterator it = m_variantData.begin(); it != end; ++it )
 	{
-		switch( it.data()->type() )
+		switch( it.value()->type() )
 		{
 			case Variant::Type::String:
 			case Variant::Type::FileName:
@@ -190,28 +190,28 @@ ItemData Item::itemData() const
 			case Variant::Type::SevenSegment:
 			case Variant::Type::KeyPad:
 			{
-				itemData.dataString[it.key()] = it.data()->value().toString();
+				itemData.dataString[it.key()] = it.value()->value().toString();
 				break;
 			}
 			case Variant::Type::Int:
 			case Variant::Type::Double:
 			{
-				itemData.dataNumber[it.key()] = it.data()->value().toDouble();
+				itemData.dataNumber[it.key()] = it.value()->value().toDouble();
 				break;
 			}
 			case Variant::Type::Color:
 			{
-				itemData.dataColor[it.key()] = it.data()->value().value<QColor>();
+				itemData.dataColor[it.key()] = it.value()->value().value<QColor>();
 				break;
 			}
 			case Variant::Type::Bool:
 			{
-				itemData.dataBool[it.key()] = it.data()->value().toBool();
+				itemData.dataBool[it.key()] = it.value()->value().toBool();
 				break;
 			}
 			case Variant::Type::Raw:
 			{
-				itemData.dataRaw[it.key()] = it.data()->value().toBitArray();
+				itemData.dataRaw[it.key()] = it.value()->value().toBitArray();
 				break;
 			}
 			case Variant::Type::PenStyle:
@@ -250,35 +250,35 @@ void Item::restoreFromItemData( const ItemData &itemData )
 	for ( QStringMap::const_iterator it = itemData.dataString.begin(); it != stringEnd; ++it )
 	{
 		if ( hasProperty(it.key()) )
-			property( it.key() )->setValue( it.data() );
+			property( it.key() )->setValue( it.value() );
 	}
 	
 	const DoubleMap::const_iterator numberEnd = itemData.dataNumber.end();
 	for ( DoubleMap::const_iterator it = itemData.dataNumber.begin(); it != numberEnd; ++it )
 	{
 		if ( hasProperty(it.key()) )
-			property( it.key() )->setValue( it.data() );
+			property( it.key() )->setValue( it.value() );
 	}
 	
 	const QColorMap::const_iterator colorEnd = itemData.dataColor.end();
 	for ( QColorMap::const_iterator it = itemData.dataColor.begin(); it != colorEnd; ++it )
 	{
 		if ( hasProperty(it.key()) )
-			property( it.key() )->setValue( it.data() );
+			property( it.key() )->setValue( it.value() );
 	}
 	
 	const BoolMap::const_iterator boolEnd = itemData.dataBool.end();
 	for ( BoolMap::const_iterator it = itemData.dataBool.begin(); it != boolEnd; ++it )
 	{
 		if ( hasProperty(it.key()) )
-			property( it.key() )->setValue( QVariant( it.data(), 0 ) );
+			property( it.key() )->setValue( QVariant( it.value(), 0 ) );
 	}
 	
 	const QBitArrayMap::const_iterator rawEnd = itemData.dataRaw.end();
 	for ( QBitArrayMap::const_iterator it = itemData.dataRaw.begin(); it != rawEnd; ++it )
 	{
 		if ( hasProperty(it.key()) )
-			property( it.key() )->setValue( it.data() );
+			property( it.key() )->setValue( it.value() );
 	}
 	//END Restore Data
 }

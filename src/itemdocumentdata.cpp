@@ -225,7 +225,7 @@ QString ItemDocumentData::toXML()
 		const ItemDataMap::iterator end = m_itemDataMap.end();
 		for ( ItemDataMap::iterator it = m_itemDataMap.begin(); it != end; ++it )
 		{
-			QDomElement node = itemDataToElement( doc, it.data() );
+			QDomElement node = itemDataToElement( doc, it.value() );
 			node.setAttribute( "id", it.key() );
 			root.appendChild(node);
 		}
@@ -234,7 +234,7 @@ QString ItemDocumentData::toXML()
 		const ConnectorDataMap::iterator end = m_connectorDataMap.end();
 		for ( ConnectorDataMap::iterator it = m_connectorDataMap.begin(); it != end; ++it )
 		{
-			QDomElement node = connectorDataToElement( doc, it.data() );
+			QDomElement node = connectorDataToElement( doc, it.value() );
 			node.setAttribute( "id", it.key() );
 			root.appendChild(node);
 		}
@@ -243,7 +243,7 @@ QString ItemDocumentData::toXML()
 		const NodeDataMap::iterator end = m_nodeDataMap.end();
 		for ( NodeDataMap::iterator it = m_nodeDataMap.begin(); it != end; ++it )
 		{
-			QDomElement node = nodeDataToElement( doc, it.data() );
+			QDomElement node = nodeDataToElement( doc, it.value() );
 			node.setAttribute( "id", it.key() );
 			root.appendChild(node);
 		}
@@ -272,7 +272,7 @@ QDomElement ItemDocumentData::microDataToElement( QDomDocument &doc )
 			QDomElement pinMapNode = doc.createElement("pinmap");
 			
 			QString type;
-			switch ( it.data().type() )
+			switch ( it.value().type() )
 			{
 				case PinMapping::SevenSegment:
 					type = "sevensegment";
@@ -292,7 +292,7 @@ QDomElement ItemDocumentData::microDataToElement( QDomDocument &doc )
 			
 			pinMapNode.setAttribute( "id", it.key() );
 			pinMapNode.setAttribute( "type", type );
-			pinMapNode.setAttribute( "map", it.data().pins().join(" ") );
+			pinMapNode.setAttribute( "map", it.value().pins().join(" ") );
 			
 			node.appendChild(pinMapNode);
 		}
@@ -305,8 +305,8 @@ QDomElement ItemDocumentData::microDataToElement( QDomDocument &doc )
 			QDomElement pinNode = doc.createElement("pin");
 			
 			pinNode.setAttribute( "id", it.key() );
-			pinNode.setAttribute( "type", (it.data().type == PinSettings::pt_input) ? "input" : "output" );
-			pinNode.setAttribute( "state", (it.data().state == PinSettings::ps_off) ? "off" : "on" );
+			pinNode.setAttribute( "type", (it.value().type == PinSettings::pt_input) ? "input" : "output" );
+			pinNode.setAttribute( "state", (it.value().state == PinSettings::ps_off) ? "off" : "on" );
 			
 			node.appendChild(pinNode);
 		}
@@ -319,7 +319,7 @@ QDomElement ItemDocumentData::microDataToElement( QDomDocument &doc )
 			QDomElement variableNode = doc.createElement("variable");
 			
 			variableNode.setAttribute( "name", it.key() );
-			variableNode.setAttribute( "value", it.data() );
+			variableNode.setAttribute( "value", it.value() );
 			
 			node.appendChild(variableNode);
 		}
@@ -440,7 +440,7 @@ QDomElement ItemDocumentData::itemDataToElement( QDomDocument &doc, const ItemDa
 		node.appendChild(e);
 		e.setAttribute( "id", it.key() );
 		e.setAttribute( "type", "string" );
-		e.setAttribute( "value", it.data() );
+		e.setAttribute( "value", it.value() );
 	}
 	
 	const DoubleMap::const_iterator numberEnd = itemData.dataNumber.end();
@@ -450,7 +450,7 @@ QDomElement ItemDocumentData::itemDataToElement( QDomDocument &doc, const ItemDa
 		node.appendChild(e);
 		e.setAttribute( "id", it.key() );
 		e.setAttribute( "type", "number" );
-		e.setAttribute( "value", QString::number(it.data()) );
+		e.setAttribute( "value", QString::number(it.value()) );
 	}
 	
 	const QColorMap::const_iterator colorEnd = itemData.dataColor.end();
@@ -460,7 +460,7 @@ QDomElement ItemDocumentData::itemDataToElement( QDomDocument &doc, const ItemDa
 		node.appendChild(e);
 		e.setAttribute( "id", it.key() );
 		e.setAttribute( "type", "color" );
-		e.setAttribute( "value", it.data().name() );
+		e.setAttribute( "value", it.value().name() );
 	}
 	
 	const QBitArrayMap::const_iterator rawEnd = itemData.dataRaw.end();
@@ -470,7 +470,7 @@ QDomElement ItemDocumentData::itemDataToElement( QDomDocument &doc, const ItemDa
 		node.appendChild(e);
 		e.setAttribute( "id", it.key() );
 		e.setAttribute( "type", "raw" );
-		e.setAttribute( "value", toAsciiHex(it.data()) );
+		e.setAttribute( "value", toAsciiHex(it.value()) );
 	}
 	
 	const BoolMap::const_iterator boolEnd = itemData.dataBool.end();
@@ -480,7 +480,7 @@ QDomElement ItemDocumentData::itemDataToElement( QDomDocument &doc, const ItemDa
 		node.appendChild(e);
 		e.setAttribute( "id", it.key() );
 		e.setAttribute( "type", "bool" );
-		e.setAttribute( "value", QString::number(it.data()) );
+		e.setAttribute( "value", QString::number(it.value()) );
 	}
 	
 	const BoolMap::const_iterator buttonEnd = itemData.buttonMap.end();
@@ -489,7 +489,7 @@ QDomElement ItemDocumentData::itemDataToElement( QDomDocument &doc, const ItemDa
 		QDomElement e = doc.createElement("button");
 		node.appendChild(e);
 		e.setAttribute( "id", it.key() );
-		e.setAttribute( "state", QString::number(it.data()) );
+		e.setAttribute( "state", QString::number(it.value()) );
 	}
 	
 	const IntMap::const_iterator sliderEnd = itemData.sliderMap.end();
@@ -498,7 +498,7 @@ QDomElement ItemDocumentData::itemDataToElement( QDomDocument &doc, const ItemDa
 		QDomElement e = doc.createElement("slider");
 		node.appendChild(e);
 		e.setAttribute( "id", it.key() );
-		e.setAttribute( "value", QString::number(it.data()) );
+		e.setAttribute( "value", QString::number(it.value()) );
 	}
 	
 	return node;
@@ -803,7 +803,7 @@ void ItemDocumentData::generateUniqueIDs( ItemDocument *itemDocument )
 			if ( !replaced.contains( it.key() ) )
 				replaced[it.key()] = itemDocument->generateUID(it.key());
 			
-			newItemDataMap[replaced[it.key()]] = it.data();
+			newItemDataMap[replaced[it.key()]] = it.value();
 		}
 	}
 	{
@@ -813,7 +813,7 @@ void ItemDocumentData::generateUniqueIDs( ItemDocument *itemDocument )
 			if ( !replaced.contains( it.key() ) )
 				replaced[it.key()] = itemDocument->generateUID(it.key());
 			
-			newNodeDataMap[replaced[it.key()]] = it.data();
+			newNodeDataMap[replaced[it.key()]] = it.value();
 		}
 	}
 	{
@@ -823,7 +823,7 @@ void ItemDocumentData::generateUniqueIDs( ItemDocument *itemDocument )
 			if ( !replaced.contains( it.key() ) )
 				replaced[it.key()] = itemDocument->generateUID(it.key());
 			
-			newConnectorDataMap[replaced[it.key()]] = it.data();
+			newConnectorDataMap[replaced[it.key()]] = it.value();
 		}
 	}
 	//END Go through and replace the old ids
@@ -833,18 +833,18 @@ void ItemDocumentData::generateUniqueIDs( ItemDocument *itemDocument )
 		const ItemDataMap::iterator end = newItemDataMap.end();
 		for ( ItemDataMap::iterator it = newItemDataMap.begin(); it != end; ++it )
 		{
-			it.data().parentId = replaced[it.data().parentId];
+			it.value().parentId = replaced[it.value().parentId];
 		}
 	}
 	{
 		const ConnectorDataMap::iterator end = newConnectorDataMap.end();
 		for ( ConnectorDataMap::iterator it = newConnectorDataMap.begin(); it != end; ++it )
 		{
-			it.data().startNodeParent = replaced[it.data().startNodeParent];
-			it.data().endNodeParent = replaced[it.data().endNodeParent];
+			it.value().startNodeParent = replaced[it.value().startNodeParent];
+			it.value().endNodeParent = replaced[it.value().endNodeParent];
 			
-			it.data().startNodeId = replaced[it.data().startNodeId];
-			it.data().endNodeId = replaced[it.data().endNodeId];
+			it.value().startNodeId = replaced[it.value().startNodeId];
+			it.value().endNodeId = replaced[it.value().endNodeId];
 		}
 	}
 	//END Go through and replace the internal references to the ids
@@ -863,24 +863,24 @@ void ItemDocumentData::translateContents( int dx, int dy )
 		const ItemDataMap::iterator end = m_itemDataMap.end();
 		for ( ItemDataMap::iterator it = m_itemDataMap.begin(); it != end; ++it )
 		{
-			it.data().x += dx;
-			it.data().y += dx;
+			it.value().x += dx;
+			it.value().y += dx;
 		}
 	}
 	{
 		const NodeDataMap::iterator end = m_nodeDataMap.end();
 		for ( NodeDataMap::iterator it = m_nodeDataMap.begin(); it != end; ++it )
 		{
-			it.data().x += dx;
-			it.data().y += dy;
+			it.value().x += dx;
+			it.value().y += dy;
 		}
 	}
 	{
 		const ConnectorDataMap::iterator end = m_connectorDataMap.end();
 		for ( ConnectorDataMap::iterator it = m_connectorDataMap.begin(); it != end; ++it )
 		{
-			const QPointList::iterator routeEnd = it.data().route.end();
-			for ( QPointList::iterator routeIt = it.data().route.begin(); routeIt != routeEnd; ++routeIt )
+			const QPointList::iterator routeEnd = it.value().route.end();
+			for ( QPointList::iterator routeIt = it.value().route.begin(); routeIt != routeEnd; ++routeIt )
 			{
 				*routeIt += QPoint( dx/8, dy/8 );
 			}
@@ -975,17 +975,17 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 			{
 				QString id = it.key();
 				if ( itemDocument->type() == Document::dt_circuit )
-					new JunctionNode( icnd, 270, QPoint( int(it.data().x), int(it.data().y) ), &id );
+					new JunctionNode( icnd, 270, QPoint( int(it.value().x), int(it.value().y) ), &id );
 			
 				else if ( itemDocument->type() == Document::dt_flowcode )
-					new JunctionFlowNode( icnd, 270, QPoint( int(it.data().x), int(it.data().y) ), &id );
+					new JunctionFlowNode( icnd, 270, QPoint( int(it.value().x), int(it.value().y) ), &id );
 			}
 		}
 		for ( NodeDataMap::iterator it = m_nodeDataMap.begin(); it != nodeEnd; ++it )
 		{
 			Node *node = icnd->nodeWithID( it.key() );
 			if (node)
-				node->move( it.data().x, it.data().y );
+				node->move( it.value().x, it.value().y );
 		}
 	}
 	//END Restore Nodes
@@ -995,9 +995,9 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 	const ItemDataMap::iterator itemEnd = m_itemDataMap.end();
 	for ( ItemDataMap::iterator it = m_itemDataMap.begin(); it != itemEnd; ++it )
 	{
-		if ( !it.data().type.isEmpty() && !itemDocument->itemWithID( it.key() ) )
+		if ( !it.value().type.isEmpty() && !itemDocument->itemWithID( it.key() ) )
 		{
-			Item *item = itemLibrary()->createItem( it.data().type, itemDocument, false, it.key().toLatin1().data(), false );
+			Item *item = itemLibrary()->createItem( it.value().type, itemDocument, false, it.key().toLatin1().data(), false );
 			if ( item && !itemDocument->isValidItem(item) )
 			{
 				kWarning() << "Attempted to create invalid item with id: " << it.key() << endl;
@@ -1009,7 +1009,7 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 			{
 				//HACK We move the item now before restoreFromItemData is called later, in case it is to be parented
 				//(as we don't want to move children)...
-				item->move( it.data().x, it.data().y );
+				item->move( it.value().x, it.value().y );
 			}
 		}
 	}
@@ -1019,7 +1019,7 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 		if (!item)
 			continue;
 		
-		item->restoreFromItemData( it.data() );
+		item->restoreFromItemData( it.value() );
 		item->finishedCreation();
 		if (selectNew)
 			itemDocument->select(item);
@@ -1040,27 +1040,27 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 			Node *startNode = 0l;
 			Node *endNode = 0l;
 			
-			if ( it.data().startNodeIsChild )
+			if ( it.value().startNodeIsChild )
 			{
-				CNItem *item = icnd->cnItemWithID( it.data().startNodeParent );
+				CNItem *item = icnd->cnItemWithID( it.value().startNodeParent );
 				if (!item)
-					kError() << k_funcinfo << "Unable to find node parent with id: "<<it.data().startNodeParent<<endl;
+					kError() << k_funcinfo << "Unable to find node parent with id: "<<it.value().startNodeParent<<endl;
 				else
-					startNode = item->childNode( it.data().startNodeCId );
+					startNode = item->childNode( it.value().startNodeCId );
 			}
 			else
-				startNode = icnd->nodeWithID( it.data().startNodeId );
+				startNode = icnd->nodeWithID( it.value().startNodeId );
 			
-			if ( it.data().endNodeIsChild )
+			if ( it.value().endNodeIsChild )
 			{
-				CNItem *item = icnd->cnItemWithID( it.data().endNodeParent );
+				CNItem *item = icnd->cnItemWithID( it.value().endNodeParent );
 				if (!item)
-					kError() << k_funcinfo << "Unable to find node parent with id: "<<it.data().endNodeParent<<endl;
+					kError() << k_funcinfo << "Unable to find node parent with id: "<<it.value().endNodeParent<<endl;
 				else
-					endNode = item->childNode( it.data().endNodeCId );
+					endNode = item->childNode( it.value().endNodeCId );
 			}
 			else
-				endNode = icnd->nodeWithID( it.data().endNodeId );
+				endNode = icnd->nodeWithID( it.value().endNodeId );
 			
 			if ( !startNode || !endNode )
 			{
@@ -1103,7 +1103,7 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 			Connector *connector = icnd->connectorWithID( it.key() );
 			if (connector)
 			{
-				connector->restoreFromConnectorData( it.data() );
+				connector->restoreFromConnectorData( it.value() );
 				if (selectNew)
 					icnd->select(connector);
 			}
@@ -1273,8 +1273,8 @@ void SubcircuitData::initECSubcircuit( ECSubcircuit * ecSubcircuit )
 	ItemDataMap::iterator itemEnd = m_itemDataMap.end();
 	for ( ItemDataMap::iterator it = m_itemDataMap.begin(); it != itemEnd; ++it )
 	{
-		if ( it.data().type == "ec/external_connection" )
-			extCon.insert( std::make_pair( it.data().x, it.key() ) );
+		if ( it.value().type == "ec/external_connection" )
+			extCon.insert( std::make_pair( it.value().x, it.key() ) );
 	}
 	
 	// How many external connections do we have?
@@ -1321,16 +1321,16 @@ void SubcircuitData::initECSubcircuit( ECSubcircuit * ecSubcircuit )
 	const ConnectorDataMap::iterator connectorEnd = m_connectorDataMap.end();
 	for ( ConnectorDataMap::iterator it = m_connectorDataMap.begin(); it != connectorEnd; ++it )
 	{
-		if ( it.data().startNodeIsChild && nodeMap.contains(it.data().startNodeParent ) )
+		if ( it.value().startNodeIsChild && nodeMap.contains(it.value().startNodeParent ) )
 		{
-			it.data().startNodeCId = QString::number( nodeMap[it.data().startNodeParent] );
-			it.data().startNodeParent = ecSubcircuit->id();
+			it.value().startNodeCId = QString::number( nodeMap[it.value().startNodeParent] );
+			it.value().startNodeParent = ecSubcircuit->id();
 			
 		}
-		if ( it.data().endNodeIsChild && nodeMap.contains(it.data().endNodeParent ) )
+		if ( it.value().endNodeIsChild && nodeMap.contains(it.value().endNodeParent ) )
 		{
-			it.data().endNodeCId = QString::number( nodeMap[it.data().endNodeParent] );
-			it.data().endNodeParent = ecSubcircuit->id();
+			it.value().endNodeCId = QString::number( nodeMap[it.value().endNodeParent] );
+			it.value().endNodeParent = ecSubcircuit->id();
 		}
 	}
 	

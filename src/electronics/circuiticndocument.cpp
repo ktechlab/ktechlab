@@ -413,7 +413,7 @@ NodeList CircuitICNDocument::nodeList() const
 	
 	ECNodeMap::const_iterator end = m_ecNodeList.end();
 	for ( ECNodeMap::const_iterator it = m_ecNodeList.begin(); it != end; ++it )
-		l << it.data();
+		l << it.value();
 
 	return l;
 }

@@ -75,7 +75,7 @@ CircuitDocument::~CircuitDocument()
         disconnect( connector, SIGNAL(removed(Connector*)), this, SLOT(requestAssignCircuits()) );
     }
     for (ItemMap::Iterator itItem = m_itemList.begin(); itItem != m_itemList.end(); ++itItem) {
-        Item *item = itItem.data();
+        Item *item = itItem.value();
         disconnect( item, SIGNAL(removed(Item*)), this, SLOT(componentRemoved(Item*)) );
         disconnect( item, SIGNAL(elementDestroyed(Element*)), this, SLOT(requestAssignCircuits()) );
     }

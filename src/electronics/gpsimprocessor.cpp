@@ -566,7 +566,7 @@ void GpsimDebugger::initAddressToLineMap()
 		
 			QString asmFile = it.key().fileName();
 			int asmFromLine = it.key().line();
-			SourceLine sourceLine = it.data();
+			SourceLine sourceLine = it.value();
 			
 			
 			std::string stdAsmFile( asmFile.ascii() );
@@ -792,7 +792,7 @@ RegisterInfo * RegisterSet::fromName( const QString & name )
 	for ( RegisterInfoMap::iterator it = m_nameToRegisterMap.begin(); it != end; ++ it )
 	{
 		if ( it.key().toLower() == nameLower )
-			return it.data();
+			return it.value();
 	}
 	
 	return 0l;

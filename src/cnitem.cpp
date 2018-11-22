@@ -49,9 +49,9 @@ CNItem::~CNItem()
 	const TextMap::iterator textMapEnd = m_textMap.end();
 	for ( TextMap::iterator it = m_textMap.begin(); it != textMapEnd; ++it )
 	{
-		if (it.data()) it.data()->setCanvas(0l);
+		if (it.value()) it.value()->setCanvas(0l);
 
-		delete (Text*)it.data();
+		delete (Text*)it.value();
 	}
 	m_textMap.clear();
 	
@@ -89,13 +89,13 @@ void CNItem::setVisible( bool yes )
 	const TextMap::iterator textMapEnd = m_textMap.end();
 	for ( TextMap::iterator it = m_textMap.begin(); it != textMapEnd; ++it )
 	{
-		it.data()->setVisible(yes);
+		it.value()->setVisible(yes);
 	}
 
 	const NodeInfoMap::iterator nodeMapEnd = m_nodeMap.end();
 	for ( NodeInfoMap::iterator it = m_nodeMap.begin(); it != nodeMapEnd; ++it )
 	{
-		it.data().node->setVisible(yes);
+		it.value().node->setVisible(yes);
 	}
 	
 	CNItem::setDrawWidgets(yes);
@@ -120,7 +120,7 @@ void CNItem::updateNodeLevels()
 	const NodeInfoMap::iterator nodeMapEnd = m_nodeMap.end();
 	for ( NodeInfoMap::iterator it = m_nodeMap.begin(); it != nodeMapEnd; ++it )
 	{
-		it.data().node->setLevel(l);
+		it.value().node->setLevel(l);
 	}
 	
 	const ItemList::iterator end = m_children.end();
@@ -139,7 +139,7 @@ ConnectorList CNItem::connectorList()
 	const NodeInfoMap::iterator nodeMapEnd = m_nodeMap.end();
 	for ( NodeInfoMap::iterator it = m_nodeMap.begin(); it != nodeMapEnd; ++it )
 	{
-		Node *node = p_icnDocument->nodeWithID(it.data().id);
+		Node *node = p_icnDocument->nodeWithID(it.value().id);
 		if (node)
 		{
 			ConnectorList nodeList = node->getAllConnectors();
@@ -166,7 +166,7 @@ void CNItem::removeItem()
 	
 	const TextMap::iterator textMapEnd = m_textMap.end();
 	for ( TextMap::iterator it = m_textMap.begin(); it != textMapEnd; ++it )
-		it.data()->setCanvas(0l);
+		it.value()->setCanvas(0l);
 	
 	Item::removeItem();
 	updateConnectorPoints(false);
@@ -185,7 +185,7 @@ void CNItem::restoreFromItemData( const ItemData &itemData )
 		{
 			Button *b = button(it.key());
 			if (b)
-				b->setState(it.data());
+				b->setState(it.value());
 		}
 	}
 	{
@@ -194,7 +194,7 @@ void CNItem::restoreFromItemData( const ItemData &itemData )
 		{
 			Slider *s = slider(it.key());
 			if (s)
-				s->setValue(it.data());
+				s->setValue(it.value());
 		}
 	}
 }
@@ -272,7 +272,7 @@ bool CNItem::removeNode( const QString &name )
 	if ( it == m_nodeMap.end() ) {
 		return false;
 	}
-	it.data().node->removeNode();
+	it.value().node->removeNode();
 	p_icnDocument->flushDeleteList();
 	m_nodeMap.erase(it);
 	return true;
@@ -287,7 +287,7 @@ Node *CNItem::getClosestNode( const QPoint &pos )
 	const NodeInfoMap::iterator end = m_nodeMap.end();
 	for ( NodeInfoMap::iterator it = m_nodeMap.begin(); it != end; ++it )
 	{
-		Node *node = p_icnDocument->nodeWithID(it.data().id);
+		Node *node = p_icnDocument->nodeWithID(it.value().id);
 		if (node)
 		{
 			// Calculate the distance
@@ -323,15 +323,15 @@ void CNItem::updateZ( int baseZ )
 	
 	const NodeInfoMap::iterator nodeMapEnd = m_nodeMap.end();
 	for ( NodeInfoMap::iterator it = m_nodeMap.begin(); it != nodeMapEnd; ++it )
-		it.data().node->setZ( _z + 0.5 );
+		it.value().node->setZ( _z + 0.5 );
 	
 	const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
 	for ( WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it )
-		it.data()->setZ( _z + 0.5 );
+		it.value()->setZ( _z + 0.5 );
 	
 	const TextMap::iterator textMapEnd = m_textMap.end();
 	for ( TextMap::iterator it = m_textMap.begin(); it != textMapEnd; ++it )
-		it.data()->setZ( _z + 0.5 );
+		it.value()->setZ( _z + 0.5 );
 }
 
 
@@ -528,12 +528,12 @@ void CNItem::updateConnectorPoints( bool add )
 	const TextMap::iterator textMapEnd = m_textMap.end();
 	for ( TextMap::iterator it = m_textMap.begin(); it != textMapEnd; ++it )
 	{
-		it.data()->updateConnectorPoints(add);
+		it.value()->updateConnectorPoints(add);
 	}
 	const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
 	for ( WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it )
 	{
-		it.data()->updateConnectorPoints(add);
+		it.value()->updateConnectorPoints(add);
 	}
 }
 
@@ -545,7 +545,7 @@ Text* CNItem::addDisplayText( const QString &id, const QRect & pos, const QStrin
 	if ( it != m_textMap.end() )
 	{
 // 		kWarning() << "CNItem::addDisplayText: removing old text"<<endl;
-		delete it.data();
+		delete it.value();
 		m_textMap.remove(it);
 	}
 	
@@ -569,7 +569,7 @@ void CNItem::setDisplayText( const QString &id, const QString &display )
 		kError() << "CNItem::setDisplayText: Could not find text with id \""<<id<<"\""<<endl;
 		return;
 	}
-	it.data()->setText(display);
+	it.value()->setText(display);
 	updateAttachedPositioning();
 }
 
@@ -582,8 +582,8 @@ void CNItem::removeDisplayText( const QString &id )
 // 		kError() << "CNItem::removeDisplayText: Could not find text with id \""<<id<<"\""<<endl;
 		return;
 	}
-	it.data()->updateConnectorPoints(false);
-	delete it.data();
+	it.value()->updateConnectorPoints(false);
+	delete it.value();
 	m_textMap.remove(it);
 }
 
@@ -592,7 +592,7 @@ QString CNItem::nodeId( const QString &internalNodeId )
 {
 	NodeInfoMap::iterator it = m_nodeMap.find(internalNodeId);
 	if ( it == m_nodeMap.end() ) return "";
-	else return it.data().id;
+	else return it.value().id;
 }
 
 

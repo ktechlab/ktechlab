@@ -123,7 +123,7 @@ void Variant::setValue( QVariant val )
 		QStringMap::iterator end = m_allowed.end();
 		for ( QStringMap::iterator it = m_allowed.begin(); it != end; ++it )
 		{
-			if ( it.data() == i18nName )
+			if ( it.value() == i18nName )
 			{
 				val = it.key();
 				break;

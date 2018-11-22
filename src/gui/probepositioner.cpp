@@ -99,7 +99,7 @@ ProbeData* ProbePositioner::probeAtPosition( const QPoint &pos )
 	const ProbeDataMap::const_iterator end = m_probeDataMap.end();
 	for ( ProbeDataMap::const_iterator it = m_probeDataMap.begin(); it != end; ++it )
 	{
-		ProbeData *probeData = it.data();
+		ProbeData *probeData = it.value();
 		int currentPos = probePosition(probeData);
 		m_probePosOffset = pos.y() - currentPos;
 		if ( std::abs(m_probePosOffset) <= relativeArrowHeight )
@@ -128,7 +128,7 @@ void ProbePositioner::slotProbeDataUnregistered( int id )
 	
 	const ProbeDataMap::const_iterator end = m_probeDataMap.end();
 	for ( ProbeDataMap::const_iterator it = m_probeDataMap.begin(); it != end; ++it )
-		setProbePosition( it.data(), probePosition( it.data() ) );
+		setProbePosition( it.value(), probePosition( it.value() ) );
 	
 	forceRepaint();
 }
@@ -199,7 +199,7 @@ void ProbePositioner::paintEvent( QPaintEvent *e )
 		const ProbeDataMap::const_iterator end = m_probeDataMap.end();
 		for ( ProbeDataMap::const_iterator it = m_probeDataMap.begin(); it != end; ++it )
 		{
-			ProbeData *probeData = it.data();
+			ProbeData *probeData = it.value();
 			p.setBrush( probeData->color() );
 			int currentPos = probePosition(probeData);
 			

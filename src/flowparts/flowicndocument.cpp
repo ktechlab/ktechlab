@@ -418,7 +418,7 @@ NodeList FlowICNDocument::nodeList( ) const
 	
 	FPNodeMap::const_iterator end = m_flowNodeList.end();
 	for ( FPNodeMap::const_iterator it = m_flowNodeList.begin(); it != end; ++it )
-		l << it.data();
+		l << it.value();
 	
 	return l;
 }

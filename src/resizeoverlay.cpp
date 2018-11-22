@@ -34,9 +34,9 @@ ResizeOverlay::~ResizeOverlay()
 	const ResizeHandleMap::iterator end = m_resizeHandleMap.end();
 	for ( ResizeHandleMap::iterator it = m_resizeHandleMap.begin(); it != end; ++it )
 	{
-		if (it.data())
-			it.data()->setCanvas(0l);
-		delete (ResizeHandle*)it.data();
+		if (it.value())
+			it.value()->setCanvas(0l);
+		delete (ResizeHandle*)it.value();
 	}
 	m_resizeHandleMap.clear();
 }
@@ -48,7 +48,7 @@ void ResizeOverlay::showResizeHandles( bool show )
 	const ResizeHandleMap::iterator end = m_resizeHandleMap.end();
 	for ( ResizeHandleMap::iterator it = m_resizeHandleMap.begin(); it != end; ++it )
 	{
-		it.data()->setVisible(b_showResizeHandles && b_visible);
+		it.value()->setVisible(b_showResizeHandles && b_visible);
 	}
 }
 
@@ -59,7 +59,7 @@ void ResizeOverlay::setVisible( bool visible )
 	const ResizeHandleMap::iterator end = m_resizeHandleMap.end();
 	for ( ResizeHandleMap::iterator it = m_resizeHandleMap.begin(); it != end; ++it )
 	{
-		it.data()->setVisible(b_showResizeHandles && b_visible);
+		it.value()->setVisible(b_showResizeHandles && b_visible);
 	}
 }
 
@@ -68,7 +68,7 @@ ResizeHandle *ResizeOverlay::createResizeHandle( int id, ResizeHandle::DrawType 
 {
 	ResizeHandleMap::iterator it = m_resizeHandleMap.find(id);
 	if ( it != m_resizeHandleMap.end() )
-		return it.data();
+		return it.value();
 	
 	ResizeHandle *newResizeHandle = new ResizeHandle( this, id, drawType, xsnap, ysnap );
 	m_resizeHandleMap[id] = newResizeHandle;
@@ -83,7 +83,7 @@ void ResizeOverlay::removeResizeHandle( int id )
 	if ( it == m_resizeHandleMap.end() )
 		return;
 	
-	ResizeHandle *rh = it.data();
+	ResizeHandle *rh = it.value();
 	disconnect( rh, SIGNAL(rhMovedBy(int, double, double )), this, SLOT(slotResizeHandleMoved(int, double, double )) );
 	delete rh;
 	m_resizeHandleMap.erase(it);
@@ -94,7 +94,7 @@ ResizeHandle *ResizeOverlay::resizeHandle( int id )
 {
 	ResizeHandleMap::iterator it = m_resizeHandleMap.find(id);
 	if ( it != m_resizeHandleMap.end() )
-		return it.data();
+		return it.value();
 	return 0l;
 }
 
@@ -104,7 +104,7 @@ void ResizeOverlay::slotMoveAllResizeHandles( double dx, double dy )
 	const ResizeHandleMap::iterator end = m_resizeHandleMap.end();
 	for ( ResizeHandleMap::iterator it = m_resizeHandleMap.begin(); it != end; ++it )
 	{
-		it.data()->moveBy( dx, dy );
+		it.value()->moveBy( dx, dy );
 	}
 }
 
