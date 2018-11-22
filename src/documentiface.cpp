@@ -249,7 +249,7 @@ QStringList ICNDocumentIface::nodeIDs( const QString & id )
 	const NodeInfoMap nm = item->nodeMap();
 	const NodeInfoMap::const_iterator end = nm.end();
 	for ( NodeInfoMap::const_iterator it = nm.begin(); it != end; ++it )
-		ids.append( it.key().ascii() );
+		ids.append( it.key().toAscii() );
 	
 	return ids;
 }
@@ -302,7 +302,7 @@ QStringList ItemDocumentIface::validItemIDs( )
 	{
 		QString id = (*it)->activeID();
 		if ( m_pItemDocument->isValidItem(id) )
-			validIDs << id.utf8();
+			validIDs << id.toUtf8();
 	}
 	return validIDs;
 }
