@@ -191,7 +191,7 @@ void SettingsDlg::slotUpdatePicProgrammerDescription()
 	
 	QString executable = config.executable;
 	if ( executable.isEmpty() )
-		executable = program.lower();
+		executable = program.toLower();
 	
 	QString programLocation = KStandardDirs::findExe( executable );
 	if ( programLocation.isNull() )
@@ -269,7 +269,7 @@ void SettingsDlg::slotAddProgrammerConfig()
 	QStringList takenNames;
 	int count = combo->count();
 	for ( int i = 0; i < count; ++i )
-		takenNames << combo->text(i).lower();
+		takenNames << combo->text(i).toLower();
 	
 	NameValidator * nv = new NameValidator( takenNames );
 	
@@ -282,7 +282,7 @@ void SettingsDlg::slotAddProgrammerConfig()
 		return;
 	
 	ProgrammerConfig config;
-	config.executable = name.lower();
+	config.executable = name.toLower();
 	
 	m_pPicProgrammerSettings->saveConfig( name, config );
 	

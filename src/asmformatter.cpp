@@ -152,7 +152,7 @@ AsmFormatter::LineType AsmFormatter::lineType( QString line )
 	QStringList::iterator end = parts.end();
 	for ( QStringList::iterator it = parts.begin(); it != end; ++it )
 	{
-		if ( (*it).lower() == "equ" )
+		if ( (*it).toLower() == "equ" )
 			return Equ;
 	}
 	

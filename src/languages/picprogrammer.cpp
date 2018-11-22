@@ -255,19 +255,19 @@ ProgrammerConfig PicProgrammerSettings::config( const QString & name )
 	if ( name.isEmpty() )
 		return ProgrammerConfig();
 	
-	QString l = name.lower();
+	QString l = name.toLower();
 		
 	ProgrammerConfigMap::const_iterator end = m_customConfigs.end();
 	for ( ProgrammerConfigMap::const_iterator it = m_customConfigs.begin(); it != end; ++it )
 	{
-		if ( it.key().lower() == l )
+		if ( it.key().toLower() == l )
 			return *it;
 	}
 	
 	end = m_staticConfigs.end();
 	for ( ProgrammerConfigMap::const_iterator it = m_staticConfigs.begin(); it != end; ++it )
 	{
-		if ( it.key().lower() == l )
+		if ( it.key().toLower() == l )
 			return *it;
 	}
 	
@@ -283,12 +283,12 @@ void PicProgrammerSettings::removeConfig( const QString & name )
 		return;
 	}
 	
-	QString l = name.lower();
+	QString l = name.toLower();
 	
 	ProgrammerConfigMap::iterator end = m_customConfigs.end();
 	for ( ProgrammerConfigMap::iterator it = m_customConfigs.begin(); it != end; ++it )
 	{
-		if ( it.key().lower() == l )
+		if ( it.key().toLower() == l )
 		{
 			m_customConfigs.remove( it );
 			return;
@@ -305,12 +305,12 @@ void PicProgrammerSettings::saveConfig( const QString & name, const ProgrammerCo
 		return;
 	}
 	
-	QString l = name.lower();
+	QString l = name.toLower();
 	
 	ProgrammerConfigMap::iterator end = m_customConfigs.end();
 	for ( ProgrammerConfigMap::iterator it = m_customConfigs.begin(); it != end; ++it )
 	{
-		if ( it.key().lower() == l )
+		if ( it.key().toLower() == l )
 		{
 			*it = config;
 			return;
@@ -330,11 +330,11 @@ QStringList PicProgrammerSettings::configNames( bool makeLowercase ) const
 	
 	ProgrammerConfigMap::const_iterator end = m_customConfigs.end();
 	for ( ProgrammerConfigMap::const_iterator it = m_customConfigs.begin(); it != end; ++it )
-		names << it.key().lower();
+		names << it.key().toLower();
 	
 	end = m_staticConfigs.end();
 	for ( ProgrammerConfigMap::const_iterator it = m_staticConfigs.begin(); it != end; ++it )
-		names << it.key().lower();
+		names << it.key().toLower();
 	
 	return names;
 }
@@ -342,12 +342,12 @@ QStringList PicProgrammerSettings::configNames( bool makeLowercase ) const
 
 bool PicProgrammerSettings::isPredefined( const QString & name ) const
 {
-	QString l = name.lower();
+	QString l = name.toLower();
 	
 	ProgrammerConfigMap::const_iterator end = m_staticConfigs.end();
 	for ( ProgrammerConfigMap::const_iterator it = m_staticConfigs.begin(); it != end; ++it )
 	{
-		if ( it.key().lower() == l )
+		if ( it.key().toLower() == l )
 			return true;
 	}
 	
@@ -382,7 +382,7 @@ void PicProgrammer::processInput( ProcessOptions options )
     settings.load( cfgPtr.data() );
 	
 	QString program = options.m_program;
-	if ( !settings.configNames( true ).contains( program.lower() ) )
+	if ( !settings.configNames( true ).contains( program.toLower() ) )
 	{
 		kError() << k_funcinfo << "Invalid program" << endl;
 		finish( false );

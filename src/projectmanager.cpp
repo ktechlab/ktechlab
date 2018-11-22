@@ -936,7 +936,7 @@ void ProjectManager::slotNewProject()
 	{
 		m_pCurrentProject = new ProjectInfo( this );
 		m_pCurrentProject->setObjectName( newProjectDlg->projectName() );
-		m_pCurrentProject->setURL( newProjectDlg->location() + m_pCurrentProject->name().lower() + ".ktechlab" );
+		m_pCurrentProject->setURL( newProjectDlg->location() + m_pCurrentProject->name().toLower() + ".ktechlab" );
 		
         QDir dir;
         if ( !dir.mkdir( m_pCurrentProject->directory() ) )

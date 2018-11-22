@@ -228,7 +228,7 @@ void ProcessOptions::setTargetFile( const QString &file )
 ProcessOptions::ProcessPath::MediaType ProcessOptions::guessMediaType( const QString & url )
 {
 	QString extension = url.right( url.length() - url.findRev('.') - 1 );
-	extension = extension.lower();
+	extension = extension.toLower();
 	
 	if ( extension == "asm" )
 	{

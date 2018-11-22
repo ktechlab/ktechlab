@@ -113,12 +113,12 @@ void ComponentModelWidget::init( Component * component )
 
 void ComponentModelWidget::setFilter( const QString & filter )
 {
-	QString lower = filter.lower();
+	QString lower = filter.toLower();
 	
 	for ( int itemNr = 0; itemNr < m_pList->count(); ++itemNr)
 	{
 		QListWidgetItem * item = m_pList->item(itemNr);
-		bool hasText = item->text().lower().contains( lower );
+		bool hasText = item->text().toLower().contains( lower );
 		item->setHidden( !hasText );
 	}
 }

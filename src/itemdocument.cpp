@@ -892,7 +892,7 @@ void ItemDocument::exportToImage()
 	QRect cropArea;
 	QPaintDevice *outputImage;
 	QString filter = exportDialog.currentFilter();
-	filter = filter.lower(); // gently soften the appearance of the letters.
+	filter = filter.toLower(); // gently soften the appearance of the letters.
 	
 	// did have a switch here but seems you can't use that on strings
 	if ( filter == "*.png") 	type = "PNG";

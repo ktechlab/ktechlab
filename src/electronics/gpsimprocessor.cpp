@@ -314,7 +314,7 @@ GpsimProcessor::ProgramFileValidity GpsimProcessor::isValidProgramFile( const QS
 	if ( !KStandardDirs::exists(programFile) )
 		return DoesntExist;
 	
-	QString extension = programFile.right( programFile.length() - programFile.findRev('.') - 1 ).lower();
+	QString extension = programFile.right( programFile.length() - programFile.findRev('.') - 1 ).toLower();
 	
 	if ( extension == "flowcode" ||
 			extension == "asm" ||
@@ -338,7 +338,7 @@ QString GpsimProcessor::generateSymbolFile( const QString &fileName, QObject *re
 		return QString::null;
     }
 	
-	QString extension = fileName.right( fileName.length() - fileName.findRev('.') - 1 ).lower();
+	QString extension = fileName.right( fileName.length() - fileName.findRev('.') - 1 ).toLower();
 	
 	if ( extension == "cod" )
 	{
@@ -786,12 +786,12 @@ RegisterInfo * RegisterSet::fromName( const QString & name )
 	if ( m_nameToRegisterMap.contains( name ) )
 		return m_nameToRegisterMap[ name ];
 	
-	QString nameLower = name.lower();
+	QString nameLower = name.toLower();
 	
 	RegisterInfoMap::iterator end = m_nameToRegisterMap.end();
 	for ( RegisterInfoMap::iterator it = m_nameToRegisterMap.begin(); it != end; ++ it )
 	{
-		if ( it.key().lower() == nameLower )
+		if ( it.key().toLower() == nameLower )
 			return it.data();
 	}
 	

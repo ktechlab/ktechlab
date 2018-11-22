@@ -140,7 +140,7 @@ void SDCC::processInput( ProcessOptions options )
 	
 	*m_languageProcess << (asmSwitch);
 	
-	*m_languageProcess << ( "-"+options.m_picID.lower() );
+	*m_languageProcess << ( "-"+options.m_picID.toLower() );
 	
 	*m_languageProcess << ( options.inputFiles().first() );
 	

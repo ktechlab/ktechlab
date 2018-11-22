@@ -92,7 +92,7 @@ void NewProjectDlg::locationChanged( const QString & )
 		m_location.append("/");
     
 	if ( !m_pWidget->projectNameEdit->text().isEmpty() )
-		m_location.append( m_pWidget->projectNameEdit->text().lower() + "/" );
+		m_location.append( m_pWidget->projectNameEdit->text().toLower() + "/" );
     
 	m_pWidget->locationLabel->setText( m_location );
     

@@ -151,7 +151,7 @@ void Gplink::processInput( ProcessOptions options )
             // non-free libraries are needed; beware the Debian/Ubuntu/derivatives' packages
             *m_languageProcess << "-I" << m_sdccLibDir + "/../non-free/lib/" + picLibSubdir ;
 			// to pic to link against
-			*m_languageProcess << options.m_picID.lower().replace ( "p","pic" ) + ".lib";
+			*m_languageProcess << options.m_picID.toLower().replace ( "p","pic" ) + ".lib";
 		}
 		*m_languageProcess << "libsdcc.lib";
 	}
