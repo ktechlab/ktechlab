@@ -1,0 +1,40 @@
+ Summary below, follow the instructions carefully folks!
+  
+Here is how I got ktechlab to launch on MacOSX Sierra, October 2018.  If you are reading this much later your mileage may vary.
+
+
+0)   Need fairly close to the latest XCode installed, with the command line tools installed. 
+
+ 1.)  Install fink  (finkproject.org)  (requires SUDO or SU)
+ 2.) Install kde bundle (fink install bundle-kde4-mac)
+ 3.)  ALSO  
+kdelibs4-mac-dev
+automoc-mac
+soprano-mac-dev
+
+NOTE: This *may* be fixed in ktechlab update sometime in the future
+ 4.) modify build-simple.sh and run-simple.sh at the “readlink” area:
+
+#SCRIPTDIR=$(dirname $(readlink -f “$0”))
+readlinkf(){ perl -MCwd -e 'print Cwd::abs_path shift' "$1";}
+SCRIPTDIR=$(dirname $(readlinkf "$0"))  
+
+ 
+  5.) Then include in your .bash_profile 
+PATH=$PATH:/sw/opt/kde4/mac/bin
+
+  6.) Run build-simple.sh.
+
+
+NOTE: This *may* be fixed in ktechlab update sometime in the future
+  7.)  build-simple.sh copies into /Applications/KDE4. (This might fail if you are not an administrator on your mac)   (it probably should copy into ~/Applications (user home directory, applications.)   Copy that app into inst-simple directory after the build.
+
+  8.)  Copy /Applications/KDE4/ktechlab.app to inst-simple/bin
+
+  9.) Modify run-simple.sh to launch the app the macintosh way:
+
+      open -a "$SCRIPTDIR/inst-simple/bin/ktechlab.app”
+
+  10.)  modify your login items in System Preferences to add /sw/Applications/kdeinit4.app as a automatic start login item.    (Or alternatively, always remember to click on it before launching ktechlab.
+
+  11.) you can then change into ktechlab and execute “sh run-simple.sh” from a command prompt and it will work.
