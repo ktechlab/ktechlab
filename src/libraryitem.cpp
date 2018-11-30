@@ -70,8 +70,9 @@ void LibraryItem::createIcon16()
 		return;
 	}
 	
-	QImage im = m_icon_full.convertToImage();
-	im = im.smoothScale( size, size, Qt::ScaleMin );
+	QImage im = m_icon_full.toImage();
+	//im = im.smoothScale( size, size, Qt::ScaleMin ); // 2018.11.30
+    im = im.scaled( QSize( size, size ), Qt::ScaleMin, Qt::SmoothTransformation );
 	m_icon_16.convertFromImage(im);
 }
 
