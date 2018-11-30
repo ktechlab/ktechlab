@@ -29,7 +29,7 @@ void DiagnosticStyle::drawControl(ControlElement element, const QStyleOption* op
 //         painter->setFont(textFont);
         QString text(widget->metaObject()->className());
         text.append(":");
-        text.append(widget->name());
+        text.append(widget->objectName());
         painter->drawText(widget->rect(),
                           Qt::AlignLeft | Qt::AlignTop,
                           //Qt::AlignRight | Qt::AlignBottom,

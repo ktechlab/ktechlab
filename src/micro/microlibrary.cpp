@@ -84,7 +84,7 @@ MicroLibrary::~MicroLibrary()
 
 MicroInfo *MicroLibrary::microInfoWithID( QString id )
 {
-	id = id.upper();
+	id = id.toUpper();
 	const MicroInfoList::iterator end = m_microInfoList.end();
 	for ( MicroInfoList::iterator it = m_microInfoList.begin(); it != end; ++it )
 	{

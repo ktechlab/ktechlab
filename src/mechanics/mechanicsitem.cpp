@@ -284,7 +284,7 @@ void MechanicsItem::leaveEvent(QEvent *)
 
 QRect MechanicsItem::maxInnerRectangle( const QRect &outerRect ) const
 {
-	QRect normalizedOuterRect = outerRect.normalize();
+	QRect normalizedOuterRect = outerRect.normalized();
 	const double LEFT = normalizedOuterRect.left();
 	const double TOP = normalizedOuterRect.top();
 	const double X = normalizedOuterRect.width();

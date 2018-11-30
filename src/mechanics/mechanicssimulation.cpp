@@ -80,7 +80,7 @@ bool RigidBody::findOverallParent()
 	if ( m_mechanicsItemList.isEmpty() )
 		return false;
 	
-	m_mechanicsItemList.remove(0l);
+	m_mechanicsItemList.removeAll(0l);
 	
 	const MechanicsItemList::iterator end = m_mechanicsItemList.end();
 	for ( MechanicsItemList::iterator it = m_mechanicsItemList.begin(); it != end; ++it )

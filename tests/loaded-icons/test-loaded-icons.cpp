@@ -87,7 +87,7 @@ int main(int argc, char **argv) {
 }
 
 static void addIcon(QGridLayout *mainLayout, const char *iconName) {
-    const int atRow = mainLayout->numRows() + 1;
+    const int atRow = mainLayout->rowCount() + 1;
     {
         KIcon testIconConstr(iconName);
         if (testIconConstr.isNull()) {
