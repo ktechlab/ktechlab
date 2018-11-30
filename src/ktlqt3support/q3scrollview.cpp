@@ -1809,8 +1809,10 @@ void Q3ScrollView::viewportMouseReleaseEvent(QMouseEvent* e)
 */
 void Q3ScrollView::viewportMouseDoubleClickEvent(QMouseEvent* e)
 {
+    /* QMouseEvent ce(e->type(), viewportToContents(e->pos()),
+        e->globalPos(), e->button(), e->state());  - 2018.11.30 */
     QMouseEvent ce(e->type(), viewportToContents(e->pos()),
-        e->globalPos(), e->button(), e->state());
+        e->globalPos(), e->button(), e->buttons(), e->modifiers());
     contentsMouseDoubleClickEvent(&ce);
     if (!ce.isAccepted())
         e->ignore();
@@ -1827,7 +1829,7 @@ void Q3ScrollView::viewportMouseDoubleClickEvent(QMouseEvent* e)
 void Q3ScrollView::viewportMouseMoveEvent(QMouseEvent* e)
 {
     QMouseEvent ce(e->type(), viewportToContents(e->pos()),
-        e->globalPos(), e->button(), e->state());
+        e->globalPos(), e->button(), e->buttons(), e->modifiers());
     contentsMouseMoveEvent(&ce);
     if (!ce.isAccepted())
         e->ignore();
@@ -1845,9 +1847,11 @@ void Q3ScrollView::viewportMouseMoveEvent(QMouseEvent* e)
 */
 void Q3ScrollView::viewportDragEnterEvent(QDragEnterEvent* e)
 {
-    e->setPoint(viewportToContents(e->pos()));
-    contentsDragEnterEvent(e);
-    e->setPoint(contentsToViewport(e->pos()));
+    //e->setPoint(viewportToContents(e->pos())); // 2018.11.30
+    QDragEnterEvent ev(viewportToContents(e->pos()), e->possibleActions(),
+                       e->mimeData(), e->mouseButtons(), e->keyboardModifiers());
+    contentsDragEnterEvent(&ev);
+    //e->setPoint(contentsToViewport(e->pos())); // 2018.11.30
 }
 
 /*!\internal
@@ -1860,9 +1864,11 @@ void Q3ScrollView::viewportDragEnterEvent(QDragEnterEvent* e)
 */
 void Q3ScrollView::viewportDragMoveEvent(QDragMoveEvent* e)
 {
-    e->setPoint(viewportToContents(e->pos()));
-    contentsDragMoveEvent(e);
-    e->setPoint(contentsToViewport(e->pos()));
+    //e->setPoint(viewportToContents(e->pos())); // 2018.11.30
+    QDragMoveEvent ev(viewportToContents(e->pos()), e->possibleActions(),
+                      e->mimeData(), e->mouseButtons(), e->keyboardModifiers());
+    contentsDragMoveEvent(&ev);
+    //e->setPoint(contentsToViewport(e->pos())); // 2018.11.30
 }
 
 /*!\internal
@@ -1888,9 +1894,11 @@ void Q3ScrollView::viewportDragLeaveEvent(QDragLeaveEvent* e)
 */
 void Q3ScrollView::viewportDropEvent(QDropEvent* e)
 {
-    e->setPoint(viewportToContents(e->pos()));
-    contentsDropEvent(e);
-    e->setPoint(contentsToViewport(e->pos()));
+    //e->setPoint(viewportToContents(e->pos())); // 2018.11.30
+    QDropEvent ev(viewportToContents(e->pos()), e->possibleActions(),
+                    e->mimeData(), e->mouseButtons(), e->keyboardModifiers());
+    contentsDropEvent(&ev);
+    //e->setPoint(contentsToViewport(e->pos())); // 2018.11.30
 }
 
 #endif // QT_NO_DRAGANDDROP
@@ -1911,8 +1919,10 @@ void Q3ScrollView::viewportWheelEvent(QWheelEvent* e)
        be sent to the focus widget if the widget-under-mouse doesn't want
        the event itself.
     */
+    /* QWheelEvent ce(viewportToContents(e->pos()),
+        e->globalPos(), e->delta(), e->state()); */
     QWheelEvent ce(viewportToContents(e->pos()),
-        e->globalPos(), e->delta(), e->state());
+        e->globalPos(), e->delta(), e->buttons(), e->modifiers());
     contentsWheelEvent(&ce);
     if (ce.isAccepted())
         e->accept();
@@ -1929,7 +1939,8 @@ void Q3ScrollView::viewportWheelEvent(QWheelEvent* e)
 */
 void Q3ScrollView::viewportContextMenuEvent(QContextMenuEvent *e)
 {
-    QContextMenuEvent ce(e->reason(), viewportToContents(e->pos()), e->globalPos(), e->state());
+    //QContextMenuEvent ce(e->reason(), viewportToContents(e->pos()), e->globalPos(), e->state());
+    QContextMenuEvent ce(e->reason(), viewportToContents(e->pos()), e->globalPos(), e->modifiers());
     contentsContextMenuEvent(&ce);
     if (ce.isAccepted())
         e->accept();
@@ -2190,7 +2201,8 @@ void Q3ScrollView::resizeContents(int w, int h)
     d->vwidth = w;
     d->vheight = h;
 
-    d->scrollbar_timer.start(0, true);
+    d->scrollbar_timer.setSingleShot(true);
+    d->scrollbar_timer.start(0 /*, true */ );
 
     if (d->children.isEmpty() && d->policy == Default)
         setResizePolicy(Manual);
@@ -2575,7 +2587,7 @@ bool Q3ScrollView::focusNextPrevChild(bool next)
     Note that you may only call enableClipper() prior to adding
     widgets.
 */
-void Q3ScrollView::enableClipper(bool y)
+void Q3ScrollView::enableClipper(bool y)        // note: this method as of 2018.11.30 is unused
 {
     if (!d->clipped_viewport == !y)
         return;
@@ -2585,8 +2597,10 @@ void Q3ScrollView::enableClipper(bool y)
         d->clipped_viewport = new QClipperWidget(clipper(), "qt_clipped_viewport", QFlag(d->flags));
         d->clipped_viewport->setGeometry(-coord_limit/2,-coord_limit/2,
                                          coord_limit,coord_limit);
-        d->clipped_viewport->setBackgroundMode(d->viewport->backgroundMode());
-        d->viewport->setBackgroundMode(NoBackground); // no exposures for this
+        //d->clipped_viewport->setBackgroundMode(d->viewport->backgroundMode());
+        d->clipped_viewport->setBackgroundRole(d->viewport->backgroundRole());
+        //d->viewport->setBackgroundMode(NoBackground); // no exposures for this // 2018.11.30
+        d->viewport->setAttribute(Qt::WA_NoSystemBackground); // hope this is the correct replacement for above
         d->viewport->removeEventFilter(this);
         d->clipped_viewport->installEventFilter(this);
         d->clipped_viewport->show();
@@ -2687,7 +2701,8 @@ QSize Q3ScrollView::sizeHint() const
     if (d->use_cached_size_hint && d->cachedSizeHint.isValid())
         return d->cachedSizeHint;
 
-    constPolish();
+    //constPolish(); // 2018.11.30
+    ensurePolished();
     int f = 2 * frameWidth();
     int h = fontMetrics().height();
     QSize sz(f, f);
