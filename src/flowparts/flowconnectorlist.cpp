@@ -58,8 +58,8 @@ FlowConnectorList::iterator FlowConnectorList::insert ( FlowConnectorList::itera
 }
 
 uint FlowConnectorList::remove ( const FlowConnectorList::T & x ) {
-    list.remove( CAST_POINTER  x);
-    return flowList.remove(x);
+    list.removeAll( CAST_POINTER  x);
+    return flowList.removeAll(x);
 }
 
 QList<FlowConnectorList::T> & FlowConnectorList::operator<< ( const FlowConnectorList::T & x ) {

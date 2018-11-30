@@ -256,8 +256,8 @@ public :
 
 	iterator remove ( iterator it ){
 	// -> O(n)
-		list.remove( convertIterator( it ) );
-		return flowList.remove(it);
+		list.erase( convertIterator( it ) );
+		return flowList.erase(it);
 	}
 
 	T & first () {	// assert ?
@@ -299,23 +299,31 @@ public :
 	}
 
 	iterator find ( const T & x ) {			// assert ?
-		return flowList.find(x);
+        int i = flowList.indexOf(x);
+        return (i == -1 ? flowList.end() : (flowList.begin()+i));
+		//return flowList.find(x); // 2018.11.30
 	}
 
 	const_iterator find ( const T & x ) const {	// assert ?
-		return flowList.find(x);
+        int i = flowList.indexOf(x);
+        return (i == -1 ? flowList.end() : (flowList.begin()+i));
+		//return flowList.find(x); // 2018.11.30
 	}
 
 	iterator find ( iterator it, const T & x ) {	// assert ?
-		return flowList.find(it, x);
+		//return flowList.find(it, x); // 2018.11.30
+        int i = flowList.indexOf(x, it - flowList.begin());
+        return i == -1 ? flowList.end() : flowList.begin()+i;
 	}
  
 	const_iterator find ( const_iterator it, const T & x ) const {	// assert ?	
-		return flowList.find(it, x);
+		//return flowList.find(it, x); // 2018.11.30
+        int i = flowList.indexOf(x, it - flowList.begin());
+        return i == -1 ? flowList.end() : flowList.begin()+i;
 	}
 
 	int findIndex ( const T & x ) const {		// assert ?
-		return flowList.findIndex(x);
+		return flowList.indexOf(x);
 	}
 
 	size_type contains ( const T & x ) const {
