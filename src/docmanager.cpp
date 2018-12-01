@@ -108,7 +108,7 @@ Document* DocManager::openURL( const KUrl &url, ViewArea *viewArea )
 	// to open into, then use the empty view area
 	if ( !viewArea )
 	{
-		ViewContainer * currentVC = static_cast<ViewContainer*>( KTechlab::self()->tabWidget()->currentPage() );
+		ViewContainer * currentVC = static_cast<ViewContainer*>( KTechlab::self()->tabWidget()->currentWidget() );
 		if ( currentVC )
 		{
 			ViewArea * va = currentVC->viewArea( currentVC->activeViewArea() );
@@ -152,8 +152,12 @@ void DocManager::giveDocumentFocus( Document * toFocus, ViewArea * viewAreaForNe
 {
 	if ( !toFocus ) return;
 	
-	if ( View * activeView = toFocus->activeView() )
-		KTechlab::self()->tabWidget()->showPage( activeView->viewContainer() );
+	if ( View * activeView = toFocus->activeView() ) {
+		//KTechlab::self()->tabWidget()->showPage( activeView->viewContainer() ); // 2018.12.01
+        KTechlab::self()->tabWidget()->setCurrentIndex(
+            KTechlab::self()->tabWidget()->indexOf(activeView->viewContainer())
+        );
+    }
 	
 	else if ( viewAreaForNew )
 		createNewView( toFocus, viewAreaForNew );
@@ -304,7 +308,7 @@ void DocManager::documentDestroyed( QObject *obj )
 
 void DocManager::slotViewFocused( View *view )
 {
-	ViewContainer * vc = static_cast<ViewContainer*>(KTechlab::self()->tabWidget()->currentPage());
+	ViewContainer * vc = static_cast<ViewContainer*>(KTechlab::self()->tabWidget()->currentWidget());
 	if (!vc)
 		view = 0l;
 	
