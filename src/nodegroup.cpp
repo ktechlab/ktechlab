@@ -19,8 +19,9 @@
 #include <cstdlib>
 
 NodeGroup::NodeGroup( ICNDocument *icnDocument, const char *name )
-	: QObject( icnDocument, name )
+	: QObject( icnDocument /*, name  */ )
 {
+    setObjectName(name);
 	p_icnDocument = icnDocument;
 	b_visible = true;
 }
