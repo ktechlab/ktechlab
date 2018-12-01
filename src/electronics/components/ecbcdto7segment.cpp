@@ -66,7 +66,8 @@ ECBCDTo7Segment::ECBCDTo7Segment( ICNDocument *icnDocument, bool newItem, const 
 		oldOut[i] = false;
 	}
 
-	QStringList pins = QStringList::split( ',', "A,B,C,D,,lt,rb,en,d,e,f,g,,a,b,c", true );
+	//QStringList pins = QStringList::split( ',', "A,B,C,D,,lt,rb,en,d,e,f,g,,a,b,c", true ); // 2018.12.01
+    QStringList pins = QString("A,B,C,D,,lt,rb,en,d,e,f,g,,a,b,c").split(',', QString::KeepEmptyParts);
 	initDIPSymbol( pins, 48 );
 	initDIP(pins);
 	

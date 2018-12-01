@@ -68,7 +68,7 @@ int main()
 			
 			line.remove( 0, 5 ); // remove "*SRC="
 			
-			QStringList segments = QStringList::split( ';', line );
+			QStringList segments = line.split(';'); // QStringList::split( ';', line ); // 2018.12.01
 			if ( segments.size() != 5 )
 			{
 				cerr << "Wrong number of \";\" for line \""<<line.latin1()<<"\".\n";

@@ -46,7 +46,7 @@ While::While( ICNDocument *icnDocument, bool newItem, const char *id )
 	createProperty( "1op", Variant::Type::Select );
 	property("1op")->setToolbarCaption(" ");
 	property("1op")->setEditorCaption( i18n("Operation") );
-	property("1op")->setAllowed( QStringList::split( ',', "==,<,>,<=,>=,!=" ) );
+	property("1op")->setAllowed( (QStringList("==") << "<" << ">" << "<=" << ">=" << "!=" ) );
 	property("1op")->setValue("==");
 	
 	createProperty( "2var2", Variant::Type::Combo );

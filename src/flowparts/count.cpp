@@ -40,7 +40,7 @@ Count::Count( ICNDocument *icnDocument, bool newItem, const char *id )
 	createStdOutput();
 	
 	createProperty( "0-trigger", Variant::Type::Select );
-	property("0-trigger")->setAllowed( QStringList::split(',',"rising,falling") );
+	property("0-trigger")->setAllowed( (QStringList("rising") << "falling") );
 	property("0-triger")->setValue("rising");
 	property("0-trigger")->setCaption( i18n("Trigger") );
 	

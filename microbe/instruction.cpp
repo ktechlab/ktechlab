@@ -3597,7 +3597,7 @@ ProcessorBehaviour Instr_xorlw::behaviour() const
 //BEGIN Microbe (non-assembly) Operations
 QString Instr_sourceCode::code() const
 {
-	QStringList sourceLines = m_raw.split("\n"); // QString::split("\n",m_raw);
+	QStringList sourceLines = m_raw.split("\n", QString::SkipEmptyParts); // QString::split("\n",m_raw);
 	return ";" + sourceLines.join("\n;");
 }
 

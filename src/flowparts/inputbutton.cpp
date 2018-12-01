@@ -43,7 +43,7 @@ InputButton::InputButton( ICNDocument *icnDocument, bool newItem, const char *id
 	
 	createProperty( "0-trigger", Variant::Type::Select );
 	property("0-trigger")->setCaption( i18n("Trigger") );
-	property("0-trigger")->setAllowed( QStringList::split(',',"rising,falling") );
+	property("0-trigger")->setAllowed( (QStringList("rising") << "falling") );
 	property("0-trigger")->setValue("rising");
 	
 	createProperty( "1-pin", Variant::Type::Pin );

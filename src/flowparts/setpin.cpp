@@ -44,7 +44,7 @@ SetPin::SetPin( ICNDocument *icnDocument, bool newItem, const char *id )
 	
 	createProperty( "state", Variant::Type::Select );
 	property("state")->setCaption( i18n("State") );
-	property("state")->setAllowed( QStringList::split( ',', "high,low" ) );
+	property("state")->setAllowed( (QStringList("high") << "low" ) );
 	property("state")->setValue("high");
 	
 	createProperty( "pin", Variant::Type::Pin );

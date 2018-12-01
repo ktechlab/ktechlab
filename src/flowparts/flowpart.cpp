@@ -500,7 +500,7 @@ void FlowPart::handleIfElse( FlowCode *code, const QString &case1Statement, cons
 	FlowPart *part1 = outputPart(case1);
 	FlowPart *part2 = outputPart(case2);
 	
-	if ( part1 && part2 ) stop = endPart( QStringList::split( ',', case1+","+case2 ) );
+	if ( part1 && part2 ) stop = endPart( (QStringList(case1) << case2 ) );
 	
 	if ( (!part1 && !part2) || (part1 == stop && part2 == stop) ) return;
 	

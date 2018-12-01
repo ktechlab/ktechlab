@@ -41,7 +41,7 @@ Embed::Embed( ICNDocument *icnDocument, bool newItem, const char *id )
 	createStdOutput();
 	
 	createProperty( "type", Variant::Type::Select );
-	property("type")->setAllowed( QStringList::split( ',', "Microbe,Assembly" ) );
+	property("type")->setAllowed( (QStringList("Microbe") << "Assembly" ) );
 	property("type")->setValue("Microbe");
 	property("type")->setCaption( i18n("Type") ); // TODO: replace this with i18n( "the type", "Type" );
 	

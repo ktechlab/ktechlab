@@ -42,7 +42,8 @@ ECSevenSegment::ECSevenSegment( ICNDocument *icnDocument, bool newItem, const ch
 	m_name = i18n("Seven Segment LED");
 	m_bDynamicContent = true;
 	
-	QStringList pins = QStringList::split( ',', "g,f,e,d,"+QString(QChar(0xB7))+",c,b,a" );
+	//QStringList pins = QStringList::split( ',', "g,f,e,d,"+QString(QChar(0xB7))+",c,b,a" );
+    QStringList pins = QString("g,f,e,d,"+QString(QChar(0xB7))+",c,b,a" ).split(',');
 	
 	createProperty( "0-color", Variant::Type::Color );
 	property("0-color")->setCaption( i18n("Color") );
