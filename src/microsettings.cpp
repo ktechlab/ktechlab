@@ -30,8 +30,8 @@ void VariableInfo::setValue( const QVariant & _value )
 
 QString VariableInfo::valueAsString() const
 {
-	if ( value.canCast(QVariant::String) ) return value.toString();
-	if ( value.canCast(QVariant::Int) ) return QString::number(value.toInt());
+	if ( value.canConvert(QVariant::String) ) return value.toString();
+	if ( value.canConvert(QVariant::Int) ) return QString::number(value.toInt());
 	return "0";
 }
 //END class VariableInfo
