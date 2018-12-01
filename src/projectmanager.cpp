@@ -913,7 +913,7 @@ ProjectManager::ProjectManager( KateMDI::ToolView * parent )
 	setWhatsThis( i18n("Displays the list of files in the project.\nTo open or close a project, use the \"Project\" menu. Right click on a file to remove it from the project") );
 	
 	setListCaption( i18n("File") );
-	setCaption( i18n("Project Manager") );
+	setWindowTitle( i18n("Project Manager") );
 	
 	connect( this, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(slotItemClicked(QTreeWidgetItem*,int)) );
 }
