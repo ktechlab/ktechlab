@@ -170,7 +170,7 @@ void ItemGroup::updateAreSameStatus()
 	}
 	
 	QString activeId = (*m_itemList.begin())->id();
-	int discardIndex = activeId.findRev("__");
+	int discardIndex = activeId.lastIndexOf("__");
 	if ( discardIndex != -1 ) activeId.truncate(discardIndex);
 	
 	const ItemList::iterator end = m_itemList.end();
@@ -179,7 +179,7 @@ void ItemGroup::updateAreSameStatus()
 		if (*it)
 		{
 			QString id = (*it)->id();
-			discardIndex = id.findRev("__");
+			discardIndex = id.lastIndexOf("__");
 			if ( discardIndex != -1 ) id.truncate(discardIndex);
 			if ( id != activeId )
 			{

@@ -271,7 +271,7 @@ void TextDocument::guessScheme( bool allowDisable )
 {
 	// And specific file actions depending on the current type of file
 	QString fileName = url().fileName();
-	QString extension = fileName.right( fileName.length() - fileName.findRev('.') - 1 );
+	QString extension = fileName.right( fileName.length() - fileName.lastIndexOf('.') - 1 );
 	
 	if ( extension == "asm" || extension == "src" || extension == "inc" )
 		slotInitLanguage(ct_asm);

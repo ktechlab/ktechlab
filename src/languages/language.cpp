@@ -31,7 +31,7 @@
 Language::Language( ProcessChain *processChain, const QString &name )
 	: QObject( KTechlab::self() /*, name */ )
 {
-    setObjectName(name.latin1());
+    setObjectName(name);
 	p_processChain = processChain;
 }
 
@@ -227,7 +227,7 @@ void ProcessOptions::setTargetFile( const QString &file )
 
 ProcessOptions::ProcessPath::MediaType ProcessOptions::guessMediaType( const QString & url )
 {
-	QString extension = url.right( url.length() - url.findRev('.') - 1 );
+	QString extension = url.right( url.length() - url.lastIndexOf('.') - 1 );
 	extension = extension.toLower();
 	
 	if ( extension == "asm" )

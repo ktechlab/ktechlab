@@ -85,12 +85,12 @@ void Microbe::processInput( ProcessOptions options )
 
 bool Microbe::isError( const QString &message ) const
 {
-	 return message.contains( "Error", false );
+	 return message.contains( "Error", Qt::CaseInsensitive );
 }
 
 bool Microbe::isWarning( const QString &message ) const
 {
-	return message.contains( "Warning", false );
+	return message.contains( "Warning", Qt::CaseInsensitive );
 }
 
 

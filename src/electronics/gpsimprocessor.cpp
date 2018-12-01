@@ -314,7 +314,7 @@ GpsimProcessor::ProgramFileValidity GpsimProcessor::isValidProgramFile( const QS
 	if ( !KStandardDirs::exists(programFile) )
 		return DoesntExist;
 	
-	QString extension = programFile.right( programFile.length() - programFile.findRev('.') - 1 ).toLower();
+	QString extension = programFile.right( programFile.length() - programFile.lastIndexOf('.') - 1 ).toLower();
 	
 	if ( extension == "flowcode" ||
 			extension == "asm" ||
@@ -338,7 +338,7 @@ QString GpsimProcessor::generateSymbolFile( const QString &fileName, QObject *re
 		return QString::null;
     }
 	
-	QString extension = fileName.right( fileName.length() - fileName.findRev('.') - 1 ).toLower();
+	QString extension = fileName.right( fileName.length() - fileName.lastIndexOf('.') - 1 ).toLower();
 	
 	if ( extension == "cod" )
 	{

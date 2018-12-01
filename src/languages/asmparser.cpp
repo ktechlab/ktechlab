@@ -84,7 +84,7 @@ bool AsmParser::parse( GpsimDebugger * debugger )
 			// Assembly file produced (by sdcc) from C, line is in format:
 			// ;#CSRC\t[file-name] [file-line]
 			// The filename can contain spaces.
-			int fileLineAt = line.findRev(" ");
+			int fileLineAt = line.lastIndexOf(" ");
 			
 			if ( fileLineAt == -1 )
 				kWarning() << k_funcinfo << "Syntax error in line \"" << line << "\" while looking for file-line" << endl;

@@ -338,7 +338,7 @@ void ProjectItem::setURL( const KUrl & url )
 		if ( !newExtension.isEmpty() )
 		{
 			const QString fileName = url.url();
-			QString extension = fileName.right( fileName.length() - fileName.findRev('.') );
+			QString extension = fileName.right( fileName.length() - fileName.lastIndexOf('.') );
 			setOutputURL( QString(fileName).replace( extension, newExtension ) );
 		}
 	}

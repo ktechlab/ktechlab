@@ -129,7 +129,7 @@ Document* DocManager::openURL( const KUrl &url, ViewArea *viewArea )
 	}
 	
 	QString fileName = url.fileName();
-	QString extension = fileName.right( fileName.length() - fileName.findRev('.') );
+	QString extension = fileName.right( fileName.length() - fileName.lastIndexOf('.') );
 	
 	if ( extension == ".circuit" )
 		return openCircuitFile( url, viewArea );
