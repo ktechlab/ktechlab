@@ -51,7 +51,7 @@ void ExternalLanguage::deleteLanguageProcess()
 void ExternalLanguage::processStdout()
 {
     QString allOut = m_languageProcess->readAllStandardOutput();
-	QStringList lines = QStringList::split( '\n', allOut, false );
+	QStringList lines = allOut.split('\n', QString::SkipEmptyParts); //QStringList::split( '\n', allOut, false ); // 2018.12.01
 	QStringList::iterator end = lines.end();
 	
 	for ( QStringList::iterator it = lines.begin(); it != end; ++it )
@@ -78,7 +78,7 @@ void ExternalLanguage::processStdout()
 void ExternalLanguage::processStderr()
 {
     QString allStdErr = m_languageProcess->readAllStandardError();
-	QStringList lines = QStringList::split( '\n', allStdErr, false );
+	QStringList lines = allStdErr.split('\n', QString::SkipEmptyParts); // QStringList::split( '\n', allStdErr, false );
 	QStringList::iterator end = lines.end();
 	
 	for ( QStringList::iterator it = lines.begin(); it != end; ++it )
