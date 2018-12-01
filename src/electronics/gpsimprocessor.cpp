@@ -61,7 +61,7 @@ function will remove the duplicated directory path (by searching for a "//").
 */
 QString sanitizeGpsimFile( QString file )
 {
-	int pos = file.find("//");
+	int pos = file.indexOf("//");
 	if ( pos != -1 )
 	{
 		file.remove( 0, pos + 1 );

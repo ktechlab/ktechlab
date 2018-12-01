@@ -147,8 +147,12 @@ void FlowCode::removeStopPart( FlowPart *part )
 	
 	// We only want to remove one instance of the FlowPart, in case it has been
 	// used as a StopPart for more than one FlowPart
-	FlowPartList::iterator it = m_stopParts.find(part);
-	if ( it != m_stopParts.end() ) m_stopParts.remove(it);
+	//FlowPartList::iterator it = m_stopParts.find(part);  // 2018.12.01
+	//if ( it != m_stopParts.end() ) m_stopParts.remove(it);
+	int foundIndex = m_stopParts.indexOf(part);
+	if ( -1 == foundIndex ) {
+        m_stopParts.removeAll(part);
+    }
 }
 
 QString FlowCode::generateMicrobe( const ItemList &itemList, MicroSettings *settings )

@@ -17,7 +17,7 @@
 
 static QString extractComment( const QString & line )
 {
-	int pos = line.find( ';' );
+	int pos = line.indexOf( ';' );
 	
 	if ( pos == -1 )
 		return "";

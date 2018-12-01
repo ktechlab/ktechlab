@@ -153,7 +153,7 @@ void ComponentModelLibrary::loadModels()
 				// Setting a property of the model
 				assert( model );
 
-				int pos = line.find( '=' );
+				int pos = line.indexOf( '=' );
 				assert( pos != -1 );
 
 				QString name = line.left( pos );

@@ -119,7 +119,7 @@ void ItemSelector::addItem( const QString & caption, const QString & id, const Q
 		category.remove(0,1);
 		QString cat;
 		category.replace( "\\/", "|" );
-		int pos = category.find('/');
+		int pos = category.indexOf('/');
 		if ( pos == -1 ) cat = category;
 		else cat = category.left( pos );
 		

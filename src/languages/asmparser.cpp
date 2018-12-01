@@ -116,7 +116,7 @@ bool AsmParser::parse( GpsimDebugger * debugger )
 				kWarning() << k_funcinfo << "Line is in wrong format for extracing source line and file: \""<<line<<"\""<<endl;
 			else {
 				const QString lineAndFile = lineParts[1];
-				int lineFileSplit = lineAndFile.find("; ");
+				int lineFileSplit = lineAndFile.indexOf("; ");
 				if ( lineFileSplit == -1 )
 					kDebug() << k_funcinfo << "Could not find file / line split in \""<<lineAndFile<<"\""<<endl;
 				else {

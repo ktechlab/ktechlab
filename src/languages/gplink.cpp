@@ -183,18 +183,18 @@ MessageInfo Gplink::extractMessageInfo( const QString &text )
 	if ( text.length()<5 || !text.startsWith("/") )
 		return MessageInfo();
 #if 0	
-	const int index = text.find( ".asm", 0, false )+4;
+	const int index = text.indexOf( ".asm", 0, Qt::CaseInsensitive )+4;
 	if ( index == -1+4 )
 		return MessageInfo();
 	const QString fileName = text.left(index);
 	
 	// Extra line number
 	const QString message = text.right(text.length()-index);
-	const int linePos = message.find( QRegExp(":[\\d]+") );
+	const int linePos = message.indexOf( QRegExp(":[\\d]+") );
 	int line = -1;
 	if ( linePos != -1 )
 	{
-		const int linePosEnd = message.find( ':', linePos+1 );
+		const int linePosEnd = message.indexOf( ':', linePos+1 );
 		if ( linePosEnd != -1 )
 		{
 			const QString number = message.mid( linePos+1, linePosEnd-linePos-1 ).trimmed();

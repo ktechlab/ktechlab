@@ -41,9 +41,9 @@ Microbe::Microbe( ProcessChain *processChain )
 			if ( !line.isEmpty() )
 			{
 				bool ok;
-				const int pos = line.left( line.find("#") ).toInt(&ok);
+				const int pos = line.left( line.indexOf("#") ).toInt(&ok);
 				if (ok) {
-					m_errorMessages[pos] = line.right(line.length()-line.find("#"));
+					m_errorMessages[pos] = line.right(line.length()-line.indexOf("#"));
 				} else {
 					kError() << k_funcinfo << "Error parsing Microbe error-message file"<<endl;
 				}
