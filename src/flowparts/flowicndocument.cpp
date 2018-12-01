@@ -346,7 +346,7 @@ void FlowICNDocument::flushDeleteList()
 			m_flowNodeList.remove ( node->id() );
 
 		else if ( Connector * con = dynamic_cast<Connector*> ( qcanvasItem ) )
-			m_connectorList.remove ( con );
+			m_connectorList.removeAll ( con );
 
 		else
 			kError() << k_funcinfo << "Unknown qcanvasItem! "<<qcanvasItem << endl;
