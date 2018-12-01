@@ -120,9 +120,9 @@ QString AsmFormatter::tidyEqu( const QString & oldLine )
 	QString comment = extractComment( oldLine );
 	QString code = oldLine;
 	code.remove( comment );
-	code = code.simplifyWhiteSpace();
+	code = code.simplified();
 
-    QStringList parts = QStringList::split( ' ', code );
+    QStringList parts = code.split(' ', QString::SkipEmptyParts); // QStringList::split( ' ', code ); // 2018.12.01
 
 	QString pad0, pad1, pad2;
 	pad0.fill( ' ', m_indentEqu - (parts.at(0)).length() );
@@ -144,11 +144,11 @@ QString AsmFormatter::tidyEqu( const QString & oldLine )
 
 AsmFormatter::LineType AsmFormatter::lineType( QString line )
 {
-	line = line.simplifyWhiteSpace();
+	line = line.simplified();
 	
 	line.remove( extractComment( line ) );
 	
-	QStringList parts = QStringList::split( ' ', line );
+	QStringList parts = line.split(' ', QString::SkipEmptyParts); // QStringList::split( ' ', line ); // 2018.12.01
 	QStringList::iterator end = parts.end();
 	for ( QStringList::iterator it = parts.begin(); it != end; ++it )
 	{
@@ -172,8 +172,8 @@ InstructionParts::InstructionParts( QString line )
 	m_comment = extractComment( line );
 	line.remove( m_comment );
 	
-	line = line.simplifyWhiteSpace();
-	QStringList parts = QStringList::split( ' ', line );
+	line = line.simplified();
+	QStringList parts = line.split(' ', QString::SkipEmptyParts); // QStringList::split( ' ', line ); // 2018.12.01
 	
 	bool foundOperand = false;
 	QStringList::iterator end = parts.end();
@@ -192,9 +192,9 @@ InstructionParts::InstructionParts( QString line )
 			continue;
 		}
 		
-		if ( PicAsm12bit::self()->operandList().contains( (*it).upper() )
-				   || PicAsm14bit::self()->operandList().contains( (*it).upper() )
-				   || PicAsm16bit::self()->operandList().contains( (*it).upper() ) )
+		if ( PicAsm12bit::self()->operandList().contains( (*it).toUpper() )
+				   || PicAsm14bit::self()->operandList().contains( (*it).toUpper() )
+				   || PicAsm16bit::self()->operandList().contains( (*it).toUpper() ) )
 		{
 			m_operand = *it;
 			foundOperand = true;
