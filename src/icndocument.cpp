@@ -319,7 +319,7 @@ bool ICNDocument::deleteNodeGroup( Node *node )
 	{
 		if ( *it && (*it)->contains(node) ) {
 			delete *it;
-			m_nodeGroupList.remove(it);
+			m_nodeGroupList.erase(it);
 			return true;
 		}
 	}
