@@ -69,11 +69,11 @@ bool AsmParser::parse( GpsimDebugger * debugger )
 			QRegExp fullRegExp("[lL][iI][sS][tT][\\s]+[pP][\\s]*=[\\s]*[\\d\\w]+");
 			QRegExp halfRegExp("[lL][iI][sS][tT][\\s]+[pP][\\s]*=[\\s]*");
 			
-			int startPos = fullRegExp.search(line);
-			if ( (startPos != -1) && (startPos == halfRegExp.search(line)) )
+			int startPos = fullRegExp.indexIn(line);
+			if ( (startPos != -1) && (startPos == halfRegExp.indexIn(line)) )
 			{
 				m_picID = line.mid( startPos + halfRegExp.matchedLength(), fullRegExp.matchedLength() - halfRegExp.matchedLength() );
-				m_picID = m_picID.upper();
+				m_picID = m_picID.toUpper();
 				if ( !m_picID.startsWith("P") )
 					m_picID.prepend("P");
 			}
@@ -111,7 +111,8 @@ bool AsmParser::parse( GpsimDebugger * debugger )
 			// Assembly file produced by either sdcc or microbe, line is in format:
 			// \t[".line"/"#MSRC"]\t[file-line]; [file-name]\t[c/microbe source code for that line]
 			// We're screwed if the file name contains tabs, but hopefully not many do...
-			QStringList lineParts = QStringList::split( '\t', line );
+			//QStringList lineParts = QStringList::split( '\t', line ); // 2018.12.01
+            QStringList lineParts = line.split( '\t' );
 			if ( lineParts.size() < 2 )
 				kWarning() << k_funcinfo << "Line is in wrong format for extracing source line and file: \""<<line<<"\""<<endl;
 			else {
