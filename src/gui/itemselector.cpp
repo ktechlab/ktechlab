@@ -174,7 +174,7 @@ void ItemSelector::writeOpenStates()
 	//KConfig *config = kapp->config();
     KSharedConfigPtr configPtr = KGlobal::config();
 	//config->setGroup( name() );
-    KConfigGroup configGroup = configPtr->group( name() );
+    KConfigGroup configGroup = configPtr->group( objectName() );
 	
 	const QStringList::iterator end = m_categories.end();
 	for ( QStringList::iterator it = m_categories.begin(); it != end; ++it )
@@ -197,7 +197,7 @@ bool ItemSelector::readOpenState( const QString &id )
 	//KConfig *config = kapp->config();
     KSharedConfigPtr configPtr = KGlobal::config();
 	//config->setGroup( name() );
-    KConfigGroup configGroup = configPtr->group( name() );
+    KConfigGroup configGroup = configPtr->group( objectName() );
 	
 	return configGroup.readEntry<bool>( id+"IsOpen", true );
 }
@@ -226,7 +226,7 @@ QMimeData * ItemSelector::mimeData(const QList<QTreeWidgetItem *> items) const {
     qDebug() << Q_FUNC_INFO << " theItem = " << theItem;
     QVariant idAsVariant = theItem->data(0, ILVItem::DataRole_ID);
     qDebug() << Q_FUNC_INFO << " idAsVariant = " << idAsVariant;
-    const QString id = idAsVariant.asString();
+    const QString id = idAsVariant.toString();
     qDebug() << Q_FUNC_INFO << "id='" << id << "'";
 
     QMimeData * mime = new QMimeData;
@@ -262,9 +262,10 @@ void ItemSelector::slotContextMenuRequested(const QPoint& pos)
 	}
 	
 	QMenu *menu = new QMenu(this);
-	menu->insertItem( i18n("Remove %1",  item->text(0)), this, SLOT(slotRemoveSelectedItem())
+	/* menu->insertItem(
         //, Qt::Key_Delete // 2015.12.29 - do not specify shortcut key, because it does not work
-    );
+    ); - 2018.12.01 */
+    menu->addAction(i18n("Remove %1",  item->text(0)), this, SLOT(slotRemoveSelectedItem()));
     QPoint globalPos = mapToGlobal(pos);
 	menu->popup(globalPos);
 }
@@ -285,7 +286,7 @@ void ItemSelector::slotRemoveSelectedItem()
 		return;
     }
 	
-	emit itemRemoved( item->data(0, ILVItem::DataRole_ID).asString() /*key( 0, 0 ) */ );
+	emit itemRemoved( item->data(0, ILVItem::DataRole_ID).toString() /*key( 0, 0 ) */ );
 	ILVItem *parent = dynamic_cast<ILVItem*>(item->QTreeWidgetItem::parent());
 	delete item;
 	// Get rid of the category as well if it has no children
@@ -311,7 +312,7 @@ void ItemSelector::slotItemSelected( )
 		return;
     }
 	
-	emit itemSelected( item->data(0, ILVItem::DataRole_ID).asString() /* item->key( 0, 0 ) */ );
+	emit itemSelected( item->data(0, ILVItem::DataRole_ID).toString() /* item->key( 0, 0 ) */ );
 }
 
 
@@ -323,7 +324,7 @@ void ItemSelector::slotItemClicked( QTreeWidgetItem *item, int )
 	if ( ItemDocument * itemDocument = dynamic_cast<ItemDocument*>(DocManager::self()->getFocusedDocument()) )
 		itemDocument->slotUnsetRepeatedItemId();
 	
-    const QString &itemIdString = item->data(0, ILVItem::DataRole_ID).asString();
+    const QString &itemIdString = item->data(0, ILVItem::DataRole_ID).toString();
 
 	emit itemClicked( itemIdString /* item->key( 0, 0 ) */ );
 }
@@ -335,7 +336,7 @@ void ItemSelector::slotItemDoubleClicked( QTreeWidgetItem *item, int )
 		return;
 	
 	//QString id = item->key( 0, 0 );
-    const QString &id = item->data(0, ILVItem::DataRole_ID).asString();
+    const QString &id = item->data(0, ILVItem::DataRole_ID).toString();
 	
 	if ( Document * doc = DocManager::self()->getFocusedDocument() )
 	{
@@ -355,7 +356,7 @@ void ItemSelector::slotItemDoubleClicked( QTreeWidgetItem *item, int )
 #if 0 // 2018.08.12 - needed?
 // Q3DragObject* ItemSelector::dragObject()
 // {
-// 	const QString &id = currentItem()->data(0, ILVItem::DataRole_ID).asString() /* key(0,0) */;
+// 	const QString &id = currentItem()->data(0, ILVItem::DataRole_ID).toString() /* key(0,0) */;
 //
 // 	Q3StoredDrag * d = 0l;
 //
