@@ -346,7 +346,7 @@ void FlowCode::tidyCode()
 	const int length = m_code.length();
 	while ( ++pos<length )
 	{
-		switch ( m_code[pos].latin1() )
+		switch ( m_code[pos].toLatin1() )
 		{
 			case '\n':
 			{
