@@ -158,13 +158,13 @@ bool SerialPort::pinState( Pin pin )
 		
 Port::ProbeResult SerialPort::probe( const QString & port )
 {
-	int file = open( port.ascii(), O_NOCTTY | O_NONBLOCK | O_RDONLY );
+	int file = open( port.toAscii(), O_NOCTTY | O_NONBLOCK | O_RDONLY );
 	if ( file == -1 )
 		return Port::DoesntExist;
 	
 	close(file);
 	
-	file = open( port.ascii(), O_NOCTTY | O_NONBLOCK | O_RDWR );
+	file = open( port.toAscii(), O_NOCTTY | O_NONBLOCK | O_RDWR );
 	if ( file == -1 )
 		return Port::ExistsButNotRW;
 	close(file);
@@ -177,7 +177,7 @@ bool SerialPort::openPort( const QString & port, speed_t baudRate )
 {
 	closePort();
 	
-	m_file = open( port.ascii(), O_NOCTTY | O_NONBLOCK | O_RDWR );
+	m_file = open( port.toAscii(), O_NOCTTY | O_NONBLOCK | O_RDWR );
 	if ( m_file == -1 )
 	{
 		kError() << k_funcinfo << "Could not open port " << port << endl;
@@ -473,7 +473,7 @@ Port::ProbeResult ParallelPort::probe( const QString & port )
 	return Port::DoesntExist;
 #endif
 	
-	int file = open( port.ascii(), O_RDWR );
+	int file = open( port.toAscii(), O_RDWR );
 	if ( file == -1 )
 		return Port::DoesntExist;
 	
@@ -528,7 +528,7 @@ bool ParallelPort::openPort( const QString & port )
 		return false;
 	}
 	
-	m_file = open( port.ascii(), O_RDWR );
+	m_file = open( port.toAscii(), O_RDWR );
 	
 	if ( m_file == -1 )
 	{

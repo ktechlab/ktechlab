@@ -91,7 +91,7 @@ GpsimProcessor::GpsimProcessor( QString symbolFile, QObject *parent )
 	m_pDebugger[0] = m_pDebugger[1] = 0l;
 	
 	Processor * tempProcessor = 0l;
-	const char * fileName = symbolFile.ascii();
+	const char * fileName = symbolFile.toAscii();
 	
 #ifdef GPSIM_0_21_4
     qDebug() << "GPSIM_0_21_4 GpsimProcessor " << fileName;
@@ -569,7 +569,7 @@ void GpsimDebugger::initAddressToLineMap()
 			SourceLine sourceLine = it.value();
 			
 			
-			std::string stdAsmFile( asmFile.ascii() );
+			std::string stdAsmFile( asmFile.toAscii() );
 			int fileID = m_pGpsim->picProcessor()->files.Find( stdAsmFile );
 			if ( fileID == -1 )
 			{
