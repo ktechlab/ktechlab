@@ -201,7 +201,7 @@ bool ItemDocumentData::saveData( const KUrl &url )
 		str << toXML();
 		file.close();
 		
-		if ( !KIO::NetAccess::upload( file.name(), url, 0l ) )
+		if ( !KIO::NetAccess::upload( file.fileName(), url, 0l ) )
 		{
 			KMessageBox::error( 0l, KIO::NetAccess::lastErrorString() );
 			return false;
@@ -372,7 +372,8 @@ void ItemDocumentData::elementToMicroData( QDomElement element )
 						type = PinMapping::Keypad_4x4;
 					
 					PinMapping pinMapping( type );
-					pinMapping.setPins( QStringList::split( " ", childElement.attribute( "map", 0 ) ) );
+					//pinMapping.setPins( QStringList::split( " ", childElement.attribute( "map", 0 ) ) ); // 2018.12.01
+                    pinMapping.setPins( childElement.attribute( "map", 0 ).split( " ", QString::SkipEmptyParts ) );
 					
 					m_microData.pinMappings[id] = pinMapping;
 				}
@@ -691,7 +692,11 @@ void ItemDocumentData::elementToConnectorData( QDomElement element )
 	connectorData.manualRoute = ( element.attribute( "manual-route", "0" ) == "1");
 	QString route = element.attribute( "route", "" );
 	
-	QStringList points = QStringList::split( ",", route );
+	QStringList points = route.split( ",", QString::SkipEmptyParts ); // QStringList::split( ",", route ); // 2018.12.01
+	if (route.isEmpty()) {
+        points = QStringList();
+    }
+    qWarning() << Q_FUNC_INFO << "points=" << points;
 	const QStringList::iterator end = points.end();
 	for ( QStringList::iterator it = points.begin(); it != end; ++it )
 	{
