@@ -352,7 +352,8 @@ void TextDocument::slotInitLanguage( CodeType type )
 void TextDocument::formatAssembly()
 {
 	AsmFormatter formatter;
-	QStringList lines = QStringList::split( "\n", m_doc->text(), true );
+	//QStringList lines = QStringList::split( "\n", m_doc->text(), true ); // 2018.12.01
+    QStringList lines = m_doc->text().split("\n", QString::KeepEmptyParts);
 	setText( formatter.tidyAsm(lines), false );
 	setModified(true);
 }
@@ -427,8 +428,8 @@ QString TextDocument::outputFilePath( const QString &ext )
         QTextStream out(&f);
         out << m_doc->text();
 		f.close();
-		DocManager::self()->associateDocument( f.name(), this );
-		return f.name();
+		DocManager::self()->associateDocument( f.fileName(), this );
+		return f.fileName();
 	}
 	if ( isModified() )
 	{
@@ -681,7 +682,7 @@ void TextDocument::slotUpdateMarksInfo()
 		{
             QString actionCaption = i18n("%1 - %2", QString::number( mark->line+1 ),
                                             m_doc->text(KTextEditor::Range( mark->line, 0, mark->line, 100 /* FIXME arbitrary */)) );
-            QString actionName = QString("bookmark_%1").arg(QString::number(mark->line).ascii());
+            QString actionName = QString("bookmark_%1").arg(QString::number(mark->line));
             /*
 			KAction * a = new KAction( actionCaption,
 									   0, this, SLOT(slotBookmarkRequested()), this,
@@ -703,7 +704,7 @@ void TextDocument::slotBookmarkRequested()
 	const QObject * s = sender();
 	if (!s) return;
 	
-	QString name = s->name();
+	QString name = s->objectName();
 	if ( !name.startsWith("bookmark_") )
 		return;
 	
