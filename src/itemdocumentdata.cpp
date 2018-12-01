@@ -696,7 +696,7 @@ void ItemDocumentData::elementToConnectorData( QDomElement element )
 	if (route.isEmpty()) {
         points = QStringList();
     }
-    qWarning() << Q_FUNC_INFO << "points=" << points;
+    qDebug() << Q_FUNC_INFO << "points=" << points;
 	const QStringList::iterator end = points.end();
 	for ( QStringList::iterator it = points.begin(); it != end; ++it )
 	{
