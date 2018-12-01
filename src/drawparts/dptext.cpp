@@ -115,7 +115,7 @@ void DPText::drawShape( QPainter &p )
 	QRect bound = m_sizeRect;
 	bound.setWidth( bound.width()-2 );
 	bound.setHeight( bound.height()-2 );
-	bound.moveBy( int(x()+1), int(y()+1) );
+	bound.translate( int(x()+1), int(y()+1) );
 	
 	if (b_displayBackground)
 	{

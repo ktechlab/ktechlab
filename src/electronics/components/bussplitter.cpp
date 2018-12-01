@@ -122,7 +122,7 @@ void BusSplitter::drawShape( QPainter &p )
 	int _y = int(y());
 	
 	QRect r = m_sizeRect;
-	r.moveBy( _x, _y );
+	r.translate( _x, _y );
 	p.drawRect(r);
 	
 	deinitPainter(p);
