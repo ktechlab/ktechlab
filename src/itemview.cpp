@@ -468,7 +468,7 @@ void ItemView::dragEnterEvent( QDragEnterEvent *event )
 	startUpdatingStatus();
 	
 	if ( KUrl::List::canDecode( event->mimeData() ) ) {
-		event->accept(true);
+		event->setAccepted(true);
 		// Then it is URLs that we can decode later :)
 		return;
 	}

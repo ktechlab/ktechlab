@@ -33,7 +33,7 @@ void MechanicsView::dragEnterEvent( QDragEnterEvent * e )
 	if ( e->isAccepted() )
 		return;
 	
-	e->accept( e->provides("ktechlab/mechanical") );
+	e->setAccepted( e->provides("ktechlab/mechanical") );
 }
 
 #include "mechanicsview.moc"

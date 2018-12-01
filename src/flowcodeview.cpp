@@ -82,7 +82,7 @@ void FlowCodeView::dragEnterEvent( QDragEnterEvent * e )
 	if ( !acceptable )
 		return;
 	
-	e->accept( true );
+	e->setAccepted( true );
 	createDragItem( e );
 }
 
