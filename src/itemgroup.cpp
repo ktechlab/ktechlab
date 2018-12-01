@@ -18,8 +18,9 @@
 #include <map>
 
 ItemGroup::ItemGroup( ItemDocument *view, const char *name )
-	: QObject( view, name )
+	: QObject( view /*, name */ )
 {
+    setObjectName(name);
 	m_activeItem = 0l;
 	b_itemsAreSameType = true;
 	p_view = view;
