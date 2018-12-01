@@ -39,7 +39,7 @@ ImageScaleThread::ImageScaleThread()
 
 bool ImageScaleThread::updateSettings( const QString & imageURL, int width, int height )
 {
-	if ( running() )
+	if ( isRunning() )
 	{
 		kWarning() << k_funcinfo << "Cannot update settings while running.\n";
 		return false;
@@ -209,7 +209,8 @@ void DPImage::dataChanged()
 	if ( m_image.isNull() )
 	{
 		// Make a grey image
-		m_image.resize( width(), height() );
+		//m_image.resize( width(), height() ); // 2018.12.01
+        m_image = m_image.copy( 0, 0, width(), height() );
 		m_image.fill( Qt::gray );
 		
 		m_imageScaling = ImageScaleThread::SmoothScaled;
@@ -245,11 +246,11 @@ void DPImage::checkImageScaling()
 	if ( bs > m_imageScaling )
 	{
 		m_imageScaling = bs;
-		m_image = im;
+		m_image = QPixmap::fromImage(im);
 		setChanged();
 	}
 	
-	if ( !m_imageScaleThread.running() )
+	if ( !m_imageScaleThread.isRunning() )
 	{
 		if ( m_imageScaleThread.updateSettings( m_imageURL, width(), height() ) )
 		{
