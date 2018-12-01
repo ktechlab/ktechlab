@@ -956,7 +956,7 @@ void ItemDocument::exportToImage()
 		if( type == "SVG" )
 			saveResult = dynamic_cast<QPicture*>(outputImage)->save( url.path(), type.toLatin1().data());
 		else {
-			QImage img = dynamic_cast<QPixmap*>(outputImage)->convertToImage();
+			QImage img = dynamic_cast<QPixmap*>(outputImage)->toImage();
             if ( saveArea.x() < 0 ) {
                 cropArea.translate( - saveArea.x(), 0 );
             }

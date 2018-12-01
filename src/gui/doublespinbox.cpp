@@ -163,7 +163,7 @@ void DoubleSpinBox::updateSuffix( double value )
 // 	m_queuedSuffix = " " + CNItem::getNumberMag( value ) + m_unit;
 //
 // 	Set suffix to be empty if it is nothing but white space
-// 	if ( m_queuedSuffix.stripWhiteSpace().isEmpty() )
+// 	if ( m_queuedSuffix.trimmed().isEmpty() )
 // 		m_queuedSuffix = "";
 //
 // 	QTimer::singleShot( 0, this, SLOT(setQueuedSuffix()) );
@@ -259,10 +259,10 @@ double DoubleSpinBox::getNextDownStepValue( double in )
 
 // double DoubleSpinBox::getMult()
 // {
-// 	QString text = this->text().stripWhiteSpace();
+// 	QString text = this->text().trimmed();
 // 	if ( !m_queuedSuffix.isNull() )
 // 	{
-// 		QString nsSuffix = suffix().stripWhiteSpace();
+// 		QString nsSuffix = suffix().trimmed();
 //
 // 		if ( nsSuffix.isEmpty() )
 // 			text.append( m_queuedSuffix );
@@ -276,7 +276,7 @@ double DoubleSpinBox::getNextDownStepValue( double in )
 // 	if ( text.endsWith( m_unit, false ) )
 // 		text = text.remove( text.length() - m_unit.length(), m_unit.length() );
 //
-// 	text.stripWhiteSpace();
+// 	text.trimmed();
 //
 // 	QChar siExp = text[ text.length()-1 ];
 //
@@ -371,7 +371,7 @@ double DoubleSpinBox::valueFromText( const QString & text ) const {
             textForSuffix = textForSuffix.remove( textForSuffix.length() - m_unit.length(), m_unit.length() );
         }
 
-        textForSuffix.stripWhiteSpace();
+        textForSuffix.trimmed();
 
         QChar siExp = textForSuffix[ textForSuffix.length()-1 ];
 

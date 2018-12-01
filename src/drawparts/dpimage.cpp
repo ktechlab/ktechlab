@@ -27,7 +27,7 @@ ImageScaleThread::ImageScaleThread()
 	// Start with a blank (grey) image
 	QPixmap pm( 1, 1 );
 	pm.fill( Qt::gray );
-	m_image = pm.convertToImage();
+	m_image = pm.toImage();
 	
 	m_width = -1;
 	m_height = -1;
@@ -67,7 +67,7 @@ bool ImageScaleThread::updateSettings( const QString & imageURL, int width, int 
 		{
 			QPixmap pm( 1, 1 );
 			pm.fill( Qt::gray );
-			m_image = pm.convertToImage();
+			m_image = pm.toImage();
 		}
 		changed = true;
 	}
@@ -129,7 +129,8 @@ void ImageScaleThread::run()
 	
 	if ( !m_bDoneSmoothScale )
 	{
-		m_smoothScaled = m_image.smoothScale( m_width, m_height );
+		//m_smoothScaled = m_image.smoothScale( m_width, m_height ); // 2018.12.01
+        m_smoothScaled = m_image.scaled( QSize( m_width, m_height ), Qt::IgnoreAspectRatio, Qt::SmoothTransformation );
 		m_bDoneSmoothScale = true;
 	}
 }

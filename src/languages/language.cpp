@@ -117,7 +117,7 @@ MessageInfo Language::extractMessageInfo( const QString &text )
 		const int linePosEnd = message.find( ':', linePos+1 );
 		if ( linePosEnd != -1 )
 		{
-			const QString number = message.mid( linePos+1, linePosEnd-linePos-1 ).stripWhiteSpace();
+			const QString number = message.mid( linePos+1, linePosEnd-linePos-1 ).trimmed();
 			bool ok;
 			line = number.toInt(&ok)-1;
 			if (!ok) line = -1;

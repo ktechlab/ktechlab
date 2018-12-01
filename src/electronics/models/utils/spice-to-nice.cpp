@@ -77,7 +77,7 @@ int main()
 			
 			QStringList::iterator segmentsEnd = segments.end();
 			for ( QStringList::iterator it = segments.begin(); it != segmentsEnd; ++it )
-				*it = (*it).stripWhiteSpace();
+				*it = (*it).trimmed();
 			
 			QString ID = segments[0];
 			outputStream << QString("[%1]\n").arg( ID );

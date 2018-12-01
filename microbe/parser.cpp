@@ -1028,7 +1028,7 @@ OutputField::OutputField( const QString & string/*, int lineNumber*/ )
 		{
 			// only cope with 'sane' strings a.t.m.
 			// e.g. include "filename.extenstion"
-			QString filename = (*sit).content.mid( (*sit).content.find("\"") ).stripWhiteSpace();
+			QString filename = (*sit).content.mid( (*sit).content.find("\"") ).trimmed();
 			// don't strip whitespace from within quotes as you
 			// can have filenames composed entirely of spaces (kind of weird)...
 			// remove quotes.

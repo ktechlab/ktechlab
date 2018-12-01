@@ -388,7 +388,7 @@ QImage ItemLibrary::componentImage( Component * component, const uint maxSize )
 	component->setAngleDegrees( 0 );
 	component->setFlipped( false );
 	
-	QRect bound = component->boundingRect().normalize();
+	QRect bound = component->boundingRect().normalized();
 	bound.setLeft( bound.left()-8 );
 	bound.setRight( bound.right()+8 );
 	bound.setTop( bound.top()-8 );
@@ -515,8 +515,9 @@ QImage ItemLibrary::componentImage( Component * component, const uint maxSize )
 	pm.setMask(mask); // pm needs not to have active painters on it
 		
 	// Now, rotate the image so that it's the right way up, and scale it to size
-	QImage im = pm.convertToImage();
-	im = im.smoothScale( 50, 50, Qt::ScaleMin );
+	QImage im = pm.toImage();
+	//im = im.smoothScale( 50, 50, Qt::ScaleMin ); //2018.12.01
+    im = im.scaled( QSize( 50, 50 ), Qt::ScaleMin, Qt::SmoothTransformation );
 	
 	if (cache)
 		m_imageMap[component->type()] = im;
@@ -701,12 +702,12 @@ void ItemLibrary::loadItemDescriptions()
 			{
 				// Save the previous description
 				if ( !type.isEmpty() )
-					m_itemDescriptions[ *it ][ type ] = description.stripWhiteSpace();
+					m_itemDescriptions[ *it ][ type ] = description.trimmed();
 			
 				line.remove( "<!-- item: " );
 				line.remove( " -->" );
 				
-				type = line.stripWhiteSpace();
+				type = line.trimmed();
 				if ( type.startsWith("/") )
 				{
 					// Possibly change e.g. "/ec/capacitor" to "ec/capacitor"
@@ -719,7 +720,7 @@ void ItemLibrary::loadItemDescriptions()
 	
 		// Save the previous description
 		if ( !type.isEmpty() )
-			m_itemDescriptions[ *it ][ type ] = description.stripWhiteSpace();
+			m_itemDescriptions[ *it ][ type ] = description.trimmed();
 	
 		file.close();
 	}

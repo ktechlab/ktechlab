@@ -51,10 +51,10 @@ bool AsmParser::parse( GpsimDebugger * debugger )
 	
 	unsigned inputAtLine = 0;
 	while ( !stream.atEnd() ) {
-		const QString line = stream.readLine().stripWhiteSpace();
+		const QString line = stream.readLine().trimmed();
 		if ( m_type != Relocatable ) {
 			QString col0 = line.section( QRegExp("[; ]"), 0, 0 );
-			col0 = col0.stripWhiteSpace();
+			col0 = col0.trimmed();
 			if ( nonAbsoluteOps.contains(col0) )
 				m_type = Relocatable;
 		}

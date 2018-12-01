@@ -195,7 +195,7 @@ bool ContextHelp::isEditChanged()
     }
 	
 	// We are currently editing an item. Is it changed?
-	return ( m_pEditor->text() != itemLibrary()->description( m_lastItemType, m_currentLanguage ).stripWhiteSpace() );
+	return ( m_pEditor->text() != itemLibrary()->description( m_lastItemType, m_currentLanguage ).trimmed() );
 }
 
 
@@ -261,7 +261,7 @@ void ContextHelp::slotMultipleSelected()
 void ContextHelp::setContextHelp( QString name, QString help )
 {
 	//BEGIN modify help string as appropriate
-	help = help.stripWhiteSpace();
+	help = help.trimmed();
 	parseInfo( help );
 	RichTextEditor::makeUseStandardFont( & help );
 	addLinkTypeAppearances( & help );

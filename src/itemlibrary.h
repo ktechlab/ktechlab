@@ -61,7 +61,7 @@ class ItemLibrary : public QObject
 		 */
 		Item * createItem( const QString &id, ItemDocument * itemDocument, bool newItem, const char *newId = 0L, bool finishCreation = true );
 		/**
-		 * Returns an image of the given component. As QPixmap::convertToImage is
+		 * Returns an image of the given component. As QPixmap::toImage is
 		 * a slow function, this will cache the result and return that for large
 		 * images.
 		 * @param component A pointer to the Component.

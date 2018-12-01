@@ -205,7 +205,7 @@ void RichTextEditor::setText( QString text )
 
 QString RichTextEditor::text() const
 {
-	QString text = m_pEditor->text().stripWhiteSpace();
+	QString text = m_pEditor->text().trimmed();
 	
 	// Remove the style info (e.g. style="font-size:8pt;font-family:DejaVu Sans") inserted into the body tag.
 	text.replace( QRegExp( "<body style=\"[^\"]*\">"), "<body>" );

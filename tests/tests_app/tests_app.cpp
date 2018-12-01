@@ -93,7 +93,7 @@ private slots:
 
         circDoc->exportToImageDraw(saveArea, *outputImage);
 
-        QImage img = dynamic_cast<QPixmap*>(outputImage)->convertToImage();
+        QImage img = dynamic_cast<QPixmap*>(outputImage)->toImage();
         img = img.copy();
         QTemporaryFile imgFile("testDocumentOpen_output_XXXXXX.png");
         imgFile.setAutoRemove(false);
