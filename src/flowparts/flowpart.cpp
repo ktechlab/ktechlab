@@ -639,7 +639,7 @@ void FlowPart::varNameChanged( QVariant newValue, QVariant oldValue )
 {
 	if (!m_pFlowCodeDocument)
 		return;
-	m_pFlowCodeDocument->varNameChanged( newValue.asString(), oldValue.asString() );
+	m_pFlowCodeDocument->varNameChanged( newValue.toString(), oldValue.toString() );
 }
 
 inline int nodeDirToPos( int dir )
@@ -891,8 +891,8 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 		
 		int pos1 = nodeDirToPos( diamondNodePositioning[orientation][1] );
 		tick.translate( d[pos1].x(), d[pos1].y() );
-		p.drawLineSegments(tick);
-		maskPainter.drawLineSegments(tick);
+		p.drawLines(tick);
+		maskPainter.drawLines(tick);
 		//END Draw "true" output as a tick
 		
 		
@@ -905,8 +905,8 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 		
 		int pos2 = nodeDirToPos( diamondNodePositioning[orientation][2] );
 		cross.translate( d[pos2].x(), d[pos2].y() );
-		p.drawLineSegments(cross);
-		maskPainter.drawLineSegments(cross);
+		p.drawLines(cross);
+		maskPainter.drawLines(cross);
 		//END Draw "false" output as a cross
 	} else if ( m_stdInput || m_stdOutput ) {
 		p.drawRoundRect( int(0.3*size.width()), int(0.4*size.height()), int(0.4*size.width()), int(0.2*size.height()) );
