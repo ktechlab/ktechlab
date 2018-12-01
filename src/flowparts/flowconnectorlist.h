@@ -322,7 +322,7 @@ public :
         return i == -1 ? flowList.end() : flowList.begin()+i;
 	}
 
-	int findIndex ( const T & x ) const {		// assert ?
+	int indexOf ( const T & x ) const {		// assert ?
 		return flowList.indexOf(x);
 	}
 

@@ -496,7 +496,7 @@ QPoint ICNDocument::gridSnap( const QPoint &pos )
 
 void ICNDocument::appendDeleteList( KtlQCanvasItem *qcanvasItem )
 {
-	if ( !qcanvasItem || m_itemDeleteList.findIndex(qcanvasItem) != -1 )
+	if ( !qcanvasItem || m_itemDeleteList.indexOf(qcanvasItem) != -1 )
 		return;
 	
 	m_itemDeleteList.append(qcanvasItem);

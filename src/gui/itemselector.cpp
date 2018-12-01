@@ -125,7 +125,7 @@ void ItemSelector::addItem( const QString & caption, const QString & id, const Q
 		
 		cat.replace( "|", "/" );
 	
-		if ( m_categories.findIndex(cat) == -1 )
+		if ( m_categories.indexOf(cat) == -1 )
 		{
 			m_categories.append(cat);
 			

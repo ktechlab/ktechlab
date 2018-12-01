@@ -135,7 +135,7 @@ PinSettings* MicroSettings::pinWithID( const QString &id )
 
 int MicroSettings::portState( const QString &port )
 {
-	if ( microInfo()->package()->portNames().findIndex(port) == -1 ) return -1;
+	if ( microInfo()->package()->portNames().indexOf(port) == -1 ) return -1;
 	
 	int pinPower = 1;
 	int num = 0;
@@ -156,7 +156,7 @@ int MicroSettings::portState( const QString &port )
 
 int MicroSettings::portType( const QString &port )
 {
-	if ( microInfo()->package()->portNames().findIndex(port) == -1 ) return -1;
+	if ( microInfo()->package()->portNames().indexOf(port) == -1 ) return -1;
 	
 	int pinPower = 1;
 	int num = 0;

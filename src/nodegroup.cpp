@@ -443,11 +443,11 @@ int NodeGroup::getNodePos( Node *n )
 	if (!n) {
 		return -1;
 	}
-	int pos = m_nodeList.findIndex(n);
+	int pos = m_nodeList.indexOf(n);
 	if ( pos != -1 ) {
 		return pos;
 	}
-	pos = m_extNodeList.findIndex(n);
+	pos = m_extNodeList.indexOf(n);
 	if ( pos != -1 ) {
 		return pos+m_nodeList.size();
 	}
