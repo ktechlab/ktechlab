@@ -122,6 +122,7 @@ QMouseEvent *EventInfo::mouseMoveEvent( int dx, int dy ) const
 	return new QMouseEvent( QEvent::MouseMove,
 							pos + QPoint( dx, dy ),
 							Qt::NoButton, 
+                            Qt::NoButton,
 							(ctrlPressed ? Qt::ControlModifier : Qt::NoModifier ) |
 									(shiftPressed ? Qt::ShiftModifier : Qt::NoModifier ) |
 									(altPressed ? Qt::AltModifier : Qt::NoModifier ) );
@@ -132,6 +133,7 @@ QWheelEvent *EventInfo::wheelEvent( int dx, int dy ) const
 {
 	return new QWheelEvent( pos + QPoint( dx, dy ),
 							scrollDelta,
+                            Qt::NoButton,
 							(ctrlPressed ? Qt::ControlModifier : Qt::NoModifier ) |
 									(shiftPressed ? Qt::ShiftModifier : Qt::NoModifier ) |
 									(altPressed ? Qt::AltModifier : Qt::NoModifier ),
