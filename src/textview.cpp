@@ -65,13 +65,15 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
 	QMenu * m = pa->menu();
 
     m->setTitle( i18n("Convert To") );
-	m->addAction( KIcon( "convert_to_microbe" ), i18n("Microbe"))->setData( TextDocument::MicrobeOutput );
+    QAction *actToMicrobe = m->addAction( KIcon( "convert_to_microbe" ), i18n("Microbe"));
+    actToMicrobe->setData( TextDocument::MicrobeOutput );
 	m->addAction( KIcon( "convert_to_assembly" ), i18n("Assembly"))->setData( TextDocument::AssemblyOutput );
 	m->addAction( KIcon( "convert_to_hex" ), i18n("Hex"))->setData( TextDocument::HexOutput );
 	m->addAction( KIcon( "convert_to_pic" ), i18n("PIC (upload)"))->setData( TextDocument::PICOutput );
 	connect( m, SIGNAL(triggered(QAction*)), textDocument, SLOT(slotConvertTo(QAction*)) );
 	
-	m->setItemEnabled( TextDocument::MicrobeOutput, false );
+	//m->setItemEnabled( TextDocument::MicrobeOutput, false ); // 2018.12.02
+    actToMicrobe->setEnabled(false);
     ac->addAction("program_convert", pa);
 	//END Convert To * Actions
 	
@@ -186,16 +188,16 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
     QList< QAction* > actList = m_view->actionCollection()->actions();
     for (QList<QAction*>::iterator itAct = actList.begin(); itAct != actList.end(); ++itAct) {
         KAction *act = static_cast<KAction*>( *itAct );
-        qDebug() << Q_FUNC_INFO << "act: " << act->text() << " acc " << act->accel() << ":" << act ;
+        qDebug() << Q_FUNC_INFO << "act: " << act->text() << " shortcut " << act->shortcut() << ":" << act ;
 
-        if ( (QLatin1String(act->name()) == QLatin1String("file_save"))
-            || (QLatin1String(act->name()) == QLatin1String("file_save_as"))
-            || (QLatin1String(act->name()) == QLatin1String("file_print"))
-            || (QLatin1String(act->name()) == QLatin1String("edit_undo"))
-            || (QLatin1String(act->name()) == QLatin1String("edit_redo"))
-            || (QLatin1String(act->name()) == QLatin1String("edit_cut"))
-            || (QLatin1String(act->name()) == QLatin1String("edit_copy"))
-            || (QLatin1String(act->name()) == QLatin1String("edit_paste"))
+        if ( ((act->objectName()) == QLatin1String("file_save"))
+            || ((act->objectName()) == QLatin1String("file_save_as"))
+            || ((act->objectName()) == QLatin1String("file_print"))
+            || ((act->objectName()) == QLatin1String("edit_undo"))
+            || ((act->objectName()) == QLatin1String("edit_redo"))
+            || ((act->objectName()) == QLatin1String("edit_cut"))
+            || ((act->objectName()) == QLatin1String("edit_copy"))
+            || ((act->objectName()) == QLatin1String("edit_paste"))
         ) {
             act->setShortcutContext(Qt::WidgetWithChildrenShortcut);
             act->setShortcutConfigurable(true);
@@ -291,9 +293,21 @@ void TextView::disableActions()
 {
 	QMenu * tb = (dynamic_cast<KToolBarPopupAction*>(actionByName("program_convert")))->menu();
 	
-	tb->setItemEnabled( TextDocument::AssemblyOutput, false );
-	tb->setItemEnabled( TextDocument::HexOutput, false );
-	tb->setItemEnabled( TextDocument::PICOutput, false );
+    QList<QAction*> actions = tb->actions();
+    Q_FOREACH(QAction *a, actions) {
+        switch (a->data().toInt()) {
+            case TextDocument::AssemblyOutput:
+            case TextDocument::HexOutput:
+            case TextDocument::PICOutput:
+                a->setEnabled( false );
+                break;
+            default:
+                qDebug() << Q_FUNC_INFO << " skip action: " << a;
+        }
+    }
+	//tb->setItemEnabled( TextDocument::AssemblyOutput, false );    // 2018.12.02
+	//tb->setItemEnabled( TextDocument::HexOutput, false );
+	//tb->setItemEnabled( TextDocument::PICOutput, false );
 	actionByName("format_asm")->setEnabled(false);
 	
 #ifndef NO_GPSIM
@@ -345,12 +359,28 @@ void TextView::initCodeActions()
 	
 	QMenu * tb = (dynamic_cast<KToolBarPopupAction*>(actionByName("program_convert")))->menu();
 	
+    QAction *actHexOut = NULL;
+    QAction *actPicOut = NULL;
+    QAction *actAsmOut = NULL;
+    QList<QAction*> actions = tb->actions();
+    Q_FOREACH(QAction *a, actions) {
+        switch (a->data().toInt()) {
+            case TextDocument::AssemblyOutput:  actAsmOut = a; break;
+            case TextDocument::HexOutput:       actHexOut = a; break;
+            case TextDocument::PICOutput:       actPicOut = a; break;
+            default:
+                qDebug() << Q_FUNC_INFO << " skip action: " << a;
+        }
+    }
+
 	switch ( textDocument()->guessedCodeType() )
 	{
 		case TextDocument::ct_asm:
 		{
-			tb->setItemEnabled( TextDocument::HexOutput, true );
-			tb->setItemEnabled( TextDocument::PICOutput, true );
+			//tb->setItemEnabled( TextDocument::HexOutput, true );  // 2018.12.02
+			//tb->setItemEnabled( TextDocument::PICOutput, true );
+            actHexOut->setEnabled( true );
+            actPicOut->setEnabled( true );
 			actionByName("format_asm")->setEnabled(true);
 #ifndef NO_GPSIM
 			actionByName("debug_toggle_breakpoint")->setEnabled(true);
@@ -360,22 +390,30 @@ void TextView::initCodeActions()
 		}
 		case TextDocument::ct_c:
 		{
-			tb->setItemEnabled( TextDocument::AssemblyOutput, true );
-			tb->setItemEnabled( TextDocument::HexOutput, true );
-			tb->setItemEnabled( TextDocument::PICOutput, true );
+			//tb->setItemEnabled( TextDocument::AssemblyOutput, true );
+			//tb->setItemEnabled( TextDocument::HexOutput, true );
+			//tb->setItemEnabled( TextDocument::PICOutput, true );
+            actAsmOut->setEnabled( true );
+            actHexOut->setEnabled( true );
+            actPicOut->setEnabled( true );
 			break;
 		}
 		case TextDocument::ct_hex:
 		{
-			tb->setItemEnabled( TextDocument::AssemblyOutput, true );
-			tb->setItemEnabled( TextDocument::PICOutput, true );
+			//tb->setItemEnabled( TextDocument::AssemblyOutput, true );
+			//tb->setItemEnabled( TextDocument::PICOutput, true );
+            actAsmOut->setEnabled( true );
+            actPicOut->setEnabled( true );
 			break;
 		}
 		case TextDocument::ct_microbe:
 		{
-			tb->setItemEnabled( TextDocument::AssemblyOutput, true );
-			tb->setItemEnabled( TextDocument::HexOutput, true );
-			tb->setItemEnabled( TextDocument::PICOutput, true );
+			//tb->setItemEnabled( TextDocument::AssemblyOutput, true );
+			//tb->setItemEnabled( TextDocument::HexOutput, true );
+			//tb->setItemEnabled( TextDocument::PICOutput, true );
+            actAsmOut->setEnabled( true );
+            actHexOut->setEnabled( true );
+            actPicOut->setEnabled( true );
 			break;
 		}
 		case TextDocument::ct_unknown:
