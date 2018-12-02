@@ -133,12 +133,12 @@ void Oscilloscope::setZoomLevel( double zoomLevel)
 	// We want to maintain the position of the *center* of the view, not the
 	// left edge, so have to record time at center of view... We also have to
 	// handle the case where the scroll is at the end separately.
-	bool wasAtUpperEnd = horizontalScroll->maxValue() == horizontalScroll->value();
+	bool wasAtUpperEnd = horizontalScroll->maximum() == horizontalScroll->value();
 	int pageLength = int(oscilloscopeView->width()*sliderTicksPerSecond()/pixelsPerSecond());
 	int at_ticks = horizontalScroll->value() + (pageLength/2);
 	
 	m_zoomLevel = zoomLevel;
-	zoomSlider->setValue( int((double(zoomSlider->maxValue())*zoomLevel)+0.5));
+	zoomSlider->setValue( int((double(zoomSlider->maximum())*zoomLevel)+0.5));
 	updateScrollbars();
 	
 	// And restore the center position of the slider
@@ -153,7 +153,7 @@ void Oscilloscope::setZoomLevel( double zoomLevel)
 
 void Oscilloscope::slotZoomSliderChanged( int value)
 {
-	setZoomLevel( double(value)/double(zoomSlider->maxValue()));
+	setZoomLevel( double(value)/double(zoomSlider->maximum()));
 }
 
 
@@ -274,7 +274,7 @@ void Oscilloscope::slotSliderValueChanged( int value)
 
 void Oscilloscope::updateScrollbars()
 {
-	bool wasAtUpperEnd = horizontalScroll->maxValue() == horizontalScroll->value();
+	bool wasAtUpperEnd = horizontalScroll->maximum() == horizontalScroll->value();
 	
 	const float pps = pixelsPerSecond();
 	
@@ -287,7 +287,7 @@ void Oscilloscope::updateScrollbars()
 	
 	if(wasAtUpperEnd)
 	{
-		horizontalScroll->setValue( horizontalScroll->maxValue());
+		horizontalScroll->setValue( horizontalScroll->maximum());
 		oscilloscopeView->updateView();
 	}
 }
@@ -309,7 +309,7 @@ int64_t Oscilloscope::scrollTime() const
 
 	if( numberOfProbes() == 0) return 0;
 
-	if( horizontalScroll->maxValue() == 0)
+	if( horizontalScroll->maximum() == 0)
 	{
 		int64_t lengthAsTime = int64_t( oscilloscopeView->width() * LOGIC_UPDATE_RATE / pixelsPerSecond());
 		int64_t ret =  m_pSimulator->time() - lengthAsTime;

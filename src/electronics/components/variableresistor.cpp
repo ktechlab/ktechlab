@@ -109,7 +109,7 @@ void VariableResistor::dataChanged()
 		} else m_maxResistance = new_maxResistance;
 	}
 
-	m_tickValue = ( m_maxResistance - m_minResistance ) / m_pSlider->maxValue();
+	m_tickValue = ( m_maxResistance - m_minResistance ) / m_pSlider->maximum();
 	
 	// Calculate the resistance jump per tick of a 100 tick slider.
 	sliderValueChanged( "slider", slider("slider")->value() );

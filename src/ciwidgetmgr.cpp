@@ -165,8 +165,8 @@ Slider* CIWidgetMgr::addSlider( const QString &id, int minValue, int maxValue, i
 	Slider *slider = new Slider( id, p_cnItem, pos, p_canvas );
 	QSlider *qslider = dynamic_cast<QSlider*>(slider->widget());
 	
-	qslider->setMinValue(minValue);
-	qslider->setMaxValue(maxValue);
+	qslider->setMinimum(minValue);
+	qslider->setMaximum(maxValue);
 	qslider->setPageStep(pageStep);
 	qslider->setValue(value);
 	slider->setOrientation(orientation);

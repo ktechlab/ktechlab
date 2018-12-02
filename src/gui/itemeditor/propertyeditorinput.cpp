@@ -169,8 +169,8 @@ PropertyEditorBool::PropertyEditorBool( QWidget * parent, Property * property, c
 {
 	m_toggle = new QToolButton(this);
 	m_toggle->setFocusPolicy(Qt::NoFocus);
-	m_toggle->setToggleButton(true);
-	m_toggle->setUsesTextLabel(true);
+	m_toggle->setCheckable(true);
+	m_toggle->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
 	m_toggle->setTextPosition(QToolButton::Right); //js BesideIcon -didnt work before qt3.2);
 	m_toggle->resize(width(), height());
 
@@ -211,12 +211,12 @@ void PropertyEditorBool::setState( bool state )
 	if(state)
 	{
 		m_toggle->setIcon(KIcon("dialog-ok"));
-		m_toggle->setTextLabel(i18n("Yes"));
+		m_toggle->setToolTip(i18n("Yes"));
 	}
 	else
 	{
 		m_toggle->setIcon(KIcon("dialog-cancel"));
-		m_toggle->setTextLabel(i18n("No"));
+		m_toggle->setToolTip(i18n("No"));
 	}
 
 	m_property->setValue( state );

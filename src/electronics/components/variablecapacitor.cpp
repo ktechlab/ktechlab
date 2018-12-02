@@ -122,7 +122,7 @@ void VariableCapacitor::dataChanged()
 	else if(m_currCapacitance < m_minCapacitance) m_currCapacitance = m_minCapacitance;
 */
 
-	m_tickValue = ( m_maxCapacitance - m_minCapacitance ) / m_pSlider->maxValue();
+	m_tickValue = ( m_maxCapacitance - m_minCapacitance ) / m_pSlider->maximum();
 
 	property( "currcapacitance" )->setValue( m_currCapacitance );
 

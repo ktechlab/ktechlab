@@ -71,7 +71,7 @@ OrientationWidget::OrientationWidget(QWidget *parent, const char *name)
 			layout->addWidget( btn, row, col );
 			btn->setFixedSize( _size+6, _size+6 );
 // 			btn->setFlat(true);
-			btn->setToggleButton( true );
+			btn->setCheckable( true );
 			btn->setEnabled(false);
 			
 			connect( btn, SIGNAL(clicked()), this, SLOT(slotButtonClicked()) );

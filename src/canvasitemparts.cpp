@@ -281,8 +281,8 @@ Button::Button( const QString & id, CNItem * parent, bool isToggle, const QRect 
 {
 	b_isToggle = isToggle;
 	m_button = new ToolButton(0l);
-	m_button->setUsesTextLabel(false);
-	m_button->setToggleButton(b_isToggle);
+	m_button->setToolButtonStyle(Qt::ToolButtonIconOnly);
+	m_button->setCheckable(b_isToggle);
 	connect( m_button, SIGNAL(pressed()), this, SLOT(slotStateChanged()) );
 	connect( m_button, SIGNAL(released()), this, SLOT(slotStateChanged()) );
 	posChanged();
@@ -307,7 +307,7 @@ void Button::setToggle( bool toggle )
 	}
 	
 	b_isToggle = toggle;
-	m_button->setToggleButton(b_isToggle);
+	m_button->setCheckable(b_isToggle);
 }
 
 
@@ -319,7 +319,7 @@ void Button::posChanged()
 
 void Button::slotStateChanged()
 {
-	parent()->buttonStateChanged( id(), m_button->isDown() || m_button->isOn() );
+	parent()->buttonStateChanged( id(), m_button->isDown() || m_button->isChecked() );
 }
 QWidget* Button::widget() const
 {
@@ -335,7 +335,7 @@ void Button::setState( bool state )
 		return;
 	
 	if ( isToggle() )
-		m_button->setOn(state);
+		m_button->setChecked(state);
 	else
 		m_button->setDown(state);
 	
@@ -373,9 +373,9 @@ void Button::setText( const QString &text )
 	
 	updateConnectorPoints(false);
 	
-	m_button->setUsesTextLabel(true);
+	m_button->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
 	m_button->setText(text);
-	m_button->setTextLabel(text);
+	m_button->setToolTip(text);
 	canvas()->setChanged( rect() );
 	p_parent->updateAttachedPositioning();
 }
@@ -386,7 +386,10 @@ void Button::mousePressEvent( QMouseEvent *e )
 	if ( !m_button->isEnabled() )
 		return;
 	
-	QMouseEvent event( QEvent::MouseButtonPress, e->pos()-QPoint(int(x()),int(y())), e->button(), e->state() );
+	QMouseEvent event( QEvent::MouseButtonPress, e->pos()-QPoint(int(x()),int(y())), e->button(),
+                       //  e->state() // 2018.12.02
+                       e->buttons(), e->modifiers()
+                     );
 	m_button->mousePressEvent(&event);
 	if (event.isAccepted())
 		e->accept();
@@ -396,7 +399,10 @@ void Button::mousePressEvent( QMouseEvent *e )
 
 void Button::mouseReleaseEvent( QMouseEvent *e )
 {
-	QMouseEvent event( QEvent::MouseButtonRelease, e->pos()-QPoint(int(x()),int(y())), e->button(), e->state() );
+	QMouseEvent event( QEvent::MouseButtonRelease, e->pos()-QPoint(int(x()),int(y())), e->button(),
+                       //e->state()
+                       e->buttons(), e->modifiers()
+                     );
 	m_button->mouseReleaseEvent(&event);
 	if (event.isAccepted())
 		e->accept();
@@ -442,10 +448,14 @@ Slider::Slider( const QString & id, CNItem * parent, const QRect & r, KtlQCanvas
 	m_bSliderInverted = false;
 	
 	m_slider = new SliderWidget(0l);
-	m_slider->setPaletteBackgroundColor(Qt::white);
-	m_slider->setPaletteForegroundColor(Qt::white);
-	m_slider->setEraseColor(Qt::white);
-	m_slider->setBackgroundMode( Qt::NoBackground );
+    QPalette p;
+    p.setColor(m_slider->foregroundRole(), Qt::white);
+    p.setColor(m_slider->backgroundRole(), Qt::transparent);
+	//m_slider->setPaletteBackgroundColor(Qt::white);   // 2018.12.02
+	//m_slider->setPaletteForegroundColor(Qt::white);
+	//m_slider->setEraseColor(Qt::white);
+	//m_slider->setBackgroundMode( Qt::NoBackground );
+    m_slider->setPalette(p);
 	connect( m_slider, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged(int)) );
 	posChanged();
 }
@@ -469,7 +479,7 @@ int Slider::value() const
 	{
 		// Return the value as if the slider handle was reflected along through
 		// the center of the slide.
-		return m_slider->maxValue() + m_slider->minValue() - m_slider->value();
+		return m_slider->maximum() + m_slider->minimum() - m_slider->value();
 	}
 	else
 		return m_slider->value();
@@ -479,7 +489,7 @@ void Slider::setValue( int value )
 {
 	if ( m_bSliderInverted )
 	{
-		value = m_slider->maxValue() + m_slider->minValue() - value;
+		value = m_slider->maximum() + m_slider->minimum() - value;
 	}
 	
 	m_slider->setValue( value );
@@ -492,8 +502,10 @@ void Slider::setValue( int value )
 void Slider::mousePressEvent( QMouseEvent *e )
 {
     qDebug() << Q_FUNC_INFO << "pos " << e->pos() << " x " << int(x()) << " y " << int(y())
-        << " b " << e->button() << " st " << e->state() ;
-	QMouseEvent event( QEvent::MouseButtonPress, e->pos()-QPoint(int(x()),int(y())), e->button(), e->state() );
+        << " b " << e->button() << " bs " << e->buttons() << " m " << e->modifiers() ;
+	QMouseEvent event( QEvent::MouseButtonPress, e->pos()-QPoint(int(x()),int(y())), e->button(),
+                       e->buttons(), e->modifiers() //e->state() // 2018.12.02
+                     );
 	m_slider->mousePressEvent(&event);
 	if (event.isAccepted()) {
         qDebug() << Q_FUNC_INFO << "accepted " << e;
@@ -505,8 +517,10 @@ void Slider::mousePressEvent( QMouseEvent *e )
 void Slider::mouseReleaseEvent( QMouseEvent *e )
 {
     qDebug() << Q_FUNC_INFO << "pos " << e->pos() << " x " << int(x()) << " y " << int(y())
-        << " b " << e->button() << " st " << e->state() ;
-	QMouseEvent event( QEvent::MouseButtonRelease, e->pos()-QPoint(int(x()),int(y())), e->button(), e->state() );
+        << " b " << e->button() << " bs " << e->buttons() << " m " << e->modifiers() ;
+	QMouseEvent event( QEvent::MouseButtonRelease, e->pos()-QPoint(int(x()),int(y())), e->button(),
+                       e->buttons(), e->modifiers() //e->state() // 2018.12.02
+                     );
 	m_slider->mouseReleaseEvent(&event);
 	if (event.isAccepted()) {
         qDebug() << Q_FUNC_INFO << "accepted " << e;
@@ -517,7 +531,9 @@ void Slider::mouseReleaseEvent( QMouseEvent *e )
 
 void Slider::mouseDoubleClickEvent ( QMouseEvent *e )
 {
-	QMouseEvent event( QEvent::MouseButtonDblClick, e->pos()-QPoint(int(x()),int(y())), e->button(), e->state() );
+	QMouseEvent event( QEvent::MouseButtonDblClick, e->pos()-QPoint(int(x()),int(y())), e->button(),
+                       e->buttons(), e->modifiers() //e->state() // 2018.12.02
+                     );
 	m_slider->mouseDoubleClickEvent(&event);
 	if (event.isAccepted())
 		e->accept();
@@ -526,7 +542,9 @@ void Slider::mouseDoubleClickEvent ( QMouseEvent *e )
 
 void Slider::mouseMoveEvent( QMouseEvent *e )
 {
-	QMouseEvent event( QEvent::MouseMove, e->pos()-QPoint(int(x()),int(y())), e->button(), e->state() );
+	QMouseEvent event( QEvent::MouseMove, e->pos()-QPoint(int(x()),int(y())), e->button(),
+                       e->buttons(), e->modifiers() //e->state() //2018.12.02
+                     );
 	m_slider->mouseMoveEvent(&event);
 	if (event.isAccepted())
 		e->accept();
@@ -534,7 +552,9 @@ void Slider::mouseMoveEvent( QMouseEvent *e )
 
 void Slider::wheelEvent( QWheelEvent *e )
 {
-	QWheelEvent event( e->pos()-QPoint(int(x()),int(y())), e->delta(), e->state(), e->orientation() );
+	QWheelEvent event( e->pos()-QPoint(int(x()),int(y())), e->delta(),
+                       e->buttons(), e->modifiers(), // e->state(),
+                       e->orientation() );
 	m_slider->wheelEvent(&event);
 	if (event.isAccepted())
 		e->accept();
