@@ -95,8 +95,10 @@ MicroSettingsDlg::MicroSettingsDlg( MicroSettings * microSettings, QWidget *pare
         groupBox->setLayout(new QVBoxLayout);
 		groupBox->layout()->setSpacing( 6 );
 		groupBox->layout()->setMargin( 11 );
-		QGridLayout * groupBoxLayout = new QGridLayout( groupBox->layout() );
+		QGridLayout * groupBoxLayout = new QGridLayout( groupBox /*groupBox->layout() */ );
 		groupBoxLayout->setAlignment( Qt::AlignTop );
+        groupBoxLayout->setSpacing(groupBox->layout()->spacing());
+        groupBox->layout()->addItem(groupBoxLayout);
 		
 		// TODO: replace this with i18n( "the type", "Type (TRIS register):" );
 		groupBoxLayout->addWidget( new QLabel( i18n("Type (TRIS register):"), groupBox ), 0, 0 ); 
@@ -267,7 +269,7 @@ void MicroSettingsDlg::slotCreatePinMap()
 	slotCheckNewPinMappingName( 0 );
 	
 	int accepted = m_pNewPinMappingDlg->exec();
-	unsigned selectedType = m_pNewPinMappingWidget->typeCombo->currentItem();
+	unsigned selectedType = m_pNewPinMappingWidget->typeCombo->currentIndex();
 	QString name = m_pNewPinMappingWidget->nameEdit->text();
 	
 	delete m_pNewPinMappingDlg;
@@ -299,7 +301,9 @@ void MicroSettingsDlg::slotCreatePinMap()
 	}
 	
 	m_pinMappings[name] = PinMapping( type );
-	m_pWidget->pinMapCombo->insertItem( name );
+	m_pWidget->pinMapCombo->insertItem(
+                    m_pWidget->pinMapCombo->count(),
+                    name );
 	//m_pWidget->pinMapCombo->setCurrentItem( m_pWidget->pinMapCombo->count() - 1 );
     m_pWidget->pinMapCombo->setCurrentItem( name );
 	
@@ -332,7 +336,8 @@ void MicroSettingsDlg::slotRenamePinMap()
 	m_pinMappings[ newName ] = m_pinMappings[ oldName ];
 	m_pinMappings.remove( oldName );
 	
-	combo->setCurrentText( newName );
+	//combo->setCurrentText( newName ); // 2018.12.02
+    combo->setItemText( combo->currentIndex(), newName );
 }
 
 
@@ -362,7 +367,7 @@ void MicroSettingsDlg::slotRemovePinMap()
 		return;
 	
 	m_pinMappings.remove( pinMapID );
-	combo->removeItem( combo->currentItem() );
+	combo->removeItem( combo->currentIndex() );
 	
 	updatePinMapButtons();
 }
@@ -386,7 +391,7 @@ void MicroSettingsDlg::savePort( int row )
 	
 	QString typeText = m_portTypeEdit[row]->text();
 	bool typeOk = true;
-	if 		( typeText.startsWith( "0x", false ) ) type = typeText.remove(0,2).toInt( &typeOk, 16 );
+	if 		( typeText.startsWith( "0x", Qt::CaseInsensitive ) ) type = typeText.remove(0,2).toInt( &typeOk, 16 );
 	else if ( typeText.contains( QRegExp("[^01]") ) ) type = typeText.toInt( &typeOk, 10 );
 	else type = typeText.toInt( &typeOk, 2 );
 	
@@ -399,7 +404,7 @@ void MicroSettingsDlg::savePort( int row )
 	
 	QString stateText = m_portStateEdit[row]->text();
 	bool stateOk = true;
-	if 		( stateText.startsWith( "0x", false ) ) state = stateText.remove(0,2).toInt( &stateOk, 16 );
+	if 		( stateText.startsWith( "0x", Qt::CaseInsensitive ) ) state = stateText.remove(0,2).toInt( &stateOk, 16 );
 	else if ( stateText.contains( QRegExp("[^01]") ) ) state = stateText.toInt( &stateOk, 10 );
 	else state = stateText.toInt( &stateOk, 2 );
 	
@@ -430,7 +435,7 @@ void MicroSettingsDlg::saveVariable( int row )
     }
 	int value;
 	bool ok = true;
-	if ( valueText.startsWith( "0x", false ) ) value = valueText.remove(0,2).toInt( &ok, 16 );
+	if ( valueText.startsWith( "0x", Qt::CaseInsensitive ) ) value = valueText.remove(0,2).toInt( &ok, 16 );
 	else value = valueText.toInt( &ok, 10 );
 
 	if (!ok)
