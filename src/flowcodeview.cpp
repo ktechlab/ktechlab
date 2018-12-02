@@ -33,11 +33,11 @@ FlowCodeView::FlowCodeView( FlowCodeDocument * flowCodeDocument, ViewContainer *
 	QMenu * m = pa->menu();
 	
 	m->setTitle( i18n("Convert To") );
-	m->insertItem( KIcon( "convert_to_microbe" ), i18n("Microbe"), FlowCodeDocument::MicrobeOutput );
-	m->insertItem( KIcon( "convert_to_assembly" ), i18n("Assembly"), FlowCodeDocument::AssemblyOutput );
-	m->insertItem( KIcon( "convert_to_hex" ), i18n("Hex"), FlowCodeDocument::HexOutput );
-	m->insertItem( KIcon( "convert_to_pic" ), i18n("PIC (upload)"), FlowCodeDocument::PICOutput );
-	connect( m, SIGNAL(activated(int)), flowCodeDocument, SLOT(slotConvertTo(int)) );
+	m->addAction( KIcon( "convert_to_microbe" ), i18n("Microbe"))->setData( FlowCodeDocument::MicrobeOutput );
+	m->addAction( KIcon( "convert_to_assembly" ), i18n("Assembly"))->setData( FlowCodeDocument::AssemblyOutput );
+	m->addAction( KIcon( "convert_to_hex" ), i18n("Hex"))->setData( FlowCodeDocument::HexOutput );
+	m->addAction( KIcon( "convert_to_pic" ), i18n("PIC (upload)"))->setData( FlowCodeDocument::PICOutput );
+	connect( m, SIGNAL(triggered(QAction*)), flowCodeDocument, SLOT(slotConvertTo(QAction*)) );
     ac->addAction("program_convert" , pa);
 	//END Convert To * Actions
 	

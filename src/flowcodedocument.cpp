@@ -148,8 +148,9 @@ void FlowCodeDocument::setLastTextOutputTarget( TextDocument * target )
 }
 
 
-void FlowCodeDocument::slotConvertTo( int target )
+void FlowCodeDocument::slotConvertTo( QAction *action )
 {
+    int target = action->data().toInt();
 	switch ( (ConvertToTarget)target )
 	{
 	case FlowCodeDocument::MicrobeOutput:

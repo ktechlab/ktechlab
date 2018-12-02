@@ -73,7 +73,7 @@ class FlowCodeDocument : public FlowICNDocument
 		/**
 		 * @param target as ConvertToTarget
 		 */
-		void slotConvertTo( int target );
+		void slotConvertTo( QAction* action );
 		void convertToMicrobe();
 		void convertToAssembly();
 		void convertToHex();
