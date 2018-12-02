@@ -311,7 +311,8 @@ void CircuitDocument::requestAssignCircuits()
     }
 	deleteCircuits();
 	m_updateCircuitsTmr->stop();
-	m_updateCircuitsTmr->start( 0, true );
+    m_updateCircuitsTmr->setSingleShot( true );
+	m_updateCircuitsTmr->start( 0 /*, true */ );
 }
 
 
@@ -444,7 +445,7 @@ void CircuitDocument::calculateConnectorCurrents()
                 // it = container.erase( it ) seems to crash other times
 				SwitchList::iterator oldIt = it;
 				++it;
-				switches.remove(oldIt);
+				switches.erase(oldIt);
 			} else ++it;
 		}
 
@@ -460,7 +461,7 @@ make the ground pins work. Current engine doesn't treat ground explicitly.
                 // it = container.erase( it ) seems to crash other times
 				PinList::iterator oldIt = it;
 				++it;
-				groundPins.remove(oldIt);
+				groundPins.erase(oldIt);
 			} else ++it;
 		}
 	}
