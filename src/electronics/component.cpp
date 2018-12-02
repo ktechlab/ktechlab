@@ -135,7 +135,7 @@ void Component::removeElement( Element * element, bool setPinsInterIndependent )
         ++next;
 
         if ( (*it).e == element )
-            m_elementMapList.remove(it);
+            m_elementMapList.erase(it);
 
         it = next;
     }
