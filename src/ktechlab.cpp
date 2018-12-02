@@ -323,7 +323,10 @@ void KTechlab::overlayToolBarScreenshot()
 		m_pToolBarOverlayLabel = new QLabel( 0,
                 Qt::WStyle_StaysOnTop | Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WNoAutoErase | Qt::WType_Popup  );
 		m_pToolBarOverlayLabel->hide();
-		m_pToolBarOverlayLabel->setBackgroundMode( Qt::NoBackground );
+		//m_pToolBarOverlayLabel->setBackgroundMode( Qt::NoBackground ); // 2018.12.02
+        QPalette p;
+        p.setColor(m_pToolBarOverlayLabel->backgroundRole(), Qt::transparent);
+        m_pToolBarOverlayLabel->setPalette(p);
 	}
 	
 	if ( !m_bIsShown )
