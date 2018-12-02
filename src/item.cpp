@@ -271,7 +271,7 @@ void Item::restoreFromItemData( const ItemData &itemData )
 	for ( BoolMap::const_iterator it = itemData.dataBool.begin(); it != boolEnd; ++it )
 	{
 		if ( hasProperty(it.key()) )
-			property( it.key() )->setValue( QVariant( it.value(), 0 ) );
+			property( it.key() )->setValue( QVariant( it.value() /*, 0*/ ) );
 	}
 	
 	const QBitArrayMap::const_iterator rawEnd = itemData.dataRaw.end();
@@ -348,9 +348,12 @@ bool Item::mouseDoubleClickEvent( const EventInfo & eventInfo )
         //QFrame *frame = dlg->makeMainWidget();
 		QFrame *frame = new QFrame(dlg);
         dlg->setMainWidget(frame);
-		QVBoxLayout *layout = new QVBoxLayout( frame, 0, dlg->spacingHint() );
+		QVBoxLayout *layout = new QVBoxLayout( frame );
+        layout->setMargin(0);
+        layout->setSpacing(dlg->spacingHint());
 		KTextEdit *textEdit = new KTextEdit( frame );
-		textEdit->setTextFormat( Qt::PlainText );
+		//textEdit->setTextFormat( Qt::PlainText ); // 2018.12.02
+        textEdit->setAcceptRichText(false);
 		textEdit->setText( property->value().toString() );
 		layout->addWidget( textEdit, 10 );
 		textEdit->setFocus();
@@ -359,7 +362,7 @@ bool Item::mouseDoubleClickEvent( const EventInfo & eventInfo )
 		
 		if ( dlg->exec() == KDialog::Accepted )
 		{
-			property->setValue( textEdit->text() );
+			property->setValue( textEdit->toPlainText() );
 			dataChanged();
 			p_itemDocument->setModified(true);
 		}
@@ -647,7 +650,8 @@ void Item::propertyChangedInitial()
 	if ( !m_bDoneCreation )
 		return;
 	
-	m_pPropertyChangedTimer->start( 0, true );
+    m_pPropertyChangedTimer->setSingleShot(true);
+	m_pPropertyChangedTimer->start( 0 /*, true */ );
 }
 //END Data stuff
 
