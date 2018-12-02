@@ -633,16 +633,19 @@ void TextViewEventFilter::updateHovering( const QString & currentWord, int line,
 			m_hoverStatus = Hidden;
 		
 		emit wordUnhovered();
-		if ( !m_pSleepTimer->isActive() )
-			m_pSleepTimer->start( 2000, true );
-		
+		if ( !m_pSleepTimer->isActive() ) {
+            m_pSleepTimer->setSingleShot( true );
+			m_pSleepTimer->start( 2000 /*, true */ );
+        }
 		return;
 	}
 	
-	if ( m_hoverStatus != Sleeping )
+	if ( m_hoverStatus != Sleeping ) {
 		emit wordHoveredOver( currentWord, line, col );
-	else
-		m_pHoverTimer->start( 700, true );
+    } else {
+        m_pHoverTimer->setSingleShot( true );
+		m_pHoverTimer->start( 700 /*, true */ );
+    }
 }
 
 
