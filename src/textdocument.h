@@ -180,7 +180,7 @@ public slots:
 	/**
 	 * @param target as ConvertToTarget
 	 */
-	void slotConvertTo( int target );
+	void slotConvertTo( QAction *action );
 	void convertToAssembly();
 	void convertToHex();
 	void convertToPIC();

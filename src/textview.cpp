@@ -65,11 +65,11 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
 	QMenu * m = pa->menu();
 
     m->setTitle( i18n("Convert To") );
-	m->insertItem( KIcon( "convert_to_microbe" ), i18n("Microbe"), TextDocument::MicrobeOutput );
-	m->insertItem( KIcon( "convert_to_assembly" ), i18n("Assembly"), TextDocument::AssemblyOutput );
-	m->insertItem( KIcon( "convert_to_hex" ), i18n("Hex"), TextDocument::HexOutput );
-	m->insertItem( KIcon( "convert_to_pic" ), i18n("PIC (upload)"), TextDocument::PICOutput );
-	connect( m, SIGNAL(activated(int)), textDocument, SLOT(slotConvertTo(int)) );
+	m->addAction( KIcon( "convert_to_microbe" ), i18n("Microbe"))->setData( TextDocument::MicrobeOutput );
+	m->addAction( KIcon( "convert_to_assembly" ), i18n("Assembly"))->setData( TextDocument::AssemblyOutput );
+	m->addAction( KIcon( "convert_to_hex" ), i18n("Hex"))->setData( TextDocument::HexOutput );
+	m->addAction( KIcon( "convert_to_pic" ), i18n("PIC (upload)"))->setData( TextDocument::PICOutput );
+	connect( m, SIGNAL(triggered(QAction*)), textDocument, SLOT(slotConvertTo(QAction*)) );
 	
 	m->setItemEnabled( TextDocument::MicrobeOutput, false );
     ac->addAction("program_convert", pa);

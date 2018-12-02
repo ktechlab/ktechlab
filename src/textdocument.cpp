@@ -439,8 +439,9 @@ QString TextDocument::outputFilePath( const QString &ext )
 }
 
 
-void TextDocument::slotConvertTo( int target )
+void TextDocument::slotConvertTo( QAction *action )
 {
+    int target = action->data().toInt();
 	switch ( (ConvertToTarget)target )
 	{
 		case TextDocument::MicrobeOutput:
