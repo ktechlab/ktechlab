@@ -54,10 +54,10 @@ void OutputMethodInfo::initialize( OutputMethodDlg * dlg )
         KTemporaryFile f;
         f.setSuffix( dlg->m_outputExtension );
         if (!f.open()) {
-            qWarning() << "failed to open " << f.name() << " because " << f.errorString();
+            qWarning() << "failed to open " << f.fileName() << " because " << f.errorString();
         }
 		f.close();
-		m_outputFile = f.name();
+		m_outputFile = f.fileName();
 		m_bAddToProject = false;
 	}
 	
