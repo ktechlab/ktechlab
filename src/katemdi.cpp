@@ -523,7 +523,7 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
 
 void Sidebar::buttonPopupActivate (QAction* action)
 {
-  int id = action->data().asInt();
+  int id = action->data().toInt();
   ToolView *w = m_idToWidget[m_popupButton];
 
   if (!w)
