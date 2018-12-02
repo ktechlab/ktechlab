@@ -771,7 +771,7 @@ void KTechlab::setupExampleActions()
             kWarning() << "failed to cast to popup menu: " << "examples_" + category;
 			continue;
         }
-		connect( m, SIGNAL(activated( int )), this, SLOT(openExample( int )) );
+		connect( m, SIGNAL(triggered(QAction*)), this, SLOT(openExample(QAction*)) );
 		
 		QStringList files = dir.entryList();
 		files.removeAll(".");
@@ -800,7 +800,8 @@ void KTechlab::setupExampleActions()
 				}
 			}
 			
-			m->insertItem( name, at, at );
+			//m->insertItem( name, at, at ); // 2018.12.02
+            m->addAction( name )->setData(at);
 			m_exampleFiles[ at ] = dir.path() + "/" + fileName;
 			at++;
 		}
@@ -808,8 +809,9 @@ void KTechlab::setupExampleActions()
 }
 
 
-void KTechlab::openExample( int id )
+void KTechlab::openExample(QAction *action)
 {
+    int id = action->data().toInt();
 	DocManager::self()->openURL( m_exampleFiles[ id ] );
 }
 

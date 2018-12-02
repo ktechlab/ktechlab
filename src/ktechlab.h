@@ -220,7 +220,7 @@ class KTechlab : public KateMDI::MainWindow
 		 * Called when the user clicks on an example (circuit, etc) from the
 		 * help menu/
 		 */
-		void openExample( int id );
+		void openExample(QAction*);
 		void slotViewContainerDestroyed( QObject * obj );
 	
 		// Editing operations
