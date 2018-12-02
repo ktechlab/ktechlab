@@ -559,7 +559,10 @@ void ItemView::requestDocumentResizeToCanvasItems() {
 void ItemView::slotUpdateConfiguration()
 {
 // 	m_CVBEditor->setEraseColor( KTLConfig::bgColor() );
-	m_CVBEditor->setEraseColor( Qt::white );
+	//m_CVBEditor->setEraseColor( Qt::white ); // 2018.12.02
+    QPalette pe;
+    pe.setColor(m_CVBEditor->backgroundRole(), Qt::white );
+    m_CVBEditor->setPalette(pe);
 	
 	if ( m_pUpdateStatusTmr->isActive() )
 		startUpdatingStatus();
@@ -669,10 +672,20 @@ CVBEditor::CVBEditor( Canvas *canvas, ItemView *itemView, const char *name )
 	setAcceptDrops(true);
 	setFrameShape(NoFrame);
 // 	setEraseColor( KTLConfig::bgColor() );
-	setEraseColor( Qt::white );
-	setPaletteBackgroundColor( Qt::white );
-	viewport()->setEraseColor( Qt::white );
-	viewport()->setPaletteBackgroundColor( Qt::white );
+	//setEraseColor( Qt::white );
+	//setPaletteBackgroundColor( Qt::white );
+    {
+        QPalette p;
+        p.setColor(backgroundRole(), Qt::white);
+        setPalette(p);
+    }
+	//viewport()->setEraseColor( Qt::white );
+	//viewport()->setPaletteBackgroundColor( Qt::white ); // 2018.12.02
+    {
+        QPalette pv;
+        pv.setColor(viewport()->backgroundRole(), Qt::white );
+        viewport()->setPalette(pv);
+    }
 	
 	connect( canvas, SIGNAL(resized( const QRect&, const QRect& )), this, SLOT(canvasResized( const QRect&, const QRect& )) );
 }
@@ -708,7 +721,9 @@ void CVBEditor::updateWorldMatrix()
 void CVBEditor::contentsWheelEvent( QWheelEvent * e )
 {
 	QWheelEvent ce( viewport()->mapFromGlobal( e->globalPos() ),
-			e->globalPos(), e->delta(), e->state());
+			e->globalPos(), e->delta(),
+            //e->state()
+            e->buttons(), e->modifiers());
 	
 	if ( e->orientation() == Qt::Horizontal && horizontalScrollBar() )
 		QApplication::sendEvent( horizontalScrollBar(), e);
