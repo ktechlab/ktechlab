@@ -92,8 +92,10 @@ void Switch::bounce() {
 	int bounced_ms = ((Simulator::self()->time() - m_bounceStart) * 1000) / LOGIC_UPDATE_RATE;
 
 	if (bounced_ms >= m_bouncePeriod_ms) {
-		if (!m_pStopBouncingTimer->isActive())
-			m_pStopBouncingTimer->start(0, true);
+		if (!m_pStopBouncingTimer->isActive()) {
+            m_pStopBouncingTimer->setSingleShot( true );
+			m_pStopBouncingTimer->start(0 /*, true */ );
+        }
 
 		return;
 	}
