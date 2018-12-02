@@ -50,6 +50,7 @@
 #include <qtimer.h>
 #include <qprinter.h>
 #include <qtextedit.h>
+#include <qprintdialog.h>
 
 #include <cmath>
 #include <cassert>
@@ -248,8 +249,12 @@ void ItemDocument::print()
 {
 	static QPrinter * printer = new QPrinter;
 	
-	if ( ! printer->setup( KTechlab::self() ) )
-		return;
+	//if ( ! printer->setup( KTechlab::self() ) )
+	//	return;
+    QPrintDialog printDialog(printer, KTechlab::self());
+    if ( ! printDialog.exec() ) {
+        return;
+    }
 	
 	// setup the printer.  with Qt, you always "print" to a
 	// QPainter.. whether the output medium is a pixmap, a screen,
@@ -707,7 +712,8 @@ void ItemDocument::requestEvent( ItemDocumentEvent::type type )
 {
 	m_queuedEvents |= type;
 	m_pEventTimer->stop();
-	m_pEventTimer->start( 0, true );
+    m_pEventTimer->setSingleShot(true);
+	m_pEventTimer->start( 0 /*, true */ );
 }
 
 
@@ -758,7 +764,8 @@ void ItemDocument::resizeCanvasToItems()
 	bound.setLeft( bound.left() - (bound.left()%8) );
 	bound.setTop( bound.top() - (bound.top()%8) );
 	
-	m_pUpdateItemViewScrollbarsTimer->start( 10, true );
+    m_pUpdateItemViewScrollbarsTimer->setSingleShot(true);
+	m_pUpdateItemViewScrollbarsTimer->start( 10 /*, true */ );
 	
 	bool changedSize = canvas()->rect() != bound;
 	if ( changedSize ) {
@@ -852,7 +859,8 @@ void ItemDocument::exportToImage()
 
 	cropMessage = i18n("Crop image");
 	
-	QCheckBox *cropCheck = new QCheckBox( cropMessage, KTechlab::self(), "cropCheck" );
+	QCheckBox *cropCheck = new QCheckBox( cropMessage, KTechlab::self() /*, "cropCheck" */ );
+    cropCheck->setObjectName( "cropCheck" );
 	cropCheck->setChecked(true); // yes by default?
 	
 	// we need an object so we can retrieve which image type was selected by the user
@@ -1309,9 +1317,12 @@ void Canvas::setMessage( const QString & message )
 {
 	m_message = message;
 	
-	if ( message.isEmpty() )
+	if ( message.isEmpty() ) {
 		m_pMessageTimeout->stop();
-	else	m_pMessageTimeout->start( 2000, true );
+    } else {
+        m_pMessageTimeout->setSingleShot(true);
+        m_pMessageTimeout->start( 2000 /*, true */ );
+    }
 	
 	setAllChanged();
 }
@@ -1400,7 +1411,8 @@ void Canvas::drawForeground ( QPainter &p, const QRect & clip )
 // 		return;
 // 	}
 	
-	p.setBrush( firstView->colorGroup().background() );
+    //p.setBrush( firstView->colorGroup().background() ); // 2018.12.02
+	p.setBrush( firstView->palette().window() );
 	p.drawRoundRect( x, y, w+2*b, h+2*b, (8*200)/(w+2*b), (8*200)/(h+2*b) );
 // 	t->draw( &p, x+b, y+b, QRect(), firstView->colorGroup() );
     t->resize(w+2*b, h+2*b);
