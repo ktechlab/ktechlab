@@ -306,7 +306,8 @@ void CMManager::wheelEvent( const EventInfo &eventInfo )
 		// Only allow scrolling of items if we have not just been scrolling the canvas
 		b_allowItemScroll = false;
 		m_allowItemScrollTmr->stop();
-		m_allowItemScrollTmr->start(500,true);
+        m_allowItemScrollTmr->setSingleShot(true);
+		m_allowItemScrollTmr->start(500 /*,true */ );
 		
 		ItemView *itemView = dynamic_cast<ItemView*>(p_itemDocument->activeView());
 		if (itemView)
@@ -1676,7 +1677,7 @@ bool CMDraw::mouseMoved( const EventInfo &eventInfo )
 	
 	else if (m_pDrawEllipse) {
 // 		QRect r( m_eventInfo.pos.x(), m_eventInfo.pos.y(), pos.x()-m_eventInfo.pos.x(), pos.y()-m_eventInfo.pos.y() );
-// 		r = r.normalize();
+// 		r = r.normalized();
 // 		
 // 		m_pDrawEllipse->setSize( r.width(), r.height() );
 // 		m_pDrawEllipse->move( r.left()+(r.width()/2), r.top()+(r.height()/2) );
@@ -1709,7 +1710,7 @@ bool CMDraw::mouseReleased( const EventInfo & /*eventInfo*/ )
 			sizeRect.setWidth( sizeRect.width()+1 );
 			sizeRect.setHeight( sizeRect.height()+1 );
 			
-			sizeRect = sizeRect.normalize();
+			sizeRect = sizeRect.normalized();
 			
 			if ( m_pDrawRectangle->rect().width() < 0 )
 				sizeRect.moveLeft( sizeRect.left() + 1);
@@ -1721,7 +1722,7 @@ bool CMDraw::mouseReleased( const EventInfo & /*eventInfo*/ )
 			int h = m_pDrawEllipse->height()+1;
 			int x = int(m_pDrawEllipse->x()-w/2);
 			int y = int(m_pDrawEllipse->y()-h/2);
-			sizeRect = QRect( x, y, w, h ).normalize();
+			sizeRect = QRect( x, y, w, h ).normalized();
 		}
 	
 		delete m_pDrawRectangle;

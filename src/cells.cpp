@@ -48,7 +48,7 @@ Cells::Cells( const Cells & c )
 void Cells::init( const QRect & canvasRect )
 {
 	m_cellsRect = QRect( roundDown( canvasRect.topLeft(), 8 ), canvasRect.size()/8 );
-	m_cellsRect = m_cellsRect.normalize();
+	m_cellsRect = m_cellsRect.normalized();
 	
 	unsigned w = unsigned(m_cellsRect.width());
 	unsigned h = unsigned(m_cellsRect.height());
