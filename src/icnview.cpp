@@ -59,15 +59,22 @@ ICNView::ICNView( ICNDocument *icnDocument, ViewContainer *viewContainer, uint v
 	QMenu * m = m_pRoutingModeToolbarPopup->menu();
 	m->setTitle( i18n("Connection Routing Mode") );
 	
-	m->insertItem( /*KIconLoader::global()->loadIcon(
-        "routing_mode_auto",	KIconLoader::Small ), */i18n("Automatic"), 0 );
-	m->insertItem( /*KIconLoader::global()->loadIcon(
-        "routing_mode_manual",	KIconLoader::Small ),*/ i18n("Manual"), 1 );
+	m_actMenuRouteAutoRoute = m->addAction( /*KIconLoader::global()->loadIcon(
+        "routing_mode_auto",	KIconLoader::Small ), */i18n("Automatic"));
+    m_actMenuRouteAutoRoute->setData( 0 );
+	m_actMenuRouteManRoute = m->addAction( /*KIconLoader::global()->loadIcon(
+        "routing_mode_manual",	KIconLoader::Small ),*/ i18n("Manual"));
+    m_actMenuRouteManRoute->setData( 1 );
 	
-	m->setCheckable(true);
-	m->setItemChecked( manualRouting ? 1 : 0, true );
+	//m->setCheckable(true); // 2018.12.02
+    if (manualRouting) {
+        m_actMenuRouteManRoute->setChecked( true );
+    } else {
+        m_actMenuRouteAutoRoute->setChecked( true );
+    }
+	//m->setItemChecked( manualRouting ? 1 : 0, true ); // 2018.12.02
 	
-	connect( m, SIGNAL(activated(int)), this, SLOT(slotSetRoutingMode(int)) );
+	connect( m, SIGNAL(triggered(QAction*)), this, SLOT(slotSetRoutingMode(QAction*)) );
 	//END Routing Actions
 	
 	connect( icnDocument->m_cmManager, SIGNAL(manualRoutingChanged(bool )), this, SLOT(slotUpdateRoutingToggles(bool )) );
@@ -79,8 +86,9 @@ ICNView::~ICNView()
 }
 
 
-void ICNView::slotSetRoutingMode( int mode )
+void ICNView::slotSetRoutingMode( QAction *action )
 {
+    int mode = action->data().toInt();
 	// This function is called when the user selects a mode from the toolbar drop-down menu
 	bool manualEnabled = (mode == 1);
 	
@@ -115,12 +123,20 @@ void ICNView::slotUpdateRoutingMode( bool manualRouting )
 
 void ICNView::slotUpdateRoutingToggles( bool manualRouting )
 {
-	m_pRoutingModeToolbarPopup->menu()->setItemChecked( !manualRouting, 0 );
-	m_pRoutingModeToolbarPopup->menu()->setItemChecked(  manualRouting, 1 );
-	
+	//m_pRoutingModeToolbarPopup->menu()->setItemChecked( !manualRouting, 0 );  // 2018.12.02
+	//m_pRoutingModeToolbarPopup->menu()->setItemChecked(  manualRouting, 1 );
+    if ( manualRouting ) {
+        m_actMenuRouteAutoRoute->setChecked(false);
+        m_actMenuRouteManRoute->setChecked(true);
+    } else {
+        m_actMenuRouteAutoRoute->setChecked(true);
+        m_actMenuRouteManRoute->setChecked(false);
+    }
+
 	if ( manualRouting )
 		m_pManualRoutingAction->setChecked(true);
 	else	m_pAutoRoutingAction->setChecked(true);
+
 }
 
 

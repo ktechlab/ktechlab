@@ -28,7 +28,7 @@ class ICNView : public ItemView
 		~ICNView();
 		
 	protected slots:
-		void slotSetRoutingMode( int mode ); // 0 = auto, 1 = manual
+		void slotSetRoutingMode( QAction* action ); // 0 = auto, 1 = manual
 		void slotSetRoutingAuto();
 		void slotSetRoutingManual();
 		void slotUpdateRoutingMode( bool manualRouting );
@@ -38,6 +38,8 @@ class ICNView : public ItemView
 		KToolBarPopupAction * m_pRoutingModeToolbarPopup;
 		KAction * m_pManualRoutingAction;
 		KAction * m_pAutoRoutingAction;
+        QAction *m_actMenuRouteAutoRoute;
+        QAction *m_actMenuRouteManRoute;
 };
 
 #endif
