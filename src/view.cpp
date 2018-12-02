@@ -29,9 +29,11 @@
 
 //BEGIN class View
 View::View( Document *document, ViewContainer *viewContainer, uint viewAreaId, const char *name )
-	: QWidget( viewContainer->viewArea(viewAreaId), name ? name : ("view_" + QString::number(viewAreaId)).toLatin1().data() ),
+	: QWidget( viewContainer->viewArea(viewAreaId)
+        /*, name ? name : ("view_" + QString::number(viewAreaId)).toLatin1().data() */ ),
 	  KXMLGUIClient()
 {
+    setObjectName(name ? name : ("view_" + QString::number(viewAreaId)).toLatin1().data());
 	m_pFocusWidget = 0l;
 	m_dcopID = 0;
 	m_viewAreaId = viewAreaId;
@@ -149,7 +151,7 @@ bool View::eventFilter( QObject * watched, QEvent * e )
 			
 			if ( QWidget * fw = qApp->focusWidget() )
 			{
-				QString fwClassName( fw->className() );
+				QString fwClassName( fw->metaObject()->className() );
 // 				kDebug() << "New focus widget is \""<<fw->name()<<"\" of type " << fwClassName << endl;
 				
 				if ( (fwClassName != "KateViewInternal") &&
@@ -216,9 +218,9 @@ ViewStatusBar::ViewStatusBar( View *view )
 	p_view = view;
 	
 	m_modifiedLabel = new QLabel(this);
-	addWidget( m_modifiedLabel, 0, false );
+	addWidget( m_modifiedLabel, 0 /*, false */ );
 	m_fileNameLabel = new KSqueezedTextLabel(this);
-	addWidget( m_fileNameLabel, 1, false );
+	addWidget( m_fileNameLabel, 1 /*, false */ );
 	
 	m_modifiedPixmap = KIconLoader::global()->loadIcon( "document-save", KIconLoader::Small );
 	m_unmodifiedPixmap = KIconLoader::global()->loadIcon( "null", KIconLoader::Small );
@@ -257,8 +259,8 @@ void ViewStatusBar::slotViewFocused( View * )
 void ViewStatusBar::slotViewUnfocused()
 {
 	QPalette pal( p_view->palette() );
-	pal.setColor( QColorGroup::Background, pal.active().mid() );
-	pal.setColor( QColorGroup::Light, pal.active().midlight() );
+	pal.setColor( QColorGroup::Background, pal.mid().color() );
+	pal.setColor( QColorGroup::Light, pal.midlight().color() );
 	setPalette(pal);
 }
 //END class ViewStatusBar
@@ -273,8 +275,8 @@ void KVSSBSep::paintEvent( QPaintEvent *e )
         qWarning() << Q_FUNC_INFO << " painter is not active";
     }
     //p.setPen( colorGroup().shadow() );
-    QColorGroup colorGroup(palette());
-    p.setPen( colorGroup.shadow() );
+    //QColorGroup colorGroup(palette()); // 2018.12.02
+    p.setPen( palette().shadow().color() /* colorGroup.shadow() */ );
     p.drawLine( e->rect().left(), 0, e->rect().right(), 0 );
     //p.setPen( ((View*)parentWidget())->hasFocus() ? colorGroup.light() : colorGroup.midlight() );
     View * parentView = dynamic_cast<View*>(parentWidget());
@@ -282,7 +284,7 @@ void KVSSBSep::paintEvent( QPaintEvent *e )
         qWarning() << "parent not View for this=" << this << ", parent=" << parentWidget();
         return;
     }
-    p.setPen( parentView->hasFocus() ? colorGroup.light() : colorGroup.midlight() );
+    p.setPen( parentView->hasFocus() ? palette().light().color() : palette().midlight().color() );
     p.drawLine( e->rect().left(), 1, e->rect().right(), 1 );
 }
 //END  class KVSSBSep
