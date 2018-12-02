@@ -96,20 +96,23 @@ SymbolViewer::SymbolViewer( KateMDI::ToolView * parent )
         qWarning() << Q_FUNC_INFO << " unexpected null layout on parent " << parent ;
     }
 
-	QGridLayout  * grid = new QGridLayout( this, 1, 1, 0, 6 );
+	QGridLayout  * grid = new QGridLayout( this /*, 1, 1, 0, 6 */ );
+    grid->setMargin(0);
+    grid->setSpacing(6);
 	
 	m_pSymbolList = new QTableWidget(this);
 	m_pSymbolList->setFocusPolicy( Qt::NoFocus );
-	grid->addMultiCellWidget( m_pSymbolList, 0, 0, 0, 1 );
+	//grid->addMultiCellWidget( m_pSymbolList, 0, 0, 0, 1 ); // 2018.12.02
+    grid->addWidget( m_pSymbolList, 0, 0, 1, 2);
 	
 	grid->addWidget( new QLabel( i18n("Value radix:"), this ), 1, 0 );
 	
 	m_pRadixCombo = new KComboBox( false, this );
 	grid->addWidget( m_pRadixCombo, 1, 1 );
-	m_pRadixCombo->insertItem( i18n("Binary") );
-	m_pRadixCombo->insertItem( i18n("Octal") );
-	m_pRadixCombo->insertItem( i18n("Decimal") );
-	m_pRadixCombo->insertItem( i18n("Hexadecimal") );
+	m_pRadixCombo->insertItem( m_pRadixCombo->count(), i18n("Binary") );
+	m_pRadixCombo->insertItem( m_pRadixCombo->count(), i18n("Octal") );
+	m_pRadixCombo->insertItem( m_pRadixCombo->count(), i18n("Decimal") );
+	m_pRadixCombo->insertItem( m_pRadixCombo->count(), i18n("Hexadecimal") );
 	m_valueRadix = Decimal;
 	m_pRadixCombo->setCurrentIndex(2);
 	connect( m_pRadixCombo, SIGNAL(activated(int)), this, SLOT(selectRadix(int)) );
@@ -253,7 +256,7 @@ QString SymbolViewer::toDisplayString( unsigned value ) const
 	switch ( m_valueRadix )
 	{
 		case Binary:
-			return QString::number( value, 2 ).rightJustify( 8, '0', false );
+			return QString::number( value, 2 ).rightJustified( 8, '0', false );
 			
 		case Octal:
 			return "0" + QString::number( value, 8 );
