@@ -69,7 +69,7 @@ bool PropIntSpinBox::eventFilter(QObject *o, QEvent *e)
 		if(e->type() == QEvent::KeyPress)
 		{
 			QKeyEvent* ev = static_cast<QKeyEvent*>(e);
-			if((ev->key()==Qt::Key_Up || ev->key()==Qt::Key_Down) && ev->state()!=Qt::ControlButton)
+			if((ev->key()==Qt::Key_Up || ev->key()==Qt::Key_Down) && ev->modifiers()!=Qt::ControlButton)
 			{
 				parentWidget()->eventFilter(o, e);
 				return true;
@@ -125,7 +125,7 @@ bool PropDoubleSpinBox::eventFilter(QObject *o, QEvent *e)
 		if(e->type() == QEvent::KeyPress)
 		{
 			QKeyEvent* ev = static_cast<QKeyEvent*>(e);
-			if((ev->key()==Qt::Key_Up || ev->key()==Qt::Key_Down) && ev->state()!=Qt::ControlButton)
+			if((ev->key()==Qt::Key_Up || ev->key()==Qt::Key_Down) && ev->modifiers()!=Qt::ControlButton)
 			{
 				parentWidget()->eventFilter(o, e);
 				return true;
@@ -171,18 +171,19 @@ PropertyEditorBool::PropertyEditorBool( QWidget * parent, Property * property, c
 	m_toggle->setFocusPolicy(Qt::NoFocus);
 	m_toggle->setCheckable(true);
 	m_toggle->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-	m_toggle->setTextPosition(QToolButton::Right); //js BesideIcon -didnt work before qt3.2);
+    // 2018.12.02: see above
+	//m_toggle->setTextPosition(QToolButton::Right); //js BesideIcon -didnt work before qt3.2);
 	m_toggle->resize(width(), height());
 
 	connect( m_toggle, SIGNAL(toggled(bool)), this, SLOT(setState(bool)));
-	connect( m_property, SIGNAL(valueChanged( bool )), m_toggle, SLOT(setOn(bool)) );
+	connect( m_property, SIGNAL(valueChanged( bool )), m_toggle, SLOT(setChecked(bool)) );
 	
 	if(property->value().toBool())
-		m_toggle->setOn(true);
+		m_toggle->setChecked(true);
 	else
 	{
 		m_toggle->toggle();
-		m_toggle->setOn(false);
+		m_toggle->setChecked(false);
 	}
 
 	m_toggle->show();

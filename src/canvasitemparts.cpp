@@ -416,7 +416,7 @@ void Button::enterEvent(QEvent *)
 // 	m_button->setFocus();
 // 	bool hasFocus = m_button->hasFocus();
 // 	m_button->setAutoRaise(true);
-// 	m_button->setOn(true);
+// 	m_button->setChecked(true);
 }
 
 void Button::leaveEvent(QEvent *)
@@ -425,7 +425,7 @@ void Button::leaveEvent(QEvent *)
 // 	m_button->clearFocus();
 // 	bool hasFocus = m_button->hasFocus();
 // 	m_button->setAutoRaise(false);
-// 	m_button->setOn(false);
+// 	m_button->setChecked(false);
 }
 //END Class Button
 
