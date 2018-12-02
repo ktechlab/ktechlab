@@ -546,7 +546,7 @@ Text* CNItem::addDisplayText( const QString &id, const QRect & pos, const QStrin
 	{
 // 		kWarning() << "CNItem::addDisplayText: removing old text"<<endl;
 		delete it.value();
-		m_textMap.remove(it);
+		m_textMap.erase(it);
 	}
 	
 	text = new Text( "", this, pos, canvas(), flags );
@@ -584,7 +584,7 @@ void CNItem::removeDisplayText( const QString &id )
 	}
 	it.value()->updateConnectorPoints(false);
 	delete it.value();
-	m_textMap.remove(it);
+	m_textMap.erase(it);
 }
 
 
