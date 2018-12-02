@@ -58,9 +58,12 @@ class DrawingPushButton : public QPushButton {
 
 //BEGIN class OrientationWidget
 OrientationWidget::OrientationWidget(QWidget *parent, const char *name)
-	: QWidget( parent, name )
+	: QWidget( parent /*, name */ )
 {
-	QGridLayout * layout = new QGridLayout( this, 2, 4, 0, 4 );
+    setObjectName(name);
+	QGridLayout * layout = new QGridLayout( this /*, 2, 4, 0, 4 */ );
+    layout->setMargin(0);
+    layout->setSpacing(4);
 	
 	for ( int row=0; row<2; ++row )
 	{
@@ -235,7 +238,7 @@ void OrientationWidget::slotButtonClicked()
 		for ( int col=0; col<4; ++col )
 		{
 			bool isButton = (m_toolBtn[row][col] == btn);
-			m_toolBtn[row][col]->setOn( isButton );
+			m_toolBtn[row][col]->setChecked( isButton );
 			if ( !isButton )
 				continue;
 			
@@ -267,7 +270,7 @@ void OrientationWidget::updateShownOrientation()
 			if ( m_pFlowPart )
 			{
 				bool setOn = haveSameOrientation && (m_pFlowPart->orientation() == (4*row + col));
-				m_toolBtn[row][col]->setOn( setOn );
+				m_toolBtn[row][col]->setChecked( setOn );
 			}
 			else
 			{
@@ -275,7 +278,7 @@ void OrientationWidget::updateShownOrientation()
 				int angle = 90 * col;
 			
 				bool setOn = haveSameOrientation && (m_pComponent->angleDegrees() == angle) && (m_pComponent->flipped() == flipped);
-				m_toolBtn[row][col]->setOn( setOn );
+				m_toolBtn[row][col]->setChecked( setOn );
 			}
 		}
 	}
