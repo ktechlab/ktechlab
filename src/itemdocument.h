@@ -302,7 +302,7 @@ public slots:
 		/**
 		 * Call this with ItemDocument::DrawAction to start drawing the given thing
 		 */
-		void slotSetDrawAction( int da );
+		void slotSetDrawAction( QAction *selected );
 		/**
 		 * Sets the editing mode to repeatedly creating a CNItem
 		 * with the given id. Usually called when the user double-clicks on

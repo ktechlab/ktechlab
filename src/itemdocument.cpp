@@ -142,8 +142,9 @@ bool ItemDocument::registerItem(KtlQCanvasItem *qcanvasItem)
 }
 
 
-void ItemDocument::slotSetDrawAction( int drawAction )
+void ItemDocument::slotSetDrawAction(QAction *selected)
 {
+    int drawAction = selected->data().toInt();
 	m_cmManager->setDrawAction(drawAction);
 }
 
