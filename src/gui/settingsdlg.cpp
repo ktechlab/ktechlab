@@ -40,49 +40,56 @@
 
 class GeneralOptionsWidget : public QWidget, public Ui::GeneralOptionsWidget {
     public:
-    GeneralOptionsWidget(QWidget *parent, const char *name = 0) : QWidget(parent, name) {
+    GeneralOptionsWidget(QWidget *parent, const char *name = 0) : QWidget(parent /*, name */) {
+        setObjectName(name);
         setupUi(this);
     }
 };
 
 class GpasmSettingsWidget : public QWidget, public Ui::GpasmSettingsWidget {
     public:
-    GpasmSettingsWidget(QWidget *parent, const char *name = 0) : QWidget(parent, name) {
+    GpasmSettingsWidget(QWidget *parent, const char *name = 0) : QWidget(parent /*, name*/) {
+        setObjectName(name);
         setupUi(this);
     }
 };
 
 class SDCCOptionsWidget : public QWidget, public Ui::SDCCOptionsWidget {
     public:
-    SDCCOptionsWidget(QWidget *parent, const char *name = 0) : QWidget(parent, name) {
+    SDCCOptionsWidget(QWidget *parent, const char *name = 0) : QWidget(parent /*, name*/) {
+        setObjectName(name);
         setupUi(this);
     }
 };
 
 class AsmFormattingWidget : public QWidget, public Ui::AsmFormattingWidget {
     public:
-    AsmFormattingWidget(QWidget *parent, const char *name = 0) : QWidget(parent, name) {
+    AsmFormattingWidget(QWidget *parent, const char *name = 0) : QWidget(parent /*, name*/) {
+        setObjectName(name);
         setupUi(this);
     }
 };
 
 class LogicWidget : public QWidget, public Ui::LogicWidget {
     public:
-    LogicWidget(QWidget *parent, const char *name = 0) : QWidget(parent, name) {
+    LogicWidget(QWidget *parent, const char *name = 0) : QWidget(parent /*, name*/) {
+        setObjectName(name);
         setupUi(this);
     }
 };
 
 class PicProgrammerConfigWidget : public QWidget, public Ui::PicProgrammerConfigWidget {
     public:
-    PicProgrammerConfigWidget(QWidget *parent, const char *name = 0) : QWidget(parent, name) {
+    PicProgrammerConfigWidget(QWidget *parent, const char *name = 0) : QWidget(parent /*, name*/) {
+        setObjectName(name);
         setupUi(this);
     }
 };
 
 class GplinkSettingsWidget : public QWidget, public Ui::GplinkSettingsWidget {
     public:
-    GplinkSettingsWidget(QWidget *parent, const char *name = 0) : QWidget(parent, name) {
+    GplinkSettingsWidget(QWidget *parent, const char *name = 0) : QWidget(parent /*, name*/) {
+        setObjectName(name);
         setupUi(this);
     }
 };
@@ -259,7 +266,7 @@ void SettingsDlg::slotRemoveProgrammerConfig()
 		return;
 	
 	m_pPicProgrammerSettings->removeConfig( program );
-	combo->removeItem( combo->currentItem() );
+	combo->removeItem( combo->currentIndex() );
 	slotUpdatePicProgrammerDescription();
 }
 
@@ -271,7 +278,7 @@ void SettingsDlg::slotAddProgrammerConfig()
 	QStringList takenNames;
 	int count = combo->count();
 	for ( int i = 0; i < count; ++i )
-		takenNames << combo->text(i).toLower();
+		takenNames << combo->itemText(i).toLower();
 	
 	NameValidator * nv = new NameValidator( takenNames );
 	
@@ -288,7 +295,7 @@ void SettingsDlg::slotAddProgrammerConfig()
 	
 	m_pPicProgrammerSettings->saveConfig( name, config );
 	
-	combo->insertItem( name );
+	combo->insertItem(combo->count(), name );
 	// combo->setCurrentItem( count );
     combo->setCurrentItem( name );
 	slotUpdatePicProgrammerDescription();
@@ -343,7 +350,7 @@ void SettingsDlg::updateSettings()
 		else
 			grWorkArea.deleteEntry("RefreshRate");
 		
-		emit settingsChanged(name());
+		emit settingsChanged(objectName());
 	}
 	
 	QTimer::singleShot( 0, this, SLOT(slotUpdateSettings()) );
@@ -371,7 +378,7 @@ void SettingsDlg::slotUpdateSettings()
 		else
 			grPicProg.deleteEntry( "PicProgrammerProgram" );
 		
-		emit settingsChanged(name());
+		emit settingsChanged(objectName());
 	}
 	
 	m_pPicProgrammerSettings->save( config );
@@ -403,7 +410,7 @@ void SettingsDlg::slotUpdateWidgets()
 {
 	KComboBox * combo = m_picProgrammerConfigWidget->kcfg_PicProgrammerProgram;
 	
-	combo->setCurrentText( KTLConfig::picProgrammerProgram() );
+	combo->setItemText(combo->currentIndex(), KTLConfig::picProgrammerProgram() );
 	slotUpdatePicProgrammerDescription();
 }
 
