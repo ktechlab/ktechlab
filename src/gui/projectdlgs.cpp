@@ -59,7 +59,7 @@ NewProjectDlg::NewProjectDlg( QWidget * parent )
     // Check if already valid dir
 	locationChanged( QString::null );
     
-	m_pWidget->projectLocationURL->setUrl( QDir::homeDirPath() );
+	m_pWidget->projectLocationURL->setUrl( QDir::homePath() );
 	m_pWidget->projectLocationURL->setMode( KFile::Directory );
     
 	setMainWidget( m_pWidget );
@@ -152,7 +152,7 @@ void CreateSubprojectDlg::accept()
 	m_bAccepted = true;
 
 	m_targetFile = m_pWidget->m_targetFile->url().toLocalFile();
-	m_type = (Type)m_pWidget->m_typeCombo->currentItem();
+	m_type = (Type)m_pWidget->m_typeCombo->currentIndex();
 }
 
 
@@ -221,7 +221,11 @@ LinkerOptionsDlg::LinkerOptionsDlg( LinkerOptions * linkingOptions, QWidget *par
 	delete m_pWidget->m_pExternalLibraries;
 	m_pWidget->m_pExternalLibraries = new KEditListBox( i18n("Link libraries outside project"), m_pExternalLibraryRequester->customEditor(), m_pWidget );
 	m_pWidget->m_pExternalLibraries->layout()->setMargin(11);
-	(dynamic_cast<QGridLayout*>(m_pWidget->layout()))->addMultiCellWidget( m_pWidget->m_pExternalLibraries, 7, 7, 0, 1 );
+    {
+        QGridLayout* grLayout = (dynamic_cast<QGridLayout*>(m_pWidget->layout()));
+        //grLayout->addMultiCellWidget( m_pWidget->m_pExternalLibraries, 7, 7, 0, 1 ); // 2018.12.02
+        grLayout->addWidget( m_pWidget->m_pExternalLibraries, 7, 0, 1, 2);
+    }
 	
 	m_pWidget->m_pExternalLibraries->setButtons( KEditListBox::Add | KEditListBox::Remove );
 	m_pWidget->m_pExternalLibraries->insertStringList( m_pLinkerOptions->linkedExternal() );
@@ -254,7 +258,7 @@ void LinkerOptionsDlg::accept()
 	m_pLinkerOptions->setLinkedInternal( linkedInternal );
 	
 	m_pLinkerOptions->setLinkedExternal( m_pWidget->m_pExternalLibraries->items() );
-	m_pLinkerOptions->setHexFormat( (LinkerOptions::HexFormat::type) m_pWidget->m_pHexFormat->currentItem() );
+	m_pLinkerOptions->setHexFormat( (LinkerOptions::HexFormat::type) m_pWidget->m_pHexFormat->currentIndex() );
 	m_pLinkerOptions->setOutputMapFile( m_pWidget->m_pOutputMap->isChecked() );
 	m_pLinkerOptions->setLibraryDir( m_pWidget->m_pLibraryDir->text() );
 	m_pLinkerOptions->setLinkerScript( m_pWidget->m_pLinkerScript->text() );
