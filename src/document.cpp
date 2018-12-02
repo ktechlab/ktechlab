@@ -22,7 +22,7 @@
 #include <ktabwidget.h>
 
 Document::Document( const QString &caption, const char *name )
-	: QObject( KTechlab::self(), name ),
+	: QObject( KTechlab::self() /* , name */ ),
 	b_modified(false),
 	m_pDocumentIface(0),
 	m_bDeleted(false),
@@ -32,6 +32,7 @@ Document::Document( const QString &caption, const char *name )
 	m_dcopID(0),
 	m_nextViewID(0)
 {
+    setObjectName(name);
 	connect( KTechlab::self(), SIGNAL(configurationChanged()), this, SLOT(slotUpdateConfiguration()) );
 }
 
@@ -54,7 +55,7 @@ void Document::handleNewView( View *view )
 	
 	m_viewList.append(view);
 	view->setDCOPID(m_nextViewID++);
-	view->setCaption(m_caption);
+	view->setWindowTitle(m_caption);
 	connect( view, SIGNAL(destroyed(QObject* )), this, SLOT(slotViewDestroyed(QObject* )) );
 	connect( view, SIGNAL(focused(View* )), this, SLOT(slotViewFocused(View* )) );
 	connect( view, SIGNAL(unfocused()), this, SIGNAL(viewUnfocused()) );
@@ -97,7 +98,7 @@ void Document::setCaption( const QString &caption )
 	m_caption = caption;
 	const ViewList::iterator end = m_viewList.end();
 	for ( ViewList::iterator it = m_viewList.begin(); it != end; ++it )
-		(*it)->setCaption(caption);
+		(*it)->setWindowTitle(caption);
 }
 
 
@@ -130,7 +131,7 @@ bool Document::fileClose()
 		QString name = m_url.fileName().isEmpty() ? caption() : m_url.fileName();
 		
 		if ( ViewContainer * viewContainer = (activeView() ? activeView()->viewContainer() : 0l) )
-			KTechlab::self()->tabWidget()->setCurrentPage( KTechlab::self()->tabWidget()->indexOf(viewContainer) );
+			KTechlab::self()->tabWidget()->setCurrentIndex( KTechlab::self()->tabWidget()->indexOf(viewContainer) );
 		
 		KGuiItem saveItem = KStandardGuiItem::yes();
 		saveItem.setText( i18n("Save") );
