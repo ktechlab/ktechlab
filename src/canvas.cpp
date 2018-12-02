@@ -495,7 +495,9 @@ void KtlQCanvas::drawViewArea( KtlQCanvasView* view, QPainter* p, const QRect& v
 
 		a = (wm*twm).map(a);
 	
-		if ( view->viewport()->backgroundMode() == Qt::NoBackground )
+		//if ( view->viewport()->backgroundMode() == Qt::NoBackground ) // 2018.12.02
+        QWidget *vp = view->viewport();
+        if ( vp->palette().color( vp->backgroundRole() ) == QColor(Qt::transparent) )
 		{
 			QRect cvr = vr; cvr.translate(tl.x(),tl.y());
 			p->setClipRegion(QRegion(cvr)-QRegion(a));
