@@ -1,283 +1,285 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0" stdsetdef="1">
-  <author></author>
-  <comment></comment>
-  <exportmacro></exportmacro>
-  <class>GpasmSettingsWidget</class>
-  <widget class="QWidget" name="GpasmSettingsWidget">
-    <property name="geometry">
-      <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>278</width>
-        <height>168</height>
-      </rect>
-    </property>
-    <property name="toolTip" stdset="0">
-      <string/>
-    </property>
-    <layout class="QGridLayout">
-      <property name="margin">
-        <number>0</number>
+<ui version="4.0">
+ <class>GpasmSettingsWidget</class>
+ <widget class="QWidget" name="GpasmSettingsWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>278</width>
+    <height>168</height>
+   </rect>
+  </property>
+  <property name="toolTip">
+   <string/>
+  </property>
+  <layout class="QGridLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item row="1" column="0" colspan="2">
+    <widget class="QLabel" name="textLabel2">
+     <property name="text">
+      <string>Radix (-r):</string>
+     </property>
+     <property name="wordWrap">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="2">
+    <widget class="QLabel" name="textLabel3">
+     <property name="text">
+      <string>Warning level (-w):</string>
+     </property>
+     <property name="wordWrap">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="2">
+    <widget class="QLabel" name="textLabel1">
+     <property name="text">
+      <string>Hex Format (-a):</string>
+     </property>
+     <property name="wordWrap">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="4">
+    <widget class="QCheckBox" name="kcfg_IgnoreCase">
+     <property name="toolTip">
+      <string>All user defined symbols and macros are case sensitive. This option makes them case insensitive.</string>
+     </property>
+     <property name="text">
+      <string>Ign&amp;ore case (-i)</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="4">
+    <widget class="QCheckBox" name="kcfg_DosFormat">
+     <property name="toolTip">
+      <string>By default, gpasm generates hex files using ISO format. However, some device programmers required a DOS formatted file. This option will cause gpasm to generate a DOS formatted hex file. </string>
+     </property>
+     <property name="text">
+      <string>Generate DOS-formatted hex file (-&amp;n)</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0">
+    <spacer name="spacer18">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Expanding</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>16</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="0" column="3">
+    <widget class="QComboBox" name="kcfg_HexFormat">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="toolTip">
+      <string>GPASM supports inhx8m, inhx8s, inhx16, and inhx32 hex file formats. This option controls which hex file format is used.</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>inhx32</string>
       </property>
-      <item row="1" column="0" rowspan="1" colspan="2">
-        <widget class="QLabel" name="textLabel2">
-          <property name="text">
-            <string>Radix (-r):</string>
-          </property>
-          <property name="wordWrap">
-            <bool>false</bool>
-          </property>
-        </widget>
-      </item>
-      <item row="2" column="0" rowspan="1" colspan="2">
-        <widget class="QLabel" name="textLabel3">
-          <property name="text">
-            <string>Warning level (-w):</string>
-          </property>
-          <property name="wordWrap">
-            <bool>false</bool>
-          </property>
-        </widget>
-      </item>
-      <item row="0" column="0" rowspan="1" colspan="2">
-        <widget class="QLabel" name="textLabel1">
-          <property name="text">
-            <string>Hex Format (-a):</string>
-          </property>
-          <property name="wordWrap">
-            <bool>false</bool>
-          </property>
-        </widget>
-      </item>
-      <item row="3" column="0" rowspan="1" colspan="4">
-        <widget class="QCheckBox" name="kcfg_IgnoreCase">
-          <property name="text">
-            <string>Ign&amp;ore case (-i)</string>
-          </property>
-          <property name="toolTip" stdset="0">
-            <string>All user defined symbols and macros are case sensitive. This option makes them case insensitive.</string>
-          </property>
-        </widget>
-      </item>
-      <item row="4" column="0" rowspan="1" colspan="4">
-        <widget class="QCheckBox" name="kcfg_DosFormat">
-          <property name="text">
-            <string>Generate DOS-formatted hex file (-&amp;n)</string>
-          </property>
-          <property name="toolTip" stdset="0">
-            <string>By default, gpasm generates hex files using ISO format. However, some device programmers required a DOS formatted file. This option will cause gpasm to generate a DOS formatted hex file. </string>
-          </property>
-        </widget>
-      </item>
-      <item row="6" column="0">
-        <spacer name="spacer18">
-          <property name="sizeHint">
-            <size>
-              <width>20</width>
-              <height>16</height>
-            </size>
-          </property>
-          <property name="sizeType">
-            <enum>QSizePolicy::Expanding</enum>
-          </property>
-          <property name="orientation">
-            <enum>Qt::Vertical</enum>
-          </property>
-        </spacer>
-      </item>
-      <item row="0" column="3">
-        <widget class="KComboBox" name="kcfg_HexFormat">
-          <property name="sizePolicy">
-            <sizepolicy>
-              <hsizetype>1</hsizetype>
-              <vsizetype>0</vsizetype>
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-            </sizepolicy>
-          </property>
-          <property name="insertionPolicy">
-            <enum>AtBottom</enum>
-          </property>
-          <property name="toolTip" stdset="0">
-            <string>GPASM supports inhx8m, inhx8s, inhx16, and inhx32 hex file formats. This option controls which hex file format is used.</string>
-          </property>
-          <item>
-            <property name="text">
-              <string>inhx32</string>
-            </property>
-          </item>
-          <item>
-            <property name="text">
-              <string>inhx8m</string>
-            </property>
-          </item>
-          <item>
-            <property name="text">
-              <string>inhx8s</string>
-            </property>
-          </item>
-          <item>
-            <property name="text">
-              <string>inhx16</string>
-            </property>
-          </item>
-        </widget>
-      </item>
-      <item row="1" column="3">
-        <widget class="KComboBox" name="kcfg_Radix">
-          <property name="sizePolicy">
-            <sizepolicy>
-              <hsizetype>1</hsizetype>
-              <vsizetype>0</vsizetype>
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-            </sizepolicy>
-          </property>
-          <item>
-            <property name="text">
-              <string>Decimal</string>
-            </property>
-          </item>
-          <item>
-            <property name="text">
-              <string>Binary</string>
-            </property>
-          </item>
-          <item>
-            <property name="text">
-              <string>Octal</string>
-            </property>
-          </item>
-          <item>
-            <property name="text">
-              <string>Hexadecimal</string>
-            </property>
-          </item>
-        </widget>
-      </item>
-      <item row="2" column="3">
-        <widget class="KComboBox" name="kcfg_GpasmWarningLevel">
-          <property name="sizePolicy">
-            <sizepolicy>
-              <hsizetype>1</hsizetype>
-              <vsizetype>0</vsizetype>
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-            </sizepolicy>
-          </property>
-          <property name="toolTip" stdset="0">
-            <string>This sets the threshold of messages displayed in the log view.&lt;ul&gt;&lt;li&gt;&quot;All&quot; will display all output - information, warnings and errors.&lt;li&gt;&quot;Warnings&quot; will suppress messages. &lt;li&gt;&quot;Errors&quot; will suppress both messages and warnings.&lt;/ul&gt;</string>
-          </property>
-          <item>
-            <property name="text">
-              <string>All</string>
-            </property>
-          </item>
-          <item>
-            <property name="text">
-              <string>Warnings</string>
-            </property>
-          </item>
-          <item>
-            <property name="text">
-              <string>Errors</string>
-            </property>
-          </item>
-        </widget>
-      </item>
-      <item row="1" column="2">
-        <spacer name="spacer10">
-          <property name="sizeHint">
-            <size>
-              <width>40</width>
-              <height>20</height>
-            </size>
-          </property>
-          <property name="sizeType">
-            <enum>QSizePolicy::Expanding</enum>
-          </property>
-          <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-          </property>
-        </spacer>
-      </item>
-      <item row="0" column="2">
-        <spacer name="spacer11">
-          <property name="sizeHint">
-            <size>
-              <width>40</width>
-              <height>20</height>
-            </size>
-          </property>
-          <property name="sizeType">
-            <enum>QSizePolicy::Expanding</enum>
-          </property>
-          <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-          </property>
-        </spacer>
-      </item>
-      <item row="2" column="2">
-        <spacer name="spacer12">
-          <property name="sizeHint">
-            <size>
-              <width>40</width>
-              <height>20</height>
-            </size>
-          </property>
-          <property name="sizeType">
-            <enum>QSizePolicy::Expanding</enum>
-          </property>
-          <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-          </property>
-        </spacer>
-      </item>
-      <item row="5" column="0">
-        <widget class="QLabel" name="textLabel1_2">
-          <property name="text">
-            <string>Other options:</string>
-          </property>
-          <property name="wordWrap">
-            <bool>false</bool>
-          </property>
-        </widget>
-      </item>
-      <item row="5" column="1" rowspan="1" colspan="3">
-        <widget class="KLineEdit" name="kcfg_MiscGpasmOptions">
-          <property name="sizePolicy">
-            <sizepolicy>
-              <hsizetype>7</hsizetype>
-              <vsizetype>0</vsizetype>
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-            </sizepolicy>
-          </property>
-        </widget>
-      </item>
-    </layout>
-  </widget>
-  <layoutdefault spacing="6" margin="11"/>
-  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
-  <customwidgets>
-    <customwidget>
-      <class>KComboBox</class>
-      <extends>QComboBox</extends>
-      <header location="global">kcombobox.h</header>
-    </customwidget>
-  </customwidgets>
-  <tabstops>
-    <tabstop>kcfg_HexFormat</tabstop>
-    <tabstop>kcfg_Radix</tabstop>
-    <tabstop>kcfg_GpasmWarningLevel</tabstop>
-    <tabstop>kcfg_IgnoreCase</tabstop>
-    <tabstop>kcfg_DosFormat</tabstop>
-  </tabstops>
-  <includes>
-    <include location="local">kcombobox.h</include>
-    <include location="local">kcombobox.h</include>
-    <include location="local">kcombobox.h</include>
-    <include location="local">klineedit.h</include>
-  </includes>
+     </item>
+     <item>
+      <property name="text">
+       <string>inhx8m</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>inhx8s</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>inhx16</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="1" column="3">
+    <widget class="KComboBox" name="kcfg_Radix">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <item>
+      <property name="text">
+       <string>Decimal</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Binary</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Octal</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Hexadecimal</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="2" column="3">
+    <widget class="KComboBox" name="kcfg_GpasmWarningLevel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="toolTip">
+      <string>This sets the threshold of messages displayed in the log view.&lt;ul&gt;&lt;li&gt;&quot;All&quot; will display all output - information, warnings and errors.&lt;li&gt;&quot;Warnings&quot; will suppress messages. &lt;li&gt;&quot;Errors&quot; will suppress both messages and warnings.&lt;/ul&gt;</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>All</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Warnings</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Errors</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <spacer name="spacer10">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Expanding</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="0" column="2">
+    <spacer name="spacer11">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Expanding</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="2" column="2">
+    <spacer name="spacer12">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Expanding</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="textLabel1_2">
+     <property name="text">
+      <string>Other options:</string>
+     </property>
+     <property name="wordWrap">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1" colspan="3">
+    <widget class="KLineEdit" name="kcfg_MiscGpasmOptions" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+ <customwidgets>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header location="global">kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QWidget</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>kcfg_HexFormat</tabstop>
+  <tabstop>kcfg_Radix</tabstop>
+  <tabstop>kcfg_GpasmWarningLevel</tabstop>
+  <tabstop>kcfg_IgnoreCase</tabstop>
+  <tabstop>kcfg_DosFormat</tabstop>
+ </tabstops>
+ <includes>
+  <include location="local">kcombobox.h</include>
+  <include location="local">kcombobox.h</include>
+  <include location="local">kcombobox.h</include>
+  <include location="local">klineedit.h</include>
+ </includes>
+ <resources/>
+ <connections/>
 </ui>
