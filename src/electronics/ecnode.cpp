@@ -310,7 +310,9 @@ void ECNode::removeConnector( Connector *connector )
 	
 	ConnectorList::iterator it;
 	
-	it = m_connectorList.find(connector);
+	//it = m_connectorList.find(connector); // 2018.12.02
+    int i = m_connectorList.indexOf(connector);
+    it = (i == -1 ? m_connectorList.end() : (m_connectorList.begin()+i));
 	if ( it != m_connectorList.end() )
 	{
 		(*it)->removeConnector();
