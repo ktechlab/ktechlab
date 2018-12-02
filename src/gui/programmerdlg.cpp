@@ -53,13 +53,15 @@ ProgrammerDlg::ProgrammerDlg( const QString & picID, QWidget *parent, const char
 	// Setup the list of programmers
 	QComboBox * programmerCombo = m_pProgrammerWidget->m_pProgrammerProgram;
 	QStringList programmerNames = m_pProgrammerSettings->configNames( false );
-	programmerCombo->insertStringList( programmerNames );
+	programmerCombo->insertItems(programmerCombo->count(), programmerNames );
 	//programmerCombo->setSizeLimit( programmerNames.size() );
     programmerCombo->setMaxCount( programmerNames.size() );
 	programmerCombo->setCurrentText( KTLConfig::picProgrammerProgram() );
 	
 	// Sets up the list of ports
-	m_pProgrammerWidget->m_pPicProgrammerPort->insertStringList( Port::ports( Port::ExistsAndRW ) );
+	m_pProgrammerWidget->m_pPicProgrammerPort->insertItems(
+        m_pProgrammerWidget->m_pPicProgrammerPort->count(),
+        Port::ports( Port::ExistsAndRW ) );
 	m_pProgrammerWidget->m_pPicProgrammerPort->setCurrentText( KTLConfig::picProgrammerPort() );
 	
 	// Set the pic type to the one requested

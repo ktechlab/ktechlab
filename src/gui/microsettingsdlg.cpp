@@ -161,7 +161,8 @@ MicroSettingsDlg::MicroSettingsDlg( MicroSettings * microSettings, QWidget *pare
 	connect( m_pWidget->pinMapRemove, SIGNAL(clicked()), this, SLOT(slotRemovePinMap()) );
 	
 	m_pinMappings = microSettings->pinMappings();
-	m_pWidget->pinMapCombo->insertStringList( m_pinMappings.keys() );
+	m_pWidget->pinMapCombo->insertItems(m_pWidget->pinMapCombo->count(),
+                                        m_pinMappings.keys() );
 	
 	updatePinMapButtons();
 	//END Initialize pin maps

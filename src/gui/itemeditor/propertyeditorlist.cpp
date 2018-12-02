@@ -116,7 +116,7 @@ PropertyEditorList::PropertyEditorList( QWidget * parent, Property * property, c
 	m_combo->setAutoCompletion(true);
 	m_combo->setMinimumSize(10, 0); // to allow the combo to be resized to a small size
 
-	m_combo->insertStringList( m_property->allowed() );
+	m_combo->insertItems(m_combo->count(), m_property->allowed() );
 	m_combo->setCurrentText( m_property->displayString() );
 	KCompletion *comp = m_combo->completionObject();
 	comp->insertItems( m_property->allowed() );

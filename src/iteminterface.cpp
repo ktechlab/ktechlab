@@ -293,7 +293,7 @@ QWidget * ItemInterface::configWidget()
 				
 				KComboBox * box = new KComboBox(configWidget);
 				
-				box->insertStringList(allowed);
+				box->insertItems(box->count(), allowed);
 				box->setCurrentItem(value);
 				
 				if ( type == Variant::Type::VarName || type == Variant::Type::Combo )
@@ -324,7 +324,7 @@ QWidget * ItemInterface::configWidget()
 				m_stringURLReqMap[vait.key()] = urlreq;
 				
 				KComboBox * box = urlreq->comboBox();
-				box->insertStringList(allowed);
+				box->insertItems(box->count(), allowed);
 				box->setEditable( true );
 				
 				// Note this has to be called after inserting the allowed list

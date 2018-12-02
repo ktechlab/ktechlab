@@ -112,7 +112,8 @@ void MicroSelectWidget::setMicro( const QString & id )
 		return;
 	
 	m_pMicro->clear();
-	m_pMicro->insertStringList( MicroLibrary::self()->microIDs( info->instructionSet()->set() ) );
+	m_pMicro->insertItems( m_pMicro->count(),
+        MicroLibrary::self()->microIDs( info->instructionSet()->set() ) );
 	m_pMicro->setCurrentText(id);
 	
 	m_pMicroFamily->setCurrentText( AsmInfo::setToString( info->instructionSet()->set() ) );
@@ -130,7 +131,8 @@ void MicroSelectWidget::microFamilyChanged( const QString & family )
 	QString oldID = m_pMicro->currentText();
 	
 	m_pMicro->clear();
-	m_pMicro->insertStringList( MicroLibrary::self()->microIDs( AsmInfo::stringToSet(family), m_allowedGpsimSupport, m_allowedFlowCodeSupport, m_allowedMicrobeSupport ) );
+	m_pMicro->insertItems( m_pMicro->count(),
+        MicroLibrary::self()->microIDs( AsmInfo::stringToSet(family), m_allowedGpsimSupport, m_allowedFlowCodeSupport, m_allowedMicrobeSupport ) );
 	
 	if ( m_pMicro->contains(oldID) )
 		m_pMicro->setCurrentText(oldID);

@@ -178,7 +178,7 @@ bool ContextHelp::eventFilter( QObject * watched, QEvent * e )
 
 void ContextHelp::slotInitializeLanguageList()
 {
-	m_pLanguageSelect->insertStringList( itemLibrary()->descriptionLanguages() );
+	m_pLanguageSelect->insertItems(m_pLanguageSelect->count(), itemLibrary()->descriptionLanguages() );
 	m_currentLanguage = KGlobal::locale()->language();
 	m_pLanguageSelect->setCurrentItem( m_currentLanguage );
 }

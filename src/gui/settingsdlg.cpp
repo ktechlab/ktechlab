@@ -132,7 +132,9 @@ SettingsDlg::SettingsDlg( QWidget *parent, const char *name, KConfigSkeleton *co
 	
 	m_generalOptionsWidget->kcfg_GridColor->setEnabled( KTLConfig::showGrid() );
 	
-	m_picProgrammerConfigWidget->kcfg_PicProgrammerPort->insertStringList( Port::ports( Port::ExistsAndRW ) );
+	m_picProgrammerConfigWidget->kcfg_PicProgrammerPort->insertItems(
+        m_picProgrammerConfigWidget->kcfg_PicProgrammerPort->count(),
+        Port::ports( Port::ExistsAndRW ) );
 	slotUpdatePicProgrammerDescription();
 }
 
@@ -389,7 +391,7 @@ void SettingsDlg::updateWidgets()
 	
 	KComboBox * combo = m_picProgrammerConfigWidget->kcfg_PicProgrammerProgram;
 	combo->clear();
-	combo->insertStringList( programmerNames );
+	combo->insertItems(combo->count(), programmerNames );
 	//combo->setSizeLimit( programmerNames.size() );
     combo->setMaxCount( programmerNames.size() );
 	
