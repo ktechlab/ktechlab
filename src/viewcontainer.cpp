@@ -84,7 +84,8 @@ View *ViewContainer::view( uint id ) const
 		return 0l;
 	
 	// We do not want a recursive search as ViewAreas also hold other ViewAreas
-	QObjectList l = va->queryList( "View", 0, false, false );
+	//QObjectList l = va->queryList( "View", 0, false, false ); // 2018.12.02
+    QList<View*> l = va->findChildren<View*>();
 	View *view = 0l;
 	if ( !l.isEmpty() )
 		view = dynamic_cast<View*>(l.first());
@@ -292,16 +293,20 @@ void ViewContainer::updateCaption()
 			caption += " ...";
 	}
 	
-	setCaption(caption);
-	KTechlab::self()->tabWidget()->setTabLabel( this, caption );
+	setWindowTitle(caption);
+	//KTechlab::self()->tabWidget()->setTabLabel( this, caption ); // 2018.12.02
+    KTechlab::self()->tabWidget()->setTabText(
+                                                KTechlab::self()->tabWidget()->indexOf(this),
+                                                caption );
 }
 //END class ViewContainer
 
 
 //BEGIN class ViewArea
 ViewArea::ViewArea( QWidget *parent, ViewContainer *viewContainer, int id, bool showOpenButton, const char *name )
-	: QSplitter( parent, name )
+	: QSplitter( parent /*, name */ )
 {
+    setObjectName(name);
 	p_viewContainer = viewContainer;
 	m_id = id;
 	p_view = 0l;
@@ -351,7 +356,10 @@ ViewArea *ViewArea::createViewArea( Position position, uint id, bool showOpenBut
 	connect( p_viewArea2, SIGNAL(destroyed(QObject* )), this, SLOT(viewAreaDestroyed(QObject* )) );
 	
 	p_view->clearFocus();
-	p_view->reparent( p_viewArea1, QPoint(), true );
+	//p_view->reparent( p_viewArea1, QPoint(), true ); // 2018.12.02
+    p_view->setParent( p_viewArea1 );
+    p_view->move(QPoint());
+    p_view->show();
 	p_viewArea1->setView(p_view);
 	setView( 0l );
 	
@@ -557,14 +565,16 @@ EmptyViewArea::EmptyViewArea( ViewArea * parent )
 {
 	m_pViewArea = parent;
 	
-	QGridLayout * layout = new QGridLayout( this, 5, 3, 0, 6 );
+	QGridLayout * layout = new QGridLayout( this /*, 5, 3, 0, 6 */ );
+    layout->setMargin(0);
+    layout->setSpacing(6);
 	
 	layout->setRowStretch( 0, 20 );
 	layout->setRowStretch( 2, 1 );
 	layout->setRowStretch( 4, 20 );
 	
-	layout->setColStretch( 0, 1 );
-	layout->setColStretch( 2, 1 );
+	layout->setColumnStretch( 0, 1 );
+	layout->setColumnStretch( 2, 1 );
 	
 	KGuiItem openItem( i18n("Open Document"), "document-open" );
 	KPushButton * newDocButton = new KPushButton( openItem, this );
