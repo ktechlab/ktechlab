@@ -22,6 +22,7 @@
 #include "textview.h"
 #include "variablelabel.h"
 #include "viewiface.h"
+#include "ktlfindqobjectchild.h"
 
 //#include <ktexteditor/editinterface.h> // ?
 #include <ktexteditor/texthintinterface.h>
@@ -157,7 +158,8 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
 	//m_view->installPopup( static_cast<Q3PopupMenu*>( KTechlab::self()->factory()->container( "ktexteditor_popup", KTechlab::self() ) ) );
     m_view->setContextMenu( static_cast<QMenu*>( KTechlab::self()->factory()->container( "ktexteditor_popup", KTechlab::self() ) ) );
 	
-	QWidget * internalView = static_cast<QWidget*>( m_view->child( 0, "KateViewInternal" ) );
+	//QWidget * internalView = static_cast<QWidget*>( m_view->child( 0, "KateViewInternal" ) ); // 2018.12.02
+    QWidget * internalView = static_cast<QWidget*>( ktlFindQObjectChild( m_view, "KateViewInternal" ) );
 	
 	connect( m_view, SIGNAL(cursorPositionChanged(KTextEditor::View *, const KTextEditor::Cursor &)),	this, SLOT(slotCursorPositionChanged()) );
 	connect( m_view, SIGNAL(selectionChanged(KTextEditor::View *)), this, SLOT(slotSelectionmChanged()) );
