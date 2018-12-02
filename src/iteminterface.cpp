@@ -251,8 +251,16 @@ QWidget * ItemInterface::configWidget()
 	QWidget * parent = m_pActiveItemEditorToolBar;
 	
 	// Create new widget with the toolbar or dialog as the parent
-	QWidget * configWidget = new QWidget( parent, "tbConfigWidget" );
-	configWidget->setSizePolicy( QSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding, 1, 1 ) );
+	QWidget * configWidget = new QWidget( parent /*, "tbConfigWidget" */ );
+    configWidget->setObjectName("tbConfigWidget");
+    {
+        // 2018.12.02
+        //configWidget->setSizePolicy( QSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding, 1, 1 ) );
+        QSizePolicy p(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+        p.setHorizontalStretch(1);
+        p.setVerticalStretch(1);
+        configWidget->setSizePolicy(p);
+    }
 	
 	QHBoxLayout * configLayout = new QHBoxLayout( configWidget );
 // 	configLayout->setAutoAdd( true );
@@ -435,7 +443,9 @@ QWidget * ItemInterface::configWidget()
 			case Variant::Type::Combo:
 			case Variant::Type::String:
 			{
-				QSizePolicy p( QSizePolicy::MinimumExpanding, QSizePolicy::Fixed, 1, 1 );
+				QSizePolicy p( QSizePolicy::MinimumExpanding, QSizePolicy::Fixed /*, 1, 1 */ );
+                p.setHorizontalStretch(1);
+                p.setVerticalStretch(1);
 			
 				editWidget->setSizePolicy( p );
 				editWidget->setMaximumWidth( 250 );
