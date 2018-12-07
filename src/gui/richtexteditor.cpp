@@ -35,9 +35,12 @@
 
 //BEGIN class RichTextEditor
 RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
-	: QWidget(parent, name)
+	: QWidget(parent /*, name*/ )
 {
-	QVBoxLayout * layout = new QVBoxLayout( this, 0, 6 );
+    setObjectName( name );
+	QVBoxLayout * layout = new QVBoxLayout( this /*, 0, 6 */ );
+    layout->setMargin(0);
+    layout->setSpacing(6);
 	m_pEditor = new QTextEdit( this ); //, "RichTextEdit" );
 	m_pEditor->setObjectName("RichTextEdit");
 	layout->addWidget( m_pEditor );
@@ -52,7 +55,7 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
 	//connect( m_pEditor, SIGNAL( currentVerticalAlignmentChanged( Q3TextEdit::VerticalAlignment ) ), this, SLOT(verticalAlignmentChanged()) ); // 2018.01.03 - use slotCurrentCharFormatChanged
 	
 	KToolBar * tools = new KToolBar( this, "RichTextEditorToops" );
-	layout->add( tools );
+	layout->addWidget( tools );
 	KActionCollection * ac = new KActionCollection( m_pEditor );
 	
 	
@@ -108,13 +111,17 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
     QMenu * m = m_pTextAlignment->menu();
     //m->insertTitle( i18n("Text Alignment") );
     m->setTitle( i18n("Text Alignment"));
-	m->setCheckable( true );
+	//m->setCheckable( true ); // 2018.12.07
 	
-	m->insertItem( KIcon( "format-justify-left" ), i18n("Align Left"),		Qt::AlignLeft );
-	m->insertItem( KIcon( "format-justify-center"), i18n("Align Center"),	Qt::AlignHCenter );
-	m->insertItem( KIcon( "format-justify-right" ), i18n("Align Right"),	Qt::AlignRight );
-	m->insertItem( KIcon( "format-justify-fill" ), i18n("Align Block"),	Qt::AlignJustify );
-	connect( m, SIGNAL(activated(int)), this, SLOT(slotSetAlignment(int)) );
+	//m->insertItem( KIcon( "format-justify-left" ), i18n("Align Left"),		Qt::AlignLeft );
+    m->addAction( KIcon( "format-justify-left" ), i18n("Align Left") )->setData( Qt::AlignLeft );
+	//m->insertItem( KIcon( "format-justify-center"), i18n("Align Center"),	Qt::AlignHCenter );
+    m->addAction( KIcon( "format-justify-center"), i18n("Align Center") )->setData( Qt::AlignHCenter );
+	//m->insertItem( KIcon( "format-justify-right" ), i18n("Align Right"),	Qt::AlignRight );
+    m->addAction( KIcon( "format-justify-right" ), i18n("Align Right") )->setData( Qt::AlignRight );
+	//m->insertItem( KIcon( "format-justify-fill" ), i18n("Align Block"),	Qt::AlignJustify );
+    m->addAction( KIcon( "format-justify-fill" ), i18n("Align Block") )->setData( Qt::AlignJustify );
+	connect( m, SIGNAL(triggered(QAction*)), this, SLOT(slotSetAlignment(QAction*)) );
 	//END Text horizontal-alignment actions
 	
 	
@@ -132,12 +139,16 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
 	m = m_pTextVerticalAlignment->menu();
 	//m->insertTitle( i18n("Text Vertical Alignment") );
     m->setTitle( i18n("Text Vertical Alignment") );
-	m->setCheckable( true );
+	//m->setCheckable( true ); // 2018.12.07
 	
-	m->insertItem( KIcon( "format-text-superscript" ), i18n("Superscript"),	QTextCharFormat::AlignSuperScript );
-	m->insertItem(						i18n("Normal"),			QTextCharFormat::AlignNormal );
-	m->insertItem( KIcon( "format-text-subscript" ), i18n("Subscript"),		QTextCharFormat::AlignSubScript );
-	connect( m, SIGNAL(activated(int)), this, SLOT(slotSetVerticalAlignment(int)) );
+    m->addAction(  KIcon( "format-text-superscript" ),
+                   i18n("Superscript") )->setData(QTextCharFormat::AlignSuperScript );
+	//m->insertItem( KIcon( "format-text-superscript" ), i18n("Superscript"),	QTextCharFormat::AlignSuperScript );
+    m->addAction( i18n("Normal") )->setData( QTextCharFormat::AlignNormal );
+	//m->insertItem(						i18n("Normal"),			QTextCharFormat::AlignNormal );
+    m->addAction( KIcon( "format-text-subscript" ), i18n("Subscript") )->setData( QTextCharFormat::AlignSubScript );
+	//m->insertItem( KIcon( "format-text-subscript" ), i18n("Subscript"),		QTextCharFormat::AlignSubScript );
+	connect( m, SIGNAL(triggered(QAction*)), this, SLOT(slotSetVerticalAlignment(QAction*)) );
 	//END Text vertical-alignment actions
 	
 	
@@ -205,7 +216,7 @@ void RichTextEditor::setText( QString text )
 
 QString RichTextEditor::text() const
 {
-	QString text = m_pEditor->text().trimmed();
+	QString text = m_pEditor->toHtml().trimmed();
 	
 	// Remove the style info (e.g. style="font-size:8pt;font-family:DejaVu Sans") inserted into the body tag.
 	text.replace( QRegExp( "<body style=\"[^\"]*\">"), "<body>" );
@@ -215,7 +226,7 @@ QString RichTextEditor::text() const
 	for ( unsigned i = 0; i < text.length(); ++i )
 	{
 		QChar current = text[i];
-		if ( (current.latin1() == 0) && (current.unicode() != 0) )
+		if ( (current.toLatin1() == 0) && (current.unicode() != 0) )
 		{
 			// A non-latin1 character
 			if ( !nonAsciiChars.contains( current ) )
@@ -239,25 +250,30 @@ void RichTextEditor::insertURL( const QString & url, const QString & text )
 
 void RichTextEditor::insertHTML( const QString & html )
 {
-	// Save cursor position
-	//int cursorPara, cursorIndex;
-	//m_pEditor->getCursorPosition( & cursorPara, & cursorIndex );
-    QPoint cursorPos;
-    cursorPos = m_pEditor->cursor().pos();
-	
-	// replaceString is used so that the inserted text is at the cursor position.
-	// it's just a random set of characters, so that the chance of them actually being
-	// used is about zero.
-	QString replaceString = "SXbCk2CtqJ83";
-	
-	m_pEditor->insert( replaceString );
-	QString editorText = m_pEditor->text();
-	editorText.replace( replaceString, html, (uint)0 );
-	m_pEditor->setText( editorText );
-	
-	// Restore cursor position
-	//m_pEditor->setCursorPosition( cursorPara, cursorIndex );
-    m_pEditor->cursor().setPos(cursorPos);
+// 2018.12.07
+// 	// Save cursor position
+// 	//int cursorPara, cursorIndex;
+// 	//m_pEditor->getCursorPosition( & cursorPara, & cursorIndex );
+//     QPoint cursorPos;
+//     cursorPos = m_pEditor->cursor().pos();
+//
+// 	// replaceString is used so that the inserted text is at the cursor position.
+// 	// it's just a random set of characters, so that the chance of them actually being
+// 	// used is about zero.
+// 	QString replaceString = "SXbCk2CtqJ83";
+//
+// 	m_pEditor->insert( replaceString );
+// 	QString editorText = m_pEditor->text();
+// 	//editorText.replace( replaceString, html, (uint)0 ); // 2018.12.07
+//     editorText.replace( replaceString, html, Qt::CaseInsensitive );
+// 	m_pEditor->setText( editorText );
+//
+// 	// Restore cursor position
+// 	//m_pEditor->setCursorPosition( cursorPara, cursorIndex );
+//     m_pEditor->cursor().setPos(cursorPos);
+
+    m_pEditor->insertHtml(html);
+
 }
 
 void RichTextEditor::slotSetBold(bool isBold) {
@@ -279,14 +295,16 @@ void RichTextEditor::slotSetUnderline(bool isUnderline) {
     format.setFontUnderline(isUnderline);
     m_pEditor->textCursor().mergeCharFormat(format);
 }
-void RichTextEditor::slotSetAlignment(int alignment) {
+void RichTextEditor::slotSetAlignment(QAction *act) {
+    int alignment = act->data().toInt();
     QTextBlockFormat format = m_pEditor->textCursor().blockFormat();
     format.setAlignment( (Qt::AlignmentFlag) alignment );
     m_pEditor->textCursor().mergeBlockFormat(format);
 }
 
-void RichTextEditor::slotSetVerticalAlignment(int a )
+void RichTextEditor::slotSetVerticalAlignment(QAction *action )
 {
+    int a = action->data().toInt();
 	//m_pEditor->setVerticalAlignment( (Q3TextEdit::VerticalAlignment)a );
     //m_pEditor->setAlignment(a);
     QTextCharFormat format;
@@ -318,7 +336,8 @@ void RichTextEditor::slotSetList( bool set )
 
 void RichTextEditor::slotCurrentCharFormatChanged(const QTextCharFormat & f) {
     fontChanged( f.font() );
-    colorChanged( m_pEditor->foregroundColor() );
+    //colorChanged( m_pEditor->foregroundColor() ); // 2018.12.07
+    colorChanged( m_pEditor->palette().color( m_pEditor->foregroundRole()) );
     alignmentChanged( m_pEditor->alignment() );
     verticalAlignmentChanged(); // note: consider removing this method
 }
@@ -333,10 +352,11 @@ void RichTextEditor::fontChanged( const QFont & f )
 
 void RichTextEditor::textColor()
 {
-	QColor c = m_pEditor->color();
+	QColor c = m_pEditor->textColor();
 	int ret = KColorDialog::getColor( c, this );
-	if ( ret == QDialog::Accepted )
-		m_pEditor->setColor( c );
+	if ( ret == QDialog::Accepted ) {
+		m_pEditor->setTextColor( c );
+    }
 }
 
 
@@ -344,7 +364,7 @@ void RichTextEditor::colorChanged( const QColor & c )
 {
 	QPixmap pix( 16, 16 );
 	pix.fill( c );
-	m_pTextColor->setIconSet( pix );
+	m_pTextColor->setIcon( pix );
 }
 
 

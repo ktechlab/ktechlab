@@ -73,12 +73,12 @@ class RichTextEditor : public QWidget
         void slotSetBold(bool);
         void slotSetItalic(bool);
         void slotSetUnderline(bool);
-        void slotSetAlignment(int);
+        void slotSetAlignment(QAction*);
 		/**
 		 * Called when a vertical alignment is selected (subscript, normal or
 		 * superscript).
 		 */
-		void slotSetVerticalAlignment( int alignment );
+		void slotSetVerticalAlignment( QAction *a );
 		void slotSetList( bool set );
         void slotCurrentCharFormatChanged(const QTextCharFormat & f);
 		void fontChanged( const QFont &f );

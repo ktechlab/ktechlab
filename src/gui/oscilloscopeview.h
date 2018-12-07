@@ -35,7 +35,7 @@ class OscilloscopeView : public QFrame
 		 * Sets the needRedraw flag to true, and then class repaint
 		 */
 		void updateView();
-		void slotSetFrameRate( int fps);
+		void slotSetFrameRate( QAction * );
 		
 	protected slots:
 		void updateViewTimeout();

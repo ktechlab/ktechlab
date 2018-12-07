@@ -195,7 +195,7 @@ void PicProgrammerSettings::initStaticConfigs()
 
 void PicProgrammerSettings::load( KConfig * config )
 {
-	QStringList oldCustomProgrammers = config->groupList().grep("CustomProgrammer_");
+	QStringList oldCustomProgrammers = config->groupList().filter("CustomProgrammer_");
 	QStringList::iterator ocpEnd = oldCustomProgrammers.end();
 	for ( QStringList::iterator it = oldCustomProgrammers.begin(); it != ocpEnd; ++it )
 	{
@@ -222,7 +222,7 @@ void PicProgrammerSettings::load( KConfig * config )
 
 void PicProgrammerSettings::save( KConfig * config )
 {
-	QStringList oldCustomProgrammers = config->groupList().grep("CustomProgrammer_");
+	QStringList oldCustomProgrammers = config->groupList().filter("CustomProgrammer_");
 	QStringList::iterator ocpEnd = oldCustomProgrammers.end();
 	for ( QStringList::iterator it = oldCustomProgrammers.begin(); it != ocpEnd; ++it )
 	{
@@ -290,7 +290,7 @@ void PicProgrammerSettings::removeConfig( const QString & name )
 	{
 		if ( it.key().toLower() == l )
 		{
-			m_customConfigs.remove( it );
+			m_customConfigs.erase( it );
 			return;
 		}
 	}
@@ -411,13 +411,13 @@ void PicProgrammer::processInput( ProcessOptions options )
 
 bool PicProgrammer::isError( const QString &message ) const
 {
-	return message.contains( "Error", false );
+	return message.contains( "Error", Qt::CaseInsensitive );
 }
 
 
 bool PicProgrammer::isWarning( const QString &message ) const
 {
-	return message.contains( "Warning", false );
+	return message.contains( "Warning", Qt::CaseInsensitive );
 }
 
 

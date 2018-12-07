@@ -22,11 +22,13 @@
 //#include <valgrind/callgrind.h>
 
 ScopeViewBase::ScopeViewBase(QWidget *parent, const char *name)
-: QFrame(parent, name, Qt::WNoAutoErase),
+: QFrame(parent, /* name, */ Qt::WNoAutoErase),
 b_needRedraw(true),
 m_pixmap(0L),
 m_halfOutputHeight(0.0)
-{}
+{
+    setObjectName( name );
+}
 
 
 ScopeViewBase::~ScopeViewBase()
@@ -50,7 +52,8 @@ void ScopeViewBase::paintEvent( QPaintEvent * event )
         }
 
 		QPainter p;
-		m_pixmap->fill( paletteBackgroundColor() );
+		//m_pixmap->fill( paletteBackgroundColor() ); // 2018.12.07
+        m_pixmap->fill( palette().color(backgroundRole()) );
 		const bool startSuccess = p.begin(m_pixmap);
         if ((!startSuccess) || (!p.isActive())) {
             qWarning() << Q_FUNC_INFO << " painter is not active";

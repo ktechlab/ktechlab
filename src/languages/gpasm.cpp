@@ -127,13 +127,13 @@ void Gpasm::processInput( ProcessOptions options )
 
 bool Gpasm::isError( const QString &message ) const
 {
-	return message.contains( "Error", false );
+	return message.contains( "Error", Qt::CaseInsensitive );
 }
 
 
 bool Gpasm::isWarning( const QString &message ) const
 {
-	return message.contains( "Warning", false );
+	return message.contains( "Warning", Qt::CaseInsensitive );
 }
 
 

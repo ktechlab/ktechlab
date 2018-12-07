@@ -52,7 +52,7 @@ bool PropertyEditorColor::eventFilter(QObject* watched, QEvent* e)
 		if((ev->key() == Qt::Key_Enter) | (ev->key()== Qt::Key_Space) || (ev->key() == Qt::Key_Return))
 		{
 // 			m_pColorCombo->animateClick();
-			m_pColorCombo->popup();
+			m_pColorCombo->showPopup();
 			return true;
 		}
 	}

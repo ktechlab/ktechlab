@@ -22,12 +22,14 @@
 #include <cmath>
 
 ProbePositioner::ProbePositioner(QWidget *parent, const char *name)
-	: QWidget( parent, name, Qt::WNoAutoErase )
+	: QWidget( parent /*, name */, Qt::WNoAutoErase )
 {
+    setObjectName( name );
 	m_probePosOffset = 0;
 	p_draggedProbe = 0l;
 	setFixedWidth( int(probeArrowWidth) );
-	setBackgroundMode(Qt::NoBackground);
+	//setBackgroundMode(Qt::NoBackground); // 2018.12.07
+    setBackgroundRole( QPalette::NoRole );
 	b_needRedraw = true;
 	m_pixmap = 0l;
 }
@@ -42,7 +44,7 @@ ProbePositioner::~ProbePositioner()
 void ProbePositioner::forceRepaint()
 {
 	b_needRedraw = true;
-	repaint(false);
+	repaint( /* false - 2018.12.07 */ );
 }
 
 
@@ -123,7 +125,7 @@ void ProbePositioner::slotProbeDataRegistered( int id, ProbeData *probe )
 
 void ProbePositioner::slotProbeDataUnregistered( int id )
 {
-	m_probeDataMap.erase(id);
+	m_probeDataMap.remove(id);
 	// We "set" the position of each probe to force it into proper bounds
 	
 	const ProbeDataMap::const_iterator end = m_probeDataMap.end();
@@ -188,7 +190,8 @@ void ProbePositioner::paintEvent( QPaintEvent *e )
         }
 
 		QPainter p;
-		m_pixmap->fill( paletteBackgroundColor() );
+		//m_pixmap->fill( paletteBackgroundColor() );
+        m_pixmap->fill( palette().color( backgroundRole() ) );
 		const bool startSuccess = p.begin(m_pixmap);
         if ((!startSuccess) || (!p.isActive())) {
             qWarning() << Q_FUNC_INFO << " painter is not active";

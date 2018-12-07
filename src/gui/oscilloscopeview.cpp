@@ -42,7 +42,7 @@ inline uint64_t min( uint64_t a, uint64_t b)
 
 
 OscilloscopeView::OscilloscopeView( QWidget *parent, const char *name)
-	: QFrame( parent, name, Qt::WNoAutoErase),
+	: QFrame( parent /*, name */ , Qt::WNoAutoErase),
 	b_needRedraw(true),
 	m_pixmap(0),
 	m_fps(10),
@@ -51,11 +51,13 @@ OscilloscopeView::OscilloscopeView( QWidget *parent, const char *name)
 	m_pSimulator( Simulator::self()),
 	m_halfOutputHeight(0.0)
 {
+    setObjectName( name );
 	//KGlobal::config()->setGroup("Oscilloscope");
     KConfigGroup grOscill = KGlobal::config()->group("Oscilloscope");
 	m_fps = grOscill.readEntry( "FPS", 25);
 
-	setBackgroundMode(Qt::NoBackground);
+	//setBackgroundMode(Qt::NoBackground); // 2018.12.07
+    setBackgroundRole( QPalette::NoRole );
 	setMouseTracking(true);
 
 	m_updateViewTmr = new QTimer(this);
@@ -71,20 +73,21 @@ void OscilloscopeView::updateView()
 {
 	if(m_updateViewTmr->isActive()) return;
 
-	m_updateViewTmr->start( 1000/m_fps, true);
+    m_updateViewTmr->setSingleShot( true );
+	m_updateViewTmr->start( 1000/m_fps /*, true */ );
 }
 
 void OscilloscopeView::updateViewTimeout()
 {
 	b_needRedraw = true;
-	repaint(false);
+	repaint( /* false  - 2018.12.07 */);
 	updateTimeLabel();
 }
 
 
 void OscilloscopeView::updateTimeLabel()
 {
-	if( hasMouse()) {
+	if( testAttribute(Qt::WA_UnderMouse) ) {
 		int x = mapFromGlobal( QCursor::pos()).x();
 		double time = (double(Oscilloscope::self()->scrollTime()) / LOGIC_UPDATE_RATE) + (x / Oscilloscope::self()->pixelsPerSecond());
 		Oscilloscope::self()->timeLabel->setText( QString::number( time, 'f', 6));
@@ -120,20 +123,28 @@ void OscilloscopeView::mousePressEvent( QMouseEvent *event)
 	
 			QMenu fpsMenu;
 			//fpsMenu.insertTitle( i18n("Framerate")); // 2017.12.27 - use setTitle
-            fpsMenu.insertItem( i18n("Framerate"), 1 );
-            fpsMenu.setItemEnabled(1, false);
-            fpsMenu.insertSeparator();
+            //fpsMenu.insertItem( i18n("Framerate"), 1 );   // 2018.12.07 - use actions
+            //fpsMenu.setItemEnabled(1, false);
+            {
+                QAction *a = fpsMenu.addAction( i18n("Framerate") );
+                a->setData( 1 );
+                a->setEnabled( false );
+            }
+            //fpsMenu.insertSeparator(); // 2018.12.07
+            fpsMenu.addSeparator();
 	
 			const int fps[] = { 10, 25, 50, 75, 100 };
 	
 			for( uint i=0; i<5; ++i)
 			{
 				const int num = fps[i];
-				fpsMenu.insertItem( i18n("%1 fps", QString::number(num)), num);
-				fpsMenu.setItemChecked( num, num == m_fps);
+				//fpsMenu.insertItem( i18n("%1 fps", QString::number(num)), num);   // 2018.12.07
+				//fpsMenu.setItemChecked( num, num == m_fps);
+                QAction *a = fpsMenu.addAction( i18n("%1 fps", QString::number(num)) );
+                a->setData( num );
 			}
 	
-			connect( &fpsMenu, SIGNAL(activated(int)), this, SLOT(slotSetFrameRate(int)));
+			connect( &fpsMenu, SIGNAL(triggered(QAction*)), this, SLOT(slotSetFrameRate(QAction*)));
 			fpsMenu.exec( event->globalPos());
 			return;
 		}
@@ -172,8 +183,9 @@ void OscilloscopeView::mouseReleaseEvent( QMouseEvent *event)
 }
 
 
-void OscilloscopeView::slotSetFrameRate( int fps)
+void OscilloscopeView::slotSetFrameRate( QAction *action)
 {
+    int fps = action->data().toInt();
 	m_fps = fps;
 	//KGlobal::config()->setGroup("Oscilloscope");
     KConfigGroup grOscill = KGlobal::config()->group("Oscilloscope");
@@ -203,7 +215,8 @@ void OscilloscopeView::paintEvent( QPaintEvent *e)
         }
 
 		QPainter p;
-		m_pixmap->fill( paletteBackgroundColor());
+		//m_pixmap->fill( paletteBackgroundColor());
+        m_pixmap->fill( palette().color( backgroundRole() ));
 		const bool startSuccess = p.begin(m_pixmap);
         if ((!startSuccess) || (!p.isActive())) {
             qWarning() << Q_FUNC_INFO << " painter is not active";

@@ -123,13 +123,16 @@ QMenu * LogView::createPopupMenu( const QPoint & pos )
 {
 	QMenu * menu = KTextEdit::createStandardContextMenu( pos );
 	
-	menu->insertSeparator();
-	int id = menu->insertItem( i18n("Clear All"), this, SLOT(clear()) );
+	//menu->insertSeparator(); // 2018.12.07
+    menu->addSeparator();
+	//int id = menu->insertItem( i18n("Clear All"), this, SLOT(clear()) ); // 2018.12.07
+    QAction *clearAllAct = menu->addAction( i18n("Clear All"), this, SLOT(clear()) );
+    clearAllAct->setEnabled( document()->blockCount() > 1 );
 	
-	// "an empty textedit is always considered to have one paragraph" - qt documentation
-	// although this does not always seem to be the case, so I don't know...
-	//menu->setItemEnabled( id, paragraphs() > 1 );
-    menu->setItemEnabled( id, document()->blockCount() > 1 );
+	//// "an empty textedit is always considered to have one paragraph" - qt documentation
+	//// although this does not always seem to be the case, so I don't know...
+	////menu->setItemEnabled( id, paragraphs() > 1 );
+    //menu->setItemEnabled( id, document()->blockCount() > 1 );
 
 	return menu;
 }

@@ -21,8 +21,9 @@ QColor * ColorCombo::palette[ NumberOfSchemes ];
 int ColorCombo::paletteSize[ NumberOfSchemes ];
 
 ColorCombo::ColorCombo( ColorScheme colorScheme, QWidget *parent, const char *name )
-	: QComboBox( parent, name )
+	: QComboBox( parent /*, name */ )
 {
+    setObjectName( name );
 	m_colorScheme = colorScheme;
 	
 	customColor.setRgb( 255, 255, 255 );
@@ -125,7 +126,7 @@ void ColorCombo::slotActivated( int index )
 			painter.drawText( 2, QFontMetrics(painter.font()).ascent()+2, i18n("Custom...") );
 			painter.end();
 
-			changeItem( pixmap, 0 );
+			setItemIcon(0, QIcon(pixmap) );
 			pixmap.detach();
 		}
 
@@ -180,7 +181,7 @@ void ColorCombo::addColors()
 	painter.drawText( 2, QFontMetrics(painter.font()).ascent()+2, i18n("Custom...") );
 	painter.end();
 
-	insertItem( pixmap );
+	insertItem( count(), QIcon(pixmap), QString() );
 	pixmap.detach();
 
 	for ( i = 0; i < paletteSize[ m_colorScheme ]; i++ )
@@ -190,11 +191,12 @@ void ColorCombo::addColors()
 		painter.fillRect( rect, brush );
 		painter.end();
 
-		insertItem( pixmap );
+		insertItem( count(), QIcon( pixmap ), QString() );
 		pixmap.detach();
 
-		if ( palette[ m_colorScheme ][i] == internalColor )
-			setCurrentItem( i + 1 );
+		if ( palette[ m_colorScheme ][i] == internalColor ) {
+			setCurrentIndex( i + 1 );
+        }
 	}
 }
 
