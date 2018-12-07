@@ -14,9 +14,9 @@
 #define PROPERTYEDITORITEM_H
 
 //#include <q3listview.h>
-#include <q3asciidict.h>
-#include <q3ptrlist.h>
-#include <q3dict.h>
+// #include <q3asciidict.h>
+// #include <q3ptrlist.h>
+// #include <q3dict.h>
 
 #include "property.h"
 

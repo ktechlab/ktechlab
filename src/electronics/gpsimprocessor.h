@@ -17,9 +17,10 @@
 #include "sourceline.h"
 
 #include <qmap.h>
-#include <q3valuevector.h>
+// #include <q3valuevector.h>
 #include <qobject.h>
 #include <qlist.h>
+#include <qvector.h>
 
 class DebugLine;
 class GpsimProcessor;

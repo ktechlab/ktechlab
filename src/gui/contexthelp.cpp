@@ -46,7 +46,7 @@
 #include <qtimer.h>
 #include <qtoolbutton.h>
 #include <qvalidator.h>
-#include <q3widgetstack.h>
+// #include <q3widgetstack.h>
 
 #include <cassert>
 

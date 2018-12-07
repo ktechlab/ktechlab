@@ -39,10 +39,10 @@
 #include "textview.h"
 #include "viewcontainer.h"
 
-#include <q3dockarea.h>
+// #include <q3dockarea.h>
 #include <qtimer.h>
 #include <qtoolbutton.h>
-#include <q3ptrlist.h>
+// #include <q3ptrlist.h>
 #include <qdesktopwidget.h>
 
 #include <ktoolbar.h>

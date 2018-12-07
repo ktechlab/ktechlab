@@ -29,7 +29,7 @@
 #include <qdir.h>
 #include <qfile.h>
 #include <qlabel.h>
-#include <q3paintdevicemetrics.h>
+// #include <q3paintdevicemetrics.h>
 
 #include <ui_newfilewidget.h>
 

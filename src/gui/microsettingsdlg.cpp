@@ -27,7 +27,7 @@
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qregexp.h>
-#include <q3table.h>
+// #include <q3table.h>
 
 #include <ui_newpinmappingwidget.h>
 

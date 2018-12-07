@@ -17,7 +17,7 @@
 #include <qpointer.h>
 #include <qtablewidget.h>
 
-#include <q3dict.h>
+// #include <q3dict.h>
 //#include <q3listview.h> // 2018.08.13 - ported to QTableWidget
 
 

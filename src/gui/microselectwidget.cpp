@@ -16,7 +16,7 @@
 #include <kcombobox.h>
 #include <klocalizedstring.h>
 
-#include <q3groupbox.h>
+// #include <q3groupbox.h>
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qvariant.h>

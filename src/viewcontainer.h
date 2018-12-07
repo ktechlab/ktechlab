@@ -10,7 +10,7 @@
 #ifndef VIEWCONTAINER_H
 #define VIEWCONTAINER_H
 
-#include <q3dragobject.h>
+// #include <q3dragobject.h>
 #include <qmap.h>
 #include <qsplitter.h>
 #include <qlist.h>

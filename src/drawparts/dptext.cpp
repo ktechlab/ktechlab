@@ -20,7 +20,7 @@
 #include <qtextedit.h>
 
 // #include <q3simplerichtext.h> // 2018.08.13 - not needed anymore
-#include <q3stylesheet.h>
+// #include <q3stylesheet.h>
 
 Item* DPText::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {

@@ -13,7 +13,7 @@
 
 #include "node.h"
 
-#include <q3valuevector.h>
+// #include <q3valuevector.h>
 
 class ECNode;
 class Element;

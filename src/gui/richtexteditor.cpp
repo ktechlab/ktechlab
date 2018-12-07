@@ -29,9 +29,9 @@
 #include <qtextlist.h>
 #include <qtextformat.h>
 #include <qregexp.h>
-#include <q3vbox.h>
-#include <q3textedit.h>
-#include <q3stylesheet.h>
+// #include <q3vbox.h>
+// #include <q3textedit.h>
+// #include <q3stylesheet.h>
 
 //BEGIN class RichTextEditor
 RichTextEditor::RichTextEditor(QWidget *parent, const char *name)

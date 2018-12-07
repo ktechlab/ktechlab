@@ -15,7 +15,7 @@
 
 #include <qmap.h>
 #include <qvalidator.h>
-#include <q3valuevector.h>
+// #include <q3valuevector.h>
 
 class KLineEdit;
 class MicroSettings;

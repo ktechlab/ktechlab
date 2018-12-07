@@ -13,7 +13,7 @@
 #include <component.h>
 #include "diode.h"
 
-#include <q3valuevector.h>
+// #include <q3valuevector.h>
 #include <qstringlist.h>
 
 /**

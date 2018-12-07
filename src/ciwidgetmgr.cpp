@@ -14,7 +14,7 @@
 
 #include <qevent.h>
 
-#include <q3button.h>
+// #include <q3button.h>
 
 #include <kdebug.h>
 

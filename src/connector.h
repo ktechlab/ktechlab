@@ -14,7 +14,7 @@
 //#include <canvas.h> // 2018.10.16 - not needed
 #include "canvasitems.h"
 #include <qpointer.h>
-#include <q3valuevector.h>
+// #include <q3valuevector.h>
 
 class Cell;
 class ConnectorData;

@@ -11,7 +11,8 @@
 #ifndef MICROSELECTWIDGET_H
 #define MICROSELECTWIDGET_H
 
-#include <q3groupbox.h>
+// #include <q3groupbox.h>
+#include <qgroupbox.h>
 
 class QVBoxLayout;
 class QHBoxLayout;

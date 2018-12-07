@@ -24,7 +24,7 @@
 #include <klocalizedstring.h>
 #include <knuminput.h>
 
-#include <q3button.h>
+// #include <q3button.h>
 #include <qlabel.h>
 #include <qscrollbar.h>
 #include <qslider.h>

@@ -34,7 +34,7 @@
 #include <qeventloop.h>
 #include <qstyleditemdelegate.h>
 
-#include <q3header.h>
+// #include <q3header.h>
 #include <qheaderview.h>
 
 struct PropertyEditorStyledItemColProperty : public QStyledItemDelegate {

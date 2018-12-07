@@ -12,7 +12,7 @@
 #define MATRIXDISPLAY_H
 
 #include <component.h>
-#include <q3valuevector.h>
+// #include <q3valuevector.h>
 
 const unsigned max_md_width = 100;
 const unsigned max_md_height = 20;

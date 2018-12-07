@@ -42,11 +42,11 @@
 #include <qcursor.h>
 #include <qimage.h>
 #include <qmenu.h>
-#include <q3paintdevicemetrics.h>
+// #include <q3paintdevicemetrics.h>
 #include <qpainter.h>
 #include <qpicture.h>
 #include <qregexp.h>
-#include <q3simplerichtext.h> // 2018.08.13 - not needed
+// #include <q3simplerichtext.h> // 2018.08.13 - not needed
 #include <qtimer.h>
 #include <qprinter.h>
 #include <qtextedit.h>
