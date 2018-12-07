@@ -29,7 +29,7 @@ RecentFilesAction::RecentFilesAction( const QString & configGroupName, const QSt
 	
 	m_popup = new KMenu;
 	connect(m_popup, SIGNAL(aboutToShow()), this, SLOT(menuAboutToShow()));
-	connect(m_popup, SIGNAL(triggered(QAction*)), this, SLOT(menuItemActivated(QAction* action)));
+	connect(m_popup, SIGNAL(triggered(QAction*)), this, SLOT(menuItemActivated(QAction*)));
 	connect( this, SIGNAL(triggered(const QString&)),
 			 this, SLOT( itemSelected( const QString& ) ) );
 
