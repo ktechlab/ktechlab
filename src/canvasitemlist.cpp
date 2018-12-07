@@ -9,11 +9,13 @@
 
 #include "canvasitemlist.h"
 
-#include <q3tl.h>
+//#include <q3tl.h>
+#include <qalgorithms.h>
 
 void KtlQCanvasItemList::sort()
 {
-    qHeapSort(*  /* ((QList<KtlQCanvasItemPtr>*)) */ this);
+    //qHeapSort(*  /* ((QList<KtlQCanvasItemPtr>*)) */ this); // 2018.12.07
+    qSort( *this );
 }
 
 
