@@ -24,6 +24,8 @@ if (KTECHLAB_DEVELOPER_BUILD)
     #set(SANITIZE_FLAGS " -fsanitize=undefined -fno-omit-frame-pointer ") # undefined
     #set(SANITIZE_FLAGS "") # disabled
 
+    add_definitions ( -DQT3_SUPPORT_WARNINGS )
+
     add_definitions( ${SANITIZE_FLAGS} )
     SET( CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${SANITIZE_FLAGS}" )
 
