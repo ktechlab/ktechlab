@@ -33,7 +33,7 @@ LogView::LogView( KateMDI::ToolView * parent, const char *name )
 
 	setReadOnly(true);
 	//setPaper( Qt::white ); // TODO re-enable this, get an equivalent
-	setTextFormat( Qt::LogText );
+	//setTextFormat( Qt::LogText ); // 2018.12.07 - use toHtml() and html() methods
 	//setWordWrap( WidgetWidth );
     setWordWrapMode( QTextOption::WrapAtWordBoundaryOrAnywhere );
 	setFocusPolicy( Qt::NoFocus );

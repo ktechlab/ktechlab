@@ -45,7 +45,7 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
 	m_pEditor->setObjectName("RichTextEdit");
 	layout->addWidget( m_pEditor );
 	
-	m_pEditor->setTextFormat( Qt::RichText );
+	//m_pEditor->setTextFormat( Qt::RichText ); // 2018.12.07 - just use toHtml() and html()
 	
 	connect( m_pEditor, SIGNAL( textChanged() ), SIGNAL( textChanged() ) );
     connect( m_pEditor, SIGNAL( currentCharFormatChanged(const QTextCharFormat &) ), this, SLOT( slotCurrentCharFormatChanged( const QTextCharFormat &) ) );
