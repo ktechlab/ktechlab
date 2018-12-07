@@ -40,8 +40,9 @@ ItemEditor * ItemEditor::self( KateMDI::ToolView * parent )
 
 
 ItemEditor::ItemEditor( KateMDI::ToolView * parent )
-	: QWidget( (QWidget*)parent, "Item Editor" )
+	: QWidget( (QWidget*)parent )
 {
+    setObjectName("Item Editor");
 	setWhatsThis( i18n("This allows editing of advanced properties of the selected item(s). Right click on the picture of the item to set the orientation.") );
 
     if (parent->layout()) {
@@ -51,10 +52,13 @@ ItemEditor::ItemEditor( KateMDI::ToolView * parent )
         qWarning() << Q_FUNC_INFO << " unexpected null layout on parent " << parent ;
     }
 
-	QVBoxLayout * vlayout = new QVBoxLayout( this, 0, 6 );
+	QVBoxLayout * vlayout = new QVBoxLayout( this /*, 0, 6 */ );
+    vlayout->setMargin(0);
+    vlayout->setSpacing(6);
 
 	//BEGIN Create Name Label
-	m_pNameLabel = new QLabel( this, "" );
+	m_pNameLabel = new QLabel( /* this, */ "" );
+    m_pNameLabel->setBuddy( this );
 	m_pNameLabel->setTextFormat( Qt::RichText );
 	
 	QFont font;
@@ -76,7 +80,9 @@ ItemEditor::ItemEditor( KateMDI::ToolView * parent )
 	
 	
 	// Orientation widget stuff
-	QHBoxLayout *h2Layout = new QHBoxLayout( vlayout, 6 );
+	QHBoxLayout *h2Layout = new QHBoxLayout( /* vlayout , 6 */ );
+    vlayout->addLayout(h2Layout);
+    h2Layout->setMargin(6);
 	h2Layout->addItem( new QSpacerItem( 1, 1 ) );
 	m_pOrientationWidget = new OrientationWidget(this);
 	h2Layout->addWidget(m_pOrientationWidget);

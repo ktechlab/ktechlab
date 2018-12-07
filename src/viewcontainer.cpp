@@ -45,7 +45,7 @@ ViewContainer::ViewContainer( const QString & caption, QWidget * parent )
 	{
 		KTechlab::self()->tabWidget()->addTab( this, caption );
 		KTabWidget * tabWidget = KTechlab::self()->tabWidget();
-		tabWidget->setCurrentPage( tabWidget->indexOf(this) );
+		tabWidget->setCurrentIndex( tabWidget->indexOf(this) );
 	}
 	
 	show();
@@ -69,7 +69,7 @@ void ViewContainer::setActiveViewArea( uint id )
 	
 	if ( newView )
 	{
-		setCaption( newView->caption() );
+		setWindowTitle( newView->windowTitle() );
 		
 		if ( !DocManager::self()->getFocusedView() && newView->isVisible() )
 			newView->setFocus();

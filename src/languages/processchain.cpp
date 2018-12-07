@@ -39,8 +39,9 @@
 
 //BEGIN class ProcessChain
 ProcessChain::ProcessChain( ProcessOptions options, const char *name )
-	: QObject( KTechlab::self(), name)
+	: QObject( KTechlab::self() /*, name */ )
 {
+    setObjectName( name );
 	m_pFlowCode = 0l;
 	m_pGpasm = 0l;
 	m_pGpdasm = 0l;
@@ -89,7 +90,7 @@ void ProcessChain::compile()
 				m_processOptions.m_picID = projectItem->microID();
 		}
 	}
-	
+
 	switch ( m_processOptions.processPath() )
 	{
 #define DIRECT_PROCESS( path, processor ) \
@@ -104,7 +105,7 @@ void ProcessChain::compile()
                 f.setSuffix( extension ); \
                 f.open(); \
                 f.close(); \
-                m_processOptions.setIntermediaryOutput( f.name() ); \
+                m_processOptions.setIntermediaryOutput( f.fileName() ); \
                 processor()->processInput(m_processOptions); \
                 break; \
             }
@@ -294,8 +295,9 @@ LanguageFunction( SDCC, sdcc, m_pSDCC )
 
 //BEGIN class ProcessListChain
 ProcessListChain::ProcessListChain( ProcessOptionsList pol, const char * name )
-	: QObject( KTechlab::self(), name )
+	: QObject( KTechlab::self() /*, name  */ )
 {
+    setObjectName( name );
 	m_processOptionsList = pol;
 	
 	// Start us off...
@@ -313,7 +315,7 @@ void ProcessListChain::slotProcessChainSuccessful()
 	
 	ProcessOptionsList::iterator it = m_processOptionsList.begin();
 	ProcessOptions po = *it;
-	m_processOptionsList.remove(it);
+	m_processOptionsList.erase(it);
 	
 	ProcessChain * pc = LanguageManager::self()->compile(po);
 	

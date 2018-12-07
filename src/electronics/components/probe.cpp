@@ -119,7 +119,11 @@ void FloatingProbe::drawShape( QPainter &p )
 	bezier[3] = QPoint( _x+28, _y+4 );
 	
 	p.setPen( QPen( m_color, 2 ) );
-	p.drawCubicBezier(bezier);
+	//p.drawCubicBezier(bezier); // 2018.12.07
+    QPainterPath path;
+    path.moveTo( bezier.at(0) );;
+    path.cubicTo( bezier.at(1), bezier.at(2), bezier.at(3) );
+    p.strokePath(path, p.pen());
 	
 	deinitPainter(p);
 }

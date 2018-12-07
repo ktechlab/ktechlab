@@ -70,7 +70,7 @@ Oscilloscope::Oscilloscope( KateMDI::ToolView * parent)
 	m_zoomLevel = 0.5;
 	m_pSimulator = Simulator::self();
 	
-	horizontalScroll->setLineStep(32);
+	horizontalScroll->setSingleStep(32);
 	horizontalScroll->setPageStep( oscilloscopeView->width());
 	
 	connect( resetBtn, SIGNAL(clicked()), this, SLOT(reset()));

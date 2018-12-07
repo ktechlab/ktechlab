@@ -367,11 +367,11 @@ double DoubleSpinBox::valueFromText( const QString & text ) const {
 
     if ( textForSuffix.length() != 0 ) {
 
-        if ( textForSuffix.endsWith( m_unit, false ) ) {
+        if ( textForSuffix.endsWith( m_unit, Qt::CaseInsensitive ) ) {
             textForSuffix = textForSuffix.remove( textForSuffix.length() - m_unit.length(), m_unit.length() );
         }
 
-        textForSuffix.trimmed();
+        textForSuffix = textForSuffix.trimmed();
 
         QChar siExp = textForSuffix[ textForSuffix.length()-1 ];
 

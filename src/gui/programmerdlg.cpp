@@ -56,13 +56,34 @@ ProgrammerDlg::ProgrammerDlg( const QString & picID, QWidget *parent, const char
 	programmerCombo->insertItems(programmerCombo->count(), programmerNames );
 	//programmerCombo->setSizeLimit( programmerNames.size() );
     programmerCombo->setMaxCount( programmerNames.size() );
-	programmerCombo->setCurrentText( KTLConfig::picProgrammerProgram() );
-	
+	//programmerCombo->setCurrentText( KTLConfig::picProgrammerProgram() ); // 2018.12.07
+    {
+        QComboBox *c = programmerCombo;
+        QString text = KTLConfig::picProgrammerProgram();
+        int i = c->findText(text);
+        if (i != -1)
+            c->setCurrentIndex(i);
+        else if (c->isEditable())
+            c->setEditText(text);
+        else
+            c->setItemText(c->currentIndex(), text);
+    }
 	// Sets up the list of ports
 	m_pProgrammerWidget->m_pPicProgrammerPort->insertItems(
         m_pProgrammerWidget->m_pPicProgrammerPort->count(),
         Port::ports( Port::ExistsAndRW ) );
-	m_pProgrammerWidget->m_pPicProgrammerPort->setCurrentText( KTLConfig::picProgrammerPort() );
+	//m_pProgrammerWidget->m_pPicProgrammerPort->setCurrentText( KTLConfig::picProgrammerPort() ); // 2018.12.07
+    {
+        QComboBox *c = m_pProgrammerWidget->m_pPicProgrammerPort;
+        QString text = KTLConfig::picProgrammerPort();
+        int i = c->findText(text);
+        if (i != -1)
+            c->setCurrentIndex(i);
+        else if (c->isEditable())
+            c->setEditText(text);
+        else
+            c->setItemText(c->currentIndex(), text);
+    }
 	
 	// Set the pic type to the one requested
 	if ( !picID.isEmpty() )

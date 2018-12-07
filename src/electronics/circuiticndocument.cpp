@@ -348,7 +348,7 @@ void CircuitICNDocument::flushDeleteList()
 		else if ( ECNode * node = dynamic_cast<ECNode*> ( qcanvasItem ) )
 			m_ecNodeList.remove ( node->id() );
 		else if ( Connector * con = dynamic_cast<Connector*> ( qcanvasItem ) )
-			m_connectorList.remove ( con );
+			m_connectorList.removeAll ( con );
 		else	kError() << k_funcinfo << "Unknown qcanvasItem! "<<qcanvasItem << endl;
 
 		qcanvasItem->setCanvas(0);

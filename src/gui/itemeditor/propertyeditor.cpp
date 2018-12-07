@@ -64,7 +64,7 @@ struct PropertyEditorStyledItemColProperty : public QStyledItemDelegate {
         const int top = option.rect.top();
         const int left = option.rect.left();
 
-        QColor bgColor = option.palette.base(); // background(); // backgroundColor(0); // 2018.06.02 - is this better?
+        QColor bgColor = option.palette.color(QPalette::Base); // 2018.12.07
 
         if(option.state.testFlag(QStyle::State_Selected))
         {
@@ -127,7 +127,7 @@ struct PropertyEditorStyledItemColValue : public QStyledItemDelegate {
         const int top = option.rect.top();
         const int left = option.rect.left();
 
-        QColor bgColor = option.palette.background(); // backgroundColor(0); // 2018.06.02 - is this better?
+        QColor bgColor = option.palette.color(QPalette::Window); // backgroundColor(0); // 2018.06.02 - is this better?
 
         Property *property = itemProp->property();
         switch(property->type())

@@ -45,7 +45,9 @@ bool PropComboBox::eventFilter(QObject *o, QEvent *e)
 		if(e->type() == QEvent::KeyPress)
 		{
 			QKeyEvent* ev = static_cast<QKeyEvent*>(e);
-			if((ev->key()==Qt::Key_Up || ev->key()==Qt::Key_Down) && ev->state()!=Qt::ControlButton)
+			if((ev->key()==Qt::Key_Up || ev->key()==Qt::Key_Down)
+                && ( /* ev->state()!=Qt::ControlButton */
+                (dynamic_cast<QInputEvent*>(ev))->modifiers() != Qt::ControlModifier ))
 			{
 				parentWidget()->eventFilter(o, e);
 				return true;
@@ -112,12 +114,23 @@ PropertyEditorList::PropertyEditorList( QWidget * parent, Property * property, c
 	
 	m_combo->setEditable( isEditable );
 	
-	m_combo->setInsertionPolicy(QComboBox::InsertAtBottom);
+	m_combo->setInsertPolicy(QComboBox::InsertAtBottom);
 	m_combo->setAutoCompletion(true);
 	m_combo->setMinimumSize(10, 0); // to allow the combo to be resized to a small size
 
 	m_combo->insertItems(m_combo->count(), m_property->allowed() );
-	m_combo->setCurrentText( m_property->displayString() );
+	//m_combo->setCurrentText( m_property->displayString() ); // 2018.12.07
+    {
+        QString text = m_property->displayString();
+        int i = m_combo->findText(text);
+        if (i != -1)
+            m_combo->setCurrentIndex(i);
+        else if (m_combo->isEditable())
+            m_combo->setEditText(text);
+        else
+            m_combo->setItemText(m_combo->currentIndex(), text);
+    }
+
 	KCompletion *comp = m_combo->completionObject();
 	comp->insertItems( m_property->allowed() );
 
@@ -130,7 +143,8 @@ PropertyEditorList::PropertyEditorList( QWidget * parent, Property * property, c
 
 void PropertyEditorList::setList(QStringList l)
 {
-	m_combo->insertStringList(l);
+	//m_combo->insertStringList(l); // 2018.12.07
+    m_combo->insertItems(m_combo->count(), l);
 }
 
 

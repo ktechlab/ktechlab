@@ -27,9 +27,12 @@
 
 //BEGIN class ComponentModelWidget
 ComponentModelWidget::ComponentModelWidget( QWidget *parent, const char *name )
-	: QWidget(parent, name)
+	: QWidget(parent /*, name */ )
 {
-	QVBoxLayout * vlayout = new QVBoxLayout( this, 0, 6 );
+    setObjectName(name);
+	QVBoxLayout * vlayout = new QVBoxLayout( this /*, 0, 6  - 2018.12.07 */);
+    vlayout->setMargin(0);
+    vlayout->setSpacing(6);
 	
 	
 	// parts of the following code are stolen from amarok/src/playlistwindow.cpp :)
@@ -162,7 +165,8 @@ void ClickLineEdit::drawContents( QPainter *p )
         //p->drawPixmap( 3, 3, SmallIcon("search-filter") );
 
         // Add two pixel margin on the left side
-		cr.rLeft() += 3;
+		//cr.rLeft() += 3; // 2018.12.07
+        cr.setLeft( cr.left() + 3 );
 		p->drawText( cr, Qt::AlignAuto | Qt::AlignVCenter, mClickMessage );
 		p->setPen( tmp );
 	}

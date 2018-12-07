@@ -143,7 +143,8 @@ bool ContextHelp::eventFilter( QObject * watched, QEvent * e )
 			if ( !QString( dragEnter->format() ).startsWith("ktechlab/") )
 				break;
 			
-			dragEnter->acceptAction();
+			//dragEnter->acceptAction(); // 2018.12.07
+            dragEnter->acceptProposedAction();
 			return true;
 		}
 			
@@ -381,7 +382,7 @@ void ContextHelp::addLinkTypeAppearances( QString * html )
 	
 	int pos = 0;
 	
-	while ( (pos = rx.search( *html, pos )) >= 0 )
+	while ( (pos = rx.indexIn( *html, pos )) >= 0 )
 	{
 		QString anchorText = rx.cap( 0 ); // contains e.g.: <a href="http://ktechlab.org/">KTechlab website</a>
 		QString url = rx.cap( 1 ); // contains e.g.: http://ktechlab.org/

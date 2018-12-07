@@ -23,8 +23,9 @@
 
 MicroSelectWidget::MicroSelectWidget( QWidget* parent, const char* name, Qt::WFlags )
 	//: Q3GroupBox( 4, Qt::Horizontal, i18n("Microprocessor"), parent, name )
-    : QGroupBox(parent, name)
+    : QGroupBox(parent /*, name */ )
 {
+    setObjectName( name );
     setLayout(new QHBoxLayout);
     setTitle(i18n("Microprocessor"));
 
@@ -34,7 +35,8 @@ MicroSelectWidget::MicroSelectWidget( QWidget* parent, const char* name, Qt::WFl
 	if ( !name ) {
 		setObjectName( "MicroSelectWidget" );
     }
-	m_pMicroFamilyLabel = new QLabel( NULL, "m_pMicroFamilyLabel" );
+	m_pMicroFamilyLabel = new QLabel( NULL );
+    m_pMicroFamilyLabel->setObjectName( "m_pMicroFamilyLabel" );
 	m_pMicroFamilyLabel->setText( i18n("Family") );
     layout()->addWidget( m_pMicroFamilyLabel );
 
@@ -43,7 +45,8 @@ MicroSelectWidget::MicroSelectWidget( QWidget* parent, const char* name, Qt::WFl
 	m_pMicroFamily->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Preferred );
     layout()->addWidget( m_pMicroFamily );
 
-	m_pMicroLabel = new QLabel( NULL, "m_pMicroLabel" );
+	m_pMicroLabel = new QLabel( NULL /*, "m_pMicroLabel" */ );
+    m_pMicroLabel->setObjectName("m_pMicroLabel");
 	m_pMicroLabel->setText( i18n("Micro") );
     layout()->addWidget( m_pMicroLabel );
 
@@ -92,14 +95,31 @@ void MicroSelectWidget::updateFromAllowed()
 	
 	m_pMicroFamily->clear();
 	
-#define CHECK_ADD(family) if ( (m_allowedAsmSet & AsmInfo::family) && !MicroLibrary::self()->microIDs( AsmInfo::family, m_allowedGpsimSupport, m_allowedFlowCodeSupport, m_allowedMicrobeSupport ).isEmpty() ) m_pMicroFamily->insertItem( AsmInfo::setToString(AsmInfo::family) );
+#define CHECK_ADD(family) \
+    if ( (m_allowedAsmSet & AsmInfo::family) \
+            && !MicroLibrary::self()->microIDs( AsmInfo::family, \
+                m_allowedGpsimSupport, m_allowedFlowCodeSupport, m_allowedMicrobeSupport ).isEmpty() ) { \
+        m_pMicroFamily->insertItem( m_pMicroFamily->count(), AsmInfo::setToString(AsmInfo::family) ); \
+    }
 	CHECK_ADD(PIC12)
 	CHECK_ADD(PIC14)
 	CHECK_ADD(PIC16);
 #undef CHECK_ADD
 
-	if ( m_pMicroFamily->contains(oldFamily) )
-		m_pMicroFamily->setCurrentText(oldFamily);
+	if ( m_pMicroFamily->contains(oldFamily) ) {
+		//m_pMicroFamily->setCurrentText(oldFamily); // 2018.12.07
+        {
+            QComboBox *c = m_pMicroFamily;
+            QString text = oldFamily;
+            int i = c->findText(text);
+            if (i != -1)
+                c->setCurrentIndex(i);
+            else if (c->isEditable())
+                c->setEditText(text);
+            else
+                c->setItemText(c->currentIndex(), text);
+        }
+    }
 	
 	microFamilyChanged(oldFamily);
 }
@@ -114,11 +134,33 @@ void MicroSelectWidget::setMicro( const QString & id )
 	m_pMicro->clear();
 	m_pMicro->insertItems( m_pMicro->count(),
         MicroLibrary::self()->microIDs( info->instructionSet()->set() ) );
-	m_pMicro->setCurrentText(id);
-	
-	m_pMicroFamily->setCurrentText( AsmInfo::setToString( info->instructionSet()->set() ) );
-}
+	//m_pMicro->setCurrentText(id); // 2018.12.07
+    {
+        QComboBox *c = m_pMicro;
+        QString text = id;
+        int i = c->findText(text);
+        if (i != -1)
+            c->setCurrentIndex(i);
+        else if (c->isEditable())
+            c->setEditText(text);
+        else
+            c->setItemText(c->currentIndex(), text);
+    }
 
+
+	//m_pMicroFamily->setCurrentText( AsmInfo::setToString( info->instructionSet()->set() ) ); // 2018.12.07
+    {
+        QComboBox *c = m_pMicroFamily;
+        QString text = AsmInfo::setToString( info->instructionSet()->set() );
+        int i = c->findText(text);
+        if (i != -1)
+            c->setCurrentIndex(i);
+        else if (c->isEditable())
+            c->setEditText(text);
+        else
+            c->setItemText(c->currentIndex(), text);
+    }
+}
 
 QString MicroSelectWidget::micro() const
 {
@@ -134,8 +176,18 @@ void MicroSelectWidget::microFamilyChanged( const QString & family )
 	m_pMicro->insertItems( m_pMicro->count(),
         MicroLibrary::self()->microIDs( AsmInfo::stringToSet(family), m_allowedGpsimSupport, m_allowedFlowCodeSupport, m_allowedMicrobeSupport ) );
 	
-	if ( m_pMicro->contains(oldID) )
-		m_pMicro->setCurrentText(oldID);
+	if ( m_pMicro->contains(oldID) ) {
+		//m_pMicro->setCurrentText(oldID); // 2018.12.07
+        {
+            int i = m_pMicro->findText(oldID);
+            if (i != -1)
+                m_pMicro->setCurrentIndex(i);
+            else if (m_pMicro->isEditable())
+                m_pMicro->setEditText(oldID);
+            else
+                m_pMicro->setItemText(m_pMicro->currentIndex(), oldID);
+        }
+    }
 }
 
 #include "microselectwidget.moc"
