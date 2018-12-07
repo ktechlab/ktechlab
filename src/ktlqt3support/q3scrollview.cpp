@@ -45,7 +45,7 @@
 #include "qpainter.h"
 #include "qpixmap.h"
 #include "qcursor.h"
-#include "q3scrollview.h"
+#include "ktlqt3support/q3scrollview.h"
 #include "q3ptrdict.h"
 #include "qapplication.h"
 #include "qtimer.h"
