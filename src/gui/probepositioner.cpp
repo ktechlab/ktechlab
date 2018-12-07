@@ -216,7 +216,13 @@ void ProbePositioner::paintEvent( QPaintEvent *e )
 		b_needRedraw = false;
 	}
 	
-	bitBlt( this, r.x(), r.y(), m_pixmap, r.x(), r.y(), r.width(), r.height() );
+	//bitBlt( this, r.x(), r.y(), m_pixmap, r.x(), r.y(), r.width(), r.height() ); // 2018.12.07
+    QPainter p;
+    const bool paintStarted = p.begin(this);
+    if (!paintStarted) {
+        qWarning() << Q_FUNC_INFO << " failed to start painting ";
+    }
+    p.drawImage(r, m_pixmap->toImage(), r);
 }
 
 
