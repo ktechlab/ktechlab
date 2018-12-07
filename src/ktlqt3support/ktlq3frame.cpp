@@ -39,13 +39,13 @@
 **
 ****************************************************************************/
 
-#include "q3frame.h"
+#include "ktlq3frame.h"
 #include "qevent.h"
 #include "qpainter.h"
 
 QT_BEGIN_NAMESPACE
 
-/*! \class Q3Frame
+/*! \class KtlQ3Frame
 
     \compat
 */
@@ -54,7 +54,7 @@ QT_BEGIN_NAMESPACE
     Creates a new frame with the given \a parent, object \a name, and
     with widget flags \a f.
 */
-Q3Frame::Q3Frame(QWidget* parent, const char* name, Qt::WindowFlags f)
+KtlQ3Frame::KtlQ3Frame(QWidget* parent, const char* name, Qt::WindowFlags f)
     :QFrame(parent, f), marg(0)
 {
     if (name)
@@ -65,7 +65,7 @@ Q3Frame::Q3Frame(QWidget* parent, const char* name, Qt::WindowFlags f)
 /*!
     Destructs the frame.
 */
-Q3Frame::~Q3Frame()
+KtlQ3Frame::~KtlQ3Frame()
 {
 }
 
@@ -73,7 +73,7 @@ Q3Frame::~Q3Frame()
     Paints the frame (or part of the frame) that's necessary,
     depending on the \a event.
 */
-void Q3Frame::paintEvent(QPaintEvent * event)
+void KtlQ3Frame::paintEvent(QPaintEvent * event)
 {
     QPainter paint(this);
     if (!contentsRect().contains(event->rect())) {
@@ -89,7 +89,7 @@ void Q3Frame::paintEvent(QPaintEvent * event)
 }
 
 /*!
-    \fn void Q3Frame::drawContents(QPainter *painter)
+    \fn void KtlQ3Frame::drawContents(QPainter *painter)
 
     Virtual function that draws the contents of the frame on the given
     \a painter.
@@ -108,7 +108,7 @@ void Q3Frame::paintEvent(QPaintEvent * event)
     \sa contentsRect(), QPainter::setClipRect()
 */
 
-void Q3Frame::drawContents(QPainter *)
+void KtlQ3Frame::drawContents(QPainter *)
 {
 }
 
@@ -124,18 +124,18 @@ void Q3Frame::drawContents(QPainter *)
     \sa frameRect(), contentsRect(), drawContents(), frameStyle(), setPalette()
 */
 
-void Q3Frame::drawFrame(QPainter *p)
+void KtlQ3Frame::drawFrame(QPainter *p)
 {
     QFrame::drawFrame(p);
 }
 
 /*!
-    \fn void Q3Frame::resizeEvent(QResizeEvent *event)
+    \fn void KtlQ3Frame::resizeEvent(QResizeEvent *event)
 
     This just calls frameChanged(); it does not make use of the \a
     event itself.
 */
-void Q3Frame::resizeEvent(QResizeEvent *e)
+void KtlQ3Frame::resizeEvent(QResizeEvent *e)
 {
     if (e->size() == e->oldSize())
         frameChanged();
@@ -149,13 +149,13 @@ void Q3Frame::resizeEvent(QResizeEvent *e)
     when the frame attributes change.
 */
 
-void Q3Frame::frameChanged()
+void KtlQ3Frame::frameChanged()
 {
 }
 
 
 /*!
-    \property Q3Frame::margin
+    \property KtlQ3Frame::margin
     \brief the width of the margin
 
     The margin is the distance between the innermost pixel of the
@@ -169,7 +169,7 @@ void Q3Frame::frameChanged()
     \sa lineWidth(), frameWidth()
 */
 
-void Q3Frame::setMargin(int w)
+void KtlQ3Frame::setMargin(int w)
 {
     if (marg == w)
         return;
@@ -179,10 +179,10 @@ void Q3Frame::setMargin(int w)
 }
 
 /*!
-    \property Q3Frame::contentsRect
+    \property KtlQ3Frame::contentsRect
     \brief the frame's contents rectangle (including the margins)
 */
-QRect Q3Frame::contentsRect() const
+QRect KtlQ3Frame::contentsRect() const
 {
     QRect cr(QFrame::contentsRect());
     cr.adjust(marg, marg, -marg, -marg);
@@ -192,7 +192,7 @@ QRect Q3Frame::contentsRect() const
 /*!
     Returns the width of the frame (including the margin).
 */
-int Q3Frame::frameWidth() const
+int KtlQ3Frame::frameWidth() const
 {
     return QFrame::frameWidth() + marg;
 }

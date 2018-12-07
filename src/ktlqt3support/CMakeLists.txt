@@ -1,7 +1,7 @@
 SET(ktlqt3support_STAT_SRCS
+   ktlq3scrollview.cpp
    ktlq3polygonscanner.cpp
-   q3frame.cpp
-   q3scrollview.cpp
+   ktlq3frame.cpp
    ktlfindqobjectchild.cpp
 )
 

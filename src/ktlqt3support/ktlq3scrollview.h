@@ -39,21 +39,21 @@
 **
 ****************************************************************************/
 
-#ifndef Q3SCROLLVIEW_H
-#define Q3SCROLLVIEW_H
+#ifndef KTL_Q3SCROLLVIEW_H
+#define KTL_Q3SCROLLVIEW_H
 
-#include <ktlqt3support/q3frame.h>
+#include <ktlqt3support/ktlq3frame.h>
 #include <QtGui/qscrollbar.h>
 
-QT_BEGIN_HEADER
+// QT_BEGIN_HEADER
 
 //QT_BEGIN_NAMESPACE
 
 //QT_MODULE(Qt3SupportLight)
 
-class Q3ScrollViewData;
+class KtlQ3ScrollViewData;
 
-class Q_COMPAT_EXPORT Q3ScrollView : public Q3Frame
+class KtlQ3ScrollView : public KtlQ3Frame
 {
     Q_OBJECT
     Q_ENUMS( ResizePolicy ScrollBarMode )
@@ -69,8 +69,8 @@ class Q_COMPAT_EXPORT Q3ScrollView : public Q3Frame
     Q_PROPERTY( bool dragAutoScroll READ dragAutoScroll WRITE setDragAutoScroll )
 
 public:
-    Q3ScrollView(QWidget* parent=0, const char* name=0, Qt::WindowFlags f=0);
-    ~Q3ScrollView();
+    KtlQ3ScrollView(QWidget* parent=0, const char* name=0, Qt::WindowFlags f=0);
+    ~KtlQ3ScrollView();
 
     enum ResizePolicy { Default, Manual, AutoOne, AutoOneFit };
     virtual void setResizePolicy( ResizePolicy );
@@ -224,7 +224,7 @@ private:
     void drawContents( QPainter* );
     void moveContents(int x, int y);
 
-    Q3ScrollViewData* d;
+    KtlQ3ScrollViewData* d;
 
 private Q_SLOTS:
     void hslide(int);
@@ -238,7 +238,7 @@ private Q_SLOTS:
     void stopDragAutoScroll();
 
 private: // Disabled copy constructor and operator=
-    Q_DISABLE_COPY(Q3ScrollView)
+    Q_DISABLE_COPY(KtlQ3ScrollView)
     void changeFrameRect(const QRect&);
 
 public:
@@ -246,8 +246,35 @@ public:
 
 };
 
+
+
+class KtlQAbstractScrollAreaWidget : public QWidget
+{
+    Q_OBJECT
+
+public:
+    KtlQAbstractScrollAreaWidget(KtlQ3ScrollView* parent=0, const char* name=0, Qt::WindowFlags f = 0)
+        : QWidget(parent, f)
+    {
+        setObjectName(name);
+        setAutoFillBackground(true);
+    }
+};
+
+class KtlQClipperWidget : public QWidget
+{
+    Q_OBJECT
+
+public:
+    KtlQClipperWidget(QWidget * parent=0, const char * name=0, Qt::WindowFlags f=0)
+        : QWidget (parent,f) {
+            setObjectName(name);
+        }
+};
+
+
 //QT_END_NAMESPACE
 
-QT_END_HEADER
+// QT_END_HEADER
 
-#endif // Q3SCROLLVIEW_H
+#endif // KTL_Q3SCROLLVIEW_H

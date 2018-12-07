@@ -12,7 +12,7 @@
 
 #include <map>
 
-#include "ktlqt3support/q3scrollview.h"
+#include "ktlqt3support/ktlq3scrollview.h"
 #include "qpixmap.h"
 // #include "q3ptrlist.h"
 #include "qbrush.h"
@@ -151,7 +151,7 @@ class KtlQCanvas : public QObject
 
 class KtlQCanvasViewData;
 
-class KtlQCanvasView : public Q3ScrollView  // TODO QT3 QScrollArea
+class KtlQCanvasView : public KtlQ3ScrollView  // TODO QT3 QScrollArea
 {
 	Q_OBJECT
 	public:
@@ -169,7 +169,7 @@ class KtlQCanvasView : public Q3ScrollView  // TODO QT3 QScrollArea
 		bool setWorldMatrix( const QMatrix & );
 
 	protected:
-        /** overrides Q3ScrollView::drawContents() */   // override paintEvent?
+        /** overrides KtlQ3ScrollView::drawContents() */   // override paintEvent?
 		virtual void drawContents( QPainter*, int cx, int cy, int cw, int ch );
 		QSize sizeHint() const;
 

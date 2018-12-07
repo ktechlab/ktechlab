@@ -21,7 +21,7 @@
 #include "qtimer.h"
 // #include "q3tl.h"
 // #include <q3pointarray.h>   // needed for q3polygonscanner
-#include <ktlqt3support/q3scrollview.h>
+#include <ktlqt3support/ktlq3scrollview.h>
 #include <qdesktopwidget.h>
 
 
@@ -1284,7 +1284,7 @@ KtlQCanvasItemList KtlQCanvas::collisions(const QPolygon& chunklist, const KtlQC
 }
 
 KtlQCanvasView::KtlQCanvasView(QWidget* parent, const char* name, Qt::WFlags f)
-	: Q3ScrollView(parent,name,f|Qt::WResizeNoErase|Qt::WStaticContents)    // TODO QT3
+	: KtlQ3ScrollView(parent,name,f|Qt::WResizeNoErase|Qt::WStaticContents)    // TODO QT3
 {
 	d = new KtlQCanvasViewData;
 	viewing = 0;
@@ -1293,7 +1293,7 @@ KtlQCanvasView::KtlQCanvasView(QWidget* parent, const char* name, Qt::WFlags f)
 }
 
 KtlQCanvasView::KtlQCanvasView(KtlQCanvas* canvas, QWidget* parent, const char* name, Qt::WFlags f)
-	: Q3ScrollView(parent,name,f|Qt::WResizeNoErase|Qt::WStaticContents)    // TODO QT3
+	: KtlQ3ScrollView(parent,name,f|Qt::WResizeNoErase|Qt::WStaticContents)    // TODO QT3
 {
 	d = new KtlQCanvasViewData;
 	viewing = 0;
@@ -1433,7 +1433,7 @@ void KtlQCanvasView::drawContents( QPainter *p )
 QSize KtlQCanvasView::sizeHint() const
 {
 	if ( !canvas() )
-		return Q3ScrollView::sizeHint();        // TODO QT3
+		return KtlQ3ScrollView::sizeHint();        // TODO QT3
     // should maybe take transformations into account
 	return ( canvas()->size() + 2 * QSize(frameWidth(), frameWidth()) )
 			.boundedTo( 3 * QApplication::desktop()->size() / 4 );

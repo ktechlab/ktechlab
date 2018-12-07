@@ -39,26 +39,26 @@
 **
 ****************************************************************************/
 
-#ifndef Q3FRAME_H
-#define Q3FRAME_H
+#ifndef KTL_Q3FRAME_H
+#define KTL_Q3FRAME_H
 
 #include <QtGui/qframe.h>
 
-QT_BEGIN_HEADER
+// QT_BEGIN_HEADER
 
-QT_BEGIN_NAMESPACE
+// QT_BEGIN_NAMESPACE
 
-QT_MODULE(Qt3SupportLight)
+// QT_MODULE(Qt3SupportLight)
 
-class Q_COMPAT_EXPORT Q3Frame : public QFrame
+class KtlQ3Frame : public QFrame
 {
     Q_OBJECT
     Q_PROPERTY(int margin READ margin WRITE setMargin)
     Q_PROPERTY(QRect contentsRect READ contentsRect)
 
 public:
-    Q3Frame(QWidget* parent, const char* name = 0, Qt::WindowFlags f = 0);
-    ~Q3Frame();
+    KtlQ3Frame(QWidget* parent, const char* name = 0, Qt::WindowFlags f = 0);
+    ~KtlQ3Frame();
 #ifndef qdoc
     bool        lineShapesOk()  const { return true; }
 #endif
@@ -78,13 +78,13 @@ protected:
     virtual void drawContents(QPainter *);
 
 private:
-    Q_DISABLE_COPY(Q3Frame)
+    Q_DISABLE_COPY(KtlQ3Frame)
 
     int marg;
 };
 
-QT_END_NAMESPACE
+// QT_END_NAMESPACE
 
-QT_END_HEADER
+// QT_END_HEADER
 
-#endif // Q3FRAME_H
+#endif // KTL_Q3FRAME_H
