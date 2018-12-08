@@ -46,7 +46,8 @@
 #include "qpainter.h"
 #include "qpixmap.h"
 #include "qcursor.h"
-#include "q3ptrdict.h"
+// #include "q3ptrdict.h"
+#include "qhash.h"
 #include "qapplication.h"
 #include "qtimer.h"
 #include "qstyle.h"
@@ -149,7 +150,7 @@ public:
     }
     ~KtlQ3ScrollViewData();
 
-    QSVChildRec* rec(QWidget* w) { return childDict.find(w); }
+    QSVChildRec* rec(QWidget* w) { return /* childDict.find(w); */ childDict.value(w);   }
     QSVChildRec* ancestorRec(QWidget* w);
     QSVChildRec* addChildRec(QWidget* w, int x, int y)
     {
@@ -181,7 +182,8 @@ public:
     KtlQClipperWidget*     clipped_viewport;
     int         flags;
     Q3PtrList<QSVChildRec>       children;
-    Q3PtrDict<QSVChildRec>       childDict;
+    //Q3PtrDict<QSVChildRec>       childDict; // 2018.10.07
+    QHash< QWidget*, QSVChildRec* > childDict;
     QWidget*    corner;
     int         vx, vy, vwidth, vheight; // for drawContents-style usage
     int         l_marg, r_marg, t_marg, b_marg;
