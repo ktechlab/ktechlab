@@ -259,8 +259,8 @@ void ViewStatusBar::slotViewFocused( View * )
 void ViewStatusBar::slotViewUnfocused()
 {
 	QPalette pal( p_view->palette() );
-	pal.setColor( QColorGroup::Background, pal.mid().color() );
-	pal.setColor( QColorGroup::Light, pal.midlight().color() );
+	pal.setColor( QPalette::Window /*QColorGroup::Background */ , pal.mid().color() );
+	pal.setColor( QPalette::Light, pal.midlight().color() );
 	setPalette(pal);
 }
 //END class ViewStatusBar

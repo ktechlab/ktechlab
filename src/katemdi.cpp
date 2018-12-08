@@ -225,7 +225,7 @@ void ToolView::childEvent ( QChildEvent *ev )
 {
   // set the widget to be focus proxy if possible
     QWidget *childWidget =  qobject_cast< QWidget* >( ev->child() );
-  if ((ev->type() == QEvent::ChildInserted) && ev->child() && childWidget) {
+  if ((ev->type() == QEvent::ChildAdded) && ev->child() && childWidget) {
     //setFocusProxy ((QWidget *)(ev->child()->qt_cast("QWidget")));
     setFocusProxy( childWidget );
   }

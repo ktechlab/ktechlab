@@ -125,7 +125,7 @@ void FlowPart::setCaption( const QString &caption )
 // 	delete w;
 
     QFontMetrics fontMetrics( font() );
-    const int text_width = fontMetrics.boundingRect( boundingRect(), (Qt::SingleLine | Qt::AlignHCenter | Qt::AlignVCenter), caption ).width();
+    const int text_width = fontMetrics.boundingRect( boundingRect(), (Qt::TextSingleLine | Qt::AlignHCenter | Qt::AlignVCenter), caption ).width();
 
 	int width = std::max( ((int)(text_width/16))*16, 48 );
 	
@@ -335,7 +335,7 @@ void FlowPart::drawShape( QPainter &p )
 	
 	p.setPen( Qt::black );
 	p.setFont( font() );
-	p.drawText( boundingRect(), (Qt::WordBreak | Qt::AlignHCenter | Qt::AlignVCenter), m_caption );
+	p.drawText( boundingRect(), (Qt::TextWordWrap | Qt::AlignHCenter | Qt::AlignVCenter), m_caption );
 }
 
 QString FlowPart::gotoCode( const QString& internalNodeId )

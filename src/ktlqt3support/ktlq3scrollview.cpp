@@ -361,7 +361,7 @@ void KtlQ3ScrollViewData::viewportResized(int w, int h)
         if (r) {
             QSize sh = r->child->sizeHint();
             sh = sh.boundedTo(r->child->maximumSize());
-            r->child->resize(QMAX(w,sh.width()), QMAX(h,sh.height()));
+            r->child->resize(qMax(w,sh.width()), qMax(h,sh.height()));
         }
 
     }
@@ -569,9 +569,10 @@ void KtlQ3ScrollViewData::viewportResized(int w, int h)
 */
 
 KtlQ3ScrollView::KtlQ3ScrollView(QWidget *parent, const char *name, Qt::WindowFlags f) :
-    KtlQ3Frame(parent, name, f & (~Qt::WStaticContents) & (~Qt::WNoAutoErase) & (~Qt::WResizeNoErase))
+    KtlQ3Frame(parent, name, f & (~Qt::WA_StaticContents) /*& (~Qt::WNoAutoErase) & (~Qt::WResizeNoErase) */ )
 {
-    Qt::WindowFlags flags = Qt::WResizeNoErase | (f&Qt::WPaintClever) | (f&Qt::WRepaintNoErase) | (f&Qt::WStaticContents);
+    Qt::WindowFlags flags = /* Qt::WResizeNoErase |  (f&Qt::WPaintClever)
+        | (f&Qt::WRepaintNoErase) | */ (f&Qt::WA_StaticContents);
     d = new KtlQ3ScrollViewData(this, flags);
 
 #ifndef QT_NO_DRAGANDDROP
@@ -959,7 +960,7 @@ void KtlQ3ScrollView::updateScrollBars()
         d->vbar->setRange(0, 0);
     }
     if (needh) {
-        d->hbar->setRange(0, QMAX(0, d->contentsWidth()-portw));
+        d->hbar->setRange(0, qMax(0, d->contentsWidth()-portw));
         //d->hbar->setSteps(KtlQ3ScrollView::d->hbar->lineStep(), portw); // 2018.11.30
         d->hbar->setSingleStep(KtlQ3ScrollView::d->hbar->singleStep());
         d->hbar->setPageStep(portw);
@@ -1051,16 +1052,16 @@ void KtlQ3ScrollView::updateScrollBars()
         int x;
 #if 0
         if (reverse)
-            x =QMIN(0,d->contentsWidth()-visibleWidth());
+            x =qMin(0,d->contentsWidth()-visibleWidth());
         else
 #endif
-            x =QMAX(0,d->contentsWidth()-visibleWidth());
+            x =qMax(0,d->contentsWidth()-visibleWidth());
         d->hbar->setValue(x);
         // Do it even if it is recursive
         moveContents(-x, -d->contentsY());
     }
     if (d->contentsY()+visibleHeight() > contentsHeight()) {
-        int y=QMAX(0,contentsHeight()-visibleHeight());
+        int y=qMax(0,contentsHeight()-visibleHeight());
         d->vbar->setValue(y);
         // Do it even if it is recursive
         moveContents(-d->contentsX(), -y);
@@ -1579,9 +1580,9 @@ bool KtlQ3ScrollView::eventFilter(QObject *obj, QEvent *e)
         case QEvent::ChildRemoved:
             removeChild((QWidget*)((QChildEvent*)e)->child());
             break;
-        case QEvent::LayoutHint:
-            d->autoResizeHint(this);
-            break;
+        //case QEvent::LayoutHint:  // 2018.12.08 - deprecated
+        //    d->autoResizeHint(this);
+        //    break;
         default:
             break;
         }
@@ -2066,7 +2067,7 @@ void KtlQ3ScrollView::setContentsPos(int x, int y)
 */
 void KtlQ3ScrollView::scrollBy(int dx, int dy)
 {
-    setContentsPos(QMAX(d->contentsX()+dx, 0), QMAX(d->contentsY()+dy, 0));
+    setContentsPos(qMax(d->contentsX()+dx, 0), qMax(d->contentsY()+dy, 0));
 }
 
 /*!
@@ -2117,12 +2118,12 @@ void KtlQ3ScrollView::moveContents(int x, int y)
     if (-x+visibleWidth() > d->contentsWidth())
 #if 0
         if(QApplication::reverseLayout())
-            x=QMAX(0,-d->contentsWidth()+visibleWidth());
+            x=qMax(0,-d->contentsWidth()+visibleWidth());
         else
 #endif
-            x=QMIN(0,-d->contentsWidth()+visibleWidth());
+            x=qMin(0,-d->contentsWidth()+visibleWidth());
     if (-y+visibleHeight() > contentsHeight())
-        y=QMIN(0,-contentsHeight()+visibleHeight());
+        y=qMin(0,-contentsHeight()+visibleHeight());
 
     int dx = x - d->vx;
     int dy = y - d->vy;
@@ -2139,8 +2140,8 @@ void KtlQ3ScrollView::moveContents(int x, int y)
         // Cheap move (usually)
         d->moveAllBy(dx,dy);
     } else if (/*dx && dy ||*/
-         (QABS(dy) * 5 > visibleHeight() * 4) ||
-         (QABS(dx) * 5 > visibleWidth() * 4)
+         (qAbs(dy) * 5 > visibleHeight() * 4) ||
+         (qAbs(dx) * 5 > visibleWidth() * 4)
        )
     {
         // Big move
@@ -2787,7 +2788,7 @@ void KtlQ3ScrollView::doDragAutoScroll()
         d->autoscroll_time--;
         d->autoscroll_timer.start(d->autoscroll_time);
     }
-    int l = QMAX(1, (initialScrollTime- d->autoscroll_time));
+    int l = qMax(1, (initialScrollTime- d->autoscroll_time));
 
     int dx = 0, dy = 0;
     if (p.y() < autoscroll_margin) {

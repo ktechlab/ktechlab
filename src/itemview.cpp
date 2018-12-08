@@ -660,8 +660,9 @@ void ItemView::updateStatus()
 
 //BEGIN class CVBEditor
 CVBEditor::CVBEditor( Canvas *canvas, ItemView *itemView, const char *name )
-	: KtlQCanvasView( canvas, itemView, name, Qt::WNoAutoErase | Qt::WStaticContents )
+	: KtlQCanvasView( canvas, itemView, name /*,Qt::WNoAutoErase | Qt::WA_StaticContents */ )
 {
+    setAttribute(Qt::WA_StaticContents);
 	m_pCanvas = canvas;
 	b_ignoreEvents = false;
 	b_passEventsToView = true;

@@ -72,7 +72,7 @@ void LibraryItem::createIcon16()
 	
 	QImage im = m_icon_full.toImage();
 	//im = im.smoothScale( size, size, Qt::ScaleMin ); // 2018.11.30
-    im = im.scaled( QSize( size, size ), Qt::ScaleMin, Qt::SmoothTransformation );
+    im = im.scaled( QSize( size, size ), Qt::KeepAspectRatio, Qt::SmoothTransformation );
 	m_icon_16.convertFromImage(im);
 }
 

@@ -321,7 +321,8 @@ void KTechlab::overlayToolBarScreenshot()
 	if ( !m_pToolBarOverlayLabel )
 	{
 		m_pToolBarOverlayLabel = new QLabel( 0,
-                Qt::WStyle_StaysOnTop | Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WNoAutoErase | Qt::WType_Popup  );
+                Qt::WindowStaysOnTopHint /* | Qt::WStyle_Customize */ | Qt::FramelessWindowHint
+                /*| Qt::WNoAutoErase */ | Qt::Popup  );
 		m_pToolBarOverlayLabel->hide();
 		//m_pToolBarOverlayLabel->setBackgroundMode( Qt::NoBackground ); // 2018.12.02
         QPalette p;
@@ -461,7 +462,7 @@ void KTechlab::setupTabWidget()
 		but->adjustSize();
 		but->hide();
 		connect( but, SIGNAL(clicked()), this, SLOT(slotViewContainerClose()) );
-		tabWidget()->setCornerWidget(but, Qt::TopRight);
+		tabWidget()->setCornerWidget(but, Qt::TopRightCorner);
 	}
 	
 	connect(tabWidget(), SIGNAL(contextMenu(QWidget*,const QPoint &)), this, SLOT(slotTabContext(QWidget*,const QPoint &)));
@@ -474,7 +475,7 @@ void KTechlab::slotUpdateTabWidget()
 	
 	bool noWindows = m_viewContainerList.isEmpty();
 	
-	if ( QWidget * button = tabWidget()->cornerWidget(Qt::TopRight) )
+	if ( QWidget * button = tabWidget()->cornerWidget(Qt::TopRightCorner) )
 		button->setHidden( noWindows );
 	
 	if ( noWindows )

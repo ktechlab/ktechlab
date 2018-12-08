@@ -22,7 +22,7 @@
 //#include <valgrind/callgrind.h>
 
 ScopeViewBase::ScopeViewBase(QWidget *parent, const char *name)
-: QFrame(parent, /* name, */ Qt::WNoAutoErase),
+: QFrame(parent /* ,name */ /* , Qt::WNoAutoErase*/ ),
 b_needRedraw(true),
 m_pixmap(0L),
 m_halfOutputHeight(0.0)

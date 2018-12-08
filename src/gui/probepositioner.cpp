@@ -22,7 +22,7 @@
 #include <cmath>
 
 ProbePositioner::ProbePositioner(QWidget *parent, const char *name)
-	: QWidget( parent /*, name */, Qt::WNoAutoErase )
+	: QWidget( parent /*, name */ /* , Qt::WNoAutoErase */ )
 {
     setObjectName( name );
 	m_probePosOffset = 0;

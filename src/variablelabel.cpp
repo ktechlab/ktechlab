@@ -19,7 +19,7 @@
 
 //BEGIN class VariableLabel
 VariableLabel::VariableLabel( TextView * parent )
-	: QLabel( parent, Qt::WStyle_StaysOnTop | Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WStyle_Tool | Qt::WX11BypassWM )
+	: QLabel( parent, Qt::WindowStaysOnTopHint /* | Qt::WStyle_Customize */ | Qt::FramelessWindowHint | Qt::Tool | Qt::X11BypassWindowManagerHint )
 {
     setObjectName("toolTipTip");
 
@@ -29,7 +29,7 @@ VariableLabel::VariableLabel( TextView * parent )
 	//setAutoMask( false ); // TODO is this needed?
 	setFrameStyle( QFrame::Plain | QFrame::Box );
 	setLineWidth( 1 );
-	setAlignment( Qt::AlignAuto | Qt::AlignTop );
+	setAlignment( Qt::AlignLeft | Qt::AlignTop );
 	setIndent(0);
 	ensurePolished();
 	adjustSize();

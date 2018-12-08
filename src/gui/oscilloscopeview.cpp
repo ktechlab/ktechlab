@@ -42,7 +42,7 @@ inline uint64_t min( uint64_t a, uint64_t b)
 
 
 OscilloscopeView::OscilloscopeView( QWidget *parent, const char *name)
-	: QFrame( parent /*, name */ , Qt::WNoAutoErase),
+	: QFrame( parent /*, name */ /*, Qt::WNoAutoErase */ ),
 	b_needRedraw(true),
 	m_pixmap(0),
 	m_fps(10),

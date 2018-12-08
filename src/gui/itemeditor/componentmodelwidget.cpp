@@ -23,6 +23,7 @@
 // #include <q3header.h> // needed?
 #include <qpainter.h>
 #include <qtoolbutton.h>
+#include <qpalette.h>
 
 
 //BEGIN class ComponentModelWidget
@@ -159,7 +160,7 @@ void ClickLineEdit::drawContents( QPainter *p )
 
 	if ( mDrawClickMsg == true && !hasFocus() ) {
 		QPen tmp = p->pen();
-		p->setPen( palette().color( QPalette::Disabled, QColorGroup::Text ) );
+		p->setPen( palette().color( QPalette::Disabled, QPalette::WindowText /* QColorGroup::Text */ ) );
 		QRect cr = contentsRect();
 
         //p->drawPixmap( 3, 3, SmallIcon("search-filter") );
@@ -167,7 +168,7 @@ void ClickLineEdit::drawContents( QPainter *p )
         // Add two pixel margin on the left side
 		//cr.rLeft() += 3; // 2018.12.07
         cr.setLeft( cr.left() + 3 );
-		p->drawText( cr, Qt::AlignAuto | Qt::AlignVCenter, mClickMessage );
+		p->drawText( cr, Qt::AlignLeft | Qt::AlignVCenter, mClickMessage );
 		p->setPen( tmp );
 	}
 }

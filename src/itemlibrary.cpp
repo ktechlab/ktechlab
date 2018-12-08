@@ -517,7 +517,7 @@ QImage ItemLibrary::componentImage( Component * component, const uint maxSize )
 	// Now, rotate the image so that it's the right way up, and scale it to size
 	QImage im = pm.toImage();
 	//im = im.smoothScale( 50, 50, Qt::ScaleMin ); //2018.12.01
-    im = im.scaled( QSize( 50, 50 ), Qt::ScaleMin, Qt::SmoothTransformation );
+    im = im.scaled( QSize( 50, 50 ), Qt::KeepAspectRatio, Qt::SmoothTransformation );
 	
 	if (cache)
 		m_imageMap[component->type()] = im;

@@ -370,7 +370,7 @@ void RichTextEditor::colorChanged( const QColor & c )
 
 void RichTextEditor::alignmentChanged( int a )
 {
-	if ( ( a == Qt::AlignAuto ) || ( a & Qt::AlignLeft ))
+	if ( /*( a == Qt::AlignAuto ) || */ ( a & Qt::AlignLeft ))
 		m_pTextAlignment->setIcon( KIcon("format-justify-left") );
 	else if ( ( a & Qt::AlignHCenter ) )
 		m_pTextAlignment->setIcon( KIcon("format-justify-center") );

@@ -435,7 +435,7 @@ SliderWidget::SliderWidget( QWidget *parent )
 	: QSlider(parent)
 {
 	//setWFlags(Qt::WNoAutoErase|Qt::WRepaintNoErase);
-    setWindowFlags(Qt::WNoAutoErase | Qt::WRepaintNoErase);
+    //setWindowFlags(/*Qt::WNoAutoErase | */ Qt::WRepaintNoErase);
 }
 //END Class SliderWidget
 

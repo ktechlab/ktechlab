@@ -502,7 +502,7 @@ void KtlQCanvas::drawViewArea( KtlQCanvasView* view, QPainter* p, const QRect& v
 			QRect cvr = vr; cvr.translate(tl.x(),tl.y());
 			p->setClipRegion(QRegion(cvr)-QRegion(a));
 			p->fillRect(vr,view->viewport()->palette()
-					.brush(QPalette::Active,QColorGroup::Background));
+					.brush(QPalette::Active, QPalette::Window));
 		}
 		p->setClipRegion(a);
 	}
@@ -1283,18 +1283,20 @@ KtlQCanvasItemList KtlQCanvas::collisions(const QPolygon& chunklist, const KtlQC
 	return result;
 }
 
-KtlQCanvasView::KtlQCanvasView(QWidget* parent, const char* name, Qt::WFlags f)
-	: KtlQ3ScrollView(parent,name,f|Qt::WResizeNoErase|Qt::WStaticContents)    // TODO QT3
+KtlQCanvasView::KtlQCanvasView(QWidget* parent, const char* name, Qt::WindowFlags f)
+	: KtlQ3ScrollView(parent,name,f /* |Qt::WResizeNoErase |Qt::WStaticContents */)    // TODO QT3
 {
+    setAttribute( Qt::WA_StaticContents );
 	d = new KtlQCanvasViewData;
 	viewing = 0;
 	setCanvas(0);
 	connect(this,SIGNAL(contentsMoving(int,int)),this,SLOT(cMoving(int,int)));
 }
 
-KtlQCanvasView::KtlQCanvasView(KtlQCanvas* canvas, QWidget* parent, const char* name, Qt::WFlags f)
-	: KtlQ3ScrollView(parent,name,f|Qt::WResizeNoErase|Qt::WStaticContents)    // TODO QT3
+KtlQCanvasView::KtlQCanvasView(KtlQCanvas* canvas, QWidget* parent, const char* name, Qt::WindowFlags f)
+	: KtlQ3ScrollView(parent,name,f /* |Qt::WResizeNoErase |Qt::WA_StaticContents */)    // TODO QT3
 {
+    setAttribute( Qt::WA_StaticContents );
 	d = new KtlQCanvasViewData;
 	viewing = 0;
 	setCanvas(canvas);

@@ -69,7 +69,7 @@ bool PropIntSpinBox::eventFilter(QObject *o, QEvent *e)
 		if(e->type() == QEvent::KeyPress)
 		{
 			QKeyEvent* ev = static_cast<QKeyEvent*>(e);
-			if((ev->key()==Qt::Key_Up || ev->key()==Qt::Key_Down) && ev->modifiers()!=Qt::ControlButton)
+			if((ev->key()==Qt::Key_Up || ev->key()==Qt::Key_Down) && ev->modifiers()!=Qt::ControlModifier)
 			{
 				parentWidget()->eventFilter(o, e);
 				return true;
@@ -125,7 +125,7 @@ bool PropDoubleSpinBox::eventFilter(QObject *o, QEvent *e)
 		if(e->type() == QEvent::KeyPress)
 		{
 			QKeyEvent* ev = static_cast<QKeyEvent*>(e);
-			if((ev->key()==Qt::Key_Up || ev->key()==Qt::Key_Down) && ev->modifiers()!=Qt::ControlButton)
+			if((ev->key()==Qt::Key_Up || ev->key()==Qt::Key_Down) && ev->modifiers()!=Qt::ControlModifier)
 			{
 				parentWidget()->eventFilter(o, e);
 				return true;
