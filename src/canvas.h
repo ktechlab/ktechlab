@@ -151,7 +151,7 @@ class KtlQCanvas : public QObject
 
 class KtlQCanvasViewData;
 
-class KtlQCanvasView : public KtlQ3ScrollView  // TODO QT3 QScrollArea
+class KtlQCanvasView : public KtlQ3ScrollView
 {
 	Q_OBJECT
 	public:

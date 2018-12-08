@@ -1284,7 +1284,7 @@ KtlQCanvasItemList KtlQCanvas::collisions(const QPolygon& chunklist, const KtlQC
 }
 
 KtlQCanvasView::KtlQCanvasView(QWidget* parent, const char* name, Qt::WindowFlags f)
-	: KtlQ3ScrollView(parent,name,f /* |Qt::WResizeNoErase |Qt::WStaticContents */)    // TODO QT3
+	: KtlQ3ScrollView(parent,name,f /* |Qt::WResizeNoErase |Qt::WStaticContents */)
 {
     setAttribute( Qt::WA_StaticContents );
 	d = new KtlQCanvasViewData;
@@ -1294,7 +1294,7 @@ KtlQCanvasView::KtlQCanvasView(QWidget* parent, const char* name, Qt::WindowFlag
 }
 
 KtlQCanvasView::KtlQCanvasView(KtlQCanvas* canvas, QWidget* parent, const char* name, Qt::WindowFlags f)
-	: KtlQ3ScrollView(parent,name,f /* |Qt::WResizeNoErase |Qt::WA_StaticContents */)    // TODO QT3
+	: KtlQ3ScrollView(parent,name,f /* |Qt::WResizeNoErase |Qt::WA_StaticContents */)
 {
     setAttribute( Qt::WA_StaticContents );
 	d = new KtlQCanvasViewData;

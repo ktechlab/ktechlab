@@ -117,7 +117,7 @@ target_link_libraries( ktechlab
 	${QT_QTGUI_LIBRARY} # QtGui
 	${KDE4_KDECORE_LIBRARY} # kdecore
 	#${KDE4_KDE3SUPPORT_LIBRARY} # kde3support # 2016.06.02 - should not be needed
-	${QT_QT3SUPPORT_LIBRARY} # Qt3Support
+	#${QT_QT3SUPPORT_LIBRARY} # Qt3Support     # 2018.12.08 - should not be needed
 	${QT_QTCORE_LIBRARY} # QtCore
 	${KDE4_KFILE_LIBRARY} # kfile
 	)
