@@ -51,7 +51,7 @@
 #include "qapplication.h"
 #include "qtimer.h"
 #include "qstyle.h"
-#include "q3ptrlist.h"
+// #include "q3ptrlist.h"
 #include "qevent.h"
 //#include "q3listview.h"
 // #ifdef Q_WS_MAC      // 2018.10.18 - do not depend on internal headers
@@ -162,7 +162,8 @@ public:
     void deleteChildRec(QSVChildRec* r)
     {
         childDict.remove(r->child);
-        children.removeRef(r);
+        //children.removeRef(r);
+        children.removeAll(r);
         delete r;
     }
 
@@ -181,7 +182,8 @@ public:
     KtlQAbstractScrollAreaWidget*    viewport;
     KtlQClipperWidget*     clipped_viewport;
     int         flags;
-    Q3PtrList<QSVChildRec>       children;
+    //Q3PtrList<QSVChildRec>       children;
+    QList<QSVChildRec*>          children;
     //Q3PtrDict<QSVChildRec>       childDict; // 2018.10.07
     QHash< QWidget*, QSVChildRec* > childDict;
     QWidget*    corner;
@@ -221,7 +223,13 @@ public:
 
 inline KtlQ3ScrollViewData::~KtlQ3ScrollViewData()
 {
-    children.setAutoDelete(true);
+    //children.setAutoDelete(true); // 2018.12.08
+    for (QList<QSVChildRec*>::iterator it = children.begin();
+            it != children.end(); ++it) {
+        QSVChildRec *r = *it;
+        delete r;
+    }
+    children.removeAll(NULL);
 }
 
 QSVChildRec* KtlQ3ScrollViewData::ancestorRec(QWidget* w)
@@ -264,7 +272,12 @@ void KtlQ3ScrollViewData::hideOrShowAll(KtlQ3ScrollView* sv, bool isScroll)
         clipped_viewport->move(nx,ny);
         clipped_viewport->update();
     }
-    for (QSVChildRec *r = children.first(); r; r=children.next()) {
+    //for (QSVChildRec *r = children.first(); r; r=children.next()) {   // 2018.12.08
+    //    r->hideOrShow(sv, clipped_viewport);
+    //}
+    for (QList<QSVChildRec*>::iterator it = children.begin();
+            it != children.end(); ++it) {
+        QSVChildRec *r = *it;
         r->hideOrShow(sv, clipped_viewport);
     }
 }
@@ -275,9 +288,15 @@ void KtlQ3ScrollViewData::moveAllBy(int dx, int dy)
         clipped_viewport->move(clipped_viewport->x()+dx,
                                 clipped_viewport->y()+dy);
     } else {
-        for (QSVChildRec *r = children.first(); r; r=children.next()) {
+        //for (QSVChildRec *r = children.first(); r; r=children.next()) { // 2018.12.07
+        //    r->child->move(r->child->x()+dx,r->child->y()+dy);
+        //}
+        for (QList<QSVChildRec*>::iterator it = children.begin();
+                it != children.end(); ++it) {
+            QSVChildRec *r = *it;
             r->child->move(r->child->x()+dx,r->child->y()+dy);
         }
+
         if (static_bg) {
             //viewport->repaint(true); // 2018.11.30
             viewport->repaint();
@@ -287,7 +306,12 @@ void KtlQ3ScrollViewData::moveAllBy(int dx, int dy)
 
 bool KtlQ3ScrollViewData::anyVisibleChildren()
 {
-    for (QSVChildRec *r = children.first(); r; r=children.next()) {
+    //for (QSVChildRec *r = children.first(); r; r=children.next()) {   // 2018.12.08
+    //    if (r->child->isVisible()) return true;
+    //}
+    for (QList<QSVChildRec*>::iterator it = children.begin();
+            it != children.end(); ++it) {
+        QSVChildRec *r = *it;
         if (r->child->isVisible()) return true;
     }
     return false;
