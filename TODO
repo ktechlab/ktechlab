@@ -13,8 +13,6 @@ TODO items before the next release
 =======
 - validate that rich text editor continues to work correctly (see the context help of the components)
 
-- integrate changes needed for build on OS X, see emails
-
 
 Features which need re-implementation in Qt4 port
 =======
