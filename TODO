@@ -1,3 +1,76 @@
+Modifications needed for getting rid of Qt3Support dependency
+=======
+
+- property editor; property editor item
+    - fix glitch of reset button disappearing when horiznotally resizing the property editor
+    - fix color of text / background in property editor
+    - on 'no item selected', the old properties still remain there
+- QTextEdit
+    -> fix resizing of the editor to minimal needed size for rendering
+
+
+TODO items before the next release
+=======
+- validate that rich text editor continues to work correctly (see the context help of the components)
+
+- integrate changes needed for build on OS X, see emails
+
+
+Features which need re-implementation in Qt4 port
+=======
+- dbus integration for documents (used to be dcop bindings for documents)
+
+- TextDocument::clearUndo / clearRedo is not implemented; only used in newly created documents
+
+
+Fixes that could be postponed after the first Qt4 release
+=======
+- fix building of the core library first; otherwise missing include file (ktlconfig.h) error could happen at build time
+    - the build-scripts have a work-around, and based on that, building should be straight-forward
+
+- maximum size of collected oscilloscope data should be configurable and should signal the user that the buffer is full
+    - for now the line "flats out" when it reaches its limit; a Reset makes it collect data again
+
+- undo / redo interface needs to be properly fixed for text documents: this interface is not exported by KDE4 KTextEditor
+    http://api.kde.org/4.10-api/kdelibs-apidocs/interfaces/ktexteditor/html/kte_port_to_kde4.html
+    - a hack is in place which works
+
+- printing a text document needs fixing
+    - hack is in place, it works
+
+- some PICs do not have SDCC support (e.g. Pic18Cxxx). These should not be selectable from the GUI
+
+- minimize the number of bundled 3rd party icons; most should be usable from Oxygen icon theme
+
+- loading C code to PIC fails
+    - apparently when using a project, the PIC gets recognized and uploading works; looks like a feature
+
+- components have no description
+   - the context help exists; or something else is needed here?
+   - missing for: VCVS, VCCS, CCVS, CCCS, Push-to-Make, Push-to-Break, NPN, PNP, n-JFET, p-JFET, n-MOSFET, p-MOSFET,
+        Inductor, Bar Graph Display
+
+- created subcircuits appear twice in the subcircuit list; investigation needed
+- created subcircuits in some cases they cause crashes; investigation needed
+
+- Translations: not all strings are available in gettext ( https://bugs.kde.org/show_bug.cgi?id=375726 )
+
+- Oscilloscope view sometimes does not scale the signals correctly ( https://bugs.kde.org/show_bug.cgi?id=371625 )
+
+- Op-amp with positive feedback behaves as amplifier; should behave as comparator ( https://bugs.kde.org/show_bug.cgi?id=371622 )
+
+
+
+
+
+Modifications needed for KF5 port
+=======
+
+
+
+Old TODO entries, to be reviewed
+=======
+
 See http://wiki.ktechlab.org/ - not entirely ready yet, but I plan on moving (at least some of) the stuff in this TODO file to this wiki. This allows for better categorization, discussion, etc of ideas than a plain-text file in subversion that only a few people have write access to.
 
 0.4 targets:
@@ -69,67 +142,6 @@ The following have been brainstormed with reference to other electronics softwar
 
 
 
-Modifications needed for KF5 port
-=======
 
 
-Modifications needed for getting rid of Qt3Support dependency
-=======
 
-
-- property editor; property editor item
-    - fix glitch of reset button disappearing when horiznotally resizing the property editor
-    - fix color of text / background in property editor
-    - on 'no item selected', the old properties still remain there
-- QTextEdit
-    -> fix resizing of the editor to minimal needed size for rendering
-
-
-Fixes that could be postponed after the first Qt4 release
-=======
-- fix building of the core library first; otherwise missing include file (ktlconfig.h) error could happen at build time
-    - the build-scripts have a work-around, and based on that, building should be straight-forward
-
-- maximum size of collected oscilloscope data should be configurable and should signal the user that the buffer is full
-    - for now the line "flats out" when it reaches its limit; a Reset makes it collect data again
-
-- undo / redo interface needs to be properly fixed for text documents: this interface is not exported by KDE4 KTextEditor
-    http://api.kde.org/4.10-api/kdelibs-apidocs/interfaces/ktexteditor/html/kte_port_to_kde4.html
-    - a hack is in place which works
-
-- printing a text document needs fixing
-    - hack is in place, it works
-
-- some PICs do not have SDCC support (e.g. Pic18Cxxx). These should not be selectable from the GUI
-
-- minimize the number of bundled 3rd party icons; most should be usable from Oxygen icon theme
-
-- loading C code to PIC fails
-    - apparently when using a project, the PIC gets recognized and uploading works; looks like a feature
-
-- components have no description
-   - the context help exists; or something else is needed here?
-   - missing for: VCVS, VCCS, CCVS, CCCS, Push-to-Make, Push-to-Break, NPN, PNP, n-JFET, p-JFET, n-MOSFET, p-MOSFET,
-        Inductor, Bar Graph Display
-
-- created subcircuits appear twice in the subcircuit list; investigation needed
-- created subcircuits in some cases they cause crashes; investigation needed
-
-- Translations: not all strings are available in gettext ( https://bugs.kde.org/show_bug.cgi?id=375726 )
-
-- Oscilloscope view sometimes does not scale the signals correctly ( https://bugs.kde.org/show_bug.cgi?id=371625 )
-
-- Op-amp with positive feedback behaves as amplifier; should behave as comparator ( https://bugs.kde.org/show_bug.cgi?id=371622 )
-
-
-Features which need re-implementation in Qt4 port
-=======
-- dbus integration for documents (used to be dcop bindings for documents)
-
-- TextDocument::clearUndo / clearRedo is not implemented; only used in newly created documents
-
-TODO items before the next release
-=======
-- validate that rich text editor continues to work correctly (see the context help of the components)
-
-- integrate changes needed for build on OS X, see emails
