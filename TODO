@@ -71,15 +71,11 @@ The following have been brainstormed with reference to other electronics softwar
 
 Modifications needed for KF5 port
 =======
-- get rid of Qt3Support dependency
 
 
 Modifications needed for getting rid of Qt3Support dependency
 =======
-- remove Qt3 dependencies
 
-
-- read this: http://doc.qt.io/qt-4.8/porting4.html
 
 - property editor; property editor item
     - fix glitch of reset button disappearing when horiznotally resizing the property editor
@@ -135,3 +131,5 @@ Features which need re-implementation in Qt4 port
 TODO items before the next release
 =======
 - validate that rich text editor continues to work correctly (see the context help of the components)
+
+- integrate changes needed for build on OS X, see emails
