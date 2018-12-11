@@ -17,6 +17,11 @@ find_package(GPSim)
 #add_definitions ( -DQT3_SUPPORT )
 #add_definitions ( -DQT3_SUPPORT_WARNINGS )
 
+# fix build with gcc6 which triggers narrowing conversion errors
+# these errors should be fixed properly later while porting to C++11 standards
+# see https://gcc.gnu.org/gcc-6/porting_to.html for details
+add_definitions ( -std=gnu++98 )
+
 if (KTECHLAB_DEVELOPER_BUILD)
 # for debugging with GCC 5
     add_definitions( -fno-omit-frame-pointer )
