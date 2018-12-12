@@ -50,7 +50,7 @@ ComponentModelWidget::ComponentModelWidget( QWidget *parent, const char *name )
 	m_pSearchEdit = new ClickLineEdit( i18n( "Filter here..." ), bar );
 
 	//bar->setStretchableWidget( m_pSearchEdit ); // TODO removed, investigate
-    m_pSearchEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding));
+    m_pSearchEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
 	m_pSearchEdit->setFrame( QFrame::Sunken );
 	connect( m_pSearchEdit, SIGNAL(textChanged( const QString & )), this, SLOT(setFilter( const QString& )) );
 
@@ -71,6 +71,7 @@ ComponentModelWidget::ComponentModelWidget( QWidget *parent, const char *name )
 	m_pList->setToolTip( i18n( "Select a predefined component configuration from this list." ) );
 	
 	vlayout->addWidget( bar );
+    vlayout->addWidget( m_pSearchEdit );
 	vlayout->addWidget( m_pList );
 }
 
