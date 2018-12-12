@@ -29,6 +29,8 @@ if (KTECHLAB_DEVELOPER_BUILD)
     add_definitions( ${SANITIZE_FLAGS} )
     SET( CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${SANITIZE_FLAGS}" )
 
+    add_definitions( -Wall -Wextra )
+
     #add_definitions( -Wold-style-cast ) # warn on old style casts. as these could introduce bugs
 
 endif (KTECHLAB_DEVELOPER_BUILD)
