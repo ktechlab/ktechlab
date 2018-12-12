@@ -308,7 +308,7 @@ void PropertyEditor::slotClicked(const QModelIndex& index)
 }
 
 
-void PropertyEditor::slotCurrentChanged(QTableWidgetItem* itemParam)
+void PropertyEditor::slotCurrentChanged(QTableWidgetItem* /*itemParam*/)
 {
 // TODO
 // 	if (itemParam == firstChild())
@@ -694,7 +694,7 @@ void PropertyEditor::resizeEvent(QResizeEvent *ev)
 }
 
 
-bool PropertyEditor::handleKeyPress( QKeyEvent* ev )
+bool PropertyEditor::handleKeyPress( QKeyEvent* /*ev*/ )
 {
 #if 0 // TODO
     const int k = ev->key();
