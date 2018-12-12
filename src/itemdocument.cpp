@@ -1395,8 +1395,13 @@ void Canvas::drawForeground ( QPainter &p, const QRect & clip )
 // 	Q3SimpleRichText * t = new Q3SimpleRichText( m_message, QApplication::font() );
     QTextEdit * t = new QTextEdit( m_message );
 	
-    t->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::QSizePolicy::Minimum);
-    t->resize( t->sizeHint() ); // TODO fix resizing
+    {
+        QFont tf = t->document()->defaultFont();
+        QFontMetrics tfm(tf);
+        QSize textSize = tfm.size(0, m_message);
+
+        t->resize( textSize );
+    }
 
 	int w = t->width();
 	int h = t->height();
