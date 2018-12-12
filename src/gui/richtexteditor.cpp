@@ -29,6 +29,7 @@
 #include <qtextlist.h>
 #include <qtextformat.h>
 #include <qregexp.h>
+#include <qdir.h>
 // #include <q3vbox.h>
 // #include <q3textedit.h>
 // #include <q3stylesheet.h>
@@ -396,7 +397,32 @@ void RichTextEditor::verticalAlignmentChanged()
 void RichTextEditor::setResourcePaths( const QStringList & paths )
 {
 	//m_pEditor->mimeSourceFactory()->setFilePath( paths );
-    qWarning() << Q_FUNC_INFO << " not implemented ; " << paths;
+
+    for (QStringList::const_iterator itStr = paths.begin(); itStr != paths.end(); ++itStr) {
+        QString dirName = *itStr;
+        QDir dir(dirName);
+        dir.setFilter(QDir::Files);
+        QStringList l;
+        l << "*.png";
+        dir.setNameFilters(l);
+        QFileInfoList fileInfoList = dir.entryInfoList();
+        qDebug() << Q_FUNC_INFO << " lsit size " << fileInfoList.size();
+        for (QFileInfoList::iterator itFile = fileInfoList.begin();
+                itFile != fileInfoList.end(); ++itFile) {
+            QFileInfo &fi = *itFile;
+
+            QString fullPath = fi.path() + "/" + fi.fileName();
+            QPixmap img(fullPath);
+            if (img.isNull()) {
+                qWarning() << Q_FUNC_INFO << " img is null " << fullPath;
+            }
+
+            m_pEditor->document()->addResource(QTextDocument::ImageResource,
+                QUrl(fi.fileName()), QVariant(img));
+            qDebug() << Q_FUNC_INFO << " added resource: " << fi.fileName()
+                << " to " << fullPath;
+        }
+    }
 }
 //END class RichTextEditor
 

@@ -7,7 +7,6 @@ Modifications needed for getting rid of Qt3Support dependency
 
 TODO items before the next release
 =======
-- validate that rich text editor continues to work correctly (see the context help of the components)
 
 
 Features which need re-implementation in Qt4 port
