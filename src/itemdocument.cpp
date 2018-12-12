@@ -1416,7 +1416,9 @@ void Canvas::drawForeground ( QPainter &p, const QRect & clip )
 	p.drawRoundRect( x, y, w+2*b, h+2*b, (8*200)/(w+2*b), (8*200)/(h+2*b) );
 // 	t->draw( &p, x+b, y+b, QRect(), firstView->colorGroup() );
     t->resize(w+2*b, h+2*b);
-    t->render( &p, QPoint( x, y ) );
+    t->viewport()->setAutoFillBackground( false );
+    t->setFrameStyle(QFrame::NoFrame);
+    t->render( &p, QPoint( x, y ) , QRegion(), QWidget::DrawChildren );
 	delete t;
 }
 
