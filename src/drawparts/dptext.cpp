@@ -135,8 +135,10 @@ void DPText::drawShape( QPainter &p )
 	
 	QTextEdit * t = new QTextEdit( m_text );
     t->resize( bound.width(), bound.height() ); // t->setWidth( bound.width() );
+    t->viewport()->setAutoFillBackground( false );
+    t->setFrameStyle(QFrame::NoFrame);
 
-    t->render( &p, bound.topLeft() ); //t->draw( &p, bound.left(), bound.top(), bound, QColorGroup() );
+    t->render( &p, bound.topLeft(), QRegion(), QWidget::DrawChildren ); //t->draw( &p, bound.left(), bound.top(), bound, QColorGroup() );
 	delete t;
 }
 
