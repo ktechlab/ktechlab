@@ -100,7 +100,7 @@ void CircuitDocument::slotInitItemActions( )
 	
 	Component *item = dynamic_cast<Component*>( m_selectList->activeItem() );
 	
-	if ( !item && m_selectList->count() > 0 || !m_selectList->itemsAreSameType() )
+	if ( (!item && m_selectList->count() > 0) || !m_selectList->itemsAreSameType() )
 		return;
 	
 	QAction * orientation_actions[] = {
@@ -266,7 +266,7 @@ void CircuitDocument::fillContextMenu( const QPoint &pos )
 
 	// NOTE: I negated this whole condition because I couldn't make out quite what the
 	//logic was --electronerd
-	if (!( !item && m_selectList->count() > 0 || !m_selectList->itemsAreSameType() ))
+	if (!( (!item && m_selectList->count() > 0) || !m_selectList->itemsAreSameType() ))
 	{	
 		QAction * orientation_actions[] = {
 			activeCircuitView->actionByName("edit_orientation_0"),
