@@ -223,7 +223,7 @@ QString RichTextEditor::text() const
 	
 	// Replace all non-latin1 characters with HTML codes to represent them
 	QString nonAsciiChars;
-	for ( unsigned i = 0; i < text.length(); ++i )
+	for ( int i = 0; i < text.length(); ++i )
 	{
 		QChar current = text[i];
 		if ( (current.toLatin1() == 0) && (current.unicode() != 0) )
@@ -233,7 +233,7 @@ QString RichTextEditor::text() const
 				nonAsciiChars.append( current );
 		}
 	}
-	for ( unsigned i = 0; i < nonAsciiChars.length(); ++i )
+	for ( int i = 0; i < nonAsciiChars.length(); ++i )
 	{
 		text.replace( nonAsciiChars[i], QString("&#%1;").arg( nonAsciiChars[i].unicode() ) );
 	}
