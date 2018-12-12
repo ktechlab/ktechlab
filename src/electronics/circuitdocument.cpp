@@ -77,7 +77,10 @@ CircuitDocument::~CircuitDocument()
     for (ItemMap::Iterator itItem = m_itemList.begin(); itItem != m_itemList.end(); ++itItem) {
         Item *item = itItem.value();
         disconnect( item, SIGNAL(removed(Item*)), this, SLOT(componentRemoved(Item*)) );
-        //disconnect( item, SIGNAL(elementDestroyed(Element*)), this, SLOT(requestAssignCircuits()) ); // 2018.12.12 - do not disconnect non-existing signal
+        Component *comp = dynamic_cast<Component*>( item );
+        if ( comp ) {
+            disconnect( comp, SIGNAL(elementDestroyed(Element*)), this, SLOT(requestAssignCircuits()) );
+        }
     }
 
     deleteCircuits();
