@@ -344,7 +344,7 @@ void ItemDocument::requestStateSave( int actionTicket )
 	// In Qt4 QStack is used and QStack inherits QVector, that should
 	// make it a bit more easy
 	int maxUndo = KTLConfig::maxUndo();
-	if ( maxUndo <= 0 || m_undoStack.count() < (unsigned)maxUndo )
+	if ( maxUndo <= 0 || m_undoStack.count() < maxUndo )
 		return;
 	IDDStack tempStack;
 	int pushed = 0;
@@ -1254,7 +1254,7 @@ void CanvasTip::display( const QPoint &pos )
 
 QString CanvasTip::displayText( unsigned num ) const
 {
-	if ( m_v.size() <= num )
+	if ( m_v.size() <= (int)num )
 		return QString::null;
 	
 	return QString("%1%2V  %3%4A")
