@@ -100,7 +100,7 @@ ItemEditor::~ItemEditor()
 
 void ItemEditor::slotClear()
 {
-	m_pPropertyEditor->reset( );
+    m_pPropertyEditor->setRowCount(0);
 	m_pComponentModelWidget->reset();
 	m_pOrientationWidget->slotClear();
 	updateNameLabel(0l);
