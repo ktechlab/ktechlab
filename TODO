@@ -23,6 +23,9 @@ Fixes that could be postponed after the first Qt4 release
 - fix building of the core library first; otherwise missing include file (ktlconfig.h) error could happen at build time
     - the build-scripts have a work-around, and based on that, building should be straight-forward
 
+- help->ktechlab manual does not work, shows only "documentation not found"
+    https://bugs.kde.org/show_bug.cgi?id=402158
+
 - maximum size of collected oscilloscope data should be configurable and should signal the user that the buffer is full
     - for now the line "flats out" when it reaches its limit; a Reset makes it collect data again
 
