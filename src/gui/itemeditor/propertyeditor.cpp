@@ -718,21 +718,22 @@ void PropertyEditor::moveEditor()
 void PropertyEditor::resizeEvent(QResizeEvent *ev)
 {
 	QTableWidget::resizeEvent(ev);
-	if(m_defaults->isVisible())
-	{
-        rect();
-		QRect r = visualItemRect(m_editItem) ; // = itemRect(m_editItem); // TODO
-		if(r.y()) { // r.y() == 0 if the item is not visible on the screen
-			m_defaults->move(r.x() + r.width() - m_defaults->width(), r.y());
-        }
-	}
-
-	if ( m_currentEditor )
-	{
-		m_currentEditor->resize(
-			columnWidth(1)-((m_currentEditor->leavesTheSpaceForRevertButton()||m_defaults->isVisible()) ? m_defaults->width() : 0),
-			m_currentEditor->height());
-	}
+    updateDefaultsButton();
+// 	if(m_defaults->isVisible())
+// 	{
+//         rect();
+// 		QRect r = visualItemRect(m_editItem) ; // = itemRect(m_editItem); // TODO
+// 		if(r.y()) { // r.y() == 0 if the item is not visible on the screen
+// 			m_defaults->move(r.x() + r.width() - m_defaults->width(), r.y());
+//         }
+// 	}
+//
+// 	if ( m_currentEditor )
+// 	{
+// 		m_currentEditor->resize(
+// 			columnWidth(1)-((m_currentEditor->leavesTheSpaceForRevertButton()||m_defaults->isVisible()) ? m_defaults->width() : 0),
+// 			m_currentEditor->height());
+// 	}
 }
 
 
