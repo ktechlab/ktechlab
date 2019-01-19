@@ -38,6 +38,8 @@ ComponentModelWidget::ComponentModelWidget( QWidget *parent, const char *name )
 	
 	// parts of the following code are stolen from amarok/src/playlistwindow.cpp :)
 	//BEGIN Filter lineedit
+    QHBoxLayout *h1Layout = new QHBoxLayout( this );
+    h1Layout->setMargin(0);
 	KToolBar * bar = new KToolBar( this, "ComponentModelSearch" );
 	bar->setIconSize( QSize( 22, 22 ) /*, false  ?? */ ); //looks more sensible
 	//bar->setFlat( true ); //removes the ugly frame
@@ -47,11 +49,12 @@ ComponentModelWidget::ComponentModelWidget( QWidget *parent, const char *name )
 	//QWidget * button = new QToolButton( "locationbar_erase", 1, bar );
     QWidget * button = new QToolButton( bar );
     button->setObjectName("locationbar_erase"); // TODO what is: "locationbar_erase", 1,
+                                    // button: locationbar_erase is the name of the icon to be displayed on it
 	m_pSearchEdit = new ClickLineEdit( i18n( "Filter here..." ), bar );
 
 	//bar->setStretchableWidget( m_pSearchEdit ); // TODO removed, investigate
     m_pSearchEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
-	m_pSearchEdit->setFrame( QFrame::Sunken );
+	m_pSearchEdit->setFrame( true /* 2019.01.19: was QFrame::Sunken */ );
 	connect( m_pSearchEdit, SIGNAL(textChanged( const QString & )), this, SLOT(setFilter( const QString& )) );
 
 	connect( button, SIGNAL(clicked()), m_pSearchEdit, SLOT(clear()) );
@@ -60,6 +63,9 @@ ComponentModelWidget::ComponentModelWidget( QWidget *parent, const char *name )
 	QString filtertip = i18n( "Enter space-separated terms to filter the component library." );
 	
 	m_pSearchEdit->setToolTip( filtertip );
+
+    h1Layout->addWidget(m_pSearchEdit);
+    h1Layout->addWidget(button);
 	//END Filter lineedit
 	
 	m_pList = new QListWidget( this );
@@ -71,7 +77,8 @@ ComponentModelWidget::ComponentModelWidget( QWidget *parent, const char *name )
 	m_pList->setToolTip( i18n( "Select a predefined component configuration from this list." ) );
 	
 	vlayout->addWidget( bar );
-    vlayout->addWidget( m_pSearchEdit );
+    //vlayout->addWidget( m_pSearchEdit );
+    vlayout->addLayout(h1Layout);
 	vlayout->addWidget( m_pList );
 }
 
