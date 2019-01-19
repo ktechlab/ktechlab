@@ -240,6 +240,8 @@ PropertyEditor::PropertyEditor( QWidget * parent, const char * name )
 	: QTableWidget( parent )
  //, m_items(101, false) // 2018.08.13 - unused
  , justClickedItem(false)
+ , m_lastCellWidgetRow(-1)
+ , m_lastCellWidgetCol(-1)
  , m_colPropertyDelegate(NULL)
  , m_colValueDelegate(NULL)
 {
@@ -379,7 +381,14 @@ void PropertyEditor::createEditor( const QModelIndex& index )
 // 	int y = viewportToContents(QPoint(0, itemRect(i).y())).y();
 // 	QRect geometry(columnWidth(0), y, columnWidth(1), i->height());
 
-	delete m_currentEditor;
+	//delete m_currentEditor;
+    //m_currentEditor->deleteLater();
+    if (m_lastCellWidgetRow >= 0 && m_lastCellWidgetCol >= 0) {
+        removeCellWidget(m_lastCellWidgetRow, m_lastCellWidgetCol);
+        m_lastCellWidgetRow = -1;
+        m_lastCellWidgetCol = -1;
+    }
+    m_currentEditor = 0;
 
 	m_editItem = i;
 
@@ -434,6 +443,8 @@ void PropertyEditor::createEditor( const QModelIndex& index )
 	{
 		//addChild(editor);
 		//moveChild(editor, geometry.x(), geometry.y());
+        m_lastCellWidgetRow = index.row();
+        m_lastCellWidgetCol = index.column();
         setCellWidget(index.row(), index.column(), editor);
 		editor->show();
 
@@ -521,9 +532,14 @@ void PropertyEditor::slotColumnSizeChanged( int section)
 
 void PropertyEditor::reset()
 {
-	if ( m_currentEditor )
-		m_currentEditor->deleteLater();
-	m_currentEditor = 0;
+	//if ( m_currentEditor )
+	//	m_currentEditor->deleteLater();
+    if (m_lastCellWidgetRow >= 0 && m_lastCellWidgetCol >= 0) {
+        removeCellWidget(m_lastCellWidgetRow, m_lastCellWidgetCol);
+        m_lastCellWidgetRow = -1;
+        m_lastCellWidgetCol = -1;
+    }
+    m_currentEditor = 0;
 	
 	if ( m_defaults->isVisible() )
 		m_defaults->hide();

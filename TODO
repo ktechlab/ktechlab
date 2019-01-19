@@ -5,7 +5,6 @@ Modifications needed for getting rid of Qt3Support dependency
     - fix glitch of reset button disappearing when horiznotally resizing the property editor
         - in 0.40.0 it is glitching, too, when resizing
         - need to fix reset to default button
-    - fix color of text / background in property editor
 
 TODO items before the next release
 =======

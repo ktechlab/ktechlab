@@ -137,6 +137,9 @@ class PropertyEditor : public QTableWidget // K3ListView
 		//! Used in setFocus() to prevent scrolling to previously selected item on mouse click
 		bool justClickedItem;
 
+        int m_lastCellWidgetRow;
+        int m_lastCellWidgetCol;
+
         QStyledItemDelegate *m_colPropertyDelegate;
         QStyledItemDelegate *m_colValueDelegate;
 
