@@ -185,3 +185,4 @@ Changes between Qt3 and Qt4 port (to be completed)
 - validated that rich text editor continues to work correctly (see the context help of the components)
     - in editing mode pictures did not appear; fixed now
 - fixed color of text / background in property editor
+- fixed bidirectional led color editor

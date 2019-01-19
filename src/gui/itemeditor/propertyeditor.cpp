@@ -155,7 +155,7 @@ struct PropertyEditorStyledItemColValue : public QStyledItemDelegate {
                 //QColor ncolor = m_property->value().toColor();
                 QColor ncolor = property->value().value<QColor>();
                 painter->setBrush(ncolor);
-                painter->drawRect(left + margin, top + margin, left + width - 2*margin, top + height - 2*margin);
+                painter->drawRect(left + margin, top + margin, width - 2*margin, height - 2*margin);
 //                 QColorGroup nGroup(cg);
                 break;
             }
