@@ -313,10 +313,11 @@ void PropertyEditor::slotClicked(const QModelIndex& index)
 	if (!index.isValid())
 		return;
 	
-    if (index.column() == 1) {
-        // PropertyEditorItem *i = static_cast<PropertyEditorItem *>(item);// 2018.08.13 - not needed
-        createEditor(index);
-    }
+// 2019.01.19 - moved to slotCurrentCellChanged()
+//     if (index.column() == 1) {
+//         // PropertyEditorItem *i = static_cast<PropertyEditorItem *>(item);// 2018.08.13 - not needed
+//         createEditor(index);
+//     }
 
 	justClickedItem = true;
 }
@@ -342,6 +343,13 @@ void PropertyEditor::slotCurrentChanged(QTableWidgetItem* /*itemParam*/)
 void PropertyEditor::slotCurrentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn)
 {
     viewport()->repaint(); // force a repaint to clear the "selected" background on items
+
+    if (currentColumn == 0) {
+        setCurrentCell(currentRow, 1); // move focus to the value column
+    }
+    if (currentColumn == 1) {
+        createEditor(currentIndex());
+    }
 }
 
 void PropertyEditor::slotExpanded(QTableWidgetItem* item)
