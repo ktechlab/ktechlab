@@ -102,6 +102,8 @@ class PropertyEditor : public QTableWidget // K3ListView
 		 */
 		void slotCurrentChanged(QTableWidgetItem *);
 
+        void slotCurrentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn);
+
 		void slotExpanded(QTableWidgetItem *item);
 		void slotCollapsed(QTableWidgetItem *item);
 

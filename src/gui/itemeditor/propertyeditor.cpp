@@ -64,26 +64,30 @@ struct PropertyEditorStyledItemColProperty : public QStyledItemDelegate {
         const int top = option.rect.top();
         const int left = option.rect.left();
 
-        QColor bgColor = option.palette.color(QPalette::Base); // 2018.12.07
+        const bool isHighlighted = m_propEditor->currentRow() == index.row();
 
-        if(option.state.testFlag(QStyle::State_Selected))
+        painter->save();
+
+        //qWarning() << " draw col " << index.column() << " row " << index.row()
+        //    << " isHighlighted=" << isHighlighted << " state_selected=" << option.state.testFlag(QStyle::State_Selected);
+
+        if (isHighlighted || option.state.testFlag(QStyle::State_Selected))
         {
-            painter->fillRect(left,top, width, height, option.palette.alternateBase());
+            painter->fillRect(left,top, width, height, option.palette.highlight());
             painter->setPen(option.palette.color(QPalette::BrightText) /* highlightedText() */ );
         } else {
+            QColor bgColor = option.palette.color(QPalette::Base); // 2018.12.07
             painter->fillRect(left,top, width, height, QBrush(bgColor));
         }
 
         QFont f = option.font;
-        painter->save();
 
-        if ( itemProp->property()->changed() ) {
+        if ( itemProp->property()->changed() || (!itemProp->property()->isAdvanced())) {
             f.setBold(true);
         }
 
         painter->setFont(f);
         painter->drawText( QRect(left + margin, top, width-1, height-1), Qt::AlignVCenter, itemProp->text() );
-        painter->restore();
 
         //qWarning() << Q_FUNC_INFO << " draw " << itemProp->text() << " at " << option.rect;
 
@@ -92,6 +96,8 @@ struct PropertyEditorStyledItemColProperty : public QStyledItemDelegate {
 
         painter->setPen( QColor(200,200,200) ); //like in t.v.
         painter->drawLine(left-50, top + height-1, left + width-1, top + height-1 );
+
+        painter->restore();
     }
     /*
     virtual QSize sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const {
@@ -127,7 +133,11 @@ struct PropertyEditorStyledItemColValue : public QStyledItemDelegate {
         const int top = option.rect.top();
         const int left = option.rect.left();
 
+        //const bool isHighlighted = m_propEditor->currentRow() == index.row(); // TODO
+
         QColor bgColor = option.palette.color(QPalette::Window); // backgroundColor(0); // 2018.06.02 - is this better?
+
+        painter->save();
 
         Property *property = itemProp->property();
         switch(property->type())
@@ -216,6 +226,8 @@ struct PropertyEditorStyledItemColValue : public QStyledItemDelegate {
 
         painter->setPen( QColor(200,200,200) ); //like in t.v.
         painter->drawLine( left-50, top + height-1, left + width, top + height-1 );
+
+        painter->restore();
     }
     /*
     virtual QSize sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const {
@@ -245,7 +257,7 @@ PropertyEditor::PropertyEditor( QWidget * parent, const char * name )
     m_colPropertyDelegate = new PropertyEditorStyledItemColProperty(this);
     setItemDelegateForColumn(0, m_colPropertyDelegate);
 
-    m_colPropertyDelegate = new PropertyEditorStyledItemColValue(this);
+    m_colValueDelegate = new PropertyEditorStyledItemColValue(this);
     setItemDelegateForColumn(1, m_colValueDelegate);
 
 	m_topItem = 0;
@@ -255,6 +267,8 @@ PropertyEditor::PropertyEditor( QWidget * parent, const char * name )
 	connect(this, SIGNAL(itemActivated(QTableWidgetItem*)), this, SLOT(slotCurrentChanged(QTableWidgetItem *)));
 // 	connect(this, SIGNAL(expanded(Q3ListViewItem *)), this, SLOT(slotExpanded(Q3ListViewItem *)));  // TODO
 // 	connect(this, SIGNAL(collapsed(Q3ListViewItem *)), this, SLOT(slotCollapsed(Q3ListViewItem *)));
+
+    connect(this, SIGNAL(currentCellChanged(int, int, int, int)), this, SLOT(slotCurrentCellChanged(int,int,int,int)));
 
 // 	connect(header(), SIGNAL(sizeChange( int, int, int )), this, SLOT(slotColumnSizeChanged( int, int, int ))); // TODO
 // 	connect(header(), SIGNAL(clicked( int )), this, SLOT(moveEditor()));
@@ -273,7 +287,7 @@ PropertyEditor::PropertyEditor( QWidget * parent, const char * name )
 	//setRootIsDecorated( false );
 	//setShowSortIndicator( false );
 	// setTooltipColumn(0); // TODO equivalent?
-	setSortingEnabled(false);
+	setSortingEnabled(false /*true*/); // note: enabling it causes crashes, apperently
     horizontalHeader()->setSortIndicatorShown(false);
     horizontalHeader()->setContentsMargins(itemMargin, itemMargin, itemMargin, itemMargin);
 	//setItemMargin(2); // needed?
@@ -325,6 +339,10 @@ void PropertyEditor::slotCurrentChanged(QTableWidgetItem* /*itemParam*/)
 // 	}
 }
 
+void PropertyEditor::slotCurrentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn)
+{
+    viewport()->repaint(); // force a repaint to clear the "selected" background on items
+}
 
 void PropertyEditor::slotExpanded(QTableWidgetItem* item)
 {
