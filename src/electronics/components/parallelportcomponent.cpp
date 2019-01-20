@@ -156,6 +156,11 @@ ParallelPortComponent::ParallelPortComponent( ICNDocument *icnDocument, bool new
 
 ParallelPortComponent::~ParallelPortComponent()
 {
+    for (int i = 0; i < 24; i++) {
+        if (m_pLogic[i]) {
+            m_pLogic[i]->setCallback(0, 0);
+        }
+    }
 	delete m_pParallelPort;
 }
 
