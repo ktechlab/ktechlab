@@ -19,6 +19,11 @@ Features which need re-implementation in Qt4 port
 
 Fixes that could be postponed after the first Qt4 release
 =======
+- icon for component model widget is not displayed, used to be "locationbar_erase"; to add proper icon
+
+- in flowcode if the PIC is "minimized", after adding a new item on the canvas, the
+    "Advanced..." button still appears on the canvas
+
 - fix building of the core library first; otherwise missing include file (ktlconfig.h) error could happen at build time
     - the build-scripts have a work-around, and based on that, building should be straight-forward
 
