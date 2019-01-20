@@ -342,7 +342,7 @@ void PropertyEditor::slotCurrentChanged(QTableWidgetItem* /*itemParam*/)
 // 	}
 }
 
-void PropertyEditor::slotCurrentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn)
+void PropertyEditor::slotCurrentCellChanged(int currentRow, int currentColumn, int /*previousRow*/, int /*previousColumn*/)
 {
     viewport()->repaint(); // force a repaint to clear the "selected" background on items
 
