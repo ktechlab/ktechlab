@@ -66,7 +66,7 @@ ECSevenSegment::ECSevenSegment( ICNDocument *icnDocument, bool newItem, const ch
 	}
 	m_nNode = 0L;
 	
-	lastUpdatePeriod = 0.;
+	lastUpdatePeriod = 1.;
 	
 	initDIPSymbol( pins, 64 );
 	initDIP(pins);

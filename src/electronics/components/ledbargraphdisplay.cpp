@@ -28,7 +28,7 @@ LEDPart::LEDPart( Component *pParent, const QString& strPNode, const QString& st
 	m_pDiode = pParent->createDiode( pParent->ecNodeWithID( strPNode ), pParent->ecNodeWithID( strNNode ) );
 		
 	avg_brightness = 255;
-	lastUpdatePeriod = 0.;
+	lastUpdatePeriod = 1.;
 	last_brightness = 255;
 	r=g=b=0;
 }

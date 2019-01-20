@@ -51,7 +51,7 @@ BiDirLED::BiDirLED( ICNDocument *icnDocument, bool newItem, const char *id )
 	m_pDiode[1] = createDiode( m_pPNode[0], m_pNNode[0] );
 	
 	avg_brightness[0] = avg_brightness[1] = 255;
-	lastUpdatePeriod = 0.;
+	lastUpdatePeriod = 1.;
 	r[0]=r[1]=g[0]=g[1]=b[0]=b[1]=0;
 	last_brightness[0] = last_brightness[1] = 255;
 	

@@ -41,7 +41,7 @@ LED::LED( ICNDocument *icnDocument, bool newItem, const char *id )
 	m_name = i18n("LED");
 	setSize( -8, -16, 24, 24, true );
 	avg_brightness = 255;
-	lastUpdatePeriod = 0.;
+	lastUpdatePeriod = 1.;
 	r=g=b=0;
 	last_brightness = 255;
 	
