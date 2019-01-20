@@ -373,7 +373,12 @@ double DoubleSpinBox::valueFromText( const QString & text ) const {
 
         textForSuffix = textForSuffix.trimmed();
 
-        QChar siExp = textForSuffix[ textForSuffix.length()-1 ];
+        QChar siExp;
+        if (textForSuffix.length() > 0) {
+            siExp = textForSuffix[ textForSuffix.length()-1 ];
+        } else {
+            siExp = '1';
+        }
 
         DoubleSpinbox_qDebug() << Q_FUNC_INFO << "SI exp = " << siExp;
 
