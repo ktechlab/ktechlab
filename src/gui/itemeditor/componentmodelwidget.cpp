@@ -38,7 +38,7 @@ ComponentModelWidget::ComponentModelWidget( QWidget *parent, const char *name )
 	
 	// parts of the following code are stolen from amarok/src/playlistwindow.cpp :)
 	//BEGIN Filter lineedit
-    QHBoxLayout *h1Layout = new QHBoxLayout( this );
+    QHBoxLayout *h1Layout = new QHBoxLayout;
     h1Layout->setMargin(0);
 	KToolBar * bar = new KToolBar( this, "ComponentModelSearch" );
 	bar->setIconSize( QSize( 22, 22 ) /*, false  ?? */ ); //looks more sensible
