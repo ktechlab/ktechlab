@@ -17,6 +17,8 @@
 #include <klocalizedstring.h>
 #include <qpainter.h>
 
+#include <qdebug.h>
+
 #include <cmath>
 
 using namespace std;
@@ -114,6 +116,9 @@ void ECClockInput::dataChanged()
 	
 	m_bLastStepCallbackOut = false;
 	m_lastSetTime = m_pSimulator->time();
+    if (m_lastSetTime < 0) {
+        qWarning() << Q_FUNC_INFO << " m_lastSetTime = " << m_lastSetTime;
+    }
 }
 
 
@@ -168,6 +173,9 @@ void ECClockInput::stepNonLogic()
 	}
 	
 	m_lastSetTime = upTo;
+    if (m_lastSetTime < 0) {
+        qWarning() << Q_FUNC_INFO << " m_lastSetTime = " << m_lastSetTime;
+    }
 }
 
 
