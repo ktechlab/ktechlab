@@ -10,6 +10,7 @@
   <name xml:lang="de">KTechlab</name>
   <name xml:lang="es">KTechlab</name>
   <name xml:lang="fr">KTechlab</name>
+  <name xml:lang="gl">KTechlab</name>
   <name xml:lang="id">KTechlab</name>
   <name xml:lang="it">KTechlab</name>
   <name xml:lang="nl">KTechlab</name>
@@ -25,6 +26,7 @@
   <summary xml:lang="de">Entwicklungsumgebung für Mikrocontroller und Elektronik</summary>
   <summary xml:lang="es">IDE para microcontroladores y sistemas electrónicos</summary>
   <summary xml:lang="fr">Environnement de Développement Intégré pour les microcontrôleurs et l'électronique</summary>
+  <summary xml:lang="gl">IDE para microcontroladores e compoñentes electrónicos</summary>
   <summary xml:lang="id">IDE untuk mikrokontroler dan elektronik</summary>
   <summary xml:lang="it">Un IDE per microcontrollori ed elettronica</summary>
   <summary xml:lang="nl">IDE (ontwikkelomgeving) voor microcontrollers en elektronica</summary>
@@ -56,6 +58,7 @@
     <p xml:lang="de">Funktionen:</p>
     <p xml:lang="es">Funciones:</p>
     <p xml:lang="fr">Fonctionnalités :</p>
+    <p xml:lang="gl">Funcionalidades:</p>
     <p xml:lang="id">Fitur:</p>
     <p xml:lang="it">Caratteristiche:</p>
     <p xml:lang="nl">Kenmerken:</p>
