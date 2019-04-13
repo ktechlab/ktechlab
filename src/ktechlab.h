@@ -17,6 +17,7 @@
 
 #include <qmap.h>
 #include <qlist.h>
+#include <qpointer.h>
 
 class CircuitDocument;
 class TextDocument;

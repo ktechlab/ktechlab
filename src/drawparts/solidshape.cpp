@@ -47,12 +47,12 @@ DPRectangle::DPRectangle( ItemDocument *itemDocument, bool newItem, const char *
 	property("background")->setAdvanced(true);
 	
 	createProperty( "background-color", Variant::Type::Color );
-	property("background-color")->setValue(Qt::white);
+	property("background-color")->setValue(QColor(Qt::white));
 	property("background-color")->setCaption( i18n("Background Color") );
 	property("background-color")->setAdvanced(true);
 	
 	createProperty( "line-color", Variant::Type::Color );
-	property("line-color")->setValue(Qt::black);
+	property("line-color")->setValue(QColor(Qt::black));
 	property("line-color")->setCaption( i18n("Line Color") );
 	property("line-color")->setAdvanced(true);
 	

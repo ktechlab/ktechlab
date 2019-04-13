@@ -13,7 +13,7 @@
 #include "logtofilemsghandler.h"
 
 //#include <dcopclient.h>
-#include <kaboutdata.h>
+#include <k4aboutdata.h>
 #include <kapplication.h>
 #include <kcmdlineargs.h>
 #include <kconfig.h>
@@ -34,8 +34,8 @@ int main(int argc, char **argv)
 {
     LogToFileMsgHandler logFileHandler;
 
-    KAboutData about(QByteArray("ktechlab"), QByteArray("ktechlab"), ki18n("KTechLab"), VERSION, ki18n(description),
-                    KAboutData::License_GPL, ki18n("(C) 2003-2017, The KTechLab developers"),
+    K4AboutData about(QByteArray("ktechlab"), QByteArray("ktechlab"), ki18n("KTechLab"), VERSION, ki18n(description),
+                    K4AboutData::License_GPL, ki18n("(C) 2003-2017, The KTechLab developers"),
                     KLocalizedString(), "https://userbase.kde.org/KTechlab", "ktechlab-devel@kde.org" );
 	about.addAuthor( ki18n("Alan Grimes"),
                      ki18n("Developer, Simulation"),

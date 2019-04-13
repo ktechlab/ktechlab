@@ -12,6 +12,7 @@
 #include "mechanicsview.h"
 #include "viewiface.h"
 
+#include <qmimedata.h>
 
 MechanicsView::MechanicsView( MechanicsDocument *mechanicsDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name )
 	: ItemView( mechanicsDocument, viewContainer, viewAreaId, name )
@@ -33,7 +34,8 @@ void MechanicsView::dragEnterEvent( QDragEnterEvent * e )
 	if ( e->isAccepted() )
 		return;
 	
-	e->setAccepted( e->provides("ktechlab/mechanical") );
+	//e->setAccepted( e->provides("ktechlab/mechanical") ); // 2019.04.14
+    e->setAccepted( e->mimeData()->hasFormat("ktechlab/mechanical") );
 }
 
 #include "mechanicsview.moc"

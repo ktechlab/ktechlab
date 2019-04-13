@@ -74,19 +74,19 @@ PinMapEditor::PinMapEditor( PinMapping * pinMapping, MicroInfo * picInfo, QWidge
     }
     {
         QAction * actionSelAll = new QAction( this );
-        actionSelAll->setShortcut( KStandardShortcut::selectAll().primary() );
+        actionSelAll->setShortcut( KStandardShortcut::selectAll().first() );
         connect(actionSelAll, SIGNAL(triggered(bool)), m_pPinMapDocument, SLOT(selectAll()) );
         addAction(actionSelAll);
     }
     {
         QAction * actionUndo = new QAction( this );
-        actionUndo->setShortcut( KStandardShortcut::undo().primary() );
+        actionUndo->setShortcut( KStandardShortcut::undo().first() );
         connect(actionUndo, SIGNAL(triggered(bool)), m_pPinMapDocument, SLOT(undo()) );
         addAction(actionUndo);
     }
     {
         QAction * actionRedo = new QAction( this );
-        actionRedo->setShortcut( KStandardShortcut::redo().primary() );
+        actionRedo->setShortcut( KStandardShortcut::redo().first() );
         connect(actionRedo, SIGNAL(triggered(bool)), m_pPinMapDocument, SLOT(redo()) );
         addAction(actionRedo);
     }

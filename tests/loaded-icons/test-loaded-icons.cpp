@@ -1,7 +1,7 @@
 #include <kapplication.h>
 #include <kmainwindow.h>
 #include <kcmdlineargs.h>
-#include <kaboutdata.h>
+#include <k4aboutdata.h>
 #include <kicon.h>
 #include <kiconloader.h>
 
@@ -21,8 +21,8 @@ static const char description[] =
 static void addIcon(QGridLayout *mainLayout, const char *iconName);
 
 int main(int argc, char **argv) {
-    KAboutData about(QByteArray("ktechlab"), QByteArray("KTechLab Icon Tester"), ki18n("KTechLab Icon Tester"), VERSION, ki18n(description),
-                KAboutData::License_GPL, ki18n("(C) 2003-2009, The KTechLab developers"),
+    K4AboutData about(QByteArray("ktechlab"), QByteArray("KTechLab Icon Tester"), ki18n("KTechLab Icon Tester"), VERSION, ki18n(description),
+                K4AboutData::License_GPL, ki18n("(C) 2003-2009, The KTechLab developers"),
                 KLocalizedString(), "http://ktechlab.org", "ktechlab-devel@lists.sourceforge.net" );
 
     KCmdLineArgs::init(argc, argv, &about);

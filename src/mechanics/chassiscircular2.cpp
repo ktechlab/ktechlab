@@ -130,11 +130,15 @@ void ChassisCircular2::drawShape( QPainter &p )
 	{
 		
 		p.setClipRect( QRect( int(_x+m_wheel1Pos.x()+2), int(_y+m_wheel1Pos.y()+2), int(m_wheel1Pos.width()-4), int(m_wheel1Pos.height()-4) ),
-                       /* QPainter::CoordPainter */ Qt::UniteClip );
+                       /* QPainter::CoordPainter */
+                       Qt::ReplaceClip // TODO original Qt::UniteClip
+                     );
 		p.drawRect( int(offset1+X + i*stripeWidth*2), int(y1+1), int(stripeWidth), int(H-2) );
 		
 		p.setClipRect( QRect( int(_x+m_wheel2Pos.x()+2), int(_y+m_wheel2Pos.y()+2), int(m_wheel2Pos.width()-4), int(m_wheel2Pos.height()-4) ),
-                       /* QPainter::CoordPainter */ Qt::UniteClip );
+                       /* QPainter::CoordPainter */
+                       Qt::ReplaceClip // TODO original Qt::UniteClip
+                     );
 		p.drawRect( int(offset2+X + i*stripeWidth*2), int(y2+1), int(stripeWidth), int(H-2) );
 	}
 	p.setClipping(false);

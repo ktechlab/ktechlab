@@ -3,7 +3,7 @@
 project( ktechlab )
 set( VERSION 0.50.0 )
 
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 2.8.12) # TODO CMAKE_AUTOUIC min?
 
 
 find_package(ECM 0.0.11 CONFIG REQUIRED)
@@ -29,6 +29,7 @@ find_package(KF5 REQUIRED COMPONENTS
     CoreAddons
     DocTools
     KDELibs4Support
+    TextEditor
     Solid
     )
 
@@ -38,7 +39,10 @@ find_package(KF5 REQUIRED COMPONENTS
 # find_package(GPSim)
 
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+add_definitions(-Wno-deprecated-declarations) # TODO too much spam for now
 
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
@@ -82,12 +86,15 @@ if (NOT GPSim_FOUND)
 endif ()
 
 message("Qt5Core_INCLUDE_DIRS=>>>${Qt5Core_INCLUDE_DIRS}<<<" )
+message("Qt5Widgets_INCLUDE_DIRS=>>>${Qt5Widgets_INCLUDE_DIRS}<<<" )
+message("TextEditor_INCLUDE_DIRS=>>>${TextEditor_INCLUDE_DIRS}<<<" )
 
 include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
     ${CMAKE_CURRENT_BINARY_DIR}/src/core
     ${KDE4_INCLUDES}
     ${KDELibs4Support_INCLUDE_DIRS}
+    ${TextEditor_INCLUDE_DIRS}  # TODO figure out this one
     ${Qt5Core_INCLUDE_DIRS}
     ${Qt5Widgets_INCLUDE_DIRS}
     )
