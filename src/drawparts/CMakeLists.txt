@@ -6,4 +6,4 @@ SET(drawparts_STAT_SRCS
    dpimage.cpp
 )
 
-kde4_add_library(drawparts STATIC ${drawparts_STAT_SRCS})
+add_library(drawparts STATIC ${drawparts_STAT_SRCS})

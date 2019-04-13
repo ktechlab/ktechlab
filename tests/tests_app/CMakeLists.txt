@@ -23,7 +23,7 @@ if(GPSim_FOUND)
     set(CMAKE_CXX_FLAGS ${KDE4_ENABLE_EXCEPTIONS})
 endif()
 
-kde4_add_executable(tests_app tests_app.cpp)
+add_executable(tests_app tests_app.cpp)
 
 target_link_libraries( tests_app
     test_ktechlab

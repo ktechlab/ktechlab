@@ -26,4 +26,4 @@ SET(elements_STAT_SRCS
    mosfet.cpp
 )
 
-kde4_add_library(elements STATIC ${elements_STAT_SRCS})
+add_library(elements STATIC ${elements_STAT_SRCS})

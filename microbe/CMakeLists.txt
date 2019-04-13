@@ -12,7 +12,7 @@ SET(microbe_SRCS
    parser.cpp
 )
 
-qt4_automoc(${microbe_SRCS})
+#qt4_automoc(${microbe_SRCS})
 
 add_executable(microbe ${microbe_SRCS})
 

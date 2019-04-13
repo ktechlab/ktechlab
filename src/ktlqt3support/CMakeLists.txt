@@ -5,4 +5,4 @@ SET(ktlqt3support_STAT_SRCS
    ktlfindqobjectchild.cpp
 )
 
-kde4_add_library(ktlqt3support STATIC ${ktlqt3support_STAT_SRCS})
+add_library(ktlqt3support STATIC ${ktlqt3support_STAT_SRCS})

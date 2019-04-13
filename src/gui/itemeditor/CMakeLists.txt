@@ -11,5 +11,5 @@ SET(itemeditor_STAT_SRCS
    componentmodelwidget.cpp
 )
 
-kde4_add_library(itemeditor STATIC ${itemeditor_STAT_SRCS})
+add_library(itemeditor STATIC ${itemeditor_STAT_SRCS})
 target_link_libraries( itemeditor electronics )

@@ -100,7 +100,7 @@ set(ktechlab_DCOP_SKEL_SRCS
 
 #kde3_add_dcop_skels(ktechlab_SRCS ${ktechlab_DCOP_SKEL_SRCS})
 
-kde4_add_executable(ktechlab ${ktechlab_SRCS})
+add_executable(ktechlab ${ktechlab_SRCS})
 
 target_link_libraries( ktechlab
     core gui micro flowparts
@@ -129,7 +129,7 @@ install(TARGETS ktechlab ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 # for helping testing
 
-kde4_add_library(test_ktechlab STATIC ${ktechlab_SRCS})
+add_library(test_ktechlab STATIC ${ktechlab_SRCS})
 
 
 ########### install files ###############

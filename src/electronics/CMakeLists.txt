@@ -21,5 +21,5 @@ SET(electronics_STAT_SRCS
    electronicconnector.cpp
 )
 
-kde4_add_library(electronics STATIC ${electronics_STAT_SRCS})
+add_library(electronics STATIC ${electronics_STAT_SRCS})
 target_link_libraries( electronics elements components )

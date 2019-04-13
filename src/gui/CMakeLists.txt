@@ -48,7 +48,8 @@ set(gui_UI
     gplinksettingswidget.ui
 )
 
-kde4_add_ui_files(gui_STAT_SRCS ${gui_UI})
+#kde4_add_ui_files(gui_STAT_SRCS ${gui_UI})
+qt5_wrap_ui(gui_STAT_SRCS ${gui_UI})
 
-kde4_add_library(gui STATIC ${gui_STAT_SRCS})
+add_library(gui STATIC ${gui_STAT_SRCS})
 target_link_libraries( gui itemeditor )

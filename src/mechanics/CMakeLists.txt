@@ -7,4 +7,4 @@ SET(mechanics_STAT_SRCS
    mechanicsview.cpp
 )
 
-kde4_add_library(mechanics STATIC ${mechanics_STAT_SRCS})
+add_library(mechanics STATIC ${mechanics_STAT_SRCS})

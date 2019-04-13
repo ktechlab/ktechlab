@@ -9,4 +9,4 @@ SET(micro_STAT_SRCS
    asminfo.cpp
 )
 
-kde4_add_library(micro STATIC ${micro_STAT_SRCS})
+add_library(micro STATIC ${micro_STAT_SRCS})

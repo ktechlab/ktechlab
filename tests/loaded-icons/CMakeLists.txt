@@ -1,4 +1,4 @@
-kde4_add_executable(test_loaded_icons test-loaded-icons.cpp)
+add_executable(test_loaded_icons test-loaded-icons.cpp)
 
 target_link_libraries( test_loaded_icons
     ${KDE4_KDEUI_LIBRARY} # kdeui

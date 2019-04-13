@@ -8,9 +8,9 @@ set(core_KCFG_SRCS
     ktlconfig.kcfgc
 )
 
-kde4_add_kcfg_files(core_STAT_SRCS ${core_KCFG_SRCS})
+kconfig_add_kcfg_files(core_STAT_SRCS ${core_KCFG_SRCS})
 
-kde4_add_library(core STATIC ${core_STAT_SRCS})
+add_library(core STATIC ${core_STAT_SRCS})
 
 
 ########### install files ###############

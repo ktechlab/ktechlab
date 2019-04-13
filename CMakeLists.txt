@@ -1,16 +1,37 @@
 #set( KTECHLAB_DEVELOPER_BUILD "true" )
 
 project( ktechlab )
-set( VERSION 0.40.2 )
+set( VERSION 0.50.0 )
 
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8.12)
+
+
+find_package(ECM 0.0.11 CONFIG REQUIRED)
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
 list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 
-find_package(Qt4 4.6.0 REQUIRED)
-find_package(KDE4 REQUIRED)
-include(KDE4Defaults)
-find_package(GPSim)
+include(ECMInstallIcons)
+
+include(KDEInstallDirs)
+include(KDECMakeSettings)
+include(KDECompilerSettings)
+include(FeatureSummary)
+
+find_package(Qt5 CONFIG REQUIRED COMPONENTS Widgets)
+find_package(KF5 REQUIRED COMPONENTS
+    Config
+    CoreAddons
+    DocTools
+    Solid
+    )
+
+# find_package(Qt4 4.6.0 REQUIRED)
+# find_package(KDE4 REQUIRED)
+# include(KDE4Defaults)
+# find_package(GPSim)
+
+set(CMAKE_AUTOMOC ON)
 
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
@@ -64,3 +85,5 @@ add_subdirectory( icons-kde3 )
 add_subdirectory( doc )
 
 add_subdirectory(tests)
+
+feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)

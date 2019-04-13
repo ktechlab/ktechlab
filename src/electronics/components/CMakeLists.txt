@@ -54,5 +54,5 @@ SET(components_STAT_SRCS
    led.cpp
 )
 
-kde4_add_library(components STATIC ${components_STAT_SRCS})
+add_library(components STATIC ${components_STAT_SRCS})
 target_link_libraries( components elements )

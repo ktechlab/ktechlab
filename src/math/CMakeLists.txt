@@ -3,4 +3,4 @@ SET(math_STAT_SRCS
    qmatrix.cpp
 )
 
-kde4_add_library(math STATIC ${math_STAT_SRCS})
+add_library(math STATIC ${math_STAT_SRCS})

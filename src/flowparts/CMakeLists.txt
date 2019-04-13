@@ -31,4 +31,4 @@ SET(flowparts_STAT_SRCS
    junctionflownode.cpp
 )
 
-kde4_add_library(flowparts STATIC ${flowparts_STAT_SRCS})
+add_library(flowparts STATIC ${flowparts_STAT_SRCS})
