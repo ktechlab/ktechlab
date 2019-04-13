@@ -18,11 +18,17 @@ include(KDECMakeSettings)
 include(KDECompilerSettings)
 include(FeatureSummary)
 
-find_package(Qt5 CONFIG REQUIRED COMPONENTS Widgets)
+find_package(Qt5 CONFIG REQUIRED COMPONENTS
+    Core
+    DBus
+    Widgets
+    )
+
 find_package(KF5 REQUIRED COMPONENTS
     Config
     CoreAddons
     DocTools
+    KDELibs4Support
     Solid
     )
 
@@ -32,6 +38,7 @@ find_package(KF5 REQUIRED COMPONENTS
 # find_package(GPSim)
 
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
@@ -57,7 +64,12 @@ if (KTECHLAB_DEVELOPER_BUILD)
 endif (KTECHLAB_DEVELOPER_BUILD)
 
 add_definitions( -fno-inline )  # do not inline any method calls; this is useful for crash debugging
-add_definitions(${QT_DEFINITIONS} ${GLIB2_DEFINITIONS} ${KDE4_DEFINITIONS})
+add_definitions(
+    ${Qt5Core_EXECUTABLE_COMPILE_FLAGS}
+    ${GLIB2_DEFINITIONS} ${KDE4_DEFINITIONS})
+
+message("Qt5Core_EXECUTABLE_COMPILE_FLAGS=>>>${Qt5Core_EXECUTABLE_COMPILE_FLAGS}<<<" )
+
 
 # KDE disables STL compatibility by default; re-enabling it is supported
 # see http://kde.6490.n7.nabble.com/QT-NO-STL-in-KDE4-td1123882i20.html
@@ -69,7 +81,16 @@ if (NOT GPSim_FOUND)
     set(NO_GPSIM TRUE)
 endif ()
 
-include_directories(${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR}/src/core ${KDE4_INCLUDES})
+message("Qt5Core_INCLUDE_DIRS=>>>${Qt5Core_INCLUDE_DIRS}<<<" )
+
+include_directories(
+    ${CMAKE_CURRENT_BINARY_DIR}
+    ${CMAKE_CURRENT_BINARY_DIR}/src/core
+    ${KDE4_INCLUDES}
+    ${KDELibs4Support_INCLUDE_DIRS}
+    ${Qt5Core_INCLUDE_DIRS}
+    ${Qt5Widgets_INCLUDE_DIRS}
+    )
 
 set( SRC_EXAMPLES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/examples/ )
 set( SRC_TESTS_DATA_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tests/data/ )

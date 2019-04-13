@@ -27,7 +27,7 @@
 #include "microbe.h"
 #include "pic14.h"
 
-#include <kaboutdata.h>
+#include <k4aboutdata.h>
 // #include <k3aboutdialog.h>
 #include <kcmdlineargs.h>
 #include <klocale.h>
@@ -54,8 +54,8 @@ static const char version[] = "0.3";
 
 int main(int argc, char **argv)
 {
-	KAboutData about(QByteArray("microbe"), QByteArray("Microbe"), ki18n("Microbe"), version, ki18n(description),
-					 KAboutData::License_GPL, ki18n("(C) 2004-2005, The KTechlab developers"),
+	K4AboutData about(QByteArray("microbe"), QByteArray("Microbe"), ki18n("Microbe"), version, ki18n(description),
+					 K4AboutData::License_GPL, ki18n("(C) 2004-2005, The KTechlab developers"),
                      KLocalizedString(),
                      "http://ktechlab.org", "ktechlab-devel@lists.sourceforge.net" );
 	about.addAuthor( ki18n("Daniel Clarke"), KLocalizedString(), QByteArray("daniel.jc@gmail.com") );
