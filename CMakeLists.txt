@@ -105,6 +105,12 @@ set( SRC_TESTS_DATA_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tests/data/ )
 CONFIGURE_FILE( ${CMAKE_SOURCE_DIR}/config.h.cmake
 	${CMAKE_BINARY_DIR}/config.h )
 
+
+get_property(dirs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
+foreach(dir ${dirs})
+  message(STATUS "include_dir='${dir}'")
+endforeach()
+
 add_subdirectory( microbe )
 add_subdirectory( src )
 add_subdirectory( examples )
