@@ -30,7 +30,7 @@ Probe::Probe( ICNDocument *icnDocument, bool newItem, const char *id )
 	
 	createProperty( "color", Variant::Type::Color );
 	property("color")->setCaption( i18n("Color") );
-	property("color")->setValue( Qt::black );
+	property("color")->setValue( QColor(Qt::black) );
 }
 
 
