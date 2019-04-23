@@ -43,6 +43,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 add_definitions(-Wno-deprecated-declarations) # TODO too much spam for now
+add_definitions(-fPIC)
 
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
