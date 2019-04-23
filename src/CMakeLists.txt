@@ -107,6 +107,7 @@ target_link_libraries( ktechlab
     ktlqt3support
 	mechanics electronics elements components languages drawparts
 	itemeditor math
+	KF5::TextEditor
 	${KDE4_KHTML_LIBRARY} # khtml
 	${GPSIM_LIBRARY}
 	${KDE4_KTEXTEDITOR_LIBRARY} # ktexteditor
@@ -120,12 +121,28 @@ target_link_libraries( ktechlab
 	#${QT_QT3SUPPORT_LIBRARY} # Qt3Support     # 2018.12.08 - should not be needed
 	${QT_QTCORE_LIBRARY} # QtCore
 	${KDE4_KFILE_LIBRARY} # kfile
+	KF5::KDELibs4Support
 	)
 if(GPSim_FOUND)
     target_link_libraries(ktechlab ${GPSim_LIBRARIES})
 endif()
 
 install(TARGETS ktechlab ${INSTALL_TARGETS_DEFAULT_ARGS})
+
+
+# message(STATUS "include_dir begin")
+# get_property(dirs TARGET ktechlab PROPERTY INCLUDE_DIRECTORIES)
+# foreach(dir ${dirs})
+#   message(STATUS "ktechlab include_dir='${dir}'")
+# endforeach()
+# message(STATUS "include_dir end")
+
+message(STATUS "include_dir begin")
+get_property(dirs TARGET KF5::TextEditor PROPERTY INTERFACE_INCLUDE_DIRECTORIES)
+foreach(dir ${dirs})
+  message(STATUS "KF5::TextEditor include_dir='${dir}'")
+endforeach()
+message(STATUS "include_dir end")
 
 # for helping testing
 
