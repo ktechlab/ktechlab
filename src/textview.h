@@ -15,7 +15,8 @@
 #include "view.h"
 
 // #include <kate/view.h>
-#include <ktexteditor/view.h>
+//#include <ktexteditor/view.h>
+#include <KTextEditor/View>
 
 #include <qpointer.h>
 #include <qlabel.h>
