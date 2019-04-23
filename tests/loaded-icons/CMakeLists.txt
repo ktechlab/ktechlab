@@ -5,4 +5,9 @@ target_link_libraries( test_loaded_icons
     ${QT_QTGUI_LIBRARY} # QtGui
     ${KDE4_KDECORE_LIBRARY} # kdecore
     ${QT_QTCORE_LIBRARY} # QtCore
+    
+    Qt5::Widgets
+    KF5::CoreAddons
+    KF5::I18n
+    KF5::KDELibs4Support
     )
