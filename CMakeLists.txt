@@ -28,8 +28,10 @@ find_package(KF5 REQUIRED COMPONENTS
     Config
     CoreAddons
     DocTools
+    I18n
     KDELibs4Support
     TextEditor
+    TextWidgets
     Solid
     )
 
