@@ -34,6 +34,8 @@ find_package(KF5 REQUIRED COMPONENTS
     DocTools
     I18n
     KDELibs4Support
+    KHtml
+    Parts
     TextEditor
     TextWidgets
     Solid

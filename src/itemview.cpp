@@ -24,6 +24,7 @@
 
 //#include <kaccel.h>
 #include <kaction.h>
+#include <kicon.h>
 #include <kstandardaction.h>
 #include <kdebug.h>
 #include <kiconloader.h>

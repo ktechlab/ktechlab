@@ -16,6 +16,7 @@
 #include <kcolorbutton.h>
 #include <kcombobox.h>
 #include <kconfig.h>
+#include <kglobal.h>
 #include <kinputdialog.h>
 #include <klineedit.h>
 #include <klocalizedstring.h>
@@ -99,7 +100,7 @@ class GplinkSettingsWidget : public QWidget, public Ui::GplinkSettingsWidget {
 // Make sure that this value is the same as that in ktechlab.kcfg
 const int defaultRefreshRate = 50;
 
-SettingsDlg::SettingsDlg( QWidget *parent, const char *name, KConfigSkeleton *config )
+SettingsDlg::SettingsDlg( QWidget *parent, const char *name, KCoreConfigSkeleton *config )
 	: KConfigDialog( parent, name, config )
 {
 	m_generalOptionsWidget = new GeneralOptionsWidget( this, "generalOptionsWidget" );

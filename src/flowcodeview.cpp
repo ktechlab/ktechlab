@@ -13,6 +13,7 @@
 #include "ktechlab.h"
 #include "viewiface.h"
 
+#include <kicon.h>
 #include <kiconloader.h>
 #include <klocalizedstring.h>
 #include <kmenu.h>

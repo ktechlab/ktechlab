@@ -28,6 +28,7 @@
 
 // #include <kate/katedocument.h>
 
+#include <kaction.h>
 #include <kdebug.h>
 #include <klibloader.h>
 #include <klocalizedstring.h>

@@ -15,6 +15,7 @@
 #include "simulator.h"
 
 #include <kconfig.h>
+#include <kconfiggroup.h>
 #include <kdebug.h>
 #include <klocalizedstring.h>
 #include <kglobal.h>

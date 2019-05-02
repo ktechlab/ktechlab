@@ -19,6 +19,7 @@
 // #include <q3ptrlist.h>
 
 //#include <kate/document.h>
+#include <kparts/readwritepart.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/markinterface.h>
 

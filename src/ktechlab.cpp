@@ -45,12 +45,14 @@
 // #include <q3ptrlist.h>
 #include <qdesktopwidget.h>
 
+#include <kaction.h>
 #include <ktoolbar.h>
 #include <kstdaccel.h>
 #include <kapplication.h>
 #include <kdebug.h>
 #include <kedittoolbar.h>
 #include <kfiledialog.h>
+#include <kglobal.h>
 #include <kicon.h>
 #include <kiconloader.h>
 #include <kio/netaccess.h>
@@ -493,7 +495,7 @@ void KTechlab::setupActions()
     // 2017.08.06 - using custom new action
     //KStandardAction::openNew(			this, SLOT(slotFileNew()),					ac );
     {
-    KAction *openAction = KStandardAction::open(				this, SLOT(slotFileOpen()),					ac );
+    QAction *openAction = KStandardAction::open(				this, SLOT(slotFileOpen()),					ac );
     openAction->setShortcutContext(Qt::WidgetWithChildrenShortcut );
     }
     KStandardAction::save(				this, SLOT(slotFileSave()),					ac ); // (1)!
@@ -518,7 +520,7 @@ void KTechlab::setupActions()
                                                      i18n("&New"),
                                                      ac);
     p->setObjectName("file_new");
-    p->setShortcut( KStandardShortcut::shortcut(KStandardShortcut::New) );
+    p->setShortcuts( KStandardShortcut::shortcut(KStandardShortcut::New) );
     connect(p, SIGNAL(triggered(bool)), this, SLOT(slotFileNew()));
     ac->addAction("file_new", p);
 	p->menu()->setTitle( i18n("New File") );
@@ -959,7 +961,10 @@ void KTechlab::readPropertiesInConfig( KConfig *conf )
 	//conf->setGroup("UI");
     KConfigGroup grUi = conf->group("UI");
 	resize( grUi.readEntry( "Width", 800 ), grUi.readEntry( "Height", 500 ) );
-	KWindowSystem::setState( winId(), grUi.readEntry( "WinState", (quint32) NET::Max ) );
+    const quint32 winStateDef = quint32( NET::Max );
+    const quint32 winState = grUi.readEntry( "WinState" , winStateDef /* NET::Max */ );
+	KWindowSystem::setState( winId(), NET::States(winState) ) ; 
+        // grUi.readEntry( "WinState", (quint32) NET::Max ) );
 }
 
 
@@ -1267,8 +1272,10 @@ KUrl::List KTechlab::getFileURLs( bool allowMultiple )
 	if ( allowMultiple )
 		return KFileDialog::getOpenUrls( KUrl(), filter, 0l, i18n("Open Location") );
 	
-	else
-		return KFileDialog::getOpenUrl( KUrl(), filter, 0l, i18n("Open Location") );
+	else {
+        KUrl ret = KFileDialog::getOpenUrl( KUrl(), filter, 0l, i18n("Open Location") );
+		return ret;
+    }
 }
 
 

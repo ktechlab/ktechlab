@@ -33,7 +33,7 @@ class SettingsDlg : public KConfigDialog
 {
 	Q_OBJECT
 	public:
-		SettingsDlg( QWidget *parent, const char *name, KConfigSkeleton *config );
+		SettingsDlg( QWidget *parent, const char *name, KCoreConfigSkeleton *config );
 		~SettingsDlg();
 	
 		static int refreshRateToSliderValue( int refreshRate );

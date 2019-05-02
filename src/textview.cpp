@@ -28,8 +28,10 @@
 #include <ktexteditor/texthintinterface.h>
 
 // #include "kateview.h"
+#include <kaction.h>
 #include <kdebug.h>
 #include <kiconloader.h>
+#include <kicon.h>
 #include <klocalizedstring.h>
 // #include <k3popupmenu.h>
 #include <kstandarddirs.h>
@@ -37,6 +39,7 @@
 #include <kmenu.h>
 #include <kxmlguifactory.h>
 #include <kactioncollection.h>
+#include <kaction.h>
 
 #include <qapplication.h>
 #include <qcursor.h>
@@ -593,7 +596,9 @@ TextViewEventFilter::TextViewEventFilter( TextView * textView )
         KTextEditor::View * view = textView->kateView();
         KTextEditor::TextHintInterface *iface = qobject_cast<KTextEditor::TextHintInterface*>(view);
         if (iface) {
-            iface->enableTextHints(0);
+#warning "TextHintProvider"
+            //iface->enableTextHints(0);
+            //iface->registerTextHintProvider(); // TODO
             //connect( textView->kateView(), SIGNAL(needTextHint(int, int, QString &)), this, SLOT(slotNeedTextHint( int, int, QString& )) );
             connect( view, SIGNAL(needTextHint(const KTextEditor::Cursor &, QString &)),
                      this, SLOT(slotNeedTextHint(const KTextEditor::Cursor &, QString &)) );

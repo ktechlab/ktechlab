@@ -28,6 +28,7 @@
 
 #include <kdebug.h>
 #include <kfiledialog.h>
+#include <kicon.h>
 #include <kiconloader.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
@@ -277,7 +278,7 @@ void ItemDocument::print()
 	p.setClipRect( 0, 0, w, h, /* QPainter::CoordPainter */ Qt::ReplaceClip ); // TODO is this correct?
 	
 	// Send off the painter for drawing
-	m_canvas->setBackgroundPixmap( 0 );
+	m_canvas->setBackgroundPixmap( QPixmap(0,0) /* 0 */ );
 	
 	QRect bounding = canvasBoundingRect();
 	unsigned int rows = (unsigned) std::ceil( double( bounding.height() ) / double( h ) );
@@ -870,7 +871,8 @@ void ItemDocument::exportToImage()
 	//KFileDialog exportDialog( KUrl() /*QString::null */, f, KTechlab::self(), i18n("Export As Image"), true, cropCheck);
     KFileDialog exportDialog( KUrl(), f, KTechlab::self(), /*i18n("Export As Image"),*/ /* true, */ cropCheck);
     exportDialog.setModal(true);
-    exportDialog.setCaption(i18n("Export As Image"));
+    exportDialog.setWindowTitle(i18n("Export As Image"));
+    //exportDialog.setCaption(i18n("Export As Image"));
 	
 	exportDialog.setOperationMode( KFileDialog::Saving );
 	// now actually show it

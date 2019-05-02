@@ -108,6 +108,9 @@ target_link_libraries( ktechlab
 	mechanics electronics elements components languages drawparts
 	itemeditor math
 	KF5::TextEditor
+	KF5::KHtml
+	KF5::KParts
+    KF5::KDELibs4Support
 	${KDE4_KHTML_LIBRARY} # khtml
 	${GPSIM_LIBRARY}
 	${KDE4_KTEXTEDITOR_LIBRARY} # ktexteditor
@@ -121,7 +124,6 @@ target_link_libraries( ktechlab
 	#${QT_QT3SUPPORT_LIBRARY} # Qt3Support     # 2018.12.08 - should not be needed
 	${QT_QTCORE_LIBRARY} # QtCore
 	${KDE4_KFILE_LIBRARY} # kfile
-	KF5::KDELibs4Support
 	)
 if(GPSim_FOUND)
     target_link_libraries(ktechlab ${GPSim_LIBRARIES})
@@ -150,7 +152,10 @@ add_library(test_ktechlab STATIC ${ktechlab_SRCS})
 
 target_link_libraries(test_ktechlab
     KF5::TextEditor
-    )
+	KF5::KHtml
+	KF5::KParts
+    KF5::KDELibs4Support
+)
 
 ########### install files ###############
 

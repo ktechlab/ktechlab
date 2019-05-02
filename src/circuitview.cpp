@@ -15,6 +15,8 @@
 #include "simulator.h"
 #include "viewiface.h"
 
+#include <kaction.h>
+#include <kicon.h>
 #include <klocalizedstring.h>
 #include <kactioncollection.h>
 
