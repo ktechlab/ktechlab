@@ -148,6 +148,9 @@ message(STATUS "include_dir end")
 
 add_library(test_ktechlab STATIC ${ktechlab_SRCS})
 
+target_link_libraries(test_ktechlab
+    KF5::TextEditor
+    )
 
 ########### install files ###############
 
