@@ -20,6 +20,8 @@
 #include <ktoolbarpopupaction.h>
 #include <kactioncollection.h>
 
+#include <qmimedata.h>
+
 FlowCodeView::FlowCodeView( FlowCodeDocument * flowCodeDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name )
 	: ICNView( flowCodeDocument, viewContainer, viewAreaId, name )
 {
@@ -79,7 +81,8 @@ void FlowCodeView::dragEnterEvent( QDragEnterEvent * e )
 	if ( e->isAccepted() )
 		return;
 	
-	bool acceptable = e->provides("ktechlab/flowpart");
+	//bool acceptable = e->provides("ktechlab/flowpart");
+    bool acceptable = e->mimeData()->hasFormat("ktechlab/flowpart");
 	if ( !acceptable )
 		return;
 	

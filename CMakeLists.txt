@@ -24,6 +24,7 @@ find_package(Qt5 CONFIG REQUIRED COMPONENTS
     Core
     DBus
     Widgets
+    Test # TODO this should be optional
     )
 
 find_package(KF5TextEditor)

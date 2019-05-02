@@ -36,6 +36,9 @@
 #include <qapplication.h>
 #include <qcursor.h>
 #include <qtimer.h>
+#include <qmimedata.h>
+#include <qlist.h>
+
 #include <qmatrix.h>
 
 #include <cmath>
@@ -324,12 +327,15 @@ void ItemView::dropEvent( QDropEvent *event )
 		return;
 	}
 	
-	if ( !QString(event->format()).startsWith("ktechlab/") )
+	//if ( !QString(event->format()).startsWith("ktechlab/") )
+	if (!event->mimeData()->formats().last().startsWith("ktechlab/")) {
 		return;
+    }
 	
 	QString text;
 	//QDataStream stream( event->encodedData(event->format()), QIODevice::ReadOnly );
-    QByteArray byteArray( event->encodedData(event->format()) );
+    //QByteArray byteArray( event->encodedData(event->format()) );
+    QByteArray byteArray( event->mimeData()->data(event->mimeData()->formats().last()) );
     QDataStream stream( &byteArray, QIODevice::ReadOnly);
 	stream >> text;
 
@@ -480,14 +486,17 @@ void ItemView::createDragItem( QDragEnterEvent * e )
 {
 	removeDragItem();
 	
-	if ( !QString(e->format()).startsWith("ktechlab/") )
+	//if ( !QString(e->format()).startsWith("ktechlab/") )
+    if (!e->mimeData()->formats().last().startsWith("ktechlab/")) {
 		return;
-	
+    }
+
 	e->accept();
 	
 	QString text;
 	//QDataStream stream( e->encodedData(e->format()), QIODevice::ReadOnly );
-    QByteArray byteArray( e->encodedData(e->format()) );
+    //QByteArray byteArray( e->encodedData(e->format()) );
+    QByteArray byteArray( e->mimeData()->data(e->mimeData()->formats().last()) );
     QDataStream stream( &byteArray, QIODevice::ReadOnly );
 	stream >> text;
 

@@ -33,6 +33,7 @@
 #include <kxmlguifactory.h>
 #include <kconfiggroup.h>
 #include <kmenu.h>
+#include <kglobal.h>
 
 // #include <q3intdict.h>
 #include <qevent.h>

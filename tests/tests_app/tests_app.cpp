@@ -25,7 +25,7 @@
 #include "docmanager.h"
 #include "electronics/circuitdocument.h"
 
-#include <kaboutdata.h>
+#include <k4aboutdata.h>
 #include <kapplication.h>
 #include <kcmdlineargs.h>
 #include <klocalizedstring.h>
@@ -50,8 +50,8 @@ private slots:
         char argv0[] = "tests_app";
         char *argv[] = { argv0, NULL };
 
-        KAboutData about(QByteArray("ktechlab"), QByteArray("ktechlab"), ki18n("KTechLab"), VERSION, ki18n(description),
-                    KAboutData::License_GPL, ki18n("(C) 2003-2017, The KTechLab developers"),
+        K4AboutData about(QByteArray("ktechlab"), QByteArray("ktechlab"), ki18n("KTechLab"), VERSION, ki18n(description),
+                    K4AboutData::License_GPL, ki18n("(C) 2003-2017, The KTechLab developers"),
                     KLocalizedString(), "https://userbase.kde.org/KTechlab", "ktechlab-devel@kde.org" );
         KCmdLineArgs::init(argc, argv, &about);
         app = new KApplication;

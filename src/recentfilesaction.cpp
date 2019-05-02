@@ -10,6 +10,7 @@
 
 #include "recentfilesaction.h"
 
+#include <kaction.h>
 #include <kconfig.h>
 #include <kmenu.h>
 #include <kstandarddirs.h>
@@ -158,7 +159,7 @@ void RecentFilesAction::menuAboutToShow()
 void RecentFilesAction::slotClicked()
 {
 	//KAction::slotActivated(); // TODO CORRECT?
-    KAction::trigger();
+    QAction::trigger();
 }
 
 void RecentFilesAction::slotActivated(const QString& text)

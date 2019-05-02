@@ -109,7 +109,7 @@ target_link_libraries( ktechlab
 	itemeditor math
 	KF5::TextEditor
 	KF5::KHtml
-	KF5::KParts
+	KF5::Parts
     KF5::KDELibs4Support
 	${KDE4_KHTML_LIBRARY} # khtml
 	${GPSIM_LIBRARY}
@@ -153,7 +153,7 @@ add_library(test_ktechlab STATIC ${ktechlab_SRCS})
 target_link_libraries(test_ktechlab
     KF5::TextEditor
 	KF5::KHtml
-	KF5::KParts
+	KF5::Parts
     KF5::KDELibs4Support
 )
 

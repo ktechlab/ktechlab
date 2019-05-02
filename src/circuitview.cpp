@@ -21,6 +21,7 @@
 #include <kactioncollection.h>
 
 #include <qdebug.h>
+#include <qmimedata.h>
 
 CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name )
 	: ICNView( circuitDocument, viewContainer, viewAreaId, name ),
@@ -155,7 +156,9 @@ void CircuitView::dragEnterEvent( QDragEnterEvent * e )
 	if ( e->isAccepted() )
 		return;
 	
-	bool acceptable = e->provides("ktechlab/component") || e->provides("ktechlab/subcircuit");
+	//bool acceptable = e->provides("ktechlab/component") || e->provides("ktechlab/subcircuit");
+    bool acceptable = e->mimeData()->hasFormat("ktechlab/component")
+            || e->mimeData()->hasFormat("ktechlab/subcircuit");
 	if ( !acceptable )
 		return;
 	

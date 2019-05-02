@@ -15,6 +15,7 @@
 #include <qlist.h>
 
 #include "language.h"
+#include "logview.h"
 
 class FlowCode;
 class Gpasm;

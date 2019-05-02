@@ -146,7 +146,8 @@ bool ContextHelp::eventFilter( QObject * watched, QEvent * e )
 		{
 			QDragEnterEvent * dragEnter = static_cast<QDragEnterEvent*>(e);
 			
-			if ( !QString( dragEnter->format() ).startsWith("ktechlab/") )
+			//if ( !QString( dragEnter->format() ).startsWith("ktechlab/") )
+            if (!dragEnter->mimeData()->formats().last().startsWith("ktechlab/"))
 				break;
 			
 			//dragEnter->acceptAction(); // 2018.12.07
@@ -158,13 +159,15 @@ bool ContextHelp::eventFilter( QObject * watched, QEvent * e )
 		{
 			QDropEvent * dropEvent = static_cast<QDropEvent*>(e);
 			
-			if ( !QString( dropEvent->format() ).startsWith("ktechlab/") )
+			//if ( !QString( dropEvent->format() ).startsWith("ktechlab/") )
+            if (!dropEvent->mimeData()->formats().last().startsWith("ktechlab/") )
 				break;
 			
 			dropEvent->accept();
 			
 			QString type;
-			QDataStream stream( dropEvent->encodedData( dropEvent->format() ) /*, QIODevice::ReadOnly */ );
+			//QDataStream stream( dropEvent->encodedData( dropEvent->format() ) /*,
+            QDataStream stream( dropEvent->mimeData()->data( dropEvent->mimeData()->formats().last() ) /*,QIODevice::ReadOnly */ );
 			stream >> type;
 			
 			LibraryItem * li = itemLibrary()->libraryItem( type );
