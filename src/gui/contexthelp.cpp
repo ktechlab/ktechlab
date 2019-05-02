@@ -37,6 +37,7 @@
 #include <kstandarddirs.h>
 // #include <k3iconview.h>
 #include <kicon.h>
+#include <kglobal.h>
 
 #include <qfile.h>
 #include <qlayout.h>
@@ -47,6 +48,7 @@
 #include <qtoolbutton.h>
 #include <qvalidator.h>
 // #include <q3widgetstack.h>
+#include <qmimedata.h>
 
 #include <cassert>
 

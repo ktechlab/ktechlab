@@ -26,6 +26,7 @@
 #include <kdebug.h>
 #include <kpushbutton.h>
 #include <kicon.h>
+#include <kiconloader.h>
 
 #include <qevent.h>
 #include <qfontmetrics.h>

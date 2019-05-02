@@ -21,7 +21,7 @@
 #include <kglobal.h>
 #include <kdebug.h>
 
-#include <qiconset.h>
+//#include <qiconset.h>
 #include <qtoolbutton.h>
 #include <qevent.h>
 
