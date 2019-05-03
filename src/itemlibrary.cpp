@@ -675,7 +675,8 @@ void ItemLibrary::loadItemDescriptions()
 {
 	// Create an entry for the default language (American English)
 	// and the current language
-	KLocale * locale = KGlobal::locale();
+	//KLocale * locale = KGlobal::locale();
+    KLocale * locale = KLocale::global();
 	m_itemDescriptions[ locale->defaultLanguage() ];
 	m_itemDescriptions[ locale->language() ];
 	
