@@ -227,7 +227,8 @@ void Widget::posChanged()
 void Widget::drawShape( QPainter &p )
 {
 // 	initPainter(p);
-	p.drawPixmap( int(x()), int(y()), QPixmap::grabWidget( widget() ) );
+	//p.drawPixmap( int(x()), int(y()), QPixmap::grabWidget( widget() ) ); // 2019.05.06
+    p.drawPixmap( int(x()), int(y()), widget()->grab() );
 // 	deinitPainter(p);
 }
 //END Class Widget
