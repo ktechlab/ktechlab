@@ -1,4 +1,4 @@
-#set( KTECHLAB_DEVELOPER_BUILD "true" )
+set( KTECHLAB_DEVELOPER_BUILD "true" )
 
 project( ktechlab )
 set( VERSION 0.50.0 )
@@ -52,7 +52,7 @@ add_definitions(-Wno-deprecated-declarations) # TODO too much spam for now
 if (KTECHLAB_DEVELOPER_BUILD)
 # for debugging with GCC 5
     add_definitions( -fno-omit-frame-pointer )
-    set(SANITIZE_FLAGS " -fsanitize=address -fno-omit-frame-pointer ") # address
+    set(SANITIZE_FLAGS " -fsanitize=address -fno-omit-frame-pointer -fPIC") # address
     #set(SANITIZE_FLAGS " -fsanitize=undefined -fno-omit-frame-pointer ") # undefined
     #set(SANITIZE_FLAGS "") # disabled
 
