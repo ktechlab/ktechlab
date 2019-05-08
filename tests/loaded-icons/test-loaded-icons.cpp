@@ -1,15 +1,16 @@
-#include <kapplication.h>
-#include <kmainwindow.h>
-#include <kcmdlineargs.h>
-#include <k4aboutdata.h>
-#include <kiconloader.h>
-#include <klocalizedstring.h>
 
-#include <qgridlayout.h>
-#include <qicon.h>
-#include <qlabel.h>
-#include <qscrollarea.h>
-#include <qdebug.h>
+#include <KAboutData>
+#include <KIconLoader>
+#include <KLocalizedString>
+
+#include <QApplication>
+#include <QMainWindow>
+
+#include <QGridLayout>
+#include <QIcon>
+#include <QLabel>
+#include <QScrollArea>
+#include <QDebug>
 
 #include "config.h"
 
@@ -22,20 +23,19 @@ static const char description[] =
 static void addIcon(QGridLayout *mainLayout, const char *iconName);
 
 int main(int argc, char **argv) {
-    K4AboutData about(QByteArray("ktechlab"), QByteArray("KTechLab Icon Tester"), ki18n("KTechLab Icon Tester"), VERSION, ki18n(description),
-                K4AboutData::License_GPL, ki18n("(C) 2003-2009, The KTechLab developers"),
-                KLocalizedString(), "http://ktechlab.org", "ktechlab-devel@lists.sourceforge.net" );
+    KAboutData about("ktechlab", i18n("KTechLab Icon Tester"), VERSION, i18n(description),
+                KAboutLicense::LicenseKey::GPL_V2, i18n("(C) 2003-2009, The KTechLab developers"),
+                "", "http://ktechlab.org", "ktechlab-devel@lists.sourceforge.net" );
 
-    KCmdLineArgs::init(argc, argv, &about);
-    KApplication testLoadedIconsApp;
-    KMainWindow *mainWnd = new KMainWindow;
-    QScrollArea *mainWidget = new QScrollArea;
-    QWidget *tableWidget = new QWidget;
+    QApplication app(argc, argv);
+    QMainWindow *mainWnd = new QMainWindow();
+    QScrollArea *mainWidget = new QScrollArea();
+    QWidget *tableWidget = new QWidget();
     mainWidget->setWidget(tableWidget);
     mainWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     mainWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     mainWidget->setWidgetResizable(true);
-    QGridLayout *mainLayout = new QGridLayout;
+    QGridLayout *mainLayout = new QGridLayout();
     tableWidget->setLayout(mainLayout);
     mainWnd->setCentralWidget(mainWidget);
 
@@ -43,63 +43,25 @@ int main(int argc, char **argv) {
     for (int iconNr = 0; iconNr < iconCount; ++iconNr) {
         addIcon(mainLayout, iconNames[iconNr]);
     }
-    // TODO add assertion if all icons have been properly loaded
-    /*
-    addIcon(mainLayout, "asd");
-    addIcon(mainLayout, "object-rotate-right");
-    addIcon(mainLayout, "object-rotate-left");
-    addIcon(mainLayout, "text");
-    addIcon(mainLayout, "rotate");
-    addIcon(mainLayout, "media-playback-start");
-    addIcon(mainLayout, "media-playback-pause");
-    addIcon(mainLayout, "process-stop");
-    addIcon(mainLayout, "view-refresh");
-    addIcon(mainLayout, "application-x-circuit");
-    addIcon(mainLayout, "fork");
-    addIcon(mainLayout, "convert_to_microbe");
-    addIcon(mainLayout, "convert_to_assembly");
-    addIcon(mainLayout, "convert_to_hex");
-    addIcon(mainLayout, "convert_to_pic");
-    addIcon(mainLayout, "go-down");
-    addIcon(mainLayout, "dialog-cancel");
-    addIcon(mainLayout, "folder");
-    addIcon(mainLayout, "template-source");
-    addIcon(mainLayout, "text-x-csrc");
-    addIcon(mainLayout, "application-x-circuit");
-    addIcon(mainLayout, "application-x-flowcode");
-    addIcon(mainLayout, "exec");
-    addIcon(mainLayout, "oscilloscope");
-    */
-    /*  {
-        KIcon testIcon("foo");
-        QPixmap testPixmap = testIcon.pixmap(64, 64);
-        QLabel *ql = new QLabel;
-        ql->setPixmap(testPixmap);
-        ql->setIconText("label text");
-        mainLayout->addWidget(ql, 1, 1);
-
-        QLabel *qt = new QLabel;
-        qt->setText("asd");
-        mainLayout->addWidget(qt, 1, 2);
-    } */
 
     mainWnd->show();
-    return testLoadedIconsApp.exec();
+    return app.exec();
 }
 
 static void addIcon(QGridLayout *mainLayout, const char *iconName) {
     const int atRow = mainLayout->rowCount() + 1;
     {
-        QIcon testIconConstr(iconName);
+        QIcon testIconConstr = QIcon::fromTheme(iconName);
         if (testIconConstr.isNull()) {
             qWarning() << "QIcon " << iconName << " is NULL";
         }
     }
     {
-        QPixmap  testPixmapLoader = KIconLoader::global()->loadIcon(QString(iconName), KIconLoader::NoGroup,
-                                                                    KIconLoader::SizeHuge, KIconLoader::DefaultState,
-                                                                    QStringList(), 0L, true
-                                                                   );
+        QPixmap testPixmapLoader = KIconLoader::global()->loadIcon(
+            QString(iconName), KIconLoader::NoGroup,
+            KIconLoader::SizeHuge, KIconLoader::DefaultState,
+            QStringList(), 0L, true
+        );
         if (testPixmapLoader.isNull()) {
             qWarning() << "loadIcon " << iconName << " is NULL";
         }

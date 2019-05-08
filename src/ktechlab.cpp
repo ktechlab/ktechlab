@@ -492,7 +492,6 @@ void KTechlab::setupActions()
 {
     m_actionGroup = new QActionGroup(this->widget());
     QActionGroup *ac = m_actionGroup;
-
     // TODO move the actions from KTechLab object level to document view level for
     //  all types of documents; see actions marked with (1)! and TextView constructor
 
@@ -503,7 +502,7 @@ void KTechlab::setupActions()
     openAction->setShortcutContext(Qt::WidgetWithChildrenShortcut );
     }
     KStandardAction::save(				this, SLOT(slotFileSave()),					ac ); // (1)!
-    KStandardAction::saveAs(				this, SLOT(slotFileSaveAs()),				ac );
+    KStandardAction::saveAs(			this, SLOT(slotFileSaveAs()),				ac );
 	KStandardAction::close(				this, SLOT(slotViewClose()),				ac );
     KStandardAction::print(				this, SLOT(slotFilePrint()),				ac ); // (1)!
     KStandardAction::quit(				this, SLOT(slotFileQuit()),					ac );
