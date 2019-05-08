@@ -13,11 +13,11 @@
 
 #include "katemdi.h"
 
-#include <kurl.h>
+#include <KUrl>
 
-#include <qmap.h>
-#include <qlist.h>
-#include <qpointer.h>
+#include <QMap>
+#include <QList>
+#include <QPointer>
 
 class CircuitDocument;
 class TextDocument;

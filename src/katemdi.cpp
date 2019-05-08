@@ -36,8 +36,8 @@
 #include <kmenu.h>
 
 // #include <q3intdict.h>
-#include <qdebug.h>
-#include <qevent.h>
+#include <QDebug>
+#include <QEvent>
 
 
 typedef QList<int> IntList;
