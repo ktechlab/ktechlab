@@ -1,3 +1,4 @@
+
 /***************************************************************************
  *   Copyright (C) 2006 by David Saxton - david@bluehaze.org               *
  *                                                                         *
@@ -15,7 +16,6 @@
 #include <kdialog.h>
 //#include <kdialog.h>
 
-class KAction;
 class QTextEdit;
 class KToggleAction;
 class KToolBarPopupAction;
@@ -50,12 +50,12 @@ class RichTextEditor : public QWidget
 		 * These are the paths that are used for to search for images, etc.
 		 */
 		void setResourcePaths( const QStringList & paths );
-		
+
 		QWidget * editorViewport() const;
-		
+
 	signals:
 		void textChanged();
-		
+
 	public slots:
 		/**
 		 * Inserts a url in the editor at the current cursor position with the
@@ -68,7 +68,7 @@ class RichTextEditor : public QWidget
 		 * HTML code, replacing less-thans, etc.
 		 */
 		void insertHTML( const QString & html );
-		
+
 	protected slots:
         void slotSetBold(bool);
         void slotSetItalic(bool);
@@ -86,7 +86,7 @@ class RichTextEditor : public QWidget
 		void alignmentChanged( int a );
 		void verticalAlignmentChanged();
 		void textColor();
-		
+
 	protected:
 		KToggleAction * m_pTextBold;
 		KToggleAction * m_pTextItalic;
@@ -94,7 +94,7 @@ class RichTextEditor : public QWidget
 		KToggleAction * m_pTextList;
 		KToolBarPopupAction * m_pTextAlignment;
 		KToolBarPopupAction * m_pTextVerticalAlignment;
-		KAction * m_pTextColor;
+		QAction * m_pTextColor;
 		QTextEdit * m_pEditor;
 };
 
@@ -107,7 +107,7 @@ class RichTextEditorDlg : public KDialog /* or KPageDialog ? */ // KDialog
 {
 	public:
 		RichTextEditorDlg( QWidget * parent = 0, const QString & caption = QString::null );
-		
+
 		/**
 		 * Sets the text being edited (passes it to RichTextEditor).
 		 */
@@ -116,7 +116,7 @@ class RichTextEditorDlg : public KDialog /* or KPageDialog ? */ // KDialog
 		 * @return the text in the RichTextEditor.
 		 */
 		QString text() const { return m_pEditor->text(); }
-		
+
 	protected:
 		RichTextEditor * m_pEditor;
 };

@@ -31,6 +31,7 @@
 #include <qdebug.h>
 #include <kiconloader.h>
 #include <klocalizedstring.h>
+#include <KActionCollection>
 // #include <k3popupmenu.h>
 #include <kstandarddirs.h>
 #include <ktoolbarpopupaction.h>
@@ -54,15 +55,14 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
 	m_view = textDocument->createKateView(this);
 	m_view->insertChildClient(this);
 
-	m_actionGroup = new QActionGroup(m_view);
-    QActionGroup * ac = m_actionGroup;
+    KActionCollection * ac = actionCollection();
 
 	//BEGIN Convert To * Actions
 	//KToolBarPopupAction * pa = new KToolBarPopupAction( i18n("Convert to"), "fork", 0, 0, 0, ac, "program_convert" );
     KToolBarPopupAction * pa = new KToolBarPopupAction( QIcon::fromTheme("fork"), i18n("Convert To"), ac);
     pa->setObjectName("program_convert");
 	pa->setDelayed(false);
-    ac->addAction(pa);
+    ac->addAction(pa->objectName(), pa);
 
 	QMenu * m = pa->menu();
 
@@ -76,7 +76,7 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
 
 	//m->setItemEnabled( TextDocument::MicrobeOutput, false ); // 2018.12.02
     actToMicrobe->setEnabled(false);
-    ac->addAction(pa);
+    ac->addAction(pa->objectName(), pa);
 	//END Convert To * Actions
 
     {
@@ -85,7 +85,7 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
         action->setObjectName("format_asm");
         action->setShortcut(Qt::Key_F12);
         connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(formatAssembly()));
-        ac->addAction(action);
+        ac->addAction(action->objectName(), action);
     }
 
 
@@ -96,28 +96,28 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
         QAction *action = new QAction( QIcon::fromTheme(""), i18n("Set &Breakpoint"), ac);
         action->setObjectName("debug_toggle_breakpoint");
         connect(action, SIGNAL(triggered(bool)), this, SLOT(toggleBreakpoint()));
-        ac->addAction(action);
+        ac->addAction(action->objectName(), action);
     }
     {
 	//new QAction( i18n("Run"), "debug-run", 0, textDocument, SLOT(debugRun()), ac, "debug_run" );
         QAction *action = new QAction( QIcon::fromTheme("debug-run"), i18n("Run"), ac);
         action->setObjectName("debug_run");
         connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(debugRun()));
-        ac->addAction(action);
+        ac->addAction(action->objectName(), action);
     }
     {
 	//new QAction( i18n("Interrupt"), "media-playback-pause", 0, textDocument, SLOT(debugInterrupt()), ac, "debug_interrupt" );
         QAction *action = new QAction( QIcon::fromTheme("media-playback-pause"), i18n("Interrupt"), ac);
         action->setObjectName("debug_interrupt");
         connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(debugInterrupt()));
-        ac->addAction(action);
+        ac->addAction(action->objectName(), action);
     }
     {
 	//new QAction( i18n("Stop"), "process-stop", 0, textDocument, SLOT(debugStop()), ac, "debug_stop" );
         QAction *action = new QAction( QIcon::fromTheme("process-stop"), i18n("Stop"), ac);
         action->setObjectName("debug_stop");
         connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(debugStop()));
-        ac->addAction(action);
+        ac->addAction(action->objectName(), action);
     }
     {
 	//new QAction( i18n("Step"), "debug-step-instruction", Qt::CTRL|Qt::ALT|Qt::Key_Right, textDocument, SLOT(debugStep()), ac, "debug_step" );
@@ -125,21 +125,21 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
         action->setObjectName("debug_step");
         action->setShortcut(Qt::CTRL|Qt::ALT|Qt::Key_Right);
         connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(debugStep()));
-        ac->addAction(action);
+        ac->addAction(action->objectName(), action);
     }
     {
 	//new QAction( i18n("Step Over"), "debug-step-over", 0, textDocument, SLOT(debugStepOver()), ac, "debug_step_over" );
         QAction *action = new QAction( QIcon::fromTheme("debug-step-over"), i18n("Step Over"), ac);
         action->setObjectName("debug_step_over");
         connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(debugStepOver()));
-        ac->addAction(action);
+        ac->addAction(action->objectName(), action);
     }
     {
 	//new QAction( i18n("Step Out"), "debug-step-out", 0, textDocument, SLOT(debugStepOut()), ac, "debug_step_out" );
         QAction *action = new QAction( QIcon::fromTheme("debug-step-out"), i18n("Step Out"), ac);
         action->setObjectName("debug_step_out");
         connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(debugStepOut()));
-        ac->addAction(action);
+        ac->addAction(action->objectName(), action);
     }
 	//END Debug Actions
 #endif
@@ -188,9 +188,7 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
     // TODO HACK disable some actions which collide with ktechlab's actions.
     //  the proper solution would be to move the actions from KTechLab object level to document level for
     //  all types of documents
-    QList< QAction* > actList = m_actionGroup->actions();
-    for (QList<QAction*>::iterator itAct = actList.begin(); itAct != actList.end(); ++itAct) {
-        QAction *act = static_cast<QAction*>( *itAct );
+    for (QAction *act: actionCollection()->actions()) {
         qDebug() << Q_FUNC_INFO << "act: " << act->text() << " shortcut " << act->shortcut() << ":" << act ;
 
         if ( ((act->objectName()) == QLatin1String("file_save"))
@@ -220,7 +218,6 @@ TextView::~TextView()
 		KTechlab::self()->addNoRemoveGUIClient( m_view );
 	}
 
-    delete m_actionGroup;
 	delete m_pViewIface;
 }
 
@@ -253,22 +250,20 @@ void TextView::undo() {
     qDebug() << Q_FUNC_INFO;
     // note: quite a hack, but could not find any more decent way of getting to undo/redo interface
     // note: quite a hack, but could not find any more decent way of getting to undo/redo interface
-    for (QAction* action: m_actionGroup->actions()) {
-        if (action->objectName() == "edit_undo") {
-            action->trigger();
-            return;
-        }
+    QAction* action = actionByName("edit_undo");
+    if (action) {
+        action->trigger();
+        return;
     }
     qWarning() << Q_FUNC_INFO << "no edit_undo action in text view! no action taken";
 }
 void TextView::redo() {
     qDebug() << Q_FUNC_INFO;
     // note: quite a hack, but could not find any more decent way of getting to undo/redo interface
-    for (QAction* action: m_actionGroup->actions()) {
-        if (action->objectName() == "edit_redo") {
-            action->trigger();
-            return;
-        }
+    QAction* action = actionByName("edit_redo");
+    if (action) {
+        action->trigger();
+        return;
     }
     qWarning() << Q_FUNC_INFO << "no edit_redo action in text view! no action taken";
 }
@@ -335,11 +330,10 @@ bool TextView::saveAs()
 void TextView::print() {
     qDebug() << Q_FUNC_INFO;
     // note: quite a hack, but could not find any more decent way of getting to undo/redo interface
-    for (QAction* action: m_actionGroup->actions()) {
-        if (action->objectName() == "file_print") {
-            action->trigger();
-            return;
-        }
+    QAction* action = actionByName("file_print");
+    if (action) {
+        action->trigger();
+        return;
     }
     qWarning() << Q_FUNC_INFO << "no file_print action in text view! no action taken";
 }

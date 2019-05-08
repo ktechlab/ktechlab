@@ -325,12 +325,21 @@ void ItemView::dropEvent( QDropEvent *event )
 		return;
 	}
 
-	if ( !mimeData->text().startsWith("ktechlab/") )
+    QString matchingFormat;
+    for (QString format: mimeData->formats()) {
+        if (format.startsWith("ktechlab/")) {
+            matchingFormat = format;
+            break;
+        }
+    }
+	if (matchingFormat.isEmpty()) {
 		return;
+    }
+    event->acceptProposedAction();
 
 	QString text;
 	//QDataStream stream( event->encodedData(event->format()), QIODevice::ReadOnly );
-    QByteArray byteArray( mimeData->data(mimeData->text()) );
+    QByteArray byteArray( mimeData->data(matchingFormat) );
     QDataStream stream( &byteArray, QIODevice::ReadOnly);
 	stream >> text;
 
@@ -481,15 +490,22 @@ void ItemView::createDragItem( QDragEnterEvent * e )
 {
 	removeDragItem();
     const QMimeData* mimeData = e->mimeData();
-
-	if ( !mimeData->text().startsWith("ktechlab/") )
+    QString matchingFormat;
+    for (QString format: mimeData->formats()) {
+        if (format.startsWith("ktechlab/")) {
+            matchingFormat = format;
+            break;
+        }
+    }
+	if (matchingFormat.isEmpty()) {
+        qWarning() << Q_FUNC_INFO << "Invalid mime data" << mimeData->formats();
 		return;
+    }
 
 	e->accept();
 
 	QString text;
-	//QDataStream stream( e->encodedData(e->format()), QIODevice::ReadOnly );
-    QByteArray byteArray( mimeData->data(mimeData->text()) );
+    QByteArray byteArray( mimeData->data(matchingFormat) );
     QDataStream stream( &byteArray, QIODevice::ReadOnly );
 	stream >> text;
 
@@ -497,9 +513,11 @@ void ItemView::createDragItem( QDragEnterEvent * e )
 
 	m_pDragItem = itemLibrary()->createItem( text, p_itemDocument, true );
 
-	if ( CNItem * cnItem = dynamic_cast<CNItem*>(m_pDragItem) )
+	if ( CNItem * cnItem = dynamic_cast<CNItem*>(m_pDragItem) ) {
 		cnItem->move( snapToCanvas(p.x()), snapToCanvas(p.y()) );
-	else m_pDragItem->move( p.x(), p.y() );
+    } else {
+        m_pDragItem->move( p.x(), p.y() );
+    }
 
 	m_pDragItem->show();
 }
@@ -521,9 +539,11 @@ void ItemView::dragMoveEvent( QDragMoveEvent * e )
 
 	QPoint p = mousePosToCanvasPos( e->pos() );
 
-	if ( CNItem * cnItem = dynamic_cast<CNItem*>(m_pDragItem) )
+	if ( CNItem * cnItem = dynamic_cast<CNItem*>(m_pDragItem) ) {
 		cnItem->move( snapToCanvas(p.x()), snapToCanvas(p.y()) );
-	else	m_pDragItem->move( p.x(), p.y() );
+    } else	{
+        m_pDragItem->move( p.x(), p.y() );
+    }
 }
 
 

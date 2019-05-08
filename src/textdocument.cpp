@@ -35,6 +35,7 @@
 #include <ktemporaryfile.h>
 #include <ktexteditor/document.h>
 #include <kxmlguifactory.h>
+#include <KTextEditor/Editor>
 
 
 bool TextDocument::isUndoAvailable() const {
@@ -75,30 +76,9 @@ TextDocument::TextDocument( const QString &caption, const char *name )
 	m_type = Document::dt_text;
 	//m_bookmarkActions.setAutoDelete(true); // TODO see if this genereates memory leaks
 	m_pDocumentIface = new TextDocumentIface(this);
+    KTextEditor::Editor* editor = KTextEditor::Editor::instance();
+    m_doc = editor->createDocument(this);
 
-    KPluginLoader loader( "katepart" );
-    KPluginFactory* factory = loader.factory();
-    if (!factory) {
-        qWarning() << "Error loading plugin:" << loader.errorString();
-		KMessageBox::sorry( KTechlab::self(), i18n("Libkatepart not available for constructing editor") );
-		return;
-    }
-    m_doc = factory->create<KTextEditor::Document>( /* QString("KatePart"), */ this  /*,  list */ );
-
-#if 0 // 2017.10.01 - commented deprecated method
-	KLibFactory *factory = KLibLoader::self()->factory("katepart");
-	if(!factory)
-	{
-		KMessageBox::sorry( KTechlab::self(), i18n("Libkatepart not available for constructing editor") );
-		return;
-	}
-	//m_doc = (KTextEditor::Document*)factory->create( 0L, "kate", "KTextEditor::Document");
-	{
-	//QVariantList list;
-    //list.append(QVariant( "KTextEditor::Document"));
-	m_doc = factory->create<KTextEditor::Document>( /* QString("KatePart"), */ this  /*,  list */ );
-    }
-#endif
     if(!m_doc)
     {
         KMessageBox::sorry( KTechlab::self(), i18n("Failed to create editor") );

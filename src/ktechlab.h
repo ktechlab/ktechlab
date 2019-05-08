@@ -11,8 +11,7 @@
 #ifndef KTECHLAB_H
 #define KTECHLAB_H
 
-#include "katemdi.h"
-
+#include <katemdi.h>
 #include <KUrl>
 
 #include <QMap>
@@ -203,7 +202,7 @@ class KTechlab : public KateMDI::MainWindow
 		virtual bool queryClose() override;
 
 	protected slots:
-		void slotViewContainerActivated( QWidget * viewContainer );
+		void slotViewContainerActivated( int index );
 		void slotUpdateTabWidget();
 		/**
 		 * Updates the tab and window captions from what is currently open and
@@ -266,7 +265,6 @@ class KTechlab : public KateMDI::MainWindow
 		QTimer * m_pUpdateCaptionsTimer;
 		IntStringMap m_exampleFiles;
 		QFont m_itemFont;
-        QActionGroup * m_actionGroup;
 
 		static KTechlab * m_pSelf;
 

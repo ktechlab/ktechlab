@@ -158,10 +158,10 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
 	QPixmap pm( 16, 16 );
 	pm.fill( Qt::black );
 	//m_pTextColor = new KAction( i18n("Text Color..."), pm, 0, this, SLOT(textColor()), ac, "format_color" );
-    m_pTextColor = new KAction( i18n("Text Color..."), this);
+    m_pTextColor = new QAction( i18n("Text Color..."), this);
     m_pTextColor->setIcon(pm);
     m_pTextColor->setObjectName("format_color");
-    connect(m_pTextColor, SIGNAL(activated(int)), this, SLOT(textColor()));
+    connect(m_pTextColor, SIGNAL(triggered(bool)), this, SLOT(textColor()));
 	//m_pTextColor->plug( tools );
     ac->addAction("format_color", m_pTextColor);
     tools->addAction(m_pTextColor);

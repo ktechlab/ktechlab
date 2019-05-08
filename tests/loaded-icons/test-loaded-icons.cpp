@@ -66,7 +66,7 @@ static void addIcon(QGridLayout *mainLayout, const char *iconName) {
             qWarning() << "loadIcon " << iconName << " is NULL";
         }
     }
-    QIcon testIcon(iconName);
+    QIcon testIcon = QIcon::fromTheme(iconName);
     QPixmap testPixmap = testIcon.pixmap(64, 64);
     QLabel *ql = new QLabel;
     ql->setPixmap(testPixmap);
