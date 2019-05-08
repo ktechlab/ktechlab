@@ -12,7 +12,6 @@
 #define CIRCUITVIEW_H
 
 #include <icnview.h>
-#include <qactiongroup.h>
 
 class CircuitDocument;
 
@@ -32,7 +31,6 @@ public slots:
 protected:
 	virtual void dragEnterEvent( QDragEnterEvent * e ) override;
 	CircuitDocument *p_circuitDocument;
-    QActionGroup *m_actionGroup;
 };
 
 #endif

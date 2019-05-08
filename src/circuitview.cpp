@@ -15,6 +15,7 @@
 #include "simulator.h"
 #include "viewiface.h"
 
+#include <kactioncollection.h>
 #include <klocalizedstring.h>
 
 #include <qaction.h>
@@ -26,16 +27,15 @@ CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *view
 	: ICNView( circuitDocument, viewContainer, viewAreaId, name ),
 	p_circuitDocument(circuitDocument)
 {
-    m_actionGroup = new QActionGroup(viewContainer->viewArea(viewAreaId));
-	QActionGroup * ac = m_actionGroup;
+	KActionCollection * ac = actionCollection();
 
     {
 	//new QAction( "Dump linear equations", Qt::CTRL|Qt::Key_D, circuitDocument, SLOT(displayEquations()), ac, "dump_les" );
         QAction * a = new QAction( i18n("Dump linear equations"), ac);
         a->setObjectName("dump_les");
-        a->setShortcut(Qt::CTRL | Qt::Key_D);
+        ac->setDefaultShortcut(a, Qt::CTRL | Qt::Key_D);
         connect(a, SIGNAL(triggered(bool)), circuitDocument, SLOT(displayEquations()));
-        ac->addAction(a);
+        ac->addAction(a->objectName(), a);
     }
 
 	//BEGIN Item Control Actions
@@ -46,7 +46,7 @@ CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *view
         QAction *ra = new QAction( QIcon::fromTheme(""), i18n("0 Degrees"), ac);
         ra->setObjectName("edit_orientation_0");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(setOrientation0()));
-        ac->addAction(ra);
+        ac->addAction(ra->objectName(), ra);
         ra->setChecked(true);
     }
     {
@@ -55,7 +55,7 @@ CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *view
         QAction *ra = new QAction( QIcon::fromTheme(""), i18n("90 Degrees"), ac);
         ra->setObjectName("edit_orientation_90");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(setOrientation90()));
-        ac->addAction(ra);
+        ac->addAction(ra->objectName(), ra);
     }
     {
 	//ra = new QAction( i18n("180 Degrees"), "", 0, circuitDocument, SLOT(setOrientation180()), ac, "edit_orientation_180" );
@@ -63,7 +63,7 @@ CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *view
         QAction *ra = new QAction( QIcon::fromTheme(""), i18n("180 Degrees"), ac);
         ra->setObjectName("edit_orientation_180");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(setOrientation180()));
-        ac->addAction(ra);
+        ac->addAction(ra->objectName(), ra);
     }
     {
 	//ra =new QAction( i18n("270 Degrees"), "", 0, circuitDocument, SLOT(setOrientation270()), ac, "edit_orientation_270" );
@@ -71,7 +71,7 @@ CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *view
         QAction *ra = new QAction( QIcon::fromTheme(""), i18n("270 Degrees"), ac);
         ra->setObjectName("edit_orientation_270");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(setOrientation270()));
-        ac->addAction(ra);
+        ac->addAction(ra->objectName(), ra);
     }
 
     {
@@ -79,35 +79,35 @@ CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *view
         QAction *ra = new QAction( QIcon::fromTheme(""), i18n("Create Subcircuit"), ac);
         ra->setObjectName("circuit_create_subcircuit");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(createSubcircuit()));
-        ac->addAction(ra);
+        ac->addAction(ra->objectName(), ra);
     }
     {
 	//new QAction( i18n("Rotate Clockwise"), "object-rotate-right", "]", circuitDocument, SLOT(rotateClockwise()), ac, "edit_rotate_cw" );
         QAction *ra = new QAction( QIcon::fromTheme("object-rotate-right"), i18n("Rotate Clockwise"), ac);
         ra->setObjectName("edit_rotate_cw");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(rotateClockwise()));
-        ac->addAction(ra);
+        ac->addAction(ra->objectName(), ra);
     }
     {
 	//new QAction( i18n("Rotate Counter-Clockwise"), "object-rotate-left", "[", circuitDocument, SLOT(rotateCounterClockwise()), ac, "edit_rotate_ccw" );
         QAction *ra = new QAction( QIcon::fromTheme("object-rotate-left"), i18n("Rotate Counter-Clockwise"), ac);
         ra->setObjectName("edit_rotate_ccw");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(rotateCounterClockwise()));
-        ac->addAction(ra);
+        ac->addAction(ra->objectName(), ra);
     }
     {
 	//new QAction( i18n("Flip Horizontally"), "", 0, circuitDocument, SLOT(flipHorizontally()), ac, "edit_flip_horizontally" );
         QAction *ra = new QAction( QIcon::fromTheme("object-flip-horizontal"), i18n("Flip Horizontally"), ac);
         ra->setObjectName("edit_flip_horizontally");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(flipHorizontally()));
-        ac->addAction(ra);
+        ac->addAction(ra->objectName(), ra);
     }
     {
 	//new QAction( i18n("Flip Vertically"), "", 0, circuitDocument, SLOT(flipVertically()), ac, "edit_flip_vertically" );
         QAction *ra = new QAction( QIcon::fromTheme("object-flip-vertical"), i18n("Flip Vertically"), ac);
         ra->setObjectName("edit_flip_vertically");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(flipVertically()));
-        ac->addAction(ra);
+        ac->addAction(ra->objectName(), ra);
     }
 	//END Item Control Actions
 
@@ -157,7 +157,8 @@ void CircuitView::dragEnterEvent( QDragEnterEvent * e )
 	if ( e->isAccepted() )
 		return;
 
-	bool acceptable = mimeData->hasFormat("ktechlab/component") || mimeData->hasFormat("ktechlab/subcircuit");
+	bool acceptable = mimeData->hasFormat("ktechlab/component")
+        || mimeData->hasFormat("ktechlab/subcircuit");
 	if ( !acceptable )
 		return;
 

@@ -17,7 +17,6 @@
 // #include <kate/view.h>
 #include <ktexteditor/view.h>
 
-#include <qactiongroup.h>
 #include <qpointer.h>
 #include <qlabel.h>
 
@@ -98,7 +97,6 @@ class TextView : public View
 	private:
 		uint m_savedCursorLine;
 		uint m_savedCursorColumn;
-        QActionGroup * m_actionGroup;
 };
 
 

@@ -113,9 +113,10 @@ target_link_libraries( ktechlab
 	${QT_QTCORE_LIBRARY} # QtCore
 	KF5::ConfigCore
 	KF5::ConfigGui
+	KF5::CoreAddons
+	KF5::IconThemes
 	KF5::KIOCore
 	KF5::KHtml
-	KF5::CoreAddons
 	KF5::XmlGui
 	KF5::TextEditor
 	KF5::KDELibs4Support
@@ -134,9 +135,15 @@ add_library(test_ktechlab STATIC ${ktechlab_SRCS})
 ########### install files ###############
 
 install(FILES microbe.xml DESTINATION ${DATA_INSTALL_DIR}/katepart/syntax)
-install(FILES  ktechlabui.rc ktechlabcircuitui.rc  	ktechlabflowcodeui.rc
-	ktechlabitemviewui.rc ktechlabmechanicsui.rc ktechlabtextui.rc
-	ktechlabkateui.rc DESTINATION ${DATA_INSTALL_DIR}/ktechlab)
+install(FILES
+    ktechlabui.rc
+    ktechlabcircuitui.rc
+    ktechlabflowcodeui.rc
+	ktechlabitemviewui.rc
+	ktechlabmechanicsui.rc
+	ktechlabtextui.rc
+	ktechlabkateui.rc
+	DESTINATION ${DATA_INSTALL_DIR}/ktechlab)
 install(FILES org.kde.ktechlab.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 install(FILES ktechlab_mime.xml DESTINATION ${XDG_MIME_INSTALL_DIR})
 install(FILES org.kde.ktechlab.appdata.xml DESTINATION ${SHARE_INSTALL_PREFIX}/metainfo )
