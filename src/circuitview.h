@@ -12,6 +12,7 @@
 #define CIRCUITVIEW_H
 
 #include <icnview.h>
+#include <qactiongroup.h>
 
 class CircuitDocument;
 
@@ -29,8 +30,9 @@ public slots:
 	virtual void slotUpdateRunningStatus( bool isRunning );
 
 protected:
-	virtual void dragEnterEvent( QDragEnterEvent * e );
+	virtual void dragEnterEvent( QDragEnterEvent * e ) override;
 	CircuitDocument *p_circuitDocument;
+    QActionGroup *m_actionGroup;
 };
 
 #endif

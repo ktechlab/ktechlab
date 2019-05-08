@@ -38,9 +38,9 @@ class ICNDocument : public ItemDocument
 Q_OBJECT
 public:
 	ICNDocument( const QString &caption, const char *name );
-	
+
 	virtual ~ICNDocument();
-	
+
 	enum hit_score
 	{
 		hs_none = 0,
@@ -48,14 +48,14 @@ public:
 		hs_item = 1000
 	};
 
-	virtual View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l );
-	
+	virtual View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l ) override;
+
 	/**
 	 * Will attempt to create an item with the given id at position p. Some item
 	 * (such as PIC/START) have restrictions, and can only have one instance of
 	 * themselves on the canvas, and adds the operation to the undo list
 	 */
-	virtual Item* addItem( const QString &id, const QPoint &p, bool newItem );
+	virtual Item* addItem( const QString &id, const QPoint &p, bool newItem ) override;
 
 	/**
 	 * short for casting whatever itemWithID(id) returns
@@ -75,12 +75,12 @@ public:
 	 * Adds a KtlQCanvasItem to the delete list to be deleted,
 	 * when flushDeleteList() is called
 	 */
-	virtual void appendDeleteList( KtlQCanvasItem *qcanvasItem );
+	virtual void appendDeleteList( KtlQCanvasItem *qcanvasItem ) override;
 	/**
 	 * Permantly deletes all items that have been added to the delete list with
 	 * the appendDeleteList( KtlQCanvasItem *qcanvasItem ) function.
 	 */
-	virtual void flushDeleteList() = 0;
+	virtual void flushDeleteList() override = 0;
 	/**
 	 * Reinherit this function to perform special checks on whether the two
 	 * given QCanvasItems (either nodes or connectors or both) can be
@@ -90,11 +90,11 @@ public:
 	/**
 	 *        copies the selected items to the clipboard, in an XML text form
 	 */
-	virtual void copy();
+	virtual void copy() override;
 	/**
 	 *        selects everything in the current document
 	 */
-	virtual void selectAll();
+	virtual void selectAll() override;
 
 
 	/**
@@ -102,7 +102,7 @@ public:
 	 * @param qcanvasItem the item to be registered
 	 * @return true if succeeded, false if it didn't
 	 */
-	virtual bool registerItem( KtlQCanvasItem *qcanvasItem );
+	virtual bool registerItem( KtlQCanvasItem *qcanvasItem ) override;
 	/**
 	 * Returns a pointer to the 2-dimension array of ICNDocument cells.
 	 */
@@ -135,35 +135,35 @@ public:
 	 * Returns true if the CNItem is valid - e.g. will return true for a
 	 * component in a circuit, but not in a pic program
 	 */
-	virtual bool isValidItem( Item *item ) = 0;
-	virtual bool isValidItem( const QString &itemId ) = 0;
-	
+	virtual bool isValidItem( Item *item ) override = 0;
+	virtual bool isValidItem( const QString &itemId ) override = 0;
+
 	// TODO to document
 	virtual ConnectorList getCommonConnectors( const ItemList &list );
 	virtual NodeList getCommonNodes( const ItemList &list );
-	
+
 	/**
-	 * returns all the nodes contained by the document. Note that this function is inefficient, 
+	 * returns all the nodes contained by the document. Note that this function is inefficient,
 	 * so don't use it in loops
 	 * @return all the nodes contained by the document
 	 */
 	virtual NodeList nodeList() const = 0;
-	
+
 	/**
 	 * @return all the connectors from the document
 	 */
 	const ConnectorList & connectorList() const { return m_connectorList; }
-	
+
 	/**
 	 * @return all the nodegroups from the document
 	 */
 	const GuardedNodeGroupList & nodeGroupList() const { return m_nodeGroupList; }
-	
+
 	/**
 	 * @return the selected items from the document
 	 */
-	virtual ItemGroup *selectList() const;
-	
+	virtual ItemGroup *selectList() const override;
+
 	/**
 	 * Creates a connector between two nodes, and returns a pointer to it
 	 * and adds the operation to the undo list
@@ -197,9 +197,9 @@ public:
 	 * Sets the drag (e.g. horizontal arrow) cursor for resizing a CNItem, depending on the corner clicked on
 	 */
 	void setItemResizeCursor( int cornerType );
-	
+
 	void getTranslatable( const ItemList & itemList, ConnectorList * fixedConnectors = 0l, ConnectorList * translatableConnectors = 0l, NodeGroupList * translatableNodeGroups = 0l );
-	
+
 	/**
 	 * Reroutes invalidated directors. You shouldn't call this function
 	 * directly - instead use ItemDocument::requestEvent.
@@ -210,15 +210,15 @@ public:
 	 * function directly - instead use ItemDocument::requestEvent.
 	 */
 	virtual void slotAssignNodeGroups();
-	
-	virtual void unregisterUID( const QString & uid );
-	
+
+	virtual void unregisterUID( const QString & uid ) override;
+
 public slots:
 	/**
 	 * Deletes all items in the selected item list, along with associated
 	 * connectors, etc, and adds the operation to the undo list
 	 */
-	virtual void deleteSelection();
+	virtual void deleteSelection() override;
 	/**
 	 * This function looks at all the connectors and the nodes, determines
 	 * which ones need rerouting, and then reroutes them
@@ -251,8 +251,8 @@ protected:
 	 * This only needs to be called when connector(s) need routing.
 	 */
 	void addAllItemConnectorPoints();
-	
-	virtual void fillContextMenu( const QPoint &pos );
+
+	virtual void fillContextMenu( const QPoint &pos ) override;
 	/**
 	 * Creates a new NodeGroup to control the node, if there does not already
 	 * exist a NodeGroup containing the given node. The associated nodes will
@@ -267,12 +267,12 @@ protected:
 	bool deleteNodeGroup( Node *node );
 
 	friend class CanvasEditor;
-	
+
 	/**
 	 *        deletes all the elements containde in the nodeList. Should be overridden.
 	 */
 	virtual void deleteAllNodes() = 0;
-	
+
 	/**
 	 *        Selects all nodes on the document. Should be overridden.
 	 */
@@ -282,7 +282,7 @@ protected:
 	ConnectorList m_connectorList;
 	CNItemGroup *m_selectList; // Selected objects
 
-	// OVERLOADED	
+	// OVERLOADED
 	KtlQCanvasItemList m_itemDeleteList; // List of canvas items to be deleted
 
 private:
@@ -299,31 +299,31 @@ class DirCursor
 public:
 	static DirCursor* self();
 	~DirCursor();
-	
+
 	static QPixmap leftArrow()
 	{
 		return self()->m_leftArrow;
 	}
-	
+
 	static QPixmap rightArrow()
 	{
 		return self()->m_rightArrow;
 	}
-	
+
 	static QPixmap upArrow()
 	{
 		return self()->m_upArrow;
 	}
-	
+
 	static QPixmap downArrow()
 	{
 		return self()->m_downArrow;
 	}
-	
+
 protected:
 	DirCursor();
 	void initCursors();
-	
+
 	static DirCursor *m_self;
 	QPixmap m_leftArrow;
 	QPixmap m_rightArrow;

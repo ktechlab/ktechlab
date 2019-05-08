@@ -17,7 +17,7 @@
 #include <klocalizedstring.h>
 #include <qpainter.h>
 #include <qstyle.h>
-#include <kdebug.h>
+#include <qdebug.h>
 
 Item* VariableCapacitor::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {

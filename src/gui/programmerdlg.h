@@ -34,17 +34,17 @@ class ProgrammerDlg : public KDialog
 		ProgrammerDlg( const QString & picID, QWidget * parent = 0, const char * name = 0 );
 		~ProgrammerDlg();
 
-		virtual void reject();
-		virtual void accept();
+		virtual void reject() override;
+		virtual void accept() override;
 		bool isAccepted() const { return m_bAccepted; }
 		/**
 		 * Initialises options with the values that the user has entered into
 		 * the widgets.
 		 */
 		void initOptions( ProcessOptions * options );
-		
+
 		MicroSelectWidget * microSelect() const;
-		
+
 	protected:
 		bool m_bAccepted;
 		ProgrammerWidget * m_pProgrammerWidget;

@@ -17,7 +17,7 @@
 #include "pin.h"
 #include "resistance.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <klocalizedstring.h>
 #include <qpainter.h>
 
@@ -164,7 +164,7 @@ void SerialPortComponent::dataChanged()
 		baudRate = B38400;
 	else
 	{
-		kError() << k_funcinfo << "Unknown baud rate = \""<<baudString<<"\""<<endl;
+		qCritical() << Q_FUNC_INFO << "Unknown baud rate = \""<<baudString<<"\""<<endl;
 		return;
 	}
 	

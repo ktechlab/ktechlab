@@ -11,7 +11,7 @@
 #include "canvas.h"
 #include "canvas_private.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 
 #include "qapplication.h"
 #include "qbitmap.h"

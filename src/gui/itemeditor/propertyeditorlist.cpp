@@ -13,7 +13,7 @@
 #include "propertyeditorlist.h"
 #include "property.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <kiconloader.h>
 //#include <klistbox.h>
 #include <klocalizedstring.h>

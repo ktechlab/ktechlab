@@ -22,15 +22,15 @@ class Gplink : public ExternalLanguage
 	public:
 		Gplink( ProcessChain *processChain );
 		~Gplink();
-	
-		virtual void processInput( ProcessOptions options );
-		virtual MessageInfo extractMessageInfo( const QString &text );
-		virtual ProcessOptions::ProcessPath::Path outputPath( ProcessOptions::ProcessPath::Path inputPath ) const;
-	
+
+		virtual void processInput( ProcessOptions options ) override;
+		virtual MessageInfo extractMessageInfo( const QString &text ) override;
+		virtual ProcessOptions::ProcessPath::Path outputPath( ProcessOptions::ProcessPath::Path inputPath ) const override;
+
 	protected:
-		virtual bool isError( const QString &message ) const;
-		virtual bool isWarning( const QString &message ) const;
-		
+		virtual bool isError( const QString &message ) const override;
+		virtual bool isWarning( const QString &message ) const override;
+
 		QString m_sdccLibDir;
 };
 

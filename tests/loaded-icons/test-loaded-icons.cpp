@@ -2,10 +2,11 @@
 #include <kmainwindow.h>
 #include <kcmdlineargs.h>
 #include <k4aboutdata.h>
-#include <kicon.h>
 #include <kiconloader.h>
+#include <klocalizedstring.h>
 
 #include <qgridlayout.h>
+#include <qicon.h>
 #include <qlabel.h>
 #include <qscrollarea.h>
 #include <qdebug.h>
@@ -89,9 +90,9 @@ int main(int argc, char **argv) {
 static void addIcon(QGridLayout *mainLayout, const char *iconName) {
     const int atRow = mainLayout->rowCount() + 1;
     {
-        KIcon testIconConstr(iconName);
+        QIcon testIconConstr(iconName);
         if (testIconConstr.isNull()) {
-            qWarning() << "KIcon " << iconName << " is NULL";
+            qWarning() << "QIcon " << iconName << " is NULL";
         }
     }
     {
@@ -103,7 +104,7 @@ static void addIcon(QGridLayout *mainLayout, const char *iconName) {
             qWarning() << "loadIcon " << iconName << " is NULL";
         }
     }
-    KIcon testIcon(iconName);
+    QIcon testIcon(iconName);
     QPixmap testPixmap = testIcon.pixmap(64, 64);
     QLabel *ql = new QLabel;
     ql->setPixmap(testPixmap);

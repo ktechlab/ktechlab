@@ -10,7 +10,7 @@
 
 #include "logview.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <kiconloader.h>
 #include <katemdi.h>
 #include <klocalizedstring.h>

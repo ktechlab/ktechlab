@@ -23,19 +23,19 @@ class ProgrammerConfig
 {
 	public:
 		ProgrammerConfig();
-		
+
 		/**
 		 * Clears the type and all commands.
 		 */
 		void reset();
-		
+
 		QString initCommand;
 		QString readCommand;
 		QString writeCommand;
 		QString verifyCommand;
 		QString blankCheckCommand;
 		QString eraseCommand;
-		
+
 		QString description;
 		QString executable; // The name of the program executable
 };
@@ -57,7 +57,7 @@ class PicProgrammerSettings
 {
 	public:
 		PicProgrammerSettings();
-		
+
 		/**
 		 * Reads in custom ProgrammerConfigs from config. Any previously loaded
 		 * configurations stored in this class will removed first.
@@ -93,16 +93,16 @@ class PicProgrammerSettings
 		 * @return whether the given config is predefined.
 		 */
 		bool isPredefined( const QString & name ) const;
-		
+
 	protected:
 		/**
 		 * Called when a PicProgrammerSettings object is first created. Does
 		 * initialization of the predefined configs.
 		 */
 		void initStaticConfigs();
-		
+
 		ProgrammerConfigMap m_customConfigs;
-		
+
 		static bool m_bDoneStaticConfigsInit;
 		static ProgrammerConfigMap m_staticConfigs;
 };
@@ -116,13 +116,13 @@ class PicProgrammer : public ExternalLanguage
 	public:
 		PicProgrammer( ProcessChain *processChain );
 		~PicProgrammer();
-	
-		virtual void processInput( ProcessOptions options );
-		virtual ProcessOptions::ProcessPath::Path outputPath( ProcessOptions::ProcessPath::Path inputPath ) const;
+
+		virtual void processInput( ProcessOptions options ) override;
+		virtual ProcessOptions::ProcessPath::Path outputPath( ProcessOptions::ProcessPath::Path inputPath ) const override;
 
 	protected:
-		virtual bool isError( const QString &message ) const;
-		virtual bool isWarning( const QString &message ) const;
+		virtual bool isError( const QString &message ) const override;
+		virtual bool isWarning( const QString &message ) const override;
 };
 
 #endif

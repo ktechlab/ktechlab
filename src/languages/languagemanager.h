@@ -15,6 +15,7 @@
 #include <qlist.h>
 
 #include "language.h"
+#include "logview.h"
 
 class FlowCode;
 class Gpasm;
@@ -22,7 +23,6 @@ class Gpdasm;
 class KTechlab;
 class Language;
 class LanguageManager;
-class LogView;
 class MessageInfo;
 class Microbe;
 class ProcessChain;
@@ -40,7 +40,7 @@ class LanguageManager : public QObject
 		static LanguageManager * self( KateMDI::ToolView * parent = 0l );
 		static QString toolViewIdentifier() { return "LanguageManager"; }
 		~LanguageManager();
-	
+
 		/**
 		 * Call to compile a file of one type all the way to another type, this can
 		 * also be used in reverse to disassemble code. Connect to the returned
@@ -57,7 +57,7 @@ class LanguageManager : public QObject
 		 * Clear any errors and clear the log view
 		 */
 		void reset();
-	 
+
 	public slots:
 		/**
 		 * Called when the user clicks on any text in the LogView
@@ -78,10 +78,10 @@ class LanguageManager : public QObject
 		 * @param message General message to report
 		 */
 		void slotMessage( const QString &message, MessageInfo messageInfo );
-	
+
 	protected:
 		LanguageManager( KateMDI::ToolView * parent );
-	
+
 	private:
 		LogView * m_logView;
 		static LanguageManager * m_pSelf;

@@ -21,7 +21,7 @@
 #include "picitem.h"
 #include "pinmapping.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <kio/netaccess.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h> 
@@ -164,7 +164,7 @@ bool ItemDocumentData::fromXML( const QString &xml )
 				; // do nothing - we no longer use this tag
 			
 			else
-				kWarning() << k_funcinfo << "Unrecognised element tag name: "<<tagName<<endl;
+				qWarning() << Q_FUNC_INFO << "Unrecognised element tag name: "<<tagName<<endl;
 		}
 		
 		node = node.nextSibling();
@@ -338,7 +338,7 @@ void ItemDocumentData::elementToMicroData( QDomElement element )
 	
 	if ( id.isNull() )
 	{
-		kError() << k_funcinfo << "Could not find id in element" << endl;
+		qCritical() << Q_FUNC_INFO << "Could not find id in element" << endl;
 		return;
 	}
 	
@@ -396,7 +396,7 @@ void ItemDocumentData::elementToMicroData( QDomElement element )
 			}
 			
 			else
-				kError() << k_funcinfo << "Unrecognised element tag name: "<<tagName<<endl;
+				qCritical() << Q_FUNC_INFO << "Unrecognised element tag name: "<<tagName<<endl;
 		}
 		
 		node = node.nextSibling();
@@ -511,7 +511,7 @@ void ItemDocumentData::elementToItemData( QDomElement element )
 	QString id = element.attribute( "id", QString::null );
 	if ( id.isNull() )
 	{
-		kError() << k_funcinfo << "Could not find id in element" << endl;
+		qCritical() << Q_FUNC_INFO << "Could not find id in element" << endl;
 		return;
 	}
 	
@@ -578,7 +578,7 @@ void ItemDocumentData::elementToItemData( QDomElement element )
 					else if ( dataType == "bool" )
 						m_itemDataMap[id].dataBool[dataId] = bool(value.toInt());
 					else
-						kError() << k_funcinfo << "Unknown data type of \""<<dataType<<"\" with id \""<<dataId<<"\""<<endl;
+						qCritical() << Q_FUNC_INFO << "Unknown data type of \""<<dataType<<"\" with id \""<<dataId<<"\""<<endl;
 				}
 			}
 			
@@ -600,7 +600,7 @@ void ItemDocumentData::elementToItemData( QDomElement element )
 				; // Tag name was used in 0.1 file save format
 			
 			else
-				kError() << k_funcinfo << "Unrecognised element tag name: "<<tagName<<endl;
+				qCritical() << Q_FUNC_INFO << "Unrecognised element tag name: "<<tagName<<endl;
 		}
 		
 		node = node.nextSibling();
@@ -622,7 +622,7 @@ void ItemDocumentData::elementToNodeData( QDomElement element )
 	QString id = element.attribute( "id", QString::null );
 	if ( id.isNull() )
 	{
-		kError() << k_funcinfo << "Could not find id in element" << endl;
+		qCritical() << Q_FUNC_INFO << "Could not find id in element" << endl;
 		return;
 	}
 	
@@ -683,7 +683,7 @@ void ItemDocumentData::elementToConnectorData( QDomElement element )
 	QString id = element.attribute( "id", QString::null );
 	if ( id.isNull() )
 	{
-		kError() << k_funcinfo << "Could not find id in element" << endl;
+		qCritical() << Q_FUNC_INFO << "Could not find id in element" << endl;
 		return;
 	}
 	
@@ -1005,7 +1005,7 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 			Item *item = itemLibrary()->createItem( it.value().type, itemDocument, false, it.key().toLatin1().data(), false );
 			if ( item && !itemDocument->isValidItem(item) )
 			{
-				kWarning() << "Attempted to create invalid item with id: " << it.key() << endl;
+				qWarning() << "Attempted to create invalid item with id: " << it.key() << endl;
 				item->removeItem();
 				itemDocument->flushDeleteList();
 				item = 0l;
@@ -1049,7 +1049,7 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 			{
 				CNItem *item = icnd->cnItemWithID( it.value().startNodeParent );
 				if (!item)
-					kError() << k_funcinfo << "Unable to find node parent with id: "<<it.value().startNodeParent<<endl;
+					qCritical() << Q_FUNC_INFO << "Unable to find node parent with id: "<<it.value().startNodeParent<<endl;
 				else
 					startNode = item->childNode( it.value().startNodeCId );
 			}
@@ -1060,7 +1060,7 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 			{
 				CNItem *item = icnd->cnItemWithID( it.value().endNodeParent );
 				if (!item)
-					kError() << k_funcinfo << "Unable to find node parent with id: "<<it.value().endNodeParent<<endl;
+					qCritical() << Q_FUNC_INFO << "Unable to find node parent with id: "<<it.value().endNodeParent<<endl;
 				else
 					endNode = item->childNode( it.value().endNodeCId );
 			}
@@ -1069,7 +1069,7 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 			
 			if ( !startNode || !endNode )
 			{
-				kError() << k_funcinfo << "End and start nodes for the connector do not both exist" << endl;
+				qCritical() << Q_FUNC_INFO << "End and start nodes for the connector do not both exist" << endl;
 			}
 			else
 			{
@@ -1082,7 +1082,7 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 				// this is just a temporary fix; someone should get to the real cause of this problem and fix
 				// ItemDocument
                                 if ( icnd->connectorWithID( id ) ) {
-                                    kWarning() << "Unregistering connector with ID: " << id << ". This should not delete any of your connections!" << endl;
+                                    qWarning() << "Unregistering connector with ID: " << id << ". This should not delete any of your connections!" << endl;
                                 }
 				icnd->unregisterUID(id);
 				
@@ -1158,7 +1158,7 @@ void ItemDocumentData::addConnectors( const ConnectorList &connectorList )
 				addConnectorData( (*it)->connectorData(), (*it)->id() );
 			
 			else
-				kDebug() << k_funcinfo << " *it="<<*it<<" (*it)->startNode()="<<(*it)->startNode()<<" (*it)->endNode()="<<(*it)->endNode()<<endl;
+				qDebug() << Q_FUNC_INFO << " *it="<<*it<<" (*it)->startNode()="<<(*it)->startNode()<<" (*it)->endNode()="<<(*it)->endNode()<<endl;
 		}
 	}
 }
@@ -1178,7 +1178,7 @@ void ItemDocumentData::addNodes( const NodeList &nodeList )
 void ItemDocumentData::addItemData( ItemData itemData, QString id )
 {
         if ( m_itemDataMap.contains( id ) ) {
-            kWarning() << "Overwriting item: " << id << endl;
+            qWarning() << "Overwriting item: " << id << endl;
         }
 	m_itemDataMap[id] = itemData;
 }
@@ -1187,7 +1187,7 @@ void ItemDocumentData::addItemData( ItemData itemData, QString id )
 void ItemDocumentData::addConnectorData( ConnectorData connectorData, QString id )
 {
         if ( m_connectorDataMap.contains( id ) ) {
-            kWarning() << "Overwriting connector: " << id << endl;
+            qWarning() << "Overwriting connector: " << id << endl;
         }
 	m_connectorDataMap[id] = connectorData;
 }
@@ -1196,7 +1196,7 @@ void ItemDocumentData::addConnectorData( ConnectorData connectorData, QString id
 void ItemDocumentData::addNodeData( NodeData nodeData, QString id )
 {
         if ( m_nodeDataMap.contains( id ) ) {
-            kWarning() << "Overwriting node: " << id << endl;
+            qWarning() << "Overwriting node: " << id << endl;
         }
 	m_nodeDataMap[id] = nodeData;
 }

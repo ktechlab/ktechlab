@@ -50,7 +50,7 @@ public:
 		ct_hex,
 		ct_microbe
 	};
-	
+
 	enum MarkType {
 		Bookmark           = KTextEditor::MarkInterface::markType01,
 		Breakpoint         = KTextEditor::MarkInterface::markType02,
@@ -59,8 +59,8 @@ public:
 		DisabledBreakpoint = KTextEditor::MarkInterface::markType05,
 		ExecutionPoint     = KTextEditor::MarkInterface::markType06
 	};
-	
-	virtual View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l );
+
+	virtual View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l ) override;
 
 	/**
 	 * Attempts to construct a new TextDocument object and returns a pointer to
@@ -84,7 +84,7 @@ public:
 	 * @return List of bookmarks
 	 */
 	IntList bookmarkList() const;
-	
+
 	/**
 	 * Set the given lines as all breakpoints
 	 */
@@ -97,7 +97,7 @@ public:
 	 * @return List of breakpoints
 	 */
 	IntList breakpointList() const;
-	
+
 #ifndef NO_GPSIM
 	/**
 	 * Attach ourselves to the given debugger.
@@ -118,8 +118,8 @@ public:
 	QString debugFile() const { return m_debugFile; }
 	virtual void clearBreakpoints();
 #endif
-	
-	virtual bool openURL(const KUrl& url);
+
+	virtual bool openURL(const KUrl& url) override;
 	void fileSave(const KUrl& url);
 	/**
 	 * Set the document to the given text, making the document unmodified, and
@@ -135,26 +135,26 @@ public:
 	 *					   appropriate is found
 	 */
 	void guessScheme( bool allowDisable = true );
-    
-	virtual void fileSave() { fileSave(url()); }
-	virtual void fileSaveAs();
-	virtual void print();
-	virtual void setModified( bool modified );
-	
+
+	virtual void fileSave() override { fileSave(url()); }
+	virtual void fileSaveAs() override;
+	virtual void print() override;
+	virtual void setModified( bool modified ) override;
+
 	KTextEditor::View* createKateView( QWidget *parent, const char *name = 0l );
-	
-	virtual void undo();
-	virtual void redo();
-	virtual void cut();
-	virtual void copy();
-	virtual void paste();
-	
-	virtual bool isModified() const { return m_doc->isModified(); }
-	virtual bool isUndoAvailable() const ; // { return (m_doc->undoCount() != 0); }
-	virtual bool isRedoAvailable() const ; // { return (m_doc->redoCount() != 0); }
+
+	virtual void undo() override;
+	virtual void redo() override;
+	virtual void cut() override;
+	virtual void copy() override;
+	virtual void paste() override;
+
+	virtual bool isModified() const override { return m_doc->isModified(); }
+	virtual bool isUndoAvailable() const override; // { return (m_doc->undoCount() != 0); }
+	virtual bool isRedoAvailable() const override; // { return (m_doc->redoCount() != 0); }
 
 	void clearBookmarks();
-	virtual bool fileClose();
+	virtual bool fileClose() override;
 
 	static const QPixmap* inactiveBreakpointPixmap();
 	static const QPixmap* activeBreakpointPixmap();
@@ -173,24 +173,24 @@ public:
 		HexOutput,
 		PICOutput
 	};
-	
+
 	KTextEditor::Document * kateDocument() const { return m_doc; }
-	
+
 public slots:
 	/**
 	 * @param target as ConvertToTarget
 	 */
 	void slotConvertTo( QAction *action );
-	void convertToAssembly();
-	void convertToHex();
-	void convertToPIC();
+	void convertToAssembly() override;
+	void convertToHex() override;
+	void convertToPIC() override;
 	void formatAssembly();
-	void debugRun();
-	void debugInterrupt();
-	void debugStep();
+	void debugRun() override;
+	void debugInterrupt() override;
+	void debugStep() override;
 	void debugStepOver();
 	void debugStepOut();
-	void debugStop();
+	void debugStop() override;
 	void slotInitLanguage( CodeType type );
 	/**
 	 * Called when change line / toggle marks
@@ -219,14 +219,14 @@ protected:
 	 * marks that we know about
 	 */
 	void syncBreakpoints();
-	
+
 	int m_lastDebugLineAt; // Last line with a debug point reached mark
 	bool m_bLoadDebuggerAsHLL;
 #endif
 
 	KTextEditor::Document *m_doc;
 	QPointer<TextDocument> m_pLastTextOutputTarget;
-	
+
 private slots:
 	void setLastTextOutputTarget( TextDocument * target );
 	void slotSyncModifiedStates();
@@ -242,7 +242,7 @@ private:
 	CodeType m_guessedCodeType;
 	//Q3PtrList<KAction> m_bookmarkActions;
     QList<QAction*> m_bookmarkActions;
-	
+
 #ifndef NO_GPSIM
 	bool b_lockSyncBreakpoints; // Used to avoid calling syncMarks() when we are currently doing so
 	bool m_bOwnDebugger;

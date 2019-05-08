@@ -15,57 +15,59 @@
 
 #include <kconfig.h>
 #include <kglobal.h>
-#include <kiconloader.h>
 #include <klocalizedstring.h>
-#include <kactioncollection.h>
+#include <kiconloader.h>
 #include <ktoolbarpopupaction.h>
-#include <kmenu.h>
+
+#include <qaction.h>
+#include <qactiongroup.h>
+#include <qmenu.h>
 
 ICNView::ICNView( ICNDocument *icnDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name )
 	: ItemView( icnDocument, viewContainer, viewAreaId, name )
 {
 	bool manualRouting = (icnDocument->m_cmManager->cmState() & CMManager::cms_manual_route);
-	
-	KActionCollection * ac = actionCollection();
-	
+
+	QActionGroup * ac = new QActionGroup(viewContainer->viewArea(viewAreaId));
+
 	//BEGIN Routing Actions
 	// These actions get inserted into the main menu
-	//m_pAutoRoutingAction = new KAction( i18n("Automatic"), "", 0, this, SLOT(slotSetRoutingAuto()), ac, "routing_mode_auto" );
-    m_pAutoRoutingAction = new KAction( i18n("Automatic"), ac);
+	//m_pAutoRoutingAction = new QAction( i18n("Automatic"), "", 0, this, SLOT(slotSetRoutingAuto()), ac, "routing_mode_auto" );
+    m_pAutoRoutingAction = new QAction( i18n("Automatic"), ac);
     m_pAutoRoutingAction->setObjectName("routing_mode_auto");
     connect(m_pAutoRoutingAction, SIGNAL(triggered(bool)), this, SLOT(slotSetRoutingAuto()));
-    ac->addAction("routing_mode_auto", m_pAutoRoutingAction);
+    ac->addAction(m_pAutoRoutingAction);
 	//m_pAutoRoutingAction->setExclusiveGroup("routing_mode");// TODO TEST
 	if ( !manualRouting )
 		m_pAutoRoutingAction->setChecked( true );
-	
-	//m_pManualRoutingAction = new KAction( i18n("Manual"), "", 0, this, SLOT(slotSetRoutingManual()), ac, "routing_mode_manual" );
-    m_pManualRoutingAction = new KAction( i18n("Manual"), ac);
+
+	//m_pManualRoutingAction = new QAction( i18n("Manual"), "", 0, this, SLOT(slotSetRoutingManual()), ac, "routing_mode_manual" );
+    m_pManualRoutingAction = new QAction( i18n("Manual"), ac);
     m_pManualRoutingAction->setObjectName("routing_mode_manual");
     connect(m_pManualRoutingAction, SIGNAL(triggered(bool)), this, SLOT(slotSetRoutingManual()));
-    ac->addAction("routing_mode_manual", m_pManualRoutingAction);
+    ac->addAction(m_pManualRoutingAction);
 	//m_pManualRoutingAction->setExclusiveGroup("routing_mode"); // TODO TEST
 	if ( manualRouting )
 		m_pManualRoutingAction->setChecked( true );
-	
-	
+
+
 	// This popup gets inserted into the toolbar
 	//m_pRoutingModeToolbarPopup = new KToolBarPopupAction( i18n("Connection Routing Mode"), "pencil", 0, 0, 0, ac, "routing_mode" );
-    m_pRoutingModeToolbarPopup = new KToolBarPopupAction( KIcon("pencil"), i18n("Connection Routing Mode"), ac);
+    m_pRoutingModeToolbarPopup = new KToolBarPopupAction( QIcon(QString::fromLatin1("pencil")), i18n("Connection Routing Mode"), ac);
     m_pRoutingModeToolbarPopup->setObjectName( "routing_mode" );
 	m_pRoutingModeToolbarPopup->setDelayed(false);
-    ac->addAction("routing_mode", m_pRoutingModeToolbarPopup);
-	
+    ac->addAction(m_pRoutingModeToolbarPopup);
+
 	QMenu * m = m_pRoutingModeToolbarPopup->menu();
 	m->setTitle( i18n("Connection Routing Mode") );
-	
-	m_actMenuRouteAutoRoute = m->addAction( /*KIconLoader::global()->loadIcon(
-        "routing_mode_auto",	KIconLoader::Small ), */i18n("Automatic"));
+
+	m_actMenuRouteAutoRoute = m->addAction( /*QIconLoader::global()->loadIcon(
+        "routing_mode_auto",	QIconLoader::Small ), */i18n("Automatic"));
     m_actMenuRouteAutoRoute->setData( 0 );
-	m_actMenuRouteManRoute = m->addAction( /*KIconLoader::global()->loadIcon(
-        "routing_mode_manual",	KIconLoader::Small ),*/ i18n("Manual"));
+	m_actMenuRouteManRoute = m->addAction( /*QIconLoader::global()->loadIcon(
+        "routing_mode_manual",	QIconLoader::Small ),*/ i18n("Manual"));
     m_actMenuRouteManRoute->setData( 1 );
-	
+
 	//m->setCheckable(true); // 2018.12.02
     if (manualRouting) {
         m_actMenuRouteManRoute->setChecked( true );
@@ -73,10 +75,10 @@ ICNView::ICNView( ICNDocument *icnDocument, ViewContainer *viewContainer, uint v
         m_actMenuRouteAutoRoute->setChecked( true );
     }
 	//m->setItemChecked( manualRouting ? 1 : 0, true ); // 2018.12.02
-	
+
 	connect( m, SIGNAL(triggered(QAction*)), this, SLOT(slotSetRoutingMode(QAction*)) );
 	//END Routing Actions
-	
+
 	connect( icnDocument->m_cmManager, SIGNAL(manualRoutingChanged(bool )), this, SLOT(slotUpdateRoutingToggles(bool )) );
 }
 
@@ -91,10 +93,10 @@ void ICNView::slotSetRoutingMode( QAction *action )
     int mode = action->data().toInt();
 	// This function is called when the user selects a mode from the toolbar drop-down menu
 	bool manualEnabled = (mode == 1);
-	
+
 	if ( bool(p_itemDocument->m_cmManager->cmState() & CMManager::cms_manual_route) == manualEnabled )
 		return;
-	
+
 	slotUpdateRoutingMode( manualEnabled );
 	slotUpdateRoutingToggles( manualEnabled );
 }

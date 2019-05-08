@@ -27,7 +27,7 @@
 #include "outputflownode.h"
 #include "utils.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <qclipboard.h>
 #include <qtimer.h>
 #include <QApplication>
@@ -227,7 +227,7 @@ bool ICNDocument::canConnect( KtlQCanvasItem *qcanvasItem1, KtlQCanvasItem *qcan
 				container[i] = startParentItem[i]->parentItem();
 			else if ( dl == 1 )
 				container[i] = startParentItem[i];
-			else	kError() << k_funcinfo << " start, i="<<i<<" dl="<<dl<<endl;
+			else	qCritical() << Q_FUNC_INFO << " start, i="<<i<<" dl="<<dl<<endl;
 		}
 
 		if (endParentItem[i]) {
@@ -236,7 +236,7 @@ bool ICNDocument::canConnect( KtlQCanvasItem *qcanvasItem1, KtlQCanvasItem *qcan
 				container[i+3] = endParentItem[i]->parentItem();
 			else if ( dl == 1 )
 				container[i+3] = endParentItem[i];
-			else	kError() << k_funcinfo << " end, i="<<i<<" dl="<<dl<<endl;
+			else	qCritical() << Q_FUNC_INFO << " end, i="<<i<<" dl="<<dl<<endl;
 		}
 	}
 
@@ -517,7 +517,7 @@ spend time figuring out which method to call...
 		}
 
 		if(connector) connector->removeConnector();
-		else kWarning() << k_funcinfo << "unrecognised KtlQCanvasItem " << qcanvasItem << endl;
+		else qWarning() << Q_FUNC_INFO << "unrecognised KtlQCanvasItem " << qcanvasItem << endl;
 	}
 }
 
@@ -532,13 +532,13 @@ bool ICNDocument::registerItem( KtlQCanvasItem *qcanvasItem )
 			m_nodeList[ node->id() ] = node;
 			emit nodeAdded(node);
 			*/
-			kError() << k_funcinfo << "BUG: this member should have been overridden!" << endl;
+			qCritical() << Q_FUNC_INFO << "BUG: this member should have been overridden!" << endl;
 
 		} else if ( Connector *connector = dynamic_cast<Connector*>(qcanvasItem) ) {
 			m_connectorList.append(connector);
 			emit connectorAdded(connector);
 		} else {
-			kError() << k_funcinfo << "Unrecognised item"<<endl;
+			qCritical() << Q_FUNC_INFO << "Unrecognised item"<<endl;
 			return false;
 		}
 	}

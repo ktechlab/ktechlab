@@ -11,7 +11,7 @@
 #include "componentmodellibrary.h"
 #include "componentmodelwidget.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <klineedit.h>
 #include <klocalizedstring.h>
 #include <ktoolbar.h>

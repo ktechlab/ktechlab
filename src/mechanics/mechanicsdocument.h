@@ -30,32 +30,32 @@ Q_OBJECT
 public:
 	MechanicsDocument( const QString &caption, const char *name = 0 );
 	~MechanicsDocument();
-	
-	virtual View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l );
-	
-	virtual bool isValidItem( const QString &itemId );
-	virtual bool isValidItem( Item *item );
-	
-	virtual void deleteSelection();
-	virtual void copy();
-	virtual void selectAll();
-	virtual ItemGroup *selectList() const;
+
+	virtual View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l ) override;
+
+	virtual bool isValidItem( const QString &itemId ) override;
+	virtual bool isValidItem( Item *item ) override;
+
+	virtual void deleteSelection() override;
+	virtual void copy() override;
+	virtual void selectAll() override;
+	virtual ItemGroup *selectList() const override;
 	MechanicsItem *mechanicsItemWithID( const QString &id );
-	virtual Item* addItem( const QString &id, const QPoint &p, bool newItem );
+	virtual Item* addItem( const QString &id, const QPoint &p, bool newItem ) override;
 	/**
 	 * Adds a KtlQCanvasItem to the delete list to be deleted, when
 	 * flushDeleteList() is called
 	 */
-	virtual void appendDeleteList( KtlQCanvasItem *qcanvasItem );
+	virtual void appendDeleteList( KtlQCanvasItem *qcanvasItem ) override;
 	/**
 	 * Permantly deletes all items that have been added to the delete list with
 	 * the appendDeleteList( KtlQCanvasItem *qcanvasItem ) function.
 	 */
-	virtual void flushDeleteList();
+	virtual void flushDeleteList() override;
 	/**
 	 * Register an item with the ICNDocument.
 	 */
-	virtual bool registerItem( KtlQCanvasItem *qcanvasItem );
+	virtual bool registerItem( KtlQCanvasItem *qcanvasItem ) override;
 
 protected:
 	MechanicsGroup *m_selectList;

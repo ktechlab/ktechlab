@@ -11,7 +11,7 @@
 #include "microinfo.h"
 #include "microlibrary.h"
 
-#include <kdebug.h>
+// #include <qdebug.h>
 // #include <k3staticdeleter.h>
 
 #include "picinfo12bit.h"
@@ -90,7 +90,7 @@ MicroInfo *MicroLibrary::microInfoWithID( QString id )
 	{
 		if ( (*it)->id() == id ) return *it;
 	}
-	
+
 	return 0L;
 }
 
@@ -103,7 +103,7 @@ void MicroLibrary::addMicroInfo( MicroInfo *microInfo )
 QStringList MicroLibrary::microIDs( unsigned asmSet, unsigned gpsimSupport, unsigned flowCodeSupport, unsigned microbeSupport )
 {
 	QStringList ids;
-	
+
 	const MicroInfoList::iterator end = m_microInfoList.end();
 	for ( MicroInfoList::iterator it = m_microInfoList.begin(); it != end; ++it )
 	{

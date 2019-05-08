@@ -107,19 +107,18 @@ target_link_libraries( ktechlab
     ktlqt3support
 	mechanics electronics elements components languages drawparts
 	itemeditor math
-	${KDE4_KHTML_LIBRARY} # khtml
 	${GPSIM_LIBRARY}
-	${KDE4_KTEXTEDITOR_LIBRARY} # ktexteditor
-	${KDE4_KIO_LIBRARY} # kio
-	${KDE4_KPARTS_LIBRARY} # kparts
 	${QT_QTXML_LIBRARY}
-	${KDE4_KDEUI_LIBRARY} # kdeui
 	${QT_QTGUI_LIBRARY} # QtGui
-	${KDE4_KDECORE_LIBRARY} # kdecore
-	#${KDE4_KDE3SUPPORT_LIBRARY} # kde3support # 2016.06.02 - should not be needed
-	#${QT_QT3SUPPORT_LIBRARY} # Qt3Support     # 2018.12.08 - should not be needed
 	${QT_QTCORE_LIBRARY} # QtCore
-	${KDE4_KFILE_LIBRARY} # kfile
+	KF5::ConfigCore
+	KF5::ConfigGui
+	KF5::KIOCore
+	KF5::KHtml
+	KF5::CoreAddons
+	KF5::XmlGui
+	KF5::TextEditor
+	KF5::KDELibs4Support
 	)
 if(GPSim_FOUND)
     target_link_libraries(ktechlab ${GPSim_LIBRARIES})

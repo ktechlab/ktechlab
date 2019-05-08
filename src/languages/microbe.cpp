@@ -14,7 +14,7 @@
 #include "microbe.h"
 #include "languagemanager.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <kstandarddirs.h>
@@ -45,7 +45,7 @@ Microbe::Microbe( ProcessChain *processChain )
 				if (ok) {
 					m_errorMessages[pos] = line.right(line.length()-line.indexOf("#"));
 				} else {
-					kError() << k_funcinfo << "Error parsing Microbe error-message file"<<endl;
+					qCritical() << Q_FUNC_INFO << "Error parsing Microbe error-message file"<<endl;
 				}
 			}
         }

@@ -23,13 +23,13 @@ class ExternalConnection : public Component
 public:
 	ExternalConnection( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ExternalConnection();
-	
+
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
+
 private:
-	void dataChanged();
-	virtual void drawShape( QPainter &p );
+	void dataChanged() override;
+	virtual void drawShape( QPainter &p ) override;
 };
 
 #endif

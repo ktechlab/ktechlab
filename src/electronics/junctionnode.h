@@ -1,7 +1,7 @@
 //
 // C++ Interface: junctionnode
 //
-// Description: 
+// Description:
 //
 //
 //
@@ -29,11 +29,11 @@ public:
 	/**
 	 *  draws the JunctionNode
 	 */
-    	virtual void drawShape( QPainter &p );
+    	virtual void drawShape( QPainter &p ) override;
 
 protected:
-	virtual void initPoints();
-	
+	virtual void initPoints() override;
+
 };
 
 #endif

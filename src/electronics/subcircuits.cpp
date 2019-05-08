@@ -17,14 +17,16 @@
 
 #include <kapplication.h>
 #include <kconfig.h>
-#include <kdebug.h>
+#include <kglobal.h>
 #include <kiconloader.h>
 #include <klocalizedstring.h>
 #include <kstandarddirs.h>
 #include <kconfiggroup.h>
 
+#include <qdebug.h>
 #include <qfile.h>
 #include <qtextstream.h>
+
 
 Subcircuits::Subcircuits()
 	: QObject()
@@ -51,14 +53,14 @@ void Subcircuits::initECSubcircuit( int subcircuitId, ECSubcircuit *ecSubcircuit
 	const QString fileName = genFileName(subcircuitId);
 	if ( !QFile::exists(fileName) )
 	{
-		kDebug() << "Subcircuits::createSubcircuit: Subcircuit \""<<fileName<<"\" was not found."<<endl;
+		qDebug() << "Subcircuits::createSubcircuit: Subcircuit \""<<fileName<<"\" was not found."<<endl;
 		return;
 	}
-	
+
 	SubcircuitData subcircuit;
 	if (!subcircuit.loadData( genFileName(subcircuitId) ) )
 		return;
-	
+
 	subcircuit.initECSubcircuit(ecSubcircuit);
 }
 
@@ -80,7 +82,7 @@ void Subcircuits::loadSubcircuits()
     KSharedConfigPtr config = KGlobal::config();
 	//config->setGroup("Subcircuits");
     KConfigGroup configGrSubcirc = config->group("Subcircuits");
-	
+
 	QList<int> idList = asIntList( configGrSubcirc.readEntry<QString>(QString("Ids"), QString()) );
 	const QList<int>::iterator idListEnd = idList.end();
 	for ( QList<int>::iterator it = idList.begin(); it != idListEnd; ++it )
@@ -99,7 +101,7 @@ void Subcircuits::loadSubcircuits()
 		file.close();
 	}
 	idList.removeAll(-1);
-	
+
 	// Update the config file if any ids have been removed
 	//config->setGroup("Subcircuits");
 	configGrSubcirc.writeEntry( "Ids", idList );
@@ -116,7 +118,7 @@ void Subcircuits::updateComponentSelector( int id, const QString &name )
 {
 	if ( name.isEmpty() )
 		return;
-	
+
 	ComponentSelector::self()->addItem( name, "sc/"+QString::number(id), i18n("Subcircuits"),
                                         KIconLoader::global()->loadIcon( "application-x-circuit", KIconLoader::Small ), true );
 }
@@ -127,39 +129,39 @@ void Subcircuits::addSubcircuit( const QString &name, const QString &subcircuitX
 	//KConfig *config = kapp->config();
     KSharedConfigPtr config = KGlobal::config();
 	KConfigGroup subcircGroup = config->group("Subcircuits");
-	
+
 	int nextId = subcircGroup.readEntry<int>( "NextId", 0 );
-	
+
 	while ( QFile::exists( genFileName(nextId) ) ) {
 		nextId++;
 	}
-	
+
 	const int id = nextId;
-	
+
 	const QString fileName = genFileName(id);
 	QFile file(fileName);
-	
+
 	if ( file.open(QIODevice::WriteOnly) == false )
 	{
-		kError() << "Subcircuits::addSubcircuit: couldn't open subcircuit save file: "<<fileName<<endl;
+		qCritical() << "Subcircuits::addSubcircuit: couldn't open subcircuit save file: "<<fileName<<endl;
 		return;
 	}
-	
+
 	QTextStream stream(&file);
 	stream << subcircuitXml;
 	file.close();
-	
+
 	QList<int> idList = asIntList( subcircGroup.readEntry<QString>(QString("Ids"), QString()) );
 	idList += id;
 	subcircGroup.writeEntry( "Ids", idList );
 	subcircGroup.writeEntry( "NextId", ++nextId );
-	
+
 	KConfigGroup grSubcircNr = config->group("Subcircuit_"+QString::number(id));
 	grSubcircNr.writeEntry( "Name", name );
-	
+
 	// It's important that we write the configuration *now*, lest the subcircuits be lost
 	grSubcircNr.sync();
-	
+
 	updateComponentSelector( id, name );
 }
 
@@ -169,14 +171,14 @@ void Subcircuits::slotItemRemoved( const QString &id )
 	if ( !id.startsWith("sc/") ) {
 		return;
 	}
-	
+
 	QString temp = id;
 	temp.remove("sc/");
 	const int id_num = temp.toInt();
 	const QString fileName = genFileName(id_num);
 	QFile file(fileName);
 	file.remove();
-	
+
 	//KConfig *config = kapp->config();
     KSharedConfigPtr config = KGlobal::config();
 	KConfigGroup grSc = config->group("Subcircuits");

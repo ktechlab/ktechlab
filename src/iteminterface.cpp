@@ -22,7 +22,7 @@
 #include "lineedit.h"
 
 #include <kcombobox.h>
-#include <kdebug.h>
+#include <qdebug.h>
 #include <klineedit.h>
 #include <knuminput.h>
 #include <kurlrequester.h>
@@ -590,7 +590,7 @@ void ItemInterface::slotSetData( const QString &id, QVariant value )
 	
 	if ( !p_itemGroup->itemsAreSameType() )
 	{
-		kDebug() << k_funcinfo << "Items are not the same type!"<<endl;
+		qDebug() << Q_FUNC_INFO << "Items are not the same type!"<<endl;
 		return;
 	}
 	qDebug() << Q_FUNC_INFO << "id=" << id << " value=" << value;

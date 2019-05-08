@@ -31,7 +31,7 @@ class PropComboBox : public KComboBox
 		PropComboBox( QWidget * parent );
 		virtual ~PropComboBox() {;}
 
-		virtual bool eventFilter(QObject *o, QEvent *e);
+		virtual bool eventFilter(QObject *o, QEvent *e) override;
 
 	public slots:
 		void hideList();

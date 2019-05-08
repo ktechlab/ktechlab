@@ -22,14 +22,14 @@ class CallSub : public FlowPart
 public:
 	CallSub( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~CallSub();
-	
+
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
-	virtual void generateMicrobe( FlowCode *code );
+
+	virtual void generateMicrobe( FlowCode *code ) override;
 
 private:
-	void dataChanged();
+	void dataChanged() override;
 };
 
 #endif

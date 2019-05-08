@@ -24,15 +24,15 @@ Q_OBJECT
 public:
 	FlowContainer( ICNDocument *_icnView, bool newItem, const QString &id );
 	virtual ~FlowContainer();
-	
-	virtual bool canResize() const { return true; }
+
+	virtual bool canResize() const override { return true; }
 	/**
 	 * Sets the bound to a simple rectangle if true, so that ICNDocument
 	 * can tell whether an item is being dropped into it
 	 */
 	void setFullBounds( bool full );
-	
-	virtual void updateConnectorPoints( bool add = true );
+
+	virtual void updateConnectorPoints( bool add = true ) override;
 	/**
 	 * Returns whether the container is currently expanded or not
 	 */
@@ -43,28 +43,28 @@ public:
 	bool parentIsCollapsed() const;
 	void setExpanded( bool expanded );
 
-	virtual void setSelected( bool yes );
-	virtual void setVisible( bool yes );
-	
-	virtual QSize minimumSize() const;
+	virtual void setSelected( bool yes ) override;
+	virtual void setVisible( bool yes ) override;
+
+	virtual QSize minimumSize() const override;
 	/**
 	 * Update the visibility of items, connectors, nodes in the flowcontainer
 	 */
 	void updateContainedVisibility();
-	
+
 protected:
-	virtual void itemPointsChanged() {};
-	virtual void updateNodeLevels();
-	virtual void childAdded( Item *child );
-	virtual void childRemoved( Item *child );
-	virtual void updateAttachedPositioning();
-	virtual void postResize();
-	virtual void filterEndPartIDs( QStringList *ids );
-	virtual void drawShape( QPainter &p );
+	virtual void itemPointsChanged() override {};
+	virtual void updateNodeLevels() override;
+	virtual void childAdded( Item *child ) override;
+	virtual void childRemoved( Item *child ) override;
+	virtual void updateAttachedPositioning() override;
+	virtual void postResize() override;
+	virtual void filterEndPartIDs( QStringList *ids ) override;
+	virtual void drawShape( QPainter &p ) override;
 	void createTopContainerNode();
 	void createBotContainerNode();
-	
-	virtual void buttonStateChanged(const QString &id, bool state);
+
+	virtual void buttonStateChanged(const QString &id, bool state) override;
 
 	FPNode *m_ext_in;
 	FPNode *m_int_in;

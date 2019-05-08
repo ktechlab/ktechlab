@@ -12,19 +12,19 @@
 #include "matrix.h"
 #include "resistance.h"
 
-// #include <kdebug.h>
+// #include <qdebug.h>
 
 Resistance::Resistance( const double resistance )
 	: Element::Element()
 {
 	m_g = resistance < 1e-9 ? 1e9 : 1./resistance;
 	m_numCNodes = 2;
-// 	kDebug() << k_funcinfo << endl;
+// 	qDebug() << Q_FUNC_INFO << endl;
 }
 
 Resistance::~Resistance()
 {
-// 	kDebug() << k_funcinfo << endl;
+// 	qDebug() << Q_FUNC_INFO << endl;
 }
 
 void Resistance::setConductance( const double g )

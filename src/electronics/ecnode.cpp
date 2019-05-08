@@ -15,7 +15,7 @@
 #include "electronicconnector.h"
 #include "pin.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <qpainter.h>
 
 #include <ktlconfig.h>
@@ -256,7 +256,7 @@ bool ECNode::handleNewConnector( Connector * connector )
 
 	if ( m_connectorList.contains(connector) )
 	{
-		kWarning() << k_funcinfo << " Already have connector = " << connector << endl;
+		qWarning() << Q_FUNC_INFO << " Already have connector = " << connector << endl;
 		return false;
 	}
 

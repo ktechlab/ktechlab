@@ -28,25 +28,25 @@ class Inductance : public Reactive
 		};
 		Inductance( double capacitance, double delta );
 		virtual ~Inductance();
-	
-		virtual Type type() const { return Element_Inductance; }
+
+		virtual Type type() const override { return Element_Inductance; }
 		/**
 		 * Set the stepping use for numerical integration of inductance, and the
 		 * interval between successive updates.
 		 */
 		void setMethod( Method m );
-		virtual void time_step();
-		virtual void add_initial_dc();
+		virtual void time_step() override;
+		virtual void add_initial_dc() override;
 		void setInductance( double i );
 
 	protected:
-		virtual void updateCurrents();
-		virtual bool updateStatus();
-	
+		virtual void updateCurrents() override;
+		virtual bool updateStatus() override;
+
 	private:
 		double m_inductance; // Inductance
 		Method m_method; // Method of integration
-		
+
 		double scaled_inductance;
 		double v_eq_old;
 };

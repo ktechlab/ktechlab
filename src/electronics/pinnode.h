@@ -1,7 +1,7 @@
 //
 // C++ Interface: pinnode
 //
-// Description: 
+// Description:
 //
 //
 //
@@ -30,10 +30,10 @@ public:
 	/**
 	 *  draws the PinNode
 	 */
-	virtual void drawShape( QPainter &p );
-	
+	virtual void drawShape( QPainter &p ) override;
+
 protected:
-	virtual void initPoints();
+	virtual void initPoints() override;
 };
 
 #endif

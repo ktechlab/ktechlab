@@ -17,31 +17,31 @@
 class ParallelPort;
 
 /**
-@author David Saxton 
+@author David Saxton
  */
 class ParallelPortComponent : public CallbackClass, public Component
 {
 	public:
 		ParallelPortComponent( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~ParallelPortComponent();
-	
+
 		static Item * construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem * libraryItem();
-		
-		virtual void stepNonLogic();
-		virtual bool doesStepNonLogic() const { return true; }
-	
+
+		virtual void stepNonLogic() override;
+		virtual bool doesStepNonLogic() const override { return true; }
+
 	protected:
 		void initPort( const QString & port );
-		virtual void dataChanged();
-		virtual void drawShape( QPainter & p );
-		
+		virtual void dataChanged() override;
+		virtual void drawShape( QPainter & p ) override;
+
 		void dataCallback( bool );
 		void controlCallback( bool );
-		
+
 		/// Registers: { Data[0...7], Status[0...5], 0[6...7], Control[0...4], 0[5...7] }
 		LogicOut * m_pLogic[24];
-		
+
 		ParallelPort * m_pParallelPort;
 };
 

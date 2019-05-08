@@ -170,11 +170,11 @@ class KtlQCanvasView : public KtlQ3ScrollView
 
 	protected:
         /** overrides KtlQ3ScrollView::drawContents() */   // override paintEvent?
-		virtual void drawContents( QPainter*, int cx, int cy, int cw, int ch );
-		QSize sizeHint() const;
+		virtual void drawContents( QPainter*, int cx, int cy, int cw, int ch ) override;
+		QSize sizeHint() const override;
 
 	private:
-		void drawContents( QPainter* );
+		void drawContents( QPainter* ) override;
 		KtlQCanvas* viewing;
 		KtlQCanvasViewData* d;
 		friend void qt_unview(KtlQCanvas* c);

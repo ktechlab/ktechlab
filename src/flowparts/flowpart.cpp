@@ -23,7 +23,7 @@
 #include "pinmapping.h"
 #include "variant.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 
 #include <qbitarray.h>
 #include <qbitmap.h>
@@ -73,13 +73,13 @@ FlowPart::FlowPart( ICNDocument *icnDocument, bool newItem, const QString &id )
 	m_stdInput = 0l;
 	m_stdOutput = 0l;
 	m_altOutput = 0l;
-	
+
 	if ( icnDocument )
 	{
 		icnDocument->registerItem(this);
 		m_pFlowCodeDocument = dynamic_cast<FlowCodeDocument*>(icnDocument);
 		assert( m_pFlowCodeDocument );
-	
+
 		connect( m_pFlowCodeDocument, SIGNAL(picTypeChanged()), this, SLOT(slotUpdateFlowPartVariables()) );
 		connect( m_pFlowCodeDocument, SIGNAL(pinMappingsChanged()), this, SLOT(slotUpdateFlowPartVariables()) );
 	}
@@ -110,7 +110,7 @@ void FlowPart::setCaption( const QString &caption )
 		m_caption = caption;
 		return;
 	}
-	
+
 // 2016.05.03 - do not use temporary widget for getting font metrics
 // 	QWidget *w = new QWidget();
 // 	//QPainter p(w);
@@ -128,7 +128,7 @@ void FlowPart::setCaption( const QString &caption )
     const int text_width = fontMetrics.boundingRect( boundingRect(), (Qt::TextSingleLine | Qt::AlignHCenter | Qt::AlignVCenter), caption ).width();
 
 	int width = std::max( ((int)(text_width/16))*16, 48 );
-	
+
 	switch(m_flowSymbol)
 	{
 		case FlowPart::ps_call:
@@ -146,11 +146,11 @@ void FlowPart::setCaption( const QString &caption )
 			width += 32;
 			break;
 	}
-	
+
 	bool hasSideConnectors = m_flowSymbol == FlowPart::ps_decision;
 	if ( hasSideConnectors && (width != this->width()) )
 		p_icnDocument->requestRerouteInvalidatedConnectors();
-	
+
 	initSymbol( m_flowSymbol, width );
 	m_caption = caption;
 }
@@ -179,7 +179,7 @@ void FlowPart::createAltOutput()
 void FlowPart::initSymbol( FlowPart::FlowSymbol symbol, int width )
 {
 	m_flowSymbol = symbol;
-	
+
 	switch(symbol)
 	{
 		case FlowPart::ps_other:
@@ -204,9 +204,9 @@ void FlowPart::initSymbol( FlowPart::FlowSymbol symbol, int width )
 			// define rounded rectangles as two semicricles with RP_NUM/2 points with gap inbetween
 			// These points are not used for drawing; merely for passing to qcanvaspolygonitem for collision detection
 			// If there is a better way for a rounder rectangle + collision detection, please let me know...
- 		
+
 			int halfHeight = 12;
-	
+
 			// Draw semicircle
 			double x;
 			const int RP_NUM = 48;
@@ -219,12 +219,12 @@ void FlowPart::initSymbol( FlowPart::FlowSymbol symbol, int width )
 				pa[RP_NUM-1-point] = QPoint ( (int)(halfHeight-x), (int)(halfHeight*y) );
 				point++;
 			}
- 		
+
 			pa.translate( -width/2, 4 );
 			setItemPoints(pa);
 			break;
 		}
-		
+
 		case FlowPart::ps_decision:
 		{
 			// define rhombus
@@ -238,19 +238,19 @@ void FlowPart::initSymbol( FlowPart::FlowSymbol symbol, int width )
 			setItemPoints(pa);
 			break;
 		}
-		default: kError() << k_funcinfo << "Unknown flowSymbol: "<<symbol<<endl;
+		default: qCritical() << Q_FUNC_INFO << "Unknown flowSymbol: "<<symbol<<endl;
 	}
 }
 
 void FlowPart::drawShape( QPainter &p )
 {
 	initPainter(p);
-	
+
 	const double _x = int( x() + offsetX() );
 	const double _y = int( y() + offsetY() );
 	const double w = width();
 	double h = height();
-	
+
 	switch (m_flowSymbol) {
 
 	case FlowPart::ps_other:
@@ -261,19 +261,19 @@ void FlowPart::drawShape( QPainter &p )
 		h--;
 		double roundSize = 8;
 		double slantIndent = 5;
-			
+
 // 		CNItem::drawShape(p);
 		double inner = std::atan(h/slantIndent);
 		double outer = M_PI - inner;
-		
+
 		int inner16 = int(16*inner*DPR);
 		int outer16 = int(16*outer*DPR);
-			
+
 		p.save();
 		p.setPen( Qt::NoPen );
 		p.drawPolygon( areaPoints() );
 		p.restore();
-		
+
 		p.drawLine(int(_x + slantIndent+roundSize / 2),
 			   int(_y),
 			   int(_x + w  -                                  roundSize / 2),
@@ -332,7 +332,7 @@ void FlowPart::drawShape( QPainter &p )
 		p.drawRoundRect( int(_x), int(_y), int(w), int(h + 1), 30, 100 );
 		break;
 	}
-	
+
 	p.setPen( Qt::black );
 	p.setFont( font() );
 	p.drawText( boundingRect(), (Qt::TextWordWrap | Qt::AlignHCenter | Qt::AlignVCenter), m_caption );
@@ -341,67 +341,67 @@ void FlowPart::drawShape( QPainter &p )
 QString FlowPart::gotoCode( const QString& internalNodeId )
 {
 	FlowPart *end = outputPart(internalNodeId);
-	if (!end) return "";	
+	if (!end) return "";
 	return "goto "+end->id();
 }
 
 FlowPart* FlowPart::outputPart( const QString& internalNodeId )
 {
 	Node *node = p_icnDocument->nodeWithID( nodeId(internalNodeId) );
-	
+
 	FPNode *fpnode = dynamic_cast<FPNode*>(node);
 		// FIXME dynamic_cast used to replace fpnode::type() call
 	if ( !fpnode || ( dynamic_cast<InputFlowNode*>(fpnode) != 0) )
 	// if ( !fpnode || fpnode->type() == Node::fp_in )
 		return 0l;
-	
+
 	return fpnode->outputFlowPart();
 }
 
 FlowPartList FlowPart::inputParts( const QString& id )
 {
 	Node *node = p_icnDocument->nodeWithID(id);
-	
+
 	if ( FPNode *fpNode = dynamic_cast<FPNode*>(node) )
 		return fpNode->inputFlowParts();
-	
+
 	return FlowPartList();
 }
-	
+
 FlowPartList FlowPart::inputParts()
 {
 	FlowPartList list;
-	
+
 	const NodeInfoMap::iterator nEnd = m_nodeMap.end();
 	for ( NodeInfoMap::iterator it = m_nodeMap.begin(); it != nEnd; ++it )
 	{
 		Node *node = p_icnDocument->nodeWithID( it.value().id );
 		FlowPartList newList;
-		
+
 		if ( FPNode *fpNode = dynamic_cast<FPNode*>(node) )
 			newList = fpNode->inputFlowParts();
-		
+
 		const FlowPartList::iterator nlEnd = newList.end();
 		for ( FlowPartList::iterator it = newList.begin(); it != nlEnd; ++it )
 		{
 			if (*it) list.append(*it);
 		}
 	}
-	
+
 	return list;
 }
 
 FlowPartList FlowPart::outputParts()
 {
 	FlowPartList list;
-	
+
 	const NodeInfoMap::iterator end = m_nodeMap.end();
 	for ( NodeInfoMap::iterator it = m_nodeMap.begin(); it != end; ++it )
 	{
 		FlowPart *part = outputPart( it.key() );
 		if (part) list.append(part);
 	}
-	
+
 	return list;
 }
 
@@ -417,7 +417,7 @@ FlowPart* FlowPart::endPart( QStringList ids, FlowPartList *previousParts )
 		}
 		filterEndPartIDs( &ids );
 	}
-	
+
 	const bool createdList = (!previousParts);
 	if (createdList) {
 		previousParts = new FlowPartList;
@@ -426,7 +426,7 @@ FlowPart* FlowPart::endPart( QStringList ids, FlowPartList *previousParts )
 	}
 
 	previousParts->append(this);
-	
+
 	if ( ids.empty() ) {
 		return 0l;
 	}
@@ -434,10 +434,10 @@ FlowPart* FlowPart::endPart( QStringList ids, FlowPartList *previousParts )
 	if ( ids.size() == 1 ) {
 		return outputPart( *(ids.begin()) );
 	}
-	
+
 	typedef QList<FlowPartList>  ValidPartsList;
 	ValidPartsList validPartsList;
-	
+
 	const QStringList::iterator idsEnd = ids.end();
 	for ( QStringList::iterator it = ids.begin(); it != idsEnd; ++it )
 	{
@@ -465,15 +465,15 @@ FlowPart* FlowPart::endPart( QStringList ids, FlowPartList *previousParts )
 			validPartsList.append(validParts);
 		}
 	}
-	
+
 	if (createdList)
 	{
 		delete previousParts;
 		previousParts = 0l;
 	}
-	
+
 	if ( validPartsList.empty() ) return 0l;
-	
+
 	FlowPartList firstList = *(validPartsList.begin());
 	const FlowPartList::iterator flEnd = firstList.end();
 	const ValidPartsList::iterator vplEnd = validPartsList.end();
@@ -486,7 +486,7 @@ FlowPart* FlowPart::endPart( QStringList ids, FlowPartList *previousParts )
 		}
 		if (ok) return *it;
 	}
-	
+
 	return 0l;
 }
 
@@ -495,24 +495,24 @@ void FlowPart::handleIfElse( FlowCode *code, const QString &case1Statement, cons
 				 			 const QString &case1, const QString &case2 )
 {
 	if (!code) return;
-	
+
 	FlowPart *stop = 0l;
 	FlowPart *part1 = outputPart(case1);
 	FlowPart *part2 = outputPart(case2);
-	
+
 	if ( part1 && part2 ) stop = endPart( (QStringList(case1) << case2 ) );
-	
+
 	if ( (!part1 && !part2) || (part1 == stop && part2 == stop) ) return;
-	
+
 	code->addStopPart(stop);
-	
+
 	if ( part1 && part1 != stop && code->isValidBranch(part1) )
 	{
 		// Use the case1 statement
 		code->addCode( "if "+case1Statement+" then "+"\n{" );
 		code->addCodeBranch(part1);
 		code->addCode("}");
-		
+
 		if ( part2 && part2 != stop && code->isValidBranch(part2) )
 		{
 			code->addCode( "else\n{" );
@@ -525,7 +525,7 @@ void FlowPart::handleIfElse( FlowCode *code, const QString &case1Statement, cons
 		code->addCodeBranch(part2);
 		code->addCode("}");
 	}
-	
+
 	code->removeStopPart(stop);
 	code->addCodeBranch(stop);
 }
@@ -539,10 +539,10 @@ Variant * FlowPart::createProperty( const QString & id, Variant::Type::Value typ
 			&& type != Variant::Type::SevenSegment
 			&& type != Variant::Type::KeyPad )
 		return CNItem::createProperty( id, type );
-	
+
 	Variant * v = createProperty( id, Variant::Type::String );
 	v->setType(type);
-	
+
 	if ( type == Variant::Type::VarName )
 	{
 		if ( m_pFlowCodeDocument )
@@ -554,7 +554,7 @@ Variant * FlowPart::createProperty( const QString & id, Variant::Type::Value typ
 	}
 	else
 		slotUpdateFlowPartVariables();
-	
+
 	return v;
 }
 
@@ -562,10 +562,10 @@ Variant * FlowPart::createProperty( const QString & id, Variant::Type::Value typ
 void FlowPart::slotUpdateFlowPartVariables()
 {
 	if (!m_pFlowCodeDocument) return;
-	
+
 	MicroSettings *s = m_pFlowCodeDocument->microSettings();
 	if (!s) return;
-	
+
 	const PinMappingMap pinMappings = s->pinMappings();
 	QStringList sevenSegMaps;
 	QStringList keyPadMaps;
@@ -578,29 +578,29 @@ void FlowPart::slotUpdateFlowPartVariables()
 		case PinMapping::SevenSegment:
 			sevenSegMaps << it.key();
 			break;
-			
+
 		case PinMapping::Keypad_4x3:
 		case PinMapping::Keypad_4x4:
 			keyPadMaps << it.key();
 			break;
-			
+
 		case PinMapping::Invalid:
 			break;
 		}
 	}
-	
+
 	QStringList ports = s->microInfo()->package()->portNames();
 	ports.sort();
-	
+
 	QStringList pins = s->microInfo()->package()->pinIDs(PicPin::type_bidir | PicPin::type_input | PicPin::type_open);
 	pins.sort();
-	
+
 	const VariantDataMap::iterator vEnd = m_variantData.end();
 	for ( VariantDataMap::iterator it = m_variantData.begin(); it != vEnd; ++it )
 	{
 		Variant * v = it.value();
 		if ( !v ) continue;
-		
+
 		if ( v->type() == Variant::Type::Port )
 			v->setAllowed( ports );
 		else if ( v->type() == Variant::Type::Pin )
@@ -661,26 +661,26 @@ inline int nodeDirToPos( int dir )
 void FlowPart::updateAttachedPositioning( )
 {
 	if (b_deleted) return;
-	
+
 	//BEGIN Rearrange text if appropriate
 	const QRect textPos[4] = {
-		QRect( offsetX()+width(),	6,					40, 16 ), 
+		QRect( offsetX()+width(),	6,					40, 16 ),
 		QRect( 0,					offsetY()-16,		40, 16 ),
 		QRect( offsetX()-40,		6,					40, 16 ),
 		QRect( 0,					offsetY()+height(),	40, 16 ) };
-	
+
 	NodeInfo * stdOutputInfo = m_stdOutput ? &m_nodeMap["stdoutput"] : 0;
 	NodeInfo * altOutputInfo = m_altOutput ? &m_nodeMap["altoutput"] : 0l;
-	
+
 	Text *outputTrueText = m_textMap.contains("output_true") ? m_textMap["output_true"] : 0l;
 	Text *outputFalseText = m_textMap.contains("output_false") ? m_textMap["output_false"] : 0l;
-	
+
 	if ( stdOutputInfo && outputTrueText )
 		outputTrueText->setOriginalRect( textPos[ nodeDirToPos( stdOutputInfo->orientation ) ] );
-	
+
 	if ( altOutputInfo && outputFalseText )
 		outputFalseText->setOriginalRect( textPos[ nodeDirToPos( altOutputInfo->orientation ) ] );
-	
+
 	const TextMap::iterator textMapEnd = m_textMap.end();
 	for ( TextMap::iterator it = m_textMap.begin(); it != textMapEnd; ++it )
 	{
@@ -689,24 +689,24 @@ void FlowPart::updateAttachedPositioning( )
 		it.value()->setGuiPartSize( pos.width(), pos.height() );
 	}
 	//END Rearrange text if appropriate
-	
+
 	const NodeInfoMap::iterator end = m_nodeMap.end();
 	for ( NodeInfoMap::iterator it = m_nodeMap.begin(); it != end; ++it )
 	{
 		if ( !it.value().node )
 		{
-			kError() << k_funcinfo << "Node in nodemap is null" << endl;
+			qCritical() << Q_FUNC_INFO << "Node in nodemap is null" << endl;
 			continue;
 		}
-		
+
 		double nx = it.value().x;
 		double ny = it.value().y;
-			
+
 #define round_8(x) (((x) > 0) ? int(((x)+4)/8)*8 : int(((x)-4)/8)*8)
 		nx = round_8(nx);
 		ny = round_8(ny);
 #undef round_8
-			
+
 		it.value().node->move( int(nx+x()), int(ny+y()) );
 		it.value().node->setOrientation( it.value().orientation );
 	}
@@ -730,14 +730,14 @@ void FlowPart::updateNodePositions()
 {
 	if ( m_orientation > 7 )
 	{
-		kWarning() << k_funcinfo << "Invalid orientation: "<<m_orientation<<endl;
+		qWarning() << Q_FUNC_INFO << "Invalid orientation: "<<m_orientation<<endl;
 		return;
 	}
-	
+
 	NodeInfo * stdInputInfo = m_stdInput ? &m_nodeMap["stdinput"] : 0l;
 	NodeInfo * stdOutputInfo = m_stdOutput ? &m_nodeMap["stdoutput"] : 0;
 	NodeInfo * altOutputInfo = m_altOutput ? &m_nodeMap["altoutput"] : 0l;
-	
+
 	if ( m_stdInput && m_stdOutput && m_altOutput ) {
 		stdInputInfo->orientation = diamondNodePositioning[m_orientation][0];
 		stdOutputInfo->orientation = diamondNodePositioning[m_orientation][1];
@@ -751,15 +751,15 @@ void FlowPart::updateNodePositions()
 		else if (stdOutputInfo)
 			stdOutputInfo->orientation = outNodePositioning[m_orientation];
 	} else {
-		kWarning() << k_funcinfo << "Invalid orientation: "<<m_orientation<<endl;
+		qWarning() << Q_FUNC_INFO << "Invalid orientation: "<<m_orientation<<endl;
 		return;
 	}
-	
+
 	const NodeInfoMap::iterator end = m_nodeMap.end();
 	for ( NodeInfoMap::iterator it = m_nodeMap.begin(); it != end; ++it )
 	{
 		if ( !it.value().node )
-			kError() << k_funcinfo << "Node in nodemap is null" << endl;
+			qCritical() << Q_FUNC_INFO << "Node in nodemap is null" << endl;
 		else {
 			switch ( it.value().orientation ) {
 			case 0:
@@ -781,7 +781,7 @@ void FlowPart::updateNodePositions()
 			}
 		}
 	}
-	
+
 	updateAttachedPositioning();
 }
 
@@ -790,7 +790,7 @@ void FlowPart::setOrientation( uint orientation )
 {
 	if ( orientation == m_orientation )
 		return;
-	
+
 	m_orientation = orientation;
 	updateNodePositions();
 	p_icnDocument->requestRerouteInvalidatedConnectors();
@@ -801,29 +801,29 @@ uint FlowPart::allowedOrientations( ) const
 {
 	// The bit positions shown here represent whether or not that orientation is allowed, the orientation being
 	// what is displayed in the i'th position (0 to 3 on top, 4 to 7 on bottom) of orientation widget
-	
+
 	if ( m_stdInput && m_stdOutput && m_altOutput )
 		return 255;
-	
+
 	if ( m_stdInput && m_stdOutput )
 		return 119;
-	
+
 	if ( m_stdInput || m_stdOutput )
 		return 15;
-	
+
 	return 0;
 }
 
 void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 {
 	const QSize size = pm.size();
-	
+
 	if ( ! ( allowedOrientations() & ( 1 << orientation ) ) )
 	{
-		kWarning() << k_funcinfo << "Requesting invalid orientation of " << orientation << endl;
+		qWarning() << Q_FUNC_INFO << "Requesting invalid orientation of " << orientation << endl;
 		return;
 	}
-	
+
 	QBitmap mask( 50, 50 );
 	//QPainter maskPainter(&mask); // 2016.05.03 - initialize painter explicitly
     QPainter maskPainter;
@@ -837,7 +837,7 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 	mask.fill( Qt::color0 );
 	maskPainter.setBrush(Qt::color1);
 	maskPainter.setPen(Qt::color1);
-	
+
     //BEGIN painter on pm
     {
 	//QPainter p(&pm); // 2016.05.03 - explicitly initialize painter
@@ -850,59 +850,59 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 	p.setPen( Qt::black );
 
 	// In order: right corner, top corner, left corner, bottom corner
-	
+
 	QPoint c[4] = {
 		QPoint( int(0.7*size.width()), int(0.5*size.height()) ),
 		QPoint( int(0.5*size.width()), int(0.4*size.height()) ),
 		QPoint( int(0.3*size.width()), int(0.5*size.height()) ),
 		QPoint( int(0.5*size.width()), int(0.6*size.height()) ) };
-	
+
 	QPoint d[4];
 	d[0] = c[0] + QPoint( 7, 0 );
 	d[1] = c[1] + QPoint( 0, -7 );
 	d[2] = c[2] + QPoint( -7, 0 );
 	d[3] = c[3] + QPoint( 0, 7 );
-	
+
 	if ( m_stdInput && m_stdOutput && m_altOutput )
 	{
 		//BEGIN Draw diamond outline
 		QPolygon diamond(4);
 		for ( uint i=0; i<4; ++i )
 			diamond[i] = c[i];
-		
+
 		p.drawPolygon(diamond);
 		maskPainter.drawPolygon(diamond);
 		//END Draw diamond outline
-		
-		
+
+
 		//BEGIN Draw input
 		int pos0 = nodeDirToPos( diamondNodePositioning[orientation][0] );
 		p.drawLine( c[pos0], d[pos0] );
 		maskPainter.drawLine( c[pos0], d[pos0] );
 		//END Draw input
-		
-		
+
+
 		//BEGIN Draw "true" output as a tick
 		QPolygon tick(4);
 		tick[0] = QPoint( -3, 0 );
 		tick[1] = QPoint( 0, 2 );
 		tick[2] = QPoint( 0, 2 );
 		tick[3] = QPoint( 4, -2 );
-		
+
 		int pos1 = nodeDirToPos( diamondNodePositioning[orientation][1] );
 		tick.translate( d[pos1].x(), d[pos1].y() );
 		p.drawLines(tick);
 		maskPainter.drawLines(tick);
 		//END Draw "true" output as a tick
-		
-		
+
+
 		//BEGIN Draw "false" output as a cross
 		QPolygon cross(4);
 		cross[0] = QPoint( -2, -2 );
 		cross[1] = QPoint( 2, 2 );
 		cross[2] = QPoint( -2, 2 );
 		cross[3] = QPoint( 2, -2 );
-		
+
 		int pos2 = nodeDirToPos( diamondNodePositioning[orientation][2] );
 		cross.translate( d[pos2].x(), d[pos2].y() );
 		p.drawLines(cross);
@@ -911,30 +911,30 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 	} else if ( m_stdInput || m_stdOutput ) {
 		p.drawRoundRect( int(0.3*size.width()), int(0.4*size.height()), int(0.4*size.width()), int(0.2*size.height()) );
 		maskPainter.drawRoundRect( int(0.3*size.width()), int(0.4*size.height()), int(0.4*size.width()), int(0.2*size.height()) );
-		
+
 		int hal = 5; // half arrow length
 		int haw = 3; // half arrow width
-		
+
 		QPoint arrows[4][6] = {
 			{ QPoint( hal, 0 ), QPoint( 0, -haw ),
 			  QPoint( hal, 0 ), QPoint( -hal, 0 ),
 			  QPoint( hal, 0 ), QPoint( 0, haw ) },
-			
+
 			{ QPoint( 0, -hal ), QPoint( -haw, 0 ),
 			  QPoint( 0, -hal ), QPoint( 0, hal ),
 			  QPoint( 0, -hal ), QPoint( haw, 0 ) },
-			  
+
 			{ QPoint( -hal, 0 ), QPoint( 0, -haw ),
 			  QPoint( -hal, 0 ), QPoint( hal, 0 ),
 			  QPoint( -hal, 0 ), QPoint( 0, haw ) },
-			 
+
 			{ QPoint( 0, hal ), QPoint( -haw, 0 ),
 			  QPoint( 0, hal ), QPoint( 0, -hal ),
 			  QPoint( 0, hal ), QPoint( haw, 0 ) } };
-		
+
 		int inPos = -1;
 		int outPos = -1;
-		
+
 		if ( m_stdInput && m_stdOutput ) {
 			inPos = nodeDirToPos( inOutNodePositioning[orientation][0] );
 			outPos = nodeDirToPos( inOutNodePositioning[orientation][1] );
@@ -943,7 +943,7 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 		} else if ( m_stdOutput ) {
 			outPos = nodeDirToPos( outNodePositioning[orientation] );
 		}
-		
+
 		if ( inPos != -1 ) {
 			QPolygon inArrow(6);
 			for ( int i=0; i<6; ++i )
@@ -954,7 +954,7 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 			p.drawPolygon(inArrow);
 			maskPainter.drawPolygon(inArrow);
 		}
-		
+
 		if ( outPos != -1 ) {
 			QPolygon outArrow(6);
 			for ( int i=0; i<6; ++i ) {
@@ -965,7 +965,7 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
 			maskPainter.drawPolygon(outArrow);
 		}
 	}
-	
+
     }
     //END painter on pm
 	pm.setMask(mask);  // pm needs not to have active painters on it

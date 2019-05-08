@@ -14,7 +14,7 @@
 #include "propertyeditor.h"
 #include "propertyeditoritem.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <kiconloader.h>
 #include <klocalizedstring.h>
 

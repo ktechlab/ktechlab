@@ -17,7 +17,7 @@
 
 #include <qpainter.h>
 #include <qtimer.h>
-#include <kdebug.h>
+#include <qdebug.h>
 
 #include <cmath>
 #define FADESPEED 1
@@ -52,7 +52,7 @@ void ScopeScreenView::drawContents(QPainter * p)
 	const double ticksPerPixel = m_intervalsX * m_ticksPerIntervalX / cr.width();	
 	//draw the current time
 	int curTimeX = ((Simulator::self()->time() + m_offsetX) % (ticksPerScreen)) * pixelsPerTick;
-	//kDebug() << curTimeX <<endl;
+	//qDebug() << curTimeX <<endl;
 	p->drawLine(curTimeX, cr.top(), curTimeX, cr.bottom());
 	
 	//the following is liberally borrowed from OscilloscopeView::drawFloatingData
@@ -102,7 +102,7 @@ void ScopeScreenView::drawContents(QPainter * p)
 			{
 				prevX = 0;
 			}
-			//kDebug() <<at<<" "<<nextX<<" "<<nextY<<" "<<nextTime<<endl;
+			//qDebug() <<at<<" "<<nextX<<" "<<nextY<<" "<<nextTime<<endl;
 			p->drawLine( prevX, prevY, nextX, nextY );
 			
 			prevTime = nextTime;

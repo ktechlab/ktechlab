@@ -18,7 +18,7 @@ class DiodeSettings
 	public:
 		DiodeSettings();
 		void reset();
-		
+
 		double I_S;	///< Diode saturation current
 		double N;	///< Emission coefficient
 		double V_B;	///< Reverse breakdown
@@ -44,28 +44,28 @@ class Diode : public NonLinear
 	public:
 		Diode();
 		virtual ~Diode();
-	
-		virtual void update_dc();
-		virtual void add_initial_dc();
-		virtual Element::Type type() const { return Element_Diode; }
+
+		virtual void update_dc() override;
+		virtual void add_initial_dc() override;
+		virtual Element::Type type() const override { return Element_Diode; }
 		DiodeSettings settings() const { return m_diodeSettings; }
 		void setDiodeSettings( const DiodeSettings & settings );
 		/**
 		 * Returns the current flowing through the diode
 		 */
 		double current() const;
-	
+
 	protected:
-		virtual void updateCurrents();
+		virtual void updateCurrents() override;
 		void calc_eq();
 		void calcIg( double V, double * I, double * g ) const;
 		void updateLim();
-		
+
 		double g_new, g_old;
 		double I_new, I_old;
 		double V_prev;
 		double V_lim;
-	
+
 		DiodeSettings m_diodeSettings;
 };
 

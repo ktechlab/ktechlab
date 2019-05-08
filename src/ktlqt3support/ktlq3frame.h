@@ -70,8 +70,8 @@ public:
     int frameWidth() const;
 
 protected:
-    void paintEvent(QPaintEvent *);
-    void resizeEvent(QResizeEvent *);
+    void paintEvent(QPaintEvent *) override;
+    void resizeEvent(QResizeEvent *) override;
 
     virtual void frameChanged();
     virtual void drawFrame(QPainter *);

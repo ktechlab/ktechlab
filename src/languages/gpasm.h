@@ -22,13 +22,13 @@ class Gpasm : public ExternalLanguage
 	public:
 		Gpasm( ProcessChain *processChain );
 		~Gpasm();
-	
-		virtual void processInput( ProcessOptions options );
-		virtual ProcessOptions::ProcessPath::Path outputPath( ProcessOptions::ProcessPath::Path inputPath ) const;
-	
+
+		virtual void processInput( ProcessOptions options ) override;
+		virtual ProcessOptions::ProcessPath::Path outputPath( ProcessOptions::ProcessPath::Path inputPath ) const override;
+
 	protected:
-		virtual bool isError( const QString &message ) const;
-		virtual bool isWarning( const QString &message ) const;
+		virtual bool isError( const QString &message ) const override;
+		virtual bool isWarning( const QString &message ) const override;
 };
 
 #endif

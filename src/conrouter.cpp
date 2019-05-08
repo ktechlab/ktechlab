@@ -11,7 +11,7 @@
 #include "conrouter.h"
 #include "icndocument.h"
 #include "utils.h"
-#include <kdebug.h>
+#include <qdebug.h>
 
 #include <cassert>
 #include <cstdlib>
@@ -77,8 +77,8 @@ QPointListList ConRouter::splitPoints( const QPoint &pos ) const
 	QPointList second;
 	
 	if (!found) {
-		kWarning() << "ConRouter::splitConnectorPoints: Could not find point ("<<pos.x()<<", "<<pos.y()<<") in connector points"<<endl;
-		kWarning() << "ConRouter::splitConnectorPoints: Returning generic list"<<endl;
+		qWarning() << "ConRouter::splitConnectorPoints: Could not find point ("<<pos.x()<<", "<<pos.y()<<") in connector points"<<endl;
+		qWarning() << "ConRouter::splitConnectorPoints: Returning generic list"<<endl;
 		
 		first.append( toCanvas(m_cellPointList.first()) );
 		first.append(pos);

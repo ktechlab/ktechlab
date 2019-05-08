@@ -21,14 +21,14 @@ class SDCC : public ExternalLanguage
 	public:
 		SDCC( ProcessChain * processChain );
 		~SDCC();
-	
-		virtual void processInput( ProcessOptions options );
-		virtual ProcessOptions::ProcessPath::Path outputPath( ProcessOptions::ProcessPath::Path inputPath ) const;
-	
+
+		virtual void processInput( ProcessOptions options ) override;
+		virtual ProcessOptions::ProcessPath::Path outputPath( ProcessOptions::ProcessPath::Path inputPath ) const override;
+
 	protected:
-		virtual bool isError( const QString & message ) const;
-		virtual bool isWarning( const QString & message ) const;
-		virtual bool isStderrOutputFatal( const QString & message ) const;
+		virtual bool isError( const QString & message ) const override;
+		virtual bool isWarning( const QString & message ) const override;
+		virtual bool isStderrOutputFatal( const QString & message ) const override;
 };
 
 #endif

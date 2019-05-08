@@ -21,13 +21,13 @@ class NonLinear : public Element
 {
 	public:
 		NonLinear();
-	
-		virtual bool isNonLinear() const { return true; }
+
+		virtual bool isNonLinear() const override { return true; }
 		/**
 		 * Newton-Raphson iteration: Update equation system.
 		 */
 		virtual void update_dc() = 0;
-		
+
 	protected:
 		/**
 		 * The diode current.
@@ -61,7 +61,7 @@ class NonLinear : public Element
 		 * iterations.
 		 */
 		double fetVoltage( double V, double V_prev, double Vth ) const;
-		
+
 		double diodeLimitedVoltage( double I_S, double N ) const;
 };
 

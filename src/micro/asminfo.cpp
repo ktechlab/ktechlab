@@ -10,7 +10,7 @@
 
 #include "asminfo.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 
 AsmInfo::AsmInfo()
 {
@@ -38,31 +38,31 @@ QString AsmInfo::setToString( Set set )
 	switch (set)
 	{
 		case AsmInfo::PIC12:
-			return "PIC12";
-			
+			return QString::fromLatin1("PIC12");
+
 		case AsmInfo::PIC14:
-			return "PIC14";
-			
+			return QString::fromLatin1("PIC14");
+
 		case AsmInfo::PIC16:
-			return "PIC16";
+			return QString::fromLatin1("PIC16");
 	}
-	
-	kWarning() << k_funcinfo << "Unrecognized set="<<set<<endl;
+
+	qWarning() << Q_FUNC_INFO << "Unrecognized set="<<set<<endl;
 	return QString::null;
 }
 
 
 AsmInfo::Set AsmInfo::stringToSet( const QString & set )
 {
-	if ( set == "PIC12" )
+	if ( set == QString::fromLatin1("PIC12") )
 		return PIC12;
-	
-	if ( set == "PIC14" )
+
+	if ( set == QString::fromLatin1("PIC14") )
 		return PIC14;
-	
-	if ( set == "PIC16" )
+
+	if ( set == QString::fromLatin1("PIC16") )
 		return PIC16;
-	
-// 	kWarning() << k_funcinfo << "Unrecognized set="<<set<<endl;
+
+// 	qWarning() << Q_FUNC_INFO << "Unrecognized set="<<set<<endl;
 	return PIC14;
 }

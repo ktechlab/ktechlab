@@ -23,17 +23,17 @@ class CurrentSignal : public Reactive, public ElementSignal
 public:
 	CurrentSignal(  double delta, double current );
 	virtual ~CurrentSignal();
-	
-	virtual Element::Type type() const { return Element_CurrentSignal; }
+
+	virtual Element::Type type() const override { return Element_CurrentSignal; }
 	void setCurrent( double current );
 	double current() { return m_current; }
-	virtual void time_step();
+	virtual void time_step() override;
 
 protected:
-	virtual void updateCurrents();
-	virtual void add_initial_dc();
+	virtual void updateCurrents() override;
+	virtual void add_initial_dc() override;
 	void addCurrents();
-	
+
 	double m_current; // Current
 	double m_oldCurrent; // Old calculated current
 	double m_newCurrent; // New calculated current

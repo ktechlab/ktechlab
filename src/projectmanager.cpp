@@ -19,7 +19,7 @@
 #include "projectmanager.h"
 #include "recentfilesaction.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <kfiledialog.h>
 #include <kiconloader.h>
 #include <kio/netaccess.h>
@@ -101,7 +101,7 @@ void LinkerOptions::domElementToLinkerOptions( const QDomElement & element, cons
 				m_linkedExternal << childElement.attribute( "url", QString::null );
 			
 			else
-				kError() << k_funcinfo << "Unrecognised element tag name: "<<tagName<<endl;
+				qCritical() << Q_FUNC_INFO << "Unrecognised element tag name: "<<tagName<<endl;
 		}
 		
 		node = node.nextSibling();
@@ -376,7 +376,7 @@ ProjectItem::OutputType ProjectItem::outputType() const
 			switch ( type() )
 			{
 				case ProjectItem::ProjectType:
-					kWarning() << k_funcinfo << "Parent item and this item are both project items" << endl;
+					qWarning() << Q_FUNC_INFO << "Parent item and this item are both project items" << endl;
 					return UnknownOutput;
 						
 				case ProjectItem::FileType:
@@ -391,7 +391,7 @@ ProjectItem::OutputType ProjectItem::outputType() const
 				
 		case ProjectItem::FileType:
 		{
-			kWarning() << k_funcinfo << "Don't know how to handle parent item being a file" << endl;
+			qWarning() << Q_FUNC_INFO << "Don't know how to handle parent item being a file" << endl;
 			return UnknownOutput;
 		}
 				
@@ -752,7 +752,7 @@ void ProjectItem::domElementToItem( const QDomElement & element, const KUrl & ba
 				createdItem->domElementToItem( childElement, baseURL );
 			
 			else
-				kError() << k_funcinfo << "Unrecognised element tag name: "<<tagName<<endl;
+				qCritical() << Q_FUNC_INFO << "Unrecognised element tag name: "<<tagName<<endl;
 		}
 		
 		node = node.nextSibling();
@@ -831,7 +831,7 @@ bool ProjectInfo::open( const KUrl & url )
 				domElementToItem( element, m_url );
 			
 			else
-				kWarning() << k_funcinfo << "Unrecognised element tag name: "<<tagName<<endl;
+				qWarning() << Q_FUNC_INFO << "Unrecognised element tag name: "<<tagName<<endl;
 		}
 		
 		node = node.nextSibling();
@@ -940,7 +940,7 @@ void ProjectManager::slotNewProject()
 		
         QDir dir;
         if ( !dir.mkdir( m_pCurrentProject->directory() ) )
-			kDebug() << "Error in creating directory " << m_pCurrentProject->directory() << endl;
+			qDebug() << "Error in creating directory " << m_pCurrentProject->directory() << endl;
 		
 		m_pCurrentProject->save();
 		updateActions();

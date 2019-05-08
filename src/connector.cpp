@@ -19,7 +19,7 @@
 #include "wire.h"
 #include "utils.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <qpainter.h>
 
 #include <cstdlib>
@@ -55,9 +55,9 @@ Connector::Connector(Node * /*startNode*/, Node * /*endNode*/, ICNDocument *icnD
 	if (id) {
 		m_id = *id;
 		if ( !p_icnDocument->registerUID(*id) ) {
-                    kDebug() << k_funcinfo << "Connector attempted to register given ID, but ID already in use: " << *id << endl;
+                    qDebug() << Q_FUNC_INFO << "Connector attempted to register given ID, but ID already in use: " << *id << endl;
                     m_id = p_icnDocument->generateUID( *id );
-                    kDebug() << "Creating a new one: " << m_id << endl;
+                    qDebug() << "Creating a new one: " << m_id << endl;
 		}
 	} else m_id = p_icnDocument->generateUID("connector");
 
@@ -334,7 +334,7 @@ void Connector::setRoutePoints(QPointList pointList, bool setManual, bool checkE
 	updateConnectorPoints(false);
 
 	bool reversed = pointsAreReverse(pointList);
-	
+
 	// a little performance boost: don't call (start|end)Node 4 times
 	Node* l_endNode = endNode();
 	Node* l_startNode = startNode();
@@ -358,7 +358,7 @@ void Connector::setRoutePoints(QPointList pointList, bool setManual, bool checkE
 
 bool Connector::pointsAreReverse(const QPointList &pointList) const {
 	if (!startNode() || !endNode()) {
-		kWarning() << k_funcinfo << "Cannot determine orientation as no start and end nodes" << endl;
+		qWarning() << Q_FUNC_INFO << "Cannot determine orientation as no start and end nodes" << endl;
 		return false;
 	}
 
@@ -392,7 +392,7 @@ void Connector::rerouteConnector() {
 	if (!isVisible()) return;
 
 	if (nodeGroup()) {
-		kWarning() << k_funcinfo << "Connector is controlled by a NodeGroup! Use that to reroute the connector" << endl;
+		qWarning() << Q_FUNC_INFO << "Connector is controlled by a NodeGroup! Use that to reroute the connector" << endl;
 		return;
 	}
 
@@ -431,7 +431,7 @@ ConnectorData Connector::connectorData() const {
 	ConnectorData connectorData;
 
 	if (!startNode() || !endNode()) {
-		kDebug() << k_funcinfo << " m_startNode=" << startNode() << " m_endNode=" << endNode() << endl;
+		qDebug() << Q_FUNC_INFO << " m_startNode=" << startNode() << " m_endNode=" << endNode() << endl;
 		return connectorData;
 	}
 
