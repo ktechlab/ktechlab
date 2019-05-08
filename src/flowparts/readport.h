@@ -22,14 +22,14 @@ class ReadPort : public FlowPart
 public:
 	ReadPort( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ReadPort();
-	
+
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
-	virtual void generateMicrobe( FlowCode * );
+
+	virtual void generateMicrobe( FlowCode * ) override;
 
 protected:
-	void dataChanged();
+	void dataChanged() override;
 };
 
 #endif

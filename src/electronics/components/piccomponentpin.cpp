@@ -15,7 +15,7 @@
 #include "piccomponent.h"
 #include "piccomponentpin.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 
 PICComponentPin::PICComponentPin( PICComponent * picComponent, PicPin picPin )
 	: m_id( picPin.pinID )
@@ -84,19 +84,19 @@ void PICComponentPin::attach( IOPIN * iopin )
 {
 	if (!iopin)
 	{
-		kWarning() << k_funcinfo << " iopin is NULL" << endl;
+		qWarning() << Q_FUNC_INFO << " iopin is NULL" << endl;
 		return;
 	}
 	
 	if (m_pStimulusNode)
 	{
-		kWarning() << k_funcinfo << " Already have a node stimulus" << endl;
+		qWarning() << Q_FUNC_INFO << " Already have a node stimulus" << endl;
 		return;
 	}
 	
 	if (m_pIOPIN)
 	{
-		kWarning() << k_funcinfo << " Already have an iopin" << endl;
+		qWarning() << Q_FUNC_INFO << " Already have an iopin" << endl;
 		return;
 	}
 	

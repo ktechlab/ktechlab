@@ -17,7 +17,7 @@
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <kprocess.h>
-#include <kdebug.h>
+#include <qdebug.h>
 
 #include <qfile.h>
 #include <qdir.h>
@@ -131,8 +131,8 @@ void Gplink::processInput( ProcessOptions options )
 		if ( ! info )
 		{
 			// be program won't link anyway, but the user can't say that the program didn't try
-			kError() << k_funcinfo << "Couldn't find the requested PIC" << options.m_picID << endl;
-			kWarning() << k_funcinfo << "Supposing that the pic is pic12 or pic14" << endl;
+			qCritical() << Q_FUNC_INFO << "Couldn't find the requested PIC" << options.m_picID << endl;
+			qWarning() << Q_FUNC_INFO << "Supposing that the pic is pic12 or pic14" << endl;
 			*m_languageProcess << "-I" << m_sdccLibDir + "/pic" ;
 		}
 		else

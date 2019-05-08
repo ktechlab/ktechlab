@@ -18,7 +18,7 @@
 #include "outputflownode.h"
 #include "junctionflownode.h"
 #include "itemdocumentdata.h"
-#include <kdebug.h>
+#include <qdebug.h>
 
 #include <qbitarray.h>
 #include <qpainter.h>
@@ -544,7 +544,7 @@ Text* CNItem::addDisplayText( const QString &id, const QRect & pos, const QStrin
 	TextMap::iterator it = m_textMap.find(id);
 	if ( it != m_textMap.end() )
 	{
-// 		kWarning() << "CNItem::addDisplayText: removing old text"<<endl;
+// 		qWarning() << "CNItem::addDisplayText: removing old text"<<endl;
 		delete it.value();
 		m_textMap.erase(it);
 	}
@@ -566,7 +566,7 @@ void CNItem::setDisplayText( const QString &id, const QString &display )
 	TextMap::iterator it = m_textMap.find(id);
 	if ( it == m_textMap.end() )
 	{
-		kError() << "CNItem::setDisplayText: Could not find text with id \""<<id<<"\""<<endl;
+		qCritical() << "CNItem::setDisplayText: Could not find text with id \""<<id<<"\""<<endl;
 		return;
 	}
 	it.value()->setText(display);
@@ -579,7 +579,7 @@ void CNItem::removeDisplayText( const QString &id )
 	TextMap::iterator it = m_textMap.find(id);
 	if ( it == m_textMap.end() )
 	{
-// 		kError() << "CNItem::removeDisplayText: Could not find text with id \""<<id<<"\""<<endl;
+// 		qCritical() << "CNItem::removeDisplayText: Could not find text with id \""<<id<<"\""<<endl;
 		return;
 	}
 	it.value()->updateConnectorPoints(false);

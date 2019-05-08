@@ -17,43 +17,43 @@
 class SerialPort;
 
 /**
-@author David Saxton 
+@author David Saxton
 */
 class SerialPortComponent : public CallbackClass, public Component
 {
 	public:
 		SerialPortComponent( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~SerialPortComponent();
-	
+
 		static Item * construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem * libraryItem();
-		
-		virtual void stepNonLogic();
-		virtual bool doesStepNonLogic() const { return true; }
-	
+
+		virtual void stepNonLogic() override;
+		virtual bool doesStepNonLogic() const override { return true; }
+
 	protected:
 		/**
 		 * @param baudRate as defined in <bits/termios.h>
 		 */
 		void initPort( const QString & port, unsigned baudRate );
-		virtual void dataChanged();
-		virtual void drawShape( QPainter & p );
-		
+		virtual void dataChanged() override;
+		virtual void drawShape( QPainter & p ) override;
+
 		void tdCallback( bool isHigh );
 		void dtrCallback( bool isHigh );
 		void dsrCallback( bool isHigh );
 		void rtsCallback( bool isHigh );
-		
+
 		LogicIn * m_pTD;
 		LogicIn * m_pDTR;
 // 		LogicIn * m_pDSR;
 // 		LogicIn * m_pRTS;
-		
+
 		LogicOut * m_pCD;
 // 		LogicOut * m_pRD;
 		LogicOut * m_pCTS;
 		LogicOut * m_pRI;
-		
+
 		SerialPort * m_pSerialPort;
 };
 

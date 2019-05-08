@@ -25,7 +25,7 @@
 #include <cstdlib> // for null 
 #include <cmath>
 #include <cassert>
-#include <kdebug.h>
+#include <qdebug.h>
 #include <iostream>
 
 

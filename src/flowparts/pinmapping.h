@@ -40,7 +40,7 @@ class PinMapping
 			Keypad_4x4,
 			Invalid
 		};
-		
+
 		/**
 		 * Creates an invalid PinMapping, required by Qt templates.
 		 */
@@ -50,12 +50,12 @@ class PinMapping
 		 */
 		PinMapping( Type type );
 		~PinMapping();
-		
+
 		Type type() const { return m_type; }
-		
+
 		QStringList pins() const { return m_pins; }
 		void setPins( const QStringList & pins ) { m_pins = pins; }
-		
+
 	protected:
 		QStringList m_pins;
 		Type m_type;
@@ -72,12 +72,12 @@ class PinMapEditor : public KDialog
 	Q_OBJECT
 	public:
 		PinMapEditor( PinMapping * PinMapping, MicroInfo * Info, QWidget * parent, const char * name );
-		
+
 	protected:
 		virtual void slotApply();
 		virtual void slotOk();
 		void savePinMapping();
-		
+
 		PinMapping * m_pPinMapping;
 		PinMapDocument * m_pPinMapDocument;
 		PinMapView * m_pPinMapView;
@@ -101,12 +101,12 @@ class PinMapDocument : public CircuitICNDocument
 
 		void init( const PinMapping & PinMapping, MicroInfo *microInfo );
 
-		virtual bool isValidItem( Item *item );
-		virtual bool isValidItem( const QString &itemId );
+		virtual bool isValidItem( Item *item ) override;
+		virtual bool isValidItem( const QString &itemId ) override;
 
 		PinMapping pinMapping() const;
 
-		virtual void deleteSelection();
+		virtual void deleteSelection() override;
 
 	protected:
 		PinMapping::Type m_pinMappingType;
@@ -133,10 +133,10 @@ class PIC_IC : public Component
 	public:
 		PIC_IC( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		virtual ~PIC_IC();
-		
+
 		static Item *construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
-	
+
 		void initPackage(MicroInfo *info);
 };
 

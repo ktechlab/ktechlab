@@ -21,22 +21,22 @@ class Meter : public Component
 public:
 	Meter( ICNDocument *icnDocument, bool newItem, const char *id );
 	~Meter();
-	
-	virtual void stepNonLogic();
-	virtual bool doesStepNonLogic() const { return true; }
-	virtual void drawShape( QPainter &p );
-	virtual bool contentChanged() const;
-	
+
+	virtual void stepNonLogic() override;
+	virtual bool doesStepNonLogic() const override { return true; }
+	virtual void drawShape( QPainter &p ) override;
+	virtual bool contentChanged() const override;
+
 protected:
 	QString displayText();
-	virtual void dataChanged();
+	virtual void dataChanged() override;
 	/**
 	 * Return the value / current, or whatever the meter is measuring
 	 */
 	virtual double meterValue() = 0;
-	
+
 	double calcProp( double v ) const;
-	
+
 	bool b_firstRun; // If true, then update the text dispalyed
 	bool b_timerStarted; // The timer to change the text is started on change
 	double m_timeSinceUpdate;
@@ -46,7 +46,7 @@ protected:
 	double m_maxValue;
 	Text *p_displayText;
 	QString m_unit;
-	
+
 	double m_prevProp; // Used in contentChanged()
 };
 
@@ -59,12 +59,12 @@ class FrequencyMeter : public Meter
 public:
 	FrequencyMeter( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~FrequencyMeter();
-	
+
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
+
 protected:
-	virtual double meterValue();
+	virtual double meterValue() override;
 	ECNode *m_probeNode;
 };
 
@@ -77,12 +77,12 @@ class ECAmmeter : public Meter
 public:
 	ECAmmeter( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ECAmmeter();
-	
+
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
+
 protected:
-	virtual double meterValue();
+	virtual double meterValue() override;
 
 private:
 	VoltageSource *m_voltageSource;
@@ -97,12 +97,12 @@ class ECVoltMeter : public Meter
 public:
 	ECVoltMeter( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ECVoltMeter();
-	
+
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
+
 protected:
-	virtual double meterValue();
+	virtual double meterValue() override;
 };
 
 #endif

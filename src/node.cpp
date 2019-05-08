@@ -14,7 +14,7 @@
 #include "itemdocumentdata.h"
 #include "node.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 
 #include <qpainter.h>
 
@@ -41,21 +41,21 @@ Node::Node( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoin
 	m_type = type;
 	p_icnDocument = icnDocument;
 	m_level = 0;
-	
+
 	if ( p_icnDocument ) {
 		if (id) {
 			m_id = *id;
 			if ( !p_icnDocument->registerUID(*id) )
-				kError() << k_funcinfo << "Could not register id " << *id << endl;
+				qCritical() << Q_FUNC_INFO << "Could not register id " << *id << endl;
 		} else m_id = p_icnDocument->generateUID("node"+QString::number(type));
 	}
-	
+
 	initPoints();
 	move( pos.x(), pos.y() );
 	setBrush( Qt::black );
 	setPen( QPen( Qt::black ) );
 	show();
-	
+
 	emit (moved(this));
 }
 
@@ -102,21 +102,21 @@ void Node::initPoints()
 void Node::setVisible( bool yes )
 {
 	if ( isVisible() == yes ) return;
-	
+
 	KtlQCanvasPolygon::setVisible(yes);
 }
 
 void Node::setParentItem( CNItem *parentItem )
 {
 	if (!parentItem) {
-		kError() << k_funcinfo << "no parent item" << endl;
+		qCritical() << Q_FUNC_INFO << "no parent item" << endl;
 		return;
 	}
 
 	p_parentItem = parentItem;
-	
+
 	setLevel(p_parentItem->level());
-	
+
 	connect( p_parentItem, SIGNAL(movedBy(double, double )), this, SLOT(moveBy(double, double)) );
 	connect( p_parentItem, SIGNAL(removed(Item*)), this, SLOT(removeNode(Item*)) );
 }
@@ -153,9 +153,9 @@ void Node::setNodeSelected( bool yes )
 {
 	if ( isSelected() == yes )
 		return;
-	
+
 	KtlQCanvasItem::setSelected(yes);
-	
+
 	setPen(   yes ? m_selectedColor : Qt::black );
 	setBrush( yes ? m_selectedColor : Qt::black );
 }

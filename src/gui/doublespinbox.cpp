@@ -11,7 +11,7 @@
 #include "cnitem.h"
 #include "doublespinbox.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <kglobal.h>
 #include <klocale.h>
 #include <klocalizedstring.h>

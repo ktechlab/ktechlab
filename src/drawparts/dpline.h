@@ -27,13 +27,13 @@ class DPLine : public DrawPart
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
 
-		virtual void setSelected( bool yes );
+		virtual void setSelected( bool yes ) override;
 
 	protected:
-		virtual void postResize();
-		virtual void dataChanged();
-		virtual void drawShape( QPainter &p );
-		
+		virtual void postResize() override;
+		virtual void dataChanged() override;
+		virtual void drawShape( QPainter &p ) override;
+
 		LineOverlay * m_pLineOverlay;
 };
 
@@ -50,8 +50,8 @@ class DPArrow : public DPLine
 		static LibraryItem *libraryItem();
 
 	protected:
-		virtual void dataChanged();
-		virtual void drawShape( QPainter &p );
+		virtual void dataChanged() override;
+		virtual void drawShape( QPainter &p ) override;
 		double m_headAngle;
 };
 

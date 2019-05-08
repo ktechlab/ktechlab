@@ -24,26 +24,26 @@ struct SwitchPosition
 
 /**
  * A rotary switch
- * \author John Myers 
+ * \author John Myers
  */
 class ECRotoSwitch : public Component
 {
 public:
     ECRotoSwitch( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
     ~ECRotoSwitch();
-    
+
     static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
     static LibraryItem *libraryItem();
-    
-    virtual void buttonStateChanged( const QString &id, bool state );
-    virtual void dataChanged();
-    
+
+    virtual void buttonStateChanged( const QString &id, bool state ) override;
+    virtual void dataChanged() override;
+
 private:
-    virtual void drawShape( QPainter &p );
-    
+    virtual void drawShape( QPainter &p ) override;
+
     int m_numPositions;
     int m_curPosition;
-    
+
     ///Half the total width of the component including pins
     static const int _pinOuterRadius = 64;
     ///The width of the pins
@@ -58,10 +58,10 @@ private:
     static const int _contactRadius = 2;
     ///The radius of the ring of positions
     static const int _contactRingRadius = _contactOuterRadius - _contactRadius;
-    
+
     QVector<SwitchPosition> m_positions;
     ECNode* m_inNode;
-    
+
 protected:
     void setUpSwitches();
 protected:

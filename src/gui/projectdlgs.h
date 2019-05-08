@@ -36,19 +36,19 @@ class NewProjectDlg : public KDialog
 	    /**
 		 * Called when the 'Cancel' button is pressed.
 		 */
-		void reject();
-    
+		void reject() override;
+
   	  	/**
 		 * Called when the 'OK' button is pressed.
 		 * User entered values are read in
 		 */
-		void accept();
-		
+		void accept() override;
+
 		bool accepted() const { return m_bAccepted; }
 		QString projectName() const { return m_projectName; }
 		QString projectLocation() const { return m_projectLocation; }
 		QString location() const { return m_location; }
-    
+
 	public slots:
    		 /**
 		 * Called when the projectName or projectLocation edit boxes are edited.
@@ -75,7 +75,7 @@ class CreateSubprojectDlg : public KDialog
 	public:
 		CreateSubprojectDlg( QWidget *parent = 0 );
 		~CreateSubprojectDlg();
-		
+
 		// The following values should agree with the positions in the combo box
 		enum Type
 		{
@@ -86,13 +86,13 @@ class CreateSubprojectDlg : public KDialog
 	    /**
 		 * Called when the 'Cancel' button is pressed.
 		 */
-		void reject();
+		void reject() override;
   	  	/**
 		 * Called when the 'OK' button is pressed. User entered values are read
 		 * in.
 		 */
-		void accept();
-		
+		void accept() override;
+
 		bool accepted() const { return m_bAccepted; }
 		Type type() const { return m_type; }
 		QString targetFile() const { return m_targetFile; }
@@ -118,13 +118,13 @@ class LinkerOptionsDlg : public KDialog
 	    /**
 		 * Called when the 'Cancel' button is pressed.
 		 */
-		void reject();
+		void reject() override;
   	  	/**
 		 * Called when the 'OK' button is pressed. User entered values are read
 		 * in.
 		 */
-		void accept();
-		
+		void accept() override;
+
 	protected:
 		LinkerOptions * m_pLinkerOptions;
 		LinkerOptionsWidget * m_pWidget;
@@ -144,13 +144,13 @@ class ProcessingOptionsDlg : public KDialog
 	    /**
 		 * Called when the 'Cancel' button is pressed.
 		 */
-		void reject();
+		void reject() override;
   	  	/**
 		 * Called when the 'OK' button is pressed. User entered values are read
 		 * in.
 		 */
-		void accept();
-		
+		void accept() override;
+
 	protected:
 		ProjectItem * m_pProjectItem;
 		ProcessingOptionsWidget * m_pWidget;

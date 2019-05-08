@@ -22,14 +22,14 @@ class VarAssignment : public FlowPart
 public:
 	VarAssignment( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~VarAssignment();
-	
+
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
-	virtual void generateMicrobe( FlowCode *code );
-	
+
+	virtual void generateMicrobe( FlowCode *code ) override;
+
 protected:
-	void dataChanged();
+	void dataChanged() override;
 };
 
 #endif

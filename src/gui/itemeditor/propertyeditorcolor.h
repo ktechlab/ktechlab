@@ -26,8 +26,8 @@ class PropertyEditorColor : public PropertySubEditor
 		PropertyEditorColor( QWidget * parent, Property * property, const char * name = 0 );
 		~PropertyEditorColor() {;}
 
-		bool eventFilter( QObject * watched, QEvent * e );
-		
+		bool eventFilter( QObject * watched, QEvent * e ) override;
+
 	protected slots:
 		void valueChanged(const QColor &color);
 

@@ -34,7 +34,7 @@ class NodeInfo
 {
 public:
 	NodeInfo();
-	
+
 	QString id; // External id (ICNDocument scope)
 	Node *node; //Pointer to the node
 	double x; // X position relative to item
@@ -61,7 +61,7 @@ Q_OBJECT
 public:
 	CNItem( ICNDocument *_icnView, bool newItem, const QString &id );
 	virtual ~CNItem();
-	
+
 	/**
 	 * Creates a node which is attached to the item. The node will be moved
 	 * about with the item, and destroyed along with the item. The position
@@ -82,14 +82,14 @@ public:
 	 * Returns a list of connectors associated with the CNItem
 	 */
 	ConnectorList connectorList();
-	virtual bool preResize( QRect sizeRect );
-	virtual bool mousePressEvent( const EventInfo &eventInfo );
-	virtual bool mouseReleaseEvent( const EventInfo &eventInfo );
-	virtual bool mouseDoubleClickEvent ( const EventInfo &eventInfo );
-	virtual bool mouseMoveEvent( const EventInfo &eventInfo );
-	virtual bool wheelEvent( const EventInfo &eventInfo );
-	virtual void enterEvent(QEvent *);
-	virtual void leaveEvent(QEvent *);
+	virtual bool preResize( QRect sizeRect ) override;
+	virtual bool mousePressEvent( const EventInfo &eventInfo ) override;
+	virtual bool mouseReleaseEvent( const EventInfo &eventInfo ) override;
+	virtual bool mouseDoubleClickEvent ( const EventInfo &eventInfo ) override;
+	virtual bool mouseMoveEvent( const EventInfo &eventInfo ) override;
+	virtual bool wheelEvent( const EventInfo &eventInfo ) override;
+	virtual void enterEvent(QEvent *) override;
+	virtual void leaveEvent(QEvent *) override;
 	/**
 	 * ICNDocument needs to know what 'cells' a CNItem is present in,
 	 * so that connection mapping can be done to avoid CNItems.
@@ -116,26 +116,26 @@ public:
 	 * Returns the TextMap used for canvas text
 	 */
 	TextMap textMap() const { return m_textMap; }
-	virtual void setVisible( bool yes );
-	virtual void updateZ( int baseZ );
+	virtual void setVisible( bool yes ) override;
+	virtual void updateZ( int baseZ ) override;
 
-	virtual ItemData itemData() const;
-	virtual void restoreFromItemData( const ItemData &itemData );
+	virtual ItemData itemData() const override;
+	virtual void restoreFromItemData( const ItemData &itemData ) override;
 	virtual void updateNodeLevels();
-	virtual void drawShape( QPainter &p );
-	
+	virtual void drawShape( QPainter &p ) override;
+
 signals:
 	/**
 	 * Emitted when the angle or flipped'ness changes. Note that CNItem doesn't
 	 * actually emit this signal - instead, Component and FlowPart classes do.
 	 */
 	void orientationChanged();
-	
+
 public slots:
 	/**
 	 * Moves item - use this instead of moveBy() so that associated Nodes also get moved
 	 */
-	virtual void moveBy( double dx, double dy );
+	virtual void moveBy( double dx, double dy ) override;
 	/**
 	 * Remove the item and associated nodes. It appends the item to the
 	 * ICNDocument's delete list, so you must call ICNDocument::flushDeleteList()
@@ -144,15 +144,15 @@ public slots:
 	 * any child classes to clear up any neccessary data (which doesn't do
 	 * anything by default), before CNItem does the rest
 	 */
-	virtual void removeItem();
+	virtual void removeItem() override;
 	/**
 	 * This item has been resized, so update the nodes relative positions
 	 */
 	virtual void updateAttachedPositioning();
-	
+
 protected:
-	virtual void reparented( Item *oldParent, Item *newParent );
-	virtual void postResize();
+	virtual void reparented( Item *oldParent, Item *newParent ) override;
+	virtual void postResize() override;
 	/**
 	 * CNItem handles drawing of text associated with the CNItem.
 	 * @param id is a unique identifier that can be used to change the text displayed.
@@ -167,11 +167,11 @@ protected:
 	 * Remove the display text with the given id
 	 */
 	void removeDisplayText( const QString &id );
-	/** 
+	/**
 	 * Sets the right colour if selected, transforms the matrix of the painter
 	 */
 	virtual void initPainter( QPainter &p );
-	
+
 	QPointer<ICNDocument> p_icnDocument;
 	TextMap m_textMap;
 	NodeInfoMap m_nodeMap;

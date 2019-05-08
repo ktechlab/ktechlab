@@ -23,14 +23,14 @@ class CurrentSource : public Element
 public:
 	CurrentSource( const double current );
 	virtual ~CurrentSource();
-	
-	virtual Type type() const { return Element_CurrentSource; }
+
+	virtual Type type() const override { return Element_CurrentSource; }
 	void setCurrent( const double i );
 
 protected:
-	virtual void updateCurrents();
-	virtual void add_initial_dc();
-	
+	virtual void updateCurrents() override;
+	virtual void add_initial_dc() override;
+
 private:
 	double m_i; // Current
 };

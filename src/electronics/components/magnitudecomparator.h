@@ -24,22 +24,22 @@ class MagnitudeComparator : public CallbackClass, public Component
 	public:
 		MagnitudeComparator( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~MagnitudeComparator();
-	
+
 		static Item * construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem * libraryItem();
-	
+
 	protected:
 		void initPins();
-		virtual void dataChanged();
+		virtual void dataChanged() override;
 		void inStateChanged();
-		
+
 		int m_oldABLogicCount;
 		int cascadingInputs;
 		int outputs;
 		bool firstTime;
-	
+
 		QBitArray m_data;
-		
+
 		QVector<LogicIn*> m_aLogic;
 		QVector<LogicIn*> m_bLogic;
 		QVector<LogicIn*> m_cLogic;

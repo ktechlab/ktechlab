@@ -25,7 +25,7 @@
 #include "programmerdlg.h"
 #include "textdocument.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 
@@ -77,7 +77,7 @@ void FlowCodeDocument::setPicType( const QString &id )
 	MicroInfo *microInfo = MicroLibrary::self()->microInfoWithID(id);
 	
 	if ( !microInfo ) {
-		kWarning() << "FlowCodeDocument::setPicType: Could not set the pic type to PIC \""<<id<<"\"\n";
+		qWarning() << "FlowCodeDocument::setPicType: Could not set the pic type to PIC \""<<id<<"\"\n";
 		return;
 	}
 	

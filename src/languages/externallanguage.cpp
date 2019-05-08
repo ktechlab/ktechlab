@@ -12,7 +12,7 @@
 #include "languagemanager.h"
 #include "logview.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <kprocess.h>
 #include <kshell.h>
 

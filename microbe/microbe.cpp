@@ -29,7 +29,7 @@
 #include "optimizer.h"
 #include "pic14.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <klocale.h>
 #include <qfile.h>
 
@@ -43,20 +43,20 @@ Microbe::Microbe()
 	m_maxDelaySubroutine = PIC14::Delay_None;
 	m_dest = 0;
 	m_uniqueLabel = 0;
-	
+
 	// Hardwired constants
 	m_aliasList["true"] = "1";
 	m_aliasList["false"] = "0";
 	// Things starting with b are reserved by gpasm (for binary numbers)
 	m_aliasList["b"] = "_b";
-	
+
 	//BEGIN Keypad values
 	int bv[4][6] = {
 		{ 1,   2, 3,   10, 14, 18 },
 		{ 4,   5, 6,   11, 15, 19 },
 		{ 7,   8, 9,   12, 16, 20 },
 		{ 253, 0, 254, 13, 17, 21 } };
-	
+
 	for ( unsigned row = 0; row < 4; ++row )
 	{
 		for ( unsigned col = 0; col < 6; ++col )
@@ -64,7 +64,7 @@ Microbe::Microbe()
 			m_aliasList[ QString("Keypad_%1_%2").arg(row+1).arg(col+1) ] = QString::number( bv[row][col] );
 		}
 	}
-	
+
 	m_aliasList[ "Keypad_None" ] = "0xff";
 	//END Keypad values
 }
@@ -92,27 +92,27 @@ QString Microbe::compile( const QString & url, bool optimize )
 		m_errorReport += i18n("Could not open file '%1'\n", url);
 		return 0;
 	}
-	
+
 	Parser parser(this);
-	
+
 	// Extract the PIC ID
 	if ( !m_program.isEmpty() )
 	{
 		m_picType = PIC14::toType( m_program[0].text() );
 		m_program.erase( m_program.begin() );
 	}
-	
+
 	PIC14 * pic = makePic();
 	if ( !pic )
 		return 0;
-	
+
 	Code * code = parser.parse( m_program );
 	pic->setCode( code );
 	pic->addCommonFunctions( (PIC14::DelaySubroutine)m_maxDelaySubroutine );
 
 	pic->postCompileConstruct( m_usedInterrupts );
 	code->postCompileConstruct();
-	
+
 	if ( optimize )
 	{
 		Optimizer opt;
@@ -132,21 +132,21 @@ PIC14 * Microbe::makePic()
 void Microbe::simplifyProgram()
 {
 	SourceLineList simplified;
-	
+
 	enum CommentType { None, SingleLine, MultiLine };
 	CommentType commentType = None;
-	
+
 	SourceLineList::const_iterator end = m_program.end();
 	for ( SourceLineList::const_iterator it = m_program.begin(); it != end; ++it )
 	{
 		QString code = (*it).text();
 		QString simplifiedLine;
-		
+
 		if ( commentType == SingleLine )
 			commentType = None;
-		
+
 		unsigned l = code.length();
-	
+
 		for ( unsigned i = 0; i < l; ++i )
 		{
 			QChar c = code[i];
@@ -155,7 +155,7 @@ void Microbe::simplifyProgram()
 			{
 				case '/':
 					// Look for start of comments in form "//" and "/*"
-					
+
 					if ( commentType == None && (i+1 < l) )
 					{
 						if ( code[i+1] == '/' )
@@ -163,7 +163,7 @@ void Microbe::simplifyProgram()
 							commentType = SingleLine;
 							i++;
 						}
-				
+
 						else if ( code[i+1] == '*' )
 						{
 							commentType = MultiLine;
@@ -171,7 +171,7 @@ void Microbe::simplifyProgram()
 						}
 					}
 					break;
-				
+
 				case '*':
 					// Look for end of comments in form "*/"
 					if ( commentType == MultiLine && (i+1 < l) && code[i+1] == '/' )
@@ -181,28 +181,28 @@ void Microbe::simplifyProgram()
 						continue;
 					}
 					break;
-					
+
 				case '{':
 				case '}':
 					// Put braces on separate lines
-					
+
 					if ( commentType != None )
 						break;
-					
+
 					simplified << SourceLine( simplifiedLine.simplified(), (*it).url(), (*it).line() );
 					simplified << SourceLine( c, (*it).url(), (*it).line() );
-					
+
 					simplifiedLine = "";
 					continue;
 			}
-		
+
 			if ( commentType == None )
 				simplifiedLine += c;
 		}
-		
+
 		simplified << SourceLine( simplifiedLine.simplified(), (*it).url(), (*it).line() );
 	}
-	
+
 	m_program.clear();
 	end = simplified.end();
 	for ( SourceLineList::const_iterator it = simplified.begin(); it != end; ++it )
@@ -213,7 +213,7 @@ void Microbe::simplifyProgram()
 }
 
 
-void Microbe::compileError( MistakeType type, const QString & context, const SourceLine & sourceLine )	
+void Microbe::compileError( MistakeType type, const QString & context, const SourceLine & sourceLine )
 {
 	QString message;
 	switch (type)
@@ -327,8 +327,8 @@ void Microbe::compileError( MistakeType type, const QString & context, const Sou
 			message = i18n("Name expected");
 			break;
 	}
-	
-	
+
+
 	m_errorReport += QString("%1:%2:Error [%3] %4\n")
 			.arg( sourceLine.url() )
 			.arg( sourceLine.line()+1 )
@@ -403,16 +403,16 @@ bool Microbe::isValidVariableName( const QString & variableName)
 
 	if ( variableName.isEmpty() )
 		return false;
-	
+
 	if ( !variableName[0].isLetter() && variableName[0] != '_' )
 		return false;
-	
+
 	for ( int i = 1; i < variableName.length(); ++i )
 	{
 		if ( !variableName[i].isLetterOrNumber() && variableName[i] != '_' )
 			return false;
 	}
-	
+
 	return true;
 }
 
@@ -421,7 +421,7 @@ void Microbe::addVariable( const Variable & variable )
 {
 	if ( variable.type() == Variable::invalidType )
 		return;
-	
+
 	if ( !isVariableKnown( variable.name() ) )
 		m_variables << variable;
 }
@@ -534,7 +534,7 @@ QStringList SourceLine::toStringList( const SourceLineList & lines )
 	for ( SourceLineList::const_iterator it = lines.begin(); it != end; ++it )
 		joined << (*it).text();
 	return joined;
-		
+
 }
 //END class SourceLine
 

@@ -24,14 +24,14 @@ public:
 	public:
 		ADDAC( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
 		~ADDAC();
-		
+
 	protected:
-		void dataChanged();
+		void dataChanged() override;
 		/**
 		 * Add / remove pins according to the number of outputs the user has requested
 		 */
 		virtual void initPins() = 0;
-		
+
 		int m_numBits;
 		double m_range;
 };
@@ -45,19 +45,19 @@ class ADC : public ADDAC
 	public:
 		ADC( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
 		~ADC();
-	
+
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
-	
-		virtual void stepNonLogic();
-		virtual bool doesStepNonLogic() const { return true; }
-	
+
+		virtual void stepNonLogic() override;
+		virtual bool doesStepNonLogic() const override { return true; }
+
 	protected:
 		/**
 		 * Add / remove pins according to the number of outputs the user has requested
 		 */
-		virtual void initPins();
-	
+		virtual void initPins() override;
+
 		LogicOut *m_logic[max_ADDAC_bits];
 		ECNode *m_realNode;
 };
@@ -71,19 +71,19 @@ class DAC : public ADDAC
 	public:
 		DAC( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
 		~DAC();
-	
+
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
-	
-		virtual void stepNonLogic();
-		virtual bool doesStepNonLogic() const { return true; }
-	
+
+		virtual void stepNonLogic() override;
+		virtual bool doesStepNonLogic() const override { return true; }
+
 	protected:
 		/**
 		 * Add / remove pins according to the number of outputs the user has requested
 		 */
-		virtual void initPins();
-	
+		virtual void initPins() override;
+
 		LogicIn *m_logic[max_ADDAC_bits];
 		VoltagePoint *m_voltagePoint;
 };

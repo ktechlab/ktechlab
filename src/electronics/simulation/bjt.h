@@ -19,9 +19,9 @@ class BJTState
 	public:
 		BJTState();
 		void reset();
-		
+
 		BJTState operator-( const BJTState & s ) const;
-	
+
 		double A[3][3];
 		double I[3];
 };
@@ -31,7 +31,7 @@ class BJTSettings
 {
 	public:
 		BJTSettings();
-		
+
 		double I_S; ///< saturation current
 		double N_F; ///< forward emission coefficient
 		double N_R; ///< reverse emission coefficient
@@ -48,15 +48,15 @@ class BJT : public NonLinear
 	public:
 		BJT( bool isNPN );
 		virtual ~BJT();
-	
-		virtual Type type() const { return Element_BJT; }
-		virtual void update_dc();
-		virtual void add_initial_dc();
+
+		virtual Type type() const override { return Element_BJT; }
+		virtual void update_dc() override;
+		virtual void add_initial_dc() override;
 		BJTSettings settings() const { return m_bjtSettings; }
 		void setBJTSettings( const BJTSettings & settings );
-	
+
 	protected:
-		virtual void updateCurrents();
+		virtual void updateCurrents() override;
 		/**
 		 * Calculates the new BJTState from the voltages on the nodes.
 		 */

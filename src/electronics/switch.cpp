@@ -12,7 +12,7 @@
 #include <stdlib.h> // for rand
 #include <time.h>
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <qtimer.h>
 
 #include "circuitdocument.h"
@@ -69,7 +69,7 @@ void Switch::startBouncing() {
 
 	if (!m_pComponent->circuitDocument()) return;
 
-// 	kDebug() << k_funcinfo << endl;
+// 	qDebug() << Q_FUNC_INFO << endl;
 
 	m_pBounceResistance = m_pComponent->createResistance(m_pP1, m_pP2, 10000);
 	m_bounceStart = Simulator::self()->time();
@@ -79,7 +79,7 @@ void Switch::startBouncing() {
 // contaminate that many other classes.
 
 //	Simulator::self()->attachSwitch( this );
-// 	kDebug() << "m_bounceStart="<<m_bounceStart<<" m_bouncePeriod_ms="<<m_bouncePeriod_ms<<endl;
+// 	qDebug() << "m_bounceStart="<<m_bounceStart<<" m_bouncePeriod_ms="<<m_bouncePeriod_ms<<endl;
 
 	// initialize random generator
 	srand(time(NULL));

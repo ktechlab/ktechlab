@@ -41,8 +41,8 @@ class FlowCode : public Language
 public:
 	FlowCode( ProcessChain *processChain );
 
-	virtual void processInput( ProcessOptions options );
-	virtual ProcessOptions::ProcessPath::Path outputPath( ProcessOptions::ProcessPath::Path inputPath ) const;
+	virtual void processInput( ProcessOptions options ) override;
+	virtual ProcessOptions::ProcessPath::Path outputPath( ProcessOptions::ProcessPath::Path inputPath ) const override;
 
 	/**
 	 * You must set the start part
@@ -86,7 +86,7 @@ public:
 	 * returns "__label_callsub".
 	 */
 	static QString genLabel( const QString &id );
-	
+
 protected:
 	/**
 	 * Performs indenting, removal of unnecessary labels, etc.

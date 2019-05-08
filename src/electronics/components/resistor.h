@@ -22,14 +22,14 @@ class Resistor : public Component
 	public:
 		Resistor( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~Resistor();
-	
+
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
-	
+
 	protected:
-		virtual void dataChanged();
-		virtual void drawShape( QPainter & p );
-	
+		virtual void dataChanged() override;
+		virtual void drawShape( QPainter & p ) override;
+
 		Resistance * m_resistance;
 };
 

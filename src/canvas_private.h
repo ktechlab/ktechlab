@@ -1,7 +1,7 @@
 //
 // C++ Interface: canvas_private
 //
-// Description: 
+// Description:
 //
 //
 // Author: Alan Grimes <agrimes@speakeasy.net>, (C) 2008
@@ -227,7 +227,7 @@ public:
 	KtlQCanvasPolygonScanner(KtlQPolygonalProcessor& p) :	processor(p)
 	{
 	}
-	void processSpans( int n, QPoint* point, int* width )
+	void processSpans( int n, QPoint* point, int* width ) override
 	{
 		processor.doSpans(n,point,width);
 	}

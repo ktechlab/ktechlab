@@ -26,15 +26,15 @@ class BusSplitter : public Component
 	public:
 		BusSplitter( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~BusSplitter();
-	
+
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
-	
+
 	protected:
 		QString outNodeID( unsigned node ) const;
-		virtual void dataChanged();
-		virtual void drawShape( QPainter &p );
-		
+		virtual void dataChanged() override;
+		virtual void drawShape( QPainter &p ) override;
+
 		unsigned m_busSize;
 		QVector<QPointer<Wire> > m_pWires;
 		ECNode * m_pInNode;

@@ -22,11 +22,12 @@
 
 #include "katemdi.h"
 
-#include <kdebug.h>
+
 #include <kglobalsettings.h>
 #include <kapplication.h>
 #include <klocalizedstring.h>
 #include <kconfig.h>
+#include <kglobal.h>
 #include <kiconloader.h>
 //#include <kpopupmenu.h>
 #include <kactioncollection.h>
@@ -35,6 +36,7 @@
 #include <kmenu.h>
 
 // #include <q3intdict.h>
+#include <qdebug.h>
 #include <qevent.h>
 
 
@@ -331,22 +333,22 @@ ToolView *Sidebar::addWidget (const QPixmap &icon, const QString &text, ToolView
 
 void Sidebar::updateMinimumSize()
 {
-// 	kDebug() << "layout()->margin()="<<layout()->margin()<<endl;
-	
+// 	qDebug() << "layout()->margin()="<<layout()->margin()<<endl;
+
 	QSize minSize;
-	
+
 	QList<ToolView*>::iterator end = m_toolviews.end();
 	for ( QList<ToolView*>::iterator it = m_toolviews.begin(); it != end; ++it )
 	{
 		QSize s = (*it)->childrenRect().size();
 		minSize = minSize.expandedTo( s );
-// 		kDebug() << "s="<<s<<"(*it)->minimumSize()="<<(*it)->minimumSize()<<endl;
-// 		kDebug() << "(*it)->layout()->margin()="<<(*it)->margin()<<endl;
+// 		qDebug() << "s="<<s<<"(*it)->minimumSize()="<<(*it)->minimumSize()<<endl;
+// 		qDebug() << "(*it)->layout()->margin()="<<(*it)->margin()<<endl;
 	}
-	
+
 	minSize.setWidth( minSize.width() - 30 );
 	minSize.setHeight( minSize.height() - 30 );
-	
+
 	for ( QList<ToolView*>::iterator it = m_toolviews.begin(); it != end; ++it )
 	{
 		(*it)->setMinimumSize( minSize );
@@ -471,7 +473,7 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
     KMultiTabBarTab *bt = dynamic_cast<KMultiTabBarTab*>(obj);
     if (bt)
     {
-      kDebug()<<"Request for popup"<<endl;
+      qDebug()<<"Request for popup"<<endl;
 
       m_popupButton = bt->id();
 
@@ -882,7 +884,7 @@ void MainWindow::startRestore (KConfig *config, const QString &group)
 	  m_hSplitter->setSizes(hs);
 	  m_vSplitter->setSizes(vs);
 	  //END Added stuff specifically for ktechlab
-	  
+
     return;
   }
 

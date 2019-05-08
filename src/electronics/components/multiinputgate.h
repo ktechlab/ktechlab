@@ -36,20 +36,20 @@ class MultiInputGate : public CallbackClass, public Component
 						const QString & rectangularShapeText, bool invertedOutput,
 						int baseWidth, bool likeOR );
 		~MultiInputGate();
-		
+
 	protected:
 		enum LogicSymbolShape { Distinctive, Rectangular };
-		
-		virtual void updateAttachedPositioning();
-		virtual void slotUpdateConfiguration();
+
+		virtual void updateAttachedPositioning() override;
+		virtual void slotUpdateConfiguration() override;
 		virtual void inStateChanged( bool newState ) = 0;
 		/**
 		 * This will draw the shape if the logic symbol is currently
 		 * rectangular. Distinctive shapes should be drawn in the respective
 		 * subclasses.
 		 */
-		virtual void drawShape( QPainter & p );
-		void dataChanged();
+		virtual void drawShape( QPainter & p ) override;
+		void dataChanged() override;
 		void updateInputs( int newNum );
 		/**
 		 * @return what the width should be according to the current logic
@@ -60,8 +60,8 @@ class MultiInputGate : public CallbackClass, public Component
 		 * Updates the display text for the logic symbol depending on its shape.
 		 */
 		void updateSymbolText();
-		
-	
+
+
 		int m_numInputs;
 		int m_distinctiveWidth;
 		LogicIn *inLogic[maxGateInput];
@@ -71,13 +71,13 @@ class MultiInputGate : public CallbackClass, public Component
 		QString m_rectangularShapeText;
 		bool m_bInvertedOutput;
 		bool m_bLikeOR;
-		
+
 	private:
 		/**
 		 * Reads the logic symbol shape from KTLConfig.
 		 */
 		void updateLogicSymbolShape();
-		
+
 		bool m_bDoneInit;
 };
 
@@ -91,14 +91,14 @@ class ECXnor : public MultiInputGate
 	public:
 		ECXnor( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~ECXnor();
-	
+
 		static Item* construct( ItemDocument *itemDocument, bool newItem,
 								const char *id );
 		static LibraryItem *libraryItem();
-		
+
 	protected:
-		void inStateChanged( bool newState );
-		virtual void drawShape( QPainter &p );
+		void inStateChanged( bool newState ) override;
+		virtual void drawShape( QPainter &p ) override;
 };
 
 
@@ -111,14 +111,14 @@ class ECXor : public MultiInputGate
 	public:
 		ECXor( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~ECXor();
-	
+
 		static Item* construct( ItemDocument *itemDocument, bool newItem,
 								const char *id );
 		static LibraryItem *libraryItem();
-	
+
 	protected:
-		void inStateChanged( bool newState );
-		virtual void drawShape( QPainter &p );
+		void inStateChanged( bool newState ) override;
+		virtual void drawShape( QPainter &p ) override;
 };
 
 
@@ -131,14 +131,14 @@ class ECOr : public MultiInputGate
 	public:
 		ECOr( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~ECOr();
-	
+
 		static Item* construct( ItemDocument *itemDocument, bool newItem,
 								const char *id );
 		static LibraryItem *libraryItem();
-	
+
 	protected:
-		void inStateChanged( bool newState );
-		virtual void drawShape( QPainter &p );
+		void inStateChanged( bool newState ) override;
+		virtual void drawShape( QPainter &p ) override;
 };
 
 /**
@@ -150,14 +150,14 @@ class ECNor : public MultiInputGate
 	public:
 		ECNor( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~ECNor();
-	
+
 		static Item* construct( ItemDocument *itemDocument, bool newItem,
 								const char *id );
 		static LibraryItem *libraryItem();
-	
+
 	protected:
-		void inStateChanged( bool newState );
-		virtual void drawShape( QPainter &p );
+		void inStateChanged( bool newState ) override;
+		virtual void drawShape( QPainter &p ) override;
 };
 
 /**
@@ -169,14 +169,14 @@ class ECNand : public MultiInputGate
 	public:
 		ECNand( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~ECNand();
-	
+
 		static Item* construct( ItemDocument *itemDocument, bool newItem,
 								const char *id );
 		static LibraryItem *libraryItem();
-	
+
 	protected:
-		void inStateChanged( bool newState );
-		virtual void drawShape( QPainter &p );
+		void inStateChanged( bool newState ) override;
+		virtual void drawShape( QPainter &p ) override;
 };
 
 /**
@@ -188,14 +188,14 @@ class ECAnd : public MultiInputGate
 	public:
 		ECAnd( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~ECAnd();
-	
+
 		static Item* construct( ItemDocument *itemDocument, bool newItem,
 								const char *id );
 		static LibraryItem *libraryItem();
-	
+
 	protected:
-		void inStateChanged( bool newState );
-		virtual void drawShape( QPainter &p );
+		void inStateChanged( bool newState ) override;
+		virtual void drawShape( QPainter &p ) override;
 };
 
 

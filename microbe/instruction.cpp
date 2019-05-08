@@ -5,7 +5,7 @@
  *   24-04-2007                                                            *
  *   Modified to add pic 16f877,16f627 and 16f628 			   *
  *   by george john george@space-kerala.org 				   *
- *   supported by SPACE www.space-kerala.org		 		   *	
+ *   supported by SPACE www.space-kerala.org		 		   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -22,11 +22,11 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
- 
+
 #include "instruction.h"
 #include "optimizer.h"
 #include "pic14.h"
-#include <kdebug.h>
+#include <qdebug.h>
 #include <qstringlist.h>
 #include <cassert>
 #include <iostream>
@@ -37,7 +37,7 @@ extern QString pic_type;
 Register::Register( Type type )
 {
 	m_type = type;
-//***********modified almost all the register names are included**************//	
+//***********modified almost all the register names are included**************//
 	switch ( m_type )
 	{
 //----------------------------------------------Bank0---------------------------//
@@ -214,7 +214,7 @@ Register::Register( Type type )
 		case EECON2:
 			m_name = "EECON2";
 			break;
-//---------------------------------------------NoBank---------------------------//       
+//---------------------------------------------NoBank---------------------------//
 		case WORKING:
 			m_name = "<working>";
 			break;
@@ -361,7 +361,7 @@ bool Register::operator < ( const Register & reg ) const
 {
 	if ( (type() != GPR) || (reg.type() != GPR) )
 		return type() < reg.type();
-	
+
 	return name() < reg.name();
 }
 
@@ -370,7 +370,7 @@ bool Register::operator == ( const Register & reg ) const
 {
 	if ( type() != reg.type() )
 		return false;
-	
+
 	return name() == reg.name();
 }
 
@@ -379,7 +379,7 @@ uchar Register::banks() const
 {
 	switch ( m_type )
 	{
-//---------------------bank 0 registers return zero---------------------------// 		
+//---------------------bank 0 registers return zero---------------------------//
 
 		case TMR0: return Bank0& Bank1;//Bank0
 		case PCL: return Bank0 & Bank1;//Bank0 | Bank1
@@ -410,7 +410,7 @@ uchar Register::banks() const
 		case CCPR2L: return Bank0 & Bank1;
 		case CCPR2H: return Bank0 & Bank1;
 		case CCP2CON: return Bank0 & Bank1;
-		case ADRESH: return Bank0 & Bank1;//Bank0	
+		case ADRESH: return Bank0 & Bank1;//Bank0
 		case ADCON0: return Bank0 & Bank1;//Bank0
 		case CMCON: return Bank0 & Bank1;//Bank0
 //-----------------------------NO Bank-------------------------------------//
@@ -418,7 +418,7 @@ uchar Register::banks() const
 		case WORKING: return Bank0 & Bank1;//Bank0 | Bank1
 		case none: return Bank0 & Bank1;//Bank0 | Bank1
 
-//-------------------bank 1 registers return one---------------------------// 		
+//-------------------bank 1 registers return one---------------------------//
 
 		case OPTION_REG: return Bank0;//Bank1
 ///------tris registers-------//
@@ -436,18 +436,18 @@ uchar Register::banks() const
 		case SSPADD: return Bank0;
 		case SSPSTAT: return Bank0;
 		case TXSTA: return Bank0;
-		case SPBRG: return Bank0;	
+		case SPBRG: return Bank0;
 //--------adc register-------//
-		case ADRESL: return Bank0;//Bank1 
+		case ADRESL: return Bank0;//Bank1
 		case ADCON1: return Bank0;//Bank1
-		case VRCON: return Bank0;//Bank1		
+		case VRCON: return Bank0;//Bank1
 
 //------------------bank 2 registers return two----------completed------------//
 
 		case EEDATA: return Bank1;//Bank1
 		case EEADR: return Bank1;//Bank0
 		case EEDATH: return Bank1;//Bank0
-		case EEADRH: return Bank1;//Bank0	
+		case EEADRH: return Bank1;//Bank0
 
 //------------------bank 3 registers return three--------completed----------------//
 
@@ -455,7 +455,7 @@ uchar Register::banks() const
 		case EECON2: return Bank0|Bank1;//Bank1
 
 	}
-	
+
 	return Bank0 & Bank1; // Vacously true (and useful too) - a non-existent bank can be accessed anywhere
 }
 
@@ -483,7 +483,7 @@ bool Register::affectsExternal() const
 		case INTCON:
 		case ADCON0:
 		case ADCON1:
-//************************modification***************************		
+//************************modification***************************
 		case TMR0:
 		case OPTION_REG:
 		case PCL:
@@ -544,9 +544,9 @@ RegisterBit::RegisterBit( uchar bitPos, Register::Type reg )
 {
 	m_bitPos = bitPos;
 	m_registerType = reg;
-	
+
 	switch ( m_registerType )
-	{	
+	{
 		case Register::TMR0:
 		case Register::PCL:
 			break;
@@ -583,7 +583,7 @@ RegisterBit::RegisterBit( uchar bitPos, Register::Type reg )
 				case 3: m_name = "RBIE"; break;
 				case 4: m_name = "INTE"; break;
 				case 5: m_name = "T0IE"; break;
-				case 6: 
+				case 6:
 				{
 				  if(pic_type=="P16F84"||pic_type=="P16C84") {
 					m_name = "EEIE"; break;
@@ -616,7 +616,7 @@ RegisterBit::RegisterBit( uchar bitPos, Register::Type reg )
 				  if(pic_type=="P16F627"||pic_type=="P16F628") {
 					 m_name = "CMIF";break;
                   }
-				  break;					
+				  break;
 				case 7:
 				  if(pic_type=="P16F877") {
 					m_name = "PSPIF"; break;
@@ -635,7 +635,7 @@ RegisterBit::RegisterBit( uchar bitPos, Register::Type reg )
 				case 0: m_name = "CCP2IF"; break;
 				case 3: m_name = "BCLIF"; break;
 				case 4: m_name = "EEIF"; break;
-	
+
 			}
 			break;
 		}
@@ -713,7 +713,7 @@ RegisterBit::RegisterBit( uchar bitPos, Register::Type reg )
 				case 0: m_name = "RX9D"; break;
 				case 1: m_name = "OERR"; break;
 				case 2: m_name = "FERR"; break;
-				case 3: 
+				case 3:
 				  if(pic_type=="P16F877") {
 					m_name = "ADDEN"; break;
                   }
@@ -787,7 +787,7 @@ RegisterBit::RegisterBit( uchar bitPos, Register::Type reg )
 				case 4: m_name = "T0SE"; break;
 				case 5: m_name = "T0CS"; break;
 				case 6: m_name = "INTEDG"; break;
-				case 7: 
+				case 7:
 				{
 					if(pic_type=="P16F84")
 						m_name = "RBPU";
@@ -834,7 +834,7 @@ RegisterBit::RegisterBit( uchar bitPos, Register::Type reg )
  					m_name = "EEIE"; break;
                    }
 				   break;
- 				} 
+ 				}
 			}
 			break;
 		case Register::PIE2:
@@ -882,7 +882,7 @@ RegisterBit::RegisterBit( uchar bitPos, Register::Type reg )
 				case 6: m_name = "CKE"; break;
 				case 7: m_name = "SMP"; break;
 			}
-			break;	
+			break;
 		case Register::TXSTA:
 			switch ( m_bitPos )
 			{
@@ -931,7 +931,7 @@ RegisterBit::RegisterBit( uchar bitPos, Register::Type reg )
 			}
 			break;
 		}
-			
+
 		case Register::EECON2:
 			break;
 		case Register::VRCON:
@@ -952,7 +952,7 @@ RegisterBit::RegisterBit( uchar bitPos, Register::Type reg )
 		case Register::WORKING:
 		case Register::none:
 		{
-// 			kError() << k_funcinfo << "Bad register: " << reg << endl;
+// 			qCritical() << Q_FUNC_INFO << "Bad register: " << reg << endl;
 		}
 	}
 }
@@ -981,7 +981,7 @@ void RegisterBit::initFromName()
 //----------------------------------------Bank0----------------------------//
 
 //--------STATUS REGISTER--------//
-	
+
 	else if ( m_name == "C" )
 	{
 		m_registerType = Register::STATUS;
@@ -1786,7 +1786,7 @@ void RegisterBit::initFromName()
 	{
 		m_registerType = Register::none;
 		m_bitPos = 0;
-		kError() << k_funcinfo << "Unknown bit: " << m_name << endl;
+		qCritical() << Q_FUNC_INFO << "Unknown bit: " << m_name << endl;
 	}
 }
 //END class RegisterBit
@@ -1856,7 +1856,7 @@ void ProcessorState::reset()
 {
 	working.reset();
 	status.reset();
-	
+
 	RegisterMap::iterator end = m_registers.end();
 	for ( RegisterMap::iterator it = m_registers.begin(); it != end; ++it )
 		(*it).reset();
@@ -1867,13 +1867,13 @@ void ProcessorState::merge( const ProcessorState & state )
 {
 	working.merge( state.working );
 	status.merge( state.status );
-	
+
 	RegisterMap::iterator this_it = m_registers.begin();
 	RegisterMap::const_iterator other_it = state.m_registers.begin();
-	
+
 	RegisterMap::iterator this_end = m_registers.end();
 	RegisterMap::const_iterator other_end = state.m_registers.end();
-	
+
 	while ( true )
 	{
 		if ( this_it == this_end )
@@ -1886,7 +1886,7 @@ void ProcessorState::merge( const ProcessorState & state )
 			}
 			return;
 		}
-		
+
 		if ( other_it == other_end )
 		{
 			// So remaining registers of other are default
@@ -1897,11 +1897,11 @@ void ProcessorState::merge( const ProcessorState & state )
 			}
 			return;
 		}
-		
+
 		//RegisterState thisReg = *this_it;
 		//RegisterState otherReg = *other_it;
-		
-		if ( this_it.key() == other_it.key() )	
+
+		if ( this_it.key() == other_it.key() )
 		{
 			(*this_it).merge( *other_it );
 			++this_it;
@@ -1925,10 +1925,10 @@ RegisterState & ProcessorState::reg( const Register & reg )
 {
 	if ( reg.type() == Register::WORKING )
 		return working;
-	
+
 	if ( reg.type() == Register::STATUS )
 		return status;
-	
+
 	return m_registers[ reg ];
 }
 
@@ -1937,10 +1937,10 @@ RegisterState ProcessorState::reg( const Register & reg ) const
 {
 	if ( reg.type() == Register::WORKING )
 		return working;
-	
+
 	if ( reg.type() == Register::STATUS )
 		return status;
-	
+
 	return m_registers[ reg ];
 }
 
@@ -1949,16 +1949,16 @@ bool ProcessorState::operator == ( const ProcessorState & state ) const
 {
 	if ( working != state.working )
 		return false;
-	
+
 	if ( status != state.status )
 		return false;
-	
+
 	RegisterMap::const_iterator this_it = m_registers.begin();
 	RegisterMap::const_iterator other_it = state.m_registers.begin();
-	
+
 	RegisterMap::const_iterator this_end = m_registers.end();
 	RegisterMap::const_iterator other_end = state.m_registers.end();
-	
+
 	while ( true )
 	{
 		if ( this_it == this_end )
@@ -1972,7 +1972,7 @@ bool ProcessorState::operator == ( const ProcessorState & state ) const
 			}
 			return true;
 		}
-		
+
 		if ( other_it == other_end )
 		{
 			// So remaining registers of other are default
@@ -1984,11 +1984,11 @@ bool ProcessorState::operator == ( const ProcessorState & state ) const
 			}
 			return true;
 		}
-		
+
 		//RegisterState thisReg = *this_it;
 		//RegisterState otherReg = *other_it;
-		
-		if ( this_it.key() == other_it.key() )	
+
+		if ( this_it.key() == other_it.key() )
 		{
 			if ( *this_it != *other_it )
 				return false;
@@ -2039,7 +2039,7 @@ void ProcessorBehaviour::reset()
 {
 	working.reset();
 	status.reset();
-	
+
 	RegisterMap::iterator end = m_registers.end();
 	for ( RegisterMap::iterator it = m_registers.begin(); it != end; ++it )
 		(*it).reset();
@@ -2050,10 +2050,10 @@ RegisterBehaviour & ProcessorBehaviour::reg( const Register & reg )
 {
 	if ( reg.type() == Register::WORKING )
 		return working;
-	
+
 	if ( reg.type() == Register::STATUS )
 		return status;
-	
+
 	return m_registers[ reg ];
 }
 //END class ProcessorBehaviour
@@ -2071,7 +2071,7 @@ void RegisterDepends::reset()
 {
 	working = 0x0;
 	status = 0x0;
-	
+
 	RegisterMap::iterator end = m_registers.end();
 	for ( RegisterMap::iterator it = m_registers.begin(); it != end; ++it )
 		(*it) = 0x0;
@@ -2082,14 +2082,14 @@ uchar & RegisterDepends::reg( const Register & reg )
 {
 	if ( reg.type() == Register::WORKING )
 		return working;
-	
+
 	if ( reg.type() == Register::STATUS )
 		return status;
-	
+
 	// If we don't already have the register, we need to reset it first
 	if ( !m_registers.contains( reg.name() ) )
 		m_registers[ reg ] = 0xff;
-	
+
 	return m_registers[ reg ];
 }
 //END class RegisterDepends
@@ -2106,13 +2106,13 @@ void Code::merge( Code * code, InstructionPosition middleInsertionPosition )
 {
 	if ( code == this )
 	{
-		cout << k_funcinfo << "identical\n";
+		cout << Q_FUNC_INFO << "identical\n";
 		return;
 	}
-	
+
 	if ( !code )
 		return;
-	
+
 	// Reparent instructions
 	for ( unsigned i = 0; i < PositionCount; ++i )
 	{
@@ -2120,7 +2120,7 @@ void Code::merge( Code * code, InstructionPosition middleInsertionPosition )
 		InstructionList::const_iterator end = list->end();
 		for ( InstructionList::const_iterator it = list->begin(); it != end; ++it )
 			append( *it, ( (i == Middle) ? middleInsertionPosition : (InstructionPosition)i ) );
-		
+
 		// Queue any labels that the other code has queued
 		m_queuedLabels[i] += code->queuedLabels( (InstructionPosition)i );
 	}
@@ -2129,7 +2129,7 @@ void Code::merge( Code * code, InstructionPosition middleInsertionPosition )
 
 void Code::queueLabel( const QString & label, InstructionPosition position )
 {
-// 	cout << k_funcinfo << "label="<<label<<" position="<<position<<'\n';
+// 	cout << Q_FUNC_INFO << "label="<<label<<" position="<<position<<'\n';
 	m_queuedLabels[ position ] << label;
 }
 
@@ -2138,16 +2138,16 @@ void Code::removeInstruction( Instruction * instruction )
 {
 	if ( !instruction )
 		return;
-	
+
 	// If the instruction could potentially be jumped over by a BTFSS or a
 	// BTFSC intsruction, then we must also remove the bit test instruction,
 	// else the next instruction will be jumped over instead after removal.
 	// Removing the bit test instruction is perfectly safe as it only does
 	// branching (not setting of any bits, etc).
-	
+
 	// Any labels that the instruction has must be given to the next
 	// instruction.
-	
+
 	iterator e = end();
 	iterator previous = e; // Refers to the previous instruction if it was a bit test instruction
 	for ( iterator i = begin(); i != e; ++i )
@@ -2160,24 +2160,24 @@ void Code::removeInstruction( Instruction * instruction )
 				previous = e;
 			continue;
 		}
-		
+
 		iterator next = ++iterator(i);
-		
+
 		QStringList labels = instruction->labels();
 		i.list->erase( i.it );
-		
+
 		if ( previous != e )
 		{
 			labels += (*previous)->labels();
 			previous.list->erase( previous.it );
 		}
-		
+
 		if ( next != e )
 			(*next)->addLabels( labels );
-		
+
 		break;
 	}
-	
+
 // 	instruction->removeOutputs();
 }
 
@@ -2186,14 +2186,14 @@ void Code::append( Instruction * instruction, InstructionPosition position )
 {
 	if ( !instruction )
 		return;
-	
-// 	cout << k_funcinfo << instruction->code() << '\n';
-	
+
+// 	cout << Q_FUNC_INFO << instruction->code() << '\n';
+
 	removeInstruction( instruction );
 	m_instructionLists[position].append( instruction );
-	
+
 	instruction->setCode( this );
-	
+
 	if ( instruction->type() == Instruction::Assembly /*||
 			instruction->type() == Instruction::Raw*/ )
 	{
@@ -2240,15 +2240,15 @@ void Code::postCompileConstruct()
 	{
 		if ( m_queuedLabels[i].isEmpty() )
 			continue;
-		
+
 		QStringList labels = m_queuedLabels[i];
 		m_queuedLabels[i].clear();
-		
+
 		// Find an instruction to dump them onto
 		for ( unsigned block = i+1; block < PositionCount; ++block )
 		{
 			bool added = false;
-			
+
 			InstructionList::iterator end = m_instructionLists[block].end();
 			for ( InstructionList::iterator it = m_instructionLists[block].begin(); it != end; ++it )
 			{
@@ -2259,7 +2259,7 @@ void Code::postCompileConstruct()
 					break;
 				}
 			}
-			
+
 			if ( added )
 				break;
 		}
@@ -2270,7 +2270,7 @@ void Code::postCompileConstruct()
 QString Code::generateCode( PIC14 * pic ) const
 {
 	QString code;
-	
+
 	const QStringList variables = findVariables();
 	if ( !variables.isEmpty() )
 	{
@@ -2279,19 +2279,19 @@ QString Code::generateCode( PIC14 * pic ) const
 		QStringList::const_iterator end = variables.end();
 		for ( QStringList::const_iterator it = variables.begin(); it != end; ++it )
 			code += QString("%1\tequ\t0x%2\n").arg( *it ).arg( QString::number( reg++, 16 ) );
-		
+
 		code += "\n";
 	}
-	
+
 	QString picString = pic->minimalTypeString();
 	code += QString("list p=%1\n").arg( picString );
 	code += QString("include \"p%2.inc\"\n\n").arg( picString.toLower() );
-	
+
 	code += "; Config options\n";
 	code += "  __config _WDT_OFF\n\n";
-	
+
 	code += "START\n\n";
-	
+
 	for ( unsigned i = 0; i < PositionCount; ++i )
 	{
 		InstructionList::const_iterator end = m_instructionLists[i].end();
@@ -2305,13 +2305,13 @@ QString Code::generateCode( PIC14 * pic ) const
 				for ( QStringList::const_iterator labelsIt = labels.begin(); labelsIt != labelsEnd; ++labelsIt )
 					code += *labelsIt + '\n';
 			}
-			
+
 			if ( (*it)->type() == Instruction::Assembly )
 				code += '\t';
 			code += (*it)->code() + '\n';
 		}
 	}
-	
+
 	return code;
 }
 
@@ -2319,18 +2319,18 @@ QString Code::generateCode( PIC14 * pic ) const
 QStringList Code::findVariables() const
 {
 	QStringList variables;
-	
+
 	const_iterator e = end();
 	for ( const_iterator i = begin(); i != e; ++i )
 	{
 		if ( (*i)->file().type() != Register::GPR )
 			continue;
-		
+
 		QString alias = (*i)->file().name();
 		if ( !variables.contains( alias ) )
 			variables << alias;
 	}
-	
+
 	return variables;
 }
 
@@ -2338,13 +2338,13 @@ QStringList Code::findVariables() const
 void Code::generateLinksAndStates()
 {
 	CodeIterator e = end();
-	
+
 	for ( CodeIterator it = begin(); it != e; ++it )
 			(*it)->clearLinks();
-	
+
 	for ( CodeIterator it = begin(); it != e; ++it )
 		(*it)->generateLinksAndStates( it );
-	
+
 	// Generate return links for call instructions
 	// This cannot be done from the call instructions as we need to have
 	// generated the links first.
@@ -2353,7 +2353,7 @@ void Code::generateLinksAndStates()
 		Instr_call * ins = dynamic_cast<Instr_call*>(*it);
 		if ( !ins )
 			continue;
-		
+
 		Instruction * next = *(++Code::iterator(it));
 		ins->makeReturnLinks( next );
 	}
@@ -2375,22 +2375,22 @@ CodeIterator Code::begin()
 {
 	// Following code is very similar to the  version of this function.
 	// Make sure any changes are applied to both (when applicable).
-	
+
 	for ( unsigned i = 0; i < PositionCount; ++i )
 	{
 		if ( m_instructionLists[i].isEmpty() )
 			continue;
-		
+
 		CodeIterator codeIterator;
 		codeIterator.code = this;
 		codeIterator.it = m_instructionLists[i].begin();
 		codeIterator.pos = (Code::InstructionPosition)i;
 		codeIterator.list = & m_instructionLists[i];
 		codeIterator.listEnd = m_instructionLists[i].end();
-		
+
 		return codeIterator;
 	}
-	
+
 	return end();
 }
 
@@ -2399,7 +2399,7 @@ CodeIterator Code::end()
 {
 	// Following code is very similar to the  version of this function.
 	// Make sure any changes are applied to both (when applicable).
-	
+
 	CodeIterator codeIterator;
 	codeIterator.code = this;
 	codeIterator.it = m_instructionLists[ PositionCount - 1 ].end();
@@ -2414,22 +2414,22 @@ CodeConstIterator Code::begin() const
 {
 	// Following code is very similar to the non-const version of this function.
 	// Make sure any changes are applied to both (when applicable).
-	
+
 	for ( unsigned i = 0; i < PositionCount; ++i )
 	{
 		if ( m_instructionLists[i].isEmpty() )
 			continue;
-		
+
 		CodeConstIterator codeIterator;
 		codeIterator.code = this;
 		codeIterator.it = m_instructionLists[i].begin();
 		codeIterator.pos = (Code::InstructionPosition)i;
 		codeIterator.list = & m_instructionLists[i];
 		codeIterator.listEnd = m_instructionLists[i].end();
-		
+
 		return codeIterator;
 	}
-	
+
 	return end();
 }
 
@@ -2438,7 +2438,7 @@ CodeConstIterator Code::end() const
 {
 	// Following code is very similar to the non-const version of this function.
 	// Make sure any changes are applied to both (when applicable).
-	
+
 	CodeConstIterator codeIterator;
 	codeIterator.code = this;
 	codeIterator.it = m_instructionLists[ PositionCount - 1 ].end();
@@ -2456,7 +2456,7 @@ CodeIterator & CodeIterator::operator ++ ()
 {
 	// NOTE: This code is very similar to the const version.
 	// Any changes to thsi code should be applied there as well (when applicable).
-	
+
 	do
 	{
 		if ( ++it == listEnd && pos < (Code::PositionCount - 1) )
@@ -2468,18 +2468,18 @@ CodeIterator & CodeIterator::operator ++ ()
 				listEnd = list->end();
 				if ( list->isEmpty() )
 					continue;
-		
+
 				it = list->begin();
 				found = true;
 				break;
 			}
-	
+
 			if ( !found )
 				it = listEnd;
 		}
 	}
 	while ( (it != listEnd) && ((*it)->type() != Instruction::Assembly) );
-	
+
 	return *this;
 }
 
@@ -2506,7 +2506,7 @@ CodeConstIterator & CodeConstIterator::operator ++ ()
 {
 	// NOTE: This code is very similar to the non-const version.
 	// Any changes to thsi code should be applied there as well (when applicable).
-	
+
 	do
 	{
 		if ( ++it == listEnd && pos < (Code::PositionCount - 1) )
@@ -2518,18 +2518,18 @@ CodeConstIterator & CodeConstIterator::operator ++ ()
 				listEnd = list->end();
 				if ( list->isEmpty() )
 					continue;
-		
+
 				it = list->begin();
 				found = true;
 				break;
 			}
-	
+
 			if ( !found )
 				it = listEnd;
 		}
 	}
 	while ( (it != listEnd) && ((*it)->type() != Instruction::Assembly) );
-	
+
 	return *this;
 }
 //END class CodeConstIterator
@@ -2582,19 +2582,19 @@ void Instruction::makeOutputLinks( Code::iterator current, bool firstOutput, boo
 {
 	if ( !firstOutput && !secondOutput )
 		return;
-	
+
 	++current;
 	if ( !*current )
 	{
-		kWarning() << k_funcinfo << "current+1 is null"<<endl;
+		qWarning() << Q_FUNC_INFO << "current+1 is null"<<endl;
 		return;
 	}
 	if ( firstOutput )
 		(*current)->addInputLink( this );
-	
+
 	if ( !secondOutput )
 		return;
-	
+
 	++current;
 	(*current)->addInputLink( this );
 }
@@ -2613,7 +2613,7 @@ void Instruction::addInputLink( Instruction * instruction )
 	// Don't forget that a link to ourself is valid!
 	if ( !instruction || m_inputLinks.contains( instruction ) )
 		return;
-	
+
 	m_inputLinks << instruction;
 	instruction->addOutputLink( this );
 }
@@ -2624,7 +2624,7 @@ void Instruction::addOutputLink( Instruction * instruction )
 	// Don't forget that a link to ourself is valid!
 	if ( !instruction || m_outputLinks.contains( instruction ) )
 		return;
-	
+
 	m_outputLinks << instruction;
 	instruction->addInputLink( this );
 }
@@ -2660,20 +2660,20 @@ QString Instr_addwf::code() const
 void Instr_addwf::generateLinksAndStates( Code::iterator current )
 {
 	m_outputState = m_inputState;
-	
+
 	m_outputState.reg( outputReg() ).value = (m_inputState.working.value + m_inputState.reg( m_file ).value) & 0xff;
 	m_outputState.reg( outputReg() ).known = ((m_inputState.working.known == 0xff) && (m_inputState.reg( m_file ).known == 0xff)) ? 0xff : 0x0;
-	
+
 	m_outputState.status.known &= ~( (1 << RegisterBit::C) | (1 << RegisterBit::DC) | (1 << RegisterBit::Z) );
-	
+
 	if ( m_file.type() != Register::PCL || m_dest == 0 )
 	{
 		makeOutputLinks( current );
 		return;
 	}
-	
+
 	++current; // Don't have a link to ourself
-	
+
 	// maxInc is the greatest possibly value that we might have incremented the program counter by.
 	// It is generated by ORing the known bits of the working register with the greatest value
 	// of the unknown bits;
@@ -2693,11 +2693,11 @@ void Instr_addwf::generateLinksAndStates( Code::iterator current )
 ProcessorBehaviour Instr_addwf::behaviour() const
 {
 	ProcessorBehaviour behaviour;
-	
+
 	// Depend on W and f
 	behaviour.working.depends = 0xff;
 	behaviour.reg( m_file ).depends = 0xff;
-	
+
 	behaviour.status.depends = m_file.bankDependent() ? (1 << RegisterBit::RP0) : 0x0;
 	behaviour.status.indep = (1 << RegisterBit::C) | (1 << RegisterBit::DC) | (1 << RegisterBit::Z);
 	return behaviour;
@@ -2714,25 +2714,25 @@ void Instr_andwf::generateLinksAndStates( Code::iterator current )
 {
 	makeOutputLinks( current );
 	m_outputState = m_inputState;
-	
+
 	uchar definiteOnes = m_inputState.reg( m_file ).definiteOnes() & m_outputState.working.definiteOnes();
 	m_outputState.reg( outputReg() ).value = definiteOnes;
 	m_outputState.reg( outputReg() ).known = m_inputState.reg( m_file ).definiteZeros() | m_inputState.working.definiteZeros() | definiteOnes;
-	
+
 	m_outputState.status.known &= ~(1 << RegisterBit::Z);
 }
 
 ProcessorBehaviour Instr_andwf::behaviour() const
 {
 	ProcessorBehaviour behaviour;
-	
+
 	// Depend on W and f
 	behaviour.working.depends = 0xff;
 	behaviour.reg( m_file ).depends = 0xff;
-	
+
 	if ( m_dest == 0 )
 		behaviour.working.indep = m_inputState.reg( m_file ).known & ~( m_inputState.reg( m_file ).value);
-	
+
 	behaviour.status.depends = m_file.bankDependent() ? (1 << RegisterBit::RP0) : 0x0;
 	behaviour.status.indep = (1 << RegisterBit::Z);
 	return behaviour;
@@ -2747,11 +2747,11 @@ QString Instr_clrf::code() const
 void Instr_clrf::generateLinksAndStates( Code::iterator current )
 {
 	makeOutputLinks( current );
-	
+
 	m_outputState = m_inputState;
 	m_outputState.reg( m_file ).known = 0xff;
 	m_outputState.reg( m_file ).value = 0x0;
-	
+
 	m_outputState.status.known |= (1 << RegisterBit::Z);
 	m_outputState.status.value |= (1 << RegisterBit::Z);
 }
@@ -2759,12 +2759,12 @@ void Instr_clrf::generateLinksAndStates( Code::iterator current )
 ProcessorBehaviour Instr_clrf::behaviour() const
 {
 	ProcessorBehaviour behaviour;
-	
+
 	behaviour.reg( m_file ).indep = 0xff;
-	
+
 	behaviour.status.depends = m_file.bankDependent() ? (1 << RegisterBit::RP0) : 0x0;
 	behaviour.status.indep = (1 << RegisterBit::Z);
-	
+
 	return behaviour;
 }
 
@@ -2781,22 +2781,22 @@ QString Instr_decf::code() const
 void Instr_decf::generateLinksAndStates( Code::iterator current )
 {
 	makeOutputLinks( current );
-	
+
 	m_outputState = m_inputState;
 	m_outputState.status.known &= ~(1 << RegisterBit::Z);
-	
+
 	m_outputState.reg( outputReg() ).known = 0x0;
 }
 
 ProcessorBehaviour Instr_decf::behaviour() const
 {
 	ProcessorBehaviour behaviour;
-	
+
 	behaviour.reg( m_file ).depends = 0xff;
-	
+
 	behaviour.status.depends = m_file.bankDependent() ? (1 << RegisterBit::RP0) : 0x0;
 	behaviour.status.indep = (1 << RegisterBit::Z);
-	
+
 	return behaviour;
 }
 
@@ -2809,7 +2809,7 @@ QString Instr_decfsz::code() const
 void Instr_decfsz::generateLinksAndStates( Code::iterator current )
 {
 	makeOutputLinks( current, true, true );
-	
+
 	m_outputState = m_inputState;
 	m_outputState.reg( outputReg() ).known = 0x0;
 }
@@ -2817,9 +2817,9 @@ void Instr_decfsz::generateLinksAndStates( Code::iterator current )
 ProcessorBehaviour Instr_decfsz::behaviour() const
 {
 	ProcessorBehaviour behaviour;
-	
+
 	behaviour.reg( m_file ).depends = 0xff;
-	
+
 	behaviour.status.depends = m_file.bankDependent() ? (1 << RegisterBit::RP0) : 0x0;
 	return behaviour;
 }
@@ -2833,19 +2833,19 @@ QString Instr_incf::code() const
 void Instr_incf::generateLinksAndStates( Code::iterator current )
 {
 	makeOutputLinks( current );
-	
+
 	m_outputState = m_inputState;
 	m_outputState.status.known &= ~(1 << RegisterBit::Z);
-	
+
 	m_outputState.reg( outputReg() ).known = 0x0;
 }
 
 ProcessorBehaviour Instr_incf::behaviour() const
 {
 	ProcessorBehaviour behaviour;
-	
+
 	behaviour.reg( m_file ).depends = 0xff;
-	
+
 	behaviour.status.depends = m_file.bankDependent() ? (1 << RegisterBit::RP0) : 0x0;
 	behaviour.status.indep = (1 << RegisterBit::Z);
 	return behaviour;
@@ -2863,21 +2863,21 @@ QString Instr_iorwf::code() const
 void Instr_iorwf::generateLinksAndStates( Code::iterator current )
 {
 	makeOutputLinks( current );
-	
+
 	m_outputState = m_inputState;
 	m_outputState.status.known &= ~(1 << RegisterBit::Z);
-	
+
 	m_outputState.reg( outputReg() ).known = 0x0;
 }
 
 ProcessorBehaviour Instr_iorwf::behaviour() const
 {
 	ProcessorBehaviour behaviour;
-	
+
 	// Depend on W and f
 	behaviour.working.depends = 0xff;
 	behaviour.reg( m_file ).depends = 0xff;
-	
+
 	behaviour.status.depends = m_file.bankDependent() ? (1 << RegisterBit::RP0) : 0x0;
 	behaviour.status.indep = (1 << RegisterBit::Z);
 	return behaviour;
@@ -2892,9 +2892,9 @@ QString Instr_movf::code() const
 void Instr_movf::generateLinksAndStates( Code::iterator current )
 {
 	makeOutputLinks( current );
-	
+
 	m_outputState = m_inputState;
-	
+
 	if ( m_inputState.reg( m_file ).known == 0xff )
 	{
 		m_outputState.status.known |= (1 << RegisterBit::Z);
@@ -2906,7 +2906,7 @@ void Instr_movf::generateLinksAndStates( Code::iterator current )
 	}
 	else
 		m_outputState.status.known &= ~(1 << RegisterBit::Z);
-	
+
 	if ( m_dest == 0 )
 	{
 		// Writing to the working register
@@ -2918,12 +2918,12 @@ void Instr_movf::generateLinksAndStates( Code::iterator current )
 ProcessorBehaviour Instr_movf::behaviour() const
 {
 	ProcessorBehaviour behaviour;
-	
+
 	if ( m_dest == 0 )
 		behaviour.working.indep = 0xff;
-	
+
 	behaviour.reg( m_file ).depends = 0xff;
-	
+
 	behaviour.status.depends = m_file.bankDependent() ? (1 << RegisterBit::RP0) : 0x0;
 	behaviour.status.indep = (1 << RegisterBit::Z);
 	return behaviour;
@@ -2938,7 +2938,7 @@ QString Instr_movwf::code() const
 void Instr_movwf::generateLinksAndStates( Code::iterator current )
 {
 	makeOutputLinks( current );
-	
+
 	m_outputState = m_inputState;
 	m_outputState.reg( m_file ).known = m_inputState.working.known;
 	m_outputState.reg( m_file ).value = m_inputState.working.value;
@@ -2947,11 +2947,11 @@ void Instr_movwf::generateLinksAndStates( Code::iterator current )
 ProcessorBehaviour Instr_movwf::behaviour() const
 {
 	ProcessorBehaviour behaviour;
-	
+
 	behaviour.reg( m_file ).indep = 0xff;
 	behaviour.working.depends = 0xff;
 	behaviour.status.depends = m_file.bankDependent() ? (1 << RegisterBit::RP0) : 0x0;
-	
+
 	return behaviour;
 }
 
@@ -2968,23 +2968,23 @@ QString Instr_rlf::code() const
 void Instr_rlf::generateLinksAndStates( Code::iterator current )
 {
 	makeOutputLinks( current );
-	
+
 	m_outputState = m_inputState;
 	m_outputState.status.known &= ~(1 << RegisterBit::C);
-	
+
 	m_outputState.reg( outputReg() ).known = 0x0;
 }
 
 ProcessorBehaviour Instr_rlf::behaviour() const
 {
 	ProcessorBehaviour behaviour;
-	
+
 	// Is the value written to W or f?
 	if ( m_dest == 0 )
 		behaviour.working.indep = 0xff;
-	
+
 	behaviour.reg( m_file ).depends = 0xff;
-	
+
 	behaviour.status.depends = (1 << RegisterBit::C) | (m_file.bankDependent() ? (1 << RegisterBit::RP0) : 0x0);
 	behaviour.status.indep = (1 << RegisterBit::C);
 	return behaviour;
@@ -2999,22 +2999,22 @@ QString Instr_rrf::code() const
 void Instr_rrf::generateLinksAndStates( Code::iterator current )
 {
 	makeOutputLinks( current );
-	
+
 	m_outputState = m_inputState;
 	m_outputState.status.known &= ~(1 << RegisterBit::C);
-	
+
 	m_outputState.reg( outputReg() ).known = 0x0;
 }
 
 ProcessorBehaviour Instr_rrf::behaviour() const
 {
 	ProcessorBehaviour behaviour;
-	
+
 	if ( m_dest == 0 )
 		behaviour.working.indep = 0xff;
-	
+
 	behaviour.reg( m_file ).depends = 0xff;
-	
+
 	behaviour.status.depends = (1 << RegisterBit::C) | (m_file.bankDependent() ? (1 << RegisterBit::RP0) : 0x0);
 	behaviour.status.indep = (1 << RegisterBit::C);
 	return behaviour;
@@ -3029,9 +3029,9 @@ QString Instr_subwf::code() const
 void Instr_subwf::generateLinksAndStates( Code::iterator current )
 {
 	makeOutputLinks( current );
-	
+
 	m_outputState = m_inputState;
-	
+
 	if ( (m_inputState.working.known == 0xff) && (m_inputState.reg( m_file ).known == 0xff) )
 	{
 		m_outputState.reg( outputReg() ).known = 0xff;
@@ -3039,10 +3039,10 @@ void Instr_subwf::generateLinksAndStates( Code::iterator current )
 	}
 	else
 		m_outputState.reg( outputReg() ).known = 0x0;
-	
-	
+
+
 	m_outputState.status.known &= ~( (1 << RegisterBit::C) | (1 << RegisterBit::DC) | (1 << RegisterBit::Z) );
-	
+
 	if ( m_inputState.working.minValue() > m_inputState.reg( m_file ).maxValue() )
 	{
 		m_outputState.status.value &= ~(1 << RegisterBit::C);
@@ -3053,7 +3053,7 @@ void Instr_subwf::generateLinksAndStates( Code::iterator current )
 		m_outputState.status.value |= (1 << RegisterBit::C);
 		m_outputState.status.known |= (1 << RegisterBit::C);
 	}
-	
+
 	if ( (m_inputState.working.known == 0xff) && (m_inputState.reg( m_file ).known == 0xff) )
 	{
 		bool isZero = (m_inputState.working.value == m_inputState.reg( m_file ).value);
@@ -3068,11 +3068,11 @@ void Instr_subwf::generateLinksAndStates( Code::iterator current )
 ProcessorBehaviour Instr_subwf::behaviour() const
 {
 	ProcessorBehaviour behaviour;
-	
+
 	// Depend on W and f
 	behaviour.working.depends = 0xff;
 	behaviour.reg( m_file ).depends = 0xff;
-	
+
 	behaviour.status.depends = m_file.bankDependent() ? (1 << RegisterBit::RP0) : 0x0;
 	behaviour.status.indep = (1 << RegisterBit::C) | (1 << RegisterBit::DC) | (1 << RegisterBit::Z);
 	return behaviour;
@@ -3087,7 +3087,7 @@ QString Instr_swapf::code() const
 void Instr_swapf::generateLinksAndStates( Code::iterator current )
 {
 	makeOutputLinks( current );
-	
+
 	m_outputState = m_inputState;
 	if ( m_dest == 0 )
 	{
@@ -3114,21 +3114,21 @@ QString Instr_xorwf::code() const
 void Instr_xorwf::generateLinksAndStates( Code::iterator current )
 {
 	makeOutputLinks( current );
-	
+
 	m_outputState = m_inputState;
 	m_outputState.status.known &= ~(1 << RegisterBit::Z);
-	
+
 	m_outputState.reg( outputReg() ).known = 0x0;
 }
 
 ProcessorBehaviour Instr_xorwf::behaviour() const
 {
 	ProcessorBehaviour behaviour;
-	
+
 	// Depend on W and f
 	behaviour.working.depends = 0xff;
 	behaviour.reg( m_file ).depends = 0xff;
-	
+
 	behaviour.status.depends = m_file.bankDependent() ? (1 << RegisterBit::RP0) : 0x0;
 	behaviour.status.indep = (1 << RegisterBit::Z);
 	return behaviour;
@@ -3146,7 +3146,7 @@ QString Instr_bcf::code() const
 void Instr_bcf::generateLinksAndStates( Code::iterator current )
 {
 	makeOutputLinks( current );
-	
+
 	m_outputState = m_inputState;
 	m_outputState.reg( m_file ).value &= ~uchar(1 << m_bit.bitPos());
 	m_outputState.reg( m_file ).known |= uchar(1 << m_bit.bitPos());
@@ -3155,7 +3155,7 @@ void Instr_bcf::generateLinksAndStates( Code::iterator current )
 ProcessorBehaviour Instr_bcf::behaviour() const
 {
 	ProcessorBehaviour behaviour;
-	
+
 	behaviour.status.depends = m_file.bankDependent() ? (1 << RegisterBit::RP0) : 0x0;
 	behaviour.reg( m_file ).indep = 1 << m_bit.bitPos();
 	return behaviour;
@@ -3170,7 +3170,7 @@ QString Instr_bsf::code() const
 void Instr_bsf::generateLinksAndStates( Code::iterator current )
 {
 	makeOutputLinks( current );
-	
+
 	m_outputState = m_inputState;
 	m_outputState.reg( m_file ).value |= uchar(1 << m_bit.bitPos());
 	m_outputState.reg( m_file ).known |= uchar(1 << m_bit.bitPos());
@@ -3193,7 +3193,7 @@ QString Instr_btfsc::code() const
 void Instr_btfsc::generateLinksAndStates( Code::iterator current )
 {
 	m_outputState = m_inputState;
-	
+
 	if ( m_inputState.reg( m_file ).known & (1 << m_bit.bitPos()) )
 	{
 		bool bit = m_inputState.reg( m_file ).value & (1 << m_bit.bitPos());
@@ -3220,7 +3220,7 @@ QString Instr_btfss::code() const
 void Instr_btfss::generateLinksAndStates( Code::iterator current )
 {
 	m_outputState = m_inputState;
-	
+
 	if ( m_inputState.reg( m_file ).known & (1 << m_bit.bitPos()) )
 	{
 		bool bit = m_inputState.reg( m_file ).value & (1 << m_bit.bitPos());
@@ -3250,7 +3250,7 @@ QString Instr_addlw::code() const
 void Instr_addlw::generateLinksAndStates( Code::iterator current )
 {
 	makeOutputLinks( current );
-	
+
 	m_outputState = m_inputState;
 	m_outputState.working.value = (m_inputState.working.value + m_literal) & 0xff;
 	m_outputState.working.known = (m_inputState.working.known == 0xff) ? 0xff : 0x0;
@@ -3260,11 +3260,11 @@ void Instr_addlw::generateLinksAndStates( Code::iterator current )
 ProcessorBehaviour Instr_addlw::behaviour() const
 {
 	ProcessorBehaviour behaviour;
-	
+
 	behaviour.working.depends = 0xff;
-	
+
 	behaviour.status.indep = (1 << RegisterBit::C) | (1 << RegisterBit::DC) | (1 << RegisterBit::Z);
-	
+
 	return behaviour;
 }
 
@@ -3277,7 +3277,7 @@ QString Instr_andlw::code() const
 void Instr_andlw::generateLinksAndStates( Code::iterator current )
 {
 	makeOutputLinks( current );
-	
+
 	m_outputState = m_inputState;
 	m_outputState.working.value = (m_inputState.working.value & m_literal) & 0xff;
 	m_outputState.working.known |= ~m_literal; // Now know any bits that are zero in value
@@ -3287,10 +3287,10 @@ void Instr_andlw::generateLinksAndStates( Code::iterator current )
 ProcessorBehaviour Instr_andlw::behaviour() const
 {
 	ProcessorBehaviour behaviour;
-	
+
 	behaviour.working.indep = ~m_literal;
 	behaviour.working.depends = m_literal;
-	
+
 	behaviour.status.indep = (1 << RegisterBit::Z);
 	return behaviour;
 }
@@ -3305,7 +3305,7 @@ void Instr_call::generateLinksAndStates( Code::iterator current )
 {
 	(void)current;
 	makeLabelOutputLink( m_label );
-	
+
 	m_outputState = m_inputState;
 }
 
@@ -3328,7 +3328,7 @@ void Instr_call::linkReturns( Instruction * current, Instruction * returnPoint )
 	{
 		if ( !current || current->isUsed() )
 			return;
-		
+
 		current->setUsed( true );
 		if ( dynamic_cast<Instr_return*>(current) || dynamic_cast<Instr_retlw*>(current) )
 		{
@@ -3345,15 +3345,15 @@ void Instr_call::linkReturns( Instruction * current, Instruction * returnPoint )
 			current = *(++m_pCode->find( current ));
 			continue;
 		}
-		
+
 		const InstructionList outputs = current->outputLinks();
-		
+
 		if ( outputs.isEmpty() )
 			return;
-		
+
 		if ( outputs.size() == 1 )
 			current = outputs.first();
-		
+
 		else
 		{
 			// Can't avoid function recursion now.
@@ -3377,9 +3377,9 @@ QString Instr_goto::code() const
 void Instr_goto::generateLinksAndStates( Code::iterator current )
 {
 	(void)current;
-	
+
 	makeLabelOutputLink( m_label );
-	
+
 	m_outputState = m_inputState;
 }
 
@@ -3398,7 +3398,7 @@ QString Instr_iorlw::code() const
 void Instr_iorlw::generateLinksAndStates( Code::iterator current )
 {
 	makeOutputLinks( current );
-	
+
 	m_outputState = m_inputState;
 	m_outputState.working.value = (m_inputState.working.value | m_literal) & 0xff;
 	m_outputState.working.known |= m_literal; // Now know any bits that are one in value
@@ -3408,17 +3408,17 @@ void Instr_iorlw::generateLinksAndStates( Code::iterator current )
 ProcessorBehaviour Instr_iorlw::behaviour() const
 {
 	ProcessorBehaviour behaviour;
-	
+
 	behaviour.working.indep = m_literal;
 	behaviour.working.depends = ~m_literal;
-	
+
 	behaviour.status.indep = (1 << RegisterBit::Z);;
 	return behaviour;
 }
 
 
 QString Instr_movlw::code() const
-{	
+{
 	return QString("movlw\t%1").arg( m_literal );
 }
 
@@ -3447,7 +3447,7 @@ void Instr_retfie::generateLinksAndStates( Code::iterator current )
 {
 	// Don't generate any output links
 	(void)current;
-	
+
 	m_inputState = m_outputState;
 }
 
@@ -3466,7 +3466,7 @@ QString Instr_retlw::code() const
 void Instr_retlw::generateLinksAndStates( Code::iterator current )
 {
 	(void)current;
-	
+
 	m_outputState = m_inputState;
 	m_outputState.working.known = 0xff;
 	m_outputState.working.value = m_literal;
@@ -3489,7 +3489,7 @@ QString Instr_return::code() const
 void Instr_return::generateLinksAndStates( Code::iterator current )
 {
 	(void)current;
-	
+
 	m_outputState = m_inputState;
 }
 
@@ -3509,7 +3509,7 @@ void Instr_sleep::generateLinksAndStates( Code::iterator current )
 {
 	// Don't generate any output links
 	(void)current;
-	
+
 	m_outputState = m_inputState;
 	m_outputState.status.value &= ~(1 << RegisterBit::NOT_PD);
 	m_outputState.status.value |= (1 << RegisterBit::NOT_TO);
@@ -3532,12 +3532,12 @@ QString Instr_sublw::code() const
 void Instr_sublw::generateLinksAndStates( Code::iterator current )
 {
 	makeOutputLinks( current );
-	
+
 	m_outputState = m_inputState;
 	m_outputState.working.value = (m_literal - m_inputState.working.value) & 0xff;
 	m_outputState.working.known = (m_inputState.working.known == 0xff) ? 0xff : 0x00;
 	m_outputState.status.known &= ~( (1 << RegisterBit::C) | (1 << RegisterBit::DC) | (1 << RegisterBit::Z) );
-	
+
 	if ( m_inputState.working.minValue() > m_literal )
 	{
 		m_outputState.status.value &= ~(1 << RegisterBit::C);
@@ -3548,7 +3548,7 @@ void Instr_sublw::generateLinksAndStates( Code::iterator current )
 		m_outputState.status.value |= (1 << RegisterBit::C);
 		m_outputState.status.known |= (1 << RegisterBit::C);
 	}
-	
+
 	if ( m_inputState.working.known == 0xff )
 	{
 		bool isZero = (m_inputState.working.value == m_literal);

@@ -24,13 +24,13 @@ class EC555 : public Component
 public:
 	EC555( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~EC555();
-	
+
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
-	virtual void stepNonLogic();
-	virtual bool doesStepNonLogic() const { return true; }
-	
+
+	virtual void stepNonLogic() override;
+	virtual bool doesStepNonLogic() const override { return true; }
+
 private:
 	Pin * ground;
 	Pin * trigger;
@@ -46,7 +46,7 @@ private:
 	Resistance *m_po_sink;
 	Resistance *m_po_source;
 	Resistance *m_r_discharge;
-	
+
 	bool old_com1;
 	bool old_com2;
 	bool old_q;

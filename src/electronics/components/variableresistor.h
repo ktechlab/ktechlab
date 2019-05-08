@@ -24,16 +24,16 @@ class VariableResistor : public Component
 	public:
 		VariableResistor( ICNDocument* icnDocument, bool newItem, const QString& id = 0L );
 		~VariableResistor();
-	
+
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
-		
-		virtual void sliderValueChanged( const QString &id, int newValue );
-		
+
+		virtual void sliderValueChanged( const QString &id, int newValue ) override;
+
 	private:
-		void dataChanged();
-		virtual void drawShape( QPainter &p );
-		
+		void dataChanged() override;
+		virtual void drawShape( QPainter &p ) override;
+
 		Resistance *m_pResistance;
 		QSlider *m_pSlider;
 		double m_minResistance;

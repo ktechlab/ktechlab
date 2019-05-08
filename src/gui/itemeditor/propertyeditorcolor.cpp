@@ -16,7 +16,7 @@
 #include <klocalizedstring.h>
 #include <kfontdialog.h>
 #include <kpushbutton.h>
-#include <kdebug.h>
+#include <qdebug.h>
 
 #include <qlabel.h>
 #include <qstring.h>

@@ -213,5 +213,12 @@ You need:
 Pushing should work with the URL rewrite rules from step 2.
 
 
+Porting to KF5 / Qt5
+--------------------
+
+See
+1. https://techbase.kde.org/ECM5/IncompatibleChangesKDELibs4ToECM
+2. https://community.kde.org/Frameworks/Porting_Notes
+3. https://api.kde.org/frameworks/index.html
 
 Have fun with KTechLab!

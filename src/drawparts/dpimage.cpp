@@ -13,7 +13,7 @@
 #include "libraryitem.h"
 #include "resizeoverlay.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <kiconloader.h>
 #include <klocalizedstring.h>
 
@@ -28,7 +28,7 @@ ImageScaleThread::ImageScaleThread()
 	QPixmap pm( 1, 1 );
 	pm.fill( Qt::gray );
 	m_image = pm.toImage();
-	
+
 	m_width = -1;
 	m_height = -1;
 	m_bDoneNormalScale = false;
@@ -41,24 +41,24 @@ bool ImageScaleThread::updateSettings( const QString & imageURL, int width, int 
 {
 	if ( isRunning() )
 	{
-		kWarning() << k_funcinfo << "Cannot update settings while running.\n";
+		qWarning() << Q_FUNC_INFO << "Cannot update settings while running.\n";
 		return false;
 	}
-	
+
 	bool changed = false;
-	
+
 	if ( m_width != width )
 	{
 		m_width = width;
 		changed = true;
 	}
-	
+
 	if ( m_height != height )
 	{
 		m_height = height;
 		changed = true;
 	}
-	
+
 	if ( m_imageURL != imageURL )
 	{
 		m_imageURL = imageURL;
@@ -71,14 +71,14 @@ bool ImageScaleThread::updateSettings( const QString & imageURL, int width, int 
 		}
 		changed = true;
 	}
-	
+
 	if ( changed )
 	{
 		m_bSettingsChanged = true;
 		m_bDoneNormalScale = false;
 		m_bDoneSmoothScale = false;
 	}
-	
+
 	return changed;
 }
 
@@ -89,19 +89,19 @@ QImage ImageScaleThread::bestScaling( BestScaling * scaling ) const
 	BestScaling temp;
 	if ( !scaling )
 		scaling = & temp;
-	
+
 	if ( m_bDoneSmoothScale )
 	{
 		*scaling = SmoothScaled;
 		return m_smoothScaled;
 	}
-	
+
 	else if ( m_bDoneNormalScale )
 	{
 		*scaling = NormalScaled;
 		return m_normalScaled;
 	}
-	
+
 	else
 	{
 		*scaling = Unscaled;
@@ -122,11 +122,11 @@ void ImageScaleThread::run()
 		}
 	}
 	while ( m_bSettingsChanged );
-	
+
 	// If m_bSettingsChanged is true, then another thread called updateSettings
 	// while we were doing normal scaling, so don't both doing smooth scaling
 	// just yet.
-	
+
 	if ( !m_bDoneSmoothScale )
 	{
 		//m_smoothScaled = m_image.smoothScale( m_width, m_height ); // 2018.12.01
@@ -163,15 +163,15 @@ DPImage::DPImage( ItemDocument *itemDocument, bool newItem, const char *id )
 	m_bSettingsChanged = false;
 	m_bResizeToImage = newItem;
 	m_imageScaling = ImageScaleThread::Unscaled;
-	
+
 	m_pRectangularOverlay = new RectangularOverlay( this );
-	
+
 	m_pCheckImageScalingTimer = new QTimer( this );
 	connect( m_pCheckImageScalingTimer, SIGNAL(timeout()), SLOT(checkImageScaling()) );
 	m_pCheckImageScalingTimer->start( 100 );
-	
+
 	m_name = i18n("Image");
-	
+
 	Variant * v = createProperty( "image", Variant::Type::FileName );
 	v->setCaption( i18n("Image File") );
 	dataChanged();
@@ -188,7 +188,7 @@ void DPImage::setSelected( bool yes )
 {
 	if ( yes == isSelected() )
 		return;
-	
+
 	DrawPart::setSelected(yes);
 	m_pRectangularOverlay->showResizeHandles(yes);
 }
@@ -205,14 +205,14 @@ void DPImage::dataChanged()
 {
 	m_imageURL = dataString( "image" );
 	m_image.load( m_imageURL );
-	
+
 	if ( m_image.isNull() )
 	{
 		// Make a grey image
 		//m_image.resize( width(), height() ); // 2018.12.01
         m_image = m_image.copy( 0, 0, width(), height() );
 		m_image.fill( Qt::gray );
-		
+
 		m_imageScaling = ImageScaleThread::SmoothScaled;
 	}
 	else
@@ -240,7 +240,7 @@ void DPImage::checkImageScaling()
 		// Image scaling is already at its best, so return
 		return;
 	}
-	
+
 	ImageScaleThread::BestScaling bs;
 	QImage im = m_imageScaleThread.bestScaling( & bs );
 	if ( bs > m_imageScaling )
@@ -249,7 +249,7 @@ void DPImage::checkImageScaling()
 		m_image = QPixmap::fromImage(im);
 		setChanged();
 	}
-	
+
 	if ( !m_imageScaleThread.isRunning() )
 	{
 		if ( m_imageScaleThread.updateSettings( m_imageURL, width(), height() ) )

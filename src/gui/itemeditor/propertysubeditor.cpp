@@ -11,7 +11,7 @@
 #include <qvariant.h>
 #include <qevent.h>
 
-#include <kdebug.h>
+#include <qdebug.h>
 
 #include "propertysubeditor.h"
 #include "propertyeditor.h"

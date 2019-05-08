@@ -1121,7 +1121,7 @@ void KtlQ3ScrollView::resize(const QSize& s)
 */
 void KtlQ3ScrollView::resizeEvent(QResizeEvent* event)
 {
-    KtlQ3Frame::resizeEvent(event);
+    //KtlQ3Frame::resizeEvent();
 
 #if 0
     if (QApplication::reverseLayout()) {

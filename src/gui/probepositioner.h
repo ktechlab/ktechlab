@@ -51,25 +51,25 @@ class ProbePositioner : public QWidget
 		 * in m_probePosOffset.
 		 */
 		ProbeData* probeAtPosition( const QPoint &pos );
-		
+
 	public slots:
 		void forceRepaint();
-		
+
 	protected slots:
 		void slotProbeDataRegistered( int id, ProbeData *probe );
 		void slotProbeDataUnregistered( int id );
-		
+
 	protected:
-		virtual void mousePressEvent( QMouseEvent * e );
-		virtual void mouseReleaseEvent( QMouseEvent * e );
-		virtual void mouseMoveEvent( QMouseEvent * e );
-		virtual void paintEvent( QPaintEvent *e );
-		virtual void resizeEvent( QResizeEvent *event );
-		
+		virtual void mousePressEvent( QMouseEvent * e ) override;
+		virtual void mouseReleaseEvent( QMouseEvent * e ) override;
+		virtual void mouseMoveEvent( QMouseEvent * e ) override;
+		virtual void paintEvent( QPaintEvent *e ) override;
+		virtual void resizeEvent( QResizeEvent *event ) override;
+
 		ProbeDataMap m_probeDataMap;
 		ProbeData *p_draggedProbe;
 		int m_probePosOffset;
-		
+
 		bool b_needRedraw;
 		QPixmap *m_pixmap;
 };

@@ -16,7 +16,7 @@
 #include "pinmapping.h"
 
 #include <kcombobox.h>
-#include <kdebug.h>
+#include <qdebug.h>
 #include <kinputdialog.h>
 #include <klineedit.h>
 #include <klocalizedstring.h>
@@ -296,7 +296,7 @@ void MicroSettingsDlg::slotCreatePinMap()
 			break;
 				
 		default:
-			kError() << k_funcinfo << "Unknown selected type " << type << endl;
+			qCritical() << Q_FUNC_INFO << "Unknown selected type " << type << endl;
 			break;
 	}
 	

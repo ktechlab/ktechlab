@@ -13,7 +13,7 @@
 #include "outputflownode.h"
 
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <qpainter.h>
 
 OutputFlowNode::OutputFlowNode(ICNDocument* _icnView, int dir, const QPoint& pos, QString* id): FPNode(_icnView, Node::fp_out, dir, pos, id)
@@ -39,7 +39,7 @@ bool OutputFlowNode::acceptOutput() const
 
 void OutputFlowNode::addInputConnector( Connector * const /*connector*/ )
 {
-	kDebug() << k_funcinfo << "BUG: trying to add input connector to an output node" << endl;
+	qDebug() << Q_FUNC_INFO << "BUG: trying to add input connector to an output node" << endl;
 }
 
 
@@ -100,7 +100,7 @@ void OutputFlowNode::drawShape ( QPainter &p )
 			pa = arrowPoints ( 270 );
 			break;
 		default:
-			kError() << k_funcinfo << "BUG: m_dir = " << m_dir << endl;
+			qCritical() << Q_FUNC_INFO << "BUG: m_dir = " << m_dir << endl;
 	}
 
 

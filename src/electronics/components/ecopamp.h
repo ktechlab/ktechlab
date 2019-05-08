@@ -22,12 +22,12 @@ class ECOpAmp : public Component
 	public:
 		ECOpAmp( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~ECOpAmp();
-		
+
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
-		
+
 	protected:
-		virtual void drawShape( QPainter & p );
+		virtual void drawShape( QPainter & p ) override;
 };
 
 #endif

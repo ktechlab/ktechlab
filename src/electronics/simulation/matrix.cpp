@@ -10,7 +10,7 @@
 
 #include "matrix.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 
 #include <cassert>
 
@@ -181,10 +181,10 @@ void Matrix::displayMatrix()
 		uint i = m_inMap[_i];
 		for ( uint j=0; j<n; j++ )
 		{
-			if ( j > 0 && (*m_mat)[i][j] >= 0 ) kDebug() << "+";
-			kDebug() << (*m_mat)[i][j] << "("<<j<<")";
+			if ( j > 0 && (*m_mat)[i][j] >= 0 ) qDebug() << "+";
+			qDebug() << (*m_mat)[i][j] << "("<<j<<")";
 		}
-		kDebug()  << endl;
+		qDebug()  << endl;
 	}
 }
 
