@@ -146,7 +146,7 @@ bool ECNode::isConnected( Node *node, NodeList *checkedNodes )
 			}
 		}
 	}
-	
+
 	if (firstNode) {
 		delete checkedNodes;
 	}
@@ -158,9 +158,9 @@ void ECNode::checkForRemoval( Connector *connector )
 {
 	removeConnector(connector);
 	setNodeSelected(false);
-	
+
 	removeNullConnectors();
-	
+
 	if (!p_parentItem) {
 		int conCount = m_connectorList.count();
 		if ( conCount < 1 )
@@ -171,9 +171,9 @@ void ECNode::checkForRemoval( Connector *connector )
 void ECNode::setVisible( bool yes )
 {
 	if ( isVisible() == yes ) return;
-	
+
 	KtlQCanvasPolygon::setVisible(yes);
-	
+
 	const ConnectorList::iterator inputEnd = m_connectorList.end();
 	for ( ConnectorList::iterator it = m_connectorList.begin(); it != inputEnd; ++it ) {
 		Connector *connector = *it;
@@ -206,10 +206,10 @@ QPoint ECNode::findConnectorDivergePoint( bool * found )
 
 	const ConnectorList connectors = m_connectorList;
 	const ConnectorList::const_iterator end = connectors.end();
-	
+
 	bool gotP1 = false;
 	bool gotP2 = false;
-	
+
 	int at = -1;
 	for ( ConnectorList::const_iterator it = connectors.begin(); it != end && !gotP2; ++it )
 	{
@@ -228,9 +228,9 @@ QPoint ECNode::findConnectorDivergePoint( bool * found )
 
 	if ( !gotP1 || !gotP2 )
 		return QPoint(0,0);
-	
+
 	unsigned maxLength = p1.size() > p2.size() ? p1.size() : p2.size();
-	
+
 	for ( unsigned i = 1; i < maxLength; ++i )
 	{
 		if ( p1[i] != p2[i] ) {
@@ -245,7 +245,7 @@ void ECNode::addConnector( Connector * const connector )
 {
 	if ( !handleNewConnector(connector) )
 		return;
-	
+
 	m_connectorList.append(connector);
 }
 
@@ -275,7 +275,7 @@ Connector* ECNode::createConnector( Node * node)
 	// FIXME dynamic_cast used
 	Connector *connector = new ElectronicConnector( dynamic_cast<ECNode*>(node), dynamic_cast<ECNode*>(this), p_icnDocument );
 	addConnector(connector);
-	
+
 	return connector;
 }
 
@@ -287,16 +287,16 @@ void ECNode::removeNullConnectors()
 int ECNode::numCon( bool includeParentItem, bool includeHiddenConnectors ) const
 {
 	unsigned count = 0;
-	
+
 	const ConnectorList connectors = m_connectorList;
-	
+
 	ConnectorList::const_iterator end = connectors.end();
 	for ( ConnectorList::const_iterator it = connectors.begin(); it != end; ++it )
 	{
 		if ( *it && (includeHiddenConnectors || (*it)->canvas()) )
 			count++;
 	}
-	
+
 
 	if ( isChildNode() && includeParentItem )
 		count++;
@@ -307,9 +307,9 @@ int ECNode::numCon( bool includeParentItem, bool includeHiddenConnectors ) const
 void ECNode::removeConnector( Connector *connector )
 {
 	if (!connector) return;
-	
+
 	ConnectorList::iterator it;
-	
+
 	//it = m_connectorList.find(connector); // 2018.12.02
     int i = m_connectorList.indexOf(connector);
     it = (i == -1 ? m_connectorList.end() : (m_connectorList.begin()+i));
@@ -320,7 +320,7 @@ void ECNode::removeConnector( Connector *connector )
 	}
 }
 
-Connector* ECNode::getAConnector() const 
+Connector* ECNode::getAConnector() const
 {
 	if( ! m_connectorList.isEmpty() )
 		return *m_connectorList.begin();

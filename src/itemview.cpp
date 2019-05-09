@@ -650,18 +650,15 @@ void ItemView::updateStatus()
 		}
 
 	} else if ( KtlQCanvasItem *qcanvasItem = itemDocument->itemAtTop(pos) ) {
-		if ( Connector * con = dynamic_cast<Connector*>(qcanvasItem) )
-		{
+		if ( Connector * con = dynamic_cast<Connector*>(qcanvasItem) ) {
 			cursor = Qt::CrossCursor;
-			if ( itemDocument->type() == Document::dt_circuit )
-			{
+			if ( itemDocument->type() == Document::dt_circuit ) {
 				canvasTip->displayVI( con, pos );
 				displayTip = true;
 			}
 		} else if ( Node * node = dynamic_cast<Node*>(qcanvasItem) ) {
 			cursor = Qt::CrossCursor;
-			if ( ECNode * ecnode = dynamic_cast<ECNode*>(node) )
-			{
+			if ( ECNode * ecnode = dynamic_cast<ECNode*>(node) ) {
 				canvasTip->displayVI( ecnode, pos );
 				displayTip = true;
 			}

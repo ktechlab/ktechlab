@@ -18,6 +18,7 @@
 #include <klocalizedstring.h>
 #include <kiconloader.h>
 #include <ktoolbarpopupaction.h>
+#include <kactioncollection.h>
 
 #include <qaction.h>
 #include <qactiongroup.h>
@@ -28,7 +29,7 @@ ICNView::ICNView( ICNDocument *icnDocument, ViewContainer *viewContainer, uint v
 {
 	bool manualRouting = (icnDocument->m_cmManager->cmState() & CMManager::cms_manual_route);
 
-	QActionGroup * ac = new QActionGroup(viewContainer->viewArea(viewAreaId));
+	KActionCollection * ac = actionCollection();
 
 	//BEGIN Routing Actions
 	// These actions get inserted into the main menu
@@ -36,7 +37,7 @@ ICNView::ICNView( ICNDocument *icnDocument, ViewContainer *viewContainer, uint v
     m_pAutoRoutingAction = new QAction( i18n("Automatic"), ac);
     m_pAutoRoutingAction->setObjectName("routing_mode_auto");
     connect(m_pAutoRoutingAction, SIGNAL(triggered(bool)), this, SLOT(slotSetRoutingAuto()));
-    ac->addAction(m_pAutoRoutingAction);
+    ac->addAction(m_pAutoRoutingAction->objectName(), m_pAutoRoutingAction);
 	//m_pAutoRoutingAction->setExclusiveGroup("routing_mode");// TODO TEST
 	if ( !manualRouting )
 		m_pAutoRoutingAction->setChecked( true );
@@ -45,7 +46,7 @@ ICNView::ICNView( ICNDocument *icnDocument, ViewContainer *viewContainer, uint v
     m_pManualRoutingAction = new QAction( i18n("Manual"), ac);
     m_pManualRoutingAction->setObjectName("routing_mode_manual");
     connect(m_pManualRoutingAction, SIGNAL(triggered(bool)), this, SLOT(slotSetRoutingManual()));
-    ac->addAction(m_pManualRoutingAction);
+    ac->addAction(m_pManualRoutingAction->objectName(), m_pManualRoutingAction);
 	//m_pManualRoutingAction->setExclusiveGroup("routing_mode"); // TODO TEST
 	if ( manualRouting )
 		m_pManualRoutingAction->setChecked( true );
@@ -56,7 +57,7 @@ ICNView::ICNView( ICNDocument *icnDocument, ViewContainer *viewContainer, uint v
     m_pRoutingModeToolbarPopup = new KToolBarPopupAction( QIcon(QString::fromLatin1("pencil")), i18n("Connection Routing Mode"), ac);
     m_pRoutingModeToolbarPopup->setObjectName( "routing_mode" );
 	m_pRoutingModeToolbarPopup->setDelayed(false);
-    ac->addAction(m_pRoutingModeToolbarPopup);
+    ac->addAction(m_pRoutingModeToolbarPopup->objectName(), m_pRoutingModeToolbarPopup);
 
 	QMenu * m = m_pRoutingModeToolbarPopup->menu();
 	m->setTitle( i18n("Connection Routing Mode") );

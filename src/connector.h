@@ -173,9 +173,7 @@ public:
 	*/
 	WireVector wires() const { return m_wires; }
 	unsigned numWires() const { return m_wires.size(); }
-	Wire *wire(unsigned num = 0) const ; /* {
-		return (num < m_wires.size()) ? m_wires[num] : 0;
-	} */
+	Wire* wire(unsigned num=0) const;
 
 	void updateConnectorLines(bool forceRedraw = false);
 
