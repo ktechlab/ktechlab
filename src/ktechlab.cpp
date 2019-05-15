@@ -47,7 +47,6 @@
 
 #include <kaction.h>
 #include <ktoolbar.h>
-#include <kstdaccel.h>
 #include <kapplication.h>
 #include <kdebug.h>
 #include <kedittoolbar.h>

@@ -21,7 +21,6 @@
 
 #include <kdebug.h>
 #include <klocalizedstring.h>
-#include <kstdaccel.h>
 #include <kstandardshortcut.h>
 
 #include <qapplication.h>

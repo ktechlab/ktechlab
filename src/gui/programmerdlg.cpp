@@ -21,7 +21,6 @@
 
 #include <kguiitem.h>
 #include <klocalizedstring.h>
-#include <kstdguiitem.h>
 
 
 class ProgrammerWidget : public QWidget, public Ui::ProgrammerWidget {
