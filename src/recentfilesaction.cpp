@@ -27,7 +27,7 @@ RecentFilesAction::RecentFilesAction( const QString & configGroupName, const QSt
 
 	m_configGroupName = configGroupName;
 	m_maxItems = 10;
-	
+
 	m_popup = new KMenu;
 	connect(m_popup, SIGNAL(aboutToShow()), this, SLOT(menuAboutToShow()));
 	connect(m_popup, SIGNAL(triggered(QAction*)), this, SLOT(menuItemActivated(QAction*)));
@@ -35,7 +35,7 @@ RecentFilesAction::RecentFilesAction( const QString & configGroupName, const QSt
 			 this, SLOT( itemSelected( const QString& ) ) );
 
 	setMenuAccelsEnabled( false );
-	
+
 	if ( receiver )
 		connect( this, SIGNAL(urlSelected(const KUrl &)), receiver, slot );
 }
@@ -50,13 +50,13 @@ void RecentFilesAction::addURL( const KUrl& url )
 {
 	if ( url.isLocalFile() && !KGlobal::dirs()->relativeLocation("tmp", url.path()).startsWith("/"))
 		return;
-	
+
 	QString file;
 	if ( url.isLocalFile() && url.ref().isNull() && url.query().isNull() )
 		file = url.path();
 	else
 		file = url.prettyUrl();
-	
+
 	QStringList lst = items();
 
     // remove file if already in list
@@ -72,7 +72,7 @@ void RecentFilesAction::addURL( const KUrl& url )
     // add file to list
 	lst.prepend( file );
 	setItems( lst );
-	
+
 	saveEntries();
 }
 
@@ -80,7 +80,7 @@ void RecentFilesAction::addURL( const KUrl& url )
 void RecentFilesAction::loadEntries()
 {
 	KConfig * config = KGlobal::config().data();
-	
+
 	QString     key;
 	QString     value;
 	//QString     oldGroup;
@@ -109,7 +109,7 @@ void RecentFilesAction::loadEntries()
 void RecentFilesAction::saveEntries()
 {
 	KConfig * config = KGlobal::config().data();
-	
+
 	QString     key;
 	QString     value;
 	//QString     oldGroup;
@@ -129,7 +129,7 @@ void RecentFilesAction::saveEntries()
 	}
 
 	//grCfg.setGroup( oldGroup );
-	
+
 	config->sync();
 }
 
@@ -159,7 +159,7 @@ void RecentFilesAction::menuAboutToShow()
 void RecentFilesAction::slotClicked()
 {
 	//KAction::slotActivated(); // TODO CORRECT?
-    QAction::trigger();
+    KSelectAction::trigger();
 }
 
 void RecentFilesAction::slotActivated(const QString& text)

@@ -27,16 +27,16 @@ class DPText : public DrawPart
 		static LibraryItem *libraryItem();
 		static LibraryItem *libraryItemOld();
 
-		virtual void setSelected( bool yes );
-	
-		virtual QSize minimumSize() const;
+		virtual void setSelected( bool yes ) override;
+
+		virtual QSize minimumSize() const override;
 
 	protected:
-		virtual void postResize();
-	
+		virtual void postResize() override;
+
 	private:
-		virtual void drawShape( QPainter &p );
-		void dataChanged();
+		virtual void drawShape( QPainter &p ) override;
+		void dataChanged() override;
 		QString m_text;
 		bool b_displayBackground;
 		QColor m_backgroundColor;

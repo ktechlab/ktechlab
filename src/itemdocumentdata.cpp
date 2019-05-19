@@ -21,10 +21,10 @@
 #include "picitem.h"
 #include "pinmapping.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <kio/netaccess.h>
 #include <klocalizedstring.h>
-#include <kmessagebox.h> 
+#include <kmessagebox.h>
 #include <ktemporaryfile.h>
 #include <qbitarray.h>
 #include <qfile.h>
@@ -35,21 +35,21 @@ static QString toAsciiHex( QBitArray _data )
 {
 	QBitArray data = _data;
 // 	data = qCompress(data);
-	
+
 	// Pad out the data to a nice size
 	if ( (data.size() % 4) != 0 )
 	{
 		data.detach();
 		data.resize( data.size() + 4 - (data.size()%4) );
 	}
-	
+
 	QString text;
-	for ( unsigned i = 0; i < data.size()/4; ++i )
+	for ( int i = 0; i < data.size()/4; ++i )
 	{
 		unsigned val = 0;
 		for ( unsigned j = 0; j < 4; ++j )
 			val += (data[4*i+j] ? 1:0) << j;
-		
+
 		text += QString::number( val, 16 );
 	}
 	return text;
@@ -60,16 +60,16 @@ static QBitArray toQBitArray( QString text )
 {
 	unsigned size = text.length();
 	QBitArray data(size*4);
-	
+
 	for ( unsigned i = 0; i < size; ++i )
 	{
 		unsigned val = QString(text[i]).toInt( 0l, 16 );
 		for ( unsigned j = 0; j < 4; ++j )
 			data[4*i+j] = val & (1 << j);
 	}
-	
+
 // 	data = qUncompress(data);
-	
+
 	return data;
 }
 
@@ -105,22 +105,22 @@ bool ItemDocumentData::loadData( const KUrl &url )
 		// If the file could not be downloaded, for example does not
 		// exist on disk, NetAccess will tell us what error to use
 		KMessageBox::error( 0l, KIO::NetAccess::lastErrorString() );
-		
+
 		return false;
 	}
-	
+
 	QFile file(target);
 	if ( !file.open( QIODevice::ReadOnly ) )
 	{
 		KMessageBox::sorry( 0l, i18n("Could not open %1 for reading", target) );
 		return false;
 	}
-	
+
 	QString xml;
 	QTextStream textStream( &file );
 	while ( !textStream.atEnd() /* eof() */ )
 		xml += textStream.readLine() + '\n';
-	
+
 	file.close();
 	return fromXML(xml);
 }
@@ -129,7 +129,7 @@ bool ItemDocumentData::loadData( const KUrl &url )
 bool ItemDocumentData::fromXML( const QString &xml )
 {
 	reset();
-	
+
 	QDomDocument doc( "KTechlab" );
 	QString errorMessage;
 	if ( !doc.setContent( xml, &errorMessage ) )
@@ -137,9 +137,9 @@ bool ItemDocumentData::fromXML( const QString &xml )
 		KMessageBox::sorry( 0l, i18n("Could not parse XML:\n%1", errorMessage) );
 		return false;
 	}
-	
+
 	QDomElement root = doc.documentElement();
-	
+
 	QDomNode node = root.firstChild();
 	while ( !node.isNull() )
 	{
@@ -147,36 +147,36 @@ bool ItemDocumentData::fromXML( const QString &xml )
 		if ( !element.isNull() )
 		{
 			const QString tagName = element.tagName();
-			
+
 			if ( tagName == "item" )
 				elementToItemData(element);
-			
+
 			else if ( tagName == "node" )
 				elementToNodeData(element);
-			
+
 			else if ( tagName == "connector" )
 				elementToConnectorData(element);
-			
+
 			else if ( tagName == "pic-settings" || tagName == "micro" )
 				elementToMicroData(element);
-			
+
 			else if ( tagName == "code" )
 				; // do nothing - we no longer use this tag
-			
+
 			else
-				kWarning() << k_funcinfo << "Unrecognised element tag name: "<<tagName<<endl;
+				qWarning() << Q_FUNC_INFO << "Unrecognised element tag name: "<<tagName<<endl;
 		}
-		
+
 		node = node.nextSibling();
 	}
-	
+
 	return true;
 }
 
 
 bool ItemDocumentData::saveData( const KUrl &url )
 {
-	
+
 	if ( url.isLocalFile() )
 	{
 		QFile file( url.path() );
@@ -185,7 +185,7 @@ bool ItemDocumentData::saveData( const KUrl &url )
 			KMessageBox::sorry( 0l, i18n("Could not open '%1' for writing. Check that you have write permissions", url.path()), i18n("Saving File") );
 			return false;
 		}
-		
+
 		QTextStream stream(&file);
 		stream << toXML();
 		file.close();
@@ -200,14 +200,14 @@ bool ItemDocumentData::saveData( const KUrl &url )
         QTextStream str(&file);
 		str << toXML();
 		file.close();
-		
+
 		if ( !KIO::NetAccess::upload( file.fileName(), url, 0l ) )
 		{
 			KMessageBox::error( 0l, KIO::NetAccess::lastErrorString() );
 			return false;
 		}
 	}
-		
+
 	return true;
 }
 
@@ -216,11 +216,11 @@ QString ItemDocumentData::toXML()
 {
 	QDomDocument doc("KTechlab");
 	//TODO Add revision information to save file
-	
+
 	QDomElement root = doc.createElement("document");
 	root.setAttribute( "type", documentTypeString() );
 	doc.appendChild(root);
-	
+
 	{
 		const ItemDataMap::iterator end = m_itemDataMap.end();
 		for ( ItemDataMap::iterator it = m_itemDataMap.begin(); it != end; ++it )
@@ -253,7 +253,7 @@ QString ItemDocumentData::toXML()
 		QDomElement node = microDataToElement(doc);
 		root.appendChild(node);
 	}
-	
+
 	return doc.toString();
 }
 
@@ -264,67 +264,67 @@ QDomElement ItemDocumentData::microDataToElement( QDomDocument &doc )
 {
 	QDomElement node = doc.createElement("micro");
 	node.setAttribute( "id", m_microData.id );
-	
+
 	{
 		const PinMappingMap::iterator end = m_microData.pinMappings.end();
 		for ( PinMappingMap::iterator it = m_microData.pinMappings.begin(); it != end; ++it )
 		{
 			QDomElement pinMapNode = doc.createElement("pinmap");
-			
+
 			QString type;
 			switch ( it.value().type() )
 			{
 				case PinMapping::SevenSegment:
 					type = "sevensegment";
 					break;
-					
+
 				case PinMapping::Keypad_4x3:
 					type = "keypad_4x3";
 					break;
-					
+
 				case PinMapping::Keypad_4x4:
 					type = "keypad_4x4";
 					break;
-					
+
 				case PinMapping::Invalid:
 					break;
 			}
-			
+
 			pinMapNode.setAttribute( "id", it.key() );
 			pinMapNode.setAttribute( "type", type );
 			pinMapNode.setAttribute( "map", it.value().pins().join(" ") );
-			
+
 			node.appendChild(pinMapNode);
 		}
 	}
-	
+
 	{
 		const PinDataMap::iterator end = m_microData.pinMap.end();
 		for ( PinDataMap::iterator it = m_microData.pinMap.begin(); it != end; ++it )
 		{
 			QDomElement pinNode = doc.createElement("pin");
-			
+
 			pinNode.setAttribute( "id", it.key() );
 			pinNode.setAttribute( "type", (it.value().type == PinSettings::pt_input) ? "input" : "output" );
 			pinNode.setAttribute( "state", (it.value().state == PinSettings::ps_off) ? "off" : "on" );
-			
+
 			node.appendChild(pinNode);
 		}
 	}
-	
+
 	{
 		const QStringMap::iterator end = m_microData.variableMap.end();
 		for ( QStringMap::iterator it = m_microData.variableMap.begin(); it != end; ++it )
 		{
 			QDomElement variableNode = doc.createElement("variable");
-			
+
 			variableNode.setAttribute( "name", it.key() );
 			variableNode.setAttribute( "value", it.value() );
-			
+
 			node.appendChild(variableNode);
 		}
 	}
-	
+
 	return node;
 }
 
@@ -332,19 +332,19 @@ QDomElement ItemDocumentData::microDataToElement( QDomDocument &doc )
 void ItemDocumentData::elementToMicroData( QDomElement element )
 {
 	QString id = element.attribute( "id", QString::null );
-	
+
 	if ( id.isNull() )
 		id = element.attribute( "pic", QString::null );
-	
+
 	if ( id.isNull() )
 	{
-		kError() << k_funcinfo << "Could not find id in element" << endl;
+		qCritical() << Q_FUNC_INFO << "Could not find id in element" << endl;
 		return;
 	}
-	
+
 	m_microData.reset();
 	m_microData.id = id;
-	
+
 	QDomNode node = element.firstChild();
 	while ( !node.isNull() )
 	{
@@ -352,33 +352,33 @@ void ItemDocumentData::elementToMicroData( QDomElement element )
 		if ( !childElement.isNull() )
 		{
 			const QString tagName = childElement.tagName();
-			
+
 			if ( tagName == "pinmap" )
 			{
 				QString id = childElement.attribute( "id", QString::null );
 				QString typeString = childElement.attribute( "type", QString::null );
-				
+
 				if ( !id.isEmpty() && !typeString.isEmpty() )
 				{
 					PinMapping::Type type = PinMapping::Invalid;
-					
+
 					if ( typeString == "sevensegment" )
 						type = PinMapping::SevenSegment;
-					
+
 					else if ( typeString == "keypad_4x3" )
 						type = PinMapping::Keypad_4x3;
-					
+
 					else if ( typeString == "keypad_4x4" )
 						type = PinMapping::Keypad_4x4;
-					
+
 					PinMapping pinMapping( type );
 					//pinMapping.setPins( QStringList::split( " ", childElement.attribute( "map", 0 ) ) ); // 2018.12.01
                     pinMapping.setPins( childElement.attribute( "map", 0 ).split( " ", QString::SkipEmptyParts ) );
-					
+
 					m_microData.pinMappings[id] = pinMapping;
 				}
 			}
-			
+
 			else if ( tagName == "pin" )
 			{
 				QString pinID = childElement.attribute( "id", QString::null );
@@ -388,17 +388,17 @@ void ItemDocumentData::elementToMicroData( QDomElement element )
 					m_microData.pinMap[pinID].state = (childElement.attribute( "state", "off" ) == "off" ) ? PinSettings::ps_off : PinSettings::ps_on;
 				}
 			}
-			
+
 			else if ( tagName == "variable" )
 			{
 				QString variableId = childElement.attribute( "name", QString::null );
 				m_microData.variableMap[variableId] = childElement.attribute( "value", QString::null );
 			}
-			
+
 			else
-				kError() << k_funcinfo << "Unrecognised element tag name: "<<tagName<<endl;
+				qCritical() << Q_FUNC_INFO << "Unrecognised element tag name: "<<tagName<<endl;
 		}
-		
+
 		node = node.nextSibling();
 	}
 }
@@ -419,7 +419,7 @@ QDomElement ItemDocumentData::itemDataToElement( QDomDocument &doc, const ItemDa
 		node.setAttribute( "width", itemData.size.width() );
 		node.setAttribute( "height", itemData.size.height() );
 	}
-	
+
 	// If the "orientation" is >= 0, then set by a FlowPart, so we don't need to worry about the angle / flip
 	if ( itemData.orientation >= 0 )
 	{
@@ -430,10 +430,10 @@ QDomElement ItemDocumentData::itemDataToElement( QDomDocument &doc, const ItemDa
 		node.setAttribute( "angle", itemData.angleDegrees );
 		node.setAttribute( "flip", itemData.flipped );
 	}
-	
+
 	if ( !itemData.parentId.isEmpty() )
 		node.setAttribute( "parent", itemData.parentId );
-	
+
 	const QStringMap::const_iterator stringEnd = itemData.dataString.end();
 	for ( QStringMap::const_iterator it = itemData.dataString.begin(); it != stringEnd; ++it )
 	{
@@ -443,7 +443,7 @@ QDomElement ItemDocumentData::itemDataToElement( QDomDocument &doc, const ItemDa
 		e.setAttribute( "type", "string" );
 		e.setAttribute( "value", it.value() );
 	}
-	
+
 	const DoubleMap::const_iterator numberEnd = itemData.dataNumber.end();
 	for ( DoubleMap::const_iterator it = itemData.dataNumber.begin(); it != numberEnd; ++it )
 	{
@@ -453,7 +453,7 @@ QDomElement ItemDocumentData::itemDataToElement( QDomDocument &doc, const ItemDa
 		e.setAttribute( "type", "number" );
 		e.setAttribute( "value", QString::number(it.value()) );
 	}
-	
+
 	const QColorMap::const_iterator colorEnd = itemData.dataColor.end();
 	for ( QColorMap::const_iterator it = itemData.dataColor.begin(); it != colorEnd; ++it )
 	{
@@ -463,7 +463,7 @@ QDomElement ItemDocumentData::itemDataToElement( QDomDocument &doc, const ItemDa
 		e.setAttribute( "type", "color" );
 		e.setAttribute( "value", it.value().name() );
 	}
-	
+
 	const QBitArrayMap::const_iterator rawEnd = itemData.dataRaw.end();
 	for ( QBitArrayMap::const_iterator it = itemData.dataRaw.begin(); it != rawEnd; ++it )
 	{
@@ -473,7 +473,7 @@ QDomElement ItemDocumentData::itemDataToElement( QDomDocument &doc, const ItemDa
 		e.setAttribute( "type", "raw" );
 		e.setAttribute( "value", toAsciiHex(it.value()) );
 	}
-	
+
 	const BoolMap::const_iterator boolEnd = itemData.dataBool.end();
 	for ( BoolMap::const_iterator it = itemData.dataBool.begin(); it != boolEnd; ++it )
 	{
@@ -483,7 +483,7 @@ QDomElement ItemDocumentData::itemDataToElement( QDomDocument &doc, const ItemDa
 		e.setAttribute( "type", "bool" );
 		e.setAttribute( "value", QString::number(it.value()) );
 	}
-	
+
 	const BoolMap::const_iterator buttonEnd = itemData.buttonMap.end();
 	for ( BoolMap::const_iterator it = itemData.buttonMap.begin(); it != buttonEnd; ++it )
 	{
@@ -492,7 +492,7 @@ QDomElement ItemDocumentData::itemDataToElement( QDomDocument &doc, const ItemDa
 		e.setAttribute( "id", it.key() );
 		e.setAttribute( "state", QString::number(it.value()) );
 	}
-	
+
 	const IntMap::const_iterator sliderEnd = itemData.sliderMap.end();
 	for ( IntMap::const_iterator it = itemData.sliderMap.begin(); it != sliderEnd; ++it )
 	{
@@ -501,7 +501,7 @@ QDomElement ItemDocumentData::itemDataToElement( QDomDocument &doc, const ItemDa
 		e.setAttribute( "id", it.key() );
 		e.setAttribute( "value", QString::number(it.value()) );
 	}
-	
+
 	return node;
 }
 
@@ -511,16 +511,16 @@ void ItemDocumentData::elementToItemData( QDomElement element )
 	QString id = element.attribute( "id", QString::null );
 	if ( id.isNull() )
 	{
-		kError() << k_funcinfo << "Could not find id in element" << endl;
+		qCritical() << Q_FUNC_INFO << "Could not find id in element" << endl;
 		return;
 	}
-	
+
 	ItemData itemData;
 	itemData.type = element.attribute( "type", QString::null );
 	itemData.x = element.attribute( "x", "120" ).toInt();
 	itemData.y = element.attribute( "y", "120" ).toInt();
 	itemData.z = element.attribute( "z", "-1" ).toInt();
-	
+
 	if ( element.hasAttribute("width") &&
 			element.hasAttribute("height") )
 	{
@@ -532,14 +532,14 @@ void ItemDocumentData::elementToItemData( QDomElement element )
 	}
 	else
 		itemData.setSize = false;
-	
+
 	itemData.angleDegrees = element.attribute( "angle", "0" ).toInt();
 	itemData.flipped = element.attribute( "flip", "0" ).toInt();
 	itemData.orientation = element.attribute( "orientation", "-1" ).toInt();
 	itemData.parentId = element.attribute( "parent", QString::null );
-	
+
 	m_itemDataMap[id] = itemData;
-	
+
 	QDomNode node = element.firstChild();
 	while ( !node.isNull() )
 	{
@@ -547,7 +547,7 @@ void ItemDocumentData::elementToItemData( QDomElement element )
 		if ( !childElement.isNull() )
 		{
 			const QString tagName = childElement.tagName();
-			
+
 			if ( tagName == "item" )
 			{
 				// We're reading in a file saved in the older format, with
@@ -558,7 +558,7 @@ void ItemDocumentData::elementToItemData( QDomElement element )
 				if ( !childId.isNull() )
 					m_itemDataMap[childId].parentId = id;
 			}
-			
+
 			else if ( tagName == "data" )
 			{
 				QString dataId = childElement.attribute( "id", QString::null );
@@ -566,7 +566,7 @@ void ItemDocumentData::elementToItemData( QDomElement element )
 				{
 					QString dataType = childElement.attribute( "type", QString::null );
 					QString value = childElement.attribute( "value", QString::null );
-					
+
 					if ( dataType == "string" || dataType == "multiline" )
 						m_itemDataMap[id].dataString[dataId] = value;
 					else if ( dataType == "number" )
@@ -578,31 +578,31 @@ void ItemDocumentData::elementToItemData( QDomElement element )
 					else if ( dataType == "bool" )
 						m_itemDataMap[id].dataBool[dataId] = bool(value.toInt());
 					else
-						kError() << k_funcinfo << "Unknown data type of \""<<dataType<<"\" with id \""<<dataId<<"\""<<endl;
+						qCritical() << Q_FUNC_INFO << "Unknown data type of \""<<dataType<<"\" with id \""<<dataId<<"\""<<endl;
 				}
 			}
-			
+
 			else if ( tagName == "button" )
 			{
 				QString buttonId = childElement.attribute( "id", QString::null );
 				if ( !buttonId.isNull() )
 					m_itemDataMap[id].buttonMap[buttonId] = childElement.attribute( "state", "0" ).toInt();
 			}
-			
+
 			else if ( tagName == "slider" )
 			{
 				QString sliderId = childElement.attribute( "id", QString::null );
 				if ( !sliderId.isNull() )
 					m_itemDataMap[id].sliderMap[sliderId] = childElement.attribute( "value", "0" ).toInt();
 			}
-			
+
 			else if ( tagName == "child-node" )
 				; // Tag name was used in 0.1 file save format
-			
+
 			else
-				kError() << k_funcinfo << "Unrecognised element tag name: "<<tagName<<endl;
+				qCritical() << Q_FUNC_INFO << "Unrecognised element tag name: "<<tagName<<endl;
 		}
-		
+
 		node = node.nextSibling();
 	}
 }
@@ -622,14 +622,14 @@ void ItemDocumentData::elementToNodeData( QDomElement element )
 	QString id = element.attribute( "id", QString::null );
 	if ( id.isNull() )
 	{
-		kError() << k_funcinfo << "Could not find id in element" << endl;
+		qCritical() << Q_FUNC_INFO << "Could not find id in element" << endl;
 		return;
 	}
-	
+
 	NodeData nodeData;
 	nodeData.x = element.attribute( "x", "120" ).toInt();
 	nodeData.y = element.attribute( "y", "120" ).toInt();
-	
+
 	m_nodeDataMap[id] = nodeData;
 }
 
@@ -637,9 +637,9 @@ void ItemDocumentData::elementToNodeData( QDomElement element )
 QDomElement ItemDocumentData::connectorDataToElement( QDomDocument &doc, const ConnectorData &connectorData )
 {
 	QDomElement node = doc.createElement("connector");
-	
+
 	node.setAttribute( "manual-route", connectorData.manualRoute );
-	
+
 	QString route;
 	const QPointList::const_iterator end = connectorData.route.end();
 	for ( QPointList::const_iterator it = connectorData.route.begin(); it != end; ++it )
@@ -648,7 +648,7 @@ QDomElement ItemDocumentData::connectorDataToElement( QDomDocument &doc, const C
 		route.append( QString::number((*it).y())+"," );
 	}
 	node.setAttribute( "route", route );
-	
+
 	if ( connectorData.startNodeIsChild )
 	{
 		node.setAttribute( "start-node-is-child", 1 );
@@ -660,8 +660,8 @@ QDomElement ItemDocumentData::connectorDataToElement( QDomDocument &doc, const C
 		node.setAttribute( "start-node-is-child", 0 );
 		node.setAttribute( "start-node-id", connectorData.startNodeId );
 	}
-	
-	
+
+
 	if ( connectorData.endNodeIsChild )
 	{
 		node.setAttribute( "end-node-is-child", 1 );
@@ -673,7 +673,7 @@ QDomElement ItemDocumentData::connectorDataToElement( QDomDocument &doc, const C
 		node.setAttribute( "end-node-is-child", 0 );
 		node.setAttribute( "end-node-id", connectorData.endNodeId );
 	}
-	
+
 	return node;
 }
 
@@ -683,15 +683,15 @@ void ItemDocumentData::elementToConnectorData( QDomElement element )
 	QString id = element.attribute( "id", QString::null );
 	if ( id.isNull() )
 	{
-		kError() << k_funcinfo << "Could not find id in element" << endl;
+		qCritical() << Q_FUNC_INFO << "Could not find id in element" << endl;
 		return;
 	}
-	
+
 	ConnectorData connectorData;
-	
+
 	connectorData.manualRoute = ( element.attribute( "manual-route", "0" ) == "1");
 	QString route = element.attribute( "route", "" );
-	
+
 	QStringList points = route.split( ",", QString::SkipEmptyParts ); // QStringList::split( ",", route ); // 2018.12.01
 	if (route.isEmpty()) {
         points = QStringList();
@@ -708,7 +708,7 @@ void ItemDocumentData::elementToConnectorData( QDomElement element )
 			connectorData.route.append( QPoint(x,y) );
 		}
 	}
-	
+
 	connectorData.startNodeIsChild = element.attribute( "start-node-is-child", "0" ).toInt();
 	if ( connectorData.startNodeIsChild )
 	{
@@ -717,8 +717,8 @@ void ItemDocumentData::elementToConnectorData( QDomElement element )
 	}
 	else
 		connectorData.startNodeId = element.attribute( "start-node-id", QString::null );
-	
-	
+
+
 	connectorData.endNodeIsChild = element.attribute( "end-node-is-child", "0" ).toInt();
 	if ( connectorData.endNodeIsChild )
 	{
@@ -727,7 +727,7 @@ void ItemDocumentData::elementToConnectorData( QDomElement element )
 	}
 	else
 		connectorData.endNodeId = element.attribute( "end-node-id", QString::null );
-	
+
 	m_connectorDataMap[id] = connectorData;
 }
 //END functions for generating / reading QDomElements
@@ -766,23 +766,23 @@ void ItemDocumentData::saveDocumentState( ItemDocument *itemDocument )
 {
 	if (!itemDocument)
 		return;
-	
+
 	reset();
-	
+
 	addItems( itemDocument->itemList() );
-	
+
 	if ( ICNDocument *icnd = dynamic_cast<ICNDocument*>(itemDocument) )
 	{
 		addConnectors( icnd->connectorList() );
 		addNodes( icnd->nodeList() );
-	
+
 		if ( FlowCodeDocument *fcd = dynamic_cast<FlowCodeDocument*>(itemDocument) )
 		{
 			if ( fcd->microSettings() )
 				setMicroData( fcd->microSettings()->microData() );
 		}
 	}
-	
+
 	m_documentType = itemDocument->type();
 }
 
@@ -791,15 +791,15 @@ void ItemDocumentData::generateUniqueIDs( ItemDocument *itemDocument )
 {
 	if (!itemDocument)
 		return;
-	
+
 	QStringMap replaced;
 	replaced[""] = QString::null;
 	replaced[QString::null] = QString::null;
-	
+
 	ItemDataMap newItemDataMap;
 	ConnectorDataMap newConnectorDataMap;
 	NodeDataMap newNodeDataMap;
-	
+
 	//BEGIN Go through and replace the old ids
 	{
 		const ItemDataMap::iterator end = m_itemDataMap.end();
@@ -807,7 +807,7 @@ void ItemDocumentData::generateUniqueIDs( ItemDocument *itemDocument )
 		{
 			if ( !replaced.contains( it.key() ) )
 				replaced[it.key()] = itemDocument->generateUID(it.key());
-			
+
 			newItemDataMap[replaced[it.key()]] = it.value();
 		}
 	}
@@ -817,7 +817,7 @@ void ItemDocumentData::generateUniqueIDs( ItemDocument *itemDocument )
 		{
 			if ( !replaced.contains( it.key() ) )
 				replaced[it.key()] = itemDocument->generateUID(it.key());
-			
+
 			newNodeDataMap[replaced[it.key()]] = it.value();
 		}
 	}
@@ -827,12 +827,12 @@ void ItemDocumentData::generateUniqueIDs( ItemDocument *itemDocument )
 		{
 			if ( !replaced.contains( it.key() ) )
 				replaced[it.key()] = itemDocument->generateUID(it.key());
-			
+
 			newConnectorDataMap[replaced[it.key()]] = it.value();
 		}
 	}
 	//END Go through and replace the old ids
-	
+
 	//BEGIN Go through and replace the internal references to the ids
 	{
 		const ItemDataMap::iterator end = newItemDataMap.end();
@@ -847,14 +847,14 @@ void ItemDocumentData::generateUniqueIDs( ItemDocument *itemDocument )
 		{
 			it.value().startNodeParent = replaced[it.value().startNodeParent];
 			it.value().endNodeParent = replaced[it.value().endNodeParent];
-			
+
 			it.value().startNodeId = replaced[it.value().startNodeId];
 			it.value().endNodeId = replaced[it.value().endNodeId];
 		}
 	}
 	//END Go through and replace the internal references to the ids
-	
-	
+
+
 	m_itemDataMap = newItemDataMap;
 	m_connectorDataMap = newConnectorDataMap;
 	m_nodeDataMap = newNodeDataMap;
@@ -898,7 +898,7 @@ void ItemDocumentData::restoreDocument( ItemDocument *itemDocument )
 {
 	if ( !itemDocument )
 		return;
-	
+
 	ICNDocument *icnd = dynamic_cast<ICNDocument*>(itemDocument);
 	FlowCodeDocument *fcd = dynamic_cast<FlowCodeDocument*>(icnd);
 	if ( fcd && !m_microData.id.isEmpty() )
@@ -906,17 +906,17 @@ void ItemDocumentData::restoreDocument( ItemDocument *itemDocument )
 		fcd->setPicType(m_microData.id);
 		fcd->microSettings()->restoreFromMicroData(m_microData);
 	}
-	
+
 	mergeWithDocument(itemDocument,false);
-	
+
 	{
 		ItemList removeItems = itemDocument->itemList();
 		removeItems.removeAll((Item*)0l);
-		
+
 		const ItemDataMap::iterator end = m_itemDataMap.end();
 		for ( ItemDataMap::iterator it = m_itemDataMap.begin(); it != end; ++it )
 			removeItems.removeAll( itemDocument->itemWithID(it.key()) );
-		
+
 		const ItemList::iterator removeEnd = removeItems.end();
 		for ( ItemList::iterator it = removeItems.begin(); it != removeEnd; ++it )
 		{
@@ -924,17 +924,17 @@ void ItemDocumentData::restoreDocument( ItemDocument *itemDocument )
 				(*it)->removeItem();
 		}
 	}
-	
+
 	if (icnd)
 	{
 		{
 			NodeList removeNodes = icnd->nodeList();
 			removeNodes.removeAll((Node*)0l);
-			
+
 			const NodeDataMap::iterator end = m_nodeDataMap.end();
 			for ( NodeDataMap::iterator it = m_nodeDataMap.begin(); it != end; ++it )
 				removeNodes.removeAll( icnd->nodeWithID( it.key() ) );
-			
+
 			const NodeList::iterator removeEnd = removeNodes.end();
 			for ( NodeList::iterator it = removeNodes.begin(); it != removeEnd; ++it )
 			{
@@ -945,11 +945,11 @@ void ItemDocumentData::restoreDocument( ItemDocument *itemDocument )
 		{
 			ConnectorList removeConnectors = icnd->connectorList();
 			removeConnectors.removeAll((Connector*)0l);
-			
+
 			const ConnectorDataMap::iterator end = m_connectorDataMap.end();
 			for ( ConnectorDataMap::iterator it = m_connectorDataMap.begin(); it != end; ++it )
 				removeConnectors.removeAll( icnd->connectorWithID(it.key()) );
-			
+
 			const ConnectorList::iterator removeEnd = removeConnectors.end();
 			for ( ConnectorList::iterator it = removeConnectors.begin(); it != removeEnd; ++it )
 			{
@@ -958,7 +958,7 @@ void ItemDocumentData::restoreDocument( ItemDocument *itemDocument )
 			}
 		}
 	}
-	
+
 	itemDocument->flushDeleteList();
 }
 
@@ -967,9 +967,9 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 {
 	if ( !itemDocument )
 		return;
-	
+
 	ICNDocument *icnd = dynamic_cast<ICNDocument*>(itemDocument);
-	
+
 	//BEGIN Restore Nodes
 	if (icnd)
 	{
@@ -981,7 +981,7 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 				QString id = it.key();
 				if ( itemDocument->type() == Document::dt_circuit )
 					new JunctionNode( icnd, 270, QPoint( int(it.value().x), int(it.value().y) ), &id );
-			
+
 				else if ( itemDocument->type() == Document::dt_flowcode )
 					new JunctionFlowNode( icnd, 270, QPoint( int(it.value().x), int(it.value().y) ), &id );
 			}
@@ -994,8 +994,8 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 		}
 	}
 	//END Restore Nodes
-	
-	
+
+
 	//BEGIN Restore items
 	const ItemDataMap::iterator itemEnd = m_itemDataMap.end();
 	for ( ItemDataMap::iterator it = m_itemDataMap.begin(); it != itemEnd; ++it )
@@ -1005,7 +1005,7 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 			Item *item = itemLibrary()->createItem( it.value().type, itemDocument, false, it.key().toLatin1().data(), false );
 			if ( item && !itemDocument->isValidItem(item) )
 			{
-				kWarning() << "Attempted to create invalid item with id: " << it.key() << endl;
+				qWarning() << "Attempted to create invalid item with id: " << it.key() << endl;
 				item->removeItem();
 				itemDocument->flushDeleteList();
 				item = 0l;
@@ -1023,7 +1023,7 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 		Item *item = itemDocument->itemWithID(it.key());
 		if (!item)
 			continue;
-		
+
 		item->restoreFromItemData( it.value() );
 		item->finishedCreation();
 		if (selectNew)
@@ -1031,7 +1031,7 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 		item->show();
 	}
 	//END Restore Items
-	
+
 	//BEGIN Restore Connectors
 	if (icnd)
 	{
@@ -1040,62 +1040,62 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 		{
 			if ( icnd->connectorWithID( it.key() ) )
 				continue;
-			
+
 			QString id = it.key();
 			Node *startNode = 0l;
 			Node *endNode = 0l;
-			
+
 			if ( it.value().startNodeIsChild )
 			{
 				CNItem *item = icnd->cnItemWithID( it.value().startNodeParent );
 				if (!item)
-					kError() << k_funcinfo << "Unable to find node parent with id: "<<it.value().startNodeParent<<endl;
+					qCritical() << Q_FUNC_INFO << "Unable to find node parent with id: "<<it.value().startNodeParent<<endl;
 				else
 					startNode = item->childNode( it.value().startNodeCId );
 			}
 			else
 				startNode = icnd->nodeWithID( it.value().startNodeId );
-			
+
 			if ( it.value().endNodeIsChild )
 			{
 				CNItem *item = icnd->cnItemWithID( it.value().endNodeParent );
 				if (!item)
-					kError() << k_funcinfo << "Unable to find node parent with id: "<<it.value().endNodeParent<<endl;
+					qCritical() << Q_FUNC_INFO << "Unable to find node parent with id: "<<it.value().endNodeParent<<endl;
 				else
 					endNode = item->childNode( it.value().endNodeCId );
 			}
 			else
 				endNode = icnd->nodeWithID( it.value().endNodeId );
-			
+
 			if ( !startNode || !endNode )
 			{
-				kError() << k_funcinfo << "End and start nodes for the connector do not both exist" << endl;
+				qCritical() << Q_FUNC_INFO << "End and start nodes for the connector do not both exist" << endl;
 			}
 			else
 			{
 				Connector *connector;
-					
+
 				// HACK // FIXME // TODO
-				// for some strange reason the lists in the ItemDocument class the ID lists for items 
-				// get out of sync, so some id's are considered to be registered, but in fact they 
+				// for some strange reason the lists in the ItemDocument class the ID lists for items
+				// get out of sync, so some id's are considered to be registered, but in fact they
 				// have no assiciated items; this causes stange bugs when insterting subcircuits in the circuit.
 				// this is just a temporary fix; someone should get to the real cause of this problem and fix
 				// ItemDocument
                                 if ( icnd->connectorWithID( id ) ) {
-                                    kWarning() << "Unregistering connector with ID: " << id << ". This should not delete any of your connections!" << endl;
+                                    qWarning() << "Unregistering connector with ID: " << id << ". This should not delete any of your connections!" << endl;
                                 }
 				icnd->unregisterUID(id);
-				
+
 				// FIXME ICNDocument->type() used
 				// FIXME tons of dynamic_cast
 				if(( icnd->type() == Document::dt_circuit ) || ( icnd->type() == Document::dt_pinMapEditor )) {
-					connector = new ElectronicConnector( 
-								dynamic_cast<ECNode *>(startNode), 
+					connector = new ElectronicConnector(
+								dynamic_cast<ECNode *>(startNode),
 								dynamic_cast<ECNode *>(endNode), icnd, &id );
 					(dynamic_cast<ECNode *>(startNode))->addConnector(connector);
 					(dynamic_cast<ECNode *>(endNode))->addConnector(connector);
 				} else {
-					connector = new FlowConnector( 
+					connector = new FlowConnector(
 								dynamic_cast<FPNode *>(startNode),
 								dynamic_cast<FPNode *>(endNode), icnd, &id );
 					(dynamic_cast<FPNode *>(startNode))->addOutputConnector(connector);
@@ -1115,7 +1115,7 @@ void ItemDocumentData::mergeWithDocument( ItemDocument *itemDocument, bool selec
 		}
 	}
 	//END Restore Connectors
-	
+
 	// This is kind of hackish, but never mind
 	if ( FlowCodeDocument *fcd = dynamic_cast<FlowCodeDocument*>(itemDocument) )
 	{
@@ -1156,9 +1156,9 @@ void ItemDocumentData::addConnectors( const ConnectorList &connectorList )
 		{
 			if ( (*it)->startNode() && (*it)->endNode() )
 				addConnectorData( (*it)->connectorData(), (*it)->id() );
-			
+
 			else
-				kDebug() << k_funcinfo << " *it="<<*it<<" (*it)->startNode()="<<(*it)->startNode()<<" (*it)->endNode()="<<(*it)->endNode()<<endl;
+				qDebug() << Q_FUNC_INFO << " *it="<<*it<<" (*it)->startNode()="<<(*it)->startNode()<<" (*it)->endNode()="<<(*it)->endNode()<<endl;
 		}
 	}
 }
@@ -1178,7 +1178,7 @@ void ItemDocumentData::addNodes( const NodeList &nodeList )
 void ItemDocumentData::addItemData( ItemData itemData, QString id )
 {
         if ( m_itemDataMap.contains( id ) ) {
-            kWarning() << "Overwriting item: " << id << endl;
+            qWarning() << "Overwriting item: " << id << endl;
         }
 	m_itemDataMap[id] = itemData;
 }
@@ -1187,7 +1187,7 @@ void ItemDocumentData::addItemData( ItemData itemData, QString id )
 void ItemDocumentData::addConnectorData( ConnectorData connectorData, QString id )
 {
         if ( m_connectorDataMap.contains( id ) ) {
-            kWarning() << "Overwriting connector: " << id << endl;
+            qWarning() << "Overwriting connector: " << id << endl;
         }
 	m_connectorDataMap[id] = connectorData;
 }
@@ -1196,7 +1196,7 @@ void ItemDocumentData::addConnectorData( ConnectorData connectorData, QString id
 void ItemDocumentData::addNodeData( NodeData nodeData, QString id )
 {
         if ( m_nodeDataMap.contains( id ) ) {
-            kWarning() << "Overwriting node: " << id << endl;
+            qWarning() << "Overwriting node: " << id << endl;
         }
 	m_nodeDataMap[id] = nodeData;
 }
@@ -1270,9 +1270,9 @@ void SubcircuitData::initECSubcircuit( ECSubcircuit * ecSubcircuit )
 {
 	if (!ecSubcircuit)
 		return;
-	
+
 	generateUniqueIDs( ecSubcircuit->itemDocument() );
-	
+
 	// Generate a list of the External Connections, sorting by x coordinate
 	std::multimap< double, QString > extCon;
 	ItemDataMap::iterator itemEnd = m_itemDataMap.end();
@@ -1281,10 +1281,10 @@ void SubcircuitData::initECSubcircuit( ECSubcircuit * ecSubcircuit )
 		if ( it.value().type == "ec/external_connection" )
 			extCon.insert( std::make_pair( it.value().x, it.key() ) );
 	}
-	
+
 	// How many external connections do we have?
 	ecSubcircuit->setNumExtCon(extCon.size());
-	
+
 	// Sort the connections into the pins of the subcircuit by y coordinate
 	std::multimap< double, QString > leftPins;
 	std::multimap< double, QString > rightPins;
@@ -1299,7 +1299,7 @@ void SubcircuitData::initECSubcircuit( ECSubcircuit * ecSubcircuit )
 			rightPins.insert( std::make_pair( m_itemDataMap[it->second].y, it->second ) );
 		at++;
 	}
-	
+
 	// Remove the external connections (recording their names and associated numerical position)
 	int nodeId = 0;
 	typedef QMap<QString,int> IntMap;
@@ -1321,7 +1321,7 @@ void SubcircuitData::initECSubcircuit( ECSubcircuit * ecSubcircuit )
 		nodeId--;
 		m_itemDataMap.remove( it->second );
 	}
-	
+
 	// Replace connector references to the old External Connectors to the nodes
 	const ConnectorDataMap::iterator connectorEnd = m_connectorDataMap.end();
 	for ( ConnectorDataMap::iterator it = m_connectorDataMap.begin(); it != connectorEnd; ++it )
@@ -1330,7 +1330,7 @@ void SubcircuitData::initECSubcircuit( ECSubcircuit * ecSubcircuit )
 		{
 			it.value().startNodeCId = QString::number( nodeMap[it.value().startNodeParent] );
 			it.value().startNodeParent = ecSubcircuit->id();
-			
+
 		}
 		if ( it.value().endNodeIsChild && nodeMap.contains(it.value().endNodeParent ) )
 		{
@@ -1338,10 +1338,10 @@ void SubcircuitData::initECSubcircuit( ECSubcircuit * ecSubcircuit )
 			it.value().endNodeParent = ecSubcircuit->id();
 		}
 	}
-	
+
 	// Create all the new stuff
 	mergeWithDocument( ecSubcircuit->itemDocument(), false );
-	
+
 	// Parent and hide the new stuff
 	itemEnd = m_itemDataMap.end();
 	for ( ItemDataMap::iterator it = m_itemDataMap.begin(); it != itemEnd; ++it)
@@ -1378,7 +1378,7 @@ void SubcircuitData::initECSubcircuit( ECSubcircuit * ecSubcircuit )
 			ecSubcircuit->connect( ecSubcircuit, SIGNAL(subcircuitDeleted()), node, SLOT(removeNode()) );
 		}
 	}
-	
+
 	ecSubcircuit->doneSCInit();
 }
 //END class SubcircuitData

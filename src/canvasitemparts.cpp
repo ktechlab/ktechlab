@@ -59,7 +59,7 @@ void GuiPart::initPainter( QPainter &p )
 {
 	if ( (m_angleDegrees%180) == 0 )
 		return;
-	
+
 	p.translate( int(x()+(width()/2)), int(y()+(height()/2)) );
 	p.rotate(m_angleDegrees);
 	p.translate( -int(x()+(width()/2)), -int(y()+(height()/2)) );
@@ -70,7 +70,7 @@ void GuiPart::deinitPainter( QPainter &p )
 {
 	if ( (m_angleDegrees%180) == 0 )
 		return;
-	
+
 	p.translate( int(x()+(width()/2)), int(y()+(height()/2)) );
 	p.rotate(-m_angleDegrees);
 	p.translate( -int(x()+(width()/2)), -int(y()+(height()/2)) );
@@ -81,7 +81,7 @@ void GuiPart::slotMoveBy( double dx, double dy )
 {
 	if ( dx==0 && dy==0 )
 		return;
-	
+
 	moveBy( dx, dy );
 	posChanged();
 }
@@ -92,25 +92,25 @@ void GuiPart::updateConnectorPoints( bool add )
 	ICNDocument *icnd = dynamic_cast<ICNDocument*>(p_parent->itemDocument());
 	if ( !icnd)
 		return;
-	
+
 	Cells * cells = icnd->cells();
 	if (!cells)
 		return;
-	
+
 	if ( !isVisible() )
 		add = false;
-	
+
 	if ( add == b_pointsAdded )
 		return;
-	
+
 	b_pointsAdded = add;
-	
+
 	int mult = add ? 1 : -1;
 	int sx = roundDown( x(), 8 );
 	int sy = roundDown( y(), 8 );
 	int ex = roundDown( x()+width(), 8 );
 	int ey = roundDown( y()+height(), 8 );
-	
+
 	for ( int x=sx; x<=ex; ++x )
 	{
 		for ( int y=sy; y<=ey; ++y )
@@ -129,12 +129,12 @@ QRect GuiPart::drawRect()
 	{
 		QMatrix m;
 		m.translate( int(x()+(width()/2)), int(y()+(height()/2)) );
-	
+
 		if ( (m_angleDegrees%180) != 0 )
 			m.rotate(-m_angleDegrees);
-		
+
 		m.translate( -int(x()+(width()/2)), -int(y()+(height()/2)) );
-		
+
 		dr = m.mapRect(dr);
 	}
 	return dr;
@@ -161,9 +161,9 @@ bool Text::setText( const QString & text )
 {
 	if ( m_text == text )
 		return false;
-	
+
 	updateConnectorPoints(false);
-	
+
 	m_text = text;
 	return true;
 }
@@ -219,7 +219,7 @@ void Widget::posChanged()
 		widget()->setFixedSize( QSize( height(), width() ) );
 	else
 		widget()->setFixedSize( size() );
-	
+
 	widget()->move( int(x()), int(y()) );
 }
 
@@ -227,8 +227,7 @@ void Widget::posChanged()
 void Widget::drawShape( QPainter &p )
 {
 // 	initPainter(p);
-	//p.drawPixmap( int(x()), int(y()), QPixmap::grabWidget( widget() ) ); // 2019.05.06
-    p.drawPixmap( int(x()), int(y()), widget()->grab() );
+	p.drawPixmap( int(x()), int(y()), widget()->grab() );
 // 	deinitPainter(p);
 }
 //END Class Widget
@@ -252,23 +251,23 @@ void ToolButton::drawButtonLabel( QPainter * p )
         QToolButton::render(p);
 		return;
 	}
-	
+
 	double dx = size().width()/2;
 	double dy = size().height()/2;
-	
+
 	p->translate( dx, dy );
 	p->rotate( m_angleDegrees );
 	p->translate( -dx, -dy );
-	
+
 	p->translate( -dy+dx, 0 );
-	
+
 	int m = width() > height() ? width() : height();
-	
+
 	p->setPen( Qt::black );
 	p->drawText( isDown()?1:0, isDown()?1:0, m, m, Qt::AlignVCenter | Qt::AlignHCenter, text() );
-	
+
 	p->translate( dy-dx, 0 );
-	
+
 	p->translate( dx, dy );
 	p->rotate( -m_angleDegrees );
 	p->translate( -dx, -dy );
@@ -300,13 +299,13 @@ void Button::setToggle( bool toggle )
 {
 	if ( b_isToggle == toggle )
 		return;
-	
+
 	if (b_isToggle)
 	{
 		// We must first untoggle it, else it'll be forever stuck...
 		setState(false);
 	}
-	
+
 	b_isToggle = toggle;
 	m_button->setCheckable(b_isToggle);
 }
@@ -334,12 +333,12 @@ void Button::setState( bool state )
 {
 	if ( this->state() == state )
 		return;
-	
+
 	if ( isToggle() )
 		m_button->setChecked(state);
 	else
 		m_button->setDown(state);
-	
+
 	slotStateChanged();
 }
 bool Button::state() const
@@ -356,13 +355,13 @@ QRect Button::recommendedRect() const
 	QSize sizeHint = m_button->sizeHint();
 	if ( sizeHint.width() < m_originalRect.width() )
 		sizeHint.setWidth( m_originalRect.width() );
-	
+
 	// Hmm...for now, lets just keep the recomended rect the same height as the original rect
 	sizeHint.setHeight( m_originalRect.height() );
-	
+
 	int hdw = (sizeHint.width() - m_originalRect.width())/2;
 	int hdh = (sizeHint.height() - m_originalRect.height())/2;
-	
+
 	return QRect( m_originalRect.x()-hdw, m_originalRect.y()-hdh, sizeHint.width(), sizeHint.height() );
 }
 
@@ -371,9 +370,9 @@ void Button::setText( const QString &text )
 {
 	if ( m_button->text() == text )
 		return;
-	
+
 	updateConnectorPoints(false);
-	
+
 	m_button->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
 	m_button->setText(text);
 	m_button->setToolTip(text);
@@ -386,7 +385,7 @@ void Button::mousePressEvent( QMouseEvent *e )
 {
 	if ( !m_button->isEnabled() )
 		return;
-	
+
 	QMouseEvent event( QEvent::MouseButtonPress, e->pos()-QPoint(int(x()),int(y())), e->button(),
                        //  e->state() // 2018.12.02
                        e->buttons(), e->modifiers()
@@ -447,7 +446,7 @@ Slider::Slider( const QString & id, CNItem * parent, const QRect & r, KtlQCanvas
 {
 	m_orientation = Qt::Vertical;
 	m_bSliderInverted = false;
-	
+
 	m_slider = new SliderWidget(0l);
     QPalette p;
     p.setColor(m_slider->foregroundRole(), Qt::white);
@@ -492,14 +491,14 @@ void Slider::setValue( int value )
 	{
 		value = m_slider->maximum() + m_slider->minimum() - value;
 	}
-	
+
 	m_slider->setValue( value );
-	
+
 	if ( canvas() )
 		canvas()->setChanged( rect() );
 }
 
- 
+
 void Slider::mousePressEvent( QMouseEvent *e )
 {
     qDebug() << Q_FUNC_INFO << "pos " << e->pos() << " x " << int(x()) << " y " << int(y())
@@ -578,11 +577,11 @@ void Slider::slotValueChanged( int value )
 {
 	if ( parent()->itemDocument() )
 		parent()->itemDocument()->setModified(true);
-	
+
 	// Note that we do not use value as we want to take into account rotation
 	(void)value;
 	parent()->sliderValueChanged( id(), this->value() );
-	
+
 	if ( canvas() )
 		canvas()->setChanged( rect() );
 }
@@ -596,21 +595,21 @@ void Slider::setOrientation( Qt::Orientation o )
 void Slider::posChanged()
 {
 	Widget::posChanged();
-	
+
 	bool nowInverted;
-	
+
 	if ( m_orientation == Qt::Vertical )
 	{
 		nowInverted = angleDegrees() == 90 || angleDegrees() == 180;
 		m_slider->setOrientation( (m_angleDegrees%180 == 0) ? Qt::Vertical : Qt::Horizontal );
 	}
-	
+
 	else
 	{
 		nowInverted = angleDegrees() == 0 || angleDegrees() == 90;
 		m_slider->setOrientation( (m_angleDegrees%180 == 0) ? Qt::Horizontal : Qt::Vertical );
 	}
-	
+
 	if ( nowInverted != m_bSliderInverted )
 	{
 		int prevValue = value();

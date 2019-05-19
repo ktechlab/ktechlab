@@ -24,15 +24,15 @@ class ECSignalLamp : public Component
 public:
 	ECSignalLamp( ICNDocument *icnDocument, bool newItem, const char *id = 0);
 	~ECSignalLamp();
-	
+
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
-	virtual void stepNonLogic();
-	virtual bool doesStepNonLogic() const { return true; }
-	
+
+	virtual void stepNonLogic() override;
+	virtual bool doesStepNonLogic() const override { return true; }
+
 private:
-	void drawShape( QPainter &p );
+	void drawShape( QPainter &p ) override;
 	double avgPower;
 	uint advanceSinceUpdate;
 };

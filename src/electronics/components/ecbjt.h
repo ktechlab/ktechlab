@@ -24,16 +24,16 @@ class ECBJT : public Component
 	public:
 		ECBJT( bool isNPN, ICNDocument *icnDocument, bool newItem, const char * id = 0L );
 		~ECBJT();
-	
+
 		static Item * constructNPN( ItemDocument * itemDocument, bool newItem, const char * id );
 		static Item * constructPNP( ItemDocument * itemDocument, bool newItem, const char * id );
 		static LibraryItem * libraryItemNPN();
 		static LibraryItem * libraryItemPNP();
-	
+
 	protected:
-		virtual void dataChanged();
-		virtual void drawShape( QPainter &p );
-		
+		virtual void dataChanged() override;
+		virtual void drawShape( QPainter &p ) override;
+
 		bool m_bIsNPN;
 		BJT * m_pBJT;
 };

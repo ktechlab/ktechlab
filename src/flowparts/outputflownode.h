@@ -26,25 +26,25 @@ class OutputFlowNode : public FPNode
 		 * Returns true if the node can accept input connections. This will depend
 		 * on the node type and number of input / output connections.
 		 */
-		virtual bool acceptInput() const;
+		virtual bool acceptInput() const override;
 		/**
 		 * Returns true if the node can accept output connections. This will depend
 		 * on the node type and number of input / output connections.
 		 */
-		virtual bool acceptOutput() const;
-		
+		virtual bool acceptOutput() const override;
+
 		/**
 		 * Registers an input connector (i.e. this is the end node) as connected
 		 * to this node.
 		 */
-		virtual void addInputConnector( Connector * const connector );		
-		
+		virtual void addInputConnector( Connector * const connector ) override;
+
 	public slots:
 
 		/**
 		 * Draw shape. Note that this has to remain public.
 		 */
-		virtual void drawShape ( QPainter & p );
+		virtual void drawShape ( QPainter & p ) override;
 };
 
 #endif

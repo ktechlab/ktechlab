@@ -52,17 +52,17 @@ public:
 	 * @return Pointer to the VariantMap used for internal data storage
 	 */
 	VariantDataMap *variantMap() { return &m_variantData; }
-	
+
 	double dataDouble( const QString & id ) const;
 	int dataInt( const QString & id ) const;
 	bool dataBool( const QString & id ) const;
 	QString dataString( const QString & id ) const;
 	QColor dataColor( const QString & id ) const;
-	
+
 	virtual Property * createProperty( const QString & id, Variant::Type::Value type );
 	Property * property( const QString & id ) const;
 	bool hasProperty( const QString & id ) const;
-	
+
 	/**
 	 * Whether or not we can resize the item
 	 */
@@ -100,7 +100,7 @@ public:
 	 * Sets the selected flag of the item to yes. selected or unselected will be
 	 * emitted as appropriate
 	 */
-	virtual void setSelected( bool yes );
+	virtual void setSelected( bool yes ) override;
 	/**
 	 * Convenience function for setting the item bounding area as changed on the
 	 * canvas
@@ -215,21 +215,21 @@ public:
 	 * eg 'm' returns 0.001, etc
 	 */
 	static double getMultiplier( const QString &mag );
-	
+
 	virtual ItemData itemData() const;
 	virtual void restoreFromItemData( const ItemData &itemData );
-	
+
 public slots:
 	virtual void removeItem();
 	/**
 	 * Moves item - use this instead of moveBy() so that associated Nodes also get moved
 	 */
-	virtual void moveBy( double dx, double dy );
+	virtual void moveBy( double dx, double dy ) override;
 	/**
 	 * Removes a child. Calls the virtual function childRemoved
 	 */
 	void removeChild( Item *child );
-	
+
 signals:
 	/**
 	 * Emitted when the CNItem is removed. Normally, this signal is caught by associated
@@ -248,11 +248,11 @@ signals:
 	 * Emitted when the item is moved (by dx, dy).
 	 */
 	void movedBy( double dx, double dy );
-	
+
 protected slots:
 	virtual void propertyChangedInitial();
 	virtual void dataChanged() {};
-	
+
 protected:
 	/**
 	 * Reinherit this function if you want to do anything with children. Called
@@ -281,7 +281,7 @@ protected:
 	virtual void itemPointsChanged();
 	virtual bool preResize( QRect sizeRect ) { Q_UNUSED(sizeRect); return true; }
 	virtual void postResize() {};
-	
+
 	QString m_id;
 	QString m_name; ///< Name (e.g. "Resistor")
 	QString m_type;
@@ -290,9 +290,9 @@ protected:
 	QPointer<ItemDocument> p_itemDocument;
 	QPolygon m_itemPoints; // The unorientated and unsized item points
 	QTimer * m_pPropertyChangedTimer; ///< Single show timer for one a property changes
-	
+
 	friend class ItemLibrary;
-	
+
 	int m_baseZ;
 	bool m_bIsRaised;
 	bool m_bDoneCreation;

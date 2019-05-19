@@ -29,7 +29,7 @@
 #include <cstdlib>
 
 #include <kconfig.h>
-#include <kdebug.h>
+#include <qdebug.h>
 #include <kglobal.h>
 #include <kconfiggroup.h>
 #include <ksharedconfig.h>

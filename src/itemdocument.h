@@ -66,12 +66,12 @@ class ItemDocument : public Document
 					ResizeHandle 		= 50000000,
 					Tip			= 60000000,
 					ConnectorCreateLine	= 70000000,
-					
+
 					// How much "Z" separates items stacked on each other
 					DeltaItem		= 10000
 				};
 		};
-		
+
 		/**
 		 * Some things (such as the canvas getting resized, connectors being
 		 * invalidated, need to be done after editing operations have finished,
@@ -89,10 +89,10 @@ class ItemDocument : public Document
 			};
 		};
 
-		virtual void fileSave();
-		virtual void fileSaveAs();
-		virtual void print();
-		virtual bool openURL( const KUrl &url );
+		virtual void fileSave() override;
+		virtual void fileSaveAs() override;
+		virtual void print() override;
+		virtual bool openURL( const KUrl &url ) override;
 		/**
 		 * Attempt to register the item, returning true iff successful
 		 */
@@ -182,16 +182,16 @@ class ItemDocument : public Document
 		 * Returns true if the user can perform an undo action
 		 * (i.e. the undo stack is not empty)
 		 */
-		virtual bool isUndoAvailable() const;
+		virtual bool isUndoAvailable() const override;
 		/**
 		 * Returns true if the user can perform an redo action
 		 * (i.e. the redo stack is not empty)
 		 */
-		virtual bool isRedoAvailable() const;
+		virtual bool isRedoAvailable() const override;
 		/**
 		 * Returns the top item at point (x, y), or NULL if there is no item there
 		 */
-		KtlQCanvasItem* itemAtTop( const QPoint &pos ) const;
+		KtlQCanvasItem* itemAtTop( const QPoint &pos ) const ;
 		/**
 		 * Called when the canvas is clicked on with the right mouse button.
 		 * Popups up a menu for editing operations
@@ -234,10 +234,10 @@ class ItemDocument : public Document
 	int getActionTicket() const { return m_nextActionTicket++; }
 
 public slots:
-		virtual void undo();
-		virtual void redo();
-		virtual void cut();
-		virtual void paste();
+		virtual void undo() override;
+		virtual void redo() override;
+		virtual void cut() override;
+		virtual void paste() override;
 		/**
 		 * Ask the canvas to be resized to the current items on the canvas.
 		 */
@@ -245,7 +245,7 @@ public slots:
 		/**
 		 * Selects everything in the view.
 		 */
-		virtual void selectAll() = 0;
+		virtual void selectAll() override = 0;
 		/**
 		 * Increases the "height" of the selected items.
 		 */
@@ -318,7 +318,7 @@ public slots:
 		 * This, for example, will tell the CNItems on the canvas to update
 		 * their configuration.
 		 */
-		virtual void slotUpdateConfiguration();
+		virtual void slotUpdateConfiguration() override;
 		/**
 		 * Enables / disables / selects various actions depending on
 		 * what is selected or not.
@@ -328,26 +328,26 @@ public slots:
 		 * Process queued events (see ItemDocument::ItemDocumentEvent).
 		 */
 		void processItemDocumentEvents();
-	
+
 	signals:
 		/**
 		 * Emitted when the selection changes.
 		 */
 		void selectionChanged();
-		
+
 	protected slots:
-		/** 
+		/**
 		 * Called after the canvas is resized to set the scrollbars of the
 		 * ItemViews to either always show or always hidden.
 		 */
 		void updateItemViewScrollbars();
-		
+
 	protected:
 		/**
 		 * Called from registerItem when a new item is added.
 		 */
 		virtual void itemAdded( Item * item );
-		virtual void handleNewView( View *view );
+		virtual void handleNewView( View *view ) override;
 		/**
 		 * Set to true to remove buttons and grid and so on from the canvas, set false to put them back
 		 */
@@ -369,7 +369,7 @@ public slots:
 		 * request must be made with requestEvent.
 		 */
 		void resizeCanvasToItems();
-	
+
 		Canvas		*m_canvas;
 
 		CMManager	*m_cmManager;
@@ -423,31 +423,31 @@ class Canvas : public KtlQCanvas
 	Q_OBJECT
 	public:
 		Canvas( ItemDocument *itemDocument, const char * name = 0 );
-		
+
 		/**
 		 * Sets a message to be displayed on the canvas for a brief period of
 		 * time. If this is called with an empty message, then any existing
 		 * message will be removed.
 		 */
 		void setMessage( const QString & message );
-		virtual void update();
-		virtual void resize( const QRect & size );
-		
+		virtual void update() override;
+		virtual void resize( const QRect & size ) override;
+
 	signals:
-		/** 
+		/**
 		 * Emitted when the canvas rectangle-size changes.
 		 */
 		void resized( const QRect & oldSize, const QRect & newSize );
-		
+
 	public slots:
 		void slotSetAllChanged() { setAllChanged(); }
-	
+
 	protected:
-		virtual void drawBackground ( QPainter & painter, const QRect & clip );
-		virtual void drawForeground ( QPainter & painter, const QRect & clip );
-	
+		virtual void drawBackground ( QPainter & painter, const QRect & clip ) override;
+		virtual void drawForeground ( QPainter & painter, const QRect & clip ) override;
+
 		ItemDocument *p_itemDocument;
-		
+
 		QString m_message;
 		QTimer * m_pMessageTimeout;
 };
@@ -461,17 +461,17 @@ class CanvasTip : public KtlQCanvasRectangle
 	public:
 		CanvasTip( ItemDocument *itemDocument, KtlQCanvas *qcanvas );
 		virtual ~CanvasTip();
-	
+
 		void displayVI( ECNode *node, const QPoint &pos );
 		void displayVI( Connector *connector, const QPoint &pos );
-	
+
 	protected:
-		virtual void draw( QPainter &p );
+		virtual void draw( QPainter &p ) override;
 		void setText( const QString & text );
 		bool updateVI();
 		void display( const QPoint &pos );
 		QString displayText( unsigned num ) const;
-	
+
 		QVector<double> m_v;
 		QVector<double> m_i;
 		ItemDocument *p_itemDocument;

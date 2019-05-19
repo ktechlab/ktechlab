@@ -16,13 +16,13 @@
 
 #include <kconfig.h>
 #include <kconfiggroup.h>
-#include <kdebug.h>
 #include <klocalizedstring.h>
 #include <kglobal.h>
 // #include <k3popupmenu.h>
 
 #include <qcheckbox.h>
 #include <qcursor.h>
+#include <qdebug.h>
 #include <qevent.h>
 #include <qlabel.h>
 #include <qpainter.h>
@@ -33,6 +33,7 @@
 
 #include <algorithm>
 #include <cmath>
+
 
 using namespace std;
 
@@ -54,7 +55,7 @@ OscilloscopeView::OscilloscopeView( QWidget *parent, const char *name)
 {
     setObjectName( name );
 	//KGlobal::config()->setGroup("Oscilloscope");
-    KConfigGroup grOscill = KGlobal::config()->group("Oscilloscope");
+    KConfigGroup grOscill(KSharedConfig::openConfig(), "Oscilloscope");
 	m_fps = grOscill.readEntry( "FPS", 25);
 
 	//setBackgroundMode(Qt::NoBackground); // 2018.12.07
@@ -117,11 +118,11 @@ void OscilloscopeView::mousePressEvent( QMouseEvent *event)
 			setCursor( Qt::SizeAllCursor);
 			return;
 		}
-		
+
 		case Qt::RightButton:
 		{
 			event->accept();
-	
+
 			QMenu fpsMenu;
 			//fpsMenu.insertTitle( i18n("Framerate")); // 2017.12.27 - use setTitle
             //fpsMenu.insertItem( i18n("Framerate"), 1 );   // 2018.12.07 - use actions
@@ -133,9 +134,9 @@ void OscilloscopeView::mousePressEvent( QMouseEvent *event)
             }
             //fpsMenu.insertSeparator(); // 2018.12.07
             fpsMenu.addSeparator();
-	
+
 			const int fps[] = { 10, 25, 50, 75, 100 };
-	
+
 			for( uint i=0; i<5; ++i)
 			{
 				const int num = fps[i];
@@ -144,12 +145,12 @@ void OscilloscopeView::mousePressEvent( QMouseEvent *event)
                 QAction *a = fpsMenu.addAction( i18n("%1 fps", QString::number(num)) );
                 a->setData( num );
 			}
-	
+
 			connect( &fpsMenu, SIGNAL(triggered(QAction*)), this, SLOT(slotSetFrameRate(QAction*)));
 			fpsMenu.exec( event->globalPos());
 			return;
 		}
-		
+
 		default:
 		{
 			QFrame::mousePressEvent(event);
@@ -163,7 +164,7 @@ void OscilloscopeView::mouseMoveEvent( QMouseEvent *event)
 {
 	event->accept();
 	updateTimeLabel();
-	
+
 	if( m_sliderValueAtClick != -1)
 	{
 		int dx = event->pos().x() - m_clickOffsetPos;
@@ -177,7 +178,7 @@ void OscilloscopeView::mouseReleaseEvent( QMouseEvent *event)
 {
 	if( m_sliderValueAtClick == -1)
 		return QFrame::mouseReleaseEvent(event);
-	
+
 	event->accept();
 	m_sliderValueAtClick = -1;
 	setCursor( Qt::ArrowCursor);
@@ -189,7 +190,7 @@ void OscilloscopeView::slotSetFrameRate( QAction *action)
     int fps = action->data().toInt();
 	m_fps = fps;
 	//KGlobal::config()->setGroup("Oscilloscope");
-    KConfigGroup grOscill = KGlobal::config()->group("Oscilloscope");
+    KConfigGroup grOscill(KSharedConfig::openConfig(), "Oscilloscope");
 	grOscill.writeEntry( "FPS", m_fps);
 }
 
@@ -204,12 +205,12 @@ static double lld_modulus( int64_t a, double b)
 void OscilloscopeView::paintEvent( QPaintEvent *e)
 {
 	QRect r = e->rect();
-	
+
 	if(b_needRedraw)
 	{
 		updateOutputHeight();
 		const double pixelsPerSecond = Oscilloscope::self()->pixelsPerSecond();
-		
+
         if (!m_pixmap) {
             qWarning() << Q_FUNC_INFO << " unexpected null m_pixmap in " << this;
             return;
@@ -224,55 +225,55 @@ void OscilloscopeView::paintEvent( QPaintEvent *e)
         }
 
 		p.setClipRegion(e->region());
-		
+
 		//BEGIN Draw vertical marker lines
 		const double divisions = 5.0;
 		const double min_sep = 10.0;
-		
+
 		double spacing = pixelsPerSecond/(std::pow( divisions, std::floor(std::log(pixelsPerSecond/min_sep)/std::log(divisions))));
-		
+
 		// Pixels offset is the number of pixels that the view is scrolled along
 		const int64_t pixelsOffset = int64_t(Oscilloscope::self()->scrollTime()*pixelsPerSecond/LOGIC_UPDATE_RATE);
 		double linesOffset = - lld_modulus( pixelsOffset, spacing);
-		
+
 		int blackness = 256 - int(184.0 * spacing / (min_sep*divisions*divisions));
 		p.setPen( QColor( blackness, blackness, blackness));
-		
+
 		for( double i = linesOffset; i <= frameRect().width(); i += spacing)
 			p.drawLine( int(i), 1, int(i), frameRect().height()-2);
-		
-		
-		
+
+
+
 		spacing *= divisions;
 		linesOffset = - lld_modulus( pixelsOffset, spacing);
-		
+
 		blackness = 256 - int(184.0 * spacing / (min_sep*divisions*divisions));
 		p.setPen( QColor( blackness, blackness, blackness));
-		
+
 		for( double i = linesOffset; i <= frameRect().width(); i += spacing)
 			p.drawLine( int(i), 1, int(i), frameRect().height()-2);
-		
-		
-		
+
+
+
 		spacing *= divisions;
 		linesOffset = - lld_modulus( pixelsOffset, spacing);
-		
+
 		blackness = 256 - int(184.0);
 		p.setPen( QColor( blackness, blackness, blackness));
-		
+
 		for( double i = linesOffset; i <= frameRect().width(); i += spacing)
 			p.drawLine( int(i), 1, int(i), frameRect().height()-2);
 		//END Draw vertical marker lines
-		
+
 		drawLogicData(p);
 		drawFloatingData(p);
-		
+
 		p.setPen(Qt::black);
 		p.drawRect( frameRect());
-		
+
 		b_needRedraw = false;
 	}
-	
+
 	//bitBlt( this, r.x(), r.y(), m_pixmap, r.x(), r.y(), r.width(), r.height()); // 2018.12.07
 	QPainter p;
     const bool paintStarted = p.begin(this);
@@ -293,7 +294,7 @@ void OscilloscopeView::updateOutputHeight()
 void OscilloscopeView::drawLogicData( QPainter & p)
 {
 	const double pixelsPerSecond = Oscilloscope::self()->pixelsPerSecond();
-	
+
 	const LogicProbeDataMap::iterator end = Oscilloscope::self()->m_logicProbeDataMap.end();
 	for( LogicProbeDataMap::iterator it = Oscilloscope::self()->m_logicProbeDataMap.begin(); it != end; ++it)
 	{
@@ -305,25 +306,25 @@ void OscilloscopeView::drawLogicData( QPainter & p)
 		// between pixels ( = deltaAt / totalDeltaAt)
 		int64_t deltaAt = 1;
 		int totalDeltaAt = 1;
-		
+
 		LogicProbeData * probe = it.value();
 
 		vector<LogicDataPoint> *data = probe->m_data;
 		if(!data->size()) continue;
-		
+
 		const int midHeight = Oscilloscope::self()->probePositioner->probePosition(probe);
 		const int64_t timeOffset = Oscilloscope::self()->scrollTime();
-		
+
 		// Draw the horizontal line indicating the midpoint of our output
 		p.setPen( QColor( 228, 228, 228));
 		p.drawLine( 0, midHeight, width(), midHeight);
-		
+
 		// Set the pen colour according to the colour the user has selected for the probe
 		p.setPen( probe->color());
-		
+
 		// The smallest time step that will display in our oscilloscope
 		const int minTimeStep = int(LOGIC_UPDATE_RATE/pixelsPerSecond);
-		
+
 		int64_t at = probe->findPos(timeOffset);
 		const int64_t maxAt = probe->m_data->size();
 		int64_t prevTime = (*data)[at].time;
@@ -335,14 +336,14 @@ void OscilloscopeView::drawLogicData( QPainter & p)
 			// Search for the next pos which will show up at our zoom level
 			int64_t previousAt = at;
 			int64_t dAt = deltaAt / totalDeltaAt;
-			
+
 			while ( (dAt > 1) && (at < maxAt) && ( (int64_t((*data)[at].time) - prevTime) != minTimeStep))
 			{
 				// Search forwards until we overshoot
 				while ( at < maxAt && ( int64_t((*data)[at].time) - prevTime) < minTimeStep)
 					at += dAt;
 				dAt /= 2;
-				
+
 				// Search backwards until we undershoot
 				while ( (at < maxAt) && ( int64_t((*data)[at].time) - prevTime) > minTimeStep)
 				{
@@ -352,7 +353,7 @@ void OscilloscopeView::drawLogicData( QPainter & p)
 				}
 				dAt /= 2;
 			}
-			
+
 			// Possibly increment the value of at found by one (or more if this is the first go)
 			while ( (previousAt == at) || ((at < maxAt) && ( int64_t((*data)[at].time) - prevTime) < minTimeStep))
 				at++;
@@ -362,14 +363,14 @@ void OscilloscopeView::drawLogicData( QPainter & p)
 			// Update the average values
 			deltaAt += at - previousAt;
 			totalDeltaAt++;
-			
+
 			bool nextHigh = (*data)[at].value;
 			if( nextHigh == prevHigh) continue;
 
 			int64_t nextTime = (*data)[at].time;
 			int nextX = int((nextTime - timeOffset)*(pixelsPerSecond/LOGIC_UPDATE_RATE));
 			int nextY = midHeight + int(nextHigh ? -m_halfOutputHeight : +m_halfOutputHeight);
-			
+
 			p.drawLine( prevX, prevY, nextX, prevY);
 			p.drawLine( nextX, prevY, nextX, nextY);
 
@@ -380,7 +381,7 @@ void OscilloscopeView::drawLogicData( QPainter & p)
 
 			if( nextX > width()) break;
 		};
-		
+
 		// If we could not draw right to the end; it is because we exceeded
 		// maxAt
 		if( prevX < width())

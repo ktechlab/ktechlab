@@ -11,6 +11,7 @@
 #ifndef SETTINGSDLG_H
 #define SETTINGSDLG_H
 
+#include <kconfigskeleton.h>
 #include <kconfigdialog.h>
 #include <qmap.h>
 #include <qvalidator.h>
@@ -35,10 +36,10 @@ class SettingsDlg : public KConfigDialog
 	public:
 		SettingsDlg( QWidget *parent, const char *name, KCoreConfigSkeleton *config );
 		~SettingsDlg();
-	
+
 		static int refreshRateToSliderValue( int refreshRate );
 		static int sliderValueToRefreshRate( int sliderValue );
-		
+
 		virtual void show();
 
 	public slots:
@@ -47,20 +48,20 @@ class SettingsDlg : public KConfigDialog
 		void slotAddProgrammerConfig();
 		void slotRemoveProgrammerConfig();
 		void slotSaveCurrentProgrammerConfig();
-		
+
 	protected slots:
 		void slotUpdateSettings();
 		void slotUpdateWidgets();
-	
+
 	protected:
-		virtual void updateSettings();
-		virtual void updateWidgets();
-		virtual void updateWidgetsDefault();
-		virtual bool hasChanged();
-		virtual bool isDefault();
-	
+		virtual void updateSettings() override;
+		virtual void updateWidgets() override;
+		virtual void updateWidgetsDefault() override;
+		virtual bool hasChanged() override;
+		virtual bool isDefault() override;
+
 		PicProgrammerSettings * m_pPicProgrammerSettings;
-		
+
 		GeneralOptionsWidget * m_generalOptionsWidget;
 		GpasmSettingsWidget * m_gpasmSettingsWidget;
 		SDCCOptionsWidget * m_sdccOptionsWidget;
@@ -78,11 +79,11 @@ class NameValidator : public QValidator
 			: QValidator(0) {
 			m_unallowed = unallowed;
 		}
-		
-		virtual State validate( QString & input, int & ) const {
+
+		virtual State validate( QString & input, int & ) const override {
 			return (input.isEmpty() || m_unallowed.contains( input.toLower() )) ? Intermediate : Acceptable;
 		}
-		
+
 	protected:
 		QStringList m_unallowed;
 };

@@ -36,9 +36,9 @@ class MicroSettingsDlg : public KDialog
 		MicroSettingsDlg( MicroSettings *_microSettings, QWidget *parent = 0L, const char *name = 0L );
 		~MicroSettingsDlg();
 
-		void reject();
-		void accept();
-		
+		void reject() override;
+		void accept() override;
+
 		/**
 		 * @param pinMapName the pinMapName; may be changed to make it valid
 		 * (e.g. spaces replaced with underscores).
@@ -47,7 +47,7 @@ class MicroSettingsDlg : public KDialog
 		 * in use, and Acceptable otherwise.
 		 */
 		QValidator::State validatePinMapName( QString & pinMapName ) const;
-    
+
 	public slots:
 		/**
 		 * Saves the port details in the given row to the MicroSettings class.
@@ -83,16 +83,16 @@ class MicroSettingsDlg : public KDialog
 		 * Called when the dialog is Applied or OK'd.
 		 */
 		void slotSaveStuff();
-		
+
 	protected slots:
 		void slotCheckNewPinMappingName( const QString & name );
-		
+
 	protected:
 		/**
 		 * Set each button enabled / disabled as appropriate.
 		 */
 		void updatePinMapButtons();
-		
+
 		NewPinMappingWidget * m_pNewPinMappingWidget; // Used for checking that the variable name is ok
 		KDialog * m_pNewPinMappingDlg;
 		MicroSettingsWidget * m_pWidget;
@@ -117,15 +117,15 @@ class PinMappingNameValidator : public QValidator
 			m_pDlg = dlg;
 			m_oldName = oldName;
 		}
-		
-		virtual State validate( QString & input, int & ) const
+
+		virtual State validate( QString & input, int & ) const override
 		{
 			if ( (!m_oldName.isEmpty()) && (input == m_oldName) )
 				return QValidator::Acceptable;
-			
+
 			return m_pDlg->validatePinMapName( input );
 		}
-		
+
 	protected:
 		MicroSettingsDlg * m_pDlg;
 		QString m_oldName;

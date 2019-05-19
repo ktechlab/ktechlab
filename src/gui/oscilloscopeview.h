@@ -29,29 +29,29 @@ class OscilloscopeView : public QFrame
 	public:
 		OscilloscopeView( QWidget *parent, const char *name = 0);
 		virtual ~OscilloscopeView();
-		
+
 	public slots:
 		/**
 		 * Sets the needRedraw flag to true, and then class repaint
 		 */
 		void updateView();
 		void slotSetFrameRate( QAction * );
-		
+
 	protected slots:
 		void updateViewTimeout();
-		
+
 	protected:
-		virtual void mousePressEvent( QMouseEvent *event);
-		virtual void mouseMoveEvent( QMouseEvent *event);
-		virtual void mouseReleaseEvent( QMouseEvent *event);
-		virtual void paintEvent( QPaintEvent *event);
-		virtual void resizeEvent( QResizeEvent *event);
-		
+		virtual void mousePressEvent( QMouseEvent *event) override;
+		virtual void mouseMoveEvent( QMouseEvent *event) override;
+		virtual void mouseReleaseEvent( QMouseEvent *event) override;
+		virtual void paintEvent( QPaintEvent *event) override;
+		virtual void resizeEvent( QResizeEvent *event) override;
+
 		void drawLogicData( QPainter & p);
 		void drawFloatingData( QPainter & p);
 		void updateOutputHeight();
 		void updateTimeLabel();
-		
+
 		bool b_needRedraw;
 		QPixmap *m_pixmap;
 		QTimer *m_updateViewTmr;

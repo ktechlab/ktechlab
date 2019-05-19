@@ -22,11 +22,11 @@ class PicAsm16bit : public AsmInfo
 {
 	public:
 		static PicAsm16bit *self();
-		virtual Set set() const { return AsmInfo::PIC16; }
-	
+		virtual Set set() const override { return AsmInfo::PIC16; }
+
 	protected:
 // 		static PicAsm16bit *m_self;
-	
+
 	public:
 		PicAsm16bit();
 };
@@ -39,8 +39,8 @@ class PicInfo16bit : public PicInfo
 	public:
 		PicInfo16bit();
 		~PicInfo16bit();
-	
-		virtual AsmInfo * instructionSet() { return PicAsm16bit::self(); }
+
+		virtual AsmInfo * instructionSet() override { return PicAsm16bit::self(); }
 };
 
 /**
@@ -51,7 +51,7 @@ class PicInfo17C7xx : public PicInfo16bit
 	public:
 		PicInfo17C7xx();
 		~PicInfo17C7xx();
-		virtual Support gpsimSupport() const { return NoSupport; }
+		virtual Support gpsimSupport() const override { return NoSupport; }
 };
 
 /**
@@ -62,7 +62,7 @@ class PicInfo17C75x : public PicInfo17C7xx
 	public:
 		PicInfo17C75x();
 		~PicInfo17C75x();
-		virtual Support gpsimSupport() const { return NoSupport; }
+		virtual Support gpsimSupport() const override { return NoSupport; }
 };
 
 /**
@@ -74,7 +74,7 @@ class PicInfo17C752 : public PicInfo17C75x
 	public:
 		PicInfo17C752();
 		~PicInfo17C752();
-		virtual Support gpsimSupport() const { return NoSupport; }
+		virtual Support gpsimSupport() const override { return NoSupport; }
 };
 
 /**
@@ -86,7 +86,7 @@ class PicInfo17C756 : public PicInfo17C75x
 	public:
 		PicInfo17C756();
 		~PicInfo17C756();
-		virtual Support gpsimSupport() const { return NoSupport; }
+		virtual Support gpsimSupport() const override { return NoSupport; }
 };
 
 /**
@@ -98,7 +98,7 @@ class PicInfo17C756A : public PicInfo17C75x
 	public:
 		PicInfo17C756A();
 		~PicInfo17C756A();
-		virtual Support gpsimSupport() const { return NoSupport; }
+		virtual Support gpsimSupport() const override { return NoSupport; }
 };
 
 /**
@@ -110,7 +110,7 @@ class PicInfo17C762 : public PicInfo17C75x
 	public:
 		PicInfo17C762();
 		~PicInfo17C762();
-		virtual Support gpsimSupport() const { return NoSupport; }
+		virtual Support gpsimSupport() const override { return NoSupport; }
 };
 
 /**
@@ -122,7 +122,7 @@ class PicInfo17C766 : public PicInfo17C75x
 	public:
 		PicInfo17C766();
 		~PicInfo17C766();
-		virtual Support gpsimSupport() const { return NoSupport; }
+		virtual Support gpsimSupport() const override { return NoSupport; }
 };
 
 /**
@@ -133,7 +133,7 @@ class PicInfo18Cxx2 : public PicInfo16bit
 	public:
 		PicInfo18Cxx2();
 		~PicInfo18Cxx2();
-		virtual Support gpsimSupport() const { return NoSupport; }
+		virtual Support gpsimSupport() const override { return NoSupport; }
 };
 
 /**
@@ -144,7 +144,7 @@ class PicInfo18C2x2 : public PicInfo16bit
 	public:
 		PicInfo18C2x2();
 		~PicInfo18C2x2();
-		virtual Support gpsimSupport() const { return NoSupport; }
+		virtual Support gpsimSupport() const override { return NoSupport; }
 };
 
 /**
@@ -156,7 +156,7 @@ class PicInfo18C242 : public PicInfo18C2x2
 	public:
 		PicInfo18C242();
 		~PicInfo18C242();
-		virtual Support gpsimSupport() const { return FullSupport; }
+		virtual Support gpsimSupport() const override { return FullSupport; }
 };
 
 /**
@@ -168,7 +168,7 @@ class PicInfo18C252 : public PicInfo18C242
 	public:
 		PicInfo18C252();
 		~PicInfo18C252();
-		virtual Support gpsimSupport() const { return FullSupport; }
+		virtual Support gpsimSupport() const override { return FullSupport; }
 };
 
 /**
@@ -179,7 +179,7 @@ class PicInfo18C4x2 : public PicInfo16bit
 	public:
 		PicInfo18C4x2();
 		~PicInfo18C4x2();
-		virtual Support gpsimSupport() const { return NoSupport; }
+		virtual Support gpsimSupport() const override { return NoSupport; }
 };
 
 /**
@@ -191,7 +191,7 @@ class PicInfo18C442 : public PicInfo18C4x2
 	public:
 		PicInfo18C442();
 		~PicInfo18C442();
-		virtual Support gpsimSupport() const { return FullSupport; }
+		virtual Support gpsimSupport() const override { return FullSupport; }
 };
 
 /**
@@ -203,7 +203,7 @@ class PicInfo18C452 : public PicInfo18C442
 	public:
 		PicInfo18C452();
 		~PicInfo18C452();
-		virtual Support gpsimSupport() const { return FullSupport; }
+		virtual Support gpsimSupport() const override { return FullSupport; }
 };
 
 /**
@@ -214,7 +214,7 @@ class PicInfo18F442 : public PicInfo18C442
 	public:
 		PicInfo18F442();
 		~PicInfo18F442();
-		virtual Support gpsimSupport() const { return FullSupport; }
+		virtual Support gpsimSupport() const override { return FullSupport; }
 };
 
 /**
@@ -225,7 +225,7 @@ class PicInfo18F248 : public PicInfo18F442
 	public:
 		PicInfo18F248();
 		~PicInfo18F248();
-		virtual Support gpsimSupport() const { return FullSupport; }
+		virtual Support gpsimSupport() const override { return FullSupport; }
 };
 
 /**
@@ -236,7 +236,7 @@ class PicInfo18F452 : public PicInfo18F442
 	public:
 		PicInfo18F452();
 		~PicInfo18F452();
-		virtual Support gpsimSupport() const { return FullSupport; }
+		virtual Support gpsimSupport() const override { return FullSupport; }
 };
 
 /**
@@ -247,7 +247,7 @@ class PicInfo18Fxx20 : public PicInfo16bit
 	public:
 		PicInfo18Fxx20();
 		~PicInfo18Fxx20();
-		virtual Support gpsimSupport() const { return NoSupport; }
+		virtual Support gpsimSupport() const override { return NoSupport; }
 };
 
 /**
@@ -258,7 +258,7 @@ class PicInfo18F1220 : public PicInfo18Fxx20
 	public:
 		PicInfo18F1220();
 		~PicInfo18F1220();
-		virtual Support gpsimSupport() const { return FullSupport; }
+		virtual Support gpsimSupport() const override { return FullSupport; }
 };
 
 /**
@@ -269,7 +269,7 @@ class PicInfo18F1320 : public PicInfo18F1220
 	public:
 		PicInfo18F1320();
 		~PicInfo18F1320();
-		virtual Support gpsimSupport() const { return FullSupport; }
+		virtual Support gpsimSupport() const override { return FullSupport; }
 };
 
 #endif

@@ -27,39 +27,39 @@ class InputFlowNode : public FPNode
 		 * Returns a pointer to the FlowPart attached to this node if this node isInput, or
 		 * to the other end of the connector (if one exists) if it isOutput()
 		 */
-		virtual FlowPart *outputFlowPart() const;
+		virtual FlowPart *outputFlowPart() const override;
 
 		/**
 		 * Returns a list of FlowParts attached to the node - either a single-item list containing
 		 * the FlowPart attached to this node if isOutput, or a list of FlowParts connected to the
 		 * input (?) connectors
 		 */
-		virtual FlowPartList inputFlowParts() const;
+		virtual FlowPartList inputFlowParts() const override;
 
 		/**
 		 * Returns true if the node can accept input connections. This will depend
 		 * on the node type and number of input / output connections.
 		 */
-		virtual bool acceptInput() const;
+		virtual bool acceptInput() const override;
 		/**
 		 * Returns true if the node can accept output connections. This will depend
 		 * on the node type and number of input / output connections.
 		 */
-		virtual bool acceptOutput() const;
-		
+		virtual bool acceptOutput() const override;
+
 		/**
 		 * Registers an input connector (i.e. this is the start node) as connected
 		 * to this node.
 	 	*/
-		virtual void addOutputConnector( Connector * const connector );		
-		
+		virtual void addOutputConnector( Connector * const connector ) override;
+
 	public slots:
 
 
 		/**
 		 * Draw shape. Note that this has to remain public.
 		 */
-		virtual void drawShape ( QPainter & p );
+		virtual void drawShape ( QPainter & p ) override;
 };
 
 #endif

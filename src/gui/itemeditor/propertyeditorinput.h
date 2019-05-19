@@ -50,7 +50,7 @@ class PropIntSpinBox : public KIntSpinBox
 	PropIntSpinBox( int lower, int upper, int step, int value, int base, QWidget *parent, const char *name);
 	virtual ~PropIntSpinBox() {;}
 
-	virtual bool eventFilter(QObject *o, QEvent *e);
+	virtual bool eventFilter(QObject *o, QEvent *e) override;
 	QLineEdit * editor () const { return KIntSpinBox::lineEdit(); }
 };
 
@@ -81,7 +81,7 @@ class PropDoubleSpinBox : public DoubleSpinBox
 		PropDoubleSpinBox(double lower, double upper, double minAbs, double value, const QString &unit, QWidget *parent);
 	virtual ~PropDoubleSpinBox() {;}
 
-	virtual bool eventFilter(QObject *o, QEvent *e);
+	virtual bool eventFilter(QObject *o, QEvent *e) override;
 	QLineEdit * editor () const { return DoubleSpinBox::lineEdit(); }
 };
 
@@ -112,7 +112,7 @@ class PropertyEditorBool : public PropertySubEditor
 		PropertyEditorBool( QWidget * parent, Property * property, const char * name = 0 );
 		virtual ~PropertyEditorBool() {;}
 
-		virtual bool eventFilter( QObject * watched, QEvent * e );
+		virtual bool eventFilter( QObject * watched, QEvent * e ) override;
 
 	protected slots:
 		void setState(bool state);

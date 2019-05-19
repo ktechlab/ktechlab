@@ -36,7 +36,7 @@ class AsmInfo
 public:
 	AsmInfo();
 	virtual ~AsmInfo();
-	
+
 	enum Set
 	{
 		PIC12	= 1 << 0,
@@ -44,10 +44,10 @@ public:
 		PIC16	= 1 << 2
 	};
 	enum { AsmSetAll = PIC12 | PIC14 | PIC16 };
-	
+
 	static QString setToString( Set set );
 	static Set stringToSet( const QString & set );
-	
+
 	/**
 	 * @return the instruction set in use
 	 */
@@ -63,7 +63,10 @@ public:
 	 * '000111dfffffff'for addwf.
 	 */
 	void addInstruction( const QString &operand, const QString &description, const QString &opcode );
-	
+    void addInstruction( const char* operand, const char* description, const char* opcode ) {
+        addInstruction(QString::fromLatin1(operand),QString::fromLatin1(description), QString::fromLatin1(opcode));
+    }
+
 private:
 	InstructionList m_instructionList;
 	QStringList m_operandList;

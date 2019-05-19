@@ -14,13 +14,13 @@
 
 #include <kapplication.h>
 #include <kconfig.h>
-#include <kdebug.h>
 #include <kglobal.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <kshell.h>
 
 #include <qapplication.h>
+#include <qdebug.h>
 #include <qfile.h>
 #include <kprocess.h>
 #include <qregexp.h>
@@ -66,7 +66,7 @@ void PicProgrammerSettings::initStaticConfigs()
 {
 	m_bDoneStaticConfigsInit = true;
 	ProgrammerConfig config;
-	
+
 	config.description = i18n("Supported programmers: %1", QString("JuPic, PICStart Plus, Warp-13"));
 	config.description += i18n("<br>Interface: Serial Port");
 	config.initCommand = "";
@@ -77,8 +77,8 @@ void PicProgrammerSettings::initStaticConfigs()
 	config.eraseCommand = "picp %port %device -e";
 // 	config.executable = "picp";
 	m_staticConfigs[ "PICP" ] = config;
-	
-	
+
+
 	config.description = i18n("Supported programmers: %1", QString("Epic Plus"));
 	config.description += i18n("<br>Interface: Parallel Port");
 	config.initCommand = "odyssey init";
@@ -89,8 +89,8 @@ void PicProgrammerSettings::initStaticConfigs()
 	config.eraseCommand = "odyssey %device erase";
 // 	config.executable = "odyssey";
 	m_staticConfigs[ "Odyssey" ] = config;
-	
-	
+
+
 	config.description = i18n("Supported programmers: %1", QString("JDM PIC-Programmer 2, PIC-PG2C"));
 	config.description += i18n("<br>Interface: Serial Port");
 	config.initCommand = "";
@@ -100,8 +100,8 @@ void PicProgrammerSettings::initStaticConfigs()
 	config.blankCheckCommand = "";
 	config.eraseCommand = "picprog --erase --pic %device";
 	m_staticConfigs[ "PICProg" ] = config;
-	
-	
+
+
 	config.description = i18n("Supported programmers: %1", QString("Epic Plus"));
 	config.description += i18n("<br>Interface: Parallel Port");
 	config.initCommand = "";
@@ -111,8 +111,8 @@ void PicProgrammerSettings::initStaticConfigs()
 	config.blankCheckCommand = "";
 	config.eraseCommand = "prog84 --clear";
 	m_staticConfigs[ "prog84" ] = config;
-	
-	
+
+
 	config.description = i18n("Supported programmers: %1", QString("Kit 149, Kit 150"));
 	config.description += i18n("<br>Interface: USB Port");
 	config.initCommand = "";
@@ -122,8 +122,8 @@ void PicProgrammerSettings::initStaticConfigs()
 	config.blankCheckCommand = "";
 	config.eraseCommand = "pp -d %device -e";
 	m_staticConfigs[ "PP" ] = config;
-	
-	
+
+
 	config.description = i18n("Supported programmers: %1", QString("Wisp628"));
 	config.description += i18n("<br>Interface: Serial Port");
 	config.initCommand = "";
@@ -133,8 +133,8 @@ void PicProgrammerSettings::initStaticConfigs()
 	config.blankCheckCommand = "";
 	config.eraseCommand = "xwisp ID %device PORT %device ERASE";
 	m_staticConfigs[ "XWisp" ] = config;
-	
-	
+
+
 #if 0
 	config.description = i18n("Supported programmers: %1", QString("Epic Plus, JDM PIC-Programmer 2, PICCOLO, PICCOLO Grande, Trivial HVP Programmer"));
 	config.description += i18n("<br>Interface: Serial Port and Parallel Port");
@@ -147,8 +147,8 @@ void PicProgrammerSettings::initStaticConfigs()
 	config.executable = "pkp";
 	m_staticConfigs[ "PiKdev" ] = config;
 	config.executable = "";
-	
-	
+
+
 	config.description = i18n("Supported programmers: %1", QString("Trivial LVP programmer, Trivial HVP Programmer"));
 	config.description += i18n("<br>Interface: Parallel Port");
 	config.initCommand = "";
@@ -158,8 +158,8 @@ void PicProgrammerSettings::initStaticConfigs()
 	config.blankCheckCommand = "";
 	config.eraseCommand = "";
 	m_staticConfigs[ "PicPrg2" ] = config;
-	
-	
+
+
 	config.description = i18n("Supported programmers: %1", QString("El Cheapo"));
 	config.description += i18n("<br>Interface: Parallel Port");
 	config.initCommand = "";
@@ -169,8 +169,8 @@ void PicProgrammerSettings::initStaticConfigs()
 	config.blankCheckCommand = "";
 	config.eraseCommand = "";
 	m_staticConfigs[ "PP06" ] = config;
-	
-	
+
+
 	config.description = i18n("Supported programmers: %1", QString("NOPPP"));
 	config.description += i18n("<br>Interface: Parallel Port");
 	config.initCommand = "";
@@ -180,8 +180,8 @@ void PicProgrammerSettings::initStaticConfigs()
 	config.blankCheckCommand = "";
 	config.eraseCommand = "";
 	m_staticConfigs[ "NOPPP" ] = config;
-	
-	
+
+
 	config.description = i18n("Supported programmers: %1", QString("SNOPPP"));
 	config.description += i18n("<br>Interface: Parallel Port");
 	config.initCommand = "";
@@ -206,7 +206,7 @@ void PicProgrammerSettings::load( KConfig * config )
 		{
 			//config->setGroup(*it);
             KConfigGroup grProg = config->group(*it);
-			
+
 			ProgrammerConfig pc;
 			pc.initCommand = grProg.readEntry( "InitCommand" );
 			pc.readCommand = grProg.readEntry( "ReadCommand" );
@@ -214,7 +214,7 @@ void PicProgrammerSettings::load( KConfig * config )
 			pc.verifyCommand = grProg.readEntry( "VerifyCommand" );
 			pc.blankCheckCommand = grProg.readEntry( "BlankCheckCommand" );
 			pc.eraseCommand = grProg.readEntry( "EraseCommand" );
-			
+
 			QString name = grProg.readEntry( "Name" );
 			m_customConfigs[name] = pc;
 		}
@@ -232,7 +232,7 @@ void PicProgrammerSettings::save( KConfig * config )
 		if ( (*it).startsWith("CustomProgrammer_") )
 			config->deleteGroup(*it);
 	}
-	
+
 	int at = 0;
 	ProgrammerConfigMap::iterator end = m_customConfigs.end();
 	for ( ProgrammerConfigMap::iterator it = m_customConfigs.begin(); it != end; ++it )
@@ -256,23 +256,23 @@ ProgrammerConfig PicProgrammerSettings::config( const QString & name )
 {
 	if ( name.isEmpty() )
 		return ProgrammerConfig();
-	
+
 	QString l = name.toLower();
-		
+
 	ProgrammerConfigMap::const_iterator end = m_customConfigs.end();
 	for ( ProgrammerConfigMap::const_iterator it = m_customConfigs.begin(); it != end; ++it )
 	{
 		if ( it.key().toLower() == l )
 			return *it;
 	}
-	
+
 	end = m_staticConfigs.end();
 	for ( ProgrammerConfigMap::const_iterator it = m_staticConfigs.begin(); it != end; ++it )
 	{
 		if ( it.key().toLower() == l )
 			return *it;
 	}
-	
+
 	return m_customConfigs[ name ];
 }
 
@@ -281,12 +281,12 @@ void PicProgrammerSettings::removeConfig( const QString & name )
 {
 	if ( isPredefined( name ) )
 	{
-		kWarning() << k_funcinfo << "Cannot remove a predefined PIC programmer configuration." << endl;
+		qWarning() << Q_FUNC_INFO << "Cannot remove a predefined PIC programmer configuration." << endl;
 		return;
 	}
-	
+
 	QString l = name.toLower();
-	
+
 	ProgrammerConfigMap::iterator end = m_customConfigs.end();
 	for ( ProgrammerConfigMap::iterator it = m_customConfigs.begin(); it != end; ++it )
 	{
@@ -303,12 +303,12 @@ void PicProgrammerSettings::saveConfig( const QString & name, const ProgrammerCo
 {
 	if ( isPredefined( name ) )
 	{
-		kWarning() << k_funcinfo << "Cannot save to a predefined PIC programmer configuration." << endl;
+		qWarning() << Q_FUNC_INFO << "Cannot save to a predefined PIC programmer configuration." << endl;
 		return;
 	}
-	
+
 	QString l = name.toLower();
-	
+
 	ProgrammerConfigMap::iterator end = m_customConfigs.end();
 	for ( ProgrammerConfigMap::iterator it = m_customConfigs.begin(); it != end; ++it )
 	{
@@ -318,7 +318,7 @@ void PicProgrammerSettings::saveConfig( const QString & name, const ProgrammerCo
 			return;
 		}
 	}
-	
+
 	m_customConfigs[ name ] = config;
 }
 
@@ -327,17 +327,17 @@ QStringList PicProgrammerSettings::configNames( bool makeLowercase ) const
 {
 	if ( !makeLowercase )
 		return m_customConfigs.keys() + m_staticConfigs.keys();
-	
+
 	QStringList names;
-	
+
 	ProgrammerConfigMap::const_iterator end = m_customConfigs.end();
 	for ( ProgrammerConfigMap::const_iterator it = m_customConfigs.begin(); it != end; ++it )
 		names << it.key().toLower();
-	
+
 	end = m_staticConfigs.end();
 	for ( ProgrammerConfigMap::const_iterator it = m_staticConfigs.begin(); it != end; ++it )
 		names << it.key().toLower();
-	
+
 	return names;
 }
 
@@ -345,14 +345,14 @@ QStringList PicProgrammerSettings::configNames( bool makeLowercase ) const
 bool PicProgrammerSettings::isPredefined( const QString & name ) const
 {
 	QString l = name.toLower();
-	
+
 	ProgrammerConfigMap::const_iterator end = m_staticConfigs.end();
 	for ( ProgrammerConfigMap::const_iterator it = m_staticConfigs.begin(); it != end; ++it )
 	{
 		if ( it.key().toLower() == l )
 			return true;
 	}
-	
+
 	return false;
 }
 //END class PicProgrammerSettings
@@ -377,31 +377,31 @@ void PicProgrammer::processInput( ProcessOptions options )
 {
 	resetLanguageProcess();
 	m_processOptions = options;
-	
+
 	PicProgrammerSettings settings;
 	//settings.load( kapp->config() );
     KSharedConfigPtr cfgPtr = KGlobal::config();
     settings.load( cfgPtr.data() );
-	
+
 	QString program = options.m_program;
 	if ( !settings.configNames( true ).contains( program.toLower() ) )
 	{
-		kError() << k_funcinfo << "Invalid program" << endl;
+		qCritical() << Q_FUNC_INFO << "Invalid program" << endl;
 		finish( false );
 		return;
 	}
-	
+
 	ProgrammerConfig config = settings.config( program );
-	
+
 	QString command = config.writeCommand;
 	command.replace( "%port", options.m_port );
 	command.replace( "%device", QString( options.m_picID ).remove("P") );
 	command.replace( "%file", KShell::quoteArg( options.inputFiles().first() ) );
-	
+
 	//m_languageProcess->setUseShell( true ); // 2017.10.08 - port to KProcess
 	//*m_languageProcess << command;
     m_languageProcess->setShellCommand( command );
-	
+
 	if ( !start() )
 	{
 // 		KMessageBox::sorry( LanguageManager::self()->logView(), i18n("Could not program PIC.") );
@@ -430,7 +430,7 @@ ProcessOptions::ProcessPath::Path PicProgrammer::outputPath( ProcessOptions::Pro
 		case ProcessOptions::ProcessPath::PIC_AssemblyAbsolute:
 		case ProcessOptions::ProcessPath::Program_PIC:
 			return ProcessOptions::ProcessPath::None;
-		
+
 		case ProcessOptions::ProcessPath::AssemblyAbsolute_PIC:
 		case ProcessOptions::ProcessPath::AssemblyAbsolute_Program:
 		case ProcessOptions::ProcessPath::AssemblyRelocatable_Library:
@@ -458,7 +458,7 @@ ProcessOptions::ProcessPath::Path PicProgrammer::outputPath( ProcessOptions::Pro
 		case ProcessOptions::ProcessPath::None:
 			return ProcessOptions::ProcessPath::Invalid;
 	}
-	
+
 	return ProcessOptions::ProcessPath::Invalid;
 }
 //END class PicProgrammer

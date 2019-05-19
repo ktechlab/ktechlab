@@ -25,14 +25,14 @@ class CCCS : public Element
 public:
 	CCCS( const double gain );
 	virtual ~CCCS();
-	
-	virtual Type type() const { return Element_CCCS; }
+
+	virtual Type type() const override { return Element_CCCS; }
 	void setGain( const double g );
 
 protected:
-	virtual void updateCurrents();
-	virtual void add_initial_dc();
-	
+	virtual void updateCurrents() override;
+	virtual void add_initial_dc() override;
+
 private:
 	double m_g; // Conductance
 };

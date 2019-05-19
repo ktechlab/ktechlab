@@ -17,7 +17,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
- 
+
 #include "btreebase.h"
 #include "expression.h"
 #include "instruction.h"
@@ -26,7 +26,7 @@
 #include "traverser.h"
 
 #include <cassert>
-#include <kdebug.h>
+#include <qdebug.h>
 #include <klocale.h>
 #include <qfile.h>
 #include <qregexp.h>
@@ -44,30 +44,30 @@ Parser::Parser( Microbe * _mb )
 	mb = _mb;
 	// Set up statement definitions.
 	StatementDefinition definition;
-	
+
 	definition.append( Field(Field::Label, "label") );
 	m_definitionMap["goto"] = definition;
 	definition.clear();
-	
+
 	definition.append( Field(Field::Label, "label") );
 	m_definitionMap["call"] = definition;
 	definition.clear();
-	
+
 	definition.append( Field(Field::Expression, "expression") );
 	definition.append( Field(Field::Code, "code") );
 	m_definitionMap["while"] = definition;
 	definition.clear();
-	
+
 	m_definitionMap["end"] = definition;
 	definition.clear();
-	
+
 	definition.append( Field(Field::Label, "label") );
 	definition.append( Field(Field::Code, "code") );
 	// For backwards compataibility
 	m_definitionMap["sub"] = definition;
 	m_definitionMap["subroutine"] = definition;
 	definition.clear();
-	
+
 	definition.append( Field(Field::Label, "label") );
 	definition.append( Field(Field::Code, "code") );
 	m_definitionMap["interrupt"] = definition;
@@ -77,7 +77,7 @@ Parser::Parser( Microbe * _mb )
 	definition.append( Field(Field::Label, "dest") );
 	m_definitionMap["alias"] = definition;
 	definition.clear();
-	
+
 	definition.append( Field(Field::Expression, "expression") );
 	definition.append( Field(Field::FixedString, 0, "then", true) );
 	definition.append( Field(Field::Code, "ifCode") );
@@ -86,7 +86,7 @@ Parser::Parser( Microbe * _mb )
 	definition.append( Field(Field::Code, "elseCode") );
 	m_definitionMap["if"] = definition;
 	definition.clear();
-	
+
 	definition.append( Field(Field::Expression, "initExpression") );
 	definition.append( Field(Field::FixedString, 0, "to", true) );
 	definition.append( Field(Field::Expression, "toExpression") );
@@ -95,43 +95,43 @@ Parser::Parser( Microbe * _mb )
 	definition.append( Field(Field::Code, "code") );
 	m_definitionMap["for"] = definition;
 	definition.clear();
-	
+
 	definition.append( Field(Field::Variable, "variable") );
 	m_definitionMap["decrement"] = definition;
 	definition.clear();
-	
+
 	definition.append( Field(Field::Variable, "variable") );
 	m_definitionMap["increment"] = definition;
 	definition.clear();
-	
+
 	definition.append( Field(Field::Variable, "variable") );
 	m_definitionMap["rotateleft"] = definition;
 	definition.clear();
-	
+
 	definition.append( Field(Field::Variable, "variable") );
 	m_definitionMap["rotateright"] = definition;
 	definition.clear();
-	
+
 	definition.append( Field(Field::Code, "code") );
 	m_definitionMap["asm"] = definition;
 	definition.clear();
-	
+
 	definition.append( Field(Field::Expression, "expression") );
 	m_definitionMap["delay"] = definition;
 	definition.clear();
-	
+
 	definition.append( Field(Field::Code, "code") );
 	definition.append( Field(Field::Newline) );
 	definition.append( Field(Field::FixedString, 0, "until", true) );
 	definition.append( Field(Field::Expression, "expression") );
 	m_definitionMap["repeat"] = definition;
 	definition.clear();
-	
+
 	definition.append( Field(Field::Name, "name") );
 	definition.append( Field(Field::PinList, "pinlist") );
 	m_definitionMap["sevenseg"] = definition;
 	definition.clear();
-	
+
 	definition.append( Field(Field::Name, "name") );
 	definition.append( Field(Field::PinList, "pinlist") );
 	m_definitionMap["keypad"] = definition;
@@ -145,7 +145,7 @@ Parser::~Parser()
 Parser* Parser::createChildParser()
 {
 	Parser * parser = new Parser( mb );
-	
+
 	return parser;
 }
 
@@ -167,40 +167,40 @@ Code * Parser::parse( const SourceLineList & lines )
 	m_pPic->setCode( m_code );
 	m_pPic->setParser(this);
 	m_bPassedEnd = false;
-	
+
 	/* First pass
 	   ==========
-	   
+
 	   Here we go through the code making each line into a statement object,
 	   looking out for braced code as we go, if we find it then we put then
 	   we make attach the braced code to the statment.
-	*/   
+	*/
 
 	SourceLineList::const_iterator end = lines.end();
 	for ( SourceLineList::const_iterator slit = lines.begin(); slit != end; ++slit )
 	{
 		Statement s;
 		s.content = *slit;
-		
+
 		// Check to see if the line after next is a brace
 		SourceLineList::const_iterator previous = slit;
 		if ( (++slit != end) && (*slit).text() == "{" )
 			s.bracedCode = getBracedCode( & slit, end );
 		else
 			slit = previous;
-		
+
 		if ( !s.text().isEmpty() )
 			sList.append(s);
 	}
-	
+
 	mb->resetDest();
-	
+
 	for( StatementList::Iterator sit = sList.begin(); sit != sList.end(); ++sit )
 	{
 		m_currentSourceLine = (*sit).content;
-		
+
 		QString line = (*sit).text();
-		
+
 		QString command; // e.g. "delay", "for", "subroutine", "increment", etc
 		{
 			int spacepos = line.indexOf(' ');
@@ -210,7 +210,7 @@ Code * Parser::parse( const SourceLineList & lines )
 				command = line;
 		}
 		OutputFieldMap fieldMap;
-		
+
 		if ( (*sit).content.line() >= 0 )
 			m_code->append( new Instr_sourceCode( QString("#MSRC\t%1; %2\t%3").arg( (*sit).content.line() + 1 ).arg( (*sit).content.url() ).arg( (*sit).content.text() ) ));
 		bool showBracesInSource = (*sit).hasBracedCode();
@@ -224,7 +224,7 @@ Code * Parser::parse( const SourceLineList & lines )
 			if( !processAssignment( (*sit).text() ) )
 			{
 				// Not an assignement, maybe a label
-				if( (*sit).isLabel() ) 
+				if( (*sit).isLabel() )
 				{
 					QString label = (*sit).text().left( (*sit).text().length() - 1 );
 					///TODO sanity check label name and then do error like "Bad label"
@@ -233,19 +233,19 @@ Code * Parser::parse( const SourceLineList & lines )
 				else
 					mistake( Microbe::Microbe::UnknownStatement );
 			}
-			
+
 			continue; // Give up on the current statement
 		}
 		StatementDefinition definition = dmit.value();
-		
+
 		// Start at the first white space character following the statement name
 		int newPosition = 0;
 		int position = command.length() + 1;
-		
+
 		// Temporaries for use inside the switch
 		Field nextField;
 		Statement nextStatement;
-		
+
 		bool errorInLine = false;
 		bool finishLine = false;
 
@@ -255,16 +255,16 @@ Code * Parser::parse( const SourceLineList & lines )
 			// the stop. If we are at the end of a line in a multiline, then
 			// break to fall through to the next line
 			if( errorInLine || finishLine) break;
-		
+
 			Field field = (*sdit);
 			QString token;
-			
+
 			bool saveToken = false;
 			bool saveBraced = false;
 			bool saveSingleLine = false;
-			
+
 			switch(field.type())
-			{	
+			{
 				case (Field::Label):
 				case (Field::Variable):
 				case (Field::Name):
@@ -291,7 +291,7 @@ Code * Parser::parse( const SourceLineList & lines )
 					saveToken = true;
 					break;
 				}
-					
+
 				case (Field::Expression):
 				{
 					// This is slightly different, as there is nothing
@@ -302,7 +302,7 @@ Code * Parser::parse( const SourceLineList & lines )
 					if( it != definition.end() )
 					{
 						nextField = (*it);
-						if(nextField.type() == Field::FixedString) 
+						if(nextField.type() == Field::FixedString)
 							newPosition = line.indexOf(QRegExp("\\b" + nextField.string() + "\\b"));
 						// Although code is not neccessarily braced, after an expression it is the only
 						// sensilbe way to have it.
@@ -313,7 +313,7 @@ Code * Parser::parse( const SourceLineList & lines )
 						}
 						else if(nextField.type() == Field::Newline)
 							newPosition = line.length()+1;
-						else kDebug() << "Bad statement definition - awkward field type after expression";
+						else qDebug() << "Bad statement definition - awkward field type after expression";
 					}
 					else newPosition = line.length() + 1;
 					if(newPosition == -1)
@@ -326,23 +326,23 @@ Code * Parser::parse( const SourceLineList & lines )
 					saveToken = true;
 				}
 				break;
-					
+
 				case (Field::PinList):
 				{
 					// For now, just assume that the list of pins will continue to the end of the tokens.
 					// (we could check until we come across a non-pin, but no command has that format at
 					// the moment).
-					
+
 					token = line.mid( position + 1 );
 					position = line.length() + 1;
 					if ( token.isEmpty() )
 						mistake( Microbe::PinListExpected );
 					else
 						saveToken = true;
-					
+
 					break;
 				}
-					
+
 				case (Field::Code):
 					if ( !(*sit).hasBracedCode() )
 					{
@@ -356,14 +356,14 @@ Code * Parser::parse( const SourceLineList & lines )
 						errorInLine = true;
 						continue;
 					}
-					else					
+					else
 					{
 						// Because of the way the superstructure parsing works there is no
 						// 'next line' as it were, the braced code is attached to the current line.
 						saveBraced = true;
 					}
 					break;
-					
+
 				case (Field::FixedString):
 				{
 					// Is the string found, and is it starting in the right place?
@@ -391,12 +391,12 @@ Code * Parser::parse( const SourceLineList & lines )
 					}
 				}
 					break;
-					
+
 				case (Field::Newline):
 					// It looks like the best way to handle this is to just actually
 					// look at the next line, and see if it begins with an expected fixed
 					// string.
-					
+
 					// Assume there is a next field, it would be silly if there weren't.
 					nextField = *(++StatementDefinition::Iterator(sdit));
 					if( nextField.type() == Field::FixedString )
@@ -408,35 +408,35 @@ Code * Parser::parse( const SourceLineList & lines )
 							// If the next field is optional just carry on as nothing happened,
 							// the next line will be processed as a new statement
 							if(!nextField.compulsory()) continue;
-							
+
 						}
 						position = 0;
 						line = (*(++sit)).text();
 						m_currentSourceLine = (*sit).content;
 					}
-					
+
 					break;
-					
+
 				case (Field::None):
 					// Do nothing
 					break;
 			}
-			
+
 			if ( saveToken )
 				fieldMap[field.key()] = OutputField( token );
-			
+
 			if ( saveSingleLine )
 			{
 				SourceLineList list;
 				list << SourceLine( token, 0, -1 );
 				fieldMap[field.key()] = OutputField( list );
 			}
-			
+
 			if ( saveBraced )
 				fieldMap[field.key()] = OutputField( (*sit).bracedCode );
 			// If position = -1, we have reached the end of the line.
 		}
-		
+
 		// See if we got to the end of the line, but not all fields had been
 		// processed.
 		if( position != -1  && position <= int(line.length()) )
@@ -444,16 +444,16 @@ Code * Parser::parse( const SourceLineList & lines )
 			mistake( Microbe::TooManyTokens );
 			errorInLine = true;
 		}
-		
+
 		if( errorInLine ) continue;
-			
+
 		// Everything has been parsed up, so send it off for processing.
 		processStatement( command, fieldMap );
 
 		if( showBracesInSource )
 			m_code->append(new Instr_sourceCode("}"));
 	}
-	
+
 	delete m_pPic;
 	return m_code;
 }
@@ -461,32 +461,32 @@ Code * Parser::parse( const SourceLineList & lines )
 bool Parser::processAssignment(const QString &line)
 {
 	QStringList tokens = Statement::tokenise(line);
-	
+
 	// Have to have at least 3 tokens for an assignment;
 	if ( tokens.size() < 3 )
 		return false;
-	
+
 	QString firstToken = tokens[0];
 
 	firstToken = mb->alias(firstToken);
-	// Well firstly we look to see if it is a known variable. 
+	// Well firstly we look to see if it is a known variable.
 	// These can include 'special' variables such as ports
 	// For now, the processor subclass generates ports it self
 	// and puts them in a list for us.
-	
+
 
 	// Look for port variables first.
 	if ( firstToken.contains(".") )
 	{
 		PortPin portPin = m_pPic->toPortPin( firstToken );
-		
+
 		// check port is valid
 		if ( portPin.pin() == -1 )
 			mistake( Microbe::InvalidPort, firstToken );
 		// more error checking
 		if ( tokens[1] != "=" )
 			mistake( Microbe::UnassignedPin );
-		
+
 		QString state = tokens[2];
 		if( state == "high" )
 			m_pPic->Ssetlh( portPin, true );
@@ -501,7 +501,7 @@ bool Parser::processAssignment(const QString &line)
 		// error checking
 		if ( tokens[1] != "=" )
 			mistake( Microbe::UnassignedPort, tokens[1] );
-		
+
 		Expression( m_pPic, mb, m_currentSourceLine, false ).compileExpression(line.mid(line.indexOf("=")+1));
 		m_pPic->saveResultToVar( firstToken );
 	}
@@ -518,40 +518,40 @@ bool Parser::processAssignment(const QString &line)
 		// Is there an assignment?
 		if ( tokens[1] != "=" )
 			return false;
-		
+
 		if ( !mb->isValidVariableName( firstToken ) )
 		{
 			mistake( Microbe::InvalidVariableName, firstToken );
 			return true;
 		}
-		
+
 		// Don't care whether or not the variable is new; Microbe will only add it if it
 		// hasn't been defined yet.
 		mb->addVariable( Variable( Variable::charType, firstToken ) );
-		
+
 		Expression( m_pPic, mb, m_currentSourceLine, false ).compileExpression(line.mid(line.indexOf("=")+1));
-		
+
 		Variable v = mb->variable( firstToken );
 		switch ( v.type() )
 		{
 			case Variable::charType:
 				m_pPic->saveResultToVar( v.name() );
 				break;
-				
+
 			case Variable::keypadType:
 				mistake( Microbe::ReadOnlyVariable, v.name() );
 				break;
-				
+
 			case Variable::sevenSegmentType:
 				m_pPic->SsevenSegment( v );
 				break;
-				
+
 			case Variable::invalidType:
 				// Doesn't happen, but include this case to avoid compiler warnings
 				break;
 		}
 	}
-	
+
 	return true;
 }
 
@@ -559,30 +559,30 @@ bool Parser::processAssignment(const QString &line)
 SourceLineList Parser::getBracedCode( SourceLineList::const_iterator * it, SourceLineList::const_iterator end )
 {
 	// Note: The sourceline list has the braces on separate lines.
-	
+
 	// This function should only be called when the parser comes across a line that is a brace.
 	assert( (**it).text() == "{" );
-	
+
 	SourceLineList braced;
-	
+
 	// Jump past the first brace
 	unsigned level = 1;
 	++(*it);
-	
+
 	for ( ; *it != end; ++(*it) )
 	{
 		if ( (**it).text() == "{" )
 			level++;
-		
+
 		else if ( (**it).text() == "}" )
 			level--;
-		
+
 		if ( level == 0 )
 			return braced;
-		
+
 		braced << **it;
 	}
-	
+
 	// TODO Error: mismatched bracing
 	return braced;
 }
@@ -596,24 +596,24 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 
 	if ( name == "goto" )
 		m_pPic->Sgoto(fieldMap["label"].string());
-	
+
 	else if ( name == "call" )
 		m_pPic->Scall(fieldMap["label"].string());
-	
+
 	else if ( name == "while" )
 		m_pPic->Swhile( parseWithChild(fieldMap["code"].bracedCode() ), fieldMap["expression"].string() );
-	
+
 	else if ( name == "repeat" )
 		m_pPic->Srepeat( parseWithChild(fieldMap["code"].bracedCode() ), fieldMap["expression"].string() );
-	
+
 	else if ( name == "if" )
 		m_pPic->Sif(
 				parseWithChild(fieldMap["ifCode"].bracedCode() ),
 				parseWithChild(fieldMap["elseCode"].bracedCode() ),
 				fieldMap["expression"].string() );
-	
+
 	else if ( name == "sub" || name == "subroutine" )
-	{	
+	{
 		if(!m_bPassedEnd)
 		{
 			mistake( Microbe::InterruptBeforeEnd );
@@ -624,9 +624,9 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 		}
 	}
 	else if( name == "interrupt" )
-	{	
+	{
 		QString interrupt = fieldMap["label"].string();
-		
+
 		if(!m_bPassedEnd)
 		{
 			mistake( Microbe::InterruptBeforeEnd );
@@ -655,7 +655,7 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 	{
 		QString step = fieldMap["stepExpression"].string();
 		bool stepPositive;
-		
+
 		if( fieldMap["stepExpression"].found() )
 		{
 			if(step.left(1) == "+")
@@ -675,21 +675,21 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 			step = "1";
 			stepPositive = true;
 		}
-		
+
 		QString variable = fieldMap["initExpression"].string().mid(0,fieldMap["initExpression"].string().indexOf("=")).trimmed();
 		QString endExpr = variable+ " <= " + fieldMap["toExpression"].string().trimmed();
-		
+
 		if( fieldMap["stepExpression"].found() )
-		{	
+		{
 			bool isConstant;
 			step = processConstant(step,&isConstant);
 			if( !isConstant )
 				mistake( Microbe::NonConstantStep );
 		}
-		
+
 		SourceLineList tempList;
 		tempList << SourceLine( fieldMap["initExpression"].string(), 0, -1 );
-		
+
 		m_pPic->Sfor( parseWithChild( fieldMap["code"].bracedCode() ), parseWithChild( tempList ), endExpr, variable, step, stepPositive );
 	}
 	else if( name == "alias" )
@@ -697,10 +697,10 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 		// It is important to get this the right way round!
 		// The alias should be the key since two aliases could
 		// point to the same name.
-	
+
 		QString alias = fieldMap["alias"].string().trimmed();
 		QString dest = fieldMap["dest"].string().trimmed();
-		
+
 		// Check to see whether or not we've already aliased it...
 // 		if ( mb->alias(alias) != alias )
 // 			mistake( Microbe::AliasRedefined );
@@ -710,7 +710,7 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 	else if( name == "increment" )
 	{
 		QString variableName = fieldMap["variable"].string();
-		
+
 		if ( !mb->isVariableKnown( variableName ) )
 			mistake( Microbe::UnknownVariable );
 		else if ( !mb->variable( variableName ).isWritable() )
@@ -721,7 +721,7 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 	else if( name == "decrement" )
 	{
 		QString variableName = fieldMap["variable"].string();
-		
+
 		if ( !mb->isVariableKnown( variableName ) )
 			mistake( Microbe::UnknownVariable );
 		else if ( !mb->variable( variableName ).isWritable() )
@@ -732,7 +732,7 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 	else if( name == "rotateleft" )
 	{
 		QString variableName = fieldMap["variable"].string();
-		
+
 		if ( !mb->isVariableKnown( variableName ) )
 			mistake( Microbe::UnknownVariable );
 		else if ( !mb->variable( variableName ).isWritable() )
@@ -743,7 +743,7 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 	else if( name == "rotateright" )
 	{
 		QString variableName = fieldMap["variable"].string();
-		
+
 		if ( !mb->isVariableKnown( variableName ) )
 			mistake( Microbe::UnknownVariable );
 		else if ( !mb->variable( variableName ).isWritable() )
@@ -752,7 +752,7 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 			m_pPic->SrotrVar( variableName );
 	}
 	else if( name == "asm" )
-	{	
+	{
 		m_pPic->Sasm( SourceLine::toStringList( fieldMap["code"].bracedCode() ).join("\n") );
 	}
 	else if( name == "delay" )
@@ -779,15 +779,15 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 		//QStringList pins = QStringList::split( ' ', fieldMap["pinlist"].string() );
         QStringList pins = fieldMap["pinlist"].string().split(' ', QString::SkipEmptyParts);
 		QString variableName = fieldMap["name"].string();
-		
+
 		if ( mb->isVariableKnown( variableName ) )
 		{
 			mistake( Microbe::VariableRedefined, variableName );
 			return;
 		}
-		
+
 		PortPinList pinList;
-		
+
 		QStringList::iterator end = pins.end();
 		for ( QStringList::iterator it = pins.begin(); it != end; ++it )
 		{
@@ -800,14 +800,14 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 			}
 			pinList << portPin;
 		}
-		
+
 		if ( name == "keypad" )
 		{
 			Variable v( Variable::keypadType, variableName );
 			v.setPortPinList( pinList );
 			mb->addVariable( v );
 		}
-		
+
 		else // name == "sevenseg"
 		{
 			if ( pinList.size() != 7 )
@@ -835,7 +835,7 @@ QStringList Statement::tokenise(const QString &line)
 	QStringList result;
 	QString current;
 	int count = 0;
-	
+
 	for(int i = 0; i < int(line.length()); i++)
 	{
 		QChar nextChar = line[i];
@@ -863,7 +863,7 @@ QStringList Statement::tokenise(const QString &line)
 			result.append("{");
 		}
 		else
-		{	
+		{
 			count++;
 			current.append(nextChar);
 		}
@@ -892,7 +892,7 @@ int Parser::doArithmetic(int lvalue, int rvalue, Expression::Operation op)
 		case Expression::ge: return lvalue >= rvalue;
 		case Expression::lt: return lvalue < rvalue;
 		case Expression::gt: return lvalue > rvalue;
-		
+
 		case Expression::pin:
 		case Expression::notpin:
 		case Expression::function:
@@ -929,26 +929,26 @@ int Parser::literalToInt( const QString &literal, bool * ok )
 	if ( !ok )
 		ok = & temp;
 	*ok = true;
-	
+
 	int value = -1;
-	
-	// Note when we use toInt, we don't have to worry about checking 
+
+	// Note when we use toInt, we don't have to worry about checking
 	// that literal.mid() is convertible, as toInt returns this in ok anyway.
-	
+
 	// Try binary first, of form b'n...n'
 	if( literal.left(2) == "b'" && literal.right(1) == "'" )
 	{
 		value = literal.mid(2,literal.length() - 3).toInt(ok,2);
 		return *ok ? value : -1;
 	}
-		
+
 	// Then try hex of form h'n...n'
 	if( literal.left(2) == "h'" && literal.right(1) == "'" )
 	{
 		value = literal.mid(2,literal.length() - 3).toInt(ok,16);
 		return *ok ? value : -1;
 	}
-	
+
 	// otherwise, let QString try and convert it
 	// base 0 == automatic base guessing
 	value = literal.toInt( ok, 0 );
@@ -1032,7 +1032,7 @@ OutputField::OutputField( const QString & string/*, int lineNumber*/ )
 			// don't strip whitespace from within quotes as you
 			// can have filenames composed entirely of spaces (kind of weird)...
 			// remove quotes.
-			filename = filename.mid(1); 
+			filename = filename.mid(1);
 			filename = filename.mid(0,filename.length()-1);
 			QFile includeFile(filename);
 			if( includeFile.open(QIODevice::ReadOnly) )
@@ -1049,7 +1049,7 @@ OutputField::OutputField( const QString & string/*, int lineNumber*/ )
     			}
     			else
     			mistake( Microbe::UnopenableInclude, filename );
- 		}		
+ 		}
 #endif
 
 

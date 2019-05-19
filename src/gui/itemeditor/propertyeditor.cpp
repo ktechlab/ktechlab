@@ -22,28 +22,29 @@
 
 #include "drawparts/drawpart.h"
 
+#include <kiconloader.h>
 #include <klocalizedstring.h>
-#include <kdebug.h>
 #include <kpushbutton.h>
 #include <kicon.h>
 #include <kiconloader.h>
 
-#include <qevent.h>
-#include <qfontmetrics.h>
-#include <qtimer.h>
 #include <qapplication.h>
+#include <qdebug.h>
+#include <qevent.h>
 #include <qeventloop.h>
+#include <qfontmetrics.h>
+#include <qheaderview.h>
+#include <qicon.h>
+#include <qtimer.h>
 #include <qstyleditemdelegate.h>
 
-// #include <q3header.h>
-#include <qheaderview.h>
 
 struct PropertyEditorStyledItemColProperty : public QStyledItemDelegate {
     PropertyEditor *m_propEditor;
 
     PropertyEditorStyledItemColProperty(PropertyEditor *propEditor) : m_propEditor(propEditor) { }
 
-    virtual void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const {
+    virtual void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const override {
 //         if ( depth() == 0 )
 //             return;
         QTableWidgetItem *itemPtr = m_propEditor->item( index.row(), index.column());
@@ -112,7 +113,7 @@ struct PropertyEditorStyledItemColValue : public QStyledItemDelegate {
 
     PropertyEditorStyledItemColValue(PropertyEditor *propEditor) : m_propEditor(propEditor) { }
 
-    virtual void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const {
+    virtual void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const override {
 //         if ( depth() == 0 )
 //             return;
 
@@ -280,7 +281,7 @@ PropertyEditor::PropertyEditor( QWidget * parent, const char * name )
 	m_defaults = new KPushButton(viewport());
 	m_defaults->setFocusPolicy(Qt::NoFocus);
 	setFocusPolicy(Qt::ClickFocus);
-	m_defaults->setIcon(KIcon("edit-undo"));
+	m_defaults->setIcon(QIcon::fromTheme("edit-undo"));
 	m_defaults->setToolTip(i18n("Undo changes"));
 	m_defaults->hide();
 	connect(m_defaults, SIGNAL(clicked()), this, SLOT(resetItem()));
@@ -315,7 +316,7 @@ void PropertyEditor::slotClicked(const QModelIndex& index)
 {
 	if (!index.isValid())
 		return;
-	
+
 // 2019.01.19 - moved to slotCurrentCellChanged()
 //     if (index.column() == 1) {
 //         // PropertyEditorItem *i = static_cast<PropertyEditorItem *>(item);// 2018.08.13 - not needed
@@ -411,24 +412,24 @@ void PropertyEditor::createEditor( const QModelIndex& index )
 		case Variant::Type::KeyPad:
 			editor = new PropertyEditorList( viewport(), i->property() );
 			break;
-			
+
 		case Variant::Type::FileName:
             qDebug() << Q_FUNC_INFO << "creating PropertyEditorFile";
 			editor = new PropertyEditorFile( viewport(), i->property() );
 			break;
-			
+
 		case Variant::Type::Int:
 			editor = new PropertyEditorSpin( viewport(), i->property() );
 			break;
-			
+
 		case Variant::Type::Double:
 			editor = new PropertyEditorDblSpin( viewport(), i->property() );
 			break;
-			
+
 		case Variant::Type::Color:
 			editor = new PropertyEditorColor( viewport(), i->property() );
 			break;
-			
+
 		case Variant::Type::Bool:
 			editor = new PropertyEditorBool( viewport(), i->property() );
 			break;
@@ -451,7 +452,7 @@ void PropertyEditor::createEditor( const QModelIndex& index )
 
 		editor->setFocus();
 	}
-	
+
 	m_currentEditor = editor;
 	showDefaultsButton( i->property()->changed() );
 }
@@ -541,7 +542,7 @@ void PropertyEditor::reset()
         m_lastCellWidgetCol = -1;
     }
     m_currentEditor = 0;
-	
+
 	if ( m_defaults->isVisible() )
 		m_defaults->hide();
 
@@ -565,10 +566,10 @@ void PropertyEditor::create( ItemGroup * b )
 {
     qDebug() << Q_FUNC_INFO << "b=" << b;
 	m_pItemGroup = b;
-	
+
 	//QCString selectedPropertyName1, selectedPropertyName2;
 //     QByteArray selectedPropertyName1, selectedPropertyName2;     // 2018.08. 13 - dead code
-	
+
 	fill();
 /* 2018.08. 13 - dead code
 	//select prev. selecteed item
@@ -592,7 +593,7 @@ void PropertyEditor::create( ItemGroup * b )
 void PropertyEditor::fill()
 {
 	reset();
-	
+
 	if ( !m_pItemGroup || !m_pItemGroup->activeItem() ) {
         qWarning() << Q_FUNC_INFO << " no active item " << m_pItemGroup;
 		return;
@@ -643,7 +644,7 @@ void PropertyEditor::fill()
 				// These are not handled by the ItemEditor
 				continue;
 		}
-		
+
         const int nextRow = rowCount();
         setRowCount(nextRow + 1);
         {
@@ -660,7 +661,7 @@ void PropertyEditor::fill()
             setItem(nextRow, 1, itemPropValue);
         }
 		//m_items.insert( v->id().latin1(), item ); // 2018.08.13 - unused
-		
+
 	}
 }
 
@@ -707,7 +708,7 @@ void PropertyEditor::moveEditor()
 {
 	if ( !m_currentEditor )
 		return;
-	
+
 	QPoint p = QPoint(0, visualItemRect(m_editItem).y()); //  = contentsToViewport(QPoint(0, itemPos(m_editItem))); // TODO
 	m_currentEditor->move(m_currentEditor->x(), p.y());
 	if( m_defaults->isVisible() ) {

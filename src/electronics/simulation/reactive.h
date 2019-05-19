@@ -22,8 +22,8 @@ class Reactive : public Element
 public:
 	Reactive( const double delta );
 	virtual ~Reactive();
-	
-	virtual bool isReactive() const { return true; }
+
+	virtual bool isReactive() const override { return true; }
 	/**
 	 * Call this function to set the time period (in seconds)
 	 */
@@ -32,10 +32,10 @@ public:
 	 * Called on every time step for the element to update itself
 	 */
 	virtual void time_step() = 0;
-	
+
 protected:
-	virtual bool updateStatus();
-	
+	virtual bool updateStatus() override;
+
 	double m_delta; // Delta time interval
 };
 

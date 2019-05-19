@@ -67,7 +67,7 @@ public:
 	/**
 	 * If selected, will be drawn in a different colour
 	 */
-	virtual void setSelected(bool yes);
+	virtual void setSelected(bool yes) override;
 
 	/**
 	 * Connected id
@@ -166,16 +166,14 @@ public:
 	 * the translation is useful, etc.
 	 */
 	void translateRoute(int dx, int dy);
-	virtual void setVisible(bool yes);
+	virtual void setVisible(bool yes) override;
 
 	/**
 	Methods relating to wire lists
 	*/
 	WireVector wires() const { return m_wires; }
 	unsigned numWires() const { return m_wires.size(); }
-	Wire *wire(unsigned num = 0) const ; /* {
-		return (num < m_wires.size()) ? m_wires[num] : 0;
-	} */
+	Wire* wire(unsigned num=0) const;
 
 	void updateConnectorLines(bool forceRedraw = false);
 
@@ -204,7 +202,7 @@ public slots:
 
 protected:
 	WireVector        m_wires;
-		
+
 private:
 
 	bool b_semiHidden;
@@ -243,7 +241,7 @@ public:
 	void setAnimateCurrent(bool animateCurrent) { m_bAnimateCurrent = animateCurrent; }
 
 protected:
-	virtual void drawShape(QPainter &p);
+	virtual void drawShape(QPainter &p) override;
 
 	Connector *m_pConnector;
 	int  m_pixelOffset;

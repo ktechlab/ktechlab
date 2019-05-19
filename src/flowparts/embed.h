@@ -22,15 +22,15 @@ class Embed : public FlowPart
 public:
 	Embed( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~Embed();
-	
+
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
-	virtual void generateMicrobe( FlowCode *code );
+
+	virtual void generateMicrobe( FlowCode *code ) override;
 	bool typeIsMicrobe() const;
-	
+
 protected:
-	void dataChanged();
+	void dataChanged() override;
 };
 
 #endif

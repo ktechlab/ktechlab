@@ -15,7 +15,7 @@
 #include "libraryitem.h"
 #include "subcircuits.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <klocalizedstring.h>
 #include <qfile.h>
 

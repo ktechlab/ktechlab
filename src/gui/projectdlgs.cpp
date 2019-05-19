@@ -55,13 +55,13 @@ NewProjectDlg::NewProjectDlg( QWidget * parent )
 	m_pWidget = new NewProjectWidget(this);
 	connect( m_pWidget->projectNameEdit, SIGNAL(textChanged(const QString & )), this, SLOT(locationChanged(const QString& )) );
 	connect( m_pWidget->projectLocationURL, SIGNAL(textChanged(const QString & )), this, SLOT(locationChanged(const QString& )) );
-    
+
     // Check if already valid dir
 	locationChanged( QString::null );
-    
+
 	m_pWidget->projectLocationURL->setUrl( QDir::homePath() );
 	m_pWidget->projectLocationURL->setMode( KFile::Directory );
-    
+
 	setMainWidget( m_pWidget );
 	setInitialSize( m_pWidget->rect().size() );
 }
@@ -87,19 +87,19 @@ void NewProjectDlg::locationChanged( const QString & )
 	m_location = m_pWidget->projectLocationURL->url().toLocalFile();
     qDebug() << "location changed to: " << m_location;
 	QDir subDir(m_location);
-    
+
 	if ( !m_location.endsWith("/") )
 		m_location.append("/");
-    
+
 	if ( !m_pWidget->projectNameEdit->text().isEmpty() )
 		m_location.append( m_pWidget->projectNameEdit->text().toLower() + "/" );
-    
+
 	m_pWidget->locationLabel->setText( m_location );
-    
+
 	QDir dir(m_location);
 
     qDebug() << "dir.exists: " << dir.exists() << " subdir.exists: " << subDir.exists();
-	
+
 	if ( dir.exists() || !subDir.exists() ) {
 		enableButtonOk(false);
     } else {
@@ -129,12 +129,12 @@ CreateSubprojectDlg::CreateSubprojectDlg( QWidget * parent )
     showButtonSeparator(true);
 
 	m_pWidget = new CreateSubprojectWidget(this);
-	
+
 	if ( ProjectManager::self()->currentProject() )
 		m_pWidget->m_targetFile->setUrl( ProjectManager::self()->currentProject()->directory() );
-	
+
 	m_type = ProgramType;
-    
+
 	setMainWidget( m_pWidget );
 	setInitialSize( m_pWidget->rect().size() );
 }
@@ -185,11 +185,11 @@ LinkerOptionsDlg::LinkerOptionsDlg( LinkerOptions * linkingOptions, QWidget *par
 
 	m_pLinkerOptions = linkingOptions;
 	m_pWidget = new LinkerOptionsWidget(this);
-	
+
 	ProjectInfo * pi = ProjectManager::self()->currentProject();
 	assert(pi);
-	
-	
+
+
 	//BEGIN Update gplink options
 	m_pWidget->m_pHexFormat->setCurrentIndex( m_pLinkerOptions->hexFormat() );
 	m_pWidget->m_pOutputMap->setChecked( m_pLinkerOptions->outputMapFile() );
@@ -197,13 +197,13 @@ LinkerOptionsDlg::LinkerOptionsDlg( LinkerOptions * linkingOptions, QWidget *par
 	m_pWidget->m_pLinkerScript->setText( m_pLinkerOptions->linkerScript() );
 	m_pWidget->m_pOther->setText( m_pLinkerOptions->linkerOther() );
 	//END Update gplink options
-	
-	
-	
+
+
+
 	//BEGIN Update library widgets
 	const KUrl::List availableInternal = pi->childOutputURLs( ProjectItem::LibraryType );
 	const QStringList linkedInternal = m_pLinkerOptions->linkedInternal();
-	
+
 	KUrl::List::const_iterator end = availableInternal.end();
 	for ( KUrl::List::const_iterator it = availableInternal.begin(); it != end; ++it )
 	{
@@ -214,33 +214,40 @@ LinkerOptionsDlg::LinkerOptionsDlg( LinkerOptions * linkingOptions, QWidget *par
         item->setCheckState( (linkedInternal.contains(relativeURL)) ? Qt::Checked : Qt::Unchecked );
 		//item->setOn( linkedInternal.contains(relativeURL) ); // 2017.12.1 - convert to QListWidgetItem
 	}
-	
+
 	m_pExternalLibraryRequester = new KUrlRequester( 0l );
-	//m_pExternalLibraryRequester->fileDialog()->setUrl( KUrl( "/usr/share/sdcc/lib" ) );
-    m_pExternalLibraryRequester->fileDialog()->setDirectoryUrl( KUrl( "/usr/share/sdcc/lib" ) );
-	
+// 	//m_pExternalLibraryRequester->fileDialog()->setUrl( KUrl( "/usr/share/sdcc/lib" ) );
+//     m_pExternalLibraryRequester->fileDialog()->setDirectoryUrl( KUrl( "/usr/share/sdcc/lib" ) );
+// 	
+// 	delete m_pWidget->m_pExternalLibraries;
+//     KEditListBox b;
+//     
+// 	m_pWidget->m_pExternalLibraries = new KEditListBox( 
+//         i18n("Link libraries outside project"), 
+//         //m_pExternalLibraryRequester->customEditor(), 
+//         KEditListBox::CustomEditor(
+//             m_pExternalLibraryRequester->comboBox(), m_pExternalLibraryRequester->lineEdit()),
+//         m_pWidget );
+//     m_pWidget->m_pExternalLibraries->setTitle(i18n("Link libraries outside project"));
+	m_pExternalLibraryRequester->fileDialog()->selectUrl( KUrl( "/usr/share/sdcc/lib" ) );
+
 	delete m_pWidget->m_pExternalLibraries;
-    KEditListBox b;
-    
-	m_pWidget->m_pExternalLibraries = new KEditListBox( 
-        i18n("Link libraries outside project"), 
-        //m_pExternalLibraryRequester->customEditor(), 
-        KEditListBox::CustomEditor(
-            m_pExternalLibraryRequester->comboBox(), m_pExternalLibraryRequester->lineEdit()),
+	m_pWidget->m_pExternalLibraries = new KEditListWidget(
+        //i18n("Link libraries outside project"),
+        m_pExternalLibraryRequester->customEditor(),
         m_pWidget );
-    m_pWidget->m_pExternalLibraries->setTitle(i18n("Link libraries outside project"));
 	m_pWidget->m_pExternalLibraries->layout()->setMargin(11);
     {
         QGridLayout* grLayout = (dynamic_cast<QGridLayout*>(m_pWidget->layout()));
         //grLayout->addMultiCellWidget( m_pWidget->m_pExternalLibraries, 7, 7, 0, 1 ); // 2018.12.02
         grLayout->addWidget( m_pWidget->m_pExternalLibraries, 7, 0, 1, 2);
     }
-	
-	m_pWidget->m_pExternalLibraries->setButtons( KEditListBox::Add | KEditListBox::Remove );
+
+	m_pWidget->m_pExternalLibraries->setButtons( KEditListWidget::Add | KEditListWidget::Remove );
 	m_pWidget->m_pExternalLibraries->insertStringList( m_pLinkerOptions->linkedExternal() );
 	//END Update library widgets
-	
-	
+
+
 	setMainWidget( m_pWidget );
 	setInitialSize( m_pWidget->rect().size() );
 }
@@ -255,7 +262,7 @@ LinkerOptionsDlg::~LinkerOptionsDlg()
 void LinkerOptionsDlg::accept()
 {
 	hide();
-	
+
 	QStringList linkedInternal;
 	for (int itemNr = 0; itemNr < m_pWidget->m_pInternalLibraries->count(); ++itemNr)
 	{
@@ -265,7 +272,7 @@ void LinkerOptionsDlg::accept()
         }
 	}
 	m_pLinkerOptions->setLinkedInternal( linkedInternal );
-	
+
 	m_pLinkerOptions->setLinkedExternal( m_pWidget->m_pExternalLibraries->items() );
 	m_pLinkerOptions->setHexFormat( (LinkerOptions::HexFormat::type) m_pWidget->m_pHexFormat->currentIndex() );
 	m_pLinkerOptions->setOutputMapFile( m_pWidget->m_pOutputMap->isChecked() );
@@ -303,28 +310,28 @@ ProcessingOptionsDlg::ProcessingOptionsDlg( ProjectItem * projectItem, QWidget *
 
 	m_pProjectItem = projectItem;
 	m_pWidget = new ProcessingOptionsWidget(this);
-	
+
 	m_pWidget->m_pMicroSelect->setEnabled( !projectItem->useParentMicroID() );
-	
+
 	switch ( projectItem->type() )
 	{
 		case ProjectItem::ProjectType:
 			m_pWidget->m_pOutputURL->setEnabled(false);
 			break;
-			
+
 		case ProjectItem::FileType:
 			m_pWidget->m_pOutputURL->setEnabled(true);
 			break;
-			
+
 		case ProjectItem::ProgramType:
 		case ProjectItem::LibraryType:
 			m_pWidget->m_pOutputURL->setEnabled(false);
 			break;
 	}
-	
+
 	m_pWidget->m_pOutputURL->setUrl( projectItem->outputURL().path() );
 	m_pWidget->m_pMicroSelect->setMicro( projectItem->microID() );
-	
+
 	setMainWidget( m_pWidget );
 	setInitialSize( m_pWidget->rect().size() );
 }
@@ -338,10 +345,10 @@ ProcessingOptionsDlg::~ProcessingOptionsDlg()
 void ProcessingOptionsDlg::accept()
 {
 	hide();
-	
+
 	if ( m_pWidget->m_pOutputURL->isEnabled() )
 		m_pProjectItem->setOutputURL( m_pWidget->m_pOutputURL->url() );
-	
+
 	if ( m_pWidget->m_pMicroSelect->isEnabled() )
 		m_pProjectItem->setMicroID( m_pWidget->m_pMicroSelect->micro() );
 }

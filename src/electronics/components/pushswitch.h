@@ -22,15 +22,15 @@ class ECPTBSwitch : public Component
 public:
 	ECPTBSwitch( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ECPTBSwitch();
-	
+
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
-	virtual void buttonStateChanged( const QString &id, bool state );
-	virtual void dataChanged();
-	
+
+	virtual void buttonStateChanged( const QString &id, bool state ) override;
+	virtual void dataChanged() override;
+
 private:
-	virtual void drawShape( QPainter &p );
+	virtual void drawShape( QPainter &p ) override;
 	Switch *m_switch;
 	bool pressed;
 };
@@ -45,15 +45,15 @@ class ECPTMSwitch : public Component
 public:
 	ECPTMSwitch( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ECPTMSwitch();
-	
+
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
-	virtual void buttonStateChanged( const QString &id, bool state );
-	virtual void dataChanged();
-	
+
+	virtual void buttonStateChanged( const QString &id, bool state ) override;
+	virtual void dataChanged() override;
+
 private:
-	virtual void drawShape( QPainter &p );
+	virtual void drawShape( QPainter &p ) override;
 	Switch *m_switch;
 	bool pressed;
 };

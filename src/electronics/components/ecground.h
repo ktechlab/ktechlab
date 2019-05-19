@@ -22,12 +22,12 @@ class ECGround : public Component
 public:
 	ECGround( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ECGround();
-	
+
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
+
 private:
-	virtual void drawShape( QPainter &p );
+	virtual void drawShape( QPainter &p ) override;
 };
 
 #endif

@@ -1,3 +1,4 @@
+
 /***************************************************************************
  *   Copyright (C) 2005 by David Saxton                                    *
  *   david@bluehaze.org                                                    *
@@ -16,6 +17,7 @@
 
 #include <qpointer.h>
 #include <qlabel.h>
+
 
 class TextView;
 
@@ -40,16 +42,16 @@ class VariableLabel : public QLabel
 		 * to setRegister.
 		 */
 		void setValue( unsigned value );
-		
+
 	protected slots:
 		/**
 		 * Updates what is displayed from m_pRegisterInfo.
 		 */
 		void updateText();
-		
+
 	protected:
 		void disconnectRegisterInfo();
-		
+
 		QPointer<RegisterInfo> m_pRegisterInfo;
 		QString m_registerName;
 		int m_value;

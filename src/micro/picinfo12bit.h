@@ -22,8 +22,8 @@ class PicAsm12bit : public AsmInfo
 {
 	public:
 		static PicAsm12bit *self();
-		virtual Set set() const { return AsmInfo::PIC12; }
-	
+		virtual Set set() const override { return AsmInfo::PIC12; }
+
 	//protected:
 	//	static PicAsm12bit *m_self;
 
@@ -38,8 +38,8 @@ class PicInfo12bit : public PicInfo
 	public:
 		PicInfo12bit();
 		~PicInfo12bit();
-	
-		virtual AsmInfo * instructionSet() { return PicAsm12bit::self(); }
+
+		virtual AsmInfo * instructionSet() override { return PicAsm12bit::self(); }
 };
 
 /**
@@ -50,7 +50,7 @@ class PicInfo16C54 : public PicInfo12bit
 	public:
 		PicInfo16C54();
 		~PicInfo16C54();
-		virtual Support gpsimSupport() const { return FullSupport; }
+		virtual Support gpsimSupport() const override { return FullSupport; }
 };
 
 /**
@@ -61,7 +61,7 @@ class PicInfo16C55 : public PicInfo12bit
 	public:
 		PicInfo16C55();
 		~PicInfo16C55();
-		virtual Support gpsimSupport() const { return FullSupport; }
+		virtual Support gpsimSupport() const override { return FullSupport; }
 };
 
 /**
@@ -72,7 +72,7 @@ class PicInfo12C508 : public PicInfo12bit
 	public:
 		PicInfo12C508();
 		~PicInfo12C508();
-		virtual Support gpsimSupport() const { return FullSupport; }
+		virtual Support gpsimSupport() const override { return FullSupport; }
 };
 
 /**
@@ -83,7 +83,7 @@ class PicInfo12C509 : public PicInfo12C508
 	public:
 		PicInfo12C509();
 		~PicInfo12C509();
-		virtual Support gpsimSupport() const { return FullSupport; }
+		virtual Support gpsimSupport() const override { return FullSupport; }
 };
 
 /**
@@ -94,7 +94,7 @@ class PicInfo12C671 : public PicInfo12C508
 	public:
 		PicInfo12C671();
 		~PicInfo12C671();
-		virtual Support gpsimSupport() const { return NoSupport; }
+		virtual Support gpsimSupport() const override { return NoSupport; }
 };
 
 /**
@@ -105,7 +105,7 @@ class PicInfo12C672 : public PicInfo12C508
 	public:
 		PicInfo12C672();
 		~PicInfo12C672();
-		virtual Support gpsimSupport() const { return NoSupport; }
+		virtual Support gpsimSupport() const override { return NoSupport; }
 };
 
 #endif

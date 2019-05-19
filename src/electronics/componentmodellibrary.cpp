@@ -9,7 +9,7 @@
 
 #include "componentmodellibrary.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <kstandarddirs.h>
 
 #include <qdatetime.h>
@@ -84,14 +84,14 @@ void ComponentModelLibrary::loadModels()
 		QString fileName = KStandardDirs::locate( "appdata", "models/" + *it );
 		if ( fileName.isEmpty() )
 		{
-			kWarning() << k_funcinfo << "Could not find library file \""<<*it<<"\".\n";
+			qWarning() << Q_FUNC_INFO << "Could not find library file \""<<*it<<"\".\n";
 			continue;
 		}
 
 		QFile file( fileName );
 		if ( !file.open( QIODevice::ReadOnly ) )
 		{
-			kWarning() << k_funcinfo << "Could not open library file \""<<fileName<<"\" for reading.\n";
+			qWarning() << Q_FUNC_INFO << "Could not open library file \""<<fileName<<"\" for reading.\n";
 			continue;
 		}
 
@@ -115,10 +115,10 @@ void ComponentModelLibrary::loadModels()
 				ModelType type = None;
 				if ( typeString == "NPN" ) type = NPN;
 				else if ( typeString == "PNP" ) type = PNP;
-				else	kError() << k_funcinfo << "Unknown type \""<<typeString<<"\".\n";
+				else	qCritical() << Q_FUNC_INFO << "Unknown type \""<<typeString<<"\".\n";
 
 				if ( m_componentModelIDs[type].contains( id ) )
-					kError() << k_funcinfo << "Already have model with id=\""<<id<<"\" for type=\""<<typeString<<"\".\n";
+					qCritical() << Q_FUNC_INFO << "Already have model with id=\""<<id<<"\" for type=\""<<typeString<<"\".\n";
 
 				if ( !m_componentModels.contains( type ) )
 				{
@@ -131,7 +131,7 @@ void ComponentModelLibrary::loadModels()
 
 				/* if ( int(modelCount[type] * 1.2) > maxComponentModels )  // 2018.08.14 - not needed
 				{
-					kWarning() << k_funcinfo << "There are "<<modelCount[type]<<" models for component type \""<<typeString<<"\". Consider enlarging the dictionary.\n";
+					qWarning() << Q_FUNC_INFO << "There are "<<modelCount[type]<<" models for component type \""<<typeString<<"\". Consider enlarging the dictionary.\n";
 				} */
 
 				// Reset the model
@@ -168,14 +168,14 @@ void ComponentModelLibrary::loadModels()
 					double realValue = value.toDouble( & ok );
 					
 					if ( !ok )
-						kError() << k_funcinfo << "Could not convert \""<<value<<"\" to a real number (for property \""<<name<<"\".\n";
+						qCritical() << Q_FUNC_INFO << "Could not convert \""<<value<<"\" to a real number (for property \""<<name<<"\".\n";
 					else	model->setProperty( name, realValue );
 				}
 			}
 		}
 	}
 
-	kDebug() << k_funcinfo << "It took " << ct.elapsed() << " milliseconds to read in the component models.\n";
+	qDebug() << Q_FUNC_INFO << "It took " << ct.elapsed() << " milliseconds to read in the component models.\n";
 }
 //END class ComponentModelLibrary
 

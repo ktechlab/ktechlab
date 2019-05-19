@@ -32,14 +32,14 @@ public:
 		type_mclr	= 0x20, // Memory clear
 		type_osc	= 0x40 // Oscillator
 	};
-	
+
 	PicPin();
 	PicPin( const QString &_pinID, PicPin::pin_type _type, const QString &_portName = "", int _portPosition = -1 );
 
 	PicPin::pin_type type;
-	
+
 	QString pinID; // Id of pin, eg 'MCLR'
-	
+
 	// For bidir (io) pins
 	QString portName; // Name of port, eg 'PORTA'
 	int portPosition; // Position in port
@@ -56,11 +56,15 @@ class MicroPackage
 public:
 	MicroPackage( const int pinCount );
 	virtual ~MicroPackage();
-	
+
 	/**
 	 * Assigns a pin to a position in the package.
 	 */
 	void assignPin( int pinPosition, PicPin::pin_type type, const QString& pinID, const QString& portName = "", int portPosition = -1);
+    void assignPin( int pinPosition, PicPin::pin_type type, const char* pinID, const char* portName = "", int portPosition = -1) {
+        assignPin(pinPosition, type, QString::fromLatin1(pinID), QString::fromLatin1(portName), portPosition);
+    }
+
 	/**
 	 * Returns the pins of the given type(s). If portName is not specified, all pins will be returned;
 	 * not just those belonging to a given port. pin_type's can be OR'ed together
@@ -88,7 +92,7 @@ public:
 	 * Returns the number of ports
 	 */
 	uint portCount() const { return m_portNames.size(); }
-	
+
 private:
 	PicPinMap m_picPinMap;
 	QStringList m_portNames;

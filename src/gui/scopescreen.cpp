@@ -18,7 +18,7 @@
 #include <cmath>
 
 #include <kconfig.h>
-#include <kdebug.h>
+#include <qdebug.h>
 #include <kglobal.h>
 #include <kiconloader.h>
 #include <klocalizedstring.h>

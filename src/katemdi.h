@@ -68,7 +68,7 @@ class ToggleToolViewAction : public KToggleAction
     virtual ~ToggleToolViewAction();
 
   protected slots:
-    void slotToggled(bool);
+    void slotToggled(bool) override;
     void visibleChanged(bool);
 
   private:
@@ -142,7 +142,7 @@ class ToolView : public QWidget
     bool visible () const;
 
   protected:
-    void childEvent ( QChildEvent *ev );
+    void childEvent ( QChildEvent *ev ) override;
 
   private:
     MainWindow *m_mainWin;
@@ -176,7 +176,7 @@ class Sidebar : public KMultiTabBar
     virtual ~Sidebar ();
 
     void setSplitter (Splitter *sp);
-	
+
 	//HACK use these functions intead of their respective functions in
 	//KMultiTabBar so that we know what they were set to.
 	void setSidebarPosition( KMultiTabBarPosition pos );
@@ -216,13 +216,13 @@ class Sidebar : public KMultiTabBar
     void tabClicked(int);
 
   protected:
-    bool eventFilter(QObject *obj, QEvent *ev);
+    bool eventFilter(QObject *obj, QEvent *ev) override;
 
   private slots:
     void buttonPopupActivate (QAction* action);
 
   private:
-	  
+
     MainWindow *m_mainWin;
 
 	KMultiTabBar::KMultiTabBarStyle m_sidebarTabStyle;
@@ -306,7 +306,7 @@ class MainWindow : public KParts::MainWindow
      * @return toolview's tabbar style
      */
     KMultiTabBar::KMultiTabBarStyle toolViewStyle () const;
-    
+
   protected:
     /**
      * called by toolview destructor
@@ -361,7 +361,7 @@ class MainWindow : public KParts::MainWindow
      * @param config config object to use
      */
     void saveSession (KConfigGroup *config);
-	
+
 	void updateSidebarMinimumSizes();
 
   /**

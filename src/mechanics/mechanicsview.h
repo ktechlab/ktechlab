@@ -24,9 +24,9 @@ class MechanicsView : public ItemView
 	public:
 		MechanicsView( MechanicsDocument *mechanicsDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l );
 		~MechanicsView();
-	
+
 	protected:
-		virtual void dragEnterEvent( QDragEnterEvent * e );
+		virtual void dragEnterEvent( QDragEnterEvent * e ) override;
 		MechanicsDocument *m_pMechanicsDocument;
 };
 

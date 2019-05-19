@@ -37,14 +37,14 @@ class ECCCCS : public DependentSource
 	public:
 		ECCCCS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~ECCCCS();
-	
+
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
-	
+
 	protected:
-		virtual void dataChanged();
-		virtual void drawShape( QPainter &p );
-	
+		virtual void dataChanged() override;
+		virtual void drawShape( QPainter &p ) override;
+
 		CCCS *m_cccs;
 };
 
@@ -57,14 +57,14 @@ class ECCCVS : public DependentSource
 	public:
 		ECCCVS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~ECCCVS();
-	
+
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
-	
+
 	protected:
-		virtual void dataChanged();
-		virtual void drawShape( QPainter &p );
-	
+		virtual void dataChanged() override;
+		virtual void drawShape( QPainter &p ) override;
+
 		CCVS *m_ccvs;
 };
 
@@ -77,14 +77,14 @@ class ECVCCS : public DependentSource
 	public:
 		ECVCCS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~ECVCCS();
-	
+
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
-	
+
 	protected:
-		virtual void dataChanged();
-		virtual void drawShape( QPainter &p );
-	
+		virtual void dataChanged() override;
+		virtual void drawShape( QPainter &p ) override;
+
 		VCCS *m_vccs;
 };
 
@@ -97,14 +97,14 @@ class ECVCVS : public DependentSource
 	public:
 		ECVCVS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~ECVCVS();
-	
+
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
-	
+
 	protected:
-		virtual void dataChanged();
-		virtual void drawShape( QPainter &p );
-	
+		virtual void dataChanged() override;
+		virtual void drawShape( QPainter &p ) override;
+
 		VCVS *m_vcvs;
 };
 

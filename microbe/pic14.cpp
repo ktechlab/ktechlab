@@ -5,7 +5,7 @@
  *   24-04-2007                                                            *
  *   Modified to add pic 16f877,16f627 and 16f628 			   *
  *   by george john george@space-kerala.org 				   *
- *   supported by SPACE www.space-kerala.org	 			   *	
+ *   supported by SPACE www.space-kerala.org	 			   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -29,7 +29,7 @@
 #include "pic14.h"
 
 #include <cassert>
-#include <kdebug.h>
+#include <qdebug.h>
 #include <iostream>
 using namespace std;
 QString pic_type;
@@ -59,7 +59,7 @@ PIC14::PIC14( Microbe * master, Type type )
 	mb = master;
 	m_pCode = 0l;
 	m_type = type;
-	
+
 }
 
 
@@ -74,23 +74,23 @@ PortPin PIC14::toPortPin( const QString & portPinString )
 /*****************************modified *********************************************/
 //inorder to support RB.3=high/1
 
-	if ( portPinString.length()  == 3 )	
+	if ( portPinString.length()  == 3 )
 	{
 		port = QString("PORT%1").arg( portPinString[1].toUpper() );
 		pin = QString( portPinString[2] ).toInt();
 	}
 	// In form e.g. RB.3
-	else if ( portPinString.length()  == 4 )//modification change ==3 to ==4	
+	else if ( portPinString.length()  == 4 )//modification change ==3 to ==4
 	{
 		port = QString("PORT%1").arg( portPinString[1].toUpper() );
-		pin = QString( portPinString[3] ).toInt();//modification change 2 to 3	
+		pin = QString( portPinString[3] ).toInt();//modification change 2 to 3
 	}
 	else
 	{
 		int dotpos = portPinString.indexOf(".");
 		if ( dotpos == -1 )
 			return PortPin();
-		
+
 		port = portPinString.left(dotpos);
 //modified checking is added in the case of Register also
 //now INTCON.GIE is high ,and INTCON.GIE=1/high works
@@ -110,9 +110,9 @@ PortPin PIC14::toPortPin( const QString & portPinString )
 
 //***************************Modification ends********************************
 	}
-	
+
 	PortPin portPin( port, pin );
-	
+
 	if ( isValidPortPin( portPin ) )
 		return portPin;
 //**************************Modification start ********************************
@@ -140,17 +140,17 @@ uchar PIC14::gprStart() const
 		case P16C84:
 		case P16F84:
 			return 0xc;
-			
+
 		case P16F627:
 		case P16F628:
 		case P16F877:
 			return 0x20;
-			
+
 		case unknown:
 			break;
 	}
-	
-	kError() << k_funcinfo << "Unknown PIC type = " << m_type << endl;
+
+	qCritical() << Q_FUNC_INFO << "Unknown PIC type = " << m_type << endl;
 	return 0xc;
 }
 
@@ -158,35 +158,35 @@ uchar PIC14::gprStart() const
 PIC14::Type PIC14::toType( const QString & _text )
 {
 	QString text = _text.toUpper().simplified().remove('P');
-	
+
 	if ( text == "16C84" )
-	{	
+	{
 		pic_type="P16C84";
 		return P16C84;
 	}
 	if ( text == "16F84" )
-	{	
+	{
 		pic_type="P16F84";
 		return P16F84;
 	}
 	if ( text == "16F627" )
-	{	
+	{
 		pic_type="P16F627";
 		return P16F627;
 	}
-	
+
 	if ( text == "16F628" )
-	{	
+	{
 		pic_type="P16F627";
 		return P16F628;
 	}
 //modified checking of 16F877 is included
 	if ( text == "16F877" )
-	{	
+	{
 		pic_type="P16F877";
 		return P16F877;
 	}
-	
+
 	cerr << QString("%1 is not a known PIC identifier\n").arg(_text).toStdString();
 	return unknown;
 }
@@ -198,17 +198,17 @@ QString PIC14::minimalTypeString() const
 	{
 		case P16C84:
 			return "16C84";
-			
+
 		case P16F84:
 			return "16F84";
-			
+
 		case P16F627:
 			return "16F627";
-			
+
 		case P16F628:
 			return "16F628";
 
-//modified checking of 16F877 is included			
+//modified checking of 16F877 is included
 
 		case P16F877:
 			return "16F877";
@@ -216,8 +216,8 @@ QString PIC14::minimalTypeString() const
 		case unknown:
 			break;
 	}
-	
-	kError() << k_funcinfo << "Unknown PIC type = " << m_type << endl;
+
+	qCritical() << Q_FUNC_INFO << "Unknown PIC type = " << m_type << endl;
 	return 0;;
 }
 
@@ -225,7 +225,7 @@ QString PIC14::minimalTypeString() const
 void PIC14::postCompileConstruct( const QStringList &interrupts )
 {
 	m_pCode->append( new Instr_raw("\n\tEND\n"), Code::Subroutine );
-	
+
 	if ( interrupts.isEmpty() )
 	{
 		// If there are no ISRs then we don't need to put in any handler code.
@@ -236,7 +236,7 @@ void PIC14::postCompileConstruct( const QStringList &interrupts )
 		m_pCode->queueLabel( "_start", Code::LookupTable );
 		return;
 	}
-	
+
 	/*
 		INTCON register:
 		7 --- GIE EEIE T0IE INTE RBIE T0IF INTF RBIF --- 0
@@ -250,7 +250,7 @@ void PIC14::postCompileConstruct( const QStringList &interrupts )
 	// The bizarre dance with swap is to ensure the status bits
 	// are preserved properly
 	m_pCode->append(new Instr_goto("_start"), Code::InterruptHandler);
-	
+
 	m_pCode->append(new Instr_raw("ORG 0x4"), Code::InterruptHandler);
 	// When we arrive here:
 	// Return address on stack,
@@ -259,7 +259,7 @@ void PIC14::postCompileConstruct( const QStringList &interrupts )
 	m_pCode->append(new Instr_movwf("W_TEMP"), Code::InterruptHandler);
 	m_pCode->append(new Instr_swapf("STATUS",0), Code::InterruptHandler);
 	m_pCode->append(new Instr_movwf("STATUS_TEMP"), Code::InterruptHandler);
-	
+
 	QStringList::ConstIterator interruptsEnd = interrupts.end();
 	for( QStringList::ConstIterator it = interrupts.begin(); it != interruptsEnd; ++it )
 	{
@@ -268,17 +268,17 @@ void PIC14::postCompileConstruct( const QStringList &interrupts )
 		m_pCode->append(new Instr_goto("_interrupt_" + (*it)), Code::InterruptHandler); // Yes, do its handler routine
 		// Otherwise fall through to the next.
 	}
-	
+
 	// If there was "somehow" a suprious interrupt there isn't really
 	// much we can do about that (??) so just fall through and hope for the worst.
-	
+
 	m_pCode->queueLabel( "_interrupt_end", Code::InterruptHandler );
 	m_pCode->append(new Instr_swapf("STATUS_TEMP",0), Code::InterruptHandler );
 	m_pCode->append(new Instr_movwf("STATUS"), Code::InterruptHandler );
 	m_pCode->append(new Instr_swapf("W_TEMP",1), Code::InterruptHandler );
 	m_pCode->append(new Instr_swapf("W_TEMP",0), Code::InterruptHandler );
 	m_pCode->append(new Instr_retfie()); // Returns and renables globally interrupts.
-	
+
 	m_pCode->queueLabel( "_start", Code::LookupTable );
 }
 
@@ -301,7 +301,7 @@ int PIC14::interruptNameToBit(const QString &name, bool flag)
 		if(flag) return 1;
 		else return 4;
 	}
-	
+
 	return -1;
 }
 
@@ -309,7 +309,7 @@ int PIC14::interruptNameToBit(const QString &name, bool flag)
 bool PIC14::isValidPort( const QString & portName ) const
 {
 
-	if(pic_type =="P16F84"||pic_type =="P16C84"||pic_type =="P16F627"||pic_type =="P16F628")   
+	if(pic_type =="P16F84"||pic_type =="P16C84"||pic_type =="P16F627"||pic_type =="P16F628")
 		return ( portName == "PORTA" || portName == "PORTB");
 
 	if(pic_type=="P16F877")
@@ -321,20 +321,20 @@ bool PIC14::isValidPort( const QString & portName ) const
 
 bool PIC14::isValidPortPin( const PortPin & portPin ) const
 {
- 	
-	if(pic_type == "P16F84" ||pic_type =="P16C84")   
+
+	if(pic_type == "P16F84" ||pic_type =="P16C84")
 	{
 		if ( portPin.port() == "PORTA" )
 			return (portPin.pin() >= 0) && (portPin.pin() <= 4);
-	
+
 		if ( portPin.port() == "PORTB" )
 			return (portPin.pin() >= 0) && (portPin.pin() <= 7);
 	}
-	if(pic_type == "P16F627" ||pic_type =="P16F628")   
+	if(pic_type == "P16F627" ||pic_type =="P16F628")
 	{
 		if ( portPin.port() == "PORTA" )
 			return (portPin.pin() >= 0) && (portPin.pin() <= 7);
-	
+
 		if ( portPin.port() == "PORTB" )
 			return (portPin.pin() >= 0) && (portPin.pin() <= 7);
 	}
@@ -343,7 +343,7 @@ bool PIC14::isValidPortPin( const PortPin & portPin ) const
 	{
 		if ( portPin.port() == "PORTA" )
 			return (portPin.pin() >= 0) && (portPin.pin() <= 5);
-	
+
 		if ( portPin.port() == "PORTB" )
 			return (portPin.pin() >= 0) && (portPin.pin() <= 7);
 		if ( portPin.port() == "PORTC" )
@@ -355,13 +355,13 @@ bool PIC14::isValidPortPin( const PortPin & portPin ) const
 		if ( portPin.port() == "PORTE" )
 			return (portPin.pin() >= 0) && (portPin.pin() <= 2);
 	}
-	
+
 	return false;
 }
 
 
 bool PIC14::isValidTris( const QString & trisName ) const
-{	
+{
 	if(pic_type =="P16F84"||pic_type =="P16C84"||pic_type =="P16F627"||pic_type =="P16F628")
 		return ( trisName == "TRISA" || trisName == "TRISB");
 
@@ -495,7 +495,7 @@ void PIC14::Sgoto(const QString &label)
 
 void PIC14::Slabel(const QString &label)
 {
-// 	std::cout << k_funcinfo << "label="<<label<<'\n';
+// 	std::cout << Q_FUNC_INFO << "label="<<label<<'\n';
 	m_pCode->queueLabel( label, Code::Middle );
 }
 
@@ -514,11 +514,11 @@ void PIC14::Ssubroutine( const QString &procName, Code * subCode )
 void PIC14::Sinterrupt( const QString &procName, Code * subCode )
 {
 	m_pCode->queueLabel( "_interrupt_" + procName, Code::Subroutine );
-	
+
 	// Clear the interrupt flag for this particular interrupt source
 	m_pCode->append( new Instr_bcf("INTCON",QString::number(interruptNameToBit(procName,true))) );
 	m_pCode->merge( subCode, Code::Subroutine );
-	
+
 	m_pCode->append( new Instr_goto("_interrupt_end"), Code::Subroutine );
 }
 
@@ -543,10 +543,10 @@ void PIC14::rearrangeOpArguments( QString * val1, QString * val2, LocationType *
 	{
 		LocationType tempType = *val2Type;
 		QString tempVal = *val2;
-		
+
 		*val2Type = *val1Type;
 		*val2 = *val1;
-		
+
 		*val1Type = tempType;
 		*val1 = tempVal;
 	}
@@ -562,7 +562,7 @@ void PIC14::add( QString val1, QString val2, LocationType val1Type, LocationType
 		case work: break;
 		case var: m_pCode->append(new Instr_movf(val1,0)); break;
 	}
-	
+
 	switch(val2Type)
 	{
 		case num: m_pCode->append(new Instr_addlw(val2.toInt( 0, 0 ))); break;
@@ -610,9 +610,9 @@ void PIC14::saveResultToVar( const QString & var )
 void PIC14::mul(QString val1, QString val2, LocationType val1Type, LocationType val2Type)
 {
 	multiply();
-	
+
 	rearrangeOpArguments( &val1, &val2, &val1Type, &val2Type );
-	
+
 	// First, set _i argument
 	switch(val1Type)
 	{
@@ -620,9 +620,9 @@ void PIC14::mul(QString val1, QString val2, LocationType val1Type, LocationType 
 		case work: break;
 		case var: m_pCode->append(new Instr_movf(val1,0)); break;
 	}
-	
+
 	m_pCode->append(new Instr_movwf("__i"));
-	
+
 	// Then set _j argument
 	switch(val2Type)
 	{
@@ -630,7 +630,7 @@ void PIC14::mul(QString val1, QString val2, LocationType val1Type, LocationType 
 		case work: break;
 		case var: m_pCode->append(new Instr_movf(val2,0)); break;
 	}
-	
+
 	m_pCode->append(new Instr_movwf("__j"));
 	m_pCode->append(new Instr_call("__picfunc_multiply"));
 	m_pCode->append(new Instr_movf("__result",0));
@@ -641,10 +641,10 @@ void PIC14::multiply()
 {
 	if ( m_pCode->instruction("__picfunc_multiply") )
 		return;
-	
+
 	m_pCode->queueLabel( "__picfunc_multiply", Code::Subroutine );
 	m_pCode->append(new Instr_clrf("__result"), Code::Subroutine ); //result+=m_pCode->appenduction("clrf __result");
-	
+
 	m_pCode->queueLabel( "__picfunc_multiply_loop", Code::Subroutine );
 	m_pCode->append(new Instr_movf("__i",0), Code::Subroutine ); //result+=m_pCode->appenduction("movf __i,0");
 	m_pCode->append(new Instr_btfsc("__j","0"), Code::Subroutine ); //result+=m_pCode->appenduction("btfsc __j,0");
@@ -663,10 +663,10 @@ void PIC14::multiply()
 void PIC14::div( const QString & val1, const QString & val2, LocationType val1Type, LocationType val2Type)
 {
 	divide();
-	
+
 	// NOO - "x / 2" is NOT the same as "2 / x"
 // 	rearrangeOpArguments( val1, val2, val1Type, val2Type );
-	
+
 	// First, set _i argument
 	switch(val1Type)
 	{
@@ -674,9 +674,9 @@ void PIC14::div( const QString & val1, const QString & val2, LocationType val1Ty
 		case work: break;
 		case var: m_pCode->append(new Instr_movf(val1,0)); break;
 	}
-	
+
 	m_pCode->append(new Instr_movwf("__i"));
-	
+
 	// Then set _j argument
 	switch(val2Type)
 	{
@@ -684,7 +684,7 @@ void PIC14::div( const QString & val1, const QString & val2, LocationType val1Ty
 		case work: break;
 		case var: m_pCode->append(new Instr_movf(val2,0)); break;
 	}
-	
+
 	m_pCode->append(new Instr_movwf("__j"));
 
 	m_pCode->append(new Instr_call("__picfunc_divide"));//result+=instruction("call __picfunc_divide");
@@ -700,7 +700,7 @@ void PIC14::divide()
 	m_pCode->append(new Instr_clrf("__result"), Code::Subroutine );
 	m_pCode->append(new Instr_movlw(1), Code::Subroutine );
 	m_pCode->append(new Instr_movwf("__k"), Code::Subroutine );
-	
+
 	m_pCode->queueLabel( "__divide_shift", Code::Subroutine );
 	m_pCode->append(new Instr_bcf("STATUS","C"), Code::Subroutine );
 	m_pCode->append(new Instr_rlf("__k",1), Code::Subroutine );
@@ -708,7 +708,7 @@ void PIC14::divide()
 	m_pCode->append(new Instr_rlf("__j",1), Code::Subroutine );
 	m_pCode->append(new Instr_btfss("__j","7"), Code::Subroutine );
 	m_pCode->append(new Instr_goto("__divide_shift"), Code::Subroutine );
-	
+
 	m_pCode->queueLabel( "__divide_loop", Code::Subroutine );
 	m_pCode->append(new Instr_movf("__j",0), Code::Subroutine );
 	m_pCode->append(new Instr_subwf("__i",1), Code::Subroutine );
@@ -716,11 +716,11 @@ void PIC14::divide()
 	m_pCode->append(new Instr_goto("__divide_count"), Code::Subroutine );
 	m_pCode->append(new Instr_addwf("__i",1), Code::Subroutine );
 	m_pCode->append(new Instr_goto("__divide_final"), Code::Subroutine );
-	
+
 	m_pCode->queueLabel( "__divide_count", Code::Subroutine );
 	m_pCode->append(new Instr_movf("__k",0), Code::Subroutine );
 	m_pCode->append(new Instr_addwf("__result",1), Code::Subroutine );
-	
+
 	m_pCode->queueLabel( "__divide_final", Code::Subroutine );
 	m_pCode->append(new Instr_bcf("STATUS","C"), Code::Subroutine );
 	m_pCode->append(new Instr_rrf("__j",1), Code::Subroutine );
@@ -748,31 +748,31 @@ void PIC14::ifInitCode( const QString &val1, const QString &val2, LocationType v
 {
 	// NOO - "x < 2" is NOT the same as "2 < x"
 // 	rearrangeOpArguments( val1, val2, val1Type, val2Type );
-	
+
 	switch(val1Type)
 	{
 		case num:
 			m_pCode->append(new Instr_movlw(val1.toInt( 0, 0 )));
 			break;
-			
+
 		case work:
 			break; // Nothing to do
-			
+
 		case var:
 			m_pCode->append(new Instr_movf(val1,0));
 			break;
 	}
-	
+
 	switch(val2Type)
 	{
 		case num:
 			m_pCode->append(new Instr_sublw(val2.toInt( 0, 0 )));
 			break;
-			
+
 		case work:
-			kError() << k_funcinfo << "Cannot subtract working from working!" << endl;
+			qCritical() << Q_FUNC_INFO << "Cannot subtract working from working!" << endl;
 			break;
-			
+
 		case var:
 			m_pCode->append(new Instr_subwf(val2,0));
 			break;
@@ -784,14 +784,14 @@ void PIC14::equal( const QString &val1, const QString &val2, LocationType val1Ty
 	ifInitCode( val1, val2, val1Type, val2Type );
 	const QString labelEnd = mb->uniqueLabel()+"_endif";
 	const QString labelFalse = mb->uniqueLabel()+"_case_false";
-	
+
 	m_pCode->append(new Instr_btfss("STATUS","2"));
 	m_pCode->append(new Instr_goto(labelFalse));
-	
+
 	mergeCode( ifCode() );
-	
+
 	m_pCode->append(new Instr_goto(labelEnd));
-	
+
 	m_pCode->queueLabel( labelFalse );
 	mergeCode( elseCode() );
 	m_pCode->queueLabel( labelEnd );
@@ -802,14 +802,14 @@ void PIC14::notEqual( const QString &val1, const QString &val2, LocationType val
 	ifInitCode( val1, val2, val1Type, val2Type );
 	const QString labelEnd = mb->uniqueLabel()+"_endif";
 	const QString labelFalse = mb->uniqueLabel()+"_case_false";
-	
+
 	m_pCode->append(new Instr_btfsc("STATUS","2"));
 	m_pCode->append(new Instr_goto(labelFalse));
-	
+
 	mergeCode( ifCode() );
-	
+
 	m_pCode->append(new Instr_goto(labelEnd));
-	
+
 	m_pCode->queueLabel( labelFalse );
 	mergeCode( elseCode() );
 	m_pCode->queueLabel( labelEnd );
@@ -820,13 +820,13 @@ void PIC14::greaterThan( const QString &val1, const QString &val2, LocationType 
 	ifInitCode( val1, val2, val1Type, val2Type );
 	const QString labelEnd = mb->uniqueLabel()+"_endif";
 	const QString labelFalse = mb->uniqueLabel()+"_case_false";
-	
+
 	m_pCode->append(new Instr_btfsc("STATUS","0"));
 	m_pCode->append(new Instr_goto(labelFalse));
-	
+
 	mergeCode( ifCode() );
 	m_pCode->append(new Instr_goto(labelEnd));
-	
+
 	m_pCode->queueLabel( labelFalse );
 	mergeCode( elseCode() );
 	m_pCode->queueLabel( labelEnd );
@@ -834,20 +834,20 @@ void PIC14::greaterThan( const QString &val1, const QString &val2, LocationType 
 
 void PIC14::lessThan( const QString &val1, const QString &val2, LocationType val1Type, LocationType val2Type )
 {
-	cout << k_funcinfo << endl;
+	cout << Q_FUNC_INFO << endl;
 	ifInitCode( val1, val2, val1Type, val2Type );
 	const QString labelEnd = mb->uniqueLabel()+"_endif";
 	const QString labelFalse = mb->uniqueLabel()+"_case_false";
-	
+
 	m_pCode->append(new Instr_btfss("STATUS","0"));
 	m_pCode->append(new Instr_goto(labelFalse));
 	m_pCode->append(new Instr_btfsc("STATUS","2"));
 	m_pCode->append(new Instr_goto(labelFalse));
-	
+
 	mergeCode( ifCode() );
-	
+
 	m_pCode->append(new Instr_goto(labelEnd));
-	
+
 	m_pCode->queueLabel( labelFalse );
 	mergeCode( elseCode() );
 	m_pCode->queueLabel( labelEnd );
@@ -858,16 +858,16 @@ void PIC14::greaterOrEqual( const QString &val1, const QString &val2, LocationTy
 	ifInitCode( val1, val2, val1Type, val2Type );
 	const QString labelEnd = mb->uniqueLabel()+"_endif";
 	const QString labelTrue = mb->uniqueLabel()+"_case_true"; // Note that unlike the others, this is labelTrue, not labelFalse
-	
+
 	m_pCode->append(new Instr_btfsc("STATUS","2"));
 	m_pCode->append(new Instr_goto(labelTrue));
 	m_pCode->append(new Instr_btfss("STATUS","0"));
 	m_pCode->append(new Instr_goto(labelTrue));
-	
+
 	mergeCode( elseCode() );
-	
+
 	m_pCode->append(new Instr_goto(labelEnd));
-	
+
 	m_pCode->queueLabel( labelTrue );
 	mergeCode( ifCode() );
 	m_pCode->queueLabel( labelEnd );
@@ -878,13 +878,13 @@ void PIC14::lessOrEqual( const QString &val1, const QString &val2, LocationType 
 	ifInitCode( val1, val2, val1Type, val2Type );
 	const QString labelEnd = mb->uniqueLabel()+"_endif";
 	const QString labelFalse = mb->uniqueLabel()+"_case_false";
-	
+
 	m_pCode->append(new Instr_btfss("STATUS","0"));
 	m_pCode->append(new Instr_goto(labelFalse));
-	
+
 	mergeCode( ifCode() );
 	m_pCode->append(new Instr_goto(labelEnd));
-	
+
 	m_pCode->queueLabel( labelFalse );
 	mergeCode( elseCode() );
 	m_pCode->queueLabel( labelEnd );
@@ -895,11 +895,11 @@ void PIC14::Swhile( Code * whileCode, const QString &expression)
 {
 	QString result;
 	QString ul = mb->uniqueLabel();
-	
+
 	whileCode->append( new Instr_goto(ul) );
-	
+
 	m_pCode->queueLabel( ul, Code::Middle );
-	
+
 	// If the condition is not true, just fall through
 	m_parser->compileConditionalExpression( expression, whileCode, 0 );
 }
@@ -909,13 +909,13 @@ void PIC14::Srepeat( Code * repeatCode, const QString &expression)
 {
 	QString result;
 	QString ul = mb->uniqueLabel();
-	
+
 	Code * elseCode = new Code;
 	elseCode->append( new Instr_goto(ul) );
-	
+
 	m_pCode->queueLabel( ul );
 	m_pCode->merge( repeatCode );
-	
+
 	// If the condition is true, just fall through
 	m_parser->compileConditionalExpression( expression, 0, elseCode );
 }
@@ -929,7 +929,7 @@ void PIC14::Sif( Code * ifCode, Code * elseCode, const QString &expression)
 void PIC14::Sfor( Code * forCode, Code * initCode, const QString &expression, const QString &variable, const QString &step, bool stepPositive)
 {
 	QString ul = mb->uniqueLabel();
-	
+
 	if ( step == "1" )
 	{
 		if (stepPositive)
@@ -946,9 +946,9 @@ void PIC14::Sfor( Code * forCode, Code * initCode, const QString &expression, co
 			forCode->append(new Instr_subwf(variable,1));
 	}
 	forCode->append(new Instr_goto(ul));
-	
+
 	m_pCode->merge( initCode );
-	
+
 	m_pCode->queueLabel( ul );
 
 	m_parser->compileConditionalExpression( expression, forCode, 0 );
@@ -961,24 +961,24 @@ void PIC14::Spin( const PortPin & portPin, bool NOT)
 	lowLabel = mb->uniqueLabel();
 	highLabel = mb->uniqueLabel();
 	postLabel = mb->uniqueLabel();
-	/*result += indent + "goto\t" + lowLabel; 
+	/*result += indent + "goto\t" + lowLabel;
 	result += indent + "movlw\t1" + "goto\t"+postLabel+;
 	result += lowLabel +  + indent + "movlw\t0" + indent;
 	result += postLabel + ;*/
-	
+
 	if(NOT)
 		m_pCode->append(new Instr_btfsc( portPin.port(), QString::number( portPin.pin() ) ));
 	//result +=instruction((QString)(NOT?"btfsc":"btfss")+"\t"+port+","+pin);
 	else
 		m_pCode->append(new Instr_btfss( portPin.port(), QString::number( portPin.pin() ) ));
-	
-	m_pCode->append(new Instr_goto(lowLabel));//result += instruction("goto\t" + lowLabel); 
+
+	m_pCode->append(new Instr_goto(lowLabel));//result += instruction("goto\t" + lowLabel);
 	mergeCode( ifCode() );
 	m_pCode->append(new Instr_goto(postLabel));//result += instruction("goto\t"+postLabel);
-	
+
 	m_pCode->queueLabel( lowLabel );
 	mergeCode( elseCode() );
-	
+
 	m_pCode->queueLabel( postLabel );
 }
 
@@ -987,69 +987,69 @@ void PIC14::Sdelay( unsigned length_us, Code::InstructionPosition pos )
 {
 	if ( length_us == 0 )
 		return;
-	
+
 	if ( length_us > 50070524 )
 	{
 		length_us += 50267642;
 		int l = length_us/50070530;
 		length_us -= l * 50070530;
 		int k = length_us/196355;
-		
+
 		m_pCode->append( new Instr_movlw( l ), pos );
 		m_pCode->append( new Instr_movwf( "__l" ), pos );
 		m_pCode->append( new Instr_movlw( k ), pos );
 		m_pCode->append( new Instr_movwf( "__k" ), pos );
-		
+
 		mb->addDelayRoutineWanted( Delay_50S );
 	}
-	
+
 	else if ( length_us > 196350 )
 	{
 		length_us += 197116;
 		int k = length_us/196355;
 		length_us -= k * 196355;
 		int j = length_us/770;
-		
+
 		m_pCode->append( new Instr_incf( "__l", 1 ), pos );
 		m_pCode->append( new Instr_movlw( k ), pos );
 		m_pCode->append( new Instr_movwf( "__k" ), pos );
 		m_pCode->append( new Instr_movlw( j ), pos );
 		m_pCode->append( new Instr_movwf( "__j" ), pos );
-		
+
 		mb->addDelayRoutineWanted( Delay_200mS );
 	}
-	
+
 	else if ( length_us > 766 )
 	{
 		length_us += 765;
 		int j = length_us/770;
 		length_us -= j * 770;
 		int i = length_us/3;
-		
+
 		m_pCode->append( new Instr_incf( "__l", 1 ), pos );
 		m_pCode->append( new Instr_incf( "__k", 1 ), pos );
 		m_pCode->append( new Instr_movlw( j ), pos );
 		m_pCode->append( new Instr_movwf( "__j" ), pos );
 		m_pCode->append( new Instr_movlw( i ), pos );
 		m_pCode->append( new Instr_movwf( "__i" ), pos );
-		
+
 		mb->addDelayRoutineWanted( Delay_768uS );
 	}
-	
+
 	else
 	{
 		length_us += -1;
 		int i = length_us/3;
-		
+
 		m_pCode->append( new Instr_incf( "__l", 1 ), pos );
 		m_pCode->append( new Instr_incf( "__k", 1 ), pos );
 		m_pCode->append( new Instr_incf( "__j", 1 ), pos );
 		m_pCode->append( new Instr_movlw( i ), pos );
 		m_pCode->append( new Instr_movwf( "__i" ), pos );
-		
+
 		mb->addDelayRoutineWanted( Delay_3uS );
 	}
-	
+
 	m_pCode->append( new Instr_call( "__delay_subroutine"), pos );
 }
 
@@ -1060,28 +1060,28 @@ void PIC14::addCommonFunctions( DelaySubroutine delay )
 	{
 		QString subName = "__delay_subroutine";
 		m_pCode->queueLabel( subName, Code::Subroutine );
-		
+
 		m_pCode->append( new Instr_decfsz( "__i", 1 ), Code::Subroutine );
 		m_pCode->append( new Instr_goto( subName ), Code::Subroutine );
-		
+
 		if ( delay > Delay_3uS )
 		{
 			m_pCode->append( new Instr_decfsz( "__j", 1 ), Code::Subroutine );
 			m_pCode->append( new Instr_goto( subName ), Code::Subroutine );
 		}
-		
+
 		if ( delay > Delay_768uS )
 		{
 			m_pCode->append( new Instr_decfsz( "__k", 1 ), Code::Subroutine );
 			m_pCode->append( new Instr_goto( subName ), Code::Subroutine );
 		}
-		
+
 		if ( delay > Delay_200mS )
 		{
 			m_pCode->append( new Instr_decfsz( "__l", 1 ), Code::Subroutine );
 			m_pCode->append( new Instr_goto( subName ), Code::Subroutine );
 		}
-		
+
 		m_pCode->append( new Instr_return(), Code::Subroutine );
 	}
 }
@@ -1091,14 +1091,14 @@ void PIC14::SsevenSegment( const Variable & pinMap )
 {
 	assert( pinMap.type() == Variable::sevenSegmentType );
 	assert( pinMap.portPinList().size() == 7 );
-	
+
 	QString subName = QString("__output_seven_segment_%1").arg( pinMap.name() );
-	
+
 	m_pCode->append( new Instr_call( subName ) );
-	
+
 	if ( m_pCode->instruction(subName) )
 		return;
-	
+
 	// Build up what are going to write to each port from the pin map
 	struct SSPortOutput
 	{
@@ -1107,28 +1107,28 @@ void PIC14::SsevenSegment( const Variable & pinMap )
 		bool out[16][8]; // The bit to write to each pin for each value.
 		uchar useMask; // The bits of use[8] - this is generated later from use[8]
 	};
-	
+
 	unsigned numPorts = 2;
 	SSPortOutput portOutput[ 2 ];  // numPorts
 	memset( portOutput, 0, numPorts * sizeof(SSPortOutput) );
-	
+
 	for ( unsigned i = 0; i < 7; ++i )
 	{
 		PortPin portPin = pinMap.portPinList()[i];
-		
+
 		unsigned port = unsigned( portPin.portPosition() );
 		unsigned pin = unsigned( portPin.pin() );
-		
+
 		portOutput[ port ].used = true;
 		portOutput[ port ].use[ pin ] = true;
-		
+
 		for ( unsigned num = 0; num < 16; ++num )
 		{
 			portOutput[ port ].out[ num ][ pin ] = LEDSegTable[num][ i ];
 		}
 	}
-	
-	
+
+
 	// See if we've used more than one port
 	unsigned portsUsed = 0;
 	for ( unsigned port = 0; port < numPorts; ++port )
@@ -1136,8 +1136,8 @@ void PIC14::SsevenSegment( const Variable & pinMap )
 		if ( portOutput[port].used )
 			portsUsed++;
 	}
-	
-	
+
+
 	// Generate the useMasks
 	for ( unsigned port = 0; port < numPorts; ++port )
 	{
@@ -1145,55 +1145,55 @@ void PIC14::SsevenSegment( const Variable & pinMap )
 		for ( unsigned pin = 0; pin < 8; ++pin )
 			portOutput[port].useMask |= portOutput[port].use[pin] ? (1 << pin) : 0;
 	}
-	
-	
+
+
 	//BEGIN Generate [subName] Subroutine
 	m_pCode->queueLabel( subName, Code::Subroutine );
 // 	if ( portsUsed > 1 )
 	{
 		m_pCode->append( new Instr_movwf("__i"), Code::Subroutine );
 	}
-	
+
 // 	bool overwrittenW = false;
 	bool overwrittenW = true;
-	
+
 	for ( unsigned port = 0; port < numPorts; ++port )
 	{
 		if ( !portOutput[port].used )
 			continue;
-		
+
 		QString portName = QString("PORT%1").arg( char('A'+port) );
-		
+
 		// Save the current value of the port pins that we should not be writing to
 		m_pCode->append( new Instr_movf( portName, 0 ), Code::Subroutine );
 		m_pCode->append( new Instr_andlw( ~portOutput[port].useMask ), Code::Subroutine );
 		m_pCode->append( new Instr_movwf( "__j" ), Code::Subroutine );
-		
+
 		if ( overwrittenW )
 			m_pCode->append( new Instr_movf("__i",0), Code::Subroutine );
-		
+
 		m_pCode->append( new Instr_call( subName + QString("_lookup_%1").arg(port) ), Code::Subroutine );
 		overwrittenW = true;
-		
+
 		// Restore the state of the pins which aren't used
 		m_pCode->append( new Instr_iorwf( "__j", 0 ), Code::Subroutine );
-		
+
 		// And write the result to the port
 		m_pCode->append( new Instr_movwf( portName ), Code::Subroutine );
 	}
-	
+
 	m_pCode->append( new Instr_return(), Code::Subroutine );
 	//END Generate [subName] Subroutine
-	
+
 	// For each port, generate code for looking up the value for writing to it
 	for ( unsigned port = 0; port < numPorts; ++port )
 	{
 		if ( !portOutput[port].used )
 			continue;
-		
+
 		m_pCode->queueLabel( subName + QString("_lookup_%1").arg(port), Code::LookupTable );
 		m_pCode->append( new Instr_andlw(15), Code::LookupTable );
-	
+
 		// Generate the lookup table
 		m_pCode->append( new Instr_addwf( "pcl", 1 ), Code::LookupTable );
 		for ( unsigned num = 0; num < 16; ++num )
@@ -1201,7 +1201,7 @@ void PIC14::SsevenSegment( const Variable & pinMap )
 			unsigned literal = 0;
 			for ( unsigned bit = 0; bit < 8; ++bit )
 				literal += ( portOutput[port].out[num][bit] ? 1 : 0 ) << bit;
-			
+
 			m_pCode->append( new Instr_retlw( literal ), Code::LookupTable );
 		}
 	}
@@ -1211,26 +1211,26 @@ void PIC14::SsevenSegment( const Variable & pinMap )
 void PIC14::Skeypad( const Variable & pinMap )
 {
 	// pinMap = 4 rows, n columns
-	
+
 	assert( pinMap.type() == Variable::keypadType );
 	assert( pinMap.portPinList().size() >= 7 ); // 4 rows, at least 3 columns
-	
+
 	QString subName = QString("__wait_read_keypad_%1").arg( pinMap.name() );
 	QString waitName = QString("__wait_keypad_%1").arg( pinMap.name() );
 	QString readName = QString("__read_keypad_%1").arg( pinMap.name() );
-	
+
 	m_pCode->append( new Instr_call( subName ) );
-	
+
 	if ( m_pCode->instruction( subName ) )
 		return;
-	
+
 	//BEGIN Wait until read subroutine
 	m_pCode->queueLabel( subName, Code::Subroutine );
-	
+
 	// Read current key (if any) from keypad and save to temporary variable
 	m_pCode->append( new Instr_call( readName ), Code::Subroutine );
 	m_pCode->append( new Instr_movwf( "__m" ), Code::Subroutine );
-	
+
 	// Test if any key was pressed; if not, then start again
 // 	std::cout << "mb->alias(\"Keypad_None\")="<<mb->alias("Keypad_None") << std::endl;
 	m_pCode->append( new Instr_sublw( mb->alias("Keypad_None").toInt( 0, 0 ) ), Code::Subroutine );
@@ -1238,13 +1238,13 @@ void PIC14::Skeypad( const Variable & pinMap )
 	m_pCode->append( new Instr_goto( subName ), Code::Subroutine );
 	m_pCode->append( new Instr_goto( waitName ), Code::Subroutine );
 	//END Wait until read subroutine
-	
-	
+
+
 	//BEGIN Wait until released subroutine
 	m_pCode->queueLabel( waitName, Code::Subroutine );
-	
+
 	Sdelay( 10000, Code::Subroutine ); // 10 milliseconds for debouncing
-	
+
 	// Key was pressed; now we wait until the key is released again
 	m_pCode->append( new Instr_call( readName ), Code::Subroutine );
 	m_pCode->append( new Instr_sublw( mb->alias("Keypad_None").toInt( 0, 0 ) ), Code::Subroutine );
@@ -1253,39 +1253,39 @@ void PIC14::Skeypad( const Variable & pinMap )
 	m_pCode->append( new Instr_movf( "__m", 0 ), Code::Subroutine );
 	m_pCode->append( new Instr_return(), Code::Subroutine );
 	//END Wait until released subroutine
-	
-	
+
+
 	if ( m_pCode->instruction( readName ) )
 		return;
-	
+
 	//BEGIN Read current value of keypad subroutine
 	m_pCode->queueLabel( readName, Code::Subroutine );
-	
+
 	// Make the four row lines low
 	for ( unsigned row = 0; row < 4; ++ row )
 	{
 		PortPin rowPin = pinMap.portPinList()[row];
 		m_pCode->append( new Instr_bcf( rowPin.port(), QString::number( rowPin.pin() ) ), Code::Subroutine );
 	}
-	
+
 	// Test each row in turn
 	for ( unsigned row = 0; row < 4; ++ row )
 	{
 		// Make the high low
 		PortPin rowPin = pinMap.portPinList()[row];
 		m_pCode->append( new Instr_bsf( rowPin.port(), QString::number( rowPin.pin() ) ), Code::Subroutine );
-		
+
 		for ( unsigned col = 0; col < 3; ++ col )
 		{
 			PortPin colPin = pinMap.portPinList()[4+col];
 			m_pCode->append( new Instr_btfsc( colPin.port(), QString::number( colPin.pin() ) ), Code::Subroutine );
 			m_pCode->append( new Instr_retlw( mb->alias( QString("Keypad_%1_%2").arg(row+1).arg(col+1) ).toInt( 0, 0 ) ), Code::Subroutine );
 		}
-		
+
 		// Make the low again
 		m_pCode->append( new Instr_bcf( rowPin.port(), QString::number( rowPin.pin() ) ), Code::Subroutine );
 	}
-	
+
 	// No key was pressed
 	m_pCode->append( new Instr_retlw( mb->alias("Keypad_None").toInt( 0, 0 ) ), Code::Subroutine );
 	//END Read current value of keypad subroutine
@@ -1301,7 +1301,7 @@ void PIC14::bitwise( Expression::Operation op, const QString &r_val1, const QStr
 	if( op == Expression::bwnot ) val1 = "0xFF";
 	if( val1IsNum ) m_pCode->append(new Instr_movlw(val1.toInt( 0, 0 )));// result += instruction("movlw\t"+val1);
 	else m_pCode->append(new Instr_movf(val1,0));//result += instruction("movf\t"+val1+",0");
-	
+
 	QString opString;
 	if( val2IsNum )
 	{
@@ -1324,11 +1324,11 @@ void PIC14::bitwise( Expression::Operation op, const QString &r_val1, const QStr
 			case Expression::bwnot: m_pCode->append(new Instr_xorwf(val2,0)); break;
 			default: break;
 		}
-	
+
 	}
 }*/
 ///comment end and the new function is given bellow -- new code is working well
-// TODO - One error with OR operation if A OR 255 result in segebentation fault 
+// TODO - One error with OR operation if A OR 255 result in segebentation fault
 //*****************modified to make the bit operation works***************************/
 void PIC14::bitwise( Expression::Operation op,const QString & r_val1, const QString & val2, LocationType val1Type, LocationType val2Type)
 {
@@ -1342,7 +1342,7 @@ void PIC14::bitwise( Expression::Operation op,const QString & r_val1, const QStr
 	}
 	switch(val2Type)
 	{
-		case num: 
+		case num:
 		{
 			switch(op)
 			{
@@ -1354,7 +1354,7 @@ void PIC14::bitwise( Expression::Operation op,const QString & r_val1, const QStr
 		}
 		}
 		case work: break;
-		case var: 
+		case var:
 		{
 			switch(op)
 			{
@@ -1364,10 +1364,10 @@ void PIC14::bitwise( Expression::Operation op,const QString & r_val1, const QStr
 				case Expression::bwnot: m_pCode->append(new Instr_xorwf(val2,0)); break;
 				default: break;
 			}
-			
+
 		}
 	}
-	
+
 }//***************************************modification ends*****************************
 void PIC14::SincVar( const QString &var )
 {
@@ -1394,13 +1394,13 @@ void PIC14::Stristate(const QString &port)
 //modification pic type is checked here
 	m_pCode->append( new Instr_bsf("STATUS","5") );//commented
 	if(pic_type== "P16C84" || pic_type =="P16F84"||pic_type =="P16F627")
-	{ 	
+	{
 		if( port == "trisa" || port == "TRISA" )
 			saveResultToVar( "TRISA" );
 		else	saveResultToVar( "TRISB" );
 	}
-	if(pic_type =="P16F877") 
-	{ 	
+	if(pic_type =="P16F877")
+	{
 		if( port == "trisa" || port == "TRISA" )
 			saveResultToVar( "TRISA" );
 		else if( port == "trisb" || port == "TRISB" )
@@ -1410,7 +1410,7 @@ void PIC14::Stristate(const QString &port)
 		else if( port == "trisd" || port == "TRISD" )
 			saveResultToVar( "TRISD" );
 		else	saveResultToVar( "TRISE" );
-	
+
 	}
 	m_pCode->append( new Instr_bcf(Register("STATUS"),"5") );//commented
 }

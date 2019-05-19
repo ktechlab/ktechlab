@@ -27,15 +27,16 @@
 #include "gpsimprocessor.h"
 
 // #include <kate/katedocument.h>
+#include <qaction.h>
+#include <qdebug.h>
 
-#include <kaction.h>
-#include <kdebug.h>
 #include <klibloader.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <ktemporaryfile.h>
 #include <ktexteditor/document.h>
 #include <kxmlguifactory.h>
+#include <KTextEditor/Editor>
 
 
 bool TextDocument::isUndoAvailable() const {
@@ -63,7 +64,7 @@ TextDocument::TextDocument( const QString &caption, const char *name )
 	  m_doc(0)
 {
 	m_constructorSuccessful = false;
-	
+
 #ifndef NO_GPSIM
 	m_bOwnDebugger = false;
 	b_lockSyncBreakpoints = false;
@@ -76,37 +77,16 @@ TextDocument::TextDocument( const QString &caption, const char *name )
 	m_type = Document::dt_text;
 	//m_bookmarkActions.setAutoDelete(true); // TODO see if this genereates memory leaks
 	m_pDocumentIface = new TextDocumentIface(this);
-	
-    KPluginLoader loader( "katepart" );
-    KPluginFactory* factory = loader.factory();
-    if (!factory) {
-        kWarning() << "Error loading plugin:" << loader.errorString();
-		KMessageBox::sorry( KTechlab::self(), i18n("Libkatepart not available for constructing editor") );
-		return;
-    }
-    m_doc = factory->create<KTextEditor::Document>( /* QString("KatePart"), */ this  /*,  list */ );
+    KTextEditor::Editor* editor = KTextEditor::Editor::instance();
+    m_doc = editor->createDocument(this);
 
-#if 0 // 2017.10.01 - commented deprecated method
-	KLibFactory *factory = KLibLoader::self()->factory("katepart");
-	if(!factory)
-	{
-		KMessageBox::sorry( KTechlab::self(), i18n("Libkatepart not available for constructing editor") );
-		return;
-	}
-	//m_doc = (KTextEditor::Document*)factory->create( 0L, "kate", "KTextEditor::Document");
-	{
-	//QVariantList list;
-    //list.append(QVariant( "KTextEditor::Document"));
-	m_doc = factory->create<KTextEditor::Document>( /* QString("KatePart"), */ this  /*,  list */ );
-    }
-#endif
     if(!m_doc)
     {
         KMessageBox::sorry( KTechlab::self(), i18n("Failed to create editor") );
         return;
     }
 	guessScheme();
-	
+
 	connect( m_doc, SIGNAL(undoChanged()),		this, SIGNAL(undoRedoStateChanged()) );
 	connect( m_doc, SIGNAL(undoChanged()),		this, SLOT(slotSyncModifiedStates()) );
 	connect( m_doc, SIGNAL(textChanged(KTextEditor::Document *)),		this, SLOT(slotSyncModifiedStates()) );
@@ -136,7 +116,7 @@ TextDocument::~TextDocument()
 	if( !m_constructorSuccessful ) return;
 
 	debugStop();
-	
+
 	if ( KTechlab::self() )
 	{
 		ViewList::iterator end = m_viewList.end();
@@ -149,7 +129,7 @@ TextDocument::~TextDocument()
 			}
 		}
 	}
-	
+
 	delete m_doc;
 	delete m_pDocumentIface;
 }
@@ -160,7 +140,7 @@ bool TextDocument::fileClose()
 	const QString path = url().prettyUrl();
 	if ( !path.isEmpty() )
 		fileMetaInfo()->grabMetaInfo( path, this );
-	
+
 	return Document::fileClose();
 }
 
@@ -174,9 +154,9 @@ TextView* TextDocument::textView() const
 View * TextDocument::createView( ViewContainer *viewContainer, uint viewAreaId, const char *name )
 {
 	TextView * textView = new TextView( this, viewContainer, viewAreaId, name );
-	
+
 	fileMetaInfo()->initializeFromMetaInfo( url().prettyUrl(), textView );
-	
+
 	handleNewView(textView);
 	return textView;
 }
@@ -218,19 +198,19 @@ void TextDocument::setText( const QString & text, bool asInitial )
 	const ViewList::iterator end = m_viewList.end();
 	for ( ViewList::iterator it = m_viewList.begin(); it != end; ++it )
 		(static_cast<TextView*>((View*)*it))->saveCursorPosition();
-		
+
 	m_doc->setText(text);
-	
+
 	for ( ViewList::iterator it = m_viewList.begin(); it != end; ++it )
 		(static_cast<TextView*>((View*)*it))->restoreCursorPosition();
-	
+
 	if ( asInitial )
 	{
 		//m_doc->clearUndo(); // TODO FIXME
 		//m_doc->clearRedo(); // TODO FIXME
         qWarning() << "TextDocument::clearUndo TODO";
 		setModified(false);
-	
+
 		connect( m_doc, SIGNAL(undoChanged()), this, SIGNAL(undoRedoStateChanged()) );
 		connect( m_doc, SIGNAL(undoChanged()), this, SLOT(slotSyncModifiedStates()) );
 		connect( m_doc, SIGNAL(textChanged(KTextEditor::Document *)), this, SLOT(slotSyncModifiedStates()) );
@@ -263,7 +243,7 @@ void TextDocument::setModified( bool modified )
 	}
 	m_doc->setModified(modified);
 	b_modified = modified;
-	
+
 	emit modifiedStateChanged();
 }
 
@@ -273,22 +253,22 @@ void TextDocument::guessScheme( bool allowDisable )
 	// And specific file actions depending on the current type of file
 	QString fileName = url().fileName();
 	QString extension = fileName.right( fileName.length() - fileName.lastIndexOf('.') - 1 );
-	
+
 	if ( extension == "asm" || extension == "src" || extension == "inc" )
 		slotInitLanguage(ct_asm);
-	
+
 	else if ( extension == "hex" )
 		slotInitLanguage(ct_hex);
-	
+
 	else if ( extension == "basic" || extension == "microbe" )
 		slotInitLanguage(ct_microbe);
-	
+
 	else if ( extension == "c" )
 		slotInitLanguage(ct_c);
-	
+
 	else if ( m_guessedCodeType != TextDocument::ct_unknown )
 		slotInitLanguage(m_guessedCodeType);
-	
+
 	else if ( allowDisable && activeView() )
 		textView()->disableActions();
 }
@@ -297,28 +277,28 @@ void TextDocument::guessScheme( bool allowDisable )
 void TextDocument::slotInitLanguage( CodeType type )
 {
 	QString hlName;
-	
+
 	switch (type)
 	{
 		case ct_asm:
 			hlName = "PicAsm";
 			break;
-			
+
 		case ct_c:
 			hlName = "C";
 			break;
-			
+
 		case ct_hex:
 			break;
-			
+
 		case ct_microbe:
 			hlName = "Microbe";
 			break;
-			
+
 		case ct_unknown:
 			break;
 	}
-	
+
 	if ( !hlName.isEmpty() )
 	{
 		//int i = 0; // 2017.10.01 - comment out unused variable
@@ -332,15 +312,15 @@ void TextDocument::slotInitLanguage( CodeType type )
             }
             hlModes.removeFirst();
         }
-		
+
 		//m_doc->setHlMode(i);
 		if (!hlModes.isEmpty()) {
             m_doc->setHighlightingMode(hlModes.first());
         }
 	}
-	
+
 	m_guessedCodeType = type;
-	
+
 	ViewList::iterator end = m_viewList.end();
 	for ( ViewList::iterator it = m_viewList.begin(); it != end; ++it )
 	{
@@ -364,10 +344,10 @@ void TextDocument::fileSave( const KUrl& url )
 {
 	if ( m_doc->url().path() != url.path() )
 	{
-		kError() << k_funcinfo << "Error: Kate::View url and passed url do not match; cannot save." << endl;
+		qCritical() << Q_FUNC_INFO << "Error: Kate::View url and passed url do not match; cannot save." << endl;
 		return;
 	}
-	
+
 	if ( activeView() && (textView()->save()) )
 		saveDone();
 }
@@ -377,7 +357,7 @@ void TextDocument::fileSaveAs()
 {
 	if (  activeView() && (textView()->saveAs()) )
 		saveDone();
-	
+
 	// Our modified state may not have changed, but we emit this to force the
 	// main window to update our caption.
 	emit modifiedStateChanged();
@@ -397,14 +377,14 @@ bool TextDocument::openURL( const KUrl& url )
 {
 	m_doc->openUrl(url);
 	setURL(url);
-	
+
 	fileMetaInfo()->initializeFromMetaInfo( url.prettyUrl(), this );
 	guessScheme();
-	
+
 #ifndef NO_GPSIM
 	DebugManager::self()->urlOpened( this );
 #endif
-	
+
 	return true;
 }
 
@@ -447,16 +427,16 @@ void TextDocument::slotConvertTo( QAction *action )
 	{
 		case TextDocument::MicrobeOutput:
 			break;
-			
+
 		case TextDocument::AssemblyOutput:
 			convertToAssembly();
 			break;
-			
+
 		case TextDocument::HexOutput:
 			convertToHex();
 			break;
-			
-		case TextDocument::PICOutput:	
+
+		case TextDocument::PICOutput:
 			convertToPIC();
 			break;
 	}
@@ -468,43 +448,43 @@ void TextDocument::convertToAssembly()
 	QString filePath;
 	bool showPICSelect = false;
 	ProcessOptions::ProcessPath::MediaType toType;
-	
+
 	if ( m_guessedCodeType == TextDocument::ct_microbe )
 	{
 		toType = ProcessOptions::ProcessPath::AssemblyAbsolute;
 		filePath = outputFilePath(".microbe");
 	}
-	
+
 	else if ( m_guessedCodeType == TextDocument::ct_hex )
 	{
 		toType = ProcessOptions::ProcessPath::Disassembly;
 		filePath = outputFilePath(".hex");
 	}
-	
+
 	else if ( m_guessedCodeType == TextDocument::ct_c )
 	{
 		toType = ProcessOptions::ProcessPath::AssemblyRelocatable;
 		filePath = outputFilePath(".c");
 		showPICSelect = true;
 	}
-	
+
 	else
 	{
-		kError() << "Could not get file type for converting to assembly!"<<endl;
+		qCritical() << "Could not get file type for converting to assembly!"<<endl;
 		return;
 	}
-	
+
 	OutputMethodDlg dlg( i18n("Assembly Code Output"), url(), showPICSelect, KTechlab::self() );
-	
+
 	if ( m_guessedCodeType == TextDocument::ct_c )
 		dlg.microSelect()->setAllowedAsmSet( AsmInfo::PIC14 | AsmInfo::PIC16 );
-	
+
 	dlg.setOutputExtension(".asm");
 	dlg.setFilter( QString("*.asm *.src *.inc|%1 (*.asm, *.src, *.inc)\n*|%2").arg(i18n("Assembly Code")).arg(i18n("All Files")) );
 	dlg.exec();
 	if (!dlg.isAccepted())
 		return;
-	
+
 	ProcessOptions o( dlg.info() );
 	o.setTextOutputTarget( m_pLastTextOutputTarget, this, SLOT(setLastTextOutputTarget( TextDocument* )) );
 	o.setInputFiles(QStringList( filePath) );
@@ -517,10 +497,10 @@ void TextDocument::convertToHex()
 {
 	QString filePath;
 	bool showPICSelect = false;
-	
+
 	if ( m_guessedCodeType == TextDocument::ct_microbe )
 		filePath = outputFilePath(".microbe");
-	
+
 	else if ( m_guessedCodeType == TextDocument::ct_asm )
 	{
 		filePath = outputFilePath(".asm");
@@ -531,24 +511,24 @@ void TextDocument::convertToHex()
 		filePath = outputFilePath(".c");
 		showPICSelect = true;
 	}
-	
+
 	else
 	{
-		kError() << "Could not get file type for converting to hex!"<<endl;
+		qCritical() << "Could not get file type for converting to hex!"<<endl;
 		return;
 	}
-	
+
 	OutputMethodDlg dlg( i18n("Hex Code Output"), url(), showPICSelect, KTechlab::self() );
 	dlg.setOutputExtension(".hex");
 	dlg.setFilter( QString("*.hex|Hex (*.hex)\n*|%1").arg(i18n("All Files")) );
-	
+
 	if ( m_guessedCodeType == TextDocument::ct_c )
 		dlg.microSelect()->setAllowedAsmSet( AsmInfo::PIC14 | AsmInfo::PIC16 );
-	
+
 	dlg.exec();
 	if (!dlg.isAccepted())
 		return;
-	
+
 	ProcessOptions o( dlg.info() );
 	o.setTextOutputTarget( m_pLastTextOutputTarget, this, SLOT(setLastTextOutputTarget( TextDocument* )) );
 	o.setInputFiles(QStringList(filePath));
@@ -560,15 +540,15 @@ void TextDocument::convertToHex()
 void TextDocument::convertToPIC()
 {
 	QString filePath;
-	
+
 	QString picID;
-	
+
 	switch ( m_guessedCodeType )
 	{
 		case ct_microbe:
 			filePath = outputFilePath(".microbe");
 			break;
-			
+
 		case ct_asm:
 		{
 			filePath = outputFilePath(".asm");
@@ -577,38 +557,38 @@ void TextDocument::convertToPIC()
 			picID = p.picID();
 			break;
 		}
-			
+
 		case ct_c:
 			filePath = outputFilePath(".c");
 			break;
-	
+
 		case ct_hex:
 			filePath = outputFilePath(".hex");
 			break;
-			
+
 		case ct_unknown:
-			kError() << "Could not get file type for converting to hex!"<<endl;
+			qCritical() << "Could not get file type for converting to hex!"<<endl;
 			return;
 	}
-	
+
 	ProgrammerDlg * dlg = new ProgrammerDlg( picID, (QWidget*)KTechlab::self(), "Programmer Dlg" );
-	
+
 	if ( m_guessedCodeType == TextDocument::ct_c )
-		dlg->microSelect()->setAllowedAsmSet( AsmInfo::PIC14 | AsmInfo::PIC16 );	
-	
+		dlg->microSelect()->setAllowedAsmSet( AsmInfo::PIC14 | AsmInfo::PIC16 );
+
 	dlg->exec();
 	if ( !dlg->isAccepted() )
 	{
 		dlg->deleteLater();
 		return;
 	}
-	
+
 	ProcessOptions o;
 	dlg->initOptions( & o );
 	o.setInputFiles( QStringList(filePath ));
 	o.setProcessPath( ProcessOptions::ProcessPath::path( ProcessOptions::guessMediaType(filePath), ProcessOptions::ProcessPath::Pic ) );
 	LanguageManager::self()->compile( o );
-	
+
 	dlg->deleteLater();
 }
 
@@ -630,13 +610,13 @@ void TextDocument::print()
 IntList TextDocument::bookmarkList() const
 {
 	IntList bookmarkList;
-	
+
 	typedef QHash<int, KTextEditor::Mark*> MarkList;
     KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface*>( m_doc );
     if (!iface) return IntList();
 	//MarkList markList = m_doc->marks();
     const MarkList &markList = iface->marks();
-	
+
 	// Find out what marks need adding to our internal lists
 	//for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
     for (MarkList::const_iterator itMark = markList.begin(); itMark != markList.end(); ++itMark)
@@ -645,7 +625,7 @@ IntList TextDocument::bookmarkList() const
 		if ( mark->type & Bookmark )
 			bookmarkList += mark->line;
 	}
-	
+
 	return bookmarkList;
 }
 
@@ -654,18 +634,18 @@ void TextDocument::slotUpdateMarksInfo()
 {
 	if ( !KTechlab::self() )
 		return;
-	
+
 	if ( activeView() )
 		textView()->slotUpdateMarksInfo();
-	
+
 #ifndef NO_GPSIM
 	syncBreakpoints();
 #endif
-	
+
 	// Update our list of bookmarks in the menu
 	KTechlab::self()->unplugActionList("bookmark_actionlist");
 	m_bookmarkActions.clear();
-	
+
 	//QPtrList<KTextEditor::Mark> markList = m_doc->marks();
     typedef QHash<int, KTextEditor::Mark*> MarkList;
     KTextEditor::MarkInterface *iface = qobject_cast<KTextEditor::MarkInterface*>( m_doc );
@@ -673,7 +653,7 @@ void TextDocument::slotUpdateMarksInfo()
     //MarkList markList = m_doc->marks();
     MarkList markList = iface->marks();
 
-	
+
 	// Find out what marks need adding to our internal lists
 	//for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
 	//{
@@ -686,17 +666,17 @@ void TextDocument::slotUpdateMarksInfo()
                                             m_doc->text(KTextEditor::Range( mark->line, 0, mark->line, 100 /* FIXME arbitrary */)) );
             QString actionName = QString("bookmark_%1").arg(QString::number(mark->line));
             /*
-			KAction * a = new KAction( actionCaption,
+			QAction * a = new QAction( actionCaption,
 									   0, this, SLOT(slotBookmarkRequested()), this,
 									   actionName );
 									   */
-            KAction * a = new KAction( actionCaption, this);
+            QAction * a = new QAction( actionCaption, this);
             a->setObjectName(actionName.toLatin1().data());
             connect(a, SIGNAL(triggered(bool)), this, SLOT(slotBookmarkRequested()));
 			m_bookmarkActions.append(a);
 		}
 	}
-	
+
 	KTechlab::self()->plugActionList( "bookmark_actionlist", m_bookmarkActions );
 }
 
@@ -705,11 +685,11 @@ void TextDocument::slotBookmarkRequested()
 {
 	const QObject * s = sender();
 	if (!s) return;
-	
+
 	QString name = s->objectName();
 	if ( !name.startsWith("bookmark_") )
 		return;
-	
+
 	name.remove("bookmark_");
 	int line = -1;
 	bool ok;
@@ -736,7 +716,7 @@ void TextDocument::clearBookmarks()
     if (!iface) return;
     //MarkList markList = m_doc->marks();
     MarkList markList = iface->marks();
-	
+
 	// Find out what marks need adding to our internal lists
 	//for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
 	//{
@@ -746,7 +726,7 @@ void TextDocument::clearBookmarks()
 		if ( mark->type & Bookmark )
 			iface->removeMark( mark->line, Bookmark );
 	}
-	
+
 	slotUpdateMarksInfo();
 }
 
@@ -758,7 +738,7 @@ void TextDocument::setBookmark( uint line, bool isBookmark )
 
 	if (isBookmark)
 		iface->addMark( line, Bookmark );
-	
+
 	else
 		iface->removeMark( line, Bookmark );
 }
@@ -778,7 +758,7 @@ void TextDocument::setBreakpoints( const IntList &lines )
 IntList TextDocument::breakpointList() const
 {
 	IntList breakpointList;
-	
+
 #ifndef NO_GPSIM
 	//typedef QPtrList<KTextEditor::Mark> MarkList;
     typedef QHash<int, KTextEditor::Mark*> MarkList;
@@ -787,7 +767,7 @@ IntList TextDocument::breakpointList() const
     //MarkList markList = m_doc->marks();
     MarkList markList = iface->marks(); // note: this will copy
 
-	
+
 	// Find out what marks need adding to our internal lists
 	//for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
     for (MarkList::iterator itMark = markList.begin(); itMark != markList.end(); ++itMark)
@@ -833,33 +813,33 @@ void TextDocument::debugRun()
 		slotInitDebugActions();
 		return;
 	}
-	
+
 	switch ( guessedCodeType() )
 	{
 		case ct_unknown:
 			KMessageBox::sorry( 0l, i18n("Unknown code type."), i18n("Cannot debug") );
 			return;
-			
+
 		case ct_hex:
 			KMessageBox::sorry( 0l, i18n("Cannot debug hex."), i18n("Cannot debug") );
 			return;
-			
+
 		case ct_microbe:
 			m_bLoadDebuggerAsHLL = true;
 			m_debugFile = outputFilePath(".microbe");
 			break;
-			
+
 		case ct_asm:
 			m_bLoadDebuggerAsHLL = false;
 			m_debugFile = outputFilePath(".asm");
 			break;
-			
+
 		case ct_c:
 			m_bLoadDebuggerAsHLL = true;
 			m_debugFile = outputFilePath(".c");
 			break;
 	}
-	
+
 	m_symbolFile = GpsimProcessor::generateSymbolFile( m_debugFile, this, SLOT(slotCODCreationSucceeded()), SLOT(slotCODCreationFailed()) );
 #endif // !NO_GPSIM
 }
@@ -870,7 +850,7 @@ void TextDocument::debugInterrupt()
 #ifndef NO_GPSIM
 	if (!m_pDebugger)
 		return;
-	
+
 	m_pDebugger->gpsim()->setRunning(false);
 	slotInitDebugActions();
 #endif // !NO_GPSIM
@@ -882,7 +862,7 @@ void TextDocument::debugStop()
 #ifndef NO_GPSIM
 	if ( !m_pDebugger || !m_bOwnDebugger )
 		return;
-	
+
 	m_pDebugger->gpsim()->deleteLater();
 	m_pDebugger = 0l;
 	slotDebugSetCurrentLine( SourceLine() );
@@ -896,7 +876,7 @@ void TextDocument::debugStep()
 #ifndef NO_GPSIM
 	if (!m_pDebugger)
 		return;
-	
+
 	m_pDebugger->stepInto();
 #endif // !NO_GPSIM
 }
@@ -907,7 +887,7 @@ void TextDocument::debugStepOver()
 #ifndef NO_GPSIM
 	if (!m_pDebugger)
 		return;
-	
+
 	m_pDebugger->stepOver();
 #endif // !NO_GPSIM
 }
@@ -918,7 +898,7 @@ void TextDocument::debugStepOut()
 #ifndef NO_GPSIM
 	if (!m_pDebugger)
 		return;
-	
+
 	m_pDebugger->stepOut();
 #endif // !NO_GPSIM
 }
@@ -932,13 +912,13 @@ void TextDocument::slotDebugSetCurrentLine( const SourceLine & line )
     if (!iface) return;
 
 	int textLine = line.line();
-	
+
 	if ( DocManager::self()->findDocument( line.fileName() ) != this )
 		textLine = -1;
-	
+
 	iface->removeMark( m_lastDebugLineAt, ExecutionPoint );
 	iface->addMark( textLine, ExecutionPoint );
-	
+
 	if ( activeView() )
 		textView()->setCursorPosition( textLine, 0 );
 
@@ -957,7 +937,7 @@ void TextDocument::slotInitDebugActions()
 		else
 			slotDebugSetCurrentLine( m_pDebugger->currentLine() );
 	}
-	
+
 	if ( activeView() )
 		textView()->slotInitDebugActions();
 #endif // !NO_GPSIM
@@ -968,12 +948,12 @@ void TextDocument::slotCODCreationSucceeded()
 {
 #ifndef NO_GPSIM
 	GpsimProcessor * gpsim = new GpsimProcessor( m_symbolFile, this );
-	
+
 	if (m_bLoadDebuggerAsHLL)
 		gpsim->setDebugMode( GpsimDebugger::HLLDebugger );
 	else
 		gpsim->setDebugMode( GpsimDebugger::AsmDebugger );
-	
+
 	setDebugger( gpsim->currentDebugger(), true );
 #endif // !NO_GPSIM
 }
@@ -1016,7 +996,7 @@ void TextDocument::clearBreakpoints()
 		if ( mark->type & Bookmark )
 			iface->removeMark( mark->line, Breakpoint );
 	}
-	
+
 	slotUpdateMarksInfo();
 }
 
@@ -1025,13 +1005,13 @@ void TextDocument::syncBreakpoints()
 {
 	if (b_lockSyncBreakpoints)
 		return;
-	
+
 	// We don't really care about synching marks if we aren't debugging / aren't able to take use of the marks
 	if (!m_pDebugger)
 		return;
-	
+
 	b_lockSyncBreakpoints = true;
-	
+
     //QPtrList<KTextEditor::Mark> markList = m_doc->marks();
     //typedef QPtrList<KTextEditor::Mark> MarkList;
     typedef QHash<int, KTextEditor::Mark*> MarkList;
@@ -1041,23 +1021,23 @@ void TextDocument::syncBreakpoints()
     MarkList markList = iface->marks(); // note: this will copy
 
 	IntList bpList;
-	
+
 	// Find out what marks need adding to our internal lists
 	//for ( KTextEditor::Mark * mark = markList.first(); mark; mark = markList.next() )
     for (MarkList::iterator itMark = markList.begin(); itMark != markList.end(); ++itMark)
 	{
         KTextEditor::Mark *mark = itMark.value();
 		const int line = mark->line;
-		
+
 		if ( mark->type & Breakpoint )
 			bpList.append(line);
-		
+
 		if ( mark->type == ExecutionPoint )
 			m_lastDebugLineAt = line;
 	}
-	
+
 	m_pDebugger->setBreakpoints( m_debugFile, bpList );
-	
+
 	b_lockSyncBreakpoints = false;
 }
 
@@ -1078,37 +1058,37 @@ void TextDocument::setDebugger( GpsimDebugger * debugger, bool ownDebugger )
 {
 	if ( debugger == m_pDebugger )
 		return;
-	
+
 	// If we create a gpsim, then we may get called by DebugManager, which will
 	// try to claim we don't own it. So if we have a symbol file waiting, thne
 	// wait until we are called from its successful creation
 	if ( !m_symbolFile.isEmpty() && !ownDebugger )
 		return;
-	
+
 	// Reset it for use next time
 	m_symbolFile = QString::null;
-	
+
 	if (m_bOwnDebugger)
 		delete m_pDebugger;
-	
+
 	m_pDebugger = debugger;
 	m_bOwnDebugger = ownDebugger;
-	
+
 	if (!m_pDebugger)
 		return;
-	
+
 	if ( m_debugFile.isEmpty() )
 		m_debugFile = url().path();
-	
+
 	connect( m_pDebugger,			SIGNAL(destroyed()),						this, SLOT(slotDebuggerDestroyed()) );
 	connect( m_pDebugger->gpsim(),	SIGNAL(runningStatusChanged(bool )), 		this, SLOT(slotInitDebugActions()) );
 	connect( m_pDebugger,			SIGNAL(lineReached(const SourceLine &)),	this, SLOT(slotDebugSetCurrentLine(const SourceLine &)) );
 	m_pDebugger->setBreakpoints( m_debugFile, breakpointList() );
-	
+
 	slotInitDebugActions();
 	if ( !m_pDebugger->gpsim()->isRunning() )
 		slotDebugSetCurrentLine( m_pDebugger->currentLine() );
-	
+
 	if ( this == dynamic_cast<TextDocument*>(DocManager::self()->getFocusedDocument()) )
 		SymbolViewer::self()->setContext( m_pDebugger->gpsim() );
 }

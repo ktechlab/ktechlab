@@ -46,7 +46,7 @@ public:
 	};
 	FlowPart( ICNDocument *icnDocument, bool newItem, const QString &id );
 	virtual ~FlowPart();
-	
+
 	virtual void generateMicrobe( FlowCode */*code*/ ) = 0;
 	/**
 	 * Set a preset "orientation" of this item - 0 through 7
@@ -57,8 +57,8 @@ public:
 	 * The allowed orientations, as bit positions of 0 through 7
 	 */
 	uint allowedOrientations() const;
-	virtual ItemData itemData() const;
-	virtual void restoreFromItemData( const ItemData &itemData );
+	virtual ItemData itemData() const override;
+	virtual void restoreFromItemData( const ItemData &itemData ) override;
 	/**
 	 * Sets the caption displayed in the flowpart, resizes the item as necessary
 	 */
@@ -110,8 +110,8 @@ public:
 	 * Draw the picture of the flowpart in the given orientation onto the pixmap
 	 */
 	void orientationPixmap( uint orientation, QPixmap & pm ) const;
-	virtual Variant * createProperty( const QString & id, Variant::Type::Value type );
-	
+	virtual Variant * createProperty( const QString & id, Variant::Type::Value type ) override;
+
 public slots:
 	/**
 	 * Called when variable name data for MicroSettings changes, and so our
@@ -130,7 +130,7 @@ public slots:
 	void slotUpdateFlowPartVariables();
 
 protected:
-	virtual void updateAttachedPositioning();
+	virtual void updateAttachedPositioning() override;
 	/**
 	 * Removes the node ids that shouldn't be used for finding the end part
 	 */
@@ -140,7 +140,7 @@ protected:
 	 * although in the case of some FlowSymbols (e.g. decision), it will handle
 	 * the drawing itself
 	 */
-	virtual void drawShape( QPainter &p );
+	virtual void drawShape( QPainter &p ) override;
 	/**
 	 * Returns the goto instruction that will goto the FlowPart that is connected
 	 * to the node with the given internal id.
@@ -169,7 +169,7 @@ protected:
 	 * Initialises a symbol, by calling setItemPoints with the shape
 	 */
 	void initSymbol( FlowPart::FlowSymbol symbol, int width = 48 );
-	
+
 	void initProcessSymbol() { initSymbol( FlowPart::ps_process ); }
 	void initCallSymbol() { initSymbol( FlowPart::ps_call ); }
 	void initIOSymbol() { initSymbol( FlowPart::ps_io ); }
@@ -182,10 +182,10 @@ protected:
 	FPNode *m_stdOutput;
 	FPNode *m_altOutput;
 	QPointer<FlowCodeDocument> m_pFlowCodeDocument;
-	
-	virtual void postResize();
+
+	virtual void postResize() override;
 	void updateNodePositions();
-	
+
 private:
 	FlowSymbol m_flowSymbol;
 };

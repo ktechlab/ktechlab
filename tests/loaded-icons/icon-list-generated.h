@@ -1,6 +1,7 @@
 /* AUTO-GENERATED FILE BY ./tests/loaded-icons/generate-icon-names-list.sh; DO NOT EDIT MANUALLY */
 /* date of generation: Mon Jan  2 10:35:56 CET 2017 */
 static const char *iconNames[] = {
+    "ammeter",
     "align-horizontal-center",
     "align-vertical-center",
     "application-x-circuit",

@@ -24,9 +24,9 @@ class FlowCodeView : public ICNView
 	public:
 		FlowCodeView( FlowCodeDocument *flowCodeDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l );
 		~FlowCodeView();
-	
+
 	protected:
-		virtual void dragEnterEvent( QDragEnterEvent * e );
+		virtual void dragEnterEvent( QDragEnterEvent * e ) override;
 		FlowCodeDocument *p_flowCodeDocument;
 };
 

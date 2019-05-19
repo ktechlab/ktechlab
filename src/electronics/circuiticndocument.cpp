@@ -20,7 +20,7 @@
 #include "junctionnode.h"
 #include "nodegroup.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 
 CircuitICNDocument::CircuitICNDocument( const QString &caption, const char *name)
 	: ICNDocument(caption, name )
@@ -191,7 +191,7 @@ Connector *CircuitICNDocument::createConnector(Connector *con1, Connector *con2,
 	if(!con1a || !con1b || !con2a || !con2b ) {
 		// This should never happen, as the canConnect function should strictly
 		// determine whether the connectors could be created before hand.
-		kWarning() << k_funcinfo << "Not all the connectors were created, this should never happen" << endl;
+		qWarning() << Q_FUNC_INFO << "Not all the connectors were created, this should never happen" << endl;
 		
 		if(con1a) con1a->removeConnector();
 		if(con1b) con1b->removeConnector();
@@ -258,7 +258,7 @@ Connector *CircuitICNDocument::createConnector( const QString &startNodeId, cons
 	ECNode *endNode = getEcNodeWithID(endNodeId);
 	
 	if ( !startNode || !endNode ) {
-		kDebug() << "Either/both the connector start node and end node could not be found" << endl;
+		qDebug() << "Either/both the connector start node and end node could not be found" << endl;
 		return 0L;
 	}
 	
@@ -266,7 +266,7 @@ Connector *CircuitICNDocument::createConnector( const QString &startNodeId, cons
 	
 	Connector *connector = endNode->createConnector(startNode);
 	if (!connector) {
-		kError() << k_funcinfo << "End node did not create the connector" << endl;
+		qCritical() << Q_FUNC_INFO << "End node did not create the connector" << endl;
 		return 0l;
 	}
 
@@ -349,7 +349,7 @@ void CircuitICNDocument::flushDeleteList()
 			m_ecNodeList.remove ( node->id() );
 		else if ( Connector * con = dynamic_cast<Connector*> ( qcanvasItem ) )
 			m_connectorList.removeAll ( con );
-		else	kError() << k_funcinfo << "Unknown qcanvasItem! "<<qcanvasItem << endl;
+		else	qCritical() << Q_FUNC_INFO << "Unknown qcanvasItem! "<<qcanvasItem << endl;
 
 		qcanvasItem->setCanvas(0);
 
@@ -389,7 +389,7 @@ bool CircuitICNDocument::registerItem( KtlQCanvasItem *qcanvasItem )
 			m_connectorList.append(connector);
 			emit connectorAdded(connector);
 		} else {
-			kError() << k_funcinfo << "Unrecognised item"<<endl;
+			qCritical() << Q_FUNC_INFO << "Unrecognised item"<<endl;
 			return false;
 		}
 	}

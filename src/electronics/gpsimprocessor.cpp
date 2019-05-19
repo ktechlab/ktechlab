@@ -23,7 +23,7 @@
 
 #include <cassert>
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <ktemporaryfile.h>
@@ -283,7 +283,7 @@ void GpsimProcessor::reset()
 MicroInfo * GpsimProcessor::microInfo( ) const
 {
 	if ( !m_pPicProcessor ){
-		kWarning() << k_funcinfo << " m_pPicProcessor == NULL" << endl;
+		qWarning() << Q_FUNC_INFO << " m_pPicProcessor == NULL" << endl;
 		return 0l;
 	}
 	
@@ -517,7 +517,7 @@ void GpsimDebugger::associateLine( const QString & sourceFile, int sourceLine, c
 {
 	if ( assemblyLine < 0 || sourceLine < 0 )
 	{
-		kWarning() << k_funcinfo << "Invalid lines: assemblyLine="<<assemblyLine<<" sourceLine="<<sourceLine<<endl;
+		qWarning() << Q_FUNC_INFO << "Invalid lines: assemblyLine="<<assemblyLine<<" sourceLine="<<sourceLine<<endl;
 		return;
 	}
 	
@@ -526,7 +526,7 @@ void GpsimDebugger::associateLine( const QString & sourceFile, int sourceLine, c
 	
 	if ( m_sourceLineMap.contains(asmSource) )
 	{
-		kWarning() << k_funcinfo << "Already have an association for assembly (\""<<assemblyFile<<"\","<<assemblyLine<<")"<<endl;
+		qWarning() << Q_FUNC_INFO << "Already have an association for assembly (\""<<assemblyFile<<"\","<<assemblyLine<<")"<<endl;
 		return;
 	}
 	
@@ -573,7 +573,7 @@ void GpsimDebugger::initAddressToLineMap()
 			int fileID = m_pGpsim->picProcessor()->files.Find( stdAsmFile );
 			if ( fileID == -1 )
 			{
-				kWarning() << k_funcinfo << "Could not find FileContext (asmFile=\""<<asmFile<<"\")"<<endl;
+				qWarning() << Q_FUNC_INFO << "Could not find FileContext (asmFile=\""<<asmFile<<"\")"<<endl;
 				continue;
 			}
 	
@@ -582,7 +582,7 @@ void GpsimDebugger::initAddressToLineMap()
 	
 			if ( (asmFromLine < 0) || (asmToLine < asmFromLine) )
 			{
-				kWarning() << k_funcinfo << "Invalid lines: asmFromLine="<<asmFromLine<<" asmToLine="<<asmToLine<<endl;
+				qWarning() << Q_FUNC_INFO << "Invalid lines: asmFromLine="<<asmFromLine<<" asmToLine="<<asmToLine<<endl;
 				continue;
 			}
 	
@@ -746,7 +746,7 @@ void GpsimDebugger::stackStep( int dl )
 RegisterSet::RegisterSet( pic_processor * picProcessor )
 {
 	unsigned numRegisters = picProcessor->rma.get_size();
-	kDebug() << k_funcinfo << "numRegisters="<<numRegisters<<endl;
+	qDebug() << Q_FUNC_INFO << "numRegisters="<<numRegisters<<endl;
 	m_registers.resize( numRegisters /*, 0l - 2018.06.02 - initialized below */ );
 	for ( unsigned i = 0; i < numRegisters; ++i )
 	{
