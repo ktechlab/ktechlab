@@ -28,6 +28,7 @@
 
 #include <qdebug.h>
 #include <kfiledialog.h>
+#include <kicon.h>
 #include <kiconloader.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
@@ -277,9 +278,9 @@ void ItemDocument::print()
 	p.setClipRect( 0, 0, w, h, /* QPainter::CoordPainter */ Qt::ReplaceClip ); // TODO is this correct?
 
 	// Send off the painter for drawing
-    // TODO: What was this doing??
-	//m_canvas->setBackgroundPixmap( 0 );
-
+    // note: What was this doing?? // set "null" background, so the background horiznotal and vertial lines are not visible
+	m_canvas->setBackgroundPixmap( QPixmap(0,0) /* 0 */ );
+	
 	QRect bounding = canvasBoundingRect();
 	unsigned int rows = (unsigned) std::ceil( double( bounding.height() ) / double( h ) );
 	unsigned int cols = (unsigned) std::ceil( double( bounding.width() ) / double( w ) );
@@ -872,8 +873,9 @@ void ItemDocument::exportToImage()
     KFileDialog exportDialog( KUrl(), f, KTechlab::self(), /*i18n("Export As Image"),*/ /* true, */ cropCheck);
     exportDialog.setModal(true);
     exportDialog.setWindowTitle(i18n("Export As Image"));
+    //exportDialog.setCaption(i18n("Export As Image"));
 
-	exportDialog.setOperationMode( KFileDialog::Saving );
+    exportDialog.setOperationMode( KFileDialog::Saving );
 	// now actually show it
 	if ( exportDialog.exec() == QDialog::Rejected )
 		return;

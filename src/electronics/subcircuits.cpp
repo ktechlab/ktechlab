@@ -22,6 +22,7 @@
 #include <klocalizedstring.h>
 #include <kstandarddirs.h>
 #include <kconfiggroup.h>
+#include <kglobal.h>
 
 #include <qdebug.h>
 #include <qfile.h>

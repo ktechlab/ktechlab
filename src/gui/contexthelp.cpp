@@ -21,8 +21,11 @@
 #include <kcolorbutton.h>
 #include <kcombobox.h>
 
+#include <kparts/readwritepart.h>
+#include <kparts/browserextension.h>
+#include <kparts/browserhostextension.h>
 #include <khtml_part.h>
-#include <khtmlview.h>
+#include <KHtml/khtmlview.h>
 #include <kiconloader.h>
 #include <kglobal.h>
 #include <kmimetype.h>
@@ -36,6 +39,10 @@
 #include <kdirselectdialog.h>
 #include <kstandarddirs.h>
 // #include <k3iconview.h>
+#include <kicon.h>
+#include <kglobal.h>
+
+#include <qevent.h>
 
 #include <qdebug.h>
 #include <qfile.h>
@@ -48,6 +55,7 @@
 #include <qtoolbutton.h>
 #include <qvalidator.h>
 // #include <q3widgetstack.h>
+#include <qmimedata.h>
 
 #include <cassert>
 
@@ -280,9 +288,10 @@ void ContextHelp::setContextHelp( QString name, QString help )
 		m_pBrowserView->setMarginHeight( 3 );
 
 	m_pNameLabel->setText( name );
-	m_pBrowser->begin( itemLibrary()->itemDescriptionsDirectory() );
-	m_pBrowser->write( help );
-	m_pBrowser->end();
+#warning "m_pBrowser->write() disabled, crashes on m_pBrowser->end()"
+//     m_pBrowser->begin( KUrl( itemLibrary()->itemDescriptionsDirectory() ) );
+//     m_pBrowser->write( help );
+//     m_pBrowser->end();
 }
 
 

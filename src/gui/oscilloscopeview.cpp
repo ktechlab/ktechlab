@@ -14,6 +14,7 @@
 #include "probepositioner.h"
 #include "simulator.h"
 
+#include <kconfig.h>
 #include <kconfiggroup.h>
 #include <klocalizedstring.h>
 #include <kglobal.h>

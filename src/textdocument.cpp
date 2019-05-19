@@ -29,6 +29,7 @@
 // #include <kate/katedocument.h>
 #include <qaction.h>
 #include <qdebug.h>
+
 #include <klibloader.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>

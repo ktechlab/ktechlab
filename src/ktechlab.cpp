@@ -48,7 +48,6 @@
 #include <QIcon>
 #include <QMenu>
 
-
 #include <kmenu.h>
 #include <kactioncollection.h>
 #include "kglobal.h"
@@ -959,8 +958,10 @@ void KTechlab::readPropertiesInConfig( KConfig *conf )
 	//conf->setGroup("UI");
     KConfigGroup grUi = conf->group("UI");
 	resize( grUi.readEntry( "Width", 800 ), grUi.readEntry( "Height", 500 ) );
-	KWindowSystem::setState( winId(),  static_cast<NET::State>(
-        grUi.readEntry( "WinState", (quint32) NET::Max )));
+    const quint32 winStateDef = quint32( NET::Max );
+    const quint32 winState = grUi.readEntry( "WinState" , winStateDef /* NET::Max */ );
+	KWindowSystem::setState( winId(), NET::States(winState) ) ; 
+        // grUi.readEntry( "WinState", (quint32) NET::Max ) );
 }
 
 
@@ -1267,7 +1268,6 @@ KUrl::List KTechlab::getFileURLs( bool allowMultiple )
 
 	if ( allowMultiple )
 		return QFileDialog::getOpenFileUrls( nullptr, i18n("Open Location"), KUrl(), filter );
-
 	else
 		return QFileDialog::getOpenFileUrls( nullptr, i18n("Open Location"), KUrl(), filter);
 }

@@ -24,12 +24,14 @@
 #include <kglobal.h>
 #include <klocalizedstring.h>
 #include <kconfiggroup.h>
+#include <kglobal.h>
 
 // #include <q3dragobject.h>
 #include <qdebug.h>
 #include <qlayout.h>
 // #include <q3popupmenu.h>
 #include <qmenu.h>
+#include <qmimedata.h>
 
 #include <cassert>
 

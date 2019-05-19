@@ -25,6 +25,8 @@
 #include <kiconloader.h>
 #include <klocalizedstring.h>
 #include <kpushbutton.h>
+#include <kicon.h>
+#include <kiconloader.h>
 
 #include <qapplication.h>
 #include <qdebug.h>

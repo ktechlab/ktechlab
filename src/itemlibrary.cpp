@@ -29,6 +29,7 @@
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <kstandarddirs.h>
+#include <kglobal.h>
 
 #include <qbitmap.h>
 #include "qdebug.h"
@@ -676,6 +677,11 @@ void ItemLibrary::loadItemDescriptions()
 {
 	// Create an entry for the default language (American English)
 	// and the current language
+	//KLocale * locale = KGlobal::locale();
+//     KLocale * locale = KLocale::global();
+// 	m_itemDescriptions[ locale->defaultLanguage() ];
+// 	m_itemDescriptions[ locale->language() ];
+	
 	m_itemDescriptions[ QLocale::languageToString(QLocale().language()) ];
 
 	const QStringList languages = descriptionLanguages();

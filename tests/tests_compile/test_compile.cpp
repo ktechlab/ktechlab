@@ -23,7 +23,7 @@
 #include "../src/ktechlab.h"
 #include "config.h"
 
-#include <kaboutdata.h>
+#include <k4aboutdata.h>
 #include <kapplication.h>
 #include <kcmdlineargs.h>
 #include <klocalizedstring.h>

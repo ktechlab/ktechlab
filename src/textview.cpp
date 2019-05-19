@@ -30,6 +30,7 @@
 // #include "kateview.h"
 #include <qdebug.h>
 #include <kiconloader.h>
+#include <kicon.h>
 #include <klocalizedstring.h>
 #include <KActionCollection>
 // #include <k3popupmenu.h>

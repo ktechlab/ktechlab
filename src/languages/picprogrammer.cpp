@@ -10,6 +10,7 @@
 
 #include "languagemanager.h"
 #include "picprogrammer.h"
+#include "logview.h"
 
 #include <kapplication.h>
 #include <kconfig.h>

@@ -24,6 +24,7 @@
 
 //#include <kaccel.h>
 #include <kaction.h>
+#include <kicon.h>
 #include <kstandardaction.h>
 #include <qdebug.h>
 #include <kiconloader.h>
@@ -35,6 +36,9 @@
 #include <qapplication.h>
 #include <qcursor.h>
 #include <qtimer.h>
+#include <qmimedata.h>
+#include <qlist.h>
+
 #include <qmatrix.h>
 #include <qmimedata.h>
 
@@ -340,6 +344,7 @@ void ItemView::dropEvent( QDropEvent *event )
 	QString text;
 	//QDataStream stream( event->encodedData(event->format()), QIODevice::ReadOnly );
     QByteArray byteArray( mimeData->data(matchingFormat) );
+
     QDataStream stream( &byteArray, QIODevice::ReadOnly);
 	stream >> text;
 
@@ -489,6 +494,7 @@ void ItemView::dragEnterEvent( QDragEnterEvent *event )
 void ItemView::createDragItem( QDragEnterEvent * e )
 {
 	removeDragItem();
+
     const QMimeData* mimeData = e->mimeData();
     QString matchingFormat;
     for (QString format: mimeData->formats()) {

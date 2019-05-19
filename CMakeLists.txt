@@ -5,6 +5,8 @@ set( VERSION 0.50.0 )
 
 cmake_minimum_required(VERSION 2.8.12) # TODO CMAKE_AUTOUIC min?
 
+set(CMAKE_DEBUG_TARGET_PROPERTIES INCLUDE_DIRECTORIES)
+
 
 find_package(ECM 0.0.11 CONFIG REQUIRED)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
@@ -22,27 +24,33 @@ find_package(Qt5 CONFIG REQUIRED COMPONENTS
     Core
     DBus
     Widgets
-    Test
+    Test # TODO this should be optional
     )
+
+find_package(KF5TextEditor)
 
 find_package(KF5 REQUIRED COMPONENTS
     Config
     CoreAddons
     DocTools
     IconThemes
+    I18n
     KDELibs4Support
     KHtml
     KIO
+    Parts
     TextEditor
+    TextWidgets
     Solid
     WidgetsAddons
     XmlGui
     )
 
-include_directories(
-    "/usr/include/KF5/KTextEditor/"
-    "/usr/include/KF5/KHtml/"
-)
+# include_directories(
+#     "/usr/include/KF5/KTextEditor/"
+#     "/usr/include/KF5/KHtml/"
+# )
+
 # find_package(Qt4 4.6.0 REQUIRED)
 # find_package(KDE4 REQUIRED)
 # include(KDE4Defaults)
@@ -59,6 +67,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 add_definitions(-Wno-deprecated-declarations) # TODO too much spam for now
+add_definitions(-fPIC)
 
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
@@ -103,13 +112,13 @@ endif ()
 
 message("Qt5Core_INCLUDE_DIRS=>>>${Qt5Core_INCLUDE_DIRS}<<<" )
 message("Qt5Widgets_INCLUDE_DIRS=>>>${Qt5Widgets_INCLUDE_DIRS}<<<" )
-message("TextEditor_INCLUDE_DIRS=>>>${TextEditor_INCLUDE_DIRS}<<<" )
+message("KF5TextEditor_INCLUDE_DIRS=>>>${KF5TextEditor_INCLUDE_DIRS}<<<" )
 
 include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
     ${CMAKE_CURRENT_BINARY_DIR}/src/core
     ${KDE4_INCLUDES}
-    ${KDELibs4Support_INCLUDE_DIRS}
+#    ${KDELibs4Support_INCLUDE_DIRS}
     ${TextEditor_INCLUDE_DIRS}  # TODO figure out this one
     ${Qt5Core_INCLUDE_DIRS}
     ${Qt5Widgets_INCLUDE_DIRS}
@@ -123,10 +132,20 @@ CONFIGURE_FILE( ${CMAKE_SOURCE_DIR}/config.h.cmake
 	${CMAKE_BINARY_DIR}/config.h )
 
 
+message(STATUS "include_dir begin")
 get_property(dirs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
 foreach(dir ${dirs})
   message(STATUS "include_dir='${dir}'")
 endforeach()
+message(STATUS "include_dir end")
+
+# message(STATUS "variables begin")
+# get_cmake_property(_variableNames VARIABLES)
+# list (SORT _variableNames)
+# foreach (_variableName ${_variableNames})
+#     message(STATUS "${_variableName}=${${_variableName}}")
+# endforeach()
+# message(STATUS "variables end")
 
 add_subdirectory( microbe )
 add_subdirectory( src )

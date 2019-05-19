@@ -117,8 +117,10 @@ target_link_libraries( ktechlab
 	KF5::IconThemes
 	KF5::KIOCore
 	KF5::KHtml
+	KF5::Parts
 	KF5::XmlGui
 	KF5::TextEditor
+    KF5::WidgetsAddons
 	KF5::KDELibs4Support
 	)
 if(GPSim_FOUND)
@@ -127,10 +129,32 @@ endif()
 
 install(TARGETS ktechlab ${INSTALL_TARGETS_DEFAULT_ARGS})
 
+
+# message(STATUS "include_dir begin")
+# get_property(dirs TARGET ktechlab PROPERTY INCLUDE_DIRECTORIES)
+# foreach(dir ${dirs})
+#   message(STATUS "ktechlab include_dir='${dir}'")
+# endforeach()
+# message(STATUS "include_dir end")
+
+message(STATUS "include_dir begin")
+get_property(dirs TARGET KF5::TextEditor PROPERTY INTERFACE_INCLUDE_DIRECTORIES)
+foreach(dir ${dirs})
+  message(STATUS "KF5::TextEditor include_dir='${dir}'")
+endforeach()
+message(STATUS "include_dir end")
+
 # for helping testing
 
 add_library(test_ktechlab STATIC ${ktechlab_SRCS})
 
+target_link_libraries(test_ktechlab
+    KF5::TextEditor
+	KF5::KHtml
+	KF5::Parts
+    KF5::KDELibs4Support
+    KF5::WidgetsAddons
+)
 
 ########### install files ###############
 

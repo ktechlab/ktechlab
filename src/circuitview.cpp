@@ -15,6 +15,9 @@
 #include "simulator.h"
 #include "viewiface.h"
 
+#include <kaction.h>
+#include <kicon.h>
+#include <klocalizedstring.h>
 #include <kactioncollection.h>
 #include <klocalizedstring.h>
 
@@ -159,7 +162,8 @@ void CircuitView::dragEnterEvent( QDragEnterEvent * e )
 
 	bool acceptable = mimeData->hasFormat("ktechlab/component")
         || mimeData->hasFormat("ktechlab/subcircuit");
-	if ( !acceptable )
+
+    if ( !acceptable )
 		return;
 
 	e->setAccepted( true );
