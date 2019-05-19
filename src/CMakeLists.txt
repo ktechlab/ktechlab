@@ -111,6 +111,7 @@ target_link_libraries( ktechlab
 	KF5::KHtml
 	KF5::Parts
     KF5::KDELibs4Support
+    KF5::WidgetsAddons
 	${KDE4_KHTML_LIBRARY} # khtml
 	${GPSIM_LIBRARY}
 	${KDE4_KTEXTEDITOR_LIBRARY} # ktexteditor
@@ -155,6 +156,7 @@ target_link_libraries(test_ktechlab
 	KF5::KHtml
 	KF5::Parts
     KF5::KDELibs4Support
+    KF5::WidgetsAddons
 )
 
 ########### install files ###############

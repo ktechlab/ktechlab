@@ -40,6 +40,7 @@ find_package(KF5 REQUIRED COMPONENTS
     TextEditor
     TextWidgets
     Solid
+    WidgetsAddons
     )
 
 
