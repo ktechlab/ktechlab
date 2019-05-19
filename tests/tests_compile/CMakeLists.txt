@@ -27,12 +27,13 @@ add_executable(test_compile test_compile.cpp)
 
 target_link_libraries( test_compile
     test_ktechlab
-    core gui micro flowparts
-    ktlqt3support
-    mechanics electronics elements components languages drawparts
-    itemeditor
-    test_ktechlab
-    math
+    #core 
+#     gui micro flowparts
+#     ktlqt3support
+#     mechanics electronics elements components languages drawparts
+#     itemeditor
+#     test_ktechlab
+#     math
 
     ${KDE4_KHTML_LIBRARY} # khtml
     ${GPSIM_LIBRARY}

@@ -1,7 +1,7 @@
 SET(core_STAT_SRCS
-   logtofilemsghandler.cpp
-   diagnosticstyle.cpp
-   main.cpp
+#    logtofilemsghandler.cpp
+#    diagnosticstyle.cpp
+#    main.cpp
 )
 
 set(core_KCFG_SRCS
