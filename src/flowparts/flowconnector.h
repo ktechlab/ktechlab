@@ -28,17 +28,17 @@ class FlowConnector : public Connector
 public:
     FlowConnector(FPNode* startNode, FPNode* endNode, ICNDocument* _ICNDocument, QString* id = 0);
 
-    ~FlowConnector();
+    ~FlowConnector() override;
 
 	/**
 	 * Node at start of connector (which refers to this as the output connector)
 	 */
-	virtual Node *startNode() const ; // { return m_startFpNode );
+	Node *startNode() const override ; // { return m_startFpNode );
 
 	/**
 	 * Node at end of connector (which refers to this as the input connector)
 	 */
-	virtual Node *endNode() const ; // { return m_endFpNode; }
+	Node *endNode() const override ; // { return m_endFpNode; }
 	
 private:
 	/// the endnodes of the connector

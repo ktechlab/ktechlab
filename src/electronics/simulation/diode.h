@@ -43,11 +43,11 @@ class Diode : public NonLinear
 {
 	public:
 		Diode();
-		virtual ~Diode();
+		~Diode() override;
 	
-		virtual void update_dc();
-		virtual void add_initial_dc();
-		virtual Element::Type type() const { return Element_Diode; }
+		void update_dc() override;
+		void add_initial_dc() override;
+		Element::Type type() const override { return Element_Diode; }
 		DiodeSettings settings() const { return m_diodeSettings; }
 		void setDiodeSettings( const DiodeSettings & settings );
 		/**
@@ -56,7 +56,7 @@ class Diode : public NonLinear
 		double current() const;
 	
 	protected:
-		virtual void updateCurrents();
+		void updateCurrents() override;
 		void calc_eq();
 		void calcIg( double V, double * I, double * g ) const;
 		void updateLim();

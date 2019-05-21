@@ -36,13 +36,13 @@ class NewProjectDlg : public KDialog
 	    /**
 		 * Called when the 'Cancel' button is pressed.
 		 */
-		void reject();
+		void reject() override;
     
   	  	/**
 		 * Called when the 'OK' button is pressed.
 		 * User entered values are read in
 		 */
-		void accept();
+		void accept() override;
 		
 		bool accepted() const { return m_bAccepted; }
 		QString projectName() const { return m_projectName; }
@@ -74,7 +74,7 @@ class CreateSubprojectDlg : public KDialog
 	Q_OBJECT
 	public:
 		CreateSubprojectDlg( QWidget *parent = 0 );
-		~CreateSubprojectDlg();
+		~CreateSubprojectDlg() override;
 		
 		// The following values should agree with the positions in the combo box
 		enum Type
@@ -86,12 +86,12 @@ class CreateSubprojectDlg : public KDialog
 	    /**
 		 * Called when the 'Cancel' button is pressed.
 		 */
-		void reject();
+		void reject() override;
   	  	/**
 		 * Called when the 'OK' button is pressed. User entered values are read
 		 * in.
 		 */
-		void accept();
+		void accept() override;
 		
 		bool accepted() const { return m_bAccepted; }
 		Type type() const { return m_type; }
@@ -113,17 +113,17 @@ class LinkerOptionsDlg : public KDialog
 	Q_OBJECT
 	public:
 		LinkerOptionsDlg( LinkerOptions * linkingOptions, QWidget *parent = 0 );
-		virtual ~LinkerOptionsDlg();
+		~LinkerOptionsDlg() override;
 
 	    /**
 		 * Called when the 'Cancel' button is pressed.
 		 */
-		void reject();
+		void reject() override;
   	  	/**
 		 * Called when the 'OK' button is pressed. User entered values are read
 		 * in.
 		 */
-		void accept();
+		void accept() override;
 		
 	protected:
 		LinkerOptions * m_pLinkerOptions;
@@ -139,17 +139,17 @@ class ProcessingOptionsDlg : public KDialog
 {
 	public:
 		ProcessingOptionsDlg( ProjectItem * projectItem, QWidget *parent = 0 );
-		virtual ~ProcessingOptionsDlg();
+		~ProcessingOptionsDlg() override;
 
 	    /**
 		 * Called when the 'Cancel' button is pressed.
 		 */
-		void reject();
+		void reject() override;
   	  	/**
 		 * Called when the 'OK' button is pressed. User entered values are read
 		 * in.
 		 */
-		void accept();
+		void accept() override;
 		
 	protected:
 		ProjectItem * m_pProjectItem;

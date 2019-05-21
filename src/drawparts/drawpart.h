@@ -36,11 +36,11 @@ class DrawPart : public Item
 		};
 		
 		DrawPart( ItemDocument *itemDocument, bool newItem, const char *id );
-		virtual ~DrawPart();
+		~DrawPart() override;
 
-		virtual bool canResize() const { return true; }
+		bool canResize() const override { return true; }
 		
-		virtual Variant * createProperty( const QString & id, Variant::Type::Value type );
+		Variant * createProperty( const QString & id, Variant::Type::Value type ) override;
 		
 		Qt::PenStyle getDataPenStyle( const QString & id );
 		Qt::PenCapStyle getDataPenCapStyle( const QString & id );
@@ -48,8 +48,8 @@ class DrawPart : public Item
 		void setDataPenStyle( const QString & id, Qt::PenStyle value );
 		void setDataPenCapStyle( const QString & id, Qt::PenCapStyle value );
 		
-		virtual ItemData itemData() const;
-		virtual void restoreFromItemData( const ItemData &itemData );
+		ItemData itemData() const override;
+		void restoreFromItemData( const ItemData &itemData ) override;
 		
 		// Convention for following functions: name is i18n'd name of style, id is the english one
 		

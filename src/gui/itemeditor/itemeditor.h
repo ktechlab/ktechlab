@@ -37,7 +37,7 @@ class ItemEditor : public QWidget
 	Q_OBJECT
 	public:
 		static ItemEditor * self( KateMDI::ToolView * parent = 0l );
-		~ItemEditor();
+		~ItemEditor() override;
 		static QString toolViewIdentifier() { return "ItemEditor"; }
 	
 	public slots:

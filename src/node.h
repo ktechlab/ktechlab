@@ -59,13 +59,13 @@ public:
 	 * bottom.
 	 */
 	Node( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint &pos, QString *id = 0L );
-	virtual ~Node();
+	~Node() override;
 	
 	/**
 	 * Sets the node's visibility, as well as updating the visibility of the
 	 * attached connectors as appropriate
 	 */
-	virtual void setVisible( bool yes );
+	void setVisible( bool yes ) override;
 	/**
 	 * Returns the global id, that is unique to the node
 	 * amongst all the nodes on the canvas
@@ -162,12 +162,12 @@ public:
 	/**
 	 * Draw shape. Note that this has to remain public.
 	 */
-	virtual void drawShape( QPainter &p ) = 0;
+	void drawShape( QPainter &p ) override = 0;
 	
     void setICNDocument(ICNDocument *documentPtr);
 
 public slots:
-	void moveBy( double dx, double dy );
+	void moveBy( double dx, double dy ) override;
 	void removeNode(Item*) { removeNode(); }
 	void removeNode();
 	void setNodeSelected( bool yes );

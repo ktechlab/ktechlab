@@ -23,18 +23,18 @@ class ParallelPortComponent : public CallbackClass, public Component
 {
 	public:
 		ParallelPortComponent( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~ParallelPortComponent();
+		~ParallelPortComponent() override;
 	
 		static Item * construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem * libraryItem();
 		
-		virtual void stepNonLogic();
-		virtual bool doesStepNonLogic() const { return true; }
+		void stepNonLogic() override;
+		bool doesStepNonLogic() const override { return true; }
 	
 	protected:
 		void initPort( const QString & port );
-		virtual void dataChanged();
-		virtual void drawShape( QPainter & p );
+		void dataChanged() override;
+		void drawShape( QPainter & p ) override;
 		
 		void dataCallback( bool );
 		void controlCallback( bool );

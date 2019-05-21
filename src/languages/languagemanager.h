@@ -40,7 +40,7 @@ class LanguageManager : public QObject
 	public:
 		static LanguageManager * self( KateMDI::ToolView * parent = 0l );
 		static QString toolViewIdentifier() { return "LanguageManager"; }
-		~LanguageManager();
+		~LanguageManager() override;
 	
 		/**
 		 * Call to compile a file of one type all the way to another type, this can

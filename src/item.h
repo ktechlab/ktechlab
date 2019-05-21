@@ -46,7 +46,7 @@ class Item : /* public QObject, */ public KtlQCanvasPolygon
 Q_OBJECT
 public:
 	Item( ItemDocument *itemDocument, bool newItem, const QString &id );
-	virtual ~Item();
+	~Item() override;
 
 	/**
 	 * @return Pointer to the VariantMap used for internal data storage
@@ -100,7 +100,7 @@ public:
 	 * Sets the selected flag of the item to yes. selected or unselected will be
 	 * emitted as appropriate
 	 */
-	virtual void setSelected( bool yes );
+	void setSelected( bool yes ) override;
 	/**
 	 * Convenience function for setting the item bounding area as changed on the
 	 * canvas
@@ -224,7 +224,7 @@ public slots:
 	/**
 	 * Moves item - use this instead of moveBy() so that associated Nodes also get moved
 	 */
-	virtual void moveBy( double dx, double dy );
+	void moveBy( double dx, double dy ) override;
 	/**
 	 * Removes a child. Calls the virtual function childRemoved
 	 */

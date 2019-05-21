@@ -45,7 +45,7 @@ class LogView : public KTextEdit
 	Q_OBJECT
 	public:
 		LogView( KateMDI::ToolView * parent, const char *name = 0 );
-		~LogView();
+		~LogView() override;
 	
 		enum OutputType
 		{
@@ -79,7 +79,7 @@ class LogView : public KTextEdit
 	
 		MessageInfoMap m_messageInfoMap;
 
-        virtual void mouseDoubleClickEvent ( QMouseEvent * e );
+        void mouseDoubleClickEvent ( QMouseEvent * e ) override;
 	
 	private slots:
 		void slotParaClicked( int para, int pos );

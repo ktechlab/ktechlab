@@ -43,7 +43,7 @@ struct PropertyEditorStyledItemColProperty : public QStyledItemDelegate {
 
     PropertyEditorStyledItemColProperty(PropertyEditor *propEditor) : m_propEditor(propEditor) { }
 
-    virtual void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const {
+    void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const override {
 //         if ( depth() == 0 )
 //             return;
         QTableWidgetItem *itemPtr = m_propEditor->item( index.row(), index.column());
@@ -112,7 +112,7 @@ struct PropertyEditorStyledItemColValue : public QStyledItemDelegate {
 
     PropertyEditorStyledItemColValue(PropertyEditor *propEditor) : m_propEditor(propEditor) { }
 
-    virtual void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const {
+    void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const override {
 //         if ( depth() == 0 )
 //             return;
 

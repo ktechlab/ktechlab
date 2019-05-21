@@ -30,16 +30,16 @@ class ECRotoSwitch : public Component
 {
 public:
     ECRotoSwitch( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-    ~ECRotoSwitch();
+    ~ECRotoSwitch() override;
     
     static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
     static LibraryItem *libraryItem();
     
-    virtual void buttonStateChanged( const QString &id, bool state );
-    virtual void dataChanged();
+    void buttonStateChanged( const QString &id, bool state ) override;
+    void dataChanged() override;
     
 private:
-    virtual void drawShape( QPainter &p );
+    void drawShape( QPainter &p ) override;
     
     int m_numPositions;
     int m_curPosition;

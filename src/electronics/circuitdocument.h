@@ -62,9 +62,9 @@ class CircuitDocument : public CircuitICNDocument
 	Q_OBJECT
 	public:
 		CircuitDocument( const QString &caption, const char *name = 0L );
-		~CircuitDocument();
+		~CircuitDocument() override;
 	
-		virtual View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l );
+		View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l ) override;
 	
 		void calculateConnectorCurrents();
 		/**
@@ -72,7 +72,7 @@ class CircuitDocument : public CircuitICNDocument
 		 */
 		int countExtCon( const ItemList &cnItemList ) const;
 
-		virtual void update();
+		void update() override;
 	
 	public slots:
 		/**
@@ -92,18 +92,18 @@ class CircuitDocument : public CircuitICNDocument
 		 * Enables / disables / selects various actions depending on what is
 		 * selected or not.
 		 */
-		virtual void slotInitItemActions();
+		void slotInitItemActions() override;
 		void requestAssignCircuits();
 		void componentAdded( Item *item );
 		void componentRemoved( Item *item );
 		void connectorAdded( Connector *connector );
-		virtual void slotUpdateConfiguration();
+		void slotUpdateConfiguration() override;
 	
 	protected:
-		virtual void itemAdded( Item *item );
-		virtual void fillContextMenu( const QPoint &pos );
-		virtual bool isValidItem( Item *item );
-		virtual bool isValidItem( const QString &itemId );
+		void itemAdded( Item *item ) override;
+		void fillContextMenu( const QPoint &pos ) override;
+		bool isValidItem( Item *item ) override;
+		bool isValidItem( const QString &itemId ) override;
 		
 		KActionMenu *m_pOrientationAction;
 	

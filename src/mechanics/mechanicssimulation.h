@@ -60,7 +60,7 @@ class MechanicsSimulation : public QObject
 Q_OBJECT
 public:
     MechanicsSimulation( MechanicsDocument *mechanicsDocument );
-    ~MechanicsSimulation();
+    ~MechanicsSimulation() override;
 	
 	MechanicsDocument* mechanicsDocument() const { return p_mechanicsDocument; }
 

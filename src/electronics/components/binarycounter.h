@@ -31,7 +31,7 @@ class BinaryCounter : public CallbackClass, public Component
 {
 public:
 	BinaryCounter( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~BinaryCounter();
+	~BinaryCounter() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
@@ -42,7 +42,7 @@ protected:
 	void enStateChanged( bool state ); // Enable
 	void udStateChanged( bool state ); // Up/Down
 	void outputValue();
-	void dataChanged();
+	void dataChanged() override;
 	void initPins( unsigned numBits );
 	
 	LogicIn *enLogic, *inLogic, *rLogic, *udLogic;

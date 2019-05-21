@@ -20,29 +20,29 @@ class JunctionFlowNode : public FPNode
 	public:
 		JunctionFlowNode ( ICNDocument* _icnView, int dir, const QPoint& pos, QString* id = 0L );
 
-		~JunctionFlowNode();
+		~JunctionFlowNode() override;
 
 		/**
 		 * Returns true if the node can accept input connections. This will depend
 		 * on the node type and number of input / output connections.
 		 */
-		bool acceptInput() const;
+		bool acceptInput() const override;
 		/**
 		 * Returns true if the node can accept output connections. This will depend
 		 * on the node type and number of input / output connections.
 		 */
-		bool acceptOutput() const;
+		bool acceptOutput() const override;
 	public slots:
 		/**
 		 * what is this?
 		 */
-		virtual void checkForRemoval( Connector *connector );
+		void checkForRemoval( Connector *connector ) override;
 		/**
 		 * Draw shape. Note that this has to remain public.
 		 */
-		virtual void drawShape ( QPainter & p );
+		void drawShape ( QPainter & p ) override;
 	protected:
-		virtual void initPoints();
+		void initPoints() override;
 
 };
 

@@ -35,21 +35,21 @@ class MultiInputGate : public CallbackClass, public Component
 		MultiInputGate( ICNDocument *icnDocument, bool newItem, const char *id,
 						const QString & rectangularShapeText, bool invertedOutput,
 						int baseWidth, bool likeOR );
-		~MultiInputGate();
+		~MultiInputGate() override;
 		
 	protected:
 		enum LogicSymbolShape { Distinctive, Rectangular };
 		
-		virtual void updateAttachedPositioning();
-		virtual void slotUpdateConfiguration();
+		void updateAttachedPositioning() override;
+		void slotUpdateConfiguration() override;
 		virtual void inStateChanged( bool newState ) = 0;
 		/**
 		 * This will draw the shape if the logic symbol is currently
 		 * rectangular. Distinctive shapes should be drawn in the respective
 		 * subclasses.
 		 */
-		virtual void drawShape( QPainter & p );
-		void dataChanged();
+		void drawShape( QPainter & p ) override;
+		void dataChanged() override;
 		void updateInputs( int newNum );
 		/**
 		 * @return what the width should be according to the current logic
@@ -90,15 +90,15 @@ class ECXnor : public MultiInputGate
 {
 	public:
 		ECXnor( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~ECXnor();
+		~ECXnor() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem,
 								const char *id );
 		static LibraryItem *libraryItem();
 		
 	protected:
-		void inStateChanged( bool newState );
-		virtual void drawShape( QPainter &p );
+		void inStateChanged( bool newState ) override;
+		void drawShape( QPainter &p ) override;
 };
 
 
@@ -110,15 +110,15 @@ class ECXor : public MultiInputGate
 {
 	public:
 		ECXor( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~ECXor();
+		~ECXor() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem,
 								const char *id );
 		static LibraryItem *libraryItem();
 	
 	protected:
-		void inStateChanged( bool newState );
-		virtual void drawShape( QPainter &p );
+		void inStateChanged( bool newState ) override;
+		void drawShape( QPainter &p ) override;
 };
 
 
@@ -130,15 +130,15 @@ class ECOr : public MultiInputGate
 {
 	public:
 		ECOr( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~ECOr();
+		~ECOr() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem,
 								const char *id );
 		static LibraryItem *libraryItem();
 	
 	protected:
-		void inStateChanged( bool newState );
-		virtual void drawShape( QPainter &p );
+		void inStateChanged( bool newState ) override;
+		void drawShape( QPainter &p ) override;
 };
 
 /**
@@ -149,15 +149,15 @@ class ECNor : public MultiInputGate
 {
 	public:
 		ECNor( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~ECNor();
+		~ECNor() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem,
 								const char *id );
 		static LibraryItem *libraryItem();
 	
 	protected:
-		void inStateChanged( bool newState );
-		virtual void drawShape( QPainter &p );
+		void inStateChanged( bool newState ) override;
+		void drawShape( QPainter &p ) override;
 };
 
 /**
@@ -168,15 +168,15 @@ class ECNand : public MultiInputGate
 {
 	public:
 		ECNand( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~ECNand();
+		~ECNand() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem,
 								const char *id );
 		static LibraryItem *libraryItem();
 	
 	protected:
-		void inStateChanged( bool newState );
-		virtual void drawShape( QPainter &p );
+		void inStateChanged( bool newState ) override;
+		void drawShape( QPainter &p ) override;
 };
 
 /**
@@ -187,15 +187,15 @@ class ECAnd : public MultiInputGate
 {
 	public:
 		ECAnd( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~ECAnd();
+		~ECAnd() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem,
 								const char *id );
 		static LibraryItem *libraryItem();
 	
 	protected:
-		void inStateChanged( bool newState );
-		virtual void drawShape( QPainter &p );
+		void inStateChanged( bool newState ) override;
+		void drawShape( QPainter &p ) override;
 };
 
 

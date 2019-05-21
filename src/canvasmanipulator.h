@@ -99,7 +99,7 @@ public:
 		isi_isMovable = 0x2
 	};
 	CMManager( ItemDocument *itemDocument );
-	~CMManager();
+	~CMManager() override;
 	/**
 	 * Called when the user single-clicks the mouse
 	 */
@@ -176,7 +176,7 @@ class CanvasManipulator : public QObject
 	
 public:
 	CanvasManipulator( ItemDocument *itemDocument, CMManager *cmManager );
-	virtual ~CanvasManipulator();
+	~CanvasManipulator() override;
 	enum Type
 	{
 		RepeatedItemAdd,
@@ -248,17 +248,17 @@ class CMRepeatedItemAdd : public CanvasManipulator
 {
 public:
 	CMRepeatedItemAdd( ItemDocument *itemDocument, CMManager *cmManager );
-	virtual ~CMRepeatedItemAdd();
-	virtual Type type() const { return RepeatedItemAdd; }
+	~CMRepeatedItemAdd() override;
+	Type type() const override { return RepeatedItemAdd; }
 	
 	static CanvasManipulator* construct( ItemDocument *itemDocument, CMManager *cmManager );
 	static ManipulatorInfo *manipulatorInfo();
 	static bool acceptManipulation( uint eventState, uint cmState, uint itemType, uint cnItemType );
 	
-	virtual bool mousePressedInitial( const EventInfo &info );
-	virtual bool mousePressedRepeat( const EventInfo &info );
-	virtual bool mouseMoved( const EventInfo &info );
-	virtual bool mouseReleased( const EventInfo &info );
+	bool mousePressedInitial( const EventInfo &info ) override;
+	bool mousePressedRepeat( const EventInfo &info ) override;
+	bool mouseMoved( const EventInfo &info ) override;
+	bool mouseReleased( const EventInfo &info ) override;
 	
 protected:
 };
@@ -272,16 +272,16 @@ class CMRightClick : public CanvasManipulator
 {
 public:
 	CMRightClick( ItemDocument *itemDocument, CMManager *cmManager );
-	virtual ~CMRightClick();
-	virtual Type type() const { return RightClick; }
+	~CMRightClick() override;
+	Type type() const override { return RightClick; }
 	
 	static CanvasManipulator* construct( ItemDocument *itemDocument, CMManager *cmManager );
 	static ManipulatorInfo *manipulatorInfo();
 	static bool acceptManipulation( uint eventState, uint cmState, uint itemType, uint cnItemType );
 	
-	virtual bool mousePressedInitial( const EventInfo &info );
-	virtual bool mouseMoved( const EventInfo &info );
-	virtual bool mouseReleased( const EventInfo &info );
+	bool mousePressedInitial( const EventInfo &info ) override;
+	bool mouseMoved( const EventInfo &info ) override;
+	bool mouseReleased( const EventInfo &info ) override;
 	
 protected:
 };
@@ -294,7 +294,7 @@ class ConnectorDraw : public CanvasManipulator
 {
 	public:
 		ConnectorDraw( ItemDocument *itemDocument, CMManager *cmManager );
-		virtual ~ConnectorDraw();
+		~ConnectorDraw() override;
 		
 		/**
 		 * Returns the colour used to indicate that the current connection
@@ -337,16 +337,16 @@ class CMAutoConnector : public ConnectorDraw
 {
 public:
 	CMAutoConnector( ItemDocument *itemDocument, CMManager *cmManager );
-	virtual ~CMAutoConnector();
-	virtual Type type() const { return AutoConnector; }
+	~CMAutoConnector() override;
+	Type type() const override { return AutoConnector; }
 	
 	static CanvasManipulator* construct( ItemDocument *itemDocument, CMManager *cmManager );
 	static ManipulatorInfo *manipulatorInfo();
 	static bool acceptManipulation( uint eventState, uint cmState, uint itemType, uint cnItemType );
 	
-	virtual bool mousePressedInitial( const EventInfo &info );
-	virtual bool mouseMoved( const EventInfo &info );
-	virtual bool mouseReleased( const EventInfo &info );
+	bool mousePressedInitial( const EventInfo &info ) override;
+	bool mouseMoved( const EventInfo &info ) override;
+	bool mouseReleased( const EventInfo &info ) override;
 	
 protected:
 	KtlQCanvasLine *m_connectorLine;
@@ -360,17 +360,17 @@ class CMManualConnector : public ConnectorDraw
 {
 public:
 	CMManualConnector( ItemDocument *itemDocument, CMManager *cmManager );
-	virtual ~CMManualConnector();
-	virtual Type type() const { return ManualConnector; }
+	~CMManualConnector() override;
+	Type type() const override { return ManualConnector; }
 	
 	static CanvasManipulator* construct( ItemDocument *itemDocument, CMManager *cmManager );
 	static ManipulatorInfo *manipulatorInfo();
 	static bool acceptManipulation( uint eventState, uint cmState, uint itemType, uint cnItemType );
 	
-	virtual bool mousePressedInitial( const EventInfo &info );
-	virtual bool mousePressedRepeat( const EventInfo &info );
-	virtual bool mouseMoved( const EventInfo &info );
-	virtual bool mouseReleased( const EventInfo &info );
+	bool mousePressedInitial( const EventInfo &info ) override;
+	bool mousePressedRepeat( const EventInfo &info ) override;
+	bool mouseMoved( const EventInfo &info ) override;
+	bool mouseReleased( const EventInfo &info ) override;
 	
 protected:
 	ConnectorList m_fixedRouteConnectors;
@@ -385,20 +385,20 @@ class CMItemMove : public CanvasManipulator
 {
 public:
 	CMItemMove( ItemDocument *itemDocument, CMManager *cmManager );
-	virtual ~CMItemMove();
-	virtual Type type() const { return ItemMove; }
+	~CMItemMove() override;
+	Type type() const override { return ItemMove; }
 	
 	static CanvasManipulator* construct( ItemDocument *itemDocument, CMManager *cmManager );
 	static ManipulatorInfo *manipulatorInfo();
 	static bool acceptManipulation( uint eventState, uint cmState, uint itemType, uint cnItemType );
 	
-	virtual bool mousePressedInitial( const EventInfo &info );
-	virtual bool mouseMoved( const EventInfo &info );
-	virtual bool mouseReleased( const EventInfo &info );
-	virtual bool mousePressedRepeat( const EventInfo & info );
+	bool mousePressedInitial( const EventInfo &info ) override;
+	bool mouseMoved( const EventInfo &info ) override;
+	bool mouseReleased( const EventInfo &info ) override;
+	bool mousePressedRepeat( const EventInfo & info ) override;
 	
 protected:
-	virtual void canvasResized( const QRect & oldSize, const QRect & newSize );
+	void canvasResized( const QRect & oldSize, const QRect & newSize ) override;
 	void scrollCanvasToSelection();
 	
 	QPoint m_prevSnapPoint;
@@ -418,16 +418,16 @@ class CMItemResize : public CanvasManipulator
 {
 public:
 	CMItemResize( ItemDocument *itemDocument, CMManager *cmManager );
-	virtual ~CMItemResize();
-	virtual Type type() const { return ItemResize; }
+	~CMItemResize() override;
+	Type type() const override { return ItemResize; }
 	
 	static CanvasManipulator* construct( ItemDocument *itemDocument, CMManager *cmManager );
 	static ManipulatorInfo *manipulatorInfo();
 	static bool acceptManipulation( uint eventState, uint cmState, uint itemType, uint cnItemType );
 	
-	virtual bool mousePressedInitial( const EventInfo &info );
-	virtual bool mouseMoved( const EventInfo &info );
-	virtual bool mouseReleased( const EventInfo &info );
+	bool mousePressedInitial( const EventInfo &info ) override;
+	bool mouseMoved( const EventInfo &info ) override;
+	bool mouseReleased( const EventInfo &info ) override;
 	
 protected:
 	ResizeHandle *p_resizeHandle;
@@ -443,16 +443,16 @@ class CMMechItemMove : public CanvasManipulator
 {
 public:
 	CMMechItemMove( ItemDocument *itemDocument, CMManager *cmManager );
-	virtual ~CMMechItemMove();
-	virtual Type type() const { return MechItemMove; }
+	~CMMechItemMove() override;
+	Type type() const override { return MechItemMove; }
 	
 	static CanvasManipulator* construct( ItemDocument *itemDocument, CMManager *cmManager );
 	static ManipulatorInfo *manipulatorInfo();
 	static bool acceptManipulation( uint eventState, uint cmState, uint itemType, uint cnItemType );
 	
-	virtual bool mousePressedInitial( const EventInfo &info );
-	virtual bool mouseMoved( const EventInfo &info );
-	virtual bool mouseReleased( const EventInfo &info );
+	bool mousePressedInitial( const EventInfo &info ) override;
+	bool mouseMoved( const EventInfo &info ) override;
+	bool mouseReleased( const EventInfo &info ) override;
 	
 protected:
 	uint m_prevClickedOnSM; // Previous select mode of the item that was clicked on
@@ -493,16 +493,16 @@ class CMSelect : public CanvasManipulator
 {
 public:
 	CMSelect( ItemDocument *itemDocument, CMManager *cmManager );
-	virtual ~CMSelect();
-	virtual Type type() const { return Select; }
+	~CMSelect() override;
+	Type type() const override { return Select; }
 	
 	static CanvasManipulator* construct( ItemDocument *itemDocument, CMManager *cmManager );
 	static ManipulatorInfo *manipulatorInfo();
 	static bool acceptManipulation( uint eventState, uint cmState, uint itemType, uint cnItemType );
 	
-	virtual bool mousePressedInitial( const EventInfo &info );
-	virtual bool mouseMoved( const EventInfo &info );
-	virtual bool mouseReleased( const EventInfo &info );
+	bool mousePressedInitial( const EventInfo &info ) override;
+	bool mouseMoved( const EventInfo &info ) override;
+	bool mouseReleased( const EventInfo &info ) override;
 	
 protected:
 	SelectRectangle *m_selectRectangle;
@@ -516,16 +516,16 @@ class CMItemDrag : public CanvasManipulator
 {
 public:
 	CMItemDrag( ItemDocument *itemDocument, CMManager *cmManager );
-	virtual ~CMItemDrag();
-	virtual Type type() const { return ItemDrag; }
+	~CMItemDrag() override;
+	Type type() const override { return ItemDrag; }
 	
 	static CanvasManipulator* construct( ItemDocument *itemDocument, CMManager *cmManager );
 	static ManipulatorInfo *manipulatorInfo();
 	static bool acceptManipulation( uint eventState, uint cmState, uint itemType, uint cnItemType );
 	
-	virtual bool mousePressedInitial( const EventInfo &info );
-	virtual bool mouseMoved( const EventInfo &info );
-	virtual bool mouseReleased( const EventInfo &info );
+	bool mousePressedInitial( const EventInfo &info ) override;
+	bool mouseMoved( const EventInfo &info ) override;
+	bool mouseReleased( const EventInfo &info ) override;
 	
 protected:
 	bool b_dragged;
@@ -543,7 +543,7 @@ class CanvasEllipseDraw : public KtlQCanvasEllipse
 		CanvasEllipseDraw( int x, int y, KtlQCanvas * canvas );
 		
 	protected:
-		virtual void drawShape( QPainter & p );
+		void drawShape( QPainter & p ) override;
 };
 
 
@@ -554,16 +554,16 @@ class CMDraw : public CanvasManipulator
 {
 	public:
 		CMDraw( ItemDocument *itemDocument, CMManager *cmManager );
-		virtual ~CMDraw();
-		virtual Type type() const { return Draw; }
+		~CMDraw() override;
+		Type type() const override { return Draw; }
 	
 		static CanvasManipulator* construct( ItemDocument *itemDocument, CMManager *cmManager );
 		static ManipulatorInfo *manipulatorInfo();
 		static bool acceptManipulation( uint eventState, uint cmState, uint itemType, uint cnItemType );
 	
-		virtual bool mousePressedInitial( const EventInfo &info );
-		virtual bool mouseMoved( const EventInfo &info );
-		virtual bool mouseReleased( const EventInfo &info );
+		bool mousePressedInitial( const EventInfo &info ) override;
+		bool mouseMoved( const EventInfo &info ) override;
+		bool mouseReleased( const EventInfo &info ) override;
 	
 	protected:
 		KtlQCanvasRectangle * m_pDrawRectangle;

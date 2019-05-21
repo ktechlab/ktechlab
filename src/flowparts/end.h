@@ -21,12 +21,12 @@ class End : public FlowPart
 {
 public:
 	End( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~End();
+	~End() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
 	
-	virtual void generateMicrobe( FlowCode * );
+	void generateMicrobe( FlowCode * ) override;
 };
 
 #endif

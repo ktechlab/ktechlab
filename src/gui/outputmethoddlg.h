@@ -69,7 +69,7 @@ class OutputMethodDlg : public KDialog
 		 * @param showPICSelect Whether to show the combo boxes for selecting a PIC
 		 */
 		OutputMethodDlg( const QString & caption, const KUrl & inputURL, bool showPICSelect = false, QWidget *parent = 0, const char *name = 0);
-		~OutputMethodDlg();
+		~OutputMethodDlg() override;
 	
 		void setOutputExtension( const QString & outputExtension );
 		void setFilter( const QString  &filter );
@@ -77,8 +77,8 @@ class OutputMethodDlg : public KDialog
 		void setOutputFile( const KUrl & out );
 		void setPicID( const QString & id );
 
-		virtual void reject();
-		virtual void accept();
+		void reject() override;
+		void accept() override;
 		bool isAccepted() const { return m_bAccepted; }
 		
 		OutputMethodInfo info() const { return m_outputMethodInfo; }

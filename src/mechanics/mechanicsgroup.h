@@ -26,7 +26,7 @@ class MechanicsGroup : public ItemGroup
 Q_OBJECT
 public:
 	MechanicsGroup( MechanicsDocument *mechanicsDocument, const char *name = 0);
-	~MechanicsGroup();
+	~MechanicsGroup() override;
 	
 	/**
 	 * Returns a list of top-level mechanics items only
@@ -46,18 +46,18 @@ public:
 	void removeChildren( Item *item );
 	bool addItem( Item *item );
 	bool removeItem( Item *item );
-	virtual bool addQCanvasItem(KtlQCanvasItem* item);
-	virtual bool contains(KtlQCanvasItem* item) const;
-	virtual uint count() const { return itemCount(); }
-	virtual void deleteAllItems();
-	virtual void mergeGroup(ItemGroup* group);
-	virtual void removeAllItems();
-	virtual void removeQCanvasItem(KtlQCanvasItem* item);
-	virtual void setItems(KtlQCanvasItemList list);
+	bool addQCanvasItem(KtlQCanvasItem* item) override;
+	bool contains(KtlQCanvasItem* item) const override;
+	uint count() const override { return itemCount(); }
+	void deleteAllItems() override;
+	void mergeGroup(ItemGroup* group) override;
+	void removeAllItems() override;
+	void removeQCanvasItem(KtlQCanvasItem* item) override;
+	void setItems(KtlQCanvasItemList list) override;
 	/**
 	 * Sets the selected state of all items in the group
 	 */
-	virtual void setSelected( bool sel );
+	void setSelected( bool sel ) override;
 	/**
 	 * Extracts the mechanics items from the item list
 	 */

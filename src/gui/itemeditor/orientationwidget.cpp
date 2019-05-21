@@ -36,7 +36,7 @@ class DrawingPushButton : public QPushButton {
     DrawingPushButton(QWidget *parent) : QPushButton(parent) { }
 
 
-    virtual void paintEvent(QPaintEvent *ev) {
+    void paintEvent(QPaintEvent *ev) override {
         QPushButton::paintEvent(ev);
         //QPainter painter(this);// 2016.05.03 - explicitly initialize painter
         QPainter painter;

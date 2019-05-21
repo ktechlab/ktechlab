@@ -63,11 +63,11 @@ class MOSFET : public NonLinear
 		enum MOSFET_type { neMOSFET, peMOSFET/*, ndMOSFET, pdMOSFET*/ };
 		
 		MOSFET( MOSFET_type type );
-		virtual ~MOSFET();
+		~MOSFET() override;
 	
-		virtual Type type() const { return Element_MOSFET; }
-		virtual void update_dc();
-		virtual void add_initial_dc();
+		Type type() const override { return Element_MOSFET; }
+		void update_dc() override;
+		void add_initial_dc() override;
 		MOSFETSettings settings() const { return m_mosfetSettings; }
 		void setMOSFETSettings( const MOSFETSettings & settings );
 	
@@ -78,7 +78,7 @@ class MOSFET : public NonLinear
 							 double * g_M ) const;
 		
 		void updateLim();
-		virtual void updateCurrents();
+		void updateCurrents() override;
 		/**
 		 * Calculates the new MOSFETState from the voltages on the nodes.
 		 */

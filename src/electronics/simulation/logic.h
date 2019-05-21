@@ -50,10 +50,10 @@ class LogicIn : public Element
 {
 	public:
 		LogicIn( LogicConfig config );
-		virtual ~LogicIn();
+		~LogicIn() override;
 	
-		virtual Type type() const { return Element_LogicIn; }
-		virtual void setElementSet( ElementSet *c );
+		Type type() const override { return Element_LogicIn; }
+		void setElementSet( ElementSet *c ) override;
 	
 		/**
 		 * Set logic values from the LogicConfig.
@@ -101,8 +101,8 @@ class LogicIn : public Element
 		}
 	
 	protected:
-		virtual void updateCurrents();
-		virtual void add_initial_dc();
+		void updateCurrents() override;
+		void add_initial_dc() override;
 	
 		// TODO: fix this crap NO FUNCTION POINTERS
 		CallbackPtr m_pCallbackFunction;
@@ -120,11 +120,11 @@ class LogicOut : public LogicIn
 {
 	public:
 		LogicOut( LogicConfig config, bool _high );
-		virtual ~LogicOut();
+		~LogicOut() override;
 	
-		virtual void setLogic( LogicConfig config );
-		virtual void setElementSet( ElementSet *c );
-		virtual Type type() const { return Element_LogicOut; }
+		void setLogic( LogicConfig config ) override;
+		void setElementSet( ElementSet *c ) override;
+		Type type() const override { return Element_LogicOut; }
 	
 		/**
 		 * Call this function to override the logic-high output impedance as set by
@@ -187,8 +187,8 @@ class LogicOut : public LogicIn
 	
 	protected:
 		void configChanged();
-		virtual void updateCurrents();
-		virtual void add_initial_dc();
+		void updateCurrents() override;
+		void add_initial_dc() override;
 	
 		// Pre-initalized levels from config
 		double m_gHigh;

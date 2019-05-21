@@ -24,17 +24,17 @@ class MatrixDisplay : public Component
 {
 	public:
 		MatrixDisplay( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~MatrixDisplay();
+		~MatrixDisplay() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
 	
-		virtual void stepNonLogic();
-		virtual bool doesStepNonLogic() const { return true; }
+		void stepNonLogic() override;
+		bool doesStepNonLogic() const override { return true; }
 		
 	protected:
-		virtual void drawShape( QPainter &p );
-		virtual void dataChanged();
+		void drawShape( QPainter &p ) override;
+		void dataChanged() override;
 		void initPins( unsigned numRows, unsigned numCols );
 		QString colPinID( int col ) const;
 		QString rowPinID( int row ) const;

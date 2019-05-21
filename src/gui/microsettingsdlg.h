@@ -34,10 +34,10 @@ class MicroSettingsDlg : public KDialog
 	Q_OBJECT
 	public:
 		MicroSettingsDlg( MicroSettings *_microSettings, QWidget *parent = 0L, const char *name = 0L );
-		~MicroSettingsDlg();
+		~MicroSettingsDlg() override;
 
-		void reject();
-		void accept();
+		void reject() override;
+		void accept() override;
 		
 		/**
 		 * @param pinMapName the pinMapName; may be changed to make it valid
@@ -118,7 +118,7 @@ class PinMappingNameValidator : public QValidator
 			m_oldName = oldName;
 		}
 		
-		virtual State validate( QString & input, int & ) const
+		State validate( QString & input, int & ) const override
 		{
 			if ( (!m_oldName.isEmpty()) && (input == m_oldName) )
 				return QValidator::Acceptable;

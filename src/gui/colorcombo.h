@@ -37,7 +37,7 @@ class ColorCombo : public QComboBox
 		 * Constructs a color combo box.
 		 */
 		ColorCombo( ColorScheme colorScheme, QWidget *parent, const char *name = 0L );
-		~ColorCombo();
+		~ColorCombo() override;
 
 		/**
 		 * Returns the currently selected color.
@@ -65,7 +65,7 @@ class ColorCombo : public QComboBox
 		void slotHighlighted( int index );
 
 	protected:
-		virtual void resizeEvent( QResizeEvent *re );
+		void resizeEvent( QResizeEvent *re ) override;
 		void addColors();
 		void createPalettes();
 		

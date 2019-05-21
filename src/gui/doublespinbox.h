@@ -26,7 +26,7 @@ class DoubleSpinBox : public QDoubleSpinBox
 	public:
 		DoubleSpinBox( double lower, double upper, double minAbs, double value, const QString & unit, QWidget * parent = 0 );
 		DoubleSpinBox( QWidget * parent = 0 );
-		virtual ~DoubleSpinBox();
+		~DoubleSpinBox() override;
 		
 		/**
 		 * The minimum value is the lowest number that the user can enter.
@@ -67,7 +67,7 @@ class DoubleSpinBox : public QDoubleSpinBox
 		 */
 // 		void setUnit( const QString & unit );
 		
-		virtual QValidator::State validate( QString & text, int & pos ) const ;
+		QValidator::State validate( QString & text, int & pos ) const override ;
 
 	public slots:
 // 		virtual void stepUp(); // QDoubleSpinBox has these
@@ -100,11 +100,11 @@ class DoubleSpinBox : public QDoubleSpinBox
         /**
          * make Qt enable the up/down step arrows
          */
-        virtual StepEnabled stepEnabled () const ;
+        StepEnabled stepEnabled () const override ;
         /**
          * Change the value of the spin box, because of user interaction
          */
-        virtual void stepBy( int steps );
+        void stepBy( int steps ) override;
 
         double getNextUpStepValue( double in );
         double getNextDownStepValue( double in );
@@ -126,12 +126,12 @@ class DoubleSpinBox : public QDoubleSpinBox
 		 *  Overloaded the method in QSpinxBox to allow SI prefixes to be entered
 		 */
 // 		virtual int mapTextToValue( bool * ok );
-        virtual double valueFromText( const QString & text ) const ;
+        double valueFromText( const QString & text ) const override ;
 		/**
 		 *  Overloaded the method in QSpinxBox to allow SI prefixes to be entered
 		 */
 // 		virtual QString mapValueToText( int v );
-        virtual QString textFromValue ( double value ) const ;
+        QString textFromValue ( double value ) const override ;
 		/**
 		 * Returns value rounded off to one significant figure.
 		 */

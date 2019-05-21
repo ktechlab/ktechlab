@@ -23,14 +23,14 @@ class MagnitudeComparator : public CallbackClass, public Component
 {
 	public:
 		MagnitudeComparator( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~MagnitudeComparator();
+		~MagnitudeComparator() override;
 	
 		static Item * construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem * libraryItem();
 	
 	protected:
 		void initPins();
-		virtual void dataChanged();
+		void dataChanged() override;
 		void inStateChanged();
 		
 		int m_oldABLogicCount;

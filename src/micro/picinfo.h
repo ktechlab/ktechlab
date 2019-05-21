@@ -24,8 +24,8 @@ class PicInfo : public MicroInfo
 {
 	public:
 		PicInfo();
-		virtual ~PicInfo();
-		virtual AsmInfo * instructionSet() = 0;
+		~PicInfo() override;
+		AsmInfo * instructionSet() override = 0;
 };
 
 #endif

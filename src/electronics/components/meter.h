@@ -20,16 +20,16 @@ class Meter : public Component
 {
 public:
 	Meter( ICNDocument *icnDocument, bool newItem, const char *id );
-	~Meter();
+	~Meter() override;
 	
-	virtual void stepNonLogic();
-	virtual bool doesStepNonLogic() const { return true; }
-	virtual void drawShape( QPainter &p );
-	virtual bool contentChanged() const;
+	void stepNonLogic() override;
+	bool doesStepNonLogic() const override { return true; }
+	void drawShape( QPainter &p ) override;
+	bool contentChanged() const override;
 	
 protected:
 	QString displayText();
-	virtual void dataChanged();
+	void dataChanged() override;
 	/**
 	 * Return the value / current, or whatever the meter is measuring
 	 */
@@ -58,13 +58,13 @@ class FrequencyMeter : public Meter
 {
 public:
 	FrequencyMeter( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~FrequencyMeter();
+	~FrequencyMeter() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
 	
 protected:
-	virtual double meterValue();
+	double meterValue() override;
 	ECNode *m_probeNode;
 };
 
@@ -76,13 +76,13 @@ class ECAmmeter : public Meter
 {
 public:
 	ECAmmeter( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~ECAmmeter();
+	~ECAmmeter() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
 	
 protected:
-	virtual double meterValue();
+	double meterValue() override;
 
 private:
 	VoltageSource *m_voltageSource;
@@ -96,13 +96,13 @@ class ECVoltMeter : public Meter
 {
 public:
 	ECVoltMeter( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~ECVoltMeter();
+	~ECVoltMeter() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
 	
 protected:
-	virtual double meterValue();
+	double meterValue() override;
 };
 
 #endif

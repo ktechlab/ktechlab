@@ -28,8 +28,8 @@ class NewFileDlg : public KDialog
 	public:
 		NewFileDlg( QWidget *parent );
 
-		void reject();
-		void accept();
+		void reject() override;
+		void accept() override;
 		
 		bool accepted() const { return m_bAccepted; }
 		int fileType() const { return m_fileType; }

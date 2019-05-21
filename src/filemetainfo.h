@@ -83,7 +83,7 @@ class FileMetaInfo : public QObject
 {
 	Q_OBJECT
 	public:
-		~FileMetaInfo();
+		~FileMetaInfo() override;
 	
 		/**
 		 * Initialize the TextDocument with the appropriate stored metainfo - e.g.

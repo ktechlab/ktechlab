@@ -41,14 +41,14 @@ class FlowCode : public Language
 public:
 	FlowCode( ProcessChain *processChain );
 
-	virtual void processInput( ProcessOptions options );
-	virtual ProcessOptions::ProcessPath::Path outputPath( ProcessOptions::ProcessPath::Path inputPath ) const;
+	void processInput( ProcessOptions options ) override;
+	ProcessOptions::ProcessPath::Path outputPath( ProcessOptions::ProcessPath::Path inputPath ) const override;
 
 	/**
 	 * You must set the start part
 	 */
 	void setStartPart( FlowPart *startPart );
-	~FlowCode();
+	~FlowCode() override;
 	/**
 	 * You must add all top level subroutines using this function
 	 */

@@ -33,7 +33,7 @@ class FPNode : public Node
 Q_OBJECT
 public:
 	FPNode( ICNDocument *_icnView, Node::node_type type, int dir, const QPoint &pos, QString *id = 0L );
-    ~FPNode();
+    ~FPNode() override;
 	
 	/**
 	 * Returns a pointer to the FlowPart attached to this node if this node isInput, or
@@ -51,7 +51,7 @@ public:
 	 * Sets the node's visibility, as well as updating the visibility of the
 	 * attached connectors as appropriate
 	 */
-	virtual void setVisible( bool yes );
+	void setVisible( bool yes ) override;
 
 	/**
 	 * Returns true if the node can accept input connections. This will depend
@@ -66,7 +66,7 @@ public:
 	/**
 	 * Removes a specific connector
 	 */
-	void removeConnector( Connector *connector );
+	void removeConnector( Connector *connector ) override;
 	/**
 	 * Creates a new connector, sets this as the end node to the connector
 	 * (i.e. this node is the connector's input node), and returns a pointer
@@ -90,7 +90,7 @@ public:
 	 * @param includeParentItem Count the parent item as a connector if it exists
 	 * @param includeHiddenConnectors hidden connectors are those as e.g. part of a subcircuit
 	 */
-	int numCon( bool includeParentItem, bool includeHiddenConnectors ) const;
+	int numCon( bool includeParentItem, bool includeHiddenConnectors ) const override;
 	/**
 	 * Returns true if this node is connected (or is the same as) the node given
 	 * by other connectors or nodes (although not through CNItems)
@@ -98,11 +98,11 @@ public:
 	 * being the connected nodes, and so can simply return if they are in there.
 	 * If it is null, it will assume that it is the first ndoe & will create a list
 	 */
-	bool isConnected( Node *node, NodeList *checkedNodes = 0L );
+	bool isConnected( Node *node, NodeList *checkedNodes = 0L ) override;
 	/**
 	 * Removes all the NULL connectors
 	 */
-	void removeNullConnectors();
+	void removeNullConnectors() override;
 	
 	
 	/**
@@ -117,7 +117,7 @@ public:
 	/**
 	 * @return the list of all the connectors attached to the node
 	 */
-	virtual ConnectorList getAllConnectors() const ;
+	ConnectorList getAllConnectors() const override ;
 	
 	/**
 	 * For a flownode: returns the first input connector, if it exist, or the fist outptut connector, if it exists.
@@ -125,7 +125,7 @@ public:
 	 * If the node isn't connected to anyithing, returns null ( 0 )
 	 * @return pointer to the desired connector
 	 */
-	virtual Connector* getAConnector() const ;
+	Connector* getAConnector() const override ;
 	
 	
 public slots:	
@@ -138,14 +138,14 @@ public slots:
 	/**
 	 * Draw shape. Note that this has to remain public.
 	 */
-	virtual void drawShape( QPainter & p ) = 0;
+	void drawShape( QPainter & p ) override = 0;
 
 protected:
 	
 	/** If this node has precisely two connectors emerging from it, then this
 	 * function will trace the two connectors until the point where they
 	 * diverge; this point is returned. */
-	virtual QPoint findConnectorDivergePoint( bool * found );
+	QPoint findConnectorDivergePoint( bool * found ) override;
 	
 	/** (please document this) registers some signals for the node and the new connector (?) 
 	 * @return true of the operation was successful or false otherwise

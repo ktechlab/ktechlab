@@ -21,14 +21,14 @@ class ECCurrentSignal : public Component
 {
 public:
 	ECCurrentSignal( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~ECCurrentSignal();
+	~ECCurrentSignal() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
 	
 protected:
-	virtual void drawShape( QPainter &p );
-	void dataChanged();
+	void drawShape( QPainter &p ) override;
+	void dataChanged() override;
 	
 	CurrentSignal *m_currentSignal;
 };

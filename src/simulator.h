@@ -92,7 +92,7 @@ class Simulator : public QObject {
 public:
     static bool isDestroyedSim();
 	static Simulator *self();
-	~Simulator();
+	~Simulator() override;
 
 	/**
 	 * Number of (1/LOGIC_UPDATE_RATE) intervals that the simulator has been

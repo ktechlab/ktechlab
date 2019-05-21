@@ -77,7 +77,7 @@ public:
 	};
 
 	ResizeHandle( ResizeOverlay *resizeOverlay, int id, DrawType drawType, int xsnap, int ysnap );
-	~ResizeHandle();
+	~ResizeHandle() override;
 	
 	int id() const { return m_id; }
 	
@@ -87,7 +87,7 @@ public:
 	
 	static const QPixmap& handlePixmap( DrawType drawType, bool hover );
 	
-	virtual QPolygon areaPoints () const;
+	QPolygon areaPoints () const override;
 	
 public slots:
 	void slotMoveByX( double dx ) { moveBy( dx, 0 ); }
@@ -99,7 +99,7 @@ signals:
 	void rhMovedByY( double dy );
 	
 protected:
-	virtual void drawShape( QPainter &p );
+	void drawShape( QPainter &p ) override;
 	DrawType m_drawType;
 	bool b_hover; // If true, then paint resize handle for mouse hovering over
 	int m_id;
@@ -118,7 +118,7 @@ class ResizeOverlay : public QObject
 	Q_OBJECT
 public:
 	ResizeOverlay( Item *parent );
-	~ResizeOverlay();
+	~ResizeOverlay() override;
 	
 	Item *parentItem() const { return p_item; }
 	
@@ -191,13 +191,13 @@ class MechanicsItemOverlay : public ResizeOverlay
 Q_OBJECT
 public:
 	MechanicsItemOverlay( MechanicsItem *parent );
-	~MechanicsItemOverlay();
+	~MechanicsItemOverlay() override;
 	
 public slots:
 	void slotUpdateResizeHandles();
 	
 protected slots:
-	virtual void slotResizeHandleMoved( int id, double dx, double dy );
+	void slotResizeHandleMoved( int id, double dx, double dy ) override;
 	
 protected:
 	ResizeHandle *m_tl;
@@ -230,14 +230,14 @@ public:
 	 * @returns the sizerect, regardless of whether or not it is valid
 	 */
 	QRect getSizeRect( bool *ok = 0l, bool *widthOk = 0l, bool *heightOk = 0l ) const;
-	virtual bool isValidXPos( ResizeHandle *rh );
-	virtual bool isValidYPos( ResizeHandle *rh );
+	bool isValidXPos( ResizeHandle *rh ) override;
+	bool isValidYPos( ResizeHandle *rh ) override;
 	
 public slots:
 	void slotUpdateResizeHandles();
 	
 protected slots:
-	virtual void slotResizeHandleMoved( int id, double dx, double dy );
+	void slotResizeHandleMoved( int id, double dx, double dy ) override;
 	
 protected:
 	ResizeHandle *m_tl;
@@ -266,7 +266,7 @@ class LineOverlay : public ResizeOverlay
 		void slotUpdateResizeHandles();
 		
 	protected slots:
-		virtual void slotResizeHandleMoved( int id, double dx, double dy );
+		void slotResizeHandleMoved( int id, double dx, double dy ) override;
 		
 	protected:
 		ResizeHandle * m_pStart;

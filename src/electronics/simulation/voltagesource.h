@@ -21,14 +21,14 @@ class VoltageSource : public Element
 {
 public:
 	VoltageSource( const double voltage );
-	virtual ~VoltageSource();
+	~VoltageSource() override;
 	
-	virtual Type type() const { return Element_VoltageSource; }
+	Type type() const override { return Element_VoltageSource; }
 	void setVoltage( const double v );
 
 protected:
-	virtual void updateCurrents();
-	virtual void add_initial_dc();
+	void updateCurrents() override;
+	void add_initial_dc() override;
 	
 private:
 	double m_v; // Voltage

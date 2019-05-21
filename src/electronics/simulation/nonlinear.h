@@ -22,7 +22,7 @@ class NonLinear : public Element
 	public:
 		NonLinear();
 	
-		virtual bool isNonLinear() const { return true; }
+		bool isNonLinear() const override { return true; }
 		/**
 		 * Newton-Raphson iteration: Update equation system.
 		 */

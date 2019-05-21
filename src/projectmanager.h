@@ -151,7 +151,7 @@ class ProjectItem : public QObject, public LinkerOptions, public ProcessingOptio
 		enum { AllOutputs = ProgramOutput | ObjectOutput | LibraryOutput | UnknownOutput };
 		
 		ProjectItem( ProjectItem * parent, Type type, ProjectManager * projectManager );
-		virtual ~ProjectItem();
+		~ProjectItem() override;
 		
 		Type type() const { return m_type; }
 		QString typeToString() const;
@@ -206,8 +206,8 @@ class ProjectItem : public QObject, public LinkerOptions, public ProcessingOptio
 		bool build( ProcessOptionsList * pol );
 		void upload( ProcessOptionsList * pol );
 		
-		virtual void setMicroID( const QString & id );
-		virtual QString microID() const;
+		void setMicroID( const QString & id ) override;
+		QString microID() const override;
 		
 		/**
 		 * Searches this item and the children for an item for the given url,
@@ -240,7 +240,7 @@ class ProjectInfo : public ProjectItem
 
 	public:
 		ProjectInfo( ProjectManager * projectManager );
-		~ProjectInfo();
+		~ProjectInfo() override;
 	
   	 	/**
 		 * Returns the directory that the project is saved in
@@ -266,7 +266,7 @@ class ProjectManager : public ItemSelector
 {
 	Q_OBJECT
 	public:
-		~ProjectManager();
+		~ProjectManager() override;
 		static ProjectManager * self( KateMDI::ToolView * parent = 0l );
 	
 		static QString toolViewIdentifier() { return "ProjectManager"; }
@@ -326,7 +326,7 @@ class ProjectManager : public ItemSelector
 		void slotProjectOptions();
 	
 	private slots:
-		void slotContextMenuRequested( const QPoint &pos );
+		void slotContextMenuRequested( const QPoint &pos ) override;
 		/**
 		 * Called when a user clicks on any item in the project view
 		 */

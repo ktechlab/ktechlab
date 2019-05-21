@@ -42,13 +42,13 @@ class ScopeViewBase : public QFrame
 public:
     ScopeViewBase(QWidget *parent = 0, const char *name = 0);
 	virtual void drawBackground(QPainter & p) = 0;
-	virtual void resizeEvent( QResizeEvent *event );
+	void resizeEvent( QResizeEvent *event ) override;
 	void updateOutputHeight();
 
 	
 
 	
-    virtual ~ScopeViewBase();
+    ~ScopeViewBase() override;
 protected:
 	///Draw the horizontal line indicating the midpoint of our output for \c probe
  	virtual void drawMidLine(QPainter & p, ProbeData * probe) = 0;
@@ -74,7 +74,7 @@ private:
 	///draws a mapping of probes
 	template<typename T>
 		void drawProbeMap(QPainter& p, QMap<int, T*>& map);
-	virtual void paintEvent( QPaintEvent *event );
+	void paintEvent( QPaintEvent *event ) override;
 };
 
 #endif

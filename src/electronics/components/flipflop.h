@@ -23,7 +23,7 @@ class ClockedFlipFlop : public CallbackClass, public Component
 	
 	protected:
 		enum EdgeTrigger { Rising, Falling };
-		virtual void dataChanged();
+		void dataChanged() override;
 		virtual void initSymbolFromTrigger() = 0;
 		EdgeTrigger m_edgeTrigger;
 };
@@ -37,14 +37,14 @@ class ECDFlipFlop : public ClockedFlipFlop
 {
 public:
 	ECDFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~ECDFlipFlop();
+	~ECDFlipFlop() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
 	
 protected:
-	virtual void drawShape( QPainter & p );
-	virtual void initSymbolFromTrigger();
+	void drawShape( QPainter & p ) override;
+	void initSymbolFromTrigger() override;
 	void inputChanged( bool newState );
 	void inStateChanged( bool newState );
 	void asyncChanged(bool newState );
@@ -72,14 +72,14 @@ class ECJKFlipFlop : public ClockedFlipFlop
 {
 public:
 	ECJKFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~ECJKFlipFlop();
+	~ECJKFlipFlop() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
 	
 private:
-	virtual void drawShape( QPainter & p );
-	virtual void initSymbolFromTrigger();
+	void drawShape( QPainter & p ) override;
+	void initSymbolFromTrigger() override;
 	void inStateChanged( bool newState );
 	void asyncChanged(bool newState );
 	void clockChanged(bool newState );
@@ -104,7 +104,7 @@ class ECSRFlipFlop : public CallbackClass, public Component
 {
 public:
 	ECSRFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~ECSRFlipFlop();
+	~ECSRFlipFlop() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();

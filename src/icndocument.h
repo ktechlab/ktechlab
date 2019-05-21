@@ -39,7 +39,7 @@ Q_OBJECT
 public:
 	ICNDocument( const QString &caption, const char *name );
 	
-	virtual ~ICNDocument();
+	~ICNDocument() override;
 	
 	enum hit_score
 	{
@@ -48,14 +48,14 @@ public:
 		hs_item = 1000
 	};
 
-	virtual View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l );
+	View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l ) override;
 	
 	/**
 	 * Will attempt to create an item with the given id at position p. Some item
 	 * (such as PIC/START) have restrictions, and can only have one instance of
 	 * themselves on the canvas, and adds the operation to the undo list
 	 */
-	virtual Item* addItem( const QString &id, const QPoint &p, bool newItem );
+	Item* addItem( const QString &id, const QPoint &p, bool newItem ) override;
 
 	/**
 	 * short for casting whatever itemWithID(id) returns
@@ -75,12 +75,12 @@ public:
 	 * Adds a KtlQCanvasItem to the delete list to be deleted,
 	 * when flushDeleteList() is called
 	 */
-	virtual void appendDeleteList( KtlQCanvasItem *qcanvasItem );
+	void appendDeleteList( KtlQCanvasItem *qcanvasItem ) override;
 	/**
 	 * Permantly deletes all items that have been added to the delete list with
 	 * the appendDeleteList( KtlQCanvasItem *qcanvasItem ) function.
 	 */
-	virtual void flushDeleteList() = 0;
+	void flushDeleteList() override = 0;
 	/**
 	 * Reinherit this function to perform special checks on whether the two
 	 * given QCanvasItems (either nodes or connectors or both) can be
@@ -90,11 +90,11 @@ public:
 	/**
 	 *        copies the selected items to the clipboard, in an XML text form
 	 */
-	virtual void copy();
+	void copy() override;
 	/**
 	 *        selects everything in the current document
 	 */
-	virtual void selectAll();
+	void selectAll() override;
 
 
 	/**
@@ -102,7 +102,7 @@ public:
 	 * @param qcanvasItem the item to be registered
 	 * @return true if succeeded, false if it didn't
 	 */
-	virtual bool registerItem( KtlQCanvasItem *qcanvasItem );
+	bool registerItem( KtlQCanvasItem *qcanvasItem ) override;
 	/**
 	 * Returns a pointer to the 2-dimension array of ICNDocument cells.
 	 */
@@ -135,8 +135,8 @@ public:
 	 * Returns true if the CNItem is valid - e.g. will return true for a
 	 * component in a circuit, but not in a pic program
 	 */
-	virtual bool isValidItem( Item *item ) = 0;
-	virtual bool isValidItem( const QString &itemId ) = 0;
+	bool isValidItem( Item *item ) override = 0;
+	bool isValidItem( const QString &itemId ) override = 0;
 	
 	// TODO to document
 	virtual ConnectorList getCommonConnectors( const ItemList &list );
@@ -162,7 +162,7 @@ public:
 	/**
 	 * @return the selected items from the document
 	 */
-	virtual ItemGroup *selectList() const;
+	ItemGroup *selectList() const override;
 	
 	/**
 	 * Creates a connector between two nodes, and returns a pointer to it
@@ -211,14 +211,14 @@ public:
 	 */
 	virtual void slotAssignNodeGroups();
 	
-	virtual void unregisterUID( const QString & uid );
+	void unregisterUID( const QString & uid ) override;
 	
 public slots:
 	/**
 	 * Deletes all items in the selected item list, along with associated
 	 * connectors, etc, and adds the operation to the undo list
 	 */
-	virtual void deleteSelection();
+	void deleteSelection() override;
 	/**
 	 * This function looks at all the connectors and the nodes, determines
 	 * which ones need rerouting, and then reroutes them
@@ -252,7 +252,7 @@ protected:
 	 */
 	void addAllItemConnectorPoints();
 	
-	virtual void fillContextMenu( const QPoint &pos );
+	void fillContextMenu( const QPoint &pos ) override;
 	/**
 	 * Creates a new NodeGroup to control the node, if there does not already
 	 * exist a NodeGroup containing the given node. The associated nodes will

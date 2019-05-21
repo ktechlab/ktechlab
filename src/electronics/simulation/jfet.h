@@ -49,16 +49,16 @@ class JFET : public NonLinear
 		enum JFET_type { nJFET, pJFET };
 		
 		JFET( JFET_type type );
-		virtual ~JFET();
+		~JFET() override;
 	
-		virtual Type type() const { return Element_JFET; }
-		virtual void update_dc();
-		virtual void add_initial_dc();
+		Type type() const override { return Element_JFET; }
+		void update_dc() override;
+		void add_initial_dc() override;
 		JFETSettings settings() const { return m_jfetSettings; }
 		void setJFETSettings( const JFETSettings & settings );
 	
 	protected:
-		virtual void updateCurrents();
+		void updateCurrents() override;
 		/**
 		 * Calculates the new JFETState from the voltages on the nodes.
 		 */

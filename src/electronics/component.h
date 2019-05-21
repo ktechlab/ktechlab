@@ -81,7 +81,7 @@ class Component : public CNItem
 	Q_OBJECT
 	public:
 		Component( ICNDocument *icnDocument, bool newItem, const QString &id );
-		virtual ~Component();
+		~Component() override;
 	
 		ECNode* createPin( double _x, double _y, int orientation, const QString &name );
 		/**
@@ -122,7 +122,7 @@ class Component : public CNItem
 		 */
 		CircuitDocument *circuitDocument() const { return m_pCircuitDocument; }
 		void initElements( const uint stage );
-		virtual void finishedCreation();
+		void finishedCreation() override;
 		/**
 		 * If reinherit (and use) the stepNonLogic function, then you must also
 		 * reinherit this function so that it returns true. Else your component
@@ -141,11 +141,11 @@ class Component : public CNItem
 		/**
 		 * @return Information about the component in an ItemData struct.
 		 */
-		virtual ItemData itemData() const;
+		ItemData itemData() const override;
 		/**
 		 * Restores the state of the component from the ItemData struct.
 		 */
-		virtual void restoreFromItemData( const ItemData &itemData );
+		void restoreFromItemData( const ItemData &itemData ) override;
 	
 		BJT *		createBJT( Pin *c, Pin *b, Pin *e, bool isNPN = true );
 		BJT *		createBJT( ECNode *c, ECNode *b, ECNode *e, bool isNPN = true );
@@ -255,7 +255,7 @@ class Component : public CNItem
 	
 	public slots:
 		virtual void slotUpdateConfiguration();
-		virtual void removeItem();
+		void removeItem() override;
 	
 	protected:
 		/**
@@ -263,9 +263,9 @@ class Component : public CNItem
 		 * (such as ParallelPortComponent and SerialPortComponent).
 		 */
 		void drawPortShape( QPainter & p );
-		virtual void itemPointsChanged();
-		virtual void updateAttachedPositioning();
-		virtual void initPainter( QPainter &p );
+		void itemPointsChanged() override;
+		void updateAttachedPositioning() override;
+		void initPainter( QPainter &p ) override;
 		/**
 		 * Untranforms the painter from the matrix. This *must* be called after doing
 		 * initPainter( QPainter &p );

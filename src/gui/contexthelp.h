@@ -45,7 +45,7 @@ class ContextHelp : public QWidget, public Ui::ContextHelpWidget
 		static ContextHelp * self( KateMDI::ToolView * parent = 0l );
 		static QString toolViewIdentifier() { return "ContextHelp"; }
 		
-		~ContextHelp();
+		~ContextHelp() override;
 		/**
 		 * Replace special tags with appropriate html formatting code.
 		 */
@@ -53,7 +53,7 @@ class ContextHelp : public QWidget, public Ui::ContextHelpWidget
 		/**
 		 * Used as an event filter in context help.
 		 */
-		virtual bool eventFilter( QObject * watched, QEvent * e );
+		bool eventFilter( QObject * watched, QEvent * e ) override;
 	
 	public slots:
 		void slotClear();

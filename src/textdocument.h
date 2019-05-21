@@ -41,7 +41,7 @@ class TextDocument : public Document
 {
 Q_OBJECT
 public:
-	~TextDocument();
+	~TextDocument() override;
 
 	enum CodeType
 	{
@@ -61,7 +61,7 @@ public:
 		ExecutionPoint     = KTextEditor::MarkInterface::markType06
 	};
 	
-	virtual View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l );
+	View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l ) override;
 
 	/**
 	 * Attempts to construct a new TextDocument object and returns a pointer to
@@ -120,7 +120,7 @@ public:
 	virtual void clearBreakpoints();
 #endif
 	
-	virtual bool openURL(const KUrl& url);
+	bool openURL(const KUrl& url) override;
 	void fileSave(const KUrl& url);
 	/**
 	 * Set the document to the given text, making the document unmodified, and
@@ -137,25 +137,25 @@ public:
 	 */
 	void guessScheme( bool allowDisable = true );
     
-	virtual void fileSave() { fileSave(url()); }
-	virtual void fileSaveAs();
-	virtual void print();
-	virtual void setModified( bool modified );
+	void fileSave() override { fileSave(url()); }
+	void fileSaveAs() override;
+	void print() override;
+	void setModified( bool modified ) override;
 	
 	KTextEditor::View* createKateView( QWidget *parent, const char *name = 0l );
 	
-	virtual void undo();
-	virtual void redo();
-	virtual void cut();
-	virtual void copy();
-	virtual void paste();
+	void undo() override;
+	void redo() override;
+	void cut() override;
+	void copy() override;
+	void paste() override;
 	
-	virtual bool isModified() const { return m_doc->isModified(); }
-	virtual bool isUndoAvailable() const ; // { return (m_doc->undoCount() != 0); }
-	virtual bool isRedoAvailable() const ; // { return (m_doc->redoCount() != 0); }
+	bool isModified() const override { return m_doc->isModified(); }
+	bool isUndoAvailable() const override ; // { return (m_doc->undoCount() != 0); }
+	bool isRedoAvailable() const override ; // { return (m_doc->redoCount() != 0); }
 
 	void clearBookmarks();
-	virtual bool fileClose();
+	bool fileClose() override;
 
 	static const QPixmap* inactiveBreakpointPixmap();
 	static const QPixmap* activeBreakpointPixmap();
@@ -182,16 +182,16 @@ public slots:
 	 * @param target as ConvertToTarget
 	 */
 	void slotConvertTo( QAction *action );
-	void convertToAssembly();
-	void convertToHex();
-	void convertToPIC();
+	void convertToAssembly() override;
+	void convertToHex() override;
+	void convertToPIC() override;
 	void formatAssembly();
-	void debugRun();
-	void debugInterrupt();
-	void debugStep();
+	void debugRun() override;
+	void debugInterrupt() override;
+	void debugStep() override;
 	void debugStepOver();
 	void debugStepOut();
-	void debugStop();
+	void debugStop() override;
 	void slotInitLanguage( CodeType type );
 	/**
 	 * Called when change line / toggle marks

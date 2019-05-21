@@ -63,7 +63,7 @@ public:
 	};
 	
 	Variant( const QString & id, Type::Value type );
-	virtual ~Variant();
+	~Variant() override;
 	
 	QString id() const { return m_id; }
 	

@@ -60,7 +60,7 @@ class CNItem : public Item, public CIWidgetMgr
 Q_OBJECT
 public:
 	CNItem( ICNDocument *_icnView, bool newItem, const QString &id );
-	virtual ~CNItem();
+	~CNItem() override;
 	
 	/**
 	 * Creates a node which is attached to the item. The node will be moved
@@ -82,14 +82,14 @@ public:
 	 * Returns a list of connectors associated with the CNItem
 	 */
 	ConnectorList connectorList();
-	virtual bool preResize( QRect sizeRect );
-	virtual bool mousePressEvent( const EventInfo &eventInfo );
-	virtual bool mouseReleaseEvent( const EventInfo &eventInfo );
-	virtual bool mouseDoubleClickEvent ( const EventInfo &eventInfo );
-	virtual bool mouseMoveEvent( const EventInfo &eventInfo );
-	virtual bool wheelEvent( const EventInfo &eventInfo );
-	virtual void enterEvent(QEvent *);
-	virtual void leaveEvent(QEvent *);
+	bool preResize( QRect sizeRect ) override;
+	bool mousePressEvent( const EventInfo &eventInfo ) override;
+	bool mouseReleaseEvent( const EventInfo &eventInfo ) override;
+	bool mouseDoubleClickEvent ( const EventInfo &eventInfo ) override;
+	bool mouseMoveEvent( const EventInfo &eventInfo ) override;
+	bool wheelEvent( const EventInfo &eventInfo ) override;
+	void enterEvent(QEvent *) override;
+	void leaveEvent(QEvent *) override;
 	/**
 	 * ICNDocument needs to know what 'cells' a CNItem is present in,
 	 * so that connection mapping can be done to avoid CNItems.
@@ -116,13 +116,13 @@ public:
 	 * Returns the TextMap used for canvas text
 	 */
 	TextMap textMap() const { return m_textMap; }
-	virtual void setVisible( bool yes );
-	virtual void updateZ( int baseZ );
+	void setVisible( bool yes ) override;
+	void updateZ( int baseZ ) override;
 
-	virtual ItemData itemData() const;
-	virtual void restoreFromItemData( const ItemData &itemData );
+	ItemData itemData() const override;
+	void restoreFromItemData( const ItemData &itemData ) override;
 	virtual void updateNodeLevels();
-	virtual void drawShape( QPainter &p );
+	void drawShape( QPainter &p ) override;
 	
 signals:
 	/**
@@ -135,7 +135,7 @@ public slots:
 	/**
 	 * Moves item - use this instead of moveBy() so that associated Nodes also get moved
 	 */
-	virtual void moveBy( double dx, double dy );
+	void moveBy( double dx, double dy ) override;
 	/**
 	 * Remove the item and associated nodes. It appends the item to the
 	 * ICNDocument's delete list, so you must call ICNDocument::flushDeleteList()
@@ -144,15 +144,15 @@ public slots:
 	 * any child classes to clear up any neccessary data (which doesn't do
 	 * anything by default), before CNItem does the rest
 	 */
-	virtual void removeItem();
+	void removeItem() override;
 	/**
 	 * This item has been resized, so update the nodes relative positions
 	 */
 	virtual void updateAttachedPositioning();
 	
 protected:
-	virtual void reparented( Item *oldParent, Item *newParent );
-	virtual void postResize();
+	void reparented( Item *oldParent, Item *newParent ) override;
+	void postResize() override;
 	/**
 	 * CNItem handles drawing of text associated with the CNItem.
 	 * @param id is a unique identifier that can be used to change the text displayed.

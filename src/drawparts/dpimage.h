@@ -42,7 +42,7 @@ class ImageScaleThread : public QThread
 		/**
 		 * Start scaling.
 		 */
-		virtual void run();
+		void run() override;
 		
 		QImage m_image;
 		QImage m_normalScaled;
@@ -67,15 +67,15 @@ class DPImage : public DrawPart
 	Q_OBJECT
 	public:
 		DPImage( ItemDocument *itemDocument, bool newItem, const char *id = 0L );
-		~DPImage();
+		~DPImage() override;
 
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
 
-		virtual void setSelected( bool yes );
+		void setSelected( bool yes ) override;
 
 	protected:
-		virtual void postResize();
+		void postResize() override;
 		
 	protected slots:
 		/**
@@ -85,8 +85,8 @@ class DPImage : public DrawPart
 		void checkImageScaling();
 	
 	private:
-		virtual void drawShape( QPainter &p );
-		void dataChanged();
+		void drawShape( QPainter &p ) override;
+		void dataChanged() override;
 		
 		ImageScaleThread::BestScaling m_imageScaling;
 		QPixmap m_image;

@@ -36,14 +36,14 @@ class VoltageRegulator : public Component
 {
 	public:
 		VoltageRegulator( ICNDocument* icnDocument, bool newItem, const QString& id = 0L );
-		~VoltageRegulator();
+		~VoltageRegulator() override;
 		
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
 				
 	private:
-		void dataChanged();
-		virtual void drawShape( QPainter &p );
+		void dataChanged() override;
+		void drawShape( QPainter &p ) override;
 		
 		// Input.
 		// Output.

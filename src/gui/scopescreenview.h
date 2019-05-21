@@ -26,25 +26,25 @@ class ScopeScreenView : public ScopeViewBase
 public:
     ScopeScreenView(QWidget *parent = 0, const char *name = 0);
 
-    ~ScopeScreenView();
+    ~ScopeScreenView() override;
 	//virtual void drawContents(QPainter * p);
-	virtual void drawBackground(QPainter & p);
+	void drawBackground(QPainter & p) override;
 	
 		///Draw the horizontal line indicating the midpoint of our output for \c probe
-	virtual void drawMidLine(QPainter & p, ProbeData * probe);
+	void drawMidLine(QPainter & p, ProbeData * probe) override;
 	
 	///\TODO: remove virtual; draw one logic probe
-	virtual void drawProbe(QPainter& p, LogicProbeData * probe);
+	void drawProbe(QPainter& p, LogicProbeData * probe) override;
 	///\TODO: remove virtual; draw one floating-point probe
-	virtual void drawProbe(QPainter& p, FloatingProbeData * probe);
+	void drawProbe(QPainter& p, FloatingProbeData * probe) override;
 	
 		/// gives the first Simulator tick visible in the view
-	virtual llong visibleStartTime() const {return 0;}
+	llong visibleStartTime() const override {return 0;}
 	/// gives the last Simulator tick visible in the view
-	virtual llong visibleEndTime() const {return 0;}
+	llong visibleEndTime() const override {return 0;}
 	
-	virtual double ticksPerPixel() const {return 0;}
-	virtual llong pixelsPerTick() const {return 0;}
+	double ticksPerPixel() const override {return 0;}
+	llong pixelsPerTick() const override {return 0;}
 	
 public slots:
 	void setIntervalsX(int value);

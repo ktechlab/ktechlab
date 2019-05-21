@@ -47,16 +47,16 @@ class BJT : public NonLinear
 {
 	public:
 		BJT( bool isNPN );
-		virtual ~BJT();
+		~BJT() override;
 	
-		virtual Type type() const { return Element_BJT; }
-		virtual void update_dc();
-		virtual void add_initial_dc();
+		Type type() const override { return Element_BJT; }
+		void update_dc() override;
+		void add_initial_dc() override;
 		BJTSettings settings() const { return m_bjtSettings; }
 		void setBJTSettings( const BJTSettings & settings );
 	
 	protected:
-		virtual void updateCurrents();
+		void updateCurrents() override;
 		/**
 		 * Calculates the new BJTState from the voltages on the nodes.
 		 */

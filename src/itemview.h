@@ -30,10 +30,10 @@ class ItemView : public View
 	Q_OBJECT
 	public:
 		ItemView( ItemDocument *itemDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = 0 );
-		~ItemView();
+		~ItemView() override;
 
-		virtual bool canZoomIn() const;
-		virtual bool canZoomOut() const;
+		bool canZoomIn() const override;
+		bool canZoomOut() const override;
 		CVBEditor *cvbEditor() const { return m_CVBEditor; }
 		/**
 		 * @returns The zoom level
@@ -60,7 +60,7 @@ class ItemView : public View
 		QPoint mousePosToCanvasPos( const QPoint & contentsClick ) const;
 
 	public slots:
-		void actualSize();
+		void actualSize() override;
 		void zoomIn();
 		void zoomOut();
 		void scrollToMouse( const QPoint &pos );
@@ -70,7 +70,7 @@ class ItemView : public View
 		/**
 		 * Called when the user changes the configuration.
 		 */
-		virtual void slotUpdateConfiguration();
+		void slotUpdateConfiguration() override;
 		void startUpdatingStatus();
 		void stopUpdatingStatus();
 
@@ -88,20 +88,20 @@ class ItemView : public View
 		/**
 		 * Attempts to create a new CNItem if one was dragged onto the canvas
 		 */
-		void dropEvent( QDropEvent * event );
+		void dropEvent( QDropEvent * event ) override;
 		/**
 		 * Reinherit to allow different types of items to be dragged in.
 		 */
-		virtual void dragEnterEvent( QDragEnterEvent * event );
-		void dragLeaveEvent( QDragLeaveEvent * event );
-		void dragMoveEvent( QDragMoveEvent * event );
+		void dragEnterEvent( QDragEnterEvent * event ) override;
+		void dragLeaveEvent( QDragLeaveEvent * event ) override;
+		void dragMoveEvent( QDragMoveEvent * event ) override;
 		void contentsMousePressEvent( QMouseEvent *e );
 		void contentsMouseReleaseEvent( QMouseEvent *e );
 		void contentsMouseDoubleClickEvent( QMouseEvent *e );
 		void contentsMouseMoveEvent( QMouseEvent *e );
 		void contentsWheelEvent( QWheelEvent *e );
-		void enterEvent( QEvent * e );
-		void leaveEvent( QEvent * e );
+		void enterEvent( QEvent * e ) override;
+		void leaveEvent( QEvent * e ) override;
 
         void requestDocumentResizeToCanvasItems();
 
@@ -126,8 +126,8 @@ class CVBEditor : public KtlQCanvasView
 		CVBEditor( Canvas * canvas, ItemView *itemView, const char *name );
 		
 		void setPassEventsToView( bool pass ) { b_passEventsToView = pass; }
-		virtual bool event( QEvent * e );
-		virtual void contentsWheelEvent( QWheelEvent * e );
+		bool event( QEvent * e ) override;
+		void contentsWheelEvent( QWheelEvent * e ) override;
 		/**
 		 * Updates the world matrix from ItmeView's zoom level and from Canvas'
 		 * offset.
@@ -138,7 +138,7 @@ class CVBEditor : public KtlQCanvasView
 		void canvasResized( const QRect & oldSize, const QRect & newSize );
 		
 	protected:
-		virtual void viewportResizeEvent( QResizeEvent * );
+		void viewportResizeEvent( QResizeEvent * ) override;
 		ItemView *p_itemView;
 		bool b_passEventsToView;
 		bool b_ignoreEvents;

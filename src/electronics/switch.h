@@ -33,7 +33,7 @@ public:
 	};
 
 	Switch(Component *parent, Pin *p1, Pin *p2, State state);
-	~Switch();
+	~Switch() override;
 	/**
 	 * If bouncing has been set to true, then the state will not switch
 	 * immediately to that given.

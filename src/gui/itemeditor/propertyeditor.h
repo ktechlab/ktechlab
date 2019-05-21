@@ -38,12 +38,12 @@ class PropertyEditor : public QTableWidget // K3ListView
 		/*! Creates an empty PropertyEditor with \a parent as parent widget.
 		*/
 		PropertyEditor( QWidget * parent = 0, const char * name = 0 );
-		virtual ~PropertyEditor();
+		~PropertyEditor() override;
 
 		/*! Reset the list, ie clears all items in the list.
 		   if \a editorOnly is true, then only the current editor will be cleared, not the whole list.
 		*/
-		void reset();
+		void reset() override;
 
 		/**
 		 * Updates the list of Property editors from the items selected in
@@ -51,7 +51,7 @@ class PropertyEditor : public QTableWidget // K3ListView
 		 */
 		void create( ItemGroup * itemGroup );
 
-		virtual QSize sizeHint() const;
+		QSize sizeHint() const override;
 		/**
 		 * @internal used by PropertySubEditor and PropertyEditor.
 		 */
@@ -119,7 +119,7 @@ class PropertyEditor : public QTableWidget // K3ListView
 		 * Reimplemented from K3ListView to update editor and revert button
 		 * position.
 		 */
-		void resizeEvent(QResizeEvent *ev);
+		void resizeEvent(QResizeEvent *ev) override;
 
 		void showDefaultsButton( bool show );
 

@@ -24,14 +24,14 @@ class Inverter : public CallbackClass, public Component
 {
 	public:
 		Inverter( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~Inverter();
+		~Inverter() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
 	
 	protected:
 		void inStateChanged( bool newState );
-		virtual void drawShape( QPainter &p );
+		void drawShape( QPainter &p ) override;
 		
 		LogicIn * m_pIn;
 		LogicOut * m_pOut;
@@ -45,14 +45,14 @@ class Buffer : public CallbackClass, public Component
 {
 public:
 	Buffer( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~Buffer();
+	~Buffer() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
 	
 private:
 	void inStateChanged( bool newState );
-	virtual void drawShape( QPainter &p );
+	void drawShape( QPainter &p ) override;
 		
 	LogicIn * m_pIn;
 	LogicOut * m_pOut;
@@ -66,16 +66,16 @@ class ECLogicInput : public Component
 {
 public:
 	ECLogicInput( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~ECLogicInput();
+	~ECLogicInput() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
 	
-	virtual void buttonStateChanged( const QString &id, bool state );
+	void buttonStateChanged( const QString &id, bool state ) override;
 	
 private:
-	virtual void dataChanged();
-	virtual void drawShape( QPainter &p );
+	void dataChanged() override;
+	void drawShape( QPainter &p ) override;
 	LogicOut * m_pOut;
 	bool b_state;
 };
@@ -88,14 +88,14 @@ class ECLogicOutput : public CallbackClass, public Component
 {
 	public:
 		ECLogicOutput( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~ECLogicOutput();
+		~ECLogicOutput() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
 	
 	protected:
 		void inStateChanged( bool newState );
-		virtual void drawShape( QPainter &p );
+		void drawShape( QPainter &p ) override;
 		
 		unsigned long long m_lastDrawTime;
 		unsigned long long m_lastSwitchTime;

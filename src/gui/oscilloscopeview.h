@@ -28,7 +28,7 @@ class OscilloscopeView : public QFrame
 	Q_OBJECT
 	public:
 		OscilloscopeView( QWidget *parent, const char *name = 0);
-		virtual ~OscilloscopeView();
+		~OscilloscopeView() override;
 		
 	public slots:
 		/**
@@ -41,11 +41,11 @@ class OscilloscopeView : public QFrame
 		void updateViewTimeout();
 		
 	protected:
-		virtual void mousePressEvent( QMouseEvent *event);
-		virtual void mouseMoveEvent( QMouseEvent *event);
-		virtual void mouseReleaseEvent( QMouseEvent *event);
-		virtual void paintEvent( QPaintEvent *event);
-		virtual void resizeEvent( QResizeEvent *event);
+		void mousePressEvent( QMouseEvent *event) override;
+		void mouseMoveEvent( QMouseEvent *event) override;
+		void mouseReleaseEvent( QMouseEvent *event) override;
+		void paintEvent( QPaintEvent *event) override;
+		void resizeEvent( QResizeEvent *event) override;
 		
 		void drawLogicData( QPainter & p);
 		void drawFloatingData( QPainter & p);

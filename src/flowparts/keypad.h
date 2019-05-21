@@ -21,15 +21,15 @@ class Keypad : public FlowPart
 {
 public:
 	Keypad( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~Keypad();
+	~Keypad() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
 	
-	virtual void generateMicrobe( FlowCode *code );
+	void generateMicrobe( FlowCode *code ) override;
 
 protected:
-	void dataChanged();
+	void dataChanged() override;
 };
 
 #endif

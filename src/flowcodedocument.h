@@ -36,9 +36,9 @@ class FlowCodeDocument : public FlowICNDocument
 	Q_OBJECT
 	public:
 		FlowCodeDocument( const QString &caption, const char *name = 0L);
-		~FlowCodeDocument();
+		~FlowCodeDocument() override;
 	
-		virtual View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l );
+		View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l ) override;
 
 		/**
 		 * Returns a pointer used for the MicroSettings in this FlowCode document
@@ -74,18 +74,18 @@ class FlowCodeDocument : public FlowICNDocument
 		 * @param target as ConvertToTarget
 		 */
 		void slotConvertTo( QAction* action );
-		void convertToMicrobe();
-		void convertToAssembly();
-		void convertToHex();
-		void convertToPIC();
+		void convertToMicrobe() override;
+		void convertToAssembly() override;
+		void convertToHex() override;
+		void convertToPIC() override;
 		/**
 		 * Called when a variable name has changed (from an entry box)
 		 */
 		void varNameChanged( const QString &newValue, const QString &oldValue );
 
 	protected:
-		virtual bool isValidItem( Item *item );
-		virtual bool isValidItem( const QString &itemId );
+		bool isValidItem( Item *item ) override;
+		bool isValidItem( const QString &itemId ) override;
 		
 	private slots:
 		void setLastTextOutputTarget( TextDocument * target );

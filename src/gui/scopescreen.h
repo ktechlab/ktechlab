@@ -30,7 +30,7 @@ private:
 public:
 	static ScopeScreen * self( KateMDI::ToolView * parent = 0L );
 	static QString toolViewIdentifier() { return "ScopeScreen"; }
-    virtual ~ScopeScreen();
+    ~ScopeScreen() override;
 
 };
 

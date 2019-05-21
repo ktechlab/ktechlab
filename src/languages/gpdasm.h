@@ -21,17 +21,17 @@ class Gpdasm : public ExternalLanguage
 {
 public:
 	Gpdasm( ProcessChain *processChain );
-	~Gpdasm();
+	~Gpdasm() override;
 	
-	virtual void processInput( ProcessOptions options );
-	virtual MessageInfo extractMessageInfo( const QString &text );
-	virtual ProcessOptions::ProcessPath::Path outputPath( ProcessOptions::ProcessPath::Path inputPath ) const;
+	void processInput( ProcessOptions options ) override;
+	MessageInfo extractMessageInfo( const QString &text ) override;
+	ProcessOptions::ProcessPath::Path outputPath( ProcessOptions::ProcessPath::Path inputPath ) const override;
 
 protected:
-	virtual void outputtedMessage( const QString &message );
-	virtual bool isError( const QString &message ) const;
-	virtual bool isWarning( const QString &message ) const;
-	virtual bool processExited( bool successfully );
+	void outputtedMessage( const QString &message ) override;
+	bool isError( const QString &message ) const override;
+	bool isWarning( const QString &message ) const override;
+	bool processExited( bool successfully ) override;
 
 	QString m_asmOutput; // Outputed by gpdasm
 };

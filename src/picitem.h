@@ -29,7 +29,7 @@ class PinItem : /*public QObject, */ public KtlQCanvasRectangle
 public:
 	PinItem( FlowCodeDocument* _view, QPoint position, bool _onLeft, PinSettings *_pinSettings );
 
-	QRect boundingRect () const;
+	QRect boundingRect () const override;
 	void switchState();
 	
 	QString id();
@@ -39,14 +39,14 @@ public:
 	 */
 	void dragged( int dx );
 	
-	virtual void moveBy ( double dx, double dy );
+	void moveBy ( double dx, double dy ) override;
 	
 public slots:
 	void updateDrawing();
 
 private:
 	void initItem();
-	void drawShape( QPainter& p );
+	void drawShape( QPainter& p ) override;
 	void calcTextRect();
 	
 	FlowCodeDocument *view; // Pointer to canvas view that the component item is currently on
@@ -67,19 +67,19 @@ class PicItem : public CNItem
 	Q_OBJECT
 	public:
 		PicItem( ICNDocument *icnDocument, bool newItem, const char *id, MicroSettings *_microSettings );
-		~PicItem();
+		~PicItem() override;
 	
-		void drawShape( QPainter &p );
+		void drawShape( QPainter &p ) override;
 	
-		virtual void buttonStateChanged( const QString &id, bool state );
-		virtual bool isMovable() const { return false; }
+		void buttonStateChanged( const QString &id, bool state ) override;
+		bool isMovable() const override { return false; }
 	
 		static QString typeString() { return "microitem"; }
-		virtual void updateZ( int baseZ );
+		void updateZ( int baseZ ) override;
 
-		bool mousePressEvent( const EventInfo &info );
-		bool mouseReleaseEvent( const EventInfo &info );
-		bool mouseMoveEvent( const EventInfo &info );
+		bool mousePressEvent( const EventInfo &info ) override;
+		bool mouseReleaseEvent( const EventInfo &info ) override;
+		bool mouseMoveEvent( const EventInfo &info ) override;
 	
 	protected slots:
 		void slotMicroSettingsDlgAccepted();

@@ -22,15 +22,15 @@ class ResistorDIP : public Component
 {
 public:
 	ResistorDIP( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~ResistorDIP();
+	~ResistorDIP() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
 	
 protected:
-	virtual void drawShape( QPainter &p );
+	void drawShape( QPainter &p ) override;
 	void updateDIPNodePositions();
-	virtual void dataChanged();
+	void dataChanged() override;
 	/**
 	 * Add / remove pins according to the number of inputs the user has requested
 	 */

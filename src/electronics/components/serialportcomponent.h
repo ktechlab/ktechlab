@@ -23,21 +23,21 @@ class SerialPortComponent : public CallbackClass, public Component
 {
 	public:
 		SerialPortComponent( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~SerialPortComponent();
+		~SerialPortComponent() override;
 	
 		static Item * construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem * libraryItem();
 		
-		virtual void stepNonLogic();
-		virtual bool doesStepNonLogic() const { return true; }
+		void stepNonLogic() override;
+		bool doesStepNonLogic() const override { return true; }
 	
 	protected:
 		/**
 		 * @param baudRate as defined in <bits/termios.h>
 		 */
 		void initPort( const QString & port, unsigned baudRate );
-		virtual void dataChanged();
-		virtual void drawShape( QPainter & p );
+		void dataChanged() override;
+		void drawShape( QPainter & p ) override;
 		
 		void tdCallback( bool isHigh );
 		void dtrCallback( bool isHigh );

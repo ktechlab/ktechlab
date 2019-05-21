@@ -24,7 +24,7 @@ class ECSubcircuit : public Component
 Q_OBJECT
 public:
 	ECSubcircuit( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~ECSubcircuit();
+	~ECSubcircuit() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
@@ -43,7 +43,7 @@ public:
 	void doneSCInit();
 	
 public slots:
-	virtual void removeItem();
+	void removeItem() override;
 	
 signals:
 	/**
@@ -52,8 +52,8 @@ signals:
 	void subcircuitDeleted();
 	
 protected:
-	virtual void dataChanged();
-	virtual void drawShape( QPainter &p );
+	void dataChanged() override;
+	void drawShape( QPainter &p ) override;
 	QVector<QString> m_conNames;
 };
 

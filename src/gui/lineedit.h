@@ -23,10 +23,10 @@ class LineEdit : public KLineEdit
 	public:
 		LineEdit( QWidget * parent = 0, const char * name = 0 );
 		LineEdit( const QString & text, QWidget * parent = 0, const char * name = 0 );
-		~LineEdit();
+		~LineEdit() override;
 		
 	public slots:
-		virtual void setText( const QString & text );
+		void setText( const QString & text ) override;
 };
 
 #endif

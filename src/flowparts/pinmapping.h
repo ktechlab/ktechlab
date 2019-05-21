@@ -97,16 +97,16 @@ class PinMapDocument : public CircuitICNDocument
 	Q_OBJECT
 	public:
 		PinMapDocument();
-		~PinMapDocument();
+		~PinMapDocument() override;
 
 		void init( const PinMapping & PinMapping, MicroInfo *microInfo );
 
-		virtual bool isValidItem( Item *item );
-		virtual bool isValidItem( const QString &itemId );
+		bool isValidItem( Item *item ) override;
+		bool isValidItem( const QString &itemId ) override;
 
 		PinMapping pinMapping() const;
 
-		virtual void deleteSelection();
+		void deleteSelection() override;
 
 	protected:
 		PinMapping::Type m_pinMappingType;
@@ -124,7 +124,7 @@ class PinMapView : public ICNView
 	Q_OBJECT
 	public:
 		PinMapView( PinMapDocument *pinMapDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l );
-		~PinMapView();
+		~PinMapView() override;
 };
 
 
@@ -132,7 +132,7 @@ class PIC_IC : public Component
 {
 	public:
 		PIC_IC( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		virtual ~PIC_IC();
+		~PIC_IC() override;
 		
 		static Item *construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();

@@ -34,7 +34,7 @@ class SettingsDlg : public KConfigDialog
 	Q_OBJECT
 	public:
 		SettingsDlg( QWidget *parent, const char *name, KCoreConfigSkeleton *config );
-		~SettingsDlg();
+		~SettingsDlg() override;
 	
 		static int refreshRateToSliderValue( int refreshRate );
 		static int sliderValueToRefreshRate( int sliderValue );
@@ -53,11 +53,11 @@ class SettingsDlg : public KConfigDialog
 		void slotUpdateWidgets();
 	
 	protected:
-		virtual void updateSettings();
-		virtual void updateWidgets();
-		virtual void updateWidgetsDefault();
-		virtual bool hasChanged();
-		virtual bool isDefault();
+		void updateSettings() override;
+		void updateWidgets() override;
+		void updateWidgetsDefault() override;
+		bool hasChanged() override;
+		bool isDefault() override;
 	
 		PicProgrammerSettings * m_pPicProgrammerSettings;
 		
@@ -79,7 +79,7 @@ class NameValidator : public QValidator
 			m_unallowed = unallowed;
 		}
 		
-		virtual State validate( QString & input, int & ) const {
+		State validate( QString & input, int & ) const override {
 			return (input.isEmpty() || m_unallowed.contains( input.toLower() )) ? Intermediate : Acceptable;
 		}
 		

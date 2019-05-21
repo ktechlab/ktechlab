@@ -910,10 +910,10 @@ class Instr_addwf : public Instruction
 {
 	public:
 		Instr_addwf( const Register & file, int dest ) { m_file = file; m_dest = dest; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return FileOriented; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return FileOriented; }
 };
 
 
@@ -921,10 +921,10 @@ class Instr_andwf : public Instruction
 {
 	public:
 		Instr_andwf( const Register & file, int dest ) { m_file = file; m_dest = dest; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return FileOriented; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return FileOriented; }
 };
 
 
@@ -932,10 +932,10 @@ class Instr_clrf : public Instruction
 {
 	public:
 		Instr_clrf( const Register & file ) { m_file = file; m_dest = 1; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return FileOriented; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return FileOriented; }
 };
 
 
@@ -947,10 +947,10 @@ class Instr_decf : public Instruction
 {
 	public:
 		Instr_decf( const Register & file, int dest ) { m_file = file; m_dest = dest; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return FileOriented; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return FileOriented; }
 };
 
 
@@ -958,10 +958,10 @@ class Instr_decfsz : public Instruction
 {
 	public:
 		Instr_decfsz( const Register & file, int dest ) { m_file = file; m_dest = dest; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return FileOriented; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return FileOriented; }
 };
 
 
@@ -969,10 +969,10 @@ class Instr_incf : public Instruction
 {
 	public:
 		Instr_incf( const Register & file, int dest ) { m_file = file; m_dest = dest; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return FileOriented; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return FileOriented; }
 };
 
 
@@ -983,10 +983,10 @@ class Instr_iorwf : public Instruction
 {
 	public:
 		Instr_iorwf( const Register & file, int dest ) { m_file = file; m_dest = dest; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return FileOriented; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return FileOriented; }
 };
 
 
@@ -994,10 +994,10 @@ class Instr_movf : public Instruction
 {
 	public:
 		Instr_movf( const Register & file, int dest ) { m_file = file; m_dest = dest; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return FileOriented; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return FileOriented; }
 };
 
 
@@ -1005,10 +1005,10 @@ class Instr_movwf : public Instruction
 {
 	public:
 		Instr_movwf( const Register & file ) { m_file = file; m_dest = 1; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return FileOriented; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return FileOriented; }
 };
 
 
@@ -1019,10 +1019,10 @@ class Instr_rlf : public Instruction
 {
 	public:
 		Instr_rlf( const Register & file, int dest ) { m_file = file; m_dest = dest; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return FileOriented; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return FileOriented; }
 };
 
 
@@ -1030,10 +1030,10 @@ class Instr_rrf : public Instruction
 {
 	public:
 		Instr_rrf( const Register & file, int dest ) { m_file = file; m_dest = dest; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return FileOriented; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return FileOriented; }
 };
 
 
@@ -1041,10 +1041,10 @@ class Instr_subwf : public Instruction
 {
 	public:
 		Instr_subwf( const Register & file, int dest ) { m_file = file; m_dest = dest; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return FileOriented; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return FileOriented; }
 };
 
 
@@ -1052,10 +1052,10 @@ class Instr_swapf : public Instruction
 {
 	public:
 		Instr_swapf( const Register & file, int dest ) { m_file = file; m_dest = dest; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return FileOriented; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return FileOriented; }
 };
 
 
@@ -1063,10 +1063,10 @@ class Instr_xorwf : public Instruction
 {
 	public:
 		Instr_xorwf( const Register & file, int dest ) { m_file = file; m_dest = dest; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return FileOriented; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return FileOriented; }
 };
 //END Byte-Oriented File Register Operations
 
@@ -1077,10 +1077,10 @@ class Instr_bcf : public Instruction
 {
 	public:
 		Instr_bcf( const Register & file, const RegisterBit & bit ) { m_file = file; m_bit = bit; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return BitOriented; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return BitOriented; }
 };
 
 
@@ -1088,10 +1088,10 @@ class Instr_bsf : public Instruction
 {
 	public:
 		Instr_bsf( const Register & file, const RegisterBit & bit ) { m_file = file; m_bit = bit; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return BitOriented; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return BitOriented; }
 };
 
 
@@ -1099,10 +1099,10 @@ class Instr_btfsc : public Instruction
 {
 	public:
 		Instr_btfsc( const Register & file, const RegisterBit & bit ) { m_file = file; m_bit = bit; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return Other; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return Other; }
 };
 
 
@@ -1110,10 +1110,10 @@ class Instr_btfss : public Instruction
 {
 	public:
 		Instr_btfss( const Register & file, const RegisterBit & bit ) { m_file = file; m_bit = bit; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return Other; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return Other; }
 };
 //END Bit-Oriented File Register Operations
 
@@ -1124,10 +1124,10 @@ class Instr_addlw : public Instruction
 {
 	public:
 		Instr_addlw( int literal ) { m_literal = literal; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return WorkingOriented; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return WorkingOriented; }
 };
 
 
@@ -1136,10 +1136,10 @@ class Instr_andlw : public Instruction
 {
 	public:
 		Instr_andlw( int literal ) { m_literal = literal; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return WorkingOriented; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return WorkingOriented; }
 };
 
 
@@ -1147,10 +1147,10 @@ class Instr_call : public Instruction
 {
 	public:
 		Instr_call( const QString & label ) { m_label = label; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return Other; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return Other; }
 		/**
 		 * Called from Code after all the output links have been generated. The
 		 * instruction that is called has its output links followed, and any
@@ -1186,10 +1186,10 @@ class Instr_goto : public Instruction
 {
 	public:
 		Instr_goto( const QString & label ) { m_label = label; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return Other; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return Other; }
 		
 		QString label() const { return m_label; }
 		void setLabel( const QString & label ) { m_label = label; }
@@ -1203,10 +1203,10 @@ class Instr_iorlw : public Instruction
 {
 	public:
 		Instr_iorlw( int literal ) { m_literal = literal; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return WorkingOriented; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return WorkingOriented; }
 };
 
 
@@ -1214,10 +1214,10 @@ class Instr_movlw : public Instruction
 {
 	public:
 		Instr_movlw( int literal ) { m_literal = literal; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return WorkingOriented; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return WorkingOriented; }
 };
 
 
@@ -1225,10 +1225,10 @@ class Instr_retfie : public Instruction
 {
 	public:
 		Instr_retfie() {};
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return Other; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return Other; }
 };
 
 
@@ -1236,10 +1236,10 @@ class Instr_retlw : public Instruction
 {
 	public:
 		Instr_retlw( int literal ) { m_literal = literal; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return Other; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return Other; }
 };
 
 
@@ -1247,10 +1247,10 @@ class Instr_return : public Instruction
 {
 	public:
 		Instr_return() {};
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return Other; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return Other; }
 };
 
 
@@ -1258,10 +1258,10 @@ class Instr_sleep : public Instruction
 {
 	public:
 		Instr_sleep() {};
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return Other; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return Other; }
 };
 
 
@@ -1269,10 +1269,10 @@ class Instr_sublw : public Instruction
 {
 	public:
 		Instr_sublw( int literal ) { m_literal = literal; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return WorkingOriented; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return WorkingOriented; }
 };
 
 
@@ -1280,10 +1280,10 @@ class Instr_xorlw : public Instruction
 {
 	public:
 		Instr_xorlw( int literal ) { m_literal = literal; }
-		virtual QString code() const;
-		virtual void generateLinksAndStates( Code::iterator current );
-		virtual ProcessorBehaviour behaviour() const;
-		virtual AssemblyType assemblyType() const { return WorkingOriented; }
+		QString code() const override;
+		void generateLinksAndStates( Code::iterator current ) override;
+		ProcessorBehaviour behaviour() const override;
+		AssemblyType assemblyType() const override { return WorkingOriented; }
 };
 //END Literal and Control Operations
 
@@ -1294,9 +1294,9 @@ class Instr_sourceCode : public Instruction
 {
 	public:
 		Instr_sourceCode( const QString & source ) { m_raw = source; }
-		virtual QString code() const;
-		virtual InstructionType type() const { return Comment; }
-		virtual AssemblyType assemblyType() const { return None; }
+		QString code() const override;
+		InstructionType type() const override { return Comment; }
+		AssemblyType assemblyType() const override { return None; }
 };
 
 
@@ -1304,9 +1304,9 @@ class Instr_asm : public Instruction
 {
 	public:
 		Instr_asm( const QString & raw ) { m_raw = raw; }
-		virtual QString code() const;
-		virtual InstructionType type() const { return Raw; }
-		virtual AssemblyType assemblyType() const { return None; }
+		QString code() const override;
+		InstructionType type() const override { return Raw; }
+		AssemblyType assemblyType() const override { return None; }
 };
 
 
@@ -1316,9 +1316,9 @@ class Instr_raw : public Instruction
 {
 	public:
 		Instr_raw( const QString & raw ) { m_raw = raw; }
-		virtual QString code() const;
-		virtual InstructionType type() const { return Raw; }
-		virtual AssemblyType assemblyType() const { return None; }
+		QString code() const override;
+		InstructionType type() const override { return Raw; }
+		AssemblyType assemblyType() const override { return None; }
 };
 //END Microbe (non-assembly) Operations
 

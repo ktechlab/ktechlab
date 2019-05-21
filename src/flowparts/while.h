@@ -20,15 +20,15 @@ class While : public FlowContainer
 {
 public:
 	While( ICNDocument *icnDocument, bool newItem, const char *id );
-	~While();
+	~While() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
 	
-	virtual void generateMicrobe( FlowCode *code );
+	void generateMicrobe( FlowCode *code ) override;
 	
 protected:
-	void dataChanged();
+	void dataChanged() override;
 };
 
 #endif

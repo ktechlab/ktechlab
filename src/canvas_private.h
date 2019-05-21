@@ -227,7 +227,7 @@ public:
 	KtlQCanvasPolygonScanner(KtlQPolygonalProcessor& p) :	processor(p)
 	{
 	}
-	void processSpans( int n, QPoint* point, int* width )
+	void processSpans( int n, QPoint* point, int* width ) override
 	{
 		processor.doSpans(n,point,width);
 	}

@@ -51,18 +51,18 @@ class LEDBarGraphDisplay : public Component
 {
 	public:
 		LEDBarGraphDisplay( ICNDocument* icnDocument, bool newItem, const QString& id = 0L );
-		~LEDBarGraphDisplay();
+		~LEDBarGraphDisplay() override;
 		
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
 	
 	private:
 		void initPins();
-		void dataChanged();
+		void dataChanged() override;
 		
-		virtual void stepNonLogic();
-		virtual bool doesStepNonLogic() const { return true; }
-		virtual void drawShape( QPainter &p );
+		void stepNonLogic() override;
+		bool doesStepNonLogic() const override { return true; }
+		void drawShape( QPainter &p ) override;
 
 		LEDPart* m_LEDParts[max_LED_rows];
 		unsigned int m_numRows;

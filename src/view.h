@@ -74,7 +74,7 @@ class View : public QWidget, public KXMLGUIClient
 Q_OBJECT
 public:
 	View( Document *document, ViewContainer *viewContainer, uint viewAreaId, const char *name = 0 );
-	virtual ~View();
+	~View() override;
 	
 	QAction * actionByName( const QString & name ) const;
 	/**
@@ -125,7 +125,7 @@ public:
 	virtual void actualSize() {};
 	
 	virtual void toggleBreakpoint() {};
-	virtual bool eventFilter( QObject * watched, QEvent * e );
+	bool eventFilter( QObject * watched, QEvent * e ) override;
 
 protected slots:
 	/**
@@ -185,7 +185,7 @@ public:
 		setFixedHeight( 2 );
 	}
 protected:
-	void paintEvent( QPaintEvent *e );
+	void paintEvent( QPaintEvent *e ) override;
 // 	{
 // 		QPainter p( this );
 // 		//p.setPen( colorGroup().shadow() );

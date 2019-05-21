@@ -71,7 +71,7 @@ class ItemSelector : public QTreeWidget /* K3ListView */
 	Q_OBJECT
 	public:
 		ItemSelector( QWidget *parent, const char *name );
-		~ItemSelector();
+		~ItemSelector() override;
 		/**
 		 * Adds a listview item to the ListView
 		 * @param caption The displayed text
@@ -114,7 +114,7 @@ class ItemSelector : public QTreeWidget /* K3ListView */
 
         QTreeWidgetItem *selectedItem() const ;
 
-        virtual QMimeData * mimeData(const QList<QTreeWidgetItem *> items) const ;
+        QMimeData * mimeData(const QList<QTreeWidgetItem *> items) const override ;
 
 	private slots:
 		void slotItemSelected( );

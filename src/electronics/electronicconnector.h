@@ -28,17 +28,17 @@ class ElectronicConnector : public Connector
 public:
     ElectronicConnector(ECNode* startNode, ECNode* endNode, ICNDocument* _ICNDocument, QString* id = 0);
 
-    ~ElectronicConnector();
+    ~ElectronicConnector() override;
 
    /**
      * Node at start of connector (which refers to this as the output connector)
      */
-    virtual Node* startNode() const { return m_startEcNode; }
+    Node* startNode() const override { return m_startEcNode; }
 
     /**
      * Node at end of connector (which refers to this as the input connector)
      */
-    virtual Node* endNode() const { return m_endEcNode; }
+    Node* endNode() const override { return m_endEcNode; }
 
 public slots:
 	/**

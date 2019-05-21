@@ -60,7 +60,7 @@ class KTechlab : public KateMDI::MainWindow
 
 	public:
 		KTechlab();
-		~KTechlab();
+		~KTechlab() override;
 		
 		/**
 		 * @return pointer to the main KTechlab object. This is set to null when
@@ -182,8 +182,8 @@ class KTechlab : public KateMDI::MainWindow
 		/**
 		 * Overridden virtuals for Qt drag 'n drop (XDND)
 		 */
-		virtual void dragEnterEvent(QDragEnterEvent *event);
-		virtual void dropEvent(QDropEvent *event);
+		void dragEnterEvent(QDragEnterEvent *event) override;
+		void dropEvent(QDropEvent *event) override;
 		/**
 		 * This function is called when it is time for the app to save its
 		 * properties for session management purposes.
@@ -200,7 +200,7 @@ class KTechlab : public KateMDI::MainWindow
 		 * This function doesn't actually close the main window; it only queries the user and closes the active view.
 		 * To quit the appliaction completly, you should use KTechlab::slotFileQuit()
 		 */
-		virtual bool queryClose();
+		bool queryClose() override;
 	
 	protected slots:
 		void slotViewContainerActivated( QWidget * viewContainer );

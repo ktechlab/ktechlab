@@ -36,8 +36,8 @@ class TextView : public View
 	Q_OBJECT
 	public:
 		TextView( TextDocument *textDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = 0 );
-		virtual ~TextView();
-		virtual bool closeView();
+		~TextView() override;
+		bool closeView() override;
 		/**
 		 * Brings up the goto line dialog.
 		 */
@@ -76,7 +76,7 @@ class TextView : public View
 		 */
 		void slotUpdateMarksInfo();
 		void slotCursorPositionChanged();
-		void toggleBreakpoint();
+		void toggleBreakpoint() override;
 		/**
 		 * Initialize the actions appropriate for when the debugger is running
 		 * or stepping
@@ -114,7 +114,7 @@ class TextViewEventFilter : public QObject
 	public:
 		TextViewEventFilter( TextView * textView );
 		
-		bool eventFilter( QObject * watched, QEvent * e );
+		bool eventFilter( QObject * watched, QEvent * e ) override;
 		
 	signals:
 		/**

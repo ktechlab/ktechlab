@@ -21,15 +21,15 @@ class ECKeyPad : public Component
 {
 	public:
 		ECKeyPad( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~ECKeyPad();
+		~ECKeyPad() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
 	
-		virtual void buttonStateChanged( const QString &id, bool state );
+		void buttonStateChanged( const QString &id, bool state ) override;
 
 	protected:
-		virtual void dataChanged();
+		void dataChanged() override;
 		void initPins( unsigned numCols);
 		QString buttonID( int row, int col ) const;
 		int sideLength( unsigned numButtons ) const;

@@ -29,7 +29,7 @@ class ECClockInput : public Component
 {
 public:
 	ECClockInput( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~ECClockInput();
+	~ECClockInput() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
@@ -41,12 +41,12 @@ public:
      only active when the period of the clock is greater than LOGIC_UPDATE_PER_STEP */
 	void stepLogic();
     /** callback at linear steps; always active */
-	virtual void stepNonLogic();
-	virtual bool doesStepNonLogic() const { return true; }
+	void stepNonLogic() override;
+	bool doesStepNonLogic() const override { return true; }
 	
 protected:
-	virtual void drawShape( QPainter &p );
-	void dataChanged();
+	void drawShape( QPainter &p ) override;
+	void dataChanged() override;
 	
 	uint m_time;
     /** unit: simulator logic update tick == 1s / LOGIC_UPDATE_RATE */

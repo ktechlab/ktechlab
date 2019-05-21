@@ -39,7 +39,7 @@ class EmptyViewArea : public QWidget
 	Q_OBJECT
 	public:
 		EmptyViewArea( ViewArea * parent );
-		~EmptyViewArea();
+		~EmptyViewArea() override;
 		
 	protected slots:
 		void openDocument();
@@ -66,7 +66,7 @@ public:
 	};
 	
 	ViewArea( QWidget *parent, ViewContainer *viewContainer, int id, bool showOpenButton, const char * name = 0 );
-	~ViewArea();
+	~ViewArea() override;
 	
 	ViewContainer *viewContainer() const { return p_viewContainer; }
 	int id() const { return m_id; }
@@ -129,7 +129,7 @@ public:
 	 * null; otherwise the parent widget is ktechlab's tabWidget()
 	 */
 	ViewContainer( const QString & caption, QWidget * parent = 0 );
-	~ViewContainer();
+	~ViewContainer() override;
 	
 	/**
 	 * Returns the view in the ViewArea with the given id

@@ -58,7 +58,7 @@ class KtlQ3Frame : public QFrame
 
 public:
     KtlQ3Frame(QWidget* parent, const char* name = 0, Qt::WindowFlags f = 0);
-    ~KtlQ3Frame();
+    ~KtlQ3Frame() override;
 #ifndef qdoc
     bool        lineShapesOk()  const { return true; }
 #endif
@@ -70,8 +70,8 @@ public:
     int frameWidth() const;
 
 protected:
-    void paintEvent(QPaintEvent *);
-    void resizeEvent(QResizeEvent *);
+    void paintEvent(QPaintEvent *) override;
+    void resizeEvent(QResizeEvent *) override;
 
     virtual void frameChanged();
     virtual void drawFrame(QPainter *);

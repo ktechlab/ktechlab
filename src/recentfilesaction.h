@@ -28,7 +28,7 @@ class RecentFilesAction : public KSelectAction
 	public:
 		RecentFilesAction( const QString & configGroupName, const QString & text, const QObject * receiver, const char* slot, QObject* parent, const char * name );
 		
-		~RecentFilesAction();
+		~RecentFilesAction() override;
 		
 		/**
 		 *  Loads the recent files entries from a given KConfig object.

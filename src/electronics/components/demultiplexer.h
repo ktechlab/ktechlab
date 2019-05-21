@@ -23,13 +23,13 @@ class Demultiplexer : public CallbackClass,  public Component
 {
 public:
 	Demultiplexer( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~Demultiplexer();
+	~Demultiplexer() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
 	
 protected:
-	void dataChanged();
+	void dataChanged() override;
 	/**
 	 * Add / remove pins according to the number of inputs the user has requested
 	 */

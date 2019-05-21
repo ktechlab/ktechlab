@@ -29,9 +29,9 @@ class PropComboBox : public KComboBox
 
 	public:
 		PropComboBox( QWidget * parent );
-		virtual ~PropComboBox() {;}
+		~PropComboBox() override {;}
 
-		virtual bool eventFilter(QObject *o, QEvent *e);
+		bool eventFilter(QObject *o, QEvent *e) override;
 
 	public slots:
 		void hideList();
@@ -47,7 +47,7 @@ class PropertyEditorList : public PropertySubEditor
 
 	public:
 		PropertyEditorList( QWidget * parent, Property * property, const char * name = 0 );
-		virtual ~PropertyEditorList() {;}
+		~PropertyEditorList() override {;}
 
 		void setList(QStringList l);
 

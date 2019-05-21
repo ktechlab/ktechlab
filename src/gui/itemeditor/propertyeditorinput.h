@@ -31,7 +31,7 @@ class PropertyEditorInput : public PropertySubEditor
 
 	public:
 		PropertyEditorInput( QWidget * parent, Property * property, const char * name = 0 );
-		virtual ~PropertyEditorInput() {;}
+		~PropertyEditorInput() override {;}
 
 	protected slots:
 		void slotTextChanged(const QString &text);
@@ -48,9 +48,9 @@ class PropIntSpinBox : public KIntSpinBox
 
 	public:
 	PropIntSpinBox( int lower, int upper, int step, int value, int base, QWidget *parent, const char *name);
-	virtual ~PropIntSpinBox() {;}
+	~PropIntSpinBox() override {;}
 
-	virtual bool eventFilter(QObject *o, QEvent *e);
+	bool eventFilter(QObject *o, QEvent *e) override;
 	QLineEdit * editor () const { return KIntSpinBox::lineEdit(); }
 };
 
@@ -62,7 +62,7 @@ class PropertyEditorSpin : public PropertySubEditor
 
 	public:
 		PropertyEditorSpin( QWidget * parent, Property * property, const char * name = 0 );
-		virtual ~PropertyEditorSpin() {;}
+		~PropertyEditorSpin() override {;}
 
 	protected slots:
 		void valueChange( int );
@@ -79,9 +79,9 @@ class PropDoubleSpinBox : public DoubleSpinBox
 
 	public:
 		PropDoubleSpinBox(double lower, double upper, double minAbs, double value, const QString &unit, QWidget *parent);
-	virtual ~PropDoubleSpinBox() {;}
+	~PropDoubleSpinBox() override {;}
 
-	virtual bool eventFilter(QObject *o, QEvent *e);
+	bool eventFilter(QObject *o, QEvent *e) override;
 	QLineEdit * editor () const { return DoubleSpinBox::lineEdit(); }
 };
 
@@ -93,7 +93,7 @@ class PropertyEditorDblSpin : public PropertySubEditor
 
 	public:
 		PropertyEditorDblSpin( QWidget * parent, Property * property, const char * name = 0 );
-		virtual ~PropertyEditorDblSpin() {;}
+		~PropertyEditorDblSpin() override {;}
 
 	protected slots:
 		void valueChange( double value );
@@ -110,9 +110,9 @@ class PropertyEditorBool : public PropertySubEditor
 
 	public:
 		PropertyEditorBool( QWidget * parent, Property * property, const char * name = 0 );
-		virtual ~PropertyEditorBool() {;}
+		~PropertyEditorBool() override {;}
 
-		virtual bool eventFilter( QObject * watched, QEvent * e );
+		bool eventFilter( QObject * watched, QEvent * e ) override;
 
 	protected slots:
 		void setState(bool state);

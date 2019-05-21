@@ -25,7 +25,7 @@ class ICNView : public ItemView
 	Q_OBJECT
 	public:
 		ICNView( ICNDocument * icnDocument, ViewContainer *viewContainer, uint viewAreaId, const char * name = 0l );
-		~ICNView();
+		~ICNView() override;
 		
 	protected slots:
 		void slotSetRoutingMode( QAction* action ); // 0 = auto, 1 = manual
