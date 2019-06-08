@@ -59,13 +59,13 @@ class ElementMap
 {
 	public:
 		ElementMap();
-		
+
 		Element * e; // The element
 		Pin * n[4]; // The Pins associated with the CNodes in the element
-	
+
 		/// @see Component::setInterCircuitDependent
 		PinListList interCircuitDependent;
-	
+
 		/// @see Component::setInterGroundDependent
 		PinListList interGroundDependent;
 };
@@ -81,7 +81,7 @@ class Component : public CNItem
 	Q_OBJECT
 	public:
 		Component( ICNDocument *icnDocument, bool newItem, const QString &id );
-		virtual ~Component();
+		~Component() override;
 	
 		ECNode* createPin( double _x, double _y, int orientation, const QString &name );
 		/**
@@ -122,7 +122,7 @@ class Component : public CNItem
 		 */
 		CircuitDocument *circuitDocument() const { return m_pCircuitDocument; }
 		void initElements( const uint stage );
-		virtual void finishedCreation();
+		void finishedCreation() override;
 		/**
 		 * If reinherit (and use) the stepNonLogic function, then you must also
 		 * reinherit this function so that it returns true. Else your component
@@ -141,75 +141,75 @@ class Component : public CNItem
 		/**
 		 * @return Information about the component in an ItemData struct.
 		 */
-		virtual ItemData itemData() const;
+		ItemData itemData() const override;
 		/**
 		 * Restores the state of the component from the ItemData struct.
 		 */
-		virtual void restoreFromItemData( const ItemData &itemData );
+		void restoreFromItemData( const ItemData &itemData ) override;
 	
 		BJT *		createBJT( Pin *c, Pin *b, Pin *e, bool isNPN = true );
 		BJT *		createBJT( ECNode *c, ECNode *b, ECNode *e, bool isNPN = true );
-	
+
 		Capacitance *createCapacitance( Pin *n0, Pin *n1, double capacitance );
 		Capacitance *createCapacitance( ECNode *n0, ECNode *n1, double capacitance );
-	
+
 		CCCS *		createCCCS( Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain );
 		CCCS *		createCCCS( ECNode *n0, ECNode *n1, ECNode *n2, ECNode *n3, double gain );
-	
+
 		CCVS *		createCCVS( Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain );
 		CCVS *		createCCVS( ECNode *n0, ECNode *n1, ECNode *n2, ECNode *n3, double gain );
-	
+
 		CurrentSignal *createCurrentSignal( Pin *n0, Pin *n1, double current );
 		CurrentSignal *createCurrentSignal( ECNode *n0, ECNode *n1, double current );
-	
+
 		CurrentSource *createCurrentSource( Pin *n0, Pin *n1, double current );
 		CurrentSource *createCurrentSource( ECNode *n0, ECNode *n1, double current );
-	
+
 		Diode *		createDiode( Pin *n0, Pin *n1 );
 		Diode *		createDiode( ECNode *n0, ECNode *n1 );
-		
+
 		JFET *		createJFET( Pin * D, Pin * G, Pin * S, int JFET_type );
 		JFET *		createJFET( ECNode * D, ECNode * G, ECNode * S, int JFET_type );
-	
+
 		Inductance *	createInductance( Pin *n0, Pin *n1, double inductance );
 		Inductance *	createInductance( ECNode *n0, ECNode *n1, double inductance );
-	
+
 		LogicIn *	createLogicIn( Pin *node );
 		LogicIn *	createLogicIn( ECNode *node );
-	
+
 		LogicOut *	createLogicOut( Pin *node, bool isHigh );
 		LogicOut *	createLogicOut( ECNode *node, bool isHigh );
-		
+
 		MOSFET *	createMOSFET( Pin * D, Pin * G, Pin * S, Pin * B, int MOSFET_type );
 		MOSFET *	createMOSFET( ECNode * D, ECNode * G, ECNode * S, ECNode * B, int MOSFET_type );
-	
+
 		OpAmp *		createOpAmp( Pin * nonInverting, Pin * out, Pin * inverting );
 		OpAmp *		createOpAmp( ECNode * nonInverting, ECNode * out, ECNode * inverting );
-	
+
 		Resistance *	createResistance( Pin *n0, Pin *n1, double resistance );
 		Resistance *	createResistance( ECNode *n0, ECNode *n1, double resistance );
-	
+
 		Switch *	createSwitch( Pin *n0, Pin *n1, bool open );
 		Switch *	createSwitch( ECNode *n0, ECNode *n1, bool open );
-	
+
 		VCCS *		createVCCS( Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain );
 		VCCS *		createVCCS( ECNode *n0, ECNode *n1, ECNode *n2, ECNode *n3, double gain );
-	
+
 		VCVS *		createVCVS( Pin *n0, Pin *n1, Pin *n2, Pin *n3, double gain );
 		VCVS *		createVCVS( ECNode *n0, ECNode *n1, ECNode *n2, ECNode *n3, double gain );
-	
+
 		VoltagePoint *	createVoltagePoint( Pin *n0, double voltage );
 		VoltagePoint *	createVoltagePoint( ECNode *n0, double voltage );
-	
+
 		VoltageSignal *	createVoltageSignal( Pin *n0, Pin *n1, double voltage );
 		VoltageSignal *	createVoltageSignal( ECNode *n0, ECNode *n1, double voltage );
-	
+
 		VoltageSource *	createVoltageSource( Pin *n0, Pin *n1, double voltage );
 		VoltageSource *	createVoltageSource( ECNode *n0, ECNode *n1, double voltage );
-	
+
 
 		ECNode* ecNodeWithID( const QString &ecNodeId  );
-	
+
 		/**
 		 * Safely delete an element - in this case, calls element->componentDeleted,
 		 * and removes it from the element list.
@@ -234,7 +234,7 @@ class Component : public CNItem
 		 * @return the list of switches that this component uses.
 		 */
 		SwitchList switchList() const { return m_switchList; }
-	
+
 	signals:
 		/**
 		 * Emitted when an element is created.
@@ -252,20 +252,20 @@ class Component : public CNItem
 		 * Emitted when a switch is destroyed.
 		 */
 		void switchDestroyed( Switch * sw );
-	
+
 	public slots:
 		virtual void slotUpdateConfiguration();
-		virtual void removeItem();
-	
+		void removeItem() override;
+
 	protected:
 		/**
 		 * Convenience functionality provided for components in a port shape
 		 * (such as ParallelPortComponent and SerialPortComponent).
 		 */
 		void drawPortShape( QPainter & p );
-		virtual void itemPointsChanged();
-		virtual void updateAttachedPositioning();
-		virtual void initPainter( QPainter &p );
+		void itemPointsChanged() override;
+		void updateAttachedPositioning() override;
+		void initPainter( QPainter &p ) override;
 		/**
 		 * Untranforms the painter from the matrix. This *must* be called after doing
 		 * initPainter( QPainter &p );
@@ -327,18 +327,18 @@ class Component : public CNItem
 		 * nodes. (when adding elements, we just call setInterDependent).
 		 */
 		void rebuildPinInterDepedence();
-	
+
 		// Pointers to commonly used nodes
-// TODO: why do we have two sets of these? 
+// TODO: why do we have two sets of these?
 		ECNode *m_pPNode[4];
 		ECNode *m_pNNode[4];
 
 // TODO: only Switch cares about this, so either demote it to a member of class switch or
-// refactor it out alltogether. 
+// refactor it out alltogether.
 		QPointer<CircuitDocument> m_pCircuitDocument;
 		int m_angleDegrees;
 		bool b_flipped;
-	
+
 	private:
 		/**
 		 * Convenience function for calling both setInterCircuitDependent and

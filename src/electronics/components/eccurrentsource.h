@@ -21,14 +21,14 @@ class ECCurrentSource : public Component
 {
 public:
 	ECCurrentSource( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~ECCurrentSource();
+	~ECCurrentSource() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
+
 private:
-	virtual void drawShape( QPainter &p );
-	void dataChanged();
+	void drawShape( QPainter &p ) override;
+	void dataChanged() override;
 	
 	CurrentSource *m_currentSource;
 };

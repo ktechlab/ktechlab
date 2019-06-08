@@ -28,7 +28,7 @@ class MechanicsInfo
 {
 public:
 	MechanicsInfo();
-	
+
 	double mass; // Mass
 	double momentOfInertia; // Moment of inertia
 };
@@ -38,7 +38,7 @@ class CombinedMechanicsInfo : public MechanicsInfo
 public:
 	CombinedMechanicsInfo();
 	CombinedMechanicsInfo( const MechanicsInfo &info );
-	
+
 	double x; // X coordinate of center of mass
 	double y; // Y coordinate of center of mass
 };
@@ -104,7 +104,7 @@ public:
 	 * orientation.
 	 */
 	void rotateAboutPoint( double x, double y, double angle );
-	
+
 protected:
 	double m_x;
 	double m_y;
@@ -120,8 +120,8 @@ class MechanicsItem : public Item
 Q_OBJECT
 public:
 	MechanicsItem( MechanicsDocument *mechanicsDocument, bool newItem, const QString &id );
-	virtual ~MechanicsItem();
-	
+	~MechanicsItem() override;
+
 	enum SelectionMode
 	{
 		sm_move,
@@ -133,7 +133,7 @@ public:
 	 * also needs to be called to select the item.
 	 */
 	void setSelectionMode( SelectionMode sm );
-	virtual void setSelected( bool yes );
+	void setSelected( bool yes ) override;
 	/**
 	 * @returns the selection mode
 	 */
@@ -141,7 +141,7 @@ public:
 	/**
 	 * Move the MechanicsItem by the given amount
 	 */
-	virtual void moveBy( double dx, double dy );
+	void moveBy( double dx, double dy ) override;
 	/**
 	 * Returns the absolute position on the canvas
 	 */
@@ -167,40 +167,40 @@ public:
 	 * whether this item is allowed to be distorted, inverted, resized, etc.
 	 */
 	QRect maxInnerRectangle( const QRect &outerRect ) const;
-	
-	virtual ItemData itemData() const;
-	
-	virtual bool mousePressEvent( const EventInfo &eventInfo );
-	virtual bool mouseReleaseEvent( const EventInfo &eventInfo );
-	virtual bool mouseDoubleClickEvent ( const EventInfo &eventInfo );
-	virtual bool mouseMoveEvent( const EventInfo &eventInfo );
-	virtual bool wheelEvent( const EventInfo &eventInfo );
-	virtual void enterEvent(QEvent *);
-	virtual void leaveEvent(QEvent *);
-	
+
+	ItemData itemData() const override;
+
+	bool mousePressEvent( const EventInfo &eventInfo ) override;
+	bool mouseReleaseEvent( const EventInfo &eventInfo ) override;
+	bool mouseDoubleClickEvent ( const EventInfo &eventInfo ) override;
+	bool mouseMoveEvent( const EventInfo &eventInfo ) override;
+	bool wheelEvent( const EventInfo &eventInfo ) override;
+	void enterEvent(QEvent *) override;
+	void leaveEvent(QEvent *) override;
+
 public slots:
 	/**
 	 * Rotate the item by the given amount (in radians)
 	 */
 	void rotateBy( double dtheta );
 	void parentMoved();
-	 
+
 signals:
 	/**
 	 * Emitted when this item moves (translates or rotates)
 	 */
 	void moved();
-	
+
 protected slots:
 	/**
 	 * Recalculate the combined mechanics info (e.g. when mass is changed, or child added)
 	 */
 	void updateMechanicsInfoCombined();
-	
+
 protected:
-	virtual void reparented( Item *oldItem, Item *newItem );
-	virtual void childAdded( Item *child );
-	virtual void childRemoved( Item *child );
+	void reparented( Item *oldItem, Item *newItem ) override;
+	void childAdded( Item *child ) override;
+	void childRemoved( Item *child ) override;
 	/**
 	 * Called when this item is resized, so that sub classes can do whatever
 	 */
@@ -213,19 +213,19 @@ protected:
 	 * *Must* be called after calling initPainter, if initPainter was called
 	 */
 	void deinitPainter( QPainter &p );
-	virtual void dataChanged();
-	virtual void itemPointsChanged() { updateCanvasPoints(); }
+	void dataChanged() override;
+	void itemPointsChanged() override { updateCanvasPoints(); }
 	/**
 	 * Calculates the setPoints required from the current m_itemPoints and the
 	 * current position / angle
 	 */
 	void updateCanvasPoints();
-	
+
 	MechanicsDocument *p_mechanicsDocument;
 	PositionInfo m_relativePosition; // Absolution position if not attached to a parent item, or otherwise relative to parent item
 	MechanicsInfo m_mechanicsInfo;
 	CombinedMechanicsInfo m_mechanicsInfoCombined;
-	
+
 private:
 	SelectionMode m_selectionMode;
 };

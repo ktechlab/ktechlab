@@ -20,31 +20,31 @@ class OutputFlowNode : public FPNode
 	public:
 		OutputFlowNode ( ICNDocument* _icnView, int dir, const QPoint& pos, QString* id = 0L );
 
-		~OutputFlowNode();
+		~OutputFlowNode() override;
 
 		/**
 		 * Returns true if the node can accept input connections. This will depend
 		 * on the node type and number of input / output connections.
 		 */
-		virtual bool acceptInput() const;
+		bool acceptInput() const override;
 		/**
 		 * Returns true if the node can accept output connections. This will depend
 		 * on the node type and number of input / output connections.
 		 */
-		virtual bool acceptOutput() const;
-		
+		bool acceptOutput() const override;
+
 		/**
 		 * Registers an input connector (i.e. this is the end node) as connected
 		 * to this node.
 		 */
-		virtual void addInputConnector( Connector * const connector );		
+		void addInputConnector( Connector * const connector ) override;		
 		
 	public slots:
 
 		/**
 		 * Draw shape. Note that this has to remain public.
 		 */
-		virtual void drawShape ( QPainter & p );
+		void drawShape ( QPainter & p ) override;
 };
 
 #endif

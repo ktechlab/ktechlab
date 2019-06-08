@@ -60,36 +60,36 @@ log_cmd echo "== starting build at $( date ) == "
 
     fi
 
-    # bug in buildsystem: generated header files are not always built; work it around
-
-    UI_HEADERS_TO_GENERATE="
-        ./src/gui/ui_contexthelpwidget.h
-        ./src/gui/ui_generaloptionswidget.h
-        ./src/gui/ui_linkeroptionswidget.h
-        ./src/gui/ui_processingoptionswidget.h
-        ./src/gui/ui_programmerwidget.h
-        ./src/gui/ui_gpasmsettingswidget.h
-        ./src/gui/ui_newprojectwidget.h
-        ./src/gui/ui_newfilewidget.h
-        ./src/gui/ui_outputmethodwidget.h
-        ./src/gui/ui_scopescreenwidget.h
-        ./src/gui/ui_createsubprojectwidget.h
-        ./src/gui/ui_asmformattingwidget.h
-        ./src/gui/ui_oscilloscopewidget.h
-        ./src/gui/ui_microsettingswidget.h
-        ./src/gui/ui_newpinmappingwidget.h
-        ./src/gui/ui_logicwidget.h
-        ./src/gui/ui_sdccoptionswidget.h
-        ./src/gui/ui_picprogrammerconfigwidget.h
-        ./src/gui/ui_gplinksettingswidget.h
-        "
-    for HEADER in $UI_HEADERS_TO_GENERATE ; do
-        make -f src/gui/CMakeFiles/gui.dir/build.make "$HEADER"
-    done
-
-    # work around the bug: core directory has to be built first
-    # ./src/core/ktlconfig.h
-    log_cmd make -C "$SCRIPTDIR/build-developer/src/core"
+#     # bug in buildsystem: generated header files are not always built; work it around
+# 
+#     UI_HEADERS_TO_GENERATE="
+#         ./src/gui/ui_contexthelpwidget.h
+#         ./src/gui/ui_generaloptionswidget.h
+#         ./src/gui/ui_linkeroptionswidget.h
+#         ./src/gui/ui_processingoptionswidget.h
+#         ./src/gui/ui_programmerwidget.h
+#         ./src/gui/ui_gpasmsettingswidget.h
+#         ./src/gui/ui_newprojectwidget.h
+#         ./src/gui/ui_newfilewidget.h
+#         ./src/gui/ui_outputmethodwidget.h
+#         ./src/gui/ui_scopescreenwidget.h
+#         ./src/gui/ui_createsubprojectwidget.h
+#         ./src/gui/ui_asmformattingwidget.h
+#         ./src/gui/ui_oscilloscopewidget.h
+#         ./src/gui/ui_microsettingswidget.h
+#         ./src/gui/ui_newpinmappingwidget.h
+#         ./src/gui/ui_logicwidget.h
+#         ./src/gui/ui_sdccoptionswidget.h
+#         ./src/gui/ui_picprogrammerconfigwidget.h
+#         ./src/gui/ui_gplinksettingswidget.h
+#         "
+#     for HEADER in $UI_HEADERS_TO_GENERATE ; do
+#         make -f src/gui/CMakeFiles/gui.dir/build.make "$HEADER"
+#     done
+# 
+#     # work around the bug: core directory has to be built first
+#     # ./src/core/ktlconfig.h
+#     log_cmd make -C "$SCRIPTDIR/build-developer/src/core"
 
     log_cmd make install -j"$( nproc )"
 )

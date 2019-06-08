@@ -42,7 +42,7 @@ class Circuitoid
 public:
 	bool contains( Pin *node ) { return pinList.contains(node); }
 	bool contains( Element *ele ) { return elementList.contains(ele); }
-	
+
 	void addPin( Pin *node ) { if (node && !contains(node)) pinList += node; }
 	void addElement( Element *ele ) { if (ele && !contains(ele)) elementList += ele; }
 
@@ -62,9 +62,9 @@ class CircuitDocument : public CircuitICNDocument
 	Q_OBJECT
 	public:
 		CircuitDocument( const QString &caption, const char *name = 0L );
-		~CircuitDocument();
+		~CircuitDocument() override;
 	
-		virtual View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l );
+		View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l ) override;
 	
 		void calculateConnectorCurrents();
 		/**
@@ -72,7 +72,7 @@ class CircuitDocument : public CircuitICNDocument
 		 */
 		int countExtCon( const ItemList &cnItemList ) const;
 
-		virtual void update();
+		void update() override;
 	
 	public slots:
 		/**
@@ -92,21 +92,21 @@ class CircuitDocument : public CircuitICNDocument
 		 * Enables / disables / selects various actions depending on what is
 		 * selected or not.
 		 */
-		virtual void slotInitItemActions();
+		void slotInitItemActions() override;
 		void requestAssignCircuits();
 		void componentAdded( Item *item );
 		void componentRemoved( Item *item );
 		void connectorAdded( Connector *connector );
-		virtual void slotUpdateConfiguration();
+		void slotUpdateConfiguration() override;
 	
 	protected:
-		virtual void itemAdded( Item *item );
-		virtual void fillContextMenu( const QPoint &pos );
-		virtual bool isValidItem( Item *item );
-		virtual bool isValidItem( const QString &itemId );
-		
+		void itemAdded( Item *item ) override;
+		void fillContextMenu( const QPoint &pos ) override;
+		bool isValidItem( Item *item ) override;
+		bool isValidItem( const QString &itemId ) override;
+
 		KActionMenu *m_pOrientationAction;
-	
+
 	private slots:
 		void assignCircuits();
 
@@ -143,13 +143,13 @@ class CircuitDocument : public CircuitICNDocument
 		void recursivePinAdd(Pin *pin, Circuitoid *circuitoid, PinList *unassignedPins);
 
 		void deleteCircuits();
-	
+
 		QTimer *m_updateCircuitsTmr;
 		CircuitList m_circuitList;
 		ComponentList m_toSimulateList;
 		ComponentList m_componentList; // List is built up during call to assignCircuits
 
-// hmm, we have one of these in circuit too.... 
+// hmm, we have one of these in circuit too....
 		PinList m_pinList;
 		WireList m_wireList;
 		SwitchList m_switchList;

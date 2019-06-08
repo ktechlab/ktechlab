@@ -23,13 +23,13 @@ class OpAmp : public Element
 {
 	public:
 		OpAmp();
-		virtual ~OpAmp();
+		~OpAmp() override;
 	
-		virtual Type type() const { return Element_OpAmp; }
+		Type type() const override { return Element_OpAmp; }
 
 	protected:
-		virtual void updateCurrents();
-		virtual void add_initial_dc();
+		void updateCurrents() override;
+		void add_initial_dc() override;
 };
 
 #endif

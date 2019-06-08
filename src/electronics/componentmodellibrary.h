@@ -67,7 +67,7 @@ class ComponentModelLibrary : public QObject
 		QStringList modelIDs( ModelType modelType ) const { return m_componentModelIDs[ modelType ]; }
 		
 		static ComponentModelLibrary * self();
-		~ComponentModelLibrary();
+		~ComponentModelLibrary() override;
 		
 	protected:
 		/**

@@ -21,15 +21,15 @@ class ReadPort : public FlowPart
 {
 public:
 	ReadPort( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~ReadPort();
+	~ReadPort() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
-	virtual void generateMicrobe( FlowCode * );
+
+	void generateMicrobe( FlowCode * ) override;
 
 protected:
-	void dataChanged();
+	void dataChanged() override;
 };
 
 #endif

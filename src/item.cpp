@@ -14,7 +14,7 @@
 #include "richtexteditor.h"
 
 #include <cmath>
-#include <kdebug.h>
+#include <qdebug.h>
 #include <kdialog.h>
 #include <ktextedit.h>
 #include <kstandardguiitem.h>
@@ -46,7 +46,7 @@ Item::Item( ItemDocument *itemDocument, bool newItem, const QString &id )
 	b_deleted = false;
 	p_itemDocument = itemDocument;
 	m_baseZ = -1;
-	
+
 	if ( p_itemDocument )
 	{
 		if (newItem)
@@ -56,7 +56,7 @@ Item::Item( ItemDocument *itemDocument, bool newItem, const QString &id )
 			p_itemDocument->registerUID(id);
 		}
 	}
-	
+
 	m_pPropertyChangedTimer = new QTimer( this );
 	connect( m_pPropertyChangedTimer, SIGNAL(timeout()), this, SLOT(dataChanged()) );
 }
@@ -69,9 +69,9 @@ Item::~Item()
 		p_itemDocument->requestEvent( ItemDocument::ItemDocumentEvent::ResizeCanvasToItems );
 		p_itemDocument->unregisterUID( id() );
 	}
-	
+
 	KtlQCanvasPolygon::hide();
-	
+
 	const VariantDataMap::iterator variantDataEnd = m_variantData.end();
 	for ( VariantDataMap::iterator it = m_variantData.begin(); it != variantDataEnd; ++it )
 		delete it.value();
@@ -84,7 +84,7 @@ void Item::removeItem()
 	if (b_deleted)
 		return;
 	b_deleted = true;
-	
+
 	hide();
 	setCanvas(0l);
 	emit removed(this);
@@ -112,7 +112,7 @@ void Item::setChanged()
 {
 	if (b_deleted)
 		return;
-	
+
 	if (canvas())
 		canvas()->setChanged(boundingRect());
 }
@@ -137,13 +137,13 @@ void Item::setSize( QRect sizeRect, bool forceItemPoints )
 {
 	if ( !canvas() )
 		return;
-	
+
 	if ( m_sizeRect == sizeRect && !forceItemPoints )
 		return;
-	
+
 	if ( !preResize(sizeRect) )
 		return;
-	
+
 	canvas()->setChanged(areaPoints().boundingRect());
 	m_sizeRect = sizeRect;
 	if ( m_itemPoints.isEmpty() || forceItemPoints )
@@ -159,20 +159,20 @@ void Item::setSize( QRect sizeRect, bool forceItemPoints )
 ItemData Item::itemData() const
 {
 	ItemData itemData;
-	
+
 	itemData.type = m_type;
 	itemData.x = x();
 	itemData.y = y();
-	
+
 	if ( !parentItem() )
 		itemData.z = m_baseZ;
-	
+
 	itemData.size = m_sizeRect;
 	itemData.setSize = canResize();
-	
+
 	if (p_parentItem)
 		itemData.parentId = p_parentItem->id();
-	
+
 	const VariantDataMap::const_iterator end = m_variantData.end();
 	for ( VariantDataMap::const_iterator it = m_variantData.begin(); it != end; ++it )
 	{
@@ -228,7 +228,7 @@ ItemData Item::itemData() const
 			}
 		}
 	}
-	
+
 	return itemData;
 }
 
@@ -238,13 +238,13 @@ void Item::restoreFromItemData( const ItemData &itemData )
 	move( itemData.x, itemData.y );
 	if ( canResize() )
 		setSize( itemData.size );
-	
+
 	Item *parentItem = p_itemDocument->itemWithID( itemData.parentId );
 	if (parentItem)
 		setParentItem(parentItem);
 	else
 		m_baseZ = itemData.z;
-	
+
 	//BEGIN Restore data
 	const QStringMap::const_iterator stringEnd = itemData.dataString.end();
 	for ( QStringMap::const_iterator it = itemData.dataString.begin(); it != stringEnd; ++it )
@@ -252,28 +252,28 @@ void Item::restoreFromItemData( const ItemData &itemData )
 		if ( hasProperty(it.key()) )
 			property( it.key() )->setValue( it.value() );
 	}
-	
+
 	const DoubleMap::const_iterator numberEnd = itemData.dataNumber.end();
 	for ( DoubleMap::const_iterator it = itemData.dataNumber.begin(); it != numberEnd; ++it )
 	{
 		if ( hasProperty(it.key()) )
 			property( it.key() )->setValue( it.value() );
 	}
-	
+
 	const QColorMap::const_iterator colorEnd = itemData.dataColor.end();
 	for ( QColorMap::const_iterator it = itemData.dataColor.begin(); it != colorEnd; ++it )
 	{
 		if ( hasProperty(it.key()) )
 			property( it.key() )->setValue( it.value() );
 	}
-	
+
 	const BoolMap::const_iterator boolEnd = itemData.dataBool.end();
 	for ( BoolMap::const_iterator it = itemData.dataBool.begin(); it != boolEnd; ++it )
 	{
 		if ( hasProperty(it.key()) )
 			property( it.key() )->setValue( QVariant( it.value() /*, 0*/ ) );
 	}
-	
+
 	const QBitArrayMap::const_iterator rawEnd = itemData.dataRaw.end();
 	for ( QBitArrayMap::const_iterator it = itemData.dataRaw.begin(); it != rawEnd; ++it )
 	{
@@ -314,15 +314,15 @@ void Item::leaveEvent(QEvent *)
 bool Item::mouseDoubleClickEvent( const EventInfo & eventInfo )
 {
 	Q_UNUSED(eventInfo);
-	
+
 	Property * property = 0l;
 	Variant::Type::Value type = Variant::Type::None;
-	
+
 	const VariantDataMap::iterator variantDataEnd = m_variantData.end();
 	for ( VariantDataMap::iterator it = m_variantData.begin(); it != variantDataEnd; ++it )
 	{
 		Property * current = *it;
-		
+
 		if ( current->type() == Variant::Type::Multiline ||
 				   current->type() == Variant::Type::RichText )
 		{
@@ -333,7 +333,7 @@ bool Item::mouseDoubleClickEvent( const EventInfo & eventInfo )
 	}
 	if ( !property )
 		return false;
-	
+
 	if ( type == Variant::Type::Multiline )
 	{
 		//KDialog * dlg = new KDialog( 0l, "", true, property->editorCaption(), KDialog::Ok|KDialog::Cancel|KDialog::User1, KDialog::Ok,
@@ -359,7 +359,7 @@ bool Item::mouseDoubleClickEvent( const EventInfo & eventInfo )
 		textEdit->setFocus();
 		connect( dlg, SIGNAL( user1Clicked() ), textEdit, SLOT( clear() ) );
 		dlg->setMinimumWidth( 600 );
-		
+
 		if ( dlg->exec() == KDialog::Accepted )
 		{
 			property->setValue( textEdit->toPlainText() );
@@ -373,7 +373,7 @@ bool Item::mouseDoubleClickEvent( const EventInfo & eventInfo )
 		// Is rich text
 		RichTextEditorDlg * dlg = new RichTextEditorDlg( 0l, property->editorCaption() );
 		dlg->setText( property->value().toString() );
-		
+
 		if ( dlg->exec() == KDialog::Accepted )
 		{
 			property->setValue( dlg->text() );
@@ -382,7 +382,7 @@ bool Item::mouseDoubleClickEvent( const EventInfo & eventInfo )
 		}
 		delete dlg;
 	}
-	
+
 	return true;
 }
 
@@ -398,29 +398,29 @@ void Item::setSelected( bool yes )
 
 void Item::setParentItem( Item *newParentItem )
 {
-// 	kDebug() << k_funcinfo << "this = "<<this<<" newParentItem = "<<newParentItem<<endl;
+// 	qDebug() << Q_FUNC_INFO << "this = "<<this<<" newParentItem = "<<newParentItem<<endl;
 	if ( newParentItem == p_parentItem )
 		return;
-	
+
 	Item *oldParentItem = p_parentItem;
-	
+
 	if (oldParentItem)
 	{
 		disconnect( oldParentItem, SIGNAL(removed(Item*)), this, SLOT(removeItem()) );
 		oldParentItem->removeChild(this);
 	}
-	
+
 	if (newParentItem)
 	{
 		if ( newParentItem->contains(this) );
-// 			kError() << k_funcinfo << "Already a child of " << newParentItem << endl;
+// 			qCritical() << Q_FUNC_INFO << "Already a child of " << newParentItem << endl;
 		else
 		{
 			connect( newParentItem, SIGNAL(removed(Item*)), this, SLOT(removeItem()) );
 			newParentItem->addChild(this);
 		}
 	}
-	
+
 	p_parentItem = newParentItem;
 	(void)level();
 	reparented( oldParentItem, newParentItem );
@@ -438,17 +438,17 @@ ItemList Item::children( bool includeGrandChildren ) const
 {
 	if (!includeGrandChildren)
 		return m_children;
-	
+
 	ItemList children = m_children;
 	ItemList::const_iterator end = m_children.end();
 	for ( ItemList::const_iterator it = m_children.begin(); it != end; ++it )
 	{
 		if (!*it)
 			continue;
-		
+
 		children += (*it)->children(true);
 	}
-	
+
 	return children;
 }
 
@@ -457,22 +457,22 @@ void Item::addChild( Item *child )
 {
 	if ( !child )
 		return;
-	
+
 	if ( child->contains(this) )
 	{
-// 		kError() << k_funcinfo << "Attempting to add a child to this item that is already a parent of this item. Incest results in stack overflow." << endl;
+// 		qCritical() << Q_FUNC_INFO << "Attempting to add a child to this item that is already a parent of this item. Incest results in stack overflow." << endl;
 		return;
 	}
-	
+
 	if ( contains( child, true ) )
 	{
-// 		kError() << k_funcinfo << "Already have child " << child << endl;
+// 		qCritical() << Q_FUNC_INFO << "Already have child " << child << endl;
 		return;
 	}
-	
+
 	m_children.append(child);
 	connect( child, SIGNAL(removed(Item* )), this, SLOT(removeChild(Item* )) );
-	
+
 	child->setParentItem(this);
 	childAdded(child);
 	p_itemDocument->slotUpdateZOrdering();
@@ -483,10 +483,10 @@ void Item::removeChild( Item *child )
 {
 	if ( !child || !m_children.contains(child) )
 		return;
-	
+
 	m_children.removeAll(child);
 	disconnect( child, SIGNAL(removed(Item* )), this, SLOT(removeChild(Item* )) );
-	
+
 	childRemoved(child);
 	p_itemDocument->slotUpdateZOrdering();
 }
@@ -515,12 +515,12 @@ void Item::updateZ( int baseZ )
 {
 	m_baseZ = baseZ;
 	double z = ItemDocument::Z::Item + (ItemDocument::Z::DeltaItem)*baseZ;
-	
+
 	if ( isRaised() )
 		z += ItemDocument::Z::RaisedItem - ItemDocument::Z::Item;
-	
+
 	setZ(z);
-	
+
 	const ItemList::const_iterator end = m_children.end();
 	for ( ItemList::const_iterator it = m_children.begin(); it != end; ++it )
 	{
@@ -558,7 +558,7 @@ double Item::getMultiplier( const QString &_mag )
 		mag = QChar(0xB5);
 	else
 		mag = _mag;
-	
+
 	for ( int i=0; i<numPrefix; ++i )
 	{
 		if ( mag == SIprefix[i] )
@@ -566,7 +566,7 @@ double Item::getMultiplier( const QString &_mag )
 			return std::pow( 10., (i*3)+minPrefixExp );
 		}
 	}
-	
+
 	// I think it is safer to return '1' if the unit is unknown
 	return 1.;
 // 	return pow( 10., maxPrefixExp+3. );
@@ -617,7 +617,7 @@ Variant * Item::createProperty( const QString & id, Variant::Type::Value type )
 		m_variantData[id] = new Variant( id, type );
 		connect( m_variantData[id], SIGNAL(valueChanged(QVariant,QVariant)), this, SLOT(propertyChangedInitial()) );
 	}
-	
+
 	return m_variantData[id];
 }
 
@@ -626,8 +626,8 @@ Variant * Item::property( const QString & id ) const
 {
 	if ( m_variantData.contains(id) )
 		return m_variantData[id];
-	
-	kError() << k_funcinfo << " No such property with id " << id << endl;
+
+	qCritical() << Q_FUNC_INFO << " No such property with id " << id << endl;
 	return 0l;
 }
 
@@ -649,7 +649,7 @@ void Item::propertyChangedInitial()
 {
 	if ( !m_bDoneCreation )
 		return;
-	
+
     m_pPropertyChangedTimer->setSingleShot(true);
 	m_pPropertyChangedTimer->start( 0 /*, true */ );
 }

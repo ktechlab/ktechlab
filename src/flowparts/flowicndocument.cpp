@@ -20,7 +20,7 @@
 #include "junctionflownode.h"
 #include "nodegroup.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 
 FlowICNDocument::FlowICNDocument( const QString &caption, const char *name)
 	: ICNDocument(caption, name )
@@ -143,7 +143,7 @@ bool FlowICNDocument::canConnect( KtlQCanvasItem *qcanvasItem1, KtlQCanvasItem *
 				return false;
 		}
 	} else
-		kError() << k_funcinfo << "BUG: document type is not dt_flowcode" << endl;
+		qCritical() << Q_FUNC_INFO << "BUG: document type is not dt_flowcode" << endl;
 	//END Check we have appropriate input and output allowance
 
 	return ICNDocument::canConnect(qcanvasItem1, qcanvasItem2);
@@ -251,7 +251,7 @@ Connector* FlowICNDocument::createConnector( const QString &startNodeId, const Q
 	
 	if ( !startNode || !endNode )
 	{
-		kDebug() << "Either/both the connector start node and end node could not be found" << endl;
+		qDebug() << "Either/both the connector start node and end node could not be found" << endl;
 		return 0L;
 	}
 	
@@ -261,7 +261,7 @@ Connector* FlowICNDocument::createConnector( const QString &startNodeId, const Q
 	Connector *connector = endNode->createInputConnector(startNode);
 	if (!connector)
 	{
-		kError() << k_funcinfo << "End node did not create the connector" << endl;
+		qCritical() << Q_FUNC_INFO << "End node did not create the connector" << endl;
 		return 0l;
 	}
 	startNode->addOutputConnector(connector);
@@ -349,7 +349,7 @@ void FlowICNDocument::flushDeleteList()
 			m_connectorList.removeAll ( con );
 
 		else
-			kError() << k_funcinfo << "Unknown qcanvasItem! "<<qcanvasItem << endl;
+			qCritical() << Q_FUNC_INFO << "Unknown qcanvasItem! "<<qcanvasItem << endl;
 
 		qcanvasItem->setCanvas ( 0l );
 
@@ -396,7 +396,7 @@ bool FlowICNDocument::registerItem( KtlQCanvasItem *qcanvasItem )
 		}
 		else
 		{
-			kError() << k_funcinfo << "Unrecognised item"<<endl;
+			qCritical() << Q_FUNC_INFO << "Unrecognised item"<<endl;
 			return false;
 		}
 	}

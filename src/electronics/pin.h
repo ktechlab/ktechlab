@@ -54,7 +54,7 @@ class Pin : public QObject
 			gt_never = 20 // everything else
 		};
 		Pin( ECNode * parent );
-		~Pin();
+		~Pin() override;
 		
 		ECNode * parentECNode() const { return m_pECNode; }
 		/**

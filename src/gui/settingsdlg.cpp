@@ -16,6 +16,7 @@
 #include <kcolorbutton.h>
 #include <kcombobox.h>
 #include <kconfig.h>
+#include <kglobal.h>
 #include <kinputdialog.h>
 #include <klineedit.h>
 #include <klocalizedstring.h>
@@ -23,6 +24,7 @@
 #include <knuminput.h>
 #include <kpushbutton.h>
 #include <kstandarddirs.h>
+
 #include <qgroupbox.h>
 #include <qlabel.h>
 #include <qslider.h>
@@ -99,7 +101,7 @@ class GplinkSettingsWidget : public QWidget, public Ui::GplinkSettingsWidget {
 // Make sure that this value is the same as that in ktechlab.kcfg
 const int defaultRefreshRate = 50;
 
-SettingsDlg::SettingsDlg( QWidget *parent, const char *name, KConfigSkeleton *config )
+SettingsDlg::SettingsDlg( QWidget *parent, const char *name, KCoreConfigSkeleton *config )
 	: KConfigDialog( parent, name, config )
 {
 	m_generalOptionsWidget = new GeneralOptionsWidget( this, "generalOptionsWidget" );
@@ -109,12 +111,12 @@ SettingsDlg::SettingsDlg( QWidget *parent, const char *name, KConfigSkeleton *co
 	m_logicWidget = new LogicWidget( this, "logicWidget" );
 	m_picProgrammerConfigWidget = new PicProgrammerConfigWidget( this, "picProgrammerConfigWidget" );
 	m_gplinkSettingsWidget = new GplinkSettingsWidget( this, "gplinkSettingsWidget" );
-	
+
 	m_pPicProgrammerSettings = new PicProgrammerSettings;
-	
+
 	m_logicWidget->kcfg_LogicOutputHighImpedance->setSuffix( QString(" ") + QChar(0x3a9) );
 	m_logicWidget->kcfg_LogicOutputLowImpedance->setSuffix( QString(" ") + QChar(0x3a9) );
-	
+
 	addPage( m_generalOptionsWidget, i18n("General"), "ktechlab", i18n("General Options") );
 	addPage( m_picProgrammerConfigWidget, i18n("Programmer"), "network-connect", i18n("PIC Programmer") );
 	addPage( m_asmFormattingWidget, i18n("Formatter"), "indent_asm", i18n("Assembly Formatter") );
@@ -122,23 +124,23 @@ SettingsDlg::SettingsDlg( QWidget *parent, const char *name, KConfigSkeleton *co
 	addPage( m_gpasmSettingsWidget, "Gpasm", "convert_to_hex", "gpasm" );
 	addPage( m_gplinkSettingsWidget, "Gplink", "merge", "gplink" );
 	addPage( m_sdccOptionsWidget, "SDCC", "text-x-csrc", "SDCC" );
-	
+
 	connect( m_generalOptionsWidget->refreshRateSlider, SIGNAL(valueChanged(int)), this, SLOT(slotUpdateRefreshRateLabel(int)) );
 	connect( m_picProgrammerConfigWidget->kcfg_PicProgrammerProgram, SIGNAL(activated(const QString &)), this, SLOT(slotUpdatePicProgrammerDescription()) );
 	connect( m_picProgrammerConfigWidget->removeButton, SIGNAL(clicked()), this, SLOT(slotRemoveProgrammerConfig()) );
 	connect( m_picProgrammerConfigWidget->addButton, SIGNAL(clicked()), this, SLOT(slotAddProgrammerConfig()) );
-	
-	
+
+
 	connect( m_picProgrammerConfigWidget->initCommand, SIGNAL(textChanged(const QString &)), this, SLOT(slotSaveCurrentProgrammerConfig()) );
 	connect( m_picProgrammerConfigWidget->readCommand, SIGNAL(textChanged(const QString &)), this, SLOT(slotSaveCurrentProgrammerConfig()) );
 	connect( m_picProgrammerConfigWidget->writeCommand, SIGNAL(textChanged(const QString &)), this, SLOT(slotSaveCurrentProgrammerConfig()) );
 	connect( m_picProgrammerConfigWidget->verifyCommand, SIGNAL(textChanged(const QString &)), this, SLOT(slotSaveCurrentProgrammerConfig()) );
 	connect( m_picProgrammerConfigWidget->blankCheckCommand, SIGNAL(textChanged(const QString &)), this, SLOT(slotSaveCurrentProgrammerConfig()) );
 	connect( m_picProgrammerConfigWidget->eraseCommand, SIGNAL(textChanged(const QString &)), this, SLOT(slotSaveCurrentProgrammerConfig()) );
-	
-	
+
+
 	m_generalOptionsWidget->kcfg_GridColor->setEnabled( KTLConfig::showGrid() );
-	
+
 	m_picProgrammerConfigWidget->kcfg_PicProgrammerPort->insertItems(
         m_picProgrammerConfigWidget->kcfg_PicProgrammerPort->count(),
         Port::ports( Port::ExistsAndRW ) );
@@ -192,40 +194,40 @@ void SettingsDlg::slotUpdateRefreshRateLabel( int sliderValue )
 void SettingsDlg::slotUpdatePicProgrammerDescription()
 {
 	QString program = m_picProgrammerConfigWidget->kcfg_PicProgrammerProgram->currentText();
-	
+
 	ProgrammerConfig config = m_pPicProgrammerSettings->config( program );
 	QString description = config.description;
-	
+
 	bool customProgrammer = ! m_pPicProgrammerSettings->isPredefined( program );
-	
+
 	QString executable = config.executable;
 	if ( executable.isEmpty() )
 		executable = program.toLower();
-	
+
 	QString programLocation = KStandardDirs::findExe( executable );
 	if ( programLocation.isNull() )
 		description.prepend( i18n("<b>%1</b> cannot be found.<br>", executable ) );
 	else
 		description.prepend( i18n("<b>%1</b> found: %2<br>", executable, programLocation) );
-	
+
 	m_picProgrammerConfigWidget->m_pProgrammerDescription->setText( description );
 	m_picProgrammerConfigWidget->removeButton->setEnabled( customProgrammer );
-	
+
 	KLineEdit * edit;
-	
+
 #define SETUP_COMMAND( name ) \
 	edit = m_picProgrammerConfigWidget->name; \
 	edit->setText( config.name ); \
 	edit->setEnabled(customProgrammer); \
 	edit->setToolTip( customProgrammer ? QString() : config.name )
-	
+
 	SETUP_COMMAND( initCommand );
 	SETUP_COMMAND( readCommand );
 	SETUP_COMMAND( writeCommand );
 	SETUP_COMMAND( verifyCommand );
 	SETUP_COMMAND( blankCheckCommand );
 	SETUP_COMMAND( eraseCommand );
-	
+
 #undef SETUP_COMMAND
 }
 
@@ -233,19 +235,19 @@ void SettingsDlg::slotUpdatePicProgrammerDescription()
 void SettingsDlg::slotSaveCurrentProgrammerConfig()
 {
 	QString program = m_picProgrammerConfigWidget->kcfg_PicProgrammerProgram->currentText();
-	
+
 	if ( m_pPicProgrammerSettings->isPredefined( program ) )
 		return;
-	
+
 	ProgrammerConfig config;
-	
+
 	config.initCommand = m_picProgrammerConfigWidget->initCommand->text();
 	config.readCommand = m_picProgrammerConfigWidget->readCommand->text();
 	config.writeCommand = m_picProgrammerConfigWidget->writeCommand->text();
 	config.verifyCommand = m_picProgrammerConfigWidget->verifyCommand->text();
 	config.blankCheckCommand = m_picProgrammerConfigWidget->blankCheckCommand->text();
 	config.eraseCommand = m_picProgrammerConfigWidget->eraseCommand->text();
-	
+
 	m_pPicProgrammerSettings->saveConfig( program, config );
 }
 
@@ -253,9 +255,9 @@ void SettingsDlg::slotSaveCurrentProgrammerConfig()
 void SettingsDlg::slotRemoveProgrammerConfig()
 {
 	KComboBox * combo = m_picProgrammerConfigWidget->kcfg_PicProgrammerProgram;
-	
+
 	QString program = combo->currentText();
-	
+
 	KMessageBox::ButtonCode confirm = (KMessageBox::ButtonCode)KMessageBox::warningContinueCancel(
             this,
             i18n("Remove programmer configuration \"%1\"?", program),
@@ -264,7 +266,7 @@ void SettingsDlg::slotRemoveProgrammerConfig()
             );
 	if ( confirm == KMessageBox::Cancel )
 		return;
-	
+
 	m_pPicProgrammerSettings->removeConfig( program );
 	combo->removeItem( combo->currentIndex() );
 	slotUpdatePicProgrammerDescription();
@@ -274,27 +276,27 @@ void SettingsDlg::slotRemoveProgrammerConfig()
 void SettingsDlg::slotAddProgrammerConfig()
 {
 	KComboBox * combo = m_picProgrammerConfigWidget->kcfg_PicProgrammerProgram;
-	
+
 	QStringList takenNames;
 	int count = combo->count();
 	for ( int i = 0; i < count; ++i )
 		takenNames << combo->itemText(i).toLower();
-	
+
 	NameValidator * nv = new NameValidator( takenNames );
-	
+
 	bool ok = false;
 	QString name = KInputDialog::getText( i18n("Configuration Name"), i18n("Name"), QString(),/* 0,*/ &ok, this,/* 0,*/ nv );
-	
+
 	delete nv;
-	
+
 	if (!ok)
 		return;
-	
+
 	ProgrammerConfig config;
 	config.executable = name.toLower();
-	
+
 	m_pPicProgrammerSettings->saveConfig( name, config );
-	
+
 	combo->insertItem(combo->count(), name );
 	// combo->setCurrentItem( count );
     combo->setCurrentItem( name );
@@ -334,13 +336,13 @@ void SettingsDlg::updateSettings()
 {
 	//KConfig * config = kapp->config();
     KConfig * config = KGlobal::config().data();
-	
+
 	KConfigSkeleton::ItemInt *item = dynamic_cast<KConfigSkeleton::ItemInt*>(KTLConfig::self()->findItem( "RefreshRate" ));
 	if ( !item )
 		return;
-	
+
 	int newRefreshRate = sliderValueToRefreshRate(m_generalOptionsWidget->refreshRateSlider->value());
-	
+
 	if ( newRefreshRate != KTLConfig::refreshRate() )
 	{
 		item->setValue(newRefreshRate);
@@ -349,10 +351,10 @@ void SettingsDlg::updateSettings()
 			grWorkArea.writeEntry("RefreshRate", newRefreshRate);
 		else
 			grWorkArea.deleteEntry("RefreshRate");
-		
+
 		emit settingsChanged(objectName());
 	}
-	
+
 	QTimer::singleShot( 0, this, SLOT(slotUpdateSettings()) );
 }
 
@@ -361,14 +363,14 @@ void SettingsDlg::slotUpdateSettings()
 {
 	//KConfig * config = kapp->config();
     KConfig *config = KGlobal::config().data();
-	
+
 	KConfigSkeleton::ItemString * item = dynamic_cast<KConfigSkeleton::ItemString*>(KTLConfig::self()->findItem( "PicProgrammerProgram" ));
 	if ( !item )
 		return;
-	
+
 	KComboBox * combo = m_picProgrammerConfigWidget->kcfg_PicProgrammerProgram;
 	QString newProgram = combo->currentText();
-	
+
 	if ( newProgram != KTLConfig::picProgrammerProgram() )
 	{
 		item->setValue( newProgram );
@@ -377,12 +379,12 @@ void SettingsDlg::slotUpdateSettings()
 			grPicProg.writeEntry( "PicProgrammerProgram", newProgram );
 		else
 			grPicProg.deleteEntry( "PicProgrammerProgram" );
-		
+
 		emit settingsChanged(objectName());
 	}
-	
+
 	m_pPicProgrammerSettings->save( config );
-	
+
 	config->sync();
 }
 
@@ -390,18 +392,18 @@ void SettingsDlg::slotUpdateSettings()
 void SettingsDlg::updateWidgets()
 {
 	m_generalOptionsWidget->refreshRateSlider->setValue( refreshRateToSliderValue( KTLConfig::refreshRate() ) );
-	
+
 	//m_pPicProgrammerSettings->load( kapp->config() );
     m_pPicProgrammerSettings->load( KGlobal::config().data() );
-	
+
 	QStringList programmerNames = m_pPicProgrammerSettings->configNames( false );
-	
+
 	KComboBox * combo = m_picProgrammerConfigWidget->kcfg_PicProgrammerProgram;
 	combo->clear();
 	combo->insertItems(combo->count(), programmerNames );
 	//combo->setSizeLimit( programmerNames.size() );
     combo->setMaxCount( programmerNames.size() );
-	
+
 	QTimer::singleShot( 0, this, SLOT(slotUpdateWidgets()) );
 }
 
@@ -409,7 +411,7 @@ void SettingsDlg::updateWidgets()
 void SettingsDlg::slotUpdateWidgets()
 {
 	KComboBox * combo = m_picProgrammerConfigWidget->kcfg_PicProgrammerProgram;
-	
+
 	combo->setItemText(combo->currentIndex(), KTLConfig::picProgrammerProgram() );
 	slotUpdatePicProgrammerDescription();
 }
@@ -434,7 +436,7 @@ bool SettingsDlg::isDefault()
 {
 	if ( sliderValueToRefreshRate( m_generalOptionsWidget->refreshRateSlider->value() ) == defaultRefreshRate )
 		return KConfigDialog::isDefault();
-	
+
 	return false;
 }
 

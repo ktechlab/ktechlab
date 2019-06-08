@@ -33,22 +33,22 @@ class OutputMethodInfo
 					SaveAndLoad
 				};
 		};
-		
+
 		OutputMethodInfo();
 		void initialize( OutputMethodDlg * dlg );
-		
+
 		Method::Type method() const { return m_method; }
 		void setMethod( Method::Type method ) { m_method = method; }
-		
+
 		bool addToProject() const { return m_bAddToProject; }
 		void setAddToProject( bool add ) { m_bAddToProject = add; }
-		
+
 		QString picID() const { return m_picID; }
 		void setPicID( const QString & id ) { m_picID = id; }
-		
+
 		KUrl outputFile() const { return m_outputFile; }
 		void setOutputFile( const KUrl & outputFile ) { m_outputFile = outputFile; }
-		
+
 	protected:
 		Method::Type m_method;
 		bool m_bAddToProject;
@@ -69,20 +69,20 @@ class OutputMethodDlg : public KDialog
 		 * @param showPICSelect Whether to show the combo boxes for selecting a PIC
 		 */
 		OutputMethodDlg( const QString & caption, const KUrl & inputURL, bool showPICSelect = false, QWidget *parent = 0, const char *name = 0);
-		~OutputMethodDlg();
-	
+		~OutputMethodDlg() override;
+
 		void setOutputExtension( const QString & outputExtension );
 		void setFilter( const QString  &filter );
 		void setMethod( OutputMethodInfo::Method::Type m );
 		void setOutputFile( const KUrl & out );
 		void setPicID( const QString & id );
 
-		virtual void reject();
-		virtual void accept();
+		void reject() override;
+		void accept() override;
 		bool isAccepted() const { return m_bAccepted; }
-		
+
 		OutputMethodInfo info() const { return m_outputMethodInfo; }
-		
+
 		MicroSelectWidget * microSelect() const;
 
 	protected:
@@ -91,7 +91,7 @@ class OutputMethodDlg : public KDialog
 		KUrl m_inputURL;
 		OutputMethodInfo m_outputMethodInfo;
 		bool m_bAccepted;
-		
+
 		friend class OutputMethodInfo;
 };
 

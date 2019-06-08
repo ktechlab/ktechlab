@@ -43,7 +43,7 @@
 #define KTL_Q3SCROLLVIEW_H
 
 #include <ktlqt3support/ktlq3frame.h>
-#include <QtGui/qscrollbar.h>
+#include <qscrollbar.h>
 
 // QT_BEGIN_HEADER
 
@@ -70,7 +70,7 @@ class KtlQ3ScrollView : public KtlQ3Frame
 
 public:
     KtlQ3ScrollView(QWidget* parent=0, const char* name=0, Qt::WindowFlags f=0);
-    ~KtlQ3ScrollView();
+    ~KtlQ3ScrollView() override;
 
     enum ResizePolicy { Default, Manual, AutoOne, AutoOneFit };
     virtual void setResizePolicy( ResizePolicy );
@@ -113,7 +113,7 @@ public:
 
     void	resize( int w, int h );
     void	resize( const QSize& );
-    void	setVisible(bool visible);
+    void	setVisible(bool visible) override;
 
     void	updateContents( int x, int y, int w, int h );
     void	updateContents( const QRect& r );
@@ -131,8 +131,8 @@ public:
     bool	hasStaticBackground() const;
 
     QSize	viewportSize( int, int ) const;
-    QSize	sizeHint() const;
-    QSize	minimumSizeHint() const;
+    QSize	sizeHint() const override;
+    QSize	minimumSizeHint() const override;
 
     void	removeChild(QObject* child);
 
@@ -192,7 +192,7 @@ protected:
     virtual void viewportWheelEvent( QWheelEvent * );
     virtual void viewportContextMenuEvent( QContextMenuEvent * );
 
-    void	frameChanged();
+    void	frameChanged() override;
 
 public:
     virtual void setMargins(int left, int top, int right, int bottom);
@@ -202,26 +202,26 @@ public:
     int bottomMargin() const;
 protected:
 
-    bool focusNextPrevChild( bool next );
+    bool focusNextPrevChild( bool next ) override;
 
     virtual void setHBarGeometry(QScrollBar& hbar, int x, int y, int w, int h);
     virtual void setVBarGeometry(QScrollBar& vbar, int x, int y, int w, int h);
 
-    void resizeEvent(QResizeEvent*);
-    void  mousePressEvent( QMouseEvent * );
-    void  mouseReleaseEvent( QMouseEvent * );
-    void  mouseDoubleClickEvent( QMouseEvent * );
-    void  mouseMoveEvent( QMouseEvent * );
-    void  wheelEvent( QWheelEvent * );
-    void contextMenuEvent( QContextMenuEvent * );
-    bool eventFilter( QObject *, QEvent *e );
+    void resizeEvent(QResizeEvent*) override;
+    void  mousePressEvent( QMouseEvent * ) override;
+    void  mouseReleaseEvent( QMouseEvent * ) override;
+    void  mouseDoubleClickEvent( QMouseEvent * ) override;
+    void  mouseMoveEvent( QMouseEvent * ) override;
+    void  wheelEvent( QWheelEvent * ) override;
+    void contextMenuEvent( QContextMenuEvent * ) override;
+    bool eventFilter( QObject *, QEvent *e ) override;
 
     void setCachedSizeHint( const QSize &sh ) const;
     QSize cachedSizeHint() const;
     void fontChange( const QFont & );
 
 private:
-    void drawContents( QPainter* );
+    void drawContents( QPainter* ) override;
     void moveContents(int x, int y);
 
     KtlQ3ScrollViewData* d;

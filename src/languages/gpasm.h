@@ -21,14 +21,14 @@ class Gpasm : public ExternalLanguage
 {
 	public:
 		Gpasm( ProcessChain *processChain );
-		~Gpasm();
-	
-		virtual void processInput( ProcessOptions options );
-		virtual ProcessOptions::ProcessPath::Path outputPath( ProcessOptions::ProcessPath::Path inputPath ) const;
-	
+		~Gpasm() override;
+
+		void processInput( ProcessOptions options ) override;
+		ProcessOptions::ProcessPath::Path outputPath( ProcessOptions::ProcessPath::Path inputPath ) const override;
+
 	protected:
-		virtual bool isError( const QString &message ) const;
-		virtual bool isWarning( const QString &message ) const;
+		bool isError( const QString &message ) const override;
+		bool isWarning( const QString &message ) const override;
 };
 
 #endif

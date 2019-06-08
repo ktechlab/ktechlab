@@ -25,20 +25,20 @@ class VariableCapacitor : public Component
 {
 	public:
     	VariableCapacitor( ICNDocument* icnDocument, bool newItem, const QString& id = 0L );
-    	~VariableCapacitor();
+    	~VariableCapacitor() override;
 		
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
 	
-		virtual void sliderValueChanged( const QString &id, int newValue );
+		void sliderValueChanged( const QString &id, int newValue ) override;
 		
 	private:
-		void dataChanged();
-		virtual void drawShape( QPainter &p );
+		void dataChanged() override;
+		void drawShape( QPainter &p ) override;
 
 		Capacitance * m_pCapacitance;
 		QSlider * m_pSlider;
-		
+
 		double m_minCapacitance;
 		double m_maxCapacitance;
 		double m_currCapacitance, m_tickValue;

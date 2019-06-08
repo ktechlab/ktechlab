@@ -20,10 +20,10 @@ class ClockedFlipFlop : public CallbackClass, public Component
 {
 	public:
 		ClockedFlipFlop( ICNDocument *icnDocument, bool newItem, const char * id );
-	
+
 	protected:
 		enum EdgeTrigger { Rising, Falling };
-		virtual void dataChanged();
+		void dataChanged() override;
 		virtual void initSymbolFromTrigger() = 0;
 		EdgeTrigger m_edgeTrigger;
 };
@@ -37,19 +37,19 @@ class ECDFlipFlop : public ClockedFlipFlop
 {
 public:
 	ECDFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~ECDFlipFlop();
-	
-	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
+	~ECDFlipFlop() override;
+
+    static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
+
 protected:
-	virtual void drawShape( QPainter & p );
-	virtual void initSymbolFromTrigger();
+	void drawShape( QPainter & p ) override;
+	void initSymbolFromTrigger() override;
 	void inputChanged( bool newState );
 	void inStateChanged( bool newState );
 	void asyncChanged(bool newState );
 	void clockChanged(bool newState );
-	
+
 	LogicIn *m_pD;
 	LogicIn *m_pClock;
 	LogicOut *m_pQ;
@@ -57,7 +57,7 @@ protected:
 	LogicIn *setp;
 	LogicIn *rstp;
 	bool m_bPrevClock;
-	
+
 	bool m_prevD;
 	unsigned long long m_prevDChangeSimTime;
 	Simulator * m_pSimulator;
@@ -72,18 +72,18 @@ class ECJKFlipFlop : public ClockedFlipFlop
 {
 public:
 	ECJKFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~ECJKFlipFlop();
+	~ECJKFlipFlop() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
+
 private:
-	virtual void drawShape( QPainter & p );
-	virtual void initSymbolFromTrigger();
+	void drawShape( QPainter & p ) override;
+	void initSymbolFromTrigger() override;
 	void inStateChanged( bool newState );
 	void asyncChanged(bool newState );
 	void clockChanged(bool newState );
-	
+
 	bool prev_state;
 	bool m_bPrevClock;
 	LogicIn *m_pJ;
@@ -104,11 +104,11 @@ class ECSRFlipFlop : public CallbackClass, public Component
 {
 public:
 	ECSRFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~ECSRFlipFlop();
-	
+	~ECSRFlipFlop() override;
+
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
+
 protected:
 	void inStateChanged( bool newState );
 	LogicIn * m_pS;

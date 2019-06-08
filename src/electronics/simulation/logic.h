@@ -26,7 +26,7 @@ class LogicConfig
 {
 	public:
 		LogicConfig();
-		
+
 		float risingTrigger;	///< Trigger on rising edge
 		float fallingTrigger;	///< Trigger on falling edge
 		float output;			///< Output voltage
@@ -50,11 +50,11 @@ class LogicIn : public Element
 {
 	public:
 		LogicIn( LogicConfig config );
-		virtual ~LogicIn();
+		~LogicIn() override;
 	
-		virtual Type type() const { return Element_LogicIn; }
-		virtual void setElementSet( ElementSet *c );
-	
+		Type type() const override { return Element_LogicIn; }
+		void setElementSet( ElementSet *c ) override;
+
 		/**
 		 * Set logic values from the LogicConfig.
 		 */
@@ -65,7 +65,7 @@ class LogicIn : public Element
 		void check();
 		/**
 		 * Returns whether the pin is 'high', as defined for the logic type
-		 * Note: this is defined as the voltage on the pin, as opposed to what the 
+		 * Note: this is defined as the voltage on the pin, as opposed to what the
 		 * state was set to (the two are not necessarily the same).
 		 */
 		bool isHigh() const { return m_bLastState; }
@@ -99,10 +99,10 @@ class LogicIn : public Element
 			if (m_pCallbackFunction)
 				(m_pCallbackObject->*m_pCallbackFunction)(m_bLastState);
 		}
-	
+
 	protected:
-		virtual void updateCurrents();
-		virtual void add_initial_dc();
+		void updateCurrents() override;
+		void add_initial_dc() override;
 	
 		// TODO: fix this crap NO FUNCTION POINTERS
 		CallbackPtr m_pCallbackFunction;
@@ -120,11 +120,11 @@ class LogicOut : public LogicIn
 {
 	public:
 		LogicOut( LogicConfig config, bool _high );
-		virtual ~LogicOut();
+		~LogicOut() override;
 	
-		virtual void setLogic( LogicConfig config );
-		virtual void setElementSet( ElementSet *c );
-		virtual Type type() const { return Element_LogicOut; }
+		void setLogic( LogicConfig config ) override;
+		void setElementSet( ElementSet *c ) override;
+		Type type() const override { return Element_LogicOut; }
 	
 		/**
 		 * Call this function to override the logic-high output impedance as set by
@@ -184,22 +184,22 @@ class LogicOut : public LogicIn
 		PinList pinList;
 		PinList::iterator pinListBegin;
 		PinList::iterator pinListEnd;
-	
+
 	protected:
 		void configChanged();
-		virtual void updateCurrents();
-		virtual void add_initial_dc();
+		void updateCurrents() override;
+		void add_initial_dc() override;
 	
 		// Pre-initalized levels from config
 		double m_gHigh;
 		double m_gLow;
 		double m_vHigh;
-		
+
 		// Whether to use the user-defined logic values
 		bool m_bOutputHighConductanceConst;
 		bool m_bOutputLowConductanceConst;
 		bool m_bOutputHighVoltageConst;
-	
+
 		double m_g_out;
 		double m_v_out;
 		double m_old_g_out;

@@ -21,14 +21,17 @@
 
 #include <kapplication.h>
 #include <kconfig.h>
-#include <kdebug.h>
+#include <kglobal.h>
 #include <klocalizedstring.h>
 #include <kconfiggroup.h>
+#include <kglobal.h>
 
 // #include <q3dragobject.h>
+#include <qdebug.h>
 #include <qlayout.h>
 // #include <q3popupmenu.h>
 #include <qmenu.h>
+#include <qmimedata.h>
 
 #include <cassert>
 
@@ -79,7 +82,7 @@ ItemSelector::ItemSelector( QWidget *parent, const char *name )
     }
 
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding); // ?
-	
+
 // 	connect( this, SIGNAL(executed(K3ListViewItem*) ), this, SLOT(slotItemExecuted(K3ListViewItem*)) );
 	connect( this, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(slotItemClicked(QTreeWidgetItem*,int)) );
 	connect( this, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(slotItemDoubleClicked(QTreeWidgetItem*,int)) );
@@ -108,12 +111,12 @@ void ItemSelector::addItem( const QString & caption, const QString & id, const Q
 {
     qDebug() << Q_FUNC_INFO << "id=" << id;
 	ILVItem *parentItem = 0L;
-	
+
 	QString category = _category;
 	if ( !category.startsWith("/") ) {
 		category.prepend('/');
 	}
-	
+
 	do
 	{
 		category.remove(0,1);
@@ -122,13 +125,13 @@ void ItemSelector::addItem( const QString & caption, const QString & id, const Q
 		int pos = category.indexOf('/');
 		if ( pos == -1 ) cat = category;
 		else cat = category.left( pos );
-		
+
 		cat.replace( "|", "/" );
-	
+
 		if ( m_categories.indexOf(cat) == -1 )
 		{
 			m_categories.append(cat);
-			
+
 			if (parentItem) {
 				parentItem = new ILVItem( parentItem, "" );
 			}
@@ -138,7 +141,7 @@ void ItemSelector::addItem( const QString & caption, const QString & id, const Q
             //parentItem->setExpandable(true); // 2018.08.12 - is it needed?
 
 			parentItem->setExpanded( readOpenState(cat) );
-			
+
 			parentItem->setText( 0, cat );
 		}
 		else
@@ -149,16 +152,16 @@ void ItemSelector::addItem( const QString & caption, const QString & id, const Q
             }
             parentItem = dynamic_cast<ILVItem*>( foundList.front() );
 		}
-		
+
 		category.remove( 0, pos );
 	} while ( category.contains('/') );
-	
+
 	if ( !parentItem )
 	{
-		kError() << "Unexpected error in finding parent item for category list"<<endl;
+		qCritical() << "Unexpected error in finding parent item for category list"<<endl;
 		return;
 	}
-	
+
 	ILVItem *item = new ILVItem( parentItem, id );
 	//item->setPixmap( 0, icon );  // 2018.08.12 - replaced with line below
     item->setIcon( 0, QIcon(icon) );
@@ -175,7 +178,7 @@ void ItemSelector::writeOpenStates()
     KSharedConfigPtr configPtr = KGlobal::config();
 	//config->setGroup( name() );
     KConfigGroup configGroup = configPtr->group( objectName() );
-	
+
 	const QStringList::iterator end = m_categories.end();
 	for ( QStringList::iterator it = m_categories.begin(); it != end; ++it )
 	{
@@ -198,7 +201,7 @@ bool ItemSelector::readOpenState( const QString &id )
     KSharedConfigPtr configPtr = KGlobal::config();
 	//config->setGroup( name() );
     KConfigGroup configGroup = configPtr->group( objectName() );
-	
+
 	return configGroup.readEntry<bool>( id+"IsOpen", true );
 }
 
@@ -229,7 +232,7 @@ QMimeData * ItemSelector::mimeData(const QList<QTreeWidgetItem *> items) const {
     const QString id = idAsVariant.toString();
     qDebug() << Q_FUNC_INFO << "id='" << id << "'";
 
-    QMimeData * mime = new QMimeData;
+    QMimeData * mime = new QMimeData();
 
     QByteArray data;
     QDataStream stream( &data, QIODevice::WriteOnly );
@@ -260,7 +263,7 @@ void ItemSelector::slotContextMenuRequested(const QPoint& pos)
 	if ( !item || !(static_cast<ILVItem*>(item))->isRemovable() ) {
 		return;
 	}
-	
+
 	QMenu *menu = new QMenu(this);
 	/* menu->insertItem(
         //, Qt::Key_Delete // 2015.12.29 - do not specify shortcut key, because it does not work
@@ -285,7 +288,7 @@ void ItemSelector::slotRemoveSelectedItem()
         qDebug() << Q_FUNC_INFO << "no selected item to remove";
 		return;
     }
-	
+
 	emit itemRemoved( item->data(0, ILVItem::DataRole_ID).toString() /*key( 0, 0 ) */ );
 	ILVItem *parent = dynamic_cast<ILVItem*>(item->QTreeWidgetItem::parent());
 	delete item;
@@ -311,7 +314,7 @@ void ItemSelector::slotItemSelected( )
 	if (!item) {
 		return;
     }
-	
+
 	emit itemSelected( item->data(0, ILVItem::DataRole_ID).toString() /* item->key( 0, 0 ) */ );
 }
 
@@ -320,10 +323,10 @@ void ItemSelector::slotItemClicked( QTreeWidgetItem *item, int )
 {
 	if (!item)
 		return;
-	
+
 	if ( ItemDocument * itemDocument = dynamic_cast<ItemDocument*>(DocManager::self()->getFocusedDocument()) )
 		itemDocument->slotUnsetRepeatedItemId();
-	
+
     const QString &itemIdString = item->data(0, ILVItem::DataRole_ID).toString();
 
 	emit itemClicked( itemIdString /* item->key( 0, 0 ) */ );
@@ -334,22 +337,22 @@ void ItemSelector::slotItemDoubleClicked( QTreeWidgetItem *item, int )
 {
 	if (!item)
 		return;
-	
+
 	//QString id = item->key( 0, 0 );
     const QString &id = item->data(0, ILVItem::DataRole_ID).toString();
-	
+
 	if ( Document * doc = DocManager::self()->getFocusedDocument() )
 	{
 		if ( doc->type() == Document::dt_flowcode && id.startsWith("flow/") )
 			(static_cast<FlowCodeDocument*>(doc))->slotSetRepeatedItemId(id);
-		
+
 		else if ( doc->type() == Document::dt_circuit && (id.startsWith("ec/") || id.startsWith("sc/")) )
 			(static_cast<CircuitDocument*>(doc))->slotSetRepeatedItemId(id);
-		
+
 		else if ( doc->type() == Document::dt_mechanics && id.startsWith("mech/") )
 			(static_cast<MechanicsDocument*>(doc))->slotSetRepeatedItemId(id);
 	}
-	
+
 	emit itemDoubleClicked(id);
 }
 
@@ -413,14 +416,14 @@ ComponentSelector::ComponentSelector( KateMDI::ToolView * parent )
 
 	setWhatsThis( i18n(
 			"Add components to the circuit diagram by dragging them into the circuit.<br><br>"
-			
+
 			"To add more than one component of the same type, doubleclick on a component, and click repeatedly in the circuit to place the component. Right click to stop placement.<br><br>"
-			
+
 			"Some components (such as subcircuits) can be removed by right clicking on the item and selecting \"Remove\"."
 							   ) );
-	
+
 	setListCaption( i18n("Component") );
-	
+
 	LibraryItemList *items = itemLibrary()->items();
     qDebug() << Q_FUNC_INFO << " there are " << items->count() << " items";
 	const LibraryItemList::iterator end = items->end();
@@ -453,9 +456,9 @@ FlowPartSelector::FlowPartSelector( KateMDI::ToolView * parent )
 	: ItemSelector( (QWidget*)parent, "Part Selector" )
 {
 	setWhatsThis( i18n("Add FlowPart to the FlowCode document by dragging them there.<br><br>To add more than one FlowPart of the same type, doubleclick on a FlowPart, and click repeatedly in the FlowChart to place the component. Right click to stop placement.") );
-	
+
 	setListCaption( i18n("Flow Part") );
-	
+
 	LibraryItemList *items = itemLibrary()->items();
 	const LibraryItemList::iterator end = items->end();
 	for ( LibraryItemList::iterator it = items->begin(); it != end; ++it )
@@ -486,7 +489,7 @@ MechanicsSelector::MechanicsSelector( QWidget *parent )
 	: ItemSelector( (QWidget*)parent, "Mechanics Selector" )
 {
 	setWhatsThis( i18n("Add mechanical parts to the mechanics work area by dragging them there.") );
-	
+
 	LibraryItemList *items = itemLibrary()->items();
 	const LibraryItemList::iterator end = items->end();
 	for ( LibraryItemList::iterator it = items->begin(); it != end; ++it )

@@ -691,7 +691,7 @@ bool KtlQ3ScrollView::isVerticalSliderPressed()
 */
 void KtlQ3ScrollView::styleChange(QStyle& old)
 {
-    QWidget::styleChange(old);
+    //QWidget::styleChange(old); // 2019.04.14
     updateScrollBars();
     d->cachedSizeHint = QSize();
 }
@@ -701,7 +701,7 @@ void KtlQ3ScrollView::styleChange(QStyle& old)
 */
 void KtlQ3ScrollView::fontChange(const QFont &old)
 {
-    QWidget::fontChange(old);
+    //QWidget::fontChange(old); // 2019.04.14
     updateScrollBars();
     d->cachedSizeHint = QSize();
 }
@@ -1121,7 +1121,7 @@ void KtlQ3ScrollView::resize(const QSize& s)
 */
 void KtlQ3ScrollView::resizeEvent(QResizeEvent* event)
 {
-    KtlQ3Frame::resizeEvent(event);
+    //KtlQ3Frame::resizeEvent();
 
 #if 0
     if (QApplication::reverseLayout()) {

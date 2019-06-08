@@ -51,7 +51,7 @@ public:
 		fp_out,
 		fp_junction
 	};
-	
+
 	/**
 	 * @param dir the direction of the node; 0 degrees for left, 90 degrees for
 	 * up, etc in an anti-clockwise direction. An "up" node has the
@@ -59,13 +59,13 @@ public:
 	 * bottom.
 	 */
 	Node( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint &pos, QString *id = 0L );
-	virtual ~Node();
-	
+	~Node() override;
+
 	/**
 	 * Sets the node's visibility, as well as updating the visibility of the
 	 * attached connectors as appropriate
 	 */
-	virtual void setVisible( bool yes );
+	void setVisible( bool yes ) override;
 	/**
 	 * Returns the global id, that is unique to the node
 	 * amongst all the nodes on the canvas
@@ -88,13 +88,13 @@ public:
 	 * @see level
 	 */
 	virtual void setLevel( const int level );
-	/** 
+	/**
 	 * Returns the level of the nodes
 	 * @see setLevel
 	 */
 	int level() const { return m_level; }
-	
-	
+
+
 	/**
 	 * Sets the orientation of the node.
 	 */
@@ -119,19 +119,19 @@ public:
 	 * or Null if it doesn't.
 	 */
 	CNItem *parentItem() const { return p_parentItem; }
-		
+
 	NodeData nodeData() const;
-	
-	
+
+
 	void setNodeGroup( NodeGroup *ng ) { p_nodeGroup = ng; }
 	NodeGroup *nodeGroup() const { return p_nodeGroup; }
-	
+
 	/* interface common to ecnode and fpnode; these might be required by ItemDocumentData, ICNDocument  */
-	
+
 	virtual bool isConnected( Node *node, NodeList *checkedNodes = 0L ) = 0;
-	
+
 	virtual void removeConnector( Connector *connector ) = 0;
-	
+
 	/**
 	 * Returns the total number of connections to the node. This is the number
 	 * of connectors and the parent
@@ -140,12 +140,12 @@ public:
 	 * @param includeHiddenConnectors hidden connectors are those as e.g. part of a subcircuit
 	 */
 	virtual int numCon( bool includeParentItem, bool includeHiddenConnectors ) const = 0;
-	
+
 	/**
 	 * @return the list of all the connectors attached to the node
 	 */
 	virtual ConnectorList getAllConnectors() const = 0;
-	
+
 	/**
 	 * For a flownode: returns the first input connector, if it exist, or the fist outptut connector, if it exists.
 	 * For an electric node: returns the first connector
@@ -156,22 +156,22 @@ public:
 
 	/**
 	 * Removes all the NULL connectors
-	 */	
+	 */
 	virtual void removeNullConnectors() = 0;
-	
+
 	/**
 	 * Draw shape. Note that this has to remain public.
 	 */
-	virtual void drawShape( QPainter &p ) = 0;
-	
+	void drawShape( QPainter &p ) override = 0;
+
     void setICNDocument(ICNDocument *documentPtr);
 
 public slots:
-	void moveBy( double dx, double dy );
+	void moveBy( double dx, double dy ) override;
 	void removeNode(Item*) { removeNode(); }
 	void removeNode();
 	void setNodeSelected( bool yes );
-	
+
 signals:
 	void moved( Node *node );
 	/**
@@ -179,7 +179,7 @@ signals:
 	 * nodes, who will remove themselves as well.
 	 */
 	void removed( Node* node );
-	
+
 protected:
 	virtual void initPoints();
 	/**
@@ -191,13 +191,13 @@ protected:
 	 * Undoes the effects of initPainter.
 	 */
 	void deinitPainter( QPainter & p );
-	
+
 
 	/** If this node has precisely two connectors emerging from it, then this
 	 * function will trace the two connectors until the point where they
 	 * diverge; this point is returned. */
 	virtual QPoint findConnectorDivergePoint( bool * found ) = 0;
-	
+
 	/** The node's type. This member will be removed! */
 	node_type m_type;
 

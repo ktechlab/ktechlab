@@ -19,12 +19,17 @@
 #include <cmath>
 #include <kcombobox.h>
 #include <kconfig.h>
+#include <kconfiggroup.h>
 #include <kdebug.h>
 #include <kglobal.h>
 #include <kiconloader.h>
 #include <klocalizedstring.h>
 #include <knuminput.h>
+
+
 // #include <q3button.h>
+
+#include <qdebug.h>
 #include <qlabel.h>
 #include <qscrollbar.h>
 #include <qslider.h>
@@ -33,13 +38,14 @@
 
 #include <cassert>
 
+
 //BEGIN Oscilloscope Class
 QColor probeColors[9] = {
 	QColor( 0x52, 0x22, 0x00),
 	QColor( 0xB5, 0x00, 0x2F),
 	QColor( 0xF9, 0xBA, 0x07),
 	QColor( 0x53, 0x93, 0x16),
-	QColor( 0x00, 0x66, 0x2F), 
+	QColor( 0x00, 0x66, 0x2F),
 	QColor( 0x00, 0x41, 0x88),
 	QColor( 0x1B, 0x2D, 0x83),
 	QColor( 0x55, 0x12, 0x7B),
@@ -69,24 +75,24 @@ Oscilloscope::Oscilloscope( KateMDI::ToolView * parent)
 // 	b_isPaused = false;
 	m_zoomLevel = 0.5;
 	m_pSimulator = Simulator::self();
-	
+
 	horizontalScroll->setSingleStep(32);
 	horizontalScroll->setPageStep( oscilloscopeView->width());
-	
+
 	connect( resetBtn, SIGNAL(clicked()), this, SLOT(reset()));
 	connect( zoomSlider, SIGNAL(valueChanged(int)), this, SLOT(slotZoomSliderChanged(int)));
 	connect( horizontalScroll, SIGNAL(valueChanged(int)), this, SLOT(slotSliderValueChanged(int)));
-	
+
 // 	connect( pauseBtn, SIGNAL(clicked()), this, SLOT(slotTogglePause()));
-	
+
 	QTimer * updateScrollTmr = new QTimer(this);
 	connect( updateScrollTmr, SIGNAL(timeout()), this, SLOT(updateScrollbars()));
 	updateScrollTmr->start(20);
-	
+
 	//KGlobal::config()->setGroup("Oscilloscope");
-    KConfigGroup grOscill = KGlobal::config()->group("Oscilloscope");
+    KConfigGroup grOscill(KSharedConfig::openConfig(), "Oscilloscope");
 	setZoomLevel( grOscill.readEntry( "ZoomLevel", 0.5));
-	
+
 	connect( this, SIGNAL(probeRegistered(int, ProbeData *)), probePositioner, SLOT(slotProbeDataRegistered(int, ProbeData *)));
 	connect( this, SIGNAL(probeUnregistered(int)), probePositioner, SLOT(slotProbeDataUnregistered(int)));
 }
@@ -121,26 +127,26 @@ void Oscilloscope::setZoomLevel( double zoomLevel)
 {
 	if( zoomLevel < 0.0)
 		zoomLevel = 0.0;
-	
+
 	else if( zoomLevel > 1.0)
 		zoomLevel = 1.0;
-	
+
 	//KGlobal::config()->setGroup("Oscilloscope");
-    KConfigGroup grOscill = KGlobal::config()->group("Oscilloscope");
+    auto grOscill = KGlobal::config()->group("Oscilloscope");
 	//KGlobal::config()->writeEntry( "ZoomLevel", zoomLevel);
     grOscill.writeEntry( "ZoomLevel", zoomLevel);
-	
+
 	// We want to maintain the position of the *center* of the view, not the
 	// left edge, so have to record time at center of view... We also have to
 	// handle the case where the scroll is at the end separately.
 	bool wasAtUpperEnd = horizontalScroll->maximum() == horizontalScroll->value();
 	int pageLength = int(oscilloscopeView->width()*sliderTicksPerSecond()/pixelsPerSecond());
 	int at_ticks = horizontalScroll->value() + (pageLength/2);
-	
+
 	m_zoomLevel = zoomLevel;
 	zoomSlider->setValue( int((double(zoomSlider->maximum())*zoomLevel)+0.5));
 	updateScrollbars();
-	
+
 	// And restore the center position of the slider
 	if(!wasAtUpperEnd)
 	{
@@ -164,7 +170,7 @@ ProbeData * Oscilloscope::registerProbe( Probe * probe)
 	const uint id = m_nextId++;
 
 	ProbeData * probeData = 0;
-	
+
 	if( dynamic_cast<LogicProbe*>(probe)) {
 		probeData = new LogicProbeData(id);
 		m_logicProbeDataMap[id] = static_cast<LogicProbeData*>(probeData);
@@ -192,21 +198,21 @@ ProbeData * Oscilloscope::registerProbe( Probe * probe)
 void Oscilloscope::unregisterProbe( int id)
 {
 	ProbeDataMap::iterator it = m_probeDataMap.find(id);
-	
+
 	if( it == m_probeDataMap.end())
 		return;
-	
+
 	m_logicProbeDataMap.remove(id);
 	m_floatingProbeDataMap.remove(id);
-	
+
 	bool oldestDestroyed = it.value() == m_oldestProbe;
-	
+
 	if( it != m_probeDataMap.end())
 		m_probeDataMap.erase(it);
-	
+
 	if(oldestDestroyed)
 		getOldestProbe();
-	
+
 	emit probeUnregistered(id);
 }
 
@@ -216,7 +222,7 @@ ProbeData * Oscilloscope::probeData( int id) const
 	const ProbeDataMap::const_iterator bit = m_probeDataMap.find(id);
 	if( bit != m_probeDataMap.end())
 		return bit.value();
-	
+
 	return 0;
 }
 
@@ -249,7 +255,7 @@ void Oscilloscope::getOldestProbe()
 		m_oldestId = -1;
 		return;
 	}
-	
+
 	m_oldestProbe = m_probeDataMap.begin().value();
 	m_oldestId = m_probeDataMap.begin().key();
 }
@@ -260,7 +266,7 @@ void Oscilloscope::reset()
 	const ProbeDataMap::iterator end = m_probeDataMap.end();
 	for( ProbeDataMap::iterator it = m_probeDataMap.begin(); it != end; ++it)
 		(*it)->eraseData();
-	
+
 	oscilloscopeView->updateView();
 }
 
@@ -275,16 +281,16 @@ void Oscilloscope::slotSliderValueChanged( int value)
 void Oscilloscope::updateScrollbars()
 {
 	bool wasAtUpperEnd = horizontalScroll->maximum() == horizontalScroll->value();
-	
+
 	const float pps = pixelsPerSecond();
-	
+
 	int pageLength = int(oscilloscopeView->width()*sliderTicksPerSecond()/pps);
 	int64_t timeAsTicks = time()*sliderTicksPerSecond()/LOGIC_UPDATE_RATE;
 	int64_t upper = (timeAsTicks > pageLength) ? (timeAsTicks - pageLength) : 0;
 	horizontalScroll->setRange( 0, upper);
-	
+
 	horizontalScroll->setPageStep( uint64_t(oscilloscopeView->width()*sliderTicksPerSecond()/pps));
-	
+
 	if(wasAtUpperEnd)
 	{
 		horizontalScroll->setValue( horizontalScroll->maximum());
@@ -297,7 +303,7 @@ uint64_t Oscilloscope::time() const
 {
 	if(!m_oldestProbe)
 		return 0;
-	
+
 	return uint64_t( m_pSimulator->time() - m_oldestProbe->resetTime());
 }
 
@@ -334,7 +340,7 @@ void addOscilloscopeAsToolView( KTechlab *ktechlab)
 				KMultiTabBar::Bottom,
 				KIconLoader::global()->loadIcon( "oscilloscope", KIconLoader::Small),
 				i18n("Oscilloscope"));
-	
+
 	Oscilloscope::self(tv);
 }
 

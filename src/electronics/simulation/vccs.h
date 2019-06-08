@@ -23,15 +23,15 @@ class VCCS : public Element
 {
 public:
 	VCCS( const double gain );
-	virtual ~VCCS();
-	
-	virtual Type type() const { return Element_VCCS; }
+	~VCCS() override;
+
+	Type type() const override { return Element_VCCS; }
 	void setGain( const double g );
 
 protected:
-	virtual void updateCurrents();
-	virtual void add_initial_dc();
-	
+	void updateCurrents() override;
+	void add_initial_dc() override;
+
 private:
 	double m_g; // Conductance
 };

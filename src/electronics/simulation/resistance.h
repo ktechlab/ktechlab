@@ -21,19 +21,19 @@ class Resistance : public Element
 {
 public:
 	Resistance( const double resistance );
-	virtual ~Resistance();
+	~Resistance() override;
 	
-	virtual Type type() const { return Element_Resistance; }
+	Type type() const override { return Element_Resistance; }
 	
 	void setConductance( const double g );
 	void setResistance( const double r );
-	
+
 	double resistance() { return 1/m_g; }
 	double conductance() { return m_g; }
 
 protected:
-	virtual void updateCurrents();
-	virtual void add_initial_dc();
+	void updateCurrents() override;
+	void add_initial_dc() override;
 	
 private:
 	double m_g; // Conductance

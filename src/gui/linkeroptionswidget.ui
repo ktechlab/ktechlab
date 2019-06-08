@@ -107,10 +107,7 @@
     </widget>
    </item>
    <item row="7" column="0" colspan="2">
-    <widget class="KEditListBox" name="m_pExternalLibraries">
-     <property name="title">
-      <string/>
-     </property>
+    <widget class="KEditListWidget" name="m_pExternalLibraries">
     </widget>
    </item>
    <item row="6" column="0" colspan="2">

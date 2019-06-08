@@ -17,16 +17,16 @@ class Variant;
 typedef Variant Property;
 
 //! The base class for all editors used in PropertyEditor.
- 
+
 class PropertySubEditor : public QWidget
 {
 	Q_OBJECT
 
 	public:
 		PropertySubEditor( QWidget * parent, Property * property, const char * name = 0 );
-		virtual ~PropertySubEditor();
+		~PropertySubEditor() override;
 
-		virtual bool eventFilter( QObject * watched, QEvent * e );
+		bool eventFilter( QObject * watched, QEvent * e ) override;
 		Property * property() const { return m_property; }
 
 		/**
@@ -41,7 +41,7 @@ class PropertySubEditor : public QWidget
 		bool leavesTheSpaceForRevertButton() const { return m_leaveTheSpaceForRevertButton; }
 
 	protected:
-		virtual void resizeEvent(QResizeEvent *ev);
+		void resizeEvent(QResizeEvent *ev) override;
 
 		Property * m_property;
 		QWidget * m_childWidget;

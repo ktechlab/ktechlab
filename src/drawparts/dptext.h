@@ -21,22 +21,22 @@ class DPText : public DrawPart
 {
 	public:
 		DPText( ItemDocument *itemDocument, bool newItem, const char *id = 0L );
-		~DPText();
+		~DPText() override;
 
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
 		static LibraryItem *libraryItemOld();
 
-		virtual void setSelected( bool yes );
+		void setSelected( bool yes ) override;
 	
-		virtual QSize minimumSize() const;
+		QSize minimumSize() const override;
 
 	protected:
-		virtual void postResize();
+		void postResize() override;
 	
 	private:
-		virtual void drawShape( QPainter &p );
-		void dataChanged();
+		void drawShape( QPainter &p ) override;
+		void dataChanged() override;
 		QString m_text;
 		bool b_displayBackground;
 		QColor m_backgroundColor;

@@ -54,21 +54,21 @@ public:
 		rhp_start,
 		rhp_end
 	};
-	
+
 	enum DrawType
 	{
 		// Draws a simple rectangle
 		dt_point_rect,
-		
+
 		// Crosshair
 		dt_point_crosshair,
-		
+
 		// Straight arrows in various directions
 		dt_resize_forwardsDiagonal,
 		dt_resize_backwardsDiagonal,
 		dt_resize_vertical,
 		dt_resize_horizontal,
-		
+
 		// Arrows as part of an arc
 		dt_rotate_topLeft,
 		dt_rotate_topRight,
@@ -77,36 +77,37 @@ public:
 	};
 
 	ResizeHandle( ResizeOverlay *resizeOverlay, int id, DrawType drawType, int xsnap, int ysnap );
-	~ResizeHandle();
-	
+	~ResizeHandle() override;
+
 	int id() const { return m_id; }
-	
+
 	void setDrawType( DrawType drawType );
 	void moveRH( double x, double y );
 	void setHover( bool hover );
-	
+
 	static const QPixmap& handlePixmap( DrawType drawType, bool hover );
-	
-	virtual QPolygon areaPoints () const;
-	
+
+	QPolygon areaPoints () const override;
+
 public slots:
 	void slotMoveByX( double dx ) { moveBy( dx, 0 ); }
 	void slotMoveByY( double dy ) { moveBy( 0, dy ); }
-	
+
 signals:
 	void rhMovedBy( int id, double dx, double dy );
 	void rhMovedByX( double dx );
 	void rhMovedByY( double dy );
-	
+
 protected:
-	virtual void drawShape( QPainter &p );
+	void drawShape( QPainter &p ) override;
+
 	DrawType m_drawType;
 	bool b_hover; // If true, then paint resize handle for mouse hovering over
 	int m_id;
 	int m_xsnap;
 	int m_ysnap;
 	ResizeOverlay *p_resizeOverlay;
-	
+
 };
 typedef QList<ResizeHandle*> ResizeHandleList;
 
@@ -118,10 +119,11 @@ class ResizeOverlay : public QObject
 	Q_OBJECT
 public:
 	ResizeOverlay( Item *parent );
-	~ResizeOverlay();
-	
+	~ResizeOverlay() override;
+
+
 	Item *parentItem() const { return p_item; }
-	
+
 	/**
 	 * Shows / hides the resize handles. They are hidden by default.
 	 */
@@ -140,13 +142,13 @@ public:
 	 * that the resize handle has moved into is valid or not
 	 */
 	virtual bool isValidYPos( ResizeHandle *rh ) { Q_UNUSED(rh); return true; }
-	
+
 public slots:
 	void slotMoveAllResizeHandles( double dx, double dy );
-	
+
 protected slots:
 	virtual void slotResizeHandleMoved( int id, double dx, double dy ) = 0;
-	
+
 protected:
 	/**
 	 * Connects up the given resize handles so that they are always kept at the
@@ -175,7 +177,7 @@ protected:
 	 * Removes the resize handle with the given id
 	 */
 	void removeResizeHandle( int id );
-	
+
 	Item *p_item;
 	ResizeHandleMap m_resizeHandleMap;
 	bool b_showResizeHandles;
@@ -191,14 +193,15 @@ class MechanicsItemOverlay : public ResizeOverlay
 Q_OBJECT
 public:
 	MechanicsItemOverlay( MechanicsItem *parent );
-	~MechanicsItemOverlay();
-	
+	~MechanicsItemOverlay() override;
+
+
 public slots:
 	void slotUpdateResizeHandles();
-	
+
 protected slots:
-	virtual void slotResizeHandleMoved( int id, double dx, double dy );
-	
+	void slotResizeHandleMoved( int id, double dx, double dy ) override;
+
 protected:
 	ResizeHandle *m_tl;
 	ResizeHandle *m_tm;
@@ -230,15 +233,17 @@ public:
 	 * @returns the sizerect, regardless of whether or not it is valid
 	 */
 	QRect getSizeRect( bool *ok = 0l, bool *widthOk = 0l, bool *heightOk = 0l ) const;
-	virtual bool isValidXPos( ResizeHandle *rh );
-	virtual bool isValidYPos( ResizeHandle *rh );
-	
+
+	bool isValidXPos( ResizeHandle *rh ) override;
+	bool isValidYPos( ResizeHandle *rh ) override;
+
 public slots:
 	void slotUpdateResizeHandles();
-	
+
 protected slots:
-	virtual void slotResizeHandleMoved( int id, double dx, double dy );
-	
+	void slotResizeHandleMoved( int id, double dx, double dy ) override;
+
+
 protected:
 	ResizeHandle *m_tl;
 	ResizeHandle *m_tm;
@@ -261,13 +266,14 @@ class LineOverlay : public ResizeOverlay
 		LineOverlay( Item * parent );
 		QPoint startPoint() const;
 		QPoint endPoint() const;
-	
+
 	public slots:
 		void slotUpdateResizeHandles();
-		
+
 	protected slots:
-		virtual void slotResizeHandleMoved( int id, double dx, double dy );
+		void slotResizeHandleMoved( int id, double dx, double dy ) override;
 		
+
 	protected:
 		ResizeHandle * m_pStart;
 		ResizeHandle * m_pEnd;

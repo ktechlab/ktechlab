@@ -14,7 +14,7 @@
 #include "node.h"
 #include "nodegroup.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <cassert>
 #include <cstdlib>
 
@@ -334,7 +334,7 @@ void NodeGroup::findBestPair( NodeList *list, Node **n1, Node **n2 )
 	}
 	
 	if (!*n1) {
-		kError() << "NodeGroup::findBestPair: Could not find a routable pair of nodes!"<<endl;
+		qCritical() << "NodeGroup::findBestPair: Could not find a routable pair of nodes!"<<endl;
 	}
 }
 

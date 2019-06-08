@@ -20,22 +20,22 @@ class BiDirLED : public Component
 {
 	public:
 		BiDirLED( ICNDocument * icnDocument, bool newItem, const char *id = 0L );
-		~BiDirLED();
+		~BiDirLED() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
 	
-		virtual void dataChanged();
-		virtual void stepNonLogic();
-		virtual bool doesStepNonLogic() const { return true; }
+		void dataChanged() override;
+		void stepNonLogic() override;
+		bool doesStepNonLogic() const override { return true; }
 	
 	private:
-		virtual void drawShape( QPainter &p );
+		void drawShape( QPainter &p ) override;
 	
 		double r[2];
 		double g[2];
 		double b[2];
-	
+
 		double avg_brightness[2];
 		uint last_brightness[2];
 		double lastUpdatePeriod;

@@ -20,7 +20,7 @@
 #include <cmath>
 #include <cassert>
 
-#include <kdebug.h>
+#include <qdebug.h>
 
 //BEGIN class ECRotoSwitch
 Item* ECRotoSwitch::construct( ItemDocument *itemDocument, bool newItem, const char *id )
@@ -283,7 +283,7 @@ void ECRotoSwitch::setUpSwitches()
 			sp.pinAngle = 180;
 			contactX = _pinOuterRadius;
 		}
-		// kDebug() << contactX <<", "<< contactY <<endl;
+		// qDebug() << contactX <<", "<< contactY <<endl;
 
 		sp.node = createPin(contactX,-contactY,sp.pinAngle,QString("pin_%1").arg(i));
 		sp.posSwitch = createSwitch(m_inNode, sp.node, true);

@@ -62,7 +62,7 @@ class SerialPort : public Port
 		};
 		
 		SerialPort();
-		~SerialPort();
+		~SerialPort() override;
 		
 		/**
 		 * Writes state (high or low) to the given pin.
@@ -160,7 +160,7 @@ class ParallelPort : public Port
 		};
 		
 		ParallelPort();
-		~ParallelPort();
+		~ParallelPort() override;
 		
 		/**
 		 * Opens the given port.

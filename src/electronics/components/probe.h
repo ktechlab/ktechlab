@@ -24,11 +24,11 @@ class Probe : public Component
 {
 	public:
 		Probe( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~Probe();
+		~Probe() override;
 	
 	protected:
-		virtual void dataChanged();
-		
+		void dataChanged() override;
+
 		ProbeData * p_probeData; // As obtained via registering with the oscilloscope
 		QColor m_color;
 };
@@ -40,14 +40,14 @@ class FloatingProbe : public Probe
 {
 	public:
 		FloatingProbe( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~FloatingProbe();
+		~FloatingProbe() override;
 	
-		virtual bool doesStepNonLogic() const { return true; }
+		bool doesStepNonLogic() const override { return true; }
 		
 	protected:
-		virtual void dataChanged();
-		virtual void drawShape( QPainter &p );
-		
+		void dataChanged() override;
+		void drawShape( QPainter &p ) override;
+
 		FloatingProbeData * m_pFloatingProbeData;
 };
 
@@ -58,13 +58,13 @@ class VoltageProbe : public FloatingProbe
 {
 	public:
 		VoltageProbe( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~VoltageProbe();
+		~VoltageProbe() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
 		
-		virtual void stepNonLogic();
-		
+		void stepNonLogic() override;
+
 	protected:
 		Pin * m_pPin1;
 		Pin * m_pPin2;
@@ -77,13 +77,13 @@ class CurrentProbe : public FloatingProbe
 {
 	public:
 		CurrentProbe( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~CurrentProbe();
+		~CurrentProbe() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
 		
-		virtual void stepNonLogic();
-		
+		void stepNonLogic() override;
+
 	protected:
 		VoltageSource *m_voltageSource;
 };
@@ -95,16 +95,16 @@ class LogicProbe : public CallbackClass, public Probe
 {
 	public:
 		LogicProbe( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~LogicProbe();
-	
+		~LogicProbe() override;
+
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
-	
+
 		void logicCallback( bool value );
-	
+
 	protected:
-		virtual void drawShape( QPainter &p );
-		
+		void drawShape( QPainter &p ) override;
+
 		LogicProbeData * p_logicProbeData;
 		LogicIn * m_pIn;
 		Simulator * m_pSimulator;

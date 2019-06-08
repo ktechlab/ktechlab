@@ -32,12 +32,12 @@ class ClickLineEdit : public KLineEdit
         void setClickMessage( const QString &msg );
         QString clickMessage() const { return mClickMessage; }
 
-        virtual void setText( const QString& txt );
+        void setText( const QString& txt ) override;
 
     protected:
         virtual void drawContents( QPainter *p );
-        virtual void focusInEvent( QFocusEvent *ev );
-        virtual void focusOutEvent( QFocusEvent *ev );
+        void focusInEvent( QFocusEvent *ev ) override;
+        void focusOutEvent( QFocusEvent *ev ) override;
 
     private:
         QString mClickMessage;
@@ -53,7 +53,7 @@ class ComponentModelWidget : public QWidget
 	Q_OBJECT
 	public:
 		ComponentModelWidget( QWidget *parent = 0, const char *name = 0 );
-		~ComponentModelWidget();
+		~ComponentModelWidget() override;
 		/**
 		 * Clears the list of component models.
 		 */
@@ -62,13 +62,13 @@ class ComponentModelWidget : public QWidget
 		 * Fills the list with models appropriate for the given component.
 		 */
 		void init( Component * component );
-		
+
 	public slots:
 		/**
 		 * The filter is applied against the list of component model names.
 		 */
 		void setFilter( const QString & filter );
-		
+
 	protected:
 		QListWidget * m_pList;
 		ClickLineEdit * m_pSearchEdit;

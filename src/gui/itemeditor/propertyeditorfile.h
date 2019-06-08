@@ -27,10 +27,10 @@ class PropertyEditorFile : public PropertySubEditor
 
 	public:
 		PropertyEditorFile( QWidget * parent, Property * property, const char * name = 0 );
-		~PropertyEditorFile() {;}
-		
-		void resizeEvent(QResizeEvent *ev);
-		bool eventFilter( QObject * watched, QEvent * e );
+		~PropertyEditorFile() override {;}
+
+		void resizeEvent(QResizeEvent *ev) override;
+		bool eventFilter( QObject * watched, QEvent * e ) override;
 
 	protected slots:
 		void selectFile();

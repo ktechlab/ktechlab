@@ -56,12 +56,12 @@ DPText::DPText( ItemDocument *itemDocument, bool newItem, const char *id )
 	property("background")->setAdvanced(true);
 	
 	createProperty( "background-color", Variant::Type::Color );
-	property("background-color")->setValue(Qt::white);
+	property("background-color")->setValue(QColor(Qt::white));
 	property("background-color")->setCaption( i18n("Background Color") );
 	property("background-color")->setAdvanced(true);
 	
 	createProperty( "frame-color", Variant::Type::Color );
-	property("frame-color")->setValue(Qt::black);
+	property("frame-color")->setValue(QColor(Qt::black));
 	property("frame-color")->setCaption( i18n("Frame Color") );
 	property("frame-color")->setAdvanced(true);
 }

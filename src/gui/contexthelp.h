@@ -45,7 +45,7 @@ class ContextHelp : public QWidget, public Ui::ContextHelpWidget
 		static ContextHelp * self( KateMDI::ToolView * parent = 0l );
 		static QString toolViewIdentifier() { return "ContextHelp"; }
 		
-		~ContextHelp();
+		~ContextHelp() override;
 		/**
 		 * Replace special tags with appropriate html formatting code.
 		 */
@@ -53,7 +53,7 @@ class ContextHelp : public QWidget, public Ui::ContextHelpWidget
 		/**
 		 * Used as an event filter in context help.
 		 */
-		virtual bool eventFilter( QObject * watched, QEvent * e );
+		bool eventFilter( QObject * watched, QEvent * e ) override;
 	
 	public slots:
 		void slotClear();
@@ -65,7 +65,7 @@ class ContextHelp : public QWidget, public Ui::ContextHelpWidget
 		 */
 		void setBrowserItem( const QString & type );
 		void openURL( const KUrl& url /*, const KParts::OpenUrlArguments& */ );
-		
+
 	protected slots:
 		/**
 		 * Called when the user clicks the "Edit" button.
@@ -88,7 +88,7 @@ class ContextHelp : public QWidget, public Ui::ContextHelpWidget
 		 * Request a directory from the user for storing the context help in.
 		 */
 		void requestItemDescriptionsDirectory();
-		
+
 	protected:
 		enum LinkType
 		{
@@ -104,7 +104,7 @@ class ContextHelp : public QWidget, public Ui::ContextHelpWidget
 		static LinkType extractLinkType( const KUrl & url );
 		/**
 		 * Adjusts the appearance of links depending on their LinkType (e.g
-		 * external links are given an "external" icon, and new help links are 
+		 * external links are given an "external" icon, and new help links are
 		 * colored in red.
 		 */
 		static void addLinkTypeAppearances( QString * html );
@@ -114,7 +114,7 @@ class ContextHelp : public QWidget, public Ui::ContextHelpWidget
 		 * "/usr/share/apps/ktechlab/mosfets/and.circuit").
 		 */
 		static QString examplePathToFullPath( QString path );
-		
+
 		/**
 		 * Saves the current editor text for the given language.
 		 * @return if all ok (e.g. if the file could be written successfully).
@@ -126,17 +126,17 @@ class ContextHelp : public QWidget, public Ui::ContextHelpWidget
 		KHTMLPart * m_pBrowser;
 		KHTMLView * m_pBrowserView;
 		RichTextEditor * m_pEditor;
-		
+
 	private slots:
 		/**
 		 * This has to be called after itemlibrary has constructed itself
 		 * and a list of languages (i.e. a little bit after the constructor).
 		 */
 		void slotInitializeLanguageList();
-	
+
 	private:
 		ContextHelp( KateMDI::ToolView * parent );
-		
+
 		static ContextHelp * m_pSelf;
 };
 

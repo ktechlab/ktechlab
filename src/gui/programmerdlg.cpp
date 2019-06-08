@@ -21,7 +21,7 @@
 
 #include <kguiitem.h>
 #include <klocalizedstring.h>
-#include <kstdguiitem.h>
+#include <kstandardguiitem.h>
 
 
 class ProgrammerWidget : public QWidget, public Ui::ProgrammerWidget {
@@ -49,7 +49,7 @@ ProgrammerDlg::ProgrammerDlg( const QString & picID, QWidget *parent, const char
 	m_bAccepted = false;
 	m_pProgrammerWidget = new ProgrammerWidget( this );
 	m_pProgrammerSettings = new PicProgrammerSettings;
-	
+
 	// Setup the list of programmers
 	QComboBox * programmerCombo = m_pProgrammerWidget->m_pProgrammerProgram;
 	QStringList programmerNames = m_pProgrammerSettings->configNames( false );
@@ -84,11 +84,11 @@ ProgrammerDlg::ProgrammerDlg( const QString & picID, QWidget *parent, const char
         else
             c->setItemText(c->currentIndex(), text);
     }
-	
+
 	// Set the pic type to the one requested
 	if ( !picID.isEmpty() )
 		m_pProgrammerWidget->m_pMicroSelect->setMicro( picID );
-	
+
 	setMainWidget( m_pProgrammerWidget );
 }
 
@@ -102,7 +102,7 @@ void ProgrammerDlg::initOptions( ProcessOptions * options )
 {
 	if ( !options )
 		return;
-	
+
 	options->m_picID = m_pProgrammerWidget->m_pMicroSelect->micro();
 	options->m_port = m_pProgrammerWidget->m_pPicProgrammerPort->currentText();
 	options->m_program = m_pProgrammerWidget->m_pProgrammerProgram->currentText();

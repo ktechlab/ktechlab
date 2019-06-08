@@ -45,7 +45,7 @@ Q_OBJECT
 
 public:
 	static DocManager * self();
-	~DocManager();
+	~DocManager() override;
 	
 	/**
 	 * Attempts to close all open documents, returning true if successful

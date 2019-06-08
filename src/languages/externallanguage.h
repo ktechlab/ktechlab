@@ -29,7 +29,7 @@ class ExternalLanguage : public Language
 Q_OBJECT
 public:
 	ExternalLanguage( ProcessChain *processChain, const QString &name );
-	~ExternalLanguage();
+	~ExternalLanguage() override;
 	
 protected slots:
 	void processStdout();

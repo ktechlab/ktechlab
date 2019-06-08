@@ -26,7 +26,7 @@ class DoubleSpinBox : public QDoubleSpinBox
 	public:
 		DoubleSpinBox( double lower, double upper, double minAbs, double value, const QString & unit, QWidget * parent = 0 );
 		DoubleSpinBox( QWidget * parent = 0 );
-		virtual ~DoubleSpinBox();
+		~DoubleSpinBox() override;
 		
 		/**
 		 * The minimum value is the lowest number that the user can enter.
@@ -66,8 +66,8 @@ class DoubleSpinBox : public QDoubleSpinBox
 		 * Sets the unit used, e.g. "F"
 		 */
 // 		void setUnit( const QString & unit );
-		
-		virtual QValidator::State validate( QString & text, int & pos ) const ;
+
+		QValidator::State validate( QString & text, int & pos ) const override ;
 
 	public slots:
 // 		virtual void stepUp(); // QDoubleSpinBox has these
@@ -77,13 +77,13 @@ class DoubleSpinBox : public QDoubleSpinBox
 		 * spinbox might display "100 kF".
 		 */
 // 		void setValue( double value );
-	
+
 	signals:
 		/**
 		 * This value is emitted whenever the value of the spinbox changes.
 		 */
 // 		void valueChanged( double value ); // exists in QDoubleSpinBox
-		
+
 	protected slots:
 		/**
 		 * Checks if the value has changed - and if so, emits a valueChanged
@@ -91,20 +91,20 @@ class DoubleSpinBox : public QDoubleSpinBox
 		 */
 // 		void checkIfChanged(double value);
 		/**
-		 * Sets the suffix from m_queuedSuffix. Called from QTimer::singleShot 
+		 * Sets the suffix from m_queuedSuffix. Called from QTimer::singleShot
 		 * to avoid strange recursion problems.
 		 */
 // 		void setQueuedSuffix();
-	
+
 	protected:
         /**
          * make Qt enable the up/down step arrows
          */
-        virtual StepEnabled stepEnabled () const ;
+        StepEnabled stepEnabled () const override ;
         /**
          * Change the value of the spin box, because of user interaction
          */
-        virtual void stepBy( int steps );
+        void stepBy( int steps ) override;
 
         double getNextUpStepValue( double in );
         double getNextDownStepValue( double in );
@@ -126,19 +126,19 @@ class DoubleSpinBox : public QDoubleSpinBox
 		 *  Overloaded the method in QSpinxBox to allow SI prefixes to be entered
 		 */
 // 		virtual int mapTextToValue( bool * ok );
-        virtual double valueFromText( const QString & text ) const ;
+        double valueFromText( const QString & text ) const override ;
 		/**
 		 *  Overloaded the method in QSpinxBox to allow SI prefixes to be entered
 		 */
 // 		virtual QString mapValueToText( int v );
-        virtual QString textFromValue ( double value ) const ;
+        QString textFromValue ( double value ) const override ;
 		/**
 		 * Returns value rounded off to one significant figure.
 		 */
 		static double roundToOneSF( double value );
-		
+
 		void init();
-		
+
 // 		QString m_queuedSuffix; ///< Used
 		QString m_unit;
 // 		double m_minValue;

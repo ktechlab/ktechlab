@@ -27,26 +27,27 @@ class Inductance : public Reactive
 			m_trap // Trapezoidal (currently unimplemented)
 		};
 		Inductance( double capacitance, double delta );
-		virtual ~Inductance();
+		~Inductance() override;
 	
-		virtual Type type() const { return Element_Inductance; }
+		Type type() const override { return Element_Inductance; }
+
 		/**
 		 * Set the stepping use for numerical integration of inductance, and the
 		 * interval between successive updates.
 		 */
 		void setMethod( Method m );
-		virtual void time_step();
-		virtual void add_initial_dc();
+		void time_step() override;
+		void add_initial_dc() override;
 		void setInductance( double i );
 
 	protected:
-		virtual void updateCurrents();
-		virtual bool updateStatus();
-	
+		void updateCurrents() override;
+		bool updateStatus() override;
+
 	private:
 		double m_inductance; // Inductance
 		Method m_method; // Method of integration
-		
+
 		double scaled_inductance;
 		double v_eq_old;
 };

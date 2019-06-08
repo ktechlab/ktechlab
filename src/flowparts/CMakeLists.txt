@@ -1,34 +1,34 @@
 SET(flowparts_STAT_SRCS
-   callsub.cpp
-   delay.cpp
-   end.cpp
-   forloop.cpp
-   readport.cpp
-   setpin.cpp
-   start.cpp
-   testpin.cpp
-   unary.cpp
-   varassignment.cpp
-   varcomparison.cpp
-   writeport.cpp
-   repeat.cpp
-   while.cpp
-   sub.cpp
-   count.cpp
-   embed.cpp
-   interrupt.cpp
-   keypad.cpp
-   pulse.cpp
-   sevenseg.cpp
-   inputbutton.cpp
-   flowpart.cpp
-   pinmapping.cpp
-   flowconnector.cpp
-   flowconnectorlist.cpp
-   flowicndocument.cpp
-   inputflownode.cpp
-   outputflownode.cpp
-   junctionflownode.cpp
+#    callsub.cpp
+#    delay.cpp
+#    end.cpp
+#    forloop.cpp
+#    readport.cpp
+#    setpin.cpp
+#    start.cpp
+#    testpin.cpp
+#    unary.cpp
+#    varassignment.cpp
+#    varcomparison.cpp
+#    writeport.cpp
+#    repeat.cpp
+#    while.cpp
+#    sub.cpp
+#    count.cpp
+#    embed.cpp
+#    interrupt.cpp
+#    keypad.cpp
+#    pulse.cpp
+#    sevenseg.cpp
+#    inputbutton.cpp
+#    flowpart.cpp
+#    pinmapping.cpp
+#    flowconnector.cpp
+#    flowconnectorlist.cpp
+#    flowicndocument.cpp
+#    inputflownode.cpp
+#    outputflownode.cpp
+#    junctionflownode.cpp
 )
 
-kde4_add_library(flowparts STATIC ${flowparts_STAT_SRCS})
+add_library(flowparts STATIC ${flowparts_STAT_SRCS})

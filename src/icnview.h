@@ -12,10 +12,8 @@
 #define ICNVIEW_H
 
 #include <itemview.h>
-
-class ICNDocument;
-class KAction;
-class KToolBarPopupAction;
+#include <icndocument.h>
+#include <ktoolbarpopupaction.h>
 
 /**
 @author David Saxton
@@ -25,7 +23,7 @@ class ICNView : public ItemView
 	Q_OBJECT
 	public:
 		ICNView( ICNDocument * icnDocument, ViewContainer *viewContainer, uint viewAreaId, const char * name = 0l );
-		~ICNView();
+		~ICNView() override;
 		
 	protected slots:
 		void slotSetRoutingMode( QAction* action ); // 0 = auto, 1 = manual
@@ -33,11 +31,11 @@ class ICNView : public ItemView
 		void slotSetRoutingManual();
 		void slotUpdateRoutingMode( bool manualRouting );
 		void slotUpdateRoutingToggles( bool manualRouting );
-		
+
 	protected:
 		KToolBarPopupAction * m_pRoutingModeToolbarPopup;
-		KAction * m_pManualRoutingAction;
-		KAction * m_pAutoRoutingAction;
+		QAction * m_pManualRoutingAction;
+		QAction * m_pAutoRoutingAction;
         QAction *m_actMenuRouteAutoRoute;
         QAction *m_actMenuRouteManRoute;
 };

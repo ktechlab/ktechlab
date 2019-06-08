@@ -15,13 +15,14 @@
 #include "propertyeditorinput.h"
 #include "property.h"
 
-#include <kicon.h>
+
 #include <klineedit.h>
 #include <klocalizedstring.h>
 #include <kglobal.h>
-#include <kdebug.h>
+#include <qdebug.h>
 
-#include <qiconset.h>
+//#include <qiconset.h>
+#include <qicon.h>
 #include <qtoolbutton.h>
 #include <qevent.h>
 
@@ -90,7 +91,7 @@ PropertyEditorSpin::PropertyEditorSpin( QWidget * parent, Property * property, c
 	m_leaveTheSpaceForRevertButton = true;
 
 	m_spinBox = new PropIntSpinBox( (int)property->minValue(), (int)property->maxValue(), 1, 0, 10, this );
-	
+
 	m_spinBox->resize(width(), height());
 	m_spinBox->setValue(property->value().toInt());
 	m_spinBox->show();
@@ -177,7 +178,7 @@ PropertyEditorBool::PropertyEditorBool( QWidget * parent, Property * property, c
 
 	connect( m_toggle, SIGNAL(toggled(bool)), this, SLOT(setState(bool)));
 	connect( m_property, SIGNAL(valueChanged( bool )), m_toggle, SLOT(setChecked(bool)) );
-	
+
 	if(property->value().toBool())
 		m_toggle->setChecked(true);
 	else
@@ -211,12 +212,12 @@ void PropertyEditorBool::setState( bool state )
 {
 	if(state)
 	{
-		m_toggle->setIcon(KIcon("dialog-ok"));
+		m_toggle->setIcon(QIcon::fromTheme("dialog-ok"));
 		m_toggle->setToolTip(i18n("Yes"));
 	}
 	else
 	{
-		m_toggle->setIcon(KIcon("dialog-cancel"));
+		m_toggle->setIcon(QIcon::fromTheme("dialog-cancel"));
 		m_toggle->setToolTip(i18n("No"));
 	}
 

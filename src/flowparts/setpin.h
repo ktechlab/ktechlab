@@ -21,15 +21,15 @@ class SetPin : public FlowPart
 {
 public:
 	SetPin( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~SetPin();
+	~SetPin() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
 	
-	virtual void generateMicrobe( FlowCode * );
+	void generateMicrobe( FlowCode * ) override;
 
 private:
-	void dataChanged();
+	void dataChanged() override;
 };
 
 #endif

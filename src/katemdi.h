@@ -26,6 +26,8 @@
 #include <kmultitabbar.h>
 #include <ktoggleaction.h>
 
+#include <KDELibs4Support/kshortcut.h>
+
 // #include <q3dict.h>
 // #include <q3intdict.h>
 // #include <q3vbox.h>
@@ -42,7 +44,7 @@ class Splitter : public QSplitter
 
   public:
     Splitter(Qt::Orientation o, QWidget* parent=0, const char* name=0);
-    ~Splitter();
+    ~Splitter() override;
 
     /** Since there is supposed to be only 2 childs of a katesplitter,
      * any child other than the last is the first.
@@ -63,10 +65,10 @@ class ToggleToolViewAction : public KToggleAction
     ToggleToolViewAction ( const QString& text, const KShortcut& cut,
                            class ToolView *tv, QObject* parent = 0, const char* name = 0 );
 
-    virtual ~ToggleToolViewAction();
+    ~ToggleToolViewAction() override;
 
   protected slots:
-    void slotToggled(bool);
+    void slotToggled(bool) override;
     void visibleChanged(bool);
 
   private:
@@ -79,7 +81,7 @@ class GUIClient : public QObject, public KXMLGUIClient
 
   public:
     GUIClient ( MainWindow *mw );
-    virtual ~GUIClient();
+    ~GUIClient() override;
 
     void registerToolView (ToolView *tv);
 
@@ -117,7 +119,7 @@ class ToolView : public QWidget
      * destuct me, this is allowed for all, will care itself that the toolview is removed
      * from the mainwindow and sidebar
      */
-    virtual ~ToolView ();
+    ~ToolView () override;
 
   signals:
     /**
@@ -140,7 +142,7 @@ class ToolView : public QWidget
     bool visible () const;
 
   protected:
-    void childEvent ( QChildEvent *ev );
+    void childEvent ( QChildEvent *ev ) override;
 
   private:
     MainWindow *m_mainWin;
@@ -171,10 +173,10 @@ class Sidebar : public KMultiTabBar
 
   public:
     Sidebar (KMultiTabBar::KMultiTabBarPosition pos, MainWindow *mainwin, QWidget *parent);
-    virtual ~Sidebar ();
+    ~Sidebar () override;
 
     void setSplitter (Splitter *sp);
-	
+
 	//HACK use these functions intead of their respective functions in
 	//KMultiTabBar so that we know what they were set to.
 	void setSidebarPosition( KMultiTabBarPosition pos );
@@ -214,13 +216,13 @@ class Sidebar : public KMultiTabBar
     void tabClicked(int);
 
   protected:
-    bool eventFilter(QObject *obj, QEvent *ev);
+    bool eventFilter(QObject *obj, QEvent *ev) override;
 
   private slots:
     void buttonPopupActivate (QAction* action);
 
   private:
-	  
+
     MainWindow *m_mainWin;
 
 	KMultiTabBar::KMultiTabBarStyle m_sidebarTabStyle;
@@ -261,7 +263,7 @@ class MainWindow : public KParts::MainWindow
     /**
      * Destructor
      */
-    virtual ~MainWindow ();
+    ~MainWindow () override;
 
   //
   // public interfaces
@@ -304,7 +306,7 @@ class MainWindow : public KParts::MainWindow
      * @return toolview's tabbar style
      */
     KMultiTabBar::KMultiTabBarStyle toolViewStyle () const;
-    
+
   protected:
     /**
      * called by toolview destructor
@@ -359,7 +361,7 @@ class MainWindow : public KParts::MainWindow
      * @param config config object to use
      */
     void saveSession (KConfigGroup *config);
-	
+
 	void updateSidebarMinimumSizes();
 
   /**

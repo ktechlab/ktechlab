@@ -54,7 +54,7 @@ class ItemInterface : public QObject
 {
 	Q_OBJECT
 	public:
-		~ItemInterface();
+		~ItemInterface() override;
 		static ItemInterface * self();
 		/**
 		 * The current item group in use (or null if none).

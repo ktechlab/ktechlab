@@ -21,16 +21,17 @@ class ECDPDT : public Component
 {
 public:
 	ECDPDT( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~ECDPDT();
+	~ECDPDT() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
 	
-	virtual void buttonStateChanged( const QString &id, bool state );
-	virtual void dataChanged();
+	void buttonStateChanged( const QString &id, bool state ) override;
+	void dataChanged() override;
 	
 private:
-	virtual void drawShape( QPainter &p );
+	void drawShape( QPainter &p ) override;
+
 	Switch *m_switch1;
 	Switch *m_switch2;
 	Switch *m_switch3;
@@ -47,16 +48,17 @@ class ECDPST : public Component
 {
 public:
 	ECDPST( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~ECDPST();
+	~ECDPST() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
 	
-	virtual void buttonStateChanged( const QString &id, bool state );
-	virtual void dataChanged();
+	void buttonStateChanged( const QString &id, bool state ) override;
+	void dataChanged() override;
 	
 private:
-	virtual void drawShape( QPainter &p );
+	void drawShape( QPainter &p ) override;
+
 	Switch *m_switch1;
 	Switch *m_switch2;
 	bool pressed;
@@ -71,16 +73,17 @@ class ECSPDT : public Component
 {
 public:
 	ECSPDT( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~ECSPDT();
+	~ECSPDT() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
 	
-	virtual void buttonStateChanged( const QString &id, bool state );
-	virtual void dataChanged();
+	void buttonStateChanged( const QString &id, bool state ) override;
+	void dataChanged() override;
 	
 private:
-	virtual void drawShape( QPainter &p );
+	void drawShape( QPainter &p ) override;
+
 	Switch *m_switch1;
 	Switch *m_switch2;
 	bool pressed;
@@ -95,16 +98,16 @@ class ECSPST : public Component
 {
 public:
 	ECSPST( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~ECSPST();
+	~ECSPST() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
 	
-	virtual void buttonStateChanged( const QString &id, bool state );
-	virtual void dataChanged();
+	void buttonStateChanged( const QString &id, bool state ) override;
+	void dataChanged() override;
 	
 private:
-	virtual void drawShape( QPainter &p );
+	void drawShape( QPainter &p ) override;
 	Switch *m_switch;
 	bool pressed;
 };

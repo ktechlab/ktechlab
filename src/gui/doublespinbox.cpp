@@ -11,7 +11,7 @@
 #include "cnitem.h"
 #include "doublespinbox.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <kglobal.h>
 #include <klocale.h>
 #include <klocalizedstring.h>
@@ -332,7 +332,8 @@ double DoubleSpinBox::valueFromText( const QString & text ) const {
 
     DoubleSpinbox_qDebug() << Q_FUNC_INFO << "text = " << text;
 
-    KLocale * locale = KGlobal::locale();
+    //KLocale * locale = KGlobal::locale();
+    KLocale * locale = KLocale::global();
 
     // Fetch the characters that we don't want to discard
     const QString exclude = locale->decimalSymbol()
@@ -429,7 +430,8 @@ QString DoubleSpinBox::textFromValue(double value) const
 
     DoubleSpinbox_qDebug() << Q_FUNC_INFO << "toDisplayNr = " << toDisplayNr;
 
-    KLocale * locale = KGlobal::locale();
+    //KLocale * locale = KGlobal::locale();
+    KLocale * locale = KLocale::global();
     QString numberStr = locale->formatNumber( toDisplayNr, 0 /* 3-leftDigits */ );
 
     QString magStr = Item::getNumberMag( value );

@@ -40,18 +40,25 @@
 #include "viewcontainer.h"
 
 // #include <q3dockarea.h>
-#include <qtimer.h>
-#include <qtoolbutton.h>
+#include <QTimer>
+#include <QToolButton>
 // #include <q3ptrlist.h>
-#include <qdesktopwidget.h>
+#include <QDesktopWidget>
+#include <QFileDialog>
+#include <QIcon>
+#include <QMenu>
 
+#include <kaction.h>
 #include <ktoolbar.h>
-#include <kstdaccel.h>
+#include <kactioncollection.h>
 #include <kapplication.h>
 #include <kdebug.h>
 #include <kedittoolbar.h>
 #include <kfiledialog.h>
+#include <kglobal.h>
 #include <kicon.h>
+#include <kmenu.h>
+
 #include <kiconloader.h>
 #include <kio/netaccess.h>
 //#include <kkeydialog.h>
@@ -59,13 +66,12 @@
 #include <kmessagebox.h>
 //#include <kpopupmenu.h>
 #include <kstandarddirs.h>
-#include <ktabwidget.h> 
+#include <ktabwidget.h>
 //#include <kwin.h>
 #include <kxmlguifactory.h>
 #include <kstandardaction.h>
-#include <kactioncollection.h>
 #include <ktoolbarpopupaction.h>
-#include <kmenu.h>
+
 #include <kwindowsystem.h>
 #include <kshortcutsdialog.h>
 
@@ -78,28 +84,28 @@ KTechlab::KTechlab()
 	: KateMDI::MainWindow( 0, "KTechlab" )
 {
 	m_pSelf = this;
-	
+
 	QTime ct;
 	ct.start();
-	
+
 	m_bIsShown = false;
 	m_pContainerDropSource = 0l;
 	m_pContainerDropReceived = 0l;
 	m_pContextMenuContainer = 0l;
 	m_pFocusedContainer = 0l;
 	m_pToolBarOverlayLabel = 0l;
-	
+
 	if ( QFontInfo( m_itemFont ).pixelSize() > 11 )
 	{
 		// It has to be > 11, not > 12, as (I think) pixelSize() rounds off the actual size
 		m_itemFont.setPixelSize(12);
 	}
-	
+
 	m_pUpdateCaptionsTimer = new QTimer( this );
 	connect( m_pUpdateCaptionsTimer, SIGNAL(timeout()), this, SLOT(slotUpdateCaptions()) );
-	
+
 	setMinimumSize( 400, 400 );
-	
+
 	setupTabWidget();
 	setupToolDocks();
 	setupActions();
@@ -107,15 +113,15 @@ KTechlab::KTechlab()
 	//readProperties( KGlobal::config() );
     KSharedConfigPtr cfg = KGlobal::config();
 	readPropertiesInConfig( cfg.data() );
-	
-// 	kDebug() << "Constructor time: " << ct.elapsed() << endl;
+
+// 	qDebug() << "Constructor time: " << ct.elapsed() << endl;
 }
 
 
 KTechlab::~KTechlab()
 {
 	fileMetaInfo()->saveAllMetaInfo();
-	
+
     for (ViewContainerList::Iterator itVc = m_viewContainerList.begin(); itVc != m_viewContainerList.end(); ++itVc ) {
         ViewContainer *vc = itVc->data();
         disconnect( vc, SIGNAL(destroyed(QObject* )), this, SLOT(slotViewContainerDestroyed(QObject* )) );
@@ -139,7 +145,7 @@ void KTechlab::openFile( ViewArea * viewArea )
 	KUrl::List files = getFileURLs( false );
 	if ( files.isEmpty() )
 		return;
-	
+
 	load( files.first(), viewArea );
 }
 
@@ -148,40 +154,40 @@ void KTechlab::load( const KUrl & url, ViewArea * viewArea )
 {
 	if ( !url.isValid() )
 		return;
-	
+
 	if ( url.url().endsWith( ".ktechlab", Qt::CaseInsensitive ) )
 	{
 		// This is a ktechlab project; it has to be handled separetly from a
 		// normal file.
-		
+
 		ProjectManager::self()->slotOpenProject( url );
 		return;
 	}
-	
-	
+
+
 	QString target;
 	// the below code is what you should normally do.  in this
 	// example case, we want the url to our own.  you probably
 	// want to use this code instead for your app
-	
+
 	// download the contents
 	if ( !KIO::NetAccess::download( url, target, this ) )
 	{
 		// If the file could not be downloaded, for example does not
 		// exist on disk, NetAccess will tell us what error to use
 		KMessageBox::error(this, KIO::NetAccess::lastErrorString());
-		
+
 		return;
 	}
-	
+
 	addRecentFile( url );
-	
+
 	// set our caption
 	setCaption( url.prettyUrl() );
-	
+
 	// load in the file (target is always local)
 	DocManager::self()->openURL( target, viewArea );
-	
+
 	// and remove the temp file
 	KIO::NetAccess::removeTempFile( target );
 }
@@ -196,18 +202,18 @@ QStringList KTechlab::recentFiles()
 void KTechlab::setupToolDocks()
 {
 	setToolViewStyle( KMultiTabBar::KDEV3ICON );
-	
+
 	QPixmap pm;
 	KIconLoader * loader = KIconLoader::global();
 	KateMDI::ToolView * tv = 0l;
-	
+
 	tv = createToolView( ProjectManager::toolViewIdentifier(),
 						 KMultiTabBar::Left,
 						 loader->loadIcon( "attach", KIconLoader::Small ),
 						 i18n("Project") );
     tv->setObjectName("ProjectManager-ToolView");
 	ProjectManager::self( tv );
-	
+
 	pm.load( KStandardDirs::locate( "appdata", "icons/circuit.png" ) );
 	tv = createToolView( ComponentSelector::toolViewIdentifier(),
 						 KMultiTabBar::Left,
@@ -215,11 +221,11 @@ void KTechlab::setupToolDocks()
 						 i18n("Components") );
     tv->setObjectName("ComponentSelector-ToolView");
 	ComponentSelector::self(tv);
-	
+
 	// Create an instance of the subcircuits interface, now that we have created the component selector
 	subcircuits();
 	Subcircuits::loadSubcircuits();
-	
+
 	pm.load( KStandardDirs::locate( "appdata", "icons/flowcode.png" ) );
 	tv = createToolView( FlowPartSelector::toolViewIdentifier(),
 						 KMultiTabBar::Left,
@@ -227,7 +233,7 @@ void KTechlab::setupToolDocks()
 						 i18n("Flow Parts") );
     tv->setObjectName("FlowPartSelector-ToolView");
 	FlowPartSelector::self(tv);
-	
+
 #ifdef MECHANICS
 	pm.load( KStandardDirs::locate( "appdata", "icons/mechanics.png" ) );
 	tv = createToolView( MechanicsSelector::toolViewIdentifier(),
@@ -237,7 +243,7 @@ void KTechlab::setupToolDocks()
     tv->setObjectName("MechanicsSelector-ToolView");
 	MechanicsSelector::self(tv);
 #endif
-	
+
 	pm.load( KStandardDirs::locate( "appdata", "icons/item.png" ) );
 	tv = createToolView( ItemEditor::toolViewIdentifier(),
 						 KMultiTabBar::Right,
@@ -245,21 +251,21 @@ void KTechlab::setupToolDocks()
 						 i18n("Item Editor") );
     tv->setObjectName("ItemEditor-ToolView");
 	ItemEditor::self(tv);
-	
+
 	tv = createToolView( ContextHelp::toolViewIdentifier(),
 						 KMultiTabBar::Right,
 						 loader->loadIcon( "help-contents", KIconLoader::Small ),
 						 i18n("Context Help") );
     tv->setObjectName("ContextHelp-ToolView");
 	ContextHelp::self(tv);
-	
+
 	tv = createToolView( LanguageManager::toolViewIdentifier(),
 						 KMultiTabBar::Bottom,
 						 loader->loadIcon( "utilities-log-viewer", KIconLoader::Small ),
 						 i18n("Messages") );
     tv->setObjectName("LanguageManager-ToolView");
 	LanguageManager::self( tv );
-	
+
 #ifndef NO_GPSIM
 	tv = createToolView( SymbolViewer::toolViewIdentifier(),
 						 KMultiTabBar::Right,
@@ -268,7 +274,7 @@ void KTechlab::setupToolDocks()
     tv->setObjectName("SymbolViewer-ToolView");
 	SymbolViewer::self(tv);
 #endif
-	
+
 	addOscilloscopeAsToolView(this);
 #if 1
 	//pm.load( locate( "appdata", "icons/oscilloscope.png" ) );
@@ -291,7 +297,7 @@ void KTechlab::addWindow( ViewContainer * vc )
 		m_viewContainerList << vc;
 		connect( vc, SIGNAL(destroyed(QObject* )), this, SLOT(slotViewContainerDestroyed(QObject* )) );
 	}
-	
+
 	m_viewContainerList.removeAll((ViewContainer*)0);
 	slotUpdateTabWidget();
 	slotDocModifiedChanged();
@@ -317,7 +323,7 @@ void KTechlab::setupView()
 void KTechlab::overlayToolBarScreenshot()
 {
 	return;
-	
+
 	if ( !m_pToolBarOverlayLabel )
 	{
 		m_pToolBarOverlayLabel = new QLabel( 0,
@@ -329,14 +335,14 @@ void KTechlab::overlayToolBarScreenshot()
         p.setColor(m_pToolBarOverlayLabel->backgroundRole(), Qt::transparent);
         m_pToolBarOverlayLabel->setPalette(p);
 	}
-	
+
 	if ( !m_bIsShown )
 	{
 		// The window isn't visible yet, so there's nothing to overlay (and if we tried,
 		// it would appear as a strange floating toolbar).
 		return;
 	}
-	
+
 	if ( m_pToolBarOverlayLabel->isVisible() )
 	{
 		// This is to avoid successive calls to removeGUIClient when we have
@@ -344,12 +350,12 @@ void KTechlab::overlayToolBarScreenshot()
 		// another screenshot (as that would be without the toolbar).
 		return;
 	}
-	
+
 	//QPtrListIterator<KToolBar> toolBarIterator(); // unused?
-	
+
 // 	QWidget * toolsWidget = toolBar( "toolsToolBar" );
 // 	QWidget * debugWidget = toolBar( "debugTB" );
-	
+
 	//KToolBar * toolsWidget = static_cast<KToolBar*>(child( "toolsToolBar", "KToolBar" )); // 2018.08.18 - see below
 	//KToolBar * debugWidget = static_cast<KToolBar*>(child( "debugTB", "KToolBar" ));
     KToolBar * toolsWidget = findChild<KToolBar*>("toolsToolBar");
@@ -357,28 +363,28 @@ void KTechlab::overlayToolBarScreenshot()
 
 	if ( !toolsWidget && !debugWidget )
 		return;
-	
+
 	QWidget * parent = static_cast<QWidget*>(toolsWidget ? toolsWidget->parent() : debugWidget->parent());
-	
+
 	QRect grabRect;
-	
+
 	// 128 is a sanity check (widget can do strange things when being destroyed)
-	
+
 	if ( toolsWidget && toolsWidget->height() <= 128 )
 		grabRect |= toolsWidget->geometry();
 	if ( debugWidget && debugWidget->height() <= 128 )
 		grabRect |= debugWidget->geometry();
-	
+
 	if ( !grabRect.isValid() )
 		return;
-	
-	QPixmap shot = QPixmap::grabWidget( parent, grabRect.x(), grabRect.y(), grabRect.width(), grabRect.height() );
-	
+
+	QPixmap shot = parent->grab(grabRect);
+
 	m_pToolBarOverlayLabel->move( parent->mapToGlobal( grabRect.topLeft() ) );
 	m_pToolBarOverlayLabel->setFixedSize( grabRect.size() );
 	m_pToolBarOverlayLabel->setPixmap( shot );
 	m_pToolBarOverlayLabel->show();
-	
+
 	QTimer::singleShot( 100, this, SLOT( hideToolBarOverlay() ) );
 }
 
@@ -387,15 +393,15 @@ void KTechlab::hideToolBarOverlay()
 {
 	if ( !m_pToolBarOverlayLabel )
 		return;
-	
+
 // 	QWidget * hiddenWidget = toolBar( "toolsToolBar" );
 // 	if ( !hiddenWidget )
 // 		return;
-	
+
 // 	hiddenWidget->setBackgroundMode( NoBackground );
-// 	hiddenWidget->setWFlags( WNoAutoErase ); 
+// 	hiddenWidget->setWFlags( WNoAutoErase );
 // 	hiddenWidget->setUpdatesEnabled( false );
-	
+
 	m_pToolBarOverlayLabel->hide();
 }
 
@@ -410,7 +416,7 @@ void KTechlab::addNoRemoveGUIClient( KXMLGUIClient * client )
 void KTechlab::removeGUIClients()
 {
 	QList<KXMLGUIClient*> clientsToRemove;
-	
+
 	QList<KXMLGUIClient*> clients = factory()->clients();
 	//for ( KXMLGUIClient * client = clients.first(); client; client = clients.next() )
     for ( QList<KXMLGUIClient*>::iterator itClient = clients.begin(); itClient != clients.end(); ++itClient)
@@ -419,12 +425,12 @@ void KTechlab::removeGUIClients()
         if ( (*itClient != this) && (!m_noRemoveGUIClients.contains( *itClient )) )
 			clientsToRemove << *itClient;
 	}
-	
+
 	if ( clients.isEmpty() )
 		return;
-	
+
 	overlayToolBarScreenshot();
-	
+
 	QList<KXMLGUIClient*>::iterator end = clientsToRemove.end();
 	for ( QList<KXMLGUIClient*>::iterator it = clientsToRemove.begin(); it != end; ++it )
 		factory()->removeClient(*it);
@@ -432,39 +438,39 @@ void KTechlab::removeGUIClients()
 
 
 void KTechlab::setupTabWidget()
-{	
+{
 	m_pViewContainerTabWidget = new KTabWidget(centralWidget());
     if (centralWidget()->layout()) {
         centralWidget()->layout()->addWidget(m_pViewContainerTabWidget);
     } else {
         qWarning() << " unexpected null layout for " << centralWidget();
     }
-	connect( tabWidget(), SIGNAL(currentChanged(QWidget* )), this, SLOT(slotViewContainerActivated(QWidget* )) );
-	
+	connect( tabWidget(), SIGNAL(currentChanged(int)), this, SLOT(slotViewContainerActivated(int)) );
+
 	//KConfig *config = kapp->config();
     //config->setGroup("UI");
     KSharedConfigPtr cfg = KGlobal::config();
     KConfigGroup grUi = cfg->group("UI");
 
-	
+
 	bool CloseOnHover = grUi.readEntry( "CloseOnHover", false );
 	//tabWidget()->setHoverCloseButton( CloseOnHover ); // 2018.08.18 - see below
     tabWidget()->setTabsClosable( CloseOnHover );
-	
+
 	bool CloseOnHoverDelay = grUi.readEntry( "CloseOnHoverDelay", false );
 	//tabWidget()->setHoverCloseButtonDelayed( CloseOnHoverDelay ); // 2018.08.18 - see below
     tabWidget()->setTabsClosable( CloseOnHoverDelay );
-	
+
 	if (grUi.readEntry( "ShowCloseTabsButton", true ))
 	{
 		QToolButton *but = new QToolButton(tabWidget());
-		but->setIcon(KIcon("tab-close"));
+		but->setIcon(QIcon::fromTheme("tab-close"));
 		but->adjustSize();
 		but->hide();
 		connect( but, SIGNAL(clicked()), this, SLOT(slotViewContainerClose()) );
 		tabWidget()->setCornerWidget(but, Qt::TopRightCorner);
 	}
-	
+
 	connect(tabWidget(), SIGNAL(contextMenu(QWidget*,const QPoint &)), this, SLOT(slotTabContext(QWidget*,const QPoint &)));
 }
 
@@ -472,12 +478,12 @@ void KTechlab::setupTabWidget()
 void KTechlab::slotUpdateTabWidget()
 {
 	m_viewContainerList.removeAll( (ViewContainer*)0 );
-	
+
 	bool noWindows = m_viewContainerList.isEmpty();
-	
+
 	if ( QWidget * button = tabWidget()->cornerWidget(Qt::TopRightCorner) )
 		button->setHidden( noWindows );
-	
+
 	if ( noWindows )
 		setCaption( 0 );
 }
@@ -485,19 +491,18 @@ void KTechlab::slotUpdateTabWidget()
 
 void KTechlab::setupActions()
 {
-	KActionCollection *ac = actionCollection();
-	
+    KActionCollection* ac = actionCollection();
     // TODO move the actions from KTechLab object level to document view level for
     //  all types of documents; see actions marked with (1)! and TextView constructor
 
     // 2017.08.06 - using custom new action
     //KStandardAction::openNew(			this, SLOT(slotFileNew()),					ac );
     {
-    KAction *openAction = KStandardAction::open(				this, SLOT(slotFileOpen()),					ac );
+    QAction *openAction = KStandardAction::open(				this, SLOT(slotFileOpen()),					ac );
     openAction->setShortcutContext(Qt::WidgetWithChildrenShortcut );
     }
     KStandardAction::save(				this, SLOT(slotFileSave()),					ac ); // (1)!
-    KStandardAction::saveAs(				this, SLOT(slotFileSaveAs()),				ac );
+    KStandardAction::saveAs(			this, SLOT(slotFileSaveAs()),				ac );
 	KStandardAction::close(				this, SLOT(slotViewClose()),				ac );
     KStandardAction::print(				this, SLOT(slotFilePrint()),				ac ); // (1)!
     KStandardAction::quit(				this, SLOT(slotFileQuit()),					ac );
@@ -509,214 +514,214 @@ void KTechlab::setupActions()
 	KStandardAction::keyBindings(		this, SLOT(slotOptionsConfigureKeys()),		ac );
 	KStandardAction::configureToolbars(	this, SLOT(slotOptionsConfigureToolbars()),	ac );
 	KStandardAction::preferences(		this, SLOT(slotOptionsPreferences()),		ac );
-	
+
 	//BEGIN New file popup
 	//KToolBarPopupAction *p = new KToolBarPopupAction( i18n("&New"), "document-new",
     //          KStandardShortcut::shortcut(KStandardShortcut::New), this, SLOT(slotFileNew()), ac, "newfile_popup" );
     KToolBarPopupAction *p = new KToolBarPopupAction(
-                                                     KIcon("document-new"),
+                                                     QIcon::fromTheme("document-new"),
                                                      i18n("&New"),
                                                      ac);
     p->setObjectName("file_new");
-    p->setShortcut( KStandardShortcut::shortcut(KStandardShortcut::New) );
+    p->setShortcuts( KStandardShortcut::shortcut(KStandardShortcut::New) );
     connect(p, SIGNAL(triggered(bool)), this, SLOT(slotFileNew()));
-    ac->addAction("file_new", p);
+    ac->addAction(p->objectName(), p);
 	p->menu()->setTitle( i18n("New File") );
     {
-        //(new KAction( i18n("Assembly"), "source", 0, this, SLOT(slotFileNewAssembly()), ac, "newfile_asm" ))->plug( p->menu() );
-        KAction *a = new KAction( KIcon("source"),  i18n("Assembly"), ac);
+        //(new QAction( i18n("Assembly"), "source", 0, this, SLOT(slotFileNewAssembly()), ac, "newfile_asm" ))->plug( p->menu() );
+        QAction *a = new QAction( QIcon::fromTheme("source"),  i18n("Assembly"), ac);
         a->setObjectName("newfile_asm");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotFileNewAssembly()));
         p->menu()->addAction(a);
-        ac->addAction("newfile_asm", a);
+        ac->addAction(a->objectName(), a);
     }
     {
-        //(new KAction( i18n("C source"), "text-x-csrc", 0, this, SLOT(slotFileNewC()), ac, "newfile_c" ))->plug( p->menu() );
-        KAction *a = new KAction( KIcon("text-x-csrc"), i18n("C source"), ac);
+        //(new QAction( i18n("C source"), "text-x-csrc", 0, this, SLOT(slotFileNewC()), ac, "newfile_c" ))->plug( p->menu() );
+        QAction *a = new QAction( QIcon::fromTheme("text-x-csrc"), i18n("C source"), ac);
         a->setObjectName("newfile_c");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotFileNewC()));
         p->menu()->addAction(a);
-        ac->addAction("newfile_c", a);
+        ac->addAction(a->objectName(), a);
     }
     {
-        //(new KAction( i18n("Circuit"), "application-x-circuit", 0, this, SLOT(slotFileNewCircuit()), ac, "newfile_circuit" ))->plug( p->menu() );
-        KAction *a = new KAction( KIcon("application-x-circuit"), i18n("Circuit"), ac);
+        //(new QAction( i18n("Circuit"), "application-x-circuit", 0, this, SLOT(slotFileNewCircuit()), ac, "newfile_circuit" ))->plug( p->menu() );
+        QAction *a = new QAction( QIcon::fromTheme("application-x-circuit"), i18n("Circuit"), ac);
         a->setObjectName("newfile_circuit");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotFileNewCircuit()));
         p->menu()->addAction(a);
-        ac->addAction("newfile_circuit", a);
+        ac->addAction(a->objectName(), a);
     }
     {
-        //(new KAction( i18n("FlowCode"), "application-x-flowcode", 0, this, SLOT(slotFileNewFlowCode()), ac, "newfile_flowcode" ))->plug( p->menu() );
-        KAction *a = new KAction( KIcon("application-x-flowcode"), i18n("FlowCode"), ac);
+        //(new QAction( i18n("FlowCode"), "application-x-flowcode", 0, this, SLOT(slotFileNewFlowCode()), ac, "newfile_flowcode" ))->plug( p->menu() );
+        QAction *a = new QAction( QIcon::fromTheme("application-x-flowcode"), i18n("FlowCode"), ac);
         a->setObjectName("newfile_flowcode");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotFileNewFlowCode()));
         p->menu()->addAction(a);
-        ac->addAction("newfile_flowcode", a);
+        ac->addAction(a->objectName(), a);
     }
 #ifdef MECHANICS
     {
-        //(new KAction( i18n("Mechanics"), "ktechlab_mechanics", 0, this, SLOT(slotFileNewMechanics()), ac, "newfile_mechanics" ))->plug( p->menu() );
-        KAction *a = new KAction( KIcon("" /* "ktechlab_mechanics" -- for the future */), i18n("Mechanics"), ac);
+        //(new QAction( i18n("Mechanics"), "ktechlab_mechanics", 0, this, SLOT(slotFileNewMechanics()), ac, "newfile_mechanics" ))->plug( p->menu() );
+        QAction *a = new QAction( QIcon::fromTheme("" /* "ktechlab_mechanics" -- for the future */), i18n("Mechanics"), ac);
         a->setObjectName("newfile_mechanics");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotFileNewMechanics()));
         p->menu()->addAction(a);
-        ac->addAction("newfile_mechanics", a);
+        ac->addAction(a->objectName(), a);
     }
 #endif
     {
-        //(new KAction( "Microbe", "application-x-microbe", 0, this, SLOT(slotFileNewMicrobe()), ac, "newfile_microbe" ))->plug( p->menu() );
-        KAction *a = new KAction( KIcon("application-x-microbe"), i18n("Microbe"), ac);
+        //(new QAction( "Microbe", "application-x-microbe", 0, this, SLOT(slotFileNewMicrobe()), ac, "newfile_microbe" ))->plug( p->menu() );
+        QAction *a = new QAction( QIcon::fromTheme("application-x-microbe"), i18n("Microbe"), ac);
         a->setObjectName("newfile_microbe");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotFileNewMicrobe()));
         p->menu()->addAction(a);
-        ac->addAction("newfile_microbe", a);
+        ac->addAction(a->objectName(), a);
     }
 	//END New File popup
-	
+
 
 // 	m_recentFiles = KStandardAction::openRecent( this, SLOT(load(const KUrl&)), ac );
 	m_recentFiles = new RecentFilesAction( "Recent Files", i18n("Open Recent"), this, SLOT(load(const KUrl &)), ac, "file_open_recent" );
     ac->addAction(m_recentFiles->objectName(), m_recentFiles);
 
     m_statusbarAction = KStandardAction::showStatusbar( this, SLOT(slotOptionsShowStatusbar()), ac );
-    ac->addAction("view_show_status_bar", m_statusbarAction);
-	
+    ac->addAction(m_statusbarAction->objectName(), m_statusbarAction);
+
 	//BEGIN Project Actions
 	ProjectManager *pm = ProjectManager::self();
     {
-	//new KAction( i18n("New Project..."), "window-new",			0, pm, SLOT(slotNewProject()),			ac, 	"project_new" );
-        KAction *a = new KAction( KIcon("window-new"), i18n("New Project..."), ac);
+	//new QAction( i18n("New Project..."), "window-new",			0, pm, SLOT(slotNewProject()),			ac, 	"project_new" );
+        QAction *a = new QAction( QIcon::fromTheme("window-new"), i18n("New Project..."), ac);
         a->setObjectName("project_new");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotNewProject()));
-        ac->addAction("project_new", a);
+        ac->addAction(a->objectName(), a);
     }
     {
-	//new KAction( i18n("Open Project..."), "project-open",		0, pm, SLOT(slotOpenProject()),			ac, 	"project_open" );
-        KAction *a = new KAction( KIcon("project-open"), i18n("Open Project..."), ac);
+	//new QAction( i18n("Open Project..."), "project-open",		0, pm, SLOT(slotOpenProject()),			ac, 	"project_open" );
+        QAction *a = new QAction( QIcon::fromTheme("project-open"), i18n("Open Project..."), ac);
         a->setObjectName("project_open");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotOpenProject()));
-        ac->addAction("project_open", a);
+        ac->addAction(a->objectName(), a);
     }
     {
 // 	m_recentProjects = new KRecentFilesAction( i18n("Open &Recent Project..."), 0, ProjectManager::self(), SLOT(slotOpenProject(const KUrl&)), ac, "project_open_recent" );
         m_recentProjects = new RecentFilesAction( "Recent Projects", i18n("Open &Recent Project..."),
                                                   ProjectManager::self(), SLOT(slotOpenProject(const KUrl&)), ac, "project_open_recent" );
-        ac->addAction("project_open_recent", m_recentProjects);
+        ac->addAction(m_recentProjects->objectName(), m_recentProjects);
     }
     {
-	//new KAction( i18n("Export to Makefile..."), "document-export",	0, pm, SLOT(slotExportToMakefile()),		ac, "project_export_makefile" );
-        KAction *a = new KAction( KIcon("document-export"), i18n("Export to Makefile..."), ac);
+	//new QAction( i18n("Export to Makefile..."), "document-export",	0, pm, SLOT(slotExportToMakefile()),		ac, "project_export_makefile" );
+        QAction *a = new QAction( QIcon::fromTheme("document-export"), i18n("Export to Makefile..."), ac);
         a->setObjectName("project_export_makefile");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotExportToMakefile()));
-        ac->addAction("project_export_makefile", a);
+        ac->addAction(a->objectName(), a);
     }
     {
-	//new KAction( i18n("Create Subproject..."), 0,				0, pm, SLOT(slotCreateSubproject()),		ac, "project_create_subproject" );
-        KAction *a = new KAction( KIcon(""), i18n("Create Subproject..."), ac);
+	//new QAction( i18n("Create Subproject..."), 0,				0, pm, SLOT(slotCreateSubproject()),		ac, "project_create_subproject" );
+        QAction *a = new QAction( QIcon::fromTheme(""), i18n("Create Subproject..."), ac);
         a->setObjectName("project_create_subproject");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotCreateSubproject()));
-        ac->addAction("project_create_subproject", a);
+        ac->addAction(a->objectName(), a);
     }
     {
-	//new KAction( i18n("Add Existing File..."), "document-open",		0, pm, SLOT(slotAddFile()),					ac, "project_add_existing_file" );
-        KAction *a = new KAction( KIcon("document-open"), i18n("Add Existing File..."), ac);
+	//new QAction( i18n("Add Existing File..."), "document-open",		0, pm, SLOT(slotAddFile()),					ac, "project_add_existing_file" );
+        QAction *a = new QAction( QIcon::fromTheme("document-open"), i18n("Add Existing File..."), ac);
         a->setObjectName("project_add_existing_file");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotAddFile()));
-        ac->addAction("project_add_existing_file", a);
+        ac->addAction(a->objectName(), a);
     }
     {
-	//new KAction( i18n("Add Current File..."), "document-import",		0, pm, SLOT(slotAddCurrentFile()),			ac, "project_add_current_file" );
-        KAction *a = new KAction( KIcon("document-import"), i18n("Add Current File..."), ac);
+	//new QAction( i18n("Add Current File..."), "document-import",		0, pm, SLOT(slotAddCurrentFile()),			ac, "project_add_current_file" );
+        QAction *a = new QAction( QIcon::fromTheme("document-import"), i18n("Add Current File..."), ac);
         a->setObjectName("project_add_current_file");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotAddCurrentFile()));
-        ac->addAction("project_add_current_file", a);
+        ac->addAction(a->objectName(), a);
     }
-// 	new KAction( i18n("Project Options"), "configure",			0, pm, SLOT(slotProjectOptions()),			ac, "project_options" );
+// 	new QAction( i18n("Project Options"), "configure",			0, pm, SLOT(slotProjectOptions()),			ac, "project_options" );
 // ^ TODO why commented?
     {
-	//new KAction( i18n("Close Project"), "window-close",			0, pm, SLOT(slotCloseProject()),			ac, "project_close" );
-        KAction *a = new KAction( KIcon("window-close"), i18n("Close Project"), ac);
+	//new QAction( i18n("Close Project"), "window-close",			0, pm, SLOT(slotCloseProject()),			ac, "project_close" );
+        QAction *a = new QAction( QIcon::fromTheme("window-close"), i18n("Close Project"), ac);
         a->setObjectName("project_close");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotCloseProject()));
-        ac->addAction("project_close", a);
+        ac->addAction(a->objectName(), a);
     }
     {
-	//new KAction( i18n("Remove from Project"), "edit-delete",		0, pm, SLOT(slotRemoveSelected()),			ac, "project_remove_selected" );
-        KAction *a = new KAction( KIcon("edit-delete"), i18n("Remove from Project"), ac);
+	//new QAction( i18n("Remove from Project"), "edit-delete",		0, pm, SLOT(slotRemoveSelected()),			ac, "project_remove_selected" );
+        QAction *a = new QAction( QIcon::fromTheme("edit-delete"), i18n("Remove from Project"), ac);
         a->setObjectName("project_remove_selected");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotRemoveSelected()));
-        ac->addAction("project_remove_selected", a);
+        ac->addAction(a->objectName(), a);
     }
     {
-	//new KAction( i18n("Insert Existing File..."), "document-open",	0, pm, SLOT(slotSubprojectAddExistingFile()),	ac, "subproject_add_existing_file" );
-        KAction *a = new KAction( KIcon("document-open"), i18n("Insert Existing File..."), ac);
+	//new QAction( i18n("Insert Existing File..."), "document-open",	0, pm, SLOT(slotSubprojectAddExistingFile()),	ac, "subproject_add_existing_file" );
+        QAction *a = new QAction( QIcon::fromTheme("document-open"), i18n("Insert Existing File..."), ac);
         a->setObjectName("subproject_add_existing_file");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotSubprojectAddExistingFile()));
-        ac->addAction("subproject_add_existing_file", a);
+        ac->addAction(a->objectName(), a);
     }
     {
-	//new KAction( i18n("Insert Current File..."), "document-import",	0, pm, SLOT(slotSubprojectAddCurrentFile()),ac, "subproject_add_current_file" );
-        KAction *a = new KAction( KIcon("document-import"), i18n("Insert Current File..."), ac);
+	//new QAction( i18n("Insert Current File..."), "document-import",	0, pm, SLOT(slotSubprojectAddCurrentFile()),ac, "subproject_add_current_file" );
+        QAction *a = new QAction( QIcon::fromTheme("document-import"), i18n("Insert Current File..."), ac);
         a->setObjectName("subproject_add_current_file");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotSubprojectAddCurrentFile()));
-        ac->addAction("subproject_add_current_file", a);
+        ac->addAction(a->objectName(), a);
     }
     {
-	//new KAction( i18n("Linker Options..."), "configure",		0, pm, SLOT(slotSubprojectLinkerOptions()),	ac, "project_item_linker_options" );
-        KAction *a = new KAction( KIcon("configure"), i18n("Linker Options..."), ac);
+	//new QAction( i18n("Linker Options..."), "configure",		0, pm, SLOT(slotSubprojectLinkerOptions()),	ac, "project_item_linker_options" );
+        QAction *a = new QAction( QIcon::fromTheme("configure"), i18n("Linker Options..."), ac);
         a->setObjectName("project_item_linker_options");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotSubprojectLinkerOptions()));
-        ac->addAction("project_item_linker_options", a);
+        ac->addAction(a->objectName(), a);
     }
     {
-	//new KAction( i18n("Build..."), "launch",					0, pm, SLOT(slotItemBuild()),				ac, "project_item_build" );
-        KAction *a = new KAction( KIcon("run-build"), i18n("Build..."), ac);
+	//new QAction( i18n("Build..."), "launch",					0, pm, SLOT(slotItemBuild()),				ac, "project_item_build" );
+        QAction *a = new QAction( QIcon::fromTheme("run-build"), i18n("Build..."), ac);
         a->setObjectName("project_item_build");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotItemBuild()));
-        ac->addAction("project_item_build", a);
+        ac->addAction(a->objectName(), a);
     }
     {
-	//new KAction( i18n("Upload..."), "convert_to_pic",			0, pm, SLOT(slotItemUpload()),				ac, "project_item_upload" );
-        KAction *a = new KAction( KIcon("convert_to_pic"), i18n("Upload..."), ac);
+	//new QAction( i18n("Upload..."), "convert_to_pic",			0, pm, SLOT(slotItemUpload()),				ac, "project_item_upload" );
+        QAction *a = new QAction( QIcon::fromTheme("convert_to_pic"), i18n("Upload..."), ac);
         a->setObjectName("project_item_upload");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotItemUpload()));
-        ac->addAction("project_item_upload", a);
+        ac->addAction(a->objectName(), a);
     }
     {
-	//new KAction( i18n("Processing Options..."), "configure",	0, pm, SLOT(slotItemProcessingOptions()),	ac, "project_item_processing_options" );
-        KAction *a = new KAction( KIcon("configure"), i18n("Processing Options..."), ac);
+	//new QAction( i18n("Processing Options..."), "configure",	0, pm, SLOT(slotItemProcessingOptions()),	ac, "project_item_processing_options" );
+        QAction *a = new QAction( QIcon::fromTheme("configure"), i18n("Processing Options..."), ac);
         a->setObjectName("project_item_processing_options");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotItemProcessingOptions()));
-        ac->addAction("project_item_processing_options", a);
+        ac->addAction(a->objectName(), a);
     }
 	//END Project Actions
-	
+
 	{
-	//new KAction( i18n("Split View Left/Right"), "view-split-left-right", Qt::CTRL|Qt::SHIFT|Qt::Key_L, this, SLOT(slotViewSplitLeftRight()), ac, "view_split_leftright" );
-        KAction *a = new KAction( KIcon("view-split-left-right"), i18n("Split View Left/Right"), ac);
+	//new QAction( i18n("Split View Left/Right"), "view-split-left-right", Qt::CTRL|Qt::SHIFT|Qt::Key_L, this, SLOT(slotViewSplitLeftRight()), ac, "view_split_leftright" );
+        QAction *a = new QAction( QIcon::fromTheme("view-split-left-right"), i18n("Split View Left/Right"), ac);
         a->setObjectName("view_split_leftright");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotViewSplitLeftRight()));
-        ac->addAction("view_split_leftright", a);
+        ac->addAction(a->objectName(), a);
     }
     {
-	//new KAction( i18n("Split View Top/Bottom"), "view-split-top-bottom", Qt::CTRL|Qt::SHIFT|Qt::Key_T, this, SLOT(slotViewSplitTopBottom()), ac, "view_split_topbottom" );
-        KAction *a = new KAction( KIcon("view-split-top-bottom"), i18n("Split View Top/Bottom"), ac);
+	//new QAction( i18n("Split View Top/Bottom"), "view-split-top-bottom", Qt::CTRL|Qt::SHIFT|Qt::Key_T, this, SLOT(slotViewSplitTopBottom()), ac, "view_split_topbottom" );
+        QAction *a = new QAction( QIcon::fromTheme("view-split-top-bottom"), i18n("Split View Top/Bottom"), ac);
         a->setObjectName("view_split_topbottom");
         connect(a, SIGNAL(triggered(bool)), this, SLOT(slotViewSplitTopBottom()));
-        ac->addAction("view_split_topbottom", a);
+        ac->addAction(a->objectName(), a);
     }
 	{
 	//KToggleAction * ta = new KToggleAction( i18n("Run Simulation"), "media-playback-start", Qt::Key_F10, 0, 0, ac, "simulation_run" );
-        KToggleAction * ta = new KToggleAction( KIcon("media-playback-start"), i18n("Run Simulation"), ac);
-        ta->setShortcut( Qt::Key_F10 );
+        KToggleAction * ta = new KToggleAction( QIcon::fromTheme("media-playback-start"), i18n("Run Simulation"), ac);
+        ac->setDefaultShortcut(ta, Qt::Key_F10 );
         ta->setObjectName( "simulation_run" );
         ta->setChecked(true);
         connect( ta, SIGNAL(toggled(bool )), Simulator::self(), SLOT(slotSetSimulating(bool )) );
 		ta->setCheckedState( KGuiItem( i18n("Pause Simulation"), "media-playback-pause", 0 ) );
-        ac->addAction( "simulation_run", ta);
+        ac->addAction(ta->objectName(), ta);
     }
-	
+
 	// We can call slotCloseProject now that the actions have been created
 	ProjectManager::self()->updateActions();
 	DocManager::self()->disableContextActions();
@@ -728,7 +733,7 @@ void KTechlab::setupExampleActions()
 	QStringList categories;
 	categories << "555" << "basic" << "diodes" << "jfets" << "opamps" << "matrix_disp_driver"
         << "mosfets" << "transistors" ;
-	
+
 	// A name for the example circuit can be generated from the filename (and
 	// will be done so if the filename is not in this list). But the name
 	// generation is not that intelligent (e.g. and.circuit should be called
@@ -760,40 +765,35 @@ void KTechlab::setupExampleActions()
 	filesToNames["scmitt-trigger.circuit"] = i18n("Schmitt Trigger");
 	filesToNames["switch.circuit"] = i18n("Switch");
     filesToNames["matrix_display.circuit"] = i18n("Matrix Display Driver");
-	
+
 	int at = 0;
-	
-	QStringList::iterator end = categories.end();
-	for ( QStringList::iterator it = categories.begin(); it != end; ++it )
+
+	for ( QString category: categories)
 	{
-		QString category = *it;
 		QDir dir( KStandardDirs::locate( "appdata", "examples/" + category + "/" ) );
-		
+
 		//K3PopupMenu * m = static_cast<K3PopupMenu*>(factory()->container( "examples_" + category, this ));
-        KMenu * m = static_cast<KMenu*>(factory()->container( "examples_" + category, this ));
+        QMenu * m = static_cast<QMenu*>(factory()->container( "examples_" + category, this ));
 		if ( !m ) {
-            kWarning() << "failed to cast to popup menu: " << "examples_" + category;
+            qWarning() << "failed to cast to popup menu: " << "examples_" + category;
 			continue;
         }
 		connect( m, SIGNAL(triggered(QAction*)), this, SLOT(openExample(QAction*)) );
-		
+
 		QStringList files = dir.entryList();
 		files.removeAll(".");
 		files.removeAll("..");
-		
-		QStringList::iterator filesEnd = files.end();
-		for ( QStringList::iterator filesIt = files.begin(); filesIt != filesEnd; ++filesIt )
+
+		for ( QString fileName: files )
 		{
-			QString fileName = *filesIt;
-			
 			QString name = filesToNames[ fileName ];
 			if ( name.isEmpty() )
-			{		
+			{
 				name = fileName;
 				name.remove(".circuit");
 				name.replace("-"," ");
 				name.replace("_"," ");
-				
+
 				// Capitalize the start of each word
 				bool prevWasSpace = true;
 				for ( unsigned i = 0; i < name.length(); ++i )
@@ -803,7 +803,7 @@ void KTechlab::setupExampleActions()
 					prevWasSpace = name[i].isSpace();
 				}
 			}
-			
+
 			//m->insertItem( name, at, at ); // 2018.12.02
             m->addAction( name )->setData(at);
 			m_exampleFiles[ at ] = dir.path() + "/" + fileName;
@@ -820,8 +820,9 @@ void KTechlab::openExample(QAction *action)
 }
 
 
-void KTechlab::slotViewContainerActivated( QWidget * viewContainer )
+void KTechlab::slotViewContainerActivated( int index )
 {
+    QWidget* viewContainer = m_pViewContainerTabWidget->currentWidget();
     if (!viewContainer) {
         return; // null viewContainer could be selected, when all documents are closed
     }
@@ -840,9 +841,9 @@ void KTechlab::slotViewContainerDestroyed( QObject * object )
 
 QAction * KTechlab::actionByName( const QString & name ) const
 {
-	QAction * action = actionCollection()->action(name);
+    QAction * action = actionCollection()->action(name);
 	if ( !action )
-		kError() << k_funcinfo << "No such action: " << name << endl;
+		qCritical() << Q_FUNC_INFO << "No such action: " << name << endl;
 	return action;
 }
 
@@ -856,11 +857,11 @@ void KTechlab::savePropertiesInConfig( KConfig *conf )
 	grUi.writeEntry( "Height", height() );
 	//grUi.writeEntry( "WinState", KWin::windowInfo( winId(), NET::WMState ).state() );
     grUi.writeEntry( "WinState", (qulonglong) KWindowSystem::windowInfo( winId(), NET::WMState ).state() );
-	
+
 #ifndef NO_GPSIM
 	SymbolViewer::self()->saveProperties( conf );
 #endif
-	
+
 	if ( ProjectManager::self()->currentProject() )
 	{
 		//conf->setGroup("Project");
@@ -870,7 +871,7 @@ void KTechlab::savePropertiesInConfig( KConfig *conf )
 	else {
 		conf->deleteGroup("Project");
     }
-	
+
 	//BEGIN Open Views State
 	// Remvoe old entries describing the save state - we don't want a horrible mish-mash of saved states
 	const QStringList groupList = conf->groupList();
@@ -880,25 +881,25 @@ void KTechlab::savePropertiesInConfig( KConfig *conf )
 		if ( (*it).startsWith("ViewContainer") )
 			conf->deleteGroup(*it);
 	}
-	
+
 	uint viewContainerId = 1;
 	const ViewContainerList::iterator vcEnd = m_viewContainerList.end();
 	for ( ViewContainerList::iterator it = m_viewContainerList.begin(); it != vcEnd; ++it )
 	{
 		if ( !(*it) || !(*it)->canSaveUsefulStateInfo() )
 			continue;
-		
+
 		// To make sure the ViewContainers are restored in the right order, we must create them in alphabetical order,
 		// as KConfig stores them as such...
 		const QString id = QString::number(viewContainerId++).rightJustified( 4, '0' );
-			
+
 		//conf->setGroup( "ViewContainer " + id );
         KConfigGroup grViewCont = conf->group("ViewContainer " + id);
 		//(*it)->saveState(conf);
         (*it)->saveState(&grViewCont);
 	}
 	//END Open Views State
-	
+
 	KConfigGroup grKateMdi = conf->group("KateMDI");
 	saveSession( &grKateMdi );
 	// Piss off KMainWindow
@@ -907,7 +908,7 @@ void KTechlab::savePropertiesInConfig( KConfig *conf )
 	QRect desk = QApplication::desktop()->screenGeometry(scnum);
 	grKateMdi.deleteEntry( QString::fromLatin1("Width %1").arg(desk.width()) );
 	grKateMdi.deleteEntry( QString::fromLatin1("Height %1").arg(desk.height()) );
-	
+
 	conf->sync();
 }
 
@@ -915,17 +916,17 @@ void KTechlab::savePropertiesInConfig( KConfig *conf )
 void KTechlab::readPropertiesInConfig( KConfig *conf )
 {
 	startRestore( conf, "KateMDI" );
-	
+
 	m_recentFiles->loadEntries();
 	m_recentProjects->loadEntries();
-	
+
 	//BEGIN Restore Open Views
 	if ( KTLConfig::restoreDocumentsOnStartup() )
 	{
 		// If we have a lot of views open from last time, then opening them will take a long time.
 		// So we want to enter the qt event loop to finish drawing the window et al before adding the views.
 		qApp->processEvents();
-	
+
 		const QStringList groupList = conf->groupList();
 		const QStringList::const_iterator groupListEnd = groupList.end();
 		for ( QStringList::const_iterator it = groupList.begin(); it != groupListEnd; ++it )
@@ -933,33 +934,36 @@ void KTechlab::readPropertiesInConfig( KConfig *conf )
 			if ( (*it).startsWith("ViewContainer") )
 			{
 				ViewContainer *viewContainer = new ViewContainer( *it );
-			
+
 				//conf->setGroup(*it);
                 KConfigGroup grIt = conf->group(*it);
 				viewContainer->restoreState( &grIt, *it );
-			
+
 				addWindow( viewContainer );
 			}
 		}
 	}
 	//END Restore Open Views
-	
+
 	//conf->setGroup("Project");
     KConfigGroup grProject = conf->group("Project");
 	if ( grProject.readEntry("Open") != QString::null )
 		ProjectManager::self()->slotOpenProject( KUrl( grProject.readEntry("Open") ) );
-	
+
 #ifndef NO_GPSIM
 	SymbolViewer::self()->readProperties( conf );
 #endif
-	
+
 	finishRestore();
-	
+
 	// Dumbass KMainWindow - can't handle my width/height correctly. Whoever thought of the "+1" hack anyway?!
 	//conf->setGroup("UI");
     KConfigGroup grUi = conf->group("UI");
 	resize( grUi.readEntry( "Width", 800 ), grUi.readEntry( "Height", 500 ) );
-	KWindowSystem::setState( winId(), grUi.readEntry( "WinState", (quint32) NET::Max ) );
+    const quint32 winStateDef = quint32( NET::Max );
+    const quint32 winState = grUi.readEntry( "WinState" , winStateDef /* NET::Max */ );
+	KWindowSystem::setState( winId(), NET::States(winState) ) ; 
+        // grUi.readEntry( "WinState", (quint32) NET::Max ) );
 }
 
 
@@ -1028,10 +1032,10 @@ void KTechlab::slotOptionsPreferences()
 	// another one
 	if ( KConfigDialog::showDialog( "settings" ) )
 		return;
-	
+
 	// KConfigDialog didn't find an instance of this dialog, so lets create it:
 	SettingsDlg* dialog = new SettingsDlg( this, "settings", KTLConfig::self() );
-	
+
 	// User edited the configuration - update your local copies of the
 	// configuration data
 	connect( dialog, SIGNAL(settingsChanged(const QString &)), this, SLOT(slotUpdateConfiguration()) );
@@ -1050,7 +1054,7 @@ void KTechlab::slotChangeStatusbar( const QString & text )
 	// Avoid flicker by repeatedly displaying the same message, as QStatusBar does not check for this
 	if ( m_lastStatusBarMessage == text )
 		return;
-	
+
     statusBar()->showMessage(text);
 	m_lastStatusBarMessage = text;
 }
@@ -1059,15 +1063,15 @@ void KTechlab::slotChangeStatusbar( const QString & text )
 void KTechlab::slotTabContext( QWidget* widget,const QPoint & pos )
 {
 	// Shamelessly stolen from KDevelop...
-	
+
 	KMenu * tabMenu = new KMenu;
 	tabMenu->addTitle( (dynamic_cast<ViewContainer*>(widget))->windowTitle() );
 
 	//Find the document on whose tab the user clicked
 	m_pContextMenuContainer = 0l;
-	
+
 	m_viewContainerList.removeAll((ViewContainer*)0l);
-	
+
 	const ViewContainerList::iterator vcEnd = m_viewContainerList.end();
 	for ( ViewContainerList::iterator it = m_viewContainerList.begin(); it != vcEnd; ++it )
 	{
@@ -1075,23 +1079,23 @@ void KTechlab::slotTabContext( QWidget* widget,const QPoint & pos )
 		if ( viewContainer == widget )
 		{
 			m_pContextMenuContainer = viewContainer;
-			
-			tabMenu->addAction( KIcon("tab-close"), i18n("Close") )->setData( 0 );
-			
+
+			tabMenu->addAction( QIcon::fromTheme("tab-close"), i18n("Close") )->setData( 0 );
+
 			View *view = (viewContainer->viewCount() == 1) ? viewContainer->activeView() : 0l;
-			
+
 			if ( view && view->document()->isModified() )
-				tabMenu->addAction( KIcon("document-save"), i18n("Save") )->setData( 1 );
-			
+				tabMenu->addAction( QIcon::fromTheme("document-save"), i18n("Save") )->setData( 1 );
+
 			if ( view && !view->document()->url().isEmpty() )
-				tabMenu->addAction( KIcon("view-refresh"), i18n("Reload") )->setData( 2 );
-			
+				tabMenu->addAction( QIcon::fromTheme("view-refresh"), i18n("Reload") )->setData( 2 );
+
 			if ( m_viewContainerList.count() > 1 )
-				tabMenu->addAction( KIcon("tab-close-other"), i18n("Close All Others") )->setData( 4 );
+				tabMenu->addAction( QIcon::fromTheme("tab-close-other"), i18n("Close All Others") )->setData( 4 );
 
 		}
 	}
-	
+
 	connect( tabMenu, SIGNAL( triggered(QAction*) ), this, SLOT(slotTabContextActivated(QAction*)) );
 
 	tabMenu->exec(pos);
@@ -1102,10 +1106,10 @@ void KTechlab::slotTabContext( QWidget* widget,const QPoint & pos )
 void KTechlab::slotTabContextActivated( QAction * action )
 {
 	// Shamelessly stolen from KDevelop...
-	
+
 	if( !m_pContextMenuContainer || !action || action->data().isNull() )
 		return;
-	
+
 	View *view = m_pContextMenuContainer->activeView();
 	if (!view)
 		return;
@@ -1149,7 +1153,7 @@ void KTechlab::slotTabContextActivated( QAction * action )
 			break;
 	}
 }
-	
+
 
 
 void KTechlab::slotFileNewAssembly()
@@ -1186,45 +1190,45 @@ void KTechlab::slotFileNewMechanics()
 void KTechlab::slotFileNew()
 {
 	NewFileDlg *newFileDlg = new NewFileDlg(this);
-	
+
 	newFileDlg->exec();
-	
+
 	bool addToProject = newFileDlg->addToProject();
 	bool accepted = newFileDlg->accepted();
 	int finalType = newFileDlg->fileType();
 	QString microID = newFileDlg->microID();
 	int codeType = newFileDlg->codeType();
-	
+
 	delete newFileDlg;
 	if (!accepted)
 		return;
-	
+
 	Document *created = 0l;
-	
+
 	if ( finalType == Document::dt_circuit )
 		created = DocManager::self()->createCircuitDocument();
-	
+
 	else if ( finalType == Document::dt_flowcode )
 	{
 		FlowCodeDocument * fcd = DocManager::self()->createFlowCodeDocument();
 		fcd->setPicType(microID);
 		created = fcd;
 	}
-	
+
 	else if ( finalType == Document::dt_mechanics )
 		created = DocManager::self()->createMechanicsDocument();
-	
+
 	else
 	{
 		// Presumably a text document
 		TextDocument * textDocument = DocManager::self()->createTextDocument();
-	
+
 		if (textDocument)
 			textDocument->slotInitLanguage( (TextDocument::CodeType)codeType );
-		
+
 		created = textDocument;
 	}
-	
+
 	if ( created && addToProject )
 		created->setAddToProjectOnSave(true);
 }
@@ -1234,7 +1238,7 @@ void KTechlab::slotFileOpen()
     // this slot is called whenever the File->Open menu is selected,
     // the Open shortcut is pressed (usually CTRL+O) or the Open toolbar
     // button is clicked
-	
+
     // standard filedialog
 	KUrl::List urls = getFileURLs();
 	const KUrl::List::iterator end = urls.end();
@@ -1263,12 +1267,14 @@ KUrl::List KTechlab::getFileURLs( bool allowMultiple )
 					.arg(i18n("Assembly Code"))
 					.arg(i18n("Intel Hex"))
 					.arg(i18n("Circuit"));
-	
+
 	if ( allowMultiple )
 		return KFileDialog::getOpenUrls( KUrl(), filter, 0l, i18n("Open Location") );
 	
-	else
-		return KFileDialog::getOpenUrl( KUrl(), filter, 0l, i18n("Open Location") );
+	else {
+        KUrl ret = KFileDialog::getOpenUrl( KUrl(), filter, 0l, i18n("Open Location") );
+		return ret;
+    }
 }
 
 
@@ -1281,39 +1287,39 @@ void KTechlab::slotDocModifiedChanged()
 		ViewContainer * vc = *it;
 		if ( !vc || !vc->activeView() || !vc->activeView()->document() )
 			continue;
-		
+
         QIcon icon;
-		
+
 		if ( vc->activeView()->document()->isModified() ) {
-            icon = KIcon( "document-save" );
+            icon = QIcon::fromTheme( "document-save" );
         } else {
             switch ( vc->activeView()->document()->type() )
             {
                 case Document::dt_circuit:
-                    icon = KIcon( "application-x-circuit" );
+                    icon = QIcon::fromTheme( "application-x-circuit" );
                     break;
 
                 case Document::dt_flowcode:
-                    icon = KIcon( "application-x-flowcode" );
+                    icon = QIcon::fromTheme( "application-x-flowcode" );
                     break;
 
                 case Document::dt_mechanics:
-                    icon = KIcon( "ktechlab_mechanics" );
+                    icon = QIcon::fromTheme( "ktechlab_mechanics" );
                     break;
 
                 case Document::dt_text:
-                    icon = KIcon( "text-x-generic" );
+                    icon = QIcon::fromTheme( "text-x-generic" );
                     break;
 
                 case Document::dt_pinMapEditor:
                     break;
 
                 case Document::dt_none:
-                    icon = KIcon( "application-x-zerosize" );
+                    icon = QIcon::fromTheme( "application-x-zerosize" );
                     break;
             }
         }
-		
+
 		tabWidget()->setTabIcon(tabWidget()->indexOf(vc), icon );
 	}
 	//END Set tab icons
@@ -1347,16 +1353,16 @@ void KTechlab::slotUpdateCaptions()
 	}
 	else
 		newCaption = "";
-	
+
 	if (newCaption != windowTitle().remove(" - KTechlab")) {
 		setWindowTitle(newCaption);
     }
 	//END Set KTechlab caption
-	
-	
+
+
 	//BEGIN Set tab captions
 	emit needUpdateCaptions();
-	
+
 	if ( document && document->activeView() && document->activeView()->viewContainer() )
 	{
 		document->activeView()->viewContainer()->updateCaption();
@@ -1370,7 +1376,7 @@ void KTechlab::slotDocUndoRedoChanged()
 	Document *document = DocManager::self()->getFocusedDocument();
 	if (!document)
 		return;
-	
+
 	action("edit_undo")->setEnabled( document->isUndoAvailable() );
 	action("edit_redo")->setEnabled( document->isRedoAvailable() );
 }
@@ -1402,14 +1408,14 @@ bool KTechlab::queryClose()
     KConfig *cfgPtr = KGlobal::config().data();
 	//saveProperties( KGlobal::config() );
     savePropertiesInConfig( cfgPtr );
-	
+
 	if ( DocManager::self()->closeAll() && ProjectManager::self()->slotCloseProject() )
 	{
 		// Make ourself "deleted"
 		m_pSelf = 0l;
 		return true;
 	}
-	
+
 	return false;
 }
 
@@ -1430,7 +1436,7 @@ void KTechlab::slotFileQuit()
             if( !(*itWnd)->close() ) break;
 		}
 	}
-	
+
     slotChangeStatusbar( i18n("Exiting...") );
 }
 

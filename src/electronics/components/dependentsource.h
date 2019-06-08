@@ -20,7 +20,7 @@ class DependentSource : public Component
 {
 	public:
 		DependentSource( ICNDocument *icnDocument, bool newItem, const char *id );
-		~DependentSource();
+		~DependentSource() override;
 
 	protected:
 		void drawOutline( QPainter & p );
@@ -36,14 +36,14 @@ class ECCCCS : public DependentSource
 {
 	public:
 		ECCCCS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~ECCCCS();
+		~ECCCCS() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
-	
+
 	protected:
-		virtual void dataChanged();
-		virtual void drawShape( QPainter &p );
+		void dataChanged() override;
+		void drawShape( QPainter &p ) override;
 	
 		CCCS *m_cccs;
 };
@@ -56,14 +56,14 @@ class ECCCVS : public DependentSource
 {
 	public:
 		ECCCVS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~ECCCVS();
+		~ECCCVS() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
-	
+
 	protected:
-		virtual void dataChanged();
-		virtual void drawShape( QPainter &p );
+		void dataChanged() override;
+		void drawShape( QPainter &p ) override;
 	
 		CCVS *m_ccvs;
 };
@@ -76,15 +76,15 @@ class ECVCCS : public DependentSource
 {
 	public:
 		ECVCCS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~ECVCCS();
-	
+		~ECVCCS() override;
+
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
-	
+
 	protected:
-		virtual void dataChanged();
-		virtual void drawShape( QPainter &p );
-	
+		void dataChanged() override;
+		void drawShape( QPainter &p ) override;
+
 		VCCS *m_vccs;
 };
 
@@ -96,14 +96,14 @@ class ECVCVS : public DependentSource
 {
 	public:
 		ECVCVS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~ECVCVS();
+		~ECVCVS() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
-	
+
 	protected:
-		virtual void dataChanged();
-		virtual void drawShape( QPainter &p );
+		void dataChanged() override;
+		void drawShape( QPainter &p ) override;
 	
 		VCVS *m_vcvs;
 };

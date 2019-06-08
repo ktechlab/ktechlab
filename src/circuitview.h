@@ -23,13 +23,13 @@ class CircuitView : public ICNView
 Q_OBJECT
 public:
 	CircuitView( CircuitDocument *circuitDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l );
-	~CircuitView();
+	~CircuitView() override;
 
 public slots:
 	virtual void slotUpdateRunningStatus( bool isRunning );
 
 protected:
-	virtual void dragEnterEvent( QDragEnterEvent * e );
+	void dragEnterEvent( QDragEnterEvent * e ) override;
 	CircuitDocument *p_circuitDocument;
 };
 

@@ -26,7 +26,7 @@ class Subcircuits : public QObject
 {
 Q_OBJECT
 public:
-	~Subcircuits();
+	~Subcircuits() override;
 	/**
 	 * Handles subcircuit creation when the user selects the subcircuit to be
 	 * created.

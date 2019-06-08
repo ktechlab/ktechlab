@@ -20,19 +20,19 @@ class MatrixDisplayDriver : public Component
 {
 	public:
 		MatrixDisplayDriver( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-		~MatrixDisplayDriver();
+		~MatrixDisplayDriver() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
 	
-		virtual void stepNonLogic();
-		virtual bool doesStepNonLogic() const { return true; }
-		
+		void stepNonLogic() override;
+		bool doesStepNonLogic() const override { return true; }
+
 	protected:
 		QVector<LogicIn*> m_pValueLogic;
 		QVector<LogicOut*> m_pRowLogic;
 		QVector<LogicOut*> m_pColLogic;
-		
+
 		unsigned m_prevCol;
 		unsigned m_nextCol;
 		unsigned m_scanCount;

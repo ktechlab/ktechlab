@@ -117,7 +117,7 @@ public:
 		vt_unknown
 	};
     MicroSettings( MicroInfo *microInfo );
-    ~MicroSettings();
+    ~MicroSettings() override;
 	/**
 	 * Returns microdata to describe the microsettings.
 	 * This includes ports settins and variable settings

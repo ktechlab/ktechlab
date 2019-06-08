@@ -205,7 +205,7 @@ class Language : public QObject
 	Q_OBJECT
 	public:
 		Language( ProcessChain *processChain, const QString &name );
-		~Language();
+		~Language() override;
 	
 		/**
 		 * Compile / assemble / dissassembly / whatever the given input.

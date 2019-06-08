@@ -1,7 +1,7 @@
 //
 // C++ Interface: electronicconnector
 //
-// Description: 
+// Description:
 //
 //
 // Author: David Saxton, Alan Grimes, Zoltan Padrah <zoltan.padrah@gmail.com>, (C) 2008
@@ -18,7 +18,7 @@
 
 /**
 	@author David Saxton, Alan Grimes, Zoltan Padrah <zoltan.padrah@gmail.com>
-	
+
 	An electronic connector, connecting 2 ECNodes.
 */
 class ElectronicConnector : public Connector
@@ -28,17 +28,17 @@ class ElectronicConnector : public Connector
 public:
     ElectronicConnector(ECNode* startNode, ECNode* endNode, ICNDocument* _ICNDocument, QString* id = 0);
 
-    ~ElectronicConnector();
+    ~ElectronicConnector() override;
 
    /**
      * Node at start of connector (which refers to this as the output connector)
      */
-    virtual Node* startNode() const { return m_startEcNode; }
+    Node* startNode() const override { return m_startEcNode; }
 
     /**
      * Node at end of connector (which refers to this as the input connector)
      */
-    virtual Node* endNode() const { return m_endEcNode; }
+    Node* endNode() const override { return m_endEcNode; }
 
 public slots:
 	/**
@@ -51,7 +51,7 @@ private:
 	/// pointers to the endnodes of the connectors
 	QPointer<ECNode> m_startEcNode;
 	QPointer<ECNode> m_endEcNode;
-	
+
 };
 
 #endif

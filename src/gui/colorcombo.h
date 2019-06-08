@@ -32,18 +32,18 @@ class ColorCombo : public QComboBox
 			LED = 1,
 			NumberOfSchemes = 2 ///< for internal usage; this should be one less than the number of items in the enum
 		};
-		
+
   	 	/**
 		 * Constructs a color combo box.
 		 */
 		ColorCombo( ColorScheme colorScheme, QWidget *parent, const char *name = 0L );
-		~ColorCombo();
+		~ColorCombo() override;
 
 		/**
 		 * Returns the currently selected color.
 		**/
 		QColor color() const { return internalColor; }
-		
+
 	public slots:
 		/**
 		 * Selects the color @p col.
@@ -59,20 +59,20 @@ class ColorCombo : public QComboBox
 		 * Emitted when a new item has been highlighted.
 		 */
 		void highlighted( const QColor &col );
-		
+
 	protected slots:
 		void slotActivated( int index );
 		void slotHighlighted( int index );
 
 	protected:
-		virtual void resizeEvent( QResizeEvent *re );
+		void resizeEvent( QResizeEvent *re ) override;
 		void addColors();
 		void createPalettes();
-		
+
 		QColor customColor;
 		QColor internalColor;
 		ColorScheme m_colorScheme;
-		
+
 		static bool createdPalettes;
 		static QColor * palette[ NumberOfSchemes ];
 		static int paletteSize[ NumberOfSchemes ];

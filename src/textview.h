@@ -15,7 +15,8 @@
 #include "view.h"
 
 // #include <kate/view.h>
-#include <ktexteditor/view.h>
+//#include <ktexteditor/view.h>
+#include <KTextEditor/View>
 
 #include <qpointer.h>
 #include <qlabel.h>
@@ -35,8 +36,10 @@ class TextView : public View
 	Q_OBJECT
 	public:
 		TextView( TextDocument *textDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = 0 );
-		virtual ~TextView();
-		virtual bool closeView();
+		~TextView() override;
+
+		bool closeView() override;
+
 		/**
 		 * Brings up the goto line dialog.
 		 */
@@ -60,28 +63,28 @@ class TextView : public View
 		unsigned currentLine();
 		unsigned currentColumn();
 		void disableActions();
-	
+
 		KTextEditor::View * kateView() const { return m_view; }
-	
+
 		//KTextEditor::View::saveResult save(); // { return m_view->save(); }
 		bool save();
 		//KTextEditor::View::saveResult saveAs(); // { return m_view->saveAs(); }
         bool saveAs();
         void print();
-	
+
 	public slots:
 		/**
 		 * Called when change line / toggle marks
 		 */
 		void slotUpdateMarksInfo();
 		void slotCursorPositionChanged();
-		void toggleBreakpoint();
+		void toggleBreakpoint() override;
 		/**
 		 * Initialize the actions appropriate for when the debugger is running
 		 * or stepping
 		 */
 		void slotInitDebugActions();
-	
+
 	protected slots:
 		void slotWordHoveredOver( const QString & word, int line, int col );
 		void slotWordUnhovered();
@@ -93,7 +96,7 @@ class TextView : public View
 #ifndef NO_GPSIM
 		VariableLabel * m_pTextViewLabel; ///< Pops up when the user hovers his mouse over a word
 #endif
-	
+
 	private:
 		uint m_savedCursorLine;
 		uint m_savedCursorColumn;
@@ -112,9 +115,9 @@ class TextViewEventFilter : public QObject
 	Q_OBJECT
 	public:
 		TextViewEventFilter( TextView * textView );
-		
-		bool eventFilter( QObject * watched, QEvent * e );
-		
+
+		bool eventFilter( QObject * watched, QEvent * e ) override;
+
 	signals:
 		/**
 		 * When the user hovers the mouse for more than 700 milliseconds over a
@@ -127,7 +130,7 @@ class TextViewEventFilter : public QObject
 		 * Emitted when focus is lost, the mouse moves to a different word, etc.
 		 */
 		void wordUnhovered();
-		
+
 	protected slots:
 		void slotNeedTextHint( const KTextEditor::Cursor& position, QString& text );
 		/**
@@ -144,7 +147,7 @@ class TextViewEventFilter : public QObject
 		 * @see m_pNoWordTimer
 		 */
 		void slotNoWordTimeout();
-		
+
 	protected:
 		enum HoverStatus
 		{
@@ -164,7 +167,7 @@ class TextViewEventFilter : public QObject
 			 */
 			Sleeping
 		};
-		
+
 		/**
 		 * Starts / stops timers, emits signals, etc. See other functions for an
 		 * idea of what this does.
@@ -186,7 +189,7 @@ class TextViewEventFilter : public QObject
 		 * bother updating us if the mouse cursor isn't over text.
 		 */
 		QTimer * m_pNoWordTimer;
-		
+
 		TextView * m_pTextView;
 		QString m_lastWord;
 		int m_lastLine;

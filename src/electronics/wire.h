@@ -25,7 +25,7 @@ class Wire : public QObject
 {
 	public:
 		Wire( Pin *startPin, Pin *endPin );
-		~Wire();
+		~Wire() override;
 
 		/**
 		 * Attempts to calculate the current that is flowing through

@@ -16,7 +16,7 @@
 
 // #include <q3button.h>
 
-#include <kdebug.h>
+#include <qdebug.h>
 
 CIWidgetMgr::CIWidgetMgr( KtlQCanvas *canvas, CNItem *item )
 {
@@ -126,7 +126,7 @@ Button* CIWidgetMgr::addButton( const QString &id, const QRect & pos, const QStr
 	}
 	else
 	{
-		kWarning() << "CIWidgetMgr::addButton: Attempting to re-add button with same id as previous"<<endl;
+		qWarning() << "CIWidgetMgr::addButton: Attempting to re-add button with same id as previous"<<endl;
 		delete it.value();
 		it.value() = button;
 	}
@@ -150,7 +150,7 @@ Button* CIWidgetMgr::addButton( const QString &id, const QRect & pos, const QIco
 	}
 	else
 	{
-		kWarning() << "CIWidgetMgr::addButton: Attempting to re-add button with same id as previous"<<endl;
+		qWarning() << "CIWidgetMgr::addButton: Attempting to re-add button with same id as previous"<<endl;
 		delete it.value();
 		it.value() = button;
 	}
@@ -178,7 +178,7 @@ Slider* CIWidgetMgr::addSlider( const QString &id, int minValue, int maxValue, i
 	}
 	else
 	{
-		kWarning() << "CIWidgetMgr::addSlider: Attempting to re-add slider with same id as previous"<<endl;
+		qWarning() << "CIWidgetMgr::addSlider: Attempting to re-add slider with same id as previous"<<endl;
 		delete slider;
 		return 0l;
 	}

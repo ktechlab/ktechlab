@@ -21,16 +21,16 @@ class Gplink : public ExternalLanguage
 {
 	public:
 		Gplink( ProcessChain *processChain );
-		~Gplink();
+		~Gplink() override;
 	
-		virtual void processInput( ProcessOptions options );
-		virtual MessageInfo extractMessageInfo( const QString &text );
-		virtual ProcessOptions::ProcessPath::Path outputPath( ProcessOptions::ProcessPath::Path inputPath ) const;
-	
+		void processInput( ProcessOptions options ) override;
+		MessageInfo extractMessageInfo( const QString &text ) override;
+		ProcessOptions::ProcessPath::Path outputPath( ProcessOptions::ProcessPath::Path inputPath ) const override;
+
 	protected:
-		virtual bool isError( const QString &message ) const;
-		virtual bool isWarning( const QString &message ) const;
-		
+		bool isError( const QString &message ) const override;
+		bool isWarning( const QString &message ) const override;
+
 		QString m_sdccLibDir;
 };
 

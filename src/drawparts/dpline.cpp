@@ -45,7 +45,7 @@ DPLine::DPLine( ItemDocument *itemDocument, bool newItem, const char *id )
 	
 	createProperty( "line-color", Variant::Type::Color );
 	property("line-color")->setCaption( i18n("Line Color") );
-	property("line-color")->setValue(Qt::black);
+	property("line-color")->setValue(QColor(Qt::black));
 	
 	createProperty( "line-width", Variant::Type::Int );
 	property("line-width")->setCaption( i18n("Line Width") );

@@ -79,7 +79,7 @@ class Oscilloscope : public QWidget, public Ui::OscilloscopeWidget
 	public:
 		static Oscilloscope * self( KateMDI::ToolView * parent = 0);
 		static QString toolViewIdentifier() { return "Oscilloscope"; }
-		virtual ~Oscilloscope();
+		~Oscilloscope() override;
 		
         static bool isInstantiated() ;
 

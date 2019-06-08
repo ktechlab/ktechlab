@@ -12,7 +12,7 @@
 #include "libraryitem.h"
 #include "mosfet.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <kiconloader.h>
 #include <klocalizedstring.h>
 #include <qpainter.h>

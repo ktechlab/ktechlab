@@ -24,18 +24,18 @@ class ECSevenSegment : public Component
 {
 public:
 	ECSevenSegment( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~ECSevenSegment();
+	~ECSevenSegment() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
 	
-	virtual void stepNonLogic();
-	virtual bool doesStepNonLogic() const { return true; }
-	virtual void dataChanged();
+	void stepNonLogic() override;
+	bool doesStepNonLogic() const override { return true; }
+	void dataChanged() override;
 	
 private:
-	virtual void drawShape( QPainter &p );
-	
+	void drawShape( QPainter &p ) override;
+
 	bool m_bCommonCathode;
 	double lastUpdatePeriod;
 	double avg_brightness[8];

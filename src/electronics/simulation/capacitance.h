@@ -27,26 +27,26 @@ public:
 		m_trap // Trapezoidal (currently unimplemented)
 	};
 	Capacitance( const double capacitance, const double delta );
-	virtual ~Capacitance();
+	~Capacitance() override;
 	
-	virtual Type type() const { return Element_Capacitance; }
+	Type type() const override { return Element_Capacitance; }
 	/**
 	 * Set the stepping use for numerical integration of capacitance,
 	 * and the interval between successive updates
 	 */
 	void setMethod( Method m );
-	virtual void time_step();
-	virtual void add_initial_dc();
+	void time_step() override;
+	void add_initial_dc() override;
 	void setCapacitance( const double c );
 
 protected:
-	virtual void updateCurrents();
-	virtual bool updateStatus();
+	void updateCurrents() override;
+	bool updateStatus() override;
 	
 private:
 	double m_cap; // Capacitance
 	Method m_method; // Method of integration
-	
+
 	double m_scaled_cap; // capacitance scaled to time base of latest m_delta
 	double i_eq_old;
 };

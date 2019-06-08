@@ -33,7 +33,7 @@ class KtlQCanvas : public QObject
 		KtlQCanvas( const int w, const int h);
 		KtlQCanvas( QPixmap p, int h, int v, int tilewidth, int tileheight );
 
-		virtual ~KtlQCanvas();
+		~KtlQCanvas() override;
 
 		virtual void setTiles( QPixmap tiles, int h, int v,
 							   int tilewidth, int tileheight );
@@ -158,7 +158,7 @@ class KtlQCanvasView : public KtlQ3ScrollView
 
 		KtlQCanvasView(QWidget* parent=0, const char* name=0, Qt::WFlags f=0); // 2018.08.15 - unused?
 		KtlQCanvasView(KtlQCanvas* viewing, QWidget* parent=0, const char* name=0, Qt::WFlags f=0);
-		~KtlQCanvasView();
+		~KtlQCanvasView() override;
 
 		KtlQCanvas* canvas() const
 		{ return viewing; }
@@ -170,11 +170,11 @@ class KtlQCanvasView : public KtlQ3ScrollView
 
 	protected:
         /** overrides KtlQ3ScrollView::drawContents() */   // override paintEvent?
-		virtual void drawContents( QPainter*, int cx, int cy, int cw, int ch );
-		QSize sizeHint() const;
+		void drawContents( QPainter*, int cx, int cy, int cw, int ch ) override;
+		QSize sizeHint() const override;
 
 	private:
-		void drawContents( QPainter* );
+		void drawContents( QPainter* ) override;
 		KtlQCanvas* viewing;
 		KtlQCanvasViewData* d;
 		friend void qt_unview(KtlQCanvas* c);

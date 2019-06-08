@@ -23,24 +23,24 @@ class DPRectangle : public DrawPart
 {
 	public:
 		DPRectangle( ItemDocument *itemDocument, bool newItem, const char *id = 0L );
-		~DPRectangle();
+		~DPRectangle() override;
 
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
 
-		virtual void setSelected( bool yes );
+		void setSelected( bool yes ) override;
 	
-		virtual QSize minimumSize() const;
+		QSize minimumSize() const override;
 
 	protected:
-		virtual void drawShape( QPainter &p );
-		void dataChanged();
-		virtual void postResize();
+		void drawShape( QPainter &p ) override;
+		void dataChanged() override;
+		void postResize() override;
 		
 		/** Returns the rectangle to draw in, taking into account the line
 		  * width */
 		QRect drawRect() const;
-	
+
 	private:
 		RectangularOverlay *m_pRectangularOverlay;
 };
@@ -53,16 +53,16 @@ class DPEllipse : public DPRectangle
 {
 	public:
 		DPEllipse( ItemDocument *itemDocument, bool newItem, const char *id = 0L );
-		~DPEllipse();
+		~DPEllipse() override;
 
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
 
 	protected:
-		virtual void postResize();
+		void postResize() override;
 	
 	private:
-		virtual void drawShape( QPainter &p );
+		void drawShape( QPainter &p ) override;
 };
 
 #endif

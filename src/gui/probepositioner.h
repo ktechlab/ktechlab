@@ -28,7 +28,7 @@ class ProbePositioner : public QWidget
 	Q_OBJECT
 	public:
 		ProbePositioner(QWidget *parent = 0, const char *name = 0);
-		~ProbePositioner();
+		~ProbePositioner() override;
 		/**
 		 * Returns the amount of space (height in pixels) that a probe output
 		 * takes up
@@ -51,25 +51,25 @@ class ProbePositioner : public QWidget
 		 * in m_probePosOffset.
 		 */
 		ProbeData* probeAtPosition( const QPoint &pos );
-		
+
 	public slots:
 		void forceRepaint();
-		
+
 	protected slots:
 		void slotProbeDataRegistered( int id, ProbeData *probe );
 		void slotProbeDataUnregistered( int id );
-		
+
 	protected:
-		virtual void mousePressEvent( QMouseEvent * e );
-		virtual void mouseReleaseEvent( QMouseEvent * e );
-		virtual void mouseMoveEvent( QMouseEvent * e );
-		virtual void paintEvent( QPaintEvent *e );
-		virtual void resizeEvent( QResizeEvent *event );
-		
+		void mousePressEvent( QMouseEvent * e ) override;
+		void mouseReleaseEvent( QMouseEvent * e ) override;
+		void mouseMoveEvent( QMouseEvent * e ) override;
+		void paintEvent( QPaintEvent *e ) override;
+		void resizeEvent( QResizeEvent *event ) override;
+
 		ProbeDataMap m_probeDataMap;
 		ProbeData *p_draggedProbe;
 		int m_probePosOffset;
-		
+
 		bool b_needRedraw;
 		QPixmap *m_pixmap;
 };

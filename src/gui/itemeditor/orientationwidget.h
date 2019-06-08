@@ -28,7 +28,7 @@ class OrientationWidget : public QWidget
 	Q_OBJECT
 	public:
 		OrientationWidget( QWidget *parent = 0l, const char *name = 0l );
-		~OrientationWidget();
+		~OrientationWidget() override;
 
 	public slots:
 		void slotUpdate( CNItemGroup * itemGroup );

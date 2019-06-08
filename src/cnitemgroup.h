@@ -39,7 +39,7 @@ class CNItemGroup : public ItemGroup
 Q_OBJECT
 public:
 	CNItemGroup( ICNDocument *icnDocument, const char *name = 0 );
-	~CNItemGroup();
+	~CNItemGroup() override;
 	
 	/**
 	 * Adds a CNItem to the group, if it is not already in it, or other items at
@@ -61,11 +61,11 @@ public:
 	 * If the item is a CNItem, Node or Connector, returns the status
 	 * for that particular add function, else returns false
 	 */
-	virtual bool addQCanvasItem( KtlQCanvasItem *qcanvasItem );
+	bool addQCanvasItem( KtlQCanvasItem *qcanvasItem ) override;
 	/**
 	 * Sets the contained items to those in this list
 	 */
-	virtual void setItems( KtlQCanvasItemList list );
+	void setItems( KtlQCanvasItemList list ) override;
 	/**
 	 * Removes the CNItem from the group
 	 */
@@ -81,11 +81,11 @@ public:
 	/**
 	 * If the item is a CNItem, Node or Connector, then attempts to remove it
 	 */
-	virtual void removeQCanvasItem( KtlQCanvasItem *qcanvasItem );
+	void removeQCanvasItem( KtlQCanvasItem *qcanvasItem ) override;
 	/**
 	 * Returns true if the KtlQCanvasItem passed is contained in the group
 	 */
-	virtual bool contains( KtlQCanvasItem *qcanvasItem ) const;
+	bool contains( KtlQCanvasItem *qcanvasItem ) const override;
 	/**
 	 * Returns the number of Nodes in the CanvasGroup
 	 */
@@ -98,11 +98,11 @@ public:
 	 * Returns the total number of items in the group
 	 * (CNItems, Nodes, Connectors)
 	 */
-	uint count() const { return itemCount()+m_nodeCount+m_connectorCount; }
+	uint count() const override { return itemCount()+m_nodeCount+m_connectorCount; }
 	/**
 	 * Sets the selected state of all items in the group
 	 */
-	virtual void setSelected( bool sel );
+	void setSelected( bool sel ) override;
 	/**
 	 * Sets the orientation (degrees component) of all items in the group
 	 */
@@ -122,17 +122,17 @@ public:
 	/**
 	 * Merges all items in the given group with this group
 	 */
-	virtual void mergeGroup( ItemGroup *group );
+	void mergeGroup( ItemGroup *group ) override;
 	/**
 	 * Removes all items from this group (doesn't delete them)
 	 */
-	virtual void removeAllItems();
+	void removeAllItems() override;
 	/**
 	 * Attempts to delete everything in the group.
 	 * Note: You *must* call ICNDocument::flushDeleteList() after calling this function,
 	 * as this function only tells the items to remove themselves
 	 */
-	virtual void deleteAllItems();
+	void deleteAllItems() override;
 	/**
 	 * Returns a list of all the Nodes in the group.
 	 * @param excludeParented if false, then nodes that are fully contained
@@ -165,8 +165,8 @@ public:
 	 * (or other items), this will return false.
 	 */
 	bool haveSameOrientation() const;
-	
-	
+
+
 public slots:
 	/**
 	 * Sets the orientation of all selected items to 0 degrees.

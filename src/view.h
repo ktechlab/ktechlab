@@ -43,7 +43,7 @@ class ViewStatusBar : public KStatusBar
 Q_OBJECT
 public:
 	ViewStatusBar( View *view );
-	
+
 	enum InfoId
 	{
 		SimulationState,
@@ -51,13 +51,13 @@ public:
 		InsertMode,
 		SelectionMode
 	};
-	
+
 public slots:
 	void slotModifiedStateChanged();
 	void slotFileNameChanged( const KUrl &url );
 	void slotViewFocused( View * );
 	void slotViewUnfocused();
-	
+
 protected:
 	View *p_view;
 	QLabel* m_modifiedLabel;
@@ -74,8 +74,9 @@ class View : public QWidget, public KXMLGUIClient
 Q_OBJECT
 public:
 	View( Document *document, ViewContainer *viewContainer, uint viewAreaId, const char *name = 0 );
-	virtual ~View();
-	
+	~View() override;
+
+
 	QAction * actionByName( const QString & name ) const;
 	/**
 	 * Pointer to the parent document
@@ -123,16 +124,16 @@ public:
 	 * Restore view to actual size
 	 */
 	virtual void actualSize() {};
-	
+
 	virtual void toggleBreakpoint() {};
-	virtual bool eventFilter( QObject * watched, QEvent * e );
+	bool eventFilter( QObject * watched, QEvent * e ) override;
 
 protected slots:
 	/**
 	 * Called when the user changes the configuration.
 	 */
 	virtual void slotUpdateConfiguration() {};
-	
+
 signals:
 	/**
 	 * Emitted when the view receives focus. @p view is a pointer to this class.
@@ -142,7 +143,7 @@ signals:
 	 * Emitted when the view looses focus.
 	 */
 	void unfocused();
-	
+
 protected:
 	/**
 	 * This function should be called in the constructor of the child class
@@ -150,7 +151,7 @@ protected:
 	 * events.
 	 */
 	void setFocusWidget( QWidget * focusWidget );
-	
+
 	QPointer<Document> m_pDocument;
 	QPointer<ViewContainer> p_viewContainer;
 	uint m_viewAreaId;
@@ -185,7 +186,7 @@ public:
 		setFixedHeight( 2 );
 	}
 protected:
-	void paintEvent( QPaintEvent *e );
+	void paintEvent( QPaintEvent *e ) override;
 // 	{
 // 		QPainter p( this );
 // 		//p.setPen( colorGroup().shadow() );

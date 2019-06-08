@@ -24,11 +24,11 @@ class ECSubcircuit : public Component
 Q_OBJECT
 public:
 	ECSubcircuit( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
-	~ECSubcircuit();
+	~ECSubcircuit() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
+
 	/**
 	 * Create numExtCon nodes, deleting any old ones
 	 */
@@ -41,19 +41,19 @@ public:
 	 * Called from SubcircuitData once the subcircuit has been fully attached
 	 */
 	void doneSCInit();
-	
+
 public slots:
-	virtual void removeItem();
+	void removeItem() override;
 	
 signals:
 	/**
 	 * Emitted when the current subcircuit is deleted
 	 */
 	void subcircuitDeleted();
-	
+
 protected:
-	virtual void dataChanged();
-	virtual void drawShape( QPainter &p );
+	void dataChanged() override;
+	void drawShape( QPainter &p ) override;
 	QVector<QString> m_conNames;
 };
 

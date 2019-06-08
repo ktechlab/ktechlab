@@ -39,7 +39,7 @@ class ItemLibrary : public QObject
 {
 	Q_OBJECT
 	public:
-		~ItemLibrary();
+		~ItemLibrary() override;
 		/**
 		 * Returns a QPixmap of the item icon
 		 */

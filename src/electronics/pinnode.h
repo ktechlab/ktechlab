@@ -1,7 +1,7 @@
 //
 // C++ Interface: pinnode
 //
-// Description: 
+// Description:
 //
 //
 //
@@ -22,7 +22,7 @@ class PinNode : public ECNode
 public:
 	PinNode(ICNDocument* icnDocument, int dir, const QPoint& pos, QString* id = 0L);
 
-	~PinNode();
+	~PinNode() override;
 
 	/** Returns the node's type. This member will be removed one day */
 	virtual node_type type() const { return Node::ec_pin; }
@@ -30,10 +30,10 @@ public:
 	/**
 	 *  draws the PinNode
 	 */
-	virtual void drawShape( QPainter &p );
+	void drawShape( QPainter &p ) override;
 	
 protected:
-	virtual void initPoints();
+	void initPoints() override;
 };
 
 #endif

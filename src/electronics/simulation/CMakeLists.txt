@@ -1,29 +1,29 @@
 SET(elements_STAT_SRCS
-   cccs.cpp
-   ccvs.cpp
-   circuit.cpp
-   currentsource.cpp
-   diode.cpp
-   element.cpp
-   elementset.cpp
-   logic.cpp
-   matrix.cpp
-   vccs.cpp
-   vcvs.cpp
-   voltagesource.cpp
-   capacitance.cpp
-   resistance.cpp
-   currentsignal.cpp
-   voltagepoint.cpp
-   voltagesignal.cpp
-   elementsignal.cpp
-   nonlinear.cpp
-   reactive.cpp
-   bjt.cpp
-   opamp.cpp
-   inductance.cpp
-   jfet.cpp
-   mosfet.cpp
+#    cccs.cpp
+#    ccvs.cpp
+#    circuit.cpp
+#    currentsource.cpp
+#    diode.cpp
+#    element.cpp
+#    elementset.cpp
+#    logic.cpp
+#    matrix.cpp
+#    vccs.cpp
+#    vcvs.cpp
+#    voltagesource.cpp
+#    capacitance.cpp
+#    resistance.cpp
+#    currentsignal.cpp
+#    voltagepoint.cpp
+#    voltagesignal.cpp
+#    elementsignal.cpp
+#    nonlinear.cpp
+#    reactive.cpp
+#    bjt.cpp
+#    opamp.cpp
+#    inductance.cpp
+#    jfet.cpp
+#    mosfet.cpp
 )
 
-kde4_add_library(elements STATIC ${elements_STAT_SRCS})
+add_library(elements STATIC ${elements_STAT_SRCS})

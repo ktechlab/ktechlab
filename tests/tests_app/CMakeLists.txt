@@ -23,32 +23,34 @@ if(GPSim_FOUND)
     set(CMAKE_CXX_FLAGS ${KDE4_ENABLE_EXCEPTIONS})
 endif()
 
-kde4_add_executable(tests_app tests_app.cpp)
+find_package(Qt5 COMPONENTS REQUIRED Test)
+
+add_executable(tests_app tests_app.cpp)
 
 target_link_libraries( tests_app
     test_ktechlab
-    ktlqt3support
-    core gui micro flowparts
-    mechanics electronics elements components languages drawparts
-    itemeditor
-    test_ktechlab
-    math
+#     ktlqt3support
+    #core 
+#     gui micro flowparts
+#     mechanics electronics elements components languages drawparts
+#     itemeditor
+#     test_ktechlab
+#     math
 
     ${QT_QTTEST_LIBRARY}  # qt testlib
 
-    ${KDE4_KHTML_LIBRARY} # khtml
     ${GPSIM_LIBRARY}
-    ${KDE4_KTEXTEDITOR_LIBRARY} # ktexteditor
-    ${KDE4_KIO_LIBRARY} # kio
-    ${KDE4_KPARTS_LIBRARY} # kparts
-    ${QT_QTXML_LIBRARY}
-    ${KDE4_KDEUI_LIBRARY} # kdeui
-    ${QT_QTGUI_LIBRARY} # QtGui
-    ${KDE4_KDECORE_LIBRARY} # kdecore
-    ${KDE4_KDE3SUPPORT_LIBRARY} # kde3support
-    ${QT_QT3SUPPORT_LIBRARY} # Qt3Support
-    ${QT_QTCORE_LIBRARY} # QtCore
-    ${KDE4_KFILE_LIBRARY} # kfile
+	${QT_QTXML_LIBRARY}
+	${QT_QTGUI_LIBRARY} # QtGui
+	${QT_QTCORE_LIBRARY} # QtCore
+	KF5::ConfigCore
+	KF5::ConfigGui
+	KF5::KIOCore
+	KF5::KHtml
+	KF5::CoreAddons
+	KF5::XmlGui
+	KF5::TextEditor
+	KF5::KDELibs4Support
     )
 if(GPSim_FOUND)
     target_link_libraries(tests_app ${GPSim_LIBRARIES})

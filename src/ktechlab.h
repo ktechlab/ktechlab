@@ -11,12 +11,12 @@
 #ifndef KTECHLAB_H
 #define KTECHLAB_H
 
-#include "katemdi.h"
+#include <katemdi.h>
+#include <KUrl>
 
-#include <kurl.h>
-
-#include <qmap.h>
-#include <qlist.h>
+#include <QMap>
+#include <QList>
+#include <QPointer>
 
 class CircuitDocument;
 class TextDocument;
@@ -59,7 +59,7 @@ class KTechlab : public KateMDI::MainWindow
 
 	public:
 		KTechlab();
-		~KTechlab();
+		~KTechlab() override;
 		
 		/**
 		 * @return pointer to the main KTechlab object. This is set to null when
@@ -116,9 +116,9 @@ class KTechlab : public KateMDI::MainWindow
 		 * Opens a file in the given ViewArea.
 		 */
 		void openFile( ViewArea * viewArea );
-		
+
 		virtual void show();
-		
+
 	signals:
 		/**
 		 * Emitted when the user changes the configuration settings in the config dialog
@@ -132,7 +132,7 @@ class KTechlab : public KateMDI::MainWindow
 		 * Emitted when ViewContainers should update their captions.
 		 */
 		void needUpdateCaptions();
-	
+
 	public slots:
 		/**
 		 * The user right clicked on a tab item.
@@ -154,16 +154,16 @@ class KTechlab : public KateMDI::MainWindow
 		 */
 		void addRecentFile( const KUrl &url );
 		/**
-		 * A document had its modified state changed; will update actions, 
+		 * A document had its modified state changed; will update actions,
 		 * tab titles, etc as appropriate.
 		 */
 		void slotDocModifiedChanged();
 		/**
-		 * A document had its undo/redo state changed; will update actions, 
+		 * A document had its undo/redo state changed; will update actions,
 		 * tab titles, etc as appropriate.
 		 */
 		void slotDocUndoRedoChanged();
-	
+
 		void slotFileNewAssembly();
 		void slotFileNewMicrobe();
 		void slotFileNewC();
@@ -181,8 +181,8 @@ class KTechlab : public KateMDI::MainWindow
 		/**
 		 * Overridden virtuals for Qt drag 'n drop (XDND)
 		 */
-		virtual void dragEnterEvent(QDragEnterEvent *event);
-		virtual void dropEvent(QDropEvent *event);
+		void dragEnterEvent(QDragEnterEvent *event) override;
+		void dropEvent(QDropEvent *event) override;
 		/**
 		 * This function is called when it is time for the app to save its
 		 * properties for session management purposes.
@@ -199,10 +199,10 @@ class KTechlab : public KateMDI::MainWindow
 		 * This function doesn't actually close the main window; it only queries the user and closes the active view.
 		 * To quit the appliaction completly, you should use KTechlab::slotFileQuit()
 		 */
-		virtual bool queryClose();
+		bool queryClose() override;
 	
 	protected slots:
-		void slotViewContainerActivated( QWidget * viewContainer );
+		void slotViewContainerActivated( int index );
 		void slotUpdateTabWidget();
 		/**
 		 * Updates the tab and window captions from what is currently open and
@@ -222,14 +222,14 @@ class KTechlab : public KateMDI::MainWindow
 		 */
 		void openExample(QAction*);
 		void slotViewContainerDestroyed( QObject * obj );
-	
+
 		// Editing operations
 		void slotEditUndo();
 		void slotEditRedo();
 		void slotEditCut();
 		void slotEditCopy();
 		void slotEditPaste();
-	
+
 		/**
 		 * Split the current view into two
 		 */
@@ -240,7 +240,7 @@ class KTechlab : public KateMDI::MainWindow
 		void slotViewSplitTopBottom();
 		void slotViewContainerClose();
 		void slotViewClose();
-	
+
 		void slotOptionsShowStatusbar();
 		void slotOptionsConfigureKeys();
 		void slotOptionsConfigureToolbars();
@@ -252,7 +252,7 @@ class KTechlab : public KateMDI::MainWindow
 		void setupToolDocks();
 		void setupView();
 		void setupTabWidget();
-	
+
 		RecentFilesAction * m_recentFiles;
 		RecentFilesAction * m_recentProjects;
 		KToggleAction * m_statusbarAction;
@@ -265,9 +265,9 @@ class KTechlab : public KateMDI::MainWindow
 		QTimer * m_pUpdateCaptionsTimer;
 		IntStringMap m_exampleFiles;
 		QFont m_itemFont;
-		
+
 		static KTechlab * m_pSelf;
-	
+
 		QPointer<ViewContainer> m_pContextMenuContainer;
 		QPointer<ViewContainer> m_pFocusedContainer;
 		QPointer<ViewContainer> m_pContainerDropSource;

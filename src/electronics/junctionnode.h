@@ -1,7 +1,7 @@
 //
 // C++ Interface: junctionnode
 //
-// Description: 
+// Description:
 //
 //
 //
@@ -21,7 +21,7 @@ class JunctionNode : public ECNode
 public:
 	JunctionNode(ICNDocument* icnDocument, int dir, const QPoint& pos, QString* id = 0L);
 
-	~JunctionNode();
+	~JunctionNode() override;
 
 	/** Returns the node's type. This member will be removed one day */
 	virtual node_type type() const { return Node::ec_junction; }
@@ -29,11 +29,11 @@ public:
 	/**
 	 *  draws the JunctionNode
 	 */
-    	virtual void drawShape( QPainter &p );
+    	void drawShape( QPainter &p ) override;
 
 protected:
-	virtual void initPoints();
-	
+	void initPoints() override;
+
 };
 
 #endif

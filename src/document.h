@@ -43,7 +43,7 @@ public:
 		dt_pinMapEditor
 	};
 	Document( const QString &caption, const char *name = 0 );
-	virtual ~Document();
+	~Document() override;
 	/**
 	 * If the user has created a new document from the new file dialog, and
 	 * wants to add it to the project, then this must wait until this file is

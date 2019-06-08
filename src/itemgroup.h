@@ -36,7 +36,7 @@ class ItemGroup : public QObject
 Q_OBJECT
 public:
 	ItemGroup( ItemDocument *view, const char *name = 0 );
-	virtual ~ItemGroup();
+	~ItemGroup() override;
 	
 	/**
 	 * Returns a pointer to the "active" CNItem - i.e. the last CNItem

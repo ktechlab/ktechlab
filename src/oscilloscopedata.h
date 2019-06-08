@@ -54,8 +54,8 @@ class ProbeData : public QObject
 	Q_OBJECT
 	public:
 		ProbeData( int id);
-		~ProbeData();
-		
+		~ProbeData() override;
+
 		/**
 		 * @returns unique id for oscilloscope, set on construction
 		 */
@@ -125,7 +125,7 @@ class LogicProbeData : public ProbeData
 {
 	public:
 		LogicProbeData( int id);
-		~LogicProbeData() { delete m_data; }
+		~LogicProbeData() override { delete m_data; }
 
 		/**
 		 * Appends the data point to the set of data.
@@ -134,8 +134,8 @@ class LogicProbeData : public ProbeData
 			m_data->push_back(data);
 		} */ // 2016.05.06 - moved to cpp
 
-		virtual void eraseData();
-		virtual uint64_t findPos( uint64_t time) const;
+		void eraseData() override;
+		uint64_t findPos( uint64_t time) const override;
 
 		bool isEmpty() const { return m_data->size() == 0; }
 
@@ -151,9 +151,9 @@ class FloatingProbeData : public ProbeData
 {
 	public:
 		enum Scaling { Linear, Logarithmic };
-		
+
 		FloatingProbeData( int id);
-		
+
 		/**
 		 * Appends the data point to the set of data.
 		 */
@@ -188,9 +188,9 @@ class FloatingProbeData : public ProbeData
 		 * only used with logarithmic scaling).
 		 */
 		double lowerAbsValue() const { return m_lowerAbsValue; }
-		
-		virtual void eraseData();
-		virtual uint64_t findPos( uint64_t time) const;
+
+		void eraseData() override;
+		uint64_t findPos( uint64_t time) const override;
 
 		bool isEmpty() const { return m_data->size() == 0; }
 

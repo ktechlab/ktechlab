@@ -22,17 +22,17 @@ class VoltageSignal : public Reactive, public ElementSignal
 {
 public:
 	VoltageSignal( const double delta, const double voltage );
-	virtual ~VoltageSignal();
-	
-	virtual Element::Type type() const { return Element_VoltageSignal; }
+	~VoltageSignal() override;
+
+	Element::Type type() const override { return Element_VoltageSignal; }
 	void setVoltage( const double voltage );
 	double voltage() { return m_voltage; }
-	virtual void time_step();
+	void time_step() override;
 
 protected:
-	virtual void updateCurrents();
-	virtual void add_initial_dc();
-	
+	void updateCurrents() override;
+	void add_initial_dc() override;
+
 private:
 	double m_voltage; // Voltage
 };

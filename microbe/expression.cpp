@@ -22,7 +22,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
- 
+
 #include "btreebase.h"
 #include "btreenode.h"
 #include "expression.h"
@@ -30,8 +30,8 @@
 #include "parser.h"
 #include "pic14.h"
 
-#include <kdebug.h>
 #include <klocale.h>
+#include <qdebug.h>
 #include <qregexp.h>
 
 Expression::Expression( PIC14 *pic, Microbe *master, SourceLine sourceLine, bool suppressNumberTooBig )
@@ -50,7 +50,7 @@ void Expression::traverseTree( BTreeNode *root, bool conditionalRoot )
 {
 	Traverser t(root);
 	t.start();
-	
+
 	// special case: if we are starting at the root node then
 	// we are dealing with something of the form variable = 6
 	// or variable = portb
@@ -71,23 +71,23 @@ void Expression::traverseTree( BTreeNode *root, bool conditionalRoot )
 		// no need to traverse the tree as there is none.
 		return;
 	}
-	
+
 	t.setCurrent(root);
-	
+
 	if(t.current()->hasChildren())
 	{
 		// Here we work out what needs evaulating, and in which order.
 		// To minimize register usage, if only one branch needs traversing,
 		// then that branch should be done first.
 		bool evaluateLeft = t.current()->left()->needsEvaluating();
-	
+
 		BTreeNode *evaluateFirst;
 		BTreeNode *evaluateSecond;
-	
+
 		// If both need doing, then it really doesn't matter which we do
 		// first (unless we are looking to do really complex optimizations...
-	
-		// Cases: 
+
+		// Cases:
 		// - Both need evaluating,
 		// - or left needs doing first,
 		// in both cases we evaluate left, then right.
@@ -102,15 +102,15 @@ void Expression::traverseTree( BTreeNode *root, bool conditionalRoot )
 			evaluateFirst = t.current()->right();
 			evaluateSecond = t.current()->left();
 		}
-		
+
 		QString dest1 = mb->dest();
 		mb->incDest();
 		QString dest2 = mb->dest();
 		mb->decDest();
-	
+
 		bool evaluated = false;
 		if( evaluateFirst->hasChildren() )
-		{	
+		{
 			traverseTree(evaluateFirst);
 			evaluated = true;
 		}
@@ -126,12 +126,12 @@ void Expression::traverseTree( BTreeNode *root, bool conditionalRoot )
 			// value wanted in working is not the current value.
 			// But as the optimizer will deal with unnecessary variables anyway,
 			// always save to a register
-			
+
 			evaluateFirst->setReg( dest1 );
 			evaluateFirst->setType( variable );
 			m_pic->saveToReg( dest1 );
 		}
-	
+
 		evaluated = false;
 		if( evaluateSecond->hasChildren() )
 		{
@@ -154,12 +154,12 @@ void Expression::traverseTree( BTreeNode *root, bool conditionalRoot )
 			m_pic->saveToReg( dest2 );
 		}
 	}
-	
+
 	if(t.current()->childOp()==divbyzero)
 	{
 		mistake( Microbe::DivisionByZero );
 	}
-	
+
 	// If we are at the top level of something like 'if a == 3 then', then we are ready to put
 	// in the if code, else the expression just evaluates to 0 or 1
 	if(conditionalRoot && t.current() == root)
@@ -181,13 +181,13 @@ void Expression::doOp( Operation op, BTreeNode *left, BTreeNode *right )
 		lvalue = left->value();
 	else
 		lvalue = left->reg();
-	
+
 	QString rvalue;
 	if(right->reg().isEmpty())
 		rvalue = right->value();
 	else
 		rvalue = right->reg();
-	
+
 	// Handle if stuff
 	PIC14::LocationType leftType = PIC14::num;
 	switch ( left->type() )
@@ -195,42 +195,42 @@ void Expression::doOp( Operation op, BTreeNode *left, BTreeNode *right )
 		case number:
 			leftType = PIC14::num;
 			break;
-			
+
 		case variable:
 			leftType = PIC14::var;
 			break;
-			
+
 		case working:
 			leftType = PIC14::work;
 			break;
-			
+
 		case unset:
 		case extpin:
 		case keypad:
-			kError() << k_funcinfo << "Bad left->type(): " << left->type() << endl;
+			qCritical() << Q_FUNC_INFO << "Bad left->type(): " << left->type() << endl;
 	};
-	
+
 	PIC14::LocationType rightType = PIC14::work;
 	switch ( right->type() )
 	{
 		case number:
 			rightType = PIC14::num;
 			break;
-			
+
 		case variable:
 			rightType = PIC14::var;
 			break;
-			
+
 		case working:
 			rightType = PIC14::work;
 			break;
-			
+
 		case unset:
 		case extpin:
 		case keypad:
-			kError() << k_funcinfo << "Bad right->type(): " << right->type() << endl;
+			qCritical() << Q_FUNC_INFO << "Bad right->type(): " << right->type() << endl;
 	};
-	
+
 	switch(op)
 	{
 		case equals:	m_pic->equal( lvalue, rvalue, leftType, rightType ); break;
@@ -239,17 +239,17 @@ void Expression::doOp( Operation op, BTreeNode *left, BTreeNode *right )
 		case gt:		m_pic->greaterThan( lvalue, rvalue, leftType, rightType ); break;
 		case le:		m_pic->lessOrEqual( lvalue, rvalue, leftType, rightType ); break;
 		case ge:		m_pic->greaterOrEqual( lvalue, rvalue, leftType, rightType ); break;
-		
+
 		case addition:		m_pic->add( lvalue, rvalue, leftType, rightType ); break;
 		case subtraction:	m_pic->subtract( lvalue, rvalue, leftType, rightType ); break;
 		case multiplication:	m_pic->mul( lvalue, rvalue, leftType, rightType ); break;
 		case division:		m_pic->div( lvalue, rvalue, leftType, rightType ); break;
-		
+
 		case bwand:	m_pic->bitwise( bwand, lvalue, rvalue, leftType, rightType ); break;
 		case bwor:	m_pic->bitwise( bwor, lvalue, rvalue, leftType, rightType ); break;
 		case bwxor:	m_pic->bitwise( bwxor, lvalue, rvalue, leftType, rightType ); break;
 		case bwnot:	m_pic->bitwise( bwnot, lvalue, rvalue, leftType, rightType ); break;
-		
+
 		default: break;
 	}
 }
@@ -341,7 +341,7 @@ void Expression::buildTree( const QString & unstrippedExpression, BTreeBase *tre
 		else op = noop;
 		break;
 		}
-		
+
 		// *,/
 		case 3:
 		{
@@ -362,7 +362,7 @@ void Expression::buildTree( const QString & unstrippedExpression, BTreeBase *tre
 		else op = noop;
 		break;
 		}
-		
+
 		// ^
 		case 4:
 		{
@@ -376,7 +376,7 @@ void Expression::buildTree( const QString & unstrippedExpression, BTreeBase *tre
 		else op = noop;
 		break;
 		}
-		
+
 		// AND, OR, XOR
 		case 5:
 		{
@@ -404,7 +404,7 @@ void Expression::buildTree( const QString & unstrippedExpression, BTreeBase *tre
 		else op = noop;
 		break;
 		}
-		
+
 		// NOT
 		case 6:
 		{
@@ -420,27 +420,27 @@ void Expression::buildTree( const QString & unstrippedExpression, BTreeBase *tre
 		break;
 		}
 	}
-	
+
 	node->setChildOp(op);
-	
+
 	QString tokens[2];
 	tokens[0] = expression.left(firstEnd).trimmed();
 	tokens[1] = expression.mid(secondStart).trimmed();
-	
+
 	if( op != noop )
-	{	
+	{
 		for( int j = 0; j < 2; j++ )
 		{
-			
+
 			BTreeNode *newNode = new BTreeNode();
 			tree->addNode( node, newNode, (j == 0) );
 			// we need to strip any brackets from the sub-expression
-			
-			// try each token again at the same level, if they 
+
+			// try each token again at the same level, if they
 			// don't have any of this level's operators, then the function
 			// will go to the next level as below.
-			
-			// For unary opertaions, e.g NOT, we have no special 
+
+			// For unary opertaions, e.g NOT, we have no special
 			// code for nodes with only one child, so we leave the left
 			// hand child blank and put the rest in the right hand node.
 			if( unary && j == 0 )
@@ -457,7 +457,7 @@ void Expression::buildTree( const QString & unstrippedExpression, BTreeBase *tre
 		// then just pass the node onto the next parsing level.
 		// unless we are at the lowest level, in which case we have reached a final value.
 		if( level == 6 ) expressionValue(expression,tree,node);
-		else 
+		else
 		{
 			buildTree(expression,tree,node,level + 1);
 		}
@@ -469,10 +469,10 @@ void Expression::doUnaryOp(Operation op, BTreeNode *node)
 	/* Note that this isn't for unary operations as such,
 	 rather for things that are operations that have no direct children,
 	 e.g. portx.n is high, and functionname(args)*/
-	
+
 	if ( op == pin || op == notpin )
 		m_pic->Spin( m_pic->toPortPin( node->value() ), (op==notpin) );
-	
+
 	else if ( op == read_keypad )
 		m_pic->Skeypad( mb->variable( node->value() ) );
 }
@@ -489,7 +489,7 @@ void Expression::compileExpression( const QString & expression )
 	tree->setRoot(root);
 	tree->pruneTree(tree->root());
 	traverseTree(tree->root());
-	
+
 	// Note deleting the tree deletes all nodes, so the root
 	// doesn't need deleting separately.
 	delete tree;
@@ -514,7 +514,7 @@ void Expression::compileConditional( const QString & expression, Code * ifCode, 
 
 	// parse the expression into the tree
 	buildTree(expression,tree,root,0);
-	
+
 	// Modify the tree so it is always at the top level of the form (kwoerpkwoep) == (qwopekqpowekp)
 	if ( root->childOp() != equals &&
 			root->childOp() != notequals &&
@@ -527,24 +527,24 @@ void Expression::compileConditional( const QString & expression, Code * ifCode, 
 			root->childOp() != read_keypad )
 	{
 		BTreeNode *newRoot = new BTreeNode();
-		
+
 		BTreeNode *oneNode = new BTreeNode();
 		oneNode->setChildOp(noop);
 		oneNode->setType(number);
 		oneNode->setValue("1");
-		
+
 		newRoot->setLeft(root);
 		newRoot->setRight(oneNode);
 		newRoot->setType(unset);
 		newRoot->setChildOp(ge);
-		
+
 		tree->setRoot(newRoot);
 		root = newRoot;
 	}
 	// compile the tree into assembly code
 	tree->setRoot(root);
 	tree->pruneTree(tree->root(),true);
-	
+
 	// We might have just a constant expression, in which case we can just always do if or else depending
 	// on whether it is true or false.
 	if( root->childOp() == noop )
@@ -555,13 +555,13 @@ void Expression::compileConditional( const QString & expression, Code * ifCode, 
 			m_pic->mergeCode( ifCode );
 		return;
 	}
-	
+
 	// traverse tree with argument conditionalRoot true
 	// so that 3 == x gets integrated with code for if, repeat until etc...
 	m_ifCode = ifCode;
 	m_elseCode = elseCode;
 	traverseTree(tree->root(),true);
-	
+
 	// Note deleting the tree deletes all nodes, so the root
 	// doesn't need deleting separately.
 	delete tree;
@@ -596,17 +596,17 @@ int Expression::findSkipBrackets( const QString & expr, char ch, int startPos)
 				}
 			}
 		}
-		
+
 		if(expr[i].toLatin1() == '(') bracketLevel++;
 		else if(expr[i].toLatin1() == ')') bracketLevel--;
-		
+
 		if( bracketLevel == 0 )
 		{
 			if(expr[i].toLatin1() == ch) found = true;
 			else i++;
 		}
 		else i++;
-		
+
 		if( i >= int(expr.length()) )
 		{
 			found = true;
@@ -622,7 +622,7 @@ int Expression::findSkipBrackets( const QString & expr, QString phrase, int star
 	int i = startPos;
 	int bracketLevel = 0;
 	while(!found)
-	{	
+	{
 		if(expr[i].toLatin1() == '\'')
 		{
 			if( i + 2 < int(expr.length()) )
@@ -634,17 +634,17 @@ int Expression::findSkipBrackets( const QString & expr, QString phrase, int star
 				}
 			}
 		}
-		
+
 		if(expr[i].toLatin1() == '(') bracketLevel++;
 		else if(expr[i].toLatin1() == ')') bracketLevel--;
-		
+
 		if( bracketLevel == 0 )
 		{
 			if(expr.mid(i,phrase.length()) == phrase) found = true;
 			else i++;
 		}
 		else i++;
-		
+
 		if( i >= int(expr.length()) )
 		{
 			found = true;
@@ -669,7 +669,7 @@ QString Expression::stripBrackets( QString expression )
 			{
 				expression = expression.mid(1,expression.length() - 2).trimmed();
 			}
-			bracketLevel--;	
+			bracketLevel--;
 		}
 		if( i == int(expression.length() - 1) && bracketLevel > 0 )
 		{
@@ -690,9 +690,9 @@ void Expression::expressionValue( QString expr, BTreeBase */*tree*/, BTreeNode *
 	/* The "end of the line" for the expression parsing, the
 	expression has been broken down into the fundamental elements of expr.value()=="to"||
 	variable, number, special etc... so we now just set value and type */
-	
-	
-	
+
+
+
 	/* Alternatively we might have a function call
 	e.g. somefunction(3,potatoes,hairstyle + 6)
 	In which case we need to call back to parseExpr to process the arguments,
@@ -700,17 +700,17 @@ void Expression::expressionValue( QString expr, BTreeBase */*tree*/, BTreeNode *
 	Of course we also need to mark the terminal node type as a function.
 	*/
 	expr = expr.trimmed();
-	
+
 	// My intention is so that these error checks are ordered
 	// so that e.g. for x = 3 it picks up the = rather than the spaces first.
-	
-	
+
+
 	expr = mb->alias(expr);
 	ExprType t = expressionType(expr);
 
-	
+
 	// See if it is a single qouted character, e.g. 'A'
-	if( expr.left(1) == "\'" && expr.right(1) == "\'" ) 
+	if( expr.left(1) == "\'" && expr.right(1) == "\'" )
 	{
 		if( expr.length() == 3 ) // fall through to report as unknown variable if not of form 'x'
 		{
@@ -719,7 +719,7 @@ void Expression::expressionValue( QString expr, BTreeBase */*tree*/, BTreeNode *
 			expr =  QString::number(expr[1].toLatin1());
 		}
 	}
-	
+
 	// Check for the most common mistake ever!
 	if(expr.contains("="))
 		mistake( Microbe::InvalidEquals );
@@ -734,7 +734,7 @@ void Expression::expressionValue( QString expr, BTreeBase */*tree*/, BTreeNode *
 	else if(expr.contains(QRegExp("\\s")) && t!= extpin)
 		mistake( Microbe::MissingOperator );
 
-//***************modified isValidRegister is included ***********************//	
+//***************modified isValidRegister is included ***********************//
 
 	if( t == variable && !mb->isVariableKnown(expr) && !m_pic->isValidPort( expr ) && !m_pic->isValidTris( expr )&&!m_pic->isValidRegister( expr ) )
 		mistake( Microbe::UnknownVariable, expr );
@@ -743,16 +743,16 @@ void Expression::expressionValue( QString expr, BTreeBase */*tree*/, BTreeNode *
 
 	if ( mb->isVariableKnown(expr) && !mb->variable(expr).isReadable() )
 		mistake( Microbe::WriteOnlyVariable, expr );
-	
+
 	node->setType(t);
-	
+
 	// Since we currently only implement 8 bit unsigned integers, we should disallow
 	// anything outside the range [0-255].
 	if( t == number && !m_bSupressNumberTooBig && (expr.toInt() > 255) )
 	{
 		mistake( Microbe::NumberTooBig );
 	}
-	
+
 	// if there was a pin, we need to decocde it.
 	// For now and sacrificing syntax error checking
 	// we just look for the word "is" then "high" or "low".
@@ -770,10 +770,10 @@ void Expression::expressionValue( QString expr, BTreeBase */*tree*/, BTreeNode *
 		else NOT = false;
 		node->setChildOp(NOT?notpin:pin);
 	}
-	
+
 	else if ( t == keypad )
 		node->setChildOp( read_keypad );
-	
+
 	node->setValue(expr);
 }
 
@@ -781,7 +781,7 @@ ExprType Expression::expressionType( const QString & expression )
 {
 	// So we can't handle complex expressions yet anyway,
 	// let's just decide whether it is a variable or number.
-	
+
 	// Thanks to the convention that variable names must not
 	// begin with a number this is extremely simple to do!
 
@@ -792,25 +792,25 @@ ExprType Expression::expressionType( const QString & expression )
 	In reality it is just:
 	portx.n is high === portx.n
 	portx.n is low === !(portx.n)
-	These types of expression can be identified by the fact 
+	These types of expression can be identified by the fact
 	that they should be the only things that contain a '.'
 	*/
-	
+
 	/* Note that at the moment, literalToInt returns -1 if it is
 	not literal so isLiteral is redundant, but this may change if say
 	negative numbers are implemented
 	*/
-	
+
 	int value = Parser::literalToInt(expression);
 	if ( value != -1 )
 		return number;
-	
+
 	if( expression.contains('.') )
 		return extpin;
-	
+
 	if ( mb->variable( expression ).type() == Variable::keypadType )
 		return keypad;
-	
+
 	return variable;
 }
 
@@ -819,9 +819,9 @@ QString Expression::processConstant( const QString & expr, bool * isConstant )
 	bool temp;
 	if (!isConstant)
 		isConstant = &temp;
-	
+
 	QString code;
-	
+
 	// Make a tree to put the expression in.
 	BTreeBase *tree = new BTreeBase();
 	BTreeNode *root = new BTreeNode();
@@ -843,7 +843,7 @@ QString Expression::processConstant( const QString & expr, bool * isConstant )
 		code = "";
 		*isConstant = false;
 	}
-	
+
 	// Note deleting the tree deletes all nodes, so the root
 	// doesn't need deleting separately.
 	delete tree;

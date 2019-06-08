@@ -18,7 +18,7 @@
 
 #include <kcombobox.h>
 #include <kconfigskeleton.h>
-#include <kdebug.h>
+#include <qdebug.h>
 #include <ktemporaryfile.h>
 #include <kurlrequester.h>
 

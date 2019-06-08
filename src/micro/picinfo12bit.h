@@ -22,7 +22,7 @@ class PicAsm12bit : public AsmInfo
 {
 	public:
 		static PicAsm12bit *self();
-		virtual Set set() const { return AsmInfo::PIC12; }
+		Set set() const override { return AsmInfo::PIC12; }
 	
 	//protected:
 	//	static PicAsm12bit *m_self;
@@ -37,9 +37,9 @@ class PicInfo12bit : public PicInfo
 {
 	public:
 		PicInfo12bit();
-		~PicInfo12bit();
+		~PicInfo12bit() override;
 	
-		virtual AsmInfo * instructionSet() { return PicAsm12bit::self(); }
+		AsmInfo * instructionSet() override { return PicAsm12bit::self(); }
 };
 
 /**
@@ -49,8 +49,8 @@ class PicInfo16C54 : public PicInfo12bit
 {
 	public:
 		PicInfo16C54();
-		~PicInfo16C54();
-		virtual Support gpsimSupport() const { return FullSupport; }
+		~PicInfo16C54() override;
+		Support gpsimSupport() const override { return FullSupport; }
 };
 
 /**
@@ -60,8 +60,8 @@ class PicInfo16C55 : public PicInfo12bit
 {
 	public:
 		PicInfo16C55();
-		~PicInfo16C55();
-		virtual Support gpsimSupport() const { return FullSupport; }
+		~PicInfo16C55() override;
+		Support gpsimSupport() const override { return FullSupport; }
 };
 
 /**
@@ -71,8 +71,8 @@ class PicInfo12C508 : public PicInfo12bit
 {
 	public:
 		PicInfo12C508();
-		~PicInfo12C508();
-		virtual Support gpsimSupport() const { return FullSupport; }
+		~PicInfo12C508() override;
+		Support gpsimSupport() const override { return FullSupport; }
 };
 
 /**
@@ -82,8 +82,8 @@ class PicInfo12C509 : public PicInfo12C508
 {
 	public:
 		PicInfo12C509();
-		~PicInfo12C509();
-		virtual Support gpsimSupport() const { return FullSupport; }
+		~PicInfo12C509() override;
+		Support gpsimSupport() const override { return FullSupport; }
 };
 
 /**
@@ -93,8 +93,8 @@ class PicInfo12C671 : public PicInfo12C508
 {
 	public:
 		PicInfo12C671();
-		~PicInfo12C671();
-		virtual Support gpsimSupport() const { return NoSupport; }
+		~PicInfo12C671() override;
+		Support gpsimSupport() const override { return NoSupport; }
 };
 
 /**
@@ -104,8 +104,8 @@ class PicInfo12C672 : public PicInfo12C508
 {
 	public:
 		PicInfo12C672();
-		~PicInfo12C672();
-		virtual Support gpsimSupport() const { return NoSupport; }
+		~PicInfo12C672() override;
+		Support gpsimSupport() const override { return NoSupport; }
 };
 
 #endif

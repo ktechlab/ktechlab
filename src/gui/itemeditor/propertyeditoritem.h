@@ -51,7 +51,7 @@ class PropertyEditorItem : public QObject,  public QTableWidgetItem // K3ListVie
 		 */
 		PropertyEditorItem( /*K3ListView */ QTableWidget *parent, const QString &text);
 
-		~PropertyEditorItem();
+		~PropertyEditorItem() override;
 
 		/**
 		 * \return property's name.
