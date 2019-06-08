@@ -18,7 +18,7 @@
 #include "textdocument.h"
 
 #include <kcombobox.h>
-#include <kdebug.h>
+#include <qdebug.h>
 #include <klineedit.h>
 // #include <k3iconview.h>
 #include <klocalizedstring.h>

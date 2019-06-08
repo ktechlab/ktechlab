@@ -24,16 +24,16 @@ class ECJFET : public Component
 	public:
 		ECJFET( int JFET_type, ICNDocument *icnDocument, bool newItem, const char * id = 0L );
 		~ECJFET() override;
-	
+
 		static Item * constructNJFET( ItemDocument * itemDocument, bool newItem, const char * id );
 		static Item * constructPJFET( ItemDocument * itemDocument, bool newItem, const char * id );
 		static LibraryItem * libraryItemNJFET();
 		static LibraryItem * libraryItemPJFET();
-	
+
 	protected:
 		void dataChanged() override;
 		void drawShape( QPainter &p ) override;
-		
+
 		int m_JFET_type;
 		JFET * m_pJFET;
 };

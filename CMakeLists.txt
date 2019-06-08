@@ -1,4 +1,4 @@
-#set( KTECHLAB_DEVELOPER_BUILD "true" )
+set( KTECHLAB_DEVELOPER_BUILD "true" )
 
 project( ktechlab )
 set( VERSION 0.50.0 )
@@ -33,21 +33,29 @@ find_package(KF5 REQUIRED COMPONENTS
     Config
     CoreAddons
     DocTools
+    IconThemes
     I18n
     KDELibs4Support
     KHtml
+    KIO
     Parts
     TextEditor
     TextWidgets
     Solid
     WidgetsAddons
+    XmlGui
     )
-
 
 # find_package(Qt4 4.6.0 REQUIRED)
 # find_package(KDE4 REQUIRED)
 # include(KDE4Defaults)
-# find_package(GPSim)
+
+
+# Edit FindGPSim and replace
+#    include(MacroPushRequiredVars) -> include(CMakePushCheckState)
+#    macro_push_required_vars() -> cmake_push_check_state()
+#    macro_pop_required_vars() -> cmake_pop_check_state()
+find_package(GPSim REQUIRED)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
@@ -64,7 +72,7 @@ add_definitions(-fPIC)
 if (KTECHLAB_DEVELOPER_BUILD)
 # for debugging with GCC 5
     add_definitions( -fno-omit-frame-pointer )
-    set(SANITIZE_FLAGS " -fsanitize=address -fno-omit-frame-pointer ") # address
+    set(SANITIZE_FLAGS " -fsanitize=address -fno-omit-frame-pointer -fPIC") # address
     #set(SANITIZE_FLAGS " -fsanitize=undefined -fno-omit-frame-pointer ") # undefined
     #set(SANITIZE_FLAGS "") # disabled
 
@@ -109,6 +117,7 @@ include_directories(
     ${TextEditor_INCLUDE_DIRS}  # TODO figure out this one
     ${Qt5Core_INCLUDE_DIRS}
     ${Qt5Widgets_INCLUDE_DIRS}
+    ${Qt5Test_INCLUDE_DIRS}
     )
 
 set( SRC_EXAMPLES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/examples/ )

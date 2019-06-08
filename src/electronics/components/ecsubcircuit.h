@@ -28,7 +28,7 @@ public:
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
+
 	/**
 	 * Create numExtCon nodes, deleting any old ones
 	 */
@@ -41,7 +41,7 @@ public:
 	 * Called from SubcircuitData once the subcircuit has been fully attached
 	 */
 	void doneSCInit();
-	
+
 public slots:
 	void removeItem() override;
 	
@@ -50,7 +50,7 @@ signals:
 	 * Emitted when the current subcircuit is deleted
 	 */
 	void subcircuitDeleted();
-	
+
 protected:
 	void dataChanged() override;
 	void drawShape( QPainter &p ) override;

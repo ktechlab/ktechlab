@@ -1,7 +1,7 @@
 //
 // C++ Interface: canvas_private
 //
-// Description: 
+// Description:
 //
 //
 // Author: Alan Grimes <agrimes@speakeasy.net>, (C) 2008

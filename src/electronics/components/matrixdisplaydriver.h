@@ -27,12 +27,12 @@ class MatrixDisplayDriver : public Component
 	
 		void stepNonLogic() override;
 		bool doesStepNonLogic() const override { return true; }
-		
+
 	protected:
 		QVector<LogicIn*> m_pValueLogic;
 		QVector<LogicOut*> m_pRowLogic;
 		QVector<LogicOut*> m_pColLogic;
-		
+
 		unsigned m_prevCol;
 		unsigned m_nextCol;
 		unsigned m_scanCount;

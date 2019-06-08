@@ -28,7 +28,7 @@ class MechanicsInfo
 {
 public:
 	MechanicsInfo();
-	
+
 	double mass; // Mass
 	double momentOfInertia; // Moment of inertia
 };
@@ -38,7 +38,7 @@ class CombinedMechanicsInfo : public MechanicsInfo
 public:
 	CombinedMechanicsInfo();
 	CombinedMechanicsInfo( const MechanicsInfo &info );
-	
+
 	double x; // X coordinate of center of mass
 	double y; // Y coordinate of center of mass
 };
@@ -104,7 +104,7 @@ public:
 	 * orientation.
 	 */
 	void rotateAboutPoint( double x, double y, double angle );
-	
+
 protected:
 	double m_x;
 	double m_y;
@@ -121,7 +121,7 @@ Q_OBJECT
 public:
 	MechanicsItem( MechanicsDocument *mechanicsDocument, bool newItem, const QString &id );
 	~MechanicsItem() override;
-	
+
 	enum SelectionMode
 	{
 		sm_move,
@@ -167,9 +167,9 @@ public:
 	 * whether this item is allowed to be distorted, inverted, resized, etc.
 	 */
 	QRect maxInnerRectangle( const QRect &outerRect ) const;
-	
+
 	ItemData itemData() const override;
-	
+
 	bool mousePressEvent( const EventInfo &eventInfo ) override;
 	bool mouseReleaseEvent( const EventInfo &eventInfo ) override;
 	bool mouseDoubleClickEvent ( const EventInfo &eventInfo ) override;
@@ -177,26 +177,26 @@ public:
 	bool wheelEvent( const EventInfo &eventInfo ) override;
 	void enterEvent(QEvent *) override;
 	void leaveEvent(QEvent *) override;
-	
+
 public slots:
 	/**
 	 * Rotate the item by the given amount (in radians)
 	 */
 	void rotateBy( double dtheta );
 	void parentMoved();
-	 
+
 signals:
 	/**
 	 * Emitted when this item moves (translates or rotates)
 	 */
 	void moved();
-	
+
 protected slots:
 	/**
 	 * Recalculate the combined mechanics info (e.g. when mass is changed, or child added)
 	 */
 	void updateMechanicsInfoCombined();
-	
+
 protected:
 	void reparented( Item *oldItem, Item *newItem ) override;
 	void childAdded( Item *child ) override;
@@ -220,12 +220,12 @@ protected:
 	 * current position / angle
 	 */
 	void updateCanvasPoints();
-	
+
 	MechanicsDocument *p_mechanicsDocument;
 	PositionInfo m_relativePosition; // Absolution position if not attached to a parent item, or otherwise relative to parent item
 	MechanicsInfo m_mechanicsInfo;
 	CombinedMechanicsInfo m_mechanicsInfoCombined;
-	
+
 private:
 	SelectionMode m_selectionMode;
 };

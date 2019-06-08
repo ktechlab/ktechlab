@@ -23,10 +23,10 @@ class LED : public ECDiode
 public:
 	LED( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~LED() override;
-	
+
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
+
 	/**
 	 * Returns the brightness for the given current, from 255 (off) -> 0 (on)
 	 */
@@ -38,9 +38,9 @@ public:
 	
 private:
 	void drawShape( QPainter &p ) override;
-	
+
 	double r, g, b;
-	
+
 	double avg_brightness;
 	uint last_brightness;
 	double lastUpdatePeriod;

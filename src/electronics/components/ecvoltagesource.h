@@ -26,7 +26,7 @@ public:
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
+
 private:
 	void dataChanged() override;
 	void drawShape( QPainter &p ) override;

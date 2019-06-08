@@ -57,7 +57,7 @@ class ECNode : public Node
 		PinVector pins() const { return m_pins; }
 
 		/**
-		 * @param num number of the 
+		 * @param num number of the
 		 * @return pointer to a pin in this node, given by num
 		 */
 		Pin *pin( unsigned num = 0 ) const ;
@@ -68,7 +68,7 @@ class ECNode : public Node
 		bool showVoltageColor() const { return m_bShowVoltageColor; }
 		void setShowVoltageColor( bool show ) { m_bShowVoltageColor = show; }
 		void setNodeChanged();
-		
+
 		/**
 		 * Returns true if this node is connected (or is the same as) the node given
 		 * by other connectors or nodes (although not through CNItems)
@@ -92,13 +92,13 @@ class ECNode : public Node
 		 * and returns a pointer to the connector.
 		 */
 		Connector* createConnector( Node * node);
-		
+
 		// TODO oups, the following two methods do the same thing. Only one is needed.
 		/**
-		 * Returns a list of the attached connectors; implemented inline 
+		 * Returns a list of the attached connectors; implemented inline
 	 	*/
 		ConnectorList connectorList() const { return m_connectorList; }
-		
+
 		/**
 		 * @return the list of all the connectors attached to the node
 		 */
@@ -108,7 +108,7 @@ class ECNode : public Node
 		 * Removes all the NULL connectors
 	 	 */
 		void removeNullConnectors() override;
-		
+
 		/**
 		 * Returns the total number of connections to the node. This is the number
 		 * of connectors and the parent
@@ -147,18 +147,18 @@ class ECNode : public Node
 		double m_prevI;
 		KtlQCanvasRectangle * m_pinPoint;
 		PinVector m_pins;
-		
+
 		// -- functionality from node.h --
 		/** If this node has precisely two connectors emerging from it, then this
 		 * function will trace the two connectors until the point where they
-		 * diverge; this point is returned. 
+		 * diverge; this point is returned.
 		 * TODO: find a meaning for this function, for an electronic node...
 		 */
 		QPoint findConnectorDivergePoint( bool * found ) override;
 		
 		/** The attached connectors to this electronic node. No directionality here */
 		ConnectorList m_connectorList;
-		
+
 		/** (please document this) registers some signals for the node and the new connector (?) */
 		bool handleNewConnector( Connector * newConnector );
 };

@@ -31,7 +31,7 @@ public:
 		 * Add / remove pins according to the number of outputs the user has requested
 		 */
 		virtual void initPins() = 0;
-		
+
 		int m_numBits;
 		double m_range;
 };

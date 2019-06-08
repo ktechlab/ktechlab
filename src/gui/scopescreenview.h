@@ -17,8 +17,8 @@ class QTimer;
 ///Screen-type Oscilloscope data view
 /**
 An Oscilloscope screen, as opposed to a paper tape (the current Oscilloscope)
- 
-	@author John Myers 
+
+	@author John Myers
 */
 class ScopeScreenView : public ScopeViewBase
 {
@@ -45,19 +45,19 @@ public:
 	
 	double ticksPerPixel() const override {return 0;}
 	llong pixelsPerTick() const override {return 0;}
-	
+
 public slots:
 	void setIntervalsX(int value);
 	void setTicksPerIntervalX(int value);
 	void setOffsetX(int value);
-	
+
 	void updateViewTimeout();
-	
+
 private:
 	int m_intervalsX;
 	int m_ticksPerIntervalX;
 	int m_offsetX;
-	
+
 	QTimer* m_updateViewTmr;
 
 };

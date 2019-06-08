@@ -12,7 +12,7 @@
 #include "mechanicsitem.h"
 #include "mechanicsdocument.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <klocalizedstring.h>
 #include <qbitarray.h>
 #include <qpainter.h>

@@ -16,7 +16,7 @@
 #include <klocalizedstring.h>
 #include <qpainter.h>
 #include <qstyle.h>
-#include <kdebug.h>
+#include <qdebug.h>
 
 LEDPart::LEDPart( Component *pParent, const QString& strPNode, const QString& strNNode )
 {

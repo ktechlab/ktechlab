@@ -19,7 +19,7 @@
 #include "wire.h"
 #include "utils.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <qpainter.h>
 
 #include <cstdlib>
@@ -55,9 +55,9 @@ Connector::Connector(Node * /*startNode*/, Node * /*endNode*/, ICNDocument *icnD
 	if (id) {
 		m_id = *id;
 		if ( !p_icnDocument->registerUID(*id) ) {
-                    kDebug() << k_funcinfo << "Connector attempted to register given ID, but ID already in use: " << *id << endl;
+                    qDebug() << Q_FUNC_INFO << "Connector attempted to register given ID, but ID already in use: " << *id << endl;
                     m_id = p_icnDocument->generateUID( *id );
-                    kDebug() << "Creating a new one: " << m_id << endl;
+                    qDebug() << "Creating a new one: " << m_id << endl;
 		}
 	} else m_id = p_icnDocument->generateUID("connector");
 
@@ -73,7 +73,7 @@ Connector::~Connector() {
 
 	delete m_conRouter;
 
-	for (unsigned i = 0; i < m_wires.size(); i++)
+	for (int i = 0; i < m_wires.size(); i++)
 		delete m_wires[i];
 
 //	m_wires.resize(0);
@@ -139,11 +139,9 @@ void Connector::updateDrawList() {
 	Cells *cells = p_icnDocument->cells();
 
 	bool bumpNow = false;
-	const QPointList::const_iterator cplEnd = m_conRouter->cellPointList()->end();
-
-	for (QPointList::const_iterator it = m_conRouter->cellPointList()->begin(); it != cplEnd; ++it) {
-		const int x = (*it).x();
-		const int y = (*it).y();
+	for (QPoint p: *m_conRouter->cellPointList()) {
+		const int x = p.x();
+		const int y = p.y();
 
 		const int numCon = cells->haveCell(x, y) ? cells->cell(x, y).numCon : 0;
 
@@ -225,11 +223,8 @@ void Connector::updateDrawList() {
 	// Find the bounding rect
 	{
 		int x1 = invalid, y1 = invalid, x2 = invalid, y2 = invalid;
-		const QPointList::iterator end = drawLineList.end();
 
-		for (QPointList::iterator it = drawLineList.begin(); it != end; ++it) {
-			const QPoint p = *it;
-
+		for (const QPoint p: drawLineList) {
 			if (p.x() < x1 || x1 == invalid) x1 = p.x();
 			if (p.x() > x2 || x2 == invalid) x2 = p.x();
 
@@ -246,21 +241,16 @@ void Connector::updateDrawList() {
 	}
 
 	//BEGIN build up ConnectorLine list
-	const ConnectorLineList::iterator ConnectorLineEnd = m_connectorLineList.end();
-
-	for (ConnectorLineList::iterator it = m_connectorLineList.begin(); it != ConnectorLineEnd; ++it)
-		delete *it;
+	for (ConnectorLine* line: m_connectorLineList)
+		delete line;
 
 	m_connectorLineList.clear();
 
 	if (drawLineList.size() > 1) {
 		QPoint prev = drawLineList.first();
 		int pixelOffset = 0;
-		const QPointList::iterator end = drawLineList.end();
 
-		for (QPointList::iterator it = ++drawLineList.begin(); it != end; ++it) {
-			const QPoint next = *it;
-
+		for (QPoint next: drawLineList) {
 			ConnectorLine *line = new ConnectorLine(this, pixelOffset);
 			m_connectorLineList.append(line);
 
@@ -304,11 +294,9 @@ void Connector::updateConnectorPoints(bool add) {
 	Cells * cells = p_icnDocument->cells();
 
 	const int mult = (add) ? 1 : -1;
-	const QPointList::iterator end = --m_conRouter->cellPointList()->end();
-
-	for (QPointList::iterator it = ++m_conRouter->cellPointList()->begin(); it != end; ++it) {
-		int x = (*it).x();
-		int y = (*it).y();
+	for (QPoint p: *m_conRouter->cellPointList()) {
+		int x = p.x();
+		int y = p.y();
 
 		// Add the points of this connector to the cell array in the ICNDocument,
 		// so that other connectors still to calculate their points know to try
@@ -334,7 +322,7 @@ void Connector::setRoutePoints(QPointList pointList, bool setManual, bool checkE
 	updateConnectorPoints(false);
 
 	bool reversed = pointsAreReverse(pointList);
-	
+
 	// a little performance boost: don't call (start|end)Node 4 times
 	Node* l_endNode = endNode();
 	Node* l_startNode = startNode();
@@ -358,7 +346,7 @@ void Connector::setRoutePoints(QPointList pointList, bool setManual, bool checkE
 
 bool Connector::pointsAreReverse(const QPointList &pointList) const {
 	if (!startNode() || !endNode()) {
-		kWarning() << k_funcinfo << "Cannot determine orientation as no start and end nodes" << endl;
+		qWarning() << Q_FUNC_INFO << "Cannot determine orientation as no start and end nodes" << endl;
 		return false;
 	}
 
@@ -392,7 +380,7 @@ void Connector::rerouteConnector() {
 	if (!isVisible()) return;
 
 	if (nodeGroup()) {
-		kWarning() << k_funcinfo << "Connector is controlled by a NodeGroup! Use that to reroute the connector" << endl;
+		qWarning() << Q_FUNC_INFO << "Connector is controlled by a NodeGroup! Use that to reroute the connector" << endl;
 		return;
 	}
 
@@ -431,7 +419,7 @@ ConnectorData Connector::connectorData() const {
 	ConnectorData connectorData;
 
 	if (!startNode() || !endNode()) {
-		kDebug() << k_funcinfo << " m_startNode=" << startNode() << " m_endNode=" << endNode() << endl;
+		qDebug() << Q_FUNC_INFO << " m_startNode=" << startNode() << " m_endNode=" << endNode() << endl;
 		return connectorData;
 	}
 
@@ -495,14 +483,7 @@ void Connector::updateConnectorLines(bool forceRedraw) {
 	QPen pen(color, (numWires() > 1) ? 2 : 1);
 
 	bool animateWires = KTLConfig::animateWires();
-
-	ConnectorLineList::iterator end = m_connectorLineList.end();
-
-	for (ConnectorLineList::iterator it = m_connectorLineList.begin(); it != end; ++it) {
-		(*it)->setAnimateCurrent(animateWires);
-
-		KtlQCanvasPolygonalItem *item = static_cast<KtlQCanvasPolygonalItem*>(*it);
-
+	for (KtlQCanvasPolygonalItem *item: m_connectorLineList) {
 		bool changed = (item->z() != z)
 			    || (item->pen() != pen)
 			    || (item->isVisible() != isVisible());
@@ -539,7 +520,7 @@ void Connector::incrementCurrentAnimation(double deltaTime) {
 	double I_min = 1e-4;
 	double sf    = 3.0; // scaling factor
 
-	for (unsigned i = 0; i < m_wires.size(); ++i) {
+	for (int i = 0; i < m_wires.size(); ++i) {
 		if (!m_wires[i]) continue;
 
 		double I = m_wires[i]->current();

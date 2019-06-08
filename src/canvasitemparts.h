@@ -36,12 +36,12 @@ class GuiPart : /* public QObject, */ public KtlQCanvasRectangle
 		 */
 		GuiPart( CNItem *parent, const QRect & r, KtlQCanvas * canvas );
 		~GuiPart() override;
-		
+
 		virtual QRect recommendedRect() const { return m_originalRect; }
 		void setOriginalRect( const QRect & r ) { m_originalRect = r; }
-		
+
 		virtual void updateConnectorPoints( bool add );
-		
+
 		/**
 		 * Set the angle that the GuiPart draws itself (if the GuiPart chooses
 		 * to use it by calling initPainter and deinitPainter from drawShape).
@@ -60,10 +60,10 @@ class GuiPart : /* public QObject, */ public KtlQCanvasRectangle
 		 * the QPainter
 		 */
 		QRect drawRect();
-		
+
 		int angleDegrees() const { return m_angleDegrees; }
 		CNItem *parent() const { return p_parent; }
-	
+
 	protected:
 		/**
 		 * Called when the size or angle changes
@@ -83,7 +83,7 @@ class GuiPart : /* public QObject, */ public KtlQCanvasRectangle
 		CNItem *p_parent;
 		bool b_pointsAdded;
 		QRect m_originalRect;
-		
+
 	private slots:
 		void slotMoveBy( double dx, double dy );
 };
@@ -116,7 +116,7 @@ class Text : public GuiPart
 		 * @see flags
 		 */
 		void setFlags( int flags );
-		
+
 	protected:
 		QString m_text;
 		int m_flags;
@@ -133,18 +133,19 @@ class Widget : public GuiPart
 	public:
 		Widget( const QString & id, CNItem *parent, const QRect & r, KtlQCanvas * canvas );
 		~Widget() override;
-		
+
+
 		virtual QWidget *widget() const = 0;
 		QString id() const { return m_id; }
-		
+
 		/**
 		 * Set the widget enabled/disabled
 		 */
 		void setEnabled( bool enabled );
-		
+
 		virtual void enterEvent(QEvent *) {};
 		virtual void leaveEvent(QEvent *) {};
-		
+
 		/**
 		 * Mouse was pressed. pos is given relative to CNItem position.
 		 */
@@ -165,9 +166,9 @@ class Widget : public GuiPart
 		 * Mouse was scrolled. pos is given relative to CNItem position.
 		 */
 		virtual void wheelEvent( QWheelEvent *e ) { Q_UNUSED(e); }
-		
+
 		void drawShape( QPainter &p ) override;
-	
+
 	protected:
 		void posChanged() override;
 		QString m_id;
@@ -188,10 +189,10 @@ class ToolButton : public QToolButton
 		void leaveEvent(QEvent *) override { QToolButton::leaveEvent(0l); }
 		
 		void setAngleDegrees( int angleDegrees ) { m_angleDegrees = angleDegrees; }
-		
+
 	protected:
 		virtual void drawButtonLabel( QPainter * p );
-		
+
 		int m_angleDegrees;
 		QFont m_font;
 };
@@ -230,13 +231,13 @@ class Button : public Widget
 		
 	private slots:
 		void slotStateChanged();
-		
+
 	private:
 		bool b_isToggle; // i.e. whether it should be depressed when the mouse is released
 		ToolButton *m_button;
 };
-	
-	
+
+
 class SliderWidget : public QSlider
 {
 	public:
@@ -250,8 +251,8 @@ class SliderWidget : public QSlider
 		void enterEvent(QEvent *) override { QSlider::enterEvent(0l); }
 		void leaveEvent(QEvent *) override { QSlider::leaveEvent(0l); }
 };
-	
-	
+
+
 /**
 @short Stores internal information about a QSlider associated with CNItem
 @author David Saxton
@@ -275,18 +276,18 @@ class Slider : public Widget
 		int value() const;
 		void setValue( int value );
 		void setOrientation( Qt::Orientation o );
-		
+
 	protected:
 		void posChanged() override;
 		
 	private slots:
 		void slotValueChanged( int value );
-		
+
 	private:
 		bool m_bSliderInverted; ///< In some orientations, the slider is reflected
 		SliderWidget *m_slider;
 		Qt::Orientation m_orientation;
 };
-	
+
 #endif
-	
+

@@ -33,7 +33,7 @@ class DPLine : public DrawPart
 		void postResize() override;
 		void dataChanged() override;
 		void drawShape( QPainter &p ) override;
-		
+
 		LineOverlay * m_pLineOverlay;
 };
 

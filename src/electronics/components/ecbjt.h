@@ -29,7 +29,7 @@ class ECBJT : public Component
 		static Item * constructPNP( ItemDocument * itemDocument, bool newItem, const char * id );
 		static LibraryItem * libraryItemNPN();
 		static LibraryItem * libraryItemPNP();
-	
+
 	protected:
 		void dataChanged() override;
 		void drawShape( QPainter &p ) override;

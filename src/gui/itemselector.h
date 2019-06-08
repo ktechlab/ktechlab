@@ -40,12 +40,12 @@ class ILVItem : public QObject, public QTreeWidgetItem /* K3ListViewItem */
 
 		ILVItem( QTreeWidget *parent, const QString &id );
 		ILVItem( QTreeWidgetItem *parent, const QString &id );
-		
+
 		void setProjectItem( ProjectItem * projectItem ) { m_pProjectItem = projectItem; }
 		ProjectItem * projectItem() const { return m_pProjectItem; }
-		
+
 // 		QString id() const { return m_id; } // 2018.08.12 - use value()
-	
+
 // 		QString key( int, bool ) const { return m_id; } // 2018.08.12 - use value()
 		/**
 		 * Set whether the item can be removed from the listview by the user
@@ -55,7 +55,7 @@ class ILVItem : public QObject, public QTreeWidgetItem /* K3ListViewItem */
 		 * Whether the item can be removed from the listview by the user
 		 */
 		bool isRemovable() const { return b_isRemovable; }
-	
+
 	protected:
 		//QString m_id; // 2018.08.12 - use value()
 		bool b_isRemovable;
@@ -81,12 +81,12 @@ class ItemSelector : public QTreeWidget /* K3ListView */
 		 * @param removable Whether the user can right-click on the item and select Remove
 		 */
 		void addItem( const QString & caption, const QString & id, const QString & category, const QPixmap & icon = QPixmap(), bool removable = false );
-	
+
 	public slots:
 		virtual void slotContextMenuRequested(const QPoint& pos);
 		virtual void clear();
 		void slotRemoveSelectedItem();
-	
+
 	signals:
 		/**
 		 * Emitted when a user selects an item and removes it
@@ -95,7 +95,7 @@ class ItemSelector : public QTreeWidget /* K3ListView */
 		void itemDoubleClicked( const QString &id );
 		void itemClicked( const QString &id );
 		void itemSelected( const QString & id );
-	
+
 	protected:
 		/**
 		 * Sets the caption of the ListView (eg 'Components' or 'Files')
@@ -126,7 +126,7 @@ class ItemSelector : public QTreeWidget /* K3ListView */
 		 * @return a dragobject encoding the currently selected component item.
 		 */
 // 		Q3DragObject * dragObject();
-	
+
 		QStringList m_categories;
 };
 
@@ -141,7 +141,7 @@ class ComponentSelector : public ItemSelector
 	public:
 		static ComponentSelector * self( KateMDI::ToolView * parent = 0l );
 		static QString toolViewIdentifier() { return "ComponentSelector"; }
-	
+
 	private:
 		ComponentSelector( KateMDI::ToolView * parent );
 		static ComponentSelector * m_pSelf;
@@ -158,7 +158,7 @@ class FlowPartSelector : public ItemSelector
 	public:
 		static FlowPartSelector * self( KateMDI::ToolView * parent = 0l );
 		static QString toolViewIdentifier() { return "FlowPartSelector"; }
-	
+
 	private:
 		FlowPartSelector( KateMDI::ToolView * parent );
 		static FlowPartSelector * m_pSelf;
@@ -174,7 +174,7 @@ class MechanicsSelector : public ItemSelector
 	public:
 		static MechanicsSelector * self( KateMDI::ToolView * parent = 0l );
 		static QString toolViewIdentifier() { return "MechanicsSelector"; }
-	
+
 	private:
 		MechanicsSelector( QWidget *parent = 0L );
 		static MechanicsSelector * m_pSelf;

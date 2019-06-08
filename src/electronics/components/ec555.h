@@ -30,7 +30,7 @@ public:
 	
 	void stepNonLogic() override;
 	bool doesStepNonLogic() const override { return true; }
-	
+
 private:
 	Pin * ground;
 	Pin * trigger;
@@ -46,7 +46,7 @@ private:
 	Resistance *m_po_sink;
 	Resistance *m_po_source;
 	Resistance *m_r_discharge;
-	
+
 	bool old_com1;
 	bool old_com2;
 	bool old_q;

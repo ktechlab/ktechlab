@@ -25,7 +25,7 @@ class ImageScaleThread : public QThread
 {
 	public:
 		enum BestScaling { Unscaled, NormalScaled, SmoothScaled };
-		
+
 		ImageScaleThread();
 		/**
 		 * Use the given settings.
@@ -37,7 +37,7 @@ class ImageScaleThread : public QThread
 		 * @return the best image done so far.
 		 */
 		QImage bestScaling( BestScaling * scaling = 0 ) const;
-		
+
 	protected:
 		/**
 		 * Start scaling.
@@ -47,10 +47,10 @@ class ImageScaleThread : public QThread
 		QImage m_image;
 		QImage m_normalScaled;
 		QImage m_smoothScaled;
-		
+
 		bool m_bDoneNormalScale;
 		bool m_bDoneSmoothScale;
-		
+
 		int m_width;
 		int m_height;
 		QString m_imageURL;
@@ -83,7 +83,7 @@ class DPImage : public DrawPart
 		 * resizing thread has done anything useful yet.
 		 */
 		void checkImageScaling();
-	
+
 	private:
 		void drawShape( QPainter &p ) override;
 		void dataChanged() override;
@@ -95,7 +95,7 @@ class DPImage : public DrawPart
 		QTimer * m_pCheckImageScalingTimer;
 		QString m_imageURL;
 		bool m_bSettingsChanged;
-		
+
 		/**
 		 * If we have been loaded from a file, etc, then we want to keep the
 		 * previous size instead of resizing ourselves to the new image size

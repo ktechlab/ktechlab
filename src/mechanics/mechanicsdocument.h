@@ -42,6 +42,7 @@ public:
 	ItemGroup *selectList() const override;
 	MechanicsItem *mechanicsItemWithID( const QString &id );
 	Item* addItem( const QString &id, const QPoint &p, bool newItem ) override;
+
 	/**
 	 * Adds a KtlQCanvasItem to the delete list to be deleted, when
 	 * flushDeleteList() is called

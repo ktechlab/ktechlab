@@ -28,20 +28,20 @@ class RAM : public CallbackClass, public Component
 	
 		static Item * construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem * libraryItem();
-	
+
 	protected:
 		void initPins();
 		void dataChanged() override;
 		void inStateChanged( bool newState );
-	
+
 		QBitArray m_data;
 		LogicIn * m_pCS; // Chip select
 		LogicIn * m_pOE; // Output enable
 		LogicIn * m_pWE; // Write enable
-		
+
 		int m_wordSize;
 		int m_addressSize;
-		
+
 		QVector<LogicIn*> m_address;
 		QVector<LogicIn*> m_dataIn;
 		QVector<LogicOut*> m_dataOut;

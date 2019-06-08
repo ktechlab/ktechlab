@@ -29,12 +29,12 @@ class BusSplitter : public Component
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
-	
+
 	protected:
 		QString outNodeID( unsigned node ) const;
 		void dataChanged() override;
 		void drawShape( QPainter &p ) override;
-		
+
 		unsigned m_busSize;
 		QVector<QPointer<Wire> > m_pWires;
 		ECNode * m_pInNode;

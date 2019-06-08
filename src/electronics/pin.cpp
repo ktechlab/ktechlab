@@ -11,7 +11,7 @@
 #include "pin.h"
 
 #include <cassert>
-#include <kdebug.h>
+#include <qdebug.h>
 
 #include <qdebug.h>
 
@@ -41,7 +41,7 @@ Pin::~Pin()
 
 PinList Pin::localConnectedPins( ) const
 {
-// 	kDebug() << k_funcinfo << "Input wires: "<<m_inputWireList.size()<<"   Output wires: " << m_outputWireList.size() << "   Switch connected: " << m_switchConnectedPins.size() << endl;
+// 	qDebug() << Q_FUNC_INFO << "Input wires: "<<m_inputWireList.size()<<"   Output wires: " << m_outputWireList.size() << "   Switch connected: " << m_switchConnectedPins.size() << endl;
 	
 	PinList pins;
 	

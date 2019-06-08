@@ -22,17 +22,17 @@ class VarComparison : public FlowPart
 public:
 	VarComparison( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~VarComparison() override;
-	
+
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
+
 	void generateMicrobe( FlowCode *code ) override;
 
 protected:
 	void dataChanged() override;
 	/**
 	 * Use this to find the logically opposite comparison (e.g. "==" returns "!=",
-	 * ">=" returns "<", etc). Supoorted ops: != == <= >= < > 
+	 * ">=" returns "<", etc). Supoorted ops: != == <= >= < >
 	 */
 	QString oppOp( const QString &op );
 };

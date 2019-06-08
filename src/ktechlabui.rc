@@ -5,7 +5,7 @@
 			<text>&amp;File</text>
 			<DefineGroup name="save_merge"/>
 		</Menu>
-		
+
 		<Menu name="view">
 			<text>&amp;View</text>
 			<Action name="view_split_leftright"/>
@@ -15,7 +15,7 @@
             <Action name="view_show_status_bar"/>
             <Separator/>
 		</Menu>
-		
+
 		<Menu name="project">
 			<text>&amp;Project</text>
 			<Action name="project_new"/>
@@ -31,55 +31,52 @@
 			<Separator/>
 			<Action name="project_close"/>
 		</Menu>
-		
+
 		<Menu name="tools">
 			<text>&amp;Tools</text>
 			<Action name="simulation_run"/>
 		</Menu>
-		
+
 		<DefineGroup name="bookmarks_merge"/>
 		<DefineGroup name="debug_merge"/>
-		
-		<Menu name="help">
-			<text>&amp;Help</text>
-			<Menu name="examples">
-				<text>Examples</text>
-				<Menu name="examples_555">
-					<text>555s</text>
-				</Menu>
-				<Menu name="examples_basic">
-					<text>Basic</text>
-				</Menu>
-				<Menu name="examples_diodes">
-					<text>Diodes</text>
-				</Menu>
-				<Menu name="examples_jfets">
-					<text>JFETs</text>
-				</Menu>
-                <Menu name="examples_matrix_disp_driver">
-                    <text>Matrix Display Drivers</text>
-                </Menu>
-				<Menu name="examples_mosfets">
-					<text>MOSFETs</text>
-				</Menu>
-				<Menu name="examples_transistors">
-					<text>Transistors</text>
-				</Menu>
-				<Menu name="examples_opamps">
-					<text>Opamps</text>
-				</Menu>
-			</Menu>
-		</Menu>
+
+        <Menu name="examples">
+            <text>Examples</text>
+            <Menu name="examples_555">
+                <text>555s</text>
+            </Menu>
+            <Menu name="examples_basic">
+                <text>Basic</text>
+            </Menu>
+            <Menu name="examples_diodes">
+                <text>Diodes</text>
+            </Menu>
+            <Menu name="examples_jfets">
+                <text>JFETs</text>
+            </Menu>
+            <Menu name="examples_matrix_disp_driver">
+                <text>Matrix Display Drivers</text>
+            </Menu>
+            <Menu name="examples_mosfets">
+                <text>MOSFETs</text>
+            </Menu>
+            <Menu name="examples_transistors">
+                <text>Transistors</text>
+            </Menu>
+            <Menu name="examples_opamps">
+                <text>Opamps</text>
+            </Menu>
+        </Menu>
 	</MenuBar>
-	
+
 	<!-- When there is no project open -->
 	<Menu name="project_none_popup">
 		<Action name="project_new"/>
 		<Action name="project_open"/>
 		<Action name="project_open_recent"/>
 	</Menu>
-		
-	
+
+
 	<Menu name="project_file_popup">
 		<Action name="project_item_linker_options"/>
 		<Action name="project_item_processing_options"/>
@@ -91,13 +88,13 @@
 		<Separator/>
 			<Action name="project_close"/>
 	</Menu>
-	
+
 	<Menu name="project_file_other_popup">
 		<Action name="project_remove_selected"/>
 		<Separator/>
 		<Action name="project_close"/>
 	</Menu>
-	
+
 	<Menu name="project_program_popup">
 		<Action name="project_item_linker_options"/>
 		<Action name="project_item_processing_options"/>
@@ -112,7 +109,7 @@
 		<Separator/>
 		<Action name="project_close"/>
 	</Menu>
-	
+
 	<Menu name="project_library_popup">
 		<Action name="project_item_linker_options"/>
 		<Action name="project_item_processing_options"/>
@@ -126,7 +123,7 @@
 		<Separator/>
 		<Action name="project_close"/>
 	</Menu>
-	
+
 	<Menu name="project_blank_popup">
 		<Action name="project_create_subproject"/>
 		<Separator/>
@@ -135,7 +132,7 @@
 		<Separator/>
 		<Action name="project_close"/>
 	</Menu>
-	
+
 	<Menu name="item_popup">
 		<Action name="edit_undo"/>
 		<Action name="edit_redo"/>
@@ -148,7 +145,7 @@
 		<ActionList name="alignment_actionlist"/>
 		<ActionList name="orientation_actionlist"/>
 	</Menu>
-	
+
 	<Menu name="ktexteditor_popup">
 		<Action name="edit_undo" group="popup_operations" />
 		<Action name="edit_redo" group="popup_operations" />

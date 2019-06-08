@@ -32,7 +32,7 @@ class OutputFlowNode : public FPNode
 		 * on the node type and number of input / output connections.
 		 */
 		bool acceptOutput() const override;
-		
+
 		/**
 		 * Registers an input connector (i.e. this is the end node) as connected
 		 * to this node.

@@ -50,10 +50,11 @@ private slots:
         char argv0[] = "tests_app";
         char *argv[] = { argv0, NULL };
 
-        K4AboutData about(QByteArray("ktechlab"), QByteArray("ktechlab"), ki18n("KTechLab"), VERSION, ki18n(description),
-                    K4AboutData::License_GPL, ki18n("(C) 2003-2017, The KTechLab developers"),
-                    KLocalizedString(), "https://userbase.kde.org/KTechlab", "ktechlab-devel@kde.org" );
-        KCmdLineArgs::init(argc, argv, &about);
+
+        KAboutData about("ktechlab", i18n("KTechLab"), VERSION, i18n(description),
+                    KAboutLicense::LicenseKey::GPL_V2, i18n("(C) 2003-2017, The KTechLab developers"),
+                    "", "https://userbase.kde.org/KTechlab", "ktechlab-devel@kde.org" );
+        KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
         app = new KApplication;
         ktechlab = new KTechlab;
 

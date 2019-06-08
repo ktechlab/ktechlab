@@ -45,27 +45,26 @@ public:
 	void resizeEvent( QResizeEvent *event ) override;
 	void updateOutputHeight();
 
-	
 
 	
     ~ScopeViewBase() override;
 protected:
 	///Draw the horizontal line indicating the midpoint of our output for \c probe
  	virtual void drawMidLine(QPainter & p, ProbeData * probe) = 0;
-	
+
 	///\TODO: remove virtual; draw one logic probe
 	virtual void drawProbe(QPainter& p, LogicProbeData * probe) = 0;
 	///\TODO: remove virtual; draw one floating-point probe
 	virtual void drawProbe(QPainter& p, FloatingProbeData * probe) = 0;
-	
+
 	/// gives the first Simulator tick visible in the view
 	virtual llong visibleStartTime() const = 0;
 	/// gives the last Simulator tick visible in the view
 	virtual llong visibleEndTime() const = 0;
-	
+
 	virtual double ticksPerPixel() const = 0;
 	virtual llong pixelsPerTick() const = 0;
-	
+
 	bool b_needRedraw;
 	QPixmap *m_pixmap;
 	double m_halfOutputHeight;

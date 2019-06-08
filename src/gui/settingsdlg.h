@@ -11,6 +11,7 @@
 #ifndef SETTINGSDLG_H
 #define SETTINGSDLG_H
 
+#include <kconfigskeleton.h>
 #include <kconfigdialog.h>
 #include <qmap.h>
 #include <qvalidator.h>
@@ -38,7 +39,7 @@ class SettingsDlg : public KConfigDialog
 	
 		static int refreshRateToSliderValue( int refreshRate );
 		static int sliderValueToRefreshRate( int sliderValue );
-		
+
 		virtual void show();
 
 	public slots:
@@ -47,20 +48,20 @@ class SettingsDlg : public KConfigDialog
 		void slotAddProgrammerConfig();
 		void slotRemoveProgrammerConfig();
 		void slotSaveCurrentProgrammerConfig();
-		
+
 	protected slots:
 		void slotUpdateSettings();
 		void slotUpdateWidgets();
-	
+
 	protected:
 		void updateSettings() override;
 		void updateWidgets() override;
 		void updateWidgetsDefault() override;
 		bool hasChanged() override;
 		bool isDefault() override;
-	
+
 		PicProgrammerSettings * m_pPicProgrammerSettings;
-		
+
 		GeneralOptionsWidget * m_generalOptionsWidget;
 		GpasmSettingsWidget * m_gpasmSettingsWidget;
 		SDCCOptionsWidget * m_sdccOptionsWidget;
@@ -82,7 +83,7 @@ class NameValidator : public QValidator
 		State validate( QString & input, int & ) const override {
 			return (input.isEmpty() || m_unallowed.contains( input.toLower() )) ? Intermediate : Acceptable;
 		}
-		
+
 	protected:
 		QStringList m_unallowed;
 };

@@ -26,7 +26,7 @@ class PicAsm14bit : public AsmInfo
 	
 	//protected:
 	//	static PicAsm14bit *m_self;
-	
+
 	//private:
 		PicAsm14bit();
 };

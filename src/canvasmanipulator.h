@@ -135,13 +135,13 @@ public:
 	QString repeatedItemId() const { return m_repeatedItemId; }
 	void setDrawAction( int drawAction );
 	int drawAction() const { return m_drawAction; }
-	
+
 public slots:
 	void slotSetManualRoute( bool manualRoute );
-	
+
 signals:
 	void manualRoutingChanged( bool manualRouting );
-	
+
 protected:
 	/**
 	 * Called when the mouse is moved or released, with the ResizeHandle that
@@ -160,7 +160,7 @@ protected:
 	QTimer *m_allowItemScrollTmr; // When a user scrolls on the canvas, we don't want to stop scrolling when the user gets to (e.g.) a scrollable widget. So this timer prevents scrolling a widget for a few hundred milliseconds after a scroll event if it was initiated over the canvas
 	bool b_allowItemScroll; // See above.
 	int m_drawAction;
-	
+
 private slots:
 	void slotAllowItemScroll() { b_allowItemScroll = true; }
 };
@@ -173,7 +173,7 @@ Abstract class for a "editing operation" on the ICNDocument, such as moving an i
 class CanvasManipulator : public QObject
 {
 	Q_OBJECT
-	
+
 public:
 	CanvasManipulator( ItemDocument *itemDocument, CMManager *cmManager );
 	~CanvasManipulator() override;
@@ -217,13 +217,13 @@ public:
 	 * Snaps the point to the 8-sized canvas grid.
 	 */
 	static QPoint snapPoint( QPoint point );
-	
+
 protected slots:
 	/**
 	 * Called when the working canvas emits a resized signal.
 	 */
 	virtual void canvasResized( const QRect & oldSize, const QRect & newSize ) { (void)oldSize; (void)newSize; }
-	
+
 protected:
 	Type m_type;
 	EventInfo m_eventInfo;
@@ -301,7 +301,7 @@ class ConnectorDraw : public CanvasManipulator
 		 * being drawn is valid. Invalid colour is black.
 		 */
 		static QColor validConnectionColor();
-		
+
 	protected:
 		/**
 		 * If the node has more than 2 connections, return one of the
@@ -321,7 +321,7 @@ class ConnectorDraw : public CanvasManipulator
 		 * connector.
 		 */
 		QPoint toValidPos( const QPoint & clickPos, Connector * clickedConnector ) const;
-		
+
 		QPointer<Node> p_startNode;
 		QPointer<Connector> p_startConnector;
 		Node * p_endNode;
@@ -400,7 +400,7 @@ public:
 protected:
 	void canvasResized( const QRect & oldSize, const QRect & newSize ) override;
 	void scrollCanvasToSelection();
-	
+
 	QPoint m_prevSnapPoint;
 	bool m_bItemsSnapToGrid; ///< true iff selection contains CNItems
 	int m_dx;
@@ -467,10 +467,10 @@ class SelectRectangle
 	public:
 		SelectRectangle( int x, int y, int w, int h, KtlQCanvas *qcanvas );
 		~SelectRectangle();
-		
+
 		void setSize( int w, int h );
 		KtlQCanvasItemList collisions();
-		
+
 	protected:
 		KtlQCanvasLine *m_topLine;
 		KtlQCanvasLine *m_rightLine;
@@ -541,7 +541,7 @@ class CanvasEllipseDraw : public KtlQCanvasEllipse
 {
 	public:
 		CanvasEllipseDraw( int x, int y, KtlQCanvas * canvas );
-		
+
 	protected:
 		void drawShape( QPainter & p ) override;
 };
@@ -580,7 +580,7 @@ class ManualConnectorDraw
 	public:
 		ManualConnectorDraw( ICNDocument *_icnDocument, const QPoint &initialPos );
 		virtual ~ManualConnectorDraw();
-		
+
 		/**
 		 * Called when the mouse is moved.
 		 * Normally will do something like updating the connector route
@@ -603,23 +603,23 @@ class ManualConnectorDraw
 
 	protected:
 		void updateConnectorEnds();
-	
+
 		QList<KtlQCanvasLine*> m_connectorLines;
 		ICNDocument *icnDocument;
-	
+
 		bool b_currentVertical;
 		bool b_orientationDefined;
-	
+
 		QPoint m_initialPos;
 		QPoint m_previousPos;
 		QPoint m_currentPos;
-	
+
 		KtlQCanvasLine *m_currentCon;
 		KtlQCanvasLine *m_previousCon;
-	
+
 		// The first item that we clicked on
 		KtlQCanvasItem *p_initialItem;
-	
+
 		QColor m_color;
 };
 

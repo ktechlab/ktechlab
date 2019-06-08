@@ -23,10 +23,10 @@ class ResistorDIP : public Component
 public:
 	ResistorDIP( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~ResistorDIP() override;
-	
+
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
+
 protected:
 	void drawShape( QPainter &p ) override;
 	void updateDIPNodePositions();
@@ -35,7 +35,7 @@ protected:
 	 * Add / remove pins according to the number of inputs the user has requested
 	 */
 	void initPins();
-	
+
 	int m_resistorCount;
 	Resistance* m_resistance[maxCount];
 };

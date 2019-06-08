@@ -68,7 +68,7 @@ class KtlQCanvasItem : public QObject
         virtual QRect boundingRect() const=0;
 
         KtlQCanvas* canvas() const { return cnv; }
-        
+
         virtual bool collidesWith( const KtlQCanvasPolygonalItem*,
                        const KtlQCanvasRectangle*,
                        const KtlQCanvasEllipse* ) const = 0;
@@ -83,7 +83,7 @@ class KtlQCanvasItem : public QObject
         virtual void addToChunks();
         virtual void removeFromChunks();
         virtual void changeChunks();
-        
+
         bool val;
         double myx,myy,myz;
 

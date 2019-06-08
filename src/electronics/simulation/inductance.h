@@ -30,6 +30,7 @@ class Inductance : public Reactive
 		~Inductance() override;
 	
 		Type type() const override { return Element_Inductance; }
+
 		/**
 		 * Set the stepping use for numerical integration of inductance, and the
 		 * interval between successive updates.
@@ -42,11 +43,11 @@ class Inductance : public Reactive
 	protected:
 		void updateCurrents() override;
 		bool updateStatus() override;
-	
+
 	private:
 		double m_inductance; // Inductance
 		Method m_method; // Method of integration
-		
+
 		double scaled_inductance;
 		double v_eq_old;
 };

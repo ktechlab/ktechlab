@@ -27,6 +27,7 @@ class FlowCodeView : public ICNView
 	
 	protected:
 		void dragEnterEvent( QDragEnterEvent * e ) override;
+
 		FlowCodeDocument *p_flowCodeDocument;
 };
 

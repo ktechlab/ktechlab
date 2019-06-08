@@ -12,10 +12,8 @@
 #define ICNVIEW_H
 
 #include <itemview.h>
-
-class ICNDocument;
-class KAction;
-class KToolBarPopupAction;
+#include <icndocument.h>
+#include <ktoolbarpopupaction.h>
 
 /**
 @author David Saxton
@@ -33,11 +31,11 @@ class ICNView : public ItemView
 		void slotSetRoutingManual();
 		void slotUpdateRoutingMode( bool manualRouting );
 		void slotUpdateRoutingToggles( bool manualRouting );
-		
+
 	protected:
 		KToolBarPopupAction * m_pRoutingModeToolbarPopup;
-		KAction * m_pManualRoutingAction;
-		KAction * m_pAutoRoutingAction;
+		QAction * m_pManualRoutingAction;
+		QAction * m_pAutoRoutingAction;
         QAction *m_actMenuRouteAutoRoute;
         QAction *m_actMenuRouteManRoute;
 };

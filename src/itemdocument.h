@@ -66,12 +66,12 @@ class ItemDocument : public Document
 					ResizeHandle 		= 50000000,
 					Tip			= 60000000,
 					ConnectorCreateLine	= 70000000,
-					
+
 					// How much "Z" separates items stacked on each other
 					DeltaItem		= 10000
 				};
 		};
-		
+
 		/**
 		 * Some things (such as the canvas getting resized, connectors being
 		 * invalidated, need to be done after editing operations have finished,
@@ -191,7 +191,7 @@ class ItemDocument : public Document
 		/**
 		 * Returns the top item at point (x, y), or NULL if there is no item there
 		 */
-		KtlQCanvasItem* itemAtTop( const QPoint &pos ) const;
+		KtlQCanvasItem* itemAtTop( const QPoint &pos ) const ;
 		/**
 		 * Called when the canvas is clicked on with the right mouse button.
 		 * Popups up a menu for editing operations
@@ -328,20 +328,20 @@ public slots:
 		 * Process queued events (see ItemDocument::ItemDocumentEvent).
 		 */
 		void processItemDocumentEvents();
-	
+
 	signals:
 		/**
 		 * Emitted when the selection changes.
 		 */
 		void selectionChanged();
-		
+
 	protected slots:
-		/** 
+		/**
 		 * Called after the canvas is resized to set the scrollbars of the
 		 * ItemViews to either always show or always hidden.
 		 */
 		void updateItemViewScrollbars();
-		
+
 	protected:
 		/**
 		 * Called from registerItem when a new item is added.
@@ -369,7 +369,7 @@ public slots:
 		 * request must be made with requestEvent.
 		 */
 		void resizeCanvasToItems();
-	
+
 		Canvas		*m_canvas;
 
 		CMManager	*m_cmManager;
@@ -423,7 +423,7 @@ class Canvas : public KtlQCanvas
 	Q_OBJECT
 	public:
 		Canvas( ItemDocument *itemDocument, const char * name = 0 );
-		
+
 		/**
 		 * Sets a message to be displayed on the canvas for a brief period of
 		 * time. If this is called with an empty message, then any existing
@@ -432,22 +432,22 @@ class Canvas : public KtlQCanvas
 		void setMessage( const QString & message );
 		void update() override;
 		void resize( const QRect & size ) override;
-		
+
 	signals:
-		/** 
+		/**
 		 * Emitted when the canvas rectangle-size changes.
 		 */
 		void resized( const QRect & oldSize, const QRect & newSize );
-		
+
 	public slots:
 		void slotSetAllChanged() { setAllChanged(); }
-	
+
 	protected:
 		void drawBackground ( QPainter & painter, const QRect & clip ) override;
 		void drawForeground ( QPainter & painter, const QRect & clip ) override;
-	
+
 		ItemDocument *p_itemDocument;
-		
+
 		QString m_message;
 		QTimer * m_pMessageTimeout;
 };
@@ -461,17 +461,17 @@ class CanvasTip : public KtlQCanvasRectangle
 	public:
 		CanvasTip( ItemDocument *itemDocument, KtlQCanvas *qcanvas );
 		~CanvasTip() override;
-	
+
 		void displayVI( ECNode *node, const QPoint &pos );
 		void displayVI( Connector *connector, const QPoint &pos );
-	
+
 	protected:
 		void draw( QPainter &p ) override;
 		void setText( const QString & text );
 		bool updateVI();
 		void display( const QPoint &pos );
 		QString displayText( unsigned num ) const;
-	
+
 		QVector<double> m_v;
 		QVector<double> m_i;
 		ItemDocument *p_itemDocument;

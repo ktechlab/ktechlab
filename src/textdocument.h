@@ -51,7 +51,7 @@ public:
 		ct_hex,
 		ct_microbe
 	};
-	
+
 	enum MarkType {
 		Bookmark           = KTextEditor::MarkInterface::markType01,
 		Breakpoint         = KTextEditor::MarkInterface::markType02,
@@ -60,8 +60,9 @@ public:
 		DisabledBreakpoint = KTextEditor::MarkInterface::markType05,
 		ExecutionPoint     = KTextEditor::MarkInterface::markType06
 	};
-	
+
 	View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l ) override;
+
 
 	/**
 	 * Attempts to construct a new TextDocument object and returns a pointer to
@@ -85,7 +86,7 @@ public:
 	 * @return List of bookmarks
 	 */
 	IntList bookmarkList() const;
-	
+
 	/**
 	 * Set the given lines as all breakpoints
 	 */
@@ -98,7 +99,7 @@ public:
 	 * @return List of breakpoints
 	 */
 	IntList breakpointList() const;
-	
+
 #ifndef NO_GPSIM
 	/**
 	 * Attach ourselves to the given debugger.
@@ -121,6 +122,7 @@ public:
 #endif
 	
 	bool openURL(const KUrl& url) override;
+
 	void fileSave(const KUrl& url);
 	/**
 	 * Set the document to the given text, making the document unmodified, and
@@ -141,21 +143,22 @@ public:
 	void fileSaveAs() override;
 	void print() override;
 	void setModified( bool modified ) override;
-	
+
 	KTextEditor::View* createKateView( QWidget *parent, const char *name = 0l );
-	
+
 	void undo() override;
 	void redo() override;
 	void cut() override;
 	void copy() override;
 	void paste() override;
-	
+
 	bool isModified() const override { return m_doc->isModified(); }
 	bool isUndoAvailable() const override ; // { return (m_doc->undoCount() != 0); }
 	bool isRedoAvailable() const override ; // { return (m_doc->redoCount() != 0); }
 
 	void clearBookmarks();
 	bool fileClose() override;
+
 
 	static const QPixmap* inactiveBreakpointPixmap();
 	static const QPixmap* activeBreakpointPixmap();
@@ -174,9 +177,9 @@ public:
 		HexOutput,
 		PICOutput
 	};
-	
+
 	KTextEditor::Document * kateDocument() const { return m_doc; }
-	
+
 public slots:
 	/**
 	 * @param target as ConvertToTarget
@@ -220,14 +223,14 @@ protected:
 	 * marks that we know about
 	 */
 	void syncBreakpoints();
-	
+
 	int m_lastDebugLineAt; // Last line with a debug point reached mark
 	bool m_bLoadDebuggerAsHLL;
 #endif
 
 	KTextEditor::Document *m_doc;
 	QPointer<TextDocument> m_pLastTextOutputTarget;
-	
+
 private slots:
 	void setLastTextOutputTarget( TextDocument * target );
 	void slotSyncModifiedStates();
@@ -243,7 +246,7 @@ private:
 	CodeType m_guessedCodeType;
 	//Q3PtrList<KAction> m_bookmarkActions;
     QList<QAction*> m_bookmarkActions;
-	
+
 #ifndef NO_GPSIM
 	bool b_lockSyncBreakpoints; // Used to avoid calling syncMarks() when we are currently doing so
 	bool m_bOwnDebugger;

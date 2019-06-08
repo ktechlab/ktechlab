@@ -24,14 +24,14 @@ class VCCS : public Element
 public:
 	VCCS( const double gain );
 	~VCCS() override;
-	
+
 	Type type() const override { return Element_VCCS; }
 	void setGain( const double g );
 
 protected:
 	void updateCurrents() override;
 	void add_initial_dc() override;
-	
+
 private:
 	double m_g; // Conductance
 };

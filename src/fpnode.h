@@ -40,7 +40,7 @@ public:
 	 * to the other end of the connector (if one exists) if it isOutput()
 	 */
 	virtual FlowPart *outputFlowPart() const;
-	/** 
+	/**
 	 * Returns a list of FlowParts attached to the node - either a single-item list containing
 	 * the FlowPart attached to this node if isOutput, or a list of FlowParts connected to the
 	 * input (?) connectors
@@ -103,10 +103,10 @@ public:
 	 * Removes all the NULL connectors
 	 */
 	void removeNullConnectors() override;
-	
-	
+
+
 	/**
-	 * Returns a list of the input connectors; implemented inline 
+	 * Returns a list of the input connectors; implemented inline
 	 */
 	ConnectorList inputConnectorList() const ; /* {
 			return (ConnectorList)(FlowConnectorList) m_inFlowConnList; 	} */
@@ -118,7 +118,7 @@ public:
 	 * @return the list of all the connectors attached to the node
 	 */
 	ConnectorList getAllConnectors() const override ;
-	
+
 	/**
 	 * For a flownode: returns the first input connector, if it exist, or the fist outptut connector, if it exists.
 	 * For an electric node: returns the first connector
@@ -126,22 +126,22 @@ public:
 	 * @return pointer to the desired connector
 	 */
 	Connector* getAConnector() const override ;
-	
-	
+
+
 public slots:	
 	
 	/**
 	 * what is this? (verifies if the node can be removed; if it can, removes itself (?) )
 	 */
 	virtual void checkForRemoval( Connector *connector );
-	
+
 	/**
 	 * Draw shape. Note that this has to remain public.
 	 */
 	void drawShape( QPainter & p ) override = 0;
 
 protected:
-	
+
 	/** If this node has precisely two connectors emerging from it, then this
 	 * function will trace the two connectors until the point where they
 	 * diverge; this point is returned. */
@@ -151,7 +151,7 @@ protected:
 	 * @return true of the operation was successful or false otherwise
 	 */
 	bool handleNewConnector( Connector * newConnector );
-	
+
 
 	FlowConnectorList m_inFlowConnList;
 	QPointer<FlowConnector> m_outputConnector;

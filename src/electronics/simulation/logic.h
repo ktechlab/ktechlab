@@ -26,7 +26,7 @@ class LogicConfig
 {
 	public:
 		LogicConfig();
-		
+
 		float risingTrigger;	///< Trigger on rising edge
 		float fallingTrigger;	///< Trigger on falling edge
 		float output;			///< Output voltage
@@ -54,7 +54,7 @@ class LogicIn : public Element
 	
 		Type type() const override { return Element_LogicIn; }
 		void setElementSet( ElementSet *c ) override;
-	
+
 		/**
 		 * Set logic values from the LogicConfig.
 		 */
@@ -65,7 +65,7 @@ class LogicIn : public Element
 		void check();
 		/**
 		 * Returns whether the pin is 'high', as defined for the logic type
-		 * Note: this is defined as the voltage on the pin, as opposed to what the 
+		 * Note: this is defined as the voltage on the pin, as opposed to what the
 		 * state was set to (the two are not necessarily the same).
 		 */
 		bool isHigh() const { return m_bLastState; }
@@ -99,7 +99,7 @@ class LogicIn : public Element
 			if (m_pCallbackFunction)
 				(m_pCallbackObject->*m_pCallbackFunction)(m_bLastState);
 		}
-	
+
 	protected:
 		void updateCurrents() override;
 		void add_initial_dc() override;
@@ -184,7 +184,7 @@ class LogicOut : public LogicIn
 		PinList pinList;
 		PinList::iterator pinListBegin;
 		PinList::iterator pinListEnd;
-	
+
 	protected:
 		void configChanged();
 		void updateCurrents() override;
@@ -194,12 +194,12 @@ class LogicOut : public LogicIn
 		double m_gHigh;
 		double m_gLow;
 		double m_vHigh;
-		
+
 		// Whether to use the user-defined logic values
 		bool m_bOutputHighConductanceConst;
 		bool m_bOutputLowConductanceConst;
 		bool m_bOutputHighVoltageConst;
-	
+
 		double m_g_out;
 		double m_v_out;
 		double m_old_g_out;

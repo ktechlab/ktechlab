@@ -26,14 +26,15 @@ class Microbe : public ExternalLanguage
 public:
 	Microbe( ProcessChain *processChain );
 	~Microbe() override;
-	
+
 	void processInput( ProcessOptions options ) override;
 	ProcessOptions::ProcessPath::Path outputPath( ProcessOptions::ProcessPath::Path inputPath ) const override;
-	
+
 protected:
 	bool isError( const QString &message ) const override;
 	bool isWarning( const QString &message ) const override;
 	
+
 	ErrorMap m_errorMessages;
 };
 

@@ -32,7 +32,7 @@ public:
 	 * Called on every time step for the element to update itself
 	 */
 	virtual void time_step() = 0;
-	
+
 protected:
 	bool updateStatus() override;
 	

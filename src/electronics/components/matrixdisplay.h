@@ -35,23 +35,24 @@ class MatrixDisplay : public Component
 	protected:
 		void drawShape( QPainter &p ) override;
 		void dataChanged() override;
+
 		void initPins( unsigned numRows, unsigned numCols );
 		QString colPinID( int col ) const;
 		QString rowPinID( int row ) const;
-		
-		
+
+
 		QVector< QVector<double> > m_avgBrightness;
 		QVector< QVector<unsigned> > m_lastBrightness;
 		QVector< QVector<Diode*> > m_pDiodes;
-		
+
 		ECNode * m_pRowNodes[max_md_height];
 		ECNode * m_pColNodes[max_md_width];
-		
+
 		double m_lastUpdatePeriod;
-		
+
 		double m_r, m_g, m_b;
 		bool m_bRowCathode;
-		
+
 		unsigned m_numRows;
 		unsigned m_numCols;
 };

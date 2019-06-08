@@ -21,12 +21,12 @@ class ForLoop : public FlowContainer
 public:
 	ForLoop( ICNDocument *icnDocument, bool newItem, const char *id );
 	~ForLoop() override;
-	
+
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
+
 	void generateMicrobe( FlowCode * ) override;
-	
+
 protected:
 	void dataChanged() override;
 };

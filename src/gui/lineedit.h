@@ -24,7 +24,7 @@ class LineEdit : public KLineEdit
 		LineEdit( QWidget * parent = 0, const char * name = 0 );
 		LineEdit( const QString & text, QWidget * parent = 0, const char * name = 0 );
 		~LineEdit() override;
-		
+
 	public slots:
 		void setText( const QString & text ) override;
 };

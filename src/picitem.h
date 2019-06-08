@@ -7,7 +7,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  ***************************************************************************/
- 
+
 #ifndef PICITEM_H
 #define PICITEM_H
 
@@ -31,16 +31,16 @@ public:
 
 	QRect boundingRect () const override;
 	void switchState();
-	
+
 	QString id();
-	
+
 	/**
 	 * Called from ICNDocument when the pin item was dragged
 	 */
 	void dragged( int dx );
-	
+
 	void moveBy ( double dx, double dy ) override;
-	
+
 public slots:
 	void updateDrawing();
 
@@ -48,7 +48,7 @@ private:
 	void initItem();
 	void drawShape( QPainter& p ) override;
 	void calcTextRect();
-	
+
 	FlowCodeDocument *view; // Pointer to canvas view that the component item is currently on
 	bool onLeft;
 	PinSettings * m_pinSettings;
@@ -80,13 +80,13 @@ class PicItem : public CNItem
 		bool mousePressEvent( const EventInfo &info ) override;
 		bool mouseReleaseEvent( const EventInfo &info ) override;
 		bool mouseMoveEvent( const EventInfo &info ) override;
-	
+
 	protected slots:
 		void slotMicroSettingsDlgAccepted();
-	
+
 	protected:
 		void updateVisibility();
-		
+
 		MicroSettings *microSettings;
 		PinItemList m_pinItemList;
 		ICNDocument *p_icnDocument;

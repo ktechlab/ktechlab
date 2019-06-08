@@ -62,13 +62,13 @@ class ComponentModelWidget : public QWidget
 		 * Fills the list with models appropriate for the given component.
 		 */
 		void init( Component * component );
-		
+
 	public slots:
 		/**
 		 * The filter is applied against the list of component model names.
 		 */
 		void setFilter( const QString & filter );
-		
+
 	protected:
 		QListWidget * m_pList;
 		ClickLineEdit * m_pSearchEdit;

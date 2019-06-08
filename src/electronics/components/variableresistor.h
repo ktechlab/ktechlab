@@ -33,7 +33,7 @@ class VariableResistor : public Component
 	private:
 		void dataChanged() override;
 		void drawShape( QPainter &p ) override;
-		
+
 		Resistance *m_pResistance;
 		QSlider *m_pSlider;
 		double m_minResistance;

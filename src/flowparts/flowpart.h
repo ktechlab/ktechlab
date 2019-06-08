@@ -46,7 +46,7 @@ public:
 	};
 	FlowPart( ICNDocument *icnDocument, bool newItem, const QString &id );
 	~FlowPart() override;
-	
+
 	virtual void generateMicrobe( FlowCode */*code*/ ) = 0;
 	/**
 	 * Set a preset "orientation" of this item - 0 through 7
@@ -111,7 +111,7 @@ public:
 	 */
 	void orientationPixmap( uint orientation, QPixmap & pm ) const;
 	Variant * createProperty( const QString & id, Variant::Type::Value type ) override;
-	
+
 public slots:
 	/**
 	 * Called when variable name data for MicroSettings changes, and so our
@@ -141,6 +141,7 @@ protected:
 	 * the drawing itself
 	 */
 	void drawShape( QPainter &p ) override;
+
 	/**
 	 * Returns the goto instruction that will goto the FlowPart that is connected
 	 * to the node with the given internal id.
@@ -169,7 +170,7 @@ protected:
 	 * Initialises a symbol, by calling setItemPoints with the shape
 	 */
 	void initSymbol( FlowPart::FlowSymbol symbol, int width = 48 );
-	
+
 	void initProcessSymbol() { initSymbol( FlowPart::ps_process ); }
 	void initCallSymbol() { initSymbol( FlowPart::ps_call ); }
 	void initIOSymbol() { initSymbol( FlowPart::ps_io ); }
@@ -185,7 +186,7 @@ protected:
 	
 	void postResize() override;
 	void updateNodePositions();
-	
+
 private:
 	FlowSymbol m_flowSymbol;
 };

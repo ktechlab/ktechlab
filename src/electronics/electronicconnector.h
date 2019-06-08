@@ -1,7 +1,7 @@
 //
 // C++ Interface: electronicconnector
 //
-// Description: 
+// Description:
 //
 //
 // Author: David Saxton, Alan Grimes, Zoltan Padrah <zoltan.padrah@gmail.com>, (C) 2008
@@ -18,7 +18,7 @@
 
 /**
 	@author David Saxton, Alan Grimes, Zoltan Padrah <zoltan.padrah@gmail.com>
-	
+
 	An electronic connector, connecting 2 ECNodes.
 */
 class ElectronicConnector : public Connector
@@ -51,7 +51,7 @@ private:
 	/// pointers to the endnodes of the connectors
 	QPointer<ECNode> m_startEcNode;
 	QPointer<ECNode> m_endEcNode;
-	
+
 };
 
 #endif

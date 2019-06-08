@@ -86,7 +86,7 @@ public:
 	 * returns "__label_callsub".
 	 */
 	static QString genLabel( const QString &id );
-	
+
 protected:
 	/**
 	 * Performs indenting, removal of unnecessary labels, etc.

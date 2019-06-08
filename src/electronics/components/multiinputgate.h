@@ -60,8 +60,8 @@ class MultiInputGate : public CallbackClass, public Component
 		 * Updates the display text for the logic symbol depending on its shape.
 		 */
 		void updateSymbolText();
-		
-	
+
+
 		int m_numInputs;
 		int m_distinctiveWidth;
 		LogicIn *inLogic[maxGateInput];
@@ -71,13 +71,13 @@ class MultiInputGate : public CallbackClass, public Component
 		QString m_rectangularShapeText;
 		bool m_bInvertedOutput;
 		bool m_bLikeOR;
-		
+
 	private:
 		/**
 		 * Reads the logic symbol shape from KTLConfig.
 		 */
 		void updateLogicSymbolShape();
-		
+
 		bool m_bDoneInit;
 };
 
@@ -91,11 +91,11 @@ class ECXnor : public MultiInputGate
 	public:
 		ECXnor( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~ECXnor() override;
-	
+
 		static Item* construct( ItemDocument *itemDocument, bool newItem,
 								const char *id );
 		static LibraryItem *libraryItem();
-		
+
 	protected:
 		void inStateChanged( bool newState ) override;
 		void drawShape( QPainter &p ) override;
@@ -115,10 +115,11 @@ class ECXor : public MultiInputGate
 		static Item* construct( ItemDocument *itemDocument, bool newItem,
 								const char *id );
 		static LibraryItem *libraryItem();
-	
+
 	protected:
 		void inStateChanged( bool newState ) override;
 		void drawShape( QPainter &p ) override;
+
 };
 
 
@@ -135,7 +136,7 @@ class ECOr : public MultiInputGate
 		static Item* construct( ItemDocument *itemDocument, bool newItem,
 								const char *id );
 		static LibraryItem *libraryItem();
-	
+
 	protected:
 		void inStateChanged( bool newState ) override;
 		void drawShape( QPainter &p ) override;
@@ -150,11 +151,11 @@ class ECNor : public MultiInputGate
 	public:
 		ECNor( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~ECNor() override;
-	
+
 		static Item* construct( ItemDocument *itemDocument, bool newItem,
 								const char *id );
 		static LibraryItem *libraryItem();
-	
+
 	protected:
 		void inStateChanged( bool newState ) override;
 		void drawShape( QPainter &p ) override;
@@ -169,11 +170,11 @@ class ECNand : public MultiInputGate
 	public:
 		ECNand( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~ECNand() override;
-	
-		static Item* construct( ItemDocument *itemDocument, bool newItem,
+
+        static Item* construct( ItemDocument *itemDocument, bool newItem,
 								const char *id );
 		static LibraryItem *libraryItem();
-	
+
 	protected:
 		void inStateChanged( bool newState ) override;
 		void drawShape( QPainter &p ) override;
@@ -188,11 +189,11 @@ class ECAnd : public MultiInputGate
 	public:
 		ECAnd( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~ECAnd() override;
-	
+
 		static Item* construct( ItemDocument *itemDocument, bool newItem,
 								const char *id );
 		static LibraryItem *libraryItem();
-	
+
 	protected:
 		void inStateChanged( bool newState ) override;
 		void drawShape( QPainter &p ) override;

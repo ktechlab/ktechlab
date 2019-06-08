@@ -1,7 +1,7 @@
 //
 // C++ Interface: circuiticndocument
 //
-// Description: 
+// Description:
 //
 //
 // Author: Zoltan P <zoltan.padrah@gmail.com>, (C) 2008
@@ -26,13 +26,13 @@ A document holding a circuit
 class CircuitICNDocument : public ICNDocument
 {
 Q_OBJECT
-	
+
 public:
     CircuitICNDocument(const QString& caption, const char* name);
 
     ~CircuitICNDocument() override;
 
-	
+
 	/**
 	 * Reinherit this function to perform special checks on whether the two
 	 * given QCanvasItems (either nodes or connectors or both) can be
@@ -63,27 +63,26 @@ public:
 	 */
 	virtual Connector *createConnector(Node *node1, Node *node2, QPointList *pointList = 0)
 		{ return ICNDocument::createConnector(node1,node2, pointList); }
-	
+
 	/**
 	 * Returns a pointer to a node on the canvas with the given id,
 	 * or NULL if no such node exists
 	 */
 	Node* nodeWithID ( const QString &id ) override;
 	ECNode *getEcNodeWithID( const QString &id );
-	
+
 	/**
 	 * Assigns the orphan nodes into NodeGroups. You shouldn't call this
 	 * function directly - instead use ItemDocument::requestEvent.
 	 */
 	void slotAssignNodeGroups() override;
-	
+
 	/**
 	 * Permantly deletes all items that have been added to the delete list with
 	 * the appendDeleteList( KtlQCanvasItem *qcanvasItem ) function.
 	 */
 	void flushDeleteList() override;
-	
-	
+
 	/**
 	 * registers (adds to the document) an item (a connector or a node)
 	 * @param qcanvasItem the item to be registered
@@ -96,14 +95,14 @@ public:
 	NodeList nodeList() const override;
 	
 protected:
-	
+
 	/**
 	 * If there are two connectors joined to a node, then they can be merged
 	 * into one connector. The node will not be removed.
 	 * @param ecnode The node between the two connectors
 	 * @returns true if it was successful in merging the connectors
 	 */
-	bool joinConnectors( ECNode *ecnode );	
+	bool joinConnectors( ECNode *ecnode );
 	/**
 	 *        Selects all nodes on the document. Should be overridden.
 	 */
@@ -119,7 +118,7 @@ protected:
 	 *        deletes all node groups in the nodeGroupList. Should be overridden.
 	 */
 	// virtual void deleteAllNodeGroups();
-	
+
 	/// the list of nodes contained by the document
 	ECNodeMap m_ecNodeList;
 };

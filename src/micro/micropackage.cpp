@@ -10,13 +10,13 @@
 
 #include "micropackage.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 
 PicPin::PicPin()
 {
-	pinID = "INVALID";
+	pinID = QString::fromLatin1("INVALID");
 	type = PicPin::type_bidir;
-	portName = "INVALID";
+	portName = QString::fromLatin1("INVALID");
 	portPosition = -1;
 }
 
@@ -42,7 +42,7 @@ void MicroPackage::assignPin( int pinPosition, PicPin::pin_type type, const QStr
 {
 	if ( m_picPinMap.find(pinPosition) != m_picPinMap.end() )
 	{
-		kError() << "PicDevice::assignBidirPin: Attempting to reset pin "<<pinPosition<<endl;
+		qCritical() << "PicDevice::assignBidirPin: Attempting to reset pin "<<pinPosition<<endl;
 		return;
 	}
 	if ( !m_portNames.contains(portName) && !portName.isEmpty() )
@@ -50,17 +50,17 @@ void MicroPackage::assignPin( int pinPosition, PicPin::pin_type type, const QStr
 		m_portNames.append(portName);
 		m_portNames.sort();
 	}
-	
+
 	m_picPinMap[pinPosition] = PicPin( pinID, type, portName, portPosition );
-		
+
 }
 
 PicPinMap MicroPackage::pins( uint pinType, const QString& portName )
 {
 	if ( pinType == 0 ) pinType = (1<<30)-1;
-	
+
 	PicPinMap list;
-	
+
 	const PicPinMap::iterator picPinListEnd = m_picPinMap.end();
 	for ( PicPinMap::iterator it = m_picPinMap.begin(); it != picPinListEnd; ++it )
 	{
@@ -70,7 +70,7 @@ PicPinMap MicroPackage::pins( uint pinType, const QString& portName )
 			list[it.key()] = it.value();
 		}
 	}
-	
+
 	return list;
 }
 
@@ -88,7 +88,7 @@ QStringList MicroPackage::pinIDs( uint pinType, const QString& portName )
 			list.append( it.value().pinID );
 		}
 	}
-	
+
 	return list;
 }
 
@@ -96,14 +96,14 @@ int MicroPackage::pinCount( uint pinType, const QString& portName )
 {
 	if ( pinType == 0 ) pinType = (1<<30)-1;
 	int count = 0;
-	
+
 	const PicPinMap::iterator picPinListEnd = m_picPinMap.end();
 	for ( PicPinMap::iterator it = m_picPinMap.begin(); it != picPinListEnd; ++it )
 	{
 		if ( (it.value().type & pinType) &&
 					(portName.isEmpty() || it.value().portName == portName) ) count++;
 	}
-	
+
 	return count;
 }
 

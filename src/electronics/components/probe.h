@@ -28,7 +28,7 @@ class Probe : public Component
 	
 	protected:
 		void dataChanged() override;
-		
+
 		ProbeData * p_probeData; // As obtained via registering with the oscilloscope
 		QColor m_color;
 };
@@ -47,7 +47,7 @@ class FloatingProbe : public Probe
 	protected:
 		void dataChanged() override;
 		void drawShape( QPainter &p ) override;
-		
+
 		FloatingProbeData * m_pFloatingProbeData;
 };
 
@@ -64,7 +64,7 @@ class VoltageProbe : public FloatingProbe
 		static LibraryItem *libraryItem();
 		
 		void stepNonLogic() override;
-		
+
 	protected:
 		Pin * m_pPin1;
 		Pin * m_pPin2;
@@ -83,7 +83,7 @@ class CurrentProbe : public FloatingProbe
 		static LibraryItem *libraryItem();
 		
 		void stepNonLogic() override;
-		
+
 	protected:
 		VoltageSource *m_voltageSource;
 };
@@ -96,15 +96,15 @@ class LogicProbe : public CallbackClass, public Probe
 	public:
 		LogicProbe( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~LogicProbe() override;
-	
+
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
-	
+
 		void logicCallback( bool value );
-	
+
 	protected:
 		void drawShape( QPainter &p ) override;
-		
+
 		LogicProbeData * p_logicProbeData;
 		LogicIn * m_pIn;
 		Simulator * m_pSimulator;

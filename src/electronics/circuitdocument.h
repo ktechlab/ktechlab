@@ -42,7 +42,7 @@ class Circuitoid
 public:
 	bool contains( Pin *node ) { return pinList.contains(node); }
 	bool contains( Element *ele ) { return elementList.contains(ele); }
-	
+
 	void addPin( Pin *node ) { if (node && !contains(node)) pinList += node; }
 	void addElement( Element *ele ) { if (ele && !contains(ele)) elementList += ele; }
 
@@ -104,9 +104,9 @@ class CircuitDocument : public CircuitICNDocument
 		void fillContextMenu( const QPoint &pos ) override;
 		bool isValidItem( Item *item ) override;
 		bool isValidItem( const QString &itemId ) override;
-		
+
 		KActionMenu *m_pOrientationAction;
-	
+
 	private slots:
 		void assignCircuits();
 
@@ -143,13 +143,13 @@ class CircuitDocument : public CircuitICNDocument
 		void recursivePinAdd(Pin *pin, Circuitoid *circuitoid, PinList *unassignedPins);
 
 		void deleteCircuits();
-	
+
 		QTimer *m_updateCircuitsTmr;
 		CircuitList m_circuitList;
 		ComponentList m_toSimulateList;
 		ComponentList m_componentList; // List is built up during call to assignCircuits
 
-// hmm, we have one of these in circuit too.... 
+// hmm, we have one of these in circuit too....
 		PinList m_pinList;
 		WireList m_wireList;
 		SwitchList m_switchList;

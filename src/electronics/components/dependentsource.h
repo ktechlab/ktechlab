@@ -40,7 +40,7 @@ class ECCCCS : public DependentSource
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
-	
+
 	protected:
 		void dataChanged() override;
 		void drawShape( QPainter &p ) override;
@@ -60,7 +60,7 @@ class ECCCVS : public DependentSource
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
-	
+
 	protected:
 		void dataChanged() override;
 		void drawShape( QPainter &p ) override;
@@ -77,14 +77,14 @@ class ECVCCS : public DependentSource
 	public:
 		ECVCCS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 		~ECVCCS() override;
-	
+
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
-	
+
 	protected:
 		void dataChanged() override;
 		void drawShape( QPainter &p ) override;
-	
+
 		VCCS *m_vccs;
 };
 
@@ -100,7 +100,7 @@ class ECVCVS : public DependentSource
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
-	
+
 	protected:
 		void dataChanged() override;
 		void drawShape( QPainter &p ) override;

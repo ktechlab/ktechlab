@@ -15,7 +15,7 @@
 #include "viewcontainer.h"
 
 #include <kconfig.h>
-#include <kdebug.h>
+#include <qdebug.h>
 #include <kglobalsettings.h>
 #include <klocalizedstring.h>
 #include <kpushbutton.h>
@@ -157,7 +157,7 @@ int ViewContainer::createViewArea( int relativeViewArea, ViewArea::Position posi
 	ViewArea *relative = viewArea(relativeViewArea);
 	if (!relative)
 	{
-		kError() << k_funcinfo << "Could not find relative view area" << endl;
+		qCritical() << Q_FUNC_INFO << "Could not find relative view area" << endl;
 		return -1;
 	}
 	
@@ -336,12 +336,12 @@ ViewArea *ViewArea::createViewArea( Position position, uint id, bool showOpenBut
 {
 	if (p_viewArea1 || p_viewArea2)
 	{
-		kError() << k_funcinfo << "Attempting to create ViewArea when already containing ViewAreas!" << endl;
+		qCritical() << Q_FUNC_INFO << "Attempting to create ViewArea when already containing ViewAreas!" << endl;
 		return 0l;
 	}
 	if (!p_view)
 	{
-		kError() << k_funcinfo << "We don't have a view yet, so creating a new ViewArea is redundant" << endl;
+		qCritical() << Q_FUNC_INFO << "We don't have a view yet, so creating a new ViewArea is redundant" << endl;
 		return 0l;
 	}
 	
@@ -404,13 +404,13 @@ void ViewArea::setView( View *view )
 	
 	if ( p_view )
 	{
-		kError() << k_funcinfo << "Attempting to set already contained view!" << endl;
+		qCritical() << Q_FUNC_INFO << "Attempting to set already contained view!" << endl;
 		return;
 	}
 	
 	p_view = view;
 	
-// 	kDebug() << k_funcinfo << "p_view->isFocusEnabled()="<<p_view->isFocusEnabled()<<" p_view->isHidden()="<<p_view->isHidden()<<endl;
+// 	qDebug() << Q_FUNC_INFO << "p_view->isFocusEnabled()="<<p_view->isFocusEnabled()<<" p_view->isHidden()="<<p_view->isHidden()<<endl;
 	
 	connect( view, SIGNAL(destroyed()), this, SLOT(viewDestroyed()) );
 	bool hadFocus = hasFocus();
@@ -508,7 +508,7 @@ void ViewArea::restoreState( KConfigGroup* config, int id, const QString& groupN
 		IntList contains = config->readEntry( containsKey(m_id), IntList());
 		
 		if ( contains.isEmpty() || contains.size() > 2 )
-			kError() << k_funcinfo << "Contained list has wrong size of " << contains.size() << endl;
+			qCritical() << Q_FUNC_INFO << "Contained list has wrong size of " << contains.size() << endl;
 		
 		else
 		{

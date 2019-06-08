@@ -42,9 +42,9 @@ class ProgrammerDlg : public KDialog
 		 * the widgets.
 		 */
 		void initOptions( ProcessOptions * options );
-		
+
 		MicroSelectWidget * microSelect() const;
-		
+
 	protected:
 		bool m_bAccepted;
 		ProgrammerWidget * m_pProgrammerWidget;

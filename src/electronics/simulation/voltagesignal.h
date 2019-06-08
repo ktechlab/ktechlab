@@ -23,7 +23,7 @@ class VoltageSignal : public Reactive, public ElementSignal
 public:
 	VoltageSignal( const double delta, const double voltage );
 	~VoltageSignal() override;
-	
+
 	Element::Type type() const override { return Element_VoltageSignal; }
 	void setVoltage( const double voltage );
 	double voltage() { return m_voltage; }
@@ -32,7 +32,7 @@ public:
 protected:
 	void updateCurrents() override;
 	void add_initial_dc() override;
-	
+
 private:
 	double m_voltage; // Voltage
 };

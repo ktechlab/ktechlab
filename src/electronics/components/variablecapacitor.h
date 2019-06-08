@@ -38,7 +38,7 @@ class VariableCapacitor : public Component
 
 		Capacitance * m_pCapacitance;
 		QSlider * m_pSlider;
-		
+
 		double m_minCapacitance;
 		double m_maxCapacitance;
 		double m_currCapacitance, m_tickValue;

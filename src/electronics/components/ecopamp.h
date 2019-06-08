@@ -25,7 +25,7 @@ class ECOpAmp : public Component
 		
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem *libraryItem();
-		
+
 	protected:
 		void drawShape( QPainter & p ) override;
 };

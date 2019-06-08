@@ -37,8 +37,9 @@ class FlowCodeDocument : public FlowICNDocument
 	public:
 		FlowCodeDocument( const QString &caption, const char *name = 0L);
 		~FlowCodeDocument() override;
-	
+
 		View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l ) override;
+
 
 		/**
 		 * Returns a pointer used for the MicroSettings in this FlowCode document
@@ -68,7 +69,7 @@ class FlowCodeDocument : public FlowICNDocument
 
 	signals:
 		void pinMappingsChanged();
-	
+
 	public slots:
 		/**
 		 * @param target as ConvertToTarget
@@ -86,7 +87,7 @@ class FlowCodeDocument : public FlowICNDocument
 	protected:
 		bool isValidItem( Item *item ) override;
 		bool isValidItem( const QString &itemId ) override;
-		
+
 	private slots:
 		void setLastTextOutputTarget( TextDocument * target );
 

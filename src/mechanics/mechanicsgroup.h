@@ -27,7 +27,7 @@ Q_OBJECT
 public:
 	MechanicsGroup( MechanicsDocument *mechanicsDocument, const char *name = 0);
 	~MechanicsGroup() override;
-	
+
 	/**
 	 * Returns a list of top-level mechanics items only
 	 */
@@ -58,14 +58,15 @@ public:
 	 * Sets the selected state of all items in the group
 	 */
 	void setSelected( bool sel ) override;
+
 	/**
 	 * Extracts the mechanics items from the item list
 	 */
 	MechanicsItemList extractMechanicsItems() const;
-	
+
 protected:
 	void updateInfo();
-	
+
 	bool b_isRaised;
 };
 

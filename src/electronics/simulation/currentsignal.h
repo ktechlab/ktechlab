@@ -32,8 +32,9 @@ public:
 protected:
 	void updateCurrents() override;
 	void add_initial_dc() override;
+
 	void addCurrents();
-	
+
 	double m_current; // Current
 	double m_oldCurrent; // Old calculated current
 	double m_newCurrent; // New calculated current

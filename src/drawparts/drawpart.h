@@ -34,17 +34,17 @@ class DrawPart : public Item
 			da_ellipse = 4,
 			da_image = 5
 		};
-		
+
 		DrawPart( ItemDocument *itemDocument, bool newItem, const char *id );
 		~DrawPart() override;
 
 		bool canResize() const override { return true; }
-		
+
 		Variant * createProperty( const QString & id, Variant::Type::Value type ) override;
-		
+
 		Qt::PenStyle getDataPenStyle( const QString & id );
 		Qt::PenCapStyle getDataPenCapStyle( const QString & id );
-		
+
 		void setDataPenStyle( const QString & id, Qt::PenStyle value );
 		void setDataPenCapStyle( const QString & id, Qt::PenCapStyle value );
 		
@@ -52,12 +52,12 @@ class DrawPart : public Item
 		void restoreFromItemData( const ItemData &itemData ) override;
 		
 		// Convention for following functions: name is i18n'd name of style, id is the english one
-		
+
 		static QString penStyleToID( Qt::PenStyle style );
 		static Qt::PenStyle idToPenStyle( const QString & id );
 		static QString penCapStyleToID( Qt::PenCapStyle style );
 		static Qt::PenCapStyle idToPenCapStyle( const QString & id );
-		
+
 		static QString penStyleToName( Qt::PenStyle style );
 		static Qt::PenStyle nameToPenStyle( const QString & name );
 		static QString penCapStyleToName( Qt::PenCapStyle style );

@@ -17,7 +17,7 @@
 class ParallelPort;
 
 /**
-@author David Saxton 
+@author David Saxton
  */
 class ParallelPortComponent : public CallbackClass, public Component
 {
@@ -35,13 +35,13 @@ class ParallelPortComponent : public CallbackClass, public Component
 		void initPort( const QString & port );
 		void dataChanged() override;
 		void drawShape( QPainter & p ) override;
-		
+
 		void dataCallback( bool );
 		void controlCallback( bool );
-		
+
 		/// Registers: { Data[0...7], Status[0...5], 0[6...7], Control[0...4], 0[5...7] }
 		LogicOut * m_pLogic[24];
-		
+
 		ParallelPort * m_pParallelPort;
 };
 

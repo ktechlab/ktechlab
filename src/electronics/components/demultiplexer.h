@@ -27,16 +27,16 @@ public:
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
+
 protected:
 	void dataChanged() override;
 	/**
 	 * Add / remove pins according to the number of inputs the user has requested
 	 */
 	void initPins( unsigned addressSize );
-	
+
 	void inStateChanged( bool newState );
-	
+
 	QVector<LogicIn*> m_aLogic;
 	QVector<LogicOut*> m_xLogic;
 	LogicIn * m_input;

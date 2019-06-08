@@ -16,7 +16,7 @@
 #include "matrixdisplay.h"
 #include "simulator.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <klocalizedstring.h>
 #include <qpainter.h>
 #include <qstring.h>

@@ -55,7 +55,7 @@ class ProbeData : public QObject
 	public:
 		ProbeData( int id);
 		~ProbeData() override;
-		
+
 		/**
 		 * @returns unique id for oscilloscope, set on construction
 		 */
@@ -151,9 +151,9 @@ class FloatingProbeData : public ProbeData
 {
 	public:
 		enum Scaling { Linear, Logarithmic };
-		
+
 		FloatingProbeData( int id);
-		
+
 		/**
 		 * Appends the data point to the set of data.
 		 */
@@ -188,7 +188,7 @@ class FloatingProbeData : public ProbeData
 		 * only used with logarithmic scaling).
 		 */
 		double lowerAbsValue() const { return m_lowerAbsValue; }
-		
+
 		void eraseData() override;
 		uint64_t findPos( uint64_t time) const override;
 

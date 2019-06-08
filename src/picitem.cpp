@@ -17,9 +17,10 @@
 #include "picitem.h"
 #include "eventinfo.h"
 
-#include <kdebug.h>
-#include <kicon.h>
+#include <qdebug.h>
 #include <klocalizedstring.h>
+
+#include <qicon.h>
 #include <qpainter.h>
 
 static const int InnerWidth = 88;
@@ -40,14 +41,14 @@ PinItem::PinItem( FlowCodeDocument* _view, QPoint position, bool _onLeft, PinSet
 	m_pinSettings = pinSettings;
 	view = _view;
 	onLeft = _onLeft;
-	
+
 	connect( m_pinSettings, SIGNAL(settingsChanged()), this, SLOT(updateDrawing()) );
-	
+
 	if ( QFontInfo(m_font).pixelSize() > 11 ) // It has to be > 11, not > 12, as (I think) pixelSize() rounds off the actual size
 		m_font.setPixelSize(12);
-	
+
 	setCanvas( view->canvas() );
-	
+
 	move ( position.x(), position.y() );
 	initItem();
 	setZ( (ICNDocument::Z::RaisedItem + ICNDocument::Z::ResizeHandle)/2 + 1 ); // Hackish, but whatever
@@ -74,7 +75,7 @@ void PinItem::drawShape( QPainter& p )
 {
 	if (!m_pinSettings)
 		return;
-	
+
 	if ( m_pinSettings->state() == PinSettings::ps_on )
 	{
 		if ( m_pinSettings->type() == PinSettings::pt_output )
@@ -84,9 +85,9 @@ void PinItem::drawShape( QPainter& p )
 	}
 	else
 		setBrush( Qt::white );
-	
+
 	p.drawRect(rect());
-	
+
 	p.setFont(m_font);
 	p.setBrush( Qt::NoBrush );
 	QRect r = m_textRect;
@@ -95,7 +96,7 @@ void PinItem::drawShape( QPainter& p )
 	else
 		p.drawText( r, Qt::AlignRight, m_pinSettings->id() );
 	//QRect br = p.boundingRect( r, Qt::AlignLeft, m_pinSettings->id() ); // 2017.10.01 - comment out unused variable
-	
+
 	int left;
 	int right;
 	if ( onLeft )
@@ -108,12 +109,12 @@ void PinItem::drawShape( QPainter& p )
 		left = (int)x() + PinLength;
 		right = left + 8;
 	}
-	
+
 	int midY = (int)y() + PinWidth/2;
 	QPolygon pa(3);
 	int midLeft = left + (8-PinDirArrow)/2;
 	int midRight = left + (8+PinDirArrow)/2;
-	
+
 	if ( onLeft )
 	{
 		midLeft--;
@@ -124,9 +125,9 @@ void PinItem::drawShape( QPainter& p )
 		midLeft++;
 		midRight++;
 	}
-	
+
 	p.setBrush( Qt::black );
-	
+
 	// Right facing arrow
 	if ( (m_pinSettings->type() == PinSettings::pt_input && onLeft) ||
 			 (m_pinSettings->type() == PinSettings::pt_output && !onLeft) )
@@ -155,7 +156,7 @@ QRect PinItem::boundingRect () const
 		r.setLeft( (int)x() - 10 );
 	else
 		r.setRight( (int)x() + PinLength + 10 );
-	
+
 	return r;
 }
 
@@ -172,7 +173,7 @@ void PinItem::switchState()
 		m_pinSettings->setState(PinSettings::ps_off);
 	else
 		m_pinSettings->setState(PinSettings::ps_on);
-	
+
 	update();
 }
 
@@ -186,7 +187,7 @@ void PinItem::dragged( int dx )
 	}
 	else
 		m_pinSettings->setType(PinSettings::pt_output);
-	
+
 	update();
 }
 
@@ -203,7 +204,7 @@ void PinItem::calcTextRect()
 	m_textRect = rect();
 	m_textRect.moveTop( m_textRect.top()-2 );
 	QRect br;
-	
+
 // 	QWidget tmpWidget;
 //     //tmpWidget.setAttribute(Qt::WA_PaintOutsidePaintEvent, true); //note: add this if needed
 // 	//QPainter p(&tmpWidget); // 2016.05.03 - initialize painter explicitly
@@ -219,7 +220,7 @@ void PinItem::calcTextRect()
 
 	if (!m_pinSettings)
 	{
-		kDebug() << "PinItem::textRect: No pinSettings!"<<endl;
+		qDebug() << "PinItem::textRect: No pinSettings!"<<endl;
 		return;
 	}
 	// note: br is assigned but not used; here might be some bug...
@@ -250,24 +251,24 @@ PicItem::PicItem( ICNDocument *icnDocument, bool newItem, const char *id, MicroS
 	m_type = typeString();
 	p_icnDocument = icnDocument;
 	icnDocument->registerItem(this);
-	
+
 	microSettings = _microSettings;
 	const int numPins = microSettings->microInfo()->package()->pinCount( PicPin::type_bidir | PicPin::type_input | PicPin::type_open );
 	const int numSide = (numPins/2) + (numPins%2);
-	
+
 	m_bExpanded = true;
 	m_innerHeight = (numSide+2)*PinWidth + (numSide-1)*PinSeparation;
 	updateVisibility();
-	
+
 	addButton( "settings", QRect( SidePadding-8, m_innerHeight+TopPadding+(BottomPadding-24)/2-1, InnerWidth+16, 24 ), i18n("Advanced...") );
-	addButton( "expandBtn", QRect( (TopPadding-22)/2, (TopPadding-22)/2, 22, 22 ), KIcon( "go-down" ), true );
+	addButton( "expandBtn", QRect( (TopPadding-22)/2, (TopPadding-22)/2, 22, 22 ), QIcon::fromTheme( "go-down" ), true );
 	button("expandBtn")->setState(true);
-	
+
 	move( 12, 12 );
-	
+
 	QStringList pinIDs = microSettings->microInfo()->package()->pinIDs( PicPin::type_bidir | PicPin::type_input | PicPin::type_open );
 	QStringList::iterator it = pinIDs.begin();
-	
+
 	for ( int i=0; i < numSide; ++i, ++it )
 	{
 		QPoint position( int(this->x()) + SidePadding - PinLength+1, int(y()) + TopPadding + (i+1)*PinWidth + i*PinSeparation );
@@ -275,7 +276,7 @@ PicItem::PicItem( ICNDocument *icnDocument, bool newItem, const char *id, MicroS
 		PinSettings *settings = microSettings->pinWithID(id);
 		m_pinItemList.append( new PinItem( dynamic_cast<FlowCodeDocument*>(icnDocument), position, true, settings ) );
 	}
-	
+
 	for ( int i=0; i < numPins/2; ++i, ++it )
 	{
 		QPoint position( int(this->x()) + SidePadding + InnerWidth-1, int(y()) + TopPadding + m_innerHeight - ( (i+2)*PinWidth + i*PinSeparation ) );
@@ -297,7 +298,7 @@ PicItem::~PicItem()
 	const PinItemList::iterator end = m_pinItemList.end();
 	for ( PinItemList::iterator it = m_pinItemList.begin(); it != end; ++it )
 		delete *it;
-	
+
 	m_pinItemList.clear();
 }
 
@@ -315,31 +316,31 @@ void PicItem::drawShape( QPainter & p )
 {
 	int _x = int(x());
 	int _y = int(y());
-	
+
 	p.setBrush( QColor( 0xef, 0xff, 0xef ) );
 	p.setFont( font() );
-	
+
 	p.drawRoundRect( _x, _y, width(), height(), 2000/width(), 2000/height() );
-	
+
 	p.drawText( _x+TopPadding-2, _y, width()-TopPadding+2, TopPadding, Qt::AlignVCenter, i18n("PIC Settings") );
-	
+
 	if ( !m_bExpanded )
 		return;
-	
+
 	// Draw rectangle to cut off pins
 	p.setBrush( QColor( 239, 255, 255 ) );
 	QRect r( _x+SidePadding, _y+TopPadding, InnerWidth, m_innerHeight );
 	p.drawRect(r);
-	
+
 	// Draw dimple thingy at end of pic
 	p.drawArc( r.x()+(r.width()-ArcWidth)/2, r.y()+1-ArcWidth/2, ArcWidth, ArcWidth, 180*16, 180*16 );
-	
+
 	// Draw vertical text centered in PIC
 	p.translate( r.width()/2 + r.x(), r.height()/2 + r.y() );
 	p.rotate(90);
 	QRect textRect( r.width()/-2, r.height()/-2, r.width(), r.height() );
 	p.drawText( textRect, Qt::AlignCenter, microSettings->microInfo()->id() );
-	
+
 	p.rotate(-90);
 	p.translate( r.width()/-2 - r.x(), r.height()/-2 - r.y() );
 }
@@ -352,23 +353,23 @@ void PicItem::buttonStateChanged( const QString &id, bool state )
 		m_bExpanded = state;
 		updateVisibility();
 	}
-	
+
 	else if ( id == "settings" )
 	{
 		if (!state)
 			return;
-		
+
 		// Redraw button
 		button("settings")->setState(false);
 		update();
-	
+
 		MicroSettingsDlg *dlg = new MicroSettingsDlg( microSettings, 0L, "microSettingsDlg" );
 		connect( dlg, SIGNAL(okClicked()), this, SLOT(slotMicroSettingsDlgAccepted()) );
 		connect( dlg, SIGNAL(applyClicked()), this, SLOT(slotMicroSettingsDlgAccepted()) );
 		dlg->show();
 		// At this point the PIC is selected but this does not appear to the
 		// user so we must deselect it when done.
-		p_icnDocument->unselectAll();	
+		p_icnDocument->unselectAll();
 	}
 }
 
@@ -377,14 +378,14 @@ void PicItem::updateVisibility()
 {
 	if (m_bExpanded)
 		setSize( 0, 0, InnerWidth+(2*SidePadding), m_innerHeight+TopPadding+BottomPadding, true );
-		
+
 	else
 		setSize( 0, 0, InnerWidth+(2*SidePadding), TopPadding, true );
-	
+
 	const PinItemList::iterator end = m_pinItemList.end();
 	for ( PinItemList::iterator it = m_pinItemList.begin(); it != end; ++it )
 		(*it)->setVisible(m_bExpanded);
-	
+
 	if ( Button * btn = button("settings") )
 		btn->setVisible(m_bExpanded);
 }
@@ -395,7 +396,7 @@ void PicItem::slotMicroSettingsDlgAccepted()
 	const PinItemList::iterator end = m_pinItemList.end();
 	for ( PinItemList::iterator it = m_pinItemList.begin(); it != end; ++it )
 		canvas()->setChanged( (*it)->boundingRect() );
-	
+
 	p_icnDocument->requestStateSave();
 }
 

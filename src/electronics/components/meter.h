@@ -34,9 +34,9 @@ protected:
 	 * Return the value / current, or whatever the meter is measuring
 	 */
 	virtual double meterValue() = 0;
-	
+
 	double calcProp( double v ) const;
-	
+
 	bool b_firstRun; // If true, then update the text dispalyed
 	bool b_timerStarted; // The timer to change the text is started on change
 	double m_timeSinceUpdate;
@@ -46,7 +46,7 @@ protected:
 	double m_maxValue;
 	Text *p_displayText;
 	QString m_unit;
-	
+
 	double m_prevProp; // Used in contentChanged()
 };
 
@@ -59,10 +59,10 @@ class FrequencyMeter : public Meter
 public:
 	FrequencyMeter( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~FrequencyMeter() override;
-	
+
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
+
 protected:
 	double meterValue() override;
 	ECNode *m_probeNode;
@@ -80,7 +80,7 @@ public:
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
+
 protected:
 	double meterValue() override;
 
@@ -100,9 +100,10 @@ public:
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
+
 protected:
 	double meterValue() override;
+
 };
 
 #endif

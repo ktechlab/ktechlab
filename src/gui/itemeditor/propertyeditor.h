@@ -77,7 +77,7 @@ class PropertyEditor : public QTableWidget // K3ListView
 		void resetItem();
 		/**
 		 * This slot updates the positions of current editor and revert button.
-		 * It is called when double-clicking list's header. 
+		 * It is called when double-clicking list's header.
 		 */
 		void moveEditor();
 		/**

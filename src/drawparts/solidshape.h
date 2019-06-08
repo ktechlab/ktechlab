@@ -40,7 +40,7 @@ class DPRectangle : public DrawPart
 		/** Returns the rectangle to draw in, taking into account the line
 		  * width */
 		QRect drawRect() const;
-	
+
 	private:
 		RectangularOverlay *m_pRectangularOverlay;
 };

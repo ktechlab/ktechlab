@@ -31,6 +31,7 @@ public:
 	
 private:
 	void drawShape( QPainter &p ) override;
+
 	Switch *m_switch1;
 	Switch *m_switch2;
 	Switch *m_switch3;
@@ -57,6 +58,7 @@ public:
 	
 private:
 	void drawShape( QPainter &p ) override;
+
 	Switch *m_switch1;
 	Switch *m_switch2;
 	bool pressed;
@@ -81,6 +83,7 @@ public:
 	
 private:
 	void drawShape( QPainter &p ) override;
+
 	Switch *m_switch1;
 	Switch *m_switch2;
 	bool pressed;

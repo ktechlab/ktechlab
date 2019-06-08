@@ -27,7 +27,7 @@ Probe::Probe( ICNDocument *icnDocument, bool newItem, const char *id )
 {
 	p_probeData = 0l;
 	setSize( -16, -8, 32, 16 );
-	
+
 	createProperty( "color", Variant::Type::Color );
 	property("color")->setCaption( i18n("Color") );
 	property("color")->setValue( QColor(Qt::black) );
@@ -57,7 +57,7 @@ FloatingProbe::FloatingProbe( ICNDocument *icnDocument, bool newItem, const char
 {
 	p_probeData = m_pFloatingProbeData = static_cast<FloatingProbeData*>(registerProbe(this));
 	property("color")->setValue( p_probeData->color() );
-	
+
 	createProperty( "scaling", Variant::Type::Select );
 	property("scaling")->setCaption( i18n("Scaling") );
 	QStringMap allowed;
@@ -66,14 +66,14 @@ FloatingProbe::FloatingProbe( ICNDocument *icnDocument, bool newItem, const char
 	property("scaling")->setAllowed( allowed );
 	property("scaling")->setValue("Linear");
 	property("scaling")->setAdvanced( true );
-	
+
 	createProperty( "upper_abs_value", Variant::Type::Double );
 	property("upper_abs_value")->setCaption( i18n("Upper Absolute Value") );
 	property("upper_abs_value")->setValue(10.0);
 	property("upper_abs_value")->setMinValue(0.0);
 	property("upper_abs_value")->setUnit("V");
 	property("upper_abs_value")->setAdvanced(true);
-	
+
 	createProperty( "lower_abs_value", Variant::Type::Double );
 	property("lower_abs_value")->setCaption( i18n("Lower Absolute Value") );
 	property("lower_abs_value")->setValue(0.1);
@@ -91,12 +91,12 @@ FloatingProbe::~FloatingProbe()
 void FloatingProbe::dataChanged()
 {
 	Probe::dataChanged();
-	
+
 	if ( dataString("scaling") == "Linear" )
 		m_pFloatingProbeData->setScaling( FloatingProbeData::Linear );
 	else
 		m_pFloatingProbeData->setScaling( FloatingProbeData::Logarithmic );
-	
+
 	m_pFloatingProbeData->setUpperAbsValue( dataDouble("upper_abs_value") );
 	m_pFloatingProbeData->setLowerAbsValue( dataDouble("lower_abs_value") );
 }
@@ -105,26 +105,26 @@ void FloatingProbe::dataChanged()
 void FloatingProbe::drawShape( QPainter &p )
 {
 	initPainter(p);
-	
+
 	int _x = int(x())-16;
 	int _y = int(y())-8;
-	
+
 	p.drawRect( _x, _y, 32, 16 );
-	
+
 	QPolygon bezier(4);
-	
+
 	bezier[0] = QPoint( _x+4, _y+10 );
 	bezier[1] = QPoint( _x+12, _y-6 );
 	bezier[2] = QPoint( _x+20, _y+24 );
 	bezier[3] = QPoint( _x+28, _y+4 );
-	
+
 	p.setPen( QPen( m_color, 2 ) );
 	//p.drawCubicBezier(bezier); // 2018.12.07
     QPainterPath path;
     path.moveTo( bezier.at(0) );;
     path.cubicTo( bezier.at(1), bezier.at(2), bezier.at(3) );
     p.strokePath(path, p.pen());
-	
+
 	deinitPainter(p);
 }
 //END class FloatingProbe
@@ -152,7 +152,7 @@ VoltageProbe::VoltageProbe( ICNDocument *icnDocument, bool newItem, const char *
 	: FloatingProbe( icnDocument, newItem, id ? id : "voltageprobe" )
 {
 	m_name = i18n("Voltage Probe");
-	
+
 	init1PinLeft();
 	init1PinRight();
 	m_pPin1 = m_pNNode[0]->pin();
@@ -194,10 +194,10 @@ CurrentProbe::CurrentProbe( ICNDocument *icnDocument, bool newItem, const char *
 	: FloatingProbe( icnDocument, newItem, id ? id : "currentprobe" )
 {
 	m_name = i18n("Current Probe");
-	
+
 	init1PinLeft(0);
 	init1PinRight(0);
-	
+
 	m_voltageSource = createVoltageSource( m_pNNode[0], m_pPNode[0], 0. );
 }
 
@@ -239,13 +239,13 @@ LogicProbe::LogicProbe( ICNDocument *icnDocument, bool newItem, const char *id )
 	: Probe( icnDocument, newItem, id ? id : "probe" )
 {
 	m_name = i18n("Logic Probe");
-	
+
 	init1PinRight();
 	m_pIn = createLogicIn( m_pPNode[0] );
-	
+
 	p_probeData = p_logicProbeData = static_cast<LogicProbeData*>(registerProbe(this));
 	property("color")->setValue( p_probeData->color() );
-	
+
 	m_pSimulator = Simulator::self();
 	m_pIn->setCallback( this, (CallbackPtr)(&LogicProbe::logicCallback) );
 	logicCallback(false);
@@ -266,14 +266,14 @@ void LogicProbe::logicCallback( bool value )
 void LogicProbe::drawShape( QPainter &p )
 {
 	initPainter(p);
-	
+
 	int _x = int(x())-16;
 	int _y = int(y())-8;
-	
+
 	p.drawRect( _x, _y, 32, 16 );
-	
+
 	p.setPen( QPen( m_color, 2 ) );
-	
+
 	p.drawLine( _x+4, _y+11, _x+6, _y+11 );
 	p.drawLine( _x+6, _y+11, _x+6, _y+4 );
 	p.drawLine( _x+6, _y+4, _x+10, _y+4 );
@@ -286,7 +286,7 @@ void LogicProbe::drawShape( QPainter &p )
 // 	p.drawLine( _x+23, _y+11, _x+26, _y+11 );
 // 	p.drawLine( _x+26, _y+11, _x+26, _y+4 );
 // 	p.drawLine( _x+26, _y+4, _x+28, _y+4 );
-	
+
 	deinitPainter(p);
 }
 //END class LogicProbe

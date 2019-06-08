@@ -54,6 +54,7 @@ public:
 	
 private:
 	void drawShape( QPainter &p ) override;
+
 	Switch *m_switch;
 	bool pressed;
 };

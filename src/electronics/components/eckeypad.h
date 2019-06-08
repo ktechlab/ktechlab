@@ -33,7 +33,7 @@ class ECKeyPad : public Component
 		void initPins( unsigned numCols);
 		QString buttonID( int row, int col ) const;
 		int sideLength( unsigned numButtons ) const;
-		
+
 		Switch *m_switch[4][11];
 		unsigned m_numCols;
 };

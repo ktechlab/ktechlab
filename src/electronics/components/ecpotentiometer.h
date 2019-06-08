@@ -33,7 +33,7 @@ public:
 private:
 	void dataChanged() override;
 	void drawShape( QPainter &p ) override;
-	
+
 	ECNode * m_p1;
 	Resistance *m_r1, *m_r2;
 	double m_resistance;

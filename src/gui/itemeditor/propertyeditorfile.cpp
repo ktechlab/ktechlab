@@ -16,7 +16,7 @@
 #include <kpushbutton.h>
 #include <kfiledialog.h>
 #include <klocalizedstring.h>
-#include <kdebug.h>
+#include <qdebug.h>
 
 #include <qstring.h>
 #include <qpixmap.h>

@@ -16,7 +16,7 @@
 #include "nodegroup.h"
 #include "resizeoverlay.h"
 
-#include <kicon.h>
+#include <qicon.h>
 #include <qpainter.h>
 
 #include <cmath>
@@ -29,17 +29,17 @@ FlowContainer::FlowContainer( ICNDocument *_icnDocument, bool newItem, const QSt
 {
 	m_ext_in = m_int_in = m_int_out = m_ext_out = 0l;
 	b_expanded = true;
-	
-	addButton( "expandBtn", QRect( offsetX(), offsetY()+24 - 11, 22, 22 ), KIcon( "go-down" ), true );
+
+	addButton( "expandBtn", QRect( offsetX(), offsetY()+24 - 11, 22, 22 ), QIcon::fromTheme( "go-down" ), true );
 	m_rectangularOverlay = new RectangularOverlay( this, 8, 8 );
 	setSize( -160, -120, 320, 240 );
-	
-	
+
+
 	m_int_in = (FPNode*)createNode( width()/2, 8+topStrip, 90, "int_in", Node::fp_out );
 	m_int_out = (FPNode*)createNode( width()/2, height()-8-botStrip, 270, "int_out", Node::fp_in );
-	
+
 	button("expandBtn")->setState(true);
-	
+
 	updateAttachedPositioning();
 	updateNodeLevels();
 }
@@ -53,14 +53,14 @@ FlowContainer::~FlowContainer()
 void FlowContainer::updateNodeLevels()
 {
 	FlowPart::updateNodeLevels();
-	
+
 	int l = level();
-	
+
 	if (m_ext_in)
 		m_ext_in->setLevel(l);
 	if (m_ext_out)
 		m_ext_out->setLevel(l);
-	
+
 	if (m_int_in)
 		m_int_in->setLevel(l+1);
 	if (m_int_out)
@@ -114,10 +114,10 @@ void FlowContainer::drawShape( QPainter &p )
 
 	if ( !m_sizeRect.isValid() )
 		return;
-	
+
 	const int _x = (int)x()+offsetX();
 	const int _y = (int)y()+offsetY();
-	
+
 	int col = 0xef + level()*0x6;
 	if ( col > 0xff ) col = 0xff;
 	p.setBrush( QColor( col, 0xff, col ) );
@@ -132,11 +132,11 @@ void FlowContainer::drawShape( QPainter &p )
 		p.setPen(QPen((isSelected()?m_selectedCol:Qt::black),1,Qt::SolidLine));
 		p.drawRoundRect( _x, _y, width(), topStrip, 1500/width(), 1500/topStrip );
 	}
-	
+
 	p.setPen( Qt::black );
 	p.setFont( font() );
 	p.drawText( QRect( 22 + _x+8, _y, width()-8, topStrip ), Qt::AlignLeft | Qt::AlignVCenter,  m_caption );
-	
+
 	if( b_expanded )
 	{
 		p.setPen(Qt::SolidLine);
@@ -150,12 +150,12 @@ void FlowContainer::childAdded( Item *child )
 {
 	if (!child)
 		return;
-	
+
 	FlowPart::childAdded(child);
-	
+
 	connect( this, SIGNAL(movedBy(double, double )), child, SLOT(moveBy(double, double )) );
 	child->setZ( ICNDocument::Z::Item + child->level() );
-	
+
 	updateContainedVisibility();
 }
 
@@ -163,10 +163,10 @@ void FlowContainer::childAdded( Item *child )
 void FlowContainer::childRemoved( Item *child )
 {
 	FlowPart::childRemoved(child);
-	
+
 	if (!b_expanded)
 		child->setVisible(true);
-	
+
 	disconnect( this, SIGNAL(movedBy(double, double )), child, SLOT(moveBy(double, double )) );
 }
 
@@ -178,19 +178,19 @@ void FlowContainer::updateConnectorPoints( bool add )
 
 	if ( b_pointsAdded == add )
 		return;
-	
+
 	b_pointsAdded = add;
-	
+
 	Cells *cells = p_icnDocument->cells();
 	if (!cells) return;
-	
+
 	int _x = (int)x()+offsetX();
 	int _y = (int)y()+offsetY();
 	int w = width();
 	int h = b_expanded ? height() : topStrip;
-	
+
 	const int mult = add ? 1 : -1;
-	
+
 	// Top strip
 	for ( int y=_y; y <_y+24; ++y )
 	{
@@ -202,7 +202,7 @@ void FlowContainer::updateConnectorPoints( bool add )
 			}
 		}
 	}
-	
+
 	// Bottom strip
 	for ( int y = _y+h-16; y <= _y+h; ++y )
 	{
@@ -214,7 +214,7 @@ void FlowContainer::updateConnectorPoints( bool add )
 			}
 		}
 	}
-	
+
 	// Left strip
 	int x = _x;
 	for ( int y = _y+24; y<_y+h-16; y += 8 )
@@ -224,7 +224,7 @@ void FlowContainer::updateConnectorPoints( bool add )
 			cells->cellContaining( x, y ).CIpenalty += mult*ICNDocument::hs_item;
 		}
 	}
-	
+
 	// Right strip
 	x = _x+width();
 	for ( int y = _y+24; y<_y+h-16; y += 8 )
@@ -245,9 +245,9 @@ void FlowContainer::setFullBounds( bool full )
 		setPoints( QPolygon(bounds) );
 		return;
 	}
-	
-// 	kDebug() << k_funcinfo << "width="<<width()<<" height="<<height()<<endl;
-	
+
+// 	qDebug() << Q_FUNC_INFO << "width="<<width()<<" height="<<height()<<endl;
+
 	QPolygon pa(10);
 	pa[0] = QPoint( 0, 0 );
 	pa[1] = QPoint( width(), 0 );
@@ -284,7 +284,7 @@ void FlowContainer::setSelected( bool yes )
 {
 	if ( yes == isSelected() )
 		return;
-	
+
 	FlowPart::setSelected(yes);
 	m_rectangularOverlay->showResizeHandles( yes && isVisible() );
 }
@@ -294,30 +294,30 @@ void FlowContainer::setExpanded( bool expanded )
 {
 	if ( b_expanded == expanded )
 		return;
-	
+
 	updateConnectorPoints(false);
-	
+
 	// Set this now, so that child items that we call know whether or not we actually are expanded
 	b_expanded = expanded;
-	
+
 	updateContainedVisibility();
 	updateAttachedPositioning();
-	
+
 	p_itemDocument->setModified(true);
 	m_rectangularOverlay->setVisible(expanded);
 	setFullBounds(false);
-	
+
 	bool nodesMoved = (m_ext_out != 0l);
 	if (nodesMoved)
-		p_icnDocument->requestRerouteInvalidatedConnectors();	
-	
+		p_icnDocument->requestRerouteInvalidatedConnectors();
+
 	p_icnDocument->requestStateSave();
 }
 
 
 void FlowContainer::postResize()
 {
-// 	kDebug() << k_funcinfo << "width="<<width()<<endl;
+// 	qDebug() << Q_FUNC_INFO << "width="<<width()<<endl;
 	setFullBounds(false);
 	FlowPart::postResize();
 }
@@ -327,34 +327,34 @@ void FlowContainer::updateAttachedPositioning()
 {
 	if (b_deleted)
 		return;
-	
+
 	int _x = int(x())+offsetX();
 	int _y = int(y())+offsetY();
 	int w = int((std::floor(float((width()+8)/16)))*16);
 	int h = height();
-	
+
 	if (m_ext_in)
 		m_ext_in->move( _x+w/2, _y-8 );
-	
+
 	if (m_int_in)
 		m_int_in->move( _x+w/2, _y+8+topStrip );
-	
+
 	if (b_expanded)
 	{
 		if (m_int_out)
 			m_int_out->move( _x+w/2, _y+h-8-botStrip );
-	
+
 		if (m_ext_out)
 			m_ext_out->move( _x+w/2, _y+h-8+botStrip );
 	}
 	else
 	{
 		// (Note: dont really care where internal nodes are if not expanded)
-		
+
 		if (m_ext_out)
 			m_ext_out->move( _x+w/2, _y+8+topStrip );
 	}
-	
+
 	button("expandBtn")->setGuiPartSize( 22, 22 );
 	button("expandBtn")->move( int(x())+offsetX()+7, int(y())+offsetY()+1 );
 }
@@ -364,7 +364,7 @@ void FlowContainer::updateContainedVisibility()
 {
 	if (b_deleted)
 		return;
-	
+
 	if (m_ext_in)
 		m_ext_in->setVisible( isVisible() );
 	if (m_int_in)
@@ -373,19 +373,19 @@ void FlowContainer::updateContainedVisibility()
 		m_int_out->setVisible( isVisible() && b_expanded );
 	if (m_ext_out)
 		m_ext_out->setVisible( isVisible() );
-	
+
 	const ItemList::iterator cEnd = m_children.end();
 	for ( ItemList::iterator it = m_children.begin(); it != cEnd; ++it )
 	{
 		if (*it)
 			(*it)->setVisible( isVisible() && b_expanded );
 	}
-	
+
 	m_rectangularOverlay->setVisible( isVisible() && b_expanded );
-	
+
 	NodeGroupList hidableNodeGroups;
 	p_icnDocument->getTranslatable( children(true) += GuardedItem(this), 0, 0, &hidableNodeGroups );
-	
+
 	NodeGroupList::iterator hngEnd = hidableNodeGroups.end();
 	for ( NodeGroupList::iterator it = hidableNodeGroups.begin(); it != hngEnd; ++it )
 		(*it)->setVisible(b_expanded);
@@ -399,7 +399,7 @@ void FlowContainer::setVisible( bool yes )
 		FlowPart::setVisible(false);
 		return;
 	}
-	
+
 	FlowPart::setVisible(yes);
 	updateContainedVisibility();
 }

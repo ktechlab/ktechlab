@@ -1,7 +1,7 @@
 //
 // C++ Interface: pinnode
 //
-// Description: 
+// Description:
 //
 //
 //

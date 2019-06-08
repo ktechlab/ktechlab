@@ -30,7 +30,7 @@ public:
 	
 	void stepNonLogic() override;
 	bool doesStepNonLogic() const override { return true; }
-	
+
 private:
 	void drawShape( QPainter &p ) override;
 	double avgPower;

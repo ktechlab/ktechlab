@@ -35,7 +35,7 @@ public:
 	
 private:
 	void drawShape( QPainter &p ) override;
-	
+
 	bool m_bCommonCathode;
 	double lastUpdatePeriod;
 	double avg_brightness[8];

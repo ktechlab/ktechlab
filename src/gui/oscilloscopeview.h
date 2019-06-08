@@ -36,22 +36,22 @@ class OscilloscopeView : public QFrame
 		 */
 		void updateView();
 		void slotSetFrameRate( QAction * );
-		
+
 	protected slots:
 		void updateViewTimeout();
-		
+
 	protected:
 		void mousePressEvent( QMouseEvent *event) override;
 		void mouseMoveEvent( QMouseEvent *event) override;
 		void mouseReleaseEvent( QMouseEvent *event) override;
 		void paintEvent( QPaintEvent *event) override;
 		void resizeEvent( QResizeEvent *event) override;
-		
+
 		void drawLogicData( QPainter & p);
 		void drawFloatingData( QPainter & p);
 		void updateOutputHeight();
 		void updateTimeLabel();
-		
+
 		bool b_needRedraw;
 		QPixmap *m_pixmap;
 		QTimer *m_updateViewTmr;

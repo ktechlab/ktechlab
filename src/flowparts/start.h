@@ -22,10 +22,10 @@ class Start : public FlowPart
 public:
 	Start( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~Start() override;
-	
+
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
+
 	void generateMicrobe( FlowCode * ) override;
 };
 

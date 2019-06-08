@@ -1,7 +1,7 @@
 //
 // C++ Interface: flowicndocument
 //
-// Description: 
+// Description:
 //
 //
 // Author: Zoltan P <zoltan.padrah@gmail.com>, (C) 2008
@@ -38,7 +38,7 @@ public:
 	 * connected together.
 	 */
 	bool canConnect ( KtlQCanvasItem *qcanvasItem1, KtlQCanvasItem *qcanvasItem2 ) const override;
-	
+
 	/**
 	 * Splits Connector con into two connectors at point pos2, and creates a connector from the node
 	 * to the intersection of the two new connectors. If pointList is non-null, then the new connector
@@ -69,7 +69,7 @@ public:
 	 * function directly - instead use ItemDocument::requestEvent.
 	 */
 	void slotAssignNodeGroups() override;	
-	
+
 	/**
 	 * Permantly deletes all items that have been added to the delete list with
 	 * the appendDeleteList( KtlQCanvasItem *qcanvasItem ) function.
@@ -85,7 +85,7 @@ public:
 	void unregisterUID( const QString & uid ) override;
 	NodeList nodeList() const override;
 protected:
-	
+
 	/**
 	 * If there are two connectors joined to a node, then they can be merged
 	 * into one connector. The node will not be removed.
@@ -98,16 +98,15 @@ protected:
 	 */
 	void selectAllNodes() override;	
 
-	
 	/**
 	 *        deletes all the elements containde in the nodeList. Should be overridden.
 	 */
 	void deleteAllNodes() override;
-	
+
 
 	/// the list of flownodes in the documents
 	FPNodeMap m_flowNodeList;
-	
+
 };
 
 #endif

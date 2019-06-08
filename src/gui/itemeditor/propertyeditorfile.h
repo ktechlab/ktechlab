@@ -28,7 +28,7 @@ class PropertyEditorFile : public PropertySubEditor
 	public:
 		PropertyEditorFile( QWidget * parent, Property * property, const char * name = 0 );
 		~PropertyEditorFile() override {;}
-		
+
 		void resizeEvent(QResizeEvent *ev) override;
 		bool eventFilter( QObject * watched, QEvent * e ) override;
 

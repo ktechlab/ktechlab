@@ -32,10 +32,10 @@ class BinaryCounter : public CallbackClass, public Component
 public:
 	BinaryCounter( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
 	~BinaryCounter() override;
-	
+
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
+
 protected:
 	void inStateChanged( bool state ); // Input
 	void rStateChanged( bool state ); // Reset
@@ -44,10 +44,10 @@ protected:
 	void outputValue();
 	void dataChanged() override;
 	void initPins( unsigned numBits );
-	
+
 	LogicIn *enLogic, *inLogic, *rLogic, *udLogic;
 	LogicOut * m_pLogicOut[26];
-	
+
 	unsigned m_numBits;
 	bool b_triggerHigh;
 	bool b_en; // Enable

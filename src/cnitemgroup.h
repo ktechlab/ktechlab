@@ -165,8 +165,8 @@ public:
 	 * (or other items), this will return false.
 	 */
 	bool haveSameOrientation() const;
-	
-	
+
+
 public slots:
 	/**
 	 * Sets the orientation of all selected items to 0 degrees.

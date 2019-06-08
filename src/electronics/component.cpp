@@ -38,7 +38,7 @@
 #include "voltagesource.h"
 
 #include <cmath>
-#include <kdebug.h>
+#include <qdebug.h>
 #include <qbitarray.h>
 #include <qpainter.h>
 #include <qwidget.h>
@@ -304,7 +304,7 @@ void Component::updateAttachedPositioning()
     for ( NodeInfoMap::iterator it = m_nodeMap.begin(); it != end; ++it )
     {
         if ( !it.value().node )
-            kError() << k_funcinfo << "Node in nodemap is null" << endl;
+            qCritical() << Q_FUNC_INFO << "Node in nodemap is null" << endl;
         else
         {
             int nx = int((std::cos(m_angleDegrees * RPD) * it.value().x) - (std::sin(m_angleDegrees * RPD) * it.value().y));
@@ -602,7 +602,7 @@ ECNode* Component::ecNodeWithID( const QString &ecNodeId )
 {
     if ( !p_icnDocument )
     {
-// 		kDebug() << "Warning: ecNodeWithID("<<ecNodeId<<") does not exist\n";
+// 		qDebug() << "Warning: ecNodeWithID("<<ecNodeId<<") does not exist\n";
         return createPin( 0, 0, 0, ecNodeId );
     }
 

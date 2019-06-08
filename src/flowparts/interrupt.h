@@ -27,7 +27,7 @@ public:
 	static LibraryItem *libraryItem();
 	
 	void generateMicrobe( FlowCode *code ) override;
-	
+
 protected:
 	void dataChanged() override;
 };

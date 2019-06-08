@@ -66,7 +66,7 @@ class DoubleSpinBox : public QDoubleSpinBox
 		 * Sets the unit used, e.g. "F"
 		 */
 // 		void setUnit( const QString & unit );
-		
+
 		QValidator::State validate( QString & text, int & pos ) const override ;
 
 	public slots:
@@ -77,13 +77,13 @@ class DoubleSpinBox : public QDoubleSpinBox
 		 * spinbox might display "100 kF".
 		 */
 // 		void setValue( double value );
-	
+
 	signals:
 		/**
 		 * This value is emitted whenever the value of the spinbox changes.
 		 */
 // 		void valueChanged( double value ); // exists in QDoubleSpinBox
-		
+
 	protected slots:
 		/**
 		 * Checks if the value has changed - and if so, emits a valueChanged
@@ -91,11 +91,11 @@ class DoubleSpinBox : public QDoubleSpinBox
 		 */
 // 		void checkIfChanged(double value);
 		/**
-		 * Sets the suffix from m_queuedSuffix. Called from QTimer::singleShot 
+		 * Sets the suffix from m_queuedSuffix. Called from QTimer::singleShot
 		 * to avoid strange recursion problems.
 		 */
 // 		void setQueuedSuffix();
-	
+
 	protected:
         /**
          * make Qt enable the up/down step arrows
@@ -136,9 +136,9 @@ class DoubleSpinBox : public QDoubleSpinBox
 		 * Returns value rounded off to one significant figure.
 		 */
 		static double roundToOneSF( double value );
-		
+
 		void init();
-		
+
 // 		QString m_queuedSuffix; ///< Used
 		QString m_unit;
 // 		double m_minValue;

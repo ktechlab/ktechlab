@@ -34,7 +34,7 @@ class NodeInfo
 {
 public:
 	NodeInfo();
-	
+
 	QString id; // External id (ICNDocument scope)
 	Node *node; //Pointer to the node
 	double x; // X position relative to item
@@ -130,7 +130,7 @@ signals:
 	 * actually emit this signal - instead, Component and FlowPart classes do.
 	 */
 	void orientationChanged();
-	
+
 public slots:
 	/**
 	 * Moves item - use this instead of moveBy() so that associated Nodes also get moved
@@ -149,7 +149,7 @@ public slots:
 	 * This item has been resized, so update the nodes relative positions
 	 */
 	virtual void updateAttachedPositioning();
-	
+
 protected:
 	void reparented( Item *oldParent, Item *newParent ) override;
 	void postResize() override;
@@ -167,11 +167,11 @@ protected:
 	 * Remove the display text with the given id
 	 */
 	void removeDisplayText( const QString &id );
-	/** 
+	/**
 	 * Sets the right colour if selected, transforms the matrix of the painter
 	 */
 	virtual void initPainter( QPainter &p );
-	
+
 	QPointer<ICNDocument> p_icnDocument;
 	TextMap m_textMap;
 	NodeInfoMap m_nodeMap;

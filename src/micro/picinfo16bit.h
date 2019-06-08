@@ -26,7 +26,7 @@ class PicAsm16bit : public AsmInfo
 	
 	protected:
 // 		static PicAsm16bit *m_self;
-	
+
 	public:
 		PicAsm16bit();
 };

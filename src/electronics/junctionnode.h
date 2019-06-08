@@ -1,7 +1,7 @@
 //
 // C++ Interface: junctionnode
 //
-// Description: 
+// Description:
 //
 //
 //
@@ -33,7 +33,7 @@ public:
 
 protected:
 	void initPoints() override;
-	
+
 };
 
 #endif

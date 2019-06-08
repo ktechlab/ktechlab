@@ -50,8 +50,9 @@ if (GPSim_INCLUDE_DIR AND GPSim_LIBRARY AND GLib_FOUND)
     set(GPSim_LIBRARIES ${GPSim_LIBRARY} ${GLib_LIBRARY})
 
     include(CheckCXXSourceCompiles)
+    include(CMakePushCheckState)
 
-    macro_push_required_vars()
+    cmake_push_check_state()
     set(CMAKE_REQUIRED_INCLUDES ${GPSim_INCLUDE_DIRS})
     set(CMAKE_REQUIRED_LIBRARIES ${GPSim_LIBRARIES} -ldl)
     set(CMAKE_REQUIRED_DEFINITIONS ${KDE4_ENABLE_EXCEPTIONS})
@@ -60,7 +61,7 @@ if (GPSim_INCLUDE_DIR AND GPSim_LIBRARY AND GLib_FOUND)
 int main() { pic_processor *proc = NULL;
 return sizeof (proc->Wreg);
 }" HAVE_GPSIM_0_26)
-    macro_pop_required_vars()
+    cmake_pop_check_state()
 endif ()
 
 include(FindPackageHandleStandardArgs)

@@ -33,7 +33,7 @@ public:
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
 	static LibraryItem *libraryItem();
-	
+
     /** callback for logic steps, for each logic update step;
      only active when the period of the clock is less or equal than LOGIC_UPDATE_PER_STEP */
 	void stepCallback();

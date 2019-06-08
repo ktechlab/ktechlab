@@ -35,7 +35,7 @@ class BiDirLED : public Component
 		double r[2];
 		double g[2];
 		double b[2];
-	
+
 		double avg_brightness[2];
 		uint last_brightness[2];
 		double lastUpdatePeriod;

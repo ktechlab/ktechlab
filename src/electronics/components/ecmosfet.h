@@ -33,11 +33,11 @@ class ECMOSFET : public Component
 		static LibraryItem * libraryItemPEM();
 // 		static LibraryItem * libraryItemNDM();
 // 		static LibraryItem * libraryItemPDM();
-	
+
 	protected:
 		void dataChanged() override;
 		void drawShape( QPainter &p ) override;
-		
+
 		bool m_bHaveBodyPin;
 		int m_MOSFET_type;
 		MOSFET * m_pMOSFET;

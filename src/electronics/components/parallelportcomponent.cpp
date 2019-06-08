@@ -17,7 +17,7 @@
 #include "pin.h"
 #include "resistance.h"
 
-#include <kdebug.h>
+#include <qdebug.h>
 #include <klocalizedstring.h>
 #include <qpainter.h>
 

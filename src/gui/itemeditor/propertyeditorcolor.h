@@ -27,7 +27,7 @@ class PropertyEditorColor : public PropertySubEditor
 		~PropertyEditorColor() override {;}
 
 		bool eventFilter( QObject * watched, QEvent * e ) override;
-		
+
 	protected slots:
 		void valueChanged(const QColor &color);
 

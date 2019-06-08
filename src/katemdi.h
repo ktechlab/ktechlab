@@ -176,7 +176,7 @@ class Sidebar : public KMultiTabBar
     ~Sidebar () override;
 
     void setSplitter (Splitter *sp);
-	
+
 	//HACK use these functions intead of their respective functions in
 	//KMultiTabBar so that we know what they were set to.
 	void setSidebarPosition( KMultiTabBarPosition pos );
@@ -222,7 +222,7 @@ class Sidebar : public KMultiTabBar
     void buttonPopupActivate (QAction* action);
 
   private:
-	  
+
     MainWindow *m_mainWin;
 
 	KMultiTabBar::KMultiTabBarStyle m_sidebarTabStyle;
@@ -306,7 +306,7 @@ class MainWindow : public KParts::MainWindow
      * @return toolview's tabbar style
      */
     KMultiTabBar::KMultiTabBarStyle toolViewStyle () const;
-    
+
   protected:
     /**
      * called by toolview destructor
@@ -361,7 +361,7 @@ class MainWindow : public KParts::MainWindow
      * @param config config object to use
      */
     void saveSession (KConfigGroup *config);
-	
+
 	void updateSidebarMinimumSizes();
 
   /**

@@ -17,7 +17,7 @@
 
 #include <kcombobox.h>
 #include <kconfig.h>
-#include <kdebug.h>
+#include <qdebug.h>
 #include <klocalizedstring.h>
 #include <kconfiggroup.h>
 
@@ -235,7 +235,7 @@ void SymbolViewer::selectRadix( int selectIndex )
 {
 	if ( (selectIndex<0) || (selectIndex>3) )
 	{
-		kWarning() << k_funcinfo << "Invalid select position for radix: " << selectIndex << endl;
+		qWarning() << Q_FUNC_INFO << "Invalid select position for radix: " << selectIndex << endl;
 		return;
 	}
 	

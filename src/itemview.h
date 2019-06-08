@@ -111,7 +111,7 @@ class ItemView : public View
 		double m_zoomLevel;
 		QTimer * m_pUpdateStatusTmr;
 		Item * m_pDragItem;
-	
+
 		//friend class CVBEditor; // 2018.09.26
 };
 
@@ -124,7 +124,7 @@ class CVBEditor : public KtlQCanvasView
 	Q_OBJECT
 	public:
 		CVBEditor( Canvas * canvas, ItemView *itemView, const char *name );
-		
+
 		void setPassEventsToView( bool pass ) { b_passEventsToView = pass; }
 		bool event( QEvent * e ) override;
 		void contentsWheelEvent( QWheelEvent * e ) override;
@@ -133,10 +133,10 @@ class CVBEditor : public KtlQCanvasView
 		 * offset.
 		 */
 		void updateWorldMatrix();
-		
+
 	protected slots:
 		void canvasResized( const QRect & oldSize, const QRect & newSize );
-		
+
 	protected:
 		void viewportResizeEvent( QResizeEvent * ) override;
 		ItemView *p_itemView;

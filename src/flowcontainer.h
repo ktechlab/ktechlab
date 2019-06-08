@@ -26,13 +26,15 @@ public:
 	~FlowContainer() override;
 	
 	bool canResize() const override { return true; }
+
 	/**
 	 * Sets the bound to a simple rectangle if true, so that ICNDocument
 	 * can tell whether an item is being dropped into it
 	 */
 	void setFullBounds( bool full );
-	
+
 	void updateConnectorPoints( bool add = true ) override;
+
 	/**
 	 * Returns whether the container is currently expanded or not
 	 */
@@ -45,13 +47,13 @@ public:
 
 	void setSelected( bool yes ) override;
 	void setVisible( bool yes ) override;
-	
+
 	QSize minimumSize() const override;
 	/**
 	 * Update the visibility of items, connectors, nodes in the flowcontainer
 	 */
 	void updateContainedVisibility();
-	
+
 protected:
 	void itemPointsChanged() override {};
 	void updateNodeLevels() override;

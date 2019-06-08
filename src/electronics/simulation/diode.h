@@ -18,7 +18,7 @@ class DiodeSettings
 	public:
 		DiodeSettings();
 		void reset();
-		
+
 		double I_S;	///< Diode saturation current
 		double N;	///< Emission coefficient
 		double V_B;	///< Reverse breakdown
@@ -54,18 +54,18 @@ class Diode : public NonLinear
 		 * Returns the current flowing through the diode
 		 */
 		double current() const;
-	
+
 	protected:
 		void updateCurrents() override;
 		void calc_eq();
 		void calcIg( double V, double * I, double * g ) const;
 		void updateLim();
-		
+
 		double g_new, g_old;
 		double I_new, I_old;
 		double V_prev;
 		double V_lim;
-	
+
 		DiodeSettings m_diodeSettings;
 };
 

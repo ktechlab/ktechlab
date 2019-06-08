@@ -52,7 +52,7 @@ class InputFlowNode : public FPNode
 		 * to this node.
 	 	*/
 		void addOutputConnector( Connector * const connector ) override;		
-		
+
 	public slots:
 
 
