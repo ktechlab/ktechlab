@@ -1,4 +1,4 @@
-KTechLab 0.3
+KTechLab 0.50.0 (unreleased)
 =============
 
 KTechLab is an IDE for microcontrollers and electronics.
@@ -14,14 +14,16 @@ Resources
 - KTechLab is joining KDE, all of its assets will be available there.
     https://community.kde.org/Incubator/Projects/KTechLab
 
-    TODO webpage at KDE
+    - current webpage:
+        https://userbase.kde.org/KTechlab
+        TODO better webpage at KDE
 
-    - temporary source code repository location, will change location in the future
-        git://anongit.kde.org/scratch/padrah/ktechlab.git
-        https://anongit.kde.org/scratch/padrah/ktechlab.git
-
-        - repository browser, location is temporary
-            https://commits.kde.org/scratch/padrah/ktechlab
+    - source code repository at KDE:
+        git://anongit.kde.org/ktechlab.git
+        https://anongit.kde.org/ktechlab.git
+    
+    - repository browser at KDE:
+        https://commits.kde.org/ktechlab
 
     - bugtracker at KDE:
         https://bugs.kde.org/describecomponents.cgi?product=KTechLab
@@ -65,13 +67,13 @@ Getting the source
 
 KTechLab's source code is located in a GIT repository.
 
-Official repository is hosted at KDE; its temporary location is at
+Official repository is hosted at KDE; its location is at
 
-    git://anongit.kde.org/scratch/padrah/ktechlab.git
-    https://anongit.kde.org/scratch/padrah/ktechlab.git
+        git://anongit.kde.org/ktechlab.git
+        https://anongit.kde.org/ktechlab.git
 
-    - repository browser, location is temporary
-        https://commits.kde.org/scratch/padrah/ktechlab
+    - repository browser
+        https://commits.kde.org/ktechlab
 
     - for write access, see section Write access to KTechLab repository at KDE, below.
 
@@ -114,10 +116,14 @@ Building and Running
 
 Required dependencies
 
-- Qt4 -dev
+- Qt5 -dev
 - cmake
 - glib -dev
-- KDE4 libraries -dev
+- Extra Cmake Modules (ECM)
+- KDE Frameworks 5 libraries -dev  (at the time of writing:
+   Config CoreAddons DocTools IconThemes I18n KDELibs4Support
+    KHtml KIO Parts TextEditor TextWidgets Solid WidgetsAddons
+    XmlGui)
 
 Optional dependencies
 
@@ -125,7 +131,7 @@ Optional dependencies
 
 
 
-Since KDE4, all Makefiles in KDE projects are generated using CMake.
+In KDE Frameworks 5, all Makefiles in KDE projects are generated using CMake.
 After checking out the source (see Getting the source),
 here is how to compile and install KTechLab.
 CMkake is not a run-time dependency of KTechLab.
@@ -149,18 +155,6 @@ KTechLab should start running at this point.
 If this simple method of launching KTechLab does not work,
 please contact the developers, because you have found a bug.
 
-## Running by multiple users with same build/install directory
-
-It is possible to run an already compiled and installed version of KTechLab
-by multiple users. In order to do this, run the script
-`ktechlab-user-setup.sh` from the `simple-install/bin/` directory
-
-         sh simple/install/bin/ktechlab-user-setup.sh
-
-Then you can launch KTechLab as usual
-
-         sh run-simple.sh
-
 ## Running a build when the source/build/install directory has been moved
 
 It the source directory has been moved, then the setup procedure has
@@ -173,7 +167,7 @@ just verified, not recreated.
          sh build-simple.sh
          sh run-simple.sh
 
-Developing with KDevelop 4
+Developing with KDevelop 4 / 5
 --------------------------
 
 Just open/import the CMakeLists.txt project file.
