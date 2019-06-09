@@ -3,7 +3,7 @@ for i in $(ls *.svg)
 do
   for size in $(echo "16 22 32 48 64 128")
   do
-    file=$(echo "../hi"$size"-app-"$(echo $i | awk -F . '{print $1}' )".png")
+    file=$(echo "../"$size"-apps-"$(echo $i | awk -F . '{print $1}' )".png")
     echo "Exporting "$i" to "$file
     rm -f $file
     inkscape -w $size -h $size -e $file $i > /dev/null
