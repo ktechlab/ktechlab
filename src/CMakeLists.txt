@@ -396,7 +396,7 @@ target_link_libraries(test_ktechlab
 
 ########### install files ###############
 
-install(FILES microbe.xml DESTINATION ${DATA_INSTALL_DIR}/katepart/syntax)
+install(FILES microbe.xml DESTINATION ${DATA_INSTALL_DIR}/katepart5/syntax)
 install(FILES
     ktechlabui.rc
     ktechlabcircuitui.rc
@@ -405,7 +405,7 @@ install(FILES
 	ktechlabmechanicsui.rc
 	ktechlabtextui.rc
 	ktechlabkateui.rc
-	DESTINATION ${DATA_INSTALL_DIR}/ktechlab)
+	DESTINATION ${KXMLGUI_INSTALL_DIR}/ktechlab)
 install(FILES org.kde.ktechlab.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 install(FILES ktechlab_mime.xml DESTINATION ${XDG_MIME_INSTALL_DIR})
-install(FILES org.kde.ktechlab.appdata.xml DESTINATION ${SHARE_INSTALL_PREFIX}/metainfo )
+install(FILES org.kde.ktechlab.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR} )
