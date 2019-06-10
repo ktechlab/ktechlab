@@ -133,18 +133,11 @@ bool Document::fileClose()
 		if ( ViewContainer * viewContainer = (activeView() ? activeView()->viewContainer() : 0l) )
 			KTechlab::self()->tabWidget()->setCurrentIndex( KTechlab::self()->tabWidget()->indexOf(viewContainer) );
 		
-		KGuiItem saveItem = KStandardGuiItem::yes();
-		saveItem.setText( i18n("Save") );
-		saveItem.setIconName( "document-save" );
-		
-		KGuiItem discardItem = KStandardGuiItem::no();
-		discardItem.setText( i18n("Discard") );
-		
 		int choice = KMessageBox::warningYesNoCancel( KTechlab::self(),
 				i18n("The document \'%1\' has been modified.\nDo you want to save it?", name),
 				i18n("Save Document?"),
-				saveItem,
-				discardItem );
+				KStandardGuiItem::save(),
+				KStandardGuiItem::discard() );
 		
 		if ( choice == KMessageBox::Cancel )
 			return false;
