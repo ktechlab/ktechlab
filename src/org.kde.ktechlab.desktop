@@ -16,6 +16,7 @@ Name[sk]=KTechlab
 Name[sv]=Ktechlab
 Name[uk]=KTechlab
 Name[x-test]=xxKTechlabxx
+Name[zh_TW]=KTechlab
 Exec=ktechlab %i -caption %c
 Icon=ktechlab
 Type=Application
