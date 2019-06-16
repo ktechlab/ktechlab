@@ -37,6 +37,7 @@ int main(int argc, char **argv)
 {
     LogToFileMsgHandler logFileHandler;
     QApplication app(argc, argv);
+    KLocalizedString::setApplicationDomain("ktechlab");
 
     KAboutData about("ktechlab", i18n("KTechLab"), VERSION, i18n(description),
                      KAboutLicense::LicenseKey::GPL_V2,

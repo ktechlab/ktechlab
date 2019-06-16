@@ -49,7 +49,7 @@ set(gui_UI
 )
 
 #kde4_add_ui_files(gui_STAT_SRCS ${gui_UI})
-qt5_wrap_ui(gui_STAT_SRCS ${gui_UI})
+ki18n_wrap_ui(gui_STAT_SRCS ${gui_UI})
 
 add_library(gui STATIC ${gui_STAT_SRCS})
 target_link_libraries( gui itemeditor )

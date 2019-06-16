@@ -62,7 +62,7 @@ set(gui_UI
     ./gui/gplinksettingswidget.ui
 )
 
-qt5_wrap_ui(gui_STAT_SRCS ${gui_UI})
+ki18n_wrap_ui(gui_STAT_SRCS ${gui_UI})
 
 SET(ktechlab_SRCS
     ${core_STAT_SRCS}
