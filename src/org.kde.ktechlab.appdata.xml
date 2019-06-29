@@ -14,6 +14,7 @@
   <name xml:lang="id">KTechlab</name>
   <name xml:lang="it">KTechlab</name>
   <name xml:lang="nl">KTechlab</name>
+  <name xml:lang="pl">KTechlab</name>
   <name xml:lang="pt">KTechlab</name>
   <name xml:lang="pt-BR">KTechlab</name>
   <name xml:lang="sk">KTechlab</name>
@@ -30,6 +31,7 @@
   <summary xml:lang="id">IDE untuk mikrokontroler dan elektronik</summary>
   <summary xml:lang="it">Un IDE per microcontrollori ed elettronica</summary>
   <summary xml:lang="nl">IDE (ontwikkelomgeving) voor microcontrollers en elektronica</summary>
+  <summary xml:lang="pl">IDE dla mikrokontrolerów i elektroniki</summary>
   <summary xml:lang="pt">IDE para micro-controladores e electrónica</summary>
   <summary xml:lang="pt-BR">IDE para microcontroladores e eletrônicos</summary>
   <summary xml:lang="sv">En integrerad utvecklingsmiljö för mikrokontroller och elektronik</summary>
@@ -47,6 +49,7 @@
     <p xml:lang="id">KTechlab adalah sebuah IDE untuk mikrokontroler dan elektronik yang didesain agar mudah digunakan dan tidak seribet mungkin.</p>
     <p xml:lang="it">KTechlab è un IDE per microcontrollori ed elettronica progettato per essere semplice da usare e meno invadente possibile.</p>
     <p xml:lang="nl">KTechlab is een IDE (ontwikkelomgeving) voor microcontrollers en elektronica ontworpen voor gemakkelijk gebruik en zo weinig opdringerig als mogelijk.</p>
+    <p xml:lang="pl">KTechlab jest IDE (zintegrowanym środowiskiem programistycznym) dla mikrokontrolerów i elektroniki stworzonym, aby być łatwym w użyciu i nie przeszkadzać tam, gdzie tylko jest to możliwe.</p>
     <p xml:lang="pt">O KTechlab é um IDE para micro-controladores e electrónica, desenhado para ser simples de usar e o menos incómodo possível.</p>
     <p xml:lang="pt-BR">O KTechlab é uma IDE para microcontroladores e eletrônicos desenhada para ser fácil de usar e o menos intrusivo possível.</p>
     <p xml:lang="sv">Ktechlab är en integrerad utvecklingsmiljö för mikrokontroller och elektronik konstruerad för att vara så lättanvänd och lite påträngande som möjligt.</p>
@@ -63,6 +66,7 @@
     <p xml:lang="id">Fitur:</p>
     <p xml:lang="it">Caratteristiche:</p>
     <p xml:lang="nl">Kenmerken:</p>
+    <p xml:lang="pl">Możliwości:</p>
     <p xml:lang="pt">Funcionalidades:</p>
     <p xml:lang="pt-BR">Funcionalidades:</p>
     <p xml:lang="sk">Funkcie:</p>
@@ -78,6 +82,7 @@
       <li xml:lang="id">Berbagai macam komponen dengan karakteristik yang dapat diedit</li>
       <li xml:lang="it">Ampia gamma di componenti con caratteristiche modificabili</li>
       <li xml:lang="nl">Brede reeks van componenten met bewerkbare karakteristieken</li>
+      <li xml:lang="pl">Wiele części składowych z edytowalnymi charakterystykami</li>
       <li xml:lang="pt">Gama abrangente de componentes com características editáveis</li>
       <li xml:lang="sv">Stor mängd komponenter med redigerbara karaktäristika</li>
       <li xml:lang="uk">Широкий діапазон компонентів із придатними до редагування властивостями.</li>
@@ -92,6 +97,7 @@
       <li xml:lang="id">Pengedit visual untuk sirkuit</li>
       <li xml:lang="it">Editor visuale di circuiti</li>
       <li xml:lang="nl">Visuele bewerker voor schakelingen</li>
+      <li xml:lang="pl">Graficzny edytor dla obwodów</li>
       <li xml:lang="pt">Editor visual de circuitos</li>
       <li xml:lang="pt-BR">Editor visual para circuitos</li>
       <li xml:lang="sv">Visuell editor för kretsscheman</li>
@@ -107,6 +113,7 @@
       <li xml:lang="id">Bantuan konteks untuk komponen</li>
       <li xml:lang="it">Aiuto contestuale sui componenti</li>
       <li xml:lang="nl">Contexthulp voor de componenten</li>
+      <li xml:lang="pl">Pomoc podręczna dla części składowych</li>
       <li xml:lang="pt">Ajuda de contexto para os componentes</li>
       <li xml:lang="sv">Sammanhangsberoende hjälp för komponenterna</li>
       <li xml:lang="uk">Контекстна довідка до компонентів.</li>
@@ -119,6 +126,7 @@
       <li xml:lang="id">Dua mode pada penjaluran konektor: otomatis dan manual</li>
       <li xml:lang="it">Due modi di connessione: automatica e manuale</li>
       <li xml:lang="nl">Twee manieren van routering van verbindingen: automatisch en handmatig</li>
+      <li xml:lang="pl">Dwa tryby tworzenia ścieżek: samoczynny oraz ręczny</li>
       <li xml:lang="pt">Dois modos de encaminhamento de ligações: automático e manual</li>
       <li xml:lang="sv">Två sätt att sammankoppla anslutningar: automatisk och manuell</li>
       <li xml:lang="uk">Два режими маршрутизації з’єднань: автоматичний і ручний.</li>
@@ -131,6 +139,7 @@
       <li xml:lang="id">Beberapa cara untuk menentukan logika PIC: kode perakitan, kode Microbe (bahasa pemrograman tingkat tinggi), kode C, dan FlowCode visual</li>
       <li xml:lang="it">Molti modi di definire la logica del PIC: codice assembly, codice Microbe (un proprio linguaggio di programmazione ad alto livello), codice C e FlowCode visuale</li>
       <li xml:lang="nl">Verschillende manieren om de PIC-logica te definiëren: assembly code, Microbe (eigen hoog niveau programmeertaal) code, C code en visuele FlowCode</li>
+      <li xml:lang="pl">Kilka sposobów określania logiki PIC: kod złożenia, kod Microbe (własny wysoko-poziomowy język programowania), kod C oraz graficzny kod przepływu</li>
       <li xml:lang="pt">Diversas formas de definir a lógica do PIC: código em Assembly, código em Microbe (linguagem de programação própria de alto nível), código em C e fluxogramas visuais.</li>
       <li xml:lang="sv">Flera olika sätt att definiera PIC-logik: assemblerkod, Microbe-kod (eget högnivåprogramspråk), C-kod och visuell FlowCode</li>
       <li xml:lang="uk">Декілька способів визначення логіки PIC: асемблерний код, Microbe (власна високорівнева мова програмування), код C та візуальний FlowCode.</li>
@@ -143,6 +152,7 @@
       <li xml:lang="id">Interkonversi kode pemrograman antara bahasa yang didukung</li>
       <li xml:lang="it">Interconversione del codice di programmazione fra i linguaggi supportati</li>
       <li xml:lang="nl">Onderlinge conversie van de programmeercode tussen ondersteunde talen</li>
+      <li xml:lang="pl">Przekształcanie kodu pomiędzy obsługiwanymi językami</li>
       <li xml:lang="pt">Conversão do código programado entre as linguagens suportadas</li>
       <li xml:lang="sv">Konvertering mellan programkoden mellan språk som stöds</li>
       <li xml:lang="uk">Взаємне перетворення програмного коду між підтримуваними мовами.</li>
@@ -156,6 +166,7 @@
       <li xml:lang="id">Debugger bawaan</li>
       <li xml:lang="it">Debugger interno</li>
       <li xml:lang="nl">Ingebouwde debugger</li>
+      <li xml:lang="pl">Wbudowany program diagnostyczny</li>
       <li xml:lang="pt">Depurador incorporado</li>
       <li xml:lang="sv">inbyggd avlusare</li>
       <li xml:lang="uk">Вбудований засіб діагностики.</li>
@@ -168,6 +179,7 @@
       <li xml:lang="id">Simulasi dengan osiloskop dan probe</li>
       <li xml:lang="it">Simulazione con oscilloscopio e con sonde</li>
       <li xml:lang="nl">Simulatie met oscilloscope en probes</li>
+      <li xml:lang="pl">Symulacje przy użyciu oscyloskopu i mierników</li>
       <li xml:lang="pt">Simulação com osciloscópios e sondas</li>
       <li xml:lang="sv">Simulering med oscilloskop och prober</li>
       <li xml:lang="uk">Імітація за допомогою осцилоскопа і зондів.</li>
@@ -180,6 +192,7 @@
       <li xml:lang="id">Mengupload kode perakitan ke PIC menggunakan pemrogram hardware</li>
       <li xml:lang="it">Caricamento del codice assembly nel PIC con un programmatore hardware</li>
       <li xml:lang="nl">Uploaden van de assembly code naar PIC met hardware programmeerder</li>
+      <li xml:lang="pl">Wysyłanie kodu złożenia na PIC przy użyciu sprzętowego programatora</li>
       <li xml:lang="pt">Envio do código em Assembly para o PIC, usando um programador por 'hardware'</li>
       <li xml:lang="sv">Uppladdning av assemblerkoden till en PIC med användning av hårdvaruprogrammerare</li>
       <li xml:lang="uk">Вивантаження асемблерного коду на PIC за допомогою апаратного програматора.</li>
