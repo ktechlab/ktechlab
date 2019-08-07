@@ -55,7 +55,7 @@
     <comment xml:lang="pt_BR">Projeto KTechlab</comment>
     <comment xml:lang="sk">Projekt KTechlab</comment>
     <comment xml:lang="sv">Ktechlab-projekt</comment>
-    <comment xml:lang="uk">проект KTechlab</comment>
+    <comment xml:lang="uk">проєкт KTechlab</comment>
     <glob pattern="*.ktechlab"/>
   </mime-type>
   <mime-type type="application/x-microbe">
