@@ -46,7 +46,7 @@ log_cmd echo "== starting build at $( date ) == "
     mkdir -p "$SCRIPTDIR/build-simple/"
     cd "$SCRIPTDIR/build-simple/"
 
-    if [ -f "$SCRIPTDIR/build-simple/CMakeCache.txt" ] ; then
+    if [ -f "$SCRIPTDIR/build-simple/Makefile" ] ; then
         echo "buildsystem generated, using it"
     else
         echo "buildsystem being generated"
