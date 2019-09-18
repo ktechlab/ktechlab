@@ -18,6 +18,7 @@
 // #include <q3popupmenu.h>
 #include <qmenu.h>
 #include <qevent.h>
+#include <qlayout.h>
 
 //BEGIN class LogView
 LogView::LogView( KateMDI::ToolView * parent, const char *name )
