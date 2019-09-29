@@ -34,6 +34,7 @@
 #include <kactioncollection.h>
 
 #include <qapplication.h>
+#include <qboxlayout.h>
 #include <qcursor.h>
 #include <qtimer.h>
 #include <qmimedata.h>

@@ -45,6 +45,7 @@
 #include <qactiongroup.h>
 
 #include <qapplication.h>
+#include <qboxlayout.h>
 #include <qcursor.h>
 //#include <qobjectlist.h>
 #include <qtimer.h>

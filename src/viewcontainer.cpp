@@ -16,6 +16,7 @@
 
 #include <kconfig.h>
 #include <qdebug.h>
+#include <qboxlayout.h>
 #include <kglobalsettings.h>
 #include <klocalizedstring.h>
 #include <kpushbutton.h>

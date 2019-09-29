@@ -37,6 +37,7 @@
 #include <kglobal.h>
 
 // #include <q3intdict.h>
+#include <qboxlayout.h>
 #include <QDebug>
 #include <QEvent>
 

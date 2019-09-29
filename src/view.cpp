@@ -23,7 +23,7 @@
 #include <kactioncollection.h>
 
 #include <qapplication.h>
-
+#include <qboxlayout.h>
 
 #include <cassert>
 
