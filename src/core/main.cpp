@@ -85,7 +85,10 @@ int main(int argc, char **argv)
     QCommandLineParser parser;
     parser.addHelpOption();
     parser.addVersionOption();
-    parser.addPositionalArgument(QStringLiteral("+[URL]"), i18n("Document to open."));
+    // 2019.10.03 - note: to add options to set icon and caption of the
+    //              application's window? currently this is not implemented
+    //              but it had references in the .destop file
+    parser.addPositionalArgument(QStringLiteral("[URL]"), i18n("Document to open."));
 
     about.setupCommandLine(&parser);
     parser.process(app);
@@ -99,6 +102,8 @@ int main(int argc, char **argv)
 
 	KTechlab *ktechlab = new KTechlab();
 
+    // 2019.10.03 - note: possibly add support for multiple URLs to be opened from
+    //              command line?
     if (parser.positionalArguments().count() > 0) {
 		ktechlab->load( parser.positionalArguments().at(0) );
     }
