@@ -9,6 +9,9 @@ cmake_minimum_required(VERSION 3.1)
 #
 # KDE libs need min C++11 capabile compiler, so C++ can be requiested
 # https://community.kde.org/Frameworks/Policies#Frameworks_compiler_requirements_and_C.2B.2B11
+#
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_DEBUG_TARGET_PROPERTIES INCLUDE_DIRECTORIES)
 

@@ -16,10 +16,6 @@ SET(microbe_SRCS
 
 add_executable(microbe ${microbe_SRCS})
 
-# https://stackoverflow.com/questions/10984442/how-to-detect-c11-support-of-a-compiler-with-cmake/20165220#20165220
-set_property(TARGET microbe PROPERTY CXX_STANDARD 11)
-set_property(TARGET microbe PROPERTY CXX_STANDARD_REQUIRED ON)
-
 target_link_libraries(microbe
     KF5::KDELibs4Support
     KF5::CoreAddons
