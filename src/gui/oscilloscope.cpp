@@ -132,7 +132,7 @@ void Oscilloscope::setZoomLevel( double zoomLevel)
 		zoomLevel = 1.0;
 
 	//KGlobal::config()->setGroup("Oscilloscope");
-    auto grOscill = KGlobal::config()->group("Oscilloscope");
+    KConfigGroup grOscill = KGlobal::config()->group("Oscilloscope");
 	//KGlobal::config()->writeEntry( "ZoomLevel", zoomLevel);
     grOscill.writeEntry( "ZoomLevel", zoomLevel);
 
