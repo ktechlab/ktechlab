@@ -25,6 +25,10 @@ endif()
 
 add_executable(test_compile test_compile.cpp)
 
+# https://stackoverflow.com/questions/10984442/how-to-detect-c11-support-of-a-compiler-with-cmake/20165220#20165220
+set_property(TARGET test_compile PROPERTY CXX_STANDARD 11)
+set_property(TARGET test_compile PROPERTY CXX_STANDARD_REQUIRED ON)
+
 target_link_libraries( test_compile
     test_ktechlab
     #core 
