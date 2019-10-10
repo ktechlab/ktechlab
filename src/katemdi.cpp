@@ -38,6 +38,7 @@
 
 // #include <q3intdict.h>
 #include <qboxlayout.h>
+#include <QContextMenuEvent>
 #include <QDebug>
 #include <QEvent>
 
