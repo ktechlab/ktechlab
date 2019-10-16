@@ -17,6 +17,7 @@
   <name xml:lang="pl">KTechlab</name>
   <name xml:lang="pt">KTechlab</name>
   <name xml:lang="pt-BR">KTechlab</name>
+  <name xml:lang="ru">KTechLab</name>
   <name xml:lang="sk">KTechlab</name>
   <name xml:lang="sv">Ktechlab</name>
   <name xml:lang="uk">KTechlab</name>
@@ -69,6 +70,7 @@
     <p xml:lang="pl">Możliwości:</p>
     <p xml:lang="pt">Funcionalidades:</p>
     <p xml:lang="pt-BR">Funcionalidades:</p>
+    <p xml:lang="ru">Возможности:</p>
     <p xml:lang="sk">Funkcie:</p>
     <p xml:lang="sv">Funktioner:</p>
     <p xml:lang="uk">Можливості:</p>
