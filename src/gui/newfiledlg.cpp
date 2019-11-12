@@ -96,9 +96,15 @@ NewFileDlg::NewFileDlg( QWidget *parent )
         flags &= (~Qt::ItemIsDragEnabled);
         (*it)->setFlags(flags);
 
-        qDebug() << Q_FUNC_INFO << "W = " << (*it)->icon().availableSizes().first().width() << " H=" << (*it)->icon().availableSizes().first().height();
-		minWidth += (*it)->icon().availableSizes().first().width() + 20;
-		minHeight = qMax( minHeight, (*it)->icon().availableSizes().first().height()+20 );
+        QList<QSize> listAvSizes = (*it)->icon().availableSizes();
+        if (listAvSizes.isEmpty()) {
+            qWarning() << Q_FUNC_INFO << "no available sizes for " << (*it)->text();
+        } else {
+            qDebug() << Q_FUNC_INFO << "W = " << (*it)->icon().availableSizes().first().width()
+                << " H=" << (*it)->icon().availableSizes().first().height();
+            minWidth += (*it)->icon().availableSizes().first().width() + 20;
+            minHeight = qMax( minHeight, (*it)->icon().availableSizes().first().height()+20 );
+        }
 	}
 	qDebug() << Q_FUNC_INFO << "minW = " << minWidth << " minH=" << minHeight;
 	m_pNewFileWidget->typeIconView->setMinimumSize( minWidth, minHeight );
