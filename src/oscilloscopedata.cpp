@@ -131,6 +131,12 @@ uint64_t FloatingProbeData::findPos( uint64_t time) const
 
 	uint64_t at = uint64_t((time-m_resetTime)*double(LINEAR_UPDATE_RATE)/double(LOGIC_UPDATE_RATE));
 
+    if (m_data->size() <= at) {  // index is out of bound
+        if (at > 0) {
+            --at;
+        }
+    }
+
 	return at;
 }
 
