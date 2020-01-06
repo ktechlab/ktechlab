@@ -190,7 +190,7 @@
       <li xml:lang="ca">Puja el codi en assemblador al PIC emprant el programador de maquinari</li>
       <li xml:lang="ca-valencia">Puja el codi en assemblador al PIC emprant el programador de maquinari</li>
       <li xml:lang="es">Envío del código ensamblador al PIC usando el programador hardware</li>
-      <li xml:lang="gl">Enviando o código ensamblador a PIC usando o programador de hardware</li>
+      <li xml:lang="gl">Enviando o código ensamblador a PIC usando o programador de soporte físico</li>
       <li xml:lang="id">Mengunggah kode perakitan ke PIC menggunakan pemrogram hardware</li>
       <li xml:lang="it">Caricamento del codice assembly nel PIC con un programmatore hardware</li>
       <li xml:lang="nl">Uploaden van de assembly code naar PIC met hardware programmeerder</li>
