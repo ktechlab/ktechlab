@@ -45,9 +45,9 @@ find_path(GPSim_INCLUDE_DIR
 )
 find_library(GPSim_LIBRARY NAMES gpsim)
 
-if (GPSim_INCLUDE_DIR AND GPSim_LIBRARY AND GLib_FOUND)
-    set(GPSim_INCLUDE_DIRS ${GPSim_INCLUDE_DIR} ${GLib_INCLUDE_DIRS})
-    set(GPSim_LIBRARIES ${GPSim_LIBRARY} ${GLib_LIBRARY})
+if (GPSim_INCLUDE_DIR AND GPSim_LIBRARY AND GLIB_FOUND)
+    set(GPSim_INCLUDE_DIRS ${GPSim_INCLUDE_DIR} ${GLIB_INCLUDE_DIRS})
+    set(GPSim_LIBRARIES ${GPSim_LIBRARY} ${GLIB_LIBRARIES})
 
     include(CheckCXXSourceCompiles)
     include(CMakePushCheckState)
@@ -67,7 +67,7 @@ endif ()
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(GPSim
     FOUND_VAR GPSim_FOUND
-    REQUIRED_VARS GPSim_LIBRARY GPSim_INCLUDE_DIR GLib_LIBRARY GLib_INCLUDE_DIRS
+    REQUIRED_VARS GPSim_LIBRARY GPSim_INCLUDE_DIR GLIB_LIBRARIES GLIB_INCLUDE_DIRS
 )
 
 mark_as_advanced(GPSim_INCLUDE_DIR GPSim_LIBRARY)
