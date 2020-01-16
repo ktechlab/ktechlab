@@ -46,7 +46,12 @@ find_path(GPSim_INCLUDE_DIR
 find_library(GPSim_LIBRARY NAMES gpsim)
 
 if (GPSim_INCLUDE_DIR AND GPSim_LIBRARY AND GLIB_FOUND)
-    set(GPSim_INCLUDE_DIRS ${GPSim_INCLUDE_DIR} ${GLIB_INCLUDE_DIRS})
+    # Make a fake config.h to satisfy GPSim's broken headers
+    set(GPSim_KLUDGE_DIR "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/kludge/include")
+    file(MAKE_DIRECTORY "${GPSim_KLUDGE_DIR}")
+    file(TOUCH "${GPSim_KLUDGE_DIR}/../config.h")
+
+    set(GPSim_INCLUDE_DIRS ${GPSim_INCLUDE_DIR} ${GLIB_INCLUDE_DIRS} ${GPSim_KLUDGE_DIR})
     set(GPSim_LIBRARIES ${GPSim_LIBRARY} ${GLIB_LIBRARIES})
 
     include(CheckCXXSourceCompiles)
