@@ -57,7 +57,7 @@ if (GPSim_INCLUDE_DIR AND GPSim_LIBRARY AND GLIB_FOUND)
     set(CMAKE_REQUIRED_LIBRARIES ${GPSim_LIBRARIES} -ldl)
     set(CMAKE_REQUIRED_DEFINITIONS ${KDE4_ENABLE_EXCEPTIONS})
     check_cxx_source_compiles(
-"#include <gpsim/pic-processor.h>
+"#include <pic-processor.h>
 int main() { pic_processor *proc = NULL;
 return sizeof (proc->Wreg);
 }" HAVE_GPSIM_0_26)
