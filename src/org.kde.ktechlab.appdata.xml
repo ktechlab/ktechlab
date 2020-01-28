@@ -9,6 +9,7 @@
   <name xml:lang="cs">KTechlab</name>
   <name xml:lang="de">KTechlab</name>
   <name xml:lang="es">KTechlab</name>
+  <name xml:lang="et">KTechlab</name>
   <name xml:lang="fr">KTechlab</name>
   <name xml:lang="gl">KTechlab</name>
   <name xml:lang="id">KTechlab</name>
@@ -27,6 +28,7 @@
   <summary xml:lang="ca-valencia">IDE per a microcontroladors i electrònica</summary>
   <summary xml:lang="de">Entwicklungsumgebung für Mikrocontroller und Elektronik</summary>
   <summary xml:lang="es">IDE para microcontroladores y sistemas electrónicos</summary>
+  <summary xml:lang="et">Mikrokontrollerite ja elektroonika arenduskeskkond</summary>
   <summary xml:lang="fr">Environnement de Développement Intégré pour les microcontrôleurs et l'électronique</summary>
   <summary xml:lang="gl">IDE para microcontroladores e compoñentes electrónicos</summary>
   <summary xml:lang="id">IDE untuk mikrokontroler dan elektronik</summary>
@@ -45,6 +47,7 @@
     <p xml:lang="ca">El KTechlab és un IDE per a microcontroladors i electrònica dissenyat per ser tan fàcil d'usar i discret com sigui possible.</p>
     <p xml:lang="ca-valencia">El KTechlab és un IDE per a microcontroladors i electrònica dissenyat per ser tan fàcil d'usar i discret com siga possible.</p>
     <p xml:lang="es">KTechlab es un entorno de desarrollo integrado para microcontroladores y electrónica diseñado para que sea fácil de usar y lo menos intrusivo posible.</p>
+    <p xml:lang="et">KTechlab on mikrokontrollerite ja elektroonika arenduskeskkond, mille sihiks on olla võimalikult hõlpsasti kasutatav ja võimalikult vähe kasutaja tegemistesse sekkuv.</p>
     <p xml:lang="fr">Un Environnement de Développement Intégré pour les microcontrôleurs et l'électronique conçu pour être facile à utiliser et aussi peu intrusif que possible.</p>
     <p xml:lang="gl">KTechlab é un IDE para microcontroladores e compoñentes electrónicos deseñado para ser todo o fácil de usar e non intrusivo posíbel.</p>
     <p xml:lang="id">KTechlab adalah sebuah IDE untuk mikrokontroler dan elektronik yang didesain agar mudah digunakan dan tidak seribet mungkin.</p>
@@ -62,6 +65,7 @@
     <p xml:lang="cs">Vlastnosti:</p>
     <p xml:lang="de">Funktionen:</p>
     <p xml:lang="es">Funciones:</p>
+    <p xml:lang="et">Omadused:</p>
     <p xml:lang="fr">Fonctionnalités :</p>
     <p xml:lang="gl">Funcionalidades:</p>
     <p xml:lang="id">Fitur:</p>
@@ -80,6 +84,7 @@
       <li xml:lang="ca">Gran varietat de components amb característiques modificables</li>
       <li xml:lang="ca-valencia">Gran varietat de components amb característiques modificables</li>
       <li xml:lang="es">Amplio abanico de componentes con características editables</li>
+      <li xml:lang="et">Ulatuslik muudetavate tunnustega komponentide valik</li>
       <li xml:lang="gl">Unha gran variedade de compoñentes con características editábeis</li>
       <li xml:lang="id">Berbagai macam komponen dengan karakteristik yang dapat diedit</li>
       <li xml:lang="it">Ampia gamma di componenti con caratteristiche modificabili</li>
@@ -94,6 +99,7 @@
       <li xml:lang="ca-valencia">Editor visual per als circuits</li>
       <li xml:lang="de">Grafischer Editor für Schaltkreise</li>
       <li xml:lang="es">Editor de circuitos visual</li>
+      <li xml:lang="et">Vooluringide visuaalne redaktor</li>
       <li xml:lang="fr">Éditeur visuel de circuits</li>
       <li xml:lang="gl">Editor visual de circuítos</li>
       <li xml:lang="id">Pengedit visual untuk sirkuit</li>
@@ -110,6 +116,7 @@
       <li xml:lang="ca-valencia">Ajuda contextual per als components</li>
       <li xml:lang="de">Kontexthilfe für die Komponenten</li>
       <li xml:lang="es">Ayuda de contexto para los componentes</li>
+      <li xml:lang="et">Komponentide kontekstiabi</li>
       <li xml:lang="fr">Aide contextuelle pour les composants</li>
       <li xml:lang="gl">Axuda contextual para os compoñentes</li>
       <li xml:lang="id">Bantuan konteks untuk komponen</li>
@@ -150,6 +157,7 @@
       <li xml:lang="ca">Interconversió del codi de programació entre els llenguatges admesos</li>
       <li xml:lang="ca-valencia">Interconversió del codi de programació entre els llenguatges admesos</li>
       <li xml:lang="es">Conversión interna del código de programación entre los lenguajes permitidos</li>
+      <li xml:lang="et">Programmikoodi vaba teisendamine toetatud programmeerimiskeelte vahel</li>
       <li xml:lang="gl">Conversión do código de programación entre as linguaxes permitidas</li>
       <li xml:lang="id">Interkonversi kode pemrograman antara bahasa yang didukung</li>
       <li xml:lang="it">Interconversione del codice di programmazione fra i linguaggi supportati</li>
@@ -163,6 +171,7 @@
       <li xml:lang="ca">Depurador incorporat</li>
       <li xml:lang="ca-valencia">Depurador incorporat</li>
       <li xml:lang="es">Depurador integrado</li>
+      <li xml:lang="et">Sisseehitatud silur</li>
       <li xml:lang="fr">Débogueur intégré</li>
       <li xml:lang="gl">Depurador integrado</li>
       <li xml:lang="id">Debugger bawaan</li>
