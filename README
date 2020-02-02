@@ -18,12 +18,12 @@ Resources
         https://userbase.kde.org/KTechlab
         TODO better webpage at KDE
 
-    - source code repository at KDE:
+    - repository browser at KDE (web based):
+        https://commits.kde.org/ktechlab
+
+    - source code repository at KDE (to be used with git):
         git://anongit.kde.org/ktechlab.git
         https://anongit.kde.org/ktechlab.git
-    
-    - repository browser at KDE:
-        https://commits.kde.org/ktechlab
 
     - bugtracker at KDE:
         https://bugs.kde.org/describecomponents.cgi?product=KTechLab
