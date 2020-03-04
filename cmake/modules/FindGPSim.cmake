@@ -40,8 +40,7 @@ endif ()
 find_package(GLib)  # needed for using GPSim
 
 find_path(GPSim_INCLUDE_DIR
-    NAMES gpsim_interface.h
-    PATH_SUFFIXES gpsim
+    NAMES gpsim/gpsim_interface.h
 )
 find_library(GPSim_LIBRARY NAMES gpsim)
 
@@ -62,7 +61,7 @@ if (GPSim_INCLUDE_DIR AND GPSim_LIBRARY AND GLIB_FOUND)
     set(CMAKE_REQUIRED_LIBRARIES ${GPSim_LIBRARIES} -ldl)
     set(CMAKE_REQUIRED_DEFINITIONS ${KDE4_ENABLE_EXCEPTIONS})
     check_cxx_source_compiles(
-"#include <pic-processor.h>
+"#include <gpsim/pic-processor.h>
 int main() { pic_processor *proc = NULL;
 return sizeof (proc->Wreg);
 }" HAVE_GPSIM_0_26)
