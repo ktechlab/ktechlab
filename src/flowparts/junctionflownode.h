@@ -18,7 +18,7 @@
 class JunctionFlowNode : public FPNode
 {
 	public:
-		JunctionFlowNode ( ICNDocument* _icnView, int dir, const QPoint& pos, QString* id = 0L );
+		JunctionFlowNode ( ICNDocument* _icnView, int dir, const QPoint& pos, QString* id = nullptr );
 
 		~JunctionFlowNode() override;
 

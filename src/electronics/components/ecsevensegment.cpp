@@ -59,12 +59,12 @@ ECSevenSegment::ECSevenSegment( ICNDocument *icnDocument, bool newItem, const ch
 	
 	for ( int i=0; i<8; i++ )
 	{
-		m_diodes[i] = 0L;
-		m_nodes[i] = 0L;
+		m_diodes[i] = nullptr;
+		m_nodes[i] = nullptr;
 		avg_brightness[i] = 0.;
 		last_brightness[i] = 255;
 	}
-	m_nNode = 0L;
+	m_nNode = nullptr;
 	
 	lastUpdatePeriod = 1.;
 	

@@ -35,10 +35,10 @@ class FlowCodeDocument : public FlowICNDocument
 {
 	Q_OBJECT
 	public:
-		FlowCodeDocument( const QString &caption, const char *name = 0L);
+		FlowCodeDocument( const QString &caption, const char *name = nullptr);
 		~FlowCodeDocument() override;
 
-		View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l ) override;
+		View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr ) override;
 
 
 		/**

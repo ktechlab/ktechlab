@@ -33,8 +33,8 @@ MultiInputGate::MultiInputGate( ICNDocument *icnDocument, bool newItem, const ch
 	
 	for ( int i=0; i<maxGateInput; ++i )
 	{
-		inLogic[i] = 0l;
-		inNode[i] = 0l;
+		inLogic[i] = nullptr;
+		inNode[i] = nullptr;
 	}
 	
 	updateLogicSymbolShape();
@@ -150,8 +150,8 @@ void MultiInputGate::updateInputs( int newNum )
 		{
 			removeNode("in"+QString::number(i));
 			removeElement( inLogic[i], false );
-			inNode[i] = 0l;
-			inLogic[i] = 0l;
+			inNode[i] = nullptr;
+			inLogic[i] = nullptr;
 		}
 	}
 	

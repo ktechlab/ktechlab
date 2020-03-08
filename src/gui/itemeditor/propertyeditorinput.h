@@ -30,7 +30,7 @@ class PropertyEditorInput : public PropertySubEditor
 	Q_OBJECT
 
 	public:
-		PropertyEditorInput( QWidget * parent, Property * property, const char * name = 0 );
+		PropertyEditorInput( QWidget * parent, Property * property, const char * name = nullptr );
 		~PropertyEditorInput() override {;}
 
 	protected slots:
@@ -61,7 +61,7 @@ class PropertyEditorSpin : public PropertySubEditor
 	Q_OBJECT
 
 	public:
-		PropertyEditorSpin( QWidget * parent, Property * property, const char * name = 0 );
+		PropertyEditorSpin( QWidget * parent, Property * property, const char * name = nullptr );
 		~PropertyEditorSpin() override {;}
 
 	protected slots:
@@ -92,7 +92,7 @@ class PropertyEditorDblSpin : public PropertySubEditor
 	Q_OBJECT
 
 	public:
-		PropertyEditorDblSpin( QWidget * parent, Property * property, const char * name = 0 );
+		PropertyEditorDblSpin( QWidget * parent, Property * property, const char * name = nullptr );
 		~PropertyEditorDblSpin() override {;}
 
 	protected slots:
@@ -109,7 +109,7 @@ class PropertyEditorBool : public PropertySubEditor
 	Q_OBJECT
 
 	public:
-		PropertyEditorBool( QWidget * parent, Property * property, const char * name = 0 );
+		PropertyEditorBool( QWidget * parent, Property * property, const char * name = nullptr );
 		~PropertyEditorBool() override {;}
 
 		bool eventFilter( QObject * watched, QEvent * e ) override;

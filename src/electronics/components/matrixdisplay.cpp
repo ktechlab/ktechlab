@@ -47,9 +47,9 @@ MatrixDisplay::MatrixDisplay( ICNDocument *icnDocument, bool newItem, const char
 	
 	//BEGIN Reset members
 	for ( unsigned i = 0; i < max_md_height; i++ )
-		m_pRowNodes[i] = 0l;
+		m_pRowNodes[i] = nullptr;
 	for ( unsigned i = 0; i < max_md_width; i++ )
-		m_pColNodes[i] = 0l;
+		m_pColNodes[i] = nullptr;
 	
 	m_lastUpdatePeriod = 0.0;
 	m_r = m_g = m_b = 0.0;
@@ -181,7 +181,7 @@ void MatrixDisplay::initPins( unsigned numRows, unsigned numCols )
 		for ( unsigned i = numCols; i < m_numCols; i++ )
 		{
 			removeNode( colPinID(i) );
-			m_pColNodes[i] = 0l;
+			m_pColNodes[i] = nullptr;
 		}
 	}
 	m_numCols = numCols;
@@ -196,7 +196,7 @@ void MatrixDisplay::initPins( unsigned numRows, unsigned numCols )
 		for ( unsigned i = numRows; i < m_numRows; i++ )
 		{
 			removeNode( rowPinID(i) );
-			m_pRowNodes[i] = 0l;
+			m_pRowNodes[i] = nullptr;
 		}
 	}
 	m_numRows = numRows;

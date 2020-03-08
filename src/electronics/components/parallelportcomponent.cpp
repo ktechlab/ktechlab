@@ -56,9 +56,9 @@ ParallelPortComponent::ParallelPortComponent( ICNDocument *icnDocument, bool new
 	m_pParallelPort = new ParallelPort();
 	
 	for ( unsigned i = 0; i < 24; ++i )
-		m_pLogic[i] = 0;
+		m_pLogic[i] = nullptr;
 	
-	ECNode * pin = 0;
+	ECNode * pin = nullptr;
 	
 	//BEGIN Data register
 	for ( int i = 0; i < 8; ++i )
@@ -158,7 +158,7 @@ ParallelPortComponent::~ParallelPortComponent()
 {
     for (int i = 0; i < 24; i++) {
         if (m_pLogic[i]) {
-            m_pLogic[i]->setCallback(0, 0);
+            m_pLogic[i]->setCallback(nullptr, nullptr);
         }
     }
 	delete m_pParallelPort;

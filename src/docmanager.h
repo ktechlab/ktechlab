@@ -59,7 +59,7 @@ public:
 	 * Attempts to open the document at the given url.
 	 * @param viewArea if non-null, will open the new view into the ViewArea
 	 */
-	Document* openURL( const KUrl &url, ViewArea *viewArea = 0l );
+	Document* openURL( const KUrl &url, ViewArea *viewArea = nullptr );
 	/**
 	 * Returns the focused View
 	 */
@@ -91,7 +91,7 @@ public:
 	 * Gives the given document focus. If it has no open views, one will be
 	 * created for it if viewAreaForNew is non-null
 	 */
-	void giveDocumentFocus( Document * toFocus, ViewArea * viewAreaForNew = 0l );
+	void giveDocumentFocus( Document * toFocus, ViewArea * viewAreaForNew = nullptr );
 	void removeDocumentAssociations( Document *document );
 	void disableContextActions();
 	
@@ -138,16 +138,16 @@ protected:
 	 * This function should be called after creating a new document to add it
 	 * to the appropriate lists and connect it up as appropriate
 	 */
-	void handleNewDocument( Document *document, ViewArea *viewArea = 0l );
+	void handleNewDocument( Document *document, ViewArea *viewArea = nullptr );
 	/**
 	 * Takes the document, creates a new view and shoves it in a new
 	 * ViewContainer
 	 */
-	View *createNewView( Document *document, ViewArea *viewArea = 0l );
-	CircuitDocument *openCircuitFile( const KUrl &url, ViewArea *viewArea = 0l );
-	FlowCodeDocument *openFlowCodeFile( const KUrl &url, ViewArea *viewArea = 0l );
-	MechanicsDocument *openMechanicsFile( const KUrl &url, ViewArea *viewArea = 0l );
-	TextDocument *openTextFile( const KUrl &url, ViewArea *viewArea = 0l );
+	View *createNewView( Document *document, ViewArea *viewArea = nullptr );
+	CircuitDocument *openCircuitFile( const KUrl &url, ViewArea *viewArea = nullptr );
+	FlowCodeDocument *openFlowCodeFile( const KUrl &url, ViewArea *viewArea = nullptr );
+	MechanicsDocument *openMechanicsFile( const KUrl &url, ViewArea *viewArea = nullptr );
+	TextDocument *openTextFile( const KUrl &url, ViewArea *viewArea = nullptr );
 	
 	DocumentList m_documentList;
 	URLDocumentMap m_associatedDocuments;

@@ -22,7 +22,7 @@ class BJT;
 class ECBJT : public Component
 {
 	public:
-		ECBJT( bool isNPN, ICNDocument *icnDocument, bool newItem, const char * id = 0L );
+		ECBJT( bool isNPN, ICNDocument *icnDocument, bool newItem, const char * id = nullptr );
 		~ECBJT() override;
 	
 		static Item * constructNPN( ItemDocument * itemDocument, bool newItem, const char * id );

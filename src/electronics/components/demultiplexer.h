@@ -22,7 +22,7 @@
 class Demultiplexer : public CallbackClass,  public Component
 {
 public:
-	Demultiplexer( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	Demultiplexer( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 	~Demultiplexer() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

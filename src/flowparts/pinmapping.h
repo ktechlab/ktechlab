@@ -123,7 +123,7 @@ class PinMapView : public ICNView
 {
 	Q_OBJECT
 	public:
-		PinMapView( PinMapDocument *pinMapDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l );
+		PinMapView( PinMapDocument *pinMapDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr );
 		~PinMapView() override;
 };
 
@@ -131,7 +131,7 @@ class PinMapView : public ICNView
 class PIC_IC : public Component
 {
 	public:
-		PIC_IC( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		PIC_IC( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~PIC_IC() override;
 		
 		static Item *construct( ItemDocument *itemDocument, bool newItem, const char *id );

@@ -33,7 +33,7 @@ const QString SIprefix[] = {"y","z","a","f","p","n",QChar(0xB5),"m","","k","M","
 
 Item::Item( ItemDocument *itemDocument, bool newItem, const QString &id )
 	: //QObject(),
-        KtlQCanvasPolygon( itemDocument ? itemDocument->canvas() : 0 )
+        KtlQCanvasPolygon( itemDocument ? itemDocument->canvas() : nullptr )
 {
     QString name(QString("Item-%1").arg(id));
     setObjectName(name.toLatin1().data());
@@ -42,7 +42,7 @@ Item::Item( ItemDocument *itemDocument, bool newItem, const QString &id )
 	m_bDynamicContent = false;
 	m_bIsRaised = false;
 	m_bDoneCreation = false;
-	p_parentItem = 0l;
+	p_parentItem = nullptr;
 	b_deleted = false;
 	p_itemDocument = itemDocument;
 	m_baseZ = -1;
@@ -86,7 +86,7 @@ void Item::removeItem()
 	b_deleted = true;
 
 	hide();
-	setCanvas(0l);
+	setCanvas(nullptr);
 	emit removed(this);
 	p_itemDocument->appendDeleteList(this);
 }
@@ -315,7 +315,7 @@ bool Item::mouseDoubleClickEvent( const EventInfo & eventInfo )
 {
 	Q_UNUSED(eventInfo);
 
-	Property * property = 0l;
+	Property * property = nullptr;
 	Variant::Type::Value type = Variant::Type::None;
 
 	const VariantDataMap::iterator variantDataEnd = m_variantData.end();
@@ -338,7 +338,7 @@ bool Item::mouseDoubleClickEvent( const EventInfo & eventInfo )
 	{
 		//KDialog * dlg = new KDialog( 0l, "", true, property->editorCaption(), KDialog::Ok|KDialog::Cancel|KDialog::User1, KDialog::Ok,
         //                             false, KStandardGuiItem::clear() );
-        KDialog * dlg = new KDialog( 0 );
+        KDialog * dlg = new KDialog( nullptr );
         dlg->setModal(true);
         dlg->setCaption( property->editorCaption() );
         dlg->setButtons(KDialog::Ok|KDialog::Cancel|KDialog::User1);
@@ -371,7 +371,7 @@ bool Item::mouseDoubleClickEvent( const EventInfo & eventInfo )
 	else
 	{
 		// Is rich text
-		RichTextEditorDlg * dlg = new RichTextEditorDlg( 0l, property->editorCaption() );
+		RichTextEditorDlg * dlg = new RichTextEditorDlg( nullptr, property->editorCaption() );
 		dlg->setText( property->value().toString() );
 
 		if ( dlg->exec() == KDialog::Accepted )
@@ -628,7 +628,7 @@ Variant * Item::property( const QString & id ) const
 		return m_variantData[id];
 
 	qCritical() << Q_FUNC_INFO << " No such property with id " << id << endl;
-	return 0l;
+	return nullptr;
 }
 
 

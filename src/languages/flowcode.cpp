@@ -29,7 +29,7 @@ FlowCode::FlowCode( ProcessChain *processChain )
 {
 	m_successfulMessage = i18n("*** Microbe generation successful ***");
 	m_failedMessage = i18n("*** Microbe generation failed ***");
-	p_startPart = 0l;
+	p_startPart = nullptr;
 }
 
 FlowCode::~FlowCode()
@@ -43,7 +43,7 @@ void FlowCode::processInput( ProcessOptions options )
 	
 	if ( !options.p_flowCodeDocument )
 	{
-		options.p_flowCodeDocument = new FlowCodeDocument( QString::null, 0l );
+		options.p_flowCodeDocument = new FlowCodeDocument( QString::null, nullptr );
 		options.p_flowCodeDocument->openURL( options.inputFiles().first() );
 		
 		connect( this, SIGNAL(processSucceeded( Language *)), options.p_flowCodeDocument, SLOT(deleteLater()) );
@@ -176,7 +176,7 @@ QString FlowCode::generateMicrobe( const ItemList &itemList, MicroSettings *sett
 		{
 			Node * node = nodeMapIt.value().node;
 				// FIXME dynamic_cast used
-			if(  !node || ( dynamic_cast<OutputFlowNode*>(node) == 0) )
+			if(  !node || ( dynamic_cast<OutputFlowNode*>(node) == nullptr) )
 				continue;
 			
 			if ( !startPart->outputPart( nodeMapIt.key() ) )
@@ -199,7 +199,7 @@ QString FlowCode::generateMicrobe( const ItemList &itemList, MicroSettings *sett
 	if (!foundStart)
 	{
 		outputError( i18n("KTechlab was unable to find the \"Start\" part.\nThis must be included as the starting point for your program.") );
-		return 0;
+		return nullptr;
 	}
 	
 	m_addedParts.clear();

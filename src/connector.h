@@ -41,7 +41,7 @@ class Connector : /* public QObject, */ public KtlQCanvasPolygon {
 	Q_OBJECT
 
 public:
-	Connector(Node *startNode, Node *endNode, ICNDocument *_ICNDocument, QString *id = 0L);
+	Connector(Node *startNode, Node *endNode, ICNDocument *_ICNDocument, QString *id = nullptr);
 	~Connector() override;
 
 	/**
@@ -195,7 +195,7 @@ signals:
 	void numWiresChanged(unsigned newNum);
 
 public slots:
-	void removeConnector(Node* = 0);
+	void removeConnector(Node* = nullptr);
 
 //protected:
 //	bool m_bIsSyncingWires;

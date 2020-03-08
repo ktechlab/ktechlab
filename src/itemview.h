@@ -29,7 +29,7 @@ class ItemView : public View
 {
 	Q_OBJECT
 	public:
-		ItemView( ItemDocument *itemDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = 0 );
+		ItemView( ItemDocument *itemDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr );
 		~ItemView() override;
 
 		bool canZoomIn() const override;

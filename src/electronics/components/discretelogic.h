@@ -23,7 +23,7 @@ class Simulator;
 class Inverter : public CallbackClass, public Component
 {
 	public:
-		Inverter( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		Inverter( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~Inverter() override;
 
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -44,7 +44,7 @@ class Inverter : public CallbackClass, public Component
 class Buffer : public CallbackClass, public Component
 {
 public:
-	Buffer( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	Buffer( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 	~Buffer() override;
 
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -65,7 +65,7 @@ private:
 class ECLogicInput : public Component
 {
 public:
-	ECLogicInput( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECLogicInput( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 	~ECLogicInput() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -88,7 +88,7 @@ private:
 class ECLogicOutput : public CallbackClass, public Component
 {
 	public:
-		ECLogicOutput( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		ECLogicOutput( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~ECLogicOutput() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

@@ -57,7 +57,7 @@ class KtlQ3Frame : public QFrame
     Q_PROPERTY(QRect contentsRect READ contentsRect)
 
 public:
-    KtlQ3Frame(QWidget* parent, const char* name = 0, Qt::WindowFlags f = 0);
+    KtlQ3Frame(QWidget* parent, const char* name = nullptr, Qt::WindowFlags f = {});
     ~KtlQ3Frame() override;
 #ifndef qdoc
     bool        lineShapesOk()  const { return true; }

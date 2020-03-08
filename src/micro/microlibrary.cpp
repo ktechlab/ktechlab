@@ -91,7 +91,7 @@ MicroInfo *MicroLibrary::microInfoWithID( QString id )
 		if ( (*it)->id() == id ) return *it;
 	}
 
-	return 0L;
+	return nullptr;
 }
 
 void MicroLibrary::addMicroInfo( MicroInfo *microInfo )

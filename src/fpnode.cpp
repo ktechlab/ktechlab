@@ -22,7 +22,7 @@ FPNode::FPNode( ICNDocument *icnDocument, Node::node_type type, int dir, const Q
 {
 	if ( icnDocument )
 		icnDocument->registerItem(this);
-	m_outputConnector = 0;
+	m_outputConnector = nullptr;
 }
 
 
@@ -36,9 +36,9 @@ FlowPart *FPNode::outputFlowPart() const
 	// for InputFlowNode this member is overridden
 	
 	if (!m_outputConnector)
-		return 0;
-	if( m_outputConnector->endNode() == 0)
-		return 0;
+		return nullptr;
+	if( m_outputConnector->endNode() == nullptr)
+		return nullptr;
 	
 	return (dynamic_cast<FPNode*>(m_outputConnector->endNode()))->outputFlowPart();
 }
@@ -63,7 +63,7 @@ FlowPartList FPNode::inputFlowParts() const
 	{
 		if (*it) {
 			Node *startNode = (*it)->startNode();
-			FlowPart *flowPart = startNode ? dynamic_cast<FlowPart*>(startNode->parentItem()) : 0l;
+			FlowPart *flowPart = startNode ? dynamic_cast<FlowPart*>(startNode->parentItem()) : nullptr;
 			if (flowPart)
 				list.append(flowPart);
 		}
@@ -154,7 +154,7 @@ bool FPNode::handleNewConnector( Connector * connector )
 Connector* FPNode::createInputConnector( Node * startNode )
 {
 	if( (!acceptInput()) || !startNode )
-		return 0l;
+		return nullptr;
 	
 	// FIXME dynamic_cast used
 	Connector *connector = new FlowConnector( dynamic_cast<FPNode*>(startNode), dynamic_cast<FPNode*>(this), p_icnDocument );
@@ -197,13 +197,13 @@ void FPNode::removeConnector( Connector *connector )
 	if ( it != m_inFlowConnList.end() )
 	{
 		(*it)->removeConnector();
-		(*it) = 0L;
+		(*it) = nullptr;
 	}
 	
 	if((Connector *)m_outputConnector == connector)
 	{
 		connector->removeConnector();
-		m_outputConnector = 0;
+		m_outputConnector = nullptr;
 	}
 }
 
@@ -228,7 +228,7 @@ void FPNode::checkForRemoval( Connector *connector )
 
 void FPNode::removeNullConnectors()
 {
-	m_inFlowConnList.remove((FlowConnector*)0L);
+	m_inFlowConnList.remove((FlowConnector*)nullptr);
 }
 
 
@@ -399,5 +399,5 @@ Connector* FPNode::getAConnector() const {
 	if( m_outputConnector)
 		return m_outputConnector;
 	
-	return 0l;
+	return nullptr;
 }

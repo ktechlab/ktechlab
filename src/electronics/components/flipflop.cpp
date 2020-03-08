@@ -102,10 +102,10 @@ ECDFlipFlop::ECDFlipFlop( ICNDocument *icnDocument, bool newItem, const char *id
 
 ECDFlipFlop::~ECDFlipFlop()
 {
-    m_pD->setCallback( NULL, static_cast<CallbackPtr>(NULL) );
-    m_pClock->setCallback( NULL, static_cast<CallbackPtr>(NULL) );
-    setp->setCallback( NULL, static_cast<CallbackPtr>(NULL) );
-    rstp->setCallback( NULL, static_cast<CallbackPtr>(NULL) );
+    m_pD->setCallback( nullptr, static_cast<CallbackPtr>(nullptr) );
+    m_pClock->setCallback( nullptr, static_cast<CallbackPtr>(nullptr) );
+    setp->setCallback( nullptr, static_cast<CallbackPtr>(nullptr) );
+    rstp->setCallback( nullptr, static_cast<CallbackPtr>(nullptr) );
 }
 
 void ECDFlipFlop::initSymbolFromTrigger()
@@ -255,9 +255,9 @@ ECJKFlipFlop::ECJKFlipFlop( ICNDocument *icnDocument, bool newItem, const char *
 
 ECJKFlipFlop::~ECJKFlipFlop()
 {
-    m_pClock->setCallback( NULL, static_cast<CallbackPtr>(NULL) );
-    setp->setCallback( NULL, static_cast<CallbackPtr>(NULL) );
-    rstp->setCallback( NULL, static_cast<CallbackPtr>(NULL) );
+    m_pClock->setCallback( nullptr, static_cast<CallbackPtr>(nullptr) );
+    setp->setCallback( nullptr, static_cast<CallbackPtr>(nullptr) );
+    rstp->setCallback( nullptr, static_cast<CallbackPtr>(nullptr) );
 }
 
 void ECJKFlipFlop::initSymbolFromTrigger()
@@ -388,10 +388,10 @@ ECSRFlipFlop::ECSRFlipFlop( ICNDocument *icnDocument, bool newItem, const char *
 
 ECSRFlipFlop::~ECSRFlipFlop()
 {
-    m_pS->setCallback( NULL, static_cast<CallbackPtr>(NULL) );
-    m_pR->setCallback( NULL, static_cast<CallbackPtr>(NULL) );
-    m_pQ->setCallback( NULL, static_cast<CallbackPtr>(NULL) );
-    m_pQBar->setCallback( NULL, static_cast<CallbackPtr>(NULL) );
+    m_pS->setCallback( nullptr, static_cast<CallbackPtr>(nullptr) );
+    m_pR->setCallback( nullptr, static_cast<CallbackPtr>(nullptr) );
+    m_pQ->setCallback( nullptr, static_cast<CallbackPtr>(nullptr) );
+    m_pQBar->setCallback( nullptr, static_cast<CallbackPtr>(nullptr) );
 }
 
 void ECSRFlipFlop::inStateChanged(bool)

@@ -21,7 +21,7 @@ ItemGroup::ItemGroup( ItemDocument *view, const char *name )
 	: QObject( view /*, name */ )
 {
     setObjectName(name);
-	m_activeItem = 0l;
+	m_activeItem = nullptr;
 	b_itemsAreSameType = true;
 	p_view = view;
 	p_icnDocument = dynamic_cast<ICNDocument*>(p_view);
@@ -64,9 +64,9 @@ ItemList ItemGroup::items( bool excludeParentedItems ) const
 		for ( ItemList::iterator it = children.begin(); it != end; ++it )
 		{
 			if ( children.count(*it) > 1 )
-				*it = 0l;
+				*it = nullptr;
 		}
-		children.removeAll((Item*)0l);
+		children.removeAll((Item*)nullptr);
 		
 		items += children;
 		parents = children;
@@ -247,7 +247,7 @@ void ItemGroup::slotDistributeHorizontally()
 	
 	double avg_spacing = 0;
 	
-	Item * previous = 0l;
+	Item * previous = nullptr;
 	const DIMap::iterator rankedEnd = ranked.end();
 	for ( DIMap::iterator it = ranked.begin(); it != rankedEnd; ++it )
 	{
@@ -293,7 +293,7 @@ void ItemGroup::slotDistributeVertically()
 	
 	double avg_spacing = 0;
 	
-	Item * previous = 0l;
+	Item * previous = nullptr;
 	const DIMap::iterator rankedEnd = ranked.end();
 	for ( DIMap::iterator it = ranked.begin(); it != rankedEnd; ++it )
 	{

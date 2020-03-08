@@ -19,16 +19,16 @@
 Element::Element()
 {
 	b_status = false;
-	p_eSet = 0;
+	p_eSet = nullptr;
 	b_componentDeleted = false;
 
 	for ( int i = 0; i < MAX_CNODES; i++ )
-		p_cnode[i] = 0;
+		p_cnode[i] = nullptr;
 	
 	resetCurrents();
 	
 	for ( int i = 0; i < MAX_CBRANCHES; i++ )
-		p_cbranch[i] = 0;
+		p_cbranch[i] = nullptr;
 	
 	m_numCBranches = 0;
 	m_numCNodes = 0;
@@ -58,7 +58,7 @@ void Element::componentDeleted()
 	b_componentDeleted = true;
 	b_status = false;
 
-	p_eSet = 0;
+	p_eSet = nullptr;
 	setCNodes();
 	setCBranches();
 }
@@ -70,7 +70,7 @@ void Element::elementSetDeleted()
 	b_status = false;
 // 	qDebug() << "Element::elementSetDeleted(): Setting b_status to false, this="<<this<<endl;
 	
-	p_eSet = 0;
+	p_eSet = nullptr;
 	setCNodes();
 	setCBranches();
 }
@@ -82,14 +82,14 @@ void Element::setCNodes( const int n0, const int n1, const int n2, const int n3 
 	{
 // 		cerr << "Element::setCNodes: can't set nodes without circuit!"<<endl;
 		for ( int i=0; i<MAX_CNODES; i++ )
-			p_cnode[i] = 0;
+			p_cnode[i] = nullptr;
 		return;
 	}
 
-	p_cnode[0] = (n0>-1)?p_eSet->cnodes()[n0]:(n0==-1?p_eSet->ground():0);
-	p_cnode[1] = (n1>-1)?p_eSet->cnodes()[n1]:(n1==-1?p_eSet->ground():0);
-	p_cnode[2] = (n2>-1)?p_eSet->cnodes()[n2]:(n2==-1?p_eSet->ground():0);
-	p_cnode[3] = (n3>-1)?p_eSet->cnodes()[n3]:(n3==-1?p_eSet->ground():0);
+	p_cnode[0] = (n0>-1)?p_eSet->cnodes()[n0]:(n0==-1?p_eSet->ground():nullptr);
+	p_cnode[1] = (n1>-1)?p_eSet->cnodes()[n1]:(n1==-1?p_eSet->ground():nullptr);
+	p_cnode[2] = (n2>-1)?p_eSet->cnodes()[n2]:(n2==-1?p_eSet->ground():nullptr);
+	p_cnode[3] = (n3>-1)?p_eSet->cnodes()[n3]:(n3==-1?p_eSet->ground():nullptr);
 	updateStatus();
 }
 
@@ -98,13 +98,13 @@ void Element::setCBranches( const int b0, const int b1, const int b2, const int 
 	if ( !p_eSet )
 	{
 // 		cerr << "Element::setCBranches: can't set branches without circuit!"<<endl;
-		for ( int i=0; i<4; i++ ) p_cbranch[i] = 0;
+		for ( int i=0; i<4; i++ ) p_cbranch[i] = nullptr;
 		return;
 	}
-	p_cbranch[0] = (b0>-1)?p_eSet->cbranches()[b0]:0;
-	p_cbranch[1] = (b1>-1)?p_eSet->cbranches()[b1]:0;
-	p_cbranch[2] = (b2>-1)?p_eSet->cbranches()[b2]:0;
-	p_cbranch[3] = (b3>-1)?p_eSet->cbranches()[b3]:0;
+	p_cbranch[0] = (b0>-1)?p_eSet->cbranches()[b0]:nullptr;
+	p_cbranch[1] = (b1>-1)?p_eSet->cbranches()[b1]:nullptr;
+	p_cbranch[2] = (b2>-1)?p_eSet->cbranches()[b2]:nullptr;
+	p_cbranch[3] = (b3>-1)?p_eSet->cbranches()[b3]:nullptr;
 	updateStatus();
 }
 

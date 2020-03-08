@@ -34,12 +34,12 @@ View::View( Document *document, ViewContainer *viewContainer, uint viewAreaId, c
 	  KXMLGUIClient()
 {
     setObjectName(name ? name : ("view_" + QString::number(viewAreaId)).toLatin1().data());
-	m_pFocusWidget = 0l;
+	m_pFocusWidget = nullptr;
 	m_dcopID = 0;
 	m_viewAreaId = viewAreaId;
 	m_pDocument = document;
 	p_viewContainer = viewContainer;
-	m_pViewIface = 0l;
+	m_pViewIface = nullptr;
 	
 	setFocusPolicy( Qt::ClickFocus );
 	

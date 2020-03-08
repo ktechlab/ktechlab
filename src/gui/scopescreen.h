@@ -28,7 +28,7 @@ private:
 	ScopeScreen(KateMDI::ToolView * parent);
 	
 public:
-	static ScopeScreen * self( KateMDI::ToolView * parent = 0L );
+	static ScopeScreen * self( KateMDI::ToolView * parent = nullptr );
 	static QString toolViewIdentifier() { return "ScopeScreen"; }
     ~ScopeScreen() override;
 

@@ -26,7 +26,7 @@ class ElectronicConnector : public Connector
 	Q_OBJECT
 
 public:
-    ElectronicConnector(ECNode* startNode, ECNode* endNode, ICNDocument* _ICNDocument, QString* id = 0);
+    ElectronicConnector(ECNode* startNode, ECNode* endNode, ICNDocument* _ICNDocument, QString* id = nullptr);
 
     ~ElectronicConnector() override;
 

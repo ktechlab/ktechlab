@@ -45,23 +45,23 @@ public:
 	 * to the intersection of the two new connectors. If pointList is non-null, then the new connector
 	 * from the node will be assigned those points
 	 */
-	Connector * createConnector( Node *node, Connector *con, const QPoint &pos2, QPointList *pointList = 0L ) override;	
+	Connector * createConnector( Node *node, Connector *con, const QPoint &pos2, QPointList *pointList = nullptr ) override;	
 	/**
 	 * Splits con1 and con2 into two new connectors each at points pos1 and pos2, and creates a new connector
 	 * between the two points of intersection given by pos1 and pos2. If pointList is non-null, then the new
 	 * connector between the two points will be assigned those points
 	 */
-	Connector *createConnector( Connector *con1, Connector *con2, const QPoint &pos1, const QPoint &pos2, QPointList *pointList = 0L ) override;
+	Connector *createConnector( Connector *con1, Connector *con2, const QPoint &pos1, const QPoint &pos2, QPointList *pointList = nullptr ) override;
 	/**
 	 * Creates a connector between two nodes, and returns a pointer to it
 	 * and adds the operation to the undo list
 	 */
-	Connector* createConnector( const QString &startNodeId, const QString &endNodeId, QPointList *pointList = 0L ) override;		
+	Connector* createConnector( const QString &startNodeId, const QString &endNodeId, QPointList *pointList = nullptr ) override;		
 	/**
 	 * Creates a connector from node1 to node2. If pointList is non-null, then the
 	 * connector will be assigned those points
 	 */
-	virtual Connector *createConnector(Node *node1, Node *node2, QPointList *pointList = 0)
+	virtual Connector *createConnector(Node *node1, Node *node2, QPointList *pointList = nullptr)
 		{ return ICNDocument::createConnector(node1,node2, pointList); }
 
 	/**

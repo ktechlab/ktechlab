@@ -20,7 +20,7 @@
 class ECVoltageSignal : public Component
 {
 public:
-	ECVoltageSignal( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECVoltageSignal( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 	~ECVoltageSignal() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

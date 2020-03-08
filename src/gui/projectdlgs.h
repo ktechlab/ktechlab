@@ -73,7 +73,7 @@ class CreateSubprojectDlg : public KDialog
 {
 	Q_OBJECT
 	public:
-		CreateSubprojectDlg( QWidget *parent = 0 );
+		CreateSubprojectDlg( QWidget *parent = nullptr );
 		~CreateSubprojectDlg() override;
 
 		// The following values should agree with the positions in the combo box
@@ -112,7 +112,7 @@ class LinkerOptionsDlg : public KDialog
 {
 	Q_OBJECT
 	public:
-		LinkerOptionsDlg( LinkerOptions * linkingOptions, QWidget *parent = 0 );
+		LinkerOptionsDlg( LinkerOptions * linkingOptions, QWidget *parent = nullptr );
 		~LinkerOptionsDlg() override;
 
 	    /**
@@ -138,7 +138,7 @@ class LinkerOptionsDlg : public KDialog
 class ProcessingOptionsDlg : public KDialog
 {
 	public:
-		ProcessingOptionsDlg( ProjectItem * projectItem, QWidget *parent = 0 );
+		ProcessingOptionsDlg( ProjectItem * projectItem, QWidget *parent = nullptr );
 		~ProcessingOptionsDlg() override;
 
 	    /**

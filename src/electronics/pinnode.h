@@ -20,7 +20,7 @@ An ECNode class with type() == ec_pin
 class PinNode : public ECNode
 {
 public:
-	PinNode(ICNDocument* icnDocument, int dir, const QPoint& pos, QString* id = 0L);
+	PinNode(ICNDocument* icnDocument, int dir, const QPoint& pos, QString* id = nullptr);
 
 	~PinNode() override;
 

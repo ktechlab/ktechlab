@@ -32,7 +32,7 @@
 #include <unistd.h>
 #include <errno.h>
 
-static FILE *logFile = 0;
+static FILE *logFile = nullptr;
 
 static void ktlLogToFile(QtMsgType type, const char *msg) {
     if (!logFile) {
@@ -86,7 +86,7 @@ static void ktlMessageOutput(QtMsgType type, const char *msg) {
 
 LogToFileMsgHandler::LogToFileMsgHandler()
 {
-    logFile = 0;
+    logFile = nullptr;
     qint64 appPid = QApplication::applicationPid();
     QString logFileName = QString("/tmp/ktechlab-pid-%1-log").arg(appPid);
     qDebug() << "Starting logging to " << logFileName;
@@ -105,12 +105,12 @@ LogToFileMsgHandler::~LogToFileMsgHandler()
 {
     qDebug() << "logging ending by " << this;
     const int closeRet = fclose(logFile);
-    logFile = 0;
+    logFile = nullptr;
     if (closeRet) {
         const int lastErrno = errno;
         qCritical() << "failed to close log file, errno=" << lastErrno;
     }
-    qInstallMsgHandler(0);
+    qInstallMsgHandler(nullptr);
     if (closeRet) {
         const int lastErrno = errno;
         qCritical() << "failed to close log file, errno=" << lastErrno;

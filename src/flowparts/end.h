@@ -20,7 +20,7 @@
 class End : public FlowPart
 {
 public:
-	End( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	End( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 	~End() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

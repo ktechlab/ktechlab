@@ -27,7 +27,7 @@ Switch::Switch(Component *parent, Pin *p1, Pin *p2, State state) {
 	m_bouncePeriod_ms = 5;
 	m_bBounce = false;
 	m_bounceStart = 0;
-	m_pBounceResistance = 0;
+	m_pBounceResistance = nullptr;
 	m_pP1 = p1;
 	m_pP2 = p2;
 	m_pComponent = parent;
@@ -82,7 +82,7 @@ void Switch::startBouncing() {
 // 	qDebug() << "m_bounceStart="<<m_bounceStart<<" m_bouncePeriod_ms="<<m_bouncePeriod_ms<<endl;
 
 	// initialize random generator
-	srand(time(NULL));
+	srand(time(nullptr));
 
 	// Give our bounce resistor an initial value
 	bounce();
@@ -110,7 +110,7 @@ void Switch::bounce() {
 void Switch::stopBouncing() {
 //	Simulator::self()->detachSwitch( this );
 	m_pComponent->removeElement(m_pBounceResistance, true);
-	m_pBounceResistance = 0;
+	m_pBounceResistance = nullptr;
 
 	bool connected = (m_state == Closed);
 

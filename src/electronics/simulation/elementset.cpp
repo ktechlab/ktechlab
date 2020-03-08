@@ -28,15 +28,15 @@ ElementSet::ElementSet( Circuit * circuit, const int n, const int m )
 
 	int tmp = m_cn + m_cb;
 
-	p_logicIn = 0;
+	p_logicIn = nullptr;
 
 	if( tmp) {
 		p_A = new Matrix( m_cn, m_cb );
 		p_b = new QuickVector(tmp);
 		p_x = new QuickVector(tmp);
 	} else {
-		p_A = 0;
-		p_x = p_b = 0;
+		p_A = nullptr;
+		p_x = p_b = nullptr;
 	}
 
 	m_cnodes = new CNode*[m_cn];

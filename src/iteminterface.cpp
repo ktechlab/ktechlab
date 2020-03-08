@@ -35,7 +35,7 @@
 
 #include <cassert>
 
-ItemInterface * ItemInterface::m_pSelf = 0l;
+ItemInterface * ItemInterface::m_pSelf = nullptr;
 
 ItemInterface * ItemInterface::self()
 {
@@ -50,10 +50,10 @@ ItemInterface::ItemInterface()
 	: QObject( KTechlab::self() )
     , m_isInTbDataChanged(false)
 {
-	m_pActiveItemEditorToolBar = 0;
-	p_cvb = 0l;
-	p_itemGroup = 0l;
-	p_lastItem = 0l;
+	m_pActiveItemEditorToolBar = nullptr;
+	p_cvb = nullptr;
+	p_itemGroup = nullptr;
+	p_lastItem = nullptr;
 	m_currentActionTicket = -1;
 	m_toolBarWidgetID = -1;
 }
@@ -78,7 +78,7 @@ void ItemInterface::slotItemDocumentChanged( ItemDocument * doc )
 		disconnect( itemDocument, SIGNAL(selectionChanged()), this, SLOT(slotUpdateItemInterface()) );
 	}
 	
-	p_itemGroup = 0l;
+	p_itemGroup = nullptr;
 	p_cvb = doc;
 	
 	slotGetActionTicket();
@@ -110,7 +110,7 @@ void ItemInterface::slotClearAll()
 	ContextHelp::self()->slotClear();
 	ItemEditor::self()->slotClear();
 	clearItemEditorToolBar();
-	p_lastItem = 0l;
+	p_lastItem = nullptr;
 }
 
 
@@ -119,7 +119,7 @@ void ItemInterface::slotMultipleSelected()
 	ContextHelp::self()->slotMultipleSelected();
 	ItemEditor::self()->slotMultipleSelected();
 	clearItemEditorToolBar();
-	p_lastItem = 0l;
+	p_lastItem = nullptr;
 }
 
 
@@ -177,7 +177,7 @@ void ItemInterface::slotUpdateItemInterface()
 
 void ItemInterface::updateItemActions()
 {
-	ItemView * itemView = ((ItemDocument*)p_cvb) ? dynamic_cast<ItemView*>(p_cvb->activeView()) : 0l;
+	ItemView * itemView = ((ItemDocument*)p_cvb) ? dynamic_cast<ItemView*>(p_cvb->activeView()) : nullptr;
 	if ( !itemView )
 		return;
 	
@@ -244,7 +244,7 @@ void ItemInterface::itemEditTBCleared()
 QWidget * ItemInterface::configWidget()
 {
 	if ( !p_itemGroup || !p_itemGroup->activeItem() || !m_pActiveItemEditorToolBar )
-		return 0l;
+		return nullptr;
 	
 	VariantDataMap *variantMap = p_itemGroup->activeItem()->variantMap();
 	
@@ -281,7 +281,7 @@ QWidget * ItemInterface::configWidget()
 		if ( type != Variant::Type::Bool && !toolbarCaption.isEmpty() )
 			configLayout->addWidget( new QLabel( toolbarCaption, configWidget ) );
 		
-		QWidget * editWidget = 0l; // Should be set to the created widget
+		QWidget * editWidget = nullptr; // Should be set to the created widget
 		
 		switch( type )
 		{
@@ -489,19 +489,19 @@ void ItemInterface::connectMapWidget( QWidget *widget, const char *_signal )
 struct BoolLock {
     bool *m_flagPtr;
     BoolLock(bool *flagPtr) : m_flagPtr(flagPtr) {
-        if (m_flagPtr == NULL) {
+        if (m_flagPtr == nullptr) {
             qCritical() << Q_FUNC_INFO << "NULL flagPtr";
             return;
         }
         if (*m_flagPtr == true) {
             qWarning() << Q_FUNC_INFO << "flag expected to be false, addr=" << m_flagPtr << " Doing nothing";
-            m_flagPtr = NULL;
+            m_flagPtr = nullptr;
         } else {
             *m_flagPtr = true;
         }
     }
     ~BoolLock() {
-        if (m_flagPtr != NULL) {
+        if (m_flagPtr != nullptr) {
             *m_flagPtr = false;
         }
     }

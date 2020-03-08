@@ -48,7 +48,7 @@ public:
 		hs_item = 1000
 	};
 
-	View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l ) override;
+	View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr ) override;
 
 	/**
 	 * Will attempt to create an item with the given id at position p. Some item
@@ -167,26 +167,26 @@ public:
 	 * Creates a connector between two nodes, and returns a pointer to it
 	 * and adds the operation to the undo list
 	 */
-	virtual Connector* createConnector( const QString &startNodeId, const QString &endNodeId, QPointList *pointList = 0L ) = 0;
+	virtual Connector* createConnector( const QString &startNodeId, const QString &endNodeId, QPointList *pointList = nullptr ) = 0;
 	/**
 	 * Creates a connector from node1 to node2. If pointList is non-null, then the
 	 * connector will be assigned those points
 	 */
 	//virtual
 
-	Connector *createConnector( Node *node1, Node *node2, QPointList *pointList = 0);
+	Connector *createConnector( Node *node1, Node *node2, QPointList *pointList = nullptr);
 	/**
 	 * Splits Connector con into two connectors at point pos2, and creates a connector from the node
 	 * to the intersection of the two new connectors. If pointList is non-null, then the new connector
 	 * from the node will be assigned those points
 	 */
-	virtual Connector * createConnector( Node *node, Connector *con, const QPoint &pos2, QPointList *pointList = 0L ) = 0;
+	virtual Connector * createConnector( Node *node, Connector *con, const QPoint &pos2, QPointList *pointList = nullptr ) = 0;
 	/**
 	 * Splits con1 and con2 into two new connectors each at points pos1 and pos2, and creates a new connector
 	 * between the two points of intersection given by pos1 and pos2. If pointList is non-null, then the new
 	 * connector between the two points will be assigned those points
 	 */
-	virtual Connector * createConnector( Connector *con1, Connector *con2, const QPoint &pos1, const QPoint &pos2, QPointList *pointList = 0L ) = 0;
+	virtual Connector * createConnector( Connector *con1, Connector *con2, const QPoint &pos1, const QPoint &pos2, QPointList *pointList = nullptr ) = 0;
 	/**
 	 * Returns the flowcontainer at the given position at the highest level that
 	 * is not in the current select list, or 0l if there isn't one
@@ -197,7 +197,7 @@ public:
 	 */
 	void setItemResizeCursor( int cornerType );
 
-	void getTranslatable( const ItemList & itemList, ConnectorList * fixedConnectors = 0l, ConnectorList * translatableConnectors = 0l, NodeGroupList * translatableNodeGroups = 0l );
+	void getTranslatable( const ItemList & itemList, ConnectorList * fixedConnectors = nullptr, ConnectorList * translatableConnectors = nullptr, NodeGroupList * translatableNodeGroups = nullptr );
 
 	/**
 	 * Reroutes invalidated directors. You shouldn't call this function

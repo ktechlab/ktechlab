@@ -28,7 +28,7 @@ class LinkedList;
 class ECClockInput : public Component
 {
 public:
-	ECClockInput( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECClockInput( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 	~ECClockInput() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

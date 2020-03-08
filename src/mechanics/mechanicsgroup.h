@@ -25,7 +25,7 @@ class MechanicsGroup : public ItemGroup
 {
 Q_OBJECT
 public:
-	MechanicsGroup( MechanicsDocument *mechanicsDocument, const char *name = 0);
+	MechanicsGroup( MechanicsDocument *mechanicsDocument, const char *name = nullptr);
 	~MechanicsGroup() override;
 
 	/**

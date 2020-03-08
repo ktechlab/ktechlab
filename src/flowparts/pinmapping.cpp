@@ -101,7 +101,7 @@ PinMapEditor::PinMapEditor( PinMapping * pinMapping, MicroInfo * picInfo, QWidge
     fLayout->setSpacing(0);
     fLayout->setObjectName("fLayout");
 
-	ViewContainer * vc = new ViewContainer( 0, f );
+	ViewContainer * vc = new ViewContainer( nullptr, f );
 	fLayout->addWidget( vc );
 
 	m_pPinMapView = static_cast<PinMapView*>(m_pPinMapDocument->createView( vc, 0 ));
@@ -141,11 +141,11 @@ void PinMapEditor::savePinMapping()
 
 //BEGIN class PinMapDocument
 PinMapDocument::PinMapDocument()
-	: CircuitICNDocument( 0, 0 )
+	: CircuitICNDocument( nullptr, nullptr )
 {
-	m_pPicComponent = 0l;
-	m_pKeypad = 0l;
-	m_pSevenSegment = 0l;
+	m_pPicComponent = nullptr;
+	m_pKeypad = nullptr;
+	m_pSevenSegment = nullptr;
 	m_type = dt_pinMapEditor;
 
 	m_cmManager->addManipulatorInfo( CMSelect::manipulatorInfo() );
@@ -264,7 +264,7 @@ PinMapping PinMapDocument::pinMapping() const
 
 	QStringList picPinIDs;
 	QStringList attachedIDs;
-	Component * attached = 0l;
+	Component * attached = nullptr;
 
 	switch ( m_pinMappingType )
 	{
@@ -349,7 +349,7 @@ LibraryItem* PIC_IC::libraryItem()
 {
 	return new LibraryItem(
             QStringList(QString::fromLatin1("PIC_IC")),
-            0, 0, LibraryItem::lit_other, PIC_IC::construct );
+            nullptr, nullptr, LibraryItem::lit_other, PIC_IC::construct );
 }
 
 

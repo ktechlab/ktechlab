@@ -51,7 +51,7 @@ QColor probeColors[9] = {
 	QColor( 0x55, 0x12, 0x7B),
 	QColor( 0x7B, 0x0C, 0x82) };
 
-Oscilloscope * Oscilloscope::m_pSelf = 0;
+Oscilloscope * Oscilloscope::m_pSelf = nullptr;
 
 Oscilloscope * Oscilloscope::self( KateMDI::ToolView * parent)
 {
@@ -71,7 +71,7 @@ Oscilloscope::Oscilloscope( KateMDI::ToolView * parent)
 	m_nextColor = 0;
 	m_nextId = 1;
 	m_oldestId = -1;
-	m_oldestProbe = 0;
+	m_oldestProbe = nullptr;
 // 	b_isPaused = false;
 	m_zoomLevel = 0.5;
 	m_pSimulator = Simulator::self();
@@ -100,11 +100,11 @@ Oscilloscope::Oscilloscope( KateMDI::ToolView * parent)
 
 Oscilloscope::~Oscilloscope()
 {
-    m_pSelf = NULL;
+    m_pSelf = nullptr;
 }
 
 bool Oscilloscope::isInstantiated() {
-    return m_pSelf != NULL;
+    return m_pSelf != nullptr;
 }
 
 void Oscilloscope::slotTogglePause()
@@ -165,11 +165,11 @@ void Oscilloscope::slotZoomSliderChanged( int value)
 
 ProbeData * Oscilloscope::registerProbe( Probe * probe)
 {
-	if(!probe) return 0;
+	if(!probe) return nullptr;
 
 	const uint id = m_nextId++;
 
-	ProbeData * probeData = 0;
+	ProbeData * probeData = nullptr;
 
 	if( dynamic_cast<LogicProbe*>(probe)) {
 		probeData = new LogicProbeData(id);
@@ -223,7 +223,7 @@ ProbeData * Oscilloscope::probeData( int id) const
 	if( bit != m_probeDataMap.end())
 		return bit.value();
 
-	return 0;
+	return nullptr;
 }
 
 
@@ -251,7 +251,7 @@ void Oscilloscope::getOldestProbe()
 {
 	if( m_probeDataMap.isEmpty())
 	{
-		m_oldestProbe = 0;
+		m_oldestProbe = nullptr;
 		m_oldestId = -1;
 		return;
 	}
@@ -349,7 +349,7 @@ ProbeData * registerProbe( Probe * probe)
 {
     if (!Oscilloscope::isInstantiated()) {
         qDebug() << Q_FUNC_INFO << "no oscilloscope to register to, doing nothing";
-        return NULL;
+        return nullptr;
     }
 	return Oscilloscope::self()->registerProbe(probe);
 }

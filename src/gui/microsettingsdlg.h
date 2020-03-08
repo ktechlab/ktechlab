@@ -33,7 +33,7 @@ class MicroSettingsDlg : public KDialog
 {
 	Q_OBJECT
 	public:
-		MicroSettingsDlg( MicroSettings *_microSettings, QWidget *parent = 0L, const char *name = 0L );
+		MicroSettingsDlg( MicroSettings *_microSettings, QWidget *parent = nullptr, const char *name = nullptr );
 		~MicroSettingsDlg() override;
 
 		void reject() override;
@@ -111,8 +111,8 @@ class PinMappingNameValidator : public QValidator
 		 * Create a validator. If oldName is not empty, then the input is
 		 * allowed to be oldName.
 		 */
-		PinMappingNameValidator( MicroSettingsDlg * dlg, const QString & oldName = 0 )
-			: QValidator(0)
+		PinMappingNameValidator( MicroSettingsDlg * dlg, const QString & oldName = nullptr )
+			: QValidator(nullptr)
 		{
 			m_pDlg = dlg;
 			m_oldName = oldName;

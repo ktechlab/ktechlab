@@ -42,14 +42,14 @@ ProcessChain::ProcessChain( ProcessOptions options, const char *name )
 	: QObject( KTechlab::self() /*, name */ )
 {
     setObjectName( name );
-	m_pFlowCode = 0l;
-	m_pGpasm = 0l;
-	m_pGpdasm = 0l;
-	m_pGplib = 0l;
-	m_pGplink = 0l;
-	m_pMicrobe = 0l;
-	m_pPicProgrammer = 0l;
-	m_pSDCC = 0l;
+	m_pFlowCode = nullptr;
+	m_pGpasm = nullptr;
+	m_pGpdasm = nullptr;
+	m_pGplib = nullptr;
+	m_pGplink = nullptr;
+	m_pMicrobe = nullptr;
+	m_pPicProgrammer = nullptr;
+	m_pSDCC = nullptr;
 	m_processOptions = options;
 	
 	QString target;
@@ -157,12 +157,12 @@ void ProcessChain::slotFinishedCompile(Language *language)
 	
 	ProcessOptions::ProcessPath::MediaType typeTo = ProcessOptions::ProcessPath::to( m_processOptions.processPath() );
 	
-	TextDocument * editor = 0l;
+	TextDocument * editor = nullptr;
 	if ( KTLConfig::reuseSameViewForOutput() )
 	{
 		editor = options.textOutputTarget();
 		if ( editor && (!editor->url().isEmpty() || editor->isModified()) )
-			editor = 0l;
+			editor = nullptr;
 	}
 	
 	switch (typeTo)
@@ -191,7 +191,7 @@ void ProcessChain::slotFinishedCompile(Language *language)
 					if ( !f.open( QIODevice::ReadOnly ) )
 					{
 						editor->deleteLater();
-						editor = 0l;
+						editor = nullptr;
 						break;
 					}
 				

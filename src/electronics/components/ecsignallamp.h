@@ -22,7 +22,7 @@ class Resistance;
 class ECSignalLamp : public Component
 {
 public:
-	ECSignalLamp( ICNDocument *icnDocument, bool newItem, const char *id = 0);
+	ECSignalLamp( ICNDocument *icnDocument, bool newItem, const char *id = nullptr);
 	~ECSignalLamp() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

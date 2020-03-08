@@ -139,7 +139,7 @@ class ComponentSelector : public ItemSelector
 {
 	Q_OBJECT
 	public:
-		static ComponentSelector * self( KateMDI::ToolView * parent = 0l );
+		static ComponentSelector * self( KateMDI::ToolView * parent = nullptr );
 		static QString toolViewIdentifier() { return "ComponentSelector"; }
 
 	private:
@@ -156,7 +156,7 @@ class FlowPartSelector : public ItemSelector
 {
 	Q_OBJECT
 	public:
-		static FlowPartSelector * self( KateMDI::ToolView * parent = 0l );
+		static FlowPartSelector * self( KateMDI::ToolView * parent = nullptr );
 		static QString toolViewIdentifier() { return "FlowPartSelector"; }
 
 	private:
@@ -172,11 +172,11 @@ class MechanicsSelector : public ItemSelector
 {
 	Q_OBJECT
 	public:
-		static MechanicsSelector * self( KateMDI::ToolView * parent = 0l );
+		static MechanicsSelector * self( KateMDI::ToolView * parent = nullptr );
 		static QString toolViewIdentifier() { return "MechanicsSelector"; }
 
 	private:
-		MechanicsSelector( QWidget *parent = 0L );
+		MechanicsSelector( QWidget *parent = nullptr );
 		static MechanicsSelector * m_pSelf;
 };
 

@@ -343,13 +343,13 @@ LibraryItem * ItemLibrary::libraryItem( QString type ) const
 		if ( (*it)->allIDs().contains( type ) )
 			return *it;
 	}
-	return 0l;
+	return nullptr;
 }
 
 
 Item * ItemLibrary::createItem( const QString &id, ItemDocument *itemDocument, bool newItem, const char *newId, bool finishCreation  )
 {
-	Item *item = 0;
+	Item *item = nullptr;
 	if ( id.startsWith(QString::fromLatin1("sc/")) )
 	{
 		// Is a subcircuit...
@@ -358,7 +358,7 @@ Item * ItemLibrary::createItem( const QString &id, ItemDocument *itemDocument, b
 		if (!circuitDocument)
 		{
 			qWarning() << "Cannot create subcircuit without a circuit document" << endl;
-			return 0;
+			return nullptr;
 		}
 
 		QString temp = id;
@@ -553,7 +553,7 @@ bool ItemLibrary::saveDescriptions( const QString & language )
 	QFile file( url );
 	if ( !file.open( QIODevice::WriteOnly ) )
 	{
-		KMessageBox::sorry( 0, i18n("Could not open item descriptions file \"%1\" for writing.", url) );
+		KMessageBox::sorry( nullptr, i18n("Could not open item descriptions file \"%1\" for writing.", url) );
 		return false;
 	}
 

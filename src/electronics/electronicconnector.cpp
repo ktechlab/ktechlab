@@ -41,8 +41,8 @@ void ElectronicConnector::syncWiresWithNodes() {
 	if (!startEcNode || !endEcNode) return;
 
 	// FIXME more dynamic_cast to avoid using type() member
-	const bool isStartNodeJunction = dynamic_cast<JunctionNode*>(startEcNode) != 0;
-	const bool isEndNodeJunction   = dynamic_cast<JunctionNode*>(endEcNode)   != 0;
+	const bool isStartNodeJunction = dynamic_cast<JunctionNode*>(startEcNode) != nullptr;
+	const bool isEndNodeJunction   = dynamic_cast<JunctionNode*>(endEcNode)   != nullptr;
 
 	unsigned newNumWires = 0;
 

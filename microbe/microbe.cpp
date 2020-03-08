@@ -90,7 +90,7 @@ QString Microbe::compile( const QString & url, bool optimize )
 	else
 	{
 		m_errorReport += i18n("Could not open file '%1'\n", url);
-		return 0;
+		return nullptr;
 	}
 
 	Parser parser(this);
@@ -104,7 +104,7 @@ QString Microbe::compile( const QString & url, bool optimize )
 
 	PIC14 * pic = makePic();
 	if ( !pic )
-		return 0;
+		return nullptr;
 
 	Code * code = parser.parse( m_program );
 	pic->setCode( code );

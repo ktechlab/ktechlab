@@ -41,7 +41,7 @@ ILVItem::ILVItem( QTreeWidget *parent, const QString &id )
     setData(0, DataRole_ID, QVariant(id));
     // 	m_id = id;  // 2018.08.12 - use value()
 	b_isRemovable = false;
-	m_pProjectItem = 0l;
+	m_pProjectItem = nullptr;
 }
 
 ILVItem::ILVItem( QTreeWidgetItem *parent, const QString &id )
@@ -50,7 +50,7 @@ ILVItem::ILVItem( QTreeWidgetItem *parent, const QString &id )
 	//m_id = id;    // 2018.08.12 - use value()
     setData(0, DataRole_ID, QVariant(id));
 	b_isRemovable = false;
-	m_pProjectItem = 0l;
+	m_pProjectItem = nullptr;
 }
 
 
@@ -110,7 +110,7 @@ void ItemSelector::clear()
 void ItemSelector::addItem( const QString & caption, const QString & id, const QString & _category, const QPixmap & icon, bool removable )
 {
     qDebug() << Q_FUNC_INFO << "id=" << id;
-	ILVItem *parentItem = 0L;
+	ILVItem *parentItem = nullptr;
 
 	QString category = _category;
 	if ( !category.startsWith("/") ) {
@@ -208,7 +208,7 @@ bool ItemSelector::readOpenState( const QString &id )
 QTreeWidgetItem *ItemSelector::selectedItem() const {
     QList< QTreeWidgetItem*> selectedList = selectedItems();
     if (selectedList.empty()) {
-        return NULL;
+        return nullptr;
     }
     if (selectedList.size() > 1) {
         qWarning() << Q_FUNC_INFO << " expected 1 item in selection, got " << selectedList.size();
@@ -224,7 +224,7 @@ QMimeData * ItemSelector::mimeData(const QList<QTreeWidgetItem *> items) const {
     QTreeWidgetItem *theItem = items.first();
     if (!theItem) {
         qWarning() << Q_FUNC_INFO << "unexpected null item";
-        return NULL;
+        return nullptr;
     }
     qDebug() << Q_FUNC_INFO << " theItem = " << theItem;
     QVariant idAsVariant = theItem->data(0, ILVItem::DataRole_ID);
@@ -395,7 +395,7 @@ void ItemSelector::slotItemDoubleClicked( QTreeWidgetItem *item, int )
 
 
 //BEGIN class ComponentSelector
-ComponentSelector * ComponentSelector::m_pSelf = 0l;
+ComponentSelector * ComponentSelector::m_pSelf = nullptr;
 
 
 ComponentSelector * ComponentSelector::self( KateMDI::ToolView * parent )
@@ -438,7 +438,7 @@ ComponentSelector::ComponentSelector( KateMDI::ToolView * parent )
 
 
 //BEGIN class FlowPartSelector
-FlowPartSelector * FlowPartSelector::m_pSelf = 0l;
+FlowPartSelector * FlowPartSelector::m_pSelf = nullptr;
 
 
 FlowPartSelector * FlowPartSelector::self( KateMDI::ToolView * parent )
@@ -471,7 +471,7 @@ FlowPartSelector::FlowPartSelector( KateMDI::ToolView * parent )
 
 
 //BEGIN class MechanicsSelector
-MechanicsSelector * MechanicsSelector::m_pSelf = 0l;
+MechanicsSelector * MechanicsSelector::m_pSelf = nullptr;
 
 
 MechanicsSelector * MechanicsSelector::self( KateMDI::ToolView * parent )

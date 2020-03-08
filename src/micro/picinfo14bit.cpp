@@ -44,45 +44,45 @@ PicAsm14bit::PicAsm14bit()
 	: AsmInfo()
 {
 	// Byte-orientated file register operations
-	addInstruction( "ADDWF",	0,	"000111dfffffff" );
-	addInstruction( "ANDWF",	0,	"000101dfffffff" );
-	addInstruction( "CLRF",		0,	"0000011fffffff" );
-	addInstruction( "CLRW",		0,	"0000010xxxxxxx" );
-	addInstruction( "COMF",		0,	"001001dfffffff" );
-	addInstruction( "DECF",		0,	"000011dfffffff" );
-	addInstruction( "DECFSZ",	0,	"001011dfffffff" );
-	addInstruction( "INCF",		0,	"001010dfffffff" );
-	addInstruction( "INCFSZ",	0,	"001111dfffffff" );
-	addInstruction( "IORWF",	0,	"000100dfffffff" );
-	addInstruction( "MOVF",		0,	"001000dfffffff" );
-	addInstruction( "MOVWF",	0,	"0000001fffffff" );
-	addInstruction( "NOP",		0,	"0000000xx00000" );
-	addInstruction( "RLF",		0,	"001101dfffffff" );
-	addInstruction( "RRF",		0,	"001100dfffffff" );
-	addInstruction( "SUBWF",	0,	"000010dfffffff" );
-	addInstruction( "SWAPF",	0,	"001110dfffffff" );
-	addInstruction( "XORWF",	0,	"000110dfffffff" );
+	addInstruction( "ADDWF",	nullptr,	"000111dfffffff" );
+	addInstruction( "ANDWF",	nullptr,	"000101dfffffff" );
+	addInstruction( "CLRF",		nullptr,	"0000011fffffff" );
+	addInstruction( "CLRW",		nullptr,	"0000010xxxxxxx" );
+	addInstruction( "COMF",		nullptr,	"001001dfffffff" );
+	addInstruction( "DECF",		nullptr,	"000011dfffffff" );
+	addInstruction( "DECFSZ",	nullptr,	"001011dfffffff" );
+	addInstruction( "INCF",		nullptr,	"001010dfffffff" );
+	addInstruction( "INCFSZ",	nullptr,	"001111dfffffff" );
+	addInstruction( "IORWF",	nullptr,	"000100dfffffff" );
+	addInstruction( "MOVF",		nullptr,	"001000dfffffff" );
+	addInstruction( "MOVWF",	nullptr,	"0000001fffffff" );
+	addInstruction( "NOP",		nullptr,	"0000000xx00000" );
+	addInstruction( "RLF",		nullptr,	"001101dfffffff" );
+	addInstruction( "RRF",		nullptr,	"001100dfffffff" );
+	addInstruction( "SUBWF",	nullptr,	"000010dfffffff" );
+	addInstruction( "SWAPF",	nullptr,	"001110dfffffff" );
+	addInstruction( "XORWF",	nullptr,	"000110dfffffff" );
 
 	// Bit-orientated file register operations
-	addInstruction( "BCF",		0,	"0100bbbfffffff" );
-	addInstruction( "BSF",		0,	"0101bbbfffffff" );
-	addInstruction( "BTFSC",	0,	"0110bbbfffffff" );
-	addInstruction( "BTFSS",	0,	"0111bbbfffffff" );
+	addInstruction( "BCF",		nullptr,	"0100bbbfffffff" );
+	addInstruction( "BSF",		nullptr,	"0101bbbfffffff" );
+	addInstruction( "BTFSC",	nullptr,	"0110bbbfffffff" );
+	addInstruction( "BTFSS",	nullptr,	"0111bbbfffffff" );
 	
 	// Literal and control operations
-	addInstruction( "ADDLW",	0,	"11111xkkkkkkkk" );
-	addInstruction( "ANDLW",	0,	"111001kkkkkkkk" );
-	addInstruction( "CALL",		0,	"100kkkkkkkkkkk" );
-	addInstruction( "CLRWDT",	0,	"00000001100100" );
-	addInstruction( "GOTO",		0,	"101kkkkkkkkkkk" );
-	addInstruction( "IORLW",	0,	"111000kkkkkkkk" );
-	addInstruction( "MOVLW",	0,	"1100xxkkkkkkkk" );
-	addInstruction( "RETFIE",	0,	"00000000001001" );
-	addInstruction( "RETLW",	0,	"1101xxkkkkkkkk" );
-	addInstruction( "RETURN",	0,	"00000000001000" );
-	addInstruction( "SLEEP",	0,	"00000000000011" );
-	addInstruction( "SUBLW",	0,	"11110xkkkkkkkk" );
-	addInstruction( "XORLW",	0,	"111010kkkkkkkk" );
+	addInstruction( "ADDLW",	nullptr,	"11111xkkkkkkkk" );
+	addInstruction( "ANDLW",	nullptr,	"111001kkkkkkkk" );
+	addInstruction( "CALL",		nullptr,	"100kkkkkkkkkkk" );
+	addInstruction( "CLRWDT",	nullptr,	"00000001100100" );
+	addInstruction( "GOTO",		nullptr,	"101kkkkkkkkkkk" );
+	addInstruction( "IORLW",	nullptr,	"111000kkkkkkkk" );
+	addInstruction( "MOVLW",	nullptr,	"1100xxkkkkkkkk" );
+	addInstruction( "RETFIE",	nullptr,	"00000000001001" );
+	addInstruction( "RETLW",	nullptr,	"1101xxkkkkkkkk" );
+	addInstruction( "RETURN",	nullptr,	"00000000001000" );
+	addInstruction( "SLEEP",	nullptr,	"00000000000011" );
+	addInstruction( "SUBLW",	nullptr,	"11110xkkkkkkkk" );
+	addInstruction( "XORLW",	nullptr,	"111010kkkkkkkk" );
 }
 
 PicInfo16C8x::PicInfo16C8x()
@@ -344,7 +344,7 @@ PicInfo16F62x::PicInfo16F62x()
 PicInfo16F62x::~PicInfo16F62x()
 {
 	delete m_package;
-	m_package = 0l;
+	m_package = nullptr;
 }
 
 PicInfo16F627::PicInfo16F627()

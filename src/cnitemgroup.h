@@ -38,7 +38,7 @@ class CNItemGroup : public ItemGroup
 {
 Q_OBJECT
 public:
-	CNItemGroup( ICNDocument *icnDocument, const char *name = 0 );
+	CNItemGroup( ICNDocument *icnDocument, const char *name = nullptr );
 	~CNItemGroup() override;
 	
 	/**

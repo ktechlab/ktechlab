@@ -51,7 +51,7 @@ class ItemDocument : public Document
 	friend class KtlTestsAppFixture;
 
 	public:
-		ItemDocument( const QString &caption, const char *name = 0 );
+		ItemDocument( const QString &caption, const char *name = nullptr );
 		~ItemDocument() override;
 
 		class Z
@@ -422,7 +422,7 @@ class Canvas : public KtlQCanvas
 {
 	Q_OBJECT
 	public:
-		Canvas( ItemDocument *itemDocument, const char * name = 0 );
+		Canvas( ItemDocument *itemDocument, const char * name = nullptr );
 
 		/**
 		 * Sets a message to be displayed on the canvas for a brief period of

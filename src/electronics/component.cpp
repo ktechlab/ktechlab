@@ -60,8 +60,8 @@ Component::Component( ICNDocument *icnDocument, bool newItem, const QString &id 
 
     for ( int i=0; i<4; ++i )
     {
-        m_pPNode[i] = 0l;
-        m_pNNode[i] = 0l;
+        m_pPNode[i] = nullptr;
+        m_pNNode[i] = nullptr;
     }
 
     // Get configuration options
@@ -679,7 +679,7 @@ LogicOut *Component::createLogicOut( ECNode *node, bool isHigh )
 
 MOSFET *Component::createMOSFET( ECNode * D, ECNode * G, ECNode * S, ECNode * B, int MOSFET_type )
 {
-    return createMOSFET( D->pin(), G->pin(), S->pin(), B ? B->pin() : 0, MOSFET_type );
+    return createMOSFET( D->pin(), G->pin(), S->pin(), B ? B->pin() : nullptr, MOSFET_type );
 }
 
 OpAmp *Component::createOpAmp( ECNode * nonInverting, ECNode * out, ECNode * inverting )
@@ -1158,8 +1158,8 @@ QColor Component::voltageColor( double v )
 //BEGIN class ElementMap
 ElementMap::ElementMap()
 {
-    e = 0;
+    e = nullptr;
     for ( int i = 0; i < 4; ++i )
-        n[i] = 0;
+        n[i] = nullptr;
 }
 //END class ElementMap

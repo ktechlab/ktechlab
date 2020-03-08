@@ -48,7 +48,7 @@ private slots:
     void initTestCase() {
         int argc = 1;
         char argv0[] = "tests_app";
-        char *argv[] = { argv0, NULL };
+        char *argv[] = { argv0, nullptr };
 
 
         KAboutData about("ktechlab", i18n("KTechLab"), VERSION, i18n(description),
@@ -61,9 +61,9 @@ private slots:
     }
     void cleanupTestCase() {
         delete ktechlab;
-        ktechlab = NULL;
+        ktechlab = nullptr;
         //delete app; // this crashes apparently
-        app = NULL;
+        app = nullptr;
     }
 
     void testDocumentOpen() {
@@ -72,13 +72,13 @@ private slots:
         QFile exFile(SRC_TESTS_DATA_DIR "test-document-draw-1.circuit");
         KUrl exUrl(exFile.fileName());
         qDebug() << "open example: " << exUrl;
-        DocManager::self()->openURL(exUrl, NULL);
+        DocManager::self()->openURL(exUrl, nullptr);
         QCOMPARE( DocManager::self()->m_documentList.size(), 1);
         Document *doc = DocManager::self()->m_documentList.first();
-        QVERIFY( doc != NULL );
+        QVERIFY( doc != nullptr );
         QCOMPARE( doc->type(), Document::dt_circuit );
         CircuitDocument *circDoc = static_cast<CircuitDocument*>( doc );
-        QVERIFY( circDoc != NULL );
+        QVERIFY( circDoc != nullptr );
         QVERIFY( circDoc->m_canvas );
         qDebug() << "item list size " << circDoc->m_itemList.size();
 

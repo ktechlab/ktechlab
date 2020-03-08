@@ -20,7 +20,7 @@
 class Count : public FlowPart
 {
 public:
-	Count( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	Count( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 	~Count() override;
 
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

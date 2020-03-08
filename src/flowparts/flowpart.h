@@ -73,7 +73,7 @@ public:
 	 * @param previousParts A list of parts in the calling tree. This avoids infinite recursion.
 	 * @returns The first FlowPart satisfying these conditions, or NULL if no such part exists
 	 */
-	FlowPart* endPart( QStringList ids, FlowPartList *previousParts = 0l );
+	FlowPart* endPart( QStringList ids, FlowPartList *previousParts = nullptr );
 	/**
 	 * Handles the addition of a if-else statement to the given FlowCode. This will
 	 * order the code as necessary, adding the branches in the appropriate places

@@ -42,7 +42,7 @@
 
 class GeneralOptionsWidget : public QWidget, public Ui::GeneralOptionsWidget {
     public:
-    GeneralOptionsWidget(QWidget *parent, const char *name = 0) : QWidget(parent /*, name */) {
+    GeneralOptionsWidget(QWidget *parent, const char *name = nullptr) : QWidget(parent /*, name */) {
         setObjectName(name);
         setupUi(this);
     }
@@ -50,7 +50,7 @@ class GeneralOptionsWidget : public QWidget, public Ui::GeneralOptionsWidget {
 
 class GpasmSettingsWidget : public QWidget, public Ui::GpasmSettingsWidget {
     public:
-    GpasmSettingsWidget(QWidget *parent, const char *name = 0) : QWidget(parent /*, name*/) {
+    GpasmSettingsWidget(QWidget *parent, const char *name = nullptr) : QWidget(parent /*, name*/) {
         setObjectName(name);
         setupUi(this);
     }
@@ -58,7 +58,7 @@ class GpasmSettingsWidget : public QWidget, public Ui::GpasmSettingsWidget {
 
 class SDCCOptionsWidget : public QWidget, public Ui::SDCCOptionsWidget {
     public:
-    SDCCOptionsWidget(QWidget *parent, const char *name = 0) : QWidget(parent /*, name*/) {
+    SDCCOptionsWidget(QWidget *parent, const char *name = nullptr) : QWidget(parent /*, name*/) {
         setObjectName(name);
         setupUi(this);
     }
@@ -66,7 +66,7 @@ class SDCCOptionsWidget : public QWidget, public Ui::SDCCOptionsWidget {
 
 class AsmFormattingWidget : public QWidget, public Ui::AsmFormattingWidget {
     public:
-    AsmFormattingWidget(QWidget *parent, const char *name = 0) : QWidget(parent /*, name*/) {
+    AsmFormattingWidget(QWidget *parent, const char *name = nullptr) : QWidget(parent /*, name*/) {
         setObjectName(name);
         setupUi(this);
     }
@@ -74,7 +74,7 @@ class AsmFormattingWidget : public QWidget, public Ui::AsmFormattingWidget {
 
 class LogicWidget : public QWidget, public Ui::LogicWidget {
     public:
-    LogicWidget(QWidget *parent, const char *name = 0) : QWidget(parent /*, name*/) {
+    LogicWidget(QWidget *parent, const char *name = nullptr) : QWidget(parent /*, name*/) {
         setObjectName(name);
         setupUi(this);
     }
@@ -82,7 +82,7 @@ class LogicWidget : public QWidget, public Ui::LogicWidget {
 
 class PicProgrammerConfigWidget : public QWidget, public Ui::PicProgrammerConfigWidget {
     public:
-    PicProgrammerConfigWidget(QWidget *parent, const char *name = 0) : QWidget(parent /*, name*/) {
+    PicProgrammerConfigWidget(QWidget *parent, const char *name = nullptr) : QWidget(parent /*, name*/) {
         setObjectName(name);
         setupUi(this);
     }
@@ -90,7 +90,7 @@ class PicProgrammerConfigWidget : public QWidget, public Ui::PicProgrammerConfig
 
 class GplinkSettingsWidget : public QWidget, public Ui::GplinkSettingsWidget {
     public:
-    GplinkSettingsWidget(QWidget *parent, const char *name = 0) : QWidget(parent /*, name*/) {
+    GplinkSettingsWidget(QWidget *parent, const char *name = nullptr) : QWidget(parent /*, name*/) {
         setObjectName(name);
         setupUi(this);
     }

@@ -44,7 +44,7 @@ class LogView : public KTextEdit
 {
 	Q_OBJECT
 	public:
-		LogView( KateMDI::ToolView * parent, const char *name = 0 );
+		LogView( KateMDI::ToolView * parent, const char *name = nullptr );
 		~LogView() override;
 	
 		enum OutputType

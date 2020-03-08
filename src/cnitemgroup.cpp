@@ -233,7 +233,7 @@ NodeList CNItemGroup::nodes( bool excludeParented ) const
 		return nodeList;
 	
 	NodeGroupList translatableNodeGroups;
-	p_icnDocument->getTranslatable( items(false), 0l, 0l, &translatableNodeGroups );
+	p_icnDocument->getTranslatable( items(false), nullptr, nullptr, &translatableNodeGroups );
 	
 	NodeGroupList::iterator end = translatableNodeGroups.end();
 	for ( NodeGroupList::iterator it = translatableNodeGroups.begin(); it != end; ++it )
@@ -259,7 +259,7 @@ ConnectorList CNItemGroup::connectors( bool excludeParented ) const
 	
 	ConnectorList translatableConnectors;
 	NodeGroupList translatableNodeGroups;
-	p_icnDocument->getTranslatable( items(false), 0l, &translatableConnectors, &translatableNodeGroups );
+	p_icnDocument->getTranslatable( items(false), nullptr, &translatableConnectors, &translatableNodeGroups );
 	
 	ConnectorList::iterator tcEnd = translatableConnectors.end();
 	for ( ConnectorList::iterator it = translatableConnectors.begin(); it != tcEnd; ++it )
@@ -638,7 +638,7 @@ void CNItemGroup::updateInfo()
 void CNItemGroup::getActiveItem()
 {
 	if ( m_itemList.isEmpty() )
-		setActiveItem(0l);
+		setActiveItem(nullptr);
 	else
 		setActiveItem( *m_itemList.begin() );
 }

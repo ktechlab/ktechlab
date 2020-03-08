@@ -26,12 +26,12 @@ ProbePositioner::ProbePositioner(QWidget *parent, const char *name)
 {
     setObjectName( name );
 	m_probePosOffset = 0;
-	p_draggedProbe = 0l;
+	p_draggedProbe = nullptr;
 	setFixedWidth( int(probeArrowWidth) );
 	//setBackgroundMode(Qt::NoBackground); // 2018.12.07
     setBackgroundRole( QPalette::NoRole );
 	b_needRedraw = true;
-	m_pixmap = 0l;
+	m_pixmap = nullptr;
 }
 
 
@@ -108,7 +108,7 @@ ProbeData* ProbePositioner::probeAtPosition( const QPoint &pos )
 			return probeData;
 	}
 	m_probePosOffset = 0;
-	return 0l;
+	return nullptr;
 }
 
 

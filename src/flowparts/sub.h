@@ -20,7 +20,7 @@
 class Sub : public FlowContainer
 {
 public:
-	Sub( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	Sub( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 	~Sub() override;
 
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

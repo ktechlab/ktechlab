@@ -64,10 +64,10 @@ int main(int argc, char **argv)
 
     KCmdLineArgs::init(argc, argv, &about);
     KCmdLineOptions options;
-    options.add( QByteArray("show-source"), ki18n( "Show source code lines in assembly output"),0);
-    options.add( QByteArray("nooptimize"), ki18n( "Do not attempt optimization of generated instructions."),0);
-    options.add( QByteArray("+[Input URL]"), ki18n( "Input filename" ),0);
-    options.add( QByteArray("+[Output URL]"), ki18n( "Output filename" ),0);
+    options.add( QByteArray("show-source"), ki18n( "Show source code lines in assembly output"),nullptr);
+    options.add( QByteArray("nooptimize"), ki18n( "Do not attempt optimization of generated instructions."),nullptr);
+    options.add( QByteArray("+[Input URL]"), ki18n( "Input filename" ),nullptr);
+    options.add( QByteArray("+[Output URL]"), ki18n( "Output filename" ),nullptr);
     KCmdLineArgs::addCmdLineOptions( options );
 	
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();

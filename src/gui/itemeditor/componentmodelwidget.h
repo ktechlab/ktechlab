@@ -27,7 +27,7 @@ class ClickLineEdit : public KLineEdit
     Q_OBJECT
     Q_PROPERTY( QString clickMessage READ clickMessage WRITE setClickMessage )
     public:
-        ClickLineEdit( const QString &msg, QWidget *parent, const char* name = 0 );
+        ClickLineEdit( const QString &msg, QWidget *parent, const char* name = nullptr );
 
         void setClickMessage( const QString &msg );
         QString clickMessage() const { return mClickMessage; }
@@ -52,7 +52,7 @@ class ComponentModelWidget : public QWidget
 {
 	Q_OBJECT
 	public:
-		ComponentModelWidget( QWidget *parent = 0, const char *name = 0 );
+		ComponentModelWidget( QWidget *parent = nullptr, const char *name = nullptr );
 		~ComponentModelWidget() override;
 		/**
 		 * Clears the list of component models.

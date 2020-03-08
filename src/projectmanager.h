@@ -267,7 +267,7 @@ class ProjectManager : public ItemSelector
 	Q_OBJECT
 	public:
 		~ProjectManager() override;
-		static ProjectManager * self( KateMDI::ToolView * parent = 0l );
+		static ProjectManager * self( KateMDI::ToolView * parent = nullptr );
 
 		static QString toolViewIdentifier() { return "ProjectManager"; }
 

@@ -147,7 +147,7 @@ class KTechlab : public KateMDI::MainWindow
 		 * Open the document at the given url. If viewArea is non-null, then the
 		 * new view will be put into viewArea.
 		 */
-		void load( const KUrl & url, ViewArea * viewArea = 0l );
+		void load( const KUrl & url, ViewArea * viewArea = nullptr );
 		void slotUpdateConfiguration();
 		/**
 		 * Adds a url to the list of recently opened files

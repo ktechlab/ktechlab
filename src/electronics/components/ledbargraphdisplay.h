@@ -50,7 +50,7 @@ class LEDPart
 class LEDBarGraphDisplay : public Component
 {
 	public:
-		LEDBarGraphDisplay( ICNDocument* icnDocument, bool newItem, const QString& id = 0L );
+		LEDBarGraphDisplay( ICNDocument* icnDocument, bool newItem, const QString& id = nullptr );
 		~LEDBarGraphDisplay() override;
 
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

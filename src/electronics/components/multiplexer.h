@@ -22,7 +22,7 @@
 class Multiplexer : public CallbackClass, public Component
 {
 public:
-	Multiplexer( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	Multiplexer( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 	~Multiplexer() override;
 
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

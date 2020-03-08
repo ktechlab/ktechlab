@@ -21,7 +21,7 @@ class LineOverlay;
 class DPLine : public DrawPart
 {
 	public:
-		DPLine( ItemDocument *itemDocument, bool newItem, const char *id = 0L );
+		DPLine( ItemDocument *itemDocument, bool newItem, const char *id = nullptr );
 		~DPLine() override;
 
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -43,7 +43,7 @@ class DPLine : public DrawPart
 class DPArrow : public DPLine
 {
 	public:
-		DPArrow( ItemDocument *itemDocument, bool newItem, const char *id = 0L );
+		DPArrow( ItemDocument *itemDocument, bool newItem, const char *id = nullptr );
 		~DPArrow() override;
 
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

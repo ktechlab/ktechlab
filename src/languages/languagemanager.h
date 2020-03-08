@@ -37,7 +37,7 @@ class LanguageManager : public QObject
 {
 	Q_OBJECT
 	public:
-		static LanguageManager * self( KateMDI::ToolView * parent = 0l );
+		static LanguageManager * self( KateMDI::ToolView * parent = nullptr );
 		static QString toolViewIdentifier() { return "LanguageManager"; }
 		~LanguageManager() override;
 

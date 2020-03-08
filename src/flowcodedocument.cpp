@@ -34,10 +34,10 @@ FlowCodeDocument::FlowCodeDocument( const QString &caption, const char *name )
 {
 	m_pDocumentIface = new FlowCodeDocumentIface(this);
 	m_type = Document::dt_flowcode;
-	m_microInfo = 0L;
-	m_microSettings = 0L;
-	m_picItem = 0L;
-	m_pLastTextOutputTarget = 0l;
+	m_microInfo = nullptr;
+	m_microSettings = nullptr;
+	m_picItem = nullptr;
+	m_pLastTextOutputTarget = nullptr;
 	
 	m_cmManager->addManipulatorInfo( CMSelect::manipulatorInfo() );
 	m_cmManager->addManipulatorInfo( CMDraw::manipulatorInfo() );

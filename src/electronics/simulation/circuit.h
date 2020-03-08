@@ -94,7 +94,7 @@ public:
 		* @returns the number of ground nodes. If all nodes are at or below the
 		* 			gt_never threshold, then this will be zero.
 		*/
-	static int identifyGround( PinList nodeList, int *highest = 0l );
+	static int identifyGround( PinList nodeList, int *highest = nullptr );
 
 	void setNextChanged( Circuit * circuit, unsigned char chain ) { m_pNextChanged[chain] = circuit; }
 	Circuit * nextChanged( unsigned char chain ) const { return m_pNextChanged[chain]; }

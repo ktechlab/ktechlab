@@ -78,10 +78,10 @@
 #include <ktlconfig.h>
 
 
-KTechlab * KTechlab::m_pSelf = 0l;
+KTechlab * KTechlab::m_pSelf = nullptr;
 
 KTechlab::KTechlab()
-	: KateMDI::MainWindow( 0, "KTechlab" )
+	: KateMDI::MainWindow( nullptr, "KTechlab" )
 {
 	m_pSelf = this;
 
@@ -89,11 +89,11 @@ KTechlab::KTechlab()
 	ct.start();
 
 	m_bIsShown = false;
-	m_pContainerDropSource = 0l;
-	m_pContainerDropReceived = 0l;
-	m_pContextMenuContainer = 0l;
-	m_pFocusedContainer = 0l;
-	m_pToolBarOverlayLabel = 0l;
+	m_pContainerDropSource = nullptr;
+	m_pContainerDropReceived = nullptr;
+	m_pContextMenuContainer = nullptr;
+	m_pFocusedContainer = nullptr;
+	m_pToolBarOverlayLabel = nullptr;
 
 	if ( QFontInfo( m_itemFont ).pixelSize() > 11 )
 	{
@@ -205,7 +205,7 @@ void KTechlab::setupToolDocks()
 
 	QPixmap pm;
 	KIconLoader * loader = KIconLoader::global();
-	KateMDI::ToolView * tv = 0l;
+	KateMDI::ToolView * tv = nullptr;
 
 	tv = createToolView( ProjectManager::toolViewIdentifier(),
 						 KMultiTabBar::Left,
@@ -298,7 +298,7 @@ void KTechlab::addWindow( ViewContainer * vc )
 		connect( vc, SIGNAL(destroyed(QObject* )), this, SLOT(slotViewContainerDestroyed(QObject* )) );
 	}
 
-	m_viewContainerList.removeAll((ViewContainer*)0);
+	m_viewContainerList.removeAll((ViewContainer*)nullptr);
 	slotUpdateTabWidget();
 	slotDocModifiedChanged();
 }
@@ -326,7 +326,7 @@ void KTechlab::overlayToolBarScreenshot()
 
 	if ( !m_pToolBarOverlayLabel )
 	{
-		m_pToolBarOverlayLabel = new QLabel( 0,
+		m_pToolBarOverlayLabel = new QLabel( nullptr,
                 Qt::WindowStaysOnTopHint /* | Qt::WStyle_Customize */ | Qt::FramelessWindowHint
                 /*| Qt::WNoAutoErase */ | Qt::Popup  );
 		m_pToolBarOverlayLabel->hide();
@@ -477,7 +477,7 @@ void KTechlab::setupTabWidget()
 
 void KTechlab::slotUpdateTabWidget()
 {
-	m_viewContainerList.removeAll( (ViewContainer*)0 );
+	m_viewContainerList.removeAll( (ViewContainer*)nullptr );
 
 	bool noWindows = m_viewContainerList.isEmpty();
 
@@ -485,7 +485,7 @@ void KTechlab::slotUpdateTabWidget()
 		button->setHidden( noWindows );
 
 	if ( noWindows )
-		setCaption( 0 );
+		setCaption( nullptr );
 }
 
 
@@ -718,7 +718,7 @@ void KTechlab::setupActions()
         ta->setObjectName( "simulation_run" );
         ta->setChecked(true);
         connect( ta, SIGNAL(toggled(bool )), Simulator::self(), SLOT(slotSetSimulating(bool )) );
-		ta->setCheckedState( KGuiItem( i18n("Pause Simulation"), "media-playback-pause", 0 ) );
+		ta->setCheckedState( KGuiItem( i18n("Pause Simulation"), "media-playback-pause", nullptr ) );
         ac->addAction(ta->objectName(), ta);
     }
 
@@ -834,7 +834,7 @@ void KTechlab::slotViewContainerActivated( int index )
 void KTechlab::slotViewContainerDestroyed( QObject * object )
 {
 	m_viewContainerList.removeAll( static_cast<ViewContainer*>(object) );
-	m_viewContainerList.removeAll( (ViewContainer*)0 );
+	m_viewContainerList.removeAll( (ViewContainer*)nullptr );
 	slotUpdateTabWidget();
 }
 
@@ -1068,9 +1068,9 @@ void KTechlab::slotTabContext( QWidget* widget,const QPoint & pos )
 	tabMenu->addTitle( (dynamic_cast<ViewContainer*>(widget))->windowTitle() );
 
 	//Find the document on whose tab the user clicked
-	m_pContextMenuContainer = 0l;
+	m_pContextMenuContainer = nullptr;
 
-	m_viewContainerList.removeAll((ViewContainer*)0l);
+	m_viewContainerList.removeAll((ViewContainer*)nullptr);
 
 	const ViewContainerList::iterator vcEnd = m_viewContainerList.end();
 	for ( ViewContainerList::iterator it = m_viewContainerList.begin(); it != vcEnd; ++it )
@@ -1082,7 +1082,7 @@ void KTechlab::slotTabContext( QWidget* widget,const QPoint & pos )
 
 			tabMenu->addAction( QIcon::fromTheme("tab-close"), i18n("Close") )->setData( 0 );
 
-			View *view = (viewContainer->viewCount() == 1) ? viewContainer->activeView() : 0l;
+			View *view = (viewContainer->viewCount() == 1) ? viewContainer->activeView() : nullptr;
 
 			if ( view && view->document()->isModified() )
 				tabMenu->addAction( QIcon::fromTheme("document-save"), i18n("Save") )->setData( 1 );
@@ -1203,7 +1203,7 @@ void KTechlab::slotFileNew()
 	if (!accepted)
 		return;
 
-	Document *created = 0l;
+	Document *created = nullptr;
 
 	if ( finalType == Document::dt_circuit )
 		created = DocManager::self()->createCircuitDocument();
@@ -1269,10 +1269,10 @@ KUrl::List KTechlab::getFileURLs( bool allowMultiple )
 					.arg(i18n("Circuit"));
 
 	if ( allowMultiple )
-		return KFileDialog::getOpenUrls( KUrl(), filter, 0l, i18n("Open Location") );
+		return KFileDialog::getOpenUrls( KUrl(), filter, nullptr, i18n("Open Location") );
 	
 	else {
-        KUrl ret = KFileDialog::getOpenUrl( KUrl(), filter, 0l, i18n("Open Location") );
+        KUrl ret = KFileDialog::getOpenUrl( KUrl(), filter, nullptr, i18n("Open Location") );
 		return ret;
     }
 }
@@ -1412,7 +1412,7 @@ bool KTechlab::queryClose()
 	if ( DocManager::self()->closeAll() && ProjectManager::self()->slotCloseProject() )
 	{
 		// Make ourself "deleted"
-		m_pSelf = 0l;
+		m_pSelf = nullptr;
 		return true;
 	}
 

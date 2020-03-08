@@ -58,13 +58,13 @@ TextDocument *TextDocument::constructTextDocument( const QString& caption, const
 	if( textDocument->m_constructorSuccessful )
 		return textDocument;
 	delete textDocument;
-	return 0L;
+	return nullptr;
 }
 
 
 TextDocument::TextDocument( const QString &caption, const char *name )
 	: Document( caption, name ),
-	  m_doc(0)
+	  m_doc(nullptr)
 {
 	m_constructorSuccessful = false;
 
@@ -72,10 +72,10 @@ TextDocument::TextDocument( const QString &caption, const char *name )
 	m_bOwnDebugger = false;
 	b_lockSyncBreakpoints = false;
 	m_lastDebugLineAt = -1;
-	m_pDebugger = 0l;
+	m_pDebugger = nullptr;
 #endif
 
-	m_pLastTextOutputTarget = 0l;
+	m_pLastTextOutputTarget = nullptr;
 	m_guessedCodeType = TextDocument::ct_unknown;
 	m_type = Document::dt_text;
 	//m_bookmarkActions.setAutoDelete(true); // TODO see if this genereates memory leaks
@@ -820,11 +820,11 @@ void TextDocument::debugRun()
 	switch ( guessedCodeType() )
 	{
 		case ct_unknown:
-			KMessageBox::sorry( 0l, i18n("Unknown code type."), i18n("Cannot debug") );
+			KMessageBox::sorry( nullptr, i18n("Unknown code type."), i18n("Cannot debug") );
 			return;
 
 		case ct_hex:
-			KMessageBox::sorry( 0l, i18n("Cannot debug hex."), i18n("Cannot debug") );
+			KMessageBox::sorry( nullptr, i18n("Cannot debug hex."), i18n("Cannot debug") );
 			return;
 
 		case ct_microbe:
@@ -867,7 +867,7 @@ void TextDocument::debugStop()
 		return;
 
 	m_pDebugger->gpsim()->deleteLater();
-	m_pDebugger = 0l;
+	m_pDebugger = nullptr;
 	slotDebugSetCurrentLine( SourceLine() );
 	slotInitDebugActions();
 #endif // !NO_GPSIM
@@ -973,7 +973,7 @@ void TextDocument::slotDebuggerDestroyed()
 {
 #ifndef NO_GPSIM
 	slotDebugSetCurrentLine( SourceLine() );
-	m_pDebugger = 0l;
+	m_pDebugger = nullptr;
 	m_debugFile = QString::null;
 	slotInitDebugActions();
 #endif // !NO_GPSIM

@@ -68,7 +68,7 @@ PICComponent::PICComponent( ICNDocument *icnDocument, bool newItem, const char *
 
 	m_bCreatedInitialPackage = false;
 	m_bLoadingProgram = false;
-	m_pGpsim = 0L;
+	m_pGpsim = nullptr;
 
 	addButton( "run", QRect(), QIcon::fromTheme( "media-playback-start" ) );
 	addButton( "pause", QRect(), QIcon::fromTheme( "media-playback-pause" ) );
@@ -113,7 +113,7 @@ PICComponent::PICComponent( ICNDocument *icnDocument, bool newItem, const char *
 	slotUpdateFileList();
 	slotUpdateBtns();
 
-	initPackage( 0 );
+	initPackage( nullptr );
 }
 
 
@@ -155,21 +155,21 @@ void PICComponent::initPIC( bool forceReload )
     }
 
 	delete m_pGpsim;
-	m_pGpsim = 0L;
+	m_pGpsim = nullptr;
 
 	switch ( GpsimProcessor::isValidProgramFile(newProgram) )
 	{
 		case GpsimProcessor::DoesntExist:
 			if ( newProgram == _def_PICComponent_fileName && !newProgram.isEmpty() )
 				break;
-			KMessageBox::sorry( 0l, i18n("The file \"%1\" does not exist.", newProgram ) );
+			KMessageBox::sorry( nullptr, i18n("The file \"%1\" does not exist.", newProgram ) );
 			m_picFile = QString::null;
 			break;
 
 		case GpsimProcessor::IncorrectType:
 			if ( newProgram == _def_PICComponent_fileName && !newProgram.isEmpty() )
 				break;
-			KMessageBox::sorry( 0L, i18n("\"%1\" is not a valid PIC program.\nThe file must exist, and the extension should be \".cod\", \".asm\", \".flowcode\", \".basic\", \".microbe\" or \".c\".\n\".hex\" is allowed, provided that there is a corresponding \".cod\" file.", newProgram) );
+			KMessageBox::sorry( nullptr, i18n("\"%1\" is not a valid PIC program.\nThe file must exist, and the extension should be \".cod\", \".asm\", \".flowcode\", \".basic\", \".microbe\" or \".c\".\n\".hex\" is allowed, provided that there is a corresponding \".cod\" file.", newProgram) );
 			m_picFile = QString::null;
 			break;
 
@@ -194,7 +194,7 @@ void PICComponent::deletePICComponentPins()
 
 void PICComponent::initPackage( MicroInfo * microInfo )
 {
-	MicroPackage * microPackage = microInfo ? microInfo->package() : 0l;
+	MicroPackage * microPackage = microInfo ? microInfo->package() : nullptr;
 
 	if ( microPackage )
 	{
@@ -397,7 +397,7 @@ void PICComponent::slotCODCreationSucceeded()
 	{
 		m_pGpsim->displayCodLoadStatus();
 		delete m_pGpsim;
-		m_pGpsim = 0l;
+		m_pGpsim = nullptr;
 	}
 
 	slotUpdateBtns();
@@ -416,7 +416,7 @@ void PICComponent::programReload()
     qDebug() << Q_FUNC_INFO;
 
 	delete m_pGpsim;
-	m_pGpsim = 0L;
+	m_pGpsim = nullptr;
 
 	initPIC(true);
 

@@ -40,7 +40,7 @@ void MechanicsSimulation::slotAdvance()
 RigidBody::RigidBody( MechanicsDocument *mechanicsDocument )
 {
 	p_mechanicsDocument = mechanicsDocument;
-	p_overallParent = 0l;
+	p_overallParent = nullptr;
 }
 
 
@@ -76,7 +76,7 @@ void RigidBody::rotateBy( double dtheta )
 
 bool RigidBody::findOverallParent()
 {
-	p_overallParent = 0l;
+	p_overallParent = nullptr;
 	if ( m_mechanicsItemList.isEmpty() )
 		return false;
 	
@@ -100,7 +100,7 @@ bool RigidBody::findOverallParent()
 		
 		if ( p_overallParent != parentItem )
 		{
-			p_overallParent = 0l;
+			p_overallParent = nullptr;
 			return false;
 		}
 	}

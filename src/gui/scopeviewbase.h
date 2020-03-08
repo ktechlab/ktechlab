@@ -40,7 +40,7 @@ class ScopeViewBase : public QFrame
 {
     Q_OBJECT
 public:
-    ScopeViewBase(QWidget *parent = 0, const char *name = 0);
+    ScopeViewBase(QWidget *parent = nullptr, const char *name = nullptr);
 	virtual void drawBackground(QPainter & p) = 0;
 	void resizeEvent( QResizeEvent *event ) override;
 	void updateOutputHeight();

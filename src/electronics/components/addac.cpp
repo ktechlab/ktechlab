@@ -102,9 +102,9 @@ ADC::ADC( ICNDocument *icnDocument, bool newItem, const char *id )
 	m_name = i18n("ADC");
 	
 	for ( int i=0; i<max_ADDAC_bits; ++i )
-		m_logic[i] = 0l;
+		m_logic[i] = nullptr;
 	
-	m_realNode = 0l;
+	m_realNode = nullptr;
 }
 
 ADC::~ADC()
@@ -179,7 +179,7 @@ void ADC::initPins()
 			removeDisplayText(id);
 			removeElement( m_logic[i], false );
 			removeNode(id);
-			m_logic[i] = 0l;
+			m_logic[i] = nullptr;
 		}
 	}
 	
@@ -197,9 +197,9 @@ DAC::DAC( ICNDocument *icnDocument, bool newItem, const char *id )
 	m_name = i18n("DAC");
 	
 	for ( int i=0; i<max_ADDAC_bits; ++i )
-		m_logic[i] = 0l;
+		m_logic[i] = nullptr;
 	
-	m_voltagePoint = 0l;
+	m_voltagePoint = nullptr;
 }
 
 
@@ -269,7 +269,7 @@ void DAC::initPins()
 			removeDisplayText(id);
 			removeElement( m_logic[i], false );
 			removeNode(id);
-			m_logic[i] = 0l;
+			m_logic[i] = nullptr;
 		}
 	}
 	

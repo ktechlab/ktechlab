@@ -59,7 +59,7 @@ Widget *CIWidgetMgr::widgetWithID( const QString &id ) const
 {
 	WidgetMap::const_iterator it = m_widgetMap.find(id);
 	if ( it == m_widgetMap.end() )
-		return 0l;
+		return nullptr;
 	else return it.value();
 }
 
@@ -180,7 +180,7 @@ Slider* CIWidgetMgr::addSlider( const QString &id, int minValue, int maxValue, i
 	{
 		qWarning() << "CIWidgetMgr::addSlider: Attempting to re-add slider with same id as previous"<<endl;
 		delete slider;
-		return 0l;
+		return nullptr;
 	}
 	
 	p_cnItem->updateAttachedPositioning();
@@ -297,7 +297,7 @@ void CIWidgetMgr::enterEvent(QEvent *)
 	const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
 	for ( WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it )
 	{
-		it.value()->enterEvent(0);
+		it.value()->enterEvent(nullptr);
 	}
 }
 
@@ -307,7 +307,7 @@ void CIWidgetMgr::leaveEvent(QEvent *)
 	const WidgetMap::iterator widgetMapEnd = m_widgetMap.end();
 	for ( WidgetMap::iterator it = m_widgetMap.begin(); it != widgetMapEnd; ++it )
 	{
-		it.value()->leaveEvent(0);
+		it.value()->leaveEvent(nullptr);
 	}
 }
 

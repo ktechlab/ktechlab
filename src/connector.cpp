@@ -43,8 +43,8 @@ Connector::Connector(Node * /*startNode*/, Node * /*endNode*/, ICNDocument *icnD
     qDebug() << Q_FUNC_INFO << " this=" << this;
 
 	m_currentAnimationOffset = 0.0;
-	p_parentContainer = 0;
-	p_nodeGroup    = 0;
+	p_parentContainer = nullptr;
+	p_nodeGroup    = nullptr;
 	b_semiHidden   = false;
 	b_deleted      = false;
 	b_pointsAdded  = false;
@@ -457,7 +457,7 @@ void Connector::setVisible(bool yes) {
 }
 
 Wire *Connector::wire(unsigned num) const {
-    return (num < m_wires.size()) ? m_wires[num] : 0;
+    return (num < m_wires.size()) ? m_wires[num] : nullptr;
 }
 
 void Connector::setSelected(bool yes) {

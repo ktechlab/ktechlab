@@ -20,7 +20,7 @@
 class ChassisCircular2 : public MechanicsItem
 {
 public:
-	ChassisCircular2( MechanicsDocument *mechanicsDocument, bool newItem, const char *id = 0l );
+	ChassisCircular2( MechanicsDocument *mechanicsDocument, bool newItem, const char *id = nullptr );
 	~ChassisCircular2() override;
 
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

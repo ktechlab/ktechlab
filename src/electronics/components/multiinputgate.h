@@ -89,7 +89,7 @@ class MultiInputGate : public CallbackClass, public Component
 class ECXnor : public MultiInputGate
 {
 	public:
-		ECXnor( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		ECXnor( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~ECXnor() override;
 
 		static Item* construct( ItemDocument *itemDocument, bool newItem,
@@ -109,7 +109,7 @@ class ECXnor : public MultiInputGate
 class ECXor : public MultiInputGate
 {
 	public:
-		ECXor( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		ECXor( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~ECXor() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem,
@@ -130,7 +130,7 @@ class ECXor : public MultiInputGate
 class ECOr : public MultiInputGate
 {
 	public:
-		ECOr( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		ECOr( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~ECOr() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem,
@@ -149,7 +149,7 @@ class ECOr : public MultiInputGate
 class ECNor : public MultiInputGate
 {
 	public:
-		ECNor( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		ECNor( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~ECNor() override;
 
 		static Item* construct( ItemDocument *itemDocument, bool newItem,
@@ -168,7 +168,7 @@ class ECNor : public MultiInputGate
 class ECNand : public MultiInputGate
 {
 	public:
-		ECNand( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		ECNand( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~ECNand() override;
 
         static Item* construct( ItemDocument *itemDocument, bool newItem,
@@ -187,7 +187,7 @@ class ECNand : public MultiInputGate
 class ECAnd : public MultiInputGate
 {
 	public:
-		ECAnd( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		ECAnd( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~ECAnd() override;
 
 		static Item* construct( ItemDocument *itemDocument, bool newItem,

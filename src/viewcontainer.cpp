@@ -82,12 +82,12 @@ View *ViewContainer::view( uint id ) const
 {
 	ViewArea *va = viewArea(id);
 	if (!va)
-		return 0l;
+		return nullptr;
 	
 	// We do not want a recursive search as ViewAreas also hold other ViewAreas
 	//QObjectList l = va->queryList( "View", 0, false, false ); // 2018.12.02
     QList<View*> l = va->findChildren<View*>();
-	View *view = 0l;
+	View *view = nullptr;
 	if ( !l.isEmpty() )
 		view = dynamic_cast<View*>(l.first());
 	//delete l;
@@ -99,7 +99,7 @@ View *ViewContainer::view( uint id ) const
 ViewArea *ViewContainer::viewArea( uint id ) const
 {
 	if ( !m_viewAreaMap.contains(id) )
-		return 0l;
+		return nullptr;
 	
 	return m_viewAreaMap[id];
 }
@@ -310,9 +310,9 @@ ViewArea::ViewArea( QWidget *parent, ViewContainer *viewContainer, int id, bool 
     setObjectName(name);
 	p_viewContainer = viewContainer;
 	m_id = id;
-	p_view = 0l;
-	p_viewArea1 = 0l;
-	p_viewArea2 = 0l;
+	p_view = nullptr;
+	p_viewArea1 = nullptr;
+	p_viewArea2 = nullptr;
 	
 	if (id >= 0)
 		p_viewContainer->setViewAreaId( this, uint(id) );
@@ -320,7 +320,7 @@ ViewArea::ViewArea( QWidget *parent, ViewContainer *viewContainer, int id, bool 
 	p_viewContainer->setIdUsed(id);
 	setOpaqueResize( KGlobalSettings::opaqueResize() );
 	
-	m_pEmptyViewArea = 0l;
+	m_pEmptyViewArea = nullptr;
 	if ( showOpenButton )
 		m_pEmptyViewArea = new EmptyViewArea( this );
 }
@@ -338,12 +338,12 @@ ViewArea *ViewArea::createViewArea( Position position, uint id, bool showOpenBut
 	if (p_viewArea1 || p_viewArea2)
 	{
 		qCritical() << Q_FUNC_INFO << "Attempting to create ViewArea when already containing ViewAreas!" << endl;
-		return 0l;
+		return nullptr;
 	}
 	if (!p_view)
 	{
 		qCritical() << Q_FUNC_INFO << "We don't have a view yet, so creating a new ViewArea is redundant" << endl;
-		return 0l;
+		return nullptr;
 	}
 	
 	setOrientation( ( position == Right ) ? Qt::Horizontal : Qt::Vertical );
@@ -362,7 +362,7 @@ ViewArea *ViewArea::createViewArea( Position position, uint id, bool showOpenBut
     p_view->move(QPoint());
     p_view->show();
 	p_viewArea1->setView(p_view);
-	setView( 0l );
+	setView( nullptr );
 	
 	m_id = p_viewContainer->uniqueParentId();
 	
@@ -382,10 +382,10 @@ void ViewArea::viewAreaDestroyed( QObject *obj )
 	ViewArea *viewArea = static_cast<ViewArea*>(obj);
 	
 	if ( viewArea == p_viewArea1 )
-		p_viewArea1 = 0l;
+		p_viewArea1 = nullptr;
 	
 	if ( viewArea == p_viewArea2 )
-		p_viewArea2 = 0l;
+		p_viewArea2 = nullptr;
 	
 	if ( !p_viewArea1 && !p_viewArea2 )
 		deleteLater();
@@ -396,8 +396,8 @@ void ViewArea::setView( View *view )
 {
 	if ( !view )
 	{
-		p_view = 0l;
-		setFocusProxy( 0l );
+		p_view = nullptr;
+		setFocusProxy( nullptr );
 		return;
 	}
 	

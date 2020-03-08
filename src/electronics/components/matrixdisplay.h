@@ -23,7 +23,7 @@ const unsigned max_md_height = 20;
 class MatrixDisplay : public Component
 {
 	public:
-		MatrixDisplay( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		MatrixDisplay( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~MatrixDisplay() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

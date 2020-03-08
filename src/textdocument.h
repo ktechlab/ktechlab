@@ -61,7 +61,7 @@ public:
 		ExecutionPoint     = KTextEditor::MarkInterface::markType06
 	};
 
-	View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l ) override;
+	View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr ) override;
 
 
 	/**
@@ -69,7 +69,7 @@ public:
 	 * it if successful, or 0 if it failed.
 	 * @returns pointer to constructed object, or 0 if there was a problem
 	 */
-	static TextDocument *constructTextDocument( const QString& caption, const char *name = 0L );
+	static TextDocument *constructTextDocument( const QString& caption, const char *name = nullptr );
 	/**
 	 * @returns the guessed code type that this file is
 	 */
@@ -144,7 +144,7 @@ public:
 	void print() override;
 	void setModified( bool modified ) override;
 
-	KTextEditor::View* createKateView( QWidget *parent, const char *name = 0l );
+	KTextEditor::View* createKateView( QWidget *parent, const char *name = nullptr );
 
 	void undo() override;
 	void redo() override;
@@ -241,7 +241,7 @@ private slots:
 // 	void slotSelectionmChanged(); // 2016.09.08 - moved to TextView
 
 private:
-	TextDocument( const QString& caption, const char *name = 0L );
+	TextDocument( const QString& caption, const char *name = nullptr );
 	bool m_constructorSuccessful;
 	CodeType m_guessedCodeType;
 	//Q3PtrList<KAction> m_bookmarkActions;

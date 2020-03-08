@@ -34,7 +34,7 @@ FlowICNDocument::~FlowICNDocument()
 	KtlQCanvasItemList all = m_canvas->allItems();
 	const KtlQCanvasItemList::Iterator end = all.end();
 	for ( KtlQCanvasItemList::Iterator it= all.begin(); it != end; ++it )
-		(*it)->setCanvas(0l);
+		(*it)->setCanvas(nullptr);
 	
 	// Remove all items from the canvas
 	selectAll();
@@ -85,8 +85,8 @@ bool FlowICNDocument::canConnect( KtlQCanvasItem *qcanvasItem1, KtlQCanvasItem *
 	
 	
 	//BEGIN Change connectors to nodes
-	FPNode * startNode1 = 0l;
-	FPNode * startNode2 = 0l;
+	FPNode * startNode1 = nullptr;
+	FPNode * startNode2 = nullptr;
 	if (startConnector)
 	{
 		startNode1 = dynamic_cast<FPNode*> ( startConnector->startNode() );
@@ -98,8 +98,8 @@ bool FlowICNDocument::canConnect( KtlQCanvasItem *qcanvasItem1, KtlQCanvasItem *
 	else if (!startNode)
 		return false;
 	
-	FPNode * endNode1 = 0l;
-	FPNode * endNode2 = 0l;
+	FPNode * endNode1 = nullptr;
+	FPNode * endNode2 = nullptr;
 	if (endConnector)
 	{
 		endNode1 = dynamic_cast<FPNode*> ( endConnector->startNode() );
@@ -180,14 +180,14 @@ Connector *FlowICNDocument::createConnector( Connector *con1, Connector *con2, c
 	con2->hide();
 	
 	// if ( type() != Document::dt_circuit )
-	return 0;
+	return nullptr;
 }
 
 
 Connector * FlowICNDocument::createConnector( Node *node, Connector *con, const QPoint &pos2, QPointList *pointList )
 {
 	if ( !canConnect( node, con ) )
-		return 0l;
+		return nullptr;
 	
 	// FIXME dynamic_cast used, fix it in Connector class
 	
@@ -252,17 +252,17 @@ Connector* FlowICNDocument::createConnector( const QString &startNodeId, const Q
 	if ( !startNode || !endNode )
 	{
 		qDebug() << "Either/both the connector start node and end node could not be found" << endl;
-		return 0L;
+		return nullptr;
 	}
 	
 	if ( !canConnect( startNode, endNode ) )
-		return 0l;	
+		return nullptr;	
 	
 	Connector *connector = endNode->createInputConnector(startNode);
 	if (!connector)
 	{
 		qCritical() << Q_FUNC_INFO << "End node did not create the connector" << endl;
-		return 0l;
+		return nullptr;
 	}
 	startNode->addOutputConnector(connector);
 	flushDeleteList(); // Delete any connectors that might have been removed by the nodes
@@ -287,14 +287,14 @@ Node *FlowICNDocument::nodeWithID( const QString &id )
 {
 	if ( m_flowNodeList.contains( id ) )
 		return m_flowNodeList[id];
-	else	return 0l;
+	else	return nullptr;
 }
 
 FPNode *FlowICNDocument::getFPnodeWithID( const QString &id )
 {
 	if ( m_flowNodeList.contains( id ) )
 		return m_flowNodeList[id];
-	else	return 0l;
+	else	return nullptr;
 }
 
 void FlowICNDocument::slotAssignNodeGroups()
@@ -351,7 +351,7 @@ void FlowICNDocument::flushDeleteList()
 		else
 			qCritical() << Q_FUNC_INFO << "Unknown qcanvasItem! "<<qcanvasItem << endl;
 
-		qcanvasItem->setCanvas ( 0l );
+		qcanvasItem->setCanvas ( nullptr );
 
 		delete qcanvasItem;
 		*it = 0l;

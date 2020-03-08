@@ -41,7 +41,7 @@ BinaryCounter::BinaryCounter( ICNDocument *icnDocument, bool newItem, const char
 {
 	m_name = i18n("Binary Counter");
 
-	enLogic = inLogic = rLogic = udLogic = 0L;
+	enLogic = inLogic = rLogic = udLogic = nullptr;
 	
 	b_reset = false;
 	b_triggerHigh = true;

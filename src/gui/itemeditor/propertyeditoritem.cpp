@@ -52,7 +52,7 @@ PropertyEditorItem::PropertyEditorItem(QTableWidget* parent, const QString& text
     setParent(parent);
     setText(text);
 
-	m_property = 0;
+	m_property = nullptr;
     setFlags(flags() &= (~Qt::ItemIsSelectable));
 	//setSelectable(false);
 	//setOpen(true);

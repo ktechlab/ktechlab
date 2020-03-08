@@ -73,7 +73,7 @@ void EventInfo::reset()
 	ctrlPressed = false;
 	shiftPressed = false;
 	altPressed = false;
-	qcanvasItemClickedOn = 0l;
+	qcanvasItemClickedOn = nullptr;
 	scrollDelta = 0;
 	scrollOrientation = Qt::Vertical;
 }

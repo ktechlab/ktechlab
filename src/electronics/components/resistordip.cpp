@@ -41,7 +41,7 @@ ResistorDIP::ResistorDIP( ICNDocument *icnDocument, bool newItem, const char *id
 	
 	m_resistorCount = 0;
 	for ( int i=0; i<maxCount; ++i )
-		m_resistance[i] = 0l;
+		m_resistance[i] = nullptr;
 	
 	createProperty( "resistance", Variant::Type::Double );
 	property("resistance")->setCaption( i18n("Resistance") );
@@ -86,7 +86,7 @@ void ResistorDIP::initPins()
 		for ( int i=count; i<m_resistorCount; ++i )
 		{
 			removeElement( m_resistance[i], false );
-			m_resistance[i] = 0l;
+			m_resistance[i] = nullptr;
 			removeNode( "n"+QString::number(i) );
 			removeNode( "p"+QString::number(i) );
 		}

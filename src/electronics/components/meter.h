@@ -57,7 +57,7 @@ protected:
 class FrequencyMeter : public Meter
 {
 public:
-	FrequencyMeter( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	FrequencyMeter( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 	~FrequencyMeter() override;
 
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -75,7 +75,7 @@ protected:
 class ECAmmeter : public Meter
 {
 public:
-	ECAmmeter( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECAmmeter( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 	~ECAmmeter() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -95,7 +95,7 @@ private:
 class ECVoltMeter : public Meter
 {
 public:
-	ECVoltMeter( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECVoltMeter( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 	~ECVoltMeter() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

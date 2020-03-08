@@ -36,7 +36,7 @@ class ProcessChain : public QObject
 {
 	Q_OBJECT
 	public:
-		ProcessChain( ProcessOptions options, const char *name = 0l );
+		ProcessChain( ProcessOptions options, const char *name = nullptr );
 		~ProcessChain() override;
 		
 		void setProcessOptions( ProcessOptions options ) { m_processOptions = options; }
@@ -102,7 +102,7 @@ class ProcessListChain : public QObject
 	Q_OBJECT
 			
 	public:
-		ProcessListChain( ProcessOptionsList pol, const char *name = 0l );
+		ProcessListChain( ProcessOptionsList pol, const char *name = nullptr );
 		
 	signals:
 		/**

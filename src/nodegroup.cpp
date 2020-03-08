@@ -31,16 +31,16 @@ NodeGroup::~NodeGroup()
 {
 	clearConList();
 	
-	m_extNodeList.removeAll( (Node*)0l );
+	m_extNodeList.removeAll( (Node*)nullptr );
 	const NodeList::iterator xnEnd = m_extNodeList.end();
 	for ( NodeList::iterator it = m_extNodeList.begin(); it != xnEnd; ++it )
-		(*it)->setNodeGroup(0l);
+		(*it)->setNodeGroup(nullptr);
 	m_extNodeList.clear();
 	
-	m_nodeList.removeAll( (Node*)0l );
+	m_nodeList.removeAll( (Node*)nullptr );
 	const NodeList::iterator nEnd = m_nodeList.end();
 	for ( NodeList::iterator it = m_nodeList.begin(); it != nEnd; ++it )
-		(*it)->setNodeGroup(0l);
+		(*it)->setNodeGroup(nullptr);
 	m_nodeList.clear();
 }
 
@@ -52,7 +52,7 @@ void NodeGroup::setVisible( bool visible )
 	
 	b_visible = visible;
 	
-	m_nodeList.removeAll( (Node*)0l );
+	m_nodeList.removeAll( (Node*)nullptr );
 	const NodeList::iterator nEnd = m_nodeList.end();
 	for ( NodeList::iterator it = m_nodeList.begin(); it != nEnd; ++it )
 		(*it)->setVisible(visible);
@@ -93,8 +93,8 @@ void NodeGroup::translate( int dx, int dy )
 	if ( (dx == 0) && (dy == 0) )
 		return;
 	
-	m_conList.removeAll((Connector*)0l);
-	m_nodeList.removeAll((Node*)0l);
+	m_conList.removeAll((Connector*)nullptr);
+	m_nodeList.removeAll((Node*)nullptr);
 	
 	const ConnectorList::iterator conEnd = m_conList.end();
 	for ( ConnectorList::iterator it = m_conList.begin(); it != conEnd; ++it )
@@ -132,7 +132,7 @@ void NodeGroup::updateRoutes()
 	while ( !currentList.isEmpty() )
 	{
 		findBestPair( &currentList, &n1, &n2 );
-		if ( n1 == 0l || n2 == 0l ) {
+		if ( n1 == nullptr || n2 == nullptr ) {
 			return;
 		}
 		NodeList route = findRoute( n1, n2 );
@@ -239,7 +239,7 @@ IntList NodeGroup::findRoute( IntList used, int currentNode, int endNode, bool *
 Connector* NodeGroup::findCommonConnector( Node *n1, Node *n2 )
 {
 	if ( !n1 || !n2 || n1==n2 ) {
-		return 0l;
+		return nullptr;
 	}
 	
 	ConnectorList n1Con = n1->getAllConnectors();
@@ -252,14 +252,14 @@ Connector* NodeGroup::findCommonConnector( Node *n1, Node *n2 )
 			return *it;
 		}
 	}
-	return 0l;
+	return nullptr;
 }
 
 
 void NodeGroup::findBestPair( NodeList *list, Node **n1, Node **n2 )
 {
-	*n1 = 0l;
-	*n2 = 0l;
+	*n1 = nullptr;
+	*n2 = nullptr;
 	
 	if ( list->size() < 2 ) {
 		return;
@@ -404,10 +404,10 @@ void NodeGroup::removeRoutedNodes( NodeList *nodes, Node *n1, Node *n2 )
 	{
 		//if ( nodes->contains(*it) > 1 ) {
         if ( nodes->count(*it) > 1 ) {
-			*it = 0l;
+			*it = nullptr;
 		}
 	}
-	nodes->removeAll((Node*)0l);
+	nodes->removeAll((Node*)nullptr);
 	
 	const int n1pos = getNodePos(n1);
 	const int n2pos = getNodePos(n2);
@@ -458,7 +458,7 @@ int NodeGroup::getNodePos( Node *n )
 Node* NodeGroup::getNodePtr( int n )
 {
 	if ( n<0 ) {
-		return 0l;
+		return nullptr;
 	}
 	const int a = m_nodeList.size();
 	if (n<a) {
@@ -468,7 +468,7 @@ Node* NodeGroup::getNodePtr( int n )
 	if (n<a+b) {
 		return m_extNodeList[n-a];
 	}
-	return 0l;
+	return nullptr;
 }
 
 
@@ -480,7 +480,7 @@ void NodeGroup::clearConList()
 		Connector *con = *it;
 		if (con)
 		{
-			con->setNodeGroup(0l);
+			con->setNodeGroup(nullptr);
 			disconnect( con, SIGNAL(removed(Connector*)), this, SLOT(connectorRemoved(Connector*)) );
 		}
 	}
@@ -493,7 +493,7 @@ void NodeGroup::init()
 	NodeList::iterator xnEnd = m_extNodeList.end();
 	for ( NodeList::iterator it = m_extNodeList.begin(); it != xnEnd; ++it )
 	{
-		(*it)->setNodeGroup(0l);
+		(*it)->setNodeGroup(nullptr);
 	}
 	m_extNodeList.clear();
 	
@@ -553,7 +553,7 @@ void NodeGroup::nodeRemoved( Node *node )
 {
 	// We are probably about to get deleted by ICNDocument anyway...so no point in doing anything
 	m_nodeList.removeAll(node);
-	node->setNodeGroup(0l);
+	node->setNodeGroup(nullptr);
 	node->setVisible(true);
 	m_extNodeList.removeAll(node);
 }

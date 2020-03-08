@@ -13,7 +13,7 @@
 PicInfo::PicInfo()
 	: MicroInfo()
 {
-	m_package = 0l;
+	m_package = nullptr;
 }
 
 

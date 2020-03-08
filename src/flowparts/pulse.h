@@ -20,7 +20,7 @@
 class Pulse : public FlowPart
 {
 public:
-	Pulse( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	Pulse( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 	~Pulse() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

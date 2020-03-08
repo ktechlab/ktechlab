@@ -57,12 +57,12 @@ ECBCDTo7Segment::ECBCDTo7Segment( ICNDocument *icnDocument, bool newItem, const 
 {
 	m_name = i18n("BCD to Seven Segment");
 				
-	ALogic = BLogic = CLogic = DLogic = 0L;
-	ltLogic = rbLogic = enLogic = 0L;
+	ALogic = BLogic = CLogic = DLogic = nullptr;
+	ltLogic = rbLogic = enLogic = nullptr;
 	
 	for ( int i=0; i<7; i++ )
 	{
-		outLogic[i] = 0L;
+		outLogic[i] = nullptr;
 		oldOut[i] = false;
 	}
 

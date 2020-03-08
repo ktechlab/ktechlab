@@ -75,7 +75,7 @@ void SymbolViewerItem::radixChanged()
 
 
 //BEGIN class SymbolView
-SymbolViewer * SymbolViewer::m_pSelf = 0l;
+SymbolViewer * SymbolViewer::m_pSelf = nullptr;
 SymbolViewer * SymbolViewer::self( KateMDI::ToolView * parent )
 {
 	if (!m_pSelf)
@@ -117,8 +117,8 @@ SymbolViewer::SymbolViewer( KateMDI::ToolView * parent )
 	m_pRadixCombo->setCurrentIndex(2);
 	connect( m_pRadixCombo, SIGNAL(activated(int)), this, SLOT(selectRadix(int)) );
 	
-	m_pGpsim = 0l;
-	m_pCurrentContext = 0l;
+	m_pGpsim = nullptr;
+	m_pCurrentContext = nullptr;
 
     m_pSymbolList->verticalHeader()-> setVisible(false);
     m_pSymbolList->horizontalHeader()->setVisible(true);
@@ -182,7 +182,7 @@ void SymbolViewer::readProperties( KConfig * config )
 
 void SymbolViewer::setContext( GpsimProcessor * gpsim )
 {
-	RegisterSet * registerSet = gpsim ? gpsim->registerMemory() : 0l;
+	RegisterSet * registerSet = gpsim ? gpsim->registerMemory() : nullptr;
 	
 	if ( registerSet == m_pCurrentContext )
 		return;

@@ -30,7 +30,7 @@ QString binary( uchar val )
 
 Optimizer::Optimizer()
 {
-	m_pCode = 0l;
+	m_pCode = nullptr;
 }
 
 

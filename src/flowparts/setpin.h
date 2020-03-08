@@ -20,7 +20,7 @@
 class SetPin : public FlowPart
 {
 public:
-	SetPin( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	SetPin( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 	~SetPin() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

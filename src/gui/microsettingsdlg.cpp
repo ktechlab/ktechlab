@@ -58,8 +58,8 @@ MicroSettingsDlg::MicroSettingsDlg( MicroSettings * microSettings, QWidget *pare
     showButtonSeparator(true);
 
 	m_pMicroSettings = microSettings;
-	m_pNewPinMappingWidget = 0l;
-	m_pNewPinMappingDlg = 0l;
+	m_pNewPinMappingWidget = nullptr;
+	m_pNewPinMappingDlg = nullptr;
 	m_pWidget = new MicroSettingsWidget(this);
 	
 	setWhatsThis( i18n("This dialog allows editing of the initial properties of the PIC") );
@@ -266,7 +266,7 @@ void MicroSettingsDlg::slotCreatePinMap()
 	m_pNewPinMappingWidget->nameEdit->setValidator( validator );
 	
 	connect( m_pNewPinMappingWidget->nameEdit, SIGNAL(textChanged(const QString &)), this, SLOT(slotCheckNewPinMappingName(const QString &)) );
-	slotCheckNewPinMappingName( 0 );
+	slotCheckNewPinMappingName( nullptr );
 	
 	int accepted = m_pNewPinMappingDlg->exec();
 	unsigned selectedType = m_pNewPinMappingWidget->typeCombo->currentIndex();
@@ -274,8 +274,8 @@ void MicroSettingsDlg::slotCreatePinMap()
 	
 	delete m_pNewPinMappingDlg;
 	delete validator;
-	m_pNewPinMappingDlg = 0l;
-	m_pNewPinMappingWidget = 0l;
+	m_pNewPinMappingDlg = nullptr;
+	m_pNewPinMappingWidget = nullptr;
 	if ( accepted != QDialog::Accepted )
 		return;
 	

@@ -35,7 +35,7 @@ class ItemGroup : public QObject
 {
 Q_OBJECT
 public:
-	ItemGroup( ItemDocument *view, const char *name = 0 );
+	ItemGroup( ItemDocument *view, const char *name = nullptr );
 	~ItemGroup() override;
 	
 	/**

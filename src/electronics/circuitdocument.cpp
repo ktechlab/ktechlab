@@ -384,7 +384,7 @@ void CircuitDocument::calculateConnectorCurrents()
 	PinList groundPins;
 
 	// Tell the Pins to reset their calculated currents to zero
-	m_pinList.removeAll((Pin*)0);
+	m_pinList.removeAll((Pin*)nullptr);
 
 	const PinList::iterator pinEnd = m_pinList.end();
 	for ( PinList::iterator it = m_pinList.begin(); it != pinEnd; ++it )
@@ -415,7 +415,7 @@ void CircuitDocument::calculateConnectorCurrents()
 
 
 	// And now for the wires and switches...
-	m_wireList.removeAll((Wire*)0);
+	m_wireList.removeAll((Wire*)nullptr);
 	const WireList::iterator clEnd = m_wireList.end();
 	for ( WireList::iterator it = m_wireList.begin(); it != clEnd; ++it )
 		(*it)->setCurrentKnown(false);
@@ -702,7 +702,7 @@ bool CircuitDocument::tryAsLogicCircuit( Circuitoid *circuitoid )
 	}
 
 	LogicInList logicInList;
-	LogicOut *out = 0;
+	LogicOut *out = nullptr;
 
 	uint logicInCount = 0;
 	uint logicOutCount = 0;
@@ -733,8 +733,8 @@ bool CircuitDocument::tryAsLogicCircuit( Circuitoid *circuitoid )
 		for ( ElementList::const_iterator it = circuitoid->elementList.begin(); it != end; ++it )
 		{
 			LogicIn * logicIn = static_cast<LogicIn*>(*it);
-			logicIn->setNextLogic(0l);
-			logicIn->setElementSet(0l);
+			logicIn->setNextLogic(nullptr);
+			logicIn->setElementSet(nullptr);
 			if ( logicIn->isHigh() )
 			{
 				logicIn->setLastState(false);
@@ -749,7 +749,7 @@ bool CircuitDocument::tryAsLogicCircuit( Circuitoid *circuitoid )
 
 Circuit *CircuitDocument::createCircuit( Circuitoid *circuitoid )
 {
-	if (!circuitoid) return 0l;
+	if (!circuitoid) return nullptr;
 
 	Circuit *circuit = new Circuit();
 
@@ -772,10 +772,10 @@ void CircuitDocument::createSubcircuit()
 	for ( ItemList::iterator it = itemList.begin(); it != itemListEnd; ++it )
 	{
 		if ( !dynamic_cast<Component*>((Item*)*it) )
-			*it = 0;
+			*it = nullptr;
 	}
 
-	itemList.removeAll((Item*)0);
+	itemList.removeAll((Item*)nullptr);
 
 	if ( itemList.isEmpty() ) {
 		KMessageBox::sorry( activeView(), i18n("No components were found in the selection.") );

@@ -26,7 +26,7 @@ class FlowConnector : public Connector
 {
 
 public:
-    FlowConnector(FPNode* startNode, FPNode* endNode, ICNDocument* _ICNDocument, QString* id = 0);
+    FlowConnector(FPNode* startNode, FPNode* endNode, ICNDocument* _ICNDocument, QString* id = nullptr);
 
     ~FlowConnector() override;
 

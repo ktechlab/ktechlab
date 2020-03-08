@@ -23,7 +23,7 @@ class ECNode;
 class ECSevenSegment : public Component
 {
 public:
-	ECSevenSegment( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECSevenSegment( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 	~ECSevenSegment() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

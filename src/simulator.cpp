@@ -53,7 +53,7 @@ Simulator::Simulator()
 	unsigned max = unsigned(LOGIC_UPDATE_RATE / LINEAR_UPDATE_RATE);
 
 	for (unsigned i = 0; i < max; i++) {
-		m_pStartStepCallback[i] = 0;
+		m_pStartStepCallback[i] = nullptr;
 	}
 
 	LogicConfig lc;
@@ -138,7 +138,7 @@ void Simulator::step() {
 			}
 
 			delete m_pStartStepCallback[m_llNumber];
-			m_pStartStepCallback[m_llNumber] = 0;
+			m_pStartStepCallback[m_llNumber] = nullptr;
 
 #ifndef NO_GPSIM
 			// Update the gpsim processors
@@ -165,12 +165,12 @@ void Simulator::step() {
                     canAddChangedSet.insert(circuit);
                 }
 
-				m_pChangedCircuitStart->setNextChanged(0, prevChain);
+				m_pChangedCircuitStart->setNextChanged(nullptr, prevChain);
 				m_pChangedCircuitLast = m_pChangedCircuitStart;
 
 				do {
 					Circuit *next = changed->nextChanged(prevChain);
-					changed->setNextChanged(0, prevChain);
+					changed->setNextChanged(nullptr, prevChain);
 					changed->doLogic();
 					changed = next;
 				} while (changed);
@@ -181,12 +181,12 @@ void Simulator::step() {
 				for (LogicOut *out = changed; out; out = out->nextChanged(prevChain))
 					out->setCanAddChanged(true);
 
-				m_pChangedLogicStart->setNextChanged(0, prevChain);
+				m_pChangedLogicStart->setNextChanged(nullptr, prevChain);
 				m_pChangedLogicLast = m_pChangedLogicStart;
 
 				do {
 					LogicOut *next = changed->nextChanged(prevChain);
-					changed->setNextChanged(0, prevChain);
+					changed->setNextChanged(nullptr, prevChain);
 
 					double v = changed->isHigh() ? changed->outputHighVoltage() : 0.0;
 
@@ -243,7 +243,7 @@ void Simulator::createLogicChain(LogicOut *logicOut, const LogicInList &logicInL
 		last = next;
 	}
 
-	last->setNextLogic(0);
+	last->setNextLogic(nullptr);
 	last->setLastState(state);
 
 	// Mark it as changed, if it isn't already changed...
@@ -330,8 +330,8 @@ void Simulator::removeLogicOutReferences(LogicOut *logic) {
 
 	// Any changes to the code below will probably also apply to Simulator::detachCircuit
 	if (m_pChangedLogicLast == logic) {
-		LogicOut *previous_1 = 0;
-		LogicOut *previous_2 = 0;
+		LogicOut *previous_1 = nullptr;
+		LogicOut *previous_2 = nullptr;
 
 		for (LogicOut *logic = m_pChangedLogicStart; logic;) {
 			if (previous_1)
@@ -362,8 +362,8 @@ void Simulator::detachCircuit(Circuit *circuit) {
 	// Any changes to the code below will probably also apply to Simulator::removeLogicOutReferences
 
 	if (m_pChangedCircuitLast == circuit) {
-		Circuit *previous_1 = 0;
-		Circuit *previous_2 = 0;
+		Circuit *previous_1 = nullptr;
+		Circuit *previous_2 = nullptr;
 
 		for (Circuit * circuit = m_pChangedCircuitStart; circuit;) {
 			if (previous_1)

@@ -252,7 +252,7 @@ class GpsimProcessor : public QObject
 		 * should always call codLoadStatus() to ensure that the cod file was
 		 * loaded successfully.
 		 */
-		GpsimProcessor( QString symbolFile, QObject *parent = 0 );
+		GpsimProcessor( QString symbolFile, QObject *parent = nullptr );
 		~GpsimProcessor() override;
 
 		void setDebugMode( GpsimDebugger::Type mode ) { m_debugMode = mode; }
@@ -350,11 +350,11 @@ class GpsimProcessor : public QObject
 		 * @param receiver The slot to connect the assembled signal to
 		 * @see static bool isValidProgramFile( const QString &programFile )
 		 */
-		static QString generateSymbolFile( const QString &fileName, QObject *receiver, const char *successMember, const char * failMember = 0l );
+		static QString generateSymbolFile( const QString &fileName, QObject *receiver, const char *successMember, const char * failMember = nullptr );
 		/**
 		 *Compile microbe to output to the given filename
 		 */
-		static void compileMicrobe( const QString &filename, QObject *receiver, const char * successMember, const char * failMember = 0l );
+		static void compileMicrobe( const QString &filename, QObject *receiver, const char * successMember, const char * failMember = nullptr );
 		//END convenience functions for PIC files
 
 	signals:

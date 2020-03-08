@@ -30,7 +30,7 @@
 #include <ktlconfig.h>
 
 
-LanguageManager * LanguageManager::m_pSelf = 0l;
+LanguageManager * LanguageManager::m_pSelf = nullptr;
 
 
 LanguageManager * LanguageManager::self( KateMDI::ToolView * parent )

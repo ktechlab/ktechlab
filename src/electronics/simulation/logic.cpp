@@ -36,10 +36,10 @@ LogicIn::LogicIn( LogicConfig config )
 	: Element::Element()
 {
 	m_config = config;
-	m_pCallbackFunction = 0l;
+	m_pCallbackFunction = nullptr;
 	m_numCNodes = 1;
 	m_bLastState = false;
-	m_pNextLogic = 0l;
+	m_pNextLogic = nullptr;
 	setLogic(getConfig());
 }
 
@@ -95,7 +95,7 @@ void LogicIn::setLogic( LogicConfig config )
 void LogicIn::setElementSet( ElementSet *c )
 {
 	if (c)
-		m_pNextLogic = 0l;
+		m_pNextLogic = nullptr;
 	else
 		m_cnodeI[0] = 0.;
 	
@@ -135,8 +135,8 @@ LogicOut::LogicOut( LogicConfig config, bool _high )
 	m_bOutputHighConductanceConst = false;
 	m_bOutputLowConductanceConst = false;
 	m_bOutputHighVoltageConst = false;
-	m_pNextChanged[0] = m_pNextChanged[1] = 0l;
-	m_pSimulator = 0l;
+	m_pNextChanged[0] = m_pNextChanged[1] = nullptr;
+	m_pSimulator = nullptr;
 	m_bUseLogicChain = false;
 	b_state = false;
 	m_numCNodes = 1;
@@ -174,7 +174,7 @@ void LogicOut::setUseLogicChain( bool use )
 	
 	m_bUseLogicChain = use;
 	if (use)
-		setElementSet(0l);
+		setElementSet(nullptr);
 }
 
 
@@ -186,7 +186,7 @@ void LogicOut::setElementSet( ElementSet *c )
 	if (c)
 	{
 		m_bUseLogicChain = false;
-		m_pNextChanged[0] = m_pNextChanged[1] = 0l;
+		m_pNextChanged[0] = m_pNextChanged[1] = nullptr;
 	}
 	
 	// NOTE Make sure that the next two lines are the same as those in setHigh and setLogic

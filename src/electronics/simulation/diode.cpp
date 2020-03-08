@@ -61,7 +61,7 @@ double Diode::current() const
 		return 0.0;
 	
 	double I;
-	calcIg( p_cnode[0]->v - p_cnode[1]->v, & I, 0 );
+	calcIg( p_cnode[0]->v - p_cnode[1]->v, & I, nullptr );
 	
 	return I;
 }

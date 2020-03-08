@@ -36,7 +36,7 @@ class ImageScaleThread : public QThread
 		 * @param scaling is set to the type of scaling that this image has had.
 		 * @return the best image done so far.
 		 */
-		QImage bestScaling( BestScaling * scaling = 0 ) const;
+		QImage bestScaling( BestScaling * scaling = nullptr ) const;
 
 	protected:
 		/**
@@ -66,7 +66,7 @@ class DPImage : public DrawPart
 {
 	Q_OBJECT
 	public:
-		DPImage( ItemDocument *itemDocument, bool newItem, const char *id = 0L );
+		DPImage( ItemDocument *itemDocument, bool newItem, const char *id = nullptr );
 		~DPImage() override;
 
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

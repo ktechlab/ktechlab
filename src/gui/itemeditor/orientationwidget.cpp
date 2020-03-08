@@ -105,7 +105,7 @@ void OrientationWidget::slotUpdate( CNItemGroup * itemGroup )
 		if ( m_pFlowPart && (m_bHaveSameOrientation == haveSameOrientation) )
 			return;
 
-		m_pComponent = 0l;
+		m_pComponent = nullptr;
 		m_pFlowPart = flowPart;
 		m_bHaveSameOrientation = haveSameOrientation;
 
@@ -118,7 +118,7 @@ void OrientationWidget::slotUpdate( CNItemGroup * itemGroup )
 		if ( m_pComponent && (m_bHaveSameOrientation == haveSameOrientation) )
 			return;
 
-		m_pFlowPart = 0l;
+		m_pFlowPart = nullptr;
 		m_pComponent = component;
 		m_bHaveSameOrientation = haveSameOrientation;
 
@@ -210,9 +210,9 @@ void OrientationWidget::slotClear()
 	if ( m_pCNItem )
 		m_pCNItem->disconnect( this );
 
-	m_pComponent = 0l;
-	m_pFlowPart = 0l;
-	m_pCNItem = 0l;
+	m_pComponent = nullptr;
+	m_pFlowPart = nullptr;
+	m_pCNItem = nullptr;
 
 	for ( int row=0; row<2; ++row )
 	{

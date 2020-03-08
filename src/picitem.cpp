@@ -36,7 +36,7 @@ static const int PinDirArrow = 3;
 
 //BEGIN class PinItem
 PinItem::PinItem( FlowCodeDocument* _view, QPoint position, bool _onLeft, PinSettings * pinSettings )
-	: KtlQCanvasRectangle(0)
+	: KtlQCanvasRectangle(nullptr)
 {
 	m_pinSettings = pinSettings;
 	view = _view;
@@ -363,7 +363,7 @@ void PicItem::buttonStateChanged( const QString &id, bool state )
 		button("settings")->setState(false);
 		update();
 
-		MicroSettingsDlg *dlg = new MicroSettingsDlg( microSettings, 0L, "microSettingsDlg" );
+		MicroSettingsDlg *dlg = new MicroSettingsDlg( microSettings, nullptr, "microSettingsDlg" );
 		connect( dlg, SIGNAL(okClicked()), this, SLOT(slotMicroSettingsDlgAccepted()) );
 		connect( dlg, SIGNAL(applyClicked()), this, SLOT(slotMicroSettingsDlgAccepted()) );
 		dlg->show();

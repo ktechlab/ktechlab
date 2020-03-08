@@ -37,7 +37,7 @@ class PropertyEditor : public QTableWidget // K3ListView
 	public:
 		/*! Creates an empty PropertyEditor with \a parent as parent widget.
 		*/
-		PropertyEditor( QWidget * parent = 0, const char * name = 0 );
+		PropertyEditor( QWidget * parent = nullptr, const char * name = nullptr );
 		~PropertyEditor() override;
 
 		/*! Reset the list, ie clears all items in the list.

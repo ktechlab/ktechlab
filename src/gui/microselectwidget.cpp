@@ -35,7 +35,7 @@ MicroSelectWidget::MicroSelectWidget( QWidget* parent, const char* name, Qt::WFl
 	if ( !name ) {
 		setObjectName( "MicroSelectWidget" );
     }
-	m_pMicroFamilyLabel = new QLabel( NULL );
+	m_pMicroFamilyLabel = new QLabel( nullptr );
     m_pMicroFamilyLabel->setObjectName( "m_pMicroFamilyLabel" );
 	m_pMicroFamilyLabel->setText( i18n("Family") );
     layout()->addWidget( m_pMicroFamilyLabel );
@@ -45,7 +45,7 @@ MicroSelectWidget::MicroSelectWidget( QWidget* parent, const char* name, Qt::WFl
 	m_pMicroFamily->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Preferred );
     layout()->addWidget( m_pMicroFamily );
 
-	m_pMicroLabel = new QLabel( NULL /*, "m_pMicroLabel" */ );
+	m_pMicroLabel = new QLabel( nullptr /*, "m_pMicroLabel" */ );
     m_pMicroLabel->setObjectName("m_pMicroLabel");
 	m_pMicroLabel->setText( i18n("Micro") );
     layout()->addWidget( m_pMicroLabel );

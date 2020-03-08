@@ -35,7 +35,7 @@ ResizeOverlay::~ResizeOverlay()
 	for ( ResizeHandleMap::iterator it = m_resizeHandleMap.begin(); it != end; ++it )
 	{
 		if (it.value())
-			it.value()->setCanvas(0l);
+			it.value()->setCanvas(nullptr);
 		delete (ResizeHandle*)it.value();
 	}
 	m_resizeHandleMap.clear();
@@ -95,7 +95,7 @@ ResizeHandle *ResizeOverlay::resizeHandle( int id )
 	ResizeHandleMap::iterator it = m_resizeHandleMap.find(id);
 	if ( it != m_resizeHandleMap.end() )
 		return it.value();
-	return 0l;
+	return nullptr;
 }
 
 
@@ -261,7 +261,7 @@ void RectangularOverlay::removeTopMiddle()
 	if (!m_tm)
 		return;
 	removeResizeHandle( m_tm->id() );
-	m_tm = 0l;
+	m_tm = nullptr;
 }
 
 
@@ -270,7 +270,7 @@ void RectangularOverlay::removeBotMiddle()
 	if (!m_bm)
 		return;
 	removeResizeHandle( m_bm->id() );
-	m_bm = 0l;
+	m_bm = nullptr;
 }
 
 
@@ -301,7 +301,7 @@ bool RectangularOverlay::isValidXPos( ResizeHandle *rh )
 {
 	Q_UNUSED(rh);
 	bool ok;
-	getSizeRect( 0l, &ok, 0l );
+	getSizeRect( nullptr, &ok, nullptr );
 	return ok;
 }
 
@@ -310,7 +310,7 @@ bool RectangularOverlay::isValidYPos( ResizeHandle *rh )
 {
 	Q_UNUSED(rh);
 	bool ok;
-	getSizeRect( 0l, 0l, &ok );
+	getSizeRect( nullptr, nullptr, &ok );
 	return ok;
 }
 

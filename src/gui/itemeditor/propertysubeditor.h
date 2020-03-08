@@ -23,7 +23,7 @@ class PropertySubEditor : public QWidget
 	Q_OBJECT
 
 	public:
-		PropertySubEditor( QWidget * parent, Property * property, const char * name = 0 );
+		PropertySubEditor( QWidget * parent, Property * property, const char * name = nullptr );
 		~PropertySubEditor() override;
 
 		bool eventFilter( QObject * watched, QEvent * e ) override;
@@ -34,7 +34,7 @@ class PropertySubEditor : public QWidget
 		 * filtered and which is resized. If \a focusProxy is not 0, it will be
 		 * used as focus proxy instead of \a w.
 		*/
-		void setWidget(QWidget *w, QWidget* focusProxy = 0);
+		void setWidget(QWidget *w, QWidget* focusProxy = nullptr);
 		/**
 		 * \sa m_leaveTheSpaceForRevertButton description.
 		 */

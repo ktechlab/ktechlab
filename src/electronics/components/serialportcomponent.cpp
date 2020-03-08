@@ -56,7 +56,7 @@ SerialPortComponent::SerialPortComponent( ICNDocument *icnDocument, bool newItem
 	
 	m_pSerialPort = new SerialPort();
 	
-	ECNode * pin = 0;
+	ECNode * pin = nullptr;
 	
 	// Works
 	pin = createPin( -40,  32,   0, "CD" );

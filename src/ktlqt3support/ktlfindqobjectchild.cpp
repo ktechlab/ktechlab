@@ -25,5 +25,5 @@ QObject *ktlFindQObjectChild(QObject *parent, const char *className) {
             return ret;
         }
     }
-    return NULL;
+    return nullptr;
 }

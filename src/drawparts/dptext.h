@@ -20,7 +20,7 @@
 class DPText : public DrawPart
 {
 	public:
-		DPText( ItemDocument *itemDocument, bool newItem, const char *id = 0L );
+		DPText( ItemDocument *itemDocument, bool newItem, const char *id = nullptr );
 		~DPText() override;
 
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

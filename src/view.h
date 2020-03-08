@@ -73,7 +73,7 @@ class View : public QWidget, public KXMLGUIClient
 {
 Q_OBJECT
 public:
-	View( Document *document, ViewContainer *viewContainer, uint viewAreaId, const char *name = 0 );
+	View( Document *document, ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr );
 	~View() override;
 
 
@@ -181,7 +181,7 @@ protected:
 class KVSSBSep : public QWidget
 {
 public:
-	KVSSBSep( View * parent=0) : QWidget(parent)
+	KVSSBSep( View * parent=nullptr) : QWidget(parent)
 	{
 		setFixedHeight( 2 );
 	}

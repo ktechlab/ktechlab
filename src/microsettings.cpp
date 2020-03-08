@@ -130,7 +130,7 @@ PinSettings* MicroSettings::pinWithID( const QString &id )
 	{
 		if ( (*it)->id() == id ) return *it;
 	}
-	return 0L;
+	return nullptr;
 }
 
 int MicroSettings::portState( const QString &port )
@@ -285,12 +285,12 @@ QStringList MicroSettings::variableNames()
 
 VariableInfo* MicroSettings::variableInfo( const QString &name )
 {
-	if ( name.isNull() ) return 0l;
+	if ( name.isNull() ) return nullptr;
 	VariableMap::iterator it = m_variableMap.find(name);
 	if ( it != m_variableMap.end() ) {
 		return &(it.value());
 	} else {
-		return 0l;
+		return nullptr;
 	}
 }
 

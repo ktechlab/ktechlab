@@ -36,7 +36,7 @@
 //BEGIN class ICNDocument
 ICNDocument::ICNDocument( const QString &caption, const char *name )
 	: ItemDocument( caption, name ),
-	m_cells(0l)
+	m_cells(nullptr)
 {
 	m_canvas->retune(48);
 	m_selectList = new CNItemGroup(this);
@@ -99,14 +99,14 @@ Connector *ICNDocument::connectorWithID( const QString &id )
 	{
 		if( (*it)->id() == id ) return *it;
 	}
-	return 0;
+	return nullptr;
 }
 
 
 FlowContainer *ICNDocument::flowContainer( const QPoint &pos )
 {
 	KtlQCanvasItemList collisions = m_canvas->collisions(pos);
-	FlowContainer *flowContainer = 0l;
+	FlowContainer *flowContainer = nullptr;
 	int currentLevel = -1;
 	const KtlQCanvasItemList::iterator end = collisions.end();
 	for ( KtlQCanvasItemList::iterator it = collisions.begin(); it != end; ++it )
@@ -157,8 +157,8 @@ bool ICNDocument::canConnect( KtlQCanvasItem *qcanvasItem1, KtlQCanvasItem *qcan
 	
 	
 	//BEGIN Change connectors to nodes
-	Node * startNode1 = 0l;
-	Node * startNode2 = 0l;
+	Node * startNode1 = nullptr;
+	Node * startNode2 = nullptr;
 	if (startConnector) {
 		startNode1 = startConnector->startNode();
 		startNode2 = startConnector->endNode();
@@ -166,8 +166,8 @@ bool ICNDocument::canConnect( KtlQCanvasItem *qcanvasItem1, KtlQCanvasItem *qcan
 		if ( !startNode1 || !startNode2 ) return false;
 	} else if (!startNode) return false;
 	
-	Node * endNode1 = 0l;
-	Node * endNode2 = 0l;
+	Node * endNode1 = nullptr;
+	Node * endNode2 = nullptr;
 	if (endConnector) {
 		endNode1 = endConnector->startNode();
 		endNode2 = endConnector->endNode();
@@ -212,13 +212,13 @@ bool ICNDocument::canConnect( KtlQCanvasItem *qcanvasItem1, KtlQCanvasItem *qcan
 	//BEGIN Advanced level check
 	CNItem *startParentItem[3];
 	for(unsigned i = 0; i < 3; i++ )
-		startParentItem[i] = start[i] ? start[i]->parentItem() : 0l;
+		startParentItem[i] = start[i] ? start[i]->parentItem() : nullptr;
 	
 	CNItem * endParentItem[3];
 	for(unsigned i = 0; i < 3; i++ )
-		endParentItem[i]   = end[i]   ? end[i]->parentItem()   : 0l;
+		endParentItem[i]   = end[i]   ? end[i]->parentItem()   : nullptr;
 	
-	Item *container[6] = {0l};
+	Item *container[6] = {nullptr};
 	
 	for ( unsigned i = 0; i < 3; i++ ) {
 		if (startParentItem[i]) {
@@ -258,7 +258,7 @@ bool ICNDocument::canConnect( KtlQCanvasItem *qcanvasItem1, KtlQCanvasItem *qcan
 
 Connector *ICNDocument::createConnector( Node *startNode, Node *endNode, QPointList *pointList )
 {
-	if(!canConnect(startNode, endNode) ) return 0;
+	if(!canConnect(startNode, endNode) ) return nullptr;
 
 	QPointList autoPoints;
 	if (!pointList) {
@@ -269,11 +269,11 @@ Connector *ICNDocument::createConnector( Node *startNode, Node *endNode, QPointL
 		pointList = &autoPoints;
 	}
 
-	Connector *con = 0;
+	Connector *con = nullptr;
 
 	// Check if we need to swap the ends around, and create the connector
 		// FIXME: dynamic_cast used
-	if( dynamic_cast<OutputFlowNode*>(endNode) != 0l )
+	if( dynamic_cast<OutputFlowNode*>(endNode) != nullptr )
 		con = createConnector( endNode->id(), startNode->id(), pointList );
 	else    con = createConnector( startNode->id(), endNode->id(), pointList );
 
@@ -292,7 +292,7 @@ Connector *ICNDocument::createConnector( Node *startNode, Node *endNode, QPointL
 
 NodeGroup* ICNDocument::createNodeGroup( Node *node )
 {
-	if ( !node || node->isChildNode() ) return 0;
+	if ( !node || node->isChildNode() ) return nullptr;
 
 	const GuardedNodeGroupList::iterator end = m_nodeGroupList.end();
 	for ( GuardedNodeGroupList::iterator it = m_nodeGroupList.begin(); it != end; ++it )
@@ -385,7 +385,7 @@ void ICNDocument::getTranslatable(const ItemList &itemList, ConnectorList *fixed
 			}
 			
 			ConnectorList conList = cnItem->connectorList();
-			conList.removeAll((Connector*)0);
+			conList.removeAll((Connector*)nullptr);
 
 			const ConnectorList::iterator clEnd = conList.end();
 			for ( ConnectorList::iterator clit = conList.begin(); clit != clEnd; ++clit )
@@ -610,7 +610,7 @@ void ICNDocument::selectAll()
 
 Item* ICNDocument::addItem( const QString &id, const QPoint &p, bool newItem )
 {
-	if ( !isValidItem(id) ) return 0;
+	if ( !isValidItem(id) ) return nullptr;
 	
 	// First, we need to tell all containers to go to full bounding so that
 	// we can detect a "collision" with them
@@ -629,11 +629,11 @@ Item* ICNDocument::addItem( const QString &id, const QPoint &p, bool newItem )
 	}
 
 	Item *item = itemLibrary()->createItem( id, this, newItem );
-	if (!item) return 0L;
+	if (!item) return nullptr;
 	
 	// Look through the CNItems at the given point (sorted by z-coordinate) for
 	// a container item.
-	FlowContainer *container = 0l;
+	FlowContainer *container = nullptr;
 	const KtlQCanvasItemList::iterator pcEnd = preCollisions.end();
 	for ( KtlQCanvasItemList::iterator it = preCollisions.begin(); it != pcEnd && !container; ++it )
 	{
@@ -646,7 +646,7 @@ Item* ICNDocument::addItem( const QString &id, const QPoint &p, bool newItem )
 	if ( !isValidItem(item) ) {
 		item->removeItem();
 		flushDeleteList();
-		return 0L;
+		return nullptr;
 	}
 	
 	int x = int(p.x());
@@ -813,10 +813,10 @@ ConnectorList ICNDocument::getCommonConnectors( const ItemList &list )
 	{
 		Connector *con = *it;
 		if ( !con || !nodeList.contains(con->startNode()) || !nodeList.contains(con->endNode()) ) {
-			*it = 0;
+			*it = nullptr;
 		}
 	}
-	connectorList.removeAll((Connector*)0);
+	connectorList.removeAll((Connector*)nullptr);
 	return connectorList;
 }
 
@@ -866,7 +866,7 @@ void ICNDocument::unregisterUID( const QString & uid )
 //END class ICNDocument
 
 
-DirCursor *DirCursor::m_self = 0;
+DirCursor *DirCursor::m_self = nullptr;
 
 DirCursor::DirCursor()
 {

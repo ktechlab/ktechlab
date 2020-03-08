@@ -244,8 +244,8 @@ PropertyEditor::PropertyEditor( QWidget * parent, const char * name )
  , justClickedItem(false)
  , m_lastCellWidgetRow(-1)
  , m_lastCellWidgetCol(-1)
- , m_colPropertyDelegate(NULL)
- , m_colValueDelegate(NULL)
+ , m_colPropertyDelegate(nullptr)
+ , m_colValueDelegate(nullptr)
 {
     setObjectName( name );
 	//m_items.setAutoDelete(false); // 2018.08.13 - unused
@@ -264,8 +264,8 @@ PropertyEditor::PropertyEditor( QWidget * parent, const char * name )
     m_colValueDelegate = new PropertyEditorStyledItemColValue(this);
     setItemDelegateForColumn(1, m_colValueDelegate);
 
-	m_topItem = 0;
-	m_editItem = 0;
+	m_topItem = nullptr;
+	m_editItem = nullptr;
 
 	connect(this, SIGNAL(clicked(const QModelIndex&)), this, SLOT(slotClicked(const QModelIndex&)));
 	connect(this, SIGNAL(itemActivated(QTableWidgetItem*)), this, SLOT(slotCurrentChanged(QTableWidgetItem *)));
@@ -390,11 +390,11 @@ void PropertyEditor::createEditor( const QModelIndex& index )
         m_lastCellWidgetRow = -1;
         m_lastCellWidgetCol = -1;
     }
-    m_currentEditor = 0;
+    m_currentEditor = nullptr;
 
 	m_editItem = i;
 
-	PropertySubEditor *editor=0;
+	PropertySubEditor *editor=nullptr;
 	switch ( i->type() )
 	{
 		case Variant::Type::String:
@@ -541,15 +541,15 @@ void PropertyEditor::reset()
         m_lastCellWidgetRow = -1;
         m_lastCellWidgetCol = -1;
     }
-    m_currentEditor = 0;
+    m_currentEditor = nullptr;
 
 	if ( m_defaults->isVisible() )
 		m_defaults->hide();
 
 	//clear();
     QTableWidget::reset();
-	m_editItem = 0;
-	m_topItem = 0;
+	m_editItem = nullptr;
+	m_topItem = nullptr;
 }
 
 
@@ -798,7 +798,7 @@ bool PropertyEditor::handleKeyPress( QKeyEvent* /*ev*/ )
 PropertyEditorItem *PropertyEditor::selectedItem() {
     QModelIndexList selList = selectedIndexes();
     if (selList.empty()) {
-        return NULL;
+        return nullptr;
     }
     if (selList.size() > 1) {
         qWarning() << Q_FUNC_INFO << " unexpected selection size of " << selList.size();

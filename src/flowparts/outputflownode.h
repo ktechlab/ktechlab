@@ -18,7 +18,7 @@
 class OutputFlowNode : public FPNode
 {
 	public:
-		OutputFlowNode ( ICNDocument* _icnView, int dir, const QPoint& pos, QString* id = 0L );
+		OutputFlowNode ( ICNDocument* _icnView, int dir, const QPoint& pos, QString* id = nullptr );
 
 		~OutputFlowNode() override;
 

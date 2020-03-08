@@ -76,7 +76,7 @@ class NameValidator : public QValidator
 {
 	public:
 		NameValidator( QStringList unallowed )
-			: QValidator(0) {
+			: QValidator(nullptr) {
 			m_unallowed = unallowed;
 		}
 		

@@ -82,11 +82,11 @@ bool MechanicsDocument::isValidItem( Item *item )
 Item* MechanicsDocument::addItem( const QString &id, const QPoint &p, bool newItem )
 {
 	if ( !isValidItem(id) )
-		return 0l;
+		return nullptr;
 	
 	Item *item = itemLibrary()->createItem( id, this, newItem );
 	if (!item)
-		return 0L;
+		return nullptr;
 	
 	QRect rect = item->boundingRect();
 	
@@ -159,15 +159,15 @@ void MechanicsDocument::flushDeleteList()
 	for ( ItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it )
 	{
 		if ( *it && m_itemDeleteList.count(*it) > 1 )
-			*it = 0l;
+			*it = nullptr;
 	}
-	m_itemDeleteList.removeAll(QPointer<Item>(0l));
+	m_itemDeleteList.removeAll(QPointer<Item>(nullptr));
 	
 	end = m_itemDeleteList.end();
 	for ( ItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it )
 	{
 		m_itemList.remove( (*it)->id() );
-		(*it)->setCanvas(0l);
+		(*it)->setCanvas(nullptr);
 		delete *it;
 	}
 }

@@ -133,7 +133,7 @@ private:
 class KtlQCanvasItemPtr
 {
 public:
-	KtlQCanvasItemPtr() : ptr(0) { }
+	KtlQCanvasItemPtr() : ptr(nullptr) { }
 	KtlQCanvasItemPtr( KtlQCanvasItem* p ) : ptr(p) { }
 
 	bool operator<=(const KtlQCanvasItemPtr& that) const

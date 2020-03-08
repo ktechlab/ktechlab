@@ -27,7 +27,7 @@ const int botStrip = 16;
 FlowContainer::FlowContainer( ICNDocument *_icnDocument, bool newItem, const QString &id )
 	: FlowPart( _icnDocument, newItem, id )
 {
-	m_ext_in = m_int_in = m_int_out = m_ext_out = 0l;
+	m_ext_in = m_int_in = m_int_out = m_ext_out = nullptr;
 	b_expanded = true;
 
 	addButton( "expandBtn", QRect( offsetX(), offsetY()+24 - 11, 22, 22 ), QIcon::fromTheme( "go-down" ), true );
@@ -307,7 +307,7 @@ void FlowContainer::setExpanded( bool expanded )
 	m_rectangularOverlay->setVisible(expanded);
 	setFullBounds(false);
 
-	bool nodesMoved = (m_ext_out != 0l);
+	bool nodesMoved = (m_ext_out != nullptr);
 	if (nodesMoved)
 		p_icnDocument->requestRerouteInvalidatedConnectors();
 
@@ -384,7 +384,7 @@ void FlowContainer::updateContainedVisibility()
 	m_rectangularOverlay->setVisible( isVisible() && b_expanded );
 
 	NodeGroupList hidableNodeGroups;
-	p_icnDocument->getTranslatable( children(true) += GuardedItem(this), 0, 0, &hidableNodeGroups );
+	p_icnDocument->getTranslatable( children(true) += GuardedItem(this), nullptr, nullptr, &hidableNodeGroups );
 
 	NodeGroupList::iterator hngEnd = hidableNodeGroups.end();
 	for ( NodeGroupList::iterator it = hidableNodeGroups.begin(); it != hngEnd; ++it )

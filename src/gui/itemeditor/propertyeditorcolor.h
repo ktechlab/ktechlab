@@ -23,7 +23,7 @@ class PropertyEditorColor : public PropertySubEditor
 	Q_OBJECT
 
 	public:
-		PropertyEditorColor( QWidget * parent, Property * property, const char * name = 0 );
+		PropertyEditorColor( QWidget * parent, Property * property, const char * name = nullptr );
 		~PropertyEditorColor() override {;}
 
 		bool eventFilter( QObject * watched, QEvent * e ) override;

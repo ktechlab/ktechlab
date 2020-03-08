@@ -28,7 +28,7 @@
 
 CNItem::CNItem( ICNDocument *icnDocument, bool newItem, const QString &id )
 	: Item( icnDocument, newItem, id ),
-	  CIWidgetMgr( icnDocument ? icnDocument->canvas() : 0, this ),
+	  CIWidgetMgr( icnDocument ? icnDocument->canvas() : nullptr, this ),
 	  p_icnDocument(icnDocument),
 	  b_pointsAdded(false)
 {
@@ -49,7 +49,7 @@ CNItem::~CNItem()
 	const TextMap::iterator textMapEnd = m_textMap.end();
 	for ( TextMap::iterator it = m_textMap.begin(); it != textMapEnd; ++it )
 	{
-		if (it.value()) it.value()->setCanvas(0l);
+		if (it.value()) it.value()->setCanvas(nullptr);
 
 		delete (Text*)it.value();
 	}
@@ -166,7 +166,7 @@ void CNItem::removeItem()
 	
 	const TextMap::iterator textMapEnd = m_textMap.end();
 	for ( TextMap::iterator it = m_textMap.begin(); it != textMapEnd; ++it )
-		it.value()->setCanvas(0l);
+		it.value()->setCanvas(nullptr);
 	
 	Item::removeItem();
 	updateConnectorPoints(false);
@@ -225,7 +225,7 @@ Node* CNItem::createNode( double _x, double _y, int orientation, const QString &
 	if ( orientation < 0 )
 		orientation += 360;
 	
-	Node *node = NULL;
+	Node *node = nullptr;
 
 	// TODO get rid of this switch statement... 
 	switch(type) {
@@ -281,7 +281,7 @@ bool CNItem::removeNode( const QString &name )
 Node *CNItem::getClosestNode( const QPoint &pos )
 {
 	// Work through the nodes, finding the one closest to the (x, y) position
-	Node *shortestNode = 0L;
+	Node *shortestNode = nullptr;
 	double shortestDistance = 1e10; // Nice large distance :-)
 	
 	const NodeInfoMap::iterator end = m_nodeMap.end();
@@ -402,16 +402,16 @@ bool CNItem::wheelEvent( const EventInfo &info )
 
 void CNItem::enterEvent(QEvent *)
 {
-	Item::enterEvent(0);
-	CIWidgetMgr::enterEvent(0);
+	Item::enterEvent(nullptr);
+	CIWidgetMgr::enterEvent(nullptr);
 	setChanged();
 }
 
 
 void CNItem::leaveEvent(QEvent *)
 {
-	Item::leaveEvent(0);
-	CIWidgetMgr::leaveEvent(0);
+	Item::leaveEvent(nullptr);
+	CIWidgetMgr::leaveEvent(nullptr);
 	setChanged();
 }
 
@@ -540,7 +540,7 @@ void CNItem::updateConnectorPoints( bool add )
 
 Text* CNItem::addDisplayText( const QString &id, const QRect & pos, const QString &display, bool internal, int flags )
 {
-	Text *text = 0l;
+	Text *text = nullptr;
 	TextMap::iterator it = m_textMap.find(id);
 	if ( it != m_textMap.end() )
 	{
@@ -604,7 +604,7 @@ Node *CNItem::childNode( const QString &childId )
 
 NodeInfo::NodeInfo()
 {
-	node = 0l;
+	node = nullptr;
 	x = 0.;
 	y = 0.;
 	orientation = 0;

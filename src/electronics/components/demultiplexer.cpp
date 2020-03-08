@@ -40,7 +40,7 @@ Demultiplexer::Demultiplexer( ICNDocument *icnDocument, bool newItem, const char
 {
 	m_name = i18n("Demultiplexer");
 	
-	m_input = 0l;
+	m_input = nullptr;
 	
 	createProperty( "addressSize", Variant::Type::Int );
 	property("addressSize")->setCaption( i18n("Address Size") );

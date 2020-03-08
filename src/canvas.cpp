@@ -265,9 +265,9 @@ void KtlQCanvas::init( const QRect & r, int chunksze, int mxclusters )
 	maxclusters=mxclusters;
 	initChunkSize( r );
 	chunks=new KtlQCanvasChunk[m_chunkSize.width()*m_chunkSize.height()];
-	update_timer = 0;
+	update_timer = nullptr;
 	bgcolor = Qt::white;
-	grid = 0;
+	grid = nullptr;
 	htiles = 0;
 	vtiles = 0;
 	debug_redraw_areas = false;
@@ -295,7 +295,7 @@ void qt_unview( KtlQCanvas * c )
 {
 	for (QList<KtlQCanvasView*>::iterator itView =c->m_viewList.begin(); itView != c->m_viewList.end(); ++itView) {
         KtlQCanvasView* view = *itView;
-		view->viewing = 0;
+		view->viewing = nullptr;
     }
 }
 
@@ -763,7 +763,7 @@ void KtlQCanvas::drawChanges(const QRect& inarea)
 		elarea.width()*chunksize,
 		elarea.height()*chunksize
 					  );
-		drawCanvasArea(elarea, NULL, /*true*/ false);
+		drawCanvasArea(elarea, nullptr, /*true*/ false);
 	}
 }
 
@@ -1196,7 +1196,7 @@ void KtlQCanvas::setTiles( QPixmap p, int h, int v, int tilewidth, int tileheigh
 		tilew = tilewidth;
 		tileh = tileheight;
 	} else {
-		grid = 0;
+		grid = nullptr;
 	}
 	if ( h + v > 10 ) {
 		int s = scm(tilewidth,tileheight);
@@ -1288,8 +1288,8 @@ KtlQCanvasView::KtlQCanvasView(QWidget* parent, const char* name, Qt::WindowFlag
 {
     setAttribute( Qt::WA_StaticContents );
 	d = new KtlQCanvasViewData;
-	viewing = 0;
-	setCanvas(0);
+	viewing = nullptr;
+	setCanvas(nullptr);
 	connect(this,SIGNAL(contentsMoving(int,int)),this,SLOT(cMoving(int,int)));
 }
 
@@ -1298,7 +1298,7 @@ KtlQCanvasView::KtlQCanvasView(KtlQCanvas* canvas, QWidget* parent, const char* 
 {
     setAttribute( Qt::WA_StaticContents );
 	d = new KtlQCanvasViewData;
-	viewing = 0;
+	viewing = nullptr;
 	setCanvas(canvas);
 
 	connect(this,SIGNAL(contentsMoving(int,int)),this,SLOT(cMoving(int,int)));
@@ -1308,8 +1308,8 @@ KtlQCanvasView::KtlQCanvasView(KtlQCanvas* canvas, QWidget* parent, const char* 
 KtlQCanvasView::~KtlQCanvasView()
 {
 	delete d;
-    d = NULL;
-	setCanvas(0);
+    d = nullptr;
+	setCanvas(nullptr);
 }
 
 

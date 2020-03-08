@@ -26,7 +26,7 @@
 
 #include <cassert>
 
-ItemEditor * ItemEditor::m_pSelf = 0l;
+ItemEditor * ItemEditor::m_pSelf = nullptr;
 
 ItemEditor * ItemEditor::self( KateMDI::ToolView * parent )
 {
@@ -103,7 +103,7 @@ void ItemEditor::slotClear()
     m_pPropertyEditor->setRowCount(0);
 	m_pComponentModelWidget->reset();
 	m_pOrientationWidget->slotClear();
-	updateNameLabel(0l);
+	updateNameLabel(nullptr);
 }
 
 

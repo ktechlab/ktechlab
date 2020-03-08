@@ -65,7 +65,7 @@ public:
 		Bottom
 	};
 	
-	ViewArea( QWidget *parent, ViewContainer *viewContainer, int id, bool showOpenButton, const char * name = 0 );
+	ViewArea( QWidget *parent, ViewContainer *viewContainer, int id, bool showOpenButton, const char * name = nullptr );
 	~ViewArea() override;
 	
 	ViewContainer *viewContainer() const { return p_viewContainer; }
@@ -128,7 +128,7 @@ public:
 	 * parenting a View, with an id of 0. parent is only used if ktechlab is
 	 * null; otherwise the parent widget is ktechlab's tabWidget()
 	 */
-	ViewContainer( const QString & caption, QWidget * parent = 0 );
+	ViewContainer( const QString & caption, QWidget * parent = nullptr );
 	~ViewContainer() override;
 	
 	/**

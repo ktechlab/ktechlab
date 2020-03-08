@@ -136,7 +136,7 @@ ProcessOptionsSpecial::ProcessOptionsSpecial()
 	b_forceList = true;
 	b_addToProject = ProjectManager::self()->currentProject();
 
-	p_flowCodeDocument = 0l;
+	p_flowCodeDocument = nullptr;
 
 	switch ( KTLConfig::hexFormat() )
 	{
@@ -167,7 +167,7 @@ ProcessOptions::ProcessOptions()
 	m_pHelper = new ProcessOptionsHelper;
 
 	b_targetFileSet = false;
-	m_pTextOutputTarget = 0l;
+	m_pTextOutputTarget = nullptr;
 }
 
 

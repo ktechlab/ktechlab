@@ -281,7 +281,7 @@ Button::Button( const QString & id, CNItem * parent, bool isToggle, const QRect 
 	: Widget( id, parent, r, canvas )
 {
 	b_isToggle = isToggle;
-	m_button = new ToolButton(0l);
+	m_button = new ToolButton(nullptr);
 	m_button->setToolButtonStyle(Qt::ToolButtonIconOnly);
 	m_button->setCheckable(b_isToggle);
 	connect( m_button, SIGNAL(pressed()), this, SLOT(slotStateChanged()) );
@@ -413,7 +413,7 @@ void Button::mouseReleaseEvent( QMouseEvent *e )
 
 void Button::enterEvent(QEvent *)
 {
-	m_button->enterEvent(0);
+	m_button->enterEvent(nullptr);
 // 	m_button->setFocus();
 // 	bool hasFocus = m_button->hasFocus();
 // 	m_button->setAutoRaise(true);
@@ -422,7 +422,7 @@ void Button::enterEvent(QEvent *)
 
 void Button::leaveEvent(QEvent *)
 {
-	m_button->leaveEvent(0);
+	m_button->leaveEvent(nullptr);
 // 	m_button->clearFocus();
 // 	bool hasFocus = m_button->hasFocus();
 // 	m_button->setAutoRaise(false);
@@ -448,7 +448,7 @@ Slider::Slider( const QString & id, CNItem * parent, const QRect & r, KtlQCanvas
 	m_orientation = Qt::Vertical;
 	m_bSliderInverted = false;
 
-	m_slider = new SliderWidget(0l);
+	m_slider = new SliderWidget(nullptr);
     QPalette p;
     p.setColor(m_slider->foregroundRole(), Qt::white);
     p.setColor(m_slider->backgroundRole(), Qt::transparent);

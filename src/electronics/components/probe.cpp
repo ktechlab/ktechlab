@@ -25,7 +25,7 @@
 Probe::Probe( ICNDocument *icnDocument, bool newItem, const char *id )
 	: Component( icnDocument, newItem, id )
 {
-	p_probeData = 0l;
+	p_probeData = nullptr;
 	setSize( -16, -8, 32, 16 );
 
 	createProperty( "color", Variant::Type::Color );

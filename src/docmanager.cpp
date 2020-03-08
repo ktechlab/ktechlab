@@ -31,7 +31,7 @@
 
 #include <ktlconfig.h>
 
-DocManager * DocManager::m_pSelf = 0l;
+DocManager * DocManager::m_pSelf = nullptr;
 
 DocManager * DocManager::self()
 {
@@ -45,12 +45,12 @@ DocManager * DocManager::self()
 DocManager::DocManager()
 	: QObject( KTechlab::self() )
 {
-	p_focusedView = 0l;
+	p_focusedView = nullptr;
 	m_countCircuit = 0;
 	m_countFlowCode = 0;
 	m_countMechanics = 0;
 	m_countOther = 0;
-	p_connectedDocument = 0;
+	p_connectedDocument = nullptr;
 	m_nextDocumentID = 1;
 	m_pIface = new DocManagerIface(this);
 }
@@ -80,7 +80,7 @@ bool DocManager::closeAll()
 void DocManager::gotoTextLine( const KUrl &url, int line )
 {
 	TextDocument * doc = dynamic_cast<TextDocument*>( openURL(url) );
-	TextView * tv = doc ? doc->textView() : 0l;
+	TextView * tv = doc ? doc->textView() : nullptr;
 	
 	if ( !tv ) return;
 	
@@ -91,15 +91,15 @@ void DocManager::gotoTextLine( const KUrl &url, int line )
 
 Document* DocManager::openURL( const KUrl &url, ViewArea *viewArea )
 {
-	if ( url.isEmpty() ) return 0;
+	if ( url.isEmpty() ) return nullptr;
 	
 	if ( url.isLocalFile() )
 	{
 		QFile file(url.path());
 		if ( file.open(QIODevice::ReadOnly) == false )
 		{
-			KMessageBox::sorry( 0l, i18n( "Could not open '%1'", url.prettyUrl() ) );
-			return 0l;
+			KMessageBox::sorry( nullptr, i18n( "Could not open '%1'", url.prettyUrl() ) );
+			return nullptr;
 		}
 		file.close();
 	}
@@ -143,8 +143,8 @@ Document* DocManager::openURL( const KUrl &url, ViewArea *viewArea )
 
 Document *DocManager::getFocusedDocument() const
 {
-	Document * doc = p_focusedView ? p_focusedView->document() : 0l;
-	return (doc && !doc->isDeleted()) ? doc : 0l;
+	Document * doc = p_focusedView ? p_focusedView->document() : nullptr;
+	return (doc && !doc->isDeleted()) ? doc : nullptr;
 }
 
 
@@ -223,7 +223,7 @@ Document *DocManager::findDocument( const KUrl &url ) const
 			return *it;
 	}
 	
-	return 0l;
+	return nullptr;
 }
 
 
@@ -279,9 +279,9 @@ void DocManager::handleNewDocument( Document *document, ViewArea *viewArea )
 View *DocManager::createNewView( Document *document, ViewArea *viewArea )
 {
 	if (!document)
-		return 0l;
+		return nullptr;
 	
-	View *view = 0l;
+	View *view = nullptr;
 	
 	if (viewArea)
 		view = document->createView( viewArea->viewContainer(), viewArea->id() );
@@ -310,7 +310,7 @@ void DocManager::slotViewFocused( View *view )
 {
 	ViewContainer * vc = static_cast<ViewContainer*>(KTechlab::self()->tabWidget()->currentWidget());
 	if (!vc)
-		view = 0l;
+		view = nullptr;
 	
 	if (!view)
 		return;
@@ -367,11 +367,11 @@ void DocManager::slotViewUnfocused()
 	if (p_connectedDocument)
 	{
 		disconnect( p_connectedDocument, SIGNAL(undoRedoStateChanged()), KTechlab::self(), SLOT(slotDocUndoRedoChanged()) );
-		p_connectedDocument = 0l;
+		p_connectedDocument = nullptr;
 	}
 	
-	ItemInterface::self()->slotItemDocumentChanged(0l);
-	p_focusedView = 0l;
+	ItemInterface::self()->slotItemDocumentChanged(nullptr);
+	p_focusedView = nullptr;
 	
 // 	KTechlab::self()->setCaption( 0 );
 	KTechlab::self()->requestUpdateCaptions();
@@ -441,9 +441,9 @@ CircuitDocument *DocManager::openCircuitFile( const KUrl &url, ViewArea *viewAre
 	
 	if ( !document->openURL(url) )
 	{
-		KMessageBox::sorry( 0l, i18n("Could not open Circuit file \"%1\"", url.prettyUrl()) );
+		KMessageBox::sorry( nullptr, i18n("Could not open Circuit file \"%1\"", url.prettyUrl()) );
 		document->deleteLater();
-		return 0l;
+		return nullptr;
 	}
 	
 	handleNewDocument( document, viewArea );
@@ -458,9 +458,9 @@ FlowCodeDocument *DocManager::openFlowCodeFile( const KUrl &url, ViewArea *viewA
 	
 	if ( !document->openURL(url) )
 	{
-		KMessageBox::sorry( 0l, i18n("Could not open FlowCode file \"%1\"", url.prettyUrl()) );
+		KMessageBox::sorry( nullptr, i18n("Could not open FlowCode file \"%1\"", url.prettyUrl()) );
 		document->deleteLater();
-		return 0l;
+		return nullptr;
 	}
 	
 	handleNewDocument( document, viewArea );
@@ -475,9 +475,9 @@ MechanicsDocument *DocManager::openMechanicsFile( const KUrl &url, ViewArea *vie
 	
 	if ( !document->openURL(url) )
 	{
-		KMessageBox::sorry( 0l, i18n("Could not open Mechanics file \"%1\"", url.prettyUrl()) );
+		KMessageBox::sorry( nullptr, i18n("Could not open Mechanics file \"%1\"", url.prettyUrl()) );
 		document->deleteLater();
-		return 0l;
+		return nullptr;
 	}
 	
 	handleNewDocument( document, viewArea );
@@ -492,13 +492,13 @@ TextDocument *DocManager::openTextFile( const KUrl &url, ViewArea *viewArea )
 	TextDocument *document = TextDocument::constructTextDocument( url.fileName().remove(url.directory()) );
 	
 	if (!document)
-		return 0l;
+		return nullptr;
 	
 	if ( !document->openURL(url) )
 	{
-		KMessageBox::sorry( 0l, i18n("Could not open text file \"%1\"", url.prettyUrl()) );
+		KMessageBox::sorry( nullptr, i18n("Could not open text file \"%1\"", url.prettyUrl()) );
 		document->deleteLater();
-		return 0l;
+		return nullptr;
 	}
 	
 	handleNewDocument( document, viewArea );

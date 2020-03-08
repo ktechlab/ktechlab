@@ -40,7 +40,7 @@ Multiplexer::Multiplexer( ICNDocument *icnDocument, bool newItem, const char *id
 {
 	m_name = i18n("Multiplexer");
 	
-	m_output = 0l;
+	m_output = nullptr;
 	
 	createProperty( "addressSize", Variant::Type::Int );
 	property("addressSize")->setCaption( i18n("Address Size") );

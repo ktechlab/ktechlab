@@ -20,7 +20,7 @@
 class ECDPDT : public Component
 {
 public:
-	ECDPDT( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECDPDT( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 	~ECDPDT() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -47,7 +47,7 @@ private:
 class ECDPST : public Component
 {
 public:
-	ECDPST( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECDPST( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 	~ECDPST() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -72,7 +72,7 @@ private:
 class ECSPDT : public Component
 {
 public:
-	ECSPDT( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECSPDT( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 	~ECSPDT() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -97,7 +97,7 @@ private:
 class ECSPST : public Component
 {
 public:
-	ECSPST( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECSPST( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 	~ECSPST() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

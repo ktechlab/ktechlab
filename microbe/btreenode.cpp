@@ -23,9 +23,9 @@
 
 BTreeNode::BTreeNode()
 {
-	m_parent = 0L;
-	m_left = 0L;
-	m_right = 0L;
+	m_parent = nullptr;
+	m_left = nullptr;
+	m_right = nullptr;
 	m_type = unset;
 }
 
@@ -54,8 +54,8 @@ void BTreeNode::deleteChildren()
 		delete m_right;
 	}
 	
-	m_left = 0L;
-	m_right = 0L;
+	m_left = nullptr;
+	m_right = nullptr;
 	
 	return;
 }

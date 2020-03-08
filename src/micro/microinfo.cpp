@@ -13,7 +13,7 @@
 
 MicroInfo::MicroInfo()
 {
-	m_package = 0L;
+	m_package = nullptr;
 }
 
 MicroInfo::~MicroInfo()

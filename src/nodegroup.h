@@ -37,7 +37,7 @@ class NodeGroup : public QObject
 {
 Q_OBJECT
 public:
-	NodeGroup( ICNDocument *icnDocument, const char *name = 0);
+	NodeGroup( ICNDocument *icnDocument, const char *name = nullptr);
 	~NodeGroup() override;
 	/**
 	 * Adds a node to the group (this checks to make sure that the node is not
@@ -115,7 +115,7 @@ protected:
 	bool b_visible;
 	
 private:
-	IntList findRoute( IntList used, int currentNode, int endNode, bool *success = 0l );
+	IntList findRoute( IntList used, int currentNode, int endNode, bool *success = nullptr );
 	void resetRoutedMap();
 	/**
 	 * Looks at b_routedMap as well as the connectors coming out of nodes, and

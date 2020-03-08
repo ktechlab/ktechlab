@@ -20,7 +20,7 @@
 class ECOpAmp : public Component
 {
 	public:
-		ECOpAmp( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		ECOpAmp( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~ECOpAmp() override;
 		
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

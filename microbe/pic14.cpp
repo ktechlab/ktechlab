@@ -57,7 +57,7 @@ bool LEDSegTable[][7] = {
 PIC14::PIC14( Microbe * master, Type type )
 {
 	mb = master;
-	m_pCode = 0l;
+	m_pCode = nullptr;
 	m_type = type;
 
 }
@@ -218,7 +218,7 @@ QString PIC14::minimalTypeString() const
 	}
 
 	qCritical() << Q_FUNC_INFO << "Unknown PIC type = " << m_type << endl;
-	return 0;;
+	return nullptr;;
 }
 
 
@@ -558,14 +558,14 @@ void PIC14::add( QString val1, QString val2, LocationType val1Type, LocationType
 
 	switch(val1Type)
 	{
-		case num:  m_pCode->append(new Instr_movlw( val1.toInt( 0, 0 ) )); break;
+		case num:  m_pCode->append(new Instr_movlw( val1.toInt( nullptr, 0 ) )); break;
 		case work: break;
 		case var: m_pCode->append(new Instr_movf(val1,0)); break;
 	}
 
 	switch(val2Type)
 	{
-		case num: m_pCode->append(new Instr_addlw(val2.toInt( 0, 0 ))); break;
+		case num: m_pCode->append(new Instr_addlw(val2.toInt( nullptr, 0 ))); break;
 		case work: break;
 		case var: m_pCode->append(new Instr_addwf(val2,0)); break;
 	}
@@ -575,13 +575,13 @@ void PIC14::subtract( const QString & val1, const QString & val2, LocationType v
 {
 	switch(val2Type)
 	{
-		case num:  m_pCode->append(new Instr_movlw( val2.toInt( 0, 0 ) )); break;
+		case num:  m_pCode->append(new Instr_movlw( val2.toInt( nullptr, 0 ) )); break;
 		case work: break;
 		case var: m_pCode->append(new Instr_movf(val2,0)); break;
 	}
 	switch(val1Type)
 	{
-		case num: m_pCode->append(new Instr_sublw(val1.toInt( 0, 0 ))); break;
+		case num: m_pCode->append(new Instr_sublw(val1.toInt( nullptr, 0 ))); break;
 		case work: break;
 		case var: m_pCode->append(new Instr_subwf(val1,0)); break;
 	}
@@ -589,7 +589,7 @@ void PIC14::subtract( const QString & val1, const QString & val2, LocationType v
 
 void PIC14::assignNum(const QString & val)
 {
-	m_pCode->append(new Instr_movlw(val.toInt( 0, 0 )));
+	m_pCode->append(new Instr_movlw(val.toInt( nullptr, 0 )));
 }
 
 void PIC14::assignVar(const QString &val)
@@ -616,7 +616,7 @@ void PIC14::mul(QString val1, QString val2, LocationType val1Type, LocationType 
 	// First, set _i argument
 	switch(val1Type)
 	{
-		case num: m_pCode->append(new Instr_movlw(val1.toInt( 0, 0 ))); break;
+		case num: m_pCode->append(new Instr_movlw(val1.toInt( nullptr, 0 ))); break;
 		case work: break;
 		case var: m_pCode->append(new Instr_movf(val1,0)); break;
 	}
@@ -626,7 +626,7 @@ void PIC14::mul(QString val1, QString val2, LocationType val1Type, LocationType 
 	// Then set _j argument
 	switch(val2Type)
 	{
-		case num: m_pCode->append(new Instr_movlw(val2.toInt( 0, 0 ))); break;
+		case num: m_pCode->append(new Instr_movlw(val2.toInt( nullptr, 0 ))); break;
 		case work: break;
 		case var: m_pCode->append(new Instr_movf(val2,0)); break;
 	}
@@ -670,7 +670,7 @@ void PIC14::div( const QString & val1, const QString & val2, LocationType val1Ty
 	// First, set _i argument
 	switch(val1Type)
 	{
-		case num: m_pCode->append(new Instr_movlw(val1.toInt( 0, 0 ))); break;
+		case num: m_pCode->append(new Instr_movlw(val1.toInt( nullptr, 0 ))); break;
 		case work: break;
 		case var: m_pCode->append(new Instr_movf(val1,0)); break;
 	}
@@ -680,7 +680,7 @@ void PIC14::div( const QString & val1, const QString & val2, LocationType val1Ty
 	// Then set _j argument
 	switch(val2Type)
 	{
-		case num: m_pCode->append(new Instr_movlw(val2.toInt( 0, 0 ))); break;
+		case num: m_pCode->append(new Instr_movlw(val2.toInt( nullptr, 0 ))); break;
 		case work: break;
 		case var: m_pCode->append(new Instr_movf(val2,0)); break;
 	}
@@ -752,7 +752,7 @@ void PIC14::ifInitCode( const QString &val1, const QString &val2, LocationType v
 	switch(val1Type)
 	{
 		case num:
-			m_pCode->append(new Instr_movlw(val1.toInt( 0, 0 )));
+			m_pCode->append(new Instr_movlw(val1.toInt( nullptr, 0 )));
 			break;
 
 		case work:
@@ -766,7 +766,7 @@ void PIC14::ifInitCode( const QString &val1, const QString &val2, LocationType v
 	switch(val2Type)
 	{
 		case num:
-			m_pCode->append(new Instr_sublw(val2.toInt( 0, 0 )));
+			m_pCode->append(new Instr_sublw(val2.toInt( nullptr, 0 )));
 			break;
 
 		case work:
@@ -901,7 +901,7 @@ void PIC14::Swhile( Code * whileCode, const QString &expression)
 	m_pCode->queueLabel( ul, Code::Middle );
 
 	// If the condition is not true, just fall through
-	m_parser->compileConditionalExpression( expression, whileCode, 0 );
+	m_parser->compileConditionalExpression( expression, whileCode, nullptr );
 }
 
 
@@ -917,7 +917,7 @@ void PIC14::Srepeat( Code * repeatCode, const QString &expression)
 	m_pCode->merge( repeatCode );
 
 	// If the condition is true, just fall through
-	m_parser->compileConditionalExpression( expression, 0, elseCode );
+	m_parser->compileConditionalExpression( expression, nullptr, elseCode );
 }
 
 void PIC14::Sif( Code * ifCode, Code * elseCode, const QString &expression)
@@ -939,7 +939,7 @@ void PIC14::Sfor( Code * forCode, Code * initCode, const QString &expression, co
 	}
 	else
 	{
-		forCode->append(new Instr_movlw(step.toInt( 0, 0 )));
+		forCode->append(new Instr_movlw(step.toInt( nullptr, 0 )));
 		if (stepPositive)
 			forCode->append(new Instr_addwf(variable,1));
 		else
@@ -951,7 +951,7 @@ void PIC14::Sfor( Code * forCode, Code * initCode, const QString &expression, co
 
 	m_pCode->queueLabel( ul );
 
-	m_parser->compileConditionalExpression( expression, forCode, 0 );
+	m_parser->compileConditionalExpression( expression, forCode, nullptr );
 }
 
 
@@ -1233,7 +1233,7 @@ void PIC14::Skeypad( const Variable & pinMap )
 
 	// Test if any key was pressed; if not, then start again
 // 	std::cout << "mb->alias(\"Keypad_None\")="<<mb->alias("Keypad_None") << std::endl;
-	m_pCode->append( new Instr_sublw( mb->alias("Keypad_None").toInt( 0, 0 ) ), Code::Subroutine );
+	m_pCode->append( new Instr_sublw( mb->alias("Keypad_None").toInt( nullptr, 0 ) ), Code::Subroutine );
 	m_pCode->append( new Instr_btfsc( "STATUS","Z" ), Code::Subroutine );
 	m_pCode->append( new Instr_goto( subName ), Code::Subroutine );
 	m_pCode->append( new Instr_goto( waitName ), Code::Subroutine );
@@ -1247,7 +1247,7 @@ void PIC14::Skeypad( const Variable & pinMap )
 
 	// Key was pressed; now we wait until the key is released again
 	m_pCode->append( new Instr_call( readName ), Code::Subroutine );
-	m_pCode->append( new Instr_sublw( mb->alias("Keypad_None").toInt( 0, 0 ) ), Code::Subroutine );
+	m_pCode->append( new Instr_sublw( mb->alias("Keypad_None").toInt( nullptr, 0 ) ), Code::Subroutine );
 	m_pCode->append( new Instr_btfss( "STATUS","Z" ), Code::Subroutine );
 	m_pCode->append( new Instr_goto( waitName ), Code::Subroutine );
 	m_pCode->append( new Instr_movf( "__m", 0 ), Code::Subroutine );
@@ -1279,7 +1279,7 @@ void PIC14::Skeypad( const Variable & pinMap )
 		{
 			PortPin colPin = pinMap.portPinList()[4+col];
 			m_pCode->append( new Instr_btfsc( colPin.port(), QString::number( colPin.pin() ) ), Code::Subroutine );
-			m_pCode->append( new Instr_retlw( mb->alias( QString("Keypad_%1_%2").arg(row+1).arg(col+1) ).toInt( 0, 0 ) ), Code::Subroutine );
+			m_pCode->append( new Instr_retlw( mb->alias( QString("Keypad_%1_%2").arg(row+1).arg(col+1) ).toInt( nullptr, 0 ) ), Code::Subroutine );
 		}
 
 		// Make the low again
@@ -1287,7 +1287,7 @@ void PIC14::Skeypad( const Variable & pinMap )
 	}
 
 	// No key was pressed
-	m_pCode->append( new Instr_retlw( mb->alias("Keypad_None").toInt( 0, 0 ) ), Code::Subroutine );
+	m_pCode->append( new Instr_retlw( mb->alias("Keypad_None").toInt( nullptr, 0 ) ), Code::Subroutine );
 	//END Read current value of keypad subroutine
 }
 
@@ -1336,7 +1336,7 @@ void PIC14::bitwise( Expression::Operation op,const QString & r_val1, const QStr
 	if( op == Expression::bwnot ) val1 = "0xFF";
 	switch(val1Type)
 	{
-		case num: m_pCode->append(new Instr_movlw(val1.toInt( 0, 0 ))); break;
+		case num: m_pCode->append(new Instr_movlw(val1.toInt( nullptr, 0 ))); break;
 		case work: break;
 		case var: m_pCode->append(new Instr_movf(val1,0)); break;
 	}
@@ -1346,10 +1346,10 @@ void PIC14::bitwise( Expression::Operation op,const QString & r_val1, const QStr
 		{
 			switch(op)
 			{
-				case Expression::bwand: m_pCode->append(new Instr_andlw(val2.toInt( 0, 0 ))); break;
-				case Expression::bwor:  m_pCode->append(new Instr_iorlw(val2.toInt( 0, 0 ))); break;
-				case Expression::bwxor: m_pCode->append(new Instr_xorlw(val2.toInt( 0, 0 ))); break;
-				case Expression::bwnot: m_pCode->append(new Instr_xorlw(val2.toInt( 0, 0 ))); break;
+				case Expression::bwand: m_pCode->append(new Instr_andlw(val2.toInt( nullptr, 0 ))); break;
+				case Expression::bwor:  m_pCode->append(new Instr_iorlw(val2.toInt( nullptr, 0 ))); break;
+				case Expression::bwxor: m_pCode->append(new Instr_xorlw(val2.toInt( nullptr, 0 ))); break;
+				case Expression::bwnot: m_pCode->append(new Instr_xorlw(val2.toInt( nullptr, 0 ))); break;
 				default: break;
 		}
 		}

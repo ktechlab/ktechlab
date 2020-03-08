@@ -22,7 +22,7 @@ class ADDAC : public Component
 {
 public:
 	public:
-		ADDAC( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+		ADDAC( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~ADDAC() override;
 		
 	protected:
@@ -43,7 +43,7 @@ public:
 class ADC : public ADDAC
 {
 	public:
-		ADC( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+		ADC( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~ADC() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -69,7 +69,7 @@ class ADC : public ADDAC
 class DAC : public ADDAC
 {
 	public:
-		DAC( ICNDocument *icnDocument, bool newItem, const char *id = 0 );
+		DAC( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~DAC() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

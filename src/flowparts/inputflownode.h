@@ -18,7 +18,7 @@
 class InputFlowNode : public FPNode
 {
 	public:
-		InputFlowNode ( ICNDocument *icnDocument, int dir, const QPoint &pos, QString *id = 0L );
+		InputFlowNode ( ICNDocument *icnDocument, int dir, const QPoint &pos, QString *id = nullptr );
 
 		~InputFlowNode() override;
 

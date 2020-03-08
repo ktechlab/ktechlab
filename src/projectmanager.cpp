@@ -186,7 +186,7 @@ ProjectItem::ProjectItem( ProjectItem * parent, Type type, ProjectManager * proj
 	: QObject()
 {
 	m_pParent = parent;
-	m_pILVItem = 0l;
+	m_pILVItem = nullptr;
 	m_pProjectManager = projectManager;
 	m_type = type;
 }
@@ -194,7 +194,7 @@ ProjectItem::ProjectItem( ProjectItem * parent, Type type, ProjectManager * proj
 
 ProjectItem::~ProjectItem()
 {
-	m_children.removeAll( (ProjectItem*)0l );
+	m_children.removeAll( (ProjectItem*)nullptr );
 	ProjectItemList::iterator end = m_children.end();
 	for ( ProjectItemList::iterator it = m_children.begin(); it != end; ++it )
 		(*it)->deleteLater();
@@ -285,7 +285,7 @@ void ProjectItem::updateControlChildMicroIDs()
 			break;
 	}
 	
-	m_children.removeAll( (ProjectItem*)0l );
+	m_children.removeAll( (ProjectItem*)nullptr );
 	ProjectItemList::iterator end = m_children.end();
 	for ( ProjectItemList::iterator it = m_children.begin(); it != end; ++it )
 		(*it)->setUseParentMicroID( control );
@@ -422,7 +422,7 @@ bool ProjectItem::build( ProcessOptionsList * pol )
 	
 	if ( outputURL().isEmpty() )
 	{
-		KMessageBox::sorry( 0l, i18n("Do not know how to build \"%1\" (output URL is empty).", name()) );
+		KMessageBox::sorry( nullptr, i18n("Do not know how to build \"%1\" (output URL is empty).", name()) );
 		return false;
 	}
 	
@@ -433,7 +433,7 @@ bool ProjectItem::build( ProcessOptionsList * pol )
 		ProjectItem * lib = projectInfo->findItem( projectInfo->directory() + *it );
 		if ( !lib )
 		{
-			KMessageBox::sorry( 0l, i18n("Do not know how to build \"%1\" (library does not exist in project).", *it) );
+			KMessageBox::sorry( nullptr, i18n("Do not know how to build \"%1\" (library does not exist in project).", *it) );
 			return false;
 		}
 		
@@ -443,7 +443,7 @@ bool ProjectItem::build( ProcessOptionsList * pol )
 	
 	
 	// Build all children
-	m_children.removeAll( (ProjectItem*)0l );
+	m_children.removeAll( (ProjectItem*)nullptr );
 	ProjectItemList::iterator cend = m_children.end();
 	for ( ProjectItemList::iterator it = m_children.begin(); it != cend; ++it )
 	{
@@ -463,7 +463,7 @@ bool ProjectItem::build( ProcessOptionsList * pol )
 	switch ( outputType() )
 	{
 		case UnknownOutput:
-			KMessageBox::sorry( 0l, i18n("Do not know how to build \"%1\" (unknown output type).", name()) );
+			KMessageBox::sorry( nullptr, i18n("Do not know how to build \"%1\" (unknown output type).", name()) );
 			return false;
 			
 		case ProgramOutput:
@@ -496,7 +496,7 @@ bool ProjectItem::build( ProcessOptionsList * pol )
 			QStringList inputFiles;
 			
 			// Link child objects
-			m_children.removeAll( (ProjectItem*)0l );
+			m_children.removeAll( (ProjectItem*)nullptr );
 			ProjectItemList::iterator cend = m_children.end();
 			for ( ProjectItemList::iterator it = m_children.begin(); it != cend; ++it )
 				inputFiles << (*it)->outputURL().path();
@@ -614,7 +614,7 @@ ProjectItem * ProjectItem::findItem( const KUrl & url )
 			return found;
 	}
 	
-	return 0l;
+	return nullptr;
 }
 
 
@@ -624,7 +624,7 @@ bool ProjectItem::closeOpenFiles()
 	if ( doc && !doc->fileClose() )
 		return false;
 	
-	m_children.removeAll( (ProjectItem*)0l );
+	m_children.removeAll( (ProjectItem*)nullptr );
 	ProjectItemList::iterator end = m_children.end();
 	for ( ProjectItemList::iterator it = m_children.begin(); it != end; ++it )
 	{
@@ -670,7 +670,7 @@ void ProjectItem::addFile( const KUrl & url )
 	if ( url.isEmpty() )
 		return;
 	
-	m_children.removeAll( (ProjectItem*)0l );
+	m_children.removeAll( (ProjectItem*)nullptr );
 	ProjectItemList::iterator end = m_children.end();
 	for ( ProjectItemList::iterator it = m_children.begin(); it != end; ++it )
 	{
@@ -764,7 +764,7 @@ void ProjectItem::domElementToItem( const QDomElement & element, const KUrl & ba
 
 //BEGIN class ProjectInfo
 ProjectInfo::ProjectInfo( ProjectManager * projectManager )
-	: ProjectItem( 0l, ProjectItem::ProjectType, projectManager )
+	: ProjectItem( nullptr, ProjectItem::ProjectType, projectManager )
 {
 	m_microID = QString::null;
 }
@@ -778,11 +778,11 @@ ProjectInfo::~ ProjectInfo()
 bool ProjectInfo::open( const KUrl & url )
 {
 	QString target;
-	if ( !KIO::NetAccess::download( url, target, 0l ) )
+	if ( !KIO::NetAccess::download( url, target, nullptr ) )
 	{
 		// If the file could not be downloaded, for example does not
 		// exist on disk, NetAccess will tell us what error to use
-		KMessageBox::error( 0l, KIO::NetAccess::lastErrorString() );
+		KMessageBox::error( nullptr, KIO::NetAccess::lastErrorString() );
 		
 		return false;
 	}
@@ -790,7 +790,7 @@ bool ProjectInfo::open( const KUrl & url )
 	QFile file(target);
 	if ( !file.open( QIODevice::ReadOnly ) )
 	{
-		KMessageBox::sorry( 0l, i18n("Could not open %1 for reading", target) );
+		KMessageBox::sorry( nullptr, i18n("Could not open %1 for reading", target) );
 		return false;
 	}
 	
@@ -807,7 +807,7 @@ bool ProjectInfo::open( const KUrl & url )
 	QString errorMessage;
 	if ( !doc.setContent( xml, &errorMessage ) )
 	{
-		KMessageBox::sorry( 0l, i18n("Could not parse XML:\n%1", errorMessage) );
+		KMessageBox::sorry( nullptr, i18n("Could not parse XML:\n%1", errorMessage) );
 		return false;
 	}
 	
@@ -847,7 +847,7 @@ bool ProjectInfo::save()
 	QFile file( m_url.path() );
 	if ( file.open(QIODevice::WriteOnly) == false )
 	{
-		KMessageBox::sorry( NULL, i18n("Project could not be saved to \"%1\"", m_url.path()), i18n("Saving Project") );
+		KMessageBox::sorry( nullptr, i18n("Project could not be saved to \"%1\"", m_url.path()), i18n("Saving Project") );
 		return false;
 	}
 	
@@ -856,7 +856,7 @@ bool ProjectInfo::save()
 	QDomElement root = doc.createElement("project");
 	doc.appendChild(root);
 	
-	m_children.removeAll( (ProjectItem*)0l );
+	m_children.removeAll( (ProjectItem*)nullptr );
 	ProjectItemList::const_iterator end = m_children.end();
 	for ( ProjectItemList::const_iterator it = m_children.begin(); it != end; ++it )
 		root.appendChild( (*it)->toDomElement( doc, m_url ) );
@@ -893,7 +893,7 @@ bool ProjectInfo::saveAndClose()
 
 
 //BEGIN class ProjectManager
-ProjectManager * ProjectManager::m_pSelf = 0l;
+ProjectManager * ProjectManager::m_pSelf = nullptr;
 
 ProjectManager * ProjectManager::self( KateMDI::ToolView * parent )
 {
@@ -908,7 +908,7 @@ ProjectManager * ProjectManager::self( KateMDI::ToolView * parent )
 
 ProjectManager::ProjectManager( KateMDI::ToolView * parent )
 	: ItemSelector( parent, "Project Manager" ),
-	m_pCurrentProject(0l)
+	m_pCurrentProject(nullptr)
 {
 	setWhatsThis( i18n("Displays the list of files in the project.\nTo open or close a project, use the \"Project\" menu. Right click on a file to remove it from the project") );
 	
@@ -984,7 +984,7 @@ void ProjectManager::slotOpenProject( const KUrl & url )
 	if ( !m_pCurrentProject->open(url) )
 	{
 		m_pCurrentProject->deleteLater();
-		m_pCurrentProject = 0l;
+		m_pCurrentProject = nullptr;
 		return;
 	}
 	{
@@ -1013,7 +1013,7 @@ bool ProjectManager::slotCloseProject()
 		return false;
 	
 	m_pCurrentProject->deleteLater();
-	m_pCurrentProject = 0l;
+	m_pCurrentProject = nullptr;
 	updateActions();
 	emit projectClosed();
 	return true;

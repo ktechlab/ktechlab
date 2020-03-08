@@ -24,10 +24,10 @@ PICComponentPin::PICComponentPin( PICComponent * picComponent, PicPin picPin )
 	m_gOutLow = 0.0;
 	m_picPin = picPin;
 	m_pPICComponent = picComponent;
-	m_pLogicOut = 0l;
-	m_pLogicIn = 0l;
-	m_pIOPIN = 0l;
-	m_pStimulusNode = 0l;
+	m_pLogicOut = nullptr;
+	m_pLogicIn = nullptr;
+	m_pIOPIN = nullptr;
+	m_pStimulusNode = nullptr;
 	Zth = 0.0;
 	Vth = 0.0;
 	
@@ -72,9 +72,9 @@ PICComponentPin::PICComponentPin( PICComponent * picComponent, PicPin picPin )
 PICComponentPin::~PICComponentPin()
 {
 	if (m_pLogicIn)
-		m_pLogicIn->setCallback( 0, (CallbackPtr)0 );	
+		m_pLogicIn->setCallback( nullptr, (CallbackPtr)nullptr );	
 	if (m_pLogicOut)
-		m_pLogicOut->setCallback( 0, (CallbackPtr)0 );	
+		m_pLogicOut->setCallback( nullptr, (CallbackPtr)nullptr );	
 	
 	delete m_pStimulusNode;
 }

@@ -22,7 +22,7 @@
 ExternalLanguage::ExternalLanguage( ProcessChain *processChain, const QString &name )
  : Language( processChain, name )
 {
-	m_languageProcess = 0l;
+	m_languageProcess = nullptr;
 }
 
 
@@ -44,7 +44,7 @@ void ExternalLanguage::deleteLanguageProcess()
 	m_languageProcess->kill();
 	m_languageProcess->deleteLater();
 	
-	m_languageProcess = 0L;
+	m_languageProcess = nullptr;
 }
 
 

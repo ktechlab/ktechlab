@@ -22,7 +22,7 @@
 class EC555 : public Component
 {
 public:
-	EC555( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	EC555( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 	~EC555() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

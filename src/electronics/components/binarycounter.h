@@ -30,7 +30,7 @@ The inputs are:
 class BinaryCounter : public CallbackClass, public Component
 {
 public:
-	BinaryCounter( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	BinaryCounter( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 	~BinaryCounter() override;
 
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

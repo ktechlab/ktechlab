@@ -114,7 +114,7 @@ class Field
 		/**
 		 * Create a Field.
 		 */
-		Field( Type type, const QString & key = 0 );
+		Field( Type type, const QString & key = nullptr );
 		/**
 		 * Create a Field (this constructor should only be used with
 		 * FixedStrings.
@@ -203,7 +203,7 @@ class Parser
 		 * message, only applicable to some errors (such as a use of a reserved
 		 * keyword).
 		 */
-		void mistake( Microbe::MistakeType type, const QString & context = 0 );
+		void mistake( Microbe::MistakeType type, const QString & context = nullptr );
 		/**
 		 * Creates a new instance of the parser class with all state information
 		 * (class members) copied from this instance of the class. Don't forget to
@@ -255,7 +255,7 @@ class Parser
 		 * false. Else, *ok is set to true and the literal value is returned.
 		 * @see isLiteral
 		 */
-		static int literalToInt( const QString & literal, bool * ok = 0l );
+		static int literalToInt( const QString & literal, bool * ok = nullptr );
 		/**
 		 * Does the specified operation on the given numbers and returns the result.
 		 */

@@ -92,7 +92,7 @@ QuickMatrix *QuickMatrix::transposeSquare() const {
 // #####################################
 
 QuickVector *QuickMatrix::transposeMult(const QuickVector *operandvec) const {
-	if(operandvec->size() != m) return NULL;
+	if(operandvec->size() != m) return nullptr;
 
 	QuickVector *ret = new QuickVector(n);
 
@@ -324,7 +324,7 @@ QuickVector *QuickMatrix::normalizeRows() {
 // ####################################
 
 QuickVector *QuickMatrix::operator *(const QuickVector *operandvec) const {
-	if(operandvec->size() != n) return NULL;
+	if(operandvec->size() != n) return nullptr;
 
 	QuickVector *ret = new QuickVector(m);
 
@@ -341,7 +341,7 @@ QuickVector *QuickMatrix::operator *(const QuickVector *operandvec) const {
 // ####################################
 
 QuickMatrix *QuickMatrix::operator +=(const QuickMatrix *operandmat) {
-	if(operandmat->n != n || operandmat->m != m) return NULL;
+	if(operandmat->n != n || operandmat->m != m) return nullptr;
 
 	for(unsigned int i = 0; i < m; i++) {
 		for(unsigned int j = 0; j < n; j++)
@@ -354,7 +354,7 @@ QuickMatrix *QuickMatrix::operator +=(const QuickMatrix *operandmat) {
 // ####################################
 
 QuickMatrix *QuickMatrix::operator *(const QuickMatrix *operandmat) const {
-	if(operandmat->m != n) return NULL;
+	if(operandmat->m != n) return nullptr;
 
 	QuickMatrix *ret = new QuickMatrix(m,operandmat->n);
 

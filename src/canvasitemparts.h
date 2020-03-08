@@ -185,8 +185,8 @@ class ToolButton : public QToolButton
 		void mouseDoubleClickEvent ( QMouseEvent *e ) override { QToolButton::mouseDoubleClickEvent(e); }
 		void mouseMoveEvent( QMouseEvent *e ) override { QToolButton::mouseMoveEvent(e); }
 		void wheelEvent( QWheelEvent *e ) override { QToolButton::wheelEvent(e); }
-		void enterEvent(QEvent *) override { QToolButton::enterEvent(0l); }
-		void leaveEvent(QEvent *) override { QToolButton::leaveEvent(0l); }
+		void enterEvent(QEvent *) override { QToolButton::enterEvent(nullptr); }
+		void leaveEvent(QEvent *) override { QToolButton::leaveEvent(nullptr); }
 		
 		void setAngleDegrees( int angleDegrees ) { m_angleDegrees = angleDegrees; }
 
@@ -248,8 +248,8 @@ class SliderWidget : public QSlider
 		void mouseDoubleClickEvent ( QMouseEvent *e ) override { QSlider::mouseDoubleClickEvent(e); }
 		void mouseMoveEvent( QMouseEvent *e ) override { QSlider::mouseMoveEvent(e); }
 		void wheelEvent( QWheelEvent *e ) override { QSlider::wheelEvent(e); }
-		void enterEvent(QEvent *) override { QSlider::enterEvent(0l); }
-		void leaveEvent(QEvent *) override { QSlider::leaveEvent(0l); }
+		void enterEvent(QEvent *) override { QSlider::enterEvent(nullptr); }
+		void leaveEvent(QEvent *) override { QSlider::leaveEvent(nullptr); }
 };
 
 

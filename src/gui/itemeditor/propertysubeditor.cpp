@@ -20,7 +20,7 @@ PropertySubEditor::PropertySubEditor( QWidget * parent, Property * property, con
  : QWidget( parent /*, name */ )
 {
     setObjectName( name );
-	m_childWidget = 0;
+	m_childWidget = nullptr;
 	m_property = property;
 	m_leaveTheSpaceForRevertButton = false;
 }

@@ -22,7 +22,7 @@ class ParallelPort;
 class ParallelPortComponent : public CallbackClass, public Component
 {
 	public:
-		ParallelPortComponent( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		ParallelPortComponent( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~ParallelPortComponent() override;
 	
 		static Item * construct( ItemDocument *itemDocument, bool newItem, const char *id );

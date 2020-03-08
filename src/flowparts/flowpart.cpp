@@ -70,9 +70,9 @@ FlowPart::FlowPart( ICNDocument *icnDocument, bool newItem, const QString &id )
 {
 	m_flowSymbol = FlowPart::ps_other;
 	m_orientation = 0;
-	m_stdInput = 0l;
-	m_stdOutput = 0l;
-	m_altOutput = 0l;
+	m_stdInput = nullptr;
+	m_stdOutput = nullptr;
+	m_altOutput = nullptr;
 
 	if ( icnDocument )
 	{
@@ -351,9 +351,9 @@ FlowPart* FlowPart::outputPart( const QString& internalNodeId )
 
 	FPNode *fpnode = dynamic_cast<FPNode*>(node);
 		// FIXME dynamic_cast used to replace fpnode::type() call
-	if ( !fpnode || ( dynamic_cast<InputFlowNode*>(fpnode) != 0) )
+	if ( !fpnode || ( dynamic_cast<InputFlowNode*>(fpnode) != nullptr) )
 	// if ( !fpnode || fpnode->type() == Node::fp_in )
-		return 0l;
+		return nullptr;
 
 	return fpnode->outputFlowPart();
 }
@@ -422,13 +422,13 @@ FlowPart* FlowPart::endPart( QStringList ids, FlowPartList *previousParts )
 	if (createdList) {
 		previousParts = new FlowPartList;
 	} else if ( previousParts->contains(this) ) {
-		return 0l;
+		return nullptr;
 	}
 
 	previousParts->append(this);
 
 	if ( ids.empty() ) {
-		return 0l;
+		return nullptr;
 	}
 
 	if ( ids.size() == 1 ) {
@@ -458,7 +458,7 @@ FlowPart* FlowPart::endPart( QStringList ids, FlowPartList *previousParts )
 // 				}
 			}
 			else {
-				part = 0l;
+				part = nullptr;
 			}
 		}
 		if ( !validParts.empty() ) {
@@ -469,10 +469,10 @@ FlowPart* FlowPart::endPart( QStringList ids, FlowPartList *previousParts )
 	if (createdList)
 	{
 		delete previousParts;
-		previousParts = 0l;
+		previousParts = nullptr;
 	}
 
-	if ( validPartsList.empty() ) return 0l;
+	if ( validPartsList.empty() ) return nullptr;
 
 	FlowPartList firstList = *(validPartsList.begin());
 	const FlowPartList::iterator flEnd = firstList.end();
@@ -487,7 +487,7 @@ FlowPart* FlowPart::endPart( QStringList ids, FlowPartList *previousParts )
 		if (ok) return *it;
 	}
 
-	return 0l;
+	return nullptr;
 }
 
 
@@ -496,7 +496,7 @@ void FlowPart::handleIfElse( FlowCode *code, const QString &case1Statement, cons
 {
 	if (!code) return;
 
-	FlowPart *stop = 0l;
+	FlowPart *stop = nullptr;
 	FlowPart *part1 = outputPart(case1);
 	FlowPart *part2 = outputPart(case2);
 
@@ -669,11 +669,11 @@ void FlowPart::updateAttachedPositioning( )
 		QRect( offsetX()-40,		6,					40, 16 ),
 		QRect( 0,					offsetY()+height(),	40, 16 ) };
 
-	NodeInfo * stdOutputInfo = m_stdOutput ? &m_nodeMap["stdoutput"] : 0;
-	NodeInfo * altOutputInfo = m_altOutput ? &m_nodeMap["altoutput"] : 0l;
+	NodeInfo * stdOutputInfo = m_stdOutput ? &m_nodeMap["stdoutput"] : nullptr;
+	NodeInfo * altOutputInfo = m_altOutput ? &m_nodeMap["altoutput"] : nullptr;
 
-	Text *outputTrueText = m_textMap.contains("output_true") ? m_textMap["output_true"] : 0l;
-	Text *outputFalseText = m_textMap.contains("output_false") ? m_textMap["output_false"] : 0l;
+	Text *outputTrueText = m_textMap.contains("output_true") ? m_textMap["output_true"] : nullptr;
+	Text *outputFalseText = m_textMap.contains("output_false") ? m_textMap["output_false"] : nullptr;
 
 	if ( stdOutputInfo && outputTrueText )
 		outputTrueText->setOriginalRect( textPos[ nodeDirToPos( stdOutputInfo->orientation ) ] );
@@ -734,9 +734,9 @@ void FlowPart::updateNodePositions()
 		return;
 	}
 
-	NodeInfo * stdInputInfo = m_stdInput ? &m_nodeMap["stdinput"] : 0l;
-	NodeInfo * stdOutputInfo = m_stdOutput ? &m_nodeMap["stdoutput"] : 0;
-	NodeInfo * altOutputInfo = m_altOutput ? &m_nodeMap["altoutput"] : 0l;
+	NodeInfo * stdInputInfo = m_stdInput ? &m_nodeMap["stdinput"] : nullptr;
+	NodeInfo * stdOutputInfo = m_stdOutput ? &m_nodeMap["stdoutput"] : nullptr;
+	NodeInfo * altOutputInfo = m_altOutput ? &m_nodeMap["altoutput"] : nullptr;
 
 	if ( m_stdInput && m_stdOutput && m_altOutput ) {
 		stdInputInfo->orientation = diamondNodePositioning[m_orientation][0];

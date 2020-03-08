@@ -32,7 +32,7 @@ class FPNode : public Node
 {
 Q_OBJECT
 public:
-	FPNode( ICNDocument *_icnView, Node::node_type type, int dir, const QPoint &pos, QString *id = 0L );
+	FPNode( ICNDocument *_icnView, Node::node_type type, int dir, const QPoint &pos, QString *id = nullptr );
     ~FPNode() override;
 	
 	/**
@@ -98,7 +98,7 @@ public:
 	 * being the connected nodes, and so can simply return if they are in there.
 	 * If it is null, it will assume that it is the first ndoe & will create a list
 	 */
-	bool isConnected( Node *node, NodeList *checkedNodes = 0L ) override;
+	bool isConnected( Node *node, NodeList *checkedNodes = nullptr ) override;
 	/**
 	 * Removes all the NULL connectors
 	 */

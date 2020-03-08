@@ -42,7 +42,7 @@ void ComponentModel::setProperty( const QString & name, double value )
 
 
 //BEGIN class ComponentModelLibrary
-ComponentModelLibrary * ComponentModelLibrary::m_pSelf = 0l;
+ComponentModelLibrary * ComponentModelLibrary::m_pSelf = nullptr;
 
 
 // static
@@ -97,7 +97,7 @@ void ComponentModelLibrary::loadModels()
 
 		QString id;
 		QString typeString;
-		ComponentModel *model = 0;
+		ComponentModel *model = nullptr;
 
 		QTextStream stream( & file );
 		while ( !stream.atEnd() )
@@ -135,7 +135,7 @@ void ComponentModelLibrary::loadModels()
 				} */
 
 				// Reset the model
-				model = 0l;
+				model = nullptr;
 				id = QString::null;
 				typeString = QString::null;
 

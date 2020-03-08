@@ -25,7 +25,7 @@ static bool isCanvasDebugEnabled() {
 
 KtlQCanvasItem::KtlQCanvasItem(KtlQCanvas* canvas)
     : val(false), myx(0), myy(0), myz(0), cnv(canvas),
-     ext(0), m_bNeedRedraw(true), vis(false), sel(false)
+     ext(nullptr), m_bNeedRedraw(true), vis(false), sel(false)
 {
     if (isCanvasDebugEnabled()) {
         qDebug() << Q_FUNC_INFO << " this=" << this;
@@ -142,7 +142,7 @@ static bool collision_double_dispatch( const KtlQCanvasPolygonalItem* p1,
                     const KtlQCanvasRectangle* r2,
                     const KtlQCanvasEllipse* e2 )
 {
-    const KtlQCanvasItem *i1 = NULL;
+    const KtlQCanvasItem *i1 = nullptr;
     if (p1) {
         i1 = p1;
     } else {
@@ -152,7 +152,7 @@ static bool collision_double_dispatch( const KtlQCanvasPolygonalItem* p1,
             i1 = e1;
         }
     }
-    const KtlQCanvasItem *i2 = NULL;
+    const KtlQCanvasItem *i2 = nullptr;
     if (i2) {
         i2 = p2;
     } else {
@@ -201,32 +201,32 @@ static bool collision_double_dispatch( const KtlQCanvasPolygonalItem* p1,
 
 bool KtlQCanvasPolygonalItem::collidesWith( const KtlQCanvasItem* i ) const
 {
-    return i->collidesWith(this,0,0);
+    return i->collidesWith(this,nullptr,nullptr);
 }
 
 bool KtlQCanvasPolygonalItem::collidesWith( const KtlQCanvasPolygonalItem* p, const KtlQCanvasRectangle* r, const KtlQCanvasEllipse* e ) const
 {
-    return collision_double_dispatch(p,r,e,this,0,0);
+    return collision_double_dispatch(p,r,e,this,nullptr,nullptr);
 }
 
 bool KtlQCanvasRectangle::collidesWith( const KtlQCanvasItem* i ) const
 {
-    return i->collidesWith(this,this,0);
+    return i->collidesWith(this,this,nullptr);
 }
 
 bool KtlQCanvasRectangle::collidesWith( const KtlQCanvasPolygonalItem* p, const KtlQCanvasRectangle* r, const KtlQCanvasEllipse* e ) const
 {
-    return collision_double_dispatch(p,r,e,this,this,0);
+    return collision_double_dispatch(p,r,e,this,this,nullptr);
 }
 
 bool KtlQCanvasEllipse::collidesWith( const KtlQCanvasItem* i ) const
 {
-    return i->collidesWith(this,0,this);
+    return i->collidesWith(this,nullptr,this);
 }
 
 bool KtlQCanvasEllipse::collidesWith( const KtlQCanvasPolygonalItem* p, const KtlQCanvasRectangle* r, const KtlQCanvasEllipse* e ) const
 {
-    return collision_double_dispatch(p,r,e,this,0,this);
+    return collision_double_dispatch(p,r,e,this,nullptr,this);
 }
 
 KtlQCanvasItemList KtlQCanvasItem::collisions(const bool exact) const
@@ -297,7 +297,7 @@ QPolygon KtlQCanvasItem::chunks() const
 */
 static const QPen& defaultPolygonPen()
 {
-    static QPen* dp=0;
+    static QPen* dp=nullptr;
     if ( !dp )
         dp = new QPen;
     return *dp;
@@ -305,7 +305,7 @@ static const QPen& defaultPolygonPen()
 
 static const QBrush& defaultPolygonBrush()
 {
-    static QBrush* db=0;
+    static QBrush* db=nullptr;
     if ( !db )
         db = new QBrush;
     return *db;

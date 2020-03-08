@@ -24,7 +24,7 @@ class QSlider;
 class VariableCapacitor : public Component
 {
 	public:
-    	VariableCapacitor( ICNDocument* icnDocument, bool newItem, const QString& id = 0L );
+    	VariableCapacitor( ICNDocument* icnDocument, bool newItem, const QString& id = nullptr );
     	~VariableCapacitor() override;
 		
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

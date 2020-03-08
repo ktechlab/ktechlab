@@ -27,7 +27,7 @@ class ProbePositioner : public QWidget
 {
 	Q_OBJECT
 	public:
-		ProbePositioner(QWidget *parent = 0, const char *name = 0);
+		ProbePositioner(QWidget *parent = nullptr, const char *name = nullptr);
 		~ProbePositioner() override;
 		/**
 		 * Returns the amount of space (height in pixels) that a probe output

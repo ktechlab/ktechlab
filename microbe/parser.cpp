@@ -39,8 +39,8 @@ using namespace std;
 //BEGIN class Parser
 Parser::Parser( Microbe * _mb )
 {
-	m_code = 0;
-	m_pPic = 0;
+	m_code = nullptr;
+	m_pPic = nullptr;
 	mb = _mb;
 	// Set up statement definitions.
 	StatementDefinition definition;
@@ -79,18 +79,18 @@ Parser::Parser( Microbe * _mb )
 	definition.clear();
 
 	definition.append( Field(Field::Expression, "expression") );
-	definition.append( Field(Field::FixedString, 0, "then", true) );
+	definition.append( Field(Field::FixedString, nullptr, "then", true) );
 	definition.append( Field(Field::Code, "ifCode") );
 	definition.append( Field(Field::Newline) );
-	definition.append( Field(Field::FixedString, 0, "else", false) );
+	definition.append( Field(Field::FixedString, nullptr, "else", false) );
 	definition.append( Field(Field::Code, "elseCode") );
 	m_definitionMap["if"] = definition;
 	definition.clear();
 
 	definition.append( Field(Field::Expression, "initExpression") );
-	definition.append( Field(Field::FixedString, 0, "to", true) );
+	definition.append( Field(Field::FixedString, nullptr, "to", true) );
 	definition.append( Field(Field::Expression, "toExpression") );
-	definition.append( Field(Field::FixedString, 0, "step", false) );
+	definition.append( Field(Field::FixedString, nullptr, "step", false) );
 	definition.append( Field(Field::Expression, "stepExpression") );
 	definition.append( Field(Field::Code, "code") );
 	m_definitionMap["for"] = definition;
@@ -122,7 +122,7 @@ Parser::Parser( Microbe * _mb )
 
 	definition.append( Field(Field::Code, "code") );
 	definition.append( Field(Field::Newline) );
-	definition.append( Field(Field::FixedString, 0, "until", true) );
+	definition.append( Field(Field::FixedString, nullptr, "until", true) );
 	definition.append( Field(Field::Expression, "expression") );
 	m_definitionMap["repeat"] = definition;
 	definition.clear();
@@ -428,7 +428,7 @@ Code * Parser::parse( const SourceLineList & lines )
 			if ( saveSingleLine )
 			{
 				SourceLineList list;
-				list << SourceLine( token, 0, -1 );
+				list << SourceLine( token, nullptr, -1 );
 				fieldMap[field.key()] = OutputField( list );
 			}
 
@@ -688,7 +688,7 @@ void Parser::processStatement( const QString & name, const OutputFieldMap & fiel
 		}
 
 		SourceLineList tempList;
-		tempList << SourceLine( fieldMap["initExpression"].string(), 0, -1 );
+		tempList << SourceLine( fieldMap["initExpression"].string(), nullptr, -1 );
 
 		m_pPic->Sfor( parseWithChild( fieldMap["code"].bracedCode() ), parseWithChild( tempList ), endExpr, variable, step, stepPositive );
 	}

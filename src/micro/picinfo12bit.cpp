@@ -43,46 +43,46 @@ PicAsm12bit::PicAsm12bit()
 	: AsmInfo()
 {
 	// Byte-orientated file register operations
-	addInstruction( "ADDWF",	0,	"000111dfffff" );
-	addInstruction( "ANDWF",	0,	"000101dfffff" );
-	addInstruction( "CLRF",		0,	"0000011fffff" );
-	addInstruction( "CLRW",		0,	"000001000000" );
-	addInstruction( "COMF",		0,	"001001dfffff" );
-	addInstruction( "DECF",		0,	"000011dfffff" );
-	addInstruction( "DECFSZ",	0,	"001011dfffff" );
-	addInstruction( "INCF",		0,	"001010dfffff" );
-	addInstruction( "INCFSZ",	0,	"001111dfffff" );
-	addInstruction( "IORWF",	0,	"000100dfffff" );
-	addInstruction( "MOVF",		0,	"001000dfffff" );
-	addInstruction( "MOVWF",	0,	"0000001fffff" );
-	addInstruction( "NOP",		0,	"000000000000" );
-	addInstruction( "RLF",		0,	"001101dfffff" );
-	addInstruction( "RRF",		0,	"001100dfffff" );
-	addInstruction( "SUBWF",	0,	"000010dfffff" );
-	addInstruction( "SWAPF",	0,	"001110dfffff" );
-	addInstruction( "XORWF",	0,	"000110dfffff" );
+	addInstruction( "ADDWF",	nullptr,	"000111dfffff" );
+	addInstruction( "ANDWF",	nullptr,	"000101dfffff" );
+	addInstruction( "CLRF",		nullptr,	"0000011fffff" );
+	addInstruction( "CLRW",		nullptr,	"000001000000" );
+	addInstruction( "COMF",		nullptr,	"001001dfffff" );
+	addInstruction( "DECF",		nullptr,	"000011dfffff" );
+	addInstruction( "DECFSZ",	nullptr,	"001011dfffff" );
+	addInstruction( "INCF",		nullptr,	"001010dfffff" );
+	addInstruction( "INCFSZ",	nullptr,	"001111dfffff" );
+	addInstruction( "IORWF",	nullptr,	"000100dfffff" );
+	addInstruction( "MOVF",		nullptr,	"001000dfffff" );
+	addInstruction( "MOVWF",	nullptr,	"0000001fffff" );
+	addInstruction( "NOP",		nullptr,	"000000000000" );
+	addInstruction( "RLF",		nullptr,	"001101dfffff" );
+	addInstruction( "RRF",		nullptr,	"001100dfffff" );
+	addInstruction( "SUBWF",	nullptr,	"000010dfffff" );
+	addInstruction( "SWAPF",	nullptr,	"001110dfffff" );
+	addInstruction( "XORWF",	nullptr,	"000110dfffff" );
 	
 	// Bit-orientated file register operations
-	addInstruction( "BCF",		0,	"0100bbbfffff" );
-	addInstruction( "BSF",		0,	"0101bbbfffff" );
-	addInstruction( "BTFSC",	0,	"0110bbbfffff" );
-	addInstruction( "BTFSS",	0,	"0111bbbfffff" );
+	addInstruction( "BCF",		nullptr,	"0100bbbfffff" );
+	addInstruction( "BSF",		nullptr,	"0101bbbfffff" );
+	addInstruction( "BTFSC",	nullptr,	"0110bbbfffff" );
+	addInstruction( "BTFSS",	nullptr,	"0111bbbfffff" );
 	
 	// Literal and control operations
-	addInstruction( "ANDLW",	0,	"1110kkkkkkkk" );
-	addInstruction( "CALL",		0,	"1001kkkkkkkk" );
-	addInstruction( "CLRWDT",	0,	"000000000100" );
-	addInstruction( "GOTO",		0,	"101kkkkkkkkk" );
-	addInstruction( "IORLW",	0,	"1101kkkkkkkk" );
-	addInstruction( "MOVLW",	0,	"1100kkkkkkkk" );
+	addInstruction( "ANDLW",	nullptr,	"1110kkkkkkkk" );
+	addInstruction( "CALL",		nullptr,	"1001kkkkkkkk" );
+	addInstruction( "CLRWDT",	nullptr,	"000000000100" );
+	addInstruction( "GOTO",		nullptr,	"101kkkkkkkkk" );
+	addInstruction( "IORLW",	nullptr,	"1101kkkkkkkk" );
+	addInstruction( "MOVLW",	nullptr,	"1100kkkkkkkk" );
 // 	addInstruction( "RETFIE",	0,	"00000000001001" );
-	addInstruction( "OPTION",	0,	"000000000010" );
-	addInstruction( "RETLW",	0,	"1000kkkkkkkk" );
+	addInstruction( "OPTION",	nullptr,	"000000000010" );
+	addInstruction( "RETLW",	nullptr,	"1000kkkkkkkk" );
 // 	addInstruction( "RETURN",	0,	"00000000001000" );
-	addInstruction( "SLEEP",	0,	"000000000011" );
+	addInstruction( "SLEEP",	nullptr,	"000000000011" );
 // 	addInstruction( "SUBLW",	0,	"11110xkkkkkkkk" );
-	addInstruction( "TRIS",		0,	"000000000fff" );
-	addInstruction( "XORLW",	0,	"1111kkkkkkkk" );
+	addInstruction( "TRIS",		nullptr,	"000000000fff" );
+	addInstruction( "XORLW",	nullptr,	"1111kkkkkkkk" );
 }
 
 

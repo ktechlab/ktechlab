@@ -68,7 +68,7 @@ class OutputMethodDlg : public KDialog
 		 * @param inputURL Used for saving/restoring previous options the user has selected for this file; set this to null if temporary file
 		 * @param showPICSelect Whether to show the combo boxes for selecting a PIC
 		 */
-		OutputMethodDlg( const QString & caption, const KUrl & inputURL, bool showPICSelect = false, QWidget *parent = 0, const char *name = 0);
+		OutputMethodDlg( const QString & caption, const KUrl & inputURL, bool showPICSelect = false, QWidget *parent = nullptr, const char *name = nullptr);
 		~OutputMethodDlg() override;
 
 		void setOutputExtension( const QString & outputExtension );

@@ -41,7 +41,7 @@ FlowPartList InputFlowNode::inputFlowParts() const
 	{
 		if (*it) {
 			Node *startNode = (*it)->startNode();
-			FlowPart *flowPart = startNode ? dynamic_cast<FlowPart*>(startNode->parentItem()) : 0l;
+			FlowPart *flowPart = startNode ? dynamic_cast<FlowPart*>(startNode->parentItem()) : nullptr;
 			if (flowPart)
 				list.append(flowPart);
 		}

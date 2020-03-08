@@ -84,13 +84,13 @@ GpsimProcessor::GpsimProcessor( QString symbolFile, QObject *parent )
 	
 	m_bCanExecuteNextCycle = true;
 	m_bIsRunning = false;
-	m_pPicProcessor = 0l;
+	m_pPicProcessor = nullptr;
 	m_codLoadStatus = CodUnknown;
-	m_pRegisterMemory = 0l;
+	m_pRegisterMemory = nullptr;
 	m_debugMode = GpsimDebugger::AsmDebugger;
-	m_pDebugger[0] = m_pDebugger[1] = 0l;
+	m_pDebugger[0] = m_pDebugger[1] = nullptr;
 	
-	Processor * tempProcessor = 0l;
+	Processor * tempProcessor = nullptr;
 	const char * fileName = symbolFile.toAscii();
 	
 #ifdef GPSIM_0_21_4
@@ -162,26 +162,26 @@ void GpsimProcessor::displayCodLoadStatus( )
 		case CodSuccess:
 			break;
 		case CodFileNotFound:
-			KMessageBox::sorry( 0l, i18n("The cod file \"%1\" was not found.", m_symbolFile), i18n("File Not Found") );
+			KMessageBox::sorry( nullptr, i18n("The cod file \"%1\" was not found.", m_symbolFile), i18n("File Not Found") );
 			break;
 		case CodUnrecognizedProcessor:
-			KMessageBox::sorry( 0l, i18n("The processor for cod file \"%1\" is unrecognized.", m_symbolFile), i18n("Unrecognized Processor") );
+			KMessageBox::sorry( nullptr, i18n("The processor for cod file \"%1\" is unrecognized.", m_symbolFile), i18n("Unrecognized Processor") );
 			break;
 		case CodFileNameTooLong:
-			KMessageBox::sorry( 0l, i18n("The file name \"%1\" is too long.", m_symbolFile), i18n("Filename Too Long") );
+			KMessageBox::sorry( nullptr, i18n("The file name \"%1\" is too long.", m_symbolFile), i18n("Filename Too Long") );
 			break;
 		case CodLstNotFound:
-			KMessageBox::sorry( 0l, i18n("The lst file associated with the cod file \"%1\" was not found.", m_symbolFile), i18n("LST File Not Found") );
+			KMessageBox::sorry( nullptr, i18n("The lst file associated with the cod file \"%1\" was not found.", m_symbolFile), i18n("LST File Not Found") );
 			break;
 		case CodBadFile:
-			KMessageBox::sorry( 0l, i18n("The cod file \"%1\" is bad.", m_symbolFile), i18n("Bad File") );
+			KMessageBox::sorry( nullptr, i18n("The cod file \"%1\" is bad.", m_symbolFile), i18n("Bad File") );
 			break;
 		case CodFileUnreadable:
-			KMessageBox::sorry( 0l, i18n("The cod file \"%1\" could not be read from.", m_symbolFile), i18n("Unreadable File") );
+			KMessageBox::sorry( nullptr, i18n("The cod file \"%1\" could not be read from.", m_symbolFile), i18n("Unreadable File") );
 			break;
 		case CodFailure:
 		case CodUnknown:
-			KMessageBox::sorry( 0l, i18n("An error occurred with the cod file \"%1\".", m_symbolFile), i18n("Error") );
+			KMessageBox::sorry( nullptr, i18n("An error occurred with the cod file \"%1\".", m_symbolFile), i18n("Error") );
 			break;
 	}
 }
@@ -284,7 +284,7 @@ MicroInfo * GpsimProcessor::microInfo( ) const
 {
 	if ( !m_pPicProcessor ){
 		qWarning() << Q_FUNC_INFO << " m_pPicProcessor == NULL" << endl;
-		return 0l;
+		return nullptr;
 	}
 	
 	return MicroLibrary::self()->microInfoWithID( m_pPicProcessor->name().c_str() );
@@ -458,8 +458,8 @@ GpsimDebugger::GpsimDebugger( Type type, GpsimProcessor * gpsim )
 {
 	m_pGpsim = gpsim;
 	m_type = type;
-	m_pBreakFromOldLine = 0l;
-	m_addressToLineMap = 0l;
+	m_pBreakFromOldLine = nullptr;
+	m_addressToLineMap = nullptr;
 	m_stackLevelLowerBreak = -1;
 	m_addressSize = 0;
 	
@@ -507,7 +507,7 @@ void GpsimDebugger::gpsimRunningStatusChanged( bool isRunning )
 	if (!isRunning)
 	{
 		m_stackLevelLowerBreak = -1;
-		m_pBreakFromOldLine = 0l;
+		m_pBreakFromOldLine = nullptr;
 		emitLineReached();
 	}
 }
@@ -719,7 +719,7 @@ void GpsimDebugger::stackStep( int dl )
 		initialStack = 0;
 	
 	// Reset any previous stackStep, and step
-	m_pBreakFromOldLine = 0l;
+	m_pBreakFromOldLine = nullptr;
 	m_stackLevelLowerBreak = -1;
 	m_pGpsim->picProcessor()->step_one(false);
 	
@@ -795,7 +795,7 @@ RegisterInfo * RegisterSet::fromName( const QString & name )
 			return it.value();
 	}
 	
-	return 0l;
+	return nullptr;
 }
 
 

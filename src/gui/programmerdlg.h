@@ -31,7 +31,7 @@ class ProgrammerDlg : public KDialog
 		 * options (such as the program to use) will be read in from the
 		 * settings.
 		 */
-		ProgrammerDlg( const QString & picID, QWidget * parent = 0, const char * name = 0 );
+		ProgrammerDlg( const QString & picID, QWidget * parent = nullptr, const char * name = nullptr );
 		~ProgrammerDlg() override;
 
 		void reject() override;

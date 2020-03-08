@@ -115,7 +115,7 @@ public:
         hbar(new QScrollBar(Qt::Horizontal, parent /*, "qt_hbar"*/)),
         vbar(new QScrollBar(Qt::Vertical, parent /*, "qt_vbar" */)),
         viewport(new KtlQAbstractScrollAreaWidget(parent, "qt_viewport", QFlag(vpwflags))),
-        clipped_viewport(0),
+        clipped_viewport(nullptr),
         flags(vpwflags),
         vx(0), vy(0), vwidth(1), vheight(1),
 #ifndef QT_NO_DRAGANDDROP
@@ -135,7 +135,7 @@ public:
         viewport->ensurePolished();
         vMode = KtlQ3ScrollView::Auto;
         hMode = KtlQ3ScrollView::Auto;
-        corner = 0;
+        corner = nullptr;
         // vbar->setSteps(20, 1/*set later*/);
         vbar->setSingleStep(20); vbar->setPageStep(1);
         //hbar->setSteps(20, 1/*set later*/);
@@ -237,12 +237,12 @@ QSVChildRec* KtlQ3ScrollViewData::ancestorRec(QWidget* w)
     if (clipped_viewport) {
         while (w->parentWidget() != clipped_viewport) {
             w = w->parentWidget();
-            if (!w) return 0;
+            if (!w) return nullptr;
         }
     } else {
         while (w->parentWidget() != viewport) {
             w = w->parentWidget();
-            if (!w) return 0;
+            if (!w) return nullptr;
         }
     }
     return rec(w);
@@ -617,13 +617,13 @@ KtlQ3ScrollView::~KtlQ3ScrollView()
     // order is important
     // ~QWidget may cause a WM_ERASEBKGND on Windows
     delete d->vbar;
-    d->vbar = 0;
+    d->vbar = nullptr;
     delete d->hbar;
-    d->hbar = 0;
+    d->hbar = nullptr;
     delete d->viewport;
-    d->viewport = 0;
+    d->viewport = nullptr;
     delete d;
-    d = 0;
+    d = nullptr;
 }
 
 /*!
@@ -1375,7 +1375,7 @@ void KtlQ3ScrollView::removeChild(QObject* child)
 {
     // KtlQ3Frame::removeChild(child); // 2018.11.30
     if (child) {
-        child->setParent(0);
+        child->setParent(nullptr);
     }
 }
 
@@ -2609,7 +2609,7 @@ void KtlQ3ScrollView::enableClipper(bool y)        // note: this method as of 20
         d->clipped_viewport->show();
     } else {
         delete d->clipped_viewport;
-        d->clipped_viewport = 0;
+        d->clipped_viewport = nullptr;
     }
 }
 

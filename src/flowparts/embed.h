@@ -20,7 +20,7 @@
 class Embed : public FlowPart
 {
 public:
-	Embed( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	Embed( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 	~Embed() override;
 
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

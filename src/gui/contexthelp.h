@@ -42,7 +42,7 @@ class ContextHelp : public QWidget, public Ui::ContextHelpWidget
 {
 	Q_OBJECT
 	public:
-		static ContextHelp * self( KateMDI::ToolView * parent = 0l );
+		static ContextHelp * self( KateMDI::ToolView * parent = nullptr );
 		static QString toolViewIdentifier() { return "ContextHelp"; }
 		
 		~ContextHelp() override;

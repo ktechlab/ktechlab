@@ -35,7 +35,7 @@ class DependentSource : public Component
 class ECCCCS : public DependentSource
 {
 	public:
-		ECCCCS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		ECCCCS( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~ECCCCS() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -55,7 +55,7 @@ class ECCCCS : public DependentSource
 class ECCCVS : public DependentSource
 {
 	public:
-		ECCCVS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		ECCCVS( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~ECCCVS() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -75,7 +75,7 @@ class ECCCVS : public DependentSource
 class ECVCCS : public DependentSource
 {
 	public:
-		ECVCCS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		ECVCCS( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~ECVCCS() override;
 
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -95,7 +95,7 @@ class ECVCCS : public DependentSource
 class ECVCVS : public DependentSource
 {
 	public:
-		ECVCVS( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		ECVCVS( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~ECVCVS() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

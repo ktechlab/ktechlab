@@ -36,7 +36,7 @@ class ColorCombo : public QComboBox
   	 	/**
 		 * Constructs a color combo box.
 		 */
-		ColorCombo( ColorScheme colorScheme, QWidget *parent, const char *name = 0L );
+		ColorCombo( ColorScheme colorScheme, QWidget *parent, const char *name = nullptr );
 		~ColorCombo() override;
 
 		/**

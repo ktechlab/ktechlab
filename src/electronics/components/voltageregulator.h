@@ -35,7 +35,7 @@ const double maxVoltageOut = 50.0;
 class VoltageRegulator : public Component
 {
 	public:
-		VoltageRegulator( ICNDocument* icnDocument, bool newItem, const QString& id = 0L );
+		VoltageRegulator( ICNDocument* icnDocument, bool newItem, const QString& id = nullptr );
 		~VoltageRegulator() override;
 		
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

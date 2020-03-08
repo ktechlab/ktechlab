@@ -22,7 +22,7 @@
 class MagnitudeComparator : public CallbackClass, public Component
 {
 	public:
-		MagnitudeComparator( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		MagnitudeComparator( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~MagnitudeComparator() override;
 
 		static Item * construct( ItemDocument *itemDocument, bool newItem, const char *id );

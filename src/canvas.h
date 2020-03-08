@@ -29,7 +29,7 @@ class KtlQCanvas : public QObject
 {
 	Q_OBJECT
 	public:
-		KtlQCanvas( QObject* parent = 0, const char* name = 0 );
+		KtlQCanvas( QObject* parent = nullptr, const char* name = nullptr );
 		KtlQCanvas( const int w, const int h);
 		KtlQCanvas( QPixmap p, int h, int v, int tilewidth, int tileheight );
 
@@ -156,8 +156,8 @@ class KtlQCanvasView : public KtlQ3ScrollView
 	Q_OBJECT
 	public:
 
-		KtlQCanvasView(QWidget* parent=0, const char* name=0, Qt::WFlags f=0); // 2018.08.15 - unused?
-		KtlQCanvasView(KtlQCanvas* viewing, QWidget* parent=0, const char* name=0, Qt::WFlags f=0);
+		KtlQCanvasView(QWidget* parent=nullptr, const char* name=nullptr, Qt::WindowFlags f = {}); // 2018.08.15 - unused?
+		KtlQCanvasView(KtlQCanvas* viewing, QWidget* parent=nullptr, const char* name=nullptr, Qt::WindowFlags f = {});
 		~KtlQCanvasView() override;
 
 		KtlQCanvas* canvas() const

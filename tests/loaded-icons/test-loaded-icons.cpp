@@ -60,7 +60,7 @@ static void addIcon(QGridLayout *mainLayout, const char *iconName) {
         QPixmap testPixmapLoader = KIconLoader::global()->loadIcon(
             QString(iconName), KIconLoader::NoGroup,
             KIconLoader::SizeHuge, KIconLoader::DefaultState,
-            QStringList(), 0L, true
+            QStringList(), nullptr, true
         );
         if (testPixmapLoader.isNull()) {
             qWarning() << "loadIcon " << iconName << " is NULL";

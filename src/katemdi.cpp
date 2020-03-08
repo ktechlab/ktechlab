@@ -248,8 +248,8 @@ Sidebar::Sidebar (KMultiTabBar::KMultiTabBarPosition pos, MainWindow *mainwin, Q
       //(pos == KMultiTabBar::Top || pos == KMultiTabBar::Bottom) ? KMultiTabBar::Horizontal : KMultiTabBar::Vertical, parent)
       pos, parent)
   , m_mainWin (mainwin)
-  , m_splitter (0)
-  , m_ownSplit (0)
+  , m_splitter (nullptr)
+  , m_ownSplit (nullptr)
   , m_lastSize (0)
 {
   setObjectName(  (QString("Sidebar-%1").arg(pos)).toLatin1().data() );
@@ -313,7 +313,7 @@ ToolView *Sidebar::addWidget (const QPixmap &icon, const QString &text, ToolView
   {
     widget->hide ();
     //widget->reparent (m_ownSplit, 0, QPoint()); // 2018.11.22
-    widget->setParent(m_ownSplit, 0);
+    widget->setParent(m_ownSplit, nullptr);
     QPoint p;
     widget->setGeometry(p.x(),p.y(),width(),height());
     widget->m_sidebar = this;
@@ -486,7 +486,7 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
       {
         KMenu *p = new KMenu (this);
 
-        p->addTitle(SmallIcon("view_remove"), i18n("Behavior"), 0 /*0 */);
+        p->addTitle(SmallIcon("view_remove"), i18n("Behavior"), nullptr /*0 */);
 
         //p->insertItem(w->persistent ? SmallIcon("view-restore") : SmallIcon("view-fullscreen"), w->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent"), 10); // 2018.11.22
         p->addAction(
@@ -494,7 +494,7 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
             w->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent")
         )->setData(10);
 
-        p->addTitle(SmallIcon("transform-move"), i18n("Move To"), 0 /* 51 ? */);
+        p->addTitle(SmallIcon("transform-move"), i18n("Move To"), nullptr /* 51 ? */);
 
 		if (sidebarPosition() != 0)
           //p->insertItem(SmallIcon("go-previous"), i18n("Left Sidebar"),0);  // 2018.11.22
@@ -687,7 +687,7 @@ void Sidebar::saveSession (KConfigGroup *config)
 
 MainWindow::MainWindow (QWidget* parentWidget, const char* name)
  : KParts::MainWindow( parentWidget, (Qt::WindowFlags)KDE_DEFAULT_WINDOWFLAGS )
- , m_restoreConfig (0)
+ , m_restoreConfig (nullptr)
  , m_guiClient (new GUIClient (this))
 {
     setObjectName(name);
@@ -768,7 +768,7 @@ QWidget *MainWindow::centralWidget () const
 ToolView *MainWindow::createToolView (const QString &identifier, KMultiTabBar::KMultiTabBarPosition pos, const QPixmap &icon, const QString &text)
 {
   if (m_idToWidget[identifier])
-    return 0;
+    return nullptr;
 
   // try the restore config to figure out real pos
   if (m_restoreConfig && m_restoreConfig->hasGroup (m_restoreGroup))
@@ -777,7 +777,7 @@ ToolView *MainWindow::createToolView (const QString &identifier, KMultiTabBar::K
     pos = (KMultiTabBar::KMultiTabBarPosition) grRest.readEntry (QString ("Kate-MDI-ToolView-%1-Position").arg(identifier), (int) pos);
   }
 
-  ToolView *v  = m_sidebars[pos]->addWidget (icon, text, 0);
+  ToolView *v  = m_sidebars[pos]->addWidget (icon, text, nullptr);
   v->id = identifier;
 
   m_idToWidget.insert (identifier, v);
@@ -941,7 +941,7 @@ void MainWindow::finishRestore ()
   }
 
   // clear this stuff, we are done ;)
-  m_restoreConfig = 0;
+  m_restoreConfig = nullptr;
   m_restoreGroup = "";
 }
 

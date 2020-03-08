@@ -29,7 +29,7 @@ class RichTextEditor : public QWidget
 {
 	Q_OBJECT
 	public:
-		RichTextEditor( QWidget *parent = 0, const char *name = 0 );
+		RichTextEditor( QWidget *parent = nullptr, const char *name = nullptr );
 
 		~RichTextEditor() override;
 		/**.
@@ -106,7 +106,7 @@ Popup dialog for editing rich text
 class RichTextEditorDlg : public KDialog /* or KPageDialog ? */ // KDialog
 {
 	public:
-		RichTextEditorDlg( QWidget * parent = 0, const QString & caption = QString::null );
+		RichTextEditorDlg( QWidget * parent = nullptr, const QString & caption = QString::null );
 
 		/**
 		 * Sets the text being edited (passes it to RichTextEditor).

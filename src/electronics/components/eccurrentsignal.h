@@ -20,7 +20,7 @@
 class ECCurrentSignal : public Component
 {
 public:
-	ECCurrentSignal( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECCurrentSignal( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 	~ECCurrentSignal() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

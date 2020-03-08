@@ -30,7 +30,7 @@ class MicroSelectWidget : public QGroupBox
 	Q_OBJECT
 
 	public:
-		MicroSelectWidget( QWidget* parent = 0, const char* name = 0, Qt::WFlags fl = 0 );
+		MicroSelectWidget( QWidget* parent = nullptr, const char* name = nullptr, Qt::WindowFlags f = {} );
 		~MicroSelectWidget() override;
 
 		void setMicro( const QString & id );

@@ -365,9 +365,9 @@ void TextView::initCodeActions()
 
 	QMenu * tb = (dynamic_cast<KToolBarPopupAction*>(actionByName("program_convert")))->menu();
 
-    QAction *actHexOut = NULL;
-    QAction *actPicOut = NULL;
-    QAction *actAsmOut = NULL;
+    QAction *actHexOut = nullptr;
+    QAction *actPicOut = nullptr;
+    QAction *actAsmOut = nullptr;
     QList<QAction*> actions = tb->actions();
     Q_FOREACH(QAction *a, actions) {
         switch (a->data().toInt()) {
@@ -531,7 +531,7 @@ void TextView::slotWordHoveredOver( const QString & word, int line, int /*col*/ 
 {
 #ifndef NO_GPSIM
 	// We're only interested in popping something up if we currently have a debugger running
-	GpsimProcessor * gpsim = textDocument()->debugger() ? textDocument()->debugger()->gpsim() : 0l;
+	GpsimProcessor * gpsim = textDocument()->debugger() ? textDocument()->debugger()->gpsim() : nullptr;
 	if ( !gpsim )
 	{
 		m_pTextViewLabel->hide();
@@ -634,7 +634,7 @@ bool TextViewEventFilter::eventFilter( QObject *, QEvent * e )
 	{
 		// user moved focus somewhere - hide the tip and sleep
 		if ( ((QFocusEvent*)e)->reason() != Qt::PopupFocusReason )
-			updateHovering( 0, -1, -1 );
+			updateHovering( nullptr, -1, -1 );
 	}
 
 	return false;
@@ -660,7 +660,7 @@ void TextViewEventFilter::gotoSleep()
 
 void TextViewEventFilter::slotNoWordTimeout()
 {
-	updateHovering( 0, -1, -1 );
+	updateHovering( nullptr, -1, -1 );
 }
 
 

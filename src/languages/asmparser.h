@@ -35,7 +35,7 @@ class AsmParser
 		 * from the assembly file (such as those beginning with ";#CSRC" will be
 		 * passed to hllDebugger).
 		 */
-		bool parse( GpsimDebugger * debugger = 0l );
+		bool parse( GpsimDebugger * debugger = nullptr );
 		/**
 		 * Returns the PIC ID
 		 */

@@ -42,7 +42,7 @@ class PICComponent : public Component
 {
 	Q_OBJECT
 	public:
-		PICComponent( ICNDocument * icnDocument, bool newItem, const char *id = 0L );
+		PICComponent( ICNDocument * icnDocument, bool newItem, const char *id = nullptr );
 		~PICComponent() override;
 	
 		static Item * construct( ItemDocument *itemDocument, bool newItem, const char *id );

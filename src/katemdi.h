@@ -43,7 +43,7 @@ class Splitter : public QSplitter
   Q_OBJECT
 
   public:
-    Splitter(Qt::Orientation o, QWidget* parent=0, const char* name=0);
+    Splitter(Qt::Orientation o, QWidget* parent=nullptr, const char* name=nullptr);
     ~Splitter() override;
 
     /** Since there is supposed to be only 2 childs of a katesplitter,
@@ -63,7 +63,7 @@ class ToggleToolViewAction : public KToggleAction
 
   public:
     ToggleToolViewAction ( const QString& text, const KShortcut& cut,
-                           class ToolView *tv, QObject* parent = 0, const char* name = 0 );
+                           class ToolView *tv, QObject* parent = nullptr, const char* name = nullptr );
 
     ~ToggleToolViewAction() override;
 
@@ -258,7 +258,7 @@ class MainWindow : public KParts::MainWindow
     /**
      * Constructor
      */
-    MainWindow (QWidget* parentWidget = 0, const char* name = 0);
+    MainWindow (QWidget* parentWidget = nullptr, const char* name = nullptr);
 
     /**
      * Destructor

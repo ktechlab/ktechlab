@@ -33,7 +33,7 @@ class ECNode : public Node
 {
 	Q_OBJECT
 	public:
-		ECNode( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint &pos, QString *id = 0L );
+		ECNode( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint &pos, QString *id = nullptr );
 		~ECNode() override;
 
 		void setParentItem( CNItem *parentItem ) override;
@@ -76,7 +76,7 @@ class ECNode : public Node
 		 * being the connected nodes, and so can simply return if they are in there.
 		 * If it is null, it will assume that it is the first ndoe & will create a list
 		 */
-		bool isConnected( Node *node, NodeList *checkedNodes = 0L ) override;
+		bool isConnected( Node *node, NodeList *checkedNodes = nullptr ) override;
 		/**
 		 * Sets the node's visibility, as well as updating the visibility of the
 		 * attached connectors as appropriate

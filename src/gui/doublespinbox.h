@@ -24,8 +24,8 @@ class DoubleSpinBox : public QDoubleSpinBox
 {
 	Q_OBJECT
 	public:
-		DoubleSpinBox( double lower, double upper, double minAbs, double value, const QString & unit, QWidget * parent = 0 );
-		DoubleSpinBox( QWidget * parent = 0 );
+		DoubleSpinBox( double lower, double upper, double minAbs, double value, const QString & unit, QWidget * parent = nullptr );
+		DoubleSpinBox( QWidget * parent = nullptr );
 		~DoubleSpinBox() override;
 		
 		/**

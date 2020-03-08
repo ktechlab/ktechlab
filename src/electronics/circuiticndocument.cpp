@@ -34,7 +34,7 @@ CircuitICNDocument::~CircuitICNDocument()
 	KtlQCanvasItemList all = m_canvas->allItems();
 	const KtlQCanvasItemList::Iterator end = all.end();
 	for ( KtlQCanvasItemList::Iterator it= all.begin(); it != end; ++it )
-		(*it)->setCanvas(0l);
+		(*it)->setCanvas(nullptr);
 	
 	// Remove all items from the canvas
 	selectAll();
@@ -63,7 +63,7 @@ void CircuitICNDocument::deleteAllNodes() {
             ECNode *ecNode = it.value();
             //unregisterUID( ecNode->id() ); // do not use, will modify m_ecNodeList
             ICNDocument::unregisterUID( ecNode->id() );
-            ecNode->setICNDocument( NULL );
+            ecNode->setICNDocument( nullptr );
         }
 
 
@@ -91,7 +91,7 @@ bool CircuitICNDocument::canConnect( KtlQCanvasItem *qcanvasItem1, KtlQCanvasIte
 
 Connector * CircuitICNDocument::createConnector( Node *node, Connector *con, const QPoint &pos2, QPointList *pointList )
 {
-	if(!canConnect( node, con ) ) return 0;
+	if(!canConnect( node, con ) ) return nullptr;
 	
 	// FIXME dynamic_cast used, fix it in Connector class
 	
@@ -149,7 +149,7 @@ Connector * CircuitICNDocument::createConnector( Node *node, Connector *con, con
 
 Connector *CircuitICNDocument::createConnector(Connector *con1, Connector *con2, const QPoint &pos1, const QPoint &pos2, QPointList *pointList )
 {
-	if ( !canConnect( con1, con2 ) ) return 0;
+	if ( !canConnect( con1, con2 ) ) return nullptr;
 	
 	const bool con1UsedManual = con1->usesManualPoints();
 	const bool con2UsedManual = con2->usesManualPoints();
@@ -163,7 +163,7 @@ Connector *CircuitICNDocument::createConnector(Connector *con1, Connector *con2,
 	ECNode *node2a = dynamic_cast<ECNode*> ( con2->startNode() );
 	ECNode *node2b = dynamic_cast<ECNode*> ( con2->endNode(  ) );
 	
-	if ( !node1a || !node1b || !node2a || !node2b ) return 0;
+	if ( !node1a || !node1b || !node2a || !node2b ) return nullptr;
 	
 	con1->hide();	
 	con2->hide();
@@ -202,7 +202,7 @@ Connector *CircuitICNDocument::createConnector(Connector *con1, Connector *con2,
 		newNode2->removeNode();
 		
 		flushDeleteList();
-		return 0;
+		return nullptr;
 	}
 	
 	con1a->setRoutePoints(oldCon1Points.at(0), con1UsedManual );
@@ -259,15 +259,15 @@ Connector *CircuitICNDocument::createConnector( const QString &startNodeId, cons
 	
 	if ( !startNode || !endNode ) {
 		qDebug() << "Either/both the connector start node and end node could not be found" << endl;
-		return 0L;
+		return nullptr;
 	}
 	
-	if ( !canConnect( startNode, endNode ) ) return 0l;
+	if ( !canConnect( startNode, endNode ) ) return nullptr;
 	
 	Connector *connector = endNode->createConnector(startNode);
 	if (!connector) {
 		qCritical() << Q_FUNC_INFO << "End node did not create the connector" << endl;
-		return 0l;
+		return nullptr;
 	}
 
 	startNode->addConnector(connector);
@@ -291,14 +291,14 @@ Node *CircuitICNDocument::nodeWithID( const QString &id )
 {
 	if ( m_ecNodeList.contains( id ) )
 		return m_ecNodeList[id];
-	else	return 0;
+	else	return nullptr;
 }
 
 ECNode *CircuitICNDocument::getEcNodeWithID( const QString &id )
 {
 	if ( m_ecNodeList.contains( id ) )
 		return m_ecNodeList[id];
-	else	return 0;
+	else	return nullptr;
 }
 
 void CircuitICNDocument::slotAssignNodeGroups()
@@ -351,7 +351,7 @@ void CircuitICNDocument::flushDeleteList()
 			m_connectorList.removeAll ( con );
 		else	qCritical() << Q_FUNC_INFO << "Unknown qcanvasItem! "<<qcanvasItem << endl;
 
-		qcanvasItem->setCanvas(0);
+		qcanvasItem->setCanvas(nullptr);
 
 		delete qcanvasItem;
 		*it = 0;
@@ -440,8 +440,8 @@ bool CircuitICNDocument::joinConnectors( ECNode *node )
 	if ( conCount != 2 ) return false;
 
 	Connector *con1, *con2;
-	ECNode *startNode = NULL;
-    ECNode *endNode = NULL;
+	ECNode *startNode = nullptr;
+    ECNode *endNode = nullptr;
 	QPointList conPoints;
 
 	con1 = node->connectorList().at(0).data();

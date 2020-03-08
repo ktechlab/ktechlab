@@ -30,10 +30,10 @@ typedef std::multimap<int, PinList> PinListMap;
 Circuit::Circuit()
 {
 	m_bCanAddChanged = true;
-	m_pNextChanged[0] = m_pNextChanged[1] = 0l;
+	m_pNextChanged[0] = m_pNextChanged[1] = nullptr;
 	m_logicOutCount = 0;
 	m_bCanCache = false;
-	m_pLogicOut = 0l;
+	m_pLogicOut = nullptr;
 	m_elementSet = new ElementSet( this, 0, 0 ); // why do we do this?
 	m_cnodeCount = m_branchCount = -1;
 	m_prepNLCount = 0;
@@ -197,7 +197,7 @@ void Circuit::init()
 	m_cnodeCount = eqs.size() - groundCount;
 	
 	delete m_pLogicCacheBase;
-	m_pLogicCacheBase = 0l;
+	m_pLogicCacheBase = nullptr;
 	
 	delete m_elementSet;
 	m_elementSet = new ElementSet( this, m_cnodeCount, m_branchCount );
@@ -307,10 +307,10 @@ void Circuit::initCache()
 	m_logicOutCount = 0;
 	
 	delete[] m_pLogicOut;
-	m_pLogicOut = 0l;
+	m_pLogicOut = nullptr;
 	
 	delete m_pLogicCacheBase;
-	m_pLogicCacheBase = 0l;
+	m_pLogicCacheBase = nullptr;
 	
 	const ElementList::iterator end = m_elementList.end();
 	for ( ElementList::iterator it = m_elementList.begin(); it != end && m_bCanCache; ++it )
@@ -372,13 +372,13 @@ void Circuit::setCacheInvalidated()
 	if (m_pLogicCacheBase)
 	{
 		delete m_pLogicCacheBase->high;
-		m_pLogicCacheBase->high = 0l;
+		m_pLogicCacheBase->high = nullptr;
 	
 		delete m_pLogicCacheBase->low;
-		m_pLogicCacheBase->low = 0l;
+		m_pLogicCacheBase->low = nullptr;
 	
 		delete m_pLogicCacheBase->data;
-		m_pLogicCacheBase->data = 0l;
+		m_pLogicCacheBase->data = nullptr;
 	}
 }
 
@@ -536,9 +536,9 @@ void Circuit::displayEquations()
 
 LogicCacheNode::LogicCacheNode()
 {
-	low = 0l;
-	high = 0l;
-	data = 0l;
+	low = nullptr;
+	high = nullptr;
+	data = nullptr;
 }
 
 

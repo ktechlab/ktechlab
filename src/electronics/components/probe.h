@@ -23,7 +23,7 @@ class FloatingProbeData;
 class Probe : public Component
 {
 	public:
-		Probe( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		Probe( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~Probe() override;
 	
 	protected:
@@ -39,7 +39,7 @@ class Probe : public Component
 class FloatingProbe : public Probe
 {
 	public:
-		FloatingProbe( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		FloatingProbe( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~FloatingProbe() override;
 	
 		bool doesStepNonLogic() const override { return true; }
@@ -57,7 +57,7 @@ class FloatingProbe : public Probe
 class VoltageProbe : public FloatingProbe
 {
 	public:
-		VoltageProbe( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		VoltageProbe( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~VoltageProbe() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -76,7 +76,7 @@ class VoltageProbe : public FloatingProbe
 class CurrentProbe : public FloatingProbe
 {
 	public:
-		CurrentProbe( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		CurrentProbe( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~CurrentProbe() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -94,7 +94,7 @@ class CurrentProbe : public FloatingProbe
 class LogicProbe : public CallbackClass, public Probe
 {
 	public:
-		LogicProbe( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		LogicProbe( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~LogicProbe() override;
 
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

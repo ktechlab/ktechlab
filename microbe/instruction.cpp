@@ -2216,7 +2216,7 @@ Instruction * Code::instruction( const QString & label ) const
 				return *it;
 		}
 	}
-	return 0l;
+	return nullptr;
 }
 
 

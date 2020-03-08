@@ -58,7 +58,7 @@ public:
 	 * wire-connection point at the top and the (component/flowpart)-end at the
 	 * bottom.
 	 */
-	Node( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint &pos, QString *id = 0L );
+	Node( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint &pos, QString *id = nullptr );
 	~Node() override;
 
 	/**
@@ -113,7 +113,7 @@ public:
 	 * Returns true if the node is part of a CNItem
 	 * (i.e. not between multiple connectors)
 	 */
-	bool isChildNode() const { return (p_parentItem != 0L); }
+	bool isChildNode() const { return (p_parentItem != nullptr); }
 	/**
 	 * Returns a pointer to the CNItem to which the node belongs,
 	 * or Null if it doesn't.
@@ -128,7 +128,7 @@ public:
 
 	/* interface common to ecnode and fpnode; these might be required by ItemDocumentData, ICNDocument  */
 
-	virtual bool isConnected( Node *node, NodeList *checkedNodes = 0L ) = 0;
+	virtual bool isConnected( Node *node, NodeList *checkedNodes = nullptr ) = 0;
 
 	virtual void removeConnector( Connector *connector ) = 0;
 

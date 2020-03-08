@@ -22,7 +22,7 @@ class QSlider;
 class VariableResistor : public Component
 {
 	public:
-		VariableResistor( ICNDocument* icnDocument, bool newItem, const QString& id = 0L );
+		VariableResistor( ICNDocument* icnDocument, bool newItem, const QString& id = nullptr );
 		~VariableResistor() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

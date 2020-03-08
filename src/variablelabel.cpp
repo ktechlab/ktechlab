@@ -62,7 +62,7 @@ void VariableLabel::disconnectRegisterInfo()
 	disconnect( m_pRegisterInfo, SIGNAL(destroyed()), this, SLOT(hide()) );
 	disconnect( m_pRegisterInfo, SIGNAL(valueChanged(unsigned)), this, SLOT(updateText()) );
 	
-	m_pRegisterInfo = 0l;
+	m_pRegisterInfo = nullptr;
 	m_registerName = QString::null;
 }
 

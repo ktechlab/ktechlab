@@ -102,7 +102,7 @@ LEDBarGraphDisplay::LEDBarGraphDisplay( ICNDocument* icnDocument, bool newItem, 
 	m_numRows = 0;
 		
 	for( unsigned i = 0; i < max_LED_rows; i++ )
-		m_LEDParts[i] = 0l;
+		m_LEDParts[i] = nullptr;
 	
 	// Create a Row property.
 	createProperty( "rows", Variant::Type::Int );
@@ -221,7 +221,7 @@ void LEDBarGraphDisplay::initPins()
 		for( unsigned i = numRows; i < m_numRows; i++ )
 		{
 			delete m_LEDParts[i];
-			m_LEDParts[i] = 0l;	
+			m_LEDParts[i] = nullptr;	
 		}
 	}
 		   

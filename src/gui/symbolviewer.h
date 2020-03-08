@@ -34,7 +34,7 @@ class SymbolViewer : public QWidget
 {
 	Q_OBJECT
 	public:
-		static SymbolViewer * self( KateMDI::ToolView * parent = 0l );
+		static SymbolViewer * self( KateMDI::ToolView * parent = nullptr );
 		static QString toolViewIdentifier() { return "SymbolViewer"; }
 		~SymbolViewer() override;
 

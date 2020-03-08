@@ -20,7 +20,7 @@
 class ECPTBSwitch : public Component
 {
 public:
-	ECPTBSwitch( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECPTBSwitch( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 	~ECPTBSwitch() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );
@@ -43,7 +43,7 @@ private:
 class ECPTMSwitch : public Component
 {
 public:
-	ECPTMSwitch( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	ECPTMSwitch( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 	~ECPTMSwitch() override;
 	
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

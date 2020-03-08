@@ -52,7 +52,7 @@ ScopeScreen::~ScopeScreen()
 
 ScopeScreen * ScopeScreen::self( KateMDI::ToolView * parent )
 {
-	static ScopeScreen * pSelf = 0L;
+	static ScopeScreen * pSelf = nullptr;
 	if(pSelf)
 		return pSelf;
 	assert(parent);

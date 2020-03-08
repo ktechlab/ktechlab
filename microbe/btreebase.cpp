@@ -25,14 +25,14 @@
 
 BTreeBase::BTreeBase()
 {
-	m_root = 0L;
+	m_root = nullptr;
 }
 
 void BTreeBase::deleteTree()
 {
 	if(m_root) m_root->deleteChildren();
 	delete m_root;
-	m_root = 0L;
+	m_root = nullptr;
 }
 
 BTreeBase::~BTreeBase()
@@ -75,8 +75,8 @@ void BTreeBase::pruneTree(BTreeNode *root, bool /*conditionalRoot*/)
 
 	BTreeNode *l = t.current()->left();
 	BTreeNode *r = t.current()->right();
-	BTreeNode *n = 0;
-	BTreeNode *z = 0;
+	BTreeNode *n = nullptr;
+	BTreeNode *z = nullptr;
 	
 
 	// Deal with situations where there are two constants so we want
@@ -240,7 +240,7 @@ void BTreeBase::replaceNode(BTreeNode *node, BTreeNode *replacement)
 	if( !node->parent() )
 	{
 		setRoot(replacement);
-		replacement->setParent(0L);
+		replacement->setParent(nullptr);
 		return;
 	}
 	if( node->parent()->left() == node ) node->parent()->setLeft(replacement);

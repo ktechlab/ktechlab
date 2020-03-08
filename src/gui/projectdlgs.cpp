@@ -215,7 +215,7 @@ LinkerOptionsDlg::LinkerOptionsDlg( LinkerOptions * linkingOptions, QWidget *par
 		//item->setOn( linkedInternal.contains(relativeURL) ); // 2017.12.1 - convert to QListWidgetItem
 	}
 
-	m_pExternalLibraryRequester = new KUrlRequester( 0l );
+	m_pExternalLibraryRequester = new KUrlRequester( nullptr );
 	//m_pExternalLibraryRequester->fileDialog()->setUrl( KUrl( "/usr/share/sdcc/lib" ) );
     m_pExternalLibraryRequester->fileDialog()->setDirectoryUrl( KUrl( "/usr/share/sdcc/lib" ) );
 	

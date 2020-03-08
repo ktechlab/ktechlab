@@ -20,7 +20,7 @@
 class ECKeyPad : public Component
 {
 	public:
-		ECKeyPad( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		ECKeyPad( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~ECKeyPad() override;
 	
 		static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

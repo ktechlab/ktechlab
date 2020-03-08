@@ -19,7 +19,7 @@
 class JunctionNode : public ECNode
 {
 public:
-	JunctionNode(ICNDocument* icnDocument, int dir, const QPoint& pos, QString* id = 0L);
+	JunctionNode(ICNDocument* icnDocument, int dir, const QPoint& pos, QString* id = nullptr);
 
 	~JunctionNode() override;
 

@@ -22,7 +22,7 @@ class MOSFET;
 class ECMOSFET : public Component
 {
 	public:
-		ECMOSFET( int MOSFET_type, ICNDocument *icnDocument, bool newItem, const char * id = 0L );
+		ECMOSFET( int MOSFET_type, ICNDocument *icnDocument, bool newItem, const char * id = nullptr );
 		~ECMOSFET() override;
 	
 		static Item * constructNEM( ItemDocument * itemDocument, bool newItem, const char * id );

@@ -24,9 +24,9 @@
 Document::Document( const QString &caption, const char *name )
 	: QObject( KTechlab::self() /* , name */ ),
 	b_modified(false),
-	m_pDocumentIface(0),
+	m_pDocumentIface(nullptr),
 	m_bDeleted(false),
-	m_pActiveView(0),
+	m_pActiveView(nullptr),
 	m_caption(caption),
 	m_bAddToProjectOnSave(false),
 	m_dcopID(0),
@@ -75,7 +75,7 @@ void Document::slotViewDestroyed( QObject *obj )
 	
 	if ( m_pActiveView == (QPointer<View>)view )
 	{
-		m_pActiveView = 0l;
+		m_pActiveView = nullptr;
 		emit viewUnfocused();
 	}
 	
@@ -130,7 +130,7 @@ bool Document::fileClose()
 		// If the filename is empty then it must  be an untitled file.
 		QString name = m_url.fileName().isEmpty() ? caption() : m_url.fileName();
 		
-		if ( ViewContainer * viewContainer = (activeView() ? activeView()->viewContainer() : 0l) )
+		if ( ViewContainer * viewContainer = (activeView() ? activeView()->viewContainer() : nullptr) )
 			KTechlab::self()->tabWidget()->setCurrentIndex( KTechlab::self()->tabWidget()->indexOf(viewContainer) );
 		
 		int choice = KMessageBox::warningYesNoCancel( KTechlab::self(),

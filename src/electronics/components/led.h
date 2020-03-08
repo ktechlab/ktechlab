@@ -21,7 +21,7 @@
 class LED : public ECDiode
 {
 public:
-	LED( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+	LED( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 	~LED() override;
 
 	static Item* construct( ItemDocument *itemDocument, bool newItem, const char *id );

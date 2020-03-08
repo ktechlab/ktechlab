@@ -22,7 +22,7 @@ class SerialPort;
 class SerialPortComponent : public CallbackClass, public Component
 {
 	public:
-		SerialPortComponent( ICNDocument *icnDocument, bool newItem, const char *id = 0L );
+		SerialPortComponent( ICNDocument *icnDocument, bool newItem, const char *id = nullptr );
 		~SerialPortComponent() override;
 	
 		static Item * construct( ItemDocument *itemDocument, bool newItem, const char *id );

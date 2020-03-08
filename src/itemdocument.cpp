@@ -67,8 +67,8 @@ ItemDocument::ItemDocument( const QString &caption, const char *name)
 {
 	m_queuedEvents = 0;
 	m_nextIdNum = 1;
-	m_savedState = 0;
-	m_currentState = 0;
+	m_savedState = nullptr;
+	m_currentState = nullptr;
 	m_bIsLoading = false;
 
 	m_canvas = new Canvas( this, "canvas" );
@@ -317,7 +317,7 @@ void ItemDocument::requestStateSave( int actionTicket )
 	if ( (actionTicket >= 0) && (actionTicket == m_currentActionTicket) )
 	{
 		delete m_currentState;
-		m_currentState = 0;
+		m_currentState = nullptr;
 	}
 
 	m_currentActionTicket = actionTicket;
@@ -374,7 +374,7 @@ void ItemDocument::clearHistory()
 	cleanClearStack( m_undoStack );
 	cleanClearStack( m_redoStack );
 	delete m_currentState;
-	m_currentState = 0;
+	m_currentState = nullptr;
 	requestStateSave();
 }
 
@@ -461,7 +461,7 @@ Item *ItemDocument::itemWithID( const QString &id )
 {
 	if ( m_itemList.contains( id ) )
 		return m_itemList[id];
-	else	return 0;
+	else	return nullptr;
 }
 
 
@@ -526,7 +526,7 @@ KtlQCanvasItem* ItemDocument::itemAtTop( const QPoint &pos ) const
 		}
 	}
 
-	return 0;
+	return nullptr;
 }
 
 
@@ -745,7 +745,7 @@ void ItemDocument::resizeCanvasToItems()
 {
 	QRect bound = canvasBoundingRect();
 
-	m_viewList.removeAll((View*)0);
+	m_viewList.removeAll((View*)nullptr);
 	const ViewList::iterator end = m_viewList.end();
 	for ( ViewList::iterator it = m_viewList.begin(); it != end; ++it ) {
 		ItemView * iv = static_cast<ItemView*>((View*)*it);
@@ -801,7 +801,7 @@ QRect ItemDocument::canvasBoundingRect() const
 	QRect bound;
 
 	// Don't include items used for dragging
-	Item *dragItem = 0;
+	Item *dragItem = nullptr;
 	const ViewList::const_iterator viewsEnd = m_viewList.end();
 	for ( ViewList::const_iterator it = m_viewList.begin(); it != viewsEnd; ++it )
 	{
@@ -910,20 +910,20 @@ void ItemDocument::exportToImage()
 	if ( filter == "*.png") 	type = "PNG";
 	else if ( filter == "*.bmp")	type = "BMP";
 	else if ( filter == "*.svg" ) {
-		KMessageBox::information( NULL, i18n("SVG export is sub-functional"), i18n("Export As Image") );
+		KMessageBox::information( nullptr, i18n("SVG export is sub-functional"), i18n("Export As Image") );
 		type = "SVG";
 	}
 	// I don't like forcing people to use the right extension (personally)
 	// but it is the easiest way to decide image type.
 	else {
-		KMessageBox::sorry( NULL, i18n("Unknown extension, please select one from the filter list."), i18n("Export As Image") );
+		KMessageBox::sorry( nullptr, i18n("Unknown extension, please select one from the filter list."), i18n("Export As Image") );
 		return;
 	}
 
 	if ( cropCheck->isChecked() ) {
 		cropArea = canvasBoundingRect();
 		if ( cropArea.isNull() ) {
-			KMessageBox::sorry( 0l, i18n("There is nothing to crop"), i18n("Export As Image") );
+			KMessageBox::sorry( nullptr, i18n("There is nothing to crop"), i18n("Export As Image") );
 			return;
 		} else {
 			cropArea &= canvas()->rect();
@@ -1042,7 +1042,7 @@ void ItemDocument::raiseZ( const ItemList & itemList )
 	IntItemMap::iterator previous = m_zOrder.end();
 	IntItemMap::iterator it = --m_zOrder.end();
 	do {
-		Item * previousData = (previous == m_zOrder.end()) ? 0l : previous.value();
+		Item * previousData = (previous == m_zOrder.end()) ? nullptr : previous.value();
 		Item * currentData = it.value();
 
 		if ( currentData && previousData && itemList.contains(currentData) && !itemList.contains(previousData) )
@@ -1381,7 +1381,7 @@ void Canvas::drawForeground ( QPainter &p, const QRect & clip )
 	QSize minSize;
 	const ViewList viewList = p_itemDocument->viewList();
 	ViewList::const_iterator end = viewList.end();
-	View * firstView = 0l;
+	View * firstView = nullptr;
 	for ( ViewList::const_iterator it = viewList.begin(); it != end; ++it )
 	{
 		if ( !*it ) continue;

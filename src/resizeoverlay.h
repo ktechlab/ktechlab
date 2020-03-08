@@ -232,7 +232,7 @@ public:
 	 * then *ok is set to false; otherwise to true.
 	 * @returns the sizerect, regardless of whether or not it is valid
 	 */
-	QRect getSizeRect( bool *ok = 0l, bool *widthOk = 0l, bool *heightOk = 0l ) const;
+	QRect getSizeRect( bool *ok = nullptr, bool *widthOk = nullptr, bool *heightOk = nullptr ) const;
 
 	bool isValidXPos( ResizeHandle *rh ) override;
 	bool isValidYPos( ResizeHandle *rh ) override;

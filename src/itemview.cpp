@@ -171,7 +171,7 @@ ItemView::ItemView( ItemDocument * itemDocument, ViewContainer *viewContainer, u
 	connect( m_pUpdateStatusTmr, SIGNAL(timeout()), this, SLOT(updateStatus()) );
 	connect( this, SIGNAL(unfocused()), this, SLOT(stopUpdatingStatus()) );
 
-	m_pDragItem = 0l;
+	m_pDragItem = nullptr;
 	p_itemDocument = itemDocument;
 	m_zoomLevel = 1.;
 	m_CVBEditor = new CVBEditor( p_itemDocument->canvas(), this, "cvbEditor" );
@@ -538,7 +538,7 @@ void ItemView::removeDragItem()
 
 	m_pDragItem->removeItem();
 	p_itemDocument->flushDeleteList();
-	m_pDragItem = 0l;
+	m_pDragItem = nullptr;
 }
 
 

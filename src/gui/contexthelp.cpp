@@ -60,7 +60,7 @@
 
 #include <cassert>
 
-ContextHelp * ContextHelp::m_pSelf = 0l;
+ContextHelp * ContextHelp::m_pSelf = nullptr;
 
 ContextHelp * ContextHelp::self( KateMDI::ToolView * parent )
 {
@@ -254,7 +254,7 @@ void ContextHelp::setBrowserItem( const QString & type )
 
 void ContextHelp::slotClear()
 {
-	setContextHelp( i18n("No Item Selected"), 0 );
+	setContextHelp( i18n("No Item Selected"), nullptr );
 	m_pEditButton->setEnabled( false );
 
 	// Can we go hide the edit widget?
@@ -265,7 +265,7 @@ void ContextHelp::slotClear()
 
 void ContextHelp::slotMultipleSelected()
 {
-	setContextHelp( i18n("Multiple Items"), 0 );
+	setContextHelp( i18n("Multiple Items"), nullptr );
 }
 
 
@@ -378,7 +378,7 @@ bool ContextHelp::saveDescription( const QString & language )
 {
 	if ( m_lastItemType.isEmpty() )
 	{
-		KMessageBox::sorry( 0, i18n("Cannot save item description.") );
+		KMessageBox::sorry( nullptr, i18n("Cannot save item description.") );
 		return false;
 	}
 

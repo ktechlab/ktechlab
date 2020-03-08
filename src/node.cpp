@@ -22,7 +22,7 @@ QColor Node::m_selectedColor = QColor( 101, 134, 192 );
 
 Node::Node( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoint &pos, QString *id )
 	: //QObject(),
-	  KtlQCanvasPolygon( icnDocument ? icnDocument->canvas() : 0 )
+	  KtlQCanvasPolygon( icnDocument ? icnDocument->canvas() : nullptr )
 {
     QString name("Node");
     if (id) {
@@ -34,8 +34,8 @@ Node::Node( ICNDocument *icnDocument, Node::node_type type, int dir, const QPoin
     qDebug() << Q_FUNC_INFO << " this=" << this;
 
 	m_length = 8;
-	p_nodeGroup = 0l;
-	p_parentItem = 0L;
+	p_nodeGroup = nullptr;
+	p_parentItem = nullptr;
 	b_deleted = false;
 	m_dir = dir;
 	m_type = type;

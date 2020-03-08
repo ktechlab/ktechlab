@@ -22,7 +22,7 @@ class JFET;
 class ECJFET : public Component
 {
 	public:
-		ECJFET( int JFET_type, ICNDocument *icnDocument, bool newItem, const char * id = 0L );
+		ECJFET( int JFET_type, ICNDocument *icnDocument, bool newItem, const char * id = nullptr );
 		~ECJFET() override;
 
 		static Item * constructNJFET( ItemDocument * itemDocument, bool newItem, const char * id );

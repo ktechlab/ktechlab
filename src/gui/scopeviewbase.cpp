@@ -24,7 +24,7 @@
 ScopeViewBase::ScopeViewBase(QWidget *parent, const char *name)
 : QFrame(parent /* ,name */ /* , Qt::WNoAutoErase*/ ),
 b_needRedraw(true),
-m_pixmap(0L),
+m_pixmap(nullptr),
 m_halfOutputHeight(0.0)
 {
     setObjectName( name );
