@@ -30,7 +30,6 @@
 #include "parser.h"
 #include "pic14.h"
 
-#include <klocale.h>
 #include <qdebug.h>
 #include <qregexp.h>
 

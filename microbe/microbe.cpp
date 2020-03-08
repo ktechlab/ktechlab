@@ -29,8 +29,9 @@
 #include "optimizer.h"
 #include "pic14.h"
 
+#include <KLocalizedString>
+
 #include <qdebug.h>
-#include <klocale.h>
 #include <qfile.h>
 
 #include <iostream>

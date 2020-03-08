@@ -27,57 +27,55 @@
 #include "microbe.h"
 #include "pic14.h"
 
-#include <k4aboutdata.h>
-// #include <k3aboutdialog.h>
-#include <kcmdlineargs.h>
-#include <klocale.h>
+#include <KAboutData>
+#include <KLocalizedString>
 
-#include <qfile.h>
+#include <QCoreApplication>
+#include <QCommandLineParser>
 
 #include <iostream>
 #include <fstream>
 using namespace std;
 
-static const char description[] =
-    I18N_NOOP("The Microbe Compiler");
-
-static const char version[] = "0.3";
-
-// static KCmdLineOptions options[] =
-// {
-// 	{ "show-source", I18N_NOOP( "Show source code lines in assembly output"),0},
-// 	{ "nooptimize", I18N_NOOP( "Do not attempt optimization of generated instructions."),0},
-// 	{ "+[Input URL]", I18N_NOOP( "Input filename" ),0},
-// 	{ "+[Output URL]", I18N_NOOP( "Output filename" ),0},
-// 	KCmdLineLastOption
-// };
-
 int main(int argc, char **argv)
 {
-	K4AboutData about(QByteArray("microbe"), QByteArray("Microbe"), ki18n("Microbe"), version, ki18n(description),
-					 K4AboutData::License_GPL, ki18n("(C) 2004-2005, The KTechlab developers"),
-                     KLocalizedString(),
-                     "http://ktechlab.org", "ktechlab-devel@lists.sourceforge.net" );
-	about.addAuthor( ki18n("Daniel Clarke"), KLocalizedString(), QByteArray("daniel.jc@gmail.com") );
-	about.addAuthor( ki18n("David Saxton"), KLocalizedString(), QByteArray("david@bluehaze.org") );
-	about.addAuthor( ki18n("Modified to add pic 16f877,16f627 and 16f628 by George John"), KLocalizedString(), QByteArray("az.j.george@gmail.com" ));
+    QCoreApplication app(argc, argv);
+    KLocalizedString::setApplicationDomain("ktechlab"); // sharing strings with ktechlab
 
-    KCmdLineArgs::init(argc, argv, &about);
-    KCmdLineOptions options;
-    options.add( QByteArray("show-source"), ki18n( "Show source code lines in assembly output"),nullptr);
-    options.add( QByteArray("nooptimize"), ki18n( "Do not attempt optimization of generated instructions."),nullptr);
-    options.add( QByteArray("+[Input URL]"), ki18n( "Input filename" ),nullptr);
-    options.add( QByteArray("+[Output URL]"), ki18n( "Output filename" ),nullptr);
-    KCmdLineArgs::addCmdLineOptions( options );
-	
-	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-	
-	if(args->count() == 2 )
+    KAboutData aboutData("microbe",
+        i18n("Microbe"),
+        QStringLiteral("0.3"),
+        i18n("The Microbe Compiler"),
+        KAboutLicense::GPL_V2,
+        i18n("(C) 2004-2005, The KTechlab developers"),
+        QString(),
+        QStringLiteral("https://userbase.kde.org/KTechlab"));
+    aboutData.addAuthor(i18n("Daniel Clarke"), QString(), QStringLiteral("daniel.jc@gmail.com"));
+    aboutData.addAuthor(i18n("David Saxton"), QString(), QStringLiteral("david@bluehaze.org"));
+    aboutData.addAuthor(i18n("George John"), i18n("Added pic 16f877,16f627 and 16f628"), QStringLiteral("az.j.george@gmail.com"));
+
+    KAboutData::setApplicationData(aboutData);
+
+    QCommandLineParser parser;
+    aboutData.setupCommandLine(&parser);
+
+    QCommandLineOption showSourceOption(QStringLiteral("show-source"), i18n( "Show source code lines in assembly output"));
+    parser.addOption(showSourceOption);
+    QCommandLineOption noOptimizeOption(QStringLiteral("no-optimize"), i18n( "Do not attempt optimization of generated instructions."));
+    parser.addOption(noOptimizeOption);
+    parser.addPositionalArgument( QStringLiteral("Input URL"), i18n( "Input filename" ));
+    parser.addPositionalArgument( QStringLiteral("Output URL"), i18n( "Output filename" ));
+
+    parser.process(app);
+    aboutData.processCommandLine(&parser);
+
+    const QStringList positionArguments = parser.positionalArguments();
+    if (positionArguments.count() == 2 )
 	{
 		Microbe mb;	
-//		QString s = mb.compile( args->arg(0), args->isSet("show-source"), args->isSet("optimize"));
+//		QString s = mb.compile( positionArguments[0], parser.isSet(showSourceOption), !parser.isSet(noOptimizeOption));
 
-		QString s = mb.compile( args->arg(0), args->isSet("optimize"));
+		QString s = mb.compile( positionArguments[0], !parser.isSet(noOptimizeOption));
 
 		QString errorReport = mb.errorReport();
 		
@@ -89,11 +87,11 @@ int main(int argc, char **argv)
 		
 		else
 		{
-			ofstream out(args->arg(1).toStdString().c_str());
+			ofstream out(positionArguments[1].toStdString().c_str());
 			out << s.toStdString();
 			return 0;
 		}
 	}
-	else args->usage();
+	else parser.showHelp();
 }
 

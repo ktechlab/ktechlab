@@ -27,7 +27,6 @@
 
 #include <cassert>
 #include <qdebug.h>
-#include <klocale.h>
 #include <qfile.h>
 #include <qregexp.h>
 #include <qstring.h>
