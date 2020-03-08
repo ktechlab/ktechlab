@@ -12,8 +12,6 @@ SET(microbe_SRCS
    parser.cpp
 )
 
-#qt4_automoc(${microbe_SRCS})
-
 add_executable(microbe ${microbe_SRCS})
 
 target_link_libraries(microbe

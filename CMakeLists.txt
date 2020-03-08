@@ -46,11 +46,6 @@ find_package(KF5 REQUIRED COMPONENTS
     XmlGui
     )
 
-# find_package(Qt4 4.6.0 REQUIRED)
-# find_package(KDE4 REQUIRED)
-# include(KDE4Defaults)
-
-
 # Edit FindGPSim and replace
 #    include(MacroPushRequiredVars) -> include(CMakePushCheckState)
 #    macro_push_required_vars() -> cmake_push_check_state()
@@ -61,9 +56,6 @@ add_definitions(-Wno-deprecated-declarations) # TODO too much spam for now
 add_definitions(-fPIC)
 
 #set(CMAKE_VERBOSE_MAKEFILE ON)
-
-#add_definitions ( -DQT3_SUPPORT )
-#add_definitions ( -DQT3_SUPPORT_WARNINGS )
 
 if (KTECHLAB_DEVELOPER_BUILD)
 # for debugging with GCC 5
@@ -84,7 +76,8 @@ endif (KTECHLAB_DEVELOPER_BUILD)
 add_definitions( -fno-inline )  # do not inline any method calls; this is useful for crash debugging
 add_definitions(
     ${Qt5Core_EXECUTABLE_COMPILE_FLAGS}
-    ${GLIB2_DEFINITIONS} ${KDE4_DEFINITIONS})
+    ${GLIB2_DEFINITIONS}
+)
 
 message("Qt5Core_EXECUTABLE_COMPILE_FLAGS=>>>${Qt5Core_EXECUTABLE_COMPILE_FLAGS}<<<" )
 
