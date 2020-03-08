@@ -26,8 +26,6 @@ find_package(Qt5 CONFIG REQUIRED COMPONENTS
     Test # TODO this should be optional
     )
 
-find_package(KF5TextEditor)
-
 find_package(KF5 REQUIRED COMPONENTS
     Config
     CoreAddons
