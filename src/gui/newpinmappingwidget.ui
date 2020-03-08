@@ -119,7 +119,6 @@
       </item>
     </layout>
   </widget>
-  <layoutdefault spacing="6" margin="11"/>
   <includes>
     <include location="local">klineedit.h</include>
   </includes>

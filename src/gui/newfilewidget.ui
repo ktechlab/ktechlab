@@ -135,7 +135,6 @@ Creates a new circuit, with drag and drop editor. Real time simulation of the ci
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
    <class>MicroSelectWidget</class>
