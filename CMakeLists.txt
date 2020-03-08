@@ -63,9 +63,7 @@ find_package(KF5 REQUIRED COMPONENTS
 #    macro_pop_required_vars() -> cmake_pop_check_state()
 find_package(GPSim REQUIRED)
 
-set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 add_definitions(-Wno-deprecated-declarations) # TODO too much spam for now
 add_definitions(-fPIC)
