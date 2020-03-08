@@ -19,11 +19,11 @@ set(CMAKE_DEBUG_TARGET_PROPERTIES INCLUDE_DIRECTORIES)
 find_package(ECM 0.0.11 CONFIG REQUIRED)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${ECM_MODULE_PATH})
 
-include(ECMInstallIcons)
-
 include(KDEInstallDirs)
 include(KDECMakeSettings)
-include(KDECompilerSettings)
+include(KDECompilerSettings NO_POLICY_SCOPE)
+
+include(ECMInstallIcons)
 include(FeatureSummary)
 
 find_package(Qt5 CONFIG REQUIRED COMPONENTS
