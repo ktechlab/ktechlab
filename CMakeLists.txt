@@ -7,14 +7,7 @@ set( KTECHLAB_DEVELOPER_BUILD "true" )
 project( ktechlab )
 set( VERSION 0.50.0 )
 
-# KDE libs need min C++11 capabile compiler, so C++ can be requiested
-# https://community.kde.org/Frameworks/Policies#Frameworks_compiler_requirements_and_C.2B.2B11
-#
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
 set(CMAKE_DEBUG_TARGET_PROPERTIES INCLUDE_DIRECTORIES)
-
 
 find_package(ECM 0.0.11 CONFIG REQUIRED)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${ECM_MODULE_PATH})
@@ -84,8 +77,6 @@ if (KTECHLAB_DEVELOPER_BUILD)
 
     add_definitions( ${SANITIZE_FLAGS} )
     SET( CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${SANITIZE_FLAGS}" )
-
-    add_definitions( -Wall -Wextra )
 
     #add_definitions( -Wold-style-cast ) # warn on old style casts. as these could introduce bugs
 
