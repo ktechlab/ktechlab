@@ -28,7 +28,7 @@ class PICComponentPin : public CallbackClass, public stimulus
 {
 	public:
 		PICComponentPin( PICComponent * picComponent, PicPin picPin );
-		~PICComponentPin();
+		~PICComponentPin() override;
 		/**
 		 * Attach this to gpsim
 		 */
@@ -38,7 +38,7 @@ class PICComponentPin : public CallbackClass, public stimulus
 		 * Updates the associated LogicOut / LogicIn / etc according to what
 		 * type of pin this is.
 		 */
-		virtual void set_nodeVoltage( double v );
+		void set_nodeVoltage( double v ) override;
 		/**
 		 * Called from our logic pin when the logic changes state.
 		 */
@@ -49,7 +49,7 @@ class PICComponentPin : public CallbackClass, public stimulus
 		 */
 		void resetOutput();
 		
-		virtual double get_Vth();
+		double get_Vth() override;
 		
 	protected:
 		// Conductance of pin in different configurations

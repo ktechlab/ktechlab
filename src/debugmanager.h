@@ -31,7 +31,7 @@ class DebugManager : public QObject
 	Q_OBJECT
 	public:
 		static DebugManager * self();
-		~DebugManager();
+		~DebugManager() override;
 		
 		void registerGpsim( GpsimProcessor * gpsim );
 		/**

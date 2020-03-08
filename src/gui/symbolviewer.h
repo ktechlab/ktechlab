@@ -36,7 +36,7 @@ class SymbolViewer : public QWidget
 	public:
 		static SymbolViewer * self( KateMDI::ToolView * parent = 0l );
 		static QString toolViewIdentifier() { return "SymbolViewer"; }
-		~SymbolViewer();
+		~SymbolViewer() override;
 
 		enum Radix
 		{

@@ -150,7 +150,7 @@ class GpsimDebugger : public QObject
 		};
 
 		GpsimDebugger( Type type, GpsimProcessor * gpsim );
-		~GpsimDebugger();
+		~GpsimDebugger() override;
 
 		GpsimProcessor * gpsim() const { return m_pGpsim; }
 
@@ -253,7 +253,7 @@ class GpsimProcessor : public QObject
 		 * loaded successfully.
 		 */
 		GpsimProcessor( QString symbolFile, QObject *parent = 0 );
-		~GpsimProcessor();
+		~GpsimProcessor() override;
 
 		void setDebugMode( GpsimDebugger::Type mode ) { m_debugMode = mode; }
 		GpsimDebugger * currentDebugger() const { return m_pDebugger[m_debugMode]; }

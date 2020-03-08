@@ -43,13 +43,13 @@ class PICComponent : public Component
 	Q_OBJECT
 	public:
 		PICComponent( ICNDocument * icnDocument, bool newItem, const char *id = 0L );
-		~PICComponent();
+		~PICComponent() override;
 	
 		static Item * construct( ItemDocument *itemDocument, bool newItem, const char *id );
 		static LibraryItem * libraryItem();
 	
-		virtual void buttonStateChanged( const QString &id, bool state );
-		virtual bool mouseDoubleClickEvent( const EventInfo &eventInfo );
+		void buttonStateChanged( const QString &id, bool state ) override;
+		bool mouseDoubleClickEvent( const EventInfo &eventInfo ) override;
 	
 		void programReload();
 		/**
@@ -78,7 +78,7 @@ class PICComponent : public Component
 		 * finish signal to loadGpsim
 		 */
 		QString createSymbolFile();
-		virtual void dataChanged();
+		void dataChanged() override;
 		/**
 		 * Initializes the PIC from the options the user has selected.
 		 */
