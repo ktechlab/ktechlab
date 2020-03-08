@@ -22,8 +22,6 @@ if(GPSim_FOUND)
     set(CMAKE_CXX_FLAGS ${KDE4_ENABLE_EXCEPTIONS})
 endif()
 
-find_package(Qt5 COMPONENTS REQUIRED Test)
-
 add_executable(tests_app tests_app.cpp)
 
 target_link_libraries( tests_app

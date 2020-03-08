@@ -19,11 +19,14 @@ include(KDECompilerSettings NO_POLICY_SCOPE)
 include(ECMInstallIcons)
 include(FeatureSummary)
 
+if(BUILD_TESTING)
+    set(QT_ADDITIONAL_COMPONENTS Test)
+endif()
 find_package(Qt5 CONFIG REQUIRED COMPONENTS
     Core
     DBus
     Widgets
-    Test # TODO this should be optional
+    ${QT_ADDITIONAL_COMPONENTS}
     )
 
 find_package(KF5 REQUIRED COMPONENTS
@@ -130,6 +133,8 @@ add_subdirectory( icons )
 add_subdirectory( icons-kde3 )
 add_subdirectory( doc )
 
-add_subdirectory(tests)
+if(BUILD_TESTING)
+    add_subdirectory(tests)
+endif()
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
