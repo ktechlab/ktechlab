@@ -290,7 +290,6 @@ These values will apply to all components, apart from the PIC, whose pins' imped
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
  <customwidgets>
   <customwidget>
    <class>KIntSpinBox</class>

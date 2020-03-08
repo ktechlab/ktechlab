@@ -88,7 +88,6 @@
     </layout>
   </widget>
   <layoutdefault spacing="6" margin="11"/>
-  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
   <includes>
     <include location="local">kurlrequester.h</include>
     <include location="local">klineedit.h</include>

@@ -97,7 +97,6 @@
     </layout>
   </widget>
   <layoutdefault spacing="6" margin="11"/>
-  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
   <tabstops>
     <tabstop>projectNameEdit</tabstop>
     <tabstop>projectLocationURL</tabstop>

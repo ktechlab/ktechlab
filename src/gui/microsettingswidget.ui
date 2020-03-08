@@ -156,7 +156,6 @@ Drag it to set the type (input/output).</string>
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
  <customwidgets>
   <customwidget>
    <class>KPushButton</class>
