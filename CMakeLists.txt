@@ -1,12 +1,12 @@
+# cmake CXX_STANDARD needs min cmake 3.1
+# https://stackoverflow.com/questions/10984442/how-to-detect-c11-support-of-a-compiler-with-cmake/20165220#20165220
+cmake_minimum_required(VERSION 3.1)
+
 set( KTECHLAB_DEVELOPER_BUILD "true" )
 
 project( ktechlab )
 set( VERSION 0.50.0 )
 
-cmake_minimum_required(VERSION 3.1)
-# cmake CXX_STANDARD needs min cmake 3.1
-# https://stackoverflow.com/questions/10984442/how-to-detect-c11-support-of-a-compiler-with-cmake/20165220#20165220
-#
 # KDE libs need min C++11 capabile compiler, so C++ can be requiested
 # https://community.kde.org/Frameworks/Policies#Frameworks_compiler_requirements_and_C.2B.2B11
 #
