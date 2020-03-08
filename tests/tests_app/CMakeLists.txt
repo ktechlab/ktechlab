@@ -16,8 +16,7 @@ include_directories(
     ${SRC_DIR}/languages
     ${SRC_DIR}/mechanics
     ${SRC_DIR}/micro
-    ${KDE4_INCLUDES}
-    ${QT_INCLUDES})
+)
 if(GPSim_FOUND)
     include_directories(${GPSim_INCLUDE_DIRS})
     set(CMAKE_CXX_FLAGS ${KDE4_ENABLE_EXCEPTIONS})
@@ -36,22 +35,18 @@ target_link_libraries( tests_app
 #     itemeditor
 #     test_ktechlab
 #     math
+    KF5::ConfigCore
+    KF5::ConfigGui
+    KF5::KIOCore
+    KF5::KHtml
+    KF5::CoreAddons
+    KF5::XmlGui
+    KF5::TextEditor
+    KF5::KDELibs4Support
 
-    ${QT_QTTEST_LIBRARY}  # qt testlib
-
-    ${GPSIM_LIBRARY}
-	${QT_QTXML_LIBRARY}
-	${QT_QTGUI_LIBRARY} # QtGui
-	${QT_QTCORE_LIBRARY} # QtCore
-	KF5::ConfigCore
-	KF5::ConfigGui
-	KF5::KIOCore
-	KF5::KHtml
-	KF5::CoreAddons
-	KF5::XmlGui
-	KF5::TextEditor
-	KF5::KDELibs4Support
-    )
+    Qt5::Widgets
+    Qt5::Test
+)
 if(GPSim_FOUND)
     target_link_libraries(tests_app ${GPSim_LIBRARIES})
 endif()

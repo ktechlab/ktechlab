@@ -14,8 +14,7 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/mechanics
     ${CMAKE_CURRENT_SOURCE_DIR}/micro
     ${CMAKE_CURRENT_SOURCE_DIR}/ktlqt3support
-    ${KDE4_INCLUDES}
-    ${QT_INCLUDES})
+)
 if(GPSim_FOUND)
     include_directories(${GPSim_INCLUDE_DIRS})
     set(CMAKE_CXX_FLAGS ${KDE4_ENABLE_EXCEPTIONS})
@@ -339,28 +338,20 @@ target_link_libraries( ktechlab
     #ktlqt3support
 	#mechanics electronics elements components languages drawparts
 	#itemeditor math
-	KF5::TextEditor
-	KF5::KHtml
-	KF5::Parts
+    KF5::TextEditor
+    KF5::Parts
+    KF5::ConfigCore
+    KF5::ConfigGui
+    KF5::CoreAddons
+    KF5::IconThemes
+    KF5::KIOCore
+    KF5::KHtml
+    KF5::XmlGui
+    KF5::WidgetsAddons
     KF5::KDELibs4Support
-    KF5::WidgetsAddons
-	${KDE4_KHTML_LIBRARY} # khtml
-	${GPSIM_LIBRARY}
-	${QT_QTXML_LIBRARY}
-	${QT_QTGUI_LIBRARY} # QtGui
-	${QT_QTCORE_LIBRARY} # QtCore
-	KF5::ConfigCore
-	KF5::ConfigGui
-	KF5::CoreAddons
-	KF5::IconThemes
-	KF5::KIOCore
-	KF5::KHtml
-	KF5::Parts
-	KF5::XmlGui
-	KF5::TextEditor
-    KF5::WidgetsAddons
-	KF5::KDELibs4Support
-	)
+
+    Qt5::Widgets
+)
 if(GPSim_FOUND)
     target_link_libraries(ktechlab ${GPSim_LIBRARIES})
 endif()
@@ -375,12 +366,12 @@ install(TARGETS ktechlab ${INSTALL_TARGETS_DEFAULT_ARGS})
 # endforeach()
 # message(STATUS "include_dir end")
 
-message(STATUS "include_dir begin")
-get_property(dirs TARGET KF5::TextEditor PROPERTY INTERFACE_INCLUDE_DIRECTORIES)
-foreach(dir ${dirs})
-  message(STATUS "KF5::TextEditor include_dir='${dir}'")
-endforeach()
-message(STATUS "include_dir end")
+# message(STATUS "include_dir begin")
+# get_property(dirs TARGET KF5::TextEditor PROPERTY INTERFACE_INCLUDE_DIRECTORIES)
+# foreach(dir ${dirs})
+#   message(STATUS "KF5::TextEditor include_dir='${dir}'")
+# endforeach()
+# message(STATUS "include_dir end")
 
 # for helping testing
 
@@ -388,10 +379,12 @@ add_library(test_ktechlab STATIC ${ktechlab_SRCS})
 
 target_link_libraries(test_ktechlab
     KF5::TextEditor
-	KF5::KHtml
-	KF5::Parts
-    KF5::KDELibs4Support
+    KF5::Parts
+    KF5::KHtml
     KF5::WidgetsAddons
+    KF5::KDELibs4Support
+
+    Qt5::Widgets
 )
 
 ########### install files ###############

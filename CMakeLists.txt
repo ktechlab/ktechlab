@@ -7,7 +7,7 @@ set( KTECHLAB_DEVELOPER_BUILD "true" )
 project( ktechlab )
 set( VERSION 0.50.0 )
 
-set(CMAKE_DEBUG_TARGET_PROPERTIES INCLUDE_DIRECTORIES)
+# set(CMAKE_DEBUG_TARGET_PROPERTIES INCLUDE_DIRECTORIES)
 
 find_package(ECM 0.0.11 CONFIG REQUIRED)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${ECM_MODULE_PATH})
@@ -96,20 +96,10 @@ if (NOT GPSim_FOUND)
     set(NO_GPSIM TRUE)
 endif ()
 
-message("Qt5Core_INCLUDE_DIRS=>>>${Qt5Core_INCLUDE_DIRS}<<<" )
-message("Qt5Widgets_INCLUDE_DIRS=>>>${Qt5Widgets_INCLUDE_DIRS}<<<" )
-message("KF5TextEditor_INCLUDE_DIRS=>>>${KF5TextEditor_INCLUDE_DIRS}<<<" )
-
 include_directories(
+    # for config.h file
     ${CMAKE_CURRENT_BINARY_DIR}
-    ${CMAKE_CURRENT_BINARY_DIR}/src/core
-    ${KDE4_INCLUDES}
-#    ${KDELibs4Support_INCLUDE_DIRS}
-    ${TextEditor_INCLUDE_DIRS}  # TODO figure out this one
-    ${Qt5Core_INCLUDE_DIRS}
-    ${Qt5Widgets_INCLUDE_DIRS}
-    ${Qt5Test_INCLUDE_DIRS}
-    )
+)
 
 set( SRC_EXAMPLES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/examples/ )
 set( SRC_TESTS_DATA_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tests/data/ )
@@ -118,12 +108,12 @@ CONFIGURE_FILE( ${CMAKE_SOURCE_DIR}/config.h.cmake
 	${CMAKE_BINARY_DIR}/config.h )
 
 
-message(STATUS "include_dir begin")
-get_property(dirs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
-foreach(dir ${dirs})
-  message(STATUS "include_dir='${dir}'")
-endforeach()
-message(STATUS "include_dir end")
+# message(STATUS "include_dir begin")
+# get_property(dirs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
+# foreach(dir ${dirs})
+#   message(STATUS "include_dir='${dir}'")
+# endforeach()
+# message(STATUS "include_dir end")
 
 # message(STATUS "variables begin")
 # get_cmake_property(_variableNames VARIABLES)

@@ -19,7 +19,9 @@ add_executable(microbe ${microbe_SRCS})
 target_link_libraries(microbe
     KF5::KDELibs4Support
     KF5::CoreAddons
-    Qt5::Core
+
+    Qt5::Widgets
+
     pthread)
 
 install(TARGETS microbe ${INSTALL_TARGETS_DEFAULT_ARGS})
