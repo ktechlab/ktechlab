@@ -191,6 +191,3 @@ MicroSelectWidget * NewFileDlg::microSelectWidget() const
 {
 	return m_pNewFileWidget->m_pMicroSelect;
 }
-
-
-#include "newfiledlg.moc"

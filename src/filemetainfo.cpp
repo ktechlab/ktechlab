@@ -195,5 +195,3 @@ void FileMetaInfo::loadAllMetaInfo()
 	}
 }
 //END class FileMetaInfo
-
-#include "filemetainfo.moc"

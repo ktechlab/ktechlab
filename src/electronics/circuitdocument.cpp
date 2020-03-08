@@ -842,6 +842,3 @@ void CircuitDocument::displayEquations()
 	}
 	qDebug() << "######################################################" << endl;
 }
-
-
-#include "circuitdocument.moc"

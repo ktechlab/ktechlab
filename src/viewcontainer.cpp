@@ -599,5 +599,3 @@ void EmptyViewArea::openDocument()
 	KTechlab::self()->openFile( m_pViewArea );
 }
 //END class EmptyViewArea
-
-#include "viewcontainer.moc"

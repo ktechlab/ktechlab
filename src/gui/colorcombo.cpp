@@ -199,6 +199,3 @@ void ColorCombo::addColors()
         }
 	}
 }
-
-
-#include "colorcombo.moc"

@@ -178,7 +178,3 @@ void ComponentModelLibrary::loadModels()
 	qDebug() << Q_FUNC_INFO << "It took " << ct.elapsed() << " milliseconds to read in the component models.\n";
 }
 //END class ComponentModelLibrary
-
-
-#include "componentmodellibrary.moc"
-

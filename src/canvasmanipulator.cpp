@@ -1928,6 +1928,3 @@ ManipulatorInfo::ManipulatorInfo()
 {
 }
 //END class ManipulatorInfo
-
-
-#include "canvasmanipulator.moc"

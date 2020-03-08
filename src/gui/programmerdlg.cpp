@@ -127,6 +127,3 @@ MicroSelectWidget * ProgrammerDlg::microSelect( ) const
 {
 	return m_pProgrammerWidget->m_pMicroSelect;
 }
-
-
-#include "programmerdlg.moc"

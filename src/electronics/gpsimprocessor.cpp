@@ -899,7 +899,4 @@ DebugLine::DebugLine()
 }
 //END class DebugLine
 
-
-#include "gpsimprocessor.moc"
-
 #endif

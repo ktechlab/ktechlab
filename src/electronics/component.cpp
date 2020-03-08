@@ -1163,8 +1163,3 @@ ElementMap::ElementMap()
         n[i] = 0;
 }
 //END class ElementMap
-
-
-#include "component.moc"
-
-

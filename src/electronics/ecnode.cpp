@@ -326,5 +326,3 @@ Connector* ECNode::getAConnector() const
 		return *m_connectorList.begin();
 	else	return 0l;
 }
-
-#include "ecnode.moc"

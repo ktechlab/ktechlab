@@ -1252,5 +1252,3 @@ const QPixmap* TextDocument::executionPointPixmap()
 		static QPixmap pixmap( exec_xpm );
 		return &pixmap;
 }
-
-#include "textdocument.moc"

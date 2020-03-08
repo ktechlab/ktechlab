@@ -84,7 +84,4 @@ void DebugManager::urlOpened( TextDocument * td )
 }
 //END class DebugManager
 
-
-#include "debugmanager.moc"
-
 #endif

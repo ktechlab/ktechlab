@@ -573,5 +573,3 @@ void NodeGroup::addExtNode( Node *node )
 		node->setNodeGroup(this);
 	}
 }
-
-#include "nodegroup.moc"

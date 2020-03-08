@@ -1437,6 +1437,3 @@ void Canvas::update()
 	KtlQCanvas::update();
 }
 //END class Canvas
-
-#include "itemdocument.moc"
-

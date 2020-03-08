@@ -505,6 +505,3 @@ TextDocument *DocManager::openTextFile( const KUrl &url, ViewArea *viewArea )
 	emit fileOpened(url);
 	return document;
 }
-
-
-#include "docmanager.moc"

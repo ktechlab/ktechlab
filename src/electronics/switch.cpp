@@ -189,6 +189,3 @@ bool Switch::calculateCurrent() {
 
 	return true;
 }
-
-#include "switch.moc"
-

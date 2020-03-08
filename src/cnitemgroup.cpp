@@ -664,5 +664,3 @@ QStringList CNItemGroup::itemIDs()
 	}
 	return list;
 }
-
-#include "cnitemgroup.moc"

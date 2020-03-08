@@ -117,4 +117,3 @@ void ScopeViewBase::drawProbeMap( QPainter & p, QMap< int, T * > & map )
 		drawProbe( p, probe );
 	}
 }
-#include "scopeviewbase.moc"

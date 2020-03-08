@@ -401,6 +401,3 @@ Connector* FPNode::getAConnector() const {
 	
 	return 0l;
 }
-
-#include "fpnode.moc"
-

@@ -481,7 +481,3 @@ bool CircuitICNDocument::joinConnectors( ECNode *node )
 	
 	return true;
 }
-
-
-#include "circuiticndocument.moc"
-

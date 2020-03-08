@@ -169,5 +169,3 @@ void CircuitView::dragEnterEvent( QDragEnterEvent * e )
 	e->setAccepted( true );
 	createDragItem( e );
 }
-
-#include "circuitview.moc"

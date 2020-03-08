@@ -321,5 +321,3 @@ void ItemGroup::slotDistributeVertically()
 	
 	p_icnDocument->requestStateSave();
 }
-
-#include "itemgroup.moc"

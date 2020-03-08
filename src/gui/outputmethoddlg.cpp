@@ -188,6 +188,3 @@ MicroSelectWidget * OutputMethodDlg::microSelect() const
 	return m_widget->m_pMicroSelect;
 }
 //END class OutputMethodDlg
-
-
-#include "outputmethoddlg.moc"

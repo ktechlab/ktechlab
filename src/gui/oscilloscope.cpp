@@ -363,7 +363,3 @@ void unregisterProbe( int id)
     }
 	Oscilloscope::self()->unregisterProbe(id);
 }
-
-
-#include "oscilloscope.moc"
-

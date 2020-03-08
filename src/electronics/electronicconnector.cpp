@@ -83,5 +83,3 @@ void ElectronicConnector::syncWiresWithNodes() {
 	updateConnectorLines();
 	emit numWiresChanged(newNumWires);
 }
-
-#include "electronicconnector.moc"

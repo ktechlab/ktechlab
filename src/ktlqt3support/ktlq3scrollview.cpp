@@ -106,7 +106,7 @@ void QSVChildRec::hideOrShow(KtlQ3ScrollView* sv, QWidget* clipped_viewport)
 }
 
 // QT_BEGIN_INCLUDE_NAMESPACE
-// #include "ktlq3scrollview.moc"
+
 // QT_END_INCLUDE_NAMESPACE
 
 class KtlQ3ScrollViewData {
@@ -2855,5 +2855,3 @@ QSize KtlQ3ScrollView::cachedSizeHint() const
 }
 
 // QT_END_NAMESPACE
-
-// #include "ktlq3scrollview.moc"

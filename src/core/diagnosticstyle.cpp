@@ -36,5 +36,3 @@ void DiagnosticStyle::drawControl(ControlElement element, const QStyleOption* op
                           text);
     }
 }
-
-#include "diagnosticstyle.moc"

@@ -272,6 +272,4 @@ QString SymbolViewer::toDisplayString( unsigned value ) const
 }
 //END class SymbolView
 
-#include "symbolviewer.moc"
-
 #endif

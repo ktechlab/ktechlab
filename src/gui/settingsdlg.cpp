@@ -439,6 +439,3 @@ bool SettingsDlg::isDefault()
 
 	return false;
 }
-
-
-#include "settingsdlg.moc"

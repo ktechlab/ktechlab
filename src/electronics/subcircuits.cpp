@@ -187,8 +187,3 @@ void Subcircuits::slotItemRemoved( const QString &id )
 	idList.removeAll(id_num);
 	grSc.writeEntry( "Ids", idList );
 }
-
-
-#include "subcircuits.moc"
-
-

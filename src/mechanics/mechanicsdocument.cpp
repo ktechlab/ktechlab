@@ -192,5 +192,3 @@ void MechanicsDocument::selectAll()
 void MechanicsDocument::copy()
 {
 }
-
-#include "mechanicsdocument.moc"

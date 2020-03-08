@@ -59,6 +59,3 @@ bool PropertyEditorColor::eventFilter(QObject* watched, QEvent* e)
 	return PropertySubEditor::eventFilter(watched, e);
 }
 //END class PropertyEditorColor
-
-#include "propertyeditorcolor.moc"
-

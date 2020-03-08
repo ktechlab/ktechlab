@@ -403,5 +403,3 @@ void FlowContainer::setVisible( bool yes )
 	FlowPart::setVisible(yes);
 	updateContainedVisibility();
 }
-
-#include "flowcontainer.moc"

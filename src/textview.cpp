@@ -730,7 +730,3 @@ void TextViewEventFilter::slotNeedTextHint(const KTextEditor::Cursor &position, 
 	updateHovering( t, line, col );
 }
 //END class TextViewEventFilter
-
-
-
-#include "textview.moc"

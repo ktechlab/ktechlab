@@ -329,6 +329,3 @@ void ProcessListChain::slotProcessChainFailed()
 	emit failed();
 }
 //END class ProcessListChain
-
-
-#include "processchain.moc"

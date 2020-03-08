@@ -293,6 +293,3 @@ void FlowCodeDocument::varNameChanged( const QString &newValue, const QString &o
 			flowPart->updateVarNames();
 	}
 }
-
-
-#include "flowcodedocument.moc"

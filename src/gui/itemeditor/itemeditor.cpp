@@ -150,6 +150,3 @@ void ItemEditor::updateNameLabel( Item *item )
 	else
 		m_pNameLabel->setText( i18n("No Item Selected") );
 }
-
-
-#include "itemeditor.moc"

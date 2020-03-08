@@ -468,5 +468,3 @@ bool PicItem::mouseMoveEvent( const EventInfo &info )
 }
 
 //END class PicItem
-
-#include "picitem.moc"

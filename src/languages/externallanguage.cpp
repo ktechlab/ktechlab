@@ -177,6 +177,3 @@ void ExternalLanguage::displayProcessCommand()
 	outputMessage( quotedArguments.join(" ") );
 // 	LanguageManager::self()->logView()->addOutput( quotedArguments.join(" "), LogView::ot_info );
 }
-
-
-#include "externallanguage.moc"

@@ -56,6 +56,3 @@ void Sub::generateMicrobe( FlowCode *code )
 	code->addCodeBranch( outputPart("int_in") );
 	code->addCode("}");
 }
-
-
-// #include "sub.moc"

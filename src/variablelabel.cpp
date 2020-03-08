@@ -88,6 +88,4 @@ void VariableLabel::updateText()
 }
 //END class VariableLabel
 
-#include "variablelabel.moc"
-
 #endif // !NO_GPSIM

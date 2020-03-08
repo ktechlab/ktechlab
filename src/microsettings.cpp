@@ -333,5 +333,3 @@ PinMappingMap MicroSettings::pinMappings() const
 	return m_pinMappings;
 }
 //END class MicroSettings
-
-#include "microsettings.moc"

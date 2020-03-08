@@ -288,5 +288,3 @@ void KVSSBSep::paintEvent( QPaintEvent *e )
     p.drawLine( e->rect().left(), 1, e->rect().right(), 1 );
 }
 //END  class KVSSBSep
-
-#include "view.moc"

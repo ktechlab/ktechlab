@@ -133,7 +133,3 @@ RigidBodyState::RigidBodyState()
 {
 	angularMomentum = 0.;
 }
-
-
-
-#include "mechanicssimulation.moc"

@@ -453,5 +453,3 @@ RichTextEditorDlg::RichTextEditorDlg( QWidget * parent, const QString & caption 
     setMainWidget(page);
 }
 //END class RichTextEditorDlg
-
-#include "richtexteditor.moc"

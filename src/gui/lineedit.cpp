@@ -35,6 +35,3 @@ void LineEdit::setText( const QString & text )
 	
 	KLineEdit::setText( text );
 }
-
-
-#include "lineedit.moc"

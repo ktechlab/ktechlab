@@ -90,5 +90,3 @@ void FlowCodeView::dragEnterEvent( QDragEnterEvent * e )
 	e->setAccepted( true );
 	createDragItem( e );
 }
-
-#include "flowcodeview.moc"

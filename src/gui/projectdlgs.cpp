@@ -372,6 +372,3 @@ void ProcessingOptionsDlg::reject()
     hide();
 }
 //END class ProcessingOptionsDlg
-
-
-#include "projectdlgs.moc"

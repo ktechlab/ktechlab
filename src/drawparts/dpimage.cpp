@@ -267,6 +267,3 @@ void DPImage::drawShape( QPainter & p )
 	p.drawPixmap( int(x()+offsetX()), int(y()+offsetY()), m_image, 0, 0, width(), height() );
 }
 //END class DPImage
-
-#include "dpimage.moc"
-

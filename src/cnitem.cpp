@@ -609,6 +609,3 @@ NodeInfo::NodeInfo()
 	y = 0.;
 	orientation = 0;
 }
-
-
-#include "cnitem.moc"

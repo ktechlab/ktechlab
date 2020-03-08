@@ -970,7 +970,3 @@ void FlowPart::orientationPixmap( uint orientation, QPixmap & pm ) const
     //END painter on pm
 	pm.setMask(mask);  // pm needs not to have active painters on it
 }
-
-#include "flowpart.moc"
-
-

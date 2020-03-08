@@ -225,5 +225,3 @@ void PropertyEditorBool::setState( bool state )
 	ItemInterface::self()->setProperty( m_property );
 }
 //END class PropertyEditorBool
-
-#include "propertyeditorinput.moc"

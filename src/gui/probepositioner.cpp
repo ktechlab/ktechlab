@@ -224,6 +224,3 @@ void ProbePositioner::paintEvent( QPaintEvent *e )
     }
     p.drawImage(r, m_pixmap->toImage(), r);
 }
-
-
-#include "probepositioner.moc"

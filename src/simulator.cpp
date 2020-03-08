@@ -387,6 +387,3 @@ void Simulator::detachCircuit(Circuit *circuit) {
 }
 
 //END class Simulator
-
-#include "simulator.moc"
-

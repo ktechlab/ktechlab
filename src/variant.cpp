@@ -218,5 +218,3 @@ bool Variant::changed() const
 	}
 	return value() != defaultValue();
 }
-
-#include "variant.moc"

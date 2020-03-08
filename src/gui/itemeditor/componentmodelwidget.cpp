@@ -201,5 +201,3 @@ void ClickLineEdit::focusOutEvent( QFocusEvent *ev )
 	QLineEdit::focusOutEvent( ev );
 }
 //END class ClickLineEdit
-
-#include "componentmodelwidget.moc"

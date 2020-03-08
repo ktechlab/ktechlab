@@ -81,7 +81,3 @@ bool PropertyEditorFile::eventFilter(QObject* watched, QEvent* e)
 	}
 	return PropertySubEditor::eventFilter(watched, e);
 }
-
-
-#include "propertyeditorfile.moc"
-

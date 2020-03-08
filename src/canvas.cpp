@@ -1440,6 +1440,3 @@ QSize KtlQCanvasView::sizeHint() const
 	return ( canvas()->size() + 2 * QSize(frameWidth(), frameWidth()) )
 			.boundedTo( 3 * QApplication::desktop()->size() / 4 );
 }
-
-
-#include "canvas.moc"

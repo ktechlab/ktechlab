@@ -181,6 +181,3 @@ void RecentFilesAction::slotActivated()
 	emit triggered( currentItem() );
 	//emit activated( currentText() ); // TODO how should this work?
 }
-
-
-#include "recentfilesaction.moc"

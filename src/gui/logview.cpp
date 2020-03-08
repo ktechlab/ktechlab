@@ -155,6 +155,3 @@ MessageInfo::MessageInfo( QString fileURL, int fileLine )
 	m_fileLine = fileLine;
 }
 //END class MessageInfo
-
-
-#include "logview.moc"

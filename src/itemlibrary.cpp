@@ -730,6 +730,3 @@ void ItemLibrary::loadItemDescriptions()
 		file.close();
 	}
 }
-
-#include "itemlibrary.moc"
-
