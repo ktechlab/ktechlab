@@ -686,7 +686,7 @@ void Sidebar::saveSession (KConfigGroup *config)
 //BEGIN MAIN WINDOW
 
 MainWindow::MainWindow (QWidget* parentWidget, const char* name)
- : KParts::MainWindow( parentWidget, (Qt::WindowFlags)KDE_DEFAULT_WINDOWFLAGS )
+ : KParts::MainWindow(parentWidget)
  , m_restoreConfig (nullptr)
  , m_guiClient (new GUIClient (this))
 {
