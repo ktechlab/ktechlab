@@ -18,7 +18,7 @@ include_directories(
     ${SRC_DIR}/micro
 )
 if(GPSim_FOUND)
-    include_directories(${GPSim_INCLUDE_DIRS})
+    include_directories(SYSTEM ${GPSim_INCLUDE_DIRS})
     kde_enable_exceptions()
 endif()
 

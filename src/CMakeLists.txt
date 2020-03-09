@@ -16,7 +16,8 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/ktlqt3support
 )
 if(GPSim_FOUND)
-    include_directories(${GPSim_INCLUDE_DIRS})
+    # mark SYSTEM to have the compiler not emit warnings for those headers
+    include_directories(SYSTEM ${GPSim_INCLUDE_DIRS})
     kde_enable_exceptions()
 endif()
 
