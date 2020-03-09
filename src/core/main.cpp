@@ -80,6 +80,7 @@ int main(int argc, char **argv)
                      i18n("Former website hosting and feedback during early development"),
                      "" );
     KAboutData::setApplicationData(about);
+    QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("ktechlab")));
 
     // https://techbase.kde.org/Development/Tutorials/KCmdLineArgs
     QCommandLineParser parser;
