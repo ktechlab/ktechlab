@@ -490,7 +490,7 @@ struct BoolLock {
     bool *m_flagPtr;
     BoolLock(bool *flagPtr) : m_flagPtr(flagPtr) {
         if (m_flagPtr == nullptr) {
-            qCritical() << Q_FUNC_INFO << "NULL flagPtr";
+            qCritical() << Q_FUNC_INFO << "nullptr flagPtr";
             return;
         }
         if (*m_flagPtr == true) {

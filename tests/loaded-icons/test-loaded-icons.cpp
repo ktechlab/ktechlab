@@ -52,7 +52,7 @@ static void addIcon(QGridLayout *mainLayout, const char *iconName) {
     {
         QIcon testIconConstr = QIcon::fromTheme(iconName);
         if (testIconConstr.isNull()) {
-            qWarning() << "QIcon " << iconName << " is NULL";
+            qWarning() << "QIcon " << iconName << " is nullptr";
         }
     }
     {
@@ -62,7 +62,7 @@ static void addIcon(QGridLayout *mainLayout, const char *iconName) {
             QStringList(), nullptr, true
         );
         if (testPixmapLoader.isNull()) {
-            qWarning() << "loadIcon " << iconName << " is NULL";
+            qWarning() << "loadIcon " << iconName << " is nullptr";
         }
     }
     QIcon testIcon = QIcon::fromTheme(iconName);

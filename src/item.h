@@ -112,7 +112,7 @@ public:
 	 */
 	void setParentItem( Item *parentItem );
 	/**
-	 * The parent item for this item, or NULL if none
+	 * The parent item for this item, or nullptr if none
 	 */
 	Item *parentItem() const { return p_parentItem; }
 	ItemDocument *itemDocument() const { return p_itemDocument; }

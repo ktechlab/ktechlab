@@ -297,7 +297,7 @@ QPolygon KtlQCanvasItem::chunks() const
 */
 static const QPen& defaultPolygonPen()
 {
-    static QPen* dp=nullptr;
+    static QPen* dp = nullptr;
     if ( !dp )
         dp = new QPen;
     return *dp;
@@ -305,7 +305,7 @@ static const QPen& defaultPolygonPen()
 
 static const QBrush& defaultPolygonBrush()
 {
-    static QBrush* db=nullptr;
+    static QBrush* db = nullptr;
     if ( !db )
         db = new QBrush;
     return *db;

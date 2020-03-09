@@ -171,7 +171,7 @@ public:
 	 */
 	QStringList variableNames();
 	/**
-	 * Returns a pointer to the variable info with the given name, or NULL
+	 * Returns a pointer to the variable info with the given name, or nullptr
 	 * if the variable is not found
 	 */
 	VariableInfo *variableInfo( const QString &name );

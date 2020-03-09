@@ -84,7 +84,7 @@ void PICComponentPin::attach( IOPIN * iopin )
 {
 	if (!iopin)
 	{
-		qWarning() << Q_FUNC_INFO << " iopin is NULL" << endl;
+		qWarning() << Q_FUNC_INFO << " iopin is nullptr" << endl;
 		return;
 	}
 	

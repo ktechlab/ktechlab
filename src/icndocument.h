@@ -63,12 +63,12 @@ public:
 	CNItem* cnItemWithID( const QString &id );
 	/**
 	 * Returns a pointer to a node on the canvas with the given id,
-	 * or NULL if no such node exists
+	 * or nullptr if no such node exists
 	 */
 	virtual Node* nodeWithID( const QString &id ) = 0;
 	/**
 	 * Returns a pointer to a Connector on the canvas with the given id,
-	 * or NULL if no such Connector exists
+	 * or nullptr if no such Connector exists
 	 */
 	Connector* connectorWithID( const QString &id );
 	/**
@@ -189,7 +189,7 @@ public:
 	virtual Connector * createConnector( Connector *con1, Connector *con2, const QPoint &pos1, const QPoint &pos2, QPointList *pointList = nullptr ) = 0;
 	/**
 	 * Returns the flowcontainer at the given position at the highest level that
-	 * is not in the current select list, or 0l if there isn't one
+	 * is not in the current select list, or nullptr if there isn't one
 	 */
 	FlowContainer *flowContainer( const QPoint &pos );
 	/**

@@ -229,7 +229,7 @@ inline KtlQ3ScrollViewData::~KtlQ3ScrollViewData()
         QSVChildRec *r = *it;
         delete r;
     }
-    children.removeAll(NULL);
+    children.removeAll(nullptr);
 }
 
 QSVChildRec* KtlQ3ScrollViewData::ancestorRec(QWidget* w)

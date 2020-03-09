@@ -163,7 +163,7 @@ void MatrixDisplay::initPins( unsigned numRows, unsigned numCols )
 		{
 			m_avgBrightness[i][j] = 0.0;
 			m_lastBrightness[i][j] = 255;
-			m_pDiodes[i][j] = 0l;
+			m_pDiodes[i][j] = nullptr;
 		}
 			
 	}

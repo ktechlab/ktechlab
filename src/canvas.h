@@ -156,8 +156,8 @@ class KtlQCanvasView : public KtlQ3ScrollView
 	Q_OBJECT
 	public:
 
-		KtlQCanvasView(QWidget* parent=nullptr, const char* name=nullptr, Qt::WindowFlags f = {}); // 2018.08.15 - unused?
-		KtlQCanvasView(KtlQCanvas* viewing, QWidget* parent=nullptr, const char* name=nullptr, Qt::WindowFlags f = {});
+		KtlQCanvasView(QWidget* parent = nullptr, const char* name = nullptr, Qt::WindowFlags f = {}); // 2018.08.15 - unused?
+		KtlQCanvasView(KtlQCanvas* viewing, QWidget* parent = nullptr, const char* name = nullptr, Qt::WindowFlags f = {});
 		~KtlQCanvasView() override;
 
 		KtlQCanvas* canvas() const

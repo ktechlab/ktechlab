@@ -870,7 +870,7 @@ MOSFET * Component::createMOSFET( Pin * D, Pin * G, Pin * S, Pin * B, int MOSFET
     pins << D << G << S << B;
 
     /// \todo remove the following line removing body if null
-    pins.removeAll( 0 );
+    pins.removeAll(nullptr);
 
     ElementMapList::iterator it = handleElement( e, pins );
     setInterDependent( it, pins );

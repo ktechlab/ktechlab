@@ -161,7 +161,7 @@ void CMManager::mousePressEvent( EventInfo eventInfo )
 	}
 	
 // 	uint highestScore=0;
-// 	ManipulatorInfo *best=0l;
+// 	ManipulatorInfo *best = nullptr;
 	const ManipulatorInfoList::iterator end = m_manipulatorInfoList.end();
 	for ( ManipulatorInfoList::iterator it = m_manipulatorInfoList.begin(); it != end && !m_canvasManipulator; ++it )
 	{
@@ -281,7 +281,7 @@ void CMManager::mouseReleaseEvent( const EventInfo &eventInfo )
 	if (p_lastItemClicked)
 	{
 		p_lastItemClicked->mouseReleaseEvent(eventInfo);
-		p_lastItemClicked=nullptr;
+		p_lastItemClicked = nullptr;
 	}
 	
 	updateCurrentResizeHandle( dynamic_cast<ResizeHandle*>( p_itemDocument->itemAtTop(eventInfo.pos) ) );

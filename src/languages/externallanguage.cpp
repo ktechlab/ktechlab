@@ -100,7 +100,7 @@ void ExternalLanguage::processStderr()
 void ExternalLanguage::processExited( int, QProcess::ExitStatus )
 {
 	if ( !m_languageProcess ) {
-        qDebug() << Q_FUNC_INFO << " m_languageProcess == NULL, returning";
+        qDebug() << Q_FUNC_INFO << " m_languageProcess == nullptr, returning";
 		return;
     }
 	bool allOk = processExited( (m_languageProcess->exitStatus() == QProcess::NormalExit) && (m_errorCount == 0) );

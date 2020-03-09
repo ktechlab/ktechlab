@@ -175,7 +175,7 @@ class ItemDocument : public Document
 		QRect canvasBoundingRect() const;
 		/**
 		 * Returns a pointer to a Item on the canvas with the given id,
-		 * or NULL if no such Item exists.
+		 * or nullptr if no such Item exists.
 		 */
 		Item* itemWithID( const QString & );
 		/**
@@ -189,7 +189,7 @@ class ItemDocument : public Document
 		 */
 		bool isRedoAvailable() const override;
 		/**
-		 * Returns the top item at point (x, y), or NULL if there is no item there
+		 * Returns the top item at point (x, y), or nullptr if there is no item there
 		 */
 		KtlQCanvasItem* itemAtTop( const QPoint &pos ) const ;
 		/**

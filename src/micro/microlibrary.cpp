@@ -22,7 +22,7 @@
 
 #include <kglobal.h>
 
-// MicroLibrary * MicroLibrary::m_pSelf = 0l;
+// MicroLibrary * MicroLibrary::m_pSelf = nullptr;
 // static K3StaticDeleter<MicroLibrary> staticMicroLibraryDeleter;
 
 K_GLOBAL_STATIC( MicroLibrary, globalMicroLibrary);

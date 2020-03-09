@@ -69,7 +69,7 @@ class KtlQ3ScrollView : public KtlQ3Frame
     Q_PROPERTY( bool dragAutoScroll READ dragAutoScroll WRITE setDragAutoScroll )
 
 public:
-    KtlQ3ScrollView(QWidget* parent=nullptr, const char* name=nullptr, Qt::WindowFlags f = {});
+    KtlQ3ScrollView(QWidget* parent = nullptr, const char* name = nullptr, Qt::WindowFlags f = {});
     ~KtlQ3ScrollView() override;
 
     enum ResizePolicy { Default, Manual, AutoOne, AutoOneFit };
@@ -253,7 +253,7 @@ class KtlQAbstractScrollAreaWidget : public QWidget
     Q_OBJECT
 
 public:
-    KtlQAbstractScrollAreaWidget(KtlQ3ScrollView* parent=nullptr, const char* name=nullptr, Qt::WindowFlags f = {})
+    KtlQAbstractScrollAreaWidget(KtlQ3ScrollView* parent = nullptr, const char* name = nullptr, Qt::WindowFlags f = {})
         : QWidget(parent, f)
     {
         setObjectName(name);
@@ -266,7 +266,7 @@ class KtlQClipperWidget : public QWidget
     Q_OBJECT
 
 public:
-    KtlQClipperWidget(QWidget * parent=nullptr, const char * name=nullptr, Qt::WindowFlags f = {})
+    KtlQClipperWidget(QWidget * parent = nullptr, const char * name = nullptr, Qt::WindowFlags f = {})
         : QWidget (parent,f) {
             setObjectName(name);
         }

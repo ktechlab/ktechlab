@@ -454,7 +454,7 @@ FlowPart* FlowPart::endPart( QStringList ids, FlowPartList *previousParts )
 				part = part->endPart( QStringList(), previousParts );
 				prevLevel = _l;
 // 				} else {
-// 					part = 0l;
+// 					part = nullptr;
 // 				}
 			}
 			else {

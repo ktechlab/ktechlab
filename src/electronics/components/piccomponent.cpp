@@ -426,7 +426,7 @@ void PICComponent::programReload()
 
 void PICComponent::slotUpdateBtns()
 {
-	// We can get called by the destruction of gpsim after our canvas has been set to NULL
+	// We can get called by the destruction of gpsim after our canvas has been set to nullptr
 	if (!canvas()) {
         qDebug() << Q_FUNC_INFO << " no canvas, exiting";
 		return;

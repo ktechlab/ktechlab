@@ -272,7 +272,7 @@ class ProjectManager : public ItemSelector
 		static QString toolViewIdentifier() { return "ProjectManager"; }
 
 		/**
-		 * @return the currently open project, or NULL if no project is open.
+		 * @return the currently open project, or nullptr if no project is open.
 		 */
 		ProjectInfo * currentProject() const { return m_pCurrentProject; }
 

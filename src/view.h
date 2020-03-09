@@ -181,7 +181,7 @@ protected:
 class KVSSBSep : public QWidget
 {
 public:
-	KVSSBSep( View * parent=nullptr) : QWidget(parent)
+	KVSSBSep( View * parent = nullptr) : QWidget(parent)
 	{
 		setFixedHeight( 2 );
 	}

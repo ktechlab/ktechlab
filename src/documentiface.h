@@ -44,7 +44,7 @@ class DocumentIface : public DCOPObject // TODO port to dbus
 		QString caption() const;
 		DCOPRef activeView();
 		uint numberOfViews();
-// 		View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = 0l );
+// 		View *createView( ViewContainer *viewContainer, uint viewAreaId, const char *name = nullptr );
 		QString url();
 		bool openURL( const QString & url );
 		bool isModified();

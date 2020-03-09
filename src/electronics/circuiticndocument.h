@@ -66,7 +66,7 @@ public:
 
 	/**
 	 * Returns a pointer to a node on the canvas with the given id,
-	 * or NULL if no such node exists
+	 * or nullptr if no such node exists
 	 */
 	Node* nodeWithID ( const QString &id ) override;
 	ECNode *getEcNodeWithID( const QString &id );

@@ -283,7 +283,7 @@ void GpsimProcessor::reset()
 MicroInfo * GpsimProcessor::microInfo( ) const
 {
 	if ( !m_pPicProcessor ){
-		qWarning() << Q_FUNC_INFO << " m_pPicProcessor == NULL" << endl;
+		qWarning() << Q_FUNC_INFO << " m_pPicProcessor == nullptr" << endl;
 		return nullptr;
 	}
 	
@@ -747,7 +747,7 @@ RegisterSet::RegisterSet( pic_processor * picProcessor )
 {
 	unsigned numRegisters = picProcessor->rma.get_size();
 	qDebug() << Q_FUNC_INFO << "numRegisters="<<numRegisters<<endl;
-	m_registers.resize( numRegisters /*, 0l - 2018.06.02 - initialized below */ );
+	m_registers.resize( numRegisters /*, nullptr - 2018.06.02 - initialized below */ );
 	for ( unsigned i = 0; i < numRegisters; ++i )
 	{
 		RegisterInfo * info = new RegisterInfo( & picProcessor->rma[i] );
@@ -776,7 +776,7 @@ RegisterSet::~RegisterSet()
 
 RegisterInfo * RegisterSet::fromAddress( unsigned address )
 {
-	return (address < m_registers.size()) ? m_registers[address] : 0l;
+	return (address < m_registers.size()) ? m_registers[address] : nullptr;
 }
 
 

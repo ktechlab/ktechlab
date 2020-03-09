@@ -38,7 +38,7 @@ RAM::RAM( ICNDocument *icnDocument, bool newItem, const char *id )
 {
 	m_name = i18n("RAM");
 	
-	//m_data = 0l; // should be initialized by the constructor anyway
+	//m_data = nullptr; // should be initialized by the constructor anyway
 	m_pCS = nullptr;
 	m_pOE = nullptr;
 	m_pWE = nullptr;

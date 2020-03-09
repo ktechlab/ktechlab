@@ -71,7 +71,7 @@ public:
 	 * @param ids The list of internal ids of the nodes for the paths to begin from - if empty,
 	 *			  all nodes internal nodes are used
 	 * @param previousParts A list of parts in the calling tree. This avoids infinite recursion.
-	 * @returns The first FlowPart satisfying these conditions, or NULL if no such part exists
+	 * @returns The first FlowPart satisfying these conditions, or nullptr if no such part exists
 	 */
 	FlowPart* endPart( QStringList ids, FlowPartList *previousParts = nullptr );
 	/**
@@ -88,7 +88,7 @@ public:
 					   const QString &case1, const QString &case2 );
 	/**
 	 * Returns a pointer to the FlowPart that is connected to the node with the
-	 * given internal id, or NULL if no such node / no connected part
+	 * given internal id, or nullptr if no such node / no connected part
 	 */
 	FlowPart* outputPart( const QString& internalNodeId );
 	/**

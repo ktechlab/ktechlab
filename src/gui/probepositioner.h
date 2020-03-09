@@ -47,7 +47,7 @@ class ProbePositioner : public QWidget
 		void setProbePosition( ProbeData *probeData, int position );
 		/**
 		 * Returns the probe at the given position (plus or minus an arrow),
-		 * or NULL if none. Records the offset of the position from the mouse
+		 * or nullptr if none. Records the offset of the position from the mouse
 		 * in m_probePosOffset.
 		 */
 		ProbeData* probeAtPosition( const QPoint &pos );

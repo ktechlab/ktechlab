@@ -155,7 +155,7 @@ Connector *FlowICNDocument::createConnector( Connector *con1, Connector *con2, c
 	// FIXME isn't all this dead code?
 	/*
 	if ( !canConnect( con1, con2 ) )
-		return 0l;
+		return nullptr;
 	
 	
 	const bool con1UsedManual = con1->usesManualPoints();
@@ -174,7 +174,7 @@ Connector *FlowICNDocument::createConnector( Connector *con1, Connector *con2, c
 	FPNode *node2b = dynamic_cast<FPNode*> ( con2->endNode() );
 	
 	if ( !node1a || !node1b || !node2a || !node2b )
-		return 0l;
+		return nullptr;
 	*/
 	con1->hide();	
 	con2->hide();
@@ -328,10 +328,10 @@ void FlowICNDocument::flushDeleteList()
 	{
 		if ( *it && (m_itemDeleteList.count ( *it ) > 1) )
 		{
-			*it = 0l;
+			*it = nullptr;
 		}
 	}
-	m_itemDeleteList.removeAll ( 0l );
+	m_itemDeleteList.removeAll(nullptr);
 
 	end = m_itemDeleteList.end();
 	for ( KtlQCanvasItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it )
@@ -354,7 +354,7 @@ void FlowICNDocument::flushDeleteList()
 		qcanvasItem->setCanvas ( nullptr );
 
 		delete qcanvasItem;
-		*it = 0l;
+		*it = nullptr;
 	}
 
  	// Check connectors for merging

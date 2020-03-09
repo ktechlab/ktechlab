@@ -525,7 +525,7 @@ void CircuitDocument::assignCircuits()
 		splitIntoCircuits(&*it);
 
 	// Stage 3: Initialize the circuits
-	m_circuitList.removeAll(0l);
+	m_circuitList.removeAll(nullptr);
 	CircuitList::iterator circuitListEnd = m_circuitList.end();
 	for ( CircuitList::iterator it = m_circuitList.begin(); it != circuitListEnd; ++it )
 		(*it)->init();

@@ -330,11 +330,11 @@ void CircuitICNDocument::flushDeleteList()
 	for ( KtlQCanvasItemList::iterator it = m_itemDeleteList.begin(); it != end; ++it )
 	{
 		if ( *it && (m_itemDeleteList.count( *it ) > 1) ) {
-			*it = 0;
+			*it = nullptr;
 		}
 	}
 
-	m_itemDeleteList.removeAll(0);
+	m_itemDeleteList.removeAll(nullptr);
 
 /* again we're spending time to figure out what special method to call instead of a generic call..*/
 	end = m_itemDeleteList.end();
@@ -354,7 +354,7 @@ void CircuitICNDocument::flushDeleteList()
 		qcanvasItem->setCanvas(nullptr);
 
 		delete qcanvasItem;
-		*it = 0;
+		*it = nullptr;
 	}
 
 // 	// Check connectors for merging

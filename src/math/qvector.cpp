@@ -155,7 +155,7 @@ QuickVector &QuickVector::operator=(const QuickVector &y) {
 // ###################################
 
 QuickVector &QuickVector::operator *=(const QuickVector &y) {
-//	if(y.m != m) return NULL;
+//	if(y.m != m) return nullptr;
 
 	for(unsigned int i = 0; i < m; i++) values[i] *= y.values[i];
 	changed = true;
@@ -165,7 +165,7 @@ QuickVector &QuickVector::operator *=(const QuickVector &y) {
 // ###################################
 
 QuickVector &QuickVector::operator +=(const QuickVector &y) {
-//	if(y.m != m) return NULL;
+//	if(y.m != m) return nullptr;
 
 	for(unsigned int i = 0; i < m; i++) values[i] += y.values[i];
 	changed = true;

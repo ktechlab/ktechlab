@@ -361,7 +361,7 @@ void ItemSelector::slotItemDoubleClicked( QTreeWidgetItem *item, int )
 // {
 // 	const QString &id = currentItem()->data(0, ILVItem::DataRole_ID).toString() /* key(0,0) */;
 //
-// 	Q3StoredDrag * d = 0l;
+// 	Q3StoredDrag * d = nullptr;
 //
 // 	if ( id.startsWith("flow/") )
 // 		d = new Q3StoredDrag( "ktechlab/flowpart", this );

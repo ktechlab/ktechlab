@@ -394,7 +394,7 @@ void PropertyEditor::createEditor( const QModelIndex& index )
 
 	m_editItem = i;
 
-	PropertySubEditor *editor=nullptr;
+	PropertySubEditor *editor = nullptr;
 	switch ( i->type() )
 	{
 		case Variant::Type::String:

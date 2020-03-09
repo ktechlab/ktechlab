@@ -58,7 +58,7 @@ ElementSet::~ElementSet()
 {
 	const ElementList::iterator end = m_elementList.end();
 	for ( ElementList::iterator it = m_elementList.begin(); it != end; ++it ) {
-		// Note: By calling setElementSet(0l), we might have deleted it (the Element will commit
+		// Note: By calling setElementSet(nullptr), we might have deleted it (the Element will commit
 		// suicide when both the ElementSet and Component to which it belongs have deleted
 		// themselves). So be very careful it you plan to do anything with the (*it) pointer
 		if (*it) (*it)->elementSetDeleted();

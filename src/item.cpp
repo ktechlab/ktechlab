@@ -336,7 +336,7 @@ bool Item::mouseDoubleClickEvent( const EventInfo & eventInfo )
 
 	if ( type == Variant::Type::Multiline )
 	{
-		//KDialog * dlg = new KDialog( 0l, "", true, property->editorCaption(), KDialog::Ok|KDialog::Cancel|KDialog::User1, KDialog::Ok,
+		//KDialog * dlg = new KDialog( nullptr, "", true, property->editorCaption(), KDialog::Ok|KDialog::Cancel|KDialog::User1, KDialog::Ok,
         //                             false, KStandardGuiItem::clear() );
         KDialog * dlg = new KDialog( nullptr );
         dlg->setModal(true);

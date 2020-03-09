@@ -41,7 +41,7 @@ public:
 	 */
 	void setWidgetsPos( const QPoint &pos );
 	/**
-	 * Returns a pointer to the widget with the given id, or NULL if no such
+	 * Returns a pointer to the widget with the given id, or nullptr if no such
 	 * widgets are found.
 	 */
 	Widget *widgetWithID( const QString &id ) const;

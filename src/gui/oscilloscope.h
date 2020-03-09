@@ -119,7 +119,7 @@ class Oscilloscope : public QWidget, public Ui::OscilloscopeWidget
 		 */
 		int64_t scrollTime() const;
 		/**
-		 * @returns pointer to probe with given id, or NULL if no such probe exists
+		 * @returns pointer to probe with given id, or nullptr if no such probe exists
 		 */
 		ProbeData * probeData( int id) const;
 		/**

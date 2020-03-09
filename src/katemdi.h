@@ -43,7 +43,7 @@ class Splitter : public QSplitter
   Q_OBJECT
 
   public:
-    Splitter(Qt::Orientation o, QWidget* parent=nullptr, const char* name=nullptr);
+    Splitter(Qt::Orientation o, QWidget* parent = nullptr, const char* name = nullptr);
     ~Splitter() override;
 
     /** Since there is supposed to be only 2 childs of a katesplitter,
