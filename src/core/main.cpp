@@ -90,6 +90,7 @@ int main(int argc, char **argv)
     parser.addPositionalArgument(QStringLiteral("[URL]"), i18n("Document to open."));
 
     parser.process(app);
+    about.processCommandLine(&parser);
 
     if (true) {  // TODO add a command line option for debugging the program's visual look
         //app.setStyle(new DiagnosticStyle());
