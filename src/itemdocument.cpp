@@ -870,24 +870,25 @@ void ItemDocument::exportToImage()
 	QString f;
 	f = QString("*.png|%1\n*.bmp|%2\n*.svg|%3").arg( i18n("PNG Image") ).arg( i18n("BMP Image") ).arg( i18n("SVG Image") );
 	//KFileDialog exportDialog( KUrl() /*QString::null */, f, KTechlab::self(), i18n("Export As Image"), true, cropCheck);
-    KFileDialog exportDialog( KUrl(), f, KTechlab::self(), /*i18n("Export As Image"),*/ /* true, */ cropCheck);
+    KFileDialog exportDialog( QUrl(), f, KTechlab::self(), /*i18n("Export As Image"),*/ /* true, */ cropCheck);
     exportDialog.setModal(true);
     exportDialog.setWindowTitle(i18n("Export As Image"));
     //exportDialog.setCaption(i18n("Export As Image"));
 	
 	exportDialog.setOperationMode( KFileDialog::Saving );
+	exportDialog.setMode( KFile::File | KFile::LocalOnly );
 	// now actually show it
 	if ( exportDialog.exec() == QDialog::Rejected )
 		return;
-	KUrl url = exportDialog.selectedUrl();
+	const QString filePath = exportDialog.selectedFile();
 
-	if ( url.isEmpty() ) return;
+	if ( filePath.isEmpty() ) return;
 
-	if ( QFile::exists( url.path() ) )
+	if ( QFile::exists(filePath) )
 	{
 		int query = KMessageBox::warningYesNo(
             KTechlab::self(),
-            i18n( "A file named \"%1\" already exists. " "Are you sure you want to overwrite it?", url.fileName() ),
+            i18n( "A file named \"%1\" already exists. " "Are you sure you want to overwrite it?", filePath ),
             i18n( "Overwrite File?" ));
 
 		if ( query == KMessageBox::No ) return;
@@ -966,7 +967,7 @@ void ItemDocument::exportToImage()
 	if ( cropCheck->isChecked() )
 	{
 		if( type == "SVG" )
-			saveResult = dynamic_cast<QPicture*>(outputImage)->save( url.path(), type.toLatin1().data());
+			saveResult = dynamic_cast<QPicture*>(outputImage)->save(filePath, type.toLatin1().data());
 		else {
 			QImage img = dynamic_cast<QPixmap*>(outputImage)->toImage();
             if ( saveArea.x() < 0 ) {
@@ -977,12 +978,12 @@ void ItemDocument::exportToImage()
             }
             qDebug() << Q_FUNC_INFO << " cropArea " << cropArea;
 			QImage imgCropped = img.copy(cropArea);
-			saveResult = imgCropped.save(url.path(),type.toLatin1().data());
+			saveResult = imgCropped.save(filePath,type.toLatin1().data());
 		}
 	} else {
 		if ( type=="SVG" )
-			saveResult = dynamic_cast<QPicture*>(outputImage)->save( url.path(), type.toLatin1().data() );
-		else	saveResult = dynamic_cast<QPixmap*>(outputImage)->save( url.path(), type.toLatin1().data() );
+			saveResult = dynamic_cast<QPicture*>(outputImage)->save( filePath, type.toLatin1().data() );
+		else	saveResult = dynamic_cast<QPixmap*>(outputImage)->save( filePath, type.toLatin1().data() );
 	}
 
 	//if(saveResult == true)	KMessageBox::information( this, i18n("Sucessfully exported to \"%1\"", url.filename() ), i18n("Image Export") );
