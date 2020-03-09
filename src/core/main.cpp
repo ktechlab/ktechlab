@@ -83,14 +83,12 @@ int main(int argc, char **argv)
 
     // https://techbase.kde.org/Development/Tutorials/KCmdLineArgs
     QCommandLineParser parser;
-    parser.addHelpOption();
-    parser.addVersionOption();
+    about.setupCommandLine(&parser);
     // 2019.10.03 - note: to add options to set icon and caption of the
     //              application's window? currently this is not implemented
     //              but it had references in the .destop file
     parser.addPositionalArgument(QStringLiteral("[URL]"), i18n("Document to open."));
 
-    about.setupCommandLine(&parser);
     parser.process(app);
 
     if (true) {  // TODO add a command line option for debugging the program's visual look
