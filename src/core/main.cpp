@@ -19,15 +19,8 @@
 #include <KAboutData>
 #include <KLocalizedString>
 
-
 #include <QApplication>
 #include <QCommandLineParser>
-
-// static KCmdLineOptions options[] =
-// {
-//     { "+[URL]", I18N_NOOP( "Document to open." ), 0 },
-//     KCmdLineLastOption
-// };
 
 
 int main(int argc, char **argv)
@@ -80,13 +73,12 @@ int main(int argc, char **argv)
     KAboutData::setApplicationData(about);
     QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("ktechlab")));
 
-    // https://techbase.kde.org/Development/Tutorials/KCmdLineArgs
     QCommandLineParser parser;
     about.setupCommandLine(&parser);
     // 2019.10.03 - note: to add options to set icon and caption of the
     //              application's window? currently this is not implemented
     //              but it had references in the .destop file
-    parser.addPositionalArgument(QStringLiteral("[URL]"), i18n("Document to open."));
+    parser.addPositionalArgument(QStringLiteral("url"), i18n("Document to open."), QStringLiteral("[url]"));
 
     parser.process(app);
     about.processCommandLine(&parser);
