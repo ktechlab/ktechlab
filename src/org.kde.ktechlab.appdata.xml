@@ -215,7 +215,7 @@
       <image>https://userbase.kde.org/images.userbase/e/e6/Ktechlab_screen.png</image>
     </screenshot>
   </screenshots>
-  <url type="homepage">https://userbase.kde.org/Special:myLanguage/KTechlab/games/knights/</url>
+  <url type="homepage">https://userbase.kde.org/Special:myLanguage/KTechlab</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=ktechlab</url>
   <project_group>KDE</project_group>
   <provides>
