@@ -23,9 +23,6 @@
 #include <QApplication>
 #include <QCommandLineParser>
 
-static const char description[] =
-    I18N_NOOP("An IDE for microcontrollers and electronics");
-
 // static KCmdLineOptions options[] =
 // {
 //     { "+[URL]", I18N_NOOP( "Document to open." ), 0 },
@@ -39,7 +36,8 @@ int main(int argc, char **argv)
     QApplication app(argc, argv);
     KLocalizedString::setApplicationDomain("ktechlab");
 
-    KAboutData about("ktechlab", i18n("KTechLab"), VERSION, i18n(description),
+    KAboutData about("ktechlab", i18n("KTechLab"),
+                     VERSION, i18n("An IDE for microcontrollers and electronics"),
                      KAboutLicense::GPL_V2,
                      i18n("(C) 2003-2017, The KTechLab developers"),
                      "", "https://userbase.kde.org/KTechlab", "ktechlab-devel@kde.org" );
