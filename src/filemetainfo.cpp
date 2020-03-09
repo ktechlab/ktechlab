@@ -92,7 +92,7 @@ FileMetaInfo::FileMetaInfo()
 	: QObject()
 {
 	//m_metaInfoConfig = new KConfig( "metainfo", false, false, "appdata" );
-    m_metaInfoConfig = new KConfig( "metainfo", "appdata" );
+    m_metaInfoConfig = new KConfig( "metainfo", KConfig::SimpleConfig, QStandardPaths::AppDataLocation );
 	loadAllMetaInfo();
 }
 
