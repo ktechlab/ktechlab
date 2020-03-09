@@ -59,7 +59,11 @@ if (GPSim_INCLUDE_DIR AND GPSim_LIBRARY AND GLIB_FOUND)
     cmake_push_check_state()
     set(CMAKE_REQUIRED_INCLUDES ${GPSim_INCLUDE_DIRS})
     set(CMAKE_REQUIRED_LIBRARIES ${GPSim_LIBRARIES} -ldl)
-    set(CMAKE_REQUIRED_DEFINITIONS ${KDE4_ENABLE_EXCEPTIONS})
+    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC" OR (WIN32 AND "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Intel"))
+        set(CMAKE_REQUIRED_DEFINITIONS -EHsc)
+    else()
+        set(CMAKE_REQUIRED_DEFINITIONS -fexceptions)
+    endif()
     check_cxx_source_compiles(
 "#include <gpsim/pic-processor.h>
 int main() { pic_processor *proc = NULL;

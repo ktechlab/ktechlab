@@ -17,7 +17,7 @@ include_directories(
 )
 if(GPSim_FOUND)
     include_directories(${GPSim_INCLUDE_DIRS})
-    set(CMAKE_CXX_FLAGS ${KDE4_ENABLE_EXCEPTIONS})
+    kde_enable_exceptions()
 endif()
 
 add_subdirectory(core)
