@@ -21,6 +21,7 @@
 
 #include <QApplication>
 #include <QCommandLineParser>
+#include <QDir>
 
 
 int main(int argc, char **argv)
@@ -95,7 +96,8 @@ int main(int argc, char **argv)
     // 2019.10.03 - note: possibly add support for multiple URLs to be opened from
     //              command line?
     if (parser.positionalArguments().count() > 0) {
-		ktechlab->load( parser.positionalArguments().at(0) );
+        const QUrl url = QUrl::fromUserInput(parser.positionalArguments().at(0), QDir::currentPath(), QUrl::AssumeLocalFile);
+		ktechlab->load( url );
     }
 
 	ktechlab->show();
