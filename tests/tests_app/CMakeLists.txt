@@ -40,7 +40,6 @@ target_link_libraries( tests_app
     KF5::CoreAddons
     KF5::XmlGui
     KF5::TextEditor
-    KF5::KDELibs4Support
 
     Qt5::Widgets
     Qt5::Test

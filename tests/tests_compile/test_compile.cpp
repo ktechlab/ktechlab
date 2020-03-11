@@ -23,18 +23,25 @@
 #include "../src/ktechlab.h"
 #include "config.h"
 
-#include <k4aboutdata.h>
-#include <kapplication.h>
-#include <kcmdlineargs.h>
-#include <klocalizedstring.h>
+#include <KAboutData>
+#include <KLocalizedString>
+
+#include <QApplication>
+#include <QCommandLineParser>
 
 
 int main(int argc, char *argv[]) {
-    KAboutData about(QByteArray("ktechlab"), i18n("KTechLab"),
+    QApplication app(argc, argv);
+    KAboutData aboutData(QByteArray("ktechlab"), i18n("KTechLab"),
                 VERSION, i18n("An IDE for microcontrollers and electronics"),
-                KAboutLicense::LicenseKey::GPL_V2, i18n("(C) 2003-2017, The KTechLab developers"),
+                KAboutLicense::GPL_V2, i18n("(C) 2003-2017, The KTechLab developers"),
                 "", "https://userbase.kde.org/KTechlab", "ktechlab-devel@kde.org" );
-    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-    KApplication app;
+    KAboutData::setApplicationData(aboutData);
+
+    QCommandLineParser parser;
+    aboutData.setupCommandLine(&parser);
+    parser.process(app);
+    aboutData.processCommandLine(&parser);
+
     KTechlab *ktechlab = new KTechlab();
 }

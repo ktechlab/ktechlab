@@ -25,21 +25,21 @@
 #include "docmanager.h"
 #include "electronics/circuitdocument.h"
 
-#include <k4aboutdata.h>
-#include <kapplication.h>
-#include <kcmdlineargs.h>
-#include <klocalizedstring.h>
+#include <KAboutData>
+#include <KLocalizedString>
 
 #include <qdebug.h>
 #include <qtest.h>
 #include <qtemporaryfile.h>
+#include <QApplication>
+#include <QCommandLineParser>
 
 
 class KtlTestsAppFixture : public QObject {
     Q_OBJECT
 
 public:
-    KApplication *app;
+    QApplication *app;
     KTechlab *ktechlab;
 
 private slots:
@@ -48,13 +48,19 @@ private slots:
         char argv0[] = "tests_app";
         char *argv[] = { argv0, nullptr };
 
+        app = new QApplication(argc, argv);
 
-        KAboutData about("ktechlab", i18n("KTechLab"), VERSION,
+        KAboutData aboutData("ktechlab", i18n("KTechLab"), VERSION,
                     i18n("An IDE for microcontrollers and electronics"),
-                    KAboutLicense::LicenseKey::GPL_V2, i18n("(C) 2003-2017, The KTechLab developers"),
+                    KAboutLicense::GPL_V2, i18n("(C) 2003-2017, The KTechLab developers"),
                     "", "https://userbase.kde.org/KTechlab", "ktechlab-devel@kde.org" );
-        KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-        app = new KApplication;
+        KAboutData::setApplicationData(aboutData);
+
+        QCommandLineParser parser;
+        aboutData.setupCommandLine(&parser);
+        parser.process(*app);
+        aboutData.processCommandLine(&parser);
+
         ktechlab = new KTechlab;
 
     }

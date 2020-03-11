@@ -41,7 +41,6 @@ target_link_libraries( test_compile
     KF5::CoreAddons
     KF5::XmlGui
     KF5::TextEditor
-    KF5::KDELibs4Support
 
     Qt5::Widgets
 )
