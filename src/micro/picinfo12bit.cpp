@@ -13,12 +13,13 @@
 
 #include <klocalizedstring.h>
 //#include <k3staticdeleter.h>
-#include <kglobal.h>
+
+#include <QGlobalStatic>
 
 //PicAsm12bit *PicAsm12bit::m_self = 0;
 //static K3StaticDeleter<PicAsm12bit> picAsm12BitStaticDeleter;
 
-K_GLOBAL_STATIC(PicAsm12bit, globalPicAsm12bit);
+Q_GLOBAL_STATIC(PicAsm12bit, globalPicAsm12bit);
 
 PicAsm12bit *PicAsm12bit::self()
 {

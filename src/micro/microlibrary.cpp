@@ -20,12 +20,12 @@
 
 #include "micropackage.h"
 
-#include <kglobal.h>
+#include <QGlobalStatic>
 
 // MicroLibrary * MicroLibrary::m_pSelf = nullptr;
 // static K3StaticDeleter<MicroLibrary> staticMicroLibraryDeleter;
 
-K_GLOBAL_STATIC( MicroLibrary, globalMicroLibrary);
+Q_GLOBAL_STATIC( MicroLibrary, globalMicroLibrary);
 
 MicroLibrary * MicroLibrary::self()
 {

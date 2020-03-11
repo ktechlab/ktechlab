@@ -15,10 +15,10 @@
 #include "switch.h"
 
 // #include <k3staticdeleter.h>
-#include <kglobal.h>
 
 #include <qtimer.h>
 #include <qset.h>
+#include <QGlobalStatic>
 
 #include <cassert>
 
@@ -28,7 +28,7 @@ using namespace std;
 // Simulator *Simulator::m_pSelf = 0;
 // static K3StaticDeleter<Simulator> staticSimulatorDeleter;
 
-K_GLOBAL_STATIC(Simulator, globalSimulator);
+Q_GLOBAL_STATIC(Simulator, globalSimulator);
 
 bool Simulator::isDestroyedSim() {
     return globalSimulator.isDestroyed();

@@ -18,14 +18,14 @@
 
 #include <qdebug.h>
 // #include <k3staticdeleter.h>
-#include <kglobal.h>
+#include <QGlobalStatic>
 
 
 //BEGIN class DebugManager
 // DebugManager * DebugManager::m_pSelf = nullptr; // 2017.10.10 - use K_GLOBAL_STATIC
 // static K3StaticDeleter<DebugManager> staticDebugManagerDeleter;
 
-K_GLOBAL_STATIC( DebugManager, globalDebugManager);
+Q_GLOBAL_STATIC( DebugManager, globalDebugManager);
 
 DebugManager * DebugManager::self()
 {
