@@ -30,9 +30,6 @@
 #include <qaction.h>
 #include <qdebug.h>
 
-#include <kaction.h>
-#include <kdebug.h>
-
 #include <klibloader.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>

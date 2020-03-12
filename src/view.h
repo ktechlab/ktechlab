@@ -33,8 +33,6 @@ class View;
 class ViewContainer;
 class ViewIface;
 
-class KAction;
-
 class QVBoxLayout;
 class QLabel;
 

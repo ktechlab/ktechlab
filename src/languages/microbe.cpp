@@ -17,7 +17,6 @@
 #include <qdebug.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <kstandarddirs.h>
 
 #include <qfile.h>
 #include <kprocess.h>

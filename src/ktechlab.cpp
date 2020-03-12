@@ -48,15 +48,11 @@
 #include <QIcon>
 #include <QMenu>
 
-#include <kaction.h>
 #include <ktoolbar.h>
 #include <kactioncollection.h>
-#include <kapplication.h>
-#include <kdebug.h>
 #include <kedittoolbar.h>
 #include <kfiledialog.h>
 #include <kglobal.h>
-#include <kicon.h>
 #include <kmenu.h>
 
 #include <kiconloader.h>

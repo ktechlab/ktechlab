@@ -28,7 +28,6 @@
 
 #include <qdebug.h>
 #include <kfiledialog.h>
-#include <kicon.h>
 #include <kiconloader.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>

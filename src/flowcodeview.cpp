@@ -13,13 +13,12 @@
 #include "ktechlab.h"
 #include "viewiface.h"
 
-#include <kicon.h>
 #include <kiconloader.h>
 #include <klocalizedstring.h>
-#include <kmenu.h>
 #include <ktoolbarpopupaction.h>
 #include <kactioncollection.h>
 
+#include <QMenu>
 #include <qmimedata.h>
 
 FlowCodeView::FlowCodeView( FlowCodeDocument * flowCodeDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name )

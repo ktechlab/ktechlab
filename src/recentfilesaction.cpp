@@ -10,7 +10,6 @@
 
 #include "recentfilesaction.h"
 
-#include <kaction.h>
 #include <kconfig.h>
 #include <kmenu.h>
 #include <kstandarddirs.h>

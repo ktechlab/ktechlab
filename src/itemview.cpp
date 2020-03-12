@@ -24,7 +24,6 @@
 
 //#include <kaccel.h>
 #include <kaction.h>
-#include <kicon.h>
 #include <kstandardaction.h>
 #include <qdebug.h>
 #include <kiconloader.h>
@@ -42,9 +41,9 @@
 
 #include <qmatrix.h>
 #include <qmimedata.h>
+#include <QMenu>
 
 #include <cmath>
-#include <kmenu.h>
 
 #include <ktlconfig.h>
 

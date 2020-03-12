@@ -19,12 +19,10 @@
 #include "mechanicsdocument.h"
 #include "katemdi.h"
 
-#include <kapplication.h>
 #include <kconfig.h>
 #include <kglobal.h>
 #include <klocalizedstring.h>
 #include <kconfiggroup.h>
-#include <kglobal.h>
 
 // #include <q3dragobject.h>
 #include <qdebug.h>

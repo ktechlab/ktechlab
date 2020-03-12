@@ -20,19 +20,15 @@
 
 #include <kcolorbutton.h>
 #include <kcombobox.h>
-#include <kdebug.h>
 
 #include <kparts/readwritepart.h>
 #include <kparts/browserextension.h>
 #include <kparts/browserhostextension.h>
 #include <khtml_part.h>
 #include <KHtml/khtmlview.h>
-#include <kicon.h>
 #include <kiconloader.h>
-#include <kglobal.h>
 #include <kmimetype.h>
 #include <kinputdialog.h>
-#include <klocale.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <kparts/browserextension.h>
@@ -41,7 +37,6 @@
 #include <kdirselectdialog.h>
 #include <kstandarddirs.h>
 // #include <k3iconview.h>
-#include <kicon.h>
 #include <kglobal.h>
 
 #include <qevent.h>

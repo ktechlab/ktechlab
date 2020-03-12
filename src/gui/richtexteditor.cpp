@@ -9,9 +9,6 @@
 
 #include "richtexteditor.h"
 
-#include <kaction.h>
-//#include <kactionclasses.h>
-#include <kaction.h>
 #include <ktoolbarpopupaction.h>
 #include <ktoggleaction.h>
 #include <kcolordialog.h>
@@ -21,7 +18,6 @@
 #include <ktextedit.h>
 #include <ktoolbar.h>
 #include <kactioncollection.h>
-#include <kmenu.h>
 
 #include <qtextedit.h>
 #include <qdebug.h>
@@ -33,6 +29,7 @@
 #include <qtextformat.h>
 #include <qregexp.h>
 #include <qdir.h>
+#include <QMenu>
 
 // #include <q3vbox.h>
 // #include <q3textedit.h>

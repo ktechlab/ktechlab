@@ -28,20 +28,14 @@
 #include <ktexteditor/texthintinterface.h>
 
 // #include "kateview.h"
-#include <kaction.h>
-#include <kdebug.h>
 #include <qdebug.h>
 #include <kiconloader.h>
-#include <kicon.h>
 #include <klocalizedstring.h>
 #include <KActionCollection>
 // #include <k3popupmenu.h>
 #include <kstandarddirs.h>
 #include <ktoolbarpopupaction.h>
-#include <kmenu.h>
 #include <kxmlguifactory.h>
-#include <kactioncollection.h>
-#include <kaction.h>
 #include <qactiongroup.h>
 
 #include <qapplication.h>
@@ -51,6 +45,7 @@
 #include <qtimer.h>
 #include <qsharedpointer.h>
 #include <qclipboard.h>
+#include <QMenu>
 
 
 //BEGIN class TextView

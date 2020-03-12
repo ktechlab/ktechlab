@@ -18,7 +18,6 @@
 
 #include <klineedit.h>
 #include <klocalizedstring.h>
-#include <kglobal.h>
 #include <qdebug.h>
 
 //#include <qiconset.h>

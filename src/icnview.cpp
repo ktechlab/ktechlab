@@ -13,10 +13,7 @@
 #include "icnview.h"
 #include "ktechlab.h"
 
-#include <kaction.h>
 #include <kconfig.h>
-#include <kglobal.h>
-#include <kicon.h>
 #include <kiconloader.h>
 #include <klocalizedstring.h>
 #include <kiconloader.h>

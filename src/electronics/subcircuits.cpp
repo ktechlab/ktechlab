@@ -15,14 +15,12 @@
 #include "itemselector.h"
 #include "subcircuits.h"
 
-#include <kapplication.h>
 #include <kconfig.h>
 #include <kglobal.h>
 #include <kiconloader.h>
 #include <klocalizedstring.h>
 #include <kstandarddirs.h>
 #include <kconfiggroup.h>
-#include <kglobal.h>
 
 #include <qdebug.h>
 #include <qfile.h>

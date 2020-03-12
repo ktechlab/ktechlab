@@ -17,7 +17,6 @@
 #include "node.h"
 
 #include <qdebug.h>
-#include <kstandarddirs.h>
 
 #include <qbitmap.h>
 #include <qlayout.h>

@@ -20,7 +20,6 @@
 #include <kcombobox.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
-#include <kdebug.h>
 #include <kglobal.h>
 #include <kiconloader.h>
 #include <klocalizedstring.h>

@@ -17,7 +17,6 @@
 #include "katemdi.h"
 
 #include <klocalizedstring.h>
-#include <kstandarddirs.h>
 
 #include <qlayout.h>
 #include <qlabel.h>

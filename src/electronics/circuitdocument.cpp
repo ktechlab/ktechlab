@@ -30,7 +30,6 @@
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <kactionmenu.h>
-#include <kicon.h>
 
 #include <qregexp.h>
 #include <qtimer.h>

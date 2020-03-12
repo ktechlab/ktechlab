@@ -29,7 +29,6 @@
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <kstandarddirs.h>
-#include <kglobal.h>
 
 #include <qbitmap.h>
 #include "qdebug.h"
