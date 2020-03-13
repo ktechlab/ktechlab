@@ -634,7 +634,6 @@ void ItemDocument::fillContextMenu( const QPoint & pos )
 		//m_pAlignmentAction->insert( align_actions[i] );
         m_pAlignmentAction->addAction( align_actions[i] );
 	}
-	//Q3PtrList<KAction> alignment_actions;
     QList<QAction*> alignment_actions;
 	alignment_actions.append( m_pAlignmentAction );
 	KTechlab::self()->plugActionList( "alignment_actionlist", alignment_actions );

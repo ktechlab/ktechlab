@@ -28,11 +28,8 @@ class TextDocument;
 class View;
 class ViewArea;
 
-class KAction;
-
 typedef QList<Document*> DocumentList;
 typedef QMap< KUrl, Document* > URLDocumentMap;
-typedef QList<KAction*> KActionList;
 
 /**
 @author David Saxton

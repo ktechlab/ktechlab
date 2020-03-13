@@ -23,7 +23,6 @@
 #include "utils.h"
 
 //#include <kaccel.h>
-#include <kaction.h>
 #include <kstandardaction.h>
 #include <qdebug.h>
 #include <kiconloader.h>
@@ -63,7 +62,7 @@ ItemView::ItemView( ItemDocument * itemDocument, ViewContainer *viewContainer, u
 	//KAccel *pAccel = new KAccel(this);
 	//pAccel->insert( "Cancel", i18n("Cancel"), i18n("Cancel the current operation"), Qt::Key_Escape, itemDocument, SLOT(cancelCurrentOperation()) );
 	//pAccel->readSettings(); // TODO what does this do?
-    KAction *pAccel = new KAction( QIcon::fromTheme("process-stop"), i18n("Cancel"), ac);
+    QAction *pAccel = new QAction( QIcon::fromTheme("process-stop"), i18n("Cancel"), ac);
     pAccel->setObjectName("cancelCurrentOperation");
     pAccel->setShortcut(Qt::Key_Escape);
     connect(pAccel, SIGNAL(triggered(bool)), itemDocument, SLOT(cancelCurrentOperation()));
@@ -71,7 +70,7 @@ ItemView::ItemView( ItemDocument * itemDocument, ViewContainer *viewContainer, u
 
     {
 	//new KAction( i18n("Delete"), "edit-delete", Qt::Key_Delete, itemDocument, SLOT(deleteSelection()), ac, "edit_delete" );
-        KAction *action = new KAction( QIcon::fromTheme("edit-delete"), i18n("Delete"), ac);
+        QAction *action = new QAction( QIcon::fromTheme("edit-delete"), i18n("Delete"), ac);
         action->setObjectName("edit_delete");
         action->setShortcut( Qt::Key_Delete );
         connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(deleteSelection()));
@@ -79,7 +78,7 @@ ItemView::ItemView( ItemDocument * itemDocument, ViewContainer *viewContainer, u
     }
     {
 	//new KAction( i18n("Export as Image..."), 0, 0, itemDocument, SLOT(exportToImage()), ac, "file_export_image");
-        KAction *action = new KAction( QIcon::fromTheme("document-export"), i18n("Export as Image..."), ac);
+        QAction *action = new QAction( QIcon::fromTheme("document-export"), i18n("Export as Image..."), ac);
         action->setObjectName("file_export_image");
         connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(exportToImage()));
         ac->addAction("file_export_image", action);
@@ -88,28 +87,28 @@ ItemView::ItemView( ItemDocument * itemDocument, ViewContainer *viewContainer, u
 	//BEGIN Item Alignment actions
 	{
 	//new KAction( i18n("Align Horizontally"), 0, 0, itemDocument, SLOT(alignHorizontally()), ac, "align_horizontally" );
-        KAction *action = new KAction( QIcon::fromTheme("align-horizontal-center"), i18n("Align Horizontally"), ac);
+        QAction *action = new QAction( QIcon::fromTheme("align-horizontal-center"), i18n("Align Horizontally"), ac);
         action->setObjectName("align_horizontally");
         connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(alignHorizontally()));
         ac->addAction("align_horizontally", action);
     }
     {
 	//new KAction( i18n("Align Vertically"), 0, 0, itemDocument, SLOT(alignVertically()), ac, "align_vertically" );
-        KAction *action = new KAction( QIcon::fromTheme("align-vertical-center"), i18n("Align Vertically"), ac);
+        QAction *action = new QAction( QIcon::fromTheme("align-vertical-center"), i18n("Align Vertically"), ac);
         action->setObjectName("align_vertically");
         connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(alignVertically()));
         ac->addAction("align_vertically", action);
     }
     {
 	//new KAction( i18n("Distribute Horizontally"), 0, 0, itemDocument, SLOT(distributeHorizontally()), ac, "distribute_horizontally" );
-        KAction *action = new KAction( QIcon::fromTheme("distribute-horizontal-x"), i18n("Distribute Horizontally"), ac);
+        QAction *action = new QAction( QIcon::fromTheme("distribute-horizontal-x"), i18n("Distribute Horizontally"), ac);
         action->setObjectName("distribute_horizontally");
         connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(distributeHorizontally()));
         ac->addAction("distribute_horizontally", action);
     }
     {
 	//new KAction( i18n("Distribute Vertically"), 0, 0, itemDocument, SLOT(distributeVertically()), ac, "distribute_vertically" );
-        KAction *action = new KAction( QIcon::fromTheme("distribute-vertical-y"), i18n("Distribute Vertically"), ac);
+        QAction *action = new QAction( QIcon::fromTheme("distribute-vertical-y"), i18n("Distribute Vertically"), ac);
         action->setObjectName("distribute_vertically");
         connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(distributeVertically()));
         ac->addAction("distribute_vertically", action);
@@ -140,7 +139,7 @@ ItemView::ItemView( ItemDocument * itemDocument, ViewContainer *viewContainer, u
 	//BEGIN Item Control actions
     {
 	//new KAction( i18n("Raise Selection"), "object-order-raise", Qt::Key_PageUp,   itemDocument, SLOT(raiseZ()), ac, "edit_raise" );
-        KAction * action = new KAction( QIcon::fromTheme("object-order-raise"), i18n("Raise Selection"), ac);
+        QAction * action = new QAction( QIcon::fromTheme("object-order-raise"), i18n("Raise Selection"), ac);
         action->setObjectName("edit_raise");
         action->setShortcut(Qt::Key_PageUp);
         connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(raiseZ()));
@@ -148,7 +147,7 @@ ItemView::ItemView( ItemDocument * itemDocument, ViewContainer *viewContainer, u
     }
     {
 	//new KAction( i18n("Lower Selection"), "object-order-lower", Qt::Key_PageDown, itemDocument, SLOT(lowerZ()), ac, "edit_lower" );
-        KAction *action = new KAction( QIcon::fromTheme("object-order-lower"), i18n("Lower Selection"), ac);
+        QAction *action = new QAction( QIcon::fromTheme("object-order-lower"), i18n("Lower Selection"), ac);
         action->setObjectName("edit_lower");
         action->setShortcut(Qt::Key_PageDown);
         connect(action, SIGNAL(triggered(bool)), itemDocument, SLOT(lowerZ()));
@@ -159,7 +158,7 @@ ItemView::ItemView( ItemDocument * itemDocument, ViewContainer *viewContainer, u
 
 	{
 	//KAction * na = new KAction( "", 0, 0, 0, 0, ac, "null_action" );
-    KAction * na = new KAction( "", ac);
+    QAction * na = new QAction( "", ac);
     na->setObjectName("null_action");
 	na->setEnabled(false);
     }

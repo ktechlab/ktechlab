@@ -244,7 +244,6 @@ private:
 	TextDocument( const QString& caption, const char *name = nullptr );
 	bool m_constructorSuccessful;
 	CodeType m_guessedCodeType;
-	//Q3PtrList<KAction> m_bookmarkActions;
     QList<QAction*> m_bookmarkActions;
 
 #ifndef NO_GPSIM
