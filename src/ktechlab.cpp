@@ -613,7 +613,7 @@ void KTechlab::setupActions()
     }
     {
 	//new QAction( i18n("Create Subproject..."), 0,				0, pm, SLOT(slotCreateSubproject()),		ac, "project_create_subproject" );
-        QAction *a = new QAction( QIcon::fromTheme(""), i18n("Create Subproject..."), ac);
+        QAction *a = new QAction(i18n("Create Subproject..."), ac);
         a->setObjectName("project_create_subproject");
         connect(a, SIGNAL(triggered(bool)), pm, SLOT(slotCreateSubproject()));
         ac->addAction(a->objectName(), a);

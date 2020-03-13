@@ -44,7 +44,7 @@ CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *view
     {
 	//ra = new QAction( i18n("0 Degrees"), "", 0, circuitDocument, SLOT(setOrientation0()), ac, "edit_orientation_0" );
 	// ra->setExclusiveGroup("orientation"); // TODO test
-        QAction *ra = new QAction( QIcon::fromTheme(""), i18n("0 Degrees"), ac);
+        QAction *ra = new QAction( i18n("0 Degrees"), ac);
         ra->setObjectName("edit_orientation_0");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(setOrientation0()));
         ac->addAction(ra->objectName(), ra);
@@ -53,7 +53,7 @@ CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *view
     {
 	//ra = new QAction( i18n("90 Degrees"), "", 0, circuitDocument, SLOT(setOrientation90()), ac, "edit_orientation_90" );
 	// ra->setExclusiveGroup("orientation"); // TODO test
-        QAction *ra = new QAction( QIcon::fromTheme(""), i18n("90 Degrees"), ac);
+        QAction *ra = new QAction( i18n("90 Degrees"), ac);
         ra->setObjectName("edit_orientation_90");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(setOrientation90()));
         ac->addAction(ra->objectName(), ra);
@@ -61,7 +61,7 @@ CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *view
     {
 	//ra = new QAction( i18n("180 Degrees"), "", 0, circuitDocument, SLOT(setOrientation180()), ac, "edit_orientation_180" );
 	//ra->setExclusiveGroup("orientation"); // TODO test
-        QAction *ra = new QAction( QIcon::fromTheme(""), i18n("180 Degrees"), ac);
+        QAction *ra = new QAction( i18n("180 Degrees"), ac);
         ra->setObjectName("edit_orientation_180");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(setOrientation180()));
         ac->addAction(ra->objectName(), ra);
@@ -69,7 +69,7 @@ CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *view
     {
 	//ra =new QAction( i18n("270 Degrees"), "", 0, circuitDocument, SLOT(setOrientation270()), ac, "edit_orientation_270" );
 	//ra->setExclusiveGroup("orientation"); // TODO test
-        QAction *ra = new QAction( QIcon::fromTheme(""), i18n("270 Degrees"), ac);
+        QAction *ra = new QAction( i18n("270 Degrees"), ac);
         ra->setObjectName("edit_orientation_270");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(setOrientation270()));
         ac->addAction(ra->objectName(), ra);
@@ -77,7 +77,7 @@ CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *view
 
     {
 	//new QAction( i18n("Create Subcircuit"), "", 0, circuitDocument, SLOT(createSubcircuit()), ac, "circuit_create_subcircuit" );
-        QAction *ra = new QAction( QIcon::fromTheme(""), i18n("Create Subcircuit"), ac);
+        QAction *ra = new QAction( i18n("Create Subcircuit"), ac);
         ra->setObjectName("circuit_create_subcircuit");
         connect(ra, SIGNAL(triggered(bool)), circuitDocument, SLOT(createSubcircuit()));
         ac->addAction(ra->objectName(), ra);

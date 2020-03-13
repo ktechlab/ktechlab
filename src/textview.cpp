@@ -81,7 +81,7 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
 
     {
 	//new QAction( i18n("Format Assembly Code"), "", Qt::Key_F12, textDocument, SLOT(formatAssembly()), ac, "format_asm" );
-        QAction *action = new QAction( QIcon::fromTheme(""), i18n("Format Assembly Code"), ac);
+        QAction *action = new QAction( i18n("Format Assembly Code"), ac);
         action->setObjectName("format_asm");
         action->setShortcut(Qt::Key_F12);
         connect(action, SIGNAL(triggered(bool)), textDocument, SLOT(formatAssembly()));
@@ -93,7 +93,7 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
 	//BEGIN Debug Actions
 	{
 	//new QAction( i18n("Set &Breakpoint"), 0, 0, this, SLOT(toggleBreakpoint()), ac, "debug_toggle_breakpoint" );
-        QAction *action = new QAction( QIcon::fromTheme(""), i18n("Set &Breakpoint"), ac);
+        QAction *action = new QAction(i18n("Set &Breakpoint"), ac);
         action->setObjectName("debug_toggle_breakpoint");
         connect(action, SIGNAL(triggered(bool)), this, SLOT(toggleBreakpoint()));
         ac->addAction(action->objectName(), action);
