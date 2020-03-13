@@ -27,7 +27,6 @@
 #include <klocalizedstring.h>
 #include <kconfig.h>
 #include <kglobal.h>
-#include <kiconloader.h>
 //#include <kpopupmenu.h>
 #include <kactioncollection.h>
 #include <kxmlguifactory.h>
@@ -39,6 +38,7 @@
 #include <QDebug>
 #include <QEvent>
 #include <QMenu>
+#include <QIcon>
 
 
 typedef QList<int> IntList;
@@ -488,7 +488,7 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
 
         //p->insertItem(w->persistent ? SmallIcon("view-restore") : SmallIcon("view-fullscreen"), w->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent"), 10); // 2018.11.22
         p->addAction(
-            w->persistent ? SmallIcon("view-restore") : SmallIcon("view-fullscreen"),
+            w->persistent ? QIcon::fromTheme("view-restore") : QIcon::fromTheme("view-fullscreen"),
             w->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent")
         )->setData(10);
 
@@ -496,19 +496,19 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
 
 		if (sidebarPosition() != 0)
           //p->insertItem(SmallIcon("go-previous"), i18n("Left Sidebar"),0);  // 2018.11.22
-          p->addAction(SmallIcon("go-previous"), i18n("Left Sidebar"))->setData(0);
+          p->addAction(QIcon::fromTheme("go-previous"), i18n("Left Sidebar"))->setData(0);
 
 		if (sidebarPosition() != 1)
           //p->insertItem(SmallIcon("go-next"), i18n("Right Sidebar"),1); // 2018.11.22
-          p->addAction(SmallIcon("go-next"), i18n("Right Sidebar"))->setData(1);
+          p->addAction(QIcon::fromTheme("go-next"), i18n("Right Sidebar"))->setData(1);
 
 		if (sidebarPosition() != 2)
           //p->insertItem(SmallIcon("go-up"), i18n("Top Sidebar"),2); // 2018.11.22
-          p->addAction(SmallIcon("go-up"), i18n("Top Sidebar"))->setData(2);
+          p->addAction(QIcon::fromTheme("go-up"), i18n("Top Sidebar"))->setData(2);
 
 		if (sidebarPosition() != 3) {
           //p->insertItem(SmallIcon("go-down"), i18n("Bottom Sidebar"),3); // 2018.11.22
-          p->addAction(SmallIcon("go-down"), i18n("Bottom Sidebar"))->setData(3);
+          p->addAction(QIcon::fromTheme("go-down"), i18n("Bottom Sidebar"))->setData(3);
         }
         connect(p, SIGNAL(triggered(QAction*)),
               this, SLOT(buttonPopupActivate(QAction*)));
