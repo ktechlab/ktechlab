@@ -32,13 +32,13 @@
 #include <kactioncollection.h>
 #include <kxmlguifactory.h>
 #include <kconfiggroup.h>
-#include <kmenu.h>
 
 // #include <q3intdict.h>
 #include <qboxlayout.h>
 #include <QContextMenuEvent>
 #include <QDebug>
 #include <QEvent>
+#include <QMenu>
 
 
 typedef QList<int> IntList;
@@ -482,9 +482,9 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
 
       if (w)
       {
-        KMenu *p = new KMenu (this);
+        QMenu *p = new QMenu (this);
 
-        p->addTitle(SmallIcon("view_remove"), i18n("Behavior"), nullptr /*0 */);
+        p->addSection(QIcon::fromTheme("view_remove"), i18n("Behavior"));
 
         //p->insertItem(w->persistent ? SmallIcon("view-restore") : SmallIcon("view-fullscreen"), w->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent"), 10); // 2018.11.22
         p->addAction(
@@ -492,7 +492,7 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
             w->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent")
         )->setData(10);
 
-        p->addTitle(SmallIcon("transform-move"), i18n("Move To"), nullptr /* 51 ? */);
+        p->addSection(QIcon::fromTheme("transform-move"), i18n("Move To"));
 
 		if (sidebarPosition() != 0)
           //p->insertItem(SmallIcon("go-previous"), i18n("Left Sidebar"),0);  // 2018.11.22

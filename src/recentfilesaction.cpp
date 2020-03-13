@@ -11,13 +11,14 @@
 #include "recentfilesaction.h"
 
 #include <kconfig.h>
-#include <kmenu.h>
 #include <kstandarddirs.h>
 #include <kurl.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
 #include <kglobal.h>
 #include <ksharedconfig.h>
+
+#include <QMenu>
 
 RecentFilesAction::RecentFilesAction( const QString & configGroupName, const QString& text, const QObject* receiver, const char* slot, QObject* parent, const char* name )
 	: KSelectAction( text /*, 0*/ /*pix*/, parent /*, name */ )
@@ -27,7 +28,7 @@ RecentFilesAction::RecentFilesAction( const QString & configGroupName, const QSt
 	m_configGroupName = configGroupName;
 	m_maxItems = 10;
 
-	m_popup = new KMenu;
+	m_popup = new QMenu;
 	connect(m_popup, SIGNAL(aboutToShow()), this, SLOT(menuAboutToShow()));
 	connect(m_popup, SIGNAL(triggered(QAction*)), this, SLOT(menuItemActivated(QAction*)));
 	connect( this, SIGNAL(triggered(const QString&)),
@@ -145,7 +146,7 @@ void RecentFilesAction::menuItemActivated( QAction *action )
 
 void RecentFilesAction::menuAboutToShow()
 {
-	KMenu *menu = m_popup;
+	QMenu *menu = m_popup;
 	menu->clear();
 	QStringList list = items();
 	QStringList::iterator end = list.end();

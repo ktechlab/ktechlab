@@ -16,7 +16,7 @@
 
 //class K3PopupMenu;
 class KUrl;
-class KMenu;
+class QMenu;
 
 /**
 Taken mainly from kdelibs/kdeui/kactionclasses.[cpp/h], author Michael Koch.
@@ -72,7 +72,7 @@ class RecentFilesAction : public KSelectAction
 
 	protected:
 		unsigned m_maxItems;
-		KMenu * m_popup;
+		QMenu * m_popup;
 		QString m_configGroupName;
 };
 

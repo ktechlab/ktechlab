@@ -53,7 +53,6 @@
 #include <kedittoolbar.h>
 #include <kfiledialog.h>
 #include <kglobal.h>
-#include <kmenu.h>
 
 #include <kiconloader.h>
 #include <kio/netaccess.h>
@@ -1060,8 +1059,8 @@ void KTechlab::slotTabContext( QWidget* widget,const QPoint & pos )
 {
 	// Shamelessly stolen from KDevelop...
 
-	KMenu * tabMenu = new KMenu;
-	tabMenu->addTitle( (dynamic_cast<ViewContainer*>(widget))->windowTitle() );
+	QMenu * tabMenu = new QMenu;
+	tabMenu->addSection( (dynamic_cast<ViewContainer*>(widget))->windowTitle() );
 
 	//Find the document on whose tab the user clicked
 	m_pContextMenuContainer = nullptr;
