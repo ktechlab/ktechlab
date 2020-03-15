@@ -14,7 +14,6 @@
 #include <kurl.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
-#include <kglobal.h>
 #include <ksharedconfig.h>
 
 #include <QMenu>
@@ -79,7 +78,7 @@ void RecentFilesAction::addURL( const KUrl& url )
 
 void RecentFilesAction::loadEntries()
 {
-	KConfig * config = KGlobal::config().data();
+	KSharedConfigPtr config = KSharedConfig::openConfig();
 
 	QString     key;
 	QString     value;
@@ -108,7 +107,7 @@ void RecentFilesAction::loadEntries()
 
 void RecentFilesAction::saveEntries()
 {
-	KConfig * config = KGlobal::config().data();
+	KSharedConfigPtr config = KSharedConfig::openConfig();
 
 	QString     key;
 	QString     value;

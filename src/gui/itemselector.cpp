@@ -20,7 +20,7 @@
 #include "katemdi.h"
 
 #include <kconfig.h>
-#include <kglobal.h>
+#include <ksharedconfig.h>
 #include <klocalizedstring.h>
 #include <kconfiggroup.h>
 
@@ -173,7 +173,7 @@ void ItemSelector::addItem( const QString & caption, const QString & id, const Q
 void ItemSelector::writeOpenStates()
 {
 	//KConfig *config = kapp->config();
-    KSharedConfigPtr configPtr = KGlobal::config();
+    KSharedConfigPtr configPtr = KSharedConfig::openConfig();
 	//config->setGroup( name() );
     KConfigGroup configGroup = configPtr->group( objectName() );
 
@@ -196,7 +196,7 @@ void ItemSelector::writeOpenStates()
 bool ItemSelector::readOpenState( const QString &id )
 {
 	//KConfig *config = kapp->config();
-    KSharedConfigPtr configPtr = KGlobal::config();
+    KSharedConfigPtr configPtr = KSharedConfig::openConfig();
 	//config->setGroup( name() );
     KConfigGroup configGroup = configPtr->group( objectName() );
 

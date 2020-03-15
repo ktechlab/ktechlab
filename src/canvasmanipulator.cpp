@@ -30,7 +30,6 @@
 
 #include <kconfig.h>
 #include <qdebug.h>
-#include <kglobal.h>
 #include <kconfiggroup.h>
 #include <ksharedconfig.h>
 
@@ -56,7 +55,7 @@ CMManager::CMManager( ItemDocument *itemDocument )
 	m_allowItemScrollTmr = new QTimer(this);
 	connect( m_allowItemScrollTmr, SIGNAL(timeout()), this, SLOT(slotAllowItemScroll()) );
 	
-	KConfigGroup grGen = KGlobal::config()->group("General");
+	KConfigGroup grGen = KSharedConfig::openConfig()->group("General");
 	slotSetManualRoute( grGen.readEntry( "ManualRouting", false ) );
 }
 
@@ -332,7 +331,7 @@ void CMManager::setDrawAction( int drawAction )
 
 void CMManager::slotSetManualRoute( bool manualRoute )
 {
-	KConfigGroup grGen = KGlobal::config()->group("General");
+	KConfigGroup grGen = KSharedConfig::openConfig()->group("General");
 	grGen.writeEntry( "ManualRouting", manualRoute );
 	
 	setCMState( cms_manual_route, manualRoute );

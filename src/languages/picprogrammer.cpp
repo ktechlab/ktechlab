@@ -12,8 +12,7 @@
 #include "picprogrammer.h"
 #include "logview.h"
 
-#include <kconfig.h>
-#include <kglobal.h>
+#include <ksharedconfig.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <kshell.h>
@@ -379,7 +378,7 @@ void PicProgrammer::processInput( ProcessOptions options )
 
 	PicProgrammerSettings settings;
 	//settings.load( kapp->config() );
-    KSharedConfigPtr cfgPtr = KGlobal::config();
+    KSharedConfigPtr cfgPtr = KSharedConfig::openConfig();
     settings.load( cfgPtr.data() );
 
 	QString program = options.m_program;

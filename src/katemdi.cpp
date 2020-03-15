@@ -26,7 +26,7 @@
 #include <kglobalsettings.h>
 #include <klocalizedstring.h>
 #include <kconfig.h>
-#include <kglobal.h>
+#include <ksharedconfig.h>
 //#include <kpopupmenu.h>
 #include <kactioncollection.h>
 #include <kxmlguifactory.h>
@@ -152,7 +152,7 @@ GUIClient::GUIClient ( MainWindow *mw )
 
   // read shortcuts
   //actionCollection()->readShortcutSettings( "Shortcuts", kapp->config() );
-  KConfigGroup grShortcuts = KGlobal::config()->group("Shortcuts");
+  KConfigGroup grShortcuts = KSharedConfig::openConfig()->group("Shortcuts");
   actionCollection()->readSettings(&grShortcuts);
 }
 
@@ -173,7 +173,7 @@ void GUIClient::registerToolView (ToolView *tv)
 //   sc = KShortcut( cfg->readEntry( aname, "" ) );
 //   cfg->setGroup( _grp );
 
-  KConfigGroup grSh = KGlobal::config()->group("Shortcuts");
+  KConfigGroup grSh = KSharedConfig::openConfig()->group("Shortcuts");
   sc = KShortcut( grSh.readEntry(aname, "") );
 }
 

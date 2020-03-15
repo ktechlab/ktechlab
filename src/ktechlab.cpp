@@ -53,7 +53,7 @@
 #include <kactioncollection.h>
 #include <kedittoolbar.h>
 #include <kfiledialog.h>
-#include <kglobal.h>
+#include <ksharedconfig.h>
 
 #include <kiconloader.h>
 #include <kio/netaccess.h>
@@ -106,7 +106,7 @@ KTechlab::KTechlab()
 	setupActions();
 	setupView();
 	//readProperties( KGlobal::config() );
-    KSharedConfigPtr cfg = KGlobal::config();
+    KSharedConfigPtr cfg = KSharedConfig::openConfig();
 	readPropertiesInConfig( cfg.data() );
 
 // 	qDebug() << "Constructor time: " << ct.elapsed() << endl;
@@ -444,7 +444,7 @@ void KTechlab::setupTabWidget()
 
 	//KConfig *config = kapp->config();
     //config->setGroup("UI");
-    KSharedConfigPtr cfg = KGlobal::config();
+    KSharedConfigPtr cfg = KSharedConfig::openConfig();
     KConfigGroup grUi = cfg->group("UI");
 
 
@@ -1400,9 +1400,9 @@ void KTechlab::slotFilePrint()
 
 bool KTechlab::queryClose()
 {
-    KConfig *cfgPtr = KGlobal::config().data();
+    KSharedConfigPtr cfgPtr = KSharedConfig::openConfig();
 	//saveProperties( KGlobal::config() );
-    savePropertiesInConfig( cfgPtr );
+    savePropertiesInConfig( cfgPtr.data() );
 
 	if ( DocManager::self()->closeAll() && ProjectManager::self()->slotCloseProject() )
 	{

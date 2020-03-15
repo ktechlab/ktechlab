@@ -20,7 +20,7 @@
 #include <kcombobox.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
-#include <kglobal.h>
+#include <ksharedconfig.h>
 #include <kiconloader.h>
 #include <klocalizedstring.h>
 #include <knuminput.h>
@@ -131,7 +131,7 @@ void Oscilloscope::setZoomLevel( double zoomLevel)
 		zoomLevel = 1.0;
 
 	//KGlobal::config()->setGroup("Oscilloscope");
-    KConfigGroup grOscill = KGlobal::config()->group("Oscilloscope");
+    KConfigGroup grOscill = KSharedConfig::openConfig()->group("Oscilloscope");
 	//KGlobal::config()->writeEntry( "ZoomLevel", zoomLevel);
     grOscill.writeEntry( "ZoomLevel", zoomLevel);
 

@@ -635,7 +635,7 @@ void ItemLibrary::setItemDescriptionsDirectory( QString dir )
 	if ( !dir.isEmpty() && !dir.endsWith(QString::fromLatin1("/")) )
 		dir += QString::fromLatin1("/");
 
-	KConfig * conf = KGlobal::config().data();
+	KSharedConfigPtr conf = KSharedConfig::openConfig();
 	//QString prevGroup = conf->group();
 
 	KConfigGroup grGen = conf->group("General");
@@ -646,7 +646,7 @@ void ItemLibrary::setItemDescriptionsDirectory( QString dir )
 
 QString ItemLibrary::itemDescriptionsDirectory() const
 {
-	KConfig * conf = KGlobal::config().data();
+	KSharedConfigPtr conf = KSharedConfig::openConfig();
 	//QString prevGroup = conf->group();
 
 	KConfigGroup grGen = conf->group("General");

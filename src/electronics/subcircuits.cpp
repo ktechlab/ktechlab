@@ -16,10 +16,10 @@
 #include "subcircuits.h"
 
 #include <kconfig.h>
-#include <kglobal.h>
 #include <kiconloader.h>
 #include <klocalizedstring.h>
 #include <kconfiggroup.h>
+#include <ksharedconfig.h>
 
 #include <qdebug.h>
 #include <qfile.h>
@@ -79,7 +79,7 @@ ECSubcircuit* Subcircuits::createSubcircuit( int id, CircuitDocument *circuitDoc
 void Subcircuits::loadSubcircuits()
 {
 	//KConfig *config = kapp->config();
-    KSharedConfigPtr config = KGlobal::config();
+    KSharedConfigPtr config = KSharedConfig::openConfig();
 	//config->setGroup("Subcircuits");
     KConfigGroup configGrSubcirc = config->group("Subcircuits");
 
@@ -127,7 +127,7 @@ void Subcircuits::updateComponentSelector( int id, const QString &name )
 void Subcircuits::addSubcircuit( const QString &name, const QString &subcircuitXml )
 {
 	//KConfig *config = kapp->config();
-    KSharedConfigPtr config = KGlobal::config();
+    KSharedConfigPtr config = KSharedConfig::openConfig();
 	KConfigGroup subcircGroup = config->group("Subcircuits");
 
 	int nextId = subcircGroup.readEntry<int>( "NextId", 0 );
@@ -182,7 +182,7 @@ void Subcircuits::slotItemRemoved( const QString &id )
 	file.remove();
 
 	//KConfig *config = kapp->config();
-    KSharedConfigPtr config = KGlobal::config();
+    KSharedConfigPtr config = KSharedConfig::openConfig();
 	KConfigGroup grSc = config->group("Subcircuits");
 	QList<int> idList = asIntList( grSc.readEntry<QString>(QString("Ids"), QString()) );
 	idList.removeAll(id_num);

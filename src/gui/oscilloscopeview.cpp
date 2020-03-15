@@ -17,7 +17,7 @@
 #include <kconfig.h>
 #include <kconfiggroup.h>
 #include <klocalizedstring.h>
-#include <kglobal.h>
+#include <ksharedconfig.h>
 // #include <k3popupmenu.h>
 
 #include <qcheckbox.h>

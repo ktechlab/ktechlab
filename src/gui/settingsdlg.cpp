@@ -15,7 +15,7 @@
 #include <kcolorbutton.h>
 #include <kcombobox.h>
 #include <kconfig.h>
-#include <kglobal.h>
+#include <ksharedconfig.h>
 #include <kinputdialog.h>
 #include <klineedit.h>
 #include <klocalizedstring.h>
@@ -334,7 +334,7 @@ int SettingsDlg::sliderValueToRefreshRate( int sliderValue )
 void SettingsDlg::updateSettings()
 {
 	//KConfig * config = kapp->config();
-    KConfig * config = KGlobal::config().data();
+    KSharedConfigPtr config = KSharedConfig::openConfig();
 
 	KConfigSkeleton::ItemInt *item = dynamic_cast<KConfigSkeleton::ItemInt*>(KTLConfig::self()->findItem( "RefreshRate" ));
 	if ( !item )
@@ -361,7 +361,7 @@ void SettingsDlg::updateSettings()
 void SettingsDlg::slotUpdateSettings()
 {
 	//KConfig * config = kapp->config();
-    KConfig *config = KGlobal::config().data();
+    KSharedConfigPtr config = KSharedConfig::openConfig();
 
 	KConfigSkeleton::ItemString * item = dynamic_cast<KConfigSkeleton::ItemString*>(KTLConfig::self()->findItem( "PicProgrammerProgram" ));
 	if ( !item )
@@ -382,7 +382,7 @@ void SettingsDlg::slotUpdateSettings()
 		emit settingsChanged(objectName());
 	}
 
-	m_pPicProgrammerSettings->save( config );
+	m_pPicProgrammerSettings->save( config.data() );
 
 	config->sync();
 }
@@ -393,7 +393,7 @@ void SettingsDlg::updateWidgets()
 	m_generalOptionsWidget->refreshRateSlider->setValue( refreshRateToSliderValue( KTLConfig::refreshRate() ) );
 
 	//m_pPicProgrammerSettings->load( kapp->config() );
-    m_pPicProgrammerSettings->load( KGlobal::config().data() );
+    m_pPicProgrammerSettings->load( KSharedConfig::openConfig().data() );
 
 	QStringList programmerNames = m_pPicProgrammerSettings->configNames( false );
 
