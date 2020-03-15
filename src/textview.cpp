@@ -33,7 +33,6 @@
 #include <klocalizedstring.h>
 #include <KActionCollection>
 // #include <k3popupmenu.h>
-#include <kstandarddirs.h>
 #include <ktoolbarpopupaction.h>
 #include <kxmlguifactory.h>
 #include <qactiongroup.h>
@@ -146,7 +145,7 @@ TextView::TextView( TextDocument * textDocument, ViewContainer *viewContainer, u
 
 
 	setXMLFile( "ktechlabtextui.rc" );
-	m_view->setXMLFile( KStandardDirs::locate( "appdata", "ktechlabkateui.rc" ) );
+	m_view->setXMLFile( "ktechlabkateui.rc" );
 
 	m_savedCursorLine = 0;
 	m_savedCursorColumn = 0;

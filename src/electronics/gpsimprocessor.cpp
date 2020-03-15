@@ -27,7 +27,6 @@
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <ktemporaryfile.h>
-#include <kstandarddirs.h>
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qtimer.h>
@@ -311,7 +310,7 @@ int GpsimProcessor::operandLiteral( unsigned address )
 
 GpsimProcessor::ProgramFileValidity GpsimProcessor::isValidProgramFile( const QString & programFile )
 {
-	if ( !KStandardDirs::exists(programFile) )
+	if ( !QFile::exists(programFile) )
 		return DoesntExist;
 	
 	QString extension = programFile.right( programFile.length() - programFile.lastIndexOf('.') - 1 ).toLower();

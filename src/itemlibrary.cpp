@@ -28,7 +28,6 @@
 #include <qlocale.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <kstandarddirs.h>
 
 #include <qbitmap.h>
 #include "qdebug.h"
@@ -40,6 +39,7 @@
 #include <qpushbutton.h>
 #include <qregexp.h>
 #include <qtimer.h>
+#include <QStandardPaths>
 
 #include <cassert>
 
@@ -650,7 +650,7 @@ QString ItemLibrary::itemDescriptionsDirectory() const
 	//QString prevGroup = conf->group();
 
 	KConfigGroup grGen = conf->group("General");
-	QString dir = grGen.readPathEntry( "ItemDescriptionsDirectory", KStandardDirs::locate( "appdata", "contexthelp/" ) );
+	QString dir = grGen.readPathEntry( "ItemDescriptionsDirectory", QStandardPaths::locate( QStandardPaths::AppDataLocation, "contexthelp/", QStandardPaths::LocateDirectory) );
 	//conf->setGroup( prevGroup );
 
 	if ( !dir.isEmpty() && !dir.endsWith(QString::fromLatin1("/")) )

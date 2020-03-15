@@ -26,12 +26,12 @@
 #include <klocalizedstring.h>
 #include <kmessagebox.h> 
 #include <kmimetype.h>
-#include <kstandarddirs.h>
 #include <kxmlguifactory.h>
 
 #include <qdom.h>
 // #include <q3popupmenu.h>
 #include <qmenu.h>
+#include <QStandardPaths>
 
 #include <cassert>
 
@@ -230,7 +230,7 @@ void ProjectItem::updateILVItemPixmap()
 		case ProgramType:
 		{
 			QPixmap pm;
-			pm.load( KStandardDirs:: locate( "appdata", "icons/project_program.png" ) );
+			pm.load( QStandardPaths::locate( QStandardPaths::AppDataLocation, "icons/project_program.png" ) );
 			m_pILVItem->setIcon( 0, QIcon( pm ) );
 			break;
 		}
@@ -238,7 +238,7 @@ void ProjectItem::updateILVItemPixmap()
 		case LibraryType:
 		{
 			QPixmap pm;
-			pm.load( KStandardDirs:: locate( "appdata", "icons/project_library.png" ) );
+			pm.load( QStandardPaths::locate( QStandardPaths::AppDataLocation, "icons/project_library.png" ) );
 			m_pILVItem->setIcon( 0, QIcon( pm ) );
 			break;
 		}

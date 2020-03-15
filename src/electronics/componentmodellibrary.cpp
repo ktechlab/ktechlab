@@ -10,10 +10,9 @@
 #include "componentmodellibrary.h"
 
 #include <qdebug.h>
-#include <kstandarddirs.h>
-
 #include <qdatetime.h>
 #include <qfile.h>
+#include <QStandardPaths>
 
 #include <cassert>
 
@@ -81,7 +80,7 @@ void ComponentModelLibrary::loadModels()
 	QStringList::iterator end = files.end();
 	for ( QStringList::iterator it = files.begin(); it != end; ++it )
 	{
-		QString fileName = KStandardDirs::locate( "appdata", "models/" + *it );
+		QString fileName = QStandardPaths::locate( QStandardPaths::AppDataLocation, "models/" + *it );
 		if ( fileName.isEmpty() )
 		{
 			qWarning() << Q_FUNC_INFO << "Could not find library file \""<<*it<<"\".\n";

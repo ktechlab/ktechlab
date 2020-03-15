@@ -22,12 +22,12 @@
 #include <kmessagebox.h>
 #include <knuminput.h>
 #include <kpushbutton.h>
-#include <kstandarddirs.h>
 
 #include <qgroupbox.h>
 #include <qlabel.h>
 #include <qslider.h>
 #include <qtimer.h>
+#include <QStandardPaths>
 
 #include <ktlconfig.h>
 #include <ui_asmformattingwidget.h>
@@ -203,7 +203,7 @@ void SettingsDlg::slotUpdatePicProgrammerDescription()
 	if ( executable.isEmpty() )
 		executable = program.toLower();
 
-	QString programLocation = KStandardDirs::findExe( executable );
+	QString programLocation = QStandardPaths::findExecutable( executable );
 	if ( programLocation.isNull() )
 		description.prepend( i18n("<b>%1</b> cannot be found.<br>", executable ) );
 	else

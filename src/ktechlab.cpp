@@ -47,6 +47,7 @@
 #include <QFileDialog>
 #include <QIcon>
 #include <QMenu>
+#include <QStandardPaths>
 
 #include <ktoolbar.h>
 #include <kactioncollection.h>
@@ -60,7 +61,6 @@
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 //#include <kpopupmenu.h>
-#include <kstandarddirs.h>
 #include <ktabwidget.h>
 //#include <kwin.h>
 #include <kxmlguifactory.h>
@@ -209,7 +209,7 @@ void KTechlab::setupToolDocks()
     tv->setObjectName("ProjectManager-ToolView");
 	ProjectManager::self( tv );
 
-	pm.load( KStandardDirs::locate( "appdata", "icons/circuit.png" ) );
+	pm.load( QStandardPaths::locate(QStandardPaths::AppDataLocation, "icons/circuit.png" ) );
 	tv = createToolView( ComponentSelector::toolViewIdentifier(),
 						 KMultiTabBar::Left,
 						 pm,
@@ -221,7 +221,7 @@ void KTechlab::setupToolDocks()
 	subcircuits();
 	Subcircuits::loadSubcircuits();
 
-	pm.load( KStandardDirs::locate( "appdata", "icons/flowcode.png" ) );
+	pm.load( QStandardPaths::locate(QStandardPaths::AppDataLocation, "icons/flowcode.png" ) );
 	tv = createToolView( FlowPartSelector::toolViewIdentifier(),
 						 KMultiTabBar::Left,
 						 pm,
@@ -230,7 +230,7 @@ void KTechlab::setupToolDocks()
 	FlowPartSelector::self(tv);
 
 #ifdef MECHANICS
-	pm.load( KStandardDirs::locate( "appdata", "icons/mechanics.png" ) );
+	pm.load( QStandardPaths::locate(QStandardPaths::AppDataLocation, "icons/mechanics.png" ) );
 	tv = createToolView( MechanicsSelector::toolViewIdentifier(),
 						 KMultiTabBar::Left,
 						 pm,
@@ -239,7 +239,7 @@ void KTechlab::setupToolDocks()
 	MechanicsSelector::self(tv);
 #endif
 
-	pm.load( KStandardDirs::locate( "appdata", "icons/item.png" ) );
+	pm.load( QStandardPaths::locate(QStandardPaths::AppDataLocation, "icons/item.png" ) );
 	tv = createToolView( ItemEditor::toolViewIdentifier(),
 						 KMultiTabBar::Right,
 						 pm,
@@ -765,7 +765,7 @@ void KTechlab::setupExampleActions()
 
 	for ( QString category: categories)
 	{
-		QDir dir( KStandardDirs::locate( "appdata", "examples/" + category + "/" ) );
+		QDir dir( QStandardPaths::locate(QStandardPaths::AppDataLocation, "examples/" + category + "/", QStandardPaths::LocateDirectory ) );
 
 		//K3PopupMenu * m = static_cast<K3PopupMenu*>(factory()->container( "examples_" + category, this ));
         QMenu * m = static_cast<QMenu*>(factory()->container( "examples_" + category, this ));

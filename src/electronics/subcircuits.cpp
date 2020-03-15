@@ -19,12 +19,13 @@
 #include <kglobal.h>
 #include <kiconloader.h>
 #include <klocalizedstring.h>
-#include <kstandarddirs.h>
 #include <kconfiggroup.h>
 
 #include <qdebug.h>
 #include <qfile.h>
 #include <qtextstream.h>
+#include <QStandardPaths>
+#include <QDir>
 
 
 Subcircuits::Subcircuits()
@@ -109,7 +110,7 @@ void Subcircuits::loadSubcircuits()
 
 QString Subcircuits::genFileName( const int nextId )
 {
-	return KStandardDirs::locateLocal( "appdata", "subcircuit_"+QString::number(nextId)+".circuit" );
+    return QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/subcircuit_"+QString::number(nextId)+".circuit";
 }
 
 
@@ -131,6 +132,8 @@ void Subcircuits::addSubcircuit( const QString &name, const QString &subcircuitX
 
 	int nextId = subcircGroup.readEntry<int>( "NextId", 0 );
 
+    // ensure dir exists
+    QDir().mkpath(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
 	while ( QFile::exists( genFileName(nextId) ) ) {
 		nextId++;
 	}

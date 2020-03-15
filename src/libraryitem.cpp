@@ -12,8 +12,9 @@
 
 #include <kiconloader.h>
 #include <kicontheme.h>
-#include <kstandarddirs.h>
+
 #include <qimage.h>
+#include <QStandardPaths>
 
 LibraryItem::LibraryItem( QStringList idList, const QString &name, const QString &category, QPixmap icon, Type type, createItemPtr _createItem )
 {
@@ -32,7 +33,7 @@ LibraryItem::LibraryItem( QStringList idList, const QString &name, const QString
 	m_idList = idList;
 	m_name = name;
 	m_category = category;
-	m_icon_full.load( KStandardDirs::locate( "appdata", "icons/"+iconName ) );
+	m_icon_full.load( QStandardPaths::locate(QStandardPaths::AppDataLocation, "icons/"+iconName ) );
 	m_type = type;
 	createItem = _createItem;
 	createIcon16();

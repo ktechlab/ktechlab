@@ -35,7 +35,6 @@
 // #include <k3popupmenu.h>
 #include <krun.h>
 #include <kdirselectdialog.h>
-#include <kstandarddirs.h>
 // #include <k3iconview.h>
 #include <kglobal.h>
 
@@ -52,6 +51,7 @@
 #include <qvalidator.h>
 // #include <q3widgetstack.h>
 #include <qmimedata.h>
+#include <QStandardPaths>
 
 #include <cassert>
 
@@ -305,7 +305,8 @@ void ContextHelp::slotEdit()
 
 	QStringList resourcePaths;
 	QString currentResourcePath = itemLibrary()->itemDescriptionsDirectory();
-	QString defaultResourcePath = KStandardDirs::locate( "appdata", "contexthelp/" );
+	QString defaultResourcePath = QStandardPaths::locate( QStandardPaths::AppDataLocation, "contexthelp/",
+                                                          QStandardPaths::LocateDirectory);
 
 	resourcePaths << currentResourcePath;
 	if ( currentResourcePath != defaultResourcePath )
@@ -420,7 +421,7 @@ void ContextHelp::addLinkTypeAppearances( QString * html )
 
 			case ExternalLink:
 			{
-				imageURL = KStandardDirs::locate( "appdata", "icons/external_link.png" );
+				imageURL = QStandardPaths::locate(QStandardPaths::AppDataLocation, "icons/external_link.png" );
 				break;
 			}
 		}
@@ -474,7 +475,7 @@ QString ContextHelp::examplePathToFullPath( QString path )
 	if ( path.startsWith("/") )
 		path.remove( 0, 1 );
 
-	return KStandardDirs::locate( "appdata", "examples/" + path );
+	return QStandardPaths::locate(QStandardPaths::AppDataLocation, "examples/" + path);
 }
 
 

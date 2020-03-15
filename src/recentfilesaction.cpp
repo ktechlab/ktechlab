@@ -11,7 +11,6 @@
 #include "recentfilesaction.h"
 
 #include <kconfig.h>
-#include <kstandarddirs.h>
 #include <kurl.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
@@ -19,6 +18,7 @@
 #include <ksharedconfig.h>
 
 #include <QMenu>
+#include <QDir>
 
 RecentFilesAction::RecentFilesAction( const QString & configGroupName, const QString& text, const QObject* receiver, const char* slot, QObject* parent, const char* name )
 	: KSelectAction( text /*, 0*/ /*pix*/, parent /*, name */ )
@@ -48,7 +48,7 @@ RecentFilesAction::~RecentFilesAction()
 
 void RecentFilesAction::addURL( const KUrl& url )
 {
-	if ( url.isLocalFile() && !KGlobal::dirs()->relativeLocation("tmp", url.path()).startsWith("/"))
+	if ( url.isLocalFile() && url.toLocalFile().startsWith(QDir::tempPath()))
 		return;
 
 	QString file;
