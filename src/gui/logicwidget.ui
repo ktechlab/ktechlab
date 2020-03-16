@@ -58,7 +58,7 @@
      </property>
      <layout class="QGridLayout">
       <item row="0" column="1">
-       <widget class="KDoubleNumInput" name="kcfg_LogicRisingTrigger">
+       <widget class="QDoubleSpinBox" name="kcfg_LogicRisingTrigger">
         <property name="toolTip">
          <string>Required voltage level before the input will be considered high.</string>
         </property>
@@ -71,13 +71,13 @@
         <property name="suffix">
          <string> V</string>
         </property>
-        <property name="minValue" stdset="0">
+        <property name="minimum">
          <double>0.100000000000000</double>
         </property>
-        <property name="maxValue" stdset="0">
+        <property name="maximum">
          <double>1.500000000000000</double>
         </property>
-        <property name="precision" stdset="0">
+        <property name="decimals">
          <number>1</number>
         </property>
        </widget>
@@ -96,7 +96,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="KDoubleNumInput" name="kcfg_LogicFallingTrigger">
+       <widget class="QDoubleSpinBox" name="kcfg_LogicFallingTrigger">
         <property name="toolTip">
          <string>Required voltage level before an input will be considered low.</string>
         </property>
@@ -109,13 +109,13 @@
         <property name="suffix">
          <string> V</string>
         </property>
-        <property name="minValue" stdset="0">
+        <property name="minimum">
          <double>0.100000000000000</double>
         </property>
-        <property name="maxValue" stdset="0">
+        <property name="maximum">
          <double>1.600000000000000</double>
         </property>
-        <property name="precision" stdset="0">
+        <property name="decimals">
          <number>1</number>
         </property>
        </widget>
@@ -156,7 +156,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="KDoubleNumInput" name="kcfg_LogicOutputHigh">
+       <widget class="QDoubleSpinBox" name="kcfg_LogicOutputHigh">
         <property name="toolTip">
          <string>Voltage level for high on logic components.</string>
         </property>
@@ -169,13 +169,13 @@
         <property name="suffix">
          <string> V</string>
         </property>
-        <property name="minValue" stdset="0">
+        <property name="minimum">
          <double>0.100000000000000</double>
         </property>
-        <property name="maxValue" stdset="0">
+        <property name="maximum">
          <double>1.600000000000000</double>
         </property>
-        <property name="precision" stdset="0">
+        <property name="decimals">
          <number>1</number>
         </property>
        </widget>
@@ -290,11 +290,6 @@ These values will apply to all components, apart from the PIC, whose pins' imped
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KDoubleNumInput</class>
-   <extends>QWidget</extends>
-   <header>knuminput.h</header>
-  </customwidget>
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
