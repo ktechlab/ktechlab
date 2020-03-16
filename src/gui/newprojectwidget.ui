@@ -100,9 +100,16 @@
     <tabstop>projectNameEdit</tabstop>
     <tabstop>projectLocationURL</tabstop>
   </tabstops>
-  <includes>
-    <include location="local">klineedit.h</include>
-    <include location="local">kurlrequester.h</include>
-    <include location="local">klineedit.h</include>
-  </includes>
+ <customwidgets>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KUrlRequester</class>
+   <extends>QWidget</extends>
+   <header>KUrlRequester</header>
+  </customwidget>
+ </customwidgets>
 </ui>

@@ -241,7 +241,7 @@
   </customwidget>
   <customwidget>
    <class>KLineEdit</class>
-   <extends>QWidget</extends>
+   <extends>QLineEdit</extends>
    <header>klineedit.h</header>
   </customwidget>
  </customwidgets>
@@ -257,15 +257,6 @@
   <tabstop>eraseCommand</tabstop>
   <tabstop>kcfg_PicProgrammerPort</tabstop>
  </tabstops>
- <includes>
-  <include location="local">kcombobox.h</include>
-  <include location="local">klineedit.h</include>
-  <include location="local">klineedit.h</include>
-  <include location="local">klineedit.h</include>
-  <include location="local">klineedit.h</include>
-  <include location="local">klineedit.h</include>
-  <include location="local">klineedit.h</include>
- </includes>
  <resources/>
  <connections/>
 </ui>

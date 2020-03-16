@@ -209,10 +209,6 @@
    <header>probepositioner.h</header>
   </customwidget>
  </customwidgets>
- <includes>
-  <include location="local">oscilloscopeview.h</include>
-  <include location="local">probepositioner.h</include>
- </includes>
  <resources/>
  <connections/>
 </ui>

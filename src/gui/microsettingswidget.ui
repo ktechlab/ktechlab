@@ -162,9 +162,6 @@ Drag it to set the type (input/output).</string>
    <header location="global">kcombobox.h</header>
   </customwidget>
  </customwidgets>
- <includes>
-  <include location="local">kcombobox.h</include>
- </includes>
  <resources/>
  <connections/>
 </ui>

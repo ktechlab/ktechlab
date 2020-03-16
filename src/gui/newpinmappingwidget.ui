@@ -119,7 +119,11 @@
       </item>
     </layout>
   </widget>
-  <includes>
-    <include location="local">klineedit.h</include>
-  </includes>
+ <customwidgets>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+ </customwidgets>
 </ui>

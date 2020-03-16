@@ -98,10 +98,6 @@
    <header>microselectwidget.h</header>
   </customwidget>
  </customwidgets>
- <includes>
-  <include location="local">kcombobox.h</include>
-  <include location="local">microselectwidget.h</include>
- </includes>
  <resources/>
  <connections/>
 </ui>
