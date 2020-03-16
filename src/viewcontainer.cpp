@@ -17,7 +17,6 @@
 #include <kconfig.h>
 #include <qdebug.h>
 #include <qboxlayout.h>
-#include <kglobalsettings.h>
 #include <klocalizedstring.h>
 #include <kpushbutton.h>
 #include <ktabwidget.h>
@@ -318,7 +317,6 @@ ViewArea::ViewArea( QWidget *parent, ViewContainer *viewContainer, int id, bool 
 		p_viewContainer->setViewAreaId( this, uint(id) );
 	
 	p_viewContainer->setIdUsed(id);
-	setOpaqueResize( KGlobalSettings::opaqueResize() );
 	
 	m_pEmptyViewArea = nullptr;
 	if ( showOpenButton )

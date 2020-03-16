@@ -23,7 +23,6 @@
 #include "katemdi.h"
 
 
-#include <kglobalsettings.h>
 #include <klocalizedstring.h>
 #include <kconfig.h>
 #include <ksharedconfig.h>
@@ -277,7 +276,6 @@ void Sidebar::setSplitter (Splitter *sp)
   m_splitter = sp;
   Qt::Orientation splitOrient = (sidebarPosition() == KMultiTabBar::Top || sidebarPosition() == KMultiTabBar::Bottom) ? Qt::Horizontal : Qt::Vertical;
   m_ownSplit = new Splitter (splitOrient, m_splitter, "own-Split");
-  m_ownSplit->setOpaqueResize( KGlobalSettings::opaqueResize() );
   m_ownSplit->setChildrenCollapsible( false );
   //m_splitter->setResizeMode( m_ownSplit, QSplitter::KeepSize ); // 2018.11.22
   m_splitter->setStretchFactor( m_splitter->indexOf(m_ownSplit), 0);
@@ -702,7 +700,6 @@ MainWindow::MainWindow (QWidget* parentWidget, const char* name)
   hbl->addWidget( m_sidebars[KMultiTabBar::Left] );
 
   m_hSplitter = new Splitter (Qt::Horizontal, hb);
-  m_hSplitter->setOpaqueResize( KGlobalSettings::opaqueResize() );
   m_hSplitter->setObjectName("Main-Left-Splitter");
   hbl->addWidget( m_hSplitter );
 
@@ -721,7 +718,6 @@ MainWindow::MainWindow (QWidget* parentWidget, const char* name)
 
   m_vSplitter = new Splitter (Qt::Vertical, vb);
   m_vSplitter->setObjectName("Main-Top-Splitter");
-  m_vSplitter->setOpaqueResize( KGlobalSettings::opaqueResize() );
   vbl->addWidget( m_vSplitter );
 
   m_sidebars[KMultiTabBar::Top]->setSplitter (m_vSplitter);
