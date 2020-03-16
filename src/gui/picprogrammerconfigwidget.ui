@@ -43,14 +43,14 @@
        </spacer>
       </item>
       <item row="1" column="2">
-       <widget class="KPushButton" name="addButton">
+       <widget class="QPushButton" name="addButton">
         <property name="text">
          <string>&amp;Add ...</string>
         </property>
        </widget>
       </item>
       <item row="1" column="3">
-       <widget class="KPushButton" name="removeButton">
+       <widget class="QPushButton" name="removeButton">
         <property name="text">
          <string>Re&amp;move</string>
         </property>
@@ -235,11 +235,6 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
-  <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header location="global">kcombobox.h</header>
@@ -263,8 +258,6 @@
   <tabstop>kcfg_PicProgrammerPort</tabstop>
  </tabstops>
  <includes>
-  <include location="local">kpushbutton.h</include>
-  <include location="local">kpushbutton.h</include>
   <include location="local">kcombobox.h</include>
   <include location="local">klineedit.h</include>
   <include location="local">klineedit.h</include>

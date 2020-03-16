@@ -104,7 +104,7 @@ Drag it to set the type (input/output).</string>
        <widget class="KComboBox" name="pinMapCombo"/>
       </item>
       <item row="1" column="4">
-       <widget class="KPushButton" name="pinMapRemove">
+       <widget class="QPushButton" name="pinMapRemove">
         <property name="text">
          <string>Remove</string>
         </property>
@@ -127,21 +127,21 @@ Drag it to set the type (input/output).</string>
        </spacer>
       </item>
       <item row="1" column="1">
-       <widget class="KPushButton" name="pinMapAdd">
+       <widget class="QPushButton" name="pinMapAdd">
         <property name="text">
          <string>Create</string>
         </property>
        </widget>
       </item>
       <item row="1" column="2">
-       <widget class="KPushButton" name="pinMapModify">
+       <widget class="QPushButton" name="pinMapModify">
         <property name="text">
          <string>Modif&amp;y</string>
         </property>
        </widget>
       </item>
       <item row="1" column="3">
-       <widget class="KPushButton" name="pinMapRename">
+       <widget class="QPushButton" name="pinMapRename">
         <property name="text">
          <string>Rename</string>
         </property>
@@ -157,11 +157,6 @@ Drag it to set the type (input/output).</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
-  <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header location="global">kcombobox.h</header>
@@ -169,10 +164,6 @@ Drag it to set the type (input/output).</string>
  </customwidgets>
  <includes>
   <include location="local">kcombobox.h</include>
-  <include location="local">kpushbutton.h</include>
-  <include location="local">kpushbutton.h</include>
-  <include location="local">kpushbutton.h</include>
-  <include location="local">kpushbutton.h</include>
  </includes>
  <resources/>
  <connections/>

@@ -24,9 +24,9 @@
 
 #include <kiconloader.h>
 #include <klocalizedstring.h>
-#include <kpushbutton.h>
 #include <kiconloader.h>
 
+#include <qpushbutton.h>
 #include <qapplication.h>
 #include <qdebug.h>
 #include <qevent.h>
@@ -277,7 +277,7 @@ PropertyEditor::PropertyEditor( QWidget * parent, const char * name )
 // 	connect(header(), SIGNAL(clicked( int )), this, SLOT(moveEditor()));
 // 	connect(header(), SIGNAL(sectionHandleDoubleClicked ( int )), this, SLOT(slotColumnSizeChanged( int )));
 
-	m_defaults = new KPushButton(viewport());
+	m_defaults = new QPushButton(viewport());
 	m_defaults->setFocusPolicy(Qt::NoFocus);
 	setFocusPolicy(Qt::ClickFocus);
 	m_defaults->setIcon(QIcon::fromTheme("edit-undo"));

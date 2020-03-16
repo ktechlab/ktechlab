@@ -26,7 +26,7 @@
 class ItemGroup;
 class Variant;
 class PropertySubEditor;
-class KPushButton;
+class QPushButton;
 class QStyledItemDelegate;
 
 //! A list view to edit any type of properties
@@ -131,7 +131,7 @@ class PropertyEditor : public QTableWidget // K3ListView
 		QPointer<PropertySubEditor> m_currentEditor;
 		PropertyEditorItem *m_editItem;
 		PropertyEditorItem *m_topItem; //The top item is used to control the drawing of every branches.
-		KPushButton *m_defaults; // "Revert to defaults" button
+		QPushButton *m_defaults; // "Revert to defaults" button
 		//PropertyEditorItem::Dict m_items; // 2018.08.13 - unused
 		int m_baseRowHeight;
 		//! Used in setFocus() to prevent scrolling to previously selected item on mouse click

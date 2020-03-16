@@ -14,7 +14,6 @@
 #include "propertysubeditor.h"
 
 class ColorCombo;
-class KPushButton;
 class QLabel;
 class QResizeEvent;
 

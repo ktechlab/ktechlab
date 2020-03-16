@@ -15,7 +15,7 @@
 #include <kurl.h>
 
 class KLineEdit;
-class KPushButton;
+class QPushButton;
 class QResizeEvent;
 class QLabel;
 class Variant;
@@ -37,7 +37,7 @@ class PropertyEditorFile : public PropertySubEditor
 
 	protected:
 		KLineEdit * m_lineedit;
-		KPushButton * m_button;
+		QPushButton * m_button;
 };
 
 

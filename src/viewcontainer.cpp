@@ -18,10 +18,10 @@
 #include <qdebug.h>
 #include <qboxlayout.h>
 #include <klocalizedstring.h>
-#include <kpushbutton.h>
 #include <ktabwidget.h>
 #include <kconfiggroup.h>
 
+#include <QPushButton>
 //#include <qobjectlist.h>
 
 
@@ -575,13 +575,13 @@ EmptyViewArea::EmptyViewArea( ViewArea * parent )
 	layout->setColumnStretch( 0, 1 );
 	layout->setColumnStretch( 2, 1 );
 	
-	KGuiItem openItem( i18n("Open Document"), "document-open" );
-	KPushButton * newDocButton = new KPushButton( openItem, this );
+	QPushButton * newDocButton = new QPushButton(QIcon::fromTheme(QStringLiteral("document-open")),
+                                                 i18n("Open Document"), this );
 	layout->addWidget( newDocButton, 1, 1 );
 	connect( newDocButton, SIGNAL(clicked()), this, SLOT(openDocument()) );
 	
-	KGuiItem cancelItem( i18n("Cancel"), "dialog-cancel" );
-	KPushButton * cancelButton = new KPushButton( cancelItem, this );
+	QPushButton * cancelButton = new QPushButton(QIcon::fromTheme(QStringLiteral("dialog-cancel")),
+                                                 i18n("Cancel"), this );
 	layout->addWidget( cancelButton, 3, 1 );
 	connect( cancelButton, SIGNAL(clicked()), m_pViewArea, SLOT(deleteLater()) );
 }

@@ -21,7 +21,6 @@
 #include <klineedit.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <kpushbutton.h>
 
 #include <qgroupbox.h>
 #include <qlabel.h>

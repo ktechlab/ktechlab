@@ -21,7 +21,6 @@
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <knuminput.h>
-#include <kpushbutton.h>
 
 #include <qgroupbox.h>
 #include <qlabel.h>

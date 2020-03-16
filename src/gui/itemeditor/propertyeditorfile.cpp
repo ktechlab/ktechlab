@@ -13,11 +13,11 @@
 #include "property.h"
 
 #include <klineedit.h>
-#include <kpushbutton.h>
 #include <kfiledialog.h>
 #include <klocalizedstring.h>
 #include <qdebug.h>
 
+#include <QPushButton>
 #include <qstring.h>
 #include <qpixmap.h>
 #include <qvariant.h>
@@ -32,7 +32,7 @@ PropertyEditorFile::PropertyEditorFile( QWidget * parent, Property * property, c
 	m_lineedit = new KLineEdit(this);
 	m_lineedit->resize(width(), height()-2);
 
-	m_button = new KPushButton(i18n(" ... "), this);
+	m_button = new QPushButton(i18n(" ... "), this);
 	m_button->resize(height(), height()-10);
 	m_button->move(width() - m_button->width() -1, 1);
 

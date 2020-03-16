@@ -130,7 +130,6 @@
  <includes>
   <include location="local">kurlrequester.h</include>
   <include location="local">klineedit.h</include>
-  <include location="local">kpushbutton.h</include>
   <include location="local">microselectwidget.h</include>
  </includes>
  <resources/>
