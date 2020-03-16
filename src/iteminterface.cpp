@@ -24,7 +24,6 @@
 #include <kcombobox.h>
 #include <qdebug.h>
 #include <klineedit.h>
-#include <knuminput.h>
 #include <kurlrequester.h>
 #include <ktoolbar.h>
 #include <kxmlguifactory.h>
@@ -32,6 +31,7 @@
 #include <qapplication.h>
 #include <qlabel.h>
 #include <qcheckbox.h>
+#include <QSpinBox>
 
 #include <cassert>
 
@@ -362,8 +362,10 @@ QWidget * ItemInterface::configWidget()
 			}
 			case Variant::Type::Int:
 			{
-				KIntSpinBox *spin = new KIntSpinBox( (int)vait.value()->minValue(), (int)vait.value()->maxValue(), 1, vait.value()->value().toInt(),
-                                                     configWidget, 10 );
+				QSpinBox *spin = new QSpinBox(configWidget);
+				spin->setMinimum((int)vait.value()->minValue());
+				spin->setMaximum((int)vait.value()->maxValue());
+				spin->setValue(vait.value()->value().toInt());
 				
 				connectMapWidget( spin, SIGNAL(valueChanged(int)) );
 				m_intSpinBoxMap[vait.key()] = spin;

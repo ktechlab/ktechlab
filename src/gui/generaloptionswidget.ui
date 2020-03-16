@@ -34,14 +34,14 @@
     </widget>
    </item>
    <item row="5" column="1">
-    <widget class="KIntSpinBox" name="kcfg_MaxUndo">
+    <widget class="QSpinBox" name="kcfg_MaxUndo">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="maxValue" stdset="0">
+     <property name="maximum">
       <number>100000</number>
      </property>
     </widget>
@@ -229,11 +229,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
-  </customwidget>
   <customwidget>
    <class>KColorButton</class>
    <extends>QPushButton</extends>

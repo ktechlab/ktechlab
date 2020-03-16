@@ -23,7 +23,6 @@
 #include <ksharedconfig.h>
 #include <kiconloader.h>
 #include <klocalizedstring.h>
-#include <knuminput.h>
 
 
 // #include <q3button.h>

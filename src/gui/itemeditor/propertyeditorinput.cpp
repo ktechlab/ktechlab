@@ -55,8 +55,13 @@ void PropertyEditorInput::slotTextChanged( const QString & text )
 
 //BEGIN class PropIntSpinBox
 PropIntSpinBox::PropIntSpinBox( int lower, int upper, int step, int value, int base=10, QWidget *parent = nullptr, const char *name = nullptr)
-: KIntSpinBox(lower, upper, step, value, parent /*, name */ , base)
+: QSpinBox(parent /*, name */)
 {
+    setMinimum(lower);
+    setMaximum(upper);
+    setSingleStep(step);
+    setValue(value);
+    setDisplayIntegerBase(base);
     setObjectName(name);
 	lineEdit()->setAlignment(Qt::AlignLeft);
 }
@@ -77,7 +82,7 @@ bool PropIntSpinBox::eventFilter(QObject *o, QEvent *e)
 		}
 	}
 
-	return KIntSpinBox::eventFilter(o, e);
+	return QSpinBox::eventFilter(o, e);
 }
 //END class PropIntSpinBox
 

@@ -207,7 +207,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="KIntSpinBox" name="kcfg_LogicOutputHighImpedance">
+       <widget class="QSpinBox" name="kcfg_LogicOutputHighImpedance">
         <property name="toolTip">
          <string>This is the output impedance when the output is high.</string>
         </property>
@@ -220,16 +220,16 @@
         <property name="value">
          <number>15</number>
         </property>
-        <property name="maxValue" stdset="0">
+        <property name="maximum">
          <number>1000000000</number>
         </property>
-        <property name="minValue" stdset="0">
+        <property name="minimum">
          <number>1</number>
         </property>
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="KIntSpinBox" name="kcfg_LogicOutputLowImpedance">
+       <widget class="QSpinBox" name="kcfg_LogicOutputLowImpedance">
         <property name="toolTip">
          <string>This is the output impedance when the output is low.</string>
         </property>
@@ -245,10 +245,10 @@
         <property name="value">
          <number>0</number>
         </property>
-        <property name="maxValue" stdset="0">
+        <property name="maximum">
          <number>1000000000</number>
         </property>
-        <property name="minValue" stdset="0">
+        <property name="minimum">
          <number>0</number>
         </property>
        </widget>
@@ -290,11 +290,6 @@ These values will apply to all components, apart from the PIC, whose pins' imped
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
-  </customwidget>
   <customwidget>
    <class>KDoubleNumInput</class>
    <extends>QWidget</extends>

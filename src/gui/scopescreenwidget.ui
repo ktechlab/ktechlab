@@ -41,7 +41,7 @@
            </widget>
           </item>
           <item>
-           <widget class="KIntSpinBox" name="intervalsX">
+           <widget class="QSpinBox" name="intervalsX">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -51,11 +51,8 @@
             <property name="value">
              <number>10</number>
             </property>
-            <property name="minValue" stdset="0">
+            <property name="minimum">
              <number>2</number>
-            </property>
-            <property name="lineStep" stdset="0">
-             <number>1</number>
             </property>
            </widget>
           </item>
@@ -96,17 +93,17 @@
            </widget>
           </item>
           <item>
-           <widget class="KIntSpinBox" name="ticksPerIntervalX">
+           <widget class="QSpinBox" name="ticksPerIntervalX">
             <property name="value">
              <number>99</number>
             </property>
-            <property name="maxValue" stdset="0">
+            <property name="maximum">
              <number>2147483647</number>
             </property>
-            <property name="minValue" stdset="0">
+            <property name="minimum">
              <number>1</number>
             </property>
-            <property name="lineStep" stdset="0">
+            <property name="singleStep">
              <number>10</number>
             </property>
            </widget>
@@ -142,11 +139,11 @@
            </widget>
           </item>
           <item>
-           <widget class="KIntSpinBox" name="offsetX">
-            <property name="maxValue" stdset="0">
+           <widget class="QSpinBox" name="offsetX">
+            <property name="maximum">
              <number>2147483647</number>
             </property>
-            <property name="minValue" stdset="0">
+            <property name="minimum">
              <number>-2147483647</number>
             </property>
            </widget>
@@ -161,11 +158,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
-  </customwidget>
   <customwidget>
    <class>ScopeScreenView</class>
    <extends>QWidget</extends>

@@ -20,7 +20,6 @@
 #include <klineedit.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <knuminput.h>
 
 #include <qgroupbox.h>
 #include <qlabel.h>

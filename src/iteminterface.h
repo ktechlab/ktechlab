@@ -32,14 +32,14 @@ class KToolBar;
 class KUrlRequester;
 class QCheckBox;
 class LineEdit;
-class KIntSpinBox;
+class QSpinBox;
 
 
 typedef QMap<QString, Variant*> VariantDataMap;
 typedef QMap<QString, KComboBox*> KComboBoxMap;
 typedef QMap<QString, LineEdit*> LineEditMap;
 typedef QMap<QString, DoubleSpinBox*> DoubleSpinBoxMap;
-typedef QMap<QString, KIntSpinBox*> IntSpinBoxMap;
+typedef QMap<QString, QSpinBox*> IntSpinBoxMap;
 typedef QMap<QString, ColorCombo*> ColorComboMap;
 typedef QMap<QString, KUrlRequester*> KUrlReqMap;
 typedef QMap<QString, QCheckBox*> QCheckBoxMap;

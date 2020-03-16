@@ -13,7 +13,8 @@
 #define PROPERTYEDITORINPUT_H
 
 #include "doublespinbox.h"
-#include <knuminput.h>
+
+#include <QSpinBox>
 
 #include "propertysubeditor.h"
 
@@ -42,7 +43,7 @@ class PropertyEditorInput : public PropertySubEditor
 
 
 
-class PropIntSpinBox : public KIntSpinBox
+class PropIntSpinBox : public QSpinBox
 {
 	Q_OBJECT
 
@@ -51,7 +52,7 @@ class PropIntSpinBox : public KIntSpinBox
 	~PropIntSpinBox() override {;}
 
 	bool eventFilter(QObject *o, QEvent *e) override;
-	QLineEdit * editor () const { return KIntSpinBox::lineEdit(); }
+	QLineEdit * editor () const { return QSpinBox::lineEdit(); }
 };
 
 
