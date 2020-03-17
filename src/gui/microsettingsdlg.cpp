@@ -24,8 +24,10 @@
 
 #include <qgroupbox.h>
 #include <qlabel.h>
-#include <qlayout.h>
 #include <qregexp.h>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 // #include <q3table.h>
 
 #include <ui_newpinmappingwidget.h>
@@ -45,20 +47,19 @@ class NewPinMappingWidget : public QWidget, public Ui::NewPinMappingWidget {
 };
 
 MicroSettingsDlg::MicroSettingsDlg( MicroSettings * microSettings, QWidget *parent, const char *name )
-	:
-	//KDialog( parent, name, true, i18n("PIC Settings"), KDialog::Ok|KDialog::Apply|KDialog::Cancel, KDialog::Ok, true )
-    KDialog( parent /*, name, true, i18n("PIC Settings"), KDialog::Ok|KDialog::Apply|KDialog::Cancel, KDialog::Ok, true */ )
+    : QDialog(parent)
 {
     setObjectName(name);
     setModal(true);
-    setCaption(i18n("PIC Settings"));
-    setButtons(KDialog::Ok | KDialog::Apply | KDialog::Cancel);
-    setDefaultButton(KDialog::Ok);
-    showButtonSeparator(true);
+    setWindowTitle(i18n("PIC Settings"));
+
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
 
 	m_pMicroSettings = microSettings;
 	m_pNewPinMappingWidget = nullptr;
 	m_pNewPinMappingDlg = nullptr;
+    m_pNewPinMappingOkButton = nullptr;
 	m_pWidget = new MicroSettingsWidget(this);
 	
 	setWhatsThis( i18n("This dialog allows editing of the initial properties of the PIC") );
@@ -168,14 +169,20 @@ MicroSettingsDlg::MicroSettingsDlg( MicroSettings * microSettings, QWidget *pare
 	updatePinMapButtons();
 	//END Initialize pin maps
 	
-	
-	//enableButtonSeparator( false );
-    showButtonSeparator( false );
-	setMainWidget(m_pWidget);
+    mainLayout->addWidget(m_pWidget);
+
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel|QDialogButtonBox::Apply);
+    mainLayout->addWidget(buttonBox);
+    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(true);
+    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+    connect(buttonBox->button(QDialogButtonBox::Apply), &QPushButton::clicked,
+            this, &MicroSettingsDlg::slotApplyClicked);
+
 	m_pWidget->adjustSize();
 	adjustSize();
-	
-	connect( this, SIGNAL(applyClicked()), this, SLOT(slotSaveStuff()) );
 }
 
 
@@ -186,11 +193,16 @@ MicroSettingsDlg::~MicroSettingsDlg()
 
 void MicroSettingsDlg::accept()
 {
-	hide();
 	slotSaveStuff();
+    QDialog::accept();
 	deleteLater();
 }
 
+void MicroSettingsDlg::slotApplyClicked()
+{
+    slotSaveStuff();
+    emit applyClicked();
+}
 
 void MicroSettingsDlg::slotSaveStuff()
 {
@@ -207,7 +219,7 @@ void MicroSettingsDlg::slotSaveStuff()
 
 void MicroSettingsDlg::reject()
 {
-    hide();
+    QDialog::reject();
 	deleteLater();
 }
 
@@ -240,8 +252,8 @@ void MicroSettingsDlg::slotCheckNewPinMappingName( const QString & name )
 	// Validate name might change the name so that it is valid
 	QString newName = name;
 	
-	if ( m_pNewPinMappingWidget ) {
-		m_pNewPinMappingDlg->enableButtonOk( validatePinMapName( newName ) == QValidator::Acceptable );
+    if ( m_pNewPinMappingOkButton ) {
+        m_pNewPinMappingOkButton->setEnabled( validatePinMapName( newName ) == QValidator::Acceptable );
     }
 	
 	if ( newName != name )
@@ -251,15 +263,22 @@ void MicroSettingsDlg::slotCheckNewPinMappingName( const QString & name )
 
 void MicroSettingsDlg::slotCreatePinMap()
 {
-	//m_pNewPinMappingDlg = new KDialog( this, "New Pin Mapping Dlg", true, i18n("New Pin Mapping"), Ok | Cancel );
-    m_pNewPinMappingDlg = new KDialog( this);
+    m_pNewPinMappingDlg = new QDialog( this);
     m_pNewPinMappingDlg->setObjectName( "New Pin Mapping Dlg" );
     m_pNewPinMappingDlg->setModal( true );
-    m_pNewPinMappingDlg->setCaption(i18n("New Pin Mapping"));
-    m_pNewPinMappingDlg->setButtons( KDialog::Ok | KDialog::Cancel );
-	m_pNewPinMappingDlg->setButtonText( Ok, i18n("Create") );
+    m_pNewPinMappingDlg->setWindowTitle(i18n("New Pin Mapping"));
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    m_pNewPinMappingDlg->setLayout(mainLayout);
 	m_pNewPinMappingWidget = new NewPinMappingWidget( m_pNewPinMappingDlg );
-	m_pNewPinMappingDlg->setMainWidget( m_pNewPinMappingWidget );
+    mainLayout->addWidget(m_pNewPinMappingWidget);
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    m_pNewPinMappingOkButton = buttonBox->button(QDialogButtonBox::Ok);
+    m_pNewPinMappingOkButton->setText(i18n("Create" ));
+    m_pNewPinMappingOkButton->setDefault(true);
+    m_pNewPinMappingOkButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    connect(buttonBox, &QDialogButtonBox::accepted, m_pNewPinMappingDlg, &QDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, m_pNewPinMappingDlg, &QDialog::reject);
+    mainLayout->addWidget(buttonBox);
 	
 	PinMappingNameValidator * validator = new PinMappingNameValidator( this );
 	m_pNewPinMappingWidget->nameEdit->setValidator( validator );
@@ -275,6 +294,7 @@ void MicroSettingsDlg::slotCreatePinMap()
 	delete validator;
 	m_pNewPinMappingDlg = nullptr;
 	m_pNewPinMappingWidget = nullptr;
+    m_pNewPinMappingOkButton = nullptr;
 	if ( accepted != QDialog::Accepted )
 		return;
 	

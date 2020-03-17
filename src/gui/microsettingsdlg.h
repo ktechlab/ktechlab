@@ -11,8 +11,7 @@
 #ifndef MICROSETTINGSDLG_H
 #define MICROSETTINGSDLG_H
 
-#include <kdialog.h>
-
+#include <QDialog>
 #include <qmap.h>
 #include <qvalidator.h>
 // #include <q3valuevector.h>
@@ -22,6 +21,7 @@ class MicroSettings;
 class MicroSettingsWidget;
 class NewPinMappingWidget;
 class PinMapping;
+class QPushButton;
 
 typedef QMap< QString, PinMapping > PinMappingMap;
 
@@ -29,7 +29,7 @@ typedef QMap< QString, PinMapping > PinMappingMap;
 /**
 @author David Saxton
 */
-class MicroSettingsDlg : public KDialog
+class MicroSettingsDlg : public QDialog
 {
 	Q_OBJECT
 	public:
@@ -84,8 +84,12 @@ class MicroSettingsDlg : public KDialog
 		 */
 		void slotSaveStuff();
 
+    signals:
+        void applyClicked();
+
 	protected slots:
 		void slotCheckNewPinMappingName( const QString & name );
+        void slotApplyClicked();
 
 	protected:
 		/**
@@ -94,7 +98,8 @@ class MicroSettingsDlg : public KDialog
 		void updatePinMapButtons();
 
 		NewPinMappingWidget * m_pNewPinMappingWidget; // Used for checking that the variable name is ok
-		KDialog * m_pNewPinMappingDlg;
+        QDialog * m_pNewPinMappingDlg;
+        QPushButton *m_pNewPinMappingOkButton;
 		MicroSettingsWidget * m_pWidget;
 		MicroSettings * m_pMicroSettings;
 		PinMappingMap m_pinMappings;

@@ -364,8 +364,8 @@ void PicItem::buttonStateChanged( const QString &id, bool state )
 		update();
 
 		MicroSettingsDlg *dlg = new MicroSettingsDlg( microSettings, nullptr, "microSettingsDlg" );
-		connect( dlg, SIGNAL(okClicked()), this, SLOT(slotMicroSettingsDlgAccepted()) );
-		connect( dlg, SIGNAL(applyClicked()), this, SLOT(slotMicroSettingsDlgAccepted()) );
+		connect( dlg, &MicroSettingsDlg::accepted, this, &PicItem::slotMicroSettingsDlgAccepted);
+		connect( dlg, &MicroSettingsDlg::applyClicked, this, &PicItem::slotMicroSettingsDlgAccepted);
 		dlg->show();
 		// At this point the PIC is selected but this does not appear to the
 		// user so we must deselect it when done.
