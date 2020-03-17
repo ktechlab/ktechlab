@@ -15,13 +15,15 @@
 
 #include <cmath>
 #include <qdebug.h>
-#include <kdialog.h>
 #include <ktextedit.h>
 #include <kstandardguiitem.h>
 
 #include <qbitarray.h>
-#include <qlayout.h>
 #include <qtimer.h>
+#include <QDialog>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 #include <ktlconfig.h>
 
@@ -336,31 +338,37 @@ bool Item::mouseDoubleClickEvent( const EventInfo & eventInfo )
 
 	if ( type == Variant::Type::Multiline )
 	{
-		//KDialog * dlg = new KDialog( nullptr, "", true, property->editorCaption(), KDialog::Ok|KDialog::Cancel|KDialog::User1, KDialog::Ok,
-        //                             false, KStandardGuiItem::clear() );
-        KDialog * dlg = new KDialog( nullptr );
+        QDialog *dlg = new QDialog(nullptr);
         dlg->setModal(true);
-        dlg->setCaption( property->editorCaption() );
-        dlg->setButtons(KDialog::Ok|KDialog::Cancel|KDialog::User1);
-        dlg->setDefaultButton(KDialog::Ok);
-        dlg->showButtonSeparator(false);
-        dlg->setButtonText(KDialog::User1, KStandardGuiItem::clear().text());
+        dlg->setWindowTitle( property->editorCaption() );
+        QVBoxLayout *mainLayout = new QVBoxLayout;
+        dlg->setLayout(mainLayout);
+
         //QFrame *frame = dlg->makeMainWidget();
 		QFrame *frame = new QFrame(dlg);
-        dlg->setMainWidget(frame);
+        mainLayout->addWidget(frame);
 		QVBoxLayout *layout = new QVBoxLayout( frame );
         layout->setMargin(0);
-        layout->setSpacing(dlg->spacingHint());
 		KTextEdit *textEdit = new KTextEdit( frame );
 		//textEdit->setTextFormat( Qt::PlainText ); // 2018.12.02
         textEdit->setAcceptRichText(false);
 		textEdit->setText( property->value().toString() );
 		layout->addWidget( textEdit, 10 );
 		textEdit->setFocus();
-		connect( dlg, SIGNAL( user1Clicked() ), textEdit, SLOT( clear() ) );
+        QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+        QPushButton *clearButton = new QPushButton(buttonBox);
+        KGuiItem::assign(clearButton, KStandardGuiItem::clear());
+        buttonBox->addButton(clearButton, QDialogButtonBox::ActionRole);
+        mainLayout->addWidget(buttonBox);
+        QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+        okButton->setDefault(true);
+        okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+        connect(buttonBox, &QDialogButtonBox::accepted, dlg, &QDialog::accept);
+        connect(buttonBox, &QDialogButtonBox::rejected, dlg, &QDialog::reject);
+        connect(clearButton, &QPushButton::clicked, textEdit, &KTextEdit::clear);
 		dlg->setMinimumWidth( 600 );
 
-		if ( dlg->exec() == KDialog::Accepted )
+		if ( dlg->exec() == QDialog::Accepted )
 		{
 			property->setValue( textEdit->toPlainText() );
 			dataChanged();
