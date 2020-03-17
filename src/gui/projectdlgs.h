@@ -21,22 +21,18 @@ class NewProjectWidget;
 class ProcessingOptions;
 class ProcessingOptionsWidget;
 class ProjectItem;
+class QDialogButtonBox;
 
 /**
 A standard dialog for getting project details from the user for a new project
 @short Dialog for new project details
 @author David Saxton
 */
-class NewProjectDlg : public KDialog
+class NewProjectDlg : public QDialog
 {
 	Q_OBJECT
 	public:
 		NewProjectDlg( QWidget * parent );
-
-	    /**
-		 * Called when the 'Cancel' button is pressed.
-		 */
-		void reject() override;
 
   	  	/**
 		 * Called when the 'OK' button is pressed.
@@ -44,7 +40,6 @@ class NewProjectDlg : public KDialog
 		 */
 		void accept() override;
 
-		bool accepted() const { return m_bAccepted; }
 		QString projectName() const { return m_projectName; }
 		QString projectLocation() const { return m_projectLocation; }
 		QString location() const { return m_location; }
@@ -59,7 +54,7 @@ class NewProjectDlg : public KDialog
 
 	protected:
 		NewProjectWidget * m_pWidget;
-		bool m_bAccepted;
+        QDialogButtonBox *m_buttonBox;
 		QString m_projectName;
 		QString m_projectLocation;
 		QString m_location;

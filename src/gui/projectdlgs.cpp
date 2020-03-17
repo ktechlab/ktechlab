@@ -25,8 +25,10 @@
 #include <qcheckbox.h>
 #include <qcombobox.h>
 #include <qlabel.h>
-#include <qlayout.h>
 #include <qdebug.h>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 #include <ui_createsubprojectwidget.h>
 #include <ui_linkeroptionswidget.h>
@@ -42,44 +44,43 @@ class NewProjectWidget : public QWidget, public Ui::NewProjectWidget {
 
 //BEGIN class NewProjectDlg
 NewProjectDlg::NewProjectDlg( QWidget * parent )
-	: // KDialog( parent, "newprojectdlg", true, "New Project", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
-      KDialog( parent ) //, "newprojectdlg", true, "New Project", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
+    : QDialog(parent)
 {
     setObjectName("newprojectdlg");
     setModal(true);
-    setCaption(i18n("New Project"));
-    setButtons(KDialog::Ok | KDialog::Cancel);
-    setDefaultButton(KDialog::Ok);
-    showButtonSeparator(true);
+    setWindowTitle(i18n("New Project"));
+
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
 
 	m_pWidget = new NewProjectWidget(this);
 	connect( m_pWidget->projectNameEdit, SIGNAL(textChanged(const QString & )), this, SLOT(locationChanged(const QString& )) );
 	connect( m_pWidget->projectLocationURL, SIGNAL(textChanged(const QString & )), this, SLOT(locationChanged(const QString& )) );
+
+    mainLayout->addWidget(m_pWidget);
+
+    m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    mainLayout->addWidget(m_buttonBox);
+
+    QPushButton *okButton = m_buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(true);
+    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    connect(m_buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(m_buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 
     // Check if already valid dir
 	locationChanged( QString::null );
 
 	m_pWidget->projectLocationURL->setUrl( QDir::homePath() );
 	m_pWidget->projectLocationURL->setMode( KFile::Directory );
-
-	setMainWidget( m_pWidget );
-	setInitialSize( m_pWidget->rect().size() );
 }
 
 void NewProjectDlg::accept()
 {
-	hide();
-
-	m_bAccepted = true;
-
 	m_projectName = m_pWidget->projectNameEdit->text();
 	m_projectLocation = m_pWidget->projectLocationURL->url().toLocalFile();
-}
 
-void NewProjectDlg::reject()
-{
-	m_bAccepted = false;
-    hide();
+    QDialog::accept();
 }
 
 void NewProjectDlg::locationChanged( const QString & )
@@ -100,10 +101,11 @@ void NewProjectDlg::locationChanged( const QString & )
 
     qDebug() << "dir.exists: " << dir.exists() << " subdir.exists: " << subDir.exists();
 
+    QPushButton *okButton = m_buttonBox->button(QDialogButtonBox::Ok);
 	if ( dir.exists() || !subDir.exists() ) {
-		enableButtonOk(false);
+		okButton->setEnabled(false);
     } else {
-		enableButtonOk(true);
+		okButton->setEnabled(true);
     }
 }
 //END class NewProjectDlg

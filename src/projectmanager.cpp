@@ -930,10 +930,9 @@ void ProjectManager::slotNewProject()
 		return;
 	
 	NewProjectDlg *newProjectDlg = new NewProjectDlg(this);
-	newProjectDlg->exec();
+	const int accepted = newProjectDlg->exec();
 
-	if ( newProjectDlg->accepted() )
-	{
+	if (accepted == QDialog::Accepted) {
 		m_pCurrentProject = new ProjectInfo( this );
 		m_pCurrentProject->setObjectName( newProjectDlg->projectName() );
 		m_pCurrentProject->setURL( newProjectDlg->location() + m_pCurrentProject->name().toLower() + ".ktechlab" );
