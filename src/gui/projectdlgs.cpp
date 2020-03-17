@@ -120,15 +120,14 @@ class CreateSubprojectWidget : public QWidget, public Ui::CreateSubprojectWidget
 
 //BEGIN class CreateSubprojectDlg
 CreateSubprojectDlg::CreateSubprojectDlg( QWidget * parent )
-	: // KDialog( parent, "Create Subproject Dialog", true, "Create Subproject", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
-	KDialog( parent ) // , "Create Subproject Dialog", true, "Create Subproject", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
+    : QDialog(parent)
 {
     setObjectName("Create Subproject Dialog");
     setModal(true);
-    setCaption(i18n("Create Subproject"));
-    setButtons(KDialog::Ok|KDialog::Cancel);
-    setDefaultButton(KDialog::Ok);
-    showButtonSeparator(true);
+    setWindowTitle(i18n("Create Subproject"));
+
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
 
 	m_pWidget = new CreateSubprojectWidget(this);
 
@@ -137,8 +136,16 @@ CreateSubprojectDlg::CreateSubprojectDlg( QWidget * parent )
 
 	m_type = ProgramType;
 
-	setMainWidget( m_pWidget );
-	setInitialSize( m_pWidget->rect().size() );
+    mainLayout->addWidget(m_pWidget);
+
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    mainLayout->addWidget(buttonBox);
+
+    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(true);
+    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
 
 
@@ -149,19 +156,10 @@ CreateSubprojectDlg::~CreateSubprojectDlg()
 
 void CreateSubprojectDlg::accept()
 {
-	hide();
-
-	m_bAccepted = true;
-
 	m_targetFile = m_pWidget->m_targetFile->url().toLocalFile();
 	m_type = (Type)m_pWidget->m_typeCombo->currentIndex();
-}
 
-
-void CreateSubprojectDlg::reject()
-{
-	m_bAccepted = false;
-    hide();
+    QDialog::accept();
 }
 //END class CreateSubprojectDlg
 

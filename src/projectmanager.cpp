@@ -1025,10 +1025,9 @@ void ProjectManager::slotCreateSubproject()
 		return;
 	
 	CreateSubprojectDlg * dlg = new CreateSubprojectDlg(this);
-	dlg->exec();
+	const int accepted = dlg->exec();
 	
-	if ( dlg->accepted() )
-	{
+	if (accepted == QDialog::Accepted) {
 		ProjectItem::Type type = ProjectItem::ProgramType;
 		switch ( dlg->type() )
 		{

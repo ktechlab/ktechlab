@@ -64,7 +64,7 @@ class NewProjectDlg : public QDialog
 /**
 @author David Saxton
 */
-class CreateSubprojectDlg : public KDialog
+class CreateSubprojectDlg : public QDialog
 {
 	Q_OBJECT
 	public:
@@ -78,23 +78,17 @@ class CreateSubprojectDlg : public KDialog
 			LibraryType = 1
 		};
 
-	    /**
-		 * Called when the 'Cancel' button is pressed.
-		 */
-		void reject() override;
   	  	/**
 		 * Called when the 'OK' button is pressed. User entered values are read
 		 * in.
 		 */
 		void accept() override;
 
-		bool accepted() const { return m_bAccepted; }
 		Type type() const { return m_type; }
 		QString targetFile() const { return m_targetFile; }
 
 	protected:
 		CreateSubprojectWidget * m_pWidget;
-		bool m_bAccepted;
 		Type m_type;
 		QString m_targetFile;
 };
