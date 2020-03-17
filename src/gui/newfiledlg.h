@@ -11,7 +11,7 @@
 #ifndef NEWFILEDLG_H
 #define NEWFILEDLG_H
 
-#include <kdialog.h>
+#include <QDialog>
 
 class MicroSelectWidget;
 class NewFileWidget;
@@ -22,16 +22,14 @@ A standard dialog for getting file details from the user for a new project
 @short Dialog for new file details
 @author David Saxton
 */
-class NewFileDlg : public KDialog
+class NewFileDlg : public QDialog
 {
 	Q_OBJECT
 	public:
 		NewFileDlg( QWidget *parent );
 
-		void reject() override;
 		void accept() override;
 
-		bool accepted() const { return m_bAccepted; }
 		int fileType() const { return m_fileType; }
 		int codeType() const { return m_codeType; }
 		bool addToProject() const { return m_bAddToProject; }
@@ -42,7 +40,6 @@ class NewFileDlg : public KDialog
 		void fileTypeChanged();
 
 	protected:
-		bool m_bAccepted;
 		int m_fileType;
 		int m_codeType;
 		bool m_bAddToProject;

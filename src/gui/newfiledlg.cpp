@@ -29,6 +29,9 @@
 #include <qdir.h>
 #include <qfile.h>
 #include <qlabel.h>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 // #include <q3paintdevicemetrics.h>
 
 #include <ui_newfilewidget.h>
@@ -42,19 +45,16 @@ class NewFileWidget : public QWidget, public Ui::NewFileWidget {
 };
 
 NewFileDlg::NewFileDlg( QWidget *parent )
-    :
-    //KDialog( parent, "newfiledlg", true, "New File", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
-    KDialog( parent ) // , "newfiledlg", true, "New File", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
+    : QDialog(parent)
 {
     setObjectName("newfiledlg");
     setModal(true);
-    setCaption(i18n("New File"));
-    setButtons(KDialog::Ok | KDialog::Cancel);
-    setDefaultButton(KDialog::Ok);
-    showButtonSeparator(true);
+    setWindowTitle(i18n("New File"));
+
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
 
 	m_pMainParent = parent;
-    m_bAccepted = false;
     m_pNewFileWidget = new NewFileWidget(this);
 
 	 m_pNewFileWidget->typeIconView->setSelectionMode(QAbstractItemView::SingleSelection /*Q3IconView::Single*/);
@@ -113,11 +113,20 @@ NewFileDlg::NewFileDlg( QWidget *parent )
 	m_pNewFileWidget->addToProjectCheck->setEnabled( ProjectManager::self()->currentProject() );
 	microSelectWidget()->setAllowedFlowCodeSupport( MicroInfo::FullSupport | MicroInfo::PartialSupport );
     
-	setMainWidget(m_pNewFileWidget);
+	mainLayout->addWidget(m_pNewFileWidget);
     
 	// Our behaviour is to have single click selects and double click accepts the dialog
 	connect( m_pNewFileWidget->typeIconView, SIGNAL(itemSelectionChanged()), this, SLOT(fileTypeChanged()) );
 	connect( m_pNewFileWidget->typeIconView, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(accept()));
+
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    mainLayout->addWidget(buttonBox);
+
+    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(true);
+    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 
     setAcceptDrops(true);
 
@@ -128,8 +137,7 @@ NewFileDlg::NewFileDlg( QWidget *parent )
 
 void NewFileDlg::accept()
 {
-	hide();
-	m_bAccepted = true;
+    QDialog::accept();
 	
 	const QString fileText = m_pNewFileWidget->typeIconView->currentItem()->text();
 	
@@ -166,13 +174,6 @@ void NewFileDlg::accept()
 	m_bAddToProject = m_pNewFileWidget->addToProjectCheck->isChecked();
 	
 	m_microID = m_pNewFileWidget->m_pMicroSelect->micro();
-}
-
-
-void NewFileDlg::reject()
-{
-    hide();
-    m_bAccepted = false;
 }
 
 

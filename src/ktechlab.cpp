@@ -1186,16 +1186,15 @@ void KTechlab::slotFileNew()
 {
 	NewFileDlg *newFileDlg = new NewFileDlg(this);
 
-	newFileDlg->exec();
+	const int accepted = newFileDlg->exec();
 
 	bool addToProject = newFileDlg->addToProject();
-	bool accepted = newFileDlg->accepted();
 	int finalType = newFileDlg->fileType();
 	QString microID = newFileDlg->microID();
 	int codeType = newFileDlg->codeType();
 
 	delete newFileDlg;
-	if (!accepted)
+	if (accepted != QDialog::Accepted)
 		return;
 
 	Document *created = nullptr;
