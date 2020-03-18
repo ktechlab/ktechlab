@@ -11,7 +11,6 @@
 #include "binarycounter.h"
 
 #include <cstdlib>
-#include <kiconloader.h>
 #include <klocalizedstring.h>
 
 #include "logic.h"

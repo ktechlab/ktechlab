@@ -17,7 +17,6 @@
 #include "projectmanager.h"
 #include "textdocument.h"
 
-#include <kcombobox.h>
 #include <qdebug.h>
 #include <klineedit.h>
 // #include <k3iconview.h>

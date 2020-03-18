@@ -19,7 +19,6 @@
 
 #include <kconfig.h>
 #include <qdebug.h>
-#include <kiconloader.h>
 #include <klocalizedstring.h>
 
 // #include <q3button.h>

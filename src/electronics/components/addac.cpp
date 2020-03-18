@@ -16,7 +16,6 @@
 #include "voltagepoint.h"
 
 #include <cmath>
-#include <kiconloader.h>
 #include <klocalizedstring.h>
 
 

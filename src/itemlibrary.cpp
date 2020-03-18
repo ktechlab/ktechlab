@@ -25,7 +25,6 @@
 #include <kconfig.h>
 #include <KConfigGroup>
 #include <kglobal.h>
-#include <kiconloader.h>
 #include <qlocale.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>

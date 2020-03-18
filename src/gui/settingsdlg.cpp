@@ -12,7 +12,6 @@
 #include "port.h"
 #include "settingsdlg.h"
 
-#include <kcolorbutton.h>
 #include <kcombobox.h>
 #include <kconfig.h>
 #include <ksharedconfig.h>

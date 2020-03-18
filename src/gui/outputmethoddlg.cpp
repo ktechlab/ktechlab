@@ -16,7 +16,6 @@
 #include "microselectwidget.h"
 #include "projectmanager.h"
 
-#include <kcombobox.h>
 #include <kconfigskeleton.h>
 #include <qdebug.h>
 #include <ktemporaryfile.h>

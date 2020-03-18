@@ -12,7 +12,6 @@
 #include "jfet.h"
 #include "libraryitem.h"
 
-#include <kiconloader.h>
 #include <klocalizedstring.h>
 #include <qpainter.h>
 

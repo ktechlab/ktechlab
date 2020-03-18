@@ -13,7 +13,6 @@
 #include "resistance.h"
 #include "resistordip.h"
 
-#include <kiconloader.h>
 #include <klocalizedstring.h>
 #include <qpainter.h>
 

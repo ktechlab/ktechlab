@@ -13,11 +13,11 @@
 #include "ktechlab.h"
 #include "viewiface.h"
 
-#include <kiconloader.h>
 #include <klocalizedstring.h>
 #include <ktoolbarpopupaction.h>
 #include <kactioncollection.h>
 
+#include <QIcon>
 #include <QMenu>
 #include <qmimedata.h>
 

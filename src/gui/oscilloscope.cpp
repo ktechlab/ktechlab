@@ -17,7 +17,6 @@
 #include "ktechlab.h"
 
 #include <cmath>
-#include <kcombobox.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
 #include <ksharedconfig.h>

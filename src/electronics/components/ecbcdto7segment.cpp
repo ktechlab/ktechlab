@@ -13,7 +13,6 @@
 #include "logic.h"
 #include "libraryitem.h"
 
-#include <kiconloader.h>
 #include <klocalizedstring.h>
 
 // Values for a,b,c,d,e,f,g of common-anode 7 segment display

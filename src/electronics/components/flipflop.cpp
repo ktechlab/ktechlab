@@ -16,7 +16,6 @@
 #include "node.h"
 #include "simulator.h"
 
-#include <kiconloader.h>
 #include <klocalizedstring.h>
 #include <qpainter.h>
 

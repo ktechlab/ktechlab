@@ -15,7 +15,6 @@
 #include "pin.h"
 #include "resistance.h"
 
-#include <kiconloader.h>
 #include <klocalizedstring.h>
 #include <qpainter.h>
 

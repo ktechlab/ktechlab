@@ -18,9 +18,6 @@
 #include "libraryitem.h"
 #include "richtexteditor.h"
 
-#include <kcolorbutton.h>
-#include <kcombobox.h>
-
 #include <kparts/readwritepart.h>
 #include <kparts/browserextension.h>
 #include <kparts/browserhostextension.h>

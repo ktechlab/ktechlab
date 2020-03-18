@@ -14,7 +14,6 @@
 #include "property.h"
 
 #include <qdebug.h>
-#include <kiconloader.h>
 //#include <klistbox.h>
 #include <klocalizedstring.h>
 

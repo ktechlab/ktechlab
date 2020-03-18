@@ -11,7 +11,6 @@
 #include "logview.h"
 
 #include <qdebug.h>
-#include <kiconloader.h>
 #include <katemdi.h>
 #include <klocalizedstring.h>
 

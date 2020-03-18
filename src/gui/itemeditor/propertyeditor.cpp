@@ -22,7 +22,6 @@
 
 #include "drawparts/drawpart.h"
 
-#include <kiconloader.h>
 #include <klocalizedstring.h>
 #include <kiconloader.h>
 

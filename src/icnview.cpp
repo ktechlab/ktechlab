@@ -14,9 +14,7 @@
 #include "ktechlab.h"
 
 #include <kconfig.h>
-#include <kiconloader.h>
 #include <klocalizedstring.h>
-#include <kiconloader.h>
 #include <ktoolbarpopupaction.h>
 #include <kactioncollection.h>
 

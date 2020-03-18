@@ -15,7 +15,6 @@
 #include "propertyeditoritem.h"
 
 #include <qdebug.h>
-#include <kiconloader.h>
 #include <klocalizedstring.h>
 
 #include <qcolor.h>

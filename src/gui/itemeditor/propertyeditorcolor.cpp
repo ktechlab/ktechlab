@@ -14,7 +14,6 @@
 #include "propertyeditorcolor.h"
 
 #include <klocalizedstring.h>
-#include <kfontdialog.h>
 #include <qdebug.h>
 
 #include <qlabel.h>

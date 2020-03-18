@@ -11,7 +11,6 @@
 #include "libraryitem.h"
 
 #include <kiconloader.h>
-#include <kicontheme.h>
 
 #include <qimage.h>
 #include <QStandardPaths>

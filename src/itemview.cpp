@@ -25,7 +25,6 @@
 //#include <kaccel.h>
 #include <kstandardaction.h>
 #include <qdebug.h>
-#include <kiconloader.h>
 #include <klocalizedstring.h>
 // #include <k3popupmenu.h>
 #include <ktoolbarpopupaction.h>

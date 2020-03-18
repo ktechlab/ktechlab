@@ -35,10 +35,8 @@ class ViewContainer;
 typedef QMap< int, QString > IntStringMap;
 typedef QList< QPointer<ViewContainer> > ViewContainerList;
 
-class KActionCollection;
 class RecentFilesAction;
 class QTabWidget;
-class KToolBar;
 class KToggleAction;
 class KUrl;
 class QLabel;

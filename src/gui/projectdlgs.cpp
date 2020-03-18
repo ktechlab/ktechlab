@@ -15,9 +15,7 @@
 
 #include <cassert>
 
-#include <kcombobox.h>
 #include <kfiledialog.h>
-#include <klineedit.h>
 #include <klocalizedstring.h>
 #include <kurlrequester.h>
 // #include <k3listview.h>

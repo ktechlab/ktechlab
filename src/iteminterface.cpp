@@ -23,7 +23,6 @@
 
 #include <kcombobox.h>
 #include <qdebug.h>
-#include <klineedit.h>
 #include <kurlrequester.h>
 #include <ktoolbar.h>
 #include <kxmlguifactory.h>
