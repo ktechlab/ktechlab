@@ -25,8 +25,10 @@
 #include <qapplication.h>
 #include <qdebug.h>
 #include <qframe.h>
-#include <qlayout.h>
 #include <qaction.h>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 
 //BEGIN class PinMapping
@@ -51,15 +53,14 @@ PinMapping::~PinMapping()
 
 //BEGIN class PinMapEditor
 PinMapEditor::PinMapEditor( PinMapping * pinMapping, MicroInfo * picInfo, QWidget * parent, const char * name )
-	: //KDialog( parent, name, true, i18n("Pin Map Editor"), Ok|Apply|Cancel, KDialog::Ok, true )
-	  KDialog( parent ) //, name, true, i18n("Pin Map Editor"), Ok|Apply|Cancel, KDialog::Ok, true )
+    : QDialog(parent)
 {
     setObjectName(name);
     setModal(true);
-    setCaption(i18n("Pin Map Editor"));
-    setButtons(KDialog::Ok | KDialog::Apply | KDialog::Cancel);
-    setDefaultButton(KDialog::Ok);
-    showButtonSeparator(true);
+    setWindowTitle(i18n("Pin Map Editor"));
+
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
 
 	m_pPinMapping = pinMapping;
 
@@ -110,24 +111,30 @@ PinMapEditor::PinMapEditor( PinMapping * pinMapping, MicroInfo * picInfo, QWidge
 
 	m_pPinMapDocument->init( *m_pPinMapping, picInfo );
 
-    showButtonSeparator( false );
-	// enableButtonSeparator( false );
+    mainLayout->addWidget(f);
 
-	setMainWidget(f);
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel|QDialogButtonBox::Apply);
+    mainLayout->addWidget(buttonBox);
+    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(true);
+    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &PinMapEditor::slotOk);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+    connect(buttonBox->button(QDialogButtonBox::Apply), &QPushButton::clicked,
+            this, &PinMapEditor::slotApply);
 }
 
 
 void PinMapEditor::slotApply()
 {
 	savePinMapping();
-	KDialog::applyClicked();// slotApply();
 }
 
 
 void PinMapEditor::slotOk()
 {
 	savePinMapping();
-	KDialog::okClicked();// slotOk();
+    accept();
 }
 
 

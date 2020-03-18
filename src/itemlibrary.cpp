@@ -23,6 +23,7 @@
 
 #include <qapplication.h>
 #include <kconfig.h>
+#include <KConfigGroup>
 #include <kglobal.h>
 #include <kiconloader.h>
 #include <qlocale.h>
