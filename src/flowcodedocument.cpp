@@ -177,9 +177,9 @@ void FlowCodeDocument::convertToMicrobe()
 	OutputMethodDlg *dlg = new OutputMethodDlg( i18n("Microbe Code Output"), url(), false, activeView() );
 	dlg->setOutputExtension(".microbe");
 	dlg->setFilter( QString("*.microbe|Microbe (*.microbe)\n*|%1").arg(i18n("All Files")) );
-	dlg->exec();
 
-	if (!dlg->isAccepted()) {
+    const int accepted = dlg->exec();
+    if (accepted != QDialog::Accepted) {
 		delete dlg;
 		return;
 	}
@@ -199,9 +199,9 @@ void FlowCodeDocument::convertToAssembly()
 	OutputMethodDlg *dlg = new OutputMethodDlg( i18n("Assembly Code Output"), url(), false, activeView() );
 	dlg->setOutputExtension(".asm");
 	dlg->setFilter( QString("*.asm *.src *.inc|%1 (*.asm, *.src, *.inc)\n*|%2").arg(i18n("Assembly Code")).arg(i18n("All Files")) );
-	dlg->exec();
 
-	if (!dlg->isAccepted()) {
+    const int accepted = dlg->exec();
+    if (accepted != QDialog::Accepted) {
 		delete dlg;
 		return;
 	}
@@ -221,9 +221,9 @@ void FlowCodeDocument::convertToHex()
 	OutputMethodDlg *dlg = new OutputMethodDlg( i18n("Hex Code Output"), url(), false, KTechlab::self() );
 	dlg->setOutputExtension(".hex");
 	dlg->setFilter( QString("*.hex|Hex (*.hex)\n*|%1").arg(i18n("All Files")) );
-	dlg->exec();
 
-	if (!dlg->isAccepted()) {
+    const int accepted = dlg->exec();
+    if (accepted != QDialog::Accepted) {
 		delete dlg;
 		return;
 	}

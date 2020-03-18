@@ -25,6 +25,9 @@
 #include <qcheckbox.h>
 #include <qfile.h>
 #include <qradiobutton.h>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 #include <ui_outputmethodwidget.h>
 
@@ -82,16 +85,16 @@ void OutputMethodInfo::initialize( OutputMethodDlg * dlg )
 //BEGIN class OutputMethodDlg
 
 OutputMethodDlg::OutputMethodDlg( const QString &caption, const KUrl & inputURL, bool showPICSelect, QWidget *parent, const char *name )
-	: // KDialog( parent, name, true, caption, Ok|Cancel )
-	KDialog( parent ) //, name, true, caption, Ok|Cancel )
+    : QDialog(parent)
 {
     setObjectName(name);
     setModal(true);
-    setCaption(caption);
-    setButtons(KDialog::Ok | KDialog::Cancel);
+    setWindowTitle(caption);
+
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
 
 	m_inputURL = inputURL;
-	m_bAccepted = false;
 	m_widget = new OutputMethodWidget(this);
 	
 	m_widget->addToProjectCheck->setEnabled( ProjectManager::self()->currentProject() );
@@ -113,7 +116,16 @@ OutputMethodDlg::OutputMethodDlg( const QString &caption, const KUrl & inputURL,
 
 	fileMetaInfo()->initializeFromMetaInfo( m_inputURL, this );
 	
-	setMainWidget(m_widget);
+    mainLayout->addWidget(m_widget);
+
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    mainLayout->addWidget(buttonBox);
+
+    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(true);
+    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
 
 
@@ -169,17 +181,10 @@ void OutputMethodDlg::setOutputFile( const KUrl & out )
 
 void OutputMethodDlg::accept()
 {
-	m_bAccepted = true;
 	m_outputMethodInfo.initialize(this);
 	fileMetaInfo()->grabMetaInfo( m_inputURL, this );
-	hide();
-}
 
-
-void OutputMethodDlg::reject()
-{
-    hide();
-	m_bAccepted = false;
+    QDialog::accept();
 }
 
 

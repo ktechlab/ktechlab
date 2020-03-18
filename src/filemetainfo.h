@@ -17,6 +17,7 @@
 class TextDocument;
 class TextView;
 class KConfig;
+class KConfigGroup;
 typedef QList<int> IntList;
 
 class MetaInfo

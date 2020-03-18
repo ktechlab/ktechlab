@@ -11,8 +11,8 @@
 #ifndef OUTPUTMETHODDLG_H
 #define OUTPUTMETHODDLG_H
 
-#include <kdialog.h>
 #include <kurl.h>
+#include <QDialog>
 
 class TextDocument;
 class KTechlab;
@@ -59,7 +59,7 @@ class OutputMethodInfo
 /**
 @author David Saxton
 */
-class OutputMethodDlg : public KDialog
+class OutputMethodDlg : public QDialog
 {
 	Q_OBJECT
 	public:
@@ -77,9 +77,7 @@ class OutputMethodDlg : public KDialog
 		void setOutputFile( const KUrl & out );
 		void setPicID( const QString & id );
 
-		void reject() override;
 		void accept() override;
-		bool isAccepted() const { return m_bAccepted; }
 
 		OutputMethodInfo info() const { return m_outputMethodInfo; }
 
@@ -90,7 +88,6 @@ class OutputMethodDlg : public KDialog
 		QString m_outputExtension;
 		KUrl m_inputURL;
 		OutputMethodInfo m_outputMethodInfo;
-		bool m_bAccepted;
 
 		friend class OutputMethodInfo;
 };

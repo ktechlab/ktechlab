@@ -481,8 +481,8 @@ void TextDocument::convertToAssembly()
 
 	dlg.setOutputExtension(".asm");
 	dlg.setFilter( QString("*.asm *.src *.inc|%1 (*.asm, *.src, *.inc)\n*|%2").arg(i18n("Assembly Code")).arg(i18n("All Files")) );
-	dlg.exec();
-	if (!dlg.isAccepted())
+    const int accepted = dlg.exec();
+    if (accepted != QDialog::Accepted)
 		return;
 
 	ProcessOptions o( dlg.info() );
@@ -525,8 +525,8 @@ void TextDocument::convertToHex()
 	if ( m_guessedCodeType == TextDocument::ct_c )
 		dlg.microSelect()->setAllowedAsmSet( AsmInfo::PIC14 | AsmInfo::PIC16 );
 
-	dlg.exec();
-	if (!dlg.isAccepted())
+    const int accepted = dlg.exec();
+    if (accepted != QDialog::Accepted)
 		return;
 
 	ProcessOptions o( dlg.info() );

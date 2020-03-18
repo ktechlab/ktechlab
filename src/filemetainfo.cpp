@@ -13,6 +13,7 @@
 #include "textview.h"
 
 #include <kconfig.h>
+#include <KConfigGroup>
 
 
 //BEGIN class MetaInfo
