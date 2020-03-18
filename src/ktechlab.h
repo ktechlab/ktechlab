@@ -37,7 +37,7 @@ typedef QList< QPointer<ViewContainer> > ViewContainerList;
 
 class KActionCollection;
 class RecentFilesAction;
-class KTabWidget;
+class QTabWidget;
 class KToolBar;
 class KToggleAction;
 class KUrl;
@@ -92,7 +92,7 @@ class KTechlab : public KateMDI::MainWindow
 		/**
 		 * Returns the tabwidget that shows the list of view containers.
 		 */
-		KTabWidget * tabWidget() const { return m_pViewContainerTabWidget; }
+		QTabWidget * tabWidget() const { return m_pViewContainerTabWidget; }
 		/**
 		 * Registers the viewcontainer with the internal list.
 		 */
@@ -136,7 +136,7 @@ class KTechlab : public KateMDI::MainWindow
 		/**
 		 * The user right clicked on a tab item.
 		 */
-		void slotTabContext( QWidget* widget,const QPoint & pos );
+		void slotTabContext(const QPoint & pos);
 		/**
 		 * The user clicked on an item in the tab-menu (from right clicking).
 		 */
@@ -255,7 +255,7 @@ class KTechlab : public KateMDI::MainWindow
 		RecentFilesAction * m_recentFiles;
 		RecentFilesAction * m_recentProjects;
 		KToggleAction * m_statusbarAction;
-		KTabWidget * m_pViewContainerTabWidget;
+		QTabWidget * m_pViewContainerTabWidget;
 		QString m_lastStatusBarMessage;
 		QList<KXMLGUIClient*> m_noRemoveGUIClients;
 		QLabel * m_pToolBarOverlayLabel;

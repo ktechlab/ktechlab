@@ -18,9 +18,9 @@
 #include <qdebug.h>
 #include <qboxlayout.h>
 #include <klocalizedstring.h>
-#include <ktabwidget.h>
 #include <kconfiggroup.h>
 
+#include <QTabWidget>
 #include <QPushButton>
 //#include <qobjectlist.h>
 
@@ -44,7 +44,7 @@ ViewContainer::ViewContainer( const QString & caption, QWidget * parent )
 	if ( !parent )
 	{
 		KTechlab::self()->tabWidget()->addTab( this, caption );
-		KTabWidget * tabWidget = KTechlab::self()->tabWidget();
+		QTabWidget * tabWidget = KTechlab::self()->tabWidget();
 		tabWidget->setCurrentIndex( tabWidget->indexOf(this) );
 	}
 	

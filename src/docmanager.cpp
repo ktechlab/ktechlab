@@ -22,9 +22,9 @@
 
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <ktabwidget.h>
 #include <kxmlguifactory.h>
 
+#include <QTabWidget>
 #include <qfile.h>
 
 #include <cassert>

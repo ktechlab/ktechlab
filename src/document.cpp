@@ -19,7 +19,8 @@
 #include <kfiledialog.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <ktabwidget.h>
+
+#include <QTabWidget>
 
 Document::Document( const QString &caption, const char *name )
 	: QObject( KTechlab::self() /* , name */ ),

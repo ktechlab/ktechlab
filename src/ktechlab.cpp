@@ -47,6 +47,7 @@
 #include <QFileDialog>
 #include <QIcon>
 #include <QMenu>
+#include <QTabWidget>
 #include <QStandardPaths>
 
 #include <ktoolbar.h>
@@ -61,7 +62,6 @@
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 //#include <kpopupmenu.h>
-#include <ktabwidget.h>
 //#include <kwin.h>
 #include <kxmlguifactory.h>
 #include <kstandardaction.h>
@@ -71,7 +71,6 @@
 #include <kshortcutsdialog.h>
 
 #include <ktlconfig.h>
-
 
 KTechlab * KTechlab::m_pSelf = nullptr;
 
@@ -434,7 +433,7 @@ void KTechlab::removeGUIClients()
 
 void KTechlab::setupTabWidget()
 {
-	m_pViewContainerTabWidget = new KTabWidget(centralWidget());
+	m_pViewContainerTabWidget = new QTabWidget(centralWidget());
     if (centralWidget()->layout()) {
         centralWidget()->layout()->addWidget(m_pViewContainerTabWidget);
     } else {
@@ -466,7 +465,10 @@ void KTechlab::setupTabWidget()
 		tabWidget()->setCornerWidget(but, Qt::TopRightCorner);
 	}
 
-	connect(tabWidget(), SIGNAL(contextMenu(QWidget*,const QPoint &)), this, SLOT(slotTabContext(QWidget*,const QPoint &)));
+    QTabBar *tabBar = tabWidget()->tabBar();
+    tabBar->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(tabBar, &QTabBar::customContextMenuRequested,
+            this, &KTechlab::slotTabContext);
 }
 
 
@@ -1055,8 +1057,15 @@ void KTechlab::slotChangeStatusbar( const QString & text )
 }
 
 
-void KTechlab::slotTabContext( QWidget* widget,const QPoint & pos )
+void KTechlab::slotTabContext(const QPoint & pos)
 {
+    QTabBar *tabBar = tabWidget()->tabBar();
+    QWidget* widget = tabWidget()->widget(tabBar->tabAt(pos));
+    if (!widget) {
+        return;
+    }
+    const QPoint globalPos = tabBar->mapToGlobal(pos);
+
 	// Shamelessly stolen from KDevelop...
 
 	QMenu * tabMenu = new QMenu;
@@ -1093,7 +1102,7 @@ void KTechlab::slotTabContext( QWidget* widget,const QPoint & pos )
 
 	connect( tabMenu, SIGNAL( triggered(QAction*) ), this, SLOT(slotTabContextActivated(QAction*)) );
 
-	tabMenu->exec(pos);
+	tabMenu->exec(globalPos);
 	delete tabMenu;
 }
 
