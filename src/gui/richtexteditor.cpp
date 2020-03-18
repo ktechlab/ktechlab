@@ -11,7 +11,6 @@
 
 #include <ktoolbarpopupaction.h>
 #include <ktoggleaction.h>
-#include <kcolordialog.h>
 
 #include <klocalizedstring.h>
 // #include <k3popupmenu.h>
@@ -29,6 +28,7 @@
 #include <qregexp.h>
 #include <qdir.h>
 #include <QMenu>
+#include <QColorDialog>
 #include <QDialogButtonBox>
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -356,9 +356,8 @@ void RichTextEditor::fontChanged( const QFont & f )
 
 void RichTextEditor::textColor()
 {
-	QColor c = m_pEditor->textColor();
-	int ret = KColorDialog::getColor( c, this );
-	if ( ret == QDialog::Accepted ) {
+    const QColor c = QColorDialog::getColor(m_pEditor->textColor(), this);
+    if (c.isValid()) {
 		m_pEditor->setTextColor( c );
     }
 }

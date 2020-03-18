@@ -10,10 +10,10 @@
 
 #include "colorcombo.h"
 
-#include <kcolordialog.h>
 #include <klocalizedstring.h>
 
 #include <qpainter.h>
+#include <QColorDialog>
 #include <qdebug.h>
 
 bool ColorCombo::createdPalettes = false;
@@ -104,8 +104,9 @@ void ColorCombo::slotActivated( int index )
 {
 	if ( index == 0 )
 	{
-		if ( KColorDialog::getColor( customColor, this ) == QDialog::Accepted )
-		{
+        const QColor selectedColor = QColorDialog::getColor(customColor, this);
+        if (selectedColor.isValid()) {
+            customColor = selectedColor;
 			QPainter painter;
 			QPen pen;
 			QRect rect( 0, 0, width(), QFontMetrics(font()).height()+4);
