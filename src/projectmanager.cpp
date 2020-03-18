@@ -21,17 +21,17 @@
 
 #include <qdebug.h>
 #include <kfiledialog.h>
-#include <kiconloader.h>
 #include <kio/netaccess.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h> 
-#include <kmimetype.h>
 #include <kxmlguifactory.h>
 
 #include <qdom.h>
 // #include <q3popupmenu.h>
 #include <qmenu.h>
 #include <QStandardPaths>
+#include <QMimeDatabase>
+#include <QMimeType>
 
 #include <cassert>
 
@@ -245,9 +245,9 @@ void ProjectItem::updateILVItemPixmap()
 		
 		case FileType:
 		{
-			KMimeType::Ptr m = KMimeType::findByPath( url().path() );
+			QMimeType m = QMimeDatabase().mimeTypeForFile( url().path() );
 			//m_pILVItem->setPixmap( 0, m->pixmap( KIconLoader::Small ) );
-            m_pILVItem->setIcon( 0, QIcon( KIconLoader::global()->loadMimeTypeIcon( m->iconName(), KIconLoader::Small ) ) );
+            m_pILVItem->setIcon(0, QIcon::fromTheme(m.iconName()));
 			break;
 		}
 	}

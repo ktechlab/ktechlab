@@ -26,8 +26,8 @@
 #include <kparts/browserhostextension.h>
 #include <khtml_part.h>
 #include <KHtml/khtmlview.h>
+#include <KIO/Global>
 #include <kiconloader.h>
-#include <kmimetype.h>
 #include <kinputdialog.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
@@ -414,7 +414,7 @@ void ContextHelp::addLinkTypeAppearances( QString * html )
 			case ExampleLink:
 			{
 				//QString iconName = KMimeType::iconNameForURL( examplePathToFullPath( KUrl( url ).path() ) );
-                QString iconName = KMimeType::iconNameForUrl( examplePathToFullPath( KUrl( url ).path() ) );
+                QString iconName = KIO::iconNameForUrl( examplePathToFullPath( KUrl( url ).path() ) );
 				imageURL = KIconLoader::global()->iconPath( iconName, - KIconLoader::SizeSmall );
 				break;
 			}
