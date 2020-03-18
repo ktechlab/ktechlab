@@ -54,7 +54,7 @@ Keypad::~Keypad()
 
 void Keypad::dataChanged()
 {
-	setCaption( i18n("Read %1 to %2").arg( dataString( "keypad" ) ).arg( dataString( "variable" ) ) );
+	setCaption( i18n("Read %1 to %2", dataString( "keypad" ), dataString( "variable" ) ) );
 }
 
 void Keypad::generateMicrobe( FlowCode *code )
