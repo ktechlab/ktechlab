@@ -382,7 +382,7 @@ bool Item::mouseDoubleClickEvent( const EventInfo & eventInfo )
 		RichTextEditorDlg * dlg = new RichTextEditorDlg( nullptr, property->editorCaption() );
 		dlg->setText( property->value().toString() );
 
-		if ( dlg->exec() == KDialog::Accepted )
+		if ( dlg->exec() == QDialog::Accepted )
 		{
 			property->setValue( dlg->text() );
 			dataChanged();

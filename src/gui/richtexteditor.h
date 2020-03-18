@@ -11,10 +11,7 @@
 #ifndef RICHTEXTEDITOR_H
 #define RICHTEXTEDITOR_H
 
-#include <qwidget.h>
-
-#include <kdialog.h>
-//#include <kdialog.h>
+#include <QDialog>
 
 class QTextEdit;
 class KToggleAction;
@@ -103,7 +100,7 @@ class RichTextEditor : public QWidget
 Popup dialog for editing rich text
 @author David Saxton
 */
-class RichTextEditorDlg : public KDialog /* or KPageDialog ? */ // KDialog
+class RichTextEditorDlg : public QDialog
 {
 	public:
 		RichTextEditorDlg( QWidget * parent = nullptr, const QString & caption = QString::null );

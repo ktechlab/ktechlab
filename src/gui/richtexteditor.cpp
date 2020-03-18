@@ -23,13 +23,15 @@
 #include <qdebug.h>
 #include <qfont.h>
 #include <qicon.h>
-#include <qlayout.h>
 //#include <qmime.h>
 #include <qtextlist.h>
 #include <qtextformat.h>
 #include <qregexp.h>
 #include <qdir.h>
 #include <QMenu>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 // #include <q3vbox.h>
 // #include <q3textedit.h>
@@ -430,23 +432,25 @@ void RichTextEditor::setResourcePaths( const QStringList & paths )
 
 //BEGIN class RichTextEditorDlg
 RichTextEditorDlg::RichTextEditorDlg( QWidget * parent, const QString & caption )
-	: //KDialog( parent, "RichTextEditorDlg", true, caption, KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
-	KDialog( parent )
+    : QDialog(parent)
 {
     setObjectName("RichTextEditorDlg");
     setModal(true);
-    setCaption(caption);
-    setButtons(KDialog::Ok | KDialog::Cancel);
-    setDefaultButton(KDialog::Ok);
-    showButtonSeparator(true);
+    setWindowTitle(caption);
 
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
 
-	//QVBox * page = makeVBoxMainWidget();
-    QWidget * page = new QWidget(this);
-    QVBoxLayout *pageLayout = new QVBoxLayout;
-    m_pEditor = new RichTextEditor( page );
-    pageLayout->addWidget(m_pEditor);
-    page->setLayout(pageLayout);
-    setMainWidget(page);
+    m_pEditor = new RichTextEditor(this);
+    mainLayout->addWidget(m_pEditor);
+
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    mainLayout->addWidget(buttonBox);
+
+    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(true);
+    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
 //END class RichTextEditorDlg
