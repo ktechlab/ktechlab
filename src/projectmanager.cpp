@@ -536,9 +536,8 @@ void ProjectItem::upload( ProcessOptionsList * pol )
 	
 	ProgrammerDlg * dlg = new ProgrammerDlg( microID(), (QWidget*)KTechlab::self(), "Programmer Dlg" );
 	
-	dlg->exec();
-	if ( !dlg->isAccepted() )
-	{
+    const int accepted = dlg->exec();
+    if (accepted != QDialog::Accepted) {
 		dlg->deleteLater();
 		return;
 	}

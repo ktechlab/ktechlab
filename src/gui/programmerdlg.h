@@ -11,7 +11,7 @@
 #ifndef PROGRAMMERDLG_H
 #define PROGRAMMERDLG_H
 
-#include <kdialog.h>
+#include <QDialog>
 
 class MicroSelectWidget;
 class PicProgrammerSettings;
@@ -22,7 +22,7 @@ class ProgrammerWidget;
 /**
 @author David Saxton
 */
-class ProgrammerDlg : public KDialog
+class ProgrammerDlg : public QDialog
 {
 	Q_OBJECT
 	public:
@@ -34,9 +34,6 @@ class ProgrammerDlg : public KDialog
 		ProgrammerDlg( const QString & picID, QWidget * parent = nullptr, const char * name = nullptr );
 		~ProgrammerDlg() override;
 
-		void reject() override;
-		void accept() override;
-		bool isAccepted() const { return m_bAccepted; }
 		/**
 		 * Initialises options with the values that the user has entered into
 		 * the widgets.
@@ -46,7 +43,6 @@ class ProgrammerDlg : public KDialog
 		MicroSelectWidget * microSelect() const;
 
 	protected:
-		bool m_bAccepted;
 		ProgrammerWidget * m_pProgrammerWidget;
 		PicProgrammerSettings * m_pProgrammerSettings;
 };

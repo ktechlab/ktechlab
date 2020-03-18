@@ -576,9 +576,8 @@ void TextDocument::convertToPIC()
 	if ( m_guessedCodeType == TextDocument::ct_c )
 		dlg->microSelect()->setAllowedAsmSet( AsmInfo::PIC14 | AsmInfo::PIC16 );
 
-	dlg->exec();
-	if ( !dlg->isAccepted() )
-	{
+    const int accepted = dlg->exec();
+    if (accepted != QDialog::Accepted) {
 		dlg->deleteLater();
 		return;
 	}

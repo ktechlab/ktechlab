@@ -18,10 +18,11 @@
 
 
 #include <qcombobox.h>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
-#include <kguiitem.h>
 #include <klocalizedstring.h>
-#include <kstandardguiitem.h>
 
 
 class ProgrammerWidget : public QWidget, public Ui::ProgrammerWidget {
@@ -32,21 +33,15 @@ class ProgrammerWidget : public QWidget, public Ui::ProgrammerWidget {
 };
 
 ProgrammerDlg::ProgrammerDlg( const QString & picID, QWidget *parent, const char *name )
-	: KDialog( parent ) // , name, true, i18n("PIC Programmer"), Ok|Cancel )
+    : QDialog(parent)
 {
     setObjectName(name);
     setModal(true);
-    setCaption(i18n("PIC Programmer"));
-    setButtons(Ok|Cancel);
+    setWindowTitle(i18n("PIC Programmer"));
 
-	// Change the "Ok" button to a "Burn" button
-	KGuiItem burnItem = KStandardGuiItem::ok();
-	burnItem.setText( i18n("Burn") );
-	//setButtonOK( burnItem );
-    setButtonGuiItem(Ok, burnItem);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
 
-
-	m_bAccepted = false;
 	m_pProgrammerWidget = new ProgrammerWidget( this );
 	m_pProgrammerSettings = new PicProgrammerSettings;
 
@@ -89,7 +84,16 @@ ProgrammerDlg::ProgrammerDlg( const QString & picID, QWidget *parent, const char
 	if ( !picID.isEmpty() )
 		m_pProgrammerWidget->m_pMicroSelect->setMicro( picID );
 
-	setMainWidget( m_pProgrammerWidget );
+    mainLayout->addWidget(m_pProgrammerWidget);
+
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Cancel);
+    QPushButton *burnButton = new QPushButton(QIcon::fromTheme(QStringLiteral("dialog-ok")), i18n("Burn"), buttonBox);
+    buttonBox->addButton(burnButton, QDialogButtonBox::AcceptRole);
+    burnButton->setDefault(true);
+    burnButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    mainLayout->addWidget(buttonBox);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
 
 
@@ -107,21 +111,6 @@ void ProgrammerDlg::initOptions( ProcessOptions * options )
 	options->m_port = m_pProgrammerWidget->m_pPicProgrammerPort->currentText();
 	options->m_program = m_pProgrammerWidget->m_pProgrammerProgram->currentText();
 }
-
-
-void ProgrammerDlg::accept()
-{
-	m_bAccepted = true;
-	hide();
-}
-
-
-void ProgrammerDlg::reject()
-{
-    hide();
-	m_bAccepted = false;
-}
-
 
 MicroSelectWidget * ProgrammerDlg::microSelect( ) const
 {

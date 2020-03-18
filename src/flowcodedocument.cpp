@@ -241,9 +241,9 @@ void FlowCodeDocument::convertToHex()
 void FlowCodeDocument::convertToPIC()
 {
 	ProgrammerDlg * dlg = new ProgrammerDlg( microSettings()->microInfo()->id(), (QWidget*)KTechlab::self(), "Programmer Dlg" );
-	dlg->exec();
 
-	if ( !dlg->isAccepted() ) {
+    const int accepted = dlg->exec();
+    if (accepted != QDialog::Accepted) {
 		dlg->deleteLater();
 		return;
 	}
