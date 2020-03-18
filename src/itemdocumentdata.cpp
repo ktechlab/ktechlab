@@ -25,7 +25,7 @@
 #include <kio/netaccess.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <ktemporaryfile.h>
+#include <QTemporaryFile>
 #include <qbitarray.h>
 #include <qfile.h>
 
@@ -192,7 +192,7 @@ bool ItemDocumentData::saveData( const KUrl &url )
 	}
 	else
 	{
-        KTemporaryFile file;
+        QTemporaryFile file;
         if (!file.open()) {
             KMessageBox::error( nullptr, file.errorString() );
             return false;
