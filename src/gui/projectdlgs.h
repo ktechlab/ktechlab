@@ -11,7 +11,7 @@
 #ifndef PROJECTDLGS_H
 #define PROJECTDLGS_H
 
-#include <kdialog.h>
+#include <QDialog>
 
 class CreateSubprojectWidget;
 class LinkerOptions;
@@ -97,17 +97,13 @@ class CreateSubprojectDlg : public QDialog
 /**
 @author David Saxton
 */
-class LinkerOptionsDlg : public KDialog
+class LinkerOptionsDlg : public QDialog
 {
 	Q_OBJECT
 	public:
 		LinkerOptionsDlg( LinkerOptions * linkingOptions, QWidget *parent = nullptr );
 		~LinkerOptionsDlg() override;
 
-	    /**
-		 * Called when the 'Cancel' button is pressed.
-		 */
-		void reject() override;
   	  	/**
 		 * Called when the 'OK' button is pressed. User entered values are read
 		 * in.

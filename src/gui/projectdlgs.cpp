@@ -172,16 +172,14 @@ class LinkerOptionsWidget : public QWidget, public Ui::LinkerOptionsWidget {
 
 //BEGIN class LinkerOptionsDlg
 LinkerOptionsDlg::LinkerOptionsDlg( LinkerOptions * linkingOptions, QWidget *parent )
-	: // KDialog( parent, "Linker Options Dialog", true, "Linker Options", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
-	KDialog( parent) //, "Linker Options Dialog", true, "Linker Options", KDialog::Ok|KDialog::Cancel, KDialog::Ok, true )
+    : QDialog(parent)
 {
     setObjectName("Linker Options Dialog");
     setModal(true);
-    setCaption(i18n("Linker Options"));
-    setButtons(KDialog::Ok|KDialog::Cancel);
-    setDefaultButton(KDialog::Ok);
-    showButtonSeparator(true);
+    setWindowTitle(i18n("Linker Options"));
 
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
 
 	m_pLinkerOptions = linkingOptions;
 	m_pWidget = new LinkerOptionsWidget(this);
@@ -261,8 +259,16 @@ LinkerOptionsDlg::LinkerOptionsDlg( LinkerOptions * linkingOptions, QWidget *par
 	//END Update library widgets
 
 
-	setMainWidget( m_pWidget );
-	setInitialSize( m_pWidget->rect().size() );
+    mainLayout->addWidget(m_pWidget);
+
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    mainLayout->addWidget(buttonBox);
+
+    QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(true);
+    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
 
 
@@ -274,8 +280,6 @@ LinkerOptionsDlg::~LinkerOptionsDlg()
 
 void LinkerOptionsDlg::accept()
 {
-	hide();
-
 	QStringList linkedInternal;
 	for (int itemNr = 0; itemNr < m_pWidget->m_pInternalLibraries->count(); ++itemNr)
 	{
@@ -292,13 +296,11 @@ void LinkerOptionsDlg::accept()
 	m_pLinkerOptions->setLibraryDir( m_pWidget->m_pLibraryDir->text() );
 	m_pLinkerOptions->setLinkerScript( m_pWidget->m_pLinkerScript->text() );
 	m_pLinkerOptions->setLinkerOther( m_pWidget->m_pOther->text() );
+
+    QDialog::accept();
 }
 
 
-void LinkerOptionsDlg::reject()
-{
-    hide();
-}
 //END class LinkerOptionsDlg
 
 class ProcessingOptionsWidget : public QWidget, public Ui::ProcessingOptionsWidget {
