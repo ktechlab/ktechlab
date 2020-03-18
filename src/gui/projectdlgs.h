@@ -124,16 +124,12 @@ class LinkerOptionsDlg : public KDialog
 /**
 @author David Saxton
 */
-class ProcessingOptionsDlg : public KDialog
+class ProcessingOptionsDlg : public QDialog
 {
 	public:
 		ProcessingOptionsDlg( ProjectItem * projectItem, QWidget *parent = nullptr );
 		~ProcessingOptionsDlg() override;
 
-	    /**
-		 * Called when the 'Cancel' button is pressed.
-		 */
-		void reject() override;
   	  	/**
 		 * Called when the 'OK' button is pressed. User entered values are read
 		 * in.
