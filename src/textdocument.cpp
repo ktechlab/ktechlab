@@ -29,11 +29,12 @@
 // #include <kate/katedocument.h>
 #include <qaction.h>
 #include <qdebug.h>
+#include <QTemporaryFile>
+#include <QDir>
 
 #include <klibloader.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <ktemporaryfile.h>
 #include <ktexteditor/document.h>
 #include <kxmlguifactory.h>
 #include <KTextEditor/Editor>
@@ -400,8 +401,8 @@ QString TextDocument::outputFilePath( const QString &ext )
 	QString filePath = url().path();
 	if ( filePath.isEmpty() )
 	{
-		KTemporaryFile f;
-        f.setSuffix(ext);
+        QTemporaryFile f(QDir::tempPath() + QLatin1String("/ktechlab_XXXXXX") + ext);
+        f.setAutoRemove(false);
         if (!f.open()) {
             qWarning() << Q_FUNC_INFO << " Failed to open temporary file";
             return QString();
