@@ -30,9 +30,10 @@
 
 #include <qdebug.h>
 #include <klocalizedstring.h>
-#include <ktemporaryfile.h>
 #include <qfile.h>
 #include <qtimer.h>
+#include <QTemporaryFile>
+#include <QDir>
 
 #include <ktlconfig.h>
 
@@ -101,8 +102,7 @@ void ProcessChain::compile()
 #define INDIRECT_PROCESS( path, processor, extension ) \
         case ProcessOptions::ProcessPath::path: \
             { \
-                KTemporaryFile f; \
-                f.setSuffix( extension ); \
+                QTemporaryFile f(QDir::tempPath() + QLatin1String("/ktechlab_XXXXXX") + QLatin1String(extension)); \
                 f.open(); \
                 f.close(); \
                 m_processOptions.setIntermediaryOutput( f.fileName() ); \
