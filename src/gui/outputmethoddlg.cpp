@@ -18,11 +18,11 @@
 
 #include <kconfigskeleton.h>
 #include <qdebug.h>
-#include <ktemporaryfile.h>
 #include <kurlrequester.h>
 
 #include <qcheckbox.h>
 #include <qfile.h>
+#include <QTemporaryFile>
 #include <qradiobutton.h>
 #include <QDialogButtonBox>
 #include <QPushButton>
@@ -53,8 +53,8 @@ void OutputMethodInfo::initialize( OutputMethodDlg * dlg )
 	{
 		m_method = Method::Direct;
 		//K3TempFile f( QString::null, dlg->m_outputExtension );
-        KTemporaryFile f;
-        f.setSuffix( dlg->m_outputExtension );
+        QTemporaryFile f(QDir::tempPath() + QLatin1String("/ktechlab_XXXXXX") + dlg->m_outputExtension);
+        f.setAutoRemove(false);
         if (!f.open()) {
             qWarning() << "failed to open " << f.fileName() << " because " << f.errorString();
         }
