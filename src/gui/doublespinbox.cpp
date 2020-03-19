@@ -12,9 +12,9 @@
 #include "doublespinbox.h"
 
 #include <qdebug.h>
-#include <klocale.h>
 #include <klocalizedstring.h>
 
+#include <QLocale>
 #include <qlineedit.h>
 #include <qregexp.h>
 #include <qtimer.h>
@@ -331,20 +331,19 @@ double DoubleSpinBox::valueFromText( const QString & text ) const {
 
     DoubleSpinbox_qDebug() << Q_FUNC_INFO << "text = " << text;
 
-    //KLocale * locale = KGlobal::locale();
-    KLocale * locale = KLocale::global();
+    QLocale locale;
 
     // Fetch the characters that we don't want to discard
-    const QString exclude = locale->decimalSymbol()
-            + locale->thousandsSeparator()
-            + locale->positiveSign()
-            + locale->negativeSign();
+    const QString exclude = QString(locale.decimalPoint())
+            + locale.groupSeparator()
+            + locale.positiveSign()
+            + locale.negativeSign();
 
     QString textToStrip( text );
     QString numberToRead = textToStrip.remove( QRegExp("[^"+exclude+"\\d]") );
 
     bool ok;
-    double value = locale->readNumber( numberToRead, &ok );
+    double value = locale.toDouble(numberToRead, &ok);
     if (!ok) {
         DoubleSpinbox_qDebug() << Q_FUNC_INFO << "numberToRead = |" << numberToRead << "| NOT OK";
         value = 0;
@@ -429,9 +428,7 @@ QString DoubleSpinBox::textFromValue(double value) const
 
     DoubleSpinbox_qDebug() << Q_FUNC_INFO << "toDisplayNr = " << toDisplayNr;
 
-    //KLocale * locale = KGlobal::locale();
-    KLocale * locale = KLocale::global();
-    QString numberStr = locale->formatNumber( toDisplayNr, 0 /* 3-leftDigits */ );
+    QString numberStr = QLocale().toString( toDisplayNr, 'f', 0 /* 3-leftDigits */ );
 
     QString magStr = Item::getNumberMag( value );
 
