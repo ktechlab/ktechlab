@@ -86,6 +86,7 @@ SET(ktechlab_SRCS
     ./gui/oscilloscopeview.cpp
     ./gui/doublespinbox.cpp
     ./gui/lineedit.cpp
+    ./gui/inputdialog.cpp
     ./gui/microselectwidget.cpp
     ./gui/scopescreen.cpp
     ./gui/itemselector.cpp

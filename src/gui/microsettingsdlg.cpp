@@ -14,10 +14,10 @@
 #include "ui_microsettingswidget.h"
 #include "micropackage.h"
 #include "pinmapping.h"
+#include "inputdialog.h"
 
 #include <kcombobox.h>
 #include <qdebug.h>
-#include <kinputdialog.h>
 #include <klineedit.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
@@ -342,7 +342,7 @@ void MicroSettingsDlg::slotRenamePinMap()
 	PinMappingNameValidator * validator = new PinMappingNameValidator( this, oldName );
 	
 	bool ok = false;
-	QString newName = KInputDialog::getText( i18n("New Pin Map Name"), i18n("Name"), oldName, & ok, this,/* 0, */ validator );
+	QString newName = InputDialog::getText( i18n("New Pin Map Name"), i18n("Name"), oldName, & ok, this,/* 0, */ validator );
 	
 	delete validator;
 	

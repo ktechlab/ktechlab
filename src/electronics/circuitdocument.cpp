@@ -26,11 +26,11 @@
 #include "switch.h"
 
 #include <qdebug.h>
-#include <kinputdialog.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <kactionmenu.h>
 
+#include <QInputDialog>
 #include <qregexp.h>
 #include <qtimer.h>
 
@@ -789,7 +789,7 @@ void CircuitDocument::createSubcircuit()
 	}
 
 	bool ok;
-	const QString name = KInputDialog::getText( "Subcircuit", "Name", QString::null, &ok, activeView() );
+	const QString name = QInputDialog::getText(activeView(), "Subcircuit", "Name", QLineEdit::Normal, QString(), &ok);
 	if (!ok) return;
 
 	SubcircuitData subcircuit;

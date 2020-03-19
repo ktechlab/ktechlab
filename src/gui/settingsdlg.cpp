@@ -11,11 +11,11 @@
 #include "picprogrammer.h"
 #include "port.h"
 #include "settingsdlg.h"
+#include "inputdialog.h"
 
 #include <kcombobox.h>
 #include <kconfig.h>
 #include <ksharedconfig.h>
-#include <kinputdialog.h>
 #include <klineedit.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
@@ -281,7 +281,7 @@ void SettingsDlg::slotAddProgrammerConfig()
 	NameValidator * nv = new NameValidator( takenNames );
 
 	bool ok = false;
-	QString name = KInputDialog::getText( i18n("Configuration Name"), i18n("Name"), QString(),/* 0,*/ &ok, this,/* 0,*/ nv );
+	QString name = InputDialog::getText( i18n("Configuration Name"), i18n("Name"), QString(),/* 0,*/ &ok, this,/* 0,*/ nv );
 
 	delete nv;
 
