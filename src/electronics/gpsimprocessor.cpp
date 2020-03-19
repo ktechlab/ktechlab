@@ -26,7 +26,8 @@
 #include <qdebug.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <ktemporaryfile.h>
+#include <QTemporaryFile>
+#include <QDir>
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qtimer.h>
@@ -358,8 +359,7 @@ QString GpsimProcessor::generateSymbolFile( const QString &fileName, QObject *re
 	}
 	else if ( extension == "flowcode" )
 	{
-        KTemporaryFile tmpFile;
-        tmpFile.setSuffix( ".hex" );
+        QTemporaryFile tmpFile(QDir::tempPath() + QLatin1String("/ktechlab_XXXXXX.hex"));
         if (!tmpFile.open()) {
             qWarning() << " failed to open " << tmpFile.fileName() << " error " << tmpFile.errorString();
             return QString::null;
