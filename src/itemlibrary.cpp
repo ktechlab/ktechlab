@@ -24,7 +24,7 @@
 #include <qapplication.h>
 #include <kconfig.h>
 #include <KConfigGroup>
-#include <kglobal.h>
+#include <KSharedConfig>
 #include <qlocale.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
@@ -545,9 +545,9 @@ QPixmap ItemLibrary::itemIconFull( const QString &id )
 }
 
 
-bool ItemLibrary::saveDescriptions( const QString & language )
+bool ItemLibrary::saveDescriptions( const QString & languageCode )
 {
-	QString url = itemDescriptionsFile( language );
+	QString url = itemDescriptionsFile( languageCode );
 
 	QFile file( url );
 	if ( !file.open( QIODevice::WriteOnly ) )
@@ -558,9 +558,8 @@ bool ItemLibrary::saveDescriptions( const QString & language )
 
 	QTextStream stream( & file );
 
-	QStringMap::iterator end = m_itemDescriptions[ language ].end();
-	for ( QStringMap::iterator descIt = m_itemDescriptions[ language ].begin(); descIt != end; ++descIt )
-	{
+	const QStringMap itemDescriptions = m_itemDescriptions[ languageCode ];
+	for (auto descIt = itemDescriptions.begin(), end = itemDescriptions.end(); descIt != end; ++descIt) {
 		stream << QString::fromLatin1("<!-- item: %1 -->\n").arg( descIt.key() );
 		stream << descIt.value() << endl;
 	}
@@ -571,7 +570,7 @@ bool ItemLibrary::saveDescriptions( const QString & language )
 }
 
 
-bool ItemLibrary::haveDescription( QString type, const QString & language ) const
+bool ItemLibrary::haveDescription( QString type, const QString & languageCode ) const
 {
 	if ( type.startsWith(QString::fromLatin1("/")) )
 	{
@@ -579,16 +578,16 @@ bool ItemLibrary::haveDescription( QString type, const QString & language ) cons
 		type.remove( 0, 1 );
 	}
 
-	if ( !m_itemDescriptions[ language ].contains( type ) )
+	if ( !m_itemDescriptions[ languageCode ].contains( type ) )
 	{
 		return libraryItem( type );
 	}
 
-	return ! m_itemDescriptions[ language ][ type ].isEmpty();
+	return ! m_itemDescriptions[ languageCode ][ type ].isEmpty();
 }
 
 
-QString ItemLibrary::description( QString type, const QString & language ) const
+QString ItemLibrary::description( QString type, const QString & languageCode ) const
 {
 	if ( type.startsWith(QString::fromLatin1("/")) )
 	{
@@ -596,28 +595,28 @@ QString ItemLibrary::description( QString type, const QString & language ) const
 		type.remove( 0, 1 );
 	}
 
-	QString current = m_itemDescriptions[ language ][ type ];
+	QString current = m_itemDescriptions[ languageCode ][ type ];
 
 	if ( current.isEmpty() )
 	{
 		// Try english-language description
 		current = m_itemDescriptions[ QString::fromLatin1("en_US") ][ type ];
 		if ( current.isEmpty() )
-			return emptyItemDescription( language );
+			return emptyItemDescription( languageCode );
 	}
 
 	return current;
 }
 
 
-QString ItemLibrary::emptyItemDescription( const QString & language ) const
+QString ItemLibrary::emptyItemDescription(const QString &languageCode) const
 {
 	//return m_emptyItemDescription.arg( KGlobal::locale()->twoAlphaToLanguageName( language ) );
-    return m_emptyItemDescription.subs( KGlobal::locale()->languageCodeToName( language ) ).toString();
+    return m_emptyItemDescription.subs(QLocale(languageCode).nativeLanguageName()).toString();
 }
 
 
-bool ItemLibrary::setDescription( QString type, const QString & description, const QString & language )
+bool ItemLibrary::setDescription(QString type, const QString & description, const QString & languageCode)
 {
 	if ( type.startsWith(QString::fromLatin1("/")) )
 	{
@@ -625,8 +624,8 @@ bool ItemLibrary::setDescription( QString type, const QString & description, con
 		type.remove( 0, 1 );
 	}
 
-	m_itemDescriptions[ language ][ type ] = description;
-	return saveDescriptions( language );
+	m_itemDescriptions[ languageCode ][ type ] = description;
+	return saveDescriptions( languageCode );
 }
 
 
@@ -660,13 +659,13 @@ QString ItemLibrary::itemDescriptionsDirectory() const
 }
 
 
-QString ItemLibrary::itemDescriptionsFile( const QString & language ) const
+QString ItemLibrary::itemDescriptionsFile( const QString & languageCode) const
 {
 	QString dir( itemDescriptionsDirectory() );
 	if ( dir.isEmpty() )
 		return QString::null;
 
-	QString url( dir + "help-" + language );
+	const QString url = dir + QLatin1String("help-") + languageCode;
 
 	return url;
 }
@@ -680,7 +679,7 @@ void ItemLibrary::loadItemDescriptions()
 // 	m_itemDescriptions[ locale->defaultLanguage() ];
 // 	m_itemDescriptions[ locale->language() ];
 	
-	m_itemDescriptions[ QLocale::languageToString(QLocale().language()) ];
+	m_itemDescriptions[QLocale().name()];
 
 	const QStringList languages = descriptionLanguages();
 	QStringList::const_iterator end = languages.end();

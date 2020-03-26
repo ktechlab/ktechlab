@@ -32,7 +32,6 @@
 #include <krun.h>
 #include <kdirselectdialog.h>
 // #include <k3iconview.h>
-#include <kglobal.h>
 
 #include <qevent.h>
 #include <qdebug.h>
@@ -107,7 +106,8 @@ ContextHelp::ContextHelp( KateMDI::ToolView * parent )
 	connect( m_pSaveButton, SIGNAL(clicked()), this, SLOT(slotSave()) );
 	connect( m_pResetButton, SIGNAL(clicked()), this, SLOT(slotEditReset()) );
 	connect( m_pChangeDescriptionsDirectory, SIGNAL(clicked()), this, SLOT(requestItemDescriptionsDirectory()) );
-	connect( m_pLanguageSelect, SIGNAL(activated(const QString &)), this, SLOT(setCurrentLanguage( const QString& )) );
+	connect( m_pLanguageSelect, QOverload<int>::of(&QComboBox::activated),
+                 this, &ContextHelp::setCurrentLanguage);
 
 	m_pResetButton->setIcon( QIcon::fromTheme( "dialog-cancel" ) );
 	m_pChangeDescriptionsDirectory->setIcon( QIcon::fromTheme( "folder" ) );
@@ -180,9 +180,24 @@ bool ContextHelp::eventFilter( QObject * watched, QEvent * e )
 
 void ContextHelp::slotInitializeLanguageList()
 {
-	m_pLanguageSelect->insertItems(m_pLanguageSelect->count(), itemLibrary()->descriptionLanguages() );
-	m_currentLanguage = KGlobal::locale()->language();
-	m_pLanguageSelect->setCurrentItem( m_currentLanguage );
+    const QStringList descriptionLanguages = itemLibrary()->descriptionLanguages();
+    for (const QString& languageCode : descriptionLanguages) {
+        QString text = languageCode;
+        QLocale locale(languageCode);
+        if (locale != QLocale::c()) {
+            text = locale.nativeLanguageName();
+            // For some languages the native name might be empty.
+            // In this case use the non native language name as fallback.
+            // See: QTBUG-51323
+            if (text.isEmpty()) {
+                text = QLocale::languageToString(locale.language());
+            }
+        }
+	m_pLanguageSelect->addItem(text, languageCode);
+    }
+	m_currentLanguage = QLocale().name();
+        const int currentIndex = m_pLanguageSelect->findData(m_currentLanguage);
+	m_pLanguageSelect->setCurrentIndex(currentIndex);
 }
 
 
@@ -217,7 +232,7 @@ void ContextHelp::slotUpdate( Item * item )
 	}
 
 	m_pWidgetStack->setCurrentIndex( 0 );
-	setContextHelp( item->name(), itemLibrary()->description( m_lastItemType, KGlobal::locale()->language() ) );
+	setContextHelp(item->name(), itemLibrary()->description(m_lastItemType, QLocale().name()));
 }
 
 
@@ -226,7 +241,7 @@ void ContextHelp::setBrowserItem( const QString & type )
 	if ( isEditChanged() )
 		return;
 
-	QString description = itemLibrary()->description( type, KGlobal::locale()->language() );
+	QString description = itemLibrary()->description(type, QLocale().name());
 	if ( description.isEmpty() )
 		return;
 
@@ -315,12 +330,14 @@ void ContextHelp::slotEdit()
 }
 
 
-void ContextHelp::setCurrentLanguage( const QString & language )
+void ContextHelp::setCurrentLanguage(int languageIndex )
 {
+    const QString language = m_pLanguageSelect->itemData(languageIndex).toString();
 	if ( !saveDescription( m_currentLanguage ) )
 	{
 		m_pLanguageSelect->blockSignals( true );
-		m_pLanguageSelect->setCurrentItem( m_currentLanguage );
+                const int currentIndex = m_pLanguageSelect->findData(m_currentLanguage);
+		m_pLanguageSelect->setCurrentIndex(currentIndex);
 		m_pLanguageSelect->blockSignals( false );
 		return;
 	}
@@ -361,7 +378,7 @@ void ContextHelp::slotSave()
 	if ( !saveDescription( m_currentLanguage ) )
 		return;
 
-	setContextHelp( m_pNameLabel->text(), itemLibrary()->description( m_lastItemType, KGlobal::locale()->language() ) );
+	setContextHelp( m_pNameLabel->text(), itemLibrary()->description( m_lastItemType, QLocale().name() ) );
 	m_pWidgetStack->setCurrentIndex( 0 );
 }
 
@@ -449,7 +466,7 @@ ContextHelp::LinkType ContextHelp::extractLinkType( const KUrl & url )
 
 	if ( url.protocol() == "ktechlab-help" )
 	{
-		if ( itemLibrary()->haveDescription( path, KGlobal::locale()->language() ) )
+		if ( itemLibrary()->haveDescription(path, QLocale().name()))
 			return HelpLink;
 		else
 			return NewHelpLink;

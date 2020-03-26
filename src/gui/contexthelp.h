@@ -83,7 +83,7 @@ class ContextHelp : public QWidget, public Ui::ContextHelpWidget
 		 * Called from the language select combo when the current selection
 		 * changes.
 		 */
-		void setCurrentLanguage( const QString & language );
+		void setCurrentLanguage(int languageIndex);
 		/**
 		 * Request a directory from the user for storing the context help in.
 		 */
