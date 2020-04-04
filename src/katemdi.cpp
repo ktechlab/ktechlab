@@ -89,50 +89,6 @@ int Splitter::idAfter ( QWidget * w ) const
 //END SPLITTER
 
 
-//BEGIN TOGGLETOOLVIEWACTION
-
-ToggleToolViewAction::ToggleToolViewAction ( const QString& text, const KShortcut& cut, ToolView *tv,
-                                             QObject* parent, const char* name )
- : KToggleAction(text /* ,cut */, parent /*,name*/)
- , m_tv(tv)
-{
-    setObjectName(name);
-    KToggleAction::setShortcut(cut.primary());
-
-  connect(this,SIGNAL(toggled(bool)),this,SLOT(slotToggled(bool)));
-  connect(m_tv,SIGNAL(visibleChanged(bool)),this,SLOT(visibleChanged(bool)));
-
-  setChecked(m_tv->visible());
-}
-
-ToggleToolViewAction::~ToggleToolViewAction()
-{
-  //unplugAll(); // TODO is this needed?
-}
-
-void ToggleToolViewAction::visibleChanged(bool)
-{
-  if (isChecked() != m_tv->visible())
-    setChecked (m_tv->visible());
-}
-
-void ToggleToolViewAction::slotToggled(bool t)
-{
-  if (t)
-  {
-    m_tv->mainWindow()->showToolView (m_tv);
-    m_tv->setFocus ();
-  }
-  else
-  {
-    m_tv->mainWindow()->hideToolView (m_tv);
-    m_tv->mainWindow()->centralWidget()->setFocus ();
-  }
-}
-
-//END TOGGLETOOLVIEWACTION
-
-
 //BEGIN GUICLIENT
 
 GUIClient::GUIClient ( MainWindow *mw )

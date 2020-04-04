@@ -24,7 +24,6 @@
 #include <kparts/mainwindow.h>
 
 #include <kmultitabbar.h>
-#include <ktoggleaction.h>
 
 #include <KDELibs4Support/kshortcut.h>
 
@@ -32,10 +31,14 @@
 // #include <q3intdict.h>
 // #include <q3vbox.h>
 #include <qsplitter.h>
+#include <QMap>
+
+class QAction;
 
 namespace KateMDI {
 
 class MainWindow;
+class ToolView;
 
 /** This class is needed because QSplitter cant return an index for a widget. */
 class Splitter : public QSplitter
@@ -55,24 +58,6 @@ class Splitter : public QSplitter
     //bool isLastChild(QWidget* w) const;
 
     //int idAfter ( QWidget * w ) const;
-};
-
-class ToggleToolViewAction : public KToggleAction
-{
-  Q_OBJECT
-
-  public:
-    ToggleToolViewAction ( const QString& text, const KShortcut& cut,
-                           class ToolView *tv, QObject* parent = nullptr, const char* name = nullptr );
-
-    ~ToggleToolViewAction() override;
-
-  protected slots:
-    void slotToggled(bool) override;
-    void visibleChanged(bool);
-
-  private:
-    ToolView *m_tv;
 };
 
 class GUIClient : public QObject, public KXMLGUIClient

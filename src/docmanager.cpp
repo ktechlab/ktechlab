@@ -25,6 +25,7 @@
 #include <kxmlguifactory.h>
 
 #include <QTabWidget>
+#include <QAction>
 #include <qfile.h>
 
 #include <cassert>

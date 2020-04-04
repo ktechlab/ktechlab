@@ -29,6 +29,7 @@
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <kactionmenu.h>
+#include <KToggleAction>
 
 #include <QInputDialog>
 #include <qregexp.h>
