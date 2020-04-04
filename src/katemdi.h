@@ -25,8 +25,6 @@
 
 #include <kmultitabbar.h>
 
-#include <KDELibs4Support/kshortcut.h>
-
 // #include <q3dict.h>
 // #include <q3intdict.h>
 // #include <q3vbox.h>

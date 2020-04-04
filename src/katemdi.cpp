@@ -120,7 +120,7 @@ void GUIClient::registerToolView (ToolView *tv)
   QString aname = QString("kate_mdi_toolview_") + tv->id;
 
   // try to read the action shortcut
-  KShortcut sc;
+//   KShortcut sc;
 
 //   KConfig *cfg = kapp->config();
 //   QString _grp = cfg->group();
@@ -129,7 +129,7 @@ void GUIClient::registerToolView (ToolView *tv)
 //   cfg->setGroup( _grp );
 
   KConfigGroup grSh = KSharedConfig::openConfig()->group("Shortcuts");
-  sc = KShortcut( grSh.readEntry(aname, "") );
+//   sc = KShortcut( grSh.readEntry(aname, "") );
 }
 
 void GUIClient::clientAdded( KXMLGUIClient *client )
