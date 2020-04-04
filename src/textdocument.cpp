@@ -32,7 +32,6 @@
 #include <QTemporaryFile>
 #include <QDir>
 
-#include <klibloader.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <ktexteditor/document.h>
