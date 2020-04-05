@@ -30,9 +30,9 @@
 #include <kparts/browserextension.h>
 // #include <k3popupmenu.h>
 #include <krun.h>
-#include <kdirselectdialog.h>
 // #include <k3iconview.h>
 
+#include <QFileDialog>
 #include <qevent.h>
 #include <qdebug.h>
 #include <qfile.h>
@@ -348,13 +348,10 @@ void ContextHelp::setCurrentLanguage(int languageIndex )
 
 void ContextHelp::requestItemDescriptionsDirectory()
 {
-	KDirSelectDialog * dlg = new KDirSelectDialog( itemLibrary()->itemDescriptionsDirectory(), true );
-	if ( dlg->exec() == QDialog::Accepted )
-	{
-		itemLibrary()->setItemDescriptionsDirectory( dlg->url().path() );
-	}
-	delete dlg;
-	return;
+    const QString path = QFileDialog::getExistingDirectory(nullptr, QString(), itemLibrary()->itemDescriptionsDirectory());
+    if (!path.isEmpty())  {
+        itemLibrary()->setItemDescriptionsDirectory(path);
+    }
 }
 
 
