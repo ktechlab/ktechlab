@@ -16,11 +16,11 @@
 #include "view.h"
 #include "viewcontainer.h"
 
-#include <kfiledialog.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 
 #include <QTabWidget>
+#include <QFileDialog>
 
 Document::Document( const QString &caption, const char *name )
 	: QObject( KTechlab::self() /* , name */ ),
@@ -105,7 +105,7 @@ void Document::setCaption( const QString &caption )
 
 bool Document::getURL( const QString &types )
 {
-	KUrl url = KFileDialog::getSaveUrl( KUrl(), types, KTechlab::self(), i18n("Save Location"));
+	QUrl url = QFileDialog::getSaveFileUrl(KTechlab::self(), i18n("Save Location"), QUrl(), types);
 	
 	if ( url.isEmpty() ) return false;
 	

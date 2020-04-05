@@ -24,6 +24,7 @@ SET(gui_STAT_SRCS
 #    scopeviewbase.cpp
 #    richtexteditor.cpp
 #    lineedit.cpp
+#    imageexportdlg.cpp
 )
 
 set(gui_UI

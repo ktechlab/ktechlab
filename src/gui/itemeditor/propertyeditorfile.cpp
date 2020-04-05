@@ -13,10 +13,10 @@
 #include "property.h"
 
 #include <klineedit.h>
-#include <kfiledialog.h>
 #include <klocalizedstring.h>
-#include <qdebug.h>
 
+#include <qdebug.h>
+#include <QFileDialog>
 #include <QPushButton>
 #include <qstring.h>
 #include <qpixmap.h>
@@ -49,14 +49,14 @@ PropertyEditorFile::PropertyEditorFile( QWidget * parent, Property * property, c
 
 void PropertyEditorFile::selectFile()
 {
-	KUrl url = KFileDialog::getOpenFileName( KUrl() /* QString::null */, m_property->filter(), this, i18n("Choose File") );
-    qDebug() << Q_FUNC_INFO << "got KUrl: " << url;
-	if ( !url.isValid() ) {
+    const QString filePath = QFileDialog::getOpenFileName(this, i18n("Choose File"), QString(), m_property->filter());
+    qDebug() << Q_FUNC_INFO << "got QString: " << filePath;
+    if (!filePath.isEmpty()) {
         qDebug() << Q_FUNC_INFO << "url is not valid, not setting it";
 		return;
     }
-	
-	m_property->setValue( url.path() );
+
+    m_property->setValue(filePath);
 	ItemInterface::self()->setProperty( m_property );
 }
 

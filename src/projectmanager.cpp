@@ -20,12 +20,12 @@
 #include "recentfilesaction.h"
 
 #include <qdebug.h>
-#include <kfiledialog.h>
 #include <kio/netaccess.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h> 
 #include <kxmlguifactory.h>
 
+#include <QFileDialog>
 #include <qdom.h>
 // #include <q3popupmenu.h>
 #include <qmenu.h>
@@ -960,7 +960,7 @@ void ProjectManager::slotOpenProject()
 	QString filter;
 	filter = QString("*.ktechlab|%1 (*.ktechlab)\n*|%2").arg( i18n("KTechlab Project") ).arg( i18n("All Files") );
 	
-    KUrl url = KFileDialog::getOpenUrl( KUrl(), filter, this, i18n("Open Location"));
+    QUrl url = QFileDialog::getOpenFileUrl(this, i18n("Open Location"), QUrl(), filter);
 	
     if ( url.isEmpty() )
 		return;

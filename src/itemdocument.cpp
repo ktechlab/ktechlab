@@ -25,9 +25,9 @@
 #include "pin.h"
 #include "resizeoverlay.h"
 #include "simulator.h"
+#include "imageexportdlg.h"
 
 #include <qdebug.h>
-#include <kfiledialog.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 // #include <k3popupmenu.h>
@@ -849,35 +849,14 @@ void ItemDocument::exportToImage()
 	// the Export shortcut is pressed or the Export toolbar
 	// button is clicked
 
-	// widget for the kfiledialog
-	// It is the bit that says "Crop circuit?"
-	// Okay need to think of something way better to say here.
-	// gotme here, KFileDialog makes itself parent so tries to destroy cropCheck when it is deleted.
-	// therefore we use a pointer.
-	QString cropMessage;
-
-	cropMessage = i18n("Crop image");
-
-	QCheckBox *cropCheck = new QCheckBox( cropMessage, KTechlab::self() /*, "cropCheck" */ );
-    cropCheck->setObjectName( "cropCheck" );
-	cropCheck->setChecked(true); // yes by default?
-
 	// we need an object so we can retrieve which image type was selected by the user
 	// so setup the filedialog.
-	QString f;
-	f = QString("*.png|%1\n*.bmp|%2\n*.svg|%3").arg( i18n("PNG Image") ).arg( i18n("BMP Image") ).arg( i18n("SVG Image") );
-	//KFileDialog exportDialog( KUrl() /*QString::null */, f, KTechlab::self(), i18n("Export As Image"), true, cropCheck);
-    KFileDialog exportDialog( QUrl(), f, KTechlab::self(), /*i18n("Export As Image"),*/ /* true, */ cropCheck);
-    exportDialog.setModal(true);
-    exportDialog.setWindowTitle(i18n("Export As Image"));
-    //exportDialog.setCaption(i18n("Export As Image"));
+    ImageExportDialog exportDialog(KTechlab::self());
 	
-	exportDialog.setOperationMode( KFileDialog::Saving );
-	exportDialog.setMode( KFile::File | KFile::LocalOnly );
 	// now actually show it
 	if ( exportDialog.exec() == QDialog::Rejected )
 		return;
-	const QString filePath = exportDialog.selectedFile();
+	const QString filePath = exportDialog.filePath();
 
 	if ( filePath.isEmpty() ) return;
 
@@ -891,6 +870,7 @@ void ItemDocument::exportToImage()
 		if ( query == KMessageBox::No ) return;
 	}
 
+    const bool crop = exportDialog.isCropSelected();
 	// with Qt, you always "print" to a
 	// QPainter.. whether the output medium is a pixmap, a screen,
 	// or paper
@@ -898,27 +878,16 @@ void ItemDocument::exportToImage()
 	// needs to be something like QPicture to do SVG etc...
 
 	QRect saveArea;
-	QString type;
 	QRect cropArea;
 	QPaintDevice *outputImage;
-	QString filter = exportDialog.currentFilter();
-	filter = filter.toLower(); // gently soften the appearance of the letters.
+	const QString type = exportDialog.formatType();
 
 	// did have a switch here but seems you can't use that on strings
-	if ( filter == "*.png") 	type = "PNG";
-	else if ( filter == "*.bmp")	type = "BMP";
-	else if ( filter == "*.svg" ) {
+	if ( type == "SVG" ) {
 		KMessageBox::information( nullptr, i18n("SVG export is sub-functional"), i18n("Export As Image") );
-		type = "SVG";
-	}
-	// I don't like forcing people to use the right extension (personally)
-	// but it is the easiest way to decide image type.
-	else {
-		KMessageBox::sorry( nullptr, i18n("Unknown extension, please select one from the filter list."), i18n("Export As Image") );
-		return;
 	}
 
-	if ( cropCheck->isChecked() ) {
+	if (crop) {
 		cropArea = canvasBoundingRect();
 		if ( cropArea.isNull() ) {
 			KMessageBox::sorry( nullptr, i18n("There is nothing to crop"), i18n("Export As Image") );
@@ -961,8 +930,7 @@ void ItemDocument::exportToImage()
 
 	// if cropping we need to convert to an image,
 	// crop, then save.
-	if ( cropCheck->isChecked() )
-	{
+	if (crop) {
 		if( type == "SVG" )
 			saveResult = dynamic_cast<QPicture*>(outputImage)->save(filePath, type.toLatin1().data());
 		else {

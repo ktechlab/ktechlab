@@ -53,7 +53,6 @@
 #include <ktoolbar.h>
 #include <kactioncollection.h>
 #include <kedittoolbar.h>
-#include <kfiledialog.h>
 #include <ksharedconfig.h>
 
 #include <kiconloader.h>
@@ -1272,10 +1271,10 @@ KUrl::List KTechlab::getFileURLs( bool allowMultiple )
 					.arg(i18n("Circuit"));
 
 	if ( allowMultiple )
-		return KFileDialog::getOpenUrls( KUrl(), filter, nullptr, i18n("Open Location") );
+		return QFileDialog::getOpenFileUrls(nullptr, i18n("Open Location"), QUrl(), filter);
 	
 	else {
-        KUrl ret = KFileDialog::getOpenUrl( KUrl(), filter, nullptr, i18n("Open Location") );
+        KUrl ret = QFileDialog::getOpenFileUrl(nullptr, i18n("Open Location"), QUrl(), filter);
 		return ret;
     }
 }

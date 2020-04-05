@@ -100,6 +100,7 @@ SET(ktechlab_SRCS
     ./gui/outputmethoddlg.cpp
     ./gui/scopeviewbase.cpp
     ./gui/settingsdlg.cpp
+    ./gui/imageexportdlg.cpp
     ./projectmanager.cpp
     ./cells.cpp
     ./docmanageriface.cpp

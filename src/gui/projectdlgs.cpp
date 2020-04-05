@@ -15,7 +15,6 @@
 
 #include <cassert>
 
-#include <kfiledialog.h>
 #include <klocalizedstring.h>
 #include <kurlrequester.h>
 // #include <k3listview.h>
