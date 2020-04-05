@@ -213,7 +213,7 @@ void View::setDCOPID( unsigned id )
 
 //BEGIN class ViewStatusBar
 ViewStatusBar::ViewStatusBar( View *view )
-	: KStatusBar(view)
+	: QStatusBar(view)
 {
 	p_view = view;
 	
@@ -221,6 +221,9 @@ ViewStatusBar::ViewStatusBar( View *view )
 	addWidget( m_modifiedLabel, 0 /*, false */ );
 	m_fileNameLabel = new KSqueezedTextLabel(this);
 	addWidget( m_fileNameLabel, 1 /*, false */ );
+    m_statusLabel = new QLabel(this);
+    m_statusLabel->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    addPermanentWidget(m_statusLabel, 0);
 	
 	m_modifiedPixmap = KIconLoader::global()->loadIcon( "document-save", KIconLoader::Small );
 	m_unmodifiedPixmap = KIconLoader::global()->loadIcon( "null", KIconLoader::Small );
@@ -235,6 +238,11 @@ ViewStatusBar::ViewStatusBar( View *view )
 	slotFileNameChanged( view->document()->url() );
 	
 	slotViewUnfocused();
+}
+
+void ViewStatusBar::setStatusText(const QString &statusText)
+{
+    m_statusLabel->setText(statusText);
 }
 
 

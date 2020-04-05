@@ -14,10 +14,10 @@
 #include "viewcontainer.h"
 #include "document.h"
 
-#include <kstatusbar.h>
 #include <kurl.h>
 #include <kxmlguiclient.h>
 
+#include <QStatusBar>
 #include <qpointer.h>
 #include <qpixmap.h>
 #include <qpainter.h>
@@ -36,19 +36,14 @@ class ViewIface;
 class QVBoxLayout;
 class QLabel;
 
-class ViewStatusBar : public KStatusBar
+class ViewStatusBar : public QStatusBar
 {
 Q_OBJECT
 public:
 	ViewStatusBar( View *view );
 
-	enum InfoId
-	{
-		SimulationState,
-		LineCol,
-		InsertMode,
-		SelectionMode
-	};
+public:
+    void setStatusText(const QString &statusText);
 
 public slots:
 	void slotModifiedStateChanged();
@@ -58,6 +53,7 @@ public slots:
 
 protected:
 	View *p_view;
+	QLabel* m_statusLabel;
 	QLabel* m_modifiedLabel;
 	KSqueezedTextLabel* m_fileNameLabel;
 	QPixmap m_modifiedPixmap;

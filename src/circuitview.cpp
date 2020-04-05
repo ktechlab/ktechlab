@@ -131,7 +131,7 @@ CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *view
 
     // note: the text below normally should not be visible; it is needed to get the "real" status displayed;
     // see slotUpdateRunningStatus
-	m_statusBar->insertItem( i18n("Simulation Initializing"), ViewStatusBar::SimulationState );
+	m_statusBar->setStatusText(i18n("Simulation Initializing"));
 	connect( Simulator::self(), SIGNAL(simulatingStateChanged(bool )), this, SLOT(slotUpdateRunningStatus(bool )) );
 	slotUpdateRunningStatus( Simulator::self()->isSimulating() );
 }
@@ -145,7 +145,7 @@ CircuitView::~CircuitView()
 
 void CircuitView::slotUpdateRunningStatus( bool isRunning )
 {
-	m_statusBar->changeItem( isRunning ? i18n("Simulation Running") : i18n("Simulation Paused"), ViewStatusBar::SimulationState );
+    m_statusBar->setStatusText(isRunning ? i18n("Simulation Running") : i18n("Simulation Paused"));
 }
 
 
