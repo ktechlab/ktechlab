@@ -215,8 +215,6 @@ LinkerOptionsDlg::LinkerOptionsDlg( LinkerOptions * linkingOptions, QWidget *par
 	//m_pExternalLibraryRequester->fileDialog()->setUrl( KUrl( "/usr/share/sdcc/lib" ) );
     m_pExternalLibraryRequester->fileDialog()->setDirectoryUrl( KUrl( "/usr/share/sdcc/lib" ) );
 	
-    KEditListBox b;
-    
 // // 	m_pWidget->m_pExternalLibraries = new KEditListBox( 
 // //         i18n("Link libraries outside project"), 
 // //         //m_pExternalLibraryRequester->customEditor(), 
