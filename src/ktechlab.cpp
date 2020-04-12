@@ -49,6 +49,7 @@
 #include <QMenu>
 #include <QTabWidget>
 #include <QStandardPaths>
+#include <QMimeData>
 
 #include <ktoolbar.h>
 #include <kactioncollection.h>
@@ -968,7 +969,7 @@ void KTechlab::readPropertiesInConfig( KConfig *conf )
 void KTechlab::dragEnterEvent(QDragEnterEvent *event)
 {
     // accept uri drops only
-    event->setAccepted(KUrl::List::canDecode(event->mimeData()));
+    event->setAccepted(event->mimeData()->hasUrls());
 }
 
 
@@ -977,13 +978,13 @@ void KTechlab::dropEvent(QDropEvent *event)
     // this is a very simplistic implementation of a drop event.  we
     // will only accept a dropped URL.  the Qt dnd code can do *much*
     // much more, so please read the docs there
-    const KUrl::List urls = KUrl::List::fromMimeData(event->mimeData());
+    const QList<QUrl> urls = event->mimeData()->urls();
 
     // see if we can decode a URI.. if not, just ignore it
     if (!urls.isEmpty())
     {
         // okay, we have a URI.. process it
-        const KUrl &url = urls.first();
+        const QUrl &url = urls.first();
 
         // load in the file
         load(url);

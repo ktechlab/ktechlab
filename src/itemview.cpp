@@ -316,12 +316,11 @@ void ItemView::dropEvent( QDropEvent *event )
 	removeDragItem();
     const QMimeData* mimeData = event->mimeData();
 
-	if ( KUrl::List::canDecode( mimeData ) )
+	if (mimeData->hasUrls())
 	{
 		// Then it is URLs that we can decode :)
-		const KUrl::List urls = KUrl::List::fromMimeData( mimeData );
-		foreach ( const KUrl &u, urls )
-		{
+		const QList<QUrl> urls = mimeData->urls();
+		for (const QUrl &u : urls) {
 			DocManager::self()->openURL(u);
 		}
 		return;
@@ -481,7 +480,7 @@ void ItemView::dragEnterEvent( QDragEnterEvent *event )
 {
 	startUpdatingStatus();
 
-	if ( KUrl::List::canDecode( event->mimeData() ) ) {
+	if (event->mimeData()->hasUrls()) {
 		event->setAccepted(true);
 		// Then it is URLs that we can decode later :)
 		return;
