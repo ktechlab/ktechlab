@@ -89,8 +89,8 @@ ContextHelp::ContextHelp( KateMDI::ToolView * parent )
 	m_pBrowserView = m_pBrowser->view();
 	m_pBrowserView->setFocusPolicy( Qt::NoFocus );
 	m_pBrowserLayout->addWidget( m_pBrowserView );
-	connect( m_pBrowser->browserExtension(), SIGNAL(openUrlRequest( const KUrl &, const KParts::OpenUrlArguments & ) ),
-			 this, SLOT( openURL(const KUrl & /*, const KParts::OpenUrlArguments & */ ) ) );
+	connect(m_pBrowser->browserExtension(), &KParts::BrowserExtension::openUrlRequest,
+	        this, &ContextHelp::openURL);
 
 	// Adjust appearance of browser
 	m_pBrowserView->setMarginWidth( 4 );
@@ -296,7 +296,7 @@ void ContextHelp::setContextHelp( QString name, QString help )
 
 	m_pNameLabel->setText( name );
 #warning "m_pBrowser->write() disabled, crashes on m_pBrowser->end()"
-//     m_pBrowser->begin( KUrl( itemLibrary()->itemDescriptionsDirectory() ) );
+//     m_pBrowser->begin( QUrl::fromLocalFile( itemLibrary()->itemDescriptionsDirectory() ) );
 //     m_pBrowser->write( help );
 //     m_pBrowser->end();
 }
@@ -402,11 +402,12 @@ void ContextHelp::addLinkTypeAppearances( QString * html )
 	while ( (pos = rx.indexIn( *html, pos )) >= 0 )
 	{
 		QString anchorText = rx.cap( 0 ); // contains e.g.: <a href="http://ktechlab.org/">KTechlab website</a>
-		QString url = rx.cap( 1 ); // contains e.g.: http://ktechlab.org/
+		const QString urlString = rx.cap( 1 ); // contains e.g.: http://ktechlab.org/
 		QString text = rx.cap( 2 ); // contains e.g.: KTechlab website
 
 		int length = anchorText.length();
 
+		const QUrl url(urlString);
 		LinkType lt = extractLinkType( url );
 
 		QColor color; // default constructor gives an "invalid" color
@@ -424,7 +425,7 @@ void ContextHelp::addLinkTypeAppearances( QString * html )
 			case ExampleLink:
 			{
 				//QString iconName = KMimeType::iconNameForURL( examplePathToFullPath( KUrl( url ).path() ) );
-                QString iconName = KIO::iconNameForUrl( examplePathToFullPath( KUrl( url ).path() ) );
+                QString iconName = KIO::iconNameForUrl(QUrl::fromLocalFile(examplePathToFullPath(url.path())));
 				imageURL = KIconLoader::global()->iconPath( iconName, - KIconLoader::SizeSmall );
 				break;
 			}
@@ -440,7 +441,7 @@ void ContextHelp::addLinkTypeAppearances( QString * html )
 
 		if ( color.isValid() )
 		{
-			newAnchorText = QString("<a href=\"%1\" style=\"color: %2;\">%3</a>").arg( url ).arg( color.name() ).arg( text );
+			newAnchorText = QString("<a href=\"%1\" style=\"color: %2;\">%3</a>").arg(urlString, color.name(), text);
 		}
 		else if ( !imageURL.isEmpty() )
 		{
@@ -457,11 +458,11 @@ void ContextHelp::addLinkTypeAppearances( QString * html )
 
 
 // static function
-ContextHelp::LinkType ContextHelp::extractLinkType( const KUrl & url )
+ContextHelp::LinkType ContextHelp::extractLinkType( const QUrl & url )
 {
 	QString path = url.path();
 
-	if ( url.protocol() == "ktechlab-help" )
+	if ( url.scheme() == "ktechlab-help" )
 	{
 		if ( itemLibrary()->haveDescription(path, QLocale().name()))
 			return HelpLink;
@@ -469,7 +470,7 @@ ContextHelp::LinkType ContextHelp::extractLinkType( const KUrl & url )
 			return NewHelpLink;
 	}
 
-	if ( url.protocol() == "ktechlab-example" )
+	if ( url.scheme() == "ktechlab-example" )
 		return ExampleLink;
 
 	return ExternalLink;
@@ -489,7 +490,7 @@ QString ContextHelp::examplePathToFullPath( QString path )
 }
 
 
-void ContextHelp::openURL( const KUrl & url /*, const KParts::OpenUrlArguments & */ )
+void ContextHelp::openURL( const QUrl & url /*, const KParts::OpenUrlArguments & */ )
 {
 	QString path = url.path();
 

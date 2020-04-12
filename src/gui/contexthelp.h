@@ -22,7 +22,7 @@ class RichTextEditor;
 
 class KHTMLPart;
 class KHTMLView;
-class KUrl;
+class QUrl;
 class QLabel;
 class QTextBrowser;
 class QWidgetStack;
@@ -64,7 +64,7 @@ class ContextHelp : public QWidget, public Ui::ContextHelpWidget
 		 * Set the help browser to the given location.
 		 */
 		void setBrowserItem( const QString & type );
-		void openURL( const KUrl& url /*, const KParts::OpenUrlArguments& */ );
+		void openURL( const QUrl& url /*, const KParts::OpenUrlArguments& */ );
 
 	protected slots:
 		/**
@@ -101,7 +101,7 @@ class ContextHelp : public QWidget, public Ui::ContextHelpWidget
 		 * Looks at url and tries to determine the link type. Will return
 		 * ExternalLink if the url can not be identified as any other type.
 		 */
-		static LinkType extractLinkType( const KUrl & url );
+		static LinkType extractLinkType( const QUrl & url );
 		/**
 		 * Adjusts the appearance of links depending on their LinkType (e.g
 		 * external links are given an "external" icon, and new help links are
