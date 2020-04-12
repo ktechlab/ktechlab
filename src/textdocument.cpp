@@ -137,9 +137,9 @@ TextDocument::~TextDocument()
 
 bool TextDocument::fileClose()
 {
-	const QString path = url().prettyUrl();
-	if ( !path.isEmpty() )
-		fileMetaInfo()->grabMetaInfo( path, this );
+	const QUrl u = url();
+	if ( !u.isEmpty() )
+		fileMetaInfo()->grabMetaInfo( u, this );
 
 	return Document::fileClose();
 }
@@ -155,7 +155,7 @@ View * TextDocument::createView( ViewContainer *viewContainer, uint viewAreaId, 
 {
 	TextView * textView = new TextView( this, viewContainer, viewAreaId, name );
 
-	fileMetaInfo()->initializeFromMetaInfo( url().prettyUrl(), textView );
+	fileMetaInfo()->initializeFromMetaInfo( url(), textView );
 
 	handleNewView(textView);
 	return textView;
@@ -378,7 +378,7 @@ bool TextDocument::openURL( const KUrl& url )
 	m_doc->openUrl(url);
 	setURL(url);
 
-	fileMetaInfo()->initializeFromMetaInfo( url.prettyUrl(), this );
+	fileMetaInfo()->initializeFromMetaInfo( url, this );
 	guessScheme();
 
 #ifndef NO_GPSIM

@@ -39,7 +39,7 @@ void MetaInfo::save( KConfigGroup* conf )
 	conf->writeEntry( "Bookmarks", bookmarks() );
 	conf->writeEntry( "Breakpoints", breakpoints() );
 	conf->writeEntry( "OutputMethod", toID(outputMethodInfo().method()) );
-	conf->writePathEntry( "OutputPath", outputMethodInfo().outputFile().prettyUrl() );
+	conf->writePathEntry( "OutputPath", outputMethodInfo().outputFile().toDisplayString(QUrl::PreferLocalFile) );
 	conf->writeEntry( "OutputPicID", outputMethodInfo().picID() );
 	conf->writeEntry( "CursorLine", cursorLine() );
 	conf->writeEntry( "CursorColumn", cursorColumn() );
@@ -51,7 +51,7 @@ void MetaInfo::load( KConfigGroup* conf )
 	setBookmarks( conf->readEntry("Bookmarks", IntList()) );
 	setBreakpoints( conf->readEntry("Breakpoints", IntList()) );
 	m_outputMethodInfo.setMethod( toMethod( conf->readEntry("OutputMethod") ) );
-	m_outputMethodInfo.setOutputFile( conf->readPathEntry("OutputPath", QString()) );
+	m_outputMethodInfo.setOutputFile( QUrl::fromUserInput(conf->readPathEntry("OutputPath", QString())) );
 	m_outputMethodInfo.setPicID( conf->readEntry("OutputPicID") );
 	setCursorLine( conf->readEntry( "CursorLine", 0 ) );
 	setCursorColumn( conf->readEntry( "CursorColumn", 0 ) );
@@ -174,11 +174,11 @@ void FileMetaInfo::saveAllMetaInfo()
 	for ( MetaInfoMap::iterator it = m_metaInfoMap.begin(); it != end; ++it )
 	{
 		if ( it.value().hasDefaultData() )
-			m_metaInfoConfig->deleteGroup(it.key().prettyUrl());
+			m_metaInfoConfig->deleteGroup(it.key().toDisplayString());
 		
 		else
 		{
-			KConfigGroup grUrl = m_metaInfoConfig->group( it.key().prettyUrl() );
+			KConfigGroup grUrl = m_metaInfoConfig->group( it.key().toDisplayString() );
 			it.value().save( &grUrl );
 		}
 	}
@@ -192,7 +192,7 @@ void FileMetaInfo::loadAllMetaInfo()
 	for ( QStringList::iterator it = urlList.begin(); it != end; ++it )
 	{
 		KConfigGroup grUrl = m_metaInfoConfig->group(*it);
-		m_metaInfoMap[*it].load(&grUrl);
+		m_metaInfoMap[QUrl::fromUserInput(*it)].load(&grUrl);
 	}
 }
 //END class FileMetaInfo

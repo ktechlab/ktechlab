@@ -50,11 +50,7 @@ void RecentFilesAction::addURL( const KUrl& url )
 	if ( url.isLocalFile() && url.toLocalFile().startsWith(QDir::tempPath()))
 		return;
 
-	QString file;
-	if ( url.isLocalFile() && url.ref().isNull() && url.query().isNull() )
-		file = url.path();
-	else
-		file = url.prettyUrl();
+	const QString file = url.toDisplayString(QUrl::PreferLocalFile);
 
 	QStringList lst = items();
 
@@ -93,7 +89,7 @@ void RecentFilesAction::loadEntries()
 	for( unsigned int i = 1 ; i <= m_maxItems ; i++ )
 	{
 		key = QString( "File%1" ).arg( i );
-		value = grCfg.readEntry( key, "");
+		value = grCfg.readPathEntry( key, QString());
 
 		if (!value.isNull())
 			lst.append( value );
@@ -134,13 +130,13 @@ void RecentFilesAction::saveEntries()
 
 void RecentFilesAction::itemSelected( const QString& text )
 {
-	emit urlSelected( KUrl( text ) );
+	emit urlSelected( QUrl::fromUserInput(text) );
 }
 
 void RecentFilesAction::menuItemActivated( QAction *action )
 {
 	//emit urlSelected( KUrl(m_popup->text(id)) ); // 2018.11.21
-    emit urlSelected( KUrl(action->text()) );
+    emit urlSelected( QUrl::fromUserInput(action->text()) );
 }
 
 void RecentFilesAction::menuAboutToShow()

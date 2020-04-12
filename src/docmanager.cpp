@@ -99,7 +99,7 @@ Document* DocManager::openURL( const KUrl &url, ViewArea *viewArea )
 		QFile file(url.path());
 		if ( file.open(QIODevice::ReadOnly) == false )
 		{
-			KMessageBox::sorry( nullptr, i18n( "Could not open '%1'", url.prettyUrl() ) );
+			KMessageBox::sorry(nullptr, i18n( "Could not open '%1'", url.toDisplayString(QUrl::PreferLocalFile)));
 			return nullptr;
 		}
 		file.close();
@@ -442,7 +442,7 @@ CircuitDocument *DocManager::openCircuitFile( const KUrl &url, ViewArea *viewAre
 	
 	if ( !document->openURL(url) )
 	{
-		KMessageBox::sorry( nullptr, i18n("Could not open Circuit file \"%1\"", url.prettyUrl()) );
+		KMessageBox::sorry(nullptr, i18n("Could not open Circuit file \"%1\"", url.toDisplayString(QUrl::PreferLocalFile)));
 		document->deleteLater();
 		return nullptr;
 	}
@@ -459,7 +459,7 @@ FlowCodeDocument *DocManager::openFlowCodeFile( const KUrl &url, ViewArea *viewA
 	
 	if ( !document->openURL(url) )
 	{
-		KMessageBox::sorry( nullptr, i18n("Could not open FlowCode file \"%1\"", url.prettyUrl()) );
+		KMessageBox::sorry(nullptr, i18n("Could not open FlowCode file \"%1\"", url.toDisplayString(QUrl::PreferLocalFile)));
 		document->deleteLater();
 		return nullptr;
 	}
@@ -476,7 +476,7 @@ MechanicsDocument *DocManager::openMechanicsFile( const KUrl &url, ViewArea *vie
 	
 	if ( !document->openURL(url) )
 	{
-		KMessageBox::sorry( nullptr, i18n("Could not open Mechanics file \"%1\"", url.prettyUrl()) );
+		KMessageBox::sorry(nullptr, i18n("Could not open Mechanics file \"%1\"", url.toDisplayString(QUrl::PreferLocalFile)));
 		document->deleteLater();
 		return nullptr;
 	}
@@ -497,7 +497,7 @@ TextDocument *DocManager::openTextFile( const KUrl &url, ViewArea *viewArea )
 	
 	if ( !document->openURL(url) )
 	{
-		KMessageBox::sorry( nullptr, i18n("Could not open text file \"%1\"", url.prettyUrl()) );
+		KMessageBox::sorry(nullptr, i18n("Could not open text file \"%1\"", url.toDisplayString(QUrl::PreferLocalFile)));
 		document->deleteLater();
 		return nullptr;
 	}

@@ -176,7 +176,7 @@ void KTechlab::load( const KUrl & url, ViewArea * viewArea )
 	addRecentFile( url );
 
 	// set our caption
-	setCaption( url.prettyUrl() );
+	setCaption(url.toDisplayString(QUrl::PreferLocalFile));
 
 	// load in the file (target is always local)
 	DocManager::self()->openURL( target, viewArea );
@@ -862,7 +862,7 @@ void KTechlab::savePropertiesInConfig( KConfig *conf )
 	{
 		//conf->setGroup("Project");
         KConfigGroup grProject = conf->group("Project");
-		grProject.writeEntry( "Open", ProjectManager::self()->currentProject()->url().prettyUrl() );
+		grProject.writePathEntry( "Open", ProjectManager::self()->currentProject()->url().toDisplayString(QUrl::PreferLocalFile) );
 	}
 	else {
 		conf->deleteGroup("Project");
@@ -943,8 +943,10 @@ void KTechlab::readPropertiesInConfig( KConfig *conf )
 
 	//conf->setGroup("Project");
     KConfigGroup grProject = conf->group("Project");
-	if ( grProject.readEntry("Open") != QString::null )
-		ProjectManager::self()->slotOpenProject( KUrl( grProject.readEntry("Open") ) );
+    const QString openValue = grProject.readPathEntry("Open", QString());
+	if (!openValue.isEmpty()) {
+		ProjectManager::self()->slotOpenProject(QUrl::fromUserInput(openValue));
+    }
 
 #ifndef NO_GPSIM
 	SymbolViewer::self()->readProperties( conf );
@@ -1350,7 +1352,7 @@ void KTechlab::slotUpdateCaptions()
 			if ( url.isLocalFile() && url.ref().isNull() && url.query().isNull() )
 				newCaption = url.path();
 			else
-				newCaption = url.prettyUrl();
+				newCaption = url.toDisplayString(QUrl::PreferLocalFile);
 		}
 	}
 	else

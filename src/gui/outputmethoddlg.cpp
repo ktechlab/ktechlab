@@ -174,7 +174,7 @@ void OutputMethodDlg::setPicID( const QString & id )
 
 void OutputMethodDlg::setOutputFile( const KUrl & out )
 {
-	m_widget->outputFileURL->setUrl(out.prettyUrl());
+	m_widget->outputFileURL->setUrl(out);
 }
 
 

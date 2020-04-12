@@ -588,7 +588,7 @@ KUrl::List ProjectItem::childOutputURLs( unsigned types, unsigned outputTypes ) 
 			continue;
 		
 		if ( ((*it)->type() & types) && ((*it)->outputType() & outputTypes) )
-			urls += (*it)->outputURL().prettyUrl();
+			urls += (*it)->outputURL();
 		
 		urls += (*it)->childOutputURLs(types);
 	}

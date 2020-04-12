@@ -222,9 +222,9 @@ bool TextView::closeView()
 {
 	if ( textDocument() )
 	{
-		const QString path = textDocument()->url().prettyUrl();
-		if ( !path.isEmpty() )
-			fileMetaInfo()->grabMetaInfo( path, this );
+		const QUrl url = textDocument()->url();
+		if ( !url.isEmpty() )
+			fileMetaInfo()->grabMetaInfo(url, this );
 	}
 
 	bool doClose = View::closeView();

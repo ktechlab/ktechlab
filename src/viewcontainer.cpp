@@ -470,7 +470,7 @@ void ViewArea::saveState( KConfigGroup* config )
 	}
 	else if ( p_view && !p_view->document()->url().isEmpty() )
 	{
-		config->writePathEntry( fileKey(m_id), p_view->document()->url().prettyUrl() );
+		config->writePathEntry( fileKey(m_id), p_view->document()->url().toDisplayString(QUrl::PreferLocalFile) );
 	}
 }
 
@@ -536,7 +536,8 @@ void ViewArea::restoreState( KConfigGroup* config, int id, const QString& groupN
 	//config->setGroup(groupName);
 	if ( config->hasKey( fileKey(m_id) ) )
 	{
-		bool openedOk = DocManager::self()->openURL( config->readPathEntry( fileKey(m_id), "" ), this );
+		const QUrl url = QUrl::fromUserInput(config->readPathEntry(fileKey(m_id), QString()));
+		bool openedOk = DocManager::self()->openURL( url, this );
 		if (!openedOk)
 			deleteLater();
 	}
