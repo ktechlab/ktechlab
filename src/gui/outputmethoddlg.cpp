@@ -59,7 +59,7 @@ void OutputMethodInfo::initialize( OutputMethodDlg * dlg )
             qWarning() << "failed to open " << f.fileName() << " because " << f.errorString();
         }
 		f.close();
-		m_outputFile = f.fileName();
+		m_outputFile = QUrl::fromLocalFile(f.fileName());
 		m_bAddToProject = false;
 	}
 	
@@ -83,7 +83,7 @@ void OutputMethodInfo::initialize( OutputMethodDlg * dlg )
 
 //BEGIN class OutputMethodDlg
 
-OutputMethodDlg::OutputMethodDlg( const QString &caption, const KUrl & inputURL, bool showPICSelect, QWidget *parent, const char *name )
+OutputMethodDlg::OutputMethodDlg( const QString &caption, const QUrl & inputURL, bool showPICSelect, QWidget *parent, const char *name )
     : QDialog(parent)
 {
     setObjectName(name);
@@ -103,13 +103,9 @@ OutputMethodDlg::OutputMethodDlg( const QString &caption, const KUrl & inputURL,
 		m_widget->m_pMicroSelect->hide();
 		m_widget->adjustSize();
 	}
-	{
-        qDebug() << Q_FUNC_INFO << "outputFileURL: def mode " << m_widget->outputFileURL->mode();
-        KFile::Modes openMode = m_widget->outputFileURL->mode();
-        openMode &= (~ KFile::ExistingOnly);
-        m_widget->outputFileURL->setMode(openMode);
-        qDebug() << Q_FUNC_INFO << "outputFileURL: new mode " << m_widget->outputFileURL->mode();
-    }
+
+    m_widget->outputFileURL->setMode(KFile::File | KFile::LocalOnly);
+    m_widget->outputFileURL->setAcceptMode(QFileDialog::AcceptSave);
 
     connect(m_widget->saveFileCheck, SIGNAL(toggled(bool)), m_widget->groupBoxSaveOptions, SLOT(setEnabled(bool)));
 
@@ -172,7 +168,7 @@ void OutputMethodDlg::setPicID( const QString & id )
 }
 
 
-void OutputMethodDlg::setOutputFile( const KUrl & out )
+void OutputMethodDlg::setOutputFile( const QUrl & out )
 {
 	m_widget->outputFileURL->setUrl(out);
 }

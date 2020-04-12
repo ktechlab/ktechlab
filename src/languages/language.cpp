@@ -179,7 +179,7 @@ ProcessOptions::ProcessOptions( OutputMethodInfo info )
 	m_picID = info.picID();
 	b_targetFileSet = false;
 
-	setTargetFile( info.outputFile().path() );
+	setTargetFile( info.outputFile().toLocalFile() );
 
 	switch ( info.method() )
 	{
