@@ -14,10 +14,10 @@
 #include "viewcontainer.h"
 #include "document.h"
 
-#include <kurl.h>
 #include <kxmlguiclient.h>
 
 #include <QStatusBar>
+#include <QUrl>
 #include <qpointer.h>
 #include <qpixmap.h>
 #include <qpainter.h>
@@ -47,7 +47,7 @@ public:
 
 public slots:
 	void slotModifiedStateChanged();
-	void slotFileNameChanged( const KUrl &url );
+	void slotFileNameChanged( const QUrl &url );
 	void slotViewFocused( View * );
 	void slotViewUnfocused();
 

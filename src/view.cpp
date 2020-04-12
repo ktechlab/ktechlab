@@ -229,7 +229,8 @@ ViewStatusBar::ViewStatusBar( View *view )
 	m_unmodifiedPixmap = KIconLoader::global()->loadIcon( "null", KIconLoader::Small );
 	
 	connect( view->document(), SIGNAL(modifiedStateChanged()), this, SLOT(slotModifiedStateChanged()) );
-	connect( view->document(), SIGNAL(fileNameChanged(const KUrl& )), this, SLOT(slotFileNameChanged(const KUrl& )) );
+	connect( view->document(), &Document::fileNameChanged,
+	         this, &ViewStatusBar::slotFileNameChanged);
 	
 	connect( view, SIGNAL(focused(View* )), this, SLOT(slotViewFocused(View* )) );
 	connect( view, SIGNAL(unfocused()), this, SLOT(slotViewUnfocused()) );
@@ -252,9 +253,9 @@ void ViewStatusBar::slotModifiedStateChanged()
 }
 
 
-void ViewStatusBar::slotFileNameChanged( const KUrl &url )
+void ViewStatusBar::slotFileNameChanged( const QUrl &url )
 {
-	m_fileNameLabel->setText( url.isEmpty() ? i18n("Untitled") : url.fileName(KUrl::IgnoreTrailingSlash) );
+	m_fileNameLabel->setText( url.isEmpty() ? i18n("Untitled") : url.adjusted(QUrl::StripTrailingSlash).fileName() );
 }
 
 
