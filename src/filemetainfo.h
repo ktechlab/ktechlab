@@ -13,6 +13,9 @@
 
 #include "outputmethoddlg.h"
 
+#include <QUrl>
+#include <QMap>
+#include <QList>
 
 class TextDocument;
 class TextView;
@@ -73,7 +76,7 @@ class MetaInfo
 		unsigned m_cursorLine;
 		unsigned m_cursorColumn;
 };
-typedef QMap<KUrl,MetaInfo> MetaInfoMap;
+typedef QMap<QUrl,MetaInfo> MetaInfoMap;
 
 /**
 Looks after per-file metainfo; e.g. bookmarks, breakpoints, compiling options, etc
@@ -90,30 +93,30 @@ class FileMetaInfo : public QObject
 		 * Initialize the TextDocument with the appropriate stored metainfo - e.g.
 		 * setting the appopriate bookmarks, etc
 		 */
-		void initializeFromMetaInfo( const KUrl & url, TextDocument * textDocument );
+		void initializeFromMetaInfo( const QUrl & url, TextDocument * textDocument );
 		/**
 		 * Initialize the TextView with the appropriate stored metainfo - e.g.
 		 * setting the appopriate cursor position, etc.
 		 */
-		void initializeFromMetaInfo( const KUrl & url, TextView * textView );
+		void initializeFromMetaInfo( const QUrl & url, TextView * textView );
 		/**
 		 * Initialize the OutputMethodDlg with the options the user had selected
 		 * for the last time it was used for the given url.
 		 */
-		void initializeFromMetaInfo( const KUrl & url, OutputMethodDlg * outputMethodDlg );
+		void initializeFromMetaInfo( const QUrl & url, OutputMethodDlg * outputMethodDlg );
 		/**
 		 * Get the bookmarks, etc from the given TextDocument, and save them
 		 */
-		void grabMetaInfo( const KUrl & url, TextDocument * textDocument );
+		void grabMetaInfo( const QUrl & url, TextDocument * textDocument );
 		/**
 		 * Get the cursor position, etc from the given TextView, and save them.
 		 */
-		void grabMetaInfo( const KUrl & url, TextView * textView );
+		void grabMetaInfo( const QUrl & url, TextView * textView );
 		/**
 		 * Get the output method et al from the given OutputMethodDlg, and save
 		 * them.
 		 */
-		void grabMetaInfo( const KUrl & url, OutputMethodDlg * outputMethodDlg );
+		void grabMetaInfo( const QUrl & url, OutputMethodDlg * outputMethodDlg );
 		/**
 		 * Save all metainfo to disk.
 		 */

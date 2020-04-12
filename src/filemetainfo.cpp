@@ -105,7 +105,7 @@ FileMetaInfo::~FileMetaInfo()
 }
 
 
-void FileMetaInfo::grabMetaInfo( const KUrl & url, TextDocument * textDocument )
+void FileMetaInfo::grabMetaInfo( const QUrl & url, TextDocument * textDocument )
 {
 	if (!textDocument)
 		return;
@@ -115,7 +115,7 @@ void FileMetaInfo::grabMetaInfo( const KUrl & url, TextDocument * textDocument )
 }
 
 
-void FileMetaInfo::initializeFromMetaInfo( const KUrl & url, TextDocument * textDocument )
+void FileMetaInfo::initializeFromMetaInfo( const QUrl & url, TextDocument * textDocument )
 {
 	if (!textDocument)
 		return;
@@ -125,7 +125,7 @@ void FileMetaInfo::initializeFromMetaInfo( const KUrl & url, TextDocument * text
 }
 
 
-void FileMetaInfo::grabMetaInfo( const KUrl & url, TextView * textView )
+void FileMetaInfo::grabMetaInfo( const QUrl & url, TextView * textView )
 {
 	if (!textView)
 		return;
@@ -135,7 +135,7 @@ void FileMetaInfo::grabMetaInfo( const KUrl & url, TextView * textView )
 }
 
 
-void FileMetaInfo::initializeFromMetaInfo( const KUrl & url, TextView * textView )
+void FileMetaInfo::initializeFromMetaInfo( const QUrl & url, TextView * textView )
 {
 	if (!textView)
 		return;
@@ -144,7 +144,7 @@ void FileMetaInfo::initializeFromMetaInfo( const KUrl & url, TextView * textView
 }
 
 
-void FileMetaInfo::grabMetaInfo( const KUrl & url, OutputMethodDlg * dlg )
+void FileMetaInfo::grabMetaInfo( const QUrl & url, OutputMethodDlg * dlg )
 {
 	if (!dlg)
 		return;
@@ -153,7 +153,7 @@ void FileMetaInfo::grabMetaInfo( const KUrl & url, OutputMethodDlg * dlg )
 }
 
 
-void FileMetaInfo::initializeFromMetaInfo( const KUrl & url, OutputMethodDlg * dlg )
+void FileMetaInfo::initializeFromMetaInfo( const QUrl & url, OutputMethodDlg * dlg )
 {
 	if ( !dlg || url.isEmpty() || !m_metaInfoMap.contains(url) )
 		return;
