@@ -327,7 +327,7 @@ QWidget * ItemInterface::configWidget()
 				
 				KUrlComboRequester * urlreq = new KUrlComboRequester( configWidget );
 				urlreq->setFilter( vait.value()->filter() );
-				connectMapWidget( urlreq, SIGNAL(urlSelected(const KUrl &)) );
+				connectMapWidget( urlreq, SIGNAL(urlSelected(QUrl)) );
 				m_stringURLReqMap[vait.key()] = urlreq;
 				
 				KComboBox * box = urlreq->comboBox();
