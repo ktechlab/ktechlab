@@ -58,7 +58,7 @@ void Subcircuits::initECSubcircuit( int subcircuitId, ECSubcircuit *ecSubcircuit
 	}
 
 	SubcircuitData subcircuit;
-	if (!subcircuit.loadData( genFileName(subcircuitId) ) )
+	if (!subcircuit.loadData(QUrl::fromLocalFile(genFileName(subcircuitId))))
 		return;
 
 	subcircuit.initECSubcircuit(ecSubcircuit);

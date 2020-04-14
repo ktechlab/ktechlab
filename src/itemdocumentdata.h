@@ -18,7 +18,7 @@
 
 class Connector;
 class ECSubcircuit;
-class KUrl;
+class QUrl;
 class Node;
 class PinMapping;
 
@@ -137,12 +137,12 @@ class ItemDocumentData
 		 * be deleted first.
 		 * @returns true iff successful
 		 */
-		bool loadData( const KUrl &url );
+		bool loadData( const QUrl &url );
 		/**
 		 * Write the data to the given file.
 		 * @returns true iff successful
 		 */
-		bool saveData( const KUrl &url );
+		bool saveData( const QUrl &url );
 		/**
 		 * Returns the xml used for describing the data
 		 */

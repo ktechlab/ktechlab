@@ -97,7 +97,7 @@ void ItemDocumentData::reset()
 }
 
 
-bool ItemDocumentData::loadData( const KUrl &url )
+bool ItemDocumentData::loadData( const QUrl &url )
 {
 	QString target;
 	if ( !KIO::NetAccess::download( url, target, nullptr ) )
@@ -174,15 +174,15 @@ bool ItemDocumentData::fromXML( const QString &xml )
 }
 
 
-bool ItemDocumentData::saveData( const KUrl &url )
+bool ItemDocumentData::saveData( const QUrl &url )
 {
 
 	if ( url.isLocalFile() )
 	{
-		QFile file( url.path() );
+		QFile file( url.toLocalFile() );
 		if ( !file.open(QIODevice::WriteOnly) )
 		{
-			KMessageBox::sorry( nullptr, i18n("Could not open '%1' for writing. Check that you have write permissions", url.path()), i18n("Saving File") );
+			KMessageBox::sorry( nullptr, i18n("Could not open '%1' for writing. Check that you have write permissions", file.fileName()), i18n("Saving File") );
 			return false;
 		}
 
