@@ -165,7 +165,7 @@ QDomElement ProcessingOptions::toDomElement( QDomDocument & doc, const KUrl & ba
 {
 	QDomElement node = doc.createElement("processing");
 	
-	node.setAttribute( "output", KUrl::relativeUrl( baseURL, outputURL().url() ) );
+	node.setAttribute( "output", KUrl::relativeUrl(baseURL, outputURL()));
 	node.setAttribute( "micro", m_microID );
 	
 	return node;
@@ -337,9 +337,12 @@ void ProjectItem::setURL( const KUrl & url )
 		
 		if ( !newExtension.isEmpty() )
 		{
-			const QString fileName = url.url();
-			QString extension = fileName.right( fileName.length() - fileName.lastIndexOf('.') );
-			setOutputURL( QString(fileName).replace( extension, newExtension ) );
+			QString fileName = url.path();
+			fileName.chop(fileName.length() - fileName.lastIndexOf('.'));
+			fileName.append(newExtension );
+			QUrl newUrl(url);
+			newUrl.setPath(fileName);
+			setOutputURL(newUrl);
 		}
 	}
 	
@@ -413,7 +416,7 @@ bool ProjectItem::build( ProcessOptionsList * pol )
 	ProcessOptionsList::iterator polEnd = pol->end();
 	for ( ProcessOptionsList::iterator it = pol->begin(); it != polEnd; ++it )
 	{
-		if ( (*it).targetFile() == outputURL().path() )
+		if ( (*it).targetFile() == outputURL().toLocalFile() )
 			return true;
 	}
 	
@@ -455,7 +458,7 @@ bool ProjectItem::build( ProcessOptionsList * pol )
 	// Now build ourself
 	ProcessOptions po;
 	po.b_addToProject = false;
-	po.setTargetFile( outputURL().path() );
+	po.setTargetFile( outputURL().toLocalFile() );
 	po.m_picID = microID();
 	
 	ProcessOptions::ProcessPath::MediaType typeTo = ProcessOptions::ProcessPath::Unknown;
@@ -499,7 +502,7 @@ bool ProjectItem::build( ProcessOptionsList * pol )
 			m_children.removeAll( (ProjectItem*)nullptr );
 			ProjectItemList::iterator cend = m_children.end();
 			for ( ProjectItemList::iterator it = m_children.begin(); it != cend; ++it )
-				inputFiles << (*it)->outputURL().path();
+				inputFiles << (*it)->outputURL().toLocalFile();
 			
 			po.setInputFiles(inputFiles);
 			po.setProcessPath( ProcessOptions::ProcessPath::path( ProcessOptions::ProcessPath::Object, typeTo ) );
@@ -545,7 +548,7 @@ void ProjectItem::upload( ProcessOptionsList * pol )
 	ProcessOptions po;
 	dlg->initOptions( & po );
 	po.b_addToProject = false;
-	po.setInputFiles( QStringList( outputURL().path() ) );
+	po.setInputFiles( QStringList( outputURL().toLocalFile() ) );
 	po.setProcessPath( ProcessOptions::ProcessPath::Program_PIC );
 	
 	pol->append( po );

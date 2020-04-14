@@ -337,7 +337,7 @@ ProcessingOptionsDlg::ProcessingOptionsDlg( ProjectItem * projectItem, QWidget *
 			break;
 	}
 
-	m_pWidget->m_pOutputURL->setUrl( projectItem->outputURL().path() );
+	m_pWidget->m_pOutputURL->setUrl( projectItem->outputURL() );
 	m_pWidget->m_pMicroSelect->setMicro( projectItem->microID() );
 
     mainLayout->addWidget(m_pWidget);

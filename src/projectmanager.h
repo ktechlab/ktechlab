@@ -101,9 +101,10 @@ class ProcessingOptions
 		/**
 		 * Sets the output url that this item will be built into (if this is a
 		 * buildable item).
+                 * Only urls of local filesystems supported.
 		 */
-		void setOutputURL( const KUrl & url ) { m_outputURL = url; }
-		KUrl outputURL() const { return m_outputURL; }
+		void setOutputURL( const QUrl & url ) { m_outputURL = url; }
+		QUrl outputURL() const { return m_outputURL; }
 
 		/**
 		 * Set the microprocessor id that this project item is being built for
@@ -120,7 +121,7 @@ class ProcessingOptions
 	protected:
 		void domElementToProcessingOptions( const QDomElement & element, const KUrl & baseURL );
 
-		KUrl m_outputURL;
+		QUrl m_outputURL;
 		QString m_microID;
 		bool m_bUseParentMicroID;
 };

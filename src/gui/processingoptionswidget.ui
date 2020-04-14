@@ -54,7 +54,14 @@
         </widget>
       </item>
       <item row="0" column="1">
-        <widget class="KUrlRequester" name="m_pOutputURL"/>
+        <widget class="KUrlRequester" name="m_pOutputURL">
+         <property name="mode">
+          <set>KFile::File|KFile::LocalOnly</set>
+         </property>
+         <property name="acceptMode">
+          <enum>QFileDialog::AcceptSave</enum>
+         </property>
+        </widget>
       </item>
     </layout>
   </widget>
