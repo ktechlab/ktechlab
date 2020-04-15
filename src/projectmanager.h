@@ -188,7 +188,7 @@ class ProjectItem : public QObject, public LinkerOptions, public ProcessingOptio
 		 * @param outputTypes An OR'ed list of ProjectItem::OutputType values
 		 * for the children.
 		 */
-		KUrl::List childOutputURLs( unsigned types = AllTypes, unsigned outputTypes = AllOutputs ) const;
+		QList<QUrl> childOutputURLs( unsigned types = AllTypes, unsigned outputTypes = AllOutputs ) const;
 
 		/**
 		 * Creates a new ProjectItem for the given url and adds it as a child.

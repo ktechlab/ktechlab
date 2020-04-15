@@ -292,10 +292,9 @@ void PICComponent::slotUpdateFileList()
 
 	if ( ProjectInfo * info = ProjectManager::self()->currentProject() )
 	{
-		const KUrl::List urls = info->childOutputURLs( ProjectItem::AllTypes, ProjectItem::ProgramOutput );
-		KUrl::List::const_iterator urlsEnd = urls.end();
-		for ( KUrl::List::const_iterator it = urls.begin(); it != urlsEnd; ++it )
-			fileList << (*it).path();
+		const QList<QUrl> urls = info->childOutputURLs( ProjectItem::AllTypes, ProjectItem::ProgramOutput );
+		for (const QUrl &url : urls)
+			fileList << url.toLocalFile();
 	}
 
 	const QStringList::iterator end = preFileList.end();

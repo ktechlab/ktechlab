@@ -580,9 +580,9 @@ QDomElement ProjectItem::toDomElement( QDomDocument & doc, const KUrl & baseURL 
 }
 
 
-KUrl::List ProjectItem::childOutputURLs( unsigned types, unsigned outputTypes ) const
+QList<QUrl> ProjectItem::childOutputURLs( unsigned types, unsigned outputTypes ) const
 {
-	KUrl::List urls;
+	QList<QUrl> urls;
 	
 	ProjectItemList::const_iterator end = m_children.end();
 	for ( ProjectItemList::const_iterator it = m_children.begin(); it != end; ++it )

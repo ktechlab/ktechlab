@@ -196,13 +196,10 @@ LinkerOptionsDlg::LinkerOptionsDlg( LinkerOptions * linkingOptions, QWidget *par
 
 
 	//BEGIN Update library widgets
-	const KUrl::List availableInternal = pi->childOutputURLs( ProjectItem::LibraryType );
+	const QList<QUrl> availableInternal = pi->childOutputURLs( ProjectItem::LibraryType );
 	const QStringList linkedInternal = m_pLinkerOptions->linkedInternal();
-
-	KUrl::List::const_iterator end = availableInternal.end();
-	for ( KUrl::List::const_iterator it = availableInternal.begin(); it != end; ++it )
-	{
-		QString relativeURL = KUrl::relativeUrl( pi->url(), *it );
+    for (const QUrl &internalUrl : availableInternal) {
+		QString relativeURL = KUrl::relativeUrl( pi->url(), internalUrl );
         // 2017.12.1 - convert to QListWidgetItem
 		//Q3CheckListItem * item = new Q3CheckListItem( m_pWidget->m_pInternalLibraries, relativeURL, Q3CheckListItem::CheckBox );
         QListWidgetItem * item = new QListWidgetItem( relativeURL, m_pWidget->m_pInternalLibraries );
