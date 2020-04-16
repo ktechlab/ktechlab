@@ -198,8 +198,17 @@ LinkerOptionsDlg::LinkerOptionsDlg( LinkerOptions * linkingOptions, QWidget *par
 	//BEGIN Update library widgets
 	const QList<QUrl> availableInternal = pi->childOutputURLs( ProjectItem::LibraryType );
 	const QStringList linkedInternal = m_pLinkerOptions->linkedInternal();
+    const QUrl projectUrl = pi->url();
+    const QDir projectDir(projectUrl.path()); // using QDir for relativeFilePath logic, not assuming local file
     for (const QUrl &internalUrl : availableInternal) {
-		QString relativeURL = KUrl::relativeUrl( pi->url(), internalUrl );
+        QString relativeURL;
+        if (projectUrl.scheme() == internalUrl.scheme() && projectUrl.host() == internalUrl.host() &&
+            projectUrl.port() == internalUrl.port() && projectUrl.userInfo() == internalUrl.userInfo())
+        {
+            relativeURL = projectDir.relativeFilePath(internalUrl.path());
+        } else {
+            relativeURL = internalUrl.toDisplayString(QUrl::PreferLocalFile);
+        }
         // 2017.12.1 - convert to QListWidgetItem
 		//Q3CheckListItem * item = new Q3CheckListItem( m_pWidget->m_pInternalLibraries, relativeURL, Q3CheckListItem::CheckBox );
         QListWidgetItem * item = new QListWidgetItem( relativeURL, m_pWidget->m_pInternalLibraries );
@@ -209,7 +218,7 @@ LinkerOptionsDlg::LinkerOptionsDlg( LinkerOptions * linkingOptions, QWidget *par
 
 	m_pExternalLibraryRequester = new KUrlRequester( nullptr );
 	//m_pExternalLibraryRequester->fileDialog()->setUrl( KUrl( "/usr/share/sdcc/lib" ) );
-    m_pExternalLibraryRequester->fileDialog()->setDirectoryUrl( KUrl( "/usr/share/sdcc/lib" ) );
+    m_pExternalLibraryRequester->fileDialog()->setDirectoryUrl( QUrl::fromLocalFile( "/usr/share/sdcc/lib" ) );
 	
 // // 	m_pWidget->m_pExternalLibraries = new KEditListBox( 
 // //         i18n("Link libraries outside project"), 
