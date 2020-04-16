@@ -1250,7 +1250,7 @@ void KTechlab::slotFileOpen()
 		load(url);
 }
 
-void KTechlab::addRecentFile( const KUrl &url )
+void KTechlab::addRecentFile( const QUrl &url )
 {
 	m_recentFiles->addURL( url );
 	emit recentFileAdded(url);

@@ -124,7 +124,7 @@ class KTechlab : public KateMDI::MainWindow
 		/**
 		 * Emitted when a recent file is added
 		 */
-		void recentFileAdded( const KUrl &url );
+		void recentFileAdded( const QUrl &url );
 		/**
 		 * Emitted when ViewContainers should update their captions.
 		 */
@@ -149,7 +149,7 @@ class KTechlab : public KateMDI::MainWindow
 		/**
 		 * Adds a url to the list of recently opened files
 		 */
-		void addRecentFile( const KUrl &url );
+		void addRecentFile( const QUrl &url );
 		/**
 		 * A document had its modified state changed; will update actions,
 		 * tab titles, etc as appropriate.

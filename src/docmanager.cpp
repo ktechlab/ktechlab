@@ -268,7 +268,8 @@ void DocManager::handleNewDocument( Document *document, ViewArea *viewArea )
 	
 	connect( document, SIGNAL(modifiedStateChanged()), KTechlab::self(), SLOT(slotDocModifiedChanged()) );
 	connect( document, SIGNAL(fileNameChanged(const KUrl&)), KTechlab::self(), SLOT(slotDocModifiedChanged()) );
-	connect( document, SIGNAL(fileNameChanged(const KUrl&)), KTechlab::self(), SLOT(addRecentFile(const KUrl&)) );
+	connect( document, &Document::fileNameChanged,
+	         KTechlab::self(), &KTechlab::addRecentFile);
 	connect( document, SIGNAL(destroyed(QObject* )), this, SLOT(documentDestroyed(QObject* )) );
 	connect( document, SIGNAL(viewFocused(View* )), this, SLOT(slotViewFocused(View* )) );
 	connect( document, SIGNAL(viewUnfocused()), this, SLOT(slotViewUnfocused()) );

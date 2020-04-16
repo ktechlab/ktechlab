@@ -75,7 +75,8 @@ PICComponent::PICComponent( ICNDocument *icnDocument, bool newItem, const char *
 	addButton( "reset", QRect(), QIcon::fromTheme( "process-stop" ) );
 	addButton( "reload", QRect(), QIcon::fromTheme( "view-refresh" ) );
 
-	connect( KTechlab::self(), SIGNAL(recentFileAdded(const KUrl &)), this, SLOT(slotUpdateFileList()) );
+	connect( KTechlab::self(), &KTechlab::recentFileAdded,
+	         this, &PICComponent::slotUpdateFileList);
 
 	connect( ProjectManager::self(),	SIGNAL(projectOpened()),		this, SLOT(slotUpdateFileList()) );
 	connect( ProjectManager::self(),	SIGNAL(projectClosed()),		this, SLOT(slotUpdateFileList()) );
