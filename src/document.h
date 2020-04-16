@@ -208,7 +208,7 @@ signals:
 	 * Emitted when the name of the file that the Document refers to
 	 * is changed.
 	 */
-	void fileNameChanged( const KUrl &url );
+	void fileNameChanged( const QUrl &url );
 	
 	void viewFocused( View *view );
 	void viewUnfocused();

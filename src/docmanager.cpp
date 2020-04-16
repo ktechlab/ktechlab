@@ -267,7 +267,8 @@ void DocManager::handleNewDocument( Document *document, ViewArea *viewArea )
 	document->setDCOPID(m_nextDocumentID++);
 	
 	connect( document, SIGNAL(modifiedStateChanged()), KTechlab::self(), SLOT(slotDocModifiedChanged()) );
-	connect( document, SIGNAL(fileNameChanged(const KUrl&)), KTechlab::self(), SLOT(slotDocModifiedChanged()) );
+	connect( document, &Document::fileNameChanged,
+	         KTechlab::self(), &KTechlab::slotDocModifiedChanged);
 	connect( document, &Document::fileNameChanged,
 	         KTechlab::self(), &KTechlab::addRecentFile);
 	connect( document, SIGNAL(destroyed(QObject* )), this, SLOT(documentDestroyed(QObject* )) );
