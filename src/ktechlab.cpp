@@ -144,12 +144,12 @@ void KTechlab::openFile( ViewArea * viewArea )
 }
 
 
-void KTechlab::load( const KUrl & url, ViewArea * viewArea )
+void KTechlab::load( const QUrl & url, ViewArea * viewArea )
 {
 	if ( !url.isValid() )
 		return;
 
-	if ( url.url().endsWith( ".ktechlab", Qt::CaseInsensitive ) )
+	if ( url.fileName().endsWith( ".ktechlab", Qt::CaseInsensitive ) )
 	{
 		// This is a ktechlab project; it has to be handled separetly from a
 		// normal file.
@@ -578,7 +578,7 @@ void KTechlab::setupActions()
 
 
 // 	m_recentFiles = KStandardAction::openRecent( this, SLOT(load(const KUrl&)), ac );
-	m_recentFiles = new RecentFilesAction( "Recent Files", i18n("Open Recent"), this, SLOT(load(const KUrl &)), ac, "file_open_recent" );
+	m_recentFiles = new RecentFilesAction( "Recent Files", i18n("Open Recent"), this, SLOT(load(QUrl)), ac, "file_open_recent" );
     ac->addAction(m_recentFiles->objectName(), m_recentFiles);
 
     m_statusbarAction = KStandardAction::showStatusbar( this, SLOT(slotOptionsShowStatusbar()), ac );

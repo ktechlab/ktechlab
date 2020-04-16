@@ -12,8 +12,8 @@
 #define KTECHLAB_H
 
 #include <katemdi.h>
-#include <KUrl>
 
+#include <QUrl>
 #include <QMap>
 #include <QList>
 #include <QPointer>
@@ -38,7 +38,6 @@ typedef QList< QPointer<ViewContainer> > ViewContainerList;
 class RecentFilesAction;
 class QTabWidget;
 class KToggleAction;
-class KUrl;
 class QLabel;
 
 /**
@@ -144,7 +143,7 @@ class KTechlab : public KateMDI::MainWindow
 		 * Open the document at the given url. If viewArea is non-null, then the
 		 * new view will be put into viewArea.
 		 */
-		void load( const KUrl & url, ViewArea * viewArea = nullptr );
+		void load( const QUrl & url, ViewArea * viewArea = nullptr );
 		void slotUpdateConfiguration();
 		/**
 		 * Adds a url to the list of recently opened files
