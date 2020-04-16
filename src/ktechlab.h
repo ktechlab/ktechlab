@@ -77,7 +77,7 @@ class KTechlab : public KateMDI::MainWindow
 		 * @param allowMultiple Whether to allow the user to select more than
 		 * one URL.
 		 */
-		static KUrl::List getFileURLs( bool allowMultiple = true );
+		static QList<QUrl> getFileURLs( bool allowMultiple = true );
 		/**
 		 * Returns a list of the recently opened/saved files
 		 */

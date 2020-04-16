@@ -136,7 +136,7 @@ void KTechlab::show()
 
 void KTechlab::openFile( ViewArea * viewArea )
 {
-	KUrl::List files = getFileURLs( false );
+	const QList<QUrl> files = getFileURLs( false );
 	if ( files.isEmpty() )
 		return;
 
@@ -1245,10 +1245,9 @@ void KTechlab::slotFileOpen()
     // button is clicked
 
     // standard filedialog
-	KUrl::List urls = getFileURLs();
-	const KUrl::List::iterator end = urls.end();
-	for ( KUrl::List::iterator it = urls.begin(); it != end; ++ it)
-		load(*it);
+	const QList<QUrl> urls = getFileURLs();
+	for (const QUrl &url : urls)
+		load(url);
 }
 
 void KTechlab::addRecentFile( const KUrl &url )
@@ -1258,7 +1257,7 @@ void KTechlab::addRecentFile( const KUrl &url )
 }
 
 
-KUrl::List KTechlab::getFileURLs( bool allowMultiple )
+QList<QUrl> KTechlab::getFileURLs( bool allowMultiple )
 {
 	QString filter;
 	filter = QString("*|%1\n"
@@ -1277,8 +1276,8 @@ KUrl::List KTechlab::getFileURLs( bool allowMultiple )
 		return QFileDialog::getOpenFileUrls(nullptr, i18n("Open Location"), QUrl(), filter);
 	
 	else {
-        KUrl ret = QFileDialog::getOpenFileUrl(nullptr, i18n("Open Location"), QUrl(), filter);
-		return ret;
+        QUrl ret = QFileDialog::getOpenFileUrl(nullptr, i18n("Open Location"), QUrl(), filter);
+        return { ret };
     }
 }
 

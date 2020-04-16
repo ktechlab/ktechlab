@@ -640,10 +640,9 @@ bool ProjectItem::closeOpenFiles()
 
 void ProjectItem::addFiles()
 {
-	KUrl::List urls = KTechlab::self()->getFileURLs();
-	const KUrl::List::iterator end = urls.end();
-	for ( KUrl::List::iterator it = urls.begin(); it != end; ++ it)
-		addFile(*it);
+	const QList<QUrl> urls = KTechlab::self()->getFileURLs();
+	for (const QUrl &url : urls)
+		addFile(url);
 }
 
 
