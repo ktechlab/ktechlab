@@ -153,7 +153,7 @@ void ProcessChain::slotFinishedCompile(Language *language)
 	ProcessOptions options = language->processOptions();
 	
 	if ( options.b_addToProject && ProjectManager::self()->currentProject() )
-		ProjectManager::self()->currentProject()->addFile( KUrl(options.targetFile()) );
+		ProjectManager::self()->currentProject()->addFile( QUrl::fromLocalFile(options.targetFile()) );
 	
 	ProcessOptions::ProcessPath::MediaType typeTo = ProcessOptions::ProcessPath::to( m_processOptions.processPath() );
 	
