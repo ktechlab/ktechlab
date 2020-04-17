@@ -210,7 +210,7 @@ QString DocManager::untitledName( int type )
 }
 
 
-Document *DocManager::findDocument( const KUrl &url ) const
+Document *DocManager::findDocument( const QUrl &url ) const
 {
 	// First, look in the associated documents
 	if ( m_associatedDocuments.contains(url) )

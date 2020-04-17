@@ -912,7 +912,7 @@ void TextDocument::slotDebugSetCurrentLine( const SourceLine & line )
 
 	int textLine = line.line();
 
-	if ( DocManager::self()->findDocument( line.fileName() ) != this )
+	if ( DocManager::self()->findDocument(QUrl::fromLocalFile(line.fileName())) != this )
 		textLine = -1;
 
 	iface->removeMark( m_lastDebugLineAt, ExecutionPoint );

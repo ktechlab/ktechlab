@@ -55,8 +55,8 @@ void DebugManager::registerGpsim( GpsimProcessor * gpsim )
 	QStringList::const_iterator end = files.end();
 	for ( QStringList::const_iterator it = files.begin(); it != end; ++it )
 	{
-		if ( TextDocument * doc = dynamic_cast<TextDocument*>(DocManager::self()->findDocument(*it)) )
-		{
+		const QUrl url = QUrl::fromLocalFile(*it);
+		if (TextDocument * doc = dynamic_cast<TextDocument*>(DocManager::self()->findDocument(url))) {
 			if ( !doc->debuggerIsRunning() )
 				doc->setDebugger( gpsim->currentDebugger(), false );
 		}

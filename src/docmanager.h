@@ -76,7 +76,7 @@ public:
 	 * returns a pointer to that Document if so - otherwises returns null
 	 * @see associateDocument
 	 */
-	Document *findDocument( const KUrl &url ) const;
+	Document *findDocument( const QUrl &url ) const;
 	/**
 	 * Associates a url with a pointer to a document. When findFile is called
 	 * with the given url, it will return a pointer to this document if it still
