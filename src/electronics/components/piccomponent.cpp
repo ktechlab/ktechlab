@@ -301,7 +301,10 @@ void PICComponent::slotUpdateFileList()
 	const QStringList::iterator end = preFileList.end();
 	for ( QStringList::iterator it = preFileList.begin(); it != end; ++it )
 	{
-		QString file = KUrl(*it).path();
+		const QUrl recentFile = QUrl::fromUserInput(*it);
+		if (!recentFile.isLocalFile())
+			continue;
+		const QString file = recentFile.toLocalFile();
 		if ( (file.endsWith(".flowcode") || file.endsWith(".asm") || file.endsWith(".cod") || file.endsWith(".basic") || file.endsWith(".microbe") ) && !fileList.contains(file) ) {
 			fileList.append(file);
 		}

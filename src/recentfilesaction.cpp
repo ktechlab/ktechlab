@@ -11,13 +11,13 @@
 #include "recentfilesaction.h"
 
 #include <kconfig.h>
-#include <kurl.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
 #include <ksharedconfig.h>
 
 #include <QMenu>
 #include <QDir>
+#include <QUrl>
 
 RecentFilesAction::RecentFilesAction( const QString & configGroupName, const QString& text, const QObject* receiver, const char* slot, QObject* parent, const char* name )
 	: KSelectAction( text /*, 0*/ /*pix*/, parent /*, name */ )
@@ -36,7 +36,7 @@ RecentFilesAction::RecentFilesAction( const QString & configGroupName, const QSt
 	setMenuAccelsEnabled( false );
 
 	if ( receiver )
-		connect( this, SIGNAL(urlSelected(const KUrl &)), receiver, slot );
+		connect( this, SIGNAL(urlSelected(QUrl)), receiver, slot );
 }
 
 
@@ -45,7 +45,7 @@ RecentFilesAction::~RecentFilesAction()
 	delete m_popup;
 }
 
-void RecentFilesAction::addURL( const KUrl& url )
+void RecentFilesAction::addUrl( const QUrl& url )
 {
 	if ( url.isLocalFile() && url.toLocalFile().startsWith(QDir::tempPath()))
 		return;

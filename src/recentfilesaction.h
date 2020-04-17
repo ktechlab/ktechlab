@@ -15,7 +15,7 @@
 #include <kselectaction.h>
 
 //class K3PopupMenu;
-class KUrl;
+class QUrl;
 class QMenu;
 
 /**
@@ -51,7 +51,7 @@ class RecentFilesAction : public KSelectAction
 		 *
 		 *  @param url The URL of the file
 		 */
-		void addURL( const KUrl& url );
+		void addUrl( const QUrl& url );
 		
 	signals:
 		/**
@@ -59,7 +59,7 @@ class RecentFilesAction : public KSelectAction
 		 *
 		 *  @param url The URL thats the user selected.
 		 */
-		void urlSelected( const KUrl& url );
+		void urlSelected( const QUrl& url );
 		
 	protected slots:
 		void itemSelected( const QString& string );

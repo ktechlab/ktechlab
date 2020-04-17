@@ -869,7 +869,7 @@ bool ProjectInfo::save()
     {
         QAction *recentfilesaction = KTechlab::self()->actionByName("project_open_recent");
         if (recentfilesaction) {
-            (static_cast<RecentFilesAction*>(recentfilesaction))->addURL(m_url);
+            (static_cast<RecentFilesAction*>(recentfilesaction))->addUrl(m_url);
         } else {
             qWarning() << "there is no project_open_recent action in KTechLab!";
         }
@@ -990,7 +990,7 @@ void ProjectManager::slotOpenProject( const QUrl & url )
 	{
         RecentFilesAction * rfa = static_cast<RecentFilesAction*>(KTechlab::self()->actionByName("project_open_recent"));
         if (rfa) {
-            rfa->addURL( m_pCurrentProject->url() );
+            rfa->addUrl( m_pCurrentProject->url() );
         } else {
             qWarning() << "there is no project_open_recent action in application";
         }
