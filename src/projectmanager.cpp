@@ -971,7 +971,7 @@ void ProjectManager::slotOpenProject()
 }
 
 
-void ProjectManager::slotOpenProject( const KUrl & url )
+void ProjectManager::slotOpenProject( const QUrl & url )
 {
 	if ( m_pCurrentProject && m_pCurrentProject->url() == url )
 		return;

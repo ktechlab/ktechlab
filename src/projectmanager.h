@@ -308,7 +308,7 @@ class ProjectManager : public ItemSelector
 	public slots:
 		void slotNewProject();
 		void slotOpenProject();
-		void slotOpenProject( const KUrl &url );
+		void slotOpenProject( const QUrl &url );
 		bool slotCloseProject();
 		void slotCreateSubproject();
 		void slotAddFile();

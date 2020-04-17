@@ -603,7 +603,7 @@ void KTechlab::setupActions()
     {
 // 	m_recentProjects = new KRecentFilesAction( i18n("Open &Recent Project..."), 0, ProjectManager::self(), SLOT(slotOpenProject(const KUrl&)), ac, "project_open_recent" );
         m_recentProjects = new RecentFilesAction( "Recent Projects", i18n("Open &Recent Project..."),
-                                                  ProjectManager::self(), SLOT(slotOpenProject(const KUrl&)), ac, "project_open_recent" );
+                                                  ProjectManager::self(), SLOT(slotOpenProject(QUrl)), ac, "project_open_recent" );
         ac->addAction(m_recentProjects->objectName(), m_recentProjects);
     }
     {
