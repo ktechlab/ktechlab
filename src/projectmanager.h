@@ -214,7 +214,7 @@ class ProjectItem : public QObject, public LinkerOptions, public ProcessingOptio
 		 * Searches this item and the children for an item for the given url,
 		 * return null if no such item could be found.
 		 */
-		ProjectItem * findItem( const KUrl & url );
+		ProjectItem * findItem( const QUrl & url );
 
 	protected:
 		void domElementToItem( const QDomElement & element, const KUrl & baseURL );

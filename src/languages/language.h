@@ -155,6 +155,9 @@ class ProcessOptions : public ProcessOptionsSpecial
 		void setIntermediaryOutput( const QString &file ) { m_intermediaryFile = file; }
 		QString intermediaryOutput() const { return m_intermediaryFile; }
 		
+		/**
+		 * As paths in local filesystem
+		 */
 		void setInputFiles( const QStringList & files ) { m_inputFiles = files; }
 		QStringList inputFiles() const { return m_inputFiles; }
 		

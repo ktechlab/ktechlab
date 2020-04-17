@@ -433,7 +433,7 @@ bool ProjectItem::build( ProcessOptionsList * pol )
 	QStringList::iterator send = m_linkedInternal.end();
 	for ( QStringList::iterator it = m_linkedInternal.begin(); it != send; ++it )
 	{
-		ProjectItem * lib = projectInfo->findItem( projectInfo->directory() + *it );
+		ProjectItem * lib = projectInfo->findItem(QUrl::fromLocalFile(projectInfo->directory() + *it));
 		if ( !lib )
 		{
 			KMessageBox::sorry( nullptr, i18n("Do not know how to build \"%1\" (library does not exist in project).", *it) );
@@ -600,7 +600,7 @@ QList<QUrl> ProjectItem::childOutputURLs( unsigned types, unsigned outputTypes )
 }
 
 
-ProjectItem * ProjectItem::findItem( const KUrl & url )
+ProjectItem * ProjectItem::findItem( const QUrl & url )
 {
 	if ( this->url() == url )
 		return this;

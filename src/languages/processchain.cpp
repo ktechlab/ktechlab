@@ -86,7 +86,7 @@ void ProcessChain::compile()
 	{
 		if ( ProjectInfo * projectInfo = ProjectManager::self()->currentProject() )
 		{
-			ProjectItem * projectItem = projectInfo->findItem( m_processOptions.inputFiles().first() );
+			ProjectItem * projectItem = projectInfo->findItem(QUrl::fromLocalFile(m_processOptions.inputFiles().first()));
 			if (projectItem)
 				m_processOptions.m_picID = projectItem->microID();
 		}
