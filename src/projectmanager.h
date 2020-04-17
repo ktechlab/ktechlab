@@ -193,7 +193,7 @@ class ProjectItem : public QObject, public LinkerOptions, public ProcessingOptio
 		/**
 		 * Creates a new ProjectItem for the given url and adds it as a child.
 		 */
-		void addFile( const KUrl & url );
+		void addFile( const QUrl & url );
 		/**
 		 * Queries the user for a list of urls to add, and then calls addFile
 		 * for each url.

@@ -666,7 +666,7 @@ void ProjectItem::addCurrentFile()
 }
 
 
-void ProjectItem::addFile( const KUrl & url )
+void ProjectItem::addFile( const QUrl & url )
 {
 	if ( url.isEmpty() )
 		return;
