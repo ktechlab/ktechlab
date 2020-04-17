@@ -300,7 +300,7 @@ void ProjectItem::setObjectName( const QString & name )
 }
 
 
-void ProjectItem::setURL( const KUrl & url )
+void ProjectItem::setURL( const QUrl & url )
 {
 	m_url = url;
 	
@@ -563,7 +563,7 @@ QDomElement ProjectItem::toDomElement( QDomDocument & doc, const KUrl & baseURL 
 	
 	node.setAttribute( "type", typeToString() );
 	node.setAttribute( "name", m_name );
-	node.setAttribute( "url", KUrl::relativeUrl( baseURL, m_url.url() ) );
+	node.setAttribute( "url", KUrl::relativeUrl( baseURL, m_url ) );
 	
 	node.appendChild( LinkerOptions::toDomElement( doc, baseURL ) );
 	node.appendChild( ProcessingOptions::toDomElement( doc, baseURL ) );
@@ -845,10 +845,10 @@ bool ProjectInfo::open( const KUrl & url )
 
 bool ProjectInfo::save()
 {
-	QFile file( m_url.path() );
+	QFile file( m_url.toLocalFile() );
 	if ( file.open(QIODevice::WriteOnly) == false )
 	{
-		KMessageBox::sorry( nullptr, i18n("Project could not be saved to \"%1\"", m_url.path()), i18n("Saving Project") );
+		KMessageBox::sorry( nullptr, i18n("Project could not be saved to \"%1\"", file.fileName()), i18n("Saving Project") );
 		return false;
 	}
 	
@@ -936,7 +936,7 @@ void ProjectManager::slotNewProject()
 	if (accepted == QDialog::Accepted) {
 		m_pCurrentProject = new ProjectInfo( this );
 		m_pCurrentProject->setObjectName( newProjectDlg->projectName() );
-		m_pCurrentProject->setURL( newProjectDlg->location() + m_pCurrentProject->name().toLower() + ".ktechlab" );
+		m_pCurrentProject->setURL(QUrl::fromLocalFile(newProjectDlg->location() + m_pCurrentProject->name().toLower() + ".ktechlab"));
 		
         QDir dir;
         if ( !dir.mkdir( m_pCurrentProject->directory() ) )
@@ -1042,7 +1042,7 @@ void ProjectManager::slotCreateSubproject()
 		}
 		
 		ProjectItem * subproject = new ProjectItem( currentProject(), type, this );
-		subproject->setURL( dlg->targetFile() );
+		subproject->setURL( QUrl::fromLocalFile(dlg->targetFile()) );
 		
 		currentProject()->addChild(subproject);
 		currentProject()->save();

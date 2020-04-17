@@ -175,8 +175,8 @@ class ProjectItem : public QObject, public LinkerOptions, public ProcessingOptio
 		 * url has not yet been set, then this project item will set the output
 		 * url based on this (input) url.
 		 */
-		void setURL( const KUrl & url );
-		KUrl url() const { return m_url; }
+		void setURL( const QUrl & url );
+		QUrl url() const { return m_url; }
 
 		OutputType outputType() const;
 
@@ -221,7 +221,7 @@ class ProjectItem : public QObject, public LinkerOptions, public ProcessingOptio
 		void updateILVItemPixmap();
 		void updateControlChildMicroIDs();
 
-		KUrl m_url;
+		QUrl m_url;
 		QString m_name;
 		ProjectItemList m_children;
 		Type m_type;
@@ -246,7 +246,7 @@ class ProjectInfo : public ProjectItem
   	 	/**
 		 * Returns the directory that the project is saved in
 		 */
-		QString directory() const { return m_url.directory(KUrl::IgnoreTrailingSlash); }
+		QString directory() const { return m_url.adjusted(QUrl::StripTrailingSlash).adjusted(QUrl::RemoveFilename).path(); }
 
 		/**
 		 * Saves the project information to file, and attempts to close all
