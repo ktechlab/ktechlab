@@ -141,6 +141,7 @@ class ProcessOptions : public ProcessOptionsSpecial
 		/**
 		 * Tries to guess the media type from the url (and possible the contents
 		 * of the file as well).
+		 * @param url a path to a file in the local filesystem
 		 */
 		static ProcessPath::MediaType guessMediaType( const QString & url );
 		/**

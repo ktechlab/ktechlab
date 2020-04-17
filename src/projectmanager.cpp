@@ -488,11 +488,12 @@ bool ProjectItem::build( ProcessOptionsList * pol )
 			// Nothing to do
 			return true;
 			
-		case FileType:
-			po.setInputFiles( QStringList( url().path() ) );
-			po.setProcessPath( ProcessOptions::ProcessPath::path( ProcessOptions::guessMediaType( url().url() ), typeTo ) );
+		case FileType: {
+			const QString fileName = url().toLocalFile();
+			po.setInputFiles( QStringList( fileName ) );
+			po.setProcessPath( ProcessOptions::ProcessPath::path( ProcessOptions::guessMediaType( fileName ), typeTo ) );
 			break;
-			
+                }
 		case ProgramType:
 		case LibraryType:
 			// Build up a list of input urls
@@ -1215,7 +1216,7 @@ void ProjectManager::slotContextMenuRequested( const QPoint& pos )
 	
     } else
 	{
-		ProcessOptions::ProcessPath::MediaType mediaType = ProcessOptions::guessMediaType( ilvItem->projectItem()->url().url() );
+		ProcessOptions::ProcessPath::MediaType mediaType = ProcessOptions::guessMediaType( ilvItem->projectItem()->url().toLocalFile() );
 		
 		switch ( ilvItem->projectItem()->type() )
 		{
