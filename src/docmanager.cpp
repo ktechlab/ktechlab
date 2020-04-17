@@ -228,7 +228,7 @@ Document *DocManager::findDocument( const KUrl &url ) const
 }
 
 
-void DocManager::associateDocument( const KUrl &url, Document *document )
+void DocManager::associateDocument( const QUrl &url, Document *document )
 {
 	if (!document)
 		return;

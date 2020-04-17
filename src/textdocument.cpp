@@ -409,7 +409,7 @@ QString TextDocument::outputFilePath( const QString &ext )
         QTextStream out(&f);
         out << m_doc->text();
 		f.close();
-		DocManager::self()->associateDocument( f.fileName(), this );
+		DocManager::self()->associateDocument(QUrl::fromLocalFile(f.fileName()), this );
 		return f.fileName();
 	}
 	if ( isModified() )

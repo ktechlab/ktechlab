@@ -29,7 +29,7 @@ class View;
 class ViewArea;
 
 typedef QList<Document*> DocumentList;
-typedef QMap< KUrl, Document* > URLDocumentMap;
+typedef QMap<QUrl, Document*> URLDocumentMap;
 
 /**
 @author David Saxton
@@ -83,7 +83,7 @@ public:
 	 * exists.
 	 * @see findDocument
 	 */
-	void associateDocument( const KUrl &url, Document *document );
+	void associateDocument( const QUrl &url, Document *document );
 	/**
 	 * Gives the given document focus. If it has no open views, one will be
 	 * created for it if viewAreaForNew is non-null
