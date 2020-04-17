@@ -776,7 +776,7 @@ ProjectInfo::~ ProjectInfo()
 }
 
 
-bool ProjectInfo::open( const KUrl & url )
+bool ProjectInfo::open( const QUrl & url )
 {
 	QString target;
 	if ( !KIO::NetAccess::download( url, target, nullptr ) )

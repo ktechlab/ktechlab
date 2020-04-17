@@ -256,7 +256,7 @@ class ProjectInfo : public ProjectItem
 		bool saveAndClose();
 		bool save();
 
-		bool open( const KUrl & url );
+		bool open( const QUrl & url );
 };
 
 /**
