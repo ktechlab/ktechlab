@@ -37,6 +37,7 @@ class DebugLine : public SourceLine
 {
 	public:
 		DebugLine();
+		/// @param fileName a path to a file in the local filesystem
 		DebugLine( const QString & fileName, int line );
 		/**
 		 * Whether or not to break when we reach this line.
@@ -160,6 +161,8 @@ class GpsimDebugger : public QObject
 		 * of source-code generated the given set of assembly instructions. This
 		 * matches up the assembly file lines with the associated source file
 		 * lines.
+		 * @param sourceFile the path to an assembly file in the local filesystem
+		 * @param assemblyFile the path to a source file in the local filesystem
 		 */
 		void associateLine( const QString & sourceFile, int sourceLine, const QString & assemblyFile, int assemblyLine );
 		/**
@@ -291,6 +294,7 @@ class GpsimProcessor : public QObject
 		void displayCodLoadStatus();
 		/**
 		 * Returns a list of source files for the currently running program.
+		 * Each entry is a path in the local filesystem.
 		 */
 		QStringList sourceFileList();
 		/**

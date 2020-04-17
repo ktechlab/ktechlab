@@ -23,8 +23,10 @@ class SourceLine
 		 * Creates an invalid source line (line is negative).
 		 */
 		SourceLine();
+		/// @param fileName the path to a file in the local filesystem
 		SourceLine( const QString & fileName, int line );
 		
+		/// @returns the path to the source file in the local filesystem
 		QString fileName() const { return m_fileName; }
 		int line() const { return m_line; }
 		

@@ -24,6 +24,7 @@ PIC ID
 class AsmParser
 {
 	public:
+		/// @param url a path to a file in the local filesystem
 		AsmParser( const QString &url );
 		~AsmParser();
 		
