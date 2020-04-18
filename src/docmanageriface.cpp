@@ -31,7 +31,7 @@ bool DocManagerIface::closeAll( )
 
 DCOPRef DocManagerIface::openURL( const QString & url )
 {
-	return docToRef( m_pDocManager->openURL(url) );
+	return docToRef( m_pDocManager->openURL(QUrl(url)) );
 }
 
 void DocManagerIface::gotoTextLine( const QString & url, int line )

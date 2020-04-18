@@ -502,7 +502,7 @@ void ContextHelp::openURL( const QUrl & url /*, const KParts::OpenUrlArguments &
 			break;
 
 		case ExampleLink:
-			DocManager::self()->openURL( examplePathToFullPath( path ) );
+			DocManager::self()->openURL(QUrl::fromLocalFile(examplePathToFullPath(path)));
 			break;
 
 		case ExternalLink:

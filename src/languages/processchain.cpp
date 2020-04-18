@@ -208,7 +208,7 @@ void ProcessChain::slotFinishedCompile(Language *language)
 			
 				case ProcessOptions::Method::Load:
 				{
-					editor = dynamic_cast<TextDocument*>( DocManager::self()->openURL(options.targetFile()) );
+					editor = dynamic_cast<TextDocument*>( DocManager::self()->openURL(QUrl::fromLocalFile(options.targetFile())) );
 					break;
 				}
 			

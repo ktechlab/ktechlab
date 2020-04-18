@@ -180,7 +180,7 @@ void KTechlab::load( const QUrl & url, ViewArea * viewArea )
 	setCaption(url.toDisplayString(QUrl::PreferLocalFile));
 
 	// load in the file (target is always local)
-	DocManager::self()->openURL( target, viewArea );
+	DocManager::self()->openURL( QUrl::fromLocalFile(target), viewArea );
 
 	// and remove the temp file
 	KIO::NetAccess::removeTempFile( target );
@@ -813,7 +813,7 @@ void KTechlab::setupExampleActions()
 void KTechlab::openExample(QAction *action)
 {
     int id = action->data().toInt();
-	DocManager::self()->openURL( m_exampleFiles[ id ] );
+	DocManager::self()->openURL(QUrl::fromLocalFile(m_exampleFiles[ id ]));
 }
 
 
@@ -1133,7 +1133,7 @@ void KTechlab::slotTabContextActivated( QAction * action )
 			break;
 		case 2:
 		{
-			KUrl url = document->url();
+			QUrl url = document->url();
 			if ( document->fileClose() )
 			{
 				delete document;

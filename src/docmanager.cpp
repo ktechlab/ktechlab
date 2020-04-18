@@ -90,16 +90,16 @@ void DocManager::gotoTextLine( const KUrl &url, int line )
 }
 
 
-Document* DocManager::openURL( const KUrl &url, ViewArea *viewArea )
+Document* DocManager::openURL( const QUrl &url, ViewArea *viewArea )
 {
 	if ( url.isEmpty() ) return nullptr;
 	
 	if ( url.isLocalFile() )
 	{
-		QFile file(url.path());
+		QFile file(url.toLocalFile());
 		if ( file.open(QIODevice::ReadOnly) == false )
 		{
-			KMessageBox::sorry(nullptr, i18n( "Could not open '%1'", url.toDisplayString(QUrl::PreferLocalFile)));
+			KMessageBox::sorry(nullptr, i18n( "Could not open '%1'", file.fileName()));
 			return nullptr;
 		}
 		file.close();

@@ -56,7 +56,7 @@ public:
 	 * Attempts to open the document at the given url.
 	 * @param viewArea if non-null, will open the new view into the ViewArea
 	 */
-	Document* openURL( const KUrl &url, ViewArea *viewArea = nullptr );
+	Document* openURL( const QUrl &url, ViewArea *viewArea = nullptr );
 	/**
 	 * Returns the focused View
 	 */

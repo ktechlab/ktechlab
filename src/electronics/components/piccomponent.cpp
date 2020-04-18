@@ -357,7 +357,7 @@ bool PICComponent::mouseDoubleClickEvent ( const EventInfo &eventInfo )
 	if ( m_picFile.isEmpty() || (m_picFile == _def_PICComponent_fileName) )
 		return false;
 
-	(void) DocManager::self()->openURL(m_picFile);
+	(void) DocManager::self()->openURL(QUrl::fromLocalFile(m_picFile));
 
 	return true;
 }
