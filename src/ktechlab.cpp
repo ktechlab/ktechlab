@@ -1344,13 +1344,13 @@ void KTechlab::slotUpdateCaptions()
 	QString newCaption;
 	if ( document )
 	{
-		KUrl url = document->url();
+		QUrl url = document->url();
 		if ( url.isEmpty() )
 			newCaption = document->caption();
 		else
 		{
-			if ( url.isLocalFile() && url.ref().isNull() && url.query().isNull() )
-				newCaption = url.path();
+			if ( url.isLocalFile() && !url.hasFragment() && !url.hasQuery() )
+				newCaption = url.toLocalFile();
 			else
 				newCaption = url.toDisplayString(QUrl::PreferLocalFile);
 		}
