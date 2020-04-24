@@ -99,5 +99,5 @@ void LanguageManager::slotMessage( const QString &error, MessageInfo messageInfo
 void LanguageManager::slotParaClicked( const QString& message, MessageInfo messageInfo )
 {
 	Q_UNUSED(message);
-	DocManager::self()->gotoTextLine( messageInfo.fileURL(), messageInfo.fileLine() );
+	DocManager::self()->gotoTextLine(QUrl::fromUserInput(messageInfo.fileURL()), messageInfo.fileLine() );
 }

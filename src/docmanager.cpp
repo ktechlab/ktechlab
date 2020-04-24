@@ -78,7 +78,7 @@ bool DocManager::closeAll()
 }
 
 
-void DocManager::gotoTextLine( const KUrl &url, int line )
+void DocManager::gotoTextLine( const QUrl &url, int line )
 {
 	TextDocument * doc = dynamic_cast<TextDocument*>( openURL(url) );
 	TextView * tv = doc ? doc->textView() : nullptr;

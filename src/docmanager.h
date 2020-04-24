@@ -51,7 +51,7 @@ public:
 	/**
 	 * Goes to the given line in the given text file (if the file exists)
 	 */
-	void gotoTextLine( const KUrl &url, int line );
+	void gotoTextLine( const QUrl &url, int line );
 	/**
 	 * Attempts to open the document at the given url.
 	 * @param viewArea if non-null, will open the new view into the ViewArea

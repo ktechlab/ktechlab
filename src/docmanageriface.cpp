@@ -36,7 +36,7 @@ DCOPRef DocManagerIface::openURL( const QString & url )
 
 void DocManagerIface::gotoTextLine( const QString & url, int line )
 {
-	m_pDocManager->gotoTextLine( url, line );
+	m_pDocManager->gotoTextLine(QUrl(url), line );
 }
 
 DCOPRef DocManagerIface::createTextDocument( )
