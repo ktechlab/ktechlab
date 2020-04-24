@@ -75,7 +75,7 @@ private slots:
         DocManager::self()->closeAll();
         QCOMPARE( DocManager::self()->m_documentList.size(), 0);
         QFile exFile(SRC_TESTS_DATA_DIR "test-document-draw-1.circuit");
-        KUrl exUrl(exFile.fileName());
+        QUrl exUrl = QUrl::fromLocalFile(exFile.fileName());
         qDebug() << "open example: " << exUrl;
         DocManager::self()->openURL(exUrl, nullptr);
         QCOMPARE( DocManager::self()->m_documentList.size(), 1);
