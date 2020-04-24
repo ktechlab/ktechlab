@@ -13,8 +13,7 @@
 
 #include "view.h"
 
-#include <kurl.h>
-
+#include <QUrl>
 #include <qpointer.h>
 
 class CircuitDocument;
@@ -117,7 +116,7 @@ signals:
 	/**
 	 * Emitted when a file is successfully opened
 	 */
-	void fileOpened( const KUrl &url );
+	void fileOpened( const QUrl &url );
 	
 protected slots:
 	/**
@@ -141,10 +140,10 @@ protected:
 	 * ViewContainer
 	 */
 	View *createNewView( Document *document, ViewArea *viewArea = nullptr );
-	CircuitDocument *openCircuitFile( const KUrl &url, ViewArea *viewArea = nullptr );
-	FlowCodeDocument *openFlowCodeFile( const KUrl &url, ViewArea *viewArea = nullptr );
-	MechanicsDocument *openMechanicsFile( const KUrl &url, ViewArea *viewArea = nullptr );
-	TextDocument *openTextFile( const KUrl &url, ViewArea *viewArea = nullptr );
+	CircuitDocument *openCircuitFile( const QUrl &url, ViewArea *viewArea = nullptr );
+	FlowCodeDocument *openFlowCodeFile( const QUrl &url, ViewArea *viewArea = nullptr );
+	MechanicsDocument *openMechanicsFile( const QUrl &url, ViewArea *viewArea = nullptr );
+	TextDocument *openTextFile( const QUrl &url, ViewArea *viewArea = nullptr );
 	
 	DocumentList m_documentList;
 	URLDocumentMap m_associatedDocuments;

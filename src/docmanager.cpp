@@ -438,9 +438,9 @@ MechanicsDocument *DocManager::createMechanicsDocument()
 }
 
 
-CircuitDocument *DocManager::openCircuitFile( const KUrl &url, ViewArea *viewArea )
+CircuitDocument *DocManager::openCircuitFile( const QUrl &url, ViewArea *viewArea )
 {
-	CircuitDocument *document = new CircuitDocument( url.fileName().remove(url.directory()) );
+	CircuitDocument *document = new CircuitDocument( url.fileName() );
 	
 	if ( !document->openURL(url) )
 	{
@@ -455,9 +455,9 @@ CircuitDocument *DocManager::openCircuitFile( const KUrl &url, ViewArea *viewAre
 }
 
 
-FlowCodeDocument *DocManager::openFlowCodeFile( const KUrl &url, ViewArea *viewArea )
+FlowCodeDocument *DocManager::openFlowCodeFile( const QUrl &url, ViewArea *viewArea )
 {
-	FlowCodeDocument *document = new FlowCodeDocument( url.fileName().remove(url.directory()) );
+	FlowCodeDocument *document = new FlowCodeDocument( url.fileName() );
 	
 	if ( !document->openURL(url) )
 	{
@@ -472,9 +472,9 @@ FlowCodeDocument *DocManager::openFlowCodeFile( const KUrl &url, ViewArea *viewA
 }
 
 
-MechanicsDocument *DocManager::openMechanicsFile( const KUrl &url, ViewArea *viewArea )
+MechanicsDocument *DocManager::openMechanicsFile( const QUrl &url, ViewArea *viewArea )
 {
-	MechanicsDocument *document = new MechanicsDocument( url.fileName().remove(url.directory()) );
+	MechanicsDocument *document = new MechanicsDocument( url.fileName() );
 	
 	if ( !document->openURL(url) )
 	{
@@ -490,9 +490,9 @@ MechanicsDocument *DocManager::openMechanicsFile( const KUrl &url, ViewArea *vie
 }
 
 
-TextDocument *DocManager::openTextFile( const KUrl &url, ViewArea *viewArea )
+TextDocument *DocManager::openTextFile( const QUrl &url, ViewArea *viewArea )
 {
-	TextDocument *document = TextDocument::constructTextDocument( url.fileName().remove(url.directory()) );
+	TextDocument *document = TextDocument::constructTextDocument( url.fileName() );
 	
 	if (!document)
 		return nullptr;
