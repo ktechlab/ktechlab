@@ -12,7 +12,6 @@
 #define PROPERTYEDITORFILE_H
 
 #include "propertysubeditor.h"
-#include <kurl.h>
 
 class KLineEdit;
 class QPushButton;
