@@ -147,7 +147,7 @@ void PICComponent::initPIC( bool forceReload )
         }
 	}
 
-	QString newProgram = KUrl( dataString("program") ).path();
+	QString newProgram = dataString("program");
     qDebug() << Q_FUNC_INFO << "newProgram=" << newProgram;
 	bool newFile = (m_picFile != newProgram);
 	if ( !newFile && !forceReload ) {
