@@ -109,7 +109,7 @@ bool Document::getURL( const QString &types )
 	
 	if ( url.isEmpty() ) return false;
 	
-	if ( QFile::exists( url.path() ) )
+	if (url.isLocalFile() && QFile::exists(url.toLocalFile()))
 	{
 		int query = KMessageBox::warningYesNo( KTechlab::self(),
 			   i18n( "A file named \"%1\" already exists. Are you sure you want to overwrite it?", url.fileName() ),
