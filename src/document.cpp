@@ -161,7 +161,7 @@ void Document::setModified( bool modified )
 }
 
 
-void Document::setURL( const KUrl &url )
+void Document::setURL( const QUrl &url )
 {
 	if ( m_url == url ) return;
 	

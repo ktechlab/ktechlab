@@ -13,8 +13,7 @@
 
 #include "view.h"
 
-#include <kurl.h>
-
+#include <QUrl>
 #include <qpointer.h>
 
 class DCOPObject;
@@ -97,7 +96,7 @@ public:
 	/**
 	 * Returns the url of the file that the Document refers to
 	 */
-	const KUrl& url() const { return m_url; }
+	const QUrl& url() const { return m_url; }
 	/**
 	 * Prompts the user for a url, with the given types for the filter.
 	 * If user accepts, returns true, and set the url to the new url.
@@ -111,7 +110,7 @@ public:
 	/**
 	 * Sets the url of the file that this Document refers to
 	 */
-	void setURL( const KUrl &url );
+	void setURL( const QUrl &url );
 	/**
 	 * Sets whether the file is modified or not. Will emit modifiedStateChanged
 	 * if state changes. You must emit this signal if you reinherit this
@@ -238,7 +237,7 @@ protected:
 	
 private:
 
-	KUrl		  m_url;
+	QUrl		  m_url;
 	QPointer<View> m_pActiveView;
 	QString		  m_caption;
 	bool		  m_bAddToProjectOnSave;
