@@ -100,7 +100,7 @@ bool DocumentIface::isModified( )
 
 bool DocumentIface::openURL( const QString & url )
 {
-	return m_pDocument->openURL(url);
+	return m_pDocument->openURL(QUrl(url));
 }
 
 QString DocumentIface::url( )

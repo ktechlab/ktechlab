@@ -121,7 +121,7 @@ public:
 	virtual void clearBreakpoints();
 #endif
 	
-	bool openURL(const KUrl& url) override;
+	bool openURL(const QUrl& url) override;
 
 	void fileSave(const KUrl& url);
 	/**

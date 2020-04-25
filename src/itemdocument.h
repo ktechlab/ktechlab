@@ -92,7 +92,7 @@ class ItemDocument : public Document
 		void fileSave() override;
 		void fileSaveAs() override;
 		void print() override;
-		bool openURL( const KUrl &url ) override;
+		bool openURL( const QUrl &url ) override;
 		/**
 		 * Attempt to register the item, returning true iff successful
 		 */

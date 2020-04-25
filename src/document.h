@@ -107,7 +107,7 @@ public:
 	 * Attempts to open a url, and returns true if succesful.
 	 * You must reinherit this function.
 	 */
-	virtual bool openURL( const KUrl &url ) = 0;
+	virtual bool openURL( const QUrl &url ) = 0;
 	/**
 	 * Sets the url of the file that this Document refers to
 	 */

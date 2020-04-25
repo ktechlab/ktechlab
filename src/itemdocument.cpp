@@ -196,7 +196,7 @@ void ItemDocument::writeFile()
 }
 
 
-bool ItemDocument::openURL( const KUrl &url )
+bool ItemDocument::openURL( const QUrl &url )
 {
 	ItemDocumentData data( type() );
 

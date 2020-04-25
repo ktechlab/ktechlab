@@ -373,7 +373,7 @@ void TextDocument::saveDone()
 }
 
 
-bool TextDocument::openURL( const KUrl& url )
+bool TextDocument::openURL( const QUrl& url )
 {
 	m_doc->openUrl(url);
 	setURL(url);

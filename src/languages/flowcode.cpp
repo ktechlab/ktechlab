@@ -44,7 +44,7 @@ void FlowCode::processInput( ProcessOptions options )
 	if ( !options.p_flowCodeDocument )
 	{
 		options.p_flowCodeDocument = new FlowCodeDocument( QString::null, nullptr );
-		options.p_flowCodeDocument->openURL( options.inputFiles().first() );
+		options.p_flowCodeDocument->openURL(QUrl::fromLocalFile(options.inputFiles().first()));
 		
 		connect( this, SIGNAL(processSucceeded( Language *)), options.p_flowCodeDocument, SLOT(deleteLater()) );
 		connect( this, SIGNAL(processFailed( Language *)), options.p_flowCodeDocument, SLOT(deleteLater()) );
