@@ -340,9 +340,9 @@ void TextDocument::formatAssembly()
 }
 
 
-void TextDocument::fileSave( const KUrl& url )
+void TextDocument::fileSave( const QUrl& url )
 {
-	if ( m_doc->url().path() != url.path() )
+	if ( m_doc->url() != url )
 	{
 		qCritical() << Q_FUNC_INFO << "Error: Kate::View url and passed url do not match; cannot save." << endl;
 		return;

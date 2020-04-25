@@ -123,7 +123,7 @@ public:
 	
 	bool openURL(const QUrl& url) override;
 
-	void fileSave(const KUrl& url);
+	void fileSave(const QUrl& url);
 	/**
 	 * Set the document to the given text, making the document unmodified, and
 	 * reseting the undo/redo history/
