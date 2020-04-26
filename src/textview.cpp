@@ -290,8 +290,8 @@ void TextView::disableActions()
 {
 	QMenu * tb = (dynamic_cast<KToolBarPopupAction*>(actionByName("program_convert")))->menu();
 
-    QList<QAction*> actions = tb->actions();
-    Q_FOREACH(QAction *a, actions) {
+    const QList<QAction*> actions = tb->actions();
+    for(QAction *a : actions) {
         switch (a->data().toInt()) {
             case TextDocument::AssemblyOutput:
             case TextDocument::HexOutput:
@@ -359,8 +359,8 @@ void TextView::initCodeActions()
     QAction *actHexOut = nullptr;
     QAction *actPicOut = nullptr;
     QAction *actAsmOut = nullptr;
-    QList<QAction*> actions = tb->actions();
-    Q_FOREACH(QAction *a, actions) {
+    const QList<QAction*> actions = tb->actions();
+    for (QAction *a : actions) {
         switch (a->data().toInt()) {
             case TextDocument::AssemblyOutput:  actAsmOut = a; break;
             case TextDocument::HexOutput:       actHexOut = a; break;

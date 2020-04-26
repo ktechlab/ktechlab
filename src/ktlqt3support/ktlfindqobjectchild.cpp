@@ -15,8 +15,8 @@
 #include <string.h>
 
 QObject *ktlFindQObjectChild(QObject *parent, const char *className) {
-    QObjectList children = parent->children();
-    Q_FOREACH(QObject *child, children) {
+    const QObjectList children = parent->children();
+    for (QObject *child : children) {
         if (0 == strcmp( child->metaObject()->className(), className )) {
             return child;
         }

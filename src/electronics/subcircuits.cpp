@@ -41,9 +41,9 @@ Subcircuits::~Subcircuits()
 
 static QList<int> asIntList(const QString& string)
 {
-    QByteArray arr(string.toLatin1());
+    QList<QByteArray> entries = string.toLatin1().split(',');
     QList<int> list;
-    Q_FOREACH(const QByteArray& s, arr.split(','))
+    for (const QByteArray& s : entries)
         list << s.toInt();
     return list;
 }
