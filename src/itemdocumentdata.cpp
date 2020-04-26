@@ -24,7 +24,6 @@
 #include <qdebug.h>
 #include <KIO/FileCopyJob>
 #include <KJobWidgets>
-#include <kio/netaccess.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <QTemporaryFile>
@@ -211,9 +210,11 @@ bool ItemDocumentData::saveData( const QUrl &url )
 		str << toXML();
 		file.close();
 
-		if ( !KIO::NetAccess::upload( file.fileName(), url, nullptr ) )
+		KIO::FileCopyJob* job = KIO::file_copy(QUrl::fromLocalFile(file.fileName()), url);
+		KJobWidgets::setWindow(job, nullptr);
+		if (!job->exec())
 		{
-			KMessageBox::error( nullptr, KIO::NetAccess::lastErrorString() );
+			KMessageBox::error( nullptr, job->errorString() );
 			return false;
 		}
 	}
