@@ -834,7 +834,7 @@ void KTechlab::savePropertiesInConfig( KConfig *conf )
 	grUi.writeEntry( "Width", width() );
 	grUi.writeEntry( "Height", height() );
 	//grUi.writeEntry( "WinState", KWin::windowInfo( winId(), NET::WMState ).state() );
-    grUi.writeEntry( "WinState", (qulonglong) KWindowSystem::windowInfo( winId(), NET::WMState ).state() );
+    grUi.writeEntry( "WinState", (qulonglong) KWindowInfo( winId(), NET::WMState ).state() );
 
 #ifndef NO_GPSIM
 	SymbolViewer::self()->saveProperties( conf );
