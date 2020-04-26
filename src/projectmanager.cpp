@@ -20,7 +20,8 @@
 #include "recentfilesaction.h"
 
 #include <qdebug.h>
-#include <kio/netaccess.h>
+#include <KIO/FileCopyJob>
+#include <KJobWidgets>
 #include <klocalizedstring.h>
 #include <kmessagebox.h> 
 #include <kxmlguifactory.h>
@@ -33,6 +34,8 @@
 #include <QMimeDatabase>
 #include <QMimeType>
 #include <QDir>
+#include <QTemporaryFile>
+#include <QScopedPointer>
 
 #include <cassert>
 
@@ -805,31 +808,37 @@ ProjectInfo::~ ProjectInfo()
 
 bool ProjectInfo::open( const QUrl & url )
 {
-	QString target;
-	if ( !KIO::NetAccess::download( url, target, nullptr ) )
+	QScopedPointer<QFile> file;
+	if (!url.isLocalFile())
 	{
-		// If the file could not be downloaded, for example does not
-		// exist on disk, NetAccess will tell us what error to use
-		KMessageBox::error( nullptr, KIO::NetAccess::lastErrorString() );
-		
-		return false;
+		QScopedPointer<QTemporaryFile> downloadedFile(new QTemporaryFile());
+		downloadedFile->open();
+		KIO::FileCopyJob* job = KIO::file_copy(url, QUrl::fromLocalFile(downloadedFile->fileName()));
+		KJobWidgets::setWindow(job, nullptr);
+		if (!job->exec())
+                {
+			KMessageBox::error( nullptr, job->errorString() );
+			return false;
+		}
+		file.reset(downloadedFile.take());
 	}
-	
-	QFile file(target);
-	if ( !file.open( QIODevice::ReadOnly ) )
+	else
 	{
-		KMessageBox::sorry( nullptr, i18n("Could not open %1 for reading", target) );
-		return false;
+		QScopedPointer<QFile> localFile(new QFile(url.toLocalFile()));
+		if ( !localFile->open( QIODevice::ReadOnly ) )
+		{
+			KMessageBox::sorry( nullptr, i18n("Could not open %1 for reading", localFile->fileName()) );
+			return false;
+		}
+		file.reset(localFile.take());
 	}
 	
 	m_url = url;
 	
 	QString xml;
-	QTextStream textStream( &file );
+	QTextStream textStream( file.data() );
 	while ( !textStream.atEnd() ) //was: eof()
 		xml += textStream.readLine() + '\n';
-	
-	file.close();
 	
 	QDomDocument doc( "KTechlab" );
 	QString errorMessage;
