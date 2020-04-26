@@ -68,7 +68,7 @@ NewProjectDlg::NewProjectDlg( QWidget * parent )
     // Check if already valid dir
 	locationChanged( QString::null );
 
-	m_pWidget->projectLocationURL->setUrl( QDir::homePath() );
+	m_pWidget->projectLocationURL->setUrl(QUrl::fromLocalFile(QDir::homePath()));
 	m_pWidget->projectLocationURL->setMode( KFile::Directory );
 }
 
@@ -129,7 +129,7 @@ CreateSubprojectDlg::CreateSubprojectDlg( QWidget * parent )
 	m_pWidget = new CreateSubprojectWidget(this);
 
 	if ( ProjectManager::self()->currentProject() )
-		m_pWidget->m_targetFile->setUrl( ProjectManager::self()->currentProject()->directory() );
+		m_pWidget->m_targetFile->setUrl( ProjectManager::self()->currentProject()->url() );
 
 	m_type = ProgramType;
 

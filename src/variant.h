@@ -49,7 +49,7 @@ public:
 				RichText, // HTML formatted text
 				Select, // Selection of strings
 				Combo, // Editable combination of strings
-				FileName, // Filename
+				FileName, // Filename on local filesystem
 				Color, // Color
 				Bool, // Boolean
 				VarName, // Variable name

@@ -335,7 +335,7 @@ QWidget * ItemInterface::configWidget()
 				box->setEditable( true );
 				
 				// Note this has to be called after inserting the allowed list
-				urlreq->setUrl( vait.value()->value().toString() );
+				urlreq->setUrl(QUrl::fromLocalFile(vait.value()->value().toString()));
 				
 				// Generally we only want a file name once the user has finished typing out the full file name.
 				connectMapWidget( box, SIGNAL(returnPressed(const QString &)));
