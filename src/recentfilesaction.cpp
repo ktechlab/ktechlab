@@ -10,10 +10,8 @@
 
 #include "recentfilesaction.h"
 
-#include <kconfig.h>
-#include <kconfig.h>
-#include <kconfiggroup.h>
-#include <ksharedconfig.h>
+#include <KConfigGroup>
+#include <KSharedConfig>
 
 #include <QMenu>
 #include <QDir>

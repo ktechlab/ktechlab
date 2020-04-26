@@ -23,13 +23,12 @@
 #include "katemdi.h"
 
 
-#include <klocalizedstring.h>
-#include <kconfig.h>
-#include <ksharedconfig.h>
+#include <KLocalizedString>
+#include <KSharedConfig>
 //#include <kpopupmenu.h>
-#include <kactioncollection.h>
-#include <kxmlguifactory.h>
-#include <kconfiggroup.h>
+#include <KActionCollection>
+#include <KXMLGUIFactory>
+#include <KConfigGroup>
 #include <KWindowConfig>
 
 // #include <q3intdict.h>

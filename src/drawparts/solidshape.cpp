@@ -13,8 +13,8 @@
 #include "resizeoverlay.h"
 
 #include <cmath>
-#include <kiconloader.h>
-#include <klocalizedstring.h>
+#include <KIconLoader>
+#include <KLocalizedString>
 #include <qpainter.h>
 
 

@@ -18,18 +18,16 @@
 #include "libraryitem.h"
 #include "richtexteditor.h"
 
-#include <kparts/readwritepart.h>
-#include <kparts/browserextension.h>
-#include <kparts/browserhostextension.h>
-#include <khtml_part.h>
-#include <KHtml/khtmlview.h>
+#include <KParts/ReadWritePart>
+#include <KParts/BrowserExtension>
+#include <KHTMLView>
+#include <KHTMLPart>
 #include <KIO/Global>
-#include <kiconloader.h>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <kparts/browserextension.h>
+#include <KIconLoader>
+#include <KLocalizedString>
+#include <KMessageBox>
 // #include <k3popupmenu.h>
-#include <krun.h>
+#include <KRun>
 // #include <k3iconview.h>
 
 #include <QFileDialog>

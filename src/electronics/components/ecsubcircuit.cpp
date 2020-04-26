@@ -16,7 +16,7 @@
 #include "subcircuits.h"
 
 #include <qdebug.h>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <qfile.h>
 
 Item* ECSubcircuit::construct( ItemDocument *itemDocument, bool newItem, const char *id )

@@ -11,8 +11,7 @@
 #ifndef SETTINGSDLG_H
 #define SETTINGSDLG_H
 
-#include <kconfigskeleton.h>
-#include <kconfigdialog.h>
+#include <KConfigDialog>
 #include <qmap.h>
 #include <qvalidator.h>
 

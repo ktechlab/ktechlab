@@ -24,8 +24,8 @@
 #include <cassert>
 
 #include <qdebug.h>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
+#include <KLocalizedString>
+#include <KMessageBox>
 #include <QTemporaryFile>
 #include <QDir>
 #include <qfile.h>

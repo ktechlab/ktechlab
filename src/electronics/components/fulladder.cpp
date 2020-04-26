@@ -13,7 +13,7 @@
 #include "logic.h"
 #include "libraryitem.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 
 Item* FullAdder::construct( ItemDocument *itemDocument, bool newItem, const char *id )

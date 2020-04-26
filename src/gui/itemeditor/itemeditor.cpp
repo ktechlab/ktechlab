@@ -16,7 +16,7 @@
 #include "propertyeditor.h"
 #include "katemdi.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <qlayout.h>
 #include <qlabel.h>

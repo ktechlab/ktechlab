@@ -18,7 +18,7 @@
 #include "resistance.h"
 
 #include <qdebug.h>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <qpainter.h>
 
 #include <cmath>

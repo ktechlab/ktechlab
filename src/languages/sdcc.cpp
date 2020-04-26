@@ -15,9 +15,9 @@
 #include "microlibrary.h"
 #include "sdcc.h"
 
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <kprocess.h>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KProcess>
 
 #include <ktlconfig.h>
 

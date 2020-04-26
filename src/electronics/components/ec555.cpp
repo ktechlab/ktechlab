@@ -15,7 +15,7 @@
 #include "pin.h"
 #include "resistance.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <qpainter.h>
 
 Item* EC555::construct( ItemDocument *itemDocument, bool newItem, const char *id )

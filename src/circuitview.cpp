@@ -15,9 +15,9 @@
 #include "simulator.h"
 #include "viewiface.h"
 
-#include <klocalizedstring.h>
-#include <kactioncollection.h>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
+#include <KActionCollection>
+#include <KLocalizedString>
 
 #include <qaction.h>
 #include <qactiongroup.h>

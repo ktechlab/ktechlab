@@ -14,7 +14,7 @@
 #include <ui_contexthelpwidget.h>
 
 #include <qpointer.h>
-#include <ktextedit.h>
+#include <KTextEdit>
 
 class Item;
 class ContextHelp;

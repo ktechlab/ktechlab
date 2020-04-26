@@ -13,7 +13,7 @@
 #include "simulator.h"
 #include "led.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <qpainter.h>
 #include <qstyle.h>
 #include <qdebug.h>

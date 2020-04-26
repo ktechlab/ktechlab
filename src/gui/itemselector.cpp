@@ -19,10 +19,9 @@
 #include "mechanicsdocument.h"
 #include "katemdi.h"
 
-#include <kconfig.h>
-#include <ksharedconfig.h>
-#include <klocalizedstring.h>
-#include <kconfiggroup.h>
+#include <KSharedConfig>
+#include <KLocalizedString>
+#include <KConfigGroup>
 
 // #include <q3dragobject.h>
 #include <qdebug.h>

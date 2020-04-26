@@ -18,7 +18,7 @@
 #include "vccs.h"
 #include "vcvs.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <qpainter.h>
 
 //BEGIN class DependentSource

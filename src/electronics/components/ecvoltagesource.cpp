@@ -15,7 +15,7 @@
 #include "libraryitem.h"
 #include "pin.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <qpainter.h>
 
 Item* ECCell::construct( ItemDocument *itemDocument, bool newItem, const char *id )

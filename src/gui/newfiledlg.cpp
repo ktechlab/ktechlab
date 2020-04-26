@@ -18,10 +18,10 @@
 #include "textdocument.h"
 
 #include <qdebug.h>
-#include <klineedit.h>
+#include <KLineEdit>
 // #include <k3iconview.h>
-#include <klocalizedstring.h>
-#include <kiconloader.h>
+#include <KLocalizedString>
+#include <KIconLoader>
 
 #include <canvas.h>
 #include <qcheckbox.h>

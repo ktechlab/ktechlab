@@ -15,11 +15,10 @@
 #include "itemselector.h"
 #include "subcircuits.h"
 
-#include <kconfig.h>
-#include <kiconloader.h>
-#include <klocalizedstring.h>
-#include <kconfiggroup.h>
-#include <ksharedconfig.h>
+#include <KIconLoader>
+#include <KLocalizedString>
+#include <KConfigGroup>
+#include <KSharedConfig>
 
 #include <qdebug.h>
 #include <qfile.h>

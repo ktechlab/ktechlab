@@ -18,7 +18,7 @@
 #include "eventinfo.h"
 
 #include <qdebug.h>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <qicon.h>
 #include <qpainter.h>

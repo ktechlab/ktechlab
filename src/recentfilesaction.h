@@ -12,7 +12,7 @@
 #define RECENTFILESACTION_H
 
 //#include <kactionclasses.h>
-#include <kselectaction.h>
+#include <KSelectAction>
 
 //class K3PopupMenu;
 class QUrl;

@@ -12,7 +12,7 @@
 #include "logic.h"
 #include "matrixdisplaydriver.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <qpainter.h>
 #include <qstring.h>
 

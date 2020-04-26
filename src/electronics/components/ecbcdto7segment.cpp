@@ -13,7 +13,7 @@
 #include "logic.h"
 #include "libraryitem.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 // Values for a,b,c,d,e,f,g of common-anode 7 segment display
 static bool numbers[16][7] =

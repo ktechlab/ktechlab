@@ -13,7 +13,7 @@
 #include "mosfet.h"
 
 #include <qdebug.h>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <qpainter.h>
 
 Item * ECMOSFET::constructNEM( ItemDocument * itemDocument, bool newItem, const char * id )

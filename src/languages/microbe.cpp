@@ -15,11 +15,11 @@
 #include "languagemanager.h"
 
 #include <qdebug.h>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
+#include <KLocalizedString>
+#include <KMessageBox>
 
 #include <qfile.h>
-#include <kprocess.h>
+#include <KProcess>
 
 Microbe::Microbe( ProcessChain *processChain )
  : ExternalLanguage( processChain, "Microbe" )

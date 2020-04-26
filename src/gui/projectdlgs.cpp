@@ -15,8 +15,8 @@
 
 #include <cassert>
 
-#include <klocalizedstring.h>
-#include <kurlrequester.h>
+#include <KLocalizedString>
+#include <KUrlRequester>
 // #include <k3listview.h>
 
 #include <qcheckbox.h>

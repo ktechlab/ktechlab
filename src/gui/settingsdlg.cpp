@@ -13,12 +13,11 @@
 #include "settingsdlg.h"
 #include "inputdialog.h"
 
-#include <kcombobox.h>
-#include <kconfig.h>
-#include <ksharedconfig.h>
-#include <klineedit.h>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
+#include <KComboBox>
+#include <KSharedConfig>
+#include <KLineEdit>
+#include <KLocalizedString>
+#include <KMessageBox>
 
 #include <qgroupbox.h>
 #include <qlabel.h>

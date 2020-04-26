@@ -12,7 +12,7 @@
 #include "jfet.h"
 #include "libraryitem.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <qpainter.h>
 
 Item * ECJFET::constructNJFET( ItemDocument * itemDocument, bool newItem, const char * id )

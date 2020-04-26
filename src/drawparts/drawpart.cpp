@@ -13,7 +13,7 @@
 #include "drawpart.h"
 #include "variant.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <qbitarray.h>
 
 DrawPart::DrawPart( ItemDocument *itemDocument, bool newItem, const char *id )

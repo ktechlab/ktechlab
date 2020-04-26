@@ -12,9 +12,9 @@
 #include "componentmodelwidget.h"
 
 #include <qdebug.h>
-#include <klineedit.h>
-#include <klocalizedstring.h>
-#include <ktoolbar.h>
+#include <KLineEdit>
+#include <KLocalizedString>
+#include <KToolBar>
 //#include <ktoolbarbutton.h> // converted to QToolButton
 
 #include <qlistwidget.h>

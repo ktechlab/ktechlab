@@ -13,9 +13,9 @@
 #include "ktechlab.h"
 #include "viewiface.h"
 
-#include <klocalizedstring.h>
-#include <ktoolbarpopupaction.h>
-#include <kactioncollection.h>
+#include <KLocalizedString>
+#include <KToolBarPopupAction>
+#include <KActionCollection>
 
 #include <QIcon>
 #include <QMenu>

@@ -13,7 +13,7 @@
 #include "mechanicsdocument.h"
 
 #include <qdebug.h>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <qbitarray.h>
 #include <qpainter.h>
 #include <qmatrix.h>

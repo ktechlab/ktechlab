@@ -16,11 +16,11 @@
 #include "viewcontainer.h"
 
 #include <qdebug.h>
-#include <kiconloader.h>
-#include <klocalizedstring.h>
-#include <ksqueezedtextlabel.h>
-#include <kxmlguifactory.h>
-#include <kactioncollection.h>
+#include <KIconLoader>
+#include <KLocalizedString>
+#include <KSqueezedTextLabel>
+#include <KXMLGUIFactory>
+#include <KActionCollection>
 
 #include <qapplication.h>
 #include <qboxlayout.h>

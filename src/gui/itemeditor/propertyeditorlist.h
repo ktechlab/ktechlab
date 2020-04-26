@@ -11,7 +11,7 @@
 #ifndef PROPERTYEDITORLIST_H
 #define PROPERTYEDITORLIST_H
 
-#include <kcombobox.h>
+#include <KComboBox>
 
 #include "propertysubeditor.h"
 

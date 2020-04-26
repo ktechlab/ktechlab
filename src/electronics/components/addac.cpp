@@ -16,7 +16,7 @@
 #include "voltagepoint.h"
 
 #include <cmath>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 
 Item* ADC::construct( ItemDocument *itemDocument, bool newItem, const char *id )

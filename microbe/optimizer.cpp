@@ -12,7 +12,7 @@
 #include "optimizer.h"
 
 #include <qdebug.h>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <cassert>
 #include <iostream>

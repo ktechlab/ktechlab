@@ -15,7 +15,7 @@
 #include "propertyeditoritem.h"
 
 #include <qdebug.h>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <qcolor.h>
 #include <qcursor.h>

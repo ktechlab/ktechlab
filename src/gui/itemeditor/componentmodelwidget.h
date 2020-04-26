@@ -10,7 +10,7 @@
 #ifndef COMPONENTMODELWIDGET_H
 #define COMPONENTMODELWIDGET_H
 
-#include <klineedit.h>
+#include <KLineEdit>
 
 class Component;
 class QListWidget;

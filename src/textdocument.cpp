@@ -32,10 +32,10 @@
 #include <QTemporaryFile>
 #include <QDir>
 
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <ktexteditor/document.h>
-#include <kxmlguifactory.h>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KTextEditor/Document>
+#include <KXMLGUIFactory>
 #include <KTextEditor/Editor>
 
 

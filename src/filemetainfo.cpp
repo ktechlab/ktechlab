@@ -12,9 +12,10 @@
 #include "textdocument.h"
 #include "textview.h"
 
-#include <kconfig.h>
 #include <KConfigGroup>
+#include <KConfig>
 
+#include <QStandardPaths>
 
 //BEGIN class MetaInfo
 MetaInfo::MetaInfo()

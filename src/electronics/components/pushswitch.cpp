@@ -13,7 +13,7 @@
 #include "pushswitch.h"
 #include "switch.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <qpoint.h>

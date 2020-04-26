@@ -15,7 +15,7 @@
 #include "multiinputgate.h"
 
 #include <cmath>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <qpainter.h>
 
 #include <ktlconfig.h>

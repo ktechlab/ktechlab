@@ -13,8 +13,8 @@
 #include "libraryitem.h"
 #include "resizeoverlay.h"
 
-#include <kiconloader.h>
-#include <klocalizedstring.h>
+#include <KIconLoader>
+#include <KLocalizedString>
 
 #include <qpainter.h>
 #include <qtextedit.h>

@@ -11,7 +11,7 @@
 #include "micropackage.h"
 #include "picinfo16bit.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 // #include <k3staticdeleter.h>
 
 #include <QGlobalStatic>

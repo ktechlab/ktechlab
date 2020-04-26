@@ -10,7 +10,7 @@
 #ifndef ITEMLIBRARY_H
 #define ITEMLIBRARY_H
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <qcolor.h>
 #include <qobject.h>

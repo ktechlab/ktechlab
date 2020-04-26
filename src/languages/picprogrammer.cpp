@@ -12,15 +12,15 @@
 #include "picprogrammer.h"
 #include "logview.h"
 
-#include <ksharedconfig.h>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <kshell.h>
+#include <KSharedConfig>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KShell>
+#include <KProcess>
 
 #include <qapplication.h>
 #include <qdebug.h>
 #include <qfile.h>
-#include <kprocess.h>
 #include <qregexp.h>
 #include <qtextstream.h>
 #include <qdatetime.h>

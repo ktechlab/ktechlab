@@ -13,8 +13,8 @@
 #include "logview.h"
 
 #include <qdebug.h>
-#include <kprocess.h>
-#include <kshell.h>
+#include <KProcess>
+#include <KShell>
 
 #include <qregexp.h>
 #include <qtimer.h>

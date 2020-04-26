@@ -14,9 +14,9 @@
 #include "microinfo.h"
 #include "microlibrary.h"
 
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <kprocess.h>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KProcess>
 #include <qdebug.h>
 
 #include <qfile.h>

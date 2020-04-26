@@ -21,14 +21,13 @@
 #include "pinmapping.h"
 #include "subcircuits.h"
 
-#include <qapplication.h>
-#include <kconfig.h>
 #include <KConfigGroup>
 #include <KSharedConfig>
 #include <qlocale.h>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
+#include <KLocalizedString>
+#include <KMessageBox>
 
+#include <qapplication.h>
 #include <qbitmap.h>
 #include "qdebug.h"
 #include <qdir.h>

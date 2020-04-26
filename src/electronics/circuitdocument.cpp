@@ -26,9 +26,9 @@
 #include "switch.h"
 
 #include <qdebug.h>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <kactionmenu.h>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KActionMenu>
 #include <KToggleAction>
 
 #include <QInputDialog>

@@ -23,12 +23,12 @@
 #include "utils.h"
 
 //#include <kaccel.h>
-#include <kstandardaction.h>
+#include <KStandardAction>
 #include <qdebug.h>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 // #include <k3popupmenu.h>
-#include <ktoolbarpopupaction.h>
-#include <kactioncollection.h>
+#include <KToolBarPopupAction>
+#include <KActionCollection>
 
 #include <qapplication.h>
 #include <qboxlayout.h>

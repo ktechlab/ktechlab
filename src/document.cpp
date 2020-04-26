@@ -16,8 +16,8 @@
 #include "view.h"
 #include "viewcontainer.h"
 
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
+#include <KLocalizedString>
+#include <KMessageBox>
 
 #include <QTabWidget>
 #include <QFileDialog>

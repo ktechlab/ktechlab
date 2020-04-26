@@ -19,7 +19,7 @@
 #include "simulator.h"
 
 #include <cmath>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <qpainter.h>
 
 

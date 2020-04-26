@@ -12,9 +12,9 @@
 #include "languagemanager.h"
 #include "logview.h"
 
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <kprocess.h>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KProcess>
 
 Gplib::Gplib( ProcessChain *processChain )
 	: ExternalLanguage( processChain, "Gpasm" )

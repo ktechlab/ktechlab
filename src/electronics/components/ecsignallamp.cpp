@@ -14,7 +14,7 @@
 #include "libraryitem.h"
 #include "pin.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <qpainter.h>
 #include <cmath>
 

@@ -15,7 +15,7 @@
 
 #include <qdebug.h>
 //#include <klistbox.h>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <qcursor.h>
 //#include <q3hbox.h>

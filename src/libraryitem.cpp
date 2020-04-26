@@ -10,7 +10,7 @@
 
 #include "libraryitem.h"
 
-#include <kiconloader.h>
+#include <KIconLoader>
 
 #include <qimage.h>
 #include <QStandardPaths>

@@ -19,8 +19,8 @@
 #include "outputflownode.h"
 #include "pinmapping.h"
 
-#include <klocalizedstring.h>
-// #include <kmessagebox.h>
+#include <KLocalizedString>
+// #include <KMessageBox>
 #include <qfile.h>
 #include <qtextstream.h>
 

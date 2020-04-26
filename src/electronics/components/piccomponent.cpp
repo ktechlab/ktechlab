@@ -27,8 +27,8 @@
 
 #include <qdebug.h>
 #include <qicon.h>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
+#include <KLocalizedString>
+#include <KMessageBox>
 #include <qpointer.h>
 #include <qstringlist.h>
 

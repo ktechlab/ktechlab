@@ -19,9 +19,8 @@
 // #include <q3ptrlist.h>
 
 //#include <kate/document.h>
-#include <kparts/readwritepart.h>
-#include <ktexteditor/document.h>
-#include <ktexteditor/markinterface.h>
+#include <KTextEditor/Document>
+#include <KTextEditor/MarkInterface>
 
 class GpsimDebugger;
 class SourceLine;

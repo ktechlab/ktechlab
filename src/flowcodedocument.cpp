@@ -26,7 +26,7 @@
 #include "textdocument.h"
 
 #include <qdebug.h>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 FlowCodeDocument::FlowCodeDocument( const QString &caption, const char *name )
 	: FlowICNDocument( caption, name )

@@ -15,11 +15,11 @@
 #include "symbolviewer.h"
 #include "katemdi.h"
 
-#include <kcombobox.h>
-#include <kconfig.h>
+#include <KComboBox>
 #include <qdebug.h>
-#include <klocalizedstring.h>
-#include <kconfiggroup.h>
+#include <KLocalizedString>
+#include <KConfigGroup>
+#include <KConfig>
 
 #include <qlabel.h>
 #include <qlayout.h>

@@ -9,7 +9,7 @@
  ***************************************************************************/
 
 #define protected public
-#include <kxmlguiclient.h>
+#include <KXMLGUIClient>
 #undef protected
 
 #include "asmformatter.h"
@@ -25,15 +25,15 @@
 #include "ktlfindqobjectchild.h"
 
 //#include <ktexteditor/editinterface.h> // ?
-#include <ktexteditor/texthintinterface.h>
+#include <KTextEditor/TextHintInterface>
 
 // #include "kateview.h"
 #include <qdebug.h>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <KActionCollection>
 // #include <k3popupmenu.h>
-#include <ktoolbarpopupaction.h>
-#include <kxmlguifactory.h>
+#include <KToolBarPopupAction>
+#include <KXMLGUIFactory>
 #include <qactiongroup.h>
 
 #include <qapplication.h>

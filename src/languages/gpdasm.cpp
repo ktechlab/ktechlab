@@ -13,9 +13,9 @@
 #include "logview.h"
 #include "languagemanager.h"
 
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <kprocess.h>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KProcess>
 
 #include <qfile.h>
 #include <qregexp.h>

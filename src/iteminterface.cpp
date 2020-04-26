@@ -21,11 +21,11 @@
 #include "ktechlab.h"
 #include "lineedit.h"
 
-#include <kcombobox.h>
+#include <KComboBox>
 #include <qdebug.h>
-#include <kurlrequester.h>
-#include <ktoolbar.h>
-#include <kxmlguifactory.h>
+#include <KUrlRequester>
+#include <KToolBar>
+#include <KXMLGUIFactory>
 
 #include <qapplication.h>
 #include <qlabel.h>

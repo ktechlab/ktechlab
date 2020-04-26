@@ -12,7 +12,7 @@
 
 #include <qdebug.h>
 #include <katemdi.h>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 // #include <q3popupmenu.h>
 #include <qmenu.h>

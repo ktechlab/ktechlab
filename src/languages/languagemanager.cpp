@@ -22,7 +22,7 @@
 #include "gpdasm.h"
 
 // #include <k3dockwidget.h>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <cassert>
 

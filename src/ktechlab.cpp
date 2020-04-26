@@ -9,7 +9,7 @@
  ***************************************************************************/
 
 #define protected public
-#include <kxmlguiclient.h>
+#include <KXMLGUIClient>
 #undef protected
 
 #include "circuitdocument.h"
@@ -51,23 +51,22 @@
 #include <QStandardPaths>
 #include <QMimeData>
 
-#include <ktoolbar.h>
-#include <kactioncollection.h>
-#include <kedittoolbar.h>
-#include <ksharedconfig.h>
+#include <KToolBar>
+#include <KActionCollection>
+#include <KEditToolBar>
+#include <KSharedConfig>
 
-#include <kiconloader.h>
+#include <KIconLoader>
 //#include <kkeydialog.h>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
+#include <KLocalizedString>
+#include <KMessageBox>
 //#include <kpopupmenu.h>
 //#include <kwin.h>
-#include <kxmlguifactory.h>
-#include <kstandardaction.h>
-#include <ktoolbarpopupaction.h>
-
-#include <kwindowsystem.h>
-#include <kshortcutsdialog.h>
+#include <KXMLGUIFactory>
+#include <KStandardAction>
+#include <KToolBarPopupAction>
+#include <KWindowSystem>
+#include <KShortcutsDialog>
 
 #include <ktlconfig.h>
 

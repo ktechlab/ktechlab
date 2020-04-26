@@ -17,9 +17,8 @@
 
 #include <cmath>
 
-#include <kconfig.h>
 #include <qdebug.h>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 // #include <q3button.h>
 #include <qlabel.h>

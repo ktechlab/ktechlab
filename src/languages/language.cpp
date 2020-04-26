@@ -19,8 +19,8 @@
 
 #include <qdebug.h>
 //#include <kio/netaccess.h>
-#include <kmessagebox.h>
-#include <kprocess.h>
+#include <KMessageBox>
+#include <KProcess>
 
 #include <qregexp.h>
 #include <qtimer.h>

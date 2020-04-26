@@ -13,10 +13,9 @@
 #include "icnview.h"
 #include "ktechlab.h"
 
-#include <kconfig.h>
-#include <klocalizedstring.h>
-#include <ktoolbarpopupaction.h>
-#include <kactioncollection.h>
+#include <KLocalizedString>
+#include <KToolBarPopupAction>
+#include <KActionCollection>
 
 #include <qaction.h>
 #include <qactiongroup.h>

@@ -24,8 +24,8 @@
 #include <qdebug.h>
 #include <KIO/FileCopyJob>
 #include <KJobWidgets>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
+#include <KLocalizedString>
+#include <KMessageBox>
 #include <QTemporaryFile>
 #include <QScopedPointer>
 #include <qbitarray.h>

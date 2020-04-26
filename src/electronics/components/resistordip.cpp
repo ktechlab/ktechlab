@@ -13,7 +13,7 @@
 #include "resistance.h"
 #include "resistordip.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <qpainter.h>
 
 Item* ResistorDIP::construct( ItemDocument *itemDocument, bool newItem, const char *id )

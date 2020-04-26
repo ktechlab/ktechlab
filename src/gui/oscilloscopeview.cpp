@@ -14,10 +14,9 @@
 #include "probepositioner.h"
 #include "simulator.h"
 
-#include <kconfig.h>
-#include <kconfiggroup.h>
-#include <klocalizedstring.h>
-#include <ksharedconfig.h>
+#include <KConfigGroup>
+#include <KLocalizedString>
+#include <KSharedConfig>
 // #include <k3popupmenu.h>
 
 #include <qcheckbox.h>

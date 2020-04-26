@@ -14,7 +14,7 @@
 #include "viewcontainer.h"
 #include "document.h"
 
-#include <kxmlguiclient.h>
+#include <KXMLGUIClient>
 
 #include <QStatusBar>
 #include <QUrl>

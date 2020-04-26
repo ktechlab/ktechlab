@@ -16,11 +16,11 @@
 #include "pinmapping.h"
 #include "inputdialog.h"
 
-#include <kcombobox.h>
+#include <KComboBox>
 #include <qdebug.h>
-#include <klineedit.h>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
+#include <KLineEdit>
+#include <KLocalizedString>
+#include <KMessageBox>
 
 #include <qgroupbox.h>
 #include <qlabel.h>

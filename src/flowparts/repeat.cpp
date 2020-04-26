@@ -13,7 +13,7 @@
 #include "libraryitem.h"
 #include "flowcode.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 Item* Repeat::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {

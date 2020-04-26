@@ -13,7 +13,7 @@
 #include "ecnode.h"
 #include "libraryitem.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <qpainter.h>
 
 Item * ECBJT::constructNPN( ItemDocument * itemDocument, bool newItem, const char * id )

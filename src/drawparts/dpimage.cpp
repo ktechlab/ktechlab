@@ -14,8 +14,8 @@
 #include "resizeoverlay.h"
 
 #include <qdebug.h>
-#include <kiconloader.h>
-#include <klocalizedstring.h>
+#include <KIconLoader>
+#include <KLocalizedString>
 
 #include <qpainter.h>
 #include <qtimer.h>

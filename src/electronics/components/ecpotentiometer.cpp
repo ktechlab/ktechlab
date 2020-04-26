@@ -14,7 +14,7 @@
 #include "libraryitem.h"
 #include "resistance.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <qpainter.h>
 #include <qstyle.h>
 

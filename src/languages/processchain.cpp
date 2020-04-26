@@ -29,7 +29,7 @@
 #include "sdcc.h"
 
 #include <qdebug.h>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <qfile.h>
 #include <qtimer.h>
 #include <QTemporaryFile>

@@ -20,9 +20,9 @@
 #include "textview.h"
 #include "viewcontainer.h"
 
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <kxmlguifactory.h>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KXMLGUIFactory>
 
 #include <QTabWidget>
 #include <QAction>

@@ -19,8 +19,8 @@
 #include "pinmapping.h"
 #include "viewcontainer.h"
 
-#include <klocalizedstring.h>
-#include <kstandardshortcut.h>
+#include <KLocalizedString>
+#include <KStandardShortcut>
 
 #include <qapplication.h>
 #include <qdebug.h>

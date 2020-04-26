@@ -13,7 +13,7 @@
 #include "property.h"
 #include "propertyeditorcolor.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <qdebug.h>
 
 #include <qlabel.h>

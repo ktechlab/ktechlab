@@ -12,7 +12,7 @@
 #include "doublespinbox.h"
 
 #include <qdebug.h>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <QLocale>
 #include <qlineedit.h>

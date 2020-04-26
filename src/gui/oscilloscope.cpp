@@ -17,11 +17,10 @@
 #include "ktechlab.h"
 
 #include <cmath>
-#include <kconfig.h>
-#include <kconfiggroup.h>
-#include <ksharedconfig.h>
-#include <kiconloader.h>
-#include <klocalizedstring.h>
+#include <KConfigGroup>
+#include <KSharedConfig>
+#include <KIconLoader>
+#include <KLocalizedString>
 
 
 // #include <q3button.h>

@@ -13,7 +13,6 @@
 #include "logtofilemsghandler.h"
 
 //#include <dcopclient.h>
-#include <kconfig.h>
 #include <config.h>
 
 #include <KAboutData>

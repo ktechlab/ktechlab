@@ -14,7 +14,7 @@
 #include "variant.h"
 
 #include <cmath>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 Item* RAM::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {

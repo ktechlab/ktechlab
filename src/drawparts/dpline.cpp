@@ -15,8 +15,8 @@
 
 #include <cmath>
 #include <cstdlib> 
-#include <kiconloader.h>
-#include <klocalizedstring.h>
+#include <KIconLoader>
+#include <KLocalizedString>
 #include <qpainter.h>
 
 

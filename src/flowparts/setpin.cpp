@@ -16,7 +16,7 @@
 #include "flowcodedocument.h"
 #include "microsettings.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 Item* SetPin::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {

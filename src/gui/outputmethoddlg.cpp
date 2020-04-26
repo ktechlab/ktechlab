@@ -16,9 +16,8 @@
 #include "microselectwidget.h"
 #include "projectmanager.h"
 
-#include <kconfigskeleton.h>
 #include <qdebug.h>
-#include <kurlrequester.h>
+#include <KUrlRequester>
 
 #include <qcheckbox.h>
 #include <qfile.h>

@@ -16,8 +16,8 @@
 #include "property.h"
 
 
-#include <klineedit.h>
-#include <klocalizedstring.h>
+#include <KLineEdit>
+#include <KLocalizedString>
 #include <qdebug.h>
 
 //#include <qiconset.h>

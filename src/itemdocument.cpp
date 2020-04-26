@@ -28,12 +28,12 @@
 #include "imageexportdlg.h"
 
 #include <qdebug.h>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
+#include <KLocalizedString>
+#include <KMessageBox>
 // #include <k3popupmenu.h>
 //#include <kprinter.h>
-#include <kactionmenu.h>
-#include <kxmlguifactory.h>
+#include <KActionMenu>
+#include <KXMLGUIFactory>
 
 #include <qapplication.h>
 #include <qcheckbox.h>

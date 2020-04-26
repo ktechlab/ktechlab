@@ -13,7 +13,7 @@
 
 #include <itemview.h>
 #include <icndocument.h>
-#include <ktoolbarpopupaction.h>
+#include <KToolBarPopupAction>
 
 /**
 @author David Saxton

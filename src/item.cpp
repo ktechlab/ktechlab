@@ -15,8 +15,8 @@
 
 #include <cmath>
 #include <qdebug.h>
-#include <ktextedit.h>
-#include <kstandardguiitem.h>
+#include <KTextEdit>
+#include <KStandardGuiItem>
 
 #include <qbitarray.h>
 #include <qtimer.h>

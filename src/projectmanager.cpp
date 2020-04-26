@@ -22,9 +22,9 @@
 #include <qdebug.h>
 #include <KIO/FileCopyJob>
 #include <KJobWidgets>
-#include <klocalizedstring.h>
-#include <kmessagebox.h> 
-#include <kxmlguifactory.h>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KXMLGUIFactory>
 
 #include <QFileDialog>
 #include <qdom.h>

@@ -14,14 +14,13 @@
 #ifndef SYMBOLVIEWER_H
 #define SYMBOLVIEWER_H
 
-#include <kconfig.h>
-
 #include <qtablewidget.h>
 #include <qpointer.h>
 
 #include <gpsimprocessor.h>
 
 class KComboBox;
+class KConfig;
 class SymbolViewer;
 
 namespace KateMDI { class ToolView; }

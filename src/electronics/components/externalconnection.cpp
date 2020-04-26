@@ -11,7 +11,7 @@
 #include "externalconnection.h"
 #include "libraryitem.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <qpainter.h>
 
 Item* ExternalConnection::construct( ItemDocument *itemDocument, bool newItem, const char *id )

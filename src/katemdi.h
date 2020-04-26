@@ -21,9 +21,9 @@
 #ifndef __KATE_MDI_H__
 #define __KATE_MDI_H__
 
-#include <kparts/mainwindow.h>
+#include <KParts/MainWindow>
 
-#include <kmultitabbar.h>
+#include <KMultiTabBar>
 
 // #include <q3dict.h>
 // #include <q3intdict.h>

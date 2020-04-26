@@ -9,14 +9,14 @@
 
 #include "richtexteditor.h"
 
-#include <ktoolbarpopupaction.h>
-#include <ktoggleaction.h>
+#include <KToolBarPopupAction>
+#include <KToggleAction>
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 // #include <k3popupmenu.h>
-#include <ktextedit.h>
-#include <ktoolbar.h>
-#include <kactioncollection.h>
+#include <KTextEdit>
+#include <KToolBar>
+#include <KActionCollection>
 
 #include <qtextedit.h>
 #include <qdebug.h>

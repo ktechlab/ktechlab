@@ -14,7 +14,7 @@
 #include "ecnode.h"
 #include "libraryitem.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <qpainter.h>
 #include <qstyle.h>
 #include <qdebug.h>

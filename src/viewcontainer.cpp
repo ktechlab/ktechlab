@@ -14,11 +14,10 @@
 #include "view.h"
 #include "viewcontainer.h"
 
-#include <kconfig.h>
 #include <qdebug.h>
 #include <qboxlayout.h>
-#include <klocalizedstring.h>
-#include <kconfiggroup.h>
+#include <KLocalizedString>
+#include <KConfigGroup>
 
 #include <QTabWidget>
 #include <QPushButton>

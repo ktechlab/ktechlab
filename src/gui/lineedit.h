@@ -10,7 +10,7 @@
 #ifndef LINEEDIT_H
 #define LINEEDIT_H
 
-#include <klineedit.h>
+#include <KLineEdit>
 
 /**
 Workaround bug in QLineEdit - actually check to see if the text we have is the

@@ -28,10 +28,9 @@
 #include <cmath>
 #include <cstdlib>
 
-#include <kconfig.h>
 #include <qdebug.h>
-#include <kconfiggroup.h>
-#include <ksharedconfig.h>
+#include <KConfigGroup>
+#include <KSharedConfig>
 
 #include <qcursor.h>
 #include <qpainter.h>

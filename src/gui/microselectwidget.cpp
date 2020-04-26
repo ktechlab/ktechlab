@@ -13,8 +13,8 @@
 #include "microlibrary.h"
 #include "microselectwidget.h"
 
-#include <kcombobox.h>
-#include <klocalizedstring.h>
+#include <KComboBox>
+#include <KLocalizedString>
 
 // #include <q3groupbox.h>
 #include <qlabel.h>

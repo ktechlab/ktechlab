@@ -22,8 +22,8 @@
 
 #include "drawparts/drawpart.h"
 
-#include <klocalizedstring.h>
-#include <kiconloader.h>
+#include <KLocalizedString>
+#include <KIconLoader>
 
 #include <qpushbutton.h>
 #include <qapplication.h>

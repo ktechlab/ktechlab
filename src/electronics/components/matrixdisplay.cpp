@@ -17,7 +17,7 @@
 #include "simulator.h"
 
 #include <qdebug.h>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <qpainter.h>
 #include <qstring.h>
 

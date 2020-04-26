@@ -15,7 +15,7 @@
 #include "libraryitem.h"
 #include "simulator.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <qpainter.h>
 
 

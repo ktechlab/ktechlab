@@ -22,7 +22,7 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 
 class ProgrammerWidget : public QWidget, public Ui::ProgrammerWidget {
