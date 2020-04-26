@@ -11,8 +11,8 @@
 #ifndef ITEMINTERFACE_H
 #define ITEMINTERFACE_H
 
-#include <qpointer.h>
-#include <qmap.h>
+#include <QPointer>
+#include <QMap>
 
 #include "itemgroup.h"
 

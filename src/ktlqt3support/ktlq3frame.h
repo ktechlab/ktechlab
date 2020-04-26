@@ -42,7 +42,7 @@
 #ifndef KTL_Q3FRAME_H
 #define KTL_Q3FRAME_H
 
-#include <qframe.h>
+#include <QFrame>
 
 // QT_BEGIN_HEADER
 

@@ -24,11 +24,11 @@
 #include <KConfigGroup>
 
 // #include <q3dragobject.h>
-#include <qdebug.h>
-#include <qlayout.h>
+#include <QDebug>
 // #include <q3popupmenu.h>
-#include <qmenu.h>
-#include <qmimedata.h>
+#include <QLayout>
+#include <QMenu>
+#include <QMimeData>
 
 #include <cassert>
 

@@ -17,11 +17,12 @@
 #include "picitem.h"
 #include "eventinfo.h"
 
-#include <qdebug.h>
 #include <KLocalizedString>
 
-#include <qicon.h>
-#include <qpainter.h>
+#include <QDebug>
+#include <QMouseEvent>
+#include <QIcon>
+#include <QPainter>
 
 static const int InnerWidth = 88;
 static const int SidePadding = 24;

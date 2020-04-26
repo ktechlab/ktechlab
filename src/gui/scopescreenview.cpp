@@ -15,9 +15,9 @@
 #include "simulator.h"
 #include "probepositioner.h"
 
-#include <qpainter.h>
-#include <qtimer.h>
-#include <qdebug.h>
+#include <QPainter>
+#include <QTimer>
+#include <QDebug>
 
 #include <cmath>
 #define FADESPEED 1

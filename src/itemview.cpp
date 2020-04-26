@@ -24,21 +24,20 @@
 
 //#include <kaccel.h>
 #include <KStandardAction>
-#include <qdebug.h>
 #include <KLocalizedString>
 // #include <k3popupmenu.h>
 #include <KToolBarPopupAction>
 #include <KActionCollection>
 
-#include <qapplication.h>
-#include <qboxlayout.h>
-#include <qcursor.h>
-#include <qtimer.h>
-#include <qmimedata.h>
-#include <qlist.h>
-
-#include <qmatrix.h>
-#include <qmimedata.h>
+#include <QMatrix>
+#include <QDebug>
+#include <QApplication>
+#include <QVBoxLayout>
+#include <QCursor>
+#include <QTimer>
+#include <QMimeData>
+#include <QMouseEvent>
+#include <QMimeData>
 #include <QMenu>
 
 #include <cmath>

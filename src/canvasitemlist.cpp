@@ -10,7 +10,7 @@
 #include "canvasitemlist.h"
 
 //#include <q3tl.h>
-#include <qalgorithms.h>
+#include <QtAlgorithms>
 
 void KtlQCanvasItemList::sort()
 {

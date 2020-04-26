@@ -18,10 +18,10 @@
 
 #include <KLocalizedString>
 
-#include <qlayout.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qdebug.h>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QPushButton>
+#include <QDebug>
 
 #include <cassert>
 

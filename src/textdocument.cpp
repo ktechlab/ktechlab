@@ -27,8 +27,8 @@
 #include "gpsimprocessor.h"
 
 // #include <kate/katedocument.h>
-#include <qaction.h>
-#include <qdebug.h>
+#include <QAction>
+#include <QDebug>
 #include <QTemporaryFile>
 #include <QDir>
 

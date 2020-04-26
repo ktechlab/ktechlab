@@ -22,14 +22,14 @@
 #include "lineedit.h"
 
 #include <KComboBox>
-#include <qdebug.h>
 #include <KUrlRequester>
 #include <KToolBar>
 #include <KXMLGUIFactory>
 
-#include <qapplication.h>
-#include <qlabel.h>
-#include <qcheckbox.h>
+#include <QDebug>
+#include <QApplication>
+#include <QLabel>
+#include <QCheckBox>
 #include <QSpinBox>
 
 #include <cassert>

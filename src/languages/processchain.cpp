@@ -28,10 +28,11 @@
 #include "picprogrammer.h"
 #include "sdcc.h"
 
-#include <qdebug.h>
 #include <KLocalizedString>
-#include <qfile.h>
-#include <qtimer.h>
+
+#include <QDebug>
+#include <QFile>
+#include <QTimer>
 #include <QTemporaryFile>
 #include <QDir>
 

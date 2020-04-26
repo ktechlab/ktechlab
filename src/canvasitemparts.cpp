@@ -13,9 +13,9 @@
 #include "cnitem.h"
 #include "icndocument.h"
 
-#include <qevent.h>
-#include <qpainter.h>
-#include <qdebug.h>
+#include <QWheelEvent>
+#include <QPainter>
+#include <QDebug>
 
 
 //BEGIN Class GuiPart

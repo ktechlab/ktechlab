@@ -25,12 +25,13 @@
 #include "piccomponentpin.h"
 #include "projectmanager.h"
 
-#include <qdebug.h>
-#include <qicon.h>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <qpointer.h>
-#include <qstringlist.h>
+
+#include <QDebug>
+#include <QIcon>
+#include <QPointer>
+#include <QStringList>
 
 #include "gpsim/ioports.h"
 #include "gpsim/pic-processor.h"

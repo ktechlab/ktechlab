@@ -14,7 +14,7 @@
 #include "view.h"
 
 #include <QUrl>
-#include <qpointer.h>
+#include <QPointer>
 
 class CircuitDocument;
 class DocManager;

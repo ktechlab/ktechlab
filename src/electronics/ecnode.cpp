@@ -15,8 +15,8 @@
 #include "electronicconnector.h"
 #include "pin.h"
 
-#include <qdebug.h>
-#include <qpainter.h>
+#include <QDebug>
+#include <QPainter>
 
 #include <ktlconfig.h>
 

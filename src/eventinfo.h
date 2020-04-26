@@ -11,7 +11,7 @@
 #ifndef EVENTINFO_H
 #define EVENTINFO_H
 
-#include <qpoint.h>
+#include <QPoint>
 
 class ItemView;
 

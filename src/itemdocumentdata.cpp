@@ -21,15 +21,16 @@
 #include "picitem.h"
 #include "pinmapping.h"
 
-#include <qdebug.h>
 #include <KIO/FileCopyJob>
 #include <KJobWidgets>
 #include <KLocalizedString>
 #include <KMessageBox>
+
+#include <QDebug>
 #include <QTemporaryFile>
 #include <QScopedPointer>
-#include <qbitarray.h>
-#include <qfile.h>
+#include <QBitArray>
+#include <QFile>
 
 
 // Converts the QBitArray into a string (e.g. "F289A9E") that can be stored in an xml file

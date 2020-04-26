@@ -17,17 +17,18 @@
 #include "projectmanager.h"
 #include "textdocument.h"
 
-#include <qdebug.h>
+#include <canvas.h>
+
 #include <KLineEdit>
 // #include <k3iconview.h>
 #include <KLocalizedString>
 #include <KIconLoader>
 
-#include <canvas.h>
-#include <qcheckbox.h>
-#include <qdir.h>
-#include <qfile.h>
-#include <qlabel.h>
+#include <QDebug>
+#include <QCheckBox>
+#include <QDir>
+#include <QFile>
+#include <QLabel>
 #include <QDialogButtonBox>
 #include <QPushButton>
 #include <QVBoxLayout>

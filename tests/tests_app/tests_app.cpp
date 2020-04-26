@@ -28,9 +28,9 @@
 #include <KAboutData>
 #include <KLocalizedString>
 
-#include <qdebug.h>
-#include <qtest.h>
-#include <qtemporaryfile.h>
+#include <QDebug>
+#include <QTest>
+#include <QTemporaryFile>
 #include <QApplication>
 #include <QCommandLineParser>
 

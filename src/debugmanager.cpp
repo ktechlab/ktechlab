@@ -16,7 +16,7 @@
 #include "gpsimprocessor.h"
 #include "textdocument.h"
 
-#include <qdebug.h>
+#include <QDebug>
 // #include <k3staticdeleter.h>
 #include <QGlobalStatic>
 

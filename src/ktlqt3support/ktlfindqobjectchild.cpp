@@ -10,7 +10,7 @@
 
 #include "ktlfindqobjectchild.h"
 
-#include <qobject.h>
+#include <QObject>
 
 #include <string.h>
 

@@ -13,7 +13,7 @@
 
 #include <cassert>
 
-#include <qdebug.h>
+#include <QDebug>
 
 //BEGIN class Element
 Element::Element()

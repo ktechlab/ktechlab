@@ -14,12 +14,12 @@
 #include "richtexteditor.h"
 
 #include <cmath>
-#include <qdebug.h>
 #include <KTextEdit>
 #include <KStandardGuiItem>
 
-#include <qbitarray.h>
-#include <qtimer.h>
+#include <QDebug>
+#include <QBitArray>
+#include <QTimer>
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QPushButton>

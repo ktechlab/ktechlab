@@ -18,15 +18,15 @@
 #include <KToolBar>
 #include <KActionCollection>
 
-#include <qtextedit.h>
-#include <qdebug.h>
-#include <qfont.h>
-#include <qicon.h>
+#include <QTextEdit>
+#include <QDebug>
+#include <QFont>
+#include <QIcon>
 //#include <qmime.h>
-#include <qtextlist.h>
-#include <qtextformat.h>
-#include <qregexp.h>
-#include <qdir.h>
+#include <QTextList>
+#include <QTextListFormat>
+#include <QRegExp>
+#include <QDir>
 #include <QMenu>
 #include <QColorDialog>
 #include <QDialogButtonBox>

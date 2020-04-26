@@ -16,10 +16,10 @@
 
 #include "sourceline.h"
 
-#include <qmap.h>
+#include <QMap>
 // #include <q3valuevector.h>
-#include <qobject.h>
-#include <qlist.h>
+#include <QObject>
+#include <QList>
 #include <QVector>
 
 class DebugLine;

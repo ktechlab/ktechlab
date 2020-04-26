@@ -14,7 +14,7 @@
 
 #include "flowconnector.h"
 
-#include <qlist.h>
+#include <QList>
 
 class Connector;
 class FlowConnector;

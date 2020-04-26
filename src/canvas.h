@@ -13,11 +13,11 @@
 #include <map>
 
 #include "ktlqt3support/ktlq3scrollview.h"
-#include "qpixmap.h"
+#include <QPixmap>
 // #include "q3ptrlist.h"
-#include "qbrush.h"
-#include "qpen.h"
-#include "qlist.h"
+#include <QBrush>
+#include <QPen>
+#include <QList>
 // #include "q3pointarray.h" // 2018.08.14
 
 #include "canvasitemlist.h"

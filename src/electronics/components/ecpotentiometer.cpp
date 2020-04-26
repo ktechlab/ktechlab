@@ -15,8 +15,8 @@
 #include "resistance.h"
 
 #include <KLocalizedString>
-#include <qpainter.h>
-#include <qstyle.h>
+#include <QPainter>
+#include <QStyle>
 
 Item* ECPotentiometer::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {

@@ -26,8 +26,8 @@
 #include "instruction.h"
 #include "optimizer.h"
 #include "pic14.h"
-#include <qdebug.h>
-#include <qstringlist.h>
+#include <QDebug>
+#include <QStringList>
 #include <cassert>
 #include <iostream>
 using namespace std;

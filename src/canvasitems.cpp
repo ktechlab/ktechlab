@@ -11,12 +11,12 @@
 #include "canvas.h"
 #include "canvas_private.h"
 
-#include <qdebug.h>
-#include <qpolygon.h>
-#include <qpainter.h>
-#include <qrect.h>
-#include <qpen.h>
-#include <qbrush.h>
+#include <QDebug>
+#include <QPolygon>
+#include <QPainter>
+#include <QRect>
+#include <QPen>
+#include <QBrush>
 
 
 static bool isCanvasDebugEnabled() {

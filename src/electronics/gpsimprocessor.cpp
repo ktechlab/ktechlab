@@ -23,14 +23,15 @@
 
 #include <cassert>
 
-#include <qdebug.h>
 #include <KLocalizedString>
 #include <KMessageBox>
+
+#include <QDebug>
 #include <QTemporaryFile>
 #include <QDir>
-#include <qfile.h>
-#include <qtextstream.h>
-#include <qtimer.h>
+#include <QFile>
+#include <QTextStream>
+#include <QTimer>
 
 #include "gpsim/cod.h"
 #include "gpsim/interface.h"

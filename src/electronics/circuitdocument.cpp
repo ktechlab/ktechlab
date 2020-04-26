@@ -25,15 +25,15 @@
 #include "subcircuits.h"
 #include "switch.h"
 
-#include <qdebug.h>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KActionMenu>
 #include <KToggleAction>
 
+#include <QDebug>
 #include <QInputDialog>
-#include <qregexp.h>
-#include <qtimer.h>
+#include <QRegExp>
+#include <QTimer>
 
 #include <ktlconfig.h>
 

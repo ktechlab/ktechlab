@@ -11,7 +11,7 @@
 #include "pin.h"
 #include "wire.h"
 #include <cassert>
-#include <qdebug.h>
+#include <QDebug>
 
 Wire::Wire( Pin *startPin, Pin *endPin )
 {

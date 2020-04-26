@@ -17,9 +17,9 @@
 #include <KToolBarPopupAction>
 #include <KActionCollection>
 
-#include <qaction.h>
-#include <qactiongroup.h>
-#include <qmenu.h>
+#include <QAction>
+#include <QActionGroup>
+#include <QMenu>
 
 ICNView::ICNView( ICNDocument *icnDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name )
 	: ItemView( icnDocument, viewContainer, viewAreaId, name )

@@ -12,11 +12,11 @@
 #include "config.h"
 #include "gpsimprocessor.h"
 
-#include <qdebug.h>
 
-#include <qfile.h>
-#include <qregexp.h>
-#include <qstringlist.h>
+#include <QDebug>
+#include <QFile>
+#include <QRegExp>
+#include <QStringList>
 
 AsmParser::AsmParser( const QString &url )
 	: m_url(url)

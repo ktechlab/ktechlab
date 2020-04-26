@@ -14,9 +14,9 @@
 #include "switch.h"
 
 #include <KLocalizedString>
-#include <qpainter.h>
-#include <qpixmap.h>
-#include <qpoint.h>
+#include <QPainter>
+#include <QPixmap>
+#include <QPoint>
 //#include <q3pointarray.h>
 
 //BEGIN class ECPTBSwitch

@@ -17,15 +17,15 @@
 
 #include <cmath>
 
-#include <qdebug.h>
 #include <KLocalizedString>
 
+#include <QDebug>
 // #include <q3button.h>
-#include <qlabel.h>
-#include <qscrollbar.h>
-#include <qslider.h>
-#include <qtimer.h>
-#include <qtoolbutton.h>
+#include <QLabel>
+#include <QScrollBar>
+#include <QSlider>
+#include <QTimer>
+#include <QToolButton>
 
 #include <cassert>
 

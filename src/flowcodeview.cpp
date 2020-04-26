@@ -19,7 +19,8 @@
 
 #include <QIcon>
 #include <QMenu>
-#include <qmimedata.h>
+#include <QDragEnterEvent>
+#include <QMimeData>
 
 FlowCodeView::FlowCodeView( FlowCodeDocument * flowCodeDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name )
 	: ICNView( flowCodeDocument, viewContainer, viewAreaId, name )

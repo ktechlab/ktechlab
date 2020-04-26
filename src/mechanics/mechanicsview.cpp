@@ -12,7 +12,8 @@
 #include "mechanicsview.h"
 #include "viewiface.h"
 
-#include <qmimedata.h>
+#include <QDragEnterEvent>
+#include <QMimeData>
 
 MechanicsView::MechanicsView( MechanicsDocument *mechanicsDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name )
 	: ItemView( mechanicsDocument, viewContainer, viewAreaId, name )

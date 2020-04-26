@@ -17,10 +17,10 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KProcess>
-#include <qdebug.h>
 
-#include <qfile.h>
-#include <qdir.h>
+#include <QDebug>
+#include <QFile>
+#include <QDir>
 
 #include <ktlconfig.h>
 

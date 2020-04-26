@@ -19,17 +19,18 @@
 #include "projectmanager.h"
 #include "recentfilesaction.h"
 
-#include <qdebug.h>
 #include <KIO/FileCopyJob>
 #include <KJobWidgets>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KXMLGUIFactory>
 
+#include <QDebug>
 #include <QFileDialog>
-#include <qdom.h>
+#include <QDomDocument>
+#include <QDomElement>
 // #include <q3popupmenu.h>
-#include <qmenu.h>
+#include <QMenu>
 #include <QStandardPaths>
 #include <QMimeDatabase>
 #include <QMimeType>

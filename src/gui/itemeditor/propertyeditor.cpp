@@ -25,16 +25,15 @@
 #include <KLocalizedString>
 #include <KIconLoader>
 
-#include <qpushbutton.h>
-#include <qapplication.h>
-#include <qdebug.h>
-#include <qevent.h>
-#include <qeventloop.h>
-#include <qfontmetrics.h>
-#include <qheaderview.h>
-#include <qicon.h>
-#include <qtimer.h>
-#include <qstyleditemdelegate.h>
+#include <QPushButton>
+#include <QApplication>
+#include <QDebug>
+#include <QEvent>
+#include <QFontMetrics>
+#include <QHeaderView>
+#include <QIcon>
+#include <QTimer>
+#include <QStyledItemDelegate>
 
 
 struct PropertyEditorStyledItemColProperty : public QStyledItemDelegate {

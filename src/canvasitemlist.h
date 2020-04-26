@@ -10,7 +10,7 @@
 #ifndef KTL_CANVASITEMLIST_H_
 #define KTL_CANVASITEMLIST_H_
 
-#include <qlist.h>
+#include <QList>
 
 #include <map>
 

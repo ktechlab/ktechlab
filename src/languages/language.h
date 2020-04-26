@@ -11,8 +11,8 @@
 #ifndef LANGUAGE_H
 #define LANGUAGE_H
 
-#include <qobject.h>
-#include <qstringlist.h>
+#include <QObject>
+#include <QStringList>
 
 class FlowCodeDocument;
 class KTechlab;

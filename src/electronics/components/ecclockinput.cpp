@@ -15,9 +15,9 @@
 #include "simulator.h"
 
 #include <KLocalizedString>
-#include <qpainter.h>
+#include <QPainter>
 
-#include <qdebug.h>
+#include <QDebug>
 
 #include <cmath>
 

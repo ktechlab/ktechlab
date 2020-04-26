@@ -10,7 +10,7 @@
 
 #include "micropackage.h"
 
-#include <qdebug.h>
+#include <QDebug>
 
 PicPin::PicPin()
 {

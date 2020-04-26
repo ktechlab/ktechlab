@@ -13,7 +13,7 @@
 #include "pin.h"
 #include "component.h"
 
-#include <qpainter.h>
+#include <QPainter>
 
 
 JunctionNode::JunctionNode(ICNDocument* icnDocument, int dir, const QPoint& pos, QString* id): 

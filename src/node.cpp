@@ -14,9 +14,8 @@
 #include "itemdocumentdata.h"
 #include "node.h"
 
-#include <qdebug.h>
-
-#include <qpainter.h>
+#include <QDebug>
+#include <QPainter>
 
 QColor Node::m_selectedColor = QColor( 101, 134, 192 );
 

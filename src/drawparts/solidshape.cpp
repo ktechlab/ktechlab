@@ -15,7 +15,7 @@
 #include <cmath>
 #include <KIconLoader>
 #include <KLocalizedString>
-#include <qpainter.h>
+#include <QPainter>
 
 
 //BEGIN class DPRectangle

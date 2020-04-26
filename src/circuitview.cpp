@@ -19,10 +19,11 @@
 #include <KActionCollection>
 #include <KLocalizedString>
 
-#include <qaction.h>
-#include <qactiongroup.h>
-#include <qdebug.h>
-#include <qmimedata.h>
+#include <QAction>
+#include <QActionGroup>
+#include <QDebug>
+#include <QDragEnterEvent>
+#include <QMimeData>
 
 CircuitView::CircuitView( CircuitDocument * circuitDocument, ViewContainer *viewContainer, uint viewAreaId, const char *name )
 	: ICNView( circuitDocument, viewContainer, viewAreaId, name ),

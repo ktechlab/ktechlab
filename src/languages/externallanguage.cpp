@@ -12,12 +12,12 @@
 #include "languagemanager.h"
 #include "logview.h"
 
-#include <qdebug.h>
 #include <KProcess>
 #include <KShell>
 
-#include <qregexp.h>
-#include <qtimer.h>
+#include <QDebug>
+#include <QRegExp>
+#include <QTimer>
 
 ExternalLanguage::ExternalLanguage( ProcessChain *processChain, const QString &name )
  : Language( processChain, name )

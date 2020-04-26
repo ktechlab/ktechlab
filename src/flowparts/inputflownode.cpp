@@ -13,8 +13,8 @@
 #include "flowconnector.h"
 #include "flowpart.h"
 
-#include <qdebug.h>
-#include <qpainter.h>
+#include <QDebug>
+#include <QPainter>
 
 InputFlowNode::InputFlowNode(ICNDocument *icnDocument, int dir, const QPoint &pos, QString *id)
  : FPNode(icnDocument, Node::fp_in, dir, pos, id)

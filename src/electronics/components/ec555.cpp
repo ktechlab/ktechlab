@@ -16,7 +16,7 @@
 #include "resistance.h"
 
 #include <KLocalizedString>
-#include <qpainter.h>
+#include <QPainter>
 
 Item* EC555::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {

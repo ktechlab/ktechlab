@@ -14,9 +14,9 @@
 #ifndef DEBUGMANAGER_H
 #define DEBUGMANAGER_H
 
-#include <qpointer.h>
-#include <qmap.h>
-#include <qobject.h>
+#include <QPointer>
+#include <QMap>
+#include <QObject>
 
 class GpsimProcessor;
 class TextDocument;

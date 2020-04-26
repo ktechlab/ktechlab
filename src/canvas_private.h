@@ -13,8 +13,8 @@
 #ifndef CANVAS_PRIVATE_H
 #define CANVAS_PRIVATE_H
 
-#include "qbitmap.h"
-#include "qimage.h"
+#include <QBitmap>
+#include <QImage>
 #include "ktlq3polygonscanner.h"
 #include "canvasitems.h"
 

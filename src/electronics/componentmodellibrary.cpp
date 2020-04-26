@@ -9,9 +9,9 @@
 
 #include "componentmodellibrary.h"
 
-#include <qdebug.h>
-#include <qdatetime.h>
-#include <qfile.h>
+#include <QDebug>
+#include <QTime>
+#include <QFile>
 #include <QStandardPaths>
 
 #include <cassert>

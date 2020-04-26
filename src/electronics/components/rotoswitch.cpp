@@ -16,11 +16,11 @@
 #include "switch.h"
 
 #include <KLocalizedString>
-#include <qpainter.h>
+#include <QPainter>
 #include <cmath>
 #include <cassert>
 
-#include <qdebug.h>
+#include <QDebug>
 
 //BEGIN class ECRotoSwitch
 Item* ECRotoSwitch::construct( ItemDocument *itemDocument, bool newItem, const char *id )

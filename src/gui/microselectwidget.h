@@ -12,7 +12,7 @@
 #define MICROSELECTWIDGET_H
 
 // #include <q3groupbox.h>
-#include <qgroupbox.h>
+#include <QGroupBox>
 
 class QVBoxLayout;
 class QHBoxLayout;

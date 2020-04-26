@@ -12,8 +12,8 @@
 #define MICROSETTINGSDLG_H
 
 #include <QDialog>
-#include <qmap.h>
-#include <qvalidator.h>
+#include <QMap>
+#include <QValidator>
 // #include <q3valuevector.h>
 
 class KLineEdit;

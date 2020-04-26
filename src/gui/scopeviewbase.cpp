@@ -14,9 +14,9 @@
 #include "oscilloscopedata.h"
 #include "probepositioner.h"
 
-#include <qpainter.h>
-#include <qevent.h>
-#include <qdebug.h>
+#include <QPainter>
+#include <QPaintEvent>
+#include <QDebug>
 
 //for testing 
 //#include <valgrind/callgrind.h>

@@ -8,13 +8,12 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#include <qvariant.h>
-#include <qevent.h>
-
-#include <qdebug.h>
-
 #include "propertysubeditor.h"
 #include "propertyeditor.h"
+
+#include <QVariant>
+#include <QKeyEvent>
+#include <QDebug>
 
 PropertySubEditor::PropertySubEditor( QWidget * parent, Property * property, const char * name )
  : QWidget( parent /*, name */ )

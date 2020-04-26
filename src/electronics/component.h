@@ -14,7 +14,7 @@
 #include "cnitem.h"
 #include "circuitdocument.h"
 
-#include <qlist.h>
+#include <QList>
 
 class ICNDocument;
 class CircuitDocument;

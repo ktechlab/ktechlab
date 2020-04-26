@@ -23,21 +23,21 @@
 
 #include <KConfigGroup>
 #include <KSharedConfig>
-#include <qlocale.h>
 #include <KLocalizedString>
 #include <KMessageBox>
 
-#include <qapplication.h>
-#include <qbitmap.h>
-#include "qdebug.h"
-#include <qdir.h>
-#include <qfile.h>
-#include <qimage.h>
-#include <qpainter.h>
-#include <qpixmap.h>
-#include <qpushbutton.h>
-#include <qregexp.h>
-#include <qtimer.h>
+#include <QLocale>
+#include <QApplication>
+#include <QBitmap>
+#include <QDebug>
+#include <QDir>
+#include <QFile>
+#include <QImage>
+#include <QPainter>
+#include <QPixmap>
+#include <QPushButton>
+#include <QRegExp>
+#include <QTimer>
 #include <QStandardPaths>
 
 #include <cassert>

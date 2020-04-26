@@ -26,7 +26,7 @@
 
 #include <QTabWidget>
 #include <QAction>
-#include <qfile.h>
+#include <QFile>
 
 #include <cassert>
 

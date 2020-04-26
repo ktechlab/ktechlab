@@ -21,8 +21,8 @@
 
 #include <KLocalizedString>
 // #include <KMessageBox>
-#include <qfile.h>
-#include <qtextstream.h>
+#include <QFile>
+#include <QTextStream>
 
 FlowCode::FlowCode( ProcessChain *processChain )
 	: Language( processChain, i18n("FlowCode") )

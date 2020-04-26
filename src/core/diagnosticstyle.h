@@ -11,7 +11,7 @@
 #define KTECHLAB_CORE_MAIN_H__
 
 // #include <QMotifStyle>
-#include <qproxystyle.h>
+#include <QProxyStyle>
 
 /**
  * see approach from here:

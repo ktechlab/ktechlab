@@ -16,7 +16,7 @@
 
 #include <cmath>
 #include <KLocalizedString>
-#include <qpainter.h>
+#include <QPainter>
 
 #include <ktlconfig.h>
 

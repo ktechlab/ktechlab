@@ -14,7 +14,7 @@
 #include "node.h"
 #include "nodegroup.h"
 
-#include <qdebug.h>
+#include <QDebug>
 #include <cassert>
 #include <cstdlib>
 

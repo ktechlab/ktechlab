@@ -14,7 +14,7 @@
 #include <view.h>
 
 #include <canvas.h>
-#include <qpointer.h>
+#include <QPointer>
 
 class Canvas;
 class CVBEditor;

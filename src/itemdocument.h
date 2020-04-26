@@ -16,8 +16,8 @@
 #include <canvas.h>
 #include "canvasitems.h"
 
-#include <qmap.h>
-#include <qstack.h>
+#include <QMap>
+#include <QStack>
 // #include <q3valuevector.h>
 
 class Canvas;

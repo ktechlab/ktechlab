@@ -13,7 +13,7 @@
 
 #include "component.h"
 
-#include <qstringlist.h>
+#include <QStringList>
 
 /**
 @short 555 IC

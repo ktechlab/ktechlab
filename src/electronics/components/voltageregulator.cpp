@@ -14,9 +14,10 @@
 #include "ecnode.h"
 
 #include <KLocalizedString>
-#include <qpainter.h>
-#include <qstyle.h>
-#include <qdebug.h>
+
+#include <QPainter>
+#include <QStyle>
+#include <QDebug>
 
 Item* VoltageRegulator::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {

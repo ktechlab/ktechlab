@@ -15,7 +15,7 @@
 #include "pin.h"
 
 #include <KLocalizedString>
-#include <qpainter.h>
+#include <QPainter>
 #include <cmath>
 
 // TODO: resistance and power rating should be user definable properties.

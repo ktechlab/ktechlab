@@ -9,13 +9,13 @@
  ***************************************************************************/
 
 // This section should be kept at the top to handle detection of os
-#include <qglobal.h>
+#include <QtGlobal>
 #if defined(Q_OS_DARWIN) || defined(Q_OS_MACX)
 	#define DARWIN
 #endif
 
 #include "port.h"
-#include <qdebug.h>
+#include <QDebug>
 
 #include <errno.h>
 #include <fcntl.h>

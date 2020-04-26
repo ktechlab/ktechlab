@@ -11,9 +11,9 @@
 #ifndef ASMINFO_H
 #define ASMINFO_H
 
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qlist.h>
+#include <QString>
+#include <QStringList>
+#include <QList>
 
 /**
 @author David Saxton

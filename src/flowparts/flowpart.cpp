@@ -23,13 +23,12 @@
 #include "pinmapping.h"
 #include "variant.h"
 
-#include <qdebug.h>
-
-#include <qbitarray.h>
-#include <qbitmap.h>
-#include <qpainter.h>
-#include <qpixmap.h>
-#include <qregexp.h>
+#include <QDebug>
+#include <QBitArray>
+#include <QBitmap>
+#include <QPainter>
+#include <QPixmap>
+#include <QRegExp>
 
 #include <cassert>
 #include <algorithm>

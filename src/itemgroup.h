@@ -11,7 +11,7 @@
 #ifndef ITEMGROUP_H
 #define ITEMGROUP_H
 
-#include <qpointer.h>
+#include <QPointer>
 
 class Item;
 class ICNDocument;

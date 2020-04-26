@@ -17,14 +17,14 @@
 #include "inputdialog.h"
 
 #include <KComboBox>
-#include <qdebug.h>
 #include <KLineEdit>
 #include <KLocalizedString>
 #include <KMessageBox>
 
-#include <qgroupbox.h>
-#include <qlabel.h>
-#include <qregexp.h>
+#include <QDebug>
+#include <QGroupBox>
+#include <QLabel>
+#include <QRegExp>
 #include <QDialogButtonBox>
 #include <QPushButton>
 #include <QVBoxLayout>

@@ -13,7 +13,7 @@
 #include "component.h"
 #include "logic.h"
 
-#include <qbitarray.h>
+#include <QBitArray>
 //#include <q3ptrvector.h>  // 2018.10.17
 
 /**

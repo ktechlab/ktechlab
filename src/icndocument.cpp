@@ -27,9 +27,9 @@
 #include "outputflownode.h"
 #include "utils.h"
 
-#include <qdebug.h>
-#include <qclipboard.h>
-#include <qtimer.h>
+#include <QDebug>
+#include <QClipboard>
+#include <QTimer>
 #include <QApplication>
 
 

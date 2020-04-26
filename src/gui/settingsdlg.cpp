@@ -19,10 +19,10 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 
-#include <qgroupbox.h>
-#include <qlabel.h>
-#include <qslider.h>
-#include <qtimer.h>
+#include <QGroupBox>
+#include <QLabel>
+#include <QSlider>
+#include <QTimer>
 #include <QStandardPaths>
 
 #include <ktlconfig.h>

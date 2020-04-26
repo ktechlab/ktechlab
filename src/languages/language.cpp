@@ -17,13 +17,13 @@
 #include "projectmanager.h"
 #include "languagemanager.h"
 
-#include <qdebug.h>
 //#include <kio/netaccess.h>
 #include <KMessageBox>
 #include <KProcess>
 
-#include <qregexp.h>
-#include <qtimer.h>
+#include <QDebug>
+#include <QRegExp>
+#include <QTimer>
 
 #include <ktlconfig.h>
 

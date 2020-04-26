@@ -14,7 +14,7 @@
 #include "diode.h"
 
 // #include <q3valuevector.h>
-#include <qstringlist.h>
+#include <QStringList>
 
 /**
 @author William Hillerby

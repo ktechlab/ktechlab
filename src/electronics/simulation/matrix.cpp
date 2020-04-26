@@ -10,7 +10,7 @@
 
 #include "matrix.h"
 
-#include <qdebug.h>
+#include <QDebug>
 
 #include <cassert>
 

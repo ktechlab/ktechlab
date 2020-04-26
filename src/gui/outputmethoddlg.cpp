@@ -16,13 +16,12 @@
 #include "microselectwidget.h"
 #include "projectmanager.h"
 
-#include <qdebug.h>
 #include <KUrlRequester>
 
-#include <qcheckbox.h>
-#include <qfile.h>
+#include <QDebug>
+#include <QCheckBox>
+#include <QFile>
 #include <QTemporaryFile>
-#include <qradiobutton.h>
 #include <QDialogButtonBox>
 #include <QPushButton>
 #include <QVBoxLayout>

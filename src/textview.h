@@ -18,8 +18,8 @@
 //#include <ktexteditor/view.h>
 #include <KTextEditor/View>
 
-#include <qpointer.h>
-#include <qlabel.h>
+#include <QPointer>
+#include <QLabel>
 
 class QMouseEvent;
 class RegisterInfo;

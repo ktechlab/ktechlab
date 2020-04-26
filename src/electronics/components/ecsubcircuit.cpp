@@ -15,9 +15,10 @@
 #include "libraryitem.h"
 #include "subcircuits.h"
 
-#include <qdebug.h>
 #include <KLocalizedString>
-#include <qfile.h>
+
+#include <QDebug>
+#include <QFile>
 
 Item* ECSubcircuit::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {

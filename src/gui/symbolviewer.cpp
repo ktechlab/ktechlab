@@ -16,14 +16,14 @@
 #include "katemdi.h"
 
 #include <KComboBox>
-#include <qdebug.h>
 #include <KLocalizedString>
 #include <KConfigGroup>
 #include <KConfig>
 
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qheaderview.h>
+#include <QDebug>
+#include <QLabel>
+#include <QHeaderView>
+#include <QGridLayout>
 
 #include <cassert>
 

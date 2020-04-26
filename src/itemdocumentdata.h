@@ -14,7 +14,8 @@
 #include "item.h"
 #include "microsettings.h"
 
-#include <qdom.h>
+#include <QDomDocument>
+#include <QDomElement>
 
 class Connector;
 class ECSubcircuit;

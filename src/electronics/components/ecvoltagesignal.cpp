@@ -19,8 +19,8 @@
 
 #include <cmath>
 #include <KLocalizedString>
-#include <qpainter.h>
-#include <qstring.h>
+#include <QPainter>
+#include <QString>
 
 Item* ECVoltageSignal::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {

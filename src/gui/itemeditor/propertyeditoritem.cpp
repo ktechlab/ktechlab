@@ -14,16 +14,16 @@
 #include "propertyeditor.h"
 #include "propertyeditoritem.h"
 
-#include <qdebug.h>
 #include <KLocalizedString>
 
-#include <qcolor.h>
-#include <qcursor.h>
-#include <qfont.h>
-#include <qpainter.h>
-#include <qpixmap.h>
-#include <qpoint.h>
-#include <qsize.h>
+#include <QDebug>
+#include <QColor>
+#include <QCursor>
+#include <QFont>
+#include <QPainter>
+#include <QPixmap>
+#include <QPoint>
+#include <QSize>
 
 
 //BEGIN Class PropertyEditorItem

@@ -11,7 +11,7 @@
 #include "conrouter.h"
 #include "icndocument.h"
 #include "utils.h"
-#include <qdebug.h>
+#include <QDebug>
 
 #include <cassert>
 #include <cstdlib>

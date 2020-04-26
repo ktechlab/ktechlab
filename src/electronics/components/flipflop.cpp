@@ -17,7 +17,7 @@
 #include "simulator.h"
 
 #include <KLocalizedString>
-#include <qpainter.h>
+#include <QPainter>
 
 
 //BEGIN class ClockedFlipFlop

@@ -10,8 +10,8 @@
 #ifndef ORIENTATIONWIDGET_H
 #define ORIENTATIONWIDGET_H
 
-#include <qpointer.h>
-#include <qwidget.h>
+#include <QPointer>
+#include <QWidget>
 
 class CNItem;
 class CNItemGroup;

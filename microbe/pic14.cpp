@@ -28,8 +28,9 @@
 #include "parser.h"
 #include "pic14.h"
 
+#include <QDebug>
+
 #include <cassert>
-#include <qdebug.h>
 #include <iostream>
 using namespace std;
 QString pic_type;

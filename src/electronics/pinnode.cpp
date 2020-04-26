@@ -12,7 +12,7 @@
 #include "pin.h"
 #include "component.h"
 
-#include <qpainter.h>
+#include <QPainter>
 #include <cmath>
 
 /// The maximum length of the voltage indiactor

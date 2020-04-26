@@ -14,7 +14,7 @@
 #include "resistordip.h"
 
 #include <KLocalizedString>
-#include <qpainter.h>
+#include <QPainter>
 
 Item* ResistorDIP::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {

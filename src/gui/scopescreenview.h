@@ -11,7 +11,7 @@
 #ifndef SCOPESCREENVIEW_H
 #define SCOPESCREENVIEW_H
 #include "scopeviewbase.h"
-#include <qframe.h>
+#include <QFrame>
 class QTimer;
 
 ///Screen-type Oscilloscope data view

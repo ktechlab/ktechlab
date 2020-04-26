@@ -12,7 +12,7 @@
 
 #include <KIconLoader>
 
-#include <qimage.h>
+#include <QImage>
 #include <QStandardPaths>
 
 LibraryItem::LibraryItem( QStringList idList, const QString &name, const QString &category, QPixmap icon, Type type, createItemPtr _createItem )

@@ -13,12 +13,12 @@
 #include "libraryitem.h"
 #include "resizeoverlay.h"
 
-#include <qdebug.h>
 #include <KIconLoader>
 #include <KLocalizedString>
 
-#include <qpainter.h>
-#include <qtimer.h>
+#include <QDebug>
+#include <QPainter>
+#include <QTimer>
 
 
 //BEGIN class ImageScaleThread

@@ -11,8 +11,8 @@
 #ifndef OSCILLOSCOPEDATA_H
 #define OSCILLOSCOPEDATA_H
 
-#include <qcolor.h>
-#include <qobject.h>
+#include <QColor>
+#include <QObject>
 #include <stdint.h>
 #include <vector>
 

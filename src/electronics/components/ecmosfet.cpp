@@ -12,9 +12,10 @@
 #include "libraryitem.h"
 #include "mosfet.h"
 
-#include <qdebug.h>
 #include <KLocalizedString>
-#include <qpainter.h>
+
+#include <QPainter>
+#include <QDebug>
 
 Item * ECMOSFET::constructNEM( ItemDocument * itemDocument, bool newItem, const char * id )
 {

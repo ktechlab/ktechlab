@@ -21,7 +21,7 @@
 #include "property.h"
 
 // #include <q3listview.h>
-#include <qtablewidget.h>
+#include <QTableWidget>
 
 #define PropertyEditorItem_BranchBoxSize 9
 

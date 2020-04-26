@@ -11,7 +11,7 @@
 #ifndef MICROINFO_H
 #define MICROINFO_H
 
-#include <qstringlist.h>
+#include <QStringList>
 
 class AsmInfo;
 class MicroPackage;

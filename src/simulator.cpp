@@ -16,8 +16,8 @@
 
 // #include <k3staticdeleter.h>
 
-#include <qtimer.h>
-#include <qset.h>
+#include <QTimer>
+#include <QSet>
 #include <QGlobalStatic>
 
 #include <cassert>

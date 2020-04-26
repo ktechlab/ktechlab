@@ -11,14 +11,14 @@
 #include "cnitem.h"
 #include "doublespinbox.h"
 
-#include <qdebug.h>
 #include <KLocalizedString>
 
+#include <QDebug>
 #include <QLocale>
-#include <qlineedit.h>
-#include <qregexp.h>
-#include <qtimer.h>
-#include <qdebug.h>
+#include <QLineEdit>
+#include <QRegExp>
+#include <QTimer>
+#include <QDebug>
 
 #include <algorithm>
 #include <cmath>

@@ -18,12 +18,12 @@
 
 #include <KLineEdit>
 #include <KLocalizedString>
-#include <qdebug.h>
 
+#include <QDebug>
 //#include <qiconset.h>
-#include <qicon.h>
-#include <qtoolbutton.h>
-#include <qevent.h>
+#include <QIcon>
+#include <QToolButton>
+#include <QKeyEvent>
 
 #include <limits.h>
 

@@ -12,11 +12,12 @@
 #include "canvasitemparts.h"
 #include "eventinfo.h"
 
-#include <qevent.h>
+#include <QWheelEvent>
+#include <QMouseEvent>
 
 // #include <q3button.h>
 
-#include <qdebug.h>
+#include <QDebug>
 
 CIWidgetMgr::CIWidgetMgr( KtlQCanvas *canvas, CNItem *item )
 {

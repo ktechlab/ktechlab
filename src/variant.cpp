@@ -12,7 +12,7 @@
 #include "cnitem.h"
 
 #include <cmath>
-#include <qdebug.h>
+#include <QDebug>
 #include <KLocalizedString>
 using namespace std;
 

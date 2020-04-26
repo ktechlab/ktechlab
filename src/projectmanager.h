@@ -14,8 +14,8 @@
 #include "itemselector.h"
 
 #include <QUrl>
-#include <qpointer.h>
-#include <qlist.h>
+#include <QPointer>
+#include <QList>
 
 class Document;
 class ILVItem;

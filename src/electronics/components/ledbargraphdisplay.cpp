@@ -14,9 +14,10 @@
 #include "led.h"
 
 #include <KLocalizedString>
-#include <qpainter.h>
-#include <qstyle.h>
-#include <qdebug.h>
+
+#include <QPainter>
+#include <QStyle>
+#include <QDebug>
 
 LEDPart::LEDPart( Component *pParent, const QString& strPNode, const QString& strNNode )
 {

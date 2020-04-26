@@ -19,10 +19,10 @@
 #include <KUrlRequester>
 // #include <k3listview.h>
 
-#include <qcheckbox.h>
-#include <qcombobox.h>
-#include <qlabel.h>
-#include <qdebug.h>
+#include <QCheckBox>
+#include <QComboBox>
+#include <QLabel>
+#include <QDebug>
 #include <QDialogButtonBox>
 #include <QPushButton>
 #include <QVBoxLayout>

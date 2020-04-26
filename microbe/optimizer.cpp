@@ -11,8 +11,9 @@
 #include "instruction.h"
 #include "optimizer.h"
 
-#include <qdebug.h>
 #include <KLocalizedString>
+
+#include <QDebug>
 
 #include <cassert>
 #include <iostream>

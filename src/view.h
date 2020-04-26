@@ -18,11 +18,10 @@
 
 #include <QStatusBar>
 #include <QUrl>
-#include <qpointer.h>
-#include <qpixmap.h>
-#include <qpainter.h>
-#include <qevent.h>
-#include <qpalette.h>
+#include <QPointer>
+#include <QPixmap>
+#include <QPainter>
+#include <QEvent>
 
 
 class DCOPObject;

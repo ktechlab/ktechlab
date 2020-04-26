@@ -12,7 +12,7 @@
 #include "matrix.h"
 #include "resistance.h"
 
-// #include <qdebug.h>
+// #include <QDebug>
 
 Resistance::Resistance( const double resistance )
 	: Element::Element()

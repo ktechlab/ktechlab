@@ -40,8 +40,9 @@
 ****************************************************************************/
 
 #include "ktlq3frame.h"
-#include "qevent.h"
-#include "qpainter.h"
+
+#include <QPaintEvent>
+#include <QPainter>
 
 QT_BEGIN_NAMESPACE
 

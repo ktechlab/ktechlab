@@ -15,7 +15,7 @@
 #include "pin.h"
 
 #include <KLocalizedString>
-#include <qpainter.h>
+#include <QPainter>
 
 Item* ECGround::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {

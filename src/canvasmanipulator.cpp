@@ -28,13 +28,13 @@
 #include <cmath>
 #include <cstdlib>
 
-#include <qdebug.h>
 #include <KConfigGroup>
 #include <KSharedConfig>
 
-#include <qcursor.h>
-#include <qpainter.h>
-#include <qtimer.h>
+#include <QDebug>
+#include <QCursor>
+#include <QPainter>
+#include <QTimer>
 
 // FIXME: This source file is HUUUGE!!!, contains numerous clases, should be broken down. 
 

@@ -41,18 +41,20 @@
 
 #include "ktlq3scrollview.h"
 
-#include "qwidget.h"
-#include "qscrollbar.h"
-#include "qpainter.h"
-#include "qpixmap.h"
-#include "qcursor.h"
+#include <QWidget>
+#include <QScrollBar>
+#include <QPainter>
+#include <QPixmap>
+#include <QCursor>
 // #include "q3ptrdict.h"
-#include "qhash.h"
-#include "qapplication.h"
-#include "qtimer.h"
-#include "qstyle.h"
+#include <QHash>
+#include <QApplication>
+#include <QTimer>
+#include <QStyle>
 // #include "q3ptrlist.h"
-#include "qevent.h"
+#include <QDragEnterEvent>
+#include <QDragLeaveEvent>
+#include <QContextMenuEvent>
 //#include "q3listview.h"
 // #ifdef Q_WS_MAC      // 2018.10.18 - do not depend on internal headers
 // # include "private/qt_mac_p.h"

@@ -31,8 +31,8 @@
 
 #include <KLocalizedString>
 
-#include <qdebug.h>
-#include <qfile.h>
+#include <QDebug>
+#include <QFile>
 
 #include <iostream>
 using namespace std;

@@ -12,8 +12,8 @@
 #include <stdlib.h> // for rand
 #include <time.h>
 
-#include <qdebug.h>
-#include <qtimer.h>
+#include <QDebug>
+#include <QTimer>
 
 #include "circuitdocument.h"
 #include "component.h"

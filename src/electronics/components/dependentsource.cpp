@@ -19,7 +19,7 @@
 #include "vcvs.h"
 
 #include <KLocalizedString>
-#include <qpainter.h>
+#include <QPainter>
 
 //BEGIN class DependentSource
 DependentSource::DependentSource( ICNDocument *icnDocument, bool newItem, const char *id )

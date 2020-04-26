@@ -15,7 +15,7 @@
 #include "libraryitem.h"
 
 #include <KLocalizedString>
-#include <qpainter.h>
+#include <QPainter>
 
 Item* ECFixedVoltage::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {

@@ -11,7 +11,7 @@
 #include "junctionflownode.h"
 #include "flowconnector.h"
 
-#include <qpainter.h>
+#include <QPainter>
 
 JunctionFlowNode::JunctionFlowNode(ICNDocument* _icnView, int dir, const QPoint& pos, QString* id ): FPNode(_icnView, Node::fp_junction, dir, pos, id)
 {

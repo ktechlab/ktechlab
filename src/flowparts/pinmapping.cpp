@@ -22,10 +22,10 @@
 #include <KLocalizedString>
 #include <KStandardShortcut>
 
-#include <qapplication.h>
-#include <qdebug.h>
-#include <qframe.h>
-#include <qaction.h>
+#include <QApplication>
+#include <QDebug>
+#include <QFrame>
+#include <QAction>
 #include <QDialogButtonBox>
 #include <QPushButton>
 #include <QVBoxLayout>

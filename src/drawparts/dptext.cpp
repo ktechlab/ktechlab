@@ -16,8 +16,8 @@
 #include <KIconLoader>
 #include <KLocalizedString>
 
-#include <qpainter.h>
-#include <qtextedit.h>
+#include <QPainter>
+#include <QTextEdit>
 
 // #include <q3simplerichtext.h> // 2018.08.13 - not needed anymore
 // #include <q3stylesheet.h>

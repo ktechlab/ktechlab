@@ -16,14 +16,13 @@
 #include "orientationwidget.h"
 #include "node.h"
 
-#include <qdebug.h>
-
-#include <qbitmap.h>
-#include <qlayout.h>
-#include <qimage.h>
-#include <qpixmap.h>
-#include <qpainter.h>
-#include <qpushbutton.h>
+#include <QDebug>
+#include <QGridLayout>
+#include <QBitmap>
+#include <QImage>
+#include <QPixmap>
+#include <QPainter>
+#include <QPushButton>
 
 #include <cassert>
 

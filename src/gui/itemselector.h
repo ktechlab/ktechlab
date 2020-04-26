@@ -13,9 +13,9 @@
 
 // #include <q3listview.h> // gone in kde4..
 
-#include <qpixmap.h>
-#include <qstring.h>
-#include <qtreewidget.h>
+#include <QPixmap>
+#include <QString>
+#include <QTreeWidget>
 // #include <q3listview.h>
 
 // #include <k3listview.h>

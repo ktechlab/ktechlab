@@ -25,7 +25,7 @@
 #include <QtGlobal>
 #include <QDebug>
 #include <QDate>
-#include <qapplication.h>
+#include <QApplication>
 
 #include <stdlib.h>
 #include <stdio.h>

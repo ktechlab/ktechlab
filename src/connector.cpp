@@ -19,8 +19,8 @@
 #include "wire.h"
 #include "utils.h"
 
-#include <qdebug.h>
-#include <qpainter.h>
+#include <QDebug>
+#include <QPainter>
 
 #include <cstdlib>
 #include <cmath>

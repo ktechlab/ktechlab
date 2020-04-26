@@ -11,9 +11,9 @@
 #ifndef NODEGROUP_H
 #define NODEGROUP_H
 
-#include <qpointer.h>
-#include <qobject.h>
-#include <qlist.h>
+#include <QPointer>
+#include <QObject>
+#include <QList>
 #include <QBitArray>
 
 class ICNDocument;

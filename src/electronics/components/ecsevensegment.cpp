@@ -17,8 +17,8 @@
 #include "simulator.h"
 
 #include <KLocalizedString>
-#include <qpainter.h>
-#include <qstring.h>
+#include <QPainter>
+#include <QString>
 
 Item* ECSevenSegment::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {

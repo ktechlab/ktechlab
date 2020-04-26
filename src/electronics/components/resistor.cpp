@@ -14,7 +14,7 @@
 #include "resistance.h"
 
 #include <KLocalizedString>
-#include <qpainter.h>
+#include <QPainter>
 
 Item* Resistor::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {

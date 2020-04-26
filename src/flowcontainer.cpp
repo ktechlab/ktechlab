@@ -16,8 +16,8 @@
 #include "nodegroup.h"
 #include "resizeoverlay.h"
 
-#include <qicon.h>
-#include <qpainter.h>
+#include <QIcon>
+#include <QPainter>
 
 #include <cmath>
 

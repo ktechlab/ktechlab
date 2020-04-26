@@ -37,12 +37,13 @@
 #include "voltagesignal.h"
 #include "voltagesource.h"
 
+
 #include <cmath>
-#include <qdebug.h>
-#include <qbitarray.h>
-#include <qpainter.h>
-#include <qwidget.h>
-#include <qmatrix.h>
+#include <QMatrix>
+#include <QDebug>
+#include <QBitArray>
+#include <QPainter>
+#include <QWidget>
 
 #include <ktlconfig.h>
 

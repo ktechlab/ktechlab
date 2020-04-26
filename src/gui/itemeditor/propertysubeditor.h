@@ -11,7 +11,7 @@
 #ifndef PROPERTYSUBEDITOR_H
 #define PROPERTYSUBEDITOR_H
 
-#include <qwidget.h>
+#include <QWidget>
 
 class Variant;
 typedef Variant Property;

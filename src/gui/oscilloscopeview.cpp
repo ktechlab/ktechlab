@@ -19,16 +19,16 @@
 #include <KSharedConfig>
 // #include <k3popupmenu.h>
 
-#include <qcheckbox.h>
-#include <qcursor.h>
-#include <qdebug.h>
-#include <qevent.h>
-#include <qlabel.h>
-#include <qpainter.h>
-#include <qpixmap.h>
-#include <qscrollbar.h>
-#include <qmenu.h>
-#include <qtimer.h>
+#include <QCheckBox>
+#include <QCursor>
+#include <QDebug>
+#include <QPaintEvent>
+#include <QLabel>
+#include <QPainter>
+#include <QPixmap>
+#include <QScrollBar>
+#include <QMenu>
+#include <QTimer>
 
 #include <algorithm>
 #include <cmath>

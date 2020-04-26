@@ -13,7 +13,7 @@
 
 #include "language.h"
 
-#include <qprocess.h>
+#include <QProcess>
 
 class KProcess;
 

@@ -21,8 +21,8 @@
 #ifndef VARIABLE_H
 #define VARIABLE_H
 
-#include <qstring.h>
-#include <qlist.h>
+#include <QString>
+#include <QList>
 
 class PortPin;
 typedef QList<PortPin> PortPinList;

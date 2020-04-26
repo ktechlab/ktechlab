@@ -13,7 +13,7 @@
 
 #include "cnitem.h"
 
-#include <qobject.h>
+#include <QObject>
 
 class MicroSettings;
 class FlowCodeDocument;

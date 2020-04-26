@@ -10,14 +10,14 @@
 
 #include "logview.h"
 
-#include <qdebug.h>
 #include <katemdi.h>
 #include <KLocalizedString>
 
+#include <QDebug>
 // #include <q3popupmenu.h>
-#include <qmenu.h>
-#include <qevent.h>
-#include <qlayout.h>
+#include <QMenu>
+#include <QLayout>
+#include <QEvent>
 
 //BEGIN class LogView
 LogView::LogView( KateMDI::ToolView * parent, const char *name )

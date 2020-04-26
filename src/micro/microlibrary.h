@@ -14,9 +14,9 @@
 #include "asminfo.h"
 #include "microinfo.h"
 
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qlist.h>
+#include <QString>
+#include <QStringList>
+#include <QList>
 
 class MicroInfo;
 class MicroLibrary;

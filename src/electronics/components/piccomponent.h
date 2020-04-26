@@ -16,8 +16,8 @@
 
 #include "component.h"
 
-#include <qpointer.h>
-#include <qmap.h>
+#include <QPointer>
+#include <QMap>
 
 class Document;
 class ECNode;

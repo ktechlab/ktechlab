@@ -13,8 +13,8 @@
 #include "matrixdisplaydriver.h"
 
 #include <KLocalizedString>
-#include <qpainter.h>
-#include <qstring.h>
+#include <QPainter>
+#include <QString>
 
 #include <cassert>
 

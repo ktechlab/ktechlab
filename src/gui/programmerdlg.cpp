@@ -17,7 +17,7 @@
 #include "ui_programmerwidget.h"
 
 
-#include <qcombobox.h>
+#include <QComboBox>
 #include <QDialogButtonBox>
 #include <QPushButton>
 #include <QVBoxLayout>

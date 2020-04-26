@@ -14,8 +14,8 @@
 
 #include "flowconnector.h"
 
-#include <qpointer.h>
-#include <qlist.h>
+#include <QPointer>
+#include <QList>
 
 FlowConnectorList::FlowConnectorList ( const QList<T> & l ) : flowList(l) { // O(n)
     FlowConnectorList::iterator it, end = flowList.end();

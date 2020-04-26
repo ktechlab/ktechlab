@@ -28,22 +28,22 @@
 #include <KTextEditor/TextHintInterface>
 
 // #include "kateview.h"
-#include <qdebug.h>
 #include <KLocalizedString>
 #include <KActionCollection>
 // #include <k3popupmenu.h>
 #include <KToolBarPopupAction>
 #include <KXMLGUIFactory>
-#include <qactiongroup.h>
 
-#include <qapplication.h>
-#include <qboxlayout.h>
-#include <qcursor.h>
+#include <QDebug>
+#include <QActionGroup>
+#include <QApplication>
+#include <QVBoxLayout>
+#include <QCursor>
 //#include <qobjectlist.h>
-#include <qtimer.h>
-#include <qsharedpointer.h>
-#include <qclipboard.h>
+#include <QTimer>
+#include <QClipboard>
 #include <QMenu>
+#include <QFocusEvent>
 
 
 //BEGIN class TextView

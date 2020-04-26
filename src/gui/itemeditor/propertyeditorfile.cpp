@@ -15,15 +15,16 @@
 #include <KLineEdit>
 #include <KLocalizedString>
 
-#include <qdebug.h>
+#include <QDebug>
 #include <QFileDialog>
 #include <QPushButton>
-#include <qstring.h>
-#include <qpixmap.h>
-#include <qvariant.h>
-#include <qevent.h>
-#include <qlabel.h>
-#include <qcursor.h>
+#include <QString>
+#include <QPixmap>
+#include <QVariant>
+#include <QResizeEvent>
+#include <QKeyEvent>
+#include <QLabel>
+#include <QCursor>
 
 
 PropertyEditorFile::PropertyEditorFile( QWidget * parent, Property * property, const char * name )

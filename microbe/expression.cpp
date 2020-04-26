@@ -30,8 +30,8 @@
 #include "parser.h"
 #include "pic14.h"
 
-#include <qdebug.h>
-#include <qregexp.h>
+#include <QDebug>
+#include <QRegExp>
 
 Expression::Expression( PIC14 *pic, Microbe *master, SourceLine sourceLine, bool suppressNumberTooBig )
 	: m_sourceLine(sourceLine)

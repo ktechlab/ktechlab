@@ -11,7 +11,7 @@
 #ifndef SUBCIRCUITS_H
 #define SUBCIRCUITS_H
 
-#include <qobject.h>
+#include <QObject>
 
 class CircuitDocument;
 class ECSubcircuit;

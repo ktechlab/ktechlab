@@ -17,9 +17,9 @@
 #include <KMessageBox>
 #include <KProcess>
 
-#include <qfile.h>
-#include <qregexp.h>
-#include <qtextstream.h>
+#include <QFile>
+#include <QRegExp>
+#include <QTextStream>
 
 Gpdasm::Gpdasm( ProcessChain *processChain )
  : ExternalLanguage( processChain, "Gpdasm" )

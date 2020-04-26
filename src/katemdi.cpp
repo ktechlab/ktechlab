@@ -32,8 +32,9 @@
 #include <KWindowConfig>
 
 // #include <q3intdict.h>
-#include <qboxlayout.h>
 #include <QContextMenuEvent>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QDebug>
 #include <QEvent>
 #include <QMenu>

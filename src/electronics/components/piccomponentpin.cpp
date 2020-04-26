@@ -15,7 +15,7 @@
 #include "piccomponent.h"
 #include "piccomponentpin.h"
 
-#include <qdebug.h>
+#include <QDebug>
 
 PICComponentPin::PICComponentPin( PICComponent * picComponent, PicPin picPin )
 	: m_id( picPin.pinID )

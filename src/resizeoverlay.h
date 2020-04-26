@@ -15,10 +15,10 @@
 
 //#include <canvas.h> // 2018.10.16 - not needed
 #include "canvasitems.h"
-#include <qpointer.h>
-#include <qmap.h>
-#include <qobject.h>
-#include <qlist.h>
+#include <QPointer>
+#include <QMap>
+#include <QObject>
+#include <QList>
 
 class MechanicsItem;
 class ResizeHandle;

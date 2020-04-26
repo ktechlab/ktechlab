@@ -28,7 +28,7 @@
 // #include <q3dict.h>
 // #include <q3intdict.h>
 // #include <q3vbox.h>
-#include <qsplitter.h>
+#include <QSplitter>
 #include <QMap>
 
 class QAction;

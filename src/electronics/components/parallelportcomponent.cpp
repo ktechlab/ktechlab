@@ -17,9 +17,10 @@
 #include "pin.h"
 #include "resistance.h"
 
-#include <qdebug.h>
 #include <KLocalizedString>
-#include <qpainter.h>
+
+#include <QDebug>
+#include <QPainter>
 
 #include <cmath>
 #include <termios.h>

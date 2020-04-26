@@ -20,9 +20,9 @@
 #include <KConfigGroup>
 #include <KSharedConfig>
 
-#include <qdebug.h>
-#include <qfile.h>
-#include <qtextstream.h>
+#include <QDebug>
+#include <QFile>
+#include <QTextStream>
 #include <QStandardPaths>
 #include <QDir>
 

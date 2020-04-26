@@ -18,12 +18,11 @@
 #include <KShell>
 #include <KProcess>
 
-#include <qapplication.h>
-#include <qdebug.h>
-#include <qfile.h>
-#include <qregexp.h>
-#include <qtextstream.h>
-#include <qdatetime.h>
+#include <QApplication>
+#include <QDebug>
+#include <QFile>
+#include <QRegExp>
+#include <QTextStream>
 
 #include <stdio.h>
 

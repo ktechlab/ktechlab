@@ -16,10 +16,11 @@
 #include "matrixdisplay.h"
 #include "simulator.h"
 
-#include <qdebug.h>
 #include <KLocalizedString>
-#include <qpainter.h>
-#include <qstring.h>
+
+#include <QDebug>
+#include <QPainter>
+#include <QString>
 
 Item* MatrixDisplay::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {

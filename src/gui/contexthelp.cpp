@@ -31,19 +31,17 @@
 // #include <k3iconview.h>
 
 #include <QFileDialog>
-#include <qevent.h>
-#include <qdebug.h>
-#include <qfile.h>
-#include <qicon.h>
-#include <qlayout.h>
-#include <qlabel.h>
-#include <qregexp.h>
-#include <qtextbrowser.h>
-#include <qtimer.h>
-#include <qtoolbutton.h>
-#include <qvalidator.h>
+#include <QEvent>
+#include <QDebug>
+#include <QFile>
+#include <QIcon>
+#include <QLabel>
+#include <QRegExp>
+#include <QTimer>
+#include <QToolButton>
+#include <QValidator>
 // #include <q3widgetstack.h>
-#include <qmimedata.h>
+#include <QMimeData>
 #include <QStandardPaths>
 
 #include <cassert>

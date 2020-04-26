@@ -20,7 +20,7 @@
 #include "junctionflownode.h"
 #include "nodegroup.h"
 
-#include <qdebug.h>
+#include <QDebug>
 
 FlowICNDocument::FlowICNDocument( const QString &caption, const char *name)
 	: ICNDocument(caption, name )

@@ -24,8 +24,8 @@
 #include "btreebase.h"
 #include "expression.h"
 
-#include <qstring.h>
-#include <qlist.h>
+#include <QString>
+#include <QList>
 
 /**
 A node points to the two child nodes (left and right), and contains the binary

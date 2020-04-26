@@ -11,10 +11,10 @@
 #define VIEWCONTAINER_H
 
 // #include <q3dragobject.h>
-#include <qmap.h>
-#include <qsplitter.h>
-#include <qlist.h>
-#include <qpointer.h>
+#include <QMap>
+#include <QSplitter>
+#include <QList>
+#include <QPointer>
 
 class KConfigGroup;
 class KTechlab;

@@ -14,7 +14,7 @@
 #include "mechanicsdocument.h"
 #include "utils.h"
 
-#include <qtimer.h>
+#include <QTimer>
 #include <map>
 
 ItemGroup::ItemGroup( ItemDocument *view, const char *name )

@@ -11,19 +11,19 @@
 #include "componentmodellibrary.h"
 #include "componentmodelwidget.h"
 
-#include <qdebug.h>
 #include <KLineEdit>
 #include <KLocalizedString>
 #include <KToolBar>
 //#include <ktoolbarbutton.h> // converted to QToolButton
 
-#include <qlistwidget.h>
-#include <qlabel.h>
-#include <qlayout.h>
+#include <QDebug>
+#include <QListWidget>
+#include <QLabel>
+#include <QVBoxLayout>
 // #include <q3header.h> // needed?
-#include <qpainter.h>
-#include <qtoolbutton.h>
-#include <qpalette.h>
+#include <QPainter>
+#include <QToolButton>
+#include <QPalette>
 
 
 //BEGIN class ComponentModelWidget

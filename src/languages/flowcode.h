@@ -13,11 +13,11 @@
 
 #include "language.h"
 
-#include <qpointer.h>
-#include <qobject.h>
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qlist.h>
+#include <QPointer>
+#include <QObject>
+#include <QString>
+#include <QStringList>
+#include <QList>
 
 class CNItem;
 class FlowPart;

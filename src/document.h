@@ -14,7 +14,7 @@
 #include "view.h"
 
 #include <QUrl>
-#include <qpointer.h>
+#include <QPointer>
 
 class DCOPObject;
 class Document;

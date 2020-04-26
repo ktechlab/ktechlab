@@ -25,12 +25,12 @@
 
 // #include <q3button.h>
 
-#include <qdebug.h>
-#include <qlabel.h>
-#include <qscrollbar.h>
-#include <qslider.h>
-#include <qtimer.h>
-#include <qtoolbutton.h>
+#include <QDebug>
+#include <QLabel>
+#include <QScrollBar>
+#include <QSlider>
+#include <QTimer>
+#include <QToolButton>
 
 #include <cassert>
 

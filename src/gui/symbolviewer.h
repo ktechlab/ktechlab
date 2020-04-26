@@ -14,8 +14,8 @@
 #ifndef SYMBOLVIEWER_H
 #define SYMBOLVIEWER_H
 
-#include <qtablewidget.h>
-#include <qpointer.h>
+#include <QTableWidget>
+#include <QPointer>
 
 #include <gpsimprocessor.h>
 

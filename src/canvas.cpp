@@ -10,20 +10,18 @@
 #include "utils.h"
 #include "canvas.h"
 #include "canvas_private.h"
-
-#include <qdebug.h>
-
-#include "qapplication.h"
-#include "qbitmap.h"
-//#include "q3ptrdict.h"
-#include "qpainter.h"
 #include "ktlq3polygonscanner.h"
-#include "qtimer.h"
+
+#include <ktlqt3support/ktlq3scrollview.h>
+
+#include <QDebug>
+#include <QApplication>
+#include <QDesktopWidget>
+//#include "q3ptrdict.h"
+#include <QPainter>
+#include <QTimer>
 // #include "q3tl.h"
 // #include <q3pointarray.h>   // needed for q3polygonscanner
-#include <ktlqt3support/ktlq3scrollview.h>
-#include <qdesktopwidget.h>
-
 
 #include <stdlib.h>
 

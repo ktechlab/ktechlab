@@ -13,17 +13,17 @@
 #include "propertyeditorlist.h"
 #include "property.h"
 
-#include <qdebug.h>
 //#include <klistbox.h>
 #include <KLocalizedString>
 
-#include <qcursor.h>
+#include <QDebug>
+#include <QCursor>
 //#include <q3hbox.h>
-#include <qboxlayout.h>
-#include <qstringlist.h>
-#include <qtoolbutton.h>
-#include <qevent.h>
-#include <qlineedit.h>
+#include <QHBoxLayout>
+#include <QStringList>
+#include <QToolButton>
+#include <QInputEvent>
+#include <QLineEdit>
 
 
 //BEGIN class PropComboBox

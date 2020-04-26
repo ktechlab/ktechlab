@@ -15,15 +15,16 @@
 #include "viewiface.h"
 #include "viewcontainer.h"
 
-#include <qdebug.h>
 #include <KIconLoader>
 #include <KLocalizedString>
 #include <KSqueezedTextLabel>
 #include <KXMLGUIFactory>
 #include <KActionCollection>
 
-#include <qapplication.h>
-#include <qboxlayout.h>
+#include <QDebug>
+#include <QApplication>
+#include <QVBoxLayout>
+#include <QPaintEvent>
 
 #include <cassert>
 

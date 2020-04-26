@@ -14,11 +14,11 @@
 #include "propertyeditorcolor.h"
 
 #include <KLocalizedString>
-#include <qdebug.h>
 
-#include <qlabel.h>
-#include <qstring.h>
-#include <qevent.h>
+#include <QDebug>
+#include <QLabel>
+#include <QString>
+#include <QKeyEvent>
 
 //BEGIN class PropertyEditorColor
 PropertyEditorColor::PropertyEditorColor( QWidget * parent, Property * property, const char * name )

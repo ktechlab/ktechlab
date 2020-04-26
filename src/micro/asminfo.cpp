@@ -10,7 +10,7 @@
 
 #include "asminfo.h"
 
-#include <qdebug.h>
+#include <QDebug>
 
 AsmInfo::AsmInfo()
 {

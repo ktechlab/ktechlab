@@ -13,7 +13,7 @@
 
 #include "externallanguage.h"
 
-#include <qmap.h>
+#include <QMap>
 
 class KConfig;
 class KProcess;

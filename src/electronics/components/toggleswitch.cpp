@@ -16,7 +16,7 @@
 #include "switch.h"
 
 #include <KLocalizedString>
-#include <qpainter.h>
+#include <QPainter>
 
 //BEGIN class ECDPDT
 Item* ECDPDT::construct( ItemDocument *itemDocument, bool newItem, const char *id )

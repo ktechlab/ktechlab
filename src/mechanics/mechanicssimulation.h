@@ -11,9 +11,9 @@
 #ifndef MECHANICSSIMULATION_H
 #define MECHANICSSIMULATION_H
 
-#include <qpointer.h>
-#include <qobject.h>
-#include <qlist.h>
+#include <QPointer>
+#include <QObject>
+#include <QList>
 
 class MechanicsItem;
 class MechanicsDocument;

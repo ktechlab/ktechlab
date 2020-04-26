@@ -26,10 +26,10 @@
 #include "traverser.h"
 
 #include <cassert>
-#include <qdebug.h>
-#include <qfile.h>
-#include <qregexp.h>
-#include <qstring.h>
+#include <QDebug>
+#include <QFile>
+#include <QRegExp>
+#include <QString>
 
 #include <iostream>
 using namespace std;

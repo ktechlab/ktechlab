@@ -12,11 +12,12 @@
 #include "mechanicsitem.h"
 #include "mechanicsdocument.h"
 
-#include <qdebug.h>
 #include <KLocalizedString>
-#include <qbitarray.h>
-#include <qpainter.h>
-#include <qmatrix.h>
+
+#include <QDebug>
+#include <QBitArray>
+#include <QPainter>
+#include <QMatrix>
 #include <cmath>
 
 #define DPR ( 180.0 / M_PI )

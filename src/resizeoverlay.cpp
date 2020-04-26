@@ -12,8 +12,8 @@
 #include "mechanicsitem.h"
 #include "resizeoverlay.h"
 
-#include <qdebug.h>
-#include <qpainter.h>
+#include <QDebug>
+#include <QPainter>
 #include <cmath>
 
 #define DPR ( 180.0 / M_PI )

@@ -20,7 +20,7 @@
 #include "junctionnode.h"
 #include "nodegroup.h"
 
-#include <qdebug.h>
+#include <QDebug>
 
 CircuitICNDocument::CircuitICNDocument( const QString &caption, const char *name)
 	: ICNDocument(caption, name )

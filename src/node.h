@@ -13,7 +13,7 @@
 
 //#include <canvas.h> // 2018.10.16 - not needed
 #include "canvasitems.h"
-#include <qpointer.h>
+#include <QPointer>
 
 class CNItem;
 class Item;

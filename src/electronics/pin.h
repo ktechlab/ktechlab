@@ -13,9 +13,9 @@
 
 #include "wire.h"
 
-#include <qpointer.h>
-#include <qobject.h>
-#include <qlist.h>
+#include <QPointer>
+#include <QObject>
+#include <QList>
 
 class ECNode;
 class Element;

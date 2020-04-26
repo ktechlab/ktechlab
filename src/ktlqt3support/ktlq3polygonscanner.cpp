@@ -40,7 +40,8 @@
 ****************************************************************************/
 
 #include "ktlq3polygonscanner.h"
-#include "qpolygon.h"
+
+#include <QPolygon>
 #include <stdlib.h>
 
 QT_BEGIN_NAMESPACE

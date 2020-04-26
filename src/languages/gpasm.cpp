@@ -17,7 +17,7 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KProcess>
-#include <qregexp.h>
+#include <QRegExp>
 
 #include <ktlconfig.h>
 

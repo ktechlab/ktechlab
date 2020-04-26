@@ -12,11 +12,11 @@
 
 #include "canvasitemlist.h"
 
-#include <qbrush.h>
-#include <qobject.h>
-#include <qpen.h>
-#include <qpolygon.h>
-#include <qrect.h>
+#include <QBrush>
+#include <QObject>
+#include <QPen>
+#include <QPolygon>
+#include <QRect>
 
 class QPainter;
 

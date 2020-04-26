@@ -16,7 +16,7 @@
 #include "pin.h"
 
 #include <KLocalizedString>
-#include <qpainter.h>
+#include <QPainter>
 
 Item* ECCell::construct( ItemDocument *itemDocument, bool newItem, const char *id )
 {

@@ -17,9 +17,9 @@
 #include <KLocalizedString>
 
 // #include <q3groupbox.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qvariant.h>
+#include <QLayout>
+#include <QLabel>
+#include <QVariant>
 
 MicroSelectWidget::MicroSelectWidget( QWidget* parent, const char* name, Qt::WFlags )
 	//: Q3GroupBox( 4, Qt::Horizontal, i18n("Microprocessor"), parent, name )

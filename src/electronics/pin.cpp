@@ -10,10 +10,9 @@
 
 #include "pin.h"
 
-#include <cassert>
-#include <qdebug.h>
+#include <QDebug>
 
-#include <qdebug.h>
+#include <cassert>
 
 Pin::Pin( ECNode * parent )
 {

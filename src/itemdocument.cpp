@@ -27,7 +27,6 @@
 #include "simulator.h"
 #include "imageexportdlg.h"
 
-#include <qdebug.h>
 #include <KLocalizedString>
 #include <KMessageBox>
 // #include <k3popupmenu.h>
@@ -35,21 +34,23 @@
 #include <KActionMenu>
 #include <KXMLGUIFactory>
 
-#include <qapplication.h>
-#include <qcheckbox.h>
-#include <qclipboard.h>
-#include <qcursor.h>
-#include <qimage.h>
-#include <qmenu.h>
+#include <QDebug>
+#include <QApplication>
+#include <QCheckBox>
+#include <QClipboard>
+#include <QCursor>
+#include <QImage>
+#include <QMenu>
 // #include <q3paintdevicemetrics.h>
-#include <qpainter.h>
-#include <qpicture.h>
-#include <qregexp.h>
+#include <QPainter>
+#include <QPicture>
+#include <QRegExp>
 // #include <q3simplerichtext.h> // 2018.08.13 - not needed
-#include <qtimer.h>
-#include <qprinter.h>
-#include <qtextedit.h>
-#include <qprintdialog.h>
+#include <QTimer>
+#include <QPrinter>
+#include <QTextEdit>
+#include <QPrintDialog>
+#include <QFile>
 
 #include <cmath>
 #include <cassert>
