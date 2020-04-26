@@ -30,6 +30,7 @@
 #include <kactioncollection.h>
 #include <kxmlguifactory.h>
 #include <kconfiggroup.h>
+#include <KWindowConfig>
 
 // #include <q3intdict.h>
 #include <qboxlayout.h>
@@ -843,7 +844,7 @@ void MainWindow::startRestore (KConfig *config, const QString &group)
 
   // apply size once, to get sizes ready ;)
   KConfigGroup grRestWnd = m_restoreConfig->group (m_restoreGroup);
-  restoreWindowSize (grRestWnd);
+  KWindowConfig::restoreWindowSize(windowHandle(), grRestWnd);
 
   //m_restoreConfig->group (m_restoreGroup);
 
