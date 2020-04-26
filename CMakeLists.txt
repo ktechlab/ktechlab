@@ -26,6 +26,7 @@ find_package(Qt5 CONFIG REQUIRED COMPONENTS
     Core
     DBus
     Widgets
+    PrintSupport
     ${QT_ADDITIONAL_COMPONENTS}
     )
 
@@ -35,7 +36,6 @@ find_package(KF5 REQUIRED COMPONENTS
     DocTools
     IconThemes
     I18n
-    KDELibs4Support
     KHtml
     KIO
     Parts
@@ -54,6 +54,21 @@ find_package(GPSim REQUIRED)
 
 add_definitions(-Wno-deprecated-declarations) # TODO too much spam for now
 add_definitions(-fPIC)
+add_definitions(
+    -DQT_DISABLE_DEPRECATED_BEFORE=0 # even 0x050000 would be too high for now
+    -DQT_DEPRECATED_WARNINGS_SINCE=0x060000 # to enable warnings for API since the disabled limit
+#     -DQT_USE_QSTRINGBUILDER # TODO
+#     -DQT_NO_CAST_TO_ASCII # TODO
+#     -DQT_NO_CAST_FROM_ASCII # TODO
+#     -DQT_NO_CAST_FROM_BYTEARRAY # TODO
+#     -DQT_STRICT_ITERATORS # TODO
+    -DQT_NO_URL_CAST_FROM_STRING
+#     -DQT_NO_KEYWORDS # TODO
+    -DQT_NO_NARROWING_CONVERSIONS_IN_CONNECT
+    -DQT_NO_FOREACH
+    -DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x050000
+    -DKF_DEPRECATED_WARNINGS_SINCE=0x060000 # to enable warnings for API since the disabled limit
+)
 
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 

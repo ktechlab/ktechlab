@@ -351,9 +351,9 @@ target_link_libraries( ktechlab
     KF5::KHtml
     KF5::XmlGui
     KF5::WidgetsAddons
-    KF5::KDELibs4Support
 
     Qt5::Widgets
+    Qt5::PrintSupport
 )
 if(GPSim_FOUND)
     target_link_libraries(ktechlab ${GPSim_LIBRARIES})
@@ -382,12 +382,13 @@ add_library(test_ktechlab STATIC ${ktechlab_SRCS})
 
 target_link_libraries(test_ktechlab
     KF5::TextEditor
+    KF5::IconThemes
     KF5::Parts
     KF5::KHtml
     KF5::WidgetsAddons
-    KF5::KDELibs4Support
 
     Qt5::Widgets
+    Qt5::PrintSupport
 )
 
 ########### install files ###############
