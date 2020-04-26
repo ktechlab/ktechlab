@@ -32,10 +32,31 @@
 #include <QStandardPaths>
 #include <QMimeDatabase>
 #include <QMimeType>
+#include <QDir>
 
 #include <cassert>
 
 #include <ktlconfig.h>
+
+static QString relativeUrl(const QUrl& baseDirUrl, const QUrl& url)
+{
+    if (baseDirUrl.scheme() == url.scheme() && baseDirUrl.host() == url.host() &&
+        baseDirUrl.port() == url.port() && baseDirUrl.userInfo() == url.userInfo())
+    {
+        return QDir(baseDirUrl.path()).relativeFilePath(url.path());
+    }
+
+    return url.toDisplayString(QUrl::PreferLocalFile);
+}
+
+static QString resolvedLocalFile(const QString& baseDir, const QString& path)
+{
+    Q_ASSERT(baseDir.endsWith(QLatin1Char('/')));
+    if (QDir::isAbsolutePath(path))
+        return path;
+
+    return QDir::cleanPath(baseDir + path);
+}
 
 //BEGIN class LinkerOptions
 LinkerOptions::LinkerOptions()
@@ -44,8 +65,7 @@ LinkerOptions::LinkerOptions()
 	m_bOutputMapFile = false;
 }
 
-
-QDomElement LinkerOptions::toDomElement( QDomDocument & doc, const KUrl & baseURL ) const
+QDomElement LinkerOptions::toDomElement( QDomDocument & doc, const QUrl & baseDirUrl ) const
 {
 	QDomElement node = doc.createElement("linker");
 	
@@ -55,12 +75,15 @@ QDomElement LinkerOptions::toDomElement( QDomDocument & doc, const KUrl & baseUR
 	node.setAttribute( "linker-script", linkerScript() );
 	node.setAttribute( "other", linkerOther() );
 	
+	// internal are always local files, like the project base dir
+	// so can always get relative path from a QDir
+	const QDir baseDir(baseDirUrl.toLocalFile());
 	QStringList::const_iterator end = m_linkedInternal.end();
 	for ( QStringList::const_iterator it = m_linkedInternal.begin(); it != end; ++it )
 	{
 		QDomElement child = doc.createElement("linked-internal");
 		node.appendChild(child);
-		child.setAttribute( "url", KUrl::relativeUrl( baseURL, *it ) );
+		child.setAttribute( "url", baseDir.relativeFilePath(*it));
 	}
 	
 	end = m_linkedExternal.end();
@@ -75,7 +98,7 @@ QDomElement LinkerOptions::toDomElement( QDomDocument & doc, const KUrl & baseUR
 }
 
 
-void LinkerOptions::domElementToLinkerOptions( const QDomElement & element, const KUrl & baseURL )
+void LinkerOptions::domElementToLinkerOptions( const QDomElement & element, const QUrl & baseDirUrl )
 {
 	setHexFormat( stringToHexFormat( element.attribute( "hex-format", QString::null ) ) );
 	setOutputMapFile( element.attribute( "output-map-file", "0" ).toInt() );
@@ -85,7 +108,11 @@ void LinkerOptions::domElementToLinkerOptions( const QDomElement & element, cons
 	
 	m_linkedInternal.clear();
 	m_linkedExternal.clear();
-	
+
+    QString baseDir = baseDirUrl.toLocalFile();
+    if (!baseDir.endsWith(QLatin1Char('/'))) {
+        baseDir.append(QLatin1Char('/'));
+    }
 	QDomNode node = element.firstChild();
 	while ( !node.isNull() )
 	{
@@ -95,8 +122,7 @@ void LinkerOptions::domElementToLinkerOptions( const QDomElement & element, cons
 			const QString tagName = childElement.tagName();
 			
 			if ( tagName == "linked-internal" )
-				m_linkedInternal << KUrl( baseURL, childElement.attribute( "url", QString::null ) ).url();
-			
+				m_linkedInternal << ::resolvedLocalFile(baseDir, childElement.attribute("url", QString()));
 			else if ( tagName == "linked-external" )
 				m_linkedExternal << childElement.attribute( "url", QString::null );
 			
@@ -161,20 +187,20 @@ ProcessingOptions::~ProcessingOptions()
 }
 
 
-QDomElement ProcessingOptions::toDomElement( QDomDocument & doc, const KUrl & baseURL ) const
+QDomElement ProcessingOptions::toDomElement( QDomDocument & doc, const QUrl & baseDirUrl ) const
 {
 	QDomElement node = doc.createElement("processing");
 	
-	node.setAttribute( "output", KUrl::relativeUrl(baseURL, outputURL()));
+	node.setAttribute( "output", ::relativeUrl( baseDirUrl, outputURL() ) );
 	node.setAttribute( "micro", m_microID );
 	
 	return node;
 }
 
 
-void ProcessingOptions::domElementToProcessingOptions( const QDomElement & element, const KUrl & baseURL )
+void ProcessingOptions::domElementToProcessingOptions( const QDomElement & element, const QUrl & baseDirUrl )
 {
-	setOutputURL( KUrl( baseURL, element.attribute( "output", QString::null ) ) );
+	setOutputURL( baseDirUrl.resolved(QUrl(element.attribute( "output", QString()))));
 	setMicroID( element.attribute("micro", QString::null ) );
 }
 //END class ProcessingOptions
@@ -558,23 +584,23 @@ void ProjectItem::upload( ProcessOptionsList * pol )
 }
 
 
-QDomElement ProjectItem::toDomElement( QDomDocument & doc, const KUrl & baseURL ) const
+QDomElement ProjectItem::toDomElement( QDomDocument & doc, const QUrl & baseDirUrl ) const
 {
 	QDomElement node = doc.createElement("item");
 	
 	node.setAttribute( "type", typeToString() );
 	node.setAttribute( "name", m_name );
-	node.setAttribute( "url", KUrl::relativeUrl( baseURL, m_url ) );
+	node.setAttribute( "url", ::relativeUrl(baseDirUrl, m_url) );
 	
-	node.appendChild( LinkerOptions::toDomElement( doc, baseURL ) );
-	node.appendChild( ProcessingOptions::toDomElement( doc, baseURL ) );
+	node.appendChild( LinkerOptions::toDomElement( doc, baseDirUrl ) );
+	node.appendChild( ProcessingOptions::toDomElement( doc, baseDirUrl ) );
 	
 	
 	ProjectItemList::const_iterator end = m_children.end();
 	for ( ProjectItemList::const_iterator it = m_children.begin(); it != end; ++it )
 	{
 		if (*it)
-			node.appendChild( (*it)->toDomElement( doc, baseURL ) );
+			node.appendChild( (*it)->toDomElement( doc, baseDirUrl ) );
 	}
 	
 	return node;
@@ -724,11 +750,11 @@ ProjectItem::Type ProjectItem::stringToType( const QString & type )
 }
 
 
-void ProjectItem::domElementToItem( const QDomElement & element, const KUrl & baseURL )
+void ProjectItem::domElementToItem( const QDomElement & element, const QUrl & baseDirUrl )
 {
 	Type type = stringToType( element.attribute( "type", QString::null ) );
 	QString name = element.attribute( "name", QString::null );
-	KUrl url( baseURL, element.attribute( "url", QString::null ) );
+	QUrl url = baseDirUrl.resolved(QUrl(element.attribute("url", QString())));
 	
 	ProjectItem * createdItem = new ProjectItem( this, type, m_pProjectManager );
 	createdItem->setObjectName( name );
@@ -745,13 +771,13 @@ void ProjectItem::domElementToItem( const QDomElement & element, const KUrl & ba
 			const QString tagName = childElement.tagName();
 			
 			if ( tagName == "linker" )
-				createdItem->domElementToLinkerOptions( childElement, baseURL );
+				createdItem->domElementToLinkerOptions( childElement, baseDirUrl );
 			
 			else if ( tagName == "processing" )
-				createdItem->domElementToProcessingOptions( childElement, baseURL );
+				createdItem->domElementToProcessingOptions( childElement, baseDirUrl );
 			
 			else if ( tagName == "item" )
-				createdItem->domElementToItem( childElement, baseURL );
+				createdItem->domElementToItem( childElement, baseDirUrl );
 			
 			else
 				qCritical() << Q_FUNC_INFO << "Unrecognised element tag name: "<<tagName<<endl;
@@ -859,9 +885,10 @@ bool ProjectInfo::save()
 	doc.appendChild(root);
 	
 	m_children.removeAll( (ProjectItem*)nullptr );
+	const QUrl baseDirUrl = m_url.adjusted(QUrl::RemoveFilename);
 	ProjectItemList::const_iterator end = m_children.end();
 	for ( ProjectItemList::const_iterator it = m_children.begin(); it != end; ++it )
-		root.appendChild( (*it)->toDomElement( doc, m_url ) );
+		root.appendChild( (*it)->toDomElement( doc, baseDirUrl ) );
 	
 	QTextStream stream(&file);
 	stream << doc.toString();

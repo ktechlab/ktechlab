@@ -13,7 +13,7 @@
 
 #include "itemselector.h"
 
-#include <kurl.h>
+#include <QUrl>
 #include <qpointer.h>
 #include <qlist.h>
 
@@ -74,13 +74,19 @@ class LinkerOptions
 		QStringList linkedExternal() const { return m_linkedExternal; }
 		void setLinkedExternal( const QStringList & linkedExternal ) { m_linkedExternal = linkedExternal; }
 
-		QDomElement toDomElement( QDomDocument & doc, const KUrl & baseURL ) const;
+		/**
+		 * @param baseDirUrl url of the directory of the project
+		 */
+		QDomElement toDomElement( QDomDocument & doc, const QUrl & baseDirUrl ) const;
 
 		static QString hexFormatToString( HexFormat::type format );
 		static HexFormat::type stringToHexFormat( const QString & hexFormat );
 
 	protected:
-		void domElementToLinkerOptions( const QDomElement & element, const KUrl & baseURL );
+		/**
+		 * @param baseDirUrl url of the directory of the project
+		 */
+		void domElementToLinkerOptions( const QDomElement & element, const QUrl & baseDirUrl );
 
 		QStringList m_linkedInternal;
 		QStringList m_linkedExternal;
@@ -113,13 +119,19 @@ class ProcessingOptions
 		virtual void setMicroID( const QString & id ) { m_microID = id; }
 		virtual QString microID() const { return m_microID; }
 
-		QDomElement toDomElement( QDomDocument & doc, const KUrl & baseURL ) const;
+		/**
+		 * @param baseDirUrl url of the directory of the project
+		 */
+		QDomElement toDomElement( QDomDocument & doc, const QUrl & baseDirUrl ) const;
 
 		void setUseParentMicroID( bool useParentMicroID ) { m_bUseParentMicroID = useParentMicroID; }
 		bool useParentMicroID() const { return m_bUseParentMicroID; }
 
 	protected:
-		void domElementToProcessingOptions( const QDomElement & element, const KUrl & baseURL );
+		/**
+		 * @param baseDirUrl url of the directory of the project
+		 */
+		void domElementToProcessingOptions( const QDomElement & element, const QUrl & baseDirUrl );
 
 		QUrl m_outputURL;
 		QString m_microID;
@@ -202,7 +214,10 @@ class ProjectItem : public QObject, public LinkerOptions, public ProcessingOptio
 
 		void addCurrentFile();
 		bool closeOpenFiles();
-		QDomElement toDomElement( QDomDocument & doc, const KUrl & baseURL ) const;
+		/**
+		 * @param baseDirUrl url of the directory of the project
+		 */
+		QDomElement toDomElement( QDomDocument & doc, const QUrl & baseDirUrl ) const;
 
 		bool build( ProcessOptionsList * pol );
 		void upload( ProcessOptionsList * pol );
@@ -217,7 +232,10 @@ class ProjectItem : public QObject, public LinkerOptions, public ProcessingOptio
 		ProjectItem * findItem( const QUrl & url );
 
 	protected:
-		void domElementToItem( const QDomElement & element, const KUrl & baseURL );
+		/**
+		 * @param baseDirUrl url of the directory of the project
+		 */
+		void domElementToItem( const QDomElement & element, const QUrl & baseDirUrl );
 		void updateILVItemPixmap();
 		void updateControlChildMicroIDs();
 
