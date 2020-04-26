@@ -57,7 +57,6 @@
 #include <ksharedconfig.h>
 
 #include <kiconloader.h>
-#include <kio/netaccess.h>
 //#include <kkeydialog.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
@@ -159,31 +158,13 @@ void KTechlab::load( const QUrl & url, ViewArea * viewArea )
 	}
 
 
-	QString target;
-	// the below code is what you should normally do.  in this
-	// example case, we want the url to our own.  you probably
-	// want to use this code instead for your app
-
-	// download the contents
-	if ( !KIO::NetAccess::download( url, target, this ) )
-	{
-		// If the file could not be downloaded, for example does not
-		// exist on disk, NetAccess will tell us what error to use
-		KMessageBox::error(this, KIO::NetAccess::lastErrorString());
-
-		return;
-	}
-
 	addRecentFile( url );
 
 	// set our caption
 	setCaption(url.toDisplayString(QUrl::PreferLocalFile));
 
 	// load in the file (target is always local)
-	DocManager::self()->openURL( QUrl::fromLocalFile(target), viewArea );
-
-	// and remove the temp file
-	KIO::NetAccess::removeTempFile( target );
+	DocManager::self()->openURL(url, viewArea );
 }
 
 
