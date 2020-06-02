@@ -89,6 +89,7 @@
       <li xml:lang="ca-valencia">Gran varietat de components amb característiques modificables</li>
       <li xml:lang="es">Amplio abanico de componentes con características editables</li>
       <li xml:lang="et">Ulatuslik muudetavate tunnustega komponentide valik</li>
+      <li xml:lang="fr">Gamme large de composants avec des caractéristiques éditables</li>
       <li xml:lang="gl">Unha gran variedade de compoñentes con características editábeis</li>
       <li xml:lang="id">Berbagai macam komponen dengan karakteristik yang dapat diedit</li>
       <li xml:lang="it">Ampia gamma di componenti con caratteristiche modificabili</li>
@@ -138,6 +139,7 @@
       <li xml:lang="ca">Dos modes d'encaminament per al connector: automàtic i manual</li>
       <li xml:lang="ca-valencia">Dos modes d'encaminament per al connector: automàtic i manual</li>
       <li xml:lang="es">Dos modos de rutas de conectores: automático y manual</li>
+      <li xml:lang="fr">Deux modes de routage de connecteurs : automatique et manuel</li>
       <li xml:lang="gl">Dous modos de planificación de ruta de conector: automática e manual</li>
       <li xml:lang="id">Dua mode pada penjaluran konektor: otomatis dan manual</li>
       <li xml:lang="it">Due modi di connessione: automatica e manuale</li>
@@ -152,6 +154,7 @@
       <li xml:lang="ca">Diverses maneres de definir el PIC lògic: codi en assemblador, codi en Microbe (llenguatge de programació propi d'alt nivell), codi en C i FlowCode visual</li>
       <li xml:lang="ca-valencia">Diverses maneres de definir el PIC lògic: codi en assemblador, codi en Microbe (llenguatge de programació propi d'alt nivell), codi en C i FlowCode visual</li>
       <li xml:lang="es">Diversos modos de definir la lógica del PIC: código ensamblador, código Microbe (lenguaje de programación propio de alto nivel), código C y FlowCode visual</li>
+      <li xml:lang="fr">Plusieurs façons de définir la logiques « PIC » : code assembleur, code Microbe (langage de programmation de haut niveau autonome), code « C » et code visuel « FlowCode »</li>
       <li xml:lang="gl">Varias formas de definir a lóxica de PIC: código de ensamblador, código de Microbe (linguaxe de programación propia de alto nivel), código de C e FlowCode visual</li>
       <li xml:lang="id">Beberapa cara untuk menentukan logika PIC: kode perakitan, kode Microbe (bahasa pemrograman tingkat tinggi), kode C, dan FlowCode visual</li>
       <li xml:lang="it">Molti modi di definire la logica del PIC: codice assembly, codice Microbe (un proprio linguaggio di programmazione ad alto livello), codice C e FlowCode visuale</li>
@@ -167,6 +170,7 @@
       <li xml:lang="ca-valencia">Interconversió del codi de programació entre els llenguatges admesos</li>
       <li xml:lang="es">Conversión interna del código de programación entre los lenguajes permitidos</li>
       <li xml:lang="et">Programmikoodi vaba teisendamine toetatud programmeerimiskeelte vahel</li>
+      <li xml:lang="fr">Interconversion de code de programmation entre langages pris en charge</li>
       <li xml:lang="gl">Conversión do código de programación entre as linguaxes permitidas</li>
       <li xml:lang="id">Interkonversi kode pemrograman antara bahasa yang didukung</li>
       <li xml:lang="it">Interconversione del codice di programmazione fra i linguaggi supportati</li>
@@ -197,6 +201,7 @@
       <li xml:lang="ca">Simulació amb oscil·loscopi i sondes</li>
       <li xml:lang="ca-valencia">Simulació amb oscil·loscopi i sondes</li>
       <li xml:lang="es">Simulación con osciloscopio y sondas</li>
+      <li xml:lang="fr">Simulation avec oscilloscope et sondes</li>
       <li xml:lang="gl">Simulación de osciloscopios e sondas</li>
       <li xml:lang="id">Simulasi dengan osiloskop dan probe</li>
       <li xml:lang="it">Simulazione con oscilloscopio e con sonde</li>
@@ -211,6 +216,7 @@
       <li xml:lang="ca">Puja el codi en assemblador al PIC emprant el programador de maquinari</li>
       <li xml:lang="ca-valencia">Puja el codi en assemblador al PIC emprant el programador de maquinari</li>
       <li xml:lang="es">Envío del código ensamblador al PIC usando el programador hardware</li>
+      <li xml:lang="fr">Chargement du code assembleur vers le « PIC » en utilisant le programmateur matériel</li>
       <li xml:lang="gl">Enviando o código ensamblador a PIC usando o programador de soporte físico</li>
       <li xml:lang="id">Mengunggah kode perakitan ke PIC menggunakan pemrogram hardware</li>
       <li xml:lang="it">Caricamento del codice assembly nel PIC con un programmatore hardware</li>
