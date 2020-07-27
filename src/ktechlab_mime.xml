@@ -44,7 +44,7 @@
   </mime-type>
   <mime-type type="application/x-ktechlab">
     <comment>KTechlab project</comment>
-    <comment xml:lang="ca">Projecte del KTechlab</comment>
+    <comment xml:lang="ca">Projecte KTechlab</comment>
     <comment xml:lang="ca@valencia">Projecte del KTechlab</comment>
     <comment xml:lang="cs">Projekt KTechlab</comment>
     <comment xml:lang="de">KTechlab-Projekt</comment>
