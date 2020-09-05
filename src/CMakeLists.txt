@@ -351,6 +351,7 @@ target_link_libraries( ktechlab
     KF5::KHtml
     KF5::XmlGui
     KF5::WidgetsAddons
+    KF5::WindowSystem
 
     Qt5::Widgets
     Qt5::PrintSupport
@@ -386,6 +387,7 @@ target_link_libraries(test_ktechlab
     KF5::Parts
     KF5::KHtml
     KF5::WidgetsAddons
+    KF5::WindowSystem
 
     Qt5::Widgets
     Qt5::PrintSupport

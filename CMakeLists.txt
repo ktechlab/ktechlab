@@ -43,6 +43,7 @@ find_package(KF5 REQUIRED COMPONENTS
     TextWidgets
     Solid
     WidgetsAddons
+    WindowSystem
     XmlGui
     )
 
