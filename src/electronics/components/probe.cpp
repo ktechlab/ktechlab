@@ -20,6 +20,7 @@
 
 #include <KLocalizedString>
 #include <QPainter>
+#include <QPainterPath>
 
 //BEGIN class Probe
 Probe::Probe( ICNDocument *icnDocument, bool newItem, const char *id )

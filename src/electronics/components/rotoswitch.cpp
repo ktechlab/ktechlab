@@ -17,6 +17,7 @@
 
 #include <KLocalizedString>
 #include <QPainter>
+#include <QPainterPath>
 #include <cmath>
 #include <cassert>
 

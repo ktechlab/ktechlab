@@ -14,6 +14,7 @@
 
 #include <KLocalizedString>
 #include <QPainter>
+#include <QPainterPath>
 #include <QMatrix>
 
 #include <algorithm>

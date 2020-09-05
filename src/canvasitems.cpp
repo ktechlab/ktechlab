@@ -14,6 +14,7 @@
 #include <QDebug>
 #include <QPolygon>
 #include <QPainter>
+#include <QPainterPath>
 #include <QRect>
 #include <QPen>
 #include <QBrush>
