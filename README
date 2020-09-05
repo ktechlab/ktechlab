@@ -20,10 +20,10 @@ Resources
 
     - repository browser at KDE (web based):
         https://commits.kde.org/ktechlab
+        https://invent.kde.org/sdk/ktechlab
 
     - source code repository at KDE (to be used with git):
-        git://anongit.kde.org/ktechlab.git
-        https://anongit.kde.org/ktechlab.git
+        git@invent.kde.org:sdk/ktechlab.git
 
     - bugtracker at KDE:
         https://bugs.kde.org/describecomponents.cgi?product=KTechLab
@@ -69,11 +69,10 @@ KTechLab's source code is located in a GIT repository.
 
 Official repository is hosted at KDE; its location is at
 
-        git://anongit.kde.org/ktechlab.git
-        https://anongit.kde.org/ktechlab.git
+        git@invent.kde.org:sdk/ktechlab.git
 
     - repository browser
-        https://commits.kde.org/ktechlab
+        https://invent.kde.org/sdk/ktechlab
 
     - for write access, see section Write access to KTechLab repository at KDE, below.
 
@@ -82,13 +81,14 @@ Deprecated official repositories located on github; they mirror code from KDE,
 and also have branches named github/* for historical reference.
 For new code use the KDE Git.
 
+- https://github.com/ktechlab/ktechlab
+    - the master branch contains the latest tested development code,
+        while other branches might contain untested/unstable code
+
 - https://github.com/ktechlab/ktechlab-0.3
     - the port-0.3.8-kde4-v1 branch contains currently the latest code
     (at the time of origina writing; this branch has become master branch in KDE repositories)
 
-- https://github.com/ktechlab/ktechlab
-    - the master branch contains the latest tested development code,
-        while other branches might contain untested/unstable code
 
 Other notable deprecated GIT repositories are located on sourceforge:
 
@@ -123,7 +123,7 @@ Required dependencies
 - KDE Frameworks 5 libraries -dev  (at the time of writing:
    Config CoreAddons DocTools IconThemes I18n KDELibs4Support
     KHtml KIO Parts TextEditor TextWidgets Solid WidgetsAddons
-    XmlGui)
+    WindowSystem XmlGui)
 
 Optional dependencies
 
