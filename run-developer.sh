@@ -32,7 +32,8 @@ case "$(uname -s)" in
      ;;
 esac
 
-export PATH="$SCRIPTDIR/inst-developer/bin:$PATH"
+# see about prefix.sh : https://community.kde.org/Get_Involved/development
+. "$SCRIPTDIR/build-developer/prefix.sh"
 
 export ASAN_OPTIONS=new_delete_type_mismatch=0
 

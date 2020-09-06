@@ -33,6 +33,7 @@ case "$(uname -s)" in
 esac
 
 
-export PATH="$SCRIPTDIR/inst-simple/bin:$PATH"
+# see about prefix.sh : https://community.kde.org/Get_Involved/development
+. "$SCRIPTDIR/build-developer/prefix.sh"
 
 "$SCRIPTDIR/inst-simple/bin/ktechlab"
