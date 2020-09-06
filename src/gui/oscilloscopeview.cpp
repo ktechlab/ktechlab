@@ -416,15 +416,18 @@ void OscilloscopeView::drawFloatingData(QPainter &p)
 		p.setPen( probe->color());
 
 		int64_t at = probe->findPos(timeOffset);
-		const int64_t maxAt = probe->m_data->size();
-		if(at > maxAt) at = maxAt;
+		const int64_t atEnd = probe->m_data->size();
+		if (at > atEnd) at = atEnd;
 		int64_t prevTime = probe->toTime(at);
 
-		double v = (*data)[(at>0)?at:0];
+		double v = 0;
+        if (at < atEnd) {
+            v = (*data)[(at>0)?at:0];
+        }
 		int prevY = v_to_y;
 		int prevX = int((prevTime - timeOffset)*(pixelsPerSecond/LOGIC_UPDATE_RATE));
 
-		while ( at < maxAt) {
+		while ( at < atEnd - 1) {
 			at++;
 
 			uint64_t nextTime = prevTime + uint64_t(LOGIC_UPDATE_RATE * LINEAR_UPDATE_PERIOD);
