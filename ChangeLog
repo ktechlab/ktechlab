@@ -188,3 +188,5 @@ Changes between Qt3 and Qt4 port (to be completed)
 - fixed bidirectional led color editor
 - property editor is good enough for now
 * release 0.40.1
+- ContextHelp::setContextHelp() needs fixing, crashes on m_pBrowser->end()
+    - has not crashed as of current git master on Ubuntu 18.04

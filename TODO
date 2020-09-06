@@ -6,7 +6,6 @@ TODO items before the next release
 =======
 - text hint interface needs fixing
 
-- ContextHelp::setContextHelp() needs fixing, crashes on m_pBrowser->end()
 
 
 Features which need re-implementation in Qt4 port

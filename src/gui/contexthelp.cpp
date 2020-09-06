@@ -291,10 +291,9 @@ void ContextHelp::setContextHelp( QString name, QString help )
 		m_pBrowserView->setMarginHeight( 3 );
 
 	m_pNameLabel->setText( name );
-#warning "m_pBrowser->write() disabled, crashes on m_pBrowser->end()"
-//     m_pBrowser->begin( QUrl::fromLocalFile( itemLibrary()->itemDescriptionsDirectory() ) );
-//     m_pBrowser->write( help );
-//     m_pBrowser->end();
+     m_pBrowser->begin( QUrl::fromLocalFile( itemLibrary()->itemDescriptionsDirectory() ) );
+     m_pBrowser->write( help );
+     m_pBrowser->end();
 }
 
 
