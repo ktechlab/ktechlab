@@ -17,6 +17,7 @@
 // #include <kate/view.h>
 //#include <ktexteditor/view.h>
 #include <KTextEditor/View>
+#include <KTextEditor/TextHintInterface>
 
 #include <QPointer>
 #include <QLabel>
@@ -110,14 +111,18 @@ over (used in the debugger).
 
 @author David Saxton
 */
-class TextViewEventFilter : public QObject
+class TextViewEventFilter : public QObject, public KTextEditor::TextHintProvider
 {
 	Q_OBJECT
 	public:
 		TextViewEventFilter( TextView * textView );
+        virtual ~TextViewEventFilter();
 
 		bool eventFilter( QObject * watched, QEvent * e ) override;
 
+        // from TextHintInterface
+        QString textHint(KTextEditor::View *view,
+                             const KTextEditor::Cursor &position) override ;
 	signals:
 		/**
 		 * When the user hovers the mouse for more than 700 milliseconds over a

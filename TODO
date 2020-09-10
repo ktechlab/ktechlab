@@ -4,8 +4,6 @@ Modifications needed for getting rid of Qt3Support dependency
 
 TODO items before the next release
 =======
-- text hint interface needs fixing
-
 
 
 Features which need re-implementation in Qt4 port
