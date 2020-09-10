@@ -46,6 +46,10 @@ static void ktlLogToFile(QtMsgType type, const char *msg) {
         fprintf(logFile, "%s (DD) %s\n", nowCStr, msg);
         fflush(logFile);
         break;
+    case QtInfoMsg:
+        fprintf(logFile, "%s (II) %s\n", nowCStr, msg);
+        fflush(logFile);
+        break;
     case QtWarningMsg:
         fprintf(logFile, "%s (WW) %s\n", nowCStr, msg);
         fflush(logFile);
@@ -64,6 +68,9 @@ static void ktlLogToStderr(QtMsgType type, const char *msg) {
     switch (type) {
     case QtDebugMsg:
         //fprintf(stderr, "(DD) %s\n", msg); // quite noisy
+        break;
+    case QtInfoMsg:
+        fprintf(stderr, "(II) %s\n", msg);
         break;
     case QtWarningMsg:
         fprintf(stderr, "(WW) %s\n", msg);
