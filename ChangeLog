@@ -191,3 +191,6 @@ Changes between Qt3 and Qt4 port (to be completed)
 - ContextHelp::setContextHelp() needs fixing, crashes on m_pBrowser->end()
     - has not crashed as of current git master on Ubuntu 18.04
 - text hint interface needs fixing -- updated usage
+- fix building of the core library first; otherwise missing include file (ktlconfig.h) error could happen at build time
+    - the build-scripts have a work-around, and based on that, building should be straight-forward
+    - fixed, all sources are built into one big library, no multiple smaller libraries

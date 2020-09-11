@@ -6,14 +6,14 @@ TODO items before the next release
 =======
 
 
-Features which need re-implementation in Qt4 port
+Features which need re-implementation in Qt5 port
 =======
 - dbus integration for documents (used to be dcop bindings for documents)
 
 - TextDocument::clearUndo / clearRedo is not implemented; only used in newly created documents
 
 
-Fixes that could be postponed after the first Qt4 release
+Fixes that could be postponed after the first Qt5 release
 =======
 - property editor; property editor item
     - fix glitch of reset button disappearing when horiznotally resizing the property editor
@@ -26,9 +26,6 @@ Fixes that could be postponed after the first Qt4 release
 
 - in flowcode if the PIC is "minimized", after adding a new item on the canvas, the
     "Advanced..." button still appears on the canvas
-
-- fix building of the core library first; otherwise missing include file (ktlconfig.h) error could happen at build time
-    - the build-scripts have a work-around, and based on that, building should be straight-forward
 
 - help->ktechlab manual does not work, shows only "documentation not found"
     https://bugs.kde.org/show_bug.cgi?id=402158
