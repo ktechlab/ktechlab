@@ -131,9 +131,13 @@ SymbolViewer::SymbolViewer( KateMDI::ToolView * parent )
     m_pSymbolList->horizontalHeaderItem(1)->setText(i18n("Value"));
 	//m_pSymbolList->setFullWidth(true);
     //m_pSymbolList->setColumnWidthMode(1, Q3ListView::Maximum);    // 2018.06.02 - use QTableWidget
-    m_pSymbolList->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
+    m_pSymbolList->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
 	//m_pSymbolList->setAllColumnsShowFocus( true );    // 2018.06.02 - use QTableWidget
     m_pSymbolList->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    QHeaderView *symbolListHeader = m_pSymbolList->horizontalHeader();
+    symbolListHeader->setResizeMode(0, QHeaderView::Stretch);
+    symbolListHeader->setResizeMode(1, QHeaderView::Stretch);
+
 }
 
 
