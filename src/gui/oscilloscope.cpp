@@ -64,6 +64,13 @@ Oscilloscope::Oscilloscope( KateMDI::ToolView * parent)
 {
     setupUi(this);
 
+    if (parent->layout()) {
+        parent->layout()->addWidget(this);
+        qDebug() << Q_FUNC_INFO << " added item selector to parent's layout " << parent;
+    } else {
+        qWarning() << Q_FUNC_INFO << " unexpected null layout on parent " << parent ;
+    }
+
 	m_nextColor = 0;
 	m_nextId = 1;
 	m_oldestId = -1;
