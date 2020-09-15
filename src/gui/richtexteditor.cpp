@@ -58,7 +58,7 @@ RichTextEditor::RichTextEditor(QWidget *parent, const char *name)
 	//connect( m_pEditor, SIGNAL( currentAlignmentChanged( int ) ), this, SLOT( alignmentChanged( int ) ) ); // 2018.01.03 - use slotCurrentCharFormatChanged
 	//connect( m_pEditor, SIGNAL( currentVerticalAlignmentChanged( Q3TextEdit::VerticalAlignment ) ), this, SLOT(verticalAlignmentChanged()) ); // 2018.01.03 - use slotCurrentCharFormatChanged
 
-	KToolBar * tools = new KToolBar( this, "RichTextEditorToops" );
+	KToolBar * tools = new KToolBar( QStringLiteral("RichTextEditorToops"), this );
 	layout->addWidget( tools );
 	KActionCollection * ac = new KActionCollection( m_pEditor );
 

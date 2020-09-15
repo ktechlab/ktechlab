@@ -40,7 +40,7 @@ ComponentModelWidget::ComponentModelWidget( QWidget *parent, const char *name )
 	//BEGIN Filter lineedit
     QHBoxLayout *h1Layout = new QHBoxLayout;
     h1Layout->setMargin(0);
-	KToolBar * bar = new KToolBar( this, "ComponentModelSearch" );
+	KToolBar * bar = new KToolBar( QStringLiteral("ComponentModelSearch"), this );
 	bar->setIconSize( QSize( 22, 22 ) /*, false  ?? */ ); //looks more sensible
 	//bar->setFlat( true ); //removes the ugly frame
     bar->setMovable( false ); //removes the ugly frame
