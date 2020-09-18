@@ -138,6 +138,7 @@
       <li xml:lang="nl">Contexthulp voor de componenten</li>
       <li xml:lang="pl">Pomoc podręczna dla części składowych</li>
       <li xml:lang="pt">Ajuda de contexto para os componentes</li>
+      <li xml:lang="pt-BR">Ajuda de contexto para os componentes</li>
       <li xml:lang="sl">Pomoč v kontekstu komponent</li>
       <li xml:lang="sv">Sammanhangsberoende hjälp för komponenterna</li>
       <li xml:lang="uk">Контекстна довідка до компонентів.</li>
@@ -204,6 +205,7 @@
       <li xml:lang="nl">Ingebouwde debugger</li>
       <li xml:lang="pl">Wbudowany program diagnostyczny</li>
       <li xml:lang="pt">Depurador incorporado</li>
+      <li xml:lang="pt-BR">Depurador embutido</li>
       <li xml:lang="sl">Vgrajen razhroščevalnik</li>
       <li xml:lang="sv">inbyggd avlusare</li>
       <li xml:lang="uk">Вбудований засіб діагностики.</li>
