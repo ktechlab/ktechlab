@@ -15,6 +15,7 @@
 
 //#include <canvas.h> // 2018.10.16 - not needed
 #include "canvasitems.h"
+#include "item.h"
 #include <QList>
 #include <QMap>
 #include <QObject>
