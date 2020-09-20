@@ -2,7 +2,7 @@
 # https://stackoverflow.com/questions/10984442/how-to-detect-c11-support-of-a-compiler-with-cmake/20165220#20165220
 cmake_minimum_required(VERSION 3.1)
 
-set( KTECHLAB_DEVELOPER_BUILD "true" )
+#set( KTECHLAB_DEVELOPER_BUILD "true" )
 
 project( ktechlab )
 set( VERSION 0.50.0 )
