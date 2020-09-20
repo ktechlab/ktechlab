@@ -34,6 +34,6 @@ esac
 
 
 # see about prefix.sh : https://community.kde.org/Get_Involved/development
-. "$SCRIPTDIR/build-developer/prefix.sh"
+. "$SCRIPTDIR/build-simple/prefix.sh"
 
 "$SCRIPTDIR/inst-simple/bin/ktechlab"
