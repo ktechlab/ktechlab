@@ -16,6 +16,8 @@
 #include <QObject>
 #include <QPointer>
 
+#include "cnitem.h"
+
 class ICNDocument;
 class Connector;
 class ConRouter;
