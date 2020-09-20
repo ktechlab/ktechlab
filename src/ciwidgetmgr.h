@@ -15,6 +15,8 @@
 #include <QMap>
 #include <QString>
 
+#include "eventinfo.h"
+
 class Button;
 class CNItem;
 class Slider;
