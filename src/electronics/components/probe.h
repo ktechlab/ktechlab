@@ -12,10 +12,12 @@
 #define PROBE_H
 
 #include <component.h>
+#include <logic.h>
 
 class LogicProbeData;
 class ProbeData;
 class FloatingProbeData;
+class Simulator;
 
 /**
 @author David Saxton
